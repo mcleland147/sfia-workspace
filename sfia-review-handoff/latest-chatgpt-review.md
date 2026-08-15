@@ -2,9 +2,10 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Timestamp | 2026-08-15 06:23:35 CEST (+0200) |
+| Timestamp | 2026-08-15 06:29:27 CEST (+0200) |
 | GO architecture | GO MORRIS — ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY |
 | GO sync | GO MORRIS — SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY |
+| Micro-fix | Sources line `Git main @ 2d1361ee…` → `Git main @ 5132f1bc…` (historical `2d1361ee…` refs KEPT) |
 | Repo | mcleland147/sfia-workspace |
 | Cycle | Roadmap projet — M5 architecture decision sync |
 | Profil / Typologie | Standard / DOC |
@@ -12,7 +13,8 @@
 | Branch | `docs/sfia-studio-m5-architecture-roadmap-sync` |
 | HEAD / base | `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` |
 | origin/main | `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` |
-| Incoming handoff | `63f41e3f328868286c14312a58a7b79f850383c0` |
+| Incoming handoff (pre-republish) | `55ec027a7fad0bf5f300666c1b62c21ceb7c999a` |
+| Prior qualification handoff | `63f41e3f328868286c14312a58a7b79f850383c0` |
 | Project commit/push/PR/merge | NOT PERFORMED |
 | Cursor REAL / M5 Delivery / schema | 0 |
 
@@ -22,8 +24,8 @@
 | --- | --- |
 | Build Doctrine | READ / KEEP — not modified |
 | Roadmap | ADAPT factuel — this cycle |
-| framing 30/32/33/35/37 | READ ONLY |
-| Capacité M5 | V3-F14 (+ F13/F02/F04/F05/F09/F10/F15) |
+| framing | READ ONLY |
+| Capacité M5 | V3-F14 (+ linked) |
 | M4 | CLOSED |
 | M5 Entry Qualification | COMPLETE |
 | M5 architecture | ADOPTED BY MORRIS / NOT IMPLEMENTED |
@@ -32,19 +34,22 @@
 | Next capability after M5 | M6 — NOT STARTED / NOT AUTHORIZED |
 | runtime v3 | NON ADOPTED |
 | Timeout reserve | UNCHANGED |
+| Sources Git main pointer | `5132f1bc…` (aligned with Snapshot / origin/main) |
 
 ## Stale-claim matrix
 
 | Claim Roadmap (pré-sync) | Nouvelle vérité | Preuve | Section |
 | --- | --- | --- | --- |
 | Snapshot `2d1361ee…` | Snapshot `5132f1bc…` | origin/main / PR #348 | metadata |
+| Sources `Git main @ 2d1361ee…` | Sources `Git main @ 5132f1bc…` | origin/main current | metadata Sources |
+| Historical PR #347 `2d1361ee…` | KEPT as historical | PR #347 merge | Intégration / refs |
 | M5 = PARTIAL / NOT AUTHORIZED (only) | ARCHITECTURE TRAJECTORY ADOPTED + DELIVERY NOT AUTHORIZED | Morris ADOPT GO + handoff `63f41e3…` | M5 / B6 / B10 |
 | M5 persistence non sélectionnée | M5-A OPTION B ADOPTED / NOT IMPLEMENTED | Morris M5-A | B3/B4/B6/M5 |
 | Attempt/Evidence/RB Memory only (no target) | CURRENT Memory + TARGET Product SQLite selected | handoff + Morris | B3/B4 |
 | ReviewBundle→LPS MISSING only | MISSING IN RUNTIME + W1 ADOPTED target | Morris M5-B | B5/M5 |
 | journal TEMPORARY (no M5-C) | KEEP TEMPORARY WITH EXIT + M5-C ADOPTED disposition | Morris M5-C | B3/B4/B6 |
 | next gate = generic M5 GO | NEXT IMMEDIATE = M5 DELIVERY AUTHORIZATION | Morris sync GO | B6/B10 |
-| M6 NOT STARTED | NOT STARTED / NOT AUTHORIZED (unchanged auth) | Roadmap | M6 |
+| M6 NOT STARTED | NOT STARTED / NOT AUTHORIZED | Roadmap | M6 |
 | CURSOR_REAL_TIMEOUT_POLICY | UNCHANGED OPEN / NON-BLOCKING | B10a | B10a |
 
 ## Decisions transcribed
@@ -55,7 +60,6 @@ ExecutionAttempt + Evidence + ReviewBundle durable together in existing OA Produ
 
 ### M5-B — W1 ADOPTED
 Automatic factual LPS link update for Evidence/ReviewBundle refs; Recommendation remains Recommendation.
-No automatic HumanDecision / gateConsumed / executionAuthority / structural trajectory validation.
 **≠ implemented.**
 
 ### M5-C — KEEP TEMPORARY WITH EXIT
@@ -74,7 +78,7 @@ Journal stays for first M5 Delivery; retirement needs durable Attempt + safety e
 
 ## Sections modified
 
-metadata · anti-claims · B3 · B4 · B5 · B6 (M5 Architecture Decisions) · M4 Next · M5 · M6 · B9 · B10 · B10a note · références
+metadata (incl. Sources Git main pointer fix) · anti-claims · B3 · B4 · B5 · B6 · M4 Next · M5 · M6 · B9 · B10 · B10a note · références
 
 ## Validations
 
@@ -104,7 +108,7 @@ Scope tracked = EXACTEMENT 1 fichier Roadmap · staged empty · `.tmp-sfia-revie
 
 ````diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 7401ed8..773dd6d 100644
+index 7401ed8..101bdf5 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 @@ -6,13 +6,13 @@
@@ -121,7 +125,7 @@ index 7401ed8..773dd6d 100644
 -| **Sources** | Git `main` @ `2d1361ee…` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347 · CI #158/#162/#166/#172/#176/#178 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · M4 Product path on main `projects/sfia-studio/app/**` |
 -| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M4 CLOSED **≠** M5 AUTHORIZED · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **≠** M4 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · ≠ full OA durable |
 +| **Intégration Git** | Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration · **M4 post-pre-reproof Roadmap :** PR #347 / merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS · **M4 GOVERNED REAL COMPLETION PROOF** handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · **M4 closure Roadmap :** PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · **M5 Entry Qualification** handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** |
-+| **Sources** | Git `main` @ `2d1361ee…` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347 · CI #158/#162/#166/#172/#176/#178 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · M5 Entry Qualification handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · M4 Product path on main `projects/sfia-studio/app/**` |
++| **Sources** | Git `main` @ `5132f1bc…` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347 · CI #158/#162/#166/#172/#176/#178 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · M5 Entry Qualification handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · M4 Product path on main `projects/sfia-studio/app/**` |
 +| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M5 Entry Qualification **COMPLETE** · M5 architecture trajectory **ADOPTED BY MORRIS** · M5 architecture ADOPTED **≠** M5 Delivery authorized · M5 architecture ADOPTED **≠** M5 implemented · M5-A Product SQLite target selected **≠** Attempt/Evidence/ReviewBundle durable today · M5-B W1 factual write-back authority **≠** Recommendation becomes Decision · Recommendation **≠** HumanDecision · Recommendation **≠** gate consumed · LPS factual evidence link **≠** structural trajectory validation · M5-C KEEP TEMPORARY WITH EXIT **≠** technical journal retired · durable Attempt future **≠** journal automatically obsolete · M5 Entry Qualification COMPLETE **≠** M5 CLOSED · M5 architecture ADOPTED **≠** M6 started · M4 CLOSED **≠** M5 Delivery authorized · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **unchanged by M5 architecture decision** **≠** M4/M5 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · runtime v3 **NON ADOPTED** · ≠ full OA durable |
 
  ## B1. Nature du document
@@ -450,6 +454,7 @@ index 7401ed8..773dd6d 100644
 - runtime v3 NON ADOPTED
 - timeout reserve unchanged
 - M4 remains CLOSED
+- Sources current main `5132f1bc…` ≠ deletion of historical PR #347 `2d1361ee…`
 
 ## Next
 
@@ -463,4 +468,4 @@ index 7401ed8..773dd6d 100644
 
 ### Instruction ChatGPT
 
-Ouvrir `sfia-review-handoff/latest-chatgpt-review.md` sur `origin/sfia/review-handoff`. Vérifier branch/base, Roadmap only, décisions Morris exactes, M5-A OPTION B, M5-B W1, M5-C KEEP TEMPORARY WITH EXIT, current≠target, no implementation claims, M5 Delivery NOT AUTHORIZED, M6 NOT AUTHORIZED, runtime v3 NON ADOPTED, timeout unchanged, ZERO REAL/Delivery, diff complet exploitable. Si modified content absent: REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING.
+Ouvrir `sfia-review-handoff/latest-chatgpt-review.md` sur `origin/sfia/review-handoff`. Vérifier Sources `Git main @ 5132f1bc…`, Snapshot `5132f1bc…`, historical `2d1361ee…` kept for PR #347, M5-A/B/C, Delivery NOT AUTHORIZED, M6 NOT AUTHORIZED, current≠target, ZERO REAL, DIFF COMPLET exploitable.
