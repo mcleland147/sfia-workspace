@@ -1,196 +1,125 @@
-# PRE-M6 USER JOURNEY / UX BASELINE QUALIFICATION — FULL REVIEW PACK
+# QUALIFICATION PRÉ-M6 DU PARCOURS UTILISATEUR / RÉFÉRENTIEL UX — REVIEW PACK FULL CORRIGÉ EN FRANÇAIS
 
-## 1. Metadata
+## 1. Métadonnées
 
-- Timestamp Europe/Paris: 2026-08-15 13:31:50 CEST (+0200)
-- Level: FULL
-- Cycle: Cycle 2 — Conception fonctionnelle
-- Profile: Critical
-- Typology: DESIGN / DOC / AUDIT
-- Critical reason: first candidate canonical product journey and functional IA over M1→M5; constrains future Figma and UI Delivery but consumes no structural decision.
-- Primary capability: V3-F05
-- Supporting capabilities: V3-F02, V3-F14, V3-F15
-- Milestone: PRE-M6 USER JOURNEY / UX BASELINE
+- Horodatage Europe/Paris : 2026-08-15 13:47:01 CEST (+0200)
+- Niveau : FULL
+- Nature : correction linguistique complète, sans changement de conclusion fonctionnelle
+- Cycle : Cycle 2 — Conception fonctionnelle
+- Profil : Critique
+- Typologie : DESIGN / DOC / AUDIT
+- Capacité principale : V3-F05
+- Capacités complémentaires : V3-F02, V3-F14, V3-F15
+- Jalon : RÉFÉRENTIEL PRÉ-M6 DU PARCOURS UTILISATEUR / UX
 
-## 2. Exact GO Morris
+## 2. Autorisations consommées
+
+GO Morris initial exact :
 
 GO MORRIS — PRE-M6 USER JOURNEY / UX BASELINE QUALIFICATION — AUDIT EXISTING UI + DEFINE CANONICAL M1→M5 USER JOURNEY + UX/FUNCTIONAL IA — NO UI DELIVERY — NO M6 — ZERO REAL
 
-Governed interpretation: authorize read-only Git/runtime/UI/doctrine audit, one complete candidate project artifact, FULL Review Pack and bounded canonical handoff publication. Do not consume journey/IA/disposition decisions; do not implement UI/runtime, use Figma, execute Cursor REAL, start M6, modify Roadmap/Build Doctrine/framing/method/code, or perform project Git remote writes.
+GO de correction linguistique consommé après signalement du document en anglais :
 
-## 3. Initial Git Truth
+bah go
 
-- Repository root: expected worktree in `sfia-workspace`
-- `origin/main`: `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7`
-- Incoming handoff: `1d1b011e4375e0f10476793d31a9670ab8e41dfd`
-- Incoming handoff blob: `3e8754a91b51c9069b4fb6f1b53703b98fecb5f3`
-- Remote target `design/sfia-studio-pre-m6-ux-qualification`: ABSENT
-- Initial tracked/staged state: clean / empty; `.tmp-sfia-review/**` only allowed untracked material
-- `SFIA_STUDIO_CURSOR_REAL`: unset
-- `OPS1_CURSOR_REAL`: unset
-- Local branch created directly from `origin/main`: `design/sfia-studio-pre-m6-ux-qualification`
-- Branch HEAD: `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7`
+Interprétation gouvernée : traduire intégralement en français l’unique artefact candidat, conserver strictement son contenu fonctionnel, ses identifiants techniques, conclusions, écarts et anti-revendications, régénérer le Review Pack FULL et republier le Review Handoff canonique. Aucune UI Delivery, aucun Figma, aucun M6, aucun Cursor REAL, aucune modification d’exécution et aucune écriture Git projet.
 
-## 4. Convergence pre-check
+## 3. Vérité Git et portée
 
-- M5: CLOSED
-- M5-C: KEEP TEMPORARY WITH EXIT
-- Pre-M6 trajectory: decided by Morris
-- This candidate qualification production: authorized by exact GO
-- Candidate journey/IA/dispositions: not adopted
-- Figma/UI Delivery: not authorized
-- M6: not started / not authorized
-- runtime v3: non-adopted
+- Branche projet : `design/sfia-studio-pre-m6-ux-qualification`
+- HEAD / `origin/main` : `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7`
+- Artefact : `projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md`
+- Statut projet : candidat non suivi / non indexé, comme requis
+- Fichiers projet créés : 1
+- Fichiers projet existants modifiés : 0
+- Fichiers interdits modifiés : 0
+- Commit/push/PR/merge projet : 0/0/0/0
+- Code/backend/base/schéma/migration/tests : 0
 
-## 5. Sources and precedence
+## 4. Correction effectuée
 
-Precedence used: Git implementation/tests > explicit Morris decisions > validated convergence/current v3 > historical sources > labelled inference.
+L’artefact a été traduit intégralement en français sans résumé ni suppression de section. Les 20 sections, tableaux, classifications d’actifs, états, parcours, IA, contrat Figma futur, contrat de preuve et dossier de décisions Morris sont conservés.
 
-Mandatory process, convergence, v3 and historical files listed in the full artifact were consulted. Repository discovery additionally proved a detailed Cycle 2 CKC exists at `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/02-conception-fonctionnelle.md`; it remains candidate cognitive guidance. Framing 31 and 34 were consulted to validate source hierarchy and execution/confirmation authority. Current framing 30/37 prevails over historical framing 11/16.
+Restent volontairement en anglais lorsqu’ils sont des identifiants ou littéraux gouvernés : noms de domaine (`HumanDecision`, `ExecutionContract`, `ExecutionAttempt`, `Evidence`, `ReviewBundle`, `Recommendation`, etc.), actions, routes, enums, IDs, `KEEP/ADAPT/COMPLETE/HARVEST/REPLACE/FREEZE/RETIRE LATER`, `NOW/DERIVED/GAP/FUTURE`, statuts de maturité et chaînes UI citées.
 
-## 6. Audit and qualification results
+Le constat bloquant G-UX-15 est inchangé : le contrat durable M3 PREPARE non résolu doit être préservé, puis résolu ou remplacé par un contrat exécutable valide avant d’entrer dans la confirmation et la limite existante `StartExecution`/`ExecutionAttempt`. La fixture ne constitue pas une preuve produit du chemin critique.
 
-The complete runtime map, route/UI inventory, asset classifications, canonical journey, functional IA, state model, runtime↔UX contract, process-local/durable analysis, gap register, anti-parallel check, Figma input candidate, proof contract and Morris decision pack are reproduced verbatim in §12.
+## 5. Validation
 
-Material finding: capabilities M1→M5 are proven separately, but the product path is not one coherent critical chain. Durable M3 produces an intentionally unresolved PREPARE-only ExecutionContract. Only the process-local Proposal + fixture PREPARE path currently reaches execution and M5 outcomes. G-UX-15 therefore requires distinct qualification to preserve the unresolved contract, resolve target/capability/reversibility, create or supersede with a valid executable contract, and only then enter existing confirmation + StartExecution/Attempt. Fixture proof cannot substitute for product proof.
+- Document complet : 627 lignes
+- `git diff --check` : PASS
+- Changement suivi/stagé : aucun
+- Cohérence des anti-revendications : PASS
+- G-UX-15, D-PRE-M6-UX-01…05, M5 CLOSED, M5-C KEEP, M6 NOT AUTHORIZED, ZERO REAL : conservés
+- Figma/UI Delivery/runtime v3 adoption : toujours non autorisés
 
-Verification review result after corrections: PASS — no remaining blockers or material factual errors in the candidate artifact.
+## 6. Publication Review Handoff
 
-## 7. Current-state visual evidence status
+La publication canonique de ce pack corrigera le Review Handoff FULL précédent avec la version française complète. Elle constitue une publication L3 bornée supplémentaire explicitement autorisée par le GO de correction ; aucune branche projet n’est poussée.
 
-The documented existing `npm run dev` command started cleanly on port 3020. Read-only browser inspection covered `/synthese`, `/studio`, `/studio/projects/new`, `/projects`, `/ops1/nouvelle-demande`, and `/nouvelle-demande`. Transient screenshots supported the audit; no screenshot was tracked, no dependency/environment mutation occurred, and no SFIA Cursor REAL/Gate D action occurred.
+## 7. Prochaine validation
 
-## 8. Project artifact and scope
+ChatGPT relit le candidat français complet. Morris décide D-PRE-M6-UX-01…04. G-UX-15 exige une qualification distincte avant UI Delivery. D-PRE-M6-UX-05 ne peut autoriser un futur cycle Figma Visual Contract qu’après adoption du parcours et de l’IA. M6 reste non démarré et non autorisé.
 
-- Created: `projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md`
-- Status in artifact: CANDIDATE — FOR CHATGPT REVIEW / MORRIS DECISION
-- Full size: 755 lines at pre-handoff validation
-- Existing tracked project files modified: 0
-- Forbidden paths modified: 0
-- Roadmap/Build Doctrine/v3 framing/method/template/code/test changes: 0
-- Staged project state: empty
-- Project commit/push/PR/merge: 0/0/0/0
+## 8. Verdict
 
-`git diff --no-index --name-status /dev/null <artifact>`: one added file.
+QUALIFICATION PRÉ-M6 DU PARCOURS UTILISATEUR / RÉFÉRENTIEL UX CORRIGÉE EN FRANÇAIS — CONTENU FONCTIONNEL ET CONCLUSIONS INCHANGÉS — ARTEFACT COMPLET — DISPOSITIONS D’ACTIFS TOUJOURS CANDIDATES — G-UX-15 TOUJOURS BLOQUANT AVANT UI DELIVERY — AUCUNE ACTION FIGMA — AUCUNE UI DELIVERY — AUCUN M6 — ZERO REAL — PRÊT POUR REVUE CHATGPT / DÉCISION MORRIS
 
-`git diff --no-index --stat`: 1 file, 755 insertions at pre-handoff validation.
+## 9. CONTENU COMPLET DU NOUVEL ARTEFACT PROJET
 
-`git diff --check`: PASS.
+# SFIA Studio — Qualification pré-M6 du parcours utilisateur / référentiel UX
 
-Source-path existence check: PASS.
-
-Content/anti-claim coherence sweep: PASS, including M5 CLOSED, M5-C, PRE-M6, M6, V3-F05/F02/F14/F15, conversation, HumanDecision, ExecutionContract/Attempt, Evidence, ReviewBundle, Recommendation, Project != Cycle, CKC, process-local/durable, Figma, UI Delivery, REAL, maturity and asset-disposition terms.
-
-## 9. Safety counters
-
-- New project docs: 1
-- Modified existing project docs: 0
-- Application/backend/database/schema/migration/test changes: 0
-- Existing UI deletions / disposition executions: 0 / 0
-- Figma actions/files: 0 / 0
-- UI Delivery: 0
-- M6 work: 0
-- Cursor REAL / Gate D / REAL retry: 0 / 0 / 0
-- M5-C retirement: 0
-- runtime v3 adoption/global promotion: 0 / 0
-- project commits/pushes/PRs/merges/branch deletion: 0 / 0 / 0 / 0 / 0
-- Review Handoff push: 1 bounded L3 authorized (performed after this pack is generated)
-
-## 10. Unresolved reservations and next gate
-
-- G-UX-15 is blocking before UI Delivery: durable PREPARE contract resolution/supersession into existing governed execution lifecycle needs distinct qualification.
-- Durable AMEND exists; return-to-clarification/requalification wiring is incomplete.
-- Conversation/Proposal remain process-local; Morris must accept the first-test limitation or separately qualify persistence.
-- Recommendation freshness and canonical Studio project history need future wiring.
-- Legacy P0/D1/OPS1 retirement remains unapproved.
-
-Next: ChatGPT verifies this canonical FULL handoff; Morris decides D-PRE-M6-UX-01…04. G-UX-15 treatment must be selected before UI Delivery. D-PRE-M6-UX-05 may authorize a distinct future Figma Visual Contract cycle only after journey and IA adoption. M6 remains not authorized.
-
-## 11. Verdict
-
-PRE-M6 USER JOURNEY / UX BASELINE QUALIFICATION COMPLETE — M1→M5 RUNTIME FACTUALLY MAPPED — EXISTING UI AUDITED — CANONICAL USER JOURNEY CANDIDATE DEFINED — FUNCTIONAL IA CANDIDATE DEFINED — ASSET DISPOSITIONS REMAIN RECOMMENDATIONS — FIGMA INPUT CANDIDATE PREPARED — NO UI DELIVERY — NO FIGMA ACTION — NO M6 — ZERO REAL — READY FOR CHATGPT REVIEW / MORRIS DECISION
-
-This verdict does not mean UX baseline adopted, Figma authorized/approved, UI Delivery authorized, existing UI retired, G-UX-15 resolved, M6 authorized, or runtime v3 adopted.
-
-## 12. COMPLETE NEW PROJECT ARTIFACT CONTENT
-
-# SFIA Studio — Pre-M6 User Journey / UX Baseline Qualification
-
-| Field | Value |
+| Champ | Valeur |
 |---|---|
-| Status | **CANDIDATE — FOR CHATGPT REVIEW / MORRIS DECISION** |
-| Role | Pre-M6 functional product qualification artifact |
+| Statut | **CANDIDAT — POUR REVUE CHATGPT / DÉCISION MORRIS** |
+| Rôle | Artefact de qualification fonctionnelle du produit pré-M6 |
 | Cycle | Cycle 2 — Conception fonctionnelle |
-| Profile / typology | Critical · DESIGN / DOC / AUDIT |
-| Primary capability | V3-F05 — conversation → decision → execution |
-| Supporting capabilities | V3-F02 · V3-F14 · V3-F15 |
-| Git base | `origin/main@2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` |
-| Milestone | PRE-M6 USER JOURNEY / UX BASELINE |
-| Product actor | Morris / project pilot |
-| Delivery authority | **NONE** — no UI Delivery, Figma, M6, Cursor REAL, or runtime change |
+| Profil / typologie | Critique · DESIGN / DOC / AUDIT |
+| Capacité principale | V3-F05 — conversation → décision → exécution |
+| Capacités complémentaires | V3-F02 · V3-F14 · V3-F15 |
+| Base Git | `origin/main@2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` |
+| Jalon | RÉFÉRENTIEL PRÉ-M6 DU PARCOURS UTILISATEUR / UX |
+| Acteur produit | Morris / pilote du projet |
+| Autorité de livraison | **AUCUNE** — aucune UI Delivery, aucun Figma, M6, Cursor REAL ni changement d’exécution |
 
-## 1. Qualification boundary and conclusion
+## 1. Périmètre et conclusion de la qualification
 
-This document defines the first repository-informed **candidate** functional product
-baseline over the M1→M5 runtime. It does not validate or adopt that baseline.
+Ce document définit le premier référentiel fonctionnel produit **candidat**, informé par le dépôt, couvrant l’exécution M1→M5. Il ne valide ni n’adopte ce référentiel.
 
-The current runtime proves the required capabilities across M1→M5, but it does **not**
-yet expose one coherent canonical product execution chain. The durable M3
-HumanDecision → ExecutionContract path is PREPARE-only and fail-closed for execution;
-the currently executable assistant M4→M5 path consumes the process-local Proposal and
-fixture contract. The fixture is useful evidence of orchestration but cannot serve as
-critical-path product proof. A distinct durable M3 PREPARE → contract
-resolution/supersession → governed execution qualification is therefore required
-before UI Delivery.
+L’exécution actuelle démontre les capacités requises sur M1→M5, mais elle n’expose **pas** encore une chaîne canonique et cohérente d’exécution produit. Le chemin durable M3 HumanDecision → ExecutionContract est uniquement PREPARE et fermé par défaut à l’exécution ; le chemin actuellement exécutable de l’assistant M4→M5 consomme la Proposal locale au processus et le contrat de fixture. La fixture constitue une preuve utile d’orchestration, mais ne peut servir de preuve produit du chemin critique. Une qualification distincte de l’enchaînement durable M3 PREPARE → résolution/remplacement du contrat → exécution gouvernée est donc requise avant UI Delivery.
 
-Conversation, Proposal and some confirmation / trajectory / epistemic working state
-remain process-local. That boundary may be acceptable for a deliberately bounded first
-usability proof if it is disclosed at re-entry and no process-local state is presented
-as durable authority. It does not resolve the M3→M4 integration gap.
+La Conversation, la Proposal et certains états de travail de confirmation, de trajectoire et épistémiques restent locaux au processus. Cette limite peut convenir à une première preuve d’utilisabilité délibérément circonscrite si elle est signalée lors de la reprise et si aucun état local au processus n’est présenté comme une autorité durable. Elle ne résout pas l’écart de résolution/remplacement du contrat durable vers l’exécution gouvernée.
 
-The existing UI does not form one coherent product. It contains:
+L’interface utilisateur existante ne forme pas un produit cohérent unique. Elle comprend :
 
-1. an OA-backed `/studio/projects/[id]` vertical slice with the most useful M1→M5
-   wiring, but with implementation vocabulary and a dense technical projection;
-2. D1 intent/workspace/cockpit surfaces with useful conversation-first behavior and
-   orientation patterns, but a separate state model and incomplete OA integration;
-3. P0 `/synthese`, `/cycle-actif`, `/decision` fixture screens whose visual components
-   may be harvested selectively but whose flow and data are not the canonical runtime;
-4. an OPS1 legacy surface with historical execution/report behavior that must remain
-   isolated from the product path.
+1. une tranche verticale `/studio/projects/[id]` adossée à OA, disposant du câblage M1→M5 le plus utile, mais utilisant un vocabulaire d’implémentation et une projection technique dense ;
+2. des surfaces D1 d’intention, d’espace de travail et de cockpit, offrant des comportements utiles centrés sur la conversation et des modèles d’orientation, mais reposant sur un modèle d’état distinct et une intégration OA incomplète ;
+3. des écrans de fixture P0 `/synthese`, `/cycle-actif`, `/decision`, dont les composants visuels peuvent être récupérés sélectivement, mais dont le flux et les données ne constituent pas l’exécution canonique ;
+4. une surface historique OPS1 présentant un comportement historique d’exécution et de rapport, qui doit rester isolée du chemin produit.
 
-The recommended baseline is a **conversation-dominant project experience** with an
-always-accessible living project summary and contextual, task-oriented decision,
-execution and evidence surfaces. It can sit over the existing OA Native Backbone and
-Product SQLite. It does not require a UI-specific business engine, duplicate project
-state, duplicate decision model, or parallel persistence.
+Le référentiel recommandé est une **expérience projet dominée par la conversation**, avec un résumé vivant du projet toujours accessible et des surfaces contextuelles, orientées tâche, pour la décision, l’exécution et les preuves. Il peut s’appuyer sur l’OA Native Backbone et Product SQLite existants. Il ne nécessite ni moteur métier propre à l’interface, ni état de projet dupliqué, ni modèle de décision dupliqué, ni persistance parallèle.
 
-**Qualification result:** CANDIDATE FOR MORRIS REVIEW.
+**Résultat de la qualification :** CANDIDAT POUR REVUE CHATGPT / DÉCISION MORRIS.
 
-**Anti-claims:** this result is not an adopted UX baseline, approved Figma design,
-visual contract, implementation specification authorized for Delivery, authorization
-to replace or retire current UI, M6 Entry Qualification, or runtime v3 adoption.
+**Anti-revendications :** ce résultat n’est ni un référentiel UX adopté, ni une conception Figma approuvée, ni un contrat visuel, ni une spécification d’implémentation autorisée pour Delivery, ni une autorisation de remplacer ou retirer l’interface actuelle, ni une M6 Entry Qualification, ni une adoption de runtime v3.
 
-## 2. Authority and source hierarchy
+## 2. Autorité et hiérarchie des sources
 
-### 2.1 Precedence applied
+### 2.1 Ordre de priorité appliqué
 
-1. Git implementation and tests at the stated base.
-2. Explicit Morris decisions recorded in current convergence authority.
-3. Current validated convergence and v3 sources.
-4. Historical product/UX sources.
-5. Clearly labelled inference.
+1. Implémentation Git et tests à la base indiquée.
+2. Décisions explicites de Morris consignées dans l’autorité de convergence actuelle.
+3. Sources actuelles validées de convergence et v3.
+4. Sources historiques produit/UX.
+5. Inférences clairement signalées.
 
-Validated framing `30` and decision pack `37` prevail over conflicting candidate
-wording in historical framing `11` and `16`. Historical material is harvested only
-where compatible with current runtime and doctrine.
+Le cadrage validé `30` et le dossier de décisions `37` prévalent sur les formulations candidates contradictoires des cadrages historiques `11` et `16`. Le contenu historique n’est récupéré que lorsqu’il est compatible avec l’exécution et la doctrine actuelles.
 
-Conversation and Recommendation are contextual/cognitive inputs, not decision
-authority or substitutes for Git/runtime proof and Morris HumanDecision.
+Conversation et Recommendation sont des entrées contextuelles/cognitives, et non une autorité de décision ni des substituts aux preuves Git/d’exécution et à la HumanDecision de Morris.
 
-### 2.2 Sources consulted
+### 2.2 Sources consultées
 
-Process and routing:
+Processus et routage :
 
 - `prompts/templates/sfia-cycle-execution-template.md`
 - `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
@@ -201,11 +130,9 @@ Process and routing:
 - `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md`
 - `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/02-conception-fonctionnelle.md`
 
-The detailed Cycle 2 CKC **is present**, contrary to the fallback assumption in the
-cycle contract. Its status is `candidate`; it was used only as cognitive guidance and
-did not widen scope or authorize decisions.
+Le CKC détaillé du Cycle 2 **est présent**, contrairement à l’hypothèse de repli du contrat de cycle. Son statut est `candidate` ; il n’a servi que de guide cognitif et n’a ni élargi le périmètre ni autorisé de décisions.
 
-Convergence and current product authority:
+Convergence et autorité produit actuelle :
 
 - `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
 - `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
@@ -217,13 +144,13 @@ Convergence and current product authority:
 - `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md`
 - `projects/sfia-studio/sfia-v3-framing/37-studio-v3-foundations-and-consolidation-decision-pack.md`
 
-Historical/supporting:
+Sources historiques/complémentaires :
 
 - `projects/sfia-studio/sfia-v3-framing/11-sfia-v3-ux-information-architecture.md`
 - `projects/sfia-studio/sfia-v3-framing/16-sfia-v3-user-journey-and-doctrine-enforcement.md`
 - `projects/sfia-studio/08-functional-design.md`
 
-Runtime/UI/test sources were inspected under:
+Les sources d’exécution, d’interface et de tests ont été examinées sous :
 
 - `projects/sfia-studio/app/app/**`
 - `projects/sfia-studio/app/features/**`
@@ -233,639 +160,537 @@ Runtime/UI/test sources were inspected under:
 - `projects/sfia-studio/app/__tests__/**`
 - `projects/sfia-studio/app/e2e/**`
 
-### 2.3 Governed convergence state
+### 2.3 État de convergence gouverné
 
-- M5: **CLOSED**.
-- M5-C: **KEEP TEMPORARY WITH EXIT**; technical launch journal remains distinct
-  from Product Attempt storage and has not been retired.
-- Pre-M6 trajectory: decided by Morris; production of this candidate qualification
-  document is authorized by the current execution contract. Its journey, IA, gap
-  treatment and asset dispositions remain pending D-PRE-M6-UX-01…05.
-- Figma and Pre-M6 UI Delivery: not authorized.
-- M6: not started / not authorized.
-- runtime v3: non-adopted.
-- Cursor REAL / Gate D consumption in this cycle: zero.
+- M5 : **CLOSED**.
+- M5-C : **KEEP TEMPORARY WITH EXIT** ; le journal technique de lancement reste distinct du stockage Product Attempt et n’a pas été retiré.
+- Trajectoire pré-M6 : décidée par Morris ; la production de ce document candidat de qualification est autorisée par le contrat d’exécution actuel. Son parcours, son IA, le traitement de ses écarts et les dispositions de ses actifs restent en attente de D-PRE-M6-UX-01…05.
+- Figma et Pre-M6 UI Delivery : non autorisés.
+- M6 : non démarré / non autorisé.
+- runtime v3 : non adopté.
+- Consommation de Cursor REAL / Gate D dans ce cycle : zéro.
 
-## 3. Actor and jobs-to-be-done
+## 3. Acteur et tâches à accomplir
 
-### 3.1 Primary actor
+### 3.1 Acteur principal
 
-Morris, acting as project pilot and human authority. Multi-user administration,
-permissions and persona architecture are outside this candidate unless later required
-by a distinct qualification.
+Morris, agissant comme pilote du projet et autorité humaine. L’administration multi-utilisateur, les permissions et l’architecture des personas sont hors du périmètre de ce candidat, sauf si une qualification distincte les exige ultérieurement.
 
-### 3.2 Primary job
+### 3.2 Tâche principale
 
-Pilot a project with Nora through the governed M1→M5 loop without needing to
-understand OA modules, repository identifiers, CKC mechanics, Product SQLite,
-implementation flags, or Cursor launch details.
+Piloter un projet avec Nora au travers de la boucle gouvernée M1→M5 sans devoir comprendre les modules OA, les identifiants du dépôt, les mécanismes CKC, Product SQLite, les indicateurs d’implémentation ou les détails de lancement Cursor.
 
-### 3.3 Required comprehension
+### 3.3 Compréhension requise
 
-At any meaningful moment Morris must be able to answer:
+À tout moment significatif, Morris doit pouvoir répondre aux questions suivantes :
 
-- Which project am I in, and what is its current state?
-- What does Nora know, and what is still uncertain?
-- Is the displayed statement an observation, hypothesis, option, recommendation,
-  HumanDecision, execution fact, evidence, or review conclusion?
-- What needs my authority now?
-- What exactly would be executed and under which contract?
-- Is execution not started, preparing, running, succeeded, failed, timed out, or blocked?
-- What evidence and ReviewBundle exist?
-- What does Nora recommend after reviewing evidence?
-- What is the next useful action or human gate?
-- What will survive reload/re-entry, and what working context may not?
+- Dans quel projet suis-je et quel est son état actuel ?
+- Que sait Nora et qu’est-ce qui demeure incertain ?
+- L’énoncé affiché est-il une observation, une hypothèse, une option, une Recommendation, une HumanDecision, un fait d’exécution, une Evidence ou une conclusion de revue ?
+- Qu’est-ce qui requiert mon autorité maintenant ?
+- Qu’est-ce qui serait exactement exécuté et sous quel contrat ?
+- L’exécution est-elle non démarrée, en préparation, en cours, réussie, échouée, arrivée à expiration ou bloquée ?
+- Quelles Evidence et quel ReviewBundle existent ?
+- Que recommande Nora après examen des preuves ?
+- Quelle est la prochaine action utile ou validation humaine ?
+- Qu’est-ce qui survivra à un rechargement/une reprise, et quel contexte de travail peut être perdu ?
 
-## 4. UX doctrine constraints
+## 4. Contraintes de doctrine UX
 
-1. **CC-D01:** Conversation is the dominant interaction model.
-2. **CC-D03:** Living project state uses a persistent desktop panel and a responsive
-   sheet/drawer pattern on smaller displays; it supports conversation rather than
-   replacing it with a dashboard. Final dimensions remain a future visual-contract decision.
-3. **CC-D05 / CC-D06:** HumanDecision and execution authority are explicit, structured
-   confirmations proportionate to effect: N1 light/reversible, N2 persistent or
-   significant, N3 structural/irreversible.
-4. **CC-D05:** Recommendation is never rendered as an already-consumed HumanDecision.
-5. **CC-D13:** Project is not Cycle. A project may have a current cycle and cycle history.
-6. **CC-D12:** CKC internals, repository IDs and digests are not first-level product
-   content; fallback is silent inside authorized v3 sources.
-7. **CC-D01:** A main stepper is not the product model.
-8. **CC-D01:** A permanent multi-panel workspace is not the default MVP architecture.
-9. Progressive disclosure exposes detail, provenance and technical diagnostics on demand.
-10. Evidence and ReviewBundle remain accessible, legible and linked to the relevant outcome.
-11. Product SQLite, `REAL_LOCAL_CORE`, internal IDs, contract hashes, branch/HEAD,
-    `REAL_*` flags and adapter modes are diagnostic detail, not primary navigation.
-12. Conversation continuity coexists with structured state, decisions, contracts,
-    execution and evidence; the product is not a generic chat clone.
-13. Nora has recommendation and analysis authority only. Morris retains decision and
-    execution authority.
+1. **CC-D01 :** la Conversation est le modèle d’interaction dominant.
+2. **CC-D03 :** LivingProjectState utilise un panneau persistant sur ordinateur et un modèle de feuille/tiroir adaptatif sur les écrans plus petits ; il soutient la conversation plutôt que de la remplacer par un tableau de bord. Les dimensions définitives relèvent d’une future décision de contrat visuel.
+3. **CC-D05 / CC-D06 :** HumanDecision et l’autorité d’exécution sont des confirmations explicites et structurées, proportionnées à l’effet : N1 léger/réversible, N2 persistant ou significatif, N3 structurel/irréversible.
+4. **CC-D05 :** Recommendation n’est jamais présentée comme une HumanDecision déjà consommée.
+5. **CC-D13 :** Project n’est pas Cycle. Un projet peut avoir un cycle actuel et un historique de cycles.
+6. **CC-D12 :** les mécanismes internes CKC, les identifiants du dépôt et les empreintes ne sont pas du contenu produit de premier niveau ; le repli reste silencieux dans les sources v3 autorisées.
+7. **CC-D01 :** un indicateur principal d’étapes n’est pas le modèle du produit.
+8. **CC-D01 :** un espace de travail permanent à plusieurs panneaux n’est pas l’architecture MVP par défaut.
+9. La divulgation progressive expose à la demande les détails, la provenance et les diagnostics techniques.
+10. Evidence et ReviewBundle restent accessibles, lisibles et liés au résultat pertinent.
+11. Product SQLite, `REAL_LOCAL_CORE`, les identifiants internes, les empreintes de contrat, la branche/HEAD, les indicateurs `REAL_*` et les modes d’adaptateur sont des détails de diagnostic, non une navigation principale.
+12. La continuité de la Conversation coexiste avec l’état structuré, les décisions, les contrats, l’exécution et les preuves ; le produit n’est pas un clone générique de messagerie.
+13. Nora ne dispose que d’une autorité de recommandation et d’analyse. Morris conserve l’autorité de décision et d’exécution.
 
-## 5. Current M1→M5 runtime capability map
+## 5. Cartographie des capacités d’exécution M1→M5 actuelles
 
-| Stage | User/product capability | Objects and use cases | Adapter / persistence | Current UI and proof | Limitation | Pre-M6 treatment |
+| Étape | Capacité utilisateur/produit | Objets et cas d’utilisation | Adaptateur / persistance | Interface et preuve actuelles | Limite | Traitement pré-M6 |
 |---|---|---|---|---|---|---|
-| M1 | Create, open and reload a project with its living state | `Project`, `LivingProjectState`; create/get project and current LPS use cases | OA Product SQLite project unit of work | `/studio/projects/new` → `/studio/projects/[id]`; project restart tests | `/studio` and `/projects` have no collection landing; several comments/disclosures still say local-only | Presentation + project-list/navigation wiring |
-| M2 | Start/qualify a cycle against current context and resolved doctrine | `CycleInstance`, CKC resolution, F2 `ContextSnapshot`; qualify cycle / cognitive context | Project/LPS/Cycle linkage durable in Product SQLite; live F2 conversational material process-local | Project assistant F2 orchestration and cognitive-piloting tests | CKC IDs and runtime detail leak into workspace; no coherent user summary of qualification state | Presentation; reuse orchestration |
-| M3 | Review a proposal, record Morris decision, prepare restart-safe execution contract | process-local `Proposal`; durable `HumanDecision`, `DecisionBasis`, `ExecutionContract`; decision and prepare/validate/supersede use cases | Decision/contract SQLite services; Proposal and conversation memory | `ProjectAssistantPanel`; F2 decision and F3/M3 prepare tests | Durable M3 contract is deliberately unresolved/PREPARE-only (`executionAllowed:false`, unresolved target/capability/reversibility, no Attempt); AMEND is durably recorded but return-to-clarification wiring is incomplete | Presentation + blocking contract-resolution/supersession integration |
-| M4 | Review contract, confirm authority, start controlled execution and observe attempt lifecycle | Attempt domain/ports, `ExecutionContract`, confirmation, Gate D grant, bounded RO `AgentCapability`; `StartExecution` is sole sequencer | M5-C technical CREATED/LAUNCHED journal is separate SQLite, not Product Store; fixture adapter zero-effect; REAL default-off | Assistant fixture prepare/confirm/execute; M4 governance and execution tests; two historical governed REAL attempts, one bounded completion | Durable M3 contract can be prepared, but only the Proposal/fixture PREPARE UI path reaches execution; fixture cannot prove critical product path; no future REAL authorized | Blocking integration qualification; no REAL or runtime implementation here |
-| M5 | Read durable Attempt, Evidence, ReviewBundle; see factual LPS refs and Nora recommendation after reload | `ExecutionAttempt`, `Evidence`, `ReviewBundle`, LPS `evidenceIds`/`reviewBundleIds`; collect/review/recommend/rehydrate | OA Product SQLite for Attempt/Evidence/ReviewBundle when `productDurablePath` is active; W1 factual system writer, authority `none` | Assistant rehydrate action/effect; M5 restart, durability, W1 append and UI remount tests | Evidence/review presentation is embedded and not navigable as project history; recommendation freshness not explained | Presentation + project history wiring |
+| M1 | Créer, ouvrir et recharger un projet avec son état vivant | `Project`, `LivingProjectState` ; cas d’utilisation de création/lecture du projet et du LPS actuel | Unité de travail projet OA Product SQLite | `/studio/projects/new` → `/studio/projects/[id]` ; tests de redémarrage du projet | `/studio` et `/projects` ne disposent pas de page d’accueil de collection ; plusieurs commentaires/divulgations indiquent encore une portée uniquement locale | Présentation + câblage de la liste/navigation des projets |
+| M2 | Démarrer/qualifier un cycle selon le contexte actuel et la doctrine résolue | `CycleInstance`, résolution CKC, F2 `ContextSnapshot` ; qualification du cycle / contexte cognitif | Liaison Project/LPS/Cycle durable dans Product SQLite ; contenu conversationnel F2 actif local au processus | Orchestration F2 de l’assistant du projet et tests de pilotage cognitif | Les identifiants CKC et les détails d’exécution débordent dans l’espace de travail ; aucun résumé utilisateur cohérent de l’état de qualification | Présentation ; réutiliser l’orchestration |
+| M3 | Examiner une proposition, consigner la décision de Morris, préparer un contrat d’exécution résistant au redémarrage | `Proposal` locale au processus ; `HumanDecision`, `DecisionBasis`, `ExecutionContract` durables ; cas d’utilisation de décision et de préparation/validation/remplacement | Services SQLite de décision/contrat ; Proposal et mémoire de conversation | `ProjectAssistantPanel` ; tests de décision F2 et de préparation F3/M3 | Le contrat M3 durable est délibérément non résolu/uniquement PREPARE (`executionAllowed:false`, cible/capacité/réversibilité non résolues, aucune Attempt) ; AMEND est consigné durablement, mais le câblage de retour à la clarification est incomplet | Présentation + intégration bloquante de résolution/remplacement du contrat |
+| M4 | Examiner le contrat, confirmer l’autorité, démarrer une exécution contrôlée et observer le cycle de vie de l’Attempt | Domaine/ports Attempt, `ExecutionContract`, confirmation, octroi Gate D, `AgentCapability` RO limitée ; `StartExecution` est l’unique séquenceur | Journal technique M5-C CREATED/LAUNCHED dans un SQLite distinct, pas dans Product Store ; adaptateur de fixture sans effet ; REAL désactivé par défaut | Préparation/confirmation/exécution de fixture par l’assistant ; tests de gouvernance et d’exécution M4 ; deux Attempts REAL gouvernées historiques, dont une exécution limitée achevée | Le contrat M3 durable peut être préparé, mais seul le chemin d’interface Proposal/fixture PREPARE atteint l’exécution ; la fixture ne peut prouver le chemin produit critique ; aucun futur REAL autorisé | Qualification d’intégration bloquante ; aucun REAL ni implémentation d’exécution ici |
+| M5 | Lire Attempt, Evidence et ReviewBundle durables ; voir les références LPS factuelles et la Recommendation de Nora après rechargement | `ExecutionAttempt`, `Evidence`, `ReviewBundle`, LPS `evidenceIds`/`reviewBundleIds` ; collecter/examiner/recommander/réhydrater | OA Product SQLite pour Attempt/Evidence/ReviewBundle lorsque `productDurablePath` est actif ; rédacteur système factuel W1, autorité `none` | Action/effet de réhydratation de l’assistant ; tests M5 de redémarrage, durabilité, ajout W1 et remontage de l’interface | La présentation des preuves/revues est intégrée et ne permet pas de naviguer dans l’historique du projet ; l’actualité de la Recommendation n’est pas expliquée | Présentation + câblage de l’historique du projet |
 
-### 5.1 Durability boundary
+### 5.1 Limite de durabilité
 
-Durable now:
+Durables actuellement :
 
-- Project and LivingProjectState;
-- CycleInstance linkage and current CKC resolution reference;
-- HumanDecision and DecisionBasis;
-- ExecutionContract;
-- ExecutionAttempt;
-- Evidence and ReviewBundle;
-- factual LPS evidence/review references;
-- current durable evidence/review readback after remount/reload.
+- Project et LivingProjectState ;
+- liaison CycleInstance et référence actuelle de résolution CKC ;
+- HumanDecision et DecisionBasis ;
+- ExecutionContract ;
+- ExecutionAttempt ;
+- Evidence et ReviewBundle ;
+- références factuelles LPS de preuve/revue ;
+- relecture actuelle des preuves/revues durables après remontage/rechargement.
 
-Process-local or partially process-local now:
+Locaux au processus ou partiellement locaux au processus actuellement :
 
-- conversation history;
-- Proposal and working qualification result;
-- Confirmation in Memory even when HumanDecision/ExecutionContract use Product SQLite;
-- local `MemoryAuthorityResolver` / Morris gate evidence (temporary with exit);
-- trajectory/epistemic, claims and maturity subsets not promoted to product durability.
+- historique de la conversation ;
+- Proposal et résultat de qualification de travail ;
+- Confirmation en Memory même lorsque HumanDecision/ExecutionContract utilisent Product SQLite ;
+- `MemoryAuthorityResolver` local / preuve de validation Morris (temporaire avec sortie) ;
+- sous-ensembles de trajectoire/épistémiques, d’affirmations et de maturité non promus à la durabilité produit.
 
-Process-local does not mean non-functional. It means the UX must not imply resume
-guarantees that the runtime does not provide.
+Local au processus ne signifie pas non fonctionnel. Cela signifie que l’UX ne doit pas laisser entendre des garanties de reprise que l’exécution ne fournit pas.
 
-### 5.2 Project assistant action truth
+### 5.2 Réalité des actions de l’assistant du projet
 
-The action names listed in the execution contract
-(`projectAssistantStartF1Action`, `ContinueF1`, `AcceptF1`, `QualifyF2`,
-`DecideF2`, `ReprepareF3AfterRestart`, `ConfirmF3`,
-`ConfirmAndExecuteF3`) do **not** exist at this Git base.
+Les noms d’action indiqués dans le contrat d’exécution (`projectAssistantStartF1Action`, `ContinueF1`, `AcceptF1`, `QualifyF2`, `DecideF2`, `ReprepareF3AfterRestart`, `ConfirmF3`, `ConfirmAndExecuteF3`) n’existent **pas** à cette base Git.
 
-The current implemented action surface in
-`features/project-assistant/actions.ts` is:
+La surface d’actions actuellement implémentée dans `features/project-assistant/actions.ts` est :
 
-- `projectAssistantSendAction` — conversation/F1 plus F2 turn orchestration;
-- `projectAssistantDecideAction` — explicit proposal decision;
-- `projectAssistantPrepareF3FixtureAction` — fixture contract preparation;
-- `projectAssistantPrepareM3Action` — durable M3 contract preparation from decision;
-- `projectAssistantConfirmAndExecuteF3FixtureAction` — confirmation and controlled
-  fixture execution through the governed application path;
-- `projectAssistantRehydrateEvidenceOutcomeAction` — durable Evidence/ReviewBundle/
-  Recommendation readback.
+- `projectAssistantSendAction` — orchestration de la conversation/F1 et du tour F2 ;
+- `projectAssistantDecideAction` — décision explicite sur la proposition ;
+- `projectAssistantPrepareF3FixtureAction` — préparation du contrat de fixture ;
+- `projectAssistantPrepareM3Action` — préparation du contrat M3 durable à partir de la décision ;
+- `projectAssistantConfirmAndExecuteF3FixtureAction` — confirmation et exécution contrôlée de la fixture via le chemin applicatif gouverné ;
+- `projectAssistantRehydrateEvidenceOutcomeAction` — relecture durable de Evidence/ReviewBundle/Recommendation.
 
-The UX candidate maps those facts to user tasks; it does not expose action names as steps.
+Le candidat UX associe ces faits à des tâches utilisateur ; il n’expose pas les noms d’action comme des étapes.
 
-## 6. Existing UI audit
+## 6. Audit de l’interface existante
 
-### 6.1 Route inventory
+### 6.1 Inventaire des routes
 
-| Route | Current responsibility | Runtime truth | Candidate status |
+| Route | Responsabilité actuelle | Réalité de l’exécution | Statut candidat |
 |---|---|---|---|
-| `/` | Redirect to P0 synthesis | Fixture entry, not portfolio truth | REPLACE route destination later |
-| `/synthese` | P0 vertical-slice summary with demo state selector | Fixture/harness state; no canonical project collection | FREEZE; HARVEST visual primitives only |
-| `/nouvelle-demande` | Current D1-C1 primary intent-first intake and deterministic matching, rendered in `D1AppShell` | Isolated D1 SQLite/model; no OA M1→M5 chain | HARVEST BEHAVIOR; ADAPT into project/conversation entry |
-| `/workspace` | Current D1 project list/orientation | Separate D1 SQLite commands/store | HARVEST orientation behavior; REPLACE wiring |
-| `/projects/new` | D1 manual project form | D1 path, separate from OA vertical slice | FREEZE; consolidate later |
-| `/projects/[id]` | D1 project cockpit and audit | Separate D1 project model | HARVEST information grouping; REPLACE wiring |
-| `/studio` | No route; P0 not-found | Missing canonical entry | COMPLETE with project entry/list in future Delivery |
-| `/studio/projects/new` | OA vertical-slice project creation | Current Project/LPS Product SQLite path | KEEP wiring; ADAPT presentation |
-| `/studio/projects/[id]` | OA project projection + Nora assistant + M2→M5 flow | Strongest canonical runtime wiring | KEEP wiring/behavior; REPLACE layout and technical presentation |
-| `/cycle-actif` | P0 cycle screen | Fixture vertical-slice state | FREEZE; HARVEST selected status/evidence components |
-| `/decision` | P0 Morris decision screen | Fixture decision, not current OA decision record | FREEZE; HARVEST authority language/component behavior |
-| `/ops1/nouvelle-demande` | Live, maintained I1–I6 execution cockpit on the historical OPS1 spine | Parallel OPS1 SQLite/lifecycle with E2E coverage | FREEZE as canonical path; HARVEST bounded behavior; RETIRE LATER only after explicit Morris decision and replacement proof |
+| `/` | Redirection vers la synthèse P0 | Entrée de fixture, pas la réalité du portefeuille | REPLACE ultérieurement la destination de la route |
+| `/synthese` | Résumé de tranche verticale P0 avec sélecteur d’état de démonstration | État de fixture/harness ; aucune collection de projets canonique | FREEZE ; HARVEST uniquement les primitives visuelles |
+| `/nouvelle-demande` | Entrée actuelle principale D1-C1 centrée sur l’intention et appariement déterministe, rendue dans `D1AppShell` | Modèle/SQLite D1 isolé ; aucune chaîne OA M1→M5 | HARVEST BEHAVIOR ; ADAPT dans l’entrée projet/conversation |
+| `/workspace` | Liste/orientation actuelle des projets D1 | Commandes/stockage SQLite D1 distincts | HARVEST du comportement d’orientation ; REPLACE le câblage |
+| `/projects/new` | Formulaire manuel de projet D1 | Chemin D1, distinct de la tranche verticale OA | FREEZE ; consolider ultérieurement |
+| `/projects/[id]` | Cockpit et audit du projet D1 | Modèle de projet D1 distinct | HARVEST du regroupement de l’information ; REPLACE le câblage |
+| `/studio` | Aucune route ; page introuvable P0 | Entrée canonique manquante | COMPLETE avec une entrée/liste des projets dans une future Delivery |
+| `/studio/projects/new` | Création de projet dans la tranche verticale OA | Chemin actuel Project/LPS Product SQLite | KEEP le câblage ; ADAPT la présentation |
+| `/studio/projects/[id]` | Projection du projet OA + assistant Nora + flux M2→M5 | Câblage le plus robuste de l’exécution canonique | KEEP le câblage/comportement ; REPLACE la mise en page et la présentation technique |
+| `/cycle-actif` | Écran de cycle P0 | État de tranche verticale de fixture | FREEZE ; HARVEST les composants sélectionnés d’état/preuve |
+| `/decision` | Écran de décision Morris P0 | Décision de fixture, pas la décision OA actuelle consignée | FREEZE ; HARVEST le langage d’autorité/comportement des composants |
+| `/ops1/nouvelle-demande` | Cockpit d’exécution actif et maintenu I1–I6 sur l’ossature historique OPS1 | Cycle de vie/SQLite OPS1 parallèle avec couverture E2E | FREEZE comme chemin canonique ; HARVEST le comportement limité ; RETIRE LATER uniquement après décision explicite de Morris et preuve de remplacement |
 
-`/projects` has no index page and returns the P0 not-found experience. Dynamic
-`/projects/[id]` exists, which creates navigation ambiguity.
+`/projects` n’a pas de page d’index et renvoie l’expérience de page introuvable P0. La route dynamique `/projects/[id]` existe, ce qui crée une ambiguïté de navigation.
 
-### 6.2 Material surface/component audit and candidate classifications
+### 6.2 Audit des surfaces/composants significatifs et classifications candidates
 
-| Surface / asset | Useful capability | Debt / conflict | Candidate disposition and reuse granularity | Confidence / Morris gate |
+| Surface / actif | Capacité utile | Dette / conflit | Disposition candidate et granularité de réutilisation | Confiance / validation Morris |
 |---|---|---|---|---|
-| `app/studio/projects/[id]/page.tsx` | Composes OA project projection and Nora assistant | Fixed shell/right copilot; stale `LOCAL_PROCESS`, `NOT_READY`, “lecture seule” claims despite M3–M5 actions | **ADAPT** route; KEEP composition and data boundaries, replace labels/layout | High; adoption requires D-PRE-M6-UX-03 |
-| `ProjectAssistantPanel.tsx` | Conversation, F2 proposal, explicit decision, F3 prepare/confirm/execute fixture, durable rehydrate | One very large component; implementation modes, event stream and stage cards compete with conversation; process-local notice is always technical | **HARVEST BEHAVIOR + WIRING**, not visual design; split by functional states during future Delivery | High; material disposition gate |
-| `ProjectWorkspaceView.tsx` | Reads Project/LPS/Cycle/doctrine/readiness from current runtime | Exposes IDs, CKC ref/digest, `REAL_LOCAL_CORE`, persistence flags and Product SQLite; object-centric definition grids; OPS1 escape hatch | **REPLACE PRESENTATION**, KEEP loader and projections; harvest objective/constraints/current-state content | High; material disposition gate |
-| `ProjectWorkspaceClient.tsx` | Loading and OA runtime action bridge | Stale comments claim global in-memory singleton; client-only load duplicates server-capable page behavior | **ADAPT** wiring after source-of-truth cleanup; no visual reuse claim | Medium |
-| `CreateProjectForm` (`/studio/projects/new`) | Creates Project/LPS through current vertical-slice runtime | Technical disclosure dominates; manual form precedes conversation; stale local-only copy | **KEEP WIRING / ADAPT BEHAVIOR**, replace visual/content hierarchy | High |
-| D1 `IntakeView` / `/nouvelle-demande` | Clear intent-first language, examples, clarification/matching posture | Separate D1 model, duplicate forms, no current OA chain | **HARVEST BEHAVIOR**, not component or store; adapt into canonical conversation | High |
-| D1 `WorkspaceHomeView` | Project orientation/list concepts | Separate persistence/commands; no OA durable outcome model | **HARVEST INFORMATION MODEL**, replace wiring and visual baseline | Medium |
-| D1 `ProjectCockpitView` | Objective/context/audit grouping | “Cockpit” risks dashboard-first doctrine; separate model | **HARVEST CONTENT GROUPING**, not cockpit architecture | Medium |
-| `StudioShell` / navigation | Existing accessible shell, route links, status primitives | Mixes P0, D1, Studio and OPS1 routes as peers; dynamic `/studio/projects/[id]` exact-match leaves no rail item active; OPS1 page highlights the D1 intake route; disabled evidence; right rail enforces multi-panel tendency | **KEEP shell / ADAPT navigation**; replace route taxonomy and active-route matching | High |
-| P0 `SyntheseScreen`, `CycleActifScreen`, `DecisionScreen` and `Vs*` | Cards, pills, decision/evidence vocabulary, deterministic states | Fixture/harness selectors, duplicate “current cycle” model, simulated evidence and decisions | **FREEZE** flows; **HARVEST COMPONENTS selectively** after runtime binding; do not harvest fixture behavior | High |
-| UI primitives (`Card`, `StatusPill`, `CtaButton`, evidence/gate primitives) | Tested accessible component building blocks | Visual language is P0-specific and some semantics are overloaded | **KEEP/ADAPT COMPONENTS** pending future visual contract; no visual baseline claim | Medium |
-| OPS1 session UI | Live I1–I6 session/gate/allowlist/contract/attempt/report behavior on a historical spine | Parallel lifecycle, explicit legacy status, technical delivery language | **FREEZE** route; **HARVEST BEHAVIOR** such as bounded allowlist/authority cues, not runtime model; **RETIRE LATER** only after replacement proof and Morris GO | High; final retirement decision required |
+| `app/studio/projects/[id]/page.tsx` | Compose la projection du projet OA et l’assistant Nora | Shell/copilote droit fixe ; affirmations obsolètes `LOCAL_PROCESS`, `NOT_READY`, « lecture seule » malgré les actions M3–M5 | **ADAPT** la route ; KEEP la composition et les limites de données, remplacer les libellés/la mise en page | Élevée ; adoption soumise à D-PRE-M6-UX-03 |
+| `ProjectAssistantPanel.tsx` | Conversation, Proposal F2, décision explicite, préparation/confirmation/exécution de fixture F3, réhydratation durable | Composant unique très volumineux ; les modes d’implémentation, le flux d’événements et les cartes d’étape concurrencent la conversation ; la notice locale au processus est toujours technique | **HARVEST BEHAVIOR + WIRING**, pas la conception visuelle ; scinder par états fonctionnels lors d’une future Delivery | Élevée ; validation de disposition significative |
+| `ProjectWorkspaceView.tsx` | Lit Project/LPS/Cycle/doctrine/état de préparation depuis l’exécution actuelle | Expose identifiants, référence/empreinte CKC, `REAL_LOCAL_CORE`, indicateurs de persistance et Product SQLite ; grilles de définition centrées sur les objets ; échappatoire OPS1 | **REPLACE PRESENTATION**, KEEP le chargeur et les projections ; récupérer objectif/contraintes/contenu de l’état actuel | Élevée ; validation de disposition significative |
+| `ProjectWorkspaceClient.tsx` | Chargement et pont d’action vers l’exécution OA | Commentaires obsolètes affirmant un singleton global en mémoire ; chargement uniquement client dupliquant le comportement possible côté serveur de la page | **ADAPT** le câblage après nettoyage de la source de vérité ; aucune revendication de réutilisation visuelle | Moyenne |
+| `CreateProjectForm` (`/studio/projects/new`) | Crée Project/LPS via l’exécution actuelle de tranche verticale | La divulgation technique domine ; le formulaire manuel précède la conversation ; texte obsolète sur la portée locale | **KEEP WIRING / ADAPT BEHAVIOR**, remplacer la hiérarchie visuelle/de contenu | Élevée |
+| D1 `IntakeView` / `/nouvelle-demande` | Langage clair centré sur l’intention, exemples, posture de clarification/appariement | Modèle D1 distinct, formulaires dupliqués, aucun enchaînement OA actuel | **HARVEST BEHAVIOR**, pas le composant ni le stockage ; adapter dans la conversation canonique | Élevée |
+| D1 `WorkspaceHomeView` | Concepts d’orientation/liste des projets | Persistance/commandes distinctes ; aucun modèle OA de résultat durable | **HARVEST INFORMATION MODEL**, remplacer le câblage et le référentiel visuel | Moyenne |
+| D1 `ProjectCockpitView` | Regroupement objectif/contexte/audit | Le « cockpit » risque une doctrine centrée sur le tableau de bord ; modèle distinct | **HARVEST CONTENT GROUPING**, pas l’architecture de cockpit | Moyenne |
+| `StudioShell` / navigation | Shell accessible existant, liens de routes, primitives d’état | Mélange les routes P0, D1, Studio et OPS1 comme des pairs ; la correspondance exacte de `/studio/projects/[id]` dynamique ne laisse aucun élément actif dans le rail ; la page OPS1 met en évidence la route d’entrée D1 ; preuves désactivées ; le rail droit impose une tendance multi-panneaux | **KEEP le shell / ADAPT la navigation** ; remplacer la taxonomie des routes et la correspondance des routes actives | Élevée |
+| P0 `SyntheseScreen`, `CycleActifScreen`, `DecisionScreen` et `Vs*` | Cartes, pastilles, vocabulaire de décision/preuve, états déterministes | Sélecteurs de fixture/harness, modèle « cycle actuel » dupliqué, preuves et décisions simulées | **FREEZE** les flux ; **HARVEST COMPONENTS** sélectivement après liaison à l’exécution ; ne pas récupérer le comportement de fixture | Élevée |
+| Primitives d’interface (`Card`, `StatusPill`, `CtaButton`, primitives de preuve/validation) | Blocs de composants accessibles testés | Le langage visuel est propre à P0 et certaines sémantiques sont surchargées | **KEEP/ADAPT COMPONENTS** en attente du futur contrat visuel ; aucune revendication de référentiel visuel | Moyenne |
+| Interface de session OPS1 | Comportement actif I1–I6 de session/validation/liste d’autorisation/contrat/Attempt/rapport sur une ossature historique | Cycle de vie parallèle, statut historique explicite, langage technique de Delivery | **FREEZE** la route ; **HARVEST BEHAVIOR**, par exemple les indices de liste d’autorisation/autorité bornés, pas le modèle d’exécution ; **RETIRE LATER** uniquement après preuve de remplacement et GO de Morris | Élevée ; décision finale de retrait requise |
 
-### 6.3 Debt observed
+### 6.3 Dette observée
 
-- Navigation exposes three competing product starts: P0 synthesis, D1 intake/workspace,
-  and OA Studio project routes.
-- Shell/navigation state is bifurcated: D1 uses `D1AppShell`; Studio/P0/OPS1 use
-  `StudioShell`, with incorrect/no rail selection on OPS1 and dynamic Studio projects.
-- The current canonical runtime route has no project list/entry route at `/studio`.
-- Runtime objects are shown as separate technical sections rather than a user-oriented
-  account of “where the project stands”.
-- “Local”, “fixture”, “Product SQLite”, CKC refs, internal IDs, readiness flags,
-  branch/HEAD and adapter modes appear at first level.
-- Current copy is internally inconsistent: `RuntimeDisclosureBanner` correctly shows
-  partial Project/LPS/Cycle/Decision/Contract durability and Product SQLite, while
-  nearby prose still warns that restart loses all data or that there is no product
-  persistence; “read-only” and “no writing” labels coexist with M3–M5 actions.
-- Decision/evidence responsibilities are duplicated between fixture P0 and OA assistant.
-- Evidence is accessible inside assistant output but lacks a stable project history
-  destination.
-- Error messages often explain process/runtime boundaries rather than recovery in
-  product terms.
+- La navigation expose trois démarrages produit concurrents : synthèse P0, entrée/espace de travail D1 et routes de projet OA Studio.
+- L’état du shell/de la navigation est divisé : D1 utilise `D1AppShell` ; Studio/P0/OPS1 utilisent `StudioShell`, avec une sélection de rail incorrecte/absente sur OPS1 et les projets Studio dynamiques.
+- La route canonique d’exécution actuelle ne dispose d’aucune liste/entrée de projet à `/studio`.
+- Les objets d’exécution sont affichés comme des sections techniques distinctes plutôt que comme un récit orienté utilisateur de « l’état du projet ».
+- « Local », « fixture », « Product SQLite », les références CKC, identifiants internes, indicateurs de préparation, branche/HEAD et modes d’adaptateur apparaissent au premier niveau.
+- Le texte actuel est incohérent : `RuntimeDisclosureBanner` affiche correctement la durabilité partielle de Project/LPS/Cycle/Decision/Contract et Product SQLite, alors que le texte voisin avertit encore que le redémarrage perd toutes les données ou qu’il n’existe aucune persistance produit ; les libellés « read-only » et « no writing » coexistent avec les actions M3–M5.
+- Les responsabilités de décision/preuve sont dupliquées entre la fixture P0 et l’assistant OA.
+- Evidence est accessible dans la sortie de l’assistant mais ne dispose pas d’une destination stable dans l’historique du projet.
+- Les messages d’erreur expliquent souvent les limites de processus/d’exécution plutôt que la récupération en termes produit.
 
-### 6.4 Current-state visual audit
+### 6.4 Audit visuel de l’état actuel
 
-The existing documented `npm run dev` command started cleanly on port 3020. Read-only
-browser inspection covered `/synthese`, `/studio` (not found),
-`/studio/projects/new`, `/projects` (not found), `/ops1/nouvelle-demande`, and
-`/nouvelle-demande`.
+La commande documentée existante `npm run dev` a démarré correctement sur le port 3020. L’examen du navigateur en lecture seule a couvert `/synthese`, `/studio` (introuvable), `/studio/projects/new`, `/projects` (introuvable), `/ops1/nouvelle-demande` et `/nouvelle-demande`.
 
-Observed:
+Observations :
 
-- `/synthese` is visually coherent but dominated by a fixture state selector,
-  harness metadata and “vertical slice POC” claims.
-- `/studio/projects/new` presents a usable form but foregrounds local/runtime
-  disclosures and internal readiness flags.
-- `/nouvelle-demande` most closely expresses the desired intent-first language, but
-  is wired to D1 rather than the OA M1→M5 chain.
-- `/studio` and `/projects` do not provide the expected product entry.
+- `/synthese` est visuellement cohérent, mais dominé par un sélecteur d’état de fixture, les métadonnées du harness et les affirmations « vertical slice POC ».
+- `/studio/projects/new` présente un formulaire utilisable, mais met en avant les divulgations locales/d’exécution et les indicateurs internes de préparation.
+- `/nouvelle-demande` exprime le mieux le langage souhaité centré sur l’intention, mais est câblé à D1 plutôt qu’à la chaîne OA M1→M5.
+- `/studio` et `/projects` ne fournissent pas l’entrée produit attendue.
 
-Screenshots were used as transient audit evidence only; no tracked screenshot or
-Figma action was produced.
+Les captures d’écran ont servi uniquement de preuves d’audit transitoires ; aucune capture suivie ni action Figma n’a été produite.
 
-## 7. Canonical M1→M5 user journey candidate
+## 7. Candidat de parcours utilisateur canonique M1→M5
 
-### 7.1 Journey shape
+### 7.1 Forme du parcours
 
-The primary experience is one project conversation with structured moments appearing
-in context. A compact living project summary stays accessible. Decision, execution
-and evidence details open contextually and remain available in project history.
-They are not separate CRUD products and are not a mandatory stepper.
+L’expérience principale est une conversation de projet unique, avec des moments structurés apparaissant dans leur contexte. Un résumé compact du projet vivant reste accessible. Les détails de décision, d’exécution et de preuve s’ouvrent contextuellement et restent disponibles dans l’historique du projet. Ils ne constituent pas des produits CRUD distincts ni un indicateur d’étapes obligatoire.
 
-### 7.2 Detailed journey
+### 7.2 Parcours détaillé
 
-| # / moment | User intent and action | Nora responsibility | System/object and visible information | Authority / persistence | Success, empty/loading/error/recovery | Next |
+| N° / moment | Intention et action de l’utilisateur | Responsabilité de Nora | Système/objet et informations visibles | Autorité / persistance | Réussite, vide/chargement/erreur/récupération | Suite |
 |---|---|---|---|---|---|---|
-| 0 Enter/select/create | Find an existing project or describe a new intent | Offer concise orientation, not demand implementation fields first | Project list/recent project or creation intent; `Project`, LPS | Creating Project is user action; Project/LPS durable | Empty: create first project. Loading/read failure: retry, show non-technical diagnostic option. Not found: return to projects | Project orientation |
-| 1 Orient | Understand identity, objective, current state/cycle and next action | Summarize known state and uncertainty | Project title/objective; LPS summary; current Cycle status; last outcome; next recommended action | Read-only; durable facts labelled | No current cycle is legitimate. Stale/read error separates “unknown” from “none” | Converse |
-| 2 Express intention | State desired outcome in natural language | Listen, preserve project context, ask only useful questions | Conversation plus accessible project summary | Conversation process-local; disclose resume boundary on demand | Empty prompt; processing state; provider unavailable → retain draft/retry or manual qualification path | Clarify |
-| 3 Clarify/qualify | Answer questions and inspect what Nora understood | Distinguish facts, observations, hypotheses and gaps; resolve CKC internally | Qualification status and missing information; CycleInstance / live ContextSnapshot | Working result process-local; Cycle linkage durable | Incomplete/blocking gap identifies exact question and allows resume in session | Structured result |
-| 4 Qualification result | Review observations, options, recommendation and reserves | Present evidence/provenance proportionately; never imply decision | Proposal view: understanding, options, Recommendation, gaps/reserves | Recommendation only; Proposal process-local | Incomplete/stale → clarify/requalify; no option → explain blocking gap | Morris gate |
-| 5 Explicit decision gate | Approve, reject, approve with reserves, or request amendment | Explain consequences neutrally | Decision summary, selected option, reserves, scope and what follows | Explicit HumanDecision gate, normally N2 and N3 if structural/irreversible; AMEND is durable; no execution authority yet | Stale Proposal blocks decision. AMEND is recorded, but the subsequent clarification/requalification path must be wired rather than faked | Register decision or clarify |
-| 6 Decision registered | Verify what was decided | Acknowledge without acting beyond authority | Durable HumanDecision, DecisionBasis, actor/time/scope; visible “decision recorded” | Durable; Recommendation remains separately labelled | Write conflict/failure → no success state; retry/reload and show whether decision exists | Prepare contract |
-| 7 Prepare/review contract | Understand exactly what would run | Translate contract into purpose, scope, constraints, effects and reserves | ExecutionContract summary with expandable technical/provenance detail | Preparation follows valid decision; contract durable | Preparing; unresolved/fail-closed; stale/reprepare required; failure offers return to decision/context | Confirm execution |
-| 8 Execution authority gate | Confirm or cancel controlled execution | Re-state material effects and safety boundary | Human-readable contract, capability, expected output, non-effects | Distinct N2/N3 confirmation according to persistence/reversibility; no implicit confirmation | Stale/superseded contract blocks; cancel returns safely; confirmation failure is explicit | Start |
-| 9 Controlled start | Start confirmed execution | No claim of success before Attempt exists | StartExecution creates/starts Attempt through sole sequencer | Gate D/REAL not authorized here; future path uses current governed boundary | Preparing/blocked; duplicate start prevented; recovery reads existing Attempt rather than retrying blindly | Attempt status |
-| 10 Attempt feedback | Know whether work is queued/running/succeeded/failed/timed out | Explain status and safe next action | ExecutionAttempt status, started/ended time, concise progress | Attempt durable; technical journal remains internal diagnostic | Running refresh; failed/timed out show evidence if any and no automatic retry; blocked explains required authority | Evidence |
-| 11 Evidence/review | Inspect what actually happened | Separate raw evidence, completeness and review conclusion | Evidence list + ReviewBundle summary, completeness/integrity and expandable provenance | Durable | Absent legitimately while running; incomplete/rehydrate failure distinct; retry read, not execution | Nora analysis |
-| 12 Post-evidence analysis | Understand outcome | Analyze evidence, contradictions, debt and maturity within authority | Review conclusion, observations, unresolved gaps | Analysis may be derived; underlying Evidence/RB durable | Awaiting evidence; analysis unavailable; stale if linked outcome superseded | Recommendation |
-| 13 Recommendation/next gate | Decide what to do next | Recommend, state confidence and required human authority | Recommendation explicitly labelled; next gate/action | Never HumanDecision or consumed gate | Stale recommendation points to newer evidence; no recommendation is legitimate | Decision or close loop |
-| 14 LPS reflection | See project truth updated | Explain factual update vs structural choice | LPS current cycle/outcome and factual Evidence/RB refs | W1 factual system writer authority `none`; durable | Write/read failure does not rewrite history; retry factual reconciliation | Continue project |
-| 15 Reload/re-entry | Resume with honest continuity | Reconstruct from durable state and disclose lost working context | Project/LPS, HumanDecision, contract, Attempt, Evidence/RB and outcome return; conversation/Proposal may not | Durable vs process-local distinction visible at re-entry | If working context lost, offer “resume from last durable outcome” and requalification, never fabricate conversation | New conversation/current gate |
+| 0 Entrer/sélectionner/créer | Trouver un projet existant ou décrire une nouvelle intention | Proposer une orientation concise, ne pas exiger d’abord des champs d’implémentation | Liste des projets/projet récent ou intention de création ; `Project`, LPS | La création de Project est une action utilisateur ; Project/LPS durables | Vide : créer le premier projet. Échec de chargement/lecture : réessayer, proposer une option de diagnostic non technique. Introuvable : revenir aux projets | Orientation du projet |
+| 1 S’orienter | Comprendre l’identité, l’objectif, l’état/le cycle actuel et l’action suivante | Résumer l’état connu et l’incertitude | Titre/objectif du projet ; résumé LPS ; état du Cycle actuel ; dernier résultat ; prochaine action recommandée | Lecture seule ; faits durables signalés | L’absence de cycle actuel est légitime. Une erreur de péremption/lecture distingue « inconnu » de « aucun » | Converser |
+| 2 Exprimer l’intention | Énoncer le résultat souhaité en langage naturel | Écouter, préserver le contexte du projet, ne poser que des questions utiles | Conversation et résumé accessible du projet | Conversation locale au processus ; divulguer la limite de reprise à la demande | Invite vide ; état de traitement ; fournisseur indisponible → conserver le brouillon/réessayer ou chemin de qualification manuelle | Clarifier |
+| 3 Clarifier/qualifier | Répondre aux questions et examiner ce que Nora a compris | Distinguer faits, observations, hypothèses et écarts ; résoudre CKC en interne | État de qualification et informations manquantes ; CycleInstance / ContextSnapshot actif | Résultat de travail local au processus ; liaison Cycle durable | Un écart incomplet/bloquant identifie la question exacte et permet une reprise dans la session | Résultat structuré |
+| 4 Résultat de qualification | Examiner observations, options, Recommendation et réserves | Présenter preuve/provenance de manière proportionnée ; ne jamais laisser entendre une décision | Vue Proposal : compréhension, options, Recommendation, écarts/réserves | Recommendation uniquement ; Proposal locale au processus | Incomplète/périmée → clarifier/requalifier ; aucune option → expliquer l’écart bloquant | Validation Morris |
+| 5 Validation de décision explicite | Approuver, rejeter, approuver avec réserves ou demander un amendement | Expliquer les conséquences de façon neutre | Résumé de décision, option choisie, réserves, périmètre et suite | Validation HumanDecision explicite, normalement N2 et N3 si structurelle/irréversible ; AMEND est durable ; aucune autorité d’exécution encore | Une Proposal périmée bloque la décision. AMEND est enregistré, mais le chemin ultérieur de clarification/requalification doit être câblé plutôt que simulé | Consigner la décision ou clarifier |
+| 6 Décision consignée | Vérifier ce qui a été décidé | Accuser réception sans agir au-delà de l’autorité | HumanDecision durable, DecisionBasis, acteur/heure/périmètre ; « décision enregistrée » visible | Durable ; Recommendation reste étiquetée séparément | Conflit/échec d’écriture → aucun état de réussite ; réessayer/recharger et afficher si la décision existe | Préparer le contrat |
+| 7 Préparer/examiner le contrat | Comprendre exactement ce qui s’exécuterait | Traduire le contrat en objectif, périmètre, contraintes, effets et réserves | Résumé ExecutionContract avec détails techniques/de provenance dépliables | La préparation suit une décision valide ; contrat durable | Préparation ; non résolu/fermé par défaut ; périmé/nouvelle préparation requise ; l’échec permet le retour à la décision/au contexte | Confirmer l’exécution |
+| 8 Validation de l’autorité d’exécution | Confirmer ou annuler l’exécution contrôlée | Réénoncer les effets significatifs et la limite de sécurité | Contrat lisible, capacité, sortie attendue, non-effets | Confirmation N2/N3 distincte selon persistance/réversibilité ; aucune confirmation implicite | Un contrat périmé/remplacé bloque ; l’annulation revient sans danger ; l’échec de confirmation est explicite | Démarrer |
+| 9 Démarrage contrôlé | Démarrer l’exécution confirmée | Ne revendiquer aucune réussite avant l’existence d’une Attempt | StartExecution crée/démarre l’Attempt via l’unique séquenceur | Gate D/REAL non autorisés ici ; le futur chemin utilise la limite gouvernée actuelle | En préparation/bloqué ; démarrage dupliqué empêché ; la récupération lit l’Attempt existante plutôt que de réessayer aveuglément | État de l’Attempt |
+| 10 Retour sur l’Attempt | Savoir si le travail est en attente/en cours/réussi/échoué/expiré | Expliquer l’état et la prochaine action sûre | État ExecutionAttempt, heures de début/fin, progression concise | Attempt durable ; journal technique maintenu comme diagnostic interne | Actualiser si en cours ; en cas d’échec/expiration, afficher les preuves éventuelles et aucun nouvel essai automatique ; si bloqué, expliquer l’autorité requise | Preuve |
+| 11 Preuve/revue | Examiner ce qui s’est réellement produit | Séparer preuve brute, complétude et conclusion de revue | Liste Evidence + résumé ReviewBundle, complétude/intégrité et provenance dépliable | Durable | Absence légitime pendant l’exécution ; échec d’incomplétude/réhydratation distinct ; réessayer la lecture, pas l’exécution | Analyse de Nora |
+| 12 Analyse après preuve | Comprendre le résultat | Analyser les preuves, contradictions, dettes et maturité dans les limites de l’autorité | Conclusion de revue, observations, écarts non résolus | L’analyse peut être dérivée ; les Evidence/RB sous-jacents sont durables | En attente de preuve ; analyse indisponible ; périmée si le résultat lié a été remplacé | Recommendation |
+| 13 Recommendation/prochaine validation | Décider de la suite | Recommander, indiquer la confiance et l’autorité humaine requise | Recommendation explicitement étiquetée ; prochaine validation/action | Jamais une HumanDecision ni une validation consommée | Une Recommendation périmée pointe vers une preuve plus récente ; l’absence de Recommendation est légitime | Décision ou clôture de boucle |
+| 14 Répercussion LPS | Voir la réalité du projet mise à jour | Expliquer mise à jour factuelle et choix structurel | Cycle/résultat actuel du LPS et références Evidence/RB factuelles | Autorité `none` du rédacteur système factuel W1 ; durable | Un échec d’écriture/lecture ne réécrit pas l’historique ; réessayer la réconciliation factuelle | Continuer le projet |
+| 15 Rechargement/reprise | Reprendre avec une continuité honnête | Reconstruire depuis l’état durable et signaler le contexte de travail perdu | Project/LPS, HumanDecision, contrat, Attempt, Evidence/RB et résultat reviennent ; conversation/Proposal peuvent ne pas revenir | Distinction durable/local au processus visible à la reprise | Si le contexte de travail est perdu, proposer « reprendre depuis le dernier résultat durable » et requalifier, sans jamais fabriquer la conversation | Nouvelle conversation/validation actuelle |
 
-### 7.3 Journey-level rules
+### 7.3 Règles au niveau du parcours
 
-- A rejection ends or redirects the current proposal; it does not silently create a
-  new one.
-- AMEND is a durable HumanDecision; it returns to clarification and requires a newly
-  qualified Proposal rather than mutation of the decided Proposal.
-- Confirmation of a decision and confirmation of execution are distinct.
-- Status is derived from authoritative runtime facts; UI state cannot advance them.
-- Reload restores the latest durable outcome, not the exact process-local transcript.
-- No automatic retry follows failed/timed-out execution.
+- Un rejet termine ou redirige la proposition actuelle ; il n’en crée pas silencieusement une nouvelle.
+- AMEND est une HumanDecision durable ; il renvoie à la clarification et exige une Proposal nouvellement qualifiée plutôt que la mutation de la Proposal décidée.
+- La confirmation d’une décision et la confirmation d’une exécution sont distinctes.
+- L’état est dérivé des faits d’exécution faisant autorité ; l’état de l’interface ne peut pas les faire progresser.
+- Le rechargement restaure le dernier résultat durable, pas la transcription exacte locale au processus.
+- Aucun nouvel essai automatique ne suit une exécution échouée/arrivée à expiration.
 
-## 8. Functional information architecture candidate
+## 8. Candidat d’architecture fonctionnelle de l’information
 
-### 8.1 Top-level destinations
+### 8.1 Destinations de premier niveau
 
-1. **Projects** — select, create, reopen; recent status and next action.
-2. **Current project** — the primary product destination.
-3. **Project history** — contextual timeline of decisions, execution outcomes,
-   evidence/reviews and cycle transitions; accessed from the current project.
-4. **Diagnostics** — optional, progressively disclosed support detail; not primary
-   navigation and not an M1→M5 domain-object browser.
+1. **Projets** — sélectionner, créer, rouvrir ; état récent et action suivante.
+2. **Projet actuel** — destination principale du produit.
+3. **Historique du projet** — chronologie contextuelle des décisions, résultats d’exécution, preuves/revues et transitions de cycle ; accessible depuis le projet actuel.
+4. **Diagnostics** — détails d’assistance facultatifs, divulgués progressivement ; pas une navigation principale ni un explorateur d’objets de domaine M1→M5.
 
-No separate global pages are required for Proposal, HumanDecision, ExecutionContract,
-ExecutionAttempt, Evidence, ReviewBundle or Recommendation.
+Aucune page globale distincte n’est requise pour Proposal, HumanDecision, ExecutionContract, ExecutionAttempt, Evidence, ReviewBundle ou Recommendation.
 
-### 8.2 Current-project hierarchy
+### 8.2 Hiérarchie du projet actuel
 
-Default:
+Par défaut :
 
-- project identity, objective and concise current-state summary;
-- current cycle/status and last durable outcome;
-- next useful action / human gate;
-- dominant Nora conversation;
-- contextual structured result when one is active.
+- identité, objectif et résumé concis de l’état actuel du projet ;
+- cycle/état actuel et dernier résultat durable ;
+- prochaine action utile / validation humaine ;
+- conversation dominante avec Nora ;
+- résultat structuré contextuel lorsqu’il est actif.
 
-On demand:
+À la demande :
 
-- full LPS detail and trajectory/history;
-- decision basis and provenance;
-- complete contract and technical constraints;
-- Attempt timing/status detail;
-- Evidence and ReviewBundle detail/integrity;
-- runtime diagnostics and internal IDs.
+- détail complet du LPS et trajectoire/historique ;
+- fondement de décision et provenance ;
+- contrat complet et contraintes techniques ;
+- détails d’horodatage/d’état de l’Attempt ;
+- détails/intégrité de Evidence et ReviewBundle ;
+- diagnostics d’exécution et identifiants internes.
 
-### 8.3 Conversation and structured state
+### 8.3 Conversation et état structuré
 
-Conversation is the continuous surface. Structured cards are not chat messages
-pretending to be prose: they are typed views linked into the conversation at the
-moment they matter and retained in history after the moment passes.
+La Conversation est la surface continue. Les cartes structurées ne sont pas des messages de conversation se faisant passer pour de la prose : ce sont des vues typées liées à la conversation au moment pertinent et conservées dans l’historique une fois ce moment passé.
 
-The living-state summary does not mirror every domain object. It answers:
+Le résumé de l’état vivant ne reproduit pas chaque objet de domaine. Il répond à :
 
-- current objective and status;
-- current cycle and active concern;
-- last decision and execution outcome;
-- evidence/review availability;
-- open gaps/debt;
-- next recommended gate.
+- l’objectif et l’état actuels ;
+- le cycle actuel et la préoccupation active ;
+- la dernière décision et le résultat d’exécution ;
+- la disponibilité des preuves/revues ;
+- les écarts/dettes ouverts ;
+- la prochaine validation recommandée.
 
-### 8.4 Project vs Cycle
+### 8.4 Project et Cycle
 
-Project is the durable container and user destination. CycleInstance is a bounded
-episode within it. The current cycle is displayed as project context; cycle history
-is accessed through project history. Creating a project does not imply starting an
-execution cycle, and closing a cycle does not close the project.
+Project est le conteneur durable et la destination utilisateur. CycleInstance est un épisode circonscrit en son sein. Le cycle actuel est affiché comme contexte du projet ; l’historique des cycles est accessible via l’historique du projet. Créer un projet n’implique pas de démarrer un cycle d’exécution, et fermer un cycle ne ferme pas le projet.
 
-### 8.5 Functional transitions
+### 8.5 Transitions fonctionnelles
 
-- Projects → current project.
-- Current project conversation → qualification result.
-- Qualification result → HumanDecision gate.
-- Decision → contract review.
-- Contract review → execution authority gate.
-- Authority gate → Attempt status.
+- Projets → projet actuel.
+- Conversation du projet actuel → résultat de qualification.
+- Résultat de qualification → validation HumanDecision.
+- Décision → examen du contrat.
+- Examen du contrat → validation de l’autorité d’exécution.
+- Validation de l’autorité → état de l’Attempt.
 - Attempt → Evidence/ReviewBundle.
-- Evidence review → Nora Recommendation.
-- Recommendation → a new explicit decision or continued conversation.
-- Any durable event → project history and factual LPS projection.
+- Revue des preuves → Recommendation de Nora.
+- Recommendation → nouvelle décision explicite ou poursuite de la conversation.
+- Tout événement durable → historique du projet et projection LPS factuelle.
 
-## 9. Functional state model
+## 9. Modèle d’état fonctionnel
 
-Legend: **NOW** = directly supported; **DERIVED** = UI-only derivation from current
-facts; **GAP** = runtime/application work needed; **FUTURE** = outside Pre-M6.
+Légende : **NOW** = directement pris en charge ; **DERIVED** = dérivation propre à l’interface à partir des faits actuels ; **GAP** = travail d’exécution/applicatif requis ; **FUTURE** = hors pré-M6.
 
-| Area | State | Support | UX representation / constraint |
+| Domaine | État | Prise en charge | Représentation / contrainte UX |
 |---|---|---|---|
-| Project | no project | DERIVED | Projects empty state with create/describe-intent action |
-| Project | loading / available / not found / read failure | NOW | Distinct skeleton, project view, recovery to Projects, retry |
-| Conversation | idle / composing / Nora processing | NOW | Preserve draft; one active send |
-| Conversation | clarification required | NOW/DERIVED | Nora question plus visible unresolved item |
-| Conversation | loss after process restart | NOW boundary | Re-entry notice + resume from durable outcome |
-| Qualification | not started / in progress / complete | NOW/DERIVED | Status inferred from assistant/F2 result |
-| Qualification | incomplete/blocking gap | NOW/DERIVED | Gap and required input; no false completion |
-| Qualification | stale/requalification needed | DERIVED; some validation NOW | Block decision/prepare when basis no longer current |
-| Decision | recommendation only / decision required | NOW | Explicit labels and actions |
-| Decision | accepted / rejected / with reserves | NOW | Durable outcome, separate from Recommendation |
-| Decision | amendment requested | NOW as durable `amended` decision; GAP for subsequent clarification/requalification wiring | Show recorded amendment, then route to a newly qualified Proposal |
-| Decision | unavailable/stale | NOW/DERIVED | Fail closed; requalify/reload |
-| Contract | preparing / ready for review | NOW | Progress then human-readable contract |
-| Contract | unresolved/fail-closed | NOW | Required gap and no confirm action |
-| Contract | confirmed | NOW | Confirmation fact distinct from Attempt |
-| Contract | stale/reprepare required | NOW | Reprepare from current durable decision |
-| Attempt | accepted / running / result pending / succeeded / failed / timeout / cancelled | NOW | Authoritative durable lifecycle; no optimistic success or auto-retry |
-| Attempt | not started / preparing / blocked | DERIVED pre-Attempt UX states | Must not be stored or presented as an existing Attempt |
-| Evidence/RB | absent legitimately / loading / available | NOW/DERIVED | Distinguish pre-completion absence from read failure |
-| Evidence/RB | incomplete | NOW | Completeness/readiness explanation |
-| Evidence/RB | failed to rehydrate | NOW | Retry read; diagnostic detail on demand |
-| Nora outcome | awaiting evidence / analysis available / recommendation available | NOW/DERIVED | Recommendation clearly typed |
-| Nora outcome | recommendation stale | DERIVED; freshness rule needs explicit wiring | Link to superseding outcome |
-| Nora outcome | human decision required | NOW/DERIVED | Explicit gate, never auto-consumed |
-| Multi-user permissions/admin | all | FUTURE | Outside this candidate |
+| Project | aucun projet | DERIVED | État vide Projets avec action créer/décrire l’intention |
+| Project | chargement / disponible / introuvable / échec de lecture | NOW | Squelette distinct, vue projet, récupération vers Projets, nouvel essai |
+| Conversation | inactive / saisie / traitement par Nora | NOW | Préserver le brouillon ; un envoi actif |
+| Conversation | clarification requise | NOW/DERIVED | Question de Nora et élément non résolu visible |
+| Conversation | perte après redémarrage du processus | Limite NOW | Notice de reprise + reprise depuis le résultat durable |
+| Qualification | non démarrée / en cours / terminée | NOW/DERIVED | État déduit du résultat assistant/F2 |
+| Qualification | écart incomplet/bloquant | NOW/DERIVED | Écart et donnée requise ; aucune fausse complétude |
+| Qualification | périmée/requalification requise | DERIVED ; certaines validations NOW | Bloquer décision/préparation lorsque le fondement n’est plus actuel |
+| Décision | Recommendation uniquement / décision requise | NOW | Libellés et actions explicites |
+| Décision | acceptée / rejetée / avec réserves | NOW | Résultat durable, distinct de Recommendation |
+| Décision | amendement demandé | NOW comme décision durable `amended` ; GAP pour le câblage ultérieur de clarification/requalification | Afficher l’amendement enregistré, puis diriger vers une Proposal nouvellement qualifiée |
+| Décision | indisponible/périmée | NOW/DERIVED | Fermé par défaut ; requalifier/recharger |
+| Contrat | en préparation / prêt pour examen | NOW | Progression puis contrat lisible |
+| Contrat | non résolu/fermé par défaut | NOW | Écart requis et aucune action de confirmation |
+| Contrat | confirmé | NOW | Fait de confirmation distinct de l’Attempt |
+| Contrat | périmé/nouvelle préparation requise | NOW | Repréparer depuis la décision durable actuelle |
+| Attempt | acceptée / en cours / résultat en attente / réussie / échouée / timeout / annulée | NOW | Cycle de vie durable faisant autorité ; aucune réussite optimiste ni nouvel essai automatique |
+| Attempt | non démarrée / en préparation / bloquée | États UX DERIVED pré-Attempt | Ne doit pas être stockée ni présentée comme une Attempt existante |
+| Evidence/RB | légitimement absent / chargement / disponible | NOW/DERIVED | Distinguer l’absence avant achèvement de l’échec de lecture |
+| Evidence/RB | incomplet | NOW | Explication de complétude/préparation |
+| Evidence/RB | échec de réhydratation | NOW | Réessayer la lecture ; détails de diagnostic à la demande |
+| Résultat Nora | attente de preuve / analyse disponible / Recommendation disponible | NOW/DERIVED | Recommendation clairement typée |
+| Résultat Nora | Recommendation périmée | DERIVED ; la règle d’actualité nécessite un câblage explicite | Lier au résultat qui la remplace |
+| Résultat Nora | décision humaine requise | NOW/DERIVED | Validation explicite, jamais consommée automatiquement |
+| Permissions/administration multi-utilisateur | tous | FUTURE | Hors de ce candidat |
 
-## 10. Runtime ↔ UX contract map
+## 10. Cartographie du contrat exécution ↔ UX
 
-| Journey stage | Current UI | Action/use case | Domain object | Persistence | Current proof | UX requirement | Gap |
+| Étape du parcours | Interface actuelle | Action/cas d’utilisation | Objet de domaine | Persistance | Preuve actuelle | Exigence UX | Écart |
 |---|---|---|---|---|---|---|---|
-| Create/open | `/studio/projects/new`, `/studio/projects/[id]` | vertical-slice create/get project actions; project use cases | Project, LPS | Product SQLite | project restart/UI tests | Projects entry and non-technical orientation | IA + wiring |
-| Converse/qualify | `ProjectAssistantPanel` | `projectAssistantSendAction`; F1/F2 orchestration; qualify cycle | Conversation, ContextSnapshot, Proposal, CycleInstance | conversation/Proposal local; cycle linkage durable | assistant/F2 tests | conversation dominant; clarify gaps | Presentation |
-| Decide | assistant proposal card | `projectAssistantDecideAction`; decision use cases | HumanDecision, DecisionBasis | durable | F2/decision tests | explicit consequences, reject/reserves | Presentation; amendment GAP |
-| Prepare contract | assistant F3 cards | `projectAssistantPrepareM3Action`, fixture prepare; validate/prepare/supersede | ExecutionContract | durable M3 path | prepare/restart tests | human-readable review, stale/fail-closed | Blocking application integration: durable contract cannot continue to start |
-| Confirm/start | assistant execution card | `projectAssistantConfirmAndExecuteF3FixtureAction`; confirmation + StartExecution | fixture contract, confirmation, AgentCapability, Attempt | Proposal/fixture input local; Attempt durable | fixture vertical slice and M4 governance tests | separate authority gate and lifecycle | Blocking application integration; fixture is not critical product proof |
-| Observe Attempt | assistant output | get/start Attempt use cases | ExecutionAttempt | Product SQLite | M5 Attempt durability/restart tests | status and safe recovery | IA/presentation |
-| Evidence/review | assistant durable outcome | evidence collection/review and `projectAssistantRehydrateEvidenceOutcomeAction` | Evidence, ReviewBundle | Product SQLite | M5 evidence/review durability + remount | stable history and legible completeness | IA/wiring |
-| Nora outcome | assistant durable outcome | RecommendNextGate/readback | Recommendation over ReviewBundle | underlying RB durable; recommendation presentation derived/read back | M5 rehydrate tests | explicit Recommendation freshness/authority | Presentation/wiring |
-| LPS reflection | workspace projection | W1 factual append writer | LPS refs | Product SQLite | W1 append and restart proof | user-meaningful latest outcome, not IDs | Presentation |
+| Créer/ouvrir | `/studio/projects/new`, `/studio/projects/[id]` | actions de création/lecture du projet de tranche verticale ; cas d’utilisation projet | Project, LPS | Product SQLite | tests de redémarrage/interface du projet | Entrée Projets et orientation non technique | IA + câblage |
+| Converser/qualifier | `ProjectAssistantPanel` | `projectAssistantSendAction` ; orchestration F1/F2 ; qualifier le cycle | Conversation, ContextSnapshot, Proposal, CycleInstance | Conversation/Proposal locales ; liaison du cycle durable | tests assistant/F2 | conversation dominante ; clarifier les écarts | Présentation |
+| Décider | carte de proposition de l’assistant | `projectAssistantDecideAction` ; cas d’utilisation de décision | HumanDecision, DecisionBasis | durable | tests F2/décision | conséquences explicites, rejet/réserves | Présentation ; GAP d’amendement |
+| Préparer le contrat | cartes F3 de l’assistant | `projectAssistantPrepareM3Action`, préparation de fixture ; valider/préparer/remplacer | ExecutionContract | chemin M3 durable | tests de préparation/redémarrage | examen lisible, périmé/fermé par défaut | Intégration applicative bloquante : le contrat durable ne peut pas continuer jusqu’au démarrage |
+| Confirmer/démarrer | carte d’exécution de l’assistant | `projectAssistantConfirmAndExecuteF3FixtureAction` ; confirmation + StartExecution | contrat de fixture, confirmation, AgentCapability, Attempt | entrée Proposal/fixture locale ; Attempt durable | tranche verticale de fixture et tests de gouvernance M4 | validation d’autorité et cycle de vie distincts | Intégration applicative bloquante ; la fixture n’est pas une preuve produit critique |
+| Observer l’Attempt | sortie de l’assistant | cas d’utilisation de lecture/démarrage d’Attempt | ExecutionAttempt | Product SQLite | tests M5 de durabilité/redémarrage de l’Attempt | état et récupération sûre | IA/présentation |
+| Preuve/revue | résultat durable de l’assistant | collecte/revue de preuves et `projectAssistantRehydrateEvidenceOutcomeAction` | Evidence, ReviewBundle | Product SQLite | durabilité des preuves/revues M5 + remontage | historique stable et complétude lisible | IA/câblage |
+| Résultat Nora | résultat durable de l’assistant | RecommendNextGate/relecture | Recommendation sur ReviewBundle | RB sous-jacent durable ; présentation de la Recommendation dérivée/relue | tests de réhydratation M5 | actualité/autorité explicite de Recommendation | Présentation/câblage |
+| Répercussion LPS | projection de l’espace de travail | rédacteur d’ajout factuel W1 | Références LPS | Product SQLite | preuve d’ajout W1 et de redémarrage | dernier résultat compréhensible par l’utilisateur, pas des identifiants | Présentation |
 
-## 11. Process-local vs durable — UX implication
+## 11. Local au processus ou durable — conséquence UX
 
-| Working object | Observation | First-test implication | Recommendation | Decision required |
+| Objet de travail | Observation | Conséquence pour le premier test | Recommendation | Décision requise |
 |---|---|---|---|---|
-| Conversation | Process-local history drives current assistant request | Continuous-session UAT works; server restart loses transcript | Accept for first proof; preserve draft client-side only if already available; re-enter from durable outcome | Morris confirms accepted limitation |
-| Proposal | Process-local structured qualification result | Losing an unconsumed proposal is inconvenient but not authority-breaking | Requalify after restart; never reconstruct and consume a guessed proposal | Morris confirms accepted limitation |
-| Confirmation | Working confirmation may be process-local before durable downstream Attempt | Loss before start is safe; ambiguity after start would be authority-breaking | On re-entry, resolve from durable contract/Attempt and fail closed | No new persistence decision now; runtime gap only if ambiguity is proven |
-| Trajectory/epistemic subsets | Not all observations/hypotheses/claims/maturity are product-durable | Detailed reasoning may not resume tomorrow | Show only durable facts as durable; label working analysis; defer expansion | Future Morris qualification |
-| HumanDecision/contract | Durable | Authority can survive restart | Treat as recovery anchors | No |
-| Attempt/Evidence/RB/LPS refs | Durable and restart-proven | Outcome remains visible after reload | Use as canonical re-entry anchor | No |
+| Conversation | L’historique local au processus alimente la requête actuelle de l’assistant | L’UAT en session continue fonctionne ; le redémarrage du serveur perd la transcription | Accepter pour la première preuve ; préserver le brouillon côté client uniquement si déjà disponible ; reprendre depuis le résultat durable | Morris confirme la limite acceptée |
+| Proposal | Résultat de qualification structuré local au processus | Perdre une proposition non consommée est gênant, mais ne rompt pas l’autorité | Requalifier après redémarrage ; ne jamais reconstruire et consommer une proposition supposée | Morris confirme la limite acceptée |
+| Confirmation | La confirmation de travail peut être locale au processus avant l’Attempt durable en aval | La perte avant démarrage est sûre ; l’ambiguïté après démarrage romprait l’autorité | À la reprise, résoudre depuis le contrat/l’Attempt durable et fermer par défaut | Aucune nouvelle décision de persistance maintenant ; écart d’exécution uniquement si l’ambiguïté est prouvée |
+| Sous-ensembles de trajectoire/épistémiques | Les observations/hypothèses/affirmations/maturité ne sont pas toutes durables dans le produit | Le raisonnement détaillé peut ne pas reprendre demain | N’afficher comme durables que les faits durables ; étiqueter l’analyse de travail ; reporter l’extension | Qualification Morris future |
+| HumanDecision/contrat | Durable | L’autorité peut survivre au redémarrage | Les traiter comme points d’ancrage de récupération | Non |
+| Attempt/Evidence/RB/références LPS | Durables et éprouvés au redémarrage | Le résultat reste visible après rechargement | Les utiliser comme point d’ancrage canonique de reprise | Non |
 
-**Recommendation:** do not make broader persistence a prerequisite to the first
-Pre-M6 usability proof. The proof must include a restart/re-entry scenario that
-demonstrates honest loss handling and durable outcome recovery. Any new persistence
-selection requires a distinct Morris decision.
+**Recommendation :** ne pas faire d’une persistance plus large un prérequis à la première preuve d’utilisabilité pré-M6. La preuve doit inclure un scénario de redémarrage/reprise démontrant une gestion honnête de la perte et la récupération du résultat durable. Toute nouvelle sélection de persistance exige une décision Morris distincte.
 
-## 12. Gap register
+## 12. Registre des écarts
 
-| ID / class | Evidence and user impact | Blocks functional proof / Figma | Simplest candidate treatment | Runtime/architecture risk | Owner / timing |
+| ID / classe | Preuve et impact utilisateur | Bloque la preuve fonctionnelle / Figma | Traitement candidat le plus simple | Risque d’exécution/architecture | Responsable / échéance |
 |---|---|---|---|---|---|
-| G-UX-01 UX INFORMATION ARCHITECTURE GAP | No `/studio` project entry; three competing starts | Yes / Yes | Add canonical Projects destination and redirect policy in future Delivery | Low if OA queries reused | Morris adopts IA; Delivery |
-| G-UX-02 HISTORICAL UI DEBT | P0, D1, OA and OPS1 appear as peer navigation | Yes / Yes | Hide legacy paths from canonical nav; do not delete | Low | Morris disposition; Delivery |
-| G-UX-03 UX PRESENTATION GAP | OA workspace exposes CKC refs, IDs, Product SQLite and runtime flags | Yes / Yes | Progressive diagnostics; user-language summary by default | Low | UX/Figma |
-| G-UX-04 UX PRESENTATION GAP | Conversation, Proposal, contract, Attempt and evidence compete inside one long panel | Yes / Yes | Contextual structured surfaces linked to dominant conversation | Low | UX/Figma |
-| G-UX-05 APPLICATION WIRING GAP | D1 intent-first behavior is not wired to OA M1→M5 | Yes / No | Recreate behavior over existing OA actions; do not bridge stores | **Parallel risk if D1 state reused** | Delivery qualification |
-| G-UX-06 APPLICATION WIRING GAP | No stable project history destination for decisions/outcomes/evidence | Yes / Yes | Read existing durable objects through current ports and project refs | Medium; avoid duplicate timeline store | Delivery qualification |
-| G-UX-07 UX PRESENTATION GAP | Stale “local/read-only/not ready” disclosures contradict current capability | Yes / Yes | Replace with concise capability/authority language and diagnostics | Low | Delivery |
-| G-UX-08 APPLICATION WIRING GAP | AMEND is durably recorded, but no complete subsequent clarification/requalification flow is established | No for a GO-only first path / Yes for amendment scenario | Return from durable amendment to conversation and produce a new qualified Proposal using existing decision semantics | Medium if UI mutates old Proposal or invents authority | Before complete functional proof |
-| G-UX-09 DURABILITY GAP | Conversation/Proposal not resumable after server restart | No for bounded continuous-session proof / No | Honest re-entry + requalification from durable anchor | High if ad-hoc persistence added | Morris accepts/defer |
-| G-UX-10 APPLICATION WIRING GAP | Recommendation freshness/supersession not consistently user-visible | No / Yes | Derive stale state from linked latest durable outcome; qualify wiring | Medium | Before UI Delivery proof |
-| G-UX-11 EVIDENCE GAP | Current E2E proves P0, D1 and OPS1 slices; no Playwright path covers `/studio/projects/*` or one canonical browser journey | Yes after Delivery / No | Future proof contract in §16 | Low | Delivery exit |
-| G-UX-12 GOVERNANCE GAP | Material UI dispositions and legacy retirement unconsumed | No / No | Decision pack; retirement remains later | Low | Morris |
-| G-UX-13 UX PRESENTATION GAP | Missing canonical loading/empty/error/recovery across aggregate journey | Yes / Yes | Use state model §9 as Figma/Delivery input | Low | Figma/Delivery |
-| G-UX-14 NON-BLOCKING FUTURE ENHANCEMENT | Multi-user/IAM/admin architecture absent | No / No | Keep out of Pre-M6 | High if pulled early | M6/later |
-| G-UX-15 APPLICATION WIRING GAP — BLOCKING | Durable M3 contract is intentionally non-executable (`UNRESOLVED_TARGET`, unresolved capability/reversibility, PREPARE-only, no Attempt); only the process-local Proposal + fixture PREPARE path reaches assistant execution/M5 outcomes | **Yes / Yes** | Distinct qualification to resolve target/capability/reversibility, create or supersede with a valid executable contract, then use existing confirmation + StartExecution/Attempt boundary; never execute or mutate the unresolved contract | **High**; bypassing stops, fixture-as-product proof or a parallel sequencer would violate doctrine | Morris / before UI Delivery |
+| G-UX-01 UX INFORMATION ARCHITECTURE GAP | Aucune entrée projet `/studio` ; trois démarrages concurrents | Oui / Oui | Ajouter une destination Projets canonique et une politique de redirection dans une future Delivery | Faible si les requêtes OA sont réutilisées | Morris adopte l’IA ; Delivery |
+| G-UX-02 HISTORICAL UI DEBT | P0, D1, OA et OPS1 apparaissent comme navigation de même niveau | Oui / Oui | Masquer les chemins historiques de la navigation canonique ; ne pas supprimer | Faible | Disposition Morris ; Delivery |
+| G-UX-03 UX PRESENTATION GAP | L’espace de travail OA expose références CKC, identifiants, Product SQLite et indicateurs d’exécution | Oui / Oui | Diagnostics progressifs ; résumé en langage utilisateur par défaut | Faible | UX/Figma |
+| G-UX-04 UX PRESENTATION GAP | Conversation, Proposal, contrat, Attempt et preuve se concurrencent dans un long panneau unique | Oui / Oui | Surfaces structurées contextuelles liées à la conversation dominante | Faible | UX/Figma |
+| G-UX-05 APPLICATION WIRING GAP | Le comportement D1 centré sur l’intention n’est pas câblé à OA M1→M5 | Oui / Non | Recréer le comportement sur les actions OA existantes ; ne pas relier les stockages | **Risque parallèle si l’état D1 est réutilisé** | Qualification Delivery |
+| G-UX-06 APPLICATION WIRING GAP | Aucune destination stable d’historique du projet pour décisions/résultats/preuves | Oui / Oui | Lire les objets durables existants via les ports actuels et les références du projet | Moyen ; éviter un stockage de chronologie dupliqué | Qualification Delivery |
+| G-UX-07 UX PRESENTATION GAP | Les divulgations obsolètes « local/read-only/not ready » contredisent la capacité actuelle | Oui / Oui | Remplacer par un langage concis de capacité/autorité et des diagnostics | Faible | Delivery |
+| G-UX-08 APPLICATION WIRING GAP | AMEND est consigné durablement, mais aucun flux ultérieur complet de clarification/requalification n’est établi | Non pour un premier chemin uniquement GO / Oui pour le scénario d’amendement | Revenir de l’amendement durable à la conversation et produire une nouvelle Proposal qualifiée avec la sémantique de décision existante | Moyen si l’interface modifie l’ancienne Proposal ou invente une autorité | Avant la preuve fonctionnelle complète |
+| G-UX-09 DURABILITY GAP | Conversation/Proposal non reprenables après redémarrage du serveur | Non pour une preuve circonscrite en session continue / Non | Reprise honnête + requalification depuis le point d’ancrage durable | Élevé si une persistance ad hoc est ajoutée | Morris accepte/reporte |
+| G-UX-10 APPLICATION WIRING GAP | L’actualité/le remplacement de Recommendation n’est pas toujours visible par l’utilisateur | Non / Oui | Dériver l’état périmé du dernier résultat durable lié ; qualifier le câblage | Moyen | Avant la preuve UI Delivery |
+| G-UX-11 EVIDENCE GAP | L’E2E actuel prouve les tranches P0, D1 et OPS1 ; aucun chemin Playwright ne couvre `/studio/projects/*` ni un parcours navigateur canonique unique | Oui après Delivery / Non | Futur contrat de preuve au §16 | Faible | Sortie de Delivery |
+| G-UX-12 GOVERNANCE GAP | Dispositions significatives de l’interface et retrait historique non consommés | Non / Non | Dossier de décision ; retrait maintenu à plus tard | Faible | Morris |
+| G-UX-13 UX PRESENTATION GAP | Chargement/vide/erreur/récupération canoniques manquants sur le parcours agrégé | Oui / Oui | Utiliser le modèle d’état §9 comme entrée Figma/Delivery | Faible | Figma/Delivery |
+| G-UX-14 NON-BLOCKING FUTURE ENHANCEMENT | Architecture multi-utilisateur/IAM/administration absente | Non / Non | Maintenir hors pré-M6 | Élevé si anticipé | M6/ultérieur |
+| G-UX-15 APPLICATION WIRING GAP — BLOCKING | Le contrat M3 durable est intentionnellement non exécutable (`UNRESOLVED_TARGET`, capacité/réversibilité non résolues, uniquement PREPARE, aucune Attempt) ; seul le chemin Proposal locale au processus + fixture PREPARE atteint l’exécution de l’assistant/les résultats M5 | **Oui / Oui** | Qualification distincte pour résoudre cible/capacité/réversibilité, créer un contrat exécutable valide ou remplacer le contrat par celui-ci, puis utiliser la confirmation existante + la limite StartExecution/Attempt ; ne jamais exécuter ni modifier le contrat non résolu | **Élevé** ; contourner les arrêts, considérer la fixture comme preuve produit ou créer un séquenceur parallèle violerait la doctrine | Morris / avant UI Delivery |
 
-**PRE-M6 RUNTIME-TO-APPLICATION GAP — REQUIRES DISTINCT QUALIFICATION BEFORE UI
-DELIVERY.** G-UX-15 blocks a critical-path M1→M5 product proof. The relevant domain
-capabilities exist and are proven separately, so the current classification is
-APPLICATION WIRING GAP rather than a request for a new business engine. The
-qualification must prove that the unresolved durable M3 contract is preserved for
-audit, its basis is used to produce/supersede with a resolved executable contract, and
-only that valid contract enters confirmation and the existing StartExecution/Attempt
-boundary. It must not bypass fail-closed stops, fall back to fixture authority,
-duplicate lifecycle state, or consume Gate D/REAL.
+**ÉCART PRÉ-M6 ENTRE L’EXÉCUTION ET L’APPLICATION — EXIGE UNE QUALIFICATION DISTINCTE AVANT UI DELIVERY.** G-UX-15 bloque une preuve produit M1→M5 du chemin critique. Les capacités de domaine pertinentes existent et sont prouvées séparément ; la classification actuelle est donc APPLICATION WIRING GAP plutôt qu’une demande de nouveau moteur métier. La qualification doit prouver que le contrat M3 durable non résolu est préservé pour audit, que son fondement sert à produire un contrat exécutable résolu ou à le remplacer par celui-ci, et que seul ce contrat valide entre dans la confirmation et la limite StartExecution/Attempt existante. Elle ne doit ni contourner les arrêts fermés par défaut, ni se rabattre sur l’autorité de la fixture, ni dupliquer l’état du cycle de vie, ni consommer Gate D/REAL.
 
-## 13. Existing asset disposition summary
+## 13. Résumé de la disposition des actifs existants
 
-Candidate only:
+Candidat uniquement :
 
-- **KEEP:** OA Native Backbone; Product SQLite; current domain ports/use cases;
-  Project, LPS, CycleInstance, HumanDecision, ExecutionContract, ExecutionAttempt,
-  Evidence and ReviewBundle models; factual LPS writer; Nora durable readback;
-  StartExecution authority boundary; tested UI primitives subject to visual review.
-- **ADAPT:** `/studio/projects/new`; `/studio/projects/[id]`; `StudioShell`;
-  runtime loaders/actions; accessible status/decision/evidence primitives.
-- **COMPLETE:** `/studio` project entry, canonical navigation, project history,
-  aggregate loading/error/recovery and re-entry.
-- **HARVEST:** D1 intent-first conversation behavior and orientation grouping;
-  P0 authority language and selected component behavior. This does not harvest D1
-  stores, P0 fixture lifecycle, or current visual design as baseline.
-- **REPLACE:** technical/object-centric OA workspace presentation; current mixed
-  navigation taxonomy; `/` destination. Replacement is not authorized by this document.
-- **FREEZE:** P0 fixture screens and OPS1 legacy path; no new canonical capability.
-- **RETIRE LATER:** duplicated D1/P0/OPS1 routes only after canonical replacement proof
-  and explicit Morris decision. No retirement is consumed now.
+- **KEEP :** OA Native Backbone ; Product SQLite ; ports/cas d’utilisation de domaine actuels ; modèles Project, LPS, CycleInstance, HumanDecision, ExecutionContract, ExecutionAttempt, Evidence et ReviewBundle ; rédacteur LPS factuel ; relecture durable de Nora ; limite d’autorité StartExecution ; primitives d’interface testées sous réserve de revue visuelle.
+- **ADAPT :** `/studio/projects/new` ; `/studio/projects/[id]` ; `StudioShell` ; chargeurs/actions d’exécution ; primitives accessibles d’état/décision/preuve.
+- **COMPLETE :** entrée projet `/studio`, navigation canonique, historique du projet, chargement/erreur/récupération agrégés et reprise.
+- **HARVEST :** comportement de conversation D1 centré sur l’intention et regroupement d’orientation ; langage d’autorité P0 et comportement de composants sélectionnés. Cela ne récupère ni les stockages D1, ni le cycle de vie de fixture P0, ni la conception visuelle actuelle comme référentiel.
+- **REPLACE :** présentation technique/centrée sur les objets de l’espace de travail OA ; taxonomie de navigation mixte actuelle ; destination `/`. Le remplacement n’est pas autorisé par ce document.
+- **FREEZE :** écrans de fixture P0 et chemin historique OPS1 ; aucune nouvelle capacité canonique.
+- **RETIRE LATER :** routes D1/P0/OPS1 dupliquées uniquement après preuve de remplacement canonique et décision explicite de Morris. Aucun retrait n’est consommé maintenant.
 
-Runtime/domain/application assets remain KEEP by default. No evidence found requires
-a parallel architecture or runtime rewrite.
+Les actifs d’exécution/de domaine/applicatifs restent KEEP par défaut. Aucune preuve trouvée n’exige une architecture parallèle ni une réécriture de l’exécution.
 
-## 14. Anti-parallel-architecture check
+## 14. Vérification d’absence d’architecture parallèle
 
-**PASS — candidate can sit over the existing backbone.**
+**PASS — le candidat peut s’appuyer sur l’ossature existante.**
 
-Required implementation principle:
+Principe d’implémentation requis :
 
-- UI reads/writes through existing OA application actions and ports.
-- Project state remains LPS/Product SQLite, not React/D1/local duplicate state.
-- HumanDecision remains the sole durable decision model.
-- StartExecution remains the sole execution authority sequencer.
-- Attempt/Evidence/ReviewBundle remain existing lifecycle objects.
-- Project history is a projection/query, not a new independent event store.
-- Conversation UI may hold ephemeral view state but cannot become business authority.
-- D1 and P0 behavior may be recreated over OA; their stores/lifecycles are not bridged
-  into a new “UX engine”.
+- L’interface lit/écrit via les actions et ports applicatifs OA existants.
+- L’état du projet reste LPS/Product SQLite, pas un état React/D1/local dupliqué.
+- HumanDecision reste l’unique modèle de décision durable.
+- StartExecution reste l’unique séquenceur d’autorité d’exécution.
+- Attempt/Evidence/ReviewBundle restent les objets de cycle de vie existants.
+- L’historique du projet est une projection/requête, pas un nouveau stockage d’événements indépendant.
+- L’interface de Conversation peut contenir un état de vue éphémère, mais ne peut devenir une autorité métier.
+- Le comportement D1 et P0 peut être recréé sur OA ; leurs stockages/cycles de vie ne sont pas reliés dans un nouveau « moteur UX ».
 
-If future design requires a UI-specific business engine, duplicate LPS, parallel
-persistence, duplicate decision/attempt lifecycle or duplicate Evidence/Review model,
-the recommendation stops with:
+Si une future conception exige un moteur métier propre à l’interface, un LPS dupliqué, une persistance parallèle, un cycle de vie de décision/Attempt dupliqué ou un modèle Evidence/Review dupliqué, la recommandation s’arrête avec :
 
 **PARALLEL ARCHITECTURE RISK — MORRIS GATE REQUIRED.**
 
-## 15. Future Figma input contract
+## 15. Futur contrat d’entrée Figma
 
-Status: **FIGMA INPUT CANDIDATE** — not Figma authorization or visual contract.
+Statut : **FIGMA INPUT CANDIDATE** — ni autorisation Figma ni contrat visuel.
 
-| Future scenario | User goal / required information | Actions and authority | Runtime state | Acceptance criterion |
+| Scénario futur | Objectif utilisateur / informations requises | Actions et autorité | État de l’exécution | Critère d’acceptation |
 |---|---|---|---|---|
-| Project entry/orientation | Select/create project; see objective, current state and next action | Open/create; no execution authority | Project/LPS loading/available/empty/error | User identifies project and next action without internal terms |
-| Normal conversation | Express intent with project context | Send/cancel/retry | idle/composing/processing | Conversation dominates; project state remains accessible |
-| Qualification result | Understand observations/options/recommendation/gaps | Clarify or proceed to decision | complete/incomplete/stale | Recommendation and uncertainty are unambiguous |
-| Decision required | Exercise Morris authority | approve/reject/reserves/clarify | recommendation only / decision required | No action looks pre-consumed |
-| Decision consumed | Verify durable decision | inspect basis; continue | accepted/rejected/reserves | Decision differs visibly from Recommendation |
-| Contract review | Understand what will execute | confirm/cancel/back | preparing/ready | Scope/effects/reserves understandable before authority |
-| Contract fail-closed | Resolve missing/stale basis | return/reprepare | unresolved/stale | Confirm unavailable; recovery explicit |
-| Execution preparing/running | Know current lifecycle | observe/cancel only if supported; no retry | preparing/running | No optimistic success or duplicate start |
-| Execution succeeded | Find outcome | open evidence/review | succeeded | Attempt and evidence relationship clear |
-| Execution failed/timed out | Understand failure and safe next action | inspect evidence; return to decision | failed/timed out/blocked | No automatic retry implied |
-| Evidence/ReviewBundle | Inspect facts, completeness and conclusion | expand provenance/download only if supported | absent/loading/available/incomplete/read error | Raw evidence and review conclusion distinguishable |
-| Post-evidence Recommendation | Understand Nora’s next suggestion | return to explicit decision | analysis/recommendation/stale | Recommendation remains non-authoritative |
-| Empty/loading/error | Recover without implementation knowledge | retry/back/create | aggregate states | “None”, “unknown”, and “failed to read” differ |
-| Reload/re-entry | Resume honestly | resume from durable outcome/requalify | durable outcome + local context loss | Surviving and lost context are explicit |
+| Entrée/orientation du projet | Sélectionner/créer un projet ; voir objectif, état actuel et action suivante | Ouvrir/créer ; aucune autorité d’exécution | Project/LPS en chargement/disponible/vide/erreur | L’utilisateur identifie le projet et l’action suivante sans termes internes |
+| Conversation normale | Exprimer l’intention avec le contexte du projet | Envoyer/annuler/réessayer | inactif/saisie/traitement | La Conversation domine ; l’état du projet reste accessible |
+| Résultat de qualification | Comprendre observations/options/Recommendation/écarts | Clarifier ou passer à la décision | terminé/incomplet/périmé | Recommendation et incertitude sont sans ambiguïté |
+| Décision requise | Exercer l’autorité de Morris | approuver/rejeter/réserves/clarifier | Recommendation uniquement / décision requise | Aucune action ne semble déjà consommée |
+| Décision consommée | Vérifier la décision durable | examiner le fondement ; continuer | acceptée/rejetée/réserves | La décision se distingue visiblement de Recommendation |
+| Examen du contrat | Comprendre ce qui sera exécuté | confirmer/annuler/revenir | préparation/prêt | Périmètre/effets/réserves compréhensibles avant l’autorité |
+| Contrat fermé par défaut | Résoudre un fondement manquant/périmé | revenir/repréparer | non résolu/périmé | Confirmation indisponible ; récupération explicite |
+| Exécution en préparation/en cours | Connaître le cycle de vie actuel | observer/annuler uniquement si pris en charge ; aucun nouvel essai | préparation/en cours | Aucune réussite optimiste ni démarrage dupliqué |
+| Exécution réussie | Trouver le résultat | ouvrir preuve/revue | réussie | Relation entre Attempt et preuve claire |
+| Exécution échouée/arrivée à expiration | Comprendre l’échec et l’action suivante sûre | examiner les preuves ; revenir à la décision | échouée/timeout/bloquée | Aucun nouvel essai automatique implicite |
+| Evidence/ReviewBundle | Examiner faits, complétude et conclusion | déplier la provenance/télécharger uniquement si pris en charge | absent/chargement/disponible/incomplet/erreur de lecture | Preuve brute et conclusion de revue distinguables |
+| Recommendation après preuve | Comprendre la prochaine suggestion de Nora | revenir à une décision explicite | analyse/Recommendation/périmée | Recommendation reste sans autorité |
+| Vide/chargement/erreur | Récupérer sans connaissance de l’implémentation | réessayer/revenir/créer | états agrégés | « Aucun », « inconnu » et « échec de lecture » sont distincts |
+| Rechargement/reprise | Reprendre honnêtement | reprendre depuis le résultat durable/requalifier | résultat durable + perte du contexte local | Le contexte conservé et perdu est explicite |
 
-Future Figma must represent semantic hierarchy, authority and recovery. It must not
-freeze pixels, columns or components from current P0 screens by default.
+Le futur Figma doit représenter la hiérarchie sémantique, l’autorité et la récupération. Il ne doit pas figer par défaut les pixels, colonnes ou composants des écrans P0 actuels.
 
-## 16. Future functional proof contract
+## 16. Futur contrat de preuve fonctionnelle
 
-After G-UX-15 has been distinctly qualified and resolved, and after separately
-authorized Figma and UI Delivery, one browser E2E must substantially prove:
+Après qualification et résolution distinctes de G-UX-15, puis après autorisations séparées de Figma et UI Delivery, un E2E navigateur doit prouver substantiellement :
 
-create/open project
-→ orient in project state
-→ converse with Nora
-→ qualify request
-→ inspect structured Proposal/Recommendation
-→ consume explicit Morris HumanDecision
-→ inspect ExecutionContract
-→ confirm controlled execution
-→ observe Attempt lifecycle
-→ receive Evidence
-→ receive ReviewBundle
-→ Nora analyzes evidence
-→ Recommendation displayed as Recommendation
-→ LPS updated factually
-→ reload/re-enter
-→ durable relevant outcome remains visible.
+créer/ouvrir un projet
+→ s’orienter dans l’état du projet
+→ converser avec Nora
+→ qualifier la demande
+→ examiner Proposal/Recommendation structurées
+→ consommer la HumanDecision explicite de Morris
+→ examiner ExecutionContract
+→ confirmer l’exécution contrôlée
+→ observer le cycle de vie de l’Attempt
+→ recevoir Evidence
+→ recevoir ReviewBundle
+→ Nora analyse les preuves
+→ Recommendation affichée comme Recommendation
+→ LPS mis à jour factuellement
+→ recharger/reprendre
+→ le résultat durable pertinent reste visible.
 
-Required proof layers:
+Couches de preuve requises :
 
-1. **Browser E2E:** observable functional flow and negative authority paths.
-2. **Runtime visual capture:** all primary, empty, loading, error and recovery states.
-3. **Figma/runtime comparison:** semantic/interaction conformance, not screenshot-only similarity.
-4. **Morris UAT:** comprehension of state, authority, execution and evidence, including
-   process-local loss/re-entry.
+1. **E2E navigateur :** flux fonctionnel observable et chemins négatifs d’autorité.
+2. **Capture visuelle d’exécution :** tous les états principaux, vides, de chargement, d’erreur et de récupération.
+3. **Comparaison Figma/exécution :** conformité sémantique/d’interaction, pas seulement similarité de capture d’écran.
+4. **UAT Morris :** compréhension de l’état, de l’autorité, de l’exécution et des preuves, y compris perte/reprise locale au processus.
 
-Negative proof must include: stale Proposal, rejected decision, unresolved contract,
-duplicate start prevention, failed/timed-out Attempt, absent/incomplete evidence,
-rehydrate failure and Recommendation not becoming HumanDecision.
+La preuve négative doit inclure : Proposal périmée, décision rejetée, contrat non résolu, prévention du démarrage dupliqué, Attempt échouée/arrivée à expiration, preuve absente/incomplète, échec de réhydratation et Recommendation ne devenant pas HumanDecision.
 
-This proof is defined only; none of it is executed in this cycle.
+Cette preuve est uniquement définie ; aucune partie n’est exécutée dans ce cycle.
 
-## 17. Anti-goals and dependencies
+## 17. Anti-objectifs et dépendances
 
-Anti-goals:
+Anti-objectifs :
 
-- one page per domain object;
-- a global stepper as primary navigation;
-- a permanent cockpit/multi-panel dashboard;
-- a generic chat clone;
-- a UI-specific state engine;
-- hiding authority gates inside conversational prose;
-- making all process-local state durable before first proof;
-- reusing historical visual design merely because it exists;
-- deleting legacy routes before replacement proof;
-- exposing CKC/OA/SQLite/REAL terminology as normal product content;
-- M6 scope, Figma execution, UI Delivery or Cursor REAL.
+- une page par objet de domaine ;
+- un indicateur d’étapes global comme navigation principale ;
+- un cockpit/tableau de bord permanent multi-panneaux ;
+- un clone générique de messagerie ;
+- un moteur d’état propre à l’interface ;
+- masquer les validations d’autorité dans la prose conversationnelle ;
+- rendre durable tout l’état local au processus avant la première preuve ;
+- réutiliser une conception visuelle historique uniquement parce qu’elle existe ;
+- supprimer les routes historiques avant la preuve de remplacement ;
+- exposer la terminologie CKC/OA/SQLite/REAL comme contenu produit normal ;
+- périmètre M6, exécution Figma, UI Delivery ou Cursor REAL.
 
-Dependencies before an adopted baseline can proceed:
+Dépendances avant qu’un référentiel adopté puisse progresser :
 
-- Morris decisions D-PRE-M6-UX-01 through 05;
-- amendment of this candidate if requested;
-- distinct Figma Visual Contract GO only after journey and IA adoption;
-- Figma validation before UI Delivery;
-- distinct Delivery qualification preserving OA/application boundaries.
+- décisions Morris D-PRE-M6-UX-01 à 05 ;
+- amendement de ce candidat si demandé ;
+- GO distinct pour Figma Visual Contract uniquement après adoption du parcours et de l’IA ;
+- validation Figma avant UI Delivery ;
+- qualification Delivery distincte préservant les limites OA/applicatives.
 
-## 18. Morris decision pack
+## 18. Dossier de décisions Morris
 
-No decision below is consumed by this document.
+Aucune décision ci-dessous n’est consommée par ce document.
 
-### D-PRE-M6-UX-01 — Canonical M1→M5 user journey candidate
+### D-PRE-M6-UX-01 — Candidat de parcours utilisateur canonique M1→M5
 
-Options: **ADOPT / AMEND / REJECT**.
+Options : **ADOPT / AMEND / REJECT**.
 
-Recommendation: **ADOPT WITH EXPLICIT FIRST-TEST PROCESS-LOCAL LIMITATION**, subject
-to ChatGPT challenge and Morris review.
+Recommendation : **ADOPT WITH EXPLICIT FIRST-TEST PROCESS-LOCAL LIMITATION**, sous réserve de la critique ChatGPT et de la revue Morris.
 
-### D-PRE-M6-UX-02 — Functional information architecture candidate
+### D-PRE-M6-UX-02 — Candidat d’architecture fonctionnelle de l’information
 
-Options: **ADOPT / AMEND / REJECT**.
+Options : **ADOPT / AMEND / REJECT**.
 
-Recommendation: **ADOPT** the Projects → Current project → contextual history model,
-conversation dominance, and no object-per-page navigation.
+Recommendation : **ADOPT** le modèle Projets → Projet actuel → historique contextuel, la domination de la Conversation et l’absence de navigation à une page par objet.
 
-### D-PRE-M6-UX-03 — Reuse principle and material asset dispositions
+### D-PRE-M6-UX-03 — Principe de réutilisation et dispositions des actifs significatifs
 
-Options: **ADOPT / AMEND / REJECT**.
+Options : **ADOPT / AMEND / REJECT**.
 
-Recommendation: **ADOPT** reuse by behavior/wiring:
+Recommendation : **ADOPT** la réutilisation par comportement/câblage :
 
-- keep OA runtime and `/studio` wiring;
-- harvest D1 intent behavior, not its state engine;
-- harvest P0 components selectively, not its fixture flow or visual baseline;
-- freeze OPS1/P0/D1 legacy routes;
-- authorize no retirement until replacement proof.
+- conserver l’exécution OA et le câblage `/studio` ;
+- récupérer le comportement d’intention D1, pas son moteur d’état ;
+- récupérer sélectivement les composants P0, pas son flux de fixture ni son référentiel visuel ;
+- geler les routes historiques OPS1/P0/D1 ;
+- n’autoriser aucun retrait avant la preuve de remplacement.
 
-### D-PRE-M6-UX-04 — Blocking runtime gaps
+### D-PRE-M6-UX-04 — Écarts d’exécution bloquants
 
-Options: **SELECT TREATMENT / DEFER / REQUALIFY**.
+Options : **SELECT TREATMENT / DEFER / REQUALIFY**.
 
-Finding: G-UX-15 is blocking. Recommendation: **REQUALIFY** the durable M3 PREPARE →
-contract resolution/supersession → governed execution integration before UI Delivery.
-The qualification must preserve the unresolved contract, reuse its durable
-HumanDecision/DecisionBasis, produce a valid executable contract through existing
-contract lifecycle rules, then use the existing confirmation and
-StartExecution/ExecutionAttempt boundary. It must remain fixture-safe/ZERO REAL and
-reject fail-closed bypass, duplicate sequencers or parallel state.
+Constat : G-UX-15 est bloquant. Recommendation : **REQUALIFY** l’intégration durable M3 PREPARE → résolution/remplacement du contrat → exécution gouvernée avant UI Delivery. La qualification doit préserver le contrat non résolu, réutiliser ses HumanDecision/DecisionBasis durables, produire un contrat exécutable valide selon les règles existantes du cycle de vie du contrat, puis utiliser la confirmation existante et la limite StartExecution/ExecutionAttempt. Elle doit rester sûre pour la fixture/ZERO REAL et rejeter le contournement du fonctionnement fermé par défaut, les séquenceurs dupliqués ou l’état parallèle.
 
-Separately:
+Séparément :
 
-- wire durable AMEND back to clarification before the complete amendment scenario;
-- accept process-local conversation/Proposal for the first proof only if Morris
-  explicitly accepts that limitation;
-- qualify expanded persistence only if later required.
+- recâbler AMEND durable vers la clarification avant le scénario complet d’amendement ;
+- accepter Conversation/Proposal locales au processus pour la première preuve uniquement si Morris accepte explicitement cette limite ;
+- qualifier une persistance étendue uniquement si elle est requise ultérieurement.
 
-### D-PRE-M6-UX-05 — Future Figma Visual Contract cycle
+### D-PRE-M6-UX-05 — Futur cycle Figma Visual Contract
 
-Options: **GO / NO-GO**, only after D-PRE-M6-UX-01 and 02 are adopted.
+Options : **GO / NO-GO**, uniquement après adoption de D-PRE-M6-UX-01 et 02.
 
-Current recommendation: **NO DECISION YET**. A future GO may be considered after
-ChatGPT and Morris adopt/amend the journey and IA.
+Recommendation actuelle : **NO DECISION YET**. Un futur GO pourra être envisagé après adoption/amendement du parcours et de l’IA par ChatGPT et Morris.
 
-## 19. Recommendation, reservations and next gate
+## 19. Recommendation, réserves et prochaine validation
 
 ### Recommendation
 
-Adopt, with amendments if required, a conversation-dominant canonical journey over
-the OA-backed project route. Preserve the existing runtime/application backbone and
-use current UI only as evidence and a source of selective behavior/wiring/components.
+Adopter, avec des amendements si nécessaire, un parcours canonique dominé par la conversation sur la route projet adossée à OA. Préserver l’ossature d’exécution/applicative existante et n’utiliser l’interface actuelle que comme preuve et source sélective de comportement/câblage/composants.
 
-### Reservations
+### Réserves
 
-1. Current route taxonomy and copy materially misrepresent runtime truth.
-2. Project-list/history wiring requires future Delivery work, although not a new domain model.
-3. Durable AMEND recording exists, but the return-to-clarification/requalification
-   flow is incomplete.
-4. Conversation/Proposal loss on restart must be accepted and tested, or separately
-   qualified before Delivery.
-5. Recommendation freshness needs explicit UI/application treatment.
-6. Legacy retirement remains unapproved.
-7. M5-C owner/retirement remains separate governance debt and is outside this baseline.
+1. La taxonomie et le texte actuels des routes représentent matériellement de façon erronée la réalité de l’exécution.
+2. Le câblage de la liste/l’historique des projets exige un futur travail Delivery, mais pas un nouveau modèle de domaine.
+3. L’enregistrement durable de AMEND existe, mais le flux de retour à la clarification/requalification est incomplet.
+4. La perte de Conversation/Proposal au redémarrage doit être acceptée et testée, ou qualifiée séparément avant Delivery.
+5. L’actualité de Recommendation nécessite un traitement explicite dans l’interface/l’application.
+6. Le retrait historique reste non approuvé.
+7. Le responsable/retrait M5-C reste une dette de gouvernance distincte et hors de ce référentiel.
 
-### Next gate
+### Prochaine validation
 
-ChatGPT reviews this complete candidate against runtime, convergence and v3 doctrine,
-then Morris decides D-PRE-M6-UX-01 through 04. D-PRE-M6-UX-04 must select a distinct
-G-UX-15 qualification before UI Delivery. Only after journey and IA adoption may
-Morris decide D-PRE-M6-UX-05 for a distinct Figma Visual Contract cycle; Figma may
-represent the intended states but must not hide the unresolved product-chain gap.
+ChatGPT examine ce candidat complet au regard de l’exécution, de la convergence et de la doctrine v3, puis Morris décide D-PRE-M6-UX-01 à 04. D-PRE-M6-UX-04 doit sélectionner une qualification G-UX-15 distincte avant UI Delivery. Ce n’est qu’après adoption du parcours et de l’IA que Morris pourra décider D-PRE-M6-UX-05 pour un cycle Figma Visual Contract distinct ; Figma peut représenter les états prévus, mais ne doit pas masquer l’écart non résolu de la chaîne produit.
 
-M6 remains **NOT STARTED / NOT AUTHORIZED** throughout.
+M6 reste **NOT STARTED / NOT AUTHORIZED** pendant toute la durée.
 
-## 20. Safety and final anti-claims
+## 20. Sécurité et anti-revendications finales
 
-- New project documents: one.
-- Existing project documents modified: zero.
-- Code, backend, database, schema, migration and tests changed: zero.
-- Existing UI deleted or disposition executed: zero.
-- Figma actions/files: zero.
-- UI Delivery: zero.
-- M6 work: zero.
-- Cursor REAL, Gate D and retry: zero.
-- M5-C retirement: zero.
-- runtime v3 adoption/global promotion: zero.
-- Project commit/push/PR/merge/branch deletion: zero.
+- Nouveaux documents de projet : un.
+- Documents de projet existants modifiés : zéro.
+- Code, backend, base de données, schéma, migration et tests modifiés : zéro.
+- Interface existante supprimée ou disposition exécutée : zéro.
+- Actions/fichiers Figma : zéro.
+- UI Delivery : zéro.
+- Travail M6 : zéro.
+- Cursor REAL, Gate D et nouvel essai : zéro.
+- Retrait M5-C : zéro.
+- Adoption/promotion globale de runtime v3 : zéro.
+- Commit/push/PR/merge/suppression de branche du projet : zéro.
 
-**CANDIDATE does not mean VALIDATED, ADOPTED, READY FOR DELIVERY, FIGMA APPROVED,
-M6 READY, or runtime v3 ADOPTED.**
+**CANDIDATE ne signifie pas VALIDATED, ADOPTED, READY FOR DELIVERY, FIGMA APPROVED, M6 READY ni runtime v3 ADOPTED.**
