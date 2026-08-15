@@ -1,87 +1,1474 @@
 # ChatGPT Review Pack — FULL
 
-## PRE-M6 FUNCTIONAL BASELINE ADOPTION + CONSOLIDATED PRE-FIGMA GAP READINESS G-UX-01→15
+## PRE-M6 G-UX-15 SLICE A — DURABLE M3 → GOVERNED EXECUTION BRIDGE
 
-**Timestamp (Europe/Paris):** 2026-08-15 15:07:33 CEST
+**Timestamp (Europe/Paris):** 2026-08-15 15:25:23 CEST
 
 **Mode:** FULL
-**Cycle:** Cycle 2 — Conception fonctionnelle · CONTINUATION / DECISION + GAP READINESS
+**Cycle:** Cycle 8 — Delivery / implémentation
 **Profile:** Critical
-**Primary capability:** V3-F05 (supporting V3-F02 / V3-F14 / V3-F15)
-**Typology:** DESIGN / DOC / AUDIT / DECISION READINESS
+**Typology:** INC — bounded application-wiring increment
+**Primary:** V3-F05 (supporting F11/F12/F14/F15)
+**CKC:** no detailed Cycle 8 CKC — fallback synthetic map (candidate / cognitive only)
 
 ---
 
-### Follow-up note (same cycle)
-Post-publish factual correction from targeted verification:
-- G-UX-08: AMEND durable HumanDecision `amended` does **not** attach DecisionBasis / LPS decisionIds (GO-only).
-- G-UX-15: Confirmation remains Memory process-local; StartExecution remains sole sequencer; M3 PREPARE has no confirm/execute UI/action.
-- G-UX-10: freshness still prefer derivation; session vs durable rehydrate dual surface noted.
-Verdicts, Morris adoptions, slice recommendation, Figma/Delivery/M6/REAL posture **unchanged**.
-
 ### 1. Timestamp
-2026-08-15 15:07:33 CEST
+2026-08-15 15:25:23 CEST
 
-### 2. Exact Morris wording
+### 2. Exact GO Morris
 ```
-ok ta recommandation est tres bien, go
+GO MORRIS — SELECT SLICE A G-UX-15 ONLY — RESOLVE DURABLE M3 EXECUTIONCONTRACT INTO VALID SUCCESSOR VIA EXISTING SUPERSESSION LIFECYCLE — KEEP ORIGINAL CONTRACT FOR AUDIT — REUSE EXISTING CONFIRMATION / AGENT SELECTION / STARTEXECUTION / ATTEMPT — FIXTURE-SAFE PROOF — ZERO REAL — NO FIGMA — NO UI DELIVERY — NO M6
 ```
 
-### 3. Governed interpretation
-Consume ChatGPT recommendation as Morris GO: adopt journey/IA/reuse principle; accept process-local first test; REQUALIFY G-UX-15; consolidated readiness G-UX-01…15; no implementation / Figma / UI Delivery / M6 / REAL.
+### 3. Cycle 8 / Critical / INC
+Critical: changes execution-authority path between durable M3 ExecutionContract and governed M4/M5 lifecycle. Defect risks: fail-closed bypass, unresolved execution, duplicate authority, invalid capability, audit mutation, duplicate attempts.
 
-### 4. Cycle 2 / Critical qualification
-Critical: readiness classification before Figma/Delivery/UAT. No implementation authorized.
+### 4. CKC fallback
+`02-fifteen-cycles-synthetic-map.md` — candidate / cognitive guidance only / no authority.
 
-### 5. Current Git Truth
-- Branch: `design/sfia-studio-pre-m6-ux-qualification`
+### 5. Initial Git Truth
+- Source branch: `design/sfia-studio-pre-m6-ux-qualification`
 - HEAD / origin/main: `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7`
-- Remote project branch: ABSENT
-- Artifact: untracked/unstaged only
-- REAL: unset
+- Incoming handoff: `2739b677bac986cb60c89c3eb8d18c4862c7368c` / blob `985578bfac07c84d15b1b8cced8d158bbc3396f4`
+- Remote design / feat branches: ABSENT
+- Untracked baseline artifact present; staged empty; REAL unset
 
-### 6. Incoming / prior handoff
-- Prior published tip before this correction: `b2061e1075e2a75bba2db942c3107f345436d130`
-- Prior blob: `b55fb1cec7bceda7cf8c79a334d92b5e3f54c847`
-- Original French baseline incoming: `c7b1abcd…` / `39e07e2d…`
+### 6. Branch transition
+Created local `feat/sfia-studio-pre-m6-gux15-slice-a` from `origin/main@2f0d7236…`. Not pushed.
 
-### 7. Mandatory sources consulted
-Process + Build Doctrine + Roadmap (RO) + v3 framing + Pre-M6 artifact + targeted OA/assistant sources (prepareM3, confirmAndExecuteF3Fixture, recordDecision, supersede, recommendNextGate, rehydrate).
+### 7. Incoming handoff
+Commit `2739b677…` blob `985578bf…`
 
-### 8. Morris decisions consumed
-D-PRE-M6-UX-01/02 ADOPTED; 03 PRINCIPLE; process-local ACCEPTED; 04 REQUALIFY G-UX-15; 05 NO DECISION YET / FIGMA NOT AUTHORIZED.
+### 8. Sources read
+Process templates/routing/OM/rules/knowledge; Build Doctrine; Roadmap (RO); v3 30/34/35/37; Pre-M6 baseline; prepareM3/supersede/confirm/select/start/fixture/F3 constants; M3 restart + F3 fixture tests.
 
-### 9. Functional baseline status
-BASELINE FONCTIONNELLE PRÉ-M6 ADOPTÉE PAR MORRIS — READINESS FIGMA / DELIVERY NON ACQUISE — GAPS OUVERTS
+### 9. Targeted runtime files read
+Listed in implementation section; no remembered line numbers relied upon after local re-read.
 
-### 10. G-UX-01…15 readiness matrix
-Unchanged dispositions; G-UX-08/15 factual precision updated in §21–24. Full matrices in artifact §21.
+### 10. Final implementation design
+Application-only `resolveM3ExecutionContract` in `f3/`:
+1. Load accepted HumanDecision + DecisionBasis
+2. Load original unresolved M3 PREPARE contract
+3. Reject unresolved resolution input / amended / missing basis / version conflict
+4. Idempotent reuse if already superseded by deterministic `xct:m3-res:{decision}`
+5. `supersedeExecutionContract` with explicit action/target/capabilities/reversibility/constraints (strip PREPARE_ONLY/NO_ATTEMPT)
+6. `validateExecutionContract` → confirmation_required
+7. Does NOT confirm/select/start — caller composes existing lifecycles
 
-### 11–13. Targeted qualifications
-See corrected artifact §22–24 (G-UX-15/08/10).
+### 11. Resolution input model
+`M3ResolvedExecutionFields` — application command input only (`kind: application_command_input` in successor inputs metadata). Not durable authority. Not DecisionBasis schema extension.
 
-### 14. Treatment slices
-SLICE A (G-UX-15 only) still recommended; Morris decision required.
+### 12. Why not new authority
+Fields already supported by ExecutionContract supersession/validation. No new table/model/sequencer. Explicit command avoids Conversation/Proposal inference.
 
-### 15. Process-local acceptance
-ACCEPTED BY MORRIS — first bounded test only; no new persistence.
+### 13. Exact files changed
+- NEW `projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts`
+- MOD `projects/sfia-studio/app/features/project-assistant/f3/index.ts` (exports only)
+- NEW `projects/sfia-studio/app/__tests__/project-assistant/gux15.resolveM3ExecutionContract.test.ts`
+- UPD untracked `projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md` (G-UX-15 status only)
 
-### 16. Figma readiness
-READY WITH FUNCTIONAL RESERVES — FIGMA NOT AUTHORIZED
+### 14. Complete Git diffs / new file contents
 
-### 17. UI Delivery readiness
-NOT READY
+#### Diff: f3/index.ts
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/index.ts b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
+index 388de83..908726e 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/index.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
+@@ -17,6 +17,14 @@ export { validateF2ForPrepare } from "./validateF2ForPrepare";
+ export { prepareF3Fixture } from "./prepareF3Fixture";
+ export { prepareM3FromDecision } from "./prepareM3FromDecision";
+ export type { F3M3PreparePayload, PrepareM3Deps } from "./prepareM3FromDecision";
++export { resolveM3ExecutionContract } from "./resolveM3ExecutionContract";
++export type {
++  M3ResolvedExecutionFields,
++  ResolveM3Deps,
++  ResolveM3ExecutionContractInput,
++  ResolveM3Failure,
++  ResolveM3Success,
++} from "./resolveM3ExecutionContract";
+ export { confirmAndExecuteF3Fixture } from "./confirmAndExecuteF3Fixture";
+ export { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
+ export { appendEvidenceOutcomeToLps } from "./appendEvidenceOutcomeToLps";
 
-### 18. Future gates
-Unchanged (§27)
+```
 
-### 19. Unresolved Morris questions
-Treatment set A/B/C; G-UX-15 target/capability/confirmation durability/supersede vs new contract; Figma GO later; Roadmap sync later.
+#### NEW: resolveM3ExecutionContract.ts
+```typescript
+/**
+ * G-UX-15 Slice A — application bridge:
+ * durable M3 PREPARE ExecutionContract → resolved successor via existing supersession
+ * → eligible for existing Confirmation / Select / StartExecution.
+ *
+ * Does NOT execute. Does NOT mutate the original contract in place.
+ * Does NOT depend on Proposal / Conversation.
+ * Resolution fields are explicit application command input (not durable authority).
+ */
 
-### 20. COMPLETE MODIFIED CONTENT of the project artifact
+import type {
+  DecisionBasis,
+  DecisionServices,
+  MemoryAuthorityResolver,
+} from "@/lib/oa/decision";
+import {
+  LOCAL_MORRIS_M3_ACTOR,
+  registerM3LocalMorrisAuthority,
+} from "@/lib/oa/decision";
+import type {
+  ExecutionContract,
+  ExecutionContractServices,
+  Reversibility,
+} from "@/lib/oa/execution-contract";
 
-Path: `projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md`
+const UNRESOLVED_ACTION = "UNRESOLVED_ACTION";
+const UNRESOLVED_TARGET = "UNRESOLVED_TARGET";
+const UNRESOLVED_CAP = "cap:unresolved";
 
+const FORBIDDEN_EXECUTABLE_CONSTRAINTS = new Set([
+  "PREPARE_ONLY",
+  "NO_ATTEMPT",
+]);
+
+const UNRESOLVED_STOP = new Set([
+  "ACTION_UNRESOLVED",
+  "TARGET_UNRESOLVED",
+  "CAPABILITY_UNRESOLVED",
+  "REVERSIBILITY_UNRESOLVED",
+]);
+
+export type ResolveM3Deps = {
+  decisionServices: DecisionServices;
+  authorityResolver: MemoryAuthorityResolver;
+  executionContractServices: ExecutionContractServices;
+  nowIso: () => string;
+  /** Test inject — bypasses M3 local Morris env gate. */
+  forceM3Authority?: boolean;
+};
+
+/**
+ * Explicit application-layer resolution input — not a durable domain authority.
+ */
+export type M3ResolvedExecutionFields = {
+  action: string;
+  target: string;
+  requiredCapabilities: string[];
+  reversibility: Reversibility;
+  /** When omitted, inherits original scope (typically decision-scoped). */
+  scope?: string;
+  /**
+   * When omitted, inherits non-forbidden constraints from the original and
+   * drops PREPARE_ONLY / NO_ATTEMPT. Caller may supply a full replace list.
+   */
+  constraints?: string[];
+  /** When omitted, inherits stopConditions without unresolved sentinels. */
+  stopConditions?: string[];
+};
+
+export type ResolveM3ExecutionContractInput = {
+  projectId: string;
+  decisionId: string;
+  originalExecutionContractId: string;
+  expectedOriginalVersion: number;
+  resolution: M3ResolvedExecutionFields;
+  supersessionReason: string;
+  /**
+   * Optional deterministic successor id. Default: `xct:m3-res:{safeDecisionId}`.
+   * Replay with the same id returns the existing successor when fields match.
+   */
+  successorExecutionContractId?: string;
+  deps: ResolveM3Deps;
+};
+
+export type ResolveM3Success = {
+  ok: true;
+  projectId: string;
+  decisionId: string;
+  original: {
+    executionContractId: string;
+    version: number;
+    status: string;
+    action: string;
+    target: string;
+    requiredCapabilities: string[];
+  };
+  successor: {
+    executionContractId: string;
+    version: number;
+    status: string;
+    action: string;
+    target: string;
+    scope: string;
+    requiredAuthority: string;
+    requiredCapabilities: string[];
+    reversibility: Reversibility;
+    constraints: string[];
+    stopConditions: string[];
+    supersedesExecutionContractId: string;
+    supersessionReason: string;
+  };
+  reusedFromIdempotency: boolean;
+  disclosures: string[];
+};
+
+export type ResolveM3Failure = {
+  ok: false;
+  code: string;
+  message: string;
+};
+
+function fail(code: string, message: string): ResolveM3Failure {
+  return { ok: false, code, message };
+}
+
+function safeDecisionSegment(decisionId: string): string {
+  return decisionId.replace(/[^a-zA-Z0-9:_-]/g, "").slice(0, 48);
+}
+
+function defaultSuccessorId(decisionId: string): string {
+  return `xct:m3-res:${safeDecisionSegment(decisionId)}`;
+}
+
+function isUnresolvedPrepareContract(contract: ExecutionContract): boolean {
+  const caps = contract.requiredCapabilities ?? [];
+  const constraints = contract.constraints ?? [];
+  const stops = contract.stopConditions ?? [];
+  return (
+    contract.target === UNRESOLVED_TARGET ||
+    caps.includes(UNRESOLVED_CAP) ||
+    constraints.includes("PREPARE_ONLY") ||
+    stops.includes("TARGET_UNRESOLVED") ||
+    stops.includes("CAPABILITY_UNRESOLVED")
+  );
+}
+
+function assertResolvedFields(
+  resolution: M3ResolvedExecutionFields,
+): ResolveM3Failure | null {
+  const action = resolution.action?.trim() ?? "";
+  const target = resolution.target?.trim() ?? "";
+  const caps = resolution.requiredCapabilities ?? [];
+  if (!action || action === UNRESOLVED_ACTION) {
+    return fail(
+      "RESOLUTION_ACTION_UNRESOLVED",
+      "Resolved action is required and must not be UNRESOLVED_ACTION.",
+    );
+  }
+  if (!target || target === UNRESOLVED_TARGET) {
+    return fail(
+      "RESOLUTION_TARGET_UNRESOLVED",
+      "Resolved target is required and must not be UNRESOLVED_TARGET.",
+    );
+  }
+  if (caps.length === 0 || caps.includes(UNRESOLVED_CAP)) {
+    return fail(
+      "RESOLUTION_CAPABILITY_UNRESOLVED",
+      "Resolved capabilities are required and must not include cap:unresolved.",
+    );
+  }
+  if (
+    resolution.reversibility !== "reversible" &&
+    resolution.reversibility !== "partially_reversible" &&
+    resolution.reversibility !== "irreversible"
+  ) {
+    return fail(
+      "RESOLUTION_REVERSIBILITY_INVALID",
+      "Resolved reversibility must be an existing Reversibility value.",
+    );
+  }
+  if (resolution.constraints) {
+    for (const c of resolution.constraints) {
+      if (FORBIDDEN_EXECUTABLE_CONSTRAINTS.has(c)) {
+        return fail(
+          "RESOLUTION_CONSTRAINT_FORBIDDEN",
+          `Executable successor must not include constraint ${c}.`,
+        );
+      }
+    }
+  }
+  return null;
+}
+
+function buildSuccessorConstraints(
+  prior: ExecutionContract,
+  resolution: M3ResolvedExecutionFields,
+): string[] {
+  if (resolution.constraints) {
+    return [...resolution.constraints];
+  }
+  return (prior.constraints ?? []).filter(
+    (c) => !FORBIDDEN_EXECUTABLE_CONSTRAINTS.has(c),
+  );
+}
+
+function buildSuccessorStopConditions(
+  prior: ExecutionContract,
+  resolution: M3ResolvedExecutionFields,
+): string[] {
+  if (resolution.stopConditions) {
+    return [...resolution.stopConditions];
+  }
+  return (prior.stopConditions ?? []).filter((s) => !UNRESOLVED_STOP.has(s));
+}
+
+function successorMatchesResolution(
+  contract: ExecutionContract,
+  resolution: M3ResolvedExecutionFields,
+  scope: string,
+  constraints: string[],
+  stopConditions: string[],
+): boolean {
+  const caps = [...(contract.requiredCapabilities ?? [])].sort().join("\0");
+  const wantCaps = [...resolution.requiredCapabilities].sort().join("\0");
+  return (
+    contract.action === resolution.action.trim() &&
+    contract.target === resolution.target.trim() &&
+    contract.scope === scope &&
+    contract.reversibility === resolution.reversibility &&
+    caps === wantCaps &&
+    [...contract.constraints].join("\0") === constraints.join("\0") &&
+    [...contract.stopConditions].join("\0") === stopConditions.join("\0")
+  );
+}
+
+function toOriginalView(contract: ExecutionContract) {
+  return {
+    executionContractId: contract.executionContractId,
+    version: contract.version,
+    status: contract.status,
+    action: contract.action,
+    target: contract.target,
+    requiredCapabilities: [...contract.requiredCapabilities],
+  };
+}
+
+function toSuccessorView(contract: ExecutionContract) {
+  return {
+    executionContractId: contract.executionContractId,
+    version: contract.version,
+    status: contract.status,
+    action: contract.action,
+    target: contract.target,
+    scope: contract.scope,
+    requiredAuthority: contract.requiredAuthority,
+    requiredCapabilities: [...contract.requiredCapabilities],
+    reversibility: contract.reversibility,
+    constraints: [...contract.constraints],
+    stopConditions: [...contract.stopConditions],
+    supersedesExecutionContractId: contract.supersedesExecutionContractId ?? "",
+    supersessionReason: contract.supersessionReason ?? "",
+  };
+}
+
+export async function resolveM3ExecutionContract(
+  input: ResolveM3ExecutionContractInput,
+): Promise<ResolveM3Success | ResolveM3Failure> {
+  const fieldErr = assertResolvedFields(input.resolution);
+  if (fieldErr) return fieldErr;
+
+  const reason = input.supersessionReason?.trim() ?? "";
+  if (!reason) {
+    return fail(
+      "SUPERSESSION_REASON_INVALID",
+      "supersessionReason is required.",
+    );
+  }
+
+  const loaded = await input.deps.decisionServices.getHumanDecision.execute({
+    decisionId: input.decisionId,
+  });
+  if (!loaded.ok) {
+    return fail(loaded.error.detailCode, loaded.error.message);
+  }
+
+  const decision = loaded.decision;
+  if (decision.projectId !== input.projectId) {
+    return fail("PROJECT_MISMATCH", "Decision does not belong to this project.");
+  }
+  if (decision.status !== "accepted") {
+    return fail(
+      "DECISION_NOT_CURRENT",
+      `Decision status ${decision.status} is not accepted for M3 resolution.`,
+    );
+  }
+  if (!decision.decisionBasis) {
+    return fail(
+      "DECISION_BASIS_REQUIRED",
+      "HumanDecision lacks DecisionBasis — cannot resolve M3 contract.",
+    );
+  }
+  const basis: DecisionBasis = decision.decisionBasis;
+  if (basis.projectId !== input.projectId) {
+    return fail(
+      "DECISION_BASIS_PROJECT_MISMATCH",
+      "DecisionBasis projectId does not match.",
+    );
+  }
+
+  const originalResult =
+    await input.deps.executionContractServices.getExecutionContract.execute({
+      executionContractId: input.originalExecutionContractId,
+    });
+  if (!originalResult.ok) {
+    return fail(originalResult.error.detailCode, originalResult.error.message);
+  }
+
+  let original = originalResult.contract;
+  if (original.projectId !== input.projectId) {
+    return fail(
+      "CONTRACT_PROJECT_MISMATCH",
+      "Original ExecutionContract does not belong to this project.",
+    );
+  }
+  if (
+    original.decisionRefs &&
+    original.decisionRefs.length > 0 &&
+    !original.decisionRefs.includes(input.decisionId)
+  ) {
+    return fail(
+      "DECISION_CONTRACT_MISMATCH",
+      "Original contract is not linked to this HumanDecision.",
+    );
+  }
+
+  const successorId =
+    input.successorExecutionContractId?.trim() ||
+    defaultSuccessorId(input.decisionId);
+  if (!successorId.startsWith("xct:")) {
+    return fail(
+      "CONTRACT_INVALID",
+      "successorExecutionContractId must use xct: prefix.",
+    );
+  }
+  if (successorId === input.originalExecutionContractId) {
+    return fail("SELF_SUPERSESSION", "Successor id must differ from original.");
+  }
+
+  const scope =
+    (input.resolution.scope?.trim() || original.scope).trim() ||
+    `decision:${input.decisionId}`;
+  const constraints = buildSuccessorConstraints(original, input.resolution);
+  const stopConditions = buildSuccessorStopConditions(
+    original,
+    input.resolution,
+  );
+
+  // Idempotent replay: original already superseded by the expected successor.
+  if (original.status === "superseded") {
+    const existing =
+      await input.deps.executionContractServices.getExecutionContract.execute({
+        executionContractId: successorId,
+      });
+    if (!existing.ok) {
+      return fail(
+        "STATE_CONFLICT",
+        "Original contract is superseded but expected successor was not found.",
+      );
+    }
+    const successor = existing.contract;
+    if (successor.supersedesExecutionContractId !== original.executionContractId) {
+      return fail(
+        "STATE_CONFLICT",
+        "Found successor does not supersede the original M3 contract.",
+      );
+    }
+    if (
+      !successorMatchesResolution(
+        successor,
+        input.resolution,
+        scope,
+        constraints,
+        stopConditions,
+      )
+    ) {
+      return fail(
+        "RESOLUTION_IDEMPOTENCY_CONFLICT",
+        "Existing successor fields do not match this resolution input.",
+      );
+    }
+    return {
+      ok: true,
+      projectId: input.projectId,
+      decisionId: input.decisionId,
+      original: toOriginalView(original),
+      successor: toSuccessorView(successor),
+      reusedFromIdempotency: true,
+      disclosures: [
+        "G-UX-15 resolve — idempotent reuse of existing successor",
+        "ORIGINAL PRESERVED SUPERSEDED",
+        "NO CURSOR REAL",
+        "NO ATTEMPT IN RESOLVER",
+      ],
+    };
+  }
+
+  if (original.status === "cancelled") {
+    return fail(
+      "STATE_CONFLICT",
+      "Cannot resolve a cancelled ExecutionContract.",
+    );
+  }
+  if (
+    original.status === "executing" ||
+    original.status === "completed" ||
+    original.status === "failed"
+  ) {
+    return fail(
+      "TA5_STATUS_REFUSED",
+      `Cannot resolve contract in T-A5 status ${original.status}.`,
+    );
+  }
+
+  if (!isUnresolvedPrepareContract(original)) {
+    return fail(
+      "CONTRACT_NOT_M3_PREPARE_UNRESOLVED",
+      "Original contract is not an unresolved M3 PREPARE contract.",
+    );
+  }
+
+  if (original.version !== input.expectedOriginalVersion) {
+    return fail(
+      "VERSION_CONFLICT",
+      `Expected original version ${input.expectedOriginalVersion}, found ${original.version}.`,
+    );
+  }
+
+  const authority = registerM3LocalMorrisAuthority({
+    authorityResolver: input.deps.authorityResolver,
+    scope,
+    issuedAt: input.deps.nowIso(),
+    evidenceId: `evd:m3-resolve:${input.decisionId}`,
+    forceEnable: input.deps.forceM3Authority === true,
+  });
+  if (!authority.ok) {
+    return fail(authority.code, authority.message);
+  }
+
+  const superseded =
+    await input.deps.executionContractServices.supersedeExecutionContract.execute(
+      {
+        newExecutionContractId: successorId,
+        supersedesExecutionContractId: original.executionContractId,
+        supersessionReason: reason,
+        actor: LOCAL_MORRIS_M3_ACTOR,
+        authorityEvidenceId: authority.evidenceId,
+        expectedVersion: input.expectedOriginalVersion,
+        action: input.resolution.action.trim(),
+        target: input.resolution.target.trim(),
+        scope,
+        requiredCapabilities: [...input.resolution.requiredCapabilities],
+        reversibility: input.resolution.reversibility,
+        constraints,
+        stopConditions,
+        decisionRefs: original.decisionRefs
+          ? [...original.decisionRefs]
+          : [input.decisionId],
+        requiredAuthority: original.requiredAuthority,
+        status: "draft",
+        idempotencyKey: `idem:m3-res:${input.decisionId}:${successorId}`,
+        correlationId: `cor:m3-res:${input.decisionId}`,
+        inputs: {
+          ...(original.inputs ?? {}),
+          gux15Resolution: {
+            kind: "application_command_input",
+            notDurableAuthority: true,
+            basisSourceRef: basis.sourceRef,
+            basisSourceDigest: basis.sourceDigest,
+          },
+        },
+      },
+    );
+
+  if (!superseded.ok) {
+    return fail(superseded.error.detailCode, superseded.error.message);
+  }
+
+  const validated =
+    await input.deps.executionContractServices.validateExecutionContract.execute(
+      {
+        executionContractId: successorId,
+        actor: LOCAL_MORRIS_M3_ACTOR,
+        authorityEvidenceId: authority.evidenceId,
+      },
+    );
+  if (!validated.ok) {
+    return fail(validated.error.detailCode, validated.error.message);
+  }
+
+  const refreshedOriginal =
+    await input.deps.executionContractServices.getExecutionContract.execute({
+      executionContractId: input.originalExecutionContractId,
+    });
+  if (refreshedOriginal.ok) {
+    original = refreshedOriginal.contract;
+  }
+
+  const successor = validated.contract;
+  if (isUnresolvedPrepareContract(successor)) {
+    return fail(
+      "SUCCESSOR_STILL_UNRESOLVED",
+      "Successor still carries unresolved M3 PREPARE sentinels.",
+    );
+  }
+  for (const c of successor.constraints) {
+    if (FORBIDDEN_EXECUTABLE_CONSTRAINTS.has(c)) {
+      return fail(
+        "SUCCESSOR_CONSTRAINT_FORBIDDEN",
+        `Successor retained forbidden constraint ${c}.`,
+      );
+    }
+  }
+
+  return {
+    ok: true,
+    projectId: input.projectId,
+    decisionId: input.decisionId,
+    original: toOriginalView(original),
+    successor: toSuccessorView(successor),
+    reusedFromIdempotency: false,
+    disclosures: [
+      "G-UX-15 resolve — existing supersession only",
+      "ORIGINAL PRESERVED FOR AUDIT",
+      "NO IN-PLACE MUTATION OF UNRESOLVED FIELDS",
+      "NO CURSOR REAL",
+      "NO ATTEMPT IN RESOLVER",
+      "CONFIRMATION / SELECT / STARTEXECUTION ARE CALLER COMPOSITION",
+    ],
+  };
+}
+
+```
+
+#### NEW: gux15.resolveM3ExecutionContract.test.ts
+```typescript
+/**
+ * G-UX-15 Slice A — resolveM3ExecutionContract application wiring proof.
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
+import {
+  createTestDoctrineResolver,
+  type Digest,
+  type DoctrinePackagePin,
+} from "@/lib/oa/doctrine";
+import { createTestSqliteProductProjectServices } from "@/lib/oa/project";
+import { createSqliteCycleServices } from "@/lib/oa/cycle";
+import {
+  LOCAL_MORRIS_M3_ACTOR,
+  MemoryAuthorityResolver,
+  computeDecisionBasisSourceDigest,
+  createTestSqliteDecisionServices,
+  registerM3LocalMorrisAuthority,
+  type DecisionBasis,
+} from "@/lib/oa/decision";
+import { createTestSqliteExecutionContractServices } from "@/lib/oa/execution-contract";
+import {
+  createTestSqliteExecutionAttemptServices,
+  type ExecutionAttemptServices,
+} from "@/lib/oa/execution-attempt";
+import { prepareM3FromDecision } from "@/features/project-assistant/f3/prepareM3FromDecision";
+import { resolveM3ExecutionContract } from "@/features/project-assistant/f3/resolveM3ExecutionContract";
+import {
+  createF3FixtureAgentDescriptor,
+  createF3TestExecutionAdapter,
+} from "@/features/project-assistant/f3/fixtureAgent";
+import {
+  F3_ACTION,
+  F3_ADAPTER_ID,
+  F3_AGENT_ID,
+  F3_CAPABILITY,
+  F3_CONFIRM_ACTION_REF,
+  F3_SCOPE,
+  F3_TARGET,
+} from "@/features/project-assistant/f3/constants";
+
+const APP_ROOT = path.resolve(__dirname, "../..");
+const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+const SCHEMAS = path.resolve(
+  APP_ROOT,
+  "../sfia-v3-modeled/v3-native-option-a/schemas",
+);
+
+const VALID_DIGEST =
+  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
+
+const VALID_PIN: DoctrinePackagePin = {
+  doctrinePackageId: "pkg:studio-v3-oa",
+  version: "1.0.0",
+  digest: VALID_DIGEST,
+};
+
+const PROJECT_ID = "prj:gux15";
+const NOW = "2026-08-15T14:00:00.000Z";
+
+const tempDirs: string[] = [];
+const openServices: Array<{ dispose: () => void }> = [];
+
+afterEach(() => {
+  while (openServices.length) {
+    try {
+      openServices.pop()?.dispose();
+    } catch {
+      /* ignore */
+    }
+  }
+  while (tempDirs.length) {
+    const dir = tempDirs.pop();
+    if (dir) fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+type Stack = Awaited<ReturnType<typeof bootAt>>;
+
+async function bootAt(dbPath: string) {
+  const { resolver } = createTestDoctrineResolver({
+    registryRoot: FIXTURES,
+    schemasRoot: SCHEMAS,
+  });
+  const projects = createTestSqliteProductProjectServices({
+    doctrineResolver: resolver,
+    fixedNowIso: NOW,
+    dbPath,
+  });
+  openServices.push(projects);
+  const cycles = createSqliteCycleServices({
+    projectServices: projects,
+    productStore: projects.store,
+  });
+  const authority = new MemoryAuthorityResolver();
+  const decisions = createTestSqliteDecisionServices({
+    projectServices: projects,
+    cycleServices: cycles,
+    productStore: projects.store,
+    authorityResolver: authority,
+  });
+  const contracts = createTestSqliteExecutionContractServices({
+    projectServices: projects,
+    decisionServices: decisions,
+    cycleServices: cycles,
+    productStore: projects.store,
+    authorityResolver: authority,
+  });
+  const fixtureAdapter = createF3TestExecutionAdapter();
+  const attempts = createTestSqliteExecutionAttemptServices({
+    decisionServices: decisions,
+    executionContractServices: contracts,
+    productStore: projects.store,
+    agents: [createF3FixtureAgentDescriptor(NOW)],
+    adapter: fixtureAdapter,
+    authorityResolver: authority,
+    fixedNowIso: NOW,
+  });
+  return {
+    projects,
+    decisions,
+    contracts,
+    authority,
+    attempts,
+    fixtureAdapter,
+    dbPath,
+  };
+}
+
+async function createProject(stack: Stack) {
+  const created = await stack.projects.createProject.execute({
+    projectId: PROJECT_ID,
+    title: "G-UX-15",
+    objective: "resolve m3",
+    context: "slice-a",
+    scope: "gux15",
+    doctrinePackagePin: VALID_PIN,
+    createdBy: {
+      actorId: "actor:morris",
+      role: "project_owner",
+      displayName: "Morris",
+      authorityLevel: "N3",
+    },
+    lpsVersionId: "lps:gux15-v1",
+    idempotencyKey: "idem:gux15",
+  });
+  expect(created.ok).toBe(true);
+}
+
+async function recordAcceptedGo(stack: Stack, decisionId: string) {
+  const lps = await stack.projects.getCurrentLivingProjectState.execute({
+    projectId: PROJECT_ID,
+  });
+  expect(lps.ok).toBe(true);
+  if (!lps.ok) throw new Error("lps");
+
+  const scope = `decision:${decisionId}`;
+  const reg = registerM3LocalMorrisAuthority({
+    authorityResolver: stack.authority,
+    scope,
+    issuedAt: NOW,
+    forceEnable: true,
+    evidenceId: `evd:m3:${decisionId}`,
+  });
+  expect(reg.ok).toBe(true);
+  if (!reg.ok) throw new Error("authority");
+
+  const basis: DecisionBasis = {
+    sourceType: "proposal",
+    sourceRef: "prop:gux15",
+    sourceDigest: computeDecisionBasisSourceDigest({
+      objective: "gux15-obj",
+      op: "m3-gux15-requested-operation",
+    }),
+    projectId: PROJECT_ID,
+    cycleInstanceId: undefined,
+    proposalContext: {
+      lpsId: lps.livingProjectState.lpsVersionId,
+      lpsVersion: lps.livingProjectState.version,
+      doctrineDigest: VALID_DIGEST,
+    },
+    executionBasis: {
+      objective: "gux15-obj",
+      scope,
+      cycleTypeId: "cyc:delivery",
+      requestedOperation: "m3-gux15-requested-operation",
+    },
+  };
+
+  const recorded = await stack.decisions.recordHumanDecision.execute({
+    decisionId,
+    projectId: PROJECT_ID,
+    subject: decisionId,
+    options: [{ optionId: "opt:go", label: "GO" }],
+    selectedOptionId: "opt:go",
+    actor: LOCAL_MORRIS_M3_ACTOR,
+    authority: "morris",
+    reversible: true,
+    scope,
+    authorityEvidenceId: reg.evidenceId,
+    decisionBasis: basis,
+    linkToLivingProjectState: true,
+    expectedLpsVersion: lps.livingProjectState.version,
+  });
+  expect(recorded.ok).toBe(true);
+  if (!recorded.ok) {
+    throw new Error(JSON.stringify(recorded.error));
+  }
+  return scope;
+}
+
+async function prepareM3(stack: Stack, decisionId: string) {
+  const lps = await stack.projects.getCurrentLivingProjectState.execute({
+    projectId: PROJECT_ID,
+  });
+  expect(lps.ok).toBe(true);
+  if (!lps.ok) throw new Error("lps");
+
+  const prepared = await prepareM3FromDecision({
+    projectId: PROJECT_ID,
+    decisionId,
+    currentContext: {
+      projectId: PROJECT_ID,
+      lpsId: lps.livingProjectState.lpsVersionId,
+      lpsVersion: lps.livingProjectState.version,
+      doctrineDigest: VALID_DIGEST,
+    },
+    deps: {
+      decisionServices: stack.decisions,
+      authorityResolver: stack.authority,
+      executionContractServices: stack.contracts,
+      nowIso: () => NOW,
+      forceM3Authority: true,
+    },
+  });
+  expect(prepared.ok).toBe(true);
+  if (!prepared.ok) throw new Error("prepare");
+  return prepared.payload;
+}
+
+function fixtureResolution() {
+  return {
+    action: F3_ACTION,
+    target: F3_TARGET,
+    requiredCapabilities: [F3_CAPABILITY],
+    reversibility: "reversible" as const,
+    scope: F3_SCOPE,
+    constraints: [
+      "FIXTURE ONLY",
+      "TEST ADAPTER ONLY",
+      "NO REAL",
+      "NO SHELL",
+      "NO NETWORK EXECUTION",
+      "NO GIT WRITE",
+      "NO GITHUB WRITE",
+      "NO AUTO RETRY",
+    ],
+    stopConditions: [
+      "AUTHORITY_DENIED",
+      "CONTEXT_STALE",
+      "DECISION_NOT_CURRENT",
+    ],
+  };
+}
+
+async function resolveFixture(
+  stack: Stack,
+  decisionId: string,
+  originalId: string,
+  expectedVersion: number,
+) {
+  return resolveM3ExecutionContract({
+    projectId: PROJECT_ID,
+    decisionId,
+    originalExecutionContractId: originalId,
+    expectedOriginalVersion: expectedVersion,
+    resolution: fixtureResolution(),
+    supersessionReason: "G-UX-15 resolve durable M3 PREPARE via supersession",
+    deps: {
+      decisionServices: stack.decisions,
+      authorityResolver: stack.authority,
+      executionContractServices: stack.contracts,
+      nowIso: () => NOW,
+      forceM3Authority: true,
+    },
+  });
+}
+
+async function confirmSelectStart(
+  stack: Stack,
+  decisionId: string,
+  successorId: string,
+  expectedVersion: number,
+) {
+  const get =
+    await stack.contracts.getExecutionContract.execute({
+      executionContractId: successorId,
+    });
+  expect(get.ok).toBe(true);
+  if (!get.ok) throw new Error("get successor");
+  let contract = get.contract;
+
+  const auth = registerM3LocalMorrisAuthority({
+    authorityResolver: stack.authority,
+    scope: contract.scope,
+    issuedAt: NOW,
+    forceEnable: true,
+    evidenceId: `evd:m3-cfm:${successorId}`,
+  });
+  expect(auth.ok).toBe(true);
+  if (!auth.ok) throw new Error("cfm auth");
+
+  const confirmationId = `cfm:gux15:${successorId}:v${contract.version}`;
+  const requested = await stack.decisions.requestConfirmation.execute({
+    confirmationId,
+    level: "N3",
+    actionRef: F3_CONFIRM_ACTION_REF,
+    requestedBy: LOCAL_MORRIS_M3_ACTOR,
+    requestedTo: LOCAL_MORRIS_M3_ACTOR,
+    scope: contract.scope,
+    idempotencyKey: `idem:gux15-cfm:${successorId}:v${contract.version}`,
+    decisionRef: decisionId,
+  });
+  expect(requested.ok).toBe(true);
+
+  const granted = await stack.decisions.grantConfirmation.execute({
+    confirmationId,
+    actor: LOCAL_MORRIS_M3_ACTOR,
+    authorityEvidenceId: auth.evidenceId,
+  });
+  expect(granted.ok).toBe(true);
+
+  const confirmed = await stack.contracts.confirmExecutionContract.execute({
+    executionContractId: successorId,
+    confirmationId,
+    actor: LOCAL_MORRIS_M3_ACTOR,
+    authorityEvidenceId: auth.evidenceId,
+    expectedVersion,
+  });
+  expect(confirmed.ok).toBe(true);
+  if (!confirmed.ok) throw new Error("confirm");
+  contract = confirmed.contract;
+
+  const attemptId = `xat:gux15:${successorId.replace(/^xct:/, "")}`;
+  const selected = await stack.attempts.selectExecutionAgent.execute({
+    attemptId,
+    executionContractId: successorId,
+    idempotencyKey: `idem:gux15-att:${successorId}`,
+    actor: LOCAL_MORRIS_M3_ACTOR,
+    authorityEvidenceId: auth.evidenceId,
+    expectedContractVersion: contract.version,
+    selectionProfile: "standard",
+    selectionStrategy: "capabilities_deterministic",
+    requestedAgentRef: F3_AGENT_ID,
+    systemInitiated: true,
+  });
+  expect(selected.ok).toBe(true);
+  if (!selected.ok) throw new Error(selected.error.message);
+
+  const started = await stack.attempts.startExecution.execute({
+    attemptId,
+    actor: LOCAL_MORRIS_M3_ACTOR,
+    authorityEvidenceId: auth.evidenceId,
+  });
+  expect(started.ok).toBe(true);
+  if (!started.ok) throw new Error(started.error.message);
+
+  const resultRef = `res:gux15-fixture:${attemptId}`;
+  const recorded = await stack.attempts.recordExecutionResult.execute({
+    attemptId,
+    adapterId: F3_ADAPTER_ID,
+    resultRef,
+    technicalExitCode: 0,
+  });
+  expect(recorded.ok).toBe(true);
+  if (!recorded.ok) throw new Error(recorded.error.message);
+
+  return {
+    attempt: recorded.attempt,
+    launchCount: stack.fixtureAdapter.launchCallCount,
+    contract,
+  };
+}
+
+describe("G-UX-15 Slice A — resolveM3ExecutionContract", () => {
+  it("AC — preserves unresolved original, supersedes to resolved successor, fixture-safe StartExecution", async () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-"));
+    tempDirs.push(dir);
+    const dbPath = path.join(dir, "oa.sqlite");
+    const decisionId = "dec:gux15-happy";
+
+    const stackA = await bootAt(dbPath);
+    await createProject(stackA);
+    await recordAcceptedGo(stackA, decisionId);
+    const prepared = await prepareM3(stackA, decisionId);
+    expect(prepared.executionAllowed).toBe(false);
+    expect(prepared.contract.target).toBe("UNRESOLVED_TARGET");
+    expect(prepared.contract.constraints).toContain("PREPARE_ONLY");
+    const originalId = prepared.contract.executionContractId;
+    const originalVersion = prepared.contract.version;
+
+    // Dispose process-scoped services (PROCESS A end).
+    stackA.projects.dispose();
+    openServices.pop();
+
+    // PROCESS B — reload durable state; no Proposal / Conversation.
+    const stackB = await bootAt(dbPath);
+    const resolved = await resolveFixture(
+      stackB,
+      decisionId,
+      originalId,
+      originalVersion,
+    );
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) return;
+
+    expect(resolved.reusedFromIdempotency).toBe(false);
+    expect(resolved.original.status).toBe("superseded");
+    expect(resolved.original.target).toBe("UNRESOLVED_TARGET");
+    expect(resolved.original.requiredCapabilities).toContain("cap:unresolved");
+    expect(resolved.successor.supersedesExecutionContractId).toBe(originalId);
+    expect(resolved.successor.action).toBe(F3_ACTION);
+    expect(resolved.successor.target).toBe(F3_TARGET);
+    expect(resolved.successor.requiredCapabilities).toEqual([F3_CAPABILITY]);
+    expect(resolved.successor.constraints).not.toContain("PREPARE_ONLY");
+    expect(resolved.successor.constraints).not.toContain("NO_ATTEMPT");
+    expect(resolved.successor.status).toBe("confirmation_required");
+
+    const originalReload =
+      await stackB.contracts.getExecutionContract.execute({
+        executionContractId: originalId,
+      });
+    expect(originalReload.ok).toBe(true);
+    if (!originalReload.ok) return;
+    expect(originalReload.contract.status).toBe("superseded");
+    expect(originalReload.contract.target).toBe("UNRESOLVED_TARGET");
+    expect(originalReload.contract.constraints).toContain("PREPARE_ONLY");
+
+    const exec = await confirmSelectStart(
+      stackB,
+      decisionId,
+      resolved.successor.executionContractId,
+      resolved.successor.version,
+    );
+    expect(exec.attempt.status).toBe("succeeded");
+    expect(exec.attempt.selectedAgentRef).toBe(F3_AGENT_ID);
+    expect(exec.launchCount).toBe(1);
+    expect(stackB.fixtureAdapter.externalEffects).toBe(false);
+    expect(stackB.fixtureAdapter.adapterId).toBe(F3_ADAPTER_ID);
+
+    // Original never executed — no attempts on original id.
+    const onOriginal = await stackB.attempts.listExecutionAttempts.execute({
+      executionContractId: originalId,
+    });
+    expect(onOriginal.ok).toBe(true);
+    if (onOriginal.ok) expect(onOriginal.attempts).toHaveLength(0);
+
+    const onSuccessor = await stackB.attempts.listExecutionAttempts.execute({
+      executionContractId: resolved.successor.executionContractId,
+    });
+    expect(onSuccessor.ok).toBe(true);
+    if (onSuccessor.ok) expect(onSuccessor.attempts).toHaveLength(1);
+
+    // Duplicate StartExecution does not produce a second Attempt/launch.
+    const dupStart = await stackB.attempts.startExecution.execute({
+      attemptId: exec.attempt.attemptId,
+      actor: LOCAL_MORRIS_M3_ACTOR,
+      authorityEvidenceId: `evd:m3-cfm:${resolved.successor.executionContractId}`,
+    });
+    expect(dupStart.ok).toBe(false);
+    expect(stackB.fixtureAdapter.launchCallCount).toBe(1);
+
+    const listedAfter = await stackB.attempts.listExecutionAttempts.execute({
+      executionContractId: resolved.successor.executionContractId,
+    });
+    expect(listedAfter.ok).toBe(true);
+    if (listedAfter.ok) expect(listedAfter.attempts).toHaveLength(1);
+  });
+
+  it("idempotent resolve replay returns same successor without second current executable", async () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-idem-"));
+    tempDirs.push(dir);
+    const dbPath = path.join(dir, "oa.sqlite");
+    const decisionId = "dec:gux15-idem";
+    const stack = await bootAt(dbPath);
+    await createProject(stack);
+    await recordAcceptedGo(stack, decisionId);
+    const prepared = await prepareM3(stack, decisionId);
+
+    const first = await resolveFixture(
+      stack,
+      decisionId,
+      prepared.contract.executionContractId,
+      prepared.contract.version,
+    );
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+
+    const second = await resolveFixture(
+      stack,
+      decisionId,
+      prepared.contract.executionContractId,
+      prepared.contract.version,
+    );
+    expect(second.ok).toBe(true);
+    if (!second.ok) return;
+    expect(second.reusedFromIdempotency).toBe(true);
+    expect(second.successor.executionContractId).toBe(
+      first.successor.executionContractId,
+    );
+
+    const history = await stack.contracts.listExecutionContractHistory.execute({
+      projectId: PROJECT_ID,
+    });
+    expect(history.ok).toBe(true);
+    if (!history.ok) return;
+    const currentish = history.contracts.filter(
+      (c) =>
+        c.status !== "superseded" &&
+        c.status !== "cancelled" &&
+        c.supersedesExecutionContractId ===
+          prepared.contract.executionContractId,
+    );
+    expect(currentish).toHaveLength(1);
+  });
+
+  it("negative — unresolved resolution fields and non-accepted decisions", async () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-neg-"));
+    tempDirs.push(dir);
+    const dbPath = path.join(dir, "oa.sqlite");
+    const decisionId = "dec:gux15-neg";
+    const stack = await bootAt(dbPath);
+    await createProject(stack);
+    await recordAcceptedGo(stack, decisionId);
+    const prepared = await prepareM3(stack, decisionId);
+    const base = {
+      projectId: PROJECT_ID,
+      decisionId,
+      originalExecutionContractId: prepared.contract.executionContractId,
+      expectedOriginalVersion: prepared.contract.version,
+      supersessionReason: "neg",
+      deps: {
+        decisionServices: stack.decisions,
+        authorityResolver: stack.authority,
+        executionContractServices: stack.contracts,
+        nowIso: () => NOW,
+        forceM3Authority: true,
+      },
+    };
+
+    const unresolvedTarget = await resolveM3ExecutionContract({
+      ...base,
+      resolution: {
+        ...fixtureResolution(),
+        target: "UNRESOLVED_TARGET",
+      },
+    });
+    expect(unresolvedTarget.ok).toBe(false);
+    if (!unresolvedTarget.ok) {
+      expect(unresolvedTarget.code).toBe("RESOLUTION_TARGET_UNRESOLVED");
+    }
+
+    const unresolvedCap = await resolveM3ExecutionContract({
+      ...base,
+      resolution: {
+        ...fixtureResolution(),
+        requiredCapabilities: ["cap:unresolved"],
+      },
+    });
+    expect(unresolvedCap.ok).toBe(false);
+    if (!unresolvedCap.ok) {
+      expect(unresolvedCap.code).toBe("RESOLUTION_CAPABILITY_UNRESOLVED");
+    }
+
+    const unresolvedAction = await resolveM3ExecutionContract({
+      ...base,
+      resolution: {
+        ...fixtureResolution(),
+        action: "UNRESOLVED_ACTION",
+      },
+    });
+    expect(unresolvedAction.ok).toBe(false);
+    if (!unresolvedAction.ok) {
+      expect(unresolvedAction.code).toBe("RESOLUTION_ACTION_UNRESOLVED");
+    }
+
+    const prepareOnlyConstraint = await resolveM3ExecutionContract({
+      ...base,
+      resolution: {
+        ...fixtureResolution(),
+        constraints: ["PREPARE_ONLY", "NO REAL"],
+      },
+    });
+    expect(prepareOnlyConstraint.ok).toBe(false);
+    if (!prepareOnlyConstraint.ok) {
+      expect(prepareOnlyConstraint.code).toBe("RESOLUTION_CONSTRAINT_FORBIDDEN");
+    }
+
+    const staleVersion = await resolveM3ExecutionContract({
+      ...base,
+      expectedOriginalVersion: prepared.contract.version + 99,
+      resolution: fixtureResolution(),
+    });
+    expect(staleVersion.ok).toBe(false);
+    if (!staleVersion.ok) {
+      expect(staleVersion.code).toBe("VERSION_CONFLICT");
+    }
+
+    // Amended decision — no DecisionBasis path.
+    const amendId = "dec:gux15-amend";
+    const amendAuth = registerM3LocalMorrisAuthority({
+      authorityResolver: stack.authority,
+      scope: `decision:${amendId}`,
+      issuedAt: NOW,
+      forceEnable: true,
+      evidenceId: `evd:m3:${amendId}`,
+    });
+    expect(amendAuth.ok).toBe(true);
+    if (!amendAuth.ok) return;
+    const amended = await stack.decisions.recordHumanDecision.execute({
+      decisionId: amendId,
+      projectId: PROJECT_ID,
+      subject: amendId,
+      options: [{ optionId: "opt:amend", label: "AMEND" }],
+      selectedOptionId: "opt:amend",
+      actor: LOCAL_MORRIS_M3_ACTOR,
+      authority: "morris",
+      reversible: true,
+      scope: `decision:${amendId}`,
+      authorityEvidenceId: amendAuth.evidenceId,
+      status: "amended",
+    });
+    expect(amended.ok).toBe(true);
+
+    const amendResolve = await resolveM3ExecutionContract({
+      ...base,
+      decisionId: amendId,
+      resolution: fixtureResolution(),
+    });
+    expect(amendResolve.ok).toBe(false);
+    if (!amendResolve.ok) {
+      expect(["DECISION_NOT_CURRENT", "DECISION_BASIS_REQUIRED"]).toContain(
+        amendResolve.code,
+      );
+    }
+  });
+
+  it("negative — refuse confirm/start of original unresolved M3 contract", async () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-orig-"));
+    tempDirs.push(dir);
+    const dbPath = path.join(dir, "oa.sqlite");
+    const decisionId = "dec:gux15-orig";
+    const stack = await bootAt(dbPath);
+    await createProject(stack);
+    await recordAcceptedGo(stack, decisionId);
+    const prepared = await prepareM3(stack, decisionId);
+
+    const auth = registerM3LocalMorrisAuthority({
+      authorityResolver: stack.authority,
+      scope: prepared.contract.scope,
+      issuedAt: NOW,
+      forceEnable: true,
+      evidenceId: `evd:m3-badcfm:${decisionId}`,
+    });
+    expect(auth.ok).toBe(true);
+    if (!auth.ok) return;
+
+    const confirmationId = `cfm:bad:${prepared.contract.executionContractId}`;
+    const requested = await stack.decisions.requestConfirmation.execute({
+      confirmationId,
+      level: "N3",
+      actionRef: F3_CONFIRM_ACTION_REF,
+      requestedBy: LOCAL_MORRIS_M3_ACTOR,
+      requestedTo: LOCAL_MORRIS_M3_ACTOR,
+      scope: prepared.contract.scope,
+      idempotencyKey: `idem:badcfm:${decisionId}`,
+      decisionRef: decisionId,
+    });
+    expect(requested.ok).toBe(true);
+    const granted = await stack.decisions.grantConfirmation.execute({
+      confirmationId,
+      actor: LOCAL_MORRIS_M3_ACTOR,
+      authorityEvidenceId: auth.evidenceId,
+    });
+    expect(granted.ok).toBe(true);
+
+    // Confirm may succeed on confirmation_required status — but agent match must fail
+    // because cap:unresolved / UNRESOLVED_TARGET cannot match fixture agent.
+    const confirmed = await stack.contracts.confirmExecutionContract.execute({
+      executionContractId: prepared.contract.executionContractId,
+      confirmationId,
+      actor: LOCAL_MORRIS_M3_ACTOR,
+      authorityEvidenceId: auth.evidenceId,
+      expectedVersion: prepared.contract.version,
+    });
+    // Whether confirm is allowed, selection must fail closed on unresolved fields.
+    if (confirmed.ok) {
+      const selected = await stack.attempts.selectExecutionAgent.execute({
+        attemptId: `xat:bad:${decisionId}`,
+        executionContractId: prepared.contract.executionContractId,
+        idempotencyKey: `idem:bad-att:${decisionId}`,
+        actor: LOCAL_MORRIS_M3_ACTOR,
+        authorityEvidenceId: auth.evidenceId,
+        expectedContractVersion: confirmed.contract.version,
+        selectionProfile: "standard",
+        selectionStrategy: "capabilities_deterministic",
+        requestedAgentRef: F3_AGENT_ID,
+        systemInitiated: true,
+      });
+      expect(selected.ok).toBe(false);
+    } else {
+      expect(confirmed.ok).toBe(false);
+    }
+    expect(stack.fixtureAdapter.launchCallCount).toBe(0);
+  });
+
+  it("negative — invalid agent capability / project mismatch", async () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-agent-"));
+    tempDirs.push(dir);
+    const dbPath = path.join(dir, "oa.sqlite");
+    const decisionId = "dec:gux15-agent";
+    const stack = await bootAt(dbPath);
+    await createProject(stack);
+    await recordAcceptedGo(stack, decisionId);
+    const prepared = await prepareM3(stack, decisionId);
+
+    const resolved = await resolveM3ExecutionContract({
+      projectId: PROJECT_ID,
+      decisionId,
+      originalExecutionContractId: prepared.contract.executionContractId,
+      expectedOriginalVersion: prepared.contract.version,
+      supersessionReason: "agent mismatch setup",
+      resolution: {
+        ...fixtureResolution(),
+        requiredCapabilities: ["cap:does-not-exist-for-fixture"],
+        // Keep F3 action/target/scope so contract validates; match fails at select.
+      },
+      deps: {
+        decisionServices: stack.decisions,
+        authorityResolver: stack.authority,
+        executionContractServices: stack.contracts,
+        nowIso: () => NOW,
+        forceM3Authority: true,
+      },
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) return;
+
+    const auth = registerM3LocalMorrisAuthority({
+      authorityResolver: stack.authority,
+      scope: resolved.successor.scope,
+      issuedAt: NOW,
+      forceEnable: true,
+      evidenceId: `evd:m3-agent:${decisionId}`,
+    });
+    expect(auth.ok).toBe(true);
+    if (!auth.ok) return;
+    const confirmationId = `cfm:agent:${resolved.successor.executionContractId}`;
+    await stack.decisions.requestConfirmation.execute({
+      confirmationId,
+      level: "N3",
+      actionRef: F3_CONFIRM_ACTION_REF,
+      requestedBy: LOCAL_MORRIS_M3_ACTOR,
+      requestedTo: LOCAL_MORRIS_M3_ACTOR,
+      scope: resolved.successor.scope,
+      idempotencyKey: `idem:agentcfm:${decisionId}`,
+      decisionRef: decisionId,
+    });
+    await stack.decisions.grantConfirmation.execute({
+      confirmationId,
+      actor: LOCAL_MORRIS_M3_ACTOR,
+      authorityEvidenceId: auth.evidenceId,
+    });
+    const confirmed = await stack.contracts.confirmExecutionContract.execute({
+      executionContractId: resolved.successor.executionContractId,
+      confirmationId,
+      actor: LOCAL_MORRIS_M3_ACTOR,
+      authorityEvidenceId: auth.evidenceId,
+      expectedVersion: resolved.successor.version,
+    });
+    expect(confirmed.ok).toBe(true);
+    if (!confirmed.ok) return;
+
+    const selected = await stack.attempts.selectExecutionAgent.execute({
+      attemptId: `xat:agent:${decisionId}`,
+      executionContractId: resolved.successor.executionContractId,
+      idempotencyKey: `idem:agent-att:${decisionId}`,
+      actor: LOCAL_MORRIS_M3_ACTOR,
+      authorityEvidenceId: auth.evidenceId,
+      expectedContractVersion: confirmed.contract.version,
+      selectionProfile: "standard",
+      selectionStrategy: "capabilities_deterministic",
+      requestedAgentRef: F3_AGENT_ID,
+      systemInitiated: true,
+    });
+    expect(selected.ok).toBe(false);
+
+    const projectMismatch = await resolveM3ExecutionContract({
+      projectId: "prj:other",
+      decisionId,
+      originalExecutionContractId: prepared.contract.executionContractId,
+      expectedOriginalVersion: prepared.contract.version,
+      supersessionReason: "mismatch",
+      resolution: fixtureResolution(),
+      deps: {
+        decisionServices: stack.decisions,
+        authorityResolver: stack.authority,
+        executionContractServices: stack.contracts,
+        nowIso: () => NOW,
+        forceM3Authority: true,
+      },
+    });
+    expect(projectMismatch.ok).toBe(false);
+    if (!projectMismatch.ok) {
+      expect(projectMismatch.code).toBe("PROJECT_MISMATCH");
+    }
+  });
+});
+
+// Keep unused import type referenced for clarity in tooling.
+void (null as unknown as ExecutionAttemptServices);
+
+```
+
+### 15. COMPLETE modified Pre-M6 artifact
 ```markdown
 # SFIA Studio — Qualification pré-M6 du parcours utilisateur / référentiel UX
 
@@ -187,7 +1574,7 @@ Les sources d’exécution, d’interface et de tests ont été examinées sous 
 - Architecture fonctionnelle de l’information : **ADOPTED BY MORRIS** (D-PRE-M6-UX-02).
 - Principe de réutilisation UI : **ADOPTED BY MORRIS AT PRINCIPLE LEVEL** (D-PRE-M6-UX-03) — dispositions individuelles de composants **non consommées automatiquement**.
 - Limitation process-local premier test : **ACCEPTED BY MORRIS**.
-- G-UX-15 : **REQUALIFY** — BLOCKER demeure ouvert (D-PRE-M6-UX-04).
+- G-UX-15 : **IMPLEMENTED CANDIDATE — FIXTURE-SAFE APPLICATION WIRING PROOF PASS — MORRIS ACCEPTANCE PENDING** (Slice A sélectionnée et câblée ; BLOCKER technique en attente d’acceptation Morris ; Figma / UI Delivery / M6 toujours non autorisés).
 - Readiness consolidée G-UX-01→15 : **AUTHORIZED / COMPLETED** dans ce cycle (classification seulement ; aucune implémentation).
 - Figma Visual Contract : **NOT AUTHORIZED** (D-PRE-M6-UX-05 = NO DECISION YET).
 - Pre-M6 UI Delivery : **NOT AUTHORIZED**.
@@ -1134,30 +2521,39 @@ Vérification factuelle : base Git `2f0d7236…` ; sources ciblées `prepareM3Fr
 | Champ | Valeur |
 |---|---|
 | Classe | APPLICATION WIRING GAP — **BLOCKING** |
-| Condition | **Toujours valide et BLOCKER.** `prepareM3FromDecision` : `UNRESOLVED_TARGET`, `CAPABILITY_UNRESOLVED`, `REVERSIBILITY_UNRESOLVED`, contraintes PREPARE_ONLY / NO_ATTEMPT ; `executionAllowed: false`. `ProjectAssistantPanel` : `canConfirmF3` uniquement sur fixture `f3Prepare` ; M3 prepare n’ouvre pas Confirm/StartExecution. Fixture path : Proposal locale + contrat fixture → Confirmation → StartExecution → Attempt. Supersession OA existe (`SupersedeExecutionContract`) mais non câblée comme résolution produit M3→exécution. |
+| Condition | **Gap historique M3 PREPARE-only inchangé.** Slice A ajoute `resolveM3ExecutionContract` : supersession vers successeur résolu via input applicatif explicite ; Confirmation/Select/StartExecution existants. UI assistant toujours sans bouton M3 confirm (hors scope). Fixture path séparée inchangée. |
 | Étapes | Décision → contrat → confirmation → Attempt |
-| Impact | Pas de preuve produit M1→M5 du chemin critique durable |
-| Risque | **Élevé** (autorité / fail-closed / fixture-as-proof) |
+| Impact | Chemin applicatif durable M3→exécution désormais prouvable fixture-safe ; preuve produit navigateur / REAL toujours future |
+| Risque | Résiduel jusqu’à acceptation Morris + UI/E2E |
 | Dimension | Câblage applicatif / cycle de vie contrat |
-| Sévérité | **BLOCKER** |
-| Pré-Figma | **MUST QUALIFY / DEFINE BEFORE FIGMA** (ce cycle) ; implémentation **peut** venir après contrat visuel mais **avant** UI Delivery / preuve critique — **MORRIS décide** le timing d’implémentation |
-| Figma | MUST REPRESENT (contrat non résolu, successeur, confirmation, fail-closed) — **sans masquer le gap** |
-| Delivery | **IMPLEMENT IN DISTINCT PRE-DELIVERY TECHNICAL SLICE** (recommandé) puis UI Delivery consomme le chemin |
-| Preuve | MUST PROVE (fixture-safe / simulated) avant claim produit ; REAL seulement sous GO séparé ultérieur |
-| Temporaire | **Non** — ne pas accepter comme « prêt produit » |
-| Report | **Non** — BLOCKER |
+| Sévérité | **BLOCKER (en attente acceptation Morris)** — preuve technique fixture-safe PASS |
+| Pré-Figma | Définition + implémentation Slice A **disponibles** ; Figma peut représenter états unresolved/successeur sans masquer la réserve d’acceptation |
+| Figma | MUST REPRESENT — **FIGMA NOT AUTHORIZED** |
+| Delivery | Slice A technique **candidat** ; UI Delivery **NOT READY / NOT AUTHORIZED** jusqu’à acceptation + Figma |
+| Preuve | Fixture-safe PASS (`gux15.resolveM3ExecutionContract.test.ts`) ; REAL=0 ; browser E2E future |
+| Temporaire | **Non** pour claim produit |
+| Report | **Non** jusqu’à acceptation Morris |
 | Dépendance | HumanDecision, DecisionBasis, ExecutionContract lifecycle, Confirmation, StartExecution, ExecutionAttempt, AgentCapability |
-| Tranche | **SLICE A recommandée** (G-UX-15 seul) ; voir §25 |
-| Traitement | Préserver contrat non résolu ; produire successeur résolu via supersession existante ; Confirmation + StartExecution existants ; ZERO REAL ce cycle |
-| Risque parallèle | **Élevé** si second séquenceur / mutation in-place / fixture comme critical-path proof |
-| Preuve clôture | Voir §22 |
-| Gate Morris | Sélection de tranche + éventuelle autorisation d’implémentation ; **DECISION REQUIRED — MORRIS** pour tout retrait de BLOCKER |
+| Tranche | **SLICE A SELECTED + IMPLEMENTED CANDIDATE** |
+| Traitement | `resolveM3ExecutionContract` — supersession existante ; ZERO REAL |
+| Risque parallèle | Mitigé dans Slice A (pas de second séquenceur / pas de mutation in-place) |
+| Preuve clôture | Voir §22.4 + tests |
+| Gate Morris | **ACCEPT G-UX-15 SLICE A EXIT PROOF** (ou AMEND) — requis avant retrait blocker produit |
 | Owner | Owner missing |
-| Disposition | **BLOCKER — REQUALIFY — MUST DEFINE BEFORE FIGMA — NO IMPLEMENTATION THIS CYCLE — DISTINCT PRE-DELIVERY SLICE CANDIDATE** |
+| Disposition | **IMPLEMENTED CANDIDATE — FIXTURE-SAFE APPLICATION WIRING PROOF PASS — MORRIS ACCEPTANCE PENDING** |
+
+#### Mise à jour Slice A — fichiers
+
+- `projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts`
+- export `f3/index.ts`
+- `__tests__/project-assistant/gux15.resolveM3ExecutionContract.test.ts`
+- Original PREPARE préservé ; successor via supersession ; input explicite ; pas de changement DecisionBasis/Confirmation persistence ; pas d’UI.
 
 ---
 
-## 22. Qualification ciblée G-UX-15 — contrat fonctionnel / applicatif (sans implémentation)
+## 22. Qualification ciblée G-UX-15 — contrat fonctionnel / applicatif
+
+> Historique de qualification conservé. Statut d’implémentation Slice A : §22.4.
 
 ### 22.1 Faits runtime confirmés
 
@@ -1195,6 +2591,12 @@ Vérification factuelle : base Git `2f0d7236…` ; sources ciblées `prepareM3Fr
 ### 22.3 Anti-revendications G-UX-15
 
 Qualification ≠ implementation. Fixture ≠ critical-path product proof. ZERO REAL. Aucun nouveau modèle de contrat. Aucun nouveau moteur de séquencement.
+
+### 22.4 Statut post Slice A (après preuves fixture-safe)
+
+**G-UX-15 = IMPLEMENTED CANDIDATE — FIXTURE-SAFE APPLICATION WIRING PROOF PASS — MORRIS ACCEPTANCE PENDING**
+
+Acceptation Morris requise avant de retirer le blocker produit / avant Figma GO / UI Delivery.
 
 ---
 
@@ -1266,11 +2668,11 @@ Aucune implémentation dans ce cycle.
 
 ### RECOMMENDATION
 
-**SLICE A — G-UX-15 only** comme prochaine tranche structurelle pré-Delivery.
+**SLICE A — G-UX-15 only** — **sélectionnée et implémentée (candidat)** dans ce cycle de Delivery.
 
-Traiter G-UX-08 et G-UX-10 comme tranches Delivery / wiring séparées (ou B seulement si Morris exige le scénario AMEND dans la même capacité critique). Ne pas forcer C.
+Traiter G-UX-08 et G-UX-10 comme tranches Delivery / wiring séparées. Ne pas forcer C.
 
-Cette recommandation **n’est pas** une décision d’architecture consommée.
+Prochaine décision Morris : **ACCEPT G-UX-15 SLICE A EXIT PROOF** (ou AMEND / CORRECT).
 
 ### MORRIS DECISION REQUIRED
 
@@ -1351,20 +2753,55 @@ Project artifacts created = 0 · Existing Pre-M6 artifact modified = 1 · Roadma
 
 ```
 
-### 21. Changed files
-- `projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md` (factual correction §21 G-UX-08, §22 Confirmation Memory, §23 AMEND, §24 freshness UI note)
-- `.tmp-sfia-review/chatgpt-review.md` reset
+### 16–24. Evidence summary (tests PASS)
+- Original unresolved preserved then legally superseded
+- Successor links via supersedesExecutionContractId; no unresolved sentinels; validated confirmation_required
+- PROCESS A dispose → PROCESS B reload → resolve without Proposal/Conversation
+- Confirmation request/grant/confirm reused (Memory/process-local retained)
+- Agent exact match F3 fixture capability; StartExecution sole sequencer; one Attempt; duplicate start refused; launchCount=1; externalEffects=false
+- Idempotent resolve replay
+- Negatives: unresolved target/cap/action; PREPARE_ONLY constraint; stale version; amended decision; unresolved original selection fail-closed; invalid capability match; project mismatch
 
-### 22. Forbidden-files check
-Roadmap / Build Doctrine / v3 / app / method / prompts — NOT MODIFIED
+### 25. Negative test matrix
+Covered in gux15 test file (unresolved fields, amended, version conflict, forbidden constraints, agent mismatch, project mismatch, original unresolved path, duplicate start).
 
-### 23. Validation
-Project still untracked/unstaged only; no project commit; G-UX-01…15 once each; G-UX-15 BLOCKER retained; ZERO REAL
+### 26. Test commands/results
+```
+npm test -- __tests__/project-assistant/gux15.resolveM3ExecutionContract.test.ts \
+  __tests__/oa/decision/m3RestartProcessProof.test.ts \
+  __tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts \
+  __tests__/oa/execution-contract/supersedeCancelAuthz.test.ts \
+  __tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
+→ 5 files / 39 tests PASSED
+```
 
-### 24–28. Project Git writes / Figma / UI Delivery / M6 / REAL = 0
+### 27. Typecheck/lint
+`npm run typecheck` PASS. eslint on affected files: clean.
 
-### 29. Next gate
-ChatGPT review → Morris treatment-set decision
+### 28. Forbidden paths
+Roadmap / Build Doctrine / v3 / method / prompts / UI / schema / DecisionBasis persistence / Confirmation persistence — NOT MODIFIED.
 
-### 30. Verdict
-PRE-M6 FUNCTIONAL BASELINE MORRIS DECISIONS RECORDED — CANONICAL M1→M5 USER JOURNEY ADOPTED — FUNCTIONAL IA ADOPTED — UI REUSE PRINCIPLE ADOPTED — FIRST-TEST PROCESS-LOCAL LIMITATION ACCEPTED — G-UX-01→15 CONSOLIDATED READINESS QUALIFIED — G-UX-15 REMAINS REQUALIFY / NO IMPLEMENTATION IN THIS CYCLE — FIGMA READINESS ASSESSED BUT FIGMA NOT AUTHORIZED — UI DELIVERY NOT AUTHORIZED — M6 NOT AUTHORIZED — ZERO REAL — READY FOR CHATGPT REVIEW / MORRIS GAP-TREATMENT DECISION
+### 29. REAL environment
+SFIA_STUDIO_CURSOR_REAL unset; OPS1_CURSOR_REAL unset; Cursor REAL=0
+
+### 30. Gate D
+0
+
+### 31. Project commit/push/PR
+0 / 0 / 0
+
+### 32. Reservations
+- Confirmation remains process-local (no restart between grant and execute claimed)
+- No UI wiring; ProjectAssistantPanel unchanged
+- Fixture-safe ≠ product E2E / REAL proof
+- G-UX-08 / G-UX-10 unchanged / out of slice
+- Morris acceptance still required before blocker removal
+
+### 33. Morris decisions still required
+ACCEPT G-UX-15 SLICE A EXIT PROOF (or AMEND/CORRECT). Then separately: Figma GO (D-PRE-M6-UX-05); UI Delivery; Roadmap sync.
+
+### 34. Next gate
+ChatGPT verifies source/diff/proofs → Morris ACCEPT or AMEND.
+
+### 35. Verdict
+PRE-M6 G-UX-15 SLICE A IMPLEMENTATION CANDIDATE COMPLETE — DURABLE M3 PREPARE EXECUTIONCONTRACT PRESERVED AND SUPERSEDED THROUGH EXISTING LIFECYCLE — VALID RESOLVED SUCCESSOR PRODUCED — EXISTING CONFIRMATION / AGENT SELECTION / STARTEXECUTION / EXECUTIONATTEMPT REUSED — DURABLE RESTART→RESOLVE PROOF PASS — FIXTURE-SAFE EXECUTION WIRING PROOF PASS — NO PARALLEL ENGINE — NO NEW PERSISTENCE — ZERO REAL — NO GATE D — NO FIGMA — NO UI DELIVERY — NO M6 — READY FOR CHATGPT REVIEW / MORRIS G-UX-15 ACCEPTANCE
