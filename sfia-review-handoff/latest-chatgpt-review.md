@@ -1,2586 +1,63 @@
 # ChatGPT Review Pack — FULL
 
-## PRE-M6 G-UX-15 SLICE A — FINAL AMEND / EXIT-PROOF HARDENING
+## PRE-M6 G-UX-15 EXIT-PROOF ACCEPTANCE CAPITALIZATION + ROADMAP SYNC
 
-**Timestamp (Europe/Paris):** 2026-08-15 15:59:05 CEST
+**Timestamp (Europe/Paris):** 2026-08-15 16:07:37 CEST
 
 **Mode:** FULL
-**Cycle:** Cycle 8 — Delivery / CONTINUATION / FINAL CORRECTION
-**Profile:** Critical
-**Typology:** INC — bounded corrective increment
+**Cycle:** Cycle 15 — Capitalisation / REX
+**Profile:** Capitalization + Critical
+**Typology:** DOC
+**Primary:** V3-F05 · Supporting V3-F14 / V3-F15 / V3-F10
 
 ---
 
 ### 1. Timestamp
-2026-08-15 15:59:05 CEST
+2026-08-15 16:07:37 CEST
 
-### 2. Exact FINAL AMEND GO Morris
+### 2. Exact Morris acceptance GO
 ```
-GO MORRIS — FINAL AMEND G-UX-15 SLICE A — ENFORCE SUCCESSOR GOVERNANCE IDENTITY ON REPLAY (MORRIS AUTHORITY + DECISION REFS + CANONICAL RESOLUTION IDEMPOTENCY) — ACCEPT FAILED AS LEGITIMATE PROGRESSED T-A5 STATE — COMPLETE PRE-M6 ARTIFACT CURRENT-STATE SYNC — KEEP EXISTING ARCHITECTURE — ZERO REAL — NO FIGMA — NO UI DELIVERY — NO M6
+GO MORRIS — ACCEPT G-UX-15 SLICE A EXIT PROOF — G-UX-15 TECHNICAL APPLICATION-WIRING BLOCKER CLOSED — KEEP CONFIRMATION PROCESS-LOCAL RESERVE — FIXTURE-SAFE PROOF ACCEPTED AS TECHNICAL PROOF ONLY — PREPARE CONTROLLED INTEGRATION / CAPITALIZATION + ROADMAP SYNC — NO FIGMA YET — NO UI DELIVERY — NO M6 — ZERO REAL
 ```
 
-### 3. Cycle 8 / Critical / INC continuation
-Final corrective only — does not reopen Slice A architecture.
+### 3. Cycle 15 / Capitalization + Critical / DOC
+Capitalizes Morris-accepted G-UX-15 exit proof into Pre-M6 baseline + Convergence Roadmap. Critical because incorrect capitalization could falsely authorize Figma/UI Delivery/M6 or claim product E2E.
 
 ### 4. Initial Git Truth
 - Branch: `feat/sfia-studio-pre-m6-gux15-slice-a`
 - HEAD / origin/main: `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7`
-- Remote feat branch: ABSENT
-- Incoming handoff: `4d5c185e…` / blob `1272c3cb…`
-- Local Slice A files MATCHED reviewed handoff before edit
-- Staged: empty; REAL unset
+- Remote feat: ABSENT
+- Incoming handoff: `ec456dafd441825263df3638105efab520946073` / blob `1fb9a2e82dc2df7bf872103a1f78c0fd0932149f`
+- Staged empty · REAL unset
+- Pre-cycle delta: Slice A files + Pre-M6 baseline (Roadmap unmodified before this cycle)
 
-### 5. Incoming handoff
-Commit `4d5c185e507f4dbfdef61a502f9b4a0c746fb093` · blob `1272c3cb85b47cc5786762ac1074b5dced9236f3`
+### 5. Incoming accepted handoff
+Commit `ec456dafd441825263df3638105efab520946073` · blob `1fb9a2e82dc2df7bf872103a1f78c0fd0932149f`
 
-### 6. Mandatory sources read
-Process + Build Doctrine + Roadmap (RO) + v3 30/34/35/37 + Pre-M6 baseline + resolve/prepare/supersede/validate + types + tests as needed.
+### 6. Mandatory sources
+Process + CKC cognitive + Build Doctrine + Roadmap + v3 30/34/35/37 + Pre-M6 baseline + accepted handoff FULL.
 
-### 7. Final findings corrected
-F1 — successor governance identity incomplete on replay.
-F2 — `failed` missing from progressed T-A5 replay set; `validated`-only MORRIS incorrectly acceptable.
-F3 — Pre-M6 artifact still presented REQUALIFY / no-implementation / pending A/B/C as current in places.
+### 7. Accepted Slice A integrity — UNCHANGED
+Explicit statement: local Slice A resolver / test / index.ts diff **MATCHED** accepted handoff content and were **NOT MODIFIED** in this cycle.
 
-### 8–9. Governance identity rules + resolution idempotency
-On replay / success:
-- lineage: successor.supersedesExecutionContractId === original.executionContractId
-- original.requiredAuthority === MORRIS
-- successor.requiredAuthority === original.requiredAuthority
-- decisionRefs exact `[decisionId]`
-- idempotencyKey === `idem:m3-res:{decisionId}:{successorId}` via `canonicalM3ResolutionIdempotencyKey`
-- projectId match
-- retain field match + unresolved sentinel checks
-Mismatch → `SUCCESSOR_GOVERNANCE_MISMATCH` before validation (zero mutation / Attempt / launch).
+SHA-256:
+- resolveM3ExecutionContract.ts: `2c3634caa9489f2dfc576745f049ea1384f39a0b7e60489d22d434c1c6e21e09`
+- gux15.resolveM3ExecutionContract.test.ts: `38685bbf9440ce06752a26ed156376fa15ea3baf621001f86dc822e35a288570`
+- index.ts: `3692ffdc536e1101f17ffdd50af2137b152bbec764a2594aeb208a8831e0d194`
 
-MORRIS status semantics:
-- draft/proposed → validate SAME successor
-- validated → STATE_CONFLICT (confirmation_required expected)
-- confirmation_required / confirmed / executing / completed / failed → idempotent success if governance holds
-- cancelled / superseded → STATE_CONFLICT
+Preserved accepted evidence (not re-run this DOC cycle): 5 files / 50 tests PASS · typecheck PASS · eslint clean · externalEffects=false · REAL=0 · Gate D=0.
 
-### 10. Complete resolver after final amend
-```typescript
-/**
- * G-UX-15 Slice A — application bridge:
- * durable M3 PREPARE ExecutionContract → resolved successor via existing supersession
- * → eligible for existing Confirmation / Select / StartExecution.
- *
- * Does NOT execute. Does NOT mutate the original contract in place.
- * Does NOT depend on Proposal / Conversation.
- * Resolution fields are explicit application command input (not durable authority).
- *
- * Amend (exit-proof):
- * - reject all known unresolved successor stop-condition sentinels;
- * - idempotent validation replay when supersession succeeded but validation did not;
- * - accept only the exact canonical M3 PREPARE contract identity for the decision.
- *
- * Final amend:
- * - enforce successor governance identity on replay (MORRIS + decisionRefs + resolution idempotency);
- * - treat failed as a legitimate already-progressed T-A5 state;
- * - refuse validated-only MORRIS as completed resolution for this path.
- */
+### 8–9. G-UX-15 accepted status
+- Exit proof: **ACCEPTED BY MORRIS**
+- Technical application-wiring blocker: **CLOSED**
+- Fixture-safe proof: **ACCEPTED AS TECHNICAL PROOF ONLY**
+- Product/browser/UI E2E: **STILL PENDING**
+- Local candidate: **NOT YET ON MAIN**
 
-import type {
-  DecisionBasis,
-  DecisionServices,
-  MemoryAuthorityResolver,
-} from "@/lib/oa/decision";
-import {
-  LOCAL_MORRIS_M3_ACTOR,
-  registerM3LocalMorrisAuthority,
-} from "@/lib/oa/decision";
-import type {
-  ExecutionContract,
-  ExecutionContractServices,
-  Reversibility,
-} from "@/lib/oa/execution-contract";
+### 10. Confirmation process-local reserve
+Memory / process-local · **KEEP RESERVE FOR NOW** · NON-BLOCKING for accepted technical exit · ≠ restart-safe Confirmation · exit trigger = future UAT/product proof of unsafe ambiguity.
 
-const UNRESOLVED_ACTION = "UNRESOLVED_ACTION";
-const UNRESOLVED_TARGET = "UNRESOLVED_TARGET";
-const UNRESOLVED_CAP = "cap:unresolved";
-
-const FORBIDDEN_EXECUTABLE_CONSTRAINTS = new Set([
-  "PREPARE_ONLY",
-  "NO_ATTEMPT",
-]);
-
-/** Exact known unresolved stop-condition sentinels (C1). */
-export const UNRESOLVED_STOP_SENTINELS = Object.freeze([
-  "ACTION_UNRESOLVED",
-  "TARGET_UNRESOLVED",
-  "CAPABILITY_UNRESOLVED",
-  "REVERSIBILITY_UNRESOLVED",
-] as const);
-
-const UNRESOLVED_STOP = new Set<string>(UNRESOLVED_STOP_SENTINELS);
-
-/**
- * Already-progressed legitimate states for MORRIS M3/G-UX-15 replay.
- * Note: "validated" alone is NOT acceptable for MORRIS (confirmation required).
- */
-const POST_VALIDATION_OK = new Set([
-  "confirmation_required",
-  "confirmed",
-  "executing",
-  "completed",
-  "failed",
-]);
-
-const PRE_VALIDATION = new Set(["draft", "proposed"]);
-
-const CANONICAL_M3_AUTHORITY = "MORRIS";
-
-export type ResolveM3Deps = {
-  decisionServices: DecisionServices;
-  authorityResolver: MemoryAuthorityResolver;
-  executionContractServices: ExecutionContractServices;
-  nowIso: () => string;
-  /** Test inject — bypasses M3 local Morris env gate. */
-  forceM3Authority?: boolean;
-};
-
-/**
- * Explicit application-layer resolution input — not a durable domain authority.
- */
-export type M3ResolvedExecutionFields = {
-  action: string;
-  target: string;
-  requiredCapabilities: string[];
-  reversibility: Reversibility;
-  /** When omitted, inherits original scope (typically decision-scoped). */
-  scope?: string;
-  /**
-   * When omitted, inherits non-forbidden constraints from the original and
-   * drops PREPARE_ONLY / NO_ATTEMPT. Caller may supply a full replace list.
-   */
-  constraints?: string[];
-  /**
-   * When omitted, inherits stopConditions without unresolved sentinels.
-   * Explicit arrays MUST NOT contain known unresolved stop sentinels (C1).
-   */
-  stopConditions?: string[];
-};
-
-export type ResolveM3ExecutionContractInput = {
-  projectId: string;
-  decisionId: string;
-  originalExecutionContractId: string;
-  expectedOriginalVersion: number;
-  resolution: M3ResolvedExecutionFields;
-  supersessionReason: string;
-  /**
-   * Optional deterministic successor id. Default: `xct:m3-res:{safeDecisionId}`.
-   * Replay with the same id returns the existing successor when fields match.
-   */
-  successorExecutionContractId?: string;
-  deps: ResolveM3Deps;
-};
-
-export type ResolveM3Success = {
-  ok: true;
-  projectId: string;
-  decisionId: string;
-  original: {
-    executionContractId: string;
-    version: number;
-    status: string;
-    action: string;
-    target: string;
-    requiredCapabilities: string[];
-  };
-  successor: {
-    executionContractId: string;
-    version: number;
-    status: string;
-    action: string;
-    target: string;
-    scope: string;
-    requiredAuthority: string;
-    requiredCapabilities: string[];
-    reversibility: Reversibility;
-    constraints: string[];
-    stopConditions: string[];
-    supersedesExecutionContractId: string;
-    supersessionReason: string;
-  };
-  reusedFromIdempotency: boolean;
-  disclosures: string[];
-};
-
-export type ResolveM3Failure = {
-  ok: false;
-  code: string;
-  message: string;
-};
-
-function fail(code: string, message: string): ResolveM3Failure {
-  return { ok: false, code, message };
-}
-
-/** Same safe segment algorithm as prepareM3FromDecision. */
-export function safeDecisionSegment(decisionId: string): string {
-  return decisionId.replace(/[^a-zA-Z0-9:_-]/g, "").slice(0, 48);
-}
-
-/** Canonical M3 PREPARE ExecutionContract id for a decision (C3). */
-export function canonicalM3PrepareContractId(decisionId: string): string {
-  return `xct:m3:${safeDecisionSegment(decisionId)}`;
-}
-
-/** Canonical M3 PREPARE idempotency key (C3). */
-export function canonicalM3PrepareIdempotencyKey(decisionId: string): string {
-  return `idem:m3-prep:${decisionId}`;
-}
-
-/** Canonical G-UX-15 resolution successor idempotency (F1). */
-export function canonicalM3ResolutionIdempotencyKey(
-  decisionId: string,
-  successorExecutionContractId: string,
-): string {
-  return `idem:m3-res:${decisionId}:${successorExecutionContractId}`;
-}
-
-function defaultSuccessorId(decisionId: string): string {
-  return `xct:m3-res:${safeDecisionSegment(decisionId)}`;
-}
-
-function decisionRefsEqualExact(
-  refs: readonly string[] | undefined,
-  expectedDecisionId: string,
-): boolean {
-  return (
-    Array.isArray(refs) &&
-    refs.length === 1 &&
-    refs[0] === expectedDecisionId
-  );
-}
-
-function isUnresolvedPrepareContract(contract: ExecutionContract): boolean {
-  const caps = contract.requiredCapabilities ?? [];
-  const constraints = contract.constraints ?? [];
-  const stops = contract.stopConditions ?? [];
-  return (
-    contract.target === UNRESOLVED_TARGET ||
-    caps.includes(UNRESOLVED_CAP) ||
-    constraints.includes("PREPARE_ONLY") ||
-    stops.includes("TARGET_UNRESOLVED") ||
-    stops.includes("CAPABILITY_UNRESOLVED")
-  );
-}
-
-function findUnresolvedStopSentinel(stops: readonly string[]): string | null {
-  for (const s of stops) {
-    if (UNRESOLVED_STOP.has(s)) return s;
-  }
-  return null;
-}
-
-function assertResolvedFields(
-  resolution: M3ResolvedExecutionFields,
-): ResolveM3Failure | null {
-  const action = resolution.action?.trim() ?? "";
-  const target = resolution.target?.trim() ?? "";
-  const caps = resolution.requiredCapabilities ?? [];
-  if (!action || action === UNRESOLVED_ACTION) {
-    return fail(
-      "RESOLUTION_ACTION_UNRESOLVED",
-      "Resolved action is required and must not be UNRESOLVED_ACTION.",
-    );
-  }
-  if (!target || target === UNRESOLVED_TARGET) {
-    return fail(
-      "RESOLUTION_TARGET_UNRESOLVED",
-      "Resolved target is required and must not be UNRESOLVED_TARGET.",
-    );
-  }
-  if (caps.length === 0 || caps.includes(UNRESOLVED_CAP)) {
-    return fail(
-      "RESOLUTION_CAPABILITY_UNRESOLVED",
-      "Resolved capabilities are required and must not include cap:unresolved.",
-    );
-  }
-  if (
-    resolution.reversibility !== "reversible" &&
-    resolution.reversibility !== "partially_reversible" &&
-    resolution.reversibility !== "irreversible"
-  ) {
-    return fail(
-      "RESOLUTION_REVERSIBILITY_INVALID",
-      "Resolved reversibility must be an existing Reversibility value.",
-    );
-  }
-  if (resolution.constraints) {
-    for (const c of resolution.constraints) {
-      if (FORBIDDEN_EXECUTABLE_CONSTRAINTS.has(c)) {
-        return fail(
-          "RESOLUTION_CONSTRAINT_FORBIDDEN",
-          `Executable successor must not include constraint ${c}.`,
-        );
-      }
-    }
-  }
-  // C1 — explicit stopConditions must fail closed before supersession.
-  if (resolution.stopConditions) {
-    const hit = findUnresolvedStopSentinel(resolution.stopConditions);
-    if (hit) {
-      return fail(
-        "RESOLUTION_STOP_UNRESOLVED",
-        `Resolved stopConditions must not include unresolved sentinel ${hit}.`,
-      );
-    }
-  }
-  return null;
-}
-
-function assertSuccessorHasNoUnresolvedSentinels(
-  successor: ExecutionContract,
-): ResolveM3Failure | null {
-  if (successor.action === UNRESOLVED_ACTION) {
-    return fail(
-      "SUCCESSOR_STILL_UNRESOLVED",
-      "Successor action is UNRESOLVED_ACTION.",
-    );
-  }
-  if (successor.target === UNRESOLVED_TARGET) {
-    return fail(
-      "SUCCESSOR_STILL_UNRESOLVED",
-      "Successor target is UNRESOLVED_TARGET.",
-    );
-  }
-  if ((successor.requiredCapabilities ?? []).includes(UNRESOLVED_CAP)) {
-    return fail(
-      "SUCCESSOR_STILL_UNRESOLVED",
-      "Successor requiredCapabilities still contain cap:unresolved.",
-    );
-  }
-  const stopHit = findUnresolvedStopSentinel(successor.stopConditions ?? []);
-  if (stopHit) {
-    return fail(
-      "SUCCESSOR_STILL_UNRESOLVED",
-      `Successor stopConditions still contain unresolved sentinel ${stopHit}.`,
-    );
-  }
-  for (const c of successor.constraints ?? []) {
-    if (FORBIDDEN_EXECUTABLE_CONSTRAINTS.has(c)) {
-      return fail(
-        "SUCCESSOR_CONSTRAINT_FORBIDDEN",
-        `Successor retained forbidden constraint ${c}.`,
-      );
-    }
-  }
-  return null;
-}
-
-function buildSuccessorConstraints(
-  prior: ExecutionContract,
-  resolution: M3ResolvedExecutionFields,
-): string[] {
-  if (resolution.constraints) {
-    return [...resolution.constraints];
-  }
-  return (prior.constraints ?? []).filter(
-    (c) => !FORBIDDEN_EXECUTABLE_CONSTRAINTS.has(c),
-  );
-}
-
-function buildSuccessorStopConditions(
-  prior: ExecutionContract,
-  resolution: M3ResolvedExecutionFields,
-): string[] {
-  if (resolution.stopConditions) {
-    // Explicit list already validated by assertResolvedFields (C1).
-    return [...resolution.stopConditions];
-  }
-  return (prior.stopConditions ?? []).filter((s) => !UNRESOLVED_STOP.has(s));
-}
-
-function successorMatchesResolution(
-  contract: ExecutionContract,
-  resolution: M3ResolvedExecutionFields,
-  scope: string,
-  constraints: string[],
-  stopConditions: string[],
-): boolean {
-  const caps = [...(contract.requiredCapabilities ?? [])].sort().join("\0");
-  const wantCaps = [...resolution.requiredCapabilities].sort().join("\0");
-  return (
-    contract.action === resolution.action.trim() &&
-    contract.target === resolution.target.trim() &&
-    contract.scope === scope &&
-    contract.reversibility === resolution.reversibility &&
-    caps === wantCaps &&
-    [...contract.constraints].join("\0") === constraints.join("\0") &&
-    [...contract.stopConditions].join("\0") === stopConditions.join("\0")
-  );
-}
-
-function toOriginalView(contract: ExecutionContract) {
-  return {
-    executionContractId: contract.executionContractId,
-    version: contract.version,
-    status: contract.status,
-    action: contract.action,
-    target: contract.target,
-    requiredCapabilities: [...contract.requiredCapabilities],
-  };
-}
-
-function toSuccessorView(contract: ExecutionContract) {
-  return {
-    executionContractId: contract.executionContractId,
-    version: contract.version,
-    status: contract.status,
-    action: contract.action,
-    target: contract.target,
-    scope: contract.scope,
-    requiredAuthority: contract.requiredAuthority,
-    requiredCapabilities: [...contract.requiredCapabilities],
-    reversibility: contract.reversibility,
-    constraints: [...contract.constraints],
-    stopConditions: [...contract.stopConditions],
-    supersedesExecutionContractId: contract.supersedesExecutionContractId ?? "",
-    supersessionReason: contract.supersessionReason ?? "",
-  };
-}
-
-function assertCanonicalOriginalIdentity(input: {
-  decisionId: string;
-  requestedOriginalId: string;
-  loaded: ExecutionContract;
-}): ResolveM3Failure | null {
-  const canonicalId = canonicalM3PrepareContractId(input.decisionId);
-  if (input.requestedOriginalId !== canonicalId) {
-    return fail(
-      "CANONICAL_M3_CONTRACT_MISMATCH",
-      `originalExecutionContractId must be the canonical M3 PREPARE id ${canonicalId}.`,
-    );
-  }
-  if (input.loaded.executionContractId !== canonicalId) {
-    return fail(
-      "CANONICAL_M3_CONTRACT_MISMATCH",
-      "Loaded contract id is not the canonical M3 PREPARE contract for this decision.",
-    );
-  }
-  if (input.loaded.idempotencyKey !== canonicalM3PrepareIdempotencyKey(input.decisionId)) {
-    return fail(
-      "CANONICAL_M3_CONTRACT_MISMATCH",
-      "Loaded contract idempotencyKey is not the canonical M3 PREPARE identity.",
-    );
-  }
-  if (input.loaded.requiredAuthority !== CANONICAL_M3_AUTHORITY) {
-    return fail(
-      "CANONICAL_M3_CONTRACT_MISMATCH",
-      "Canonical M3 PREPARE contract must require MORRIS authority.",
-    );
-  }
-  return null;
-}
-
-/**
- * F1 — successor governance identity for idempotent replay / success return.
- * Fail closed before validation when any governance dimension mismatches.
- */
-function assertSuccessorGovernanceIdentity(input: {
-  original: ExecutionContract;
-  successor: ExecutionContract;
-  decisionId: string;
-  projectId: string;
-}): ResolveM3Failure | null {
-  const { original, successor, decisionId, projectId } = input;
-
-  if (successor.supersedesExecutionContractId !== original.executionContractId) {
-    return fail(
-      "SUCCESSOR_GOVERNANCE_MISMATCH",
-      "Successor lineage does not supersede the original M3 contract.",
-    );
-  }
-  if (original.requiredAuthority !== CANONICAL_M3_AUTHORITY) {
-    return fail(
-      "SUCCESSOR_GOVERNANCE_MISMATCH",
-      "Original M3 contract requiredAuthority is not MORRIS.",
-    );
-  }
-  if (successor.requiredAuthority !== original.requiredAuthority) {
-    return fail(
-      "SUCCESSOR_GOVERNANCE_MISMATCH",
-      "Successor requiredAuthority does not match original MORRIS authority.",
-    );
-  }
-  if (!decisionRefsEqualExact(successor.decisionRefs, decisionId)) {
-    return fail(
-      "SUCCESSOR_GOVERNANCE_MISMATCH",
-      "Successor decisionRefs must bind exactly the resolved HumanDecision.",
-    );
-  }
-  const expectedIdem = canonicalM3ResolutionIdempotencyKey(
-    decisionId,
-    successor.executionContractId,
-  );
-  if (successor.idempotencyKey !== expectedIdem) {
-    return fail(
-      "SUCCESSOR_GOVERNANCE_MISMATCH",
-      "Successor idempotencyKey is not the canonical M3 resolution identity.",
-    );
-  }
-  if (successor.projectId !== projectId) {
-    return fail(
-      "SUCCESSOR_GOVERNANCE_MISMATCH",
-      "Successor projectId does not match the resolution project.",
-    );
-  }
-  return null;
-}
-
-async function validateExistingSuccessor(input: {
-  decisionId: string;
-  scope: string;
-  successorId: string;
-  deps: ResolveM3Deps;
-}): Promise<
-  | { ok: true; contract: ExecutionContract }
-  | ResolveM3Failure
-> {
-  const authority = registerM3LocalMorrisAuthority({
-    authorityResolver: input.deps.authorityResolver,
-    scope: input.scope,
-    issuedAt: input.deps.nowIso(),
-    evidenceId: `evd:m3-resolve:${input.decisionId}`,
-    forceEnable: input.deps.forceM3Authority === true,
-  });
-  if (!authority.ok) {
-    return fail(authority.code, authority.message);
-  }
-  const validated =
-    await input.deps.executionContractServices.validateExecutionContract.execute(
-      {
-        executionContractId: input.successorId,
-        actor: LOCAL_MORRIS_M3_ACTOR,
-        authorityEvidenceId: authority.evidenceId,
-      },
-    );
-  if (!validated.ok) {
-    return fail(validated.error.detailCode, validated.error.message);
-  }
-  return { ok: true, contract: validated.contract };
-}
-
-export async function resolveM3ExecutionContract(
-  input: ResolveM3ExecutionContractInput,
-): Promise<ResolveM3Success | ResolveM3Failure> {
-  const fieldErr = assertResolvedFields(input.resolution);
-  if (fieldErr) return fieldErr;
-
-  const reason = input.supersessionReason?.trim() ?? "";
-  if (!reason) {
-    return fail(
-      "SUPERSESSION_REASON_INVALID",
-      "supersessionReason is required.",
-    );
-  }
-
-  const loaded = await input.deps.decisionServices.getHumanDecision.execute({
-    decisionId: input.decisionId,
-  });
-  if (!loaded.ok) {
-    return fail(loaded.error.detailCode, loaded.error.message);
-  }
-
-  const decision = loaded.decision;
-  if (decision.projectId !== input.projectId) {
-    return fail("PROJECT_MISMATCH", "Decision does not belong to this project.");
-  }
-  if (decision.status !== "accepted") {
-    return fail(
-      "DECISION_NOT_CURRENT",
-      `Decision status ${decision.status} is not accepted for M3 resolution.`,
-    );
-  }
-  if (!decision.decisionBasis) {
-    return fail(
-      "DECISION_BASIS_REQUIRED",
-      "HumanDecision lacks DecisionBasis — cannot resolve M3 contract.",
-    );
-  }
-  const basis: DecisionBasis = decision.decisionBasis;
-  if (basis.projectId !== input.projectId) {
-    return fail(
-      "DECISION_BASIS_PROJECT_MISMATCH",
-      "DecisionBasis projectId does not match.",
-    );
-  }
-
-  // C3 — requested id must be canonical before load side-effects matter.
-  const canonicalId = canonicalM3PrepareContractId(input.decisionId);
-  if (input.originalExecutionContractId !== canonicalId) {
-    return fail(
-      "CANONICAL_M3_CONTRACT_MISMATCH",
-      `originalExecutionContractId must be the canonical M3 PREPARE id ${canonicalId}.`,
-    );
-  }
-
-  const originalResult =
-    await input.deps.executionContractServices.getExecutionContract.execute({
-      executionContractId: input.originalExecutionContractId,
-    });
-  if (!originalResult.ok) {
-    return fail(originalResult.error.detailCode, originalResult.error.message);
-  }
-
-  let original = originalResult.contract;
-  if (original.projectId !== input.projectId) {
-    return fail(
-      "CONTRACT_PROJECT_MISMATCH",
-      "Original ExecutionContract does not belong to this project.",
-    );
-  }
-  if (
-    !original.decisionRefs ||
-    original.decisionRefs.length === 0 ||
-    !original.decisionRefs.includes(input.decisionId)
-  ) {
-    return fail(
-      "DECISION_CONTRACT_MISMATCH",
-      "Original contract is not linked to this HumanDecision.",
-    );
-  }
-
-  const identityErr = assertCanonicalOriginalIdentity({
-    decisionId: input.decisionId,
-    requestedOriginalId: input.originalExecutionContractId,
-    loaded: original,
-  });
-  if (identityErr) return identityErr;
-
-  const successorId =
-    input.successorExecutionContractId?.trim() ||
-    defaultSuccessorId(input.decisionId);
-  if (!successorId.startsWith("xct:")) {
-    return fail(
-      "CONTRACT_INVALID",
-      "successorExecutionContractId must use xct: prefix.",
-    );
-  }
-  if (successorId === input.originalExecutionContractId) {
-    return fail("SELF_SUPERSESSION", "Successor id must differ from original.");
-  }
-
-  const scope =
-    (input.resolution.scope?.trim() || original.scope).trim() ||
-    `decision:${input.decisionId}`;
-  const constraints = buildSuccessorConstraints(original, input.resolution);
-  const stopConditions = buildSuccessorStopConditions(
-    original,
-    input.resolution,
-  );
-
-  // C2 — original already superseded: recover/validate existing successor.
-  if (original.status === "superseded") {
-    const existing =
-      await input.deps.executionContractServices.getExecutionContract.execute({
-        executionContractId: successorId,
-      });
-    if (!existing.ok) {
-      return fail(
-        "STATE_CONFLICT",
-        "Original contract is superseded but expected successor was not found.",
-      );
-    }
-    let successor = existing.contract;
-
-    // F1 — governance identity before validation / success.
-    const govErr = assertSuccessorGovernanceIdentity({
-      original,
-      successor,
-      decisionId: input.decisionId,
-      projectId: input.projectId,
-    });
-    if (govErr) return govErr;
-
-    if (
-      !successorMatchesResolution(
-        successor,
-        input.resolution,
-        scope,
-        constraints,
-        stopConditions,
-      )
-    ) {
-      return fail(
-        "RESOLUTION_IDEMPOTENCY_CONFLICT",
-        "Existing successor fields do not match this resolution input.",
-      );
-    }
-
-    if (successor.status === "cancelled" || successor.status === "superseded") {
-      return fail(
-        "STATE_CONFLICT",
-        `Expected successor is no longer current (status ${successor.status}).`,
-      );
-    }
-
-    if (PRE_VALIDATION.has(successor.status)) {
-      // Incomplete prior attempt — validate SAME successor; do not supersede again.
-      const validated = await validateExistingSuccessor({
-        decisionId: input.decisionId,
-        scope,
-        successorId,
-        deps: input.deps,
-      });
-      if (!validated.ok) return validated;
-      successor = validated.contract;
-      // Re-assert governance after validation (identity must not drift).
-      const govAfter = assertSuccessorGovernanceIdentity({
-        original,
-        successor,
-        decisionId: input.decisionId,
-        projectId: input.projectId,
-      });
-      if (govAfter) return govAfter;
-    } else if (successor.status === "validated") {
-      // MORRIS path: validated alone is not a completed pre-confirmation result.
-      return fail(
-        "STATE_CONFLICT",
-        "MORRIS successor in validated status is not a legitimate completed resolution; confirmation_required is required.",
-      );
-    } else if (!POST_VALIDATION_OK.has(successor.status)) {
-      return fail(
-        "STATE_CONFLICT",
-        `Expected successor status ${successor.status} is not a legitimate resolution candidate.`,
-      );
-    }
-
-    const cleanErr = assertSuccessorHasNoUnresolvedSentinels(successor);
-    if (cleanErr) return cleanErr;
-
-    return {
-      ok: true,
-      projectId: input.projectId,
-      decisionId: input.decisionId,
-      original: toOriginalView(original),
-      successor: toSuccessorView(successor),
-      reusedFromIdempotency: true,
-      disclosures: [
-        "G-UX-15 resolve — idempotent reuse / validation replay of existing successor",
-        "ORIGINAL PRESERVED SUPERSEDED",
-        "NO SECOND SUPERSESSION",
-        "NO CURSOR REAL",
-        "NO ATTEMPT IN RESOLVER",
-      ],
-    };
-  }
-
-  if (original.status === "cancelled") {
-    return fail(
-      "STATE_CONFLICT",
-      "Cannot resolve a cancelled ExecutionContract.",
-    );
-  }
-  if (
-    original.status === "executing" ||
-    original.status === "completed" ||
-    original.status === "failed"
-  ) {
-    return fail(
-      "TA5_STATUS_REFUSED",
-      `Cannot resolve contract in T-A5 status ${original.status}.`,
-    );
-  }
-
-  if (!isUnresolvedPrepareContract(original)) {
-    return fail(
-      "CONTRACT_NOT_M3_PREPARE_UNRESOLVED",
-      "Original contract is not an unresolved M3 PREPARE contract.",
-    );
-  }
-
-  if (original.version !== input.expectedOriginalVersion) {
-    return fail(
-      "VERSION_CONFLICT",
-      `Expected original version ${input.expectedOriginalVersion}, found ${original.version}.`,
-    );
-  }
-
-  const authority = registerM3LocalMorrisAuthority({
-    authorityResolver: input.deps.authorityResolver,
-    scope,
-    issuedAt: input.deps.nowIso(),
-    evidenceId: `evd:m3-resolve:${input.decisionId}`,
-    forceEnable: input.deps.forceM3Authority === true,
-  });
-  if (!authority.ok) {
-    return fail(authority.code, authority.message);
-  }
-
-  const superseded =
-    await input.deps.executionContractServices.supersedeExecutionContract.execute(
-      {
-        newExecutionContractId: successorId,
-        supersedesExecutionContractId: original.executionContractId,
-        supersessionReason: reason,
-        actor: LOCAL_MORRIS_M3_ACTOR,
-        authorityEvidenceId: authority.evidenceId,
-        expectedVersion: input.expectedOriginalVersion,
-        action: input.resolution.action.trim(),
-        target: input.resolution.target.trim(),
-        scope,
-        requiredCapabilities: [...input.resolution.requiredCapabilities],
-        reversibility: input.resolution.reversibility,
-        constraints,
-        stopConditions,
-        decisionRefs: [input.decisionId],
-        requiredAuthority: original.requiredAuthority,
-        status: "draft",
-        idempotencyKey: canonicalM3ResolutionIdempotencyKey(
-          input.decisionId,
-          successorId,
-        ),
-        correlationId: `cor:m3-res:${input.decisionId}`,
-        inputs: {
-          ...(original.inputs ?? {}),
-          gux15Resolution: {
-            kind: "application_command_input",
-            notDurableAuthority: true,
-            basisSourceRef: basis.sourceRef,
-            basisSourceDigest: basis.sourceDigest,
-          },
-        },
-      },
-    );
-
-  if (!superseded.ok) {
-    return fail(superseded.error.detailCode, superseded.error.message);
-  }
-
-  const validated =
-    await input.deps.executionContractServices.validateExecutionContract.execute(
-      {
-        executionContractId: successorId,
-        actor: LOCAL_MORRIS_M3_ACTOR,
-        authorityEvidenceId: authority.evidenceId,
-      },
-    );
-  if (!validated.ok) {
-    // C2 — supersession already persisted; caller must replay to validate same successor.
-    return fail(validated.error.detailCode, validated.error.message);
-  }
-
-  const refreshedOriginal =
-    await input.deps.executionContractServices.getExecutionContract.execute({
-      executionContractId: input.originalExecutionContractId,
-    });
-  if (refreshedOriginal.ok) {
-    original = refreshedOriginal.contract;
-  }
-
-  const successor = validated.contract;
-  const govErr = assertSuccessorGovernanceIdentity({
-    original,
-    successor,
-    decisionId: input.decisionId,
-    projectId: input.projectId,
-  });
-  if (govErr) return govErr;
-  const cleanErr = assertSuccessorHasNoUnresolvedSentinels(successor);
-  if (cleanErr) return cleanErr;
-
-  return {
-    ok: true,
-    projectId: input.projectId,
-    decisionId: input.decisionId,
-    original: toOriginalView(original),
-    successor: toSuccessorView(successor),
-    reusedFromIdempotency: false,
-    disclosures: [
-      "G-UX-15 resolve — existing supersession only",
-      "ORIGINAL PRESERVED FOR AUDIT",
-      "NO IN-PLACE MUTATION OF UNRESOLVED FIELDS",
-      "NO CURSOR REAL",
-      "NO ATTEMPT IN RESOLVER",
-      "CONFIRMATION / SELECT / STARTEXECUTION ARE CALLER COMPOSITION",
-    ],
-  };
-}
-
-```
-
-### 11. Complete test file after final amend
-```typescript
-/**
- * G-UX-15 Slice A — resolveM3ExecutionContract application wiring proof.
- * @vitest-environment node
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, describe, expect, it } from "vitest";
-import {
-  createTestDoctrineResolver,
-  type Digest,
-  type DoctrinePackagePin,
-} from "@/lib/oa/doctrine";
-import { createTestSqliteProductProjectServices } from "@/lib/oa/project";
-import { createSqliteCycleServices } from "@/lib/oa/cycle";
-import {
-  LOCAL_MORRIS_M3_ACTOR,
-  MemoryAuthorityResolver,
-  computeDecisionBasisSourceDigest,
-  createTestSqliteDecisionServices,
-  registerM3LocalMorrisAuthority,
-  type DecisionBasis,
-} from "@/lib/oa/decision";
-import { createTestSqliteExecutionContractServices } from "@/lib/oa/execution-contract";
-import {
-  createTestSqliteExecutionAttemptServices,
-  type ExecutionAttemptServices,
-} from "@/lib/oa/execution-attempt";
-import { prepareM3FromDecision } from "@/features/project-assistant/f3/prepareM3FromDecision";
-import { resolveM3ExecutionContract } from "@/features/project-assistant/f3/resolveM3ExecutionContract";
-import {
-  UNRESOLVED_STOP_SENTINELS,
-  canonicalM3PrepareContractId,
-  canonicalM3ResolutionIdempotencyKey,
-} from "@/features/project-assistant/f3/resolveM3ExecutionContract";
-import type { ExecutionContract } from "@/lib/oa/execution-contract";import {
-  createF3FixtureAgentDescriptor,
-  createF3TestExecutionAdapter,
-} from "@/features/project-assistant/f3/fixtureAgent";
-import {
-  F3_ACTION,
-  F3_ADAPTER_ID,
-  F3_AGENT_ID,
-  F3_CAPABILITY,
-  F3_CONFIRM_ACTION_REF,
-  F3_SCOPE,
-  F3_TARGET,
-} from "@/features/project-assistant/f3/constants";
-
-const APP_ROOT = path.resolve(__dirname, "../..");
-const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
-const SCHEMAS = path.resolve(
-  APP_ROOT,
-  "../sfia-v3-modeled/v3-native-option-a/schemas",
-);
-
-const VALID_DIGEST =
-  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
-
-const VALID_PIN: DoctrinePackagePin = {
-  doctrinePackageId: "pkg:studio-v3-oa",
-  version: "1.0.0",
-  digest: VALID_DIGEST,
-};
-
-const PROJECT_ID = "prj:gux15";
-const NOW = "2026-08-15T14:00:00.000Z";
-
-const tempDirs: string[] = [];
-const openServices: Array<{ dispose: () => void }> = [];
-
-afterEach(() => {
-  while (openServices.length) {
-    try {
-      openServices.pop()?.dispose();
-    } catch {
-      /* ignore */
-    }
-  }
-  while (tempDirs.length) {
-    const dir = tempDirs.pop();
-    if (dir) fs.rmSync(dir, { recursive: true, force: true });
-  }
-});
-
-type Stack = Awaited<ReturnType<typeof bootAt>>;
-
-async function bootAt(dbPath: string) {
-  const { resolver } = createTestDoctrineResolver({
-    registryRoot: FIXTURES,
-    schemasRoot: SCHEMAS,
-  });
-  const projects = createTestSqliteProductProjectServices({
-    doctrineResolver: resolver,
-    fixedNowIso: NOW,
-    dbPath,
-  });
-  openServices.push(projects);
-  const cycles = createSqliteCycleServices({
-    projectServices: projects,
-    productStore: projects.store,
-  });
-  const authority = new MemoryAuthorityResolver();
-  const decisions = createTestSqliteDecisionServices({
-    projectServices: projects,
-    cycleServices: cycles,
-    productStore: projects.store,
-    authorityResolver: authority,
-  });
-  const contracts = createTestSqliteExecutionContractServices({
-    projectServices: projects,
-    decisionServices: decisions,
-    cycleServices: cycles,
-    productStore: projects.store,
-    authorityResolver: authority,
-  });
-  const fixtureAdapter = createF3TestExecutionAdapter();
-  const attempts = createTestSqliteExecutionAttemptServices({
-    decisionServices: decisions,
-    executionContractServices: contracts,
-    productStore: projects.store,
-    agents: [createF3FixtureAgentDescriptor(NOW)],
-    adapter: fixtureAdapter,
-    authorityResolver: authority,
-    fixedNowIso: NOW,
-  });
-  return {
-    projects,
-    decisions,
-    contracts,
-    authority,
-    attempts,
-    fixtureAdapter,
-    dbPath,
-  };
-}
-
-async function createProject(stack: Stack) {
-  const created = await stack.projects.createProject.execute({
-    projectId: PROJECT_ID,
-    title: "G-UX-15",
-    objective: "resolve m3",
-    context: "slice-a",
-    scope: "gux15",
-    doctrinePackagePin: VALID_PIN,
-    createdBy: {
-      actorId: "actor:morris",
-      role: "project_owner",
-      displayName: "Morris",
-      authorityLevel: "N3",
-    },
-    lpsVersionId: "lps:gux15-v1",
-    idempotencyKey: "idem:gux15",
-  });
-  expect(created.ok).toBe(true);
-}
-
-async function recordAcceptedGo(stack: Stack, decisionId: string) {
-  const lps = await stack.projects.getCurrentLivingProjectState.execute({
-    projectId: PROJECT_ID,
-  });
-  expect(lps.ok).toBe(true);
-  if (!lps.ok) throw new Error("lps");
-
-  const scope = `decision:${decisionId}`;
-  const reg = registerM3LocalMorrisAuthority({
-    authorityResolver: stack.authority,
-    scope,
-    issuedAt: NOW,
-    forceEnable: true,
-    evidenceId: `evd:m3:${decisionId}`,
-  });
-  expect(reg.ok).toBe(true);
-  if (!reg.ok) throw new Error("authority");
-
-  const basis: DecisionBasis = {
-    sourceType: "proposal",
-    sourceRef: "prop:gux15",
-    sourceDigest: computeDecisionBasisSourceDigest({
-      objective: "gux15-obj",
-      op: "m3-gux15-requested-operation",
-    }),
-    projectId: PROJECT_ID,
-    cycleInstanceId: undefined,
-    proposalContext: {
-      lpsId: lps.livingProjectState.lpsVersionId,
-      lpsVersion: lps.livingProjectState.version,
-      doctrineDigest: VALID_DIGEST,
-    },
-    executionBasis: {
-      objective: "gux15-obj",
-      scope,
-      cycleTypeId: "cyc:delivery",
-      requestedOperation: "m3-gux15-requested-operation",
-    },
-  };
-
-  const recorded = await stack.decisions.recordHumanDecision.execute({
-    decisionId,
-    projectId: PROJECT_ID,
-    subject: decisionId,
-    options: [{ optionId: "opt:go", label: "GO" }],
-    selectedOptionId: "opt:go",
-    actor: LOCAL_MORRIS_M3_ACTOR,
-    authority: "morris",
-    reversible: true,
-    scope,
-    authorityEvidenceId: reg.evidenceId,
-    decisionBasis: basis,
-    linkToLivingProjectState: true,
-    expectedLpsVersion: lps.livingProjectState.version,
-  });
-  expect(recorded.ok).toBe(true);
-  if (!recorded.ok) {
-    throw new Error(JSON.stringify(recorded.error));
-  }
-  return scope;
-}
-
-async function prepareM3(stack: Stack, decisionId: string) {
-  const lps = await stack.projects.getCurrentLivingProjectState.execute({
-    projectId: PROJECT_ID,
-  });
-  expect(lps.ok).toBe(true);
-  if (!lps.ok) throw new Error("lps");
-
-  const prepared = await prepareM3FromDecision({
-    projectId: PROJECT_ID,
-    decisionId,
-    currentContext: {
-      projectId: PROJECT_ID,
-      lpsId: lps.livingProjectState.lpsVersionId,
-      lpsVersion: lps.livingProjectState.version,
-      doctrineDigest: VALID_DIGEST,
-    },
-    deps: {
-      decisionServices: stack.decisions,
-      authorityResolver: stack.authority,
-      executionContractServices: stack.contracts,
-      nowIso: () => NOW,
-      forceM3Authority: true,
-    },
-  });
-  expect(prepared.ok).toBe(true);
-  if (!prepared.ok) throw new Error("prepare");
-  return prepared.payload;
-}
-
-function fixtureResolution() {
-  return {
-    action: F3_ACTION,
-    target: F3_TARGET,
-    requiredCapabilities: [F3_CAPABILITY],
-    reversibility: "reversible" as const,
-    scope: F3_SCOPE,
-    constraints: [
-      "FIXTURE ONLY",
-      "TEST ADAPTER ONLY",
-      "NO REAL",
-      "NO SHELL",
-      "NO NETWORK EXECUTION",
-      "NO GIT WRITE",
-      "NO GITHUB WRITE",
-      "NO AUTO RETRY",
-    ],
-    stopConditions: [
-      "AUTHORITY_DENIED",
-      "CONTEXT_STALE",
-      "DECISION_NOT_CURRENT",
-    ],
-  };
-}
-
-async function resolveFixture(
-  stack: Stack,
-  decisionId: string,
-  originalId: string,
-  expectedVersion: number,
-) {
-  return resolveM3ExecutionContract({
-    projectId: PROJECT_ID,
-    decisionId,
-    originalExecutionContractId: originalId,
-    expectedOriginalVersion: expectedVersion,
-    resolution: fixtureResolution(),
-    supersessionReason: "G-UX-15 resolve durable M3 PREPARE via supersession",
-    deps: {
-      decisionServices: stack.decisions,
-      authorityResolver: stack.authority,
-      executionContractServices: stack.contracts,
-      nowIso: () => NOW,
-      forceM3Authority: true,
-    },
-  });
-}
-
-async function confirmSelectStart(
-  stack: Stack,
-  decisionId: string,
-  successorId: string,
-  expectedVersion: number,
-) {
-  const get =
-    await stack.contracts.getExecutionContract.execute({
-      executionContractId: successorId,
-    });
-  expect(get.ok).toBe(true);
-  if (!get.ok) throw new Error("get successor");
-  let contract = get.contract;
-
-  const auth = registerM3LocalMorrisAuthority({
-    authorityResolver: stack.authority,
-    scope: contract.scope,
-    issuedAt: NOW,
-    forceEnable: true,
-    evidenceId: `evd:m3-cfm:${successorId}`,
-  });
-  expect(auth.ok).toBe(true);
-  if (!auth.ok) throw new Error("cfm auth");
-
-  const confirmationId = `cfm:gux15:${successorId}:v${contract.version}`;
-  const requested = await stack.decisions.requestConfirmation.execute({
-    confirmationId,
-    level: "N3",
-    actionRef: F3_CONFIRM_ACTION_REF,
-    requestedBy: LOCAL_MORRIS_M3_ACTOR,
-    requestedTo: LOCAL_MORRIS_M3_ACTOR,
-    scope: contract.scope,
-    idempotencyKey: `idem:gux15-cfm:${successorId}:v${contract.version}`,
-    decisionRef: decisionId,
-  });
-  expect(requested.ok).toBe(true);
-
-  const granted = await stack.decisions.grantConfirmation.execute({
-    confirmationId,
-    actor: LOCAL_MORRIS_M3_ACTOR,
-    authorityEvidenceId: auth.evidenceId,
-  });
-  expect(granted.ok).toBe(true);
-
-  const confirmed = await stack.contracts.confirmExecutionContract.execute({
-    executionContractId: successorId,
-    confirmationId,
-    actor: LOCAL_MORRIS_M3_ACTOR,
-    authorityEvidenceId: auth.evidenceId,
-    expectedVersion,
-  });
-  expect(confirmed.ok).toBe(true);
-  if (!confirmed.ok) throw new Error("confirm");
-  contract = confirmed.contract;
-
-  const attemptId = `xat:gux15:${successorId.replace(/^xct:/, "")}`;
-  const selected = await stack.attempts.selectExecutionAgent.execute({
-    attemptId,
-    executionContractId: successorId,
-    idempotencyKey: `idem:gux15-att:${successorId}`,
-    actor: LOCAL_MORRIS_M3_ACTOR,
-    authorityEvidenceId: auth.evidenceId,
-    expectedContractVersion: contract.version,
-    selectionProfile: "standard",
-    selectionStrategy: "capabilities_deterministic",
-    requestedAgentRef: F3_AGENT_ID,
-    systemInitiated: true,
-  });
-  expect(selected.ok).toBe(true);
-  if (!selected.ok) throw new Error(selected.error.message);
-
-  const started = await stack.attempts.startExecution.execute({
-    attemptId,
-    actor: LOCAL_MORRIS_M3_ACTOR,
-    authorityEvidenceId: auth.evidenceId,
-  });
-  expect(started.ok).toBe(true);
-  if (!started.ok) throw new Error(started.error.message);
-
-  const resultRef = `res:gux15-fixture:${attemptId}`;
-  const recorded = await stack.attempts.recordExecutionResult.execute({
-    attemptId,
-    adapterId: F3_ADAPTER_ID,
-    resultRef,
-    technicalExitCode: 0,
-  });
-  expect(recorded.ok).toBe(true);
-  if (!recorded.ok) throw new Error(recorded.error.message);
-
-  return {
-    attempt: recorded.attempt,
-    launchCount: stack.fixtureAdapter.launchCallCount,
-    contract,
-  };
-}
-
-describe("G-UX-15 Slice A — resolveM3ExecutionContract", () => {
-  it("AC — preserves unresolved original, supersedes to resolved successor, fixture-safe StartExecution", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-"));
-    tempDirs.push(dir);
-    const dbPath = path.join(dir, "oa.sqlite");
-    const decisionId = "dec:gux15-happy";
-
-    const stackA = await bootAt(dbPath);
-    await createProject(stackA);
-    await recordAcceptedGo(stackA, decisionId);
-    const prepared = await prepareM3(stackA, decisionId);
-    expect(prepared.executionAllowed).toBe(false);
-    expect(prepared.contract.target).toBe("UNRESOLVED_TARGET");
-    expect(prepared.contract.constraints).toContain("PREPARE_ONLY");
-    const originalId = prepared.contract.executionContractId;
-    const originalVersion = prepared.contract.version;
-
-    // Dispose process-scoped services (PROCESS A end).
-    stackA.projects.dispose();
-    openServices.pop();
-
-    // PROCESS B — reload durable state; no Proposal / Conversation.
-    const stackB = await bootAt(dbPath);
-    const resolved = await resolveFixture(
-      stackB,
-      decisionId,
-      originalId,
-      originalVersion,
-    );
-    expect(resolved.ok).toBe(true);
-    if (!resolved.ok) return;
-
-    expect(resolved.reusedFromIdempotency).toBe(false);
-    expect(resolved.original.status).toBe("superseded");
-    expect(resolved.original.target).toBe("UNRESOLVED_TARGET");
-    expect(resolved.original.requiredCapabilities).toContain("cap:unresolved");
-    expect(resolved.successor.supersedesExecutionContractId).toBe(originalId);
-    expect(resolved.successor.action).toBe(F3_ACTION);
-    expect(resolved.successor.target).toBe(F3_TARGET);
-    expect(resolved.successor.requiredCapabilities).toEqual([F3_CAPABILITY]);
-    expect(resolved.successor.constraints).not.toContain("PREPARE_ONLY");
-    expect(resolved.successor.constraints).not.toContain("NO_ATTEMPT");
-    expect(resolved.successor.status).toBe("confirmation_required");
-
-    const originalReload =
-      await stackB.contracts.getExecutionContract.execute({
-        executionContractId: originalId,
-      });
-    expect(originalReload.ok).toBe(true);
-    if (!originalReload.ok) return;
-    expect(originalReload.contract.status).toBe("superseded");
-    expect(originalReload.contract.target).toBe("UNRESOLVED_TARGET");
-    expect(originalReload.contract.constraints).toContain("PREPARE_ONLY");
-
-    const exec = await confirmSelectStart(
-      stackB,
-      decisionId,
-      resolved.successor.executionContractId,
-      resolved.successor.version,
-    );
-    expect(exec.attempt.status).toBe("succeeded");
-    expect(exec.attempt.selectedAgentRef).toBe(F3_AGENT_ID);
-    expect(exec.launchCount).toBe(1);
-    expect(stackB.fixtureAdapter.externalEffects).toBe(false);
-    expect(stackB.fixtureAdapter.adapterId).toBe(F3_ADAPTER_ID);
-
-    // Original never executed — no attempts on original id.
-    const onOriginal = await stackB.attempts.listExecutionAttempts.execute({
-      executionContractId: originalId,
-    });
-    expect(onOriginal.ok).toBe(true);
-    if (onOriginal.ok) expect(onOriginal.attempts).toHaveLength(0);
-
-    const onSuccessor = await stackB.attempts.listExecutionAttempts.execute({
-      executionContractId: resolved.successor.executionContractId,
-    });
-    expect(onSuccessor.ok).toBe(true);
-    if (onSuccessor.ok) expect(onSuccessor.attempts).toHaveLength(1);
-
-    // Duplicate StartExecution does not produce a second Attempt/launch.
-    const dupStart = await stackB.attempts.startExecution.execute({
-      attemptId: exec.attempt.attemptId,
-      actor: LOCAL_MORRIS_M3_ACTOR,
-      authorityEvidenceId: `evd:m3-cfm:${resolved.successor.executionContractId}`,
-    });
-    expect(dupStart.ok).toBe(false);
-    expect(stackB.fixtureAdapter.launchCallCount).toBe(1);
-
-    const listedAfter = await stackB.attempts.listExecutionAttempts.execute({
-      executionContractId: resolved.successor.executionContractId,
-    });
-    expect(listedAfter.ok).toBe(true);
-    if (listedAfter.ok) expect(listedAfter.attempts).toHaveLength(1);
-  });
-
-  it("idempotent resolve replay returns same successor without second current executable", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-idem-"));
-    tempDirs.push(dir);
-    const dbPath = path.join(dir, "oa.sqlite");
-    const decisionId = "dec:gux15-idem";
-    const stack = await bootAt(dbPath);
-    await createProject(stack);
-    await recordAcceptedGo(stack, decisionId);
-    const prepared = await prepareM3(stack, decisionId);
-
-    const first = await resolveFixture(
-      stack,
-      decisionId,
-      prepared.contract.executionContractId,
-      prepared.contract.version,
-    );
-    expect(first.ok).toBe(true);
-    if (!first.ok) return;
-
-    const second = await resolveFixture(
-      stack,
-      decisionId,
-      prepared.contract.executionContractId,
-      prepared.contract.version,
-    );
-    expect(second.ok).toBe(true);
-    if (!second.ok) return;
-    expect(second.reusedFromIdempotency).toBe(true);
-    expect(second.successor.executionContractId).toBe(
-      first.successor.executionContractId,
-    );
-
-    const history = await stack.contracts.listExecutionContractHistory.execute({
-      projectId: PROJECT_ID,
-    });
-    expect(history.ok).toBe(true);
-    if (!history.ok) return;
-    const currentish = history.contracts.filter(
-      (c) =>
-        c.status !== "superseded" &&
-        c.status !== "cancelled" &&
-        c.supersedesExecutionContractId ===
-          prepared.contract.executionContractId,
-    );
-    expect(currentish).toHaveLength(1);
-  });
-
-  it("negative — unresolved resolution fields and non-accepted decisions", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-neg-"));
-    tempDirs.push(dir);
-    const dbPath = path.join(dir, "oa.sqlite");
-    const decisionId = "dec:gux15-neg";
-    const stack = await bootAt(dbPath);
-    await createProject(stack);
-    await recordAcceptedGo(stack, decisionId);
-    const prepared = await prepareM3(stack, decisionId);
-    const base = {
-      projectId: PROJECT_ID,
-      decisionId,
-      originalExecutionContractId: prepared.contract.executionContractId,
-      expectedOriginalVersion: prepared.contract.version,
-      supersessionReason: "neg",
-      deps: {
-        decisionServices: stack.decisions,
-        authorityResolver: stack.authority,
-        executionContractServices: stack.contracts,
-        nowIso: () => NOW,
-        forceM3Authority: true,
-      },
-    };
-
-    const unresolvedTarget = await resolveM3ExecutionContract({
-      ...base,
-      resolution: {
-        ...fixtureResolution(),
-        target: "UNRESOLVED_TARGET",
-      },
-    });
-    expect(unresolvedTarget.ok).toBe(false);
-    if (!unresolvedTarget.ok) {
-      expect(unresolvedTarget.code).toBe("RESOLUTION_TARGET_UNRESOLVED");
-    }
-
-    const unresolvedCap = await resolveM3ExecutionContract({
-      ...base,
-      resolution: {
-        ...fixtureResolution(),
-        requiredCapabilities: ["cap:unresolved"],
-      },
-    });
-    expect(unresolvedCap.ok).toBe(false);
-    if (!unresolvedCap.ok) {
-      expect(unresolvedCap.code).toBe("RESOLUTION_CAPABILITY_UNRESOLVED");
-    }
-
-    const unresolvedAction = await resolveM3ExecutionContract({
-      ...base,
-      resolution: {
-        ...fixtureResolution(),
-        action: "UNRESOLVED_ACTION",
-      },
-    });
-    expect(unresolvedAction.ok).toBe(false);
-    if (!unresolvedAction.ok) {
-      expect(unresolvedAction.code).toBe("RESOLUTION_ACTION_UNRESOLVED");
-    }
-
-    const prepareOnlyConstraint = await resolveM3ExecutionContract({
-      ...base,
-      resolution: {
-        ...fixtureResolution(),
-        constraints: ["PREPARE_ONLY", "NO REAL"],
-      },
-    });
-    expect(prepareOnlyConstraint.ok).toBe(false);
-    if (!prepareOnlyConstraint.ok) {
-      expect(prepareOnlyConstraint.code).toBe("RESOLUTION_CONSTRAINT_FORBIDDEN");
-    }
-
-    const staleVersion = await resolveM3ExecutionContract({
-      ...base,
-      expectedOriginalVersion: prepared.contract.version + 99,
-      resolution: fixtureResolution(),
-    });
-    expect(staleVersion.ok).toBe(false);
-    if (!staleVersion.ok) {
-      expect(staleVersion.code).toBe("VERSION_CONFLICT");
-    }
-
-    // Amended decision — no DecisionBasis path.
-    const amendId = "dec:gux15-amend";
-    const amendAuth = registerM3LocalMorrisAuthority({
-      authorityResolver: stack.authority,
-      scope: `decision:${amendId}`,
-      issuedAt: NOW,
-      forceEnable: true,
-      evidenceId: `evd:m3:${amendId}`,
-    });
-    expect(amendAuth.ok).toBe(true);
-    if (!amendAuth.ok) return;
-    const amended = await stack.decisions.recordHumanDecision.execute({
-      decisionId: amendId,
-      projectId: PROJECT_ID,
-      subject: amendId,
-      options: [{ optionId: "opt:amend", label: "AMEND" }],
-      selectedOptionId: "opt:amend",
-      actor: LOCAL_MORRIS_M3_ACTOR,
-      authority: "morris",
-      reversible: true,
-      scope: `decision:${amendId}`,
-      authorityEvidenceId: amendAuth.evidenceId,
-      status: "amended",
-    });
-    expect(amended.ok).toBe(true);
-
-    const amendResolve = await resolveM3ExecutionContract({
-      ...base,
-      decisionId: amendId,
-      resolution: fixtureResolution(),
-    });
-    expect(amendResolve.ok).toBe(false);
-    if (!amendResolve.ok) {
-      expect(["DECISION_NOT_CURRENT", "DECISION_BASIS_REQUIRED"]).toContain(
-        amendResolve.code,
-      );
-    }
-  });
-
-  it("negative — refuse confirm/start of original unresolved M3 contract", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-orig-"));
-    tempDirs.push(dir);
-    const dbPath = path.join(dir, "oa.sqlite");
-    const decisionId = "dec:gux15-orig";
-    const stack = await bootAt(dbPath);
-    await createProject(stack);
-    await recordAcceptedGo(stack, decisionId);
-    const prepared = await prepareM3(stack, decisionId);
-
-    const auth = registerM3LocalMorrisAuthority({
-      authorityResolver: stack.authority,
-      scope: prepared.contract.scope,
-      issuedAt: NOW,
-      forceEnable: true,
-      evidenceId: `evd:m3-badcfm:${decisionId}`,
-    });
-    expect(auth.ok).toBe(true);
-    if (!auth.ok) return;
-
-    const confirmationId = `cfm:bad:${prepared.contract.executionContractId}`;
-    const requested = await stack.decisions.requestConfirmation.execute({
-      confirmationId,
-      level: "N3",
-      actionRef: F3_CONFIRM_ACTION_REF,
-      requestedBy: LOCAL_MORRIS_M3_ACTOR,
-      requestedTo: LOCAL_MORRIS_M3_ACTOR,
-      scope: prepared.contract.scope,
-      idempotencyKey: `idem:badcfm:${decisionId}`,
-      decisionRef: decisionId,
-    });
-    expect(requested.ok).toBe(true);
-    const granted = await stack.decisions.grantConfirmation.execute({
-      confirmationId,
-      actor: LOCAL_MORRIS_M3_ACTOR,
-      authorityEvidenceId: auth.evidenceId,
-    });
-    expect(granted.ok).toBe(true);
-
-    // Confirm may succeed on confirmation_required status — but agent match must fail
-    // because cap:unresolved / UNRESOLVED_TARGET cannot match fixture agent.
-    const confirmed = await stack.contracts.confirmExecutionContract.execute({
-      executionContractId: prepared.contract.executionContractId,
-      confirmationId,
-      actor: LOCAL_MORRIS_M3_ACTOR,
-      authorityEvidenceId: auth.evidenceId,
-      expectedVersion: prepared.contract.version,
-    });
-    // Whether confirm is allowed, selection must fail closed on unresolved fields.
-    if (confirmed.ok) {
-      const selected = await stack.attempts.selectExecutionAgent.execute({
-        attemptId: `xat:bad:${decisionId}`,
-        executionContractId: prepared.contract.executionContractId,
-        idempotencyKey: `idem:bad-att:${decisionId}`,
-        actor: LOCAL_MORRIS_M3_ACTOR,
-        authorityEvidenceId: auth.evidenceId,
-        expectedContractVersion: confirmed.contract.version,
-        selectionProfile: "standard",
-        selectionStrategy: "capabilities_deterministic",
-        requestedAgentRef: F3_AGENT_ID,
-        systemInitiated: true,
-      });
-      expect(selected.ok).toBe(false);
-    } else {
-      expect(confirmed.ok).toBe(false);
-    }
-    expect(stack.fixtureAdapter.launchCallCount).toBe(0);
-  });
-
-  it("negative — invalid agent capability / project mismatch", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-agent-"));
-    tempDirs.push(dir);
-    const dbPath = path.join(dir, "oa.sqlite");
-    const decisionId = "dec:gux15-agent";
-    const stack = await bootAt(dbPath);
-    await createProject(stack);
-    await recordAcceptedGo(stack, decisionId);
-    const prepared = await prepareM3(stack, decisionId);
-
-    const resolved = await resolveM3ExecutionContract({
-      projectId: PROJECT_ID,
-      decisionId,
-      originalExecutionContractId: prepared.contract.executionContractId,
-      expectedOriginalVersion: prepared.contract.version,
-      supersessionReason: "agent mismatch setup",
-      resolution: {
-        ...fixtureResolution(),
-        requiredCapabilities: ["cap:does-not-exist-for-fixture"],
-        // Keep F3 action/target/scope so contract validates; match fails at select.
-      },
-      deps: {
-        decisionServices: stack.decisions,
-        authorityResolver: stack.authority,
-        executionContractServices: stack.contracts,
-        nowIso: () => NOW,
-        forceM3Authority: true,
-      },
-    });
-    expect(resolved.ok).toBe(true);
-    if (!resolved.ok) return;
-
-    const auth = registerM3LocalMorrisAuthority({
-      authorityResolver: stack.authority,
-      scope: resolved.successor.scope,
-      issuedAt: NOW,
-      forceEnable: true,
-      evidenceId: `evd:m3-agent:${decisionId}`,
-    });
-    expect(auth.ok).toBe(true);
-    if (!auth.ok) return;
-    const confirmationId = `cfm:agent:${resolved.successor.executionContractId}`;
-    await stack.decisions.requestConfirmation.execute({
-      confirmationId,
-      level: "N3",
-      actionRef: F3_CONFIRM_ACTION_REF,
-      requestedBy: LOCAL_MORRIS_M3_ACTOR,
-      requestedTo: LOCAL_MORRIS_M3_ACTOR,
-      scope: resolved.successor.scope,
-      idempotencyKey: `idem:agentcfm:${decisionId}`,
-      decisionRef: decisionId,
-    });
-    await stack.decisions.grantConfirmation.execute({
-      confirmationId,
-      actor: LOCAL_MORRIS_M3_ACTOR,
-      authorityEvidenceId: auth.evidenceId,
-    });
-    const confirmed = await stack.contracts.confirmExecutionContract.execute({
-      executionContractId: resolved.successor.executionContractId,
-      confirmationId,
-      actor: LOCAL_MORRIS_M3_ACTOR,
-      authorityEvidenceId: auth.evidenceId,
-      expectedVersion: resolved.successor.version,
-    });
-    expect(confirmed.ok).toBe(true);
-    if (!confirmed.ok) return;
-
-    const selected = await stack.attempts.selectExecutionAgent.execute({
-      attemptId: `xat:agent:${decisionId}`,
-      executionContractId: resolved.successor.executionContractId,
-      idempotencyKey: `idem:agent-att:${decisionId}`,
-      actor: LOCAL_MORRIS_M3_ACTOR,
-      authorityEvidenceId: auth.evidenceId,
-      expectedContractVersion: confirmed.contract.version,
-      selectionProfile: "standard",
-      selectionStrategy: "capabilities_deterministic",
-      requestedAgentRef: F3_AGENT_ID,
-      systemInitiated: true,
-    });
-    expect(selected.ok).toBe(false);
-
-    const projectMismatch = await resolveM3ExecutionContract({
-      projectId: "prj:other",
-      decisionId,
-      originalExecutionContractId: prepared.contract.executionContractId,
-      expectedOriginalVersion: prepared.contract.version,
-      supersessionReason: "mismatch",
-      resolution: fixtureResolution(),
-      deps: {
-        decisionServices: stack.decisions,
-        authorityResolver: stack.authority,
-        executionContractServices: stack.contracts,
-        nowIso: () => NOW,
-        forceM3Authority: true,
-      },
-    });
-    expect(projectMismatch.ok).toBe(false);
-    if (!projectMismatch.ok) {
-      expect(projectMismatch.code).toBe("PROJECT_MISMATCH");
-    }
-  });
-
-  it("C1 — explicit unresolved stopConditions reject before supersession", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-c1-"));
-    tempDirs.push(dir);
-    const dbPath = path.join(dir, "oa.sqlite");
-    const decisionId = "dec:gux15-c1";
-    const stack = await bootAt(dbPath);
-    await createProject(stack);
-    await recordAcceptedGo(stack, decisionId);
-    const prepared = await prepareM3(stack, decisionId);
-    expect(prepared.contract.executionContractId).toBe(
-      canonicalM3PrepareContractId(decisionId),
-    );
-
-    for (const sentinel of UNRESOLVED_STOP_SENTINELS) {
-      const rejected = await resolveM3ExecutionContract({
-        projectId: PROJECT_ID,
-        decisionId,
-        originalExecutionContractId: prepared.contract.executionContractId,
-        expectedOriginalVersion: prepared.contract.version,
-        supersessionReason: `c1 ${sentinel}`,
-        resolution: {
-          ...fixtureResolution(),
-          stopConditions: [sentinel, "AUTHORITY_DENIED"],
-        },
-        deps: {
-          decisionServices: stack.decisions,
-          authorityResolver: stack.authority,
-          executionContractServices: stack.contracts,
-          nowIso: () => NOW,
-          forceM3Authority: true,
-        },
-      });
-      expect(rejected.ok).toBe(false);
-      if (!rejected.ok) {
-        expect(rejected.code).toBe("RESOLUTION_STOP_UNRESOLVED");
-      }
-    }
-
-    const original = await stack.contracts.getExecutionContract.execute({
-      executionContractId: prepared.contract.executionContractId,
-    });
-    expect(original.ok).toBe(true);
-    if (!original.ok) return;
-    expect(original.contract.status).not.toBe("superseded");
-
-    const history = await stack.contracts.listExecutionContractHistory.execute({
-      projectId: PROJECT_ID,
-    });
-    expect(history.ok).toBe(true);
-    if (!history.ok) return;
-    expect(
-      history.contracts.filter((c) =>
-        c.executionContractId.startsWith("xct:m3-res:"),
-      ),
-    ).toHaveLength(0);
-    expect(stack.fixtureAdapter.launchCallCount).toBe(0);
-  });
-
-  it("C1 — successful successor contains none of the known unresolved stop sentinels", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-c1ok-"));
-    tempDirs.push(dir);
-    const dbPath = path.join(dir, "oa.sqlite");
-    const decisionId = "dec:gux15-c1ok";
-    const stack = await bootAt(dbPath);
-    await createProject(stack);
-    await recordAcceptedGo(stack, decisionId);
-    const prepared = await prepareM3(stack, decisionId);
-    const resolved = await resolveFixture(
-      stack,
-      decisionId,
-      prepared.contract.executionContractId,
-      prepared.contract.version,
-    );
-    expect(resolved.ok).toBe(true);
-    if (!resolved.ok) return;
-    for (const sentinel of UNRESOLVED_STOP_SENTINELS) {
-      expect(resolved.successor.stopConditions).not.toContain(sentinel);
-    }
-    expect(resolved.successor.action).not.toBe("UNRESOLVED_ACTION");
-    expect(resolved.successor.target).not.toBe("UNRESOLVED_TARGET");
-    expect(resolved.successor.requiredCapabilities).not.toContain(
-      "cap:unresolved",
-    );
-  });
-
-  it("C3 — noncanonical originalExecutionContractId rejects before mutation", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-c3-"));
-    tempDirs.push(dir);
-    const dbPath = path.join(dir, "oa.sqlite");
-    const decisionId = "dec:gux15-c3";
-    const stack = await bootAt(dbPath);
-    await createProject(stack);
-    await recordAcceptedGo(stack, decisionId);
-    const prepared = await prepareM3(stack, decisionId);
-
-    const rejected = await resolveM3ExecutionContract({
-      projectId: PROJECT_ID,
-      decisionId,
-      originalExecutionContractId: "xct:m3:not-this-decision",
-      expectedOriginalVersion: prepared.contract.version,
-      supersessionReason: "c3 identity",
-      resolution: fixtureResolution(),
-      deps: {
-        decisionServices: stack.decisions,
-        authorityResolver: stack.authority,
-        executionContractServices: stack.contracts,
-        nowIso: () => NOW,
-        forceM3Authority: true,
-      },
-    });
-    expect(rejected.ok).toBe(false);
-    if (!rejected.ok) {
-      expect(rejected.code).toBe("CANONICAL_M3_CONTRACT_MISMATCH");
-    }
-
-    const original = await stack.contracts.getExecutionContract.execute({
-      executionContractId: prepared.contract.executionContractId,
-    });
-    expect(original.ok).toBe(true);
-    if (!original.ok) return;
-    expect(original.contract.status).not.toBe("superseded");
-    expect(stack.fixtureAdapter.launchCallCount).toBe(0);
-  });
-
-  it("C2 — supersession success + validation failure recovers by validating SAME successor", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-c2-"));
-    tempDirs.push(dir);
-    const dbPath = path.join(dir, "oa.sqlite");
-    const decisionId = "dec:gux15-c2";
-    const stack = await bootAt(dbPath);
-    await createProject(stack);
-    await recordAcceptedGo(stack, decisionId);
-    const prepared = await prepareM3(stack, decisionId);
-
-    let validateCalls = 0;
-    const realValidate = stack.contracts.validateExecutionContract;
-    const wrappedServices = {
-      ...stack.contracts,
-      validateExecutionContract: {
-        execute: async (req: {
-          executionContractId: string;
-          actor: typeof LOCAL_MORRIS_M3_ACTOR;
-          authorityEvidenceId?: string;
-        }) => {
-          validateCalls += 1;
-          if (validateCalls === 1) {
-            return {
-              ok: false as const,
-              error: {
-                detailCode: "AUTHORITY_DENIED",
-                message: "injected validation failure",
-              },
-              durationMs: 0,
-            };
-          }
-          return realValidate.execute(req);
-        },
-      },
-    };
-
-    const first = await resolveM3ExecutionContract({
-      projectId: PROJECT_ID,
-      decisionId,
-      originalExecutionContractId: prepared.contract.executionContractId,
-      expectedOriginalVersion: prepared.contract.version,
-      supersessionReason: "c2 interrupted validation",
-      resolution: fixtureResolution(),
-      deps: {
-        decisionServices: stack.decisions,
-        authorityResolver: stack.authority,
-        executionContractServices: wrappedServices as typeof stack.contracts,
-        nowIso: () => NOW,
-        forceM3Authority: true,
-      },
-    });
-    expect(first.ok).toBe(false);
-    expect(validateCalls).toBe(1);
-
-    const originalAfter = await stack.contracts.getExecutionContract.execute({
-      executionContractId: prepared.contract.executionContractId,
-    });
-    expect(originalAfter.ok).toBe(true);
-    if (!originalAfter.ok) return;
-    expect(originalAfter.contract.status).toBe("superseded");
-
-    const successorId = `xct:m3-res:${decisionId.replace(/[^a-zA-Z0-9:_-]/g, "").slice(0, 48)}`;
-    const successorAfter = await stack.contracts.getExecutionContract.execute({
-      executionContractId: successorId,
-    });
-    expect(successorAfter.ok).toBe(true);
-    if (!successorAfter.ok) return;
-    expect(["draft", "proposed"]).toContain(successorAfter.contract.status);
-    expect(successorAfter.contract.supersedesExecutionContractId).toBe(
-      prepared.contract.executionContractId,
-    );
-
-    const attemptsAfter = await stack.attempts.listExecutionAttempts.execute({
-      executionContractId: successorId,
-    });
-    expect(attemptsAfter.ok).toBe(true);
-    if (attemptsAfter.ok) expect(attemptsAfter.attempts).toHaveLength(0);
-
-    const historyAfter = await stack.contracts.listExecutionContractHistory.execute({
-      projectId: PROJECT_ID,
-    });
-    expect(historyAfter.ok).toBe(true);
-    if (!historyAfter.ok) return;
-    expect(
-      historyAfter.contracts.filter(
-        (c) =>
-          c.supersedesExecutionContractId ===
-          prepared.contract.executionContractId,
-      ),
-    ).toHaveLength(1);
-
-    // Replay with normal validation — validates EXISTING successor.
-    const second = await resolveFixture(
-      stack,
-      decisionId,
-      prepared.contract.executionContractId,
-      prepared.contract.version,
-    );
-    expect(second.ok).toBe(true);
-    if (!second.ok) return;
-    expect(second.reusedFromIdempotency).toBe(true);
-    expect(second.successor.executionContractId).toBe(successorId);
-    expect(second.successor.status).toBe("confirmation_required");
-
-    const third = await resolveFixture(
-      stack,
-      decisionId,
-      prepared.contract.executionContractId,
-      prepared.contract.version,
-    );
-    expect(third.ok).toBe(true);
-    if (!third.ok) return;
-    expect(third.reusedFromIdempotency).toBe(true);
-    expect(third.successor.executionContractId).toBe(successorId);
-
-    const historyFinal = await stack.contracts.listExecutionContractHistory.execute({
-      projectId: PROJECT_ID,
-    });
-    expect(historyFinal.ok).toBe(true);
-    if (!historyFinal.ok) return;
-    expect(
-      historyFinal.contracts.filter(
-        (c) =>
-          c.supersedesExecutionContractId ===
-          prepared.contract.executionContractId,
-      ),
-    ).toHaveLength(1);
-    expect(stack.fixtureAdapter.launchCallCount).toBe(0);
-
-    // Fixture-safe composition still works after recovery.
-    const exec = await confirmSelectStart(
-      stack,
-      decisionId,
-      second.successor.executionContractId,
-      second.successor.version,
-    );
-    expect(exec.attempt.status).toBe("succeeded");
-    expect(exec.launchCount).toBe(1);
-  });
-
-  it("C2 — cancelled expected successor fails closed", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-c2can-"));
-    tempDirs.push(dir);
-    const dbPath = path.join(dir, "oa.sqlite");
-    const decisionId = "dec:gux15-c2can";
-    const stack = await bootAt(dbPath);
-    await createProject(stack);
-    await recordAcceptedGo(stack, decisionId);
-    const prepared = await prepareM3(stack, decisionId);
-    const resolved = await resolveFixture(
-      stack,
-      decisionId,
-      prepared.contract.executionContractId,
-      prepared.contract.version,
-    );
-    expect(resolved.ok).toBe(true);
-    if (!resolved.ok) return;
-
-    const auth = registerM3LocalMorrisAuthority({
-      authorityResolver: stack.authority,
-      scope: resolved.successor.scope,
-      issuedAt: NOW,
-      forceEnable: true,
-      evidenceId: `evd:m3-cancel:${decisionId}`,
-    });
-    expect(auth.ok).toBe(true);
-    if (!auth.ok) return;
-
-    const cancelled = await stack.contracts.cancelExecutionContract.execute({
-      executionContractId: resolved.successor.executionContractId,
-      reason: "abort resolution candidate",
-      actor: LOCAL_MORRIS_M3_ACTOR,
-      authorityEvidenceId: auth.evidenceId,
-    });
-    expect(cancelled.ok).toBe(true);
-
-    const replay = await resolveFixture(
-      stack,
-      decisionId,
-      prepared.contract.executionContractId,
-      prepared.contract.version,
-    );
-    expect(replay.ok).toBe(false);
-    if (!replay.ok) {
-      expect(replay.code).toBe("STATE_CONFLICT");
-    }
-  });
-
-  it("F1 — wrong successor requiredAuthority fails closed before validation", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-f1-auth-"));
-    tempDirs.push(dir);
-    const dbPath = path.join(dir, "oa.sqlite");
-    const decisionId = "dec:gux15-f1-auth";
-    const stack = await bootAt(dbPath);
-    await createProject(stack);
-    await recordAcceptedGo(stack, decisionId);
-    const prepared = await prepareM3(stack, decisionId);
-    const resolved = await resolveFixture(
-      stack,
-      decisionId,
-      prepared.contract.executionContractId,
-      prepared.contract.version,
-    );
-    expect(resolved.ok).toBe(true);
-    if (!resolved.ok) return;
-
-    const successorId = resolved.successor.executionContractId;
-    let validateCalls = 0;
-    const realGet = stack.contracts.getExecutionContract;
-    const realValidate = stack.contracts.validateExecutionContract;
-    const wrapped = {
-      ...stack.contracts,
-      getExecutionContract: {
-        execute: async (req: { executionContractId: string }) => {
-          const got = await realGet.execute(req);
-          if (!got.ok || req.executionContractId !== successorId) return got;
-          return {
-            ok: true as const,
-            contract: {
-              ...got.contract,
-              requiredAuthority: "N3" as const,
-            },
-            durationMs: 0,
-          };
-        },
-      },
-      validateExecutionContract: {
-        execute: async (req: {
-          executionContractId: string;
-          actor: typeof LOCAL_MORRIS_M3_ACTOR;
-          authorityEvidenceId?: string;
-        }) => {
-          validateCalls += 1;
-          return realValidate.execute(req);
-        },
-      },
-    };
-
-    const replay = await resolveM3ExecutionContract({
-      projectId: PROJECT_ID,
-      decisionId,
-      originalExecutionContractId: prepared.contract.executionContractId,
-      expectedOriginalVersion: prepared.contract.version,
-      supersessionReason: "f1 auth",
-      resolution: fixtureResolution(),
-      deps: {
-        decisionServices: stack.decisions,
-        authorityResolver: stack.authority,
-        executionContractServices: wrapped as typeof stack.contracts,
-        nowIso: () => NOW,
-        forceM3Authority: true,
-      },
-    });
-    expect(replay.ok).toBe(false);
-    if (!replay.ok) {
-      expect(replay.code).toBe("SUCCESSOR_GOVERNANCE_MISMATCH");
-    }
-    expect(validateCalls).toBe(0);
-    expect(stack.fixtureAdapter.launchCallCount).toBe(0);
-    const history = await stack.contracts.listExecutionContractHistory.execute({
-      projectId: PROJECT_ID,
-    });
-    expect(history.ok).toBe(true);
-    if (history.ok) {
-      expect(
-        history.contracts.filter(
-          (c) =>
-            c.supersedesExecutionContractId ===
-            prepared.contract.executionContractId,
-        ),
-      ).toHaveLength(1);
-    }
-  });
-
-  it("F1 — wrong / missing / extra decisionRefs fail closed before validation", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-f1-refs-"));
-    tempDirs.push(dir);
-    const dbPath = path.join(dir, "oa.sqlite");
-    const decisionId = "dec:gux15-f1-refs";
-    const stack = await bootAt(dbPath);
-    await createProject(stack);
-    await recordAcceptedGo(stack, decisionId);
-    const prepared = await prepareM3(stack, decisionId);
-    const resolved = await resolveFixture(
-      stack,
-      decisionId,
-      prepared.contract.executionContractId,
-      prepared.contract.version,
-    );
-    expect(resolved.ok).toBe(true);
-    if (!resolved.ok) return;
-    const successorId = resolved.successor.executionContractId;
-    const realGet = stack.contracts.getExecutionContract;
-
-    for (const badRefs of [
-      undefined,
-      [],
-      ["dec:other"],
-      [decisionId, "dec:extra"],
-    ] as Array<string[] | undefined>) {
-      let validateCalls = 0;
-      const wrapped = {
-        ...stack.contracts,
-        getExecutionContract: {
-          execute: async (req: { executionContractId: string }) => {
-            const got = await realGet.execute(req);
-            if (!got.ok || req.executionContractId !== successorId) return got;
-            const mutated: ExecutionContract = {
-              ...got.contract,
-              decisionRefs: badRefs,
-            };
-            return { ok: true as const, contract: mutated, durationMs: 0 };
-          },
-        },
-        validateExecutionContract: {
-          execute: async (req: {
-            executionContractId: string;
-            actor: typeof LOCAL_MORRIS_M3_ACTOR;
-            authorityEvidenceId?: string;
-          }) => {
-            validateCalls += 1;
-            return stack.contracts.validateExecutionContract.execute(req);
-          },
-        },
-      };
-      const replay = await resolveM3ExecutionContract({
-        projectId: PROJECT_ID,
-        decisionId,
-        originalExecutionContractId: prepared.contract.executionContractId,
-        expectedOriginalVersion: prepared.contract.version,
-        supersessionReason: "f1 refs",
-        resolution: fixtureResolution(),
-        deps: {
-          decisionServices: stack.decisions,
-          authorityResolver: stack.authority,
-          executionContractServices: wrapped as typeof stack.contracts,
-          nowIso: () => NOW,
-          forceM3Authority: true,
-        },
-      });
-      expect(replay.ok).toBe(false);
-      if (!replay.ok) {
-        expect(replay.code).toBe("SUCCESSOR_GOVERNANCE_MISMATCH");
-      }
-      expect(validateCalls).toBe(0);
-    }
-    expect(stack.fixtureAdapter.launchCallCount).toBe(0);
-  });
-
-  it("F1 — wrong canonical resolution idempotency fails closed", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-f1-idem-"));
-    tempDirs.push(dir);
-    const dbPath = path.join(dir, "oa.sqlite");
-    const decisionId = "dec:gux15-f1-idem";
-    const stack = await bootAt(dbPath);
-    await createProject(stack);
-    await recordAcceptedGo(stack, decisionId);
-    const prepared = await prepareM3(stack, decisionId);
-    const resolved = await resolveFixture(
-      stack,
-      decisionId,
-      prepared.contract.executionContractId,
-      prepared.contract.version,
-    );
-    expect(resolved.ok).toBe(true);
-    if (!resolved.ok) return;
-    const successorId = resolved.successor.executionContractId;
-    expect(resolved.successor).toBeTruthy();
-    const expectedKey = canonicalM3ResolutionIdempotencyKey(
-      decisionId,
-      successorId,
-    );
-    const realGet = stack.contracts.getExecutionContract;
-    let validateCalls = 0;
-    const wrapped = {
-      ...stack.contracts,
-      getExecutionContract: {
-        execute: async (req: { executionContractId: string }) => {
-          const got = await realGet.execute(req);
-          if (!got.ok || req.executionContractId !== successorId) return got;
-          expect(got.contract.idempotencyKey).toBe(expectedKey);
-          return {
-            ok: true as const,
-            contract: {
-              ...got.contract,
-              idempotencyKey: "idem:m3-res:forged",
-            },
-            durationMs: 0,
-          };
-        },
-      },
-      validateExecutionContract: {
-        execute: async (req: {
-          executionContractId: string;
-          actor: typeof LOCAL_MORRIS_M3_ACTOR;
-          authorityEvidenceId?: string;
-        }) => {
-          validateCalls += 1;
-          return stack.contracts.validateExecutionContract.execute(req);
-        },
-      },
-    };
-    const replay = await resolveM3ExecutionContract({
-      projectId: PROJECT_ID,
-      decisionId,
-      originalExecutionContractId: prepared.contract.executionContractId,
-      expectedOriginalVersion: prepared.contract.version,
-      supersessionReason: "f1 idem",
-      resolution: fixtureResolution(),
-      deps: {
-        decisionServices: stack.decisions,
-        authorityResolver: stack.authority,
-        executionContractServices: wrapped as typeof stack.contracts,
-        nowIso: () => NOW,
-        forceM3Authority: true,
-      },
-    });
-    expect(replay.ok).toBe(false);
-    if (!replay.ok) {
-      expect(replay.code).toBe("SUCCESSOR_GOVERNANCE_MISMATCH");
-    }
-    expect(validateCalls).toBe(0);
-  });
-
-  it("F1 — validated-only MORRIS successor fails closed (not completed resolution)", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-f1-val-"));
-    tempDirs.push(dir);
-    const dbPath = path.join(dir, "oa.sqlite");
-    const decisionId = "dec:gux15-f1-val";
-    const stack = await bootAt(dbPath);
-    await createProject(stack);
-    await recordAcceptedGo(stack, decisionId);
-    const prepared = await prepareM3(stack, decisionId);
-    const resolved = await resolveFixture(
-      stack,
-      decisionId,
-      prepared.contract.executionContractId,
-      prepared.contract.version,
-    );
-    expect(resolved.ok).toBe(true);
-    if (!resolved.ok) return;
-    // Lifecycle proof: MORRIS validate yields confirmation_required, not validated.
-    expect(resolved.successor.status).toBe("confirmation_required");
-    expect(resolved.successor.requiredAuthority).toBe("MORRIS");
-
-    const successorId = resolved.successor.executionContractId;
-    const realGet = stack.contracts.getExecutionContract;
-    const wrapped = {
-      ...stack.contracts,
-      getExecutionContract: {
-        execute: async (req: { executionContractId: string }) => {
-          const got = await realGet.execute(req);
-          if (!got.ok || req.executionContractId !== successorId) return got;
-          return {
-            ok: true as const,
-            contract: {
-              ...got.contract,
-              status: "validated" as const,
-              requiredAuthority: "MORRIS" as const,
-            },
-            durationMs: 0,
-          };
-        },
-      },
-    };
-    const replay = await resolveM3ExecutionContract({
-      projectId: PROJECT_ID,
-      decisionId,
-      originalExecutionContractId: prepared.contract.executionContractId,
-      expectedOriginalVersion: prepared.contract.version,
-      supersessionReason: "f1 validated",
-      resolution: fixtureResolution(),
-      deps: {
-        decisionServices: stack.decisions,
-        authorityResolver: stack.authority,
-        executionContractServices: wrapped as typeof stack.contracts,
-        nowIso: () => NOW,
-        forceM3Authority: true,
-      },
-    });
-    expect(replay.ok).toBe(false);
-    if (!replay.ok) {
-      expect(replay.code).toBe("STATE_CONFLICT");
-    }
-  });
-
-  it("F2 — failed T-A5 successor replays idempotently without new attempt/launch", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-f2-fail-"));
-    tempDirs.push(dir);
-    const dbPath = path.join(dir, "oa.sqlite");
-    const decisionId = "dec:gux15-f2-fail";
-    const stack = await bootAt(dbPath);
-    await createProject(stack);
-    await recordAcceptedGo(stack, decisionId);
-    const prepared = await prepareM3(stack, decisionId);
-    const resolved = await resolveFixture(
-      stack,
-      decisionId,
-      prepared.contract.executionContractId,
-      prepared.contract.version,
-    );
-    expect(resolved.ok).toBe(true);
-    if (!resolved.ok) return;
-
-    const successorId = resolved.successor.executionContractId;
-    const auth = registerM3LocalMorrisAuthority({
-      authorityResolver: stack.authority,
-      scope: resolved.successor.scope,
-      issuedAt: NOW,
-      forceEnable: true,
-      evidenceId: `evd:m3-fail:${successorId}`,
-    });
-    expect(auth.ok).toBe(true);
-    if (!auth.ok) return;
-
-    const confirmationId = `cfm:gux15-fail:${successorId}`;
-    await stack.decisions.requestConfirmation.execute({
-      confirmationId,
-      level: "N3",
-      actionRef: F3_CONFIRM_ACTION_REF,
-      requestedBy: LOCAL_MORRIS_M3_ACTOR,
-      requestedTo: LOCAL_MORRIS_M3_ACTOR,
-      scope: resolved.successor.scope,
-      idempotencyKey: `idem:gux15-fail-cfm:${successorId}`,
-      decisionRef: decisionId,
-    });
-    await stack.decisions.grantConfirmation.execute({
-      confirmationId,
-      actor: LOCAL_MORRIS_M3_ACTOR,
-      authorityEvidenceId: auth.evidenceId,
-    });
-    const confirmed = await stack.contracts.confirmExecutionContract.execute({
-      executionContractId: successorId,
-      confirmationId,
-      actor: LOCAL_MORRIS_M3_ACTOR,
-      authorityEvidenceId: auth.evidenceId,
-      expectedVersion: resolved.successor.version,
-    });
-    expect(confirmed.ok).toBe(true);
-    if (!confirmed.ok) return;
-
-    const attemptId = `xat:gux15-fail:${successorId.replace(/^xct:/, "")}`;
-    const selected = await stack.attempts.selectExecutionAgent.execute({
-      attemptId,
-      executionContractId: successorId,
-      idempotencyKey: `idem:gux15-fail-att:${successorId}`,
-      actor: LOCAL_MORRIS_M3_ACTOR,
-      authorityEvidenceId: auth.evidenceId,
-      expectedContractVersion: confirmed.contract.version,
-      selectionProfile: "standard",
-      selectionStrategy: "capabilities_deterministic",
-      requestedAgentRef: F3_AGENT_ID,
-      systemInitiated: true,
-    });
-    expect(selected.ok).toBe(true);
-    if (!selected.ok) return;
-
-    const started = await stack.attempts.startExecution.execute({
-      attemptId,
-      actor: LOCAL_MORRIS_M3_ACTOR,
-      authorityEvidenceId: auth.evidenceId,
-    });
-    expect(started.ok).toBe(true);
-    if (!started.ok) return;
-    expect(stack.fixtureAdapter.launchCallCount).toBe(1);
-
-    // Existing T-A5 failure API — fixture-safe, externalEffects remain false.
-    const failed = await stack.attempts.recordExecutionFailure.execute({
-      attemptId,
-      adapterId: F3_ADAPTER_ID,
-      errorRef: "err:gux15-fixture-fail",
-      stopReason: "fixture-controlled technical failure",
-      technicalExitCode: 1,
-    });
-    expect(failed.ok).toBe(true);
-    if (!failed.ok) return;
-    expect(failed.contractStatus).toBe("failed");
-
-    const contractFailed = await stack.contracts.getExecutionContract.execute({
-      executionContractId: successorId,
-    });
-    expect(contractFailed.ok).toBe(true);
-    if (!contractFailed.ok) return;
-    expect(contractFailed.contract.status).toBe("failed");
-
-    let validateCalls = 0;
-    let supersedeCalls = 0;
-    const wrapped = {
-      ...stack.contracts,
-      validateExecutionContract: {
-        execute: async (req: {
-          executionContractId: string;
-          actor: typeof LOCAL_MORRIS_M3_ACTOR;
-          authorityEvidenceId?: string;
-        }) => {
-          validateCalls += 1;
-          return stack.contracts.validateExecutionContract.execute(req);
-        },
-      },
-      supersedeExecutionContract: {
-        execute: async (req: Parameters<
-          typeof stack.contracts.supersedeExecutionContract.execute
-        >[0]) => {
-          supersedeCalls += 1;
-          return stack.contracts.supersedeExecutionContract.execute(req);
-        },
-      },
-    };
-
-    const replay = await resolveM3ExecutionContract({
-      projectId: PROJECT_ID,
-      decisionId,
-      originalExecutionContractId: prepared.contract.executionContractId,
-      expectedOriginalVersion: prepared.contract.version,
-      supersessionReason: "f2 failed replay",
-      resolution: fixtureResolution(),
-      deps: {
-        decisionServices: stack.decisions,
-        authorityResolver: stack.authority,
-        executionContractServices: wrapped as typeof stack.contracts,
-        nowIso: () => NOW,
-        forceM3Authority: true,
-      },
-    });
-    expect(replay.ok).toBe(true);
-    if (!replay.ok) return;
-    expect(replay.reusedFromIdempotency).toBe(true);
-    expect(replay.successor.executionContractId).toBe(successorId);
-    expect(replay.successor.status).toBe("failed");
-    expect(validateCalls).toBe(0);
-    expect(supersedeCalls).toBe(0);
-    expect(stack.fixtureAdapter.launchCallCount).toBe(1);
-    expect(stack.fixtureAdapter.externalEffects).toBe(false);
-
-    const attempts = await stack.attempts.listExecutionAttempts.execute({
-      executionContractId: successorId,
-    });
-    expect(attempts.ok).toBe(true);
-    if (attempts.ok) expect(attempts.attempts).toHaveLength(1);
-
-    const history = await stack.contracts.listExecutionContractHistory.execute({
-      projectId: PROJECT_ID,
-    });
-    expect(history.ok).toBe(true);
-    if (history.ok) {
-      expect(
-        history.contracts.filter(
-          (c) =>
-            c.supersedesExecutionContractId ===
-            prepared.contract.executionContractId,
-        ),
-      ).toHaveLength(1);
-    }
-  });
-
-  it("F2 — completed T-A5 successor remains idempotent replay PASS", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gux15-f2-done-"));
-    tempDirs.push(dir);
-    const dbPath = path.join(dir, "oa.sqlite");
-    const decisionId = "dec:gux15-f2-done";
-    const stack = await bootAt(dbPath);
-    await createProject(stack);
-    await recordAcceptedGo(stack, decisionId);
-    const prepared = await prepareM3(stack, decisionId);
-    const resolved = await resolveFixture(
-      stack,
-      decisionId,
-      prepared.contract.executionContractId,
-      prepared.contract.version,
-    );
-    expect(resolved.ok).toBe(true);
-    if (!resolved.ok) return;
-
-    const exec = await confirmSelectStart(
-      stack,
-      decisionId,
-      resolved.successor.executionContractId,
-      resolved.successor.version,
-    );
-    expect(exec.attempt.status).toBe("succeeded");
-
-    const contractDone = await stack.contracts.getExecutionContract.execute({
-      executionContractId: resolved.successor.executionContractId,
-    });
-    expect(contractDone.ok).toBe(true);
-    if (!contractDone.ok) return;
-    expect(contractDone.contract.status).toBe("completed");
-
-    const replay = await resolveFixture(
-      stack,
-      decisionId,
-      prepared.contract.executionContractId,
-      prepared.contract.version,
-    );
-    expect(replay.ok).toBe(true);
-    if (!replay.ok) return;
-    expect(replay.reusedFromIdempotency).toBe(true);
-    expect(replay.successor.status).toBe("completed");
-    expect(replay.successor.executionContractId).toBe(
-      resolved.successor.executionContractId,
-    );
-    expect(stack.fixtureAdapter.launchCallCount).toBe(1);
-  });
-});
-
-// Keep unused import type referenced for clarity in tooling.
-void (null as unknown as ExecutionAttemptServices);
-
-```
-
-### 12–16. Evidence summary
-- F1 wrong authority / decisionRefs / idempotency → SUCCESSOR_GOVERNANCE_MISMATCH, validateCalls=0
-- validated-only MORRIS → STATE_CONFLICT (lifecycle also yields confirmation_required on validate)
-- F2 failed via recordExecutionFailure → replay ok, reusedFromIdempotency, same successor, no validate/supersede, 1 Attempt, 1 launch
-- completed replay PASS; cancelled fail-closed retained
-- interrupted validation replay still PASS
-
-### 17–18. Regression / typecheck / eslint
-```
-5 files / 50 tests PASS
-(gux15 16 + m3 prepare + m3 restart + supersede/cancel + f3 fixture)
-npm run typecheck → PASS
-eslint affected → clean
-```
-
-### 19. COMPLETE updated Pre-M6 artifact
+### 11. COMPLETE updated Pre-M6 artifact
 ```markdown
 # SFIA Studio — Qualification pré-M6 du parcours utilisateur / référentiel UX
 
@@ -2596,13 +73,13 @@ eslint affected → clean
 | Jalon | RÉFÉRENTIEL PRÉ-M6 DU PARCOURS UTILISATEUR / UX |
 | Acteur produit | Morris / pilote du projet |
 | Autorité de livraison | **AUCUNE** — aucune UI Delivery, aucun Figma, M6, Cursor REAL ni changement d’exécution |
-| Décision Morris consommée | Timeline : D-PRE-M6-UX-01/02/03 ADOPT ; **historique** D-PRE-M6-UX-04 = REQUALIFY (supersédé) → SELECT SLICE A → AMEND → **FINAL AMEND** G-UX-15 Slice A ; D-PRE-M6-UX-05 NO DECISION YET ; exit proof **ACCEPTANCE PENDING** |
+| Décision Morris consommée | Timeline : D-PRE-M6-UX-01/02/03 ADOPT ; **historique** D-PRE-M6-UX-04 = REQUALIFY → SELECT SLICE A → AMEND → FINAL AMEND ; **GO ACCEPT G-UX-15 SLICE A EXIT PROOF** (consommé) — technical blocker **CLOSED** ; D-PRE-M6-UX-05 NO DECISION YET |
 
 ## 1. Périmètre et conclusion de la qualification
 
 Ce document est la **baseline fonctionnelle pré-M6 adoptée par Morris** pour le parcours utilisateur M1→M5, l’architecture fonctionnelle de l’information et le principe de réutilisation UI. Il conserve l’audit complet antérieur et y ajoute la readiness consolidée pré-Figma des écarts G-UX-01→15.
 
-L’exécution actuelle démontre les capacités requises sur M1→M5. Le chemin durable M3 PREPARE demeure l’audit anchor ; **Slice A** fournit le bridge applicatif `resolveM3ExecutionContract` (successeur résolu via supersession existante) avec preuve fixture-safe. **G-UX-15 = IMPLEMENTED CANDIDATE — FINAL AMEND APPLIED — FIXTURE-SAFE APPLICATION WIRING PROOF PASS — CHATGPT RE-REVIEW / MORRIS EXIT-PROOF ACCEPTANCE PENDING** : Figma / UI Delivery / M6 restent non autorisés ; la fixture n’est pas une preuve produit du chemin critique.
+L’exécution actuelle démontre les capacités requises sur M1→M5. Le chemin durable M3 PREPARE demeure l’audit anchor ; **Slice A** fournit le bridge applicatif `resolveM3ExecutionContract` (successeur résolu via supersession existante). **G-UX-15 = SLICE A EXIT PROOF ACCEPTED BY MORRIS — TECHNICAL APPLICATION-WIRING BLOCKER CLOSED — FIXTURE-SAFE TECHNICAL PROOF ACCEPTED — PRODUCT/BROWSER E2E STILL PENDING**. Preuve fixture-safe = **preuve technique uniquement** (≠ product/browser E2E). Figma / UI Delivery / M6 restent non autorisés. Candidat **local / NOT YET ON MAIN**.
 
 La Conversation et la Proposal restent locales au processus. Morris a **accepté** cette limite pour le **premier test utilisateur fonctionnel borné uniquement**. La future UX doit être honnête sur le redémarrage/la reprise, récupérer depuis l’état durable du projet, requalifier si nécessaire, et ne jamais fabriquer un contexte de travail perdu. Ceci n’autorise aucune nouvelle persistance.
 
@@ -2615,9 +92,9 @@ L’interface utilisateur existante ne forme pas un produit cohérent unique. El
 
 Le référentiel **adopté** est une **expérience projet dominée par la conversation**, avec un résumé vivant du projet toujours accessible et des surfaces contextuelles, orientées tâche, pour la décision, l’exécution et les preuves. Il s’appuie sur l’OA Native Backbone et Product SQLite existants. Il ne nécessite ni moteur métier propre à l’interface, ni état de projet dupliqué, ni modèle de décision dupliqué, ni persistance parallèle.
 
-**Résultat :** BASELINE FONCTIONNELLE PRÉ-M6 ADOPTÉE PAR MORRIS — readiness Figma / UI Delivery **non acquises** — gaps G-UX-01→15 classifiés — **G-UX-15 = IMPLEMENTED CANDIDATE — FINAL AMEND APPLIED — FIXTURE-SAFE APPLICATION WIRING PROOF PASS — CHATGPT RE-REVIEW / MORRIS EXIT-PROOF ACCEPTANCE PENDING** (BLOCKER PENDING MORRIS ACCEPTANCE) — **aucun** Figma, UI Delivery, M6 ni REAL autorisé.
+**Résultat :** BASELINE FONCTIONNELLE PRÉ-M6 ADOPTÉE PAR MORRIS — readiness Figma / UI Delivery **non acquises** — gaps G-UX-01→15 classifiés — **G-UX-15 = SLICE A EXIT PROOF ACCEPTED BY MORRIS — TECHNICAL APPLICATION-WIRING BLOCKER CLOSED — FIXTURE-SAFE TECHNICAL PROOF ACCEPTED — PRODUCT/BROWSER E2E STILL PENDING** — Confirmation process-local = **KEEP RESERVE** — candidat local **NOT YET ON MAIN** — **aucun** Figma, UI Delivery, M6 ni REAL autorisé.
 
-**Anti-revendications :** baseline fonctionnelle adoptée ≠ référentiel UX visuel approuvé ≠ Figma autorisé ≠ gaps implémentés ≠ UI Delivery autorisée ≠ Pre-M6 terminée ≠ M6 Entry Qualification ≠ runtime v3 ADOPTED. Les dispositions individuelles KEEP / ADAPT / HARVEST / REPLACE / FREEZE / RETIRE LATER restent des **recommandations** jusqu’aux gates de readiness / Delivery pertinentes.
+**Anti-revendications :** baseline fonctionnelle adoptée ≠ référentiel UX visuel approuvé ≠ Figma autorisé ≠ UI Delivery autorisée ≠ Pre-M6 terminée ≠ M6 Entry Qualification ≠ runtime v3 ADOPTED. G-UX-15 technical blocker CLOSED ≠ product E2E proven ≠ on main. Fixture-safe ≠ REAL. Confirmation process-local reserve **KEEP**. Les dispositions individuelles KEEP / ADAPT / HARVEST / REPLACE / FREEZE / RETIRE LATER restent des **recommandations** jusqu’aux gates Delivery pertinentes.
 
 ## 2. Autorité et hiérarchie des sources
 
@@ -2686,14 +163,14 @@ Les sources d’exécution, d’interface et de tests ont été examinées sous 
 - Architecture fonctionnelle de l’information : **ADOPTED BY MORRIS** (D-PRE-M6-UX-02).
 - Principe de réutilisation UI : **ADOPTED BY MORRIS AT PRINCIPLE LEVEL** (D-PRE-M6-UX-03) — dispositions individuelles de composants **non consommées automatiquement**.
 - Limitation process-local premier test : **ACCEPTED BY MORRIS**.
-- G-UX-15 : **IMPLEMENTED CANDIDATE — FINAL AMEND APPLIED — FIXTURE-SAFE APPLICATION WIRING PROOF PASS — CHATGPT RE-REVIEW / MORRIS EXIT-PROOF ACCEPTANCE PENDING** (Slice A sélectionnée, implémentée, amendée + final amend ; Figma / UI Delivery / M6 toujours non autorisés).
+- G-UX-15 : **SLICE A EXIT PROOF ACCEPTED BY MORRIS — TECHNICAL APPLICATION-WIRING BLOCKER CLOSED — FIXTURE-SAFE TECHNICAL PROOF ACCEPTED — PRODUCT/BROWSER E2E STILL PENDING** (architecture Slice A **ACCEPTED** ; candidat local **NOT YET ON MAIN** ; Figma / UI Delivery / M6 toujours non autorisés).
 - Readiness consolidée G-UX-01→15 : **AUTHORIZED / COMPLETED** (classification historique) ; **G-UX-15 Slice A** a depuis reçu une implémentation candidat locale (+ amends) — hors commit projet.
 - Figma Visual Contract : **NOT AUTHORIZED** (D-PRE-M6-UX-05 = NO DECISION YET).
 - Pre-M6 UI Delivery : **NOT AUTHORIZED**.
 - M6 : **NOT STARTED / NOT AUTHORIZED**.
 - runtime v3 : **NON ADOPTED**.
 - Consommation de Cursor REAL / Gate D dans ce cycle : **0**.
-- Sync Roadmap : **REQUISE APRÈS** acceptation Morris de l’exit proof G-UX-15 / intégration — **non autorisée** dans ce cycle.
+- Sync Roadmap : **AUTHORIZED / APPLIED** dans ce cycle de capitalisation (Cycle 15) — intégration Git / PR **pas encore**.
 
 ## 3. Acteur et tâches à accomplir
 
@@ -3032,9 +509,9 @@ Les dispositions détaillées de readiness multi-dimensionnelle figurent au §21
 | G-UX-12 GOVERNANCE GAP | Dispositions significatives de l’interface et retrait historique non consommés | Non / Non | Dossier de décision ; retrait maintenu à plus tard | Faible | Morris |
 | G-UX-13 UX PRESENTATION GAP | Chargement/vide/erreur/récupération canoniques manquants sur le parcours agrégé | Oui / Oui | Utiliser le modèle d’état §9 comme entrée Figma/Delivery | Faible | Figma/Delivery |
 | G-UX-14 NON-BLOCKING FUTURE ENHANCEMENT | Architecture multi-utilisateur/IAM/administration absente | Non / Non | Maintenir hors pré-M6 | Élevé si anticipé | M6/ultérieur |
-| G-UX-15 APPLICATION WIRING GAP — BLOCKING | **Historique audit :** PREPARE-only non exécutable ; seul le chemin fixture UI atteignait l’exécution. **Traitement actuel :** Slice A `resolveM3ExecutionContract` (candidat + final amend) — supersession + validation + gouvernance replay ; Confirmation/Select/StartExecution existants | **Oui / Oui** (acceptation Morris encore requise) | Slice A **IMPLEMENTED CANDIDATE** — input applicatif explicite ; pas de mutation in-place ; pas de séquenceur parallèle ; ZERO REAL | **Résiduel** jusqu’à ACCEPT exit proof + UI/E2E ; doctrine anti-bypass inchangée | Morris ACCEPT exit proof / avant UI Delivery |
+| G-UX-15 APPLICATION WIRING GAP — BLOCKING | **Historique audit :** PREPARE-only non exécutable. **Actuel :** Slice A exit proof **ACCEPTED BY MORRIS** — technical blocker **CLOSED** ; fixture-safe = technical proof only ; Confirmation process-local reserve KEEP | **Oui (product E2E)** / **Non (technical wiring)** | Architecture ACCEPTED ; local NOT YET ON MAIN ; ZERO REAL | **Product residual** : integration + UI/E2E + Confirmation reserve | PR readiness → Figma → Delivery |
 
-**ÉCART PRÉ-M6 ENTRE L’EXÉCUTION ET L’APPLICATION — HISTORIQUEMENT QUALIFIÉ ; TECHNIQUEMENT BRIDGÉ PAR SLICE A ; ACCEPTATION MORRIS / UI DELIVERY ENCORE REQUISES.** G-UX-15 reste un BLOCKER produit tant que l’exit proof n’est pas accepté et que UI/E2E ne sont pas autorisés. Classification : APPLICATION WIRING GAP (pas de nouveau moteur). Preuve technique fixture-safe : original PREPARE préservé ; successeur via supersession ; Confirmation + StartExecution existants ; ZERO REAL / Gate D 0.
+**ÉCART PRÉ-M6 ENTRE L’EXÉCUTION ET L’APPLICATION — HISTORIQUEMENT QUALIFIÉ ; TECHNIQUEMENT BRIDGÉ PAR SLICE A ; EXIT PROOF ACCEPTED BY MORRIS.** Technical application-wiring blocker = **CLOSED**. Product/browser E2E + UI Delivery restent **PENDING / NOT AUTHORIZED**. Classification historique : APPLICATION WIRING GAP (pas de nouveau moteur). Preuve technique fixture-safe acceptée comme preuve technique uniquement ; Confirmation process-local = KEEP RESERVE ; candidat local NOT YET ON MAIN ; ZERO REAL / Gate D 0.
 
 ## 13. Résumé de la disposition des actifs existants
 
@@ -3147,8 +624,8 @@ Anti-objectifs :
 Dépendances avant progression autorisée :
 
 - **Satisfaites (timeline) :** D-PRE-M6-UX-01/02/03 adoptés ; process-local premier test accepté ; readiness G-UX-01→15 classifiée ; SELECT SLICE A ; implémentation + amend + **final amend** Slice A (locale).
-- **Historique supersédé :** D-PRE-M6-UX-04 = REQUALIFY (ne plus présenter comme statut courant).
-- **Ouvertes :** Morris **ACCEPT G-UX-15 SLICE A EXIT PROOF** ; D-PRE-M6-UX-05 (Figma GO) ; UI Delivery après Figma validé ; sync Roadmap après intégration ; G-UX-08 / G-UX-10 hors Slice A.
+- **Historique supersédé :** D-PRE-M6-UX-04 = REQUALIFY → SELECT/AMEND/FINAL AMEND → **ACCEPT EXIT PROOF** (consommés).
+- **Ouvertes :** controlled integration / PR readiness (candidat 5 fichiers) ; D-PRE-M6-UX-05 (Figma GO) ; UI Delivery après Figma validé ; G-UX-08 / G-UX-10 hors Slice A ; Confirmation process-local reserve.
 - GO distinct pour Figma Visual Contract uniquement lorsque les prérequis pré-Figma du §21/§26 sont stables.
 - Validation Figma avant UI Delivery.
 - fixture ≠ preuve produit du chemin critique ; OA/limites applicatives préservées.
@@ -3199,7 +676,9 @@ Conversation / Proposal peuvent rester process-local pour le premier test utilis
 2. AMEND G-UX-15 SLICE A (sentinels / replay / identité canonique) ;
 3. **FINAL AMEND** G-UX-15 SLICE A (gouvernance replay + failed T-A5 + sync artefact).
 
-**Statut courant :** IMPLEMENTED CANDIDATE — FINAL AMEND APPLIED — FIXTURE-SAFE APPLICATION WIRING PROOF PASS — CHATGPT RE-REVIEW / MORRIS EXIT-PROOF ACCEPTANCE PENDING
+**Statut courant :** SLICE A EXIT PROOF ACCEPTED BY MORRIS — TECHNICAL APPLICATION-WIRING BLOCKER CLOSED — FIXTURE-SAFE TECHNICAL PROOF ACCEPTED — PRODUCT/BROWSER E2E STILL PENDING
+
+**Confirmation reserve :** Memory / process-local — **KEEP RESERVE FOR NOW** — NON-BLOCKING for accepted technical exit proof — exit trigger = future UAT/product proof demonstrating unsafe confirmation/restart ambiguity.
 
 Chemin durable (préservé / câblé en Slice A) :
 
@@ -3219,11 +698,11 @@ Ce GO n’autorise pas le Figma Visual Contract.
 
 ### Recommendation (post-adoption)
 
-La baseline fonctionnelle est adoptée. Slice A G-UX-15 est **implémentée (candidat + amend + final amend)**. La prochaine décision structurale de Morris est **ACCEPT G-UX-15 SLICE A EXIT PROOF** (ou AMEND), pas une nouvelle sélection A/B/C.
+La baseline fonctionnelle est adoptée. Slice A G-UX-15 exit proof est **ACCEPTED BY MORRIS** (technical blocker CLOSED). Prochaine gate **repo** : Cycle 13 PR READINESS du candidat local 5 fichiers. Prochaine gate **produit** après intégration : D-PRE-M6-UX-05 Figma GO.
 
 ### Réserves ouvertes
 
-1. G-UX-15 IMPLEMENTED CANDIDATE — FINAL AMEND APPLIED — FIXTURE-SAFE APPLICATION WIRING PROOF PASS — CHATGPT RE-REVIEW / MORRIS EXIT-PROOF ACCEPTANCE PENDING ; doit rester visible dans tout futur Figma jusqu’à acceptation.
+1. G-UX-15 SLICE A EXIT PROOF ACCEPTED BY MORRIS — TECHNICAL APPLICATION-WIRING BLOCKER CLOSED — FIXTURE-SAFE TECHNICAL PROOF ACCEPTED — PRODUCT/BROWSER E2E STILL PENDING ; Confirmation process-local reserve doit rester visible ; product E2E pending.
 2. G-UX-08 — boucle AMEND incomplete ; requise pour parcours complet, pas pour premier happy-path GO-only.
 3. G-UX-10 — actualité Recommendation à définir/câbler sans nouveau modèle de décision.
 4. G-UX-09 — process-local accepté temporairement pour le premier test uniquement.
@@ -3261,7 +740,7 @@ M6 reste **NOT STARTED / NOT AUTHORIZED**.
 - baseline fonctionnelle ADOPTÉE ≠ UX visuelle approuvée
 - baseline fonctionnelle ADOPTÉE ≠ Figma autorisé
 - gap readiness complète ≠ gap implementation complète
-- G-UX-15 IMPLEMENTED CANDIDATE ≠ EXIT PROOF ACCEPTED ≠ G-UX-15 CLOSED ≠ PRODUCT E2E PROVEN
+- G-UX-15 TECHNICAL BLOCKER CLOSED ≠ PRODUCT E2E PROVEN ≠ FIGMA AUTHORIZED ≠ UI DELIVERY AUTHORIZED ≠ PRE-M6 COMPLETE ≠ ON MAIN
 - Figma readiness READY WITH FUNCTIONAL RESERVES ≠ Figma GO
 - UI Delivery readiness ≠ autorisation UI Delivery
 - progrès pré-M6 ≠ autorisation M6
@@ -3645,23 +1124,23 @@ Vérification factuelle : base Git `2f0d7236…` ; sources ciblées `prepareM3Fr
 | Condition | **Gap historique M3 PREPARE-only inchangé.** Slice A ajoute `resolveM3ExecutionContract` : supersession vers successeur résolu via input applicatif explicite ; Confirmation/Select/StartExecution existants. UI assistant toujours sans bouton M3 confirm (hors scope). Fixture path séparée inchangée. |
 | Étapes | Décision → contrat → confirmation → Attempt |
 | Impact | Chemin applicatif durable M3→exécution désormais prouvable fixture-safe ; preuve produit navigateur / REAL toujours future |
-| Risque | Résiduel jusqu’à acceptation Morris + UI/E2E |
+| Risque | Résiduel produit : intégration main + UI/E2E + Confirmation process-local reserve |
 | Dimension | Câblage applicatif / cycle de vie contrat |
-| Sévérité | **BLOCKER (en attente acceptation Morris)** — preuve technique fixture-safe PASS |
+| Sévérité | **TECHNICAL BLOCKER = CLOSED BY MORRIS** · **PRODUCT UX / E2E PROOF = PENDING** Pre-M6 Delivery/UAT |
 | Pré-Figma | Définition + implémentation Slice A **disponibles** ; Figma peut représenter états unresolved/successeur sans masquer la réserve d’acceptation |
 | Figma | MUST REPRESENT — **FIGMA NOT AUTHORIZED** |
-| Delivery | Slice A technique **candidat** ; UI Delivery **NOT READY / NOT AUTHORIZED** jusqu’à acceptation + Figma |
+| Delivery | Slice A technique **exit proof ACCEPTED** (local) ; UI Delivery **NOT AUTHORIZED** (intégration pending + Figma not authorized + Delivery gate distinct) |
 | Preuve | Fixture-safe PASS (`gux15.resolveM3ExecutionContract.test.ts`) ; REAL=0 ; browser E2E future |
 | Temporaire | **Non** pour claim produit |
-| Report | **Non** jusqu’à acceptation Morris |
+| Report | Technical blocker closed ; product proof **not deferred indefinitely** — pending Delivery/UAT |
 | Dépendance | HumanDecision, DecisionBasis, ExecutionContract lifecycle, Confirmation, StartExecution, ExecutionAttempt, AgentCapability |
-| Tranche | **SLICE A SELECTED + IMPLEMENTED CANDIDATE** |
+| Tranche | **SLICE A SELECTED + EXIT PROOF ACCEPTED BY MORRIS** (local / NOT YET ON MAIN) |
 | Traitement | `resolveM3ExecutionContract` — supersession existante ; ZERO REAL |
 | Risque parallèle | Mitigé dans Slice A (pas de second séquenceur / pas de mutation in-place) |
 | Preuve clôture | Voir §22.4 + tests |
-| Gate Morris | **ACCEPT G-UX-15 SLICE A EXIT PROOF** (ou AMEND) — requis avant retrait blocker produit |
+| Gate Morris | **ACCEPT G-UX-15 SLICE A EXIT PROOF — CONSUMED** · prochain repo gate = PR READINESS ; prochain product gate = D-PRE-M6-UX-05 |
 | Owner | Owner missing |
-| Disposition | **IMPLEMENTED CANDIDATE — FINAL AMEND APPLIED — FIXTURE-SAFE APPLICATION WIRING PROOF PASS — CHATGPT RE-REVIEW / MORRIS EXIT-PROOF ACCEPTANCE PENDING** |
+| Disposition | **SLICE A EXIT PROOF ACCEPTED BY MORRIS — TECHNICAL APPLICATION-WIRING BLOCKER CLOSED — FIXTURE-SAFE TECHNICAL PROOF ACCEPTED — PRODUCT/BROWSER E2E STILL PENDING** |
 
 #### Mise à jour Slice A — fichiers
 
@@ -3707,11 +1186,11 @@ Vérification factuelle : base Git `2f0d7236…` ; sources ciblées `prepareM3Fr
 
 ### 22.3 Anti-revendications G-UX-15
 
-Implementation candidate ≠ acceptance / product E2E / REAL. Fixture ≠ critical-path product proof. ZERO REAL. Aucun nouveau modèle de contrat. Aucun nouveau moteur de séquencement. G-UX-15 CLOSED / ACCEPTED uniquement après gate Morris.
+Technical blocker CLOSED ≠ product/browser E2E proven. Fixture-safe proof accepted as **technical proof only**. ZERO REAL. Confirmation process-local = KEEP RESERVE. Local candidate ≠ on main. Figma/UI Delivery/M6 unauthorized. Aucun nouveau modèle de contrat / séquenceur.
 
 ### 22.4 Statut post Slice A + final amend exit-proof
 
-**G-UX-15 = IMPLEMENTED CANDIDATE — FINAL AMEND APPLIED — FIXTURE-SAFE APPLICATION WIRING PROOF PASS — CHATGPT RE-REVIEW / MORRIS EXIT-PROOF ACCEPTANCE PENDING**
+**G-UX-15 = SLICE A EXIT PROOF ACCEPTED BY MORRIS — TECHNICAL APPLICATION-WIRING BLOCKER CLOSED — FIXTURE-SAFE TECHNICAL PROOF ACCEPTED — PRODUCT/BROWSER E2E STILL PENDING**
 
 Amendements appliqués (cumul) :
 
@@ -3722,7 +1201,7 @@ Amendements appliqués (cumul) :
 - **final :** `failed` reconnu comme état T-A5 progressé légitime (pas de régression) ;
 - **final :** `validated`-only MORRIS refuse ok:true (confirmation_required attendu).
 
-Acceptation Morris requise avant de retirer le blocker produit / avant Figma GO / UI Delivery.
+**Morris ACCEPT CONSUMED.** Technical application-wiring blocker = **CLOSED**. Product/browser E2E proof remains **PENDING**. Figma GO / UI Delivery remain unauthorized until separate gates. Local candidate **NOT YET ON MAIN**.
 
 ---
 
@@ -3794,17 +1273,17 @@ Aucune implémentation **G-UX-10** dans ce cycle (hors Slice A).
 
 ### RECOMMENDATION
 
-**SLICE A — G-UX-15 only** — **sélectionnée et implémentée (candidat + final amend)**.
+**SLICE A — G-UX-15 only** — **sélectionnée · exit proof ACCEPTED BY MORRIS** (local / NOT YET ON MAIN).
 
 Traiter G-UX-08 et G-UX-10 comme tranches Delivery / wiring séparées. Ne pas forcer C.
 
-Prochaine décision Morris : **ACCEPT G-UX-15 SLICE A EXIT PROOF** (ou AMEND / CORRECT).
+Prochaine décision Morris produit (après intégration) : **D-PRE-M6-UX-05 / FIGMA VISUAL CONTRACT GO** (ou NO).
 
-### MORRIS DECISION REQUIRED
+### MORRIS DECISION CONSUMED
 
-**ACCEPT G-UX-15 SLICE A EXIT PROOF** (ou AMEND / CORRECT).
+**ACCEPT G-UX-15 SLICE A EXIT PROOF** — CONSUMED.
 
-La sélection A/B/C est déjà consommée (SLICE A).
+La sélection A/B/C est déjà consommée (SLICE A). Technical blocker CLOSED.
 
 ---
 
@@ -3818,25 +1297,25 @@ Sens : le parcours, l’IA, les états §9/§15 et les définitions G-UX-08/10/1
 
 Réserves fonctionnelles (peuvent rester ouvertes pendant un futur Figma, mais doivent être définies/représentées) :
 
-- G-UX-15 IMPLEMENTED CANDIDATE — FINAL AMEND APPLIED — FIXTURE-SAFE APPLICATION WIRING PROOF PASS — CHATGPT RE-REVIEW / MORRIS EXIT-PROOF ACCEPTANCE PENDING (ne pas masquer) ;
+- G-UX-15 technical blocker CLOSED / product E2E pending (ne pas masquer) ; Confirmation process-local reserve ;
 - G-UX-08/10 définis pour représentation ;
 - G-UX-01–07/13 inputs de design ;
 - G-UX-09 sémantique de reprise honnête ;
 - G-UX-11/12/14 hors ou non-bloquants Figma.
 
-Prérequis avant un futur Figma GO : ChatGPT re-review + Morris ACCEPT de l’exit proof G-UX-15 ; stabilité des définitions pré-Figma restantes.
+Prérequis avant un futur Figma GO : intégration du candidat accepté sur main + vérité post-merge ; D-PRE-M6-UX-05 GO distinct ; stabilité des définitions pré-Figma restantes.
 
 ### UI DELIVERY READINESS = **NOT READY**
 
 Parce que :
 
-- l’exit proof G-UX-15 Slice A est encore en attente d’acceptation Morris ;
-- le Figma Visual Contract n’est pas autorisé / validé ;
-- UI Delivery reste un gate distinct ultérieur.
+- le candidat Slice A accepté n’est **pas encore intégré sur main** ;
+- le Figma Visual Contract n’est pas autorisé / validé (D-PRE-M6-UX-05 = NO DECISION YET) ;
+- UI Delivery reste un gate Morris distinct ultérieur.
 
-Figma readiness ≠ Delivery readiness. Ce n’est **pas** parce que G-UX-15 serait « non implémenté ».
+Figma readiness ≠ Delivery readiness. Ce n’est **pas** parce que le blocker technique G-UX-15 serait encore ouvert (il est **CLOSED**).
 
-Prérequis Delivery : ACCEPT Morris de Slice A → Figma GO + validation visuelle → GO Delivery séparé.
+Prérequis Delivery : intégration main → Figma GO + validation visuelle → GO Delivery séparé.
 
 ### ROADMAP
 
@@ -3846,20 +1325,20 @@ Read-only dans ce cycle. **ROADMAP SYNC REQUIRED AFTER GAP READINESS DECISION / 
 
 ## 27. Séquence de gates futurs (candidate)
 
-1. ChatGPT **final** re-review de ce handoff final amend — **prochaine**.
-2. Morris **ACCEPT G-UX-15 SLICE A EXIT PROOF** (ou AMEND).
-3. Intégration / capitalisation baseline + sync Roadmap (GO séparé) — **après** acceptation seulement.
-4. Morris Figma GO (D-PRE-M6-UX-05) — séparé.
+1. ChatGPT review de cette capitalisation — **prochaine**.
+2. **Cycle 13 PR READINESS** (candidat 5 fichiers local) — **next repo gate**.
+3. Intégration / merge sur main (GO Morris ultérieur distinct) — **NOT AUTHORIZED in this cycle**.
+4. Morris Figma GO (D-PRE-M6-UX-05) — **next product gate after integration** — NOT AUTHORIZED now.
 5. Figma Visual Contract.
 6. Validation visuelle Morris.
 7. UI Delivery sur runtime existant.
 8. Browser E2E + preuves visuelles runtime.
 9. Comparaison Figma/runtime.
-10. Morris UAT (incl. process-local honesty).
-11. Revue dettes/gaps restants (G-UX-08/10/12, M5-C owner).
+10. Morris UAT (incl. Confirmation / process-local honesty).
+11. Revue dettes/gaps restants (G-UX-08/10/12, M5-C owner, Confirmation reserve).
 12. M6 Entry Qualification **uniquement** sous GO séparé.
 
-Aucun step « qualify/implement Slice A » restant — Slice A est implémentée candidat ; seul l’exit proof Morris reste.
+G-UX-15 technical exit proof = **ACCEPTED**. Technical blocker = **CLOSED**. Product proof / Figma / Delivery / M6 remain later.
 
 ---
 
@@ -3880,76 +1359,719 @@ Aucun step « qualify/implement Slice A » restant — Slice A est implémentée
 
 ---
 
-## 29. Compteurs de cycle (Slice A + final amend)
+## 29. Compteurs de cycle (Cycle 15 — capitalisation acceptance)
 
-Project artifacts created = 0 · Existing Pre-M6 artifact modified = 1 · Resolver final amend = 1 · G-UX-15 tests final amend = 1 · Roadmap/Build Doctrine/v3 = 0 · UI/Figma/Delivery/M6/REAL/Gate D = 0 · OA domain change = 0 · project commit/push/PR = 0 · Review Handoff push = 1 bounded L3
+G-UX-15 exit acceptance recorded = 1 · Pre-M6 baseline modified = 1 · Roadmap modified = 1 · Accepted Slice A code/test modified = 0 · Build Doctrine/v3/method = 0 · UI/Figma/Delivery/M6/REAL/Gate D = 0 · Confirmation implementation = 0 · project staging/commit/push/PR = 0 · Review Handoff push = 1 bounded L3
 
-Application code (Slice A) : resolveM3ExecutionContract + exports + tests — **présents** (non commités). G-UX-08/10 implementation = 0.
+Accepted Slice A (frozen) : resolveM3ExecutionContract + exports + tests — **présents localement, inchangés, NOT YET ON MAIN**. G-UX-08/10 implementation = 0.
+
+```
+
+### 12. COMPLETE updated Convergence Roadmap
+```markdown
+# SFIA Studio Convergence Roadmap
+
+| Métadonnée | Valeur |
+| --- | --- |
+| **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
+| **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
+| **Doctrine cible** | SFIA Studio v3 framing `30`–`37` (destination produit) |
+| **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
+| **Snapshot Git** | origin/main @ `3467ecdf74ac2010c45f34545fb8684563dea547` |
+| **Timestamp création** | 2026-08-12 21:53:10 CEST (+0200) *(historique)* |
+| **Timestamp maintenance** | 2026-08-15 16:07 CEST (+0200) — PRE-M6 FUNCTIONAL BASELINE ADOPTED + G-UX READINESS COMPLETE + G-UX-15 SLICE A EXIT PROOF ACCEPTED BY MORRIS + TECHNICAL APPLICATION-WIRING BLOCKER CLOSED + CONFIRMATION PROCESS-LOCAL RESERVE KEEP + FIXTURE-SAFE TECHNICAL PROOF ONLY + CONTROLLED INTEGRATION PENDING (LOCAL / NOT YET ON MAIN) + FIGMA/UI DELIVERY/M6 UNAUTHORIZED + ZERO REAL — runtime v3 NON ADOPTED — NEXT REPO GATE = CYCLE 13 PR READINESS — NEXT PRODUCT GATE AFTER INTEGRATION = D-PRE-M6-UX-05 FIGMA GO |
+| **Validation Morris** | 2026-08-13 02:05 +0200 (Europe/Paris) — Build Doctrine + Convergence Roadmap officiellement validées comme gouvernance de construction SFIA Studio |
+| **Intégration Git** | Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration · **M4 post-pre-reproof Roadmap :** PR #347 / merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS · **M4 GOVERNED REAL COMPLETION PROOF** handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · **M4 closure Roadmap :** PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · **M5 Entry Qualification** handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · **M5 Delivery (Option B + W1) :** PR #350 / head `17461dad78f92a3d5e5e1d9bd36aa20d1e86ac11` / merge `8f753218e4fff7d68d78c1d57e9c3e8fb7e60943` · CI SFIA Studio **#184** SUCCESS · post-merge CI **#185** SUCCESS · **M5 UI/Nora durable rehydrate :** PR #351 / head `ced7b172969c27b5e2d6fda06e9caa8c84e1e0d7` / merge `d8961f1d85a98b5d4185f007f16ddac209e2e557` · CI SFIA Studio **#186** SUCCESS · post-merge CI **#187** SUCCESS · M5 exit re-evaluation handoff `54b0f5b43a50861c26226aa3ffc06460f8ffbafe` · blob `131c85172bbd6370a3edcd71347a64932c9303ab` · M5 EXIT PROOF **SATISFIED ON MAIN** · **M5 capitalization / Roadmap sync :** PR #352 / head `c26824c602ec041cb1d40e9078191c0f1cde4e95` / merge `3467ecdf74ac2010c45f34545fb8684563dea547` · CI SFIA Studio PR run **#31875337665** SUCCESS · post-merge CI run **#31875621317** SUCCESS · post-merge handoff `0121e184c936f8dc73ffe80e20d43027fec495d7` · blob `4c293ae07a0d516b16d6dd2d4087d3e25858e275` · GO Morris **ACCEPT M5 EXIT PROOF + CLOSE M5 — KEEP M5-C TECHNICAL JOURNAL — ZERO REAL — NO M6 EXECUTION — RUNTIME V3 NON ADOPTED — NO BRANCH DELETE** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · User wording **« ok go pour la modification »** · governed interpretation **ALIGN M5 CLOSURE ROADMAP WITH PRE-M6 USER JOURNEY / UX BASELINE TRAJECTORY — KEEP M5 CLOSED — KEEP M5-C — NO UX DESIGN EXECUTION YET — NO FIGMA ACTION YET — NO UI DELIVERY — NO M6 — ZERO REAL — NO PROJECT GIT WRITE** · PRE-M6 USER JOURNEY / UX BASELINE = **FUNCTIONAL BASELINE + GAP READINESS COMPLETE · G-UX-15 EXIT PROOF ACCEPTED / TECHNICAL BLOCKER CLOSED · LOCAL CANDIDATE NOT YET ON MAIN · FIGMA/UI DELIVERY NOT AUTHORIZED** |
+| **Sources** | Git `main` @ `3467ecd…` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347/#348/#349/#350/#351/#352 · CI #158/#162/#166/#172/#176/#178/#184/#185/#186/#187 · PR #352 CI run #31875337665 / post-merge #31875621317 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · M5 Entry Qualification handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · M4 Product path on main `projects/sfia-studio/app/**` |
+| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M5 Entry Qualification **COMPLETE** · M5 architecture trajectory **ADOPTED BY MORRIS** · M5 Delivery **IMPLEMENTED ON MAIN** (PR #350) · M5 UI rehydrate **IMPLEMENTED ON MAIN** (PR #351) · M5 technical/functional exit proof **SATISFIED ON MAIN** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · M5 CLOSED **≠** M6 AUTHORIZED · M5 CLOSED **≠** M6 STARTED · M5 CLOSED **≠** runtime v3 ADOPTED · M5 CLOSED **≠** global v3 baseline promoted · M5 CLOSED **≠** M5-C retired · M5 exit accepted **≠** global Cursor REAL authorization · M5 CLOSED future **≠** M6 automatically authorized · Pre-M6 trajectory decided **≠** Pre-M6 UX qualification executed · Pre-M6 trajectory decided **≠** Figma authorized · Figma future contract **≠** approved design · new UX baseline **≠** runtime rewrite · existing UI not canonical **≠** existing UI automatically deleted · existing UI audit **≠** REPLACE decisions already consumed · M1→M5 runtime KEEP **≠** all runtime complete · Pre-M6 user proof **≠** runtime v3 ADOPTED · M6 after Pre-M6 **≠** M6 automatically authorized · Validated UX decisions in framing **30/37** (CC-D01) prevail over older candidate wording in framing **11** · M5-A OPTION B **IMPLEMENTED ON MAIN** · M5-B W1 **IMPLEMENTED ON MAIN** · M5-B W1 factual write-back **≠** Recommendation becomes Decision · Recommendation **≠** HumanDecision · Recommendation **≠** gate consumed · Recommendation **≠** ExecutionAuthority · LPS factual evidence link **≠** structural trajectory validation · readback **≠** execution · remount UI visibility **≠** automatic next-cycle launch · M5-C KEEP TEMPORARY WITH EXIT **≠** technical journal retired · durable Product Attempt **≠** technical M4 journal automatically obsolete · M5 implementation **≠** runtime v3 ADOPTED · M5 implementation **≠** global v3 baseline promoted · M5 ZERO REAL **≠** global Cursor REAL authorization · M5 architecture ADOPTED **≠** M6 started · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **unchanged by M5 architecture decision** **≠** M4/M5 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · runtime v3 **NON ADOPTED** · ≠ full OA durable · G-UX-15 technical blocker **CLOSED BY MORRIS** ≠ Pre-M6 complete · G-UX-15 exit proof accepted ≠ browser/product E2E proven · fixture-safe proof accepted ≠ REAL proof · local candidate accepted ≠ integrated on main · Figma readiness ≠ Figma authorized · Pre-M6 progress ≠ M6 authorized · Confirmation process-local = KEEP RESERVE ≠ restart-safe Confirmation · global v3 baseline **NOT PROMOTED** |
+
+## B1. Nature du document
+
+Roadmap de **capacités**. Pas de dates inventées. Pas de timeline calendaire artificielle.
+Observation / Recommendation / Decision Required doivent rester **distincts**.
+
+## B2. Destination (boucle produit v3)
+
+Voir Build Doctrine A3 — boucle Morris → Nora → … → Evidence → LPS → Morris.
+Fondations V3-F01…F15 = couverture doctrine progressive (B9).
+
+## B3. Point de départ factuel
+
+### Sur main (`3467ecdf74ac2010c45f34545fb8684563dea547`)
+
+| Capacité | État observé |
+| --- | --- |
+| `/studio` Project create/view | WIRED — **Product SQLite T-A1 — MERGED ON MAIN** (PR #337) |
+| F1 Nora chat | WIRED — contextual assistant |
+| F2 qualification / proposal / Morris gate | WIRED — qualification + **real CycleInstance** + live post-mutation `F2ContextSnapshot` ; conversation/proposal **process-local** ; M3 GO path uses server-owned temporary local Morris authority (fail-closed) |
+| F3 / M3 PREPARE | WIRED — **M3 Product path** : HumanDecision durable → ExecutionContract durable → Cursor PREPARE-only projection ; **fixture historique/test** (`TestExecutionAdapter`) conservé ≠ chemin REAL |
+| Evidence UI reinjection | WIRED — Product durable Evidence/RB + W1 LPS refs **ON MAIN** (PR #350) · Panel durable remount consumer **ON MAIN** (PR #351) · session `f3Execute` retained for in-session fixture |
+| OPS1 Cursor REAL | EXISTS — UI `/ops1` parallèle ; flag `OPS1_CURSOR_REAL` |
+| D1 SQLite projects | EXISTS — UI `/projects` parallèle |
+| execution-run D2-D | EXISTS — **non** branché F1–F3 |
+| FinOps Postgres | EXISTS — transverse ; ≠ Product persistence |
+| Product persistence | **SELECTED / ACTIVE** — `node:sqlite` OA Product Store (G0-B) · Project/LPS + CycleInstance M2 subset + HD/ExecutionContract M3 · **≠** persistence de tout le runtime · technical launch journal M4 **≠** Product Store |
+| Architecture convergence | **Option 1 ADOPTED** — OA Native Backbone + Harvest OPS1 Cursor (G0-A) |
+| Project/LPS restart safety | **PROVEN / MERGED** (process A→B + CI #158) |
+| Autres OA (T-A2 CycleInstance M2 subset) | **Product SQLite — MERGED ON MAIN** (PR #339) — Cycle/LPS/CKC linkage durable + restart-safe (subset M2) |
+| Autres OA (T-A2 trajectory/epistemic ; Confirmation ; T-A5 Attempt product ; T-A6 Evidence/ReviewBundle) | Trajectory/Epistemic + Confirmation = Memory/process-local · **T-A5 Attempt product + T-A6 Evidence/ReviewBundle = Product SQLite ON MAIN (PR #350 — M5-A OPTION B IMPLEMENTED)** · Claims/Maturity remain Memory |
+| Autres OA (T-A3 HD) | **Product SQLite — MERGED ON MAIN — M3** (PR #341) ; Confirmation reste Memory/process-local |
+| Autres OA (T-A4 ExecutionContract) | **Product SQLite — MERGED ON MAIN — M3** (PR #341) — PREPARE-only · Attempt product durability **ON MAIN via M5** (PR #350) |
+| Architecture M4 | **ADOPTED + IMPLEMENTED ON MAIN — M4 CLOSED** — D-M4-01→05 via PR #344 · Delivery **MERGED** · FIRST REAL historical + final governed completion reproof **PASS** · exit proof **ACCEPTED BY MORRIS** |
+| T-A5 REAL (Nora/Studio) | **IMPLEMENTED ON MAIN / DEFAULT OFF** — specialized OA-owned boundary ; fixture `externalEffects:false` **preserved** ; gateway deterministic bounding **ON MAIN** (`--mode ask` + README.md markers) ; historical governed REAL launches = **2** ; successful governed REAL completions = **1** |
+| Cursor REAL depuis Nora | **2 historical governed attempts** — Run1 FIRST REAL (`xat:m4-first-real-001`) launch **PROVEN** / completion **NOT** (timeout ~60s) · Run2 final reproof (`xat:m4-reproof-86b5ecb05474`) completion **PROVEN** (~15.7s / `M4_READ_ONLY_OK`) · identities never reused across runs |
+| Gate D | **IMPLEMENTED ON MAIN** (GD-1) · consumed **once per governed REAL** historically (Run1 + Run2) · future REAL still requires **fresh** Gate D + Morris GO |
+| Technical CREATED/LAUNCHED frontier | **IMPLEMENTED ON MAIN** · **TEMPORARY WITH EXIT** · **M5-C KEEP TEMPORARY WITH EXIT** (unchanged after M5 CLOSED) · ≠ Product Attempt Store · REAL TRACE **PROVEN** on both historical governed runs · **OWNER NOT EXPLICITLY RECORDED** (**POST-M5 GOVERNANCE DEBT / DECISION REQUIRED**) |
+| Bounded RO AgentCapability | **IMPLEMENTED ON MAIN** · static / deny-by-default · KEEP · **STRICT BOUNDED RUNTIME TOOL-SURFACE PROVEN FOR FINAL M4 REPROOF** (Read=1 README only ; Shell/Glob/Grep/write=0) — **≠** “Cursor is globally read-only” |
+| `CURSOR_REAL_TIMEOUT_POLICY` | **OPEN / NON-BLOCKING POST-M4 RESERVE** — current product timeout **60000** = **KEEP FOR NOW** · proven sufficient for demonstrated M4 bounded RO path · **NOT** universal policy · **NOT** proven defective |
+| M5 architecture trajectory | **ADOPTED BY MORRIS + IMPLEMENTED ON MAIN** — Entry Qualification **COMPLETE** · Delivery PR #350 **MERGED** · UI rehydrate PR #351 **MERGED** · capitalization PR #352 **MERGED** · exit proof **ACCEPTED BY MORRIS** · M5 **CLOSED** |
+| M5-A Persistence boundary | **OPTION B ADOPTED + IMPLEMENTED ON MAIN** — Product SQLite OA backbone for **ExecutionAttempt + Evidence + ReviewBundle** behind existing ports/domain/use cases (PR #350) |
+| M5-B Nora/LPS write-back | **W1 ADOPTED + IMPLEMENTED ON MAIN** — factual LPS `evidenceIds`/`reviewBundleIds` append · provenance `actor:sfia-studio-system-factual-writer` (role system / authority none) · Recommendation remains Recommendation (PR #350) |
+| M5-C Technical journal | **KEEP TEMPORARY WITH EXIT** — unchanged after M5 CLOSED · journal still present and distinct from Product Attempt Store · retirement needs safety equivalence + dedicated Morris GO · owner **NOT EXPLICITLY RECORDED** (**POST-M5 GOVERNANCE DEBT / DECISION REQUIRED**) |
+| G-UX-15 Slice A application bridge | **LOCAL ACCEPTED CANDIDATE — NOT YET ON MAIN** — exit proof **ACCEPTED BY MORRIS** — technical application-wiring blocker **CLOSED** — fixture-safe = technical proof only — Confirmation process-local = **KEEP RESERVE** |
+| NEXT CONVERGENCE CAPABILITY | **PRE-M6** — FUNCTIONAL BASELINE + GAP READINESS **COMPLETE** · G-UX-15 TECHNICAL BLOCKER **CLOSED BY MORRIS** · CONTROLLED INTEGRATION **PENDING** · FIGMA **NOT STARTED / NOT AUTHORIZED** · UI DELIVERY **NOT STARTED / NOT AUTHORIZED** |
+| NEXT IMMEDIATE GATE (repo) | **CYCLE 13 — PR READINESS** for coherent 5-file local candidate · **≠** PR opened · **≠** merge · **≠** Figma authorized |
+| NEXT PRODUCT GATE (after integration) | **D-PRE-M6-UX-05 — FIGMA VISUAL CONTRACT GO** · **NO DECISION YET** · **≠** UI Delivery authorized |
+| M6 (sequenced after Pre-M6) | **NOT STARTED / NOT AUTHORIZED** — sequenced **AFTER** Pre-M6 product UX validation (incl. Figma/Delivery/E2E/UAT as governed) + distinct Morris GO |
+
+### Candidat local non-main (dirty `delivery/sfia-studio-f3-real-prerequisites`) — historique / harvest
+
+| Élément | État |
+| --- | --- |
+| Auth.js GitHub + Critical Ack composition | Inspecté (handoff `366726945f…`) ; **pas sur HEAD** ; bundle **NOT promotion-ready** (pre-M3 dirty) — D-M4-05 still **DEFER / NOT PROMOTED** |
+| SqliteAuthorityAttemptJournal / CREATED·LAUNCHED wiring | Inspecté comme **HARVEST/ADAPT source** for D-M4-02 ; **superseded as current state** — technical launch journal **IMPLEMENTED ON MAIN** via PR #344 (TEMPORARY WITH EXIT ; ≠ Product Store) |
+| Classification | Observation / harvest source — **Auth/Ack bundle ≠ promotion** (D-M4-05) ; journal concept harvested into M4 Delivery |
+
+### Recommandation d’audit (historique — supersédée)
+
+Option 1 — OA Native Backbone + Harvest OPS1 Cursor était **RECOMMENDATION — NOT DECIDED**.
+**Décision Morris G0-A :** désormais **ADOPTED**.
+
+## B4. Asset disposition matrix (actuelle)
+
+Légende : classifications = **recommandations de convergence** jusqu’à validation Morris, sauf KEEP factuel d’usage main.
+
+| Actif | Preuve | Classification | Justification courte |
+| --- | --- | --- | --- |
+| T-A0 Doctrine | `lib/oa/doctrine` + project create | **KEEP** | Appelé ; DoctrinePackage cible F03 |
+| T-A1 Project/LPS | Product SQLite + `/studio` (PR #337) | **COMPLETE** (M1) / **KEEP** backbone | Durable + restart-safe on main |
+| T-A2 Cycle/CKC | Product SQLite CycleInstance + F2/CKC/LPS linkage (PR #339) | **COMPLETE** (M2) / **KEEP** backbone | CycleInstance durable + restart-safe on main ; Trajectory/Epistemic restent Memory |
+| T-A3 HD/Confirm/Authority | Product SQLite HD **ON MAIN** (PR #341) + Confirmation Memory + local Morris authority TEMPORARY WITH EXIT | **COMPLETE** (M3) / **KEEP** backbone | HD durable on main ; Confirmation process-local ; Auth.js exit ouvert |
+| T-A4 ExecutionContract | Product SQLite + M3 PREPARE truthful + Cursor projection PREPARE-only **ON MAIN** (PR #341) | **COMPLETE** (M3) / **KEEP** backbone | Durable on main ; no Attempt/REAL ; fixture path historique/test conservé |
+| T-A5 Attempt domain + ports / fixture adapter port | F3 fixture adapter · `ExecutionAdapterPort.externalEffects:false` · PR #344 + Product SQLite Attempt (PR #350) | **KEEP** domain/ports/lifecycle + **KEEP** zero-effect port + **COMPLETE M5 Attempt Product path** | StartExecution remains sole authority sequencer ; fixture port intact (D-M4-01) ; M5-A durable Attempt **IMPLEMENTED ON MAIN** |
+| T-A5 specialized REAL boundary | PR #344 + PR #346 / main `2d1361ee…` | **COMPLETE M4 / KEEP** (+ gateway bounding) | OA-owned REAL boundary **implemented, default OFF** — no OA→OPS1 runtime coupling — TWO historical governed launches · ONE successful completion under deterministic `--mode ask` / README bounding · M4 CLOSED |
+| T-A5 launch journal (CREATED/LAUNCHED) | PR #344 / main · exercised on both REAL runs | **KEEP / TEMPORARY WITH EXIT — M5-C** | Technical safety journal ; ≠ Product Attempt Store ; REAL TRACE PROVEN ; **still not retired after M5 CLOSED** ; future exit → safety equivalence + dedicated Morris GO · owner **NOT EXPLICITLY RECORDED** (**POST-M5 GOVERNANCE DEBT / DECISION REQUIRED**) |
+| AgentCapability REAL RO profile | PR #344 / `m4BoundedReadOnlyCursorAgent` · KEEP | **COMPLETE M4 / KEEP** | Bounded RO profile exercised ; final reproof proved strict bounded tool-surface for that path ; AgentCapability **unchanged** through bounding/closure |
+| Product timeout 60000 | product default / both REAL runs | **KEEP CURRENT VALUE FOR NOW** + **OPEN / NON-BLOCKING POST-M4 RESERVE** (`CURSOR_REAL_TIMEOUT_POLICY`) | Sufficient for demonstrated M4 bounded RO completion (~15.7s) ; FIRST REAL timeout historical ≠ proven defect ; **no** universal timeout policy selected |
+| T-A6 Evidence/ReviewBundle domain + ports + use cases | F3 ingest + Product SQLite Evidence/RB (PR #350) + Panel remount consumer (PR #351) | **KEEP** domain/ports/use cases · **COMPLETE M5 Product path** | Durable Evidence/RB ON MAIN ; W1 LPS factual link **IMPLEMENTED** ; Nora UI remount visibility **PROVEN** |
+| Product SQLite Attempt/Evidence/ReviewBundle path | M5-A OPTION B · PR #350 | **COMPLETE / KEEP — IMPLEMENTED ON MAIN** | Existing OA Product SQLite backbone (G0-B) behind existing ports |
+| LivingProjectState | Product SQLite `oa_lps` · type already has `evidenceIds` / `reviewBundleIds` | **KEEP** | Durable LPS exists ; factual Evidence/RB linkage fields present on type |
+| AppendLivingProjectStateVersion | W1 factual Evidence/RB append ON MAIN (PR #350) | **COMPLETE M5 W1 / KEEP** | Writes `evidenceIds`/`reviewBundleIds` with system factual provenance ; Recommendation remains separate |
+| RecommendNextGate | evidence-review coordination | **KEEP — RECOMMENDATION-ONLY** | Never HumanDecision / gateConsumed / executionAuthority ; unchanged by M5-B W1 |
+| Claim/Maturity memory stores | evidence-review memory | **FREEZE / later ADAPT** | Out of minimal M5 slice |
+| Product SQLite backbone | G0-B ADOPTED · Project/LPS/Cycle/HD/EC + Attempt/Evidence/RB on main | **KEEP / COMPLETE** | Target persistence backbone already selected ; M5-A aggregates **IMPLEMENTED ON MAIN** (PR #350) |
+| T-A7 readiness/HARD rails | `platform/t-a7` | **KEEP** | Honesty rails |
+| Shared platform AI | `lib/platform` | **KEEP** | Substrate F1 |
+| F1 / F2 / F3 UI / Nora compose | `features/project-assistant` · F3 ingest→RecommendNextGate · durable remount rehydrate (PR #351) | **KEEP** / **COMPLETE M5 UI consumer** — **NO NEW ENGINE** | Compose existing use cases ; Product durable readback + remount ReviewBundle/Recommendation visibility **PROVEN** |
+| vertical-slice-runtime | `wireOaStack` · M5 Product durable OA wire (PR #350) | **KEEP** / **COMPLETE M5 Product wire** | Composition root Studio ; REAL boundary **intentionally not wired by default** (M4 REAL-OFF) ; Attempt/Evidence/RB Product path ON MAIN |
+| OPS1 Cursor/worktree/report | `lib/ops1` | **HARVEST** (+ **FREEZE** UI growth **RECOMMENDATION**) | Capacité Cursor réelle isolable ; harvest ≠ call OPS1 runtime from OA |
+| execution-run | `lib/oa/execution-run` | **FREEZE** (**RECOMMENDATION**) | Parallèle ; non F3 chain |
+| D1 `/projects` | `lib/d1` | **FREEZE** / **RETIRE LATER** (**RECOMMENDATION**) | Parallèle durable |
+| FinOps | `lib/oa/finops` | **KEEP** isolé + **FREEZE** lots non bloquants (**RECOMMENDATION**) | Transverse cost ≠ Product persistence |
+| Auth.js / Critical Ack candidate | dirty only (inspected) | **DEFER for first RO** (D-M4-05) · **NOT PROMOTED** | Not a prerequisite of first M4 read-only proof ; remains candidate for future N2/N3 / IAM gate ; debt **preserved** |
+| Persistence Memory OA | factories Memory* (trajectory/epistemic ; Confirmation ; Claims/Maturity) · Attempt/Evidence/RB Product path ON MAIN | **KEEP Memory** for Trajectory/Confirmation/Claims/Maturity · Attempt/Evidence/RB **REPLACED ON PRODUCT PATH (M5-A/B ON MAIN)** | Product SQLite Attempt/Evidence/RB **IMPLEMENTED** ; journal KEEP TEMPORARY WITH EXIT (M5-C) ≠ Product Store |
+
+## B5. Gap map → boucle cible
+
+| Gap | Statut | Bloque |
+| --- | --- | --- |
+| Project/LPS durable | **MERGED ON MAIN — EXIT PROOF SATISFIED** (PR #337) | — |
+| GuidedSession / historique durable | PARTIAL / MISSING — **DEFERRED** (dette optionnelle Roadmap) | usage quotidien / milestone ultérieur |
+| CycleInstance réel lié F2 | **CLOSED ON MAIN — M2** (PR #339) — Product SQLite + F2 wire + restart proof | — |
+| HumanDecision durable/authoritative | **CLOSED ON MAIN — M3** — Product SQLite + LPS link ; autorité local-single-user TEMPORARY WITH EXIT (durabilité HD fermée ≠ IAM product-grade fermé) | future IAM (Ack **not** absolute for first RO — D-M4-05) ; historical Gate D first-REAL consumption already proven once |
+| CKC ↔ cycle binding | **CLOSED ON MAIN — M2** — `ckcResolutionRef` projection on LPS | — |
+| live contextSnapshot | **CLOSED ON MAIN — M2** — `F2ContextSnapshot` post-mutation (pas nouvel aggregate durable) | — |
+| ExecutionContract from real HD | **CLOSED ON MAIN — M3** — exact/unresolved fields from DecisionBasis ; fixture path historique conservé | — (M5 Evidence path delivered) |
+| Cursor projection canonique | **CLOSED ON MAIN — M3 PREPARE-only** (`executionAllowed=false`) | future elevated REAL classes / M5+ |
+| Cursor REAL behind T-A5 | **IMPLEMENTATION MERGED / DEFAULT OFF** · M4 governed completion **PROVEN** (final reproof) · M4 **CLOSED** | future REAL requires distinct Morris GO (not M4 reopen) |
+| REAL specialized adapter boundary | **CLOSED ON MAIN — PR #344** (+ gateway bounding PR #346) — implemented, default OFF | KEEP |
+| durable launch frontier (CREATED/LAUNCHED) | **IMPLEMENTED ON MAIN — PR #344** — TEMPORARY WITH EXIT · **M5-C KEEP** unchanged after M5 CLOSED · REAL TRACE **PROVEN** (both runs) · owner **NOT EXPLICITLY RECORDED** (POST-M5 GOVERNANCE DEBT) | Future journal retirement gate (safety equivalence + dedicated Morris GO) |
+| Gate D durable grant | **IMPLEMENTED ON MAIN** (GD-1) · consumed once per historical governed REAL · **not reusable** | fresh Gate D for any future REAL |
+| bounded REAL AgentCapability RO | **IMPLEMENTED ON MAIN** · final reproof **STRICT BOUNDED TOOL-SURFACE PROVEN** for demonstrated path | KEEP ; future capabilities separate |
+| governed REAL completion (M4) | **PROVEN** — final reproof PASS (handoff `1123a30f…`) · exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** | — |
+| `CURSOR_REAL_TIMEOUT_POLICY` | **OPEN / NON-BLOCKING POST-M4** — 60000 KEEP FOR NOW | future REAL class needing policy qualification |
+| Critical Ack UI | CANDIDATE / MISSING — **NOT BLOCKING FIRST M4 READ-ONLY PROOF BY D-M4-05** ; remains for future N2/N3 / IAM | future N2/N3 · IAM gate |
+| ExecutionAttempt product durability | **CLOSED ON MAIN — M5** (PR #350) — Product SQLite · restart-proven | — |
+| Evidence durability | **CLOSED ON MAIN — M5** (PR #350) — Product SQLite · restart-proven | — |
+| ReviewBundle durability | **CLOSED ON MAIN — M5** (PR #350) — Product SQLite · restart-proven · UI remount visibility PR #351 | — |
+| Technical journal exit | **DEFERRED / NON-BLOCKING** · M5-C KEEP TEMPORARY WITH EXIT (still) | Future dedicated Morris GO |
+| Claim/Maturity durability | **DEFER / future** — not minimal M5 | later |
+| Timeout / IAM / OPS1 | **OUT OF M5 CRITICAL PATH** | separate |
+| Evidence/ReviewBundle → LPS factual write-back | **CLOSED ON MAIN — M5 W1** (PR #350) — system factual writer · Recommendation-only preserved | — |
+| Nora post-exec analysis | **PROVEN ON MAIN — M5** — RecommendNextGate **KEEP** · Product durable rehydrate (M5-26) · UI remount ReviewBundle/Recommendation (M5-27/28 via PR #351) | — |
+| Restart safety Studio core | **PARTIAL→EXTENDED ON MAIN** — Project/LPS/Cycle/HD/ExecutionContract + Attempt/Evidence/ReviewBundle/LPS evidence refs **restart-safe ON MAIN** ; conversation/proposal/Confirmation still process-local ; M4 crash/replay + journal reopen **PROVEN** ; UI remount visibility **PROVEN** (PR #351) | Conversation/proposal durability later |
+| M3→execution application wiring (G-UX-15) | **TECHNICAL GAP CLOSED BY ACCEPTED SLICE A EXIT PROOF** — local candidate **NOT YET INTEGRATED ON MAIN** — fixture-safe technical proof only | product/browser E2E · UI Delivery · integration |
+| Confirmation durability | **PROCESS-LOCAL RESERVE — KEEP FOR NOW** — NON-BLOCKING for accepted G-UX-15 technical exit proof · ≠ restart-safe Confirmation | future UAT / continuity proof may requalify |
+| IAM/authz product-grade | PARTIAL / MISSING (M3 local authority temporary ; Auth.js candidate **NOT PROMOTED**) — **not** a blocker of first RO proof (D-M4-05) ; debt preserved | future IAM gate / M8 |
+
+## B6. Decisions / gates
+
+### Décision consommée
+
+- Build Doctrine + Convergence Roadmap = **VALIDATED** construction governance by Morris
+- intégrées sur main via PR #334 (`1d09e4159932b3885817911e10a2d29a82ae9ea7`)
+- **G0-A** Architecture = **ADOPTED** — OA Native Backbone + Harvest OPS1 Cursor (Morris · 2026-08-13)
+- **G0-B** Product persistence = **ADOPTED** — `node:sqlite` Product Store isolé derrière ports OA ; exit Postgres sur multi-writer/multi-user démontré (Morris · 2026-08-13)
+- preuve décisions : `convergence/sfia-studio-g0-architecture-persistence-decision-pack.md`
+
+### Preuve / milestone intégrée (≠ nouvelle décision d’architecture)
+
+- **M1** PR #337 merged on main @ `c6925954a7aa86f34c9fcd6f7babf0336014eba3`
+- head M1 `5cbda862885b36658fc7f2b33a20311611da969e` · CI SFIA Studio **#158** SUCCESS
+- exit proof Project/LPS (create → process restart → same Project/LPS/context/doctrine digest) **SATISFIED**
+- **M2** **VALIDATED BY MORRIS** · PR #339 merged on main @ `a9a4765c242948f2287392a2910fb1cd30061a7a`
+- head M2 `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` · CI SFIA Studio **#162** SUCCESS
+- exit proof Cycle/LPS/CKC + live ContextSnapshot + restart A→B + R1/R2 **SATISFIED**
+- merge gate M2 **CLOSED**
+- **M3** **VALIDATED BY MORRIS** · PR #341 merged on main @ `8eea4cbf211d9e159626394477353f19126fe900`
+- head M3 `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` · CI SFIA Studio **#166** SUCCESS
+- exit proof HumanDecision/LPS/ExecutionContract + restart PREPARE + fingerprint + unresolved semantics **SATISFIED**
+- merge gate M3 **CLOSED**
+- **M4 Delivery** **VALIDATED BY MORRIS** · PR #344 merged on main @ `ec65fb47c04b451d892297c806b9b041995339a5`
+- head M4 Delivery `f7270b21ccdbcf1cd543879e7c4120d87b874479` · CI SFIA Studio **#172** SUCCESS (Morris-authorized rerun, exact same head ; initial T7-C08 Class C / M4 causality not established)
+- merge gate M4 Delivery **CLOSED**
+- M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** (GO **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION**)
+
+### M4 Architecture Decisions — CONSUMED BY MORRIS
+
+GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f533d958c82b7251edb1a5a4b45f0`
+
+| ID | Décision | Statut |
+| --- | --- | --- |
+| **D-M4-01** | L6 Option B — keep `ExecutionAdapterPort` zero-effect (`externalEffects:false`) ; introduce OA-owned specialized REAL boundary (`RealExecutionLaunchPort` / `CursorCliLaunchGateway` or equiv.) at Delivery ; StartExecution remains sole authority sequencer ; **no** OA direct dependency on OPS1 product runtime | **ADOPTED** |
+| **D-M4-02** | Technical durable launch journal CREATED/LAUNCHED — **TEMPORARY WITH EXIT** ; no ambiguous auto-relaunch after restart ; **not** Product Store ; no dual product-state persistence ; exit → Attempt/Evidence durability M5+ / dedicated Morris gate | **ADOPTED** |
+| **D-M4-03** | First Cursor REAL AgentCapability = **bounded + read-only** ; minimal caps ; static immutable deny-by-default registry retained ; no dynamic registry for M4 ; no Git remote/commit/push/PR/merge in first proof | **ADOPTED** |
+| **D-M4-04** | Gate D **GD-1** — explicit durable grant bound at minimum to contractId/version/fingerprint + attemptId + agentRef + actor + expiration ; checked before StartExecution REAL ; consumption coordinated with durable CREATED frontier ; never after real process start ; stale/expired/fingerprint mismatch/already-consumed = fail-closed ; no auto-replay after ambiguous restart ; Gate D ≠ Recommendation ≠ PREPARE projection ≠ Roadmap checklist | **ADOPTED** |
+| **D-M4-05** | L7-1 for **first** M4 REAL read-only proof — Critical Ack / Auth.js **not** prerequisites of this weak-risk proof ; HD exact + ExecutionContract exact + applicable Confirmation + explicit Gate D suffice ; Critical Ack remains required/candidate for future N2/N3 / elevated / irreversible classes ; Auth.js/IAM product-grade = separate Morris gate ; local Auth.js+Ack bundle **not** promoted ; IAM debt **not** closed | **ADOPTED** |
+
+**Supersession :** the prior Roadmap dependency “promotion Ack” for the **first M4 read-only proof** is **superseded by D-M4-05**. This does **not** delete Ack/Auth debt from the trajectory.
+
+### M4 Delivery — CONSUMED / MERGED
+
+- M4 Delivery GO : **CONSUMED**
+- M4 Delivery validation : **CONSUMED — VALIDATED BY MORRIS**
+- Commit / push / PR : **CONSUMED — PR #344**
+- Merge : **CLOSED — PR #344** merge `ec65fb47c04b451d892297c806b9b041995339a5`
+- CI : **#172 SUCCESS** on same head `f7270b21` after authorized rerun (no code change)
+
+### M4 REAL / diagnosis / bounding / completion / closure — CONSUMED
+
+- FIRST M4 CURSOR REAL READ-ONLY PROOF GO — **CONSUMED** (base `3575c886…`) — launch **PROVEN** · completion **NOT** (timeout ~60030 ms / exit 143) — identities never reused
+- Timeout diagnosis GO — **CONSUMED** — UNIQUE root cause **NOT PROVEN** ; timeout = **PLAUSIBLE CONTRIBUTING FACTOR** historically
+- Pre-reproof bounding — **MERGED** — PR #346 / merge `fc7e20aa…` · CI #176
+- Post-pre-reproof Roadmap sync — **MERGED** — PR #347 / merge `2d1361ee…` · CI #178
+- **M4 GOVERNED REAL COMPLETION PROOF** — **CONSUMED / PASS** — handoff `1123a30f…` · fresh HD/EC/Attempt/Gate D · StartExecution=1 · spawn=1 · retry=0 · duration≈15735 ms · timedOut=false · exit=0 · stdout `M4_READ_ONLY_OK` · README Read=1 · Shell/Glob/Grep/write=0
+- **M4 EXIT PROOF EVALUATION** — **CONSUMED / PASS WITH RESERVES**
+- **M4 EXIT PROOF** — **ACCEPTED BY MORRIS**
+- **M4** — **CLOSED** (GO **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION**)
+
+### M5 Architecture Decisions — CONSUMED BY MORRIS
+
+- **M5 ENTRY QUALIFICATION** = **COMPLETE** — handoff `63f41e3f328868286c14312a58a7b79f850383c0`
+- GO architecture : **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY**
+- GO Roadmap sync : **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY**
+
+| ID | Décision | Statut |
+| --- | --- | --- |
+| **M5-A** | Persistence boundary **OPTION B** — ExecutionAttempt + Evidence + ReviewBundle durable together in existing OA Product SQLite behind existing ports/domain/use cases | **ADOPTED** · **IMPLEMENTED ON MAIN** (PR #350) |
+| **M5-B** | Nora/LPS write-back **W1** — automatic factual LPS link update allowed for Evidence/ReviewBundle refs ; Recommendation remains Recommendation ; **no** automatic HumanDecision / gate consumption / executionAuthority / structural trajectory validation | **ADOPTED** · **IMPLEMENTED ON MAIN** (PR #350) |
+| **M5-C** | Technical launch journal disposition **KEEP TEMPORARY WITH EXIT** ; retirement later needs safety equivalence + dedicated Morris GO | **ADOPTED DISPOSITION — UNCHANGED** |
+
+### M5 Delivery / UI / exit / capitalization — CONSUMED
+
+- M5 Delivery GO historically **CONSUMED** · PR #350 **MERGED** @ `8f753218…` · CI #184/#185 SUCCESS
+- M5 UI/Nora durable rehydrate · PR #351 **MERGED** @ `d8961f1d…` · CI #186/#187 SUCCESS
+- M5 technical/functional exit proof · handoff `54b0f5b43a50861c26226aa3ffc06460f8ffbafe` · **SATISFIED ON MAIN** (M5-01…M5-34)
+- M5 capitalization Roadmap sync · PR #352 **MERGED** @ `3467ecd…` · CI run #31875337665 SUCCESS · post-merge #31875621317 SUCCESS · handoff `0121e184…`
+
+### M5 closure gate — CONSUMED
+
+- GO Morris **ACCEPT M5 EXIT PROOF + CLOSE M5 — KEEP M5-C TECHNICAL JOURNAL — ZERO REAL — NO M6 EXECUTION — RUNTIME V3 NON ADOPTED — NO BRANCH DELETE**
+- M5 EXIT PROOF = **ACCEPTED BY MORRIS**
+- M5 = **CLOSED**
+- Evidence: M5-01…M5-34 SATISFIED ON MAIN · exit handoff `54b0f5b4…` · capitalization PR #352 · post-merge handoff `0121e184…` · explicit Morris GO this cycle
+- This is a **HumanDecision** Morris (not a Recommendation)
+
+### Pre-M6 trajectory sequencing — CONSUMED DECISION
+
+- User wording : **« ok go pour la modification »**
+- Governed interpretation : **ALIGN M5 CLOSURE ROADMAP WITH PRE-M6 USER JOURNEY / UX BASELINE TRAJECTORY** (KEEP M5 CLOSED · KEEP M5-C · NO UX DESIGN / FIGMA / UI DELIVERY / M6 in this documentary amendment)
+- Decision : **PRE-M6 USER JOURNEY / UX BASELINE MUST PRECEDE M6 ENTRY**
+- Status : **TRAJECTORY SEQUENCING DECIDED BY MORRIS** · **subsequent Pre-M6 work progressed** (see below) · Delivery/Figma/M6 still **NOT AUTHORIZED**
+- This is a **HumanDecision** Morris sequencing choice (not a Recommendation left candidate)
+
+### Pre-M6 functional baseline / G-UX-15 — CONSUMED DECISIONS
+
+- Canonical journey M1→M5 — **ADOPTED BY MORRIS** (D-PRE-M6-UX-01)
+- Functional IA — **ADOPTED BY MORRIS** (D-PRE-M6-UX-02)
+- UI reuse principle — **ADOPTED AT PRINCIPLE LEVEL** (D-PRE-M6-UX-03)
+- First-test Conversation/Proposal process-local limitation — **ACCEPTED BY MORRIS**
+- G-UX-01→15 consolidated readiness — **COMPLETE**
+- Slice A (G-UX-15 only) — **SELECTED**
+- Slice A amendments (sentinel / replay / identity / governance / failed T-A5) — **CONSUMED**
+- GO Morris **ACCEPT G-UX-15 SLICE A EXIT PROOF** — **CONSUMED**
+- G-UX-15 technical application-wiring blocker — **CLOSED BY MORRIS**
+- Fixture-safe wiring proof — **ACCEPTED AS TECHNICAL PROOF ONLY**
+- Confirmation process-local — **KEEP RESERVE FOR NOW** (NON-BLOCKING for technical exit)
+- Slice A implementation — **LOCAL ACCEPTED CANDIDATE — NOT YET ON MAIN**
+- D-PRE-M6-UX-05 Figma Visual Contract — **NO DECISION YET / NOT AUTHORIZED**
+- Evidence handoff : `ec456dafd441825263df3638105efab520946073` (exit-proof final amend) · capitalization this cycle
+
+### Décisions / gates toujours ouverts
+
+1. **CYCLE 13 — PR READINESS** — NEXT REPO GATE for coherent 5-file local candidate · **≠** project commit/push/PR/merge in this capitalization cycle
+2. Controlled integration / merge to main — future Morris GO · **≠** authorized now
+3. **D-PRE-M6-UX-05 — FIGMA VISUAL CONTRACT GO** — NEXT PRODUCT GATE **after** integration · **NO DECISION YET** · **≠** UI Delivery authorized
+4. UI Delivery — **NOT AUTHORIZED**
+5. Technical launch journal retirement — future dedicated gate (M5-C **KEEP TEMPORARY WITH EXIT**)
+6. M5-C journal owner — **OWNER NOT EXPLICITLY RECORDED** · **POST-M5 GOVERNANCE DEBT / DECISION REQUIRED**
+7. Confirmation durability — **PROCESS-LOCAL RESERVE KEEP FOR NOW**
+8. G-UX-08 / G-UX-10 (and other open G-UX classifications) — remain open per Pre-M6 baseline register
+9. **M6 ENTRY QUALIFICATION** — future only after Pre-M6 product UX validation · distinct Morris GO · **≠** authorized now
+10. **M6 — Boucle projet complète** — **NOT STARTED / NOT AUTHORIZED**
+11. Critical Ack / Auth.js promotion for future N2/N3 / IAM — **Decision Required** (separate)
+12. Disposition OPS1 / D1 / execution-run — **Decision Required**
+13. runtime v3 adoption — **NOT AUTHORIZED**
+14. **`CURSOR_REAL_TIMEOUT_POLICY`** — **OPEN / NON-BLOCKING POST-M4 RESERVE** — 60000 **KEEP FOR NOW**
+15. `confirmAndExecuteF3Fixture` optional `productDurablePath` fallback — **NON-BLOCKING HARDENING RESERVE**
+
+### Décisions / gates historiques encore listés (non tranchés comme promotion)
+
+- Auth.js / Critical Ack promotion for elevated classes — open (see D-M4-05)
+- Future REAL enablement beyond closed M4 bounded path — open (default OFF **≠** authorized without Morris GO)
+## B7–B8. Roadmap capability-driven (milestones)
+
+### Gate 0 — Convergence architecture / persistence
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | G0 |
+| **Capacité v3** | Précondition : un seul backbone de construction (évite multi-moteurs) |
+| **Outcome** | Morris tranche Option architecture + Product persistence (compact) |
+| **Fondations** | transversal (débloque F02/F05/F12…) |
+| **État actuel** | **G0-A/B ADOPTED** (Morris) ; M1–M3 **MERGED ON MAIN** |
+| **Actifs** | decision pack G0 ; Build Doctrine ; Roadmap |
+| **Gaps** | — (décisions structurantes consommées) |
+| **Travaux** | décisions écrites — **consommées** |
+| **Gates Morris** | **CONSUMED** — architecture + persistence |
+| **Hors périmètre** | Cursor REAL (reste hors) |
+| **Preuve de sortie** | décision Morris + `sfia-studio-g0-architecture-persistence-decision-pack.md` |
+| **Dette tolérée** | aucune implementation speculative au stade G0 |
+| **Exit dette** | N/A |
+| **Next** | M4 *(M1–M3 SATISFIED)* |
+| **Statut** | **DECIDED / CONSUMED** |
+
+### Milestone 1 — Socle projet v3 fiable
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | M1 |
+| **Capacité v3** | V3-F02 LPS (+ Project) durable et exploitable |
+| **Outcome** | Morris crée/reprend un Project et retrouve LPS/contexte critique après redémarrage |
+| **État actuel** | Product SQLite OA (`node:sqlite`) derrière ports T-A1 ; composition `/studio` branchée — **on main** |
+| **Actifs** | T-A1 ports ; SQLite Product Store ; vertical-slice UI ; doctrine FS |
+| **Classification** | COMPLETE T-A1 stores ; ADAPT composition |
+| **Gaps** | L4 ContextSnapshot agrégat dédié **absent** du repo — contexte critique M1 = LPS fields + doctrinePackageRef digest (qualifié) |
+| **Dépendances** | G0 persistence — **SATISFIED** (G0-B ADOPTED) |
+| **Gates** | Merge M1 — **CLOSED** (PR #337) |
+| **Hors périmètre** | Cursor REAL ; multi-region ; PostgreSQL Product ; full OA durable |
+| **Preuve e2e** | create → restart process → get same project/LPS/digest · + PR #337 merged · + CI #158 PASS |
+| **Dette** | coexistence temporaire D1 UI ; autres OA Memory ; exit SQLite→Postgres |
+| **Exit dette** | disposition D1 après M1 stable ; Postgres si multi-writer démontré |
+| **Next** | M4 *(M1–M3 SATISFIED)* |
+| **Statut** | **MERGED ON MAIN — EXIT PROOF SATISFIED** |
+
+### Milestone 2 — Pilotage cognitif v3 utilisable
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | M2 |
+| **Capacité v3** | V3-F01 CKC · F03 DoctrinePackage · F04 épistémologie (base) · F05 chaîne cognitive |
+| **Outcome** | Dialogue Nora dans un projet durable ; qualification cycle ; LPS actualisé sans wizard rigide |
+| **État actuel** | **On main** — F1/F2 wired ; CycleInstance Product SQLite + LPS linkage + live `F2ContextSnapshot` post-mutation (PR #339) |
+| **Actifs** | T-A1 KEEP · T-A2 Cycle **COMPLETE** (subset) · F1/F2 ADAPT · CKC qualify KEEP · shared RuntimeOaStack |
+| **Gaps fermés on main** | CycleInstance wire F2 · CKC↔cycle `ckcResolutionRef` · live ContextSnapshot · LPS N→N+1 · restart process A→B · R1 concurrency · R2 scope |
+| **Dette restante** | conversation/proposal process-local ; Trajectory/Epistemic Memory ; DOC-DEBT-M1-01 ouvert |
+| **Dépendances** | M1 — **SATISFIED** |
+| **Delivery authorization** | **CONSUMED** — GO Morris M2 (Delivery) |
+| **Validation gate** | **CONSUMED** — GO MORRIS — VALIDATE M2 + COMMIT / PUSH / PR (2026-08-13) |
+| **Commit / push / PR** | **CONSUMED** — PR #339 |
+| **Merge** | **CLOSED** — PR #339 MERGED @ `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI #162 SUCCESS |
+| **Preuve e2e** | conversation → qualification → Cycle durable → LPS N+1 → proposal ContextSnapshot live → visible `/studio` · process restart PASS · R1 AsyncLocalStorage concurrency PASS · R2 test-scope SHA frozen · PR #339 · merge `a9a4765…` · CI #162 SUCCESS |
+| **Next** | M4 *(M3 SATISFIED dependency)* |
+| **Statut** | **VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED** |
+
+### Milestone 3 — Gouvernance humaine + préparation réelle
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | M3 |
+| **Capacité v3** | V3-F05 chaîne · HumanDecision · ExecutionContract (+ support F12 réversibilité) |
+| **Outcome** | Options/reco → Morris décide → decisionRef durable → ExecutionContract exact + projection Cursor PREPARE-only |
+| **État actuel** | **ON MAIN** — HumanDecision Product SQLite · ExecutionContract Product SQLite · decision→LPS atomique · DecisionBasis minimal · projection Cursor PREPARE-only · authority `LOCAL_SINGLE_USER_AUTHORITY_TEMPORARY_WITH_EXIT` (fail-closed) |
+| **Actifs** | T-A3 **COMPLETE** (M3) / KEEP · T-A4 **COMPLETE** (M3) / KEEP · F2/F3 ADAPT · Product SQLite m3-0.1.0 |
+| **Gaps fermés on main** | L2 durable HD · L3 proposal binding (DecisionBasis) · L8 exact/unresolved contract fields (no fixture on M3 path) · autorité server-owned fail-closed (temporary with exit) |
+| **Dette restante** | conversation/proposal process-local · Confirmation process-local · Trajectory/Epistemic Memory · Attempt/Evidence Memory · autorité local-single-user temporaire (exit Auth.js/IAM) · DOC-DEBT-M1-01 |
+| **Dépendances** | M1–M2 — **SATISFIED** |
+| **Delivery authorization** | **CONSUMED** — GO MORRIS M3 — 2026-08-13 |
+| **Validation gate** | **CONSUMED** — GO MORRIS — VALIDATE M3 + COMMIT / PUSH / PR — 2026-08-13 Europe/Paris |
+| **Commit / push / PR** | **CONSUMED** — PR #341 |
+| **Merge** | **CLOSED** — PR #341 MERGED @ `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS |
+| **Exit evidence** | **EXIT PROOF SATISFIED ON MAIN** |
+| **Preuve e2e** | GO → HD durable + LPS N+1 · restart → PREPARE sans Proposal · ExecutionContract durable · fingerprint persisted=recomputed=projection · unresolved semantics fail-closed · Cursor PREPARE-only · authority adversarial PASS · local 1656 / 131 / 0 · CI #166 SUCCESS · merge #341 |
+| **Next** | M5 — exit proof **ACCEPTED BY MORRIS** · **CLOSED** *(M4 CLOSED)* |
+| **Statut** | **VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED** |
+
+### Milestone 4 — Première exécution Cursor REAL bornée depuis Studio
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | M4 |
+| **Capacité v3** | V3-F11 AgentCapability · F12 · F05 exécution |
+| **Outcome** | Action REAL faible risque/read-only depuis Studio via T-A5 + adapter harvesté ; pas de silent REAL→fixture |
+| **État actuel** | **M4 CLOSED** — Delivery **MERGED** · FIRST REAL historical (launch proven / completion timeout) · diagnosis **COMPLETE WITH RESERVES** · pre-reproof bounding **MERGED** · final governed REAL completion reproof **PASS** (handoff `1123a30f…`) · exit proof **ACCEPTED BY MORRIS** · REAL default **OFF** · timeout 60000 **KEEP FOR NOW** |
+| **Architecture selected (D-M4-01→05)** | **ADOPTED + IMPLEMENTED** — specialized REAL OA boundary (Option B) · temporary durable launch journal CREATED/LAUNCHED · bounded RO AgentCapability · durable Gate D GD-1 · L7-1 for first RO |
+| **Actifs** | T-A5 lifecycle **KEEP** · fixture port `externalEffects:false` **KEEP** · specialized REAL boundary **COMPLETE / KEEP** · `NodeCursorProcessRunner` **KEEP** · isolated pinned Git worktree **KEEP** · Gate D GD-1 **KEEP** · technical launch journal **TEMPORARY WITH EXIT / KEEP** · bounded RO AgentCapability **KEEP** · gateway deterministic bounding **KEEP** · OPS1 Cursor primitives **HARVESTED**, no OA runtime coupling |
+| **Gaps restants M4** | — **none blocking** · surviving non-blocking reserves: `CURSOR_REAL_TIMEOUT_POLICY` · launch journal TEMPORARY WITH EXIT · future IAM/Ack · partial Confirmation/Attempt/Evidence durability |
+| **Dépendances** | M3 — **SATISFIED** · D-M4-01→05 — **SATISFIED** · Delivery — **SATISFIED** · FIRST REAL / diagnosis / bounding / completion proof / exit acceptance — **CONSUMED** |
+| **Preuve de sortie M4** | **SATISFIED / ACCEPTED BY MORRIS** — exact HD/EC · bounded agent · Gate D single-use · governed Cursor REAL · CREATED/LAUNCHED · no duplicate launch · no fixture fallback · isolated pinned workspace · bounded RO completion · fail-closed safety · final completion PASS |
+| **Statut** | **M4 EXIT PROOF ACCEPTED BY MORRIS — CLOSED** |
+| **Next** | M5 exit proof **ACCEPTED BY MORRIS** · M5 **CLOSED** · **NEXT = PRE-M6 USER JOURNEY / UX BASELINE** (then M6) |
+
+### Milestone 5 — Retour de preuve + analyse Nora
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | M5 |
+| **Capacité v3** | V3-F14 Artifact Completeness · Evidence/ReviewBundle · F13 learning (base) · support F02/F05/F09 |
+| **Outcome** | Evidence/ReviewBundle liés contrat/décision → réinjectés Nora → liens factuels LPS → Recommendation next gate → gouvernance humaine préservée |
+| **État actuel runtime** | Attempt **Product SQLite** · Evidence **Product SQLite** · ReviewBundle **Product SQLite** · W1 LPS `evidenceIds`/`reviewBundleIds` **ON MAIN** · Product durable rehydrate **PROVEN** · Panel remount ReviewBundle/Recommendation **PROVEN** · RecommendNextGate Recommendation-only |
+| **Architecture** | **ADOPTED BY MORRIS + IMPLEMENTED ON MAIN** — Entry Qualification **COMPLETE** (handoff `63f41e3…`) · Delivery PR #350 · UI PR #351 |
+| **M5-A** | **OPTION B ADOPTED + IMPLEMENTED ON MAIN** — Product SQLite Attempt + Evidence + ReviewBundle behind existing ports (PR #350) |
+| **M5-B** | **W1 ADOPTED + IMPLEMENTED ON MAIN** — factual LPS link update + Recommendation separate · system factual writer (PR #350) |
+| **M5-C** | **KEEP TEMPORARY WITH EXIT** — journal still present ; not retired ; owner **NOT EXPLICITLY RECORDED** (**POST-M5 GOVERNANCE DEBT / DECISION REQUIRED**) |
+| **Actifs** | domain/ports/use cases **KEEP** · Product SQLite Attempt/Evidence/RB **COMPLETE** · LPS **KEEP** + W1 append **COMPLETE** · Nora/F3 durable remount consumer **COMPLETE** · launch journal **KEEP TEMPORARY WITH EXIT** |
+| **Technical / Functional Exit** | **SATISFIED ON MAIN** — M5-01…M5-34 · process A→B restart · remount UI M5-27/M5-28 · anti-claims · ZERO unauthorized REAL · CI #184/#185/#186/#187 SUCCESS |
+| **Exit Proof** | **ACCEPTED BY MORRIS** |
+| **Intégration** | PR #350 merge `8f753218…` · PR #351 merge `d8961f1d…` · capitalization PR #352 merge `3467ecd…` · exit handoff `54b0f5b4…` · post-merge handoff `0121e184…` |
+| **Dépendances** | M4 — **SATISFIED / CLOSED** · Architecture — **CONSUMED** · Delivery — **CONSUMED / MERGED** · UI rehydrate — **CONSUMED / MERGED** · Capitalization Roadmap — **CONSUMED / MERGED** · Closure gate — **CONSUMED** |
+| **Statut** | **M5 EXIT PROOF ACCEPTED BY MORRIS — CLOSED** |
+| **Next convergence capability** | **PRE-M6** — baseline + G-UX readiness **COMPLETE** · G-UX-15 technical blocker **CLOSED** · controlled integration **PENDING** · Figma/UI Delivery **NOT AUTHORIZED** |
+| **Next immediate gate (repo)** | **CYCLE 13 PR READINESS** (local accepted candidate) |
+| **Next product gate (after integration)** | **D-PRE-M6-UX-05 FIGMA GO** — **NO DECISION YET** |
+| **After Pre-M6 product proof** | **M6 ENTRY QUALIFICATION** — still **NOT STARTED / NOT AUTHORIZED** without distinct Morris GO |
+
+
+### Pre-M6 Convergence Gate — User Journey / UX Baseline
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | PRE-M6 *(convergence gate — **not** Milestone 5.5 · **not** M6)* |
+| **Capacité principale** | **V3-F05** — chaîne conversation → décision → exécution |
+| **Support** | V3-F02 LPS · V3-F14 Artifact Completeness · V3-F15 maturity / anti-claims |
+| **Purpose** | Establish the first clean SFIA Studio product UX baseline **over** the proven M1→M5 runtime — prove that already-built capabilities form a coherent, usable product journey |
+| **Principle** | **RESTART UX / INFORMATION ARCHITECTURE FROM THE CANONICAL USER JOURNEY** · **KEEP M1→M5 RUNTIME / DOMAIN / APPLICATION BACKBONE** · UI actuelle **≠** baseline imposée · historical POC / transitory screens **not** reused by default · selective harvest only after explicit asset audit |
+| **UX doctrine authority** | Validated decisions in framing **30/37** prevail (incl. **CC-D01** : conversation dominante + panneau vivant + confirmations structurantes · **pas** de stepper principal · **pas** de workspace multi-panneaux MVP) · older candidate wording in framing **11** (incl. « Cockpit avant chat ») is **supporting/historical**, not superior authority |
+| **Inputs / KEEP (runtime)** | M1→M5 runtime backbone · Product SQLite · Project/LPS · CycleInstance · HumanDecision · ExecutionContract · ExecutionAttempt · Evidence · ReviewBundle · existing application/domain ports/use cases |
+| **Existing UI assets** | **TO QUALIFY DURING PRE-M6 UX AUDIT** — candidate dispositions KEEP / ADAPT / HARVEST / REPLACE / FREEZE / RETIRE LATER · **no** component-level disposition consumed in this Roadmap cycle · **no** automatic deletion |
+| **Current state** | Functional baseline **ADOPTED** · G-UX readiness **COMPLETE** · G-UX-15 Slice A exit proof **ACCEPTED BY MORRIS** · technical application-wiring blocker **CLOSED** · Confirmation process-local **KEEP RESERVE** · candidate **LOCAL / NOT YET ON MAIN** |
+| **Completed** | User Journey Qualification · Functional IA · gap readiness G-UX-01→15 · Slice A technical bridge + accepted exit proof · Pre-M6 baseline + Roadmap capitalization (this cycle) |
+| **Remaining** | Integrate accepted Slice A/baseline/Roadmap to main · Figma Visual Contract · Morris visual validation · UI Delivery · browser E2E · visual proof · UAT · gap/debt re-evaluation · M6 Entry Qualification |
+| **Future work sequence** | 1. **PR READINESS / controlled integration** · 2. Figma Visual Contract (D-PRE-M6-UX-05) · 3. Morris UX Validation · 4. UI Delivery over existing M1→M5 runtime · 5. Browser E2E · 6. Runtime visual proof / Figma comparison · 7. Morris UAT · 8. Gap / debt / learning re-evaluation · 9. M6 Entry Qualification |
+| **Figma** | Readiness **READY WITH FUNCTIONAL RESERVES** · authorization **NO** · D-PRE-M6-UX-05 = **NO DECISION YET** · **action = 0** |
+| **UI Delivery** | **NOT AUTHORIZED** (integration pending + Figma not authorized + Delivery gate distinct) |
+| **Future proof expected** | Functional browser E2E through M1→M5 user journey · runtime visual evidence · Figma/runtime comparison · Morris UAT · gaps/debt captured |
+| **Anti-scope** | No runtime rewrite · no parallel UI/business engine · no Product SQLite / domain / ports rewrite by default · no M6 architecture/delivery · no Cursor REAL · no project commit/push/PR in this capitalization cycle |
+| **Statut** | **PRE-M6 FUNCTIONAL BASELINE + GAP READINESS COMPLETE** · **G-UX-15 TECHNICAL BLOCKER CLOSED BY MORRIS** · **CONTROLLED INTEGRATION PENDING** · **FIGMA/UI DELIVERY NOT AUTHORIZED** |
+| **Next after Pre-M6 product proof** | **M6 ENTRY QUALIFICATION** — distinct Morris GO still required |
+
+### Milestone 6 — Boucle projet complète
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | M6 |
+| **Capacité v3** | V3-F05 + F09 replanification (base) |
+| **Outcome** | Sans copier-coller manuel : conversation → qualification → décision → exécution → preuve → analyse → update projet → next step |
+| **État actuel** | Chaîne fragmentée / process-local / fixture |
+| **Dépendances** | M1–M5 — **SATISFIED** · M5 — **CLOSED** · Pre-M6 functional baseline/readiness — **PROGRESSING** (journey/IA adopted · G-UX-15 technical blocker **CLOSED** · product Figma/Delivery/E2E/UAT **NOT YET SATISFIED**) · M6 entry only after Pre-M6 product UX validation **and** distinct Morris GO · **M6 = NOT STARTED / NOT AUTHORIZED** |
+| **Preuve e2e** | parcours complet redémarrage-safe documenté |
+| **Statut** | **NOT STARTED / NOT AUTHORIZED** |
+
+### Milestone 7 — Élargissement contrôlé doctrine v3
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | M7 |
+| **Capacité v3** | Couverture progressive F06–F10, F08, F13–F15 au-delà du backbone |
+| **Outcome** | Cycles/lenses/artefacts/transitions/contradictions/dette/capitalisation étendus **depuis** backbone utilisé |
+| **Dépendances** | M6 |
+| **Preuve** | matrice B9 avance avec preuves par fondation |
+| **Statut** | **NOT STARTED** |
+
+### Milestone 8 — Adoption produit / exploitation
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | M8 |
+| **Capacité v3** | Conditions d’un futur claim **v3 runtime ADOPTED** |
+| **Outcome** | persistence, IAM/authz, sécurité, observabilité, backup/reprise, qualité, rétention, multi-user si requis, coverage doctrine obligatoire |
+| **Anti-claim** | Ce milestone **ne préjuge pas** des critères non décidés et **n’autorise pas** le claim ADOPTED |
+| **Statut** | **NOT STARTED** |
+
+## B9. Matrice de couverture doctrine V3-F01…F15
+
+| Fondation | Capacité | État courant | Milestone(s) | Preuve attendue | Gap / décision |
+| --- | --- | --- | --- | --- | --- |
+| V3-F01 CKC | Qualification cognitive | **PARTIAL RUNTIME** — F2 qualify + CycleInstance/CKC binding **on main** (M2) ; proposal process-local | M2, M7 | CKC lié cycle + proposal | proposal durable later |
+| V3-F02 LPS | Living Project State | **PARTIAL RUNTIME** — LPS durable on main ; M5-B W1 factual Evidence/RB write-back **IMPLEMENTED ON MAIN** | M1, M5 | M1 restart · W1 append proven | conversation durability later |
+| V3-F03 DoctrinePackage | Package pin/digest | **PARTIAL RUNTIME** — digest in live `F2ContextSnapshot` **on main** (M2) ; KEEP files | M1–M2 | live digest in snapshot | — |
+| V3-F04 Épistémologie | Obs/Hyp/… | DOC + UI tags partiels (base M2) | M2, M7 | tags/stop contradictions | later depth |
+| V3-F05 Chaîne conv→exec | Boucle native | **PARTIAL RUNTIME** — M1→M5 runtime proven through M5 **CLOSED** · Pre-M6 functional baseline **ADOPTED** · G-UX-15 technical application bridge exit **ACCEPTED** (local / integration pending) · Figma/UI product proof pending · full continuous loop remains later M6 | M2–M6 · Pre-M6 | Pre-M6 product UX (Figma/Delivery/E2E/UAT) · then M6 complete continuous loop | Pre-M6 product proof PENDING · M6 NOT AUTHORIZED · runtime v3 NON ADOPTED |
+| V3-F06 Trajectory | ProjectTrajectory | Modeled / Memory cycle | M3, M7 | trajectory update post-HD | wire |
+| V3-F07 Provenance | Source hierarchy | Doctrine FS | M2, M7 | provenance on artifacts | later |
+| V3-F08 Contradictions | Stop/contradiction | DOC | M7 | UI stop + record | later |
+| V3-F09 Replanif | Governed replan | DOC · M5 preserves Recommendation-only (W1) · structural replanning remains future / M6 | M6–M7 | next-step from ReviewBundle | after M5 exit |
+| V3-F10 DebtItem | Dette gouvernée | DOC | M7–M8 | debt records | later |
+| V3-F11 AgentCapability | Caps agents | Fixture + **bounded REAL RO KEEP** · M4 scope exercised successfully on final reproof (strict bounded tool-surface proven for that path) | M4 | M4 CLOSED for this capability class | future AgentCapability classes separate |
+| V3-F12 Réversibilité | Action policy | Gate D + CREATED/LAUNCHED + spawn ACK/completion controls **demonstrated for M4** · Ack **deferred for first RO** (D-M4-05) | M3–M4 | M4 CLOSED · Ack for elevated classes later | future IAM / N2/N3 |
+| V3-F13 Learning | REX contrôlé | DOC / capitalisation · durable Evidence/RB learning base **ON MAIN** · Cycle 15 capitalization/REX recorded in review handoff (not method promotion) | M5, M7 | learning from Evidence | later depth / method promotion separate |
+| V3-F14 Artifact Completeness | Completeness gates | Attempt/Evidence/RB durable **ON MAIN** · remount UI visibility **PROVEN** · M5-01…34 **SATISFIED ON MAIN** · M5 **CLOSED** | M5 · Pre-M6 | completeness + restart-safe artifacts · Pre-M6 UX usability proof | Pre-M6 before M6 |
+| V3-F15 Maturity | Distributed maturity | Honesty rails T-A7 · runtime v3 **NON ADOPTED** · no maturity promotion from M5 architecture ADOPT | M8 | anti-claim maturity | no false READY |
+
+## B10. Chemin critique explicite
+
+```text
+CRITICAL PATH:
+  M1 durable Project/LPS — SATISFIED / MERGED ON MAIN (PR #337 @ c6925954…)
+  → M2 Nora contextuel durable — VALIDATED BY MORRIS / MERGED ON MAIN / EXIT PROOF SATISFIED (PR #339 @ a9a4765…)
+  → M3 HD durable + ExecutionContract exact — VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED (PR #341 @ 8eea4cbf…)
+  → M4 Architecture — CLOSED (D-M4-01→05 ADOPTED BY MORRIS)
+  → M4 Delivery REAL-OFF — VALIDATED BY MORRIS / MERGED ON MAIN (PR #344 @ ec65fb47)
+  → FIRST M4 CURSOR REAL attempt (historical) — launch / Gate D / CREATED·LAUNCHED / no-mutation PROVEN — completion NOT (timeout ~60s)
+  → timeout diagnosis COMPLETE WITH RESERVES — UNIQUE root cause NOT PROVEN — timeout = PLAUSIBLE CONTRIBUTING FACTOR (historical)
+  → pre-reproof deterministic bounding MERGED (PR #346 @ fc7e20aa…)
+  → post-pre-reproof Roadmap sync MERGED (PR #347 @ 2d1361ee…)
+  → M4 GOVERNED REAL COMPLETION PROOF PASS (handoff 1123a30f…) — duration≈15.7s — M4_READ_ONLY_OK — strict bounded tool-surface PROVEN for that path
+  → M4 EXIT PROOF ACCEPTED BY MORRIS — M4 CLOSED
+  → M4 closure Roadmap MERGED (PR #348 @ 5132f1bc…)
+  → M5 ENTRY QUALIFICATION — COMPLETE (handoff 63f41e3…)
+  → M5 ARCHITECTURE TRAJECTORY — ADOPTED BY MORRIS (M5-A OPTION B · M5-B W1 · M5-C KEEP TEMPORARY WITH EXIT)
+  → M5 DELIVERY Option B + W1 — MERGED (PR #350 @ 8f753218…) — CI #184/#185 SUCCESS
+  → M5 UI/Nora durable rehydrate — MERGED (PR #351 @ d8961f1d…) — CI #186/#187 SUCCESS
+  → M5 EXIT PROOF — SATISFIED ON MAIN (M5-01…M5-34) — handoff 54b0f5b4…
+  → M5 CAPITALIZATION ROADMAP — MERGED (PR #352 @ 3467ecd…) — CI #31875337665 / post-merge #31875621317 SUCCESS
+  → M5 EXIT ACCEPTANCE + CLOSURE — CONSUMED BY MORRIS (ACCEPT M5 EXIT PROOF + CLOSE M5 · KEEP M5-C · ZERO REAL · NO M6 EXECUTION)
+  → M5 — CLOSED
+  → PRE-M6 USER JOURNEY QUALIFICATION — COMPLETE
+  → CANONICAL JOURNEY / FUNCTIONAL IA — ADOPTED BY MORRIS
+  → G-UX-01→15 READINESS — COMPLETE
+  → G-UX-15 SLICE A — EXIT PROOF ACCEPTED / TECHNICAL BLOCKER CLOSED (LOCAL / NOT YET ON MAIN)
+  → CONTROLLED INTEGRATION / PR READINESS — NEXT REPO GATE
+  → FIGMA VISUAL CONTRACT — NOT AUTHORIZED YET (D-PRE-M6-UX-05)
+  → MORRIS UX VALIDATION
+  → UI DELIVERY OVER M1→M5 RUNTIME — NOT AUTHORIZED
+  → FUNCTIONAL E2E + VISUAL PROOF + MORRIS UAT
+  → M6 ENTRY QUALIFICATION
+  → M6 — NOT STARTED / NOT AUTHORIZED
+
+M4 ARCHITECTURE GATE: CLOSED (D-M4-01→05)
+M4 DELIVERY GATE: CLOSED / MERGED (PR #344)
+FIRST REAL GATE: CONSUMED / HISTORICAL — PARTIAL (launch only)
+TIMEOUT DIAGNOSIS: COMPLETE WITH RESERVES
+PRE-REPROOF BOUNDING: MERGED (PR #346)
+M4 GOVERNED REAL COMPLETION PROOF: CONSUMED / PASS
+M4 EXIT PROOF: ACCEPTED BY MORRIS — SATISFIED
+M4: CLOSED
+GATE D: IMPLEMENTED — consumed once per historical governed REAL — fresh grant required for future REAL
+CRITICAL ACK: DEFERRED FOR FIRST RO — FUTURE N2/N3 / IAM — NOT PROMOTED
+TECHNICAL LAUNCH JOURNAL: KEEP TEMPORARY WITH EXIT — M5-C ADOPTED DISPOSITION — ≠ PRODUCT STORE
+TIMEOUT 60000: KEEP FOR NOW — proven sufficient for demonstrated M4 bounded RO path — NOT universal policy — NOT proven defective
+CURSOR_REAL_TIMEOUT_POLICY: OPEN / NON-BLOCKING POST-M4 RESERVE — UNCHANGED BY M5 ARCHITECTURE DECISION
+STRICT BOUNDED RUNTIME READ-ONLY TOOL-SURFACE: PROVEN FOR FINAL M4 REPROOF PATH ONLY
+M5 ENTRY QUALIFICATION: COMPLETE
+M5 ARCHITECTURE GATE: CONSUMED / ADOPTED BY MORRIS
+M5 DELIVERY: CONSUMED / MERGED (PR #350)
+M5 UI REHYDRATE: CONSUMED / MERGED (PR #351)
+M5 CAPITALIZATION ROADMAP: CONSUMED / MERGED (PR #352)
+M5 EXIT PROOF: SATISFIED ON MAIN (M5-01…M5-34) + ACCEPTED BY MORRIS
+M5 CLOSURE GATE: CONSUMED
+M5 CLOSED: YES — CLOSED BY MORRIS
+M5: EXIT PROOF ACCEPTED BY MORRIS — CLOSED
+
+PRE-M6 USER JOURNEY / UX BASELINE: FUNCTIONAL BASELINE + GAP READINESS COMPLETE — G-UX-15 TECHNICAL BLOCKER CLOSED BY MORRIS — CONTROLLED INTEGRATION PENDING — FIGMA/UI DELIVERY NOT AUTHORIZED
+G-UX-15 SLICE A: EXIT PROOF ACCEPTED BY MORRIS — LOCAL ACCEPTED CANDIDATE — NOT YET ON MAIN — FIXTURE-SAFE = TECHNICAL PROOF ONLY
+CONFIRMATION: PROCESS-LOCAL RESERVE — KEEP FOR NOW
+NEXT REPO GATE: CYCLE 13 PR READINESS (5-file coherent candidate)
+NEXT PRODUCT GATE AFTER INTEGRATION: D-PRE-M6-UX-05 FIGMA VISUAL CONTRACT GO — NO DECISION YET
+NEXT CONVERGENCE CAPABILITY: PRE-M6 controlled integration then Figma/UI product proof
+M6: NOT STARTED / NOT AUTHORIZED — sequenced AFTER Pre-M6 product validation + distinct Morris GO
+
+NON-BLOCKING / FUTURE RESERVES (do NOT reopen M4 ; do NOT reopen M5 CLOSED ; do NOT authorize Pre-M6 delivery / Figma / M6):
+  - CURSOR_REAL_TIMEOUT_POLICY — OPEN / NON-BLOCKING
+  - technical launch journal — KEEP TEMPORARY WITH EXIT (M5-C) — OWNER NOT EXPLICITLY RECORDED — POST-M5 GOVERNANCE DEBT / DECISION REQUIRED
+  - confirmAndExecuteF3Fixture optional productDurablePath fallback — NON-BLOCKING HARDENING
+  - UX CURRENT STATE — HISTORICAL / MIXED SURFACES TO AUDIT DURING PRE-M6 (not a structural debt claim without dedicated analysis)
+  - future IAM / Critical Ack for elevated classes
+  - Claims/Maturity durability — later
+  - Confirmation process-local — later
+  - delivery/capitalization branch cleanup — non-blocking (delete NOT AUTHORIZED)
+
+TRANSVERSE LATER: FinOps capture optionnelle · multi-user · observability depth · F08/F10 depth
+FROZEN (RECOMMENDATION until GO): execution-run feature growth · OPS1 UI expansion · FinOps lots non bloquants · D1 feature growth
+DECISION REQUIRED: OPS1/D1/execution-run disposition · Ack/Auth.js promotion for future N2/N3/IAM · Auth.js/IAM exit autorité M3 temporaire · timeout policy qualification when a future REAL class needs it
+G0 CONSUMED: Option 1 ADOPTED · Product persistence node:sqlite ADOPTED
+M2 MERGE GATE: CLOSED
+M3 MERGE GATE: CLOSED
+M3: VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED
+M4: EXIT PROOF ACCEPTED BY MORRIS — CLOSED
+Cursor REAL: IMPLEMENTATION MERGED / DEFAULT OFF / 2 HISTORICAL GOVERNED LAUNCHES / 1 SUCCESSFUL COMPLETION / future REAL NOT AUTHORIZED WITHOUT MORRIS GO
+runtime v3 NON ADOPTED
+```
+
+## B10a. CURSOR_REAL_TIMEOUT_POLICY — OPEN / NON-BLOCKING POST-M4 RESERVE
+
+Document key (tracking only — **not** an architecture decision):
+
+`CURSOR_REAL_TIMEOUT_POLICY — OPEN / NON-BLOCKING POST-M4 RESERVE`
+
+| Fact | Value |
+| --- | --- |
+| Current product timeout | **60000 ms** |
+| FIRST REAL (historical) | timedOut≈60030 ms · exit 143 · agent still progressing · UNIQUE root cause **NOT PROVEN** · timeout = plausible contributing factor |
+| Final M4 bounded reproof | timedOut=false · duration≈15735 ms · exit 0 · `M4_READ_ONLY_OK` |
+| Proven | 60000 **sufficient for the demonstrated M4 bounded read-only path** |
+| Not proven | 60000 as a **universal** Cursor REAL timeout policy |
+| Not proven | 60000 **defective** |
+| Classification | **KEEP CURRENT 60000 FOR NOW** + **OPEN / NON-BLOCKING POST-M4 RESERVE** |
+| Blocks M5? | **No** |
+| Changed by M5 architecture decision? | **No** — reserve unchanged |
+| Reopens M4? | **No** |
+
+No structural selection now among: global 90s/120s · unlimited · dynamic · per-AgentCapability · per-ExecutionContract · per class. Any such selection needs dedicated proof + Morris decision.
+
+**Exit condition (reserve may close only if):** (1) timeout policy explicitly qualified for REAL execution classes actually needed ; **OR** (2) Morris decides a contractual/capability-scoped/other reference mechanism replacing the global value ; **OR** (3) product needs show the current global value is sufficient for the authorized execution population with adequate proof.
+
+## B10b. Dette documentaire post-M1
+
+
+| Id | Observation | Impact | Classification | Owner / gate | Exit |
+| --- | --- | --- | --- | --- | --- |
+| **DOC-DEBT-M1-01** | Framing `32` métadonnées/maturité indiquent encore « persist runtime non migrée / schemas persist non créés » alors que T-A1 Project/LPS **et** T-A2 CycleInstance M2 subset SQLite sont **mergés** sur main | Risque de lecture contradictoire doctrine cible vs preuve runtime courante (dette plus visible post-M2) | documentation freshness debt | Morris — modification framing v3 = cycle + GO dédié | Cycle documentaire dédié corrigeant **uniquement** l’état factuel sans changer doctrine V3-F02/F06/F09 |
+
+**Anti-claim :** DOC-DEBT-M1-01 ≠ blocker M3 automatique · ≠ autorisation de modifier `32` dans ce cycle · ≠ claim runtime v3 ADOPTED.
+
+## B11. Freeze / stop-doing (**RECOMMENDATION**)
+
+Tant que le chemin critique n’est pas servi, **ne pas** étendre par défaut :
+
+- nouveaux lots FinOps sans dépendance Studio user-visible ;
+- nouvelles features execution-run indépendantes ;
+- expansion OPS1 UI (hors harvest adapter) ;
+- expansion D1 `/projects` ;
+- micro-hardening T-A7 sans blocker utilisateur.
+
+Ces FREEZE sont des **recommandations** jusqu’à validation Morris.
+
+## B12. Maintenance de la roadmap
+
+Mettre à jour après : décision Morris structurante · milestone obtenue · nouvelle preuve · changement de dépendance · architecture validée · réserve bloquante · post-merge structurant.
+Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
+
+## Références
+
+- Build Doctrine : [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md)
+- G0 decision pack : [`sfia-studio-g0-architecture-persistence-decision-pack.md`](./sfia-studio-g0-architecture-persistence-decision-pack.md)
+- M1 : PR #337 · merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI #158 · handoff `84330e34461bbd35adc7baa14fabe993baf24288`
+- M2 : PR #339 · head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` · merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI #162 · handoff PR-readiness `1ad4746b44169d777a726fc8ceeed1c663469c40`
+- M3 : PR #341 · head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` · merge `8eea4cbf211d9e159626394477353f19126fe900` · CI #166 · handoff PR-readiness `2a5759232bf2b17c98f002ad087f2c4c14b65d4d`
+- M3 post-merge Roadmap : PR #342 · merge `607763d9a1349d6b48633d8763f75ae3c07c84fc`
+- M4 architecture pack : `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · GO **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05)
+- M4 Architecture docs : PR #343 · merge `e974b7306f7400249c31399fd2890d5817833dbf`
+- M4 Delivery : PR #344 · head `f7270b21ccdbcf1cd543879e7c4120d87b874479` · merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI #172 SUCCESS · diagnostic Class C handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63`
+- M4 post-Delivery Roadmap : PR #345 · merge `3575c8863d8a13b610dbfde96a33426a620b2c56`
+- FIRST M4 CURSOR REAL : handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · Attempt `xat:m4-first-real-001` · Gate D `gtd:m4-first-real-001` · base `3575c886…` · PARTIAL REAL PROOF (launch only / timeout)
+- M4 timeout diagnosis : handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · NO REAL REPROOF · timeout = PLAUSIBLE CONTRIBUTING FACTOR
+- M4 pre-reproof bounding content-complete : handoff `3c56cb29367268231c1db26b4de7af5cfe0ef499`
+- M4 pre-reproof bounding PR readiness : handoff `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c`
+- M4 pre-reproof bounding product : PR #346 · head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` · merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration
+- M4 post-pre-reproof Roadmap sync : PR #347 · head `4f989aba92bce5ca33e1de251523694559b53902` · merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS
+- M4 GOVERNED REAL COMPLETION PROOF : handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · Attempt `xat:m4-reproof-86b5ecb05474` · Gate D `gtd:m4-reproof-86b5ecb05474` · PASS
+- Morris GO : **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION**
+- M4 closure Roadmap sync : PR #348 · merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e`
+- M5 Entry Qualification : handoff `63f41e3f328868286c14312a58a7b79f850383c0`
+- Morris GO : **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY**
+- Morris GO : **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY**
+- M5 Delivery : PR #350 · head `17461dad78f92a3d5e5e1d9bd36aa20d1e86ac11` · merge `8f753218e4fff7d68d78c1d57e9c3e8fb7e60943` · CI #184/#185 SUCCESS
+- M5 UI/Nora durable rehydrate : PR #351 · head `ced7b172969c27b5e2d6fda06e9caa8c84e1e0d7` · merge `d8961f1d85a98b5d4185f007f16ddac209e2e557` · CI #186/#187 SUCCESS
+- M5 exit re-evaluation handoff : `54b0f5b43a50861c26226aa3ffc06460f8ffbafe` · blob `131c85172bbd6370a3edcd71347a64932c9303ab`
+- M5 capitalization Roadmap sync : PR #352 · head `c26824c602ec041cb1d40e9078191c0f1cde4e95` · merge `3467ecdf74ac2010c45f34545fb8684563dea547` · CI run #31875337665 SUCCESS · post-merge #31875621317 SUCCESS · handoff `0121e184c936f8dc73ffe80e20d43027fec495d7`
+- Morris GO : **ACCEPT M5 EXIT PROOF + CLOSE M5 — KEEP M5-C TECHNICAL JOURNAL — ZERO REAL — NO M6 EXECUTION — RUNTIME V3 NON ADOPTED — NO BRANCH DELETE**
+- M5 EXIT PROOF : **ACCEPTED BY MORRIS** · M5 : **CLOSED**
+- User wording : **« ok go pour la modification »** · governed interpretation : align M5 closure Roadmap with **PRE-M6 USER JOURNEY / UX BASELINE** before M6
+- PRE-M6 : **FUNCTIONAL BASELINE + READINESS COMPLETE / G-UX-15 TECHNICAL BLOCKER CLOSED / INTEGRATION PENDING / FIGMA+UI DELIVERY NOT AUTHORIZED** · Figma action **0** · UI Delivery **0**
+- Current main (closure sync base) : `3467ecdf74ac2010c45f34545fb8684563dea547`
+- Audit handoff historique : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
+- Framing : `projects/sfia-studio/sfia-v3-framing/30`–`37` (dont `34` · DOC-DEBT-M1-01 sur `32`)
 
 ```
 
-### 20. Stale-language search results
-REQUALIFY occurrences: historical-only (timeline / §18 historical status).
-Aucune implémentation: G-UX-08 and G-UX-10 only (explicitly labelled hors Slice A).
-No current REQUALIFY / no-implementation / DECISION REQUIRED — MORRIS for Slice A architecture.
-No AMEND CORRECTIONS APPLIED remnant — replaced by FINAL AMEND APPLIED.
-No G-UX-15 CLOSED / FIGMA AUTHORIZED / READY FOR UI DELIVERY claims as current.
+### 13. Roadmap before/after current-state summary
+**Before:** PRE-M6 WORK NOT STARTED · next gate = Pre-M6 qualification · G-UX-15 not reflected as closed.
+**After:** PRE-M6 functional baseline + gap readiness COMPLETE · G-UX-15 technical blocker CLOSED BY MORRIS · local accepted candidate NOT YET ON MAIN · next repo gate = Cycle 13 PR READINESS · next product gate after integration = D-PRE-M6-UX-05 · Figma/UI Delivery/M6 unauthorized · Confirmation process-local KEEP RESERVE.
 
-### 21. Files changed
-- resolveM3ExecutionContract.ts (untracked amend)
-- gux15.resolveM3ExecutionContract.test.ts (untracked amend)
-- f3/index.ts (tracked — export canonicalM3ResolutionIdempotencyKey)
-- Pre-M6 baseline artifact (untracked sync)
-- Review pack `.tmp-sfia-review/chatgpt-review.md`
+### 14. B6 consumed decisions update
+Recorded: journey/IA/reuse ADOPTED · process-local first-test ACCEPTED · G-UX readiness COMPLETE · Slice A selected + amends consumed · ACCEPT EXIT PROOF CONSUMED · technical blocker CLOSED · D-PRE-M6-UX-05 NO DECISION YET.
 
-### 22. Forbidden-files verification
-OA/domain, UI, Roadmap, Build Doctrine, v3, method, prompts, schema, Confirmation persistence, DecisionBasis, StartExecution — NOT MODIFIED.
+### 15. Pre-M6 gate update
+Completed vs remaining sequences updated; statut no longer WORK NOT STARTED.
 
-### 23–26. Staged empty · REAL unset · Gate D 0 · project commit/push/PR 0
+### 16. B9 V3-F05 update
+PARTIAL RUNTIME with Pre-M6 baseline ADOPTED + G-UX-15 technical bridge ACCEPTED (local) · product proof pending · runtime v3 NON ADOPTED.
 
-### 27. Remaining reservations
-- Confirmation still process-local
-- No UI wiring
-- Fixture-safe ≠ product E2E/REAL
-- G-UX-08/10 unchanged
-- Morris exit-proof acceptance still required — not CLOSED
+### 17. B10 critical-path update
+Sequence now: qualification COMPLETE → journey/IA ADOPTED → G-UX readiness COMPLETE → G-UX-15 EXIT ACCEPTED / blocker CLOSED → PR READINESS → Figma NOT AUTHORIZED YET → … → M6 NOT AUTHORIZED.
 
-### 28. Morris decisions still required
-ACCEPT G-UX-15 SLICE A EXIT PROOF (or AMEND)
+### 18. Remaining G-UX/debt reserves
+G-UX-08/09/10/11/12/13/14 unchanged classifications · Confirmation process-local · M5-C owner debt · product E2E · visual contract.
 
-### 29. Next gate
-ChatGPT final re-review of this handoff → Morris ACCEPT
+### 19. Integration candidate inventory
+1. `projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts`
+2. `projects/sfia-studio/app/features/project-assistant/f3/index.ts`
+3. `projects/sfia-studio/app/__tests__/project-assistant/gux15.resolveM3ExecutionContract.test.ts`
+4. `projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md`
+5. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 
-### 30. Final verdict
-PRE-M6 G-UX-15 SLICE A FINAL AMEND COMPLETE — SUCCESSOR REPLAY GOVERNANCE IDENTITY ENFORCED WITH MORRIS AUTHORITY + EXACT DECISION BINDING + CANONICAL RESOLUTION IDEMPOTENCY — VALIDATED-ONLY MORRIS STATE FAILS CLOSED — FAILED RECOGNIZED AS LEGITIMATE PROGRESSED T-A5 STATE WITHOUT LIFECYCLE REGRESSION — IDEMPOTENT REPLAY PRESERVES SAME SUCCESSOR WITH NO DUPLICATE ATTEMPT OR LAUNCH — ORIGINAL M3 AUDIT CONTRACT PRESERVED — EXISTING SUPERSESSION / CONFIRMATION / AGENT SELECTION / STARTEXECUTION / EXECUTIONATTEMPT ARCHITECTURE KEPT — PRE-M6 ARTIFACT CURRENT-STATE SYNC COMPLETE — FIXTURE-SAFE APPLICATION WIRING PROOF PASS — ZERO REAL — NO GATE D — NO FIGMA — NO UI DELIVERY — NO M6 — READY FOR CHATGPT FINAL RE-REVIEW / MORRIS ACCEPT G-UX-15 SLICE A EXIT PROOF
+Not staged · not committed · not pushed.
 
-### Tracked index.ts diff
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/index.ts b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
-index 388de83..44ee145 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/index.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
-@@ -17,6 +17,21 @@ export { validateF2ForPrepare } from "./validateF2ForPrepare";
- export { prepareF3Fixture } from "./prepareF3Fixture";
- export { prepareM3FromDecision } from "./prepareM3FromDecision";
- export type { F3M3PreparePayload, PrepareM3Deps } from "./prepareM3FromDecision";
-+export { resolveM3ExecutionContract } from "./resolveM3ExecutionContract";
-+export type {
-+  M3ResolvedExecutionFields,
-+  ResolveM3Deps,
-+  ResolveM3ExecutionContractInput,
-+  ResolveM3Failure,
-+  ResolveM3Success,
-+} from "./resolveM3ExecutionContract";
-+export {
-+  UNRESOLVED_STOP_SENTINELS,
-+  canonicalM3PrepareContractId,
-+  canonicalM3PrepareIdempotencyKey,
-+  canonicalM3ResolutionIdempotencyKey,
-+  safeDecisionSegment,
-+} from "./resolveM3ExecutionContract";
- export { confirmAndExecuteF3Fixture } from "./confirmAndExecuteF3Fixture";
- export { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
- export { appendEvidenceOutcomeToLps } from "./appendEvidenceOutcomeToLps";
-
+### 20. Validation output
 ```
+git status --short → index.ts + roadmap modified tracked; Slice A + baseline untracked; .tmp-sfia-review/
+git diff --cached → empty
+git diff --check → clean
+Slice A vs handoff → MATCH (unchanged)
+Tests not re-run (DOC-only cycle) — prior accepted evidence preserved
+```
+
+### 21–26. Staged empty · project commit/push/PR 0 · Figma 0 · UI Delivery 0 · M6 0 · REAL 0
+
+### 27. Next repo gate
+CYCLE 13 — PR READINESS (coherent 5-file candidate)
+
+### 28. Next product gate
+After integration on main + post-merge truth: D-PRE-M6-UX-05 FIGMA VISUAL CONTRACT GO (NOT AUTHORIZED now)
+
+### 29. Anti-claims
+Technical blocker CLOSED ≠ Pre-M6 complete ≠ product E2E ≠ REAL ≠ on main ≠ Figma authorized ≠ UI Delivery authorized ≠ M6 authorized ≠ runtime v3 ADOPTED.
+
+### 30. Verdict
+PRE-M6 G-UX-15 EXIT-PROOF ACCEPTANCE CAPITALIZED — G-UX-15 TECHNICAL APPLICATION-WIRING BLOCKER CLOSED BY MORRIS — ACCEPTED SLICE A IMPLEMENTATION PRESERVED UNCHANGED — FIXTURE-SAFE PROOF RECORDED AS TECHNICAL PROOF ONLY — CONFIRMATION PROCESS-LOCAL RESERVE PRESERVED — PRE-M6 FUNCTIONAL BASELINE SYNCHRONIZED — CONVERGENCE ROADMAP SYNCHRONIZED — CONTROLLED INTEGRATION CANDIDATE PREPARED — NOT YET ON MAIN — NO PROJECT COMMIT / PUSH / PR / MERGE — NO FIGMA — NO UI DELIVERY — NO M6 — ZERO REAL — READY FOR CHATGPT REVIEW / PR-READINESS GATE
