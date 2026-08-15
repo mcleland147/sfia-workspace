@@ -2,7 +2,7 @@
 
 ## PRE-M6 FUNCTIONAL BASELINE ADOPTION + CONSOLIDATED PRE-FIGMA GAP READINESS G-UX-01→15
 
-**Timestamp (Europe/Paris):** 2026-08-15 15:06:03 CEST
+**Timestamp (Europe/Paris):** 2026-08-15 15:07:33 CEST
 
 **Mode:** FULL
 **Cycle:** Cycle 2 — Conception fonctionnelle · CONTINUATION / DECISION + GAP READINESS
@@ -12,8 +12,15 @@
 
 ---
 
+### Follow-up note (same cycle)
+Post-publish factual correction from targeted verification:
+- G-UX-08: AMEND durable HumanDecision `amended` does **not** attach DecisionBasis / LPS decisionIds (GO-only).
+- G-UX-15: Confirmation remains Memory process-local; StartExecution remains sole sequencer; M3 PREPARE has no confirm/execute UI/action.
+- G-UX-10: freshness still prefer derivation; session vs durable rehydrate dual surface noted.
+Verdicts, Morris adoptions, slice recommendation, Figma/Delivery/M6/REAL posture **unchanged**.
+
 ### 1. Timestamp
-2026-08-15 15:06:03 CEST
+2026-08-15 15:07:33 CEST
 
 ### 2. Exact Morris wording
 ```
@@ -21,111 +28,55 @@ ok ta recommandation est tres bien, go
 ```
 
 ### 3. Governed interpretation
-Consume ChatGPT recommendation as Morris GO:
-1. Adopt Pre-M6 functional framing / canonical journey / functional IA / UI reuse principle.
-2. Accept Conversation/Proposal process-local for first bounded functional user test only.
-3. Keep G-UX-15 as structural blocker requiring REQUALIFY (no implementation this cycle).
-4. Produce consolidated readiness for G-UX-01…15 (before/in Figma / Delivery / UAT / accepted / deferred).
-5. Do NOT implement gaps; do NOT start Figma; do NOT authorize UI Delivery / M6 / REAL.
+Consume ChatGPT recommendation as Morris GO: adopt journey/IA/reuse principle; accept process-local first test; REQUALIFY G-UX-15; consolidated readiness G-UX-01…15; no implementation / Figma / UI Delivery / M6 / REAL.
 
 ### 4. Cycle 2 / Critical qualification
-Critical because conclusions determine which functional/application gaps must be qualified or resolved before visual design, which belong in the visual contract, which belong to UI Delivery, which must be proven at UAT, and which are accepted/deferred. No implementation authorized.
+Critical: readiness classification before Figma/Delivery/UAT. No implementation authorized.
 
 ### 5. Current Git Truth
-- Repository: mcleland147/sfia-workspace (expected sfia-workspace)
 - Branch: `design/sfia-studio-pre-m6-ux-qualification`
-- HEAD: `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7`
-- origin/main: `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7`
+- HEAD / origin/main: `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7`
 - Remote project branch: ABSENT
-- Incoming Review Handoff: `c7b1abcd377965ba305c92b1f69ae02f240b6e61`
-- Incoming blob: `39e07e2d1487989c7a7502d6f325eeda3fb3bb19`
-- Working tree project file: only untracked/unstaged `projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md`
-- Staged: empty
-- REAL env: unset
-- Allowed untracked: `.tmp-sfia-review/**`
+- Artifact: untracked/unstaged only
+- REAL: unset
 
-### 6. Incoming handoff commit/blob
-- Commit: `c7b1abcd377965ba305c92b1f69ae02f240b6e61`
-- Blob (French FULL embed identity verified before work): `39e07e2d1487989c7a7502d6f325eeda3fb3bb19`
+### 6. Incoming / prior handoff
+- Prior published tip before this correction: `b2061e1075e2a75bba2db942c3107f345436d130`
+- Prior blob: `b55fb1cec7bceda7cf8c79a334d92b5e3f54c847`
+- Original French baseline incoming: `c7b1abcd…` / `39e07e2d…`
 
 ### 7. Mandatory sources consulted
-Process: cycle execution template; routing guide; ChatGPT/Cursor OM; rules/guardrails; knowledge layer; v2.5 cycles method candidate; CKC pilot 02 (candidate / cognitive only).
-Convergence: Build Doctrine; Roadmap (READ ONLY).
-V3 framing: 30, 32, 33, 34, 35, 37 (plus prior 31/11/16 as historical).
-Current Pre-M6 artifact (amended).
-Targeted code (read-only): `prepareM3FromDecision.ts`, `ProjectAssistantPanel.tsx`, `confirmAndExecuteF3Fixture.ts`, `recordDecision.ts`, `supersedeExecutionContract.ts`, `recommendNextGate.ts`, `rehydrateEvidenceOutcomeFromLps.ts`.
+Process + Build Doctrine + Roadmap (RO) + v3 framing + Pre-M6 artifact + targeted OA/assistant sources (prepareM3, confirmAndExecuteF3Fixture, recordDecision, supersede, recommendNextGate, rehydrate).
 
-### 8. Morris decisions now consumed
-| ID | Status |
-|---|---|
-| D-PRE-M6-UX-01 | **ADOPTED BY MORRIS** |
-| D-PRE-M6-UX-02 | **ADOPTED BY MORRIS** |
-| D-PRE-M6-UX-03 | **ADOPTED BY MORRIS AT PRINCIPLE LEVEL** (individual KEEP/ADAPT/HARVEST/REPLACE/FREEZE/RETIRE LATER remain recommendations) |
-| FIRST-TEST PROCESS-LOCAL LIMITATION | **ACCEPTED BY MORRIS** (Conversation/Proposal; first bounded test only; no new persistence) |
-| D-PRE-M6-UX-04 | **REQUALIFY G-UX-15** (BLOCKER remains open; no implementation) |
-| D-PRE-M6-UX-05 | **NO DECISION YET / FIGMA NOT AUTHORIZED** |
+### 8. Morris decisions consumed
+D-PRE-M6-UX-01/02 ADOPTED; 03 PRINCIPLE; process-local ACCEPTED; 04 REQUALIFY G-UX-15; 05 NO DECISION YET / FIGMA NOT AUTHORIZED.
 
-### 9. Complete updated functional baseline status
-**BASELINE FONCTIONNELLE PRÉ-M6 ADOPTÉE PAR MORRIS — READINESS FIGMA / DELIVERY NON ACQUISE — GAPS OUVERTS**
+### 9. Functional baseline status
+BASELINE FONCTIONNELLE PRÉ-M6 ADOPTÉE PAR MORRIS — READINESS FIGMA / DELIVERY NON ACQUISE — GAPS OUVERTS
 
-Anti-claims preserved: adopted ≠ visual UX approved ≠ Figma authorized ≠ gaps implemented ≠ UI Delivery authorized ≠ Pre-M6 complete ≠ M6 authorized ≠ runtime v3 ADOPTED.
+### 10. G-UX-01…15 readiness matrix
+Unchanged dispositions; G-UX-08/15 factual precision updated in §21–24. Full matrices in artifact §21.
 
-### 10. Complete G-UX-01…15 readiness matrix (summary)
+### 11–13. Targeted qualifications
+See corrected artifact §22–24 (G-UX-15/08/10).
 
-| ID | Severity | Pre-Figma | Figma | Delivery | Proof | Notes |
-|---|---|---|---|---|---|---|
-| G-UX-01 | REQUIRED | FIGMA INPUT ONLY | MUST REPRESENT | UI DELIVERY | E2E+UAT | Entry `/studio` |
-| G-UX-02 | REQUIRED | MUST DEFINE | MUST REPRESENT | UI DELIVERY hide/freeze | E2E+UAT | RETIRE LATER open |
-| G-UX-03 | REQUIRED | FIGMA INPUT | MUST REPRESENT | UI DELIVERY | Visual+UAT | Progressive disclosure |
-| G-UX-04 | REQUIRED | MUST DEFINE | MUST REPRESENT | UI DELIVERY | E2E+visual+UAT | Contextual surfaces |
-| G-UX-05 | REQUIRED | MUST DEFINE | MUST REPRESENT | UI DELIVERY on OA | E2E+UAT | Never D1 engine |
-| G-UX-06 | REQUIRED | MUST DEFINE | MUST REPRESENT | UI DELIVERY projection | E2E+UAT | No timeline store |
-| G-UX-07 | REQUIRED | FIGMA INPUT | MUST REPRESENT | UI DELIVERY copy | Visual+UAT | Authority labels |
-| G-UX-08 | REQUIRED (full journey) | MUST DEFINE | MUST REPRESENT | Delivery or distinct slice before full E2E | E2E+UAT amend; not first GO-only | Not forced with 15 |
-| G-UX-09 | TEMPORARY ACCEPTED | MUST DEFINE honesty | MUST REPRESENT | No new persistence | UAT restart | Morris accepted |
-| G-UX-10 | REQUIRED | MUST DEFINE | MUST REPRESENT | UI DELIVERY derive | E2E+UAT | Prefer no new store |
-| G-UX-11 | REQUIRED (exit) | NO PRE-FIGMA ACTION | OUT OF SCOPE | E2E after Delivery | Browser E2E mandatory exit | Proof gap |
-| G-UX-12 | NON-BLOCKING | NO PRE-FIGMA ACTION | OPTIONAL | No RETIRE now | Not first proof | Principle adopted |
-| G-UX-13 | REQUIRED | MUST DEFINE (§9) | MUST REPRESENT | UI DELIVERY | Visual+E2E+UAT | States |
-| G-UX-14 | DEFERRED | NO ACTION | OUT OF SCOPE | DEFERRED | Not first proof | Future/M6+ |
-| G-UX-15 | **BLOCKER** | **MUST QUALIFY/DEFINE BEFORE FIGMA** | MUST REPRESENT (no hide) | **DISTINCT PRE-DELIVERY TECHNICAL SLICE** | Fixture-safe first; REAL separate GO | REQUALIFY; no impl this cycle |
+### 14. Treatment slices
+SLICE A (G-UX-15 only) still recommended; Morris decision required.
 
-Full multi-field matrices are in artifact §21.
+### 15. Process-local acceptance
+ACCEPTED BY MORRIS — first bounded test only; no new persistence.
 
-### 11. Targeted G-UX-15 qualification
-See artifact §22. Confirmed PREPARE-only durable path vs fixture Confirm/StartExecution. Target contract: supersede unresolved → valid successor → existing Confirmation → StartExecution → Attempt. Open Morris questions: target source, capability binding, impl timing vs Figma. ZERO REAL. No implementation.
+### 16. Figma readiness
+READY WITH FUNCTIONAL RESERVES — FIGMA NOT AUTHORIZED
 
-### 12. Targeted G-UX-08 qualification
-See artifact §23. AMEND durable; incomplete clarification→requalify→new Proposal→new decision loop. Reuse F1/F2. Shared Decision objects with G-UX-15 but not ExecutionContract→StartExecution boundary. Not forced into same slice.
+### 17. UI Delivery readiness
+NOT READY
 
-### 13. Targeted G-UX-10 qualification
-See artifact §24. RecommendNextGate read-only + LPS rehydrate. Prefer freshness derivation from durable versioned facts. Do not add Recommendation persistence by default. Recommendation ≠ Decision.
+### 18. Future gates
+Unchanged (§27)
 
-### 14. Coherent treatment slice analysis
-- **A:** G-UX-15 only — **RECOMMENDED**
-- **B:** G-UX-15 + G-UX-08
-- **C:** G-UX-15 + G-UX-08 + G-UX-10
-Observation/options/recommendation/Morris decision required: artifact §25. Recommendation is **not** a consumed architecture decision.
-
-### 15. Process-local acceptance boundary
-ACCEPTED BY MORRIS — first bounded functional user test only. Honest continuity; no fake restore; restart from durable state; requalify when needed. Exit trigger: UAT proves material continuity/authority failure. No new persistence.
-
-### 16. Figma readiness verdict
-**READY WITH FUNCTIONAL RESERVES** — **FIGMA NOT AUTHORIZED** (D-PRE-M6-UX-05).
-
-### 17. UI Delivery readiness verdict
-**NOT READY** — G-UX-15 unresolved. Figma readiness ≠ Delivery readiness.
-
-### 18. Future gate sequence
-Artifact §27 (review → Morris treatment set → G-UX-15 slice → proof → Figma GO → … → M6 Entry only under separate GO).
-
-### 19. Unresolved questions / Morris decisions required
-1. Select treatment set: A / B / C / amend.
-2. G-UX-15: authoritative **target** source; capability resolution; confirmation authority level; whether implementation must precede Figma or may follow visual contract but precede UI Delivery.
-3. Whether G-UX-08 must be in same pre-Delivery slice.
-4. Future D-PRE-M6-UX-05 Figma GO (not now).
-5. Roadmap sync after integration decision (not authorized now).
-6. M5-C owner still missing (governance debt).
+### 19. Unresolved Morris questions
+Treatment set A/B/C; G-UX-15 target/capability/confirmation durability/supersede vs new contract; Figma GO later; Roadmap sync later.
 
 ### 20. COMPLETE MODIFIED CONTENT of the project artifact
 
@@ -1001,7 +952,7 @@ Vérification factuelle : base Git `2f0d7236…` ; sources ciblées `prepareM3Fr
 | Champ | Valeur |
 |---|---|
 | Classe | APPLICATION WIRING GAP |
-| Condition | Toujours valide : `recordDecision` mappe AMEND → `AMENDMENT_REQUIRED` / HumanDecision `amended` ; pas de retour conversation → nouvelle Proposal → nouvelle décision câblé de bout en bout dans l’UI |
+| Condition | Toujours valide : `recordDecision` mappe AMEND → `AMENDMENT_REQUIRED` / HumanDecision `amended` ; **pas** de `DecisionBasis` ni de lien LPS `decisionIds` sur AMEND (réservés aux GO acceptés) ; pas de boucle câblée clarification → nouvelle Proposal → nouvelle décision |
 | Étapes | Décision → clarification → requalification |
 | Impact | Amendement enregistré sans reprise gouvernée |
 | Risque | Moyen |
@@ -1013,9 +964,9 @@ Vérification factuelle : base Git `2f0d7236…` ; sources ciblées `prepareM3Fr
 | Preuve | MUST PROVE IN BROWSER E2E ; MUST PROVE IN MORRIS UAT (scénario amend) ; **NOT REQUIRED FOR FIRST PROOF** GO-only |
 | Temporaire | Possible pour premier test GO-only seulement |
 | Report | Non pour sortie fonctionnelle complète |
-| Dépendance | F1/F2 orchestration ; Proposal process-local ; DecisionBasis |
+| Dépendance | F1/F2 orchestration ; Proposal process-local ; HumanDecision `amended` (sans DecisionBasis AMEND) |
 | Tranche | Candidate B avec G-UX-15 **non forcée** ; tranche Delivery séparée recommandée |
-| Traitement | Depuis HumanDecision amended → conversation → nouvelle Proposal → nouvelle décision ; Proposal stale refusée ; réutiliser F1/F2 |
+| Traitement | Depuis HumanDecision amended → conversation → nouvelle Proposal → nouvelle décision (DecisionBasis seulement au prochain GO) ; Proposal stale refusée ; réutiliser F1/F2 |
 | Risque parallèle | Moyen si ancienne Proposal mutée / autorité inventée |
 | Preuve clôture | Scénario AMEND → nouvelle Proposal → GO |
 | Gate Morris | Autorisation de traitement ; voir §23 |
@@ -1214,12 +1165,12 @@ Vérification factuelle : base Git `2f0d7236…` ; sources ciblées `prepareM3Fr
 2. **Champs non résolus :** action peut être `UNRESOLVED_ACTION` ; **target toujours** `UNRESOLVED_TARGET` (pas de champ target explicite sur DecisionBasis) ; `requiredCapabilities = ["cap:unresolved"]` ; `reversibility = irreversible` fail-closed ; stopConditions ACTION/TARGET/CAPABILITY/REVERSIBILITY_UNRESOLVED ; contraintes PREPARE_ONLY, NO_CURSOR_REAL, NO_ATTEMPT, NO_GATE_D.
 3. **Validation :** contrat M3 non exécutable (`executionAllowed: false`) ; confirmation UI absente pour ce chemin.
 4. **Supersession :** `SupersedeExecutionContract` existe — prior non superseded/cancelled ; OCC version ; crée successeur validé ; prior devient superseded ; pas de mutation silencieuse des champs critiques sans overrides.
-5. **Confirmation :** chemin fixture crée Confirmation liée au contrat fixture versionné.
-6. **StartExecution :** limite d’autorité existante ; utilisée par `confirmAndExecuteF3Fixture`.
-7. **ExecutionAttempt :** cycle de vie Product SQLite existant ; démarrage via StartExecution.
-8. **AgentCapability :** sélection/bounding existante sur le chemin fixture ; M3 laisse capability unresolved.
-9. **Divergence fixture :** UI `canConfirmF3` = fixture prepare seulement ; M3 prepare efface fixture prepare et **n’active pas** confirm/execute.
-10. **Restart durable :** HumanDecision / contrat / Attempt / Evidence / RB / LPS refs survivent ; Conversation/Proposal non.
+5. **Confirmation :** chemin fixture orchestre request→grant→confirm ; Confirmations restent **Memory process-local** (`createSqliteDecisionServices`) alors que HumanDecision/EC sont SQLite — limite de reprise distincte.
+6. **StartExecution :** unique séquenceur d’autorité ; utilisé par `confirmAndExecuteF3Fixture` après Select.
+7. **ExecutionAttempt :** cycle de vie Product SQLite ; Select crée Attempt `accepted` ; StartExecution lance.
+8. **AgentCapability :** match exact capabilities/action/target/scope ; fixture utilise `cap:f3-fixture-docs` ; M3 laisse `cap:unresolved` → aucun agent ne matche ; projection `selectedAgentRef:null`.
+9. **Divergence fixture :** UI `canConfirmF3` = fixture prepare seulement ; M3 prepare est lecture seule (pas de bouton confirm/execute M3) ; aucune action serveur M3 execute.
+10. **Restart durable :** HumanDecision / EC M3 / Attempt / Evidence / RB / LPS refs survivent ; Conversation/Proposal/Confirmation Memory non.
 
 ### 22.2 Contrat cible pour résolution future (candidat — non implémenté)
 
@@ -1239,7 +1190,7 @@ Vérification factuelle : base Git `2f0d7236…` ; sources ciblées `prepareM3Fr
 | Anti duplicate start/retry ? | Idempotency keys + états Attempt existants |
 | Preuve fixture-safe / simulated ? | Orchestration jusqu’à Attempt **simulée** / fixture-safe sans Cursor REAL |
 | Preuve éventuellement REAL ? | Uniquement sous GO Morris séparé Gate D / REAL — **hors ce cycle** |
-| Questions architecture Morris ? | Source de **target** ; binding capability ; moment d’implémentation vs Figma ; niveau d’autorité confirmation |
+| Questions architecture Morris ? | Source de **target** ; binding capability ; moment d’implémentation vs Figma ; niveau d’autorité confirmation ; supersede vs nouveau contrat lié au même HD ; Confirmation Memory vs Durable comme prérequis preuve produit |
 
 ### 22.3 Anti-revendications G-UX-15
 
@@ -1249,22 +1200,25 @@ Qualification ≠ implementation. Fixture ≠ critical-path product proof. ZERO 
 
 ## 23. Qualification ciblée G-UX-08 — AMEND
 
-### Faits
+### Faits (vérifiés base `2f0d7236`)
 
-- `recordDecision` : AMEND → Proposal `AMENDMENT_REQUIRED`, HumanDecision `amended`, DecisionBasis durable.
-- UI expose le choix AMEND ; **pas** de boucle complète post-AMEND : clarification conversationnelle → nouvelle qualification → nouvelle Proposal → nouvelle décision.
-- Proposal reste process-local ; CycleInstance / ContextSnapshot liés à la qualification F2.
-- Orchestration F1/F2 réutilisable pour produire une **nouvelle** Proposal ; ne pas muter/reconstruire une Proposal consommée.
+- `recordDecision` : AMEND → Proposal `AMENDMENT_REQUIRED`, HumanDecision durable `amended`, `selectedOptionId: "opt:amend"`, `readyForNextGatedStep: false`.
+- Asymétrie vs GO : AMEND **n’attache pas** de `DecisionBasis` ; **ne lien pas** LPS `decisionIds` (`linkToLivingProjectState: false`) ; `cycleInstanceId` typiquement absent sur la décision AMEND.
+- UI : gate se ferme après AMEND ; carte « décision prise » ; **pas** de CTA « retour clarification / requalification » ; `canPrepareF3` / `canPrepareM3` restent faux.
+- `NEEDS_CLARIFICATION` est déclaré dans les types F2 mais **jamais assigné** dans le code produit.
+- Réutilisation incidente : un nouvel envoi utilisateur peut créer une **nouvelle** Proposal via F1/F2 ; ce n’est **pas** une boucle AMEND-aware.
+- Proposal reste process-local ; Proposal terminale `AMENDMENT_REQUIRED` refuse une re-décision (`PROPOSAL_NOT_DECIDABLE`) ; stale = drift de contexte / statut terminal, pas une machine d’état post-AMEND.
+- AMEND ne peut pas entrer M3 PREPARE (`status !== "accepted"` / absence de DecisionBasis).
 
 ### Comportement fonctionnel minimum requis
 
-HumanDecision amended → conversation/clarification → nouvelle qualification → nouvelle Proposal → nouvelle décision.
+HumanDecision amended → conversation/clarification → nouvelle qualification → **nouvelle** Proposal → nouvelle décision (DecisionBasis + lien LPS uniquement si GO accepté).
 
-Proposal stale : refusée pour consommation.
+Ne pas muter la Proposal amendée ; ne pas inventer un DecisionBasis pour AMEND.
 
 ### Relation à G-UX-15
 
-Partage DecisionBasis / HumanDecision / F2, **pas** le cycle de vie ExecutionContract → StartExecution. Groupage possible mais **non nécessaire** pour débloquer le happy-path d’exécution. Voir §25.
+Partage doctrine / HumanDecision / F2 / Proposal process-local, **pas** le cycle ExecutionContract → StartExecution. Corriger la boucle AMEND **ne** résout **pas** G-UX-15. Groupage possible mais **non nécessaire**. Voir §25.
 
 Aucune implémentation dans ce cycle.
 
@@ -1281,6 +1235,8 @@ Aucune implémentation dans ce cycle.
 ### Modèle de fraîcheur candidat
 
 Dériver « courante / périmée » depuis les faits durables versionnés (Attempt/Evidence/RB/LPS refs) et les snapshots de coordination. Afficher explicitement l’état périmé et le résultat remplaçant.
+
+Point UI actuel : carte session `f3Execute.recommendation` vs réhydratation durable au remount — sans libellé « Recommendation périmée » si le LPS a avancé pendant que la carte session reste affichée.
 
 **Défaut :** pas de nouvelle persistence Recommendation. N’ajouter un store que si preuve de nécessité (exit trigger futur).
 
@@ -1396,45 +1352,19 @@ Project artifacts created = 0 · Existing Pre-M6 artifact modified = 1 · Roadma
 ```
 
 ### 21. Changed files
-- Modified (untracked, unstaged): `projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md`
-- Review pack reset/written: `.tmp-sfia-review/chatgpt-review.md`
-- No other project files
+- `projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md` (factual correction §21 G-UX-08, §22 Confirmation Memory, §23 AMEND, §24 freshness UI note)
+- `.tmp-sfia-review/chatgpt-review.md` reset
 
 ### 22. Forbidden-files check
-Roadmap / Build Doctrine / v3 framing / app/** / method/** / prompts/** / docs/foundation/** / .github/** / scripts/** / package*.json — **NOT MODIFIED**.
+Roadmap / Build Doctrine / v3 / app / method / prompts — NOT MODIFIED
 
-### 23. Validation outputs
-- `git status --short`: only `??` artifact + `.tmp-sfia-review/**`
-- staged: empty
-- `git diff --check --no-index /dev/null <artifact>`: no trailing whitespace / conflict markers (exit 1 solely because --no-index reports a diff)
-- G-UX-01…15 each appear once as `### G-UX-NN` readiness entries
-- G-UX-15 remains BLOCKER
-- D-PRE-M6-UX-01/02/03/04/05 statuses match this GO
-- Process-local acceptance explicit and bounded
-- Figma / UI Delivery / M6 NOT AUTHORIZED; ZERO REAL
-- No project commit/push/PR
+### 23. Validation
+Project still untracked/unstaged only; no project commit; G-UX-01…15 once each; G-UX-15 BLOCKER retained; ZERO REAL
 
-### 24. Project Git writes
-0 (add/commit/push/PR forbidden)
-
-### 25. Figma actions
-0
-
-### 26. UI Delivery
-0
-
-### 27. M6
-0
-
-### 28. REAL
-0
+### 24–28. Project Git writes / Figma / UI Delivery / M6 / REAL = 0
 
 ### 29. Next gate
-1. ChatGPT reads canonical Review Handoff.
-2. ChatGPT verifies every G-UX status against repo truth.
-3. ChatGPT challenges coherent treatment slice recommendation.
-4. Morris selects future treatment set (likely G-UX-15 only or coherent G-UX-15+related wiring).
-No code treatment pre-authorized. Separate Morris GO required before Figma Visual Contract.
+ChatGPT review → Morris treatment-set decision
 
 ### 30. Verdict
 PRE-M6 FUNCTIONAL BASELINE MORRIS DECISIONS RECORDED — CANONICAL M1→M5 USER JOURNEY ADOPTED — FUNCTIONAL IA ADOPTED — UI REUSE PRINCIPLE ADOPTED — FIRST-TEST PROCESS-LOCAL LIMITATION ACCEPTED — G-UX-01→15 CONSOLIDATED READINESS QUALIFIED — G-UX-15 REMAINS REQUALIFY / NO IMPLEMENTATION IN THIS CYCLE — FIGMA READINESS ASSESSED BUT FIGMA NOT AUTHORIZED — UI DELIVERY NOT AUTHORIZED — M6 NOT AUTHORIZED — ZERO REAL — READY FOR CHATGPT REVIEW / MORRIS GAP-TREATMENT DECISION
