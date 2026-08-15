@@ -8,7 +8,7 @@
 | Profil / typologie | Critique · DESIGN / DOC / AUDIT / DECISION READINESS |
 | Capacité principale | V3-F05 — conversation → décision → exécution |
 | Capacités complémentaires | V3-F02 · V3-F14 · V3-F15 |
-| Base Git | `origin/main@2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` |
+| Base Git | `origin/main@a6df83a640afeb0911cb572d118d27a03c9923a7` |
 | Jalon | RÉFÉRENTIEL PRÉ-M6 DU PARCOURS UTILISATEUR / UX |
 | Acteur produit | Morris / pilote du projet |
 | Autorité de livraison | **AUCUNE** — aucune UI Delivery, aucun Figma, M6, Cursor REAL ni changement d’exécution |
@@ -18,7 +18,7 @@
 
 Ce document est la **baseline fonctionnelle pré-M6 adoptée par Morris** pour le parcours utilisateur M1→M5, l’architecture fonctionnelle de l’information et le principe de réutilisation UI. Il conserve l’audit complet antérieur et y ajoute la readiness consolidée pré-Figma des écarts G-UX-01→15.
 
-L’exécution actuelle démontre les capacités requises sur M1→M5. Le chemin durable M3 PREPARE demeure l’audit anchor ; **Slice A** fournit le bridge applicatif `resolveM3ExecutionContract` (successeur résolu via supersession existante). **G-UX-15 = SLICE A EXIT PROOF ACCEPTED BY MORRIS — TECHNICAL APPLICATION-WIRING BLOCKER CLOSED — FIXTURE-SAFE TECHNICAL PROOF ACCEPTED — PRODUCT/BROWSER E2E STILL PENDING**. Preuve fixture-safe = **preuve technique uniquement** (≠ product/browser E2E). Figma / UI Delivery / M6 restent non autorisés. Candidat **local / NOT YET ON MAIN**.
+L’exécution actuelle démontre les capacités requises sur M1→M5. Le chemin durable M3 PREPARE demeure l’audit anchor ; **Slice A** fournit le bridge applicatif `resolveM3ExecutionContract` (successeur résolu via supersession existante). **G-UX-15 = SLICE A EXIT PROOF ACCEPTED BY MORRIS — TECHNICAL APPLICATION-WIRING BLOCKER CLOSED — FIXTURE-SAFE TECHNICAL PROOF ACCEPTED — PRODUCT/BROWSER E2E STILL PENDING**. Preuve fixture-safe = **preuve technique uniquement** (≠ product/browser E2E). Figma / UI Delivery / M6 restent non autorisés. Slice A **MERGED ON MAIN** (PR #354 / merge `a6df83a…` / CI #192).
 
 La Conversation et la Proposal restent locales au processus. Morris a **accepté** cette limite pour le **premier test utilisateur fonctionnel borné uniquement**. La future UX doit être honnête sur le redémarrage/la reprise, récupérer depuis l’état durable du projet, requalifier si nécessaire, et ne jamais fabriquer un contexte de travail perdu. Ceci n’autorise aucune nouvelle persistance.
 
@@ -31,7 +31,7 @@ L’interface utilisateur existante ne forme pas un produit cohérent unique. El
 
 Le référentiel **adopté** est une **expérience projet dominée par la conversation**, avec un résumé vivant du projet toujours accessible et des surfaces contextuelles, orientées tâche, pour la décision, l’exécution et les preuves. Il s’appuie sur l’OA Native Backbone et Product SQLite existants. Il ne nécessite ni moteur métier propre à l’interface, ni état de projet dupliqué, ni modèle de décision dupliqué, ni persistance parallèle.
 
-**Résultat :** BASELINE FONCTIONNELLE PRÉ-M6 ADOPTÉE PAR MORRIS — readiness Figma / UI Delivery **non acquises** — gaps G-UX-01→15 classifiés — **G-UX-15 = SLICE A EXIT PROOF ACCEPTED BY MORRIS — TECHNICAL APPLICATION-WIRING BLOCKER CLOSED — FIXTURE-SAFE TECHNICAL PROOF ACCEPTED — PRODUCT/BROWSER E2E STILL PENDING** — Confirmation process-local = **KEEP RESERVE** — candidat local **NOT YET ON MAIN** — **aucun** Figma, UI Delivery, M6 ni REAL autorisé.
+**Résultat :** BASELINE FONCTIONNELLE PRÉ-M6 ADOPTÉE PAR MORRIS — readiness Figma / UI Delivery **non acquises** — gaps G-UX-01→15 classifiés — **G-UX-15 = SLICE A EXIT PROOF ACCEPTED BY MORRIS — TECHNICAL APPLICATION-WIRING BLOCKER CLOSED — FIXTURE-SAFE TECHNICAL PROOF ACCEPTED — PRODUCT/BROWSER E2E STILL PENDING** — Confirmation process-local = **KEEP RESERVE** — Slice A **MERGED ON MAIN** (PR #354) — **aucun** Figma, UI Delivery, M6 ni REAL autorisé.
 
 **Anti-revendications :** baseline fonctionnelle adoptée ≠ référentiel UX visuel approuvé ≠ Figma autorisé ≠ UI Delivery autorisée ≠ Pre-M6 terminée ≠ M6 Entry Qualification ≠ runtime v3 ADOPTED. G-UX-15 technical blocker CLOSED ≠ product E2E proven ≠ on main. Fixture-safe ≠ REAL. Confirmation process-local reserve **KEEP**. Les dispositions individuelles KEEP / ADAPT / HARVEST / REPLACE / FREEZE / RETIRE LATER restent des **recommandations** jusqu’aux gates Delivery pertinentes.
 
@@ -102,14 +102,14 @@ Les sources d’exécution, d’interface et de tests ont été examinées sous 
 - Architecture fonctionnelle de l’information : **ADOPTED BY MORRIS** (D-PRE-M6-UX-02).
 - Principe de réutilisation UI : **ADOPTED BY MORRIS AT PRINCIPLE LEVEL** (D-PRE-M6-UX-03) — dispositions individuelles de composants **non consommées automatiquement**.
 - Limitation process-local premier test : **ACCEPTED BY MORRIS**.
-- G-UX-15 : **SLICE A EXIT PROOF ACCEPTED BY MORRIS — TECHNICAL APPLICATION-WIRING BLOCKER CLOSED — FIXTURE-SAFE TECHNICAL PROOF ACCEPTED — PRODUCT/BROWSER E2E STILL PENDING** (architecture Slice A **ACCEPTED** ; candidat local **NOT YET ON MAIN** ; Figma / UI Delivery / M6 toujours non autorisés).
-- Readiness consolidée G-UX-01→15 : **AUTHORIZED / COMPLETED** (classification historique) ; **G-UX-15 Slice A** a depuis reçu une implémentation candidat locale (+ amends) — hors commit projet.
+- G-UX-15 : **SLICE A EXIT PROOF ACCEPTED BY MORRIS — TECHNICAL APPLICATION-WIRING BLOCKER CLOSED — FIXTURE-SAFE TECHNICAL PROOF ACCEPTED — PRODUCT/BROWSER E2E STILL PENDING** (architecture Slice A **ACCEPTED** ; **MERGED ON MAIN** via PR #354 ; Figma / UI Delivery / M6 toujours non autorisés).
+- Readiness consolidée G-UX-01→15 : **AUTHORIZED / COMPLETED** (classification historique). **Historique :** Slice A fut d’abord une implémentation candidat locale (+ amends). **Actuel :** G-UX-15 Slice A **MERGED ON MAIN** via PR #354 (merge `a6df83a…` · head `22ae8e5…` · CI #192 SUCCESS · post-merge CI #193 SUCCESS) — technical blocker **CLOSED** — product/browser E2E **PENDING**.
 - Figma Visual Contract : **NOT AUTHORIZED** (D-PRE-M6-UX-05 = NO DECISION YET).
 - Pre-M6 UI Delivery : **NOT AUTHORIZED**.
 - M6 : **NOT STARTED / NOT AUTHORIZED**.
 - runtime v3 : **NON ADOPTED**.
 - Consommation de Cursor REAL / Gate D dans ce cycle : **0**.
-- Sync Roadmap : **LOCAL SYNCHRONIZED CANDIDATE — REVIEWED PASS** (Cycle 15 + micro-amend) — **NOT YET ON MAIN** — intégration Git / PR **pas encore**.
+- Sync Roadmap : **MERGED ON MAIN** with Slice A via PR #354 (prior Cycle 15 sync reviewed PASS) — Cycle 14 current-state sync amend = **PR #355 OPEN / DRAFT**.
 
 ## 3. Acteur et tâches à accomplir
 
@@ -448,9 +448,9 @@ Les dispositions détaillées de readiness multi-dimensionnelle figurent au §21
 | G-UX-12 GOVERNANCE GAP | Dispositions significatives de l’interface et retrait historique non consommés | Non / Non | Dossier de décision ; retrait maintenu à plus tard | Faible | Morris |
 | G-UX-13 UX PRESENTATION GAP | Chargement/vide/erreur/récupération canoniques manquants sur le parcours agrégé | Oui / Oui | Utiliser le modèle d’état §9 comme entrée Figma/Delivery | Faible | Figma/Delivery |
 | G-UX-14 NON-BLOCKING FUTURE ENHANCEMENT | Architecture multi-utilisateur/IAM/administration absente | Non / Non | Maintenir hors pré-M6 | Élevé si anticipé | M6/ultérieur |
-| G-UX-15 APPLICATION WIRING GAP — BLOCKING (classif. historique) | **Historique audit :** PREPARE-only non exécutable. **Actuel :** Slice A exit proof **ACCEPTED BY MORRIS** — technical blocker **CLOSED** ; fixture-safe = technical proof only ; Confirmation process-local reserve KEEP | **Oui (product E2E)** / **Non (technical wiring)** | Architecture ACCEPTED ; local NOT YET ON MAIN ; ZERO REAL | **Product residual** : integration + UI/E2E + Confirmation reserve | DOC amend → COMMIT+PUSH+DRAFT PR → merge → D-PRE-M6-UX-05 → Figma → Delivery |
+| G-UX-15 APPLICATION WIRING GAP — BLOCKING (classif. historique) | **Historique audit :** PREPARE-only non exécutable. **Actuel :** Slice A exit proof **ACCEPTED BY MORRIS** — technical blocker **CLOSED** ; fixture-safe = technical proof only ; Confirmation process-local reserve KEEP | **Oui (product E2E)** / **Non (technical wiring)** | Architecture ACCEPTED ; **MERGED ON MAIN** (PR #354) ; ZERO REAL | **Product residual** : UI/E2E + Confirmation reserve | Cycle 14 post-merge sync → D-PRE-M6-UX-05 → Figma → Delivery |
 
-**ÉCART PRÉ-M6 ENTRE L’EXÉCUTION ET L’APPLICATION — HISTORIQUEMENT QUALIFIÉ ; TECHNIQUEMENT BRIDGÉ PAR SLICE A ; EXIT PROOF ACCEPTED BY MORRIS.** Technical application-wiring blocker = **CLOSED**. Product/browser E2E + UI Delivery restent **PENDING / NOT AUTHORIZED**. Classification historique : APPLICATION WIRING GAP (pas de nouveau moteur). Preuve technique fixture-safe acceptée comme preuve technique uniquement ; Confirmation process-local = KEEP RESERVE ; candidat local NOT YET ON MAIN ; ZERO REAL / Gate D 0.
+**ÉCART PRÉ-M6 ENTRE L’EXÉCUTION ET L’APPLICATION — HISTORIQUEMENT QUALIFIÉ ; TECHNIQUEMENT BRIDGÉ PAR SLICE A ; EXIT PROOF ACCEPTED BY MORRIS.** Technical application-wiring blocker = **CLOSED**. Product/browser E2E + UI Delivery restent **PENDING / NOT AUTHORIZED**. Classification historique : APPLICATION WIRING GAP (pas de nouveau moteur). Preuve technique fixture-safe acceptée comme preuve technique uniquement ; Confirmation process-local = KEEP RESERVE ; Slice A **MERGED ON MAIN** (PR #354) ; ZERO REAL / Gate D 0.
 
 ## 13. Résumé de la disposition des actifs existants
 
@@ -564,7 +564,7 @@ Dépendances avant progression autorisée :
 
 - **Satisfaites (timeline) :** D-PRE-M6-UX-01/02/03 adoptés ; process-local premier test accepté ; readiness G-UX-01→15 classifiée ; SELECT SLICE A ; implémentation + amend + **final amend** Slice A (locale).
 - **Historique supersédé :** D-PRE-M6-UX-04 = REQUALIFY → SELECT/AMEND/FINAL AMEND → **ACCEPT EXIT PROOF** (consommés).
-- **Ouvertes (current) :** Cycle 13 documentary current-state amend + ChatGPT re-review ; ensuite Morris COMMIT + PUSH + OPEN DRAFT PR (candidat 5 fichiers LOCAL / NOT YET ON MAIN) ; merge gate distinct ; post-merge truth ; D-PRE-M6-UX-05 (Figma GO) seulement après intégration ; UI Delivery après Figma validé ; G-UX-08 / G-UX-10 hors Slice A ; Confirmation process-local reserve. **Complétés :** Cycle 13 PR-readiness technical review ; Cycle 15 capitalisation / Roadmap sync.
+- **Ouvertes (current) :** Cycle 14 PR #355 OPEN / DRAFT (baseline/Roadmap current-state sync amend) · ChatGPT review · Morris merge #355 if PASS ; D-PRE-M6-UX-05 (Figma GO) — **NO DECISION YET** ; UI Delivery après Figma validé ; G-UX-08 / G-UX-10 hors Slice A ; Confirmation process-local reserve ; product/browser E2E. **Complétés / historiques :** Cycle 13 PR-readiness · PR #354 merge · CI #192 SUCCESS · post-merge CI #193 SUCCESS · post-merge truth (5-file SHAs on main).
 - GO distinct pour Figma Visual Contract uniquement lorsque les prérequis pré-Figma du §21/§26 sont stables.
 - Validation Figma avant UI Delivery.
 - fixture ≠ preuve produit du chemin critique ; OA/limites applicatives préservées.
@@ -625,7 +625,7 @@ HumanDecision / DecisionBasis → ExecutionContract M3 durable non résolu → E
 
 sans : modifier le contrat non résolu en place ; contourner le fail-closed ; traiter la fixture comme preuve produit du chemin critique ; créer un séquenceur parallèle ; consommer REAL.
 
-Implémentation candidat **présente** localement (non commitée). Voir §22.
+**Historique :** implémentation candidat locale / non commitée. **Actuel :** Slice A **MERGED ON MAIN** via PR #354 (merge `a6df83a…` · head `22ae8e5…`). Voir §22.
 
 ### D-PRE-M6-UX-05 — Futur cycle Figma Visual Contract
 
@@ -637,13 +637,13 @@ Ce GO n’autorise pas le Figma Visual Contract.
 
 ### Recommendation (post-adoption)
 
-La baseline fonctionnelle est adoptée. Slice A G-UX-15 exit proof est **ACCEPTED BY MORRIS** (technical application-wiring blocker **CLOSED**). Capitalisation Cycle 15 + Roadmap sync/micro-amend = **REVIEWED PASS**. Cycle 13 PR-readiness technical/code/doc review = **COMPLETED**. Cet amend documentaire synchronise uniquement les gates **current-state** de ce baseline.
+La baseline fonctionnelle est adoptée. Slice A G-UX-15 exit proof est **ACCEPTED BY MORRIS** (technical application-wiring blocker **CLOSED**). Capitalisation Cycle 15 + Roadmap sync = **REVIEWED PASS**. Cycle 13 PR readiness + draft PR #354 + CI #192 SUCCESS + Morris merge = **COMPLETED**. Post-merge truth (exact 5-file SHAs on main) = **PASS**.
 
-**État dépôt courant :** candidat exact 5 fichiers **LOCAL / NOT YET ON MAIN**.
+**État dépôt courant :** Slice A **MERGED ON MAIN** (PR #354 / merge `a6df83a640afeb0911cb572d118d27a03c9923a7` / head `22ae8e5e4bddb0f997384a5e8ba87c9b35245693`).
 
-**Prochaine gate repo (après PASS ChatGPT de cet amend) :** Morris **COMMIT + PUSH + OPEN DRAFT PR**.
+**Courant :** Cycle 14 documentary current-state sync amend — **PR #355 OPEN / DRAFT** (baseline + Convergence Roadmap).
 
-**Prochaine gate produit (uniquement après intégration main + post-merge truth) :** D-PRE-M6-UX-05 Figma Visual Contract GO — **NO DECISION YET / NOT AUTHORIZED**.
+**Prochaine gate produit :** D-PRE-M6-UX-05 Figma Visual Contract GO — **NO DECISION YET / NOT AUTHORIZED**.
 
 ### Réserves ouvertes
 
@@ -653,25 +653,24 @@ La baseline fonctionnelle est adoptée. Slice A G-UX-15 exit proof est **ACCEPTE
 4. G-UX-09 — process-local accepté temporairement pour le premier test uniquement.
 5. Dispositions individuelles de composants / RETIRE — non consommées (recommandations seulement).
 6. M5-C owner / exit — dette de gouvernance distincte.
-7. Roadmap = **LOCAL SYNCHRONIZED CANDIDATE — REVIEWED PASS — NOT YET ON MAIN** (intégration Git encore pending ; fichier Roadmap **frozen** dans le candidat 5 fichiers).
+7. Roadmap = **MERGED ON MAIN** with Slice A (PR #354) ; Cycle 14 current-state sync amend = **PR #355 OPEN / DRAFT**.
 
 ### Prochaine validation
 
 **Consommé / complété (ne plus demander) :**
 - GO Morris **ACCEPT G-UX-15 SLICE A EXIT PROOF** — **CONSUMED**;
-- Cycle 15 capitalisation + Roadmap sync + micro-amend — **COMPLETE / CHATGPT REVIEW PASS**;
-- Cycle 13 PR-readiness technical review (5 fichiers / 50 tests / typecheck / eslint) — **COMPLETED**.
+- Cycle 15 capitalisation + Roadmap sync + micro-amend — **COMPLETE**;
+- Cycle 13 PR-readiness + COMMIT+PUSH+DRAFT PR #354 + CI #192 SUCCESS + Morris merge — **COMPLETED**;
+- Post-merge truth (5-file SHA MATCH on main) — **PASS**.
 
 **Courant :**
-1. Cet amend documentaire current-state (§19 / §21 / §27);
-2. ChatGPT re-review de cet amend.
+1. Cycle 14 documentary current-state sync amend (baseline + Roadmap) — **PR #355 OPEN / DRAFT**;
+2. ChatGPT review of PR #355.
 
 **Ensuite si PASS :**
-3. Morris **COMMIT + PUSH + OPEN DRAFT PR** (GO distinct);
-4. Revue PR;
-5. Merge gate Morris distinct (**NOT AUTHORIZED** ici);
-6. Post-merge truth check obligatoire;
-7. Seulement après intégration main : D-PRE-M6-UX-05 Figma GO may be considered.
+3. Distinct Morris **MERGE PR #355** gate (docs-only; **NOT AUTHORIZED** here);
+4. Post-merge documentation truth for PR #355;
+5. Seulement ensuite : D-PRE-M6-UX-05 Figma Visual Contract GO may be considered — **NO DECISION YET / NOT AUTHORIZED**.
 
 M6 reste **NOT STARTED / NOT AUTHORIZED**. runtime v3 **NON ADOPTED**. REAL = 0.
 
@@ -679,7 +678,7 @@ M6 reste **NOT STARTED / NOT AUTHORIZED**. runtime v3 **NON ADOPTED**. REAL = 0.
 
 - Artefacts projet créés dans ce cycle : **0**.
 - Artefact pré-M6 local existant modifié : **1**.
-- Resolver G-UX-15 + tests Slice A (locaux, non commités) : **présents**.
+- Resolver G-UX-15 + tests Slice A : **MERGED ON MAIN** via PR #354 — **aucun** code/test modifié en Cycle 14.
 - Autres docs projet / Roadmap / Build Doctrine / v3 framing : **0**.
 - UI routes/composants : **0**.
 - Actions Figma : **0**.
@@ -697,7 +696,7 @@ M6 reste **NOT STARTED / NOT AUTHORIZED**. runtime v3 **NON ADOPTED**. REAL = 0.
 - baseline fonctionnelle ADOPTÉE ≠ UX visuelle approuvée
 - baseline fonctionnelle ADOPTÉE ≠ Figma autorisé
 - gap readiness complète ≠ gap implementation complète
-- G-UX-15 TECHNICAL BLOCKER CLOSED ≠ PRODUCT E2E PROVEN ≠ FIGMA AUTHORIZED ≠ UI DELIVERY AUTHORIZED ≠ PRE-M6 COMPLETE ≠ ON MAIN
+- G-UX-15 TECHNICAL BLOCKER CLOSED / MERGED ON MAIN ≠ PRODUCT E2E PROVEN ≠ FIGMA AUTHORIZED ≠ UI DELIVERY AUTHORIZED ≠ PRE-M6 COMPLETE
 - Figma readiness READY WITH FUNCTIONAL RESERVES ≠ Figma GO
 - UI Delivery readiness ≠ autorisation UI Delivery
 - progrès pré-M6 ≠ autorisation M6
@@ -1088,16 +1087,16 @@ Taxonomie normalisée (dimensions co-existantes ; « comprendre avant Figma » �
 | Sévérité | **TECHNICAL BLOCKER = CLOSED BY MORRIS** · **PRODUCT UX / E2E PROOF = PENDING** Pre-M6 Delivery/UAT |
 | Pré-Figma | Définition + implémentation Slice A disponibles ; Figma peut représenter les états unresolved/successeur sans masquer la réserve Confirmation process-local ni l’absence de preuve product/browser E2E |
 | Figma | MUST REPRESENT — **FIGMA NOT AUTHORIZED** |
-| Delivery | Slice A technique **exit proof ACCEPTED** (local) ; UI Delivery **NOT AUTHORIZED** (intégration pending + Figma not authorized + Delivery gate distinct) |
+| Delivery | Slice A technique **exit proof ACCEPTED** · **MERGED ON MAIN** (PR #354) ; UI Delivery **NOT AUTHORIZED** (Figma not authorized + Delivery gate distinct + product E2E pending) |
 | Preuve | Fixture-safe PASS (`gux15.resolveM3ExecutionContract.test.ts`) ; REAL=0 ; browser E2E future |
 | Temporaire | **Non** pour claim produit |
 | Report | Technical blocker closed ; product proof **not deferred indefinitely** — pending Delivery/UAT |
 | Dépendance | HumanDecision, DecisionBasis, ExecutionContract lifecycle, Confirmation, StartExecution, ExecutionAttempt, AgentCapability |
-| Tranche | **SLICE A SELECTED + EXIT PROOF ACCEPTED BY MORRIS** (local / NOT YET ON MAIN) |
+| Tranche | **SLICE A SELECTED + EXIT PROOF ACCEPTED BY MORRIS** · **MERGED ON MAIN** (PR #354) |
 | Traitement | `resolveM3ExecutionContract` — supersession existante ; ZERO REAL |
 | Risque parallèle | Mitigé dans Slice A (pas de second séquenceur / pas de mutation in-place) |
 | Preuve clôture | Voir §22.4 + tests |
-| Gate Morris | **ACCEPT G-UX-15 SLICE A EXIT PROOF — CONSUMED** · prochain repo gate = **COMMIT + PUSH + OPEN DRAFT PR** (après PASS de cet amend) ; prochain product gate après intégration = D-PRE-M6-UX-05 |
+| Gate Morris | **ACCEPT G-UX-15 SLICE A EXIT PROOF — CONSUMED** · merge PR #354 **CONSUMED** · prochain product gate = D-PRE-M6-UX-05 |
 | Owner | Owner missing |
 | Disposition | **SLICE A EXIT PROOF ACCEPTED BY MORRIS — TECHNICAL APPLICATION-WIRING BLOCKER CLOSED — FIXTURE-SAFE TECHNICAL PROOF ACCEPTED — PRODUCT/BROWSER E2E STILL PENDING** |
 
@@ -1160,13 +1159,13 @@ Amendements appliqués (cumul) :
 - **final :** `failed` reconnu comme état T-A5 progressé légitime (pas de régression) ;
 - **final :** `validated`-only MORRIS refuse ok:true (confirmation_required attendu).
 
-**Morris ACCEPT CONSUMED.** Technical application-wiring blocker = **CLOSED**. Product/browser E2E proof remains **PENDING**. Figma GO / UI Delivery remain unauthorized until separate gates. Local candidate **NOT YET ON MAIN**.
+**Morris ACCEPT CONSUMED.** Technical application-wiring blocker = **CLOSED**. Product/browser E2E proof remains **PENDING**. Figma GO / UI Delivery remain unauthorized until separate gates. Slice A **MERGED ON MAIN** (PR #354).
 
 ---
 
 ## 23. Qualification ciblée G-UX-08 — AMEND
 
-### Faits (vérifiés base `2f0d7236`)
+### Faits (vérifiés historiquement à la base `2f0d7236` — qualification Slice A ; superseded by main@`a6df83a` post PR #354)
 
 - `recordDecision` : AMEND → Proposal `AMENDMENT_REQUIRED`, HumanDecision durable `amended`, `selectedOptionId: "opt:amend"`, `readyForNextGatedStep: false`.
 - Asymétrie vs GO : AMEND **n’attache pas** de `DecisionBasis` ; **ne lien pas** LPS `decisionIds` (`linkToLivingProjectState: false`) ; `cycleInstanceId` typiquement absent sur la décision AMEND.
@@ -1232,7 +1231,7 @@ Aucune implémentation **G-UX-10** dans ce cycle (hors Slice A).
 
 ### RECOMMENDATION
 
-**SLICE A — G-UX-15 only** — **sélectionnée · exit proof ACCEPTED BY MORRIS** (local / NOT YET ON MAIN).
+**SLICE A — G-UX-15 only** — **sélectionnée · exit proof ACCEPTED BY MORRIS** · **MERGED ON MAIN** (PR #354).
 
 Traiter G-UX-08 et G-UX-10 comme tranches Delivery / wiring séparées. Ne pas forcer C.
 
@@ -1268,17 +1267,17 @@ Prérequis avant un futur Figma GO : intégration du candidat accepté sur main 
 
 Parce que :
 
-- le candidat Slice A accepté n’est **pas encore intégré sur main** ;
+- Slice A est **MERGED ON MAIN** (PR #354) mais product/browser E2E **PENDING** ;
 - le Figma Visual Contract n’est pas autorisé / validé (D-PRE-M6-UX-05 = NO DECISION YET) ;
 - UI Delivery reste un gate Morris distinct ultérieur.
 
-Figma readiness ≠ Delivery readiness. Ce n’est **pas** parce que le blocker technique G-UX-15 serait encore ouvert (il est **CLOSED**).
+Figma readiness ≠ Delivery readiness. Ce n’est **pas** parce que le blocker technique G-UX-15 serait encore ouvert (il est **CLOSED**) ni parce que l’intégration Git manquerait (elle est **COMPLETE**).
 
-Prérequis Delivery : intégration main → Figma GO + validation visuelle → GO Delivery séparé.
+Prérequis Delivery : Figma GO + validation visuelle → GO Delivery séparé.
 
 ### ROADMAP
 
-Candidat Roadmap **LOCAL SYNCHRONIZED — REVIEWED PASS** (Cycle 15 + micro-amend) · **NOT YET ON MAIN**. Intégration Git restante via commit/push/PR/merge gates distincts. Ce fichier baseline ne modifie pas le Roadmap (frozen).
+Roadmap **MERGED ON MAIN** with Slice A via PR #354. Cycle 14 post-merge current-state sync updates Roadmap + this baseline together (docs-only follow-up).
 
 ---
 
@@ -1286,32 +1285,34 @@ Candidat Roadmap **LOCAL SYNCHRONIZED — REVIEWED PASS** (Cycle 15 + micro-amen
 
 ### COMPLETED
 1. G-UX-15 Slice A exit proof — **ACCEPTED BY MORRIS** (technical blocker **CLOSED**).
-2. Cycle 15 capitalization + Convergence Roadmap sync — **COMPLETE / CHATGPT REVIEW PASS**.
-3. Roadmap capitalization micro-amend (snapshot/PR #353 / UI audit COMPLETE-CLASSIFIED) — **COMPLETE / CHATGPT REVIEW PASS**.
-4. Cycle 13 PR-readiness technical/code/doc review — **COMPLETED** (5 files / 50 tests PASS · typecheck · eslint · coherence).
+2. Cycle 15 capitalization + Convergence Roadmap sync — **COMPLETE**.
+3. Roadmap capitalization micro-amend (snapshot/PR #353) — **COMPLETE**.
+4. Cycle 13 PR-readiness technical/code/doc review — **COMPLETED**.
+5. Morris COMMIT + PUSH + OPEN DRAFT PR #354 — **COMPLETED**.
+6. SFIA Studio CI **#192** SUCCESS — **COMPLETED**.
+7. Morris MERGE PR #354 — **COMPLETED** (merge `a6df83a640afeb0911cb572d118d27a03c9923a7` · head `22ae8e5e4bddb0f997384a5e8ba87c9b35245693`).
+8. Post-merge truth (exact 5-file SHA MATCH on main) — **PASS**.
 
 ### CURRENT
-5. Cycle 13 documentary current-state amend of this Pre-M6 baseline — **in progress / this cycle**.
-6. ChatGPT re-review of this amend — **next**.
+9. Cycle 14 documentary current-state sync amend — **PR #355 OPEN / DRAFT** (this cycle).
+10. ChatGPT review of PR #355 — **next**.
 
 ### NEXT REPOSITORY GATE IF PASS
-7. Morris **COMMIT + PUSH + OPEN DRAFT PR** — exact 5-file candidate — **NOT AUTHORIZED until Morris GO**.
-8. PR review.
-9. Distinct Morris **merge** gate — **NOT AUTHORIZED** here.
-10. Mandatory **post-merge truth** check.
+11. Distinct Morris **MERGE PR #355** — docs-only — **NOT AUTHORIZED** here.
+12. Post-merge documentation truth for PR #355.
 
-### NEXT PRODUCT GATE ONLY AFTER INTEGRATION ON MAIN
-11. D-PRE-M6-UX-05 — Figma Visual Contract GO — **NO DECISION YET / NOT AUTHORIZED**.
-12. Figma Visual Contract.
-13. Validation visuelle Morris.
-14. UI Delivery sur runtime existant — **NOT AUTHORIZED**.
-15. Browser E2E + preuves visuelles runtime.
-16. Comparaison Figma/runtime.
-17. Morris UAT (incl. Confirmation / process-local honesty).
-18. Revue dettes/gaps restants (G-UX-08/10/12, M5-C owner, Confirmation reserve).
-19. M6 Entry Qualification **uniquement** sous GO séparé — **NOT STARTED / NOT AUTHORIZED**.
+### NEXT PRODUCT GATE (only after #355 on main + post-merge doc truth)
+13. D-PRE-M6-UX-05 — Figma Visual Contract GO — **NO DECISION YET / NOT AUTHORIZED**.
+14. Figma Visual Contract.
+15. Validation visuelle Morris.
+16. UI Delivery sur runtime existant — **NOT AUTHORIZED**.
+17. Browser E2E + preuves visuelles runtime.
+18. Comparaison Figma/runtime.
+19. Morris UAT (incl. Confirmation / process-local honesty).
+20. Revue dettes/gaps restants (G-UX-08/10/12, M5-C owner, Confirmation reserve).
+21. M6 Entry Qualification **uniquement** sous GO séparé — **NOT STARTED / NOT AUTHORIZED**.
 
-G-UX-15 technical exit proof = **ACCEPTED**. Technical blocker = **CLOSED**. Fixture-safe = technical proof only. Product/browser E2E / Figma / UI Delivery / M6 remain later. runtime v3 **NON ADOPTED**. Candidate **NOT YET ON MAIN**.
+G-UX-15 technical exit proof = **ACCEPTED**. Technical blocker = **CLOSED**. Fixture-safe = technical proof only. Slice A **MERGED ON MAIN**. Product/browser E2E / Figma / UI Delivery / M6 remain later. runtime v3 **NON ADOPTED**.
 
 ---
 
@@ -1332,8 +1333,8 @@ G-UX-15 technical exit proof = **ACCEPTED**. Technical blocker = **CLOSED**. Fix
 
 ---
 
-## 29. Compteurs de cycle (Cycle 13 — PR readiness documentary amend)
+## 29. Compteurs de cycle (Cycle 14 — PR #355 current-state sync amend)
 
-Pre-M6 baseline modified = 1 · Roadmap modified = 0 · Resolver/export/tests modified = 0 · Candidate project files = 5 · Build Doctrine/v3/method = 0 · UI/Figma/Delivery/M6/REAL/Gate D = 0 · Confirmation = 0 · project staging/commit/push/PR = 0 · Review Handoff push = 1 bounded L3
+Pre-M6 baseline modified = 1 · Roadmap modified = 1 · Resolver/export/tests modified = 0 · Build Doctrine/v3/method = 0 · UI/Figma/Delivery/M6/REAL/Gate D = 0 · Confirmation = 0 · new PR = 0 · PR #355 merge = 0 · branch delete = 0 · force push = 0 · Review Handoff push = 1 bounded L3
 
-Frozen accepted Slice A code/test/Roadmap unchanged. G-UX-08/10 implementation = 0.
+G-UX-08/10 implementation = 0. Code/test bytes from PR #354 remain unchanged on main.
