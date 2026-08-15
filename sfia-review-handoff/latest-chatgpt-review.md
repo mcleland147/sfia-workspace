@@ -1,24 +1,29 @@
 # SFIA Review Pack — FULL
 
 ## 1. Timestamp (Europe/Paris)
-2026-08-15 08:07:56 CEST
+2026-08-15 08:17:09 CEST
 
 ## 2. GO exact
 GO Morris M5 Delivery
 
 ## 3. Correction pass
-M5 DELIVERY — FINAL QA CORRECTION PASS C1 / C2
+M5 DELIVERY — FINAL C1 MEMORY FALLBACK MICRO-FIX
 
-Incoming ChatGPT verdict:
-M5 DELIVERY QA RE-REVIEW — B1 PASS — B2 PASS — B3 PASS — C1 BLOCKING — C2 BLOCKING PROOF — NOT YET READY FOR COMMIT / PUSH / PR
+Incoming ChatGPT finding (residual C1):
+prepareF3Fixture defaults productDurablePath to true (optional field + `?? true`),
+therefore a Memory caller omitting the new field can receive the Product durable
+disclosure incorrectly.
 
 Incoming handoff:
-9abeddc064b176ae2f62d9a1e6516bb54eda6d3a
+6650543b8ffb2e0c77e2bf5e68277d232f95e06f
 
 ## 4. Cycle / Profile / Typology
-- Cycle: 8 — Delivery / implementation (final QA correction pass)
+- Cycle: 8 — Delivery / implementation — final correction pass
 - Profile: Critical
 - Typology: EVOL
+- Capability: V3-F14 (+ F13/F02/F04/F05/F09)
+- Milestone: M5
+- Next capability: M6 — NOT AUTHORIZED
 
 ## 5. Repo / branch / HEAD / origin-main
 - Repo: mcleland147/sfia-workspace
@@ -27,151 +32,120 @@ Incoming handoff:
 - origin/main: 129570dfd44af5b4d466cc3dc0c166d928d26ef5
 - Expected: 129570dfd44af5b4d466cc3dc0c166d928d26ef5 — MATCH
 - Remote delivery branch: ABSENT
-- Incoming handoff at correction start: 9abeddc064b176ae2f62d9a1e6516bb54eda6d3a
+- Incoming handoff: 6650543b8ffb2e0c77e2bf5e68277d232f95e06f
+- staged: empty
+- REAL env: unset
 
 ## 6. Convergence Pre-check
-- Capability: V3-F14 (+ F13/F02/F04/F05/F09)
-- Milestone: M5
-- Previous: M4 CLOSED
-- Next after M5 closure: M6 NOT AUTHORIZED
 - Architecture preserved: M5-A OPTION B · M5-B W1 · M5-C KEEP TEMPORARY WITH EXIT
-- Gaps closed this pass: C1 truthful disclosure · C2 direct Product action proof
+- B1/B2/B3/C2 PASS preserved (no semantic rewrite)
+- Scope: prepareF3Fixture contract only + callers + direct Memory surface test
+- Forbidden zones untouched: convergence/, framing/, method/, prompts/, workflows, schema semantics, journal, timeout, REAL, Gate D, M6
 
 ## 7. Sources lues
-- Process templates / routing / operating model / guardrails / CKC synthetic map
+- Cycle execution template / routing / operating model / guardrails (read-only)
 - Convergence Build Doctrine + Roadmap (read-only)
-- v3 framing 32 / 33 / 35
-- Handoff @ 9abeddc0…
-- F3 constants / confirm / ingest / rehydrate / actions / types / runtime
+- Framing 35 (read-only)
+- Handoff @ 6650543b…
+- prepareF3Fixture.ts / constants.ts / actions.ts / callers via rg
 
 ## 8. Git Truth
 - HEAD == origin/main == expected base
 - staged empty
-- M5 candidate + B1/B2/B3 preserved (no reset)
-- REAL env unset
+- M5 full candidate local uncommitted (preserved; no reset)
+- REAL unset (SFIA_STUDIO_CURSOR_REAL / OPS1_CURSOR_REAL)
 
 ## 9. Previous QA (preserved)
-- B1 PASS / unchanged semantics
-- B2 PASS / unchanged semantics
-- B3 PASS / unchanged semantics
+- B1 PASS — terminal Attempt succeeded + resultRef + Ingest + restart + rehydrate + RecommendNextGate
+- B2 PASS — Attempt/Evidence/ReviewBundle CAS + active reservation + atomic reopen
+- B3 PASS — SFIA_STUDIO_SYSTEM_FACTUAL_WRITER / role system / authority none
+- C2 PASS — direct projectAssistantRehydrateEvidenceOutcomeAction Product proof
 
-## 10. C1 finding entrant
-F3_PROCESS_LOCAL_NOTICE claimed restart erases Attempt/Evidence while Product SQLite M5 persists them; also returned by projectAssistantRehydrateEvidenceOutcomeAction.
+## 10. C1 residual finding (exact)
+PrepareF3Deps had `productDurablePath?: boolean` and prepareF3Fixture used
+`input.deps.productDurablePath ?? true`.
+A historical Memory caller omitting the field was treated as Product durable and
+could return F3_PRODUCT_DURABLE_NOTICE while composition is Memory/process-local.
+Resolver itself was correct; defect was prepareF3Fixture surface default only.
 
 ## 11. C1 correction
-- Added F3_PRODUCT_DURABLE_NOTICE (fixture execution + Product SQLite durable Attempt/Evidence/RB/LPS links + REAL disabled + Recommendation not Morris decision)
-- Added resolveF3EphemeralNotice(productDurablePath)
-- RuntimeOaStack.productDurablePath = (store instanceof SqliteProductStore)
-- Routed prepare / confirm+execute / rehydrate actions + confirmAndExecuteF3Fixture / prepareF3Fixture payloads
-- F3_PROCESS_LOCAL_NOTICE KEPT for true Memory/process-local composition
-- Updated RUNTIME_DISCLOSURE_MESSAGES to stop claiming Attempt/Evidence process-local on Product path
-- Distinguishes execution mode (fixture) vs persistence durability (Product SQLite)
+- PrepareF3Deps.productDurablePath: boolean (REQUIRED)
+- Removed all silent fallbacks (`?? true` / `?? false`)
+- prepareF3Fixture calls resolveF3EphemeralNotice(input.deps.productDurablePath) explicitly
+- Product SQLite → true; Memory/process-local → false
+- No env detection; no instanceof inside prepareF3Fixture; no new persistence abstraction
 
-## 12. F3_PROCESS_LOCAL_NOTICE audit
-| Surface | Disposition |
-|---|---|
-| constants.ts definition | KEEP for Memory path |
-| resolveF3EphemeralNotice(false) | returns PROCESS_LOCAL |
-| resolveF3EphemeralNotice(true) | returns PRODUCT_DURABLE |
-| prepareF3Fixture | uses resolve via productDurablePath |
-| confirmAndExecuteF3Fixture | uses resolve via productDurablePath |
-| projectAssistantPrepareF3FixtureAction | Product notice |
-| projectAssistantConfirmAndExecuteF3FixtureAction | Product notice |
-| projectAssistantRehydrateEvidenceOutcomeAction | Product notice |
-| ProjectAssistantPanel | consumes ephemeralNotice from action (no redesign) |
+## 12. Callers audit (complete)
+| Caller | Mode | Explicit flag |
+|---|---|---|
+| features/project-assistant/actions.ts (projectAssistantPrepareF3FixtureAction) | Product | productDurablePath: runtime.oa.productDurablePath |
+| __tests__/project-assistant/f3.fixtureVerticalSlice.test.ts (7 prepareF3Fixture calls) | Product (default runtime SQLite composition) | productDurablePath: runtime.oa!.productDurablePath |
+| __tests__/project-assistant/m5C1PrepareMemoryDisclosure.test.ts | Memory | productDurablePath: false |
 
-## 13. C1 tests
-m5C1C2DisclosureAndRehydrateAction.test.ts — notice routing + Product action returns F3_PRODUCT_DURABLE_NOTICE, not PROCESS_LOCAL, no "efface" claim. PASS
+No unresolved caller. No PrepareF3Deps constructor outside prepareF3Fixture type + those call sites.
 
-## 14. C2 finding entrant
-Helper rehydrateEvidenceOutcomeFromLps proven; server action projectAssistantRehydrateEvidenceOutcomeAction not directly invoked in prior handoff.
+Note: confirmAndExecuteF3Fixture still has optional productDurablePath with fallback — OUT OF SCOPE for this micro-fix (contract targets prepareF3Fixture only). Product actions already pass explicit flags into confirm path; B1–C2 semantics untouched.
 
-## 15. C2 correction / proof
-Test calls projectAssistantRehydrateEvidenceOutcomeAction({ projectId }) with Product SQLite runtime (productDbPath), seeds Evidence+RB+W1 LPS, asserts DTO + recommendation-only flags + Product durable notice + LPS read-only before/after + fail-closed NO_EVIDENCE_OUTCOME_REFS.
+## 13. Direct Memory prepareF3Fixture proof
+File: __tests__/project-assistant/m5C1PrepareMemoryDisclosure.test.ts
+- Calls prepareF3Fixture for real with Memory services (createTestProject/Cycle/Decision/ExecutionContract + MemoryAuthorityResolver)
+- productDurablePath: false
+- Asserts payload.processLocalNotice === F3_PROCESS_LOCAL_NOTICE
+- Asserts !== F3_PRODUCT_DURABLE_NOTICE
+- disclosures contains PROCESS_LOCAL and not PRODUCT_DURABLE
+- PASS
 
-## 16. Tests summary
-| Suite | Result |
-|---|---|
-| project-assistant (incl C1/C2) | PASS (53 in targeted batch; full suite below) |
-| m5RestartProcessProof / rehydrate / W1 / recommendation-vs-decision | PASS |
-| oa/project + attempt + evidence-review + vertical-slice-runtime | 341 PASS |
-| typecheck / lint / build | green |
-| full npm test | **1720 passed**, 131 skipped |
-| modeled governance | **73 passed** |
-| git diff --check | clean |
+## 14. Product disclosure / C2 preserved
+- m5C1C2DisclosureAndRehydrateAction.test.ts — Product path + resolve routing + direct rehydrate action — PASS
+- Product notice retained; no "efface" / "non persisté" on Product notice; REAL disabled language retained; Recommendation ≠ Morris Decision
 
-## 17. Safety
-REAL=0 · M6=0 · journal unchanged · timeout unchanged · schema extra change=0 · B1/B2/B3 semantic rewrite=0 · project commit/push/PR/merge=0
+## 15. QA summary
+Targeted:
+- m5C1PrepareMemoryDisclosure.test.ts PASS
+- __tests__/project-assistant (46) PASS
+- m5RestartProcessProof / m5W1LpsAppend / rehydrateEvidenceOutcomeFromLps / recommendation-vs-decision PASS
 
-## 18. Files modified/created
-### Modified
-```
-M	projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts
-M	projects/sfia-studio/app/features/project-assistant/actions.ts
-M	projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
-M	projects/sfia-studio/app/features/project-assistant/f3/constants.ts
-M	projects/sfia-studio/app/features/project-assistant/f3/index.ts
-M	projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
-M	projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
-M	projects/sfia-studio/app/features/project-assistant/types.ts
-M	projects/sfia-studio/app/lib/oa/evidence-review/index.ts
-M	projects/sfia-studio/app/lib/oa/execution-attempt/application/cancelExecutionAttempt.ts
-M	projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
-M	projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionResult.ts
-M	projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
-M	projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-M	projects/sfia-studio/app/lib/oa/execution-attempt/application/triggerAttemptTimeout.ts
-M	projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
-M	projects/sfia-studio/app/lib/oa/project/application/appendLivingProjectStateVersion.ts
-M	projects/sfia-studio/app/lib/oa/project/domain/types.ts
-M	projects/sfia-studio/app/lib/oa/project/index.ts
-M	projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
-M	projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/productSqliteHandle.ts
-M	projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProductStore.ts
-M	projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts
-M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+Final:
+- __tests__/oa/project + execution-attempt + evidence-review + vertical-slice-runtime PASS (341)
+- typecheck PASS
+- lint PASS
+- build PASS
+- full Vitest: 1721 passed | 131 skipped
+- governance node tests: 73 pass
+- git diff --check: clean
+- REAL=0
 
-```
-### Diff stat
-```
- .../oa/decision/m3ProductSchemaMigration.test.ts   |  10 +-
- .../app/features/project-assistant/actions.ts      | 103 +++++++++++++++++++--
- .../f3/confirmAndExecuteF3Fixture.ts               |  24 ++++-
- .../app/features/project-assistant/f3/constants.ts |  24 +++++
- .../app/features/project-assistant/f3/index.ts     |  11 +++
- .../f3/ingestEvidenceAndRecommend.ts               |  28 ++++++
- .../project-assistant/f3/prepareF3Fixture.ts       |  12 ++-
- .../app/features/project-assistant/types.ts        |  38 +++++++-
- .../app/lib/oa/evidence-review/index.ts            |  14 ++-
- .../application/cancelExecutionAttempt.ts          |   4 +-
- .../application/recordExecutionFailure.ts          |   4 +-
- .../application/recordExecutionResult.ts           |   4 +-
- .../application/selectExecutionAgent.ts            |   4 +-
- .../application/startExecution.ts                  |   4 +-
- .../application/triggerAttemptTimeout.ts           |   4 +-
- .../app/lib/oa/execution-attempt/index.ts          |  15 ++-
- .../application/appendLivingProjectStateVersion.ts |  12 +++
- .../sfia-studio/app/lib/oa/project/domain/types.ts |  10 ++
- projects/sfia-studio/app/lib/oa/project/index.ts   |   1 +
- .../app/lib/oa/project/infrastructure/sqlite/db.ts |  87 ++++++++++++++++-
- .../infrastructure/sqlite/productSqliteHandle.ts   |  14 ++-
- .../infrastructure/sqlite/sqliteProductStore.ts    |  15 ++-
- .../app/lib/vertical-slice-runtime/disclosures.ts  |  17 ++--
- .../app/lib/vertical-slice-runtime/service.ts      |  57 +++++++++---
- 24 files changed, 458 insertions(+), 58 deletions(-)
+## 16. Safety counters
+- C1 required persistence flag = done
+- Memory prepare direct test = done
+- Product test preservation = done
+- B1/B2/B3/C2 semantic rewrite = 0
+- schema change = 0 (this micro-fix)
+- journal change = 0
+- timeout change = 0
+- Cursor REAL = 0
+- Gate D = 0
+- M6 = 0
+- Roadmap / Build Doctrine / framing / method / template = 0
+- project commit/push/PR/merge = 0
 
-```
-### Created (full content below)
-Includes M5 Delivery + B1/B2/B3 + C1/C2 new files (18 listed in NEW FILES section).
+## 17. Files touched THIS micro-fix
+Modified:
+- projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
+- projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
+Created:
+- projects/sfia-studio/app/__tests__/project-assistant/m5C1PrepareMemoryDisclosure.test.ts
+(actions.ts already explicit from prior C1/C2 pass — no semantic change required this pass)
+
+## 18. Full candidate file list (M5 Delivery complete local candidate)
+See git status / NEW FILES / FULL DIFF below (Delivery + B1/B2/B3 + C1/C2 + this micro-fix).
 
 ## 19. git diff --check
-```
-
-```
+CLEAN (no whitespace errors)
 
 ## 20. Final git status
-```
  M projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts
+ M projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
  M projects/sfia-studio/app/features/project-assistant/actions.ts
  M projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
  M projects/sfia-studio/app/features/project-assistant/f3/constants.ts
@@ -204,6 +178,7 @@ Includes M5 Delivery + B1/B2/B3 + C1/C2 new files (18 listed in NEW FILES sectio
 ?? projects/sfia-studio/app/__tests__/oa/project/m5W1LpsAppend.test.ts
 ?? projects/sfia-studio/app/__tests__/oa/project/rehydrateEvidenceOutcomeFromLps.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/m5C1C2DisclosureAndRehydrateAction.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/m5C1PrepareMemoryDisclosure.test.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/appendEvidenceOutcomeToLps.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/rehydrateEvidenceOutcomeFromLps.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/systemFactualWriter.ts
@@ -213,52 +188,41 @@ Includes M5 Delivery + B1/B2/B3 + C1/C2 new files (18 listed in NEW FILES sectio
 ?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptTechnicalStore.ts
 ?? projects/sfia-studio/app/lib/oa/execution-attempt/ports/executionAttemptTechnicalStorePort.ts
 
-```
-
 ## 21. Reserves
-- Claims/Maturity/Confirmation remain Memory (intentional)
-- Cross-aggregate not single distributed TX (unchanged)
-- Timeout OPEN NON-BLOCKING
-- M5 CLOSED not claimed
-- Memory F3 path remains theoretically available via resolveF3EphemeralNotice(false); default Runtime composition uses Product SQLite
+- Project commit/push/PR/merge still require separate Morris GO
+- confirmAndExecuteF3Fixture optional productDurablePath fallback remains as known residual outside this prepare-only contract
+- M5 not CLOSED; M6 not authorized; runtime v3 not ADOPTED by this verdict
 
 ## 22. Debt / exit
-- M5-C journal TEMPORARY WITH EXIT
-- M5 CLOSED requires future Morris post-merge exit evaluation
-- M6 requires distinct GO
+- M5-C KEEP TEMPORARY WITH EXIT unchanged
+- Technical journal retirement remains post-M5 debt
 
 ## 23. Corrected M5 exit matrix
-| Criterion | Status |
+| Gate | Status |
 |---|---|
-| B1 terminal Attempt/resultRef/ingest/restart/RecommendNextGate | SATISFIED LOCALLY (preserved) |
-| B2 atomic OCC + concurrent tests | SATISFIED LOCALLY (preserved) |
-| B3 W1 system provenance | SATISFIED LOCALLY (preserved) |
-| C1 Product path disclosure truthful | SATISFIED LOCALLY |
-| C1 Memory disclosure truthful (resolver) | SATISFIED LOCALLY |
-| C1 execution remains fixture/no-effect | SATISFIED LOCALLY |
-| C1 no Confirmation/Claims/Maturity/runtime ADOPTED claim | SATISFIED LOCALLY |
-| C2 server action directly invoked | SATISFIED LOCALLY |
-| C2 Product runtime / LPS / Evidence/RB / RecommendNextGate | SATISFIED LOCALLY |
-| C2 recommendation-only + LPS unchanged + fail-closed | SATISFIED LOCALLY |
-| REAL=0 / M6=0 / journal / timeout | SATISFIED LOCALLY |
-| Morris M5 CLOSED acceptance | NOT PROVEN |
+| B1 Attempt terminal + restart | PASS preserved |
+| B2 CAS / OCC | PASS preserved |
+| B3 system factual writer | PASS preserved |
+| C1 disclosure routing | SATISFIED LOCALLY (required flag + Memory prepare proof + Product proof) |
+| C2 rehydrate action | PASS preserved |
+| REAL | 0 |
+| M6 | NOT AUTHORIZED |
+| Commit/Push/PR/Merge | NOT AUTHORIZED by this verdict |
 
 ## 24. Verdict
-M5 DELIVERY FINAL QA CORRECTIONS COMPLETE — C1 PRODUCT DISCLOSURE TRUTHFUL — C2 PRODUCT-FACING REHYDRATE ACTION PROVEN — B1/B2/B3 PRESERVED — OPTION B + W1 PRODUCT PATH REVIEWABLE — ZERO REAL — M6 NOT AUTHORIZED — READY FOR CHATGPT FINAL QA REVIEW
 
-!= commit/PR/merge authorized · != M5 CLOSED · != M6 authorized · != runtime v3 ADOPTED
+M5 DELIVERY FINAL C1 FALLBACK FIX COMPLETE — PRODUCT/MEMORY DISCLOSURE ROUTING EXPLICIT AND PROVEN — B1/B2/B3/C2 PRESERVED — OPTION B + W1 PRODUCT PATH REVIEWABLE — ZERO REAL — M6 NOT AUTHORIZED — READY FOR CHATGPT FINAL QA REVIEW
 
 ## 25. Next Morris gate
-1. ChatGPT final QA re-review
-2. If PASS → Morris GO séparée commit/push/Draft PR
-3. Merge GO séparée
-4. Post-merge exit proof → M5 closure
-5. M6 only under future GO
-
----
+1. ChatGPT final QA review.
+2. If PASS: Morris GO séparée commit / push / Draft PR M5 Delivery.
+3. Merge = gate Morris distinct.
+4. Post-merge M5 exit proof.
+5. M5 closure = décision Morris.
+6. M6 reste fermé jusqu'à GO explicite.
 
 # FULL DIFF — MODIFIED FILES
-```diff
+
 diff --git a/projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts b/projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts
 index 04202fb..e1fe203 100644
 --- a/projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts
@@ -296,6 +260,66 @@ index 04202fb..e1fe203 100644
 
      const project = await svc.getProject.execute({ projectId: "prj:m3-mig" });
      expect(project.ok).toBe(true);
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
+index d97e15d..ea79e0e 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
+@@ -168,6 +168,7 @@ describe("F3 native fixture vertical slice", () => {
+         authorityResolver: runtime.oa!.authorityResolver,
+         executionContractServices: runtime.oa!.executionContractServices,
+         nowIso: () => runtime.oa!.clock.nowIso(),
++        productDurablePath: runtime.oa!.productDurablePath,
+       },
+     });
+     expect(prepared.ok).toBe(true);
+@@ -206,6 +207,7 @@ describe("F3 native fixture vertical slice", () => {
+         authorityResolver: runtime.oa!.authorityResolver,
+         executionContractServices: runtime.oa!.executionContractServices,
+         nowIso: () => runtime.oa!.clock.nowIso(),
++        productDurablePath: runtime.oa!.productDurablePath,
+       },
+     });
+     expect(prepared.ok).toBe(true);
+@@ -227,6 +229,7 @@ describe("F3 native fixture vertical slice", () => {
+         authorityResolver: runtime.oa!.authorityResolver,
+         executionContractServices: runtime.oa!.executionContractServices,
+         nowIso: () => runtime.oa!.clock.nowIso(),
++        productDurablePath: runtime.oa!.productDurablePath,
+       },
+     });
+     expect(bad.ok).toBe(false);
+@@ -247,6 +250,7 @@ describe("F3 native fixture vertical slice", () => {
+         authorityResolver: runtime.oa!.authorityResolver,
+         executionContractServices: runtime.oa!.executionContractServices,
+         nowIso: () => runtime.oa!.clock.nowIso(),
++        productDurablePath: runtime.oa!.productDurablePath,
+       },
+     });
+     expect(prepared.ok).toBe(true);
+@@ -314,6 +318,7 @@ describe("F3 native fixture vertical slice", () => {
+         authorityResolver: runtime.oa!.authorityResolver,
+         executionContractServices: runtime.oa!.executionContractServices,
+         nowIso: () => runtime.oa!.clock.nowIso(),
++        productDurablePath: runtime.oa!.productDurablePath,
+       },
+     });
+     expect(prepared.ok).toBe(true);
+@@ -372,6 +377,7 @@ describe("F3 native fixture vertical slice", () => {
+         authorityResolver: runtime.oa!.authorityResolver,
+         executionContractServices: runtime.oa!.executionContractServices,
+         nowIso: () => runtime.oa!.clock.nowIso(),
++        productDurablePath: runtime.oa!.productDurablePath,
+       },
+     });
+     expect(prepared.ok).toBe(true);
+@@ -415,6 +421,7 @@ describe("F3 native fixture vertical slice", () => {
+         authorityResolver: runtime.oa!.authorityResolver,
+         executionContractServices: runtime.oa!.executionContractServices,
+         nowIso: () => runtime.oa!.clock.nowIso(),
++        productDurablePath: runtime.oa!.productDurablePath,
+       },
+     });
+     expect(prepared.ok).toBe(false);
 diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
 index 4b05d0d..762461f 100644
 --- a/projects/sfia-studio/app/features/project-assistant/actions.ts
@@ -681,7 +705,7 @@ index 5c6039a..c4ad4b3 100644
    };
  }
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts b/projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
-index ee20d7c..f52ba26 100644
+index ee20d7c..a9313aa 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
 @@ -16,11 +16,11 @@ import {
@@ -697,27 +721,30 @@ index ee20d7c..f52ba26 100644
  } from "./constants";
  import type { F3PreparePayload } from "./types";
  import { validateF2ForPrepare } from "./validateF2ForPrepare";
-@@ -30,6 +30,8 @@ export type PrepareF3Deps = {
+@@ -30,6 +30,11 @@ export type PrepareF3Deps = {
    authorityResolver: MemoryAuthorityResolver;
    executionContractServices: ExecutionContractServices;
    nowIso: () => string;
-+  /** True when OA composition uses Product SQLite. */
-+  productDurablePath?: boolean;
++  /**
++   * Required: true = Product SQLite OA composition; false = Memory/process-local.
++   * Callers must not omit — no silent default.
++   */
++  productDurablePath: boolean;
  };
 
  function toContractDto(
-@@ -184,6 +186,10 @@ export async function prepareF3Fixture(input: {
+@@ -184,6 +189,10 @@ export async function prepareF3Fixture(input: {
      };
    }
 
 +  const persistenceNotice = resolveF3EphemeralNotice(
-+    input.deps.productDurablePath ?? true,
++    input.deps.productDurablePath,
 +  );
 +
    return {
      ok: true,
      payload: {
-@@ -201,7 +207,7 @@ export async function prepareF3Fixture(input: {
+@@ -201,7 +210,7 @@ export async function prepareF3Fixture(input: {
          cursorRealBlocked: F3_LABELS.cursorRealBlocked,
          hardOpen: F3_LABELS.hardOpen,
        },
@@ -726,7 +753,7 @@ index ee20d7c..f52ba26 100644
        disclosures: [
          F3_LABELS.fixtureNoReal,
          F3_LABELS.noGitWrite,
-@@ -209,7 +215,7 @@ export async function prepareF3Fixture(input: {
+@@ -209,7 +218,7 @@ export async function prepareF3Fixture(input: {
          F3_LABELS.hardOpen,
          F3_LABELS.noReadyClaim,
          F3_LABELS.noTa6Complete,
@@ -1394,1922 +1421,646 @@ index 2c366c1..c8a60fc 100644
  }
 
 
-```
+# NEW FILES — COMPLETE CONTENTS
 
-# FULL CONTENT — NEW / CREATED FILES
-```
-===== NEW FILES =====
-
-===== BEGIN FILE: projects/sfia-studio/app/lib/oa/execution-attempt/ports/executionAttemptTechnicalStorePort.ts =====
+===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/evidence-review/m5EvidenceReviewDurability.test.ts =====
 /**
- * Technical store surface used by Attempt use-cases:
- * - transactional unit of work
- * - durable/process-local result-recording budget (RTA5-06)
- *
- * MemoryExecutionAttemptStore satisfies this structurally.
- * SQLite backs resultRecordingAttempts via oa_execution_attempt_result_budget.
+ * M5 — Evidence + ReviewBundle Product SQLite durability.
+ * @vitest-environment node
  */
-export interface ExecutionAttemptTechnicalStorePort {
-  /**
-   * attemptId → bounded RecordExecutionResult attempts.
-   * Only get/set are required by application code; Map satisfies this.
-   */
-  resultRecordingAttempts: {
-    get(key: string): number | undefined;
-    set(key: string, value: number): unknown;
-  };
-  runInTransaction<T>(fn: () => Promise<T>): Promise<T>;
-  /** Test hook — force next Attempt persist to throw (Memory path). */
-  failNextSave?: boolean;
-}
-
-===== END FILE: projects/sfia-studio/app/lib/oa/execution-attempt/ports/executionAttemptTechnicalStorePort.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptRepository.ts =====
-import type { ProductSqliteHandle } from "@/lib/oa/project";
-import { ExecutionAttemptDomainError } from "../../domain/errors";
-import { isAttemptTerminal, validateAttemptShape } from "../../domain/invariants";
-import type { ExecutionAttempt } from "../../domain/types";
-import type {
-  ActiveIndexDrift,
-  ExecutionAttemptRepositoryPort,
-} from "../../ports/executionAttemptRepository";
-
-type AttemptRow = {
-  attempt_id: string;
-  execution_contract_id: string;
-  status: string;
-  idempotency_key: string;
-  version: number;
-  payload_json: string;
-};
-
-function cloneAttempt(attempt: ExecutionAttempt): ExecutionAttempt {
-  return structuredClone(attempt);
-}
-
-/**
- * Durable ExecutionAttempt repository on Product SQLite (M5).
- * Mirrors MemoryExecutionAttemptRepository OCC + active-index semantics.
- */
-export class SqliteExecutionAttemptRepository
-  implements ExecutionAttemptRepositoryPort
-{
-  constructor(private readonly store: ProductSqliteHandle) {}
-
-  async findById(attemptId: string): Promise<ExecutionAttempt | null> {
-    const row = this.store.db
-      .prepare(
-        `SELECT attempt_id, execution_contract_id, status, idempotency_key,
-                version, payload_json
-         FROM oa_execution_attempts WHERE attempt_id = ?`,
-      )
-      .get(attemptId) as AttemptRow | undefined;
-    if (!row) return null;
-    return cloneAttempt(JSON.parse(row.payload_json) as ExecutionAttempt);
-  }
-
-  async findByIdempotencyKey(
-    idempotencyKey: string,
-  ): Promise<ExecutionAttempt | null> {
-    const row = this.store.db
-      .prepare(
-        `SELECT payload_json FROM oa_execution_attempts WHERE idempotency_key = ?`,
-      )
-      .get(idempotencyKey) as { payload_json?: string } | undefined;
-    if (!row?.payload_json) return null;
-    return cloneAttempt(JSON.parse(row.payload_json) as ExecutionAttempt);
-  }
-
-  async exists(attemptId: string): Promise<boolean> {
-    const row = this.store.db
-      .prepare(`SELECT 1 AS ok FROM oa_execution_attempts WHERE attempt_id = ?`)
-      .get(attemptId) as { ok?: number } | undefined;
-    return row?.ok === 1;
-  }
-
-  async create(attempt: ExecutionAttempt): Promise<void> {
-    const shape = validateAttemptShape(attempt);
-    if (shape) {
-      throw new ExecutionAttemptDomainError(shape.detailCode, shape.reason);
-    }
-    if (attempt.version !== 1) {
-      throw new ExecutionAttemptDomainError(
-        "ATTEMPT_INVALID",
-        "create_requires_version_1",
-      );
-    }
-    if (await this.exists(attempt.attemptId)) {
-      throw new ExecutionAttemptDomainError(
-        "ATTEMPT_ALREADY_EXISTS",
-        "attempt_id_taken",
-      );
-    }
-    const existingKeyOwner = await this.findByIdempotencyKey(
-      attempt.idempotencyKey,
-    );
-    if (
-      existingKeyOwner &&
-      existingKeyOwner.attemptId !== attempt.attemptId
-    ) {
-      throw new ExecutionAttemptDomainError(
-        "ATTEMPT_IDEMPOTENCY_CONFLICT",
-        "idempotency_key_taken",
-      );
-    }
-    this.failIfForced();
-    const now = attempt.createdAt;
-    const payload = JSON.stringify(cloneAttempt(attempt));
-    this.store.db
-      .prepare(
-        `INSERT INTO oa_execution_attempts(
-           attempt_id, execution_contract_id, status, idempotency_key,
-           version, result_recording_count, payload_json, created_at, updated_at
-         ) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)`,
-      )
-      .run(
-        attempt.attemptId,
-        attempt.executionContractId,
-        attempt.status,
-        attempt.idempotencyKey,
-        attempt.version,
-        payload,
-        now,
-        now,
-      );
-  }
-
-  async update(
-    attempt: ExecutionAttempt,
-    expectedVersion: number,
-  ): Promise<void> {
-    if (attempt.version !== expectedVersion + 1) {
-      throw new ExecutionAttemptDomainError(
-        "VERSION_CONFLICT",
-        "version_not_monotone",
-        { expectedVersion },
-      );
-    }
-    const shape = validateAttemptShape(attempt);
-    if (shape) {
-      throw new ExecutionAttemptDomainError(shape.detailCode, shape.reason);
-    }
-    this.failIfForced();
-    const now = attempt.updatedAt ?? attempt.completedAt ?? attempt.createdAt;
-    const payload = JSON.stringify(cloneAttempt(attempt));
-    // Atomic CAS: OCC enforced by SQL WHERE version = expectedVersion.
-    const result = this.store.db
-      .prepare(
-        `UPDATE oa_execution_attempts SET
-           execution_contract_id = ?,
-           status = ?,
-           idempotency_key = ?,
-           version = ?,
-           payload_json = ?,
-           updated_at = ?
-         WHERE attempt_id = ? AND version = ?`,
-      )
-      .run(
-        attempt.executionContractId,
-        attempt.status,
-        attempt.idempotencyKey,
-        attempt.version,
-        payload,
-        now,
-        attempt.attemptId,
-        expectedVersion,
-      );
-    if (Number(result.changes) !== 1) {
-      const current = await this.findById(attempt.attemptId);
-      if (!current) {
-        throw new ExecutionAttemptDomainError(
-          "ATTEMPT_NOT_FOUND",
-          "update_missing_attempt",
-        );
-      }
-      throw new ExecutionAttemptDomainError("VERSION_CONFLICT", "occ_mismatch", {
-        expectedVersion,
-        currentVersion: current.version,
-      });
-    }
-  }
-
-  async listByContract(
-    executionContractId: string,
-  ): Promise<ExecutionAttempt[]> {
-    const rows = this.store.db
-      .prepare(
-        `SELECT payload_json FROM oa_execution_attempts
-         WHERE execution_contract_id = ?
-         ORDER BY attempt_id ASC`,
-      )
-      .all(executionContractId) as Array<{ payload_json: string }>;
-    return rows.map((row) =>
-      cloneAttempt(JSON.parse(row.payload_json) as ExecutionAttempt),
-    );
-  }
-
-  async findActiveByContract(
-    executionContractId: string,
-  ): Promise<ExecutionAttempt | null> {
-    const row = this.store.db
-      .prepare(
-        `SELECT attempt_id FROM oa_execution_attempt_active
-         WHERE execution_contract_id = ?`,
-      )
-      .get(executionContractId) as { attempt_id?: string } | undefined;
-    if (!row?.attempt_id) return null;
-    return this.findById(row.attempt_id);
-  }
-
-  async reserveActiveContract(
-    executionContractId: string,
-    attemptId: string,
-  ): Promise<void> {
-    // Atomic insert — never silently replace another attempt's reservation.
-    const result = this.store.db
-      .prepare(
-        `INSERT INTO oa_execution_attempt_active(execution_contract_id, attempt_id)
-         VALUES (?, ?)
-         ON CONFLICT(execution_contract_id) DO NOTHING`,
-      )
-      .run(executionContractId, attemptId);
-    if (Number(result.changes) === 1) {
-      return;
-    }
-    const current = this.store.db
-      .prepare(
-        `SELECT attempt_id FROM oa_execution_attempt_active
-         WHERE execution_contract_id = ?`,
-      )
-      .get(executionContractId) as { attempt_id?: string } | undefined;
-    if (current?.attempt_id === attemptId) {
-      return; // idempotent same attemptId
-    }
-    throw new ExecutionAttemptDomainError(
-      "EXECUTION_ALREADY_ACTIVE",
-      "active_attempt_already_reserved",
-    );
-  }
-
-  async releaseActiveContract(
-    executionContractId: string,
-    attemptId: string,
-  ): Promise<void> {
-    this.store.db
-      .prepare(
-        `DELETE FROM oa_execution_attempt_active
-         WHERE execution_contract_id = ? AND attempt_id = ?`,
-      )
-      .run(executionContractId, attemptId);
-  }
-
-  async rebuildActiveIndex(): Promise<void> {
-    await this.store.runInTransaction(async () => {
-      const rows = this.store.db
-        .prepare(
-          `SELECT payload_json FROM oa_execution_attempts ORDER BY attempt_id ASC`,
-        )
-        .all() as Array<{ payload_json: string }>;
-      const rebuilt = new Map<string, string>();
-      for (const row of rows) {
-        const attempt = JSON.parse(row.payload_json) as ExecutionAttempt;
-        if (isAttemptTerminal(attempt.status)) continue;
-        const existing = rebuilt.get(attempt.executionContractId);
-        if (existing && existing !== attempt.attemptId) {
-          throw new ExecutionAttemptDomainError(
-            "ACTIVE_INDEX_DRIFT",
-            "multiple_active_attempts_for_contract",
-          );
-        }
-        rebuilt.set(attempt.executionContractId, attempt.attemptId);
-      }
-      this.store.db.exec(`DELETE FROM oa_execution_attempt_active`);
-      const insert = this.store.db.prepare(
-        `INSERT INTO oa_execution_attempt_active(execution_contract_id, attempt_id)
-         VALUES (?, ?)`,
-      );
-      for (const [executionContractId, attemptId] of rebuilt) {
-        insert.run(executionContractId, attemptId);
-      }
-    });
-  }
-
-  async detectActiveIndexDrift(): Promise<ActiveIndexDrift[]> {
-    const drifts: ActiveIndexDrift[] = [];
-    const indexed = this.store.db
-      .prepare(
-        `SELECT execution_contract_id, attempt_id FROM oa_execution_attempt_active`,
-      )
-      .all() as Array<{ execution_contract_id: string; attempt_id: string }>;
-
-    for (const row of indexed) {
-      const attempt = await this.findById(row.attempt_id);
-      if (!attempt) {
-        drifts.push({
-          executionContractId: row.execution_contract_id,
-          attemptId: row.attempt_id,
-          reason: "indexed_attempt_missing",
-        });
-        continue;
-      }
-      if (isAttemptTerminal(attempt.status)) {
-        drifts.push({
-          executionContractId: row.execution_contract_id,
-          attemptId: row.attempt_id,
-          reason: "indexed_attempt_terminal",
-        });
-      }
-    }
-
-    const allRows = this.store.db
-      .prepare(`SELECT payload_json FROM oa_execution_attempts`)
-      .all() as Array<{ payload_json: string }>;
-    const seenActive = new Map<string, string>();
-    const activeIndex = new Map(
-      indexed.map((r) => [r.execution_contract_id, r.attempt_id] as const),
-    );
-
-    for (const row of allRows) {
-      const attempt = JSON.parse(row.payload_json) as ExecutionAttempt;
-      if (isAttemptTerminal(attempt.status)) continue;
-      const previous = seenActive.get(attempt.executionContractId);
-      if (previous && previous !== attempt.attemptId) {
-        drifts.push({
-          executionContractId: attempt.executionContractId,
-          attemptId: attempt.attemptId,
-          reason: "multiple_active_attempts",
-        });
-      }
-      seenActive.set(attempt.executionContractId, attempt.attemptId);
-      const indexedId = activeIndex.get(attempt.executionContractId);
-      if (indexedId !== attempt.attemptId) {
-        drifts.push({
-          executionContractId: attempt.executionContractId,
-          attemptId: attempt.attemptId,
-          reason: "active_attempt_not_indexed",
-        });
-      }
-    }
-    return drifts;
-  }
-
-  async assertActiveIndexConsistent(): Promise<void> {
-    const drifts = await this.detectActiveIndexDrift();
-    if (drifts.length > 0) {
-      throw new ExecutionAttemptDomainError(
-        "ACTIVE_INDEX_DRIFT",
-        `drift_${drifts[0].reason}`,
-      );
-    }
-  }
-
-  private failIfForced(): void {
-    if (this.store.failNextSave === "attempt") {
-      this.store.failNextSave = null;
-      throw new ExecutionAttemptDomainError(
-        "EXECUTION_PERSISTENCE_FAILED",
-        "forced_execution_attempt_save_failure",
-      );
-    }
-  }
-}
-
-===== END FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptRepository.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptTechnicalStore.ts =====
-import type { ProductSqliteHandle } from "@/lib/oa/project";
-import type { ExecutionAttemptTechnicalStorePort } from "../../ports/executionAttemptTechnicalStorePort";
-
-/**
- * Durable Map-like facade for result-recording budget.
- * Persists to oa_execution_attempt_result_budget (side table).
- */
-class SqliteResultRecordingAttemptsMap {
-  constructor(private readonly store: ProductSqliteHandle) {}
-
-  get(attemptId: string): number | undefined {
-    const row = this.store.db
-      .prepare(
-        `SELECT count FROM oa_execution_attempt_result_budget WHERE attempt_id = ?`,
-      )
-      .get(attemptId) as { count?: number } | undefined;
-    return typeof row?.count === "number" ? row.count : undefined;
-  }
-
-  set(attemptId: string, count: number): this {
-    this.store.db
-      .prepare(
-        `INSERT INTO oa_execution_attempt_result_budget(attempt_id, count)
-         VALUES (?, ?)
-         ON CONFLICT(attempt_id) DO UPDATE SET count = excluded.count`,
-      )
-      .run(attemptId, count);
-    return this;
-  }
-}
-
-/**
- * Technical Attempt store over Product SQLite — shares UoW with contracts/LPS.
- */
-export class SqliteExecutionAttemptTechnicalStore
-  implements ExecutionAttemptTechnicalStorePort
-{
-  readonly resultRecordingAttempts: SqliteResultRecordingAttemptsMap;
-
-  constructor(private readonly productStore: ProductSqliteHandle) {
-    this.resultRecordingAttempts = new SqliteResultRecordingAttemptsMap(
-      productStore,
-    );
-  }
-
-  async runInTransaction<T>(fn: () => Promise<T>): Promise<T> {
-    return this.productStore.runInTransaction(fn);
-  }
-}
-
-===== END FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptTechnicalStore.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts =====
-import type { ClockPort } from "@/lib/oa/doctrine";
-import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
-import type {
-  AuthorityResolverPort,
-  DecisionServices,
-} from "@/lib/oa/decision";
-import type { ExecutionContractServices } from "@/lib/oa/execution-contract";
-import type { ProductSqliteHandle } from "@/lib/oa/project";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
 import {
-  resolveAttemptPolicy,
-  type AttemptPolicy,
-} from "../../application/attemptPolicy";
-import { CancelExecutionAttempt } from "../../application/cancelExecutionAttempt";
-import { CheckAttemptAuthorization } from "../../application/checkAttemptAuthorization";
-import { ExecutionContractStatusWriter } from "../../application/executionContractStatusWriter";
-import { GetExecutionAttempt } from "../../application/getExecutionAttempt";
-import { ListExecutionAttempts } from "../../application/listExecutionAttempts";
-import { RecordExecutionFailure } from "../../application/recordExecutionFailure";
-import { RecordExecutionResult } from "../../application/recordExecutionResult";
-import { RetryExecutionAttempt } from "../../application/retryExecutionAttempt";
-import { SelectExecutionAgent } from "../../application/selectExecutionAgent";
-import { StartExecution } from "../../application/startExecution";
-import { TriggerAttemptTimeout } from "../../application/triggerAttemptTimeout";
-import type { AgentDescriptor } from "../../domain/types";
-import { MemoryAgentRegistry } from "../memoryAgentRegistry";
-import { NoOpExecutionAdapter } from "../noOpExecutionAdapter";
+  createTestDoctrineResolver,
+  type Digest,
+  type DoctrinePackagePin,
+} from "@/lib/oa/doctrine";
 import {
-  ConsoleExecutionAttemptAuditJournal,
-  MemoryExecutionAttemptAuditJournal,
-} from "../observability";
-import { TestExecutionAdapter } from "../testExecutionAdapter";
-import type { AgentRegistryPort } from "../../ports/agentRegistry";
-import type { ExecutionAttemptAuditPort } from "../../ports/executionAttemptAudit";
-import type { ExecutionAttemptRepositoryPort } from "../../ports/executionAttemptRepository";
-import type { ExecutionAttemptTechnicalStorePort } from "../../ports/executionAttemptTechnicalStorePort";
-import { SqliteExecutionAttemptRepository } from "./sqliteExecutionAttemptRepository";
-import { SqliteExecutionAttemptTechnicalStore } from "./sqliteExecutionAttemptTechnicalStore";
-
-type InjectableExecutionAdapter = TestExecutionAdapter | NoOpExecutionAdapter;
-
-function isInjectableExecutionAdapter(
-  candidate: unknown,
-): candidate is InjectableExecutionAdapter {
-  return (
-    candidate instanceof TestExecutionAdapter ||
-    candidate instanceof NoOpExecutionAdapter
-  );
-}
-
-export type CreateSqliteExecutionAttemptServicesOptions = {
-  decisionServices: DecisionServices;
-  executionContractServices: ExecutionContractServices;
-  productStore: ProductSqliteHandle;
-  agents?: readonly AgentDescriptor[];
-  registry?: MemoryAgentRegistry;
-  adapter?: InjectableExecutionAdapter;
-  clock?: ClockPort;
-  audit?: ExecutionAttemptAuditPort;
-  policy?: Partial<AttemptPolicy>;
-  authorityResolver?: AuthorityResolverPort;
-};
-
-export type SqliteExecutionAttemptServices = {
-  store: ExecutionAttemptTechnicalStorePort;
-  attempts: ExecutionAttemptRepositoryPort;
-  registry: AgentRegistryPort;
-  adapter: InjectableExecutionAdapter;
-  audit: ExecutionAttemptAuditPort;
-  policy: AttemptPolicy;
-  contractStatusWriter: ExecutionContractStatusWriter;
-  productStore: ProductSqliteHandle;
-  selectExecutionAgent: SelectExecutionAgent;
-  startExecution: StartExecution;
-  cancelExecutionAttempt: CancelExecutionAttempt;
-  recordExecutionResult: RecordExecutionResult;
-  recordExecutionFailure: RecordExecutionFailure;
-  retryExecutionAttempt: RetryExecutionAttempt;
-  triggerAttemptTimeout: TriggerAttemptTimeout;
-  getExecutionAttempt: GetExecutionAttempt;
-  listExecutionAttempts: ListExecutionAttempts;
-  checkAttemptAuthorization: CheckAttemptAuthorization;
-};
-
-/**
- * Durable ExecutionAttempt services on Product SQLite (M5-A).
- * Does NOT wire realBoundary / Gate D / REAL launch (M4 REAL-OFF unchanged).
- */
-export function createSqliteExecutionAttemptServices(
-  options: CreateSqliteExecutionAttemptServicesOptions,
-): SqliteExecutionAttemptServices {
-  if (options.registry && options.agents) {
-    throw new Error("execution_attempt_factory_registry_or_agents_not_both");
-  }
-  const registry =
-    options.registry ?? new MemoryAgentRegistry(options.agents ?? []);
-
-  const adapter = options.adapter ?? new NoOpExecutionAdapter();
-  if (!isInjectableExecutionAdapter(adapter)) {
-    throw new Error("execution_attempt_factory_adapter_not_allowed");
-  }
-
-  const clock = options.clock ?? new SystemClock();
-  const audit = options.audit ?? new ConsoleExecutionAttemptAuditJournal();
-  const authority =
-    options.authorityResolver ?? options.decisionServices.authority;
-  const policy = resolveAttemptPolicy(options.policy);
-
-  const store = new SqliteExecutionAttemptTechnicalStore(options.productStore);
-  const attempts = new SqliteExecutionAttemptRepository(options.productStore);
-
-  const contracts = options.executionContractServices.contracts;
-  const contractStatusWriter = new ExecutionContractStatusWriter(
-    contracts,
-    options.executionContractServices.store,
-    attempts,
-  );
-
-  const selectExecutionAgent = new SelectExecutionAgent(
-    attempts,
-    contracts,
-    options.executionContractServices.checkExecutionAuthorization,
-    options.decisionServices,
-    authority,
-    registry,
-    clock,
-    audit,
-    policy,
-    store,
-  );
-
-  return {
-    store,
-    attempts,
-    registry,
-    adapter,
-    audit,
-    policy,
-    contractStatusWriter,
-    productStore: options.productStore,
-    selectExecutionAgent,
-    startExecution: new StartExecution(
-      attempts,
-      contracts,
-      contractStatusWriter,
-      options.executionContractServices.checkExecutionAuthorization,
-      options.decisionServices,
-      authority,
-      registry,
-      adapter,
-      clock,
-      audit,
-      store,
-    ),
-    cancelExecutionAttempt: new CancelExecutionAttempt(
-      attempts,
-      contracts,
-      contractStatusWriter,
-      authority,
-      registry,
-      adapter,
-      clock,
-      audit,
-      store,
-    ),
-    recordExecutionResult: new RecordExecutionResult(
-      attempts,
-      contracts,
-      contractStatusWriter,
-      registry,
-      clock,
-      audit,
-      policy,
-      store,
-    ),
-    recordExecutionFailure: new RecordExecutionFailure(
-      attempts,
-      contracts,
-      contractStatusWriter,
-      registry,
-      clock,
-      audit,
-      store,
-    ),
-    retryExecutionAttempt: new RetryExecutionAttempt(
-      attempts,
-      contracts,
-      selectExecutionAgent,
-      authority,
-      clock,
-      audit,
-      policy,
-    ),
-    triggerAttemptTimeout: new TriggerAttemptTimeout(
-      attempts,
-      contracts,
-      contractStatusWriter,
-      authority,
-      clock,
-      audit,
-      policy,
-      store,
-    ),
-    getExecutionAttempt: new GetExecutionAttempt(attempts, clock, audit),
-    listExecutionAttempts: new ListExecutionAttempts(attempts, clock, audit),
-    checkAttemptAuthorization: new CheckAttemptAuthorization(
-      attempts,
-      contracts,
-      options.executionContractServices.checkExecutionAuthorization,
-      authority,
-      clock,
-      audit,
-    ),
-  };
-}
-
-export function createTestSqliteExecutionAttemptServices(
-  options: CreateSqliteExecutionAttemptServicesOptions & {
-    audit?: MemoryExecutionAttemptAuditJournal;
-    adapter?: TestExecutionAdapter | NoOpExecutionAdapter;
-    fixedNowIso?: string;
-  },
-): SqliteExecutionAttemptServices & {
-  audit: MemoryExecutionAttemptAuditJournal;
-} {
-  const audit = options.audit ?? new MemoryExecutionAttemptAuditJournal();
-  const clock =
-    options.clock ??
-    (options.fixedNowIso
-      ? new FixedClock(options.fixedNowIso)
-      : new FixedClock("2026-08-15T07:00:00.000Z"));
-  const adapter = options.adapter ?? new TestExecutionAdapter();
-  return createSqliteExecutionAttemptServices({
-    ...options,
-    adapter,
-    clock,
-    audit,
-  }) as SqliteExecutionAttemptServices & {
-    audit: MemoryExecutionAttemptAuditJournal;
-  };
-}
-
-===== END FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteEvidenceRepository.ts =====
-import type { ProductSqliteHandle } from "@/lib/oa/project";
-import { EvidenceDomainError } from "../../domain/errors";
-import { validateEvidenceShape } from "../../domain/invariants";
-import type { Evidence } from "../../domain/types";
-import type {
-  EvidenceRepositoryPort,
-  IdempotencyRecord,
-} from "../../ports/evidenceRepository";
-
-type EvidenceRow = {
-  evidence_id: string;
-  project_id: string | null;
-  status: string;
-  idempotency_key: string | null;
-  version: number;
-  payload_json: string;
-};
-
-type IdempotencyRow = {
-  idempotency_key: string;
-  evidence_id: string;
-  fingerprint: string;
-  operation: string;
-};
-
-function cloneEvidence(evidence: Evidence): Evidence {
-  return structuredClone(evidence);
-}
-
-/**
- * Durable Evidence repository on Product SQLite (M5).
- * Mirrors MemoryEvidenceRepository OCC + IdempotencyRecord semantics.
- */
-export class SqliteEvidenceRepository implements EvidenceRepositoryPort {
-  constructor(private readonly store: ProductSqliteHandle) {}
-
-  async findById(evidenceId: string): Promise<Evidence | null> {
-    const row = this.store.db
-      .prepare(
-        `SELECT evidence_id, project_id, status, idempotency_key, version, payload_json
-         FROM oa_evidence WHERE evidence_id = ?`,
-      )
-      .get(evidenceId) as EvidenceRow | undefined;
-    if (!row) return null;
-    return cloneEvidence(JSON.parse(row.payload_json) as Evidence);
-  }
-
-  async findByIdempotencyKey(idempotencyKey: string): Promise<{
-    evidence: Evidence;
-    record: IdempotencyRecord;
-  } | null> {
-    const row = this.store.db
-      .prepare(
-        `SELECT idempotency_key, evidence_id, fingerprint, operation
-         FROM oa_evidence_idempotency WHERE idempotency_key = ?`,
-      )
-      .get(idempotencyKey) as IdempotencyRow | undefined;
-    if (!row) return null;
-    const evidence = await this.findById(row.evidence_id);
-    if (!evidence) return null;
-    return {
-      evidence,
-      record: {
-        evidenceId: row.evidence_id,
-        fingerprint: row.fingerprint,
-        operation: row.operation as IdempotencyRecord["operation"],
-      },
-    };
-  }
-
-  async exists(evidenceId: string): Promise<boolean> {
-    const row = this.store.db
-      .prepare(`SELECT 1 AS ok FROM oa_evidence WHERE evidence_id = ?`)
-      .get(evidenceId) as { ok?: number } | undefined;
-    return row?.ok === 1;
-  }
-
-  async create(
-    evidence: Evidence,
-    record?: IdempotencyRecord,
-  ): Promise<void> {
-    const shape = validateEvidenceShape(evidence);
-    if (shape) {
-      throw new EvidenceDomainError(shape.detailCode, shape.reason);
-    }
-    if (evidence.version !== 1) {
-      throw new EvidenceDomainError(
-        "EVIDENCE_INVALID",
-        "create_requires_version_1",
-      );
-    }
-    if (await this.exists(evidence.evidenceId)) {
-      throw new EvidenceDomainError(
-        "EVIDENCE_ALREADY_EXISTS",
-        "evidence_id_taken",
-      );
-    }
-    if (record) {
-      const existing = await this.findByIdempotencyKey(
-        evidence.idempotencyKey ?? "",
-      );
-      if (existing && existing.evidence.evidenceId !== evidence.evidenceId) {
-        throw new EvidenceDomainError(
-          "IDEMPOTENCY_CONFLICT",
-          "idempotency_key_taken",
-        );
-      }
-    }
-    this.failIfForced();
-    const now = evidence.createdAt;
-    const payload = JSON.stringify(cloneEvidence(evidence));
-    this.store.db
-      .prepare(
-        `INSERT INTO oa_evidence(
-           evidence_id, project_id, status, idempotency_key, version,
-           payload_json, created_at, updated_at
-         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      )
-      .run(
-        evidence.evidenceId,
-        evidence.bindings.projectId ?? null,
-        evidence.status,
-        evidence.idempotencyKey ?? null,
-        evidence.version,
-        payload,
-        now,
-        now,
-      );
-    if (record && evidence.idempotencyKey) {
-      this.upsertIdempotency(evidence.idempotencyKey, record);
-    }
-  }
-
-  async update(
-    evidence: Evidence,
-    expectedVersion: number,
-    record?: IdempotencyRecord,
-  ): Promise<void> {
-    if (evidence.version !== expectedVersion + 1) {
-      throw new EvidenceDomainError("VERSION_CONFLICT", "version_not_monotone", {
-        expectedVersion,
-      });
-    }
-    const shape = validateEvidenceShape(evidence);
-    if (shape) {
-      throw new EvidenceDomainError(shape.detailCode, shape.reason);
-    }
-    this.failIfForced();
-    const now = evidence.updatedAt ?? evidence.createdAt;
-    const payload = JSON.stringify(cloneEvidence(evidence));
-    await this.store.runInTransaction(async () => {
-      const result = this.store.db
-        .prepare(
-          `UPDATE oa_evidence SET
-             project_id = ?,
-             status = ?,
-             idempotency_key = ?,
-             version = ?,
-             payload_json = ?,
-             updated_at = ?
-           WHERE evidence_id = ? AND version = ?`,
-        )
-        .run(
-          evidence.bindings.projectId ?? null,
-          evidence.status,
-          evidence.idempotencyKey ?? null,
-          evidence.version,
-          payload,
-          now,
-          evidence.evidenceId,
-          expectedVersion,
-        );
-      if (Number(result.changes) !== 1) {
-        const current = await this.findById(evidence.evidenceId);
-        if (!current) {
-          throw new EvidenceDomainError(
-            "EVIDENCE_NOT_FOUND",
-            "update_missing_evidence",
-          );
-        }
-        throw new EvidenceDomainError("VERSION_CONFLICT", "occ_mismatch", {
-          expectedVersion,
-          currentVersion: current.version,
-        });
-      }
-      if (record && evidence.idempotencyKey) {
-        this.upsertIdempotency(evidence.idempotencyKey, record);
-      }
-    });
-  }
-
-  private upsertIdempotency(
-    idempotencyKey: string,
-    record: IdempotencyRecord,
-  ): void {
-    this.store.db
-      .prepare(
-        `INSERT INTO oa_evidence_idempotency(
-           idempotency_key, evidence_id, fingerprint, operation
-         ) VALUES (?, ?, ?, ?)
-         ON CONFLICT(idempotency_key) DO UPDATE SET
-           evidence_id = excluded.evidence_id,
-           fingerprint = excluded.fingerprint,
-           operation = excluded.operation`,
-      )
-      .run(
-        idempotencyKey,
-        record.evidenceId,
-        record.fingerprint,
-        record.operation,
-      );
-  }
-
-  private failIfForced(): void {
-    if (this.store.failNextSave === "evidence") {
-      this.store.failNextSave = null;
-      throw new EvidenceDomainError(
-        "EVIDENCE_PERSISTENCE_FAILED",
-        "forced_evidence_save_failure",
-      );
-    }
-  }
-}
-
-===== END FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteEvidenceRepository.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteReviewBundleRepository.ts =====
-import type { ProductSqliteHandle } from "@/lib/oa/project";
-import { ReviewBundleDomainError } from "../../domain/reviewBundleErrors";
-import { validateReviewBundleShape } from "../../domain/reviewBundleInvariants";
-import type { ReviewBundle } from "../../domain/reviewBundleTypes";
-import type {
-  ReviewBundleIdempotencyRecord,
-  ReviewBundleRepositoryPort,
-} from "../../ports/reviewBundleRepository";
-
-type BundleRow = {
-  review_bundle_id: string;
-  project_id: string;
-  status: string;
-  idempotency_key: string | null;
-  version: number;
-  payload_json: string;
-};
-
-type IdempotencyRow = {
-  idempotency_key: string;
-  review_bundle_id: string;
-  fingerprint: string;
-  operation: string;
-  successor_id: string | null;
-};
-
-function cloneBundle(bundle: ReviewBundle): ReviewBundle {
-  return structuredClone(bundle);
-}
-
-/**
- * Durable ReviewBundle repository on Product SQLite (M5).
- * createSuccessorAndMarkSuperseded runs inside productStore.runInTransaction.
- */
-export class SqliteReviewBundleRepository
-  implements ReviewBundleRepositoryPort
-{
-  constructor(private readonly store: ProductSqliteHandle) {}
-
-  async findById(reviewBundleId: string): Promise<ReviewBundle | null> {
-    const row = this.store.db
-      .prepare(
-        `SELECT review_bundle_id, project_id, status, idempotency_key, version, payload_json
-         FROM oa_review_bundles WHERE review_bundle_id = ?`,
-      )
-      .get(reviewBundleId) as BundleRow | undefined;
-    if (!row) return null;
-    return cloneBundle(JSON.parse(row.payload_json) as ReviewBundle);
-  }
-
-  async findByIdempotencyKey(idempotencyKey: string): Promise<{
-    reviewBundle: ReviewBundle;
-    record: ReviewBundleIdempotencyRecord;
-    successor?: ReviewBundle;
-  } | null> {
-    const row = this.store.db
-      .prepare(
-        `SELECT idempotency_key, review_bundle_id, fingerprint, operation, successor_id
-         FROM oa_review_bundle_idempotency WHERE idempotency_key = ?`,
-      )
-      .get(idempotencyKey) as IdempotencyRow | undefined;
-    if (!row) return null;
-    const reviewBundle = await this.findById(row.review_bundle_id);
-    if (!reviewBundle) return null;
-    const successor = row.successor_id
-      ? ((await this.findById(row.successor_id)) ?? undefined)
-      : undefined;
-    return {
-      reviewBundle,
-      record: {
-        reviewBundleId: row.review_bundle_id,
-        fingerprint: row.fingerprint,
-        operation: row.operation as ReviewBundleIdempotencyRecord["operation"],
-      },
-      successor,
-    };
-  }
-
-  async exists(reviewBundleId: string): Promise<boolean> {
-    const row = this.store.db
-      .prepare(
-        `SELECT 1 AS ok FROM oa_review_bundles WHERE review_bundle_id = ?`,
-      )
-      .get(reviewBundleId) as { ok?: number } | undefined;
-    return row?.ok === 1;
-  }
-
-  async create(
-    bundle: ReviewBundle,
-    record?: ReviewBundleIdempotencyRecord & { successorId?: string },
-  ): Promise<void> {
-    const shape = validateReviewBundleShape(bundle);
-    if (shape) {
-      throw new ReviewBundleDomainError(shape.detailCode, shape.reason);
-    }
-    if (bundle.version !== 1) {
-      throw new ReviewBundleDomainError(
-        "REVIEW_BUNDLE_INVALID",
-        "create_requires_version_1",
-      );
-    }
-    if (await this.exists(bundle.reviewBundleId)) {
-      throw new ReviewBundleDomainError(
-        "REVIEW_BUNDLE_ALREADY_EXISTS",
-        "review_bundle_id_taken",
-      );
-    }
-    this.failIfForced();
-    this.insertBundle(bundle);
-    if (record && bundle.idempotencyKey) {
-      this.upsertIdempotency(bundle.idempotencyKey, record);
-    }
-  }
-
-  async update(
-    bundle: ReviewBundle,
-    expectedVersion: number,
-    record?: ReviewBundleIdempotencyRecord & { successorId?: string },
-  ): Promise<void> {
-    if (bundle.version !== expectedVersion + 1) {
-      throw new ReviewBundleDomainError(
-        "VERSION_CONFLICT",
-        "version_not_monotone",
-        { expectedVersion },
-      );
-    }
-    const shape = validateReviewBundleShape(bundle);
-    if (shape) {
-      throw new ReviewBundleDomainError(shape.detailCode, shape.reason);
-    }
-    this.failIfForced();
-    await this.store.runInTransaction(async () => {
-      const changes = this.updateBundleRowCas(bundle, expectedVersion);
-      if (changes !== 1) {
-        const current = await this.findById(bundle.reviewBundleId);
-        if (!current) {
-          throw new ReviewBundleDomainError(
-            "REVIEW_BUNDLE_NOT_FOUND",
-            "update_missing",
-          );
-        }
-        throw new ReviewBundleDomainError("VERSION_CONFLICT", "occ_mismatch", {
-          expectedVersion,
-          currentVersion: current.version,
-        });
-      }
-      if (record) {
-        const key = bundle.idempotencyKey;
-        if (key) {
-          this.upsertIdempotency(key, record);
-        }
-      }
-    });
-  }
-
-  async createSuccessorAndMarkSuperseded(
-    successor: ReviewBundle,
-    superseded: ReviewBundle,
-    expectedVersion: number,
-    record: ReviewBundleIdempotencyRecord & { successorId: string },
-  ): Promise<void> {
-    const successorShape = validateReviewBundleShape(successor);
-    if (successorShape) {
-      throw new ReviewBundleDomainError(
-        successorShape.detailCode,
-        successorShape.reason,
-      );
-    }
-    const supersededShape = validateReviewBundleShape(superseded);
-    if (supersededShape) {
-      throw new ReviewBundleDomainError(
-        supersededShape.detailCode,
-        supersededShape.reason,
-      );
-    }
-    if (successor.version !== 1) {
-      throw new ReviewBundleDomainError(
-        "REVIEW_BUNDLE_INVALID",
-        "successor_requires_version_1",
-      );
-    }
-    if (superseded.status !== "superseded") {
-      throw new ReviewBundleDomainError(
-        "REVIEW_BUNDLE_INVALID",
-        "source_must_be_superseded",
-      );
-    }
-    if (record.successorId !== successor.reviewBundleId) {
-      throw new ReviewBundleDomainError(
-        "REVIEW_BUNDLE_INVALID",
-        "record_successor_id_mismatch",
-      );
-    }
-    if (successor.reviewBundleId === superseded.reviewBundleId) {
-      throw new ReviewBundleDomainError(
-        "REVIEW_BUNDLE_INVALID",
-        "successor_must_differ_from_source",
-      );
-    }
-    if (superseded.version !== expectedVersion + 1) {
-      throw new ReviewBundleDomainError(
-        "VERSION_CONFLICT",
-        "version_not_monotone",
-        { expectedVersion },
-      );
-    }
-    if (!superseded.idempotencyKey) {
-      throw new ReviewBundleDomainError(
-        "REVIEW_BUNDLE_INVALID",
-        "reopen_idempotency_key_required",
-      );
-    }
-
-    await this.store.runInTransaction(async () => {
-      if (await this.exists(successor.reviewBundleId)) {
-        throw new ReviewBundleDomainError(
-          "REVIEW_BUNDLE_ALREADY_EXISTS",
-          "successor_review_bundle_id_taken",
-        );
-      }
-      this.failIfForced();
-      this.insertBundle(successor);
-      const changes = this.updateBundleRowCas(superseded, expectedVersion);
-      if (changes !== 1) {
-        const current = await this.findById(superseded.reviewBundleId);
-        if (!current) {
-          throw new ReviewBundleDomainError(
-            "REVIEW_BUNDLE_NOT_FOUND",
-            "reopen_source_missing",
-          );
-        }
-        throw new ReviewBundleDomainError("VERSION_CONFLICT", "occ_mismatch", {
-          expectedVersion,
-          currentVersion: current.version,
-        });
-      }
-      this.upsertIdempotency(superseded.idempotencyKey!, record);
-    });
-  }
-
-  private insertBundle(bundle: ReviewBundle): void {
-    const now = bundle.createdAt;
-    const payload = JSON.stringify(cloneBundle(bundle));
-    this.store.db
-      .prepare(
-        `INSERT INTO oa_review_bundles(
-           review_bundle_id, project_id, status, idempotency_key, version,
-           payload_json, created_at, updated_at
-         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      )
-      .run(
-        bundle.reviewBundleId,
-        bundle.projectId,
-        bundle.status,
-        bundle.idempotencyKey ?? null,
-        bundle.version,
-        payload,
-        now,
-        now,
-      );
-  }
-
-  /** Atomic CAS update — returns sqlite changes count. */
-  private updateBundleRowCas(
-    bundle: ReviewBundle,
-    expectedVersion: number,
-  ): number {
-    const now = bundle.updatedAt ?? bundle.createdAt;
-    const payload = JSON.stringify(cloneBundle(bundle));
-    const result = this.store.db
-      .prepare(
-        `UPDATE oa_review_bundles SET
-           project_id = ?,
-           status = ?,
-           idempotency_key = ?,
-           version = ?,
-           payload_json = ?,
-           updated_at = ?
-         WHERE review_bundle_id = ? AND version = ?`,
-      )
-      .run(
-        bundle.projectId,
-        bundle.status,
-        bundle.idempotencyKey ?? null,
-        bundle.version,
-        payload,
-        now,
-        bundle.reviewBundleId,
-        expectedVersion,
-      );
-    return Number(result.changes);
-  }
-
-  private upsertIdempotency(
-    idempotencyKey: string,
-    record: ReviewBundleIdempotencyRecord & { successorId?: string },
-  ): void {
-    this.store.db
-      .prepare(
-        `INSERT INTO oa_review_bundle_idempotency(
-           idempotency_key, review_bundle_id, fingerprint, operation, successor_id
-         ) VALUES (?, ?, ?, ?, ?)
-         ON CONFLICT(idempotency_key) DO UPDATE SET
-           review_bundle_id = excluded.review_bundle_id,
-           fingerprint = excluded.fingerprint,
-           operation = excluded.operation,
-           successor_id = excluded.successor_id`,
-      )
-      .run(
-        idempotencyKey,
-        record.reviewBundleId,
-        record.fingerprint,
-        record.operation,
-        record.successorId ?? null,
-      );
-  }
-
-  private failIfForced(): void {
-    if (this.store.failNextSave === "review_bundle") {
-      this.store.failNextSave = null;
-      throw new ReviewBundleDomainError(
-        "REVIEW_BUNDLE_PERSISTENCE_FAILED",
-        "forced_review_bundle_save_failure",
-      );
-    }
-  }
-}
-
-===== END FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteReviewBundleRepository.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/createSqliteEvidenceReviewServices.ts =====
-import type { ClockPort } from "@/lib/oa/doctrine";
-import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
-import type { ProductSqliteHandle } from "@/lib/oa/project";
-import { AttachEvidenceToReviewBundle } from "../../application/attachEvidenceToReviewBundle";
-import { CompleteReview } from "../../application/completeReview";
-import { ConfirmClaimEvaluation } from "../../application/confirmClaimEvaluation";
-import { ConfirmMaturity } from "../../application/confirmMaturity";
-import { CreateReviewBundle } from "../../application/createReviewBundle";
-import { DowngradeMaturity } from "../../application/downgradeMaturity";
-import { EvaluateClaim } from "../../application/evaluateClaim";
-import { FreezeReviewBundle } from "../../application/freezeReviewBundle";
-import { IngestExecutionAttemptEvidence } from "../../application/ingestExecutionAttemptEvidence";
-import { MarkEvidenceUnavailable } from "../../application/markEvidenceUnavailable";
-import { ProposeMaturity } from "../../application/proposeMaturity";
-import { RecommendNextGate } from "../../application/recommendNextGate";
-import { RegisterEvidence } from "../../application/registerEvidence";
-import { RejectClaimEvaluation } from "../../application/rejectClaimEvaluation";
-import { RemoveEvidenceFromReviewBundle } from "../../application/removeEvidenceFromReviewBundle";
-import { ReopenReview } from "../../application/reopenReview";
-import { StartReview } from "../../application/startReview";
-import { VerifyEvidenceIntegrity } from "../../application/verifyEvidenceIntegrity";
-import { FakeClaimAuthority } from "../claimAuthorityAdapter";
-import { ClaimEvaluationRepositoryReader } from "../claimEvaluationRepositoryReader";
-import { EvidenceRepositoryReader } from "../evidenceRepositoryReader";
-import { FakeEvidencePayloadAdapter } from "../fakeEvidencePayloadAdapter";
-import { FakeExecutionAttemptReader } from "../fakeExecutionAttemptReader";
+  createTestSqliteProductProjectServices,
+  type ActorReference,
+  type SqliteProductProjectServices,
+} from "@/lib/oa/project";
 import {
-  FixedIdGenerator,
-  RandomIdGenerator,
-} from "../idGenerator";
-import { MemoryClaimEvaluationRepository } from "../memoryClaimEvaluationRepository";
-import { MemoryClaimEvaluationStore } from "../memoryClaimEvaluationStore";
-import { MemoryEvidenceStore } from "../memoryEvidenceStore";
-import { MemoryMaturityAssessmentRepository } from "../memoryMaturityAssessmentRepository";
-import { MemoryMaturityAssessmentStore } from "../memoryMaturityAssessmentStore";
-import { MemoryReviewBundleStore } from "../memoryReviewBundleStore";
-import { MaturityAssessmentRepositoryReader } from "../maturityAssessmentRepositoryReader";
-import {
-  ConsoleEvidenceAuditJournal,
-  MemoryEvidenceAuditJournal,
-} from "../observability";
-import { ReviewBundleRepositoryReader } from "../reviewBundleRepositoryReader";
-import type { ClaimAuthorityPort } from "../../ports/claimAuthorityPort";
-import type { ClaimEvaluationReaderPort } from "../../ports/claimEvaluationReader";
-import type { EvidenceAuditPort } from "../../ports/evidenceAudit";
-import type { EvidencePayloadPort } from "../../ports/evidencePayloadPort";
-import type { EvidenceReaderPort } from "../../ports/evidenceReader";
-import type { EvidenceRepositoryPort } from "../../ports/evidenceRepository";
-import type { ExecutionAttemptReaderPort } from "../../ports/executionAttemptReader";
-import type { IdGeneratorPort } from "../../ports/idGenerator";
-import type { MaturityAssessmentReaderPort } from "../../ports/maturityAssessmentReader";
-import type { ReviewBundleReaderPort } from "../../ports/reviewBundleReader";
-import type { ReviewBundleRepositoryPort } from "../../ports/reviewBundleRepository";
-import { SqliteEvidenceRepository } from "./sqliteEvidenceRepository";
-import { SqliteReviewBundleRepository } from "./sqliteReviewBundleRepository";
+  createTestSqliteEvidenceReviewServices,
+  type ActorReference as EvidenceActor,
+  type Digest as EvidenceDigest,
+} from "@/lib/oa/evidence-review";
 
-export type CreateSqliteEvidenceReviewServicesOptions = {
-  productStore: ProductSqliteHandle;
-  clock?: ClockPort;
-  audit?: EvidenceAuditPort;
-  ids?: IdGeneratorPort;
-  payload?: EvidencePayloadPort;
-  attemptReader?: ExecutionAttemptReaderPort;
-  evidenceReader?: EvidenceReaderPort;
-  claimAuthority?: ClaimAuthorityPort;
-  claimEvaluationStore?: MemoryClaimEvaluationStore;
-  maturityAssessmentStore?: MemoryMaturityAssessmentStore;
+const APP_ROOT = path.resolve(__dirname, "../../..");
+const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+const SCHEMAS = path.resolve(
+  APP_ROOT,
+  "../sfia-v3-modeled/v3-native-option-a/schemas",
+);
+
+const VALID_DIGEST =
+  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
+
+const EVIDENCE_DIGEST =
+  "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" as EvidenceDigest;
+
+const VALID_PIN: DoctrinePackagePin = {
+  doctrinePackageId: "pkg:studio-v3-oa",
+  version: "1.0.0",
+  digest: VALID_DIGEST,
 };
 
-export type SqliteEvidenceReviewServices = {
-  store: MemoryEvidenceStore;
-  repository: EvidenceRepositoryPort;
-  reviewBundleStore: MemoryReviewBundleStore;
-  reviewBundleRepository: ReviewBundleRepositoryPort;
-  reviewBundleReader: ReviewBundleReaderPort;
-  claimEvaluationStore: MemoryClaimEvaluationStore;
-  claimEvaluationRepository: MemoryClaimEvaluationRepository;
-  claimEvaluationReader: ClaimEvaluationReaderPort;
-  claimAuthority: ClaimAuthorityPort;
-  maturityAssessmentStore: MemoryMaturityAssessmentStore;
-  maturityAssessmentRepository: MemoryMaturityAssessmentRepository;
-  maturityAssessmentReader: MaturityAssessmentReaderPort;
-  evidenceReader: EvidenceReaderPort;
-  payload: EvidencePayloadPort;
-  attemptReader: ExecutionAttemptReaderPort;
-  clock: ClockPort;
-  audit: EvidenceAuditPort;
-  ids: IdGeneratorPort;
-  productStore: ProductSqliteHandle;
-  registerEvidence: RegisterEvidence;
-  ingestExecutionAttemptEvidence: IngestExecutionAttemptEvidence;
-  verifyEvidenceIntegrity: VerifyEvidenceIntegrity;
-  markEvidenceUnavailable: MarkEvidenceUnavailable;
-  createReviewBundle: CreateReviewBundle;
-  attachEvidenceToReviewBundle: AttachEvidenceToReviewBundle;
-  removeEvidenceFromReviewBundle: RemoveEvidenceFromReviewBundle;
-  freezeReviewBundle: FreezeReviewBundle;
-  startReview: StartReview;
-  completeReview: CompleteReview;
-  reopenReview: ReopenReview;
-  evaluateClaim: EvaluateClaim;
-  confirmClaimEvaluation: ConfirmClaimEvaluation;
-  rejectClaimEvaluation: RejectClaimEvaluation;
-  proposeMaturity: ProposeMaturity;
-  confirmMaturity: ConfirmMaturity;
-  downgradeMaturity: DowngradeMaturity;
-  recommendNextGate: RecommendNextGate;
+const ACTOR: ActorReference = {
+  actorId: "actor:morris",
+  role: "project_owner",
+  displayName: "Morris",
+  authorityLevel: "N3",
 };
 
-/**
- * Evidence + ReviewBundle durable on Product SQLite (M5-A).
- * ClaimEvaluation + MaturityAssessment remain Memory (out of minimal M5).
- */
-export function createSqliteEvidenceReviewServices(
-  options: CreateSqliteEvidenceReviewServicesOptions,
-): SqliteEvidenceReviewServices {
-  const productStore = options.productStore;
-  // Type-compat placeholders — evidence/RB use SQLite repos, not these maps.
-  const store = new MemoryEvidenceStore();
-  const repository = new SqliteEvidenceRepository(productStore);
-  const reviewBundleStore = new MemoryReviewBundleStore();
-  const reviewBundleRepository = new SqliteReviewBundleRepository(productStore);
-  const reviewBundleReader = new ReviewBundleRepositoryReader(
-    reviewBundleRepository,
-  );
-  const claimEvaluationStore =
-    options.claimEvaluationStore ?? new MemoryClaimEvaluationStore();
-  const claimEvaluationRepository = new MemoryClaimEvaluationRepository(
-    claimEvaluationStore,
-  );
-  const claimEvaluationReader = new ClaimEvaluationRepositoryReader(
-    claimEvaluationRepository,
-    claimEvaluationStore,
-  );
-  const claimAuthority = options.claimAuthority ?? new FakeClaimAuthority();
-  const maturityAssessmentStore =
-    options.maturityAssessmentStore ?? new MemoryMaturityAssessmentStore();
-  const maturityAssessmentRepository = new MemoryMaturityAssessmentRepository(
-    maturityAssessmentStore,
-  );
-  const maturityAssessmentReader = new MaturityAssessmentRepositoryReader(
-    maturityAssessmentRepository,
-  );
-  const clock = options.clock ?? new SystemClock();
-  const audit = options.audit ?? new ConsoleEvidenceAuditJournal();
-  const ids = options.ids ?? new RandomIdGenerator();
-  const payload = options.payload ?? new FakeEvidencePayloadAdapter();
-  const attemptReader =
-    options.attemptReader ?? new FakeExecutionAttemptReader();
-  const evidenceReader =
-    options.evidenceReader ?? new EvidenceRepositoryReader(repository);
+const EV_ACTOR: EvidenceActor = {
+  actorId: "actor:morris",
+  role: "decision_maker",
+  authorityLevel: "N3",
+};
 
-  return {
-    store,
-    repository,
-    reviewBundleStore,
-    reviewBundleRepository,
-    reviewBundleReader,
-    claimEvaluationStore,
-    claimEvaluationRepository,
-    claimEvaluationReader,
-    claimAuthority,
-    maturityAssessmentStore,
-    maturityAssessmentRepository,
-    maturityAssessmentReader,
-    evidenceReader,
-    payload,
-    attemptReader,
-    clock,
-    audit,
-    ids,
-    productStore,
-    registerEvidence: new RegisterEvidence(repository, clock, audit, ids),
-    ingestExecutionAttemptEvidence: new IngestExecutionAttemptEvidence(
-      repository,
-      attemptReader,
-      clock,
-      audit,
-      ids,
-    ),
-    verifyEvidenceIntegrity: new VerifyEvidenceIntegrity(
-      repository,
-      payload,
-      clock,
-      audit,
-      ids,
-    ),
-    markEvidenceUnavailable: new MarkEvidenceUnavailable(
-      repository,
-      clock,
-      audit,
-      ids,
-    ),
-    createReviewBundle: new CreateReviewBundle(
-      reviewBundleRepository,
-      evidenceReader,
-      clock,
-      audit,
-      ids,
-    ),
-    attachEvidenceToReviewBundle: new AttachEvidenceToReviewBundle(
-      reviewBundleRepository,
-      evidenceReader,
-      clock,
-      audit,
-      ids,
-    ),
-    removeEvidenceFromReviewBundle: new RemoveEvidenceFromReviewBundle(
-      reviewBundleRepository,
-      evidenceReader,
-      clock,
-      audit,
-      ids,
-    ),
-    freezeReviewBundle: new FreezeReviewBundle(
-      reviewBundleRepository,
-      evidenceReader,
-      clock,
-      audit,
-      ids,
-    ),
-    startReview: new StartReview(reviewBundleRepository, clock, audit, ids),
-    completeReview: new CompleteReview(
-      reviewBundleRepository,
-      clock,
-      audit,
-      ids,
-    ),
-    reopenReview: new ReopenReview(reviewBundleRepository, clock, audit, ids),
-    evaluateClaim: new EvaluateClaim(
-      claimEvaluationRepository,
-      reviewBundleReader,
-      evidenceReader,
-      claimAuthority,
-      clock,
-      audit,
-      ids,
-    ),
-    confirmClaimEvaluation: new ConfirmClaimEvaluation(
-      claimEvaluationRepository,
-      reviewBundleReader,
-      evidenceReader,
-      claimAuthority,
-      clock,
-      audit,
-      ids,
-    ),
-    rejectClaimEvaluation: new RejectClaimEvaluation(
-      claimEvaluationRepository,
-      clock,
-      audit,
-      ids,
-    ),
-    proposeMaturity: new ProposeMaturity(
-      maturityAssessmentRepository,
-      claimEvaluationReader,
-      clock,
-      audit,
-      ids,
-    ),
-    confirmMaturity: new ConfirmMaturity(
-      maturityAssessmentRepository,
-      claimEvaluationReader,
-      claimAuthority,
-      clock,
-      audit,
-      ids,
-    ),
-    downgradeMaturity: new DowngradeMaturity(
-      maturityAssessmentRepository,
-      claimEvaluationReader,
-      claimAuthority,
-      clock,
-      audit,
-      ids,
-    ),
-    recommendNextGate: new RecommendNextGate(
-      evidenceReader,
-      reviewBundleReader,
-      claimEvaluationReader,
-      maturityAssessmentReader,
-      clock,
-      audit,
-      ids,
-    ),
-  };
+const tempDirs: string[] = [];
+const openServices: Array<{ dispose: () => void }> = [];
+
+function tempDbPath(name: string): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-m5-ev-"));
+  tempDirs.push(dir);
+  return path.join(dir, name);
 }
 
-export function createTestSqliteEvidenceReviewServices(
-  options: CreateSqliteEvidenceReviewServicesOptions & {
-    fixedNowIso?: string;
-  },
-): SqliteEvidenceReviewServices & {
-  fakePayload: FakeEvidencePayloadAdapter;
-  fakeAttempts: FakeExecutionAttemptReader;
-  memoryAudit: MemoryEvidenceAuditJournal;
-  fakeClaimAuthority: FakeClaimAuthority;
-} {
-  const fakePayload =
-    options.payload instanceof FakeEvidencePayloadAdapter
-      ? options.payload
-      : new FakeEvidencePayloadAdapter();
-  const fakeAttempts =
-    options.attemptReader instanceof FakeExecutionAttemptReader
-      ? options.attemptReader
-      : new FakeExecutionAttemptReader();
-  const memoryAudit =
-    options.audit instanceof MemoryEvidenceAuditJournal
-      ? options.audit
-      : new MemoryEvidenceAuditJournal();
-  const fakeClaimAuthority =
-    options.claimAuthority instanceof FakeClaimAuthority
-      ? options.claimAuthority
-      : new FakeClaimAuthority();
-
-  const services = createSqliteEvidenceReviewServices({
-    ...options,
-    clock:
-      options.clock ??
-      new FixedClock(options.fixedNowIso ?? "2026-08-15T07:00:00.000Z"),
-    audit: memoryAudit,
-    ids: options.ids ?? new FixedIdGenerator(),
-    payload: fakePayload,
-    // Preserve caller-provided bridges (e.g. createAttemptReaderBridge).
-    attemptReader: options.attemptReader ?? fakeAttempts,
-    claimAuthority: fakeClaimAuthority,
+function openProjects(dbPath: string): SqliteProductProjectServices {
+  const { resolver } = createTestDoctrineResolver({
+    registryRoot: FIXTURES,
+    schemasRoot: SCHEMAS,
   });
-
-  return {
-    ...services,
-    fakePayload,
-    fakeAttempts,
-    memoryAudit,
-    fakeClaimAuthority,
-  };
+  const svc = createTestSqliteProductProjectServices({
+    doctrineResolver: resolver,
+    fixedNowIso: "2026-08-15T09:00:00.000Z",
+    dbPath,
+  });
+  openServices.push(svc);
+  return svc;
 }
 
-===== END FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/createSqliteEvidenceReviewServices.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/appendEvidenceOutcomeToLps.ts =====
-/**
- * M5-B W1 — factual LPS append of evidenceIds / reviewBundleIds after
- * successful Evidence ingest + ReviewBundle create.
- * Recommendation remains Recommendation (not Decision / not gate consume).
- */
-
-import type { ProjectServices } from "@/lib/oa/project";
-import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "./systemFactualWriter";
-
-export type AppendEvidenceOutcomeToLpsResult =
-  | { ok: true; lpsVersion: number }
-  | { ok: false; code: string; message: string };
-
-export async function appendEvidenceOutcomeToLps(input: {
-  projectId: string;
-  evidenceId: string;
-  reviewBundleId: string;
-  projectServices: Pick<
-    ProjectServices,
-    "appendLivingProjectStateVersion" | "getCurrentLivingProjectState"
-  >;
-}): Promise<AppendEvidenceOutcomeToLpsResult> {
-  const current =
-    await input.projectServices.getCurrentLivingProjectState.execute({
-      projectId: input.projectId,
-    });
-  if (!current.ok) {
-    return {
-      ok: false,
-      code: current.error.detailCode,
-      message: current.error.message,
-    };
+afterEach(() => {
+  while (openServices.length) {
+    try {
+      openServices.pop()?.dispose();
+    } catch {
+      /* ignore */
+    }
   }
-
-  const lps = current.livingProjectState;
-  const evidenceIds = [
-    ...new Set([...(lps.evidenceIds ?? []), input.evidenceId]),
-  ];
-  const reviewBundleIds = [
-    ...new Set([...(lps.reviewBundleIds ?? []), input.reviewBundleId]),
-  ];
-
-  const appended =
-    await input.projectServices.appendLivingProjectStateVersion.execute({
-      projectId: input.projectId,
-      expectedVersion: lps.version,
-      objective: lps.objective,
-      context: lps.context,
-      scope: lps.scope,
-      // Automatic factual write-back — system actor, not Morris demo authority.
-      createdBy: SFIA_STUDIO_SYSTEM_FACTUAL_WRITER,
-      evidenceIds,
-      reviewBundleIds,
-    });
-
-  if (!appended.ok) {
-    return {
-      ok: false,
-      code: appended.error.detailCode,
-      message: appended.error.message,
-    };
+  while (tempDirs.length) {
+    const dir = tempDirs.pop();
+    if (dir) fs.rmSync(dir, { recursive: true, force: true });
   }
-
-  return { ok: true, lpsVersion: appended.livingProjectState.version };
-}
-
-===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/appendEvidenceOutcomeToLps.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/systemFactualWriter.ts =====
-/**
- * M5-B W1 — system factual LPS writer.
- * Not Morris, not decision_maker, authority none — automatic state linkage only.
- */
-
-import type { ActorReference } from "@/lib/oa/doctrine";
-
-export const SFIA_STUDIO_SYSTEM_FACTUAL_WRITER_ID =
-  "actor:sfia-studio-system-factual-writer" as const;
-
-/**
- * Stable Studio system actor for automatic factual LPS write-back.
- * Must not be registered as authority evidence / canActAsMorris.
- */
-export const SFIA_STUDIO_SYSTEM_FACTUAL_WRITER: ActorReference = Object.freeze({
-  actorId: SFIA_STUDIO_SYSTEM_FACTUAL_WRITER_ID,
-  role: "system",
-  displayName: "SFIA Studio system factual state writer",
-  authorityLevel: "none",
 });
 
-===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/systemFactualWriter.ts =====
+describe("M5 Evidence/ReviewBundle durability", () => {
+  it("persists Evidence + ReviewBundle across Product SQLite reopen", async () => {
+    const dbPath = tempDbPath("ev-rb.sqlite");
+    const projects = openProjects(dbPath);
+    await projects.createProject.execute({
+      projectId: "prj:m5-ev",
+      title: "M5 Evidence",
+      objective: "m5-ev-objective",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      lpsVersionId: "lps:m5-ev-v1",
+      idempotencyKey: "idem:m5-ev-prj",
+    });
 
-===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/rehydrateEvidenceOutcomeFromLps.ts =====
+    const services = createTestSqliteEvidenceReviewServices({
+      productStore: projects.store,
+      fixedNowIso: "2026-08-15T09:00:00.000Z",
+    });
+
+    const reg = await services.registerEvidence.execute({
+      evidenceId: "ev:m5-durable",
+      idempotencyKey: "idem:ev:m5-durable",
+      actor: EV_ACTOR,
+      type: "document",
+      source: "fixture",
+      sourceKind: "manual",
+      bindings: { projectId: "prj:m5-ev" },
+      classification: "internal",
+      storageMode: "metadata_only",
+      digest: EVIDENCE_DIGEST,
+    });
+    expect(reg.ok).toBe(true);
+
+    const bundle = await services.createReviewBundle.execute({
+      reviewBundleId: "rb:m5-durable",
+      idempotencyKey: "idem:rb:m5-durable",
+      actor: EV_ACTOR,
+      projectId: "prj:m5-ev",
+      evidenceIds: ["ev:m5-durable"],
+    });
+    expect(bundle.ok).toBe(true);
+
+    projects.dispose();
+    openServices.pop();
+
+    const projects2 = openProjects(dbPath);
+    const services2 = createTestSqliteEvidenceReviewServices({
+      productStore: projects2.store,
+    });
+    const evidence = await services2.repository.findById("ev:m5-durable");
+    expect(evidence?.status).toBe("available");
+    expect(evidence?.bindings.projectId).toBe("prj:m5-ev");
+    const rb = await services2.reviewBundleRepository.findById("rb:m5-durable");
+    expect(rb?.evidenceRefs).toEqual(["ev:m5-durable"]);
+    const byKey = await services2.repository.findByIdempotencyKey(
+      "idem:ev:m5-durable",
+    );
+    expect(byKey?.evidence.evidenceId).toBe("ev:m5-durable");
+  });
+
+  it("createSuccessorAndMarkSuperseded is transactional on Product SQLite", async () => {
+    const dbPath = tempDbPath("reopen.sqlite");
+    const projects = openProjects(dbPath);
+    const services = createTestSqliteEvidenceReviewServices({
+      productStore: projects.store,
+    });
+    const reg = await services.registerEvidence.execute({
+      evidenceId: "ev:m5-reopen",
+      idempotencyKey: "idem:ev:m5-reopen",
+      actor: EV_ACTOR,
+      type: "document",
+      source: "fixture",
+      sourceKind: "manual",
+      bindings: { projectId: "prj:m5-reopen" },
+      classification: "internal",
+      storageMode: "metadata_only",
+      digest: EVIDENCE_DIGEST,
+    });
+    expect(reg.ok).toBe(true);
+    const created = await services.createReviewBundle.execute({
+      reviewBundleId: "rb:m5-src",
+      idempotencyKey: "idem:rb:m5-src",
+      actor: EV_ACTOR,
+      projectId: "prj:m5-reopen",
+      evidenceIds: ["ev:m5-reopen"],
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+
+    // Freeze → start → complete so reopen is legal.
+    const frozen = await services.freezeReviewBundle.execute({
+      reviewBundleId: "rb:m5-src",
+      actor: EV_ACTOR,
+      expectedVersion: 1,
+      idempotencyKey: "idem:freeze:m5-src",
+    });
+    expect(frozen.ok).toBe(true);
+    const started = await services.startReview.execute({
+      reviewBundleId: "rb:m5-src",
+      actor: EV_ACTOR,
+      expectedVersion: 2,
+      idempotencyKey: "idem:start:m5-src",
+    });
+    expect(started.ok).toBe(true);
+    const completed = await services.completeReview.execute({
+      reviewBundleId: "rb:m5-src",
+      actor: EV_ACTOR,
+      expectedVersion: 3,
+      outcome: "accepted",
+      idempotencyKey: "idem:complete:m5-src",
+    });
+    expect(completed.ok).toBe(true);
+
+    const reopened = await services.reopenReview.execute({
+      reviewBundleId: "rb:m5-src",
+      successorReviewBundleId: "rb:m5-successor",
+      actor: EV_ACTOR,
+      expectedVersion: 4,
+      reason: "revise",
+      idempotencyKey: "idem:reopen:m5-src",
+    });
+    expect(reopened.ok).toBe(true);
+    if (!reopened.ok) return;
+    expect(reopened.reviewBundle.reviewBundleId).toBe("rb:m5-src");
+    expect(reopened.reviewBundle.status).toBe("superseded");
+    expect(reopened.successor?.reviewBundleId).toBe("rb:m5-successor");
+    expect(reopened.successor?.status).toBe("draft");
+
+    const superseded = await services.reviewBundleRepository.findById(
+      "rb:m5-src",
+    );
+    expect(superseded?.status).toBe("superseded");
+    const successor = await services.reviewBundleRepository.findById(
+      "rb:m5-successor",
+    );
+    expect(successor?.status).toBe("draft");
+  });
+
+  it("concurrent Evidence update expectedVersion=1 → one win, one VERSION_CONFLICT", async () => {
+    const dbPath = tempDbPath("ev-occ.sqlite");
+    const projects = openProjects(dbPath);
+    const services = createTestSqliteEvidenceReviewServices({
+      productStore: projects.store,
+    });
+    const reg = await services.registerEvidence.execute({
+      evidenceId: "ev:m5-occ",
+      idempotencyKey: "idem:ev:m5-occ",
+      actor: EV_ACTOR,
+      type: "document",
+      source: "fixture",
+      sourceKind: "manual",
+      bindings: { projectId: "prj:m5-occ" },
+      classification: "internal",
+      storageMode: "metadata_only",
+      digest: EVIDENCE_DIGEST,
+    });
+    expect(reg.ok).toBe(true);
+    if (!reg.ok) return;
+
+    const base = reg.evidence;
+    const results = await Promise.allSettled([
+      services.repository.update(
+        {
+          ...base,
+          status: "stale",
+          version: 2,
+          updatedAt: "2026-08-15T09:01:00.000Z",
+        },
+        1,
+      ),
+      services.repository.update(
+        {
+          ...base,
+          status: "stale",
+          version: 2,
+          updatedAt: "2026-08-15T09:02:00.000Z",
+        },
+        1,
+      ),
+    ]);
+
+    const fulfilled = results.filter((r) => r.status === "fulfilled");
+    const rejected = results.filter((r) => r.status === "rejected");
+    expect(fulfilled).toHaveLength(1);
+    expect(rejected).toHaveLength(1);
+    expect(rejected[0]).toMatchObject({
+      status: "rejected",
+      reason: expect.objectContaining({ detailCode: "VERSION_CONFLICT" }),
+    });
+    const loaded = await services.repository.findById("ev:m5-occ");
+    expect(loaded?.version).toBe(2);
+  });
+
+  it("concurrent createSuccessorAndMarkSuperseded → one wins, no orphan", async () => {
+    const dbPath = tempDbPath("reopen-concurrent.sqlite");
+    const projects = openProjects(dbPath);
+    const services = createTestSqliteEvidenceReviewServices({
+      productStore: projects.store,
+    });
+    const reg = await services.registerEvidence.execute({
+      evidenceId: "ev:m5-conc",
+      idempotencyKey: "idem:ev:m5-conc",
+      actor: EV_ACTOR,
+      type: "document",
+      source: "fixture",
+      sourceKind: "manual",
+      bindings: { projectId: "prj:m5-conc" },
+      classification: "internal",
+      storageMode: "metadata_only",
+      digest: EVIDENCE_DIGEST,
+    });
+    expect(reg.ok).toBe(true);
+
+    const created = await services.createReviewBundle.execute({
+      reviewBundleId: "rb:m5-conc-src",
+      idempotencyKey: "idem:rb:m5-conc-src",
+      actor: EV_ACTOR,
+      projectId: "prj:m5-conc",
+      evidenceIds: ["ev:m5-conc"],
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+
+    const frozen = await services.freezeReviewBundle.execute({
+      reviewBundleId: "rb:m5-conc-src",
+      actor: EV_ACTOR,
+      expectedVersion: 1,
+      idempotencyKey: "idem:freeze:m5-conc",
+    });
+    expect(frozen.ok).toBe(true);
+    const started = await services.startReview.execute({
+      reviewBundleId: "rb:m5-conc-src",
+      actor: EV_ACTOR,
+      expectedVersion: 2,
+      idempotencyKey: "idem:start:m5-conc",
+    });
+    expect(started.ok).toBe(true);
+    const completed = await services.completeReview.execute({
+      reviewBundleId: "rb:m5-conc-src",
+      actor: EV_ACTOR,
+      expectedVersion: 3,
+      outcome: "accepted",
+      idempotencyKey: "idem:complete:m5-conc",
+    });
+    expect(completed.ok).toBe(true);
+
+    const results = await Promise.allSettled([
+      services.reopenReview.execute({
+        reviewBundleId: "rb:m5-conc-src",
+        successorReviewBundleId: "rb:m5-conc-a",
+        actor: EV_ACTOR,
+        expectedVersion: 4,
+        reason: "revise-a",
+        idempotencyKey: "idem:reopen:m5-conc-a",
+      }),
+      services.reopenReview.execute({
+        reviewBundleId: "rb:m5-conc-src",
+        successorReviewBundleId: "rb:m5-conc-b",
+        actor: EV_ACTOR,
+        expectedVersion: 4,
+        reason: "revise-b",
+        idempotencyKey: "idem:reopen:m5-conc-b",
+      }),
+    ]);
+
+    const okResults = results.filter(
+      (r) => r.status === "fulfilled" && r.value.ok,
+    );
+    const failResults = results.filter(
+      (r) =>
+        r.status === "fulfilled" && !r.value.ok,
+    );
+    expect(okResults).toHaveLength(1);
+    expect(failResults).toHaveLength(1);
+    if (failResults[0]?.status === "fulfilled" && !failResults[0].value.ok) {
+      expect(failResults[0].value.error.detailCode).toBe("VERSION_CONFLICT");
+    }
+
+    const src = await services.reviewBundleRepository.findById("rb:m5-conc-src");
+    expect(src?.status).toBe("superseded");
+
+    const a = await services.reviewBundleRepository.findById("rb:m5-conc-a");
+    const b = await services.reviewBundleRepository.findById("rb:m5-conc-b");
+    const successors = [a, b].filter(Boolean);
+    expect(successors).toHaveLength(1);
+    expect(successors[0]?.status).toBe("draft");
+  });
+});
+
+===== END FILE: projects/sfia-studio/app/__tests__/oa/evidence-review/m5EvidenceReviewDurability.test.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/m5AttemptDurability.test.ts =====
 /**
- * M5 durable Nora/F3 readback — STRICTLY read-only.
- * current LPS → evidenceIds / reviewBundleIds → durable readers → RecommendNextGate.
- * Does not write LPS, create Decision, consume gate, or launch Attempt.
+ * M5 — ExecutionAttempt durability + durable resultRecordingAttempts budget.
+ * @vitest-environment node
  */
-
-import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
-import type { ProjectServices } from "@/lib/oa/project";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
 import {
-  F3_LABELS,
-  F3_MODE,
-  F3_OPEN_HARD_RESERVATION_REFS,
-} from "./constants";
-import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "./systemFactualWriter";
-import type {
-  F3EvidenceDto,
-  F3RecommendationDto,
-  F3ReviewBundleDto,
-} from "./types";
+  createTestDoctrineResolver,
+  type Digest,
+  type DoctrinePackagePin,
+} from "@/lib/oa/doctrine";
+import {
+  createTestSqliteProductProjectServices,
+  type ActorReference,
+  type SqliteProductProjectServices,
+} from "@/lib/oa/project";
+import {
+  SqliteExecutionAttemptRepository,
+  SqliteExecutionAttemptTechnicalStore,
+  type ExecutionAttempt,
+} from "@/lib/oa/execution-attempt";
 
-export type RehydrateEvidenceOutcomeDeps = {
-  projectServices: Pick<ProjectServices, "getCurrentLivingProjectState">;
-  evidenceReviewServices: Pick<
-    EvidenceReviewServices,
-    "evidenceReader" | "reviewBundleReader" | "recommendNextGate"
-  >;
+const APP_ROOT = path.resolve(__dirname, "../../..");
+const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+const SCHEMAS = path.resolve(
+  APP_ROOT,
+  "../sfia-v3-modeled/v3-native-option-a/schemas",
+);
+
+const VALID_DIGEST =
+  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
+
+const VALID_PIN: DoctrinePackagePin = {
+  doctrinePackageId: "pkg:studio-v3-oa",
+  version: "1.0.0",
+  digest: VALID_DIGEST,
 };
 
-export type RehydrateEvidenceOutcomeResult =
-  | {
-      ok: true;
-      projectId: string;
-      lpsVersion: number;
-      evidenceIds: string[];
-      reviewBundleIds: string[];
-      evidence: F3EvidenceDto[];
-      reviewBundles: F3ReviewBundleDto[];
-      subjectRef: string | null;
-      recommendation: F3RecommendationDto;
-    }
-  | { ok: false; code: string; message: string };
+const ACTOR: ActorReference = {
+  actorId: "actor:morris",
+  role: "project_owner",
+  displayName: "Morris",
+  authorityLevel: "N3",
+};
 
-export async function rehydrateEvidenceOutcomeFromLps(input: {
-  projectId: string;
-  deps: RehydrateEvidenceOutcomeDeps;
-}): Promise<RehydrateEvidenceOutcomeResult> {
-  const current =
-    await input.deps.projectServices.getCurrentLivingProjectState.execute({
-      projectId: input.projectId,
-    });
-  if (!current.ok) {
-    return {
-      ok: false,
-      code: current.error.detailCode,
-      message: current.error.message,
-    };
-  }
+const NOW = "2026-08-15T08:30:00.000Z";
 
-  const lps = current.livingProjectState;
-  const evidenceIds = [...(lps.evidenceIds ?? [])];
-  const reviewBundleIds = [...(lps.reviewBundleIds ?? [])];
+const tempDirs: string[] = [];
+const openServices: Array<{ dispose: () => void }> = [];
 
-  if (evidenceIds.length === 0 && reviewBundleIds.length === 0) {
-    return {
-      ok: false,
-      code: "NO_EVIDENCE_OUTCOME_REFS",
-      message: "LPS courant sans evidenceIds/reviewBundleIds.",
-    };
-  }
+function tempDbPath(name: string): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-m5-att-"));
+  tempDirs.push(dir);
+  return path.join(dir, name);
+}
 
-  const evidenceDtos: F3EvidenceDto[] = [];
-  let subjectRef: string | null = null;
+function openProjects(dbPath: string): SqliteProductProjectServices {
+  const { resolver } = createTestDoctrineResolver({
+    registryRoot: FIXTURES,
+    schemasRoot: SCHEMAS,
+  });
+  const svc = createTestSqliteProductProjectServices({
+    doctrineResolver: resolver,
+    fixedNowIso: NOW,
+    dbPath,
+  });
+  openServices.push(svc);
+  return svc;
+}
 
-  for (const evidenceId of evidenceIds) {
-    const evidence =
-      await input.deps.evidenceReviewServices.evidenceReader.findById(
-        evidenceId,
-      );
-    if (!evidence) {
-      return {
-        ok: false,
-        code: "EVIDENCE_REF_MISSING",
-        message: `Evidence ${evidenceId} référencée par LPS absente.`,
-      };
-    }
-    const boundProject = evidence.bindings.projectId;
-    if (boundProject && boundProject !== input.projectId) {
-      return {
-        ok: false,
-        code: "EVIDENCE_PROJECT_MISMATCH",
-        message: `Evidence ${evidenceId} project mismatch.`,
-      };
-    }
-    const contractId = evidence.bindings.executionContractId;
-    if (contractId) {
-      if (subjectRef && subjectRef !== contractId) {
-        return {
-          ok: false,
-          code: "EVIDENCE_CONTRACT_MISMATCH",
-          message: "Evidence refs span multiple executionContractId.",
-        };
-      }
-      subjectRef = contractId;
-    }
-    evidenceDtos.push({
-      evidenceId: evidence.evidenceId,
-      status: evidence.status,
-      sourceKind: evidence.sourceKind,
-      technicalResultRef: evidence.technicalResultRef ?? null,
-      verified: false,
-      mode: F3_MODE,
-    });
-  }
-
-  const reviewBundleDtos: F3ReviewBundleDto[] = [];
-  for (const reviewBundleId of reviewBundleIds) {
-    const bundle =
-      await input.deps.evidenceReviewServices.reviewBundleReader.findById(
-        reviewBundleId,
-      );
-    if (!bundle) {
-      return {
-        ok: false,
-        code: "REVIEW_BUNDLE_REF_MISSING",
-        message: `ReviewBundle ${reviewBundleId} référencé par LPS absent.`,
-      };
-    }
-    if (bundle.projectId !== input.projectId) {
-      return {
-        ok: false,
-        code: "REVIEW_BUNDLE_PROJECT_MISMATCH",
-        message: `ReviewBundle ${reviewBundleId} project mismatch.`,
-      };
-    }
-    if (bundle.executionContractId) {
-      if (subjectRef && subjectRef !== bundle.executionContractId) {
-        return {
-          ok: false,
-          code: "REVIEW_BUNDLE_CONTRACT_MISMATCH",
-          message: "ReviewBundle executionContractId incoherent with Evidence.",
-        };
-      }
-      subjectRef = bundle.executionContractId;
-    }
-    reviewBundleDtos.push({
-      reviewBundleId: bundle.reviewBundleId,
-      status: bundle.status,
-      version: bundle.version,
-      evidenceRefs: [...bundle.evidenceRefs],
-      mode: F3_MODE,
-    });
-  }
-
-  const evidenceRefs = [];
-  for (const evidenceId of evidenceIds) {
-    const evidence =
-      await input.deps.evidenceReviewServices.evidenceReader.findById(
-        evidenceId,
-      );
-    if (!evidence) {
-      return {
-        ok: false,
-        code: "EVIDENCE_REF_MISSING",
-        message: `Evidence ${evidenceId} disparue pendant rehydrate.`,
-      };
-    }
-    evidenceRefs.push({ id: evidence.evidenceId, version: evidence.version });
-  }
-
-  const reviewBundleRefs = [];
-  for (const reviewBundleId of reviewBundleIds) {
-    const bundle =
-      await input.deps.evidenceReviewServices.reviewBundleReader.findById(
-        reviewBundleId,
-      );
-    if (!bundle) {
-      return {
-        ok: false,
-        code: "REVIEW_BUNDLE_REF_MISSING",
-        message: `ReviewBundle ${reviewBundleId} disparu pendant rehydrate.`,
-      };
-    }
-    reviewBundleRefs.push({
-      id: bundle.reviewBundleId,
-      version: bundle.version,
-    });
-  }
-
-  const recommended =
-    await input.deps.evidenceReviewServices.recommendNextGate.execute({
-      projectId: input.projectId,
-      subjectRef: subjectRef ?? undefined,
-      evidenceRefs,
-      reviewBundleRefs,
-      openHardReservationRefs: [...F3_OPEN_HARD_RESERVATION_REFS],
-      attemptAutoLaunchNextCycle: false,
-      actor: SFIA_STUDIO_SYSTEM_FACTUAL_WRITER,
-      correlationId: `cor:m5-rehydrate:${input.projectId}:${lps.version}`,
-    });
-
-  if (!recommended.ok) {
-    return {
-      ok: false,
-      code: recommended.error.detailCode,
-      message: recommended.error.message,
-    };
-  }
-
-  const coordination = recommended.coordination;
-  const openHard = [...F3_OPEN_HARD_RESERVATION_REFS];
-  const hardBlockers = [
-    ...coordination.blockers
-      .filter((b) => b.code === "hard_reservation_open")
-      .map((b) => b.sourceId ?? b.code),
-    ...openHard.map((ref) => `${ref} OPEN`),
-  ];
-
+function baseAttempt(
+  overrides: Partial<ExecutionAttempt> & { attemptId: string },
+): ExecutionAttempt {
   return {
-    ok: true,
-    projectId: input.projectId,
-    lpsVersion: lps.version,
-    evidenceIds,
-    reviewBundleIds,
-    evidence: evidenceDtos,
-    reviewBundles: reviewBundleDtos,
-    subjectRef,
-    recommendation: {
-      kind: "recommendation",
-      status: coordination.status,
-      executionAuthority: false,
-      gateConsumed: false,
-      decisionCreated: false,
-      attemptAutoLaunchNextCycle: false,
-      openHardReservationRefs: openHard,
-      hardBlockers: [...new Set(hardBlockers)],
-      nextGateCode: coordination.nextGate?.gateCode ?? null,
-      nextActionCode: coordination.nextAction?.actionCode ?? null,
-      recommendationLabel: F3_LABELS.recommendationNotDecision,
-      mode: F3_MODE,
+    schemaVersion: "0.2.0-oa",
+    executionContractId: "xct:m5-001",
+    executionContractVersion: 1,
+    selectedAgentRef: "agt:fixture",
+    status: "accepted",
+    idempotencyKey: `idem-${overrides.attemptId}`,
+    correlationId: "cor:m5-att",
+    version: 1,
+    createdAt: NOW,
+    provenance: {
+      schemaVersion: "0.1.0-oa",
+      provenanceRecordId: "prv:m5-att",
+      actor: { actorId: "actor:morris", role: "decision_maker" },
+      source: "human_decision",
+      timestamp: NOW,
+      correlationId: "cor:m5-att",
     },
+    selectionStrategy: "capabilities_deterministic",
+    selectionProfile: "standard",
+    selectionExpiresAt: "2026-08-15T09:00:00.000Z",
+    ...overrides,
   };
 }
 
-===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/rehydrateEvidenceOutcomeFromLps.ts =====
+afterEach(() => {
+  while (openServices.length) {
+    try {
+      openServices.pop()?.dispose();
+    } catch {
+      /* ignore */
+    }
+  }
+  while (tempDirs.length) {
+    const dir = tempDirs.pop();
+    if (dir) fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+describe("M5 ExecutionAttempt durability", () => {
+  it("persists attempt + active index + result budget across reopen", async () => {
+    const dbPath = tempDbPath("attempt.sqlite");
+    const projects = openProjects(dbPath);
+    await projects.createProject.execute({
+      projectId: "prj:m5-att",
+      title: "M5 Attempt",
+      objective: "m5-att-objective",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      lpsVersionId: "lps:m5-att-v1",
+      idempotencyKey: "idem:m5-att-prj",
+    });
+
+    const repo = new SqliteExecutionAttemptRepository(projects.store);
+    const tech = new SqliteExecutionAttemptTechnicalStore(projects.store);
+    const attempt = baseAttempt({ attemptId: "xat:m5-durable" });
+    await repo.create(attempt);
+    await repo.reserveActiveContract(
+      attempt.executionContractId,
+      attempt.attemptId,
+    );
+    tech.resultRecordingAttempts.set(attempt.attemptId, 2);
+
+    const active = await repo.findActiveByContract(attempt.executionContractId);
+    expect(active?.attemptId).toBe("xat:m5-durable");
+    expect(tech.resultRecordingAttempts.get(attempt.attemptId)).toBe(2);
+
+    projects.dispose();
+    openServices.pop();
+
+    const projects2 = openProjects(dbPath);
+    const repo2 = new SqliteExecutionAttemptRepository(projects2.store);
+    const tech2 = new SqliteExecutionAttemptTechnicalStore(projects2.store);
+    const loaded = await repo2.findById("xat:m5-durable");
+    expect(loaded?.status).toBe("accepted");
+    expect(loaded?.idempotencyKey).toBe("idem-xat:m5-durable");
+    const active2 = await repo2.findActiveByContract("xct:m5-001");
+    expect(active2?.attemptId).toBe("xat:m5-durable");
+    expect(tech2.resultRecordingAttempts.get("xat:m5-durable")).toBe(2);
+  });
+
+  it("enforces OCC and active reservation on SQLite", async () => {
+    const dbPath = tempDbPath("occ.sqlite");
+    const projects = openProjects(dbPath);
+    const repo = new SqliteExecutionAttemptRepository(projects.store);
+    await repo.create(baseAttempt({ attemptId: "xat:m5-occ" }));
+    await expect(
+      repo.update(
+        baseAttempt({
+          attemptId: "xat:m5-occ",
+          status: "running",
+          version: 2,
+          startedAt: NOW,
+        }),
+        99,
+      ),
+    ).rejects.toMatchObject({ detailCode: "VERSION_CONFLICT" });
+
+    await repo.reserveActiveContract("xct:m5-001", "xat:m5-occ");
+    await expect(
+      repo.reserveActiveContract("xct:m5-001", "xat:other"),
+    ).rejects.toMatchObject({ detailCode: "EXECUTION_ALREADY_ACTIVE" });
+  });
+
+  it("concurrent update with same expectedVersion → one win, one VERSION_CONFLICT", async () => {
+    const dbPath = tempDbPath("occ-concurrent.sqlite");
+    const projects = openProjects(dbPath);
+    const repo = new SqliteExecutionAttemptRepository(projects.store);
+    await repo.create(baseAttempt({ attemptId: "xat:m5-occ-c" }));
+
+    const results = await Promise.allSettled([
+      repo.update(
+        baseAttempt({
+          attemptId: "xat:m5-occ-c",
+          status: "accepted",
+          version: 2,
+          updatedAt: NOW,
+          selectionExpiresAt: "2026-08-15T09:10:00.000Z",
+        }),
+        1,
+      ),
+      repo.update(
+        baseAttempt({
+          attemptId: "xat:m5-occ-c",
+          status: "accepted",
+          version: 2,
+          updatedAt: NOW,
+          selectionExpiresAt: "2026-08-15T09:20:00.000Z",
+        }),
+        1,
+      ),
+    ]);
+
+    const fulfilled = results.filter((r) => r.status === "fulfilled");
+    const rejected = results.filter((r) => r.status === "rejected");
+    expect(fulfilled).toHaveLength(1);
+    expect(rejected).toHaveLength(1);
+    expect(rejected[0]).toMatchObject({
+      status: "rejected",
+      reason: expect.objectContaining({ detailCode: "VERSION_CONFLICT" }),
+    });
+    const loaded = await repo.findById("xat:m5-occ-c");
+    expect(loaded?.version).toBe(2);
+  });
+
+  it("concurrent reserveActiveContract different attemptIds → one EXECUTION_ALREADY_ACTIVE", async () => {
+    const dbPath = tempDbPath("reserve-concurrent.sqlite");
+    const projects = openProjects(dbPath);
+    const repo = new SqliteExecutionAttemptRepository(projects.store);
+    await repo.create(
+      baseAttempt({ attemptId: "xat:m5-res-a", executionContractId: "xct:m5-res" }),
+    );
+    await repo.create(
+      baseAttempt({ attemptId: "xat:m5-res-b", executionContractId: "xct:m5-res" }),
+    );
+
+    const results = await Promise.allSettled([
+      repo.reserveActiveContract("xct:m5-res", "xat:m5-res-a"),
+      repo.reserveActiveContract("xct:m5-res", "xat:m5-res-b"),
+    ]);
+
+    const fulfilled = results.filter((r) => r.status === "fulfilled");
+    const rejected = results.filter((r) => r.status === "rejected");
+    expect(fulfilled).toHaveLength(1);
+    expect(rejected).toHaveLength(1);
+    expect(rejected[0]).toMatchObject({
+      status: "rejected",
+      reason: expect.objectContaining({
+        detailCode: "EXECUTION_ALREADY_ACTIVE",
+      }),
+    });
+    const active = await repo.findActiveByContract("xct:m5-res");
+    expect(["xat:m5-res-a", "xat:m5-res-b"]).toContain(active?.attemptId);
+  });
+});
+
+===== END FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/m5AttemptDurability.test.ts =====
 
 ===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/project/m5ProductSchemaMigration.test.ts =====
 /**
@@ -3541,222 +2292,6 @@ INSERT INTO schema_meta(key, value) VALUES ('schema_version', 'm99-future');
 });
 
 ===== END FILE: projects/sfia-studio/app/__tests__/oa/project/m5ProductSchemaMigration.test.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/project/m5W1LpsAppend.test.ts =====
-/**
- * M5-B W1 — LPS factual evidenceIds / reviewBundleIds append + carry-forward.
- * @vitest-environment node
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, describe, expect, it } from "vitest";
-import {
-  createTestDoctrineResolver,
-  type Digest,
-  type DoctrinePackagePin,
-} from "@/lib/oa/doctrine";
-import {
-  createTestSqliteProductProjectServices,
-  type ActorReference,
-  type SqliteProductProjectServices,
-} from "@/lib/oa/project";
-import { appendEvidenceOutcomeToLps } from "@/features/project-assistant/f3/appendEvidenceOutcomeToLps";
-import {
-  SFIA_STUDIO_SYSTEM_FACTUAL_WRITER,
-  SFIA_STUDIO_SYSTEM_FACTUAL_WRITER_ID,
-} from "@/features/project-assistant/f3/systemFactualWriter";
-import { LOCAL_MORRIS_ACTOR } from "@/features/project-assistant/f2/recordDecision";
-
-const APP_ROOT = path.resolve(__dirname, "../../..");
-const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
-const SCHEMAS = path.resolve(
-  APP_ROOT,
-  "../sfia-v3-modeled/v3-native-option-a/schemas",
-);
-
-const VALID_DIGEST =
-  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
-
-const VALID_PIN: DoctrinePackagePin = {
-  doctrinePackageId: "pkg:studio-v3-oa",
-  version: "1.0.0",
-  digest: VALID_DIGEST,
-};
-
-const ACTOR: ActorReference = {
-  actorId: "actor:morris",
-  role: "project_owner",
-  displayName: "Morris",
-  authorityLevel: "N3",
-};
-
-const tempDirs: string[] = [];
-const openServices: Array<{ dispose: () => void }> = [];
-
-function tempDbPath(name: string): string {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-m5-w1-"));
-  tempDirs.push(dir);
-  return path.join(dir, name);
-}
-
-function openProjects(dbPath: string): SqliteProductProjectServices {
-  const { resolver } = createTestDoctrineResolver({
-    registryRoot: FIXTURES,
-    schemasRoot: SCHEMAS,
-  });
-  const svc = createTestSqliteProductProjectServices({
-    doctrineResolver: resolver,
-    fixedNowIso: "2026-08-15T09:30:00.000Z",
-    dbPath,
-  });
-  openServices.push(svc);
-  return svc;
-}
-
-afterEach(() => {
-  while (openServices.length) {
-    try {
-      openServices.pop()?.dispose();
-    } catch {
-      /* ignore */
-    }
-  }
-  while (tempDirs.length) {
-    const dir = tempDirs.pop();
-    if (dir) fs.rmSync(dir, { recursive: true, force: true });
-  }
-});
-
-describe("M5 W1 LPS evidence/RB append", () => {
-  it("appends evidenceIds and reviewBundleIds factually", async () => {
-    const dbPath = tempDbPath("w1.sqlite");
-    const projects = openProjects(dbPath);
-    await projects.createProject.execute({
-      projectId: "prj:m5-w1",
-      title: "M5 W1",
-      objective: "m5-w1-objective",
-      context: "m5-w1-context",
-      scope: "m5-w1-scope",
-      doctrinePackagePin: VALID_PIN,
-      createdBy: ACTOR,
-      lpsVersionId: "lps:m5-w1-v1",
-      idempotencyKey: "idem:m5-w1",
-    });
-
-    const linked = await appendEvidenceOutcomeToLps({
-      projectId: "prj:m5-w1",
-      evidenceId: "ev:m5-w1",
-      reviewBundleId: "rb:m5-w1",
-      projectServices: projects,
-    });
-    expect(linked.ok).toBe(true);
-    if (!linked.ok) return;
-    expect(linked.lpsVersion).toBe(2);
-
-    const lps = await projects.getCurrentLivingProjectState.execute({
-      projectId: "prj:m5-w1",
-    });
-    expect(lps.ok).toBe(true);
-    if (!lps.ok) return;
-    expect(lps.livingProjectState.evidenceIds).toEqual(["ev:m5-w1"]);
-    expect(lps.livingProjectState.reviewBundleIds).toEqual(["rb:m5-w1"]);
-  });
-
-  it("uses system factual writer provenance (not Morris)", async () => {
-    const dbPath = tempDbPath("w1-prov.sqlite");
-    const projects = openProjects(dbPath);
-    await projects.createProject.execute({
-      projectId: "prj:m5-w1-prov",
-      title: "M5 W1 provenance",
-      objective: "m5-w1-prov-objective",
-      doctrinePackagePin: VALID_PIN,
-      createdBy: ACTOR,
-      lpsVersionId: "lps:m5-w1-prov-v1",
-      idempotencyKey: "idem:m5-w1-prov",
-    });
-
-    const seeded = await projects.appendLivingProjectStateVersion.execute({
-      projectId: "prj:m5-w1-prov",
-      expectedVersion: 1,
-      objective: "m5-w1-prov-objective",
-      createdBy: ACTOR,
-      decisionIds: ["dec:keep"],
-      trajectoryId: "trj:keep",
-      trajectoryVersion: 3,
-    });
-    expect(seeded.ok).toBe(true);
-    if (!seeded.ok) return;
-
-    const linked = await appendEvidenceOutcomeToLps({
-      projectId: "prj:m5-w1-prov",
-      evidenceId: "ev:m5-w1-prov",
-      reviewBundleId: "rb:m5-w1-prov",
-      projectServices: projects,
-    });
-    expect(linked.ok).toBe(true);
-    if (!linked.ok) return;
-
-    const lps = await projects.getCurrentLivingProjectState.execute({
-      projectId: "prj:m5-w1-prov",
-    });
-    expect(lps.ok).toBe(true);
-    if (!lps.ok) return;
-    const state = lps.livingProjectState;
-    expect(state.createdBy.role).toBe("system");
-    expect(state.createdBy.authorityLevel).toBe("none");
-    expect(state.createdBy.actorId).toBe(SFIA_STUDIO_SYSTEM_FACTUAL_WRITER_ID);
-    expect(state.createdBy.actorId).not.toBe(LOCAL_MORRIS_ACTOR.actorId);
-    expect(state.createdBy.actorId).toBe(
-      SFIA_STUDIO_SYSTEM_FACTUAL_WRITER.actorId,
-    );
-    expect(state.provenance?.actor.role).toBe("system");
-    expect(state.provenance?.actor.actorId).toBe(
-      SFIA_STUDIO_SYSTEM_FACTUAL_WRITER_ID,
-    );
-    expect(state.decisionIds).toEqual(["dec:keep"]);
-    expect(state.trajectoryId).toBe("trj:keep");
-    expect(state.trajectoryVersion).toBe(3);
-    expect(state.evidenceIds).toEqual(["ev:m5-w1-prov"]);
-    expect(state.reviewBundleIds).toEqual(["rb:m5-w1-prov"]);
-  });
-
-  it("preserves evidenceIds/reviewBundleIds when omitted on later append", async () => {
-    const dbPath = tempDbPath("carry.sqlite");
-    const projects = openProjects(dbPath);
-    await projects.createProject.execute({
-      projectId: "prj:m5-carry",
-      title: "M5 carry",
-      objective: "carry-objective",
-      doctrinePackagePin: VALID_PIN,
-      createdBy: ACTOR,
-      lpsVersionId: "lps:m5-carry-v1",
-      idempotencyKey: "idem:m5-carry",
-    });
-
-    await appendEvidenceOutcomeToLps({
-      projectId: "prj:m5-carry",
-      evidenceId: "ev:keep",
-      reviewBundleId: "rb:keep",
-      projectServices: projects,
-    });
-
-    const appended = await projects.appendLivingProjectStateVersion.execute({
-      projectId: "prj:m5-carry",
-      expectedVersion: 2,
-      objective: "carry-objective-v3",
-      createdBy: ACTOR,
-      decisionIds: ["dec:1"],
-    });
-    expect(appended.ok).toBe(true);
-    if (!appended.ok) return;
-    expect(appended.livingProjectState.evidenceIds).toEqual(["ev:keep"]);
-    expect(appended.livingProjectState.reviewBundleIds).toEqual(["rb:keep"]);
-    expect(appended.livingProjectState.decisionIds).toEqual(["dec:1"]);
-  });
-});
-
-===== END FILE: projects/sfia-studio/app/__tests__/oa/project/m5W1LpsAppend.test.ts =====
 
 ===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessProof.test.ts =====
 /**
@@ -4438,6 +2973,222 @@ main().catch((err) => {
 
 ===== END FILE: projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessWorker.ts =====
 
+===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/project/m5W1LpsAppend.test.ts =====
+/**
+ * M5-B W1 — LPS factual evidenceIds / reviewBundleIds append + carry-forward.
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
+import {
+  createTestDoctrineResolver,
+  type Digest,
+  type DoctrinePackagePin,
+} from "@/lib/oa/doctrine";
+import {
+  createTestSqliteProductProjectServices,
+  type ActorReference,
+  type SqliteProductProjectServices,
+} from "@/lib/oa/project";
+import { appendEvidenceOutcomeToLps } from "@/features/project-assistant/f3/appendEvidenceOutcomeToLps";
+import {
+  SFIA_STUDIO_SYSTEM_FACTUAL_WRITER,
+  SFIA_STUDIO_SYSTEM_FACTUAL_WRITER_ID,
+} from "@/features/project-assistant/f3/systemFactualWriter";
+import { LOCAL_MORRIS_ACTOR } from "@/features/project-assistant/f2/recordDecision";
+
+const APP_ROOT = path.resolve(__dirname, "../../..");
+const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+const SCHEMAS = path.resolve(
+  APP_ROOT,
+  "../sfia-v3-modeled/v3-native-option-a/schemas",
+);
+
+const VALID_DIGEST =
+  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
+
+const VALID_PIN: DoctrinePackagePin = {
+  doctrinePackageId: "pkg:studio-v3-oa",
+  version: "1.0.0",
+  digest: VALID_DIGEST,
+};
+
+const ACTOR: ActorReference = {
+  actorId: "actor:morris",
+  role: "project_owner",
+  displayName: "Morris",
+  authorityLevel: "N3",
+};
+
+const tempDirs: string[] = [];
+const openServices: Array<{ dispose: () => void }> = [];
+
+function tempDbPath(name: string): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-m5-w1-"));
+  tempDirs.push(dir);
+  return path.join(dir, name);
+}
+
+function openProjects(dbPath: string): SqliteProductProjectServices {
+  const { resolver } = createTestDoctrineResolver({
+    registryRoot: FIXTURES,
+    schemasRoot: SCHEMAS,
+  });
+  const svc = createTestSqliteProductProjectServices({
+    doctrineResolver: resolver,
+    fixedNowIso: "2026-08-15T09:30:00.000Z",
+    dbPath,
+  });
+  openServices.push(svc);
+  return svc;
+}
+
+afterEach(() => {
+  while (openServices.length) {
+    try {
+      openServices.pop()?.dispose();
+    } catch {
+      /* ignore */
+    }
+  }
+  while (tempDirs.length) {
+    const dir = tempDirs.pop();
+    if (dir) fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+describe("M5 W1 LPS evidence/RB append", () => {
+  it("appends evidenceIds and reviewBundleIds factually", async () => {
+    const dbPath = tempDbPath("w1.sqlite");
+    const projects = openProjects(dbPath);
+    await projects.createProject.execute({
+      projectId: "prj:m5-w1",
+      title: "M5 W1",
+      objective: "m5-w1-objective",
+      context: "m5-w1-context",
+      scope: "m5-w1-scope",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      lpsVersionId: "lps:m5-w1-v1",
+      idempotencyKey: "idem:m5-w1",
+    });
+
+    const linked = await appendEvidenceOutcomeToLps({
+      projectId: "prj:m5-w1",
+      evidenceId: "ev:m5-w1",
+      reviewBundleId: "rb:m5-w1",
+      projectServices: projects,
+    });
+    expect(linked.ok).toBe(true);
+    if (!linked.ok) return;
+    expect(linked.lpsVersion).toBe(2);
+
+    const lps = await projects.getCurrentLivingProjectState.execute({
+      projectId: "prj:m5-w1",
+    });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) return;
+    expect(lps.livingProjectState.evidenceIds).toEqual(["ev:m5-w1"]);
+    expect(lps.livingProjectState.reviewBundleIds).toEqual(["rb:m5-w1"]);
+  });
+
+  it("uses system factual writer provenance (not Morris)", async () => {
+    const dbPath = tempDbPath("w1-prov.sqlite");
+    const projects = openProjects(dbPath);
+    await projects.createProject.execute({
+      projectId: "prj:m5-w1-prov",
+      title: "M5 W1 provenance",
+      objective: "m5-w1-prov-objective",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      lpsVersionId: "lps:m5-w1-prov-v1",
+      idempotencyKey: "idem:m5-w1-prov",
+    });
+
+    const seeded = await projects.appendLivingProjectStateVersion.execute({
+      projectId: "prj:m5-w1-prov",
+      expectedVersion: 1,
+      objective: "m5-w1-prov-objective",
+      createdBy: ACTOR,
+      decisionIds: ["dec:keep"],
+      trajectoryId: "trj:keep",
+      trajectoryVersion: 3,
+    });
+    expect(seeded.ok).toBe(true);
+    if (!seeded.ok) return;
+
+    const linked = await appendEvidenceOutcomeToLps({
+      projectId: "prj:m5-w1-prov",
+      evidenceId: "ev:m5-w1-prov",
+      reviewBundleId: "rb:m5-w1-prov",
+      projectServices: projects,
+    });
+    expect(linked.ok).toBe(true);
+    if (!linked.ok) return;
+
+    const lps = await projects.getCurrentLivingProjectState.execute({
+      projectId: "prj:m5-w1-prov",
+    });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) return;
+    const state = lps.livingProjectState;
+    expect(state.createdBy.role).toBe("system");
+    expect(state.createdBy.authorityLevel).toBe("none");
+    expect(state.createdBy.actorId).toBe(SFIA_STUDIO_SYSTEM_FACTUAL_WRITER_ID);
+    expect(state.createdBy.actorId).not.toBe(LOCAL_MORRIS_ACTOR.actorId);
+    expect(state.createdBy.actorId).toBe(
+      SFIA_STUDIO_SYSTEM_FACTUAL_WRITER.actorId,
+    );
+    expect(state.provenance?.actor.role).toBe("system");
+    expect(state.provenance?.actor.actorId).toBe(
+      SFIA_STUDIO_SYSTEM_FACTUAL_WRITER_ID,
+    );
+    expect(state.decisionIds).toEqual(["dec:keep"]);
+    expect(state.trajectoryId).toBe("trj:keep");
+    expect(state.trajectoryVersion).toBe(3);
+    expect(state.evidenceIds).toEqual(["ev:m5-w1-prov"]);
+    expect(state.reviewBundleIds).toEqual(["rb:m5-w1-prov"]);
+  });
+
+  it("preserves evidenceIds/reviewBundleIds when omitted on later append", async () => {
+    const dbPath = tempDbPath("carry.sqlite");
+    const projects = openProjects(dbPath);
+    await projects.createProject.execute({
+      projectId: "prj:m5-carry",
+      title: "M5 carry",
+      objective: "carry-objective",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      lpsVersionId: "lps:m5-carry-v1",
+      idempotencyKey: "idem:m5-carry",
+    });
+
+    await appendEvidenceOutcomeToLps({
+      projectId: "prj:m5-carry",
+      evidenceId: "ev:keep",
+      reviewBundleId: "rb:keep",
+      projectServices: projects,
+    });
+
+    const appended = await projects.appendLivingProjectStateVersion.execute({
+      projectId: "prj:m5-carry",
+      expectedVersion: 2,
+      objective: "carry-objective-v3",
+      createdBy: ACTOR,
+      decisionIds: ["dec:1"],
+    });
+    expect(appended.ok).toBe(true);
+    if (!appended.ok) return;
+    expect(appended.livingProjectState.evidenceIds).toEqual(["ev:keep"]);
+    expect(appended.livingProjectState.reviewBundleIds).toEqual(["rb:keep"]);
+    expect(appended.livingProjectState.decisionIds).toEqual(["dec:1"]);
+  });
+});
+
+===== END FILE: projects/sfia-studio/app/__tests__/oa/project/m5W1LpsAppend.test.ts =====
+
 ===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/project/rehydrateEvidenceOutcomeFromLps.test.ts =====
 /**
  * M5 rehydrateEvidenceOutcomeFromLps — read-only LPS → RecommendNextGate.
@@ -4655,645 +3406,6 @@ describe("rehydrateEvidenceOutcomeFromLps", () => {
 });
 
 ===== END FILE: projects/sfia-studio/app/__tests__/oa/project/rehydrateEvidenceOutcomeFromLps.test.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/m5AttemptDurability.test.ts =====
-/**
- * M5 — ExecutionAttempt durability + durable resultRecordingAttempts budget.
- * @vitest-environment node
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, describe, expect, it } from "vitest";
-import {
-  createTestDoctrineResolver,
-  type Digest,
-  type DoctrinePackagePin,
-} from "@/lib/oa/doctrine";
-import {
-  createTestSqliteProductProjectServices,
-  type ActorReference,
-  type SqliteProductProjectServices,
-} from "@/lib/oa/project";
-import {
-  SqliteExecutionAttemptRepository,
-  SqliteExecutionAttemptTechnicalStore,
-  type ExecutionAttempt,
-} from "@/lib/oa/execution-attempt";
-
-const APP_ROOT = path.resolve(__dirname, "../../..");
-const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
-const SCHEMAS = path.resolve(
-  APP_ROOT,
-  "../sfia-v3-modeled/v3-native-option-a/schemas",
-);
-
-const VALID_DIGEST =
-  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
-
-const VALID_PIN: DoctrinePackagePin = {
-  doctrinePackageId: "pkg:studio-v3-oa",
-  version: "1.0.0",
-  digest: VALID_DIGEST,
-};
-
-const ACTOR: ActorReference = {
-  actorId: "actor:morris",
-  role: "project_owner",
-  displayName: "Morris",
-  authorityLevel: "N3",
-};
-
-const NOW = "2026-08-15T08:30:00.000Z";
-
-const tempDirs: string[] = [];
-const openServices: Array<{ dispose: () => void }> = [];
-
-function tempDbPath(name: string): string {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-m5-att-"));
-  tempDirs.push(dir);
-  return path.join(dir, name);
-}
-
-function openProjects(dbPath: string): SqliteProductProjectServices {
-  const { resolver } = createTestDoctrineResolver({
-    registryRoot: FIXTURES,
-    schemasRoot: SCHEMAS,
-  });
-  const svc = createTestSqliteProductProjectServices({
-    doctrineResolver: resolver,
-    fixedNowIso: NOW,
-    dbPath,
-  });
-  openServices.push(svc);
-  return svc;
-}
-
-function baseAttempt(
-  overrides: Partial<ExecutionAttempt> & { attemptId: string },
-): ExecutionAttempt {
-  return {
-    schemaVersion: "0.2.0-oa",
-    executionContractId: "xct:m5-001",
-    executionContractVersion: 1,
-    selectedAgentRef: "agt:fixture",
-    status: "accepted",
-    idempotencyKey: `idem-${overrides.attemptId}`,
-    correlationId: "cor:m5-att",
-    version: 1,
-    createdAt: NOW,
-    provenance: {
-      schemaVersion: "0.1.0-oa",
-      provenanceRecordId: "prv:m5-att",
-      actor: { actorId: "actor:morris", role: "decision_maker" },
-      source: "human_decision",
-      timestamp: NOW,
-      correlationId: "cor:m5-att",
-    },
-    selectionStrategy: "capabilities_deterministic",
-    selectionProfile: "standard",
-    selectionExpiresAt: "2026-08-15T09:00:00.000Z",
-    ...overrides,
-  };
-}
-
-afterEach(() => {
-  while (openServices.length) {
-    try {
-      openServices.pop()?.dispose();
-    } catch {
-      /* ignore */
-    }
-  }
-  while (tempDirs.length) {
-    const dir = tempDirs.pop();
-    if (dir) fs.rmSync(dir, { recursive: true, force: true });
-  }
-});
-
-describe("M5 ExecutionAttempt durability", () => {
-  it("persists attempt + active index + result budget across reopen", async () => {
-    const dbPath = tempDbPath("attempt.sqlite");
-    const projects = openProjects(dbPath);
-    await projects.createProject.execute({
-      projectId: "prj:m5-att",
-      title: "M5 Attempt",
-      objective: "m5-att-objective",
-      doctrinePackagePin: VALID_PIN,
-      createdBy: ACTOR,
-      lpsVersionId: "lps:m5-att-v1",
-      idempotencyKey: "idem:m5-att-prj",
-    });
-
-    const repo = new SqliteExecutionAttemptRepository(projects.store);
-    const tech = new SqliteExecutionAttemptTechnicalStore(projects.store);
-    const attempt = baseAttempt({ attemptId: "xat:m5-durable" });
-    await repo.create(attempt);
-    await repo.reserveActiveContract(
-      attempt.executionContractId,
-      attempt.attemptId,
-    );
-    tech.resultRecordingAttempts.set(attempt.attemptId, 2);
-
-    const active = await repo.findActiveByContract(attempt.executionContractId);
-    expect(active?.attemptId).toBe("xat:m5-durable");
-    expect(tech.resultRecordingAttempts.get(attempt.attemptId)).toBe(2);
-
-    projects.dispose();
-    openServices.pop();
-
-    const projects2 = openProjects(dbPath);
-    const repo2 = new SqliteExecutionAttemptRepository(projects2.store);
-    const tech2 = new SqliteExecutionAttemptTechnicalStore(projects2.store);
-    const loaded = await repo2.findById("xat:m5-durable");
-    expect(loaded?.status).toBe("accepted");
-    expect(loaded?.idempotencyKey).toBe("idem-xat:m5-durable");
-    const active2 = await repo2.findActiveByContract("xct:m5-001");
-    expect(active2?.attemptId).toBe("xat:m5-durable");
-    expect(tech2.resultRecordingAttempts.get("xat:m5-durable")).toBe(2);
-  });
-
-  it("enforces OCC and active reservation on SQLite", async () => {
-    const dbPath = tempDbPath("occ.sqlite");
-    const projects = openProjects(dbPath);
-    const repo = new SqliteExecutionAttemptRepository(projects.store);
-    await repo.create(baseAttempt({ attemptId: "xat:m5-occ" }));
-    await expect(
-      repo.update(
-        baseAttempt({
-          attemptId: "xat:m5-occ",
-          status: "running",
-          version: 2,
-          startedAt: NOW,
-        }),
-        99,
-      ),
-    ).rejects.toMatchObject({ detailCode: "VERSION_CONFLICT" });
-
-    await repo.reserveActiveContract("xct:m5-001", "xat:m5-occ");
-    await expect(
-      repo.reserveActiveContract("xct:m5-001", "xat:other"),
-    ).rejects.toMatchObject({ detailCode: "EXECUTION_ALREADY_ACTIVE" });
-  });
-
-  it("concurrent update with same expectedVersion → one win, one VERSION_CONFLICT", async () => {
-    const dbPath = tempDbPath("occ-concurrent.sqlite");
-    const projects = openProjects(dbPath);
-    const repo = new SqliteExecutionAttemptRepository(projects.store);
-    await repo.create(baseAttempt({ attemptId: "xat:m5-occ-c" }));
-
-    const results = await Promise.allSettled([
-      repo.update(
-        baseAttempt({
-          attemptId: "xat:m5-occ-c",
-          status: "accepted",
-          version: 2,
-          updatedAt: NOW,
-          selectionExpiresAt: "2026-08-15T09:10:00.000Z",
-        }),
-        1,
-      ),
-      repo.update(
-        baseAttempt({
-          attemptId: "xat:m5-occ-c",
-          status: "accepted",
-          version: 2,
-          updatedAt: NOW,
-          selectionExpiresAt: "2026-08-15T09:20:00.000Z",
-        }),
-        1,
-      ),
-    ]);
-
-    const fulfilled = results.filter((r) => r.status === "fulfilled");
-    const rejected = results.filter((r) => r.status === "rejected");
-    expect(fulfilled).toHaveLength(1);
-    expect(rejected).toHaveLength(1);
-    expect(rejected[0]).toMatchObject({
-      status: "rejected",
-      reason: expect.objectContaining({ detailCode: "VERSION_CONFLICT" }),
-    });
-    const loaded = await repo.findById("xat:m5-occ-c");
-    expect(loaded?.version).toBe(2);
-  });
-
-  it("concurrent reserveActiveContract different attemptIds → one EXECUTION_ALREADY_ACTIVE", async () => {
-    const dbPath = tempDbPath("reserve-concurrent.sqlite");
-    const projects = openProjects(dbPath);
-    const repo = new SqliteExecutionAttemptRepository(projects.store);
-    await repo.create(
-      baseAttempt({ attemptId: "xat:m5-res-a", executionContractId: "xct:m5-res" }),
-    );
-    await repo.create(
-      baseAttempt({ attemptId: "xat:m5-res-b", executionContractId: "xct:m5-res" }),
-    );
-
-    const results = await Promise.allSettled([
-      repo.reserveActiveContract("xct:m5-res", "xat:m5-res-a"),
-      repo.reserveActiveContract("xct:m5-res", "xat:m5-res-b"),
-    ]);
-
-    const fulfilled = results.filter((r) => r.status === "fulfilled");
-    const rejected = results.filter((r) => r.status === "rejected");
-    expect(fulfilled).toHaveLength(1);
-    expect(rejected).toHaveLength(1);
-    expect(rejected[0]).toMatchObject({
-      status: "rejected",
-      reason: expect.objectContaining({
-        detailCode: "EXECUTION_ALREADY_ACTIVE",
-      }),
-    });
-    const active = await repo.findActiveByContract("xct:m5-res");
-    expect(["xat:m5-res-a", "xat:m5-res-b"]).toContain(active?.attemptId);
-  });
-});
-
-===== END FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/m5AttemptDurability.test.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/evidence-review/m5EvidenceReviewDurability.test.ts =====
-/**
- * M5 — Evidence + ReviewBundle Product SQLite durability.
- * @vitest-environment node
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, describe, expect, it } from "vitest";
-import {
-  createTestDoctrineResolver,
-  type Digest,
-  type DoctrinePackagePin,
-} from "@/lib/oa/doctrine";
-import {
-  createTestSqliteProductProjectServices,
-  type ActorReference,
-  type SqliteProductProjectServices,
-} from "@/lib/oa/project";
-import {
-  createTestSqliteEvidenceReviewServices,
-  type ActorReference as EvidenceActor,
-  type Digest as EvidenceDigest,
-} from "@/lib/oa/evidence-review";
-
-const APP_ROOT = path.resolve(__dirname, "../../..");
-const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
-const SCHEMAS = path.resolve(
-  APP_ROOT,
-  "../sfia-v3-modeled/v3-native-option-a/schemas",
-);
-
-const VALID_DIGEST =
-  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
-
-const EVIDENCE_DIGEST =
-  "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" as EvidenceDigest;
-
-const VALID_PIN: DoctrinePackagePin = {
-  doctrinePackageId: "pkg:studio-v3-oa",
-  version: "1.0.0",
-  digest: VALID_DIGEST,
-};
-
-const ACTOR: ActorReference = {
-  actorId: "actor:morris",
-  role: "project_owner",
-  displayName: "Morris",
-  authorityLevel: "N3",
-};
-
-const EV_ACTOR: EvidenceActor = {
-  actorId: "actor:morris",
-  role: "decision_maker",
-  authorityLevel: "N3",
-};
-
-const tempDirs: string[] = [];
-const openServices: Array<{ dispose: () => void }> = [];
-
-function tempDbPath(name: string): string {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-m5-ev-"));
-  tempDirs.push(dir);
-  return path.join(dir, name);
-}
-
-function openProjects(dbPath: string): SqliteProductProjectServices {
-  const { resolver } = createTestDoctrineResolver({
-    registryRoot: FIXTURES,
-    schemasRoot: SCHEMAS,
-  });
-  const svc = createTestSqliteProductProjectServices({
-    doctrineResolver: resolver,
-    fixedNowIso: "2026-08-15T09:00:00.000Z",
-    dbPath,
-  });
-  openServices.push(svc);
-  return svc;
-}
-
-afterEach(() => {
-  while (openServices.length) {
-    try {
-      openServices.pop()?.dispose();
-    } catch {
-      /* ignore */
-    }
-  }
-  while (tempDirs.length) {
-    const dir = tempDirs.pop();
-    if (dir) fs.rmSync(dir, { recursive: true, force: true });
-  }
-});
-
-describe("M5 Evidence/ReviewBundle durability", () => {
-  it("persists Evidence + ReviewBundle across Product SQLite reopen", async () => {
-    const dbPath = tempDbPath("ev-rb.sqlite");
-    const projects = openProjects(dbPath);
-    await projects.createProject.execute({
-      projectId: "prj:m5-ev",
-      title: "M5 Evidence",
-      objective: "m5-ev-objective",
-      doctrinePackagePin: VALID_PIN,
-      createdBy: ACTOR,
-      lpsVersionId: "lps:m5-ev-v1",
-      idempotencyKey: "idem:m5-ev-prj",
-    });
-
-    const services = createTestSqliteEvidenceReviewServices({
-      productStore: projects.store,
-      fixedNowIso: "2026-08-15T09:00:00.000Z",
-    });
-
-    const reg = await services.registerEvidence.execute({
-      evidenceId: "ev:m5-durable",
-      idempotencyKey: "idem:ev:m5-durable",
-      actor: EV_ACTOR,
-      type: "document",
-      source: "fixture",
-      sourceKind: "manual",
-      bindings: { projectId: "prj:m5-ev" },
-      classification: "internal",
-      storageMode: "metadata_only",
-      digest: EVIDENCE_DIGEST,
-    });
-    expect(reg.ok).toBe(true);
-
-    const bundle = await services.createReviewBundle.execute({
-      reviewBundleId: "rb:m5-durable",
-      idempotencyKey: "idem:rb:m5-durable",
-      actor: EV_ACTOR,
-      projectId: "prj:m5-ev",
-      evidenceIds: ["ev:m5-durable"],
-    });
-    expect(bundle.ok).toBe(true);
-
-    projects.dispose();
-    openServices.pop();
-
-    const projects2 = openProjects(dbPath);
-    const services2 = createTestSqliteEvidenceReviewServices({
-      productStore: projects2.store,
-    });
-    const evidence = await services2.repository.findById("ev:m5-durable");
-    expect(evidence?.status).toBe("available");
-    expect(evidence?.bindings.projectId).toBe("prj:m5-ev");
-    const rb = await services2.reviewBundleRepository.findById("rb:m5-durable");
-    expect(rb?.evidenceRefs).toEqual(["ev:m5-durable"]);
-    const byKey = await services2.repository.findByIdempotencyKey(
-      "idem:ev:m5-durable",
-    );
-    expect(byKey?.evidence.evidenceId).toBe("ev:m5-durable");
-  });
-
-  it("createSuccessorAndMarkSuperseded is transactional on Product SQLite", async () => {
-    const dbPath = tempDbPath("reopen.sqlite");
-    const projects = openProjects(dbPath);
-    const services = createTestSqliteEvidenceReviewServices({
-      productStore: projects.store,
-    });
-    const reg = await services.registerEvidence.execute({
-      evidenceId: "ev:m5-reopen",
-      idempotencyKey: "idem:ev:m5-reopen",
-      actor: EV_ACTOR,
-      type: "document",
-      source: "fixture",
-      sourceKind: "manual",
-      bindings: { projectId: "prj:m5-reopen" },
-      classification: "internal",
-      storageMode: "metadata_only",
-      digest: EVIDENCE_DIGEST,
-    });
-    expect(reg.ok).toBe(true);
-    const created = await services.createReviewBundle.execute({
-      reviewBundleId: "rb:m5-src",
-      idempotencyKey: "idem:rb:m5-src",
-      actor: EV_ACTOR,
-      projectId: "prj:m5-reopen",
-      evidenceIds: ["ev:m5-reopen"],
-    });
-    expect(created.ok).toBe(true);
-    if (!created.ok) return;
-
-    // Freeze → start → complete so reopen is legal.
-    const frozen = await services.freezeReviewBundle.execute({
-      reviewBundleId: "rb:m5-src",
-      actor: EV_ACTOR,
-      expectedVersion: 1,
-      idempotencyKey: "idem:freeze:m5-src",
-    });
-    expect(frozen.ok).toBe(true);
-    const started = await services.startReview.execute({
-      reviewBundleId: "rb:m5-src",
-      actor: EV_ACTOR,
-      expectedVersion: 2,
-      idempotencyKey: "idem:start:m5-src",
-    });
-    expect(started.ok).toBe(true);
-    const completed = await services.completeReview.execute({
-      reviewBundleId: "rb:m5-src",
-      actor: EV_ACTOR,
-      expectedVersion: 3,
-      outcome: "accepted",
-      idempotencyKey: "idem:complete:m5-src",
-    });
-    expect(completed.ok).toBe(true);
-
-    const reopened = await services.reopenReview.execute({
-      reviewBundleId: "rb:m5-src",
-      successorReviewBundleId: "rb:m5-successor",
-      actor: EV_ACTOR,
-      expectedVersion: 4,
-      reason: "revise",
-      idempotencyKey: "idem:reopen:m5-src",
-    });
-    expect(reopened.ok).toBe(true);
-    if (!reopened.ok) return;
-    expect(reopened.reviewBundle.reviewBundleId).toBe("rb:m5-src");
-    expect(reopened.reviewBundle.status).toBe("superseded");
-    expect(reopened.successor?.reviewBundleId).toBe("rb:m5-successor");
-    expect(reopened.successor?.status).toBe("draft");
-
-    const superseded = await services.reviewBundleRepository.findById(
-      "rb:m5-src",
-    );
-    expect(superseded?.status).toBe("superseded");
-    const successor = await services.reviewBundleRepository.findById(
-      "rb:m5-successor",
-    );
-    expect(successor?.status).toBe("draft");
-  });
-
-  it("concurrent Evidence update expectedVersion=1 → one win, one VERSION_CONFLICT", async () => {
-    const dbPath = tempDbPath("ev-occ.sqlite");
-    const projects = openProjects(dbPath);
-    const services = createTestSqliteEvidenceReviewServices({
-      productStore: projects.store,
-    });
-    const reg = await services.registerEvidence.execute({
-      evidenceId: "ev:m5-occ",
-      idempotencyKey: "idem:ev:m5-occ",
-      actor: EV_ACTOR,
-      type: "document",
-      source: "fixture",
-      sourceKind: "manual",
-      bindings: { projectId: "prj:m5-occ" },
-      classification: "internal",
-      storageMode: "metadata_only",
-      digest: EVIDENCE_DIGEST,
-    });
-    expect(reg.ok).toBe(true);
-    if (!reg.ok) return;
-
-    const base = reg.evidence;
-    const results = await Promise.allSettled([
-      services.repository.update(
-        {
-          ...base,
-          status: "stale",
-          version: 2,
-          updatedAt: "2026-08-15T09:01:00.000Z",
-        },
-        1,
-      ),
-      services.repository.update(
-        {
-          ...base,
-          status: "stale",
-          version: 2,
-          updatedAt: "2026-08-15T09:02:00.000Z",
-        },
-        1,
-      ),
-    ]);
-
-    const fulfilled = results.filter((r) => r.status === "fulfilled");
-    const rejected = results.filter((r) => r.status === "rejected");
-    expect(fulfilled).toHaveLength(1);
-    expect(rejected).toHaveLength(1);
-    expect(rejected[0]).toMatchObject({
-      status: "rejected",
-      reason: expect.objectContaining({ detailCode: "VERSION_CONFLICT" }),
-    });
-    const loaded = await services.repository.findById("ev:m5-occ");
-    expect(loaded?.version).toBe(2);
-  });
-
-  it("concurrent createSuccessorAndMarkSuperseded → one wins, no orphan", async () => {
-    const dbPath = tempDbPath("reopen-concurrent.sqlite");
-    const projects = openProjects(dbPath);
-    const services = createTestSqliteEvidenceReviewServices({
-      productStore: projects.store,
-    });
-    const reg = await services.registerEvidence.execute({
-      evidenceId: "ev:m5-conc",
-      idempotencyKey: "idem:ev:m5-conc",
-      actor: EV_ACTOR,
-      type: "document",
-      source: "fixture",
-      sourceKind: "manual",
-      bindings: { projectId: "prj:m5-conc" },
-      classification: "internal",
-      storageMode: "metadata_only",
-      digest: EVIDENCE_DIGEST,
-    });
-    expect(reg.ok).toBe(true);
-
-    const created = await services.createReviewBundle.execute({
-      reviewBundleId: "rb:m5-conc-src",
-      idempotencyKey: "idem:rb:m5-conc-src",
-      actor: EV_ACTOR,
-      projectId: "prj:m5-conc",
-      evidenceIds: ["ev:m5-conc"],
-    });
-    expect(created.ok).toBe(true);
-    if (!created.ok) return;
-
-    const frozen = await services.freezeReviewBundle.execute({
-      reviewBundleId: "rb:m5-conc-src",
-      actor: EV_ACTOR,
-      expectedVersion: 1,
-      idempotencyKey: "idem:freeze:m5-conc",
-    });
-    expect(frozen.ok).toBe(true);
-    const started = await services.startReview.execute({
-      reviewBundleId: "rb:m5-conc-src",
-      actor: EV_ACTOR,
-      expectedVersion: 2,
-      idempotencyKey: "idem:start:m5-conc",
-    });
-    expect(started.ok).toBe(true);
-    const completed = await services.completeReview.execute({
-      reviewBundleId: "rb:m5-conc-src",
-      actor: EV_ACTOR,
-      expectedVersion: 3,
-      outcome: "accepted",
-      idempotencyKey: "idem:complete:m5-conc",
-    });
-    expect(completed.ok).toBe(true);
-
-    const results = await Promise.allSettled([
-      services.reopenReview.execute({
-        reviewBundleId: "rb:m5-conc-src",
-        successorReviewBundleId: "rb:m5-conc-a",
-        actor: EV_ACTOR,
-        expectedVersion: 4,
-        reason: "revise-a",
-        idempotencyKey: "idem:reopen:m5-conc-a",
-      }),
-      services.reopenReview.execute({
-        reviewBundleId: "rb:m5-conc-src",
-        successorReviewBundleId: "rb:m5-conc-b",
-        actor: EV_ACTOR,
-        expectedVersion: 4,
-        reason: "revise-b",
-        idempotencyKey: "idem:reopen:m5-conc-b",
-      }),
-    ]);
-
-    const okResults = results.filter(
-      (r) => r.status === "fulfilled" && r.value.ok,
-    );
-    const failResults = results.filter(
-      (r) =>
-        r.status === "fulfilled" && !r.value.ok,
-    );
-    expect(okResults).toHaveLength(1);
-    expect(failResults).toHaveLength(1);
-    if (failResults[0]?.status === "fulfilled" && !failResults[0].value.ok) {
-      expect(failResults[0].value.error.detailCode).toBe("VERSION_CONFLICT");
-    }
-
-    const src = await services.reviewBundleRepository.findById("rb:m5-conc-src");
-    expect(src?.status).toBe("superseded");
-
-    const a = await services.reviewBundleRepository.findById("rb:m5-conc-a");
-    const b = await services.reviewBundleRepository.findById("rb:m5-conc-b");
-    const successors = [a, b].filter(Boolean);
-    expect(successors).toHaveLength(1);
-    expect(successors[0]?.status).toBe("draft");
-  });
-});
-
-===== END FILE: projects/sfia-studio/app/__tests__/oa/evidence-review/m5EvidenceReviewDurability.test.ts =====
 
 ===== BEGIN FILE: projects/sfia-studio/app/__tests__/project-assistant/m5C1C2DisclosureAndRehydrateAction.test.ts =====
 /**
@@ -5540,7 +3652,2096 @@ describe("C2 projectAssistantRehydrateEvidenceOutcomeAction", () => {
 });
 
 ===== END FILE: projects/sfia-studio/app/__tests__/project-assistant/m5C1C2DisclosureAndRehydrateAction.test.ts =====
-```
 
----
-END OF REVIEW PACK FULL
+===== BEGIN FILE: projects/sfia-studio/app/__tests__/project-assistant/m5C1PrepareMemoryDisclosure.test.ts =====
+/**
+ * C1 residual — prepareF3Fixture Memory surface must return PROCESS_LOCAL notice.
+ * @vitest-environment node
+ */
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import {
+  prepareF3Fixture,
+  F3_PROCESS_LOCAL_NOTICE,
+  F3_PRODUCT_DURABLE_NOTICE,
+} from "@/features/project-assistant/f3";
+import {
+  createProposalId,
+  F2_PROCESS_LOCAL_NOTICE,
+  resetF2ProposalStoreForTests,
+  saveProposal,
+} from "@/features/project-assistant/f2/proposalStore";
+import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
+import {
+  createTestDoctrineResolver,
+  type Digest,
+  type DoctrinePackagePin,
+} from "@/lib/oa/doctrine";
+import { createTestProjectServices } from "@/lib/oa/project";
+import { createTestCycleServices } from "@/lib/oa/cycle";
+import {
+  MemoryAuthorityResolver,
+  createTestDecisionServices,
+} from "@/lib/oa/decision";
+import { createTestExecutionContractServices } from "@/lib/oa/execution-contract";
+
+const APP_ROOT = path.resolve(__dirname, "../..");
+const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+const SCHEMAS = path.resolve(
+  APP_ROOT,
+  "../sfia-v3-modeled/v3-native-option-a/schemas",
+);
+
+const VALID_DIGEST =
+  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
+
+const VALID_PIN: DoctrinePackagePin = {
+  doctrinePackageId: "pkg:studio-v3-oa",
+  version: "1.0.0",
+  digest: VALID_DIGEST,
+};
+
+const NOW = "2026-08-15T13:00:00.000Z";
+
+describe("C1 prepareF3Fixture Memory disclosure surface", () => {
+  beforeEach(() => {
+    resetF2ProposalStoreForTests();
+  });
+  afterEach(() => {
+    resetF2ProposalStoreForTests();
+  });
+
+  it("returns F3_PROCESS_LOCAL_NOTICE when productDurablePath=false", async () => {
+    const { resolver } = createTestDoctrineResolver({
+      registryRoot: FIXTURES,
+      schemasRoot: SCHEMAS,
+    });
+    const projects = createTestProjectServices({
+      doctrineResolver: resolver,
+      fixedNowIso: NOW,
+    });
+    const cycles = createTestCycleServices({
+      projectServices: projects,
+      fixedNowIso: NOW,
+    });
+    const authority = new MemoryAuthorityResolver();
+    const decisions = createTestDecisionServices({
+      projectServices: projects,
+      cycleServices: cycles,
+      authorityResolver: authority,
+      fixedNowIso: NOW,
+    });
+    const contracts = createTestExecutionContractServices({
+      projectServices: projects,
+      cycleServices: cycles,
+      decisionServices: decisions,
+      fixedNowIso: NOW,
+    });
+
+    const created = await projects.createProject.execute({
+      projectId: "prj:c1-memory-prep",
+      title: "C1 Memory Prepare",
+      objective: "memory-prepare-objective",
+      context: "memory",
+      scope: "memory-scope",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: {
+        actorId: "actor:morris",
+        role: "project_owner",
+        displayName: "Morris",
+        authorityLevel: "N3",
+      },
+      lpsVersionId: "lps:c1-memory-v1",
+      idempotencyKey: "idem:c1-memory-prep",
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+
+    const lps = await projects.getCurrentLivingProjectState.execute({
+      projectId: "prj:c1-memory-prep",
+    });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) return;
+
+    const proposal = saveProposal({
+      proposalId: createProposalId(),
+      status: "DECISION_REQUIRED",
+      rephrasedRequest: "Préparer fixture F3 memory",
+      objective: "Memory disclosure proof",
+      cycleTypeId: "cyc:delivery",
+      recommendedProfile: "Standard",
+      rationale: "C1 residual",
+      scope: "fixture-docs",
+      outOfScope: ["REAL"],
+      activatedBlocks: ["prepare"],
+      expectedOutcome: "PROCESS_LOCAL notice",
+      sources: [],
+      risks: [],
+      reservations: [],
+      stopConditions: ["AUCUNE EXÉCUTION RÉELLE"],
+      morrisGateRequired: true,
+      nextPossibleStep: "F3 PREPARE",
+      contextSnapshot: {
+        projectId: "prj:c1-memory-prep",
+        lpsId: lps.livingProjectState.lpsVersionId,
+        lpsVersion: lps.livingProjectState.version,
+        doctrineDigest: VALID_DIGEST,
+      },
+      processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
+      executionForbidden: true,
+      noExecutingStatus: true,
+      agentBinding: "NOT_AVAILABLE",
+    });
+
+    const go = await recordF2Decision({
+      proposalId: proposal.proposalId,
+      projectId: "prj:c1-memory-prep",
+      decisionKind: "GO",
+      currentContext: proposal.contextSnapshot,
+      decisionServices: decisions,
+      authorityResolver: authority,
+      nowIso: () => NOW,
+      forceM3Authority: true,
+    });
+    expect(go.ok).toBe(true);
+    if (!go.ok) return;
+
+    const prepared = await prepareF3Fixture({
+      projectId: "prj:c1-memory-prep",
+      proposalId: go.proposal.proposalId,
+      decisionId: go.decision.decisionId,
+      currentContext: go.proposal.contextSnapshot,
+      deps: {
+        decisionServices: decisions,
+        authorityResolver: authority,
+        executionContractServices: contracts,
+        nowIso: () => NOW,
+        productDurablePath: false,
+      },
+    });
+
+    expect(prepared.ok).toBe(true);
+    if (!prepared.ok) return;
+    expect(prepared.payload.processLocalNotice).toBe(F3_PROCESS_LOCAL_NOTICE);
+    expect(prepared.payload.processLocalNotice).not.toBe(
+      F3_PRODUCT_DURABLE_NOTICE,
+    );
+    expect(prepared.payload.disclosures).toContain(F3_PROCESS_LOCAL_NOTICE);
+    expect(prepared.payload.disclosures).not.toContain(
+      F3_PRODUCT_DURABLE_NOTICE,
+    );
+  });
+});
+
+===== END FILE: projects/sfia-studio/app/__tests__/project-assistant/m5C1PrepareMemoryDisclosure.test.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/appendEvidenceOutcomeToLps.ts =====
+/**
+ * M5-B W1 — factual LPS append of evidenceIds / reviewBundleIds after
+ * successful Evidence ingest + ReviewBundle create.
+ * Recommendation remains Recommendation (not Decision / not gate consume).
+ */
+
+import type { ProjectServices } from "@/lib/oa/project";
+import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "./systemFactualWriter";
+
+export type AppendEvidenceOutcomeToLpsResult =
+  | { ok: true; lpsVersion: number }
+  | { ok: false; code: string; message: string };
+
+export async function appendEvidenceOutcomeToLps(input: {
+  projectId: string;
+  evidenceId: string;
+  reviewBundleId: string;
+  projectServices: Pick<
+    ProjectServices,
+    "appendLivingProjectStateVersion" | "getCurrentLivingProjectState"
+  >;
+}): Promise<AppendEvidenceOutcomeToLpsResult> {
+  const current =
+    await input.projectServices.getCurrentLivingProjectState.execute({
+      projectId: input.projectId,
+    });
+  if (!current.ok) {
+    return {
+      ok: false,
+      code: current.error.detailCode,
+      message: current.error.message,
+    };
+  }
+
+  const lps = current.livingProjectState;
+  const evidenceIds = [
+    ...new Set([...(lps.evidenceIds ?? []), input.evidenceId]),
+  ];
+  const reviewBundleIds = [
+    ...new Set([...(lps.reviewBundleIds ?? []), input.reviewBundleId]),
+  ];
+
+  const appended =
+    await input.projectServices.appendLivingProjectStateVersion.execute({
+      projectId: input.projectId,
+      expectedVersion: lps.version,
+      objective: lps.objective,
+      context: lps.context,
+      scope: lps.scope,
+      // Automatic factual write-back — system actor, not Morris demo authority.
+      createdBy: SFIA_STUDIO_SYSTEM_FACTUAL_WRITER,
+      evidenceIds,
+      reviewBundleIds,
+    });
+
+  if (!appended.ok) {
+    return {
+      ok: false,
+      code: appended.error.detailCode,
+      message: appended.error.message,
+    };
+  }
+
+  return { ok: true, lpsVersion: appended.livingProjectState.version };
+}
+
+===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/appendEvidenceOutcomeToLps.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/rehydrateEvidenceOutcomeFromLps.ts =====
+/**
+ * M5 durable Nora/F3 readback — STRICTLY read-only.
+ * current LPS → evidenceIds / reviewBundleIds → durable readers → RecommendNextGate.
+ * Does not write LPS, create Decision, consume gate, or launch Attempt.
+ */
+
+import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
+import type { ProjectServices } from "@/lib/oa/project";
+import {
+  F3_LABELS,
+  F3_MODE,
+  F3_OPEN_HARD_RESERVATION_REFS,
+} from "./constants";
+import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "./systemFactualWriter";
+import type {
+  F3EvidenceDto,
+  F3RecommendationDto,
+  F3ReviewBundleDto,
+} from "./types";
+
+export type RehydrateEvidenceOutcomeDeps = {
+  projectServices: Pick<ProjectServices, "getCurrentLivingProjectState">;
+  evidenceReviewServices: Pick<
+    EvidenceReviewServices,
+    "evidenceReader" | "reviewBundleReader" | "recommendNextGate"
+  >;
+};
+
+export type RehydrateEvidenceOutcomeResult =
+  | {
+      ok: true;
+      projectId: string;
+      lpsVersion: number;
+      evidenceIds: string[];
+      reviewBundleIds: string[];
+      evidence: F3EvidenceDto[];
+      reviewBundles: F3ReviewBundleDto[];
+      subjectRef: string | null;
+      recommendation: F3RecommendationDto;
+    }
+  | { ok: false; code: string; message: string };
+
+export async function rehydrateEvidenceOutcomeFromLps(input: {
+  projectId: string;
+  deps: RehydrateEvidenceOutcomeDeps;
+}): Promise<RehydrateEvidenceOutcomeResult> {
+  const current =
+    await input.deps.projectServices.getCurrentLivingProjectState.execute({
+      projectId: input.projectId,
+    });
+  if (!current.ok) {
+    return {
+      ok: false,
+      code: current.error.detailCode,
+      message: current.error.message,
+    };
+  }
+
+  const lps = current.livingProjectState;
+  const evidenceIds = [...(lps.evidenceIds ?? [])];
+  const reviewBundleIds = [...(lps.reviewBundleIds ?? [])];
+
+  if (evidenceIds.length === 0 && reviewBundleIds.length === 0) {
+    return {
+      ok: false,
+      code: "NO_EVIDENCE_OUTCOME_REFS",
+      message: "LPS courant sans evidenceIds/reviewBundleIds.",
+    };
+  }
+
+  const evidenceDtos: F3EvidenceDto[] = [];
+  let subjectRef: string | null = null;
+
+  for (const evidenceId of evidenceIds) {
+    const evidence =
+      await input.deps.evidenceReviewServices.evidenceReader.findById(
+        evidenceId,
+      );
+    if (!evidence) {
+      return {
+        ok: false,
+        code: "EVIDENCE_REF_MISSING",
+        message: `Evidence ${evidenceId} référencée par LPS absente.`,
+      };
+    }
+    const boundProject = evidence.bindings.projectId;
+    if (boundProject && boundProject !== input.projectId) {
+      return {
+        ok: false,
+        code: "EVIDENCE_PROJECT_MISMATCH",
+        message: `Evidence ${evidenceId} project mismatch.`,
+      };
+    }
+    const contractId = evidence.bindings.executionContractId;
+    if (contractId) {
+      if (subjectRef && subjectRef !== contractId) {
+        return {
+          ok: false,
+          code: "EVIDENCE_CONTRACT_MISMATCH",
+          message: "Evidence refs span multiple executionContractId.",
+        };
+      }
+      subjectRef = contractId;
+    }
+    evidenceDtos.push({
+      evidenceId: evidence.evidenceId,
+      status: evidence.status,
+      sourceKind: evidence.sourceKind,
+      technicalResultRef: evidence.technicalResultRef ?? null,
+      verified: false,
+      mode: F3_MODE,
+    });
+  }
+
+  const reviewBundleDtos: F3ReviewBundleDto[] = [];
+  for (const reviewBundleId of reviewBundleIds) {
+    const bundle =
+      await input.deps.evidenceReviewServices.reviewBundleReader.findById(
+        reviewBundleId,
+      );
+    if (!bundle) {
+      return {
+        ok: false,
+        code: "REVIEW_BUNDLE_REF_MISSING",
+        message: `ReviewBundle ${reviewBundleId} référencé par LPS absent.`,
+      };
+    }
+    if (bundle.projectId !== input.projectId) {
+      return {
+        ok: false,
+        code: "REVIEW_BUNDLE_PROJECT_MISMATCH",
+        message: `ReviewBundle ${reviewBundleId} project mismatch.`,
+      };
+    }
+    if (bundle.executionContractId) {
+      if (subjectRef && subjectRef !== bundle.executionContractId) {
+        return {
+          ok: false,
+          code: "REVIEW_BUNDLE_CONTRACT_MISMATCH",
+          message: "ReviewBundle executionContractId incoherent with Evidence.",
+        };
+      }
+      subjectRef = bundle.executionContractId;
+    }
+    reviewBundleDtos.push({
+      reviewBundleId: bundle.reviewBundleId,
+      status: bundle.status,
+      version: bundle.version,
+      evidenceRefs: [...bundle.evidenceRefs],
+      mode: F3_MODE,
+    });
+  }
+
+  const evidenceRefs = [];
+  for (const evidenceId of evidenceIds) {
+    const evidence =
+      await input.deps.evidenceReviewServices.evidenceReader.findById(
+        evidenceId,
+      );
+    if (!evidence) {
+      return {
+        ok: false,
+        code: "EVIDENCE_REF_MISSING",
+        message: `Evidence ${evidenceId} disparue pendant rehydrate.`,
+      };
+    }
+    evidenceRefs.push({ id: evidence.evidenceId, version: evidence.version });
+  }
+
+  const reviewBundleRefs = [];
+  for (const reviewBundleId of reviewBundleIds) {
+    const bundle =
+      await input.deps.evidenceReviewServices.reviewBundleReader.findById(
+        reviewBundleId,
+      );
+    if (!bundle) {
+      return {
+        ok: false,
+        code: "REVIEW_BUNDLE_REF_MISSING",
+        message: `ReviewBundle ${reviewBundleId} disparu pendant rehydrate.`,
+      };
+    }
+    reviewBundleRefs.push({
+      id: bundle.reviewBundleId,
+      version: bundle.version,
+    });
+  }
+
+  const recommended =
+    await input.deps.evidenceReviewServices.recommendNextGate.execute({
+      projectId: input.projectId,
+      subjectRef: subjectRef ?? undefined,
+      evidenceRefs,
+      reviewBundleRefs,
+      openHardReservationRefs: [...F3_OPEN_HARD_RESERVATION_REFS],
+      attemptAutoLaunchNextCycle: false,
+      actor: SFIA_STUDIO_SYSTEM_FACTUAL_WRITER,
+      correlationId: `cor:m5-rehydrate:${input.projectId}:${lps.version}`,
+    });
+
+  if (!recommended.ok) {
+    return {
+      ok: false,
+      code: recommended.error.detailCode,
+      message: recommended.error.message,
+    };
+  }
+
+  const coordination = recommended.coordination;
+  const openHard = [...F3_OPEN_HARD_RESERVATION_REFS];
+  const hardBlockers = [
+    ...coordination.blockers
+      .filter((b) => b.code === "hard_reservation_open")
+      .map((b) => b.sourceId ?? b.code),
+    ...openHard.map((ref) => `${ref} OPEN`),
+  ];
+
+  return {
+    ok: true,
+    projectId: input.projectId,
+    lpsVersion: lps.version,
+    evidenceIds,
+    reviewBundleIds,
+    evidence: evidenceDtos,
+    reviewBundles: reviewBundleDtos,
+    subjectRef,
+    recommendation: {
+      kind: "recommendation",
+      status: coordination.status,
+      executionAuthority: false,
+      gateConsumed: false,
+      decisionCreated: false,
+      attemptAutoLaunchNextCycle: false,
+      openHardReservationRefs: openHard,
+      hardBlockers: [...new Set(hardBlockers)],
+      nextGateCode: coordination.nextGate?.gateCode ?? null,
+      nextActionCode: coordination.nextAction?.actionCode ?? null,
+      recommendationLabel: F3_LABELS.recommendationNotDecision,
+      mode: F3_MODE,
+    },
+  };
+}
+
+===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/rehydrateEvidenceOutcomeFromLps.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/systemFactualWriter.ts =====
+/**
+ * M5-B W1 — system factual LPS writer.
+ * Not Morris, not decision_maker, authority none — automatic state linkage only.
+ */
+
+import type { ActorReference } from "@/lib/oa/doctrine";
+
+export const SFIA_STUDIO_SYSTEM_FACTUAL_WRITER_ID =
+  "actor:sfia-studio-system-factual-writer" as const;
+
+/**
+ * Stable Studio system actor for automatic factual LPS write-back.
+ * Must not be registered as authority evidence / canActAsMorris.
+ */
+export const SFIA_STUDIO_SYSTEM_FACTUAL_WRITER: ActorReference = Object.freeze({
+  actorId: SFIA_STUDIO_SYSTEM_FACTUAL_WRITER_ID,
+  role: "system",
+  displayName: "SFIA Studio system factual state writer",
+  authorityLevel: "none",
+});
+
+===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/systemFactualWriter.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/createSqliteEvidenceReviewServices.ts =====
+import type { ClockPort } from "@/lib/oa/doctrine";
+import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
+import type { ProductSqliteHandle } from "@/lib/oa/project";
+import { AttachEvidenceToReviewBundle } from "../../application/attachEvidenceToReviewBundle";
+import { CompleteReview } from "../../application/completeReview";
+import { ConfirmClaimEvaluation } from "../../application/confirmClaimEvaluation";
+import { ConfirmMaturity } from "../../application/confirmMaturity";
+import { CreateReviewBundle } from "../../application/createReviewBundle";
+import { DowngradeMaturity } from "../../application/downgradeMaturity";
+import { EvaluateClaim } from "../../application/evaluateClaim";
+import { FreezeReviewBundle } from "../../application/freezeReviewBundle";
+import { IngestExecutionAttemptEvidence } from "../../application/ingestExecutionAttemptEvidence";
+import { MarkEvidenceUnavailable } from "../../application/markEvidenceUnavailable";
+import { ProposeMaturity } from "../../application/proposeMaturity";
+import { RecommendNextGate } from "../../application/recommendNextGate";
+import { RegisterEvidence } from "../../application/registerEvidence";
+import { RejectClaimEvaluation } from "../../application/rejectClaimEvaluation";
+import { RemoveEvidenceFromReviewBundle } from "../../application/removeEvidenceFromReviewBundle";
+import { ReopenReview } from "../../application/reopenReview";
+import { StartReview } from "../../application/startReview";
+import { VerifyEvidenceIntegrity } from "../../application/verifyEvidenceIntegrity";
+import { FakeClaimAuthority } from "../claimAuthorityAdapter";
+import { ClaimEvaluationRepositoryReader } from "../claimEvaluationRepositoryReader";
+import { EvidenceRepositoryReader } from "../evidenceRepositoryReader";
+import { FakeEvidencePayloadAdapter } from "../fakeEvidencePayloadAdapter";
+import { FakeExecutionAttemptReader } from "../fakeExecutionAttemptReader";
+import {
+  FixedIdGenerator,
+  RandomIdGenerator,
+} from "../idGenerator";
+import { MemoryClaimEvaluationRepository } from "../memoryClaimEvaluationRepository";
+import { MemoryClaimEvaluationStore } from "../memoryClaimEvaluationStore";
+import { MemoryEvidenceStore } from "../memoryEvidenceStore";
+import { MemoryMaturityAssessmentRepository } from "../memoryMaturityAssessmentRepository";
+import { MemoryMaturityAssessmentStore } from "../memoryMaturityAssessmentStore";
+import { MemoryReviewBundleStore } from "../memoryReviewBundleStore";
+import { MaturityAssessmentRepositoryReader } from "../maturityAssessmentRepositoryReader";
+import {
+  ConsoleEvidenceAuditJournal,
+  MemoryEvidenceAuditJournal,
+} from "../observability";
+import { ReviewBundleRepositoryReader } from "../reviewBundleRepositoryReader";
+import type { ClaimAuthorityPort } from "../../ports/claimAuthorityPort";
+import type { ClaimEvaluationReaderPort } from "../../ports/claimEvaluationReader";
+import type { EvidenceAuditPort } from "../../ports/evidenceAudit";
+import type { EvidencePayloadPort } from "../../ports/evidencePayloadPort";
+import type { EvidenceReaderPort } from "../../ports/evidenceReader";
+import type { EvidenceRepositoryPort } from "../../ports/evidenceRepository";
+import type { ExecutionAttemptReaderPort } from "../../ports/executionAttemptReader";
+import type { IdGeneratorPort } from "../../ports/idGenerator";
+import type { MaturityAssessmentReaderPort } from "../../ports/maturityAssessmentReader";
+import type { ReviewBundleReaderPort } from "../../ports/reviewBundleReader";
+import type { ReviewBundleRepositoryPort } from "../../ports/reviewBundleRepository";
+import { SqliteEvidenceRepository } from "./sqliteEvidenceRepository";
+import { SqliteReviewBundleRepository } from "./sqliteReviewBundleRepository";
+
+export type CreateSqliteEvidenceReviewServicesOptions = {
+  productStore: ProductSqliteHandle;
+  clock?: ClockPort;
+  audit?: EvidenceAuditPort;
+  ids?: IdGeneratorPort;
+  payload?: EvidencePayloadPort;
+  attemptReader?: ExecutionAttemptReaderPort;
+  evidenceReader?: EvidenceReaderPort;
+  claimAuthority?: ClaimAuthorityPort;
+  claimEvaluationStore?: MemoryClaimEvaluationStore;
+  maturityAssessmentStore?: MemoryMaturityAssessmentStore;
+};
+
+export type SqliteEvidenceReviewServices = {
+  store: MemoryEvidenceStore;
+  repository: EvidenceRepositoryPort;
+  reviewBundleStore: MemoryReviewBundleStore;
+  reviewBundleRepository: ReviewBundleRepositoryPort;
+  reviewBundleReader: ReviewBundleReaderPort;
+  claimEvaluationStore: MemoryClaimEvaluationStore;
+  claimEvaluationRepository: MemoryClaimEvaluationRepository;
+  claimEvaluationReader: ClaimEvaluationReaderPort;
+  claimAuthority: ClaimAuthorityPort;
+  maturityAssessmentStore: MemoryMaturityAssessmentStore;
+  maturityAssessmentRepository: MemoryMaturityAssessmentRepository;
+  maturityAssessmentReader: MaturityAssessmentReaderPort;
+  evidenceReader: EvidenceReaderPort;
+  payload: EvidencePayloadPort;
+  attemptReader: ExecutionAttemptReaderPort;
+  clock: ClockPort;
+  audit: EvidenceAuditPort;
+  ids: IdGeneratorPort;
+  productStore: ProductSqliteHandle;
+  registerEvidence: RegisterEvidence;
+  ingestExecutionAttemptEvidence: IngestExecutionAttemptEvidence;
+  verifyEvidenceIntegrity: VerifyEvidenceIntegrity;
+  markEvidenceUnavailable: MarkEvidenceUnavailable;
+  createReviewBundle: CreateReviewBundle;
+  attachEvidenceToReviewBundle: AttachEvidenceToReviewBundle;
+  removeEvidenceFromReviewBundle: RemoveEvidenceFromReviewBundle;
+  freezeReviewBundle: FreezeReviewBundle;
+  startReview: StartReview;
+  completeReview: CompleteReview;
+  reopenReview: ReopenReview;
+  evaluateClaim: EvaluateClaim;
+  confirmClaimEvaluation: ConfirmClaimEvaluation;
+  rejectClaimEvaluation: RejectClaimEvaluation;
+  proposeMaturity: ProposeMaturity;
+  confirmMaturity: ConfirmMaturity;
+  downgradeMaturity: DowngradeMaturity;
+  recommendNextGate: RecommendNextGate;
+};
+
+/**
+ * Evidence + ReviewBundle durable on Product SQLite (M5-A).
+ * ClaimEvaluation + MaturityAssessment remain Memory (out of minimal M5).
+ */
+export function createSqliteEvidenceReviewServices(
+  options: CreateSqliteEvidenceReviewServicesOptions,
+): SqliteEvidenceReviewServices {
+  const productStore = options.productStore;
+  // Type-compat placeholders — evidence/RB use SQLite repos, not these maps.
+  const store = new MemoryEvidenceStore();
+  const repository = new SqliteEvidenceRepository(productStore);
+  const reviewBundleStore = new MemoryReviewBundleStore();
+  const reviewBundleRepository = new SqliteReviewBundleRepository(productStore);
+  const reviewBundleReader = new ReviewBundleRepositoryReader(
+    reviewBundleRepository,
+  );
+  const claimEvaluationStore =
+    options.claimEvaluationStore ?? new MemoryClaimEvaluationStore();
+  const claimEvaluationRepository = new MemoryClaimEvaluationRepository(
+    claimEvaluationStore,
+  );
+  const claimEvaluationReader = new ClaimEvaluationRepositoryReader(
+    claimEvaluationRepository,
+    claimEvaluationStore,
+  );
+  const claimAuthority = options.claimAuthority ?? new FakeClaimAuthority();
+  const maturityAssessmentStore =
+    options.maturityAssessmentStore ?? new MemoryMaturityAssessmentStore();
+  const maturityAssessmentRepository = new MemoryMaturityAssessmentRepository(
+    maturityAssessmentStore,
+  );
+  const maturityAssessmentReader = new MaturityAssessmentRepositoryReader(
+    maturityAssessmentRepository,
+  );
+  const clock = options.clock ?? new SystemClock();
+  const audit = options.audit ?? new ConsoleEvidenceAuditJournal();
+  const ids = options.ids ?? new RandomIdGenerator();
+  const payload = options.payload ?? new FakeEvidencePayloadAdapter();
+  const attemptReader =
+    options.attemptReader ?? new FakeExecutionAttemptReader();
+  const evidenceReader =
+    options.evidenceReader ?? new EvidenceRepositoryReader(repository);
+
+  return {
+    store,
+    repository,
+    reviewBundleStore,
+    reviewBundleRepository,
+    reviewBundleReader,
+    claimEvaluationStore,
+    claimEvaluationRepository,
+    claimEvaluationReader,
+    claimAuthority,
+    maturityAssessmentStore,
+    maturityAssessmentRepository,
+    maturityAssessmentReader,
+    evidenceReader,
+    payload,
+    attemptReader,
+    clock,
+    audit,
+    ids,
+    productStore,
+    registerEvidence: new RegisterEvidence(repository, clock, audit, ids),
+    ingestExecutionAttemptEvidence: new IngestExecutionAttemptEvidence(
+      repository,
+      attemptReader,
+      clock,
+      audit,
+      ids,
+    ),
+    verifyEvidenceIntegrity: new VerifyEvidenceIntegrity(
+      repository,
+      payload,
+      clock,
+      audit,
+      ids,
+    ),
+    markEvidenceUnavailable: new MarkEvidenceUnavailable(
+      repository,
+      clock,
+      audit,
+      ids,
+    ),
+    createReviewBundle: new CreateReviewBundle(
+      reviewBundleRepository,
+      evidenceReader,
+      clock,
+      audit,
+      ids,
+    ),
+    attachEvidenceToReviewBundle: new AttachEvidenceToReviewBundle(
+      reviewBundleRepository,
+      evidenceReader,
+      clock,
+      audit,
+      ids,
+    ),
+    removeEvidenceFromReviewBundle: new RemoveEvidenceFromReviewBundle(
+      reviewBundleRepository,
+      evidenceReader,
+      clock,
+      audit,
+      ids,
+    ),
+    freezeReviewBundle: new FreezeReviewBundle(
+      reviewBundleRepository,
+      evidenceReader,
+      clock,
+      audit,
+      ids,
+    ),
+    startReview: new StartReview(reviewBundleRepository, clock, audit, ids),
+    completeReview: new CompleteReview(
+      reviewBundleRepository,
+      clock,
+      audit,
+      ids,
+    ),
+    reopenReview: new ReopenReview(reviewBundleRepository, clock, audit, ids),
+    evaluateClaim: new EvaluateClaim(
+      claimEvaluationRepository,
+      reviewBundleReader,
+      evidenceReader,
+      claimAuthority,
+      clock,
+      audit,
+      ids,
+    ),
+    confirmClaimEvaluation: new ConfirmClaimEvaluation(
+      claimEvaluationRepository,
+      reviewBundleReader,
+      evidenceReader,
+      claimAuthority,
+      clock,
+      audit,
+      ids,
+    ),
+    rejectClaimEvaluation: new RejectClaimEvaluation(
+      claimEvaluationRepository,
+      clock,
+      audit,
+      ids,
+    ),
+    proposeMaturity: new ProposeMaturity(
+      maturityAssessmentRepository,
+      claimEvaluationReader,
+      clock,
+      audit,
+      ids,
+    ),
+    confirmMaturity: new ConfirmMaturity(
+      maturityAssessmentRepository,
+      claimEvaluationReader,
+      claimAuthority,
+      clock,
+      audit,
+      ids,
+    ),
+    downgradeMaturity: new DowngradeMaturity(
+      maturityAssessmentRepository,
+      claimEvaluationReader,
+      claimAuthority,
+      clock,
+      audit,
+      ids,
+    ),
+    recommendNextGate: new RecommendNextGate(
+      evidenceReader,
+      reviewBundleReader,
+      claimEvaluationReader,
+      maturityAssessmentReader,
+      clock,
+      audit,
+      ids,
+    ),
+  };
+}
+
+export function createTestSqliteEvidenceReviewServices(
+  options: CreateSqliteEvidenceReviewServicesOptions & {
+    fixedNowIso?: string;
+  },
+): SqliteEvidenceReviewServices & {
+  fakePayload: FakeEvidencePayloadAdapter;
+  fakeAttempts: FakeExecutionAttemptReader;
+  memoryAudit: MemoryEvidenceAuditJournal;
+  fakeClaimAuthority: FakeClaimAuthority;
+} {
+  const fakePayload =
+    options.payload instanceof FakeEvidencePayloadAdapter
+      ? options.payload
+      : new FakeEvidencePayloadAdapter();
+  const fakeAttempts =
+    options.attemptReader instanceof FakeExecutionAttemptReader
+      ? options.attemptReader
+      : new FakeExecutionAttemptReader();
+  const memoryAudit =
+    options.audit instanceof MemoryEvidenceAuditJournal
+      ? options.audit
+      : new MemoryEvidenceAuditJournal();
+  const fakeClaimAuthority =
+    options.claimAuthority instanceof FakeClaimAuthority
+      ? options.claimAuthority
+      : new FakeClaimAuthority();
+
+  const services = createSqliteEvidenceReviewServices({
+    ...options,
+    clock:
+      options.clock ??
+      new FixedClock(options.fixedNowIso ?? "2026-08-15T07:00:00.000Z"),
+    audit: memoryAudit,
+    ids: options.ids ?? new FixedIdGenerator(),
+    payload: fakePayload,
+    // Preserve caller-provided bridges (e.g. createAttemptReaderBridge).
+    attemptReader: options.attemptReader ?? fakeAttempts,
+    claimAuthority: fakeClaimAuthority,
+  });
+
+  return {
+    ...services,
+    fakePayload,
+    fakeAttempts,
+    memoryAudit,
+    fakeClaimAuthority,
+  };
+}
+
+===== END FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/createSqliteEvidenceReviewServices.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteEvidenceRepository.ts =====
+import type { ProductSqliteHandle } from "@/lib/oa/project";
+import { EvidenceDomainError } from "../../domain/errors";
+import { validateEvidenceShape } from "../../domain/invariants";
+import type { Evidence } from "../../domain/types";
+import type {
+  EvidenceRepositoryPort,
+  IdempotencyRecord,
+} from "../../ports/evidenceRepository";
+
+type EvidenceRow = {
+  evidence_id: string;
+  project_id: string | null;
+  status: string;
+  idempotency_key: string | null;
+  version: number;
+  payload_json: string;
+};
+
+type IdempotencyRow = {
+  idempotency_key: string;
+  evidence_id: string;
+  fingerprint: string;
+  operation: string;
+};
+
+function cloneEvidence(evidence: Evidence): Evidence {
+  return structuredClone(evidence);
+}
+
+/**
+ * Durable Evidence repository on Product SQLite (M5).
+ * Mirrors MemoryEvidenceRepository OCC + IdempotencyRecord semantics.
+ */
+export class SqliteEvidenceRepository implements EvidenceRepositoryPort {
+  constructor(private readonly store: ProductSqliteHandle) {}
+
+  async findById(evidenceId: string): Promise<Evidence | null> {
+    const row = this.store.db
+      .prepare(
+        `SELECT evidence_id, project_id, status, idempotency_key, version, payload_json
+         FROM oa_evidence WHERE evidence_id = ?`,
+      )
+      .get(evidenceId) as EvidenceRow | undefined;
+    if (!row) return null;
+    return cloneEvidence(JSON.parse(row.payload_json) as Evidence);
+  }
+
+  async findByIdempotencyKey(idempotencyKey: string): Promise<{
+    evidence: Evidence;
+    record: IdempotencyRecord;
+  } | null> {
+    const row = this.store.db
+      .prepare(
+        `SELECT idempotency_key, evidence_id, fingerprint, operation
+         FROM oa_evidence_idempotency WHERE idempotency_key = ?`,
+      )
+      .get(idempotencyKey) as IdempotencyRow | undefined;
+    if (!row) return null;
+    const evidence = await this.findById(row.evidence_id);
+    if (!evidence) return null;
+    return {
+      evidence,
+      record: {
+        evidenceId: row.evidence_id,
+        fingerprint: row.fingerprint,
+        operation: row.operation as IdempotencyRecord["operation"],
+      },
+    };
+  }
+
+  async exists(evidenceId: string): Promise<boolean> {
+    const row = this.store.db
+      .prepare(`SELECT 1 AS ok FROM oa_evidence WHERE evidence_id = ?`)
+      .get(evidenceId) as { ok?: number } | undefined;
+    return row?.ok === 1;
+  }
+
+  async create(
+    evidence: Evidence,
+    record?: IdempotencyRecord,
+  ): Promise<void> {
+    const shape = validateEvidenceShape(evidence);
+    if (shape) {
+      throw new EvidenceDomainError(shape.detailCode, shape.reason);
+    }
+    if (evidence.version !== 1) {
+      throw new EvidenceDomainError(
+        "EVIDENCE_INVALID",
+        "create_requires_version_1",
+      );
+    }
+    if (await this.exists(evidence.evidenceId)) {
+      throw new EvidenceDomainError(
+        "EVIDENCE_ALREADY_EXISTS",
+        "evidence_id_taken",
+      );
+    }
+    if (record) {
+      const existing = await this.findByIdempotencyKey(
+        evidence.idempotencyKey ?? "",
+      );
+      if (existing && existing.evidence.evidenceId !== evidence.evidenceId) {
+        throw new EvidenceDomainError(
+          "IDEMPOTENCY_CONFLICT",
+          "idempotency_key_taken",
+        );
+      }
+    }
+    this.failIfForced();
+    const now = evidence.createdAt;
+    const payload = JSON.stringify(cloneEvidence(evidence));
+    this.store.db
+      .prepare(
+        `INSERT INTO oa_evidence(
+           evidence_id, project_id, status, idempotency_key, version,
+           payload_json, created_at, updated_at
+         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .run(
+        evidence.evidenceId,
+        evidence.bindings.projectId ?? null,
+        evidence.status,
+        evidence.idempotencyKey ?? null,
+        evidence.version,
+        payload,
+        now,
+        now,
+      );
+    if (record && evidence.idempotencyKey) {
+      this.upsertIdempotency(evidence.idempotencyKey, record);
+    }
+  }
+
+  async update(
+    evidence: Evidence,
+    expectedVersion: number,
+    record?: IdempotencyRecord,
+  ): Promise<void> {
+    if (evidence.version !== expectedVersion + 1) {
+      throw new EvidenceDomainError("VERSION_CONFLICT", "version_not_monotone", {
+        expectedVersion,
+      });
+    }
+    const shape = validateEvidenceShape(evidence);
+    if (shape) {
+      throw new EvidenceDomainError(shape.detailCode, shape.reason);
+    }
+    this.failIfForced();
+    const now = evidence.updatedAt ?? evidence.createdAt;
+    const payload = JSON.stringify(cloneEvidence(evidence));
+    await this.store.runInTransaction(async () => {
+      const result = this.store.db
+        .prepare(
+          `UPDATE oa_evidence SET
+             project_id = ?,
+             status = ?,
+             idempotency_key = ?,
+             version = ?,
+             payload_json = ?,
+             updated_at = ?
+           WHERE evidence_id = ? AND version = ?`,
+        )
+        .run(
+          evidence.bindings.projectId ?? null,
+          evidence.status,
+          evidence.idempotencyKey ?? null,
+          evidence.version,
+          payload,
+          now,
+          evidence.evidenceId,
+          expectedVersion,
+        );
+      if (Number(result.changes) !== 1) {
+        const current = await this.findById(evidence.evidenceId);
+        if (!current) {
+          throw new EvidenceDomainError(
+            "EVIDENCE_NOT_FOUND",
+            "update_missing_evidence",
+          );
+        }
+        throw new EvidenceDomainError("VERSION_CONFLICT", "occ_mismatch", {
+          expectedVersion,
+          currentVersion: current.version,
+        });
+      }
+      if (record && evidence.idempotencyKey) {
+        this.upsertIdempotency(evidence.idempotencyKey, record);
+      }
+    });
+  }
+
+  private upsertIdempotency(
+    idempotencyKey: string,
+    record: IdempotencyRecord,
+  ): void {
+    this.store.db
+      .prepare(
+        `INSERT INTO oa_evidence_idempotency(
+           idempotency_key, evidence_id, fingerprint, operation
+         ) VALUES (?, ?, ?, ?)
+         ON CONFLICT(idempotency_key) DO UPDATE SET
+           evidence_id = excluded.evidence_id,
+           fingerprint = excluded.fingerprint,
+           operation = excluded.operation`,
+      )
+      .run(
+        idempotencyKey,
+        record.evidenceId,
+        record.fingerprint,
+        record.operation,
+      );
+  }
+
+  private failIfForced(): void {
+    if (this.store.failNextSave === "evidence") {
+      this.store.failNextSave = null;
+      throw new EvidenceDomainError(
+        "EVIDENCE_PERSISTENCE_FAILED",
+        "forced_evidence_save_failure",
+      );
+    }
+  }
+}
+
+===== END FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteEvidenceRepository.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteReviewBundleRepository.ts =====
+import type { ProductSqliteHandle } from "@/lib/oa/project";
+import { ReviewBundleDomainError } from "../../domain/reviewBundleErrors";
+import { validateReviewBundleShape } from "../../domain/reviewBundleInvariants";
+import type { ReviewBundle } from "../../domain/reviewBundleTypes";
+import type {
+  ReviewBundleIdempotencyRecord,
+  ReviewBundleRepositoryPort,
+} from "../../ports/reviewBundleRepository";
+
+type BundleRow = {
+  review_bundle_id: string;
+  project_id: string;
+  status: string;
+  idempotency_key: string | null;
+  version: number;
+  payload_json: string;
+};
+
+type IdempotencyRow = {
+  idempotency_key: string;
+  review_bundle_id: string;
+  fingerprint: string;
+  operation: string;
+  successor_id: string | null;
+};
+
+function cloneBundle(bundle: ReviewBundle): ReviewBundle {
+  return structuredClone(bundle);
+}
+
+/**
+ * Durable ReviewBundle repository on Product SQLite (M5).
+ * createSuccessorAndMarkSuperseded runs inside productStore.runInTransaction.
+ */
+export class SqliteReviewBundleRepository
+  implements ReviewBundleRepositoryPort
+{
+  constructor(private readonly store: ProductSqliteHandle) {}
+
+  async findById(reviewBundleId: string): Promise<ReviewBundle | null> {
+    const row = this.store.db
+      .prepare(
+        `SELECT review_bundle_id, project_id, status, idempotency_key, version, payload_json
+         FROM oa_review_bundles WHERE review_bundle_id = ?`,
+      )
+      .get(reviewBundleId) as BundleRow | undefined;
+    if (!row) return null;
+    return cloneBundle(JSON.parse(row.payload_json) as ReviewBundle);
+  }
+
+  async findByIdempotencyKey(idempotencyKey: string): Promise<{
+    reviewBundle: ReviewBundle;
+    record: ReviewBundleIdempotencyRecord;
+    successor?: ReviewBundle;
+  } | null> {
+    const row = this.store.db
+      .prepare(
+        `SELECT idempotency_key, review_bundle_id, fingerprint, operation, successor_id
+         FROM oa_review_bundle_idempotency WHERE idempotency_key = ?`,
+      )
+      .get(idempotencyKey) as IdempotencyRow | undefined;
+    if (!row) return null;
+    const reviewBundle = await this.findById(row.review_bundle_id);
+    if (!reviewBundle) return null;
+    const successor = row.successor_id
+      ? ((await this.findById(row.successor_id)) ?? undefined)
+      : undefined;
+    return {
+      reviewBundle,
+      record: {
+        reviewBundleId: row.review_bundle_id,
+        fingerprint: row.fingerprint,
+        operation: row.operation as ReviewBundleIdempotencyRecord["operation"],
+      },
+      successor,
+    };
+  }
+
+  async exists(reviewBundleId: string): Promise<boolean> {
+    const row = this.store.db
+      .prepare(
+        `SELECT 1 AS ok FROM oa_review_bundles WHERE review_bundle_id = ?`,
+      )
+      .get(reviewBundleId) as { ok?: number } | undefined;
+    return row?.ok === 1;
+  }
+
+  async create(
+    bundle: ReviewBundle,
+    record?: ReviewBundleIdempotencyRecord & { successorId?: string },
+  ): Promise<void> {
+    const shape = validateReviewBundleShape(bundle);
+    if (shape) {
+      throw new ReviewBundleDomainError(shape.detailCode, shape.reason);
+    }
+    if (bundle.version !== 1) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_INVALID",
+        "create_requires_version_1",
+      );
+    }
+    if (await this.exists(bundle.reviewBundleId)) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_ALREADY_EXISTS",
+        "review_bundle_id_taken",
+      );
+    }
+    this.failIfForced();
+    this.insertBundle(bundle);
+    if (record && bundle.idempotencyKey) {
+      this.upsertIdempotency(bundle.idempotencyKey, record);
+    }
+  }
+
+  async update(
+    bundle: ReviewBundle,
+    expectedVersion: number,
+    record?: ReviewBundleIdempotencyRecord & { successorId?: string },
+  ): Promise<void> {
+    if (bundle.version !== expectedVersion + 1) {
+      throw new ReviewBundleDomainError(
+        "VERSION_CONFLICT",
+        "version_not_monotone",
+        { expectedVersion },
+      );
+    }
+    const shape = validateReviewBundleShape(bundle);
+    if (shape) {
+      throw new ReviewBundleDomainError(shape.detailCode, shape.reason);
+    }
+    this.failIfForced();
+    await this.store.runInTransaction(async () => {
+      const changes = this.updateBundleRowCas(bundle, expectedVersion);
+      if (changes !== 1) {
+        const current = await this.findById(bundle.reviewBundleId);
+        if (!current) {
+          throw new ReviewBundleDomainError(
+            "REVIEW_BUNDLE_NOT_FOUND",
+            "update_missing",
+          );
+        }
+        throw new ReviewBundleDomainError("VERSION_CONFLICT", "occ_mismatch", {
+          expectedVersion,
+          currentVersion: current.version,
+        });
+      }
+      if (record) {
+        const key = bundle.idempotencyKey;
+        if (key) {
+          this.upsertIdempotency(key, record);
+        }
+      }
+    });
+  }
+
+  async createSuccessorAndMarkSuperseded(
+    successor: ReviewBundle,
+    superseded: ReviewBundle,
+    expectedVersion: number,
+    record: ReviewBundleIdempotencyRecord & { successorId: string },
+  ): Promise<void> {
+    const successorShape = validateReviewBundleShape(successor);
+    if (successorShape) {
+      throw new ReviewBundleDomainError(
+        successorShape.detailCode,
+        successorShape.reason,
+      );
+    }
+    const supersededShape = validateReviewBundleShape(superseded);
+    if (supersededShape) {
+      throw new ReviewBundleDomainError(
+        supersededShape.detailCode,
+        supersededShape.reason,
+      );
+    }
+    if (successor.version !== 1) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_INVALID",
+        "successor_requires_version_1",
+      );
+    }
+    if (superseded.status !== "superseded") {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_INVALID",
+        "source_must_be_superseded",
+      );
+    }
+    if (record.successorId !== successor.reviewBundleId) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_INVALID",
+        "record_successor_id_mismatch",
+      );
+    }
+    if (successor.reviewBundleId === superseded.reviewBundleId) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_INVALID",
+        "successor_must_differ_from_source",
+      );
+    }
+    if (superseded.version !== expectedVersion + 1) {
+      throw new ReviewBundleDomainError(
+        "VERSION_CONFLICT",
+        "version_not_monotone",
+        { expectedVersion },
+      );
+    }
+    if (!superseded.idempotencyKey) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_INVALID",
+        "reopen_idempotency_key_required",
+      );
+    }
+
+    await this.store.runInTransaction(async () => {
+      if (await this.exists(successor.reviewBundleId)) {
+        throw new ReviewBundleDomainError(
+          "REVIEW_BUNDLE_ALREADY_EXISTS",
+          "successor_review_bundle_id_taken",
+        );
+      }
+      this.failIfForced();
+      this.insertBundle(successor);
+      const changes = this.updateBundleRowCas(superseded, expectedVersion);
+      if (changes !== 1) {
+        const current = await this.findById(superseded.reviewBundleId);
+        if (!current) {
+          throw new ReviewBundleDomainError(
+            "REVIEW_BUNDLE_NOT_FOUND",
+            "reopen_source_missing",
+          );
+        }
+        throw new ReviewBundleDomainError("VERSION_CONFLICT", "occ_mismatch", {
+          expectedVersion,
+          currentVersion: current.version,
+        });
+      }
+      this.upsertIdempotency(superseded.idempotencyKey!, record);
+    });
+  }
+
+  private insertBundle(bundle: ReviewBundle): void {
+    const now = bundle.createdAt;
+    const payload = JSON.stringify(cloneBundle(bundle));
+    this.store.db
+      .prepare(
+        `INSERT INTO oa_review_bundles(
+           review_bundle_id, project_id, status, idempotency_key, version,
+           payload_json, created_at, updated_at
+         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .run(
+        bundle.reviewBundleId,
+        bundle.projectId,
+        bundle.status,
+        bundle.idempotencyKey ?? null,
+        bundle.version,
+        payload,
+        now,
+        now,
+      );
+  }
+
+  /** Atomic CAS update — returns sqlite changes count. */
+  private updateBundleRowCas(
+    bundle: ReviewBundle,
+    expectedVersion: number,
+  ): number {
+    const now = bundle.updatedAt ?? bundle.createdAt;
+    const payload = JSON.stringify(cloneBundle(bundle));
+    const result = this.store.db
+      .prepare(
+        `UPDATE oa_review_bundles SET
+           project_id = ?,
+           status = ?,
+           idempotency_key = ?,
+           version = ?,
+           payload_json = ?,
+           updated_at = ?
+         WHERE review_bundle_id = ? AND version = ?`,
+      )
+      .run(
+        bundle.projectId,
+        bundle.status,
+        bundle.idempotencyKey ?? null,
+        bundle.version,
+        payload,
+        now,
+        bundle.reviewBundleId,
+        expectedVersion,
+      );
+    return Number(result.changes);
+  }
+
+  private upsertIdempotency(
+    idempotencyKey: string,
+    record: ReviewBundleIdempotencyRecord & { successorId?: string },
+  ): void {
+    this.store.db
+      .prepare(
+        `INSERT INTO oa_review_bundle_idempotency(
+           idempotency_key, review_bundle_id, fingerprint, operation, successor_id
+         ) VALUES (?, ?, ?, ?, ?)
+         ON CONFLICT(idempotency_key) DO UPDATE SET
+           review_bundle_id = excluded.review_bundle_id,
+           fingerprint = excluded.fingerprint,
+           operation = excluded.operation,
+           successor_id = excluded.successor_id`,
+      )
+      .run(
+        idempotencyKey,
+        record.reviewBundleId,
+        record.fingerprint,
+        record.operation,
+        record.successorId ?? null,
+      );
+  }
+
+  private failIfForced(): void {
+    if (this.store.failNextSave === "review_bundle") {
+      this.store.failNextSave = null;
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_PERSISTENCE_FAILED",
+        "forced_review_bundle_save_failure",
+      );
+    }
+  }
+}
+
+===== END FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteReviewBundleRepository.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts =====
+import type { ClockPort } from "@/lib/oa/doctrine";
+import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
+import type {
+  AuthorityResolverPort,
+  DecisionServices,
+} from "@/lib/oa/decision";
+import type { ExecutionContractServices } from "@/lib/oa/execution-contract";
+import type { ProductSqliteHandle } from "@/lib/oa/project";
+import {
+  resolveAttemptPolicy,
+  type AttemptPolicy,
+} from "../../application/attemptPolicy";
+import { CancelExecutionAttempt } from "../../application/cancelExecutionAttempt";
+import { CheckAttemptAuthorization } from "../../application/checkAttemptAuthorization";
+import { ExecutionContractStatusWriter } from "../../application/executionContractStatusWriter";
+import { GetExecutionAttempt } from "../../application/getExecutionAttempt";
+import { ListExecutionAttempts } from "../../application/listExecutionAttempts";
+import { RecordExecutionFailure } from "../../application/recordExecutionFailure";
+import { RecordExecutionResult } from "../../application/recordExecutionResult";
+import { RetryExecutionAttempt } from "../../application/retryExecutionAttempt";
+import { SelectExecutionAgent } from "../../application/selectExecutionAgent";
+import { StartExecution } from "../../application/startExecution";
+import { TriggerAttemptTimeout } from "../../application/triggerAttemptTimeout";
+import type { AgentDescriptor } from "../../domain/types";
+import { MemoryAgentRegistry } from "../memoryAgentRegistry";
+import { NoOpExecutionAdapter } from "../noOpExecutionAdapter";
+import {
+  ConsoleExecutionAttemptAuditJournal,
+  MemoryExecutionAttemptAuditJournal,
+} from "../observability";
+import { TestExecutionAdapter } from "../testExecutionAdapter";
+import type { AgentRegistryPort } from "../../ports/agentRegistry";
+import type { ExecutionAttemptAuditPort } from "../../ports/executionAttemptAudit";
+import type { ExecutionAttemptRepositoryPort } from "../../ports/executionAttemptRepository";
+import type { ExecutionAttemptTechnicalStorePort } from "../../ports/executionAttemptTechnicalStorePort";
+import { SqliteExecutionAttemptRepository } from "./sqliteExecutionAttemptRepository";
+import { SqliteExecutionAttemptTechnicalStore } from "./sqliteExecutionAttemptTechnicalStore";
+
+type InjectableExecutionAdapter = TestExecutionAdapter | NoOpExecutionAdapter;
+
+function isInjectableExecutionAdapter(
+  candidate: unknown,
+): candidate is InjectableExecutionAdapter {
+  return (
+    candidate instanceof TestExecutionAdapter ||
+    candidate instanceof NoOpExecutionAdapter
+  );
+}
+
+export type CreateSqliteExecutionAttemptServicesOptions = {
+  decisionServices: DecisionServices;
+  executionContractServices: ExecutionContractServices;
+  productStore: ProductSqliteHandle;
+  agents?: readonly AgentDescriptor[];
+  registry?: MemoryAgentRegistry;
+  adapter?: InjectableExecutionAdapter;
+  clock?: ClockPort;
+  audit?: ExecutionAttemptAuditPort;
+  policy?: Partial<AttemptPolicy>;
+  authorityResolver?: AuthorityResolverPort;
+};
+
+export type SqliteExecutionAttemptServices = {
+  store: ExecutionAttemptTechnicalStorePort;
+  attempts: ExecutionAttemptRepositoryPort;
+  registry: AgentRegistryPort;
+  adapter: InjectableExecutionAdapter;
+  audit: ExecutionAttemptAuditPort;
+  policy: AttemptPolicy;
+  contractStatusWriter: ExecutionContractStatusWriter;
+  productStore: ProductSqliteHandle;
+  selectExecutionAgent: SelectExecutionAgent;
+  startExecution: StartExecution;
+  cancelExecutionAttempt: CancelExecutionAttempt;
+  recordExecutionResult: RecordExecutionResult;
+  recordExecutionFailure: RecordExecutionFailure;
+  retryExecutionAttempt: RetryExecutionAttempt;
+  triggerAttemptTimeout: TriggerAttemptTimeout;
+  getExecutionAttempt: GetExecutionAttempt;
+  listExecutionAttempts: ListExecutionAttempts;
+  checkAttemptAuthorization: CheckAttemptAuthorization;
+};
+
+/**
+ * Durable ExecutionAttempt services on Product SQLite (M5-A).
+ * Does NOT wire realBoundary / Gate D / REAL launch (M4 REAL-OFF unchanged).
+ */
+export function createSqliteExecutionAttemptServices(
+  options: CreateSqliteExecutionAttemptServicesOptions,
+): SqliteExecutionAttemptServices {
+  if (options.registry && options.agents) {
+    throw new Error("execution_attempt_factory_registry_or_agents_not_both");
+  }
+  const registry =
+    options.registry ?? new MemoryAgentRegistry(options.agents ?? []);
+
+  const adapter = options.adapter ?? new NoOpExecutionAdapter();
+  if (!isInjectableExecutionAdapter(adapter)) {
+    throw new Error("execution_attempt_factory_adapter_not_allowed");
+  }
+
+  const clock = options.clock ?? new SystemClock();
+  const audit = options.audit ?? new ConsoleExecutionAttemptAuditJournal();
+  const authority =
+    options.authorityResolver ?? options.decisionServices.authority;
+  const policy = resolveAttemptPolicy(options.policy);
+
+  const store = new SqliteExecutionAttemptTechnicalStore(options.productStore);
+  const attempts = new SqliteExecutionAttemptRepository(options.productStore);
+
+  const contracts = options.executionContractServices.contracts;
+  const contractStatusWriter = new ExecutionContractStatusWriter(
+    contracts,
+    options.executionContractServices.store,
+    attempts,
+  );
+
+  const selectExecutionAgent = new SelectExecutionAgent(
+    attempts,
+    contracts,
+    options.executionContractServices.checkExecutionAuthorization,
+    options.decisionServices,
+    authority,
+    registry,
+    clock,
+    audit,
+    policy,
+    store,
+  );
+
+  return {
+    store,
+    attempts,
+    registry,
+    adapter,
+    audit,
+    policy,
+    contractStatusWriter,
+    productStore: options.productStore,
+    selectExecutionAgent,
+    startExecution: new StartExecution(
+      attempts,
+      contracts,
+      contractStatusWriter,
+      options.executionContractServices.checkExecutionAuthorization,
+      options.decisionServices,
+      authority,
+      registry,
+      adapter,
+      clock,
+      audit,
+      store,
+    ),
+    cancelExecutionAttempt: new CancelExecutionAttempt(
+      attempts,
+      contracts,
+      contractStatusWriter,
+      authority,
+      registry,
+      adapter,
+      clock,
+      audit,
+      store,
+    ),
+    recordExecutionResult: new RecordExecutionResult(
+      attempts,
+      contracts,
+      contractStatusWriter,
+      registry,
+      clock,
+      audit,
+      policy,
+      store,
+    ),
+    recordExecutionFailure: new RecordExecutionFailure(
+      attempts,
+      contracts,
+      contractStatusWriter,
+      registry,
+      clock,
+      audit,
+      store,
+    ),
+    retryExecutionAttempt: new RetryExecutionAttempt(
+      attempts,
+      contracts,
+      selectExecutionAgent,
+      authority,
+      clock,
+      audit,
+      policy,
+    ),
+    triggerAttemptTimeout: new TriggerAttemptTimeout(
+      attempts,
+      contracts,
+      contractStatusWriter,
+      authority,
+      clock,
+      audit,
+      policy,
+      store,
+    ),
+    getExecutionAttempt: new GetExecutionAttempt(attempts, clock, audit),
+    listExecutionAttempts: new ListExecutionAttempts(attempts, clock, audit),
+    checkAttemptAuthorization: new CheckAttemptAuthorization(
+      attempts,
+      contracts,
+      options.executionContractServices.checkExecutionAuthorization,
+      authority,
+      clock,
+      audit,
+    ),
+  };
+}
+
+export function createTestSqliteExecutionAttemptServices(
+  options: CreateSqliteExecutionAttemptServicesOptions & {
+    audit?: MemoryExecutionAttemptAuditJournal;
+    adapter?: TestExecutionAdapter | NoOpExecutionAdapter;
+    fixedNowIso?: string;
+  },
+): SqliteExecutionAttemptServices & {
+  audit: MemoryExecutionAttemptAuditJournal;
+} {
+  const audit = options.audit ?? new MemoryExecutionAttemptAuditJournal();
+  const clock =
+    options.clock ??
+    (options.fixedNowIso
+      ? new FixedClock(options.fixedNowIso)
+      : new FixedClock("2026-08-15T07:00:00.000Z"));
+  const adapter = options.adapter ?? new TestExecutionAdapter();
+  return createSqliteExecutionAttemptServices({
+    ...options,
+    adapter,
+    clock,
+    audit,
+  }) as SqliteExecutionAttemptServices & {
+    audit: MemoryExecutionAttemptAuditJournal;
+  };
+}
+
+===== END FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptRepository.ts =====
+import type { ProductSqliteHandle } from "@/lib/oa/project";
+import { ExecutionAttemptDomainError } from "../../domain/errors";
+import { isAttemptTerminal, validateAttemptShape } from "../../domain/invariants";
+import type { ExecutionAttempt } from "../../domain/types";
+import type {
+  ActiveIndexDrift,
+  ExecutionAttemptRepositoryPort,
+} from "../../ports/executionAttemptRepository";
+
+type AttemptRow = {
+  attempt_id: string;
+  execution_contract_id: string;
+  status: string;
+  idempotency_key: string;
+  version: number;
+  payload_json: string;
+};
+
+function cloneAttempt(attempt: ExecutionAttempt): ExecutionAttempt {
+  return structuredClone(attempt);
+}
+
+/**
+ * Durable ExecutionAttempt repository on Product SQLite (M5).
+ * Mirrors MemoryExecutionAttemptRepository OCC + active-index semantics.
+ */
+export class SqliteExecutionAttemptRepository
+  implements ExecutionAttemptRepositoryPort
+{
+  constructor(private readonly store: ProductSqliteHandle) {}
+
+  async findById(attemptId: string): Promise<ExecutionAttempt | null> {
+    const row = this.store.db
+      .prepare(
+        `SELECT attempt_id, execution_contract_id, status, idempotency_key,
+                version, payload_json
+         FROM oa_execution_attempts WHERE attempt_id = ?`,
+      )
+      .get(attemptId) as AttemptRow | undefined;
+    if (!row) return null;
+    return cloneAttempt(JSON.parse(row.payload_json) as ExecutionAttempt);
+  }
+
+  async findByIdempotencyKey(
+    idempotencyKey: string,
+  ): Promise<ExecutionAttempt | null> {
+    const row = this.store.db
+      .prepare(
+        `SELECT payload_json FROM oa_execution_attempts WHERE idempotency_key = ?`,
+      )
+      .get(idempotencyKey) as { payload_json?: string } | undefined;
+    if (!row?.payload_json) return null;
+    return cloneAttempt(JSON.parse(row.payload_json) as ExecutionAttempt);
+  }
+
+  async exists(attemptId: string): Promise<boolean> {
+    const row = this.store.db
+      .prepare(`SELECT 1 AS ok FROM oa_execution_attempts WHERE attempt_id = ?`)
+      .get(attemptId) as { ok?: number } | undefined;
+    return row?.ok === 1;
+  }
+
+  async create(attempt: ExecutionAttempt): Promise<void> {
+    const shape = validateAttemptShape(attempt);
+    if (shape) {
+      throw new ExecutionAttemptDomainError(shape.detailCode, shape.reason);
+    }
+    if (attempt.version !== 1) {
+      throw new ExecutionAttemptDomainError(
+        "ATTEMPT_INVALID",
+        "create_requires_version_1",
+      );
+    }
+    if (await this.exists(attempt.attemptId)) {
+      throw new ExecutionAttemptDomainError(
+        "ATTEMPT_ALREADY_EXISTS",
+        "attempt_id_taken",
+      );
+    }
+    const existingKeyOwner = await this.findByIdempotencyKey(
+      attempt.idempotencyKey,
+    );
+    if (
+      existingKeyOwner &&
+      existingKeyOwner.attemptId !== attempt.attemptId
+    ) {
+      throw new ExecutionAttemptDomainError(
+        "ATTEMPT_IDEMPOTENCY_CONFLICT",
+        "idempotency_key_taken",
+      );
+    }
+    this.failIfForced();
+    const now = attempt.createdAt;
+    const payload = JSON.stringify(cloneAttempt(attempt));
+    this.store.db
+      .prepare(
+        `INSERT INTO oa_execution_attempts(
+           attempt_id, execution_contract_id, status, idempotency_key,
+           version, result_recording_count, payload_json, created_at, updated_at
+         ) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)`,
+      )
+      .run(
+        attempt.attemptId,
+        attempt.executionContractId,
+        attempt.status,
+        attempt.idempotencyKey,
+        attempt.version,
+        payload,
+        now,
+        now,
+      );
+  }
+
+  async update(
+    attempt: ExecutionAttempt,
+    expectedVersion: number,
+  ): Promise<void> {
+    if (attempt.version !== expectedVersion + 1) {
+      throw new ExecutionAttemptDomainError(
+        "VERSION_CONFLICT",
+        "version_not_monotone",
+        { expectedVersion },
+      );
+    }
+    const shape = validateAttemptShape(attempt);
+    if (shape) {
+      throw new ExecutionAttemptDomainError(shape.detailCode, shape.reason);
+    }
+    this.failIfForced();
+    const now = attempt.updatedAt ?? attempt.completedAt ?? attempt.createdAt;
+    const payload = JSON.stringify(cloneAttempt(attempt));
+    // Atomic CAS: OCC enforced by SQL WHERE version = expectedVersion.
+    const result = this.store.db
+      .prepare(
+        `UPDATE oa_execution_attempts SET
+           execution_contract_id = ?,
+           status = ?,
+           idempotency_key = ?,
+           version = ?,
+           payload_json = ?,
+           updated_at = ?
+         WHERE attempt_id = ? AND version = ?`,
+      )
+      .run(
+        attempt.executionContractId,
+        attempt.status,
+        attempt.idempotencyKey,
+        attempt.version,
+        payload,
+        now,
+        attempt.attemptId,
+        expectedVersion,
+      );
+    if (Number(result.changes) !== 1) {
+      const current = await this.findById(attempt.attemptId);
+      if (!current) {
+        throw new ExecutionAttemptDomainError(
+          "ATTEMPT_NOT_FOUND",
+          "update_missing_attempt",
+        );
+      }
+      throw new ExecutionAttemptDomainError("VERSION_CONFLICT", "occ_mismatch", {
+        expectedVersion,
+        currentVersion: current.version,
+      });
+    }
+  }
+
+  async listByContract(
+    executionContractId: string,
+  ): Promise<ExecutionAttempt[]> {
+    const rows = this.store.db
+      .prepare(
+        `SELECT payload_json FROM oa_execution_attempts
+         WHERE execution_contract_id = ?
+         ORDER BY attempt_id ASC`,
+      )
+      .all(executionContractId) as Array<{ payload_json: string }>;
+    return rows.map((row) =>
+      cloneAttempt(JSON.parse(row.payload_json) as ExecutionAttempt),
+    );
+  }
+
+  async findActiveByContract(
+    executionContractId: string,
+  ): Promise<ExecutionAttempt | null> {
+    const row = this.store.db
+      .prepare(
+        `SELECT attempt_id FROM oa_execution_attempt_active
+         WHERE execution_contract_id = ?`,
+      )
+      .get(executionContractId) as { attempt_id?: string } | undefined;
+    if (!row?.attempt_id) return null;
+    return this.findById(row.attempt_id);
+  }
+
+  async reserveActiveContract(
+    executionContractId: string,
+    attemptId: string,
+  ): Promise<void> {
+    // Atomic insert — never silently replace another attempt's reservation.
+    const result = this.store.db
+      .prepare(
+        `INSERT INTO oa_execution_attempt_active(execution_contract_id, attempt_id)
+         VALUES (?, ?)
+         ON CONFLICT(execution_contract_id) DO NOTHING`,
+      )
+      .run(executionContractId, attemptId);
+    if (Number(result.changes) === 1) {
+      return;
+    }
+    const current = this.store.db
+      .prepare(
+        `SELECT attempt_id FROM oa_execution_attempt_active
+         WHERE execution_contract_id = ?`,
+      )
+      .get(executionContractId) as { attempt_id?: string } | undefined;
+    if (current?.attempt_id === attemptId) {
+      return; // idempotent same attemptId
+    }
+    throw new ExecutionAttemptDomainError(
+      "EXECUTION_ALREADY_ACTIVE",
+      "active_attempt_already_reserved",
+    );
+  }
+
+  async releaseActiveContract(
+    executionContractId: string,
+    attemptId: string,
+  ): Promise<void> {
+    this.store.db
+      .prepare(
+        `DELETE FROM oa_execution_attempt_active
+         WHERE execution_contract_id = ? AND attempt_id = ?`,
+      )
+      .run(executionContractId, attemptId);
+  }
+
+  async rebuildActiveIndex(): Promise<void> {
+    await this.store.runInTransaction(async () => {
+      const rows = this.store.db
+        .prepare(
+          `SELECT payload_json FROM oa_execution_attempts ORDER BY attempt_id ASC`,
+        )
+        .all() as Array<{ payload_json: string }>;
+      const rebuilt = new Map<string, string>();
+      for (const row of rows) {
+        const attempt = JSON.parse(row.payload_json) as ExecutionAttempt;
+        if (isAttemptTerminal(attempt.status)) continue;
+        const existing = rebuilt.get(attempt.executionContractId);
+        if (existing && existing !== attempt.attemptId) {
+          throw new ExecutionAttemptDomainError(
+            "ACTIVE_INDEX_DRIFT",
+            "multiple_active_attempts_for_contract",
+          );
+        }
+        rebuilt.set(attempt.executionContractId, attempt.attemptId);
+      }
+      this.store.db.exec(`DELETE FROM oa_execution_attempt_active`);
+      const insert = this.store.db.prepare(
+        `INSERT INTO oa_execution_attempt_active(execution_contract_id, attempt_id)
+         VALUES (?, ?)`,
+      );
+      for (const [executionContractId, attemptId] of rebuilt) {
+        insert.run(executionContractId, attemptId);
+      }
+    });
+  }
+
+  async detectActiveIndexDrift(): Promise<ActiveIndexDrift[]> {
+    const drifts: ActiveIndexDrift[] = [];
+    const indexed = this.store.db
+      .prepare(
+        `SELECT execution_contract_id, attempt_id FROM oa_execution_attempt_active`,
+      )
+      .all() as Array<{ execution_contract_id: string; attempt_id: string }>;
+
+    for (const row of indexed) {
+      const attempt = await this.findById(row.attempt_id);
+      if (!attempt) {
+        drifts.push({
+          executionContractId: row.execution_contract_id,
+          attemptId: row.attempt_id,
+          reason: "indexed_attempt_missing",
+        });
+        continue;
+      }
+      if (isAttemptTerminal(attempt.status)) {
+        drifts.push({
+          executionContractId: row.execution_contract_id,
+          attemptId: row.attempt_id,
+          reason: "indexed_attempt_terminal",
+        });
+      }
+    }
+
+    const allRows = this.store.db
+      .prepare(`SELECT payload_json FROM oa_execution_attempts`)
+      .all() as Array<{ payload_json: string }>;
+    const seenActive = new Map<string, string>();
+    const activeIndex = new Map(
+      indexed.map((r) => [r.execution_contract_id, r.attempt_id] as const),
+    );
+
+    for (const row of allRows) {
+      const attempt = JSON.parse(row.payload_json) as ExecutionAttempt;
+      if (isAttemptTerminal(attempt.status)) continue;
+      const previous = seenActive.get(attempt.executionContractId);
+      if (previous && previous !== attempt.attemptId) {
+        drifts.push({
+          executionContractId: attempt.executionContractId,
+          attemptId: attempt.attemptId,
+          reason: "multiple_active_attempts",
+        });
+      }
+      seenActive.set(attempt.executionContractId, attempt.attemptId);
+      const indexedId = activeIndex.get(attempt.executionContractId);
+      if (indexedId !== attempt.attemptId) {
+        drifts.push({
+          executionContractId: attempt.executionContractId,
+          attemptId: attempt.attemptId,
+          reason: "active_attempt_not_indexed",
+        });
+      }
+    }
+    return drifts;
+  }
+
+  async assertActiveIndexConsistent(): Promise<void> {
+    const drifts = await this.detectActiveIndexDrift();
+    if (drifts.length > 0) {
+      throw new ExecutionAttemptDomainError(
+        "ACTIVE_INDEX_DRIFT",
+        `drift_${drifts[0].reason}`,
+      );
+    }
+  }
+
+  private failIfForced(): void {
+    if (this.store.failNextSave === "attempt") {
+      this.store.failNextSave = null;
+      throw new ExecutionAttemptDomainError(
+        "EXECUTION_PERSISTENCE_FAILED",
+        "forced_execution_attempt_save_failure",
+      );
+    }
+  }
+}
+
+===== END FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptRepository.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptTechnicalStore.ts =====
+import type { ProductSqliteHandle } from "@/lib/oa/project";
+import type { ExecutionAttemptTechnicalStorePort } from "../../ports/executionAttemptTechnicalStorePort";
+
+/**
+ * Durable Map-like facade for result-recording budget.
+ * Persists to oa_execution_attempt_result_budget (side table).
+ */
+class SqliteResultRecordingAttemptsMap {
+  constructor(private readonly store: ProductSqliteHandle) {}
+
+  get(attemptId: string): number | undefined {
+    const row = this.store.db
+      .prepare(
+        `SELECT count FROM oa_execution_attempt_result_budget WHERE attempt_id = ?`,
+      )
+      .get(attemptId) as { count?: number } | undefined;
+    return typeof row?.count === "number" ? row.count : undefined;
+  }
+
+  set(attemptId: string, count: number): this {
+    this.store.db
+      .prepare(
+        `INSERT INTO oa_execution_attempt_result_budget(attempt_id, count)
+         VALUES (?, ?)
+         ON CONFLICT(attempt_id) DO UPDATE SET count = excluded.count`,
+      )
+      .run(attemptId, count);
+    return this;
+  }
+}
+
+/**
+ * Technical Attempt store over Product SQLite — shares UoW with contracts/LPS.
+ */
+export class SqliteExecutionAttemptTechnicalStore
+  implements ExecutionAttemptTechnicalStorePort
+{
+  readonly resultRecordingAttempts: SqliteResultRecordingAttemptsMap;
+
+  constructor(private readonly productStore: ProductSqliteHandle) {
+    this.resultRecordingAttempts = new SqliteResultRecordingAttemptsMap(
+      productStore,
+    );
+  }
+
+  async runInTransaction<T>(fn: () => Promise<T>): Promise<T> {
+    return this.productStore.runInTransaction(fn);
+  }
+}
+
+===== END FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptTechnicalStore.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/lib/oa/execution-attempt/ports/executionAttemptTechnicalStorePort.ts =====
+/**
+ * Technical store surface used by Attempt use-cases:
+ * - transactional unit of work
+ * - durable/process-local result-recording budget (RTA5-06)
+ *
+ * MemoryExecutionAttemptStore satisfies this structurally.
+ * SQLite backs resultRecordingAttempts via oa_execution_attempt_result_budget.
+ */
+export interface ExecutionAttemptTechnicalStorePort {
+  /**
+   * attemptId → bounded RecordExecutionResult attempts.
+   * Only get/set are required by application code; Map satisfies this.
+   */
+  resultRecordingAttempts: {
+    get(key: string): number | undefined;
+    set(key: string, value: number): unknown;
+  };
+  runInTransaction<T>(fn: () => Promise<T>): Promise<T>;
+  /** Test hook — force next Attempt persist to throw (Memory path). */
+  failNextSave?: boolean;
+}
+
+===== END FILE: projects/sfia-studio/app/lib/oa/execution-attempt/ports/executionAttemptTechnicalStorePort.ts =====
