@@ -1,316 +1,181 @@
-# PRE-M6 G-UX-15 CONTROLLED INTEGRATION — COMMIT / PUSH / DRAFT PR — FULL REVIEW PACK
+# PRE-M6 G-UX-15 CONTROLLED INTEGRATION — MERGE PR #354 + CYCLE 14 POST-MERGE — FULL REVIEW PACK
 
 ## 1. Timestamp (Europe/Paris)
 
-2026-08-15 21:12:33 CEST
+2026-08-15 21:21:33 CEST
 
 ## 2. Exact Morris GO
 
-GO MORRIS — COMMIT + PUSH + OPEN DRAFT PR — PRE-M6 G-UX-15 CONTROLLED INTEGRATION — EXACT 5-FILE CANDIDATE — USE REVIEWED PR TITLE/BODY — NO MERGE — NO FIGMA — NO UI DELIVERY — NO M6 — ZERO REAL
+GO MORRIS — MERGE PR #354 — PRE-M6 G-UX-15 CONTROLLED INTEGRATION — HEAD 22ae8e5e4bddb0f997384a5e8ba87c9b35245693 — SFIA STUDIO CI #192 SUCCESS — EXACT 5-FILE CANDIDATE — NO ADDITIONAL CHANGE — THEN CYCLE 14 POST-MERGE TRUTH + BASELINE/ROADMAP CURRENT-STATE SYNC — NO FIGMA — NO UI DELIVERY — NO M6 — ZERO REAL — NO BRANCH DELETE
 
-## 3. Cycle / profile / typology / V3
+## 3. Qualification
 
-- Cycle: **13 — PR readiness / CONTROLLED INTEGRATION PUBLICATION STEP**
-- Profile: **Standard**
-- QA depth: **ENHANCED INTEGRATION SAFETY**
-- Typology: **INC**
-- Primary: **V3-F05**
-- Supporting: **V3-F11 / V3-F12 / V3-F14 / V3-F15 / V3-F10**
-- Milestone: PRE-M6 USER JOURNEY / UX BASELINE
+- Cycle 13 merge step + Cycle 14 post-merge truth / current-state sync
+- Profile: Standard
+- Typology: INC (merge) + DOC (Cycle 14 sync)
+- V3-F05 / F10 / F14 / F15
 
-## 4. Initial Git Truth (before writes)
+## 4. Pre-merge verification
 
-| Check | Value | Result |
-|---|---|---|
-| branch | `feat/sfia-studio-pre-m6-gux15-slice-a` | PASS |
-| HEAD | `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` | PASS |
-| origin/main | `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` | PASS |
-| remote project branch | ABSENT | PASS |
-| origin/sfia/review-handoff | `a0c53ae2a3890d0af9ea094b4db1a4b959340e82` | PASS |
-| staged | empty | PASS |
-| REAL envs | unset | PASS |
-| gh auth | mcleland147 authenticated | PASS |
-
-## 5. Canonical incoming final handoff
-
-- commit: `a0c53ae2a3890d0af9ea094b4db1a4b959340e82`
-- blob: `ab56d54026b858b644638af4f067f41f2dc38182`
-
-## 6. Reviewed PR body source
-
-- commit: `ca1221ed4481a2e8df9906c929da942647a3a1ce`
-- blob: `6504842d78280f5f83911563fe52fd58139ed739`
-
-## 7. Mandatory sources read
-
-- cycle template + routing guide + operating model + rules/guardrails + knowledge layer
-- v2.5 project-cycles method candidate + CKC fallback (cognitive only)
-- Build Doctrine + Convergence Roadmap
-- V3 framing 30 / 34 / 35 / 37
-- final handoff `a0c53ae…` + PR body handoff `ca1221ed…`
-- `scripts/sfia/README.md` + `publish-review-handoff.sh`
-
-## 8. Exact five-file pre-stage inventory
-
-1. `projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts` (??)
-2. `projects/sfia-studio/app/features/project-assistant/f3/index.ts` (M)
-3. `projects/sfia-studio/app/__tests__/project-assistant/gux15.resolveM3ExecutionContract.test.ts` (??)
-4. `projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md` (??)
-5. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` (M)
-
-Coexisting review-only: `.tmp-sfia-review/**` (not staged)
-
-## 9. Working-tree SHA-256 verification (all MATCH)
-
-| File | SHA-256 |
+| Check | Result |
 |---|---|
-| resolveM3ExecutionContract.ts | `2c3634caa9489f2dfc576745f049ea1384f39a0b7e60489d22d434c1c6e21e09` |
-| index.ts | `3692ffdc536e1101f17ffdd50af2137b152bbec764a2594aeb208a8831e0d194` |
-| gux15.resolveM3ExecutionContract.test.ts | `38685bbf9440ce06752a26ed156376fa15ea3baf621001f86dc822e35a288570` |
-| Pre-M6 baseline | `c4db974d4023e872a178a1a6c1913ffcdeb9dcb4afb081bebec86cfb4f09af0f` |
-| Roadmap | `eead73d5cd63f97583fe522e377026c7616f79858df6458692c15c8fb97d8b39` |
+| PR #354 head | `22ae8e5e4bddb0f997384a5e8ba87c9b35245693` MATCH |
+| isDraft before | true → marked ready for merge |
+| mergeable | MERGEABLE / CLEAN |
+| files | exactly 5 authorized paths |
+| SFIA Studio CI | run **#192** SUCCESS on head `22ae8e5…` |
+| checks | Detect / Build and validate / Required Gate — all SUCCESS |
+| base main before | `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` |
+| REAL | unset |
+| no additional candidate change | PASS |
 
-## 10. Pre-stage static checks
+## 5. Merge execution
 
-- `git diff --check`: clean
-- no package-lock / dependency / Build Doctrine / v3 framing / method / UI / schema changes in candidate
-
-## 11. Staged file list (exactly five)
-
-```
-A projects/sfia-studio/app/__tests__/project-assistant/gux15.resolveM3ExecutionContract.test.ts
-M projects/sfia-studio/app/features/project-assistant/f3/index.ts
-A projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
-M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-A projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md
-```
-
-## 12. Staged/index SHA-256 verification
-
-All five index hashes MATCH section 9 expected values (verified via `git show :<path>` SHA-256).
-
-## 13. git diff --cached --check
-
-clean / PASS
-
-## 14. Commit message
-
-```
-feat(sfia-studio): close Pre-M6 G-UX-15 execution wiring gap
-```
-
-## 15. PROJECT_COMMIT_SHA
-
-`22ae8e5e4bddb0f997384a5e8ba87c9b35245693`
-
-## 16. Parent SHA
-
-`2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` (= origin/main)
-
-## 17. Committed changed file list (exactly five)
-
-Same five paths as section 11 (`git diff-tree -r HEAD`).
-
-## 18. Project branch push result
-
-```
-git push -u origin feat/sfia-studio-pre-m6-gux15-slice-a
-```
-
-New remote branch created. No force.
-
-## 19. Remote branch SHA verification
-
-`origin/feat/sfia-studio-pre-m6-gux15-slice-a` = `22ae8e5e4bddb0f997384a5e8ba87c9b35245693` == PROJECT_COMMIT_SHA
-
-## 20–21. PR number / URL
-
-- PR_NUMBER: **354**
-- PR_URL: https://github.com/mcleland147/sfia-workspace/pull/354
-
-## 22–26. PR metadata
+- `gh pr ready 354`
+- `gh pr merge 354 --merge --match-head-commit 22ae8e5e4bddb0f997384a5e8ba87c9b35245693`
+- no `--delete-branch` · no force · no squash/rebase
 
 | Field | Value |
 |---|---|
-| state | OPEN |
-| isDraft | true |
-| baseRefName | main |
-| headRefName | feat/sfia-studio-pre-m6-gux15-slice-a |
-| headRefOid | `22ae8e5e4bddb0f997384a5e8ba87c9b35245693` |
+| PR | #354 MERGED |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/354 |
+| MERGE_SHA | `a6df83a640afeb0911cb572d118d27a03c9923a7` |
+| parents | `2f0d7236…` + `22ae8e5…` |
+| feature branch remote | PRESERVED at `22ae8e5…` |
 
-## 27. Exact PR title
+## 6. Cycle 14 post-merge truth
 
-feat(sfia-studio): close Pre-M6 G-UX-15 execution wiring gap
+Exact five-file SHA-256 on `origin/main` @ `a6df83a…` all MATCH reviewed values:
 
-## 28. COMPLETE PR body
+- resolver `2c3634caa9…21e09`
+- export `3692ffdc53…0d194`
+- test `38685bbf94…88570`
+- baseline (as merged) `c4db974d40…9af0f`
+- Roadmap (as merged) `eead73d5cd…97d8b39`
+
+**POST_MERGE_TRUTH_PASS**
+
+Post-merge SFIA Studio CI on main: run **#193** observed **in_progress** at pack time (not claimed PASS).
+
+## 7. Cycle 14 baseline/Roadmap current-state sync
+
+Branch: `docs/sfia-studio-pre-m6-gux15-post-merge-sync`
+Commit: `ce8e8df700ea9e06e6303bbaa7b4bfdd7199e057`
+Parent: `a6df83a640afeb0911cb572d118d27a03c9923a7`
+
+Docs-only files:
+
+1. Pre-M6 baseline — Slice A **MERGED ON MAIN**; next product gate D-PRE-M6-UX-05
+2. Convergence Roadmap — snapshot/sources/integration/G-UX-15/next gates synchronized
+
+Post-sync SHA-256:
+
+- baseline: `ce9d1730c1af7ba2fca8c687a1e4ca5d0f19e69dadd9977e3e2a52f4d16cd60d`
+- roadmap: `9bf9ffb56d72ddb53f9ae1b36456725834f0c1fae8d94c97a2a3ebeeb8d38316`
+
+Code/test bytes unchanged (still MATCH section 6).
+
+## 8. Cycle 14 draft PR
+
+| Field | Value |
+|---|---|
+| number | **355** |
+| url | https://github.com/mcleland147/sfia-workspace/pull/355 |
+| title | docs(sfia-studio): sync Pre-M6 G-UX-15 post-merge current state |
+| state / isDraft | OPEN / True |
+| base / head | main / docs/sfia-studio-pre-m6-gux15-post-merge-sync |
+| headOid | ce8e8df700ea9e06e6303bbaa7b4bfdd7199e057 |
+| files | exactly 2 docs paths |
+
+### COMPLETE PR #355 body
 
 ```markdown
-## Context
+## Summary
 
-M5 is **CLOSED**. Pre-M6 canonical journey, functional IA, and UI reuse principle (principle level) are **ADOPTED BY MORRIS**. G-UX-15 was the blocking durable M3 PREPARE → governed-execution application-wiring gap. Morris **ACCEPTED** the Slice A technical exit proof (fixture-safe application wiring only). This PR integrates that accepted local five-file candidate into Git. Figma / UI Delivery / M6 remain **separate later gates** and are **not** authorized by this PR.
+- Cycle 14 post-merge truth for PR #354 (G-UX-15 Slice A) recorded as PASS on main
+- Synchronize Pre-M6 baseline + Convergence Roadmap current gates after merge `a6df83a…` / head `22ae8e5…` / CI SFIA Studio **#192** SUCCESS
+- Mark Slice A controlled integration **MERGED ON MAIN**
+- Next product gate remains **D-PRE-M6-UX-05 Figma Visual Contract GO** — NO DECISION YET / NOT AUTHORIZED
+- Preserve Confirmation process-local KEEP RESERVE · product/browser E2E PENDING · ZERO REAL · no Figma/UI Delivery/M6
 
-## Change
+## Evidence
 
-- Add `resolveM3ExecutionContract` application bridge (G-UX-15 Slice A).
-- Export it (and related helpers) from `f3/index.ts`.
-- Add `gux15.resolveM3ExecutionContract` safety/replay/governance/fixture-composition tests.
-- Add Pre-M6 functional baseline qualification artifact (capitalized accepted state).
-- Synchronize Convergence Roadmap (snapshot/sources through PR #353, G-UX-15 closed locally, UI audit COMPLETE/CLASSIFIED, next gates).
+- PR #354 MERGED
+- merge commit `a6df83a640afeb0911cb572d118d27a03c9923a7`
+- head `22ae8e5e4bddb0f997384a5e8ba87c9b35245693`
+- SFIA Studio CI **#192** SUCCESS
+- Post-merge SHA-256 MATCH for exact five integrated files
+- Feature branch `feat/sfia-studio-pre-m6-gux15-slice-a` **PRESERVED** (no delete)
 
-No new OA domain engine, no persistence/schema change, no Confirmation durability change, no StartExecution redesign, no UI.
+## Scope
 
-## G-UX-15 behavior
+Documentation only:
 
-Canonical M3 PREPARE original → preserved as audit anchor → resolved successor via existing `supersedeExecutionContract` → existing Confirmation → existing agent selection → existing `StartExecution` → existing `ExecutionAttempt`.
+1. `projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md`
+2. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 
-Explicit application resolution input; unresolved sentinels fail closed; successor governance identity (MORRIS + exact decisionRefs + canonical resolution idempotency); interrupted validation replays the **same** successor; `failed` is a legitimate progressed T-A5 state; validated-only MORRIS fails closed.
+No code/test/UI/Figma/Delivery/M6/REAL changes.
 
-## Proof
+## Anti-claims
 
-Revalidated on this PR-readiness run (current local candidate):
-
-- `gux15.resolveM3ExecutionContract.test.ts` + M3 prepare + M3 restart + supersede/cancel + F3 fixture vertical slice
-- **5 files / 50 tests PASS**
-- `npm run typecheck` → PASS
-- eslint on affected resolver/export/test → clean
-- `externalEffects=false` (fixture adapter)
-- REAL=0 · Gate D=0
-
-## Governance / anti-claims
-
-- G-UX-15 technical application-wiring blocker **CLOSED BY MORRIS**
-- Fixture-safe proof = **technical proof only**
-- Product/browser E2E **pending**
-- Confirmation remains **process-local KEEP RESERVE**
-- This integration does **not** authorize Figma, UI Delivery, or M6
-- runtime v3 **NON ADOPTED** · global v3 baseline **not promoted**
-- Candidate was **LOCAL / NOT YET ON MAIN** before merge
-
-## Files
-
-1. `projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts`
-2. `projects/sfia-studio/app/features/project-assistant/f3/index.ts`
-3. `projects/sfia-studio/app/__tests__/project-assistant/gux15.resolveM3ExecutionContract.test.ts`
-4. `projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md`
-5. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-
-## Remaining reserves
-
-Non-blocking / out of this PR scope:
-
-- Confirmation process-local KEEP
-- G-UX-08 / G-UX-10
-- Product/browser E2E
-- Figma (D-PRE-M6-UX-05) / UI Delivery gates
-- M5-C owner not explicitly recorded (POST-M5 governance debt)
-
-## Next
-
-1. Morris review of this PR readiness
-2. Future governed commit/push/draft-PR GO (if authorized)
-3. Distinct merge gate after PR review
-4. Mandatory post-merge truth check
-5. Only after integration on main + post-merge truth: consider **D-PRE-M6-UX-05 Figma Visual Contract GO**
-
-Merge is **not** authorized by this PR-readiness cycle.
+- MERGED ON MAIN ≠ Pre-M6 complete
+- MERGED ON MAIN ≠ product/browser E2E proven
+- MERGED ON MAIN ≠ Figma authorized
+- MERGED ON MAIN ≠ UI Delivery authorized
+- MERGED ON MAIN ≠ M6 authorized
+- runtime v3 remains NON ADOPTED
 ```
 
-## 29. PR file list (exactly five)
+## 9. Preserved technical evidence (NOT rerun this cycle)
 
-1. `projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts`
-2. `projects/sfia-studio/app/features/project-assistant/f3/index.ts`
-3. `projects/sfia-studio/app/__tests__/project-assistant/gux15.resolveM3ExecutionContract.test.ts`
-4. `projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md`
-5. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+From Cycle 13 / CI #192:
 
-## 30. Body/title verification
+- 5 files / 50 tests PASS (historical PR-readiness)
+- CI Build and validate SUCCESS
+- externalEffects=false · REAL=0 · Gate D=0
 
-Title MATCH · Body MATCH reviewed contract (byte-equal after newline normalize) · Files MATCH five authorized paths.
-
-## 31. Initial CI / check state
-
-`gh pr checks 354`: **no checks reported** on `feat/sfia-studio-pre-m6-gux15-slice-a` at report time.
-
-Do **not** claim CI PASS.
-
-## 32. Tests NOT rerun in publication step
-
-DOC/integration publication only; frozen hashes matched reviewed evidence.
-
-## 33. Preserved technical evidence
-
-- 5 files / 50 tests PASS
-- typecheck PASS
-- eslint clean
-- externalEffects=false
-- REAL=0
-- Gate D=0
-
-## 34. Safety counters
+## 10. Safety counters
 
 | Counter | Value |
 |---|---|
-| Candidate project files staged | 5 |
-| Other project files staged | 0 |
-| Project commits | 1 |
-| Project pushes | 1 |
-| Project branch created remotely | 1 |
-| Draft PR opened | 1 |
-| PR ready-state promotion | 0 |
-| Merge / auto-merge | 0 |
-| Force push / branch deletion | 0 |
-| Additional project edits | 0 |
-| Content changes to resolver/export/test/baseline/Roadmap beyond reviewed bytes | 0 |
-| UI / Figma / UI Delivery / M6 / REAL / Gate D | 0 |
+| PR #354 merge | 1 |
+| Branch delete | 0 |
+| Force push | 0 |
+| Code/test content change after merge | 0 |
+| Cycle 14 docs commit | 1 |
+| Cycle 14 draft PR | 1 (#355) |
+| Figma / UI Delivery / M6 / REAL / Gate D | 0 |
 | Review Handoff push | 1 bounded L3 |
 
-## 35. No merge proof
-
-- `gh pr merge` not executed
-- auto-merge not enabled
-- `gh pr ready` not executed
-- origin/main remains `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7`
-
-## 36. Final Git Truth
-
-| Check | Value |
-|---|---|
-| branch | feat/sfia-studio-pre-m6-gux15-slice-a |
-| local HEAD | `22ae8e5e4bddb0f997384a5e8ba87c9b35245693` |
-| remote feature branch | `22ae8e5e4bddb0f997384a5e8ba87c9b35245693` |
-| origin/main | `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` |
-| project working tree (candidate) | clean (only `?? .tmp-sfia-review/`) |
-
-## 37. Remaining reserves
+## 11. Remaining reserves
 
 - Confirmation process-local KEEP RESERVE
 - Product/browser E2E PENDING
 - G-UX-08 / G-UX-10
-- Figma D-PRE-M6-UX-05 NO DECISION YET / NOT AUTHORIZED
+- D-PRE-M6-UX-05 NO DECISION YET / Figma NOT AUTHORIZED
 - UI Delivery NOT AUTHORIZED
 - M6 NOT AUTHORIZED
 - runtime v3 NON ADOPTED
 - M5-C owner debt
-- Not on main until distinct merge gate
 
-## 38. Next Morris gate
+## 12. Next Morris gate
 
-After ChatGPT PR review PASS:
+After ChatGPT review of Cycle 14 sync:
 
-distinct Morris **merge** gate only (explicit GO).
+recommend merge of draft PR **#355** (docs-only) under distinct Morris GO if PASS.
 
-Then mandatory Cycle 14 post-merge truth.
+Then product gate consideration only under separate GO:
 
-Only after post-merge truth on main: consider D-PRE-M6-UX-05 Figma Visual Contract GO.
+**D-PRE-M6-UX-05 — FIGMA VISUAL CONTRACT GO** — NO DECISION YET / NOT AUTHORIZED.
 
-## 39. Single verdict
+## 13. Verdict
 
-**READY** for ChatGPT PR review / Morris merge gate only after review.
+**READY** for ChatGPT review of merge + Cycle 14 sync.
 
 ### Pass statement
 
-PRE-M6 G-UX-15 CONTROLLED INTEGRATION — EXACT REVIEWED 5-FILE CANDIDATE COMMITTED — PROJECT COMMIT PARENT = origin/main@2f0d7236 — FEATURE BRANCH PUSHED WITHOUT FORCE — DRAFT PR OPENED AGAINST main WITH REVIEWED TITLE/BODY — PR FILE SET EXACTLY FIVE — G-UX-15 TECHNICAL BLOCKER REMAINS CLOSED BY MORRIS — FIXTURE-SAFE PROOF REMAINS TECHNICAL ONLY — PRODUCT/BROWSER E2E PENDING — CONFIRMATION PROCESS-LOCAL KEEP RESERVE — NO MERGE — NO FIGMA — NO UI DELIVERY — NO M6 — ZERO REAL — ZERO GATE D — READY FOR CHATGPT PR REVIEW / MORRIS MERGE GATE ONLY AFTER REVIEW
+PRE-M6 G-UX-15 CONTROLLED INTEGRATION — PR #354 MERGED ON MAIN @ `a6df83a…` — HEAD `22ae8e5…` — SFIA STUDIO CI #192 SUCCESS — EXACT 5-FILE POST-MERGE TRUTH PASS — FEATURE BRANCH PRESERVED — CYCLE 14 BASELINE/ROADMAP CURRENT-STATE SYNC COMMITTED + DRAFT PR #355 OPENED — NEXT PRODUCT GATE D-PRE-M6-UX-05 REMAINS NO DECISION YET — NO FIGMA — NO UI DELIVERY — NO M6 — ZERO REAL — NO BRANCH DELETE
 
 ### Anti-claims
 
-Do not claim: MERGED · ON MAIN · PRE-M6 COMPLETE · PRODUCT E2E PROVEN · FIGMA AUTHORIZED · UI DELIVERY AUTHORIZED · M6 AUTHORIZED · runtime v3 ADOPTED · CI PASS (unless actually complete PASS).
+Do not claim: Pre-M6 complete · product E2E proven · Figma authorized · UI Delivery authorized · M6 authorized · runtime v3 ADOPTED · Cycle 14 sync already on main (still draft PR #355) · post-merge CI #193 PASS unless completed.
