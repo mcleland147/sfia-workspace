@@ -7,12 +7,14 @@ import {
   projectAssistantDecideAction,
   projectAssistantPrepareF3FixtureAction,
   projectAssistantPrepareM3Action,
+  projectAssistantRehydrateEvidenceOutcomeAction,
   projectAssistantSendAction,
 } from "./actions";
 import type {
   AssistantHistoryMessage,
   AssistantToolEventDto,
   F2TurnPayload,
+  ProjectAssistantRehydrateEvidenceOutcomeSuccess,
 } from "./types";
 import type { F2DecisionKind, ProposalDto } from "./f2/types";
 import type { F3ExecutePayload, F3PreparePayload } from "./f3/types";
@@ -91,6 +93,11 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
     null,
   );
   const [f3Execute, setF3Execute] = useState<F3ExecutePayload | null>(null);
+  const [durableEvidenceOutcome, setDurableEvidenceOutcome] =
+    useState<ProjectAssistantRehydrateEvidenceOutcomeSuccess | null>(null);
+  const [durableRehydrateError, setDurableRehydrateError] = useState<
+    string | null
+  >(null);
   const [f3Busy, setF3Busy] = useState(false);
   const [isPending, startTransition] = useTransition();
   const listRef = useRef<HTMLDivElement | null>(null);
@@ -100,13 +107,53 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
   }, []);
 
   useEffect(() => {
+    let cancelled = false;
+    setDurableEvidenceOutcome(null);
+    setDurableRehydrateError(null);
+
+    void projectAssistantRehydrateEvidenceOutcomeAction({ projectId }).then(
+      (result) => {
+        if (cancelled) return;
+        if (result.ok) {
+          setDurableEvidenceOutcome(result);
+          setDurableRehydrateError(null);
+          return;
+        }
+        if (result.code === "NO_EVIDENCE_OUTCOME_REFS") {
+          setDurableEvidenceOutcome(null);
+          setDurableRehydrateError(null);
+          return;
+        }
+        setDurableEvidenceOutcome(null);
+        setDurableRehydrateError(
+          "Impossible de relire le dernier outcome durable.",
+        );
+      },
+    );
+
+    return () => {
+      cancelled = true;
+    };
+  }, [projectId]);
+
+  useEffect(() => {
     const el = listRef.current;
     if (!el || typeof el.scrollTo !== "function") return;
     el.scrollTo({
       top: el.scrollHeight,
       behavior: "smooth",
     });
-  }, [messages, toolEvents, error, activeProposal, f2, f3Prepare, f3Execute]);
+  }, [
+    messages,
+    toolEvents,
+    error,
+    activeProposal,
+    f2,
+    f3Prepare,
+    f3Execute,
+    durableEvidenceOutcome,
+    durableRehydrateError,
+  ]);
 
   const busy =
     isPending ||
@@ -803,6 +850,101 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
             </p>
             <p data-testid="f3-no-ready-claim">PAS DE CLAIM READY</p>
             <p data-testid="f3-no-ta6-complete">T-A6 COMPLETE NON DÉCLARÉ</p>
+          </div>
+        </section>
+      ) : null}
+
+      {!f3Execute && durableRehydrateError ? (
+        <section
+          className={styles.f3Card}
+          data-testid="durable-rehydrate-error"
+          aria-live="polite"
+        >
+          <h3 className={styles.cardTitle}>Outcome durable</h3>
+          <p className={styles.cardMeta}>{durableRehydrateError}</p>
+        </section>
+      ) : null}
+
+      {!f3Execute && durableEvidenceOutcome ? (
+        <section
+          className={styles.f3Card}
+          data-testid="durable-evidence-outcome"
+          aria-live="polite"
+        >
+          <h3 className={styles.cardTitle}>OUTCOME DURABLE — RELECTURE LPS</h3>
+          <div className={styles.f3Labels} data-testid="durable-outcome-labels">
+            <StatusPill tone="blueFlush">
+              RECOMMANDATION — PAS UNE DÉCISION MORRIS
+            </StatusPill>
+            <StatusPill tone="muted">LECTURE SEULE — AUCUNE EXÉCUTION</StatusPill>
+          </div>
+          <p className={styles.cardMeta} data-testid="durable-lps-version">
+            LPS v{durableEvidenceOutcome.lpsVersion}
+          </p>
+          <p className={styles.cardMeta} data-testid="durable-ephemeral-notice">
+            {durableEvidenceOutcome.ephemeralNotice}
+          </p>
+
+          <div data-testid="durable-evidence-card" className={styles.f3Subcard}>
+            <h4 className={styles.cardTitle}>Evidence</h4>
+            <dl className={styles.cardDl}>
+              <div>
+                <dt>IDs</dt>
+                <dd data-testid="durable-evidence-ids">
+                  {durableEvidenceOutcome.evidenceIds.join(", ") || "—"}
+                </dd>
+              </div>
+              {durableEvidenceOutcome.evidence.map((ev) => (
+                <div key={ev.evidenceId}>
+                  <dt>{ev.evidenceId}</dt>
+                  <dd data-testid={`durable-evidence-status-${ev.evidenceId}`}>
+                    {ev.status}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          {durableEvidenceOutcome.reviewBundles.map((rb) => (
+            <div
+              key={rb.reviewBundleId}
+              data-testid="durable-review-bundle-card"
+              className={styles.f3Subcard}
+            >
+              <h4 className={styles.cardTitle}>ReviewBundle</h4>
+              <p data-testid="durable-review-bundle-id">{rb.reviewBundleId}</p>
+              <p data-testid="durable-review-bundle-status">{rb.status}</p>
+            </div>
+          ))}
+
+          <div
+            data-testid="durable-recommendation-card"
+            className={styles.f3Subcard}
+          >
+            <h4 className={styles.cardTitle}>Recommendation</h4>
+            <p data-testid="durable-recommendation-label">
+              {durableEvidenceOutcome.recommendation.recommendationLabel}
+            </p>
+            <p data-testid="durable-recommendation-execution-authority">
+              executionAuthority:{" "}
+              {String(
+                durableEvidenceOutcome.recommendation.executionAuthority,
+              )}
+            </p>
+            <p data-testid="durable-recommendation-gate-consumed">
+              gateConsumed:{" "}
+              {String(durableEvidenceOutcome.recommendation.gateConsumed)}
+            </p>
+            <p data-testid="durable-recommendation-decision-created">
+              decisionCreated:{" "}
+              {String(durableEvidenceOutcome.recommendation.decisionCreated)}
+            </p>
+            <p data-testid="durable-recommendation-auto-launch">
+              attemptAutoLaunchNextCycle:{" "}
+              {String(
+                durableEvidenceOutcome.recommendation.attemptAutoLaunchNextCycle,
+              )}
+            </p>
           </div>
         </section>
       ) : null}

@@ -17,11 +17,13 @@ const {
   projectAssistantDecideActionMock,
   projectAssistantPrepareF3FixtureActionMock,
   projectAssistantConfirmAndExecuteF3FixtureActionMock,
+  projectAssistantRehydrateEvidenceOutcomeActionMock,
 } = vi.hoisted(() => ({
   projectAssistantSendActionMock: vi.fn(),
   projectAssistantDecideActionMock: vi.fn(),
   projectAssistantPrepareF3FixtureActionMock: vi.fn(),
   projectAssistantConfirmAndExecuteF3FixtureActionMock: vi.fn(),
+  projectAssistantRehydrateEvidenceOutcomeActionMock: vi.fn(),
 }));
 
 vi.mock("@/features/project-assistant/actions", () => ({
@@ -33,6 +35,8 @@ vi.mock("@/features/project-assistant/actions", () => ({
     projectAssistantPrepareF3FixtureActionMock(...args),
   projectAssistantConfirmAndExecuteF3FixtureAction: (...args: unknown[]) =>
     projectAssistantConfirmAndExecuteF3FixtureActionMock(...args),
+  projectAssistantRehydrateEvidenceOutcomeAction: (...args: unknown[]) =>
+    projectAssistantRehydrateEvidenceOutcomeActionMock(...args),
 }));
 
 vi.mock("next/link", () => ({
@@ -105,12 +109,90 @@ const SUCCESS_RESULT = {
   },
 };
 
+const NO_EVIDENCE_OUTCOME = {
+  ok: false as const,
+  status: "rehydrate_error" as const,
+  code: "NO_EVIDENCE_OUTCOME_REFS",
+  message: "Aucune référence Evidence/ReviewBundle sur le LPS courant.",
+  mode: "fixture" as const,
+  retryable: false,
+};
+
+const DURABLE_REHYDRATE_SUCCESS = {
+  ok: true as const,
+  status: "ok" as const,
+  mode: "fixture" as const,
+  presentation: "unconfirmed" as const,
+  text: "REHYDRATE EVIDENCE OUTCOME",
+  project: {
+    projectId: "prj:m5-ui",
+    name: "Projet M5 UI",
+    shortReference: "M5UI",
+    objective: "Durable rehydrate UI",
+    contextSummary: "M5-27/M5-28",
+    criticality: "STANDARD",
+    constraints: [] as string[],
+    lpsId: "lps:m5-ui",
+    lpsVersion: 3,
+    lpsCreatedAt: "2026-08-15T12:00:00.000Z",
+    doctrineId: "pkg:studio-v3-oa",
+    doctrineVersion: "1.0.0",
+    doctrineDigest: "digest:m5-ui",
+    doctrineStatus: "RESOLVED",
+    runtimeMode: "LOCAL_PROCESS",
+    persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE",
+    readiness: "NOT_READY",
+  },
+  ephemeralNotice:
+    "F3 fixture execution — Attempt, Evidence, ReviewBundle and LPS evidence links are persisted in Product SQLite. REAL execution remains disabled. Recommendation is not a Morris decision.",
+  evidence: [
+    {
+      evidenceId: "ev:m5-ui",
+      status: "available",
+      sourceKind: "execution_attempt",
+      technicalResultRef: "res:m5-ui",
+      verified: false as const,
+      mode: "fixture" as const,
+    },
+  ],
+  reviewBundles: [
+    {
+      reviewBundleId: "rb:m5-ui",
+      status: "draft",
+      version: 1,
+      evidenceRefs: ["ev:m5-ui"],
+      mode: "fixture" as const,
+    },
+  ],
+  recommendation: {
+    kind: "recommendation" as const,
+    status: "not_recommended",
+    executionAuthority: false as const,
+    gateConsumed: false as const,
+    decisionCreated: false as const,
+    attemptAutoLaunchNextCycle: false as const,
+    openHardReservationRefs: [] as string[],
+    hardBlockers: [] as string[],
+    nextGateCode: null,
+    nextActionCode: null,
+    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS" as const,
+    mode: "fixture" as const,
+  },
+  lpsVersion: 3,
+  evidenceIds: ["ev:m5-ui"],
+  reviewBundleIds: ["rb:m5-ui"],
+};
+
 describe("F1 ProjectAssistantPanel UI", () => {
   beforeEach(() => {
     projectAssistantSendActionMock.mockReset();
     projectAssistantDecideActionMock.mockReset();
     projectAssistantPrepareF3FixtureActionMock.mockReset();
     projectAssistantConfirmAndExecuteF3FixtureActionMock.mockReset();
+    projectAssistantRehydrateEvidenceOutcomeActionMock.mockReset();
+    projectAssistantRehydrateEvidenceOutcomeActionMock.mockResolvedValue(
+      NO_EVIDENCE_OUTCOME,
+    );
   });
 
   afterEach(() => {
@@ -342,5 +424,137 @@ describe("F1 ProjectAssistantPanel UI", () => {
   it("blocks empty send", () => {
     render(<ProjectAssistantPanel projectId="prj:f1-ui" />);
     expect(screen.getByTestId("project-assistant-send")).toBeDisabled();
+  });
+});
+
+describe("M5-27/M5-28 durable Nora/UI rehydrate", () => {
+  beforeEach(() => {
+    projectAssistantSendActionMock.mockReset();
+    projectAssistantDecideActionMock.mockReset();
+    projectAssistantPrepareF3FixtureActionMock.mockReset();
+    projectAssistantConfirmAndExecuteF3FixtureActionMock.mockReset();
+    projectAssistantRehydrateEvidenceOutcomeActionMock.mockReset();
+    projectAssistantRehydrateEvidenceOutcomeActionMock.mockResolvedValue(
+      NO_EVIDENCE_OUTCOME,
+    );
+  });
+
+  afterEach(() => {
+    cleanup();
+  });
+
+  it("shows durable ReviewBundle + Recommendation after mount without f3Execute", async () => {
+    projectAssistantRehydrateEvidenceOutcomeActionMock.mockResolvedValue(
+      DURABLE_REHYDRATE_SUCCESS,
+    );
+
+    render(<ProjectAssistantPanel projectId="prj:m5-ui" />);
+
+    expect(
+      await screen.findByTestId("durable-evidence-outcome"),
+    ).toBeVisible();
+    expect(projectAssistantRehydrateEvidenceOutcomeActionMock).toHaveBeenCalledWith(
+      { projectId: "prj:m5-ui" },
+    );
+    expect(screen.getByTestId("durable-review-bundle-id")).toHaveTextContent(
+      "rb:m5-ui",
+    );
+    expect(screen.getByTestId("durable-review-bundle-status")).toHaveTextContent(
+      "draft",
+    );
+    expect(screen.getByTestId("durable-recommendation-label")).toHaveTextContent(
+      "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
+    );
+    expect(
+      screen.getByTestId("durable-recommendation-execution-authority"),
+    ).toHaveTextContent("executionAuthority: false");
+    expect(
+      screen.getByTestId("durable-recommendation-gate-consumed"),
+    ).toHaveTextContent("gateConsumed: false");
+    expect(
+      screen.getByTestId("durable-recommendation-decision-created"),
+    ).toHaveTextContent("decisionCreated: false");
+    expect(screen.queryByTestId("project-assistant-f3-execute")).toBeNull();
+    expect(
+      projectAssistantConfirmAndExecuteF3FixtureActionMock,
+    ).not.toHaveBeenCalled();
+  });
+
+  it("reloads durable ReviewBundle + Recommendation after unmount/remount", async () => {
+    projectAssistantRehydrateEvidenceOutcomeActionMock.mockResolvedValue(
+      DURABLE_REHYDRATE_SUCCESS,
+    );
+
+    const first = render(<ProjectAssistantPanel projectId="prj:m5-ui" />);
+    expect(
+      await screen.findByTestId("durable-review-bundle-id"),
+    ).toHaveTextContent("rb:m5-ui");
+    expect(
+      screen.getByTestId("durable-recommendation-label"),
+    ).toHaveTextContent("RECOMMANDATION — PAS UNE DÉCISION MORRIS");
+
+    first.unmount();
+
+    render(<ProjectAssistantPanel projectId="prj:m5-ui" />);
+    expect(
+      await screen.findByTestId("durable-review-bundle-id"),
+    ).toHaveTextContent("rb:m5-ui");
+    expect(
+      screen.getByTestId("durable-recommendation-label"),
+    ).toHaveTextContent("RECOMMANDATION — PAS UNE DÉCISION MORRIS");
+    expect(
+      screen.getByTestId("durable-recommendation-execution-authority"),
+    ).toHaveTextContent("executionAuthority: false");
+    expect(
+      projectAssistantRehydrateEvidenceOutcomeActionMock.mock.calls.length,
+    ).toBeGreaterThanOrEqual(2);
+    expect(screen.queryByTestId("project-assistant-f3-execute")).toBeNull();
+    expect(
+      projectAssistantConfirmAndExecuteF3FixtureActionMock,
+    ).not.toHaveBeenCalled();
+  });
+
+  it("keeps composer usable when LPS has no durable outcome refs", async () => {
+    projectAssistantRehydrateEvidenceOutcomeActionMock.mockResolvedValue(
+      NO_EVIDENCE_OUTCOME,
+    );
+
+    render(<ProjectAssistantPanel projectId="prj:m5-empty" />);
+
+    await waitFor(() => {
+      expect(
+        projectAssistantRehydrateEvidenceOutcomeActionMock,
+      ).toHaveBeenCalledWith({ projectId: "prj:m5-empty" });
+    });
+
+    expect(screen.queryByTestId("durable-evidence-outcome")).toBeNull();
+    expect(screen.queryByTestId("durable-review-bundle-card")).toBeNull();
+    expect(screen.queryByTestId("durable-recommendation-card")).toBeNull();
+    expect(screen.queryByTestId("durable-rehydrate-error")).toBeNull();
+    expect(screen.queryByTestId("project-assistant-error")).toBeNull();
+    expect(screen.getByTestId("project-assistant-input")).toBeEnabled();
+    expect(screen.getByTestId("project-assistant-composer")).toBeVisible();
+  });
+
+  it("shows bounded durable rehydrate error without blocking composer", async () => {
+    projectAssistantRehydrateEvidenceOutcomeActionMock.mockResolvedValue({
+      ok: false,
+      status: "rehydrate_error",
+      code: "EVIDENCE_REF_MISSING",
+      message: "Evidence manquante",
+      mode: "fixture",
+      retryable: false,
+    });
+
+    render(<ProjectAssistantPanel projectId="prj:m5-err" />);
+
+    expect(await screen.findByTestId("durable-rehydrate-error")).toHaveTextContent(
+      /Impossible de relire le dernier outcome durable/,
+    );
+    expect(screen.queryByTestId("durable-recommendation-card")).toBeNull();
+    expect(screen.getByTestId("project-assistant-input")).toBeEnabled();
+    expect(
+      projectAssistantConfirmAndExecuteF3FixtureActionMock,
+    ).not.toHaveBeenCalled();
   });
 });
