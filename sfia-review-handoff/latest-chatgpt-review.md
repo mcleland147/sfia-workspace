@@ -1,834 +1,3828 @@
-# Review Pack FULL — M5 ARCHITECTURE ROADMAP SYNC — PR READINESS / GIT INTEGRATION
+# SFIA Review Pack — FULL
 
-| Champ | Valeur |
-| --- | --- |
-| Timestamp | 2026-08-15 06:41:22 CEST (+0200) |
-| GO consumed | GO MORRIS — COMMIT / PUSH / PR — M5 ARCHITECTURE ROADMAP SYNC — M5 DELIVERY NOT AUTHORIZED — M6 NOT AUTHORIZED — ZERO REAL |
-| Repo | mcleland147/sfia-workspace |
-| Cycle | 13 — PR readiness / Git integration |
-| Profil / Typologie | Standard / DOC |
-| CKC | fallback `02-fifteen-cycles-synthetic-map.md` + méthode v2.6 (candidate / no execution authority) |
-| Branch | `docs/sfia-studio-m5-architecture-roadmap-sync` |
-| Base initiale / origin/main | `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` |
-| Commit SHA | `01b6555b5117cf7930e12e5c1c5d6d9647b5efa3` |
-| Parent SHA | `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` |
-| Incoming handoff | `e8709132c7dc3b59e6e849fe11e5d6f9e34a2172` |
-| Incoming blob | `b12696a05c1c94f0a9af6e2182b88b0cca3bfa6d` |
-| Draft PR | #349 — https://github.com/mcleland147/sfia-workspace/pull/349 |
-| CI | SUCCESS — Actions run 31864918918 (no rerun) |
-| Project merge / mark ready | NOT PERFORMED |
-| Cursor REAL / M5 Delivery / M6 | 0 |
+## 1. Timestamp (Europe/Paris)
+2026-08-15 07:23:30 CEST
 
-## Convergence Pre-check
+## 2. GO exact
+GO Morris M5 Delivery
+(GO MORRIS CONSOMMÉ — M5 DELIVERY)
 
-| Item | État |
-| --- | --- |
-| M4 | CLOSED |
-| M5 Entry Qualification | COMPLETE |
-| M5 architecture | ADOPTED BY MORRIS / NOT IMPLEMENTED |
-| M5-A | OPTION B ADOPTED / NOT IMPLEMENTED |
-| M5-B | W1 ADOPTED / NOT IMPLEMENTED |
-| M5-C | KEEP TEMPORARY WITH EXIT |
-| M5 Delivery | NOT AUTHORIZED |
-| M5 exit proof | NOT YET SATISFIED |
-| M6 | NOT STARTED / NOT AUTHORIZED |
-| runtime v3 | NON ADOPTED |
-| CURSOR_REAL_TIMEOUT_POLICY | OPEN / NON-BLOCKING / unchanged / 60000 KEEP FOR NOW |
+## 3. Cycle / Profile / Typology
+- Cycle: **8 — Delivery / implémentation**
+- Profile: **Critical**
+- Typology: **EVOL**
 
-## Candidate identity verification
+## 4. Repo / branch / HEAD / base / origin-main
+- Repo: `mcleland147/sfia-workspace`
+- Worktree: `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off`
+- Branch: `delivery/sfia-studio-m5-evidence-return`
+- HEAD: `129570dfd44af5b4d466cc3dc0c166d928d26ef5`
+- origin/main: `129570dfd44af5b4d466cc3dc0c166d928d26ef5`
+- Expected base: `129570dfd44af5b4d466cc3dc0c166d928d26ef5`
+- Match: **YES** (HEAD == origin/main == expected; Delivery uncommitted local)
+- Remote delivery branch: **absent** (local-only, as authorized — no project push)
+- Incoming `origin/sfia/review-handoff` at Delivery start / pre-publish: `183e0481af66cfad94a9f17694aa6195fe4f3b7d` (expected `183e0481af66cfad94a9f17694aa6195fe4f3b7d`)
 
+## 5. Convergence pre-check
+- Capability principale: **V3-F14 Artifact Completeness**
+- Capacités directement servies: V3-F13, V3-F02, V3-F04, V3-F05, V3-F09
+- Milestone: **M5 — Retour de preuve + analyse Nora**
+- Previous: **M4 CLOSED**
+- Next capability AFTER M5 closure: **M6 — Boucle projet complète** (**NOT AUTHORIZED**)
+- Architecture parallel? **NO**
+- Classifications applied:
+  - ExecutionAttempt domain/ports = KEEP
+  - Memory ExecutionAttempt product adapter = REPLACE ON PRODUCT PATH (KEEP for tests)
+  - Evidence domain/ports/use cases = KEEP
+  - Memory Evidence product adapter = REPLACE ON PRODUCT PATH (KEEP for tests)
+  - ReviewBundle domain/ports/use cases = KEEP
+  - Memory ReviewBundle product adapter = REPLACE ON PRODUCT PATH (KEEP for tests)
+  - Product SQLite backbone = KEEP / COMPLETE (m5-0.1.0)
+  - LivingProjectState = KEEP
+  - AppendLivingProjectStateVersion = ADAPT (W1)
+  - RecommendNextGate = KEEP / RECOMMENDATION-ONLY
+  - Nora/F3 compose = HARVEST / ADAPT (no new engine)
+  - technical launch journal = KEEP / TEMPORARY WITH EXIT
+  - Claims/Maturity = FREEZE (remain Memory)
+  - Timeout = OUT OF M5 CRITICAL PATH (unchanged 60000)
+
+## 6. Capability / milestone / next
+M5 local Product path candidate. M6 not authorized. M5 CLOSED ≠ this Delivery.
+
+## 7. Sources réellement lues
+- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+- `projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md`
+- `projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md`
+- `projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md`
+- `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md`
+- `projects/sfia-studio/sfia-v3-framing/37-studio-v3-foundations-and-consolidation-decision-pack.md`
+- Historical handoff `sfia/review-handoff/latest-chatgpt-review.md` @ `63f41e3f328868286c14312a58a7b79f850383c0` (M5 entry qualification)
+- Process templates / CKC synthetic map / v2.5 cycles method (guidance only)
+- `.github/workflows/sfia-studio-ci.yml` (read-only)
+- Repo discovery of Attempt / Evidence / ReviewBundle / Project SQLite / Runtime / F3
+
+## 8. Git Truth before
+- origin/main = `129570dfd44af5b4d466cc3dc0c166d928d26ef5` ✅
+- tracked/staged clean ✅
+- Untracked authorized: `.tmp-sfia-review/**` ✅
+- `SFIA_STUDIO_CURSOR_REAL` unset ✅
+- `OPS1_CURSOR_REAL` unset ✅
+- Branch created: `git switch -c delivery/sfia-studio-m5-evidence-return origin/main` ✅
+
+## 9. Repo discovery (réelle)
+- Memory Attempt store carried: activeByContractId Map, resultRecordingAttempts Map, runInTransaction snapshots
+- Use cases T-A5 depended on MemoryExecutionAttemptStore concrete type for txn + result budget
+- Evidence/RB Memory repos with OCC + idempotency + successor atomic reopen
+- Product SQLite was m3-0.1.0 with Project/LPS/Cycle/HD/EC; no Attempt/Evidence/RB tables
+- Runtime `wireOaStack` used Memory Attempt + Memory Evidence when productSqlite present
+- LPS types already had evidenceIds/reviewBundleIds but Append request did not write them (dropped on later appends)
+- F3 ingestEvidenceAndRecommend existed; product path still had fixture markers historically
+- M4 technical journal `sqliteLaunchSafetyJournal.ts` isolated — left untouched (diff empty for that file)
+
+## 10. Liste exacte des fichiers modifiés/créés
+
+### Modified
+```
+M	projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts
+M	projects/sfia-studio/app/features/project-assistant/actions.ts
+M	projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
+M	projects/sfia-studio/app/features/project-assistant/f3/index.ts
+M	projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+M	projects/sfia-studio/app/lib/oa/evidence-review/index.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/application/cancelExecutionAttempt.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionResult.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/application/triggerAttemptTimeout.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+M	projects/sfia-studio/app/lib/oa/project/application/appendLivingProjectStateVersion.ts
+M	projects/sfia-studio/app/lib/oa/project/domain/types.ts
+M	projects/sfia-studio/app/lib/oa/project/index.ts
+M	projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
+M	projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/productSqliteHandle.ts
+M	projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProductStore.ts
+M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+```
+
+### Created (untracked in Delivery working tree)
+- projects/sfia-studio/app/lib/oa/execution-attempt/ports/executionAttemptTechnicalStorePort.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptRepository.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptTechnicalStore.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
+- projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteEvidenceRepository.ts
+- projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteReviewBundleRepository.ts
+- projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/createSqliteEvidenceReviewServices.ts
+- projects/sfia-studio/app/features/project-assistant/f3/appendEvidenceOutcomeToLps.ts
+- projects/sfia-studio/app/__tests__/oa/project/m5ProductSchemaMigration.test.ts
+- projects/sfia-studio/app/__tests__/oa/project/m5W1LpsAppend.test.ts
+- projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessProof.test.ts
+- projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessWorker.ts
+- projects/sfia-studio/app/__tests__/oa/execution-attempt/m5AttemptDurability.test.ts
+- projects/sfia-studio/app/__tests__/oa/evidence-review/m5EvidenceReviewDurability.test.ts
+
+### Diff stat
+```
+ .../oa/decision/m3ProductSchemaMigration.test.ts   | 10 ++-
+ .../app/features/project-assistant/actions.ts      |  1 +
+ .../f3/confirmAndExecuteF3Fixture.ts               |  8 +-
+ .../app/features/project-assistant/f3/index.ts     |  1 +
+ .../f3/ingestEvidenceAndRecommend.ts               | 28 +++++++
+ .../app/lib/oa/evidence-review/index.ts            | 14 +++-
+ .../application/cancelExecutionAttempt.ts          |  4 +-
+ .../application/recordExecutionFailure.ts          |  4 +-
+ .../application/recordExecutionResult.ts           |  4 +-
+ .../application/selectExecutionAgent.ts            |  4 +-
+ .../application/startExecution.ts                  |  4 +-
+ .../application/triggerAttemptTimeout.ts           |  4 +-
+ .../app/lib/oa/execution-attempt/index.ts          | 15 +++-
+ .../application/appendLivingProjectStateVersion.ts | 12 +++
+ .../sfia-studio/app/lib/oa/project/domain/types.ts | 10 +++
+ projects/sfia-studio/app/lib/oa/project/index.ts   |  1 +
+ .../app/lib/oa/project/infrastructure/sqlite/db.ts | 87 +++++++++++++++++++++-
+ .../infrastructure/sqlite/productSqliteHandle.ts   | 14 +++-
+ .../infrastructure/sqlite/sqliteProductStore.ts    | 15 +++-
+ .../app/lib/vertical-slice-runtime/service.ts      | 51 +++++++++----
+ 20 files changed, 253 insertions(+), 38 deletions(-)
+```
+
+## 11. Architecture implémentée
+**M5-A OPTION B** — Attempt + Evidence + ReviewBundle durables dans le Product SQLite OA existant (même SqliteProductStore / DatabaseSync).
+**M5-B W1** — append factuel LPS evidenceIds/reviewBundleIds (merge+dedup dans F3 helper; carry-forward OCC dans Append).
+**M5-C** — technical launch journal M4 inchangé (KEEP TEMPORARY WITH EXIT).
+Pas de second Product Store. Pas de nouveau moteur Nora/M5. Claims/Maturity restent Memory.
+
+## 12. Schema version before/after
+- Before: `m3-0.1.0`
+- After: `m5-0.1.0`
+- Constants: `PRODUCT_SCHEMA_VERSION_M1/M2/M3` retained; `PRODUCT_SCHEMA_VERSION = "m5-0.1.0"`
+
+## 13. Tables/indexes ajoutés
+- `oa_execution_attempts` (+ index contract)
+- `oa_execution_attempt_active` (PK contract → attempt; one active non-terminal)
+- `oa_execution_attempt_result_budget` (durable resultRecordingAttempts)
+- `oa_evidence` (+ index project)
+- `oa_evidence_idempotency`
+- `oa_review_bundles` (+ index project)
+- `oa_review_bundle_idempotency`
+
+## 14. Migration behavior
+- NULL / M1 → apply M2+M3+M5 → m5-0.1.0
+- M2 → M3+M5 → m5-0.1.0
+- M3 → M5 → m5-0.1.0
+- m5 reopen → idempotent
+- unknown/future → FAIL CLOSED
+- Aucune migration destructive; tables M1–M3 préservées
+
+## 15. ExecutionAttempt durable semantics
+SqliteExecutionAttemptRepository behind ExecutionAttemptRepositoryPort:
+findById / findByIdempotencyKey / exists / create / update OCC / listByContract / reserveActiveContract / releaseActiveContract / rebuildActiveIndex / detectActiveIndexDrift / assertActiveIndexConsistent.
+Invariant: ≤1 non-terminal Attempt per executionContractId survives restart via `oa_execution_attempt_active`.
+
+## 16. Hidden Memory store state audit
+| Concern | Discovery | Disposition |
+|---|---|---|
+| activeByContractId | process Map + rebuild | **Durable** via `oa_execution_attempt_active` (+ rebuild/drift APIs) |
+| resultRecordingAttempts | process Map; fail-closed budget after restart would reset if not persisted | **Durable** via `oa_execution_attempt_result_budget` (SqliteExecutionAttemptTechnicalStore Map facade) |
+| runInTransaction | Memory snapshot rollback | **Port** `ExecutionAttemptTechnicalStorePort.runInTransaction` — Memory keeps snapshot semantics; SQLite uses Product `runInTransaction` |
+| Use-case typing | concrete Memory store | Narrowed to `ExecutionAttemptTechnicalStorePort` (Memory still satisfies) |
+
+No STOP — EXECUTION ATTEMPT DURABILITY REVEALS UNRESOLVED STRUCTURAL STATE (budget durability covered within OPTION B Product SQLite).
+
+## 17. Evidence persistence semantics
+SqliteEvidenceRepository: create/read, idempotency survives restart, OCC update, bindings/technicalResultRef/provenance in payload_json. EvidenceReaderPort unchanged.
+
+## 18. ReviewBundle persistence semantics
+SqliteReviewBundleRepository: create/read, idempotency, OCC, evidence refs / frozen snapshots in payload, `createSuccessorAndMarkSuperseded` atomic via Product transaction. Claim/Maturity not persisted.
+
+## 19. RuntimeOaStack wiring
+`vertical-slice-runtime/service.ts`: when `productSqlite` present → `createSqliteExecutionAttemptServices` + `createSqliteEvidenceReviewServices`; Memory path retained otherwise. REAL-OFF comments preserved; **no** `createStudioCursorRealBoundary` / realBoundary wiring. Claim/Maturity Memory.
+
+## 20. W1 implementation
+- `AppendLivingProjectStateRequest.evidenceIds?` / `reviewBundleIds?`
+- Append carries forward existing LPS ids when omitted (fixes prior drop)
+- F3 `appendEvidenceOutcomeToLps`: merge existing + new, `Set` dedup, OCC expectedVersion
+- Does **not** mutate trajectory / activeCycle / decisionIds / HumanDecision / gate / authority / maturity
+
+## 21. Nora/F3 product path
+- Harvest: IngestExecutionAttemptEvidence / CreateReviewBundle / RecommendNextGate / existing compose
+- `ingestEvidenceAndRecommend` optionally receives projectServices → W1 append after Evidence+RB
+- `confirmAndExecuteF3Fixture` / actions wired for optional LPS link
+- No new M5Engine / NoraEngine
+- Fixture historical path retained; Product-created IDs are not claimed as fixture
+
+## 22. Durable UI/readback path
+After restart: LPS current → evidenceIds/reviewBundleIds → Evidence/RB readers by id → RecommendNextGate recompute. No listByProject added. No UI redesign (data wiring only).
+
+## 23. Current vs target (IMPLEMENTED locally)
+| Target | Status |
+|---|---|
+| Product SQLite M5 schema additive | IMPLEMENTED |
+| Durable Attempt/Evidence/RB | IMPLEMENTED |
+| Runtime Product path adapters | IMPLEMENTED |
+| Memory adapters for tests | KEPT |
+| W1 LPS factual append | IMPLEMENTED |
+| Durable F3/Nora readback path | IMPLEMENTED (LPS ids + ports) |
+| RecommendNextGate recommendation-only | KEPT + tests |
+| M4 journal / REAL-OFF / Gate D / timeout | UNCHANGED |
+| M5 CLOSED | **NOT CLAIMED** |
+| M6 | **NOT AUTHORIZED / 0** |
+
+## 24. Technical journal proof = unchanged
+`sqliteLaunchSafetyJournal.ts` **not** in git diff (present on disk, unmodified). M5-C KEEP TEMPORARY WITH EXIT.
+
+## 25. REAL proof = ZERO
+- `SFIA_STUDIO_CURSOR_REAL` unset
+- `OPS1_CURSOR_REAL` unset
+- No Gate D grant
+- No REAL launch / retry
+- Runtime default REAL-OFF preserved
+- Restart/worker proofs use Product SQLite + seeded/no-effect paths only
+
+## 26. Tests ciblés — commandes + résultats
+(Executed by Delivery agent from `projects/sfia-studio/app`; REAL env absent)
+
+| Suite | Result |
+|---|---|
+| `npm test -- __tests__/oa/project` | **46 passed** |
+| `npm test -- __tests__/oa/execution-attempt` | **133 passed** |
+| `npm test -- __tests__/oa/evidence-review` | **142 passed** |
+| `npm test -- __tests__/vertical-slice-runtime` | **13 passed** |
+| `npm test -- __tests__/project-assistant` | **pass** |
+| `npm test -- __tests__/recommendation-vs-decision.test.tsx` | **2 passed** |
+
+New M5 suites include: schema migration M1/M2/M3→M5; Attempt durability; Evidence/RB durability; W1 LPS; **process restart proof** (two Node processes, same DB).
+
+## 27. typecheck / lint / build / full Vitest
 | Check | Result |
-| --- | --- |
-| Reviewed source | handoff `e8709132c7dc3b59e6e849fe11e5d6f9e34a2172` DIFF COMPLET · blob `b12696a05c1c94f0a9af6e2182b88b0cca3bfa6d` |
-| Local/staged/commit file SHA256 | `72bd5492d9fa6cf3c8bfc9769b2e40b70cae663818f03763a551f12db9cbbbb5` |
-| Handoff patch apply → file identity | VERIFIED exact |
-| PR patch apply → file identity | VERIFIED exact |
-| Raw unified-diff byte equality vs handoff | NOT byte-identical |
-| Encoding-only delta | 28 empty context lines: git `' '` vs handoff pack `''` after rstrip |
-| Functional/textual candidate identity | VERIFIED |
-| Stat | 1 file · +110 / -54 |
-| Content mutations this cycle | 0 |
+|---|---|
+| `npm run typecheck` | **green** |
+| `npm run lint` | **green** |
+| `npm run build` | **green** |
+| `npm test` (full) | **1710 passed**, 131 skipped |
 
-**Verdict identity:** VERIFIED — candidate integrated exactly as reviewed; no documentary recomposition.
+## 28. Modeled governance tests
+From `projects/sfia-studio`:
+`node --test` evidence-review-maturity / execution-contract / execution-attempt governance → **73 passed**
 
-## Pre-stage / staged validations
+## 29. Restart proof détaillé
+Process A (worker create): temp Product DB → Project+LPS → terminal Attempt (accepted) + result budget → Evidence → ReviewBundle → W1 LPS append → exit.
+Process B (worker read): reopen same dbPath → Attempt status `accepted`, resultBudget=1, same evidenceId/reviewBundleId, LPS evidenceIds/reviewBundleIds intact, same lpsVersion.
+REAL invocations = 0.
 
-- `git diff --check` clean
-- tracked modification exactly Roadmap
-- staged exactly Roadmap; untracked `.tmp-sfia-review/**` only
-- staged identity re-verified against handoff DIFF COMPLET (file-level)
+## 30. Anti-claim proof
+- Recommendation.kind = recommendation (existing adversarial tests kept)
+- executionAuthority = false
+- gateConsumed = false
+- decisionCreated = false
+- W1 does not create HumanDecision
+- W1 does not structurally mutate trajectory
+- Durable Attempt ≠ journal retirement
+- Local Delivery ≠ M5 CLOSED ≠ M6 authorized
 
-## Commit metadata
+## 31. FULL git diff — ALL modified + created content
+See sections below (mandatory FULL content).
 
-```
-commit 01b6555b5117cf7930e12e5c1c5d6d9647b5efa3
-Author:     Morris Cleland <morris@macbook-air1.home>
-AuthorDate: Sat Aug 15 06:38:09 2026 +0200
-Commit:     Morris Cleland <morris@macbook-air1.home>
-CommitDate: Sat Aug 15 06:38:09 2026 +0200
-
-    docs(sfia-studio): record m5 architecture decisions in roadmap
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
- .../convergence/sfia-studio-convergence-roadmap.md | 164 ++++++++++++++-------
- 1 file changed, 110 insertions(+), 54 deletions(-)
+## 32. git diff --check
 ```
 
-Message: `docs(sfia-studio): record m5 architecture decisions in roadmap`
-
-## Commit patch COMPLETE — Roadmap
-
-````diff
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 7401ed8..101bdf5 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -6,13 +6,13 @@
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
- | **Doctrine cible** | SFIA Studio v3 framing `30`–`37` (destination produit) |
- | **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
--| **Snapshot Git** | origin/main @ `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` |
-+| **Snapshot Git** | origin/main @ `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` |
- | **Timestamp création** | 2026-08-12 21:53:10 CEST (+0200) *(historique)* |
--| **Timestamp maintenance** | 2026-08-14 Europe/Paris — M4 EXIT PROOF ACCEPTED BY MORRIS — M4 CLOSED — NEXT = M5 (NOT AUTHORIZED) — CURSOR_REAL_TIMEOUT_POLICY OPEN / NON-BLOCKING |
-+| **Timestamp maintenance** | 2026-08-15 06:23 CEST (+0200) — M5 ENTRY QUALIFICATION COMPLETE — M5 ARCHITECTURE TRAJECTORY ADOPTED BY MORRIS — M5 DELIVERY NOT AUTHORIZED — NO REAL — NEXT IMMEDIATE GATE = M5 DELIVERY AUTHORIZATION — CURSOR_REAL_TIMEOUT_POLICY OPEN / NON-BLOCKING |
- | **Validation Morris** | 2026-08-13 02:05 +0200 (Europe/Paris) — Build Doctrine + Convergence Roadmap officiellement validées comme gouvernance de construction SFIA Studio |
--| **Intégration Git** | Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration · **M4 post-pre-reproof Roadmap :** PR #347 / merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS · **M4 GOVERNED REAL COMPLETION PROOF** handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** |
--| **Sources** | Git `main` @ `2d1361ee…` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347 · CI #158/#162/#166/#172/#176/#178 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · M4 Product path on main `projects/sfia-studio/app/**` |
--| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M4 CLOSED **≠** M5 AUTHORIZED · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **≠** M4 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · ≠ full OA durable |
-+| **Intégration Git** | Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration · **M4 post-pre-reproof Roadmap :** PR #347 / merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS · **M4 GOVERNED REAL COMPLETION PROOF** handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · **M4 closure Roadmap :** PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · **M5 Entry Qualification** handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** |
-+| **Sources** | Git `main` @ `5132f1bc…` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347 · CI #158/#162/#166/#172/#176/#178 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · M5 Entry Qualification handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · M4 Product path on main `projects/sfia-studio/app/**` |
-+| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M5 Entry Qualification **COMPLETE** · M5 architecture trajectory **ADOPTED BY MORRIS** · M5 architecture ADOPTED **≠** M5 Delivery authorized · M5 architecture ADOPTED **≠** M5 implemented · M5-A Product SQLite target selected **≠** Attempt/Evidence/ReviewBundle durable today · M5-B W1 factual write-back authority **≠** Recommendation becomes Decision · Recommendation **≠** HumanDecision · Recommendation **≠** gate consumed · LPS factual evidence link **≠** structural trajectory validation · M5-C KEEP TEMPORARY WITH EXIT **≠** technical journal retired · durable Attempt future **≠** journal automatically obsolete · M5 Entry Qualification COMPLETE **≠** M5 CLOSED · M5 architecture ADOPTED **≠** M6 started · M4 CLOSED **≠** M5 Delivery authorized · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **unchanged by M5 architecture decision** **≠** M4/M5 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · runtime v3 **NON ADOPTED** · ≠ full OA durable |
-
- ## B1. Nature du document
-
-@@ -26,7 +26,7 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
-
- ## B3. Point de départ factuel
-
--### Sur main (`2d1361ee71bec7a21f6f76efc7c33eaf3146802a`)
-+### Sur main (`5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e`)
-
- | Capacité | État observé |
- | --- | --- |
-@@ -34,7 +34,7 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
- | F1 Nora chat | WIRED — contextual assistant |
- | F2 qualification / proposal / Morris gate | WIRED — qualification + **real CycleInstance** + live post-mutation `F2ContextSnapshot` ; conversation/proposal **process-local** ; M3 GO path uses server-owned temporary local Morris authority (fail-closed) |
- | F3 / M3 PREPARE | WIRED — **M3 Product path** : HumanDecision durable → ExecutionContract durable → Cursor PREPARE-only projection ; **fixture historique/test** (`TestExecutionAdapter`) conservé ≠ chemin REAL |
--| Evidence UI reinjection | WIRED — DTO panel ; **pas** LPS write-back |
-+| Evidence UI reinjection | WIRED — DTO panel Memory/process-local ; **pas** durable LPS evidence/RB write-back **today** (M5-B W1 = ADOPTED target, NOT IMPLEMENTED) |
- | OPS1 Cursor REAL | EXISTS — UI `/ops1` parallèle ; flag `OPS1_CURSOR_REAL` |
- | D1 SQLite projects | EXISTS — UI `/projects` parallèle |
- | execution-run D2-D | EXISTS — **non** branché F1–F3 |
-@@ -43,16 +43,21 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
- | Architecture convergence | **Option 1 ADOPTED** — OA Native Backbone + Harvest OPS1 Cursor (G0-A) |
- | Project/LPS restart safety | **PROVEN / MERGED** (process A→B + CI #158) |
- | Autres OA (T-A2 CycleInstance M2 subset) | **Product SQLite — MERGED ON MAIN** (PR #339) — Cycle/LPS/CKC linkage durable + restart-safe (subset M2) |
--| Autres OA (T-A2 trajectory/epistemic ; Confirmation ; T-A5 Attempt product ; T-A6 Evidence) | **Memory partiel** — process-local |
-+| Autres OA (T-A2 trajectory/epistemic ; Confirmation ; T-A5 Attempt product ; T-A6 Evidence/ReviewBundle) | **CURRENT RUNTIME = Memory / process-local** · M5-A **TARGET** Product SQLite Attempt+Evidence+ReviewBundle = **ADOPTED / NOT IMPLEMENTED** |
- | Autres OA (T-A3 HD) | **Product SQLite — MERGED ON MAIN — M3** (PR #341) ; Confirmation reste Memory/process-local |
--| Autres OA (T-A4 ExecutionContract) | **Product SQLite — MERGED ON MAIN — M3** (PR #341) — PREPARE-only ; Attempt product still Memory |
-+| Autres OA (T-A4 ExecutionContract) | **Product SQLite — MERGED ON MAIN — M3** (PR #341) — PREPARE-only ; Attempt product **CURRENT** Memory · M5-A durable Attempt **TARGET ADOPTED / NOT IMPLEMENTED** |
- | Architecture M4 | **ADOPTED + IMPLEMENTED ON MAIN — M4 CLOSED** — D-M4-01→05 via PR #344 · Delivery **MERGED** · FIRST REAL historical + final governed completion reproof **PASS** · exit proof **ACCEPTED BY MORRIS** |
- | T-A5 REAL (Nora/Studio) | **IMPLEMENTED ON MAIN / DEFAULT OFF** — specialized OA-owned boundary ; fixture `externalEffects:false` **preserved** ; gateway deterministic bounding **ON MAIN** (`--mode ask` + README.md markers) ; historical governed REAL launches = **2** ; successful governed REAL completions = **1** |
- | Cursor REAL depuis Nora | **2 historical governed attempts** — Run1 FIRST REAL (`xat:m4-first-real-001`) launch **PROVEN** / completion **NOT** (timeout ~60s) · Run2 final reproof (`xat:m4-reproof-86b5ecb05474`) completion **PROVEN** (~15.7s / `M4_READ_ONLY_OK`) · identities never reused across runs |
- | Gate D | **IMPLEMENTED ON MAIN** (GD-1) · consumed **once per governed REAL** historically (Run1 + Run2) · future REAL still requires **fresh** Gate D + Morris GO |
--| Technical CREATED/LAUNCHED frontier | **IMPLEMENTED ON MAIN** · **TEMPORARY WITH EXIT** · ≠ Product Store · REAL TRACE **PROVEN** on both historical governed runs |
-+| Technical CREATED/LAUNCHED frontier | **IMPLEMENTED ON MAIN** · **TEMPORARY WITH EXIT** · **M5-C disposition ADOPTED** (KEEP during first M5 Delivery) · ≠ Product Store · REAL TRACE **PROVEN** on both historical governed runs |
- | Bounded RO AgentCapability | **IMPLEMENTED ON MAIN** · static / deny-by-default · KEEP · **STRICT BOUNDED RUNTIME TOOL-SURFACE PROVEN FOR FINAL M4 REPROOF** (Read=1 README only ; Shell/Glob/Grep/write=0) — **≠** “Cursor is globally read-only” |
- | `CURSOR_REAL_TIMEOUT_POLICY` | **OPEN / NON-BLOCKING POST-M4 RESERVE** — current product timeout **60000** = **KEEP FOR NOW** · proven sufficient for demonstrated M4 bounded RO path · **NOT** universal policy · **NOT** proven defective |
-+| M5 architecture trajectory | **ADOPTED BY MORRIS / NOT IMPLEMENTED** — Entry Qualification **COMPLETE** (handoff `63f41e3…`) · Delivery **NOT AUTHORIZED** · exit proof **NOT YET SATISFIED** |
-+| M5-A Persistence boundary | **OPTION B ADOPTED** — TARGET Product SQLite OA backbone for **ExecutionAttempt + Evidence + ReviewBundle** behind existing ports/domain/use cases · CURRENT runtime still Memory |
-+| M5-B Nora/LPS write-back | **W1 ADOPTED** — TARGET factual LPS link update for Evidence/ReviewBundle refs + Recommendation separate · CURRENT append path does **not** write `evidenceIds`/`reviewBundleIds` · Recommendation remains Recommendation |
-+| M5-C Technical journal | **KEEP TEMPORARY WITH EXIT** — ADOPTED disposition for first M5 Delivery · retirement needs durable Attempt + safety equivalence + dedicated Morris GO |
-+| NEXT IMMEDIATE GATE | **M5 DELIVERY AUTHORIZATION** — **NOT AUTHORIZED** · NEXT CAPABILITY after M5 closure = **M6** (NOT STARTED / NOT AUTHORIZED) |
-
- ### Candidat local non-main (dirty `delivery/sfia-studio-f3-real-prerequisites`) — historique / harvest
-
-@@ -78,22 +83,28 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
- | T-A2 Cycle/CKC | Product SQLite CycleInstance + F2/CKC/LPS linkage (PR #339) | **COMPLETE** (M2) / **KEEP** backbone | CycleInstance durable + restart-safe on main ; Trajectory/Epistemic restent Memory |
- | T-A3 HD/Confirm/Authority | Product SQLite HD **ON MAIN** (PR #341) + Confirmation Memory + local Morris authority TEMPORARY WITH EXIT | **COMPLETE** (M3) / **KEEP** backbone | HD durable on main ; Confirmation process-local ; Auth.js exit ouvert |
- | T-A4 ExecutionContract | Product SQLite + M3 PREPARE truthful + Cursor projection PREPARE-only **ON MAIN** (PR #341) | **COMPLETE** (M3) / **KEEP** backbone | Durable on main ; no Attempt/REAL ; fixture path historique/test conservé |
--| T-A5 Attempt / fixture adapter port | F3 fixture adapter · `ExecutionAdapterPort.externalEffects:false` · PR #344 | **KEEP** core lifecycle + **KEEP** zero-effect port | StartExecution remains sole authority sequencer ; fixture port intact (D-M4-01) |
-+| T-A5 Attempt domain + ports / fixture adapter port | F3 fixture adapter · `ExecutionAdapterPort.externalEffects:false` · PR #344 | **KEEP** domain/ports/lifecycle + **KEEP** zero-effect port | StartExecution remains sole authority sequencer ; fixture port intact (D-M4-01) ; M5-A durable Attempt target **ADOPTED / NOT IMPLEMENTED** |
- | T-A5 specialized REAL boundary | PR #344 + PR #346 / main `2d1361ee…` | **COMPLETE M4 / KEEP** (+ gateway bounding) | OA-owned REAL boundary **implemented, default OFF** — no OA→OPS1 runtime coupling — TWO historical governed launches · ONE successful completion under deterministic `--mode ask` / README bounding · M4 CLOSED |
--| T-A5 launch journal (CREATED/LAUNCHED) | PR #344 / main · exercised on both REAL runs | **TEMPORARY WITH EXIT — IMPLEMENTED / KEEP** | Technical safety journal ; ≠ Product Store ; REAL TRACE PROVEN ; exit → Attempt/Evidence durable path M5+ / dedicated Morris gate |
-+| T-A5 launch journal (CREATED/LAUNCHED) | PR #344 / main · exercised on both REAL runs | **KEEP / TEMPORARY WITH EXIT — M5-C ADOPTED DISPOSITION** | Technical safety journal ; ≠ Product Store ; REAL TRACE PROVEN ; **no retirement in first M5 Delivery** ; future exit → durable Attempt + safety equivalence + dedicated Morris GO |
- | AgentCapability REAL RO profile | PR #344 / `m4BoundedReadOnlyCursorAgent` · KEEP | **COMPLETE M4 / KEEP** | Bounded RO profile exercised ; final reproof proved strict bounded tool-surface for that path ; AgentCapability **unchanged** through bounding/closure |
- | Product timeout 60000 | product default / both REAL runs | **KEEP CURRENT VALUE FOR NOW** + **OPEN / NON-BLOCKING POST-M4 RESERVE** (`CURSOR_REAL_TIMEOUT_POLICY`) | Sufficient for demonstrated M4 bounded RO completion (~15.7s) ; FIRST REAL timeout historical ≠ proven defect ; **no** universal timeout policy selected |
--| T-A6 Evidence/ReviewBundle | F3 ingest + UI cards | **COMPLETE** | UI reinjection ; LPS write-back manquant |
-+| T-A6 Evidence/ReviewBundle domain + ports + use cases | F3 ingest + UI cards Memory | **KEEP** domain/ports/use cases · Memory product adapters **REPLACE ON PRODUCT PATH DURING M5 DELIVERY** · Product SQLite Evidence/RB target **ADOPTED FOR M5 / NOT IMPLEMENTED** | UI reinjection exists ; CURRENT Memory ; M5-A durable target selected ; M5-B W1 LPS factual link **ADOPTED / NOT IMPLEMENTED** |
-+| Product SQLite Attempt/Evidence/ReviewBundle target | M5 Entry Qualification handoff `63f41e3…` · Morris M5-A OPTION B | **ADOPTED FOR M5 / NOT IMPLEMENTED** | Existing OA Product SQLite backbone (G0-B) behind existing ports — Delivery required |
-+| LivingProjectState | Product SQLite `oa_lps` · type already has `evidenceIds` / `reviewBundleIds` | **KEEP** | Durable LPS exists ; factual Evidence/RB linkage fields present on type |
-+| AppendLivingProjectStateVersion | request/path today | **ADAPT TARGET FOR M5 W1** | CURRENT runtime gap: request/path does **not** yet write `evidenceIds`/`reviewBundleIds` ; future W1 = factual Evidence/RB link append only |
-+| RecommendNextGate | evidence-review coordination | **KEEP — RECOMMENDATION-ONLY** | Never HumanDecision / gateConsumed / executionAuthority ; unchanged by M5-B W1 |
-+| Claim/Maturity memory stores | evidence-review memory | **FREEZE / later ADAPT** | Out of minimal M5 slice |
-+| Product SQLite backbone | G0-B ADOPTED · Project/LPS/Cycle/HD/EC on main | **KEEP / COMPLETE** | Target persistence backbone already selected ; extend for M5-A aggregates in Delivery |
- | T-A7 readiness/HARD rails | `platform/t-a7` | **KEEP** | Honesty rails |
- | Shared platform AI | `lib/platform` | **KEEP** | Substrate F1 |
--| F1 / F2 / F3 UI | `features/project-assistant` | **KEEP** / **ADAPT** | Remplacer demo/fixture bindings progressivement |
--| vertical-slice-runtime | `wireOaStack` · PR #344 comments only | **KEEP** / **ADAPT** | Composition root Studio ; REAL boundary **intentionally not wired by default** (M4 REAL-OFF) |
-+| F1 / F2 / F3 UI / Nora compose | `features/project-assistant` · F3 ingest→RecommendNextGate | **KEEP** / **HARVEST/ADAPT** — **NO NEW ENGINE** | Compose existing use cases ; durable readback + W1 LPS link pending M5 Delivery |
-+| vertical-slice-runtime | `wireOaStack` · PR #344 comments only | **KEEP** / **ADAPT** (future M5 Delivery durable adapter wire) | Composition root Studio ; REAL boundary **intentionally not wired by default** (M4 REAL-OFF) ; Attempt/Evidence/RB still Memory today |
- | OPS1 Cursor/worktree/report | `lib/ops1` | **HARVEST** (+ **FREEZE** UI growth **RECOMMENDATION**) | Capacité Cursor réelle isolable ; harvest ≠ call OPS1 runtime from OA |
- | execution-run | `lib/oa/execution-run` | **FREEZE** (**RECOMMENDATION**) | Parallèle ; non F3 chain |
- | D1 `/projects` | `lib/d1` | **FREEZE** / **RETIRE LATER** (**RECOMMENDATION**) | Parallèle durable |
- | FinOps | `lib/oa/finops` | **KEEP** isolé + **FREEZE** lots non bloquants (**RECOMMENDATION**) | Transverse cost ≠ Product persistence |
- | Auth.js / Critical Ack candidate | dirty only (inspected) | **DEFER for first RO** (D-M4-05) · **NOT PROMOTED** | Not a prerequisite of first M4 read-only proof ; remains candidate for future N2/N3 / IAM gate ; debt **preserved** |
--| Persistence Memory OA | factories Memory* (trajectory/epistemic ; Confirmation ; T-A5 Attempt product ; T-A6) | **REPLACE** progressif (T-A1 + T-A2 + T-A3 HD + T-A4 ExecutionContract = SQLite Product **ON MAIN through M3**) | Attempt/Evidence/Trajectory/Confirmation restent process-local ; M4 technical launch journal **IMPLEMENTED** TEMPORARY WITH EXIT (≠ Product Store ; does **not** close Product persistence debt) |
-+| Persistence Memory OA | factories Memory* (trajectory/epistemic ; Confirmation ; T-A5 Attempt product ; T-A6 Evidence/RB ; Claims/Maturity) | **REPLACE ON PRODUCT PATH DURING M5 DELIVERY** for Attempt/Evidence/ReviewBundle (M5-A OPTION B **ADOPTED**) · Claims/Maturity **FREEZE / later ADAPT** (out of minimal M5) · Trajectory/Confirmation remain process-local | CURRENT Attempt/Evidence/RB Memory ; TARGET Product SQLite **ADOPTED / NOT IMPLEMENTED** ; journal KEEP TEMPORARY WITH EXIT (M5-C) ≠ Product Store |
-
- ## B5. Gap map → boucle cible
-
-@@ -105,20 +116,25 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
- | HumanDecision durable/authoritative | **CLOSED ON MAIN — M3** — Product SQLite + LPS link ; autorité local-single-user TEMPORARY WITH EXIT (durabilité HD fermée ≠ IAM product-grade fermé) | future IAM (Ack **not** absolute for first RO — D-M4-05) ; historical Gate D first-REAL consumption already proven once |
- | CKC ↔ cycle binding | **CLOSED ON MAIN — M2** — `ckcResolutionRef` projection on LPS | — |
- | live contextSnapshot | **CLOSED ON MAIN — M2** — `F2ContextSnapshot` post-mutation (pas nouvel aggregate durable) | — |
--| ExecutionContract from real HD | **CLOSED ON MAIN — M3** — exact/unresolved fields from DecisionBasis ; fixture path historique conservé | M5 (Evidence path) — separate Morris GO |
-+| ExecutionContract from real HD | **CLOSED ON MAIN — M3** — exact/unresolved fields from DecisionBasis ; fixture path historique conservé | M5 Delivery (Evidence path) — architecture selected ; Delivery **NOT AUTHORIZED** |
- | Cursor projection canonique | **CLOSED ON MAIN — M3 PREPARE-only** (`executionAllowed=false`) | future elevated REAL classes / M5+ |
- | Cursor REAL behind T-A5 | **IMPLEMENTATION MERGED / DEFAULT OFF** · M4 governed completion **PROVEN** (final reproof) · M4 **CLOSED** | future REAL requires distinct Morris GO (not M4 reopen) |
- | REAL specialized adapter boundary | **CLOSED ON MAIN — PR #344** (+ gateway bounding PR #346) — implemented, default OFF | KEEP |
--| durable launch frontier (CREATED/LAUNCHED) | **IMPLEMENTED ON MAIN — PR #344** — TEMPORARY WITH EXIT · REAL TRACE **PROVEN** (both runs) | Attempt/Evidence product durability exit M5+ |
-+| durable launch frontier (CREATED/LAUNCHED) | **IMPLEMENTED ON MAIN — PR #344** — TEMPORARY WITH EXIT · **M5-C KEEP** for first M5 Delivery · REAL TRACE **PROVEN** (both runs) | Future journal retirement gate (after durable Attempt + safety equivalence + Morris GO) |
- | Gate D durable grant | **IMPLEMENTED ON MAIN** (GD-1) · consumed once per historical governed REAL · **not reusable** | fresh Gate D for any future REAL |
- | bounded REAL AgentCapability RO | **IMPLEMENTED ON MAIN** · final reproof **STRICT BOUNDED TOOL-SURFACE PROVEN** for demonstrated path | KEEP ; future capabilities separate |
- | governed REAL completion (M4) | **PROVEN** — final reproof PASS (handoff `1123a30f…`) · exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** | — |
- | `CURSOR_REAL_TIMEOUT_POLICY` | **OPEN / NON-BLOCKING POST-M4** — 60000 KEEP FOR NOW | future REAL class needing policy qualification |
- | Critical Ack UI | CANDIDATE / MISSING — **NOT BLOCKING FIRST M4 READ-ONLY PROOF BY D-M4-05** ; remains for future N2/N3 / IAM | future N2/N3 · IAM gate |
--| Evidence durable | MISSING | M5 |
--| ReviewBundle → LPS writeback | MISSING | M5/M6 |
--| Nora post-exec analysis | PARTIAL (UI cards) | M5 |
--| Restart safety Studio core | **PARTIAL** — Project/LPS/Cycle/HD/ExecutionContract **restart-safe ON MAIN** ; conversation/proposal/Confirmation/Attempt product/Evidence Memory ; M4 crash/replay protections + REAL journal reopen **PROVEN** | M5+ Attempt/Evidence durability |
-+| ExecutionAttempt product durability | **MISSING IN RUNTIME** · M5-A TARGET SELECTED (Product SQLite) · **M5 DELIVERY REQUIRED** | M5 Delivery (NOT AUTHORIZED yet) |
-+| Evidence durability | **MISSING IN RUNTIME** · M5-A TARGET SELECTED (Product SQLite) · **M5 DELIVERY REQUIRED** | M5 Delivery (NOT AUTHORIZED yet) |
-+| ReviewBundle durability | **MISSING IN RUNTIME** · M5-A TARGET SELECTED (Product SQLite) · **M5 DELIVERY REQUIRED** | M5 Delivery (NOT AUTHORIZED yet) |
-+| Technical journal exit | **DEFERRED / NON-BLOCKING** first M5 Delivery · M5-C KEEP TEMPORARY WITH EXIT | Future dedicated Morris GO |
-+| Claim/Maturity durability | **DEFER / future** — not minimal M5 | later |
-+| Timeout / IAM / OPS1 | **OUT OF M5 CRITICAL PATH** | separate |
-+| Evidence/ReviewBundle → LPS factual write-back | **MISSING IN RUNTIME** · M5-B W1 AUTHORITY **SELECTED** · **M5 DELIVERY REQUIRED** | M5 Delivery (NOT AUTHORIZED yet) |
-+| Nora post-exec analysis | **PARTIAL** — RecommendNextGate **KEEP** · durable Evidence/RB sources + W1 LPS factual link pending Delivery | M5 Delivery |
-+| Restart safety Studio core | **PARTIAL** — Project/LPS/Cycle/HD/ExecutionContract **restart-safe ON MAIN** ; conversation/proposal/Confirmation/Attempt product/Evidence/ReviewBundle **CURRENT Memory** ; M4 crash/replay + journal reopen **PROVEN** · M5-A durable Attempt+Evidence+RB **TARGET ADOPTED / NOT IMPLEMENTED** | M5 Delivery |
- | IAM/authz product-grade | PARTIAL / MISSING (M3 local authority temporary ; Auth.js candidate **NOT PROMOTED**) — **not** a blocker of first RO proof (D-M4-05) ; debt preserved | future IAM gate / M8 |
-
- ## B6. Decisions / gates
-@@ -182,13 +198,29 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- - **M4 EXIT PROOF** — **ACCEPTED BY MORRIS**
- - **M4** — **CLOSED** (GO **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION**)
-
-+### M5 Architecture Decisions — CONSUMED BY MORRIS
-+
-+- **M5 ENTRY QUALIFICATION** = **COMPLETE** — handoff `63f41e3f328868286c14312a58a7b79f850383c0`
-+- GO architecture : **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY**
-+- GO Roadmap sync : **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY**
-+
-+| ID | Décision | Statut |
-+| --- | --- | --- |
-+| **M5-A** | Persistence boundary **OPTION B** — ExecutionAttempt + Evidence + ReviewBundle durable together in existing OA Product SQLite behind existing ports/domain/use cases | **ADOPTED** · **NOT IMPLEMENTED** |
-+| **M5-B** | Nora/LPS write-back **W1** — automatic factual LPS link update allowed for Evidence/ReviewBundle refs ; Recommendation remains Recommendation ; **no** automatic HumanDecision / gate consumption / executionAuthority / structural trajectory validation | **ADOPTED** · **NOT IMPLEMENTED** |
-+| **M5-C** | Technical launch journal disposition **KEEP TEMPORARY WITH EXIT** during first M5 Delivery ; retirement later needs durable Attempt + safety equivalence + dedicated Morris GO | **ADOPTED DISPOSITION** |
-+
- ### Décisions / gates toujours ouverts
-
--1. **M5 — Retour de preuve + analyse Nora** — **NOT AUTHORIZED** — separate Morris GO required (M4 dependency **SATISFIED**)
--2. Critical Ack / Auth.js promotion for future N2/N3 / IAM — **Decision Required** (separate)
--3. Disposition OPS1 / D1 / execution-run — **Decision Required**
--4. runtime v3 adoption — **NOT AUTHORIZED**
--5. **`CURSOR_REAL_TIMEOUT_POLICY`** — **OPEN / NON-BLOCKING POST-M4 RESERVE** — current 60000 **KEEP FOR NOW** · no structural timeout decision selected
-+1. **M5 DELIVERY AUTHORIZATION** — **NOT AUTHORIZED** (architecture consumed ; Delivery separate Morris GO)
-+2. Future M5 validation / PR / merge gates — **NOT AUTHORIZED**
-+3. M5 exit proof acceptance — future Morris gate — **NOT YET SATISFIED**
-+4. Technical launch journal retirement — future dedicated gate (M5-C)
-+5. **M6 — Boucle projet complète** — **NOT STARTED / NOT AUTHORIZED**
-+6. Critical Ack / Auth.js promotion for future N2/N3 / IAM — **Decision Required** (separate)
-+7. Disposition OPS1 / D1 / execution-run — **Decision Required**
-+8. runtime v3 adoption — **NOT AUTHORIZED**
-+9. **`CURSOR_REAL_TIMEOUT_POLICY`** — **OPEN / NON-BLOCKING POST-M4 RESERVE** — current 60000 **KEEP FOR NOW** · unchanged by M5 architecture decision · no structural timeout decision selected
-
- ### Décisions / gates historiques encore listés (non tranchés comme promotion)
-
-@@ -274,7 +306,7 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | **Merge** | **CLOSED** — PR #341 MERGED @ `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS |
- | **Exit evidence** | **EXIT PROOF SATISFIED ON MAIN** |
- | **Preuve e2e** | GO → HD durable + LPS N+1 · restart → PREPARE sans Proposal · ExecutionContract durable · fingerprint persisted=recomputed=projection · unresolved semantics fail-closed · Cursor PREPARE-only · authority adversarial PASS · local 1656 / 131 / 0 · CI #166 SUCCESS · merge #341 |
--| **Next** | M5 — Retour de preuve + analyse Nora — **MORRIS GO REQUIRED** *(M4 CLOSED)* |
-+| **Next** | M5 — architecture **ADOPTED** · Delivery **NOT AUTHORIZED** *(M4 CLOSED)* |
- | **Statut** | **VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED** |
-
- ### Milestone 4 — Première exécution Cursor REAL bornée depuis Studio
-@@ -291,20 +323,27 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | **Dépendances** | M3 — **SATISFIED** · D-M4-01→05 — **SATISFIED** · Delivery — **SATISFIED** · FIRST REAL / diagnosis / bounding / completion proof / exit acceptance — **CONSUMED** |
- | **Preuve de sortie M4** | **SATISFIED / ACCEPTED BY MORRIS** — exact HD/EC · bounded agent · Gate D single-use · governed Cursor REAL · CREATED/LAUNCHED · no duplicate launch · no fixture fallback · isolated pinned workspace · bounded RO completion · fail-closed safety · final completion PASS |
- | **Statut** | **M4 EXIT PROOF ACCEPTED BY MORRIS — CLOSED** |
--| **Next** | M5 — Retour de preuve + analyse Nora — **NOT AUTHORIZED** without separate Morris GO |
-+| **Next** | M5 architecture **ADOPTED BY MORRIS** · **NEXT IMMEDIATE GATE = M5 DELIVERY AUTHORIZATION** (NOT AUTHORIZED) |
-
- ### Milestone 5 — Retour de preuve + analyse Nora
-
- | Champ | Contenu |
- | --- | --- |
- | **ID** | M5 |
--| **Capacité v3** | V3-F14 Artifact Completeness · Evidence/ReviewBundle · F13 learning (base) |
--| **Outcome** | Evidence/ReviewBundle liés contrat/décision ; réinjectés Nora + LPS ; handoff Git transitionnel OK |
--| **État actuel** | UI cards Memory ; pas LPS write-back |
--| **Gaps** | L9 Evidence→LPS ; durable evidence |
--| **Dépendances** | M4 — **SATISFIED / CLOSED** |
--| **Preuve e2e** | post-exec : ReviewBundle visible + LPS updated + recommendation next gate |
--| **Statut** | **PARTIAL / NOT AUTHORIZED** — **M5 EXECUTION REQUIRES A SEPARATE MORRIS GO** |
-+| **Capacité v3** | V3-F14 Artifact Completeness · Evidence/ReviewBundle · F13 learning (base) · support F02/F05/F09 |
-+| **Outcome** | Evidence/ReviewBundle liés contrat/décision → réinjectés Nora → liens factuels LPS → Recommendation next gate → gouvernance humaine préservée |
-+| **État actuel runtime** | Attempt **Memory** · Evidence **Memory** · ReviewBundle **Memory** · LPS durable but factual Evidence/RB append **missing** · Nora/F3 partial compose · RecommendNextGate Recommendation-only |
-+| **Architecture** | **ADOPTED BY MORRIS** — Entry Qualification **COMPLETE** (handoff `63f41e3f328868286c14312a58a7b79f850383c0`) · **NOT IMPLEMENTED** |
-+| **M5-A** | **OPTION B ADOPTED** — Product SQLite Attempt + Evidence + ReviewBundle behind existing ports |
-+| **M5-B** | **W1 ADOPTED** — factual LPS link update + Recommendation separate |
-+| **M5-C** | **KEEP TEMPORARY WITH EXIT** — journal stays for first M5 Delivery |
-+| **Actifs** | domain/ports/use cases **KEEP** · memory product adapters **REPLACE** · Product SQLite backbone **KEEP** · LPS **KEEP** + append **ADAPT** · Nora/F3 **HARVEST/ADAPT** · launch journal **KEEP TEMPORARY WITH EXIT** |
-+| **Gaps restants avant capability proof** | SQLite Attempt/Evidence/ReviewBundle adapters · Product schema evolution · RuntimeOaStack durable wiring · Attempt→Evidence durable bridge · ReviewBundle durable path · W1 LPS factual append · Nora/UI durable readback · restart QA · anti-claim QA |
-+| **Dépendances** | M4 — **SATISFIED / CLOSED** · Architecture gate — **SATISFIED / CONSUMED** · Delivery gate — **NOT AUTHORIZED** |
-+| **Preuve e2e cible** | terminal Attempt durable · Evidence durable liée Attempt/EC · ReviewBundle durable · process restart recovers same objects · LPS N+1 contains expected evidenceIds/reviewBundleIds · ReviewBundle visible Nora/UI · Recommendation next gate visible · Recommendation ≠ HumanDecision · gateConsumed=false · decisionCreated=false · no automatic execution · no unauthorized REAL · runtime state survives restart |
-+| **Statut** | **M5 ARCHITECTURE TRAJECTORY ADOPTED BY MORRIS — DELIVERY NOT AUTHORIZED — IMPLEMENTATION NOT STARTED** |
-+| **Next immediate gate** | **M5 DELIVERY AUTHORIZATION** — separate Morris GO required |
-+| **Next capability after M5** | **M6** — NOT STARTED / NOT AUTHORIZED |
-
- ### Milestone 6 — Boucle projet complète
-
-@@ -314,9 +353,9 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | **Capacité v3** | V3-F05 + F09 replanification (base) |
- | **Outcome** | Sans copier-coller manuel : conversation → qualification → décision → exécution → preuve → analyse → update projet → next step |
- | **État actuel** | Chaîne fragmentée / process-local / fixture |
--| **Dépendances** | M1–M5 |
-+| **Dépendances** | M1–M5 — M5 architecture selection **does NOT** satisfy M5 dependency ; M6 cannot start until M5 capability/exit proof is satisfied and Morris opens M6 |
- | **Preuve e2e** | parcours complet redémarrage-safe documenté |
--| **Statut** | **NOT STARTED** |
-+| **Statut** | **NOT STARTED / NOT AUTHORIZED** |
-
- ### Milestone 7 — Élargissement contrôlé doctrine v3
-
-@@ -344,20 +383,20 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | Fondation | Capacité | État courant | Milestone(s) | Preuve attendue | Gap / décision |
- | --- | --- | --- | --- | --- | --- |
- | V3-F01 CKC | Qualification cognitive | **PARTIAL RUNTIME** — F2 qualify + CycleInstance/CKC binding **on main** (M2) ; proposal process-local | M2, M7 | CKC lié cycle + proposal | proposal durable later |
--| V3-F02 LPS | Living Project State | **PARTIAL RUNTIME** — T-A1 Project/LPS durable SQLite **merged on main** ; writeback / autres états associés restent à compléter (M5+) | M1, M5 | M1 / PR #337 / restart proof | writeback + autres OA |
-+| V3-F02 LPS | Living Project State | **PARTIAL RUNTIME** — LPS durable on main ; M5-B W1 architecture **SELECTED** ; factual Evidence/RB write-back **NOT IMPLEMENTED** | M1, M5 | M1 restart proof · future W1 Delivery | W1 append + autres OA |
- | V3-F03 DoctrinePackage | Package pin/digest | **PARTIAL RUNTIME** — digest in live `F2ContextSnapshot` **on main** (M2) ; KEEP files | M1–M2 | live digest in snapshot | — |
- | V3-F04 Épistémologie | Obs/Hyp/… | DOC + UI tags partiels (base M2) | M2, M7 | tags/stop contradictions | later depth |
--| V3-F05 Chaîne conv→exec | Boucle native | **PARTIAL RUNTIME** — through M4 governed execution **demonstrated / milestone CLOSED** ; Evidence / LPS writeback / Nora post-exec **not closed** | M2–M6 | e2e sans copier-coller | M5+ (NOT AUTHORIZED yet) |
-+| V3-F05 Chaîne conv→exec | Boucle native | **PARTIAL RUNTIME** — through M4 CLOSED ; M5 architecture **SELECTED** for evidence→LPS post-exec closure · **implementation pending** · full loop still M6 | M2–M6 | e2e sans copier-coller | M5 Delivery NOT AUTHORIZED · then M6 |
- | V3-F06 Trajectory | ProjectTrajectory | Modeled / Memory cycle | M3, M7 | trajectory update post-HD | wire |
- | V3-F07 Provenance | Source hierarchy | Doctrine FS | M2, M7 | provenance on artifacts | later |
- | V3-F08 Contradictions | Stop/contradiction | DOC | M7 | UI stop + record | later |
--| V3-F09 Replanif | Governed replan | DOC | M6–M7 | next-step from ReviewBundle | after M5 |
-+| V3-F09 Replanif | Governed replan | DOC · M5 preserves Recommendation-only (W1) · structural replanning remains future / M6 | M6–M7 | next-step from ReviewBundle | after M5 exit |
- | V3-F10 DebtItem | Dette gouvernée | DOC | M7–M8 | debt records | later |
- | V3-F11 AgentCapability | Caps agents | Fixture + **bounded REAL RO KEEP** · M4 scope exercised successfully on final reproof (strict bounded tool-surface proven for that path) | M4 | M4 CLOSED for this capability class | future AgentCapability classes separate |
- | V3-F12 Réversibilité | Action policy | Gate D + CREATED/LAUNCHED + spawn ACK/completion controls **demonstrated for M4** · Ack **deferred for first RO** (D-M4-05) | M3–M4 | M4 CLOSED · Ack for elevated classes later | future IAM / N2/N3 |
--| V3-F13 Learning | REX contrôlé | DOC / capitalisation | M5, M7 | learning from Evidence | later |
--| V3-F14 Artifact Completeness | Completeness gates | Partial ReviewBundle | M5 | completeness checks | durable evidence |
--| V3-F15 Maturity | Distributed maturity | Honesty rails T-A7 | M8 | anti-claim maturity | no false READY |
-+| V3-F13 Learning | REX contrôlé | DOC / capitalisation · M5 architecture selected for durable Evidence/RB learning base · implementation pending | M5, M7 | learning from Evidence | M5 Delivery then later |
-+| V3-F14 Artifact Completeness | Completeness gates | Partial ReviewBundle runtime · M5-A Attempt/Evidence/RB durable **target decided** · runtime still Memory / persistence pending | M5 | completeness + restart-safe artifacts | M5 Delivery |
-+| V3-F15 Maturity | Distributed maturity | Honesty rails T-A7 · runtime v3 **NON ADOPTED** · no maturity promotion from M5 architecture ADOPT | M8 | anti-claim maturity | no false READY |
-
- ## B10. Chemin critique explicite
-
-@@ -374,8 +413,14 @@ CRITICAL PATH:
-   → post-pre-reproof Roadmap sync MERGED (PR #347 @ 2d1361ee…)
-   → M4 GOVERNED REAL COMPLETION PROOF PASS (handoff 1123a30f…) — duration≈15.7s — M4_READ_ONLY_OK — strict bounded tool-surface PROVEN for that path
-   → M4 EXIT PROOF ACCEPTED BY MORRIS — M4 CLOSED
--  → NEXT CAPABILITY = M5 — RETOUR DE PREUVE + ANALYSE NORA
--  → M5 NOT AUTHORIZED (separate Morris GO required)
-+  → M4 closure Roadmap MERGED (PR #348 @ 5132f1bc…)
-+  → M5 ENTRY QUALIFICATION — COMPLETE (handoff 63f41e3…)
-+  → M5 ARCHITECTURE TRAJECTORY — ADOPTED BY MORRIS (M5-A OPTION B · M5-B W1 · M5-C KEEP TEMPORARY WITH EXIT)
-+  → NEXT IMMEDIATE GATE = M5 DELIVERY AUTHORIZATION — NOT AUTHORIZED
-+  → M5 DELIVERY — NOT AUTHORIZED / IMPLEMENTATION NOT STARTED
-+  → M5 EXIT PROOF — NOT YET SATISFIED
-+  → NEXT CAPABILITY AFTER M5 = M6 — Boucle projet complète
-+  → M6 — NOT STARTED / NOT AUTHORIZED
-
- M4 ARCHITECTURE GATE: CLOSED (D-M4-01→05)
- M4 DELIVERY GATE: CLOSED / MERGED (PR #344)
-@@ -387,19 +432,25 @@ M4 EXIT PROOF: ACCEPTED BY MORRIS — SATISFIED
- M4: CLOSED
- GATE D: IMPLEMENTED — consumed once per historical governed REAL — fresh grant required for future REAL
- CRITICAL ACK: DEFERRED FOR FIRST RO — FUTURE N2/N3 / IAM — NOT PROMOTED
--TECHNICAL LAUNCH JOURNAL: TEMPORARY WITH EXIT — ≠ PRODUCT STORE
-+TECHNICAL LAUNCH JOURNAL: KEEP TEMPORARY WITH EXIT — M5-C ADOPTED DISPOSITION — ≠ PRODUCT STORE
- TIMEOUT 60000: KEEP FOR NOW — proven sufficient for demonstrated M4 bounded RO path — NOT universal policy — NOT proven defective
--CURSOR_REAL_TIMEOUT_POLICY: OPEN / NON-BLOCKING POST-M4 RESERVE
-+CURSOR_REAL_TIMEOUT_POLICY: OPEN / NON-BLOCKING POST-M4 RESERVE — UNCHANGED BY M5 ARCHITECTURE DECISION
- STRICT BOUNDED RUNTIME READ-ONLY TOOL-SURFACE: PROVEN FOR FINAL M4 REPROOF PATH ONLY
--M5: NOT AUTHORIZED
-+M5 ENTRY QUALIFICATION: COMPLETE
-+M5 ARCHITECTURE GATE: CONSUMED / ADOPTED BY MORRIS (NOT IMPLEMENTED)
-+M5 DELIVERY AUTHORIZATION: NOT AUTHORIZED
-+M5 EXIT PROOF: NOT YET SATISFIED
-+M5: ARCHITECTURE ADOPTED — DELIVERY NOT AUTHORIZED — IMPLEMENTATION NOT STARTED
-
--NEXT CAPABILITY: M5 — RETOUR DE PREUVE + ANALYSE NORA — MORRIS GO REQUIRED
-+NEXT IMMEDIATE GATE: M5 DELIVERY AUTHORIZATION — MORRIS GO REQUIRED
-+NEXT CAPABILITY AFTER M5: M6 — NOT STARTED / NOT AUTHORIZED
-
--NON-BLOCKING POST-M4 RESERVES (do NOT reopen M4):
-+NON-BLOCKING / FUTURE RESERVES (do NOT reopen M4 ; do NOT block M5 architecture):
-   - CURSOR_REAL_TIMEOUT_POLICY — OPEN / NON-BLOCKING
--  - technical launch journal — TEMPORARY WITH EXIT
-+  - technical launch journal — KEEP TEMPORARY WITH EXIT (M5-C)
-   - future IAM / Critical Ack for elevated classes
--  - Confirmation / Attempt product / Evidence durability partial
-+  - Claims/Maturity durability — later
-+  - Confirmation process-local — later
-
- TRANSVERSE LATER: FinOps capture optionnelle · multi-user · observability depth · F08/F10 depth
- FROZEN (RECOMMENDATION until GO): execution-run feature growth · OPS1 UI expansion · FinOps lots non bloquants · D1 feature growth
-@@ -429,6 +480,7 @@ Document key (tracking only — **not** an architecture decision):
- | Not proven | 60000 **defective** |
- | Classification | **KEEP CURRENT 60000 FOR NOW** + **OPEN / NON-BLOCKING POST-M4 RESERVE** |
- | Blocks M5? | **No** |
-+| Changed by M5 architecture decision? | **No** — reserve unchanged |
- | Reopens M4? | **No** |
-
- No structural selection now among: global 90s/120s · unlimited · dynamic · per-AgentCapability · per-ExecutionContract · per class. Any such selection needs dedicated proof + Morris decision.
-@@ -481,6 +533,10 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
- - M4 post-pre-reproof Roadmap sync : PR #347 · head `4f989aba92bce5ca33e1de251523694559b53902` · merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS
- - M4 GOVERNED REAL COMPLETION PROOF : handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · Attempt `xat:m4-reproof-86b5ecb05474` · Gate D `gtd:m4-reproof-86b5ecb05474` · PASS
- - Morris GO : **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION**
--- Current main (Roadmap candidate base) : `2d1361ee71bec7a21f6f76efc7c33eaf3146802a`
-+- M4 closure Roadmap sync : PR #348 · merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e`
-+- M5 Entry Qualification : handoff `63f41e3f328868286c14312a58a7b79f850383c0`
-+- Morris GO : **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY**
-+- Morris GO : **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY**
-+- Current main (Roadmap candidate base) : `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e`
- - Audit handoff historique : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
- - Framing : `projects/sfia-studio/sfia-v3-framing/30`–`37` (dont `34` · DOC-DEBT-M1-01 sur `32`)
-````
-
-## Push
-
-- local HEAD = remote `docs/sfia-studio-m5-architecture-roadmap-sync` = `01b6555b5117cf7930e12e5c1c5d6d9647b5efa3`
-- push normal (`-u`) — no force
-
-## Draft PR verification
-
-| Field | Value |
-| --- | --- |
-| Number / URL | #349 / https://github.com/mcleland147/sfia-workspace/pull/349 |
-| state | OPEN |
-| draft | true |
-| base | main @ `5132f1bc…` |
-| head | `docs/sfia-studio-m5-architecture-roadmap-sync` @ `01b6555…` |
-| commits | 1 |
-| changed files | 1 — `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
-| additions/deletions | +110 / -54 |
-| merge | NOT PERFORMED |
-| mark ready | 0 |
-
-## PR patch COMPLETE
-
-````diff
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 7401ed87..101bdf54 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -6,13 +6,13 @@
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
- | **Doctrine cible** | SFIA Studio v3 framing `30`–`37` (destination produit) |
- | **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
--| **Snapshot Git** | origin/main @ `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` |
-+| **Snapshot Git** | origin/main @ `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` |
- | **Timestamp création** | 2026-08-12 21:53:10 CEST (+0200) *(historique)* |
--| **Timestamp maintenance** | 2026-08-14 Europe/Paris — M4 EXIT PROOF ACCEPTED BY MORRIS — M4 CLOSED — NEXT = M5 (NOT AUTHORIZED) — CURSOR_REAL_TIMEOUT_POLICY OPEN / NON-BLOCKING |
-+| **Timestamp maintenance** | 2026-08-15 06:23 CEST (+0200) — M5 ENTRY QUALIFICATION COMPLETE — M5 ARCHITECTURE TRAJECTORY ADOPTED BY MORRIS — M5 DELIVERY NOT AUTHORIZED — NO REAL — NEXT IMMEDIATE GATE = M5 DELIVERY AUTHORIZATION — CURSOR_REAL_TIMEOUT_POLICY OPEN / NON-BLOCKING |
- | **Validation Morris** | 2026-08-13 02:05 +0200 (Europe/Paris) — Build Doctrine + Convergence Roadmap officiellement validées comme gouvernance de construction SFIA Studio |
--| **Intégration Git** | Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration · **M4 post-pre-reproof Roadmap :** PR #347 / merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS · **M4 GOVERNED REAL COMPLETION PROOF** handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** |
--| **Sources** | Git `main` @ `2d1361ee…` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347 · CI #158/#162/#166/#172/#176/#178 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · M4 Product path on main `projects/sfia-studio/app/**` |
--| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M4 CLOSED **≠** M5 AUTHORIZED · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **≠** M4 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · ≠ full OA durable |
-+| **Intégration Git** | Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration · **M4 post-pre-reproof Roadmap :** PR #347 / merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS · **M4 GOVERNED REAL COMPLETION PROOF** handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · **M4 closure Roadmap :** PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · **M5 Entry Qualification** handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** |
-+| **Sources** | Git `main` @ `5132f1bc…` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347 · CI #158/#162/#166/#172/#176/#178 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · M5 Entry Qualification handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · M4 Product path on main `projects/sfia-studio/app/**` |
-+| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M5 Entry Qualification **COMPLETE** · M5 architecture trajectory **ADOPTED BY MORRIS** · M5 architecture ADOPTED **≠** M5 Delivery authorized · M5 architecture ADOPTED **≠** M5 implemented · M5-A Product SQLite target selected **≠** Attempt/Evidence/ReviewBundle durable today · M5-B W1 factual write-back authority **≠** Recommendation becomes Decision · Recommendation **≠** HumanDecision · Recommendation **≠** gate consumed · LPS factual evidence link **≠** structural trajectory validation · M5-C KEEP TEMPORARY WITH EXIT **≠** technical journal retired · durable Attempt future **≠** journal automatically obsolete · M5 Entry Qualification COMPLETE **≠** M5 CLOSED · M5 architecture ADOPTED **≠** M6 started · M4 CLOSED **≠** M5 Delivery authorized · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **unchanged by M5 architecture decision** **≠** M4/M5 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · runtime v3 **NON ADOPTED** · ≠ full OA durable |
-
- ## B1. Nature du document
-
-@@ -26,7 +26,7 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
-
- ## B3. Point de départ factuel
-
--### Sur main (`2d1361ee71bec7a21f6f76efc7c33eaf3146802a`)
-+### Sur main (`5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e`)
-
- | Capacité | État observé |
- | --- | --- |
-@@ -34,7 +34,7 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
- | F1 Nora chat | WIRED — contextual assistant |
- | F2 qualification / proposal / Morris gate | WIRED — qualification + **real CycleInstance** + live post-mutation `F2ContextSnapshot` ; conversation/proposal **process-local** ; M3 GO path uses server-owned temporary local Morris authority (fail-closed) |
- | F3 / M3 PREPARE | WIRED — **M3 Product path** : HumanDecision durable → ExecutionContract durable → Cursor PREPARE-only projection ; **fixture historique/test** (`TestExecutionAdapter`) conservé ≠ chemin REAL |
--| Evidence UI reinjection | WIRED — DTO panel ; **pas** LPS write-back |
-+| Evidence UI reinjection | WIRED — DTO panel Memory/process-local ; **pas** durable LPS evidence/RB write-back **today** (M5-B W1 = ADOPTED target, NOT IMPLEMENTED) |
- | OPS1 Cursor REAL | EXISTS — UI `/ops1` parallèle ; flag `OPS1_CURSOR_REAL` |
- | D1 SQLite projects | EXISTS — UI `/projects` parallèle |
- | execution-run D2-D | EXISTS — **non** branché F1–F3 |
-@@ -43,16 +43,21 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
- | Architecture convergence | **Option 1 ADOPTED** — OA Native Backbone + Harvest OPS1 Cursor (G0-A) |
- | Project/LPS restart safety | **PROVEN / MERGED** (process A→B + CI #158) |
- | Autres OA (T-A2 CycleInstance M2 subset) | **Product SQLite — MERGED ON MAIN** (PR #339) — Cycle/LPS/CKC linkage durable + restart-safe (subset M2) |
--| Autres OA (T-A2 trajectory/epistemic ; Confirmation ; T-A5 Attempt product ; T-A6 Evidence) | **Memory partiel** — process-local |
-+| Autres OA (T-A2 trajectory/epistemic ; Confirmation ; T-A5 Attempt product ; T-A6 Evidence/ReviewBundle) | **CURRENT RUNTIME = Memory / process-local** · M5-A **TARGET** Product SQLite Attempt+Evidence+ReviewBundle = **ADOPTED / NOT IMPLEMENTED** |
- | Autres OA (T-A3 HD) | **Product SQLite — MERGED ON MAIN — M3** (PR #341) ; Confirmation reste Memory/process-local |
--| Autres OA (T-A4 ExecutionContract) | **Product SQLite — MERGED ON MAIN — M3** (PR #341) — PREPARE-only ; Attempt product still Memory |
-+| Autres OA (T-A4 ExecutionContract) | **Product SQLite — MERGED ON MAIN — M3** (PR #341) — PREPARE-only ; Attempt product **CURRENT** Memory · M5-A durable Attempt **TARGET ADOPTED / NOT IMPLEMENTED** |
- | Architecture M4 | **ADOPTED + IMPLEMENTED ON MAIN — M4 CLOSED** — D-M4-01→05 via PR #344 · Delivery **MERGED** · FIRST REAL historical + final governed completion reproof **PASS** · exit proof **ACCEPTED BY MORRIS** |
- | T-A5 REAL (Nora/Studio) | **IMPLEMENTED ON MAIN / DEFAULT OFF** — specialized OA-owned boundary ; fixture `externalEffects:false` **preserved** ; gateway deterministic bounding **ON MAIN** (`--mode ask` + README.md markers) ; historical governed REAL launches = **2** ; successful governed REAL completions = **1** |
- | Cursor REAL depuis Nora | **2 historical governed attempts** — Run1 FIRST REAL (`xat:m4-first-real-001`) launch **PROVEN** / completion **NOT** (timeout ~60s) · Run2 final reproof (`xat:m4-reproof-86b5ecb05474`) completion **PROVEN** (~15.7s / `M4_READ_ONLY_OK`) · identities never reused across runs |
- | Gate D | **IMPLEMENTED ON MAIN** (GD-1) · consumed **once per governed REAL** historically (Run1 + Run2) · future REAL still requires **fresh** Gate D + Morris GO |
--| Technical CREATED/LAUNCHED frontier | **IMPLEMENTED ON MAIN** · **TEMPORARY WITH EXIT** · ≠ Product Store · REAL TRACE **PROVEN** on both historical governed runs |
-+| Technical CREATED/LAUNCHED frontier | **IMPLEMENTED ON MAIN** · **TEMPORARY WITH EXIT** · **M5-C disposition ADOPTED** (KEEP during first M5 Delivery) · ≠ Product Store · REAL TRACE **PROVEN** on both historical governed runs |
- | Bounded RO AgentCapability | **IMPLEMENTED ON MAIN** · static / deny-by-default · KEEP · **STRICT BOUNDED RUNTIME TOOL-SURFACE PROVEN FOR FINAL M4 REPROOF** (Read=1 README only ; Shell/Glob/Grep/write=0) — **≠** “Cursor is globally read-only” |
- | `CURSOR_REAL_TIMEOUT_POLICY` | **OPEN / NON-BLOCKING POST-M4 RESERVE** — current product timeout **60000** = **KEEP FOR NOW** · proven sufficient for demonstrated M4 bounded RO path · **NOT** universal policy · **NOT** proven defective |
-+| M5 architecture trajectory | **ADOPTED BY MORRIS / NOT IMPLEMENTED** — Entry Qualification **COMPLETE** (handoff `63f41e3…`) · Delivery **NOT AUTHORIZED** · exit proof **NOT YET SATISFIED** |
-+| M5-A Persistence boundary | **OPTION B ADOPTED** — TARGET Product SQLite OA backbone for **ExecutionAttempt + Evidence + ReviewBundle** behind existing ports/domain/use cases · CURRENT runtime still Memory |
-+| M5-B Nora/LPS write-back | **W1 ADOPTED** — TARGET factual LPS link update for Evidence/ReviewBundle refs + Recommendation separate · CURRENT append path does **not** write `evidenceIds`/`reviewBundleIds` · Recommendation remains Recommendation |
-+| M5-C Technical journal | **KEEP TEMPORARY WITH EXIT** — ADOPTED disposition for first M5 Delivery · retirement needs durable Attempt + safety equivalence + dedicated Morris GO |
-+| NEXT IMMEDIATE GATE | **M5 DELIVERY AUTHORIZATION** — **NOT AUTHORIZED** · NEXT CAPABILITY after M5 closure = **M6** (NOT STARTED / NOT AUTHORIZED) |
-
- ### Candidat local non-main (dirty `delivery/sfia-studio-f3-real-prerequisites`) — historique / harvest
-
-@@ -78,22 +83,28 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
- | T-A2 Cycle/CKC | Product SQLite CycleInstance + F2/CKC/LPS linkage (PR #339) | **COMPLETE** (M2) / **KEEP** backbone | CycleInstance durable + restart-safe on main ; Trajectory/Epistemic restent Memory |
- | T-A3 HD/Confirm/Authority | Product SQLite HD **ON MAIN** (PR #341) + Confirmation Memory + local Morris authority TEMPORARY WITH EXIT | **COMPLETE** (M3) / **KEEP** backbone | HD durable on main ; Confirmation process-local ; Auth.js exit ouvert |
- | T-A4 ExecutionContract | Product SQLite + M3 PREPARE truthful + Cursor projection PREPARE-only **ON MAIN** (PR #341) | **COMPLETE** (M3) / **KEEP** backbone | Durable on main ; no Attempt/REAL ; fixture path historique/test conservé |
--| T-A5 Attempt / fixture adapter port | F3 fixture adapter · `ExecutionAdapterPort.externalEffects:false` · PR #344 | **KEEP** core lifecycle + **KEEP** zero-effect port | StartExecution remains sole authority sequencer ; fixture port intact (D-M4-01) |
-+| T-A5 Attempt domain + ports / fixture adapter port | F3 fixture adapter · `ExecutionAdapterPort.externalEffects:false` · PR #344 | **KEEP** domain/ports/lifecycle + **KEEP** zero-effect port | StartExecution remains sole authority sequencer ; fixture port intact (D-M4-01) ; M5-A durable Attempt target **ADOPTED / NOT IMPLEMENTED** |
- | T-A5 specialized REAL boundary | PR #344 + PR #346 / main `2d1361ee…` | **COMPLETE M4 / KEEP** (+ gateway bounding) | OA-owned REAL boundary **implemented, default OFF** — no OA→OPS1 runtime coupling — TWO historical governed launches · ONE successful completion under deterministic `--mode ask` / README bounding · M4 CLOSED |
--| T-A5 launch journal (CREATED/LAUNCHED) | PR #344 / main · exercised on both REAL runs | **TEMPORARY WITH EXIT — IMPLEMENTED / KEEP** | Technical safety journal ; ≠ Product Store ; REAL TRACE PROVEN ; exit → Attempt/Evidence durable path M5+ / dedicated Morris gate |
-+| T-A5 launch journal (CREATED/LAUNCHED) | PR #344 / main · exercised on both REAL runs | **KEEP / TEMPORARY WITH EXIT — M5-C ADOPTED DISPOSITION** | Technical safety journal ; ≠ Product Store ; REAL TRACE PROVEN ; **no retirement in first M5 Delivery** ; future exit → durable Attempt + safety equivalence + dedicated Morris GO |
- | AgentCapability REAL RO profile | PR #344 / `m4BoundedReadOnlyCursorAgent` · KEEP | **COMPLETE M4 / KEEP** | Bounded RO profile exercised ; final reproof proved strict bounded tool-surface for that path ; AgentCapability **unchanged** through bounding/closure |
- | Product timeout 60000 | product default / both REAL runs | **KEEP CURRENT VALUE FOR NOW** + **OPEN / NON-BLOCKING POST-M4 RESERVE** (`CURSOR_REAL_TIMEOUT_POLICY`) | Sufficient for demonstrated M4 bounded RO completion (~15.7s) ; FIRST REAL timeout historical ≠ proven defect ; **no** universal timeout policy selected |
--| T-A6 Evidence/ReviewBundle | F3 ingest + UI cards | **COMPLETE** | UI reinjection ; LPS write-back manquant |
-+| T-A6 Evidence/ReviewBundle domain + ports + use cases | F3 ingest + UI cards Memory | **KEEP** domain/ports/use cases · Memory product adapters **REPLACE ON PRODUCT PATH DURING M5 DELIVERY** · Product SQLite Evidence/RB target **ADOPTED FOR M5 / NOT IMPLEMENTED** | UI reinjection exists ; CURRENT Memory ; M5-A durable target selected ; M5-B W1 LPS factual link **ADOPTED / NOT IMPLEMENTED** |
-+| Product SQLite Attempt/Evidence/ReviewBundle target | M5 Entry Qualification handoff `63f41e3…` · Morris M5-A OPTION B | **ADOPTED FOR M5 / NOT IMPLEMENTED** | Existing OA Product SQLite backbone (G0-B) behind existing ports — Delivery required |
-+| LivingProjectState | Product SQLite `oa_lps` · type already has `evidenceIds` / `reviewBundleIds` | **KEEP** | Durable LPS exists ; factual Evidence/RB linkage fields present on type |
-+| AppendLivingProjectStateVersion | request/path today | **ADAPT TARGET FOR M5 W1** | CURRENT runtime gap: request/path does **not** yet write `evidenceIds`/`reviewBundleIds` ; future W1 = factual Evidence/RB link append only |
-+| RecommendNextGate | evidence-review coordination | **KEEP — RECOMMENDATION-ONLY** | Never HumanDecision / gateConsumed / executionAuthority ; unchanged by M5-B W1 |
-+| Claim/Maturity memory stores | evidence-review memory | **FREEZE / later ADAPT** | Out of minimal M5 slice |
-+| Product SQLite backbone | G0-B ADOPTED · Project/LPS/Cycle/HD/EC on main | **KEEP / COMPLETE** | Target persistence backbone already selected ; extend for M5-A aggregates in Delivery |
- | T-A7 readiness/HARD rails | `platform/t-a7` | **KEEP** | Honesty rails |
- | Shared platform AI | `lib/platform` | **KEEP** | Substrate F1 |
--| F1 / F2 / F3 UI | `features/project-assistant` | **KEEP** / **ADAPT** | Remplacer demo/fixture bindings progressivement |
--| vertical-slice-runtime | `wireOaStack` · PR #344 comments only | **KEEP** / **ADAPT** | Composition root Studio ; REAL boundary **intentionally not wired by default** (M4 REAL-OFF) |
-+| F1 / F2 / F3 UI / Nora compose | `features/project-assistant` · F3 ingest→RecommendNextGate | **KEEP** / **HARVEST/ADAPT** — **NO NEW ENGINE** | Compose existing use cases ; durable readback + W1 LPS link pending M5 Delivery |
-+| vertical-slice-runtime | `wireOaStack` · PR #344 comments only | **KEEP** / **ADAPT** (future M5 Delivery durable adapter wire) | Composition root Studio ; REAL boundary **intentionally not wired by default** (M4 REAL-OFF) ; Attempt/Evidence/RB still Memory today |
- | OPS1 Cursor/worktree/report | `lib/ops1` | **HARVEST** (+ **FREEZE** UI growth **RECOMMENDATION**) | Capacité Cursor réelle isolable ; harvest ≠ call OPS1 runtime from OA |
- | execution-run | `lib/oa/execution-run` | **FREEZE** (**RECOMMENDATION**) | Parallèle ; non F3 chain |
- | D1 `/projects` | `lib/d1` | **FREEZE** / **RETIRE LATER** (**RECOMMENDATION**) | Parallèle durable |
- | FinOps | `lib/oa/finops` | **KEEP** isolé + **FREEZE** lots non bloquants (**RECOMMENDATION**) | Transverse cost ≠ Product persistence |
- | Auth.js / Critical Ack candidate | dirty only (inspected) | **DEFER for first RO** (D-M4-05) · **NOT PROMOTED** | Not a prerequisite of first M4 read-only proof ; remains candidate for future N2/N3 / IAM gate ; debt **preserved** |
--| Persistence Memory OA | factories Memory* (trajectory/epistemic ; Confirmation ; T-A5 Attempt product ; T-A6) | **REPLACE** progressif (T-A1 + T-A2 + T-A3 HD + T-A4 ExecutionContract = SQLite Product **ON MAIN through M3**) | Attempt/Evidence/Trajectory/Confirmation restent process-local ; M4 technical launch journal **IMPLEMENTED** TEMPORARY WITH EXIT (≠ Product Store ; does **not** close Product persistence debt) |
-+| Persistence Memory OA | factories Memory* (trajectory/epistemic ; Confirmation ; T-A5 Attempt product ; T-A6 Evidence/RB ; Claims/Maturity) | **REPLACE ON PRODUCT PATH DURING M5 DELIVERY** for Attempt/Evidence/ReviewBundle (M5-A OPTION B **ADOPTED**) · Claims/Maturity **FREEZE / later ADAPT** (out of minimal M5) · Trajectory/Confirmation remain process-local | CURRENT Attempt/Evidence/RB Memory ; TARGET Product SQLite **ADOPTED / NOT IMPLEMENTED** ; journal KEEP TEMPORARY WITH EXIT (M5-C) ≠ Product Store |
-
- ## B5. Gap map → boucle cible
-
-@@ -105,20 +116,25 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
- | HumanDecision durable/authoritative | **CLOSED ON MAIN — M3** — Product SQLite + LPS link ; autorité local-single-user TEMPORARY WITH EXIT (durabilité HD fermée ≠ IAM product-grade fermé) | future IAM (Ack **not** absolute for first RO — D-M4-05) ; historical Gate D first-REAL consumption already proven once |
- | CKC ↔ cycle binding | **CLOSED ON MAIN — M2** — `ckcResolutionRef` projection on LPS | — |
- | live contextSnapshot | **CLOSED ON MAIN — M2** — `F2ContextSnapshot` post-mutation (pas nouvel aggregate durable) | — |
--| ExecutionContract from real HD | **CLOSED ON MAIN — M3** — exact/unresolved fields from DecisionBasis ; fixture path historique conservé | M5 (Evidence path) — separate Morris GO |
-+| ExecutionContract from real HD | **CLOSED ON MAIN — M3** — exact/unresolved fields from DecisionBasis ; fixture path historique conservé | M5 Delivery (Evidence path) — architecture selected ; Delivery **NOT AUTHORIZED** |
- | Cursor projection canonique | **CLOSED ON MAIN — M3 PREPARE-only** (`executionAllowed=false`) | future elevated REAL classes / M5+ |
- | Cursor REAL behind T-A5 | **IMPLEMENTATION MERGED / DEFAULT OFF** · M4 governed completion **PROVEN** (final reproof) · M4 **CLOSED** | future REAL requires distinct Morris GO (not M4 reopen) |
- | REAL specialized adapter boundary | **CLOSED ON MAIN — PR #344** (+ gateway bounding PR #346) — implemented, default OFF | KEEP |
--| durable launch frontier (CREATED/LAUNCHED) | **IMPLEMENTED ON MAIN — PR #344** — TEMPORARY WITH EXIT · REAL TRACE **PROVEN** (both runs) | Attempt/Evidence product durability exit M5+ |
-+| durable launch frontier (CREATED/LAUNCHED) | **IMPLEMENTED ON MAIN — PR #344** — TEMPORARY WITH EXIT · **M5-C KEEP** for first M5 Delivery · REAL TRACE **PROVEN** (both runs) | Future journal retirement gate (after durable Attempt + safety equivalence + Morris GO) |
- | Gate D durable grant | **IMPLEMENTED ON MAIN** (GD-1) · consumed once per historical governed REAL · **not reusable** | fresh Gate D for any future REAL |
- | bounded REAL AgentCapability RO | **IMPLEMENTED ON MAIN** · final reproof **STRICT BOUNDED TOOL-SURFACE PROVEN** for demonstrated path | KEEP ; future capabilities separate |
- | governed REAL completion (M4) | **PROVEN** — final reproof PASS (handoff `1123a30f…`) · exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** | — |
- | `CURSOR_REAL_TIMEOUT_POLICY` | **OPEN / NON-BLOCKING POST-M4** — 60000 KEEP FOR NOW | future REAL class needing policy qualification |
- | Critical Ack UI | CANDIDATE / MISSING — **NOT BLOCKING FIRST M4 READ-ONLY PROOF BY D-M4-05** ; remains for future N2/N3 / IAM | future N2/N3 · IAM gate |
--| Evidence durable | MISSING | M5 |
--| ReviewBundle → LPS writeback | MISSING | M5/M6 |
--| Nora post-exec analysis | PARTIAL (UI cards) | M5 |
--| Restart safety Studio core | **PARTIAL** — Project/LPS/Cycle/HD/ExecutionContract **restart-safe ON MAIN** ; conversation/proposal/Confirmation/Attempt product/Evidence Memory ; M4 crash/replay protections + REAL journal reopen **PROVEN** | M5+ Attempt/Evidence durability |
-+| ExecutionAttempt product durability | **MISSING IN RUNTIME** · M5-A TARGET SELECTED (Product SQLite) · **M5 DELIVERY REQUIRED** | M5 Delivery (NOT AUTHORIZED yet) |
-+| Evidence durability | **MISSING IN RUNTIME** · M5-A TARGET SELECTED (Product SQLite) · **M5 DELIVERY REQUIRED** | M5 Delivery (NOT AUTHORIZED yet) |
-+| ReviewBundle durability | **MISSING IN RUNTIME** · M5-A TARGET SELECTED (Product SQLite) · **M5 DELIVERY REQUIRED** | M5 Delivery (NOT AUTHORIZED yet) |
-+| Technical journal exit | **DEFERRED / NON-BLOCKING** first M5 Delivery · M5-C KEEP TEMPORARY WITH EXIT | Future dedicated Morris GO |
-+| Claim/Maturity durability | **DEFER / future** — not minimal M5 | later |
-+| Timeout / IAM / OPS1 | **OUT OF M5 CRITICAL PATH** | separate |
-+| Evidence/ReviewBundle → LPS factual write-back | **MISSING IN RUNTIME** · M5-B W1 AUTHORITY **SELECTED** · **M5 DELIVERY REQUIRED** | M5 Delivery (NOT AUTHORIZED yet) |
-+| Nora post-exec analysis | **PARTIAL** — RecommendNextGate **KEEP** · durable Evidence/RB sources + W1 LPS factual link pending Delivery | M5 Delivery |
-+| Restart safety Studio core | **PARTIAL** — Project/LPS/Cycle/HD/ExecutionContract **restart-safe ON MAIN** ; conversation/proposal/Confirmation/Attempt product/Evidence/ReviewBundle **CURRENT Memory** ; M4 crash/replay + journal reopen **PROVEN** · M5-A durable Attempt+Evidence+RB **TARGET ADOPTED / NOT IMPLEMENTED** | M5 Delivery |
- | IAM/authz product-grade | PARTIAL / MISSING (M3 local authority temporary ; Auth.js candidate **NOT PROMOTED**) — **not** a blocker of first RO proof (D-M4-05) ; debt preserved | future IAM gate / M8 |
-
- ## B6. Decisions / gates
-@@ -182,13 +198,29 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- - **M4 EXIT PROOF** — **ACCEPTED BY MORRIS**
- - **M4** — **CLOSED** (GO **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION**)
-
-+### M5 Architecture Decisions — CONSUMED BY MORRIS
-+
-+- **M5 ENTRY QUALIFICATION** = **COMPLETE** — handoff `63f41e3f328868286c14312a58a7b79f850383c0`
-+- GO architecture : **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY**
-+- GO Roadmap sync : **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY**
-+
-+| ID | Décision | Statut |
-+| --- | --- | --- |
-+| **M5-A** | Persistence boundary **OPTION B** — ExecutionAttempt + Evidence + ReviewBundle durable together in existing OA Product SQLite behind existing ports/domain/use cases | **ADOPTED** · **NOT IMPLEMENTED** |
-+| **M5-B** | Nora/LPS write-back **W1** — automatic factual LPS link update allowed for Evidence/ReviewBundle refs ; Recommendation remains Recommendation ; **no** automatic HumanDecision / gate consumption / executionAuthority / structural trajectory validation | **ADOPTED** · **NOT IMPLEMENTED** |
-+| **M5-C** | Technical launch journal disposition **KEEP TEMPORARY WITH EXIT** during first M5 Delivery ; retirement later needs durable Attempt + safety equivalence + dedicated Morris GO | **ADOPTED DISPOSITION** |
-+
- ### Décisions / gates toujours ouverts
-
--1. **M5 — Retour de preuve + analyse Nora** — **NOT AUTHORIZED** — separate Morris GO required (M4 dependency **SATISFIED**)
--2. Critical Ack / Auth.js promotion for future N2/N3 / IAM — **Decision Required** (separate)
--3. Disposition OPS1 / D1 / execution-run — **Decision Required**
--4. runtime v3 adoption — **NOT AUTHORIZED**
--5. **`CURSOR_REAL_TIMEOUT_POLICY`** — **OPEN / NON-BLOCKING POST-M4 RESERVE** — current 60000 **KEEP FOR NOW** · no structural timeout decision selected
-+1. **M5 DELIVERY AUTHORIZATION** — **NOT AUTHORIZED** (architecture consumed ; Delivery separate Morris GO)
-+2. Future M5 validation / PR / merge gates — **NOT AUTHORIZED**
-+3. M5 exit proof acceptance — future Morris gate — **NOT YET SATISFIED**
-+4. Technical launch journal retirement — future dedicated gate (M5-C)
-+5. **M6 — Boucle projet complète** — **NOT STARTED / NOT AUTHORIZED**
-+6. Critical Ack / Auth.js promotion for future N2/N3 / IAM — **Decision Required** (separate)
-+7. Disposition OPS1 / D1 / execution-run — **Decision Required**
-+8. runtime v3 adoption — **NOT AUTHORIZED**
-+9. **`CURSOR_REAL_TIMEOUT_POLICY`** — **OPEN / NON-BLOCKING POST-M4 RESERVE** — current 60000 **KEEP FOR NOW** · unchanged by M5 architecture decision · no structural timeout decision selected
-
- ### Décisions / gates historiques encore listés (non tranchés comme promotion)
-
-@@ -274,7 +306,7 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | **Merge** | **CLOSED** — PR #341 MERGED @ `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS |
- | **Exit evidence** | **EXIT PROOF SATISFIED ON MAIN** |
- | **Preuve e2e** | GO → HD durable + LPS N+1 · restart → PREPARE sans Proposal · ExecutionContract durable · fingerprint persisted=recomputed=projection · unresolved semantics fail-closed · Cursor PREPARE-only · authority adversarial PASS · local 1656 / 131 / 0 · CI #166 SUCCESS · merge #341 |
--| **Next** | M5 — Retour de preuve + analyse Nora — **MORRIS GO REQUIRED** *(M4 CLOSED)* |
-+| **Next** | M5 — architecture **ADOPTED** · Delivery **NOT AUTHORIZED** *(M4 CLOSED)* |
- | **Statut** | **VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED** |
-
- ### Milestone 4 — Première exécution Cursor REAL bornée depuis Studio
-@@ -291,20 +323,27 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | **Dépendances** | M3 — **SATISFIED** · D-M4-01→05 — **SATISFIED** · Delivery — **SATISFIED** · FIRST REAL / diagnosis / bounding / completion proof / exit acceptance — **CONSUMED** |
- | **Preuve de sortie M4** | **SATISFIED / ACCEPTED BY MORRIS** — exact HD/EC · bounded agent · Gate D single-use · governed Cursor REAL · CREATED/LAUNCHED · no duplicate launch · no fixture fallback · isolated pinned workspace · bounded RO completion · fail-closed safety · final completion PASS |
- | **Statut** | **M4 EXIT PROOF ACCEPTED BY MORRIS — CLOSED** |
--| **Next** | M5 — Retour de preuve + analyse Nora — **NOT AUTHORIZED** without separate Morris GO |
-+| **Next** | M5 architecture **ADOPTED BY MORRIS** · **NEXT IMMEDIATE GATE = M5 DELIVERY AUTHORIZATION** (NOT AUTHORIZED) |
-
- ### Milestone 5 — Retour de preuve + analyse Nora
-
- | Champ | Contenu |
- | --- | --- |
- | **ID** | M5 |
--| **Capacité v3** | V3-F14 Artifact Completeness · Evidence/ReviewBundle · F13 learning (base) |
--| **Outcome** | Evidence/ReviewBundle liés contrat/décision ; réinjectés Nora + LPS ; handoff Git transitionnel OK |
--| **État actuel** | UI cards Memory ; pas LPS write-back |
--| **Gaps** | L9 Evidence→LPS ; durable evidence |
--| **Dépendances** | M4 — **SATISFIED / CLOSED** |
--| **Preuve e2e** | post-exec : ReviewBundle visible + LPS updated + recommendation next gate |
--| **Statut** | **PARTIAL / NOT AUTHORIZED** — **M5 EXECUTION REQUIRES A SEPARATE MORRIS GO** |
-+| **Capacité v3** | V3-F14 Artifact Completeness · Evidence/ReviewBundle · F13 learning (base) · support F02/F05/F09 |
-+| **Outcome** | Evidence/ReviewBundle liés contrat/décision → réinjectés Nora → liens factuels LPS → Recommendation next gate → gouvernance humaine préservée |
-+| **État actuel runtime** | Attempt **Memory** · Evidence **Memory** · ReviewBundle **Memory** · LPS durable but factual Evidence/RB append **missing** · Nora/F3 partial compose · RecommendNextGate Recommendation-only |
-+| **Architecture** | **ADOPTED BY MORRIS** — Entry Qualification **COMPLETE** (handoff `63f41e3f328868286c14312a58a7b79f850383c0`) · **NOT IMPLEMENTED** |
-+| **M5-A** | **OPTION B ADOPTED** — Product SQLite Attempt + Evidence + ReviewBundle behind existing ports |
-+| **M5-B** | **W1 ADOPTED** — factual LPS link update + Recommendation separate |
-+| **M5-C** | **KEEP TEMPORARY WITH EXIT** — journal stays for first M5 Delivery |
-+| **Actifs** | domain/ports/use cases **KEEP** · memory product adapters **REPLACE** · Product SQLite backbone **KEEP** · LPS **KEEP** + append **ADAPT** · Nora/F3 **HARVEST/ADAPT** · launch journal **KEEP TEMPORARY WITH EXIT** |
-+| **Gaps restants avant capability proof** | SQLite Attempt/Evidence/ReviewBundle adapters · Product schema evolution · RuntimeOaStack durable wiring · Attempt→Evidence durable bridge · ReviewBundle durable path · W1 LPS factual append · Nora/UI durable readback · restart QA · anti-claim QA |
-+| **Dépendances** | M4 — **SATISFIED / CLOSED** · Architecture gate — **SATISFIED / CONSUMED** · Delivery gate — **NOT AUTHORIZED** |
-+| **Preuve e2e cible** | terminal Attempt durable · Evidence durable liée Attempt/EC · ReviewBundle durable · process restart recovers same objects · LPS N+1 contains expected evidenceIds/reviewBundleIds · ReviewBundle visible Nora/UI · Recommendation next gate visible · Recommendation ≠ HumanDecision · gateConsumed=false · decisionCreated=false · no automatic execution · no unauthorized REAL · runtime state survives restart |
-+| **Statut** | **M5 ARCHITECTURE TRAJECTORY ADOPTED BY MORRIS — DELIVERY NOT AUTHORIZED — IMPLEMENTATION NOT STARTED** |
-+| **Next immediate gate** | **M5 DELIVERY AUTHORIZATION** — separate Morris GO required |
-+| **Next capability after M5** | **M6** — NOT STARTED / NOT AUTHORIZED |
-
- ### Milestone 6 — Boucle projet complète
-
-@@ -314,9 +353,9 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | **Capacité v3** | V3-F05 + F09 replanification (base) |
- | **Outcome** | Sans copier-coller manuel : conversation → qualification → décision → exécution → preuve → analyse → update projet → next step |
- | **État actuel** | Chaîne fragmentée / process-local / fixture |
--| **Dépendances** | M1–M5 |
-+| **Dépendances** | M1–M5 — M5 architecture selection **does NOT** satisfy M5 dependency ; M6 cannot start until M5 capability/exit proof is satisfied and Morris opens M6 |
- | **Preuve e2e** | parcours complet redémarrage-safe documenté |
--| **Statut** | **NOT STARTED** |
-+| **Statut** | **NOT STARTED / NOT AUTHORIZED** |
-
- ### Milestone 7 — Élargissement contrôlé doctrine v3
-
-@@ -344,20 +383,20 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | Fondation | Capacité | État courant | Milestone(s) | Preuve attendue | Gap / décision |
- | --- | --- | --- | --- | --- | --- |
- | V3-F01 CKC | Qualification cognitive | **PARTIAL RUNTIME** — F2 qualify + CycleInstance/CKC binding **on main** (M2) ; proposal process-local | M2, M7 | CKC lié cycle + proposal | proposal durable later |
--| V3-F02 LPS | Living Project State | **PARTIAL RUNTIME** — T-A1 Project/LPS durable SQLite **merged on main** ; writeback / autres états associés restent à compléter (M5+) | M1, M5 | M1 / PR #337 / restart proof | writeback + autres OA |
-+| V3-F02 LPS | Living Project State | **PARTIAL RUNTIME** — LPS durable on main ; M5-B W1 architecture **SELECTED** ; factual Evidence/RB write-back **NOT IMPLEMENTED** | M1, M5 | M1 restart proof · future W1 Delivery | W1 append + autres OA |
- | V3-F03 DoctrinePackage | Package pin/digest | **PARTIAL RUNTIME** — digest in live `F2ContextSnapshot` **on main** (M2) ; KEEP files | M1–M2 | live digest in snapshot | — |
- | V3-F04 Épistémologie | Obs/Hyp/… | DOC + UI tags partiels (base M2) | M2, M7 | tags/stop contradictions | later depth |
--| V3-F05 Chaîne conv→exec | Boucle native | **PARTIAL RUNTIME** — through M4 governed execution **demonstrated / milestone CLOSED** ; Evidence / LPS writeback / Nora post-exec **not closed** | M2–M6 | e2e sans copier-coller | M5+ (NOT AUTHORIZED yet) |
-+| V3-F05 Chaîne conv→exec | Boucle native | **PARTIAL RUNTIME** — through M4 CLOSED ; M5 architecture **SELECTED** for evidence→LPS post-exec closure · **implementation pending** · full loop still M6 | M2–M6 | e2e sans copier-coller | M5 Delivery NOT AUTHORIZED · then M6 |
- | V3-F06 Trajectory | ProjectTrajectory | Modeled / Memory cycle | M3, M7 | trajectory update post-HD | wire |
- | V3-F07 Provenance | Source hierarchy | Doctrine FS | M2, M7 | provenance on artifacts | later |
- | V3-F08 Contradictions | Stop/contradiction | DOC | M7 | UI stop + record | later |
--| V3-F09 Replanif | Governed replan | DOC | M6–M7 | next-step from ReviewBundle | after M5 |
-+| V3-F09 Replanif | Governed replan | DOC · M5 preserves Recommendation-only (W1) · structural replanning remains future / M6 | M6–M7 | next-step from ReviewBundle | after M5 exit |
- | V3-F10 DebtItem | Dette gouvernée | DOC | M7–M8 | debt records | later |
- | V3-F11 AgentCapability | Caps agents | Fixture + **bounded REAL RO KEEP** · M4 scope exercised successfully on final reproof (strict bounded tool-surface proven for that path) | M4 | M4 CLOSED for this capability class | future AgentCapability classes separate |
- | V3-F12 Réversibilité | Action policy | Gate D + CREATED/LAUNCHED + spawn ACK/completion controls **demonstrated for M4** · Ack **deferred for first RO** (D-M4-05) | M3–M4 | M4 CLOSED · Ack for elevated classes later | future IAM / N2/N3 |
--| V3-F13 Learning | REX contrôlé | DOC / capitalisation | M5, M7 | learning from Evidence | later |
--| V3-F14 Artifact Completeness | Completeness gates | Partial ReviewBundle | M5 | completeness checks | durable evidence |
--| V3-F15 Maturity | Distributed maturity | Honesty rails T-A7 | M8 | anti-claim maturity | no false READY |
-+| V3-F13 Learning | REX contrôlé | DOC / capitalisation · M5 architecture selected for durable Evidence/RB learning base · implementation pending | M5, M7 | learning from Evidence | M5 Delivery then later |
-+| V3-F14 Artifact Completeness | Completeness gates | Partial ReviewBundle runtime · M5-A Attempt/Evidence/RB durable **target decided** · runtime still Memory / persistence pending | M5 | completeness + restart-safe artifacts | M5 Delivery |
-+| V3-F15 Maturity | Distributed maturity | Honesty rails T-A7 · runtime v3 **NON ADOPTED** · no maturity promotion from M5 architecture ADOPT | M8 | anti-claim maturity | no false READY |
-
- ## B10. Chemin critique explicite
-
-@@ -374,8 +413,14 @@ CRITICAL PATH:
-   → post-pre-reproof Roadmap sync MERGED (PR #347 @ 2d1361ee…)
-   → M4 GOVERNED REAL COMPLETION PROOF PASS (handoff 1123a30f…) — duration≈15.7s — M4_READ_ONLY_OK — strict bounded tool-surface PROVEN for that path
-   → M4 EXIT PROOF ACCEPTED BY MORRIS — M4 CLOSED
--  → NEXT CAPABILITY = M5 — RETOUR DE PREUVE + ANALYSE NORA
--  → M5 NOT AUTHORIZED (separate Morris GO required)
-+  → M4 closure Roadmap MERGED (PR #348 @ 5132f1bc…)
-+  → M5 ENTRY QUALIFICATION — COMPLETE (handoff 63f41e3…)
-+  → M5 ARCHITECTURE TRAJECTORY — ADOPTED BY MORRIS (M5-A OPTION B · M5-B W1 · M5-C KEEP TEMPORARY WITH EXIT)
-+  → NEXT IMMEDIATE GATE = M5 DELIVERY AUTHORIZATION — NOT AUTHORIZED
-+  → M5 DELIVERY — NOT AUTHORIZED / IMPLEMENTATION NOT STARTED
-+  → M5 EXIT PROOF — NOT YET SATISFIED
-+  → NEXT CAPABILITY AFTER M5 = M6 — Boucle projet complète
-+  → M6 — NOT STARTED / NOT AUTHORIZED
-
- M4 ARCHITECTURE GATE: CLOSED (D-M4-01→05)
- M4 DELIVERY GATE: CLOSED / MERGED (PR #344)
-@@ -387,19 +432,25 @@ M4 EXIT PROOF: ACCEPTED BY MORRIS — SATISFIED
- M4: CLOSED
- GATE D: IMPLEMENTED — consumed once per historical governed REAL — fresh grant required for future REAL
- CRITICAL ACK: DEFERRED FOR FIRST RO — FUTURE N2/N3 / IAM — NOT PROMOTED
--TECHNICAL LAUNCH JOURNAL: TEMPORARY WITH EXIT — ≠ PRODUCT STORE
-+TECHNICAL LAUNCH JOURNAL: KEEP TEMPORARY WITH EXIT — M5-C ADOPTED DISPOSITION — ≠ PRODUCT STORE
- TIMEOUT 60000: KEEP FOR NOW — proven sufficient for demonstrated M4 bounded RO path — NOT universal policy — NOT proven defective
--CURSOR_REAL_TIMEOUT_POLICY: OPEN / NON-BLOCKING POST-M4 RESERVE
-+CURSOR_REAL_TIMEOUT_POLICY: OPEN / NON-BLOCKING POST-M4 RESERVE — UNCHANGED BY M5 ARCHITECTURE DECISION
- STRICT BOUNDED RUNTIME READ-ONLY TOOL-SURFACE: PROVEN FOR FINAL M4 REPROOF PATH ONLY
--M5: NOT AUTHORIZED
-+M5 ENTRY QUALIFICATION: COMPLETE
-+M5 ARCHITECTURE GATE: CONSUMED / ADOPTED BY MORRIS (NOT IMPLEMENTED)
-+M5 DELIVERY AUTHORIZATION: NOT AUTHORIZED
-+M5 EXIT PROOF: NOT YET SATISFIED
-+M5: ARCHITECTURE ADOPTED — DELIVERY NOT AUTHORIZED — IMPLEMENTATION NOT STARTED
-
--NEXT CAPABILITY: M5 — RETOUR DE PREUVE + ANALYSE NORA — MORRIS GO REQUIRED
-+NEXT IMMEDIATE GATE: M5 DELIVERY AUTHORIZATION — MORRIS GO REQUIRED
-+NEXT CAPABILITY AFTER M5: M6 — NOT STARTED / NOT AUTHORIZED
-
--NON-BLOCKING POST-M4 RESERVES (do NOT reopen M4):
-+NON-BLOCKING / FUTURE RESERVES (do NOT reopen M4 ; do NOT block M5 architecture):
-   - CURSOR_REAL_TIMEOUT_POLICY — OPEN / NON-BLOCKING
--  - technical launch journal — TEMPORARY WITH EXIT
-+  - technical launch journal — KEEP TEMPORARY WITH EXIT (M5-C)
-   - future IAM / Critical Ack for elevated classes
--  - Confirmation / Attempt product / Evidence durability partial
-+  - Claims/Maturity durability — later
-+  - Confirmation process-local — later
-
- TRANSVERSE LATER: FinOps capture optionnelle · multi-user · observability depth · F08/F10 depth
- FROZEN (RECOMMENDATION until GO): execution-run feature growth · OPS1 UI expansion · FinOps lots non bloquants · D1 feature growth
-@@ -429,6 +480,7 @@ Document key (tracking only — **not** an architecture decision):
- | Not proven | 60000 **defective** |
- | Classification | **KEEP CURRENT 60000 FOR NOW** + **OPEN / NON-BLOCKING POST-M4 RESERVE** |
- | Blocks M5? | **No** |
-+| Changed by M5 architecture decision? | **No** — reserve unchanged |
- | Reopens M4? | **No** |
-
- No structural selection now among: global 90s/120s · unlimited · dynamic · per-AgentCapability · per-ExecutionContract · per class. Any such selection needs dedicated proof + Morris decision.
-@@ -481,6 +533,10 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
- - M4 post-pre-reproof Roadmap sync : PR #347 · head `4f989aba92bce5ca33e1de251523694559b53902` · merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS
- - M4 GOVERNED REAL COMPLETION PROOF : handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · Attempt `xat:m4-reproof-86b5ecb05474` · Gate D `gtd:m4-reproof-86b5ecb05474` · PASS
- - Morris GO : **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION**
--- Current main (Roadmap candidate base) : `2d1361ee71bec7a21f6f76efc7c33eaf3146802a`
-+- M4 closure Roadmap sync : PR #348 · merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e`
-+- M5 Entry Qualification : handoff `63f41e3f328868286c14312a58a7b79f850383c0`
-+- Morris GO : **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY**
-+- Morris GO : **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY**
-+- Current main (Roadmap candidate base) : `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e`
- - Audit handoff historique : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
- - Framing : `projects/sfia-studio/sfia-v3-framing/30`–`37` (dont `34` · DOC-DEBT-M1-01 sur `32`)
-````
-
-## CI observation
-
-| Item | Value |
-| --- | --- |
-| Workflow | SFIA Studio CI |
-| Run | https://github.com/mcleland147/sfia-workspace/actions/runs/31864918918 |
-| headSha | `01b6555b5117cf7930e12e5c1c5d6d9647b5efa3` |
-| Detect SFIA Studio changes | SUCCESS |
-| Build and validate SFIA Studio | SUCCESS |
-| SFIA Studio Required Gate | SUCCESS |
-| Overall | SUCCESS |
-| Rerun | 0 |
-
-## M5 / M6 / Timeout
-
-- M5-A OPTION B ADOPTED / NOT IMPLEMENTED
-- M5-B W1 ADOPTED / NOT IMPLEMENTED
-- M5-C KEEP TEMPORARY WITH EXIT
-- CURRENT Attempt/Evidence/ReviewBundle = Memory
-- TARGET = Product SQLite
-- M5 Delivery NOT AUTHORIZED
-- M5 exit proof NOT YET SATISFIED
-- M6 NOT STARTED / NOT AUTHORIZED
-- CURSOR_REAL_TIMEOUT_POLICY unchanged · 60000 KEEP FOR NOW
-
-## Safety counters
-
-| Control | Count |
-| --- | --- |
-| Roadmap files committed | 1 |
-| Project commits | 1 |
-| Project push | 1 |
-| Draft PR created | 1 |
-| Cursor REAL | 0 |
-| StartExecution REAL | 0 |
-| new Gate D | 0 |
-| new Attempt REAL | 0 |
-| M5 Delivery | 0 |
-| schema/migration | 0 |
-| Attempt/Evidence/RB/W1 implementation | 0 |
-| journal retirement | 0 |
-| timeout change | 0 |
-| M6 work | 0 |
-| Build Doctrine / framing / method | 0 |
-| mark ready | 0 |
-| merge | 0 |
-| branch delete | 0 |
-| force push | 0 |
-
-Parent env: SFIA_STUDIO_CURSOR_REAL unset; OPS1_CURSOR_REAL unset
-
-## Final project status
-
 ```
+(empty = clean; exit 0)
+
+## 33. Final Git status (pre-handoff publish; project uncommitted)
+```
+ M projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts
+ M projects/sfia-studio/app/features/project-assistant/actions.ts
+ M projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
+ M projects/sfia-studio/app/features/project-assistant/f3/index.ts
+ M projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+ M projects/sfia-studio/app/lib/oa/evidence-review/index.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/application/cancelExecutionAttempt.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionResult.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/application/triggerAttemptTimeout.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+ M projects/sfia-studio/app/lib/oa/project/application/appendLivingProjectStateVersion.ts
+ M projects/sfia-studio/app/lib/oa/project/domain/types.ts
+ M projects/sfia-studio/app/lib/oa/project/index.ts
+ M projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
+ M projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/productSqliteHandle.ts
+ M projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProductStore.ts
+ M projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 ?? .tmp-sfia-review/
+?? projects/sfia-studio/app/__tests__/oa/evidence-review/m5EvidenceReviewDurability.test.ts
+?? projects/sfia-studio/app/__tests__/oa/execution-attempt/m5AttemptDurability.test.ts
+?? projects/sfia-studio/app/__tests__/oa/project/m5ProductSchemaMigration.test.ts
+?? projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessProof.test.ts
+?? projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessWorker.ts
+?? projects/sfia-studio/app/__tests__/oa/project/m5W1LpsAppend.test.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/appendEvidenceOutcomeToLps.ts
+?? projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/
+?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
+?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptRepository.ts
+?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptTechnicalStore.ts
+?? projects/sfia-studio/app/lib/oa/execution-attempt/ports/executionAttemptTechnicalStorePort.ts
+```
+- staged = empty
+- project commit = 0
+- project push = 0
+- project PR = 0
+
+## 34. Réserves
+- Non-blocking: Claims/Maturity remain Memory (intentional FREEZE / out of minimal M5)
+- Non-blocking: Cross-aggregate Attempt/Evidence/RB/LPS not single distributed TX — idempotent retry converges; failure after Evidence/RB before LPS append does not claim SUCCESS (F3 helper returns ok:false); no compensatory HumanDecision
+- Non-blocking: `CURSOR_REAL_TIMEOUT_POLICY` remains OPEN / NON-BLOCKING; 60000 KEEP FOR NOW
+- Non-blocking: UI is wiring-only; no pixel-perfect UX claim
+- Blocking for M5 CLOSED: **none claimed here** — exit proof acceptance is a future Morris gate after ChatGPT review + commit/push/PR/merge GOs
+
+## 35. DebtItems / exit conditions
+- Debt: M5-C journal retirement still TEMPORARY WITH EXIT (not authorized this cycle)
+- Debt: Claims/Maturity Product durability deferred
+- Exit to M5 CLOSED requires separate Morris evaluation of exit proof after merge path
+- M6 requires distinct future GO
+
+## 36. M5 exit proof matrix (local Delivery)
+| Criterion | Local proof | Status |
+|---|---|---|
+| 1 Product SQLite schema M5 additive | db.ts m5-0.1.0 + migration tests | SATISFIED LOCALLY |
+| 2 ExecutionAttempt durable | SQLite adapter + tests + restart | SATISFIED LOCALLY |
+| 3 Evidence durable | SQLite adapter + tests + restart | SATISFIED LOCALLY |
+| 4 ReviewBundle durable | SQLite adapter + tests + restart | SATISFIED LOCALLY |
+| 5 IDs/provenance cohérents | payload bindings + LPS ids | SATISFIED LOCALLY |
+| 6 RuntimeOaStack Product path | wireOaStack sqlite factories | SATISFIED LOCALLY |
+| 7 Memory adapters tests/fallback | factories kept | SATISFIED LOCALLY |
+| 8 fixture/no-effect path intact | F3 fixture path kept | SATISFIED LOCALLY |
+| 9 M4 REAL default OFF | runtime comments + no realBoundary | SATISFIED LOCALLY |
+| 10 technical journal unchanged | no diff on journal file | SATISFIED LOCALLY |
+| 11 W1 LPS N+1 factuel | append + tests | SATISFIED LOCALLY |
+| 12 evidenceIds/RB ids survive restart | process proof | SATISFIED LOCALLY |
+| 13 Attempt/resultRef survive restart | process proof | SATISFIED LOCALLY |
+| 14 Evidence/RB survive restart | process proof | SATISFIED LOCALLY |
+| 15 Recommendation recomputable | ports + readers + tests | SATISFIED LOCALLY |
+| 16 kind=recommendation | adversarial tests | SATISFIED LOCALLY |
+| 17 executionAuthority=false | tests | SATISFIED LOCALLY |
+| 18 gateConsumed=false | tests | SATISFIED LOCALLY |
+| 19 decisionCreated=false | tests | SATISFIED LOCALLY |
+| 20 no implicit HumanDecision | W1 factual only | SATISFIED LOCALLY |
+| 21 no automatic execution | no StartExecution from Recommendation | SATISFIED LOCALLY |
+| 22 Cursor REAL = 0 | env unset; no REAL path | SATISFIED LOCALLY |
+| 23 M6 work = 0 | scope | SATISFIED LOCALLY |
+| 24 QA ciblée PASS | suites above | SATISFIED LOCALLY |
+| 25 typecheck/lint/build/full unit | green / 1710 | SATISFIED LOCALLY |
+| Morris M5 CLOSED acceptance | — | **NOT PROVEN** (future gate) |
+
+## 37. Verdict
+**M5 DELIVERY IMPLEMENTED LOCALLY — OPTION B + W1 PRODUCT PATH COMPLETE — ZERO REAL — M6 NOT AUTHORIZED — READY FOR CHATGPT QA REVIEW**
+
+(PRODUCT PATH COMPLETE = local reviewable candidate ≠ M5 CLOSED)
+
+## 38. Next Morris gate
+1. ChatGPT QA/review of this handoff
+2. Corrections locales si nécessaires
+3. Morris GO commit/push/PR (if readiness)
+4. Morris GO merge séparé
+5. Post-merge / M5 exit proof evaluation
+6. Morris décision M5 exit/closure
+7. M6 only under distinct future GO
+
+---
+
+# FULL DIFF — MODIFIED FILES
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts b/projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts
+index 04202fb..e1fe203 100644
+--- a/projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts
+@@ -15,6 +15,7 @@ import {
+ import {
+   PRODUCT_SCHEMA_VERSION,
+   PRODUCT_SCHEMA_VERSION_M2,
++  PRODUCT_SCHEMA_VERSION_M3,
+   createTestSqliteProductProjectServices,
+   type ActorReference,
+   type SqliteProductProjectServices,
+@@ -129,7 +130,8 @@ describe("M3 Product SQLite schema migration", () => {
+       .prepare("SELECT value FROM schema_meta WHERE key = ?")
+       .get("schema_version") as { value: string };
+     expect(version.value).toBe(PRODUCT_SCHEMA_VERSION);
+-    expect(PRODUCT_SCHEMA_VERSION).toBe("m3-0.1.0");
++    expect(PRODUCT_SCHEMA_VERSION_M3).toBe("m3-0.1.0");
++    expect(PRODUCT_SCHEMA_VERSION).toBe("m5-0.1.0");
+
+     const decisions = svc.store.db
+       .prepare(
+@@ -141,8 +143,14 @@ describe("M3 Product SQLite schema migration", () => {
+         `SELECT name FROM sqlite_master WHERE type='table' AND name='oa_execution_contracts'`,
+       )
+       .get() as { name?: string } | undefined;
++    const attempts = svc.store.db
++      .prepare(
++        `SELECT name FROM sqlite_master WHERE type='table' AND name='oa_execution_attempts'`,
++      )
++      .get() as { name?: string } | undefined;
+     expect(decisions?.name).toBe("oa_human_decisions");
+     expect(contracts?.name).toBe("oa_execution_contracts");
++    expect(attempts?.name).toBe("oa_execution_attempts");
+
+     const project = await svc.getProject.execute({ projectId: "prj:m3-mig" });
+     expect(project.ok).toBe(true);
+diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
+index 4b05d0d..18b2a97 100644
+--- a/projects/sfia-studio/app/features/project-assistant/actions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
+@@ -467,6 +467,7 @@ export async function projectAssistantConfirmAndExecuteF3FixtureAction(input: {
+       executionAttemptServices: runtime.oa.executionAttemptServices,
+       evidenceReviewServices: runtime.oa.evidenceReviewServices,
+       fixtureAdapter: runtime.oa.fixtureAdapter,
++      projectServices: runtime.oa.projectServices,
+       nowIso: () => runtime.oa!.clock.nowIso(),
+     },
+   });
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts b/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
+index 261e3e6..a1c89b9 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
+@@ -18,6 +18,7 @@ import type {
+   TestExecutionAdapter,
+ } from "@/lib/oa/execution-attempt";
+ import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
++import type { ProjectServices } from "@/lib/oa/project";
+ import type { F2ContextSnapshot } from "../f2/types";
+ import { LOCAL_MORRIS_ACTOR } from "../f2/recordDecision";
+ import {
+@@ -43,6 +44,8 @@ export type ConfirmExecuteF3Deps = {
+   evidenceReviewServices: EvidenceReviewServices;
+   fixtureAdapter: TestExecutionAdapter;
+   nowIso: () => string;
++  /** Product path — enables M5-B W1 LPS evidence/RB factual append. */
++  projectServices?: ProjectServices;
+ };
+
+ function authorityEvidenceIdForProposal(proposalId: string): string {
+@@ -113,7 +116,10 @@ async function buildExecutePayload(input: {
+     projectId: input.projectId,
+     attemptId: input.attempt.attemptId,
+     executionContractId: input.contract.executionContractId,
+-    deps: { evidenceReviewServices: input.deps.evidenceReviewServices },
++    deps: {
++      evidenceReviewServices: input.deps.evidenceReviewServices,
++      projectServices: input.deps.projectServices,
++    },
+   });
+   if (!ingested.ok) {
+     return ingested;
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/index.ts b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
+index ba86054..23c6e2f 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/index.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
+@@ -14,6 +14,7 @@ export { prepareM3FromDecision } from "./prepareM3FromDecision";
+ export type { F3M3PreparePayload, PrepareM3Deps } from "./prepareM3FromDecision";
+ export { confirmAndExecuteF3Fixture } from "./confirmAndExecuteF3Fixture";
+ export { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
++export { appendEvidenceOutcomeToLps } from "./appendEvidenceOutcomeToLps";
+ export {
+   createF3FixtureAgentDescriptor,
+   createF3TestExecutionAdapter,
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts b/projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+index 5c6039a..c4ad4b3 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+@@ -1,10 +1,13 @@
+ /**
+  * IngestExecutionAttemptEvidence → CreateReviewBundle → RecommendNextGate.
+  * Recommendation-only; HARD refs passed through; no auto-launch.
++ * M5-B W1: when projectServices present, append factual LPS evidence/RB ids.
+  */
+
+ import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
++import type { ProjectServices } from "@/lib/oa/project";
+ import { LOCAL_MORRIS_ACTOR } from "../f2/recordDecision";
++import { appendEvidenceOutcomeToLps } from "./appendEvidenceOutcomeToLps";
+ import {
+   F3_LABELS,
+   F3_MODE,
+@@ -18,6 +21,11 @@ import type {
+
+ export type IngestRecommendDeps = {
+   evidenceReviewServices: EvidenceReviewServices;
++  /** When present (product path), perform M5-B W1 LPS factual link append. */
++  projectServices?: Pick<
++    ProjectServices,
++    "appendLivingProjectStateVersion" | "getCurrentLivingProjectState"
++  >;
+ };
+
+ export type IngestRecommendResult =
+@@ -26,6 +34,7 @@ export type IngestRecommendResult =
+       evidence: F3EvidenceDto;
+       reviewBundle: F3ReviewBundleDto;
+       recommendation: F3RecommendationDto;
++      lpsVersion?: number;
+     }
+   | { ok: false; code: string; message: string };
+
+@@ -85,6 +94,24 @@ export async function ingestEvidenceAndRecommend(input: {
+     };
+   }
+
++  let lpsVersion: number | undefined;
++  if (input.deps.projectServices) {
++    const linked = await appendEvidenceOutcomeToLps({
++      projectId: input.projectId,
++      evidenceId: ingested.evidence.evidenceId,
++      reviewBundleId: bundle.reviewBundle.reviewBundleId,
++      projectServices: input.deps.projectServices,
++    });
++    if (!linked.ok) {
++      return {
++        ok: false,
++        code: linked.code,
++        message: linked.message,
++      };
++    }
++    lpsVersion = linked.lpsVersion;
++  }
++
+   const recommended =
+     await input.deps.evidenceReviewServices.recommendNextGate.execute({
+       projectId: input.projectId,
+@@ -163,5 +190,6 @@ export async function ingestEvidenceAndRecommend(input: {
+       recommendationLabel: F3_LABELS.recommendationNotDecision,
+       mode: F3_MODE,
+     },
++    lpsVersion,
+   };
+ }
+diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
+index 474d8b4..45d97c4 100644
+--- a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
++++ b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
+@@ -88,6 +88,14 @@ export {
+
+ export { MemoryEvidenceStore } from "./infrastructure/memoryEvidenceStore";
+ export { MemoryEvidenceRepository } from "./infrastructure/memoryEvidenceRepository";
++export { SqliteEvidenceRepository } from "./infrastructure/sqlite/sqliteEvidenceRepository";
++export { SqliteReviewBundleRepository } from "./infrastructure/sqlite/sqliteReviewBundleRepository";
++export {
++  createSqliteEvidenceReviewServices,
++  createTestSqliteEvidenceReviewServices,
++  type CreateSqliteEvidenceReviewServicesOptions,
++  type SqliteEvidenceReviewServices,
++} from "./infrastructure/sqlite/createSqliteEvidenceReviewServices";
+ export { FakeEvidencePayloadAdapter } from "./infrastructure/fakeEvidencePayloadAdapter";
+ export type { FakePayloadScript } from "./infrastructure/fakeEvidencePayloadAdapter";
+ export { FakeExecutionAttemptReader } from "./infrastructure/fakeExecutionAttemptReader";
+@@ -162,16 +170,18 @@ import type { ClaimEvaluationReaderPort } from "./ports/claimEvaluationReader";
+ import type { EvidenceAuditPort } from "./ports/evidenceAudit";
+ import type { EvidencePayloadPort } from "./ports/evidencePayloadPort";
+ import type { EvidenceReaderPort } from "./ports/evidenceReader";
++import type { EvidenceRepositoryPort } from "./ports/evidenceRepository";
+ import type { ExecutionAttemptReaderPort } from "./ports/executionAttemptReader";
+ import type { IdGeneratorPort } from "./ports/idGenerator";
+ import type { MaturityAssessmentReaderPort } from "./ports/maturityAssessmentReader";
+ import type { ReviewBundleReaderPort } from "./ports/reviewBundleReader";
++import type { ReviewBundleRepositoryPort } from "./ports/reviewBundleRepository";
+
+ export type EvidenceReviewServices = {
+   store: MemoryEvidenceStore;
+-  repository: MemoryEvidenceRepository;
++  repository: EvidenceRepositoryPort;
+   reviewBundleStore: MemoryReviewBundleStore;
+-  reviewBundleRepository: MemoryReviewBundleRepository;
++  reviewBundleRepository: ReviewBundleRepositoryPort;
+   reviewBundleReader: ReviewBundleReaderPort;
+   claimEvaluationStore: MemoryClaimEvaluationStore;
+   claimEvaluationRepository: MemoryClaimEvaluationRepository;
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/cancelExecutionAttempt.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/cancelExecutionAttempt.ts
+index 03ea617..3f394db 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/cancelExecutionAttempt.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/cancelExecutionAttempt.ts
+@@ -21,7 +21,7 @@ import type {
+   ExecutionAttempt,
+   ExecutionAttemptResult,
+ } from "../domain/types";
+-import type { MemoryExecutionAttemptStore } from "../infrastructure/memoryExecutionAttemptStore";
++import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
+ import type { AgentRegistryPort } from "../ports/agentRegistry";
+ import type { ExecutionAdapterPort } from "../ports/executionAdapter";
+ import type { ExecutionAttemptAuditPort } from "../ports/executionAttemptAudit";
+@@ -43,7 +43,7 @@ export class CancelExecutionAttempt {
+     private readonly adapter: ExecutionAdapterPort,
+     private readonly clock: ClockPort,
+     private readonly audit: ExecutionAttemptAuditPort,
+-    private readonly store: MemoryExecutionAttemptStore,
++    private readonly store: ExecutionAttemptTechnicalStorePort,
+   ) {}
+
+   async execute(
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
+index be8de58..6226702 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
+@@ -11,7 +11,7 @@ import type {
+   ExecutionAttemptResult,
+   RecordExecutionFailureRequest,
+ } from "../domain/types";
+-import type { MemoryExecutionAttemptStore } from "../infrastructure/memoryExecutionAttemptStore";
++import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
+ import type { AgentRegistryPort } from "../ports/agentRegistry";
+ import type { ExecutionAttemptAuditPort } from "../ports/executionAttemptAudit";
+ import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
+@@ -26,7 +26,7 @@ export class RecordExecutionFailure {
+     private readonly registry: AgentRegistryPort,
+     private readonly clock: ClockPort,
+     private readonly audit: ExecutionAttemptAuditPort,
+-    private readonly store: MemoryExecutionAttemptStore,
++    private readonly store: ExecutionAttemptTechnicalStorePort,
+   ) {}
+
+   async execute(
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionResult.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionResult.ts
+index 175cdc4..c0d5d0d 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionResult.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionResult.ts
+@@ -16,7 +16,7 @@ import type {
+   ExecutionAttemptResult,
+   RecordExecutionResultRequest,
+ } from "../domain/types";
+-import type { MemoryExecutionAttemptStore } from "../infrastructure/memoryExecutionAttemptStore";
++import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
+ import type { AgentRegistryPort } from "../ports/agentRegistry";
+ import type { ExecutionAttemptAuditPort } from "../ports/executionAttemptAudit";
+ import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
+@@ -33,7 +33,7 @@ export class RecordExecutionResult {
+     private readonly clock: ClockPort,
+     private readonly audit: ExecutionAttemptAuditPort,
+     private readonly policy: AttemptPolicy,
+-    private readonly store: MemoryExecutionAttemptStore,
++    private readonly store: ExecutionAttemptTechnicalStorePort,
+   ) {}
+
+   async execute(
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
+index 5bb7b9f..a0f03b9 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
+@@ -35,7 +35,7 @@ import type {
+   SelectExecutionAgentRequest,
+   SelectionStrategy,
+ } from "../domain/types";
+-import type { MemoryExecutionAttemptStore } from "../infrastructure/memoryExecutionAttemptStore";
++import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
+ import type { AgentRegistryPort } from "../ports/agentRegistry";
+ import type { ExecutionAttemptAuditPort } from "../ports/executionAttemptAudit";
+ import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
+@@ -59,7 +59,7 @@ export class SelectExecutionAgent {
+     private readonly clock: ClockPort,
+     private readonly audit: ExecutionAttemptAuditPort,
+     private readonly policy: AttemptPolicy,
+-    private readonly store?: MemoryExecutionAttemptStore,
++    private readonly store?: ExecutionAttemptTechnicalStorePort,
+   ) {}
+
+   async execute(
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+index 9eb798c..576a400 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+@@ -52,7 +52,7 @@ import type {
+   GateDGrant,
+ } from "../domain/realLaunchSafety";
+ import { isM4BoundedReadOnlyRealAgent } from "../infrastructure/m4BoundedReadOnlyCursorAgent";
+-import type { MemoryExecutionAttemptStore } from "../infrastructure/memoryExecutionAttemptStore";
++import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
+ import type { AgentRegistryPort } from "../ports/agentRegistry";
+ import type { ExecutionAdapterPort } from "../ports/executionAdapter";
+ import type { ExecutionAttemptAuditPort } from "../ports/executionAttemptAudit";
+@@ -139,7 +139,7 @@ export class StartExecution {
+     private readonly adapter: ExecutionAdapterPort,
+     private readonly clock: ClockPort,
+     private readonly audit: ExecutionAttemptAuditPort,
+-    private readonly store?: MemoryExecutionAttemptStore,
++    private readonly store?: ExecutionAttemptTechnicalStorePort,
+     private readonly realLaunchPort?: RealExecutionLaunchPort,
+     private readonly safetyJournal?: RealLaunchSafetyJournalPort,
+   ) {}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/triggerAttemptTimeout.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/triggerAttemptTimeout.ts
+index fde1e69..0600f33 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/triggerAttemptTimeout.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/triggerAttemptTimeout.ts
+@@ -19,7 +19,7 @@ import type {
+   ExecutionAttemptResult,
+   TriggerAttemptTimeoutRequest,
+ } from "../domain/types";
+-import type { MemoryExecutionAttemptStore } from "../infrastructure/memoryExecutionAttemptStore";
++import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
+ import type { ExecutionAttemptAuditPort } from "../ports/executionAttemptAudit";
+ import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
+ import {
+@@ -39,7 +39,7 @@ export class TriggerAttemptTimeout {
+     private readonly clock: ClockPort,
+     private readonly audit: ExecutionAttemptAuditPort,
+     private readonly policy: AttemptPolicy,
+-    private readonly store: MemoryExecutionAttemptStore,
++    private readonly store: ExecutionAttemptTechnicalStorePort,
+   ) {}
+
+   async execute(
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+index 85ec45b..2b74f41 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+@@ -46,6 +46,7 @@ export * from "./domain/invariants";
+ export * from "./domain/realLaunchSafety";
+
+ export * from "./ports/executionAttemptRepository";
++export * from "./ports/executionAttemptTechnicalStorePort";
+ export * from "./ports/agentRegistry";
+ export * from "./ports/executionAdapter";
+ export * from "./ports/executionAttemptAudit";
+@@ -86,6 +87,14 @@ export {
+
+ export { MemoryExecutionAttemptStore } from "./infrastructure/memoryExecutionAttemptStore";
+ export { MemoryExecutionAttemptRepository } from "./infrastructure/memoryExecutionAttemptRepository";
++export { SqliteExecutionAttemptRepository } from "./infrastructure/sqlite/sqliteExecutionAttemptRepository";
++export { SqliteExecutionAttemptTechnicalStore } from "./infrastructure/sqlite/sqliteExecutionAttemptTechnicalStore";
++export {
++  createSqliteExecutionAttemptServices,
++  createTestSqliteExecutionAttemptServices,
++  type CreateSqliteExecutionAttemptServicesOptions,
++  type SqliteExecutionAttemptServices,
++} from "./infrastructure/sqlite/createSqliteExecutionAttemptServices";
+ export { MemoryAgentRegistry } from "./infrastructure/memoryAgentRegistry";
+ export { TestExecutionAdapter } from "./infrastructure/testExecutionAdapter";
+ export type {
+@@ -169,6 +178,8 @@ import { TestExecutionAdapter } from "./infrastructure/testExecutionAdapter";
+ import type { AgentDescriptor } from "./domain/types";
+ import type { AgentRegistryPort } from "./ports/agentRegistry";
+ import type { ExecutionAttemptAuditPort } from "./ports/executionAttemptAudit";
++import type { ExecutionAttemptRepositoryPort } from "./ports/executionAttemptRepository";
++import type { ExecutionAttemptTechnicalStorePort } from "./ports/executionAttemptTechnicalStorePort";
+ import type { RealExecutionLaunchPort } from "./ports/realExecutionLaunchPort";
+ import type { RealLaunchSafetyJournalPort } from "./ports/realLaunchSafetyJournalPort";
+
+@@ -196,8 +207,8 @@ export type RealBoundaryWiring = {
+ };
+
+ export type ExecutionAttemptServices = {
+-  store: MemoryExecutionAttemptStore;
+-  attempts: MemoryExecutionAttemptRepository;
++  store: ExecutionAttemptTechnicalStorePort;
++  attempts: ExecutionAttemptRepositoryPort;
+   registry: AgentRegistryPort;
+   adapter: InjectableExecutionAdapter;
+   audit: ExecutionAttemptAuditPort;
+diff --git a/projects/sfia-studio/app/lib/oa/project/application/appendLivingProjectStateVersion.ts b/projects/sfia-studio/app/lib/oa/project/application/appendLivingProjectStateVersion.ts
+index d15101f..8b019b7 100644
+--- a/projects/sfia-studio/app/lib/oa/project/application/appendLivingProjectStateVersion.ts
++++ b/projects/sfia-studio/app/lib/oa/project/application/appendLivingProjectStateVersion.ts
+@@ -266,6 +266,18 @@ export class AppendLivingProjectStateVersion {
+               : current.decisionIds
+                 ? [...current.decisionIds]
+                 : [],
++          evidenceIds:
++            request.evidenceIds !== undefined
++              ? [...request.evidenceIds]
++              : current.evidenceIds
++                ? [...current.evidenceIds]
++                : [],
++          reviewBundleIds:
++            request.reviewBundleIds !== undefined
++              ? [...request.reviewBundleIds]
++              : current.reviewBundleIds
++                ? [...current.reviewBundleIds]
++                : [],
+           createdAt: timestamp,
+           createdBy: structuredClone(request.createdBy),
+           correlationId,
+diff --git a/projects/sfia-studio/app/lib/oa/project/domain/types.ts b/projects/sfia-studio/app/lib/oa/project/domain/types.ts
+index 4caed79..b3f1951 100644
+--- a/projects/sfia-studio/app/lib/oa/project/domain/types.ts
++++ b/projects/sfia-studio/app/lib/oa/project/domain/types.ts
+@@ -125,6 +125,16 @@ export type AppendLivingProjectStateRequest = {
+    * forward from the current LPS snapshot (same pattern as epistemicItemIds).
+    */
+   decisionIds?: string[];
++  /**
++   * Optional evidence id linkage (M5-B W1). When omitted, carried forward
++   * from the current LPS snapshot.
++   */
++  evidenceIds?: string[];
++  /**
++   * Optional review-bundle id linkage (M5-B W1). When omitted, carried
++   * forward from the current LPS snapshot.
++   */
++  reviewBundleIds?: string[];
+ };
+
+ /** Modeled ErrorRecord codes applicable to Project/LPS (M-OA). */
+diff --git a/projects/sfia-studio/app/lib/oa/project/index.ts b/projects/sfia-studio/app/lib/oa/project/index.ts
+index f42706f..133a5da 100644
+--- a/projects/sfia-studio/app/lib/oa/project/index.ts
++++ b/projects/sfia-studio/app/lib/oa/project/index.ts
+@@ -35,6 +35,7 @@ export {
+   PRODUCT_SCHEMA_VERSION,
+   PRODUCT_SCHEMA_VERSION_M1,
+   PRODUCT_SCHEMA_VERSION_M2,
++  PRODUCT_SCHEMA_VERSION_M3,
+ } from "./infrastructure/sqlite/db";
+ export type { ProductSqliteHandle } from "./infrastructure/sqlite/productSqliteHandle";
+ export { SqliteProductStore } from "./infrastructure/sqlite/sqliteProductStore";
+diff --git a/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts b/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
+index 54190ad..b11b5ff 100644
+--- a/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
++++ b/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
+@@ -2,7 +2,8 @@ import { DatabaseSync } from "node:sqlite";
+
+ export const PRODUCT_SCHEMA_VERSION_M1 = "m1-0.1.0" as const;
+ export const PRODUCT_SCHEMA_VERSION_M2 = "m2-0.1.0" as const;
+-export const PRODUCT_SCHEMA_VERSION = "m3-0.1.0" as const;
++export const PRODUCT_SCHEMA_VERSION_M3 = "m3-0.1.0" as const;
++export const PRODUCT_SCHEMA_VERSION = "m5-0.1.0" as const;
+
+ const BASE_SCHEMA_SQL = `
+ PRAGMA foreign_keys = ON;
+@@ -122,6 +123,78 @@ CREATE INDEX IF NOT EXISTS idx_oa_execution_contracts_idempotency
+   ON oa_execution_contracts(idempotency_key);
+ `;
+
++const M5_ATTEMPT_EVIDENCE_SCHEMA_SQL = `
++CREATE TABLE IF NOT EXISTS oa_execution_attempts (
++  attempt_id TEXT PRIMARY KEY NOT NULL,
++  execution_contract_id TEXT NOT NULL,
++  status TEXT NOT NULL,
++  idempotency_key TEXT NOT NULL UNIQUE,
++  version INTEGER NOT NULL,
++  result_recording_count INTEGER NOT NULL DEFAULT 0,
++  payload_json TEXT NOT NULL,
++  created_at TEXT NOT NULL,
++  updated_at TEXT
++);
++
++CREATE INDEX IF NOT EXISTS idx_oa_execution_attempts_contract
++  ON oa_execution_attempts(execution_contract_id, attempt_id);
++
++CREATE TABLE IF NOT EXISTS oa_execution_attempt_active (
++  execution_contract_id TEXT PRIMARY KEY NOT NULL,
++  attempt_id TEXT NOT NULL
++);
++
++CREATE TABLE IF NOT EXISTS oa_execution_attempt_result_budget (
++  attempt_id TEXT PRIMARY KEY NOT NULL,
++  count INTEGER NOT NULL
++);
++
++CREATE TABLE IF NOT EXISTS oa_evidence (
++  evidence_id TEXT PRIMARY KEY NOT NULL,
++  project_id TEXT,
++  status TEXT NOT NULL,
++  idempotency_key TEXT UNIQUE,
++  version INTEGER NOT NULL,
++  payload_json TEXT NOT NULL,
++  created_at TEXT NOT NULL,
++  updated_at TEXT
++);
++
++CREATE INDEX IF NOT EXISTS idx_oa_evidence_project
++  ON oa_evidence(project_id, created_at);
++
++CREATE TABLE IF NOT EXISTS oa_evidence_idempotency (
++  idempotency_key TEXT PRIMARY KEY NOT NULL,
++  evidence_id TEXT NOT NULL,
++  fingerprint TEXT NOT NULL,
++  operation TEXT NOT NULL,
++  FOREIGN KEY (evidence_id) REFERENCES oa_evidence(evidence_id)
++);
++
++CREATE TABLE IF NOT EXISTS oa_review_bundles (
++  review_bundle_id TEXT PRIMARY KEY NOT NULL,
++  project_id TEXT NOT NULL,
++  status TEXT NOT NULL,
++  idempotency_key TEXT UNIQUE,
++  version INTEGER NOT NULL,
++  payload_json TEXT NOT NULL,
++  created_at TEXT NOT NULL,
++  updated_at TEXT
++);
++
++CREATE INDEX IF NOT EXISTS idx_oa_review_bundles_project
++  ON oa_review_bundles(project_id, created_at);
++
++CREATE TABLE IF NOT EXISTS oa_review_bundle_idempotency (
++  idempotency_key TEXT PRIMARY KEY NOT NULL,
++  review_bundle_id TEXT NOT NULL,
++  fingerprint TEXT NOT NULL,
++  operation TEXT NOT NULL,
++  successor_id TEXT,
++  FOREIGN KEY (review_bundle_id) REFERENCES oa_review_bundles(review_bundle_id)
++);
++`;
++
+ function readSchemaVersion(db: DatabaseSync): string | null {
+   const row = db
+     .prepare("SELECT value FROM schema_meta WHERE key = ?")
+@@ -159,8 +232,12 @@ function applyM3(db: DatabaseSync): void {
+   db.exec(M3_DECISION_CONTRACT_SCHEMA_SQL);
+ }
+
++function applyM5(db: DatabaseSync): void {
++  db.exec(M5_ATTEMPT_EVIDENCE_SCHEMA_SQL);
++}
++
+ /**
+- * Open Product SQLite with additive M1→M2→M3 migration.
++ * Open Product SQLite with additive M1→M2→M3→M5 migration.
+  * Fail closed on unknown/future schema versions.
+  */
+ export function openProductSqlite(dbPath: string): DatabaseSync {
+@@ -172,13 +249,19 @@ export function openProductSqlite(dbPath: string): DatabaseSync {
+   if (version === null || version === PRODUCT_SCHEMA_VERSION_M1) {
+     applyM2(db);
+     applyM3(db);
++    applyM5(db);
+     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
+   } else if (version === PRODUCT_SCHEMA_VERSION_M2) {
+     applyM3(db);
++    applyM5(db);
++    setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
++  } else if (version === PRODUCT_SCHEMA_VERSION_M3) {
++    applyM5(db);
+     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
+   } else if (version === PRODUCT_SCHEMA_VERSION) {
+     applyM2(db);
+     applyM3(db);
++    applyM5(db);
+   } else {
+     try {
+       db.close();
+diff --git a/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/productSqliteHandle.ts b/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/productSqliteHandle.ts
+index a91f6cc..102fafc 100644
+--- a/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/productSqliteHandle.ts
++++ b/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/productSqliteHandle.ts
+@@ -2,10 +2,20 @@ import type { DatabaseSync } from "node:sqlite";
+ import type { ProjectPersistenceUnitOfWorkPort } from "../../ports/projectPersistenceUnitOfWorkPort";
+
+ /**
+- * Shared Product SQLite handle for Project + Cycle + Decision + Contract (M3).
++ * Shared Product SQLite handle for Project + Cycle + Decision + Contract +
++ * Attempt/Evidence/ReviewBundle (M5).
+  * Downstream adapters depend on this shape — not on SqliteProductStore class.
+  */
+ export type ProductSqliteHandle = ProjectPersistenceUnitOfWorkPort & {
+   readonly db: DatabaseSync;
+-  failNextSave?: "project" | "lps" | "cycle" | "decision" | "contract" | null;
++  failNextSave?:
++    | "project"
++    | "lps"
++    | "cycle"
++    | "decision"
++    | "contract"
++    | "attempt"
++    | "evidence"
++    | "review_bundle"
++    | null;
+ };
+diff --git a/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProductStore.ts b/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProductStore.ts
+index 45c5e60..4734803 100644
+--- a/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProductStore.ts
++++ b/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProductStore.ts
+@@ -13,7 +13,8 @@ type TransactionContext = {
+ };
+
+ /**
+- * SQLite product UnitOfWork for Project/LPS (M1) + Cycle (M2) + Decision/Contract (M3).
++ * SQLite product UnitOfWork for Project/LPS (M1) + Cycle (M2) + Decision/Contract (M3)
++ * + Attempt/Evidence/ReviewBundle (M5).
+  * Isolated file — not D1 / OPS1 / FinOps. Single Product DB authority.
+  *
+  * Nested reentrance: same async chain (AsyncLocalStorage) reuses the open
+@@ -31,8 +32,16 @@ export class SqliteProductStore
+   readonly dbPath: string;
+
+   /** Test hook — force next save to throw (atomicity tests). */
+-  failNextSave: "project" | "lps" | "cycle" | "decision" | "contract" | null =
+-    null;
++  failNextSave:
++    | "project"
++    | "lps"
++    | "cycle"
++    | "decision"
++    | "contract"
++    | "attempt"
++    | "evidence"
++    | "review_bundle"
++    | null = null;
+
+   private queue: Promise<void> = Promise.resolve();
+   private readonly txLocal = new AsyncLocalStorage<TransactionContext>();
+diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+index 2c366c1..272fff6 100644
+--- a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
++++ b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+@@ -33,11 +33,13 @@ import {
+ } from "@/lib/oa/execution-contract";
+ import {
+   createInMemoryExecutionAttemptServices,
++  createSqliteExecutionAttemptServices,
+   type ExecutionAttemptServices,
+   type TestExecutionAdapter,
+ } from "@/lib/oa/execution-attempt";
+ import {
+   createInMemoryEvidenceReviewServices,
++  createSqliteEvidenceReviewServices,
+   type EvidenceReviewServices,
+ } from "@/lib/oa/evidence-review";
+ import type { ProjectServices } from "@/lib/oa/project";
+@@ -174,22 +176,45 @@ function wireOaStack(
+   // EXPLICIT TestExecutionAdapter — never omit (factory default is NoOp).
+   // M4 REAL-OFF default: do NOT wire realBoundary / SFIA_STUDIO_CURSOR_REAL here.
+   // Opt-in REAL composition is explicit (journal + RealExecutionLaunchPort); no Fake defaults.
++  // M5-A: when Product SQLite is present, Attempt + Evidence/RB are durable;
++  // Claim/Maturity remain Memory; technical journal / Gate D unchanged.
+   const fixtureAdapter = createF3TestExecutionAdapter();
+   const fixtureAgent = createF3FixtureAgentDescriptor(clock.nowIso());
+-  const executionAttemptServices = createInMemoryExecutionAttemptServices({
+-    decisionServices,
+-    executionContractServices,
+-    agents: [fixtureAgent],
+-    adapter: fixtureAdapter,
+-    clock,
+-    authorityResolver,
+-    policy: { defaultMaxRetriesBudget: 0 },
+-  });
++  const executionAttemptServices = productSqlite
++    ? createSqliteExecutionAttemptServices({
++        decisionServices,
++        executionContractServices,
++        productStore: productSqlite,
++        agents: [fixtureAgent],
++        adapter: fixtureAdapter,
++        clock,
++        authorityResolver,
++        policy: { defaultMaxRetriesBudget: 0 },
++      })
++    : createInMemoryExecutionAttemptServices({
++        decisionServices,
++        executionContractServices,
++        agents: [fixtureAgent],
++        adapter: fixtureAdapter,
++        clock,
++        authorityResolver,
++        policy: { defaultMaxRetriesBudget: 0 },
++      });
+
+-  const evidenceReviewServices = createInMemoryEvidenceReviewServices({
+-    clock,
+-    attemptReader: createAttemptReaderBridge(executionAttemptServices.attempts),
+-  });
++  const evidenceReviewServices = productSqlite
++    ? createSqliteEvidenceReviewServices({
++        productStore: productSqlite,
++        clock,
++        attemptReader: createAttemptReaderBridge(
++          executionAttemptServices.attempts,
++        ),
++      })
++    : createInMemoryEvidenceReviewServices({
++        clock,
++        attemptReader: createAttemptReaderBridge(
++          executionAttemptServices.attempts,
++        ),
++      });
+
+   return Object.freeze({
+     projectServices,
 ```
 
-## Anti-claims
+# FULL CONTENT — NEW / CREATED FILES
+```
+===== NEW FILES =====
 
-- M4 CLOSED · M5 Entry Qualification COMPLETE · architecture ADOPTED ≠ implemented ≠ CLOSED
-- M5-A/B ADOPTED ≠ durable/W1 implemented today
-- M5-C KEEP ≠ journal retired
-- Recommendation ≠ HumanDecision / gate consumed
-- Draft PR ≠ merge authorization
-- M5 Delivery NOT AUTHORIZED · M6 NOT AUTHORIZED
-- runtime v3 NON ADOPTED · timeout unchanged
-- ZERO REAL
+===== BEGIN FILE: projects/sfia-studio/app/lib/oa/execution-attempt/ports/executionAttemptTechnicalStorePort.ts =====
+/**
+ * Technical store surface used by Attempt use-cases:
+ * - transactional unit of work
+ * - durable/process-local result-recording budget (RTA5-06)
+ *
+ * MemoryExecutionAttemptStore satisfies this structurally.
+ * SQLite backs resultRecordingAttempts via oa_execution_attempt_result_budget.
+ */
+export interface ExecutionAttemptTechnicalStorePort {
+  /**
+   * attemptId → bounded RecordExecutionResult attempts.
+   * Only get/set are required by application code; Map satisfies this.
+   */
+  resultRecordingAttempts: {
+    get(key: string): number | undefined;
+    set(key: string, value: number): unknown;
+  };
+  runInTransaction<T>(fn: () => Promise<T>): Promise<T>;
+  /** Test hook — force next Attempt persist to throw (Memory path). */
+  failNextSave?: boolean;
+}
 
-## Next gate
+===== END FILE: projects/sfia-studio/app/lib/oa/execution-attempt/ports/executionAttemptTechnicalStorePort.ts =====
 
-- ChatGPT PR readiness review of this handoff + GitHub PR #349
-- separate Morris GO required for Ready / merge
-- after stable main: separate Morris GO for M5 Delivery Authorization
+===== BEGIN FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptRepository.ts =====
+import type { ProductSqliteHandle } from "@/lib/oa/project";
+import { ExecutionAttemptDomainError } from "../../domain/errors";
+import { isAttemptTerminal, validateAttemptShape } from "../../domain/invariants";
+import type { ExecutionAttempt } from "../../domain/types";
+import type {
+  ActiveIndexDrift,
+  ExecutionAttemptRepositoryPort,
+} from "../../ports/executionAttemptRepository";
 
-## Verdict
+type AttemptRow = {
+  attempt_id: string;
+  execution_contract_id: string;
+  status: string;
+  idempotency_key: string;
+  version: number;
+  payload_json: string;
+};
 
-**M5 ARCHITECTURE ROADMAP SYNC COMMITTED AND PUSHED — DRAFT PR CREATED — M5-A OPTION B / M5-B W1 / M5-C KEEP PRESERVED — M5 DELIVERY NOT AUTHORIZED — M6 NOT AUTHORIZED — ZERO REAL — MORRIS MERGE DECISION REQUIRED**
+function cloneAttempt(attempt: ExecutionAttempt): ExecutionAttempt {
+  return structuredClone(attempt);
+}
 
-### Instruction ChatGPT
+/**
+ * Durable ExecutionAttempt repository on Product SQLite (M5).
+ * Mirrors MemoryExecutionAttemptRepository OCC + active-index semantics.
+ */
+export class SqliteExecutionAttemptRepository
+  implements ExecutionAttemptRepositoryPort
+{
+  constructor(private readonly store: ProductSqliteHandle) {}
 
-Relire `sfia-review-handoff/latest-chatgpt-review.md` sur `origin/sfia/review-handoff`, puis vérifier via GitHub: current main, project branch, commit+parent, Draft PR #349, one-file Roadmap scope, candidate patch identity, CI SUCCESS, M5-A/B/C, CURRENT≠TARGET, M5 Delivery NOT AUTHORIZED, exit proof NOT YET SATISFIED, M6 NOT AUTHORIZED, runtime v3 NON ADOPTED, timeout unchanged, ZERO REAL, no merge. Ne recommander mark-ready/merge que si identité/scope/handoff FULL/CI OK. MERGE et M5 Delivery restent interdits sans nouveau GO Morris.
+  async findById(attemptId: string): Promise<ExecutionAttempt | null> {
+    const row = this.store.db
+      .prepare(
+        `SELECT attempt_id, execution_contract_id, status, idempotency_key,
+                version, payload_json
+         FROM oa_execution_attempts WHERE attempt_id = ?`,
+      )
+      .get(attemptId) as AttemptRow | undefined;
+    if (!row) return null;
+    return cloneAttempt(JSON.parse(row.payload_json) as ExecutionAttempt);
+  }
+
+  async findByIdempotencyKey(
+    idempotencyKey: string,
+  ): Promise<ExecutionAttempt | null> {
+    const row = this.store.db
+      .prepare(
+        `SELECT payload_json FROM oa_execution_attempts WHERE idempotency_key = ?`,
+      )
+      .get(idempotencyKey) as { payload_json?: string } | undefined;
+    if (!row?.payload_json) return null;
+    return cloneAttempt(JSON.parse(row.payload_json) as ExecutionAttempt);
+  }
+
+  async exists(attemptId: string): Promise<boolean> {
+    const row = this.store.db
+      .prepare(`SELECT 1 AS ok FROM oa_execution_attempts WHERE attempt_id = ?`)
+      .get(attemptId) as { ok?: number } | undefined;
+    return row?.ok === 1;
+  }
+
+  async create(attempt: ExecutionAttempt): Promise<void> {
+    const shape = validateAttemptShape(attempt);
+    if (shape) {
+      throw new ExecutionAttemptDomainError(shape.detailCode, shape.reason);
+    }
+    if (attempt.version !== 1) {
+      throw new ExecutionAttemptDomainError(
+        "ATTEMPT_INVALID",
+        "create_requires_version_1",
+      );
+    }
+    if (await this.exists(attempt.attemptId)) {
+      throw new ExecutionAttemptDomainError(
+        "ATTEMPT_ALREADY_EXISTS",
+        "attempt_id_taken",
+      );
+    }
+    const existingKeyOwner = await this.findByIdempotencyKey(
+      attempt.idempotencyKey,
+    );
+    if (
+      existingKeyOwner &&
+      existingKeyOwner.attemptId !== attempt.attemptId
+    ) {
+      throw new ExecutionAttemptDomainError(
+        "ATTEMPT_IDEMPOTENCY_CONFLICT",
+        "idempotency_key_taken",
+      );
+    }
+    this.failIfForced();
+    const now = attempt.createdAt;
+    const payload = JSON.stringify(cloneAttempt(attempt));
+    this.store.db
+      .prepare(
+        `INSERT INTO oa_execution_attempts(
+           attempt_id, execution_contract_id, status, idempotency_key,
+           version, result_recording_count, payload_json, created_at, updated_at
+         ) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)`,
+      )
+      .run(
+        attempt.attemptId,
+        attempt.executionContractId,
+        attempt.status,
+        attempt.idempotencyKey,
+        attempt.version,
+        payload,
+        now,
+        now,
+      );
+  }
+
+  async update(
+    attempt: ExecutionAttempt,
+    expectedVersion: number,
+  ): Promise<void> {
+    const current = await this.findById(attempt.attemptId);
+    if (!current) {
+      throw new ExecutionAttemptDomainError(
+        "ATTEMPT_NOT_FOUND",
+        "update_missing_attempt",
+      );
+    }
+    if (current.version !== expectedVersion) {
+      throw new ExecutionAttemptDomainError("VERSION_CONFLICT", "occ_mismatch", {
+        expectedVersion,
+        currentVersion: current.version,
+      });
+    }
+    if (attempt.version !== expectedVersion + 1) {
+      throw new ExecutionAttemptDomainError(
+        "VERSION_CONFLICT",
+        "version_not_monotone",
+        { expectedVersion, currentVersion: current.version },
+      );
+    }
+    const shape = validateAttemptShape(attempt);
+    if (shape) {
+      throw new ExecutionAttemptDomainError(shape.detailCode, shape.reason);
+    }
+    this.failIfForced();
+    const now = attempt.updatedAt ?? attempt.completedAt ?? attempt.createdAt;
+    const payload = JSON.stringify(cloneAttempt(attempt));
+    this.store.db
+      .prepare(
+        `UPDATE oa_execution_attempts SET
+           execution_contract_id = ?,
+           status = ?,
+           idempotency_key = ?,
+           version = ?,
+           payload_json = ?,
+           updated_at = ?
+         WHERE attempt_id = ?`,
+      )
+      .run(
+        attempt.executionContractId,
+        attempt.status,
+        attempt.idempotencyKey,
+        attempt.version,
+        payload,
+        now,
+        attempt.attemptId,
+      );
+  }
+
+  async listByContract(
+    executionContractId: string,
+  ): Promise<ExecutionAttempt[]> {
+    const rows = this.store.db
+      .prepare(
+        `SELECT payload_json FROM oa_execution_attempts
+         WHERE execution_contract_id = ?
+         ORDER BY attempt_id ASC`,
+      )
+      .all(executionContractId) as Array<{ payload_json: string }>;
+    return rows.map((row) =>
+      cloneAttempt(JSON.parse(row.payload_json) as ExecutionAttempt),
+    );
+  }
+
+  async findActiveByContract(
+    executionContractId: string,
+  ): Promise<ExecutionAttempt | null> {
+    const row = this.store.db
+      .prepare(
+        `SELECT attempt_id FROM oa_execution_attempt_active
+         WHERE execution_contract_id = ?`,
+      )
+      .get(executionContractId) as { attempt_id?: string } | undefined;
+    if (!row?.attempt_id) return null;
+    return this.findById(row.attempt_id);
+  }
+
+  async reserveActiveContract(
+    executionContractId: string,
+    attemptId: string,
+  ): Promise<void> {
+    const current = this.store.db
+      .prepare(
+        `SELECT attempt_id FROM oa_execution_attempt_active
+         WHERE execution_contract_id = ?`,
+      )
+      .get(executionContractId) as { attempt_id?: string } | undefined;
+    if (current?.attempt_id && current.attempt_id !== attemptId) {
+      throw new ExecutionAttemptDomainError(
+        "EXECUTION_ALREADY_ACTIVE",
+        "active_attempt_already_reserved",
+      );
+    }
+    this.store.db
+      .prepare(
+        `INSERT INTO oa_execution_attempt_active(execution_contract_id, attempt_id)
+         VALUES (?, ?)
+         ON CONFLICT(execution_contract_id) DO UPDATE SET
+           attempt_id = excluded.attempt_id`,
+      )
+      .run(executionContractId, attemptId);
+  }
+
+  async releaseActiveContract(
+    executionContractId: string,
+    attemptId: string,
+  ): Promise<void> {
+    this.store.db
+      .prepare(
+        `DELETE FROM oa_execution_attempt_active
+         WHERE execution_contract_id = ? AND attempt_id = ?`,
+      )
+      .run(executionContractId, attemptId);
+  }
+
+  async rebuildActiveIndex(): Promise<void> {
+    const rows = this.store.db
+      .prepare(
+        `SELECT payload_json FROM oa_execution_attempts ORDER BY attempt_id ASC`,
+      )
+      .all() as Array<{ payload_json: string }>;
+    const rebuilt = new Map<string, string>();
+    for (const row of rows) {
+      const attempt = JSON.parse(row.payload_json) as ExecutionAttempt;
+      if (isAttemptTerminal(attempt.status)) continue;
+      const existing = rebuilt.get(attempt.executionContractId);
+      if (existing && existing !== attempt.attemptId) {
+        throw new ExecutionAttemptDomainError(
+          "ACTIVE_INDEX_DRIFT",
+          "multiple_active_attempts_for_contract",
+        );
+      }
+      rebuilt.set(attempt.executionContractId, attempt.attemptId);
+    }
+    this.store.db.exec(`DELETE FROM oa_execution_attempt_active`);
+    const insert = this.store.db.prepare(
+      `INSERT INTO oa_execution_attempt_active(execution_contract_id, attempt_id)
+       VALUES (?, ?)`,
+    );
+    for (const [executionContractId, attemptId] of rebuilt) {
+      insert.run(executionContractId, attemptId);
+    }
+  }
+
+  async detectActiveIndexDrift(): Promise<ActiveIndexDrift[]> {
+    const drifts: ActiveIndexDrift[] = [];
+    const indexed = this.store.db
+      .prepare(
+        `SELECT execution_contract_id, attempt_id FROM oa_execution_attempt_active`,
+      )
+      .all() as Array<{ execution_contract_id: string; attempt_id: string }>;
+
+    for (const row of indexed) {
+      const attempt = await this.findById(row.attempt_id);
+      if (!attempt) {
+        drifts.push({
+          executionContractId: row.execution_contract_id,
+          attemptId: row.attempt_id,
+          reason: "indexed_attempt_missing",
+        });
+        continue;
+      }
+      if (isAttemptTerminal(attempt.status)) {
+        drifts.push({
+          executionContractId: row.execution_contract_id,
+          attemptId: row.attempt_id,
+          reason: "indexed_attempt_terminal",
+        });
+      }
+    }
+
+    const allRows = this.store.db
+      .prepare(`SELECT payload_json FROM oa_execution_attempts`)
+      .all() as Array<{ payload_json: string }>;
+    const seenActive = new Map<string, string>();
+    const activeIndex = new Map(
+      indexed.map((r) => [r.execution_contract_id, r.attempt_id] as const),
+    );
+
+    for (const row of allRows) {
+      const attempt = JSON.parse(row.payload_json) as ExecutionAttempt;
+      if (isAttemptTerminal(attempt.status)) continue;
+      const previous = seenActive.get(attempt.executionContractId);
+      if (previous && previous !== attempt.attemptId) {
+        drifts.push({
+          executionContractId: attempt.executionContractId,
+          attemptId: attempt.attemptId,
+          reason: "multiple_active_attempts",
+        });
+      }
+      seenActive.set(attempt.executionContractId, attempt.attemptId);
+      const indexedId = activeIndex.get(attempt.executionContractId);
+      if (indexedId !== attempt.attemptId) {
+        drifts.push({
+          executionContractId: attempt.executionContractId,
+          attemptId: attempt.attemptId,
+          reason: "active_attempt_not_indexed",
+        });
+      }
+    }
+    return drifts;
+  }
+
+  async assertActiveIndexConsistent(): Promise<void> {
+    const drifts = await this.detectActiveIndexDrift();
+    if (drifts.length > 0) {
+      throw new ExecutionAttemptDomainError(
+        "ACTIVE_INDEX_DRIFT",
+        `drift_${drifts[0].reason}`,
+      );
+    }
+  }
+
+  private failIfForced(): void {
+    if (this.store.failNextSave === "attempt") {
+      this.store.failNextSave = null;
+      throw new ExecutionAttemptDomainError(
+        "EXECUTION_PERSISTENCE_FAILED",
+        "forced_execution_attempt_save_failure",
+      );
+    }
+  }
+}
+
+===== END FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptRepository.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptTechnicalStore.ts =====
+import type { ProductSqliteHandle } from "@/lib/oa/project";
+import type { ExecutionAttemptTechnicalStorePort } from "../../ports/executionAttemptTechnicalStorePort";
+
+/**
+ * Durable Map-like facade for result-recording budget.
+ * Persists to oa_execution_attempt_result_budget (side table).
+ */
+class SqliteResultRecordingAttemptsMap {
+  constructor(private readonly store: ProductSqliteHandle) {}
+
+  get(attemptId: string): number | undefined {
+    const row = this.store.db
+      .prepare(
+        `SELECT count FROM oa_execution_attempt_result_budget WHERE attempt_id = ?`,
+      )
+      .get(attemptId) as { count?: number } | undefined;
+    return typeof row?.count === "number" ? row.count : undefined;
+  }
+
+  set(attemptId: string, count: number): this {
+    this.store.db
+      .prepare(
+        `INSERT INTO oa_execution_attempt_result_budget(attempt_id, count)
+         VALUES (?, ?)
+         ON CONFLICT(attempt_id) DO UPDATE SET count = excluded.count`,
+      )
+      .run(attemptId, count);
+    return this;
+  }
+}
+
+/**
+ * Technical Attempt store over Product SQLite — shares UoW with contracts/LPS.
+ */
+export class SqliteExecutionAttemptTechnicalStore
+  implements ExecutionAttemptTechnicalStorePort
+{
+  readonly resultRecordingAttempts: SqliteResultRecordingAttemptsMap;
+
+  constructor(private readonly productStore: ProductSqliteHandle) {
+    this.resultRecordingAttempts = new SqliteResultRecordingAttemptsMap(
+      productStore,
+    );
+  }
+
+  async runInTransaction<T>(fn: () => Promise<T>): Promise<T> {
+    return this.productStore.runInTransaction(fn);
+  }
+}
+
+===== END FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptTechnicalStore.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts =====
+import type { ClockPort } from "@/lib/oa/doctrine";
+import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
+import type {
+  AuthorityResolverPort,
+  DecisionServices,
+} from "@/lib/oa/decision";
+import type { ExecutionContractServices } from "@/lib/oa/execution-contract";
+import type { ProductSqliteHandle } from "@/lib/oa/project";
+import {
+  resolveAttemptPolicy,
+  type AttemptPolicy,
+} from "../../application/attemptPolicy";
+import { CancelExecutionAttempt } from "../../application/cancelExecutionAttempt";
+import { CheckAttemptAuthorization } from "../../application/checkAttemptAuthorization";
+import { ExecutionContractStatusWriter } from "../../application/executionContractStatusWriter";
+import { GetExecutionAttempt } from "../../application/getExecutionAttempt";
+import { ListExecutionAttempts } from "../../application/listExecutionAttempts";
+import { RecordExecutionFailure } from "../../application/recordExecutionFailure";
+import { RecordExecutionResult } from "../../application/recordExecutionResult";
+import { RetryExecutionAttempt } from "../../application/retryExecutionAttempt";
+import { SelectExecutionAgent } from "../../application/selectExecutionAgent";
+import { StartExecution } from "../../application/startExecution";
+import { TriggerAttemptTimeout } from "../../application/triggerAttemptTimeout";
+import type { AgentDescriptor } from "../../domain/types";
+import { MemoryAgentRegistry } from "../memoryAgentRegistry";
+import { NoOpExecutionAdapter } from "../noOpExecutionAdapter";
+import {
+  ConsoleExecutionAttemptAuditJournal,
+  MemoryExecutionAttemptAuditJournal,
+} from "../observability";
+import { TestExecutionAdapter } from "../testExecutionAdapter";
+import type { AgentRegistryPort } from "../../ports/agentRegistry";
+import type { ExecutionAttemptAuditPort } from "../../ports/executionAttemptAudit";
+import type { ExecutionAttemptRepositoryPort } from "../../ports/executionAttemptRepository";
+import type { ExecutionAttemptTechnicalStorePort } from "../../ports/executionAttemptTechnicalStorePort";
+import { SqliteExecutionAttemptRepository } from "./sqliteExecutionAttemptRepository";
+import { SqliteExecutionAttemptTechnicalStore } from "./sqliteExecutionAttemptTechnicalStore";
+
+type InjectableExecutionAdapter = TestExecutionAdapter | NoOpExecutionAdapter;
+
+function isInjectableExecutionAdapter(
+  candidate: unknown,
+): candidate is InjectableExecutionAdapter {
+  return (
+    candidate instanceof TestExecutionAdapter ||
+    candidate instanceof NoOpExecutionAdapter
+  );
+}
+
+export type CreateSqliteExecutionAttemptServicesOptions = {
+  decisionServices: DecisionServices;
+  executionContractServices: ExecutionContractServices;
+  productStore: ProductSqliteHandle;
+  agents?: readonly AgentDescriptor[];
+  registry?: MemoryAgentRegistry;
+  adapter?: InjectableExecutionAdapter;
+  clock?: ClockPort;
+  audit?: ExecutionAttemptAuditPort;
+  policy?: Partial<AttemptPolicy>;
+  authorityResolver?: AuthorityResolverPort;
+};
+
+export type SqliteExecutionAttemptServices = {
+  store: ExecutionAttemptTechnicalStorePort;
+  attempts: ExecutionAttemptRepositoryPort;
+  registry: AgentRegistryPort;
+  adapter: InjectableExecutionAdapter;
+  audit: ExecutionAttemptAuditPort;
+  policy: AttemptPolicy;
+  contractStatusWriter: ExecutionContractStatusWriter;
+  productStore: ProductSqliteHandle;
+  selectExecutionAgent: SelectExecutionAgent;
+  startExecution: StartExecution;
+  cancelExecutionAttempt: CancelExecutionAttempt;
+  recordExecutionResult: RecordExecutionResult;
+  recordExecutionFailure: RecordExecutionFailure;
+  retryExecutionAttempt: RetryExecutionAttempt;
+  triggerAttemptTimeout: TriggerAttemptTimeout;
+  getExecutionAttempt: GetExecutionAttempt;
+  listExecutionAttempts: ListExecutionAttempts;
+  checkAttemptAuthorization: CheckAttemptAuthorization;
+};
+
+/**
+ * Durable ExecutionAttempt services on Product SQLite (M5-A).
+ * Does NOT wire realBoundary / Gate D / REAL launch (M4 REAL-OFF unchanged).
+ */
+export function createSqliteExecutionAttemptServices(
+  options: CreateSqliteExecutionAttemptServicesOptions,
+): SqliteExecutionAttemptServices {
+  if (options.registry && options.agents) {
+    throw new Error("execution_attempt_factory_registry_or_agents_not_both");
+  }
+  const registry =
+    options.registry ?? new MemoryAgentRegistry(options.agents ?? []);
+
+  const adapter = options.adapter ?? new NoOpExecutionAdapter();
+  if (!isInjectableExecutionAdapter(adapter)) {
+    throw new Error("execution_attempt_factory_adapter_not_allowed");
+  }
+
+  const clock = options.clock ?? new SystemClock();
+  const audit = options.audit ?? new ConsoleExecutionAttemptAuditJournal();
+  const authority =
+    options.authorityResolver ?? options.decisionServices.authority;
+  const policy = resolveAttemptPolicy(options.policy);
+
+  const store = new SqliteExecutionAttemptTechnicalStore(options.productStore);
+  const attempts = new SqliteExecutionAttemptRepository(options.productStore);
+
+  const contracts = options.executionContractServices.contracts;
+  const contractStatusWriter = new ExecutionContractStatusWriter(
+    contracts,
+    options.executionContractServices.store,
+    attempts,
+  );
+
+  const selectExecutionAgent = new SelectExecutionAgent(
+    attempts,
+    contracts,
+    options.executionContractServices.checkExecutionAuthorization,
+    options.decisionServices,
+    authority,
+    registry,
+    clock,
+    audit,
+    policy,
+    store,
+  );
+
+  return {
+    store,
+    attempts,
+    registry,
+    adapter,
+    audit,
+    policy,
+    contractStatusWriter,
+    productStore: options.productStore,
+    selectExecutionAgent,
+    startExecution: new StartExecution(
+      attempts,
+      contracts,
+      contractStatusWriter,
+      options.executionContractServices.checkExecutionAuthorization,
+      options.decisionServices,
+      authority,
+      registry,
+      adapter,
+      clock,
+      audit,
+      store,
+    ),
+    cancelExecutionAttempt: new CancelExecutionAttempt(
+      attempts,
+      contracts,
+      contractStatusWriter,
+      authority,
+      registry,
+      adapter,
+      clock,
+      audit,
+      store,
+    ),
+    recordExecutionResult: new RecordExecutionResult(
+      attempts,
+      contracts,
+      contractStatusWriter,
+      registry,
+      clock,
+      audit,
+      policy,
+      store,
+    ),
+    recordExecutionFailure: new RecordExecutionFailure(
+      attempts,
+      contracts,
+      contractStatusWriter,
+      registry,
+      clock,
+      audit,
+      store,
+    ),
+    retryExecutionAttempt: new RetryExecutionAttempt(
+      attempts,
+      contracts,
+      selectExecutionAgent,
+      authority,
+      clock,
+      audit,
+      policy,
+    ),
+    triggerAttemptTimeout: new TriggerAttemptTimeout(
+      attempts,
+      contracts,
+      contractStatusWriter,
+      authority,
+      clock,
+      audit,
+      policy,
+      store,
+    ),
+    getExecutionAttempt: new GetExecutionAttempt(attempts, clock, audit),
+    listExecutionAttempts: new ListExecutionAttempts(attempts, clock, audit),
+    checkAttemptAuthorization: new CheckAttemptAuthorization(
+      attempts,
+      contracts,
+      options.executionContractServices.checkExecutionAuthorization,
+      authority,
+      clock,
+      audit,
+    ),
+  };
+}
+
+export function createTestSqliteExecutionAttemptServices(
+  options: CreateSqliteExecutionAttemptServicesOptions & {
+    audit?: MemoryExecutionAttemptAuditJournal;
+    adapter?: TestExecutionAdapter | NoOpExecutionAdapter;
+    fixedNowIso?: string;
+  },
+): SqliteExecutionAttemptServices & {
+  audit: MemoryExecutionAttemptAuditJournal;
+} {
+  const audit = options.audit ?? new MemoryExecutionAttemptAuditJournal();
+  const clock =
+    options.clock ??
+    (options.fixedNowIso
+      ? new FixedClock(options.fixedNowIso)
+      : new FixedClock("2026-08-15T07:00:00.000Z"));
+  const adapter = options.adapter ?? new TestExecutionAdapter();
+  return createSqliteExecutionAttemptServices({
+    ...options,
+    adapter,
+    clock,
+    audit,
+  }) as SqliteExecutionAttemptServices & {
+    audit: MemoryExecutionAttemptAuditJournal;
+  };
+}
+
+===== END FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteEvidenceRepository.ts =====
+import type { ProductSqliteHandle } from "@/lib/oa/project";
+import { EvidenceDomainError } from "../../domain/errors";
+import { validateEvidenceShape } from "../../domain/invariants";
+import type { Evidence } from "../../domain/types";
+import type {
+  EvidenceRepositoryPort,
+  IdempotencyRecord,
+} from "../../ports/evidenceRepository";
+
+type EvidenceRow = {
+  evidence_id: string;
+  project_id: string | null;
+  status: string;
+  idempotency_key: string | null;
+  version: number;
+  payload_json: string;
+};
+
+type IdempotencyRow = {
+  idempotency_key: string;
+  evidence_id: string;
+  fingerprint: string;
+  operation: string;
+};
+
+function cloneEvidence(evidence: Evidence): Evidence {
+  return structuredClone(evidence);
+}
+
+/**
+ * Durable Evidence repository on Product SQLite (M5).
+ * Mirrors MemoryEvidenceRepository OCC + IdempotencyRecord semantics.
+ */
+export class SqliteEvidenceRepository implements EvidenceRepositoryPort {
+  constructor(private readonly store: ProductSqliteHandle) {}
+
+  async findById(evidenceId: string): Promise<Evidence | null> {
+    const row = this.store.db
+      .prepare(
+        `SELECT evidence_id, project_id, status, idempotency_key, version, payload_json
+         FROM oa_evidence WHERE evidence_id = ?`,
+      )
+      .get(evidenceId) as EvidenceRow | undefined;
+    if (!row) return null;
+    return cloneEvidence(JSON.parse(row.payload_json) as Evidence);
+  }
+
+  async findByIdempotencyKey(idempotencyKey: string): Promise<{
+    evidence: Evidence;
+    record: IdempotencyRecord;
+  } | null> {
+    const row = this.store.db
+      .prepare(
+        `SELECT idempotency_key, evidence_id, fingerprint, operation
+         FROM oa_evidence_idempotency WHERE idempotency_key = ?`,
+      )
+      .get(idempotencyKey) as IdempotencyRow | undefined;
+    if (!row) return null;
+    const evidence = await this.findById(row.evidence_id);
+    if (!evidence) return null;
+    return {
+      evidence,
+      record: {
+        evidenceId: row.evidence_id,
+        fingerprint: row.fingerprint,
+        operation: row.operation as IdempotencyRecord["operation"],
+      },
+    };
+  }
+
+  async exists(evidenceId: string): Promise<boolean> {
+    const row = this.store.db
+      .prepare(`SELECT 1 AS ok FROM oa_evidence WHERE evidence_id = ?`)
+      .get(evidenceId) as { ok?: number } | undefined;
+    return row?.ok === 1;
+  }
+
+  async create(
+    evidence: Evidence,
+    record?: IdempotencyRecord,
+  ): Promise<void> {
+    const shape = validateEvidenceShape(evidence);
+    if (shape) {
+      throw new EvidenceDomainError(shape.detailCode, shape.reason);
+    }
+    if (evidence.version !== 1) {
+      throw new EvidenceDomainError(
+        "EVIDENCE_INVALID",
+        "create_requires_version_1",
+      );
+    }
+    if (await this.exists(evidence.evidenceId)) {
+      throw new EvidenceDomainError(
+        "EVIDENCE_ALREADY_EXISTS",
+        "evidence_id_taken",
+      );
+    }
+    if (record) {
+      const existing = await this.findByIdempotencyKey(
+        evidence.idempotencyKey ?? "",
+      );
+      if (existing && existing.evidence.evidenceId !== evidence.evidenceId) {
+        throw new EvidenceDomainError(
+          "IDEMPOTENCY_CONFLICT",
+          "idempotency_key_taken",
+        );
+      }
+    }
+    this.failIfForced();
+    const now = evidence.createdAt;
+    const payload = JSON.stringify(cloneEvidence(evidence));
+    this.store.db
+      .prepare(
+        `INSERT INTO oa_evidence(
+           evidence_id, project_id, status, idempotency_key, version,
+           payload_json, created_at, updated_at
+         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .run(
+        evidence.evidenceId,
+        evidence.bindings.projectId ?? null,
+        evidence.status,
+        evidence.idempotencyKey ?? null,
+        evidence.version,
+        payload,
+        now,
+        now,
+      );
+    if (record && evidence.idempotencyKey) {
+      this.upsertIdempotency(evidence.idempotencyKey, record);
+    }
+  }
+
+  async update(
+    evidence: Evidence,
+    expectedVersion: number,
+    record?: IdempotencyRecord,
+  ): Promise<void> {
+    const current = await this.findById(evidence.evidenceId);
+    if (!current) {
+      throw new EvidenceDomainError(
+        "EVIDENCE_NOT_FOUND",
+        "update_missing_evidence",
+      );
+    }
+    if (current.version !== expectedVersion) {
+      throw new EvidenceDomainError("VERSION_CONFLICT", "occ_mismatch", {
+        expectedVersion,
+        currentVersion: current.version,
+      });
+    }
+    if (evidence.version !== expectedVersion + 1) {
+      throw new EvidenceDomainError(
+        "VERSION_CONFLICT",
+        "version_not_monotone",
+        { expectedVersion, currentVersion: current.version },
+      );
+    }
+    const shape = validateEvidenceShape(evidence);
+    if (shape) {
+      throw new EvidenceDomainError(shape.detailCode, shape.reason);
+    }
+    this.failIfForced();
+    const now = evidence.updatedAt ?? evidence.createdAt;
+    const payload = JSON.stringify(cloneEvidence(evidence));
+    this.store.db
+      .prepare(
+        `UPDATE oa_evidence SET
+           project_id = ?,
+           status = ?,
+           idempotency_key = ?,
+           version = ?,
+           payload_json = ?,
+           updated_at = ?
+         WHERE evidence_id = ?`,
+      )
+      .run(
+        evidence.bindings.projectId ?? null,
+        evidence.status,
+        evidence.idempotencyKey ?? null,
+        evidence.version,
+        payload,
+        now,
+        evidence.evidenceId,
+      );
+    if (record && evidence.idempotencyKey) {
+      this.upsertIdempotency(evidence.idempotencyKey, record);
+    }
+  }
+
+  private upsertIdempotency(
+    idempotencyKey: string,
+    record: IdempotencyRecord,
+  ): void {
+    this.store.db
+      .prepare(
+        `INSERT INTO oa_evidence_idempotency(
+           idempotency_key, evidence_id, fingerprint, operation
+         ) VALUES (?, ?, ?, ?)
+         ON CONFLICT(idempotency_key) DO UPDATE SET
+           evidence_id = excluded.evidence_id,
+           fingerprint = excluded.fingerprint,
+           operation = excluded.operation`,
+      )
+      .run(
+        idempotencyKey,
+        record.evidenceId,
+        record.fingerprint,
+        record.operation,
+      );
+  }
+
+  private failIfForced(): void {
+    if (this.store.failNextSave === "evidence") {
+      this.store.failNextSave = null;
+      throw new EvidenceDomainError(
+        "EVIDENCE_PERSISTENCE_FAILED",
+        "forced_evidence_save_failure",
+      );
+    }
+  }
+}
+
+===== END FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteEvidenceRepository.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteReviewBundleRepository.ts =====
+import type { ProductSqliteHandle } from "@/lib/oa/project";
+import { ReviewBundleDomainError } from "../../domain/reviewBundleErrors";
+import { validateReviewBundleShape } from "../../domain/reviewBundleInvariants";
+import type { ReviewBundle } from "../../domain/reviewBundleTypes";
+import type {
+  ReviewBundleIdempotencyRecord,
+  ReviewBundleRepositoryPort,
+} from "../../ports/reviewBundleRepository";
+
+type BundleRow = {
+  review_bundle_id: string;
+  project_id: string;
+  status: string;
+  idempotency_key: string | null;
+  version: number;
+  payload_json: string;
+};
+
+type IdempotencyRow = {
+  idempotency_key: string;
+  review_bundle_id: string;
+  fingerprint: string;
+  operation: string;
+  successor_id: string | null;
+};
+
+function cloneBundle(bundle: ReviewBundle): ReviewBundle {
+  return structuredClone(bundle);
+}
+
+/**
+ * Durable ReviewBundle repository on Product SQLite (M5).
+ * createSuccessorAndMarkSuperseded runs inside productStore.runInTransaction.
+ */
+export class SqliteReviewBundleRepository
+  implements ReviewBundleRepositoryPort
+{
+  constructor(private readonly store: ProductSqliteHandle) {}
+
+  async findById(reviewBundleId: string): Promise<ReviewBundle | null> {
+    const row = this.store.db
+      .prepare(
+        `SELECT review_bundle_id, project_id, status, idempotency_key, version, payload_json
+         FROM oa_review_bundles WHERE review_bundle_id = ?`,
+      )
+      .get(reviewBundleId) as BundleRow | undefined;
+    if (!row) return null;
+    return cloneBundle(JSON.parse(row.payload_json) as ReviewBundle);
+  }
+
+  async findByIdempotencyKey(idempotencyKey: string): Promise<{
+    reviewBundle: ReviewBundle;
+    record: ReviewBundleIdempotencyRecord;
+    successor?: ReviewBundle;
+  } | null> {
+    const row = this.store.db
+      .prepare(
+        `SELECT idempotency_key, review_bundle_id, fingerprint, operation, successor_id
+         FROM oa_review_bundle_idempotency WHERE idempotency_key = ?`,
+      )
+      .get(idempotencyKey) as IdempotencyRow | undefined;
+    if (!row) return null;
+    const reviewBundle = await this.findById(row.review_bundle_id);
+    if (!reviewBundle) return null;
+    const successor = row.successor_id
+      ? ((await this.findById(row.successor_id)) ?? undefined)
+      : undefined;
+    return {
+      reviewBundle,
+      record: {
+        reviewBundleId: row.review_bundle_id,
+        fingerprint: row.fingerprint,
+        operation: row.operation as ReviewBundleIdempotencyRecord["operation"],
+      },
+      successor,
+    };
+  }
+
+  async exists(reviewBundleId: string): Promise<boolean> {
+    const row = this.store.db
+      .prepare(
+        `SELECT 1 AS ok FROM oa_review_bundles WHERE review_bundle_id = ?`,
+      )
+      .get(reviewBundleId) as { ok?: number } | undefined;
+    return row?.ok === 1;
+  }
+
+  async create(
+    bundle: ReviewBundle,
+    record?: ReviewBundleIdempotencyRecord & { successorId?: string },
+  ): Promise<void> {
+    const shape = validateReviewBundleShape(bundle);
+    if (shape) {
+      throw new ReviewBundleDomainError(shape.detailCode, shape.reason);
+    }
+    if (bundle.version !== 1) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_INVALID",
+        "create_requires_version_1",
+      );
+    }
+    if (await this.exists(bundle.reviewBundleId)) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_ALREADY_EXISTS",
+        "review_bundle_id_taken",
+      );
+    }
+    this.failIfForced();
+    this.insertBundle(bundle);
+    if (record && bundle.idempotencyKey) {
+      this.upsertIdempotency(bundle.idempotencyKey, record);
+    }
+  }
+
+  async update(
+    bundle: ReviewBundle,
+    expectedVersion: number,
+    record?: ReviewBundleIdempotencyRecord & { successorId?: string },
+  ): Promise<void> {
+    const current = await this.findById(bundle.reviewBundleId);
+    if (!current) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_NOT_FOUND",
+        "update_missing",
+      );
+    }
+    if (current.version !== expectedVersion) {
+      throw new ReviewBundleDomainError("VERSION_CONFLICT", "occ_mismatch", {
+        expectedVersion,
+        currentVersion: current.version,
+      });
+    }
+    if (bundle.version !== expectedVersion + 1) {
+      throw new ReviewBundleDomainError(
+        "VERSION_CONFLICT",
+        "version_not_monotone",
+        { expectedVersion, currentVersion: current.version },
+      );
+    }
+    const shape = validateReviewBundleShape(bundle);
+    if (shape) {
+      throw new ReviewBundleDomainError(shape.detailCode, shape.reason);
+    }
+    this.failIfForced();
+    this.updateBundleRow(bundle);
+    if (record) {
+      const key = bundle.idempotencyKey;
+      if (key) {
+        this.upsertIdempotency(key, record);
+      }
+    }
+  }
+
+  async createSuccessorAndMarkSuperseded(
+    successor: ReviewBundle,
+    superseded: ReviewBundle,
+    expectedVersion: number,
+    record: ReviewBundleIdempotencyRecord & { successorId: string },
+  ): Promise<void> {
+    const successorShape = validateReviewBundleShape(successor);
+    if (successorShape) {
+      throw new ReviewBundleDomainError(
+        successorShape.detailCode,
+        successorShape.reason,
+      );
+    }
+    const supersededShape = validateReviewBundleShape(superseded);
+    if (supersededShape) {
+      throw new ReviewBundleDomainError(
+        supersededShape.detailCode,
+        supersededShape.reason,
+      );
+    }
+    if (successor.version !== 1) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_INVALID",
+        "successor_requires_version_1",
+      );
+    }
+    if (superseded.status !== "superseded") {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_INVALID",
+        "source_must_be_superseded",
+      );
+    }
+    if (record.successorId !== successor.reviewBundleId) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_INVALID",
+        "record_successor_id_mismatch",
+      );
+    }
+    if (successor.reviewBundleId === superseded.reviewBundleId) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_INVALID",
+        "successor_must_differ_from_source",
+      );
+    }
+
+    const current = await this.findById(superseded.reviewBundleId);
+    if (!current) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_NOT_FOUND",
+        "reopen_source_missing",
+      );
+    }
+    if (current.version !== expectedVersion) {
+      throw new ReviewBundleDomainError("VERSION_CONFLICT", "occ_mismatch", {
+        expectedVersion,
+        currentVersion: current.version,
+      });
+    }
+    if (superseded.version !== expectedVersion + 1) {
+      throw new ReviewBundleDomainError(
+        "VERSION_CONFLICT",
+        "version_not_monotone",
+        { expectedVersion, currentVersion: current.version },
+      );
+    }
+    if (await this.exists(successor.reviewBundleId)) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_ALREADY_EXISTS",
+        "successor_review_bundle_id_taken",
+      );
+    }
+    if (!superseded.idempotencyKey) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_INVALID",
+        "reopen_idempotency_key_required",
+      );
+    }
+
+    await this.store.runInTransaction(async () => {
+      this.failIfForced();
+      this.insertBundle(successor);
+      this.updateBundleRow(superseded);
+      this.upsertIdempotency(superseded.idempotencyKey!, record);
+    });
+  }
+
+  private insertBundle(bundle: ReviewBundle): void {
+    const now = bundle.createdAt;
+    const payload = JSON.stringify(cloneBundle(bundle));
+    this.store.db
+      .prepare(
+        `INSERT INTO oa_review_bundles(
+           review_bundle_id, project_id, status, idempotency_key, version,
+           payload_json, created_at, updated_at
+         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .run(
+        bundle.reviewBundleId,
+        bundle.projectId,
+        bundle.status,
+        bundle.idempotencyKey ?? null,
+        bundle.version,
+        payload,
+        now,
+        now,
+      );
+  }
+
+  private updateBundleRow(bundle: ReviewBundle): void {
+    const now = bundle.updatedAt ?? bundle.createdAt;
+    const payload = JSON.stringify(cloneBundle(bundle));
+    this.store.db
+      .prepare(
+        `UPDATE oa_review_bundles SET
+           project_id = ?,
+           status = ?,
+           idempotency_key = ?,
+           version = ?,
+           payload_json = ?,
+           updated_at = ?
+         WHERE review_bundle_id = ?`,
+      )
+      .run(
+        bundle.projectId,
+        bundle.status,
+        bundle.idempotencyKey ?? null,
+        bundle.version,
+        payload,
+        now,
+        bundle.reviewBundleId,
+      );
+  }
+
+  private upsertIdempotency(
+    idempotencyKey: string,
+    record: ReviewBundleIdempotencyRecord & { successorId?: string },
+  ): void {
+    this.store.db
+      .prepare(
+        `INSERT INTO oa_review_bundle_idempotency(
+           idempotency_key, review_bundle_id, fingerprint, operation, successor_id
+         ) VALUES (?, ?, ?, ?, ?)
+         ON CONFLICT(idempotency_key) DO UPDATE SET
+           review_bundle_id = excluded.review_bundle_id,
+           fingerprint = excluded.fingerprint,
+           operation = excluded.operation,
+           successor_id = excluded.successor_id`,
+      )
+      .run(
+        idempotencyKey,
+        record.reviewBundleId,
+        record.fingerprint,
+        record.operation,
+        record.successorId ?? null,
+      );
+  }
+
+  private failIfForced(): void {
+    if (this.store.failNextSave === "review_bundle") {
+      this.store.failNextSave = null;
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_PERSISTENCE_FAILED",
+        "forced_review_bundle_save_failure",
+      );
+    }
+  }
+}
+
+===== END FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteReviewBundleRepository.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/createSqliteEvidenceReviewServices.ts =====
+import type { ClockPort } from "@/lib/oa/doctrine";
+import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
+import type { ProductSqliteHandle } from "@/lib/oa/project";
+import { AttachEvidenceToReviewBundle } from "../../application/attachEvidenceToReviewBundle";
+import { CompleteReview } from "../../application/completeReview";
+import { ConfirmClaimEvaluation } from "../../application/confirmClaimEvaluation";
+import { ConfirmMaturity } from "../../application/confirmMaturity";
+import { CreateReviewBundle } from "../../application/createReviewBundle";
+import { DowngradeMaturity } from "../../application/downgradeMaturity";
+import { EvaluateClaim } from "../../application/evaluateClaim";
+import { FreezeReviewBundle } from "../../application/freezeReviewBundle";
+import { IngestExecutionAttemptEvidence } from "../../application/ingestExecutionAttemptEvidence";
+import { MarkEvidenceUnavailable } from "../../application/markEvidenceUnavailable";
+import { ProposeMaturity } from "../../application/proposeMaturity";
+import { RecommendNextGate } from "../../application/recommendNextGate";
+import { RegisterEvidence } from "../../application/registerEvidence";
+import { RejectClaimEvaluation } from "../../application/rejectClaimEvaluation";
+import { RemoveEvidenceFromReviewBundle } from "../../application/removeEvidenceFromReviewBundle";
+import { ReopenReview } from "../../application/reopenReview";
+import { StartReview } from "../../application/startReview";
+import { VerifyEvidenceIntegrity } from "../../application/verifyEvidenceIntegrity";
+import { FakeClaimAuthority } from "../claimAuthorityAdapter";
+import { ClaimEvaluationRepositoryReader } from "../claimEvaluationRepositoryReader";
+import { EvidenceRepositoryReader } from "../evidenceRepositoryReader";
+import { FakeEvidencePayloadAdapter } from "../fakeEvidencePayloadAdapter";
+import { FakeExecutionAttemptReader } from "../fakeExecutionAttemptReader";
+import {
+  FixedIdGenerator,
+  RandomIdGenerator,
+} from "../idGenerator";
+import { MemoryClaimEvaluationRepository } from "../memoryClaimEvaluationRepository";
+import { MemoryClaimEvaluationStore } from "../memoryClaimEvaluationStore";
+import { MemoryEvidenceStore } from "../memoryEvidenceStore";
+import { MemoryMaturityAssessmentRepository } from "../memoryMaturityAssessmentRepository";
+import { MemoryMaturityAssessmentStore } from "../memoryMaturityAssessmentStore";
+import { MemoryReviewBundleStore } from "../memoryReviewBundleStore";
+import { MaturityAssessmentRepositoryReader } from "../maturityAssessmentRepositoryReader";
+import {
+  ConsoleEvidenceAuditJournal,
+  MemoryEvidenceAuditJournal,
+} from "../observability";
+import { ReviewBundleRepositoryReader } from "../reviewBundleRepositoryReader";
+import type { ClaimAuthorityPort } from "../../ports/claimAuthorityPort";
+import type { ClaimEvaluationReaderPort } from "../../ports/claimEvaluationReader";
+import type { EvidenceAuditPort } from "../../ports/evidenceAudit";
+import type { EvidencePayloadPort } from "../../ports/evidencePayloadPort";
+import type { EvidenceReaderPort } from "../../ports/evidenceReader";
+import type { EvidenceRepositoryPort } from "../../ports/evidenceRepository";
+import type { ExecutionAttemptReaderPort } from "../../ports/executionAttemptReader";
+import type { IdGeneratorPort } from "../../ports/idGenerator";
+import type { MaturityAssessmentReaderPort } from "../../ports/maturityAssessmentReader";
+import type { ReviewBundleReaderPort } from "../../ports/reviewBundleReader";
+import type { ReviewBundleRepositoryPort } from "../../ports/reviewBundleRepository";
+import { SqliteEvidenceRepository } from "./sqliteEvidenceRepository";
+import { SqliteReviewBundleRepository } from "./sqliteReviewBundleRepository";
+
+export type CreateSqliteEvidenceReviewServicesOptions = {
+  productStore: ProductSqliteHandle;
+  clock?: ClockPort;
+  audit?: EvidenceAuditPort;
+  ids?: IdGeneratorPort;
+  payload?: EvidencePayloadPort;
+  attemptReader?: ExecutionAttemptReaderPort;
+  evidenceReader?: EvidenceReaderPort;
+  claimAuthority?: ClaimAuthorityPort;
+  claimEvaluationStore?: MemoryClaimEvaluationStore;
+  maturityAssessmentStore?: MemoryMaturityAssessmentStore;
+};
+
+export type SqliteEvidenceReviewServices = {
+  store: MemoryEvidenceStore;
+  repository: EvidenceRepositoryPort;
+  reviewBundleStore: MemoryReviewBundleStore;
+  reviewBundleRepository: ReviewBundleRepositoryPort;
+  reviewBundleReader: ReviewBundleReaderPort;
+  claimEvaluationStore: MemoryClaimEvaluationStore;
+  claimEvaluationRepository: MemoryClaimEvaluationRepository;
+  claimEvaluationReader: ClaimEvaluationReaderPort;
+  claimAuthority: ClaimAuthorityPort;
+  maturityAssessmentStore: MemoryMaturityAssessmentStore;
+  maturityAssessmentRepository: MemoryMaturityAssessmentRepository;
+  maturityAssessmentReader: MaturityAssessmentReaderPort;
+  evidenceReader: EvidenceReaderPort;
+  payload: EvidencePayloadPort;
+  attemptReader: ExecutionAttemptReaderPort;
+  clock: ClockPort;
+  audit: EvidenceAuditPort;
+  ids: IdGeneratorPort;
+  productStore: ProductSqliteHandle;
+  registerEvidence: RegisterEvidence;
+  ingestExecutionAttemptEvidence: IngestExecutionAttemptEvidence;
+  verifyEvidenceIntegrity: VerifyEvidenceIntegrity;
+  markEvidenceUnavailable: MarkEvidenceUnavailable;
+  createReviewBundle: CreateReviewBundle;
+  attachEvidenceToReviewBundle: AttachEvidenceToReviewBundle;
+  removeEvidenceFromReviewBundle: RemoveEvidenceFromReviewBundle;
+  freezeReviewBundle: FreezeReviewBundle;
+  startReview: StartReview;
+  completeReview: CompleteReview;
+  reopenReview: ReopenReview;
+  evaluateClaim: EvaluateClaim;
+  confirmClaimEvaluation: ConfirmClaimEvaluation;
+  rejectClaimEvaluation: RejectClaimEvaluation;
+  proposeMaturity: ProposeMaturity;
+  confirmMaturity: ConfirmMaturity;
+  downgradeMaturity: DowngradeMaturity;
+  recommendNextGate: RecommendNextGate;
+};
+
+/**
+ * Evidence + ReviewBundle durable on Product SQLite (M5-A).
+ * ClaimEvaluation + MaturityAssessment remain Memory (out of minimal M5).
+ */
+export function createSqliteEvidenceReviewServices(
+  options: CreateSqliteEvidenceReviewServicesOptions,
+): SqliteEvidenceReviewServices {
+  const productStore = options.productStore;
+  // Type-compat placeholders — evidence/RB use SQLite repos, not these maps.
+  const store = new MemoryEvidenceStore();
+  const repository = new SqliteEvidenceRepository(productStore);
+  const reviewBundleStore = new MemoryReviewBundleStore();
+  const reviewBundleRepository = new SqliteReviewBundleRepository(productStore);
+  const reviewBundleReader = new ReviewBundleRepositoryReader(
+    reviewBundleRepository,
+  );
+  const claimEvaluationStore =
+    options.claimEvaluationStore ?? new MemoryClaimEvaluationStore();
+  const claimEvaluationRepository = new MemoryClaimEvaluationRepository(
+    claimEvaluationStore,
+  );
+  const claimEvaluationReader = new ClaimEvaluationRepositoryReader(
+    claimEvaluationRepository,
+    claimEvaluationStore,
+  );
+  const claimAuthority = options.claimAuthority ?? new FakeClaimAuthority();
+  const maturityAssessmentStore =
+    options.maturityAssessmentStore ?? new MemoryMaturityAssessmentStore();
+  const maturityAssessmentRepository = new MemoryMaturityAssessmentRepository(
+    maturityAssessmentStore,
+  );
+  const maturityAssessmentReader = new MaturityAssessmentRepositoryReader(
+    maturityAssessmentRepository,
+  );
+  const clock = options.clock ?? new SystemClock();
+  const audit = options.audit ?? new ConsoleEvidenceAuditJournal();
+  const ids = options.ids ?? new RandomIdGenerator();
+  const payload = options.payload ?? new FakeEvidencePayloadAdapter();
+  const attemptReader =
+    options.attemptReader ?? new FakeExecutionAttemptReader();
+  const evidenceReader =
+    options.evidenceReader ?? new EvidenceRepositoryReader(repository);
+
+  return {
+    store,
+    repository,
+    reviewBundleStore,
+    reviewBundleRepository,
+    reviewBundleReader,
+    claimEvaluationStore,
+    claimEvaluationRepository,
+    claimEvaluationReader,
+    claimAuthority,
+    maturityAssessmentStore,
+    maturityAssessmentRepository,
+    maturityAssessmentReader,
+    evidenceReader,
+    payload,
+    attemptReader,
+    clock,
+    audit,
+    ids,
+    productStore,
+    registerEvidence: new RegisterEvidence(repository, clock, audit, ids),
+    ingestExecutionAttemptEvidence: new IngestExecutionAttemptEvidence(
+      repository,
+      attemptReader,
+      clock,
+      audit,
+      ids,
+    ),
+    verifyEvidenceIntegrity: new VerifyEvidenceIntegrity(
+      repository,
+      payload,
+      clock,
+      audit,
+      ids,
+    ),
+    markEvidenceUnavailable: new MarkEvidenceUnavailable(
+      repository,
+      clock,
+      audit,
+      ids,
+    ),
+    createReviewBundle: new CreateReviewBundle(
+      reviewBundleRepository,
+      evidenceReader,
+      clock,
+      audit,
+      ids,
+    ),
+    attachEvidenceToReviewBundle: new AttachEvidenceToReviewBundle(
+      reviewBundleRepository,
+      evidenceReader,
+      clock,
+      audit,
+      ids,
+    ),
+    removeEvidenceFromReviewBundle: new RemoveEvidenceFromReviewBundle(
+      reviewBundleRepository,
+      evidenceReader,
+      clock,
+      audit,
+      ids,
+    ),
+    freezeReviewBundle: new FreezeReviewBundle(
+      reviewBundleRepository,
+      evidenceReader,
+      clock,
+      audit,
+      ids,
+    ),
+    startReview: new StartReview(reviewBundleRepository, clock, audit, ids),
+    completeReview: new CompleteReview(
+      reviewBundleRepository,
+      clock,
+      audit,
+      ids,
+    ),
+    reopenReview: new ReopenReview(reviewBundleRepository, clock, audit, ids),
+    evaluateClaim: new EvaluateClaim(
+      claimEvaluationRepository,
+      reviewBundleReader,
+      evidenceReader,
+      claimAuthority,
+      clock,
+      audit,
+      ids,
+    ),
+    confirmClaimEvaluation: new ConfirmClaimEvaluation(
+      claimEvaluationRepository,
+      reviewBundleReader,
+      evidenceReader,
+      claimAuthority,
+      clock,
+      audit,
+      ids,
+    ),
+    rejectClaimEvaluation: new RejectClaimEvaluation(
+      claimEvaluationRepository,
+      clock,
+      audit,
+      ids,
+    ),
+    proposeMaturity: new ProposeMaturity(
+      maturityAssessmentRepository,
+      claimEvaluationReader,
+      clock,
+      audit,
+      ids,
+    ),
+    confirmMaturity: new ConfirmMaturity(
+      maturityAssessmentRepository,
+      claimEvaluationReader,
+      claimAuthority,
+      clock,
+      audit,
+      ids,
+    ),
+    downgradeMaturity: new DowngradeMaturity(
+      maturityAssessmentRepository,
+      claimEvaluationReader,
+      claimAuthority,
+      clock,
+      audit,
+      ids,
+    ),
+    recommendNextGate: new RecommendNextGate(
+      evidenceReader,
+      reviewBundleReader,
+      claimEvaluationReader,
+      maturityAssessmentReader,
+      clock,
+      audit,
+      ids,
+    ),
+  };
+}
+
+export function createTestSqliteEvidenceReviewServices(
+  options: CreateSqliteEvidenceReviewServicesOptions & {
+    fixedNowIso?: string;
+  },
+): SqliteEvidenceReviewServices & {
+  fakePayload: FakeEvidencePayloadAdapter;
+  fakeAttempts: FakeExecutionAttemptReader;
+  memoryAudit: MemoryEvidenceAuditJournal;
+  fakeClaimAuthority: FakeClaimAuthority;
+} {
+  const fakePayload =
+    options.payload instanceof FakeEvidencePayloadAdapter
+      ? options.payload
+      : new FakeEvidencePayloadAdapter();
+  const fakeAttempts =
+    options.attemptReader instanceof FakeExecutionAttemptReader
+      ? options.attemptReader
+      : new FakeExecutionAttemptReader();
+  const memoryAudit =
+    options.audit instanceof MemoryEvidenceAuditJournal
+      ? options.audit
+      : new MemoryEvidenceAuditJournal();
+  const fakeClaimAuthority =
+    options.claimAuthority instanceof FakeClaimAuthority
+      ? options.claimAuthority
+      : new FakeClaimAuthority();
+
+  const services = createSqliteEvidenceReviewServices({
+    ...options,
+    clock:
+      options.clock ??
+      new FixedClock(options.fixedNowIso ?? "2026-08-15T07:00:00.000Z"),
+    audit: memoryAudit,
+    ids: options.ids ?? new FixedIdGenerator(),
+    payload: fakePayload,
+    attemptReader: fakeAttempts,
+    claimAuthority: fakeClaimAuthority,
+  });
+
+  return {
+    ...services,
+    fakePayload,
+    fakeAttempts,
+    memoryAudit,
+    fakeClaimAuthority,
+  };
+}
+
+===== END FILE: projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/createSqliteEvidenceReviewServices.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/appendEvidenceOutcomeToLps.ts =====
+/**
+ * M5-B W1 — factual LPS append of evidenceIds / reviewBundleIds after
+ * successful Evidence ingest + ReviewBundle create.
+ * Recommendation remains Recommendation (not Decision / not gate consume).
+ */
+
+import type { ProjectServices } from "@/lib/oa/project";
+import { LOCAL_MORRIS_ACTOR } from "../f2/recordDecision";
+
+export type AppendEvidenceOutcomeToLpsResult =
+  | { ok: true; lpsVersion: number }
+  | { ok: false; code: string; message: string };
+
+export async function appendEvidenceOutcomeToLps(input: {
+  projectId: string;
+  evidenceId: string;
+  reviewBundleId: string;
+  projectServices: Pick<
+    ProjectServices,
+    "appendLivingProjectStateVersion" | "getCurrentLivingProjectState"
+  >;
+}): Promise<AppendEvidenceOutcomeToLpsResult> {
+  const current =
+    await input.projectServices.getCurrentLivingProjectState.execute({
+      projectId: input.projectId,
+    });
+  if (!current.ok) {
+    return {
+      ok: false,
+      code: current.error.detailCode,
+      message: current.error.message,
+    };
+  }
+
+  const lps = current.livingProjectState;
+  const evidenceIds = [
+    ...new Set([...(lps.evidenceIds ?? []), input.evidenceId]),
+  ];
+  const reviewBundleIds = [
+    ...new Set([...(lps.reviewBundleIds ?? []), input.reviewBundleId]),
+  ];
+
+  const appended =
+    await input.projectServices.appendLivingProjectStateVersion.execute({
+      projectId: input.projectId,
+      expectedVersion: lps.version,
+      objective: lps.objective,
+      context: lps.context,
+      scope: lps.scope,
+      createdBy: LOCAL_MORRIS_ACTOR,
+      evidenceIds,
+      reviewBundleIds,
+    });
+
+  if (!appended.ok) {
+    return {
+      ok: false,
+      code: appended.error.detailCode,
+      message: appended.error.message,
+    };
+  }
+
+  return { ok: true, lpsVersion: appended.livingProjectState.version };
+}
+
+===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/appendEvidenceOutcomeToLps.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/project/m5ProductSchemaMigration.test.ts =====
+/**
+ * M5 — Product SQLite migration M3→M5 (and M2→M5 ladder).
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { DatabaseSync } from "node:sqlite";
+import { afterEach, describe, expect, it } from "vitest";
+import {
+  createTestDoctrineResolver,
+  type Digest,
+  type DoctrinePackagePin,
+} from "@/lib/oa/doctrine";
+import {
+  PRODUCT_SCHEMA_VERSION,
+  PRODUCT_SCHEMA_VERSION_M2,
+  PRODUCT_SCHEMA_VERSION_M3,
+  createTestSqliteProductProjectServices,
+  type ActorReference,
+  type SqliteProductProjectServices,
+} from "@/lib/oa/project";
+import { createSqliteCycleServices } from "@/lib/oa/cycle";
+
+const APP_ROOT = path.resolve(__dirname, "../../..");
+const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+const SCHEMAS = path.resolve(
+  APP_ROOT,
+  "../sfia-v3-modeled/v3-native-option-a/schemas",
+);
+
+const VALID_DIGEST =
+  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
+
+const VALID_PIN: DoctrinePackagePin = {
+  doctrinePackageId: "pkg:studio-v3-oa",
+  version: "1.0.0",
+  digest: VALID_DIGEST,
+};
+
+const ACTOR: ActorReference = {
+  actorId: "actor:morris",
+  role: "project_owner",
+  displayName: "Morris",
+  authorityLevel: "N3",
+};
+
+const tempDirs: string[] = [];
+const openServices: Array<{ dispose: () => void }> = [];
+
+function tempDbPath(name: string): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-m5-mig-"));
+  tempDirs.push(dir);
+  return path.join(dir, name);
+}
+
+function buildProjectServices(dbPath: string): SqliteProductProjectServices {
+  const { resolver } = createTestDoctrineResolver({
+    registryRoot: FIXTURES,
+    schemasRoot: SCHEMAS,
+  });
+  const svc = createTestSqliteProductProjectServices({
+    doctrineResolver: resolver,
+    fixedNowIso: "2026-08-15T08:00:00.000Z",
+    dbPath,
+  });
+  openServices.push(svc);
+  return svc;
+}
+
+function tableExists(
+  db: DatabaseSync,
+  name: string,
+): boolean {
+  const row = db
+    .prepare(
+      `SELECT name FROM sqlite_master WHERE type='table' AND name=?`,
+    )
+    .get(name) as { name?: string } | undefined;
+  return row?.name === name;
+}
+
+afterEach(() => {
+  while (openServices.length) {
+    try {
+      openServices.pop()?.dispose();
+    } catch {
+      /* ignore */
+    }
+  }
+  while (tempDirs.length) {
+    const dir = tempDirs.pop();
+    if (dir) fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+describe("M5 Product SQLite schema migration", () => {
+  it("migrates M3 DB additively to m5, preserves Project/LPS/Cycle/Decision tables", async () => {
+    const dbPath = tempDbPath("m3-legacy.sqlite");
+    {
+      const bootstrap = buildProjectServices(dbPath);
+      const created = await bootstrap.createProject.execute({
+        projectId: "prj:m5-mig",
+        title: "M3 legacy project",
+        objective: "preserve-m3",
+        context: "m3-context",
+        scope: "m3-scope",
+        doctrinePackagePin: VALID_PIN,
+        createdBy: ACTOR,
+        lpsVersionId: "lps:m5-mig-v1",
+        idempotencyKey: "idem:m5-mig",
+      });
+      expect(created.ok).toBe(true);
+      const cycles = createSqliteCycleServices({
+        projectServices: bootstrap,
+        productStore: bootstrap.store,
+      });
+      const cycle = await cycles.createCycle.execute({
+        cycleInstanceId: "cyc:m5-mig-1",
+        cycleTypeId: "cyc:delivery",
+        projectId: "prj:m5-mig",
+        signals: {},
+        createdBy: ACTOR,
+      });
+      expect(cycle.ok).toBe(true);
+      bootstrap.dispose();
+      openServices.pop();
+    }
+
+    {
+      const db = new DatabaseSync(dbPath);
+      db.exec("DROP TABLE IF EXISTS oa_execution_attempt_result_budget");
+      db.exec("DROP TABLE IF EXISTS oa_execution_attempt_active");
+      db.exec("DROP TABLE IF EXISTS oa_execution_attempts");
+      db.exec("DROP TABLE IF EXISTS oa_evidence_idempotency");
+      db.exec("DROP TABLE IF EXISTS oa_evidence");
+      db.exec("DROP TABLE IF EXISTS oa_review_bundle_idempotency");
+      db.exec("DROP TABLE IF EXISTS oa_review_bundles");
+      db.prepare(
+        `UPDATE schema_meta SET value = ? WHERE key = 'schema_version'`,
+      ).run(PRODUCT_SCHEMA_VERSION_M3);
+      db.close();
+    }
+
+    const svc = buildProjectServices(dbPath);
+    const version = svc.store.db
+      .prepare("SELECT value FROM schema_meta WHERE key = ?")
+      .get("schema_version") as { value: string };
+    expect(version.value).toBe(PRODUCT_SCHEMA_VERSION);
+    expect(PRODUCT_SCHEMA_VERSION).toBe("m5-0.1.0");
+    expect(PRODUCT_SCHEMA_VERSION_M3).toBe("m3-0.1.0");
+
+    expect(tableExists(svc.store.db, "oa_human_decisions")).toBe(true);
+    expect(tableExists(svc.store.db, "oa_execution_contracts")).toBe(true);
+    expect(tableExists(svc.store.db, "oa_execution_attempts")).toBe(true);
+    expect(tableExists(svc.store.db, "oa_evidence")).toBe(true);
+    expect(tableExists(svc.store.db, "oa_review_bundles")).toBe(true);
+    expect(
+      tableExists(svc.store.db, "oa_execution_attempt_result_budget"),
+    ).toBe(true);
+
+    const project = await svc.getProject.execute({ projectId: "prj:m5-mig" });
+    expect(project.ok).toBe(true);
+    const cycles = createSqliteCycleServices({
+      projectServices: svc,
+      productStore: svc.store,
+    });
+    const cycle = await cycles.cycles.findById("cyc:m5-mig-1");
+    expect(cycle?.cycleInstanceId).toBe("cyc:m5-mig-1");
+  });
+
+  it("migrates M2 DB through M3+M5 ladder", async () => {
+    const dbPath = tempDbPath("m2-legacy.sqlite");
+    {
+      const bootstrap = buildProjectServices(dbPath);
+      bootstrap.dispose();
+      openServices.pop();
+    }
+    {
+      const db = new DatabaseSync(dbPath);
+      db.exec("DROP TABLE IF EXISTS oa_human_decisions");
+      db.exec("DROP TABLE IF EXISTS oa_execution_contracts");
+      db.exec("DROP TABLE IF EXISTS oa_execution_attempt_result_budget");
+      db.exec("DROP TABLE IF EXISTS oa_execution_attempt_active");
+      db.exec("DROP TABLE IF EXISTS oa_execution_attempts");
+      db.exec("DROP TABLE IF EXISTS oa_evidence_idempotency");
+      db.exec("DROP TABLE IF EXISTS oa_evidence");
+      db.exec("DROP TABLE IF EXISTS oa_review_bundle_idempotency");
+      db.exec("DROP TABLE IF EXISTS oa_review_bundles");
+      db.prepare(
+        `UPDATE schema_meta SET value = ? WHERE key = 'schema_version'`,
+      ).run(PRODUCT_SCHEMA_VERSION_M2);
+      db.close();
+    }
+    const svc = buildProjectServices(dbPath);
+    const version = svc.store.db
+      .prepare("SELECT value FROM schema_meta WHERE key = ?")
+      .get("schema_version") as { value: string };
+    expect(version.value).toBe("m5-0.1.0");
+    expect(tableExists(svc.store.db, "oa_execution_attempts")).toBe(true);
+  });
+
+  it("m5 reopen is idempotent", () => {
+    const dbPath = tempDbPath("m5-reopen.sqlite");
+    const a = buildProjectServices(dbPath);
+    a.dispose();
+    openServices.pop();
+    const b = buildProjectServices(dbPath);
+    const version = b.store.db
+      .prepare("SELECT value FROM schema_meta WHERE key = ?")
+      .get("schema_version") as { value: string };
+    expect(version.value).toBe(PRODUCT_SCHEMA_VERSION);
+  });
+
+  it("fails closed on unknown schema version", () => {
+    const dbPath = tempDbPath("unknown.sqlite");
+    const db = new DatabaseSync(dbPath);
+    db.exec(`
+CREATE TABLE schema_meta (key TEXT PRIMARY KEY NOT NULL, value TEXT NOT NULL);
+INSERT INTO schema_meta(key, value) VALUES ('schema_version', 'm99-future');
+`);
+    db.close();
+    expect(() => buildProjectServices(dbPath)).toThrow(
+      /product_sqlite_unsupported_schema/,
+    );
+  });
+});
+
+===== END FILE: projects/sfia-studio/app/__tests__/oa/project/m5ProductSchemaMigration.test.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/project/m5W1LpsAppend.test.ts =====
+/**
+ * M5-B W1 — LPS factual evidenceIds / reviewBundleIds append + carry-forward.
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
+import {
+  createTestDoctrineResolver,
+  type Digest,
+  type DoctrinePackagePin,
+} from "@/lib/oa/doctrine";
+import {
+  createTestSqliteProductProjectServices,
+  type ActorReference,
+  type SqliteProductProjectServices,
+} from "@/lib/oa/project";
+import { appendEvidenceOutcomeToLps } from "@/features/project-assistant/f3/appendEvidenceOutcomeToLps";
+
+const APP_ROOT = path.resolve(__dirname, "../../..");
+const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+const SCHEMAS = path.resolve(
+  APP_ROOT,
+  "../sfia-v3-modeled/v3-native-option-a/schemas",
+);
+
+const VALID_DIGEST =
+  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
+
+const VALID_PIN: DoctrinePackagePin = {
+  doctrinePackageId: "pkg:studio-v3-oa",
+  version: "1.0.0",
+  digest: VALID_DIGEST,
+};
+
+const ACTOR: ActorReference = {
+  actorId: "actor:morris",
+  role: "project_owner",
+  displayName: "Morris",
+  authorityLevel: "N3",
+};
+
+const tempDirs: string[] = [];
+const openServices: Array<{ dispose: () => void }> = [];
+
+function tempDbPath(name: string): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-m5-w1-"));
+  tempDirs.push(dir);
+  return path.join(dir, name);
+}
+
+function openProjects(dbPath: string): SqliteProductProjectServices {
+  const { resolver } = createTestDoctrineResolver({
+    registryRoot: FIXTURES,
+    schemasRoot: SCHEMAS,
+  });
+  const svc = createTestSqliteProductProjectServices({
+    doctrineResolver: resolver,
+    fixedNowIso: "2026-08-15T09:30:00.000Z",
+    dbPath,
+  });
+  openServices.push(svc);
+  return svc;
+}
+
+afterEach(() => {
+  while (openServices.length) {
+    try {
+      openServices.pop()?.dispose();
+    } catch {
+      /* ignore */
+    }
+  }
+  while (tempDirs.length) {
+    const dir = tempDirs.pop();
+    if (dir) fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+describe("M5 W1 LPS evidence/RB append", () => {
+  it("appends evidenceIds and reviewBundleIds factually", async () => {
+    const dbPath = tempDbPath("w1.sqlite");
+    const projects = openProjects(dbPath);
+    await projects.createProject.execute({
+      projectId: "prj:m5-w1",
+      title: "M5 W1",
+      objective: "m5-w1-objective",
+      context: "m5-w1-context",
+      scope: "m5-w1-scope",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      lpsVersionId: "lps:m5-w1-v1",
+      idempotencyKey: "idem:m5-w1",
+    });
+
+    const linked = await appendEvidenceOutcomeToLps({
+      projectId: "prj:m5-w1",
+      evidenceId: "ev:m5-w1",
+      reviewBundleId: "rb:m5-w1",
+      projectServices: projects,
+    });
+    expect(linked.ok).toBe(true);
+    if (!linked.ok) return;
+    expect(linked.lpsVersion).toBe(2);
+
+    const lps = await projects.getCurrentLivingProjectState.execute({
+      projectId: "prj:m5-w1",
+    });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) return;
+    expect(lps.livingProjectState.evidenceIds).toEqual(["ev:m5-w1"]);
+    expect(lps.livingProjectState.reviewBundleIds).toEqual(["rb:m5-w1"]);
+  });
+
+  it("preserves evidenceIds/reviewBundleIds when omitted on later append", async () => {
+    const dbPath = tempDbPath("carry.sqlite");
+    const projects = openProjects(dbPath);
+    await projects.createProject.execute({
+      projectId: "prj:m5-carry",
+      title: "M5 carry",
+      objective: "carry-objective",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      lpsVersionId: "lps:m5-carry-v1",
+      idempotencyKey: "idem:m5-carry",
+    });
+
+    await appendEvidenceOutcomeToLps({
+      projectId: "prj:m5-carry",
+      evidenceId: "ev:keep",
+      reviewBundleId: "rb:keep",
+      projectServices: projects,
+    });
+
+    const appended = await projects.appendLivingProjectStateVersion.execute({
+      projectId: "prj:m5-carry",
+      expectedVersion: 2,
+      objective: "carry-objective-v3",
+      createdBy: ACTOR,
+      decisionIds: ["dec:1"],
+    });
+    expect(appended.ok).toBe(true);
+    if (!appended.ok) return;
+    expect(appended.livingProjectState.evidenceIds).toEqual(["ev:keep"]);
+    expect(appended.livingProjectState.reviewBundleIds).toEqual(["rb:keep"]);
+    expect(appended.livingProjectState.decisionIds).toEqual(["dec:1"]);
+  });
+});
+
+===== END FILE: projects/sfia-studio/app/__tests__/oa/project/m5W1LpsAppend.test.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessProof.test.ts =====
+/**
+ * M5 strong restart proof — two independent Node processes, same DB file.
+ * Attempt + Evidence + ReviewBundle + W1 LPS ids + result budget.
+ * @vitest-environment node
+ */
+import { spawnSync } from "node:child_process";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { describe, expect, it } from "vitest";
+
+const APP_ROOT = path.resolve(__dirname, "../../..");
+const WORKER = path.join(
+  APP_ROOT,
+  "__tests__/oa/project/m5RestartProcessWorker.ts",
+);
+const TSX = path.join(APP_ROOT, "node_modules/.bin/tsx");
+
+describe("M5 process restart proof", () => {
+  it(
+    "create Attempt/Evidence/RB/W1 in process A, read in process B",
+    () => {
+      expect(fs.existsSync(TSX)).toBe(true);
+      const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-m5-proc-"));
+      const dbPath = path.join(dir, "oa-product.sqlite");
+      const projectId = "prj:m5-proc";
+
+      try {
+        const create = spawnSync(TSX, [WORKER, "create", dbPath, projectId], {
+          cwd: APP_ROOT,
+          encoding: "utf8",
+          env: { ...process.env },
+          timeout: 60_000,
+        });
+        expect(create.status, create.stderr || create.stdout).toBe(0);
+        const created = JSON.parse(create.stdout.trim()) as {
+          ok: boolean;
+          attemptId?: string;
+          evidenceId?: string;
+          reviewBundleId?: string;
+          lpsVersion?: number;
+        };
+        expect(created.ok).toBe(true);
+
+        const read = spawnSync(TSX, [WORKER, "read", dbPath, projectId], {
+          cwd: APP_ROOT,
+          encoding: "utf8",
+          env: { ...process.env },
+          timeout: 60_000,
+        });
+        expect(read.status, read.stderr || read.stdout).toBe(0);
+        const loaded = JSON.parse(read.stdout.trim()) as {
+          ok: boolean;
+          attemptStatus?: string;
+          resultBudget?: number | null;
+          evidenceId?: string;
+          reviewBundleId?: string;
+          evidenceIds?: string[];
+          reviewBundleIds?: string[];
+          lpsVersion?: number;
+        };
+        expect(loaded.ok).toBe(true);
+        expect(loaded.attemptStatus).toBe("accepted");
+        expect(loaded.resultBudget).toBe(1);
+        expect(loaded.evidenceId).toBe("ev:m5-proc");
+        expect(loaded.reviewBundleId).toBe("rb:m5-proc");
+        expect(loaded.evidenceIds).toEqual(["ev:m5-proc"]);
+        expect(loaded.reviewBundleIds).toEqual(["rb:m5-proc"]);
+        expect(loaded.lpsVersion).toBe(created.lpsVersion);
+      } finally {
+        fs.rmSync(dir, { recursive: true, force: true });
+      }
+    },
+    60_000,
+  );
+});
+
+===== END FILE: projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessProof.test.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessWorker.ts =====
+/**
+ * Child-process worker for M5 restart proof.
+ * Usage: tsx m5RestartProcessWorker.ts <create|read> <dbPath> <projectId>
+ */
+import path from "node:path";
+import {
+  createTestDoctrineResolver,
+  type Digest,
+  type DoctrinePackagePin,
+} from "@/lib/oa/doctrine";
+import { createTestSqliteProductProjectServices } from "@/lib/oa/project";
+import {
+  SqliteExecutionAttemptRepository,
+  SqliteExecutionAttemptTechnicalStore,
+  type ExecutionAttempt,
+} from "@/lib/oa/execution-attempt";
+import { createTestSqliteEvidenceReviewServices } from "@/lib/oa/evidence-review";
+import { appendEvidenceOutcomeToLps } from "@/features/project-assistant/f3/appendEvidenceOutcomeToLps";
+
+const APP_ROOT = process.cwd();
+const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+const SCHEMAS = path.resolve(
+  APP_ROOT,
+  "../sfia-v3-modeled/v3-native-option-a/schemas",
+);
+
+const VALID_DIGEST =
+  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
+
+const VALID_PIN: DoctrinePackagePin = {
+  doctrinePackageId: "pkg:studio-v3-oa",
+  version: "1.0.0",
+  digest: VALID_DIGEST,
+};
+
+const NOW = "2026-08-15T10:00:00.000Z";
+const EVIDENCE_DIGEST =
+  "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" as Digest;
+
+function baseAttempt(attemptId: string): ExecutionAttempt {
+  return {
+    schemaVersion: "0.2.0-oa",
+    attemptId,
+    executionContractId: "xct:m5-proc",
+    executionContractVersion: 1,
+    selectedAgentRef: "agt:fixture",
+    status: "accepted",
+    idempotencyKey: `idem-${attemptId}`,
+    correlationId: "cor:m5-proc",
+    version: 1,
+    createdAt: NOW,
+    provenance: {
+      schemaVersion: "0.1.0-oa",
+      provenanceRecordId: "prv:m5-proc",
+      actor: { actorId: "actor:morris", role: "decision_maker" },
+      source: "human_decision",
+      timestamp: NOW,
+      correlationId: "cor:m5-proc",
+    },
+    selectionStrategy: "capabilities_deterministic",
+    selectionProfile: "standard",
+    selectionExpiresAt: "2026-08-15T10:30:00.000Z",
+  };
+}
+
+async function main(): Promise<void> {
+  const [, , mode, dbPath, projectId] = process.argv;
+  if (!mode || !dbPath || !projectId) {
+    throw new Error("usage: <create|read> <dbPath> <projectId>");
+  }
+
+  const { resolver } = createTestDoctrineResolver({
+    registryRoot: FIXTURES,
+    schemasRoot: SCHEMAS,
+  });
+  const svc = createTestSqliteProductProjectServices({
+    doctrineResolver: resolver,
+    fixedNowIso: NOW,
+    dbPath,
+  });
+
+  try {
+    if (mode === "create") {
+      const created = await svc.createProject.execute({
+        projectId,
+        title: "M5 Process Restart",
+        objective: "m5-process-restart-objective",
+        context: "m5-process-restart-context",
+        scope: "m5-process-restart-scope",
+        doctrinePackagePin: VALID_PIN,
+        createdBy: {
+          actorId: "actor:morris",
+          role: "project_owner",
+          displayName: "Morris",
+          authorityLevel: "N3",
+        },
+        lpsVersionId: "lps:m5-proc-v1",
+        idempotencyKey: `idem:${projectId}`,
+      });
+      if (!created.ok) {
+        console.error(JSON.stringify(created.error));
+        process.exit(2);
+      }
+
+      const attempts = new SqliteExecutionAttemptRepository(svc.store);
+      const tech = new SqliteExecutionAttemptTechnicalStore(svc.store);
+      const attempt = baseAttempt("xat:m5-proc");
+      await attempts.create(attempt);
+      tech.resultRecordingAttempts.set(attempt.attemptId, 1);
+
+      const evidence = createTestSqliteEvidenceReviewServices({
+        productStore: svc.store,
+        fixedNowIso: NOW,
+      });
+      const reg = await evidence.registerEvidence.execute({
+        evidenceId: "ev:m5-proc",
+        idempotencyKey: "idem:ev:m5-proc",
+        actor: {
+          actorId: "actor:morris",
+          role: "decision_maker",
+          authorityLevel: "N3",
+        },
+        type: "document",
+        source: "fixture",
+        sourceKind: "manual",
+        bindings: { projectId },
+        classification: "internal",
+        storageMode: "metadata_only",
+        digest: EVIDENCE_DIGEST,
+      });
+      if (!reg.ok) {
+        console.error(JSON.stringify(reg.error));
+        process.exit(3);
+      }
+      const bundle = await evidence.createReviewBundle.execute({
+        reviewBundleId: "rb:m5-proc",
+        idempotencyKey: "idem:rb:m5-proc",
+        actor: {
+          actorId: "actor:morris",
+          role: "decision_maker",
+          authorityLevel: "N3",
+        },
+        projectId,
+        evidenceIds: ["ev:m5-proc"],
+      });
+      if (!bundle.ok) {
+        console.error(JSON.stringify(bundle.error));
+        process.exit(4);
+      }
+
+      const linked = await appendEvidenceOutcomeToLps({
+        projectId,
+        evidenceId: "ev:m5-proc",
+        reviewBundleId: "rb:m5-proc",
+        projectServices: svc,
+      });
+      if (!linked.ok) {
+        console.error(JSON.stringify(linked));
+        process.exit(5);
+      }
+
+      process.stdout.write(
+        `${JSON.stringify({
+          ok: true,
+          attemptId: attempt.attemptId,
+          evidenceId: "ev:m5-proc",
+          reviewBundleId: "rb:m5-proc",
+          lpsVersion: linked.lpsVersion,
+          resultBudget: 1,
+        })}\n`,
+      );
+      return;
+    }
+
+    if (mode === "read") {
+      const attempts = new SqliteExecutionAttemptRepository(svc.store);
+      const tech = new SqliteExecutionAttemptTechnicalStore(svc.store);
+      const evidence = createTestSqliteEvidenceReviewServices({
+        productStore: svc.store,
+      });
+      const attempt = await attempts.findById("xat:m5-proc");
+      const ev = await evidence.repository.findById("ev:m5-proc");
+      const rb = await evidence.reviewBundleRepository.findById("rb:m5-proc");
+      const lps = await svc.getCurrentLivingProjectState.execute({ projectId });
+      if (!attempt || !ev || !rb || !lps.ok) {
+        process.stdout.write(`${JSON.stringify({ ok: false })}\n`);
+        process.exit(6);
+      }
+      process.stdout.write(
+        `${JSON.stringify({
+          ok: true,
+          attemptStatus: attempt.status,
+          resultBudget: tech.resultRecordingAttempts.get("xat:m5-proc") ?? null,
+          evidenceId: ev.evidenceId,
+          reviewBundleId: rb.reviewBundleId,
+          evidenceIds: lps.livingProjectState.evidenceIds ?? [],
+          reviewBundleIds: lps.livingProjectState.reviewBundleIds ?? [],
+          lpsVersion: lps.livingProjectState.version,
+        })}\n`,
+      );
+      return;
+    }
+
+    throw new Error(`unknown mode ${mode}`);
+  } finally {
+    svc.dispose();
+  }
+}
+
+main().catch((err) => {
+  console.error(err instanceof Error ? err.stack : String(err));
+  process.exit(1);
+});
+
+===== END FILE: projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessWorker.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/m5AttemptDurability.test.ts =====
+/**
+ * M5 — ExecutionAttempt durability + durable resultRecordingAttempts budget.
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
+import {
+  createTestDoctrineResolver,
+  type Digest,
+  type DoctrinePackagePin,
+} from "@/lib/oa/doctrine";
+import {
+  createTestSqliteProductProjectServices,
+  type ActorReference,
+  type SqliteProductProjectServices,
+} from "@/lib/oa/project";
+import {
+  SqliteExecutionAttemptRepository,
+  SqliteExecutionAttemptTechnicalStore,
+  type ExecutionAttempt,
+} from "@/lib/oa/execution-attempt";
+
+const APP_ROOT = path.resolve(__dirname, "../../..");
+const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+const SCHEMAS = path.resolve(
+  APP_ROOT,
+  "../sfia-v3-modeled/v3-native-option-a/schemas",
+);
+
+const VALID_DIGEST =
+  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
+
+const VALID_PIN: DoctrinePackagePin = {
+  doctrinePackageId: "pkg:studio-v3-oa",
+  version: "1.0.0",
+  digest: VALID_DIGEST,
+};
+
+const ACTOR: ActorReference = {
+  actorId: "actor:morris",
+  role: "project_owner",
+  displayName: "Morris",
+  authorityLevel: "N3",
+};
+
+const NOW = "2026-08-15T08:30:00.000Z";
+
+const tempDirs: string[] = [];
+const openServices: Array<{ dispose: () => void }> = [];
+
+function tempDbPath(name: string): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-m5-att-"));
+  tempDirs.push(dir);
+  return path.join(dir, name);
+}
+
+function openProjects(dbPath: string): SqliteProductProjectServices {
+  const { resolver } = createTestDoctrineResolver({
+    registryRoot: FIXTURES,
+    schemasRoot: SCHEMAS,
+  });
+  const svc = createTestSqliteProductProjectServices({
+    doctrineResolver: resolver,
+    fixedNowIso: NOW,
+    dbPath,
+  });
+  openServices.push(svc);
+  return svc;
+}
+
+function baseAttempt(
+  overrides: Partial<ExecutionAttempt> & { attemptId: string },
+): ExecutionAttempt {
+  return {
+    schemaVersion: "0.2.0-oa",
+    executionContractId: "xct:m5-001",
+    executionContractVersion: 1,
+    selectedAgentRef: "agt:fixture",
+    status: "accepted",
+    idempotencyKey: `idem-${overrides.attemptId}`,
+    correlationId: "cor:m5-att",
+    version: 1,
+    createdAt: NOW,
+    provenance: {
+      schemaVersion: "0.1.0-oa",
+      provenanceRecordId: "prv:m5-att",
+      actor: { actorId: "actor:morris", role: "decision_maker" },
+      source: "human_decision",
+      timestamp: NOW,
+      correlationId: "cor:m5-att",
+    },
+    selectionStrategy: "capabilities_deterministic",
+    selectionProfile: "standard",
+    selectionExpiresAt: "2026-08-15T09:00:00.000Z",
+    ...overrides,
+  };
+}
+
+afterEach(() => {
+  while (openServices.length) {
+    try {
+      openServices.pop()?.dispose();
+    } catch {
+      /* ignore */
+    }
+  }
+  while (tempDirs.length) {
+    const dir = tempDirs.pop();
+    if (dir) fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+describe("M5 ExecutionAttempt durability", () => {
+  it("persists attempt + active index + result budget across reopen", async () => {
+    const dbPath = tempDbPath("attempt.sqlite");
+    const projects = openProjects(dbPath);
+    await projects.createProject.execute({
+      projectId: "prj:m5-att",
+      title: "M5 Attempt",
+      objective: "m5-att-objective",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      lpsVersionId: "lps:m5-att-v1",
+      idempotencyKey: "idem:m5-att-prj",
+    });
+
+    const repo = new SqliteExecutionAttemptRepository(projects.store);
+    const tech = new SqliteExecutionAttemptTechnicalStore(projects.store);
+    const attempt = baseAttempt({ attemptId: "xat:m5-durable" });
+    await repo.create(attempt);
+    await repo.reserveActiveContract(
+      attempt.executionContractId,
+      attempt.attemptId,
+    );
+    tech.resultRecordingAttempts.set(attempt.attemptId, 2);
+
+    const active = await repo.findActiveByContract(attempt.executionContractId);
+    expect(active?.attemptId).toBe("xat:m5-durable");
+    expect(tech.resultRecordingAttempts.get(attempt.attemptId)).toBe(2);
+
+    projects.dispose();
+    openServices.pop();
+
+    const projects2 = openProjects(dbPath);
+    const repo2 = new SqliteExecutionAttemptRepository(projects2.store);
+    const tech2 = new SqliteExecutionAttemptTechnicalStore(projects2.store);
+    const loaded = await repo2.findById("xat:m5-durable");
+    expect(loaded?.status).toBe("accepted");
+    expect(loaded?.idempotencyKey).toBe("idem-xat:m5-durable");
+    const active2 = await repo2.findActiveByContract("xct:m5-001");
+    expect(active2?.attemptId).toBe("xat:m5-durable");
+    expect(tech2.resultRecordingAttempts.get("xat:m5-durable")).toBe(2);
+  });
+
+  it("enforces OCC and active reservation on SQLite", async () => {
+    const dbPath = tempDbPath("occ.sqlite");
+    const projects = openProjects(dbPath);
+    const repo = new SqliteExecutionAttemptRepository(projects.store);
+    await repo.create(baseAttempt({ attemptId: "xat:m5-occ" }));
+    await expect(
+      repo.update(
+        baseAttempt({
+          attemptId: "xat:m5-occ",
+          status: "running",
+          version: 2,
+          startedAt: NOW,
+        }),
+        99,
+      ),
+    ).rejects.toMatchObject({ detailCode: "VERSION_CONFLICT" });
+
+    await repo.reserveActiveContract("xct:m5-001", "xat:m5-occ");
+    await expect(
+      repo.reserveActiveContract("xct:m5-001", "xat:other"),
+    ).rejects.toMatchObject({ detailCode: "EXECUTION_ALREADY_ACTIVE" });
+  });
+});
+
+===== END FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/m5AttemptDurability.test.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/evidence-review/m5EvidenceReviewDurability.test.ts =====
+/**
+ * M5 — Evidence + ReviewBundle Product SQLite durability.
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
+import {
+  createTestDoctrineResolver,
+  type Digest,
+  type DoctrinePackagePin,
+} from "@/lib/oa/doctrine";
+import {
+  createTestSqliteProductProjectServices,
+  type ActorReference,
+  type SqliteProductProjectServices,
+} from "@/lib/oa/project";
+import {
+  createTestSqliteEvidenceReviewServices,
+  type ActorReference as EvidenceActor,
+  type Digest as EvidenceDigest,
+} from "@/lib/oa/evidence-review";
+
+const APP_ROOT = path.resolve(__dirname, "../../..");
+const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+const SCHEMAS = path.resolve(
+  APP_ROOT,
+  "../sfia-v3-modeled/v3-native-option-a/schemas",
+);
+
+const VALID_DIGEST =
+  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
+
+const EVIDENCE_DIGEST =
+  "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" as EvidenceDigest;
+
+const VALID_PIN: DoctrinePackagePin = {
+  doctrinePackageId: "pkg:studio-v3-oa",
+  version: "1.0.0",
+  digest: VALID_DIGEST,
+};
+
+const ACTOR: ActorReference = {
+  actorId: "actor:morris",
+  role: "project_owner",
+  displayName: "Morris",
+  authorityLevel: "N3",
+};
+
+const EV_ACTOR: EvidenceActor = {
+  actorId: "actor:morris",
+  role: "decision_maker",
+  authorityLevel: "N3",
+};
+
+const tempDirs: string[] = [];
+const openServices: Array<{ dispose: () => void }> = [];
+
+function tempDbPath(name: string): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-m5-ev-"));
+  tempDirs.push(dir);
+  return path.join(dir, name);
+}
+
+function openProjects(dbPath: string): SqliteProductProjectServices {
+  const { resolver } = createTestDoctrineResolver({
+    registryRoot: FIXTURES,
+    schemasRoot: SCHEMAS,
+  });
+  const svc = createTestSqliteProductProjectServices({
+    doctrineResolver: resolver,
+    fixedNowIso: "2026-08-15T09:00:00.000Z",
+    dbPath,
+  });
+  openServices.push(svc);
+  return svc;
+}
+
+afterEach(() => {
+  while (openServices.length) {
+    try {
+      openServices.pop()?.dispose();
+    } catch {
+      /* ignore */
+    }
+  }
+  while (tempDirs.length) {
+    const dir = tempDirs.pop();
+    if (dir) fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+describe("M5 Evidence/ReviewBundle durability", () => {
+  it("persists Evidence + ReviewBundle across Product SQLite reopen", async () => {
+    const dbPath = tempDbPath("ev-rb.sqlite");
+    const projects = openProjects(dbPath);
+    await projects.createProject.execute({
+      projectId: "prj:m5-ev",
+      title: "M5 Evidence",
+      objective: "m5-ev-objective",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      lpsVersionId: "lps:m5-ev-v1",
+      idempotencyKey: "idem:m5-ev-prj",
+    });
+
+    const services = createTestSqliteEvidenceReviewServices({
+      productStore: projects.store,
+      fixedNowIso: "2026-08-15T09:00:00.000Z",
+    });
+
+    const reg = await services.registerEvidence.execute({
+      evidenceId: "ev:m5-durable",
+      idempotencyKey: "idem:ev:m5-durable",
+      actor: EV_ACTOR,
+      type: "document",
+      source: "fixture",
+      sourceKind: "manual",
+      bindings: { projectId: "prj:m5-ev" },
+      classification: "internal",
+      storageMode: "metadata_only",
+      digest: EVIDENCE_DIGEST,
+    });
+    expect(reg.ok).toBe(true);
+
+    const bundle = await services.createReviewBundle.execute({
+      reviewBundleId: "rb:m5-durable",
+      idempotencyKey: "idem:rb:m5-durable",
+      actor: EV_ACTOR,
+      projectId: "prj:m5-ev",
+      evidenceIds: ["ev:m5-durable"],
+    });
+    expect(bundle.ok).toBe(true);
+
+    projects.dispose();
+    openServices.pop();
+
+    const projects2 = openProjects(dbPath);
+    const services2 = createTestSqliteEvidenceReviewServices({
+      productStore: projects2.store,
+    });
+    const evidence = await services2.repository.findById("ev:m5-durable");
+    expect(evidence?.status).toBe("available");
+    expect(evidence?.bindings.projectId).toBe("prj:m5-ev");
+    const rb = await services2.reviewBundleRepository.findById("rb:m5-durable");
+    expect(rb?.evidenceRefs).toEqual(["ev:m5-durable"]);
+    const byKey = await services2.repository.findByIdempotencyKey(
+      "idem:ev:m5-durable",
+    );
+    expect(byKey?.evidence.evidenceId).toBe("ev:m5-durable");
+  });
+
+  it("createSuccessorAndMarkSuperseded is transactional on Product SQLite", async () => {
+    const dbPath = tempDbPath("reopen.sqlite");
+    const projects = openProjects(dbPath);
+    const services = createTestSqliteEvidenceReviewServices({
+      productStore: projects.store,
+    });
+    const reg = await services.registerEvidence.execute({
+      evidenceId: "ev:m5-reopen",
+      idempotencyKey: "idem:ev:m5-reopen",
+      actor: EV_ACTOR,
+      type: "document",
+      source: "fixture",
+      sourceKind: "manual",
+      bindings: { projectId: "prj:m5-reopen" },
+      classification: "internal",
+      storageMode: "metadata_only",
+      digest: EVIDENCE_DIGEST,
+    });
+    expect(reg.ok).toBe(true);
+    const created = await services.createReviewBundle.execute({
+      reviewBundleId: "rb:m5-src",
+      idempotencyKey: "idem:rb:m5-src",
+      actor: EV_ACTOR,
+      projectId: "prj:m5-reopen",
+      evidenceIds: ["ev:m5-reopen"],
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+
+    // Freeze → start → complete so reopen is legal.
+    const frozen = await services.freezeReviewBundle.execute({
+      reviewBundleId: "rb:m5-src",
+      actor: EV_ACTOR,
+      expectedVersion: 1,
+      idempotencyKey: "idem:freeze:m5-src",
+    });
+    expect(frozen.ok).toBe(true);
+    const started = await services.startReview.execute({
+      reviewBundleId: "rb:m5-src",
+      actor: EV_ACTOR,
+      expectedVersion: 2,
+      idempotencyKey: "idem:start:m5-src",
+    });
+    expect(started.ok).toBe(true);
+    const completed = await services.completeReview.execute({
+      reviewBundleId: "rb:m5-src",
+      actor: EV_ACTOR,
+      expectedVersion: 3,
+      outcome: "accepted",
+      idempotencyKey: "idem:complete:m5-src",
+    });
+    expect(completed.ok).toBe(true);
+
+    const reopened = await services.reopenReview.execute({
+      reviewBundleId: "rb:m5-src",
+      successorReviewBundleId: "rb:m5-successor",
+      actor: EV_ACTOR,
+      expectedVersion: 4,
+      reason: "revise",
+      idempotencyKey: "idem:reopen:m5-src",
+    });
+    expect(reopened.ok).toBe(true);
+    if (!reopened.ok) return;
+    expect(reopened.reviewBundle.reviewBundleId).toBe("rb:m5-src");
+    expect(reopened.reviewBundle.status).toBe("superseded");
+    expect(reopened.successor?.reviewBundleId).toBe("rb:m5-successor");
+    expect(reopened.successor?.status).toBe("draft");
+
+    const superseded = await services.reviewBundleRepository.findById(
+      "rb:m5-src",
+    );
+    expect(superseded?.status).toBe("superseded");
+    const successor = await services.reviewBundleRepository.findById(
+      "rb:m5-successor",
+    );
+    expect(successor?.status).toBe("draft");
+  });
+});
+
+===== END FILE: projects/sfia-studio/app/__tests__/oa/evidence-review/m5EvidenceReviewDurability.test.ts =====
+```
+
+---
+END OF REVIEW PACK FULL
