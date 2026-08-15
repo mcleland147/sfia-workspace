@@ -1,22 +1,22 @@
 # SFIA Review Pack — FULL
 
 ## 1. Timestamp (Europe/Paris)
-2026-08-15 07:55:12 CEST
+2026-08-15 08:07:56 CEST
 
 ## 2. GO exact
 GO Morris M5 Delivery
 
 ## 3. Correction pass
-M5 DELIVERY — QA CORRECTION PASS B1 / B2 / B3
+M5 DELIVERY — FINAL QA CORRECTION PASS C1 / C2
 
-Incoming ChatGPT verdict corrected:
-M5 DELIVERY QA — CORRECTIONS REQUIRED — NOT READY FOR COMMIT / PUSH / PR
+Incoming ChatGPT verdict:
+M5 DELIVERY QA RE-REVIEW — B1 PASS — B2 PASS — B3 PASS — C1 BLOCKING — C2 BLOCKING PROOF — NOT YET READY FOR COMMIT / PUSH / PR
 
 Incoming handoff:
-f3b915e275fa2a2e06844b4d477631ef73e878ac
+9abeddc064b176ae2f62d9a1e6516bb54eda6d3a
 
 ## 4. Cycle / Profile / Typology
-- Cycle: 8 — Delivery / implementation (correction pass)
+- Cycle: 8 — Delivery / implementation (final QA correction pass)
 - Profile: Critical
 - Typology: EVOL
 
@@ -26,73 +26,93 @@ f3b915e275fa2a2e06844b4d477631ef73e878ac
 - HEAD: 129570dfd44af5b4d466cc3dc0c166d928d26ef5
 - origin/main: 129570dfd44af5b4d466cc3dc0c166d928d26ef5
 - Expected: 129570dfd44af5b4d466cc3dc0c166d928d26ef5 — MATCH
-- Remote delivery branch: ABSENT (no project push)
-- Incoming handoff remote at correction start: f3b915e275fa2a2e06844b4b477631ef73e878ac
+- Remote delivery branch: ABSENT
+- Incoming handoff at correction start: 9abeddc064b176ae2f62d9a1e6516bb54eda6d3a
 
-## 6. Convergence pre-check
+## 6. Convergence Pre-check
 - Capability: V3-F14 (+ F13/F02/F04/F05/F09)
 - Milestone: M5
 - Previous: M4 CLOSED
 - Next after M5 closure: M6 NOT AUTHORIZED
 - Architecture preserved: M5-A OPTION B · M5-B W1 · M5-C KEEP TEMPORARY WITH EXIT
-- No parallel Product Store / new engine / REAL / journal retirement
+- Gaps closed this pass: C1 truthful disclosure · C2 direct Product action proof
 
 ## 7. Sources lues
-- Process templates / routing / operating model / guardrails
+- Process templates / routing / operating model / guardrails / CKC synthetic map
 - Convergence Build Doctrine + Roadmap (read-only)
 - v3 framing 32 / 33 / 35
-- Handoff @ f3b915e2…
-- Repo Attempt / Evidence / ReviewBundle / Project / Runtime / F3 surfaces
+- Handoff @ 9abeddc0…
+- F3 constants / confirm / ingest / rehydrate / actions / types / runtime
 
 ## 8. Git Truth
 - HEAD == origin/main == expected base
 - staged empty
-- M5 candidate uncommitted preserved (no reset/checkout)
+- M5 candidate + B1/B2/B3 preserved (no reset)
 - REAL env unset
 
-## 9. Candidate avant corrections
-Delivery candidate from f3b915e2 present locally with Option B + W1 wiring, but ChatGPT blocking findings B1/B2/B3.
+## 9. Previous QA (preserved)
+- B1 PASS / unchanged semantics
+- B2 PASS / unchanged semantics
+- B3 PASS / unchanged semantics
 
-## 10. B1 finding + correction
-Finding: restart proof seeded accepted Attempt via repo create; RegisterEvidence manual; no resultRef; process B did not recompute RecommendNextGate; durable F3 readback absent.
+## 10. C1 finding entrant
+F3_PROCESS_LOCAL_NOTICE claimed restart erases Attempt/Evidence while Product SQLite M5 persists them; also returned by projectAssistantRehydrateEvidenceOutcomeAction.
 
-Correction:
-- Process A uses real use cases: Select → Start (TestExecutionAdapter externalEffects=false) → RecordExecutionResult → status=succeeded + resultRef
-- IngestExecutionAttemptEvidence (not manual RegisterEvidence)
-- CreateReviewBundle + W1 LPS append
-- rehydrateEvidenceOutcomeFromLps (read-only LPS → readers → RecommendNextGate)
-- Product action projectAssistantRehydrateEvidenceOutcomeAction
-- Process B reopens DB and asserts Recommendation recomputed with recommendation-only flags
+## 11. C1 correction
+- Added F3_PRODUCT_DURABLE_NOTICE (fixture execution + Product SQLite durable Attempt/Evidence/RB/LPS links + REAL disabled + Recommendation not Morris decision)
+- Added resolveF3EphemeralNotice(productDurablePath)
+- RuntimeOaStack.productDurablePath = (store instanceof SqliteProductStore)
+- Routed prepare / confirm+execute / rehydrate actions + confirmAndExecuteF3Fixture / prepareF3Fixture payloads
+- F3_PROCESS_LOCAL_NOTICE KEPT for true Memory/process-local composition
+- Updated RUNTIME_DISCLOSURE_MESSAGES to stop claiming Attempt/Evidence process-local on Product path
+- Distinguishes execution mode (fixture) vs persistence durability (Product SQLite)
 
-## 11. B2 finding + correction
-Finding: OCC TOCTOU (read version then UPDATE without version predicate).
+## 12. F3_PROCESS_LOCAL_NOTICE audit
+| Surface | Disposition |
+|---|---|
+| constants.ts definition | KEEP for Memory path |
+| resolveF3EphemeralNotice(false) | returns PROCESS_LOCAL |
+| resolveF3EphemeralNotice(true) | returns PRODUCT_DURABLE |
+| prepareF3Fixture | uses resolve via productDurablePath |
+| confirmAndExecuteF3Fixture | uses resolve via productDurablePath |
+| projectAssistantPrepareF3FixtureAction | Product notice |
+| projectAssistantConfirmAndExecuteF3FixtureAction | Product notice |
+| projectAssistantRehydrateEvidenceOutcomeAction | Product notice |
+| ProjectAssistantPanel | consumes ephemeralNotice from action (no redesign) |
 
-Correction:
-- Attempt/Evidence/ReviewBundle UPDATE: WHERE id = ? AND version = ? + changes === 1 else NOT_FOUND / VERSION_CONFLICT
-- Evidence/RB update + idempotency in Product transaction
-- createSuccessorAndMarkSuperseded: INSERT successor + CAS UPDATE source inside transaction (rollback on CAS fail → no orphan)
-- reserveActiveContract: INSERT ON CONFLICT DO NOTHING (same attemptId idempotent; other → EXECUTION_ALREADY_ACTIVE)
-- rebuildActiveIndex transactional + fail-closed on multi-active
-- Concurrent OCC adversarial tests added
+## 13. C1 tests
+m5C1C2DisclosureAndRehydrateAction.test.ts — notice routing + Product action returns F3_PRODUCT_DURABLE_NOTICE, not PROCESS_LOCAL, no "efface" claim. PASS
 
-## 12. B3 finding + correction
-Finding: W1 used LOCAL_MORRIS_ACTOR (demo, Morris-named).
+## 14. C2 finding entrant
+Helper rehydrateEvidenceOutcomeFromLps proven; server action projectAssistantRehydrateEvidenceOutcomeAction not directly invoked in prior handoff.
 
-Correction:
-- SFIA_STUDIO_SYSTEM_FACTUAL_WRITER — role=system, authorityLevel=none, actorId=actor:sfia-studio-system-factual-writer
-- Not registered in authority registry
-- Fixture LOCAL_MORRIS_ACTOR left in historical F3 fixture authority paths only
-- W1 tests assert system provenance != LOCAL_MORRIS_ACTOR
+## 15. C2 correction / proof
+Test calls projectAssistantRehydrateEvidenceOutcomeAction({ projectId }) with Product SQLite runtime (productDbPath), seeds Evidence+RB+W1 LPS, asserts DTO + recommendation-only flags + Product durable notice + LPS read-only before/after + fail-closed NO_EVIDENCE_OUTCOME_REFS.
 
-## 13. Fichiers modifies/crees finaux
+## 16. Tests summary
+| Suite | Result |
+|---|---|
+| project-assistant (incl C1/C2) | PASS (53 in targeted batch; full suite below) |
+| m5RestartProcessProof / rehydrate / W1 / recommendation-vs-decision | PASS |
+| oa/project + attempt + evidence-review + vertical-slice-runtime | 341 PASS |
+| typecheck / lint / build | green |
+| full npm test | **1720 passed**, 131 skipped |
+| modeled governance | **73 passed** |
+| git diff --check | clean |
 
+## 17. Safety
+REAL=0 · M6=0 · journal unchanged · timeout unchanged · schema extra change=0 · B1/B2/B3 semantic rewrite=0 · project commit/push/PR/merge=0
+
+## 18. Files modified/created
 ### Modified
 ```
 M	projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts
 M	projects/sfia-studio/app/features/project-assistant/actions.ts
 M	projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
+M	projects/sfia-studio/app/features/project-assistant/f3/constants.ts
 M	projects/sfia-studio/app/features/project-assistant/f3/index.ts
 M	projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+M	projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
 M	projects/sfia-studio/app/features/project-assistant/types.ts
 M	projects/sfia-studio/app/lib/oa/evidence-review/index.ts
 M	projects/sfia-studio/app/lib/oa/execution-attempt/application/cancelExecutionAttempt.ts
@@ -108,96 +128,56 @@ M	projects/sfia-studio/app/lib/oa/project/index.ts
 M	projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
 M	projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/productSqliteHandle.ts
 M	projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProductStore.ts
+M	projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts
 M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 
 ```
-
-### Created
-See NEW FILES section below (full content).
-
 ### Diff stat
 ```
- .../oa/decision/m3ProductSchemaMigration.test.ts   | 10 ++-
- .../app/features/project-assistant/actions.ts      | 79 ++++++++++++++++++++
- .../f3/confirmAndExecuteF3Fixture.ts               |  8 +-
- .../app/features/project-assistant/f3/index.ts     |  6 ++
- .../f3/ingestEvidenceAndRecommend.ts               | 28 +++++++
- .../app/features/project-assistant/types.ts        | 38 +++++++++-
- .../app/lib/oa/evidence-review/index.ts            | 14 +++-
- .../application/cancelExecutionAttempt.ts          |  4 +-
- .../application/recordExecutionFailure.ts          |  4 +-
- .../application/recordExecutionResult.ts           |  4 +-
- .../application/selectExecutionAgent.ts            |  4 +-
- .../application/startExecution.ts                  |  4 +-
- .../application/triggerAttemptTimeout.ts           |  4 +-
- .../app/lib/oa/execution-attempt/index.ts          | 15 +++-
- .../application/appendLivingProjectStateVersion.ts | 12 +++
- .../sfia-studio/app/lib/oa/project/domain/types.ts | 10 +++
- projects/sfia-studio/app/lib/oa/project/index.ts   |  1 +
- .../app/lib/oa/project/infrastructure/sqlite/db.ts | 87 +++++++++++++++++++++-
- .../infrastructure/sqlite/productSqliteHandle.ts   | 14 +++-
- .../infrastructure/sqlite/sqliteProductStore.ts    | 15 +++-
- .../app/lib/vertical-slice-runtime/service.ts      | 51 +++++++++----
- 21 files changed, 373 insertions(+), 39 deletions(-)
+ .../oa/decision/m3ProductSchemaMigration.test.ts   |  10 +-
+ .../app/features/project-assistant/actions.ts      | 103 +++++++++++++++++++--
+ .../f3/confirmAndExecuteF3Fixture.ts               |  24 ++++-
+ .../app/features/project-assistant/f3/constants.ts |  24 +++++
+ .../app/features/project-assistant/f3/index.ts     |  11 +++
+ .../f3/ingestEvidenceAndRecommend.ts               |  28 ++++++
+ .../project-assistant/f3/prepareF3Fixture.ts       |  12 ++-
+ .../app/features/project-assistant/types.ts        |  38 +++++++-
+ .../app/lib/oa/evidence-review/index.ts            |  14 ++-
+ .../application/cancelExecutionAttempt.ts          |   4 +-
+ .../application/recordExecutionFailure.ts          |   4 +-
+ .../application/recordExecutionResult.ts           |   4 +-
+ .../application/selectExecutionAgent.ts            |   4 +-
+ .../application/startExecution.ts                  |   4 +-
+ .../application/triggerAttemptTimeout.ts           |   4 +-
+ .../app/lib/oa/execution-attempt/index.ts          |  15 ++-
+ .../application/appendLivingProjectStateVersion.ts |  12 +++
+ .../sfia-studio/app/lib/oa/project/domain/types.ts |  10 ++
+ projects/sfia-studio/app/lib/oa/project/index.ts   |   1 +
+ .../app/lib/oa/project/infrastructure/sqlite/db.ts |  87 ++++++++++++++++-
+ .../infrastructure/sqlite/productSqliteHandle.ts   |  14 ++-
+ .../infrastructure/sqlite/sqliteProductStore.ts    |  15 ++-
+ .../app/lib/vertical-slice-runtime/disclosures.ts  |  17 ++--
+ .../app/lib/vertical-slice-runtime/service.ts      |  57 +++++++++---
+ 24 files changed, 458 insertions(+), 58 deletions(-)
 
 ```
+### Created (full content below)
+Includes M5 Delivery + B1/B2/B3 + C1/C2 new files (18 listed in NEW FILES section).
 
-## 14. Architecture (unchanged decisions)
-OPTION B Product SQLite m5-0.1.0 · W1 factual LPS · M5-C journal KEEP
-
-## 15. Persistence semantics (post-correction)
-- Attempt: durable + atomic CAS OCC + active reservation atomic + result_budget durable
-- Evidence: durable + atomic CAS + ingest path proven
-- ReviewBundle: durable + atomic CAS + atomic successor reopen
-- Runtime Product path uses SQLite adapters; Memory kept for tests; REAL-OFF
-
-## 16. W1 + system provenance
-System factual writer only on automatic LPS evidence/RB append.
-
-## 17. Nora/F3 durable readback
-rehydrateEvidenceOutcomeFromLps + server action; fail-closed on missing/mismatch refs; recommendation-only.
-
-## 18. Technical journal
-sqliteLaunchSafetyJournal.ts unchanged (not in diff).
-
-## 19. REAL proof
-SFIA_STUDIO_CURSOR_REAL unset · OPS1_CURSOR_REAL unset · Gate D 0 · REAL launch 0 · fixture/no-effect only
-
-## 20. Tests
-| Suite | Result |
-|---|---|
-| __tests__/oa/project | 49 passed |
-| __tests__/oa/execution-attempt | 135 passed |
-| __tests__/oa/evidence-review | 144 passed |
-| __tests__/vertical-slice-runtime | 13 passed |
-| __tests__/project-assistant | 42 passed |
-| recommendation-vs-decision | 2 passed |
-| typecheck | green |
-| lint | green |
-| build | green |
-| full npm test | 1717 passed, 131 skipped |
-| modeled governance | 73 passed |
-| git diff --check | clean |
-
-## 21. Restart proof (corrected)
-Process A: terminal Attempt succeeded + resultRef → IngestExecutionAttemptEvidence → RB → W1 → optional pre-restart rehydrate.
-Process B: reopen → same Attempt/resultRef/Evidence/RB/LPS → rehydrate RecommendNextGate → recommendation-only flags. REAL=0.
-
-## 22. Anti-claims
-Recommendation != Decision/gate/authority · W1 != Morris action · Durable Attempt != journal retirement · Local PASS != M5 CLOSED != M6
-
-## 23. git diff --check
+## 19. git diff --check
 ```
 
 ```
 
-## 24. Final git status (project uncommitted)
+## 20. Final git status
 ```
  M projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts
  M projects/sfia-studio/app/features/project-assistant/actions.ts
  M projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
+ M projects/sfia-studio/app/features/project-assistant/f3/constants.ts
  M projects/sfia-studio/app/features/project-assistant/f3/index.ts
  M projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+ M projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
  M projects/sfia-studio/app/features/project-assistant/types.ts
  M projects/sfia-studio/app/lib/oa/evidence-review/index.ts
  M projects/sfia-studio/app/lib/oa/execution-attempt/application/cancelExecutionAttempt.ts
@@ -213,6 +193,7 @@ Recommendation != Decision/gate/authority · W1 != Morris action · Durable Atte
  M projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
  M projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/productSqliteHandle.ts
  M projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProductStore.ts
+ M projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts
  M projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 ?? .tmp-sfia-review/
 ?? projects/sfia-studio/app/__tests__/oa/evidence-review/m5EvidenceReviewDurability.test.ts
@@ -222,6 +203,7 @@ Recommendation != Decision/gate/authority · W1 != Morris action · Durable Atte
 ?? projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessWorker.ts
 ?? projects/sfia-studio/app/__tests__/oa/project/m5W1LpsAppend.test.ts
 ?? projects/sfia-studio/app/__tests__/oa/project/rehydrateEvidenceOutcomeFromLps.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/m5C1C2DisclosureAndRehydrateAction.test.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/appendEvidenceOutcomeToLps.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/rehydrateEvidenceOutcomeFromLps.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/systemFactualWriter.ts
@@ -232,52 +214,45 @@ Recommendation != Decision/gate/authority · W1 != Morris action · Durable Atte
 ?? projects/sfia-studio/app/lib/oa/execution-attempt/ports/executionAttemptTechnicalStorePort.ts
 
 ```
-- staged empty · project commit/push/PR = 0
 
-## 25. Reserves
-- Claims/Maturity Memory (intentional FREEZE)
-- Cross-aggregate not single distributed TX (idempotent retry; documented)
-- Timeout policy OPEN NON-BLOCKING (60000 KEEP)
-- UI: action/read-model only; no redesign claim
+## 21. Reserves
+- Claims/Maturity/Confirmation remain Memory (intentional)
+- Cross-aggregate not single distributed TX (unchanged)
+- Timeout OPEN NON-BLOCKING
 - M5 CLOSED not claimed
+- Memory F3 path remains theoretically available via resolveF3EphemeralNotice(false); default Runtime composition uses Product SQLite
 
-## 26. Debt / exit
-- M5-C journal TEMPORARY WITH EXIT remains
+## 22. Debt / exit
+- M5-C journal TEMPORARY WITH EXIT
 - M5 CLOSED requires future Morris post-merge exit evaluation
 - M6 requires distinct GO
 
-## 27. Corrected M5 exit matrix
+## 23. Corrected M5 exit matrix
 | Criterion | Status |
 |---|---|
-| Product SQLite schema M5 additive | SATISFIED LOCALLY |
-| ExecutionAttempt durable | SATISFIED LOCALLY |
-| Attempt terminal succeeded | SATISFIED LOCALLY |
-| Attempt.resultRef restart-safe | SATISFIED LOCALLY |
-| Evidence via IngestExecutionAttemptEvidence | SATISFIED LOCALLY |
-| technicalResultRef == resultRef | SATISFIED LOCALLY |
-| Evidence bindings Attempt/Contract | SATISFIED LOCALLY |
-| ReviewBundle durable | SATISFIED LOCALLY |
-| W1 LPS N+1 factual | SATISFIED LOCALLY |
-| W1 system provenance | SATISFIED LOCALLY |
-| OCC atomic Attempt/Evidence/RB + concurrent tests | SATISFIED LOCALLY |
-| active reservation atomic | SATISFIED LOCALLY |
-| Recommendation recomputed after restart (process B rehydrate) | SATISFIED LOCALLY |
-| durable Product readback action | SATISFIED LOCALLY |
-| recommendation-only flags | SATISFIED LOCALLY |
-| REAL=0 / M6=0 / journal unchanged / timeout unchanged | SATISFIED LOCALLY |
-| QA typecheck/lint/build/full/governance | SATISFIED LOCALLY |
+| B1 terminal Attempt/resultRef/ingest/restart/RecommendNextGate | SATISFIED LOCALLY (preserved) |
+| B2 atomic OCC + concurrent tests | SATISFIED LOCALLY (preserved) |
+| B3 W1 system provenance | SATISFIED LOCALLY (preserved) |
+| C1 Product path disclosure truthful | SATISFIED LOCALLY |
+| C1 Memory disclosure truthful (resolver) | SATISFIED LOCALLY |
+| C1 execution remains fixture/no-effect | SATISFIED LOCALLY |
+| C1 no Confirmation/Claims/Maturity/runtime ADOPTED claim | SATISFIED LOCALLY |
+| C2 server action directly invoked | SATISFIED LOCALLY |
+| C2 Product runtime / LPS / Evidence/RB / RecommendNextGate | SATISFIED LOCALLY |
+| C2 recommendation-only + LPS unchanged + fail-closed | SATISFIED LOCALLY |
+| REAL=0 / M6=0 / journal / timeout | SATISFIED LOCALLY |
 | Morris M5 CLOSED acceptance | NOT PROVEN |
 
-## 28. Verdict
-M5 DELIVERY QA CORRECTIONS COMPLETE — B1 RESTART/READBACK PROVEN — B2 ATOMIC OCC PROVEN — B3 W1 SYSTEM PROVENANCE CORRECTED — OPTION B + W1 PRODUCT PATH REVIEWABLE — ZERO REAL — M6 NOT AUTHORIZED — READY FOR CHATGPT QA RE-REVIEW
+## 24. Verdict
+M5 DELIVERY FINAL QA CORRECTIONS COMPLETE — C1 PRODUCT DISCLOSURE TRUTHFUL — C2 PRODUCT-FACING REHYDRATE ACTION PROVEN — B1/B2/B3 PRESERVED — OPTION B + W1 PRODUCT PATH REVIEWABLE — ZERO REAL — M6 NOT AUTHORIZED — READY FOR CHATGPT FINAL QA REVIEW
 
-!= commit/PR/merge authorized · != M5 CLOSED · != M6 authorized
+!= commit/PR/merge authorized · != M5 CLOSED · != M6 authorized · != runtime v3 ADOPTED
 
-## 29. Next Morris gate
-1. ChatGPT re-review of this handoff
-2. If PASS → Morris GO distinct for commit/push/PR
-3. Merge GO separee
-4. Post-merge exit proof → M5 closure decision
+## 25. Next Morris gate
+1. ChatGPT final QA re-review
+2. If PASS → Morris GO séparée commit/push/Draft PR
+3. Merge GO séparée
+4. Post-merge exit proof → M5 closure
 5. M6 only under future GO
 
 ---
@@ -322,18 +297,20 @@ index 04202fb..e1fe203 100644
      const project = await svc.getProject.execute({ projectId: "prj:m3-mig" });
      expect(project.ok).toBe(true);
 diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
-index 4b05d0d..cadd0b8 100644
+index 4b05d0d..762461f 100644
 --- a/projects/sfia-studio/app/features/project-assistant/actions.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
-@@ -9,6 +9,7 @@ import type { F2DecisionKind } from "./f2/types";
+@@ -9,7 +9,8 @@ import type { F2DecisionKind } from "./f2/types";
  import { confirmAndExecuteF3Fixture } from "./f3/confirmAndExecuteF3Fixture";
  import { prepareF3Fixture } from "./f3/prepareF3Fixture";
  import { prepareM3FromDecision } from "./f3/prepareM3FromDecision";
+-import { F3_PROCESS_LOCAL_NOTICE } from "./f3/constants";
 +import { rehydrateEvidenceOutcomeFromLps } from "./f3/rehydrateEvidenceOutcomeFromLps";
- import { F3_PROCESS_LOCAL_NOTICE } from "./f3/constants";
++import { resolveF3EphemeralNotice } from "./f3/constants";
  import type {
    AssistantHistoryMessage,
-@@ -17,6 +18,7 @@ import type {
+   ProjectAssistantContextDto,
+@@ -17,12 +18,14 @@ import type {
    ProjectAssistantExecuteF3Result,
    ProjectAssistantPrepareF3Result,
    ProjectAssistantPrepareM3Result,
@@ -341,15 +318,74 @@ index 4b05d0d..cadd0b8 100644
    ProjectAssistantSendResult,
  } from "./types";
 
-@@ -467,6 +469,7 @@ export async function projectAssistantConfirmAndExecuteF3FixtureAction(input: {
+ /**
+  * Thin server action — Project Workspace Assistant (F1 + F2 + F3 fixture).
+- * No OPS1 session. No Cursor REAL. No Git write. No durable persistence.
++ * No OPS1 session. No Cursor REAL. No Git write.
++ * Persistence durability follows RuntimeOaStack.productDurablePath (Product SQLite vs Memory).
+  */
+ export async function projectAssistantSendAction(input: {
+   projectId: string;
+@@ -243,6 +246,7 @@ export async function projectAssistantPrepareF3FixtureAction(input: {
+       authorityResolver: runtime.oa.authorityResolver,
+       executionContractServices: runtime.oa.executionContractServices,
+       nowIso: () => runtime.oa!.clock.nowIso(),
++      productDurablePath: runtime.oa.productDurablePath,
+     },
+   });
+
+@@ -259,6 +263,9 @@ export async function projectAssistantPrepareF3FixtureAction(input: {
+   }
+
+   const f3 = prepared.payload;
++  const persistenceNotice = resolveF3EphemeralNotice(
++    runtime.oa.productDurablePath,
++  );
+   return {
+     ok: true,
+     status: "ok",
+@@ -269,10 +276,10 @@ export async function projectAssistantPrepareF3FixtureAction(input: {
+       `Contrat ${f3.contract.executionContractId} v${f3.contract.version} (${f3.contract.status})`,
+       "AUCUNE EXÉCUTION",
+       "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
+-      F3_PROCESS_LOCAL_NOTICE,
++      persistenceNotice,
+     ].join(" — "),
+     project,
+-    ephemeralNotice: F3_PROCESS_LOCAL_NOTICE,
++    ephemeralNotice: persistenceNotice,
+     f2: null,
+     f3,
+   };
+@@ -467,6 +474,8 @@ export async function projectAssistantConfirmAndExecuteF3FixtureAction(input: {
        executionAttemptServices: runtime.oa.executionAttemptServices,
        evidenceReviewServices: runtime.oa.evidenceReviewServices,
        fixtureAdapter: runtime.oa.fixtureAdapter,
 +      projectServices: runtime.oa.projectServices,
++      productDurablePath: runtime.oa.productDurablePath,
        nowIso: () => runtime.oa!.clock.nowIso(),
      },
    });
-@@ -506,3 +509,79 @@ export async function projectAssistantConfirmAndExecuteF3FixtureAction(input: {
+@@ -484,6 +493,9 @@ export async function projectAssistantConfirmAndExecuteF3FixtureAction(input: {
+   }
+
+   const f3 = executed.payload;
++  const persistenceNotice = resolveF3EphemeralNotice(
++    runtime.oa.productDurablePath,
++  );
+   return {
+     ok: true,
+     status: "ok",
+@@ -499,10 +511,89 @@ export async function projectAssistantConfirmAndExecuteF3FixtureAction(input: {
+       "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
+       "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
+       "CURSOR REAL BLOQUÉ",
+-      F3_PROCESS_LOCAL_NOTICE,
++      persistenceNotice,
+     ].join(" — "),
+     project,
+-    ephemeralNotice: F3_PROCESS_LOCAL_NOTICE,
++    ephemeralNotice: persistenceNotice,
      f3,
    };
  }
@@ -406,6 +442,9 @@ index 4b05d0d..cadd0b8 100644
 +    };
 +  }
 +
++  const persistenceNotice = resolveF3EphemeralNotice(
++    runtime.oa.productDurablePath,
++  );
 +  return {
 +    ok: true,
 +    status: "ok",
@@ -417,10 +456,10 @@ index 4b05d0d..cadd0b8 100644
 +      `Evidence ${rehydrated.evidenceIds.join(", ") || "—"}`,
 +      `ReviewBundle ${rehydrated.reviewBundleIds.join(", ") || "—"}`,
 +      "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
-+      F3_PROCESS_LOCAL_NOTICE,
++      persistenceNotice,
 +    ].join(" — "),
 +    project,
-+    ephemeralNotice: F3_PROCESS_LOCAL_NOTICE,
++    ephemeralNotice: persistenceNotice,
 +    evidence: rehydrated.evidence,
 +    reviewBundles: rehydrated.reviewBundles,
 +    recommendation: rehydrated.recommendation,
@@ -430,7 +469,7 @@ index 4b05d0d..cadd0b8 100644
 +  };
 +}
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts b/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
-index 261e3e6..a1c89b9 100644
+index 261e3e6..8256b3d 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
 @@ -18,6 +18,7 @@ import type {
@@ -441,16 +480,32 @@ index 261e3e6..a1c89b9 100644
  import type { F2ContextSnapshot } from "../f2/types";
  import { LOCAL_MORRIS_ACTOR } from "../f2/recordDecision";
  import {
-@@ -43,6 +44,8 @@ export type ConfirmExecuteF3Deps = {
+@@ -27,9 +28,9 @@ import {
+   F3_CONFIRM_ACTION_REF,
+   F3_LABELS,
+   F3_MODE,
+-  F3_PROCESS_LOCAL_NOTICE,
+   F3_REQUIRED_AUTHORITY,
+   F3_SCOPE,
++  resolveF3EphemeralNotice,
+ } from "./constants";
+ import { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
+ import type { F3ExecutePayload } from "./types";
+@@ -43,6 +44,13 @@ export type ConfirmExecuteF3Deps = {
    evidenceReviewServices: EvidenceReviewServices;
    fixtureAdapter: TestExecutionAdapter;
    nowIso: () => string;
 +  /** Product path — enables M5-B W1 LPS evidence/RB factual append. */
 +  projectServices?: ProjectServices;
++  /**
++   * True when OA composition uses Product SQLite (Attempt/Evidence/RB durable).
++   * Defaults true when projectServices present; false for Memory/process-local.
++   */
++  productDurablePath?: boolean;
  };
 
  function authorityEvidenceIdForProposal(proposalId: string): string {
-@@ -113,7 +116,10 @@ async function buildExecutePayload(input: {
+@@ -113,12 +121,20 @@ async function buildExecutePayload(input: {
      projectId: input.projectId,
      attemptId: input.attempt.attemptId,
      executionContractId: input.contract.executionContractId,
@@ -462,11 +517,87 @@ index 261e3e6..a1c89b9 100644
    });
    if (!ingested.ok) {
      return ingested;
+   }
+
++  const productDurable =
++    input.deps.productDurablePath ??
++    input.deps.projectServices !== undefined;
++  const persistenceNotice = resolveF3EphemeralNotice(productDurable);
++
+   return {
+     ok: true,
+     payload: {
+@@ -163,7 +179,7 @@ async function buildExecutePayload(input: {
+         cursorRealBlocked: F3_LABELS.cursorRealBlocked,
+         hardOpen: F3_LABELS.hardOpen,
+       },
+-      processLocalNotice: F3_PROCESS_LOCAL_NOTICE,
++      processLocalNotice: persistenceNotice,
+       disclosures: [
+         F3_LABELS.fixtureNoReal,
+         F3_LABELS.noGitWrite,
+@@ -172,7 +188,7 @@ async function buildExecutePayload(input: {
+         F3_LABELS.hardOpen,
+         F3_LABELS.noReadyClaim,
+         F3_LABELS.noTa6Complete,
+-        F3_PROCESS_LOCAL_NOTICE,
++        persistenceNotice,
+       ],
+     },
+   };
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/constants.ts b/projects/sfia-studio/app/features/project-assistant/f3/constants.ts
+index 60bacbc..5c3e44f 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/constants.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/constants.ts
+@@ -47,9 +47,33 @@ export const F3_OPEN_HARD_RESERVATION_REFS = Object.freeze([
+   "R-M01",
+ ] as const);
+
++/**
++ * Honest only for a true Memory / process-local OA stack (no Product SQLite).
++ * Do NOT use on the Product SQLite M5 path.
++ */
+ export const F3_PROCESS_LOCAL_NOTICE =
+   "F3 fixture process-local — non persisté. Un redémarrage efface contrats, attempts et evidence. Aucune autorité d'exécution durable.";
+
++/**
++ * Product SQLite M5 path — fixture/no-effect execution with durable Attempt /
++ * Evidence / ReviewBundle / LPS evidence links. REAL remains disabled.
++ * Distinguishes execution mode (fixture) from persistence durability (Product).
++ */
++export const F3_PRODUCT_DURABLE_NOTICE =
++  "F3 fixture execution — Attempt, Evidence, ReviewBundle and LPS evidence links are persisted in Product SQLite. REAL execution remains disabled. Recommendation is not a Morris decision.";
++
++/**
++ * Route F3 ephemeral disclosure by OA composition persistence, not by
++ * execution mode (fixture vs REAL).
++ */
++export function resolveF3EphemeralNotice(
++  productDurablePath: boolean,
++): typeof F3_PRODUCT_DURABLE_NOTICE | typeof F3_PROCESS_LOCAL_NOTICE {
++  return productDurablePath
++    ? F3_PRODUCT_DURABLE_NOTICE
++    : F3_PROCESS_LOCAL_NOTICE;
++}
++
+ export const F3_LABELS = Object.freeze({
+   fixtureNoReal: "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
+   noGitWrite: "AUCUN GIT WRITE PRODUIT",
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/index.ts b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
-index ba86054..4a1e512 100644
+index ba86054..388de83 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f3/index.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
-@@ -14,6 +14,12 @@ export { prepareM3FromDecision } from "./prepareM3FromDecision";
+@@ -1,4 +1,9 @@
+ export { F3_MODE, F3_ADAPTER_ID, F3_AGENT_ID, F3_LABELS } from "./constants";
++export {
++  F3_PROCESS_LOCAL_NOTICE,
++  F3_PRODUCT_DURABLE_NOTICE,
++  resolveF3EphemeralNotice,
++} from "./constants";
+ export type {
+   F3PreparePayload,
+   F3ExecutePayload,
+@@ -14,6 +19,12 @@ export { prepareM3FromDecision } from "./prepareM3FromDecision";
  export type { F3M3PreparePayload, PrepareM3Deps } from "./prepareM3FromDecision";
  export { confirmAndExecuteF3Fixture } from "./confirmAndExecuteF3Fixture";
  export { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
@@ -549,6 +680,61 @@ index 5c6039a..c4ad4b3 100644
 +    lpsVersion,
    };
  }
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts b/projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
+index ee20d7c..f52ba26 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
+@@ -16,11 +16,11 @@ import {
+   F3_EVIDENCE_REQUIREMENTS,
+   F3_LABELS,
+   F3_MODE,
+-  F3_PROCESS_LOCAL_NOTICE,
+   F3_REQUIRED_AUTHORITY,
+   F3_SCOPE,
+   F3_STOP_CONDITIONS,
+   F3_TARGET,
++  resolveF3EphemeralNotice,
+ } from "./constants";
+ import type { F3PreparePayload } from "./types";
+ import { validateF2ForPrepare } from "./validateF2ForPrepare";
+@@ -30,6 +30,8 @@ export type PrepareF3Deps = {
+   authorityResolver: MemoryAuthorityResolver;
+   executionContractServices: ExecutionContractServices;
+   nowIso: () => string;
++  /** True when OA composition uses Product SQLite. */
++  productDurablePath?: boolean;
+ };
+
+ function toContractDto(
+@@ -184,6 +186,10 @@ export async function prepareF3Fixture(input: {
+     };
+   }
+
++  const persistenceNotice = resolveF3EphemeralNotice(
++    input.deps.productDurablePath ?? true,
++  );
++
+   return {
+     ok: true,
+     payload: {
+@@ -201,7 +207,7 @@ export async function prepareF3Fixture(input: {
+         cursorRealBlocked: F3_LABELS.cursorRealBlocked,
+         hardOpen: F3_LABELS.hardOpen,
+       },
+-      processLocalNotice: F3_PROCESS_LOCAL_NOTICE,
++      processLocalNotice: persistenceNotice,
+       disclosures: [
+         F3_LABELS.fixtureNoReal,
+         F3_LABELS.noGitWrite,
+@@ -209,7 +215,7 @@ export async function prepareF3Fixture(input: {
+         F3_LABELS.hardOpen,
+         F3_LABELS.noReadyClaim,
+         F3_LABELS.noTa6Complete,
+-        F3_PROCESS_LOCAL_NOTICE,
++        persistenceNotice,
+       ],
+     },
+   };
 diff --git a/projects/sfia-studio/app/features/project-assistant/types.ts b/projects/sfia-studio/app/features/project-assistant/types.ts
 index 48e1d2f..d9fdf55 100644
 --- a/projects/sfia-studio/app/features/project-assistant/types.ts
@@ -1064,8 +1250,54 @@ index 45c5e60..4734803 100644
 
    private queue: Promise<void> = Promise.resolve();
    private readonly txLocal = new AsyncLocalStorage<TransactionContext>();
+diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts
+index dc1a9b6..516058f 100644
+--- a/projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts
++++ b/projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts
+@@ -2,22 +2,23 @@ import "./serverGuard";
+
+ /**
+  * D-V2-05 runtime disclosures — always attached to runtime results.
+- * M3: Project/LPS + CycleInstance + HumanDecision + ExecutionContract Product SQLite
+- * restart-safe; conversation/proposal/attempt/evidence remain process-local.
++ * M3–M5: Project/LPS/Cycle/Decision/Contract + Attempt/Evidence/ReviewBundle Product SQLite
++ * restart-safe on Product path; conversation/proposal remain process-local;
++ * Claims/Maturity/Confirmation remain Memory (out of minimal M5).
+  * Not a product-ready / v3-ADOPTED / Cursor REAL / Gate D claim surface.
+  */
+ export interface RuntimeDisclosures {
+   readonly runtimeMode: "LOCAL_PROCESS";
+-  /** Partial: Project/LPS/Cycle/Decision/Contract M3 durable; other stacks process-local. */
++  /** Partial: Product SQLite durable for OA M1–M5 aggregates; conversation/proposal/Claims Memory remain process-local. */
+   readonly persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE";
+   readonly agentExecution: "DISABLED";
+   readonly iam: "NOT_SELECTED";
+   readonly productPersistence: "SQLITE_OA_PRODUCT_STORE";
+   readonly delivery: "NOT_AUTHORIZED";
+   readonly cutover: "NOT_AUTHORIZED";
+-  /** True because conversation/proposal/attempt/evidence remain volatile. */
++  /** True because conversation/proposal (and Claims/Maturity Memory) remain volatile. */
+   readonly localDataVolatile: true;
+-  /** True for non-M3 OA state; Project/LPS/Cycle/Decision/Contract survive restart. */
++  /** True for non-durable stacks; Product Project/LPS/Cycle/Decision/Contract/Attempt/Evidence/RB survive restart. */
+   readonly restartMayLoseState: true;
+   readonly projectLpsRestartSafe: true;
+   readonly cycleInstanceRestartSafe: true;
+@@ -29,8 +30,10 @@ export interface RuntimeDisclosures {
+ export const RUNTIME_DISCLOSURE_MESSAGES: readonly string[] = Object.freeze([
+   "Mode local process-bound: the runtime lives in a single Node process.",
+   "Project/LPS + CycleInstance + HumanDecision + ExecutionContract Product persistence uses an isolated node:sqlite store (G0-B / M1 / M2 / M3).",
+-  "Conversation, Proposal F2, Attempt, and Evidence remain process-local and may be lost on restart.",
+-  "Trajectory/Epistemic Memory remain process-local (out of M3 durability).",
++  "ExecutionAttempt, Evidence, ReviewBundle, and LPS evidence/RB links persist in Product SQLite (M5) on the Product path.",
++  "Conversation and Proposal F2 remain process-local and may be lost on restart.",
++  "ClaimEvaluation / MaturityAssessment / Confirmation remain Memory (out of minimal M5).",
++  "Trajectory/Epistemic Memory remain process-local (out of M3/M5 durability).",
+   "Local single-user Morris authority is TEMPORARY WITH EXIT (server-owned; client claims ignored).",
+   "Cursor PREPARE-only projection — executionAllowed=false, cursorReal=false, Gate D NOT_CONSUMED.",
+   "IAM is not configured.",
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
-index 2c366c1..272fff6 100644
+index 2c366c1..c8a60fc 100644
 --- a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 +++ b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 @@ -33,11 +33,13 @@ import {
@@ -1082,7 +1314,19 @@ index 2c366c1..272fff6 100644
    type EvidenceReviewServices,
  } from "@/lib/oa/evidence-review";
  import type { ProjectServices } from "@/lib/oa/project";
-@@ -174,22 +176,45 @@ function wireOaStack(
+@@ -98,6 +100,11 @@ export type RuntimeOaStack = {
+   readonly evidenceReviewServices: EvidenceReviewServices;
+   /** Explicit TestExecutionAdapter — never silent NoOp. */
+   readonly fixtureAdapter: TestExecutionAdapter;
++  /**
++   * True when OA Attempt/Evidence/ReviewBundle/LPS path uses Product SQLite.
++   * Distinguishes persistence durability from fixture execution mode.
++   */
++  readonly productDurablePath: boolean;
+ };
+
+ function resolveAudit(
+@@ -174,22 +181,45 @@ function wireOaStack(
    // EXPLICIT TestExecutionAdapter — never omit (factory default is NoOp).
    // M4 REAL-OFF default: do NOT wire realBoundary / SFIA_STUDIO_CURSOR_REAL here.
    // Opt-in REAL composition is explicit (journal + RealExecutionLaunchPort); no Fake defaults.
@@ -1141,6 +1385,14 @@ index 2c366c1..272fff6 100644
 
    return Object.freeze({
      projectServices,
+@@ -202,6 +232,7 @@ function wireOaStack(
+     executionAttemptServices,
+     evidenceReviewServices,
+     fixtureAdapter,
++    productDurablePath: productSqlite !== null,
+   });
+ }
+
 
 ```
 
@@ -5042,6 +5294,252 @@ describe("M5 Evidence/ReviewBundle durability", () => {
 });
 
 ===== END FILE: projects/sfia-studio/app/__tests__/oa/evidence-review/m5EvidenceReviewDurability.test.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/__tests__/project-assistant/m5C1C2DisclosureAndRehydrateAction.test.ts =====
+/**
+ * C1/C2 — Product durable disclosure + direct rehydrate server action proof.
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
+import {
+  projectAssistantRehydrateEvidenceOutcomeAction,
+} from "@/features/project-assistant/actions";
+import {
+  F3_PROCESS_LOCAL_NOTICE,
+  F3_PRODUCT_DURABLE_NOTICE,
+  resolveF3EphemeralNotice,
+  appendEvidenceOutcomeToLps,
+} from "@/features/project-assistant/f3";
+import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
+import {
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "@/lib/vertical-slice-runtime";
+import type { Digest as EvidenceDigest } from "@/lib/oa/evidence-review";
+
+const APP_ROOT = path.resolve(__dirname, "../..");
+const REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+const SCHEMAS_ROOT = path.resolve(
+  APP_ROOT,
+  "../sfia-v3-modeled/v3-native-option-a/schemas",
+);
+
+const EVIDENCE_DIGEST =
+  "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" as EvidenceDigest;
+
+const tempDirs: string[] = [];
+
+class FixedIdSource implements LocalProjectIdSource {
+  private project = 0;
+  private lps = 0;
+  private correlation = 0;
+  nextProjectId(): string {
+    this.project += 1;
+    return `prj:c12-${this.project}`;
+  }
+  nextLpsVersionId(): string {
+    this.lps += 1;
+    return `lps:c12-${this.lps}`;
+  }
+  nextCorrelationId(): string {
+    this.correlation += 1;
+    return `cor:c12-${this.correlation}`;
+  }
+}
+
+afterEach(() => {
+  resetRuntimeApplicationServiceForTests();
+  while (tempDirs.length) {
+    const dir = tempDirs.pop();
+    if (dir) fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+function bootProductRuntime() {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-c12-"));
+  tempDirs.push(dir);
+  const dbPath = path.join(dir, "oa-product.sqlite");
+  resetRuntimeApplicationServiceForTests();
+  const runtime = getRuntimeApplicationService({
+    registryRoot: REGISTRY_ROOT,
+    schemasRoot: SCHEMAS_ROOT,
+    nowIso: "2026-08-15T12:00:00.000Z",
+    idSource: new FixedIdSource(),
+    auditMode: "noop",
+    productDbPath: dbPath,
+  });
+  expect(runtime.oa).toBeTruthy();
+  expect(runtime.oa!.productDurablePath).toBe(true);
+  return { runtime, dbPath };
+}
+
+describe("C1 F3 disclosure routing", () => {
+  it("routes Product durable vs Memory process-local notices", () => {
+    expect(resolveF3EphemeralNotice(true)).toBe(F3_PRODUCT_DURABLE_NOTICE);
+    expect(resolveF3EphemeralNotice(false)).toBe(F3_PROCESS_LOCAL_NOTICE);
+    expect(F3_PRODUCT_DURABLE_NOTICE).toMatch(/Product SQLite/i);
+    expect(F3_PRODUCT_DURABLE_NOTICE).toMatch(/REAL/i);
+    expect(F3_PRODUCT_DURABLE_NOTICE).not.toMatch(/efface/i);
+    expect(F3_PRODUCT_DURABLE_NOTICE).not.toMatch(/non persisté/i);
+    expect(F3_PRODUCT_DURABLE_NOTICE).not.toMatch(/M5 CLOSED/i);
+    expect(F3_PRODUCT_DURABLE_NOTICE).not.toMatch(/ADOPTED/i);
+    expect(F3_PROCESS_LOCAL_NOTICE).toMatch(/non persisté/i);
+  });
+});
+
+describe("C2 projectAssistantRehydrateEvidenceOutcomeAction", () => {
+  it("invokes the server action on Product SQLite and returns recommendation-only", async () => {
+    const { runtime } = bootProductRuntime();
+    const created = await runtime.createProject({
+      name: "C2 Rehydrate",
+      objective: "c2-rehydrate-objective",
+      context: "c2",
+      criticality: "STANDARD",
+      constraints: ["FIXTURE ONLY"],
+      shortReference: "C2R",
+      idempotencyKey: `idem:c2-${Date.now()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    const projectId = created.project.projectId;
+
+    const evidence =
+      await runtime.oa!.evidenceReviewServices.registerEvidence.execute({
+        evidenceId: "ev:c2-action",
+        idempotencyKey: "idem:ev:c2-action",
+        actor: {
+          actorId: "actor:morris",
+          role: "decision_maker",
+          authorityLevel: "N3",
+        },
+        type: "document",
+        source: "fixture",
+        sourceKind: "manual",
+        bindings: { projectId },
+        classification: "internal",
+        storageMode: "metadata_only",
+        digest: EVIDENCE_DIGEST,
+      });
+    expect(evidence.ok).toBe(true);
+    if (!evidence.ok) return;
+
+    const bundle =
+      await runtime.oa!.evidenceReviewServices.createReviewBundle.execute({
+        reviewBundleId: "rb:c2-action",
+        idempotencyKey: "idem:rb:c2-action",
+        actor: {
+          actorId: "actor:morris",
+          role: "decision_maker",
+          authorityLevel: "N3",
+        },
+        projectId,
+        evidenceIds: [evidence.evidence.evidenceId],
+      });
+    expect(bundle.ok).toBe(true);
+    if (!bundle.ok) return;
+
+    const linked = await appendEvidenceOutcomeToLps({
+      projectId,
+      evidenceId: evidence.evidence.evidenceId,
+      reviewBundleId: bundle.reviewBundle.reviewBundleId,
+      projectServices: runtime.oa!.projectServices,
+    });
+    expect(linked.ok).toBe(true);
+    if (!linked.ok) return;
+
+    const beforeLps =
+      await runtime.oa!.projectServices.getCurrentLivingProjectState.execute({
+        projectId,
+      });
+    expect(beforeLps.ok).toBe(true);
+    if (!beforeLps.ok) return;
+    const beforeVersion = beforeLps.livingProjectState.version;
+    const beforeDecisionIds = [
+      ...(beforeLps.livingProjectState.decisionIds ?? []),
+    ];
+    const beforeEvidenceIds = [
+      ...(beforeLps.livingProjectState.evidenceIds ?? []),
+    ];
+    const beforeRbIds = [
+      ...(beforeLps.livingProjectState.reviewBundleIds ?? []),
+    ];
+    const beforeTrajectoryId = beforeLps.livingProjectState.trajectoryId;
+    const beforeTrajectoryVersion =
+      beforeLps.livingProjectState.trajectoryVersion;
+
+    const result = await projectAssistantRehydrateEvidenceOutcomeAction({
+      projectId,
+    });
+
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.status).toBe("ok");
+    expect(result.project.projectId).toBe(projectId);
+    expect(result.evidenceIds).toEqual(["ev:c2-action"]);
+    expect(result.reviewBundleIds).toEqual(["rb:c2-action"]);
+    expect(result.evidence.map((e) => e.evidenceId)).toEqual(["ev:c2-action"]);
+    expect(result.reviewBundles.map((b) => b.reviewBundleId)).toEqual([
+      "rb:c2-action",
+    ]);
+    expect(result.recommendation.kind).toBe("recommendation");
+    expect(result.recommendation.executionAuthority).toBe(false);
+    expect(result.recommendation.gateConsumed).toBe(false);
+    expect(result.recommendation.decisionCreated).toBe(false);
+    expect(result.recommendation.attemptAutoLaunchNextCycle).toBe(false);
+    expect(result.ephemeralNotice).toBe(F3_PRODUCT_DURABLE_NOTICE);
+    expect(result.ephemeralNotice).not.toBe(F3_PROCESS_LOCAL_NOTICE);
+    expect(result.text).toContain(F3_PRODUCT_DURABLE_NOTICE);
+    expect(result.text).not.toMatch(/efface/i);
+
+    const afterLps =
+      await runtime.oa!.projectServices.getCurrentLivingProjectState.execute({
+        projectId,
+      });
+    expect(afterLps.ok).toBe(true);
+    if (!afterLps.ok) return;
+    expect(afterLps.livingProjectState.version).toBe(beforeVersion);
+    expect(afterLps.livingProjectState.decisionIds ?? []).toEqual(
+      beforeDecisionIds,
+    );
+    expect(afterLps.livingProjectState.evidenceIds ?? []).toEqual(
+      beforeEvidenceIds,
+    );
+    expect(afterLps.livingProjectState.reviewBundleIds ?? []).toEqual(
+      beforeRbIds,
+    );
+    expect(afterLps.livingProjectState.trajectoryId).toBe(beforeTrajectoryId);
+    expect(afterLps.livingProjectState.trajectoryVersion).toBe(
+      beforeTrajectoryVersion,
+    );
+  });
+
+  it("fail-closes via server action when LPS has no evidence/RB refs", async () => {
+    const { runtime } = bootProductRuntime();
+    const created = await runtime.createProject({
+      name: "C2 Empty",
+      objective: "c2-empty",
+      context: "c2",
+      criticality: "STANDARD",
+      constraints: ["FIXTURE ONLY"],
+      shortReference: "C2E",
+      idempotencyKey: `idem:c2-empty-${Date.now()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+
+    const result = await projectAssistantRehydrateEvidenceOutcomeAction({
+      projectId: created.project.projectId,
+    });
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.code).toBe("NO_EVIDENCE_OUTCOME_REFS");
+  });
+});
+
+===== END FILE: projects/sfia-studio/app/__tests__/project-assistant/m5C1C2DisclosureAndRehydrateAction.test.ts =====
 ```
 
 ---
