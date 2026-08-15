@@ -1,4 +1,9 @@
 export { F3_MODE, F3_ADAPTER_ID, F3_AGENT_ID, F3_LABELS } from "./constants";
+export {
+  F3_PROCESS_LOCAL_NOTICE,
+  F3_PRODUCT_DURABLE_NOTICE,
+  resolveF3EphemeralNotice,
+} from "./constants";
 export type {
   F3PreparePayload,
   F3ExecutePayload,
@@ -14,6 +19,12 @@ export { prepareM3FromDecision } from "./prepareM3FromDecision";
 export type { F3M3PreparePayload, PrepareM3Deps } from "./prepareM3FromDecision";
 export { confirmAndExecuteF3Fixture } from "./confirmAndExecuteF3Fixture";
 export { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
+export { appendEvidenceOutcomeToLps } from "./appendEvidenceOutcomeToLps";
+export { rehydrateEvidenceOutcomeFromLps } from "./rehydrateEvidenceOutcomeFromLps";
+export {
+  SFIA_STUDIO_SYSTEM_FACTUAL_WRITER,
+  SFIA_STUDIO_SYSTEM_FACTUAL_WRITER_ID,
+} from "./systemFactualWriter";
 export {
   createF3FixtureAgentDescriptor,
   createF3TestExecutionAdapter,

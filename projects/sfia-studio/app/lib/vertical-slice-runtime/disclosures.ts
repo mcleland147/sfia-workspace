@@ -2,22 +2,23 @@ import "./serverGuard";
 
 /**
  * D-V2-05 runtime disclosures — always attached to runtime results.
- * M3: Project/LPS + CycleInstance + HumanDecision + ExecutionContract Product SQLite
- * restart-safe; conversation/proposal/attempt/evidence remain process-local.
+ * M3–M5: Project/LPS/Cycle/Decision/Contract + Attempt/Evidence/ReviewBundle Product SQLite
+ * restart-safe on Product path; conversation/proposal remain process-local;
+ * Claims/Maturity/Confirmation remain Memory (out of minimal M5).
  * Not a product-ready / v3-ADOPTED / Cursor REAL / Gate D claim surface.
  */
 export interface RuntimeDisclosures {
   readonly runtimeMode: "LOCAL_PROCESS";
-  /** Partial: Project/LPS/Cycle/Decision/Contract M3 durable; other stacks process-local. */
+  /** Partial: Product SQLite durable for OA M1–M5 aggregates; conversation/proposal/Claims Memory remain process-local. */
   readonly persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE";
   readonly agentExecution: "DISABLED";
   readonly iam: "NOT_SELECTED";
   readonly productPersistence: "SQLITE_OA_PRODUCT_STORE";
   readonly delivery: "NOT_AUTHORIZED";
   readonly cutover: "NOT_AUTHORIZED";
-  /** True because conversation/proposal/attempt/evidence remain volatile. */
+  /** True because conversation/proposal (and Claims/Maturity Memory) remain volatile. */
   readonly localDataVolatile: true;
-  /** True for non-M3 OA state; Project/LPS/Cycle/Decision/Contract survive restart. */
+  /** True for non-durable stacks; Product Project/LPS/Cycle/Decision/Contract/Attempt/Evidence/RB survive restart. */
   readonly restartMayLoseState: true;
   readonly projectLpsRestartSafe: true;
   readonly cycleInstanceRestartSafe: true;
@@ -29,8 +30,10 @@ export interface RuntimeDisclosures {
 export const RUNTIME_DISCLOSURE_MESSAGES: readonly string[] = Object.freeze([
   "Mode local process-bound: the runtime lives in a single Node process.",
   "Project/LPS + CycleInstance + HumanDecision + ExecutionContract Product persistence uses an isolated node:sqlite store (G0-B / M1 / M2 / M3).",
-  "Conversation, Proposal F2, Attempt, and Evidence remain process-local and may be lost on restart.",
-  "Trajectory/Epistemic Memory remain process-local (out of M3 durability).",
+  "ExecutionAttempt, Evidence, ReviewBundle, and LPS evidence/RB links persist in Product SQLite (M5) on the Product path.",
+  "Conversation and Proposal F2 remain process-local and may be lost on restart.",
+  "ClaimEvaluation / MaturityAssessment / Confirmation remain Memory (out of minimal M5).",
+  "Trajectory/Epistemic Memory remain process-local (out of M3/M5 durability).",
   "Local single-user Morris authority is TEMPORARY WITH EXIT (server-owned; client claims ignored).",
   "Cursor PREPARE-only projection — executionAllowed=false, cursorReal=false, Gate D NOT_CONSUMED.",
   "IAM is not configured.",

@@ -9,7 +9,13 @@ import type {
   ProposalDto,
   QualificationDto,
 } from "./f2/types";
-import type { F3ExecutePayload, F3PreparePayload } from "./f3/types";
+import type {
+  F3EvidenceDto,
+  F3ExecutePayload,
+  F3PreparePayload,
+  F3RecommendationDto,
+  F3ReviewBundleDto,
+} from "./f3/types";
 
 export type AssistantUiMode = "fixture" | "live" | "unavailable" | "unconfirmed";
 
@@ -211,3 +217,33 @@ export type ProjectAssistantExecuteF3Failure = {
 export type ProjectAssistantExecuteF3Result =
   | ProjectAssistantExecuteF3Success
   | ProjectAssistantExecuteF3Failure;
+
+export type ProjectAssistantRehydrateEvidenceOutcomeSuccess = {
+  ok: true;
+  status: "ok";
+  mode: "fixture";
+  presentation: "unconfirmed";
+  text: string;
+  project: ProjectAssistantContextDto;
+  ephemeralNotice: string;
+  evidence: F3EvidenceDto[];
+  reviewBundles: F3ReviewBundleDto[];
+  recommendation: F3RecommendationDto;
+  lpsVersion: number;
+  evidenceIds: string[];
+  reviewBundleIds: string[];
+};
+
+export type ProjectAssistantRehydrateEvidenceOutcomeFailure = {
+  ok: false;
+  status: "rehydrate_error" | "project_not_found";
+  code: string;
+  message: string;
+  mode: AssistantUiMode;
+  retryable: boolean;
+  project?: ProjectAssistantContextDto;
+};
+
+export type ProjectAssistantRehydrateEvidenceOutcomeResult =
+  | ProjectAssistantRehydrateEvidenceOutcomeSuccess
+  | ProjectAssistantRehydrateEvidenceOutcomeFailure;

@@ -1,10 +1,13 @@
 /**
  * IngestExecutionAttemptEvidence → CreateReviewBundle → RecommendNextGate.
  * Recommendation-only; HARD refs passed through; no auto-launch.
+ * M5-B W1: when projectServices present, append factual LPS evidence/RB ids.
  */
 
 import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
+import type { ProjectServices } from "@/lib/oa/project";
 import { LOCAL_MORRIS_ACTOR } from "../f2/recordDecision";
+import { appendEvidenceOutcomeToLps } from "./appendEvidenceOutcomeToLps";
 import {
   F3_LABELS,
   F3_MODE,
@@ -18,6 +21,11 @@ import type {
 
 export type IngestRecommendDeps = {
   evidenceReviewServices: EvidenceReviewServices;
+  /** When present (product path), perform M5-B W1 LPS factual link append. */
+  projectServices?: Pick<
+    ProjectServices,
+    "appendLivingProjectStateVersion" | "getCurrentLivingProjectState"
+  >;
 };
 
 export type IngestRecommendResult =
@@ -26,6 +34,7 @@ export type IngestRecommendResult =
       evidence: F3EvidenceDto;
       reviewBundle: F3ReviewBundleDto;
       recommendation: F3RecommendationDto;
+      lpsVersion?: number;
     }
   | { ok: false; code: string; message: string };
 
@@ -83,6 +92,24 @@ export async function ingestEvidenceAndRecommend(input: {
       code: bundle.error.detailCode,
       message: bundle.error.message,
     };
+  }
+
+  let lpsVersion: number | undefined;
+  if (input.deps.projectServices) {
+    const linked = await appendEvidenceOutcomeToLps({
+      projectId: input.projectId,
+      evidenceId: ingested.evidence.evidenceId,
+      reviewBundleId: bundle.reviewBundle.reviewBundleId,
+      projectServices: input.deps.projectServices,
+    });
+    if (!linked.ok) {
+      return {
+        ok: false,
+        code: linked.code,
+        message: linked.message,
+      };
+    }
+    lpsVersion = linked.lpsVersion;
   }
 
   const recommended =
@@ -163,5 +190,6 @@ export async function ingestEvidenceAndRecommend(input: {
       recommendationLabel: F3_LABELS.recommendationNotDecision,
       mode: F3_MODE,
     },
+    lpsVersion,
   };
 }

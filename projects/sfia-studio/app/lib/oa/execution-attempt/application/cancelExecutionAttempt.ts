@@ -21,7 +21,7 @@ import type {
   ExecutionAttempt,
   ExecutionAttemptResult,
 } from "../domain/types";
-import type { MemoryExecutionAttemptStore } from "../infrastructure/memoryExecutionAttemptStore";
+import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
 import type { AgentRegistryPort } from "../ports/agentRegistry";
 import type { ExecutionAdapterPort } from "../ports/executionAdapter";
 import type { ExecutionAttemptAuditPort } from "../ports/executionAttemptAudit";
@@ -43,7 +43,7 @@ export class CancelExecutionAttempt {
     private readonly adapter: ExecutionAdapterPort,
     private readonly clock: ClockPort,
     private readonly audit: ExecutionAttemptAuditPort,
-    private readonly store: MemoryExecutionAttemptStore,
+    private readonly store: ExecutionAttemptTechnicalStorePort,
   ) {}
 
   async execute(

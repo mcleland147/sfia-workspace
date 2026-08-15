@@ -18,6 +18,7 @@ import type {
   TestExecutionAdapter,
 } from "@/lib/oa/execution-attempt";
 import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
+import type { ProjectServices } from "@/lib/oa/project";
 import type { F2ContextSnapshot } from "../f2/types";
 import { LOCAL_MORRIS_ACTOR } from "../f2/recordDecision";
 import {
@@ -27,9 +28,9 @@ import {
   F3_CONFIRM_ACTION_REF,
   F3_LABELS,
   F3_MODE,
-  F3_PROCESS_LOCAL_NOTICE,
   F3_REQUIRED_AUTHORITY,
   F3_SCOPE,
+  resolveF3EphemeralNotice,
 } from "./constants";
 import { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
 import type { F3ExecutePayload } from "./types";
@@ -43,6 +44,13 @@ export type ConfirmExecuteF3Deps = {
   evidenceReviewServices: EvidenceReviewServices;
   fixtureAdapter: TestExecutionAdapter;
   nowIso: () => string;
+  /** Product path — enables M5-B W1 LPS evidence/RB factual append. */
+  projectServices?: ProjectServices;
+  /**
+   * True when OA composition uses Product SQLite (Attempt/Evidence/RB durable).
+   * Defaults true when projectServices present; false for Memory/process-local.
+   */
+  productDurablePath?: boolean;
 };
 
 function authorityEvidenceIdForProposal(proposalId: string): string {
@@ -113,11 +121,19 @@ async function buildExecutePayload(input: {
     projectId: input.projectId,
     attemptId: input.attempt.attemptId,
     executionContractId: input.contract.executionContractId,
-    deps: { evidenceReviewServices: input.deps.evidenceReviewServices },
+    deps: {
+      evidenceReviewServices: input.deps.evidenceReviewServices,
+      projectServices: input.deps.projectServices,
+    },
   });
   if (!ingested.ok) {
     return ingested;
   }
+
+  const productDurable =
+    input.deps.productDurablePath ??
+    input.deps.projectServices !== undefined;
+  const persistenceNotice = resolveF3EphemeralNotice(productDurable);
 
   return {
     ok: true,
@@ -163,7 +179,7 @@ async function buildExecutePayload(input: {
         cursorRealBlocked: F3_LABELS.cursorRealBlocked,
         hardOpen: F3_LABELS.hardOpen,
       },
-      processLocalNotice: F3_PROCESS_LOCAL_NOTICE,
+      processLocalNotice: persistenceNotice,
       disclosures: [
         F3_LABELS.fixtureNoReal,
         F3_LABELS.noGitWrite,
@@ -172,7 +188,7 @@ async function buildExecutePayload(input: {
         F3_LABELS.hardOpen,
         F3_LABELS.noReadyClaim,
         F3_LABELS.noTa6Complete,
-        F3_PROCESS_LOCAL_NOTICE,
+        persistenceNotice,
       ],
     },
   };

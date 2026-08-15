@@ -16,7 +16,7 @@ import type {
   ExecutionAttemptResult,
   RecordExecutionResultRequest,
 } from "../domain/types";
-import type { MemoryExecutionAttemptStore } from "../infrastructure/memoryExecutionAttemptStore";
+import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
 import type { AgentRegistryPort } from "../ports/agentRegistry";
 import type { ExecutionAttemptAuditPort } from "../ports/executionAttemptAudit";
 import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
@@ -33,7 +33,7 @@ export class RecordExecutionResult {
     private readonly clock: ClockPort,
     private readonly audit: ExecutionAttemptAuditPort,
     private readonly policy: AttemptPolicy,
-    private readonly store: MemoryExecutionAttemptStore,
+    private readonly store: ExecutionAttemptTechnicalStorePort,
   ) {}
 
   async execute(

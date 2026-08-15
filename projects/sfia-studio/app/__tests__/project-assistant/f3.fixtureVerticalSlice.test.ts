@@ -168,6 +168,7 @@ describe("F3 native fixture vertical slice", () => {
         authorityResolver: runtime.oa!.authorityResolver,
         executionContractServices: runtime.oa!.executionContractServices,
         nowIso: () => runtime.oa!.clock.nowIso(),
+        productDurablePath: runtime.oa!.productDurablePath,
       },
     });
     expect(prepared.ok).toBe(true);
@@ -206,6 +207,7 @@ describe("F3 native fixture vertical slice", () => {
         authorityResolver: runtime.oa!.authorityResolver,
         executionContractServices: runtime.oa!.executionContractServices,
         nowIso: () => runtime.oa!.clock.nowIso(),
+        productDurablePath: runtime.oa!.productDurablePath,
       },
     });
     expect(prepared.ok).toBe(true);
@@ -227,6 +229,7 @@ describe("F3 native fixture vertical slice", () => {
         authorityResolver: runtime.oa!.authorityResolver,
         executionContractServices: runtime.oa!.executionContractServices,
         nowIso: () => runtime.oa!.clock.nowIso(),
+        productDurablePath: runtime.oa!.productDurablePath,
       },
     });
     expect(bad.ok).toBe(false);
@@ -247,6 +250,7 @@ describe("F3 native fixture vertical slice", () => {
         authorityResolver: runtime.oa!.authorityResolver,
         executionContractServices: runtime.oa!.executionContractServices,
         nowIso: () => runtime.oa!.clock.nowIso(),
+        productDurablePath: runtime.oa!.productDurablePath,
       },
     });
     expect(prepared.ok).toBe(true);
@@ -314,6 +318,7 @@ describe("F3 native fixture vertical slice", () => {
         authorityResolver: runtime.oa!.authorityResolver,
         executionContractServices: runtime.oa!.executionContractServices,
         nowIso: () => runtime.oa!.clock.nowIso(),
+        productDurablePath: runtime.oa!.productDurablePath,
       },
     });
     expect(prepared.ok).toBe(true);
@@ -372,6 +377,7 @@ describe("F3 native fixture vertical slice", () => {
         authorityResolver: runtime.oa!.authorityResolver,
         executionContractServices: runtime.oa!.executionContractServices,
         nowIso: () => runtime.oa!.clock.nowIso(),
+        productDurablePath: runtime.oa!.productDurablePath,
       },
     });
     expect(prepared.ok).toBe(true);
@@ -415,6 +421,7 @@ describe("F3 native fixture vertical slice", () => {
         authorityResolver: runtime.oa!.authorityResolver,
         executionContractServices: runtime.oa!.executionContractServices,
         nowIso: () => runtime.oa!.clock.nowIso(),
+        productDurablePath: runtime.oa!.productDurablePath,
       },
     });
     expect(prepared.ok).toBe(false);

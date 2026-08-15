@@ -266,6 +266,18 @@ export class AppendLivingProjectStateVersion {
               : current.decisionIds
                 ? [...current.decisionIds]
                 : [],
+          evidenceIds:
+            request.evidenceIds !== undefined
+              ? [...request.evidenceIds]
+              : current.evidenceIds
+                ? [...current.evidenceIds]
+                : [],
+          reviewBundleIds:
+            request.reviewBundleIds !== undefined
+              ? [...request.reviewBundleIds]
+              : current.reviewBundleIds
+                ? [...current.reviewBundleIds]
+                : [],
           createdAt: timestamp,
           createdBy: structuredClone(request.createdBy),
           correlationId,

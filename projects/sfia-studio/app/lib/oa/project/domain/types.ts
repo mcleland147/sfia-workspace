@@ -125,6 +125,16 @@ export type AppendLivingProjectStateRequest = {
    * forward from the current LPS snapshot (same pattern as epistemicItemIds).
    */
   decisionIds?: string[];
+  /**
+   * Optional evidence id linkage (M5-B W1). When omitted, carried forward
+   * from the current LPS snapshot.
+   */
+  evidenceIds?: string[];
+  /**
+   * Optional review-bundle id linkage (M5-B W1). When omitted, carried
+   * forward from the current LPS snapshot.
+   */
+  reviewBundleIds?: string[];
 };
 
 /** Modeled ErrorRecord codes applicable to Project/LPS (M-OA). */
