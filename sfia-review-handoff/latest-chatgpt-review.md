@@ -1,94 +1,325 @@
-# SFIA STUDIO CONVERGENCE ROADMAP — PRE-M6 UI DELIVERY GAP TREATMENT + CKC TRAJECTORY SYNC — REVIEW PACK FULL
+# SFIA REVIEW PACK — FULL
 
-**Niveau :** FULL
-**Timestamp :** 2026-08-16 16:00:00 CEST (Europe/Paris)
-**Verdict Cursor :** CONVERGENCE ROADMAP — PRE-M6 UI DELIVERY MAJOR GAP TREATMENT RECORDED — DELIVERY QUALIFICATION COMPLETE — OPTION A REMAINS RECOMMENDATION / AWAITING MORRIS DECISION — NEXT PRODUCT GATE = MORRIS UI DELIVERY SCOPE DECISION — M6 REMAINS AFTER PRE-M6 / NOT AUTHORIZED — M7 CKC SYSTEM COMPLETION & VALIDATION 15/15 RECORDED — V2.6 CAPITALIZATION OPTION RECORDED — EXACT 1 ROADMAP FILE — NO UI DELIVERY — NO CKC DELIVERY — NO M6 — NO RUNTIME CHANGE — ZERO REAL — READY FOR CHATGPT REVIEW
+**Level:** FULL
+**Timestamp:** 2026-08-16 16:09:34 CEST (Europe/Paris)
+**Cycle:** 15 — Capitalisation / REX — CONTINUATION / CONTROLLED GIT INTEGRATION
+**Profile:** CRITICAL
+**Typologie:** DOC / ROADMAP ONLY
+**Title:** SFIA STUDIO CONVERGENCE ROADMAP — PRE-M6 UI DELIVERY GAP TREATMENT + CKC TRAJECTORY — CONTROLLED GIT INTEGRATION
 
 ---
 
-## 1. Clarified Morris GO
+## 1. Exact GO Morris consumed
 
-MODIFIER LA CONVERGENCE ROADMAP POUR : (1) intégrer résultats qualification PRE-M6 UI Delivery ; (2) traitement écarts majeurs ; (3) CKC SYSTEM COMPLETION & VALIDATION as future POST-M6/M7 ; (4) conserver Delivery/M6/CKC/v2.6 as distinct Morris gates. NO UI Delivery / code / runtime / Figma / CKC Delivery / M6 / REAL / project commit/push/PR.
+GO MORRIS — COMMIT + PUSH + OPEN DRAFT PR —
+BRANCH `docs/sfia-studio-roadmap-pre-m6-ui-ckc-trajectory` —
+CONVERGENCE ROADMAP PRE-M6 UI GAP TREATMENT + CKC TRAJECTORY SYNC —
+BASE main@`b834fdd40d3e7028e80cf7b388b93df2f31e18e4` —
+EXACTLY 1 PROJECT FILE —
+PRESERVE OPTION A AS RECOMMENDATION / AWAITING MORRIS DECISION —
+NEXT PRODUCT GATE = MORRIS PRE-M6 UI DELIVERY SCOPE DECISION —
+M7 CKC 15/15 FUTURE ONLY —
+V2.6 CAPITALIZATION OPTION ONLY —
+NO UI DELIVERY — NO CKC DELIVERY — NO M6 — NO RUNTIME CHANGE — ZERO REAL — NO MERGE
 
-## 2. Qualification
+---
 
-Cycle 15 — Capitalisation / Roadmap sync · Critical · DOC Roadmap only
+## 2. Cycle / Critical / DOC
+
+- Cycle **15** Capitalisation / REX
+- Continuation / Controlled Git Integration
+- Profile **CRITICAL**
+- Typologie **DOC** / **ROADMAP ONLY**
+- CKC détaillé Cycle 15: **ABSENT**
+- Fallback: synthetic map `02-fifteen-cycles-synthetic-map.md` + méthode cycles
+- Statut: candidate / experimental cognitive guidance
+- Autorité: **AUCUNE autorité d’exécution**
+
+---
 
 ## 3. CKC fallback
 
-Cycle 15 detailed CKC ABSENT · synthetic map + méthode cycles · candidate / experimental · autorité AUCUNE
+Used: method capitalization synthetic map + cycle method candidate guidance only.
+No detailed CKC Cycle 15 applied as execution authority.
+No CKC Delivery. No CKC file mutation.
 
-## 4. Git Truth
+---
 
-| Check | Value |
-|---|---|
-| branch | docs/sfia-studio-roadmap-pre-m6-ui-ckc-trajectory |
-| HEAD base | b834fdd40d3e7028e80cf7b388b93df2f31e18e4 |
-| origin/main | b834fdd40d3e7028e80cf7b388b93df2f31e18e4 |
-| incoming handoff | 2577776360c8a5a3492806b447d4bf88f0239898 |
-| qualification blob | 9084a97b368472aaaa7ab61f85baf2efcb819e51 |
-| REAL | unset |
-| tracked at start | clean |
+## 4. Git Truth before action
 
-## 5. Convergence Pre-check
+| Check | Result |
+| --- | --- |
+| branch | `docs/sfia-studio-roadmap-pre-m6-ui-ckc-trajectory` |
+| HEAD | `b834fdd40d3e7028e80cf7b388b93df2f31e18e4` |
+| origin/main | `b834fdd40d3e7028e80cf7b388b93df2f31e18e4` |
+| origin/sfia/review-handoff | `ab6ba770fa9f8a72a2b2dbdddd84bfc4f45b19aa` |
+| Review Pack blob (incoming) | `c6ef1703a3750f572f08d2de6a58d16952548f4b` |
+| remote target branch | **ABSENT** before push |
+| REAL (`SFIA_STUDIO_CURSOR_REAL` / `OPS1_CURSOR_REAL`) | unset |
+| tracked dirty | exactly `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
+| staged before | empty |
+| `git diff --check` | PASS |
+| untracked | `.tmp-sfia-review/**` allowed |
 
-Build Doctrine VALIDATED · V3-F05 · D-PRE-M6-UX-05 ADOPTED · Freeze uUdLBElF2B4dOefaAYt4QY · qualification COMPLETE · UI Delivery NOT AUTHORIZED · M6 NOT AUTHORIZED · runtime v3 NON ADOPTED · future M7 V3-F01 CKC
+---
 
-## 6. Exact project file
+## 5. Main base
 
-projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md ONLY
+`origin/main` = `b834fdd40d3e7028e80cf7b388b93df2f31e18e4`
+PR #357 MERGED · CI #201 SUCCESS (pre-integration facts)
 
-## 7. Roadmap current-state sync
+---
 
-Snapshot → b834fdd… · PR #357 MERGED · CI #201 SUCCESS · qualification COMPLETE / READY FOR MORRIS DELIVERY DECISION ≠ Delivery authorized
+## 6. Incoming Review Handoff
 
-## 8. Pre-M6 qualification capitalization
+- commit: `ab6ba770fa9f8a72a2b2dbdddd84bfc4f45b19aa`
+- blob: `c6ef1703a3750f572f08d2de6a58d16952548f4b`
+- ChatGPT: PASS / READY FOR CONTROLLED GIT INTEGRATION
+- Project file exact: `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+- Candidate content **not rewritten** after PASS
 
-OPTION A recommended · RECOMMENDATION AWAITING MORRIS · capability candidate E2E GO path · KEEP M1→M5 · no parallel engine · no new persistence by default
+---
 
-## 9. Major gap treatment
+## 7. Convergence Pre-check
 
-A–O matrix recorded (F1 entry · nav · workspace · assistant · G-UX-08/09/10/11 · Confirmation · Attempt · History · Recovery · responsive · visual reserves · M5-C). Candidates ≠ closed. G-UX-08 deferred under Option A ≠ CLOSED. G-UX-10 INCLUDE.
+| Item | Status |
+| --- | --- |
+| Build Doctrine | VALIDATED — ACTIVE ON MAIN |
+| Current capability | PRE-M6 PRODUCT UX / UI DELIVERY DECISION READINESS |
+| Primary foundation | V3-F05 |
+| Future capability | V3-F01 — CKC SYSTEM COMPLETION & VALIDATION |
+| PRE-M6 | current / NON COMPLETE |
+| M6 | future after Pre-M6 acceptance / NOT AUTHORIZED |
+| M7 | future after M6 / CKC 15/15 NOT AUTHORIZED |
+| D-PRE-M6-UX-05 | ADOPTED AS PRE-M6 VISUAL REFERENCE |
+| UI Delivery qualification | COMPLETE |
+| Option A | RECOMMENDATION — AWAITING MORRIS DECISION (**≠** ADOPTED) |
+| UI Delivery | NOT AUTHORIZED |
+| runtime v3 | NON ADOPTED |
+| REAL | 0 |
 
-## 10. Option A status
+Trajectory preserved: Morris Pre-M6 UI Delivery scope decision → UI Delivery under distinct GO → E2E + negatives → runtime visual → Figma/runtime compare → UAT → Pre-M6 acceptance → M6 Entry Qualification → M6 if authorized → M7 CKC SYSTEM COMPLETION & VALIDATION → optional v2.6 capitalization under distinct method gate.
 
-RECOMMENDATION — AWAITING MORRIS DECISION · ≠ ADOPTED · ≠ DELIVERY AUTHORIZED
+---
 
-## 11. Next Delivery gate
+## 8. Reviewed candidate integrity proof
 
-MORRIS PRE-M6 UI DELIVERY SCOPE DECISION (then separate Delivery authorization if selected)
+- Pre-commit SHA256: `cae66a98f7f272edcaf5247bbaeea9fdaf41ea82a5bbf5175e1aeaa704589e3f`
+- Post-commit SHA256: `cae66a98f7f272edcaf5247bbaeea9fdaf41ea82a5bbf5175e1aeaa704589e3f` (unchanged — no hook mutation)
+- Tree blob after commit: `b428949fa43a644dd4f2797882a42ec33c3483e7`
+- Required claims verified PASS (main SHA, PR #357, CI #201, qualification COMPLETE, Option A Recommendation ≠ ADOPTED, next gate Morris scope decision, gap treatments A–O recorded, M6 NOT AUTHORIZED, M7 CKC future, 4/15+11/15, v2.6 option only, Studio v3-exclusive, runtime NON ADOPTED, REAL 0)
+- No Recommendation→Decision regression detected
 
-## 12. M6 sequencing
+---
 
-After Pre-M6 acceptance + distinct GO · NOT STARTED / NOT AUTHORIZED
+## 9. Anti-auto-obsolescence proof
 
-## 13. M7 CKC
+Roadmap candidate does **not** encode as product CURRENT:
+- this cycle’s commit as capability state
+- this cycle’s PR number as CURRENT convergence fact prior to merge
+- this cycle’s CI number as CURRENT product state
+- “Draft PR open” as CURRENT capability
 
-CKC SYSTEM COMPLETION & VALIDATION · POST-M6/M7 · V3-F01 · current 4/15 detailed + 11/15 fallback · target 15/15 · required future scope 1–12 recorded · NOT AUTHORIZED NOW
+Those facts belong only in this Review Pack / Handoff / Cursor report / Draft PR body.
 
-## 14. v2.6 capitalization option
+Self-referential future integration facts in Roadmap: **NOT DETECTED** (PASS).
 
-Future OPTION after M7 CKC validation · Studio remains v3-exclusive · distinct Morris method gate · ≠ decided
+---
 
-## 15. Anti-auto-obsolescence
+## 10. Exact staged file
 
-No future commit/PR/CI for THIS Roadmap sync encoded as product CURRENT. Integration mechanics only in Review Pack/Handoff/report.
+```
+projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+```
 
-## 16. Anti-claims
+Staging command used:
+`git add -- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+(NOT `git add .` / `-A` / folder)
 
-Qualification COMPLETE ≠ Delivery authorized · Option A recommended ≠ selected · gap treatment ≠ closed · G-UX-08 deferred ≠ closed · G-UX-09 ≠ durable · Confirmation KEEP ≠ restart-safe · G-UX-11 planned ≠ proven · M7 CKC future ≠ complete/authorized · 4+11 ≠ 15/15 · v2.6 option ≠ decided · runtime v3 NON ADOPTED · REAL 0
+---
 
-## 17. git diff --check
+## 11. `git diff --cached --check`
 
-PASS
+**PASS** (exit 0) before commit.
 
-## 18. Safety counters
+---
 
-project files modified=1 · created=0 · code/tests/runtime/Figma/UI Delivery/CKC files/method/M6/REAL=0 · staging/commit/push/PR/merge/branch delete=0
+## 12. PROJECT_COMMIT_SHA
 
-## 19. Complete exploitable diff
+`c91ce1afd498ef9a5275e3b90509e7a045f240a0`
+
+Message: `docs(sfia-studio): record Pre-M6 UI gap and CKC trajectory`
+
+---
+
+## 13. Commit exact file list
+
+```
+projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+```
+
+Stat: 1 file changed, 135 insertions(+), 60 deletions(-)
+
+---
+
+## 14. Remote branch SHA
+
+Branch: `docs/sfia-studio-roadmap-pre-m6-ui-ckc-trajectory`
+Remote SHA: `c91ce1afd498ef9a5275e3b90509e7a045f240a0`
+Verdict: **REMOTE BRANCH VERIFIED**
+
+---
+
+## 15. Draft PR
+
+| Field | Value |
+| --- | --- |
+| PR_NUMBER | **358** |
+| PR_URL | https://github.com/mcleland147/sfia-workspace/pull/358 |
+| PR_STATE | OPEN |
+| PR_DRAFT | true |
+| PR_BASE | main |
+| PR_HEAD | docs/sfia-studio-roadmap-pre-m6-ui-ckc-trajectory |
+| PR_HEAD_SHA | c91ce1afd498ef9a5275e3b90509e7a045f240a0 |
+| PR_CHANGED_FILES | 1 |
+| PR_COMMITS | 1 |
+
+Mark ready = 0 · Merge = 0 · Auto-merge = 0 · Branch delete = 0
+
+---
+
+## 16. CI run / status
+
+| Field | Value |
+| --- | --- |
+| Workflow | SFIA Studio CI |
+| Run ID | 31951723558 |
+| Run number | **#202** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/31951723558 |
+| headSha | c91ce1afd498ef9a5275e3b90509e7a045f240a0 |
+| status | completed |
+| conclusion | **success** |
+| Jobs | Detect SFIA Studio changes PASS · Build and validate SFIA Studio PASS · SFIA Studio Required Gate PASS |
+
+**CI SUCCESS ≠ merge authorized.**
+
+---
+
+## 17. Option A status
+
+**RECOMMENDATION — AWAITING MORRIS DECISION**
+**≠** ADOPTED
+**≠** UI Delivery authorized
+
+---
+
+## 18. Next product gate
+
+**MORRIS PRE-M6 UI DELIVERY SCOPE DECISION**
+
+(Separate from this documentary integration / eventual Roadmap merge.)
+
+---
+
+## 19. M6
+
+**NOT STARTED / NOT AUTHORIZED**
+
+---
+
+## 20. M7 CKC
+
+Future POST-M6 capability only: **CKC SYSTEM COMPLETION & VALIDATION**
+CKC Delivery **NOT AUTHORIZED** by this PR.
+
+---
+
+## 21. Current CKC state
+
+- **4/15** detailed pilots
+- **11/15** synthetic fallback
+- Target **15/15** detailed + system validation = FUTURE only
+
+---
+
+## 22. v2.6 capitalization
+
+**FUTURE CAPITALIZATION OPTION only**
+No v2.6 modification authorized
+Studio remains **v3-exclusive**
+
+---
+
+## 23. runtime v3
+
+**NON ADOPTED**
+
+---
+
+## 24. ZERO REAL
+
+`SFIA_STUDIO_CURSOR_REAL` unset · `OPS1_CURSOR_REAL` unset · REAL = 0
+
+---
+
+## 25. Merge
+
+**0** — Draft PR does not authorize merge
+
+---
+
+## 26. Branch delete
+
+**0**
+
+---
+
+## 27. Safety Counters
+
+| Counter | Value |
+| --- | --- |
+| Project files modified | 1 |
+| Project files created | 0 |
+| Project commits | 1 |
+| Project pushes | 1 |
+| Draft PR created | 1 |
+| Mark ready | 0 |
+| Merge | 0 |
+| Auto-merge | 0 |
+| Branch delete | 0 |
+| Force push | 0 |
+| Code | 0 |
+| Tests | 0 |
+| Runtime | 0 |
+| Figma | 0 |
+| UI Delivery | 0 |
+| CKC files | 0 |
+| CKC Delivery | 0 |
+| Method/template | 0 |
+| v2.6 modification | 0 |
+| M6 | 0 |
+| REAL | 0 |
+| Review Handoff publication | 1 bounded L3 (this cycle) |
+
+---
+
+## 28. Verdict
+
+**CONVERGENCE ROADMAP — PRE-M6 UI DELIVERY GAP TREATMENT + CKC TRAJECTORY — COMMITTED + PUSHED + DRAFT PR OPEN — EXACT 1 ROADMAP FILE — REMOTE VERIFIED — CURRENT HEAD CI SUCCESS (#202) — OPTION A PRESERVED AS RECOMMENDATION / AWAITING MORRIS DECISION — NEXT PRODUCT GATE = MORRIS PRE-M6 UI DELIVERY SCOPE DECISION — M6 NOT AUTHORIZED — M7 CKC 15/15 FUTURE ONLY — V2.6 CAPITALIZATION OPTION ONLY — NO UI DELIVERY — NO CKC DELIVERY — NO RUNTIME CHANGE — NO M6 — ZERO REAL — NO MERGE — READY FOR CYCLE 13 PR READINESS**
+
+---
+
+## Autonomous evidence — committed diff (exact project file)
 
 ```diff
+commit c91ce1afd498ef9a5275e3b90509e7a045f240a0
+Author: Morris Cleland <morris@mac1.home>
+Date:   Sun Aug 16 16:05:43 2026 +0200
+
+    docs(sfia-studio): record Pre-M6 UI gap and CKC trajectory
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 index aa95838..b428949 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -396,6 +627,29 @@ index aa95838..b428949 100644
  - Framing : `projects/sfia-studio/sfia-v3-framing/30`–`37` (dont `34` · DOC-DEBT-M1-01 sur `32`)
 ```
 
-## 20. Verdict
+---
 
-CONVERGENCE ROADMAP — PRE-M6 UI DELIVERY MAJOR GAP TREATMENT RECORDED — DELIVERY QUALIFICATION COMPLETE — OPTION A REMAINS RECOMMENDATION / AWAITING MORRIS DECISION — NEXT PRODUCT GATE = MORRIS UI DELIVERY SCOPE DECISION — M6 REMAINS AFTER PRE-M6 / NOT AUTHORIZED — M7 CKC SYSTEM COMPLETION & VALIDATION 15/15 RECORDED — V2.6 CAPITALIZATION OPTION RECORDED — EXACT 1 ROADMAP FILE — NO UI DELIVERY — NO CKC DELIVERY — NO M6 — NO RUNTIME CHANGE — ZERO REAL — READY FOR CHATGPT REVIEW
+## ChatGPT Cycle 13 PR readiness checklist (DO NOT CONSUME HERE)
+
+Verify:
+- actual Draft PR #358 OPEN / draft=true
+- exactly 1 Roadmap file
+- candidate unchanged vs reviewed content
+- CI SUCCESS on exact head `c91ce1afd498ef9a5275e3b90509e7a045f240a0`
+- Review Handoff published
+- Option A still Recommendation
+- no UI Delivery authorization
+- no M6 authorization
+- M7 CKC future-only
+- v2.6 capitalization option-only
+- anti-self-reference
+
+MERGE IS NOT AUTHORIZED HERE.
+
+---
+
+## Integrity repair note (handoff publish)
+
+Trailing whitespace was stripped from this Review Pack so \`git diff --check\`
+passes in the canonical handoff publisher. No semantic/content change to
+integration facts, verdict, PR metadata, or committed Roadmap diff substance.
