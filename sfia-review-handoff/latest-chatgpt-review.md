@@ -1,465 +1,559 @@
-# D-PRE-M6-UX-05 — PR #356 POST-MERGE CURRENT-STATE SYNC — CONTROLLED GIT INTEGRATION — REVIEW PACK FULL
+# PRE-M6 UI DELIVERY GATE / SCOPE — QUALIFICATION — REVIEW PACK FULL
 
 **Niveau :** FULL
-**Timestamp :** 2026-08-16 14:37:28 CEST (Europe/Paris)
-**Verdict Cursor :** PR #356 POST-MERGE CURRENT-STATE SYNC — COMMITTED + PUSHED + DRAFT PR OPEN — EXACT 2-DOC SCOPE — REMOTE VERIFIED — CURRENT HEAD CI SUCCESS — D-PRE-M6-UX-05 ADOPTED PRESERVED ON MAIN — NEXT CONVERGENCE CAPABILITY = QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE — NO BRANCH DELETE — NO MERGE — NO UI DELIVERY — NO RUNTIME CHANGE — NO M6 — ZERO REAL — READY FOR CYCLE 13 PR READINESS
+**Timestamp :** 2026-08-16 15:22:00 CEST (Europe/Paris)
+**Mode :** READ-ONLY PROJECT — QUALIFICATION ONLY
+**Verdict Cursor :** PRE-M6 UI DELIVERY GATE / SCOPE — QUALIFICATION COMPLETE — END-TO-END DELIVERY CAPABILITY IDENTIFIED — ASSET DISPOSITIONS CANDIDATE DEFINED — DEPENDENCIES CLASSIFIED — EXIT PROOF DEFINED — DEBT / EXIT DEFINED — NO PARALLEL ARCHITECTURE — NO PROJECT MUTATION — NO UI DELIVERY — NO RUNTIME CHANGE — NO FIGMA MUTATION — NO M6 — ZERO REAL — READY FOR CHATGPT REVIEW / MORRIS DELIVERY DECISION
+
+**Important :** READY FOR MORRIS DELIVERY DECISION ≠ READY FOR DELIVERY ≠ DELIVERY AUTHORIZED.
 
 ---
 
-## 1. GO Morris consommé
+## 1. GO Morris exact consommé
 
-GO MORRIS — COMMIT + PUSH + OPEN DRAFT PR — BRANCH docs/sfia-studio-pre-m6-visual-contract-post-merge-sync — PR #356 POST-MERGE CURRENT-STATE SYNC — BASE main@50f31994b0d9b5a3a3514e2fa9a063d688071c50 — EXACTLY 2 PROJECT DOCS — PRESERVE D-PRE-M6-UX-05 ADOPTED ON MAIN — NEXT CONVERGENCE CAPABILITY = QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE — NO BRANCH DELETE — NO UI DELIVERY — NO RUNTIME CHANGE — NO M6 — ZERO REAL — NO MERGE
+GO MORRIS — QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE —
+BASE main@b834fdd40d3e7028e80cf7b388b93df2f31e18e4 —
+USE D-PRE-M6-UX-05 ADOPTED VISUAL REFERENCE uUdLBElF2B4dOefaAYt4QY —
+REUSE EXISTING M1→M5 RUNTIME —
+DEFINE DELIVERY SCOPE / ASSET DISPOSITIONS / DEPENDENCIES / EXIT PROOF / MORRIS GATES —
+NO UI DELIVERY EXECUTION — NO CODE CHANGE — NO RUNTIME CHANGE — NO FIGMA MUTATION — NO M6 — ZERO REAL
+
+---
 
 ## 2. Qualification
 
-- Cycle 14 continuation / Controlled Git integration
-- Profil CRITICAL
-- Typologie DOC
+| Champ | Valeur |
+|---|---|
+| Cycle | 1 — Cadrage |
+| Profil | CRITICAL |
+| Typologie | DOC / AUDIT / DECISION READINESS |
+| Justification Critical | Borne le futur Delivery Pre-M6 ; arbitrage de dispositions d’actifs + scope E2E ; aucune exécution Delivery |
+| Maturité recherchée | prete_a_borner |
+| Maturité ≠ | READY FOR DELIVERY / Delivery authorized |
 
-## 3. CKC fallback
+---
 
-Cycle 14 — Post-merge · pilote ABSENT · synthetic map + méthode cycles · candidate/experimental · autorité AUCUNE
+## 3. CKC candidate
 
-## 4. Git Truth avant action
+| Champ | Valeur |
+|---|---|
+| Path | method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md |
+| Status | candidate |
+| Usage | experimental cognitive guidance only |
+| Autorité | AUCUNE autorité d’exécution ; aucune décision Morris implicite |
+| Note | Ce cycle borne le FUTUR Delivery ; il n’est PAS le Cycle 8 Delivery/implémentation |
+
+---
+
+## 4. Git Truth
 
 | Check | Valeur |
 |---|---|
-| branch | docs/sfia-studio-pre-m6-visual-contract-post-merge-sync |
-| HEAD | 50f31994b0d9b5a3a3514e2fa9a063d688071c50 |
-| origin/main | 50f31994b0d9b5a3a3514e2fa9a063d688071c50 |
-| target remote before push | ABSENT |
-| source branch #356 | 3a93d0e5… PRESERVED |
-| handoff tip | ee0f67fce5eb1dadae1fb4e655ebfe22f7af6984 |
-| handoff blob | f21bfe9786510c6e88a1d1303dd4c356c6909408 |
+| cwd | …/sfia-studio-m4-real-off |
+| local branch | docs/sfia-studio-pre-m6-visual-contract-post-merge-sync |
+| local HEAD | 70643624c494f16fb91e3bede772a80f4eece783 |
+| origin/main | **b834fdd40d3e7028e80cf7b388b93df2f31e18e4** |
+| tracked worktree | clean (only `?? .tmp-sfia-review/`) |
+| staged | none |
 | REAL | unset |
+| SFIA_STUDIO_CURSOR_REAL | unset |
+| OPS1_CURSOR_REAL | unset |
+| source branch #357 | docs/sfia-studio-pre-m6-visual-contract-post-merge-sync @ 70643624… PRESERVED |
+| source branch #356 | docs/sfia-studio-pre-m6-visual-contract-adoption-sync @ 3a93d0e5… PRESERVED |
+| branch delete | 0 |
+| handoff tip at start | e0a0a99ebdbc2b641d6235c6bab0d9687960908b |
 
-## 5. origin/main
+**FACT :** Base autoritaire d’audit = `origin/main@b834fdd…`. Local branch tip is the merged head of PR #357 (docs-only); app runtime tree matches main for Studio product code.
 
-50f31994b0d9b5a3a3514e2fa9a063d688071c50
+---
 
-## 6. Handoff entrant
+## 5. main@b834fdd + PR #357 / CI #201
 
-ee0f67f… / blob f21bfe97… — ChatGPT PASS consumed; candidate not modified after PASS.
+| Fact | Value |
+|---|---|
+| PR #357 | MERGED |
+| merge | b834fdd40d3e7028e80cf7b388b93df2f31e18e4 |
+| parents | 50f31994… + 70643624… |
+| changed files (#357) | exact 2 docs (Roadmap + Pre-M6 baseline) |
+| CI #201 | SUCCESS · run id 31948858360 · push · head b834fdd… · Detect/Build/Required Gate SUCCESS |
+| CI #200 | SUCCESS on PR head 70643624… (historical PR evidence) |
+| PR #356 | MERGED (durable visual adoption docs on main via 50f31994…) |
+
+**OBSERVATION (documentary lag, NON-BLOCKING for this qualification) :**
+On main@b834fdd, Roadmap/baseline Snapshot Git still cites `50f31994…` (PR #356 post-merge current-state). This is intentional anti-auto-obsolescence for the #357 sync itself. **≠** UI Delivery blocker. Optional future Cycle 14 docs sync may record PR #357 merge facts under a distinct Morris GO.
+
+---
+
+## 6. Sources lues
+
+- prompts/templates/sfia-cycle-execution-template.md (presence)
+- method routing / operating model / rules / knowledge layer
+- sfia-v2.5-project-cycles-method-candidate.md
+- CKC pilots/01-cadrage.md
+- Build Doctrine (VALIDATED — ACTIVE ON MAIN)
+- Convergence Roadmap + Pre-M6 baseline (main tip content)
+- framing 30, 32, 33, 34, 35, 37 (presence + applicable doctrine anchors)
+- Studio app routes/features/shell/runtime/tests as listed below
+- Visual evidence inventory under `.tmp-sfia-review/figma/manual-evidence/**` and `final-review/**`
+- Historical visual QA handoff commit `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593dd…` (reachable)
+
+---
 
 ## 7. Convergence Pre-check
 
-Build Doctrine VALIDATED · V3-F05 · D-PRE-M6-UX-05 ADOPTED ON MAIN · Freeze uUdLBElF2B4dOefaAYt4QY · PR #356 MERGED · CI #199 SUCCESS · UI Delivery NOT AUTHORIZED · next = QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE (not executed).
-
-## 8. Candidate integrity proof
-
-- No post-PASS edits
-- Pre/post commit hashes identical (roadmap ef9ef529… / baseline a179820d…)
-- Commit hook mutation check PASS
-
-## 9. Anti-auto-obsolescence proof
-
-Product docs do not encode this sync commit/PR/CI as CURRENT product state. Integration mechanics only in PR body / Review Pack / Handoff. Self-referential state NOT DETECTED.
-
-## 10. Exact 2 staged files
-
-1. projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-2. projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md
-
-## 11. git diff --cached --check
-
-PASS
-
-## 12. PROJECT_COMMIT_SHA
-
-70643624c494f16fb91e3bede772a80f4eece783
-
-## 13. Commit exact file list
-
-exact 2 docs · 72 insertions / 74 deletions
-
-## 14. Remote branch SHA
-
-70643624c494f16fb91e3bede772a80f4eece783 — REMOTE BRANCH VERIFIED
-
-## 15. Draft PR
-
-| Champ | Valeur |
+| Item | Status |
 |---|---|
-| number | 357 |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/357 |
-| state | OPEN |
-| draft | true |
-| base | main |
-| head | docs/sfia-studio-pre-m6-visual-contract-post-merge-sync |
-| head SHA | 70643624c494f16fb91e3bede772a80f4eece783 |
-| changed files | 2 |
-| commits | 1 |
+| Build Doctrine | VALIDATED — ACTIVE ON MAIN |
+| Capacité principale | V3-F05 conversation → décision → exécution |
+| Supports | V3-F02, V3-F04, V3-F10, V3-F12, V3-F14, V3-F15 |
+| Milestone | PRE-M6 PRODUCT UX / UI DELIVERY QUALIFICATION |
+| Functional baseline | ADOPTED |
+| G-UX readiness | COMPLETE |
+| G-UX-15 technical blocker | CLOSED / MERGED ON MAIN (PR #354) |
+| D-PRE-M6-UX-05 | ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN |
+| Freeze | uUdLBElF2B4dOefaAYt4QY |
+| product/browser E2E | PENDING |
+| Confirmation process-local | KEEP RESERVE |
+| UI Delivery | NOT AUTHORIZED |
+| Pre-M6 | NON COMPLETE |
+| M6 | NOT AUTHORIZED |
+| runtime v3 | NON ADOPTED |
+| global v3 baseline | NOT PROMOTED |
+| REAL | 0 |
+| Trajectory link | PRESENT (qualify → Morris Delivery decision → UI Delivery → E2E → visual → UAT → M6 Entry Qualification) |
 
-## 16. Current head CI
-
-| Champ | Valeur |
-|---|---|
-| number | 200 |
-| run id | 31947449430 |
-| event | pull_request |
-| headSha | 70643624c494f16fb91e3bede772a80f4eece783 |
-| conclusion | SUCCESS |
-| jobs | Detect/Build/Required Gate = SUCCESS |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/31947449430 |
-
-CI #199 remains PR #356 post-merge proof (distinct). CI #200 does not authorize merge.
-
-## 17. PR #356 durable facts preserved
-
-MERGED · merge 50f31994… · head 3a93d0e… · CI #198/#199 · D-PRE-M6-UX-05 ADOPTED ON MAIN · Freeze uUdLBElF2B4dOefaAYt4QY
-
-## 18. Source branch #356 preserved
-
-docs/sfia-studio-pre-m6-visual-contract-adoption-sync @ 3a93d0e5… still present
-
-## 19. No branch delete
-
-0
-
-## 20. Remaining reserves
-
-visual ACCEPTED ≠ CLOSED · E2E PENDING · Confirmation KEEP · G-UX-08/10 · M5-C · Pre-M6 NON COMPLETE · UI Delivery NOT AUTHORIZED · M6 NOT AUTHORIZED · runtime v3 NON ADOPTED · REAL 0
-
-## 21. Next convergence capability
-
-QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE — UI Delivery NOT AUTHORIZED
-Repo next (not consumed): CYCLE 13 PR READINESS on Draft PR #357
-
-## 22. Anti-claims
-
-MERGED ≠ Delivery · CI SUCCESS ≠ Pre-M6 complete ≠ merge authorized · contract on main ≠ runtime/E2E/alignment · Draft OPEN ≠ merge · REAL 0
-
-## 23. Safety Counters
-
-files=2 · commits=1 · pushes=1 · draft PR=1 · mark ready=0 · merge=0 · branch delete=0 · force push=0 · code/runtime/Figma/Delivery/E2E/M6/REAL=0
-
-## 24–25. Zero Delivery/runtime/Figma/E2E/M6/REAL · merge=0
-
-Confirmed.
-
-## 26. Commit patch
-
-```diff
-commit 70643624c494f16fb91e3bede772a80f4eece783
-Author: Morris Cleland <morris@macbook-air1.home>
-Date:   Sun Aug 16 14:34:40 2026 +0200
-
-    docs(sfia-studio): sync PR 356 post-merge current state
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
 ---
- .../convergence/sfia-studio-convergence-roadmap.md | 71 ++++++++++----------
- ...re-m6-user-journey-ux-baseline-qualification.md | 75 +++++++++++-----------
- 2 files changed, 72 insertions(+), 74 deletions(-)
 
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 28aa5a2..aa95838 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -6,13 +6,13 @@
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
- | **Doctrine cible** | SFIA Studio v3 framing `30`–`37` (destination produit) |
- | **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
--| **Snapshot Git** | origin/main @ `dd284e9f20de89b2c8fc7782e4177d0d125c24d2` *(cycle start — PR #355 merge ; prior Slice A `a6df83a…` via PR #354)* |
-+| **Snapshot Git** | origin/main @ `50f31994b0d9b5a3a3514e2fa9a063d688071c50` *(PR #356 merge — D-PRE-M6-UX-05 visual adoption docs ; prior main `dd284e9…` via PR #355)* |
- | **Timestamp création** | 2026-08-12 21:53:10 CEST (+0200) *(historique)* |
--| **Timestamp maintenance** | 2026-08-16 13:47 CEST (+0200) — CYCLE 13 PR READINESS — PR #356 CURRENT-STATE TRUTH AMEND — main remains `dd284e9f20de89b2c8fc7782e4177d0d125c24d2` (PR #355 MERGED · PR #356 **NOT MERGED**) — D-PRE-M6-UX-05 = **ADOPTED AS PRE-M6 VISUAL REFERENCE** (Freeze `uUdLBElF2B4dOefaAYt4QY`) — PR #356 **OPEN / DRAFT** · initial integration commit `07f7a06…` · CI **#197** SUCCESS on initial head — CURRENT REPO GATE = Cycle 13 PR readiness — MERGE **NOT AUTHORIZED** — UI DELIVERY **NOT AUTHORIZED** — product/browser E2E **PENDING** — Confirmation process-local **KEEP RESERVE** — Pre-M6 **NON COMPLETE** — M6 **NOT AUTHORIZED** — runtime v3 **NON ADOPTED** — ZERO REAL |
-+| **Timestamp maintenance** | 2026-08-16 14:26 CEST (+0200) — CYCLE 14 POST-MERGE — PR #356 **MERGED** (`50f31994b0d9b5a3a3514e2fa9a063d688071c50` · head `3a93d0e5cfd86e46bb795ce22c0f7dd79078ef2a` · base `dd284e9…`) — CI **#198** SUCCESS on final PR head · post-merge CI **#199** SUCCESS on main — post-merge truth **PASS** — D-PRE-M6-UX-05 = **ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN** (Freeze `uUdLBElF2B4dOefaAYt4QY`) — source branch **PRESERVED** (delete NOT AUTHORIZED) — NEXT CONVERGENCE CAPABILITY = **QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE** — UI DELIVERY **NOT AUTHORIZED** — product/browser E2E **PENDING** — Confirmation process-local **KEEP RESERVE** — Pre-M6 **NON COMPLETE** — M6 **NOT AUTHORIZED** — runtime v3 **NON ADOPTED** — ZERO REAL |
- | **Validation Morris** | 2026-08-13 02:05 +0200 (Europe/Paris) — Build Doctrine + Convergence Roadmap officiellement validées comme gouvernance de construction SFIA Studio |
--| **Intégration Git** | Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration · **M4 post-pre-reproof Roadmap :** PR #347 / merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS · **M4 GOVERNED REAL COMPLETION PROOF** handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · **M4 closure Roadmap :** PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · **M5 Entry Qualification** handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · **M5 Delivery (Option B + W1) :** PR #350 / head `17461dad78f92a3d5e5e1d9bd36aa20d1e86ac11` / merge `8f753218e4fff7d68d78c1d57e9c3e8fb7e60943` · CI SFIA Studio **#184** SUCCESS · post-merge CI **#185** SUCCESS · **M5 UI/Nora durable rehydrate :** PR #351 / head `ced7b172969c27b5e2d6fda06e9caa8c84e1e0d7` / merge `d8961f1d85a98b5d4185f007f16ddac209e2e557` · CI SFIA Studio **#186** SUCCESS · post-merge CI **#187** SUCCESS · M5 exit re-evaluation handoff `54b0f5b43a50861c26226aa3ffc06460f8ffbafe` · blob `131c85172bbd6370a3edcd71347a64932c9303ab` · M5 EXIT PROOF **SATISFIED ON MAIN** · **M5 capitalization / Roadmap sync :** PR #352 / head `c26824c602ec041cb1d40e9078191c0f1cde4e95` / merge `3467ecdf74ac2010c45f34545fb8684563dea547` · CI SFIA Studio PR run **#31875337665** SUCCESS · post-merge CI run **#31875621317** SUCCESS · post-merge handoff `0121e184c936f8dc73ffe80e20d43027fec495d7` · blob `4c293ae07a0d516b16d6dd2d4087d3e25858e275` · GO Morris **ACCEPT M5 EXIT PROOF + CLOSE M5 — KEEP M5-C TECHNICAL JOURNAL — ZERO REAL — NO M6 EXECUTION — RUNTIME V3 NON ADOPTED — NO BRANCH DELETE** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · User wording **« ok go pour la modification »** · governed interpretation **ALIGN M5 CLOSURE ROADMAP WITH PRE-M6 USER JOURNEY / UX BASELINE TRAJECTORY — KEEP M5 CLOSED — KEEP M5-C — NO UX DESIGN EXECUTION YET — NO FIGMA ACTION YET — NO UI DELIVERY — NO M6 — ZERO REAL — NO PROJECT GIT WRITE** · **M5 closure / Pre-M6 sequencing Roadmap :** PR #353 / title `docs(sfia-studio): close M5 and sequence Pre-M6 UX baseline` / base `3467ecdf74ac2010c45f34545fb8684563dea547` / head `7a744c8cec889be547eebe231279620189819dd0` / merge `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` — records M5 closure + inserts Pre-M6 before M6 · **≠** Slice A candidate (Slice A is later local work) · PRE-M6 USER JOURNEY / UX BASELINE = **FUNCTIONAL BASELINE + GAP READINESS COMPLETE · G-UX-15 EXIT PROOF ACCEPTED / TECHNICAL BLOCKER CLOSED · LOCAL CANDIDATE NOT YET ON MAIN · FIGMA/UI DELIVERY NOT AUTHORIZED** · **G-UX-15 Slice A controlled integration :** PR #354 / title `feat(sfia-studio): close Pre-M6 G-UX-15 execution wiring gap` / base `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` / head `22ae8e5e4bddb0f997384a5e8ba87c9b35245693` / merge `a6df83a640afeb0911cb572d118d27a03c9923a7` · CI SFIA Studio **#192** SUCCESS · post-merge main CI **#193** SUCCESS · post-merge truth **PASS** (exact 5-file SHAs on main) · feature branch **PRESERVED** (no delete) · **Cycle 14 docs sync :** PR #355 / title `docs(sfia-studio): sync Pre-M6 G-UX-15 post-merge current state` / merge `dd284e9f20de89b2c8fc7782e4177d0d125c24d2` — **MERGED ON MAIN** · **historique :** OPEN / DRAFT avant merge · **D-PRE-M6-UX-05 :** ADOPTED AS PRE-M6 VISUAL REFERENCE (Freeze `uUdLBElF2B4dOefaAYt4QY` · handoff `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593ddbdc286cd244790f0ca1d2c421128202c5c`) — UI Delivery still **NOT AUTHORIZED** · **Cycle 15 visual adoption docs integration :** PR #356 **OPEN / DRAFT** · head branch `docs/sfia-studio-pre-m6-visual-contract-adoption-sync` · initial integration commit `07f7a06da7c5abb6c339d544dddf11e53343e150` · CI SFIA Studio **#197** SUCCESS on initial PR head · Cycle 13 PR readiness **CURRENT** · merge **NOT AUTHORIZED** |
--| **Sources** | Git `main` @ `dd284e9f20de89b2c8fc7782e4177d0d125c24d2` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347/#348/#349/#350/#351/#352/#353/#354/#355/#356 · CI #158/#162/#166/#172/#176/#178/#184/#185/#186/#187/#192/#193/#197 · PR #352 CI run #31875337665 / post-merge #31875621317 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · D-PRE-M6-UX-05 visual review handoff `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593ddbdc286cd244790f0ca1d2c421128202c5c` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · M5 Entry Qualification handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · GO Morris **VALIDATE D-PRE-M6-UX-05 FIGMA VISUAL CONTRACT — ADOPT AS PRE-M6 VISUAL REFERENCE** · M4 Product path on main `projects/sfia-studio/app/**` |
--| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M5 Entry Qualification **COMPLETE** · M5 architecture trajectory **ADOPTED BY MORRIS** · M5 Delivery **IMPLEMENTED ON MAIN** (PR #350) · M5 UI rehydrate **IMPLEMENTED ON MAIN** (PR #351) · M5 technical/functional exit proof **SATISFIED ON MAIN** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · M5 CLOSED **≠** M6 AUTHORIZED · M5 CLOSED **≠** M6 STARTED · M5 CLOSED **≠** runtime v3 ADOPTED · M5 CLOSED **≠** global v3 baseline promoted · M5 CLOSED **≠** M5-C retired · M5 exit accepted **≠** global Cursor REAL authorization · M5 CLOSED future **≠** M6 automatically authorized · Pre-M6 trajectory decided **≠** Pre-M6 UX qualification executed · **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE ≠ UI Delivery authorized ≠ runtime implemented ≠ browser/product E2E proven ≠ Figma/runtime aligned ≠ WCAG compliant ≠ Pre-M6 complete ≠ historical UI retired** · Accepted M-03/M-04/provenance reserves ≠ reserves closed · new UX baseline **≠** runtime rewrite · existing UI not canonical **≠** existing UI automatically deleted · UI asset audit **COMPLETE/CLASSIFIED** **≠** individual dispositions ADOPTED · existing UI audit **≠** REPLACE/retirement authorized · M1→M5 runtime KEEP **≠** all runtime complete · Pre-M6 user proof **≠** runtime v3 ADOPTED · M6 after Pre-M6 **≠** M6 automatically authorized · Validated UX decisions in framing **30/37** (CC-D01) prevail over older candidate wording in framing **11** · M5-A OPTION B **IMPLEMENTED ON MAIN** · M5-B W1 **IMPLEMENTED ON MAIN** · M5-B W1 factual write-back **≠** Recommendation becomes Decision · Recommendation **≠** HumanDecision · Recommendation **≠** gate consumed · Recommendation **≠** ExecutionAuthority · LPS factual evidence link **≠** structural trajectory validation · readback **≠** execution · remount UI visibility **≠** automatic next-cycle launch · M5-C KEEP TEMPORARY WITH EXIT **≠** technical journal retired · durable Product Attempt **≠** technical M4 journal automatically obsolete · M5 implementation **≠** runtime v3 ADOPTED · M5 implementation **≠** global v3 baseline promoted · M5 ZERO REAL **≠** global Cursor REAL authorization · M5 architecture ADOPTED **≠** M6 started · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **unchanged by M5 architecture decision** **≠** M4/M5 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · runtime v3 **NON ADOPTED** · ≠ full OA durable · G-UX-15 technical blocker **CLOSED BY MORRIS** ≠ Pre-M6 complete · G-UX-15 exit proof accepted ≠ browser/product E2E proven · fixture-safe proof accepted ≠ REAL proof · G-UX-15 Slice A **MERGED ON MAIN** (PR #354) ≠ Pre-M6 complete · merged on main ≠ product/browser E2E proven · merged on main ≠ UI Delivery/M6 authorized · Pre-M6 progress ≠ M6 authorized · Confirmation process-local = KEEP RESERVE ≠ restart-safe Confirmation · PR #356 OPEN/DRAFT ≠ merge authorized · CI #197 SUCCESS on initial head ≠ merge authorized · Cycle 13 PR readiness PASS future ≠ automatic merge · global v3 baseline **NOT PROMOTED** |
-+| **Intégration Git** | Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration · **M4 post-pre-reproof Roadmap :** PR #347 / merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS · **M4 GOVERNED REAL COMPLETION PROOF** handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · **M4 closure Roadmap :** PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · **M5 Entry Qualification** handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · **M5 Delivery (Option B + W1) :** PR #350 / head `17461dad78f92a3d5e5e1d9bd36aa20d1e86ac11` / merge `8f753218e4fff7d68d78c1d57e9c3e8fb7e60943` · CI SFIA Studio **#184** SUCCESS · post-merge CI **#185** SUCCESS · **M5 UI/Nora durable rehydrate :** PR #351 / head `ced7b172969c27b5e2d6fda06e9caa8c84e1e0d7` / merge `d8961f1d85a98b5d4185f007f16ddac209e2e557` · CI SFIA Studio **#186** SUCCESS · post-merge CI **#187** SUCCESS · M5 exit re-evaluation handoff `54b0f5b43a50861c26226aa3ffc06460f8ffbafe` · blob `131c85172bbd6370a3edcd71347a64932c9303ab` · M5 EXIT PROOF **SATISFIED ON MAIN** · **M5 capitalization / Roadmap sync :** PR #352 / head `c26824c602ec041cb1d40e9078191c0f1cde4e95` / merge `3467ecdf74ac2010c45f34545fb8684563dea547` · CI SFIA Studio PR run **#31875337665** SUCCESS · post-merge CI run **#31875621317** SUCCESS · post-merge handoff `0121e184c936f8dc73ffe80e20d43027fec495d7` · blob `4c293ae07a0d516b16d6dd2d4087d3e25858e275` · GO Morris **ACCEPT M5 EXIT PROOF + CLOSE M5 — KEEP M5-C TECHNICAL JOURNAL — ZERO REAL — NO M6 EXECUTION — RUNTIME V3 NON ADOPTED — NO BRANCH DELETE** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · User wording **« ok go pour la modification »** · governed interpretation **ALIGN M5 CLOSURE ROADMAP WITH PRE-M6 USER JOURNEY / UX BASELINE TRAJECTORY — KEEP M5 CLOSED — KEEP M5-C — NO UX DESIGN EXECUTION YET — NO FIGMA ACTION YET — NO UI DELIVERY — NO M6 — ZERO REAL — NO PROJECT GIT WRITE** · **M5 closure / Pre-M6 sequencing Roadmap :** PR #353 / title `docs(sfia-studio): close M5 and sequence Pre-M6 UX baseline` / base `3467ecdf74ac2010c45f34545fb8684563dea547` / head `7a744c8cec889be547eebe231279620189819dd0` / merge `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` — records M5 closure + inserts Pre-M6 before M6 · **≠** Slice A candidate (Slice A is later local work) · PRE-M6 USER JOURNEY / UX BASELINE = **FUNCTIONAL BASELINE + GAP READINESS COMPLETE · G-UX-15 EXIT PROOF ACCEPTED / TECHNICAL BLOCKER CLOSED · LOCAL CANDIDATE NOT YET ON MAIN · FIGMA/UI DELIVERY NOT AUTHORIZED** · **G-UX-15 Slice A controlled integration :** PR #354 / title `feat(sfia-studio): close Pre-M6 G-UX-15 execution wiring gap` / base `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` / head `22ae8e5e4bddb0f997384a5e8ba87c9b35245693` / merge `a6df83a640afeb0911cb572d118d27a03c9923a7` · CI SFIA Studio **#192** SUCCESS · post-merge main CI **#193** SUCCESS · post-merge truth **PASS** (exact 5-file SHAs on main) · feature branch **PRESERVED** (no delete) · **Cycle 14 docs sync :** PR #355 / title `docs(sfia-studio): sync Pre-M6 G-UX-15 post-merge current state` / merge `dd284e9f20de89b2c8fc7782e4177d0d125c24d2` — **MERGED ON MAIN** · **historique :** OPEN / DRAFT avant merge · **Cycle 15 visual adoption docs integration :** PR #356 / title `docs(sfia-studio): record Pre-M6 visual contract adoption` / head `3a93d0e5cfd86e46bb795ce22c0f7dd79078ef2a` / merge `50f31994b0d9b5a3a3514e2fa9a063d688071c50` — **MERGED ON MAIN** · CI SFIA Studio **#198** SUCCESS on final PR head · post-merge main CI **#199** SUCCESS · post-merge truth **PASS** · source branch **PRESERVED** (NO BRANCH DELETE) · **historique :** OPEN / DRAFT avant merge · **D-PRE-M6-UX-05 :** ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN (Freeze `uUdLBElF2B4dOefaAYt4QY`) — UI Delivery still **NOT AUTHORIZED** |
-+| **Sources** | Git `main` @ `50f31994b0d9b5a3a3514e2fa9a063d688071c50` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347/#348/#349/#350/#351/#352/#353/#354/#355/#356 · CI #158/#162/#166/#172/#176/#178/#184/#185/#186/#187/#192/#193/#197/#198/#199 · PR #352 CI run #31875337665 / post-merge #31875621317 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · D-PRE-M6-UX-05 visual review handoff `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593ddbdc286cd244790f0ca1d2c421128202c5c` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · M5 Entry Qualification handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · GO Morris **VALIDATE D-PRE-M6-UX-05 FIGMA VISUAL CONTRACT — ADOPT AS PRE-M6 VISUAL REFERENCE** · M4 Product path on main `projects/sfia-studio/app/**` |
-+| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M5 Entry Qualification **COMPLETE** · M5 architecture trajectory **ADOPTED BY MORRIS** · M5 Delivery **IMPLEMENTED ON MAIN** (PR #350) · M5 UI rehydrate **IMPLEMENTED ON MAIN** (PR #351) · M5 technical/functional exit proof **SATISFIED ON MAIN** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · M5 CLOSED **≠** M6 AUTHORIZED · M5 CLOSED **≠** M6 STARTED · M5 CLOSED **≠** runtime v3 ADOPTED · M5 CLOSED **≠** global v3 baseline promoted · M5 CLOSED **≠** M5-C retired · M5 exit accepted **≠** global Cursor REAL authorization · M5 CLOSED future **≠** M6 automatically authorized · Pre-M6 trajectory decided **≠** Pre-M6 UX qualification executed · **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE ≠ UI Delivery authorized ≠ runtime implemented ≠ browser/product E2E proven ≠ Figma/runtime aligned ≠ WCAG compliant ≠ Pre-M6 complete ≠ historical UI retired** · Accepted M-03/M-04/provenance reserves ≠ reserves closed · new UX baseline **≠** runtime rewrite · existing UI not canonical **≠** existing UI automatically deleted · UI asset audit **COMPLETE/CLASSIFIED** **≠** individual dispositions ADOPTED · existing UI audit **≠** REPLACE/retirement authorized · M1→M5 runtime KEEP **≠** all runtime complete · Pre-M6 user proof **≠** runtime v3 ADOPTED · M6 after Pre-M6 **≠** M6 automatically authorized · Validated UX decisions in framing **30/37** (CC-D01) prevail over older candidate wording in framing **11** · M5-A OPTION B **IMPLEMENTED ON MAIN** · M5-B W1 **IMPLEMENTED ON MAIN** · M5-B W1 factual write-back **≠** Recommendation becomes Decision · Recommendation **≠** HumanDecision · Recommendation **≠** gate consumed · Recommendation **≠** ExecutionAuthority · LPS factual evidence link **≠** structural trajectory validation · readback **≠** execution · remount UI visibility **≠** automatic next-cycle launch · M5-C KEEP TEMPORARY WITH EXIT **≠** technical journal retired · durable Product Attempt **≠** technical M4 journal automatically obsolete · M5 implementation **≠** runtime v3 ADOPTED · M5 implementation **≠** global v3 baseline promoted · M5 ZERO REAL **≠** global Cursor REAL authorization · M5 architecture ADOPTED **≠** M6 started · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **unchanged by M5 architecture decision** **≠** M4/M5 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · runtime v3 **NON ADOPTED** · ≠ full OA durable · G-UX-15 technical blocker **CLOSED BY MORRIS** ≠ Pre-M6 complete · G-UX-15 exit proof accepted ≠ browser/product E2E proven · fixture-safe proof accepted ≠ REAL proof · G-UX-15 Slice A **MERGED ON MAIN** (PR #354) ≠ Pre-M6 complete · merged on main ≠ product/browser E2E proven · merged on main ≠ UI Delivery/M6 authorized · Pre-M6 progress ≠ M6 authorized · Confirmation process-local = KEEP RESERVE ≠ restart-safe Confirmation · **PR #356 MERGED ≠ UI Delivery authorized** · CI #197/#198/#199 SUCCESS ≠ Pre-M6 complete ≠ UI Delivery authorized · post-merge truth PASS ≠ UI Delivery gate consumed · UI Delivery qualification next ≠ UI Delivery authorized · global v3 baseline **NOT PROMOTED** |
+## 8. Figma / Visual Contract Authority
 
- ## B1. Nature du document
+| Item | Value |
+|---|---|
+| Authority | D-PRE-M6-UX-05 ADOPTED |
+| Freeze | uUdLBElF2B4dOefaAYt4QY |
+| Visual QA handoff | 69106c… / blob 3593dd… |
+| QA | PASS WITH RESERVES / READY |
+| Non-blocking reserves ACCEPTED ≠ CLOSED | provenance ; M-03 chrome/LPS wording ; M-04 responsive drawer purity ; deferred polish |
+| Figma MCP this cycle | NOT relied on for redesign (ChatGPT Starter-plan limit noted as ACCESS LIMITATION only) |
+| Cursor Figma | Not required to reopen contract ; manual evidence + adopted baseline + Git UI used |
+| Reopen D-PRE-M6-UX-05 | FORBIDDEN |
+| Figma mutation | 0 |
 
-@@ -26,7 +26,7 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
+Manual evidence inventory present: F1–F11 (+ Design Sheet parts), including F7 variants and F8 stale Recommendation.
 
- ## B3. Point de départ factuel
+---
 
--### Sur main (`dd284e9f20de89b2c8fc7782e4177d0d125c24d2`) *(PR #355 merge — Cycle 14 docs sync ; prior Slice A `a6df83a…` via PR #354)*
-+### Sur main (`50f31994b0d9b5a3a3514e2fa9a063d688071c50`) *(PR #356 merge — D-PRE-M6-UX-05 visual adoption docs ; prior main `dd284e9…` via PR #355)*
+## 9. Current runtime / UI inventory (FACT)
 
- | Capacité | État observé |
- | --- | --- |
-@@ -58,9 +58,9 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
- | M5-B Nora/LPS write-back | **W1 ADOPTED + IMPLEMENTED ON MAIN** — factual LPS `evidenceIds`/`reviewBundleIds` append · provenance `actor:sfia-studio-system-factual-writer` (role system / authority none) · Recommendation remains Recommendation (PR #350) |
- | M5-C Technical journal | **KEEP TEMPORARY WITH EXIT** — unchanged after M5 CLOSED · journal still present and distinct from Product Attempt Store · retirement needs safety equivalence + dedicated Morris GO · owner **NOT EXPLICITLY RECORDED** (**POST-M5 GOVERNANCE DEBT / DECISION REQUIRED**) |
- | G-UX-15 Slice A application bridge | **MERGED ON MAIN** (PR #354 / merge `a6df83a…` / CI **#192**) — exit proof **ACCEPTED BY MORRIS** — technical application-wiring blocker **CLOSED** — fixture-safe = technical proof only — Confirmation process-local = **KEEP RESERVE** — product/browser E2E **PENDING** |
--| D-PRE-M6-UX-05 Visual Contract | **ADOPTED BY MORRIS AS PRE-M6 VISUAL REFERENCE** — Freeze `uUdLBElF2B4dOefaAYt4QY` — evidence `69106c…` / `3593dd…` — QA PASS WITH RESERVES — non-blocking reserves **ACCEPTED** — **≠** UI Delivery · **≠** runtime · **≠** E2E |
-+| D-PRE-M6-UX-05 Visual Contract | **ADOPTED BY MORRIS AS PRE-M6 VISUAL REFERENCE ON MAIN** — Freeze `uUdLBElF2B4dOefaAYt4QY` — evidence `69106c…` / `3593dd…` — QA PASS WITH RESERVES — non-blocking reserves **ACCEPTED** — docs integration **MERGED** via PR #356 (`50f31994…`) — **≠** UI Delivery · **≠** runtime · **≠** E2E |
- | NEXT CONVERGENCE CAPABILITY | **PRE-M6** — **QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE** (trajectory) → UI Delivery under separate GO → product/browser E2E + runtime visual evidence + Figma/runtime comparison + Morris UAT → gap/debt re-evaluation → M6 Entry Qualification · **UI DELIVERY = NOT AUTHORIZED** |
--| NEXT IMMEDIATE GATE (repo) | **CYCLE 13 PR READINESS ON PR #356** · PR #356 **OPEN / DRAFT** · initial integration commit `07f7a06…` · CI **#197** SUCCESS on initial head · **NEXT IF PASS** = DISTINCT MORRIS MERGE #356 · MERGE **NOT AUTHORIZED** · **≠** UI Delivery authorized |
-+| NEXT IMMEDIATE GATE (repo) | **NONE OPEN AT PRODUCT LEVEL** — PR #356 merge + post-merge CI #199 + post-merge truth **COMPLETE** · next product gate below · **≠** UI Delivery authorized |
- | NEXT PRODUCT GATE | **PRE-M6 UI DELIVERY QUALIFICATION / DISTINCT MORRIS GO REQUIRED** · **UI Delivery = NOT AUTHORIZED** |
- | M6 (sequenced after Pre-M6) | **NOT STARTED / NOT AUTHORIZED** — sequenced **AFTER** Pre-M6 product UX validation (incl. Delivery/E2E/UAT as governed) + distinct Morris GO |
+### Canonical Studio OA surfaces (EXISTS)
 
-@@ -255,18 +255,19 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- - Confirmation process-local — **KEEP RESERVE FOR NOW** (NON-BLOCKING for technical exit)
- - Slice A implementation — **MERGED ON MAIN** (PR #354 / head `22ae8e5…` / merge `a6df83a…` / CI #192 SUCCESS)
- - Cycle 14 docs sync — **PR #355 MERGED ON MAIN** (`dd284e9…`) · **historique :** OPEN / DRAFT
--- D-PRE-M6-UX-05 Figma Visual Contract — **ADOPTED AS PRE-M6 VISUAL REFERENCE** (Freeze `uUdLBElF2B4dOefaAYt4QY` · handoff `69106c…` / blob `3593dd…` · QA PASS WITH RESERVES · reserves ACCEPTED)
-+- D-PRE-M6-UX-05 Figma Visual Contract — **ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN** (Freeze `uUdLBElF2B4dOefaAYt4QY` · handoff `69106c…` / blob `3593dd…` · QA PASS WITH RESERVES · reserves ACCEPTED)
-+- Cycle 15 visual adoption docs — **PR #356 MERGED ON MAIN** (`50f31994…` · head `3a93d0e…`) · CI #198 SUCCESS on final PR head · post-merge CI #199 SUCCESS · post-merge truth **PASS** · source branch **PRESERVED**
- - Evidence handoff (visual) : `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593ddbdc286cd244790f0ca1d2c421128202c5c`
+| Path | Capability | Runtime dependency | UX language |
+|---|---|---|---|
+| `app/studio/projects/[id]/page.tsx` | Compose Project workspace + Nora copilot | Product SQLite Project/LPS via vertical-slice-runtime + ProjectAssistant actions | Technical pills `LOCAL_PROCESS` / `NOT_READY` ; copilot subtitle still « lecture seule » despite M3–M5 actions |
+| `app/studio/projects/new/page.tsx` + `CreateProjectForm.tsx` (~625 LOC) | Create Project/LPS | Product SQLite OA create path | Technical disclosure / form-first vs CC-D01 conversation-first tension |
+| `ProjectWorkspaceClient.tsx` | Client load bridge | `getProjectRuntimeAction` | Thin wiring |
+| `ProjectWorkspaceView.tsx` (~252 LOC) | Project/LPS/Cycle/doctrine projection | Product SQLite | Heavy technical identifiers (`REAL_LOCAL_CORE`, Project ID codes, CKC refs, fixture flags, OPS1 escape) |
+| `RuntimeDisclosureBanner.tsx` | Runtime honesty banner | local copy | Technical-first |
+| `ProjectAssistantPanel.tsx` (~1135 LOC) | Conversation F1, F2 Proposal/Decision, F3 prepare/confirm/execute fixture, Evidence/RB/Recommendation, durable rehydrate | Product SQLite for Project/LPS/HumanDecision/ExecutionContract/Attempt/Evidence/RB ; Conversation/Proposal **process-local** ; Confirmation via MemoryAuthority path in fixture compose | Monolithic cards ; technical fingerprints ; fixture CTA « Confirmer et exécuter la fixture » ; Recommendation labels present but technical |
+| `features/project-assistant/actions.ts` | Server actions Send/Decide/PrepareF3/PrepareM3/ConfirmExecute/Rehydrate | OA composition | — |
+| `f2/*` | Qualify + Proposal + recordDecision (GO/REFUSE/AMEND) | Cycle/LPS durable ; Proposal process-local | AMEND → HumanDecision amended without DecisionBasis |
+| `f3/resolveM3ExecutionContract.ts` | Slice A bridge | Durable contracts + supersession | Technical proof CLOSED |
+| `f3/confirmAndExecuteF3Fixture.ts` | Confirmation + StartExecution fixture path | MemoryAuthorityResolver + Product services when present | Confirmation process-local reserve |
+| `f3/rehydrateEvidenceOutcomeFromLps.ts` + append LPS factual | M5 rehydrate / W1 | Product LPS | Recommendation ≠ Decision enforced in labels |
+| `lib/oa/**` (decision, execution-contract, attempt, evidence) | Canonical domain/ports/sqlite | Product SQLite | KEEP runtime |
+| `lib/vertical-slice-runtime/**` | Project runtime loaders | Product SQLite | KEEP |
 
- ### Décisions / gates toujours ouverts
+### Shell / navigation (PARTIAL vs contract)
 
--1. **CYCLE 13 — PR READINESS / CONTROLLED INTEGRATION** — **COMPLETED / HISTORICAL** (PR #354 · CI #192 SUCCESS · merge `a6df83a…` · post-merge CI #193 SUCCESS)
--2. **CYCLE 14 — POST-MERGE CURRENT-STATE DOC SYNC** — **COMPLETED / HISTORICAL** · PR #355 **MERGED** (`dd284e9…`) · **historique :** OPEN / DRAFT
--3. **D-PRE-M6-UX-05 — FIGMA VISUAL CONTRACT** — **CONSUMED / ADOPTED AS PRE-M6 VISUAL REFERENCE** · **≠** UI Delivery authorized
--4. **CYCLE 15 — VISUAL ADOPTION GIT SYNC** — **COMMITTED / PUSHED / DRAFT PR #356 OPEN** · initial integration commit `07f7a06…` · CI **#197** SUCCESS on initial head · **≠** merged on main
--5. **CYCLE 13 — PR READINESS ON PR #356** — **CURRENT** · ChatGPT PR readiness re-review · MERGE **NOT AUTHORIZED** here
--6. **MORRIS MERGE PR #356** — **NEXT IF PR READINESS PASS** · DISTINCT Morris GO · **NOT AUTHORIZED** here
--7. **PRE-M6 UI DELIVERY QUALIFICATION** — **NEXT PRODUCT/CONVERGENCE GATE CANDIDATE** after docs integration + post-merge truth · DISTINCT Morris GO required · **UI Delivery = NOT AUTHORIZED**
-+1. **CYCLE 13 — PR READINESS / CONTROLLED INTEGRATION (PR #354)** — **COMPLETED / HISTORICAL** (CI #192 SUCCESS · merge `a6df83a…` · post-merge CI #193 SUCCESS)
-+2. **CYCLE 14 — POST-MERGE CURRENT-STATE DOC SYNC (PR #355)** — **COMPLETED / HISTORICAL** · PR #355 **MERGED** (`dd284e9…`) · **historique :** OPEN / DRAFT
-+3. **D-PRE-M6-UX-05 — FIGMA VISUAL CONTRACT** — **CONSUMED / ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN** · **≠** UI Delivery authorized
-+4. **CYCLE 15 — VISUAL ADOPTION GIT SYNC** — **COMPLETED / HISTORICAL** · PR #356 **MERGED** (`50f31994…`) · **historique :** OPEN / DRAFT · initial head `07f7a06…` / final head `3a93d0e…`
-+5. **CYCLE 13 — PR READINESS ON PR #356** — **COMPLETED / HISTORICAL**
-+6. **MORRIS MERGE PR #356** — **CONSUMED / COMPLETED** · CI #198 SUCCESS · post-merge CI #199 SUCCESS · post-merge truth **PASS** · source branch **PRESERVED** (delete NOT AUTHORIZED)
-+7. **PRE-M6 UI DELIVERY QUALIFICATION** — **NEXT PRODUCT/CONVERGENCE GATE CANDIDATE** · DISTINCT Morris GO required · **UI Delivery = NOT AUTHORIZED**
- 8. UI Delivery — **NOT AUTHORIZED**
- 9. Technical launch journal retirement — future dedicated gate (M5-C **KEEP TEMPORARY WITH EXIT**)
- 10. M5-C journal owner — **OWNER NOT EXPLICITLY RECORDED** · **POST-M5 GOVERNANCE DEBT / DECISION REQUIRED**
-@@ -402,8 +403,8 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | **Dépendances** | M4 — **SATISFIED / CLOSED** · Architecture — **CONSUMED** · Delivery — **CONSUMED / MERGED** · UI rehydrate — **CONSUMED / MERGED** · Capitalization Roadmap — **CONSUMED / MERGED** · Closure gate — **CONSUMED** |
- | **Statut** | **M5 EXIT PROOF ACCEPTED BY MORRIS — CLOSED** |
- | **Next convergence capability** | **PRE-M6** — **QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE** → UI Delivery / E2E / UAT under later GOs · **UI Delivery = NOT AUTHORIZED** |
--| **Next immediate gate (repo)** | **CYCLE 13 PR READINESS ON PR #356** · **NEXT IF PASS** = DISTINCT MORRIS MERGE #356 · MERGE **NOT AUTHORIZED** |
--| **Next product gate** | **PRE-M6 UI DELIVERY QUALIFICATION** — DISTINCT Morris GO · **UI Delivery NOT AUTHORIZED** · D-PRE-M6-UX-05 **ADOPTED** · only after docs integration + post-merge truth |
-+| **Next immediate gate (repo)** | **NONE OPEN AT PRODUCT LEVEL** — PR #356 merge + CI #199 + post-merge truth **COMPLETE** |
-+| **Next product gate** | **PRE-M6 UI DELIVERY QUALIFICATION** — DISTINCT Morris GO · **UI Delivery NOT AUTHORIZED** · D-PRE-M6-UX-05 **ADOPTED ON MAIN** |
- | **After Pre-M6 product proof** | **M6 ENTRY QUALIFICATION** — still **NOT STARTED / NOT AUTHORIZED** without distinct Morris GO |
+| Path | Fact |
+|---|---|
+| `StudioShell` / `Topbar` / `UtilityRail` / `CopilotPanel` | Accessible shell primitives EXISTS |
+| `lib/navigation.ts` `STUDIO_ROUTES` | Mixes P0 (`/synthese`, `/cycle-actif`, `/decision`), D1 (`/nouvelle-demande`), and `/studio/projects/new` as peers ; dynamic `/studio/projects/[id]` not in rail ; UtilityRail also links `/workspace` + `/ops1/nouvelle-demande` |
+| `/studio` page | **MISSING** (COMPLETE candidate) |
 
+### Historical / parallel surfaces (HISTORICAL ONLY — FREEZE / HARVEST)
 
-@@ -419,15 +420,15 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | **UX doctrine authority** | Validated decisions in framing **30/37** prevail (incl. **CC-D01** : conversation dominante + panneau vivant + confirmations structurantes · **pas** de stepper principal · **pas** de workspace multi-panneaux MVP) · older candidate wording in framing **11** (incl. « Cockpit avant chat ») is **supporting/historical**, not superior authority |
- | **Inputs / KEEP (runtime)** | M1→M5 runtime backbone · Product SQLite · Project/LPS · CycleInstance · HumanDecision · ExecutionContract · ExecutionAttempt · Evidence · ReviewBundle · existing application/domain ports/use cases |
- | **Existing UI assets** | **UI ASSET AUDIT = COMPLETE / CLASSIFIED** — candidate classes KEEP / ADAPT / COMPLETE / HARVEST / REPLACE / FREEZE / RETIRE LATER identified · **AUDITED / CLASSIFIED** · individual dispositions remain **recommendations** until the relevant Morris / Delivery gate · **≠** all dispositions ADOPTED · **≠** legacy retirement authorized · **no** automatic deletion |
--| **Current state** | Functional baseline **ADOPTED** · G-UX readiness **COMPLETE** · G-UX-15 Slice A exit proof **ACCEPTED BY MORRIS** · technical application-wiring blocker **CLOSED** · Confirmation process-local **KEEP RESERVE** · Slice A **MERGED ON MAIN** (PR #354) · PR #355 **MERGED** (`dd284e9…`) · **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE** (Freeze `uUdLBElF2B4dOefaAYt4QY`) · PR #356 **OPEN / DRAFT** (initial integration commit `07f7a06…` · CI #197 SUCCESS on initial head) · product/browser E2E **PENDING** · UI Delivery **NOT AUTHORIZED** · Pre-M6 **NON COMPLETE** |
--| **Completed** | User Journey Qualification · Functional IA · **UI asset audit/classification** · gap readiness G-UX-01→15 · Slice A technical bridge + accepted exit proof · Pre-M6 baseline + Roadmap capitalization · Roadmap snapshot/PR #353 micro-amend · Cycle 13 PR readiness (PR #354) · PR #354 merge · post-merge truth · PR #355 merge · **D-PRE-M6-UX-05 visual adoption** · Cycle 15 visual adoption docs commit/push + Draft PR #356 open (initial integration commit `07f7a06…` · CI #197 SUCCESS on initial head) |
--| **Remaining** | Cycle 13 PR readiness on PR #356 · Morris merge #356 if PASS · post-merge doc truth · qualify Pre-M6 UI Delivery gate/scope · UI Delivery · browser E2E · visual proof · UAT · gap/debt re-evaluation · M6 Entry Qualification |
--| **Future work sequence** | 1. Cycle 13 PR readiness on PR #356 · 2. Distinct Morris MERGE #356 if PASS · 3. Post-merge doc truth · 4. **QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE** (DISTINCT GO) · 5. UI Delivery over existing M1→M5 runtime (DISTINCT GO) · 6. Browser E2E · 7. Runtime visual proof / Figma comparison · 8. Morris UAT · 9. Gap / debt / learning re-evaluation · 10. M6 Entry Qualification |
-+| **Current state** | Functional baseline **ADOPTED** · G-UX readiness **COMPLETE** · G-UX-15 Slice A exit proof **ACCEPTED BY MORRIS** · technical application-wiring blocker **CLOSED** · Confirmation process-local **KEEP RESERVE** · Slice A **MERGED ON MAIN** (PR #354) · PR #355 **MERGED** (`dd284e9…`) · **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN** (Freeze `uUdLBElF2B4dOefaAYt4QY`) · PR #356 **MERGED** (`50f31994…` · head `3a93d0e…` · CI #198 SUCCESS · post-merge CI #199 SUCCESS · post-merge truth PASS) · product/browser E2E **PENDING** · UI Delivery **NOT AUTHORIZED** · Pre-M6 **NON COMPLETE** |
-+| **Completed** | User Journey Qualification · Functional IA · **UI asset audit/classification** · gap readiness G-UX-01→15 · Slice A technical bridge + accepted exit proof · Pre-M6 baseline + Roadmap capitalization · Roadmap snapshot/PR #353 micro-amend · Cycle 13 PR readiness (PR #354) · PR #354 merge · post-merge truth · PR #355 merge · **D-PRE-M6-UX-05 visual adoption** · Cycle 15 visual adoption docs PR #356 merge · Cycle 13 PR readiness on #356 · Morris merge #356 · post-merge CI #199 · post-merge truth PASS |
-+| **Remaining** | qualify Pre-M6 UI Delivery gate/scope · UI Delivery · browser E2E · visual proof · UAT · gap/debt re-evaluation · M6 Entry Qualification |
-+| **Future work sequence** | 1. **QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE** (DISTINCT GO) · 2. UI Delivery over existing M1→M5 runtime (DISTINCT GO) · 3. Browser E2E · 4. Runtime visual proof / Figma comparison · 5. Morris UAT · 6. Gap / debt / learning re-evaluation · 7. M6 Entry Qualification |
- | **Figma** | **ADOPTED AS PRE-M6 VISUAL REFERENCE** · Freeze `uUdLBElF2B4dOefaAYt4QY` · evidence `69106c…` / `3593dd…` · QA PASS WITH RESERVES · non-blocking reserves ACCEPTED · **≠** UI Delivery · **≠** runtime mutation · further Figma mutation **0** this cycle |
- | **UI Delivery** | **NOT AUTHORIZED** (Delivery gate distinct + product E2E pending ; visual contract adopted ≠ Delivery GO) |
- | **Future proof expected** | Functional browser E2E through M1→M5 user journey · runtime visual evidence · Figma/runtime comparison · Morris UAT · gaps/debt captured |
--| **Anti-scope** | No runtime rewrite · no parallel UI/business engine · no Product SQLite / domain / ports rewrite by default · no M6 architecture/delivery · no Cursor REAL · PR #356 OPEN/DRAFT ≠ merge authorized · CI #197 SUCCESS ≠ merge authorized |
--| **Statut** | **PRE-M6 FUNCTIONAL BASELINE ADOPTED** · **G-UX READINESS COMPLETE** · **G-UX-15 TECHNICAL BLOCKER CLOSED / MERGED ON MAIN** · **D-PRE-M6-UX-05 VISUAL CONTRACT ADOPTED** · **NON-BLOCKING VISUAL RESERVES ACCEPTED** · **PRODUCT/BROWSER E2E PENDING** · **CONFIRMATION PROCESS-LOCAL KEEP RESERVE** · **UI DELIVERY NOT AUTHORIZED** · **PRE-M6 NOT YET COMPLETE** · **M6 NOT AUTHORIZED** · **RUNTIME V3 NON ADOPTED** · **ZERO REAL** |
-+| **Anti-scope** | No runtime rewrite · no parallel UI/business engine · no Product SQLite / domain / ports rewrite by default · no M6 architecture/delivery · no Cursor REAL · PR #356 MERGED ≠ UI Delivery authorized · CI #199 SUCCESS ≠ Pre-M6 complete |
-+| **Statut** | **PRE-M6 FUNCTIONAL BASELINE ADOPTED** · **G-UX READINESS COMPLETE** · **G-UX-15 TECHNICAL BLOCKER CLOSED / MERGED ON MAIN** · **D-PRE-M6-UX-05 VISUAL CONTRACT ADOPTED / ON MAIN** · **PR #356 MERGED** · **POST-MERGE CI #199 SUCCESS** · **POST-MERGE TRUTH PASS** · **NON-BLOCKING VISUAL RESERVES ACCEPTED** · **PRODUCT/BROWSER E2E PENDING** · **CONFIRMATION PROCESS-LOCAL KEEP RESERVE** · **UI DELIVERY NOT AUTHORIZED** · **PRE-M6 NOT YET COMPLETE** · **M6 NOT AUTHORIZED** · **RUNTIME V3 NON ADOPTED** · **ZERO REAL** |
- | **Next after Pre-M6 product proof** | **M6 ENTRY QUALIFICATION** — distinct Morris GO still required |
+| Area | Fact | Disposition candidate |
+|---|---|---|
+| `/synthese`, `/cycle-actif`, `/decision`, P0 components | Fixture/harness | FREEZE flows ; HARVEST selected primitives |
+| D1 `/nouvelle-demande`, `/workspace`, `/projects/*` | Isolated D1 SQLite | HARVEST behavior/information model ; DO NOT reuse persistence |
+| OPS1 `/ops1/**` | Parallel lifecycle with rich E2E | FREEZE canonical use ; HARVEST narrow clues ; RETIRE LATER only after replacement + Morris GO |
+| `components/vertical-slice/**` | P0 VS components | FREEZE / selective HARVEST |
 
- ### Milestone 6 — Boucle projet complète
-@@ -514,10 +515,7 @@ CRITICAL PATH:
-   → POST-MERGE TRUTH — PASS
-   → CYCLE 14 CURRENT-STATE DOC SYNC — PR #355 **MERGED** (`dd284e9…`) · historique OPEN/DRAFT
-   → D-PRE-M6-UX-05 — **ADOPTED AS PRE-M6 VISUAL REFERENCE** (Freeze `uUdLBElF2B4dOefaAYt4QY` · handoff `69106c…` / `3593dd…`)
--  → CYCLE 15 VISUAL ADOPTION GIT SYNC — COMMITTED / PUSHED / DRAFT PR #356 OPEN (initial integration commit 07f7a06… · CI #197 SUCCESS on initial head)
--  → CYCLE 13 PR READINESS ON PR #356 — CURRENT
--  → DISTINCT MORRIS MERGE PR #356 IF PASS — NOT AUTHORIZED HERE
--  → POST-MERGE DOC TRUTH
-+  → CYCLE 15 VISUAL ADOPTION GIT SYNC — PR #356 **MERGED** (`50f31994…` · head `3a93d0e…`) · historique OPEN/DRAFT · CI #198 SUCCESS · post-merge CI #199 SUCCESS · post-merge truth PASS · source branch PRESERVED
-   → QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE — DISTINCT GO — UI DELIVERY NOT AUTHORIZED
-   → UI DELIVERY OVER M1→M5 RUNTIME — NOT AUTHORIZED
-   → FUNCTIONAL E2E + VISUAL PROOF + MORRIS UAT
-@@ -548,14 +546,13 @@ M5 CLOSURE GATE: CONSUMED
- M5 CLOSED: YES — CLOSED BY MORRIS
- M5: EXIT PROOF ACCEPTED BY MORRIS — CLOSED
+### Tests / E2E
 
--PRE-M6 USER JOURNEY / UX BASELINE: FUNCTIONAL BASELINE ADOPTED — G-UX READINESS COMPLETE — G-UX-15 TECHNICAL BLOCKER CLOSED / MERGED ON MAIN (PR #354) — D-PRE-M6-UX-05 VISUAL CONTRACT ADOPTED (Freeze uUdLBElF2B4dOefaAYt4QY) — NON-BLOCKING VISUAL RESERVES ACCEPTED — PRODUCT/BROWSER E2E PENDING — CONFIRMATION PROCESS-LOCAL KEEP RESERVE — UI DELIVERY NOT AUTHORIZED — PRE-M6 NOT YET COMPLETE — M6 NOT AUTHORIZED — RUNTIME V3 NON ADOPTED — ZERO REAL
-+PRE-M6 USER JOURNEY / UX BASELINE: FUNCTIONAL BASELINE ADOPTED — G-UX READINESS COMPLETE — G-UX-15 TECHNICAL BLOCKER CLOSED / MERGED ON MAIN (PR #354) — D-PRE-M6-UX-05 VISUAL CONTRACT ADOPTED / ON MAIN (Freeze uUdLBElF2B4dOefaAYt4QY) — PR #356 MERGED (50f31994…) — POST-MERGE CI #199 SUCCESS — POST-MERGE TRUTH PASS — NON-BLOCKING VISUAL RESERVES ACCEPTED — PRODUCT/BROWSER E2E PENDING — CONFIRMATION PROCESS-LOCAL KEEP RESERVE — UI DELIVERY NOT AUTHORIZED — PRE-M6 NOT YET COMPLETE — M6 NOT AUTHORIZED — RUNTIME V3 NON ADOPTED — ZERO REAL
- G-UX-15 SLICE A: EXIT PROOF ACCEPTED BY MORRIS — MERGED ON MAIN (PR #354 / merge a6df83a… / CI #192) — FIXTURE-SAFE = TECHNICAL PROOF ONLY — PRODUCT/BROWSER E2E PENDING
- CONFIRMATION: PROCESS-LOCAL RESERVE — KEEP FOR NOW
--D-PRE-M6-UX-05: ADOPTED AS PRE-M6 VISUAL REFERENCE — evidence 69106c… / 3593dd… — QA PASS WITH RESERVES
--PR #356: OPEN / DRAFT — initial integration commit 07f7a06… — CI #197 SUCCESS on initial head — NOT MERGED
--NEXT REPO GATE: CYCLE 13 PR READINESS ON PR #356
--NEXT IF PASS: DISTINCT MORRIS MERGE PR #356 — NOT AUTHORIZED HERE
--NEXT PRODUCT GATE: PRE-M6 UI DELIVERY QUALIFICATION / DISTINCT MORRIS GO REQUIRED — UI DELIVERY NOT AUTHORIZED — only after docs integration + post-merge truth
-+D-PRE-M6-UX-05: ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN — evidence 69106c… / 3593dd… — QA PASS WITH RESERVES
-+PR #356: MERGED — merge 50f31994… — head 3a93d0e… — base dd284e9… — CI #198 SUCCESS on final PR head — post-merge CI #199 SUCCESS — source branch PRESERVED (delete NOT AUTHORIZED) — historique OPEN/DRAFT
-+NEXT REPO GATE: NONE OPEN AT PRODUCT LEVEL — post-merge truth COMPLETE
-+NEXT PRODUCT GATE: PRE-M6 UI DELIVERY QUALIFICATION / DISTINCT MORRIS GO REQUIRED — UI DELIVERY NOT AUTHORIZED
- NEXT CONVERGENCE CAPABILITY: QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE → UI Delivery → E2E+UAT under separate GOs
- M6: NOT STARTED / NOT AUTHORIZED — sequenced AFTER Pre-M6 product validation + distinct Morris GO
+| Layer | Fact |
+|---|---|
+| Unit/integration project-assistant + OA + vertical-slice-ui | EXISTS (including G-UX-15 resolver tests, F2/F3 fixture tests, panel tests) |
+| Playwright e2e | P0 / D1 / OPS1 heavy ; **NO** `studio/projects` browser E2E specs found |
+| product/browser E2E Pre-M6 | PENDING (G-UX-11) |
 
-@@ -664,11 +661,11 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
- - M5 EXIT PROOF : **ACCEPTED BY MORRIS** · M5 : **CLOSED**
- - User wording : **« ok go pour la modification »** · governed interpretation : align M5 closure Roadmap with **PRE-M6 USER JOURNEY / UX BASELINE** before M6
- - PRE-M6 : **FUNCTIONAL BASELINE ADOPTED / G-UX READINESS COMPLETE / G-UX-15 TECHNICAL BLOCKER CLOSED / INTEGRATION MERGED ON MAIN (PR #354) / D-PRE-M6-UX-05 VISUAL CONTRACT ADOPTED / UI DELIVERY NOT AUTHORIZED / PRE-M6 NOT YET COMPLETE** · UI Delivery **0** · M6 **0** · REAL **0**
--- Current main (cycle start) : `dd284e9f20de89b2c8fc7782e4177d0d125c24d2` (PR #355 merge) · historical prior main (PR #354 Slice A) : `a6df83a640afeb0911cb572d118d27a03c9923a7` · historical prior main (PR #353) : `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` · historical M5 capitalization sync base (PR #352) : `3467ecdf74ac2010c45f34545fb8684563dea547`
-+- Current main : `50f31994b0d9b5a3a3514e2fa9a063d688071c50` (PR #356 merge) · historical prior main (PR #355) : `dd284e9f20de89b2c8fc7782e4177d0d125c24d2` · historical prior main (PR #354 Slice A) : `a6df83a640afeb0911cb572d118d27a03c9923a7` · historical prior main (PR #353) : `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` · historical M5 capitalization sync base (PR #352) : `3467ecdf74ac2010c45f34545fb8684563dea547`
- - PR #353 : `docs(sfia-studio): close M5 and sequence Pre-M6 UX baseline` · base `3467ecd…` · head `7a744c8cec889be547eebe231279620189819dd0` · merge `2f0d7236…` · purpose = M5 closure + Pre-M6 sequencing on main · **historique ≠** Slice A (Slice A later via PR #354)
- - PR #354 : `feat(sfia-studio): close Pre-M6 G-UX-15 execution wiring gap` · head `22ae8e5…` · merge `a6df83a…` · CI #192 SUCCESS · post-merge CI #193 SUCCESS · Slice A **MERGED ON MAIN**
- - PR #355 : `docs(sfia-studio): sync Pre-M6 G-UX-15 post-merge current state` · merge `dd284e9…` · **MERGED ON MAIN** · **historique :** OPEN / DRAFT avant merge
--- PR #356 : `docs(sfia-studio): record Pre-M6 visual contract adoption` · **OPEN / DRAFT** · initial integration commit `07f7a06da7c5abb6c339d544dddf11e53343e150` · CI **#197** SUCCESS on initial head · Cycle 13 PR readiness **CURRENT** · merge **NOT AUTHORIZED**
--- D-PRE-M6-UX-05 : Freeze `uUdLBElF2B4dOefaAYt4QY` · handoff `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593ddbdc286cd244790f0ca1d2c421128202c5c` · **ADOPTED AS PRE-M6 VISUAL REFERENCE**
-+- PR #356 : `docs(sfia-studio): record Pre-M6 visual contract adoption` · head `3a93d0e…` · merge `50f31994…` · **MERGED ON MAIN** · CI #198 SUCCESS on final PR head · post-merge CI #199 SUCCESS · post-merge truth **PASS** · source branch `docs/sfia-studio-pre-m6-visual-contract-adoption-sync` **PRESERVED** @ `3a93d0e…` (delete NOT AUTHORIZED) · **historique :** OPEN / DRAFT avant merge · initial integration commit `07f7a06…` · CI #197 SUCCESS on initial head (historical)
-+- D-PRE-M6-UX-05 : Freeze `uUdLBElF2B4dOefaAYt4QY` · handoff `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593ddbdc286cd244790f0ca1d2c421128202c5c` · **ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN**
- - Audit handoff historique : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
- - Framing : `projects/sfia-studio/sfia-v3-framing/30`–`37` (dont `34` · DOC-DEBT-M1-01 sur `32`)
-diff --git a/projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md b/projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md
-index d8f5fc5..d17b2d6 100644
---- a/projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md
-@@ -8,7 +8,7 @@
- | Profil / typologie | Critique · DESIGN / DOC / AUDIT / DECISION READINESS |
- | Capacité principale | V3-F05 — conversation → décision → exécution |
- | Capacités complémentaires | V3-F02 · V3-F14 · V3-F15 |
--| Base Git | `origin/main@dd284e9f20de89b2c8fc7782e4177d0d125c24d2` *(PR #355 merge ; prior Slice A merge `a6df83a…` via PR #354)* |
-+| Base Git | `origin/main@50f31994b0d9b5a3a3514e2fa9a063d688071c50` *(PR #356 merge ; prior PR #355 `dd284e9…` ; prior Slice A `a6df83a…` via PR #354)* |
- | Jalon | RÉFÉRENTIEL PRÉ-M6 DU PARCOURS UTILISATEUR / UX + **RÉFÉRENCE VISUELLE PRE-M6** |
- | Acteur produit | Morris / pilote du projet |
- | Autorité de livraison | **AUCUNE** — aucune UI Delivery, M6, Cursor REAL ni changement d’exécution ; **référence visuelle Pre-M6 adoptée** ≠ autorisation Delivery |
-@@ -31,9 +31,9 @@ L’interface utilisateur existante ne forme pas un produit cohérent unique. El
+---
 
- Le référentiel **adopté** est une **expérience projet dominée par la conversation**, avec un résumé vivant du projet toujours accessible et des surfaces contextuelles, orientées tâche, pour la décision, l’exécution et les preuves. Il s’appuie sur l’OA Native Backbone et Product SQLite existants. Il ne nécessite ni moteur métier propre à l’interface, ni état de projet dupliqué, ni modèle de décision dupliqué, ni persistance parallèle.
+## 10. F1→F11 Delivery mapping
 
--**Résultat :** BASELINE FONCTIONNELLE PRÉ-M6 ADOPTÉE PAR MORRIS — **D-PRE-M6-UX-05 CONTRAT VISUEL ADOPTÉ COMME RÉFÉRENCE VISUELLE PRE-M6** (Freeze `uUdLBElF2B4dOefaAYt4QY` · QA PASS WITH RESERVES · réserves non bloquantes **ACCEPTED BY MORRIS**) — gaps G-UX-01→15 classifiés — **G-UX-15 = SLICE A EXIT PROOF ACCEPTED BY MORRIS — TECHNICAL APPLICATION-WIRING BLOCKER CLOSED — FIXTURE-SAFE TECHNICAL PROOF ACCEPTED — PRODUCT/BROWSER E2E STILL PENDING** — Confirmation process-local = **KEEP RESERVE** — Slice A **MERGED ON MAIN** (PR #354) — sync docs PR #355 **MERGED ON MAIN** (`dd284e9…`) — **UI Delivery / M6 / REAL non autorisés** — **Pre-M6 NON COMPLETE**.
-+**Résultat :** BASELINE FONCTIONNELLE PRÉ-M6 ADOPTÉE PAR MORRIS — **D-PRE-M6-UX-05 CONTRAT VISUEL ADOPTÉ COMME RÉFÉRENCE VISUELLE PRE-M6 ON MAIN** (Freeze `uUdLBElF2B4dOefaAYt4QY` · QA PASS WITH RESERVES · réserves non bloquantes **ACCEPTED BY MORRIS**) — gaps G-UX-01→15 classifiés — **G-UX-15 = SLICE A EXIT PROOF ACCEPTED BY MORRIS — TECHNICAL APPLICATION-WIRING BLOCKER CLOSED — FIXTURE-SAFE TECHNICAL PROOF ACCEPTED — PRODUCT/BROWSER E2E STILL PENDING** — Confirmation process-local = **KEEP RESERVE** — Slice A **MERGED ON MAIN** (PR #354) — sync docs PR #355 **MERGED** (`dd284e9…`) — visual adoption docs PR #356 **MERGED** (`50f31994…` · CI #199 SUCCESS · post-merge truth PASS) — **UI Delivery / M6 / REAL non autorisés** — **Pre-M6 NON COMPLETE**.
+| Surface | User capability | Runtime source | Route/component | State | Reuse candidate | Gap to contract | Required in initial lot? | Evidence needed |
+|---|---|---|---|---|---|---|---|---|
+| **F1 Projects** | Enter Studio ; see/select/create projects | Product Project list (needs surface) | `/studio` MISSING ; D1 `/workspace` HISTORICAL | MISSING canonical | COMPLETE `/studio` list using Product/OA ; HARVEST D1 orientation model | No portfolio entry ; nav peers confusing | **YES** | Browser open list + create/open |
+| **F2 Project 1440** | Orient in current Project/LPS | Product projection | `/studio/projects/[id]` + WorkspaceView | PARTIAL | KEEP wiring ; REPLACE presentation | Technical-first layout ; IDs primary | **YES** | Runtime capture 1440 |
+| **F3 Project 1280** | Same at mid width / LPS drawer | Shell + workspace CSS | same | PARTIAL | ADAPT shell responsive + LPS drawer | M-04 reserve ACCEPTED | **YES** (responsive behavior) | Runtime 1280 + drawer |
+| **F4 Qualification / Proposal** | Converse ; see qualification ≠ Proposal | F2 orchestrate + Proposal process-local | ProjectAssistantPanel | PARTIAL | HARVEST behavior ; split UI states | Technical CKC overflow ; process-local notice technical | **YES** | E2E qualify + proposal card |
+| **F5 HumanDecision** | Explicit GO/REFUSE/AMEND | recordDecision + durable HumanDecision | Panel decision buttons | PARTIAL | KEEP decision semantics ; ADAPT presentation | AMEND loop incomplete (G-UX-08) ; stale proposal blocking exists | **YES** (GO path) ; AMEND loop see options | E2E decide ; amend scenario per option |
+| **F6 Contract / Confirmation** | Inspect contract ; confirm authority | prepareM3 + confirmAndExecute ; Memory confirmation | Panel F3 cards | PARTIAL | KEEP contract domain ; ADAPT UX ; KEEP Confirmation reserve honest | Fixture CTA language ; Confirmation not restart-safe | **YES** with honesty | E2E confirm ; negative unresolved/stale |
+| **F7 Attempt lifecycle** | Observe Attempt states honestly | Attempt domain + fixture execute | Panel attempt card | PARTIAL | KEEP lifecycle semantics ; ADAPT presentation | Variants blocked/failed/timeout/cancel need explicit product UX | **YES** (principal states) | E2E + captures |
+| **F8 Evidence / Review / Recommendation** | Inspect Evidence/RB ; Recommendation ≠ Decision ; stale vs current | Evidence/RB + RecommendNextGate + LPS rehydrate | Panel cards + durable rehydrate | PARTIAL | KEEP wiring ; ADAPT ; implement G-UX-10 presentation | Stale Recommendation not always explicit (G-UX-10) ; technical IDs | **YES** | E2E + stale capture |
+| **F9 History** | Durable relevant history | LPS factual links + durable entities | Panel / workspace | PARTIAL | ADAPT presentation from durable facts | No dedicated History surface matching contract | **YES** (minimum durable anchors visible) | Reload shows durable |
+| **F10 Recovery** | Honest recovery after reload/process loss | Durable anchors + process-local loss | rehydrate + notices | PARTIAL | ADAPT Recovery UX ; NO new persistence | Conversation/Proposal lost (G-UX-09 ACCEPTED) | **YES** (honest Recovery) | Reload E2E |
+| **F11 Responsive LPS** | LPS closed/open responsive | Shell/CSS | workspace + shell | PARTIAL | ADAPT to Freeze ; M-04 reserve may remain | Drawer purity reserve | **YES** behaviorally | F11 captures |
 
--**Anti-revendications :** baseline fonctionnelle adoptée ≠ UI Delivery autorisée. **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE ≠ UI Delivery authorized ≠ runtime implemented ≠ browser/product E2E proven ≠ Figma/runtime aligned ≠ WCAG compliant ≠ Pre-M6 complete ≠ historical UI retired**. G-UX-15 technical blocker CLOSED ≠ product E2E proven. Fixture-safe ≠ REAL. Confirmation process-local reserve **KEEP** ≠ restart-safe Confirmation. Accepted M-03/M-04/provenance reserves ≠ reserves closed. runtime v3 **NON ADOPTED**. Les dispositions individuelles KEEP / ADAPT / HARVEST / REPLACE / FREEZE / RETIRE LATER restent des **recommandations** jusqu’aux gates Delivery pertinentes.
-+**Anti-revendications :** baseline fonctionnelle adoptée ≠ UI Delivery autorisée. **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE ≠ UI Delivery authorized ≠ runtime implemented ≠ browser/product E2E proven ≠ Figma/runtime aligned ≠ WCAG compliant ≠ Pre-M6 complete ≠ historical UI retired**. **PR #356 MERGED ≠ UI Delivery authorized**. CI #199 SUCCESS ≠ Pre-M6 complete. G-UX-15 technical blocker CLOSED ≠ product E2E proven. Fixture-safe ≠ REAL. Confirmation process-local reserve **KEEP** ≠ restart-safe Confirmation. Accepted M-03/M-04/provenance reserves ≠ reserves closed. runtime v3 **NON ADOPTED**. Les dispositions individuelles KEEP / ADAPT / HARVEST / REPLACE / FREEZE / RETIRE LATER restent des **recommandations** jusqu’aux gates Delivery pertinentes.
+**Detections (architecture hygiene) :**
+- Duplicate business state risk if D1/OPS1/P0 treated as product peers → mitigate by nav FREEZE/demote.
+- Duplicate decision model risk if Recommendation promoted to Decision → forbid.
+- Duplicate persistence risk if Conversation/Proposal/Confirmation ad-hoc stores added → forbid by default.
+- Parallel runtime risk if OPS1 reused as canonical → FREEZE.
+- Fixture leakage risk if fixture CTA remains product language → ADAPT labels / product path framing.
+- Technical language as product language → REPLACE presentation.
 
- ## 2. Autorité et hiérarchie des sources
+**Any new engine** → STOP / Morris structural gate.
 
-@@ -110,7 +110,7 @@ Les sources d’exécution, d’interface et de tests ont été examinées sous
- - M6 : **NOT STARTED / NOT AUTHORIZED**.
- - runtime v3 : **NON ADOPTED**.
- - Consommation de Cursor REAL / Gate D dans ce cycle : **0**.
--- Sync Roadmap / baseline docs : Slice A via PR #354 **MERGED** ; Cycle 14 current-state sync amend = **PR #355 MERGED ON MAIN** (`dd284e9f20de89b2c8fc7782e4177d0d125c24d2`). **Historique :** PR #355 fut OPEN / DRAFT avant merge.
-+- Sync Roadmap / baseline docs : Slice A via PR #354 **MERGED** ; Cycle 14 PR #355 **MERGED** (`dd284e9…`) ; Cycle 15 visual adoption PR #356 **MERGED ON MAIN** (`50f31994…` · head `3a93d0e…` · CI #198 SUCCESS · post-merge CI #199 SUCCESS · post-merge truth PASS). **Historique :** PR #355/#356 furent OPEN / DRAFT avant merge. Source branch `docs/sfia-studio-pre-m6-visual-contract-adoption-sync` **PRESERVED** @ `3a93d0e…` (delete NOT AUTHORIZED).
+---
 
- ## 3. Acteur et tâches à accomplir
+## 11. Asset disposition matrix (CANDIDATE — NOT ADOPTED)
 
-@@ -567,9 +567,9 @@ Anti-objectifs :
+| Asset | Path | Capability | Runtime dep | Debt/conflict | Disposition candidate | Granularity | Confidence | Evidence | Consequence if not reused | Morris gate? | Exit condition |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Project workspace route | `app/studio/projects/[id]/page.tsx` | Composition OA + Nora | Product | Obsolete pills/copy | **ADAPT** presentation ; **KEEP** composition/data boundaries | route / composition | High | page.tsx pills LOCAL_PROCESS/NOT_READY | Lose only OA UI entry | Disposition acceptance in Q1/D1 | Product language ; active route matching |
+| ProjectAssistantPanel | `features/project-assistant/ProjectAssistantPanel.tsx` | F1–F8 orchestration UI | Product + process-local | Monolith ~1135 LOC ; fixture language | **HARVEST BEHAVIOR + WIRING** ; split by functional UI states ; **DO NOT** preserve visual monolith by inertia | wiring / behavior / component split | High | panel + actions | Rewrite conversation risk | Significant disposition in Q1 | States match F4–F10 ; conversation dominant |
+| ProjectWorkspaceView | `…/ProjectWorkspaceView.tsx` | Projection | Product | Technical-first IDs | **REPLACE PRESENTATION** ; **KEEP** loaders/projections | presentation / projection | High | REAL_LOCAL_CORE, IDs, CKC | User cannot orient | Q1 | Product-first LPS/Project orientation |
+| ProjectWorkspaceClient | `…/ProjectWorkspaceClient.tsx` | Load bridge | Product | Thin | **ADAPT** wiring if needed ; no visual reuse claim | wiring | Med | client file | Minor | No | Stable load |
+| CreateProjectForm / new | `…/CreateProjectForm.tsx` + new page | Create Project | Product | Form-first vs CC-D01 | **KEEP WIRING** ; **ADAPT** presentation/behavior ; challenge form-first under conversation dominance | wiring / presentation | High | form + baseline | Block F1 create | Q1 | Create works ; disclosures demoted |
+| StudioShell + nav | `components/shell/**` + `lib/navigation.ts` | Chrome | — | P0/D1/OPS1 peers | **KEEP** shell primitives ; **ADAPT** taxonomy/responsive ; demote historical routes | navigation / shell | High | STUDIO_ROUTES + UtilityRail | Confused entry | Q1 | Studio primary ; historical not peer product |
+| `/studio` list | missing | Portfolio entry | Product list needed | Missing | **COMPLETE** via Product/OA state (not D1 store) | route / information model | High | no page.tsx | No F1 | Q1/D1 | List/open works |
+| D1 IntakeView | `features/d1/**` `/nouvelle-demande` | Intent language | D1 SQLite | Parallel model | **HARVEST BEHAVIOR** ; not persistence | behavior / wording | High | baseline + routes | Lose intent UX patterns | No (harvest only) | Patterns adapted into Studio |
+| D1 WorkspaceHome | D1 workspace | Orientation | D1 | Parallel | **HARVEST INFORMATION MODEL** ; REPLACE wiring | information model | Med | baseline | Weaker list UX | No | Studio list sufficient |
+| D1 Cockpit | D1 projects/[id] | Content grouping | D1 | Cockpit risk | **HARVEST CONTENT GROUPING** ; not cockpit architecture | information model | Med | baseline | Minor | No | No cockpit MVP |
+| P0 screens | synthese/cycle/decision | Fixture UX | Fixture | Simulated | **FREEZE** ; **HARVEST** selected primitives | visual primitives | High | e2e p0 | Lose some components | No | Not linked as product |
+| UI primitives | `components/ui/**` | Cards/pills/CTAs | — | P0 semantics | **KEEP/ADAPT** vs Freeze | component primitive | Med | ui + contract | Rebuild cost | No | Visual contract compatible |
+| OPS1 | `features/ops1/**` `/ops1/**` | Historical execution UX | OPS1 SQLite | Parallel lifecycle | **FREEZE** canonical ; **HARVEST** narrow clues ; **RETIRE LATER** only post-proof + Morris GO | behavior clues only | High | ops1 e2e + baseline | If reused as canonical → STOP | RETIRE later GO | Studio path replaces need |
+| OA domain/ports/sqlite | `lib/oa/**` | M1–M5 runtime | Product SQLite | — | **KEEP** | data / ports / domain | High | M1–M5 on main | Break Delivery | Structural if changed | Unchanged semantics |
+| Slice A resolver | `resolveM3ExecutionContract.ts` | Prep→execute bridge | Product | — | **KEEP** | wiring | High | G-UX-15 closed | Regress blocker | No | Remains |
+| M5-C journal | technical launch journal | Launch ledger | Distinct SQLite | Owner debt | **KEEP TEMPORARY WITH EXIT** ; outside Delivery unless blocks UI honesty | persistence separate | High | M5 closure | — | Separate governance | Exit owner defined later |
+| Confirmation Memory path | decisionServices confirm in fixture compose | Authority confirm | Memory/process-local | Restart ambiguity | **KEEP RESERVE** + honest Recovery | wiring reserve | High | baseline + confirmAndExecute | False durability claim | UAT may force change | Honest copy + fail-closed |
 
- Dépendances avant progression autorisée :
+---
 
--- **Satisfaites (timeline) :** D-PRE-M6-UX-01/02/03 adoptés ; process-local premier test accepté ; readiness G-UX-01→15 classifiée ; SELECT SLICE A ; implémentation + amend + **final amend** Slice A ; **ACCEPT EXIT PROOF** ; PR #354 merge ; PR #355 merge (`dd284e9…`) ; **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE**.
--- **Historique supersédé :** D-PRE-M6-UX-04 = REQUALIFY → SELECT/AMEND/FINAL AMEND → **ACCEPT EXIT PROOF** (consommés) ; **historique** D-PRE-M6-UX-05 = NO DECISION YET / FIGMA NOT AUTHORIZED (avant adoption) ; **historique** PR #355 OPEN / DRAFT (avant merge).
--- **Ouvertes (current) :** Cycle 13 PR readiness on PR #356 · Morris merge #356 if PASS · post-merge truth · qualification du prochain gate **Pre-M6 UI Delivery** (DISTINCT Morris GO — **NOT AUTHORIZED**) ; G-UX-08 / G-UX-10 hors Slice A ; Confirmation process-local = **KEEP RESERVE** ; product/browser E2E **PENDING**. **Complétés / historiques :** Cycle 13 PR-readiness (PR #354) · PR #354 merge · CI #192/#193 · Cycle 14 PR #355 merge · D-PRE-M6-UX-05 visual adoption · Cycle 15 docs commit/push + Draft PR #356 open (initial `07f7a06…` · CI #197 SUCCESS).
-+- **Satisfaites (timeline) :** D-PRE-M6-UX-01/02/03 adoptés ; process-local premier test accepté ; readiness G-UX-01→15 classifiée ; SELECT SLICE A ; implémentation + amend + **final amend** Slice A ; **ACCEPT EXIT PROOF** ; PR #354 merge ; PR #355 merge (`dd284e9…`) ; **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE** ; PR #356 merge (`50f31994…`) ; CI #198/#199 SUCCESS ; post-merge truth PASS.
-+- **Historique supersédé :** D-PRE-M6-UX-04 = REQUALIFY → SELECT/AMEND/FINAL AMEND → **ACCEPT EXIT PROOF** (consommés) ; **historique** D-PRE-M6-UX-05 = NO DECISION YET / FIGMA NOT AUTHORIZED (avant adoption) ; **historique** PR #355/#356 OPEN / DRAFT (avant merge) ; **historique** Cycle 13 PR readiness / MERGE #356 as open gates.
-+- **Ouvertes (current) :** qualification du prochain gate **Pre-M6 UI Delivery** (DISTINCT Morris GO — **NOT AUTHORIZED**) ; G-UX-08 / G-UX-10 hors Slice A ; Confirmation process-local = **KEEP RESERVE** ; product/browser E2E **PENDING**. **Complétés / historiques :** Cycle 13 PR-readiness (PR #354) · PR #354 merge · CI #192/#193 · Cycle 14 PR #355 merge · D-PRE-M6-UX-05 visual adoption · Cycle 15 docs PR #356 merge · Cycle 13 PR readiness on #356 · Morris merge #356 · post-merge CI #199 · post-merge truth PASS.
- - UI Delivery uniquement sous GO Morris distinct ultérieur (après qualification de gate/scope).
- - fixture ≠ preuve produit du chemin critique ; OA/limites applicatives préservées.
+## 12. Open gap / reserve requalification
 
-@@ -661,13 +661,13 @@ NO UI DELIVERY YET — NO RUNTIME CHANGE — NO M6 — ZERO REAL
+| ID | Requalification | Delivery stance (candidate) | Blocking for smallest GO E2E? | Exit |
+|---|---|---|---|---|
+| **G-UX-08** AMEND loop | Still OPEN ; AMEND durable without clarification→new Proposal machine ; incidental new message may create new Proposal but not AMEND-aware | **DEFER full loop** from smallest GO lot **OR** include in Option B ; must show honest amended state in UI | Non-blocking for GO-only ; **blocking for complete UAT amend scenario** | AMEND → conversation → new Proposal → new GO proven in browser |
+| **G-UX-09** process-local Conversation/Proposal | ACCEPTED temporary ; no new persistence | **KEEP** ; Delivery must show honest Recovery (F10) | Non-blocking if honest | UAT proves need for durability → separate structural GO |
+| **G-UX-10** Recommendation freshness | OPEN ; durable facts exist ; UI not always explicit current vs stale | **INCLUDE presentation/derivation in initial Delivery** (no new Recommendation model) | Blocking for F8 contract completeness | Stale vs current visible after new Attempt/Evidence/RB |
+| **Confirmation process-local** | KEEP RESERVE | **KEEP** ; honest UX ; fail-closed after restart ambiguity | Non-blocking for technical path | Unsafe ambiguity proven in UAT → structural GO |
+| **G-UX-11** browser E2E missing | OPEN | **IN Delivery exit proof** (after UI) | Exit proof layer ; not a code prerequisite to start Delivery | Studio Playwright suite green |
+| **M-03 / M-04 / provenance / polish** | ACCEPTED ≠ CLOSED | Non-blocking ; Delivery may improve presentation without reopening design | No | Visual QA post-Delivery |
+| **M5-C owner/exit** | Separate governance debt | OUT OF Delivery unless honesty blocked | No | Governance exit separate |
+| **PR #357 docs snapshot lag** | Snapshot still 50f31994… | OUT OF UI Delivery ; optional docs Cycle 14 | No | Docs sync if Morris wants |
 
- ### Recommendation (post-adoption visuelle)
+---
 
--La baseline fonctionnelle est adoptée. Slice A G-UX-15 exit proof est **ACCEPTED BY MORRIS** (technical application-wiring blocker **CLOSED**). **D-PRE-M6-UX-05 = ADOPTED AS PRE-M6 VISUAL REFERENCE** (Freeze `uUdLBElF2B4dOefaAYt4QY`). Capitalisations / merges docs historiques : Cycle 15 Roadmap sync · PR #354 · **PR #355 MERGED** (`dd284e9…`).
-+La baseline fonctionnelle est adoptée. Slice A G-UX-15 exit proof est **ACCEPTED BY MORRIS** (technical application-wiring blocker **CLOSED**). **D-PRE-M6-UX-05 = ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN** (Freeze `uUdLBElF2B4dOefaAYt4QY`). Capitalisations / merges docs : Cycle 15 Roadmap sync · PR #354 · PR #355 (`dd284e9…`) · **PR #356 (`50f31994…`)**.
+## 13. Delivery scope options (≤3)
 
--**État dépôt de référence (démarrage sync adoption) :** `origin/main@dd284e9f20de89b2c8fc7782e4177d0d125c24d2` (PR #355 merge). Slice A antérieur : PR #354 / merge `a6df83a…`.
-+**État dépôt courant :** `origin/main@50f31994b0d9b5a3a3514e2fa9a063d688071c50` (PR #356 merge). Prior : PR #355 / `dd284e9…` · PR #354 / `a6df83a…`.
+### OPTION A — Smallest coherent end-to-end GO Delivery (RECOMMENDED)
 
--**Courant :** PR #356 **OPEN / DRAFT** — initial integration commit `07f7a06da7c5abb6c339d544dddf11e53343e150` — CI SFIA Studio **#197** SUCCESS on initial head — Cycle 13 PR readiness **CURRENT** — MERGE **NOT AUTHORIZED** here.
-+**Courant :** PR #356 **MERGED** — head `3a93d0e5cfd86e46bb795ce22c0f7dd79078ef2a` — merge `50f31994…` — CI #198 SUCCESS on final PR head — post-merge CI #199 SUCCESS — post-merge truth **PASS** — source branch **PRESERVED** (delete NOT AUTHORIZED).
+**User capability reached :**
+Morris can enter Studio → list/create/open Project → orient on Project/LPS → converse with Nora → see qualification/Proposal distinctly → make explicit HumanDecision (GO path) → inspect ExecutionContract → perform Confirmation (honest process-local) → observe Attempt lifecycle → inspect Evidence/ReviewBundle → see Recommendation as Recommendation (current/stale where derivable) → see durable History anchors → recover honestly after reload → use responsive LPS behavior — **without** parallel engines or new persistence.
 
--**Prochaine gate produit / convergence (candidate) :** **QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE** — DISTINCT Morris GO required — **UI Delivery = NOT AUTHORIZED** — only after PR #356 merge + post-merge truth.
-+**Prochaine gate produit / convergence (candidate) :** **QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE** — DISTINCT Morris GO required — **UI Delivery = NOT AUTHORIZED**.
+**F1→F11 :** All required at least PARTIAL→contract-aligned for GO path ; F5 AMEND full loop deferred with honest amended state ; F7 principal states ; F8 includes G-UX-10 presentation.
 
- ### Réserves ouvertes
+**Dispositions :** COMPLETE `/studio` ; ADAPT shell nav ; REPLACE Workspace presentation ; HARVEST/split Assistant ; KEEP OA/M1–M5/Slice A ; KEEP Confirmation reserve ; FREEZE P0/D1/OPS1 canonical ; HARVEST D1 cues only.
 
-@@ -697,17 +697,18 @@ Accepted M-03/M-04/provenance ≠ reserves closed. Confirmation KEEP ≠ restart
- - Post-merge truth PR #354 — **PASS**;
- - Cycle 14 PR #355 merge — **COMPLETED** (`dd284e9…`);
- - **D-PRE-M6-UX-05 VALIDATE / ADOPT AS PRE-M6 VISUAL REFERENCE** — **CONSUMED**;
--- Cycle 15 visual adoption docs — COMMIT + PUSH + OPEN DRAFT PR #356 — **COMPLETED** (initial integration commit `07f7a06…` · CI #197 SUCCESS on initial head).
-+- Cycle 15 visual adoption docs — COMMIT + PUSH + OPEN DRAFT PR #356 — **COMPLETED** (initial `07f7a06…` · final `3a93d0e…` · CI #197/#198) ;
-+- Cycle 13 PR readiness on PR #356 — **COMPLETED** ;
-+- Morris **MERGE PR #356** — **CONSUMED** (`50f31994…`) ;
-+- Post-merge CI #199 SUCCESS + post-merge truth — **PASS**.
+**Impact zones :** `app/studio/**`, `features/vertical-slice-ui/**`, `features/project-assistant/**` (UI split/presentation + G-UX-10 derivation UI), `components/shell/**`, `components/ui/**`, `styles/**`, `e2e/**`, `__tests__/**` ; possibly thin ADAPT of existing ports only if UI integration requires (no semantic change).
 
- **Courant :**
--1. Cycle 13 PR readiness on PR #356 — **CURRENT**;
--2. ChatGPT PR readiness re-review — **next**.
-+1. Durable Pre-M6 visual-adoption documentary truth on main after PR #356 — **CURRENT** ;
-+2. Next product/convergence capability — **QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE**.
+**Gaps closed :** F1 missing entry ; technical-first UX ; nav peer confusion ; G-UX-10 presentation ; product language ; studio browser E2E scaffold.
 
- **Ensuite (gates distincts — NON CONSOMMÉS) :**
--3. Distinct Morris **MERGE PR #356** if PR readiness PASS — **NOT AUTHORIZED** ici ;
--4. Post-merge documentation truth for PR #356 ;
--5. **QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE** — DISTINCT Morris GO — **UI Delivery NOT AUTHORIZED** ;
--6. Puis seulement sous GOs séparés : UI Delivery → browser/product E2E → runtime visual evidence → Figma/runtime comparison → Morris UAT → gap/debt re-evaluation → M6 Entry Qualification.
-+3. **QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE** — DISTINCT Morris GO — **UI Delivery NOT AUTHORIZED** ;
-+4. Puis seulement sous GOs séparés : UI Delivery → browser/product E2E → runtime visual evidence → Figma/runtime comparison → Morris UAT → gap/debt re-evaluation → M6 Entry Qualification.
+**Gaps deferred :** G-UX-08 full AMEND loop ; Conversation/Proposal durability ; Confirmation durability ; M5-C retirement ; visual polish reserves ; historical route retirement.
 
- M6 reste **NOT STARTED / NOT AUTHORIZED**. Pre-M6 **NON COMPLETE**. runtime v3 **NON ADOPTED**. REAL = 0.
+**Dependencies :** D-PRE-M6-UX-05 ; M1–M5 runtime ; Product SQLite ; Slice A ; Playwright harness ADAPT.
 
-@@ -1319,7 +1320,7 @@ Prérequis Delivery : GO Delivery séparé après qualification de gate/scope ·
+**Risks :** Scope creep into assistant rewrite ; accidental fixture semantics change ; treating deferrals as closed.
 
- ### ROADMAP
+**Debt created :** Explicit G-UX-08 debt with exit before full Pre-M6 UAT acceptance if amend required.
 
--Roadmap **MERGED ON MAIN** with Slice A via PR #354 ; Cycle 14 sync via PR #355 **MERGED** (`dd284e9…`). Cycle 15 visual adoption docs = PR #356 **OPEN / DRAFT** (initial integration commit `07f7a06…` · CI #197 SUCCESS on initial head). Current-state truth amend = this Cycle 13 remediation.
-+Roadmap **MERGED ON MAIN** with Slice A via PR #354 ; Cycle 14 sync via PR #355 **MERGED** (`dd284e9…`) ; Cycle 15 visual adoption docs via PR #356 **MERGED** (`50f31994…` · CI #199 SUCCESS · post-merge truth PASS). Source branch **PRESERVED**.
+**Exit proof :** See §16 Option A profile.
 
- ---
+**Size/complexity :** Medium (UI-heavy, runtime-light).
 
-@@ -1336,26 +1337,26 @@ Roadmap **MERGED ON MAIN** with Slice A via PR #354 ; Cycle 14 sync via PR #355
- 8. Post-merge truth PR #354 — **PASS**.
- 9. Cycle 14 documentary current-state sync — **PR #355 MERGED** (`dd284e9f20de89b2c8fc7782e4177d0d125c24d2`). **Historique :** OPEN / DRAFT avant merge.
- 10. D-PRE-M6-UX-05 — Figma Visual Contract — **ADOPTED AS PRE-M6 VISUAL REFERENCE** (Freeze `uUdLBElF2B4dOefaAYt4QY` · handoff `69106c…` / `3593dd…`).
--11. Cycle 15 visual adoption docs — COMMIT + PUSH + OPEN DRAFT PR #356 — **COMPLETED** (initial integration commit `07f7a06da7c5abb6c339d544dddf11e53343e150` · CI **#197** SUCCESS on initial head).
-+11. Cycle 15 visual adoption docs — COMMIT + PUSH + OPEN DRAFT PR #356 — **COMPLETED** (initial `07f7a06…` · final `3a93d0e…` · CI #197/#198) · **historique :** OPEN / DRAFT.
-+12. Cycle 13 PR readiness on PR #356 — **COMPLETED**.
-+13. Morris **MERGE PR #356** — **COMPLETED** (merge `50f31994b0d9b5a3a3514e2fa9a063d688071c50` · head `3a93d0e5cfd86e46bb795ce22c0f7dd79078ef2a` · base `dd284e9…`).
-+14. Post-merge CI **#199** SUCCESS + post-merge truth — **PASS**.
-+15. Source branch `docs/sfia-studio-pre-m6-visual-contract-adoption-sync` — **PRESERVED** @ `3a93d0e…` (delete NOT AUTHORIZED).
+**Architecture/persistence changes :** **None required** under this option.
 
- ### CURRENT
--12. Cycle 13 PR readiness on PR #356 — **CURRENT**.
--13. ChatGPT PR readiness re-review — **next**.
--
--### NEXT REPOSITORY GATE IF PASS
--14. Distinct Morris **MERGE PR #356** — docs-only — **NOT AUTHORIZED** here.
--15. Post-merge documentation truth for PR #356.
-+16. Durable Pre-M6 visual-adoption documentary truth on main after PR #356 — **CURRENT**.
-+17. Next product/convergence capability — **QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE**.
+**Morris gates :** Q1 accept qualification → D1 authorize Delivery → R1/R2 git → U1 UAT.
 
- ### NEXT PRODUCT / CONVERGENCE GATE CANDIDATE
--16. **QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE** — DISTINCT Morris GO required — **UI Delivery = NOT AUTHORIZED**.
--17. UI Delivery sur runtime existant — **NOT AUTHORIZED** (après qualification + GO distinct).
--18. Browser E2E + preuves visuelles runtime.
--19. Comparaison Figma/runtime.
--20. Morris UAT (incl. Confirmation / process-local honesty).
--21. Revue dettes/gaps restants (G-UX-08/10/12, M5-C owner, Confirmation reserve).
--22. M6 Entry Qualification **uniquement** sous GO séparé — **NOT STARTED / NOT AUTHORIZED**.
-+18. **QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE** — DISTINCT Morris GO required — **UI Delivery = NOT AUTHORIZED**.
-+19. UI Delivery sur runtime existant — **NOT AUTHORIZED** (après qualification + GO distinct).
-+20. Browser E2E + preuves visuelles runtime.
-+21. Comparaison Figma/runtime.
-+22. Morris UAT (incl. Confirmation / process-local honesty).
-+23. Revue dettes/gaps restants (G-UX-08/10/12, M5-C owner, Confirmation reserve).
-+24. M6 Entry Qualification **uniquement** sous GO séparé — **NOT STARTED / NOT AUTHORIZED**.
+### OPTION B — Option A + G-UX-08 full AMEND requalification loop
 
--G-UX-15 technical exit proof = **ACCEPTED**. Technical blocker = **CLOSED**. Fixture-safe = technical proof only. Slice A **MERGED ON MAIN**. D-PRE-M6-UX-05 **ADOPTED**. PR #356 **OPEN / DRAFT** ≠ merge authorized. CI #197 SUCCESS ≠ merge authorized. Product/browser E2E / UI Delivery / M6 remain later. Pre-M6 **NON COMPLETE**. runtime v3 **NON ADOPTED**. REAL = 0.
-+G-UX-15 technical exit proof = **ACCEPTED**. Technical blocker = **CLOSED**. Fixture-safe = technical proof only. Slice A **MERGED ON MAIN**. D-PRE-M6-UX-05 **ADOPTED ON MAIN**. PR #356 **MERGED** ≠ UI Delivery authorized. CI #199 SUCCESS ≠ Pre-M6 complete. Product/browser E2E / UI Delivery / M6 remain later. Pre-M6 **NON COMPLETE**. runtime v3 **NON ADOPTED**. REAL = 0.
+Same as A, plus implement AMEND → clarification → new Proposal → new Decision using existing F1/F2 semantics (no DecisionBasis on AMEND ; DecisionBasis only on next GO).
 
- ---
+**Why larger :** Completes F5 negative/amend journey required for full functional UAT.
 
-@@ -1376,8 +1377,8 @@ G-UX-15 technical exit proof = **ACCEPTED**. Technical blocker = **CLOSED**. Fix
+**Debt :** Lower on G-UX-08 ; slightly higher delivery complexity.
 
- ---
+**When preferred :** If Morris requires amend scenario in first Pre-M6 acceptance (U1).
 
--## 29. Compteurs de cycle (Cycle 13 — PR #356 current-state truth amend)
-+## 29. Compteurs de cycle (Cycle 14 — PR #356 post-merge current-state sync)
+### OPTION C — Presentation polish only on `/studio/projects/[id]` without F1 entry / without G-UX-10
 
--Pre-M6 baseline modified = 1 · Roadmap modified = 1 · Resolver/export/tests modified = 0 · Build Doctrine/v3/method = 0 · UI/Figma mutation/Delivery/M6/REAL/Gate D = 0 · Confirmation = 0 · cumulative project commits on PR #356 branch = 2 · cumulative project pushes = 2 · Draft PR created = 1 (PR #356 OPEN / DRAFT) · merge = 0 · mark ready = 0 · branch delete = 0 · force push = 0 · Review Handoff push = 1 bounded L3
-+Pre-M6 baseline modified = 1 · Roadmap modified = 1 · Resolver/export/tests modified = 0 · Build Doctrine/v3/method = 0 · UI/Figma mutation/Delivery/M6/REAL/Gate D = 0 · Confirmation = 0 · project staging/commit/push/PR this cycle = 0 · source branch delete = 0 · force push = 0 · Review Handoff push = 1 bounded L3
+**REJECTED** as non-coherent under Build Doctrine R2/R8/R18 : does not reach end-to-end Pre-M6 user capability ; leaves Studio unenterable as portfolio ; leaves Recommendation freshness gap represented in Freeze.
 
--G-UX-08/10 implementation = 0. Code/test bytes from PR #354 remain unchanged on main. Initial PR head CI evidence = SFIA Studio CI #197 SUCCESS on `07f7a06…` (≠ merge authorization).
-+Durable Git facts recorded: PR #356 MERGED (`50f31994…`) · CI #199 SUCCESS · post-merge truth PASS · source branch PRESERVED. G-UX-08/10 implementation = 0. Code/test bytes from PR #354 remain unchanged on main.
+---
+
+## 14. Recommendation
+
+| Layer | Statement |
+|---|---|
+| OBSERVATION | Canonical OA UI exists but is technical-first, monolithically composed, missing `/studio` entry, and lacks studio browser E2E. |
+| FACT | M1–M5 runtime + Slice A + D-PRE-M6-UX-05 are on main ; UI Delivery not authorized ; Confirmation/Conversation process-local reserves stand. |
+| HYPOTHESIS | A UI-only Delivery over existing wiring can reach GO-path E2E without new persistence if dispositions above are respected. |
+| OPTION | A (smallest coherent GO E2E) vs B (A+AMEND loop). |
+| **RECOMMENDATION** | **OPTION A** — Smallest coherent end-to-end GO Delivery. |
+| HUMAN DECISION | Required from Morris after ChatGPT review (Q1 ± D1). |
+
+**Why useful now :** Closes the next critical-path product UX capability after visual adoption ; unblocks browser E2E + UAT trajectory without architectural rewrite.
+
+**Reuse :** Product SQLite OA ; HumanDecision/ExecutionContract/Attempt/Evidence/RB ; Slice A resolver ; Studio shell primitives ; project-assistant wiring/behavior.
+
+**Not touched :** Domain semantics ; schema ; OPS1 canonical ; M5-C retirement ; Figma Freeze content ; method/doctrine ; global v3 adoption.
+
+**Avoids parallel architecture :** Demotes FREEZE historical routes ; forbids D1/OPS1 as product engines ; forbids new stores.
+
+**Remains debt/reserve :** G-UX-08 full loop ; G-UX-09 ; Confirmation KEEP ; M-03/M-04/provenance/polish ; M5-C ; optional docs snapshot for #357.
+
+**Objective exit :** §16 layers A–G.
+
+**Status :** **RECOMMENDATION — AWAITING MORRIS DECISION**
+≠ ADOPTED ≠ AUTHORIZED ≠ READY FOR DELIVERY.
+
+---
+
+## 15. Candidate future file allowlist (NOT modified now)
+
+**Likely in-scope IF Delivery authorized (Option A/B) :**
+- `projects/sfia-studio/app/app/studio/**`
+- `projects/sfia-studio/app/features/vertical-slice-ui/**`
+- `projects/sfia-studio/app/features/project-assistant/**` (UI/state presentation ; G-UX-10 derivation UI ; Option B AMEND UX loop wiring only via existing F1/F2)
+- `projects/sfia-studio/app/components/shell/**`
+- `projects/sfia-studio/app/components/ui/**`
+- `projects/sfia-studio/app/styles/**`
+- `projects/sfia-studio/app/lib/navigation.ts` (taxonomy)
+- `projects/sfia-studio/app/e2e/**` (new studio specs)
+- `projects/sfia-studio/app/__tests__/**` (affected surfaces)
+
+**Thin ADAPT only if proven necessary (ports/loaders) :** existing `lib/vertical-slice-runtime/**` read projections — **no semantic domain change**.
+
+### STRUCTURAL IMPACT / OUTSIDE CURRENT DELIVERY ASSUMPTION
+(requires STOP + Morris structural gate / D2) :
+- db schema / migrations
+- Product SQLite redesign / replacement store
+- HumanDecision / ExecutionContract / Attempt semantic changes
+- new Confirmation persistence model
+- new Conversation/Proposal durability store
+- OPS1 lifecycle as product
+- agent capability model expansion / Gate D / REAL
+- Build Doctrine / v3 framing / method templates
+- DoctrinePackage / CKC runtime migration
+- auth/IAM expansion
+- M6
+
+---
+
+## 16. Explicit out-of-scope (candidate)
+
+Unless proven blocker + structural GO :
+new persistence ; schema migration ; replacement Product Store ; domain rewrite ; application-port rewrite ; new workflow/decision/ExecutionContract/Attempt engines ; OPS1 reimplementation ; M5-C retirement ; global v3 runtime adoption ; DoctrinePackage migration ; broad CKC runtime migration ; auth/IAM expansion ; M6 ; branch cleanup ; Figma redesign ; aesthetic redesign outside Freeze ; unrelated repo cleanup ; promotion of Recommendation to Decision ; Cursor REAL.
+
+---
+
+## 17. Dependency graph / critical path
+
+| Dependency | Class |
+|---|---|
+| D-PRE-M6-UX-05 adopted visual reference (Freeze uUdLBElF2B4dOefaAYt4QY) | **SATISFIED** |
+| M1→M5 current runtime on main | **SATISFIED** |
+| Product SQLite / OA projections | **SATISFIED** |
+| G-UX-15 Slice A bridge | **SATISFIED** |
+| Project route `/studio/projects/[id]` | **PARTIAL** (exists ; presentation debt) |
+| StudioShell | **PARTIAL** (exists ; taxonomy debt) |
+| `/studio` entry list | **BLOCKING** for F1 Delivery lot (missing) |
+| ProjectAssistant F1/F2/F3/M3–M5 wiring | **PARTIAL** (wiring strong ; UI debt) |
+| HumanDecision durable path | **SATISFIED** |
+| ExecutionContract durable path | **SATISFIED** |
+| Confirmation current limitation | **NON-BLOCKING RESERVE** (KEEP) |
+| ExecutionAttempt lifecycle | **SATISFIED** (semantics) / **PARTIAL** UI |
+| Evidence / ReviewBundle rehydrate | **SATISFIED** / **PARTIAL** UI (G-UX-10) |
+| LPS factual write-back | **SATISFIED** |
+| Playwright harness | **PARTIAL** (exists ; studio specs missing) |
+| Responsive contract | **PARTIAL** + M-04 **NON-BLOCKING RESERVE** |
+| D1/P0/OPS1 isolation | **PARTIAL** (code isolation exists ; nav still peers) — must FREEZE in Delivery |
+| G-UX-08 full AMEND loop | **NON-BLOCKING RESERVE** for Option A ; **BLOCKING** for Option B / full amend UAT |
+| REAL / Gate D | **OUTSIDE SCOPE** (0) |
+
+Critical path : Visual Freeze + OA runtime (done) → **Q1/D1 Morris** → UI Delivery (F1 entry + presentation + assistant states + G-UX-10) → studio E2E → visual captures → UAT → debt re-eval → M6 Entry Qualification (later).
+
+---
+
+## 18. Delivery exit proof (FUTURE — not executed now)
+
+### A. Static / engineering
+typecheck ; lint ; build ; unit/integration for changed surfaces ; no secrets ; no scope drift vs D1 allowlist ; import boundary tests remain green.
+
+### B. Browser product E2E (studio)
+create/open Project → orientation → Nora conversation → qualification → Proposal/Recommendation distinct → HumanDecision GO → ExecutionContract → Confirmation → Attempt lifecycle → Evidence → ReviewBundle → Nora Recommendation → factual LPS update → reload/recovery → durable relevant result still visible.
+
+### C. Negative authority paths (qualify; prove per chosen option)
+stale Proposal blocks decide ; REFUSE path ; AMEND path (**required if Option B / U1 amend** ; honest amended state minimum if Option A) ; unresolved/stale contract ; duplicate start prevention ; blocked before Attempt ; Attempt failed/timeout/cancelled ; missing/incomplete Evidence ; rehydrate failure ; **stale Recommendation visible** ; Recommendation never becomes HumanDecision ; Confirmation not implied by chat text.
+
+### D. Visual runtime evidence
+Capture principal F1–F11 runtime states (incl. F7 variants feasible ; F8 stale ; F11 LPS open/closed).
+
+### E. Figma/runtime comparison
+Semantic layout/hierarchy/interaction/responsive vs Freeze — not pixel identity only. Strong visual verdict forbidden without runtime captures.
+
+### F. Morris UAT
+Morris can answer : where am I ; project state ; what Nora knows vs recommends ; what requires my decision ; what will execute ; whether execution started ; result/evidence ; what survived restart ; what remains process-local.
+
+### G. Debt/reserve re-evaluation
+Explicit final state for G-UX-08/09/10, Confirmation KEEP, M-03/M-04, provenance, M5-C.
+
+**Anti-claim :** Delivery exit proof satisfied ≠ Pre-M6 accepted automatically ≠ runtime v3 ADOPTED.
+
+---
+
+## 19. Morris gate model (candidate)
+
+| Gate | Purpose | When |
+|---|---|---|
+| **Q1 — ACCEPT DELIVERY QUALIFICATION** | Accept scope/dispositions/out-of-scope/deps/debt/exit proof/file budget | After ChatGPT PASS of this pack |
+| **D1 — AUTHORIZE PRE-M6 UI DELIVERY** | Authorize project mutations with explicit bounds | Before any project file change |
+| **D2 — STRUCTURAL DEVIATION** | New persistence/schema/engine/protected expansion | STOP first if discovered |
+| **R1 — CONTROLLED GIT INTEGRATION** | commit/push/Draft PR | After Delivery candidate ChatGPT PASS + Morris GO |
+| **R2 — MERGE** | Merge Delivery PR | Distinct Morris GO after PR readiness |
+| **U1 — PRE-M6 USER ACCEPTANCE** | Accept/amend product UX proof | After merge + post-merge truth + E2E/visual |
+| Then | M6 Entry Qualification candidate | Distinct GO ; still ≠ runtime v3 ADOPTED |
+
+Q1 may combine with D1 **only if** Morris wording is unambiguous and explicit.
+
+**Current consumed gate :** QUALIFY only — **no execution authority**.
+
+---
+
+## 20. Debt / reserve / exit table
+
+| ID | Description | Why deferred | Impact | Owner candidate | Blocking? | Exit condition | Proof of closure | Re-eval latest | Morris accept? |
+|---|---|---|---|---|---|---|---|---|---|
+| G-UX-08 | AMEND without full requalification loop | Keep Option A small | Incomplete amend UAT | Delivery owner | Non-block GO ; block full amend UAT | Loop implemented or U1 waives amend | E2E AMEND→new Proposal→GO | Before U1 full accept | Yes if waive |
+| G-UX-09 | Conversation/Proposal process-local | Accepted first test | Reload loses chat/proposal | Morris | Non-block if honest | Durability only if UAT proves need | Restart UAT | U1 | Already accepted ; exit on need |
+| Confirmation KEEP | Memory confirmation | Avoid persistence redesign | Restart ambiguity | Morris | Non-block if honest | Persist only under structural GO | Ambiguity proof | U1 | Yes |
+| G-UX-10 | Stale Recommendation UX | — | Cognitive authority risk | Delivery | **In Option A scope** | Presentation from durable facts | E2E stale visible | Delivery exit | Yes |
+| M-03 | chrome/LPS wording | Accepted visual reserve | Polish | Visual owner | Non-block | Copy aligned | Visual QA | Post-Delivery | Yes |
+| M-04 | responsive drawer purity | Accepted | Polish | Visual owner | Non-block | Drawer matches Freeze intent | F11 captures | Post-Delivery | Yes |
+| Provenance | manual evidence provenance | Accepted | Traceability | Process | Non-block | Provenance strengthened | Audit | Anytime | Yes |
+| M5-C | technical journal exit/owner | Separate | Governance | Governance | Non-block Delivery | Owner+exit recorded | Governance note | Post-M5/Pre-M6 close | Yes |
+| Docs #357 lag | Snapshot still 50f31994 | Anti-auto-obsolescence | Documentary | Docs | Non-block | Cycle 14 sync if wanted | Docs PR | Optional | Yes |
+
+**Temporary without exit = NOT ACCEPTABLE** — each row has exit.
+
+---
+
+## 21. Architecture-parallel check
+
+| Risk | Status |
+|---|---|
+| Parallel UI engine | **AVOIDED** by Option A/B (adapt existing Studio OA UI) |
+| OPS1 as canonical product | **FORBIDDEN** (FREEZE) |
+| D1 as product engine | **FORBIDDEN** (HARVEST only) |
+| P0 fixtures as product | **FORBIDDEN** (FREEZE) |
+| New workflow engine | **OUT OF SCOPE** |
+
+---
+
+## 22. Persistence / state duplication check
+
+| Risk | Status |
+|---|---|
+| Duplicate Project/LPS store | **AVOIDED** — reuse Product SQLite |
+| Duplicate HumanDecision model | **AVOIDED** — reuse OA decision |
+| Duplicate ExecutionContract | **AVOIDED** |
+| Ad-hoc Conversation durability | **OUT OF SCOPE** (G-UX-09 KEEP) |
+| Ad-hoc Confirmation durability | **OUT OF SCOPE** (KEEP RESERVE) |
+| Recommendation becomes Decision | **FORBIDDEN** |
+
+---
+
+## 23. Critical-path check
+
+End-to-end Pre-M6 governed journey **can** be bounded without structural change **if** F1 COMPLETE + presentation REPLACE/ADAPT + assistant state split + G-UX-10 + studio E2E are in the Delivery lot (Option A), with AMEND loop either deferred (honest) or included (Option B).
+
+**STOP conditions not triggered** for Option A/B as framed.
+
+---
+
+## 24. No project mutation proof
+
+| Counter | Value |
+|---|---|
+| Project tracked modifications | **0** |
+| Project file creation | **0** |
+| Project staging/commit/push/PR/merge | **0** |
+| Branch delete / force push | **0** |
+| Code / runtime / Figma / UI Delivery / E2E execution | **0** |
+| M6 / REAL / Gate D | **0** |
+| git status | `?? .tmp-sfia-review/` only |
+| origin/main unchanged by this cycle | b834fdd… |
+
+---
+
+## 25. Anti-claims
+
+- Qualification complete ≠ Delivery authorized
+- prete_a_borner ≠ READY FOR DELIVERY
+- D-PRE-M6-UX-05 on main ≠ runtime UI implemented to Freeze
+- CI #201 SUCCESS ≠ Pre-M6 complete
+- PR #357 MERGED ≠ UI Delivery
+- Option A recommendation ≠ ADOPTED
+- KEEP Confirmation ≠ restart-safe Confirmation
+- ACCEPTED visual reserves ≠ closed
+- G-UX-15 CLOSED ≠ product E2E proven
+- HARVEST D1/OPS1 ≠ adopt their engines
+- Future E2E proof ≠ executed now
+- M6 after Pre-M6 ≠ M6 authorized now
+- runtime v3 = NON ADOPTED ; global v3 baseline NOT PROMOTED ; REAL = 0
+
+---
+
+## 26. Final verdict
+
+**PRE-M6 UI DELIVERY GATE / SCOPE — QUALIFICATION COMPLETE — END-TO-END DELIVERY CAPABILITY IDENTIFIED — ASSET DISPOSITIONS CANDIDATE DEFINED — DEPENDENCIES CLASSIFIED — EXIT PROOF DEFINED — DEBT / EXIT DEFINED — NO PARALLEL ARCHITECTURE — NO PROJECT MUTATION — NO UI DELIVERY — NO RUNTIME CHANGE — NO FIGMA MUTATION — NO M6 — ZERO REAL — READY FOR CHATGPT REVIEW / MORRIS DELIVERY DECISION**
+
+---
+
+## 27. Exact proposed Morris decision wording (FORMAT ONLY — clause final left to Morris)
+
+```text
+GO MORRIS — ADOPT PRE-M6 UI DELIVERY SCOPE OPTION A —
+CAPABILITY Morris enters Studio, lists/creates/opens Project, orients on Project/LPS, converses with Nora, sees qualification/Proposal distinctly, makes explicit HumanDecision (GO path), inspects ExecutionContract, confirms honestly under process-local reserve, observes Attempt lifecycle, inspects Evidence/ReviewBundle, sees Recommendation as Recommendation with current/stale visibility, sees durable History anchors, recovers honestly after reload, uses responsive LPS —
+ASSET DISPOSITIONS COMPLETE /studio list ; KEEP OA M1→M5 + Slice A ; ADAPT StudioShell nav ; REPLACE ProjectWorkspace presentation ; HARVEST+split ProjectAssistant behavior/wiring ; KEEP Confirmation process-local reserve ; FREEZE P0/D1/OPS1 canonical ; HARVEST D1 cues only ; INCLUDE G-UX-10 presentation ; DEFER G-UX-08 full AMEND loop with honest amended state —
+FUTURE FILE SCOPE projects/sfia-studio/app/app/studio/** ; features/vertical-slice-ui/** ; features/project-assistant/** (UI/presentation/G-UX-10) ; components/shell/** ; components/ui/** ; styles/** ; lib/navigation.ts ; e2e/** ; __tests__/** —
+EXIT PROOF static checks + studio browser E2E GO-path + negatives (incl. stale Recommendation) + runtime visual captures F1–F11 + Figma/runtime semantic comparison + Morris UAT + debt re-eval —
+KEEP G-UX-08 full loop debt ; G-UX-09 ; Confirmation KEEP ; M-03/M-04/provenance/polish ; M5-C separate —
+NO PARALLEL ARCHITECTURE —
+NO NEW PERSISTENCE —
+NO M6 —
+RUNTIME V3 NON ADOPTED —
+[DELIVERY AUTHORIZED / NO DELIVERY YET]
 ```
 
-## 27. Verdict
+**Cursor does not choose** the final clause `DELIVERY AUTHORIZED` vs `NO DELIVERY YET`.
 
-PR #356 POST-MERGE CURRENT-STATE SYNC — COMMITTED + PUSHED + DRAFT PR OPEN — EXACT 2-DOC SCOPE — REMOTE VERIFIED — CURRENT HEAD CI SUCCESS — D-PRE-M6-UX-05 ADOPTED PRESERVED ON MAIN — NEXT CONVERGENCE CAPABILITY = QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE — NO BRANCH DELETE — NO MERGE — NO UI DELIVERY — NO RUNTIME CHANGE — NO M6 — ZERO REAL — READY FOR CYCLE 13 PR READINESS
+Alternative if Morris wants amend in first lot: same wording with **OPTION B** and G-UX-08 IN SCOPE / removed from KEEP debt.
+
+---
+
+## 28. Safety counters (this cycle)
+
+files project modified = 0 · created = 0 · commits = 0 · pushes = 0 · PR = 0 · merge = 0 · branch delete = 0 · force push = 0 · code = 0 · runtime = 0 · Figma = 0 · UI Delivery = 0 · browser product mutations = 0 · M6 = 0 · REAL = 0 · Gate D = 0 · Review Handoff L3 = 1 (publish-in-cycle)
