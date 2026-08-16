@@ -1,125 +1,218 @@
 # SFIA REVIEW PACK — FULL
 
 **Level:** FULL
-**Timestamp:** 2026-08-16 17:38:41 CEST (Europe/Paris)
-**Cycle:** 15 — Capitalisation / REX — AMEND (gate wording only)
+**Timestamp:** 2026-08-16 17:49:58 CEST (Europe/Paris)
+**Cycle:** 15 — Capitalisation / REX — CONTINUATION / CONTROLLED GIT INTEGRATION
 **Profile:** CRITICAL
-**Typologie:** DOC — Roadmap-only micro-sync amend
-**Title:** SFIA STUDIO ROADMAP — PRE-M6 OPTION A SCOPE ADOPTION SYNC — GATE CLARIFICATION AMEND
+**Typologie:** DOC — Roadmap-only
+**Title:** SFIA STUDIO ROADMAP — PRE-M6 OPTION A SCOPE ADOPTION — CONTROLLED GIT INTEGRATION
 
 ---
 
-## 1. Morris decisions (unchanged)
+## 1. Exact GO Morris consumed
 
-1. « bon ok go option A » → ADOPT PRE-M6 UI DELIVERY SCOPE OPTION A
-2. « ok go » → SYNC OPTION A ADOPTION INTO CONVERGENCE ROADMAP ONLY
-
-ChatGPT AMEND instruction consumed: clarify gates only — no Option A scope requalification.
-
----
-
-## 2. AMEND scope (this iteration)
-
-Three linked governance wording fixes only:
-
-1. NONE OPEN AT PRODUCT LEVEL → NONE OPEN AT REPO-INTEGRATION LEVEL
-   (product gate IS open: Execution Authorization)
-2. Remove accidental second-GO trajectory after Execution Authorization
-   Correct: Execution Authorization IS the Delivery GO → UI Delivery Option A
-3. Clarify G-UX-11 browser E2E = mandatory Delivery exit proof
-   ≠ entry prerequisite to start Delivery
-   UI Delivery NOT AUTHORIZED until Execution Authorization consumed
-
-Option A ADOPTED scope / included gaps / G-UX-08 deferred / reserves: UNCHANGED in substance.
+GO MORRIS — COMMIT + PUSH + OPEN DRAFT PR —
+BRANCH docs/sfia-studio-pre-m6-option-a-adoption-sync —
+PRE-M6 OPTION A SCOPE ADOPTION ROADMAP SYNC —
+BASE main@0a80b92cb2c05f5b3f001438988b52c07c3bf0b6 —
+EXACTLY 1 ROADMAP FILE —
+OPTION A = ADOPTED BY MORRIS AS PRE-M6 UI DELIVERY SCOPE —
+NEXT PRODUCT GATE = MORRIS PRE-M6 UI DELIVERY EXECUTION AUTHORIZATION — OPTION A —
+EXECUTION AUTHORIZATION IS THE SINGLE DELIVERY GO —
+G-UX-11 = MANDATORY DELIVERY EXIT PROOF, NOT ENTRY PREREQUISITE —
+NO UI DELIVERY — NO CODE — NO RUNTIME CHANGE — NO M6 — NO CKC DELIVERY —
+ZERO REAL — NO MERGE — NO BRANCH DELETE
 
 ---
 
-## 3. Cycle / Critical / CKC
+## 2. Cycle / Critical / CKC
 
-Cycle 15 Capitalisation · CRITICAL · DOC Roadmap-only
-CKC detailed ABSENT → synthetic fallback · no execution authority
+- Cycle 15 Capitalisation / REX — CONTINUATION / CONTROLLED GIT INTEGRATION
+- Profile CRITICAL
+- Typologie DOC / Roadmap-only
+- CKC detailed ABSENT → synthetic map + méthode cycles v2.6 candidate
+- Authority: NONE
 
 ---
 
-## 4. Git Truth
+## 3. Git Truth before action
 
 | Check | Result |
 | --- | --- |
 | branch | docs/sfia-studio-pre-m6-option-a-adoption-sync |
-| HEAD / origin/main | 0a80b92cb2c05f5b3f001438988b52c07c3bf0b6 |
-| prior handoff | 33fea3eb376c384f931a19eca5360e19b9772ebf |
-| REAL | unset / 0 |
-| project commit/push/PR | 0 |
-| exact project file | projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md |
+| HEAD | 0a80b92cb2c05f5b3f001438988b52c07c3bf0b6 |
+| origin/main | 0a80b92cb2c05f5b3f001438988b52c07c3bf0b6 |
+| incoming handoff | 25a313e8c83f97112c354e4f9e9eb7750a0f5711 |
+| incoming blob | d711a7bb93a8872c51f3e005e2e112e10f8b429e |
+| remote target before push | ABSENT |
+| REAL | unset |
+| tracked dirty | exactly Roadmap file |
+| staged before | empty |
 | git diff --check | PASS |
 
 ---
 
-## 5. Post-merge facts preserved
+## 4. Convergence Pre-check
 
-PR #358 MERGED · head c91ce1af… · merge 0a80b92… · CI #202/#203 SUCCESS · source branch PRESERVED
-
----
-
-## 6. Option A status (unchanged)
-
-ADOPTED BY MORRIS AS PRE-M6 UI DELIVERY SCOPE
-SCOPE ADOPTED ≠ UI DELIVERY EXECUTION AUTHORIZED
-Scope gate CONSUMED / CLOSED
+Build Doctrine VALIDATED · PRE-M6 · V3-F05 · M1→M5 KEEP · D-PRE-M6-UX-05 ADOPTED ·
+qualification COMPLETE · OPTION A SCOPE ADOPTED · scope gate CONSUMED ·
+repo-integration NONE OPEN · product gate = EXECUTION AUTHORIZATION (SINGLE Delivery GO) ·
+UI Delivery NOT AUTHORIZED · G-UX-11 exit proof ≠ entry prerequisite ·
+Pre-M6 NON COMPLETE · M6 NOT AUTHORIZED · M7 FUTURE · runtime v3 NON ADOPTED · REAL 0
 
 ---
 
-## 7. Corrected gate model
+## 5. Reviewed candidate integrity
 
-| Level | Status |
+- Local unified diff matched handoff pack autonomous diff (normalized; index lines ignored)
+- Content SHA256 pre/post commit unchanged: c02535c3846e924e0af84a2a7ec3fd93603cb99324aad3173bd595c12524503b
+- No reformulation after ChatGPT PASS
+
+### Gate clarification integrity (3)
+
+1. NEXT REPO GATE = NONE OPEN AT REPO-INTEGRATION LEVEL
+2. EXECUTION AUTHORIZATION = SINGLE Delivery GO · no second Delivery GO
+3. G-UX-11 = mandatory Delivery exit proof · ≠ entry prerequisite
+
+---
+
+## 6. Anti-self-reference
+
+Roadmap does not encode this cycle's commit/PR/CI/Draft as product CURRENT. PASS.
+
+---
+
+## 7. Staging / commit / push
+
+Staging command:
+git add -- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+
+Cached check: PASS
+Exact staged file: projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+
+PROJECT_COMMIT_SHA = 4a5935a9fff167f3045d4f92e5f3495c8bf04453
+Message: docs(sfia-studio): record Pre-M6 Option A scope adoption
+Commit files: exactly 1 Roadmap file
+Hook mutation: none (SHA256 identical)
+
+Remote branch: docs/sfia-studio-pre-m6-option-a-adoption-sync
+Remote SHA: 4a5935a9fff167f3045d4f92e5f3495c8bf04453
+REMOTE BRANCH VERIFIED
+
+---
+
+## 8. Draft PR
+
+| Field | Value |
 | --- | --- |
-| Repo-integration | NONE OPEN AT REPO-INTEGRATION LEVEL |
-| Product | OPEN = MORRIS PRE-M6 UI DELIVERY EXECUTION AUTHORIZATION — OPTION A |
-| Trajectory | Execution Authorization (Delivery GO) → UI Delivery Option A → validation → G-UX-11 E2E exit proof → visual → UAT → Pre-M6 acceptance → M6 Entry |
-| Second Delivery GO | FORBIDDEN / removed |
-| G-UX-11 | mandatory exit proof ≠ entry prerequisite |
+| PR_NUMBER | 359 |
+| PR_URL | https://github.com/mcleland147/sfia-workspace/pull/359 |
+| PR_STATE | OPEN |
+| PR_DRAFT | true |
+| PR_BASE | main |
+| PR_HEAD | docs/sfia-studio-pre-m6-option-a-adoption-sync |
+| PR_HEAD_SHA | 4a5935a9fff167f3045d4f92e5f3495c8bf04453 |
+| PR_CHANGED_FILES | 1 |
+| PR_COMMITS | 1 |
+
+Mark ready=0 · Merge=0 · Auto-merge=0 · Branch delete=0
 
 ---
 
-## 8. Deferred / reserves (unchanged)
+## 9. Current Head CI
 
-G-UX-08 OPEN/DEFERRED with exit · G-UX-09 KEEP · Confirmation KEEP · visual reserves ACCEPTED≠CLOSED · M5-C separate
+| Field | Value |
+| --- | --- |
+| Workflow | SFIA Studio CI |
+| Run | #204 (31956685156) |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/31956685156 |
+| headSha | 4a5935a9fff167f3045d4f92e5f3495c8bf04453 |
+| status | completed |
+| conclusion | success |
 
----
-
-## 9. M6 / M7 / REAL
-
-M6 NOT AUTHORIZED · M7 CKC FUTURE · runtime v3 NON ADOPTED · REAL 0 · UI Delivery 0
-
----
-
-## 10. Safety Counters
-
-Project files modified = 1
-Project commit/push/PR/merge/branch delete = 0
-Code/tests/runtime/Figma/UI Delivery/CKC/method/M6/REAL = 0
-Review Handoff L3 = 1 (republication this amend)
+CI SUCCESS ≠ merge authorized.
 
 ---
 
-## 11. Verdict
+## 10. Governance claims preserved
 
-OPTION A ADOPTION ROADMAP SYNC — GATE CLARIFICATION AMEND COMPLETE —
-REPO GATE = NONE OPEN AT REPO-INTEGRATION LEVEL —
-PRODUCT GATE = MORRIS PRE-M6 UI DELIVERY EXECUTION AUTHORIZATION — OPTION A (Delivery GO) —
-NO SECOND DELIVERY GO —
-G-UX-11 = EXIT PROOF ≠ ENTRY PREREQUISITE —
-OPTION A SCOPE ADOPTED UNCHANGED —
+- OPTION A = ADOPTED BY MORRIS AS PRE-M6 UI DELIVERY SCOPE
+- SCOPE ADOPTED ≠ UI DELIVERY EXECUTION AUTHORIZED
+- NEXT PRODUCT GATE = MORRIS PRE-M6 UI DELIVERY EXECUTION AUTHORIZATION — OPTION A
+- Execution Authorization = SINGLE Delivery GO
+- UI Delivery NOT AUTHORIZED
+- G-UX-08 OPEN / DEFERRED WITH EXIT
+- G-UX-09 + Confirmation KEEP RESERVE
+- M5-C separate governance debt
+- M6 NOT AUTHORIZED
+- M7 CKC FUTURE ONLY
+- runtime v3 NON ADOPTED
+- REAL = 0
+
+---
+
+## 11. Safety Counters
+
+| Counter | Value |
+| --- | --- |
+| Project files modified | 1 |
+| Project files created | 0 |
+| Project staging | 1 explicit file |
+| Project commits | 1 |
+| Project pushes | 1 |
+| Draft PR | 1 |
+| Mark ready | 0 |
+| Merge | 0 |
+| Auto-merge | 0 |
+| Branch delete | 0 |
+| Force push | 0 |
+| Code | 0 |
+| Tests | 0 |
+| Runtime | 0 |
+| Figma | 0 |
+| UI Delivery | 0 |
+| CKC Delivery | 0 |
+| Method | 0 |
+| M6 | 0 |
+| REAL | 0 |
+| Review Handoff L3 | 1 |
+
+---
+
+## 12. Verdict
+
+PRE-M6 OPTION A SCOPE ADOPTION ROADMAP —
+COMMITTED + PUSHED + DRAFT PR OPEN —
 EXACT 1 ROADMAP FILE —
+REMOTE VERIFIED —
+CURRENT HEAD CI SUCCESS —
+OPTION A = ADOPTED BY MORRIS AS PRE-M6 UI DELIVERY SCOPE —
+NEXT PRODUCT GATE = MORRIS PRE-M6 UI DELIVERY EXECUTION AUTHORIZATION — OPTION A —
+EXECUTION AUTHORIZATION = SINGLE DELIVERY GO —
+G-UX-11 = MANDATORY DELIVERY EXIT PROOF / NOT ENTRY PREREQUISITE —
+UI DELIVERY NOT AUTHORIZED —
+G-UX-08 OPEN / DEFERRED —
+G-UX-09 + CONFIRMATION KEEP RESERVE —
+M6 NOT AUTHORIZED —
+M7 CKC FUTURE ONLY —
+RUNTIME V3 NON ADOPTED —
 ZERO REAL —
-NO PROJECT COMMIT —
-READY FOR CHATGPT RE-REVIEW
+NO MERGE —
+READY FOR CYCLE 13 PR READINESS
 
 ---
 
-## Autonomous evidence — full project diff (vs origin/main @ 0a80b92)
+## Autonomous evidence — committed diff
 
 ```diff
+commit 4a5935a9fff167f3045d4f92e5f3495c8bf04453
+Author: Morris Cleland <morris@macbook-air1.home>
+Date:   Sun Aug 16 17:46:51 2026 +0200
+
+    docs(sfia-studio): record Pre-M6 Option A scope adoption
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 index b428949..8dff416 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
