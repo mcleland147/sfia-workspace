@@ -5,8 +5,9 @@ Level: FULL
 Branch: `delivery/sfia-studio-pre-m6-ui-option-a`
 HEAD: `0d33478566627a9bf507d5a06323962d349308ee`
 origin/main: `0d33478566627a9bf507d5a06323962d349308ee`
-Incoming Review Handoff: `18dd538c0d021824b395795c18bf69432cce3756`
-Incoming blob expected: `48e4322176e2da7831367e57e4f9e60be5b37145`
+Incoming Review Handoff at Cycle 9 start: `22448dc682df265e26398e0ef4d243a5645c7c59`
+Incoming blob at Cycle 9 start: `48e4322176e2da7831367e57e4f9e60be5b37145`
+Note: an intermediate incomplete handoff `18dd538…` was superseded in-cycle by this corrected FULL pack.
 
 ---
 
