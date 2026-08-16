@@ -1,327 +1,290 @@
-# D-PRE-M6-UX-05 — Revue finale du contrat visuel Figma — Review Pack FULL
+# D-PRE-M6-UX-05 — Revue finale du contrat visuel Figma (reprise après accès MCP) — Review Pack FULL
 
 | Champ | Valeur |
 |---|---|
-| **Date/heure/fuseau** | 2026-08-16 13:04:39 CEST (+0200) |
+| **Date/heure/fuseau** | 2026-08-16 13:11:07 CEST (+0200) |
 | **Repo** | `mcleland147/sfia-workspace` |
 | **Cycle** | Cycle 9 — QA / validation |
 | **Profil** | Critique |
 | **Typologie** | DOC — AUDIT / VALIDATION ONLY |
-| **Capacité principale** | V3-F05 |
-| **Capacités support** | V3-F02 · F04 · F10 · F12 · F14 · F15 |
-| **Jalon** | PRE-M6 USER JOURNEY / UX PRODUCT PROOF |
-| **Objet** | REVUE FINALE DU CONTRAT VISUEL D-PRE-M6-UX-05 |
+| **Capacité** | V3-F05 (+ F02/F04/F10/F12/F14/F15) |
+| **Objet** | REVUE FINALE DU CONTRAT VISUEL D-PRE-M6-UX-05 — reprise |
 | **Niveau** | FULL |
 | **QA Verdict** | **FAIL** |
 | **Cycle Verdict** | **NOT READY** |
 
 ---
 
-## 1. Instructions Morris exactes consommées
+## 1. Instructions Morris consommées
+
+Libellés exacts (fil de reprise) :
 
 ```text
-bon continuons go revue finale, finalement j'ai ajouté le plugin figma
-sur gpt et cursor avec le nouveau compte starter, donc si besoin il est
-dispo pour vérifier a travers le lien directement que je viens de te donner
+ok go
 ```
 
-```text
-on devrait pas plutot passer par cursor pour faire cette revue ?
-```
+(précédemment dans le cycle de revue : revue finale autorisée ; compte Starter branché ; `whoami` confirmé `ririclecle93@gmail.com` avant cette reprise.)
 
-```text
-ok go préparer le prompt cursor merci
-```
-
-### Interprétation gouvernée
-
-Morris autorise une revue finale QA/validation **READ-ONLY** du candidat D-PRE-M6-UX-05 via Cursor + Figma MCP lecture.
-
-Autorisé : lecture Git ; handoff entrant ; lecture Figma MCP ; inspection Freeze ; preuves ; classification écarts ; Review Pack FULL ; handoff L3 borné.
-
-**Non autorisé** : adoption automatique ; UI Delivery ; code/CSS/React ; runtime ; persistence ; E2E ; M6 ; REAL ; Gate D ; mutation Figma ; library ; Roadmap/baseline/Doctrine/framing ; commit/push/PR projet.
-
-Résultat attendu : **recommandation de validation pour Morris**. Cursor ne consomme aucune adoption D-PRE-M6-UX-05.
+Interprétation : relancer la revue QA READ-ONLY sur le Freeze Design `uUdLBElF2B4dOefaAYt4QY` avec le MCP désormais aligné. Pas d’adoption, pas UI Delivery, pas mutation Figma/projet, REAL=0.
 
 ---
 
-## 2. Qualification
+## 2. Qualification / CKC
 
 | Item | Valeur |
 |---|---|
 | Cycle | 9 — QA / validation |
 | Profil | Critique |
-| Typologie | DOC — validation only |
-| Capacité | V3-F05 (+ F02/F04/F10/F12/F14/F15) |
-| Mutation projet | **0** |
-| Mutation Figma | **0** |
-| REAL / Gate D | **0** |
+| Typologie | DOC validation-only |
+| CKC | `pilots/04-qa-validation.md` · candidate · 0.1.0 · experimental · **aucune autorité** |
 
 ---
 
-## 3. CKC Cycle 9
-
-| Item | Valeur |
-|---|---|
-| Source | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md` |
-| cycle_id | 9 |
-| cycle_name | QA / validation |
-| status | candidate |
-| version | 0.1.0 |
-| usage | experimental cognitive guidance |
-| Autorité d’exécution | **AUCUNE** |
-
----
-
-## 4. Git Truth (bloquant) — PASS
+## 3. Git Truth — PASS
 
 | Contrôle | Résultat |
 |---|---|
-| Workspace | worktree `sfia-studio-m4-real-off` |
-| Branche locale | `docs/sfia-studio-pre-m6-gux15-post-merge-sync` |
-| `HEAD` | `dd284e9f20de89b2c8fc7782e4177d0d125c24d2` |
-| `origin/main` | `dd284e9f20de89b2c8fc7782e4177d0d125c24d2` — **MATCH** |
-| Handoff entrant | `3658054bef8b88df71744f8f1a5fb4123629634d` — **MATCH** |
-| Diff tracké | **aucun** |
+| `origin/main` / `HEAD` | `dd284e9f20de89b2c8fc7782e4177d0d125c24d2` — MATCH |
+| Handoff distant au démarrage reprise | `02696798e51783bf367d20a08754af3d1e8edb5d` (revue FAIL accès précédent) |
+| Diff tracké | aucun |
 | Untracked | `?? .tmp-sfia-review/` |
 | REAL | unset |
 
-Dépôt projet : **LECTURE SEULE**.
+Note : le handoff `3658054…` (pack Make) reste l’historique de génération ; `0269679…` documente le STOP identité. Ni l’un ni l’autre ne prouve la complétude Freeze.
 
 ---
 
-## 5. Review Handoff entrant
-
-Lu : `origin/sfia/review-handoff@3658054…` / `sfia-review-handoff/latest-chatgpt-review.md`
+## 4. Accès Figma — PASS (identité)
 
 | Item | Valeur |
 |---|---|
-| Contenu | Pack de génération Figma Make |
-| Verdict historique | READY POUR GÉNÉRATION FIGMA MAKE |
-| Rôle pour CE cycle | **entrée historique uniquement** — ne prouve PAS la complétude du Freeze Design |
-| Actions manuelles Morris post-handoff | Batch A/B/C, corrections, consolidation, .make, Freeze Design — **non tracées dans Git** ; à vérifier dans Figma |
+| `whoami` | `Riri Clecle` / `ririclecle93@gmail.com` |
+| Plan | L'équipe de Riri Clecle · View · **starter** · `team::1670752295324634171` |
+| fileKey | `uUdLBElF2B4dOefaAYt4QY` |
+| URL | https://www.figma.com/design/uUdLBElF2B4dOefaAYt4QY/SFIA-Studio-%E2%80%94-Pre-M6-Visual-Contract-%E2%80%94-D-PRE-M6-UX-05-%E2%80%94-Freeze |
+| Mutations Figma | **0** |
 
----
-
-## 6. Sources obligatoires lues / prises en compte
-
-Autorité Git `origin/main@dd284e9…` :
-
-- template cycle (§ pre-check, UX/Figma, a11y, validation, Review Pack/Handoff)
-- routing / operating model / guardrails / knowledge layer
-- v2.5 method candidate
-- CKC QA/validation pilot (sans autorité)
-- Build Doctrine + Roadmap (lecture seule)
-- baseline Pre-M6 qualification
-- framing 30 / 32 / 33 / 34 / 35 / 37 (30/37 + CC-D* prévalent)
-- handoff entrant Make pack
-
-Revue Figma des frames **non complétée** faute d’accès (voir §8).
-
----
-
-## 7. Convergence Pre-check
-
-| Champ | Valeur |
-|---|---|
-| Trigger | OUI |
-| Build Doctrine | VALIDATED — ACTIVE ON MAIN |
-| Capacité | V3-F05 |
-| Milestone | PRE-M6 PRODUCT UX VISUAL CONTRACT |
-| KEEP | M1→M5 ; parcours ; IA ; objets durables ; G-UX-15 technical blocker CLOSED |
-| KEEP RESERVE | Confirmation process-local |
-| PENDING | product/browser E2E ; **validation visuelle D-PRE-M6-UX-05** |
-| TEMPORARY WITH EXIT | Figma Make (génération) — exit = Freeze + revue + décision Morris |
-| Gap CE cycle | VALIDATION DU CONTRAT VISUEL CANDIDAT |
-| Exit proof CE cycle | **NON ATTEINT** — Freeze inaccessible via MCP Cursor actuel |
-| Gate suivant si READY | décision Morris D-PRE-M6-UX-05 (non atteinte) |
-
----
-
-## 8. Accès Figma — STOP BLOQUANT
-
-| Item | Attendu | Observé |
-|---|---|---|
-| Compte MCP | `ririclecle93@gmail.com` (Starter / View) | `m.cleland@safari-technologies.com` (`Momo Clecle`) |
-| Plan MCP | Starter/View lecture | Pro team « L'équipe de Morris CLELAND » · seat **View** |
-| fileKey | `uUdLBElF2B4dOefaAYt4QY` | inchangé (cible) |
-| URL Freeze | https://www.figma.com/design/uUdLBElF2B4dOefaAYt4QY/SFIA-Studio-%E2%80%94-Pre-M6-Visual-Contract-%E2%80%94-D-PRE-M6-UX-05-%E2%80%94-Freeze?node-id=1-1376 | non consultable via MCP courant |
-| `whoami` | — | exécuté (1 appel lecture) |
-| `get_metadata` fileKey `uUdLBElF2B4dOefaAYt4QY` | pages/frames | **ÉCHEC** : « Looks like you don't have edit access to this file… » (UUID debug `e843593c-42bb-436f-8f84-2899ebd9bb3c`) |
-| Screenshots / metadata pages | — | **0** (arrêt après échec d’accès) |
-| Mutations Figma | 0 | **0** (aucun `use_figma` / create / edit) |
-
-### STOP conditions déclenchées
+Limite rencontrée en cours de revue :
 
 ```text
-STOP — FIGMA IDENTITY MISMATCH — MORRIS ACTION REQUIRED
+You've reached the Figma MCP tool call limit on the Starter plan.
 ```
 
-```text
-STOP — FIGMA FREEZE UNAVAILABLE — FINAL REVIEW CANNOT PROCEED
-```
-
-```text
-STOP — FIGMA EVIDENCE INSUFFICIENT — MORRIS MUST RESTORE ACCESS OR PROVIDE REVIEW EVIDENCE
-```
-
-**Aucune preuve visuelle inventée.** Les anchors ChatGPT (F1–F11, D1–D3, variantes) restent **non revérifiés** par Cursor.
-
-Action Morris requise (une des options) :
-
-1. Reconnecter le MCP Figma Cursor sur le compte `ririclecle93@gmail.com` ; **ou**
-2. Partager le Freeze `uUdLBElF2B4dOefaAYt4QY` en **lecture** avec `m.cleland@safari-technologies.com` ; **ou**
-3. Fournir un export/preuves équivalentes hors MCP — puis **relancer** la revue finale.
+Après cette limite : plus de `get_screenshot` / `get_metadata` additionnels possibles dans ce cycle.
 
 ---
 
-## 9. Inventaire Figma attendu (NON VÉRIFIÉ — ancrages déclarés seulement)
+## 5. Convergence Pre-check (rappel)
 
-### Pages / frames (référentiel contrat — non confirmé MCP)
+Gap : validation contrat visuel candidat. Exit proof requiert inventaire F1→F11 + états critiques + conformité baseline. **Exit proof non atteint** faute de preuve F9–F11 et de fin d’inspection page 03 sous quota.
 
-| Page | node (déclaré) | Frames déclarées | Statut revue Cursor |
+---
+
+## 6. Inventaire Figma vérifié
+
+### Pages
+
+| Page | node | Découverte | Statut |
 |---|---|---|---|
-| 01 — Parcours principal F1–F8 | `0:1` | F1 `3:2` 1440×900 ; F2 `3:3` 1440×900 ; F3 `3:4` 1280×800 ; F4 `3:5` ; F5 `3:6` ; F6 `3:7` ; F7 `3:8` ; F8 `3:9` | **NON VÉRIFIÉ** |
-| 02 — (à découvrir) | ? | F9 / F10 1440×900 ; F11A / F11B 1024×900 | **NON VÉRIFIÉ** |
-| 03 — États & Contrat visuel | `1:1376` | D1 `6:7` ; D2 `6:8` ; D3 `6:9` | **NON VÉRIFIÉ** |
-| Variantes | — | F7 `10:3`–`10:6` ; F8 stale `10:7` | **NON VÉRIFIÉ** |
+| `01 — Parcours principal F1–F8` | `0:1` | list + metadata | **VÉRIFIÉ** |
+| `02 — …` (F9/F10/F11 attendus) | **inconnu** | absent de la liste top-level ; probes `2:1`/`4:2`/`5:2` = not found | **NON VÉRIFIÉ / INTROUVABLE VIA MCP** |
+| `03 — États & Contrat visuel` | `1:1376` | metadata directe (non listée dans top-level pages) | **VÉRIFIÉ (metadata)** |
 
-### Limitation de capture / prototype (prévue, non inspectée)
+Anomalie preuve : `get_metadata` sans `nodeId` n’a listé que la page 01, alors que la page 03 existe. La page 02 peut exister hors liste ; elle n’a **pas** été prouvée.
 
-Wrappers hors produit (chrome navigateur/Figma, barre noire F1→F11, footer CANDIDATE) : à classer **LIMITATION DE CAPTURE / PROTOTYPE CONTROL — NON PRODUCT UI** **si** preuves accessibles. Ici : **non évalué**.
+### Frames page 01 (metadata + screenshots)
+
+| Frame | node | Dimensions metadata | Screenshot local |
+|---|---|---|---|
+| F1 — Projets | `3:2` | 1440×900 | `.tmp-sfia-review/figma/final-review/F1.png` |
+| F2 — Projet courant — Desktop large | `3:3` | 1440×900 | `F2.png` |
+| F3 — Projet courant — Desktop compact | `3:4` | 1280×800 | `F3.png` |
+| F4 — Qualification / Proposition | `3:5` | 1440×900 | `F4.png` |
+| F5 — Décision humaine | `3:6` | 1440×900 | `F5.png` |
+| F6 — Contrat d'exécution + Confirmation | `3:7` | 1440×900 | `F6.png` |
+| F7 — Exécution / Tentative | `3:8` | 1440×900 | `F7.png` |
+| F8 — Preuves / Revue / Recommandation | `3:9` | 1440×900 | `F8.png` |
+| Doc — Visual Contract Info | `3:10` | texte | metadata only |
+
+Footer F2 annoté : `LPS — 385 px` (dans la fourchette 360–400 / cible ~380) — **PASS** dimensionnel déclaré.
+
+### Frames page 03 (metadata ; screenshots partiels)
+
+| Frame | node | Dimensions | Screenshot |
+|---|---|---|---|
+| D1 — États transverses | `6:7` | 1440×900 | `D1.png` |
+| D2 — Objets gouvernés | `6:8` | 1440×900 | **non** (quota) |
+| D3 — Responsive & règles | `6:9` | 1440×900 | **non** (quota) |
+| F7-Bloque-Avant-Execution | `10:3` | 540×350 | **non** (quota) |
+| F7-Echec | `10:4` | 540×350 | **non** (quota) |
+| F7-Timeout | `10:5` | 540×350 | **non** (quota) |
+| F7-Annule | `10:6` | 540×350 | **non** (quota) |
+| F8-Recommandation-Perimee | `10:7` | 540×350 | **non** (quota) |
+
+### Frames obligatoires F9–F11
+
+| Frame | Statut |
+|---|---|
+| F9 — Historique projet | **NON PROUVÉ** |
+| F10 — Reprise / Récupération | **NON PROUVÉ** |
+| F11A — Responsive LPS fermé | **NON PROUVÉ** |
+| F11B — Responsive LPS ouvert | **NON PROUVÉ** |
+
+La barre prototype F1→F11 (chrome Make) **mentionne** F9–F11, mais ce n’est **pas** une preuve de frames Freeze.
 
 ---
 
-## 10. Matrice des 13 contrôles QA
+## 7. Limitations de capture (NON PRODUCT UI)
 
-Pour chaque contrôle : sans preuve Figma Cursor → **FAIL** (preuve insuffisante), sévérité **BLOCKER** pour la validation de cycle (pas un jugement esthétique du design).
+Observé sur F2–F8 :
 
-| # | Contrôle | Observation | Référentiel | Evidence | Résultat | Sévérité | Impact |
-|---|---|---|---|---|---|---|---|
-| 1 | Complétude F1→F11 + D1–D3 + variantes | Freeze non lu | Contrat §J | MCP access fail | **FAIL** | BLOCKER | validation impossible |
-| 2 | Doctrine produit | non inspecté | CC-D01/D03 + baseline | — | **FAIL** | BLOCKER | — |
-| 3 | Épistémologie / autorité | non inspecté | framing 30/33/37 | — | **FAIL** | BLOCKER | — |
-| 4 | HumanDecision | non inspecté | F5 / AMEND | — | **FAIL** | BLOCKER | — |
-| 5 | ExecutionContract + Confirmation | non inspecté | F6 ; KEEP RESERVE Confirmation | — | **FAIL** | BLOCKER | — |
-| 6 | ExecutionAttempt | non inspecté | F7 états | — | **FAIL** | BLOCKER | — |
-| 7 | Evidence / Review / Reco | non inspecté | F8 current/stale | — | **FAIL** | BLOCKER | — |
-| 8 | History | non inspecté | F9 projection | — | **FAIL** | BLOCKER | — |
-| 9 | Reload / Recovery | non inspecté | F10 honest recovery | — | **FAIL** | BLOCKER | — |
-| 10 | Responsive | non inspecté | F2/F3/F11 + D3 | — | **FAIL** | BLOCKER | — |
-| 11 | Accessibilité design | non inspecté | design controls | — | **FAIL** | BLOCKER | — |
-| 12 | G-UX-01→15 | non prouvé Figma | baseline readiness | — | **FAIL** | BLOCKER | — |
-| 13 | Qualité visuelle | non inspecté | stabilité Delivery future | — | **FAIL** | BLOCKER | — |
+- chrome navigateur / onglets Figma Make ;
+- barre noire flottante de navigation prototype F1→F11 ;
+- footer annotation `CANDIDATE — validation Morris requise` **sous** la zone produit (hors chrome UI principal) — conforme à la clarification d’exécution.
 
-Claim interdit évité : aucune conclusion « semble correct ».
+Classification : **LIMITATION DE CAPTURE / PROTOTYPE CONTROL — NON PRODUCT UI**.
+
+Ne pas traiter la barre F1→F11 comme navigation produit SFIA.
 
 ---
 
-## 11. Matrice G-UX-01→15 (revue Figma non exécutable)
+## 8. Matrice des 13 contrôles
 
-| G-UX | État source | Preuve Figma Cursor | Résultat | Réserve Delivery | Preuve restante | Anti-claim |
+| # | Contrôle | Observation evidence-based | Référentiel | Evidence | Résultat | Sévérité |
 |---|---|---|---|---|---|---|
-| 01–10, 12–13, 15 | readiness fonctionnelle sur main | **absente** | **FAIL** (preuve) | Delivery non autorisée | Freeze accessible + re-revue | pas adoption visuelle |
-| 11 | E2E PENDING | N/A Make/Figma | **PASS** (hors Figma) | browser E2E | E2E produit | Figma ne ferme pas G-UX-11 |
-| 14 | hors Pre-M6 | N/A | **PASS** (hors scope) | IAM futur | — | pas d’IAM conçu |
+| 1 | Complétude | F1–F8 + D1 présents ; D2/D3 + variantes en metadata ; **F9–F11 absents de preuve** | Contrat §J | metadata/screenshots ; page 02 introuvable | **FAIL** | **BLOCKER** |
+| 2 | Doctrine produit | Conversation dominante ; LPS support ; nav Projets/Projet courant ; Historique/Diagnostics contextuels ; pas de stepper primaire produit ; pas de modules globaux séparés | CC-D01/D03 | F1–F8 screenshots | **PASS** (sur F1–F8) | — |
+| 3 | Épistémologie | F4 Recommendation≠Decision ; F5 « Nora recommande. Vous décidez. » ; F6 Decision→Contract→Confirmation séparés ; F8 Reco distincte | framing 30/33 | F4–F8 | **PASS** | — |
+| 4 | HumanDecision | Approve / Approve with reserves / Amend / Reject ; Amend microcopy requalification ; Approve ≠ lancer exécution | baseline §7 / F5 | F5.png | **PASS** | — |
+| 5 | EC + Confirmation | Objectif/périmètre/contraintes/actions/effets/non modifié ; Confirmation séparée ; réversibilité ; réserve Confirmation process-local visible (F6) | F6 + KEEP RESERVE | F6.png | **PASS** | — |
+| 6 | Attempt | F7 « En cours » + chips Bloqué/Accepté/En attente/Réussi/Échoué/Timeout/Annulé ; note anti-relaunch auto ; variantes F7 en metadata non screenshotées | F7 | F7.png + metadata `10:3`–`10:6` | **PASS WITH RESERVE** | MINOR — sémantique pré-Attempt « Bloqué » non inspectée en variante dédiée |
+| 7 | Evidence/RB/Reco | F8 Evidence + ReviewBundle + analyse + Recommendation courante ; variante stale en metadata non screenshotée | F8 / G-UX-10 | F8.png + `10:7` | **PASS WITH RESERVE** | MINOR — stale non vu en image |
+| 8 | History | F9 non prouvé | F9 | — | **FAIL** | **BLOCKER** |
+| 9 | Recovery | F10 non prouvé | F10 | — | **FAIL** | **BLOCKER** |
+| 10 | Responsive | F2 LPS 385 px déclaré ; F3 1280×800 conversation dominante ; F11A/B + D3 non screenshotés (D3 metadata only) | CC-D03 | F2/F3 ; D3 id `6:9` | **FAIL** (F11) / partiel F2/F3 | **BLOCKER** pour F11 |
+| 11 | A11y design | Focus/états textuels/labels ; D1 loading/empty/error/recovery ; pas de claim WCAG | §T | D1 + F5–F8 | **PASS** (design controls represented) | — |
+| 12 | G-UX-01→15 | Voir matrice §9 | baseline | partiel | **FAIL** global (F9/F10/F11) | **BLOCKER** |
+| 13 | Qualité visuelle | Cohérent, lisible, professionnel, sobre ; polish non bloquant | §V | F1–F8 | **PASS** avec DEFERRED polish possible | DEFERRED |
 
 ---
 
-## 12. Écarts
+## 9. Matrice G-UX-01→15
+
+| G-UX | Preuve Figma | Résultat | Réserve Delivery | Preuve restante | Anti-claim |
+|---|---|---|---|---|---|
+| 01 | F1 | **PASS** | câblage `/studio` | E2E | pas Delivery |
+| 02 | F1/F2 nav canonique | **PASS** | masquer historiques | — | **pas RETIRE** |
+| 03 | F2–F8 langage utilisateur | **PASS** | copy | — | — |
+| 04 | F4–F8 surfaces typées | **PASS** | scinder UI | — | — |
+| 05 | F1/F2/F4 intent-first | **PASS** | wiring OA | — | pas D1 persistence |
+| 06 | F9 | **FAIL** preuve | ports lecture | F9 Freeze | pas nouveau store |
+| 07 | F2/F5/F6 authority language | **PASS** | — | — | — |
+| 08 | F5 AMEND | **PASS** | boucle wiring | scénario AMEND | pas claim implémentation |
+| 09 | F10 | **FAIL** preuve | UX honest | F10 Freeze | pas fake chat |
+| 10 | F8 + `10:7` metadata | **PASS WITH RESERVE** | — | screenshot stale | pas nouvelle persistence |
+| 11 | hors Figma | **PASS** (pending) | browser E2E | E2E | Figma ≠ E2E |
+| 12 | nav sans P0/D1/OPS1 | **PASS** | gouvernance | — | pas RETIRE |
+| 13 | D1 | **PASS** | Delivery | — | — |
+| 14 | hors scope | **PASS** | — | — | pas IAM |
+| 15 | F6/F7 + réserve Confirmation | **PASS WITH RESERVE** (variantes non vues) | UI+E2E | screenshots variantes | blocker technique CLOSED ≠ E2E |
+
+---
+
+## 10. Écarts
 
 ### BLOCKER
 
-| ID | Observation | Evidence | Référentiel | Impact | Correction | Gate Morris |
-|---|---|---|---|---|---|---|
-| B-01 | Identité MCP ≠ compte Freeze attendu | `whoami` = `m.cleland@safari-technologies.com` vs attendu `ririclecle93@gmail.com` | Contrat §G | revue impossible | reconnecter MCP ou partager fichier | OUI — action accès |
-| B-02 | Freeze inaccessible en lecture MCP | `get_metadata` refuse l’accès | Contrat §G | aucune preuve frame | share view / auth correcte / preuves alternatives | OUI |
-| B-03 | Contrôles 1–13 non evidence-based | 0 screenshot / 0 metadata page | CKC QA evidence-based | NOT READY | relancer revue après accès | OUI après preuve |
+| ID | Observation | Evidence | Impact | Action |
+|---|---|---|---|---|
+| B-10 | F9/F10/F11A/F11B non prouvés dans le Freeze via MCP | page 02 introuvable ; quota Starter | empêche READY | fournir URL/node page 02 **ou** captures F9–F11 **ou** quota MCP ; relancer revue |
+| B-11 | Complétude contrat §J non démontrée | contrôles 1/8/9/10 | validation Morris prématurée | idem |
 
-### MAJOR / MINOR / DEFERRED
+### MAJOR
 
-Aucun écart de contenu design classifié : **contenu non inspecté**. Ne pas inventer de polish ou contradiction doctrine.
+Aucun MAJOR doctrine sur F1–F8 inspectés.
 
----
+### MINOR
 
-## 13. Réserves préexistantes (toujours ouvertes — non consommées)
+| ID | Observation | Impact |
+|---|---|---|
+| M-01 | Variantes F7 dédiées + F8 stale + D2/D3 non screenshotées (quota) | réserve preuve, pas contradiction vue |
+| M-02 | Chip « Bloqué » sur F7 principal : sémantique pré-Attempt à confirmer via `10:3` | clarifier au prochain passage MCP |
 
-| Réserve | Statut |
+### DEFERRED
+
+| ID | Observation |
 |---|---|
-| product/browser E2E | PENDING |
-| Confirmation process-local | KEEP RESERVE |
-| UI Delivery / M6 / runtime v3 ADOPTED | NON AUTORISÉ / NON ADOPTÉ |
+| D-01 | Esthétique sobre/plate — polish Delivery ultérieur non bloquant |
+| D-02 | Chrome prototype F1→F11 à ignorer / retirer au gel Delivery si gênant |
+
+### Réserves préexistantes
+
+- product/browser E2E **PENDING**
+- Confirmation process-local **KEEP RESERVE** (représentée sur F6)
+- UI Delivery / M6 / runtime v3 **NON AUTORISÉS**
 
 ---
 
-## 14. Claims interdits (réaffirmés)
+## 11. Claims interdits (réaffirmés)
 
-Même en cas de future PASS : pas runtime v3 ADOPTED ; pas Pre-M6 fermé ; pas UI Delivery ; pas M6 ; pas E2E prouvé ; pas Figma/runtime aligned ; pas pixel-perfect ; pas WCAG compliant ; pas historical UI retired ; pas Confirmation restart-safe ; pas REAL.
-
-Ce cycle : **aucune** adoption D-PRE-M6-UX-05.
+Pas d’adoption D-PRE-M6-UX-05 ; pas UI Delivery ; pas M6 ; pas E2E prouvé ; pas Figma/runtime aligned ; pas WCAG compliant ; pas RETIRE historiques ; pas Confirmation restart-safe ; pas REAL.
 
 ---
 
-## 15. Preuves de non-mutation
+## 12. Compteurs sécurité
 
 | Compteur | Valeur |
 |---|---|
-| Figma read calls | 2 (`whoami`, `get_metadata` échec) |
+| Figma read (approx.) | whoami + metadata pages/frames + screenshots F1–F8 + D1 + probes page 02 |
 | Figma write | **0** |
-| Figma files modified | **0** |
-| Project files modified | **0** |
-| Code / tests / runtime | **0** |
-| Roadmap / baseline / Doctrine / framing | **0** |
+| Project mutation | **0** |
 | REAL / Gate D / M6 / UI Delivery | **0** |
-| Project staging/commit/push/PR | **0** |
-| Artefact local | `.tmp-sfia-review/**` only |
-
-`git status --short` : `?? .tmp-sfia-review/`
+| Review Handoff push | 1 L3 (cette publication) |
 
 ---
 
-## 16. QA Verdict / Cycle Verdict
+## 13. Verdicts
 
 **QA Verdict : FAIL**
 
 **Cycle Verdict : NOT READY**
 
-Motif : preuve Figma Freeze insuffisante / identité MCP incorrecte / fichier inaccessible — **STOP** avant classification contenu.
+Motif principal : **moments obligatoires F9–F11 non prouvés** + **quota MCP Starter** empêchant de terminer D2/D3/variantes en image.
 
-Formulation détaillée READY **non méritée**.
+Findings positifs F1–F8 (doctrine, autorité, Confirmation, Attempt anti-retry, LPS 385 px, D1 états) sont **réels** et utiles, mais **insuffisants seuls** pour READY.
 
 ```text
-D-PRE-M6-UX-05 — FINAL FIGMA VISUAL CONTRACT REVIEW BLOCKED — GIT TRUTH PASS AT origin/main@dd284e9… — INCOMING HANDOFF 3658054 = MAKE PACK HISTORY ONLY — FIGMA MCP IDENTITY m.cleland@safari-technologies.com ≠ EXPECTED ririclecle93@gmail.com — FREEZE fileKey uUdLBElF2B4dOefaAYt4QY INACCESSIBLE VIA CURRENT MCP — ZERO FRAME/SCREENSHOT EVIDENCE — CONTROLS 1–13 NOT EXECUTED ON ARTIFACT — ZERO FIGMA MUTATION — ZERO PROJECT MUTATION — NO UI DELIVERY — NO M6 — ZERO REAL — NOT READY FOR MORRIS VISUAL VALIDATION DECISION
+D-PRE-M6-UX-05 — FINAL FIGMA VISUAL CONTRACT REVIEW INCOMPLETE — MCP IDENTITY OK (ririclecle93@gmail.com) — FREEZE uUdLBElF2B4dOefaAYt4QY ACCESSIBLE — F1–F8 + D1 VISUALLY REVIEWED PASS ON DOCTRINE/AUTHORITY — PAGE 03 METADATA CONFIRMS D2/D3 + F7/F8 VARIANTS — F9/F10/F11 NOT PROVEN (PAGE 02 UNDISCOVERED) — STARTER MCP RATE LIMIT HIT — ZERO FIGMA MUTATION — ZERO PROJECT MUTATION — NO UI DELIVERY — NO M6 — ZERO REAL — NOT READY FOR MORRIS VISUAL VALIDATION DECISION
 ```
 
 ---
 
-## 17. Recommandation exacte prochaine action Morris
+## 14. Recommandation prochaine action Morris
 
-**Ne pas** ouvrir encore :
+Ne **pas** encore :
 
 `GO MORRIS — VALIDATE D-PRE-M6-UX-05 … ADOPT AS PRE-M6 VISUAL REFERENCE`
 
 À la place :
 
 ```text
-GO MORRIS — RESTORE FIGMA MCP ACCESS FOR D-PRE-M6-UX-05 FINAL REVIEW —
-CONNECT CURSOR FIGMA MCP AS ririclecle93@gmail.com
-OR SHARE FREEZE uUdLBElF2B4dOefaAYt4QY VIEW ACCESS WITH CURRENT MCP IDENTITY —
-THEN RE-RUN FINAL VISUAL CONTRACT REVIEW — NO FIGMA MUTATION — NO UI DELIVERY —
-NO RUNTIME CHANGE — NO M6 — ZERO REAL
+GO MORRIS — COMPLETE D-PRE-M6-UX-05 FINAL REVIEW EVIDENCE —
+PROVIDE PAGE 02 / F9–F11 NODE URLS OR SCREENSHOTS
+AND/OR RAISE FIGMA MCP QUOTA BEYOND STARTER LIMIT —
+THEN RE-RUN FINAL VISUAL CONTRACT REVIEW ON FREEZE uUdLBElF2B4dOefaAYt4QY —
+NO FIGMA MUTATION REQUIRED FOR REVIEW — NO UI DELIVERY — NO M6 — ZERO REAL
 ```
 
-Après accès restauré + re-revue PASS/PASS WITH RESERVES + READY : ChatGPT pourra recommander la gate VALIDATE/ADOPT (réserves documentées, no Delivery yet).
+Option utile immédiate (sans upgrade) : coller dans le chat les liens Figma `node-id` de F9, F10, F11A, F11B (et si possible D3 / F7-Bloqué / F8-Stale) pour une reprise ciblée à bas coût MCP.
 
 ---
 
-## 18. Publication Review Handoff
+## 15. Publication Review Handoff
 
 | Item | Valeur |
 |---|---|
 | Mode | publish-in-cycle |
 | Source | `.tmp-sfia-review/chatgpt-review.md` |
-| Destination | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Branche | `sfia/review-handoff` |
 | Message | `docs(review-handoff): publish pre-m6 figma visual contract final review` |
 | Push projet | INTERDIT |
 
