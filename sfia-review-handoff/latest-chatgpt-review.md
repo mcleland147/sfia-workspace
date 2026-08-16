@@ -1,150 +1,157 @@
-# D-PRE-M6-UX-05 — PR #356 POST-MERGE TRUTH — REVIEW PACK FULL
+# D-PRE-M6-UX-05 — PR #356 POST-MERGE CURRENT-STATE SYNC — CONTROLLED GIT INTEGRATION — REVIEW PACK FULL
 
 **Niveau :** FULL
-**Timestamp :** 2026-08-16 14:29:26 CEST (Europe/Paris)
-**Verdict Cursor :** PR #356 POST-MERGE TRUTH — MAIN 50f31994 VERIFIED — CI #199 SUCCESS — EXACT 2-DOC CURRENT-STATE SYNC — D-PRE-M6-UX-05 ADOPTED PRESERVED — SOURCE BRANCH PRESERVED / DELETE NOT AUTHORIZED — POST-MERGE TRUTH PASS — NEXT CONVERGENCE CAPABILITY = QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE — UI DELIVERY NOT AUTHORIZED — PRE-M6 NON COMPLETE — NO M6 — RUNTIME V3 NON ADOPTED — ZERO REAL — READY FOR CHATGPT REVIEW
+**Timestamp :** 2026-08-16 14:37:28 CEST (Europe/Paris)
+**Verdict Cursor :** PR #356 POST-MERGE CURRENT-STATE SYNC — COMMITTED + PUSHED + DRAFT PR OPEN — EXACT 2-DOC SCOPE — REMOTE VERIFIED — CURRENT HEAD CI SUCCESS — D-PRE-M6-UX-05 ADOPTED PRESERVED ON MAIN — NEXT CONVERGENCE CAPABILITY = QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE — NO BRANCH DELETE — NO MERGE — NO UI DELIVERY — NO RUNTIME CHANGE — NO M6 — ZERO REAL — READY FOR CYCLE 13 PR READINESS
 
 ---
 
-## 1. Qualification
+## 1. GO Morris consommé
 
-- Cycle 14 — Post-merge
+GO MORRIS — COMMIT + PUSH + OPEN DRAFT PR — BRANCH docs/sfia-studio-pre-m6-visual-contract-post-merge-sync — PR #356 POST-MERGE CURRENT-STATE SYNC — BASE main@50f31994b0d9b5a3a3514e2fa9a063d688071c50 — EXACTLY 2 PROJECT DOCS — PRESERVE D-PRE-M6-UX-05 ADOPTED ON MAIN — NEXT CONVERGENCE CAPABILITY = QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE — NO BRANCH DELETE — NO UI DELIVERY — NO RUNTIME CHANGE — NO M6 — ZERO REAL — NO MERGE
+
+## 2. Qualification
+
+- Cycle 14 continuation / Controlled Git integration
 - Profil CRITICAL
-- Typologie DOC — POST-MERGE CURRENT-STATE SYNC
-- Justification Critical: updates two active Studio governance assets after PR #356 merge; no new product decision invented beyond documenting consumed merge + next qualification trajectory.
+- Typologie DOC
 
----
+## 3. CKC fallback
 
-## 2. CKC fallback Cycle 14
+Cycle 14 — Post-merge · pilote ABSENT · synthetic map + méthode cycles · candidate/experimental · autorité AUCUNE
 
-Synthetic map + méthode cycles.
-Statut: candidate / experimental cognitive guidance.
-Autorité d'exécution: AUCUNE.
-Pilote détaillé: ABSENT.
-
----
-
-## 3. Local Git Truth
+## 4. Git Truth avant action
 
 | Check | Valeur |
 |---|---|
-| branch (work) | docs/sfia-studio-pre-m6-visual-contract-post-merge-sync |
+| branch | docs/sfia-studio-pre-m6-visual-contract-post-merge-sync |
 | HEAD | 50f31994b0d9b5a3a3514e2fa9a063d688071c50 |
 | origin/main | 50f31994b0d9b5a3a3514e2fa9a063d688071c50 |
-| source branch remote | 3a93d0e5cfd86e46bb795ce22c0f7dd79078ef2a |
-| origin/sfia/review-handoff (incoming) | 1752d663ec289ee7a39ea9de070e8ee9d5807b0e |
-| tracked dirty at start | clean |
+| target remote before push | ABSENT |
+| source branch #356 | 3a93d0e5… PRESERVED |
+| handoff tip | ee0f67fce5eb1dadae1fb4e655ebfe22f7af6984 |
+| handoff blob | f21bfe9786510c6e88a1d1303dd4c356c6909408 |
 | REAL | unset |
 
----
-
-## 4. origin/main
+## 5. origin/main
 
 50f31994b0d9b5a3a3514e2fa9a063d688071c50
 
----
+## 6. Handoff entrant
 
-## 5. PR #356 merge verification
+ee0f67f… / blob f21bfe97… — ChatGPT PASS consumed; candidate not modified after PASS.
 
-| Champ | Valeur |
-|---|---|
-| state | MERGED |
-| mergeCommit | 50f31994b0d9b5a3a3514e2fa9a063d688071c50 |
-| head | 3a93d0e5cfd86e46bb795ce22c0f7dd79078ef2a |
-| base | dd284e9f20de89b2c8fc7782e4177d0d125c24d2 |
-| parents | dd284e9… + 3a93d0e… |
-| changed files | exact 2 docs |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/356 |
+## 7. Convergence Pre-check
 
-Main tree blobs for both docs match merged head 3a93d0e.
+Build Doctrine VALIDATED · V3-F05 · D-PRE-M6-UX-05 ADOPTED ON MAIN · Freeze uUdLBElF2B4dOefaAYt4QY · PR #356 MERGED · CI #199 SUCCESS · UI Delivery NOT AUTHORIZED · next = QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE (not executed).
 
----
+## 8. Candidate integrity proof
 
-## 6. Post-merge CI #199
+- No post-PASS edits
+- Pre/post commit hashes identical (roadmap ef9ef529… / baseline a179820d…)
+- Commit hook mutation check PASS
 
-| Champ | Valeur |
-|---|---|
-| run id | 31946645413 |
-| number | 199 |
-| event | push |
-| headSha | 50f31994b0d9b5a3a3514e2fa9a063d688071c50 |
-| status | completed |
-| conclusion | SUCCESS |
-| Detect | SUCCESS |
-| Build and validate | SUCCESS |
-| Required Gate | SUCCESS |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/31946645413 |
+## 9. Anti-auto-obsolescence proof
 
-Also historical: CI #198 SUCCESS on final PR head 3a93d0e (pre-merge).
+Product docs do not encode this sync commit/PR/CI as CURRENT product state. Integration mechanics only in PR body / Review Pack / Handoff. Self-referential state NOT DETECTED.
 
----
-
-## 7. Incoming handoff supersession
-
-Incoming tip 1752d663… / blob 75d7b91… was published BEFORE merge and still described PR #356 OPEN/DRAFT, merge=0, main=dd284e9….
-
-Superseded by newer Git truth:
-- PR #356 MERGED
-- main=50f31994…
-- CI #199 SUCCESS
-
----
-
-## 8. Sources lues
-
-Cycle template + routing/operating/rules/knowledge + CKC synthetic map + method cycles candidate + Build Doctrine + Roadmap + Pre-M6 baseline + framing 30/35/37 + PR #356 + CI #199 + incoming handoff.
-
----
-
-## 9. Convergence Pre-check
-
-Build Doctrine VALIDATED ACTIVE · V3-F05 · supports F02/F04/F10/F12/F14/F15 · PRE-M6 PRODUCT UX VISUAL CONTRACT · D-PRE-M6-UX-05 ADOPTED preserved · Freeze uUdLBElF2B4dOefaAYt4QY · gap closed = documentary adoption integration on main · gap of this cycle = post-merge current-state documentary staleness · next = QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE · UI Delivery NOT AUTHORIZED.
-
----
-
-## 10. D-PRE-M6-UX-05 ADOPTED preserved
-
-ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN · Freeze uUdLBElF2B4dOefaAYt4QY · visual reserves ACCEPTED ≠ CLOSED · UI Delivery NOT AUTHORIZED · Pre-M6 NON COMPLETE · M6 NOT AUTHORIZED · runtime v3 NON ADOPTED · REAL 0.
-
----
-
-## 11. Post-merge truth matrix
-
-| Fact | Status |
-|---|---|
-| PR #356 MERGED | PASS |
-| merge SHA 50f31994… | PASS |
-| head 3a93d0e… | PASS |
-| base dd284e9… | PASS |
-| exact 2 docs | PASS |
-| CI #199 SUCCESS | PASS |
-| jobs Detect/Build/Gate SUCCESS | PASS |
-| source branch preserved | PASS |
-| POST-MERGE GIT TRUTH | PASS |
-
-≠ Pre-M6 COMPLETE · ≠ UI Delivery authorized · ≠ runtime v3 ADOPTED.
-
----
-
-## 12. Source branch cleanup
-
-SKIPPED — NOT AUTHORIZED BY MORRIS (NO BRANCH DELETE).
-Branch docs/sfia-studio-pre-m6-visual-contract-adoption-sync @ 3a93d0e… PRESERVED.
-
----
-
-## 13. Exact 2 modified files
+## 10. Exact 2 staged files
 
 1. projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 2. projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md
 
-Local branch for candidate: docs/sfia-studio-pre-m6-visual-contract-post-merge-sync (NO push this cycle).
+## 11. git diff --cached --check
 
----
+PASS
 
-## 14. Diff COMPLET exploitable
+## 12. PROJECT_COMMIT_SHA
+
+70643624c494f16fb91e3bede772a80f4eece783
+
+## 13. Commit exact file list
+
+exact 2 docs · 72 insertions / 74 deletions
+
+## 14. Remote branch SHA
+
+70643624c494f16fb91e3bede772a80f4eece783 — REMOTE BRANCH VERIFIED
+
+## 15. Draft PR
+
+| Champ | Valeur |
+|---|---|
+| number | 357 |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/357 |
+| state | OPEN |
+| draft | true |
+| base | main |
+| head | docs/sfia-studio-pre-m6-visual-contract-post-merge-sync |
+| head SHA | 70643624c494f16fb91e3bede772a80f4eece783 |
+| changed files | 2 |
+| commits | 1 |
+
+## 16. Current head CI
+
+| Champ | Valeur |
+|---|---|
+| number | 200 |
+| run id | 31947449430 |
+| event | pull_request |
+| headSha | 70643624c494f16fb91e3bede772a80f4eece783 |
+| conclusion | SUCCESS |
+| jobs | Detect/Build/Required Gate = SUCCESS |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/31947449430 |
+
+CI #199 remains PR #356 post-merge proof (distinct). CI #200 does not authorize merge.
+
+## 17. PR #356 durable facts preserved
+
+MERGED · merge 50f31994… · head 3a93d0e… · CI #198/#199 · D-PRE-M6-UX-05 ADOPTED ON MAIN · Freeze uUdLBElF2B4dOefaAYt4QY
+
+## 18. Source branch #356 preserved
+
+docs/sfia-studio-pre-m6-visual-contract-adoption-sync @ 3a93d0e5… still present
+
+## 19. No branch delete
+
+0
+
+## 20. Remaining reserves
+
+visual ACCEPTED ≠ CLOSED · E2E PENDING · Confirmation KEEP · G-UX-08/10 · M5-C · Pre-M6 NON COMPLETE · UI Delivery NOT AUTHORIZED · M6 NOT AUTHORIZED · runtime v3 NON ADOPTED · REAL 0
+
+## 21. Next convergence capability
+
+QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE — UI Delivery NOT AUTHORIZED
+Repo next (not consumed): CYCLE 13 PR READINESS on Draft PR #357
+
+## 22. Anti-claims
+
+MERGED ≠ Delivery · CI SUCCESS ≠ Pre-M6 complete ≠ merge authorized · contract on main ≠ runtime/E2E/alignment · Draft OPEN ≠ merge · REAL 0
+
+## 23. Safety Counters
+
+files=2 · commits=1 · pushes=1 · draft PR=1 · mark ready=0 · merge=0 · branch delete=0 · force push=0 · code/runtime/Figma/Delivery/E2E/M6/REAL=0
+
+## 24–25. Zero Delivery/runtime/Figma/E2E/M6/REAL · merge=0
+
+Confirmed.
+
+## 26. Commit patch
 
 ```diff
+commit 70643624c494f16fb91e3bede772a80f4eece783
+Author: Morris Cleland <morris@macbook-air1.home>
+Date:   Sun Aug 16 14:34:40 2026 +0200
+
+    docs(sfia-studio): sync PR 356 post-merge current state
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+---
+ .../convergence/sfia-studio-convergence-roadmap.md | 71 ++++++++++----------
+ ...re-m6-user-journey-ux-baseline-qualification.md | 75 +++++++++++-----------
+ 2 files changed, 72 insertions(+), 74 deletions(-)
+
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 index 28aa5a2..aa95838 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -453,109 +460,6 @@ index d8f5fc5..d17b2d6 100644
 +Durable Git facts recorded: PR #356 MERGED (`50f31994…`) · CI #199 SUCCESS · post-merge truth PASS · source branch PRESERVED. G-UX-08/10 implementation = 0. Code/test bytes from PR #354 remain unchanged on main.
 ```
 
----
+## 27. Verdict
 
-## 15. Stale CURRENT claims removed
-
-- PR #356 OPEN / DRAFT / NOT MERGED as CURRENT
-- Cycle 13 PR readiness CURRENT
-- MERGE #356 NEXT IF PASS / merge NOT AUTHORIZED for #356
-- Snapshot main dd284e9 as CURRENT
-- CI #197 alone as latest proof
-- post-merge truth as future
-- counters showing Draft PR OPEN / merge=0 as CURRENT for #356
-
----
-
-## 16. Historical claims retained
-
-- PR #355/#356 OPEN/DRAFT before merge (explicit historique)
-- initial integration commit 07f7a06… / CI #197 INITIAL HEAD evidence
-- CI #198 SUCCESS on final PR head
-- Slice A / PR #354 historical path
-- D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE
-
----
-
-## 17. Anti-auto-obsolescence check
-
-Docs do NOT encode future commit/PR/CI for integrating THIS post-merge sync.
-Next convergence capability = QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE only.
-Repo integration mechanics for this candidate are confined to Review Pack / Handoff / Cursor report.
-
----
-
-## 18. Reserves remaining
-
-Accepted visual provenance/M-03/M-04/polish ≠ CLOSED
-product/browser E2E PENDING
-Confirmation process-local KEEP RESERVE
-G-UX-08/10 open per register
-M5-C governance debt unchanged
-UI Delivery NOT AUTHORIZED
-Pre-M6 NON COMPLETE
-M6 NOT AUTHORIZED
-runtime v3 NON ADOPTED
-REAL 0
-
----
-
-## 19. Next convergence capability
-
-QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE
-(DISTINCT Morris GO required)
-UI Delivery = NOT AUTHORIZED
-
----
-
-## 20. Anti-claims
-
-- PR #356 MERGED ≠ UI Delivery authorized
-- CI #199 SUCCESS ≠ Pre-M6 complete
-- Visual contract on main ≠ runtime / E2E / Figma-runtime / WCAG / historical UI retirement
-- accepted visual reserves ≠ closed
-- Confirmation KEEP ≠ restart-safe
-- post-merge truth PASS ≠ UI Delivery gate consumed
-- UI Delivery qualification next ≠ UI Delivery authorized
-- Pre-M6 progress ≠ M6 authorized
-- M6 future ≠ runtime v3 ADOPTED
-- runtime v3 NON ADOPTED · global v3 baseline NOT PROMOTED · REAL 0
-
----
-
-## 21. git diff --check
-
-PASS (exit 0).
-
----
-
-## 22. File budget
-
-Project files modified = 2 exact
-Project files created = 0
-Project staging/commit/push/PR = 0
-Source branch delete = 0
-Code/runtime/Figma/UI Delivery/E2E/M6/REAL/Gate D = 0
-
----
-
-## 23. Verdict
-
-PR #356 POST-MERGE TRUTH —
-MAIN 50f31994 VERIFIED —
-CI #199 SUCCESS —
-EXACT 2-DOC CURRENT-STATE SYNC —
-D-PRE-M6-UX-05 ADOPTED PRESERVED —
-SOURCE BRANCH PRESERVED / DELETE NOT AUTHORIZED —
-POST-MERGE TRUTH PASS —
-NEXT CONVERGENCE CAPABILITY = QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE —
-UI DELIVERY NOT AUTHORIZED —
-PRE-M6 NON COMPLETE —
-NO M6 —
-RUNTIME V3 NON ADOPTED —
-ZERO REAL —
-READY FOR CHATGPT REVIEW
-
-Recommended next Morris gate (NOT CONSUMED):
-COMMIT + PUSH + OPEN DRAFT PR for this post-merge current-state sync from main@50f31994…
-Then later distinct: QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE.
+PR #356 POST-MERGE CURRENT-STATE SYNC — COMMITTED + PUSHED + DRAFT PR OPEN — EXACT 2-DOC SCOPE — REMOTE VERIFIED — CURRENT HEAD CI SUCCESS — D-PRE-M6-UX-05 ADOPTED PRESERVED ON MAIN — NEXT CONVERGENCE CAPABILITY = QUALIFY PRE-M6 UI DELIVERY GATE / SCOPE — NO BRANCH DELETE — NO MERGE — NO UI DELIVERY — NO RUNTIME CHANGE — NO M6 — ZERO REAL — READY FOR CYCLE 13 PR READINESS
