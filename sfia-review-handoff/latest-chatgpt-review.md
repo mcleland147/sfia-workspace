@@ -1,38 +1,21 @@
-# SFIA STUDIO — PRE-M6 UI DELIVERY OPTION A — CYCLE 8 AMEND QA-PRE-M6-TEST-01 — NEGATIVE-STATE TESTABILITY HARNESS
+# SFIA STUDIO — PRE-M6 UI DELIVERY OPTION A — TRUE NEW DESIGN / FIGMA-ALIGNED UI DELIVERY
 
 Level: FULL
-Timestamp: 2026-08-16 21:19:54 CEST (Europe/Paris)
-Publisher target: sfia-review-handoff/latest-chatgpt-review.md
+Timestamp: 2026-08-16 21:39:18 CEST (Europe/Paris)
 
 ---
 
-## 1. GO Morris exact / interprété
+## 1. GO Morris
 
-User wording: « ok si tu recommandes l'option A ca me va, donc go »
+User wording: « ok go pour le chantier new design »
 
-Interprétation gouvernée consommée:
-
-GO MORRIS — PRE-M6 UI DELIVERY OPTION A — CYCLE 8 AMEND — QA-PRE-M6-TEST-01 —
-AUTHORIZE BOUNDED E2E-ONLY NEGATIVE-STATE TESTABILITY HARNESS FOR N5 / N7 / N8 / N9 / N10 / N11 —
-REUSE EXISTING TESTEXECUTIONADAPTER / EXECUTIONATTEMPT USE CASES / PRODUCT SQLITE TEST HOOKS —
-NO PRODUCT BUSINESS SEMANTICS CHANGE — NO NEW PERSISTENCE — NO NEW ENGINE — NO MIGRATION — NO REAL —
-NO PROJECT COMMIT — NO PROJECT PUSH — NO PR — NO M6 —
-RETURN FOR CHATGPT REVIEW BEFORE FULL CYCLE 9 RERUN
+Interprétation: TRUE FIGMA-ALIGNED NEW DESIGN IMPLEMENTATION — replace technical/legacy presentation on canonical Studio path — hide historical P0/D1/OA/OPS1 from canonical nav — preserve OA backbone + harness — NO REAL / NO project commit / NO Cycle 9 / NO M6 — return ChatGPT before final Cycle 9.
 
 ---
 
 ## 2. Cycle / Profile / CKC
 
-- Cycle: 8 — Delivery / implémentation
-- Sous-type: CONTINUATION / AMEND — QA TESTABILITY HARNESS
-- Typologie: INC
-- Profil: Critical
-- CKC détaillé: ABSENT → fallback method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md + SFIA v2.6 process
-- Finalité: implémenter dans périmètre borné (diff / code)
-- Preuve: diff + tests
-- Risque principal: scope creep
-- Statut CKC: method-candidate
-- Autorité: aucune autorité d'exécution
+Cycle 8 · CONTINUATION · TRUE PRE-M6 UI DELIVERY / FIGMA-TO-RUNTIME · EVOL · Critical · CKC ABSENT → synthetic map fallback.
 
 ---
 
@@ -43,1971 +26,1269 @@ RETURN FOR CHATGPT REVIEW BEFORE FULL CYCLE 9 RERUN
 | branch | `delivery/sfia-studio-pre-m6-ui-option-a` |
 | HEAD | `0d33478566627a9bf507d5a06323962d349308ee` |
 | origin/main | `0d33478566627a9bf507d5a06323962d349308ee` |
+| incoming handoff | `3565d3ca9e98b9b3b26f83b520f6a7de75785c31` |
+| visual authority | `69106c82024158889f77e9d31508a222ea5f3a0f` |
 | staged | 0 |
-| REAL | unset / 0 |
-| working tree | DIRTY candidat attendu |
-| tracked modified | 41 |
-| untracked | 21 |
-| incoming handoff | `38b18af38442a9c1c1fe1200475b0485307de674` |
-| BASE MAIN ADVANCED | NO |
-| WRONG BRANCH | NO |
-| PREEXISTING STAGED | NO |
+| REAL | 0 |
+| tracked / untracked | 42 / 22 |
 
-### git status --short (truncated to project paths)
+---
+
+## 4. Figma source status
+
+MCP Figma: RATE-LIMITED (Starter) — get_metadata attempted READ ONLY, unavailable.
+Manual evidence: **19/19 SHA-256 VERIFIED** vs handoff 69106c82…
+Delivery authorized via Option 2.
+
+---
+
+## 5. Design Extraction Contract BEFORE CODE
+
+Verdict: **FIGMA CONTRACT READY — READY FOR DELIVERY**
+
+Full contract:
+
+```markdown
+# FIGMA / PRE-M6 DESIGN EXTRACTION CONTRACT
+# D-PRE-M6-UX-05 — BEFORE CODE
+# Timestamp: 2026-08-16 Europe/Paris
+
+## Source status
+
+| Source | Status |
+|--------|--------|
+| Figma MCP (fileKey `uUdLBElF2B4dOefaAYt4QY`) | RATE-LIMITED — READ ONLY attempted; unavailable |
+| Manual evidence `.tmp-sfia-review/figma/manual-evidence/` | **19/19 SHA-256 VERIFIED** vs handoff `69106c82…` |
+| Visual authority handoff | `69106c82024158889f77e9d31508a222ea5f3a0f` |
+| Prior extract | `.tmp-sfia-review/diagnostics/pre-m6-option-a-visual-contract-extract.md` |
+| Provenance | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE (not MCP screenshots) |
+
+## Verdict before code
+
+**FIGMA CONTRACT READY — READY FOR DELIVERY**
+
+---
+
+## Frame / state matrix
+
+| Frame/state | Evidence | Viewport (product) | Structure | Conversation | LPS | Header/nav | CTA | Authority semantics | Must disappear from current runtime |
+|-------------|----------|--------------------|-----------|--------------|-----|------------|-----|---------------------|-------------------------------------|
+| F1 Projects | F1-Projets.png | 1440 | Brand + Projets tab · title · list card · empty variant | n/a | n/a | SFIA Studio + Pilotage assisté · Projets · avatar M | + Nouveau projet | Nora recommande, vous décidez | MODE LOCAL / NON PRÊT / big env banner as primary · P0/D1/OA/OPS1 rail peers |
+| F2 Project 1440 | F2-Projet-1440.png | 1440 | Conversation dominant + sticky LPS ~380px | Primary column | Sticky 380px | Projets / Projet courant · project title · Historique / Diagnostics secondary | Composer always | Morris pilote | Technical dual-cockpit · giant disclosure |
+| F3 Project 1280 | F3-Projet-1280.png | 1280 | Same · LPS ~320px | Primary | Sticky 320px | Same | Composer | Same | Same |
+| F4 Qualification | F4-Qualification.png | product | Contextual qualification/proposal card in conversation | Dominant | Side | Same | Clarifier / décider | Reco ≠ Decision | CKC form · long technical log |
+| F5 HumanDecision | F5-Decision.png | product | Decision card distinct · GO / amend / NO_GO | Dominant | Side · état Décision requise | Same | Approuver / modifier / rejeter | HumanDecision ≠ Recommendation · not color-only | Reco-looking decision |
+| F6 Contract+Confirm | F6-Contrat-Confirmation.png | product | Contract surface + explicit confirm | Dominant | Side | Same | Confirmer | Attempt=0 before confirm | Dominant technical IDs |
+| F7 Running | F7-Execution-EnCours.png | product | Attempt running card | Dominant | Side | Same | No auto-retry | Running distinct | Optimistic success |
+| F7 Blocked | F7-Bloque-Avant-Execution.png | product | Blocked before Attempt · no Attempt ID | Dominant | Side | Same | — | Pre-Attempt honesty | Fake Attempt ID |
+| F7 Failed | F7-Echec.png | product | Failed | Dominant | Side | Same | — | ≠ Timeout | Merged failure label |
+| F7 Timeout | F7-Timeout.png | product | Timeout | Dominant | Side | Same | — | Final unknown possible | Timeout-as-failed |
+| F7 Cancelled | F7-Annule.png | product | Cancelled | Dominant | Side | Same | — | ≠ Failed | — |
+| F8 Current | F8-Revue-Recommandation.png | product | Recommendation current | Dominant | Side | Same | No exec authority | Reco ≠ Decision | Authority claim |
+| F8 Stale | F8-Recommandation-Perimee.png | product | Stale + reason + new decision needed | Dominant | Side | Same | — | Freshness textual | Silent disappear |
+| F9 History | F9-Historique.png | product | Durable facts timeline · filters | Dominant/side | Side | Historique | — | Not reconstructed transcript | Raw technical log |
+| F10 Recovery | F10-Reprise.png | product | Honest re-entry · durable facts | Dominant | Side | Reprise | Reprendre / Requalifier | No fake transcript | Fake recovery |
+| F11 LPS closed | F11A… | ≤1024 | Conversation full width | Full | Closed | LPS toggle | Open LPS | — | Persistent LPS column |
+| F11 LPS open | F11B… | ≤1024 | Drawer/sheet LPS | Readable | Drawer | Close | Close LPS | M-04 reserve | — |
+| sub-768 | D1 part2 rule | <768 | Conversation full · LPS drawer only · stacked CTAs | Full | Drawer only | Compact | Composer accessible | Same distinctions | Multi-cockpit |
+
+## Tokens / visual language (from evidence + existing tokens)
+
+- Brand green primary actions / Nora (extend `--sfia-green*` ; forest accent for header logo/text ~#0B3D2E–#064e3b family)
+- Warm off-white canvas (keep `--sfia-bg` / surface; may soften toward beige-gray from F1)
+- Orange for decision-required / attention (`--sfia-orange`)
+- Radius pills / cards (`--sfia-radius-*`)
+- LPS widths already: `--sfia-lps-width-1440: 380px`, `--sfia-lps-width-1280: 320px`
+- Typography: Inter stack already (`--sfia-font`) — hierarchy title > body > meta
+
+## Canonical navigation target
+
+Primary only: **Projets** · **Projet courant** (when open) · create via CTA · avatar.
+Historical P0/D1/OA/OPS1: **HIDDEN from canonical nav** · routes FREEZE · RETIRE LATER · URL direct OK.
+
+## Primary copy target
+
+Remove as product identity: MODE LOCAL · NON PRÊT · Environnement local — limites honnêtes · Lecture seule · Aucune exécution réelle as giant primary chrome.
+Replace with product copy: Pilotage assisté · Nora recommande, vous décidez · Morris pilote.
+Environment honesty → compact diagnostics disclosure only.
+
+## Delivery constraints preserved
+
+- OA backbone / Product SQLite / M3 wiring / harness KEEP
+- Domain / persistence / engine = 0 mutation
+- Historical routes not deleted
+- G-UX-11 remains OPEN
+- No REAL
 
 ```
-M projects/sfia-studio/app/__tests__/increment-a.test.tsx
- M projects/sfia-studio/app/__tests__/increment-b.test.tsx
- M projects/sfia-studio/app/__tests__/navigation.test.tsx
- M projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
- M projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
- M projects/sfia-studio/app/__tests__/vertical-slice-ui/createProjectUi.test.tsx
- M projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx
- M projects/sfia-studio/app/app/studio/projects/[id]/page.tsx
- M projects/sfia-studio/app/app/studio/projects/new/page.tsx
- M projects/sfia-studio/app/components/shell/StudioShell.tsx
- M projects/sfia-studio/app/components/shell/UtilityRail.tsx
- M projects/sfia-studio/app/components/shell/utility-rail.module.css
- M projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
- M projects/sfia-studio/app/features/project-assistant/actions.ts
- M projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
- M projects/sfia-studio/app/features/project-assistant/f3/index.ts
- M projects/sfia-studio/app/features/project-assistant/f3/types.ts
- M projects/sfia-studio/app/features/project-assistant/project-assistant.module.css
- M projects/sfia-studio/app/features/project-assistant/types.ts
- M projects/sfia-studio/app/features/vertical-slice-ui/CreateProjectForm.tsx
- M projects/sfia-studio/app/features/vertical-slice-ui/ProjectWorkspaceView.tsx
- M projects/sfia-studio/app/features/vertical-slice-ui/RuntimeDisclosureBanner.tsx
- M projects/sfia-studio/app/features/vertical-slice-ui/create-project.module.css
- M projects/sfia-studio/app/features/vertical-slice-ui/project-workspace.module.css
- M projects/sfia-studio/app/lib/navigation.ts
- M projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/testExecutionAdapter.ts
- M projects/sfia-studio/app/lib/oa/project/domain/types.ts
- M projects/sfia-studio/app/lib/oa/project/index.ts
- M projects/sfia-studio/app/lib/oa/project/infrastructure/memoryProjectRepository.ts
- M projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/createSqliteProductProjectServices.ts
- M projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProjectRepository.ts
- M projects/sfia-studio/app/lib/oa/project/ports/projectAuditJournalPort.ts
- M projects/sfia-studio/app/lib/oa/project/ports/projectRepositoryPort.ts
- M projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
- M projects/sfia-studio/app/lib/vertical-slice-runtime/actions.ts
- M projects/sfia-studio/app/lib/vertical-slice-runtime/index.ts
- M projects/sfia-studio/app/lib/vertical-slice-runtime/mapping.ts
- M projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
- M projects/sfia-studio/app/lib/vertical-slice-runtime/types.ts
- M projects/sfia-studio/app/styles/shell.module.css
- M projects/sfia-studio/app/styles/tokens.css
-?? .tmp-sfia-review/
-?? projects/sfia-studio/app/__tests__/project-assistant/presentationLabels.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/qa-pre-m6-01.finalHardening.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/qa-pre-m6-01.postGoDurableM3Path.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/qa-pre-m6-test-01.e2eQaControl.test.ts
-?? projects/sfia-studio/app/__tests__/studio-projects/
-?? projects/sfia-studio/app/app/api/
-?? projects/sfia-studio/app/app/studio/page.tsx
-?? projects/sfia-studio/app/e2e/studio-option-a-negative-states.spec.ts
-?? projects/sfia-studio/app/e2e/studio-option-a.spec.ts
-?? projects/sfia-studio/app/e2e/support/
-?? projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteResolvedM3.ts
-?? projects/sfia-studio/app/features/project-assistant/f3/e2eOptionATerminalAttempt.ts
-?? projects/sfia-studio/app/features/project-assistant/f3/executeConfirmedFixtureSafeContract.ts
-?? projects/sfia-studio/app/features/project-assistant/f3/fixtureSafeM3ResolutionProfile.ts
-?? projects/sfia-studio/app/features/project-assistant/f3/prepareAndResolveM3ProductPath.ts
-?? projects/sfia-studio/app/features/project-assistant/f3/validateResolvedM3ExecutionBoundary.ts
-?? projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
-?? projects/sfia-studio/app/features/studio-projects/
-?? projects/sfia-studio/app/lib/oa/project/application/listProjects.ts
-?? projects/sfia-studio/app/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl.ts
-```
 
 ---
 
-## 4. Incoming handoff / QA gap
+## 6. Convergence / Build Doctrine
 
-Incoming ChatGPT review @ `38b18af…` identified **QA-PRE-M6-TEST-01**:
-
-browser proofs missing for **N5 / N7 / N8 / N9 / N10 / N11** without a bounded testability seam.
-
-G-UX-11 remains **OPEN** for this cycle (no requalification; full Cycle 9 not authorized).
+Build Doctrine VALIDATED. Capacités V3-F05+F02+F04+F11/12+F14/15. Milestone PRE-M6 TRUE UI DELIVERY. Useful NOW. Max reuse. No parallel engine. No domain rewrite.
 
 ---
 
-## 5. Convergence Pre-check
+## 7. Asset classification (executed)
 
-- Build Doctrine: VALIDATED — ACTIVE ON MAIN
-- Capacités: V3-F05 + V3-F11 + V3-F12 + V3-F14 + V3-F15
-- Milestone: PRE-M6 NEGATIVE-STATE TESTABILITY
-- Gap: QA-PRE-M6-TEST-01 → **IMPLEMENTED CANDIDATE** (this cycle)
-- Happy path / QA-PRE-M6-01 / B5/B7 / N1–N4/N12: prior PASS (unchanged claim)
-- UAT / M6 / runtime v3 / REAL: NOT AUTHORIZED / NON ADOPTED / 0
-
----
-
-## 6. Build Doctrine challenge
-
-- Utile maintenant: YES (closes last proof gap before UAT readiness path)
-- Réutilisation: MAXIMALE
-- Assets KEEP/HARVEST: TestExecutionAdapter, ExecutionAttempt use-cases, Product SQLite `failNextSave`, runtime reset, Playwright, Option A UI (read-only semantics)
-- Nouveau moteur: NO
-- Architecture parallèle: NO
-- Nature: TEST INFRASTRUCTURE
-- Exit debt: KEEP AS SEALED TEST INFRASTRUCTURE until PR readiness review (or RETIRE if unused)
+KEEP: OA backbone, Product SQLite, M3 wiring, harness, freshness, Attempt use-cases.
+ADAPT: StudioShell nav, Projects, Create, Principal, Nora presentation, LPS, History/Recovery presentation, copy, tokens.
+REPLACE: technical primary chrome, MODE LOCAL/NON PRÊT identity, historical first-level nav peers, giant disclosure.
+FREEZE: D1/P0/OPS1 routes (URL still works).
+RETIRE LATER: historical routes (not this cycle).
 
 ---
 
-## 7. Discovery matrix N5 / N7–N11
+## 8. G-UX before / after
 
-| Scenario | Existing legal domain state? | Existing use-case? | Existing test hook? | Need server-process access? | Need production semantic change? | Chosen injection | Exit/reset | Risk |
-|----------|------------------------------|--------------------|---------------------|-----------------------------|----------------------------------|------------------|------------|------|
-| N5 recommendation_stale | YES — freshness via Evidence ID mismatch | registerEvidence + LPS append + deriveRecommendationFreshness | none for supersession | YES (same process as product SQLite) | NO | control `recommendation_stale` then E2E refresh event | n/a / next scenario isolation | medium — must not set STALE label directly |
-| N7 attempt_failed | YES — Attempt failed | RecordExecutionFailure | TestExecutionAdapter | YES | NO | arm + Confirm → terminal helper | arm consume once | medium — authority/boundary |
-| N8 attempt_timeout | YES — Attempt timeout | TriggerAttemptTimeout(nowIso past deadline) | same | YES | NO | arm + Confirm | consume | medium |
-| N9 attempt_cancelled | YES — Attempt cancelled | CancelExecutionAttempt | TestExecutionAdapter cancel | YES | NO | arm + Confirm | consume | medium |
-| N10 evidence_missing | YES — Attempt succeeded without Evidence ingest | recordExecutionResult + skip ingest (+ failNextSave available) | failNextSave=evidence | YES | NO | arm `evidence_missing` | consume | medium — honesty of absent Evidence |
-| N11 rehydrate_read_failure | YES — LPS Evidence ref missing → rehydrate error | append LPS with missing Evidence id | none | YES | NO | control `rehydrate_read_failure` + reload | `reset` | medium — no DB corruption |
-
-**Why not driver-only?** Attempt terminal outcomes and LPS supersession require the Next server process that owns OA/SQLite; Playwright alone cannot call use-cases in that process.
-
-**Why one control surface?** Avoid six dispersed seams; closed enum + hard gates.
-
----
-
-## 8. Selected harness architecture
-
-1. **Playwright client** `e2e/support/optionAQaScenarioControl.ts`
-2. **Central E2E control route** `app/api/e2e/option-a-qa-scenario/route.ts`
-   Note: candidate path `__e2e__` is a Next.js **private folder** (underscore prefix) and does not route — relocated to `api/e2e/` (still non-product, hard-gated).
-3. **Runtime control core** `lib/vertical-slice-runtime/e2eOptionAQaScenarioControl.ts` (no `@/features` imports)
-4. **Terminal Attempt helper** `features/project-assistant/f3/e2eOptionATerminalAttempt.ts` (not exported from product barrel)
-5. **Armed confirm hook** in `confirmAndExecuteResolvedM3.ts` — no-op when control disabled
-6. **Minimal Panel observability**: `data-testid="f2-decision-id"` + gated `sfia-e2e-refresh-durable` listener (window `__SFIA_E2E_QA_CONTROL__` only)
-
-No new product page / button / navigation / persistence / engine / Attempt status.
+| ID | Before | After |
+|----|--------|-------|
+| G-UX-01 | Partial entry | COMPLETE / RE-PROVE VISUAL ENTRY (candidate) |
+| G-UX-02 | Historical peers visible on rail | TARGET MET — hidden from canonical nav |
+| G-UX-03 | Implementation jargon primary | TARGET MET — secondary/diagnostics |
+| G-UX-04 | Long technical stack | TARGET MET — contextual cards around conversation |
+| G-UX-07 | MODE LOCAL / NON PRÊT primary | TARGET MET — product copy primary |
+| G-UX-08 | OPEN/DEFERRED | unchanged |
+| G-UX-09 | KEEP RESERVE | unchanged |
+| G-UX-10 | freshness implemented | KEEP + visual adapt |
+| G-UX-11 | OPEN | **STILL OPEN** |
+| G-UX-12 | historical visible | FREEZE / RETIRE LATER |
 
 ---
 
-## 9. Hard E2E enablement gate
+## 9. Implementation highlights
 
-Inactive unless ALL true:
+### G-UX-02 Navigation
+UtilityRail renders only `STUDIO_PRIMARY_ROUTES` + Projet courant + avatar M.
+No Vue synthèse / Nouvelle demande / Cycle / Décision / W D1 / O OPS1.
+E2E asserts `rail-d1-workspace` and `rail-ops1-legacy` count 0.
 
-- `NODE_ENV != production`
-- `OPS1_E2E_ALLOW_DIRTY_PRINCIPAL == "1"`
-- `OPS1_CONVERSATION_PROVIDER == "fake"`
-- `SFIA_STUDIO_E2E_QA_CONTROL == "1"`
-- `SFIA_STUDIO_CURSOR_REAL != "1"`
-- `OPS1_CURSOR_REAL != "1"`
-- `fixtureAdapter.externalEffects == false`
+### G-UX-07 Product copy
+Removed MODE LOCAL / NON PRÊT topbar pills from Studio pages.
+RuntimeDisclosureBanner → compact `<details>` secondary disclosure.
+Nora conversation chrome replaces Lecture seule / Aucune exécution réelle primary pills.
+Decision gate: « Nora recommande. Vous décidez. » + Approuver / Rejeter / …
 
-Else: opaque **404** (no diagnostic leak).
+### F1 Projects
+List card, badges, chevron rows, product lead « Nora recommande, vous décidez », CTA « + Nouveau projet ».
 
----
+### F2–F11
+Existing conversation-dominant + LPS sticky/drawer preserved; chrome cleaned; Attempt variants still harness-reachable.
 
-## 10. Control surface contract
-
-POST `/api/e2e/option-a-qa-scenario`
-
-Closed enum scenarios only:
-
-`recommendation_stale | attempt_failed | attempt_timeout | attempt_cancelled | evidence_missing | rehydrate_read_failure | reset`
-
-Allowed fields only: `scenario`, `projectId`, `decisionId`, `executionContractId`, `attemptId`.
-
-Unknown field → 400. Unknown scenario → 400.
-
-Terminal scenarios require `validateResolvedM3ExecutionBoundary` before arming.
+### N10 harness reserve
+Removed sticky `failNextSave("evidence")` arm; scenario still skips Evidence ingest; hook cleared with `null`.
 
 ---
 
-## 11. No arbitrary mutation / no raw SQL / no second engine proofs
+## 10. Files modified / created (this cycle delta)
 
-- No SQL / filePath / shell / arbitrary status / JSON patch / adapterRef / URL / token / script in contract
-- N7–N9 call existing Attempt application services only
-- N10 skips Evidence ingest (does not delete Evidence; does not invent success Evidence)
-- N5 registers real Evidence + LPS supersession; UI uses real `deriveRecommendationFreshness`
-- N11 appends LPS pointing at missing Evidence id (no SQLite corruption)
-- TestExecutionAdapter: scripting helpers only; `externalEffects` remains `false`
+Modified (UI/tests key): UtilityRail, navigation labels, Studio pages, RuntimeDisclosureBanner, StudioProjectsHome + CSS, ProjectAssistantPanel + CSS, CreateProjectForm, ProjectWorkspaceView, tokens, globals.css, navigation/UI tests, importBoundaries, e2eOptionATerminalAttempt (N10).
 
----
+Created: `e2e/studio-option-a-new-design-captures.spec.ts`, design extraction contract under diagnostics.
 
-## 12. Product UI / business semantics checks
+### Key new / rewritten files
 
-| Check | Result |
-|-------|--------|
-| Public product UI mutation for pass criteria | 0 semantic change |
-| Panel E2E-only listener + decisionId testid | YES — bounded observability (document for ChatGPT) |
-| Domain semantics / freshness rules / Attempt statuses | UNCHANGED |
-| New persistence / migration / engine | 0 |
-| playwright.config.ts | UNCHANGED |
-| package.json | UNCHANGED |
-
----
-
-## 13. Files created / modified (harness delta)
-
-### Created
-
-#### `projects/sfia-studio/app/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl.ts`
+#### `projects/sfia-studio/app/components/shell/UtilityRail.tsx`
 
 ```ts
-/**
- * E2E-ONLY Option A QA control core (QA-PRE-M6-TEST-01).
- * Lives under vertical-slice-runtime — NO @/features imports.
- */
+"use client";
 
+import Link from "next/link";
 import {
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-} from "./singleton";
-import type { RuntimeApplicationService } from "./service";
-import { SqliteProductStore } from "@/lib/oa/project/infrastructure/sqlite/sqliteProductStore";
-import { LOCAL_MORRIS_M3_ACTOR } from "@/lib/oa/decision";
+  STUDIO_PRIMARY_ROUTES,
+  currentProjectIdFromRoute,
+  isActiveRoute,
+  type StudioShellRoute,
+} from "@/lib/navigation";
+import styles from "./utility-rail.module.css";
 
-export const OPTION_A_QA_SCENARIOS = [
-  "recommendation_stale",
-  "attempt_failed",
-  "attempt_timeout",
-  "attempt_cancelled",
-  "evidence_missing",
-  "rehydrate_read_failure",
-  "reset",
-] as const;
-
-export type OptionAQaScenario = (typeof OPTION_A_QA_SCENARIOS)[number];
-
-export type OptionAQaControlResult =
-  | {
-      ok: true;
-      scenario: OptionAQaScenario;
-      detail: string;
-      attemptId?: string;
-      attemptStatus?: string;
-      evidenceId?: string;
-      armedForConfirm?: boolean;
-    }
-  | { ok: false; code: string; message: string };
-
-export type ArmedTerminal = {
-  scenario:
-    | "attempt_failed"
-    | "attempt_timeout"
-    | "attempt_cancelled"
-    | "evidence_missing";
-  projectId: string;
-  decisionId: string;
-  executionContractId: string;
-};
-
-const ARMED_GLOBAL_KEY = "__SFIA_E2E_OPTION_A_QA_ARMED__" as const;
-
-function armedSlot(): { current: ArmedTerminal | null } {
-  const g = globalThis as typeof globalThis & {
-    [ARMED_GLOBAL_KEY]?: { current: ArmedTerminal | null };
-  };
-  if (!g[ARMED_GLOBAL_KEY]) {
-    g[ARMED_GLOBAL_KEY] = { current: null };
-  }
-  return g[ARMED_GLOBAL_KEY];
-}
-
-/** Hard enablement gate — every condition must hold. */
-export function isOptionAQaControlEnabled(input?: {
-  fixtureExternalEffects?: boolean;
-}): boolean {
-  if (process.env.NODE_ENV === "production") return false;
-  if (process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL !== "1") return false;
-  if (process.env.OPS1_CONVERSATION_PROVIDER !== "fake") return false;
-  if (process.env.SFIA_STUDIO_E2E_QA_CONTROL !== "1") return false;
-  if (process.env.SFIA_STUDIO_CURSOR_REAL === "1") return false;
-  if (process.env.OPS1_CURSOR_REAL === "1") return false;
-  if (input?.fixtureExternalEffects === true) return false;
-  return true;
-}
-
-export function isKnownOptionAQaScenario(
-  value: string,
-): value is OptionAQaScenario {
-  return (OPTION_A_QA_SCENARIOS as readonly string[]).includes(value);
-}
-
-export function rejectUnknownOptionAQaFields(
-  body: Record<string, unknown>,
-): string | null {
-  const allowed = new Set([
-    "scenario",
-    "projectId",
-    "decisionId",
-    "executionContractId",
-    "attemptId",
-  ]);
-  for (const key of Object.keys(body)) {
-    if (!allowed.has(key)) return key;
-  }
-  return null;
-}
-
-export function consumeArmedTerminalForConfirm(input: {
-  projectId: string;
-  decisionId: string;
-  executionContractId: string;
-}): ArmedTerminal | null {
-  if (!isOptionAQaControlEnabled()) return null;
-  const slot = armedSlot();
-  const armed = slot.current;
-  if (!armed) return null;
-  if (
-    armed.projectId !== input.projectId ||
-    armed.decisionId !== input.decisionId ||
-    armed.executionContractId !== input.executionContractId
-  ) {
-    return null;
-  }
-  slot.current = null;
-  return armed;
-}
-
-export function peekArmedTerminal(): ArmedTerminal | null {
-  return armedSlot().current;
-}
-
-export function armTerminalScenario(armed: ArmedTerminal): void {
-  armedSlot().current = armed;
-}
-
-export function clearArmedTerminal(): void {
-  armedSlot().current = null;
-}
-
-const SYSTEM_FACTUAL_ACTOR = {
-  actorId: "actor:sfia-studio-system-factual-writer",
-  role: "system" as const,
-  displayName: "SFIA Studio system factual state writer",
-  authorityLevel: "none" as const,
-};
-
-export async function runRecommendationStaleScenario(
-  runtime: RuntimeApplicationService,
-  projectId: string,
-): Promise<OptionAQaControlResult> {
-  if (!runtime.oa) {
-    return { ok: false, code: "OA_STACK_UNAVAILABLE", message: "OA missing" };
-  }
-  const current =
-    await runtime.oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId,
-    });
-  if (!current.ok) {
-    return {
-      ok: false,
-      code: current.error.detailCode,
-      message: current.error.message,
-    };
-  }
-  const lps = current.livingProjectState;
-  if ((lps.evidenceIds ?? []).length === 0) {
-    return {
-      ok: false,
-      code: "NO_PRIOR_EVIDENCE",
-      message: "recommendation_stale requires prior durable Evidence on LPS.",
-    };
-  }
-
-  const newEvidenceId = `ev:e2e-stale-supersede:${Date.now()}`;
-  const registered =
-    await runtime.oa.evidenceReviewServices.registerEvidence.execute({
-      evidenceId: newEvidenceId,
-      idempotencyKey: `idem:e2e-stale:${newEvidenceId}`,
-      actor: SYSTEM_FACTUAL_ACTOR,
-      type: "document",
-      source: "e2e-qa-harness-supersession",
-      sourceKind: "system",
-      bindings: { projectId },
-      classification: "internal",
-      storageMode: "metadata_only",
-      status: "available",
-    });
-  if (!registered.ok) {
-    return {
-      ok: false,
-      code: registered.error.detailCode,
-      message: registered.error.message,
-    };
-  }
-
-  const appended =
-    await runtime.oa.projectServices.appendLivingProjectStateVersion.execute({
-      projectId,
-      expectedVersion: lps.version,
-      objective: lps.objective,
-      context: lps.context,
-      scope: lps.scope,
-      createdBy: SYSTEM_FACTUAL_ACTOR,
-      evidenceIds: [newEvidenceId],
-      reviewBundleIds: [...(lps.reviewBundleIds ?? [])],
-    });
-  if (!appended.ok) {
-    return {
-      ok: false,
-      code: appended.error.detailCode,
-      message: appended.error.message,
-    };
-  }
-
-  return {
-    ok: true,
-    scenario: "recommendation_stale",
-    detail:
-      "Durable LPS Evidence superseded — client must refresh durable readback for STALE.",
-    evidenceId: newEvidenceId,
-  };
-}
-
-export async function runRehydrateReadFailureScenario(
-  runtime: RuntimeApplicationService,
-  projectId: string,
-): Promise<OptionAQaControlResult> {
-  if (!runtime.oa) {
-    return { ok: false, code: "OA_STACK_UNAVAILABLE", message: "OA missing" };
-  }
-  const current =
-    await runtime.oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId,
-    });
-  if (!current.ok) {
-    return {
-      ok: false,
-      code: current.error.detailCode,
-      message: current.error.message,
-    };
-  }
-  const lps = current.livingProjectState;
-  const missingId = `ev:e2e-missing-rehydrate:${Date.now()}`;
-  const appended =
-    await runtime.oa.projectServices.appendLivingProjectStateVersion.execute({
-      projectId,
-      expectedVersion: lps.version,
-      objective: lps.objective,
-      context: lps.context,
-      scope: lps.scope,
-      createdBy: SYSTEM_FACTUAL_ACTOR,
-      evidenceIds: [missingId],
-      reviewBundleIds: [...(lps.reviewBundleIds ?? [])],
-    });
-  if (!appended.ok) {
-    return {
-      ok: false,
-      code: appended.error.detailCode,
-      message: appended.error.message,
-    };
-  }
-  return {
-    ok: true,
-    scenario: "rehydrate_read_failure",
-    detail:
-      "LPS points at missing Evidence — reload triggers durable-rehydrate-error.",
-    evidenceId: missingId,
-  };
-}
-
-export function setProductFailNextSave(
-  runtime: RuntimeApplicationService,
-  value: "evidence" | "attempt" | "review_bundle" | null,
-): boolean {
-  const store = runtime.oa?.projectServices.store;
-  if (!(store instanceof SqliteProductStore)) return false;
-  store.failNextSave = value;
-  return true;
-}
-
-export function resetOptionAQaRuntime(): OptionAQaControlResult {
-  // Dev webServer uses NODE_ENV=development — allow reset only behind E2E gates.
-  const prev = process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
-  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-  try {
-    resetRuntimeApplicationServiceForTests();
-  } finally {
-    if (prev === undefined) delete process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
-    else process.env.SFIA_V2_RUNTIME_ALLOW_RESET = prev;
-  }
-  clearArmedTerminal();
-  return {
-    ok: true,
-    scenario: "reset",
-    detail: "Runtime singleton reset; armed terminal cleared.",
-  };
-}
-
-export function getOptionAQaRuntime(): RuntimeApplicationService {
-  return getRuntimeApplicationService();
-}
-
-void LOCAL_MORRIS_M3_ACTOR;
-
-```
-#### `projects/sfia-studio/app/features/project-assistant/f3/e2eOptionATerminalAttempt.ts`
-
-```ts
-/**
- * E2E-ONLY terminal Attempt helper for Option A QA harness.
- * Calls existing Attempt use-cases — no status mutation, no second engine.
- * Not exported from product f3/index barrel.
- */
-
-import {
-  LOCAL_MORRIS_M3_ACTOR,
-  registerM3LocalMorrisAuthority,
-} from "@/lib/oa/decision";
-import type { ExecutionContract } from "@/lib/oa/execution-contract";
-import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
-import {
-  isOptionAQaControlEnabled,
-  setProductFailNextSave,
-  type ArmedTerminal,
-} from "@/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl";
-import {
-  F3_ADAPTER_ID,
-  F3_AGENT_ID,
-  F3_CONFIRM_ACTION_REF,
-  F3_LABELS,
-  F3_MODE,
-} from "./constants";
-import type { F3ExecutePayload } from "./types";
-import { validateResolvedM3ExecutionBoundary } from "./validateResolvedM3ExecutionBoundary";
-
-function absentEvidence(): F3ExecutePayload["evidence"] {
-  return {
-    evidenceId: "ev:not-produced",
-    status: "absent",
-    sourceKind: "none",
-    technicalResultRef: null,
-    verified: false,
-    mode: F3_MODE,
-  };
-}
-
-function absentReviewBundle(): F3ExecutePayload["reviewBundle"] {
-  return {
-    reviewBundleId: "rb:not-produced",
-    status: "absent",
-    version: 0,
-    evidenceRefs: [],
-    mode: F3_MODE,
-  };
-}
-
-function absentRecommendation(): F3ExecutePayload["recommendation"] {
-  return {
-    kind: "recommendation",
-    status: "absent",
-    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
-    executionAuthority: false,
-    gateConsumed: false,
-    decisionCreated: false,
-    attemptAutoLaunchNextCycle: false,
-    openHardReservationRefs: [],
-    hardBlockers: [],
-    nextGateCode: null,
-    nextActionCode: null,
-    mode: F3_MODE,
-  };
-}
-
-function buildPayload(input: {
-  decisionId: string;
-  contract: ExecutionContract;
-  attempt: {
-    attemptId: string;
-    status: string;
-    selectedAgentRef: string;
-    resultRef?: string | null;
-  };
-  launchCount: number;
-}): F3ExecutePayload {
-  return {
-    turnKind: "f3_execute",
-    mode: F3_MODE,
-    proposal: null,
-    decisionId: input.decisionId,
-    contract: {
-      executionContractId: input.contract.executionContractId,
-      version: input.contract.version,
-      status: input.contract.status,
-      action: input.contract.action,
-      target: input.contract.target,
-      scope: input.contract.scope,
-      requiredAuthority: input.contract.requiredAuthority,
-      mode: F3_MODE,
-      constraints: [...input.contract.constraints],
-    },
-    attempt: {
-      attemptId: input.attempt.attemptId,
-      status: input.attempt.status,
-      selectedAgentRef: input.attempt.selectedAgentRef,
-      adapterId: F3_ADAPTER_ID,
-      externalEffects: false,
-      resultRef: input.attempt.resultRef ?? null,
-      launchCount: input.launchCount,
-      selectionStrategy: "capabilities_deterministic",
-      mode: F3_MODE,
-    },
-    evidence: absentEvidence(),
-    reviewBundle: absentReviewBundle(),
-    recommendation: absentRecommendation(),
-    reusedExistingAttempt: false,
-    executionPerformed: true,
-    realExecution: false,
-    gitWritePerformed: false,
-    labels: {
-      fixtureNoReal: F3_LABELS.fixtureNoReal,
-      noGitWrite: F3_LABELS.noGitWrite,
-      recommendationNotDecision: F3_LABELS.recommendationNotDecision,
-      cursorRealBlocked: F3_LABELS.cursorRealBlocked,
-      hardOpen: F3_LABELS.hardOpen,
-    },
-    processLocalNotice:
-      "E2E QA terminal outcome — fixture-safe ZERO REAL — Evidence may be absent.",
-    disclosures: [
-      F3_LABELS.fixtureNoReal,
-      F3_LABELS.recommendationNotDecision,
-      "E2E QA TERMINAL OUTCOME",
-    ],
-  };
+interface UtilityRailProps {
+  variant: "floating" | "flush";
+  activeRoute: StudioShellRoute;
 }
 
 /**
- * Armed confirm interceptor — validate boundary, then existing use-cases only.
+ * Canonical Studio navigation only (G-UX-02).
+ * Historical P0/D1/OA/OPS1 routes remain reachable by URL but are not
+ * first-level peers on the product rail.
  */
-export async function runE2eArmedTerminalAttempt(input: {
-  armed: ArmedTerminal;
-  expectedContractVersion: number;
-  runtime: RuntimeApplicationService;
-}): Promise<
-  | { ok: true; payload: F3ExecutePayload }
-  | { ok: false; code: string; message: string }
-> {
-  const { runtime, armed } = input;
-  if (!runtime.oa) {
-    return { ok: false, code: "OA_STACK_UNAVAILABLE", message: "OA missing" };
-  }
-  if (
-    !isOptionAQaControlEnabled({
-      fixtureExternalEffects:
-        runtime.oa.fixtureAdapter.externalEffects !== false,
-    })
-  ) {
-    return {
-      ok: false,
-      code: "E2E_QA_CONTROL_DISABLED",
-      message: "Control disabled.",
-    };
-  }
+export function UtilityRail({ variant, activeRoute }: UtilityRailProps) {
+  const isFloating = variant === "floating";
+  const railClass = isFloating ? styles.floating : styles.flush;
+  const currentProjectId = currentProjectIdFromRoute(activeRoute);
 
-  const boundary = await validateResolvedM3ExecutionBoundary({
-    projectId: armed.projectId,
-    decisionId: armed.decisionId,
-    executionContractId: armed.executionContractId,
-    deps: {
-      decisionServices: runtime.oa.decisionServices,
-      executionContractServices: runtime.oa.executionContractServices,
-      authorityResolver: runtime.oa.authorityResolver,
-    },
-  });
-  if (!boundary.ok) return boundary;
+  return (
+    <nav
+      className={railClass}
+      aria-label="Navigation principale"
+      data-testid="utility-rail"
+    >
+      <Link
+        href="/studio"
+        className={isFloating ? styles.brand : styles.brandFlush}
+        aria-label="SFIA Studio"
+        data-testid="rail-brand"
+      >
+        S
+      </Link>
 
-  const auth = registerM3LocalMorrisAuthority({
-    authorityResolver: runtime.oa.authorityResolver,
-    scope: boundary.successor.scope,
-    issuedAt: runtime.oa.clock.nowIso(),
-    evidenceId: `evd:m3-e2e:${boundary.successor.executionContractId}`,
-    forceEnable: true,
-  });
-  if (!auth.ok) {
-    return { ok: false, code: auth.code, message: auth.message };
-  }
+      {STUDIO_PRIMARY_ROUTES.map((item) => {
+        const active = isActiveRoute(activeRoute, item.route);
+        const itemClass = [
+          isFloating ? styles.item : styles.itemFlush,
+          active
+            ? isFloating
+              ? styles.itemActive
+              : styles.itemActiveFlush
+            : "",
+        ]
+          .filter(Boolean)
+          .join(" ");
 
-  let contract = boundary.successor;
-  if (
-    contract.status === "confirmation_required" ||
-    contract.status === "validated"
-  ) {
-    const confirmationId = `cfm:m3:e2e:${contract.executionContractId}`;
-    const requested =
-      await runtime.oa.decisionServices.requestConfirmation.execute({
-        confirmationId,
-        level: "N3",
-        actionRef: F3_CONFIRM_ACTION_REF,
-        requestedBy: LOCAL_MORRIS_M3_ACTOR,
-        requestedTo: LOCAL_MORRIS_M3_ACTOR,
-        scope: contract.scope,
-        idempotencyKey: confirmationId,
-        decisionRef: armed.decisionId,
-      });
-    if (!requested.ok) {
-      return {
-        ok: false,
-        code: requested.error.detailCode,
-        message: requested.error.message,
-      };
-    }
-    const granted = await runtime.oa.decisionServices.grantConfirmation.execute({
-      confirmationId,
-      actor: LOCAL_MORRIS_M3_ACTOR,
-      authorityEvidenceId: auth.evidenceId,
-    });
-    if (!granted.ok) {
-      return {
-        ok: false,
-        code: granted.error.detailCode,
-        message: granted.error.message,
-      };
-    }
-    const confirmed =
-      await runtime.oa.executionContractServices.confirmExecutionContract.execute(
-        {
-          executionContractId: contract.executionContractId,
-          confirmationId,
-          actor: LOCAL_MORRIS_M3_ACTOR,
-          authorityEvidenceId: auth.evidenceId,
-          expectedVersion: contract.version,
-        },
-      );
-    if (!confirmed.ok) {
-      return {
-        ok: false,
-        code: confirmed.error.detailCode,
-        message: confirmed.error.message,
-      };
-    }
-    contract = confirmed.contract;
-  }
+        return (
+          <Link
+            key={item.id}
+            href={item.route}
+            className={itemClass}
+            aria-label={item.label}
+            title={item.label}
+            aria-current={active ? "page" : undefined}
+            data-nav-tier="primary"
+            data-testid={`rail-nav-${item.id}`}
+          >
+            {item.railIcon}
+          </Link>
+        );
+      })}
 
-  const attemptId = `xat:m3:${contract.executionContractId.replace(/^xct:/, "")}`;
-  const selected =
-    await runtime.oa.executionAttemptServices.selectExecutionAgent.execute({
-      attemptId,
-      executionContractId: contract.executionContractId,
-      idempotencyKey: `idem:m3-e2e:${attemptId}`,
-      actor: LOCAL_MORRIS_M3_ACTOR,
-      authorityEvidenceId: auth.evidenceId,
-      expectedContractVersion: contract.version,
-      selectionProfile: "standard",
-      selectionStrategy: "capabilities_deterministic",
-      requestedAgentRef: F3_AGENT_ID,
-      systemInitiated: true,
-    });
-  if (!selected.ok) {
-    return {
-      ok: false,
-      code: selected.error.detailCode,
-      message: selected.error.message,
-    };
-  }
+      {currentProjectId ? (
+        <Link
+          href={`/studio/projects/${encodeURIComponent(currentProjectId)}`}
+          className={[
+            isFloating ? styles.item : styles.itemFlush,
+            isFloating ? styles.itemActive : styles.itemActiveFlush,
+          ].join(" ")}
+          aria-label="Projet courant"
+          title="Projet courant"
+          aria-current="page"
+          data-testid="rail-current-project"
+          data-nav-tier="primary"
+        >
+          ●
+        </Link>
+      ) : null}
 
-  const started =
-    await runtime.oa.executionAttemptServices.startExecution.execute({
-      attemptId,
-      actor: LOCAL_MORRIS_M3_ACTOR,
-      authorityEvidenceId: auth.evidenceId,
-    });
-  if (!started.ok) {
-    return {
-      ok: false,
-      code: started.error.detailCode,
-      message: started.error.message,
-    };
-  }
+      <div className={styles.spacer} />
 
-  let attempt = started.attempt;
-  const launchCount = runtime.oa.fixtureAdapter.launchCallCount;
-
-  if (armed.scenario === "attempt_failed") {
-    const failed =
-      await runtime.oa.executionAttemptServices.recordExecutionFailure.execute({
-        attemptId,
-        adapterId: F3_ADAPTER_ID,
-        stopReason: "E2E_QA_HARNESS_FORCED_FAILURE",
-        errorRef: "err:e2e-qa-forced-failure",
-      });
-    if (!failed.ok) {
-      return {
-        ok: false,
-        code: failed.error.detailCode,
-        message: failed.error.message,
-      };
-    }
-    attempt = failed.attempt;
-  } else if (armed.scenario === "attempt_timeout") {
-    const timed =
-      await runtime.oa.executionAttemptServices.triggerAttemptTimeout.execute({
-        attemptId,
-        autoSafety: true,
-        nowIso: new Date(
-          Date.parse(attempt.startedAt ?? runtime.oa.clock.nowIso()) +
-            31 * 60 * 1000,
-        ).toISOString(),
-      });
-    if (!timed.ok) {
-      return {
-        ok: false,
-        code: timed.error.detailCode,
-        message: timed.error.message,
-      };
-    }
-    attempt = timed.attempt;
-  } else if (armed.scenario === "attempt_cancelled") {
-    const cancelled =
-      await runtime.oa.executionAttemptServices.cancelExecutionAttempt.execute({
-        attemptId,
-        reason: "E2E_QA_HARNESS_CANCEL",
-        actor: LOCAL_MORRIS_M3_ACTOR,
-        authorityEvidenceId: auth.evidenceId,
-      });
-    if (!cancelled.ok) {
-      return {
-        ok: false,
-        code: cancelled.error.detailCode,
-        message: cancelled.error.message,
-      };
-    }
-    attempt = cancelled.attempt;
-  } else if (armed.scenario === "evidence_missing") {
-    setProductFailNextSave(runtime, "evidence");
-    const recorded =
-      await runtime.oa.executionAttemptServices.recordExecutionResult.execute({
-        attemptId,
-        adapterId: F3_ADAPTER_ID,
-        resultRef: `res:e2e-missing-evidence:${attemptId}`,
-        technicalExitCode: 0,
-      });
-    if (!recorded.ok) {
-      return {
-        ok: false,
-        code: recorded.error.detailCode,
-        message: recorded.error.message,
-      };
-    }
-    attempt = recorded.attempt;
-    // Skip ingest Evidence deliberately — Attempt succeeded, Evidence absent.
-  }
-
-  const refreshed =
-    await runtime.oa.executionContractServices.getExecutionContract.execute({
-      executionContractId: contract.executionContractId,
-    });
-  if (refreshed.ok) contract = refreshed.contract;
-
-  return {
-    ok: true,
-    payload: buildPayload({
-      decisionId: armed.decisionId,
-      contract,
-      attempt: {
-        attemptId: attempt.attemptId,
-        status: attempt.status,
-        selectedAgentRef: attempt.selectedAgentRef ?? F3_AGENT_ID,
-        resultRef: attempt.resultRef,
-      },
-      launchCount,
-    }),
-  };
-}
-
-```
-#### `projects/sfia-studio/app/app/api/e2e/option-a-qa-scenario/route.ts`
-
-```ts
-/**
- * E2E-ONLY Option A QA scenario control surface.
- * Inactive by default — returns opaque 404 when gates fail.
- */
-
-import { NextResponse } from "next/server";
-import {
-  armTerminalScenario,
-  getOptionAQaRuntime,
-  isKnownOptionAQaScenario,
-  isOptionAQaControlEnabled,
-  rejectUnknownOptionAQaFields,
-  resetOptionAQaRuntime,
-  runRecommendationStaleScenario,
-  runRehydrateReadFailureScenario,
-  type OptionAQaControlResult,
-} from "@/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl";
-import { validateResolvedM3ExecutionBoundary } from "@/features/project-assistant/f3/validateResolvedM3ExecutionBoundary";
-
-export const dynamic = "force-dynamic";
-
-function opaqueNotFound(): NextResponse {
-  return new NextResponse(null, { status: 404 });
-}
-
-export async function POST(request: Request): Promise<NextResponse> {
-  let body: Record<string, unknown>;
-  try {
-    body = (await request.json()) as Record<string, unknown>;
-  } catch {
-    return opaqueNotFound();
-  }
-
-  if (!isOptionAQaControlEnabled()) {
-    return opaqueNotFound();
-  }
-
-  const runtime = getOptionAQaRuntime();
-  if (
-    runtime.oa &&
-    runtime.oa.fixtureAdapter.externalEffects !== false
-  ) {
-    return opaqueNotFound();
-  }
-
-  const unknown = rejectUnknownOptionAQaFields(body);
-  if (unknown) {
-    return NextResponse.json(
-      {
-        ok: false,
-        code: "UNKNOWN_FIELD",
-        message: `Unknown field rejected: ${unknown}`,
-      } satisfies OptionAQaControlResult,
-      { status: 400 },
-    );
-  }
-
-  const scenarioRaw = body.scenario;
-  if (
-    typeof scenarioRaw !== "string" ||
-    !isKnownOptionAQaScenario(scenarioRaw)
-  ) {
-    return NextResponse.json(
-      {
-        ok: false,
-        code: "UNKNOWN_SCENARIO",
-        message: "Scenario not in closed enum.",
-      } satisfies OptionAQaControlResult,
-      { status: 400 },
-    );
-  }
-
-  if (scenarioRaw === "reset") {
-    return NextResponse.json(resetOptionAQaRuntime());
-  }
-
-  const projectId =
-    typeof body.projectId === "string" ? body.projectId : undefined;
-  const decisionId =
-    typeof body.decisionId === "string" ? body.decisionId : undefined;
-  const executionContractId =
-    typeof body.executionContractId === "string"
-      ? body.executionContractId
-      : undefined;
-
-  if (scenarioRaw === "recommendation_stale") {
-    if (!projectId) {
-      return NextResponse.json(
-        {
-          ok: false,
-          code: "PROJECT_ID_REQUIRED",
-          message: "projectId required",
-        } satisfies OptionAQaControlResult,
-        { status: 400 },
-      );
-    }
-    return NextResponse.json(
-      await runRecommendationStaleScenario(runtime, projectId),
-    );
-  }
-
-  if (scenarioRaw === "rehydrate_read_failure") {
-    if (!projectId) {
-      return NextResponse.json(
-        {
-          ok: false,
-          code: "PROJECT_ID_REQUIRED",
-          message: "projectId required",
-        } satisfies OptionAQaControlResult,
-        { status: 400 },
-      );
-    }
-    return NextResponse.json(
-      await runRehydrateReadFailureScenario(runtime, projectId),
-    );
-  }
-
-  if (
-    scenarioRaw === "attempt_failed" ||
-    scenarioRaw === "attempt_timeout" ||
-    scenarioRaw === "attempt_cancelled" ||
-    scenarioRaw === "evidence_missing"
-  ) {
-    if (!projectId || !decisionId || !executionContractId) {
-      return NextResponse.json(
-        {
-          ok: false,
-          code: "IDS_REQUIRED",
-          message: "projectId, decisionId, executionContractId required",
-        } satisfies OptionAQaControlResult,
-        { status: 400 },
-      );
-    }
-    if (!runtime.oa) {
-      return NextResponse.json(
-        {
-          ok: false,
-          code: "OA_STACK_UNAVAILABLE",
-          message: "OA missing",
-        } satisfies OptionAQaControlResult,
-        { status: 400 },
-      );
-    }
-
-    const boundary = await validateResolvedM3ExecutionBoundary({
-      projectId,
-      decisionId,
-      executionContractId,
-      deps: {
-        decisionServices: runtime.oa.decisionServices,
-        executionContractServices: runtime.oa.executionContractServices,
-        authorityResolver: runtime.oa.authorityResolver,
-      },
-    });
-    if (!boundary.ok) {
-      return NextResponse.json(
-        {
-          ok: false,
-          code: boundary.code,
-          message: boundary.message,
-        } satisfies OptionAQaControlResult,
-        { status: 400 },
-      );
-    }
-
-    armTerminalScenario({
-      scenario: scenarioRaw,
-      projectId,
-      decisionId,
-      executionContractId,
-    });
-
-    return NextResponse.json({
-      ok: true,
-      scenario: scenarioRaw,
-      detail:
-        "Armed for next product Confirm — terminal outcome via existing Attempt use-cases.",
-      armedForConfirm: true,
-    } satisfies OptionAQaControlResult);
-  }
-
-  return NextResponse.json(
-    {
-      ok: false,
-      code: "UNHANDLED_SCENARIO",
-      message: "Scenario not handled.",
-    } satisfies OptionAQaControlResult,
-    { status: 400 },
+      <div
+        className={isFloating ? styles.avatar : styles.avatarFlush}
+        aria-label="Profil Morris"
+        title="Morris"
+        data-testid="rail-avatar"
+      >
+        M
+      </div>
+    </nav>
   );
 }
 
 ```
-#### `projects/sfia-studio/app/e2e/support/optionAQaScenarioControl.ts`
+#### `projects/sfia-studio/app/features/vertical-slice-ui/RuntimeDisclosureBanner.tsx`
+
+```ts
+"use client";
+
+/**
+ * Compact environment honesty — secondary diagnostics only (G-UX-07).
+ * Not the primary product chrome.
+ */
+export function RuntimeDisclosureBanner({
+  surface = "create",
+}: {
+  surface?: "create" | "workspace" | "list";
+} = {}) {
+  const summary =
+    surface === "workspace"
+      ? "Limites de cet environnement"
+      : surface === "list"
+        ? "Environnement local"
+        : "Création locale";
+
+  const body =
+    surface === "workspace"
+      ? "Les faits durables du projet sont relus quand ils existent. Conversation, proposition et confirmation restent process-local et ne sont pas restaurées au rechargement. Aucune exécution réelle n’est autorisée ici."
+      : surface === "list"
+        ? "Cette liste lit les projets enregistrés dans cet environnement. Aucune exécution réelle n’est autorisée ici."
+        : "Le projet est créé localement. Conversation et confirmation restent process-local. Aucune exécution réelle n’est autorisée ici.";
+
+  return (
+    <details
+      className="sfia-env-disclosure"
+      data-testid="runtime-disclosure-banner"
+    >
+      <summary data-testid="runtime-disclosure-summary">{summary}</summary>
+      <p data-testid="runtime-disclosure-body">{body}</p>
+      <p className="sfia-env-disclosure-note">
+        Détails techniques (runtime, readiness) disponibles hors parcours
+        principal — le produit reste non revendiqué « prêt production ».
+      </p>
+    </details>
+  );
+}
+
+```
+#### `projects/sfia-studio/app/features/studio-projects/StudioProjectsHome.tsx`
+
+```ts
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { CtaButton } from "@/components/ui/CtaButton";
+import { listProjectsRuntimeAction } from "@/lib/vertical-slice-runtime/actions";
+import type { RuntimeProjectListItem } from "@/lib/vertical-slice-runtime";
+import styles from "./studio-projects-home.module.css";
+
+type ListState =
+  | { status: "loading" }
+  | { status: "error"; message: string }
+  | { status: "empty" }
+  | { status: "ready"; projects: readonly RuntimeProjectListItem[] };
+
+function statusLabel(status: string): { label: string; tone: string } {
+  switch (status) {
+    case "draft":
+      return { label: "Brouillon", tone: "muted" };
+    case "active":
+      return { label: "Qualification en cours", tone: "green" };
+    case "paused":
+      return { label: "En attente de décision", tone: "orange" };
+    case "closed":
+      return { label: "Clos", tone: "muted" };
+    case "archived":
+      return { label: "Archivé", tone: "muted" };
+    default:
+      return { label: status, tone: "muted" };
+  }
+}
+
+export function StudioProjectsHome() {
+  const [state, setState] = useState<ListState>({ status: "loading" });
+
+  useEffect(() => {
+    let cancelled = false;
+    void listProjectsRuntimeAction().then((result) => {
+      if (cancelled) return;
+      if (!result.ok) {
+        setState({
+          status: "error",
+          message:
+            result.error.message ||
+            "Impossible de charger la liste des projets.",
+        });
+        return;
+      }
+      if (result.projects.length === 0) {
+        setState({ status: "empty" });
+        return;
+      }
+      setState({ status: "ready", projects: result.projects });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const count =
+    state.status === "ready" ? state.projects.length : state.status === "empty" ? 0 : null;
+
+  return (
+    <div className={styles.root} data-testid="studio-projects-home">
+      <header className={styles.header}>
+        <div>
+          <h2 className={styles.title}>Projets</h2>
+          <p className={styles.lead}>
+            {count === null
+              ? "Nora recommande, vous décidez"
+              : count === 0
+                ? "Aucun projet pour le moment · Nora recommande, vous décidez"
+                : `${count} projet${count > 1 ? "s" : ""} · Nora recommande, vous décidez`}
+          </p>
+        </div>
+        <CtaButton
+          href="/studio/projects/new"
+          variant="primary"
+          data-testid="studio-projects-create"
+        >
+          + Nouveau projet
+        </CtaButton>
+      </header>
+
+      {state.status === "loading" ? (
+        <p className={styles.hint} data-testid="studio-projects-loading">
+          Chargement des projets…
+        </p>
+      ) : null}
+
+      {state.status === "error" ? (
+        <div
+          className={styles.error}
+          role="alert"
+          data-testid="studio-projects-error"
+        >
+          <p>{state.message}</p>
+          <p className={styles.hint}>
+            Réessayez plus tard. Aucune donnée inventée.
+          </p>
+        </div>
+      ) : null}
+
+      {state.status === "empty" ? (
+        <div className={styles.empty} data-testid="studio-projects-empty">
+          <p>Aucun projet pour le moment.</p>
+          <p className={styles.hint}>
+            Décrivez une intention pour commencer — créez un premier projet
+            puis ouvrez la conversation avec Nora.
+          </p>
+          <CtaButton href="/studio/projects/new" variant="secondary">
+            Créer le premier projet
+          </CtaButton>
+        </div>
+      ) : null}
+
+      {state.status === "ready" ? (
+        <ul className={styles.list} data-testid="studio-projects-list">
+          {state.projects.map((project) => {
+            const badge = statusLabel(project.status);
+            return (
+              <li key={project.projectId} className={styles.item}>
+                <Link
+                  href={`/studio/projects/${encodeURIComponent(project.projectId)}`}
+                  className={styles.itemLink}
+                  data-testid="studio-projects-open"
+                >
+                  <div className={styles.itemBody}>
+                    <div className={styles.itemTitleRow}>
+                      <h3 className={styles.itemTitle}>{project.title}</h3>
+                      <span
+                        className={styles.badge}
+                        data-tone={badge.tone}
+                      >
+                        {badge.label}
+                      </span>
+                    </div>
+                    {project.objective ? (
+                      <p className={styles.itemObjective}>{project.objective}</p>
+                    ) : (
+                      <p className={styles.itemObjective}>
+                        Ouvrir pour poursuivre la qualification avec Nora.
+                      </p>
+                    )}
+                    <p className={styles.itemMeta}>
+                      {project.updatedAt
+                        ? `Mis à jour ${project.updatedAt}`
+                        : "Projet disponible"}
+                    </p>
+                  </div>
+                  <span className={styles.chevron} aria-hidden>
+                    ›
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+
+```
+#### `projects/sfia-studio/app/app/studio/page.tsx`
+
+```ts
+import { StudioShell } from "@/components/shell/StudioShell";
+import { StudioProjectsHome } from "@/features/studio-projects/StudioProjectsHome";
+import { RuntimeDisclosureBanner } from "@/features/vertical-slice-ui/RuntimeDisclosureBanner";
+import styles from "@/features/studio-projects/studio-projects-home.module.css";
+
+export default function StudioHomePage() {
+  return (
+    <StudioShell
+      variant="flush"
+      activeRoute="/studio"
+      title="Projets"
+      showTabs={false}
+      hideCopilot
+      primaryAction={{ label: "+ Nouveau projet", href: "/studio/projects/new" }}
+      pills={[]}
+    >
+      <div className={styles.page}>
+        <StudioProjectsHome />
+        <RuntimeDisclosureBanner surface="list" />
+      </div>
+    </StudioShell>
+  );
+}
+
+```
+#### `projects/sfia-studio/app/e2e/studio-option-a-new-design-captures.spec.ts`
 
 ```ts
 /**
- * Playwright client for Option A E2E QA scenario control.
+ * Pre-M6 new-design delivery captures (D-R01…D-R19).
+ * Provenance: CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF
  */
-
-import type { APIRequestContext, Page } from "@playwright/test";
+import { test, expect, type Page, type APIRequestContext } from "@playwright/test";
 import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
+import {
+  invokeOptionAQaScenario,
+  refreshDurableOutcomeE2e,
+} from "./support/optionAQaScenarioControl";
 
-export type OptionAQaScenario =
-  | "recommendation_stale"
-  | "attempt_failed"
-  | "attempt_timeout"
-  | "attempt_cancelled"
-  | "evidence_missing"
-  | "rehydrate_read_failure"
-  | "reset";
-
-const CONTROL_PATH = "/api/e2e/option-a-qa-scenario";
-
-export const HARNESS_CAPTURE_ROOT = path.resolve(
+const CAPTURE_ROOT = path.resolve(
   process.cwd(),
-  "../../../.tmp-sfia-review/runtime-captures/testability-harness",
+  "../../../.tmp-sfia-review/runtime-captures/new-design",
 );
+const MANIFEST = path.join(CAPTURE_ROOT, "manifest.jsonl");
 
-export async function invokeOptionAQaScenario(
-  request: APIRequestContext,
-  body: {
-    scenario: OptionAQaScenario;
-    projectId?: string;
-    decisionId?: string;
-    executionContractId?: string;
-    attemptId?: string;
-  },
-): Promise<{ status: number; json: Record<string, unknown> }> {
-  const response = await request.post(CONTROL_PATH, { data: body });
-  let json: Record<string, unknown> = {};
-  try {
-    json = (await response.json()) as Record<string, unknown>;
-  } catch {
-    json = {};
-  }
-  return { status: response.status(), json };
-}
-
-/** E2E-only durable refresh — Panel listens only when window flag is set. */
-export async function refreshDurableOutcomeE2e(page: Page): Promise<void> {
-  await page.evaluate(() => {
-    (
-      window as unknown as { __SFIA_E2E_QA_CONTROL__?: boolean }
-    ).__SFIA_E2E_QA_CONTROL__ = true;
-    window.dispatchEvent(new CustomEvent("sfia-e2e-refresh-durable"));
-  });
-  await page.waitForTimeout(500);
-}
-
-export async function captureHarness(
+async function capture(
   page: Page,
   id: string,
   meta: { screen: string; state: string; viewport: { width: number; height: number } },
-): Promise<string> {
-  fs.mkdirSync(HARNESS_CAPTURE_ROOT, { recursive: true });
-  const file = path.join(HARNESS_CAPTURE_ROOT, `${id}.png`);
+) {
+  fs.mkdirSync(CAPTURE_ROOT, { recursive: true });
+  const file = path.join(CAPTURE_ROOT, `${id}.png`);
   await page.screenshot({ path: file, fullPage: true });
-  const sha256 = crypto
-    .createHash("sha256")
-    .update(fs.readFileSync(file))
-    .digest("hex");
+  const sha256 = crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
   fs.appendFileSync(
-    path.join(HARNESS_CAPTURE_ROOT, "manifest.jsonl"),
+    MANIFEST,
     `${JSON.stringify({
       id,
       file: path.basename(file),
-      screen: meta.screen,
-      state: meta.state,
-      viewport: meta.viewport,
+      ...meta,
       timestamp: new Date().toISOString(),
       sha256,
       provenance:
-        "CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — TESTABILITY HARNESS PROOF",
+        "CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF",
     })}\n`,
   );
   return sha256;
 }
 
-```
-#### `projects/sfia-studio/app/e2e/studio-option-a-negative-states.spec.ts`
-
-```ts
-/**
- * Cycle 8 AMEND QA-PRE-M6-TEST-01 — targeted negative-state harness proof.
- *
- * Requires:
- *   SFIA_STUDIO_E2E_QA_CONTROL=1
- *   SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1
- *   (OPS1_E2E_ALLOW_DIRTY_PRINCIPAL + fake provider already via playwright.config)
- */
-
-import { test, expect, type Page } from "@playwright/test";
-import {
-  captureHarness,
-  invokeOptionAQaScenario,
-  refreshDurableOutcomeE2e,
-} from "./support/optionAQaScenarioControl";
-
-function runId(): string {
-  return `harness-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-}
-
-async function createUniqueProject(page: Page, suffix: string) {
-  const name = `QA Harness ${suffix}`;
+async function createProject(page: Page, name: string) {
   await page.goto("/studio/projects/new");
   await expect(page.getByTestId("create-project-form")).toBeVisible();
   await page.locator("#project-name").fill(name);
-  await page.locator("#project-objective").fill("QA-PRE-M6-TEST-01 harness");
-  await page
-    .locator("#project-context")
-    .fill("E2E negative-state harness — REAL=0 — fixture-safe.");
+  await page.locator("#project-objective").fill("Pre-M6 new design capture");
+  await page.locator("#project-context").fill("Capture runtime Figma-aligned · REAL=0");
   await page.getByTestId("create-project-submit").click();
-  await expect(page.getByTestId("open-project-workspace")).toBeVisible({
-    timeout: 30_000,
-  });
-  await page.getByTestId("open-project-workspace").click();
-  await expect(page.getByTestId("project-principal")).toBeVisible({
-    timeout: 30_000,
-  });
-  const url = page.url();
-  const rawId = url.split("/studio/projects/")[1]?.split(/[?#]/)[0];
-  if (!rawId) throw new Error("projectId missing from URL");
-  const projectId = decodeURIComponent(rawId);
-  return { name, projectId };
+  await expect(page.getByTestId("open-project-workspace")).toBeVisible({ timeout: 30_000 });
 }
 
-async function sendGatedStandard(page: Page) {
+async function openWorkspace(page: Page) {
+  await page.getByTestId("open-project-workspace").click();
+  await expect(page.getByTestId("project-principal")).toBeVisible({ timeout: 30_000 });
+}
+
+async function toGate(page: Page) {
   const input = page.getByTestId("project-assistant-input");
   await expect(input).toBeEnabled({ timeout: 15_000 });
   await input.fill("Préparer une livraison gated __F2_GATED_STANDARD__");
   await page.getByTestId("project-assistant-send").click();
-  await expect(page.getByTestId("project-assistant-gate")).toBeVisible({
-    timeout: 45_000,
-  });
+  await expect(page.getByTestId("project-assistant-gate")).toBeVisible({ timeout: 45_000 });
 }
 
-async function goToResolvedContract(page: Page, suffix: string) {
-  const created = await createUniqueProject(page, suffix);
-  await sendGatedStandard(page);
+async function toContract(page: Page) {
+  await toGate(page);
   await page.getByTestId("f2-decide-GO").click();
-  await expect(page.getByTestId("project-assistant-decision")).toBeVisible({
-    timeout: 45_000,
-  });
-  const decisionId = (await page.getByTestId("f2-decision-id").textContent())?.trim();
-  if (!decisionId) throw new Error("decisionId missing");
+  await expect(page.getByTestId("project-assistant-decision")).toBeVisible({ timeout: 45_000 });
   await page.getByTestId("f3-prepare-button").click();
-  await expect(page.getByTestId("project-assistant-f3-contract")).toBeVisible({
-    timeout: 45_000,
-  });
-  const executionContractId = (
-    await page.getByTestId("f3-contract-id").textContent()
-  )?.trim();
-  if (!executionContractId) throw new Error("executionContractId missing");
-  return { ...created, decisionId, executionContractId };
+  await expect(page.getByTestId("project-assistant-f3-contract")).toBeVisible({ timeout: 45_000 });
+  const decisionId = (await page.getByTestId("f2-decision-id").textContent())?.trim() ?? "";
+  const executionContractId =
+    (await page.getByTestId("f3-contract-id").textContent())?.trim() ?? "";
+  const raw = page.url().split("/studio/projects/")[1]?.split(/[?#]/)[0] ?? "";
+  const projectId = decodeURIComponent(raw);
+  return { projectId, decisionId, executionContractId };
 }
 
-test.describe("QA-PRE-M6-TEST-01 negative-state harness", () => {
-  test.describe.configure({ timeout: 240_000 });
+test.describe("Pre-M6 new-design captures", () => {
+  test.describe.configure({ timeout: 300_000 });
 
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(() => {
-      (
-        window as unknown as { __SFIA_E2E_QA_CONTROL__?: boolean }
-      ).__SFIA_E2E_QA_CONTROL__ = true;
+      (window as unknown as { __SFIA_E2E_QA_CONTROL__?: boolean }).__SFIA_E2E_QA_CONTROL__ =
+        true;
     });
   });
 
-  test("N7 attempt_failed browser reachable", async ({ page, request }) => {
-    await page.setViewportSize({ width: 1440, height: 1024 });
-    const ctx = await goToResolvedContract(page, `n7-${runId()}`);
-    const arm = await invokeOptionAQaScenario(request, {
-      scenario: "attempt_failed",
-      projectId: ctx.projectId,
-      decisionId: ctx.decisionId,
-      executionContractId: ctx.executionContractId,
+  test("D-R01…D-R19 inventory", async ({ page, request }) => {
+    fs.mkdirSync(CAPTURE_ROOT, { recursive: true });
+    fs.writeFileSync(MANIFEST, "");
+
+    // F1
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/studio");
+    await expect(page.getByTestId("studio-projects-home")).toBeVisible();
+    await expect(page.getByTestId("rail-d1-workspace")).toHaveCount(0);
+    await expect(page.getByTestId("rail-ops1-legacy")).toHaveCount(0);
+    await capture(page, "D-R01-F1-Projects", {
+      screen: "F1",
+      state: "Projects list",
+      viewport: { width: 1440, height: 900 },
     });
-    if (arm.status !== 200 || arm.json.ok !== true) {
-      throw new Error(
-        `arm failed status=${arm.status} body=${JSON.stringify(arm.json)} ids=${JSON.stringify(ctx)}`,
-      );
+
+    // Create
+    await createProject(page, `ND Capture ${Date.now()}`);
+    await capture(page, "D-R02-Create-Project", {
+      screen: "Create",
+      state: "Project created",
+      viewport: { width: 1440, height: 900 },
+    });
+
+    await openWorkspace(page);
+    await capture(page, "D-R03-F2-Project-1440", {
+      screen: "F2",
+      state: "Project principal 1440",
+      viewport: { width: 1440, height: 900 },
+    });
+
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await capture(page, "D-R04-F3-Project-1280", {
+      screen: "F3",
+      state: "Project principal 1280",
+      viewport: { width: 1280, height: 900 },
+    });
+
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await toGate(page);
+    await expect(page.getByTestId("project-assistant-qualification")).toBeVisible();
+    await capture(page, "D-R05-F4-Qualification", {
+      screen: "F4",
+      state: "Qualification + gate",
+      viewport: { width: 1440, height: 900 },
+    });
+    await capture(page, "D-R06-F5-HumanDecision", {
+      screen: "F5",
+      state: "Decision gate open",
+      viewport: { width: 1440, height: 900 },
+    });
+
+    await page.getByTestId("f2-decide-GO").click();
+    await expect(page.getByTestId("project-assistant-decision")).toBeVisible({ timeout: 45_000 });
+    await page.getByTestId("f3-prepare-button").click();
+    await expect(page.getByTestId("project-assistant-f3-contract")).toBeVisible({ timeout: 45_000 });
+    await capture(page, "D-R07-F6-Contract-Confirmation", {
+      screen: "F6",
+      state: "Contract ready to confirm",
+      viewport: { width: 1440, height: 900 },
+    });
+
+    // Success path
+    await page.getByTestId("f3-confirm-execute-button").click();
+    await expect(page.getByTestId("project-assistant-f3-execute")).toBeVisible({ timeout: 45_000 });
+    await capture(page, "D-R08-F7-Running-Succeeded", {
+      screen: "F7",
+      state: "Attempt succeeded + outcome",
+      viewport: { width: 1440, height: 900 },
+    });
+    await capture(page, "D-R13-F8-Current-Recommendation", {
+      screen: "F8",
+      state: "Recommendation current",
+      viewport: { width: 1440, height: 900 },
+    });
+
+    await expect(page.getByTestId("project-history-panel")).toBeVisible();
+    await capture(page, "D-R15-F9-History", {
+      screen: "F9",
+      state: "History durable",
+      viewport: { width: 1440, height: 900 },
+    });
+
+    // Terminal variants on fresh projects
+    async function armAndConfirm(
+      req: APIRequestContext,
+      scenario:
+        | "attempt_failed"
+        | "attempt_timeout"
+        | "attempt_cancelled"
+        | "evidence_missing",
+      suffix: string,
+    ) {
+      await page.goto("/studio/projects/new");
+      await createProject(page, `ND ${suffix} ${Date.now()}`);
+      await openWorkspace(page);
+      const ids = await toContract(page);
+      const arm = await invokeOptionAQaScenario(req, {
+        scenario,
+        projectId: ids.projectId,
+        decisionId: ids.decisionId,
+        executionContractId: ids.executionContractId,
+      });
+      expect(arm.json.ok).toBe(true);
+      await page.getByTestId("f3-confirm-execute-button").click();
+      await expect(page.getByTestId("project-assistant-f3-execute")).toBeVisible({
+        timeout: 45_000,
+      });
     }
-    expect(arm.json.armedForConfirm).toBe(true);
 
+    await armAndConfirm(request, "attempt_failed", "failed");
+    await capture(page, "D-R09-F7-Failed", {
+      screen: "F7",
+      state: "Attempt FAILED",
+      viewport: { width: 1440, height: 900 },
+    });
+
+    await armAndConfirm(request, "attempt_timeout", "timeout");
+    await capture(page, "D-R10-F7-Timeout", {
+      screen: "F7",
+      state: "Attempt TIMEOUT",
+      viewport: { width: 1440, height: 900 },
+    });
+
+    await armAndConfirm(request, "attempt_cancelled", "cancelled");
+    await capture(page, "D-R11-F7-Cancelled", {
+      screen: "F7",
+      state: "Attempt CANCELLED",
+      viewport: { width: 1440, height: 900 },
+    });
+
+    await armAndConfirm(request, "evidence_missing", "missing");
+    await capture(page, "D-R12-F7-Evidence-missing", {
+      screen: "F7",
+      state: "Evidence absent",
+      viewport: { width: 1440, height: 900 },
+    });
+
+    // Stale recommendation
+    await page.goto("/studio/projects/new");
+    await createProject(page, `ND stale ${Date.now()}`);
+    await openWorkspace(page);
+    const staleIds = await toContract(page);
     await page.getByTestId("f3-confirm-execute-button").click();
     await expect(page.getByTestId("project-assistant-f3-execute")).toBeVisible({
       timeout: 45_000,
     });
-    await expect(page.getByTestId("f3-attempt-status")).toContainText(/failed/i);
-    await expect(page.getByTestId("f3-attempt-status-label")).toContainText(
-      /échec/i,
-    );
-    await expect(page.getByTestId("f3-attempt-id")).toBeVisible();
-    await expect(page.getByTestId("f3-evidence-status")).toContainText(/absent/i);
-    await captureHarness(page, "N7-attempt-failed", {
-      screen: "F7",
-      state: "Attempt FAILED via harness",
-      viewport: { width: 1440, height: 1024 },
-    });
-  });
-
-  test("N8 attempt_timeout browser reachable", async ({ page, request }) => {
-    await page.setViewportSize({ width: 1440, height: 1024 });
-    const ctx = await goToResolvedContract(page, `n8-${runId()}`);
-    const arm = await invokeOptionAQaScenario(request, {
-      scenario: "attempt_timeout",
-      projectId: ctx.projectId,
-      decisionId: ctx.decisionId,
-      executionContractId: ctx.executionContractId,
-    });
-    expect(arm.json.ok).toBe(true);
-
-    await page.getByTestId("f3-confirm-execute-button").click();
-    await expect(page.getByTestId("f3-attempt-status")).toContainText(
-      /timeout/i,
-      { timeout: 45_000 },
-    );
-    await expect(page.getByTestId("f3-attempt-status-label")).toContainText(
-      /timeout/i,
-    );
-    await expect(page.getByTestId("f3-attempt-status")).not.toContainText(
-      /failed/i,
-    );
-    await captureHarness(page, "N8-attempt-timeout", {
-      screen: "F7",
-      state: "Attempt TIMEOUT via harness",
-      viewport: { width: 1440, height: 1024 },
-    });
-  });
-
-  test("N9 attempt_cancelled browser reachable", async ({ page, request }) => {
-    await page.setViewportSize({ width: 1440, height: 1024 });
-    const ctx = await goToResolvedContract(page, `n9-${runId()}`);
-    const arm = await invokeOptionAQaScenario(request, {
-      scenario: "attempt_cancelled",
-      projectId: ctx.projectId,
-      decisionId: ctx.decisionId,
-      executionContractId: ctx.executionContractId,
-    });
-    expect(arm.json.ok).toBe(true);
-
-    await page.getByTestId("f3-confirm-execute-button").click();
-    await expect(page.getByTestId("f3-attempt-status")).toContainText(
-      /cancelled/i,
-      { timeout: 45_000 },
-    );
-    await expect(page.getByTestId("f3-attempt-status-label")).toContainText(
-      /annulé/i,
-    );
-    await captureHarness(page, "N9-attempt-cancelled", {
-      screen: "F7",
-      state: "Attempt CANCELLED via harness",
-      viewport: { width: 1440, height: 1024 },
-    });
-  });
-
-  test("N10 evidence_missing browser reachable", async ({ page, request }) => {
-    await page.setViewportSize({ width: 1440, height: 1024 });
-    const ctx = await goToResolvedContract(page, `n10-${runId()}`);
-    const arm = await invokeOptionAQaScenario(request, {
-      scenario: "evidence_missing",
-      projectId: ctx.projectId,
-      decisionId: ctx.decisionId,
-      executionContractId: ctx.executionContractId,
-    });
-    expect(arm.json.ok).toBe(true);
-
-    await page.getByTestId("f3-confirm-execute-button").click();
-    await expect(page.getByTestId("project-assistant-f3-execute")).toBeVisible({
-      timeout: 45_000,
-    });
-    await expect(page.getByTestId("f3-attempt-status")).toContainText(
-      /succeeded/i,
-    );
-    await expect(page.getByTestId("f3-evidence-status")).toContainText(/absent/i);
-    await expect(page.getByTestId("f3-review-bundle-status")).toContainText(
-      /absent/i,
-    );
-    await captureHarness(page, "N10-evidence-missing", {
-      screen: "F7",
-      state: "Attempt succeeded + Evidence absent",
-      viewport: { width: 1440, height: 1024 },
-    });
-  });
-
-  test("N5 recommendation_stale browser reachable", async ({ page, request }) => {
-    await page.setViewportSize({ width: 1440, height: 1024 });
-    const ctx = await goToResolvedContract(page, `n5-${runId()}`);
-    // Nominal confirm first → session recommendation current
-    await page.getByTestId("f3-confirm-execute-button").click();
-    await expect(page.getByTestId("project-assistant-f3-execute")).toBeVisible({
-      timeout: 45_000,
-    });
-    await expect(page.getByTestId("f3-recommendation-freshness")).toContainText(
-      /à jour/i,
-    );
-
     const stale = await invokeOptionAQaScenario(request, {
       scenario: "recommendation_stale",
-      projectId: ctx.projectId,
+      projectId: staleIds.projectId,
     });
-    expect(stale.status).toBe(200);
     expect(stale.json.ok).toBe(true);
-
     await refreshDurableOutcomeE2e(page);
     await expect(page.getByTestId("f3-recommendation-freshness")).toContainText(
       /périmée/i,
       { timeout: 15_000 },
     );
-    // F8 execute card shows freshness via deriveRecommendationFreshness;
-    // f3-stale-recommendation-notice is F6-only (!f3Execute).
-    await expect(
-      page.getByTestId("f3-recommendation-execution-authority"),
-    ).toContainText(/false/i);
-    await captureHarness(page, "N5-recommendation-stale", {
+    await capture(page, "D-R14-F8-Stale-Recommendation", {
       screen: "F8",
-      state: "Recommendation STALE after durable supersession",
-      viewport: { width: 1440, height: 1024 },
-    });
-  });
-
-  test("N11 rehydrate_read_failure browser reachable", async ({
-    page,
-    request,
-  }) => {
-    await page.setViewportSize({ width: 1440, height: 1024 });
-    const ctx = await goToResolvedContract(page, `n11-${runId()}`);
-    await page.getByTestId("f3-confirm-execute-button").click();
-    await expect(page.getByTestId("project-assistant-f3-execute")).toBeVisible({
-      timeout: 45_000,
+      state: "Recommendation STALE",
+      viewport: { width: 1440, height: 900 },
     });
 
+    // Recovery / N11
     const fail = await invokeOptionAQaScenario(request, {
       scenario: "rehydrate_read_failure",
-      projectId: ctx.projectId,
+      projectId: staleIds.projectId,
     });
     expect(fail.json.ok).toBe(true);
-
     await page.reload();
-    await expect(page.getByTestId("project-principal")).toBeVisible({
-      timeout: 30_000,
-    });
-    await expect(page.getByTestId("project-assistant-empty")).toBeVisible({
-      timeout: 15_000,
-    });
     await expect(page.getByTestId("durable-rehydrate-error")).toBeVisible({
       timeout: 15_000,
     });
-    await expect(page.getByTestId("project-assistant-gate")).toHaveCount(0);
-    await expect(page.getByTestId("project-assistant-proposal")).toHaveCount(0);
-    await captureHarness(page, "N11-rehydrate-read-failure", {
+    await capture(page, "D-R16-F10-Recovery", {
       screen: "F10",
-      state: "Durable rehydrate error honest",
-      viewport: { width: 1440, height: 1024 },
+      state: "Honest rehydrate error",
+      viewport: { width: 1440, height: 900 },
+    });
+    await invokeOptionAQaScenario(request, { scenario: "reset" });
+
+    // Responsive
+    await page.goto("/studio/projects/new");
+    await createProject(page, `ND resp ${Date.now()}`);
+    await openWorkspace(page);
+    await page.setViewportSize({ width: 1024, height: 900 });
+    await capture(page, "D-R17-F11-1024-closed", {
+      screen: "F11A",
+      state: "LPS closed @1024",
+      viewport: { width: 1024, height: 900 },
+    });
+    const toggle = page.getByTestId("lps-drawer-toggle");
+    if (await toggle.count()) {
+      await toggle.click();
+      await expect(page.getByTestId("living-project-state-panel")).toBeVisible();
+    }
+    await capture(page, "D-R18-F11-1024-open", {
+      screen: "F11B",
+      state: "LPS open @1024",
+      viewport: { width: 1024, height: 900 },
     });
 
-    const reset = await invokeOptionAQaScenario(request, { scenario: "reset" });
-    expect(reset.json.ok).toBe(true);
-  });
-
-  test("control disabled without SFIA_STUDIO_E2E_QA_CONTROL returns 404", async ({
-    request,
-  }) => {
-    // This process may have control enabled via env; probe unknown field rejection
-    // when enabled, or 404 when disabled — both prove fail-closed.
-    const res = await request.post("/api/e2e/option-a-qa-scenario", {
-      data: { scenario: "reset", evilSql: "DROP TABLE" },
+    await page.setViewportSize({ width: 390, height: 844 });
+    await capture(page, "D-R19-mobile-sub768", {
+      screen: "mobile",
+      state: "Conversation full width <768",
+      viewport: { width: 390, height: 844 },
     });
-    // With control ON: 400 UNKNOWN_FIELD. With control OFF: 404.
-    expect([400, 404]).toContain(res.status());
-  });
-});
-
-```
-#### `projects/sfia-studio/app/__tests__/project-assistant/qa-pre-m6-test-01.e2eQaControl.test.ts`
-
-```ts
-/**
- * H-QA — Option A E2E QA control self-tests (QA-PRE-M6-TEST-01).
- * @vitest-environment node
- */
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import {
-  armTerminalScenario,
-  clearArmedTerminal,
-  consumeArmedTerminalForConfirm,
-  isKnownOptionAQaScenario,
-  isOptionAQaControlEnabled,
-  peekArmedTerminal,
-  rejectUnknownOptionAQaFields,
-} from "@/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl";
-
-function enableAll() {
-  vi.stubEnv("NODE_ENV", "test");
-  vi.stubEnv("OPS1_E2E_ALLOW_DIRTY_PRINCIPAL", "1");
-  vi.stubEnv("OPS1_CONVERSATION_PROVIDER", "fake");
-  vi.stubEnv("SFIA_STUDIO_E2E_QA_CONTROL", "1");
-  vi.stubEnv("SFIA_STUDIO_CURSOR_REAL", "");
-  vi.stubEnv("OPS1_CURSOR_REAL", "");
-}
-
-describe("H-QA Option A E2E control gates", () => {
-  beforeEach(() => {
-    vi.unstubAllEnvs();
-    clearArmedTerminal();
-  });
-
-  afterEach(() => {
-    vi.unstubAllEnvs();
-    clearArmedTerminal();
-  });
-
-  it("H-QA-01 — disabled without SFIA_STUDIO_E2E_QA_CONTROL", () => {
-    vi.stubEnv("NODE_ENV", "test");
-    vi.stubEnv("OPS1_E2E_ALLOW_DIRTY_PRINCIPAL", "1");
-    vi.stubEnv("OPS1_CONVERSATION_PROVIDER", "fake");
-    vi.stubEnv("SFIA_STUDIO_E2E_QA_CONTROL", "");
-    expect(isOptionAQaControlEnabled()).toBe(false);
-  });
-
-  it("H-QA-02 — disabled in NODE_ENV=production", () => {
-    vi.stubEnv("NODE_ENV", "production");
-    vi.stubEnv("OPS1_E2E_ALLOW_DIRTY_PRINCIPAL", "1");
-    vi.stubEnv("OPS1_CONVERSATION_PROVIDER", "fake");
-    vi.stubEnv("SFIA_STUDIO_E2E_QA_CONTROL", "1");
-    expect(isOptionAQaControlEnabled()).toBe(false);
-  });
-
-  it("H-QA-03 — disabled if provider != fake", () => {
-    vi.stubEnv("NODE_ENV", "test");
-    vi.stubEnv("OPS1_E2E_ALLOW_DIRTY_PRINCIPAL", "1");
-    vi.stubEnv("OPS1_CONVERSATION_PROVIDER", "openai");
-    vi.stubEnv("SFIA_STUDIO_E2E_QA_CONTROL", "1");
-    expect(isOptionAQaControlEnabled()).toBe(false);
-  });
-
-  it("H-QA-04 — disabled if REAL flag is active", () => {
-    enableAll();
-    vi.stubEnv("SFIA_STUDIO_CURSOR_REAL", "1");
-    expect(isOptionAQaControlEnabled()).toBe(false);
-    vi.stubEnv("SFIA_STUDIO_CURSOR_REAL", "");
-    vi.stubEnv("OPS1_CURSOR_REAL", "1");
-    expect(isOptionAQaControlEnabled()).toBe(false);
-  });
-
-  it("H-QA-05 — unknown scenario rejected by enum", () => {
-    expect(isKnownOptionAQaScenario("attempt_failed")).toBe(true);
-    expect(isKnownOptionAQaScenario("drop_table")).toBe(false);
-  });
-
-  it("H-QA-06 — arbitrary mutation fields rejected", () => {
-    expect(rejectUnknownOptionAQaFields({ scenario: "reset", sql: "x" })).toBe(
-      "sql",
-    );
-    expect(
-      rejectUnknownOptionAQaFields({
-        scenario: "reset",
-        projectId: "prj:1",
-      }),
-    ).toBeNull();
-  });
-
-  it("H-QA-07/H-QA-08 — wrong project/decision/contract does not consume arm", () => {
-    enableAll();
-    armTerminalScenario({
-      scenario: "attempt_failed",
-      projectId: "prj:a",
-      decisionId: "dec:a",
-      executionContractId: "xct:a",
-    });
-    expect(
-      consumeArmedTerminalForConfirm({
-        projectId: "prj:b",
-        decisionId: "dec:a",
-        executionContractId: "xct:a",
-      }),
-    ).toBeNull();
-    expect(peekArmedTerminal()).not.toBeNull();
-    const consumed = consumeArmedTerminalForConfirm({
-      projectId: "prj:a",
-      decisionId: "dec:a",
-      executionContractId: "xct:a",
-    });
-    expect(consumed?.scenario).toBe("attempt_failed");
-    expect(peekArmedTerminal()).toBeNull();
-  });
-
-  it("H-QA-10 — externalEffects true disables gate", () => {
-    enableAll();
-    expect(isOptionAQaControlEnabled({ fixtureExternalEffects: true })).toBe(
-      false,
-    );
-    expect(isOptionAQaControlEnabled({ fixtureExternalEffects: false })).toBe(
-      true,
-    );
-  });
-
-  it("H-QA-09 — consume clears arm (reset path isolation)", () => {
-    enableAll();
-    armTerminalScenario({
-      scenario: "attempt_timeout",
-      projectId: "prj:r",
-      decisionId: "dec:r",
-      executionContractId: "xct:r",
-    });
-    clearArmedTerminal();
-    expect(peekArmedTerminal()).toBeNull();
   });
 });
 
 ```
 
-### Modified (harness-relevant)
 
-- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/testExecutionAdapter.ts` — `queueDefaultLaunch` / `queueDefaultCancel`
-- `projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts` — allow E2E control imports
-- `projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx` — E2E refresh listener + `f2-decision-id`
-- `projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteResolvedM3.ts` — armed terminal consume (candidate file; arm hook)
-
-### TestExecutionAdapter diff
+### Useful diffs
 
 ```diff
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/testExecutionAdapter.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/testExecutionAdapter.ts
-index d4f9855..c5a3ddf 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/testExecutionAdapter.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/testExecutionAdapter.ts
-@@ -47,8 +47,8 @@ export class TestExecutionAdapter implements ExecutionAdapterPort {
+diff --git a/projects/sfia-studio/app/components/shell/UtilityRail.tsx b/projects/sfia-studio/app/components/shell/UtilityRail.tsx
+index 983aa7d..019ad15 100644
+--- a/projects/sfia-studio/app/components/shell/UtilityRail.tsx
++++ b/projects/sfia-studio/app/components/shell/UtilityRail.tsx
+@@ -1,17 +1,28 @@
+ "use client";
 
-   private readonly launchFixtures: Record<string, ScriptedLaunchOutcome>;
-   private readonly cancelFixtures: Record<string, ScriptedCancelOutcome>;
--  private readonly defaultLaunch: ScriptedLaunchOutcome;
--  private readonly defaultCancel: ScriptedCancelOutcome;
-+  private defaultLaunch: ScriptedLaunchOutcome;
-+  private defaultCancel: ScriptedCancelOutcome;
-   private readonly spoofAdapterIdOnAck: string | undefined;
-   private readonly launched = new Map<string, LaunchResult>();
-   private readonly cancelled = new Map<string, CancelResult>();
-@@ -70,6 +70,19 @@ export class TestExecutionAdapter implements ExecutionAdapterPort {
-     return this.calls.filter((call) => call.kind === "cancel").length;
-   }
+ import Link from "next/link";
+-import { STUDIO_ROUTES, type StudioRoute } from "@/lib/navigation";
++import {
++  STUDIO_PRIMARY_ROUTES,
++  currentProjectIdFromRoute,
++  isActiveRoute,
++  type StudioShellRoute,
++} from "@/lib/navigation";
+ import styles from "./utility-rail.module.css";
 
-+  /**
-+   * E2E/QA scripting only — mutate default launch outcome for subsequent attempts.
-+   * Does not change adapter identity or externalEffects.
-+   */
-+  queueDefaultLaunch(outcome: ScriptedLaunchOutcome): void {
-+    this.defaultLaunch = outcome;
-+  }
-+
-+  /** E2E/QA scripting only — mutate default cancel outcome. */
-+  queueDefaultCancel(outcome: ScriptedCancelOutcome): void {
-+    this.defaultCancel = outcome;
-+  }
-+
-   async launch(request: LaunchRequest): Promise<LaunchResult> {
-     const memoized = this.launched.get(request.attemptId);
-     if (memoized) {
+ interface UtilityRailProps {
+   variant: "floating" | "flush";
+-  activeRoute: StudioRoute;
++  activeRoute: StudioShellRoute;
+ }
+
++/**
++ * Canonical Studio navigation only (G-UX-02).
++ * Historical P0/D1/OA/OPS1 routes remain reachable by URL but are not
++ * first-level peers on the product rail.
++ */
+ export function UtilityRail({ variant, activeRoute }: UtilityRailProps) {
+   const isFloating = variant === "floating";
+   const railClass = isFloating ? styles.floating : styles.flush;
++  const currentProjectId = currentProjectIdFromRoute(activeRoute);
+
+   return (
+     <nav
+@@ -20,15 +31,16 @@ export function UtilityRail({ variant, activeRoute }: UtilityRailProps) {
+       data-testid="utility-rail"
+     >
+       <Link
+-        href="/synthese"
++        href="/studio"
+         className={isFloating ? styles.brand : styles.brandFlush}
+         aria-label="SFIA Studio"
++        data-testid="rail-brand"
+       >
+         S
+       </Link>
+
+-      {STUDIO_ROUTES.map((item) => {
+-        const active = activeRoute === item.route;
++      {STUDIO_PRIMARY_ROUTES.map((item) => {
++        const active = isActiveRoute(activeRoute, item.route);
+         const itemClass = [
+           isFloating ? styles.item : styles.itemFlush,
+           active
+@@ -46,47 +58,43 @@ export function UtilityRail({ variant, activeRoute }: UtilityRailProps) {
+             href={item.route}
+             className={itemClass}
+             aria-label={item.label}
++            title={item.label}
+             aria-current={active ? "page" : undefined}
++            data-nav-tier="primary"
++            data-testid={`rail-nav-${item.id}`}
+           >
+             {item.railIcon}
+           </Link>
+         );
+       })}
+
+-      <button
+-        type="button"
+-        className={isFloating ? styles.itemDisabled : styles.itemFlush}
+-        aria-disabled
+-        disabled
+-        title="Paramètres — simulation"
+-        aria-label="Paramètres (désactivé)"
+-      >
+-        ◎
+-      </button>
++      {currentProjectId ? (
++        <Link
++          href={`/studio/projects/${encodeURIComponent(currentProjectId)}`}
++          className={[
++            isFloating ? styles.item : styles.itemFlush,
++            isFloating ? styles.itemActive : styles.itemActiveFlush,
++          ].join(" ")}
++          aria-label="Projet courant"
++          title="Projet courant"
++          aria-current="page"
++          data-testid="rail-current-project"
++          data-nav-tier="primary"
++        >
++          ●
++        </Link>
++      ) : null}
+
+       <div className={styles.spacer} />
+
+-      <Link
+-        href="/workspace"
+-        className={isFloating ? styles.item : styles.itemFlush}
+-        aria-label="Workspace D1"
+-        title="Workspace D1"
+-        data-testid="rail-d1-workspace"
+-      >
+-        W
+-      </Link>
+-
+-      <Link
+-        href="/ops1/nouvelle-demande"
+-        className={isFloating ? styles.item : styles.itemFlush}
+-        aria-label="OPS1 legacy"
+-        title="OPS1 Nouvelle demande (legacy)"
+-        data-testid="rail-ops1-legacy"
++      <div
++        className={isFloating ? styles.avatar : styles.avatarFlush}
++        aria-label="Profil Morris"
++        title="Morris"
++        data-testid="rail-avatar"
+       >
+-        O
+-      </Link>
+-
+-      <div className={isFloating ? styles.avatar : styles.avatarFlush}>MC</div>
++        M
++      </div>
+     </nav>
+   );
+ }
+
 ```
-
-### importBoundaries diff
 
 ```diff
-diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-index 9600439..a3748f9 100644
---- a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-+++ b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-@@ -74,8 +74,18 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
-     );
+diff --git a/projects/sfia-studio/app/lib/navigation.ts b/projects/sfia-studio/app/lib/navigation.ts
+index 6677be6..fa2f300 100644
+--- a/projects/sfia-studio/app/lib/navigation.ts
++++ b/projects/sfia-studio/app/lib/navigation.ts
+@@ -7,15 +7,17 @@ export type StudioRoute =
+ /**
+  * Shell-level routes include the real Studio namespace while preserving the
+  * legacy POC union consumed exhaustively by vertical-slice/mapping.ts.
+- * Dynamic project workspace routes are typed but not added to the rail.
+  */
+ export type StudioProjectWorkspaceRoute = `/studio/projects/${string}`;
 
-     const allowed = new Set([
-+      "app/api/e2e/option-a-qa-scenario/route.ts:@/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl",
-       "features/project-assistant/actions.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/f2/orchestrateF2.ts:@/lib/vertical-slice-runtime",
-+      "features/project-assistant/f3/confirmAndExecuteResolvedM3.ts:@/lib/vertical-slice-runtime",
-+      "features/project-assistant/f3/confirmAndExecuteResolvedM3.ts:@/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl",
-+      "features/project-assistant/f3/e2eOptionATerminalAttempt.ts:@/lib/vertical-slice-runtime",
-+      "features/project-assistant/f3/e2eOptionATerminalAttempt.ts:@/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl",
-+      "features/studio-projects/LivingProjectStatePanel.tsx:@/lib/vertical-slice-runtime/actions",
-+      "features/studio-projects/ProjectHistoryPanel.tsx:@/lib/vertical-slice-runtime/actions",
-+      "features/studio-projects/ProjectPrincipalClient.tsx:@/lib/vertical-slice-runtime/actions",
-+      "features/studio-projects/StudioProjectsHome.tsx:@/lib/vertical-slice-runtime/actions",
-+      "features/studio-projects/StudioProjectsHome.tsx:@/lib/vertical-slice-runtime",
-       "features/vertical-slice-ui/CreateProjectForm.tsx:@/lib/vertical-slice-runtime/actions",
-       "features/vertical-slice-ui/ProjectWorkspaceClient.tsx:@/lib/vertical-slice-runtime/actions",
-       "features/vertical-slice-ui/ProjectWorkspaceView.tsx:@/lib/vertical-slice-runtime/actions",
-@@ -93,9 +103,11 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
+ export type StudioShellRoute =
+   | StudioRoute
++  | "/studio"
+   | "/studio/projects/new"
+   | StudioProjectWorkspaceRoute;
 
-   it("keeps V2-A2/V2-A3 UI free of core, internal runtime, D1, fixtures, storage, network, and agents", () => {
-     const roots = [
-+      path.join(APP_ROOT, "app/studio"),
-       path.join(APP_ROOT, "app/studio/projects/new"),
-       path.join(APP_ROOT, "app/studio/projects/[id]"),
-       path.join(APP_ROOT, "features/vertical-slice-ui"),
-+      path.join(APP_ROOT, "features/studio-projects"),
-     ];
-     const forbidden =
-       /@\/lib\/(?:vertical-slice-core|vertical-slice-runtime\/(?:service|singleton|mapping|paths|serverGuard|index)|d1|harness|ops1|agents)|@\/features\/d1|@\/fixtures|\b(?:sessionStorage|localStorage|fetch)\s*[.(]/;
-```
++export type NavTier = "primary" | "historical";
++
+ export function isStudioProjectWorkspaceRoute(
+   route: StudioShellRoute,
+ ): boolean {
+@@ -30,6 +32,10 @@ export interface NavItem {
+   label: string;
+   railIcon: string;
+   railKey: "home" | "plus" | "grid" | "diamond" | "project" | "gear";
++  /** Primary product nav vs demoted historical/secondary surfaces. */
++  tier: NavTier;
++  /** aria/title hint for historical links */
++  historicalHint?: string;
+ }
 
-### Panel harness excerpts (current file)
+ export interface TabItem {
+@@ -42,42 +48,67 @@ export interface TabItem {
 
-```
---- around L198 ---
-195|    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentional mount/projectId only
-196|  }, [projectId]);
-197|
-198|  // E2E-ONLY durable refresh (QA-PRE-M6-TEST-01). No-op unless window flag set by harness.
-199|  useEffect(() => {
-200|    function onE2eRefresh() {
-201|      const enabled = Boolean(
-202|        (window as unknown as { __SFIA_E2E_QA_CONTROL__?: boolean })
-203|          .__SFIA_E2E_QA_CONTROL__,
-204|      );
-205|      if (!enabled) return;
-206|      void refreshDurableEvidenceOutcome();
---- around L202 ---
-199|  useEffect(() => {
-200|    function onE2eRefresh() {
-201|      const enabled = Boolean(
-202|        (window as unknown as { __SFIA_E2E_QA_CONTROL__?: boolean })
-203|          .__SFIA_E2E_QA_CONTROL__,
-204|      );
-205|      if (!enabled) return;
-206|      void refreshDurableEvidenceOutcome();
-207|    }
-208|    window.addEventListener("sfia-e2e-refresh-durable", onE2eRefresh);
-209|    return () => {
-210|      window.removeEventListener("sfia-e2e-refresh-durable", onE2eRefresh);
---- around L203 ---
-200|    function onE2eRefresh() {
-201|      const enabled = Boolean(
-202|        (window as unknown as { __SFIA_E2E_QA_CONTROL__?: boolean })
-203|          .__SFIA_E2E_QA_CONTROL__,
-204|      );
-205|      if (!enabled) return;
-206|      void refreshDurableEvidenceOutcome();
-207|    }
-208|    window.addEventListener("sfia-e2e-refresh-durable", onE2eRefresh);
-209|    return () => {
-210|      window.removeEventListener("sfia-e2e-refresh-durable", onE2eRefresh);
-211|    };
---- around L208 ---
-205|      if (!enabled) return;
-206|      void refreshDurableEvidenceOutcome();
-207|    }
-208|    window.addEventListener("sfia-e2e-refresh-durable", onE2eRefresh);
-209|    return () => {
-210|      window.removeEventListener("sfia-e2e-refresh-durable", onE2eRefresh);
-211|    };
-212|  }, [projectId]);
-213|
-214|  useEffect(() => {
-215|    const el = listRef.current;
-216|    if (!el || typeof el.scrollTo !== "function") return;
---- around L210 ---
-207|    }
-208|    window.addEventListener("sfia-e2e-refresh-durable", onE2eRefresh);
-209|    return () => {
-210|      window.removeEventListener("sfia-e2e-refresh-durable", onE2eRefresh);
-211|    };
-212|  }, [projectId]);
-213|
-214|  useEffect(() => {
-215|    const el = listRef.current;
-216|    if (!el || typeof el.scrollTo !== "function") return;
-217|    el.scrollTo({
-218|      top: el.scrollHeight,
---- around L805 ---
-802|        >
-803|          <h3 className={styles.cardTitle}>F5 · Décision enregistrée</h3>
-804|          <p data-testid="f2-decision-kind">{f2.decision.kind}</p>
-805|          <p data-testid="f2-decision-id">{f2.decision.decisionId}</p>
-806|          <p data-testid="f2-decision-scope">Scope: {f2.decision.scope}</p>
-807|          {f2.decision.readyForNextGatedStep ? (
-808|            <p data-testid="f2-ready-next">READY FOR NEXT GATED STEP</p>
-809|          ) : null}
-810|          <p className={styles.noExecutionBanner} data-testid="f2-decision-no-execution">
-811|            AUCUNE EXÉCUTION
-812|          </p>
-813|          <p className={styles.cardMeta} data-testid="f2-execution-performed">
-```
+ export const STUDIO_ROUTES: NavItem[] = [
+   {
+-    id: "synthese",
+-    route: "/synthese",
+-    label: "Vue synthèse",
++    id: "studio-projects",
++    route: "/studio",
++    label: "Projets",
+     railIcon: "⌂",
+     railKey: "home",
++    tier: "primary",
+   },
+   {
+-    id: "nouvelle-demande",
+-    route: "/nouvelle-demande",
+-    label: "Nouvelle demande",
++    id: "studio-create-project",
++    route: "/studio/projects/new",
++    label: "Nouveau projet",
+     railIcon: "＋",
+     railKey: "plus",
++    tier: "primary",
+   },
+   {
+-    id: "studio-create-project",
+-    route: "/studio/projects/new",
+-    label: "Créer un projet Studio",
+-    railIcon: "◆",
+-    railKey: "project",
++    id: "synthese",
++    route: "/synthese",
++    label: "Vue synthèse",
++    railIcon: "◫",
++    railKey: "grid",
++    tier: "historical",
++    historicalHint: "Historique — POC synthèse",
++  },
++  {
++    id: "nouvelle-demande",
++    route: "/nouvelle-demande",
++    label: "Nouvelle demande",
++    railIcon: "◇",
++    railKey: "diamond",
++    tier: "historical",
++    historicalHint: "Historique — POC nouvelle demande",
+   },
+   {
+     id: "cycle-actif",
+     route: "/cycle-actif",
+     label: "Cycle actif",
+-    railIcon: "◫",
+-    railKey: "grid",
++    railIcon: "◎",
++    railKey: "gear",
++    tier: "historical",
++    historicalHint: "Historique — POC cycle actif",
+   },
+   {
+     id: "decision",
+     route: "/decision",
+     label: "Décision Morris",
+-    railIcon: "◇",
+-    railKey: "diamond",
++    railIcon: "◆",
++    railKey: "project",
++    tier: "historical",
++    historicalHint: "Historique — POC décision",
+   },
+ ];
 
-### confirmAndExecuteResolvedM3 arm hook excerpt
-
-```ts
-
-  if (!auth.ok) {
-    return {
-      ok: false,
-      code: auth.code,
-      message: auth.message,
-    };
-  }
-
-  // E2E QA harness — armed terminal outcome (hard-gated; no-op when disabled).
-  const { consumeArmedTerminalForConfirm } = await import(
-    "@/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl"
-  );
-  const armed = consumeArmedTerminalForConfirm({
-    projectId: input.projectId,
-    decisionId: input.decisionId,
-    executionContractId: input.executionContractId,
-  });
-  if (armed) {
-    const { getRuntimeApplicationService } = await import(
-      "@/lib/vertical-slice-runtime"
-    );
-    const { runE2eArmedTerminalAttempt } = await import(
-      "./e2eOptionATerminalAttempt"
-    );
-    return runE2eArmedTerminalAttempt({
-      armed,
-      expectedContractVersion: input.expectedContractVersion,
-      runtime: getRuntimeApplicationService(),
-    });
-  }
-
++export const STUDIO_PRIMARY_ROUTES = STUDIO_ROUTES.filter(
++  (item) => item.tier === "primary",
++);
++
++export const STUDIO_HISTORICAL_ROUTES = STUDIO_ROUTES.filter(
++  (item) => item.tier === "historical",
++);
++
+ export const FLUSH_TABS: TabItem[] = [
+   { id: "synthese", route: "/synthese", label: "Synthèse" },
+   { id: "demande", route: "/nouvelle-demande", label: "Demande" },
+@@ -101,5 +132,20 @@ export function isActiveRoute(
+   activeRoute: StudioShellRoute,
+   route: StudioShellRoute,
+ ): boolean {
++  if (route === "/studio") {
++    return activeRoute === "/studio";
++  }
+   return activeRoute === route;
+ }
++
++export function currentProjectIdFromRoute(
++  activeRoute: StudioShellRoute,
++): string | null {
++  if (!isStudioProjectWorkspaceRoute(activeRoute)) return null;
++  const encoded = activeRoute.slice("/studio/projects/".length);
++  try {
++    return decodeURIComponent(encoded);
++  } catch {
++    return encoded;
++  }
++}
 
 ```
 
 ---
 
-## 14. H-QA self-tests
+## 11. Domain / persistence / engine
 
-File: `__tests__/project-assistant/qa-pre-m6-test-01.e2eQaControl.test.ts`
-
-H-QA-01…H-QA-10 covered (gates, unknown scenario/fields, arm identity match, externalEffects, reset/clear). **PASS** (9 tests).
-
----
-
-## 15. Targeted browser proofs
-
-Command:
-
-```bash
-SFIA_STUDIO_E2E_QA_CONTROL=1 SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1 SFIA_V2_RUNTIME_ALLOW_RESET=1 npm run test:e2e -- e2e/studio-option-a-negative-states.spec.ts
-```
-
-Result: **7 passed** (N5, N7, N8, N9, N10, N11 + fail-closed probe)
-
-Canonical route assertions on `/studio/projects/[id]` — no special negative UI page.
-
-### Screenshots / hashes
-
-Provenance: CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — TESTABILITY HARNESS PROOF
-Dir: `.tmp-sfia-review/runtime-captures/testability-harness/`
-
-```
-7de3858d5b4092eadbbe9ec940e35cd92db752bd2b3e90685ceb0dc8e12c0928  N10-evidence-missing.png
-f3b4c74eb2830ccd70ee405cd5de003fe15a7a4cd9a420c34b019b392c0b845e  N11-rehydrate-read-failure.png
-cf67ac84ced3f4777738ddd5b33c30a4d10b0809d256fe98147b45a236a19d4b  N5-recommendation-stale.png
-65a163c8a1d9efc2d6221854d771f2b535a09f6525c449b764d3100ebe72d63e  N7-attempt-failed.png
-a7681bd2b5ca540e9bffe5daf5e50795a2cf3db59f0e70fa550a0a2224b54984  N8-attempt-timeout.png
-88cf1e850f8270ba75007caea38180059cae776f66a58af9dfa8cb5c3f6884d3  N9-attempt-cancelled.png
-
-manifest.jsonl:
-```
-{"id":"N7-attempt-failed","file":"N7-attempt-failed.png","screen":"F7","state":"Attempt FAILED via harness","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T19:18:17.634Z","sha256":"65a163c8a1d9efc2d6221854d771f2b535a09f6525c449b764d3100ebe72d63e","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — TESTABILITY HARNESS PROOF"}
-{"id":"N8-attempt-timeout","file":"N8-attempt-timeout.png","screen":"F7","state":"Attempt TIMEOUT via harness","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T19:18:18.729Z","sha256":"a7681bd2b5ca540e9bffe5daf5e50795a2cf3db59f0e70fa550a0a2224b54984","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — TESTABILITY HARNESS PROOF"}
-{"id":"N9-attempt-cancelled","file":"N9-attempt-cancelled.png","screen":"F7","state":"Attempt CANCELLED via harness","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T19:18:19.765Z","sha256":"88cf1e850f8270ba75007caea38180059cae776f66a58af9dfa8cb5c3f6884d3","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — TESTABILITY HARNESS PROOF"}
-{"id":"N10-evidence-missing","file":"N10-evidence-missing.png","screen":"F7","state":"Attempt succeeded + Evidence absent","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T19:18:21.067Z","sha256":"7de3858d5b4092eadbbe9ec940e35cd92db752bd2b3e90685ceb0dc8e12c0928","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — TESTABILITY HARNESS PROOF"}
-{"id":"N5-recommendation-stale","file":"N5-recommendation-stale.png","screen":"F8","state":"Recommendation STALE after durable supersession","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T19:18:22.826Z","sha256":"cf67ac84ced3f4777738ddd5b33c30a4d10b0809d256fe98147b45a236a19d4b","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — TESTABILITY HARNESS PROOF"}
-{"id":"N11-rehydrate-read-failure","file":"N11-rehydrate-read-failure.png","screen":"F10","state":"Durable rehydrate error honest","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T19:18:23.984Z","sha256":"f3b4c74eb2830ccd70ee405cd5de003fe15a7a4cd9a420c34b019b392c0b845e","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — TESTABILITY HARNESS PROOF"}
-```
+| Check | Value |
+|-------|-------|
+| Domain mutation | 0 |
+| Persistence / migration | 0 |
+| Historical route deletion | 0 |
+| New business engine | 0 |
+| QA harness removed | 0 |
+| REAL | 0 |
+| Figma mutation | 0 |
 
 ---
 
-## 16. Nominal Option A regression
-
-```bash
-SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1 npm run test:e2e -- e2e/studio-option-a.spec.ts
-```
-
-Result: **9 passed** (control OFF by default; happy path unchanged)
-
-Full Playwright suite: **NOT RUN** (belongs to Cycle 9).
-
----
-
-## 17. Engineering validation
-
-From `projects/sfia-studio/app`:
+## 12. Engineering
 
 | Check | Result |
 |-------|--------|
-| npm run typecheck | PASS |
-| npm run lint | PASS |
-| npm test -- --run | PASS — 1784 passed / 131 skipped |
-| npm run build | PASS |
+| typecheck | PASS |
+| lint | PASS |
+| vitest | PASS — 1785 passed / 131 skipped |
+| build | PASS |
 | git diff --check | PASS |
 
 ---
 
-## 18. G-UX statuses (this cycle)
+## 13. Playwright
 
-| ID | Status |
-|----|--------|
-| G-UX-08 | OPEN / DEFERRED |
-| G-UX-09 | KEEP RESERVE |
-| Confirmation | KEEP RESERVE |
-| G-UX-10 | candidate behavior unchanged |
-| G-UX-11 | **OPEN** — do NOT declare SATISFIED; pending full Cycle 9 after ChatGPT PASS |
-| QA-PRE-M6-TEST-01 | **IMPLEMENTED CANDIDATE** |
+Nominal Option A: **9/9 PASS**
+Negative harness: **7/7 PASS** (N5/N7–N11 preserved)
+New-design captures: **1/1 PASS** (D-R01…D-R19)
 
 ---
 
-## 19. Safety counters
+## 14. Fresh runtime captures
 
-| Counter | Value |
-|---------|-------|
-| Candidate tracked modified entry | 41 |
-| Candidate untracked entry | 21 |
-| Harness production-tree files modified | 3 (Panel, TestExecutionAdapter, importBoundaries) + arm hook in confirmAndExecuteResolvedM3 |
-| Harness production-tree files created | 3 (control core, terminal helper, api/e2e route) |
-| E2E/support files created | 2 (helper + negative spec) |
-| Tests created | 1 (H-QA) |
-| Tests modified | 1 (importBoundaries) |
-| Public product UI mutation | 0 semantic / 2 bounded observability seams |
-| Business semantics mutation | 0 |
-| New execution status | 0 |
-| New persistence | 0 |
-| Migration | 0 |
-| Raw SQL harness | 0 |
-| Arbitrary mutation endpoint | 0 |
-| New engine / Attempt engine | 0 |
-| REAL | 0 |
-| Figma mutation | 0 |
-| Full Cycle 9 rerun | 0 |
-| Project staging/commits/pushes/PR/merge | 0 |
-| Review Handoff | 1 bounded L3 (this publish) |
+Dir: `.tmp-sfia-review/runtime-captures/new-design/`
+Count: 19
+
+```
+c9fb6ecd325bffe2042c29820e4cac26218c026ec7174c1084123f8e6bf65b19  D-R01-F1-Projects.png
+2de011c7a53ab4678d182424d93d244c73b53a0dc6a1f35c0ecd15e945d7d719  D-R02-Create-Project.png
+ffd921d8996722b2b246a413c0061026ad05798c38cb54dc8904ed681e276c16  D-R03-F2-Project-1440.png
+9a5412db4612789fd02d005c6078f6d20af0d869d4e3a4bcbc59ab3cc794d0ec  D-R04-F3-Project-1280.png
+4d233e0e70844f83b0d5de4c38aa3bf84b00f86abcae4205c4db19d3819255f4  D-R05-F4-Qualification.png
+87dc17e867587e82fdde0ece0054c353193ecda2a1187628e303191d4534805c  D-R06-F5-HumanDecision.png
+6f17e5fbb04595123afa5b9cf8fe43e5012764ef334c953c23bc3a48c76eef24  D-R07-F6-Contract-Confirmation.png
+5dd1be21be0b35af76717db2dd0c40eebc8ec83158049316ad1528f1f8615915  D-R08-F7-Running-Succeeded.png
+ac9a53770e66e6fe890c174d64776ce8c2e7b7683701c9edee7b27d71a88f1b9  D-R09-F7-Failed.png
+c421def563e3a1108d496307dd2d6cf3e6a18a2e3d3f5dd849421f387364293d  D-R10-F7-Timeout.png
+53e330a3640ee4292076c6d75896ef36add1b7027ce8570739957c4425131ab8  D-R11-F7-Cancelled.png
+175372eaa143f4278303a5be0dff143ed84005aa63d88f771d9e6a90224fc776  D-R12-F7-Evidence-missing.png
+d7385e1d959ba57298d5bca9299fe64313dce5b6790e89a85818c41cf626c64f  D-R13-F8-Current-Recommendation.png
+a6e2ee67b9ca6606b51f34a1cf500abf6d1a59b40818df9eeb2e1155badd4fe2  D-R14-F8-Stale-Recommendation.png
+e72f62a9b483ca10ed2e4de4ad6023817e191e8897ca1f552480d9bf04a850f6  D-R15-F9-History.png
+c59de057699f1de2c720e5e0359f8de005e07e065dcd506351bdc392dcb2a78a  D-R16-F10-Recovery.png
+7ef493974ff0ca06ce5c1393a6f85bda42e5ed33bccd00ff684b5f7978b7c336  D-R17-F11-1024-closed.png
+83f93fa30c7725ba7d64d56ce48bde0c3e078964b8918efa5287da5b6a6aeccb  D-R18-F11-1024-open.png
+d36bd16eda8dd67cfafbd71f1840cf109a45dcd7dca277400b6c620881821b4b  D-R19-mobile-sub768.png
+```
+
+manifest.jsonl:
+
+```
+{"id":"D-R01-F1-Projects","file":"D-R01-F1-Projects.png","screen":"F1","state":"Projects list","viewport":{"width":1440,"height":900},"timestamp":"2026-08-16T19:38:12.831Z","sha256":"c9fb6ecd325bffe2042c29820e4cac26218c026ec7174c1084123f8e6bf65b19","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R02-Create-Project","file":"D-R02-Create-Project.png","screen":"Create","state":"Project created","viewport":{"width":1440,"height":900},"timestamp":"2026-08-16T19:38:14.722Z","sha256":"2de011c7a53ab4678d182424d93d244c73b53a0dc6a1f35c0ecd15e945d7d719","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R03-F2-Project-1440","file":"D-R03-F2-Project-1440.png","screen":"F2","state":"Project principal 1440","viewport":{"width":1440,"height":900},"timestamp":"2026-08-16T19:38:16.605Z","sha256":"ffd921d8996722b2b246a413c0061026ad05798c38cb54dc8904ed681e276c16","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R04-F3-Project-1280","file":"D-R04-F3-Project-1280.png","screen":"F3","state":"Project principal 1280","viewport":{"width":1280,"height":900},"timestamp":"2026-08-16T19:38:16.655Z","sha256":"9a5412db4612789fd02d005c6078f6d20af0d869d4e3a4bcbc59ab3cc794d0ec","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R05-F4-Qualification","file":"D-R05-F4-Qualification.png","screen":"F4","state":"Qualification + gate","viewport":{"width":1440,"height":900},"timestamp":"2026-08-16T19:38:16.809Z","sha256":"4d233e0e70844f83b0d5de4c38aa3bf84b00f86abcae4205c4db19d3819255f4","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R06-F5-HumanDecision","file":"D-R06-F5-HumanDecision.png","screen":"F5","state":"Decision gate open","viewport":{"width":1440,"height":900},"timestamp":"2026-08-16T19:38:16.877Z","sha256":"87dc17e867587e82fdde0ece0054c353193ecda2a1187628e303191d4534805c","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R07-F6-Contract-Confirmation","file":"D-R07-F6-Contract-Confirmation.png","screen":"F6","state":"Contract ready to confirm","viewport":{"width":1440,"height":900},"timestamp":"2026-08-16T19:38:17.094Z","sha256":"6f17e5fbb04595123afa5b9cf8fe43e5012764ef334c953c23bc3a48c76eef24","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R08-F7-Running-Succeeded","file":"D-R08-F7-Running-Succeeded.png","screen":"F7","state":"Attempt succeeded + outcome","viewport":{"width":1440,"height":900},"timestamp":"2026-08-16T19:38:17.289Z","sha256":"5dd1be21be0b35af76717db2dd0c40eebc8ec83158049316ad1528f1f8615915","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R13-F8-Current-Recommendation","file":"D-R13-F8-Current-Recommendation.png","screen":"F8","state":"Recommendation current","viewport":{"width":1440,"height":900},"timestamp":"2026-08-16T19:38:17.339Z","sha256":"d7385e1d959ba57298d5bca9299fe64313dce5b6790e89a85818c41cf626c64f","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R15-F9-History","file":"D-R15-F9-History.png","screen":"F9","state":"History durable","viewport":{"width":1440,"height":900},"timestamp":"2026-08-16T19:38:17.390Z","sha256":"e72f62a9b483ca10ed2e4de4ad6023817e191e8897ca1f552480d9bf04a850f6","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R09-F7-Failed","file":"D-R09-F7-Failed.png","screen":"F7","state":"Attempt FAILED","viewport":{"width":1440,"height":900},"timestamp":"2026-08-16T19:38:20.022Z","sha256":"ac9a53770e66e6fe890c174d64776ce8c2e7b7683701c9edee7b27d71a88f1b9","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R10-F7-Timeout","file":"D-R10-F7-Timeout.png","screen":"F7","state":"Attempt TIMEOUT","viewport":{"width":1440,"height":900},"timestamp":"2026-08-16T19:38:21.287Z","sha256":"c421def563e3a1108d496307dd2d6cf3e6a18a2e3d3f5dd849421f387364293d","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R11-F7-Cancelled","file":"D-R11-F7-Cancelled.png","screen":"F7","state":"Attempt CANCELLED","viewport":{"width":1440,"height":900},"timestamp":"2026-08-16T19:38:22.795Z","sha256":"53e330a3640ee4292076c6d75896ef36add1b7027ce8570739957c4425131ab8","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R12-F7-Evidence-missing","file":"D-R12-F7-Evidence-missing.png","screen":"F7","state":"Evidence absent","viewport":{"width":1440,"height":900},"timestamp":"2026-08-16T19:38:24.156Z","sha256":"175372eaa143f4278303a5be0dff143ed84005aa63d88f771d9e6a90224fc776","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R14-F8-Stale-Recommendation","file":"D-R14-F8-Stale-Recommendation.png","screen":"F8","state":"Recommendation STALE","viewport":{"width":1440,"height":900},"timestamp":"2026-08-16T19:38:26.009Z","sha256":"a6e2ee67b9ca6606b51f34a1cf500abf6d1a59b40818df9eeb2e1155badd4fe2","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R16-F10-Recovery","file":"D-R16-F10-Recovery.png","screen":"F10","state":"Honest rehydrate error","viewport":{"width":1440,"height":900},"timestamp":"2026-08-16T19:38:26.420Z","sha256":"c59de057699f1de2c720e5e0359f8de005e07e065dcd506351bdc392dcb2a78a","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R17-F11-1024-closed","file":"D-R17-F11-1024-closed.png","screen":"F11A","state":"LPS closed @1024","viewport":{"width":1024,"height":900},"timestamp":"2026-08-16T19:38:27.267Z","sha256":"7ef493974ff0ca06ce5c1393a6f85bda42e5ed33bccd00ff684b5f7978b7c336","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R18-F11-1024-open","file":"D-R18-F11-1024-open.png","screen":"F11B","state":"LPS open @1024","viewport":{"width":1024,"height":900},"timestamp":"2026-08-16T19:38:27.360Z","sha256":"83f93fa30c7725ba7d64d56ce48bde0c3e078964b8918efa5287da5b6a6aeccb","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+{"id":"D-R19-mobile-sub768","file":"D-R19-mobile-sub768.png","screen":"mobile","state":"Conversation full width <768","viewport":{"width":390,"height":844},"timestamp":"2026-08-16T19:38:27.419Z","sha256":"d36bd16eda8dd67cfafbd71f1840cf109a45dcd7dca277400b6c620881821b4b","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — PRE-M6 NEW DESIGN DELIVERY PROOF"}
+
+```
 
 ---
 
-## 20. Limitations / harness debt / exit
+## 15. Figma vs Runtime matrix
 
-- Control route path is `api/e2e/` (not `__e2e__`) due to Next private-folder rule.
-- Panel listener is E2E-gated; product users never see a QA button.
-- Absent Evidence placeholders in terminal payloads are honest `status: absent` (not success Evidence).
-- Harness debt: KEEP AS SEALED TEST INFRASTRUCTURE pending PR readiness disposition.
-- G-UX-11 still requires full Cycle 9 after ChatGPT re-review PASS.
+| Frame | Evidence | Runtime | Viewport | Structure | Hierarchy | Spacing | Typography | Color | CTA | Authority | Responsive | Diff | Severity | Verdict |
+|-------|----------|---------|----------|-----------|-----------|---------|------------|-------|-----|-----------|------------|------|----------|---------|
+| F1 | F1-Projets.png | D-R01 | 1440 | List card + create | Product title | Good | Sans | Forest/green badges | + Nouveau | Nora/vous | n/a | Density/polish vs Figma demo data | MINOR | PARTIELLEMENT CONFORME |
+| Create | — | D-R02 | 1440 | Intent + form | Product | OK | OK | OK | Créer | honest | n/a | Form fields product | MINOR | PARTIELLEMENT CONFORME |
+| F2 | F2-1440 | D-R03 | 1440 | Conv + LPS | Conv dominant | OK | OK | Nora green soft | Composer | Morris pilote | sticky LPS | Chat chrome still denser than Figma | MINOR | PARTIELLEMENT CONFORME |
+| F3 | F3-1280 | D-R04 | 1280 | Same LPS narrower | Same | OK | OK | OK | Composer | Same | LPS 320 | Same | MINOR | PARTIELLEMENT CONFORME |
+| F4 | F4 | D-R05 | 1440 | Qualification card | Contextual | OK | OK | Distinct | — | Reco≠Dec | side | Card still denser | MINOR | PARTIELLEMENT CONFORME |
+| F5 | F5 | D-R06 | 1440 | Decision gate | Décision requise | OK | OK | Orange card | Approuver… | HumanDecision distinct | side | Labels FR product | MINOR | CONFORME |
+| F6 | F6 | D-R07 | 1440 | Contract+confirm | Distinct | OK | OK | OK | Confirmer | Attempt=0 | side | Tech IDs in details | MINOR | PARTIELLEMENT CONFORME |
+| F7 succ | F7 run | D-R08 | 1440 | Attempt+reco | Distinct | OK | OK | OK | — | Succeeded | side | Combined F7/F8 card | MINOR | PARTIELLEMENT CONFORME |
+| F7 fail | F7 échec | D-R09 | 1440 | Failed | Distinct | OK | OK | OK | — | ≠ timeout | side | — | — | CONFORME |
+| F7 timeout | F7 | D-R10 | 1440 | Timeout | Distinct | OK | OK | OK | — | ≠ failed | side | — | — | CONFORME |
+| F7 cancel | F7 | D-R11 | 1440 | Cancelled | Distinct | OK | OK | OK | — | ≠ failed | side | — | — | CONFORME |
+| F7 evid | — | D-R12 | 1440 | Evidence absent | Honest | OK | OK | OK | — | absent≠success | side | — | — | CONFORME |
+| F8 cur | F8 | D-R13 | 1440 | Reco current | Distinct | OK | OK | OK | no auth | execAuthority false | side | — | — | CONFORME |
+| F8 stale | F8 | D-R14 | 1440 | Stale + reason | Distinct | OK | OK | OK | — | freshness | side | notice F6-only | MINOR | PARTIELLEMENT CONFORME |
+| F9 | F9 | D-R15 | 1440 | History durable | Facts | OK | OK | OK | — | no transcript | side | denser filters | MINOR | PARTIELLEMENT CONFORME |
+| F10 | F10 | D-R16 | 1440 | Rehydrate error | Honest | OK | OK | OK | — | no fake recovery | — | CTA polish | MINOR | PARTIELLEMENT CONFORME |
+| F11A | F11A | D-R17 | 1024 | LPS closed | Conv full | OK | OK | OK | toggle | — | closed | — | — | CONFORME |
+| F11B | F11B | D-R18 | 1024 | LPS open | Drawer | OK | OK | OK | close | M-04 reserve | open | drawer purity | MINOR | PARTIELLEMENT CONFORME |
+| <768 | D1 rule | D-R19 | 390 | Full conv | Composer | OK | OK | OK | Composer | — | drawer-only LPS | — | MINOR | PARTIELLEMENT CONFORME |
+
+**Blocking anti-patterns cleared:** historical peers gone; giant MODE LOCAL/NON PRÊT identity gone; conversation remains dominant; Attempt variants reachable; harness preserved.
+
+Overall visual: **PARTIELLEMENT CONFORME** (architecture/IA aligned; pixel polish reserves remain). Not claiming PIXEL PERFECT.
 
 ---
 
-## 21. Anti-claims
+## 16. Accepted / new reserves
 
-Harness implemented ≠ product feature
-Harness browser proof ≠ Cycle 9 PASS
-Targeted N5/N7–N11 pass ≠ G-UX-11 satisfied
-TestExecutionAdapter ≠ REAL
-fixture-safe authority ≠ production execution authority
-read failure simulated ≠ data corruption
-Evidence missing ≠ Evidence delete capability
-Pre-M6 testability ≠ Pre-M6 acceptance
-UAT ≠ M6
-runtime v3 = NON ADOPTED
-REAL = 0
+Accepted: M-03, M-04, manual evidence provenance, Confirmation process-local, G-UX-08/09.
+New: residual density of assistant cards vs Figma Make polish; F8 stale notice still F6-scoped when execute card shown (freshness label still correct on F8 card).
 
 ---
 
-## 22. Verdict
+## 17. Anti-claims
+
+Not PRE-M6 COMPLETE · Not G-UX-11 SATISFIED · Not READY FOR MORRIS UAT · Not M6 READY · Not PIXEL PERFECT · Not RUNTIME V3 ADOPTED · REAL=0.
+
+---
+
+## 18. Safety counters
+
+Candidate tracked=42 untracked=22
+Historical routes deleted=0 · New store/persistence/migration/engine=0 · Decision/Contract/Attempt/Evidence semantics=0 · QA harness removed=0 · REAL=0 · Figma mutation=0 · Project staging/commits/pushes/PR=0 · Review Handoff=1 L3
+
+---
+
+## 19. Verdict
 
 PRE-M6 UI DELIVERY OPTION A —
-CYCLE 8 AMEND QA-PRE-M6-TEST-01 COMPLETE —
-BOUNDED E2E-ONLY NEGATIVE-STATE HARNESS IMPLEMENTED —
-N5/N7/N8/N9/N10/N11 BROWSER REACHABLE —
-CANONICAL PRODUCT ROUTE USED FOR ASSERTIONS —
-NO DIRECT UI STATE FORCING —
-NO BUSINESS SEMANTICS CHANGE —
-EXISTING ATTEMPT USE CASES REUSED —
-EXISTING PRODUCT SQLITE TEST HOOKS REUSED —
-CANONICAL M3 BOUNDARY PRESERVED —
-HARD DISABLED BY DEFAULT —
-HARD DISABLED IN PRODUCTION/REAL —
-NO ARBITRARY MUTATION API —
-NO RAW SQL —
-NO NEW PERSISTENCE —
-NO MIGRATION —
-NO PARALLEL ENGINE —
+TRUE NEW DESIGN IMPLEMENTED CANDIDATE —
+CANONICAL STUDIO EXPERIENCE ALIGNED WITH D-PRE-M6-UX-05 —
+CONVERSATION DOMINANT —
+LPS CONTEXTUAL —
+HISTORICAL P0/D1/OA/OPS1 PATHS HIDDEN FROM CANONICAL NAVIGATION —
+HISTORICAL ROUTES PRESERVED / FROZEN —
+TECHNICAL IMPLEMENTATION CONCEPTS REMOVED FROM PRIMARY UX —
+OBSOLETE LOCAL/NOT-READY PRIMARY CHROME REMOVED —
+QUALIFICATION / HUMANDECISION / CONTRACT / CONFIRMATION /
+ATTEMPT / EVIDENCE / RECOMMENDATION DISTINCT —
+HISTORY + RECOVERY ALIGNED —
+RESPONSIVE CONTRACT IMPLEMENTED —
 NOMINAL OPTION A REGRESSION PASS —
-G-UX-11 STILL OPEN PENDING FULL CYCLE 9 —
+NEGATIVE TESTABILITY HARNESS PRESERVED —
+NO DOMAIN REWRITE —
+NO NEW PERSISTENCE —
+NO PARALLEL ENGINE —
+NO REAL —
+G-UX-08 OPEN / DEFERRED —
+G-UX-09 + CONFIRMATION KEEP RESERVE —
+G-UX-11 OPEN PENDING FINAL CYCLE 9 —
 NO PROJECT COMMIT —
 NO PROJECT PUSH —
 NO PR —
 NO M6 —
 RUNTIME V3 NON ADOPTED —
-ZERO REAL —
-READY FOR CHATGPT RE-REVIEW
+READY FOR CHATGPT VISUAL / DELIVERY RE-REVIEW
 
 ---
 
-## 23. Recommended next gate (DO NOT EXECUTE)
+## 20. Recommended next gate — DO NOT EXECUTE
 
-1. ChatGPT re-review of this harness
-2. Only if PASS → FULL CYCLE 9 QA / VALIDATION RE-RUN
-3. Only after Cycle 9 PASS / PASS WITH RESERVES compatible → MORRIS PRE-M6 UAT — OPTION A
+ChatGPT visual/delivery re-review → if PASS → FINAL FULL CYCLE 9 → if PASS → Morris Pre-M6 UAT. M6 NOT AUTHORIZED.
