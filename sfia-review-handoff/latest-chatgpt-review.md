@@ -1,450 +1,1328 @@
-# SFIA STUDIO — PRE-M6 UI DELIVERY OPTION A — CYCLE 9 QA / VALIDATION
+# SFIA STUDIO — PRE-M6 UI DELIVERY OPTION A — CYCLE 8 AMEND QA-PRE-M6-01
 
-Timestamp: 2026-08-16 19:42:41 CEST
-Level: FULL
-Branch: `delivery/sfia-studio-pre-m6-ui-option-a`
-HEAD: `0d33478566627a9bf507d5a06323962d349308ee`
-origin/main: `0d33478566627a9bf507d5a06323962d349308ee`
-Incoming Review Handoff at Cycle 9 start: `22448dc682df265e26398e0ef4d243a5645c7c59`
-Incoming blob at Cycle 9 start: `48e4322176e2da7831367e57e4f9e60be5b37145`
-Note: an intermediate incomplete handoff `18dd538…` was superseded in-cycle by this corrected FULL pack.
-
----
-
-## 1. Exact GO Morris Consumed
-
-User wording: ok go cycle 9
-
-Interpreted GO: PRE-M6 UI DELIVERY OPTION A — CYCLE 9 QA / VALIDATION
-
-Authorized: local runtime, fake provider, Playwright, Option A E2E tests, engineering tests, local test data via product paths, runtime captures, Figma/runtime comparison, Review Pack FULL, handoff L3.
-
-Forbidden: product fix, new architecture/persistence/migration, package/playwright config mutation, Figma mutation, REAL, project commit/push/PR, M6.
+**Level:** FULL
+**Timestamp:** 2026-08-16 20:03:16 CEST
+**Branch:** delivery/sfia-studio-pre-m6-ui-option-a
+**HEAD / origin/main:** 0d33478566627a9bf507d5a06323962d349308ee
+**Incoming handoff:** 118186d38393fd2870f5f375a83068bc9d129ae8
+**REAL:** 0
+**Project staging/commits/pushes/PR:** 0
 
 ---
 
-## 2. Cycle / Profile / CKC
+## GO Morris (exact title consumed)
 
-- Cycle: 9 — QA / validation
-- Profile: Critical
-- Typology: N/A (QA of existing candidate; test-only mutations)
-- CKC: method/.../pilots/04-qa-validation.md v0.1.0 candidate — experimental guidance, no execution authority
-- Posture: require referent; separate observation/reserve/verdict; negatives; no soft blockers
+GO MORRIS — PRE-M6 UI DELIVERY OPTION A — CYCLE 8 AMEND — QA-PRE-M6-01 —
+WIRE THE POST-GO PRODUCT PATH TO THE EXISTING DURABLE M3 HUMANDECISION + DECISIONBASIS FLOW —
+REUSE projectAssistantPrepareM3Action + EXISTING G-UX-15 resolveM3ExecutionContract BRIDGE —
+DO NOT WEAKEN PROPOSAL STALE FAIL-CLOSED SEMANTICS —
+DO NOT MUTATE/REBASE PROPOSAL CONTEXT TO BYPASS STALE —
+PRESERVE PROCESS-LOCAL PROPOSAL AS NEGATIVE AUTHORITY PATH —
+NO NEW PERSISTENCE — NO NEW ENGINE — NO MIGRATION — NO REAL —
+NO COMMIT — NO PUSH — NO PR — NO M6 —
+RETURN FOR CHATGPT REVIEW BEFORE RE-RUNNING CYCLE 9
 
 ---
 
-## 3. Git Truth
+## Cycle / Profile / Typology / CKC
+
+- Cycle: **8 — Delivery / implémentation**
+- Sous-type: **CONTINUATION / AMEND**
+- Typologie: **INC**
+- Profil SFIA: **Critical**
+- CKC détaillé: ABSENT → fallback `02-fifteen-cycles-synthetic-map.md` + méthode v2.6 (guidance only, no execution authority)
+
+---
+
+## Git Truth
 
 | Check | Value |
-| --- | --- |
-| Branch | delivery/sfia-studio-pre-m6-ui-option-a |
+|-------|-------|
+| branch | delivery/sfia-studio-pre-m6-ui-option-a |
 | HEAD | 0d33478566627a9bf507d5a06323962d349308ee |
 | origin/main | 0d33478566627a9bf507d5a06323962d349308ee |
-| Incoming handoff | 18dd538c0d021824b395795c18bf69432cce3756 |
-| Candidate dirty | YES |
-| Tracked modified | 34 |
-| Created project files | 19 |
-| Staged | 0 |
-| Project commits/pushes | 0 |
-| REAL | unset / 0 |
-| Production mutation during Cycle 9 | 0 (fingerprint pre/post E2E identical) |
-
-QA-only deltas:
-- e2e/studio-option-a.spec.ts (expanded)
-- __tests__/studio-projects/projectPrincipalAmend.test.tsx (type literals for tsc)
+| origin/sfia/review-handoff (entry) | 118186d38393fd2870f5f375a83068bc9d129ae8 |
+| staged | 0 |
+| REAL | unset |
+| Candidate at entry | ~34 tracked modified + ~19 created |
 
 ---
 
-## 4. Convergence Pre-check
+## QA-PRE-M6-01 evidence entrant (Cycle 9)
 
-Option A ADOPTED; Execution Authorization CONSUMED; Cycle 8 + AMEND ChatGPT PASS; G-UX-11 OPEN/PENDING this cycle; D-PRE-M6-UX-05 ADOPTED; Pre-M6 NON COMPLETE; M6 NOT AUTHORIZED; runtime v3 NON ADOPTED; REAL 0.
-
----
-
-## 5. Build Doctrine Challenge
-
-Capacity: prove V3-F05/V3-F02 end-to-end in browser before Morris UAT.
-Useful now: YES.
-Reuse: candidate, Playwright harness, fake provider, Product Store, Freeze evidence.
-Parallel architecture / new persistence: 0.
-Exit proof incomplete due to blocking product gap QA-PRE-M6-01.
+- After HumanDecision GO, LPS advances N→N+1
+- Canonical CTA called `projectAssistantPrepareF3FixtureAction` → `validateF2ForPrepare` → **STALE**
+- Fail-closed STALE is correct for process-local Proposal
+- Bug: post-GO product path still used Proposal as execution authority
 
 ---
 
-## 6. QA Coverage Map (before tests)
+## Convergence Pre-check
 
-```markdown
-# Cycle 9 QA Coverage Map — PRE-M6 Option A
-# Timestamp: Europe/Paris — produced before E2E mutation
-
-| Requirement | Frame/G-UX | Browser reachable? | Existing test? | Test to add | Oracle | Evidence | Blocking if missing? |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Enter Studio / list | F1 | YES | smoke | keep + deepen | /studio shell + home | screenshot R01 | YES for G-UX-11 |
-| Create Project | F1 | YES | no | create via form | unique name → open workspace | R01b | YES |
-| Open Project / Nora dominant | F2/F3 | YES | no | after create | principal + conversation | R02/R03 | YES |
-| LPS sticky / drawer | F11 | YES | no | viewport 1440/1280/1024/767 | widths + drawer toggle | R11* | YES responsive |
-| Qualification/Proposal | F4 | YES via `__F2_STRUCTURING__` | no | send marker | qualif/proposal visible; ≠ HumanDecision | R04 | YES |
-| HumanDecision GO | F5 | YES | no | f2-decide-GO | decision card explicit | R05 | YES |
-| ExecutionContract + Confirmation process-local | F6 | YES | no | f3-prepare | contract; no Attempt yet; process-local copy | R06 | YES |
-| Confirm + Attempt success fixture | F7 | YES (success only) | no | f3-confirm-execute | Attempt terminé; Evidence; RB; REAL=0 | R07 | YES for happy |
-| Recommendation ≠ Decision | F8 / N1 | YES | no | assert labels | executionAuthority false; no-ready-claim | R08 | YES |
-| Recommendation stale | F8 / N5 | NO without prod/DB seam | unit only | document UNAVAILABLE | — | — | YES → G-UX-11 cannot CLOSE without reserve |
-| History durable | F9 | YES | unit | after execute/reload | Evidence/RB; no transcript | R09 | YES |
-| Recovery contextual | F10 / N12 | YES | unit | nominal vs advanced/reload | banner absent/present; no fake convo | R10 | YES |
-| Rejected decision NO_GO | N2 | YES | no | f2-decide-NO_GO | no F3 prepare ready | — | YES authority |
-| Unconfirmed contract | N3 | YES | no | prepare w/o confirm | no Attempt | — | YES |
-| Duplicate start | N4 | PARTIAL | no | double-click confirm | UI/idempotent | — | PARTIAL ok w/ note |
-| Blocked pre-Attempt | N6 | NO via UI | labels only | UNAVAILABLE | — | — | impacts F7 matrix |
-| Failed Attempt | N7 | NO | no | UNAVAILABLE | — | — | impacts F7 matrix |
-| Timeout Attempt | N8 | NO | no | UNAVAILABLE | — | — | impacts F7 matrix |
-| Cancelled Attempt | N9 | NO | no | UNAVAILABLE | — | — | impacts F7 matrix |
-| Missing Evidence | N10 | PARTIAL/NO | no | after success Evidence present; missing path UNAVAILABLE | — | — | note |
-| Rehydrate failure | N11 | PARTIAL | unit | optional if UI shows | — | — | note |
-| G-UX-08 AMEND deferred | G-UX-08 | YES message | no | f2-decide-AMEND | deferred message; no full loop | — | non-blocking (OPEN) |
-| Accessibility bounded | a11y | YES | axe in unit elsewhere | headings/labels/keyboard smoke | no critical blockers | — | non-WCAG |
-| Engineering non-regression | — | n/a | suite | typecheck/lint/vitest/build | PASS | logs | YES |
-| Full Playwright suite | — | n/a | many | run full | classify failures | logs | classify |
-
-## Fake provider env (existing harness)
-- OPS1_CONVERSATION_PROVIDER=fake (playwright.config webServer)
-- Marker for gate: `__F2_STRUCTURING__`
-
-## Verdict implication (pre-run)
-Mandatory F7 variant negatives + stale Recommendation are BROWSER PROOF UNAVAILABLE without production seams.
-→ G-UX-11 likely **PARTIAL / OPEN** or **SATISFIED WITH EXPLICIT RESERVE** on unavailable negatives, depending on observed happy-path + reachable negatives.
-→ Do NOT invent unavailable proofs.
-
-```
-
-## 7. Playwright Harness Truth
-
-- Config playwright.config.ts NOT modified
-- baseURL http://127.0.0.1:3020 ; workers 1 ; Desktop Chrome 1440x1024
-- Provider OPS1_CONVERSATION_PROVIDER=fake via webServer
-- Additional env for GO (fail-closed otherwise): SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1 via process.env spread (no config file change)
-- Marker: __F2_STRUCTURING__ for Morris gate
+- Build Doctrine: VALIDATED — ACTIVE ON MAIN
+- Milestone: PRE-M6 UI DELIVERY OPTION A — CYCLE 8 AMEND QA-PRE-M6-01
+- Option A scope: ADOPTED
+- M6: NOT AUTHORIZED
+- runtime v3: NON ADOPTED
+- REAL: 0
+- G-UX-11: FAIL / OPEN (unchanged — full Cycle 9 not rerun)
 
 ---
 
-## 8. Files QA Modified / Created
+## Build Doctrine Challenge
 
-| File | Action |
-| --- | --- |
-| e2e/studio-option-a.spec.ts | MODIFIED |
-| __tests__/studio-projects/projectPrincipalAmend.test.tsx | MODIFIED (typing only) |
-
-Production files mutated during QA: 0
+No new engine, persistence, migration, or parallel Attempt lifecycle.
+Wiring only: durable HumanDecision/DecisionBasis → prepareM3 → resolveM3 (G-UX-15) → explicit Confirmation → existing Select/Start/Evidence.
 
 ---
 
-## 9. Engineering Validation
+## POST-GO WIRING MAP (before code)
 
-npm run typecheck → PASS
-npm run lint → PASS
-npm test -- --run → 1758 passed / 131 skipped
-npm run build → PASS (/studio present)
-git diff --check → PASS
+| Step | Function | Durable? | Authority | Persistence | Reuse? | Change? |
+|------|----------|----------|-----------|-------------|--------|---------|
+| HumanDecision | recordF2Decision / DecideAction | Durable | M3 Morris local | Product | Yes | No |
+| DecisionBasis | buildDecisionBasis on GO | Durable | Proposal at decide-time only | On HD | Yes | No |
+| M3 prepare | prepareM3FromDecision / PrepareM3Action | Durable unresolved EC | Decision+Basis | Product | Yes | Wire as canonical |
+| Resolve | resolveM3ExecutionContract | Durable successor | App fixture-safe profile ZERO REAL | Product | Yes KEEP | No bridge edit |
+| Confirmation | confirmAndExecuteResolvedM3 | Process-local Confirmation | MORRIS N3 | Not persisted as authority | Harvest services | New thin composition |
+| Select/Start/Attempt | existing Attempt services | Durable | Same | Product | Yes | Reuse |
+| Evidence/RB/Reco | ingestEvidenceAndRecommend | Durable | Same | Product | Yes | Reuse |
+| LPS readback | notifyDurableFactsChanged + rehydrate | Durable read | — | — | Yes | Callbacks after prepare/resolve/execute |
 
----
+**Why CTA used fixture:** Primary button hard-wired to prepareF3Fixture + Proposal validation; M3 was secondary and stopped at unresolved EC.
 
-## 10. Targeted Playwright
+**G-UX-15 without Proposal:** prepareM3 → resolve(fixtureResolution) → confirmSelectStart (request/grant/confirm/select/start/record) — no validateF2ForPrepare.
 
-Command:
-SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1 npm run test:e2e -- e2e/studio-option-a.spec.ts
-
-Result: 8 passed (~9.9s)
-
-Includes explicit reproduction of QA-PRE-M6-01 (F6 STALE after GO).
-
----
-
-## 11. Full Playwright Regression
-
-Command:
-SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1 npm run test:e2e
-
-Result: 101 passed / 5 skipped / 18 failed (~9.6m)
-
-Classification of 18 failures:
-- Class C environment: increment-b/d/e harness CLI missing projects/sfia-studio/harness/node_modules/tsx (MODULE_NOT_FOUND). Not Option A product regression.
-- Class B/C historical: increment-a keyboard abandon; increment-c Campus360 flows — historical P0; not Option A blockers.
-- Option A specs: all PASS.
-
-No failure masking.
+**Reusable from confirmAndExecuteF3Fixture without Proposal validation:** adapter checks, OCC, confirm→select→start→record→ingestEvidence — NOT validateF2ForPrepare / Proposal authority.
 
 ---
 
-## 12. Happy Path F1→F11 (observed)
+## Asset classification
 
-| Step | Result |
-| --- | --- |
-| F1 Enter Studio / create project | PASS |
-| F2/F3 orientation + LPS widths 1440~380 / 1280~320 | PASS |
-| F4 Qualification/Proposal via fake __F2_STRUCTURING__ | PASS; Recommendation != HumanDecision |
-| F5 HumanDecision GO | PASS (requires SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1) |
-| F6 fixture prepare ExecutionContract | FAIL/BLOCKED — Proposal STALE after GO |
-| F7 Attempt / Evidence | NOT REACHED |
-| F8 Recommendation post-execute | NOT REACHED |
-| F9 History after GO | PASS |
-| F10 Recovery after reload | PASS |
-| F11 responsive 1024 drawer + 767 | PASS |
+- HumanDecision / DecisionBasis / prepareM3 / resolveM3 / Confirmation reserve / Select/Start/Evidence: **KEEP**
+- Proposal process-local + STALE fail-closed: **KEEP** (negative path)
+- Legacy prepareF3Fixture: **FREEZE** for canonical product; diagnostic only
+- ProjectAssistantPanel: **ADAPT** post-GO orchestration
 
 ---
 
-## 13. BLOCKING ISSUE — QA-PRE-M6-01
+## Root cause
 
-| Field | Value |
-| --- | --- |
-| ID | QA-PRE-M6-01 |
-| Type | functional / authority / testability |
-| Severity | BLOCKING |
-| Screen/step | F6 after F5 GO |
-| Precondition | Fake __F2_STRUCTURING__ then GO with local Morris authority env |
-| Reproduction | Create project → send structuring → f2-decide-GO → f3-prepare-button |
-| Expected | ExecutionContract prepare succeeds (or durable M3 path continues) |
-| Observed | Contexte Project/LPS modifié — proposition STALE. Aucune préparation F3. |
-| Evidence | R06-F6-Prepare-STALE-Blocked.png + E2E assertion |
-| Impact | G-UX-11 cannot be SATISFIED; F6/F7/F8 incomplete; N3/N4 blocked |
-| Existing reserve? | No — new vs Cycle 8 AMEND PASS |
-| Return path | Cycle 8 Delivery AMEND |
-| Morris gate required? | yes |
-| Product fix in Cycle 9? | NO |
-
-Root observation: HumanDecision GO advances durable LPS; process-local Proposal contextSnapshot becomes STALE; fixture prepare fail-closed. Fail-closed is correct authority posture; Option A happy path still cannot complete through fixture prepare.
+Canonical post-GO path incorrectly revalidated process-local Proposal via prepareF3Fixture after LPS bump from GO.
 
 ---
 
-## 14. Negative Authority Matrix
+## Implementation summary
 
-| ID | Scenario | Result |
-| --- | --- | --- |
-| N1 | Recommendation != HumanDecision | PASS (proposal stage) |
-| N2 | rejected NO_GO | PASS |
-| N3 | unresolved contract / no Attempt | BLOCKED by QA-PRE-M6-01 |
-| N4 | duplicate Attempt start | BLOCKED by QA-PRE-M6-01 |
-| N5 | stale Recommendation ID mismatch | BROWSER PROOF UNAVAILABLE |
-| N6 | blocked pre-Attempt | BROWSER PROOF UNAVAILABLE |
-| N7 | failed Attempt | BROWSER PROOF UNAVAILABLE |
-| N8 | timeout Attempt | BROWSER PROOF UNAVAILABLE |
-| N9 | cancelled Attempt | BROWSER PROOF UNAVAILABLE |
-| N10 | missing Evidence | BROWSER PROOF UNAVAILABLE |
-| N11 | rehydrate failure injection | BROWSER PROOF UNAVAILABLE |
-| N12 | Recovery no fake conversation | PASS |
+1. Primary CTA `f3-prepare-button` → `projectAssistantPrepareResolvedM3Action` = prepareM3FromDecision + resolveM3ExecutionContract(fixtureSafeM3ResolutionProfile)
+2. Present resolved successor; Confirmation → `projectAssistantConfirmAndExecuteResolvedM3Action` (no Proposal validation)
+3. Legacy fixture demoted under diagnostics (`f3-legacy-fixture-prepare-button`) — STALE preserved
+4. Resolution profile: exact G-UX-15 harvest (F3_ACTION/TARGET/CAPABILITY/SCOPE + fixtureResolution constraints/stops) — ZERO REAL only
+5. `__F2_GATED_STANDARD__` fake marker: Light gated path so Confirmation is browser-reachable; Critical STRUCTURING remains R-T-A3-1 fail-closed (G-UX-11 debt)
 
----
+### Parallel engine check
 
-## 15. G-UX-11 Exit Proof
+Thin M3 confirm composition reuses the **same domain services** as fixture path; no second Attempt engine. Full extract of shared helper deferred to keep risk low; documented in code.
 
-G-UX-11 = FAIL / OPEN
+### Persistence / migration
 
-Reasons: happy path incomplete at F6; mandatory negatives incomplete; blocking product gap present.
+0 new persistence, 0 migration, Proposal not promoted, Confirmation not durable authority.
 
 ---
 
-## 16. Accessibility Bounded QA
+## Files modified (this AMEND production)
 
-F1 heading + create CTA visible; Project assistant input focusable. No WCAG compliance claim.
+- ProjectAssistantPanel.tsx
+- actions.ts
+- types.ts
+- f3/index.ts
+- f3/types.ts (proposal nullable on execute payload)
+- fakeProvider.ts (__F2_GATED_STANDARD__ TEST/FAKE only)
 
----
+## Files created
 
-## 17. Runtime Capture Inventory
+- f3/fixtureSafeM3ResolutionProfile.ts
+- f3/prepareAndResolveM3ProductPath.ts
+- f3/confirmAndExecuteResolvedM3.ts
+- __tests__/project-assistant/qa-pre-m6-01.postGoDurableM3Path.test.ts
+- e2e/studio-option-a.spec.ts (updated; was Cycle 9 untracked)
 
-Provenance: CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT
+## Tests
 
-```jsonl
-{"id":"R01-F1-Projects","file":"R01-F1-Projects.png","screen":"F1","state":"Projects entry","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:30:55.538Z","sha256":"110d44275eb08824860b853ceea628f0ff81c135131a65a45724152e156f5aa6","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R02-F2-Project-1440","file":"R02-F2-Project-1440.png","screen":"F2","state":"Project principal @1440","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:30:57.075Z","sha256":"decdc5b4d4bd60d0b18f6c0f330d990f60be9b5da270824713c40e1a49a4b1bd","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R03-F3-Project-1280","file":"R03-F3-Project-1280.png","screen":"F3","state":"Project principal @1280","viewport":{"width":1280,"height":1024},"timestamp":"2026-08-16T17:30:57.345Z","sha256":"e4a12d8ddf61d260aadbdfec03e96dc1d96814a3579d04d24851b1e80136e585","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R04-F4-Qualification","file":"R04-F4-Qualification.png","screen":"F4","state":"Qualification + Proposal ≠ HumanDecision","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:30:57.460Z","sha256":"a210a276af70ed5d45afdc064edb5c7feb6e36e44e1ce6b4e548742166a9f8a1","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R05-F5-HumanDecision","file":"R05-F5-HumanDecision.png","screen":"F5","state":"HumanDecision GO recorded","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:30:57.606Z","sha256":"426578e39ea664426602e7277ddd6dbb9cd8a4d15eaa088a425adaa1c3f12908","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R06-F6-Prepare-STALE-Blocked","file":"R06-F6-Prepare-STALE-Blocked.png","screen":"F6","state":"QA-PRE-M6-01 Proposal STALE blocks fixture prepare after GO","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:30:57.709Z","sha256":"e1bee87146abefdf908924d6f6c8172ee08bb835d236b065a1b3066feaff54da","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R09-F9-History-After-GO","file":"R09-F9-History-After-GO.png","screen":"F9","state":"History after GO (pre-Attempt)","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:30:57.740Z","sha256":"56ef160f0a06eadc016b4e095f01a7ebcd2e6963dd5e2c8c21ae4f3cd9f6a2fc","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R11A-F11-LPS-Closed-1024","file":"R11A-F11-LPS-Closed-1024.png","screen":"F11A","state":"LPS drawer closed @1024","viewport":{"width":1024,"height":900},"timestamp":"2026-08-16T17:30:58.062Z","sha256":"3a1349a178eae8a5bbe5b4221880049e37658df3fe3e70ce03bbe7eda7f27f2a","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R11B-F11-LPS-Open-1024","file":"R11B-F11-LPS-Open-1024.png","screen":"F11B","state":"LPS drawer open @1024","viewport":{"width":1024,"height":900},"timestamp":"2026-08-16T17:30:58.150Z","sha256":"248559a08c7aeaea0055cbbcafe0524802dbbfae2e6679c14ba200f584eee11f","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R12-Sub768-Conversation","file":"R12-Sub768-Conversation.png","screen":"F11/<768","state":"Conversation @767","viewport":{"width":767,"height":900},"timestamp":"2026-08-16T17:30:58.512Z","sha256":"f69b2a74c79136e45f1d71485209bee2023c5199f2e92b26dc2e9b2512808167","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R10-F10-Recovery","file":"R10-F10-Recovery.png","screen":"F10","state":"Recovery after reload post-qualification","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:31:00.676Z","sha256":"ea3e0a124e2ce8ca56927552b3ae72337a9c40941597d893d2cf62e8f0274baf","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R01-F1-Projects","file":"R01-F1-Projects.png","screen":"F1","state":"Projects entry","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:40:39.379Z","sha256":"110d44275eb08824860b853ceea628f0ff81c135131a65a45724152e156f5aa6","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R02-F2-Project-1440","file":"R02-F2-Project-1440.png","screen":"F2","state":"Project principal @1440","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:40:41.784Z","sha256":"d9d46ef8a52ecb69a68b5e37f95fc951f3d26d45613ddd01549b21c0e4948523","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R03-F3-Project-1280","file":"R03-F3-Project-1280.png","screen":"F3","state":"Project principal @1280","viewport":{"width":1280,"height":1024},"timestamp":"2026-08-16T17:40:42.039Z","sha256":"0ee77ed770aa15b54d481dbeb32014853030c075ecd7d4c1a8b2d5c41962244d","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R04-F4-Qualification","file":"R04-F4-Qualification.png","screen":"F4","state":"Qualification + Proposal ≠ HumanDecision","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:40:42.155Z","sha256":"6b14076398af21445eb070ffd5221d15c5d872e81e085d31f79188b22fd2347e","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R05-F5-HumanDecision","file":"R05-F5-HumanDecision.png","screen":"F5","state":"HumanDecision GO recorded","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:40:42.252Z","sha256":"9f965d949c46856256a77c3103dde4ffb85e1819c25012628f610524be84ecba","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R06-F6-Prepare-STALE-Blocked","file":"R06-F6-Prepare-STALE-Blocked.png","screen":"F6","state":"QA-PRE-M6-01 Proposal STALE blocks fixture prepare after GO","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:40:42.351Z","sha256":"a223333b11ecdc38bd1d5026e70c45b20a0445290f016a1d10cbdd56a8d51062","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R09-F9-History-After-GO","file":"R09-F9-History-After-GO.png","screen":"F9","state":"History after GO (pre-Attempt)","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:40:42.384Z","sha256":"5f6f3e974235b97d12bbd21c545d2ff08fa6c7deffb89c5c4185621dd13c2698","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R11A-F11-LPS-Closed-1024","file":"R11A-F11-LPS-Closed-1024.png","screen":"F11A","state":"LPS drawer closed @1024","viewport":{"width":1024,"height":900},"timestamp":"2026-08-16T17:40:42.689Z","sha256":"96d64131f1ecf6aadb17e91e1c542b123f8e3544d56e7534e28e02c6e569f5c3","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R11B-F11-LPS-Open-1024","file":"R11B-F11-LPS-Open-1024.png","screen":"F11B","state":"LPS drawer open @1024","viewport":{"width":1024,"height":900},"timestamp":"2026-08-16T17:40:42.778Z","sha256":"a63401e8ce878fc87675b46290001d2933c476843d9d585a433324b4195079d6","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R12-Sub768-Conversation","file":"R12-Sub768-Conversation.png","screen":"F11/<768","state":"Conversation @767","viewport":{"width":767,"height":900},"timestamp":"2026-08-16T17:40:43.161Z","sha256":"15e5e96dabe0f2a8e5464e610a17777ae8b75078cd96f7b891cafaae47e023cb","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R10-F10-Recovery","file":"R10-F10-Recovery.png","screen":"F10","state":"Recovery after reload post-qualification","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:40:47.411Z","sha256":"314a0fed714957010b25db2b7b48551f77bef5e522d322d887c624ad92a475d0","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R01-F1-Projects","file":"R01-F1-Projects.png","screen":"F1","state":"Projects entry","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:42:01.255Z","sha256":"110d44275eb08824860b853ceea628f0ff81c135131a65a45724152e156f5aa6","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R02-F2-Project-1440","file":"R02-F2-Project-1440.png","screen":"F2","state":"Project principal @1440","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:42:02.808Z","sha256":"6cd51e0e56f8bb808ac951a80d43f94611e19b0d4d2417ebd19575895f950e1c","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R03-F3-Project-1280","file":"R03-F3-Project-1280.png","screen":"F3","state":"Project principal @1280","viewport":{"width":1280,"height":1024},"timestamp":"2026-08-16T17:42:03.060Z","sha256":"455e3234d747cb73a46d73a28700d0c14874dad3ca7d5a7579137050e2c837ff","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R04-F4-Qualification","file":"R04-F4-Qualification.png","screen":"F4","state":"Qualification + Proposal ≠ HumanDecision","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:42:03.158Z","sha256":"799bd9ddd504d1b719f40b01bff64a6e7bdcd84a0f4bc0b9bb7403fad597ab8f","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R05-F5-HumanDecision","file":"R05-F5-HumanDecision.png","screen":"F5","state":"HumanDecision GO recorded","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:42:03.262Z","sha256":"44c3589ee4ec0a240c7298b5f520850db2e41a20ca79eba20517bcca7384361a","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R06-F6-Prepare-STALE-Blocked","file":"R06-F6-Prepare-STALE-Blocked.png","screen":"F6","state":"QA-PRE-M6-01 Proposal STALE blocks fixture prepare after GO","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:42:03.356Z","sha256":"cf8ba287ddfd2497828c071a15ab1eb603b308192d0ad90261da1b2f07c46ac3","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R09-F9-History-After-GO","file":"R09-F9-History-After-GO.png","screen":"F9","state":"History after GO (pre-Attempt)","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:42:03.390Z","sha256":"bebf709f94a4b0e5516278f04beff519d9fb9b7f7c6655ab70e95f88aa63cff5","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R11A-F11-LPS-Closed-1024","file":"R11A-F11-LPS-Closed-1024.png","screen":"F11A","state":"LPS drawer closed @1024","viewport":{"width":1024,"height":900},"timestamp":"2026-08-16T17:42:03.691Z","sha256":"afe8e17f7326c00832d11cf6d15731b7744d15a50969ee19a33cb6109db0c8c0","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R11B-F11-LPS-Open-1024","file":"R11B-F11-LPS-Open-1024.png","screen":"F11B","state":"LPS drawer open @1024","viewport":{"width":1024,"height":900},"timestamp":"2026-08-16T17:42:03.783Z","sha256":"3dd309e50f4fad725b3474dcb40ed3742bae35c643560d9094e2186f1db370cc","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R12-Sub768-Conversation","file":"R12-Sub768-Conversation.png","screen":"F11/<768","state":"Conversation @767","viewport":{"width":767,"height":900},"timestamp":"2026-08-16T17:42:04.128Z","sha256":"304131a030ac6309d5abc78a23e11eb8e8312682a8da2821c0bd3b1571400470","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-{"id":"R10-F10-Recovery","file":"R10-F10-Recovery.png","screen":"F10","state":"Recovery after reload post-qualification","viewport":{"width":1440,"height":1024},"timestamp":"2026-08-16T17:42:06.375Z","sha256":"f8a26114fc5eac66fe8b1d6fed513f755469511c0fc6aadacc3474cf9c1f5f15","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT"}
-```
-
-Count: 11 screenshots
-
-Missing vs ideal: F7 variants; F8 post-execute (blocked by QA-PRE-M6-01).
+- Unit: qa-pre-m6-01.postGoDurableM3Path.test.ts — T1–T10 PASS (5 tests)
+- Engineering: typecheck PASS, lint PASS, vitest 1763 pass, build PASS, git diff --check clean on AMEND
+- Playwright targeted: `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1 npm run test:e2e -- e2e/studio-option-a.spec.ts` → **8/8 PASS**
+- **FULL CYCLE 9 NOT RERUN**
 
 ---
 
-## 18. Visual Reference Availability
-
-- Path: .tmp-sfia-review/figma/manual-evidence/
-- Count: 19 PNGs
-- Handoff inventory 69106c82: 19 rows
-- SHA-256 verification: 19/19 MATCH
-
-Local hashes:
-```
-0b5302d44af6a7a459a607b3adbd827406f5ca1f1b343a27621407fd837dfd1e  F7-Execution-EnCours.png
-0c0a5774afe9e03ff882fc58338c44420a8c836d24d4f92c75402a5638f389d3  F11A-Responsive-LPS-Ferme.png
-170869fa4784e9f87f2b7922bd9de0b4cc8af524e01fed87a0310dca3dfc83f4  F3-Projet-1280.png
-5c08dc4417cea6b3d9d7ec6208881da65e070717dc2890989e1614e6f2422274  D1-Feuille-Conception_part1.png
-60bb98adb1177bab5d595cc97c00b40612f2e7b89e7c5c4e21480f5e228b72d1  F9-Historique.png
-76c1e5c8a31e138ea7edd31c0360d43d7365f7815223b1866fc43faabf81cef3  F10-Reprise.png
-7ce087fcc26964ddbf9166089906704b0ae1a7a7fee7251883e0d6538a9c6f58  F8-Revue-Recommandation.png
-81ba003c4ea68410d687cf56e84132f41edea1ce13961a02ca44981bae751781  F8-Recommandation-Perimee.png
-9a705353b09d4a225cf0f32aaf285ec1533a9feef2eafd7c040b96ec80521cdd  F7-Timeout.png
-a0f79808e897d06851f20cb1d48abf2bd0bffac740899ceb48aaa31df2187e5d  F2-Projet-1440.png
-b167e91fa73d6cc279aa1a665d237adb810c4cb787c4e302c7bf60e49588b21a  F6-Contrat-Confirmation.png
-b375eb3e82e170fcdf1492df30e80c8d797332e9d1afee914c6ac3238f9be897  F7-Annule.png
-bb264b5ad16df4f6f2639039edcb97033a5bcd3146c24b0395a2b2f0258b9695  F1-Projets.png
-bccf975dad0b8df6e565c5ee3a4e18a9bfb81c3248a60d5228993ff028bf1ad7  D1-Feuille-Conception_part2.png
-be5ab7a201b8e9a7aa58ad9be3fc47e5964cba6d4a2cb5ab2b268a5fdb0b187a  F5-Decision.png
-c40a3409484ba749744b6199054c6e61070d23c52b3c2342c9e6277805c8798a  F4-Qualification.png
-cf546a24204fa0e842aa8e6bc9c7616a312bf48d3bb5c35ec3854abb452b8848  F7-Echec.png
-e24b9a091708f6b21fb20534864913895119a7a979eb1a43c6e41fa496d963f5  F11B-Responsive-LPS-Ouvert.png
-fb362e7674d35e11bb81f80a2f5ea2d52d60db3b8e0139e822008b3a71ae9f62  F7-Bloque-Avant-Execution.png
-```
-
-Inventory excerpt:
-```
-72:| E01 | `D1-Feuille-Conception_part1.png` | 3840×2486 | `5c08dc4417cea6b3d9d7ec6208881da65e070717dc2890989e1614e6f2422274` | 691776 o | Feuille part1 | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | États & composants A–I |
-73:| E02 | `D1-Feuille-Conception_part2.png` | 3840×2486 | `bccf975dad0b8df6e565c5ee3a4e18a9bfb81c3248a60d5228993ff028bf1ad7` | 635740 o | Feuille part2 | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | Objets gouvernés + règle <768 |
-74:| E03 | `F1-Projets.png` | 3840×2486 | `bb264b5ad16df4f6f2639039edcb97033a5bcd3146c24b0395a2b2f0258b9695` | 517238 o | F1 | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | Projects / Entry — confirmation contenu |
-75:| E04 | `F10-Reprise.png` | 3840×2486 | `76c1e5c8a31e138ea7edd31c0360d43d7365f7815223b1866fc43faabf81cef3` | 529851 o | F10 | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | Recovery — contrôle ciblé |
-76:| E05 | `F11A-Responsive-LPS-Ferme.png` | 3840×2486 | `0c0a5774afe9e03ff882fc58338c44420a8c836d24d4f92c75402a5638f389d3` | 619291 o | F11A | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | Responsive LPS fermé |
-77:| E06 | `F11B-Responsive-LPS-Ouvert.png` | 3840×2486 | `e24b9a091708f6b21fb20534864913895119a7a979eb1a43c6e41fa496d963f5` | 1025072 o | F11B | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | Responsive LPS ouvert |
-78:| E07 | `F2-Projet-1440.png` | 3840×2486 | `a0f79808e897d06851f20cb1d48abf2bd0bffac740899ceb48aaa31df2187e5d` | 677268 o | F2 | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | Core shell 1440 — non rejugé sauf contradiction |
-79:| E08 | `F3-Projet-1280.png` | 3840×2486 | `170869fa4784e9f87f2b7922bd9de0b4cc8af524e01fed87a0310dca3dfc83f4` | 676833 o | F3 | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | Core shell 1280 |
-80:| E09 | `F4-Qualification.png` | 3840×2486 | `c40a3409484ba749744b6199054c6e61070d23c52b3c2342c9e6277805c8798a` | 768025 o | F4 | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | Qualification / Proposal |
-81:| E10 | `F5-Decision.png` | 3840×2486 | `be5ab7a201b8e9a7aa58ad9be3fc47e5964cba6d4a2cb5ab2b268a5fdb0b187a` | 762445 o | F5 | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | HumanDecision |
-82:| E11 | `F6-Contrat-Confirmation.png` | 3840×2486 | `b167e91fa73d6cc279aa1a665d237adb810c4cb787c4e302c7bf60e49588b21a` | 761384 o | F6 | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | ExecutionContract + Confirmation |
-83:| E12 | `F7-Annule.png` | 3840×2486 | `b375eb3e82e170fcdf1492df30e80c8d797332e9d1afee914c6ac3238f9be897` | 604248 o | F7 Annulé | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | contrôle critique |
-84:| E13 | `F7-Bloque-Avant-Execution.png` | 3840×2486 | `fb362e7674d35e11bb81f80a2f5ea2d52d60db3b8e0139e822008b3a71ae9f62` | 586181 o | F7 Bloqué pré-Attempt | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | contrôle critique |
-85:| E14 | `F7-Echec.png` | 3840×2486 | `cf546a24204fa0e842aa8e6bc9c7616a312bf48d3bb5c35ec3854abb452b8848` | 614673 o | F7 Échec | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | contrôle critique |
-86:| E15 | `F7-Execution-EnCours.png` | 3840×2486 | `0b5302d44af6a7a459a607b3adbd827406f5ca1f1b343a27621407fd837dfd1e` | 607588 o | F7 En cours | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | Attempt running |
-87:| E16 | `F7-Timeout.png` | 3840×2486 | `9a705353b09d4a225cf0f32aaf285ec1533a9feef2eafd7c040b96ec80521cdd` | 613493 o | F7 Timeout | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | contrôle critique |
-88:| E17 | `F8-Recommandation-Perimee.png` | 3840×2486 | `81ba003c4ea68410d687cf56e84132f41edea1ce13961a02ca44981bae751781` | 754059 o | F8 stale | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | Recommendation périmée |
-89:| E18 | `F8-Revue-Recommandation.png` | 3840×2486 | `7ce087fcc26964ddbf9166089906704b0ae1a7a7fee7251883e0d6538a9c6f58` | 740535 o | F8 courante | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | Recommendation courante |
-90:| E19 | `F9-Historique.png` | 3840×2486 | `60bb98adb1177bab5d595cc97c00b40612f2e7b89e7c5c4e21480f5e228b72d1` | 596420 o | F9 | MORRIS-PROVIDED MANUAL VISUAL EVIDENCE | History — contrôle ciblé |
-```
-
-MCP Figma not required. Figma mutations: 0.
-
----
-
-## 19. Figma vs Runtime Matrix (summary)
-
-| Frame | Status | Notes |
-| --- | --- | --- |
-| F1 | PARTIELLEMENT CONFORME | Entry exists; runtime honesty banner denser than Freeze |
-| F2/F3 | PARTIELLEMENT CONFORME | Conversation-dominant + LPS widths OK |
-| F4 | PARTIELLEMENT CONFORME | Qualification/Proposal present |
-| F5 | PARTIELLEMENT CONFORME | HumanDecision GO explicit |
-| F6 | NON CONFORME (functional) | Prepare blocked STALE |
-| F7 | NON VERIFIABLE | No Attempt runtime |
-| F8 | NON VERIFIABLE | No post-execute Recommendation |
-| F9 | PARTIELLEMENT CONFORME | Durable history; not transcript |
-| F10 | PARTIELLEMENT CONFORME | Contextual recovery; no fake conversation |
-| F11A/B / <768 | PARTIELLEMENT CONFORME | Drawer + 767 OK; M-04 ACCEPTED != CLOSED |
-
-Visual verdict: FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED
-
-Not: FIGMA TO RUNTIME ALIGNED — READY
-
----
-
-## 20. Frame Verdicts
-
-F1 PASS; F2/F3 PASS; F4 PASS; F5 PASS; F6 FAIL; F7 FAIL/not reached; F8 FAIL/not reached; F9 PASS; F10 PASS; F11 PASS.
-
----
-
-## 21. G-UX / Reserves Status
+## G-UX statuses
 
 | Item | Status |
-| --- | --- |
-| G-UX-08 | OPEN / DEFERRED (AMEND message PASS) |
-| G-UX-09 | KEEP RESERVE |
-| Confirmation | KEEP RESERVE |
-| M5-C | unchanged |
-| G-UX-10 | prior unit fix; browser stale path UNAVAILABLE |
-| G-UX-11 | FAIL / OPEN |
-| New | QA-PRE-M6-01 BLOCKING |
+|------|--------|
+| G-UX-08 | OPEN / DEFERRED |
+| G-UX-09 + Confirmation | KEEP RESERVE (process-local) |
+| G-UX-10 | preserved prior fix |
+| G-UX-11 | FAIL / OPEN until Cycle 9 re-run |
+| Visual / Figma | not re-decided |
 
 ---
 
-## 22. Debt / Exit
-
-| Debt | Exit |
-| --- | --- |
-| QA-PRE-M6-01 | Cycle 8 AMEND — reconcile Proposal freshness with Decision/LPS write OR durable M3 prepare→confirm path |
-| F7/F8 browser variants | After F6 restored; still may need Morris gate if no UI seams |
-| Historical harness tsx missing | Env regularization outside Option A Delivery |
-
----
-
-## 23. Campaign Limitations / Reproducibility
-
-Fake provider only; REAL=0; unique project names; shared Product SQLite.
-
-```
-cd projects/sfia-studio/app
-SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1 npm run test:e2e -- e2e/studio-option-a.spec.ts
-# captures -> ../../../.tmp-sfia-review/runtime-captures/
-```
-
----
-
-## 24. Anti-claims
-
-Playwright Option A PASS != G-UX-11 satisfied
-Vitest PASS != Pre-M6 accepted
-F1-F5 PASS != F6-F8 PASS
-STALE fail-closed != Delivery complete
-Recovery PASS != Conversation durable
-runtime v3 NON ADOPTED; REAL = 0; UAT not consumed
-
----
-
-## 25. Safety Counters
+## Safety Counters
 
 | Counter | Value |
-| --- | --- |
-| Candidate project files at entry | 53 |
-| QA test files modified | 2 |
-| QA test files created | 0 |
-| Production files mutated during QA | 0 |
-| New persistence/migration/engine/harness | 0 |
-| Playwright config / package changes | 0 |
-| Figma mutations | 0 |
+|---------|-------|
+| Candidate files at entry | ~53 (34+19) |
+| AMEND production files changed | 6 tracked (+ fakeProvider) |
+| AMEND production files created | 3 (f3 helpers) |
+| Tests changed | 1 (e2e) |
+| Tests created | 1 (unit) |
+| Proposal context mutation/rebase | 0 |
+| Proposal stale weakening | 0 |
+| New persistence | 0 |
+| Migration | 0 |
+| New execution engine | 0 |
+| New Attempt engine | 0 |
+| Confirmation persistence | 0 |
+| Figma mutation | 0 |
 | REAL | 0 |
+| Full Cycle 9 rerun | 0 |
 | Project staging/commits/pushes/PR/merge | 0 |
-| Runtime screenshots | 11 |
-| Negative paths tested | 4 |
-| Negative paths unavailable/blocked | 8+ |
 | Review Handoff | 1 bounded L3 |
 
 ---
 
-## 26. QA E2E Spec (full)
+## Verdict
+
+PRE-M6 UI DELIVERY OPTION A — CYCLE 8 AMEND QA-PRE-M6-01 COMPLETE —
+POST-GO CANONICAL PRODUCT PATH NOW USES DURABLE HUMANDECISION + DECISIONBASIS —
+projectAssistantPrepareM3Action REUSED (via prepareAndResolve composition) —
+EXISTING G-UX-15 resolveM3ExecutionContract BRIDGE REUSED —
+EXISTING FIXTURE-SAFE RESOLUTION PROFILE HARVESTED FOR ZERO REAL ONLY —
+PROPOSAL STALE FAIL-CLOSED PRESERVED —
+NO PROPOSAL CONTEXT REBASE —
+RESOLVED SUCCESSOR REQUIRES EXPLICIT CONFIRMATION —
+EXISTING SELECT / START / EVIDENCE PIPELINE REUSED —
+DUPLICATE ATTEMPT PROTECTION PRESERVED —
+NO NEW PERSISTENCE — NO MIGRATION — NO PARALLEL ENGINE —
+G-UX-08 OPEN / DEFERRED —
+G-UX-09 + CONFIRMATION KEEP RESERVE —
+G-UX-11 STILL FAIL / OPEN UNTIL CYCLE 9 RE-RUN —
+FIGMA/RUNTIME VERDICT NOT RE-DECIDED —
+NO PROJECT COMMIT — NO PROJECT PUSH — NO PR — NO M6 —
+RUNTIME V3 NON ADOPTED — ZERO REAL —
+FULL CYCLE 9 NOT RERUN —
+READY FOR CHATGPT RE-REVIEW
+
+---
+
+## CODE — NEW FILES (complete)
+
+### `projects/sfia-studio/app/features/project-assistant/f3/fixtureSafeM3ResolutionProfile.ts`
+
+```typescript
+/**
+ * HARVEST — exact fixture-safe G-UX-15 resolution profile (ZERO REAL only).
+ *
+ * Provenance: `__tests__/project-assistant/gux15.resolveM3ExecutionContract.test.ts`
+ * `fixtureResolution()` + `F3_ACTION` / `F3_TARGET` / `F3_CAPABILITY` / `F3_SCOPE`.
+ *
+ * NOT a new business provenance model.
+ * NOT authorized for Cursor REAL.
+ * NOT a generic production action-selection mapping.
+ */
+
+import type { M3ResolvedExecutionFields } from "./resolveM3ExecutionContract";
+import {
+  F3_ACTION,
+  F3_CAPABILITY,
+  F3_SCOPE,
+  F3_TARGET,
+} from "./constants";
+
+/**
+ * Exact values harvested from the accepted G-UX-15 fixtureResolution().
+ * Constraints intentionally omit "PROCESS LOCAL" (same as gux15 test).
+ * stopConditions use CONTEXT_STALE / DECISION_NOT_CURRENT (not raw F3_STOP_CONDITIONS).
+ */
+export function fixtureSafeM3ResolutionProfile(): M3ResolvedExecutionFields {
+  return {
+    action: F3_ACTION,
+    target: F3_TARGET,
+    requiredCapabilities: [F3_CAPABILITY],
+    reversibility: "reversible",
+    scope: F3_SCOPE,
+    constraints: [
+      "FIXTURE ONLY",
+      "TEST ADAPTER ONLY",
+      "NO REAL",
+      "NO SHELL",
+      "NO NETWORK EXECUTION",
+      "NO GIT WRITE",
+      "NO GITHUB WRITE",
+      "NO AUTO RETRY",
+    ],
+    stopConditions: [
+      "AUTHORITY_DENIED",
+      "CONTEXT_STALE",
+      "DECISION_NOT_CURRENT",
+    ],
+  };
+}
+
+export const FIXTURE_SAFE_M3_SUPERSESSION_REASON =
+  "PRE-M6 Option A — resolve durable M3 PREPARE via existing G-UX-15 supersession (fixture-safe ZERO REAL)" as const;
+
+```
+
+### `projects/sfia-studio/app/features/project-assistant/f3/prepareAndResolveM3ProductPath.ts`
+
+```typescript
+/**
+ * Canonical post-GO product path (PRE-M6 Option A / QA-PRE-M6-01):
+ * accepted HumanDecision + DecisionBasis
+ * → prepareM3FromDecision
+ * → resolveM3ExecutionContract (fixture-safe G-UX-15 profile, ZERO REAL)
+ * → present resolved successor for explicit Confirmation.
+ *
+ * Does NOT confirm. Does NOT start. Does NOT validate Proposal.
+ */
+
+import type { F2ContextSnapshot } from "../f2/types";
+import {
+  prepareM3FromDecision,
+  type F3M3PreparePayload,
+  type PrepareM3Deps,
+} from "./prepareM3FromDecision";
+import {
+  resolveM3ExecutionContract,
+  type ResolveM3Deps,
+  type ResolveM3Success,
+} from "./resolveM3ExecutionContract";
+import {
+  FIXTURE_SAFE_M3_SUPERSESSION_REASON,
+  fixtureSafeM3ResolutionProfile,
+} from "./fixtureSafeM3ResolutionProfile";
+
+export type PrepareAndResolveM3Deps = PrepareM3Deps & ResolveM3Deps;
+
+export type F3M3ResolvedPayload = {
+  turnKind: "f3_m3_resolved";
+  mode: "M3_RESOLVED_FIXTURE";
+  decisionId: string;
+  projectId: string;
+  prepare: F3M3PreparePayload;
+  original: ResolveM3Success["original"];
+  successor: ResolveM3Success["successor"];
+  reusedFromIdempotency: boolean;
+  executionPerformed: false;
+  attemptCreated: false;
+  confirmationRequired: true;
+  realExecution: false;
+  disclosures: string[];
+};
+
+export async function prepareAndResolveM3ProductPath(input: {
+  projectId: string;
+  decisionId: string;
+  currentContext: F2ContextSnapshot;
+  /** Hostile — ignored. */
+  mode?: unknown;
+  adapterRef?: unknown;
+  agentId?: unknown;
+  command?: unknown;
+  real?: unknown;
+  deps: PrepareAndResolveM3Deps;
+}): Promise<
+  | { ok: true; payload: F3M3ResolvedPayload }
+  | { ok: false; code: string; message: string }
+> {
+  void input.mode;
+  void input.adapterRef;
+  void input.agentId;
+  void input.command;
+  void input.real;
+
+  const prepared = await prepareM3FromDecision({
+    projectId: input.projectId,
+    decisionId: input.decisionId,
+    currentContext: input.currentContext,
+    deps: input.deps,
+  });
+  if (!prepared.ok) {
+    return prepared;
+  }
+
+  const resolved = await resolveM3ExecutionContract({
+    projectId: input.projectId,
+    decisionId: input.decisionId,
+    originalExecutionContractId: prepared.payload.contract.executionContractId,
+    expectedOriginalVersion: prepared.payload.contract.version,
+    resolution: fixtureSafeM3ResolutionProfile(),
+    supersessionReason: FIXTURE_SAFE_M3_SUPERSESSION_REASON,
+    deps: input.deps,
+  });
+  if (!resolved.ok) {
+    return resolved;
+  }
+
+  return {
+    ok: true,
+    payload: {
+      turnKind: "f3_m3_resolved",
+      mode: "M3_RESOLVED_FIXTURE",
+      decisionId: input.decisionId,
+      projectId: input.projectId,
+      prepare: prepared.payload,
+      original: resolved.original,
+      successor: resolved.successor,
+      reusedFromIdempotency: resolved.reusedFromIdempotency,
+      executionPerformed: false,
+      attemptCreated: false,
+      confirmationRequired: true,
+      realExecution: false,
+      disclosures: [
+        "M3 durable PREPARE from HumanDecision + DecisionBasis",
+        "G-UX-15 resolveM3ExecutionContract — fixture-safe ZERO REAL profile",
+        "NO Proposal authority",
+        "Confirmation required before StartExecution",
+        "NO CURSOR REAL",
+        ...resolved.disclosures,
+      ],
+    },
+  };
+}
+
+```
+
+### `projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteResolvedM3.ts`
+
+```typescript
+/**
+ * Confirm + fixture-safe execute for a *resolved* durable M3 successor contract.
+ *
+ * Authority preconditions (distinct from legacy prepareF3Fixture):
+ * - accepted HumanDecision + DecisionBasis (already enforced upstream)
+ * - canonical M3 PREPARE superseded by this successor (enforced by resolve bridge)
+ * - NO Proposal validation / NO validateF2ForPrepare
+ *
+ * Shares the same domain services as confirmAndExecuteF3Fixture
+ * (Confirmation → ConfirmExecutionContract → Select → Start → Record → Evidence).
+ * Does NOT fork a second Attempt engine.
+ */
+
+import type {
+  DecisionServices,
+  MemoryAuthorityResolver,
+} from "@/lib/oa/decision";
+import {
+  LOCAL_MORRIS_M3_ACTOR,
+  registerM3LocalMorrisAuthority,
+} from "@/lib/oa/decision";
+import type { ExecutionContractServices } from "@/lib/oa/execution-contract";
+import type {
+  ExecutionAttemptServices,
+  TestExecutionAdapter,
+} from "@/lib/oa/execution-attempt";
+import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
+import type { ProjectServices } from "@/lib/oa/project";
+import {
+  F3_ADAPTER_ID,
+  F3_AGENT_ID,
+  F3_CONFIRM_ACTION_REF,
+  F3_LABELS,
+  F3_MODE,
+  F3_SCOPE,
+  resolveF3EphemeralNotice,
+} from "./constants";
+import { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
+import type { F3ExecutePayload } from "./types";
+
+export type ConfirmExecuteResolvedM3Deps = {
+  decisionServices: DecisionServices;
+  authorityResolver: MemoryAuthorityResolver;
+  executionContractServices: ExecutionContractServices;
+  executionAttemptServices: ExecutionAttemptServices;
+  evidenceReviewServices: EvidenceReviewServices;
+  fixtureAdapter: TestExecutionAdapter;
+  nowIso: () => string;
+  projectServices?: ProjectServices;
+  productDurablePath?: boolean;
+  /** Test inject — bypasses M3 local Morris env gate. */
+  forceM3Authority?: boolean;
+};
+
+async function buildM3ExecutePayload(input: {
+  decisionId: string;
+  contract: {
+    executionContractId: string;
+    version: number;
+    status: string;
+    action: string;
+    target: string;
+    scope: string;
+    requiredAuthority: string;
+    constraints: readonly string[];
+  };
+  attempt: {
+    attemptId: string;
+    status: string;
+    selectedAgentRef: string;
+    resultRef?: string;
+    selectionStrategy?: string;
+  };
+  launchCount: number;
+  reusedExistingAttempt: boolean;
+  projectId: string;
+  deps: ConfirmExecuteResolvedM3Deps;
+}): Promise<
+  | { ok: true; payload: F3ExecutePayload }
+  | { ok: false; code: string; message: string }
+> {
+  const ingested = await ingestEvidenceAndRecommend({
+    projectId: input.projectId,
+    attemptId: input.attempt.attemptId,
+    executionContractId: input.contract.executionContractId,
+    deps: {
+      evidenceReviewServices: input.deps.evidenceReviewServices,
+      projectServices: input.deps.projectServices,
+    },
+  });
+  if (!ingested.ok) {
+    return ingested;
+  }
+
+  const productDurable =
+    input.deps.productDurablePath ??
+    input.deps.projectServices !== undefined;
+  const persistenceNotice = resolveF3EphemeralNotice(productDurable);
+
+  return {
+    ok: true,
+    payload: {
+      turnKind: "f3_execute",
+      mode: F3_MODE,
+      // Canonical M3 path: Proposal is cognitive only — not execution authority.
+      proposal: null,
+      decisionId: input.decisionId,
+      contract: {
+        executionContractId: input.contract.executionContractId,
+        version: input.contract.version,
+        status: input.contract.status,
+        action: input.contract.action,
+        target: input.contract.target,
+        scope: input.contract.scope,
+        requiredAuthority: input.contract.requiredAuthority,
+        mode: F3_MODE,
+        constraints: [...input.contract.constraints],
+      },
+      attempt: {
+        attemptId: input.attempt.attemptId,
+        status: input.attempt.status,
+        selectedAgentRef: input.attempt.selectedAgentRef,
+        adapterId: F3_ADAPTER_ID,
+        externalEffects: false,
+        resultRef: input.attempt.resultRef ?? null,
+        launchCount: input.launchCount,
+        selectionStrategy:
+          input.attempt.selectionStrategy ?? "capabilities_deterministic",
+        mode: F3_MODE,
+      },
+      evidence: ingested.evidence,
+      reviewBundle: ingested.reviewBundle,
+      recommendation: ingested.recommendation,
+      reusedExistingAttempt: input.reusedExistingAttempt,
+      executionPerformed: true,
+      realExecution: false,
+      gitWritePerformed: false,
+      labels: {
+        fixtureNoReal: F3_LABELS.fixtureNoReal,
+        noGitWrite: F3_LABELS.noGitWrite,
+        recommendationNotDecision: F3_LABELS.recommendationNotDecision,
+        cursorRealBlocked: F3_LABELS.cursorRealBlocked,
+        hardOpen: F3_LABELS.hardOpen,
+      },
+      processLocalNotice: persistenceNotice,
+      disclosures: [
+        F3_LABELS.fixtureNoReal,
+        F3_LABELS.noGitWrite,
+        F3_LABELS.recommendationNotDecision,
+        F3_LABELS.cursorRealBlocked,
+        F3_LABELS.hardOpen,
+        F3_LABELS.noReadyClaim,
+        F3_LABELS.noTa6Complete,
+        "M3 resolved successor — Confirmation was process-local (non durable)",
+        "NO Proposal authority",
+        persistenceNotice,
+      ],
+    },
+  };
+}
+
+export async function confirmAndExecuteResolvedM3(input: {
+  projectId: string;
+  decisionId: string;
+  executionContractId: string;
+  expectedContractVersion: number;
+  /** Hostile — ignored. */
+  mode?: unknown;
+  adapterRef?: unknown;
+  agentId?: unknown;
+  command?: unknown;
+  real?: unknown;
+  deps: ConfirmExecuteResolvedM3Deps;
+}): Promise<
+  | { ok: true; payload: F3ExecutePayload }
+  | { ok: false; code: string; message: string }
+> {
+  void input.mode;
+  void input.adapterRef;
+  void input.agentId;
+  void input.command;
+  void input.real;
+
+  if (input.deps.fixtureAdapter.adapterId !== F3_ADAPTER_ID) {
+    return {
+      ok: false,
+      code: "ADAPTER_IDENTITY_MISMATCH",
+      message: "Adapter F3 identity mismatch — REAL/NoOp interdit.",
+    };
+  }
+  if (input.deps.fixtureAdapter.externalEffects !== false) {
+    return {
+      ok: false,
+      code: "EXTERNAL_EFFECTS_FORBIDDEN",
+      message: "externalEffects doit rester false (FIXTURE only).",
+    };
+  }
+
+  const decisionLoaded =
+    await input.deps.decisionServices.getHumanDecision.execute({
+      decisionId: input.decisionId,
+    });
+  if (!decisionLoaded.ok) {
+    return {
+      ok: false,
+      code: decisionLoaded.error.detailCode,
+      message: decisionLoaded.error.message,
+    };
+  }
+  const decision = decisionLoaded.decision;
+  if (decision.projectId !== input.projectId) {
+    return {
+      ok: false,
+      code: "PROJECT_MISMATCH",
+      message: "Decision does not belong to this project.",
+    };
+  }
+  if (decision.status !== "accepted") {
+    return {
+      ok: false,
+      code: "DECISION_NOT_CURRENT",
+      message: `Decision status ${decision.status} is not accepted for execute.`,
+    };
+  }
+  if (!decision.decisionBasis) {
+    return {
+      ok: false,
+      code: "DECISION_BASIS_REQUIRED",
+      message: "HumanDecision lacks DecisionBasis — cannot execute M3 path.",
+    };
+  }
+
+  const contractResult =
+    await input.deps.executionContractServices.getExecutionContract.execute({
+      executionContractId: input.executionContractId,
+    });
+  if (!contractResult.ok) {
+    return {
+      ok: false,
+      code: contractResult.error.detailCode,
+      message: contractResult.error.message,
+    };
+  }
+
+  let contract = contractResult.contract;
+  if (contract.projectId !== input.projectId) {
+    return {
+      ok: false,
+      code: "CONTRACT_PROJECT_MISMATCH",
+      message: "Le contrat n'appartient pas à ce projet.",
+    };
+  }
+  if (contract.requiredAuthority !== "MORRIS") {
+    return {
+      ok: false,
+      code: "CONTRACT_AUTHORITY_MISMATCH",
+      message: "Resolved M3 successor must require MORRIS authority.",
+    };
+  }
+  if (
+    !Array.isArray(contract.decisionRefs) ||
+    contract.decisionRefs.length !== 1 ||
+    contract.decisionRefs[0] !== input.decisionId
+  ) {
+    return {
+      ok: false,
+      code: "CONTRACT_DECISION_REF_MISMATCH",
+      message: "Successor decisionRefs must bind exactly the HumanDecision.",
+    };
+  }
+  if (!contract.supersedesExecutionContractId) {
+    return {
+      ok: false,
+      code: "CONTRACT_NOT_RESOLVED_SUCCESSOR",
+      message:
+        "Unresolved M3 PREPARE cannot execute — resolve successor first.",
+    };
+  }
+  if (contract.scope !== F3_SCOPE) {
+    return {
+      ok: false,
+      code: "CONTRACT_SCOPE_MISMATCH",
+      message: "Scope contrat ≠ fixture-safe M3 resolution scope.",
+    };
+  }
+  if (
+    contract.action.includes("UNRESOLVED") ||
+    contract.target.includes("UNRESOLVED") ||
+    contract.requiredCapabilities.includes("cap:unresolved") ||
+    contract.constraints.includes("PREPARE_ONLY") ||
+    contract.constraints.includes("NO_ATTEMPT")
+  ) {
+    return {
+      ok: false,
+      code: "CONTRACT_STILL_UNRESOLVED",
+      message: "Successor still carries unresolved / PREPARE_ONLY sentinels.",
+    };
+  }
+
+  // Double-invoke protection BEFORE version OCC.
+  const listed =
+    await input.deps.executionAttemptServices.listExecutionAttempts.execute({
+      executionContractId: contract.executionContractId,
+    });
+  if (listed.ok) {
+    const succeeded = listed.attempts.find((a) => a.status === "succeeded");
+    if (succeeded) {
+      return buildM3ExecutePayload({
+        decisionId: input.decisionId,
+        contract,
+        attempt: succeeded,
+        launchCount: input.deps.fixtureAdapter.launchCallCount,
+        reusedExistingAttempt: true,
+        projectId: input.projectId,
+        deps: input.deps,
+      });
+    }
+  }
+
+  if (contract.version !== input.expectedContractVersion) {
+    return {
+      ok: false,
+      code: "CONTRACT_VERSION_MISMATCH",
+      message: `Version contrat attendue ${input.expectedContractVersion}, actuelle ${contract.version}.`,
+    };
+  }
+
+  const auth = registerM3LocalMorrisAuthority({
+    authorityResolver: input.deps.authorityResolver,
+    scope: contract.scope,
+    issuedAt: input.deps.nowIso(),
+    evidenceId: `evd:m3-cfm:${contract.executionContractId}`,
+    forceEnable: input.deps.forceM3Authority === true,
+  });
+  if (!auth.ok) {
+    return {
+      ok: false,
+      code: auth.code,
+      message: auth.message,
+    };
+  }
+
+  if (
+    contract.status === "confirmation_required" ||
+    contract.status === "validated"
+  ) {
+    const confirmationId = `cfm:m3:${contract.executionContractId}:v${contract.version}`;
+    const requested =
+      await input.deps.decisionServices.requestConfirmation.execute({
+        confirmationId,
+        level: "N3",
+        actionRef: F3_CONFIRM_ACTION_REF,
+        requestedBy: LOCAL_MORRIS_M3_ACTOR,
+        requestedTo: LOCAL_MORRIS_M3_ACTOR,
+        scope: contract.scope,
+        idempotencyKey: `idem:m3-cfm:${contract.executionContractId}:v${contract.version}`,
+        decisionRef: input.decisionId,
+      });
+    if (!requested.ok) {
+      return {
+        ok: false,
+        code: requested.error.detailCode,
+        message: requested.error.message,
+      };
+    }
+
+    const granted = await input.deps.decisionServices.grantConfirmation.execute({
+      confirmationId,
+      actor: LOCAL_MORRIS_M3_ACTOR,
+      authorityEvidenceId: auth.evidenceId,
+    });
+    if (!granted.ok) {
+      return {
+        ok: false,
+        code: granted.error.detailCode,
+        message: granted.error.message,
+      };
+    }
+
+    const confirmed =
+      await input.deps.executionContractServices.confirmExecutionContract.execute(
+        {
+          executionContractId: contract.executionContractId,
+          confirmationId,
+          actor: LOCAL_MORRIS_M3_ACTOR,
+          authorityEvidenceId: auth.evidenceId,
+          expectedVersion: contract.version,
+        },
+      );
+    if (!confirmed.ok) {
+      return {
+        ok: false,
+        code: confirmed.error.detailCode,
+        message: confirmed.error.message,
+      };
+    }
+    contract = confirmed.contract;
+  } else if (
+    contract.status !== "confirmed" &&
+    contract.status !== "executing" &&
+    contract.status !== "completed"
+  ) {
+    return {
+      ok: false,
+      code: "CONTRACT_NOT_CONFIRMABLE",
+      message: `Contrat non confirmable (statut ${contract.status}).`,
+    };
+  }
+
+  const attemptId = `xat:m3:${contract.executionContractId.replace(/^xct:/, "")}`;
+
+  const selected =
+    await input.deps.executionAttemptServices.selectExecutionAgent.execute({
+      attemptId,
+      executionContractId: contract.executionContractId,
+      idempotencyKey: `idem:m3-att:${contract.executionContractId}`,
+      actor: LOCAL_MORRIS_M3_ACTOR,
+      authorityEvidenceId: auth.evidenceId,
+      expectedContractVersion: contract.version,
+      selectionProfile: "standard",
+      selectionStrategy: "capabilities_deterministic",
+      requestedAgentRef: F3_AGENT_ID,
+      systemInitiated: true,
+    });
+  if (!selected.ok) {
+    return {
+      ok: false,
+      code: selected.error.detailCode,
+      message: selected.error.message,
+    };
+  }
+
+  const started =
+    await input.deps.executionAttemptServices.startExecution.execute({
+      attemptId,
+      actor: LOCAL_MORRIS_M3_ACTOR,
+      authorityEvidenceId: auth.evidenceId,
+    });
+  if (!started.ok) {
+    return {
+      ok: false,
+      code: started.error.detailCode,
+      message: started.error.message,
+    };
+  }
+
+  const resultRef = `res:m3-fixture:${attemptId.replace(/[^a-zA-Z0-9:_-]/g, "")}`;
+  const recorded =
+    await input.deps.executionAttemptServices.recordExecutionResult.execute({
+      attemptId,
+      adapterId: F3_ADAPTER_ID,
+      resultRef,
+      technicalExitCode: 0,
+    });
+  if (!recorded.ok) {
+    return {
+      ok: false,
+      code: recorded.error.detailCode,
+      message: recorded.error.message,
+    };
+  }
+
+  const launchCount = input.deps.fixtureAdapter.launchCallCount;
+
+  const refreshed =
+    await input.deps.executionContractServices.getExecutionContract.execute({
+      executionContractId: contract.executionContractId,
+    });
+  if (refreshed.ok) contract = refreshed.contract;
+
+  return buildM3ExecutePayload({
+    decisionId: input.decisionId,
+    contract,
+    attempt: recorded.attempt,
+    launchCount,
+    reusedExistingAttempt: false,
+    projectId: input.projectId,
+    deps: input.deps,
+  });
+}
+
+```
+
+### `projects/sfia-studio/app/__tests__/project-assistant/qa-pre-m6-01.postGoDurableM3Path.test.ts`
+
+```typescript
+/**
+ * QA-PRE-M6-01 — post-GO canonical path uses durable M3 + DecisionBasis.
+ * Legacy Proposal prepare remains STALE fail-closed after LPS advance.
+ * @vitest-environment node
+ */
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import {
+  confirmAndExecuteResolvedM3,
+  prepareAndResolveM3ProductPath,
+  prepareF3Fixture,
+  prepareM3FromDecision,
+  F3_ADAPTER_ID,
+  fixtureSafeM3ResolutionProfile,
+} from "@/features/project-assistant/f3";
+import {
+  F3_ACTION,
+  F3_SCOPE,
+  F3_TARGET,
+} from "@/features/project-assistant/f3/constants";
+import {
+  createProposalId,
+  F2_PROCESS_LOCAL_NOTICE,
+  resetF2ProposalStoreForTests,
+  saveProposal,
+} from "@/features/project-assistant/f2/proposalStore";
+import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
+import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
+import {
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+  type RuntimeApplicationService,
+} from "@/lib/vertical-slice-runtime";
+
+const APP_ROOT = path.resolve(__dirname, "../..");
+const REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+const SCHEMAS_ROOT = path.resolve(
+  APP_ROOT,
+  "../sfia-v3-modeled/v3-native-option-a/schemas",
+);
+
+class FixedIdSource implements LocalProjectIdSource {
+  private project = 0;
+  private lps = 0;
+  private correlation = 0;
+  nextProjectId(): string {
+    this.project += 1;
+    return `prj:qa-pre-m6-01-${this.project}`;
+  }
+  nextLpsVersionId(): string {
+    this.lps += 1;
+    return `lps:qa-pre-m6-01-${this.lps}`;
+  }
+  nextCorrelationId(): string {
+    this.correlation += 1;
+    return `cor:qa-pre-m6-01-${this.correlation}`;
+  }
+}
+
+async function createRuntime(): Promise<RuntimeApplicationService> {
+  resetRuntimeApplicationServiceForTests();
+  return getRuntimeApplicationService({
+    registryRoot: REGISTRY_ROOT,
+    schemasRoot: SCHEMAS_ROOT,
+    nowIso: "2026-08-16T18:00:00.000Z",
+    idSource: new FixedIdSource(),
+    auditMode: "noop",
+  });
+}
+
+async function seedGoWithLpsAdvance(runtime: RuntimeApplicationService) {
+  const created = await runtime.createProject({
+    name: "QA-PRE-M6-01",
+    objective: "Durable post-GO path",
+    context: "ZERO REAL fixture-safe",
+    criticality: "STANDARD",
+    constraints: ["FIXTURE ONLY"],
+    shortReference: "QAPM601",
+    idempotencyKey: `qa-pre-m6-01-${Date.now()}-${Math.random()}`,
+  });
+  expect(created.ok).toBe(true);
+  if (!created.ok) throw new Error("create failed");
+  const projectId = created.project.projectId;
+  const overviewBefore = await runtime.getProject(projectId);
+  expect(overviewBefore.ok).toBe(true);
+  if (!overviewBefore.ok) throw new Error("overview failed");
+
+  const proposalSnapshot = {
+    projectId,
+    lpsId: overviewBefore.livingState.id,
+    lpsVersion: overviewBefore.livingState.version,
+    doctrineDigest: overviewBefore.doctrine.digest,
+  };
+
+  const proposal = saveProposal({
+    proposalId: createProposalId(),
+    status: "DECISION_REQUIRED",
+    rephrasedRequest: "Préparer architecture",
+    objective: "Wire durable M3 after GO",
+    cycleTypeId: "cyc:delivery",
+    recommendedProfile: "Standard",
+    rationale: "QA-PRE-M6-01",
+    scope: "fixture-docs",
+    outOfScope: ["REAL", "git write"],
+    activatedBlocks: ["prepare"],
+    expectedOutcome: "resolved M3 + attempt",
+    sources: [],
+    risks: [],
+    reservations: [],
+    stopConditions: ["AUCUNE EXÉCUTION RÉELLE"],
+    morrisGateRequired: true,
+    nextPossibleStep: "F3 PREPARE",
+    contextSnapshot: proposalSnapshot,
+    processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
+    executionForbidden: true,
+    noExecutingStatus: true,
+    agentBinding: "NOT_AVAILABLE",
+  });
+
+  const go = await recordF2Decision({
+    proposalId: proposal.proposalId,
+    projectId,
+    decisionKind: "GO",
+    currentContext: proposalSnapshot,
+    decisionServices: runtime.oa!.decisionServices,
+    authorityResolver: runtime.oa!.authorityResolver,
+    nowIso: () => runtime.oa!.clock.nowIso(),
+    forceM3Authority: true,
+  });
+  expect(go.ok).toBe(true);
+  if (!go.ok) throw new Error("GO failed");
+
+  const overviewAfter = await runtime.getProject(projectId);
+  expect(overviewAfter.ok).toBe(true);
+  if (!overviewAfter.ok) throw new Error("overview after failed");
+
+  const currentContext = {
+    projectId,
+    lpsId: overviewAfter.livingState.id,
+    lpsVersion: overviewAfter.livingState.version,
+    doctrineDigest: overviewAfter.doctrine.digest,
+  };
+
+  return {
+    projectId,
+    proposal: go.proposal,
+    decision: go.decision,
+    proposalSnapshot,
+    currentContext,
+    lpsBefore: overviewBefore.livingState.version,
+    lpsAfter: overviewAfter.livingState.version,
+    runtime,
+  };
+}
+
+describe("QA-PRE-M6-01 — durable post-GO path vs Proposal STALE", () => {
+  beforeEach(() => {
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    resetF2ProposalStoreForTests();
+    resetRuntimeApplicationServiceForTests();
+  });
+
+  afterEach(() => {
+    resetF2ProposalStoreForTests();
+    resetRuntimeApplicationServiceForTests();
+  });
+
+  it("T1 — GO advances LPS and persists Decision + DecisionBasis", async () => {
+    const runtime = await createRuntime();
+    const seeded = await seedGoWithLpsAdvance(runtime);
+    expect(seeded.lpsAfter).toBeGreaterThan(seeded.lpsBefore);
+    expect(seeded.decision.humanDecisionStatus).toBe("accepted");
+    expect(seeded.decision.readyForNextGatedStep).toBe(true);
+    const durable =
+      await runtime.oa!.decisionServices.getHumanDecision.execute({
+        decisionId: seeded.decision.decisionId,
+      });
+    expect(durable.ok).toBe(true);
+    if (!durable.ok) return;
+    expect(durable.decision.status).toBe("accepted");
+    expect(durable.decision.decisionBasis).toBeTruthy();
+    expect(seeded.proposalSnapshot.lpsVersion).toBe(seeded.lpsBefore);
+    expect(seeded.currentContext.lpsVersion).toBe(seeded.lpsAfter);
+  });
+
+  it("T2 — legacy prepareF3Fixture remains STALE after LPS advance", async () => {
+    const runtime = await createRuntime();
+    const seeded = await seedGoWithLpsAdvance(runtime);
+    const legacy = await prepareF3Fixture({
+      projectId: seeded.projectId,
+      proposalId: seeded.proposal.proposalId,
+      decisionId: seeded.decision.decisionId,
+      currentContext: seeded.currentContext,
+      deps: {
+        decisionServices: runtime.oa!.decisionServices,
+        authorityResolver: runtime.oa!.authorityResolver,
+        executionContractServices: runtime.oa!.executionContractServices,
+        nowIso: () => runtime.oa!.clock.nowIso(),
+        productDurablePath: runtime.oa!.productDurablePath,
+      },
+    });
+    expect(legacy.ok).toBe(false);
+    if (legacy.ok) return;
+    expect(legacy.code).toBe("STALE");
+    expect(runtime.oa!.fixtureAdapter.launchCallCount).toBe(0);
+  });
+
+  it("T3 — prepareM3FromDecision succeeds after GO at LPS N+1", async () => {
+    const runtime = await createRuntime();
+    const seeded = await seedGoWithLpsAdvance(runtime);
+    const prepared = await prepareM3FromDecision({
+      projectId: seeded.projectId,
+      decisionId: seeded.decision.decisionId,
+      currentContext: seeded.currentContext,
+      deps: {
+        decisionServices: runtime.oa!.decisionServices,
+        authorityResolver: runtime.oa!.authorityResolver,
+        executionContractServices: runtime.oa!.executionContractServices,
+        nowIso: () => runtime.oa!.clock.nowIso(),
+        forceM3Authority: true,
+      },
+    });
+    expect(prepared.ok).toBe(true);
+    if (!prepared.ok) return;
+    expect(prepared.payload.executionAllowed).toBe(false);
+    expect(prepared.payload.attemptCreated).toBe(false);
+    expect(prepared.payload.contract.target).toBe("UNRESOLVED_TARGET");
+    expect(prepared.payload.contract.constraints).toContain("PREPARE_ONLY");
+  });
+
+  it("T4/T5/T6/T7/T8/T10 — resolve successor, confirmation required, execute once, replay safe, no Proposal persistence", async () => {
+    const runtime = await createRuntime();
+    const seeded = await seedGoWithLpsAdvance(runtime);
+    const profile = fixtureSafeM3ResolutionProfile();
+    expect(profile.action).toBe(F3_ACTION);
+    expect(profile.target).toBe(F3_TARGET);
+    expect(profile.scope).toBe(F3_SCOPE);
+
+    const resolvedPath = await prepareAndResolveM3ProductPath({
+      projectId: seeded.projectId,
+      decisionId: seeded.decision.decisionId,
+      currentContext: seeded.currentContext,
+      deps: {
+        decisionServices: runtime.oa!.decisionServices,
+        authorityResolver: runtime.oa!.authorityResolver,
+        executionContractServices: runtime.oa!.executionContractServices,
+        nowIso: () => runtime.oa!.clock.nowIso(),
+        forceM3Authority: true,
+      },
+    });
+    expect(resolvedPath.ok).toBe(true);
+    if (!resolvedPath.ok) return;
+
+    expect(resolvedPath.payload.confirmationRequired).toBe(true);
+    expect(resolvedPath.payload.executionPerformed).toBe(false);
+    expect(resolvedPath.payload.attemptCreated).toBe(false);
+    expect(resolvedPath.payload.successor.action).toBe(F3_ACTION);
+    expect(resolvedPath.payload.successor.target).toBe(F3_TARGET);
+    expect(resolvedPath.payload.successor.scope).toBe(F3_SCOPE);
+    expect(resolvedPath.payload.successor.requiredAuthority).toBe("MORRIS");
+    expect(resolvedPath.payload.successor.supersedesExecutionContractId).toBe(
+      resolvedPath.payload.original.executionContractId,
+    );
+    expect(resolvedPath.payload.successor.constraints).not.toContain(
+      "PREPARE_ONLY",
+    );
+    expect(resolvedPath.payload.successor.requiredCapabilities).not.toContain(
+      "cap:unresolved",
+    );
+
+    // T5/T6 — resolve alone: zero Attempts
+    const listedBefore =
+      await runtime.oa!.executionAttemptServices.listExecutionAttempts.execute({
+        executionContractId:
+          resolvedPath.payload.successor.executionContractId,
+      });
+    expect(listedBefore.ok).toBe(true);
+    if (listedBefore.ok) expect(listedBefore.attempts).toHaveLength(0);
+    expect(runtime.oa!.fixtureAdapter.launchCallCount).toBe(0);
+
+    // T7 — explicit Confirmation + fixture-safe execute
+    const executed = await confirmAndExecuteResolvedM3({
+      projectId: seeded.projectId,
+      decisionId: seeded.decision.decisionId,
+      executionContractId: resolvedPath.payload.successor.executionContractId,
+      expectedContractVersion: resolvedPath.payload.successor.version,
+      deps: {
+        decisionServices: runtime.oa!.decisionServices,
+        authorityResolver: runtime.oa!.authorityResolver,
+        executionContractServices: runtime.oa!.executionContractServices,
+        executionAttemptServices: runtime.oa!.executionAttemptServices,
+        evidenceReviewServices: runtime.oa!.evidenceReviewServices,
+        fixtureAdapter: runtime.oa!.fixtureAdapter,
+        projectServices: runtime.oa!.projectServices,
+        productDurablePath: runtime.oa!.productDurablePath,
+        nowIso: () => runtime.oa!.clock.nowIso(),
+        forceM3Authority: true,
+      },
+    });
+    expect(executed.ok).toBe(true);
+    if (!executed.ok) return;
+    expect(executed.payload.proposal).toBeNull();
+    expect(executed.payload.realExecution).toBe(false);
+    expect(executed.payload.attempt.status).toBe("succeeded");
+    expect(executed.payload.evidence.evidenceId).toBeTruthy();
+    expect(executed.payload.reviewBundle.reviewBundleId).toBeTruthy();
+    expect(executed.payload.recommendation.kind).toBe("recommendation");
+    expect(executed.payload.recommendation.executionAuthority).toBe(false);
+    expect(executed.payload.reusedExistingAttempt).toBe(false);
+    const firstLaunch = executed.payload.attempt.launchCount;
+    expect(firstLaunch).toBe(1);
+
+    // T8 — duplicate start / replay reinjects without second launch
+    const replay = await confirmAndExecuteResolvedM3({
+      projectId: seeded.projectId,
+      decisionId: seeded.decision.decisionId,
+      executionContractId: resolvedPath.payload.successor.executionContractId,
+      expectedContractVersion: resolvedPath.payload.successor.version,
+      deps: {
+        decisionServices: runtime.oa!.decisionServices,
+        authorityResolver: runtime.oa!.authorityResolver,
+        executionContractServices: runtime.oa!.executionContractServices,
+        executionAttemptServices: runtime.oa!.executionAttemptServices,
+        evidenceReviewServices: runtime.oa!.evidenceReviewServices,
+        fixtureAdapter: runtime.oa!.fixtureAdapter,
+        projectServices: runtime.oa!.projectServices,
+        productDurablePath: runtime.oa!.productDurablePath,
+        nowIso: () => runtime.oa!.clock.nowIso(),
+        forceM3Authority: true,
+      },
+    });
+    expect(replay.ok).toBe(true);
+    if (!replay.ok) return;
+    expect(replay.payload.reusedExistingAttempt).toBe(true);
+    expect(runtime.oa!.fixtureAdapter.launchCallCount).toBe(firstLaunch);
+    expect(runtime.oa!.fixtureAdapter.adapterId).toBe(F3_ADAPTER_ID);
+
+    const listedAfter =
+      await runtime.oa!.executionAttemptServices.listExecutionAttempts.execute({
+        executionContractId:
+          resolvedPath.payload.successor.executionContractId,
+      });
+    expect(listedAfter.ok).toBe(true);
+    if (listedAfter.ok) {
+      const succeeded = listedAfter.attempts.filter(
+        (a) => a.status === "succeeded",
+      );
+      expect(succeeded).toHaveLength(1);
+    }
+  });
+
+  it("T9 — rejected HumanDecision NO_GO blocks M3 product path", async () => {
+    const runtime = await createRuntime();
+    const created = await runtime.createProject({
+      name: "QA-PRE-M6-01 NO_GO",
+      objective: "Reject path",
+      context: "negative",
+      criticality: "STANDARD",
+      constraints: [],
+      shortReference: "QANOG",
+      idempotencyKey: `qa-nogo-${Date.now()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    const projectId = created.project.projectId;
+    const overview = await runtime.getProject(projectId);
+    expect(overview.ok).toBe(true);
+    if (!overview.ok) return;
+
+    const proposal = saveProposal({
+      proposalId: createProposalId(),
+      status: "DECISION_REQUIRED",
+      rephrasedRequest: "x",
+      objective: "x",
+      cycleTypeId: "cyc:delivery",
+      recommendedProfile: "Standard",
+      rationale: "x",
+      scope: "fixture",
+      outOfScope: [],
+      activatedBlocks: [],
+      expectedOutcome: "x",
+      sources: [],
+      risks: [],
+      reservations: [],
+      stopConditions: [],
+      morrisGateRequired: true,
+      nextPossibleStep: "x",
+      contextSnapshot: {
+        projectId,
+        lpsId: overview.livingState.id,
+        lpsVersion: overview.livingState.version,
+        doctrineDigest: overview.doctrine.digest,
+      },
+      processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
+      executionForbidden: true,
+      noExecutingStatus: true,
+      agentBinding: "NOT_AVAILABLE",
+    });
+
+    const noGo = await recordF2Decision({
+      proposalId: proposal.proposalId,
+      projectId,
+      decisionKind: "NO_GO",
+      currentContext: proposal.contextSnapshot,
+      decisionServices: runtime.oa!.decisionServices,
+      authorityResolver: runtime.oa!.authorityResolver,
+      nowIso: () => runtime.oa!.clock.nowIso(),
+      forceM3Authority: true,
+    });
+    expect(noGo.ok).toBe(true);
+    if (!noGo.ok) return;
+    expect(noGo.decision.readyForNextGatedStep).toBe(false);
+
+    const prepared = await prepareAndResolveM3ProductPath({
+      projectId,
+      decisionId: noGo.decision.decisionId,
+      currentContext: {
+        projectId,
+        lpsId: overview.livingState.id,
+        lpsVersion: overview.livingState.version,
+        doctrineDigest: overview.doctrine.digest,
+      },
+      deps: {
+        decisionServices: runtime.oa!.decisionServices,
+        authorityResolver: runtime.oa!.authorityResolver,
+        executionContractServices: runtime.oa!.executionContractServices,
+        nowIso: () => runtime.oa!.clock.nowIso(),
+        forceM3Authority: true,
+      },
+    });
+    expect(prepared.ok).toBe(false);
+    if (prepared.ok) return;
+    expect(prepared.code).toBe("DECISION_NOT_CURRENT");
+  });
+});
+
+```
+
+### `projects/sfia-studio/app/e2e/studio-option-a.spec.ts` (full)
 
 ```typescript
 import { test, expect, type Page } from "@playwright/test";
@@ -453,14 +1331,15 @@ import path from "node:path";
 import crypto from "node:crypto";
 
 /**
- * Cycle 9 QA — PRE-M6 Option A (production READ ONLY).
+ * Cycle 8 AMEND QA-PRE-M6-01 — targeted browser regression (Option A).
  *
  * Env required (via process.env → playwright webServer spread):
  *   SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1
  *
- * Known product finding (do not fix in this cycle):
- *   QA-PRE-M6-01 — After HumanDecision GO, LPS advances; process-local Proposal
- *   becomes STALE; fixture F3 prepare fails closed.
+ * Canonical post-GO path:
+ *   HumanDecision GO → durable M3 prepare+resolve → Confirmation → Attempt
+ *
+ * Legacy Proposal STALE after LPS advance remains fail-closed (negative).
  */
 
 const CAPTURE_ROOT = path.resolve(
@@ -470,7 +1349,7 @@ const CAPTURE_ROOT = path.resolve(
 const MANIFEST = path.join(CAPTURE_ROOT, "manifest.jsonl");
 
 function runId(): string {
-  return `c9-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  return `c8a-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
 async function capture(
@@ -510,10 +1389,10 @@ async function createUniqueProject(page: Page, suffix: string) {
   await page.goto("/studio/projects/new");
   await expect(page.getByTestId("create-project-form")).toBeVisible();
   await page.locator("#project-name").fill(name);
-  await page.locator("#project-objective").fill("Cycle 9 QA validation parcours Option A");
+  await page.locator("#project-objective").fill("Cycle 8 AMEND QA-PRE-M6-01");
   await page
     .locator("#project-context")
-    .fill("Contexte E2E local fake provider — REAL=0 — preuve G-UX-11.");
+    .fill("Contexte E2E local fake provider — REAL=0 — post-GO durable M3.");
   await page.getByTestId("create-project-submit").click();
   await expect(page.getByTestId("open-project-workspace")).toBeVisible({
     timeout: 30_000,
@@ -539,10 +1418,24 @@ async function sendStructuring(page: Page) {
   await expect(page.getByTestId("project-assistant-proposal")).toBeVisible();
 }
 
-test.describe("Cycle 9 — Option A happy path through F5 + F6 STALE gap", () => {
+/** Standard/Light gated path — Confirmation reachable (Critical remains R-T-A3-1 fail-closed). */
+async function sendGatedStandard(page: Page) {
+  const input = page.getByTestId("project-assistant-input");
+  await expect(input).toBeEnabled({ timeout: 15_000 });
+  await input.fill(
+    "Préparer une livraison gated __F2_GATED_STANDARD__",
+  );
+  await page.getByTestId("project-assistant-send").click();
+  await expect(page.getByTestId("project-assistant-gate")).toBeVisible({
+    timeout: 45_000,
+  });
+  await expect(page.getByTestId("project-assistant-proposal")).toBeVisible();
+}
+
+test.describe("QA-PRE-M6-01 AMEND — durable post-GO happy path", () => {
   test.describe.configure({ timeout: 180_000 });
 
-  test("F1→F5 PASS; F6 fixture prepare blocked by Proposal STALE after GO", async ({
+  test("F4→F8 durable M3 path after GO; legacy Proposal STALE preserved", async ({
     page,
   }) => {
     test.setTimeout(180_000);
@@ -560,41 +1453,13 @@ test.describe("Cycle 9 — Option A happy path through F5 + F6 STALE gap", () =>
 
     await createUniqueProject(page, suffix);
     await expect(page.getByTestId("project-recovery-banner")).toHaveCount(0);
-    await expect(page.getByTestId("project-durability-hint")).toBeVisible();
 
-    const box1440 = await page.getByTestId("project-lps-column").boundingBox();
-    expect(box1440).toBeTruthy();
-    if (box1440) {
-      expect(box1440.width).toBeGreaterThanOrEqual(360);
-      expect(box1440.width).toBeLessThanOrEqual(420);
-    }
-    await capture(page, "R02-F2-Project-1440", {
-      screen: "F2",
-      state: "Project principal @1440",
-      viewport: { width: 1440, height: 1024 },
-    });
-
-    await page.setViewportSize({ width: 1280, height: 1024 });
-    await page.waitForTimeout(200);
-    const box1280 = await page.getByTestId("project-lps-column").boundingBox();
-    expect(box1280).toBeTruthy();
-    if (box1280) {
-      expect(box1280.width).toBeGreaterThanOrEqual(300);
-      expect(box1280.width).toBeLessThanOrEqual(360);
-    }
-    await capture(page, "R03-F3-Project-1280", {
-      screen: "F3",
-      state: "Project principal @1280",
-      viewport: { width: 1280, height: 1024 },
-    });
-
-    await page.setViewportSize({ width: 1440, height: 1024 });
-    await sendStructuring(page);
+    await sendGatedStandard(page);
     await expect(page.getByTestId("project-assistant-qualification")).toBeVisible();
     await expect(page.getByTestId("project-assistant-decision")).toHaveCount(0);
     await capture(page, "R04-F4-Qualification", {
       screen: "F4",
-      state: "Qualification + Proposal ≠ HumanDecision",
+      state: "Qualification + Proposal ≠ HumanDecision (gated Standard/Light)",
       viewport: { width: 1440, height: 1024 },
     });
 
@@ -609,68 +1474,80 @@ test.describe("Cycle 9 — Option A happy path through F5 + F6 STALE gap", () =>
       viewport: { width: 1440, height: 1024 },
     });
 
-    // QA-PRE-M6-01 — fixture prepare after GO fails closed (Proposal STALE)
+    // Canonical CTA → durable prepare + resolve (not Proposal fixture)
     await expect(page.getByTestId("f3-prepare-button")).toBeEnabled({
       timeout: 15_000,
     });
     await page.getByTestId("f3-prepare-button").click();
+    await expect(page.getByTestId("project-assistant-f3-contract")).toBeVisible({
+      timeout: 45_000,
+    });
+    await expect(page.getByTestId("f3-contract-id")).toContainText(/xct:m3-res:/);
+    await expect(page.getByTestId("f3-prepare-no-attempt")).toBeVisible();
+    await expect(page.getByTestId("project-assistant-f3-execute")).toHaveCount(0);
+    await capture(page, "R06-F6-Resolved-Contract", {
+      screen: "F6",
+      state: "Durable resolved successor awaiting Confirmation",
+      viewport: { width: 1440, height: 1024 },
+    });
+
+    await page.getByTestId("f3-confirm-execute-button").click();
+    await expect(page.getByTestId("project-assistant-f3-execute")).toBeVisible({
+      timeout: 45_000,
+    });
+    await expect(page.getByTestId("f3-attempt-status")).toContainText(/succeeded/i);
+    await expect(page.getByTestId("f3-evidence-id")).toBeVisible();
+    await expect(page.getByTestId("f3-review-bundle-id")).toBeVisible();
+    await expect(page.getByTestId("f3-recommendation-card")).toBeVisible();
+    await expect(page.getByText(/PAS UNE DÉCISION/i).first()).toBeVisible();
+    await capture(page, "R07-F7-F8-Attempt-Recommendation", {
+      screen: "F7/F8",
+      state: "Fixture-safe Attempt + Evidence + Recommendation",
+      viewport: { width: 1440, height: 1024 },
+    });
+
+    await expect(page.getByTestId("project-history-panel")).toBeVisible();
+  });
+
+  test("Legacy fixture prepare after GO remains STALE (negative authority)", async ({
+    page,
+  }) => {
+    test.setTimeout(120_000);
+    const suffix = runId();
+    await page.setViewportSize({ width: 1440, height: 1024 });
+    await createUniqueProject(page, `legacy-${suffix}`);
+    await sendGatedStandard(page);
+    await page.getByTestId("f2-decide-GO").click();
+    await expect(page.getByTestId("project-assistant-decision")).toBeVisible({
+      timeout: 45_000,
+    });
+
+    await expect(page.getByTestId("f3-legacy-fixture-prepare-button")).toBeEnabled({
+      timeout: 15_000,
+    });
+    // Button lives under closed <details> — open diagnostics first.
+    await page
+      .getByTestId("project-assistant-f3-prepare")
+      .locator("summary")
+      .click();
+    await page.getByTestId("f3-legacy-fixture-prepare-button").click();
     await expect(page.getByTestId("project-assistant-error")).toBeVisible({
       timeout: 30_000,
     });
-    await expect(page.getByTestId("project-assistant-error")).toContainText(/STALE/i);
+    await expect(page.getByTestId("project-assistant-error")).toContainText(
+      /STALE/i,
+    );
     await expect(page.getByTestId("project-assistant-f3-contract")).toHaveCount(0);
     await expect(page.getByTestId("project-assistant-f3-execute")).toHaveCount(0);
-    await capture(page, "R06-F6-Prepare-STALE-Blocked", {
-      screen: "F6",
-      state: "QA-PRE-M6-01 Proposal STALE blocks fixture prepare after GO",
+    await capture(page, "R06b-Legacy-STALE-Preserved", {
+      screen: "F6-neg",
+      state: "Legacy Proposal prepare STALE after GO LPS advance",
       viewport: { width: 1440, height: 1024 },
-    });
-
-    // History / LPS still readable
-    await expect(page.getByTestId("project-history-panel")).toBeVisible();
-    await capture(page, "R09-F9-History-After-GO", {
-      screen: "F9",
-      state: "History after GO (pre-Attempt)",
-      viewport: { width: 1440, height: 1024 },
-    });
-
-    // Responsive F11
-    await page.setViewportSize({ width: 1024, height: 900 });
-    await page.waitForTimeout(250);
-    await expect(page.getByTestId("lps-drawer-toggle")).toHaveAttribute(
-      "aria-expanded",
-      "false",
-    );
-    await capture(page, "R11A-F11-LPS-Closed-1024", {
-      screen: "F11A",
-      state: "LPS drawer closed @1024",
-      viewport: { width: 1024, height: 900 },
-    });
-    await page.getByTestId("lps-drawer-toggle").click();
-    await expect(page.getByTestId("lps-drawer-toggle")).toHaveAttribute(
-      "aria-expanded",
-      "true",
-    );
-    await capture(page, "R11B-F11-LPS-Open-1024", {
-      screen: "F11B",
-      state: "LPS drawer open @1024",
-      viewport: { width: 1024, height: 900 },
-    });
-    await page.getByTestId("lps-drawer-close").click();
-
-    await page.setViewportSize({ width: 767, height: 900 });
-    await page.waitForTimeout(250);
-    await expect(page.getByTestId("project-conversation-main")).toBeVisible();
-    await expect(page.getByTestId("lps-drawer-toggle")).toBeVisible();
-    await capture(page, "R12-Sub768-Conversation", {
-      screen: "F11/<768",
-      state: "Conversation @767",
-      viewport: { width: 767, height: 900 },
     });
   });
 });
 
-test.describe("Cycle 9 — Negative authority reachable", () => {
+test.describe("Option A — Negative authority reachable", () => {
   test.describe.configure({ timeout: 120_000 });
 
   test("N2 rejected HumanDecision NO_GO blocks prepare", async ({ page }) => {
@@ -698,13 +1575,23 @@ test.describe("Cycle 9 — Negative authority reachable", () => {
     await expect(page.getByTestId("project-assistant-decision")).toHaveCount(0);
   });
 
-  test("N3/N4 blocked by QA-PRE-M6-01 — document dependency", async () => {
-    // Fixture prepare after GO is STALE; confirm/duplicate Attempt paths unreachable.
-    expect(true).toBe(true);
-    // eslint-disable-next-line no-console
-    console.log(
-      "BROWSER PROOF BLOCKED BY QA-PRE-M6-01: N3 unresolved contract after prepare, N4 duplicate Attempt start, F7/F8 execute path.",
-    );
+  test("N3 resolve alone leaves Attempt count 0 until Confirmation", async ({
+    page,
+  }) => {
+    const suffix = runId();
+    await page.setViewportSize({ width: 1440, height: 1024 });
+    await createUniqueProject(page, `n3-${suffix}`);
+    await sendGatedStandard(page);
+    await page.getByTestId("f2-decide-GO").click();
+    await expect(page.getByTestId("project-assistant-decision")).toBeVisible({
+      timeout: 45_000,
+    });
+    await page.getByTestId("f3-prepare-button").click();
+    await expect(page.getByTestId("project-assistant-f3-contract")).toBeVisible({
+      timeout: 45_000,
+    });
+    await expect(page.getByTestId("f3-prepare-no-attempt")).toBeVisible();
+    await expect(page.getByTestId("project-assistant-f3-execute")).toHaveCount(0);
   });
 
   test("N12 Recovery honesty — reload does not rebuild conversation", async ({
@@ -724,15 +1611,6 @@ test.describe("Cycle 9 — Negative authority reachable", () => {
     });
     await expect(page.getByTestId("project-assistant-gate")).toHaveCount(0);
     await expect(page.getByTestId("project-assistant-proposal")).toHaveCount(0);
-    // After F2 LPS advance, recovery may appear
-    const recovery = page.getByTestId("project-recovery-banner");
-    if ((await recovery.count()) > 0) {
-      await capture(page, "R10-F10-Recovery", {
-        screen: "F10",
-        state: "Recovery after reload post-qualification",
-        viewport: { width: 1440, height: 1024 },
-      });
-    }
   });
 
   test("G-UX-08 AMEND deferred message only", async ({ page }) => {
@@ -747,26 +1625,7 @@ test.describe("Cycle 9 — Negative authority reachable", () => {
   });
 });
 
-test.describe("Cycle 9 — BROWSER PROOF UNAVAILABLE matrix", () => {
-  test("N5–N11 + F7 variants unavailable without production seams", async () => {
-    const unavailable = [
-      "N5 stale Recommendation Evidence-ID mismatch",
-      "N6 blocked before execution via UI",
-      "N7 failed Attempt via UI",
-      "N8 timeout Attempt via UI",
-      "N9 cancelled Attempt via UI",
-      "N10 missing Evidence injection",
-      "N11 durable rehydrate failure injection",
-      "F7 execute success path blocked by QA-PRE-M6-01",
-      "F8 post-execute recommendation path blocked by QA-PRE-M6-01",
-    ];
-    expect(unavailable.length).toBeGreaterThan(0);
-    // eslint-disable-next-line no-console
-    console.log("BROWSER PROOF UNAVAILABLE:\n" + unavailable.map((s) => `- ${s}`).join("\n"));
-  });
-});
-
-test.describe("Cycle 9 — accessibility bounded smoke", () => {
+test.describe("Option A — accessibility bounded smoke", () => {
   test("F1 and Project principal expose structure", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1024 });
     await page.goto("/studio");
@@ -780,31 +1639,1236 @@ test.describe("Cycle 9 — accessibility bounded smoke", () => {
 
 ```
 
-## 27. Final QA Verdict
+## CODE — USEFUL DIFF (tracked AMEND)
 
-CYCLE 9 QA FAIL — BLOCKING PRODUCT GAP DETECTED — RETURN TO CYCLE 8 DELIVERY AMEND — NO PRODUCT FIX PERFORMED
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx b/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+index 58871d7..c6b15bd 100644
+--- a/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
++++ b/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+@@ -4,9 +4,10 @@ import { useEffect, useId, useRef, useState, useTransition } from "react";
+ import { StatusPill } from "@/components/ui/StatusPill";
+ import {
+   projectAssistantConfirmAndExecuteF3FixtureAction,
++  projectAssistantConfirmAndExecuteResolvedM3Action,
+   projectAssistantDecideAction,
+   projectAssistantPrepareF3FixtureAction,
+-  projectAssistantPrepareM3Action,
++  projectAssistantPrepareResolvedM3Action,
+   projectAssistantRehydrateEvidenceOutcomeAction,
+   projectAssistantSendAction,
+ } from "./actions";
+@@ -18,7 +19,12 @@ import type {
+ } from "./types";
+ import type { F2DecisionKind, ProposalDto } from "./f2/types";
+ import type { F3ExecutePayload, F3PreparePayload } from "./f3/types";
+-import type { F3M3PreparePayload } from "./f3/prepareM3FromDecision";
++import type { F3M3ResolvedPayload } from "./f3/prepareAndResolveM3ProductPath";
++import {
++  G_UX_08_AMEND_DEFERRED_MESSAGE,
++  attemptStatusUserLabel,
++  deriveRecommendationFreshness,
++} from "./presentationLabels";
+ import styles from "./project-assistant.module.css";
 
-PRE-M6 UI DELIVERY OPTION A —
-CYCLE 9 QA FAIL —
-QA-PRE-M6-01 BLOCKING (Proposal STALE after HumanDecision GO blocks fixture F3 prepare) —
-G-UX-11 FAIL / OPEN —
-HAPPY PATH INCOMPLETE AT F6 —
-MANDATORY F7/F8/N3-N11 BROWSER PROOFS INCOMPLETE —
-FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED —
-NO PROJECT COMMIT —
-NO PROJECT PUSH —
-NO PR —
-NO M6 —
-RUNTIME V3 NON ADOPTED —
-ZERO REAL —
-READY FOR CHATGPT REVIEW OF QA FAIL / RETURN PATH
+ type UiMessage = {
+@@ -73,7 +79,21 @@ function modeFromResult(result: {
+   return "MODE À CONFIRMER";
+ }
 
----
+-export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
++export type ProjectAssistantPanelProps = {
++  projectId: string;
++  /** Fired after a successful durable Product mutation (not process-local). */
++  onDurableFactsChanged?: () => void;
++  /** Mirrors the latest durable Evidence/ReviewBundle rehydrate for parent History. */
++  onDurableEvidenceOutcomeChange?: (
++    outcome: ProjectAssistantRehydrateEvidenceOutcomeSuccess | null,
++  ) => void;
++};
++
++export function ProjectAssistantPanel({
++  projectId,
++  onDurableFactsChanged,
++  onDurableEvidenceOutcomeChange,
++}: ProjectAssistantPanelProps) {
+   const inputId = useId();
+   const liveRegionId = useId();
+   const [messages, setMessages] = useState<UiMessage[]>([]);
+@@ -83,13 +103,13 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+   const [error, setError] = useState<string | null>(null);
+   const [modeLabel, setModeLabel] = useState("MODE À CONFIRMER");
+   const [ephemeralNotice, setEphemeralNotice] = useState(
+-    "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite.",
++    "Conversation, proposition et confirmation restent process-local (non durables). L’état projet enregistré peut être relu ; rien n’est inventé.",
+   );
+   const [f2, setF2] = useState<F2TurnPayload | null>(null);
+   const [activeProposal, setActiveProposal] = useState<ProposalDto | null>(null);
+   const [reservesText, setReservesText] = useState("");
+   const [f3Prepare, setF3Prepare] = useState<F3PreparePayload | null>(null);
+-  const [f3M3Prepare, setF3M3Prepare] = useState<F3M3PreparePayload | null>(
++  const [f3M3Resolved, setF3M3Resolved] = useState<F3M3ResolvedPayload | null>(
+     null,
+   );
+   const [f3Execute, setF3Execute] = useState<F3ExecutePayload | null>(null);
+@@ -101,6 +121,43 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+   const [f3Busy, setF3Busy] = useState(false);
+   const [isPending, startTransition] = useTransition();
+   const listRef = useRef<HTMLDivElement | null>(null);
++  const onDurableFactsChangedRef = useRef(onDurableFactsChanged);
++  const onDurableEvidenceOutcomeChangeRef = useRef(
++    onDurableEvidenceOutcomeChange,
++  );
++  onDurableFactsChangedRef.current = onDurableFactsChanged;
++  onDurableEvidenceOutcomeChangeRef.current = onDurableEvidenceOutcomeChange;
++
++  function notifyDurableFactsChanged() {
++    onDurableFactsChangedRef.current?.();
++  }
++
++  function applyDurableEvidenceOutcome(
++    outcome: ProjectAssistantRehydrateEvidenceOutcomeSuccess | null,
++  ) {
++    setDurableEvidenceOutcome(outcome);
++    onDurableEvidenceOutcomeChangeRef.current?.(outcome);
++  }
++
++  async function refreshDurableEvidenceOutcome() {
++    const result = await projectAssistantRehydrateEvidenceOutcomeAction({
++      projectId,
++    });
++    if (result.ok) {
++      applyDurableEvidenceOutcome(result);
++      setDurableRehydrateError(null);
++      return;
++    }
++    if (result.code === "NO_EVIDENCE_OUTCOME_REFS") {
++      applyDurableEvidenceOutcome(null);
++      setDurableRehydrateError(null);
++      return;
++    }
++    applyDurableEvidenceOutcome(null);
++    setDurableRehydrateError(
++      "Impossible de relire le dernier outcome durable.",
++    );
++  }
 
-## 28. Recommended Next Gate
+   useEffect(() => {
+     setUiState((prev) => (prev === "INITIAL" ? "READY" : prev));
+@@ -108,23 +165,23 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
 
-DO NOT open Morris Pre-M6 UAT.
+   useEffect(() => {
+     let cancelled = false;
+-    setDurableEvidenceOutcome(null);
++    applyDurableEvidenceOutcome(null);
+     setDurableRehydrateError(null);
 
-Next: Cycle 8 Delivery AMEND targeting QA-PRE-M6-01 only (bounded), then re-enter Cycle 9 QA.
+     void projectAssistantRehydrateEvidenceOutcomeAction({ projectId }).then(
+       (result) => {
+         if (cancelled) return;
+         if (result.ok) {
+-          setDurableEvidenceOutcome(result);
++          applyDurableEvidenceOutcome(result);
+           setDurableRehydrateError(null);
+           return;
+         }
+         if (result.code === "NO_EVIDENCE_OUTCOME_REFS") {
+-          setDurableEvidenceOutcome(null);
++          applyDurableEvidenceOutcome(null);
+           setDurableRehydrateError(null);
+           return;
+         }
+-        setDurableEvidenceOutcome(null);
++        applyDurableEvidenceOutcome(null);
+         setDurableRehydrateError(
+           "Impossible de relire le dernier outcome durable.",
+         );
+@@ -134,6 +191,8 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+     return () => {
+       cancelled = true;
+     };
++    // Parent callbacks are mirrored via refs; projectId is the durable read key.
++    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentional mount/projectId only
+   }, [projectId]);
 
-M6 remains NOT AUTHORIZED.
+   useEffect(() => {
+@@ -258,39 +317,55 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+         {
+           id: nextId("assistant"),
+           role: "assistant",
+-          content: result.text,
++          content:
++            kind === "AMEND"
++              ? `${result.text}\n\n${G_UX_08_AMEND_DEFERRED_MESSAGE}`
++              : result.text,
+         },
+       ]);
+       setUiState("ANSWERED");
++      // HumanDecision is durable Product write — refresh LPS / History projection.
++      notifyDurableFactsChanged();
+     });
+   }
+
+-  const canPrepareF3 =
++  // Canonical post-GO CTA: durable M3 prepare + resolve (no Proposal authority).
++  const canPrepareResolvedM3 =
+     Boolean(f2?.decision?.readyForNextGatedStep) &&
+     Boolean(f2?.decision?.decisionId) &&
+-    Boolean(activeProposal) &&
+     !f3Prepare &&
+-    !f3M3Prepare &&
++    !f3M3Resolved &&
+     !f3Execute &&
+     !busy &&
+     !blocked;
+
+-  const canPrepareM3 =
++  // Legacy fixture path — diagnostic / negative STALE proof only.
++  const canPrepareLegacyFixture =
+     Boolean(f2?.decision?.readyForNextGatedStep) &&
+     Boolean(f2?.decision?.decisionId) &&
+-    !f3M3Prepare &&
++    Boolean(activeProposal) &&
++    !f3Prepare &&
++    !f3M3Resolved &&
+     !f3Execute &&
+     !busy &&
+     !blocked;
+
+-  const canConfirmF3 =
+-    Boolean(f3Prepare) &&
+-    !f3Execute &&
+-    !busy &&
+-    !blocked;
++  const recommendationFreshness = deriveRecommendationFreshness({
++    hasSessionRecommendation: Boolean(f3Execute?.recommendation),
++    hasDurableEvidenceOutcome: Boolean(durableEvidenceOutcome),
++    sessionEvidenceId: f3Execute?.evidence.evidenceId ?? null,
++    durableEvidenceIds: durableEvidenceOutcome?.evidenceIds ?? [],
++  });
++
++  // Freshness is presentation-only. Do not invent authority via canConfirm.
++  const canConfirmLegacyFixture =
++    Boolean(f3Prepare) && !f3Execute && !busy && !blocked;
+
+-  function prepareF3() {
+-    if (!canPrepareF3 || !activeProposal || !f2?.decision) return;
++  const canConfirmResolvedM3 =
++    Boolean(f3M3Resolved) && !f3Execute && !busy && !blocked;
++
++  function prepareLegacyFixture() {
++    if (!canPrepareLegacyFixture || !activeProposal || !f2?.decision) return;
+     if (f3Busy) return;
+     setF3Busy(true);
+     startTransition(async () => {
+@@ -308,7 +383,7 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+         return;
+       }
+       setF3Prepare(result.f3);
+-      setF3M3Prepare(null);
++      setF3M3Resolved(null);
+       setF3Execute(null);
+       setEphemeralNotice(result.ephemeralNotice);
+       setMessages((prev) => [
+@@ -320,16 +395,18 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+         },
+       ]);
+       setUiState("ANSWERED");
++      // ExecutionContract prepare is durable Product write.
++      notifyDurableFactsChanged();
+     });
+   }
+
+-  function prepareM3() {
+-    if (!canPrepareM3 || !f2?.decision) return;
++  function prepareResolvedM3() {
++    if (!canPrepareResolvedM3 || !f2?.decision) return;
+     if (f3Busy) return;
+     setF3Busy(true);
+     startTransition(async () => {
+       setError(null);
+-      const result = await projectAssistantPrepareM3Action({
++      const result = await projectAssistantPrepareResolvedM3Action({
+         projectId,
+         decisionId: f2.decision!.decisionId,
+       });
+@@ -339,7 +416,7 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+         setError(result.message);
+         return;
+       }
+-      setF3M3Prepare(result.f3);
++      setF3M3Resolved(result.f3);
+       setF3Prepare(null);
+       setF3Execute(null);
+       setEphemeralNotice(result.ephemeralNotice);
+@@ -352,10 +429,13 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+         },
+       ]);
+       setUiState("ANSWERED");
++      // M3 PREPARE + resolved successor are durable Product writes.
++      notifyDurableFactsChanged();
+     });
+   }
+-  function confirmAndExecuteF3() {
+-    if (!canConfirmF3 || !f3Prepare || !activeProposal) return;
++
++  function confirmAndExecuteLegacyFixture() {
++    if (!canConfirmLegacyFixture || !f3Prepare || !activeProposal) return;
+     if (f3Busy) return;
+     setF3Busy(true);
+     startTransition(async () => {
+@@ -385,6 +465,42 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+         },
+       ]);
+       setUiState("ANSWERED");
++      notifyDurableFactsChanged();
++      void refreshDurableEvidenceOutcome();
++    });
++  }
++
++  function confirmAndExecuteResolvedM3() {
++    if (!canConfirmResolvedM3 || !f3M3Resolved) return;
++    if (f3Busy) return;
++    setF3Busy(true);
++    startTransition(async () => {
++      setError(null);
++      const result = await projectAssistantConfirmAndExecuteResolvedM3Action({
++        projectId,
++        decisionId: f3M3Resolved.decisionId,
++        executionContractId: f3M3Resolved.successor.executionContractId,
++        expectedContractVersion: f3M3Resolved.successor.version,
++      });
++      setF3Busy(false);
++      if (!result.ok) {
++        setUiState("ERROR_RECOVERABLE");
++        setError(result.message);
++        return;
++      }
++      setF3Execute(result.f3);
++      setEphemeralNotice(result.ephemeralNotice);
++      setMessages((prev) => [
++        ...prev,
++        {
++          id: nextId("assistant"),
++          role: "assistant",
++          content: result.text,
++        },
++      ]);
++      setUiState("ANSWERED");
++      notifyDurableFactsChanged();
++      void refreshDurableEvidenceOutcome();
+     });
+   }
+
+@@ -398,15 +514,15 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+       <div className={styles.metaRow} data-testid="project-assistant-mode-pill">
+         <StatusPill tone="blueFlush">{modeLabel}</StatusPill>
+         <StatusPill tone="muted">Lecture seule</StatusPill>
+-        <StatusPill tone="muted">AUCUNE EXÉCUTION</StatusPill>
++        <StatusPill tone="muted">Aucune exécution réelle</StatusPill>
+       </div>
+       <p className={styles.ephemeral} data-testid="project-assistant-ephemeral">
+         {ephemeralNotice}
+       </p>
+       <p className={styles.scope} data-testid="project-assistant-scope">
+-        Périmètre F1+F2+F3 fixture : analyse · conversation · lecture · qualification ·
+-        proposition · gate humain · prepare/confirm fixture. Pas d&apos;exécution Cursor REAL,
+-        pas d&apos;écriture Git produit, pas de destination OPS1.
++        Parcours produit : qualification · proposition · décision humaine ·
++        contrat / confirmation · tentative · recommandation. Aucune exécution
++        réelle automatique.
+       </p>
+
+       <div
+@@ -474,10 +590,17 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+           aria-labelledby="f2-qualification-title"
+         >
+           <h3 id="f2-qualification-title" className={styles.cardTitle}>
+-            RECOMMANDATION
++            F4 · Qualification / Proposition
+           </h3>
++          <p className={styles.cardMeta} data-testid="f2-recommendation-freshness">
++            {f2.qualification.recommendationLabel} ·{" "}
++            {deriveRecommendationFreshness({
++              hasSessionRecommendation: true,
++              hasDurableEvidenceOutcome: Boolean(durableEvidenceOutcome),
++            }).label}
++          </p>
+           <p className={styles.cardMeta}>
+-            {f2.qualification.recommendationLabel}
++            Une recommandation n&apos;est pas une décision humaine.
+           </p>
+           <dl className={styles.cardDl}>
+             <div>
+@@ -492,7 +615,7 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+             </div>
+             {f2.qualification.cycleInstanceId ? (
+               <div>
+-                <dt>CycleInstance</dt>
++                <dt>Cycle lié</dt>
+                 <dd data-testid="f2-cycle-instance">
+                   {f2.qualification.cycleInstanceId}
+                   {f2.qualification.cycleStatus
+@@ -501,29 +624,34 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+                 </dd>
+               </div>
+             ) : null}
+-            {f2.qualification.ckcResolutionRef ? (
+-              <div>
+-                <dt>CKC ref</dt>
+-                <dd data-testid="f2-ckc-ref">
+-                  {f2.qualification.ckcResolutionRef}
+-                </dd>
+-              </div>
+-            ) : null}
+             <div>
+-              <dt>Rationale</dt>
++              <dt>Justification</dt>
+               <dd data-testid="f2-rationale">{f2.qualification.rationale}</dd>
+             </div>
+-            <div>
+-              <dt>Provenance</dt>
+-              <dd data-testid="f2-qualification-provenance">
+-                catalogue {f2.qualification.catalogVersion} ·{" "}
+-                {f2.qualification.detailedStatus}
+-                {f2.qualification.capitalizationViaCycleTypeId
+-                  ? " · capitalisation via cycleType"
+-                  : ""}
+-              </dd>
+-            </div>
+           </dl>
++          <details className={styles.diagnosticsDetails}>
++            <summary>Diagnostics techniques</summary>
++            <dl className={styles.cardDl}>
++              {f2.qualification.ckcResolutionRef ? (
++                <div>
++                  <dt>Réf. résolution</dt>
++                  <dd data-testid="f2-ckc-ref">
++                    {f2.qualification.ckcResolutionRef}
++                  </dd>
++                </div>
++              ) : null}
++              <div>
++                <dt>Provenance</dt>
++                <dd data-testid="f2-qualification-provenance">
++                  catalogue {f2.qualification.catalogVersion} ·{" "}
++                  {f2.qualification.detailedStatus}
++                  {f2.qualification.capitalizationViaCycleTypeId
++                    ? " · capitalisation via cycleType"
++                    : ""}
++                </dd>
++              </div>
++            </dl>
++          </details>
+         </section>
+       ) : null}
+
+@@ -534,11 +662,19 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+           aria-labelledby="f2-proposal-title"
+         >
+           <h3 id="f2-proposal-title" className={styles.cardTitle}>
+-            PROPOSITION
++            Proposition
+           </h3>
+           <p className={styles.cardMeta} data-testid="f2-proposal-id">
+-            {activeProposal.proposalId} · statut {activeProposal.status}
++            Statut {activeProposal.status}
+           </p>
++          {activeProposal.status === "AMENDMENT_REQUIRED" ? (
++            <p
++              className={styles.processLocal}
++              data-testid="f2-amend-deferred-notice"
++            >
++              {G_UX_08_AMEND_DEFERRED_MESSAGE}
++            </p>
++          ) : null}
+           <dl className={styles.cardDl}>
+             <div>
+               <dt>Demande reformulée</dt>
+@@ -601,10 +737,10 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+           aria-labelledby="f2-gate-title"
+         >
+           <h3 id="f2-gate-title" className={styles.cardTitle}>
+-            DÉCISION REQUISE
++            F5 · Décision humaine
+           </h3>
+           <p className={styles.cardMeta}>
+-            Décision humaine explicite liée à {activeProposal?.proposalId}
++            Décision humaine explicite — distincte de la recommandation.
+           </p>
+           <label className={styles.reservesLabel} htmlFor={`${inputId}-reserves`}>
+             Réserves (obligatoires pour GO WITH RESERVES)
+@@ -648,7 +784,7 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+           data-testid="project-assistant-decision"
+           aria-live="polite"
+         >
+-          <h3 className={styles.cardTitle}>DÉCISION PRISE</h3>
++          <h3 className={styles.cardTitle}>F5 · Décision enregistrée</h3>
+           <p data-testid="f2-decision-kind">{f2.decision.kind}</p>
+           <p data-testid="f2-decision-scope">Scope: {f2.decision.scope}</p>
+           {f2.decision.readyForNextGatedStep ? (
+@@ -663,116 +799,192 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+         </section>
+       ) : null}
+
+-      {canPrepareF3 || canPrepareM3 ? (
++      {canPrepareResolvedM3 || canPrepareLegacyFixture ? (
+         <section
+           className={styles.f3Card}
+           data-testid="project-assistant-f3-prepare"
+         >
+-          <h3 className={styles.cardTitle}>F3 FIXTURE — PREPARE</h3>
++          <h3 className={styles.cardTitle}>F6 · Préparer le contrat</h3>
+           <p className={styles.cardMeta}>
+-            Le GO F2 autorise uniquement la préparation d&apos;un contrat fixture.
++            Le GO autorise uniquement la préparation d&apos;un contrat. Confirmation
++            process-local — non durable.
+           </p>
+           <div className={styles.f3Labels} data-testid="f3-prepare-labels">
+-            <StatusPill tone="muted">FIXTURE — AUCUNE EXÉCUTION RÉELLE</StatusPill>
+-            <StatusPill tone="muted">CURSOR REAL BLOQUÉ</StatusPill>
+-            <StatusPill tone="muted">AUCUN GIT WRITE PRODUIT</StatusPill>
++            <StatusPill tone="muted">Aucune exécution réelle</StatusPill>
++            <StatusPill tone="muted">Confirmation non durable</StatusPill>
+           </div>
+           <button
+             type="button"
+             className={styles.f3Button}
+             data-testid="f3-prepare-button"
+-            disabled={!canPrepareF3}
+-            onClick={() => prepareF3()}
++            disabled={!canPrepareResolvedM3}
++            onClick={() => prepareResolvedM3()}
+           >
+-            Préparer l&apos;exécution fixture
+-          </button>
+-          <button
+-            type="button"
+-            className={styles.f3Button}
+-            data-testid="f3-m3-prepare-button"
+-            disabled={!canPrepareM3}
+-            onClick={() => prepareM3()}
+-          >
+-            M3 PREPARE (decision durable)
++            Préparer le contrat d&apos;exécution
+           </button>
++          <details className={styles.diagnosticsDetails}>
++            <summary>Détails techniques / chemin legacy</summary>
++            <p className={styles.cardMeta}>
++              Chemin produit canonique après GO : HumanDecision durable → M3
++              PREPARE → résolution fixture-safe. Le chemin Proposal/fixture reste
++              fail-closed (STALE) après avancement LPS — preuve négative
++              uniquement.
++            </p>
++            <button
++              type="button"
++              className={styles.f3Button}
++              data-testid="f3-legacy-fixture-prepare-button"
++              disabled={!canPrepareLegacyFixture}
++              onClick={() => prepareLegacyFixture()}
++            >
++              Chemin legacy fixture (Proposal)
++            </button>
++          </details>
+         </section>
+       ) : null}
+
+-      {f3M3Prepare && !f3Execute ? (
++      {f3M3Resolved && !f3Execute ? (
+         <section
+           className={styles.f3Card}
+-          data-testid="project-assistant-f3-m3-prepare"
++          data-testid="project-assistant-f3-contract"
+         >
+-          <h3 className={styles.cardTitle}>M3 PREPARE — CURSOR PREPARE-ONLY</h3>
+-          <div className={styles.f3Labels}>
+-            <StatusPill tone="muted">NO CURSOR REAL</StatusPill>
+-            <StatusPill tone="muted">NO ATTEMPT</StatusPill>
+-            <StatusPill tone="muted">GATE D NOT_CONSUMED</StatusPill>
++          <h3 className={styles.cardTitle}>F6 · Contrat prêt à confirmer</h3>
++          <div className={styles.f3Labels} data-testid="f3-contract-labels">
++            <StatusPill tone="blueFlush">Contrat résolu</StatusPill>
++            <StatusPill tone="muted">Confirmation process-local</StatusPill>
++            <StatusPill tone="orange">Exécution réelle bloquée</StatusPill>
+           </div>
+           <dl className={styles.cardDl}>
+             <div>
+-              <dt>Contract id</dt>
+-              <dd data-testid="f3-m3-contract-id">
+-                {f3M3Prepare.contract.executionContractId}
++              <dt>Identifiant contrat</dt>
++              <dd data-testid="f3-contract-id">
++                {f3M3Resolved.successor.executionContractId}
+               </dd>
+             </div>
+             <div>
+-              <dt>Fingerprint</dt>
+-              <dd data-testid="f3-m3-fingerprint">
+-                {f3M3Prepare.contract.semanticFingerprint}
++              <dt>Version</dt>
++              <dd data-testid="f3-contract-version">
++                {f3M3Resolved.successor.version}
+               </dd>
+             </div>
+             <div>
+-              <dt>Action</dt>
+-              <dd>{f3M3Prepare.contract.action}</dd>
+-            </div>
+-          </dl>
+-        </section>
+-      ) : null}
+-
+-      {f3Prepare && !f3Execute ? (
+-        <section
+-          className={styles.f3Card}
+-          data-testid="project-assistant-f3-contract"
+-        >
+-          <h3 className={styles.cardTitle}>CONTRAT FIXTURE PRÉPARÉ</h3>
+-          <div className={styles.f3Labels} data-testid="f3-contract-labels">
+-            <StatusPill tone="blueFlush">FIXTURE</StatusPill>
+-            <StatusPill tone="muted">FIXTURE — AUCUNE EXÉCUTION RÉELLE</StatusPill>
+-            <StatusPill tone="muted">AUCUN GIT WRITE PRODUIT</StatusPill>
+-            <StatusPill tone="orange">CURSOR REAL BLOQUÉ</StatusPill>
+-          </div>
+-          <dl className={styles.cardDl}>
+-            <div>
+-              <dt>Contract id</dt>
+-              <dd data-testid="f3-contract-id">
+-                {f3Prepare.contract.executionContractId}
++              <dt>Statut</dt>
++              <dd data-testid="f3-contract-status">
++                {f3M3Resolved.successor.status}
+               </dd>
+             </div>
+             <div>
+-              <dt>Version</dt>
+-              <dd data-testid="f3-contract-version">{f3Prepare.contract.version}</dd>
++              <dt>Action</dt>
++              <dd data-testid="f3-contract-action">
++                {f3M3Resolved.successor.action}
++              </dd>
+             </div>
+             <div>
+-              <dt>Status</dt>
+-              <dd data-testid="f3-contract-status">{f3Prepare.contract.status}</dd>
++              <dt>Cible</dt>
++              <dd data-testid="f3-contract-target">
++                {f3M3Resolved.successor.target}
++              </dd>
+             </div>
+             <div>
+-              <dt>Mode</dt>
+-              <dd data-testid="f3-contract-mode">{f3Prepare.contract.mode}</dd>
++              <dt>Périmètre</dt>
++              <dd data-testid="f3-contract-scope">
++                {f3M3Resolved.successor.scope}
++              </dd>
+             </div>
+           </dl>
++          <details className={styles.diagnosticsDetails}>
++            <summary>Détails techniques</summary>
++            <dl className={styles.cardDl}>
++              <div>
++                <dt>PREPARE d&apos;origine</dt>
++                <dd data-testid="f3-m3-original-contract-id">
++                  {f3M3Resolved.original.executionContractId}
++                </dd>
++              </div>
++              <div>
++                <dt>Autorité requise</dt>
++                <dd data-testid="f3-contract-authority">
++                  {f3M3Resolved.successor.requiredAuthority}
++                </dd>
++              </div>
++            </dl>
++          </details>
+           <p className={styles.noExecutionBanner} data-testid="f3-prepare-no-attempt">
+-            attemptCreated: false — AUCUNE ATTEMPT
++            Tentative non créée — confirmation process-local (non durable).
+           </p>
++          {recommendationFreshness.status === "stale" ? (
++            <p
++              className={styles.processLocal}
++              data-testid="f3-stale-recommendation-notice"
++            >
++              Recommandation périmée — ce n&apos;est pas une décision humaine et
++              ce n&apos;est pas un nouveau GO d&apos;exécution. La confirmation
++              reste gouvernée par le contrat et la décision déjà enregistrés.
++            </p>
++          ) : null}
+           <button
+             type="button"
+             className={styles.f3Button}
+             data-testid="f3-confirm-execute-button"
+-            disabled={!canConfirmF3}
+-            onClick={() => confirmAndExecuteF3()}
++            disabled={!canConfirmResolvedM3}
++            onClick={() => confirmAndExecuteResolvedM3()}
++          >
++            Confirmer et exécuter (process-local)
++          </button>
++        </section>
++      ) : null}
++
++      {f3Prepare && !f3Execute ? (
++        <section
++          className={styles.f3Card}
++          data-testid="project-assistant-f3-legacy-contract"
++        >
++          <h3 className={styles.cardTitle}>F6 · Contrat legacy (fixture Proposal)</h3>
++          <div className={styles.f3Labels} data-testid="f3-legacy-contract-labels">
++            <StatusPill tone="blueFlush">Contrat</StatusPill>
++            <StatusPill tone="muted">Confirmation process-local</StatusPill>
++            <StatusPill tone="orange">Exécution réelle bloquée</StatusPill>
++          </div>
++          <details className={styles.diagnosticsDetails} open>
++            <summary>Détails techniques</summary>
++            <dl className={styles.cardDl}>
++              <div>
++                <dt>Identifiant contrat</dt>
++                <dd data-testid="f3-legacy-contract-id">
++                  {f3Prepare.contract.executionContractId}
++                </dd>
++              </div>
++              <div>
++                <dt>Version</dt>
++                <dd data-testid="f3-legacy-contract-version">
++                  {f3Prepare.contract.version}
++                </dd>
++              </div>
++              <div>
++                <dt>Statut</dt>
++                <dd data-testid="f3-legacy-contract-status">
++                  {f3Prepare.contract.status}
++                </dd>
++              </div>
++              <div>
++                <dt>Mode</dt>
++                <dd data-testid="f3-legacy-contract-mode">
++                  {f3Prepare.contract.mode}
++                </dd>
++              </div>
++            </dl>
++          </details>
++          <p className={styles.noExecutionBanner} data-testid="f3-legacy-prepare-no-attempt">
++            Tentative non créée — confirmation process-local (non durable).
++          </p>
++          <button
++            type="button"
++            className={styles.f3Button}
++            data-testid="f3-legacy-confirm-execute-button"
++            disabled={!canConfirmLegacyFixture}
++            onClick={() => confirmAndExecuteLegacyFixture()}
+           >
+-            Confirmer et exécuter la fixture
++            Confirmer et exécuter (legacy fixture)
+           </button>
+         </section>
+       ) : null}
+@@ -783,31 +995,42 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+           data-testid="project-assistant-f3-execute"
+           aria-live="polite"
+         >
+-          <h3 className={styles.cardTitle}>F3 FIXTURE — RÉSULTATS</h3>
++          <h3 className={styles.cardTitle}>F7 · Tentative / F8 · Recommandation</h3>
+           <div className={styles.f3Labels} data-testid="f3-execute-labels">
+-            <StatusPill tone="muted">FIXTURE — AUCUNE EXÉCUTION RÉELLE</StatusPill>
+-            <StatusPill tone="muted">AUCUN GIT WRITE PRODUIT</StatusPill>
++            <StatusPill tone="muted">Aucune exécution réelle</StatusPill>
+             <StatusPill tone="blueFlush">
+-              RECOMMANDATION — PAS UNE DÉCISION MORRIS
++              Recommandation — pas une décision
++            </StatusPill>
++            <StatusPill
++              tone={recommendationFreshness.status === "stale" ? "orange" : "muted"}
++            >
++              {recommendationFreshness.label}
+             </StatusPill>
+-            <StatusPill tone="orange">CURSOR REAL BLOQUÉ</StatusPill>
+-            <StatusPill tone="orange">HARD R-T-A3-1 / R-T-A3-2 OPEN</StatusPill>
+           </div>
+
+           <div data-testid="f3-attempt-card" className={styles.f3Subcard}>
+-            <h4 className={styles.cardTitle}>Attempt</h4>
+-            <p data-testid="f3-attempt-id">{f3Execute.attempt.attemptId}</p>
+-            <p data-testid="f3-attempt-status">{f3Execute.attempt.status}</p>
+-            <p data-testid="f3-attempt-adapter">{f3Execute.attempt.adapterId}</p>
+-            <p data-testid="f3-attempt-external-effects">
+-              externalEffects: {String(f3Execute.attempt.externalEffects)}
+-            </p>
+-            <p data-testid="f3-attempt-launch-count">
+-              launchCount: {f3Execute.attempt.launchCount}
+-            </p>
+-            <p data-testid="f3-attempt-reused">
+-              reusedExistingAttempt: {String(f3Execute.reusedExistingAttempt)}
+-            </p>
++            <h4 className={styles.cardTitle}>Tentative</h4>
++            {(() => {
++              const attemptLabel = attemptStatusUserLabel(
++                f3Execute.attempt.status,
++              );
++              return (
++                <>
++                  <p data-testid="f3-attempt-status-label">
++                    {attemptLabel.label}
++                  </p>
++                  {!attemptLabel.blockedBeforeExecution ? (
++                    <p data-testid="f3-attempt-id">{f3Execute.attempt.attemptId}</p>
++                  ) : (
++                    <p data-testid="f3-attempt-id-omitted">
++                      Identifiant de tentative non affiché (bloqué avant
++                      exécution).
++                    </p>
++                  )}
++                  <p data-testid="f3-attempt-status">{f3Execute.attempt.status}</p>
++                </>
++              );
++            })()}
+           </div>
+
+           <div data-testid="f3-evidence-card" className={styles.f3Subcard}>
+@@ -830,26 +1053,28 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+           </div>
+
+           <div data-testid="f3-recommendation-card" className={styles.f3Subcard}>
+-            <h4 className={styles.cardTitle}>Recommendation</h4>
++            <h4 className={styles.cardTitle}>F8 · Recommendation</h4>
++            <p
++              className={styles.cardMeta}
++              data-testid="f3-recommendation-freshness"
++            >
++              {recommendationFreshness.label}
++            </p>
+             <p data-testid="f3-recommendation-label">
+               {f3Execute.recommendation.recommendationLabel}
+             </p>
+             <p data-testid="f3-recommendation-execution-authority">
+-              executionAuthority:{" "}
++              Autorité d&apos;exécution:{" "}
+               {String(f3Execute.recommendation.executionAuthority)}
+             </p>
+             <p data-testid="f3-recommendation-gate-consumed">
+-              gateConsumed: {String(f3Execute.recommendation.gateConsumed)}
++              Gate consommé: {String(f3Execute.recommendation.gateConsumed)}
+             </p>
+             <p data-testid="f3-recommendation-decision-created">
+-              decisionCreated:{" "}
++              Décision créée:{" "}
+               {String(f3Execute.recommendation.decisionCreated)}
+             </p>
+-            <p data-testid="f3-recommendation-hard-refs">
+-              {f3Execute.recommendation.openHardReservationRefs.join(" · ")}
+-            </p>
+             <p data-testid="f3-no-ready-claim">PAS DE CLAIM READY</p>
+-            <p data-testid="f3-no-ta6-complete">T-A6 COMPLETE NON DÉCLARÉ</p>
+           </div>
+         </section>
+       ) : null}
+@@ -871,12 +1096,18 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+           data-testid="durable-evidence-outcome"
+           aria-live="polite"
+         >
+-          <h3 className={styles.cardTitle}>OUTCOME DURABLE — RELECTURE LPS</h3>
++          <h3 className={styles.cardTitle}>F8 · Outcome durable (relecture)</h3>
+           <div className={styles.f3Labels} data-testid="durable-outcome-labels">
+             <StatusPill tone="blueFlush">
+-              RECOMMANDATION — PAS UNE DÉCISION MORRIS
++              RECOMMANDATION — PAS UNE DÉCISION
++            </StatusPill>
++            <StatusPill tone="muted">
++              {deriveRecommendationFreshness({
++                hasSessionRecommendation: false,
++                hasDurableEvidenceOutcome: true,
++              }).label}
+             </StatusPill>
+-            <StatusPill tone="muted">LECTURE SEULE — AUCUNE EXÉCUTION</StatusPill>
++            <StatusPill tone="muted">LECTURE SEULE</StatusPill>
+           </div>
+           <p className={styles.cardMeta} data-testid="durable-lps-version">
+             LPS v{durableEvidenceOutcome.lpsVersion}
+diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
+index 762461f..94acfc6 100644
+--- a/projects/sfia-studio/app/features/project-assistant/actions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
+@@ -7,8 +7,10 @@ import { recordF2Decision } from "./f2/recordDecision";
+ import { F2_PROCESS_LOCAL_NOTICE } from "./f2/proposalStore";
+ import type { F2DecisionKind } from "./f2/types";
+ import { confirmAndExecuteF3Fixture } from "./f3/confirmAndExecuteF3Fixture";
++import { confirmAndExecuteResolvedM3 } from "./f3/confirmAndExecuteResolvedM3";
+ import { prepareF3Fixture } from "./f3/prepareF3Fixture";
+ import { prepareM3FromDecision } from "./f3/prepareM3FromDecision";
++import { prepareAndResolveM3ProductPath } from "./f3/prepareAndResolveM3ProductPath";
+ import { rehydrateEvidenceOutcomeFromLps } from "./f3/rehydrateEvidenceOutcomeFromLps";
+ import { resolveF3EphemeralNotice } from "./f3/constants";
+ import type {
+@@ -18,6 +20,7 @@ import type {
+   ProjectAssistantExecuteF3Result,
+   ProjectAssistantPrepareF3Result,
+   ProjectAssistantPrepareM3Result,
++  ProjectAssistantPrepareResolvedM3Result,
+   ProjectAssistantRehydrateEvidenceOutcomeResult,
+   ProjectAssistantSendResult,
+ } from "./types";
+@@ -387,6 +390,108 @@ export async function projectAssistantPrepareM3Action(input: {
+   };
+ }
+
++/**
++ * Canonical post-GO product path:
++ * prepareM3FromDecision → resolveM3ExecutionContract (fixture-safe ZERO REAL).
++ * Returns the resolved successor for explicit Confirmation. No StartExecution.
++ */
++export async function projectAssistantPrepareResolvedM3Action(input: {
++  projectId: string;
++  decisionId: string;
++  /** Hostile — ignored. */
++  mode?: unknown;
++  adapterRef?: unknown;
++  agentId?: unknown;
++  command?: unknown;
++  real?: unknown;
++  selectedAgentRef?: unknown;
++  canActAsMorris?: unknown;
++  claimedAuthorityLevel?: unknown;
++}): Promise<ProjectAssistantPrepareResolvedM3Result> {
++  void input.mode;
++  void input.adapterRef;
++  void input.agentId;
++  void input.command;
++  void input.real;
++  void input.selectedAgentRef;
++  void input.canActAsMorris;
++  void input.claimedAuthorityLevel;
++
++  const runtime = getRuntimeApplicationService();
++  if (!runtime.oa) {
++    return {
++      ok: false,
++      status: "prepare_error",
++      code: "OA_STACK_UNAVAILABLE",
++      message: "Services OA indisponibles pour M3 PREPARE+RESOLVE.",
++      mode: "unavailable",
++      retryable: false,
++    };
++  }
++
++  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
++  if (!projectResult.ok) {
++    return {
++      ok: false,
++      status: "project_not_found",
++      code: projectResult.error.code,
++      message: projectResult.error.message,
++      mode: "unavailable",
++      retryable: false,
++    };
++  }
++  const project = toContextDto(projectResult);
++
++  const prepared = await prepareAndResolveM3ProductPath({
++    projectId: input.projectId,
++    decisionId: input.decisionId,
++    currentContext: {
++      projectId: project.projectId,
++      lpsId: project.lpsId,
++      lpsVersion: project.lpsVersion,
++      doctrineDigest: project.doctrineDigest,
++      activeCycleInstanceId: project.activeCycleInstanceId,
++      ckcResolutionRef: project.ckcResolutionRef,
++    },
++    deps: {
++      decisionServices: runtime.oa.decisionServices,
++      authorityResolver: runtime.oa.authorityResolver,
++      executionContractServices: runtime.oa.executionContractServices,
++      nowIso: () => runtime.oa!.clock.nowIso(),
++    },
++  });
++
++  if (!prepared.ok) {
++    return {
++      ok: false,
++      status: prepared.code === "CONTEXT_STALE" ? "stale" : "prepare_error",
++      code: prepared.code,
++      message: prepared.message,
++      mode: "fixture",
++      retryable: prepared.code === "CONTEXT_STALE",
++    };
++  }
++
++  const f3 = prepared.payload;
++  return {
++    ok: true,
++    status: "ok",
++    mode: "m3_resolved_fixture",
++    presentation: "unconfirmed",
++    text: [
++      "Contrat d'exécution prêt à confirmer",
++      `Successeur ${f3.successor.executionContractId} v${f3.successor.version} (${f3.successor.status})`,
++      `Action ${f3.successor.action} · cible ${f3.successor.target}`,
++      "Confirmation process-local requise — aucune tentative démarrée",
++      "AUCUNE EXÉCUTION RÉELLE",
++    ].join(" — "),
++    project,
++    ephemeralNotice:
++      "Contrat durable résolu (HumanDecision + DecisionBasis). Confirmation process-local. Cursor REAL bloqué.",
++    f3,
++  };
++}
++
+ type ProjectAssistantPrepareF3FailureProposal =
+   import("./f2/types").ProposalDto | null;
+
+@@ -519,6 +624,126 @@ export async function projectAssistantConfirmAndExecuteF3FixtureAction(input: {
+   };
+ }
+
++/**
++ * Canonical post-GO confirm + fixture-safe execute on resolved M3 successor.
++ * No Proposal validation. Confirmation is process-local (not persisted as authority).
++ */
++export async function projectAssistantConfirmAndExecuteResolvedM3Action(input: {
++  projectId: string;
++  decisionId: string;
++  executionContractId: string;
++  expectedContractVersion: number;
++  /** Hostile — ignored. */
++  mode?: unknown;
++  adapterRef?: unknown;
++  agentId?: unknown;
++  command?: unknown;
++  real?: unknown;
++  selectedAgentRef?: unknown;
++  executionMode?: unknown;
++  trustLevel?: unknown;
++  authorityEvidenceId?: unknown;
++  canActAsMorris?: unknown;
++  claimedAuthorityLevel?: unknown;
++}): Promise<ProjectAssistantExecuteF3Result> {
++  void input.mode;
++  void input.adapterRef;
++  void input.agentId;
++  void input.command;
++  void input.real;
++  void input.selectedAgentRef;
++  void input.executionMode;
++  void input.trustLevel;
++  void input.authorityEvidenceId;
++  void input.canActAsMorris;
++  void input.claimedAuthorityLevel;
++
++  const runtime = getRuntimeApplicationService();
++  if (!runtime.oa) {
++    return {
++      ok: false,
++      status: "execute_error",
++      code: "OA_STACK_UNAVAILABLE",
++      message: "Services OA indisponibles pour M3 EXECUTE.",
++      mode: "unavailable",
++      retryable: false,
++    };
++  }
++
++  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
++  if (!projectResult.ok) {
++    return {
++      ok: false,
++      status: "project_not_found",
++      code: projectResult.error.code,
++      message: projectResult.error.message,
++      mode: "unavailable",
++      retryable: false,
++    };
++  }
++  const project = toContextDto(projectResult);
++
++  const executed = await confirmAndExecuteResolvedM3({
++    projectId: input.projectId,
++    decisionId: input.decisionId,
++    executionContractId: input.executionContractId,
++    expectedContractVersion: input.expectedContractVersion,
++    mode: input.mode,
++    adapterRef: input.adapterRef,
++    agentId: input.agentId,
++    command: input.command,
++    real: input.real,
++    deps: {
++      decisionServices: runtime.oa.decisionServices,
++      authorityResolver: runtime.oa.authorityResolver,
++      executionContractServices: runtime.oa.executionContractServices,
++      executionAttemptServices: runtime.oa.executionAttemptServices,
++      evidenceReviewServices: runtime.oa.evidenceReviewServices,
++      fixtureAdapter: runtime.oa.fixtureAdapter,
++      projectServices: runtime.oa.projectServices,
++      productDurablePath: runtime.oa.productDurablePath,
++      nowIso: () => runtime.oa!.clock.nowIso(),
++    },
++  });
++
++  if (!executed.ok) {
++    return {
++      ok: false,
++      status: "execute_error",
++      code: executed.code,
++      message: executed.message,
++      mode: "fixture",
++      retryable: false,
++    };
++  }
++
++  const f3 = executed.payload;
++  const persistenceNotice = resolveF3EphemeralNotice(
++    runtime.oa.productDurablePath,
++  );
++  return {
++    ok: true,
++    status: "ok",
++    mode: "fixture",
++    presentation: "unconfirmed",
++    text: [
++      f3.reusedExistingAttempt
++        ? "M3 FIXTURE DÉJÀ EXÉCUTÉE (idempotent)"
++        : "M3 FIXTURE EXÉCUTÉE",
++      `Attempt ${f3.attempt.attemptId} · ${f3.attempt.status}`,
++      `Evidence ${f3.evidence.evidenceId} · non verified`,
++      `ReviewBundle ${f3.reviewBundle.reviewBundleId}`,
++      "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++      "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
++      "CURSOR REAL BLOQUÉ",
++      persistenceNotice,
++    ].join(" — "),
++    project,
++    ephemeralNotice: persistenceNotice,
++    f3,
++  };
++}
++
+ /**
+  * M5 durable Nora/F3 readback — LPS evidence/RB refs → RecommendNextGate.
+  * Strictly read-only: no Decision, no gate consume, no Attempt launch.
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/index.ts b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
+index 44ee145..68cef3e 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/index.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
+@@ -32,7 +32,18 @@ export {
+   canonicalM3ResolutionIdempotencyKey,
+   safeDecisionSegment,
+ } from "./resolveM3ExecutionContract";
++export {
++  fixtureSafeM3ResolutionProfile,
++  FIXTURE_SAFE_M3_SUPERSESSION_REASON,
++} from "./fixtureSafeM3ResolutionProfile";
++export { prepareAndResolveM3ProductPath } from "./prepareAndResolveM3ProductPath";
++export type {
++  F3M3ResolvedPayload,
++  PrepareAndResolveM3Deps,
++} from "./prepareAndResolveM3ProductPath";
+ export { confirmAndExecuteF3Fixture } from "./confirmAndExecuteF3Fixture";
++export { confirmAndExecuteResolvedM3 } from "./confirmAndExecuteResolvedM3";
++export type { ConfirmExecuteResolvedM3Deps } from "./confirmAndExecuteResolvedM3";
+ export { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
+ export { appendEvidenceOutcomeToLps } from "./appendEvidenceOutcomeToLps";
+ export { rehydrateEvidenceOutcomeFromLps } from "./rehydrateEvidenceOutcomeFromLps";
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/types.ts b/projects/sfia-studio/app/features/project-assistant/f3/types.ts
+index 8b70b62..bc47389 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/types.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/types.ts
+@@ -88,7 +88,11 @@ export type F3PreparePayload = {
+ export type F3ExecutePayload = {
+   turnKind: "f3_execute";
+   mode: F3Mode;
+-  proposal: ProposalDto;
++  /**
++   * Legacy fixture path may carry the process-local Proposal for provenance.
++   * Canonical post-GO M3 path sets null — Proposal is not execution authority.
++   */
++  proposal: ProposalDto | null;
+   decisionId: string;
+   contract: F3ContractDto;
+   attempt: F3AttemptDto;
+diff --git a/projects/sfia-studio/app/features/project-assistant/types.ts b/projects/sfia-studio/app/features/project-assistant/types.ts
+index d9fdf55..5991bf0 100644
+--- a/projects/sfia-studio/app/features/project-assistant/types.ts
++++ b/projects/sfia-studio/app/features/project-assistant/types.ts
+@@ -193,6 +193,30 @@ export type ProjectAssistantPrepareM3Result =
+   | ProjectAssistantPrepareM3Success
+   | ProjectAssistantPrepareM3Failure;
+
++export type ProjectAssistantPrepareResolvedM3Success = {
++  ok: true;
++  status: "ok";
++  mode: "m3_resolved_fixture";
++  presentation: "unconfirmed";
++  text: string;
++  project: ProjectAssistantContextDto;
++  ephemeralNotice: string;
++  f3: import("./f3/prepareAndResolveM3ProductPath").F3M3ResolvedPayload;
++};
++
++export type ProjectAssistantPrepareResolvedM3Failure = {
++  ok: false;
++  status: "prepare_error" | "stale" | "project_not_found" | "validation_error";
++  code: string;
++  message: string;
++  mode: AssistantUiMode;
++  retryable: boolean;
++};
++
++export type ProjectAssistantPrepareResolvedM3Result =
++  | ProjectAssistantPrepareResolvedM3Success
++  | ProjectAssistantPrepareResolvedM3Failure;
++
+ export type ProjectAssistantExecuteF3Success = {
+   ok: true;
+   status: "ok";
+diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+index 1031f79..1f17afd 100644
+--- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
++++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+@@ -121,6 +121,45 @@ export class FakeConversationProvider implements ConversationProvider {
+         },
+       };
+     }
++    /**
++     * Light/Standard gated path: Morris gate via structural op token ("create pr")
++     * without Critical profile — ZERO REAL Confirmation reachable.
++     * Critical architecture (__F2_STRUCTURING__) remains R-T-A3-1 fail-closed.
++     */
++    if (lastUser?.content.includes("__F2_GATED_STANDARD__")) {
++      return {
++        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
++          intentClass: "actionable",
++          candidateCycleTypeId: "cyc:delivery",
++          signals: {
++            structuralChange: false,
++            securityImpact: false,
++            architectureImpact: false,
++            dataImpact: false,
++            irreversible: false,
++            lowRiskBounded: true,
++          },
++          objective: "Préparer une livraison bornée avec gate Morris",
++          scope: "Proposition Standard gateable sans Critical",
++          rephrasedRequest: "Préparer une proposition de livraison gated",
++          outOfScope: ["Cursor REAL"],
++          risks: ["Confusion reco/décision"],
++          reservations: [],
++          stopConditions: ["AUCUNE EXÉCUTION"],
++          activatedBlocks: ["qualification", "proposition", "gate"],
++          expectedOutcome: "Gate Morris requis — profil Standard",
++          criticalJustification: null,
++          requestedOperation: "create pr",
++        })}`,
++        usage: {
++          inputTokens: 10 * this.callCount,
++          outputTokens: 5 * this.callCount,
++          totalTokens: 15 * this.callCount,
++          model: "fake-test-model",
++          providerResponseId: `fake-resp-${this.callCount}`,
++        },
++      };
++    }
+     if (lastUser?.content.includes("__F2_STRUCTURING__")) {
+       return {
+         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+
+```
