@@ -62,6 +62,7 @@ They must be interpreted as implementation constraints derived from the Engineer
 | Documentation routing before prompt | Le prompt doit identifier les sources à lire et les dossiers à alimenter |
 | Guardrails before automation | Les garde-fous précèdent l'automatisation |
 | Capitalization by default | Les apprentissages sont capitalisés |
+| Fidélité Fake/Real | Fake substitue la frontière externe ; la preuve déterministe n'est pas une preuve REAL |
 | No raw Notion sync | Notion n'est pas un miroir brut |
 | Traceability by default | Les décisions et changements sont traçables |
 | Platform over projects | Chaque projet doit renforcer SFIA |
@@ -216,6 +217,9 @@ SFIA utilise les décisions suivantes :
 | Rapport Cursor sans review pack light/full | Cycle incomplet — `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` |
 | Rapport Cursor avec handoff `not required` ou `none` | Ambiguïté interdite — publication handoff obligatoire |
 | Review pack light/full sans publish-in-cycle | Cycle incomplet — pas de publication remote |
+| Fake présenté comme preuve REAL | Fausse maturité ; GO REAL implicite |
+| Chemin produit parallèle fixture | Le déterministe ne traverse plus les mêmes états que le REAL |
+| Tests verts masquant un realism gap | Réserve bloquante adoucie |
 
 ## 13.1 Review Handoff Git — règle transverse (absorbée v2.6 — origine capitalisation v2.5)
 
@@ -232,6 +236,98 @@ SFIA utilise les décisions suivantes :
 | **Rapport incomplet** | Rapport demandant lecture handoff sans push/remote confirmés → cycle incomplet |
 | **Instruction ChatGPT** | Bloc §9.1 obligatoire dans rapport final Cursor pour tout rapport Cursor |
 | **Baseline** | Règle **absorbée dans SFIA v2.6 (baseline opérationnelle)** — origine capitalisation v2.5 ; v2.6 active sur `main` après merge PR #204 — alignement mandatory routing en attente de merge méthode |
+
+## 13.2 Fidélité Fake/Real et preuve progressive
+
+> **Référence principe :** Engineering Principles v1.1 §12. **Enforcement prompts :** template v2.6 — Fake/Real Qualification.
+> Fake / mock / fixture / simulateur restent des **outils essentiels**. Le problème traité est la **divergence non qualifiée** entre fake et REAL — pas l'usage du fake.
+
+### Trigger (proportionnalité)
+
+La qualification Fake/Real est **obligatoire** lorsqu'un cycle implique au moins une frontière simulée ou réelle parmi :
+
+API externe ; provider IA ; agent ; subprocess ; réseau ; stockage externe ; auth externe ; cloud/service managé ; connecteur ; hardware ; ou toute frontière fake/mock/fixture/simulator/test adapter.
+
+Si aucune frontière pertinente : **N/A**. Ne pas imposer un test REAL à chaque cycle.
+
+### Substitution de frontière
+
+Un fake/mock/fixture doit remplacer en priorité la **frontière externe**, pas créer un second comportement produit.
+
+Cible : même orchestration, même machine d'états, même persistence, même pipeline Evidence → adapter/boundary → fake **ou** REAL.
+
+Éviter : chemin fixture spécifique → succès synthétique, si le REAL traverse des états significativement différents.
+
+### Parité sémantique
+
+Quand un fake représente une frontière réelle, préserver autant que raisonnablement possible : contrats d'entrée/sortie ; statuts ; transitions ; erreurs ; temporalité pertinente ; async/pending/completion ; persistence ; idempotence ; retry/recovery ; sémantique Evidence.
+
+La parité **n'exige pas** de reproduire les coûts ou effets externes réels.
+
+### Realism gap
+
+Toute différence intentionnelle ou connue entre fake et REAL qui peut modifier le comportement observable doit être qualifiée **REALISM GAP**, avec :
+
+- différence ;
+- impact potentiel ;
+- preuve déterministe disponible ;
+- preuve REAL manquante ;
+- condition de fermeture.
+
+Un realism gap **bloquant** ne peut pas être masqué par des tests verts.
+
+Si le REAL introduit un état significatif (running, pending, timeout, partial completion, retry, rate limit, async callback, process death, network failure, eventual consistency, etc.) et que cet état appartient au comportement produit attendu, le déterministe doit pouvoir le représenter. Sinon : **REALISM GAP**.
+
+### Niveaux de preuve
+
+| Niveau | Signification |
+|--------|---------------|
+| **NOT PROVEN** | Non démontré |
+| **DETERMINISTIC PROVEN** | Logique prouvée avec fake/mock/fixture/test adapter contrôlé |
+| **REAL BOUNDARY PROVEN** | La vraie frontière externe a été exercée de manière **bornée** ; comportement contractuel pertinent observé |
+| **END-TO-END REAL PROVEN** | Le parcours utilisateur/capacité traverse réellement les frontières concernées jusqu'au résultat observable/persisté |
+
+Règles dures :
+
+- un niveau inférieur **ne vaut jamais** automatiquement le niveau supérieur ;
+- **REAL-shaped deterministic** reste **DETERMINISTIC PROVEN**, jamais REAL BOUNDARY PROVEN ;
+- une fixture, mock, fake provider ou simulateur **ne peut pas** être présenté comme preuve REAL ;
+- **DETERMINISTIC PROVEN ⇒ READY FOR REAL** est **interdit** sans gate Morris et niveau de preuve explicite.
+
+Labels de provenance (adapter si une terminologie projet plus simple existe, sans perdre la distinction) :
+
+UI-DRIVEN ; HARNESS-SEEDED ; COMPONENT-PROVEN ; DOMAIN-INTEGRATION-PROVEN ; REAL-BOUNDARY-PROVEN ; END-TO-END-REAL-PROVEN ; NOT PROVEN.
+
+### Preuve progressive
+
+Lorsqu'une capacité dépend d'une frontière externe significative, ne pas attendre la fin de nombreux cycles pour découvrir son comportement réel.
+
+Trajectoire recommandée selon risque :
+
+deterministic → bounded REAL boundary proof → deterministic hardening → nouvelle bounded REAL proof si nécessaire → end-to-end REAL proof.
+
+Les preuves REAL doivent être petites, bornées, réversibles autant que possible, proportionnées au risque, et soumises aux **gates existants**.
+
+Cette règle **n'autorise JAMAIS automatiquement** le REAL. Le GO REAL reste **humain / Morris**, distinct de tout GO déterministe.
+
+### Tooling gap
+
+Si le harness QA ne permet pas de reproduire un état REAL significatif nécessaire à la preuve du chemin critique :
+
+- ne pas contourner par un claim inférieur ;
+- verdict : **INCOMPLETE / TOOLING GAP** ;
+- puis requalification Delivery du tooling de preuve si ce tooling est nécessaire au chemin critique.
+
+### Anti-claims
+
+Interdit de déclarer, sur la seule base déterministe :
+
+- READY FOR REAL ;
+- FULL REAL PRODUCT LOOP PROVEN ;
+- fake = REAL ;
+- deterministic = REAL.
+
+Fake n'est **pas** interdit. Fixture n'est **pas** interdite. La preuve déterministe n'est **pas** inutile.
 
 ## 14. Documents associés
 

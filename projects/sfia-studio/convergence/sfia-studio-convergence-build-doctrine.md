@@ -57,7 +57,7 @@ Morris
 
 Fondations doctrine produit associées : **V3-F01…V3-F15** (VALIDATED doctrine ; runtime coverage progressive via Roadmap).
 
-## A4. Règles fondatrices de construction (R1–R20)
+## A4. Règles fondatrices de construction (R1–R21)
 
 | ID | Règle |
 | --- | --- |
@@ -81,6 +81,7 @@ Fondations doctrine produit associées : **V3-F01…V3-F15** (VALIDATED doctrine
 | **R18** | Fermer dans un **même lot** les gaps cohérents servant une seule capacité utilisateur, sauf raison de scission. |
 | **R19** | Aucun claim de maturité / READY / ADOPTED sans **preuve**. |
 | **R20** | Toute brique **temporaire** doit rendre visible sa **sortie**. |
+| **R21** | **Fidélité Fake/Real.** Un fake/fixture substitue une **frontière externe**, pas un second chemin produit. Preuve déterministe ≠ preuve REAL. REAL-shaped deterministic reste DETERMINISTIC PROVEN. Les realism gaps restent visibles. Une frontière REAL significative se prouve **progressivement** (déterministe → REAL borné → end-to-end REAL). Aucun claim supérieur à la preuve. Aucun REAL automatique. |
 
 ## A5. Challenge obligatoire avant tout chantier Studio
 
@@ -96,6 +97,8 @@ Avant cadrage / prompt Cursor / delivery Studio, répondre :
 8. Quelle **dette** est créée ?
 9. Action **répétable/automatisable** ou **arbitrage humain** ?
 10. Un **gate Morris** est-il nécessaire ?
+11. Y a-t-il une **frontière fake/mock/fixture** ? Substitue-t-elle la frontière externe, ou crée-t-elle un **chemin produit parallèle** ?
+12. Quel **niveau de preuve** ce chantier peut-il honnêtement atteindre (DETERMINISTIC / REAL BOUNDARY / END-TO-END REAL) ? Quels **realism gaps** restent ouverts ?
 
 Si **1** ou **7** n’a pas de réponse exploitable :
 
@@ -112,6 +115,10 @@ STOP — TRAJECTORY LINK MISSING
 | Exception | Uniquement risque technique précis non résoluble autrement + exit explicite. |
 | Gate | Morris gate si l’exception ouvre une branche de trajectoire. |
 | Interdit | Traiter POC/fixture comme produit final ou comme preuve REAL silencieuse. |
+| Fake / fixture de frontière | **KEEP** comme substitution d’adapter. Même orchestration, mêmes états produit, même Evidence pipeline. |
+| Chemin produit parallèle fixture | **Interdit** si le REAL traverse des états significativement différents (ex. succeeded immédiat vs running asynchrone). Qualifier **REALISM GAP**. |
+| REAL-shaped deterministic | Reste **DETERMINISTIC PROVEN** — jamais REAL BOUNDARY PROVEN. |
+| Tooling QA | S’il ne peut pas reproduire un état REAL significatif du chemin critique : **INCOMPLETE / TOOLING GAP**, puis requalification Delivery — pas un claim inférieur. |
 
 ## A7. Politique d’intermédiaire
 
@@ -147,6 +154,9 @@ Une milestone **ne se termine pas** parce qu’un composant « existe ».
 Elle se termine lorsqu’une **capacité utilisateur** ou une **précondition structurante** explicitement définie est **démontrée** (preuve Git / handoff / parcours UI).
 
 `technical SUCCESS ≠ functional READY ≠ V3 RUNTIME ADOPTED`.
+
+`DETERMINISTIC PROVEN ≠ REAL BOUNDARY PROVEN ≠ END-TO-END REAL PROVEN`.
+`DETERMINISTIC PROVEN ≠ READY FOR REAL`.
 
 ## A11. Gouvernance des sources
 
@@ -189,7 +199,10 @@ Repo-informed pre-check
 - roadmap par composants sans user outcome ;
 - décision candidate présentée comme acquise ;
 - mass rewrite historique ;
-- Build Doctrine transformée en doctrine runtime.
+- Build Doctrine transformée en doctrine runtime ;
+- fake/fixture présenté comme preuve REAL ;
+- chemin produit parallèle fixture non qualifié ;
+- DETERMINISTIC PROVEN promu READY FOR REAL.
 
 ## A14. Stop markers
 
