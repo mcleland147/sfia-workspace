@@ -1,1582 +1,802 @@
 # ChatGPT Review Pack — FULL
-# Cycle 8 Delivery requalification — DETERMINISTIC BROWSER PROOF TOOLING
-# ZERO REAL — not Cycle 9 formal QA verdict
+## Cycle 9 — QA / validation — DETERMINISTIC BROWSER QA — ZERO REAL
+
+| Champ | Valeur |
+|-------|--------|
+| **Date/heure/fuseau** | 2026-08-17 15:06:11 CEST (+0200) |
+| **Niveau** | FULL |
+| **Cycle** | 9 — QA / validation |
+| **Profil SFIA** | Critical |
+| **Typologie v2.4** | INC — Pre-M6 deterministic browser re-validation |
+| **Gate consommé** | `GO MORRIS — CYCLE 9 QA / VALIDATION DETERMINISTIC BROWSER QA ZERO REAL` |
+| **Repo** | `mcleland147/sfia-workspace` |
+| **Worktree candidat** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off` |
+| **Branche** | `delivery/sfia-studio-pre-m6-ui-option-a` |
+| **HEAD** | `0d33478566627a9bf507d5a06323962d349308ee` |
+| **origin/main** | `a3ac418f3bc2ebb006cbc58f902f13629871014d` |
+| **Parent handoff (entrée)** | `34bc2f2753fa49850d561bdb2cfc07955bfe0ba0` |
+| **Parent blob** | `bac48e13a495e209c55c5770d5c26f957b4ff68d` |
+| **Preuves** | `.tmp-sfia-review/deterministic-browser-qa-final/` |
+
+---
 
 ## 1. Timestamp Europe/Paris
 
-2026-08-17T14:49:50.401394+02:00
+2026-08-17 15:06:11 CEST (+0200)
+
+---
 
 ## 2. Cycle
 
-8 — Delivery / implémentation
+9 — QA / validation.
 
-Requalification CE : DETERMINISTIC BROWSER PROOF TOOLING.
-Ce cycle n’est PAS le Cycle 9 QA formel.
+Cette campagne EST le verdict Cycle 9 formel.
+
+Elle n’est PAS :
+- une Delivery ;
+- un cycle de correction ;
+- une preuve REAL ;
+- une autorisation REAL ;
+- une PR readiness ;
+- une clôture Pre-M6.
+
+Aucun fichier versionné créé, modifié ou supprimé.
+
+---
 
 ## 3. Profil
 
-Critical
+Critical.
 
-Justification : tooling qui doit représenter fidèlement une frontière d’exécution Cursor asynchrone et conditionne la qualité de la prochaine preuve browser Pre-M6.
+Justification : chemin critique Pre-M6 découvert pendant une frontière REAL
+(running asynchrone → continuation utilisateur → terminal → Evidence).
+Le verdict conditionne uniquement la possibilité pour Morris de décider
+ou non une nouvelle preuve REAL bornée.
+Une réserve bloquante sur B1 ou B3 ne doit pas être adoucie en PASS WITH RESERVE.
 
-## 4. Typologie v2.4
+---
 
-INC — bounded Pre-M6 deterministic proof tooling
+## 4. Typologie
+
+INC — Pre-M6 deterministic browser re-validation.
+
+---
 
 ## 5. GO Morris exact
 
 ```
 GO MORRIS —
-RESUME SFIA STUDIO
-CYCLE 8 DELIVERY REQUALIFICATION
-DETERMINISTIC BROWSER PROOF TOOLING
+CYCLE 9
+QA / VALIDATION
+DETERMINISTIC BROWSER QA
 ZERO REAL
 ```
 
-Autorisé : inspection locale Pre-M6 ; extension minimale E2E/QA ; double déterministe TEST-ONLY de la frontière Cursor ; composition TEST/E2E ; QA control existant uniquement pour piloter cette frontière (ici : env fail-closed, reset singleton existant) ; tests déterministes/Playwright nécessaires ; DB QA isolée ; runtime browser local ; screenshots ; Vitest/Playwright/typecheck/lint/build ; FULL review pack ; Review Handoff publish-in-cycle.
+---
 
-Interdit et respecté : Cursor REAL ; SFIA_STUDIO_CURSOR_REAL=1 ; OPS1_CURSOR_REAL=1 ; OpenAI LIVE ; NodeCursorProcessRunner réel ; subprocess Cursor CLI ; nouveau REAL worktree ; reprise/cleanup ancien Attempt REAL ; worker/queue/scheduler/poller ; nouveau store ; migration ; Product persistence ; refonte UI ; nouvelle primitive domaine ; chemin produit parallèle ; commit projet ; push projet ; PR ; merge ; Roadmap sync ; M6 ; UAT ; runtime v3 ADOPTED.
+## 6. CKC QA
 
-## 6. Local Git Truth
+| Champ | Valeur |
+|-------|--------|
+| recherché | oui |
+| cycle qualifié | 9 — QA / validation |
+| contrat trouvé | oui |
+| path | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md` |
+| blob origin/main @ a3ac418f | `9d9970d611dbb6e52297ac215604d3a08e87e738` |
+| statut | candidate |
+| version | 0.1.0 |
+| usage | experimental cognitive guidance |
+| autorité | aucune autorité d’exécution |
+| fallback | non requis |
 
-Repository : mcleland147/sfia-workspace
-Workspace : worktree Studio `…/sfia-studio-m4-real-off`
-Branche locale : `delivery/sfia-studio-pre-m6-ui-option-a` (absente d’origin)
-HEAD : `0d33478566627a9bf507d5a06323962d349308ee`
-origin/main : `a3ac418f3bc2ebb006cbc58f902f13629871014d`
-origin/sfia/review-handoff (avant ce publish) : `702f38fccf38c3f5450e54c2c24b81897c04638a`
-git fetch origin main sfia/review-handoff : OK
-git diff --cached : vide
-Aucun reset / clean / stash / rebase / merge / checkout destructif.
+Posture appliquée :
+référentiel explicite ; observation / réserve / verdict séparés ;
+nominal + négatifs ; reproductibilité ; non-régression ;
+sévérité des écarts ; limites de campagne explicites ;
+anti-claims ; aucun GO implicite.
 
-## 7. Divergence HEAD 0d334 vs origin/main a3ac
+Dimensions CKC 1–10 toutes exercées ci-dessous.
 
-origin/main est en avance du candidat local à cause de PR #360 (méthodologique uniquement).
-Aucun merge/rebase/cherry-pick de origin/main dans le candidat dirty.
+Limite : le CKC cadre le raisonnement QA ; le template v2.6 reste le contrat d’exécution.
 
-## 8. PR #360 n’a changé aucun app/**
+---
 
-`git diff --name-status 0d334785…..origin/main` :
+## 7. Local Git Truth PRE
+
+Mesuré (jamais inventé) :
+
+| Check | Attendu | Observé |
+|-------|---------|---------|
+| branche | `delivery/sfia-studio-pre-m6-ui-option-a` | MATCH |
+| HEAD | `0d33478566627a9bf507d5a06323962d349308ee` | MATCH |
+| origin/main | `a3ac418f3bc2ebb006cbc58f902f13629871014d` | MATCH |
+| origin/sfia/review-handoff (entrée) | `34bc2f2753fa49850d561bdb2cfc07955bfe0ba0` | MATCH |
+| staged | vide | MATCH |
+| dirty paths | mesurés | **88** (fichier `pre/git-status-short.txt`) |
+
+Aucun reset / clean / stash / rebase / merge / cherry-pick / checkout destructif
+sur le candidat.
+
+`git diff --name-status 0d334785..origin/main` :
+exactement 5 fichiers méthodologiques PR #360 ;
+aucun `projects/sfia-studio/app/**`.
 
 ```
-M	docs/foundation/sfia-engineering-principles.md
-M	method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-M	method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-M	projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-M	prompts/templates/sfia-cycle-execution-template.md
+M docs/foundation/sfia-engineering-principles.md
+M method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+M method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+M projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+M prompts/templates/sfia-cycle-execution-template.md
 ```
 
-`git diff --name-status 0d334785…..origin/main -- projects/sfia-studio/app/**` : vide.
+Verdict Git Truth : PASS.
+Pas de STOP « STUDIO CANDIDATE BASE DIVERGED FROM CURRENT MAIN ».
 
-## 9. Identité candidat PRE
+---
 
-Mesurée, non inventée.
+## 8. origin/main
 
-- Cycle 9 baseline historique : 979 fichiers, manifest `a396bf199111dac671f0cf6f7751a99449840330c14c76d57c00901d13c91873`
-- Candidat Cycle 9 / entrée ce cycle : 980 fichiers, manifest `f34f41c3db0eef7e108514cfee7d78ba736c5717e0d5977b80069b3e77ce41ff`
-- Recompute PRE ce cycle : count 980, mismatch 0, missing 0, SHA identique
-- Cycle 8 seven files : 7/7 match (hashes §10 identity.json Cycle 9)
-- Preuve : `.tmp-sfia-review/deterministic-browser-boundary-tooling/pre/identity.json`
+`a3ac418f3bc2ebb006cbc58f902f13629871014d`
 
-Identité d’entrée : **VERIFIED**.
+Sources lues depuis cet SHA (template, routing, CKC 04, v2.5 §4.9,
+operating model, guardrails, convergence doctrine/roadmap, v3 framing 34/35).
 
-## 10. Sources
+---
 
-Lues depuis origin/main @ `a3ac418f…` (git show) et handoffs `git show` :
+## 9. Parent handoff 34bc2f
 
-1. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` — R1–R21, A5, A6, A10, A13, A15
-2. Roadmap — READ ONLY
-3. `34-agent-capabilities-reversibility-and-execution-governance.md` — READ ONLY
-4. `35-artifact-evidence-debt-and-controlled-learning.md` — READ ONLY
-5. `prompts/templates/sfia-cycle-execution-template.md` — Repo-informed, Delivery, §6.16, Review pack/handoff
-6. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-7. sfia-v2.5 §4.8
-8. CKC synthetic map Cycle 8 — contrat détaillé absent ; guidance candidate ; aucune autorité d’exécution
-9. Parent handoff `702f38fccf38c3f5450e54c2c24b81897c04638a`
-10. Cycle 9 tooling gap `7821ab49ffb854c89664620ee0a8e3024c321e15`
-11. Cycle 8 async reachability `4a089060d04530a83f4d1326b1de0bbbdf523f6f`
-12. FIRST REAL `5d55c393a65df5813735a75e5e579c2b0bd35896`
+Lu : `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md`
 
-## 11. Build Doctrine R21
+| Champ | Attendu | Observé |
+|-------|---------|---------|
+| Cycle | 8 — Delivery / implémentation | MATCH |
+| Objet | DETERMINISTIC BROWSER PROOF TOOLING | MATCH |
+| Verdict | PASS | MATCH |
+| Commit | `34bc2f2753fa49850d561bdb2cfc07955bfe0ba0` | MATCH |
+| Blob | `bac48e13a495e209c55c5770d5c26f957b4ff68d` | MATCH |
+| Candidate POST count | 983 | MATCH |
+| Candidate POST manifest | `4633999fae3a7afb494f638623899726e7e10ebdfcc516d8e47792a6da4b331b` | MATCH |
 
-origin/main :
+7 fichiers Cycle 8 tooling présents sur le candidat (hashes PRE) :
 
-> R21 Fidélité Fake/Real. Un fake/fixture substitue une **frontière externe**, pas un second chemin produit. Preuve déterministe ≠ preuve REAL. REAL-shaped deterministic reste DETERMINISTIC PROVEN. Les realism gaps restent visibles. Une frontière REAL significative se prouve **progressivement** (déterministe → REAL borné → end-to-end REAL). Aucun claim supérieur à la preuve. Aucun REAL automatique.
+1. `deterministicExternalLaunchBoundary.ts` — `d8bed3530e6d3d12c8ee49d4db79f1c31ebfa23347d139d9abaa7a041905781d`
+2. `composeStudioProductRealBoundary.ts` — `c7b4bb7d70e8078dd74865c37c3add2790972508bae74448aab0ad22faec02a4`
+3. `selectProductM3ResolutionProfile.ts` — `dfd4585c2780c4db3f776ec1c967d543ff8637477436311da9537a8289190e93`
+4. `importBoundaries.test.ts` — `171f73133c6cc77245ea8abbad824c2504589f1f5ba85e6e9ddfeb7e98831f8f`
+5. `deterministicCursorBoundary.test.ts` — `e85ac0e5ce1397f487014e9fb2b196500970180155ec00b70eb2f84157a26c34`
+6. `studio-option-a-deterministic-cursor-boundary.spec.ts` — `fc31c795e7c5ccd4d0c8619f677424ab33268e1d66f206f2ff676015246ad46d`
+7. `playwright.config.ts` — `303ab8f0a6b15342df739d6647349d44bc5826d45cf0dc38b7fbdb20791f670b`
 
-A5 challenge avant chantier : seam existant `composeStudioProductRealBoundary` + `completeBoundedReadOnlyLaunch` observe-pending.
-A6 fixture : le chemin fixture Option A est FREEZE comme preuve B1–B3.
-A10 preuve de sortie : tooling capable de running → refresh → terminal sans REAL externe.
-A13 anti-pattern évité : pas de seed Attempt/Evidence.
-A15 : pas d’évolution doctrine/runtime v3.
+Pas de STOP « PARENT TOOLING HANDOFF DIVERGED ».
 
-## 12. Roadmap
+Handoffs antérieurs consultés pour continuité :
+- Cycle 9 tooling gap failed : `7821ab49ffb854c89664620ee0a8e3024c321e15`
+- Cycle 8 async product reachability : `4a089060d04530a83f4d1326b1de0bbbdf523f6f`
+- FIRST REAL failure : `5d55c393a65df5813735a75e5e579c2b0bd35896`
 
-READ ONLY. Non modifiée. Pre-M6 NON COMPLETE. M6 non autorisé.
+---
 
-## 13. v3 framing 34/35
+## 10. Candidate identity PRE
 
-V3-F05 conversation → décision → exécution → preuve → état.
-34 : exécution gouvernée, réversibilité, Gate D existant conservé.
-35 : Evidence / ReviewBundle / dette d’apprentissage — chaîne canonique inchangée.
-Runtime v3 NON ADOPTED.
+Méthode : rehash des 983 chemins du manifest POST Cycle 8 tooling.
 
-## 14. Current handoff 702f38…
+| Métrique | Attendu | Observé |
+|----------|---------|---------|
+| count | 983 | 983 |
+| manifest SHA256 | `4633999fae3a7afb494f638623899726e7e10ebdfcc516d8e47792a6da4b331b` | MATCH |
+| mismatches | 0 | 0 |
+| missing | 0 | 0 |
 
-Cycle 14 post-merge PR #360. Doctrine Fake/Real intégrée sur main. Pre-M6 NON COMPLETE. NOT READY FOR REAL.
+7 fichiers Cycle 8 async refresh : hashes identiques aux attendus historiques.
 
-## 15. Blocker handoff 7821ab… (Cycle 9)
+Verdict identité : VERIFIED.
+Pas de STOP « CYCLE 9 INPUT CANDIDATE DIVERGED ».
 
-Gap : DETERMINISTIC BROWSER PROOF TOOLING. Browser N1/N2/N5 PASS ; B1/B2/B3 NOT PROVEN IN BROWSER. QA control ne peut pas seeder running REAL-shaped. Fixture path terminal immédiat.
+---
 
-## 16. Cycle 8 handoff 4a089…
+## 11. Sources
 
-Reachability UI running + « Actualiser le résultat ». Product fix FREEZE ce cycle.
+Lues depuis origin/main @ a3ac418f et handoffs listés §8–§9.
+Convergence + Fake/Real + browser/Playwright + Evidence + Review pack FULL
++ Review Handoff publish-in-cycle : activés.
+Delivery / architecture / UX / Figma / DevOps / release / REAL /
+Roadmap mutation / PR readiness : désactivés.
 
-## 17. FIRST REAL handoff 5d55…
+---
 
-Spawn ACK REAL sélectif. Full REAL product loop NOT PROVEN. Ancien worktree READ ONLY.
+## 12. Convergence Pre-check
 
-## 18. Convergence qualification
+Triggered : OUI.
 
-- Capacité v3 principale : V3-F05 (+ F02, F11, F12, F14, F15)
-- Milestone : PRE-M6 — NON COMPLETE
-- Runtime v3 : NON ADOPTED
-- KEEP : Option A, HumanDecision, Contract, Confirmation, Attempt, Evidence, RB, LPS, canonical action, async continuation, one-launch, Cycle 8 refresh UI, Playwright/QA control existants
-- ADAPT : E2E boundary tooling + substitution déterministe
-- COMPLETE : tooling browser capable de running → refresh → terminal sans REAL externe
-- FREEZE : legacy presentation ; old fixture-only path as B1–B3 proof
-- HARVEST : TestOnlyRealExecutionLaunchPort semantics (copied beside seam, not imported from `__tests__`)
-- REPLACE : aucun
-- Gap ciblé : DETERMINISTIC BROWSER PROOF TOOLING GAP
-- Trajectoire : FIRST REAL → Cycle 8 UI → Cycle 9 gap → Fake/Real on main → **ce CE Delivery tooling** → Cycle 9 deterministic browser QA (futur) → éventuellement REAL borné Morris — jamais automatique
-- Exit proof : tooling traverse le chemin produit REAL-shaped déterministe avec même orchestration / Contract / Attempt / launch=1 / running / refresh / pending / terminal / Evidence / RB / Nora / LPS / reload, ZERO external REAL
-- Capacité suivante : CYCLE 9 — DETERMINISTIC BROWSER QA — ZERO REAL
+| Champ | Valeur |
+|-------|--------|
+| Capacité v3 principale | V3-F05 — conversation → décision → exécution → preuve → état |
+| Associées | V3-F02, V3-F11, V3-F12, V3-F14, V3-F15 |
+| Milestone | PRE-M6 |
+| État milestone | NON COMPLETE |
+| Runtime v3 | NON ADOPTED |
 
-## 19. Fake / Real Qualification
+KEEP : Option A clean-slate, HumanDecision, DecisionBasis, ExecutionContract,
+Confirmation, ExecutionAttempt, Evidence, ReviewBundle, Recommendation, LPS,
+History, Recovery, canonical async continuation, Cycle 8 manual refresh UI,
+deterministic external-boundary tooling, Playwright, QA isolated DB, T-R3-ASYNC.
 
-Applicable : OUI
-Frontière externe : Cursor CLI / subprocess / NodeCursorProcessRunner / StudioCursorRealLaunchGateway
-Fake : `TestOnlyDeterministicCursorLaunchPort` + `MemoryLaunchSafetyJournal` via `composeDeterministicCursorBoundary`
-Placement : port/adapter externe au seam `composeStudioProductRealBoundary`
-Ne seede PAS Attempt running, Contract executing, Evidence, ReviewBundle, résultat terminal pour B1–B3
+FREEZE : legacy presentation ; fixture-only terminal path comme preuve de B1–B3.
 
-Parité préservée : contrat launch ACK, processRef logique, running, pending, terminal success, same Attempt/Contract, launch count=1, Evidence/RB/Nora/LPS downstream
+COMPLETE déjà acquis avant cette QA : deterministic browser proof tooling capability.
 
-Différences acceptées (REALISM GAPS) : aucun processus OS, aucun Cursor CLI, aucun stdout réel, aucun timing OS, aucun réseau, aucune conso OpenAI/Cursor
+Objet de CE Cycle 9 : VALIDER la candidate, pas la modifier.
 
-États représentés : spawn ACK simulé, running, pending configurable (observe counter=2), terminal success, processRef stable `proc:det:{attemptId}`
+Gap vérifié : browser deterministic proof du parcours
+running → refresh → pending → refresh → terminal.
 
-Preuve d’entrée : domain one-launch DETERMINISTIC PROVEN ; component running-refresh DETERMINISTIC PROVEN ; browser running→refresh NOT PROVEN (avant ce cycle)
-
-Preuve ce cycle : DETERMINISTIC PROVEN pour la **capacité du tooling**. Pas le verdict formel Cycle 9 de toute la candidate.
-Hors scope : REAL BOUNDARY PROVEN, END-TO-END REAL PROVEN
-Gate Morris REAL : NON
-DETERMINISTIC PROVEN ⇏ READY FOR REAL
-
-## 20. Discovery du seam
-
-Voir `.tmp-sfia-review/deterministic-browser-boundary-tooling/discovery.md`
-
-Chemin produit :
-Option A UI → prepareAndResolveM3ProductPath → selectProductM3ResolutionProfile → Confirmation → confirmAndExecuteResolvedM3 → executeConfirmedBoundedReadOnlyContract → StartExecution(launchPort) → completeBoundedReadOnlyLaunch(observe) → ingestEvidenceAndRecommend → Nora/LPS
-
-Seam : `composeStudioProductRealBoundary` retournait undefined sauf `SFIA_STUDIO_CURSOR_REAL=1`.
-`selectProductM3ResolutionProfile` choisissait bounded seulement si preferBoundedReadOnly OU REAL flag.
-Sans adapter le sélecteur, un fake injecté sans REAL flag restait sur le chemin fixture.
-
-T-R3-ASYNC intact (relancé PASS). Cycle 8 product files byte-identical.
-
-## 21. KEEP / ADAPT / COMPLETE / FORBIDDEN
-
-KEEP : UI Cycle 8, confirmAndExecuteResolvedM3, executeConfirmedBoundedReadOnlyContract, completeBoundedReadOnlyLaunch, persistence, T-R3-ASYNC, specs fixture Option A, QA control fail-closed existant, reset singleton.
-
-ADAPT : composeStudioProductRealBoundary ; selectProductM3ResolutionProfile (justifié : seam de sélection du profil bounded SANS flag REAL) ; importBoundaries allowlist ; playwright.config port isolé.
-
-COMPLETE : deterministicExternalLaunchBoundary.ts ; unit/integration ; Playwright tooling spec.
-
-FORBIDDEN TO TOUCH (respecté, hashes POST identiques PRE pour les watch files Cycle 8 UI + confirm/execute/complete) :
-useProductConversation.ts, ConversationSurface.tsx, ProjectAssistantPanel.tsx, presentationLabels.ts, confirmAndExecuteResolvedM3, executeConfirmedBoundedReadOnlyContract, completeBoundedReadOnlyLaunch, persistence/migrations.
-
-## 22. Plan fichiers exact PRE-mutation (7)
-
-1. NEW `lib/vertical-slice-runtime/deterministicExternalLaunchBoundary.ts` (renommé depuis le nom de travail `deterministicCursorBoundary.ts` pour ne pas violer `project-assistant/importBoundaries.test.ts` `/from @\/lib\/.*cursor/i`)
-2. ADAPT `lib/vertical-slice-runtime/composeStudioProductRealBoundary.ts`
-3. ADAPT `features/project-assistant/f3/selectProductM3ResolutionProfile.ts`
-4. ADAPT `__tests__/vertical-slice-runtime/importBoundaries.test.ts`
-5. NEW `__tests__/vertical-slice-runtime/deterministicCursorBoundary.test.ts`
-6. NEW `e2e/studio-option-a-deterministic-cursor-boundary.spec.ts`
-7. ADAPT `playwright.config.ts`
-
-QA control non étendu : env process-level + reset singleton existant.
-
-## 23. Diffs complets des fichiers créés/modifiés
-
-### 23.a NEW — deterministicExternalLaunchBoundary.ts (contenu complet)
-
-```ts
-/**
- * TEST/E2E-ONLY deterministic Cursor external-boundary double.
- *
- * Substitutes NodeCursorProcessRunner / StudioCursorRealLaunchGateway /
- * subprocess Cursor CLI. It does NOT seed ExecutionAttempt, ExecutionContract,
- * Evidence, or ReviewBundle — those remain product orchestration outputs.
- *
- * Fail-closed. Mutually exclusive with SFIA_STUDIO_CURSOR_REAL=1.
- */
-import {
-  M4_REAL_GATEWAY_ADAPTER_ID,
-  MemoryLaunchSafetyJournal,
-  type RealBoundaryWiring,
-  type RealExecutionLaunchPort,
-  type RealLaunchRequest,
-  type RealLaunchResult,
-  type RealProcessObservation,
-} from "@/lib/oa/execution-attempt";
-
-export const SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY_FLAG =
-  "SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY" as const;
-
-export const DETERMINISTIC_AND_REAL_MUTUALLY_EXCLUSIVE =
-  "DETERMINISTIC AND REAL EXECUTION MODES NOT MUTUALLY EXCLUSIVE" as const;
-
-const DETERMINISTIC_STDOUT =
-  "DETERMINISTIC_TEST_BOUNDARY_CURSOR_COMPLETION\nZERO REAL\n";
-
-export type DeterministicCursorBoundaryEnv = NodeJS.ProcessEnv;
-
-export function isDeterministicCursorBoundaryEnabled(
-  env: DeterministicCursorBoundaryEnv = process.env,
-): boolean {
-  if (env.NODE_ENV === "production") return false;
-  if (env[SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY_FLAG] !== "1") {
-    return false;
-  }
-  if (env.SFIA_STUDIO_E2E_QA_CONTROL !== "1") return false;
-  if (env.OPS1_CONVERSATION_PROVIDER !== "fake") return false;
-  if (env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL !== "1") return false;
-  if (env.SFIA_STUDIO_CURSOR_REAL === "1") return false;
-  if (env.OPS1_CURSOR_REAL === "1") return false;
-  return true;
-}
-
-export function assertDeterministicAndRealMutuallyExclusive(
-  env: DeterministicCursorBoundaryEnv = process.env,
-): void {
-  if (
-    env[SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY_FLAG] === "1" &&
-    (env.SFIA_STUDIO_CURSOR_REAL === "1" || env.OPS1_CURSOR_REAL === "1")
-  ) {
-    throw new Error(DETERMINISTIC_AND_REAL_MUTUALLY_EXCLUSIVE);
-  }
-}
-
-function pendingObserveLimitFromEnv(
-  env: DeterministicCursorBoundaryEnv,
-): number {
-  const raw = env.SFIA_STUDIO_E2E_DETERMINISTIC_PENDING_OBSERVES;
-  if (!raw) return 2;
-  const parsed = Number.parseInt(raw, 10);
-  if (!Number.isFinite(parsed) || parsed < 1) return 2;
-  return parsed;
-}
-
-export type TestOnlyDeterministicCursorLaunchPortOptions = {
-  readonly gatewayId?: string;
-  /** How many observe() calls stay pending before terminal success. Default 2. */
-  readonly pendingObserveLimit?: number;
-  readonly completionStdout?: string;
-};
-
-/**
- * Simulated external Cursor ACK / observe / completion.
- * realProcessInvoked on the ACK is the launch-port contract (spawn ACK),
- * not a claim that an OS Cursor process exists.
- */
-export class TestOnlyDeterministicCursorLaunchPort
-  implements RealExecutionLaunchPort
-{
-  readonly gatewayId: string;
-  readonly externalEffects = true as const;
-  readonly calls: RealLaunchRequest[] = [];
-  readonly simulatedTechnicalAckCount = { value: 0 };
-  private readonly pendingObserveLimit: number;
-  private readonly completionStdout: string;
-  private observeCount = 0;
-  private readonly observations = new Map<string, RealProcessObservation>();
-
-  constructor(options: TestOnlyDeterministicCursorLaunchPortOptions = {}) {
-    this.gatewayId = options.gatewayId ?? M4_REAL_GATEWAY_ADAPTER_ID;
-    this.pendingObserveLimit = options.pendingObserveLimit ?? 2;
-    this.completionStdout = options.completionStdout ?? DETERMINISTIC_STDOUT;
-  }
-
-  get launchCallCount(): number {
-    return this.calls.length;
-  }
-
-  get simulatedAckCount(): number {
-    return this.simulatedTechnicalAckCount.value;
-  }
-
-  get observeCallCount(): number {
-    return this.observeCount;
-  }
-
-  reset(): void {
-    this.calls.length = 0;
-    this.simulatedTechnicalAckCount.value = 0;
-    this.observeCount = 0;
-    this.observations.clear();
-  }
-
-  async launch(request: RealLaunchRequest): Promise<RealLaunchResult> {
-    this.calls.push(structuredClone(request));
-    this.simulatedTechnicalAckCount.value += 1;
-    const processRef = `proc:det:${request.attemptId}`;
-    this.observations.set(processRef, {
-      processRef,
-      exitCode: null,
-      timedOut: false,
-      stdout: "",
-      stderr: "",
-      durationMs: 0,
-      realProcessInvoked: true,
-    });
-    return {
-      outcome: "ack",
-      gatewayId: this.gatewayId,
-      attemptId: request.attemptId,
-      realProcessInvoked: true,
-      processRef,
-    };
-  }
-
-  async observe(processRef: string): Promise<RealProcessObservation | null> {
-    const current = this.observations.get(processRef);
-    if (!current) return null;
-    this.observeCount += 1;
-    if (this.observeCount <= this.pendingObserveLimit) {
-      const pending: RealProcessObservation = {
-        ...current,
-        exitCode: null,
-        timedOut: false,
-        realProcessInvoked: true,
-      };
-      this.observations.set(processRef, pending);
-      return pending;
-    }
-    const done: RealProcessObservation = {
-      processRef,
-      exitCode: 0,
-      timedOut: false,
-      stdout: this.completionStdout,
-      stderr: "",
-      durationMs: 1,
-      realProcessInvoked: true,
-    };
-    this.observations.set(processRef, done);
-    return done;
-  }
-
-  async awaitCompletion(
-    processRef: string,
-  ): Promise<RealProcessObservation | null> {
-    const current = this.observations.get(processRef);
-    if (!current) return null;
-    if (current.exitCode !== null || current.timedOut) return current;
-    return this.observe(processRef);
-  }
-}
-
-export function composeDeterministicCursorBoundary(
-  env: DeterministicCursorBoundaryEnv = process.env,
-): RealBoundaryWiring {
-  const launchPort = new TestOnlyDeterministicCursorLaunchPort({
-    pendingObserveLimit: pendingObserveLimitFromEnv(env),
-  });
-  return Object.freeze({
-    launchPort,
-    safetyJournal: new MemoryLaunchSafetyJournal(),
-  });
-}
-
-```
-
-### 23.b ADAPT — composeStudioProductRealBoundary.ts (fichier complet post-mutation)
-
-Changement utile vs Cycle 9 candidate :
-- import `assertDeterministicAndRealMutuallyExclusive`, `composeDeterministicCursorBoundary`, `isDeterministicCursorBoundaryEnabled`
-- au début de `composeStudioProductRealBoundary` : mutex puis branche déterministe fail-closed AVANT la construction REAL (NodeCursorProcessRunner / worktrees / sqlite journal)
-
-```ts
-/**
- * R1 — product live REAL boundary composition, OFF-by-default.
- *
- * When SFIA_STUDIO_CURSOR_REAL !== "1", returns undefined and constructs
- * nothing (no safety DB, no worktree dir, no Cursor bin search, no git, no process)
- * unless the fail-closed TEST/E2E deterministic Cursor boundary is enabled.
- *
- * The deterministic path substitutes only the external Cursor/process adapter.
- * It does not construct NodeCursorProcessRunner, worktrees, or safety sqlite.
- *
- * When the REAL flag is "1", constructs existing M4 classes only. Construction
- * does not launch a process, search the Cursor binary, or run git.
- * Launch remains gated by HumanDecision → Contract → Confirmation →
- * agent selection → Gate D → StartExecution.
- */
-import fs from "node:fs";
-import path from "node:path";
-import {
-  isStudioCursorRealEnabled,
-  NodeCursorProcessRunner,
-  NodeGitCommandRunner,
-  SqliteRealLaunchSafetyJournal,
-  StudioCursorRealLaunchGateway,
-  StudioGitWorktreeWorkspace,
-  type GitCommandRunner,
-  type ProcessRunner,
-  type RealBoundaryWiring,
-  type RealExecutionLaunchPort,
-  type RealExecutionWorkspacePort,
-  type RealLaunchSafetyJournalPort,
-} from "@/lib/oa/execution-attempt";
-import {
-  assertDeterministicAndRealMutuallyExclusive,
-  composeDeterministicCursorBoundary,
-  isDeterministicCursorBoundaryEnabled,
-} from "./deterministicExternalLaunchBoundary";
-
-export type ComposeStudioProductRealBoundaryInput = {
-  readonly env?: NodeJS.ProcessEnv;
-  readonly processRunner?: ProcessRunner;
-  readonly workspacePort?: RealExecutionWorkspacePort;
-  readonly gitRunner?: GitCommandRunner;
-  readonly safetyJournal?: RealLaunchSafetyJournalPort;
-  readonly resolveCursorBin?: () => string | null;
-  readonly repoRoot?: string;
-  readonly studioRoot?: string;
-  readonly execRoot?: string;
-  readonly safetyJournalPath?: string;
-};
-
-export function resolveStudioSfiaExecRoot(studioRoot?: string): string {
-  const root = path.resolve(studioRoot ?? path.resolve(process.cwd(), ".."));
-  return path.join(root, ".sfia-exec");
-}
-
-/**
- * Filesystem-only git toplevel discovery. Does not spawn git.
- */
-export function findGitToplevelByDotGit(startDir: string): string | null {
-  let dir = path.resolve(startDir);
-  for (;;) {
-    if (fs.existsSync(path.join(dir, ".git"))) return dir;
-    const parent = path.dirname(dir);
-    if (parent === dir) return null;
-    dir = parent;
-  }
-}
-
-export function composeStudioProductRealBoundary(
-  input: ComposeStudioProductRealBoundaryInput = {},
-): RealBoundaryWiring | undefined {
-  const env = input.env ?? process.env;
-  assertDeterministicAndRealMutuallyExclusive(env);
-  if (isDeterministicCursorBoundaryEnabled(env)) {
-    return composeDeterministicCursorBoundary(env);
-  }
-  if (!isStudioCursorRealEnabled(env)) {
-    return undefined;
-  }
-
-  const studioRoot = path.resolve(
-    input.studioRoot ?? path.resolve(process.cwd(), ".."),
-  );
-  const execBase = resolveStudioSfiaExecRoot(studioRoot);
-  const execRoot = path.resolve(
-    input.execRoot ?? path.join(execBase, "m4-worktrees"),
-  );
-  const safetyJournalPath = path.resolve(
-    input.safetyJournalPath ??
-      path.join(execBase, "m4", "launch-safety.sqlite"),
-  );
-  const repoRoot = path.resolve(
-    input.repoRoot ??
-      findGitToplevelByDotGit(process.cwd()) ??
-      path.resolve(process.cwd(), "../.."),
-  );
-
-  const processRunner = input.processRunner ?? new NodeCursorProcessRunner();
-  const gitRunner = input.gitRunner ?? new NodeGitCommandRunner();
-  const workspacePort =
-    input.workspacePort ??
-    new StudioGitWorktreeWorkspace({
-      repoRoot,
-      execRoot,
-      gitRunner,
-    });
-  const safetyJournal =
-    input.safetyJournal ??
-    (() => {
-      fs.mkdirSync(path.dirname(safetyJournalPath), { recursive: true });
-      return new SqliteRealLaunchSafetyJournal({
-        databasePath: safetyJournalPath,
-      });
-    })();
-  const launchPort: RealExecutionLaunchPort =
-    new StudioCursorRealLaunchGateway({
-      processRunner,
-      workspacePort,
-      env,
-      resolveCursorBin: input.resolveCursorBin,
-    });
-
-  return Object.freeze({
-    launchPort,
-    safetyJournal,
-  });
-}
-
-```
-
-### 23.c ADAPT — selectProductM3ResolutionProfile.ts (fichier complet post-mutation)
-
-Changement utile : import helper + `useBounded` inclut `isDeterministicCursorBoundaryEnabled(env)` sans activer `SFIA_STUDIO_CURSOR_REAL`.
-
-```ts
-/**
- * Server-side M3 profile selection (GAP-1 / GAP-2).
- * Never reads client adapter/command/real fields.
- */
-
-import type { ExecutionContract } from "@/lib/oa/execution-contract";
-import { isStudioCursorRealEnabled } from "@/lib/oa/execution-attempt";
-import { isDeterministicCursorBoundaryEnabled } from "@/lib/vertical-slice-runtime/deterministicExternalLaunchBoundary";
-import {
-  BOUNDED_READ_ONLY_M3_SUPERSESSION_REASON,
-  boundedReadOnlyM3ResolutionProfile,
-} from "./boundedReadOnlyM3ResolutionProfile";
-import {
-  FIXTURE_SAFE_M3_SUPERSESSION_REASON,
-  fixtureSafeM3ResolutionProfile,
-} from "./fixtureSafeM3ResolutionProfile";
-import type { M3ResolvedExecutionFields } from "./resolveM3ExecutionContract";
-
-export type ProductM3ResolutionKind = "fixture" | "bounded_read_only";
-
-export type SelectedProductM3Resolution = {
-  kind: ProductM3ResolutionKind;
-  profile: M3ResolvedExecutionFields;
-  supersessionReason: string;
-};
-
-function sortedEqual(a: readonly string[], b: readonly string[]): boolean {
-  if (a.length !== b.length) return false;
-  const left = [...a].sort();
-  const right = [...b].sort();
-  return left.every((v, i) => v === right[i]);
-}
-
-export function profileMatchesContract(
-  contract: Pick<
-    ExecutionContract,
-    | "action"
-    | "target"
-    | "scope"
-    | "reversibility"
-    | "requiredCapabilities"
-    | "constraints"
-    | "stopConditions"
-  >,
-  profile: M3ResolvedExecutionFields,
-): boolean {
-  return (
-    contract.action === profile.action &&
-    contract.target === profile.target &&
-    contract.scope === (profile.scope ?? contract.scope) &&
-    contract.reversibility === profile.reversibility &&
-    sortedEqual(contract.requiredCapabilities, profile.requiredCapabilities) &&
-    sortedEqual(contract.constraints, profile.constraints ?? []) &&
-    sortedEqual(contract.stopConditions, profile.stopConditions ?? [])
-  );
-}
-
-export function authorizedM3ResolutionKind(
-  contract: Pick<
-    ExecutionContract,
-    | "action"
-    | "target"
-    | "scope"
-    | "reversibility"
-    | "requiredCapabilities"
-    | "constraints"
-    | "stopConditions"
-  >,
-): ProductM3ResolutionKind | null {
-  if (profileMatchesContract(contract, fixtureSafeM3ResolutionProfile())) {
-    return "fixture";
-  }
-  if (profileMatchesContract(contract, boundedReadOnlyM3ResolutionProfile())) {
-    return "bounded_read_only";
-  }
-  return null;
-}
-
-/**
- * @param preferBoundedReadOnlyProfile Server/test only. Never from the client.
- * @param env Optional env snapshot for isStudioCursorRealEnabled /
- *   fail-closed deterministic Cursor boundary (TEST/E2E only).
- */
-export function selectProductM3ResolutionProfile(input?: {
-  preferBoundedReadOnlyProfile?: boolean;
-  env?: NodeJS.ProcessEnv;
-}): SelectedProductM3Resolution {
-  const env = input?.env ?? process.env;
-  const useBounded =
-    input?.preferBoundedReadOnlyProfile === true ||
-    isStudioCursorRealEnabled(env) ||
-    isDeterministicCursorBoundaryEnabled(env);
-  if (useBounded) {
-    return {
-      kind: "bounded_read_only",
-      profile: boundedReadOnlyM3ResolutionProfile(),
-      supersessionReason: BOUNDED_READ_ONLY_M3_SUPERSESSION_REASON,
-    };
-  }
-  return {
-    kind: "fixture",
-    profile: fixtureSafeM3ResolutionProfile(),
-    supersessionReason: FIXTURE_SAFE_M3_SUPERSESSION_REASON,
-  };
-}
-
-```
-
-### 23.d ADAPT — importBoundaries.test.ts (delta utile ce cycle)
-
-Ajout allowlist unique vs candidate Cycle 9 :
-
-```
-features/project-assistant/f3/selectProductM3ResolutionProfile.ts:@/lib/vertical-slice-runtime/deterministicExternalLaunchBoundary
-```
-
-Note : `git diff HEAD` sur ce fichier mélange la dirty Option A déjà présente sur le candidat Pre-M6 (non commise) et ce delta. Le delta **de ce cycle** est la ligne ci-dessus.
-
-### 23.e ADAPT — playwright.config.ts (fichier complet)
-
-```ts
-import { defineConfig, devices } from "@playwright/test";
-
-const playwrightPort = process.env.PLAYWRIGHT_PORT?.trim() || "3020";
-const baseURL =
-  process.env.PLAYWRIGHT_BASE_URL?.trim() ||
-  `http://127.0.0.1:${playwrightPort}`;
-
-export default defineConfig({
-  testDir: "./e2e",
-  fullyParallel: false,
-  workers: 1,
-  forbidOnly: !!process.env.CI,
-  retries: 0,
-  reporter: [["list"]],
-  use: {
-    ...devices["Desktop Chrome"],
-    baseURL,
-    trace: "on-first-retry",
-    viewport: { width: 1440, height: 1024 },
-  },
-  webServer: {
-    command: `npm run dev -- --hostname 127.0.0.1 --port ${playwrightPort}`,
-    url: baseURL,
-    reuseExistingServer:
-      process.env.PLAYWRIGHT_FORCE_WEBSERVER === "1" ? false : !process.env.CI,
-    timeout: 180_000,
-    env: {
-      ...process.env,
-      OPS1_E2E_ALLOW_DIRTY_PRINCIPAL: "1",
-      D1_INTAKE_PROVIDER: process.env.D1_INTAKE_PROVIDER || "fake",
-      // Default E2E: fake provider. Real live capture/smoke: OPS1_ALLOW_LIVE_SMOKE=1
-      // without forcing fake (secrets must already be in the environment).
-      ...(process.env.OPS1_ALLOW_LIVE_SMOKE === "1"
-        ? {
-            OPS1_CONVERSATION_PROVIDER: "",
-          }
-        : {
-            OPS1_CONVERSATION_PROVIDER: "fake",
-            OPENAI_API_KEY:
-              process.env.OPENAI_API_KEY || "sk-e2e-fake-not-a-real-key",
-            OPENAI_MODEL: process.env.OPENAI_MODEL || "fake-e2e-model",
-          }),
-    },
-  },
-});
-
-```
-
-Delta : `PLAYWRIGHT_PORT` / `PLAYWRIGHT_BASE_URL` / `PLAYWRIGHT_FORCE_WEBSERVER` pour isoler Next+DB QA sans toucher 3020/canonical DB.
-
-### 23.f NEW — deterministicCursorBoundary.test.ts (contenu complet)
-
-```ts
-/**
- * Fail-closed deterministic Cursor boundary — TEST/E2E composition.
- * ZERO Cursor REAL process. ZERO OpenAI live.
- * @vitest-environment node
- */
-import path from "node:path";
-import { mkdtempSync } from "node:fs";
-import os from "node:os";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import {
-  confirmAndExecuteResolvedM3,
-  prepareAndResolveM3ProductPath,
-  rehydrateEvidenceOutcomeFromLps,
-  selectProductM3ResolutionProfile,
-} from "@/features/project-assistant/f3";
-import {
-  createProposalId,
-  F2_PROCESS_LOCAL_NOTICE,
-  resetF2ProposalStoreForTests,
-  saveProposal,
-} from "@/features/project-assistant/f2/proposalStore";
-import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
-import {
-  assertStudioCursorRealOffForTests,
-  isStudioCursorRealEnabled,
-  StudioCursorRealLaunchGateway,
-} from "@/lib/oa/execution-attempt";
-import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
-import {
-  composeStudioProductRealBoundary,
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-  type RuntimeApplicationService,
-} from "@/lib/vertical-slice-runtime";
-import {
-  DETERMINISTIC_AND_REAL_MUTUALLY_EXCLUSIVE,
-  isDeterministicCursorBoundaryEnabled,
-  TestOnlyDeterministicCursorLaunchPort,
-} from "@/lib/vertical-slice-runtime/deterministicExternalLaunchBoundary";
-import {
-  FakeConversationProvider,
-  setConversationProviderForTests,
-  type ProviderChatMessage,
-  type ProviderCompletionResult,
-} from "@/lib/platform/ai";
-import { FakeGitCommandRunner } from "../oa/execution-attempt/support/fakeSpawnAndGit";
-
-const APP_ROOT = path.resolve(__dirname, "../..");
-const REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
-const SCHEMAS_ROOT = path.resolve(
-  APP_ROOT,
-  "../sfia-v3-modeled/v3-native-option-a/schemas",
-);
-const TEST_BOUNDED_BASE_HEAD_SHA =
-  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
-
-const DET_ENV_KEYS = [
-  "SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY",
-  "SFIA_STUDIO_E2E_QA_CONTROL",
-  "OPS1_CONVERSATION_PROVIDER",
-  "OPS1_E2E_ALLOW_DIRTY_PRINCIPAL",
-  "SFIA_STUDIO_CURSOR_REAL",
-  "OPS1_CURSOR_REAL",
-  "SFIA_STUDIO_E2E_DETERMINISTIC_PENDING_OBSERVES",
-] as const;
-
-function clearDetEnv(): void {
-  for (const key of DET_ENV_KEYS) {
-    delete process.env[key];
-  }
-}
-
-function armDetEnv(overrides: Record<string, string> = {}): NodeJS.ProcessEnv {
-  const next: Record<string, string> = {
-    SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY: "1",
-    SFIA_STUDIO_E2E_QA_CONTROL: "1",
-    OPS1_CONVERSATION_PROVIDER: "fake",
-    OPS1_E2E_ALLOW_DIRTY_PRINCIPAL: "1",
-    ...overrides,
-  };
-  Object.assign(process.env, next);
-  return { ...process.env, ...next };
-}
-
-class FixedIdSource implements LocalProjectIdSource {
-  private project = 0;
-  private lps = 0;
-  private correlation = 0;
-  constructor(private readonly prefix: string) {}
-  nextProjectId(): string {
-    this.project += 1;
-    return `prj:det-${this.prefix}-${this.project}`;
-  }
-  nextLpsVersionId(): string {
-    this.lps += 1;
-    return `lps:det-${this.prefix}-${this.lps}`;
-  }
-  nextCorrelationId(): string {
-    this.correlation += 1;
-    return `cor:det-${this.prefix}-${this.correlation}`;
-  }
-}
-
-class CapturingFakeProvider extends FakeConversationProvider {
-  readonly completeCalls: ProviderChatMessage[][] = [];
-  override async complete(
-    messages: ProviderChatMessage[],
-  ): Promise<ProviderCompletionResult> {
-    this.completeCalls.push(messages.map((m) => ({ ...m })));
-    return super.complete(messages);
-  }
-}
-
-function createRuntime(prefix: string): RuntimeApplicationService {
-  resetRuntimeApplicationServiceForTests();
-  const dir = mkdtempSync(path.join(os.tmpdir(), `sfia-det-${prefix}-`));
-  return getRuntimeApplicationService({
-    registryRoot: REGISTRY_ROOT,
-    schemasRoot: SCHEMAS_ROOT,
-    nowIso: "2026-08-17T12:00:00.000Z",
-    idSource: new FixedIdSource(prefix),
-    auditMode: "noop",
-    productDbPath: path.join(dir, "oa-product.sqlite"),
-  });
-}
-
-async function seedGo(runtime: RuntimeApplicationService, label: string) {
-  const created = await runtime.createProject({
-    name: `DET ${label}`,
-    objective: "Deterministic cursor boundary tooling",
-    context: "ZERO REAL",
-    criticality: "STANDARD",
-    constraints: ["TEST BOUNDARY ONLY"],
-    shortReference: "DET",
-    idempotencyKey: `det-${label}-${Date.now()}-${Math.random()}`,
-  });
-  if (!created.ok) throw new Error("create failed");
-  const projectId = created.project.projectId;
-  const overview = await runtime.getProject(projectId);
-  if (!overview.ok) throw new Error("overview failed");
-  const proposalSnapshot = {
-    projectId,
-    lpsId: overview.livingState.id,
-    lpsVersion: overview.livingState.version,
-    doctrineDigest: overview.doctrine.digest,
-  };
-  const proposal = saveProposal({
-    proposalId: createProposalId(),
-    status: "DECISION_REQUIRED",
-    rephrasedRequest: "Deterministic boundary",
-    objective: "B1-B3 tooling",
-    cycleTypeId: "cyc:delivery",
-    recommendedProfile: "Standard",
-    rationale: "tooling",
-    scope: "boundary",
-    outOfScope: ["LIVE REAL"],
-    activatedBlocks: ["prepare"],
-    expectedOutcome: "tooling",
-    sources: [],
-    risks: [],
-    reservations: [],
-    stopConditions: ["ZERO LIVE"],
-    morrisGateRequired: true,
-    nextPossibleStep: "GO",
-    contextSnapshot: proposalSnapshot,
-    processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
-    executionForbidden: true,
-    noExecutingStatus: true,
-    agentBinding: "NOT_AVAILABLE",
-  });
-  const go = await recordF2Decision({
-    proposalId: proposal.proposalId,
-    projectId,
-    decisionKind: "GO",
-    currentContext: proposalSnapshot,
-    decisionServices: runtime.oa!.decisionServices,
-    authorityResolver: runtime.oa!.authorityResolver,
-    nowIso: () => runtime.oa!.clock.nowIso(),
-    forceM3Authority: true,
-  });
-  if (!go.ok) throw new Error("go failed");
-  const after = await runtime.getProject(projectId);
-  if (!after.ok) throw new Error("overview after failed");
-  return {
-    projectId,
-    decisionId: go.decision.decisionId,
-    currentContext: {
-      projectId,
-      lpsId: after.livingState.id,
-      lpsVersion: after.livingState.version,
-      doctrineDigest: after.doctrine.digest,
-    },
-  };
-}
-
-describe("deterministic Cursor external-boundary substitution", () => {
-  beforeEach(() => {
-    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-    delete process.env.SFIA_STUDIO_PRODUCT_DB_PATH;
-    clearDetEnv();
-    setConversationProviderForTests(null);
-    resetF2ProposalStoreForTests();
-    resetRuntimeApplicationServiceForTests();
-    assertStudioCursorRealOffForTests();
-  });
-
-  afterEach(() => {
-    setConversationProviderForTests(null);
-    resetF2ProposalStoreForTests();
-    resetRuntimeApplicationServiceForTests();
-    clearDetEnv();
-    assertStudioCursorRealOffForTests();
-    expect(isStudioCursorRealEnabled()).toBe(false);
-  });
-
-  it("N8 — refuses without QA env", () => {
-    expect(
-      isDeterministicCursorBoundaryEnabled({
-        NODE_ENV: "test",
-        SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY: "1",
-        OPS1_CONVERSATION_PROVIDER: "fake",
-        OPS1_E2E_ALLOW_DIRTY_PRINCIPAL: "1",
-      }),
-    ).toBe(false);
-    expect(
-      composeStudioProductRealBoundary({
-        env: {
-          NODE_ENV: "test",
-          SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY: "1",
-          OPS1_CONVERSATION_PROVIDER: "fake",
-          OPS1_E2E_ALLOW_DIRTY_PRINCIPAL: "1",
-        },
-      }),
-    ).toBeUndefined();
-  });
-
-  it("N9 — DETERMINISTIC + REAL is invalid", () => {
-    expect(() =>
-      composeStudioProductRealBoundary({
-        env: {
-          NODE_ENV: "test",
-          SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY: "1",
-          SFIA_STUDIO_CURSOR_REAL: "1",
-        },
-      }),
-    ).toThrow(DETERMINISTIC_AND_REAL_MUTUALLY_EXCLUSIVE);
-  });
-
-  it("N10 — production cannot enable the fake boundary", () => {
-    expect(
-      isDeterministicCursorBoundaryEnabled({
-        NODE_ENV: "production",
-        SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY: "1",
-        SFIA_STUDIO_E2E_QA_CONTROL: "1",
-        OPS1_CONVERSATION_PROVIDER: "fake",
-        OPS1_E2E_ALLOW_DIRTY_PRINCIPAL: "1",
-      }),
-    ).toBe(false);
-    expect(
-      composeStudioProductRealBoundary({
-        env: {
-          NODE_ENV: "production",
-          SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY: "1",
-          SFIA_STUDIO_E2E_QA_CONTROL: "1",
-          OPS1_CONVERSATION_PROVIDER: "fake",
-          OPS1_E2E_ALLOW_DIRTY_PRINCIPAL: "1",
-        },
-      }),
-    ).toBeUndefined();
-  });
-
-  it("selects bounded M3 profile without the REAL flag", () => {
-    const env = armDetEnv();
-    const selected = selectProductM3ResolutionProfile({ env });
-    expect(selected.kind).toBe("bounded_read_only");
-    expect(selectProductM3ResolutionProfile({ env: { NODE_ENV: "test" } }).kind).toBe(
-      "fixture",
-    );
-  });
-
-  it("composes TestOnly port, never StudioCursorRealLaunchGateway", () => {
-    const boundary = composeStudioProductRealBoundary({ env: armDetEnv() });
-    expect(boundary).toBeDefined();
-    expect(boundary!.launchPort).toBeInstanceOf(TestOnlyDeterministicCursorLaunchPort);
-    expect(boundary!.launchPort).not.toBeInstanceOf(StudioCursorRealLaunchGateway);
-  });
-
-  it("observe counter: pending, pending, then terminal — launch count 1", async () => {
-    const port = new TestOnlyDeterministicCursorLaunchPort({
-      pendingObserveLimit: 2,
-    });
-    const ack = await port.launch({
-      attemptId: "xat:det-1",
-      executionContractId: "xct:det-1",
-      executionContractVersion: 1,
-      semanticFingerprint: "fp",
-      selectedAgentRef: "agt:m4.cursor.bounded_readonly",
-      adapterRef: "adp:m4-cursor-cli-real",
-      correlationId: "cor:det",
-      baseHeadSha: TEST_BOUNDED_BASE_HEAD_SHA,
-    });
-    expect(ack.outcome).toBe("ack");
-    if (ack.outcome !== "ack") return;
-    const first = await port.observe(ack.processRef);
-    const second = await port.observe(ack.processRef);
-    const third = await port.observe(ack.processRef);
-    expect(first?.exitCode).toBeNull();
-    expect(second?.exitCode).toBeNull();
-    expect(third?.exitCode).toBe(0);
-    expect(port.launchCallCount).toBe(1);
-    port.reset();
-    expect(port.launchCallCount).toBe(0);
-    expect(port.observeCallCount).toBe(0);
-  });
-
-  it("same product orchestration: running → pending refresh → terminal Evidence/RB/Nora", async () => {
-    armDetEnv();
-    const provider = new CapturingFakeProvider({
-      scripted: ["[TEST/FAKE] Nora deterministic-boundary analysis"],
-    });
-    setConversationProviderForTests(provider);
-    const runtime = createRuntime("orch");
-    const launchPort = runtime.oa!.executionAttemptServices.realBoundary
-      ?.launchPort;
-    expect(launchPort).toBeInstanceOf(TestOnlyDeterministicCursorLaunchPort);
-    const port = launchPort as TestOnlyDeterministicCursorLaunchPort;
-    const journal = runtime.oa!.executionAttemptServices.realBoundary!.safetyJournal;
-
-    const seeded = await seedGo(runtime, "orch");
-    const prepared = await prepareAndResolveM3ProductPath({
-      projectId: seeded.projectId,
-      decisionId: seeded.decisionId,
-      currentContext: seeded.currentContext,
-      deps: {
-        decisionServices: runtime.oa!.decisionServices,
-        authorityResolver: runtime.oa!.authorityResolver,
-        executionContractServices: runtime.oa!.executionContractServices,
-        nowIso: () => runtime.oa!.clock.nowIso(),
-        forceM3Authority: true,
-        gitCommandRunner: new FakeGitCommandRunner({
-          baseHeadSha: TEST_BOUNDED_BASE_HEAD_SHA,
-        }),
-      },
-    });
-    expect(prepared.ok).toBe(true);
-    if (!prepared.ok) return;
-    expect(prepared.payload.mode).toBe("M3_RESOLVED_BOUNDED_READ_ONLY");
-
-    const confirmDeps = {
-      decisionServices: runtime.oa!.decisionServices,
-      authorityResolver: runtime.oa!.authorityResolver,
-      executionContractServices: runtime.oa!.executionContractServices,
-      executionAttemptServices: runtime.oa!.executionAttemptServices,
-      evidenceReviewServices: runtime.oa!.evidenceReviewServices,
-      fixtureAdapter: runtime.oa!.fixtureAdapter,
-      nowIso: () => runtime.oa!.clock.nowIso(),
-      projectServices: runtime.oa!.projectServices,
-      productDurablePath: runtime.oa!.productDurablePath,
-      forceM3Authority: true,
-    };
-
-    const first = await confirmAndExecuteResolvedM3({
-      projectId: seeded.projectId,
-      decisionId: seeded.decisionId,
-      executionContractId: prepared.payload.successor.executionContractId,
-      expectedContractVersion: prepared.payload.successor.version,
-      deps: confirmDeps,
-    });
-    expect(first.ok).toBe(true);
-    if (!first.ok) return;
-    expect(first.payload.attempt.status).toBe("running");
-    expect(first.payload.contract.status).toBe("executing");
-    expect(first.payload.evidence.evidenceId).toBe("ev:pending-real");
-    expect(port.launchCallCount).toBe(1);
-    expect(runtime.oa!.fixtureAdapter.launchCallCount).toBe(0);
-
-    const attemptId = first.payload.attempt.attemptId;
-    const contractId = first.payload.contract.executionContractId;
-
-    const second = await confirmAndExecuteResolvedM3({
-      projectId: seeded.projectId,
-      decisionId: seeded.decisionId,
-      executionContractId: contractId,
-      expectedContractVersion: prepared.payload.successor.version,
-      deps: confirmDeps,
-    });
-    expect(second.ok).toBe(true);
-    if (!second.ok) return;
-    expect(second.payload.reusedExistingAttempt).toBe(true);
-    expect(second.payload.attempt.attemptId).toBe(attemptId);
-    expect(second.payload.attempt.status).toBe("running");
-    expect(port.launchCallCount).toBe(1);
-
-    const third = await confirmAndExecuteResolvedM3({
-      projectId: seeded.projectId,
-      decisionId: seeded.decisionId,
-      executionContractId: contractId,
-      expectedContractVersion: prepared.payload.successor.version,
-      deps: confirmDeps,
-    });
-    expect(third.ok).toBe(true);
-    if (!third.ok) return;
-    expect(third.payload.reusedExistingAttempt).toBe(true);
-    expect(third.payload.attempt.attemptId).toBe(attemptId);
-    expect(third.payload.attempt.status).toBe("succeeded");
-    expect(third.payload.evidence.evidenceId.startsWith("ev:m4-bounded-ro:")).toBe(
-      true,
-    );
-    expect(
-      third.payload.reviewBundle.reviewBundleId.startsWith("rb:m4-bounded-ro:"),
-    ).toBe(true);
-    expect(port.launchCallCount).toBe(1);
-    expect(runtime.oa!.fixtureAdapter.launchCallCount).toBe(0);
-    expect(provider.completeCalls.length).toBe(1);
-    expect(third.payload.recommendation.analysisStatus).toBe("available");
-
-    const frontiers = await journal.findFrontierByAttempt(attemptId);
-    expect(frontiers.filter((row) => row.kind === "CREATED")).toHaveLength(1);
-    expect(frontiers.filter((row) => row.kind === "LAUNCHED")).toHaveLength(1);
-
-    const rehydrated = await rehydrateEvidenceOutcomeFromLps({
-      projectId: seeded.projectId,
-      deps: {
-        projectServices: runtime.oa!.projectServices,
-        evidenceReviewServices: runtime.oa!.evidenceReviewServices,
-      },
-    });
-    expect(rehydrated.ok).toBe(true);
-    if (!rehydrated.ok) return;
-    expect(rehydrated.evidence.map((row) => row.evidenceId)).toContain(
-      third.payload.evidence.evidenceId,
-    );
-    expect(rehydrated.reviewBundles.map((row) => row.reviewBundleId)).toContain(
-      third.payload.reviewBundle.reviewBundleId,
-    );
-  });
-});
-
-```
-
-### 23.g NEW — studio-option-a-deterministic-cursor-boundary.spec.ts (contenu complet)
-
-```ts
-/**
- * Cycle 8 Delivery — deterministic Cursor boundary browser TOOLING proof.
- * ZERO REAL. Not the formal Cycle 9 QA verdict.
- *
- * Requires Next started with:
- *   SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY=1
- *   SFIA_STUDIO_E2E_QA_CONTROL=1
- *   SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1
- *   OPS1_CONVERSATION_PROVIDER=fake
- *   isolated SFIA_STUDIO_PRODUCT_DB_PATH
- *   SFIA_STUDIO_CURSOR_REAL unset
- *
- * Screenshots: .tmp-sfia-review/deterministic-browser-boundary-tooling/screenshots/
- */
-import { test, expect, type Page } from "@playwright/test";
-import fs from "node:fs";
-import path from "node:path";
-import crypto from "node:crypto";
-
-const CAPTURE_ROOT = path.resolve(
-  process.cwd(),
-  "../../../.tmp-sfia-review/deterministic-browser-boundary-tooling/screenshots",
-);
-const BANNER =
-  "DETERMINISTIC / TEST BOUNDARY — ZERO REAL — not REAL proof";
-
-function runId(): string {
-  return `det-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-}
-
-async function stamp(page: Page): Promise<void> {
-  await page.evaluate((text) => {
-    const id = "sfia-det-banner";
-    let el = document.getElementById(id);
-    if (!el) {
-      el = document.createElement("div");
-      el.id = id;
-      el.setAttribute("data-testid", "sfia-det-banner");
-      el.style.cssText =
-        "position:fixed;top:0;left:0;right:0;z-index:2147483647;background:#111;color:#f6c90e;font:12px/1.35 ui-monospace,monospace;padding:8px 12px;pointer-events:none";
-      document.body.appendChild(el);
-    }
-    el.textContent = text;
-  }, BANNER);
-}
-
-async function capture(page: Page, id: string, state: string): Promise<string> {
-  await stamp(page);
-  fs.mkdirSync(CAPTURE_ROOT, { recursive: true });
-  const file = path.join(CAPTURE_ROOT, `${id}.png`);
-  await page.screenshot({ path: file, fullPage: true });
-  return crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
-}
-
-async function createUniqueProject(page: Page, suffix: string) {
-  const name = `QA DET boundary ${suffix}`;
-  await page.goto("/studio/projects/new");
-  await expect(page.getByTestId("create-project-form")).toBeVisible();
-  await page.locator("#project-name").fill(name);
-  await page
-    .locator("#project-objective")
-    .fill("Deterministic browser proof tooling — ZERO REAL");
-  await page
-    .locator("#project-context")
-    .fill("E2E TEST BOUNDARY — Cursor CLI not invoked.");
-  await page.getByTestId("create-project-submit").click();
-  await expect(page.getByTestId("open-project-workspace")).toBeVisible({
-    timeout: 30_000,
-  });
-  await page.getByTestId("open-project-workspace").click();
-  await expect(page.getByTestId("project-principal")).toBeVisible({
-    timeout: 30_000,
-  });
-  const url = page.url();
-  const rawId = url.split("/studio/projects/")[1]?.split(/[?#]/)[0];
-  if (!rawId) throw new Error("projectId missing from URL");
-  return { name, projectId: decodeURIComponent(rawId) };
-}
-
-async function sendGatedStandard(page: Page) {
-  const input = page.getByTestId("project-assistant-input");
-  await expect(input).toBeEnabled({ timeout: 15_000 });
-  await input.fill("Préparer une livraison gated __F2_GATED_STANDARD__");
-  await page.getByTestId("project-assistant-send").click();
-  await expect(page.getByTestId("project-assistant-gate")).toBeVisible({
-    timeout: 45_000,
-  });
-}
-
-test.describe("deterministic Cursor boundary browser tooling", () => {
-  test.describe.configure({ timeout: 240_000 });
-
-  test("B1–B4 running → pending refresh → terminal → reload", async ({
-    page,
-  }) => {
-    test.setTimeout(240_000);
-    await page.setViewportSize({ width: 1440, height: 1024 });
-    const created = await createUniqueProject(page, runId());
-    await sendGatedStandard(page);
-    await page.getByTestId("f2-decide-GO").click();
-    await expect(page.getByTestId("project-assistant-decision")).toBeVisible({
-      timeout: 45_000,
-    });
-    const decisionId = (
-      await page.getByTestId("f2-decision-id").textContent()
-    )?.trim();
-    if (!decisionId) throw new Error("decisionId missing");
-
-    await page.getByTestId("f3-prepare-button").click();
-    await expect(page.getByTestId("project-assistant-f3-contract")).toBeVisible({
-      timeout: 45_000,
-    });
-    await expect(page.getByTestId("f3-contract-action")).toContainText(
-      "cursor.read_only.inspect",
-    );
-    const executionContractId = (
-      await page.getByTestId("f3-contract-id").textContent()
-    )?.trim();
-    if (!executionContractId) throw new Error("executionContractId missing");
-
-    // N1 — before Confirmation, refresh absent.
-    await expect(page.getByTestId("f3-refresh-running-button")).toHaveCount(0);
-    await expect(page.getByTestId("f3-confirm-execute-button")).toBeVisible();
-
-    await page.getByTestId("f3-confirm-execute-button").click();
-    await expect(page.getByTestId("project-assistant-f3-execute")).toBeVisible({
-      timeout: 45_000,
-    });
-
-    // B1
-    await expect(page.getByTestId("f3-attempt-status")).toContainText(/running/i);
-    await expect(page.getByTestId("f3-running-refresh-title")).toContainText(
-      "Exécution en cours",
-    );
-    await expect(page.getByTestId("f3-refresh-running-button")).toBeVisible();
-    await expect(page.getByTestId("f3-refresh-running-button")).toContainText(
-      "Actualiser le résultat",
-    );
-    await expect(page.getByTestId("f3-confirm-execute-button")).toHaveCount(0);
-    await expect(
-      page.getByTestId("project-assistant-panel").getByRole("button", {
-        name: /Relancer|Réessayer|Confirmer l’exécution/i,
-      }),
-    ).toHaveCount(0);
-    const attemptIdB1 = (
-      await page.getByTestId("f3-attempt-id").textContent()
-    )?.trim();
-    if (!attemptIdB1) throw new Error("attemptId missing after confirm");
-    await capture(page, "01-running-refresh-available", "B1 running");
-
-    // N6 — second confirm control is gone; refresh is the only action.
-    await page.getByTestId("f3-refresh-running-button").click();
-    await expect(page.getByTestId("f3-attempt-id")).toHaveText(attemptIdB1, {
-      timeout: 45_000,
-    });
-    await expect(page.getByTestId("f3-attempt-status")).toContainText(/running/i);
-    await expect(page.getByTestId("f3-refresh-running-button")).toBeVisible();
-    await expect(page.getByTestId("f3-confirm-execute-button")).toHaveCount(0);
-    await capture(page, "02-pending-same-attempt", "B2 pending same Attempt");
-
-    await page.getByTestId("f3-refresh-running-button").click();
-    await expect(page.getByTestId("f3-attempt-status")).toContainText(
-      /succeeded/i,
-      { timeout: 45_000 },
-    );
-    await expect(page.getByTestId("f3-attempt-id")).toHaveText(attemptIdB1);
-    await expect(page.getByTestId("f3-evidence-id")).toBeVisible();
-    await expect(page.getByTestId("f3-evidence-id")).not.toHaveText(
-      "ev:pending-real",
-    );
-    await expect(page.getByTestId("f3-review-bundle-id")).toBeVisible();
-    await expect(page.getByTestId("f3-review-bundle-id")).not.toHaveText(
-      "rb:pending-real",
-    );
-    await expect(page.getByTestId("f3-recommendation-card")).toBeVisible();
-    await expect(page.getByTestId("f3-refresh-running-button")).toHaveCount(0);
-    await capture(page, "03-terminal-evidence", "B3 terminal Evidence");
-
-    await expect(page.getByTestId("living-project-state-panel")).toBeVisible();
-    await capture(page, "04-post-evidence-lps", "B3 LPS after Evidence");
-
-    await page.reload();
-    await expect(page.getByTestId("project-principal")).toBeVisible({
-      timeout: 30_000,
-    });
-    await expect(page.getByTestId("project-assistant-empty")).toBeVisible({
-      timeout: 15_000,
-    });
-    await expect(page.getByTestId("living-project-state-panel")).toBeVisible();
-    await expect(page.getByTestId("project-history-panel")).toBeVisible();
-    await capture(page, "05-reloaded-terminal", "B4 reload durable LPS");
-
-    fs.mkdirSync(CAPTURE_ROOT, { recursive: true });
-    const campaign = {
-      classification: [
-        "UI-DRIVEN",
-        "HARNESS-ARMED-BOUNDARY",
-        "DOMAIN-INTEGRATION-PROVEN",
-        "DETERMINISTIC PROVEN",
-      ],
-      banner: BANNER,
-      projectId: created.projectId,
-      decisionId,
-      executionContractId,
-      attemptId: attemptIdB1,
-      note: "ZERO REAL — TEST BOUNDARY — not REAL proof",
-    };
-    fs.writeFileSync(
-      path.join(CAPTURE_ROOT, "campaign-ids.json"),
-      `${JSON.stringify(campaign, null, 2)}\n`,
-    );
-  });
-});
-
-```
-
-## 24. Pourquoi c’est une boundary substitution
-
-Le fake implémente `RealExecutionLaunchPort` (launch / observe / awaitCompletion) et est branché au **seul** seam qui construit le gateway REAL.
-StartExecution, Gate D, completeBoundedReadOnlyLaunch, RecordExecutionResult, ingestEvidenceAndRecommend restent le produit.
-Aucun second orchestrateur. Aucune route E2E spéciale de seed.
-
-## 25. Preuve qu’il ne seede pas B1–B3
-
-Le test d’orchestration unit appelle `prepareAndResolveM3ProductPath` + `confirmAndExecuteResolvedM3` trois fois.
-Après confirm #1 : Attempt `running`, Evidence `ev:pending-real` (payload pending produit, pas un seed harness).
-Après confirm #2 : même Attempt, toujours running, `reusedExistingAttempt=true`, launchCallCount=1.
-Après confirm #3 : succeeded, Evidence `ev:m4-bounded-ro:…`, RB `rb:m4-bounded-ro:…`, Nora once, LPS rehydrate.
-Frontiers : 1 CREATED, 1 LAUNCHED.
-Fixture adapter launchCallCount=0.
-
-Browser : Confirmation UI réelle → refresh UI réelle → Evidence/RB visibles. QA control n’a pas armé `attempt_failed` ni seed terminal.
-
-## 26. Fail-closed env matrix
-
-| Condition | Résultat |
-|---|---|
-| DETERMINISTIC=1 sans SFIA_STUDIO_E2E_QA_CONTROL | N8 refuse (undefined) |
-| DETERMINISTIC=1 + SFIA_STUDIO_CURSOR_REAL=1 | N9 throw MUTUALLY EXCLUSIVE |
-| NODE_ENV=production + tous flags TEST | N10 refuse (undefined) |
-| QA_CONTROL + fake provider + dirty principal + DETERMINISTIC=1 + REAL unset | compose TestOnly port |
-| Fixture Option A specs sans DETERMINISTIC | chemin fixture inchangé (17 Playwright PASS) |
-
-## 27. IDs campagne browser tooling
-
-Source : `screenshots/campaign-ids.json`
-
-- Project : `prj:2e3321b2-00f8-4015-993c-335798a2b1ab`
-- Decision : `dec:f2:e204bf65-c807-4da2-ad93-4725296c46ed`
-- Contract : `xct:m3-res:dec:f2:e204bf65-c807-4da2-ad93-4725296c46ed`
-- Attempt : `xat:m3:m3-res:dec:f2:e204bf65-c807-4da2-ad93-4725296c46ed`
-
-DB isolée : `.tmp-sfia-review/deterministic-browser-boundary-tooling/runtime/qa-product.sqlite`
-Port Next : 3021
-
-## 28. Launch count
-
-Unit/integration compose seam : **1**
-Browser : même Attempt ID de B1 à B3 ; pas de second Confirmation ; bouton Relancer/Réessayer absent.
-T-R3-ASYNC (inchangé) : launchCallCount=1, reusedExistingAttempt=true.
-
-## 29. B1 / B2 / B3 / B4
-
-Playwright `studio-option-a-deterministic-cursor-boundary.spec.ts` **PASS** (3.7s).
-
-- B1 : Attempt running ; titre « Exécution en cours » ; « Actualiser le résultat » ; pas de Confirmation
-- B2 : refresh ; même Attempt ID ; toujours running ; pas de nouveau confirm
-- B3 : refresh terminal ; succeeded ; Evidence ID ≠ pending ; ReviewBundle ID ≠ pending ; recommandation Nora ; LPS
-- B4 : reload ; project principal + LPS + history ; conversation process-local empty (`project-assistant-empty`). **Ne ferme pas G-UX-09.**
-
-## 30. Negatives
-
-- N1 : refresh absent avant Confirmation (spec tooling PASS)
-- N2–N5 : specs Option A fixture existantes PASS (17 tests) — refresh absent sur fixture/terminal
-- N6 : confirm disparaît après launch ; seul refresh
-- N7 : aucun bouton Relancer / Réessayer / Confirmer l’exécution pendant running (le help text « sans la relancer » n’est pas une action)
-- N8–N10 : unit PASS
-
-## 31. Evidence / ReviewBundle / Nora / LPS
-
-Unit : Evidence `ev:m4-bounded-ro:…` available ; RB `rb:m4-bounded-ro:…` draft ; Nora `completeCalls.length=1` ; rehydrate LPS contient Evidence+RB.
-Browser B3/B4 : Evidence/RB cards + history « ce qui est réellement enregistré » + LPS v4 après terminal.
-
-## 32. Screenshots + hashes
-
-Dossier : `.tmp-sfia-review/deterministic-browser-boundary-tooling/screenshots/`
-Label overlay : `DETERMINISTIC / TEST BOUNDARY — ZERO REAL — not REAL proof`
-Classification : UI-DRIVEN / HARNESS-ARMED-BOUNDARY / DOMAIN-INTEGRATION-PROVEN / DETERMINISTIC PROVEN
-
-| Fichier | bytes | SHA256 |
-|---|---:|---|
-| 01-running-refresh-available.png | 408901 | `08d5b62938e39c3061a904e6c565a3db4fec885be615fb60d8a99e63c1b4fdac` |
-| 02-pending-same-attempt.png | 405774 | `7f09b4cfaa5bbf64562b528b61e7cd9d7a7da685941f8b1d61c61d982becbdc0` |
-| 03-terminal-evidence.png | 484645 | `34044c3812cc464279dac5dd36028d04b8e8088d736a6f6f30c9c597152a1bfa` |
-| 04-post-evidence-lps.png | 490660 | `a874d63d657cd27c07dca58e7301ae0373b224a41f08cdff0900e25623a5235d` |
-| 05-reloaded-terminal.png | 310050 | `764ba0f08b2d158822f9b58820e7566f99687b015388fbfd13cd4d8bab376cab` |
-
-Jamais « REAL proof ».
-
-## 33. Targeted tests
-
-ZERO REAL. Agrégat 9 files / 81 tests PASS puis +rename import path.
-
-Inclut : runningAttemptRefresh.ui.test.tsx, presentationLabels, ProjectAssistantPanel, preM6 residual (T-R3-ASYNC), amend, qa-pre-m6-01 hardening + postGo, deterministicCursorBoundary, importBoundaries runtime.
-
-## 34. Full Vitest
-
-- Test Files : **193 passed | 13 skipped** (206)
-- Tests : **1824 passed | 131 skipped** (1955)
-- Failed : **0**
-- Duration : 13.32s
-- 13 fichiers skip : FinOps Postgres `describe.skip` si DATABASE_URL unset. Non bloquant.
-  `commands/skip-classification.json`
-
-Delta vs Cycle 9 (192/1817) : +1 fichier test / +7 tests du boundary.
-
-## 35. typecheck / lint / build
-
-| Commande | Exit |
-|---|---|
-| `npx tsc --noEmit` | 0 |
-| `npm run lint` | 0 (0 warning / 0 error) |
-| `npm run build` | 0 |
-
-Build après arrêt Next. Aucun npm install. Aucun lockfile.
-
-Playwright Option A existant sans DET flag : **17 passed**.
-
-## 36. Candidate PRE/POST manifests
-
-- PRE : 980 / `f34f41c3db0eef7e108514cfee7d78ba736c5717e0d5977b80069b3e77ce41ff`
-- POST : 983 / `4633999fae3a7afb494f638623899726e7e10ebdfcc516d8e47792a6da4b331b`
-- Drift autorisé : 4 fichiers adaptés + 3 fichiers créés (budget 7)
-- unauthorized_count : **0**
-- FAIL UNAUTHORIZED CANDIDATE DRIFT : non
-
-## 37. Canonical Product DB PRE/POST
+Hors scope : G-UX-09, REAL OS process, write Cursor, M6, runtime adoption.
+
+Trajectoire :
+FIRST REAL incomplete → async UI continuation fix → browser tooling gap
+→ Fake/Real doctrine → deterministic boundary tooling → CE CYCLE 9 FORMEL
+→ décision Morris suivante éventuelle → aucune étape REAL automatique.
+
+Exit proof : campagne browser indépendante et reproductible (ci-dessous).
+
+Capacité suivante SI PASS : Morris pourra décider séparément s’il autorise
+une NOUVELLE bounded REAL product-loop re-proof.
+Ce n’est PAS un GO REAL implicite.
+
+---
+
+## 13. Fake / Real Qualification
+
+Applicable : OUI.
+Trigger : frontière externe Cursor/process + test adapter.
+
+Frontière REAL non exercée :
+Cursor CLI, NodeCursorProcessRunner, StudioCursorRealLaunchGateway,
+subprocess / OS process, execution worktree réel.
+
+Fake utilisé :
+`TestOnlyDeterministicCursorLaunchPort` + `MemoryLaunchSafetyJournal`
+via `composeDeterministicCursorBoundary`
+au seam `composeStudioProductRealBoundary`.
+
+R21 : le fake substitue uniquement la frontière externe.
+Le produit a produit ExecutionContract, ExecutionAttempt running,
+Evidence, ReviewBundle, Nora, LPS — non seedés pour B1–B4.
+
+Parité observée (déterministe) :
+launch ACK contract, processRef logique, running, pending, terminal success,
+same Attempt, same Contract, continuation idempotente, Evidence/RB/Nora/LPS.
+
+REALISM GAPS restants : aucun process OS Cursor ; aucun CLI réel ;
+aucun stdout/stderr CLI réel ; aucun timing/panne OS réel ;
+aucun worktree d’exécution réel ; aucune consommation Cursor/OpenAI.
+`realProcessInvoked=true` = sémantique simulée de l’ACK du port,
+PAS présence d’un processus OS.
+
+Niveaux :
+- Tooling boundary capability : DETERMINISTIC PROVEN (Cycle 8 parent)
+- Domain one-launch : DETERMINISTIC PROVEN (T-R3-ASYNC + boundary unit)
+- Component running-refresh : DETERMINISTIC PROVEN
+- Browser formal candidate validation : DETERMINISTIC PROVEN (ce cycle)
+
+Hors scope : REAL BOUNDARY PROVEN ; END-TO-END REAL PROVEN.
+Bounded REAL proof : PAS DANS CE CYCLE.
+Gate Morris REAL : NON consommé.
+
+---
+
+## 14. Référentiel B1–B4
+
+Nouveau Project QA dans nouvelle DB isolée.
+Jamais repris : Project/Attempt Cycle 8 tooling (`prj:2e3321b2-…` /
+`xat:m3:m3-res:dec:f2:e204bf65-…`) ni Attempt REAL historique
+(`xat:m3:m3-res:dec:f2:453ff36a-…`).
+
+Spec EXISTANTE non modifiée :
+`e2e/studio-option-a-deterministic-cursor-boundary.spec.ts`
+(écrit d’abord sous le dossier tooling, puis copies Cycle 9 extraits vers
+`deterministic-browser-qa-final/screenshots/` ; captures Cycle 8 tooling
+restaurées ensuite ; SHA Cycle 9 ≠ SHA Cycle 8).
+
+Port Phase 3 : `3023`. Flag `PLAYWRIGHT_FORCE_WEBSERVER=1`.
+`SFIA_STUDIO_E2E_DETERMINISTIC_PENDING_OBSERVES=2`.
+
+Résultat spec : 1 passed (7.0s), exit 0.
+
+---
+
+## 15. Négatifs
+
+Voir matrice §O du rapport Cursor / section 27 provenance + 41 réserves.
+Aucune réserve bloquante sur B1 ou B3.
+
+---
+
+## 16. Environnement ZERO REAL
+
+Avant chaque runtime :
+`SFIA_STUDIO_CURSOR_REAL` unset ; `OPS1_CURSOR_REAL` unset.
+
+Phase 2 (fixture) :
+DETERMINISTIC unset ; `OPS1_CONVERSATION_PROVIDER=fake` ;
+DB `runtime/qa-product-fixture.sqlite` ; port 3022.
+
+Phase 3 (formal) :
+`SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY=1`
+`SFIA_STUDIO_E2E_QA_CONTROL=1`
+`SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1`
+`OPS1_E2E_ALLOW_DIRTY_PRINCIPAL=1`
+`OPS1_CONVERSATION_PROVIDER=fake`
+`SFIA_STUDIO_E2E_DETERMINISTIC_PENDING_OBSERVES=2`
+OPENAI_API_KEY = `sk-e2e-fake-not-a-real-key`
+OPENAI_MODEL = `fake-e2e-model`
+DB `runtime/qa-product-deterministic.sqlite` ; port 3023.
+
+Mutex DETERMINISTIC+REAL : non déclenché (REAL unset).
+Processus Cursor agent : 0 avant / 0 après Phase 3.
+
+---
+
+## 17. DB QA isolées
+
+- Fixture : `.tmp-sfia-review/deterministic-browser-qa-final/runtime/qa-product-fixture.sqlite`
+- Deterministic : `.tmp-sfia-review/deterministic-browser-qa-final/runtime/qa-product-deterministic.sqlite`
+
+Canonical Product DB jamais ouverte en écriture.
+
+---
+
+## 18. Canonical Product DB PRE/POST
 
 Path : `projects/sfia-studio/.sfia-exec/product/oa-product.sqlite`
-SHA256 PRE = POST = `766405130d750cc0cf28595f7e95f77cdc510361c71cd1966ea3ac7c0ecd6ebd`
-**byte-identical**
 
-QA a utilisé DB isolée sous `.tmp-sfia-review/deterministic-browser-boundary-tooling/runtime/`.
+| | PRE | POST |
+|---|-----|------|
+| exists | true | true |
+| bytes | 4792320 | 4792320 |
+| mtime | 2026-08-17T09:08:47.096675+02:00 | identique |
+| SHA256 | `766405130d750cc0cf28595f7e95f77cdc510361c71cd1966ea3ac7c0ecd6ebd` | identique |
 
-## 38. Historical REAL worktree PRE/POST
+Byte-identical. Pas de FAIL « CANONICAL PRODUCT DB MUTATED ».
 
-Path : `projects/sfia-studio/.sfia-exec/m4-worktrees/wt-xat_m3_m3-res_dec_f2_453ff36a-ac4b-459c-9d75-6f3-7dda85f19447a529bfe21555`
-HEAD PRE = POST = `0d33478566627a9bf507d5a06323962d349308ee`
-porcelain PRE = POST = vide
-Nouveau REAL worktree : **0**
+---
 
-## 39. ZERO REAL proof
+## 19. Historical REAL worktree PRE/POST
 
-- SFIA_STUDIO_CURSOR_REAL unset
-- OPS1_CURSOR_REAL unset
-- OPS1_CONVERSATION_PROVIDER=fake
-- OPENAI_API_KEY=sk-e2e-fake-not-a-real-key
-- compose déterministe ne construit pas NodeCursorProcessRunner / StudioGitWorktreeWorkspace / SqliteRealLaunchSafetyJournal
-- Cursor CLI command count : 0
-- OpenAI LIVE : 0
-- External Cursor process : 0
-- Context projet campagne : « E2E TEST BOUNDARY — Cursor CLI not invoked. »
+Path :
+`projects/sfia-studio/.sfia-exec/m4-worktrees/wt-xat_m3_m3-res_dec_f2_453ff36a-ac4b-459c-9d75-6f3-7dda85f19447a529bfe21555`
 
-## 40. Realism gaps restants
+| | PRE | POST |
+|---|-----|------|
+| HEAD | `0d33478566627a9bf507d5a06323962d349308ee` | identique |
+| porcelain | vide | vide |
 
-- Aucun processus OS Cursor
-- Aucun stdout/stderr CLI réel
-- Aucun timing/panne OS réelle
-- Aucun worktree git d’exécution créé par ce chemin
-- `realProcessInvoked=true` est le contrat d’ACK du port, pas un process OS
-- Disclosures produit existants (« REAL process ACK », chips conversation « M3 FIXTURE » / « AUCUNE EXÉCUTION RÉELLE ») restent le wording Cycle 8 — **non rouverts**. Le cartouche d’exécution Option A montre néanmoins running + Actualiser.
-- Conversation process-local non durable (G-UX-09 ouvert)
-- Full REAL product loop NOT PROVEN
+Liste `m4-worktrees` : 1 entrée (historique uniquement). Nouveau REAL worktree : 0.
+
+---
+
+## 20. Candidate PRE/POST manifest
+
+| | PRE | POST |
+|---|-----|------|
+| count | 983 | 983 |
+| SHA256 | `4633999fae3a7afb494f638623899726e7e10ebdfcc516d8e47792a6da4b331b` | identique |
+| git status --short | 88 paths | identique (diff vide) |
+| staged | vide | vide |
+
+PRE = POST byte-identical.
+Aucun fichier versionné modifié pendant QA.
+Pas de FAIL « CANDIDATE MUTATED DURING QA ».
+
+---
+
+## 21. Project / Decision / Contract / Attempt IDs
+
+Campagne fraîche Cycle 9 (≠ Cycle 8, ≠ REAL historique) :
+
+| Objet | ID |
+|-------|-----|
+| Project | `prj:64c821cd-fdc4-4e90-9ade-b28fbbc49529` |
+| Decision | `dec:f2:1afd1d8b-858a-4ef2-8fae-73d114a4453b` |
+| ExecutionContract (B1–B3) | `xct:m3-res:dec:f2:1afd1d8b-858a-4ef2-8fae-73d114a4453b` |
+| ExecutionAttempt (B1=B2=B3) | `xat:m3:m3-res:dec:f2:1afd1d8b-858a-4ef2-8fae-73d114a4453b` |
+
+Attempt count DB = 1. Confirmation consumed = 1. Project count = 1.
+
+Note observation (non bloquante) : une row contrat `xct:m3:dec:f2:1afd1d8b-…`
+status=superseded existe (prépare M3 avant résolution bounded `m3-res`).
+Le contrat exécuté / complété / visible B1–B3 est uniquement le `xct:m3-res:…`.
+
+---
+
+## 22. Evidence / ReviewBundle IDs
+
+| Objet | ID | Status |
+|-------|-----|--------|
+| Evidence terminal | `ev:m4-bounded-ro:xat:m3:m3-res:dec:f2:1afd1d8b-858a-4ef2-8fae-73d114a4453b` | available |
+| ReviewBundle terminal | `rb:m4-bounded-ro:xat:m3:m3-res:dec:f2:1afd1d8b-858a-4ef2-8fae-73d114a4453b` | draft |
+| LPS current | `lps:c072271ef34cedf9` | v4 active |
+
+Forme Evidence : bounded canonical `ev:m4-bounded-ro:xat:…` (pas `ev:pending-real`).
+LPS v4 contient evidenceIds + reviewBundleIds + marqueur Nora
+`[[SFIA_POST_EVIDENCE_NORA_ANALYSIS]]` / `[TEST/FAKE · NON LIVE]`.
+
+---
+
+## 23. B1 — RUNNING REACHABLE
+
+Observation :
+Après Confirmation unique, carte Exécution :
+- Attempt.status running (testid `f3-attempt-status`)
+- « Exécution en cours »
+- « Actualiser le résultat » visible
+- bouton Confirmer l’exécution absent
+- Attempt ID = `xat:m3:m3-res:dec:f2:1afd1d8b-858a-4ef2-8fae-73d114a4453b`
+- pas d’Evidence/RB terminales
+- spec : buttons Relancer / Réessayer / Confirmer l’exécution count 0
+- overlay : `DETERMINISTIC / TEST BOUNDARY — ZERO REAL — not REAL proof`
+
+Capture : `screenshots/01-running-refresh-available.png`
+SHA256 `55434fb38629d053e68af91222439ea03ea1d534ad9ac16bca8192085277387e`
+
+Verdict B1 : PASS.
+Provenance : UI-DRIVEN + HARNESS-ARMED-BOUNDARY → DETERMINISTIC PROVEN.
+
+---
+
+## 24. B2 — CONTINUATION PENDING
+
+Observation :
+Premier clic « Actualiser le résultat » :
+- même Attempt ID
+- Attempt toujours running
+- refresh toujours disponible
+- aucune nouvelle Confirmation (bouton absent)
+- pas d’Evidence/RB terminales
+
+Capture : `screenshots/02-pending-same-attempt.png`
+SHA256 `9ee8665b2ff5df8a699affdbfd99218151c7ae698139e5ad20ab47e31a56bcb8`
+
+Browser prouve : même Attempt, pas de nouveau Confirmation.
+launchCallCount=1 n’est PAS une preuve browser (voir §28).
+
+Verdict B2 : PASS.
+
+---
+
+## 25. B3 — TERMINAL VIA REFRESH
+
+Observation :
+Second clic « Actualiser le résultat » :
+- même Attempt ID
+- status succeeded
+- refresh disparu
+- Evidence `ev:m4-bounded-ro:xat:m3:m3-res:dec:f2:1afd1d8b-…` available
+- ReviewBundle `rb:m4-bounded-ro:xat:m3:m3-res:dec:f2:1afd1d8b-…` draft
+- Recommendation / analyse Nora présente (« PAS UNE DÉCISION MORRIS »)
+- LPS v4 mis à jour
+- Attempt count = 1 ; Confirmation consumed = 1
+
+Captures :
+- `03-terminal-evidence.png` SHA256 `f2146a37aa8d2b8944c56a8ba6e8195ef8e0483848e66078129a4ae800b57e88`
+- `04-post-evidence-lps.png` SHA256 `f4c1d3b2e51ed74bcbd9044bc1fe2d6193691da37f0415a75846321c0edb3ad2`
+
+Verdict B3 : PASS.
+
+---
+
+## 26. B4 — RELOAD / DURABILITÉ
+
+Observation après reload :
+- Project présent
+- conversation process-local vide (`project-assistant-empty`) — G-UX-09 NON FERMÉ
+- LPS durable v4 présent
+- Evidence / ReviewBundle retrouvables (Recovery / relecture durable)
+- History cohérente (preuve available, RB draft)
+- aucun faux claim de conversation durable
+
+Capture : `05-reloaded-terminal.png`
+SHA256 `fe829e9336e402ba104cf949e030f457c3c62724144e8ea2350d4c8023e305f3`
+
+Verdict B4 : PASS.
+G-UX-09 remains OPEN.
+
+---
+
+## 27. Provenance matrix
+
+| Preuve | Source | Niveau | Limite |
+|--------|--------|--------|--------|
+| B1 UI running + refresh | browser spec + screenshot 01 | UI-DRIVEN + HARNESS-ARMED-BOUNDARY / DETERMINISTIC PROVEN | fake port, pas OS Cursor |
+| B2 same Attempt pending | browser spec + screenshot 02 | DETERMINISTIC PROVEN | idem |
+| B3 terminal Evidence/RB/Nora/LPS | browser spec + screenshots 03–04 + QA DB | DETERMINISTIC PROVEN | Nora = fake provider |
+| B4 reload durable | browser spec + screenshot 05 | DETERMINISTIC PROVEN | conversation vide = G-UX-09 |
+| same Attempt B1=B2=B3 | browser + QA DB 1 attempt | DETERMINISTIC PROVEN | |
+| launchCallCount=1 / 1 CREATED / 1 LAUNCHED | T-R3-ASYNC + `deterministicCursorBoundary.test.ts` | DOMAIN-INTEGRATION-PROVEN | pas un compteur browser |
+| N1 refresh absent avant Confirmation | browser spec (assert count 0) | UI-DRIVEN / DETERMINISTIC PROVEN | |
+| N2 fixture terminale refresh absent | Phase 2 fixture path + component `runningAttemptRefresh.ui.test.tsx` | COMPONENT-PROVEN + fixture Playwright | Phase 2 ne répète pas l’assert refresh-absent isolément ; component le prouve |
+| N3 running + realProcessInvoked=false | component/unit | COMPONENT-PROVEN | PAS browser |
+| N4 contract non executing | component/unit | COMPONENT-PROVEN | PAS browser |
+| N5 terminal succeeded refresh absent | browser B3 + component | UI-DRIVEN / DETERMINISTIC PROVEN | |
+| N6 concurrence / double action | component (`blocks concurrent refresh`) + domain T-R3 | COMPONENT-PROVEN + DOMAIN-INTEGRATION-PROVEN | PAS browser isolé |
+| N7 pas Relancer/Réessayer/Confirmer | browser B1 buttons-only | UI-DRIVEN / DETERMINISTIC PROVEN | ne pas matcher le texte d’aide « sans la relancer » |
+| N8 DET sans QA_CONTROL | unit N8 | DOMAIN-INTEGRATION-PROVEN | PAS browser |
+| N9 DET + REAL throw mutex | unit N9 | DOMAIN-INTEGRATION-PROVEN | PAS browser |
+| N10 NODE_ENV=production | unit N10 | DOMAIN-INTEGRATION-PROVEN | PAS browser |
+| N11 fixture sans DET flag | Phase 2 17 PASS, DETERMINISTIC unset | UI-DRIVEN fixture / DETERMINISTIC PROVEN for non-switch | prouve que le chemin fixture reste fixture |
+| N12 canonical DB | PRE/POST SHA | DETERMINISTIC PROVEN | |
+| N13 historical REAL worktree | PRE/POST HEAD+porcelain | DETERMINISTIC PROVEN | |
+
+---
+
+## 28. One-launch invariant + provenance
+
+Browser : 1 Attempt, 1 Confirmation consumed, pas de second bouton Confirmer.
+
+Domain / boundary (PAS browser) :
+`preM6.realProductWiringResidual.test.ts` T-R3-ASYNC-CONTINUATION :
+- `launchPort.launchCallCount === 1` after ACK and after resume
+- `reusedExistingAttempt === true` on second call
+- frontiers : 1 CREATED, 1 LAUNCHED (stable processRef)
+- fixtureAdapter.launchCallCount === 0
+
+`deterministicCursorBoundary.test.ts` :
+observe counter pending, pending, then terminal — launch count 1.
+
+Niveau : DOMAIN-INTEGRATION-PROVEN. Ne pas mélanger avec la preuve browser.
+
+---
+
+## 29. Nora / LPS result
+
+Nora aval : recommandation fake `[TEST/FAKE · NON LIVE]` écrite dans LPS v4 context.
+Recommendation card : « PAS UNE DÉCISION MORRIS ».
+LPS `lps:c072271ef34cedf9` version 4 active, bindings Evidence + ReviewBundle.
+Rehydrate B4 : LPS / Recovery / History présents.
+
+---
+
+## 30. Fixture Playwright non-régression
+
+DETERMINISTIC unset. Port 3022. DB fixture isolée.
+Specs :
+- `e2e/studio-option-a.spec.ts`
+- `e2e/studio-option-a-negative-states.spec.ts`
+- `e2e/studio-option-a-clean-slate-captures.spec.ts`
+
+Résultat : **17 passed (30.0s), exit 0**.
+Next arrêté après (3022 free).
+
+Cela prouve uniquement le chemin fixture / non-régression. Pas B1–B4 bounded.
+
+---
+
+## 31. Targeted tests
+
+Depuis `projects/sfia-studio/app`, REAL unset, `OPS1_CONVERSATION_PROVIDER=fake`.
+
+9 files, 81 passed, exit 0.
+
+Inclus :
+- `deterministicCursorBoundary.test.ts`
+- `importBoundaries.test.ts`
+- `runningAttemptRefresh.ui.test.tsx`
+- `presentationLabels.test.ts`
+- `ProjectAssistantPanel.test.tsx`
+- `preM6.realProductWiringResidual.test.ts` (T-R3-ASYNC PASS)
+- `preM6.realProductWiringAmend.test.ts`
+- `qa-pre-m6-01.finalHardening.test.ts`
+- `qa-pre-m6-01.postGoDurableM3Path.test.ts`
+
+---
+
+## 32. Full Vitest
+
+Test Files : 193 passed | 13 skipped (206)
+Tests : 1824 passed | 131 skipped (1955)
+Failed : 0
+Exit : 0
+
+---
+
+## 33. Skips classifiés
+
+13 files / 131 tests : `__tests__/oa/finops/postgres/*.integration.test.ts`
+Cause : `describe.skip` when `DATABASE_URL` unset — FinOps Postgres,
+jamais Neon, hors chemin critique Pre-M6 / async continuation.
+`touches_pre_m6_critical_path` : false
+`blocking_for_this_cycle` : false
+
+Fichier : `commands/skip-classification.json`
+
+---
+
+## 34. Typecheck
+
+`npx tsc --noEmit` exit 0.
+
+---
+
+## 35. Lint
+
+`npm run lint` (`next lint`) : No ESLint warnings or errors. Exit 0.
+
+---
+
+## 36. Build
+
+Aucun Next actif sur `.next` au moment du build.
+`npm run build` : Compiled successfully. Exit 0.
+
+---
+
+## 37. Screenshots index + SHA256
+
+Dossier : `.tmp-sfia-review/deterministic-browser-qa-final/screenshots/`
+Provenance overlay : `DETERMINISTIC / TEST BOUNDARY — ZERO REAL — not REAL proof`
+Toutes les captures `differs_from_cycle8_tooling=true`.
+
+| file | bytes | SHA256 | état |
+|------|-------|--------|------|
+| 01-running-refresh-available.png | 410154 | `55434fb38629d053e68af91222439ea03ea1d534ad9ac16bca8192085277387e` | B1 |
+| 02-pending-same-attempt.png | 405387 | `9ee8665b2ff5df8a699affdbfd99218151c7ae698139e5ad20ab47e31a56bcb8` | B2 |
+| 03-terminal-evidence.png | 487633 | `f2146a37aa8d2b8944c56a8ba6e8195ef8e0483848e66078129a4ae800b57e88` | B3 |
+| 04-post-evidence-lps.png | 491762 | `f4c1d3b2e51ed74bcbd9044bc1fe2d6193691da37f0415a75846321c0edb3ad2` | B3 LPS |
+| 05-reloaded-terminal.png | 308932 | `fe829e9336e402ba104cf949e030f457c3c62724144e8ea2350d4c8023e305f3` | B4 |
+
+Index : `screenshots/index.json`
+
+---
+
+## 38. Source mutation
+
+0 fichier versionné créé / modifié / supprimé.
+Candidate PRE=POST. git status PRE=POST.
+
+---
+
+## 39. REAL execution accounting
+
+| Compte | Valeur |
+|--------|--------|
+| Cursor CLI commands | 0 |
+| NodeCursorProcessRunner live constructions (chemin QA déterministe) | 0 |
+| StudioCursorRealLaunchGateway réel | 0 |
+| OpenAI LIVE | 0 |
+| New REAL worktrees | 0 |
+| REAL Attempt | 0 |
+| Historical REAL Attempt repris | NON |
+
+`realProcessInvoked=true` sur ACK fake : NON compté comme REAL process.
+
+---
+
+## 40. Realism gaps
+
+- aucun process OS Cursor
+- aucun Cursor CLI réel
+- aucun stdout/stderr CLI réel
+- aucun timing OS réel
+- aucune panne OS réelle
+- aucun worktree d’exécution réel
+- aucune consommation Cursor/OpenAI
+- chips conversation peuvent encore dire « M3 FIXTURE » / « AUCUNE EXÉCUTION RÉELLE »
+  alors que la carte Exécution montre running + Actualiser
+  (gel de wording Cycle 8 ; n’invalide pas B1 si la carte Exécution est correcte)
+- `realProcessInvoked=true` = ACK simulé
+
+---
 
 ## 41. Réserves
 
-- Ce cycle prouve le **tooling**, pas le verdict formel Cycle 9 de toute la candidate.
-- importBoundaries.test.ts vs HEAD mélange dirty Option A historique ; le delta de ce cycle est une ligne.
-- B2 dépend d’un compteur d’observe TEST (default 2) — configurable, pas un scheduler produit.
-- QA control n’a pas été étendu (budget) ; l’armement est l’env fail-closed.
+Classement :
+
+1. **Non bloquante — honesty / wording freeze** :
+   chips conversation « M3 FIXTURE EXÉCUTÉE » / « CURSOR REAL BLOQUÉ »
+   pendant B1 running. Carte Exécution et testids B1 sont corrects.
+   Ne transforme pas B1 en FAIL.
+
+2. **Non bloquante — G-UX-09 OPEN** :
+   conversation process-local vide après reload. Attendu B4. Ne ferme pas G-UX-09.
+
+3. **Non bloquante — provenance** :
+   N3/N4/N6 et launchCallCount ne sont pas des preuves browser.
+   Dit explicitement. Ne manque pas B1/B3.
+
+4. **Non bloquante — contrat superseded** :
+   row `xct:m3:dec:f2:…` superseded avant `xct:m3-res:…` completed.
+   1 Attempt, 1 Confirmation. Pas un second launch.
+
+Aucune réserve bloquante sur B1 ou B3.
+Pas de PASS WITH RESERVE.
+
+---
 
 ## 42. Anti-claims
 
-Même en PASS, ce pack ne déclare PAS :
+INTERDIT même en PASS :
 
-- READY FOR REAL
-- REAL BOUNDARY PROVEN
-- END-TO-END REAL PROVEN
-- FULL REAL PRODUCT LOOP PROVEN
-- Pre-M6 COMPLETE
-- M6 AUTHORIZED
-- UAT READY
-- production ready
-- runtime v3 ADOPTED
-- G-UX-11 CLOSED
-- browser QA final PASS
+READY FOR REAL ;
+REAL BOUNDARY PROVEN ;
+END-TO-END REAL PROVEN ;
+FULL REAL PRODUCT LOOP PROVEN ;
+Pre-M6 COMPLETE ;
+M6 AUTHORIZED ;
+UAT READY ;
+production ready ;
+runtime v3 ADOPTED ;
+write Cursor validated ;
+G-UX-11 CLOSED ;
+no bugs ;
+full coverage ;
+REAL validation.
 
-Seul statut de sortie positif : **READY FOR CYCLE 9 DETERMINISTIC BROWSER QA**
+Maturité historique inchangée :
+M1→M5 FUNCTIONAL BACKBONE VALIDATED UNDER DETERMINISTIC QA,
+WITH SELECTIVE REAL BOUNDARY PROOFS ;
+FULL REAL PRODUCT LOOP NOT YET PROVEN.
+
+DETERMINISTIC PROVEN n’implique PAS READY FOR REAL.
+
+READY FOR MORRIS REVIEW OF THE NEXT PROOF STEP ≠ READY FOR REAL.
+
+---
 
 ## 43. Verdict
 
 PASS —
-DETERMINISTIC BROWSER PROOF TOOLING COMPLETED
-FAKE CURSOR EXTERNAL BOUNDARY SUBSTITUTION VERIFIED
-SAME PRODUCT ORCHESTRATION PRESERVED
-RUNNING / REFRESH / TERMINAL STATES REPRODUCIBLE
-SAME ATTEMPT / ONE LOGICAL LAUNCH PRESERVED
+CYCLE 9 DETERMINISTIC BROWSER QA VALIDATED
+RUNNING → REFRESH → PENDING → REFRESH → TERMINAL BROWSER PATH DETERMINISTIC PROVEN
+SAME ATTEMPT CONTINUITY VERIFIED
+ONE LOGICAL LAUNCH INVARIANT VERIFIED WITH DOMAIN/BOUNDARY EVIDENCE
+EVIDENCE / REVIEWBUNDLE / NORA / LPS CHAIN VERIFIED
+RELOAD DURABILITY VERIFIED WITH G-UX-09 STILL OPEN
+FIXTURE NON-REGRESSION PASS
+CANDIDATE PRE/POST BYTE-IDENTICAL
+CANONICAL PRODUCT DB UNCHANGED
+HISTORICAL REAL WORKTREE UNCHANGED
 ZERO REAL
-NO PRODUCT ARCHITECTURE EXPANSION
 PRE-M6 REMAINS NON COMPLETE
 RUNTIME V3 REMAINS NON ADOPTED
-READY FOR CYCLE 9 DETERMINISTIC BROWSER QA
 NOT READY FOR REAL
+READY FOR MORRIS REVIEW OF THE NEXT PROOF STEP
 
-## 44. Capacité suivante
+Critères 1–20 du GO : tous satisfaits.
 
-CYCLE 9 — DETERMINISTIC BROWSER QA — ZERO REAL
+---
 
-Morris GO/NO-GO requis. Ne pas lancer automatiquement. Ne pas lancer REAL.
+## 44. Exact next Morris gate
+
+STOP après Review Handoff.
+Le Cycle 9 ne lance PAS le cycle suivant.
+Le gate ci-dessous n’est PAS consommé, PAS implicite.
+
+```
+MORRIS —
+GO / NO-GO
+NEW BOUNDED REAL PRODUCT LOOP RE-PROOF
+READ-ONLY
+FRESH ISOLATED DB
+FRESH PROJECT
+FRESH ATTEMPT
+```
+
+Ce gate :
+- nécessite nouvelle revue ChatGPT ;
+- nécessite nouveau prompt Cursor ;
+- doit appliquer R21 ;
+- doit utiliser une DB fraîche, un nouveau Project, un nouvel Attempt ;
+- ne doit JAMAIS reprendre l’Attempt REAL historique
+  `xat:m3:m3-res:dec:f2:453ff36a-ac4b-459c-9d75-6f3-7dda85f19447a529bfe21555`.
+
+---
+
+## Instruction ChatGPT
+
+Avant toute conclusion suivante, ChatGPT doit lire obligatoirement :
+
+`origin/sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
+
+et vérifier :
+Cycle 9 ; branche ; HEAD ; candidate PRE/POST ; B1–B4 ; negatives ;
+tests ; ZERO REAL ; verdict ; réserves ; anti-claims.
