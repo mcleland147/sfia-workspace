@@ -1,633 +1,903 @@
-# SFIA Review Pack — FULL — Cycle 9 DETERMINISTIC BROWSER QA — ZERO REAL
+# SFIA Review Pack — FULL — Cycle 15 Fake/Real fidelity & progressive proof capitalization
 
 ## 1. Timestamp (Europe/Paris)
 
-2026-08-17 13:12:00 CEST
+2026-08-17 13:54:26 CEST (+0200)
 
-## 2. Cycle / profil / typologie
+## 2. Cycle
 
-- Cycle projet : **9 — QA / validation**
-- Profil SFIA : **Critical**
-- Typologie v2.4 : **INC — Pre-M6 deterministic browser re-validation**
-- Justification Critical : cette campagne valide le blocker découvert pendant le premier REAL (async continuation reachability) ; elle porte sur l’invariant « same Attempt / no relaunch » ; son PASS conditionnerait uniquement une future décision Morris sur une nouvelle tentative REAL. Aucune preuve partielle ne doit être transformée en readiness REAL.
-- Posture CKC : référentiel explicite ; Observation / Réserve / Verdict séparés ; preuves reproductibles ; nominal + négatifs ; aucune réserve bloquante adoucie ; aucun GO implicite ; anti-claims explicites.
+**15 — Capitalisation / REX**
 
-## 3. GO Morris exact consommé
+## 3. Profil / profondeur
 
-```
-GO — CYCLE 9 DETERMINISTIC BROWSER QA — ZERO REAL
-```
+- Profil SFIA : **Capitalization**
+- Profondeur : **Critical**
+- Justification Critical : modification des Engineering Principles, Rules & Guardrails, modèle opératoire ChatGPT ↔ Cursor, template canonique v2.6, et Build Doctrine Studio ; impact transverse sur la qualification des preuves futures.
 
-Autorise uniquement : inspection locale ; tests existants ; runtime Next déterministe ; Playwright/browser existant ; Product DB QA isolée ; harness / QA-control DÉJÀ EXISTANT ; opérateur browser temporaire sous `.tmp-sfia-review/**` ; lectures DB/logs déterministes ; screenshots ; FULL review pack ; Review Handoff Git L3 publish-in-cycle.
+## 4. Typologie
 
-N’autorise PAS : modification source / test / config / E2E spec ; nouveau endpoint ; nouveau QA control ; OpenAI LIVE ; Cursor REAL ; NodeCursorProcessRunner live ; nouveau worktree REAL ; cleanup du worktree REAL historique ; commit projet ; push projet ; PR ; merge ; M6 ; UAT ; runtime v3 ADOPTED.
+**CAPA** (v2.4)
 
-## 4–6. Git Truth PRE/POST
+CKC : recherché ; cycle 15 ; pilote détaillé **absent** ; fallback carte synthétique 15 cycles + méthode §4.15 ; statut synthetic / candidate guidance ; **aucune autorité d'exécution** ; aucun CKC Cycle 15 inventé.
 
-| Contrôle | PRE | POST (runtime stop) |
-|---|---|---|
-| branch | `delivery/sfia-studio-pre-m6-ui-option-a` | identique |
-| HEAD | `0d33478566627a9bf507d5a06323962d349308ee` | identique |
-| origin/main | `0d33478566627a9bf507d5a06323962d349308ee` | identique |
-| origin/sfia/review-handoff (parent entrée) | `4a089060d04530a83f4d1326b1de0bbbdf523f6f` | identique avant ce publish |
-| staged | aucun | aucun |
-| working tree | DIRTY — **84 paths** mesurés localement | DIRTY — **84 paths identiques** (byte-identical `git status --short`) |
+## 5. GO Morris consommé
 
-Git Truth Check d’entrée : **PASS** (refs attendues). Aucun reset / clean / stash / rebase / merge / checkout destructif / stage / commit projet.
-
-Preuves : `.tmp-sfia-review/async-continuation-browser-qa/pre/git-truth.txt` et `git-truth-post.txt`.
-
-## 7. Parent handoff + correction CKC documentaire
-
-Parent lu via :
-
-```
-git show origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md
+```text
+GO —
+INTEGRATE FAKE/REAL FIDELITY AND PROGRESSIVE PROOF
+AS A TRANSVERSE SFIA METHODOLOGY RULE
+DOCUMENTARY CAPITALIZATION CYCLE
+BEFORE RESUMING SFIA STUDIO
 ```
 
-- Parent commit : `4a089060d04530a83f4d1326b1de0bbbdf523f6f`
-- Parent blob (entrée) : `8563d1a096dfbe8e0b2cfb78ad1ba7f3ca49e61e` (Cycle 8 pack)
-- Titre parent : `SFIA Review Pack — FULL — REAL async completion product reachability (ZERO REAL)`
-- Cycle parent : **8 — Delivery / implémentation**
-- Header parent CKC : `pilots/03-architecture-technique.md` — **incorrect pour un cycle Delivery, et hors sujet pour ce Cycle 9 QA**
+Autorise : analyse documentaire ; modification locale bornée des 5 fichiers méthode listés ; intégration de la règle Fake/Real ; adaptation template v2.6 ; spécialisation Build Doctrine Studio ; review pack FULL ; publication Review Handoff L3.
 
-L’ancien handoff historique n’a **pas** été modifié.
+N'autorise PAS : nouvelle version SFIA ; promotion v2.7 / v3 globale ; changement de baseline nominale ; framing 30–37 ; Convergence Roadmap ; runtime Studio ; code/test/harness ; OpenAI REAL ; Cursor REAL produit ; modification worktree REAL historique ; commit projet ; push projet ; PR ; merge ; suppression de branche.
 
-### PARENT HANDOFF DOCUMENTATION RESERVE
+Le contenu est un **CANDIDAT DOCUMENTAIRE** tant qu'il n'est pas intégré sur main.
 
-PARENT HANDOFF DOCUMENTATION RESERVE —
-Cycle 8 header referenced Architecture Technique CKC incorrectly.
-Current Cycle 9 correctly uses QA/validation CKC 04.
-No evidence indicates that this documentation error expanded
-the Cycle 8 technical implementation scope.
+## 6. Git Truth
 
-Observation : le corps Cycle 8 décrit une correction UI/controller bornée (7 fichiers), réutilise `projectAssistantConfirmAndExecuteResolvedM3Action`, n’introduit pas de worker/poller/store. La qualification CKC 03 dans le header est une erreur documentaire, pas une preuve d’expansion de scope technique.
-
-## 8. CKC QA exact + SHA
-
-- Fichier : `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md`
-- Statut : `candidate`
-- Usage : experimental cognitive guidance
-- Autorité : **aucune autorité d’exécution**
-- Blob SHA HEAD : `9d9970d611dbb6e52297ac215604d3a08e87e738` (attendu et observé)
-- Preuve : `git rev-parse HEAD:method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md`
-
-## 9. Qualification de convergence
-
-- Capacité principale : **V3-F05** — conversation → décision → exécution → preuve → état
-- Associées : V3-F02, V3-F11, V3-F12, V3-F14, V3-F15
-- Milestone : **PRE-M6** — NON COMPLETE
-- KEEP : clean-slate Option A, HumanDecision, ExecutionContract, Confirmation, ExecutionAttempt, Evidence, ReviewBundle, Recommendation, LPS / History / Recovery, R1/R2/R3, implémentation candidate refresh manuel Cycle 8, tooling browser déterministe existant, QA control/harness existant
-- COMPLETE attendu de CE cycle : preuve browser déterministe running → Actualiser le résultat → same Attempt → terminal path
-- FREEZE : legacy presentation hors contrôle de non-régression
-- Interdit et non fait : nouvelle architecture / nouveau moteur / nouveau poller
-- Capacité suivante (hors cycle) : Morris decision on a NEW bounded REAL re-proof, uniquement après revue ChatGPT **et uniquement si le gap tooling est requalifié**
-
-Ce cycle n’a **pas** produit la preuve browser running→refresh→terminal. Voir verdict.
-
-## 10. Identité du candidat d’entrée
-
-Baseline historique Final C9 :
-
-- 979 fichiers
-- SHA256 manifest = `a396bf199111dac671f0cf6f7751a99449840330c14c76d57c00901d13c91873`
-- Relecture locale : **match**
-
-Cycle 8 a modifié exactement 7 fichiers. Vérification POST Cycle 8 vs working tree : **7/7 match**.
-
-| Fichier | bytes | SHA256 | match C8 POST |
-|---|---:|---|---|
-| `useProductConversation.ts` | 18458 | `9dcd16aed227d55920ec3866f1177e0bc41c48dbf3b0576734910716ecd54f90` | yes |
-| `ConversationSurface.tsx` | 39995 | `24bcc6cc2e8cc2177f25225c45f76fbdbc8abdd6b375348f568505963b24bc0b` | yes |
-| `ProjectAssistantPanel.tsx` | 50406 | `baaa0082157df2de815c7a0adcba1ee0712d70e4d9cb2c1de443a3249b7970b8` | yes |
-| `presentationLabels.ts` | 5767 | `2e822b12b8aabbd0f87698f4e93b8ac89e3cbed2df622728f01fb0369f583a08` | yes |
-| `presentationLabels.test.ts` | 6714 | `0a3a2ed61034a02f1e8f3d5f6faf93ec57bb64a089ad779e4bb7d208248e3b07` | yes |
-| `ProjectAssistantPanel.test.tsx` | 19772 | `3c308015a49d15b41753b7f4762b85cdbef65b9eb53c68125a44a25d4f3c29d7` | yes |
-| `runningAttemptRefresh.ui.test.tsx` | 28627 | `65c272c0f61751c070bd244728d0cf5f23c3513a44d29f4bfe10eb5128ad84d8` | yes |
-
-Reste Final C9 hors ces 7 fichiers : **973/973 byte-identical**, 0 mismatch, 0 missing.
-
-Candidat courant : **980 fichiers** (979 C9 + 1 test nouveau Cycle 8).
-
-Identité d’entrée : **VERIFIED**. Pas de STOP `CYCLE 9 INPUT CANDIDATE NOT RELIABLY VERIFIED` / `DIVERGED`.
-
-Preuve : `.tmp-sfia-review/async-continuation-browser-qa/pre/identity.json`
-
-## 11. Candidate PRE/POST manifests
-
-- PRE : `.tmp-sfia-review/async-continuation-browser-qa/candidate-pre.manifest`
-- POST : `.tmp-sfia-review/async-continuation-browser-qa/candidate-post.manifest`
-- SHA256 PRE = POST = `f34f41c3db0eef7e108514cfee7d78ba736c5717e0d5977b80069b3e77ce41ff`
-- Count : 980 / 980
-- Comparaison : **BYTE-IDENTICAL**
-- Drift pendant QA : **0**
-
-## 12. ZERO REAL env
-
-Runtime Next QA (pid npm 36216 après restart ; next-server écoute 127.0.0.1:3020) :
-
-- `OPS1_CONVERSATION_PROVIDER=fake`
-- `SFIA_STUDIO_CURSOR_REAL` **unset** (absent du process env)
-- `OPS1_CURSOR_REAL` **unset**
-- `OPENAI_API_KEY=sk-e2e-fake-not-a-real-key`
-- `OPENAI_MODEL=fake-e2e-model`
-- `SFIA_STUDIO_E2E_QA_CONTROL=1` (requis par harness existant)
-- `OPS1_E2E_ALLOW_DIRTY_PRINCIPAL=1`
-- `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1`
-- `SFIA_STUDIO_PRODUCT_DB_PATH` = DB QA isolée (absolu)
-- OpenAI LIVE = 0
-- Cursor REAL = 0
-- NodeCursorProcessRunner live = 0
-- Aucune commande Cursor CLI
-- `SFIA_STUDIO_CURSOR_REAL=1` jamais positionné
-
-Vitest / tsc / lint / build : `NODE_ENV=test` (ou tooling existant), `SFIA_STUDIO_PRODUCT_DB_PATH` **UNSET** (mkdtemp), REAL unset.
-
-Snapshot : `.tmp-sfia-review/async-continuation-browser-qa/pre/runtime-env-nonsecret.json`
-
-Label obligatoire :
-
-**REAL-SHAPED DETERMINISTIC STATE — ZERO REAL PROCESS EXECUTED.**
-
-Ces valeurs n’apparaissent dans ce cycle que comme données de test / payload simulé / critère de prédicat. Elles ne signifient **pas** qu’un processus Cursor REAL a été lancé.
-
-## 13. Product DB QA isolée
-
-- Chemin : `.tmp-sfia-review/async-continuation-browser-qa/runtime/qa-product.sqlite`
-- Absolu utilisé dans `SFIA_STUDIO_PRODUCT_DB_PATH`
-- Jamais utilisé : `projects/sfia-studio/.sfia-exec/product/oa-product.sqlite`
-- POST isolée : exists=true, bytes=901120, SHA256=`524b72fbceffcbf1ba3b6a97619846d22768ba6d8f714f9b8c2dfd11a49aa6ed`
-- Preuve : `isolated-db-after.json`
-
-## 14. Canonical Product DB PRE/POST
-
-Path : `projects/sfia-studio/.sfia-exec/product/oa-product.sqlite`
-
-| | PRE | POST |
-|---|---|---|
-| exists | true | true |
-| bytes | 4792320 | 4792320 |
-| mtime | 2026-08-17T09:08:47.096675+02:00 | identique |
-| SHA256 | `766405130d750cc0cf28595f7e95f77cdc510361c71cd1966ea3ac7c0ecd6ebd` | identique |
-
-Canonical Product DB : **inchangée**. Pas de FAIL `CANONICAL PRODUCT DB MUTATED`.
-
-## 15. Ancien REAL worktree PRE/POST
-
-Path historique (TEMPORARY WITH EXIT — intact) :
-
-`projects/sfia-studio/.sfia-exec/m4-worktrees/wt-xat_m3_m3-res_dec_f2_453ff36a-ac4b-459c-9d75-6f3-7dda85f19447a529bfe21555`
-
-| | PRE | POST |
-|---|---|---|
-| HEAD | `0d33478566627a9bf507d5a06323962d349308ee` | identique |
-| porcelain | vide | vide |
-
-Non supprimé, non clean, non reset, non modifié, non réutilisé comme fixture, non attaché au runtime QA.
-
-Nouveau REAL worktree ce cycle : **0**. Un seul dossier sous `m4-worktrees/` : le worktree historique ci-dessus.
-
-## 16. Browser tooling discovery
-
-Package manager : **npm** (`projects/sfia-studio/app`).
-
-Playwright : `projects/sfia-studio/app/playwright.config.ts`
-
-- baseURL `http://127.0.0.1:3020`
-- `webServer`: `npm run dev -- --hostname 127.0.0.1 --port 3020`
-- `reuseExistingServer: !CI`
-
-Specs Option A existants exécutés (complémentaires, chemin fixture) :
-
-- `e2e/studio-option-a.spec.ts`
-- `e2e/studio-option-a-negative-states.spec.ts`
-- `e2e/studio-option-a-clean-slate-captures.spec.ts`
-
-QA control existant :
-
-- env `SFIA_STUDIO_E2E_QA_CONTROL=1` + `OPS1_E2E_ALLOW_DIRTY_PRINCIPAL=1` + fake provider + REAL ≠ 1
-- route `POST /api/e2e/option-a-qa-scenario`
-- core : `app/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl.ts`
-- client Playwright : `e2e/support/optionAQaScenarioControl.ts`
-
-Scénarios fermés : `recommendation_stale`, `attempt_failed`, `attempt_timeout`, `attempt_cancelled`, `evidence_missing`, `rehydrate_read_failure`, `reset`.
-
-Ces scénarios seedent des Attempts **FIXTURE** (`mode=FIXTURE`, `executionMode=adapter_sync_fixture`, `realProcessInvoked=false`). Ils **ne satisfont pas** `isBoundedRunningAttemptRefreshable`.
-
-Sélecteurs Cycle 8 :
-
-- title testid `f3-running-refresh-title` / wording `Exécution en cours`
-- help testid `f3-running-refresh-help` / wording `L’exécution est déjà autorisée. Cette action vérifie son résultat sans la relancer.`
-- button testid `f3-refresh-running-button` / wording `Actualiser le résultat`
-
-Helper `seedRunningAttempt` existe seulement sous `__tests__/oa/execution-attempt/helpers.ts` — ce n’est **pas** un contrôle browser. Non utilisé.
-
-Discovery : `.tmp-sfia-review/async-continuation-browser-qa/pre/discovery.json`
-
-Port 3020 : libre à l’entrée ; runtime QA dédié démarré ; non réutilisation d’un serveur non qualifié.
-
-Incident runtime : `npm run build` (commande 06, exigée) a clobberé `.next` pendant que `next dev` tournait (`Cannot find module './331.js'`, GET `/studio/projects/new` 500). Runtime QA **redémarré** après suppression du cache gitignored `.next`. Aucune mutation `app/**` source. Relance opérateur ensuite : PASS.
-
-## 17. Harness exact utilisé
-
-1. Runtime Next déterministe isolé (opérateur tmp `operator/start-next.cjs`).
-2. Opérateur tmp Playwright `operator/browser-qa.cjs` (écrit sous `.tmp-sfia-review/**` uniquement) : UI existante + POST QA control existant.
-3. Specs Playwright Option A **existants**, non modifiés, 17 tests.
-4. Aucun nouveau scenario, route, endpoint, spec, ou QA control.
-
-## 18. Classification UI-driven / seeded / integration
-
-| Preuve | Classification |
+| Contrôle | Valeur |
 |---|---|
-| N1 — pas de refresh avant Confirmation | **UI-DRIVEN** |
-| N2 / N5 — fixture terminal, pas de refresh REAL-running | **UI-DRIVEN** |
-| B4 fixture reload / Recovery / LPS durable | **UI-DRIVEN** (chemin fixture, pas running-refresh) |
-| Probe scénarios harness existants | **HARNESS-SEEDED** (terminal fixture only) |
-| Probe `attempt_running_real_shaped` | **NOT AN EXISTING SCENARIO** — HTTP 400 `UNKNOWN_SCENARIO` |
-| B1 running refresh UI | **NOT PROVEN IN BROWSER** |
-| B2 pending refresh same Attempt | **NOT PROVEN IN BROWSER** (complément component test) |
-| B3 terminal via refresh same Attempt | **NOT PROVEN IN BROWSER** |
-| T-R3-ASYNC one-launch | **DOMAIN-INTEGRATION-PROVEN** (Vitest, pas browser) |
-| runningAttemptRefresh.ui.test.tsx | **COMPONENT-PROVEN** (jsdom, pas browser Option A) |
+| repo | `mcleland147/sfia-workspace` |
+| worktree documentaire | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/.tmp-sfia-review/worktrees/sfia-fake-real-progressive-proof` |
+| branche documentaire | `docs/sfia-fake-real-progressive-proof` (locale ; tracks origin/main ; **non poussée**) |
+| HEAD | `0d33478566627a9bf507d5a06323962d349308ee` |
+| origin/main | `0d33478566627a9bf507d5a06323962d349308ee` |
+| origin/sfia/review-handoff (parent entrée) | `7821ab49ffb854c89664620ee0a8e3024c321e15` |
+| staged documentaire | aucun |
+| working tree documentaire | DIRTY — exactement 5 fichiers méthode autorisés |
+| commit projet ce cycle | **aucun** |
+| push projet ce cycle | **aucun** |
 
-Jamais présenté comme organiquement produit par Cursor.
+Git Truth Check : **PASS** (refs attendues inchangées).
 
-## 19–20. IDs Project / Decision / Contract / Attempt
+Incident d'isolation (documenté, corrigé avant pack) : un checkout Cursor a momentanément recablé le worktree documentaire sur `delivery/sfia-studio-pre-m6-ui-option-a` (même SHA) et a copié des fichiers du candidat Studio dans le worktree docs. Correction bornée **dans le worktree docs uniquement** : retour `docs/sfia-fake-real-progressive-proof` ; `git restore` des leaks tracked ; `git clean -fd` des copies untracked leakées ; restauration des 5 fichiers depuis backup SHA-256. Le worktree Studio a été réattaché sur `delivery/sfia-studio-pre-m6-ui-option-a` (HEAD identique) et un `git reset` mixed a destagé un `git add` accidentel — **aucun** `reset --hard`, **aucun** `clean` Studio, **aucun** commit Studio. Les 5 fichiers méthode **n'apparaissent pas** dans le diff Studio.
 
-Projet QA isolé (opérateur, second run healthy runtime) :
+## 7. Worktree documentaire isolé
 
-- Project ID : `prj:c0d7c235-5a04-4405-b3a2-d02626b2b0d7`
-- Decision ID : `dec:f2:da51f3ea-f4d7-4acf-8d62-b8e309dd646a`
-- ExecutionContract ID : `xct:m3-res:dec:f2:da51f3ea-f4d7-4acf-8d62-b8e309dd646a`
-- Attempt ID (fixture succeeded) : `xat:m3:m3-res:dec:f2:da51f3ea-f4d7-4acf-8d62-b8e309dd646a`
-- Evidence ID : `ev:f3-fixture:xat:m3:m3-res:dec:f2:da51f3ea-f4d7-4acf-8d62-b8e309dd646a`
-- ReviewBundle ID : `rb:f3-fixture:xat:m3:m3-res:dec:f2:da51f3ea-f4d7-4acf-8d62-b8e309dd646a`
-- Attempt.status UI : `succeeded`
-- Harness project (probes) : `prj:a01923f2-4b0e-45ad-b86d-800f9ee66843`
+- Créé depuis `origin/main` @ `0d33478566627a9bf507d5a06323962d349308ee`
+- Branche : `docs/sfia-fake-real-progressive-proof`
+- Locale uniquement — **ne pas pousser** ; **ne pas supprimer**
+- Nested path sous le worktree Studio dirty : isolation gitdir distincte (`worktrees/sfia-fake-real-progressive-proof`)
+- Toute modification méthode de ce cycle est dans ce worktree
 
-Ces IDs sont **fixture-safe**. Ils ne sont pas un Attempt REAL-shaped `running`.
+Workspace Studio (non modifié par les 5 fichiers) :
 
-JSON : `.tmp-sfia-review/async-continuation-browser-qa/logs/browser-operator.json`
+- path : parent `sfia-studio-m4-real-off`
+- branche : `delivery/sfia-studio-pre-m6-ui-option-a`
+- HEAD : `0d33478566627a9bf507d5a06323962d349308ee` (identique origin/main)
+- dirty Pre-M6 candidate **conservé**
 
-## 21. B1 running browser proof
+## 8. Sources lues
 
-**NOT PROVEN IN BROWSER.**
+| # | Source | Rôle |
+|---|---|---|
+| 1 | `docs/foundation/sfia-engineering-principles.md` | cible §12 |
+| 2 | `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` | cible §13.2 |
+| 3 | `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | cible §3.2 |
+| 4 | `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | lu ; **non modifié** |
+| 5 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md` | lu ; **non modifié** |
+| 6 | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md` | fallback CKC 15 |
+| 7 | `prompts/templates/sfia-cycle-execution-template.md` | cible v2.6 |
+| 11 | `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` | cible R21 / A5–A6 / A10 / A13 |
+| 12 | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | READ ONLY |
+| 13 | `projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md` | READ ONLY |
+| 14 | `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md` | READ ONLY |
+| — | template §7 review pack / §9.1 | contrat pack + rapport |
 
-Observation UI-driven (chemin ZERO REAL organique) :
+## 9. Handoffs d'apprentissage lus
 
-- Après prepare : `Confirmer l’exécution` visible ; `Actualiser le résultat` absent (N1).
-- Après confirm : Attempt `succeeded` immédiat ; Evidence / ReviewBundle / Recommendation visibles ; `f3-refresh-running-button` absent ; body sans « Exécution en cours » / « Actualiser le résultat ».
-- Badge UI : « Exécution réelle bloquée ».
-- `prepareAndResolveM3ProductPath` produit (actions.ts) **ne passe pas** `preferBoundedReadOnlyProfile` ; confirm → `executeConfirmedFixtureSafeContract` → terminal fixture.
-- Refresh UI est **session `f3Execute`**, pas une rehydrate LPS d’un Attempt `running` SQLite.
-- Harness existant ne peut pas seeder `status=running` + `realProcessInvoked=true` + `contract=executing` + `mode=cursor_cli_real` dans la session Option A.
+| SHA | Cycle | Enseignement retenu |
+|---|---|---|
+| `5d55c393a65df5813735a75e5e579c2b0bd35896` | First REAL / async running | le REAL a révélé `running` asynchrone non couvert par le chemin fixture |
+| `4a089060d04530a83f4d1326b1de0bbbdf523f6f` | Cycle 8 UI refresh | correctif déterministe borné ; header CKC 03 incorrect (réserve documentaire Cycle 9) |
+| `7821ab49ffb854c89664620ee0a8e3024c321e15` | Cycle 9 QA browser | `INCOMPLETE — DETERMINISTIC BROWSER PROOF TOOLING GAP` ; REAL-shaped ≠ REAL BOUNDARY ; fixture path terminal immédiat |
 
-Screenshot campagne `01-running-refresh-available.png` : **NON PRODUIT** (état non atteint). Ne pas interpréter les captures fixture comme B1.
+Lecture via `git show <sha>:sfia-review-handoff/latest-chatgpt-review.md`.
 
-## 22. B2 pending proof ou limite
+## 10. Problème observé
 
-**NOT PROVEN IN BROWSER.**
+Les tests déterministes / fake / fixture peuvent prouver une règle interne sans reproduire des propriétés importantes d'une frontière réelle (async `running`, continuation, timeout, process live).
 
-Le harness existant ne permet pas de conserver une completion pending d’un Attempt REAL-shaped running dans Option A.
+Deux erreurs de claim en découlent :
 
-Complément : `runningAttemptRefresh.ui.test.tsx` (component) PASS.
+1. traiter un chemin fixture parallèle (succès synthétique) comme équivalent produit du REAL ;
+2. traiter un état REAL-shaped déterministe, ou des tests verts, comme **READY FOR REAL** / **REAL BOUNDARY PROVEN**.
 
-B2 seul non browser n’est pas automatiquement bloquant **si** B3 terminal est browser-proven. B3 n’est **pas** browser-proven. Donc **PAS** de verdict `PASS WITH RESERVE`.
+Cycle 9 : le tooling browser existant ne peut pas seeder un Attempt REAL-shaped `running` (`realProcessInvoked=true`, contract `executing`, mode `cursor_cli_real`). Verdict honnête : **INCOMPLETE / TOOLING GAP** — pas un PASS plus calme.
 
-## 23. B3 terminal proof (via refresh)
+## 11. Enseignement capitalisé
 
-**NOT PROVEN IN BROWSER.**
+Nom : **Fidélité Fake/Real et preuve progressive** / Fake/Real Fidelity & Progressive Proof.
 
-Aucune transition browser `running → Actualiser le résultat → terminal same Attempt` n’a été produite.
+- Fake/fixture = **outil essentiel**, pas un défaut.
+- Problème = **divergence non qualifiée** fake vs REAL.
+- Substitution de **frontière**, pas chemin produit parallèle.
+- Parité sémantique sans coûts externes réels.
+- **REALISM GAP** nommé (différence, impact, preuve déterministe, preuve REAL manquante, fermeture).
+- Niveaux non transitifs : NOT PROVEN / DETERMINISTIC PROVEN / REAL BOUNDARY PROVEN / END-TO-END REAL PROVEN.
+- REAL-shaped deterministic = DETERMINISTIC PROVEN, jamais REAL BOUNDARY.
+- Preuve progressive proportionnée ; **jamais auto-REAL** ; GO REAL = Morris.
+- Tooling gap → `INCOMPLETE / TOOLING GAP`.
+- Proportionnalité : qualifier si frontière simulée/externe ; sinon N/A.
 
-Le chemin organique ZERO REAL atteint un terminal **fixture** via **Confirmation**, pas via refresh. Ce n’est **pas** B3.
+## 12. Hiérarchie normative retenue
 
-Screenshot `03-terminal-evidence.png` : **NON PRODUIT** comme preuve B3.
+1. Engineering Principles v1.1 **§12** — principe d'ingénierie (pas une règle Studio).
+2. Rules & Guardrails **§13.2** — opérationnalisation FR-1–FR-10.
+3. Operating model **§3.2** — rôles ChatGPT / Cursor / Morris.
+4. Template v2.6 **§6.16** + instanciation + skeleton + stop 45–50 + rapport champ 20 — enforcement des futurs prompts.
+5. Studio Build Doctrine **R21** + A5 Q11–12 + A6 + A10 + A13 — spécialisation construction Studio.
 
-## 24. Evidence / ReviewBundle IDs
+Version nominale Principles : **reste v1.1**. Template : **reste v2.6**. Pas de v2.7.
 
-Atteints sur le chemin **fixture Confirmation** (pas refresh) :
+## 13. Liste exacte fichiers modifiés
 
-- Evidence : `ev:f3-fixture:xat:m3:m3-res:dec:f2:da51f3ea-f4d7-4acf-8d62-b8e309dd646a` (available, verified false)
-- ReviewBundle : `rb:f3-fixture:xat:m3:m3-res:dec:f2:da51f3ea-f4d7-4acf-8d62-b8e309dd646a` (draft)
+```text
+M	docs/foundation/sfia-engineering-principles.md
+M	method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+M	method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+M	projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+M	prompts/templates/sfia-cycle-execution-template.md
+```
 
-Classification : UI-DRIVEN fixture terminal. **Pas** la preuve cible running→refresh.
+Hors scope = 0 (après restauration isolation).
 
-## 25. Nora / LPS deterministic outcome
+## 14. Contenu exploitable — diff stat
 
-Après confirm fixture :
+```text
+ docs/foundation/sfia-engineering-principles.md     |  36 +++++
+ .../core/sfia-chatgpt-cursor-operating-model.md    |  35 ++++-
+ .../core/sfia-rules-and-guardrails.md              |  96 +++++++++++++
+ .../sfia-studio-convergence-build-doctrine.md      |  17 ++-
+ prompts/templates/sfia-cycle-execution-template.md | 156 ++++++++++++++++++++-
+ 5 files changed, 329 insertions(+), 11 deletions(-)
+```
 
-- Recommendation card visible ; « RECOMMANDATION — PAS UNE DÉCISION MORRIS » ; `PAS DE CLAIM READY`
-- LPS sidebar visible à 1440 (`living-project-state-panel`) sans click toggle (toggle CSS-hidden desktop)
-- Analyse Nora : `[TEST/FAKE - NON LIVE]` dans le LPS / contexte
+5 files changed, 329 insertions(+), 11 deletions(-).
 
-Après reload : conversation process-local absente (G-UX-09) ; **Relecture durable** montre Evidence/RB IDs + recommendation flags.
+## 15. Diff complet par fichier
 
-Ceci est le chemin fixture durable existant, **pas** le running-refresh Cycle 8.
+### 15.1 `docs/foundation/sfia-engineering-principles.md`
 
-## 26. Reload
+```diff
+diff --git a/docs/foundation/sfia-engineering-principles.md b/docs/foundation/sfia-engineering-principles.md
+index 097fcca..396ce12 100644
+--- a/docs/foundation/sfia-engineering-principles.md
++++ b/docs/foundation/sfia-engineering-principles.md
+@@ -315,6 +315,39 @@ Evidence can include:
+ - REX;
+ - documented reserve resolution.
 
-B4 running-refresh : **NOT PROVEN IN BROWSER**.
++## 12. Fake/Real fidelity and progressive proof
++
++Fake, mock, fixture and test adapters remain **essential** SFIA tools. They are not a defect to eliminate.
++
++A fake must substitute the **external boundary**, not create a second product path. The intended architecture is:
++
++same product orchestration → same state machine → same persistence → same Evidence pipeline → adapter/boundary → fake **or** REAL.
++
++Avoid a fixture-specific product path that synthesizes success when the real boundary traverses significantly different states.
++
++When a fake represents a real boundary, preserve **semantic parity** for the product-relevant contract: inputs/outputs, statuses, transitions, errors, relevant temporality, async/pending/completion, persistence, idempotence, retry/recovery and Evidence semantics. Parity does not require reproducing real external costs or irreversible effects.
++
++Any known difference that can change observable behaviour is a **realism gap**. It must name the difference, the potential impact, the deterministic proof available, the REAL proof missing, and the closure condition. Green deterministic tests do not close a blocking realism gap.
++
++Proof levels are distinct and non-transitive:
++
++- **NOT PROVEN**
++- **DETERMINISTIC PROVEN** — logic proven with a controlled fake, mock, fixture or test adapter
++- **REAL BOUNDARY PROVEN** — the real external boundary was exercised in a bounded way and the relevant contractual behaviour was observed
++- **END-TO-END REAL PROVEN** — the user/capability path actually crossed the concerned boundaries to an observable persisted result
++
++A lower level never implies a higher one. **REAL-shaped deterministic remains DETERMINISTIC PROVEN**, never REAL BOUNDARY PROVEN.
++
++When a capability depends on a significant external boundary, proof should progress **proportionally** to risk:
++
++deterministic → bounded REAL boundary proof → deterministic hardening → further bounded REAL if needed → end-to-end REAL.
++
++This trajectory **never automatically authorizes REAL**. Morris remains the REAL gate. REAL proofs must be small, bounded, reversible as far as possible, and submitted to existing gates.
++
++If QA tooling cannot reproduce a significant REAL state needed on the critical path, the honest verdict is **INCOMPLETE / TOOLING GAP** — not a quieter claim.
++
++Operational constraints: `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`. Prompt enforcement: `prompts/templates/sfia-cycle-execution-template.md`.
++
+ ## v1.1 Anti-patterns
 
-Reload fixture observé (UI-DRIVEN) :
+ | Anti-pattern | Risk |
+@@ -329,6 +362,9 @@ Evidence can include:
+ | Raw Notion sync | Non-curated and misleading publication |
+ | Automation before guardrails | Loss of control |
+ | Decision without evidence | Weak governance |
++| Unqualified fake/REAL divergence | Deterministic green tests hide a missing REAL path |
++| Treating REAL-shaped data as REAL proof | False readiness / premature REAL |
++| Parallel fixture product path | Product behaves differently from the REAL orchestration |
 
-- Project toujours présent
-- LPS durable présent
-- Evidence/RB IDs présentes via Recovery / relecture durable
-- `project-assistant-f3-execute` / `f3-evidence-card` session **absents** après reload (G-UX-09 : Conversation / Proposal / Confirmation process-local)
-- G-UX-09 **non fermé**
+ ## v1.1 Related Documents
 
-Screenshot : `n-reloaded-fixture-terminal.png` (pas `05-reloaded-terminal.png` au sens B4 cible).
+```
 
-## 27. Negative matrix
+### 15.2 `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 
-| ID | Attendu | Preuve | Verdict |
-|---|---|---|---|
-| N1 | Avant premier execution state : pas « Actualiser le résultat » | UI-DRIVEN screenshot `00-n1-before-confirm-no-refresh.png` ; confirm visible ; refresh absent | **PASS** |
-| N2 | Fixture terminale : aucun refresh REAL-running | UI-DRIVEN `n2-n5-fixture-terminal-no-refresh.png` | **PASS** |
-| N3 | running + `realProcessInvoked=false` → pas de refresh | **NOT PROVEN IN BROWSER** ; component `isBoundedRunningAttemptRefreshable` + `runningAttemptRefresh.ui.test.tsx` | component only |
-| N4 | contract non executing → pas de refresh | **NOT PROVEN IN BROWSER** ; component | component only |
-| N5 | Terminal succeeded → refresh absent | UI-DRIVEN (fixture succeeded) | **PASS** |
-| N6 | Double-click concurrent : pas de second appel | **NOT PROVEN IN BROWSER** ; component `f3InFlightRef` acceptable per contrat | component only |
-| N7 | Pas Relancer / Réessayer / Confirmer l’exécution **sur continuation running** | Running continuation UI inatteignable. Fixture terminal : Relancer/Réessayer/Confirmer absents | **NOT PROVEN IN BROWSER** pour le contrôle running ; fixture wording observé seulement |
+```diff
+diff --git a/method/sfia-fast-track/core/sfia-rules-and-guardrails.md b/method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+index 2e99a5d..675de2d 100644
+--- a/method/sfia-fast-track/core/sfia-rules-and-guardrails.md
++++ b/method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+@@ -62,6 +62,7 @@ They must be interpreted as implementation constraints derived from the Engineer
+ | Documentation routing before prompt | Le prompt doit identifier les sources à lire et les dossiers à alimenter |
+ | Guardrails before automation | Les garde-fous précèdent l'automatisation |
+ | Capitalization by default | Les apprentissages sont capitalisés |
++| Fidélité Fake/Real | Fake substitue la frontière externe ; la preuve déterministe n'est pas une preuve REAL |
+ | No raw Notion sync | Notion n'est pas un miroir brut |
+ | Traceability by default | Les décisions et changements sont traçables |
+ | Platform over projects | Chaque projet doit renforcer SFIA |
+@@ -216,6 +217,9 @@ SFIA utilise les décisions suivantes :
+ | Rapport Cursor sans review pack light/full | Cycle incomplet — `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` |
+ | Rapport Cursor avec handoff `not required` ou `none` | Ambiguïté interdite — publication handoff obligatoire |
+ | Review pack light/full sans publish-in-cycle | Cycle incomplet — pas de publication remote |
++| Fake présenté comme preuve REAL | Fausse maturité ; GO REAL implicite |
++| Chemin produit parallèle fixture | Le déterministe ne traverse plus les mêmes états que le REAL |
++| Tests verts masquant un realism gap | Réserve bloquante adoucie |
 
-Specs Playwright négatifs existants (N5 stale, N7–N11 harness terminal fixture, N1–N4 authority, N12 recovery honesty) : **17/17 PASS**. Ils ne seedent pas un running REAL-shaped.
+ ## 13.1 Review Handoff Git — règle transverse (absorbée v2.6 — origine capitalisation v2.5)
 
-## 28. R3 one-launch regression
+@@ -233,6 +237,98 @@ SFIA utilise les décisions suivantes :
+ | **Instruction ChatGPT** | Bloc §9.1 obligatoire dans rapport final Cursor pour tout rapport Cursor |
+ | **Baseline** | Règle **absorbée dans SFIA v2.6 (baseline opérationnelle)** — origine capitalisation v2.5 ; v2.6 active sur `main` après merge PR #204 — alignement mandatory routing en attente de merge méthode |
 
-Réexécuté **sans modification** :
++## 13.2 Fidélité Fake/Real et preuve progressive
++
++> **Référence principe :** Engineering Principles v1.1 §12. **Enforcement prompts :** template v2.6 — Fake/Real Qualification.
++> Fake / mock / fixture / simulateur restent des **outils essentiels**. Le problème traité est la **divergence non qualifiée** entre fake et REAL — pas l'usage du fake.
++
++### Trigger (proportionnalité)
++
++La qualification Fake/Real est **obligatoire** lorsqu'un cycle implique au moins une frontière simulée ou réelle parmi :
++
++API externe ; provider IA ; agent ; subprocess ; réseau ; stockage externe ; auth externe ; cloud/service managé ; connecteur ; hardware ; ou toute frontière fake/mock/fixture/simulator/test adapter.
++
++Si aucune frontière pertinente : **N/A**. Ne pas imposer un test REAL à chaque cycle.
++
++### Substitution de frontière
++
++Un fake/mock/fixture doit remplacer en priorité la **frontière externe**, pas créer un second comportement produit.
++
++Cible : même orchestration, même machine d'états, même persistence, même pipeline Evidence → adapter/boundary → fake **ou** REAL.
++
++Éviter : chemin fixture spécifique → succès synthétique, si le REAL traverse des états significativement différents.
++
++### Parité sémantique
++
++Quand un fake représente une frontière réelle, préserver autant que raisonnablement possible : contrats d'entrée/sortie ; statuts ; transitions ; erreurs ; temporalité pertinente ; async/pending/completion ; persistence ; idempotence ; retry/recovery ; sémantique Evidence.
++
++La parité **n'exige pas** de reproduire les coûts ou effets externes réels.
++
++### Realism gap
++
++Toute différence intentionnelle ou connue entre fake et REAL qui peut modifier le comportement observable doit être qualifiée **REALISM GAP**, avec :
++
++- différence ;
++- impact potentiel ;
++- preuve déterministe disponible ;
++- preuve REAL manquante ;
++- condition de fermeture.
++
++Un realism gap **bloquant** ne peut pas être masqué par des tests verts.
++
++Si le REAL introduit un état significatif (running, pending, timeout, partial completion, retry, rate limit, async callback, process death, network failure, eventual consistency, etc.) et que cet état appartient au comportement produit attendu, le déterministe doit pouvoir le représenter. Sinon : **REALISM GAP**.
++
++### Niveaux de preuve
++
++| Niveau | Signification |
++|--------|---------------|
++| **NOT PROVEN** | Non démontré |
++| **DETERMINISTIC PROVEN** | Logique prouvée avec fake/mock/fixture/test adapter contrôlé |
++| **REAL BOUNDARY PROVEN** | La vraie frontière externe a été exercée de manière **bornée** ; comportement contractuel pertinent observé |
++| **END-TO-END REAL PROVEN** | Le parcours utilisateur/capacité traverse réellement les frontières concernées jusqu'au résultat observable/persisté |
++
++Règles dures :
++
++- un niveau inférieur **ne vaut jamais** automatiquement le niveau supérieur ;
++- **REAL-shaped deterministic** reste **DETERMINISTIC PROVEN**, jamais REAL BOUNDARY PROVEN ;
++- une fixture, mock, fake provider ou simulateur **ne peut pas** être présenté comme preuve REAL ;
++- **DETERMINISTIC PROVEN ⇒ READY FOR REAL** est **interdit** sans gate Morris et niveau de preuve explicite.
++
++Labels de provenance (adapter si une terminologie projet plus simple existe, sans perdre la distinction) :
++
++UI-DRIVEN ; HARNESS-SEEDED ; COMPONENT-PROVEN ; DOMAIN-INTEGRATION-PROVEN ; REAL-BOUNDARY-PROVEN ; END-TO-END-REAL-PROVEN ; NOT PROVEN.
++
++### Preuve progressive
++
++Lorsqu'une capacité dépend d'une frontière externe significative, ne pas attendre la fin de nombreux cycles pour découvrir son comportement réel.
++
++Trajectoire recommandée selon risque :
++
++deterministic → bounded REAL boundary proof → deterministic hardening → nouvelle bounded REAL proof si nécessaire → end-to-end REAL proof.
++
++Les preuves REAL doivent être petites, bornées, réversibles autant que possible, proportionnées au risque, et soumises aux **gates existants**.
++
++Cette règle **n'autorise JAMAIS automatiquement** le REAL. Le GO REAL reste **humain / Morris**, distinct de tout GO déterministe.
++
++### Tooling gap
++
++Si le harness QA ne permet pas de reproduire un état REAL significatif nécessaire à la preuve du chemin critique :
++
++- ne pas contourner par un claim inférieur ;
++- verdict : **INCOMPLETE / TOOLING GAP** ;
++- puis requalification Delivery du tooling de preuve si ce tooling est nécessaire au chemin critique.
++
++### Anti-claims
++
++Interdit de déclarer, sur la seule base déterministe :
++
++- READY FOR REAL ;
++- FULL REAL PRODUCT LOOP PROVEN ;
++- fake = REAL ;
++- deterministic = REAL.
++
++Fake n'est **pas** interdit. Fixture n'est **pas** interdite. La preuve déterministe n'est **pas** inutile.
++
+ ## 14. Documents associés
 
-`projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringResidual.test.ts`
+ - `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+```
 
-`T-R3-ASYNC-CONTINUATION` **PASS**.
+### 15.3 `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
 
-DOMAIN-INTEGRATION-PROVEN (assertions inchangées) :
+```diff
+diff --git a/method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md b/method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+index cce876d..673545f 100644
+--- a/method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
++++ b/method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+@@ -80,6 +80,7 @@ Ils forment une boucle opératoire contrôlée par l'humain.
+ | No raw Notion sync | Notion n'est jamais synchronisé brutalement |
+ | Controlled automation | L'automatisation progresse par niveaux, sans supprimer la validation humaine |
+ | Guardrails before execution | Les garde-fous sont posés avant exécution |
++| Fidélité Fake/Real | ChatGPT qualifie frontières et niveaux de preuve ; Cursor n'élargit pas vers REAL ; Morris garde le GO REAL |
 
-- first call `attempt.status=running`, `contract.status=executing`
-- continuation same Attempt
-- `reusedExistingAttempt=true`
-- `launchCallCount=1` (et reste 1 après resume)
-- 1 CREATED / 1 LAUNCHED
-- terminal Evidence/RB après completion held
-- Nora once
-- LPS rehydrate
+ ## 3.1 Routage des cycles
 
-**BROWSER REACHABILITY PROVEN = NO**
+@@ -106,6 +107,27 @@ Règle :
 
-**DOMAIN ONE-LAUNCH INVARIANT PROVEN = YES**
+ Tout statut candidate doit rester **visible**. Réf. routing guide §4.4.5 ; template §2.0 / §2.1.
 
-Aucun vrai launch Cursor n’a été observé dans ce cycle. Le launchPort du test est `TestOnlyRealExecutionLaunchPort`.
++## 3.2 Fidélité Fake/Real — qualification opératoire
++
++> **Référence :** Engineering Principles v1.1 §12 ; Rules & Guardrails §13.2 ; template v2.6 Fake/Real Qualification.
++> Ne modifie **pas** les niveaux d'automatisation (§2 / §15).
++
++Lorsque le cycle touche une frontière fake/mock/fixture/simulée ou une frontière externe réelle, la boucle ChatGPT ↔ Cursor **doit** qualifier explicitement Fake/Real **avant** exécution et **dans** le rapport.
++
++| Acteur | Comportement |
++|--------|----------------|
++| **ChatGPT** | Qualifie les frontières, le fake utilisé, la parité attendue, les realism gaps, le niveau de preuve d'entrée / attendu / hors scope, et si une bounded REAL proof est requise (ce cycle / cycle suivant / N/A). Recommande — **ne décide pas** le GO REAL. |
++| **Cursor** | Exécute le niveau de preuve **autorisé par le prompt**. N'élargit **pas** vers REAL. Ne présente **pas** un état REAL-shaped déterministe comme REAL BOUNDARY PROVEN. Sépare preuve déterministe et preuve REAL dans le rapport. |
++| **Morris** | Seule autorité du **GO REAL**. Distinct de tout GO déterministe, QA ou delivery. |
++
++Règles opératoires :
++
++- un niveau de preuve inférieur ne vaut jamais le niveau supérieur ;
++- REAL-shaped deterministic = DETERMINISTIC PROVEN ;
++- DETERMINISTIC PROVEN **n'implique pas** READY FOR REAL ;
++- la preuve progressive (déterministe → frontière REAL bornée → end-to-end REAL) est une **règle opératoire**, pas une autorisation automatique ;
++- si le tooling de preuve ne peut pas reproduire un état REAL significatif du chemin critique : INCOMPLETE / TOOLING GAP — pas un claim inférieur.
++
+ ## 4. Rôles dans la boucle
 
-## 29. Targeted tests
+ | Acteur | Rôle | Responsabilités |
+@@ -125,6 +147,7 @@ L'humain reste le décideur final sur :
+ - le GO / NO-GO avant commit, push, PR et merge ;
+ - la revue visuelle (UI premium, Figma Design-first) ;
+ - les arbitrages métier et architecture sensibles ;
++- **tout GO REAL** (frontière réelle, Cursor REAL, OpenAI LIVE, subprocess live) ;
+ - toute publication ou synchronisation Notion ;
+ - toute modification de zones interdites (code applicatif, CI, outillage transverse).
 
-Tous ZERO REAL, `SFIA_STUDIO_PRODUCT_DB_PATH` unset :
+@@ -139,7 +162,8 @@ Il produit :
+ - les prompts Cursor structurés ;
+ - les recommandations de validation ;
+ - les synthèses post-exécution ;
+-- les documents de capitalisation et post-merge.
++- les documents de capitalisation et post-merge ;
++- la **qualification Fake/Real** (frontières, niveaux de preuve, realism gaps) lorsqu'applicable.
 
-1. `runningAttemptRefresh.ui.test.tsx` PASS
-2. `presentationLabels.test.ts` PASS
-3. `ProjectAssistantPanel.test.tsx` PASS
-4. `preM6.realProductWiringResidual.test.ts` PASS (incl. T-R3-ASYNC)
-5. `preM6.realProductWiringAmend.test.ts` PASS
-6. `qa-pre-m6-01.finalHardening.test.ts` PASS
-7. `qa-pre-m6-01.postGoDurableM3Path.test.ts` PASS
+ ### 4.3. Cursor
 
-Agrégat : **7 files / 69 tests PASS**. Log : `commands/02-targeted-suites.log` exit 0.
+@@ -155,6 +179,8 @@ Il :
 
-Aucun skip critique relatif au parcours async continuation.
+ Cursor ne doit pas improviser hors du contrat d'exécution.
 
-## 30. Full Vitest + skips
++Cursor n'élargit **pas** un cycle déterministe vers REAL. Le rapport sépare preuve déterministe et preuve REAL.
++
+ ## 5. Boucle opératoire standard
 
-- Test Files : **192 passed | 13 skipped** (205)
-- Tests : **1817 passed | 131 skipped** (1948)
-- Failed : **0**
-- Duration : 12.17s
-- Log : `commands/03-full-vitest.log` exit 0
+ La boucle ChatGPT ↔ Cursor suit le flux suivant :
+@@ -520,6 +546,7 @@ Ces documents ne doivent être créés qu'**après validation** du présent Oper
+ | Dette documentaire | Livrables non capitalisés | Post-merge + capitalisation |
+ | Suppression abusive | Perte historique | Archive ou `git mv` |
+ | PR non maîtrisée | Livraison trop large ou non revue | PR humaine et traçable |
++| Fake/REAL non qualifié | Preuve déterministe prise pour preuve REAL | Qualification Fake/Real + niveaux de preuve + GO Morris distinct |
 
-13 fichiers skip : `__tests__/oa/finops/postgres/*.integration.test.ts` via `describe.skip` quand `DATABASE_URL` unset. Cause : FinOps Postgres integration, never Neon, **pas** le chemin critique Pre-M6 async continuation. **Non bloquant.**
+ ## 18. Critères de maturité
 
-Détail : `commands/skip-classification.json`.
+@@ -653,9 +680,9 @@ Cycle visant à transformer apprentissage, REX, pratique ou décision en actif m
 
-## 31. typecheck / lint / build
+ | Acteur | Responsabilités | Limites |
+ |--------|-----------------|---------|
+-| **ChatGPT** | Qualifie le profil ; distingue type cycle et profil ; cadre ; sélectionne références ; produit prompt contractuel ; identifie risques ; recommande décision ; limite sollicitations Morris aux gates listés | **Recommande — ne décide pas** ; pas push / PR / merge / actation version |
+-| **Cursor** | Local Git Truth Check ; exécute périmètre ; contrôle fichiers touchés ; rapport structuré ; PR-ready si demandé ; signale écarts profil / type incohérents ; **review pack exploitable** — contenu complet créés, sections/diff modifiés (§7.2.1 template) | **Exécute — ne change pas le scope** ; pas d'arbitrage implicite ; **pas de synthèse-only** dans review pack si fichiers créés/modifiés |
+-| **Morris** | Gates structurants ; doctrine, scope, version, PR, merge, pilote | Autorité L0 — arbitrage structurant jamais automatisé |
++| **ChatGPT** | Qualifie le profil ; distingue type cycle et profil ; cadre ; sélectionne références ; produit prompt contractuel ; identifie risques ; recommande décision ; limite sollicitations Morris aux gates listés ; **qualifie Fake/Real** lorsque trigger | **Recommande — ne décide pas** ; pas push / PR / merge / actation version ; **pas GO REAL** |
++| **Cursor** | Local Git Truth Check ; exécute périmètre ; contrôle fichiers touchés ; rapport structuré ; PR-ready si demandé ; signale écarts profil / type incohérents ; **review pack exploitable** — contenu complet créés, sections/diff modifiés (§7.2.1 template) ; **sépare preuve déterministe et REAL** | **Exécute — ne change pas le scope** ; pas d'arbitrage implicite ; **pas de synthèse-only** dans review pack si fichiers créés/modifiés ; **n'élargit pas vers REAL** |
++| **Morris** | Gates structurants ; doctrine, scope, version, PR, merge, pilote ; **GO REAL** | Autorité L0 — arbitrage structurant jamais automatisé |
 
-| Commande | Exit |
+ #### 18.2.5 Stop conditions (v2.5 candidate)
+
+```
+
+### 15.4 `prompts/templates/sfia-cycle-execution-template.md`
+
+```diff
+diff --git a/prompts/templates/sfia-cycle-execution-template.md b/prompts/templates/sfia-cycle-execution-template.md
+index 85ca739..bd03da1 100644
+--- a/prompts/templates/sfia-cycle-execution-template.md
++++ b/prompts/templates/sfia-cycle-execution-template.md
+@@ -126,6 +126,25 @@ Repo-informed pre-check ChatGPT
+ - limites / incertitudes :
+ - verdict : PROMPT CURSOR READY / NEED MORRIS CLARIFICATION
+
++Fake / Real Qualification :
++- applicable : oui / non / N/A
++- trigger : fake/mock/fixture/simulator/test adapter/external boundary — oui / non
++- frontières externes concernées :
++- fake/mock/fixture utilisé :
++- frontière REAL correspondante :
++- parité attendue :
++- différences connues :
++- realism gaps :
++- états REAL significatifs :
++- niveau de preuve d'entrée : NOT PROVEN / DETERMINISTIC PROVEN / REAL BOUNDARY PROVEN / END-TO-END REAL PROVEN
++- niveau de preuve attendu ce cycle :
++- niveau de preuve explicitement hors scope :
++- bounded REAL proof requis : dans ce cycle / cycle suivant / non applicable
++- gate Morris REAL : oui / non / N/A
++- claims autorisés :
++- claims interdits :
++- règle dure : DETERMINISTIC PROVEN n'implique PAS READY FOR REAL
++
+ SFIA Studio Convergence Pre-check :
+ - triggered : oui / non
+ - Build Doctrine :
+@@ -230,7 +249,8 @@ Clarifications : Build Doctrine + Roadmap = gouvernance de **construction** ; do
+ 3. **Identifier le profil SFIA** — Light / Standard / Critical / Capitalization
+ 4. **Justifier le profil** — obligatoire si Critical ; recommandé sinon
+ 5. **Activer les blocs pertinents** — §6 selon type, risque, transverses
+-6. **Identifier les gates Morris** — liste fermée ; pas de gate implicite
++5bis. **Qualifier Fake/Real** — §6.16 si fake/mock/fixture/simulator/test adapter/external boundary ; sinon N/A. Interdit : DETERMINISTIC PROVEN ⇒ READY FOR REAL
++6. **Identifier les gates Morris** — liste fermée ; pas de gate implicite ; GO REAL distinct si applicable
+ 7. **Définir le périmètre Git/documentaire** — fichiers autorisés, interdits, protégés
+ 8. **Décider review pack** — §7 : pour tout cycle Cursor **produisant un rapport** → **light** ou **full** obligatoire (jamais `none`) ; opération read-only sans rapport Cursor → hors contrat review pack
+ 9. **Décider Review Handoff Git** — §7.10–§7.11 : pour tout cycle Cursor **produisant un rapport** → **required** + Mode **`publish-in-cycle`** + `Push handoff autorisé = oui — L3 borné` **automatiques** ; `local-only` = exception technique documentée uniquement (§7.10.3) — jamais `not required` pour un rapport Cursor ; combinaison invalide (rapport + none / not required / local-only non conforme) → `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` ; mode contradictoire → `PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT`
+@@ -270,6 +290,9 @@ Clarifications : Build Doctrine + Roadmap = gouvernance de **construction** ; do
+ - Inventer un CKC absent pour un cycle sans pilote
+ - Bloquer un cycle uniquement parce qu'un CKC détaillé n'existe pas (fallback obligatoire)
+ - Exposer la structure CKC brute comme questionnaire utilisateur / UI
++- Traiter DETERMINISTIC PROVEN comme READY FOR REAL
++- Présenter des données REAL-shaped déterministes comme REAL BOUNDARY PROVEN
++- Omettre Fake/Real Qualification alors qu'un fake/mock/fixture/frontière externe est utilisé
+
+ ---
+
+@@ -340,6 +363,24 @@ Règle centrale : RAPPORT CURSOR = REVIEW PACK OBLIGATOIRE = PUBLICATION HANDOFF
+ Stop conditions spécifiques :
+ Rapport Cursor attendu :        [Light / Standard / Critical / Capitalization — §9]
+ Verdict attendu :               [ex. READY FOR PR READINESS / READY FOR COMMIT / STOP …]
++
++Fake / Real Qualification :
++  applicable :                  [oui / non]
++  frontières externes concernées :
++  fake/mock/fixture utilisé :
++  frontière REAL correspondante :
++  parité attendue :
++  différences connues :
++  realism gaps :
++  états REAL significatifs :
++  niveau de preuve d'entrée :
++  niveau de preuve attendu ce cycle :
++  niveau de preuve explicitement hors scope :
++  bounded REAL proof requis :   [dans ce cycle / cycle suivant / non applicable]
++  gate Morris REAL :            [oui / non / N/A]
++  claims autorisés :
++  claims interdits :
++  règle : DETERMINISTIC PROVEN n'implique PAS READY FOR REAL
+ ```
+
+ ---
+@@ -464,6 +505,9 @@ Garde-fous :
+ - Ne pas déclarer une candidate non mergée comme baseline officielle
+ - Ne pas relancer SFIA 3.0
+ - Git = source de vérité
++- Ne pas traiter DETERMINISTIC PROVEN comme READY FOR REAL
++- Ne pas présenter REAL-shaped deterministic comme REAL BOUNDARY PROVEN
++- Ne pas élargir vers REAL sans GO Morris distinct
+ - [Garde-fous spécifiques au cycle]
+
+ Stop conditions :
+@@ -471,6 +515,26 @@ Stop conditions :
+
+ ---
+
++Fake / Real Qualification (obligatoire si fake/mock/fixture/simulator/test adapter/external boundary ; sinon N/A) :
++- applicable : oui / non
++- frontières externes concernées :
++- fake/mock/fixture utilisé :
++- frontière REAL correspondante :
++- parité attendue :
++- différences connues :
++- realism gaps :
++- états REAL significatifs :
++- niveau de preuve d'entrée :
++- niveau de preuve attendu ce cycle :
++- niveau de preuve explicitement hors scope :
++- bounded REAL proof requis : dans ce cycle / cycle suivant / non applicable
++- gate Morris REAL :
++- claims autorisés :
++- claims interdits :
++Règle dure : DETERMINISTIC PROVEN n'implique PAS READY FOR REAL.
++
++---
++
+ [BLOCS ACTIVABLES — injecter depuis §6]
+
+ ---
+@@ -946,6 +1010,68 @@ Lorsqu'un **post-merge check** est demandé par Morris après une PR mergée, le
+
+ > **Capitalization ≠ poursuivre toutes les réserves.** Le profil Capitalization qualifie l'intention de capitaliser — pas l'obligation de clore chaque réserve ouverte.
+
++### 6.16 Fake / Real Qualification — fidélité et preuve progressive
++
++> **Référence :** Engineering Principles v1.1 §12 ; Rules & Guardrails §13.2 ; operating model §3.2.
++> Fake / mock / fixture restent des **outils essentiels**. Le problème traité est la **divergence non qualifiée** entre fake et REAL.
++
++| Élément | Contenu |
++|---------|---------|
++| **Activer si** | fake, mock, fixture, simulator, test adapter, ou frontière externe (API, provider IA, agent, subprocess, réseau, stockage externe, auth externe, cloud/service managé, connecteur, hardware) |
++| **Sinon** | N/A — ne pas imposer un test REAL |
++| **Cycles** | Tous types — surtout delivery, QA, architecture technique, DevOps, observabilité |
++| **Consignes** | Substitution de frontière (pas de chemin produit parallèle) ; parité sémantique ; realism gaps nommés ; niveaux de preuve non transitifs ; preuve progressive proportionnée ; GO REAL Morris distinct |
++| **Livrables** | Bloc Fake/Real Qualification rempli ; labels de provenance de preuve ; realism gaps avec condition de fermeture |
++| **Gates Morris** | GO REAL **distinct** si bounded REAL ou end-to-end REAL demandé |
++| **Stop** | DETERMINISTIC PROVEN présenté comme READY FOR REAL ; REAL-shaped deterministic présenté comme REAL BOUNDARY PROVEN ; realism gap bloquant masqué ; tooling gap contourné par un claim inférieur |
++
++**Niveaux de preuve (non transitifs) :**
++
++- NOT PROVEN
++- DETERMINISTIC PROVEN
++- REAL BOUNDARY PROVEN
++- END-TO-END REAL PROVEN
++
++**REAL-shaped deterministic** reste DETERMINISTIC PROVEN.
++
++**Preuve progressive (recommandée, jamais automatique) :**
++
++deterministic → bounded REAL boundary proof → deterministic hardening → nouvelle bounded REAL si nécessaire → end-to-end REAL.
++
++**Champs minimaux à injecter dans le prompt généré :**
++
++```text
++Fake / Real Qualification
++- applicable : oui / non
++- frontières externes concernées :
++- fake/mock/fixture utilisé :
++- frontière REAL correspondante :
++- parité attendue :
++- différences connues :
++- realism gaps :
++- états REAL significatifs :
++- niveau de preuve d'entrée :
++- niveau de preuve attendu ce cycle :
++- niveau de preuve explicitement hors scope :
++- bounded REAL proof requis : dans ce cycle / cycle suivant / non applicable
++- gate Morris REAL :
++- claims autorisés :
++- claims interdits :
++```
++
++**Règle dure :**
++
++```text
++DETERMINISTIC PROVEN n'implique PAS READY FOR REAL
++sans gate Morris REAL et niveau de preuve explicite.
++```
++
++Si le harness ne peut pas reproduire un état REAL significatif du chemin critique :
++
++```text
++INCOMPLETE / TOOLING GAP
++```
++
+ ---
+
+ ## 7. Review pack proportionné
+@@ -1090,14 +1216,14 @@ Le review pack **ne peut pas** être considéré complet dans ce cas.
+ | Champ | Contenu |
+ |-------|---------|
+ | **Usage** | Cycle standard borné ; Git accessible ; peu de fichiers ; diff suffisant |
+-| **Contenu attendu** | Date/heure ; objectif ; Git Review Index (§7.4) ; fichiers consultés avec rôle et sections **sans copie intégrale** ; fichiers créés/modifiés avec contenu complet ou sections/diff utiles ; validations ; réserves ; décisions Morris ; verdict |
++| **Contenu attendu** | Date/heure ; objectif ; Git Review Index (§7.4) ; fichiers consultés avec rôle et sections **sans copie intégrale** ; fichiers créés/modifiés avec contenu complet ou sections/diff utiles ; Fake/Real Qualification si applicable (§6.16) ; validations ; réserves ; décisions Morris ; verdict |
+
+ #### full
+
+ | Champ | Contenu |
+ |-------|---------|
+ | **Usage** | Capitalisation ; modification méthode/template/règle ; décision structurante ; sources non accessibles Git ; auditabilité forte |
+-| **Contenu attendu** | Date/heure ; objectif ; Local Git Truth Check ; Git Review Index (§7.4) ; sources consultées avec rôle, sections et extraits courts utiles ; contenu complet des fichiers créés ; sections complètes modifiées ou diff utile complet pour fichiers modifiés ; proposition d'instruction projet ChatGPT si concernée ; garde-fous ; réserves ; décisions Morris requises ; verdict |
++| **Contenu attendu** | Date/heure ; objectif ; Local Git Truth Check ; Git Review Index (§7.4) ; sources consultées avec rôle, sections et extraits courts utiles ; contenu complet des fichiers créés ; sections complètes modifiées ou diff utile complet pour fichiers modifiés ; Fake/Real Qualification si applicable (§6.16) ; proposition d'instruction projet ChatGPT si concernée ; garde-fous ; réserves ; décisions Morris requises ; verdict |
+
+ ### 7.4 Git Review Index
+
+@@ -1116,6 +1242,9 @@ Git Review Index
+ - diff name-status :
+ - décisions Morris requises :
+ - review pack : light / full (obligatoire si rapport Cursor)
++- Fake/Real applicable : oui / non / N/A
++- niveau de preuve déclaré :
++- realism gaps :
+ - réserves :
+ ```
+
+@@ -1572,8 +1701,14 @@ Cursor doit **stopper** et demander Morris si :
+ 40. **Review Handoff** : Cursor annonce publié mais remote ancien/absent/incomplet — `REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED`
+ 41. **Review Handoff** : force push requis ou divergence incompatible — `STOP — REVIEW HANDOFF REMOTE DIVERGENCE`
+ 42. **Review Handoff** : s'arrêter après review pack / handoff local alors que `publish-in-cycle` est requis — cycle incomplet
+-39. **Review Handoff** : rapport final sans bloc **Instruction ChatGPT obligatoire** alors que handoff required
+-40. **Review Handoff** : handoff distant **obsolète** (cycle / branche / HEAD incohérents avec rapport Cursor)
++43. **Review Handoff** : rapport final sans bloc **Instruction ChatGPT obligatoire** alors que handoff required
++44. **Review Handoff** : handoff distant **obsolète** (cycle / branche / HEAD incohérents avec rapport Cursor)
++45. **Fake/Real** : DETERMINISTIC PROVEN présenté comme READY FOR REAL
++46. **Fake/Real** : données REAL-shaped déterministes présentées comme REAL BOUNDARY PROVEN ou END-TO-END REAL PROVEN
++47. **Fake/Real** : Fake/Real Qualification omise alors que fake/mock/fixture/frontière externe est utilisé
++48. **Fake/Real** : élargissement vers REAL sans GO Morris distinct
++49. **Fake/Real** : realism gap bloquant masqué par tests verts
++50. **Fake/Real** : tooling gap contourné par un claim inférieur — verdict requis `INCOMPLETE / TOOLING GAP`
+
+ ---
+
+@@ -1621,6 +1756,16 @@ Chaque rapport final Cursor doit indiquer la **date et l'heure du rapport** (fus
+     - contenu modifié couvert : yes / no / N/A
+     - verdict handoff : (voir §7.11 — inclure REMOTE PUBLICATION NOT PERFORMED / REMOTE VERIFICATION MISSING / CANONICAL REMOTE NOT UPDATED si applicable)
+ 19. Verdict — **interdit** d'émettre un READY métier/documentaire si `publish-in-cycle` non achevé
++20. **Fake / Real Qualification** (si applicable — sinon N/A) :
++    - applicable : oui / non
++    - fake/mock/fixture utilisé
++    - frontière REAL correspondante
++    - realism gaps
++    - niveau de preuve d'entrée / attendu / hors scope
++    - bounded REAL proof requis : ce cycle / cycle suivant / N/A
++    - gate Morris REAL
++    - claims autorisés / interdits
++    - confirmation : DETERMINISTIC PROVEN n'a **pas** été présenté comme READY FOR REAL
+
+ Si `synthesis only = yes` → verdict **ne peut pas** être READY.
+
+@@ -1719,6 +1864,7 @@ Si Mode = **`local-only`** : indiquer clairement que la revue Git distante **n'e
+ | `STOP — REVIEW HANDOFF SCOPE MISMATCH` | Périmètre handoff multi-fichier / mauvais chemin |
+ | `STOP — REVIEW HANDOFF REMOTE DIVERGENCE` | Divergence incompatible ou force push requis |
+ | `HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED` | Exception technique local-only — régularisation requise |
++| `INCOMPLETE / TOOLING GAP` | Harness incapable de reproduire un état REAL significatif du chemin critique |
+
+ ---
+
+```
+
+### 15.5 `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
+
+```diff
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md b/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+index a0d95f4..eaee535 100644
+--- a/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
++++ b/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+@@ -57,7 +57,7 @@ Morris
+
+ Fondations doctrine produit associées : **V3-F01…V3-F15** (VALIDATED doctrine ; runtime coverage progressive via Roadmap).
+
+-## A4. Règles fondatrices de construction (R1–R20)
++## A4. Règles fondatrices de construction (R1–R21)
+
+ | ID | Règle |
+ | --- | --- |
+@@ -81,6 +81,7 @@ Fondations doctrine produit associées : **V3-F01…V3-F15** (VALIDATED doctrine
+ | **R18** | Fermer dans un **même lot** les gaps cohérents servant une seule capacité utilisateur, sauf raison de scission. |
+ | **R19** | Aucun claim de maturité / READY / ADOPTED sans **preuve**. |
+ | **R20** | Toute brique **temporaire** doit rendre visible sa **sortie**. |
++| **R21** | **Fidélité Fake/Real.** Un fake/fixture substitue une **frontière externe**, pas un second chemin produit. Preuve déterministe ≠ preuve REAL. REAL-shaped deterministic reste DETERMINISTIC PROVEN. Les realism gaps restent visibles. Une frontière REAL significative se prouve **progressivement** (déterministe → REAL borné → end-to-end REAL). Aucun claim supérieur à la preuve. Aucun REAL automatique. |
+
+ ## A5. Challenge obligatoire avant tout chantier Studio
+
+@@ -96,6 +97,8 @@ Avant cadrage / prompt Cursor / delivery Studio, répondre :
+ 8. Quelle **dette** est créée ?
+ 9. Action **répétable/automatisable** ou **arbitrage humain** ?
+ 10. Un **gate Morris** est-il nécessaire ?
++11. Y a-t-il une **frontière fake/mock/fixture** ? Substitue-t-elle la frontière externe, ou crée-t-elle un **chemin produit parallèle** ?
++12. Quel **niveau de preuve** ce chantier peut-il honnêtement atteindre (DETERMINISTIC / REAL BOUNDARY / END-TO-END REAL) ? Quels **realism gaps** restent ouverts ?
+
+ Si **1** ou **7** n’a pas de réponse exploitable :
+
+@@ -112,6 +115,10 @@ STOP — TRAJECTORY LINK MISSING
+ | Exception | Uniquement risque technique précis non résoluble autrement + exit explicite. |
+ | Gate | Morris gate si l’exception ouvre une branche de trajectoire. |
+ | Interdit | Traiter POC/fixture comme produit final ou comme preuve REAL silencieuse. |
++| Fake / fixture de frontière | **KEEP** comme substitution d’adapter. Même orchestration, mêmes états produit, même Evidence pipeline. |
++| Chemin produit parallèle fixture | **Interdit** si le REAL traverse des états significativement différents (ex. succeeded immédiat vs running asynchrone). Qualifier **REALISM GAP**. |
++| REAL-shaped deterministic | Reste **DETERMINISTIC PROVEN** — jamais REAL BOUNDARY PROVEN. |
++| Tooling QA | S’il ne peut pas reproduire un état REAL significatif du chemin critique : **INCOMPLETE / TOOLING GAP**, puis requalification Delivery — pas un claim inférieur. |
+
+ ## A7. Politique d’intermédiaire
+
+@@ -148,6 +155,9 @@ Elle se termine lorsqu’une **capacité utilisateur** ou une **précondition st
+
+ `technical SUCCESS ≠ functional READY ≠ V3 RUNTIME ADOPTED`.
+
++`DETERMINISTIC PROVEN ≠ REAL BOUNDARY PROVEN ≠ END-TO-END REAL PROVEN`.
++`DETERMINISTIC PROVEN ≠ READY FOR REAL`.
++
+ ## A11. Gouvernance des sources
+
+ | Source | Rôle |
+@@ -189,7 +199,10 @@ Repo-informed pre-check
+ - roadmap par composants sans user outcome ;
+ - décision candidate présentée comme acquise ;
+ - mass rewrite historique ;
+-- Build Doctrine transformée en doctrine runtime.
++- Build Doctrine transformée en doctrine runtime ;
++- fake/fixture présenté comme preuve REAL ;
++- chemin produit parallèle fixture non qualifié ;
++- DETERMINISTIC PROVEN promu READY FOR REAL.
+
+ ## A14. Stop markers
+
+```
+
+## 16. Règle Fake/Real finale
+
+Un fake/mock/fixture substitue l'**adapter / frontière externe**. L'orchestration produit, la machine d'états, la persistence et le pipeline Evidence restent les mêmes. La parité sémantique porte sur le contrat produit-relevant. Toute différence observable est un **realism gap** tracé. Les niveaux de preuve ne se transmettent pas. Aucun REAL automatique.
+
+## 17. Proof levels finaux
+
+| Niveau | Signification |
 |---|---|
-| `npx tsc --noEmit` | 0 |
-| `npm run lint` | 0 (0 warning / 0 error) |
-| `npm run build` | 0 |
+| NOT PROVEN | Non démontré |
+| DETERMINISTIC PROVEN | Logique prouvée avec fake/mock/fixture/test adapter contrôlé |
+| REAL BOUNDARY PROVEN | Vraie frontière externe exercée de manière bornée ; comportement contractuel observé |
+| END-TO-END REAL PROVEN | Parcours utilisateur/capacité traverse réellement les frontières jusqu'au résultat observable/persisté |
 
-Logs : `commands/04-typecheck.log`, `05-lint.log`, `06-build.log`.
+REAL-shaped deterministic reste DETERMINISTIC PROVEN.
 
-## 32. Screenshots index + hashes
+Labels de provenance : UI-DRIVEN ; HARNESS-SEEDED ; COMPONENT-PROVEN ; DOMAIN-INTEGRATION-PROVEN ; REAL-BOUNDARY-PROVEN ; END-TO-END-REAL-PROVEN ; NOT PROVEN.
 
-Dossier : `.tmp-sfia-review/async-continuation-browser-qa/screenshots/`
+## 18. Trigger / proportionality
 
-Provenance : CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — CYCLE 9 DETERMINISTIC BROWSER QA ISOLATED RUNTIME — ZERO REAL.
+Obligatoire si : API externe ; provider IA ; agent ; subprocess ; réseau ; stockage externe ; auth externe ; cloud/service managé ; connecteur ; hardware ; fake/mock/fixture/simulator/test adapter.
 
-Ils prouvent des **états browser fixture / N1 / N2 / N5 / reload Recovery**. Ils ne prouvent PAS Cursor REAL, OpenAI LIVE, Figma pixel-perfect, production readiness, runtime v3 ADOPTED.
+Sinon : **N/A**. Pas de test REAL imposé à chaque cycle.
 
-| Fichier | bytes | SHA256 | Rôle |
-|---|---:|---|---|
-| `00-n1-before-confirm-no-refresh.png` | 414437 | `68da15c215377c457140d45d4864474e2933171c940718138103418b520b5c15` | N1 UI-DRIVEN |
-| `n2-n5-fixture-terminal-no-refresh.png` | 466128 | `b3f07ff54cb1bac3ddef7ac6c939e905dab4d7e5466e7aa3a4084c7341c6f3ee` | N2/N5 UI-DRIVEN |
-| `n-fixture-lps.png` | 475225 | `d4124a5c505919e6f341dd48cb91c5bd5a6001bf6cd8d8366308631b19a2edcc` | LPS fixture |
-| `n-reloaded-fixture-terminal.png` | 291124 | `8454cf88ba18c07f4e4109a519ccedf983ea39f59a0fdbc14f594f99e7e6e443` | reload Recovery fixture |
+Ce cycle (documentaire / méthode) : Fake/Real Qualification produit = **N/A** (aucune frontière runtime exercée).
 
-Campagne cible **non produite** :
+## 19. Template enforcement
 
-- `01-running-refresh-available.png`
-- `02-pending-refresh-same-attempt.png`
-- `03-terminal-evidence.png`
-- `04-post-evidence-lps.png` (au sens B3)
-- `05-reloaded-terminal.png` (au sens B4 running-refresh)
+v2.6 conserve sa structure. Ajouts :
 
-Index : `screenshots/index.json`
+- mini-fiche §2.0.D Fake/Real Qualification
+- instanciation §3 étape 5bis
+- skeleton prompt
+- **§6.16** bloc transverse + champs minimaux
+- Git Review Index / light / full / rapport §9.1 champ 20
+- stop conditions **45–50**
+- règle dure : **DETERMINISTIC PROVEN n'implique PAS READY FOR REAL**
 
-## 33. Source mutation pendant QA = 0
+## 20. Spécialisation Studio
 
-- candidate-pre vs candidate-post : BYTE-IDENTICAL
-- `git status --short` PRE vs POST : 84 paths identiques
-- `git diff --cached` : vide
-- Aucun fichier créé/modifié/supprimé sous `projects/sfia-studio/app/**` par ce cycle
-- Écritures : `.tmp-sfia-review/**` + Product DB QA isolée uniquement
-- Cache `.next` gitignored recréé après build — pas une mutation candidat
+Build Doctrine uniquement (Roadmap et framing 30–37 **non modifiés**) :
 
-Pas de FAIL `CANDIDATE MUTATED DURING QA`.
+- A4 R1–**R21** Fidélité Fake/Real
+- A5 questions 11–12 (frontière vs chemin parallèle ; niveau de preuve / realism gaps)
+- A6 politique fixture : substitution KEEP ; chemin parallèle interdit ; REAL-shaped = DETERMINISTIC ; tooling gap
+- A10 inégalités de preuve + `DETERMINISTIC PROVEN ≠ READY FOR REAL`
+- A13 anti-patterns correspondants
 
-## 34. REAL launch = 0
+Pre-M6 reste **NON COMPLETE**. Suite Studio **non exécutée** : DELIVERY REQUALIFICATION FOR DETERMINISTIC BROWSER PROOF TOOLING.
 
-Aucun Cursor REAL, aucun OpenAI LIVE, aucun NodeCursorProcessRunner live, aucune commande Cursor CLI.
+## 21. Validations
 
-Les logs Next de confirm montrent `agt:f3-fixture` / `adp:f3-test-fixture` / `ev:f3-fixture:...`.
+- `git diff --name-status` = exactement 5 fichiers
+- `git diff --cached` vide
+- `git diff --check` : OK (pas de trailing whitespace dans les 5 fichiers)
+- markdownlint / mdl : **absent** du repo — non exécuté ; aucune dépendance installée
+- scan claims dangereux dans les **lignes ajoutées** : `READY FOR REAL` uniquement comme **interdit** / anti-claim ; pas de promotion `v2.7` ; pas d'`ADOPTED` runtime/baseline ajouté
+- framing 30–37 : non modifié
+- Convergence Roadmap : non modifié
+- runtime / tests / harness : non modifié
+- aucun commit/push de `docs/sfia-fake-real-progressive-proof`
 
-## 35. New REAL worktree = 0
+## 22. Fichiers hors scope
 
-Ancien worktree REAL intact. Pas de nouveau `m4-worktrees/wt-*`.
+**0** dans le worktree documentaire après restauration.
 
-## 36. Reserves
+## 23. Réserves
 
-### Réserve bloquante (non adoucie)
+1. Candidat documentaire **local non commité** — pas sur main.
+2. Isolation nested worktree : un checkout IDE a contaminé temporairement le worktree docs ; corrigé avant ce pack. Le dirty Studio n'est plus au compteur Cycle 9 « 84 paths » si l'on compte `.tmp-sfia-review/**` ; le candidat produit Pre-M6 (fichiers `projects/sfia-studio/**`) est toujours présent ; LpsSurface Studio vérifié présent.
+3. Header CKC Cycle 8 (Architecture Technique) reste une réserve documentaire historique — hors scope de ce cycle.
+4. Blocker Studio tooling browser async : **non traité** ici.
 
-Le tooling browser **déjà existant** ne peut pas créer l’état cible sans mutation produit/test/harness :
+## 24. Anti-claims
 
-Attempt déterministe `running` + REAL-shaped (`realProcessInvoked=true`, contract `executing`, mode `cursor_cli_real`) exposé dans la session Option A (`f3Execute`) afin de cliquer « Actualiser le résultat ».
+Ce cycle **n'est pas** et **ne revendique pas** :
 
-Causes convergentes observées :
-
-1. QA control enum fermé — `attempt_running_real_shaped` → 400 `UNKNOWN_SCENARIO`.
-2. Scénarios existants = FIXTURE terminal, `realProcessInvoked=false`.
-3. Chemin produit ZERO REAL = fixture execute immédiat (pas de running persisté en UI).
-4. Refresh UI = session `f3Execute`, pas LPS rehydrate running.
-5. Produire B1/B3 exigerait soit REAL (interdit), soit nouveau harness/scenario/route (interdit ce cycle).
-
-Cette réserve **bloque** le PASS browser de la preuve cible. Elle n’est pas relabelée `PASS WITH RESERVE` : ce verdict exige B3 browser-proven.
-
-### Réserves non bloquantes pour l’INCOMPLETE (documentées)
-
-- N3/N4/N6/N7 running : component-only
-- 13 fichiers Vitest FinOps Postgres skip
-- G-UX-09 process-local non fermé (comportement actuel)
-- Incident `.next` clobber par `npm run build` puis restart runtime (pas une mutation produit)
-
-## 37. Anti-claims
-
-Même les PASS partiels de ce cycle n’autorisent **pas** :
-
-- READY FOR REAL
-- FULL REAL PRODUCT LOOP PROVEN
-- production ready
-- UAT ready
-- M6 authorized
+- SFIA v2.7 / nouvelle baseline / v3 globale
 - runtime v3 ADOPTED
-- write Cursor validated
-- G-UX-11 CLOSED
 - Pre-M6 COMPLETE
-- no bugs
-- full coverage
-- REAL ASYNC CONTINUATION DETERMINISTIC BROWSER PATH VALIDATED CANDIDATE
-- PRE-M6 CANDIDATE READY FOR MORRIS DECISION ON A NEW BOUNDED REAL RE-PROOF
+- READY FOR REAL
+- ACTIVE ON MAIN / BASELINE MERGED pour cette doctrine
+- fake/fixture interdit
+- tests déterministes inutiles
+- GO REAL Cursor
+- exécution de DELIVERY REQUALIFICATION FOR DETERMINISTIC BROWSER PROOF TOOLING
+- commit/PR/merge du candidat documentaire
 
-Maturité conservée :
+## 25. Verdict
 
-**M1→M5 FUNCTIONAL BACKBONE VALIDATED UNDER DETERMINISTIC QA, WITH SELECTIVE REAL BOUNDARY PROOFS; FULL REAL PRODUCT LOOP NOT YET PROVEN.**
-
-Pre-M6 NON COMPLETE. READY FOR REAL = FALSE. M6 NON AUTHORIZED. runtime v3 NON ADOPTED. UAT NOT READY.
-
-## 38. Verdict
-
-```
-INCOMPLETE —
-DETERMINISTIC BROWSER PROOF TOOLING GAP
-NO PRODUCT/TEST MUTATION PERFORMED
-ZERO REAL
-RETURN TO DELIVERY REQUALIFICATION
-```
-
-Ce qui EST prouvé :
-
-- candidat d’entrée Cycle 8 POST exact
-- ZERO source drift pendant QA
-- ZERO REAL
-- canonical Product DB inchangée
-- ancien REAL worktree intact
-- N1/N2/N5 browser
-- domain T-R3-ASYNC one-launch still PASS
-- component running-refresh still PASS
-- targeted + full Vitest + typecheck + lint + build PASS
-- Playwright Option A existant 17/17 PASS (fixture / harness terminal, pas B1–B3)
-
-Ce qui N’EST PAS prouvé en browser :
-
-- running UI « Exécution en cours »
-- clic « Actualiser le résultat » sur Attempt running
-- same Attempt pending
-- same Attempt → terminal Evidence/RB via refresh
-- absence de reconfirmation/relaunch **sur ce chemin browser** (le domaine R3 le prouve hors browser)
-
-## 39. Exact next Morris gate
-
-STOP. Aucun REAL.
-
-Prochain gate **n’est pas** `GO / NO-GO NEW BOUNDED REAL RE-PROOF`.
-
-Prochain gate, après revue ChatGPT de ce handoff :
-
-**MORRIS — GO / NO-GO DELIVERY REQUALIFICATION FOR DETERMINISTIC BROWSER PROOF TOOLING**
-
-(harness/scenario existant insuffisant pour seeder un Attempt running REAL-shaped en session Option A, sans mutation ce Cycle 9)
-
-Un futur REAL borné, s’il a lieu un jour, exigera :
-
-- revue ChatGPT
-- GO Morris distinct
-- nouvelle DB isolée
-- nouveau Project
-- nouvel Attempt
-- et une preuve browser running→refresh déjà qualifiée, ou une requalification explicite du gap
-
-Aucun M6 automatique. Aucune UAT automatique. Aucune adoption runtime.
-
-## 40. Reproducibility commands / logs
-
-Campagne : `.tmp-sfia-review/async-continuation-browser-qa/`
-
-Git Truth :
-
-```
-git fetch origin main sfia/review-handoff
-git branch --show-current
-git rev-parse HEAD origin/main origin/sfia/review-handoff
-git status --short
+```text
+PASS —
+SFIA FAKE/REAL FIDELITY & PROGRESSIVE PROOF DOCTRINE CANDIDATE
+TRANSVERSE ENGINEERING RULE INTEGRATED ACROSS PRINCIPLES / GUARDRAILS / OPERATING MODEL / V2.6 TEMPLATE
+SFIA STUDIO BUILD DOCTRINE SPECIALIZATION ALIGNED
+NO RUNTIME OR PRODUCT CHANGE
+NO BASELINE VERSION PROMOTION
+READY FOR CHATGPT REVIEW
 ```
 
-CKC :
+Handoff : voir section publication après publisher (SHA/blob remplis post-publish dans le rapport Cursor ; ce pack est la source poussée).
 
-```
-git rev-parse HEAD:method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md
-```
+## 26. Prochaine décision Morris
 
-Targeted + full Vitest (ZERO REAL, DB unset) :
+Après revue ChatGPT de ce candidat :
 
-```
-cd projects/sfia-studio/app
-unset SFIA_STUDIO_CURSOR_REAL OPS1_CURSOR_REAL SFIA_STUDIO_PRODUCT_DB_PATH SFIA_STUDIO_E2E_QA_CONTROL OPENAI_API_KEY OPENAI_MODEL
-export NODE_ENV=test OPS1_CONVERSATION_PROVIDER=fake SFIA_V2_RUNTIME_ALLOW_RESET=1 SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1
-npx vitest run __tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx \
-  __tests__/project-assistant/presentationLabels.test.ts \
-  __tests__/project-assistant/ProjectAssistantPanel.test.tsx \
-  __tests__/project-assistant/preM6.realProductWiringResidual.test.ts \
-  __tests__/project-assistant/preM6.realProductWiringAmend.test.ts \
-  __tests__/project-assistant/qa-pre-m6-01.finalHardening.test.ts \
-  __tests__/project-assistant/qa-pre-m6-01.postGoDurableM3Path.test.ts
-npx vitest run
-npx tsc --noEmit
-npm run lint
-npm run build
-```
+**GO/NO-GO commit + PR readiness** pour la doctrine Fake/Real (5 fichiers, branche `docs/sfia-fake-real-progressive-proof`).
 
-Runtime QA (ne pas réutiliser un 3020 non qualifié) :
+Puis seulement, reprise Studio au gate :
 
-```
-node .tmp-sfia-review/async-continuation-browser-qa/operator/start-next.cjs
-node .tmp-sfia-review/async-continuation-browser-qa/operator/browser-qa.cjs
-```
+**DELIVERY REQUALIFICATION FOR DETERMINISTIC BROWSER PROOF TOOLING**
 
-Playwright existant contre le serveur déjà up :
+Aucun REAL dans ces gates.
 
-```
-npx playwright test e2e/studio-option-a.spec.ts e2e/studio-option-a-negative-states.spec.ts e2e/studio-option-a-clean-slate-captures.spec.ts
+---
+
+## Git Review Index
+
+```text
+Git Review Index
+- date/heure : 2026-08-17 13:54:26 CEST (+0200)
+- cycle : 15 — Capitalisation / REX
+- profil : Capitalization + Critical
+- typologie : CAPA
+- branche projet : docs/sfia-fake-real-progressive-proof (locale)
+- HEAD : 0d33478566627a9bf507d5a06323962d349308ee
+- origin/main : 0d33478566627a9bf507d5a06323962d349308ee
+- review pack : full (obligatoire — rapport Cursor)
+- Fake/Real applicable : N/A (cycle documentaire ; aucune frontière runtime)
+- fichiers créés : 0 versionnés
+- fichiers modifiés : 5 (liste §13 ; diffs §15)
+- handoff : required / publish-in-cycle / L3
 ```
 
-Logs :
+## Review pack content coverage
 
-- `runtime/next-qa.log`
-- `logs/browser-operator.json`
-- `commands/*.log` / `*.exit` / `*.meta.json`
-
-## Instruction ChatGPT
-
-Lire obligatoirement :
-
-`origin/sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
-
-Ne pas valider depuis le résumé terminal seul.
-
-Ne pas transformer l’INCOMPLETE tooling gap en PASS, ni en READY FOR REAL.
+- created files : N/A (0)
+- modified files : yes — diffs complets §15
+- synthesis only : **no**
+- review pack verdict : **complete**
+- reset at start of this write : **yes** (overwrite Cycle 9 pack leaked into this path)
