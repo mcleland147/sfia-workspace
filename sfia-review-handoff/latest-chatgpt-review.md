@@ -1,139 +1,94 @@
-# SFIA Review Pack — FULL — Cycle 15 Fake/Real fidelity & progressive proof capitalization
+# SFIA Review Pack — FULL — Cycle 13 PR readiness — Fake/Real Fidelity & Progressive Proof
 
 ## 1. Timestamp (Europe/Paris)
 
-2026-08-17 13:54:26 CEST (+0200)
+2026-08-17 14:07:07 CEST (+0200)
 
 ## 2. Cycle
 
-**15 — Capitalisation / REX**
+**13 — PR readiness**
 
-## 3. Profil / profondeur
+## 3. Profil
 
-- Profil SFIA : **Capitalization**
-- Profondeur : **Critical**
-- Justification Critical : modification des Engineering Principles, Rules & Guardrails, modèle opératoire ChatGPT ↔ Cursor, template canonique v2.6, et Build Doctrine Studio ; impact transverse sur la qualification des preuves futures.
+**Critical**
+
+Justification : le diff porte sur Engineering Principles, Rules & Guardrails, Operating Model, template v2.6 et Build Doctrine Studio — règles qui gouverneront les futurs cycles.
 
 ## 4. Typologie
 
 **CAPA** (v2.4)
 
-CKC : recherché ; cycle 15 ; pilote détaillé **absent** ; fallback carte synthétique 15 cycles + méthode §4.15 ; statut synthetic / candidate guidance ; **aucune autorité d'exécution** ; aucun CKC Cycle 15 inventé.
+Source de capitalisation : Cycle 15 — Fake/Real Fidelity & Progressive Proof.
 
 ## 5. GO Morris consommé
 
 ```text
-GO —
-INTEGRATE FAKE/REAL FIDELITY AND PROGRESSIVE PROOF
-AS A TRANSVERSE SFIA METHODOLOGY RULE
-DOCUMENTARY CAPITALIZATION CYCLE
-BEFORE RESUMING SFIA STUDIO
+GO MORRIS —
+COMMIT + PUSH + PR
+SFIA FAKE/REAL FIDELITY & PROGRESSIVE PROOF
 ```
 
-Autorise : analyse documentaire ; modification locale bornée des 5 fichiers méthode listés ; intégration de la règle Fake/Real ; adaptation template v2.6 ; spécialisation Build Doctrine Studio ; review pack FULL ; publication Review Handoff L3.
+Autorise : correction éditoriale mineure ; git add explicite des 5 fichiers ; commit ; push branche docs ; PR DRAFT vers main ; validations PR ; handoff L3.
 
-N'autorise PAS : nouvelle version SFIA ; promotion v2.7 / v3 globale ; changement de baseline nominale ; framing 30–37 ; Convergence Roadmap ; runtime Studio ; code/test/harness ; OpenAI REAL ; Cursor REAL produit ; modification worktree REAL historique ; commit projet ; push projet ; PR ; merge ; suppression de branche.
+N'autorise PAS : merge ; suppression de branche ; force push ; modification de main ; candidat Studio Pre-M6 ; runtime/code/tests/harness ; REAL Cursor ; OpenAI LIVE ; v2.7 ; runtime v3 ADOPTED ; reprise blocker Studio.
 
-Le contenu est un **CANDIDAT DOCUMENTAIRE** tant qu'il n'est pas intégré sur main.
-
-## 6. Git Truth
+## 6. Git Truth initial
 
 | Contrôle | Valeur |
 |---|---|
-| repo | `mcleland147/sfia-workspace` |
-| worktree documentaire | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/.tmp-sfia-review/worktrees/sfia-fake-real-progressive-proof` |
-| branche documentaire | `docs/sfia-fake-real-progressive-proof` (locale ; tracks origin/main ; **non poussée**) |
-| HEAD | `0d33478566627a9bf507d5a06323962d349308ee` |
+| worktree | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/.tmp-sfia-review/worktrees/sfia-fake-real-progressive-proof` |
+| branche | `docs/sfia-fake-real-progressive-proof` |
+| HEAD départ | `0d33478566627a9bf507d5a06323962d349308ee` |
 | origin/main | `0d33478566627a9bf507d5a06323962d349308ee` |
-| origin/sfia/review-handoff (parent entrée) | `7821ab49ffb854c89664620ee0a8e3024c321e15` |
-| staged documentaire | aucun |
-| working tree documentaire | DIRTY — exactement 5 fichiers méthode autorisés |
-| commit projet ce cycle | **aucun** |
-| push projet ce cycle | **aucun** |
+| origin/sfia/review-handoff (entrée) | `6be8ba198f9825b8362ab528e9c87b8711258c4b` |
+| origin/docs/sfia-fake-real-progressive-proof avant push | **ABSENT** |
+| staged initial | vide |
+| dirty initial | exactement 5 fichiers autorisés |
 
-Git Truth Check : **PASS** (refs attendues inchangées).
+Git Truth Check : **PASS**.
 
-Incident d'isolation (documenté, corrigé avant pack) : un checkout Cursor a momentanément recablé le worktree documentaire sur `delivery/sfia-studio-pre-m6-ui-option-a` (même SHA) et a copié des fichiers du candidat Studio dans le worktree docs. Correction bornée **dans le worktree docs uniquement** : retour `docs/sfia-fake-real-progressive-proof` ; `git restore` des leaks tracked ; `git clean -fd` des copies untracked leakées ; restauration des 5 fichiers depuis backup SHA-256. Le worktree Studio a été réattaché sur `delivery/sfia-studio-pre-m6-ui-option-a` (HEAD identique) et un `git reset` mixed a destagé un `git add` accidentel — **aucun** `reset --hard`, **aucun** `clean` Studio, **aucun** commit Studio. Les 5 fichiers méthode **n'apparaissent pas** dans le diff Studio.
+## 7. Parent handoff
 
-## 7. Worktree documentaire isolé
+- Commit : `6be8ba198f9825b8362ab528e9c87b8711258c4b`
+- Path : `sfia-review-handoff/latest-chatgpt-review.md`
+- Titre : Cycle 15 Fake/Real fidelity & progressive proof capitalization
+- Verdict ChatGPT : `PASS WITH MINOR EDITORIAL RESERVE — FAKE/REAL FIDELITY & PROGRESSIVE PROOF DOCTRINE CANDIDATE ACCEPTED`
 
-- Créé depuis `origin/main` @ `0d33478566627a9bf507d5a06323962d349308ee`
-- Branche : `docs/sfia-fake-real-progressive-proof`
-- Locale uniquement — **ne pas pousser** ; **ne pas supprimer**
-- Nested path sous le worktree Studio dirty : isolation gitdir distincte (`worktrees/sfia-fake-real-progressive-proof`)
-- Toute modification méthode de ce cycle est dans ce worktree
+## 8. Source Cycle 15
 
-Workspace Studio (non modifié par les 5 fichiers) :
+Candidat local = 5 fichiers du handoff `6be8ba198f9825b8362ab528e9c87b8711258c4b`. Liste et stat identiques (5 files, +329 / −11). Comparaison §15 : le pack Cycle 15 a `rstrip` les espaces de contexte git ; le working tree était le candidat accepté. Aucune divergence documentaire hors la réserve éditoriale absorbée ci-dessous.
 
-- path : parent `sfia-studio-m4-real-off`
-- branche : `delivery/sfia-studio-pre-m6-ui-option-a`
-- HEAD : `0d33478566627a9bf507d5a06323962d349308ee` (identique origin/main)
-- dirty Pre-M6 candidate **conservé**
+## 9. Réserve éditoriale ChatGPT
 
-## 8. Sources lues
+Dans `prompts/templates/sfia-cycle-execution-template.md`, harmoniser le champ Fake / Real Qualification :
 
-| # | Source | Rôle |
-|---|---|---|
-| 1 | `docs/foundation/sfia-engineering-principles.md` | cible §12 |
-| 2 | `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` | cible §13.2 |
-| 3 | `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | cible §3.2 |
-| 4 | `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | lu ; **non modifié** |
-| 5 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md` | lu ; **non modifié** |
-| 6 | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md` | fallback CKC 15 |
-| 7 | `prompts/templates/sfia-cycle-execution-template.md` | cible v2.6 |
-| 11 | `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` | cible R21 / A5–A6 / A10 / A13 |
-| 12 | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | READ ONLY |
-| 13 | `projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md` | READ ONLY |
-| 14 | `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md` | READ ONLY |
-| — | template §7 review pack / §9.1 | contrat pack + rapport |
+`applicable : oui / non` → `applicable : oui / non / N/A`
 
-## 9. Handoffs d'apprentissage lus
+Aucune autre réserve.
 
-| SHA | Cycle | Enseignement retenu |
-|---|---|---|
-| `5d55c393a65df5813735a75e5e579c2b0bd35896` | First REAL / async running | le REAL a révélé `running` asynchrone non couvert par le chemin fixture |
-| `4a089060d04530a83f4d1326b1de0bbbdf523f6f` | Cycle 8 UI refresh | correctif déterministe borné ; header CKC 03 incorrect (réserve documentaire Cycle 9) |
-| `7821ab49ffb854c89664620ee0a8e3024c321e15` | Cycle 9 QA browser | `INCOMPLETE — DETERMINISTIC BROWSER PROOF TOOLING GAP` ; REAL-shaped ≠ REAL BOUNDARY ; fixture path terminal immédiat |
+## 10. Correction exacte effectuée
 
-Lecture via `git show <sha>:sfia-review-handoff/latest-chatgpt-review.md`.
+Quatre occurrences du champ Fake/Real `applicable` (squelette §3, prompt généré, §6.16, rapport §9.1 champ 20). Déjà conformes avant correction : mini-fiche §2.0.D et Git Review Index.
 
-## 10. Problème observé
+Occurrences finales du champ :
 
-Les tests déterministes / fake / fixture peuvent prouver une règle interne sans reproduire des propriétés importantes d'une frontière réelle (async `running`, continuation, timeout, process live).
+- L130: `- applicable : oui / non / N/A`
+- L368: `applicable :                  [oui / non / N/A]`
+- L519: `- applicable : oui / non / N/A`
+- L1045: `- applicable : oui / non / N/A`
+- L1245: `- Fake/Real applicable : oui / non / N/A`
+- L1760: `- applicable : oui / non / N/A`
 
-Deux erreurs de claim en découlent :
+Non modifiés : « doctrine v3 applicable », « Typologie v2.4 si applicable », « Fake/Real Qualification si applicable », « bounded REAL proof … non applicable », « gate Morris REAL : [oui / non / N/A] ».
 
-1. traiter un chemin fixture parallèle (succès synthétique) comme équivalent produit du REAL ;
-2. traiter un état REAL-shaped déterministe, ou des tests verts, comme **READY FOR REAL** / **REAL BOUNDARY PROVEN**.
+## 11. Fake/Real Qualification (ce cycle)
 
-Cycle 9 : le tooling browser existant ne peut pas seeder un Attempt REAL-shaped `running` (`realProcessInvoked=true`, contract `executing`, mode `cursor_cli_real`). Verdict honnête : **INCOMPLETE / TOOLING GAP** — pas un PASS plus calme.
+- applicable : **N/A**
+- justification : cycle documentaire / Git / PR uniquement ; aucune frontière runtime
+- niveau de preuve produit : N/A
+- interdit : présenter ce cycle comme preuve REAL ou déterministe du runtime Studio
 
-## 11. Enseignement capitalisé
-
-Nom : **Fidélité Fake/Real et preuve progressive** / Fake/Real Fidelity & Progressive Proof.
-
-- Fake/fixture = **outil essentiel**, pas un défaut.
-- Problème = **divergence non qualifiée** fake vs REAL.
-- Substitution de **frontière**, pas chemin produit parallèle.
-- Parité sémantique sans coûts externes réels.
-- **REALISM GAP** nommé (différence, impact, preuve déterministe, preuve REAL manquante, fermeture).
-- Niveaux non transitifs : NOT PROVEN / DETERMINISTIC PROVEN / REAL BOUNDARY PROVEN / END-TO-END REAL PROVEN.
-- REAL-shaped deterministic = DETERMINISTIC PROVEN, jamais REAL BOUNDARY.
-- Preuve progressive proportionnée ; **jamais auto-REAL** ; GO REAL = Morris.
-- Tooling gap → `INCOMPLETE / TOOLING GAP`.
-- Proportionnalité : qualifier si frontière simulée/externe ; sinon N/A.
-
-## 12. Hiérarchie normative retenue
-
-1. Engineering Principles v1.1 **§12** — principe d'ingénierie (pas une règle Studio).
-2. Rules & Guardrails **§13.2** — opérationnalisation FR-1–FR-10.
-3. Operating model **§3.2** — rôles ChatGPT / Cursor / Morris.
-4. Template v2.6 **§6.16** + instanciation + skeleton + stop 45–50 + rapport champ 20 — enforcement des futurs prompts.
-5. Studio Build Doctrine **R21** + A5 Q11–12 + A6 + A10 + A13 — spécialisation construction Studio.
-
-Version nominale Principles : **reste v1.1**. Template : **reste v2.6**. Pas de v2.7.
-
-## 13. Liste exacte fichiers modifiés
+## 12. Liste des 5 fichiers
 
 ```text
 M	docs/foundation/sfia-engineering-principles.md
@@ -143,24 +98,11 @@ M	projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
 M	prompts/templates/sfia-cycle-execution-template.md
 ```
 
-Hors scope = 0 (après restauration isolation).
+Aucun fichier créé/supprimé.
 
-## 14. Contenu exploitable — diff stat
+## 13. Diff final complet (`origin/main...HEAD`)
 
-```text
- docs/foundation/sfia-engineering-principles.md     |  36 +++++
- .../core/sfia-chatgpt-cursor-operating-model.md    |  35 ++++-
- .../core/sfia-rules-and-guardrails.md              |  96 +++++++++++++
- .../sfia-studio-convergence-build-doctrine.md      |  17 ++-
- prompts/templates/sfia-cycle-execution-template.md | 156 ++++++++++++++++++++-
- 5 files changed, 329 insertions(+), 11 deletions(-)
-```
-
-5 files changed, 329 insertions(+), 11 deletions(-).
-
-## 15. Diff complet par fichier
-
-### 15.1 `docs/foundation/sfia-engineering-principles.md`
+### 13.1 `docs/foundation/sfia-engineering-principles.md`
 
 ```diff
 diff --git a/docs/foundation/sfia-engineering-principles.md b/docs/foundation/sfia-engineering-principles.md
@@ -219,7 +161,7 @@ index 097fcca..396ce12 100644
 
 ```
 
-### 15.2 `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+### 13.2 `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 
 ```diff
 diff --git a/method/sfia-fast-track/core/sfia-rules-and-guardrails.md b/method/sfia-fast-track/core/sfia-rules-and-guardrails.md
@@ -345,7 +287,7 @@ index 2e99a5d..675de2d 100644
  - `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
 ```
 
-### 15.3 `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+### 13.3 `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
 
 ```diff
 diff --git a/method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md b/method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
@@ -438,11 +380,11 @@ index cce876d..673545f 100644
 
 ```
 
-### 15.4 `prompts/templates/sfia-cycle-execution-template.md`
+### 13.4 `prompts/templates/sfia-cycle-execution-template.md`
 
 ```diff
 diff --git a/prompts/templates/sfia-cycle-execution-template.md b/prompts/templates/sfia-cycle-execution-template.md
-index 85ca739..bd03da1 100644
+index 85ca739..948156a 100644
 --- a/prompts/templates/sfia-cycle-execution-template.md
 +++ b/prompts/templates/sfia-cycle-execution-template.md
 @@ -126,6 +126,25 @@ Repo-informed pre-check ChatGPT
@@ -497,7 +439,7 @@ index 85ca739..bd03da1 100644
  Verdict attendu :               [ex. READY FOR PR READINESS / READY FOR COMMIT / STOP …]
 +
 +Fake / Real Qualification :
-+  applicable :                  [oui / non]
++  applicable :                  [oui / non / N/A]
 +  frontières externes concernées :
 +  fake/mock/fixture utilisé :
 +  frontière REAL correspondante :
@@ -531,7 +473,7 @@ index 85ca739..bd03da1 100644
  ---
 
 +Fake / Real Qualification (obligatoire si fake/mock/fixture/simulator/test adapter/external boundary ; sinon N/A) :
-+- applicable : oui / non
++- applicable : oui / non / N/A
 +- frontières externes concernées :
 +- fake/mock/fixture utilisé :
 +- frontière REAL correspondante :
@@ -589,7 +531,7 @@ index 85ca739..bd03da1 100644
 +
 +```text
 +Fake / Real Qualification
-+- applicable : oui / non
++- applicable : oui / non / N/A
 +- frontières externes concernées :
 +- fake/mock/fixture utilisé :
 +- frontière REAL correspondante :
@@ -671,7 +613,7 @@ index 85ca739..bd03da1 100644
      - verdict handoff : (voir §7.11 — inclure REMOTE PUBLICATION NOT PERFORMED / REMOTE VERIFICATION MISSING / CANONICAL REMOTE NOT UPDATED si applicable)
  19. Verdict — **interdit** d'émettre un READY métier/documentaire si `publish-in-cycle` non achevé
 +20. **Fake / Real Qualification** (si applicable — sinon N/A) :
-+    - applicable : oui / non
++    - applicable : oui / non / N/A
 +    - fake/mock/fixture utilisé
 +    - frontière REAL correspondante
 +    - realism gaps
@@ -693,7 +635,7 @@ index 85ca739..bd03da1 100644
 
 ```
 
-### 15.5 `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
+### 13.5 `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md b/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
@@ -761,118 +703,140 @@ index a0d95f4..eaee535 100644
 
 ```
 
-## 16. Règle Fake/Real finale
+## 14. Validations pre-commit
 
-Un fake/mock/fixture substitue l'**adapter / frontière externe**. L'orchestration produit, la machine d'états, la persistence et le pipeline Evidence restent les mêmes. La parité sémantique porte sur le contrat produit-relevant. Toute différence observable est un **realism gap** tracé. Les niveaux de preuve ne se transmettent pas. Aucun REAL automatique.
+- `git diff --check` : OK
+- scope : exactement 5 fichiers ; 0 framing ; 0 Roadmap ; 0 runtime
+- markdownlint : **N/A** (absent du repo)
+- `READY FOR REAL` uniquement comme anti-claim
+- pas de v2.7 / baseline / runtime v3 ADOPTED
+- Fake/Real `applicable` harmonisé oui / non / N/A
 
-## 17. Proof levels finaux
+## 15. Staged scope
 
-| Niveau | Signification |
-|---|---|
-| NOT PROVEN | Non démontré |
-| DETERMINISTIC PROVEN | Logique prouvée avec fake/mock/fixture/test adapter contrôlé |
-| REAL BOUNDARY PROVEN | Vraie frontière externe exercée de manière bornée ; comportement contractuel observé |
-| END-TO-END REAL PROVEN | Parcours utilisateur/capacité traverse réellement les frontières jusqu'au résultat observable/persisté |
+`git add` explicite des 5 chemins. `git add -A` / `.` / `commit -a` non utilisés.
+`git diff --cached --name-status` = 5 fichiers avant commit.
 
-REAL-shaped deterministic reste DETERMINISTIC PROVEN.
+## 16. Commit SHA
 
-Labels de provenance : UI-DRIVEN ; HARNESS-SEEDED ; COMPONENT-PROVEN ; DOMAIN-INTEGRATION-PROVEN ; REAL-BOUNDARY-PROVEN ; END-TO-END-REAL-PROVEN ; NOT PROVEN.
+`085828e14c66b6d4f2355559d6f2716f1c0eca53`
 
-## 18. Trigger / proportionality
+Parent : `0d33478566627a9bf507d5a06323962d349308ee` (descendant direct de origin/main). Un seul commit ahead.
 
-Obligatoire si : API externe ; provider IA ; agent ; subprocess ; réseau ; stockage externe ; auth externe ; cloud/service managé ; connecteur ; hardware ; fake/mock/fixture/simulator/test adapter.
+## 17. Commit diff/stat
 
-Sinon : **N/A**. Pas de test REAL imposé à chaque cycle.
+```text
+commit 085828e14c66b6d4f2355559d6f2716f1c0eca53
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Mon Aug 17 14:03:44 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air1.home>
+CommitDate: Mon Aug 17 14:03:44 2026 +0200
 
-Ce cycle (documentaire / méthode) : Fake/Real Qualification produit = **N/A** (aucune frontière runtime exercée).
+    docs(sfia): add fake-real fidelity and progressive proof
 
-## 19. Template enforcement
+ docs/foundation/sfia-engineering-principles.md     |  36 +++++
+ .../core/sfia-chatgpt-cursor-operating-model.md    |  35 ++++-
+ .../core/sfia-rules-and-guardrails.md              |  96 +++++++++++++
+ .../sfia-studio-convergence-build-doctrine.md      |  17 ++-
+ prompts/templates/sfia-cycle-execution-template.md | 156 ++++++++++++++++++++-
+ 5 files changed, 329 insertions(+), 11 deletions(-)
+```
 
-v2.6 conserve sa structure. Ajouts :
+```text
+ docs/foundation/sfia-engineering-principles.md     |  36 +++++
+ .../core/sfia-chatgpt-cursor-operating-model.md    |  35 ++++-
+ .../core/sfia-rules-and-guardrails.md              |  96 +++++++++++++
+ .../sfia-studio-convergence-build-doctrine.md      |  17 ++-
+ prompts/templates/sfia-cycle-execution-template.md | 156 ++++++++++++++++++++-
+ 5 files changed, 329 insertions(+), 11 deletions(-)
+```
 
-- mini-fiche §2.0.D Fake/Real Qualification
-- instanciation §3 étape 5bis
-- skeleton prompt
-- **§6.16** bloc transverse + champs minimaux
-- Git Review Index / light / full / rapport §9.1 champ 20
-- stop conditions **45–50**
-- règle dure : **DETERMINISTIC PROVEN n'implique PAS READY FOR REAL**
+## 18. Push remote branch SHA
 
-## 20. Spécialisation Studio
+- branche : `docs/sfia-fake-real-progressive-proof`
+- `HEAD` = `origin/docs/sfia-fake-real-progressive-proof` = `085828e14c66b6d4f2355559d6f2716f1c0eca53`
+- force push : non
 
-Build Doctrine uniquement (Roadmap et framing 30–37 **non modifiés**) :
+## 19. PR number
 
-- A4 R1–**R21** Fidélité Fake/Real
-- A5 questions 11–12 (frontière vs chemin parallèle ; niveau de preuve / realism gaps)
-- A6 politique fixture : substitution KEEP ; chemin parallèle interdit ; REAL-shaped = DETERMINISTIC ; tooling gap
-- A10 inégalités de preuve + `DETERMINISTIC PROVEN ≠ READY FOR REAL`
-- A13 anti-patterns correspondants
+**#360**
 
-Pre-M6 reste **NON COMPLETE**. Suite Studio **non exécutée** : DELIVERY REQUALIFICATION FOR DETERMINISTIC BROWSER PROOF TOOLING.
+## 20. PR URL
 
-## 21. Validations
+https://github.com/mcleland147/sfia-workspace/pull/360
 
-- `git diff --name-status` = exactement 5 fichiers
-- `git diff --cached` vide
-- `git diff --check` : OK (pas de trailing whitespace dans les 5 fichiers)
-- markdownlint / mdl : **absent** du repo — non exécuté ; aucune dépendance installée
-- scan claims dangereux dans les **lignes ajoutées** : `READY FOR REAL` uniquement comme **interdit** / anti-claim ; pas de promotion `v2.7` ; pas d'`ADOPTED` runtime/baseline ajouté
-- framing 30–37 : non modifié
-- Convergence Roadmap : non modifié
-- runtime / tests / harness : non modifié
-- aucun commit/push de `docs/sfia-fake-real-progressive-proof`
+## 21. Base / head
 
-## 22. Fichiers hors scope
+- base : `main`
+- head : `docs/sfia-fake-real-progressive-proof`
+- head SHA : `085828e14c66b6d4f2355559d6f2716f1c0eca53`
+- title : `docs(sfia): add fake-real fidelity and progressive proof`
 
-**0** dans le worktree documentaire après restauration.
+## 22. Draft
 
-## 23. Réserves
+`isDraft` = **true** · `state` = OPEN
 
-1. Candidat documentaire **local non commité** — pas sur main.
-2. Isolation nested worktree : un checkout IDE a contaminé temporairement le worktree docs ; corrigé avant ce pack. Le dirty Studio n'est plus au compteur Cycle 9 « 84 paths » si l'on compte `.tmp-sfia-review/**` ; le candidat produit Pre-M6 (fichiers `projects/sfia-studio/**`) est toujours présent ; LpsSurface Studio vérifié présent.
-3. Header CKC Cycle 8 (Architecture Technique) reste une réserve documentaire historique — hors scope de ce cycle.
-4. Blocker Studio tooling browser async : **non traité** ici.
+## 23. Remote diff
 
-## 24. Anti-claims
+`gh pr diff --name-only` = exactement les 5 fichiers du §12.
 
-Ce cycle **n'est pas** et **ne revendique pas** :
+## 24. Checks / CI
 
-- SFIA v2.7 / nouvelle baseline / v3 globale
-- runtime v3 ADOPTED
-- Pre-M6 COMPLETE
-- READY FOR REAL
-- ACTIVE ON MAIN / BASELINE MERGED pour cette doctrine
-- fake/fixture interdit
-- tests déterministes inutiles
-- GO REAL Cursor
-- exécution de DELIVERY REQUALIFICATION FOR DETERMINISTIC BROWSER PROOF TOOLING
-- commit/PR/merge du candidat documentaire
+Workflow `SFIA Studio CI` run `32027977111` :
 
-## 25. Verdict
+| Check | Conclusion | Durée |
+|---|---|---|
+| Detect SFIA Studio changes | SUCCESS | 8s |
+| Build and validate SFIA Studio | SUCCESS | 2m19s |
+| SFIA Studio Required Gate | SUCCESS | 4s |
+
+CI **PASS**. Absence de check ≠ preuve de contenu — ici les checks existent et sont verts.
+
+## 25. Mutation Studio
+
+- runtime change = 0
+- worktree Studio reste `delivery/sfia-studio-pre-m6-ui-option-a` @ `0d33478566627a9bf507d5a06323962d349308ee`
+- les 5 fichiers méthode **absents** du diff Studio
+- aucun `reset --hard` / `clean` / stash Studio
+
+## 26. REAL
+
+**0** — aucun Cursor REAL, aucun OpenAI LIVE.
+
+## 27. Promotion baseline
+
+**aucune** — v2.6 inchangé ; Principles v1.1 inchangé ; pas de v2.7.
+
+## 28. Merge
+
+**NON AUTORISÉ** dans ce cycle. PR reste DRAFT. Décision Morris distincte.
+
+## 29. Réserves
+
+1. Doctrine **candidate** jusqu'au merge Morris.
+2. Routing guide §5.9 dit qu'un cycle PR readiness seul ne crée pas de PR ; ce cycle a consommé un GO Morris **explicite** commit+push+PR DRAFT — le GO prime.
+3. Pre-M6 Studio **NON COMPLETE** ; blocker tooling browser **non repris**.
+
+## 30. Verdict
 
 ```text
 PASS —
-SFIA FAKE/REAL FIDELITY & PROGRESSIVE PROOF DOCTRINE CANDIDATE
-TRANSVERSE ENGINEERING RULE INTEGRATED ACROSS PRINCIPLES / GUARDRAILS / OPERATING MODEL / V2.6 TEMPLATE
-SFIA STUDIO BUILD DOCTRINE SPECIALIZATION ALIGNED
-NO RUNTIME OR PRODUCT CHANGE
-NO BASELINE VERSION PROMOTION
-READY FOR CHATGPT REVIEW
+SFIA FAKE/REAL FIDELITY & PROGRESSIVE PROOF PR CREATED
+MINOR EDITORIAL RESERVE CLOSED
+EXACT 5-FILE DOCUMENTARY SCOPE
+REMOTE BRANCH VERIFIED
+DRAFT PR VERIFIED
+CI PASS
+NO RUNTIME CHANGE
+NO BASELINE PROMOTION
+READY FOR MORRIS MERGE DECISION
 ```
 
-Handoff : voir section publication après publisher (SHA/blob remplis post-publish dans le rapport Cursor ; ce pack est la source poussée).
+## 31. Prochain gate Morris
 
-## 26. Prochaine décision Morris
+**GO / NO-GO MERGE PR #360**
 
-Après revue ChatGPT de ce candidat :
-
-**GO/NO-GO commit + PR readiness** pour la doctrine Fake/Real (5 fichiers, branche `docs/sfia-fake-real-progressive-proof`).
-
-Puis seulement, reprise Studio au gate :
-
-**DELIVERY REQUALIFICATION FOR DETERMINISTIC BROWSER PROOF TOOLING**
-
-Aucun REAL dans ces gates.
+Puis seulement post-merge, puis reprise Studio : DELIVERY REQUALIFICATION FOR DETERMINISTIC BROWSER PROOF TOOLING. Aucun REAL.
 
 ---
 
@@ -880,24 +844,25 @@ Aucun REAL dans ces gates.
 
 ```text
 Git Review Index
-- date/heure : 2026-08-17 13:54:26 CEST (+0200)
-- cycle : 15 — Capitalisation / REX
-- profil : Capitalization + Critical
+- date/heure : 2026-08-17 14:07:07 CEST (+0200)
+- cycle : 13 — PR readiness
+- profil : Critical
 - typologie : CAPA
-- branche projet : docs/sfia-fake-real-progressive-proof (locale)
-- HEAD : 0d33478566627a9bf507d5a06323962d349308ee
+- branche : docs/sfia-fake-real-progressive-proof
+- HEAD : 085828e14c66b6d4f2355559d6f2716f1c0eca53
 - origin/main : 0d33478566627a9bf507d5a06323962d349308ee
-- review pack : full (obligatoire — rapport Cursor)
-- Fake/Real applicable : N/A (cycle documentaire ; aucune frontière runtime)
-- fichiers créés : 0 versionnés
-- fichiers modifiés : 5 (liste §13 ; diffs §15)
+- review pack : full
+- Fake/Real applicable : N/A
+- fichiers créés : 0
+- fichiers modifiés : 5 (diffs §13)
+- PR : #360 DRAFT
 - handoff : required / publish-in-cycle / L3
 ```
 
 ## Review pack content coverage
 
-- created files : N/A (0)
-- modified files : yes — diffs complets §15
+- created files : N/A
+- modified files : yes — diffs complets §13
 - synthesis only : **no**
 - review pack verdict : **complete**
-- reset at start of this write : **yes** (overwrite Cycle 9 pack leaked into this path)
+- reset at start of this write : **yes**
