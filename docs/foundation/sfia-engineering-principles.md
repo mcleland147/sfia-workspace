@@ -315,6 +315,39 @@ Evidence can include:
 - REX;
 - documented reserve resolution.
 
+## 12. Fake/Real fidelity and progressive proof
+
+Fake, mock, fixture and test adapters remain **essential** SFIA tools. They are not a defect to eliminate.
+
+A fake must substitute the **external boundary**, not create a second product path. The intended architecture is:
+
+same product orchestration → same state machine → same persistence → same Evidence pipeline → adapter/boundary → fake **or** REAL.
+
+Avoid a fixture-specific product path that synthesizes success when the real boundary traverses significantly different states.
+
+When a fake represents a real boundary, preserve **semantic parity** for the product-relevant contract: inputs/outputs, statuses, transitions, errors, relevant temporality, async/pending/completion, persistence, idempotence, retry/recovery and Evidence semantics. Parity does not require reproducing real external costs or irreversible effects.
+
+Any known difference that can change observable behaviour is a **realism gap**. It must name the difference, the potential impact, the deterministic proof available, the REAL proof missing, and the closure condition. Green deterministic tests do not close a blocking realism gap.
+
+Proof levels are distinct and non-transitive:
+
+- **NOT PROVEN**
+- **DETERMINISTIC PROVEN** — logic proven with a controlled fake, mock, fixture or test adapter
+- **REAL BOUNDARY PROVEN** — the real external boundary was exercised in a bounded way and the relevant contractual behaviour was observed
+- **END-TO-END REAL PROVEN** — the user/capability path actually crossed the concerned boundaries to an observable persisted result
+
+A lower level never implies a higher one. **REAL-shaped deterministic remains DETERMINISTIC PROVEN**, never REAL BOUNDARY PROVEN.
+
+When a capability depends on a significant external boundary, proof should progress **proportionally** to risk:
+
+deterministic → bounded REAL boundary proof → deterministic hardening → further bounded REAL if needed → end-to-end REAL.
+
+This trajectory **never automatically authorizes REAL**. Morris remains the REAL gate. REAL proofs must be small, bounded, reversible as far as possible, and submitted to existing gates.
+
+If QA tooling cannot reproduce a significant REAL state needed on the critical path, the honest verdict is **INCOMPLETE / TOOLING GAP** — not a quieter claim.
+
+Operational constraints: `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`. Prompt enforcement: `prompts/templates/sfia-cycle-execution-template.md`.
+
 ## v1.1 Anti-patterns
 
 | Anti-pattern | Risk |
@@ -329,6 +362,9 @@ Evidence can include:
 | Raw Notion sync | Non-curated and misleading publication |
 | Automation before guardrails | Loss of control |
 | Decision without evidence | Weak governance |
+| Unqualified fake/REAL divergence | Deterministic green tests hide a missing REAL path |
+| Treating REAL-shaped data as REAL proof | False readiness / premature REAL |
+| Parallel fixture product path | Product behaves differently from the REAL orchestration |
 
 ## v1.1 Related Documents
 

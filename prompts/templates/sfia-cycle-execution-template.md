@@ -126,6 +126,25 @@ Repo-informed pre-check ChatGPT
 - limites / incertitudes :
 - verdict : PROMPT CURSOR READY / NEED MORRIS CLARIFICATION
 
+Fake / Real Qualification :
+- applicable : oui / non / N/A
+- trigger : fake/mock/fixture/simulator/test adapter/external boundary — oui / non
+- frontières externes concernées :
+- fake/mock/fixture utilisé :
+- frontière REAL correspondante :
+- parité attendue :
+- différences connues :
+- realism gaps :
+- états REAL significatifs :
+- niveau de preuve d'entrée : NOT PROVEN / DETERMINISTIC PROVEN / REAL BOUNDARY PROVEN / END-TO-END REAL PROVEN
+- niveau de preuve attendu ce cycle :
+- niveau de preuve explicitement hors scope :
+- bounded REAL proof requis : dans ce cycle / cycle suivant / non applicable
+- gate Morris REAL : oui / non / N/A
+- claims autorisés :
+- claims interdits :
+- règle dure : DETERMINISTIC PROVEN n'implique PAS READY FOR REAL
+
 SFIA Studio Convergence Pre-check :
 - triggered : oui / non
 - Build Doctrine :
@@ -230,7 +249,8 @@ Clarifications : Build Doctrine + Roadmap = gouvernance de **construction** ; do
 3. **Identifier le profil SFIA** — Light / Standard / Critical / Capitalization
 4. **Justifier le profil** — obligatoire si Critical ; recommandé sinon
 5. **Activer les blocs pertinents** — §6 selon type, risque, transverses
-6. **Identifier les gates Morris** — liste fermée ; pas de gate implicite
+5bis. **Qualifier Fake/Real** — §6.16 si fake/mock/fixture/simulator/test adapter/external boundary ; sinon N/A. Interdit : DETERMINISTIC PROVEN ⇒ READY FOR REAL
+6. **Identifier les gates Morris** — liste fermée ; pas de gate implicite ; GO REAL distinct si applicable
 7. **Définir le périmètre Git/documentaire** — fichiers autorisés, interdits, protégés
 8. **Décider review pack** — §7 : pour tout cycle Cursor **produisant un rapport** → **light** ou **full** obligatoire (jamais `none`) ; opération read-only sans rapport Cursor → hors contrat review pack
 9. **Décider Review Handoff Git** — §7.10–§7.11 : pour tout cycle Cursor **produisant un rapport** → **required** + Mode **`publish-in-cycle`** + `Push handoff autorisé = oui — L3 borné` **automatiques** ; `local-only` = exception technique documentée uniquement (§7.10.3) — jamais `not required` pour un rapport Cursor ; combinaison invalide (rapport + none / not required / local-only non conforme) → `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` ; mode contradictoire → `PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT`
@@ -270,6 +290,9 @@ Clarifications : Build Doctrine + Roadmap = gouvernance de **construction** ; do
 - Inventer un CKC absent pour un cycle sans pilote
 - Bloquer un cycle uniquement parce qu'un CKC détaillé n'existe pas (fallback obligatoire)
 - Exposer la structure CKC brute comme questionnaire utilisateur / UI
+- Traiter DETERMINISTIC PROVEN comme READY FOR REAL
+- Présenter des données REAL-shaped déterministes comme REAL BOUNDARY PROVEN
+- Omettre Fake/Real Qualification alors qu'un fake/mock/fixture/frontière externe est utilisé
 
 ---
 
@@ -340,6 +363,24 @@ Règle centrale : RAPPORT CURSOR = REVIEW PACK OBLIGATOIRE = PUBLICATION HANDOFF
 Stop conditions spécifiques :
 Rapport Cursor attendu :        [Light / Standard / Critical / Capitalization — §9]
 Verdict attendu :               [ex. READY FOR PR READINESS / READY FOR COMMIT / STOP …]
+
+Fake / Real Qualification :
+  applicable :                  [oui / non / N/A]
+  frontières externes concernées :
+  fake/mock/fixture utilisé :
+  frontière REAL correspondante :
+  parité attendue :
+  différences connues :
+  realism gaps :
+  états REAL significatifs :
+  niveau de preuve d'entrée :
+  niveau de preuve attendu ce cycle :
+  niveau de preuve explicitement hors scope :
+  bounded REAL proof requis :   [dans ce cycle / cycle suivant / non applicable]
+  gate Morris REAL :            [oui / non / N/A]
+  claims autorisés :
+  claims interdits :
+  règle : DETERMINISTIC PROVEN n'implique PAS READY FOR REAL
 ```
 
 ---
@@ -464,10 +505,33 @@ Garde-fous :
 - Ne pas déclarer une candidate non mergée comme baseline officielle
 - Ne pas relancer SFIA 3.0
 - Git = source de vérité
+- Ne pas traiter DETERMINISTIC PROVEN comme READY FOR REAL
+- Ne pas présenter REAL-shaped deterministic comme REAL BOUNDARY PROVEN
+- Ne pas élargir vers REAL sans GO Morris distinct
 - [Garde-fous spécifiques au cycle]
 
 Stop conditions :
 [Liste — inclure §8 + spécifiques au cycle]
+
+---
+
+Fake / Real Qualification (obligatoire si fake/mock/fixture/simulator/test adapter/external boundary ; sinon N/A) :
+- applicable : oui / non / N/A
+- frontières externes concernées :
+- fake/mock/fixture utilisé :
+- frontière REAL correspondante :
+- parité attendue :
+- différences connues :
+- realism gaps :
+- états REAL significatifs :
+- niveau de preuve d'entrée :
+- niveau de preuve attendu ce cycle :
+- niveau de preuve explicitement hors scope :
+- bounded REAL proof requis : dans ce cycle / cycle suivant / non applicable
+- gate Morris REAL :
+- claims autorisés :
+- claims interdits :
+Règle dure : DETERMINISTIC PROVEN n'implique PAS READY FOR REAL.
 
 ---
 
@@ -946,6 +1010,68 @@ Lorsqu'un **post-merge check** est demandé par Morris après une PR mergée, le
 
 > **Capitalization ≠ poursuivre toutes les réserves.** Le profil Capitalization qualifie l'intention de capitaliser — pas l'obligation de clore chaque réserve ouverte.
 
+### 6.16 Fake / Real Qualification — fidélité et preuve progressive
+
+> **Référence :** Engineering Principles v1.1 §12 ; Rules & Guardrails §13.2 ; operating model §3.2.
+> Fake / mock / fixture restent des **outils essentiels**. Le problème traité est la **divergence non qualifiée** entre fake et REAL.
+
+| Élément | Contenu |
+|---------|---------|
+| **Activer si** | fake, mock, fixture, simulator, test adapter, ou frontière externe (API, provider IA, agent, subprocess, réseau, stockage externe, auth externe, cloud/service managé, connecteur, hardware) |
+| **Sinon** | N/A — ne pas imposer un test REAL |
+| **Cycles** | Tous types — surtout delivery, QA, architecture technique, DevOps, observabilité |
+| **Consignes** | Substitution de frontière (pas de chemin produit parallèle) ; parité sémantique ; realism gaps nommés ; niveaux de preuve non transitifs ; preuve progressive proportionnée ; GO REAL Morris distinct |
+| **Livrables** | Bloc Fake/Real Qualification rempli ; labels de provenance de preuve ; realism gaps avec condition de fermeture |
+| **Gates Morris** | GO REAL **distinct** si bounded REAL ou end-to-end REAL demandé |
+| **Stop** | DETERMINISTIC PROVEN présenté comme READY FOR REAL ; REAL-shaped deterministic présenté comme REAL BOUNDARY PROVEN ; realism gap bloquant masqué ; tooling gap contourné par un claim inférieur |
+
+**Niveaux de preuve (non transitifs) :**
+
+- NOT PROVEN
+- DETERMINISTIC PROVEN
+- REAL BOUNDARY PROVEN
+- END-TO-END REAL PROVEN
+
+**REAL-shaped deterministic** reste DETERMINISTIC PROVEN.
+
+**Preuve progressive (recommandée, jamais automatique) :**
+
+deterministic → bounded REAL boundary proof → deterministic hardening → nouvelle bounded REAL si nécessaire → end-to-end REAL.
+
+**Champs minimaux à injecter dans le prompt généré :**
+
+```text
+Fake / Real Qualification
+- applicable : oui / non / N/A
+- frontières externes concernées :
+- fake/mock/fixture utilisé :
+- frontière REAL correspondante :
+- parité attendue :
+- différences connues :
+- realism gaps :
+- états REAL significatifs :
+- niveau de preuve d'entrée :
+- niveau de preuve attendu ce cycle :
+- niveau de preuve explicitement hors scope :
+- bounded REAL proof requis : dans ce cycle / cycle suivant / non applicable
+- gate Morris REAL :
+- claims autorisés :
+- claims interdits :
+```
+
+**Règle dure :**
+
+```text
+DETERMINISTIC PROVEN n'implique PAS READY FOR REAL
+sans gate Morris REAL et niveau de preuve explicite.
+```
+
+Si le harness ne peut pas reproduire un état REAL significatif du chemin critique :
+
+```text
+INCOMPLETE / TOOLING GAP
+```
+
 ---
 
 ## 7. Review pack proportionné
@@ -1090,14 +1216,14 @@ Le review pack **ne peut pas** être considéré complet dans ce cas.
 | Champ | Contenu |
 |-------|---------|
 | **Usage** | Cycle standard borné ; Git accessible ; peu de fichiers ; diff suffisant |
-| **Contenu attendu** | Date/heure ; objectif ; Git Review Index (§7.4) ; fichiers consultés avec rôle et sections **sans copie intégrale** ; fichiers créés/modifiés avec contenu complet ou sections/diff utiles ; validations ; réserves ; décisions Morris ; verdict |
+| **Contenu attendu** | Date/heure ; objectif ; Git Review Index (§7.4) ; fichiers consultés avec rôle et sections **sans copie intégrale** ; fichiers créés/modifiés avec contenu complet ou sections/diff utiles ; Fake/Real Qualification si applicable (§6.16) ; validations ; réserves ; décisions Morris ; verdict |
 
 #### full
 
 | Champ | Contenu |
 |-------|---------|
 | **Usage** | Capitalisation ; modification méthode/template/règle ; décision structurante ; sources non accessibles Git ; auditabilité forte |
-| **Contenu attendu** | Date/heure ; objectif ; Local Git Truth Check ; Git Review Index (§7.4) ; sources consultées avec rôle, sections et extraits courts utiles ; contenu complet des fichiers créés ; sections complètes modifiées ou diff utile complet pour fichiers modifiés ; proposition d'instruction projet ChatGPT si concernée ; garde-fous ; réserves ; décisions Morris requises ; verdict |
+| **Contenu attendu** | Date/heure ; objectif ; Local Git Truth Check ; Git Review Index (§7.4) ; sources consultées avec rôle, sections et extraits courts utiles ; contenu complet des fichiers créés ; sections complètes modifiées ou diff utile complet pour fichiers modifiés ; Fake/Real Qualification si applicable (§6.16) ; proposition d'instruction projet ChatGPT si concernée ; garde-fous ; réserves ; décisions Morris requises ; verdict |
 
 ### 7.4 Git Review Index
 
@@ -1116,6 +1242,9 @@ Git Review Index
 - diff name-status :
 - décisions Morris requises :
 - review pack : light / full (obligatoire si rapport Cursor)
+- Fake/Real applicable : oui / non / N/A
+- niveau de preuve déclaré :
+- realism gaps :
 - réserves :
 ```
 
@@ -1572,8 +1701,14 @@ Cursor doit **stopper** et demander Morris si :
 40. **Review Handoff** : Cursor annonce publié mais remote ancien/absent/incomplet — `REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED`
 41. **Review Handoff** : force push requis ou divergence incompatible — `STOP — REVIEW HANDOFF REMOTE DIVERGENCE`
 42. **Review Handoff** : s'arrêter après review pack / handoff local alors que `publish-in-cycle` est requis — cycle incomplet
-39. **Review Handoff** : rapport final sans bloc **Instruction ChatGPT obligatoire** alors que handoff required
-40. **Review Handoff** : handoff distant **obsolète** (cycle / branche / HEAD incohérents avec rapport Cursor)
+43. **Review Handoff** : rapport final sans bloc **Instruction ChatGPT obligatoire** alors que handoff required
+44. **Review Handoff** : handoff distant **obsolète** (cycle / branche / HEAD incohérents avec rapport Cursor)
+45. **Fake/Real** : DETERMINISTIC PROVEN présenté comme READY FOR REAL
+46. **Fake/Real** : données REAL-shaped déterministes présentées comme REAL BOUNDARY PROVEN ou END-TO-END REAL PROVEN
+47. **Fake/Real** : Fake/Real Qualification omise alors que fake/mock/fixture/frontière externe est utilisé
+48. **Fake/Real** : élargissement vers REAL sans GO Morris distinct
+49. **Fake/Real** : realism gap bloquant masqué par tests verts
+50. **Fake/Real** : tooling gap contourné par un claim inférieur — verdict requis `INCOMPLETE / TOOLING GAP`
 
 ---
 
@@ -1621,6 +1756,16 @@ Chaque rapport final Cursor doit indiquer la **date et l'heure du rapport** (fus
     - contenu modifié couvert : yes / no / N/A
     - verdict handoff : (voir §7.11 — inclure REMOTE PUBLICATION NOT PERFORMED / REMOTE VERIFICATION MISSING / CANONICAL REMOTE NOT UPDATED si applicable)
 19. Verdict — **interdit** d'émettre un READY métier/documentaire si `publish-in-cycle` non achevé
+20. **Fake / Real Qualification** (si applicable — sinon N/A) :
+    - applicable : oui / non / N/A
+    - fake/mock/fixture utilisé
+    - frontière REAL correspondante
+    - realism gaps
+    - niveau de preuve d'entrée / attendu / hors scope
+    - bounded REAL proof requis : ce cycle / cycle suivant / N/A
+    - gate Morris REAL
+    - claims autorisés / interdits
+    - confirmation : DETERMINISTIC PROVEN n'a **pas** été présenté comme READY FOR REAL
 
 Si `synthesis only = yes` → verdict **ne peut pas** être READY.
 
@@ -1719,6 +1864,7 @@ Si Mode = **`local-only`** : indiquer clairement que la revue Git distante **n'e
 | `STOP — REVIEW HANDOFF SCOPE MISMATCH` | Périmètre handoff multi-fichier / mauvais chemin |
 | `STOP — REVIEW HANDOFF REMOTE DIVERGENCE` | Divergence incompatible ou force push requis |
 | `HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED` | Exception technique local-only — régularisation requise |
+| `INCOMPLETE / TOOLING GAP` | Harness incapable de reproduire un état REAL significatif du chemin critique |
 
 ---
 

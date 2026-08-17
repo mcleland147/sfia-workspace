@@ -80,6 +80,7 @@ Ils forment une boucle opératoire contrôlée par l'humain.
 | No raw Notion sync | Notion n'est jamais synchronisé brutalement |
 | Controlled automation | L'automatisation progresse par niveaux, sans supprimer la validation humaine |
 | Guardrails before execution | Les garde-fous sont posés avant exécution |
+| Fidélité Fake/Real | ChatGPT qualifie frontières et niveaux de preuve ; Cursor n'élargit pas vers REAL ; Morris garde le GO REAL |
 
 ## 3.1 Routage des cycles
 
@@ -106,6 +107,27 @@ Règle :
 
 Tout statut candidate doit rester **visible**. Réf. routing guide §4.4.5 ; template §2.0 / §2.1.
 
+## 3.2 Fidélité Fake/Real — qualification opératoire
+
+> **Référence :** Engineering Principles v1.1 §12 ; Rules & Guardrails §13.2 ; template v2.6 Fake/Real Qualification.
+> Ne modifie **pas** les niveaux d'automatisation (§2 / §15).
+
+Lorsque le cycle touche une frontière fake/mock/fixture/simulée ou une frontière externe réelle, la boucle ChatGPT ↔ Cursor **doit** qualifier explicitement Fake/Real **avant** exécution et **dans** le rapport.
+
+| Acteur | Comportement |
+|--------|----------------|
+| **ChatGPT** | Qualifie les frontières, le fake utilisé, la parité attendue, les realism gaps, le niveau de preuve d'entrée / attendu / hors scope, et si une bounded REAL proof est requise (ce cycle / cycle suivant / N/A). Recommande — **ne décide pas** le GO REAL. |
+| **Cursor** | Exécute le niveau de preuve **autorisé par le prompt**. N'élargit **pas** vers REAL. Ne présente **pas** un état REAL-shaped déterministe comme REAL BOUNDARY PROVEN. Sépare preuve déterministe et preuve REAL dans le rapport. |
+| **Morris** | Seule autorité du **GO REAL**. Distinct de tout GO déterministe, QA ou delivery. |
+
+Règles opératoires :
+
+- un niveau de preuve inférieur ne vaut jamais le niveau supérieur ;
+- REAL-shaped deterministic = DETERMINISTIC PROVEN ;
+- DETERMINISTIC PROVEN **n'implique pas** READY FOR REAL ;
+- la preuve progressive (déterministe → frontière REAL bornée → end-to-end REAL) est une **règle opératoire**, pas une autorisation automatique ;
+- si le tooling de preuve ne peut pas reproduire un état REAL significatif du chemin critique : INCOMPLETE / TOOLING GAP — pas un claim inférieur.
+
 ## 4. Rôles dans la boucle
 
 | Acteur | Rôle | Responsabilités |
@@ -125,6 +147,7 @@ L'humain reste le décideur final sur :
 - le GO / NO-GO avant commit, push, PR et merge ;
 - la revue visuelle (UI premium, Figma Design-first) ;
 - les arbitrages métier et architecture sensibles ;
+- **tout GO REAL** (frontière réelle, Cursor REAL, OpenAI LIVE, subprocess live) ;
 - toute publication ou synchronisation Notion ;
 - toute modification de zones interdites (code applicatif, CI, outillage transverse).
 
@@ -139,7 +162,8 @@ Il produit :
 - les prompts Cursor structurés ;
 - les recommandations de validation ;
 - les synthèses post-exécution ;
-- les documents de capitalisation et post-merge.
+- les documents de capitalisation et post-merge ;
+- la **qualification Fake/Real** (frontières, niveaux de preuve, realism gaps) lorsqu'applicable.
 
 ### 4.3. Cursor
 
@@ -154,6 +178,8 @@ Il :
 - remonte un compte rendu structuré.
 
 Cursor ne doit pas improviser hors du contrat d'exécution.
+
+Cursor n'élargit **pas** un cycle déterministe vers REAL. Le rapport sépare preuve déterministe et preuve REAL.
 
 ## 5. Boucle opératoire standard
 
@@ -520,6 +546,7 @@ Ces documents ne doivent être créés qu'**après validation** du présent Oper
 | Dette documentaire | Livrables non capitalisés | Post-merge + capitalisation |
 | Suppression abusive | Perte historique | Archive ou `git mv` |
 | PR non maîtrisée | Livraison trop large ou non revue | PR humaine et traçable |
+| Fake/REAL non qualifié | Preuve déterministe prise pour preuve REAL | Qualification Fake/Real + niveaux de preuve + GO Morris distinct |
 
 ## 18. Critères de maturité
 
@@ -653,9 +680,9 @@ Cycle visant à transformer apprentissage, REX, pratique ou décision en actif m
 
 | Acteur | Responsabilités | Limites |
 |--------|-----------------|---------|
-| **ChatGPT** | Qualifie le profil ; distingue type cycle et profil ; cadre ; sélectionne références ; produit prompt contractuel ; identifie risques ; recommande décision ; limite sollicitations Morris aux gates listés | **Recommande — ne décide pas** ; pas push / PR / merge / actation version |
-| **Cursor** | Local Git Truth Check ; exécute périmètre ; contrôle fichiers touchés ; rapport structuré ; PR-ready si demandé ; signale écarts profil / type incohérents ; **review pack exploitable** — contenu complet créés, sections/diff modifiés (§7.2.1 template) | **Exécute — ne change pas le scope** ; pas d'arbitrage implicite ; **pas de synthèse-only** dans review pack si fichiers créés/modifiés |
-| **Morris** | Gates structurants ; doctrine, scope, version, PR, merge, pilote | Autorité L0 — arbitrage structurant jamais automatisé |
+| **ChatGPT** | Qualifie le profil ; distingue type cycle et profil ; cadre ; sélectionne références ; produit prompt contractuel ; identifie risques ; recommande décision ; limite sollicitations Morris aux gates listés ; **qualifie Fake/Real** lorsque trigger | **Recommande — ne décide pas** ; pas push / PR / merge / actation version ; **pas GO REAL** |
+| **Cursor** | Local Git Truth Check ; exécute périmètre ; contrôle fichiers touchés ; rapport structuré ; PR-ready si demandé ; signale écarts profil / type incohérents ; **review pack exploitable** — contenu complet créés, sections/diff modifiés (§7.2.1 template) ; **sépare preuve déterministe et REAL** | **Exécute — ne change pas le scope** ; pas d'arbitrage implicite ; **pas de synthèse-only** dans review pack si fichiers créés/modifiés ; **n'élargit pas vers REAL** |
+| **Morris** | Gates structurants ; doctrine, scope, version, PR, merge, pilote ; **GO REAL** | Autorité L0 — arbitrage structurant jamais automatisé |
 
 #### 18.2.5 Stop conditions (v2.5 candidate)
 
