@@ -22,13 +22,17 @@ import type {
 } from "../ports/realExecutionLaunchPort";
 import type { RealExecutionWorkspacePort } from "../ports/realExecutionWorkspacePort";
 import { DisabledRealProcessRunner } from "./nodeCursorProcessRunner";
+import { assertResolvedTimeoutMs } from "@/lib/oa/execution-contract";
+import {
+  CURSOR_TRUST_MARKER_PATH_TOO_LONG_REASON,
+  isCursorTrustMarkerPathCompatible,
+} from "./cursorTrustMarkerPathCompatibility";
 
 export type StudioCursorRealLaunchGatewayOptions = {
   readonly processRunner: ProcessRunner;
   readonly workspacePort: RealExecutionWorkspacePort;
   readonly env?: NodeJS.ProcessEnv;
   readonly resolveCursorBin?: () => string | null;
-  readonly defaultTimeoutMs?: number;
 };
 
 /** Copy of OPS1 resolveCursorBinPath pattern — no ops1 import. */
@@ -63,7 +67,6 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
   private readonly workspacePort: RealExecutionWorkspacePort;
   private readonly env: NodeJS.ProcessEnv;
   private readonly resolveBin: () => string | null;
-  private readonly timeoutMs: number;
   /**
    * Fallback only when the runner has no observe/awaitCompletion.
    * Live observation source is the runner registry when present
@@ -86,7 +89,6 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
     this.env = options.env ?? process.env;
     this.resolveBin =
       options.resolveCursorBin ?? (() => resolveCursorBinPath(this.env));
-    this.timeoutMs = options.defaultTimeoutMs ?? 60_000;
   }
 
   async launch(request: RealLaunchRequest): Promise<RealLaunchResult> {
@@ -123,6 +125,17 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         reason: "unresolved_contract_refused",
         realProcessInvoked: false,
         detailCode: "REAL_AGENT_PROFILE_INVALID",
+      };
+    }
+
+    if (!assertResolvedTimeoutMs(request.timeoutMs)) {
+      return {
+        outcome: "reject",
+        gatewayId: this.gatewayId,
+        attemptId: request.attemptId,
+        reason: "resolved_timeout_ms_required",
+        realProcessInvoked: false,
+        detailCode: "REAL_LAUNCH_FAILED",
       };
     }
 
@@ -172,6 +185,17 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
       };
     }
 
+    if (!isCursorTrustMarkerPathCompatible(workspacePath)) {
+      return {
+        outcome: "reject",
+        gatewayId: this.gatewayId,
+        attemptId: request.attemptId,
+        reason: CURSOR_TRUST_MARKER_PATH_TOO_LONG_REASON,
+        realProcessInvoked: false,
+        detailCode: "REAL_WORKSPACE_INVALID",
+      };
+    }
+
     // Fixed argv shape — executable is separate; no user-controlled shell.
     // --mode ask: local CLI help documents ask as read-only Q&A (no edits).
     // Shell under ask remains unresolved by help alone; future REAL must observe.
@@ -213,7 +237,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         executable: bin,
         cwd: workspacePath,
         argv,
-        timeoutMs: this.timeoutMs,
+        timeoutMs: request.timeoutMs,
         env: {
           ...this.env,
           [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1",

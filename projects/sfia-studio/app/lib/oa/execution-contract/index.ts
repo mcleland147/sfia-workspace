@@ -26,6 +26,19 @@ export {
   computeExecutionContractSemanticFingerprint,
   executionContractSemanticMaterial,
 } from "./domain/semanticFingerprint";
+export {
+  DEFAULT_BOUNDED_READ_ONLY_M3_EXECUTION_WINDOW_CLASS,
+  EXECUTION_WINDOW_CLASSES,
+  PRE_M6_EXECUTION_WINDOW_CAP_MS,
+  PRE_M6_EXECUTION_WINDOW_MS,
+  assertResolvedTimeoutMs,
+  isExecutionWindowClass,
+  resolveExecutionWindowClass,
+  resolveExecutionWindowForStart,
+  type ExecutionWindowClass,
+  type ExecutionWindowResolveResult,
+  type ResolvedExecutionWindow,
+} from "./domain/executionWindowPolicy";
 
 export * from "./ports/executionContractRepository";
 export * from "./ports/executionAudit";

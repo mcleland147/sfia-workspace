@@ -15,6 +15,7 @@ import type {
   DoctrinePackageRef,
   ProvenanceRecord,
 } from "@/lib/oa/doctrine";
+import type { ExecutionWindowClass } from "./executionWindowPolicy";
 
 export type { ActorReference, DoctrinePackageRef, ProvenanceRecord };
 
@@ -76,6 +77,12 @@ export type ExecutionContract = {
   stopConditions: string[];
   evidenceRequirements: string[];
   reversibility: Reversibility;
+  /**
+   * Governed execution window class (ARCH-WOP-1). Optional on historical
+   * contracts; bounded M3 successors carry `standard`. Duration is resolved
+   * server-side — never a client-supplied timeout.
+   */
+  executionWindowClass?: ExecutionWindowClass;
   idempotencyKey: string;
   correlationId: string;
   status: ExecutionContractStatus;
@@ -106,6 +113,7 @@ export type BuildExecutionContractRequest = {
   stopConditions: string[];
   evidenceRequirements: string[];
   reversibility: Reversibility;
+  executionWindowClass?: ExecutionWindowClass;
   idempotencyKey: string;
   correlationId?: string;
   /** draft (default) or proposed. */
@@ -164,6 +172,7 @@ export type SupersedeExecutionContractRequest = {
   inputs?: Record<string, unknown>;
   expectedOutputs?: string[];
   adapterExportRef?: string;
+  executionWindowClass?: ExecutionWindowClass;
   /** Initial status of successor — draft or proposed. */
   status?: "draft" | "proposed";
   /** Hostile T-A5 injection — ignored / refused. */

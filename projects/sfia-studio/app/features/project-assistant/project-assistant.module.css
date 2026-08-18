@@ -54,7 +54,7 @@
 }
 
 .assistantTurn {
-  background: #f8f4ff;
+  background: var(--sfia-brand-forest-soft);
 }
 
 .turnRole {
@@ -288,6 +288,17 @@
 .processLocal,
 .noExecutionBanner {
   margin: 0;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.diagnosticsDetails {
+  margin-top: 8px;
+}
+
+.diagnosticsDetails summary {
+  cursor: pointer;
+  color: var(--sfia-muted);
   font-size: 12px;
   font-weight: 650;
 }

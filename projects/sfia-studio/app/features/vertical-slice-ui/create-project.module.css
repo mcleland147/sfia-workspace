@@ -4,6 +4,46 @@
   padding-bottom: var(--sfia-space-xl);
 }
 
+.intentHero {
+  display: grid;
+  gap: 8px;
+}
+
+.intentEyebrow {
+  margin: 0;
+  color: var(--sfia-blue);
+  font-size: var(--sfia-meta-size);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.intentTitle {
+  margin: 0;
+  color: var(--sfia-ink);
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.intentLead {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--sfia-muted);
+  font-size: 14px;
+  line-height: var(--sfia-line-body);
+}
+
+.diagnosticsDetails {
+  margin-top: var(--sfia-space-md);
+}
+
+.diagnosticsDetails summary {
+  cursor: pointer;
+  color: var(--sfia-muted);
+  font-size: 12px;
+  font-weight: 650;
+}
+
 .disclosure {
   display: grid;
   gap: var(--sfia-space-md);
@@ -55,6 +95,17 @@
   gap: 6px;
   font-size: 13px;
   line-height: var(--sfia-line-body);
+}
+
+.disclosureDetails {
+  margin-top: 4px;
+}
+
+.disclosureDetails summary {
+  cursor: pointer;
+  color: var(--sfia-muted);
+  font-size: 12px;
+  font-weight: 650;
 }
 
 .formCard,

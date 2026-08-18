@@ -13,6 +13,16 @@ import type {
   PrepareWorkspaceResult,
   RealExecutionWorkspacePort,
 } from "../ports/realExecutionWorkspacePort";
+import { assertCursorTrustMarkerPathCompatible } from "./cursorTrustMarkerPathCompatibility";
+
+export {
+  CURSOR_TRUST_MARKER_NAME_MAX_BYTES,
+  CURSOR_TRUST_MARKER_PATH_TOO_LONG_REASON,
+  assertCursorTrustMarkerPathCompatible,
+  cursorTrustMarkerProjectComponent,
+  cursorTrustMarkerProjectComponentByteLength,
+  isCursorTrustMarkerPathCompatible,
+} from "./cursorTrustMarkerPathCompatibility";
 
 export type GitCommandResult = {
   readonly stdout: string;
@@ -39,16 +49,20 @@ export function isFullGitSha(value: unknown): value is string {
   return typeof value === "string" && FULL_SHA_RE.test(value);
 }
 
-export function workspacePathForAttempt(
-  execRoot: string,
-  attemptId: string,
-): string {
+/** Physical leaf only — `wt-` + sha256(attemptId) hex prefix (24). */
+export function physicalWorktreeLeafForAttempt(attemptId: string): string {
   const digest = createHash("sha256")
     .update(attemptId, "utf8")
     .digest("hex")
     .slice(0, 24);
-  const safe = attemptId.replace(/[^a-zA-Z0-9._-]+/g, "_").slice(0, 48);
-  return path.resolve(execRoot, `wt-${safe}-${digest}`);
+  return `wt-${digest}`;
+}
+
+export function workspacePathForAttempt(
+  execRoot: string,
+  attemptId: string,
+): string {
+  return path.resolve(execRoot, physicalWorktreeLeafForAttempt(attemptId));
 }
 
 export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
@@ -97,6 +111,7 @@ export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
     if (existsSync(workspacePath)) {
       throw new Error("REAL_WORKSPACE_INVALID:workspace_path_exists");
     }
+    assertCursorTrustMarkerPathCompatible(workspacePath);
 
     // a) verify commit exists
     const verify = await this.gitRunner.run(

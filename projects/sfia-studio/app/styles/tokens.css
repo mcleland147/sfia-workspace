@@ -10,6 +10,10 @@
   --sfia-blue: #3863f5;
   --sfia-purple: #7a4df5;
   --sfia-green: #21c28a;
+  /* Pre-M6 Option A brand forest (D-PRE-M6-UX-05) */
+  --sfia-brand-forest: #0b3d2e;
+  --sfia-brand-forest-soft: #e8f2ed;
+  --sfia-canvas-warm: #f3f1ec;
   --sfia-orange: #faa629;
   /* Secondary text: darkened slightly vs Figma #636e85 for WCAG AA readability on white */
   --sfia-muted: #51607a;
@@ -114,4 +118,8 @@
   --sfia-radius-md: 16px;
   --sfia-radius-lg: 20px;
   --sfia-radius-xl: 24px;
+
+  /* PRE-M6 Option A — LPS sticky widths (D-PRE-M6-UX-05) */
+  --sfia-lps-width-1440: 380px;
+  --sfia-lps-width-1280: 320px;
 }

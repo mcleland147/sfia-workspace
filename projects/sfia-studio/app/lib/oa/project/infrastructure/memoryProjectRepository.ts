@@ -10,6 +10,18 @@ export class MemoryProjectRepository implements ProjectRepositoryPort {
     return found ? structuredClone(found) : null;
   }
 
+  async listAll(): Promise<Project[]> {
+    const projects = Array.from(this.store.projects.values()).map((project) =>
+      structuredClone(project),
+    );
+    projects.sort((a, b) => {
+      const aKey = a.updatedAt ?? a.createdAt;
+      const bKey = b.updatedAt ?? b.createdAt;
+      return bKey.localeCompare(aKey);
+    });
+    return projects;
+  }
+
   async exists(projectId: string): Promise<boolean> {
     return this.store.projects.has(projectId);
   }

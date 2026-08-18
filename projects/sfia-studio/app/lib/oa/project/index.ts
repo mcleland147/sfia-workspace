@@ -17,6 +17,7 @@ export * from "./ports/projectPersistenceUnitOfWorkPort";
 
 export { CreateProject } from "./application/createProject";
 export { GetProject } from "./application/getProject";
+export { ListProjects } from "./application/listProjects";
 export { GetCurrentLivingProjectState } from "./application/getCurrentLivingProjectState";
 export { GetLivingProjectStateVersion } from "./application/getLivingProjectStateVersion";
 export { AppendLivingProjectStateVersion } from "./application/appendLivingProjectStateVersion";
@@ -59,6 +60,7 @@ import { CreateProject } from "./application/createProject";
 import { GetCurrentLivingProjectState } from "./application/getCurrentLivingProjectState";
 import { GetLivingProjectStateVersion } from "./application/getLivingProjectStateVersion";
 import { GetProject } from "./application/getProject";
+import { ListProjects } from "./application/listProjects";
 import { MemoryLivingProjectStateRepository } from "./infrastructure/memoryLivingProjectStateRepository";
 import { MemoryProjectRepository } from "./infrastructure/memoryProjectRepository";
 import { MemoryProjectStore } from "./infrastructure/memoryProjectStore";
@@ -78,6 +80,7 @@ export type ProjectServices = {
   audit: ProjectAuditJournalPort;
   createProject: CreateProject;
   getProject: GetProject;
+  listProjects: ListProjects;
   getCurrentLivingProjectState: GetCurrentLivingProjectState;
   getLivingProjectStateVersion: GetLivingProjectStateVersion;
   appendLivingProjectStateVersion: AppendLivingProjectStateVersion;
@@ -115,6 +118,7 @@ export function createInMemoryProjectServices(
       store,
     ),
     getProject: new GetProject(projects, clock, audit),
+    listProjects: new ListProjects(projects, clock, audit),
     getCurrentLivingProjectState: new GetCurrentLivingProjectState(
       projects,
       lps,

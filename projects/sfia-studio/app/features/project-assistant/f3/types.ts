@@ -6,7 +6,7 @@
 import type { ProposalDto } from "../f2/types";
 import type { F3_MODE } from "./constants";
 
-export type F3Mode = typeof F3_MODE;
+export type F3Mode = typeof F3_MODE | "CURSOR_CLI_REAL";
 
 export type F3ContractDto = {
   executionContractId: string;
@@ -25,11 +25,19 @@ export type F3AttemptDto = {
   status: string;
   selectedAgentRef: string;
   adapterId: string;
-  externalEffects: false;
+  adapterRef: string;
+  executionMode: string;
+  realProcessInvoked: boolean;
+  externalEffects: boolean;
   resultRef: string | null;
   launchCount: number;
   selectionStrategy: string;
   mode: F3Mode;
+  startedAt?: string | null;
+  executionWindowClass?: string | null;
+  resolvedMaxDurationMs?: number | null;
+  /** Existing Attempt/observation processRef when already recorded — presentation only. */
+  processRef?: string | null;
 };
 
 export type F3EvidenceDto = {
@@ -62,6 +70,10 @@ export type F3RecommendationDto = {
   nextActionCode: string | null;
   recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS";
   mode: F3Mode;
+  analysisStatus?: "available" | "unavailable" | "not_attempted";
+  analysisText?: string | null;
+  analysisProviderId?: string | null;
+  analysisUnavailableReason?: string | null;
 };
 
 export type F3Labels = {
@@ -88,7 +100,11 @@ export type F3PreparePayload = {
 export type F3ExecutePayload = {
   turnKind: "f3_execute";
   mode: F3Mode;
-  proposal: ProposalDto;
+  /**
+   * Legacy fixture path may carry the process-local Proposal for provenance.
+   * Canonical post-GO M3 path sets null — Proposal is not execution authority.
+   */
+  proposal: ProposalDto | null;
   decisionId: string;
   contract: F3ContractDto;
   attempt: F3AttemptDto;
@@ -97,7 +113,7 @@ export type F3ExecutePayload = {
   recommendation: F3RecommendationDto;
   reusedExistingAttempt: boolean;
   executionPerformed: true;
-  realExecution: false;
+  realExecution: boolean;
   gitWritePerformed: false;
   labels: F3Labels;
   processLocalNotice: string;

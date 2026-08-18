@@ -53,6 +53,18 @@
   font-size: 15px;
 }
 
+.diagnostics {
+  display: grid;
+  gap: var(--sfia-space-sm);
+}
+
+.diagnostics summary {
+  cursor: pointer;
+  color: var(--sfia-muted);
+  font-size: 12px;
+  font-weight: 650;
+}
+
 .definitionGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

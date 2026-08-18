@@ -73,6 +73,10 @@
   cursor: not-allowed;
 }
 
+.itemHistorical {
+  opacity: 0.72;
+}
+
 .spacer {
   flex: 1;
 }

@@ -24,6 +24,11 @@ export type RealLaunchRequest = {
   readonly action?: string;
   readonly target?: string;
   readonly scope?: string;
+  /**
+   * Snapshotted resolved execution window (ARCH-WOP-1). Required.
+   * Gateway enforces this value and MUST NOT invent a default.
+   */
+  readonly timeoutMs: number;
 };
 
 export type RealLaunchAck = {

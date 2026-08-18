@@ -8,6 +8,7 @@ import { CreateProject } from "../../application/createProject";
 import { GetCurrentLivingProjectState } from "../../application/getCurrentLivingProjectState";
 import { GetLivingProjectStateVersion } from "../../application/getLivingProjectStateVersion";
 import { GetProject } from "../../application/getProject";
+import { ListProjects } from "../../application/listProjects";
 import type { LivingProjectStateRepositoryPort } from "../../ports/livingProjectStateRepositoryPort";
 import type { ProjectAuditJournalPort } from "../../ports/projectAuditJournalPort";
 import type { ProjectPersistenceUnitOfWorkPort } from "../../ports/projectPersistenceUnitOfWorkPort";
@@ -32,6 +33,7 @@ export type SqliteProductProjectServices = {
   audit: ProjectAuditJournalPort;
   createProject: CreateProject;
   getProject: GetProject;
+  listProjects: ListProjects;
   getCurrentLivingProjectState: GetCurrentLivingProjectState;
   getLivingProjectStateVersion: GetLivingProjectStateVersion;
   appendLivingProjectStateVersion: AppendLivingProjectStateVersion;
@@ -65,6 +67,7 @@ export function createSqliteProductProjectServices(
       store,
     ),
     getProject: new GetProject(projects, clock, audit),
+    listProjects: new ListProjects(projects, clock, audit),
     getCurrentLivingProjectState: new GetCurrentLivingProjectState(
       projects,
       lps,
@@ -120,6 +123,7 @@ export function createTestSqliteProductProjectServices(
       store,
     ),
     getProject: new GetProject(projects, clock, audit),
+    listProjects: new ListProjects(projects, clock, audit),
     getCurrentLivingProjectState: new GetCurrentLivingProjectState(
       projects,
       lps,

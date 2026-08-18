@@ -125,6 +125,16 @@
         "irreversible"
       ]
     },
+    "executionWindowClass": {
+      "type": "string",
+      "enum": [
+        "short",
+        "standard",
+        "long",
+        "extended"
+      ],
+      "description": "Optional governed execution window class (ARCH-WOP-1). Historical contracts omit the field. Bounded M3 successors use standard. Duration is resolved server-side and snapshotted on the Attempt at StartExecution — never a client timeout."
+    },
     "idempotencyKey": {
       "type": "string",
       "minLength": 8

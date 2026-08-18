@@ -15,9 +15,12 @@
  */
 
 import type { ActorReference, ProvenanceRecord } from "@/lib/oa/doctrine";
-import type { AuthorityClass } from "@/lib/oa/execution-contract";
+import type {
+  AuthorityClass,
+  ExecutionWindowClass,
+} from "@/lib/oa/execution-contract";
 
-export type { ActorReference, ProvenanceRecord, AuthorityClass };
+export type { ActorReference, ProvenanceRecord, AuthorityClass, ExecutionWindowClass };
 
 export const EXECUTION_ATTEMPT_SCHEMA_VERSION = "0.2.0-oa" as const;
 export const AGENT_DESCRIPTOR_SCHEMA_VERSION = "0.1.0-oa" as const;
@@ -129,6 +132,12 @@ export type ExecutionAttempt = {
   irreversibleEffectsPossible?: boolean;
   updatedAt?: string;
   launchedAt?: string;
+  /**
+   * Snapshotted at StartExecution (ARCH-WOP-1). Immutable for this Attempt.
+   * Source of ProcessRunner timeoutMs and TriggerAttemptTimeout deadline.
+   */
+  executionWindowClass?: ExecutionWindowClass;
+  resolvedMaxDurationMs?: number;
 };
 
 /**

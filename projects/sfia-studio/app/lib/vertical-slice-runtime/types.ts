@@ -98,6 +98,29 @@ export type GetProjectRuntimeResult =
       readonly disclosures: RuntimeDisclosures;
     };
 
+/** User-facing serializable list row — no SQLite/adapter jargon. */
+export interface RuntimeProjectListItem {
+  readonly projectId: string;
+  readonly title: string;
+  readonly name: string;
+  readonly status: string;
+  readonly objective?: string;
+  readonly context?: string;
+  readonly updatedAt?: string;
+}
+
+export type ListProjectsRuntimeResult =
+  | {
+      readonly ok: true;
+      readonly projects: readonly RuntimeProjectListItem[];
+      readonly disclosures: RuntimeDisclosures;
+    }
+  | {
+      readonly ok: false;
+      readonly error: RuntimeErrorDto;
+      readonly disclosures: RuntimeDisclosures;
+    };
+
 /** @deprecated Prefer LocalProjectCreationView typing via mapping helpers. */
 export type RuntimeProjectView = LocalProjectCreationView;
 

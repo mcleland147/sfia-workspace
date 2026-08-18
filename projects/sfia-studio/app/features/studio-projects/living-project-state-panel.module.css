@@ -1,0 +1,100 @@
+.panel,
+.panelCompact {
+  display: grid;
+  gap: var(--sfia-space-md);
+  padding: var(--sfia-space-lg);
+  background: #fff;
+  border: 1px solid var(--sfia-border-soft);
+  border-radius: var(--sfia-radius-md);
+  box-shadow: var(--sfia-shadow-panel);
+  align-content: start;
+}
+
+.header {
+  display: grid;
+  gap: 6px;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--sfia-blue);
+  font-size: var(--sfia-meta-size-sm);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: var(--sfia-ink);
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.lead,
+.section p,
+.list,
+.facts dd {
+  margin: 0;
+  color: var(--sfia-muted);
+  font-size: 13px;
+  line-height: var(--sfia-line-body);
+}
+
+.section {
+  display: grid;
+  gap: 8px;
+}
+
+.section h3 {
+  margin: 0;
+  color: var(--sfia-ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.list {
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 4px;
+}
+
+.facts {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.facts dt {
+  color: var(--sfia-muted);
+  font-size: 11px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.facts dd {
+  color: var(--sfia-ink);
+}
+
+.code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  word-break: break-all;
+}
+
+.diagnostics {
+  border-top: 1px solid var(--sfia-border-soft);
+  padding-top: var(--sfia-space-sm);
+}
+
+.diagnostics summary {
+  cursor: pointer;
+  color: var(--sfia-muted);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.diagnostics[open] summary {
+  margin-bottom: var(--sfia-space-sm);
+}

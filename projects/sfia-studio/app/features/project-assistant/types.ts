@@ -193,6 +193,30 @@ export type ProjectAssistantPrepareM3Result =
   | ProjectAssistantPrepareM3Success
   | ProjectAssistantPrepareM3Failure;
 
+export type ProjectAssistantPrepareResolvedM3Success = {
+  ok: true;
+  status: "ok";
+  mode: "m3_resolved_fixture";
+  presentation: "unconfirmed";
+  text: string;
+  project: ProjectAssistantContextDto;
+  ephemeralNotice: string;
+  f3: import("./f3/prepareAndResolveM3ProductPath").F3M3ResolvedPayload;
+};
+
+export type ProjectAssistantPrepareResolvedM3Failure = {
+  ok: false;
+  status: "prepare_error" | "stale" | "project_not_found" | "validation_error";
+  code: string;
+  message: string;
+  mode: AssistantUiMode;
+  retryable: boolean;
+};
+
+export type ProjectAssistantPrepareResolvedM3Result =
+  | ProjectAssistantPrepareResolvedM3Success
+  | ProjectAssistantPrepareResolvedM3Failure;
+
 export type ProjectAssistantExecuteF3Success = {
   ok: true;
   status: "ok";

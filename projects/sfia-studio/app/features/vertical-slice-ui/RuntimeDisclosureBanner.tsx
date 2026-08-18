@@ -1,64 +1,39 @@
-import { Card } from "@/components/ui/Card";
-import { StatusPill } from "@/components/ui/StatusPill";
-import {
-  RUNTIME_DISCLOSURES,
-  RUNTIME_READINESS_NOT_READY,
-} from "@/lib/vertical-slice-runtime/disclosures";
-import styles from "./create-project.module.css";
+"use client";
 
 /**
- * Server component: the disclosure contract is read directly from V2-A1.
- * It must remain visible before and after the client form submits.
+ * Compact environment honesty — secondary diagnostics only (G-UX-07).
+ * Not the primary product chrome.
  */
 export function RuntimeDisclosureBanner({
   surface = "create",
 }: {
-  surface?: "create" | "workspace";
+  surface?: "create" | "workspace" | "list";
 } = {}) {
-  const intro =
+  const summary =
     surface === "workspace"
-      ? "Cette interface consulte un Project et son LPS dans le processus Node local uniquement."
-      : "Cette interface crée un Project et son LPS dans le processus Node local uniquement.";
+      ? "Limites de cet environnement"
+      : surface === "list"
+        ? "Environnement local"
+        : "Création locale";
+
+  const body =
+    surface === "workspace"
+      ? "Les faits durables du projet sont relus quand ils existent. Conversation, proposition et confirmation restent process-local et ne sont pas restaurées au rechargement. Aucune exécution réelle n’est autorisée ici."
+      : surface === "list"
+        ? "Cette liste lit les projets enregistrés dans cet environnement. Aucune exécution réelle n’est autorisée ici."
+        : "Le projet est créé localement. Conversation et confirmation restent process-local. Aucune exécution réelle n’est autorisée ici.";
 
   return (
-    <Card variant="flush" className={styles.disclosure}>
-      <div className={styles.disclosureHeader}>
-        <div>
-          <h2>Mode local borné</h2>
-          <p>{intro}</p>
-        </div>
-        <div className={styles.pillGroup} aria-label="Statuts runtime">
-          <StatusPill tone="orangeFlush">
-            {RUNTIME_DISCLOSURES.runtimeMode}
-          </StatusPill>
-          <StatusPill tone="muted">
-            {RUNTIME_DISCLOSURES.persistence}
-          </StatusPill>
-          <StatusPill tone="muted">
-            AGENT {RUNTIME_DISCLOSURES.agentExecution}
-          </StatusPill>
-          <StatusPill tone="orange">
-            {RUNTIME_READINESS_NOT_READY.status}
-          </StatusPill>
-        </div>
-      </div>
-
-      <ul className={styles.disclosureList}>
-        <li>
-          État métier volatil : un redémarrage ou hot reload peut perdre les
-          données.
-        </li>
-        <li>IAM {RUNTIME_DISCLOSURES.iam}.</li>
-        <li>
-          PRODUCT PERSISTENCE {RUNTIME_DISCLOSURES.productPersistence}.
-        </li>
-        <li>DELIVERY {RUNTIME_DISCLOSURES.delivery}.</li>
-        <li>CUTOVER {RUNTIME_DISCLOSURES.cutover}.</li>
-        <li>
-          HARD {RUNTIME_READINESS_NOT_READY.hard} · T-A6{" "}
-          {RUNTIME_READINESS_NOT_READY.tA6} · RUN READY = false.
-        </li>
-      </ul>
-    </Card>
+    <details
+      className="sfia-env-disclosure"
+      data-testid="runtime-disclosure-banner"
+    >
+      <summary data-testid="runtime-disclosure-summary">{summary}</summary>
+      <p data-testid="runtime-disclosure-body">{body}</p>
+      <p className="sfia-env-disclosure-note">
+        Détails techniques (runtime, readiness) disponibles hors parcours
+        principal — le produit reste non revendiqué « prêt production ».
+      </p>
+    </details>
   );
 }

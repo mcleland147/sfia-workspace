@@ -13,6 +13,20 @@ export class SqliteProjectRepository implements ProjectRepositoryPort {
     return structuredClone(JSON.parse(row.payload_json) as Project);
   }
 
+  async listAll(): Promise<Project[]> {
+    const rows = this.store.db
+      .prepare(
+        `SELECT payload_json FROM oa_projects
+         ORDER BY COALESCE(updated_at, created_at) DESC`,
+      )
+      .all() as Array<{ payload_json?: string }>;
+    return rows
+      .filter((row) => typeof row.payload_json === "string")
+      .map((row) =>
+        structuredClone(JSON.parse(row.payload_json as string) as Project),
+      );
+  }
+
   async exists(projectId: string): Promise<boolean> {
     const row = this.store.db
       .prepare("SELECT 1 AS ok FROM oa_projects WHERE project_id = ?")

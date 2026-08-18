@@ -18,6 +18,11 @@ export type TestOnlyRealExecutionLaunchPortOptions = {
    * resolveSimulatedCompletion() — models spawn ACK ≠ process completion.
    */
   readonly holdCompletion?: boolean;
+  /** Terminal exit code used when holdCompletion is false (default 0). */
+  readonly completionExitCode?: number;
+  readonly completionTimedOut?: boolean;
+  readonly completionStdout?: string;
+  readonly completionStderr?: string;
   readonly behavior?:
     | { outcome: "ack"; processRef?: string }
     | {
@@ -51,6 +56,10 @@ export class TestOnlyRealExecutionLaunchPort implements RealExecutionLaunchPort 
     TestOnlyRealExecutionLaunchPortOptions["behavior"]
   >;
   private readonly holdCompletion: boolean;
+  private readonly completionExitCode: number;
+  private readonly completionTimedOut: boolean;
+  private readonly completionStdout: string;
+  private readonly completionStderr: string;
   private readonly observations = new Map<string, RealProcessObservation>();
   private readonly completionResolvers = new Map<
     string,
@@ -66,6 +75,10 @@ export class TestOnlyRealExecutionLaunchPort implements RealExecutionLaunchPort 
     this.gatewayId = options.gatewayId ?? M4_REAL_GATEWAY_ADAPTER_ID;
     this.behavior = options.behavior ?? { outcome: "ack" };
     this.holdCompletion = options.holdCompletion ?? true;
+    this.completionExitCode = options.completionExitCode ?? 0;
+    this.completionTimedOut = options.completionTimedOut ?? false;
+    this.completionStdout = options.completionStdout ?? "";
+    this.completionStderr = options.completionStderr ?? "";
   }
 
   setBehavior(
@@ -128,11 +141,11 @@ export class TestOnlyRealExecutionLaunchPort implements RealExecutionLaunchPort 
     } else {
       const done: RealProcessObservation = {
         processRef,
-        exitCode: 0,
-        timedOut: false,
-        stdout: "",
-        stderr: "",
-        durationMs: 0,
+        exitCode: this.completionTimedOut ? null : this.completionExitCode,
+        timedOut: this.completionTimedOut,
+        stdout: this.completionStdout,
+        stderr: this.completionStderr,
+        durationMs: 1,
         realProcessInvoked: true,
       };
       this.observations.set(processRef, done);

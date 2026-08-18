@@ -7,10 +7,16 @@ import { recordF2Decision } from "./f2/recordDecision";
 import { F2_PROCESS_LOCAL_NOTICE } from "./f2/proposalStore";
 import type { F2DecisionKind } from "./f2/types";
 import { confirmAndExecuteF3Fixture } from "./f3/confirmAndExecuteF3Fixture";
+import { confirmAndExecuteResolvedM3 } from "./f3/confirmAndExecuteResolvedM3";
 import { prepareF3Fixture } from "./f3/prepareF3Fixture";
 import { prepareM3FromDecision } from "./f3/prepareM3FromDecision";
+import { prepareAndResolveM3ProductPath } from "./f3/prepareAndResolveM3ProductPath";
 import { rehydrateEvidenceOutcomeFromLps } from "./f3/rehydrateEvidenceOutcomeFromLps";
 import { resolveF3EphemeralNotice } from "./f3/constants";
+import {
+  executionSemanticUserLabel,
+  resolvePersistenceNotice,
+} from "./presentationLabels";
 import type {
   AssistantHistoryMessage,
   ProjectAssistantContextDto,
@@ -18,6 +24,7 @@ import type {
   ProjectAssistantExecuteF3Result,
   ProjectAssistantPrepareF3Result,
   ProjectAssistantPrepareM3Result,
+  ProjectAssistantPrepareResolvedM3Result,
   ProjectAssistantRehydrateEvidenceOutcomeResult,
   ProjectAssistantSendResult,
 } from "./types";
@@ -387,6 +394,108 @@ export async function projectAssistantPrepareM3Action(input: {
   };
 }
 
+/**
+ * Canonical post-GO product path:
+ * prepareM3FromDecision → resolveM3ExecutionContract (fixture-safe ZERO REAL).
+ * Returns the resolved successor for explicit Confirmation. No StartExecution.
+ */
+export async function projectAssistantPrepareResolvedM3Action(input: {
+  projectId: string;
+  decisionId: string;
+  /** Hostile — ignored. */
+  mode?: unknown;
+  adapterRef?: unknown;
+  agentId?: unknown;
+  command?: unknown;
+  real?: unknown;
+  selectedAgentRef?: unknown;
+  canActAsMorris?: unknown;
+  claimedAuthorityLevel?: unknown;
+}): Promise<ProjectAssistantPrepareResolvedM3Result> {
+  void input.mode;
+  void input.adapterRef;
+  void input.agentId;
+  void input.command;
+  void input.real;
+  void input.selectedAgentRef;
+  void input.canActAsMorris;
+  void input.claimedAuthorityLevel;
+
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "prepare_error",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA indisponibles pour M3 PREPARE+RESOLVE.",
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+
+  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
+  if (!projectResult.ok) {
+    return {
+      ok: false,
+      status: "project_not_found",
+      code: projectResult.error.code,
+      message: projectResult.error.message,
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+  const project = toContextDto(projectResult);
+
+  const prepared = await prepareAndResolveM3ProductPath({
+    projectId: input.projectId,
+    decisionId: input.decisionId,
+    currentContext: {
+      projectId: project.projectId,
+      lpsId: project.lpsId,
+      lpsVersion: project.lpsVersion,
+      doctrineDigest: project.doctrineDigest,
+      activeCycleInstanceId: project.activeCycleInstanceId,
+      ckcResolutionRef: project.ckcResolutionRef,
+    },
+    deps: {
+      decisionServices: runtime.oa.decisionServices,
+      authorityResolver: runtime.oa.authorityResolver,
+      executionContractServices: runtime.oa.executionContractServices,
+      nowIso: () => runtime.oa!.clock.nowIso(),
+    },
+  });
+
+  if (!prepared.ok) {
+    return {
+      ok: false,
+      status: prepared.code === "CONTEXT_STALE" ? "stale" : "prepare_error",
+      code: prepared.code,
+      message: prepared.message,
+      mode: "fixture",
+      retryable: prepared.code === "CONTEXT_STALE",
+    };
+  }
+
+  const f3 = prepared.payload;
+  return {
+    ok: true,
+    status: "ok",
+    mode: "m3_resolved_fixture",
+    presentation: "unconfirmed",
+    text: [
+      "Contrat d'exécution prêt à confirmer",
+      `Successeur ${f3.successor.executionContractId} v${f3.successor.version} (${f3.successor.status})`,
+      `Action ${f3.successor.action} · cible ${f3.successor.target}`,
+      "Confirmation process-local requise — aucune tentative démarrée",
+      "AUCUNE EXÉCUTION RÉELLE",
+    ].join(" — "),
+    project,
+    ephemeralNotice:
+      "Contrat durable résolu (HumanDecision + DecisionBasis). Confirmation process-local. Cursor REAL bloqué.",
+    f3,
+  };
+}
+
 type ProjectAssistantPrepareF3FailureProposal =
   import("./f2/types").ProposalDto | null;
 
@@ -520,6 +629,147 @@ export async function projectAssistantConfirmAndExecuteF3FixtureAction(input: {
 }
 
 /**
+ * Canonical post-GO confirm + fixture-safe execute on resolved M3 successor.
+ * No Proposal validation. Confirmation is process-local (not persisted as authority).
+ */
+export async function projectAssistantConfirmAndExecuteResolvedM3Action(input: {
+  projectId: string;
+  decisionId: string;
+  executionContractId: string;
+  expectedContractVersion: number;
+  /** Hostile — ignored. */
+  mode?: unknown;
+  adapterRef?: unknown;
+  agentId?: unknown;
+  command?: unknown;
+  real?: unknown;
+  selectedAgentRef?: unknown;
+  executionMode?: unknown;
+  trustLevel?: unknown;
+  authorityEvidenceId?: unknown;
+  canActAsMorris?: unknown;
+  claimedAuthorityLevel?: unknown;
+}): Promise<ProjectAssistantExecuteF3Result> {
+  void input.mode;
+  void input.adapterRef;
+  void input.agentId;
+  void input.command;
+  void input.real;
+  void input.selectedAgentRef;
+  void input.executionMode;
+  void input.trustLevel;
+  void input.authorityEvidenceId;
+  void input.canActAsMorris;
+  void input.claimedAuthorityLevel;
+
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "execute_error",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA indisponibles pour M3 EXECUTE.",
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+
+  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
+  if (!projectResult.ok) {
+    return {
+      ok: false,
+      status: "project_not_found",
+      code: projectResult.error.code,
+      message: projectResult.error.message,
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+  const project = toContextDto(projectResult);
+
+  const executed = await confirmAndExecuteResolvedM3({
+    projectId: input.projectId,
+    decisionId: input.decisionId,
+    executionContractId: input.executionContractId,
+    expectedContractVersion: input.expectedContractVersion,
+    mode: input.mode,
+    adapterRef: input.adapterRef,
+    agentId: input.agentId,
+    command: input.command,
+    real: input.real,
+    deps: {
+      decisionServices: runtime.oa.decisionServices,
+      authorityResolver: runtime.oa.authorityResolver,
+      executionContractServices: runtime.oa.executionContractServices,
+      executionAttemptServices: runtime.oa.executionAttemptServices,
+      evidenceReviewServices: runtime.oa.evidenceReviewServices,
+      fixtureAdapter: runtime.oa.fixtureAdapter,
+      projectServices: runtime.oa.projectServices,
+      productDurablePath: runtime.oa.productDurablePath,
+      nowIso: () => runtime.oa!.clock.nowIso(),
+    },
+  });
+
+  if (!executed.ok) {
+    return {
+      ok: false,
+      status: "execute_error",
+      code: executed.code,
+      message: executed.message,
+      mode: "fixture",
+      retryable: false,
+    };
+  }
+
+  const f3 = executed.payload;
+  const persistenceNotice = resolvePersistenceNotice({
+    productDurablePath: runtime.oa.productDurablePath,
+    mode: f3.mode,
+    kind: "execute",
+  });
+  const semantic = executionSemanticUserLabel({
+    mode: f3.mode,
+    payloadMode: f3.mode,
+    executionMode: f3.attempt.executionMode,
+    adapterId: f3.attempt.adapterId,
+    adapterRef: f3.attempt.adapterRef,
+    realProcessInvoked: f3.attempt.realProcessInvoked,
+    realExecution: f3.realExecution,
+    processRef: f3.attempt.processRef,
+    evidenceId: f3.evidence.evidenceId,
+  });
+  const isCursorReal = f3.mode === "CURSOR_CLI_REAL";
+  return {
+    ok: true,
+    status: "ok",
+    mode: "fixture",
+    presentation: "unconfirmed",
+    text: [
+      isCursorReal
+        ? f3.reusedExistingAttempt
+          ? "M3 EXÉCUTION CURSOR — MÊME TENTATIVE"
+          : "M3 EXÉCUTION CURSOR ENREGISTRÉE"
+        : f3.reusedExistingAttempt
+          ? "M3 FIXTURE DÉJÀ EXÉCUTÉE (idempotent)"
+          : "M3 FIXTURE EXÉCUTÉE",
+      `Attempt ${f3.attempt.attemptId} · ${f3.attempt.status}`,
+      `Evidence ${f3.evidence.evidenceId} · non verified`,
+      `ReviewBundle ${f3.reviewBundle.reviewBundleId}`,
+      "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
+      semantic,
+      isCursorReal ? null : "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
+      isCursorReal ? null : "CURSOR REAL BLOQUÉ",
+      persistenceNotice,
+    ]
+      .filter((part): part is string => Boolean(part))
+      .join(" — "),
+    project,
+    ephemeralNotice: persistenceNotice,
+    f3,
+  };
+}
+
+/**
  * M5 durable Nora/F3 readback — LPS evidence/RB refs → RecommendNextGate.
  * Strictly read-only: no Decision, no gate consume, no Attempt launch.
  */
@@ -571,9 +821,11 @@ export async function projectAssistantRehydrateEvidenceOutcomeAction(input: {
     };
   }
 
-  const persistenceNotice = resolveF3EphemeralNotice(
-    runtime.oa.productDurablePath,
-  );
+  const persistenceNotice = resolvePersistenceNotice({
+    productDurablePath: runtime.oa.productDurablePath,
+    mode: rehydrated.recommendation.mode,
+    kind: "rehydrate",
+  });
   return {
     ok: true,
     status: "ok",

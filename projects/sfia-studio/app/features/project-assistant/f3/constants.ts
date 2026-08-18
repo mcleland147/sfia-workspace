@@ -63,6 +63,16 @@ export const F3_PRODUCT_DURABLE_NOTICE =
   "F3 fixture execution — Attempt, Evidence, ReviewBundle and LPS evidence links are persisted in Product SQLite. REAL execution remains disabled. Recommendation is not a Morris decision.";
 
 /**
+ * Durable read after a bounded Attempt whose REAL vs deterministic provenance
+ * is no longer discriminable from LPS facts. Fail-closed: never claim REAL.
+ */
+export const F3_PRODUCT_DURABLE_BOUNDED_NOTICE =
+  "Lecture durable du résultat — aucune nouvelle exécution. Un résultat d'exécution borné a été enregistré. La recommandation n'est pas une décision Morris.";
+
+export const F3_SESSION_CURSOR_REAL_NOTICE =
+  "Exécution Cursor réelle enregistrée. La recommandation n'est pas une décision Morris." as const;
+
+/**
  * Route F3 ephemeral disclosure by OA composition persistence, not by
  * execution mode (fixture vs REAL).
  */

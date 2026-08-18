@@ -7,14 +7,16 @@ export type StudioRoute =
 /**
  * Shell-level routes include the real Studio namespace while preserving the
  * legacy POC union consumed exhaustively by vertical-slice/mapping.ts.
- * Dynamic project workspace routes are typed but not added to the rail.
  */
 export type StudioProjectWorkspaceRoute = `/studio/projects/${string}`;
 
 export type StudioShellRoute =
   | StudioRoute
+  | "/studio"
   | "/studio/projects/new"
   | StudioProjectWorkspaceRoute;
+
+export type NavTier = "primary" | "historical";
 
 export function isStudioProjectWorkspaceRoute(
   route: StudioShellRoute,
@@ -30,6 +32,10 @@ export interface NavItem {
   label: string;
   railIcon: string;
   railKey: "home" | "plus" | "grid" | "diamond" | "project" | "gear";
+  /** Primary product nav vs demoted historical/secondary surfaces. */
+  tier: NavTier;
+  /** aria/title hint for historical links */
+  historicalHint?: string;
 }
 
 export interface TabItem {
@@ -42,41 +48,66 @@ export interface TabItem {
 
 export const STUDIO_ROUTES: NavItem[] = [
   {
+    id: "studio-projects",
+    route: "/studio",
+    label: "Projets",
+    railIcon: "⌂",
+    railKey: "home",
+    tier: "primary",
+  },
+  {
+    id: "studio-create-project",
+    route: "/studio/projects/new",
+    label: "Nouveau projet",
+    railIcon: "＋",
+    railKey: "plus",
+    tier: "primary",
+  },
+  {
     id: "synthese",
     route: "/synthese",
     label: "Vue synthèse",
-    railIcon: "⌂",
-    railKey: "home",
+    railIcon: "◫",
+    railKey: "grid",
+    tier: "historical",
+    historicalHint: "Historique — POC synthèse",
   },
   {
     id: "nouvelle-demande",
     route: "/nouvelle-demande",
     label: "Nouvelle demande",
-    railIcon: "＋",
-    railKey: "plus",
-  },
-  {
-    id: "studio-create-project",
-    route: "/studio/projects/new",
-    label: "Créer un projet Studio",
-    railIcon: "◆",
-    railKey: "project",
+    railIcon: "◇",
+    railKey: "diamond",
+    tier: "historical",
+    historicalHint: "Historique — POC nouvelle demande",
   },
   {
     id: "cycle-actif",
     route: "/cycle-actif",
     label: "Cycle actif",
-    railIcon: "◫",
-    railKey: "grid",
+    railIcon: "◎",
+    railKey: "gear",
+    tier: "historical",
+    historicalHint: "Historique — POC cycle actif",
   },
   {
     id: "decision",
     route: "/decision",
     label: "Décision Morris",
-    railIcon: "◇",
-    railKey: "diamond",
+    railIcon: "◆",
+    railKey: "project",
+    tier: "historical",
+    historicalHint: "Historique — POC décision",
   },
 ];
+
+export const STUDIO_PRIMARY_ROUTES = STUDIO_ROUTES.filter(
+  (item) => item.tier === "primary",
+);
+
+export const STUDIO_HISTORICAL_ROUTES = STUDIO_ROUTES.filter(
+  (item) => item.tier === "historical",
+);
 
 export const FLUSH_TABS: TabItem[] = [
   { id: "synthese", route: "/synthese", label: "Synthèse" },
@@ -101,5 +132,20 @@ export function isActiveRoute(
   activeRoute: StudioShellRoute,
   route: StudioShellRoute,
 ): boolean {
+  if (route === "/studio") {
+    return activeRoute === "/studio";
+  }
   return activeRoute === route;
+}
+
+export function currentProjectIdFromRoute(
+  activeRoute: StudioShellRoute,
+): string | null {
+  if (!isStudioProjectWorkspaceRoute(activeRoute)) return null;
+  const encoded = activeRoute.slice("/studio/projects/".length);
+  try {
+    return decodeURIComponent(encoded);
+  } catch {
+    return encoded;
+  }
 }

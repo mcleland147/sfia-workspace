@@ -9,6 +9,10 @@ import type {
   Ta4ExecutionContractStatus,
   Ta5ExecutionContractStatus,
 } from "./types";
+import {
+  isExecutionWindowClass,
+  type ExecutionWindowClass,
+} from "./executionWindowPolicy";
 
 /** Modeled identifier pattern (common/identifier.schema.json). */
 export const OA_IDENTIFIER_PATTERN =
@@ -259,6 +263,7 @@ export function validateBuildFields(input: {
   stopConditions: string[];
   evidenceRequirements: string[];
   reversibility: Reversibility;
+  executionWindowClass?: ExecutionWindowClass;
   idempotencyKey: string;
   correlationId: string;
   status: "draft" | "proposed";
@@ -329,6 +334,15 @@ export function validateBuildFields(input: {
     return {
       detailCode: "CONTRACT_INVALID",
       reason: "reversibility_invalid",
+    };
+  }
+  if (
+    input.executionWindowClass !== undefined &&
+    !isExecutionWindowClass(input.executionWindowClass)
+  ) {
+    return {
+      detailCode: "CONTRACT_INVALID",
+      reason: "execution_window_class_invalid",
     };
   }
   if (
@@ -436,6 +450,7 @@ export function contractIdempotencyFingerprint(input: {
   evidenceRequirements: string[];
   reversibility: Reversibility;
   status: "draft" | "proposed" | string;
+  executionWindowClass?: ExecutionWindowClass;
 }): string {
   const stableJoin = (values: string[]) => [...values].sort().join(",");
   return [
@@ -451,5 +466,6 @@ export function contractIdempotencyFingerprint(input: {
     stableJoin(input.evidenceRequirements),
     input.reversibility,
     input.status,
+    input.executionWindowClass ?? "",
   ].join("|");
 }

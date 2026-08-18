@@ -47,8 +47,8 @@ export class TestExecutionAdapter implements ExecutionAdapterPort {
 
   private readonly launchFixtures: Record<string, ScriptedLaunchOutcome>;
   private readonly cancelFixtures: Record<string, ScriptedCancelOutcome>;
-  private readonly defaultLaunch: ScriptedLaunchOutcome;
-  private readonly defaultCancel: ScriptedCancelOutcome;
+  private defaultLaunch: ScriptedLaunchOutcome;
+  private defaultCancel: ScriptedCancelOutcome;
   private readonly spoofAdapterIdOnAck: string | undefined;
   private readonly launched = new Map<string, LaunchResult>();
   private readonly cancelled = new Map<string, CancelResult>();
@@ -68,6 +68,19 @@ export class TestExecutionAdapter implements ExecutionAdapterPort {
 
   get cancelCallCount(): number {
     return this.calls.filter((call) => call.kind === "cancel").length;
+  }
+
+  /**
+   * E2E/QA scripting only — mutate default launch outcome for subsequent attempts.
+   * Does not change adapter identity or externalEffects.
+   */
+  queueDefaultLaunch(outcome: ScriptedLaunchOutcome): void {
+    this.defaultLaunch = outcome;
+  }
+
+  /** E2E/QA scripting only — mutate default cancel outcome. */
+  queueDefaultCancel(outcome: ScriptedCancelOutcome): void {
+    this.defaultCancel = outcome;
   }
 
   async launch(request: LaunchRequest): Promise<LaunchResult> {

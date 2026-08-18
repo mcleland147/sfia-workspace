@@ -117,27 +117,21 @@ function ProjectCreationResult({
     <Card variant="flush" className={styles.resultCard}>
       <div className={styles.resultHeader}>
         <div>
-          <h2>Projet créé localement</h2>
+          <h2>Projet créé</h2>
           <p className={styles.resultHint}>
-            Projection réelle du core V1 — aucune fixture et aucune
-            persistance produit.
+            Le projet est disponible dans ce processus. Vous pouvez ouvrir
+            l&apos;espace de conversation.
           </p>
         </div>
         <div className={styles.pillGroup}>
-          <StatusPill tone="green">REAL_LOCAL_CORE</StatusPill>
-          <StatusPill tone="orange">
-            {result.readiness.status}
-          </StatusPill>
+          <StatusPill tone="green">Créé</StatusPill>
+          <StatusPill tone="blueFlush">Prêt pour Nora</StatusPill>
         </div>
       </div>
 
       <section className={styles.resultSection} aria-labelledby="project-data">
-        <h3 id="project-data">Project</h3>
+        <h3 id="project-data">Projet</h3>
         <dl className={styles.definitionGrid}>
-          <div className={styles.definitionItem}>
-            <dt>Project ID</dt>
-            <dd className={styles.valueCode}>{result.projectId}</dd>
-          </div>
           <div className={styles.definitionItem}>
             <dt>Nom</dt>
             <dd>{result.project.name}</dd>
@@ -160,14 +154,6 @@ function ProjectCreationResult({
             <dt>Contexte résumé</dt>
             <dd>{result.project.contextSummary}</dd>
           </div>
-          <div className={styles.definitionItem}>
-            <dt>Source</dt>
-            <dd>{result.project.source}</dd>
-          </div>
-          <div className={styles.definitionItem}>
-            <dt>Fixture</dt>
-            <dd>{String(result.project.fixture)}</dd>
-          </div>
         </dl>
         {result.project.constraints.length > 0 ? (
           <ul className={styles.constraintList} aria-label="Contraintes">
@@ -178,6 +164,19 @@ function ProjectCreationResult({
         ) : (
           <p className={styles.empty}>Aucune contrainte principale.</p>
         )}
+        <details className={styles.diagnosticsDetails}>
+          <summary>Diagnostics techniques</summary>
+          <dl className={styles.definitionGrid}>
+            <div className={styles.definitionItem}>
+              <dt>Identifiant</dt>
+              <dd className={styles.valueCode}>{result.projectId}</dd>
+            </div>
+            <div className={styles.definitionItem}>
+              <dt>Source technique</dt>
+              <dd>{result.project.source}</dd>
+            </div>
+          </dl>
+        </details>
       </section>
 
       <section className={styles.resultSection} aria-labelledby="doctrine-data">

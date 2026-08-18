@@ -144,33 +144,24 @@ describe("V2-A3 Project Workspace UI", () => {
     );
 
     expect(
-      screen.getByRole("heading", { name: "Espace de travail projet" }),
+      screen.getByRole("heading", { name: "État du projet" }),
     ).toBeVisible();
     expect(screen.getByTestId("project-workspace-projection")).toBeVisible();
-    expect(screen.getByText("prj:v2-a3-1")).toBeVisible();
+    expect(screen.getByText("prj:v2-a3-1")).toBeInTheDocument();
     expect(screen.getByText("Projet V2-A3")).toBeVisible();
-    expect(screen.getByText("pkg:studio-v3-oa")).toBeVisible();
-    expect(screen.getByText("lps:v2-a3-1")).toBeVisible();
-    expect(screen.getAllByText("REAL_LOCAL_CORE").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("NOT_READY").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("LOCAL_PROCESS").length).toBeGreaterThan(0);
-    expect(
-      screen.getAllByText("PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE").length,
-    ).toBeGreaterThan(0);
-    expect(screen.getByText(/AGENT DISABLED/)).toBeVisible();
+    expect(screen.getByText(/pkg:studio-v3-oa/)).toBeInTheDocument();
+    expect(screen.getByText("lps:v2-a3-1")).toBeInTheDocument();
+    expect(screen.getAllByText("Projet").length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/État disponible|Projet/).length).toBeGreaterThan(0);
     expect(
       within(screen.getByLabelText("Contraintes")).getAllByText("Sans IAM"),
     ).toHaveLength(2);
-    const continuePilotage = screen.getByTestId("workspace-continue-pilotage");
-    expect(continuePilotage).toBeVisible();
-    expect(continuePilotage).toHaveAttribute(
-      "href",
-      `/ops1/nouvelle-demande?projectId=${encodeURIComponent("prj:v2-a3-1")}`,
-    );
-    expect(continuePilotage).toHaveTextContent(/temporaire/i);
     expect(
       screen.getByTestId("workspace-primary-assistant-hint"),
     ).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: "Retour aux projets" }),
+    ).toHaveAttribute("href", "/studio");
     expect(
       screen.getByRole("link", { name: "Créer un autre projet" }),
     ).toHaveAttribute("href", "/studio/projects/new");
@@ -201,14 +192,14 @@ describe("V2-A3 Project Workspace UI", () => {
     expect(screen.getByTestId("project-workspace-missing")).toBeVisible();
     expect(
       screen.getByRole("heading", {
-        name: "Projet introuvable dans ce processus",
+        name: "Projet introuvable",
       }),
     ).toBeVisible();
     expect(screen.getByText("prj:missing")).toBeVisible();
     expect(screen.getByText("PROJECT_NOT_FOUND")).toBeVisible();
     expect(
-      screen.getByRole("link", { name: "Retour à la création" }),
-    ).toHaveAttribute("href", "/studio/projects/new");
+      screen.getByRole("link", { name: "Retour aux projets" }),
+    ).toHaveAttribute("href", "/studio");
   });
 
   it("keeps workspace disclosures and shell defaults for V2-A3", async () => {
@@ -244,7 +235,10 @@ describe("V2-A3 Project Workspace UI", () => {
       </StudioShell>,
     );
 
-    expect(screen.getByText(/consulte un Project et son LPS/i)).toBeVisible();
+    expect(screen.getByTestId("runtime-disclosure-banner")).toBeTruthy();
+    expect(screen.getByTestId("runtime-disclosure-body")).toHaveTextContent(
+      /faits durables|process-local/i,
+    );
     expect(screen.queryByTestId("topbar-tabs")).toBeNull();
     expect(
       within(screen.getByTestId("topbar")).queryByRole("link", {

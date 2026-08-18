@@ -41,6 +41,7 @@ type BuildSnapshot = {
   scope: string;
   requiredAuthority: AuthorityClass;
   reversibility: Reversibility;
+  executionWindowClass: BuildExecutionContractRequest["executionWindowClass"];
   idempotencyKey: string;
   correlationId: string;
   status: "draft" | "proposed";
@@ -144,6 +145,7 @@ export class BuildExecutionContract {
         scope: request.scope,
         requiredAuthority: request.requiredAuthority,
         reversibility: request.reversibility,
+        executionWindowClass: request.executionWindowClass,
         idempotencyKey: request.idempotencyKey,
         correlationId,
         status: request.status ?? "draft",
@@ -170,6 +172,7 @@ export class BuildExecutionContract {
         stopConditions: cloned.stopConditions,
         evidenceRequirements: cloned.evidenceRequirements,
         reversibility: snap.reversibility,
+        executionWindowClass: snap.executionWindowClass,
         idempotencyKey: snap.idempotencyKey,
         correlationId: snap.correlationId,
         status: snap.status,
@@ -201,6 +204,7 @@ export class BuildExecutionContract {
           stopConditions: cloned.stopConditions,
           evidenceRequirements: cloned.evidenceRequirements,
           reversibility: snap.reversibility,
+          executionWindowClass: snap.executionWindowClass,
           status: snap.status,
         });
         const existingFp = contractIdempotencyFingerprint({
@@ -215,6 +219,7 @@ export class BuildExecutionContract {
           stopConditions: byIdem.stopConditions,
           evidenceRequirements: byIdem.evidenceRequirements,
           reversibility: byIdem.reversibility,
+          executionWindowClass: byIdem.executionWindowClass,
           status: byIdem.status,
         });
         if (fp === existingFp) {
@@ -338,6 +343,9 @@ export class BuildExecutionContract {
         stopConditions: cloned.stopConditions,
         evidenceRequirements: cloned.evidenceRequirements,
         reversibility: snap.reversibility,
+        ...(snap.executionWindowClass
+          ? { executionWindowClass: snap.executionWindowClass }
+          : {}),
         idempotencyKey: snap.idempotencyKey,
         correlationId: snap.correlationId,
         status: snap.status,
