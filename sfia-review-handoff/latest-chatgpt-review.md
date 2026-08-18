@@ -1,321 +1,307 @@
-# ChatGPT Review Pack — FULL — PRE-M6 CANDIDATE PR READINESS
+# ChatGPT Review Pack — FULL — PRE-M6-F7 MICRO-CORRECTION
 
 ## Meta
 
-| Champ | Valeur |
-|-------|--------|
-| Timestamp Europe/Paris | 2026-08-18 10:18:00 CEST (+0200) |
-| GO Morris consomme | GO MORRIS — CONSOLIDATE CURRENT SFIA STUDIO PRE-M6 CANDIDATE — PR READINESS — ONE COHERENT PROJECT COMMIT — PUSH PROJECT BRANCH — OPEN DRAFT PR — NO MERGE — NO BRANCH DELETE |
-| Cycle / profil / typologie | Cycle 13 — PR readiness / controlled integration · Critical · EVOL |
-| Repo | mcleland147/sfia-workspace |
-| Branche candidate | delivery/sfia-studio-pre-m6-ui-option-a |
-| HEAD local | 0d33478566627a9bf507d5a06323962d349308ee |
-| origin/main | a3ac418f3bc2ebb006cbc58f902f13629871014d |
-| merge-base HEAD↔origin/main | 0d33478566627a9bf507d5a06323962d349308ee |
-| origin/sfia/review-handoff pre | c225ae0f96ac1117fb5288480066b48c7e3dbd0e |
-| staged initial | empty |
-| dirty versioned scope | 69 modified tracked + 31 untracked project paths |
-| dirty temp/local scope | .tmp-sfia-review/** extensive, excluded from commit |
-| project git actions | no commit · no push · no PR · no merge |
+- Timestamp Europe/Paris: 2026-08-18 10:31:06 CEST (+0200)
+- GO Morris consommé: GO MORRIS — MICRO-CORRECTIF DELIVERY PRE-M6-F7 — EVIDENCE / REVIEWBUNDLE HAPPY-PATH VISIBILITY COHERENCE — ZERO REAL
+- Cycle / profil / typologie: Cycle 8 — Delivery / implémentation · Critical · INC
+- Branche: `delivery/sfia-studio-pre-m6-ui-option-a`
+- HEAD: `0d33478566627a9bf507d5a06323962d349308ee`
+- origin/main: `a3ac418f3bc2ebb006cbc58f902f13629871014d`
+- origin/sfia/review-handoff (pre-publish cycle): `b360c9fbbf960d67a73e99a3af9d15dc0fb56f92`
+- Project git actions: NONE (no add/commit/push/PR/merge)
 
-## Git Truth Check
+## Git PRE (truth check)
 
-- Branch check: PASS — `delivery/sfia-studio-pre-m6-ui-option-a`
-- HEAD provenance check: PASS — still at expected `0d33478566627a9bf507d5a06323962d349308ee`
-- Staged-at-start check: PASS — empty
-- origin/main drift since prior handoff: YES — branch is behind by 2 commits:
-  - `085828e` `docs(sfia): add fake-real fidelity and progressive proof`
-  - `a3ac418` merge PR #360
-- Handoff drift since prior expected commit/blob: YES — remote handoff advanced to `c225ae0f96ac1117fb5288480066b48c7e3dbd0e`
-- New local project commits since expected HEAD: NONE
+- Date check executed: 2026-08-18 10:26:51 CEST (+0200)
+- Expected branch: PASS
+- Expected HEAD: PASS
+- Staged initial: EMPTY (PASS)
+- Historical dirty tree preserved (no reset/clean/stash/rebase)
 
-## DIRTY_SCOPE_MATRIX
+## EVIDENCE_VISIBILITY_TRUTH_MAP
 
-### A. PRE-M6 PRODUCT UI / PRESENTATION — intended
-Shared reason: new `/studio` product entry, product shell, conversation-first project principal, history/LPS/recovery surfaces, and related presentation CSS.
+| Surface / donnée | Runtime durable existe | Transmise client | Rendue DOM | Visible user sans détails techniques | Nature | Visibilité attendue produit actuel | Assertion E2E historique valide ? | Correction minimale |
+|---|---|---|---|---|---|---|---|---|
+| `f3-result-user-summary` | Oui | Oui | Oui | Oui | User-facing | Doit être visible après SUCCESS | Partielle (non testée explicitement) | Ajouter assertion visible + succès |
+| `f3-evidence-user-summary` | Oui (evidence status) | Oui | Oui | Oui | User-facing | Doit être visible après SUCCESS | Non (E2E testait ID technique) | Remplacer assertion par résumé preuve visible |
+| `f3-review-bundle-user-summary` | Oui | Oui | Oui | Oui | User-facing | Doit être visible après SUCCESS | Non (E2E testait ID technique) | Remplacer assertion par résumé dossier visible |
+| `f3-recommendation-card` | Oui | Oui | Oui | Oui | User-facing | Doit rester visible + non décision Morris | Oui | Conserver assertion existante |
+| `f3-evidence-id` (dans `<details>`) | Oui | Oui | Oui | Non (collapsed/hidden par défaut) | Technique | Secondaire, non primaire | Non | Vérifier `hidden` (contractuel) au lieu de `visible` |
+| `f3-review-bundle-id` (dans `<details>`) | Oui | Oui | Oui | Non (collapsed/hidden par défaut) | Technique | Secondaire, non primaire | Non | Vérifier `hidden` (contractuel) au lieu de `visible` |
 
-- `M` `projects/sfia-studio/app/app/globals.css`
-- `M` `projects/sfia-studio/app/app/studio/projects/[id]/page.tsx`
-- `M` `projects/sfia-studio/app/app/studio/projects/new/page.tsx`
-- `M` `projects/sfia-studio/app/components/shell/StudioShell.tsx`
-- `M` `projects/sfia-studio/app/components/shell/UtilityRail.tsx`
-- `M` `projects/sfia-studio/app/components/shell/utility-rail.module.css`
-- `M` `projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx`
-- `M` `projects/sfia-studio/app/features/project-assistant/project-assistant.module.css`
-- `M` `projects/sfia-studio/app/features/vertical-slice-ui/CreateProjectForm.tsx`
-- `M` `projects/sfia-studio/app/features/vertical-slice-ui/ProjectWorkspaceView.tsx`
-- `M` `projects/sfia-studio/app/features/vertical-slice-ui/RuntimeDisclosureBanner.tsx`
-- `M` `projects/sfia-studio/app/features/vertical-slice-ui/create-project.module.css`
-- `M` `projects/sfia-studio/app/features/vertical-slice-ui/project-workspace.module.css`
-- `M` `projects/sfia-studio/app/styles/shell.module.css`
-- `M` `projects/sfia-studio/app/styles/tokens.css`
-- `A` `projects/sfia-studio/app/app/studio/page.tsx`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/README.md`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.module.css`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.tsx`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.module.css`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.tsx`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/index.ts`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.module.css`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.tsx`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LpsSurface.module.css`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LpsSurface.tsx`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/RecoverySurface.module.css`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/RecoverySurface.tsx`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/types.ts`
-- `A` `projects/sfia-studio/app/features/studio-projects/LivingProjectStatePanel.tsx`
-- `A` `projects/sfia-studio/app/features/studio-projects/ProjectHistoryPanel.tsx`
-- `A` `projects/sfia-studio/app/features/studio-projects/ProjectPrincipalClient.tsx`
-- `A` `projects/sfia-studio/app/features/studio-projects/ProjectRecoveryBanner.tsx`
-- `A` `projects/sfia-studio/app/features/studio-projects/StudioProjectsHome.tsx`
-- `A` `projects/sfia-studio/app/features/studio-projects/index.ts`
-- `A` `projects/sfia-studio/app/features/studio-projects/living-project-state-panel.module.css`
-- `A` `projects/sfia-studio/app/features/studio-projects/project-history-panel.module.css`
-- `A` `projects/sfia-studio/app/features/studio-projects/project-principal.module.css`
-- `A` `projects/sfia-studio/app/features/studio-projects/project-recovery-banner.module.css`
-- `A` `projects/sfia-studio/app/features/studio-projects/studio-projects-home.module.css`
 
-### B. PRE-M6 PRODUCT APPLICATION WIRING — intended
-Shared reason: route/navigation, product create/open/list actions, F3 wiring from GO/prepare/confirm to attempt/evidence/recommendation, history/recovery hooks.
+### Questions A/B/C
 
-- `M` `projects/sfia-studio/app/features/project-assistant/actions.ts`
-- `M` `projects/sfia-studio/app/features/project-assistant/f3/appendEvidenceOutcomeToLps.ts`
-- `M` `projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts`
-- `M` `projects/sfia-studio/app/features/project-assistant/f3/constants.ts`
-- `M` `projects/sfia-studio/app/features/project-assistant/f3/index.ts`
-- `M` `projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts`
-- `M` `projects/sfia-studio/app/features/project-assistant/f3/rehydrateEvidenceOutcomeFromLps.ts`
-- `M` `projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts`
-- `M` `projects/sfia-studio/app/features/project-assistant/f3/types.ts`
-- `M` `projects/sfia-studio/app/features/project-assistant/types.ts`
-- `M` `projects/sfia-studio/app/lib/navigation.ts`
-- `M` `projects/sfia-studio/app/lib/vertical-slice-runtime/actions.ts`
-- `M` `projects/sfia-studio/app/lib/vertical-slice-runtime/index.ts`
-- `M` `projects/sfia-studio/app/lib/vertical-slice-runtime/mapping.ts`
-- `M` `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
-- `M` `projects/sfia-studio/app/lib/vertical-slice-runtime/types.ts`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts`
-- `A` `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useRunningAttemptO3Observation.ts`
-- `A` `projects/sfia-studio/app/features/project-assistant/f3/boundedReadOnlyM3ResolutionProfile.ts`
-- `A` `projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts`
-- `A` `projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteResolvedM3.ts`
-- `A` `projects/sfia-studio/app/features/project-assistant/f3/deriveAttemptProvenance.ts`
-- `A` `projects/sfia-studio/app/features/project-assistant/f3/e2eOptionATerminalAttempt.ts`
-- `A` `projects/sfia-studio/app/features/project-assistant/f3/executeConfirmedBoundedReadOnlyContract.ts`
-- `A` `projects/sfia-studio/app/features/project-assistant/f3/executeConfirmedFixtureSafeContract.ts`
-- `A` `projects/sfia-studio/app/features/project-assistant/f3/fixtureSafeM3ResolutionProfile.ts`
-- `A` `projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts`
-- `A` `projects/sfia-studio/app/features/project-assistant/f3/prepareAndResolveM3ProductPath.ts`
-- `A` `projects/sfia-studio/app/features/project-assistant/f3/selectProductM3ResolutionProfile.ts`
-- `A` `projects/sfia-studio/app/features/project-assistant/f3/validateResolvedM3ExecutionBoundary.ts`
-- `A` `projects/sfia-studio/app/lib/oa/project/application/listProjects.ts`
+- QUESTION A: OUI — après SUCCESS, une restitution utile est déjà visible (`result`, `evidence`, `review bundle`, `recommendation`) sans ouvrir les détails techniques.
+- QUESTION B: `f3-evidence-id` est un identifiant technique secondaire, pas la preuve UX principale.
+- QUESTION C: **Test obsolète (Class B)** — le produit est cohérent sur la preuve user-facing; l'assertion E2E était couplée à un détail technique caché.
 
-### C. PRE-M6 SEMANTIC / FAKE-REAL FIXES — intended but high review weight
-Shared reason: fake/real fail-closed semantics, execution window policy, bounded deterministic boundary, attempt/contract/project invariants and persistence support.
+## Root Cause Classification
 
-- `M` `projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts`
-- `M` `projects/sfia-studio/app/lib/oa/execution-attempt/application/triggerAttemptTimeout.ts`
-- `M` `projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts`
-- `M` `projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts`
-- `M` `projects/sfia-studio/app/lib/oa/execution-attempt/index.ts`
-- `M` `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts`
-- `M` `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts`
-- `M` `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts`
-- `M` `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/testExecutionAdapter.ts`
-- `M` `projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts`
-- `M` `projects/sfia-studio/app/lib/oa/execution-contract/application/buildExecutionContract.ts`
-- `M` `projects/sfia-studio/app/lib/oa/execution-contract/application/supersedeExecutionContract.ts`
-- `M` `projects/sfia-studio/app/lib/oa/execution-contract/domain/invariants.ts`
-- `M` `projects/sfia-studio/app/lib/oa/execution-contract/domain/semanticFingerprint.ts`
-- `M` `projects/sfia-studio/app/lib/oa/execution-contract/domain/types.ts`
-- `M` `projects/sfia-studio/app/lib/oa/execution-contract/index.ts`
-- `M` `projects/sfia-studio/app/lib/oa/project/domain/types.ts`
-- `M` `projects/sfia-studio/app/lib/oa/project/index.ts`
-- `M` `projects/sfia-studio/app/lib/oa/project/infrastructure/memoryProjectRepository.ts`
-- `M` `projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/createSqliteProductProjectServices.ts`
-- `M` `projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProjectRepository.ts`
-- `M` `projects/sfia-studio/app/lib/oa/project/ports/projectAuditJournalPort.ts`
-- `M` `projects/sfia-studio/app/lib/oa/project/ports/projectRepositoryPort.ts`
-- `M` `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts`
-- `M` `projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/execution/execution-contract.schema.json`
-- `A` `projects/sfia-studio/app/features/project-assistant/presentationLabels.ts`
-- `A` `projects/sfia-studio/app/lib/oa/execution-attempt/application/observationSchedule.ts`
-- `A` `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorTrustMarkerPathCompatibility.ts`
-- `A` `projects/sfia-studio/app/lib/oa/execution-contract/domain/executionWindowPolicy.ts`
-- `A` `projects/sfia-studio/app/lib/vertical-slice-runtime/composeStudioProductRealBoundary.ts`
-- `A` `projects/sfia-studio/app/lib/vertical-slice-runtime/deterministicExternalLaunchBoundary.ts`
-- `A` `projects/sfia-studio/app/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl.ts`
-- `A` `projects/sfia-studio/app/lib/vertical-slice-runtime/resolveBoundedReadOnlyBaseHeadSha.ts`
+- Root cause class: **B**
+- ROOT CAUSE = STALE E2E ASSERTION AGAINST TECHNICAL ID — USER-FACING EVIDENCE WAS ALREADY PRESENT
 
-### D. TESTS UNIT / UI / E2E PRE-M6 — intended
-Shared reason: unit/UI/E2E coverage for Option A, project assistant, semantic reserves, deterministic boundary, observation policy, NAME_MAX, negative states, and project principal.
+## Comportement user-facing
 
-- `M` `projects/sfia-studio/app/__tests__/increment-a.test.tsx`
-- `M` `projects/sfia-studio/app/__tests__/increment-b.test.tsx`
-- `M` `projects/sfia-studio/app/__tests__/navigation.test.tsx`
-- `M` `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts`
-- `M` `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts`
-- `M` `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR3.test.ts`
-- `M` `projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts`
-- `M` `projects/sfia-studio/app/__tests__/oa/execution-attempt/support/testOnlyRealExecutionLaunchPort.ts`
-- `M` `projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx`
-- `M` `projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts`
-- `M` `projects/sfia-studio/app/__tests__/vertical-slice-ui/createProjectUi.test.tsx`
-- `M` `projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx`
-- `A` `projects/sfia-studio/app/__tests__/oa/execution-attempt/cursorTrustMarkerNameMax.test.ts`
-- `A` `projects/sfia-studio/app/__tests__/oa/execution-attempt/executionWindowDeadline.test.ts`
-- `A` `projects/sfia-studio/app/__tests__/oa/execution-attempt/observationSchedule.test.ts`
-- `A` `projects/sfia-studio/app/__tests__/oa/execution-contract/executionWindowPolicy.test.ts`
-- `A` `projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx`
-- `A` `projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx`
-- `A` `projects/sfia-studio/app/__tests__/pre-m6-product-ui/useRunningAttemptO3Observation.test.tsx`
-- `A` `projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringAmend.test.ts`
-- `A` `projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringResidual.test.ts`
-- `A` `projects/sfia-studio/app/__tests__/project-assistant/presentationLabels.test.ts`
-- `A` `projects/sfia-studio/app/__tests__/project-assistant/qa-pre-m6-01.finalHardening.test.ts`
-- `A` `projects/sfia-studio/app/__tests__/project-assistant/qa-pre-m6-01.postGoDurableM3Path.test.ts`
-- `A` `projects/sfia-studio/app/__tests__/project-assistant/qa-pre-m6-test-01.e2eQaControl.test.ts`
-- `A` `projects/sfia-studio/app/__tests__/studio-projects/projectPrincipalAmend.test.tsx`
-- `A` `projects/sfia-studio/app/__tests__/studio-projects/projectPrincipalReadback.test.tsx`
-- `A` `projects/sfia-studio/app/__tests__/studio-projects/studioProjectsHome.test.tsx`
-- `A` `projects/sfia-studio/app/__tests__/vertical-slice-runtime/deterministicCursorBoundary.test.ts`
-- `A` `projects/sfia-studio/app/e2e/studio-option-a-clean-slate-captures.spec.ts`
-- `A` `projects/sfia-studio/app/e2e/studio-option-a-deterministic-cursor-boundary.spec.ts`
-- `A` `projects/sfia-studio/app/e2e/studio-option-a-negative-states.spec.ts`
-- `A` `projects/sfia-studio/app/e2e/studio-option-a-new-design-captures.spec.ts`
-- `A` `projects/sfia-studio/app/e2e/studio-option-a-uat-semantic-reserves.spec.ts`
-- `A` `projects/sfia-studio/app/e2e/studio-option-a.spec.ts`
+- PRE: preuve user-facing visible, mais E2E exigeait `f3-evidence-id`/`f3-review-bundle-id` visibles (faux invariant).
+- POST: E2E vérifie la preuve user-facing visible + recommendation visible, et confirme que les IDs techniques restent hidden/collapsed.
+- Statut `f3-evidence-id`: conservé dans le DOM en détails techniques, **hidden by default**.
 
-### E. INTENDED SUPPORT FILE REQUIRED BY ABOVE — intended
-Shared reason: QA-control route and E2E support helpers required by deterministic browser campaigns.
+## Fichiers modifiés (micro-cycle only)
 
-- `A` `projects/sfia-studio/app/app/api/e2e/option-a-qa-scenario/route.ts`
-- `A` `projects/sfia-studio/app/e2e/support/optionAQaScenarioControl.ts`
+- `projects/sfia-studio/app/e2e/studio-option-a.spec.ts`
+- `projects/sfia-studio/app/e2e/studio-option-a-deterministic-cursor-boundary.spec.ts`
 
-### F. GENERATED / TEMP / BUILD / LOCAL ENVIRONMENT — MUST NOT COMMIT
-All `.tmp-sfia-review/**` entries, QA sqlite DBs, screenshots, manifests, operator scripts, and review-pack artefacts. Expected in PR: NO.
+## SHA256 PRE/POST
 
-### G. UNRELATED / UNKNOWN — BLOCKING
-No versioned file was proven unrelated enough to classify G. Unknown/unrelated versioned count retained for gating: `0`.
+- `projects/sfia-studio/app/e2e/studio-option-a.spec.ts`
+  - PRE: `2847008d15113dda0f89b8f588eebfd0c6e8240149755f671e52d5605d1f5469`
+  - POST: `1dd384743485b9dbb6262e688707a5a785649fb06745c6604fe499ead0ba64f5`
+  - DIFF: `.tmp-sfia-review/pre-m6-f7-evidence-visibility-pre/projects__sfia-studio__app__e2e__studio-option-a.spec.ts.diff.txt`
+- `projects/sfia-studio/app/e2e/studio-option-a-deterministic-cursor-boundary.spec.ts`
+  - PRE: `817e548b7405adad43d982bcd809629bc40281f297dd6c516a82994aeb071a3c`
+  - POST: `4165028c69515247b92a9cf1f16daeaeb3ec14260e25d709f9585a535fcec44c`
+  - DIFF: `.tmp-sfia-review/pre-m6-f7-evidence-visibility-pre/projects__sfia-studio__app__e2e__studio-option-a-deterministic-cursor-boundary.spec.ts.diff.txt`
 
-## Reconstruction du lot PRE-M6
+## Diff PRE → POST complet
 
-Evidence from current filenames, local review packs, and diff shape supports these accumulated workstreams:
+### projects/sfia-studio/app/e2e/studio-option-a.spec.ts
 
-- PRE-M6 Option A presentation implementation: PRESENT
-- New Project UI accepted work: PRESENT
-- user-readable ExecutionContract surface: PRESENT
-- UAT-UX-03/04/05/07 semantic surface: PRESENT
-- UAT-UX-08 durable Fake/Real fail-closed: PRESENT
-- UAT-UX-09 pre-confirmation Fake/Real fail-closed: PRESENT
-- deterministic browser support/specs: PRESENT
-- async running → terminal observation work: PRESENT
-- NAME_MAX correction: PRESENT
-- bounded read-only / product readback hardening: PRESENT
+```diff
+diff --git a/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/.tmp-sfia-review/pre-m6-f7-evidence-visibility-pre/projects/sfia-studio/app/e2e/studio-option-a.spec.ts b/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/projects/sfia-studio/app/e2e/studio-option-a.spec.ts
+index 771a4ed..ea63a1a 100644
+--- a/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/.tmp-sfia-review/pre-m6-f7-evidence-visibility-pre/projects/sfia-studio/app/e2e/studio-option-a.spec.ts
++++ b/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/projects/sfia-studio/app/e2e/studio-option-a.spec.ts
+@@ -187,8 +187,19 @@ test.describe("Cycle 9 — F1→F11 durable post-GO happy path", () => {
+       timeout: 45_000,
+     });
+     await expect(page.getByTestId("f3-attempt-status")).toContainText(/succeeded/i);
+-    await expect(page.getByTestId("f3-evidence-id")).toBeVisible();
+-    await expect(page.getByTestId("f3-review-bundle-id")).toBeVisible();
++    await expect(page.getByTestId("f3-result-user-summary")).toContainText(
++      /terminée avec succès/i,
++    );
++    await expect(page.getByTestId("f3-evidence-card")).toBeVisible();
++    await expect(page.getByTestId("f3-evidence-user-summary")).toContainText(
++      /preuve a été enregistrée/i,
++    );
++    await expect(page.getByTestId("f3-review-bundle-card")).toBeVisible();
++    await expect(page.getByTestId("f3-review-bundle-user-summary")).toContainText(
++      /dossier de revue/i,
++    );
++    await expect(page.getByTestId("f3-evidence-id")).toBeHidden();
++    await expect(page.getByTestId("f3-review-bundle-id")).toBeHidden();
+     await expect(page.getByTestId("f3-recommendation-card")).toBeVisible();
+     await expect(page.getByText(/PAS UNE DÉCISION/i).first()).toBeVisible();
+     await capture(page, "R07-F7-Succeeded", {
+```
 
-Conclusion: the dirty tree is explainable as one accumulated PRE-M6 candidate, but the validation gate below is failing on the current candidate state.
+### projects/sfia-studio/app/e2e/studio-option-a-deterministic-cursor-boundary.spec.ts
 
-## Diff Review
+```diff
+diff --git a/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/.tmp-sfia-review/pre-m6-f7-evidence-visibility-pre/projects/sfia-studio/app/e2e/studio-option-a-deterministic-cursor-boundary.spec.ts b/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/projects/sfia-studio/app/e2e/studio-option-a-deterministic-cursor-boundary.spec.ts
+index f8c9a78..6ac4438 100644
+--- a/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/.tmp-sfia-review/pre-m6-f7-evidence-visibility-pre/projects/sfia-studio/app/e2e/studio-option-a-deterministic-cursor-boundary.spec.ts
++++ b/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/projects/sfia-studio/app/e2e/studio-option-a-deterministic-cursor-boundary.spec.ts
+@@ -164,11 +164,20 @@ test.describe("deterministic Cursor boundary browser tooling", () => {
+       { timeout: 20_000 },
+     );
+     await expect(page.getByTestId("f3-attempt-id")).toHaveText(attemptIdB1);
+-    await expect(page.getByTestId("f3-evidence-id")).toBeVisible();
+-    await expect(page.getByTestId("f3-evidence-id")).not.toHaveText(
+-      "ev:pending-real",
++    await expect(page.getByTestId("f3-result-user-summary")).toContainText(
++      /terminée avec succès/i,
+     );
+-    await expect(page.getByTestId("f3-review-bundle-id")).toBeVisible();
++    await expect(page.getByTestId("f3-evidence-card")).toBeVisible();
++    await expect(page.getByTestId("f3-evidence-user-summary")).toContainText(
++      /preuve a été enregistrée/i,
++    );
++    await expect(page.getByTestId("f3-review-bundle-card")).toBeVisible();
++    await expect(page.getByTestId("f3-review-bundle-user-summary")).toContainText(
++      /dossier de revue/i,
++    );
++    await expect(page.getByTestId("f3-evidence-id")).toBeHidden();
++    await expect(page.getByTestId("f3-evidence-id")).not.toHaveText("ev:pending-real");
++    await expect(page.getByTestId("f3-review-bundle-id")).toBeHidden();
+     await expect(page.getByTestId("f3-review-bundle-id")).not.toHaveText(
+       "rb:pending-real",
+     );
+```
 
-- `git diff --check`: PASS
-- secrets / `.env` / runtime DB / build outputs in versioned scope: none found
-- `.tmp-sfia-review/**` present locally but untracked only; excluded from commit
-- node_modules / build artefacts in versioned scope: none found
-- project-method / doctrine / roadmap modifications in working tree candidate scope: none in dirty project set
-- branch is behind `origin/main` by 2 docs commits; no local project commit divergence exists yet
-- future PR narrative would be coherent only if validations pass; currently blocked by E2E failure
+## Tests & Validation
 
-## Validations Executed
+- Unit/UI ciblés: `__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx` + `__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx` = PASS (13/13).
+- E2E principal: `e2e/studio-option-a.spec.ts` = PASS (9/9) en environnement isolé (port 3241, DB /tmp/sfia-pre-m6-f7-a.sqlite).
+- E2E deterministic boundary: `e2e/studio-option-a-deterministic-cursor-boundary.spec.ts` = PASS (1/1) (port 3242, DB /tmp/sfia-pre-m6-f7-b.sqlite, QA control + deterministic boundary ON).
+- `npm run lint` = PASS.
+- `npm run build` = PASS.
+- `npm run typecheck` = FAIL avant build (types `.next` absents) puis PASS après build (ordre documenté, non régression produit).
 
-### PASS
+## Screenshots (required set)
 
-- `npm run typecheck` — PASS after one justified rerun post-build
-  - first run failed because `tsconfig.json` includes `.next/types/**/*.ts` and those generated files were absent before build
-  - second run after `next build`: PASS
-- `npm run lint` — PASS
-- `npm run build` — PASS
-- `env -u SFIA_STUDIO_CURSOR_REAL -u OPS1_CURSOR_REAL -u OPENAI_API_KEY npm run test` — PASS
-  - `199` test files passed, `13` skipped
-  - `1898` tests passed, `131` skipped
-- `e2e/studio-option-a.spec.ts`
-  - negative authority / recovery / amend deferred / accessibility subtests: PASS (`8` passed)
+- `.tmp-sfia-review/pre-m6-f7-evidence-visibility-captures/A-before-success-or-running.png`
+- `.tmp-sfia-review/pre-m6-f7-evidence-visibility-captures/B-success-evidence-reviewbundle.png`
+- `.tmp-sfia-review/pre-m6-f7-evidence-visibility-captures/C-durable-reload-if-covered.png`
 
-### FAIL / BLOCKING
+## Regression Status
 
-- `e2e/studio-option-a.spec.ts`
-  - principal happy-path test FAIL in isolated production-backed run
-  - blocking assertion:
-    - `getByTestId('f3-evidence-id')` exists but remains hidden after successful attempt
-    - expected visible at happy-path F7 evidence/review bundle stage
-- `e2e/studio-option-a-deterministic-cursor-boundary.spec.ts`
-  - also failed on visible `f3-evidence-id`
-  - initial parallel `next dev` run contaminated by webpack cache collisions, so only the isolated production-backed principal failure is treated as authoritative
-- parallel `next dev` E2E runs additionally showed environment-only cache collisions (`.next/cache` / webpack pack rename / invalid code lengths)
-  - classified as environment noise, not primary product verdict
+- UAT-UX-03: PASS (unchanged)
+- UAT-UX-04: PASS (unchanged)
+- UAT-UX-05: PASS (unchanged)
+- UAT-UX-07: PASS (unchanged)
+- UAT-UX-08: PASS (unchanged)
+- UAT-UX-09: PASS (unchanged)
+- UAT-UX-06: OPEN / NON CLOSED (explicit)
+- UAT-RECOVERY-03: UNCHANGED / OPEN
+- V3-F10: OPEN
 
-## Fake / Real Qualification
+## Fake/Real Qualification
 
-- ZERO REAL maintained
-- OpenAI LIVE calls: `0`
-- Cursor REAL calls: `0`
-- deterministic/fake provider used for validation
-- Morris server `3084`: untouched
-- fresh QA environments used via dedicated sqlite paths and isolated ports
+- Qualification: DETERMINISTIC PROVEN (micro-correctif only)
+- REAL_CALL_COUNT = 0
+- OPENAI_LIVE_CALL_COUNT = 0
+- CURSOR_REAL_PROCESS_COUNT = 0
+- No project git action (add/commit/push/PR/merge): confirmed
 
-## PR Readiness Gate
+## Git POST
 
-Result: `STOP — PRE-M6 CANDIDATE NOT READY FOR SINGLE PR`
+```text
+M projects/sfia-studio/app/__tests__/increment-a.test.tsx
+ M projects/sfia-studio/app/__tests__/increment-b.test.tsx
+ M projects/sfia-studio/app/__tests__/navigation.test.tsx
+ M projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts
+ M projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts
+ M projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR3.test.ts
+ M projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts
+ M projects/sfia-studio/app/__tests__/oa/execution-attempt/support/testOnlyRealExecutionLaunchPort.ts
+ M projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
+ M projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+ M projects/sfia-studio/app/__tests__/vertical-slice-ui/createProjectUi.test.tsx
+ M projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx
+ M projects/sfia-studio/app/app/globals.css
+ M projects/sfia-studio/app/app/studio/projects/[id]/page.tsx
+ M projects/sfia-studio/app/app/studio/projects/new/page.tsx
+ M projects/sfia-studio/app/components/shell/StudioShell.tsx
+ M projects/sfia-studio/app/components/shell/UtilityRail.tsx
+ M projects/sfia-studio/app/components/shell/utility-rail.module.css
+ M projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+ M projects/sfia-studio/app/features/project-assistant/actions.ts
+ M projects/sfia-studio/app/features/project-assistant/f3/appendEvidenceOutcomeToLps.ts
+ M projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
+ M projects/sfia-studio/app/features/project-assistant/f3/constants.ts
+ M projects/sfia-studio/app/features/project-assistant/f3/index.ts
+ M projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+ M projects/sfia-studio/app/features/project-assistant/f3/rehydrateEvidenceOutcomeFromLps.ts
+ M projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
+ M projects/sfia-studio/app/features/project-assistant/f3/types.ts
+ M projects/sfia-studio/app/features/project-assistant/project-assistant.module.css
+ M projects/sfia-studio/app/features/project-assistant/types.ts
+ M projects/sfia-studio/app/features/vertical-slice-ui/CreateProjectForm.tsx
+ M projects/sfia-studio/app/features/vertical-slice-ui/ProjectWorkspaceView.tsx
+ M projects/sfia-studio/app/features/vertical-slice-ui/RuntimeDisclosureBanner.tsx
+ M projects/sfia-studio/app/features/vertical-slice-ui/create-project.module.css
+ M projects/sfia-studio/app/features/vertical-slice-ui/project-workspace.module.css
+ M projects/sfia-studio/app/lib/navigation.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/application/triggerAttemptTimeout.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/testExecutionAdapter.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/application/buildExecutionContract.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/application/supersedeExecutionContract.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/domain/invariants.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/domain/semanticFingerprint.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/domain/types.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/index.ts
+ M projects/sfia-studio/app/lib/oa/project/domain/types.ts
+ M projects/sfia-studio/app/lib/oa/project/index.ts
+ M projects/sfia-studio/app/lib/oa/project/infrastructure/memoryProjectRepository.ts
+ M projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/createSqliteProductProjectServices.ts
+ M projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProjectRepository.ts
+ M projects/sfia-studio/app/lib/oa/project/ports/projectAuditJournalPort.ts
+ M projects/sfia-studio/app/lib/oa/project/ports/projectRepositoryPort.ts
+ M projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+ M projects/sfia-studio/app/lib/vertical-slice-runtime/actions.ts
+ M projects/sfia-studio/app/lib/vertical-slice-runtime/index.ts
+ M projects/sfia-studio/app/lib/vertical-slice-runtime/mapping.ts
+ M projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+ M projects/sfia-studio/app/lib/vertical-slice-runtime/types.ts
+ M projects/sfia-studio/app/playwright.config.ts
+ M projects/sfia-studio/app/styles/shell.module.css
+ M projects/sfia-studio/app/styles/tokens.css
+ M projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/execution/execution-contract.schema.json
+?? .tmp-sfia-review/
+?? projects/sfia-studio/app/__tests__/oa/execution-attempt/cursorTrustMarkerNameMax.test.ts
+?? projects/sfia-studio/app/__tests__/oa/execution-attempt/executionWindowDeadline.test.ts
+?? projects/sfia-studio/app/__tests__/oa/execution-attempt/observationSchedule.test.ts
+?? projects/sfia-studio/app/__tests__/oa/execution-contract/executionWindowPolicy.test.ts
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/
+?? projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringAmend.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringResidual.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/presentationLabels.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/qa-pre-m6-01.finalHardening.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/qa-pre-m6-01.postGoDurableM3Path.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/qa-pre-m6-test-01.e2eQaControl.test.ts
+?? projects/sfia-studio/app/__tests__/studio-projects/
+?? projects/sfia-studio/app/__tests__/vertical-slice-runtime/deterministicCursorBoundary.test.ts
+?? projects/sfia-studio/app/app/api/
+?? projects/sfia-studio/app/app/studio/page.tsx
+?? projects/sfia-studio/app/e2e/studio-option-a-clean-slate-captures.spec.ts
+?? projects/sfia-studio/app/e2e/studio-option-a-deterministic-cursor-boundary.spec.ts
+?? projects/sfia-studio/app/e2e/studio-option-a-negative-states.spec.ts
+?? projects/sfia-studio/app/e2e/studio-option-a-new-design-captures.spec.ts
+?? projects/sfia-studio/app/e2e/studio-option-a-uat-semantic-reserves.spec.ts
+?? projects/sfia-studio/app/e2e/studio-option-a.spec.ts
+?? projects/sfia-studio/app/e2e/support/
+?? projects/sfia-studio/app/features/pre-m6-product-ui/
+?? projects/sfia-studio/app/features/project-assistant/f3/boundedReadOnlyM3ResolutionProfile.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteResolvedM3.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/deriveAttemptProvenance.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/e2eOptionATerminalAttempt.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/executeConfirmedBoundedReadOnlyContract.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/executeConfirmedFixtureSafeContract.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/fixtureSafeM3ResolutionProfile.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/prepareAndResolveM3ProductPath.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/selectProductM3ResolutionProfile.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/validateResolvedM3ExecutionBoundary.ts
+?? projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
+?? projects/sfia-studio/app/features/studio-projects/
+?? projects/sfia-studio/app/lib/oa/execution-attempt/application/observationSchedule.ts
+?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorTrustMarkerPathCompatibility.ts
+?? projects/sfia-studio/app/lib/oa/execution-contract/domain/executionWindowPolicy.ts
+?? projects/sfia-studio/app/lib/oa/project/application/listProjects.ts
+?? projects/sfia-studio/app/lib/vertical-slice-runtime/composeStudioProductRealBoundary.ts
+?? projects/sfia-studio/app/lib/vertical-slice-runtime/deterministicExternalLaunchBoundary.ts
+?? projects/sfia-studio/app/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl.ts
+?? projects/sfia-studio/app/lib/vertical-slice-runtime/resolveBoundedReadOnlyBaseHeadSha.ts
+```
 
-Blocking reason:
-
-1. principal PRE-M6 browser happy-path validation is failing reproducibly in isolated local prod mode;
-2. candidate cannot truthfully claim engineering/deterministic QA PASS;
-3. commit/push/PR would violate the explicit PASS-only gate.
-
-## Files Excluded From Commit
-
-- all `.tmp-sfia-review/**`
-- all QA sqlite DBs
-- all screenshots/manifests/logs/operator outputs
-- no staging performed
-
-## Remaining Reserves
-
-- UAT-RECOVERY-03 — open, not fixed
-- UAT-UX-01/02/06 — open, not fixed
-- Confirmation process-local limitation — carried
-- Conversation/Proposal process-local limitation — carried
-- V3-F10 — OPEN
-- generic Cursor execution beyond bounded read-only — not proven
-- PRE-M6 acceptance pending
-
-## Explicit Non-Claims
-
-- PRE-M6 NOT COMPLETE
-- runtime v3 NON ADOPTED
-- no generic write/dev/commit/push/PR Cursor capability proven in Studio runtime
-- CKC 15/15 NOT COMPLETE
-- new Product Completion trajectory NOT YET ROADMAP-ADOPTED in this cycle
-- no project commit created
-- no project branch push performed
-- no draft PR opened
-- merge NOT AUTHORIZED
-
-## Review Handoff Instruction
-
-ChatGPT must read the canonical remote handoff after publication and verify:
-- this STOP verdict
-- no project commit / push / PR / merge happened
-- validation results and blocking happy-path E2E failure
-- ZERO REAL status
+- Staged post:
+```text
+(empty)
+```
 
 ## Verdict
 
-STOP — PRE-M6 CANDIDATE NOT READY FOR SINGLE PR — DIRTY TREE EXPLAINED AND VERSIONED SCOPE QUALIFIED — NO VERSIONED UNRELATED/G UNKNOWN PROVEN — TYPECHECK/LINT/BUILD/FULL VITEST PASS — PRINCIPAL PRE-M6 PRODUCT E2E FAILS ON HIDDEN `f3-evidence-id` AFTER SUCCESS PATH — ZERO REAL MAINTAINED — NO STAGING / NO PROJECT COMMIT / NO PROJECT PUSH / NO DRAFT PR / NO MERGE
+PASS — PRE-M6-F7 EVIDENCE/REVIEWBUNDLE HAPPY-PATH VISIBILITY COHERENT — USER-FACING EXECUTION PROOF VISIBLE AFTER SUCCESS — RAW TECHNICAL IDS REMAIN SECONDARY/COLLAPSED AS APPROPRIATE — PRINCIPAL PRE-M6 E2E PASS — DETERMINISTIC CURSOR BOUNDARY E2E PASS — UAT-UX-03/04/05/07/08/09 REGRESSION PASS — ZERO REAL — NO PROJECT GIT ACTION — READY TO RESUME PRE-M6 PR READINESS — PRE-M6 NON COMPLETE — RUNTIME V3 NON ADOPTED
+
+## Remaining reserves
+
+- UAT-UX-06 open (evidence still partly technical as known reserve).
+- UAT-RECOVERY-03 open.
+- V3-F10 open.
+- PRE-M6 NON COMPLETE; runtime v3 NON ADOPTED.
+
+## Next gate
+
+MORRIS / CHATGPT REVIEW — PRE-M6-F7 MICRO-CORRECTION — IF ACCEPTED, RESUME CYCLE 13 PRE-M6 PR READINESS — NO MERGE
