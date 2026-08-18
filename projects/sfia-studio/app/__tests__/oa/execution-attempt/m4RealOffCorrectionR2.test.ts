@@ -600,6 +600,7 @@ describe("M4 REAL-OFF correction R2", () => {
       adapterRef: gateway.gatewayId,
       correlationId: "cor",
       baseHeadSha: M4_TEST_BASE_HEAD_SHA,
+      timeoutMs: 15 * 60 * 1000,
     });
     expect(result.outcome).toBe("reject");
     expect(workspace.prepares).toHaveLength(0);

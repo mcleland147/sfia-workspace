@@ -43,6 +43,22 @@ export type ProjectAuditEvent =
       result: "error";
       detailCode?: string;
       durationMs: number;
+    }
+  | {
+      event: "oa.project.list";
+      ts: string;
+      correlationId?: string;
+      result: "ok";
+      durationMs: number;
+      count: number;
+    }
+  | {
+      event: "oa.project.list_failed";
+      ts: string;
+      correlationId?: string;
+      result: "error";
+      detailCode?: string;
+      durationMs: number;
     };
 
 export interface ProjectAuditJournalPort {

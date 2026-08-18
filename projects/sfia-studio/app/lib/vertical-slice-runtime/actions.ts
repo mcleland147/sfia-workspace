@@ -12,6 +12,7 @@ import type {
   CreateProjectRuntimeInput,
   CreateProjectRuntimeResult,
   GetProjectRuntimeResult,
+  ListProjectsRuntimeResult,
 } from "./types";
 
 export async function createProjectRuntimeAction(
@@ -24,4 +25,8 @@ export async function getProjectRuntimeAction(
   projectId: string,
 ): Promise<GetProjectRuntimeResult> {
   return getRuntimeApplicationService().getProject(projectId);
+}
+
+export async function listProjectsRuntimeAction(): Promise<ListProjectsRuntimeResult> {
+  return getRuntimeApplicationService().listProjects();
 }

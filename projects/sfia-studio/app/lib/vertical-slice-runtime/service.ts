@@ -34,9 +34,16 @@ import {
 import {
   createInMemoryExecutionAttemptServices,
   createSqliteExecutionAttemptServices,
+  createM4BoundedReadOnlyCursorAgentDescriptor,
+  isStudioCursorRealEnabled,
   type ExecutionAttemptServices,
+  type RealBoundaryWiring,
   type TestExecutionAdapter,
 } from "@/lib/oa/execution-attempt";
+import {
+  composeStudioProductRealBoundary,
+  type ComposeStudioProductRealBoundaryInput,
+} from "./composeStudioProductRealBoundary";
 import {
   createInMemoryEvidenceReviewServices,
   createSqliteEvidenceReviewServices,
@@ -55,12 +62,15 @@ import {
   toCreateProjectRuntimeSuccess,
   toGetProjectRuntimeFailure,
   toGetProjectRuntimeSuccess,
+  toListProjectsRuntimeFailure,
+  toListProjectsRuntimeSuccess,
 } from "./mapping";
 import { resolveDefaultVerticalSliceRoots } from "./paths";
 import type {
   CreateProjectRuntimeInput,
   CreateProjectRuntimeResult,
   GetProjectRuntimeResult,
+  ListProjectsRuntimeResult,
 } from "./types";
 
 export type RuntimeAuditMode = "noop" | "memory" | "sqlite";
@@ -86,6 +96,21 @@ export interface RuntimeApplicationServiceOptions {
    * Production path builds via createLocalVerticalSliceServices.
    */
   readonly facade?: LocalProjectFacade;
+  /**
+   * Optional M4 REAL boundary. Explicit inject wins (tests).
+   * Otherwise composed OFF-by-default from SFIA_STUDIO_CURSOR_REAL.
+   */
+  readonly realBoundary?: RealBoundaryWiring;
+  /**
+   * Env snapshot for live-boundary composition only. Never used to spawn.
+   * Tests inject `{ SFIA_STUDIO_CURSOR_REAL: "1" }` with fake deps.
+   */
+  readonly realBoundaryEnv?: NodeJS.ProcessEnv;
+  /**
+   * Test/production overrides for composeStudioProductRealBoundary.
+   * Construction still launches nothing.
+   */
+  readonly realBoundaryComposition?: ComposeStudioProductRealBoundaryInput;
 }
 
 export type RuntimeOaStack = {
@@ -128,6 +153,7 @@ function resolveAudit(
 function wireOaStack(
   projectServices: ProjectServices,
   clock: ClockPort,
+  options?: { realBoundary?: RealBoundaryWiring },
 ): RuntimeOaStack {
   // M2/M3: same Product SQLite store for Project/LPS + Cycle + Decision + Contract.
   const productSqlite =
@@ -179,31 +205,41 @@ function wireOaStack(
       });
 
   // EXPLICIT TestExecutionAdapter — never omit (factory default is NoOp).
-  // M4 REAL-OFF default: do NOT wire realBoundary / SFIA_STUDIO_CURSOR_REAL here.
-  // Opt-in REAL composition is explicit (journal + RealExecutionLaunchPort); no Fake defaults.
-  // M5-A: when Product SQLite is present, Attempt + Evidence/RB are durable;
-  // Claim/Maturity remain Memory; technical journal / Gate D unchanged.
+  // GAP-3: realBoundary is optional and OFF by default. M4 descriptor is
+  // registered only on the governed path (injected boundary or REAL flag).
+  // This composition does not instantiate StudioCursorRealLaunchGateway.
   const fixtureAdapter = createF3TestExecutionAdapter();
   const fixtureAgent = createF3FixtureAgentDescriptor(clock.nowIso());
+  const realBoundary = options?.realBoundary;
+  const registerM4 =
+    realBoundary !== undefined || isStudioCursorRealEnabled();
+  const agents = registerM4
+    ? [
+        fixtureAgent,
+        createM4BoundedReadOnlyCursorAgentDescriptor(clock.nowIso()),
+      ]
+    : [fixtureAgent];
   const executionAttemptServices = productSqlite
     ? createSqliteExecutionAttemptServices({
         decisionServices,
         executionContractServices,
         productStore: productSqlite,
-        agents: [fixtureAgent],
+        agents,
         adapter: fixtureAdapter,
         clock,
         authorityResolver,
         policy: { defaultMaxRetriesBudget: 0 },
+        realBoundary,
       })
     : createInMemoryExecutionAttemptServices({
         decisionServices,
         executionContractServices,
-        agents: [fixtureAgent],
+        agents,
         adapter: fixtureAdapter,
         clock,
         authorityResolver,
         policy: { defaultMaxRetriesBudget: 0 },
+        realBoundary,
       });
 
   const evidenceReviewServices = productSqlite
@@ -293,6 +329,32 @@ export class RuntimeApplicationService {
     }
     return toGetProjectRuntimeSuccess(result.project);
   }
+
+  /**
+   * Thin product list via OA ProjectServices over existing oa_projects.
+   * Requires OA stack (Product SQLite / in-memory); facade-only runtimes fail closed.
+   */
+  async listProjects(): Promise<ListProjectsRuntimeResult> {
+    if (!this.oa) {
+      return toListProjectsRuntimeFailure({
+        code: "STATE_CONFLICT",
+        detailCode: "PERSISTENCE_FAILURE",
+        message: "Project list is unavailable in this runtime composition.",
+        severity: "error",
+        retryable: false,
+        blocking: true,
+        recoverable: false,
+        domain: "C",
+        timestamp: new Date().toISOString(),
+        internalCauseRef: "oa_stack_missing",
+      });
+    }
+    const result = await this.oa.projectServices.listProjects.execute();
+    if (!result.ok) {
+      return toListProjectsRuntimeFailure(result.error);
+    }
+    return toListProjectsRuntimeSuccess(result.projects);
+  }
 }
 
 export function createRuntimeApplicationService(
@@ -317,7 +379,15 @@ export function createRuntimeApplicationService(
     productDbPath: options.productDbPath,
   });
 
-  const oa = wireOaStack(services.projectServices, services.clock);
+  const composedBoundary =
+    options.realBoundary ??
+    composeStudioProductRealBoundary({
+      ...(options.realBoundaryComposition ?? {}),
+      env: options.realBoundaryEnv ?? options.realBoundaryComposition?.env,
+    });
+  const oa = wireOaStack(services.projectServices, services.clock, {
+    realBoundary: composedBoundary,
+  });
   return new RuntimeApplicationService(
     services.facade,
     services.architecture,

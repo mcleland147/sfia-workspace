@@ -3,7 +3,8 @@
  *
  * The ONLY auto-safety of this foundation, and it is deterministic: an
  * explicit command evaluated against an injected Clock. There is no scheduler,
- * no worker and no queue. The deadline is `startedAt + policy.attemptTimeoutMs`.
+ * no worker and no queue. The deadline is
+ * `startedAt + (attempt.resolvedMaxDurationMs ?? policy.attemptTimeoutMs)`.
  *
  * Before the deadline the command refuses. After the deadline the Attempt
  * becomes `timeout` and the contract `failed`. It is idempotent once applied.
@@ -134,8 +135,9 @@ export class TriggerAttemptTimeout {
       if (!attempt.startedAt) {
         return fail("ATTEMPT_STATE_CONFLICT", "attempt_not_started");
       }
-      const deadlineMs =
-        Date.parse(attempt.startedAt) + this.policy.attemptTimeoutMs;
+      const windowMs =
+        attempt.resolvedMaxDurationMs ?? this.policy.attemptTimeoutMs;
+      const deadlineMs = Date.parse(attempt.startedAt) + windowMs;
       if (Date.parse(timestamp) < deadlineMs) {
         return fail("TIMEOUT_NOT_REACHED", "deadline_not_reached");
       }

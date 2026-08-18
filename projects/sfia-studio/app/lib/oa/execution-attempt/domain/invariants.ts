@@ -17,6 +17,11 @@ import type {
   SelectionStrategy,
   TerminalExecutionAttemptStatus,
 } from "./types";
+import {
+  isExecutionWindowClass,
+  PRE_M6_EXECUTION_WINDOW_CAP_MS,
+  PRE_M6_EXECUTION_WINDOW_MS,
+} from "@/lib/oa/execution-contract";
 
 /** Modeled identifier pattern (common/identifier.schema.json). */
 export const OA_IDENTIFIER_PATTERN =
@@ -609,6 +614,41 @@ export function validateAttemptShape(
   }
   if (attempt.errorRef !== undefined && !isOaIdentifier(attempt.errorRef)) {
     return { detailCode: "ATTEMPT_INVALID", reason: "error_ref_invalid" };
+  }
+  const hasClass = attempt.executionWindowClass !== undefined;
+  const hasResolved = attempt.resolvedMaxDurationMs !== undefined;
+  if (hasClass !== hasResolved) {
+    return {
+      detailCode: "ATTEMPT_INVALID",
+      reason: "execution_window_snapshot_incomplete",
+    };
+  }
+  if (hasClass && hasResolved) {
+    if (!isExecutionWindowClass(attempt.executionWindowClass)) {
+      return {
+        detailCode: "ATTEMPT_INVALID",
+        reason: "execution_window_class_invalid",
+      };
+    }
+    if (
+      !Number.isInteger(attempt.resolvedMaxDurationMs) ||
+      (attempt.resolvedMaxDurationMs as number) <= 0 ||
+      (attempt.resolvedMaxDurationMs as number) > PRE_M6_EXECUTION_WINDOW_CAP_MS
+    ) {
+      return {
+        detailCode: "ATTEMPT_INVALID",
+        reason: "resolved_max_duration_ms_invalid",
+      };
+    }
+    if (
+      PRE_M6_EXECUTION_WINDOW_MS[attempt.executionWindowClass] !==
+      attempt.resolvedMaxDurationMs
+    ) {
+      return {
+        detailCode: "ATTEMPT_INVALID",
+        reason: "resolved_max_duration_ms_class_mismatch",
+      };
+    }
   }
   return null;
 }

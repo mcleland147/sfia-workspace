@@ -43,6 +43,7 @@ type SupersedeSnapshot = {
   scope: string | undefined;
   requiredAuthority: AuthorityClass | undefined;
   reversibility: Reversibility | undefined;
+  executionWindowClass: SupersedeExecutionContractRequest["executionWindowClass"];
   idempotencyKey: string | undefined;
   adapterExportRef: string | undefined;
   status: "draft" | "proposed";
@@ -167,6 +168,7 @@ export class SupersedeExecutionContract {
         scope: request.scope,
         requiredAuthority: request.requiredAuthority,
         reversibility: request.reversibility,
+        executionWindowClass: request.executionWindowClass,
         idempotencyKey: request.idempotencyKey,
         adapterExportRef: request.adapterExportRef,
         status: initialStatus,
@@ -217,6 +219,8 @@ export class SupersedeExecutionContract {
       const action = snap.action ?? prior.action;
       const target = snap.target ?? prior.target;
       const reversibility = snap.reversibility ?? prior.reversibility;
+      const executionWindowClass =
+        snap.executionWindowClass ?? prior.executionWindowClass;
       // Explicit overrides (including empty arrays) take precedence — no silent fallback.
       const decisionRefs =
         request.decisionRefs !== undefined
@@ -257,6 +261,7 @@ export class SupersedeExecutionContract {
         stopConditions,
         evidenceRequirements,
         reversibility,
+        executionWindowClass,
         idempotencyKey,
         correlationId,
         status: snap.status,
@@ -329,6 +334,7 @@ export class SupersedeExecutionContract {
         stopConditions,
         evidenceRequirements,
         reversibility,
+        ...(executionWindowClass ? { executionWindowClass } : {}),
         idempotencyKey,
         correlationId,
         status: snap.status,

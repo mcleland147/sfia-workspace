@@ -11,9 +11,11 @@ import {
   F3_MODE,
   F3_OPEN_HARD_RESERVATION_REFS,
 } from "./constants";
+import { extractPostEvidenceAnalysisFromLpsContext } from "./postEvidenceNoraAnalysis";
 import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "./systemFactualWriter";
 import type {
   F3EvidenceDto,
+  F3Mode,
   F3RecommendationDto,
   F3ReviewBundleDto,
 } from "./types";
@@ -59,6 +61,13 @@ export async function rehydrateEvidenceOutcomeFromLps(input: {
   const lps = current.livingProjectState;
   const evidenceIds = [...(lps.evidenceIds ?? [])];
   const reviewBundleIds = [...(lps.reviewBundleIds ?? [])];
+  const postEvidence = extractPostEvidenceAnalysisFromLpsContext(lps.context);
+
+  function modeFromEvidenceId(evidenceId: string): F3Mode {
+    return evidenceId.startsWith("ev:m4-bounded-ro:")
+      ? "CURSOR_CLI_REAL"
+      : F3_MODE;
+  }
 
   if (evidenceIds.length === 0 && reviewBundleIds.length === 0) {
     return {
@@ -108,7 +117,7 @@ export async function rehydrateEvidenceOutcomeFromLps(input: {
       sourceKind: evidence.sourceKind,
       technicalResultRef: evidence.technicalResultRef ?? null,
       verified: false,
-      mode: F3_MODE,
+      mode: modeFromEvidenceId(evidence.evidenceId),
     });
   }
 
@@ -147,7 +156,9 @@ export async function rehydrateEvidenceOutcomeFromLps(input: {
       status: bundle.status,
       version: bundle.version,
       evidenceRefs: [...bundle.evidenceRefs],
-      mode: F3_MODE,
+      mode: bundle.reviewBundleId.startsWith("rb:m4-bounded-ro:")
+        ? "CURSOR_CLI_REAL"
+        : F3_MODE,
     });
   }
 
@@ -236,7 +247,15 @@ export async function rehydrateEvidenceOutcomeFromLps(input: {
       nextGateCode: coordination.nextGate?.gateCode ?? null,
       nextActionCode: coordination.nextAction?.actionCode ?? null,
       recommendationLabel: F3_LABELS.recommendationNotDecision,
-      mode: F3_MODE,
+      mode: evidenceDtos[0]?.mode ?? F3_MODE,
+      analysisStatus: postEvidence.analysisText
+        ? "available"
+        : postEvidence.analysisUnavailableReason
+          ? "unavailable"
+          : "not_attempted",
+      analysisText: postEvidence.analysisText,
+      analysisProviderId: null,
+      analysisUnavailableReason: postEvidence.analysisUnavailableReason,
     },
   };
 }

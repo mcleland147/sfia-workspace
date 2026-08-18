@@ -159,17 +159,20 @@ export class FakeGitCommandRunner implements GitCommandRunner {
   readonly calls: Array<{ argv: readonly string[]; cwd: string }> = [];
   private readonly scripted: GitCommandResult[];
   private headOverride: string | null = null;
+  private repoRootOverride: string | null = null;
   private failOn?: (argv: readonly string[]) => GitCommandResult | null;
 
   constructor(
     options: {
       baseHeadSha?: string;
+      repoRoot?: string;
       results?: GitCommandResult[];
       failOn?: (argv: readonly string[]) => GitCommandResult | null;
     } = {},
   ) {
     this.scripted = options.results ?? [];
     this.headOverride = options.baseHeadSha ?? null;
+    this.repoRootOverride = options.repoRoot ?? null;
     this.failOn = options.failOn;
   }
 
@@ -195,6 +198,13 @@ export class FakeGitCommandRunner implements GitCommandRunner {
     }
     if (argv[0] === "worktree" && argv[1] === "add") {
       return { stdout: "", stderr: "", exitCode: 0 };
+    }
+    if (argv[0] === "rev-parse" && argv[1] === "--show-toplevel") {
+      return {
+        stdout: `${this.repoRootOverride ?? cwd}\n`,
+        stderr: "",
+        exitCode: 0,
+      };
     }
     if (argv[0] === "rev-parse" && argv[1] === "HEAD") {
       return {

@@ -175,11 +175,10 @@ describe("V2-A2 Create Project UI", () => {
     expect(
       screen.getByText(/entrée de qualification uniquement/i),
     ).toBeVisible();
-    expect(screen.getAllByText("LOCAL_PROCESS").length).toBeGreaterThan(0);
-    expect(
-      screen.getAllByText("PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE").length,
-    ).toBeGreaterThan(0);
-    expect(screen.getAllByText(/AGENT DISABLED/).length).toBeGreaterThan(0);
+    expect(screen.getByTestId("runtime-disclosure-banner")).toBeTruthy();
+    expect(screen.getByTestId("runtime-disclosure-summary")).toHaveTextContent(
+      /Création locale|Environnement local/i,
+    );
     expect(screen.queryByLabelText(/email|organisation|token/i)).toBeNull();
     await waitFor(() =>
       expect(screen.getByTestId("idempotency-key")).not.toHaveTextContent(
@@ -326,7 +325,7 @@ describe("V2-A2 Create Project UI", () => {
       "Création locale en cours",
     );
     resolveAction(SUCCESS_RESULT);
-    await screen.findByRole("heading", { name: "Projet créé localement" });
+    await screen.findByRole("heading", { name: "Projet créé" });
   });
 
   it("maps runtime INPUT_INVALID to its UI field", async () => {
@@ -382,17 +381,13 @@ describe("V2-A2 Create Project UI", () => {
     await user.click(screen.getByTestId("create-project-submit"));
 
     expect(
-      await screen.findByRole("heading", { name: "Projet créé localement" }),
+      await screen.findByRole("heading", { name: "Projet créé" }),
     ).toBeVisible();
-    expect(screen.getByText("prj:v2-a2-1")).toBeVisible();
-    expect(screen.getAllByText("REAL_LOCAL_CORE").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("false").length).toBeGreaterThan(0);
+    expect(screen.getByText("prj:v2-a2-1")).toBeInTheDocument();
+    expect(screen.getAllByText("Créé").length).toBeGreaterThan(0);
     expect(screen.getByText("pkg:studio-v3-oa")).toBeVisible();
     expect(screen.getByText("lps:v2-a2-1")).toBeVisible();
-    expect(screen.getAllByText("NOT_READY").length).toBeGreaterThan(0);
-    expect(
-      screen.getAllByText("PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE").length,
-    ).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Prêt pour Nora|Créé/).length).toBeGreaterThan(0);
     expect(
       screen.getByRole("link", { name: "Ouvrir l’espace de travail" }),
     ).toHaveAttribute("href", "/studio/projects/prj%3Av2-a2-1");
@@ -487,7 +482,7 @@ describe("V2-A2 Create Project UI", () => {
       screen.queryByRole("navigation", { name: "Navigation cycle" }),
     ).toBeNull();
     expect(
-      screen.getByLabelText("Créer un projet Studio"),
+      screen.getByLabelText("Nouveau projet"),
     ).toHaveAttribute("href", "/studio/projects/new");
   });
 

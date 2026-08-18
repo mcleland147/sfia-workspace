@@ -1,0 +1,62 @@
+/**
+ * Pre-M6 Option A product presentation tokens.
+ *
+ * Values transcribed from the manual Figma evidence set (MCP was rate-limited),
+ * see .tmp-sfia-review/figma/manual-evidence/. Prefixed `--pm6-` so this layer
+ * never collides with the legacy `--sfia-` token set.
+ */
+
+:root {
+  --pm6-canvas: #f3f1ec;
+  --pm6-canvas-raised: #f7f5f0;
+  --pm6-surface: #ffffff;
+  --pm6-surface-sunken: #faf9f6;
+
+  --pm6-forest: #0b3d2e;
+  --pm6-forest-hover: #0f5540;
+  --pm6-forest-tint: #e8f2ed;
+  --pm6-forest-ink: #f4f8f6;
+
+  --pm6-cream: #fdf6e3;
+  --pm6-cream-border: #e8d9a8;
+  --pm6-gold: #a8791c;
+  --pm6-gold-strong: #7d5810;
+
+  --pm6-ink: #1b2320;
+  --pm6-ink-soft: #3d4a45;
+  --pm6-muted: #6b7671;
+  --pm6-muted-strong: #55605c;
+
+  --pm6-border: #e3ded4;
+  --pm6-border-soft: #ece8e0;
+  --pm6-border-strong: #d3ccbe;
+
+  --pm6-danger: #a63329;
+  --pm6-danger-tint: #fbeeec;
+  --pm6-warn: #8a5a12;
+  --pm6-warn-tint: #fdf1de;
+  --pm6-ok: #1f6b4f;
+  --pm6-ok-tint: #e7f3ed;
+
+  --pm6-radius-sm: 8px;
+  --pm6-radius-md: 12px;
+  --pm6-radius-lg: 16px;
+  --pm6-radius-pill: 999px;
+
+  --pm6-shadow-card: 0 1px 2px rgba(27, 35, 32, 0.04),
+    0 8px 24px rgba(27, 35, 32, 0.05);
+  --pm6-shadow-raised: 0 2px 4px rgba(27, 35, 32, 0.06),
+    0 16px 40px rgba(27, 35, 32, 0.08);
+
+  --pm6-space-1: 4px;
+  --pm6-space-2: 8px;
+  --pm6-space-3: 12px;
+  --pm6-space-4: 16px;
+  --pm6-space-5: 24px;
+  --pm6-space-6: 32px;
+  --pm6-space-7: 48px;
+
+  --pm6-lps-width: 320px;
+  --pm6-lps-width-wide: 380px;
+  --pm6-content-max: 1180px;
+}

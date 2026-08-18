@@ -4,6 +4,7 @@ import type {
   LocalProjectCreationView,
   LocalProjectError,
 } from "@/lib/vertical-slice-core";
+import type { Project, ProjectStructuredError } from "@/lib/oa/project";
 import {
   RUNTIME_DISCLOSURES,
   RUNTIME_READINESS_NOT_READY,
@@ -12,7 +13,9 @@ import type {
   CreateProjectRuntimeInput,
   CreateProjectRuntimeResult,
   GetProjectRuntimeResult,
+  ListProjectsRuntimeResult,
   RuntimeErrorDto,
+  RuntimeProjectListItem,
   RuntimeProjectState,
 } from "./types";
 import type { LocalAuditStatus } from "@/lib/vertical-slice-core";
@@ -42,6 +45,23 @@ export function toRuntimeErrorDto(error: LocalProjectError): RuntimeErrorDto {
   });
 }
 
+export function toRuntimeErrorDtoFromProjectError(
+  error: ProjectStructuredError,
+): RuntimeErrorDto {
+  const code =
+    error.detailCode === "PROJECT_NOT_FOUND"
+      ? "PROJECT_NOT_FOUND"
+      : error.detailCode === "DOCTRINE_UNRESOLVED"
+        ? "DOCTRINE_UNRESOLVED"
+        : "PROJECT_CREATION_FAILED";
+  return Object.freeze({
+    code,
+    message: error.message,
+    retryable: error.retryable,
+    projectDetailCode: error.detailCode,
+  });
+}
+
 export function toRuntimeProjectState(
   view: LocalProjectCreationView,
 ): RuntimeProjectState {
@@ -56,6 +76,18 @@ export function toRuntimeProjectState(
     localMode: true,
     source: "REAL_LOCAL_CORE",
     fixture: false,
+  });
+}
+
+export function toRuntimeProjectListItem(
+  project: Project,
+): RuntimeProjectListItem {
+  return Object.freeze({
+    projectId: project.projectId,
+    title: project.title,
+    name: project.title,
+    status: project.status,
+    updatedAt: project.updatedAt ?? project.createdAt,
   });
 }
 
@@ -108,6 +140,26 @@ export function toGetProjectRuntimeFailure(
   return Object.freeze({
     ok: false,
     error: toRuntimeErrorDto(error),
+    disclosures: RUNTIME_DISCLOSURES,
+  });
+}
+
+export function toListProjectsRuntimeSuccess(
+  projects: readonly Project[],
+): Extract<ListProjectsRuntimeResult, { ok: true }> {
+  return Object.freeze({
+    ok: true,
+    projects: Object.freeze(projects.map(toRuntimeProjectListItem)),
+    disclosures: RUNTIME_DISCLOSURES,
+  });
+}
+
+export function toListProjectsRuntimeFailure(
+  error: ProjectStructuredError,
+): Extract<ListProjectsRuntimeResult, { ok: false }> {
+  return Object.freeze({
+    ok: false,
+    error: toRuntimeErrorDtoFromProjectError(error),
     disclosures: RUNTIME_DISCLOSURES,
   });
 }

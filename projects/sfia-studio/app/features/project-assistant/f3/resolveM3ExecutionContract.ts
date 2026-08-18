@@ -30,6 +30,7 @@ import {
 import type {
   ExecutionContract,
   ExecutionContractServices,
+  ExecutionWindowClass,
   Reversibility,
 } from "@/lib/oa/execution-contract";
 
@@ -97,6 +98,12 @@ export type M3ResolvedExecutionFields = {
    * Explicit arrays MUST NOT contain known unresolved stop sentinels (C1).
    */
   stopConditions?: string[];
+  /**
+   * Optional inputs merged onto the successor (server-side only).
+   * Used by the bounded read-only profile to carry contract-bound baseHeadSha.
+   */
+  inputs?: Record<string, unknown>;
+  executionWindowClass?: ExecutionWindowClass;
 };
 
 export type ResolveM3ExecutionContractInput = {
@@ -348,7 +355,9 @@ function successorMatchesResolution(
     contract.reversibility === resolution.reversibility &&
     caps === wantCaps &&
     [...contract.constraints].join("\0") === constraints.join("\0") &&
-    [...contract.stopConditions].join("\0") === stopConditions.join("\0")
+    [...contract.stopConditions].join("\0") === stopConditions.join("\0") &&
+    (resolution.executionWindowClass === undefined ||
+      contract.executionWindowClass === resolution.executionWindowClass)
   );
 }
 
@@ -773,8 +782,10 @@ export async function resolveM3ExecutionContract(
           successorId,
         ),
         correlationId: `cor:m3-res:${input.decisionId}`,
+        executionWindowClass: input.resolution.executionWindowClass,
         inputs: {
           ...(original.inputs ?? {}),
+          ...(input.resolution.inputs ?? {}),
           gux15Resolution: {
             kind: "application_command_input",
             notDurableAuthority: true,

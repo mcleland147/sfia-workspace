@@ -1,17 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import { STUDIO_ROUTES, type StudioRoute } from "@/lib/navigation";
+import {
+  STUDIO_PRIMARY_ROUTES,
+  currentProjectIdFromRoute,
+  isActiveRoute,
+  type StudioShellRoute,
+} from "@/lib/navigation";
 import styles from "./utility-rail.module.css";
 
 interface UtilityRailProps {
   variant: "floating" | "flush";
-  activeRoute: StudioRoute;
+  activeRoute: StudioShellRoute;
 }
 
+/**
+ * Canonical Studio navigation only (G-UX-02).
+ * Historical P0/D1/OA/OPS1 routes remain reachable by URL but are not
+ * first-level peers on the product rail.
+ */
 export function UtilityRail({ variant, activeRoute }: UtilityRailProps) {
   const isFloating = variant === "floating";
   const railClass = isFloating ? styles.floating : styles.flush;
+  const currentProjectId = currentProjectIdFromRoute(activeRoute);
 
   return (
     <nav
@@ -20,15 +31,16 @@ export function UtilityRail({ variant, activeRoute }: UtilityRailProps) {
       data-testid="utility-rail"
     >
       <Link
-        href="/synthese"
+        href="/studio"
         className={isFloating ? styles.brand : styles.brandFlush}
         aria-label="SFIA Studio"
+        data-testid="rail-brand"
       >
         S
       </Link>
 
-      {STUDIO_ROUTES.map((item) => {
-        const active = activeRoute === item.route;
+      {STUDIO_PRIMARY_ROUTES.map((item) => {
+        const active = isActiveRoute(activeRoute, item.route);
         const itemClass = [
           isFloating ? styles.item : styles.itemFlush,
           active
@@ -46,47 +58,43 @@ export function UtilityRail({ variant, activeRoute }: UtilityRailProps) {
             href={item.route}
             className={itemClass}
             aria-label={item.label}
+            title={item.label}
             aria-current={active ? "page" : undefined}
+            data-nav-tier="primary"
+            data-testid={`rail-nav-${item.id}`}
           >
             {item.railIcon}
           </Link>
         );
       })}
 
-      <button
-        type="button"
-        className={isFloating ? styles.itemDisabled : styles.itemFlush}
-        aria-disabled
-        disabled
-        title="Paramètres — simulation"
-        aria-label="Paramètres (désactivé)"
-      >
-        ◎
-      </button>
+      {currentProjectId ? (
+        <Link
+          href={`/studio/projects/${encodeURIComponent(currentProjectId)}`}
+          className={[
+            isFloating ? styles.item : styles.itemFlush,
+            isFloating ? styles.itemActive : styles.itemActiveFlush,
+          ].join(" ")}
+          aria-label="Projet courant"
+          title="Projet courant"
+          aria-current="page"
+          data-testid="rail-current-project"
+          data-nav-tier="primary"
+        >
+          ●
+        </Link>
+      ) : null}
 
       <div className={styles.spacer} />
 
-      <Link
-        href="/workspace"
-        className={isFloating ? styles.item : styles.itemFlush}
-        aria-label="Workspace D1"
-        title="Workspace D1"
-        data-testid="rail-d1-workspace"
+      <div
+        className={isFloating ? styles.avatar : styles.avatarFlush}
+        aria-label="Profil Morris"
+        title="Morris"
+        data-testid="rail-avatar"
       >
-        W
-      </Link>
-
-      <Link
-        href="/ops1/nouvelle-demande"
-        className={isFloating ? styles.item : styles.itemFlush}
-        aria-label="OPS1 legacy"
-        title="OPS1 Nouvelle demande (legacy)"
-        data-testid="rail-ops1-legacy"
-      >
-        O
-      </Link>
-
-      <div className={isFloating ? styles.avatar : styles.avatarFlush}>MC</div>
+        M
+      </div>
     </nav>
   );
 }

@@ -58,6 +58,15 @@ export * from "./ports/realLaunchSafetyJournalPort";
 export { SelectExecutionAgent } from "./application/selectExecutionAgent";
 export { StartExecution, extractContractBaseHeadSha } from "./application/startExecution";
 export {
+  o3LaterIntervalMs,
+  o3ObservationScheduleMs,
+  nextO3ObservationDelayMs,
+  attemptDeadlineMs,
+  O3_EARLY_PROBE_OFFSETS_MS,
+  O3_MIN_INTERVAL_MS,
+  O3_MAX_INTERVAL_MS,
+} from "./application/observationSchedule";
+export {
   GrantRealExecutionGate,
   GrantGateD,
   type GrantRealExecutionGateRequest,

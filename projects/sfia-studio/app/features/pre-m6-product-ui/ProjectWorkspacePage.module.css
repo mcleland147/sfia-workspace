@@ -1,0 +1,227 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-4);
+}
+
+.loading {
+  margin: 0;
+  padding: var(--pm6-space-7) 0;
+  font-size: 0.95rem;
+  color: var(--pm6-muted);
+}
+
+/* ---------- project header ---------- */
+
+.projectHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--pm6-space-4);
+}
+
+.projectHeaderText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-2);
+  min-width: 0;
+}
+
+.projectTitle {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--pm6-forest);
+  overflow-wrap: anywhere;
+}
+
+.projectObjective {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--pm6-muted-strong);
+  max-width: 68ch;
+}
+
+.lpsToggle {
+  display: none;
+  align-items: center;
+  border-radius: var(--pm6-radius-pill);
+  border: 1px solid var(--pm6-border-strong);
+  background: var(--pm6-surface);
+  color: var(--pm6-ink-soft);
+  padding: 9px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.durabilityHint {
+  margin: 0;
+  border-radius: var(--pm6-radius-md);
+  border: 1px solid var(--pm6-border-soft);
+  background: var(--pm6-canvas-raised);
+  padding: var(--pm6-space-3) var(--pm6-space-4);
+  font-size: 0.83rem;
+  line-height: 1.55;
+  color: var(--pm6-muted-strong);
+}
+
+/* ---------- layout ---------- */
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--pm6-lps-width);
+  gap: var(--pm6-space-5);
+  align-items: start;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-5);
+  min-width: 0;
+}
+
+.conversation {
+  min-width: 0;
+}
+
+.lpsColumn {
+  position: sticky;
+  top: 88px;
+  min-width: 0;
+}
+
+/* Above 1024px the project state is always alongside the conversation. */
+.lpsClosed,
+.lpsOpen {
+  display: block;
+}
+
+.lpsSheet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-3);
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.lpsClose {
+  display: none;
+  align-self: flex-end;
+  border-radius: var(--pm6-radius-pill);
+  border: 1px solid var(--pm6-border-strong);
+  background: var(--pm6-surface);
+  color: var(--pm6-ink-soft);
+  padding: 7px 15px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@media (min-width: 1400px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) var(--pm6-lps-width-wide);
+  }
+}
+
+/* ---------- <=1024: project state becomes a drawer ---------- */
+
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lpsToggle {
+    display: inline-flex;
+  }
+
+  .lpsClose {
+    display: inline-flex;
+  }
+
+  .lpsColumn {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(420px, 92vw);
+    z-index: 60;
+    background: var(--pm6-canvas-raised);
+    border-left: 1px solid var(--pm6-border);
+    box-shadow: var(--pm6-shadow-raised);
+    padding: var(--pm6-space-4);
+    overflow-y: auto;
+  }
+
+  .lpsClosed {
+    display: none;
+  }
+
+  .lpsSheet {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+/* ---------- error state ---------- */
+
+.errorPage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--pm6-space-3);
+  max-width: 620px;
+  border-radius: var(--pm6-radius-lg);
+  border: 1px solid var(--pm6-border);
+  background: var(--pm6-surface);
+  box-shadow: var(--pm6-shadow-card);
+  padding: var(--pm6-space-6) var(--pm6-space-5);
+}
+
+.errorTitle {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--pm6-forest);
+}
+
+.errorBody {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--pm6-ink-soft);
+}
+
+.errorHint {
+  margin: 0;
+  font-size: 0.84rem;
+  color: var(--pm6-muted);
+}
+
+.errorCta {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--pm6-radius-pill);
+  border: 1px solid var(--pm6-forest);
+  background: var(--pm6-forest);
+  color: var(--pm6-forest-ink);
+  padding: 10px 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+@media (max-width: 767px) {
+  .projectTitle {
+    font-size: 1.4rem;
+  }
+
+  .lpsToggle {
+    width: 100%;
+    justify-content: center;
+  }
+}

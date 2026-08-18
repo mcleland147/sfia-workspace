@@ -17,12 +17,16 @@ const {
   projectAssistantDecideActionMock,
   projectAssistantPrepareF3FixtureActionMock,
   projectAssistantConfirmAndExecuteF3FixtureActionMock,
+  projectAssistantPrepareResolvedM3ActionMock,
+  projectAssistantConfirmAndExecuteResolvedM3ActionMock,
   projectAssistantRehydrateEvidenceOutcomeActionMock,
 } = vi.hoisted(() => ({
   projectAssistantSendActionMock: vi.fn(),
   projectAssistantDecideActionMock: vi.fn(),
   projectAssistantPrepareF3FixtureActionMock: vi.fn(),
   projectAssistantConfirmAndExecuteF3FixtureActionMock: vi.fn(),
+  projectAssistantPrepareResolvedM3ActionMock: vi.fn(),
+  projectAssistantConfirmAndExecuteResolvedM3ActionMock: vi.fn(),
   projectAssistantRehydrateEvidenceOutcomeActionMock: vi.fn(),
 }));
 
@@ -35,6 +39,10 @@ vi.mock("@/features/project-assistant/actions", () => ({
     projectAssistantPrepareF3FixtureActionMock(...args),
   projectAssistantConfirmAndExecuteF3FixtureAction: (...args: unknown[]) =>
     projectAssistantConfirmAndExecuteF3FixtureActionMock(...args),
+  projectAssistantPrepareResolvedM3Action: (...args: unknown[]) =>
+    projectAssistantPrepareResolvedM3ActionMock(...args),
+  projectAssistantConfirmAndExecuteResolvedM3Action: (...args: unknown[]) =>
+    projectAssistantConfirmAndExecuteResolvedM3ActionMock(...args),
   projectAssistantRehydrateEvidenceOutcomeAction: (...args: unknown[]) =>
     projectAssistantRehydrateEvidenceOutcomeActionMock(...args),
 }));
@@ -189,6 +197,8 @@ describe("F1 ProjectAssistantPanel UI", () => {
     projectAssistantDecideActionMock.mockReset();
     projectAssistantPrepareF3FixtureActionMock.mockReset();
     projectAssistantConfirmAndExecuteF3FixtureActionMock.mockReset();
+    projectAssistantPrepareResolvedM3ActionMock.mockReset();
+    projectAssistantConfirmAndExecuteResolvedM3ActionMock.mockReset();
     projectAssistantRehydrateEvidenceOutcomeActionMock.mockReset();
     projectAssistantRehydrateEvidenceOutcomeActionMock.mockResolvedValue(
       NO_EVIDENCE_OUTCOME,
@@ -260,8 +270,9 @@ describe("F1 ProjectAssistantPanel UI", () => {
     expect(screen.getByTestId("project-assistant-no-cursor")).toBeInTheDocument();
     expect(screen.getByTestId("project-assistant-no-write")).toBeInTheDocument();
     expect(screen.getByTestId("workspace-primary-assistant-hint")).toBeVisible();
-    expect(screen.getByTestId("workspace-continue-pilotage")).toHaveTextContent(
-      /temporaire/i,
+    expect(screen.getByTestId("workspace-back-to-studio")).toHaveAttribute(
+      "href",
+      "/studio",
     );
 
     fireEvent.change(screen.getByTestId("project-assistant-input"), {
@@ -411,10 +422,13 @@ describe("F1 ProjectAssistantPanel UI", () => {
   });
 
 
-  it("shows MODE À CONFIRMER before first provider response", () => {
+  it("shows Nora conversation chrome before first provider response", () => {
     render(<ProjectAssistantPanel projectId="prj:f1-ui" />);
     expect(screen.getByTestId("project-assistant-mode-pill")).toHaveTextContent(
-      /MODE À CONFIRMER/,
+      /Nora/,
+    );
+    expect(screen.getByTestId("project-assistant-mode-pill")).toHaveTextContent(
+      /Conversation/,
     );
     expect(screen.getByTestId("project-assistant-mode-pill")).not.toHaveTextContent(
       /Fixture/,
@@ -433,6 +447,8 @@ describe("M5-27/M5-28 durable Nora/UI rehydrate", () => {
     projectAssistantDecideActionMock.mockReset();
     projectAssistantPrepareF3FixtureActionMock.mockReset();
     projectAssistantConfirmAndExecuteF3FixtureActionMock.mockReset();
+    projectAssistantPrepareResolvedM3ActionMock.mockReset();
+    projectAssistantConfirmAndExecuteResolvedM3ActionMock.mockReset();
     projectAssistantRehydrateEvidenceOutcomeActionMock.mockReset();
     projectAssistantRehydrateEvidenceOutcomeActionMock.mockResolvedValue(
       NO_EVIDENCE_OUTCOME,

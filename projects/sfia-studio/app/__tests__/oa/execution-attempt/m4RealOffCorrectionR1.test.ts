@@ -207,6 +207,7 @@ describe("M4 REAL-OFF correction R1", () => {
       adapterRef: gateway.gatewayId,
       correlationId: "cor:1",
       baseHeadSha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      timeoutMs: 15 * 60 * 1000,
     });
     expect(result.outcome).toBe("reject");
     if (result.outcome === "reject") {
@@ -215,7 +216,7 @@ describe("M4 REAL-OFF correction R1", () => {
     expect(runner.calls).toHaveLength(0);
   });
 
-  it("R1-10 pre-reproof bounding: argv --mode ask once + deterministic README instruction; timeout 60000", async () => {
+  it("R1-10 pre-reproof bounding: argv --mode ask once + deterministic README instruction; timeout is request.timeoutMs", async () => {
     // Gateway-local enablement via flag constant — does not set process.env.
     // FakeProcessRunner only; no OS Cursor spawn.
     expect(process.env.SFIA_STUDIO_CURSOR_REAL).not.toBe("1");
@@ -230,7 +231,6 @@ describe("M4 REAL-OFF correction R1", () => {
         [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1",
       },
       resolveCursorBin: () => "/tmp/fake-cursor-bin",
-      // Omit defaultTimeoutMs — product default must remain 60_000.
     });
 
     const result = await gateway.launch({
@@ -245,6 +245,7 @@ describe("M4 REAL-OFF correction R1", () => {
       action: "cursor.read_only.inspect",
       target: "workspace.isolated.read",
       scope: "studio.m4.real_off",
+      timeoutMs: 15 * 60 * 1000,
     });
 
     expect(result.outcome).toBe("ack");
@@ -253,7 +254,7 @@ describe("M4 REAL-OFF correction R1", () => {
     expect(process.env.SFIA_STUDIO_CURSOR_REAL).not.toBe("1");
 
     const call = runner.calls[0];
-    expect(call.timeoutMs).toBe(60_000);
+    expect(call.timeoutMs).toBe(15 * 60 * 1000);
     expect(call.executable).toBe("/tmp/fake-cursor-bin");
     expect(call.cwd).toBe(workspacePath);
 
@@ -292,5 +293,42 @@ describe("M4 REAL-OFF correction R1", () => {
     expect(instruction).toContain("fingerprint=fp:pre-reproof-bounding");
     expect(instruction).not.toMatch(/lecture seule bornée/);
     expect(instruction).not.toMatch(/inspect(?:ion)?\s+(?:globale|libre|workspace)/i);
+  });
+
+  it("R1-11 fail-closed: missing or invalid timeoutMs never invents 60_000", async () => {
+    expect(process.env.SFIA_STUDIO_CURSOR_REAL).not.toBe("1");
+    const runner = new FakeProcessRunner({ processRef: "proc:sim:r1-11" });
+    const gateway = new StudioCursorRealLaunchGateway({
+      processRunner: runner,
+      workspacePort: new FakeRealExecutionWorkspacePort({
+        workspacePath: "/tmp/fake-exec-root/wt-r1-11",
+      }),
+      env: {
+        ...process.env,
+        [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1",
+      },
+      resolveCursorBin: () => "/tmp/fake-cursor-bin",
+    });
+    const base = {
+      attemptId: "xat:r1-11",
+      executionContractId: "xct:r1-11",
+      executionContractVersion: 1,
+      semanticFingerprint: "fp:r1-11",
+      selectedAgentRef: "agt:m4.cursor.bounded_readonly",
+      adapterRef: gateway.gatewayId,
+      correlationId: "cor:r1-11",
+      baseHeadSha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    };
+    for (const timeoutMs of [0, -1, 61 * 60 * 1000, Number.NaN]) {
+      const result = await gateway.launch({
+        ...base,
+        timeoutMs,
+      } as never);
+      expect(result.outcome).toBe("reject");
+      if (result.outcome === "reject") {
+        expect(result.detailCode).toBe("REAL_LAUNCH_FAILED");
+      }
+    }
+    expect(runner.calls).toHaveLength(0);
   });
 });

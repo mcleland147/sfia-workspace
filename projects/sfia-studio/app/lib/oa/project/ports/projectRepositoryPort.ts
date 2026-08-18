@@ -2,6 +2,11 @@ import type { Project } from "../domain/types";
 
 export interface ProjectRepositoryPort {
   findById(projectId: string): Promise<Project | null>;
+  /**
+   * Thin product list over existing oa_projects / in-memory store.
+   * No schema change; ordered newest-first when timestamps exist.
+   */
+  listAll(): Promise<Project[]>;
   exists(projectId: string): Promise<boolean>;
   save(project: Project): Promise<void>;
   /**

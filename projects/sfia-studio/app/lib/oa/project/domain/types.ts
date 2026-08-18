@@ -206,6 +206,18 @@ export type GetProjectFailure = {
 
 export type GetProjectResult = GetProjectSuccess | GetProjectFailure;
 
+export type ListProjectsSuccess = {
+  ok: true;
+  projects: Project[];
+};
+
+export type ListProjectsFailure = {
+  ok: false;
+  error: ProjectStructuredError;
+};
+
+export type ListProjectsResult = ListProjectsSuccess | ListProjectsFailure;
+
 export type GetLpsSuccess = {
   ok: true;
   livingProjectState: LivingProjectState;

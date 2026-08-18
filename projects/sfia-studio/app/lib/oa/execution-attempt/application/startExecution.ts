@@ -32,7 +32,12 @@ import type {
   ExecutionContract,
   ExecutionContractRepositoryPort,
 } from "@/lib/oa/execution-contract";
-import { computeExecutionContractSemanticFingerprint } from "@/lib/oa/execution-contract";
+import {
+  computeExecutionContractSemanticFingerprint,
+  DEFAULT_BOUNDED_READ_ONLY_M3_EXECUTION_WINDOW_CLASS,
+  resolveExecutionWindowForStart,
+  type ResolvedExecutionWindow,
+} from "@/lib/oa/execution-contract";
 import type { AuthorityResolverPort } from "@/lib/oa/decision";
 import { createAttemptError, isExecutionAttemptDomainError } from "../domain/errors";
 import {
@@ -662,6 +667,17 @@ export class StartExecution {
       });
     }
 
+    const window = resolveExecutionWindowForStart({
+      executionWindowClass: contract.executionWindowClass,
+      defaultClassIfMissing:
+        DEFAULT_BOUNDED_READ_ONLY_M3_EXECUTION_WINDOW_CLASS,
+    });
+    if (!window.ok) {
+      return fail("ATTEMPT_INVALID", window.reason, {
+        executionContractId: contract.executionContractId,
+      });
+    }
+
     let launch;
     try {
       launch = await this.realLaunchPort.launch({
@@ -676,6 +692,7 @@ export class StartExecution {
         action: contract.action,
         target: contract.target,
         scope: contract.scope,
+        timeoutMs: window.resolvedMaxDurationMs,
       });
     } catch {
       return this.failRealLaunch({
@@ -793,6 +810,7 @@ export class StartExecution {
       correlationId,
       started,
       adapterIdForAudit: this.realLaunchPort.gatewayId,
+      window,
       fail,
     });
   }
@@ -842,6 +860,7 @@ export class StartExecution {
     correlationId: string;
     started: number;
     adapterIdForAudit: string;
+    window?: ResolvedExecutionWindow;
     fail: (
       detailCode: AttemptDetailCode,
       internalCauseRef: string,
@@ -859,6 +878,7 @@ export class StartExecution {
       correlationId,
       started,
       adapterIdForAudit,
+      window,
       fail,
     } = input;
 
@@ -870,6 +890,12 @@ export class StartExecution {
       startedAt: timestamp,
       updatedAt: timestamp,
       version: attempt.version + 1,
+      ...(window
+        ? {
+            executionWindowClass: window.executionWindowClass,
+            resolvedMaxDurationMs: window.resolvedMaxDurationMs,
+          }
+        : {}),
     };
     try {
       const persist = async () => {

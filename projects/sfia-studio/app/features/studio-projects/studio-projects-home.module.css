@@ -1,0 +1,152 @@
+.root {
+  display: grid;
+  gap: var(--sfia-space-xl);
+}
+
+.page {
+  display: grid;
+  gap: var(--sfia-space-lg);
+  padding-bottom: var(--sfia-space-xl);
+  max-width: 920px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sfia-space-lg);
+  flex-wrap: wrap;
+}
+
+.title {
+  margin: 0;
+  color: var(--sfia-ink);
+  font-size: 32px;
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+.lead,
+.hint,
+.itemMeta,
+.itemObjective {
+  margin: 8px 0 0;
+  color: var(--sfia-muted);
+  font-size: 14px;
+  line-height: var(--sfia-line-body);
+}
+
+.empty,
+.error {
+  display: grid;
+  gap: var(--sfia-space-sm);
+  padding: var(--sfia-space-xl);
+  background: #fff;
+  border: 1px dashed var(--sfia-border);
+  border-radius: var(--sfia-radius-lg);
+}
+
+.error {
+  border-style: solid;
+  border-color: #f3c4c4;
+  background: #fff8f8;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  background: #fff;
+  border: 1px solid var(--sfia-border-soft);
+  border-radius: var(--sfia-radius-lg);
+  box-shadow: var(--sfia-shadow-sm);
+  overflow: hidden;
+}
+
+.item {
+  margin: 0;
+  border-bottom: 1px solid var(--sfia-border-soft);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.itemLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sfia-space-md);
+  padding: var(--sfia-space-lg) var(--sfia-space-xl);
+  text-decoration: none;
+  color: inherit;
+}
+
+.itemLink:hover {
+  background: var(--sfia-surface);
+}
+
+.itemLink:focus-visible {
+  outline: 2px solid var(--sfia-brand-forest);
+  outline-offset: -2px;
+}
+
+.itemBody {
+  min-width: 0;
+  flex: 1;
+}
+
+.itemTitleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.itemTitle {
+  margin: 0;
+  color: var(--sfia-ink);
+  font-size: 17px;
+  line-height: 1.3;
+  font-weight: 650;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+  background: var(--sfia-border-soft);
+  color: var(--sfia-muted);
+}
+
+.badge[data-tone="green"] {
+  background: var(--sfia-green-soft-00c);
+  color: var(--sfia-brand-forest);
+}
+
+.badge[data-tone="orange"] {
+  background: var(--sfia-orange-soft-00c);
+  color: #8a5a00;
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: var(--sfia-muted);
+  font-size: 22px;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 26px;
+  }
+
+  .itemLink {
+    padding: var(--sfia-space-md);
+  }
+}

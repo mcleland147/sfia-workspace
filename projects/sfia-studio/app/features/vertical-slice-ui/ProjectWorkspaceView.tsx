@@ -23,25 +23,20 @@ function ProjectProjection({ result }: { result: GetProjectSuccess }) {
       <div data-testid="project-workspace-projection">
       <div className={styles.workspaceHeader}>
         <div>
-          <h2>Espace de travail projet</h2>
+          <h2>État du projet</h2>
           <p className={styles.hint}>
-            Vue de contexte locale — projection réelle du core V1 / Product
-            SQLite (Project/LPS/Cycle M2), sans dashboard et sans agent.
+            Vue de contexte — la conversation reste le parcours principal.
           </p>
         </div>
         <div className={styles.pillGroup}>
-          <StatusPill tone="green">REAL_LOCAL_CORE</StatusPill>
-          <StatusPill tone="orange">{result.readiness.status}</StatusPill>
+          <StatusPill tone="green">Projet</StatusPill>
+          <StatusPill tone="blueFlush">État disponible</StatusPill>
         </div>
       </div>
 
       <section className={styles.section} aria-labelledby="workspace-project">
-        <h3 id="workspace-project">Project</h3>
+        <h3 id="workspace-project">Projet</h3>
         <dl className={styles.definitionGrid}>
-          <div className={styles.definitionItem}>
-            <dt>Project ID</dt>
-            <dd className={styles.valueCode}>{result.project.projectId}</dd>
-          </div>
           <div className={styles.definitionItem}>
             <dt>Nom</dt>
             <dd>{result.project.name}</dd>
@@ -64,14 +59,6 @@ function ProjectProjection({ result }: { result: GetProjectSuccess }) {
             <dt>Contexte résumé</dt>
             <dd>{result.project.contextSummary}</dd>
           </div>
-          <div className={styles.definitionItem}>
-            <dt>Source</dt>
-            <dd>{result.project.source}</dd>
-          </div>
-          <div className={styles.definitionItem}>
-            <dt>Fixture</dt>
-            <dd>{String(result.project.fixture)}</dd>
-          </div>
         </dl>
         {result.project.constraints.length > 0 ? (
           <ul className={styles.constraintList} aria-label="Contraintes">
@@ -84,17 +71,17 @@ function ProjectProjection({ result }: { result: GetProjectSuccess }) {
         )}
       </section>
 
-      <section className={styles.section} aria-labelledby="workspace-lps">
-        <h3 id="workspace-lps">Doctrine et Living Project State</h3>
+      <details className={styles.diagnostics} data-testid="workspace-diagnostics">
+        <summary>Diagnostics techniques</summary>
         <dl className={styles.definitionGrid}>
           <div className={styles.definitionItem}>
-            <dt>Doctrine</dt>
-            <dd>{result.doctrine.id}</dd>
+            <dt>Identifiant</dt>
+            <dd className={styles.valueCode}>{result.project.projectId}</dd>
           </div>
           <div className={styles.definitionItem}>
-            <dt>Version / statut</dt>
+            <dt>Doctrine</dt>
             <dd>
-              {result.doctrine.version} · {result.doctrine.status}
+              {result.doctrine.id} · {result.doctrine.version}
             </dd>
           </div>
           <div className={styles.definitionItem}>
@@ -102,18 +89,18 @@ function ProjectProjection({ result }: { result: GetProjectSuccess }) {
             <dd className={styles.valueCode}>{result.doctrine.digest}</dd>
           </div>
           <div className={styles.definitionItem}>
-            <dt>LPS</dt>
+            <dt>État vivant</dt>
             <dd className={styles.valueCode}>{result.livingState.id}</dd>
           </div>
           <div className={styles.definitionItem}>
-            <dt>LPS version / date</dt>
+            <dt>Version / date</dt>
             <dd>
               v{result.livingState.version} · {result.livingState.createdAt}
             </dd>
           </div>
           {result.livingState.activeCycleInstanceId ? (
             <div className={styles.definitionItem}>
-              <dt>CycleInstance actif (lien LPS)</dt>
+              <dt>Cycle lié</dt>
               <dd
                 className={styles.valueCode}
                 data-testid="workspace-active-cycle"
@@ -124,7 +111,7 @@ function ProjectProjection({ result }: { result: GetProjectSuccess }) {
           ) : null}
           {result.livingState.ckcResolutionRef ? (
             <div className={styles.definitionItem}>
-              <dt>CKC resolution ref</dt>
+              <dt>Réf. résolution</dt>
               <dd
                 className={styles.valueCode}
                 data-testid="workspace-ckc-ref"
@@ -134,46 +121,22 @@ function ProjectProjection({ result }: { result: GetProjectSuccess }) {
             </div>
           ) : null}
         </dl>
-      </section>
-
-      <section className={styles.truthBox} aria-labelledby="workspace-truth">
-        <h3 id="workspace-truth">Vérité runtime</h3>
-        <div className={styles.pillGroup}>
-          <StatusPill tone="orangeFlush">
-            {result.disclosures.runtimeMode}
-          </StatusPill>
-          <StatusPill tone="muted">{result.disclosures.persistence}</StatusPill>
-          <StatusPill tone="muted">
-            AGENT {result.disclosures.agentExecution}
-          </StatusPill>
-          <StatusPill tone="orange">{result.readiness.status}</StatusPill>
-        </div>
-        <p className={styles.hint}>
-          IAM {result.disclosures.iam} · PRODUCT PERSISTENCE{" "}
-          {result.disclosures.productPersistence} · DELIVERY{" "}
-          {result.disclosures.delivery} · CUTOVER {result.disclosures.cutover} ·
-          RUN READY = {String(result.readiness.runReady)} · PRODUCT READY ={" "}
-          {String(result.readiness.productReady)}
-        </p>
-      </section>
+      </details>
 
       <div className={styles.actions}>
         <p
           className={styles.primaryAssistantHint}
           data-testid="workspace-primary-assistant-hint"
         >
-          Parcours principal : Assistant Nora (panneau de droite) — analyse /
-          conversation / lecture seule. OPS1 n&apos;est pas requis.
+          Parcours principal : conversation de qualification.
         </p>
         <div className={styles.secondaryActions}>
           <CtaButton
-            href={`/ops1/nouvelle-demande?projectId=${encodeURIComponent(result.project.projectId)}`}
+            href="/studio"
             variant="secondary"
-            data-testid="workspace-continue-pilotage"
-            title="Escape hatch temporaire vers OPS1 (non lié au Project)"
-            aria-label="Continuer le pilotage via OPS1 (temporaire)"
+            data-testid="workspace-back-to-studio"
           >
-            Continuer le pilotage (OPS1 · temporaire)
+            Retour aux projets
           </CtaButton>
           <CtaButton
             href="/studio/projects/new"
@@ -200,12 +163,11 @@ function MissingProject({
     <Card variant="flush" className={styles.missingCard}>
       <div data-testid="project-workspace-missing">
       <div>
-        <h2>Projet introuvable dans ce processus</h2>
+        <h2>Projet introuvable</h2>
         <p className={styles.hint}>
-          L’identifiant demandé n’est pas disponible dans le Product SQLite
-          ouvert par ce processus. Vérifiez l’identifiant ou créez un projet.
-          Conversation/Proposal F2 restent process-local ; Project/LPS/Cycle
-          durables ne dépendent pas de globalThis.
+          L’identifiant demandé n’est pas disponible dans ce processus.
+          Vérifiez l’identifiant ou créez un projet. Conversation et proposition
+          restent process-local.
         </p>
       </div>
       <dl className={styles.definitionGrid}>
@@ -229,8 +191,8 @@ function MissingProject({
         </div>
       </dl>
       <div className={styles.actions}>
-        <CtaButton href="/studio/projects/new" variant="secondary">
-          Retour à la création
+        <CtaButton href="/studio" variant="secondary">
+          Retour aux projets
         </CtaButton>
       </div>
       </div>

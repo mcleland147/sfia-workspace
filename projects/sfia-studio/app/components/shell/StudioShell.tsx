@@ -4,10 +4,7 @@ import {
   type TopbarPrimaryAction,
 } from "./Topbar";
 import { CopilotPanel, type CopilotProps } from "./CopilotPanel";
-import type {
-  StudioRoute,
-  StudioShellRoute,
-} from "@/lib/navigation";
+import type { StudioShellRoute } from "@/lib/navigation";
 import shellStyles from "@/styles/shell.module.css";
 
 interface TopbarPill {
@@ -22,12 +19,14 @@ interface StudioShellProps {
   title: string;
   pills?: TopbarPill[];
   children: React.ReactNode;
-  copilot: CopilotProps;
+  copilot?: CopilotProps | null;
   showTabs?: boolean;
   /**
    * `undefined` preserves the historical CTA; `null` hides it.
    */
   primaryAction?: TopbarPrimaryAction | null;
+  /** When true, canvas uses full width (no copilot column). */
+  hideCopilot?: boolean;
 }
 
 export function StudioShell({
@@ -39,18 +38,17 @@ export function StudioShell({
   copilot,
   showTabs,
   primaryAction,
+  hideCopilot = false,
 }: StudioShellProps) {
   const isFloating = variant === "floating";
+  const showCopilot = !hideCopilot && copilot != null;
 
   if (isFloating) {
     return (
       <div className={shellStyles.pageFloating} data-testid="studio-shell">
         <div className={shellStyles.brandAccent} aria-hidden="true" />
         <div className={shellStyles.railFloating}>
-          <UtilityRail
-            variant="floating"
-            activeRoute={activeRoute as StudioRoute}
-          />
+          <UtilityRail variant="floating" activeRoute={activeRoute} />
         </div>
         <div className={shellStyles.workspaceFloating}>
           <Topbar
@@ -65,9 +63,11 @@ export function StudioShell({
             {children}
           </main>
         </div>
-        <div className={shellStyles.copilotFloating}>
-          <CopilotPanel {...copilot} variant="floating" />
-        </div>
+        {showCopilot ? (
+          <div className={shellStyles.copilotFloating}>
+            <CopilotPanel {...copilot} variant="floating" />
+          </div>
+        ) : null}
       </div>
     );
   }
@@ -76,10 +76,7 @@ export function StudioShell({
     <div className={shellStyles.pageFlush} data-testid="studio-shell">
       <div className={shellStyles.brandAccent} aria-hidden="true" />
       <div className={shellStyles.railFlush}>
-        <UtilityRail
-          variant="flush"
-          activeRoute={activeRoute as StudioRoute}
-        />
+        <UtilityRail variant="flush" activeRoute={activeRoute} />
       </div>
       <div className={shellStyles.mainFlush}>
         <Topbar
@@ -92,15 +89,21 @@ export function StudioShell({
         />
         <div className={shellStyles.bodyFlush}>
           <main
-            className={shellStyles.canvasFlush}
+            className={
+              showCopilot
+                ? shellStyles.canvasFlush
+                : shellStyles.canvasFlushWide
+            }
             id="main-content"
             aria-label="Contenu principal"
           >
             {children}
           </main>
-          <div className={shellStyles.copilotFlush}>
-            <CopilotPanel {...copilot} variant="flush" />
-          </div>
+          {showCopilot ? (
+            <div className={shellStyles.copilotFlush}>
+              <CopilotPanel {...copilot} variant="flush" />
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

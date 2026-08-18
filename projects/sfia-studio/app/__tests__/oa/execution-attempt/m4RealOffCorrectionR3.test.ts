@@ -110,6 +110,7 @@ describe("M4 REAL-OFF correction R3", () => {
       adapterRef: gateway.gatewayId,
       correlationId: "cor",
       baseHeadSha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      timeoutMs: 15 * 60 * 1000,
     });
     expect(result.outcome).toBe("reject");
     expect(runner.calls).toHaveLength(0);
@@ -132,6 +133,7 @@ describe("M4 REAL-OFF correction R3", () => {
       adapterRef: gateway.gatewayId,
       correlationId: "cor",
       baseHeadSha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      timeoutMs: 15 * 60 * 1000,
     });
     expect(result.outcome).toBe("reject");
     if (result.outcome === "reject") {

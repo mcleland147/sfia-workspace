@@ -33,6 +33,7 @@ export type ExecutionContractSemanticMaterial = {
   stopConditions: string[];
   evidenceRequirements: string[];
   reversibility: ExecutionContract["reversibility"];
+  executionWindowClass?: ExecutionContract["executionWindowClass"];
   idempotencyKey: string;
   supersedesExecutionContractId?: string;
   supersessionReason?: string;
@@ -60,6 +61,7 @@ export function executionContractSemanticMaterial(
     | "stopConditions"
     | "evidenceRequirements"
     | "reversibility"
+    | "executionWindowClass"
     | "idempotencyKey"
     | "supersedesExecutionContractId"
     | "supersessionReason"
@@ -81,6 +83,9 @@ export function executionContractSemanticMaterial(
     reversibility: contract.reversibility,
     idempotencyKey: contract.idempotencyKey,
   };
+  if (contract.executionWindowClass !== undefined) {
+    material.executionWindowClass = contract.executionWindowClass;
+  }
   if (contract.cycleInstanceId !== undefined) {
     material.cycleInstanceId = contract.cycleInstanceId;
   }

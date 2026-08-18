@@ -13,7 +13,10 @@ export {
   toCreateProjectRuntimeSuccess,
   toGetProjectRuntimeFailure,
   toGetProjectRuntimeSuccess,
+  toListProjectsRuntimeFailure,
+  toListProjectsRuntimeSuccess,
   toRuntimeErrorDto,
+  toRuntimeProjectListItem,
   toRuntimeProjectState,
 } from "./mapping";
 export { resolveDefaultVerticalSliceRoots } from "./paths";
@@ -24,6 +27,16 @@ export {
   type RuntimeAuditMode,
   type RuntimeOaStack,
 } from "./service";
+export {
+  composeStudioProductRealBoundary,
+  findGitToplevelByDotGit,
+  resolveStudioSfiaExecRoot,
+  type ComposeStudioProductRealBoundaryInput,
+} from "./composeStudioProductRealBoundary";
+export {
+  resolveBoundedReadOnlyBaseHeadSha,
+  validateBaseHeadSha,
+} from "./resolveBoundedReadOnlyBaseHeadSha";
 export {
   readLiveProjectContext,
   type LiveProjectContext,
@@ -37,9 +50,11 @@ export type {
   CreateProjectRuntimeInput,
   CreateProjectRuntimeResult,
   GetProjectRuntimeResult,
+  ListProjectsRuntimeResult,
   RuntimeCriticality,
   RuntimeDoctrineState,
   RuntimeErrorDto,
   RuntimeLivingProjectState,
+  RuntimeProjectListItem,
   RuntimeProjectState,
 } from "./types";

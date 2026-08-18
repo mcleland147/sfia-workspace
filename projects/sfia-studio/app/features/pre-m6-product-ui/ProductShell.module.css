@@ -1,0 +1,153 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--pm6-canvas);
+  color: var(--pm6-ink);
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: color-mix(in srgb, var(--pm6-canvas-raised) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--pm6-border-soft);
+}
+
+.headerInner {
+  max-width: var(--pm6-content-max);
+  margin: 0 auto;
+  padding: var(--pm6-space-3) var(--pm6-space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--pm6-space-5);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pm6-space-3);
+  text-decoration: none;
+  color: inherit;
+}
+
+.brandMark {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--pm6-radius-md);
+  background: var(--pm6-forest);
+  color: var(--pm6-forest-ink);
+  display: grid;
+  place-items: center;
+}
+
+.brandGlyph {
+  display: block;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.brandName {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--pm6-forest);
+}
+
+.brandTagline {
+  font-size: 0.76rem;
+  color: var(--pm6-muted);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--pm6-space-2);
+  margin-left: auto;
+}
+
+.navPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 15px;
+  border-radius: var(--pm6-radius-pill);
+  border: 1px solid transparent;
+  font-size: 0.86rem;
+  color: var(--pm6-muted-strong);
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.navPill:hover {
+  background: var(--pm6-surface);
+  color: var(--pm6-ink);
+}
+
+.navPill[data-active="true"] {
+  background: var(--pm6-forest);
+  border-color: var(--pm6-forest);
+  color: var(--pm6-forest-ink);
+}
+
+.navPill[data-inert="true"] {
+  color: var(--pm6-muted);
+  cursor: default;
+}
+
+.navPill[data-inert="true"]:hover {
+  background: transparent;
+  color: var(--pm6-muted);
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--pm6-radius-pill);
+  background: var(--pm6-forest-tint);
+  border: 1px solid var(--pm6-border);
+  color: var(--pm6-forest);
+  display: grid;
+  place-items: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  flex: 0 0 auto;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--pm6-content-max);
+  margin: 0 auto;
+  padding: var(--pm6-space-6) var(--pm6-space-5) var(--pm6-space-7);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 767px) {
+  .headerInner {
+    padding: var(--pm6-space-3) var(--pm6-space-4);
+    gap: var(--pm6-space-3);
+  }
+
+  .brandTagline {
+    display: none;
+  }
+
+  .main {
+    padding: var(--pm6-space-5) var(--pm6-space-4) var(--pm6-space-6);
+  }
+}

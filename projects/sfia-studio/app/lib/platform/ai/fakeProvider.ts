@@ -121,6 +121,45 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
+    /**
+     * Light/Standard gated path: Morris gate via structural op token ("create pr")
+     * without Critical profile — ZERO REAL Confirmation reachable.
+     * Critical architecture (__F2_STRUCTURING__) remains R-T-A3-1 fail-closed.
+     */
+    if (lastUser?.content.includes("__F2_GATED_STANDARD__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "actionable",
+          candidateCycleTypeId: "cyc:delivery",
+          signals: {
+            structuralChange: false,
+            securityImpact: false,
+            architectureImpact: false,
+            dataImpact: false,
+            irreversible: false,
+            lowRiskBounded: true,
+          },
+          objective: "Préparer une livraison bornée avec gate Morris",
+          scope: "Proposition Standard gateable sans Critical",
+          rephrasedRequest: "Préparer une proposition de livraison gated",
+          outOfScope: ["Cursor REAL"],
+          risks: ["Confusion reco/décision"],
+          reservations: [],
+          stopConditions: ["AUCUNE EXÉCUTION"],
+          activatedBlocks: ["qualification", "proposition", "gate"],
+          expectedOutcome: "Gate Morris requis — profil Standard",
+          criticalJustification: null,
+          requestedOperation: "create pr",
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
     if (lastUser?.content.includes("__F2_STRUCTURING__")) {
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({

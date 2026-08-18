@@ -55,3 +55,40 @@ textarea {
   white-space: nowrap;
   border: 0;
 }
+
+/* G-UX-07 — compact environment disclosure (secondary) */
+.sfia-env-disclosure {
+  margin: 0;
+  padding: 10px 14px;
+  max-width: 920px;
+  border: 1px solid var(--sfia-border-soft);
+  border-radius: var(--sfia-radius-sm);
+  background: var(--sfia-surface);
+  color: var(--sfia-muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.sfia-env-disclosure > summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--sfia-ink);
+  list-style: none;
+}
+
+.sfia-env-disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+
+.sfia-env-disclosure[open] > summary {
+  margin-bottom: 8px;
+}
+
+.sfia-env-disclosure p {
+  margin: 0 0 6px;
+}
+
+.sfia-env-disclosure-note {
+  opacity: 0.85;
+  font-size: 12px;
+}

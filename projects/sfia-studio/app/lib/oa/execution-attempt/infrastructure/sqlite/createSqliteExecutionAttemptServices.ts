@@ -14,6 +14,7 @@ import { CancelExecutionAttempt } from "../../application/cancelExecutionAttempt
 import { CheckAttemptAuthorization } from "../../application/checkAttemptAuthorization";
 import { ExecutionContractStatusWriter } from "../../application/executionContractStatusWriter";
 import { GetExecutionAttempt } from "../../application/getExecutionAttempt";
+import { GrantRealExecutionGate } from "../../application/grantRealExecutionGate";
 import { ListExecutionAttempts } from "../../application/listExecutionAttempts";
 import { RecordExecutionFailure } from "../../application/recordExecutionFailure";
 import { RecordExecutionResult } from "../../application/recordExecutionResult";
@@ -33,6 +34,8 @@ import type { AgentRegistryPort } from "../../ports/agentRegistry";
 import type { ExecutionAttemptAuditPort } from "../../ports/executionAttemptAudit";
 import type { ExecutionAttemptRepositoryPort } from "../../ports/executionAttemptRepository";
 import type { ExecutionAttemptTechnicalStorePort } from "../../ports/executionAttemptTechnicalStorePort";
+import type { RealExecutionLaunchPort } from "../../ports/realExecutionLaunchPort";
+import type { RealLaunchSafetyJournalPort } from "../../ports/realLaunchSafetyJournalPort";
 import { SqliteExecutionAttemptRepository } from "./sqliteExecutionAttemptRepository";
 import { SqliteExecutionAttemptTechnicalStore } from "./sqliteExecutionAttemptTechnicalStore";
 
@@ -58,6 +61,14 @@ export type CreateSqliteExecutionAttemptServicesOptions = {
   audit?: ExecutionAttemptAuditPort;
   policy?: Partial<AttemptPolicy>;
   authorityResolver?: AuthorityResolverPort;
+  /**
+   * Optional M4 REAL boundary (journal + specialized launch port).
+   * Default undefined / OFF. Does NOT enable SFIA_STUDIO_CURSOR_REAL.
+   */
+  realBoundary?: {
+    readonly launchPort: RealExecutionLaunchPort;
+    readonly safetyJournal: RealLaunchSafetyJournalPort;
+  };
 };
 
 export type SqliteExecutionAttemptServices = {
@@ -79,11 +90,19 @@ export type SqliteExecutionAttemptServices = {
   getExecutionAttempt: GetExecutionAttempt;
   listExecutionAttempts: ListExecutionAttempts;
   checkAttemptAuthorization: CheckAttemptAuthorization;
+  grantRealExecutionGate?: GrantRealExecutionGate;
+  grantGateD?: GrantRealExecutionGate;
+  realBoundary?: {
+    readonly launchPort: RealExecutionLaunchPort;
+    readonly safetyJournal: RealLaunchSafetyJournalPort;
+  };
+  launchSafetyJournal?: RealLaunchSafetyJournalPort;
+  realLaunch?: RealExecutionLaunchPort;
 };
 
 /**
  * Durable ExecutionAttempt services on Product SQLite (M5-A).
- * Does NOT wire realBoundary / Gate D / REAL launch (M4 REAL-OFF unchanged).
+ * realBoundary is optional and OFF by default (GAP-3). No live Cursor spawn.
  */
 export function createSqliteExecutionAttemptServices(
   options: CreateSqliteExecutionAttemptServicesOptions,
@@ -128,6 +147,18 @@ export function createSqliteExecutionAttemptServices(
     store,
   );
 
+  const realBoundary = options.realBoundary;
+  const grantRealExecutionGate = realBoundary
+    ? new GrantRealExecutionGate(
+        attempts,
+        contracts,
+        registry,
+        authority,
+        realBoundary.safetyJournal,
+        clock,
+      )
+    : undefined;
+
   return {
     store,
     attempts,
@@ -150,6 +181,8 @@ export function createSqliteExecutionAttemptServices(
       clock,
       audit,
       store,
+      realBoundary?.launchPort,
+      realBoundary?.safetyJournal,
     ),
     cancelExecutionAttempt: new CancelExecutionAttempt(
       attempts,
@@ -210,6 +243,11 @@ export function createSqliteExecutionAttemptServices(
       clock,
       audit,
     ),
+    grantRealExecutionGate,
+    grantGateD: grantRealExecutionGate,
+    realBoundary,
+    launchSafetyJournal: realBoundary?.safetyJournal,
+    realLaunch: realBoundary?.launchPort,
   };
 }
 
