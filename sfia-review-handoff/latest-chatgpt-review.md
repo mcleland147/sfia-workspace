@@ -1,221 +1,291 @@
-# ChatGPT Review Pack — FULL — Cycle 13 PRE-M6 PR READINESS (resume after PRE-M6-F7)
+# ChatGPT Review Pack — LIGHT — Cycle 13 PR #361 whitespace-only EOF follow-up
 
 ## Meta
 
 | Champ | Valeur |
 |-------|--------|
-| Timestamp Europe/Paris | 2026-08-18 10:59:33 CEST (+0200) |
-| GO Morris consommé | GO MORRIS — CONSOLIDATE CURRENT SFIA STUDIO PRE-M6 CANDIDATE — PR READINESS — ONE COHERENT PROJECT COMMIT — PUSH PROJECT BRANCH — OPEN DRAFT PR — NO MERGE — NO BRANCH DELETE |
-| PRE-M6-F7 | accepted / consumed (handoff `14f7b4eb81fbdce63d677071a8be3dfbd30f6357` / blob `f1e4a3437eef242f5fd81e278a0a972c50fc05e9`) |
-| Cycle / profil / typologie | Cycle 13 — PR readiness · Critical · EVOL |
+| Timestamp Europe/Paris | 2026-08-18 11:30:20 CEST (+0200) |
+| GO Morris consommé | GO MORRIS — PR #361 FOLLOW-UP — WHITESPACE-ONLY EOF FIX — SINGLE FILE — SINGLE FOLLOW-UP COMMIT — PUSH SAME BRANCH — WAIT CI — NO MERGE |
+| Cycle / profil / typologie | Cycle 13 — PR readiness · Light · HOTFIX CI |
+| Qualification | Bounded mechanical follow-up to the already-qualified Critical PR-readiness cycle. Does NOT downgrade or requalify the whole PRE-M6 candidate. |
 | Repo | mcleland147/sfia-workspace |
 | Branche candidate | `delivery/sfia-studio-pre-m6-ui-option-a` |
-| HEAD before commit | `0d33478566627a9bf507d5a06323962d349308ee` |
-| HEAD after commit | `d1296c1b8bb29bb8348d3bd1fe3aa560e7200322` |
+| HEAD PRE | `d1296c1b8bb29bb8348d3bd1fe3aa560e7200322` |
+| HEAD POST (follow-up commit) | `3c4c478d7664c6111f38e6c4f49e98042e3a8473` |
 | origin/main | `a3ac418f3bc2ebb006cbc58f902f13629871014d` |
-| merge-base HEAD↔origin/main (pre-commit) | `0d33478566627a9bf507d5a06323962d349308ee` |
-| origin/sfia/review-handoff at cycle start | `14f7b4eb81fbdce63d677071a8be3dfbd30f6357` |
+| origin/sfia/review-handoff at cycle start | `f6d1f95a669abc45652d80d4c7aa77f1b35407d1` |
+| Previous canonical handoff blob | `9269252a0dc5de5179d83902d3ef4d17e0b87967` |
 | PR | #361 Draft OPEN |
 | Merge | NOT PERFORMED |
+| Draft → Ready | NOT PERFORMED |
 
-## Git PRE (truth check)
+## GO consumed (verbatim)
 
-Executed 2026-08-18 10:48:32 CEST (+0200) after `git fetch origin main sfia/review-handoff`.
-
-- Branch check: PASS — `delivery/sfia-studio-pre-m6-ui-option-a`
-- HEAD check: PASS — `0d33478566627a9bf507d5a06323962d349308ee`
-- origin/main: PASS — `a3ac418f3bc2ebb006cbc58f902f13629871014d`
-- F7 handoff commit: PASS — `14f7b4eb81fbdce63d677071a8be3dfbd30f6357`
-- F7 handoff blob: PASS — `f1e4a3437eef242f5fd81e278a0a972c50fc05e9`
-- staged initial: EMPTY (PASS)
-- no reset / clean / stash / rebase / merge main
-
-## Delta since previous Cycle 13 STOP
-
-Previous STOP (handoff `b360c9fbbf960d67a73e99a3af9d15dc0fb56f92`) recorded:
-
-- 69 tracked modified
-- 31 project untracked *grouped* paths (top-level git status paths were 45 project untracked entries + `.tmp-sfia-review/**`)
-- 0 versioned UNKNOWN / unrelated
-- `.tmp-sfia-review/**` excluded
-
-Current PRE-commit inventory:
-
-- tracked modified: **69** — identical set
-- project untracked top-level paths: **45** — identical set vs F7-cycle-start `git status`
-- project untracked files expanded: **80**
-- temp: `.tmp-sfia-review/**` only
-
-PRE-M6-F7 content delta (only these two already-untracked E2E files):
-
-1. `projects/sfia-studio/app/e2e/studio-option-a.spec.ts`
-2. `projects/sfia-studio/app/e2e/studio-option-a-deterministic-cursor-boundary.spec.ts`
-
-No new unexpected project files. No doctrine / Roadmap / méthode edits. No secrets / `.env` / sqlite / `.next` in versioned scope.
-
-Delta check: PASS — DIRTY TREE = previously qualified candidate + expected F7 E2E assertion alignment.
-
-## PRE-M6-F7 accepted evidence
-
-- ROOT CAUSE = STALE E2E ASSERTION AGAINST TECHNICAL ID — USER-FACING EVIDENCE WAS ALREADY PRESENT
-- user-facing Evidence / ReviewBundle / Recommendation visible after SUCCESS
-- `f3-evidence-id` / `f3-review-bundle-id` remain technical secondary / hidden by default
-- principal E2E 9/9 PASS
-- deterministic-boundary E2E 1/1 PASS
-- UAT-UX-03/04/05/07/08/09 PASS
-- ZERO REAL
-- F7 not reopened; the two E2E files are included in the project commit
-
-F7 micro-diff (principal spec):
-
-```diff
--    await expect(page.getByTestId("f3-evidence-id")).toBeVisible();
--    await expect(page.getByTestId("f3-review-bundle-id")).toBeVisible();
-+    await expect(page.getByTestId("f3-result-user-summary")).toContainText(/terminée avec succès/i);
-+    await expect(page.getByTestId("f3-evidence-card")).toBeVisible();
-+    await expect(page.getByTestId("f3-evidence-user-summary")).toContainText(/preuve a été enregistrée/i);
-+    await expect(page.getByTestId("f3-review-bundle-card")).toBeVisible();
-+    await expect(page.getByTestId("f3-review-bundle-user-summary")).toContainText(/dossier de revue/i);
-+    await expect(page.getByTestId("f3-evidence-id")).toBeHidden();
-+    await expect(page.getByTestId("f3-review-bundle-id")).toBeHidden();
+```text
+GO MORRIS — PR #361 FOLLOW-UP — WHITESPACE-ONLY EOF FIX — SINGLE FILE — SINGLE FOLLOW-UP COMMIT — PUSH SAME BRANCH — WAIT CI — NO MERGE
 ```
 
-## DIRTY_SCOPE_MATRIX (final, committed)
+## Sources consulted
 
-Same A/B/C/D/E classification as previous Cycle 13 STOP pack, plus F7 E2E delta inside D.
+Read only (no writes):
 
-### A. PRE-M6 PRODUCT UI / PRESENTATION — intended — COMMITTED
+- current Git repository truth (authoritative)
+- explicit Morris GO / gates above
+- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+- `projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md`
+- `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md`
+- `prompts/templates/sfia-cycle-execution-template.md`
+- Cycle 13 routing: `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md`
+- `.github/workflows/sfia-studio-ci.yml` (Trailing whitespace check = `git diff --check "${BASE_SHA}...HEAD"`)
+- canonical previous handoff `origin/sfia/review-handoff` @ `f6d1f95a669abc45652d80d4c7aa77f1b35407d1` / blob `9269252a0dc5de5179d83902d3ef4d17e0b87967`
 
-Tracked modified: globals.css, studio project pages, StudioShell, UtilityRail, ProjectAssistantPanel + CSS, vertical-slice-ui forms/views/banners + CSS, shell.module.css, tokens.css.
+Doctrines / Roadmap / framing / method / templates were **not written**.
 
-Added: `app/studio/page.tsx`, `features/pre-m6-product-ui/**`, `features/studio-projects/**`.
+## Convergence qualification
 
-### B. PRE-M6 PRODUCT APPLICATION WIRING — intended — COMMITTED
+- milestone context: PRE-M6 consolidation / PR readiness
+- PRE-M6 remains NON COMPLETE
+- runtime v3 remains NON ADOPTED
+- no new v3 capability is implemented by this cycle
+- this follow-up only restores CI truth for the already-built PRE-M6 candidate
+- KEEP: entire accepted PRE-M6 candidate and PRE-M6-F7 incorporation
+- ADAPT: exactly one EOF whitespace defect
+- FREEZE: product semantics, runtime, architecture, persistence, Fake/Real behavior, UX behavior, test assertions, Roadmap/doctrine, open reserves
+- no parallel architecture
+- no temporary product debt introduced
+- exit proof: one-file EOF-only diff + one follow-up commit + same-branch push + CI terminal result
+- next gate if CI green: Morris review
+- merge is NOT authorized
 
-Tracked modified: project-assistant actions/f3/types, navigation, vertical-slice-runtime.
+## Git PRE truth
 
-Added: F3 product-path files, `useProductConversation.ts`, `useRunningAttemptO3Observation.ts`, `listProjects.ts`, QA-control runtime helpers.
+Executed 2026-08-18 11:19:45 CEST (+0200) after `git fetch origin main delivery/sfia-studio-pre-m6-ui-option-a sfia/review-handoff`.
 
-### C. PRE-M6 SEMANTIC / FAKE-REAL FIXES — intended — COMMITTED
+| Item | Value | Check |
+|------|-------|-------|
+| repo | `origin` = `https://github.com/mcleland147/sfia-workspace.git` | PASS |
+| branch | `delivery/sfia-studio-pre-m6-ui-option-a` | PASS |
+| HEAD | `d1296c1b8bb29bb8348d3bd1fe3aa560e7200322` | PASS |
+| origin/delivery/sfia-studio-pre-m6-ui-option-a | `d1296c1b8bb29bb8348d3bd1fe3aa560e7200322` | PASS (same SHA) |
+| origin/main | `a3ac418f3bc2ebb006cbc58f902f13629871014d` | PASS |
+| origin/sfia/review-handoff | `f6d1f95a669abc45652d80d4c7aa77f1b35407d1` | PASS |
+| handoff blob | `9269252a0dc5de5179d83902d3ef4d17e0b87967` | PASS |
+| staged | empty | PASS |
+| tracked dirty | none | PASS |
+| untracked | `?? .tmp-sfia-review/` only | PASS (known remaining local temp) |
 
-Tracked modified: execution-attempt / execution-contract / project OA ports+sqlite, fakeProvider, execution-contract.schema.json.
+No reset / clean / stash / rebase / discard.
 
-Added: `presentationLabels.ts`, `observationSchedule.ts`, `executionWindowPolicy.ts`, `cursorTrustMarkerPathCompatibility.ts`, deterministic/real-boundary composers.
+## PR PRE truth
 
-### D. TESTS UNIT / UI / E2E PRE-M6 — intended — COMMITTED
+`gh pr view 361`:
 
-Includes F7-aligned `studio-option-a.spec.ts` and `studio-option-a-deterministic-cursor-boundary.spec.ts`.
+- number: 361
+- url: https://github.com/mcleland147/sfia-workspace/pull/361
+- state: OPEN
+- isDraft: true
+- title: `feat(sfia-studio): consolidate Pre-M6 product vertical slice` (unchanged)
+- base: `main` @ `a3ac418f3bc2ebb006cbc58f902f13629871014d`
+- head: `delivery/sfia-studio-pre-m6-ui-option-a` @ `d1296c1b8bb29bb8348d3bd1fe3aa560e7200322`
+- mergeable: MERGEABLE
 
-### E. SUPPORT — intended — COMMITTED
+PRE PR check: PASS.
 
-`app/api/e2e/option-a-qa-scenario/route.ts`, `e2e/support/optionAQaScenarioControl.ts`.
+## Initial CI blocker reverified
 
-### F. GENERATED / TEMP — MUST NOT COMMIT — EXCLUDED
+Historical failing run (head `d1296c1…`):
 
-All `.tmp-sfia-review/**` (review packs, PRE snapshots, QA screenshots, operator artefacts). QA sqlite under `/tmp`. `.next` build output.
+- workflow: SFIA Studio CI
+- run: `32118723723`
+- url: https://github.com/mcleland147/sfia-workspace/actions/runs/32118723723
+- Detect SFIA Studio changes: SUCCESS (job completed)
+- Build and validate SFIA Studio: FAILURE
+- SFIA Studio Required Gate: FAILURE
+- failing step: `Trailing whitespace check`
+- command: `git diff --check "${BASE_SHA}...HEAD"` with `BASE_SHA=a3ac418f3bc2ebb006cbc58f902f13629871014d`
+- unique printed cause:
+  `projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx:409: new blank line at EOF.`
+- process exit: 2
+- Required Gate: `Required gate FAIL: Studio validation required but result=failure.`
 
-### G. UNKNOWN / UNRELATED — none proven
+Local reverify on committed HEAD:
 
-## Files excluded from commit
+```text
+git diff --check origin/main...HEAD
+projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx:409: new blank line at EOF.
+exit=2
+```
 
-- `.tmp-sfia-review/**`
-- `/tmp/sfia-pre-m6-pr-a.sqlite`, `/tmp/sfia-pre-m6-pr-b.sqlite`, `/tmp/sfia-pre-m6-pr-c.sqlite`
-- Playwright `test-results/` (local)
-- `.next/`
-- no `.env`, no secrets, no node_modules
+Committed blob tail (HEAD PRE): file ended with `});\n\n` (`endswith_double_nl = True`). Unique `--check` hit in the aggregate range: that one path/line.
 
-## Validations executed (ZERO REAL)
+CI blocker reverify: PASS — isolated EOF whitespace policy.
 
-Environment: isolated local Studio app; Morris `127.0.0.1:3084` untouched.
+## Root-cause qualification
+
+`CI WHITESPACE POLICY — EXTRA BLANK LINE AT EOF`
+
+Confirmed by:
+
+1. GitHub Actions log unique line `:409: new blank line at EOF.`
+2. local `git diff --check origin/main...HEAD` unique hit
+3. committed bytes ending `0a0a` after `});`
+4. no other `--check` hits in the PR aggregate range
+
+Not a functional / UX / architecture / persistence / Fake-Real / assertion defect.
+
+## Authorized scope
+
+Exactly one file:
+
+`projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx`
+
+Authorized modification: remove the additional blank line at EOF; leave the file terminated by exactly one normal final newline.
+
+Forbidden: any second file, assertions, names, imports, unrelated formatting, F7/N7/UAT reserves, runtime, docs (except this review pack/handoff), PR metadata, Draft→Ready, merge.
+
+## Exact change
+
+Mechanical byte edit only (no formatter):
+
+- old size 13466 → new size 13465
+- old tail: `b',\n    );\n  });\n});\n\n'`
+- new tail: `b',\n    );\n  });\n});\n'`
+- `endswith_single_nl = True`
+- file blob after commit: `20b689350e4e91465a6b7de24165846d9a0187a5`
+
+Useful diff (entire commit):
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx
+index 80bbaa1..20b6893 100644
+--- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx
+@@ -406,4 +406,3 @@ describe("UAT-UX-05 internal marker", () => {
+     );
+   });
+ });
+-
+```
+
+Expected semantic / product / test-behavior / architecture / runtime / persistence delta: NONE.
+
+## Diff scope proof
+
+Unstaged after edit / staged / committed:
+
+- `git status --short`: `M` then `M ` then clean project tree except `?? .tmp-sfia-review/`
+- `git diff --stat`: `1 file changed, 1 deletion(-)`
+- `git diff --cached --name-only`: exactly the authorized path
+- staged file count = 1
+- commit file count = 1
+- no `.tmp-sfia-review/**` in the project commit
+
+## Local whitespace validations
 
 | Check | Result |
 |-------|--------|
-| `npm run build` | PASS |
-| `npm run typecheck` | PASS after build (`.next/types` generated; documented order, not a product regression) |
-| `npm run lint` | PASS |
-| `env -u SFIA_STUDIO_CURSOR_REAL -u OPS1_CURSOR_REAL -u OPENAI_API_KEY npm run test` | PASS — Test Files 199 passed / 13 skipped; Tests 1898 passed / 131 skipped |
-| `e2e/studio-option-a.spec.ts` | PASS 9/9 — port 3243, DB `/tmp/sfia-pre-m6-pr-a.sqlite`, `PLAYWRIGHT_FORCE_WEBSERVER=1` |
-| `e2e/studio-option-a-deterministic-cursor-boundary.spec.ts` | PASS 1/1 — port 3244, DB `/tmp/sfia-pre-m6-pr-b.sqlite`, deterministic boundary + QA control ON |
-| `e2e/studio-option-a-negative-states.spec.ts` | OPTIONAL — 6 passed / 1 failed (N7 `f3-attempt-id` hidden). Same stale-technical-id class as F7. Not corrected (no new functional fix authorized). Not treated as product happy-path regression. Principal spec negatives still PASS. |
-| `git diff --check` (tracked-only, pre-staging) | no output |
-| `git diff --cached --check` | WARNING printed: `uatUxSemanticReserves.ui.test.tsx:409: new blank line at EOF` (macOS git returned 0; CI `set -e` treats git `--check` exit 2 as FAIL) |
+| `git diff --check` (working tree vs index, after edit) | PASS, empty, exit 0 |
+| `git diff --check origin/main` (working-tree equivalent of CI aggregate, after EOF fix) | PASS, empty, exit 0 |
+| `git diff --check origin/main...HEAD` before commit | FAIL expected, unique EOF hit |
+| `git diff --cached --check` | PASS, empty, exit 0 |
+| `git diff --check origin/main...HEAD` after commit | PASS, empty, exit 0 |
 
-## Fake / Real
+CI workflow semantics reproduced: PR event uses `git diff --check "${BASE_SHA}...HEAD"` with verified `origin/main` SHA.
 
-- REAL_CALL_COUNT = 0
-- OPENAI_LIVE_CALL_COUNT = 0
-- CURSOR_REAL_PROCESS_COUNT = 0
-- Qualification: DETERMINISTIC PROVEN for this consolidation
-- Historical M4 REAL remains historical / bounded; not re-proven
+Full 1898-test suite was **not** rerun locally (not mandatory for EOF-only hygiene). Previous full local QA remains historical evidence only.
 
-## Git actions performed
+## Staged proof
 
-1. Selective staging via explicit path list (`git add --pathspec-from-file`) — not `git add .` / `git add -A`
-2. One project commit `d1296c1b8bb29bb8348d3bd1fe3aa560e7200322`
-   - message: `feat(sfia-studio): consolidate Pre-M6 product vertical slice`
-   - 149 files, +21430 / −874
-3. `git push -u origin delivery/sfia-studio-pre-m6-ui-option-a` (new remote branch, no force)
-4. local HEAD == `origin/delivery/sfia-studio-pre-m6-ui-option-a` == `d1296c1b8bb29bb8348d3bd1fe3aa560e7200322`
-5. Draft PR #361 opened against `main`
+Before commit:
 
-## Actions NOT performed
+- staged filenames: exactly `projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx`
+- staged count = 1
+- `git diff --cached --check` PASS
+- cached patch = the `-` blank line only
+- remaining unstaged project diff: empty
+- untracked remaining: `.tmp-sfia-review/` only (excluded)
 
-- no second project commit
-- no amend
-- no force push
-- no rebase
-- no merge
-- no push main
-- no branch delete
-- no Draft → Ready conversion
-- no Roadmap / doctrine / méthode write
-- no REAL
-- no functional correction after F7
-
-## PR / CI
+## Project follow-up commit
 
 | Champ | Valeur |
 |-------|--------|
-| Number | 361 |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/361 |
-| Draft | true |
-| State | OPEN |
-| Base | `main` @ `a3ac418f3bc2ebb006cbc58f902f13629871014d` |
-| Head | `delivery/sfia-studio-pre-m6-ui-option-a` @ `d1296c1b8bb29bb8348d3bd1fe3aa560e7200322` |
-| Mergeable | MERGEABLE (no conflicts) |
-| mergeStateStatus | BLOCKED (expected for Draft + failing required check) |
-| Detect SFIA Studio changes | SUCCESS |
-| Build and validate SFIA Studio | **FAILURE** |
-| SFIA Studio Required Gate | **FAILURE** (aggregate of validate) |
-| Workflow | https://github.com/mcleland147/sfia-workspace/actions/runs/32118723723 |
+| SHA | `3c4c478d7664c6111f38e6c4f49e98042e3a8473` |
+| parent | `d1296c1b8bb29bb8348d3bd1fe3aa560e7200322` (exact expected prior candidate) |
+| message | `chore(sfia-studio): fix PR whitespace gate` |
+| amend | NOT USED |
+| files | 1 |
+| summary | `1 file changed, 1 deletion(-)` |
+| `.tmp-sfia-review/**` | not included |
+| remaining staged | empty |
 
-CI unique root cause (from failed job log):
+## POST-PUSH / PR state
+
+Normal non-force push:
 
 ```text
-Trailing whitespace check
-git diff --check a3ac418f3bc2ebb006cbc58f902f13629871014d...HEAD
-projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx:409: new blank line at EOF.
-exit code 2
+d1296c1..3c4c478  HEAD -> delivery/sfia-studio-pre-m6-ui-option-a
 ```
 
-Confirmed locally: committed blob ends with `);\n\n`.
+| Champ | Valeur |
+|-------|--------|
+| local HEAD | `3c4c478d7664c6111f38e6c4f49e98042e3a8473` |
+| origin/delivery/sfia-studio-pre-m6-ui-option-a | `3c4c478d7664c6111f38e6c4f49e98042e3a8473` |
+| local == remote | YES |
+| PR #361 | OPEN |
+| Draft | true |
+| base | `main` @ `a3ac418f3bc2ebb006cbc58f902f13629871014d` |
+| head | `delivery/sfia-studio-pre-m6-ui-option-a` @ `3c4c478d7664c6111f38e6c4f49e98042e3a8473` |
+| mergeable | MERGEABLE |
+| merge | NOT PERFORMED |
+| Draft → Ready | NOT PERFORMED |
+| PR title/body/labels | NOT MODIFIED |
 
-Contract after commit: **STOP — do not create a second commit automatically. Do not amend.**
+## CI / required checks (terminal)
 
-This is a mechanical EOF blank-line issue in one UI test file. It is **not** a product loop / Fake-Real / Evidence regression. A follow-up whitespace-only commit requires explicit Morris GO.
+Triggered by the follow-up push. Head SHA `3c4c478d7664c6111f38e6c4f49e98042e3a8473`.
 
-## Remaining reserves (carried, not fixed)
+Workflow: **SFIA Studio CI**
+Run: `32121196370`
+URL: https://github.com/mcleland147/sfia-workspace/actions/runs/32121196370
+Event: `pull_request`
+Run conclusion: **success**
 
-- UAT-UX-06 OPEN
-- UAT-RECOVERY-03 OPEN / UNCHANGED
-- Conversation process-local
-- Proposal process-local
-- Confirmation process-local / restart limitation
-- V3-F10 OPEN
-- generic Cursor write/dev/commit/push/PR capability not proven natively
+| Check (required gate jobs) | Result | Job ID | URL |
+|----------------------------|--------|--------|-----|
+| Detect SFIA Studio changes | SUCCESS / pass (8s) | `95661773486` | https://github.com/mcleland147/sfia-workspace/actions/runs/32121196370/job/95661773486 |
+| Build and validate SFIA Studio | SUCCESS / pass (2m39s) | `95661825974` | https://github.com/mcleland147/sfia-workspace/actions/runs/32121196370/job/95661825974 |
+| SFIA Studio Required Gate | SUCCESS / pass (4s) | `95662560713` | https://github.com/mcleland147/sfia-workspace/actions/runs/32121196370/job/95662560713 |
+
+`gh pr checks 361`: all three pass. No other required checks on the PR rollup.
+
+Validate job step `Trailing whitespace check` (step 14): **success**.
+
+Also succeeded on the same validate job: Typecheck, Lint, Build, Unit tests (Vitest), FinOps T1 migrate up, FinOps T1 PostgreSQL integration tests, Modeled governance tests, Secret pattern scan.
+
+Required GitHub CI gate: **GREEN**.
+
+Historical failing run `32118723723` remains the PRE evidence; it is not the current PR head result.
+
+## ZERO REAL product-boundary status
+
+- OPENAI live execution: **0**
+- Cursor REAL product execution: **0**
+- Studio application not started
+- no new REAL proof claimed
+- this cycle did not launch a product Cursor REAL process
+
+## Remaining reserves (unchanged — NOT closed)
+
+- UAT-UX-06 = OPEN / NON CLOSED
+- UAT-RECOVERY-03 = OPEN / UNCHANGED
+- V3-F10 = OPEN
+- conversation process-local
+- proposal process-local
+- confirmation process-local / restart limitation
+- generic Cursor write/dev/commit/push/PR product capability not proven
 - CKC 15/15 NOT COMPLETE
-- optional negative-states harness N7 stale `f3-attempt-id` visibility assertion (same class as F7; not closed)
-- CI trailing-whitespace FAIL on `uatUxSemanticReserves.ui.test.tsx:409` (post-commit; no auto-fix)
+- N7 harness `f3-attempt-id` hidden assertion reserve unchanged
 
 ## Explicit non-claims
 
@@ -224,20 +294,47 @@ This is a mechanical EOF blank-line issue in one UI test file. It is **not** a p
 - generic ExecutionContract capability NOT YET IMPLEMENTED
 - CKC 15/15 NOT COMPLETE
 - Product Completion trajectory NOT YET ROADMAP-ADOPTED
-- CI NOT GREEN
+- no new REAL boundary proof
 - merge NOT AUTHORIZED
+- this cycle does NOT requalify the whole PRE-M6 candidate
+- CI GREEN ≠ Morris review consumed
+- CI GREEN ≠ Draft→Ready
+- CI GREEN ≠ merge authorized
 
-## Git POST
+## Project Git actions performed
 
-- branch: `delivery/sfia-studio-pre-m6-ui-option-a`
-- HEAD: `d1296c1b8bb29bb8348d3bd1fe3aa560e7200322`
-- staged: empty
-- untracked leftover: `.tmp-sfia-review/` only
+1. `git fetch origin main delivery/sfia-studio-pre-m6-ui-option-a sfia/review-handoff` (read-only fetch)
+2. stage only the authorized test file
+3. exactly one NEW project commit `3c4c478d7664c6111f38e6c4f49e98042e3a8473`
+4. normal non-force push of `delivery/sfia-studio-pre-m6-ui-option-a`
+5. canonical review-handoff publication (separate branch; see below)
 
-## Verdict
+## Actions NOT performed
 
-STOP AFTER DRAFT PR — SFIA STUDIO PRE-M6 CANDIDATE CONSOLIDATED INTO ONE PROJECT COMMIT AND PUSHED — PRE-M6-F7 ACCEPTED AS STALE TEST ALIGNMENT AND INCLUDED — DRAFT PR #361 OPENED AGAINST MAIN — LOCAL BUILD/TYPECHECK/LINT/FULL VITEST/PRINCIPAL E2E/DETERMINISTIC-BOUNDARY E2E PASS — ZERO REAL — PRE-M6 RESERVES EXPLICITLY CARRIED — CI REQUIRED CHECK FAIL ON TRAILING BLANK LINE AT EOF IN `uatUxSemanticReserves.ui.test.tsx:409` — NO SECOND COMMIT — NO AMEND — NO MERGE
+- amend
+- second project commit
+- force push
+- rebase
+- merge
+- push main
+- branch deletion
+- Draft → Ready
+- PR title/body/labels/review-state modification
+- modifying any second project file
+- formatter / autofix
+- full local 1898-test rerun
+- Studio app start
+- OpenAI live
+- Cursor REAL product execution
+- Roadmap / Build Doctrine / v3 framing / method writes
+- closing any listed reserve
 
-## Next gate
+## Final verdict
 
-MORRIS REVIEW — PRE-M6 CONSOLIDATION DRAFT PR #361 — AUTHORIZE WHITESPACE-ONLY FOLLOW-UP COMMIT IF DESIRED TO UNBLOCK CI — NO MERGE UNTIL EXPLICIT GO AND CI GREEN
+`PASS — PR #361 WHITESPACE-ONLY FOLLOW-UP COMPLETE — SINGLE FILE — SINGLE FOLLOW-UP COMMIT — CI GREEN — DRAFT PR REMAINS OPEN — NO MERGE — READY FOR MORRIS REVIEW`
+
+## Next Morris gate
+
+Morris review of Draft PR #361 @ `3c4c478d7664c6111f38e6c4f49e98042e3a8473` after required CI GREEN.
+
+No merge authority is consumed by this cycle.
