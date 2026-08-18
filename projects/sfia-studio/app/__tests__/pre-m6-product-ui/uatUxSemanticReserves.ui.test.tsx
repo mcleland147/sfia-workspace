@@ -406,4 +406,3 @@ describe("UAT-UX-05 internal marker", () => {
     );
   });
 });
-
