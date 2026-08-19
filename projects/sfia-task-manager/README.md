@@ -2,7 +2,7 @@
 
 **Project path:** `projects/sfia-task-manager/`
 
-**Status:** BOOTSTRAP / FRAMING
+**Status:** M1 / FUNCTIONAL DESIGN VALIDATED
 
 **Operational process baseline:** SFIA v2.6
 
@@ -16,7 +16,11 @@ M1 fonctionnel + UX d'une boucle de gestion de travail gouvernée par SFIA.
 
 ## Current cycle
 
-Cycle 1 — Cadrage / bootstrap repo
+Cycle 2 — Conception fonctionnelle — Standard — VALIDATED BY MORRIS
+
+## Functional specification
+
+- `01-functional/2026-08-19-m1-functional-spec.md` — M1 functional specification (validated by Morris)
 
 ## Key validated decisions
 
@@ -34,9 +38,9 @@ Cycle 1 — Cadrage / bootstrap repo
 
 ## Next step
 
-Morris review du bootstrap.
-
-Le cycle suivant est seulement candidat, non autorisé automatiquement.
+Cycle 2 validated and committed locally.
+Next project integration step requires a distinct Morris GO for PR readiness / project push.
+No downstream cycle is authorized.
 
 ## SFIA references
 
