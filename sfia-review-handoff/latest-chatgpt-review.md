@@ -20,7 +20,7 @@
 - `git rev-parse --show-toplevel` : `/workspace`
 - `git remote -v` : `origin` = `mcleland147/sfia-workspace`
 - `git branch --show-current` : `docs/sfia-studio-pr365-post-merge-current-state-sync`
-- `git status --short` : **tracked dirty = EMPTY**, **staged = EMPTY**, **untracked = .tmp-sfia-review/** (pack temporaire)
+- `git status --short` : **tracked dirty = 9 fichiers modifiés non-stagés**, **staged = EMPTY**, **untracked = .tmp-sfia-review/** (pack temporaire)
 - `git diff --name-status` : **9 fichiers modifiés attendus**
 - `git diff --check` : OK (aucun avertissement)
 
@@ -74,6 +74,12 @@
 
 **Aucune doctrine de fond** n’est modifiée ; uniquement des assertions de current-state devenues fausses par le merge #365.
 
+**Corrections ChatGPT review (re-review)** :
+
+1. **C1** — retrait anti-claim « disposition M6 / M7 déjà synchronisée sur main » (assertion désormais vraie post-PR #365).
+2. **Roadmap** — requalification B3 : sync gouvernance/doctrine = **COMPLETED / INTEGRATED** ; gate courant = **POST-MERGE REPO COHERENCE** ; next capability = **Cycle 2 RECOMMENDED / NOT AUTHORIZED** (plus qualifiée NEXT).
+3. **Review Pack** — Local Git Truth corrigé : tracked dirty = 9 fichiers non-stagés.
+
 ---
 ## 5. Current-state coherence matrix (candidate PASS)
 
@@ -117,7 +123,7 @@ Ce Review Pack ne dit pas / ne claim pas :
 ### C1
 ```diff
 diff --git a/projects/sfia-studio/product-completion/01-product-completion-cadrage.md b/projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-index 538559e7..0ad7e4ea 100644
+index 538559e7..29ec4a33 100644
 --- a/projects/sfia-studio/product-completion/01-product-completion-cadrage.md
 +++ b/projects/sfia-studio/product-completion/01-product-completion-cadrage.md
 @@ -68 +68 @@ La Build Doctrine dit **comment construire**. La Convergence Roadmap dit **où e
@@ -160,10 +166,9 @@ index 538559e7..0ad7e4ea 100644
 @@ -1098 +1096 @@ C1 intégré sur main
 -La divergence temporaire entre C1 et les sources versionnées devient une candidate locale de synchronisation. Elle n’est pas résolue sur `main` avant son intégration Git distincte.
 +La divergence temporaire entre C1 et les sources versionnées est résolue sur `main` via l’intégration Git PR #365 / `dbd5ff995974e605146e8347f0f27867f04e93f7`.
-@@ -1121 +1119 @@ Le document ne dit pas :
+@@ -1121 +1118,0 @@ Le document ne dit pas :
 -- disposition M6 / M7 déjà synchronisée sur `main` (elle reste candidate locale jusqu’à intégration Git) ;
-+- disposition M6 / M7 déjà synchronisée sur `main` ;
-@@ -1130,2 +1127,0 @@ C1 INTEGRATED ON MAIN
+@@ -1130,2 +1126,0 @@ C1 INTEGRATED ON MAIN
 -  → GOVERNANCE/DOCTRINE SYNC CANDIDATE
 -  → MORRIS REVIEW / GIT INTEGRATION GATE
 @@ -1140 +1136 @@ C1 INTEGRATED ON MAIN
@@ -174,7 +179,7 @@ index 538559e7..0ad7e4ea 100644
 ### Roadmap
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index a5c83e82..ef89481a 100644
+index a5c83e82..6a8dfe3d 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 @@ -9 +9 @@
@@ -190,9 +195,9 @@ index a5c83e82..ef89481a 100644
 -| NEXT CONVERGENCE CAPABILITY | **POST-C1 GOVERNANCE / DOCTRINE SYNCHRONIZATION** · candidate locale · C2 **NOT AUTHORIZED** |
 -| NEXT IMMEDIATE GATE (repo) | **MORRIS REVIEW — PRODUCT COMPLETION GOVERNANCE/DOCTRINE SYNC** → GO / NO-GO intégration Git distincte |
 -| NEXT PRODUCT GATE | Après intégration sync + repo coherence : **MORRIS GATE FOR C2 EXECUTION** · Cycle 2 Conception fonctionnelle recommandé · **NOT AUTHORIZED** |
-+| NEXT CONVERGENCE CAPABILITY | **POST-C1 GOVERNANCE / DOCTRINE SYNCHRONIZATION** · intégrée sur main via PR #365 / `dbd5ff99…` · C2 **NOT AUTHORIZED** |
-+| NEXT IMMEDIATE GATE (repo) | **POST-MERGE REPO COHERENCE** → **MORRIS GATE FOR C2 EXECUTION** |
-+| NEXT PRODUCT GATE | post-merge repo coherence : **MORRIS GATE FOR C2 EXECUTION** · Cycle 2 Conception fonctionnelle recommandé · **NOT AUTHORIZED** |
++| COMPLETED / INTEGRATED | **POST-C1 GOVERNANCE / DOCTRINE SYNCHRONIZATION** · PR #365 / `dbd5ff99…` |
++| CURRENT REPOSITORY GATE | **POST-MERGE REPO COHERENCE** |
++| NEXT PRODUCT CAPABILITY | Cycle 2 — Conception fonctionnelle · **RECOMMENDED** · **NOT AUTHORIZED** |
 @@ -427,2 +427,2 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
 -| **Next convergence capability (current)** | Post-C1 governance/doctrine sync candidate · M5 remains **CLOSED** · PRE-M6 EXIT remains accepted with governed debt |
 -| **Next immediate gate (repo)** | **MORRIS REVIEW — PRODUCT COMPLETION GOVERNANCE/DOCTRINE SYNC** |
@@ -323,4 +328,4 @@ index aa9b2d19..210e933a 100644
 ---
 ## 10. Verdict
 
-**CURRENT-STATE COHERENCE CANDIDATE PASS** — doctrine substantielle inchangée ; drift “candidate locale / pending integration” corrigé ; aucun C2 runtime / delivery ; aucune intégration Git projet.
+**CURRENT-STATE COHERENCE CANDIDATE PASS** — 3 review findings ChatGPT corrigés — doctrine substantielle inchangée ; drift candidate/pending integration corrigé ; aucun C2 runtime / delivery ; aucune intégration Git projet.
