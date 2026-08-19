@@ -2,7 +2,7 @@
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · merge `main` en attente |
+| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · intégrée sur `main` via PR #259 / `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` · synchronisation C1 Product Completion candidate |
 | **Fondations** | **V3-F10 · V3-F13 · V3-F14 · V3-F15 validées** (D-V3-01) |
 | **Doctrine produit Studio** | **SFIA v3 exclusive** |
 | **Maturité fondations** | **VALIDATED** (doctrine) |
@@ -21,7 +21,7 @@
 | preuves | liens |
 | statut | documented / validated / modeled / implemented / adopted (selon objet) |
 | réserves | ouvertes |
-| consommateur | Studio / Morris / Cursor |
+| consommateur | Studio / Pilote / Morris (construction) / Cursor |
 | critères d'acceptation | checklist |
 | passage cycle suivant | conditions |
 
@@ -41,12 +41,14 @@ Preuves Git/runtime > narration (V3-F07).
 | effort estimatif / échéance | optionnel |
 | condition de remboursement | — |
 | propriétaire / statut | open · accepted · paid · deferred |
-| acceptation Morris | si structurante |
+| acceptation humaine | Pilote si dette structurante du Project · Morris si construction / doctrine / promotion SFIA Studio |
 | preuve de clôture | obligatoire |
 
 Dette **pilotée**, pas oubliée.
 
-Dette structurante post-validation (exemples) : dépendances v2.6 non auditées dans le runtime · schemas non créés · UX 87–89 hors main · onze CKC absents.
+Dette structurante post-validation (exemples) : dépendances v2.6 non auditées dans le runtime · couverture modeled/runtime incomplète malgré les schemas Option A existants · UX 87–89 hors main · couverture cognitive incomplète du **catalogue canonique applicable** (mesure repository courante : 15 types ; non invariant structurel).
+
+Un gap Product Completion n’est pas automatiquement une dette historique / PRE-M6. La priorité vient d’une capacité MUST, d’une preuve requise ou d’une condition de sûreté bloquée — pas de l’âge de la dette.
 
 ## 4. V3-F13 — Apprentissage contrôlé (VALIDATED)
 
@@ -76,10 +78,10 @@ Appliqués à : package · fondation · contrat · schéma · CKC · composant r
 | Objet | Maturité |
 |-------|----------|
 | Fondations V3-F01…F15 | **VALIDATED** (doctrine Studio) |
-| Pack framing knowledge-driven | **VALIDATED** · merge pending |
-| DoctrinePackageManifest / schemas | non MODELED |
-| Runtime Studio | non IMPLEMENTED sous doctrine v3 · non ADOPTED |
-| CKC pilotes généraux | candidats repository · résolution Studio via package futur |
+| Pack framing knowledge-driven | **VALIDATED** · intégré sur `main` via PR #259 · synchronisation C1 candidate |
+| DoctrinePackageManifest / schemas | Option A **MODELED / VALIDATED** · couverture à compléter / revalider contre C1 |
+| Runtime Studio | couverture partielle M1–M5 / PRE-M6 · Product Completion non complet · runtime v3 **NON ADOPTED** |
+| CKC catalogue applicable | état repository courant : pilotes détaillés + fallbacks candidats · cible cognitive = couverture du catalogue applicable, sans nombre structurel fixe |
 | Adoption v3 hors Studio | **Non** |
 
 ### Règles

@@ -2,11 +2,11 @@
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · merge `main` en attente |
+| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · intégrée sur `main` via PR #259 / `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` · synchronisation C1 Product Completion candidate |
 | **Fondations** | **V3-F02 · V3-F06 · V3-F09 validées** (D-V3-01) |
 | **Doctrine produit Studio** | **SFIA v3 exclusive** |
 | **SFIA v2.6** | Externe · non représentée comme mode doctrinal actif du LPS |
-| **Maturité fondations** | **VALIDATED** (doctrine) · persist runtime non migrée |
+| **Maturité fondations** | **VALIDATED** (doctrine) · schemas LPS / ProjectTrajectory **MODELED / VALIDATED** · LPS runtime durable partiel sur `main` · Trajectory runtime Memory · runtime v3 **NON ADOPTED** |
 | **Anti-claims** | Pas LPS runtime ADOPTED · Pas trajectoire auto-exécutée |
 | **Document** | `32-living-project-state-and-dynamic-trajectory.md` |
 
@@ -25,7 +25,7 @@
 | Identité | projectId, nom, doctrinePackageRef (version/digest pinés) |
 | Objectifs / contexte / périmètre | Validables, tagués |
 | Parties prenantes | Acteurs |
-| Trajectoire | Réf. ProjectTrajectory |
+| Trajectoire | Réf. ProjectTrajectory · capacité Product Completion **MUST** |
 | Cycle actif / terminés | Type, statut · Project ≠ Cycle (CC-D13) |
 | Observation / Hypothèse / Option / Recommandation / Décision | Épistémologie `33` |
 | Gates | Ouverts / passés |
@@ -38,7 +38,7 @@
 
 ### Persister
 
-identité · pin doctrine · décisions validées · gates · trajectoire validée · réserves acceptées · preuves référencées · digests contexte · audit events.
+identité · pin doctrine · décisions validées · gates · trajectoire validée · réserves acceptées · preuves référencées · digests contexte · audit events · état minimal nécessaire à la continuité sémantique inter-session.
 
 ### Ne pas persister
 
@@ -48,15 +48,30 @@ raisonnement interne brut · scores non explicables · recommandations **comme**
 
 Panneau = état utile seulement · **CKC non exposé** · Project et Cycle **séparés** (CC-D13).
 
+### Continuité sémantique inter-session — MUST Product Completion
+
+Studio doit pouvoir reprendre le pilotage sans inventer l’intention, une décision, une autorité, une exécution ou une preuve. Le contexte nécessaire est durable **ou reconstructible de manière fiable** : état courant, cycle / trajectoire active, décisions et réserves, Recommendation encore active, frontière d’autorité, Evidence et prochaine action.
+
+Un transcript conversationnel exhaustif n’est **pas** requis. Une information absente déclenche requalification / re-confirmation fail-closed, jamais extrapolation.
+
 ## 2. V3-F06 — ProjectTrajectory (VALIDATED)
 
 ### Contenu
 
-cycles proposés · actifs · clôturés · dépendances · conditions d'entrée/sortie · branches possibles · gates · réserves · motifs de replanification.
+chemin réel d’un Project : cycles `done` · `active` · `proposed` · `blocked` · dépendances · conditions d'entrée/sortie · branches possibles · gates · réserves · motifs de replanification.
 
 ### Règle
 
-Une trajectoire est une **recommandation** tant qu'elle n'est pas **validée** par décision Morris / humaine explicite.
+ProjectTrajectory est une capacité Product Completion **MUST**, durable ou reconstructible de manière fiable lorsqu’elle est active / décidée.
+
+Une trajectoire proposée est une **Recommendation** tant qu'elle n'est pas validée par HumanDecision explicite du **Pilote**.
+
+Distinctions obligatoires :
+
+- ProjectTrajectory = chemin réel du Project ;
+- ProjectTrajectory **≠** Convergence Roadmap de construction SFIA Studio ;
+- ProjectTrajectory **≠** catalogue canonique des types de cycle ;
+- ProjectTrajectory **≠** séquence fixe / waterfall.
 
 ## 3. V3-F09 — Replanification gouvernée (VALIDATED)
 
@@ -64,7 +79,7 @@ Une trajectoire est une **recommandation** tant qu'elle n'est pas **validée** p
 
 ```
 événement → analyse d'impact → trajectoire révisée (recommandation)
-→ options → recommandation → gate Morris si structurant
+→ options → recommandation → HumanDecision / gate Pilote si structurant
 → mise à jour validée du LPS / trajectoire
 ```
 
@@ -80,4 +95,4 @@ changement de périmètre · nouvelle décision · décision annulée · risque 
 
 ## 4. Maturité
 
-V3-F02 / F06 / F09 : **VALIDATED** (doctrine) · schemas / persist runtime : non créés.
+V3-F02 / F06 / F09 : **VALIDATED** (doctrine) · schemas Option A **MODELED / VALIDATED** · LPS partiellement **IMPLEMENTED / durable on main** · ProjectTrajectory / Epistemic encore Memory · Product Completion et runtime v3 **NON ADOPTED**.

@@ -8,12 +8,14 @@
 | **Profil** | **CRITICAL** |
 | **Typologie v2.4** | **DOC** — documentation-only avec impact structurant aval |
 | **Milestone / chantier** | PRODUCT-COMPLETION — CYCLE 1 CADRAGE |
-| **Statut du document** | **VALIDATED BY MORRIS — CONTENT DECISION CONSUMED — GIT INTEGRATION PENDING** |
+| **Statut du document** | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** |
 | **Décision de contenu** | `VALIDATE SFIA STUDIO PRODUCT COMPLETION CYCLE 1 REVISED CADRAGE WITH ALL POINTS AGREED DURING A→Y REVIEW` |
 | **Autorité / date** | Morris · 2026-08-19 · Europe/Paris |
-| **Git main de départ** | `origin/main` @ `e142f7bdb9ee29dbd258a68f016850269535f1e6` |
-| **Branche de travail** | `docs/sfia-studio-product-completion-c1-cadrage` |
-| **État d’intégration** | Contenu révisé localement · fichier non staged / non commité · **pas intégré à `main`** |
+| **Git main de départ du C1** | `origin/main` @ `e142f7bdb9ee29dbd258a68f016850269535f1e6` |
+| **Intégration Git C1** | PR #364 **MERGED** · merge `d83be84ab93650f23bfe54870790cc2e839be095` · 2026-08-19T09:09:32Z |
+| **Git main courant (base de synchronisation)** | `origin/main` @ `d83be84ab93650f23bfe54870790cc2e839be095` |
+| **Branche d’intégration C1 (historique)** | `docs/sfia-studio-product-completion-c1-cadrage` |
+| **État d’intégration** | C1 validé **intégré à `main`** · synchronisation gouvernance/doctrine préparée dans un cycle local distinct |
 | **MVP baseline** | Vertical slice fonctionnel actuel sur `main` — PR #361 / merge `a53c323e47e5fae1d35671f3ae232609a59b0f3f` |
 | **Rebaseline Product Completion** | PR #362 MERGED / `origin/main` @ `e142f7bdb9ee29dbd258a68f016850269535f1e6` |
 | **PRE-M6 EXIT** | **ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT** |
@@ -36,13 +38,14 @@ Morris a validé le 2026-08-19 l’intégralité de la révision A→Y de ce cad
 - adopte Cycle 2 — Conception fonctionnelle comme **recommandation de prochain cycle** (`D-PC-08`) ;
 - remplace les arbitrages encore ouverts du candidat antérieur par les dispositions enregistrées en §Y.
 
-Cette décision **ne constitue pas** :
+La validation de contenu, prise isolément, **ne constituait pas** une intégration Git. Cette intégration a ensuite été consommée par la PR #364 / merge `d83be84ab93650f23bfe54870790cc2e839be095`.
 
-- une intégration Git de ce fichier ;
-- une synchronisation de la Build Doctrine, de la Roadmap ou des framings v3 ;
+Cette décision et cette intégration **ne constituent pas** :
+
+- une synchronisation déjà intégrée à `main` de la Build Doctrine, de la Roadmap ou des framings v3 ;
 - une autorisation de Cycle 2, conception, architecture, UX, Delivery ou REAL ;
 - une adoption runtime v3 ;
-- une autorisation de stage, commit, push, PR ou merge de la branche projet.
+- une autorisation d’intégrer automatiquement la candidate locale de synchronisation.
 
 ### A.2 Hiérarchie d’autorité appliquée
 
@@ -59,10 +62,10 @@ La Build Doctrine dit **comment construire**. La Convergence Roadmap dit **où e
 
 | Source | Autorité / usage |
 | --- | --- |
-| Git `origin/main` @ `e142f7b…` · PR #361 / #362 | SoT factuelle du MVP et de la rebaseline |
+| Git `origin/main` @ `d83be84…` · PR #361 / #362 / #364 | SoT factuelle du MVP, de la rebaseline et de l’intégration C1 |
 | Décisions Morris 2026-08-19 A→Y | Autorité sur les requalifications explicites de ce C1 |
 | `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` | Lois de construction — KEEP |
-| `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | État de construction courant — KEEP, puis REQUALIFY / SYNC ultérieurement |
+| `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | État de construction courant — KEEP · REQUALIFY / SYNC candidate locale post-C1 |
 | `projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md` | Doctrine connaissance, CKC, HumanDecision |
 | `projects/sfia-studio/sfia-v3-framing/31-doctrine-package-and-source-resolution.md` | DoctrinePackage, provenance, hiérarchie des sources |
 | `projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md` | LPS, ProjectTrajectory, replanification |
@@ -85,14 +88,14 @@ Les docs historiques `01`, `04`–`09` restent des sources de provenance / harve
 | **Milestone** | Product Completion — Cycle 1 Cadrage |
 | **Actifs clés** | M1–M5 KEEP · PRE-M6 KEEP/ADAPT · preuves UX HARVEST · v3 30–37 KEEP/ADAPT ultérieur · Build Doctrine KEEP · Roadmap KEEP/REQUALIFY/SYNC |
 | **Gap fermé par ce document** | Anciennes ambiguïtés sur rôle runtime, completion bar, continuité, ProjectTrajectory, catalogue, EC/AgentCapability, M6/M7 et trajectoire waterfall |
-| **Dépendance suivante** | Intégration Git du C1 puis synchronisation documentaire séparée et vérification de cohérence |
-| **Dette documentaire transitoire** | C1 local validé peut diverger des sources aval jusqu’à leur cycle de sync |
-| **Exit de cette divergence** | C1 intégré → sync dédiée → repo coherence |
+| **Dépendance suivante** | Synchronisation documentaire candidate → revue Morris / intégration Git distincte → repo coherence |
+| **Dette documentaire transitoire** | C1 intégré peut diverger des sources aval jusqu’à l’intégration du présent sync |
+| **Exit de cette divergence** | Sync intégrée → vérification post-merge de repo coherence |
 | **Lien trajectoire** | Explicite ; pas de `STOP — TRAJECTORY LINK MISSING` |
 
 ### A.5 Statut des sources aval
 
-La Roadmap et les framings `30`–`37` restent les sources versionnées courantes. Certaines formulations y deviennent **temporairement stale** au regard des décisions C1 : rôle runtime, AgentCapability, ProjectTrajectory MUST, catalogue évolutif, continuité et disposition M6/M7. Ce document identifie les deltas ; il ne prétend pas les avoir synchronisés.
+La Roadmap et les framings `30`–`37` restent les sources versionnées courantes. Le présent cycle prépare localement leur synchronisation contrôlée sur les deltas C1 : rôle runtime, AgentCapability, ProjectTrajectory MUST, catalogue évolutif, continuité et disposition M6/M7. Cette synchronisation reste **candidate locale** tant qu’elle n’est pas intégrée à `main`.
 
 ---
 
@@ -113,7 +116,7 @@ La révision validée ferme les ambiguïtés du candidat antérieur :
 - la trajectoire de construction est adaptative par capacités et dépendances, pas waterfall ;
 - seuls les vrais arbitrages résiduels restent ouverts.
 
-Le contenu C1 est validé par Morris. Son intégration Git, la synchronisation des sources impactées et l’autorisation de C2 restent des gates séparés.
+Le contenu C1 est validé par Morris et intégré à `main` via PR #364. La synchronisation des sources impactées, son intégration Git, la vérification post-merge de cohérence et l’autorisation de C2 restent des gates séparés.
 
 ---
 
@@ -916,16 +919,17 @@ M8 n’est pas requalifié, supprimé ou développé dans ce C1. Runtime v3 rest
 
 L’ensemble des MUST doit former une boucle utilisable, gouvernée, restart-safe et prouvée. Une implémentation partielle, un terminal technique, une coverage cognitive seule ou une preuve sur un unique cas spécialisé ne suffisent pas.
 
-### W.3 Exit de la continuation documentaire locale
+### W.3 Exit de l’intégration C1 (consommé)
 
-Le présent cycle local peut être déclaré prêt à review documentaire si :
+L’intégration C1 est consommée :
 
-- ce fichier porte fidèlement la décision A→Y ;
-- les contradictions actives du candidat ont été retirées ;
-- les sources aval ne sont pas modifiées ;
-- le Review Pack FULL inclut le contenu complet ;
-- le Review Handoff canonique est publié / vérifié ;
-- aucun stage, commit, push, PR ou merge projet n’a eu lieu.
+- décision A→Y portée fidèlement ;
+- Review Pack FULL et Review Handoff vérifiés ;
+- commit projet `674d0870fffcb7310b04505c0f5a8149293b42f6` ;
+- PR #364 mergée dans `main` via `d83be84ab93650f23bfe54870790cc2e839be095` ;
+- sources aval intentionnellement laissées inchangées dans la PR #364.
+
+Le présent cycle prépare uniquement la candidate locale de synchronisation gouvernance/doctrine.
 
 ### W.4 Invariants de cohérence
 
@@ -952,12 +956,12 @@ La trajectoire de construction suivante est **ADOPTED BY MORRIS — 2026-08-19**
 MVP baseline
   → C1 Cadrage
   → validation Morris                     [CONSOMMÉE 2026-08-19]
-  → intégration locale de la révision     [PRÉSENT DOCUMENT]
-  → review ChatGPT / Morris
-  → intégration Git du C1                 [GATE DISTINCT]
-  → synchronisation doctrine / Roadmap impactées
-  → vérification repo coherence
-  → gate Morris
+  → review ChatGPT / Morris               [CONSOMMÉE]
+  → intégration Git du C1                 [CONSOMMÉE — PR #364 / d83be84]
+  → synchronisation gouvernance / doctrine [CANDIDATE LOCALE — PRÉSENT CYCLE]
+  → revue Morris / gate d’intégration Git
+  → vérification post-merge repo coherence
+  → gate Morris C2
   → Cycle 2 Conception fonctionnelle recommandé
   → requalification dynamique de ProjectTrajectory
   → cycles nécessaires selon gaps / dépendances
@@ -1015,7 +1019,7 @@ La sortie C2 devra requalifier la trajectoire. Aucun C3 / cycle UX / Delivery n�
 | **Statut** | **ADOPTED BY MORRIS — 2026-08-19** |
 | **Objet** | Cible, completion bar, MUST / SHOULD / FUTURE / OOS révisés |
 | **Effet** | Remplace le périmètre candidat antérieur |
-| **Anti-claim** | Adoption de contenu ≠ intégration Git ≠ Delivery |
+| **Anti-claim** | Adoption de contenu + intégration Git C1 **≠** Delivery · **≠** synchronisation aval intégrée |
 
 #### D-PC-07 — PRODUCT COMPLETION TRAJECTORY
 
@@ -1054,7 +1058,7 @@ Aucune de ces décisions ne reste un arbitrage Morris ouvert.
 | PRE-M6 functional backbone | **KEEP / ADAPT** | Base produit, pas cible finale |
 | PRE-M6 UX Evidence / lessons | **HARVEST** | Apprentissage, pas contrat visuel |
 | PRE-M6 presentation | Historical reference | Pas le default final |
-| v3 framing `30`–`37` | **KEEP / ADAPT selectively later** | Baseline doctrine actuelle ; sync après C1 |
+| v3 framing `30`–`37` | **KEEP / ADAPT selectively** | Baseline doctrine actuelle ; sync candidate locale post-C1 |
 | Build Doctrine | **KEEP** | Lois de construction |
 | Convergence Roadmap | **KEEP / REQUALIFY + SYNC later** | Artefact vivant |
 | Studio ExecutionContract | **KEEP / ADAPT** | Parité fonctionnelle + runtime v3 |
@@ -1068,43 +1072,45 @@ Les docs historiques `04`–`07` restent des actifs de provenance / harvest. Leu
 
 ### Y.4 Impacts doctrinaux et synchronisation repository
 
-Cette section **identifie** les impacts futurs ; elle ne les exécute pas.
+Cette section identifiait les impacts futurs lors du C1. Le présent cycle les applique **localement et sélectivement** dans les sources concernées. Leur intégration Git reste soumise à une revue / décision Morris distincte.
 
 | # | Sujet | Sources probablement impactées | Traitement futur |
 | --- | --- | --- | --- |
-| 1 | **Pilote runtime** | Build Doctrine / framing applicable | ADAPT wording ; distinguer rôle runtime et Morris construction |
-| 2 | **AgentCapability** | framing `34` | ADAPT vers authority / governance envelope ; conserver taxonomie policy / effects utile |
-| 3 | **ExecutionContract** | framing `30`, `34`, `36` et sources liées | COMPLETE / ADAPT vers parité fonctionnelle canonique + runtime v3 |
-| 4 | **ProjectTrajectory** | framing `32` / Roadmap | COMPLETE / align MUST core |
-| 5 | **Cycle Catalog Evolvability** | framing `30`, `36`, Roadmap et routing applicable lors d’un cycle dédié | COMPLETE / REQUALIFY ; aucune promotion méthode globale ici |
-| 6 | **M6 / M7** | Convergence Roadmap | SUPERSEDE / ABSORB ; historique conservé ; retrait du forward path |
-| 7 | **Continuity / recovery** | framing LPS / trajectory et Roadmap liée | COMPLETE vers semantic inter-session continuity MUST |
-| 8 | **PRE-M6 reuse / Product Experience** | Roadmap / sources design applicables | KEEP / HARVEST fonctionnel et preuves UX ; pas de legacy presentation default |
+| 1 | **Pilote runtime** | Build Doctrine / framing applicable | ADAPT candidate locale ; distinction rôle runtime / Morris construction |
+| 2 | **AgentCapability** | framing `34` | ADAPT candidate locale vers authority / governance envelope ; taxonomie policy / effects conservée |
+| 3 | **ExecutionContract** | framing `30`, `34`, `36` et sources liées | COMPLETE / ADAPT candidate locale vers parité fonctionnelle canonique |
+| 4 | **ProjectTrajectory** | framing `32` / Roadmap | COMPLETE / align MUST core dans la candidate |
+| 5 | **Cycle Catalog Evolvability** | framing `30`, `36`, Roadmap | COMPLETE / REQUALIFY dans la candidate ; aucune promotion méthode globale |
+| 6 | **M6 / M7** | Convergence Roadmap | SUPERSEDE / ABSORB dans la lecture active ; historique conservé |
+| 7 | **Continuity / recovery** | framing LPS / trajectory et Roadmap liée | COMPLETE candidate vers semantic inter-session continuity MUST |
+| 8 | **PRE-M6 reuse / Product Experience** | Roadmap / sources design applicables | KEEP / HARVEST ; pas de legacy presentation default |
 
 Règle de synchronisation :
 
 ```text
-C1 validé et intégré
-  → cycle documentaire séparé de synchronisation
-  → repo coherence
+C1 intégré sur main
+  → synchronisation gouvernance/doctrine candidate
+  → revue Morris / intégration Git distincte
+  → vérification post-merge repo coherence
   → gate Morris pour C2
 ```
 
-La divergence temporaire entre ce C1 validé localement et les sources versionnées est une dette documentaire transitoire explicite, pas une permission de les modifier ici.
+La divergence temporaire entre C1 et les sources versionnées devient une candidate locale de synchronisation. Elle n’est pas résolue sur `main` avant son intégration Git distincte.
 
 ### Y.5 Non-claims finaux
 
 Le document peut dire :
 
 - C1 revised content **VALIDATED BY MORRIS** ;
+- C1 **INTEGRATED ON MAIN** via PR #364 / `d83be84ab93650f23bfe54870790cc2e839be095` ;
 - Product Completion Target / Scope **ADOPTED BY MORRIS** ;
 - Product Completion Trajectory **ADOPTED BY MORRIS** ;
 - C2 Conception fonctionnelle **ADOPTED AS NEXT-CYCLE RECOMMENDATION**.
 
 Le document ne dit pas :
 
-- C1 déjà intégré à `main` ;
-- Roadmap, Build Doctrine ou framing `30`–`37` déjà synchronisés ;
+- synchronisation Roadmap / Build Doctrine / framing `30`–`37` déjà intégrée à `main` ;
+- repo coherence final obtenue sur `main` ;
 - C2 autorisé ou démarré ;
 - architecture / persistence / schema / API choisis ;
 - UX / Figma Product Completion finalisés ;
@@ -1112,7 +1118,7 @@ Le document ne dit pas :
 - Delivery autorisée ;
 - generic execution Product Completion prouvée ;
 - couverture CKC Product Completion déjà implémentée ;
-- M6 / M7 déjà synchronisés dans la Roadmap ;
+- disposition M6 / M7 déjà synchronisée sur `main` (elle reste candidate locale jusqu’à intégration Git) ;
 - runtime v3 ADOPTED ;
 - v3 promu baseline méthodologique globale ;
 - nouvelle preuve REAL.
@@ -1120,9 +1126,10 @@ Le document ne dit pas :
 ### Y.6 Gate final
 
 ```text
-INTEGRATE VALIDATED C1
-  → SYNCHRONIZE IMPACTED GOVERNANCE/DOCTRINE SOURCES
-  → VERIFY REPO COHERENCE
+C1 INTEGRATED ON MAIN
+  → GOVERNANCE/DOCTRINE SYNC CANDIDATE
+  → MORRIS REVIEW / GIT INTEGRATION GATE
+  → POST-MERGE REPO COHERENCE
   → MORRIS GATE FOR C2 EXECUTION
 ```
 
@@ -1130,4 +1137,4 @@ INTEGRATE VALIDATED C1
 
 ---
 
-*SFIA Studio — Product Completion — Cycle 1 Cadrage — VALIDATED BY MORRIS — CONTENT DECISION CONSUMED — GIT INTEGRATION PENDING.*
+*SFIA Studio — Product Completion — Cycle 1 Cadrage — VALIDATED BY MORRIS — INTEGRATED ON MAIN — GOVERNANCE/DOCTRINE SYNC CANDIDATE PENDING REVIEW.*

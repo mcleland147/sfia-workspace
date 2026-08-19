@@ -2,14 +2,14 @@
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | Pack doctrinal **VALIDATED** pour SFIA Studio · merge `main` en attente |
+| **Statut** | Pack doctrinal **VALIDATED** pour SFIA Studio · intégré sur `main` via PR #259 / `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` · synchronisation C1 Product Completion candidate |
 | **Fondations** | **V3-F01…F15 validées** (D-V3-01) |
 | **Doctrine produit Studio** | **SFIA v3 exclusive** (D-V3-02 · D-V3-03) |
-| **Maturité** | Doctrine **VALIDATED** · non MODELED complet · non IMPLEMENTED runtime · non ADOPTED runtime |
+| **Maturité** | Doctrine **VALIDATED** · pack modeled Option A **VALIDATED** · couverture runtime partielle · Product Completion non complet · runtime v3 **NON ADOPTED** |
 | **Adoption v3 hors Studio** | **Non** |
 | **Gates consommés** | `GO VALIDATION DOCTRINE — SFIA STUDIO V3 KNOWLEDGE-DRIVEN METHOD` · `GO PR READINESS, PUSH ET DRAFT PR — SFIA STUDIO V3 KNOWLEDGE-DRIVEN DOCTRINE` |
-| **Gate suivant** | `GO MORRIS REVIEW — DRAFT PR SFIA STUDIO V3 DOCTRINE` |
-| **Anti-claims** | Pas merge · Pas runtime migré · Pas READY FOR DELIVERY · Pas baseline globale · Pas suppression v2.6 du repo |
+| **Gate suivant** | `MORRIS REVIEW — PRODUCT COMPLETION GOVERNANCE/DOCTRINE SYNC` · intégration Git distincte · repo coherence · gate C2 |
+| **Anti-claims** | Synchronisation C1 non intégrée à `main` · C2 non autorisé · Pas runtime migré · Pas READY FOR DELIVERY · Pas baseline globale · Pas suppression v2.6 du repo |
 | **Document** | `37-studio-v3-foundations-and-consolidation-decision-pack.md` |
 
 ---
@@ -85,31 +85,50 @@ CC-D01 Option A · CC-D03 panneau vivant · CC-D05 décisions/gates · CC-D06 co
 5. Export Markdown Cursor = adaptateur technique seulement.
 6. v2.6 = historique / traçabilité / outillage repository actuel — **pas** doctrine produit.
 
-## 5. Impact map aval
+## 5. Product Completion C1 synchronization — 2026-08-19
+
+| Décision / invariant | Statut synchronisé |
+| --- | --- |
+| **D-PC-01** Product Completion Target / Scope | **ADOPTED BY MORRIS** · C1 intégré via PR #364 / `d83be84ab93650f23bfe54870790cc2e839be095` |
+| **D-PC-07** Product Completion Trajectory | **ADOPTED BY MORRIS** · trajectoire adaptative par capacités / dépendances |
+| **D-PC-08** Next-cycle recommendation | Cycle 2 — Conception fonctionnelle **RECOMMENDED** · **C2 EXECUTION NOT AUTHORIZED** |
+| Rôle runtime | **Pilote** · Morris reste autorité de construction / promotion |
+| ProjectTrajectory | Product Completion **MUST** · ≠ Roadmap · ≠ catalogue · ≠ séquence fixe |
+| Continuité | Continuité sémantique inter-session **MUST** · transcript exhaustif non requis |
+| AgentCapability | Authority / governance envelope · taxonomie effects interne |
+| Cycle Catalog Evolvability | Catalogue applicable évolutif · `15` non structurel |
+| Native ExecutionContract | Parité fonctionnelle minimale avec logique template Cursor canonique harvestée · v2.6 jamais doctrine runtime |
+| M6 / M7 | Historical milestones **SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** dans la Roadmap candidate |
+
+Cette synchronisation ne modifie ni V3-F01…F15 `VALIDATED`, ni D-V3-01…05, ni M8, ni la maturité runtime.
+
+## 6. Impact map aval
 
 | Fondation | Framing | Design | Modeled | Delivery | Gate suivant |
 |-----------|---------|--------|---------|----------|--------------|
-| F01 CKC | `30` | reconcil. intake/UX | CkcResolution | resolver opaque | Enrichissement CKC / modeled |
-| F02 LPS | `32` | panneau CC-D03 | LivingProjectState | persist sélective | Modeled |
+| F01 CKC | `30` | catalogue évolutif / intake | CkcResolution | resolver opaque | Couverture cognitive du catalogue applicable |
+| F02 LPS | `32` | panneau CC-D03 | LivingProjectState | continuité sémantique | Modeled |
 | F03 Package | `31` | — | DoctrinePackageManifest | pin runtime | Modeled |
 | F04 Épistémologie | `33` | tags UI | Observation/Hypothesis/… | affichage | Modeled + design |
-| F05 Chaîne | `30` | align CC-D* | — | flow C1–C4 | Post-merge + reconception |
-| F06 Trajectoire | `32` | — | ProjectTrajectory | — | Modeled |
+| F05 Chaîne | `30` | align CC-D* | — | boucle adaptative | Conception fonctionnelle recommandée · non autorisée |
+| F06 Trajectoire | `32` | — | ProjectTrajectory MUST | — | Product Completion |
 | F07 Provenance | `31` | — | ProvenanceRecord | — | Modeled |
 | F08 Contradiction | `33` | banners | Contradiction | stop UI | Modeled |
 | F09 Replanif | `32` | — | events | — | Modeled |
 | F10 Dette | `35` | — | DebtItem | — | Modeled |
-| F11 Agents | `34` | — | AgentCapability | allowlists | Modeled |
-| F12 Actions | `34` | confirmations | ActionPolicy | enforce | Modeled + delivery |
+| F11 Agents | `34` | authority envelope | AgentCapability | policy / guardrails | Modeled |
+| F12 Actions | `34` | confirmations | ActionPolicy + native EC parity | enforce | Modeled + delivery |
 | F13 Learning | `35` | — | REX records | — | Capitalisation |
-| F14 Artefacts | `35` | — | ArtifactCompletenessContract | gates passage | Modeled |
+| F14 Artefacts | `35` | Evidence business-readable | ArtifactCompletenessContract | gates passage | Modeled |
 | F15 Maturité | `35` | badges | maturity fields | anti-claims | Distributed |
 
-### Objets futurs à modéliser (non créés ici)
+### Couverture modeled / runtime à compléter ou revalider
+
+Les schemas / contrats Option A existent pour une partie de ces objets ; leur présence modeled **≠** couverture runtime complète **≠** adoption. Couverture à compléter ou revalider contre C1 :
 
 DoctrinePackage · DoctrinePackageManifest · KnowledgeSource · CkcResolution · LivingProjectState · ProjectTrajectory · Observation · Hypothesis · Recommendation · HumanDecision · Contradiction · EvidenceLink · ProvenanceRecord · DebtItem · AgentCapability · ActionPolicy · ExecutionContract · ArtifactCompletenessContract · AuditEvent.
 
-## 6. Arbitrages encore ouverts (hors validation F01–F15)
+## 7. Arbitrages encore ouverts (hors validation F01–F15)
 
 1. Root exact DoctrinePackage (U2).
 2. Priorité D2/D3 Option D (U3).
@@ -117,26 +136,28 @@ DoctrinePackage · DoctrinePackageManifest · KnowledgeSource · CkcResolution �
 4. Vocabulaire IMPLEMENTED CANDIDATE (U5).
 5. Périmètre et calendrier de l'audit dépendances v2.6.
 
-## 7. Réserves
+Le C1 ne ferme pas U2–U5 ni l’audit v2.6. Les détails de représentation fonctionnelle restent à qualifier dans un cycle autorisé ; **C2 EXECUTION NOT AUTHORIZED**.
+
+## 8. Réserves
 
 | ID | Réserve |
 |----|---------|
-| VAL-R01 | Runtime / design / modeled / delivery non migrés |
+| VAL-R01 | Couvertures design / modeled / runtime / delivery partielles · Product Completion non complet |
 | VAL-R02 | Dépendances v2.6 code non auditées |
-| VAL-R03 | Schemas non créés |
+| VAL-R03 | Schemas Option A présents ; couverture / adoption runtime incomplète |
 | VAL-R04 | UX 87–89 hors main |
-| VAL-R05 | Onze CKC détaillés absents |
-| VAL-R06 | Merge soumis à GO Morris distinct |
+| VAL-R05 | Couverture cognitive complète du catalogue applicable non démontrée · mesure repository courante : 4 détaillés + 11 fallbacks |
+| VAL-R06 | Synchronisation gouvernance/doctrine C1 candidate · intégration Git et repo coherence soumises à gates distincts |
 | VAL-R07 | Amendement textuel framing `11` encore dû |
 
-## 8. Trajectoire aval
+## 9. Trajectoire aval
 
-1. `GO MORRIS REVIEW — DRAFT PR SFIA STUDIO V3 DOCTRINE`
-2. GO merge distinct (si review OK)
-3. Audit dépendances v2.6 (Studio)
-4. `GO ENRICHISSEMENT MODELED — SFIA STUDIO V3 FOUNDATIONAL CONTRACTS`
-5. Réévaluation design / delivery / UX (D-V3-04)
+1. Revue Morris de la synchronisation gouvernance/doctrine Product Completion.
+2. GO / NO-GO intégration Git dans un cycle distinct.
+3. Vérification post-merge de repo coherence.
+4. Morris gate pour Cycle 2 — Conception fonctionnelle (**recommandé, non autorisé**).
+5. Requalification dynamique de la trajectoire après chaque capacité.
 
-## 9. Verdict documentaire
+## 10. Verdict documentaire
 
-**SFIA STUDIO V3 KNOWLEDGE-DRIVEN DOCTRINE VALIDATED — DRAFT PR PENDING MERGE**
+**SFIA STUDIO V3 KNOWLEDGE-DRIVEN DOCTRINE VALIDATED — ON MAIN — PRODUCT COMPLETION C1 SYNC CANDIDATE PENDING MORRIS REVIEW — RUNTIME V3 NON ADOPTED**
