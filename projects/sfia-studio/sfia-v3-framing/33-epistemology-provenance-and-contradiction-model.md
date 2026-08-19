@@ -2,7 +2,7 @@
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · merge `main` en attente |
+| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · intégrée sur `main` via PR #259 / `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` · synchronisation C1 Product Completion candidate |
 | **Fondations** | **V3-F04 · V3-F08 validées** (D-V3-01) |
 | **Doctrine produit Studio** | **SFIA v3 exclusive** |
 | **Maturité fondations** | **VALIDATED** (doctrine) |
@@ -20,7 +20,7 @@
 | Hypothesis | Supposition à valider | GPT / humain | Aucune | → Fact / retirée | Oui (statut) | Tag + Valider/Corriger | — | ≠ Décision |
 | Option | Choix possible | GPT / humain | Aucune | → sélection | Oui | Carte Option | — | ≠ Décision |
 | Recommendation | Proposition non exécutable | GPT | Aucune | → Decision si validée | Oui | Tag Recommandation | Justification | ≠ exécution |
-| HumanDecision | Acte explicite Morris/humain | Humain | **Haute** | — | **Oui** | Tag Décision + historique | Gate + confirmation | — |
+| HumanDecision | Acte explicite du Pilote (humain) | Pilote | **Haute** | — | **Oui** | Tag Décision + historique | Gate + confirmation | — |
 | Reserve | Limitation connue | Audit / QA | Moyenne | Levée documentée | Oui | Tag Réserve | — | ≠ blocage seul |
 | Risk | Menace plausible | Analyse | Moyenne | Mitigation / acceptation | Oui | Tag Risque | — | ≠ fait |
 | Evidence | Preuve référencée | Git / test / capture | Haute si vérifiable | — | Lien | Liste preuves | Path/digest | — |
@@ -34,6 +34,8 @@
 4. Contradiction → signalement (`V3-F08`) avant claim.
 5. Alignement CC-D05 : labels texte, pas couleur seule.
 6. Une source v2.6 historique **n'est pas** un Fact de doctrine Studio active.
+
+Morris reste l’autorité des décisions de construction, doctrine et promotion de SFIA Studio ; cette autorité ne crée pas un persona runtime distinct du rôle **Pilote**.
 
 ## 2. Provenance (lien V3-F07)
 
@@ -67,4 +69,4 @@ sévérité (info / warning / blocking) · sources · objet impacté · blocante
 
 ## 4. Maturité
 
-V3-F04 / F08 : **VALIDATED** (doctrine) · schemas : non créés.
+V3-F04 / F08 : **VALIDATED** (doctrine) · EpistemicItem schema **MODELED / VALIDATED** · couverture runtime partielle / Memory · Product Completion et runtime v3 **NON ADOPTED**.

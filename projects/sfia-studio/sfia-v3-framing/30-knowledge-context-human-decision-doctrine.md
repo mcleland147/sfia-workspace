@@ -2,12 +2,12 @@
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · merge `main` en attente |
+| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · intégrée sur `main` via PR #259 / `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` · synchronisation C1 Product Completion candidate |
 | **Fondations** | **V3-F01 · V3-F05 validées** (D-V3-01) |
 | **Doctrine produit Studio** | **SFIA v3 exclusive** |
 | **SFIA v2.6** | Externe à Studio · historique / traçabilité uniquement |
 | **Maturité fondations** | **VALIDATED** (doctrine Studio) |
-| **Maturité runtime** | Non migré |
+| **Maturité runtime** | Couverture partielle sur `main` (M1–M5 / PRE-M6) · Product Completion non complet · runtime v3 **NON ADOPTED** |
 | **Gates** | Validation doctrine + PR readiness (consommés) |
 | **Anti-claims** | Pas runtime actif · Pas ADOPTED runtime · Pas READY FOR DELIVERY · Pas baseline globale |
 | **Document** | `30-knowledge-context-human-decision-doctrine.md` |
@@ -31,9 +31,10 @@ intention utilisateur
 → analyse et clarification
 → détection des contradictions
 → mise à jour du Living Project State
-→ trajectoire (recommandation jusqu'à validation)
+→ continuité sémantique inter-session (sans transcript exhaustif requis)
+→ ProjectTrajectory (MUST produit ; recommandation jusqu'à validation)
 → options et recommandation
-→ décision Morris
+→ HumanDecision du Pilote
 → confirmation proportionnée (N1–N3)
 → Execution Contract
 → agent / Cursor / Runtime
@@ -59,7 +60,7 @@ dimensions d'analyse · questions adaptatives · risques · critères de maturit
 | Autorité | **Aucune** autorité d'exécution |
 | Décision | **Aucune** décision Morris implicite |
 | UI | **Jamais** exposé comme formulaire / checklist / dimensions brutes |
-| Couverture | 4 pilotes détaillés (1, 2, 6, 9) · 11 cycles en fallback silencieux |
+| Couverture | État repository courant : 4 pilotes détaillés (1, 2, 6, 9) · 11 types en fallback silencieux · **≠ invariant structurel** |
 | Fallback | Carte synthétique / sources **autorisées par DoctrinePackage v3** · **silencieux** UI (CC-D12) · **jamais** bascule doctrinale vers SFIA v2.6 |
 | Traçabilité | path · version · statut `detailed`/`synthetic`/`absent` · digest si disponible |
 | Invention | **Interdit** d'inventer un CKC détaillé absent |
@@ -67,6 +68,8 @@ dimensions d'analyse · questions adaptatives · risques · critères de maturit
 ### Consommation Studio
 
 Résolution **interne** après qualification cycle · influence questions/challenges · trace audit · n'élargit pas le périmètre Cursor · **pas** de chargement de `method/sfia-fast-track/` comme doctrine produit.
+
+**Cycle Catalog Evolvability (C1 Product Completion) :** le catalogue canonique applicable est évolutif. La cible cognitive est 100 % du catalogue applicable à la baseline concernée ; le nombre courant `15` est une mesure repository, pas l’identité structurelle de Studio. Ajouter un type enrichit d’abord qualification, CKC, risques, gates, stops et Evidence semantics — pas un moteur d’exécution dédié par défaut.
 
 ## 4. V3-F05 — Chaîne conversation → décision → exécution (VALIDATED)
 
@@ -94,19 +97,23 @@ Alignement **décisions UX validées** (2026-07-23) :
 
 | # | Couche | Responsabilités | Sorties | Autorité |
 |---|--------|-----------------|---------|----------|
-| 1 | Governance | Morris, gates, maturité, anti-claims | Décisions, stop | Morris |
+| 1 | Governance | Morris (construction/promotion), gates, maturité, anti-claims | Décisions de construction, stop | Morris |
 | 2 | Knowledge & Context | DoctrinePackage v3, CKC, sources, provenance | Contexte résolu | Cognitive |
 | 3 | Project Method | Cycles, profils, lenses, routage | Qualification | Cognitive |
 | 4 | Living Project State | État utile persisté | LPS mis à jour | Studio |
-| 5 | Trajectory & Decision | Trajectoire, options, reco, HumanDecision | Décision / réserve | Morris |
+| 5 | Trajectory & Decision | ProjectTrajectory, options, reco, HumanDecision | Décision / réserve | Pilote (runtime) |
 | 6 | Execution & Agent | ExecutionContract, capacités, réversibilité | Exécution bornée | Cursor/Runtime sous contrat |
 | 7 | Evidence & Learning | Preuves, ReviewBundle, REX, dette | Capitalisation | Morris pour promotion |
 
 **Anti-claims couches :** aucune couche n'autorise L5 décisionnel global · aucune couche n'active seule le runtime ADOPTED.
 
+L’ExecutionContract natif **harvest** la logique fonctionnelle du template Cursor canonique afin de préserver objectif, contexte, sources, scope IN/OUT, autorité, protections, gates, stops, validations et Evidence. Cette parité fonctionnelle n’introduit aucune dépendance doctrinale runtime vers v2.6 ; l’export Markdown Cursor reste un adaptateur.
+
 ## 6. Boucle de vie projet (native)
 
-cadrage → conception → architecture → UX → backlog → delivery → QA → sécurité → release → RUN readiness → PR readiness → post-merge → capitalisation → évolution doctrine/CKC (sous décision Morris).
+Le catalogue applicable fournit des **types de travail mobilisables**, pas une séquence obligatoire : cadrage · conception · architecture · UX · backlog · delivery · QA · sécurité · release · RUN readiness · PR readiness · post-merge · capitalisation · évolution doctrine/CKC.
+
+Leur ordre et leur activation sont déterminés par la ProjectTrajectory réelle du Project, ses dépendances, ses preuves et les HumanDecisions du Pilote. Cette ProjectTrajectory **≠** Convergence Roadmap de construction Studio **≠** catalogue de types de cycle **≠** waterfall fixe.
 
 Le **merge ne termine pas** automatiquement un projet ni un cycle.
 
@@ -117,4 +124,4 @@ Amende la lecture UX de `11` au profit de CC-D01 (voir `37`).
 
 ## 8. Maturité
 
-Fondations V3-F01 / V3-F05 : **VALIDATED** (doctrine Studio) · non MODELED · non IMPLEMENTED runtime.
+Fondations V3-F01 / V3-F05 : **VALIDATED** (doctrine Studio) · pack modeled Option A **VALIDATED** · couverture runtime partielle · Product Completion non complet · runtime v3 **NON ADOPTED**.

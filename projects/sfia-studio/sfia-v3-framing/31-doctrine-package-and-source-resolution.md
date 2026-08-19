@@ -2,16 +2,16 @@
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · merge `main` en attente |
+| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · intégrée sur `main` via PR #259 / `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` · synchronisation C1 Product Completion candidate |
 | **Fondations** | **V3-F03 · V3-F07 validées** (D-V3-01) |
 | **Doctrine produit Studio** | **SFIA v3 exclusive** — DoctrinePackage = future SoT Studio |
 | **SFIA v2.6** | Externe · hors allowlist de consommation produit |
-| **Maturité fondations** | **VALIDATED** (doctrine) · schéma JSON **non créé** |
+| **Maturité fondations** | **VALIDATED** (doctrine) · DoctrinePackageManifest schema **MODELED / VALIDATED** (Option A) · resolver runtime partiel sur `main` · runtime v3 **NON ADOPTED** |
 | **Gates** | Validation doctrine + PR readiness |
-| **Anti-claims** | Pas package exécutable · Pas resolver runtime · Pas ADOPTED runtime |
+| **Anti-claims** | Resolver partiel ≠ DoctrinePackage complet / ADOPTED · Pas ADOPTED runtime |
 | **Document** | `31-doctrine-package-and-source-resolution.md` |
 
-> Conceptuel uniquement — **aucun** schéma JSON exécutable dans ce cycle.
+> Ce document reste doctrinal. Les schemas modeled et la couverture runtime partielle vivent dans leurs sources dédiées ; cette synchronisation ne crée ni schema, ni resolver, ni API.
 
 ---
 
@@ -63,7 +63,7 @@ Unité doctrinale **versionnée**, consommée **uniquement par SFIA Studio** (St
 
 ```
 preuves Git et runtime
-> décisions Morris
+> décisions Morris de construction / gouvernance et HumanDecisions du Pilote enregistrées
 > état projet validé
 > doctrine Studio v3 (package piné)
 > CKC (sources autorisées package)
@@ -75,6 +75,8 @@ preuves Git et runtime
 
 SFIA v2.6 **n'apparaît pas** dans la hiérarchie de consommation Studio. Elle peut apparaître uniquement comme **métadonnée d'origine** d'un concept hérité (voir `36`).
 
+Morris demeure l’autorité de construction / promotion de SFIA Studio ; le **Pilote** porte les HumanDecisions runtime du Project. DoctrinePackage identity, version, digest et provenance nécessaires à l’audit sont des éléments MUST de Product Completion ; leur mécanisme technique reste hors de ce framing.
+
 ### Attributs de provenance
 
 sourceId · type · autorité · fraîcheur · digest/path · acteur · timestamp · statut (active/stale/superseded) · originHeritage (optionnel, historique).
@@ -82,7 +84,7 @@ sourceId · type · autorité · fraîcheur · digest/path · acteur · timestam
 ### Conflits
 
 Un conflit **haut vs bas** : retenir le haut, signaler contradiction (voir `33`).
-Un conflit **même niveau** : gate Morris si structurant.
+Un conflit **même niveau** : gate humain si structurant — HumanDecision du Pilote dans le runtime Project ; gate Morris pour construction, doctrine ou promotion SFIA Studio.
 
 ### Ce qui n'est pas SoT
 
@@ -95,4 +97,4 @@ DoctrinePackage orchestre **quelles** defs MD/JSON sont pinées ; SQL porte l'é
 
 ## 5. Maturité
 
-V3-F03 / V3-F07 : **VALIDATED** (doctrine) · manifest/resolver : **non MODELED / non IMPLEMENTED**.
+V3-F03 / V3-F07 : **VALIDATED** (doctrine) · DoctrinePackageManifest **MODELED / VALIDATED** · resolver filesystem/digest/schema partiellement **IMPLEMENTED ON MAIN** · package Product Completion complet et runtime v3 **NON ADOPTED**.

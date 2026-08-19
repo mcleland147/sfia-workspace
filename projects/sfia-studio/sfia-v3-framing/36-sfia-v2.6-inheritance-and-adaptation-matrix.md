@@ -34,7 +34,7 @@ Cette matrice **ne crée aucun** lien runtime vers v2.6.
 | Élément | Justification Studio v3 |
 |---------|-------------------------|
 | Git source de vérité | Incorporé (D3 / OM) |
-| Morris décide | Incorporé |
+| Morris décide | Incorporé pour construction / doctrine / promotion SFIA Studio ; HumanDecision runtime portée par le **Pilote** |
 | Protected paths | Incorporé |
 | Absence de décision automatique | Incorporé (anti-L5 décisionnel) |
 | Complétude des livrables | Incorporé (Artifact Completeness) |
@@ -47,7 +47,7 @@ Cette matrice **ne crée aucun** lien runtime vers v2.6.
 
 | Élément | Formulation Studio v3 |
 |---------|----------------------|
-| Quinze cycles | Qualification dynamique post-intention |
+| Catalogue canonique de types de cycle | **Évolutif** · qualification dynamique post-intention · 15 = mesure de la baseline observable, pas invariant structurel · ajout d’un type enrichit cognition / attentes / gates / Evidence, pas un moteur dédié par défaut |
 | Profils Light/Standard/Critical/Capitalization | UI + LPS |
 | Blocs transverses | **Lenses** contextuelles (`34`) |
 | Gates / stop conditions | UI + Stop Condition Engine |
@@ -61,7 +61,7 @@ Cette matrice **ne crée aucun** lien runtime vers v2.6.
 
 | Élément historique v2.6 | Remplacement Studio v3 |
 |------------------------|------------------------|
-| PGE documentaire comme moteur principal | **ExecutionContract** (+ export Markdown Cursor = adaptateur) |
+| PGE documentaire comme moteur principal | **ExecutionContract** natif (+ export Markdown Cursor = adaptateur) · logique fonctionnelle du template canonique **HARVEST** pour parité minimale · jamais doctrine ou dépendance runtime v2.6 |
 | Démarrage explicite par cycle | Démarrage par **intention** puis qualification dynamique |
 | Doctrine `method/` comme SoT runtime direct | **DoctrinePackage** Studio-only |
 | Coexistence / dual-run doctrinal opérationnel | **Exclusivité v3** (D-V3-03) — dual-run produit interdit |

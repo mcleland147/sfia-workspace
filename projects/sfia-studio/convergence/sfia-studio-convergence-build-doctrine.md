@@ -13,6 +13,7 @@
 | **Snapshot création** | HEAD `4b1a058050ae81d56cb6d96b88e8a57380799a86` · 2026-08-12 21:52:01 CEST (+0200) *(historique)* |
 | **Validation Morris** | 2026-08-13 02:05 +0200 (Europe/Paris) — Build Doctrine + Convergence Roadmap officiellement validées comme gouvernance de construction SFIA Studio |
 | **Intégration Git** | PR #334 · merge commit `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
+| **Source Product Completion structurante** | C1 validé et intégré sur `main` via PR #364 · merge `d83be84ab93650f23bfe54870790cc2e839be095` · `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` |
 
 ## A1. Anti-claims (ouverts)
 
@@ -34,24 +35,24 @@ Ce document **n’est pas** :
 
 ## A3. Cible produit (boucle métier)
 
-Décision Morris explicite — cible produit Studio (≠ runtime ADOPTED) :
+Décision Morris explicite — cible produit Studio (≠ runtime ADOPTED). **Pilote** est le rôle runtime fonctionnel générique ; Morris reste l’autorité de construction / gouvernance de SFIA Studio et peut utiliser le produit en tant que Pilote sans devenir un persona runtime spécifique :
 
 ```text
-Morris
+Pilote
   → SFIA Studio / Nora
   → connaissance + contexte v3 (DoctrinePackage / CKC)
   → qualification cycle / profil / lenses
   → analyse / clarification
   → Living Project State
-  → trajectoire / options / recommandation
-  → HumanDecision Morris
+  → ProjectTrajectory / options / recommandation
+  → HumanDecision du Pilote
   → Confirmation (si requise)
   → ExecutionContract
   → Cursor / agent sous contrat
   → Evidence / ReviewBundle / Git
   → analyse Nora
-  → mise à jour LPS / replanification
-  → décision Morris
+  → mise à jour LPS / ProjectTrajectory / replanification
+  → décision Pilote
   → cycle suivant
 ```
 
@@ -73,7 +74,7 @@ Fondations doctrine produit associées : **V3-F01…V3-F15** (VALIDATED doctrine
 | **R10** | Le **chemin critique** doit rester visible à tout moment (Roadmap B10). |
 | **R11** | Pas de dette volontaire sans propriétaire + condition de remboursement ou de retrait. |
 | **R12** | **Git** reste la vérité technique et documentaire. |
-| **R13** | La **décision structurante** reste humaine (Morris). |
+| **R13** | La **décision structurante** reste humaine : HumanDecision du **Pilote** dans le runtime produit ; Morris conserve les décisions de construction, promotion et gates structurants de SFIA Studio. |
 | **R14** | GPT/Nora **raisonne, challenge, recommande** ; il/elle ne transforme pas une recommandation en décision. |
 | **R15** | Cursor/agent **exécute uniquement** dans un périmètre/contrat gouverné. |
 | **R16** | Automatiser le **répétable**, pas l’arbitrage structurant. |
@@ -166,6 +167,7 @@ Elle se termine lorsqu’une **capacité utilisateur** ou une **précondition st
 | Doctrine produit v3 (`30`–`37`) | Destination produit |
 | **Build Doctrine (ce document)** | Lois de construction |
 | **Convergence Roadmap** | État + prochaine capacité |
+| **Product Completion C1 intégré** | Cible / scope / trajectoire adoptés explicitement par Morris |
 | Sources cycle / repo | Preuves locales du chantier |
 | Mémoire conversationnelle | Non SoT |
 
@@ -221,6 +223,7 @@ PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE
 ## Références
 
 - Roadmap : [`sfia-studio-convergence-roadmap.md`](./sfia-studio-convergence-roadmap.md)
+- Product Completion C1 : [`../product-completion/01-product-completion-cadrage.md`](../product-completion/01-product-completion-cadrage.md)
 - Doctrine produit : `projects/sfia-studio/sfia-v3-framing/30`–`37`
 - Routing : `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
 - Knowledge Layer : `method/sfia-fast-track/core/sfia-knowledge-layer.md`
