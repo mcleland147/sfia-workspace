@@ -2,27 +2,50 @@
 
 | Champ | Valeur |
 | --- | --- |
-| **Timestamp** | 2026-08-19 12:23:43 CEST (+0200) — Europe/Paris |
+| **Timestamp** | 2026-08-19 12:46:57 CEST (+0200) — Europe/Paris |
 | **Repository** | `mcleland147/sfia-workspace` · `/workspace` |
 | **Branche initiale** | `main` |
-| **Branche cycle** | `docs/sfia-studio-pr365-post-merge-current-state-sync` · locale uniquement |
-| **HEAD / base** | `dbd5ff995974e605146e8347f0f27867f04e93f7` = `origin/main` |
+| **Branche projet** | `docs/sfia-studio-pr365-post-merge-current-state-sync` · poussée sur origin |
+| **Branche PR (head)** | `cursor/docs-sfia-studio-pr365-post-merge-current-state-sync-3435` · même SHA que branche projet |
+| **HEAD initial / base** | `dbd5ff995974e605146e8347f0f27867f04e93f7` = `origin/main` |
+| **Commit projet** | `75d77e218d375d928331244da147c4b5ba638c0f` |
+| **Remote branch SHA** | `75d77e218d375d928331244da147c4b5ba638c0f` (local == remote) |
 | **PR #365** | MERGED · merge commit `dbd5ff995974e605146e8347f0f27867f04e93f7` |
-| **GO Morris consommé** | GO MORRIS — POST-MERGE CURRENT-STATE SYNC FOR PR #365 — ALIGN C1 / ROADMAP / FRAMING METADATA TO MAIN — NO C2 — NO RUNTIME DELIVERY |
-| **Qualification** | DOC · Standard · POST-MERGE CURRENT-STATE SYNC |
+| **Draft PR projet** | **#366** · https://github.com/mcleland147/sfia-workspace/pull/366 · draft=true · changed files=9 |
+| **GO Morris consommé** | GO MORRIS — INTEGRATE PR #365 POST-MERGE CURRENT-STATE SYNC INTO GIT — COMMIT + PUSH + DRAFT PR — NO MERGE — NO C2 |
+| **Qualification** | DOC · Standard · PR readiness / Git integration · Cycle 13 CKC candidate guidance |
 | **Fake / Real** | N/A · ZERO REAL |
-| **Project Git integration** | NON AUTORISÉE / NON RÉALISÉE |
+| **Fidelity check (pre-stage)** | PASS vs handoff `f6be3f3042db2c8c9977c23e234538647a79e77c` |
+| **CI** | `Detect SFIA Studio changes` · run `32244352306` · **IN PROGRESS** |
+| **Merge** | NON |
+| **C2** | NON |
 
 ---
-## 1. Local Git Truth (référencé pour ce Review Pack)
+## 1. Local Git Truth
+
+### 1a. Avant stage (intégration)
 
 - `pwd` : `/workspace`
 - `git rev-parse --show-toplevel` : `/workspace`
 - `git remote -v` : `origin` = `mcleland147/sfia-workspace`
 - `git branch --show-current` : `docs/sfia-studio-pr365-post-merge-current-state-sync`
-- `git status --short` : **tracked dirty = 9 fichiers modifiés non-stagés**, **staged = EMPTY**, **untracked = .tmp-sfia-review/** (pack temporaire)
-- `git diff --name-status` : **9 fichiers modifiés attendus**
-- `git diff --check` : OK (aucun avertissement)
+- `git rev-parse HEAD` : `dbd5ff995974e605146e8347f0f27867f04e93f7`
+- `git rev-parse origin/main` : `dbd5ff995974e605146e8347f0f27867f04e93f7`
+- `git status --short` : **tracked dirty = 9 fichiers modifiés non-stagés**, **staged = EMPTY**, **untracked = .tmp-sfia-review/**
+- `git diff --stat` : **9 files changed, 46 insertions(+), 51 deletions(-)**
+- `git diff --check` : OK
+- `origin/docs/sfia-studio-pr365-post-merge-current-state-sync` : **absent** (avant push)
+- PR existante : **aucune**
+
+### 1b. Après commit / push / Draft PR
+
+- **Commit projet** : `75d77e218d375d928331244da147c4b5ba638c0f`
+- **Message** : `docs(sfia-studio): sync PR 365 post-merge current state`
+- **Scope commit** : exactement 9 fichiers · 46 insertions · 51 suppressions
+- **Push** : `docs/sfia-studio-pr365-post-merge-current-state-sync` → origin · remote SHA = `75d77e21…`
+- **Branche PR head** : `cursor/docs-sfia-studio-pr365-post-merge-current-state-sync-3435` @ `75d77e21…` (même commit)
+- **Draft PR** : #366 · base `main` @ `dbd5ff99…` · head @ `75d77e21…` · draft=true · mergeable=MERGEABLE · changed files=9
+- **Status courant** : working tree clean (hors `.tmp-sfia-review/` untracked)
 
 ---
 ## 2. Sources lues (processus read-only)
@@ -316,16 +339,36 @@ index aa9b2d19..210e933a 100644
 ```
 
 ---
-## 9. Git project actions (hard non-claims)
+## 9. Git project actions (réalisées)
 
-- stage : NON
-- commit : NON
-- push : NON
-- PR : NON
-- merge : NON
-- branch deletion : NON
+| Action | Statut | Détail |
+| --- | --- | --- |
+| Fidelity check (pre-stage) | PASS | vs handoff `f6be3f30…` · 9 fichiers · 46+/51- |
+| Stage explicite 9 paths | PASS | aucun autre fichier stagé |
+| Commit projet unique | PASS | `75d77e218d375d928331244da147c4b5ba638c0f` |
+| Push branche projet | PASS | `docs/sfia-studio-pr365-post-merge-current-state-sync` |
+| Draft PR | PASS | #366 · 9 changed files · draft=true |
+| Merge | NON | gate Morris requis |
+| Ready-for-review conversion | NON | |
+| Branch delete | NON | |
+| C2 | NON | |
+| runtime / Delivery / REAL | NON | |
+
+**Note PR head** : l'outil Cursor PR exige le préfixe `cursor/` ; la branche projet `docs/…` est poussée et le Draft PR #366 utilise `cursor/docs-sfia-studio-pr365-post-merge-current-state-sync-3435` au même SHA `75d77e21…`.
 
 ---
-## 10. Verdict
+## 10. Review Handoff (publication cycle)
 
-**CURRENT-STATE COHERENCE CANDIDATE PASS** — 3 review findings ChatGPT corrigés — doctrine substantielle inchangée ; drift candidate/pending integration corrigé ; aucun C2 runtime / delivery ; aucune intégration Git projet.
+- **Publisher** : `scripts/sfia/publish-review-handoff.sh`
+- **Branche handoff** : `sfia/review-handoff`
+- **Fichier canonique** : `sfia-review-handoff/latest-chatgpt-review.md`
+- **Commit handoff** : *(voir section post-publication)*
+- **Blob canonique** : *(voir section post-publication)*
+- **Remote verified** : *(voir section post-publication)*
+
+---
+## 11. Verdict
+
+**READY FOR MORRIS PR REVIEW** — PR #365 POST-MERGE CURRENT-STATE SYNC COMMITTED AND PUSHED — DRAFT PR #366 OPEN — 9-FILE SCOPE VERIFIED — NO MERGE — NO C2
+
+Re-review ChatGPT : PASS · current-state coherence : PASS · doctrine substantielle inchangée · Build Doctrine + framing 36 inchangés · runtime v3 NON ADOPTED.
