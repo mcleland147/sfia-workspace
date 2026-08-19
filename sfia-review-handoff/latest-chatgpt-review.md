@@ -2,25 +2,22 @@
 
 | Champ | Valeur |
 | --- | --- |
-| **Timestamp** | 2026-08-19 12:53:43 CEST (+0200) — Europe/Paris |
+| **Timestamp** | 2026-08-19 12:56:15 CEST (+0200) — Europe/Paris |
 | **Repository** | `mcleland147/sfia-workspace` · `/workspace` |
-| **Branche initiale** | `main` |
-| **Branche projet** | `docs/sfia-studio-pr365-post-merge-current-state-sync` · poussée sur origin |
-| **Branche PR (head)** | `cursor/docs-sfia-studio-pr365-post-merge-current-state-sync-3435` · même SHA que branche projet |
-| **HEAD initial / base** | `dbd5ff995974e605146e8347f0f27867f04e93f7` = `origin/main` |
+| **origin/main (post-merge #366)** | `5681bc77be771ca3f388ae0d62eb30a2b2063a65` |
+| **Branche projet** | `docs/sfia-studio-pr365-post-merge-current-state-sync` · **PRESERVED** @ `75d77e21…` |
+| **Branche PR (head)** | `cursor/docs-sfia-studio-pr365-post-merge-current-state-sync-3435` · **PRESERVED** @ `75d77e21…` |
 | **Commit projet** | `75d77e218d375d928331244da147c4b5ba638c0f` |
-| **Remote branch SHA** | `75d77e218d375d928331244da147c4b5ba638c0f` (local == remote) |
+| **Merge PR #366** | **MERGED** · merge commit `5681bc77be771ca3f388ae0d62eb30a2b2063a65` · 2026-08-19T10:55:46Z |
 | **PR #365** | MERGED · merge commit `dbd5ff995974e605146e8347f0f27867f04e93f7` |
-| **Draft PR projet** | **#366** · https://github.com/mcleland147/sfia-workspace/pull/366 · draft=true · changed files=9 |
-| **GO Morris consommé** | GO MORRIS — INTEGRATE PR #365 POST-MERGE CURRENT-STATE SYNC INTO GIT — COMMIT + PUSH + DRAFT PR — NO MERGE — NO C2 |
-| **Qualification** | DOC · Standard · PR readiness / Git integration · Cycle 13 CKC candidate guidance |
+| **PR #366 URL** | https://github.com/mcleland147/sfia-workspace/pull/366 |
+| **GO Morris consommé** | GO MORRIS — MERGE PR #366 — PRESERVE SOURCE BRANCHES — THEN READ-ONLY POST-MERGE REPO COHERENCE VERIFICATION — NO C2 |
+| **Qualification** | DOC · Standard · post-merge repo coherence verification (read-only) |
 | **Fake / Real** | N/A · ZERO REAL |
-| **Fidelity check (pre-stage)** | PASS vs handoff `f6be3f3042db2c8c9977c23e234538647a79e77c` |
-| **CI** | run `32244352306` · `Detect SFIA Studio changes` **pass** (8s) · `Build and validate SFIA Studio` **pass** (2m40s) · `SFIA Studio Required Gate` **pass** (4s) · conclusion **success** |
-| **Merge PR #366** | NON |
-| **Current-state sync sur main** | NON — en attente merge PR #366 |
-| **Gate courant** | **MORRIS PR REVIEW / MERGE DECISION** |
-| **C2** | NON |
+| **CI (PR #366 head)** | run `32244352306` · **success** (Detect pass · Build pass · Required Gate pass) |
+| **Current-state sync sur main** | **OUI** — via merge PR #366 / `5681bc77…` |
+| **Gate courant** | **POST-MERGE REPO COHERENCE → MORRIS GATE FOR C2 EXECUTION** |
+| **C2** | **NOT AUTHORIZED** |
 
 ---
 ## 1. Local Git Truth
@@ -128,25 +125,20 @@
 ## 6. Non-claims finaux (interdits)
 
 Ce Review Pack ne dit pas / ne claim pas :
-- merge PR #366 **réalisé**
-- current-state sync PR #366 **déjà sur main**
-- “repo coherence finalisée sur main”
-- “C2 autorisé”
-- “C2 started”
+- “C2 autorisé” ou “C2 started”
 - “runtime v3 ADOPTED”
 - “Product Completion runtime/delivery”
+- “repo coherence final PASS sans réserves” (réserves documentées §12)
+- suppression des branches source
 
-**État explicite** : commit/push/Draft PR #366 réalisés · merge **NON** · current-state sync **NON encore sur main**.
+**État explicite post-merge #366** : current-state sync **sur main** · branches source **préservées** · C2 **NON autorisé** · gate suivant = **MORRIS GATE FOR C2 EXECUTION**.
 
 ---
 ## 7. Gate suivant
 
-**MORRIS PR REVIEW / MERGE DECISION** (PR #366 — Draft)
+**POST-MERGE REPO COHERENCE → MORRIS GATE FOR C2 EXECUTION**
 
-Après merge PR #366 uniquement :
-
-READ-ONLY POST-MERGE REPO COHERENCE VERIFICATION
-→ **MORRIS GATE FOR C2 EXECUTION**
+Cycle 2 — Conception fonctionnelle · **RECOMMENDED** · **C2 EXECUTION NOT AUTHORIZED**
 
 ---
 ## 8. “Review Pack FULL” — diffs -U0 des 9 fichiers modifiés (source exploitable)
@@ -356,13 +348,50 @@ index aa9b2d19..210e933a 100644
 | Commit projet unique | PASS | `75d77e218d375d928331244da147c4b5ba638c0f` |
 | Push branche projet | PASS | `docs/sfia-studio-pr365-post-merge-current-state-sync` |
 | Draft PR | PASS | #366 · 9 changed files · draft=true |
-| Merge PR #366 | NON | gate Morris requis |
-| Ready-for-review conversion | NON | |
-| Branch delete | NON | |
+| Merge PR #366 | **MERGED** | `5681bc77…` · branches source préservées |
+| Branch delete | NON | docs + cursor branches intactes |
 | C2 | NON | |
 | runtime / Delivery / REAL | NON | |
 
 **Note PR head** : l'outil Cursor PR exige le préfixe `cursor/` ; la branche projet `docs/…` est poussée et le Draft PR #366 utilise `cursor/docs-sfia-studio-pr365-post-merge-current-state-sync-3435` au même SHA `75d77e21…`.
+
+---
+## 12. Read-only post-merge repo coherence verification (PR #366)
+
+**Base** : `dbd5ff99…` → **main** : `5681bc77…` · read-only · aucun fichier projet modifié dans ce cycle.
+
+### 12a. Merge truth
+
+| Check | Résultat |
+| --- | --- |
+| PR #366 state | **MERGED** |
+| Merge commit | `5681bc77be771ca3f388ae0d62eb30a2b2063a65` |
+| Diff scope vs `dbd5ff99…` | **9 fichiers** · 46 insertions · 51 suppressions |
+| Build Doctrine | **inchangé** |
+| Framing 36 | **inchangé** |
+| Branches préservées | `docs/sfia-studio-pr365-post-merge-current-state-sync` + `cursor/docs-sfia-studio-pr365-post-merge-current-state-sync-3435` @ `75d77e21…` |
+| CI au merge | run `32244352306` · **SUCCESS** |
+
+### 12b. Coherence matrix (main @ `5681bc77…`)
+
+| Sujet | État | Verdict |
+| --- | --- | --- |
+| PR #365 governance/doctrine sync | intégré on main | PASS |
+| PR #366 current-state sync | intégré on main | PASS |
+| Roadmap B3 (COMPLETED / CURRENT GATE / NEXT) | POST-C1 sync integrated · POST-MERGE REPO COHERENCE · C2 RECOMMENDED/NOT AUTHORIZED | PASS |
+| C1 gate Y.6 | POST-MERGE REPO COHERENCE → MORRIS GATE C2 | PASS |
+| Gates courants Roadmap | post-merge repo coherence → Morris gate C2 · C2 NOT AUTHORIZED | PASS |
+| Framings 30–35 + 37 statut sync | intégrée PR #365 + metadata PR #366 | PASS |
+| Runtime v3 | NON ADOPTED | PASS |
+| C2 | NOT AUTHORIZED | PASS |
+| Roadmap trajectory block (~L690) | encore « CURRENT CANDIDATE LOCAL » + « GIT INTEGRATION GATE » | **RESERVE** — stale vs B3 |
+| Snapshot Git metadata header | encore @ `dbd5ff99…` (pas `5681bc77…`) | **RESERVE** — harvest/metadata debt |
+
+### 12c. Verdict verification
+
+**POST-MERGE REPO COHERENCE — PASS WITH GOVERNED RESERVES**
+
+Réserves non bloquantes pour le gate Morris C2 : bloc trajectoire Roadmap ~L690 et snapshot Git header non realignés post-#366. Aucune action runtime · aucune modification des 9 fichiers dans ce cycle.
 
 ---
 ## 10. Review Handoff (publication cycle)
@@ -378,8 +407,6 @@ index aa9b2d19..210e933a 100644
 ---
 ## 11. Verdict
 
-**READY FOR MORRIS PR REVIEW / MERGE DECISION** — PR #365 POST-MERGE CURRENT-STATE SYNC COMMITTED AND PUSHED — DRAFT PR #366 OPEN — 9-FILE SCOPE VERIFIED — CI **pass** — NO MERGE — NO C2 — CURRENT-STATE SYNC **NOT YET ON MAIN**
+**PR #366 MERGED ON MAIN — SOURCE BRANCHES PRESERVED — POST-MERGE REPO COHERENCE PASS WITH GOVERNED RESERVES — READY FOR MORRIS GATE FOR C2 EXECUTION — NO C2 — RUNTIME V3 NON ADOPTED**
 
-Re-review ChatGPT : PASS · current-state coherence candidate : PASS · doctrine substantielle inchangée · Build Doctrine + framing 36 inchangés · runtime v3 NON ADOPTED.
-
-**Anti-claims** : merge PR #366 NON · current-state sync NON sur main · C2 NON autorisé · runtime v3 NON ADOPTED.
+Re-review ChatGPT : PASS · merge scope 9 fichiers vérifié · doctrine substantielle inchangée · Build Doctrine + framing 36 inchangés.
