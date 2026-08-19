@@ -1626,8 +1626,9 @@ index 4b5a56d0..aa9b2d19 100644
 
 ## 17. Git project actions
 
-- stage projet : NON
-- commit projet : NON
-- push projet : NON
-- PR projet : NON
+- stage projet : OUI — 11 fichiers (scope autorisé)
+- commit projet : OUI — 3c10cbae4aa33a171c11adfb1d60ce02afe57c6c
+- push projet : OUI — origin/docs/sfia-studio-product-completion-c1-governance-sync @ 3c10cbae4aa33a171c11adfb1d60ce02afe57c6c
+- PR projet : OUI — Draft=true — #365 — https://github.com/mcleland147/sfia-workspace/pull/365 — base main / head docs/sfia-studio-product-completion-c1-governance-sync
+- CI status : N/A (Draft PR)
 - merge projet : NON
