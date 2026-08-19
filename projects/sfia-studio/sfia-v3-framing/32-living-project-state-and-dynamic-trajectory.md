@@ -2,7 +2,7 @@
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · intégrée sur `main` via PR #259 / `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` · synchronisation C1 Product Completion candidate |
+| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · intégrée sur `main` via PR #259 / `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` · synchronisation C1 Product Completion intégrée sur `main` via PR #365 / `dbd5ff995974e605146e8347f0f27867f04e93f7` |
 | **Fondations** | **V3-F02 · V3-F06 · V3-F09 validées** (D-V3-01) |
 | **Doctrine produit Studio** | **SFIA v3 exclusive** |
 | **SFIA v2.6** | Externe · non représentée comme mode doctrinal actif du LPS |

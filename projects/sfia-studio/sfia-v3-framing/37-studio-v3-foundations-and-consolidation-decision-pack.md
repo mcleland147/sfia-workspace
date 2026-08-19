@@ -2,14 +2,14 @@
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | Pack doctrinal **VALIDATED** pour SFIA Studio · intégré sur `main` via PR #259 / `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` · synchronisation C1 Product Completion candidate |
+| **Statut** | Pack doctrinal **VALIDATED** pour SFIA Studio · intégré sur `main` via PR #259 / `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` · synchronisation C1 Product Completion intégrée sur `main` via PR #365 / `dbd5ff995974e605146e8347f0f27867f04e93f7` |
 | **Fondations** | **V3-F01…F15 validées** (D-V3-01) |
 | **Doctrine produit Studio** | **SFIA v3 exclusive** (D-V3-02 · D-V3-03) |
 | **Maturité** | Doctrine **VALIDATED** · pack modeled Option A **VALIDATED** · couverture runtime partielle · Product Completion non complet · runtime v3 **NON ADOPTED** |
 | **Adoption v3 hors Studio** | **Non** |
 | **Gates consommés** | `GO VALIDATION DOCTRINE — SFIA STUDIO V3 KNOWLEDGE-DRIVEN METHOD` · `GO PR READINESS, PUSH ET DRAFT PR — SFIA STUDIO V3 KNOWLEDGE-DRIVEN DOCTRINE` |
-| **Gate suivant** | `MORRIS REVIEW — PRODUCT COMPLETION GOVERNANCE/DOCTRINE SYNC` · intégration Git distincte · repo coherence · gate C2 |
-| **Anti-claims** | Synchronisation C1 non intégrée à `main` · C2 non autorisé · Pas runtime migré · Pas READY FOR DELIVERY · Pas baseline globale · Pas suppression v2.6 du repo |
+| **Gate suivant** | `POST-MERGE REPO COHERENCE → MORRIS GATE FOR C2 EXECUTION` |
+| **Anti-claims** | post-merge repo coherence encore en attente · C2 non autorisé · Pas runtime migré · Pas READY FOR DELIVERY · Pas baseline globale · Pas suppression v2.6 du repo |
 | **Document** | `37-studio-v3-foundations-and-consolidation-decision-pack.md` |
 
 ---
@@ -147,17 +147,17 @@ Le C1 ne ferme pas U2–U5 ni l’audit v2.6. Les détails de représentation fo
 | VAL-R03 | Schemas Option A présents ; couverture / adoption runtime incomplète |
 | VAL-R04 | UX 87–89 hors main |
 | VAL-R05 | Couverture cognitive complète du catalogue applicable non démontrée · mesure repository courante : 4 détaillés + 11 fallbacks |
-| VAL-R06 | Synchronisation gouvernance/doctrine C1 candidate · intégration Git et repo coherence soumises à gates distincts |
+| VAL-R06 | Synchronisation gouvernance/doctrine C1 intégrée via PR #365 / `dbd5ff99…` · post-merge repo coherence soumise au gate Morris C2 |
 | VAL-R07 | Amendement textuel framing `11` encore dû |
 
 ## 9. Trajectoire aval
 
-1. Revue Morris de la synchronisation gouvernance/doctrine Product Completion.
-2. GO / NO-GO intégration Git dans un cycle distinct.
+1. Revue Morris de la synchronisation gouvernance/doctrine Product Completion (consommée via PR #365).
+2. GO / NO-GO intégration Git dans un cycle distinct (consommée via merge `dbd5ff99…`).
 3. Vérification post-merge de repo coherence.
 4. Morris gate pour Cycle 2 — Conception fonctionnelle (**recommandé, non autorisé**).
 5. Requalification dynamique de la trajectoire après chaque capacité.
 
 ## 10. Verdict documentaire
 
-**SFIA STUDIO V3 KNOWLEDGE-DRIVEN DOCTRINE VALIDATED — ON MAIN — PRODUCT COMPLETION C1 SYNC CANDIDATE PENDING MORRIS REVIEW — RUNTIME V3 NON ADOPTED**
+**SFIA STUDIO V3 KNOWLEDGE-DRIVEN DOCTRINE VALIDATED — ON MAIN — PRODUCT COMPLETION C1 SYNC INTEGRATED (PR #365 / `dbd5ff99…`) — POST-MERGE REPO COHERENCE PENDING — RUNTIME V3 NON ADOPTED**
