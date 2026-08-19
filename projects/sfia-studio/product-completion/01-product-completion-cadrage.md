@@ -65,7 +65,7 @@ La Build Doctrine dit **comment construire**. La Convergence Roadmap dit **où e
 | Git `origin/main` @ `d83be84…` · PR #361 / #362 / #364 | SoT factuelle du MVP, de la rebaseline et de l’intégration C1 |
 | Décisions Morris 2026-08-19 A→Y | Autorité sur les requalifications explicites de ce C1 |
 | `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` | Lois de construction — KEEP |
-| `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | État de construction courant — KEEP · REQUALIFY / SYNC candidate locale post-C1 |
+| `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | État de construction courant — KEEP · REQUALIFY / SYNC intégré sur main via PR #365 / `dbd5ff99…` |
 | `projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md` | Doctrine connaissance, CKC, HumanDecision |
 | `projects/sfia-studio/sfia-v3-framing/31-doctrine-package-and-source-resolution.md` | DoctrinePackage, provenance, hiérarchie des sources |
 | `projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md` | LPS, ProjectTrajectory, replanification |
@@ -88,14 +88,14 @@ Les docs historiques `01`, `04`–`09` restent des sources de provenance / harve
 | **Milestone** | Product Completion — Cycle 1 Cadrage |
 | **Actifs clés** | M1–M5 KEEP · PRE-M6 KEEP/ADAPT · preuves UX HARVEST · v3 30–37 KEEP/ADAPT ultérieur · Build Doctrine KEEP · Roadmap KEEP/REQUALIFY/SYNC |
 | **Gap fermé par ce document** | Anciennes ambiguïtés sur rôle runtime, completion bar, continuité, ProjectTrajectory, catalogue, EC/AgentCapability, M6/M7 et trajectoire waterfall |
-| **Dépendance suivante** | Synchronisation documentaire candidate → revue Morris / intégration Git distincte → repo coherence |
+| **Dépendance suivante** | Synchronisation documentaire intégrée sur main via PR #365 / `dbd5ff99…` → vérification post-merge de repo coherence |
 | **Dette documentaire transitoire** | C1 intégré peut diverger des sources aval jusqu’à l’intégration du présent sync |
 | **Exit de cette divergence** | Sync intégrée → vérification post-merge de repo coherence |
 | **Lien trajectoire** | Explicite ; pas de `STOP — TRAJECTORY LINK MISSING` |
 
 ### A.5 Statut des sources aval
 
-La Roadmap et les framings `30`–`37` restent les sources versionnées courantes. Le présent cycle prépare localement leur synchronisation contrôlée sur les deltas C1 : rôle runtime, AgentCapability, ProjectTrajectory MUST, catalogue évolutif, continuité et disposition M6/M7. Cette synchronisation reste **candidate locale** tant qu’elle n’est pas intégrée à `main`.
+La Roadmap et les framings `30`–`37` restent les sources versionnées courantes. Le présent cycle prépare localement leur synchronisation contrôlée sur les deltas C1 : rôle runtime, AgentCapability, ProjectTrajectory MUST, catalogue évolutif, continuité et disposition M6/M7. Cette synchronisation est intégrée à `main` via PR #365 / `dbd5ff995974e605146e8347f0f27867f04e93f7`.
 
 ---
 
@@ -929,7 +929,7 @@ L’intégration C1 est consommée :
 - PR #364 mergée dans `main` via `d83be84ab93650f23bfe54870790cc2e839be095` ;
 - sources aval intentionnellement laissées inchangées dans la PR #364.
 
-Le présent cycle prépare uniquement la candidate locale de synchronisation gouvernance/doctrine.
+Le présent cycle prépare uniquement la vérification post-merge de repo coherence.
 
 ### W.4 Invariants de cohérence
 
@@ -958,8 +958,7 @@ MVP baseline
   → validation Morris                     [CONSOMMÉE 2026-08-19]
   → review ChatGPT / Morris               [CONSOMMÉE]
   → intégration Git du C1                 [CONSOMMÉE — PR #364 / d83be84]
-  → synchronisation gouvernance / doctrine [CANDIDATE LOCALE — PRÉSENT CYCLE]
-  → revue Morris / gate d’intégration Git
+  → synchronisation gouvernance / doctrine [INTEGRATED ON MAIN — PR #365 / dbd5ff99…]
   → vérification post-merge repo coherence
   → gate Morris C2
   → Cycle 2 Conception fonctionnelle recommandé
@@ -1058,7 +1057,7 @@ Aucune de ces décisions ne reste un arbitrage Morris ouvert.
 | PRE-M6 functional backbone | **KEEP / ADAPT** | Base produit, pas cible finale |
 | PRE-M6 UX Evidence / lessons | **HARVEST** | Apprentissage, pas contrat visuel |
 | PRE-M6 presentation | Historical reference | Pas le default final |
-| v3 framing `30`–`37` | **KEEP / ADAPT selectively** | Baseline doctrine actuelle ; sync candidate locale post-C1 |
+| v3 framing `30`–`37` | **KEEP / ADAPT selectively** | Baseline doctrine actuelle ; sync intégrée sur main via PR #365 / `dbd5ff99…` |
 | Build Doctrine | **KEEP** | Lois de construction |
 | Convergence Roadmap | **KEEP / REQUALIFY + SYNC later** | Artefact vivant |
 | Studio ExecutionContract | **KEEP / ADAPT** | Parité fonctionnelle + runtime v3 |
@@ -1076,26 +1075,25 @@ Cette section identifiait les impacts futurs lors du C1. Le présent cycle les a
 
 | # | Sujet | Sources probablement impactées | Traitement futur |
 | --- | --- | --- | --- |
-| 1 | **Pilote runtime** | Build Doctrine / framing applicable | ADAPT candidate locale ; distinction rôle runtime / Morris construction |
-| 2 | **AgentCapability** | framing `34` | ADAPT candidate locale vers authority / governance envelope ; taxonomie policy / effects conservée |
-| 3 | **ExecutionContract** | framing `30`, `34`, `36` et sources liées | COMPLETE / ADAPT candidate locale vers parité fonctionnelle canonique |
-| 4 | **ProjectTrajectory** | framing `32` / Roadmap | COMPLETE / align MUST core dans la candidate |
-| 5 | **Cycle Catalog Evolvability** | framing `30`, `36`, Roadmap | COMPLETE / REQUALIFY dans la candidate ; aucune promotion méthode globale |
+| 1 | **Pilote runtime** | Build Doctrine / framing applicable | ADAPT ; distinction rôle runtime / Morris construction |
+| 2 | **AgentCapability** | framing `34` | ADAPT vers authority / governance envelope ; taxonomie policy / effects conservée |
+| 3 | **ExecutionContract** | framing `30`, `34`, `36` et sources liées | COMPLETE / ADAPT vers parité fonctionnelle canonique |
+| 4 | **ProjectTrajectory** | framing `32` / Roadmap | COMPLETE / align MUST core sur main |
+| 5 | **Cycle Catalog Evolvability** | framing `30`, `36`, Roadmap | COMPLETE / REQUALIFY ; aucune promotion méthode globale |
 | 6 | **M6 / M7** | Convergence Roadmap | SUPERSEDE / ABSORB dans la lecture active ; historique conservé |
-| 7 | **Continuity / recovery** | framing LPS / trajectory et Roadmap liée | COMPLETE candidate vers semantic inter-session continuity MUST |
+| 7 | **Continuity / recovery** | framing LPS / trajectory et Roadmap liée | COMPLETE vers semantic inter-session continuity MUST |
 | 8 | **PRE-M6 reuse / Product Experience** | Roadmap / sources design applicables | KEEP / HARVEST ; pas de legacy presentation default |
 
 Règle de synchronisation :
 
 ```text
 C1 intégré sur main
-  → synchronisation gouvernance/doctrine candidate
-  → revue Morris / intégration Git distincte
+  → synchronisation gouvernance/doctrine intégrée sur main via PR #365 / `dbd5ff99…`
   → vérification post-merge repo coherence
   → gate Morris pour C2
 ```
 
-La divergence temporaire entre C1 et les sources versionnées devient une candidate locale de synchronisation. Elle n’est pas résolue sur `main` avant son intégration Git distincte.
+La divergence temporaire entre C1 et les sources versionnées est résolue sur `main` via l’intégration Git PR #365 / `dbd5ff995974e605146e8347f0f27867f04e93f7`.
 
 ### Y.5 Non-claims finaux
 
@@ -1118,7 +1116,6 @@ Le document ne dit pas :
 - Delivery autorisée ;
 - generic execution Product Completion prouvée ;
 - couverture CKC Product Completion déjà implémentée ;
-- disposition M6 / M7 déjà synchronisée sur `main` (elle reste candidate locale jusqu’à intégration Git) ;
 - runtime v3 ADOPTED ;
 - v3 promu baseline méthodologique globale ;
 - nouvelle preuve REAL.
@@ -1127,8 +1124,6 @@ Le document ne dit pas :
 
 ```text
 C1 INTEGRATED ON MAIN
-  → GOVERNANCE/DOCTRINE SYNC CANDIDATE
-  → MORRIS REVIEW / GIT INTEGRATION GATE
   → POST-MERGE REPO COHERENCE
   → MORRIS GATE FOR C2 EXECUTION
 ```
@@ -1137,4 +1132,4 @@ C1 INTEGRATED ON MAIN
 
 ---
 
-*SFIA Studio — Product Completion — Cycle 1 Cadrage — VALIDATED BY MORRIS — INTEGRATED ON MAIN — GOVERNANCE/DOCTRINE SYNC CANDIDATE PENDING REVIEW.*
+*SFIA Studio — Product Completion — Cycle 1 Cadrage — VALIDATED BY MORRIS — INTEGRATED ON MAIN — GOVERNANCE/DOCTRINE SYNC INTEGRATED ON MAIN via PR #365 / `dbd5ff99…` — POST-MERGE REPO COHERENCE CURRENT GATE — RUNTIME V3 NON ADOPTED.*

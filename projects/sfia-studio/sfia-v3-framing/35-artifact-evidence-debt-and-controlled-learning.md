@@ -2,7 +2,7 @@
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · intégrée sur `main` via PR #259 / `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` · synchronisation C1 Product Completion candidate |
+| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · intégrée sur `main` via PR #259 / `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` · synchronisation C1 Product Completion intégrée sur `main` via PR #365 / `dbd5ff995974e605146e8347f0f27867f04e93f7` |
 | **Fondations** | **V3-F10 · V3-F13 · V3-F14 · V3-F15 validées** (D-V3-01) |
 | **Doctrine produit Studio** | **SFIA v3 exclusive** |
 | **Maturité fondations** | **VALIDATED** (doctrine) |
@@ -78,7 +78,7 @@ Appliqués à : package · fondation · contrat · schéma · CKC · composant r
 | Objet | Maturité |
 |-------|----------|
 | Fondations V3-F01…F15 | **VALIDATED** (doctrine Studio) |
-| Pack framing knowledge-driven | **VALIDATED** · intégré sur `main` via PR #259 · synchronisation C1 candidate |
+| Pack framing knowledge-driven | **VALIDATED** · intégré sur `main` via PR #259 · synchronisation C1 intégrée sur main via PR #365 / `dbd5ff99…` |
 | DoctrinePackageManifest / schemas | Option A **MODELED / VALIDATED** · couverture à compléter / revalider contre C1 |
 | Runtime Studio | couverture partielle M1–M5 / PRE-M6 · Product Completion non complet · runtime v3 **NON ADOPTED** |
 | CKC catalogue applicable | état repository courant : pilotes détaillés + fallbacks candidats · cible cognitive = couverture du catalogue applicable, sans nombre structurel fixe |

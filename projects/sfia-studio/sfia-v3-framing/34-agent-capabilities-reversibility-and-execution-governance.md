@@ -2,7 +2,7 @@
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · intégrée sur `main` via PR #259 / `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` · synchronisation C1 Product Completion candidate |
+| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · intégrée sur `main` via PR #259 / `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` · synchronisation C1 Product Completion intégrée sur `main` via PR #365 / `dbd5ff995974e605146e8347f0f27867f04e93f7` |
 | **Fondations** | **V3-F11 · V3-F12 validées** (D-V3-01) |
 | **Doctrine produit Studio** | **SFIA v3 exclusive** · ExecutionContract = contrat natif |
 | **Maturité fondations** | **VALIDATED** (doctrine) · modeled / enforcement runtime partiels (bounded RO / Gate D historiques) · enveloppe Product Completion générique non complète · runtime v3 **NON ADOPTED** |
