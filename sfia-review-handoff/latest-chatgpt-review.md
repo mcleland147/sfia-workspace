@@ -16,7 +16,7 @@
 | **Qualification** | DOC · Standard · PR readiness / Git integration · Cycle 13 CKC candidate guidance |
 | **Fake / Real** | N/A · ZERO REAL |
 | **Fidelity check (pre-stage)** | PASS vs handoff `f6be3f3042db2c8c9977c23e234538647a79e77c` |
-| **CI** | `Detect SFIA Studio changes` · run `32244352306` · **IN PROGRESS** |
+| **CI** | run `32244352306` · `Detect SFIA Studio changes` **pass** · `Build and validate SFIA Studio` **IN PROGRESS** |
 | **Merge** | NON |
 | **C2** | NON |
 
@@ -362,9 +362,10 @@ index aa9b2d19..210e933a 100644
 - **Publisher** : `scripts/sfia/publish-review-handoff.sh`
 - **Branche handoff** : `sfia/review-handoff`
 - **Fichier canonique** : `sfia-review-handoff/latest-chatgpt-review.md`
-- **Commit handoff** : *(voir section post-publication)*
-- **Blob canonique** : *(voir section post-publication)*
-- **Remote verified** : *(voir section post-publication)*
+- **Commit handoff** : `56358bcd0fb69febc218f74df72c7100ed4eed09`
+- **Blob canonique** : `1352c3ff808dd1950a09157c50032c6cf718a7e5`
+- **Remote verified** : PASS · `origin/sfia/review-handoff` @ `56358bcd…`
+- **Retour branche projet** : `docs/sfia-studio-pr365-post-merge-current-state-sync` · HEAD `75d77e21…`
 
 ---
 ## 11. Verdict
