@@ -1,22 +1,18 @@
-# SFIA Review Pack FULL — SFIA Task Manager Cycle 2 Targeted Functional Correction
+# SFIA Review Pack FULL — SFIA Task Manager Cycle 2 Validated Commit
 
-**Timestamp (Europe/Paris):** 2026-08-20 00:54:35 CEST
+**Timestamp (Europe/Paris):** 2026-08-20 01:09:16 CEST
 
-**Pack type:** FULL — Cycle 2 Conception fonctionnelle — targeted correction (FQ01 + E04)
+**Pack type:** FULL — Cycle 2 Conception fonctionnelle — validation/finalization + local project commit
 
-**Typology:** DOC
+**Profil:** Standard
 
-**Profile:** Standard
+**Typologie:** DOC
 
 ---
 
-## Morris GO (initial Cycle 2 — exact)
+## Morris GO (exact)
 
-GO MORRIS — OPEN CYCLE 2 CONCEPTION FONCTIONNELLE — STANDARD
-
-## Morris GO (targeted correction — exact)
-
-GO MORRIS — CYCLE 2 TARGETED CORRECTION: NO-GO RETURNS WORK ITEM TO IN PROGRESS WITH CURRENT CYCLE ACTIVE; BLOCKED REMAINS ORTHOGONAL; REPLAN REMAINS THE NEW-TRAJECTORY OUTCOME; E04 MUST REMAIN IN PROGRESS — NO PROJECT COMMIT
+GO MORRIS — VALIDATE CYCLE 2 FUNCTIONAL DESIGN — CREATE LOCAL PROJECT COMMIT — NO PROJECT PUSH / PR / MERGE — NO DOWNSTREAM CYCLE
 
 ---
 
@@ -26,24 +22,27 @@ GO MORRIS — CYCLE 2 TARGETED CORRECTION: NO-GO RETURNS WORK ITEM TO IN PROGRES
 |-------|-------|
 | Repository | mcleland147/sfia-workspace |
 | Branch | `project/sfia-task-manager-cycle-2-functional` |
-| HEAD | `b66cd328bff01a6b2d40f0810db150e22c5ca695` |
+| Base (pre-commit) | `b66cd328bff01a6b2d40f0810db150e22c5ca695` |
 | origin/main | `b66cd328bff01a6b2d40f0810db150e22c5ca695` |
-| Project remote branch | **ABSENT** |
-| Prior immutable handoff | `ab2b670981eb9afe4e415652bdf9be5abae35ca9` |
-| Project commit | **NO / NOT AUTHORIZED** |
+| Prior reviewed handoff | `3a5a44e164c1e14ca066a62ee8b5022ade36a9f9` |
+| Project commit SHA | `2f6ebccfd91de05089845aae7c53ad9d6d4427bb` |
+| Project commit parent | `b66cd328bff01a6b2d40f0810db150e22c5ca695` |
+| Remote project branch | **ABSENT** |
 | Project push | **NO / NOT AUTHORIZED** |
 | PR | **NO / NOT AUTHORIZED** |
+| Merge | **NO / NOT AUTHORIZED** |
 
 ---
 
-## CKC alignment
+## Local Git Truth (initial — pre-finalization)
 
-| Field | Value |
-|-------|-------|
-| CKC | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/02-conception-fonctionnelle.md` |
-| CKC status | **candidate** (experimental cognitive guidance — no execution authority) |
-| cycle_id | 2 — Conception fonctionnelle (targeted correction, same cycle) |
-| Profile | Standard |
+| Check | Result |
+|-------|--------|
+| Branch | `project/sfia-task-manager-cycle-2-functional` |
+| HEAD (pre-commit) | `b66cd328bff01a6b2d40f0810db150e22c5ca695` |
+| Staged (pre) | NONE |
+| Working tree | `M README.md`, `?? 01-functional/spec.md` |
+| Framing | UNCHANGED |
 
 ---
 
@@ -55,171 +54,140 @@ GO MORRIS — CYCLE 2 TARGETED CORRECTION: NO-GO RETURNS WORK ITEM TO IN PROGRES
 4. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 5. `method/sfia-fast-track/core/sfia-knowledge-layer.md`
 6. `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/02-conception-fonctionnelle.md`
-7. `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`
-8. `projects/sfia-task-manager/00-framing/2026-08-19-project-framing.md`
-9. `projects/sfia-task-manager/README.md` (Cycle 2 candidate — no new change in targeted correction)
-10. `projects/sfia-task-manager/01-functional/2026-08-19-m1-functional-spec.md` (corrected)
-11. Prior handoff `ab2b670981eb9afe4e415652bdf9be5abae35ca9` — `sfia-review-handoff/latest-chatgpt-review.md`
+7. `projects/sfia-task-manager/00-framing/2026-08-19-project-framing.md`
+8. `projects/sfia-task-manager/README.md`
+9. `projects/sfia-task-manager/01-functional/2026-08-19-m1-functional-spec.md`
+10. Handoff `3a5a44e1` — `sfia-review-handoff/latest-chatgpt-review.md`
+
+**CKC:** 02-conception-fonctionnelle.md — status candidate — no execution authority
 
 ---
 
-## Targeted correction summary
+## Candidate validation (before status trace)
 
-| Item | Before (prior candidate @ ab2b6709) | After (corrected) |
-|------|-------------------------------------|-------------------|
-| D.4 Cycle closure | "Review complete, Decision, REPLAN" — implied any Decision closes Cycle | GO/GO WITH RESERVE close Cycle; REPLAN closes + new trajectory; **NO-GO keeps Cycle Active** |
-| G Decision Pending exits | Done / REPLAN / NO-GO (ambiguous) | Done (GO) · **In Progress (NO-GO)** · Qualified/Ready (REPLAN) |
-| H Transition matrix | No Decision Pending → In Progress | **Decision Pending → In Progress** on NO-GO |
-| I Blocked / Cycle | "Reste actif sauf Decision REPLAN/NO-GO" | **NO-GO conserves Cycle actif** ; REPLAN closes |
-| J NO-GO row | Cycle closed; status OPEN | **Cycle Active** ; status **In Progress** |
-| M NO-GO | MORRIS DECISION REQUIRED; options Qualified/Ready/Pending/Cancelled | **DECIDED BY MORRIS 2026-08-20** ; canonical FQ01 rule |
-| J14 | Result "status per OPEN (E16)" | Deterministic: **In Progress**, same active Cycle |
-| Q Activity | No NO-GO-specific event | **decision.nogo_applied** + lifecycle.changed with decision_ref |
-| E04 | Lifecycle after: "In Progress ou Review" | **In Progress only** — transition refused |
-| E16 | OPEN — Morris decision required | **Deterministic refusal** of wrong NO-GO outcomes |
-| FQ01 | MORRIS DECISION REQUIRED | **DECIDED BY MORRIS** |
-| Maturity gaps | Included "NO-GO return" | Removed — FQ01 decided |
+Validated against handoff `3a5a44e1`:
 
----
-
-## FQ01 — DECIDED BY MORRIS
-
-**Rule:** NO-GO from Decision Pending → Work Item **IN PROGRESS**; **same current Cycle remains Active**; Decision historized; reason + next_action required; **never Done**; no Qualified/Ready/Cancelled; no new Cycle; **Blocked orthogonal**; **REPLAN** remains exclusive new-trajectory outcome.
+- FQ01 = DECIDED BY MORRIS
+- NO-GO → In Progress + same active Cycle
+- Blocked orthogonal
+- REPLAN = new trajectory
+- E04 deterministic → In Progress only
+- E16 deterministic
+- FQ02–FQ05 OPEN
+- 11 framing open decisions OPEN
+- 8/8 objects, 7/7 lifecycle states
+- J1–J15, E01–E17, I1–I12, AC01–AC16
+- AC demonstrated = 0/16
+- M1 NOT READY
+- No architecture/database/auth/Figma/backlog/code
 
 ---
 
-## E16 — DETERMINISTIC
+## Validation status modifications (trace only)
 
-Rejects any NO-GO outcome that: closes Cycle; creates new Cycle; returns Qualified/Ready/Cancelled; remains Decision Pending. Visible reason: *NO-GO continues current Cycle in In Progress; REPLAN is required for new trajectory.* Lifecycle after: **In Progress**. Morris: **No** (FQ01 decided).
+### Functional spec
 
----
+- Status: `FUNCTIONAL DESIGN — MORRIS REVIEW REQUIRED` → **`FUNCTIONAL DESIGN — VALIDATED BY MORRIS — 2026-08-20`**
+- Added section **Cycle 2 functional validation** with exact Morris GO and post-validation qualifiers
 
-## E04 — DETERMINISTIC
+### README
 
-Case: In Progress → Review with missing required Evidence. Behavior: transition **refused**. Lifecycle after: **In Progress** (not Review). Cycle: unchanged active. next_action: attach missing evidence.
+- Status: `M1 / FUNCTIONAL DESIGN VALIDATED`
+- Current cycle: `Cycle 2 — Conception fonctionnelle — Standard — VALIDATED BY MORRIS`
+- Functional spec link: `(validated by Morris)`
+- Next step: local commit done; PR readiness/push requires distinct Morris GO; no downstream authorized
 
----
-
-## Blocked orthogonal — proof
-
-- Section I: Blocked flag does not change lifecycle state; NO-GO does not auto-imply Blocked.
-- Section M rule 6: Blocked set separately only if real blockage declared.
-- Section J14: Blocked applied separately only if explicitly declared.
+No functional rule changes beyond validation trace.
 
 ---
 
-## REPLAN unchanged — new trajectory
+## Commit evidence
 
-- Section L: REPLAN closes Cycle historical → Qualified or Ready → new Cycle if resume.
-- Section J13: REPLAN → new trajectory.
-- E16 explicitly distinguishes REPLAN as required for new trajectory.
+**Message:** `docs(sfia-task-manager): validate M1 functional design`
 
----
+**PROJECT_COMMIT_SHA:** `2f6ebccfd91de05089845aae7c53ad9d6d4427bb`
 
-## Functional questions
+**Parent:** `b66cd328bff01a6b2d40f0810db150e22c5ca695`
 
-| # | Statut |
-|---|--------|
-| FQ01 | **DECIDED BY MORRIS** |
-| FQ02 | **OPEN** |
-| FQ03 | **OPEN** |
-| FQ04 | **OPEN** |
-| FQ05 | **OPEN** |
+**Commit name-status:**
 
----
+```
+A	projects/sfia-task-manager/01-functional/2026-08-19-m1-functional-spec.md
+M	projects/sfia-task-manager/README.md
+```
 
-## Functional maturity
+**Commit stat:**
 
-**suffisante_pour_decider** — NOT AUTOMATICALLY PROMOTED
+```
+.../01-functional/2026-08-19-m1-functional-spec.md | 751 +++++++++++++++++++++
+ projects/sfia-task-manager/README.md               |  14 +-
+ 2 files changed, 760 insertions(+), 5 deletions(-)
+```
 
-| Coverage | Status |
-|----------|--------|
-| Objects | **8/8** |
-| Lifecycle states | **7/7** |
-| Journeys J1–J15 | Present |
-| Edge cases E01–E17 | Present |
-| Invariants I1–I12 | SPECIFIED / NOT DEMONSTRATED |
-| AC01–AC16 | SPECIFIED / NOT DEMONSTRATED |
-| AC demonstrated | **0/16** |
-| Open framing decisions | **11/11 OPEN** |
+**origin/main..HEAD:**
+
+```
+2f6ebcc docs(sfia-task-manager): validate M1 functional design
+```
+
+**No project push evidence:** remote branch `project/sfia-task-manager-cycle-2-functional` absent.
 
 ---
 
-## README / Framing
+## README diff (commit)
 
-**README:** Cycle 2 candidate modifications preserved from prior pass. **NO NEW README CHANGE IN TARGETED CORRECTION**
+```diff
+diff --git a/projects/sfia-task-manager/README.md b/projects/sfia-task-manager/README.md
+index f31591a3..353752c4 100644
+--- a/projects/sfia-task-manager/README.md
++++ b/projects/sfia-task-manager/README.md
+@@ -2,7 +2,7 @@
 
-**Framing:** UNCHANGED
+ **Project path:** `projects/sfia-task-manager/`
 
----
+-**Status:** BOOTSTRAP / FRAMING
++**Status:** M1 / FUNCTIONAL DESIGN VALIDATED
 
-## Downstream (NOT EXECUTED)
+ **Operational process baseline:** SFIA v2.6
 
-| Area | Status |
-|------|--------|
-| Architecture | NONE |
-| Figma | NOT EXECUTED |
-| Backlog | NOT EXECUTED |
-| Delivery/code | NOT EXECUTED |
-| M1 | **NOT READY** |
+@@ -16,7 +16,11 @@ M1 fonctionnel + UX d'une boucle de gestion de travail gouvernée par SFIA.
 
----
+ ## Current cycle
 
-## Validations
+-Cycle 1 — Cadrage / bootstrap repo
++Cycle 2 — Conception fonctionnelle — Standard — VALIDATED BY MORRIS
++
++## Functional specification
++
++- `01-functional/2026-08-19-m1-functional-spec.md` — M1 functional specification (validated by Morris)
 
-- [x] FQ01 = DECIDED BY MORRIS
-- [x] No active FQ01 OPEN / MORRIS DECISION REQUIRED
-- [x] NO-GO → In Progress + same active Cycle
-- [x] No Cycle closure by NO-GO
-- [x] No new Cycle by NO-GO
-- [x] Blocked orthogonal
-- [x] REPLAN = new trajectory only
-- [x] E04 deterministic — In Progress only
-- [x] E16 deterministic
-- [x] FQ02–FQ05 OPEN
-- [x] 11 open framing decisions preserved
-- [x] 0/16 AC demonstrated
-- [x] README unchanged in targeted correction
-- [x] Framing unchanged
-- [x] No project commit/push/PR
+ ## Key validated decisions
 
----
+@@ -34,9 +38,9 @@ Cycle 1 — Cadrage / bootstrap repo
 
-## Reserves
+ ## Next step
 
-- FQ02–FQ05 remain OPEN — Morris decisions required separately.
-- E17 Evidence deletion policy remains OPEN.
-- Maturity not auto-promoted to prete_a_borner.
-- Project commit explicitly NOT AUTHORIZED by this GO.
+-Morris review du bootstrap.
+-
+-Le cycle suivant est seulement candidat, non autorisé automatiquement.
++Cycle 2 validated and committed locally.
++Next project integration step requires a distinct Morris GO for PR readiness / project push.
++No downstream cycle is authorized.
+
+ ## SFIA references
+
+```
 
 ---
 
-## Review pack content coverage
-
-| Requirement | Status |
-|-------------|--------|
-| Created file full content | YES |
-| Globally modified README sections complete | YES |
-| Targeted correction before/after | YES |
-| Synthesis only | NO |
-| Review pack verdict | **COMPLETE** |
-
----
-
-## Verdict
-
-**TARGETED CORRECTION COMPLETE — READY FOR MORRIS FUNCTIONAL VALIDATION / PROJECT COMMIT DECISION — PROJECT COMMIT NOT AUTHORIZED**
-
----
-
-## README — complete modified sections (Cycle 2 candidate)
+## README — complete committed content
 
 ```markdown
 # SFIA Task Manager
 
 **Project path:** `projects/sfia-task-manager/`
 
-**Status:** M1 / FUNCTIONAL DESIGN
+**Status:** M1 / FUNCTIONAL DESIGN VALIDATED
 
 **Operational process baseline:** SFIA v2.6
 
@@ -233,11 +201,11 @@ M1 fonctionnel + UX d'une boucle de gestion de travail gouvernée par SFIA.
 
 ## Current cycle
 
-Cycle 2 — Conception fonctionnelle — Standard
+Cycle 2 — Conception fonctionnelle — Standard — VALIDATED BY MORRIS
 
 ## Functional specification
 
-- `01-functional/2026-08-19-m1-functional-spec.md` — M1 functional specification (Morris review required)
+- `01-functional/2026-08-19-m1-functional-spec.md` — M1 functional specification (validated by Morris)
 
 ## Key validated decisions
 
@@ -255,9 +223,9 @@ Cycle 2 — Conception fonctionnelle — Standard
 
 ## Next step
 
-Morris functional review du Cycle 2.
-
-Les cycles aval (architecture fonctionnelle, UX/UI, backlog, architecture technique, delivery) restent candidats et nécessitent chacun un GO Morris distinct.
+Cycle 2 validated and committed locally.
+Next project integration step requires a distinct Morris GO for PR readiness / project push.
+No downstream cycle is authorized.
 
 ## SFIA references
 
@@ -276,7 +244,67 @@ Ce projet n'est pas SFIA Studio v3 et ne doit pas être assimilé à SFIA Studio
 
 ---
 
-## Functional specification — complete corrected content
+## README — before Cycle 2 (main @ b66cd328)
+
+```markdown
+# SFIA Task Manager
+
+**Project path:** `projects/sfia-task-manager/`
+
+**Status:** BOOTSTRAP / FRAMING
+
+**Operational process baseline:** SFIA v2.6
+
+## Purpose
+
+Transformer une intention de travail en travail qualifié, exécuté dans un cycle SFIA borné, vérifié par des preuves et clôturé par une décision humaine, avec historique et prochaine action explicites.
+
+## Initial scope
+
+M1 fonctionnel + UX d'une boucle de gestion de travail gouvernée par SFIA.
+
+## Current cycle
+
+Cycle 1 — Cadrage / bootstrap repo
+
+## Key validated decisions
+
+- GO M1 functional contract — Morris
+- GO UX contract — Morris
+- modèle central Work Item + Cycle
+- décision humaine obligatoire pour clôture
+- one active Cycle maximum par Work Item en M1
+- workflow M1 défini
+- cinq surfaces métier M1
+- Git/evidence manuels en M1
+- aucune architecture technique choisie
+- aucune persistence choisie
+- aucun GO delivery
+
+## Next step
+
+Morris review du bootstrap.
+
+Le cycle suivant est seulement candidat, non autorisé automatiquement.
+
+## SFIA references
+
+- `docs/foundation/sfia-engineering-principles.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md`
+- `method/sfia-fast-track/ui/figma-design-first-ui-method.md`
+
+## Explicit separation
+
+Ce projet n'est pas SFIA Studio v3 et ne doit pas être assimilé à SFIA Studio sans décision Morris dédiée.
+```
+
+---
+
+## Functional specification — complete committed content
 
 ```markdown
 # SFIA Task Manager — M1 Functional Specification
@@ -287,7 +315,7 @@ Ce projet n'est pas SFIA Studio v3 et ne doit pas être assimilé à SFIA Studio
 **Profil :** Standard
 **Baseline process :** SFIA v2.6
 **Source produit :** `projects/sfia-task-manager/00-framing/2026-08-19-project-framing.md`
-**Statut :** FUNCTIONAL DESIGN — MORRIS REVIEW REQUIRED
+**Statut :** FUNCTIONAL DESIGN — VALIDATED BY MORRIS — 2026-08-20
 
 ---
 
@@ -327,6 +355,19 @@ Voir section **Y. Open decisions** et **FUNCTIONAL QUESTIONS DISCOVERED**.
 ### Autorité
 
 Morris reste l’autorité des décisions structurantes. L’application ne prend jamais de décision structurante automatiquement (I1, I6, I12).
+
+### Cycle 2 functional validation
+
+**GO Morris :** GO MORRIS — VALIDATE CYCLE 2 FUNCTIONAL DESIGN — CREATE LOCAL PROJECT COMMIT — NO PROJECT PUSH / PR / MERGE — NO DOWNSTREAM CYCLE
+
+| Élément | Statut post-validation |
+|---------|-------------------------|
+| Cycle 2 functional design | **VALIDATED BY MORRIS** (documentaire/fonctionnelle uniquement) |
+| FQ02–FQ05 | **OPEN** |
+| Maturité CKC | **suffisante_pour_decider** (non promue) |
+| AC demonstrated | **0/16** |
+| M1 | **NOT READY** |
+| Cycles aval (3/4/5, architecture, delivery) | **NOT AUTHORIZED** |
 
 ---
 
@@ -1018,3 +1059,59 @@ Architecture technique, Figma, delivery : **gates Morris séparés requis**.
 
 Ce projet n’est **pas** SFIA Studio v3. SFIA v2.6 = baseline process. M1 **NOT READY**.
 ```
+
+---
+
+## Functional state preserved
+
+| Item | Status |
+|------|--------|
+| Cycle 2 functional design | **VALIDATED BY MORRIS** |
+| FQ01 | **DECIDED BY MORRIS** |
+| FQ02–FQ05 | **OPEN** |
+| E04 | DETERMINISTIC / IN PROGRESS |
+| E16 | DETERMINISTIC |
+| Functional maturity | **suffisante_pour_decider** (not promoted) |
+| AC demonstrated | **0/16** |
+| M1 | **NOT READY** |
+| 11 framing open decisions | **11/11 OPEN** |
+| Architecture | NONE |
+| Figma | NOT EXECUTED |
+| Backlog | NOT EXECUTED |
+| Delivery/code | NOT EXECUTED |
+| Downstream cycles | **NOT AUTHORIZED** |
+
+---
+
+## Reserves
+
+- FQ02–FQ05 remain OPEN
+- 11 framing open decisions preserved
+- AC01–AC16 not demonstrated
+- No Figma/application
+- Commit does NOT imply PR readiness, push, M1 READY, or downstream cycles
+
+---
+
+## Next gate
+
+**MORRIS PR READINESS / PROJECT PUSH DECISION**
+
+---
+
+## Review pack content coverage
+
+| Requirement | Status |
+|-------------|--------|
+| Created file full content | YES |
+| Modified README sections complete | YES |
+| Validation status modifications complete | YES |
+| Commit evidence | YES |
+| Synthesis only | NO |
+| Review pack verdict | **COMPLETE** |
+
+---
+
+## Verdict
+
+**CYCLE 2 VALIDATED — LOCAL PROJECT COMMIT CREATED — READY FOR MORRIS PR READINESS / PROJECT PUSH DECISION — PROJECT PUSH NOT AUTHORIZED**
