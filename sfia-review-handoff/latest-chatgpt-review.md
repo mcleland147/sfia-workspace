@@ -1,1206 +1,1432 @@
-# REVIEW PACK FULL — SFIA STUDIO PRODUCT COMPLETION CYCLE 1 CADRAGE
+# REVIEW PACK FULL — SFIA STUDIO PRODUCT COMPLETION C1 REVISED CADRAGE
 
 | Champ | Valeur |
 | --- | --- |
-| **Timestamp** | 2026-08-18 13:37:48 CEST (+0200) — Europe/Paris |
-| **Mode** | EXECUTION DOCUMENTAIRE BORNEE — PRODUCT FRAMING ONLY |
-| **Cycle** | 1 — Cadrage |
-| **Nom** | SFIA Studio Product Completion from MVP |
+| **Timestamp** | 2026-08-19 10:38:23 CEST (+0200) — Europe/Paris |
+| **Repository** | `mcleland147/sfia-workspace` · `/workspace` |
+| **Branche projet** | `docs/sfia-studio-product-completion-c1-cadrage` |
+| **HEAD / base** | `e142f7bdb9ee29dbd258a68f016850269535f1e6` = `origin/main` |
+| **Cycle** | 1 — Cadrage — continuation / intégration documentaire |
 | **Profil** | CRITICAL |
-| **Typologie** | EVOL / DOC |
-| **CKC** | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md` · version `0.1.0` · statut **candidate** · experimental cognitive guidance · **aucune autorité d'exécution** |
-| **GO Morris consommé** | GO MORRIS — CYCLE 1 CADRAGE — SFIA STUDIO PRODUCT COMPLETION FROM MVP — NO DELIVERY |
-| **Repo** | `mcleland147/sfia-workspace` |
-| **Review pack level** | FULL |
-| **Handoff** | required · publish-in-cycle · L3 borné |
-| **ZERO REAL** | OPENAI_LIVE_CALL_COUNT = 0 · CURSOR_REAL_PRODUCT_PROCESS_COUNT = 0 |
+| **Typologie** | DOC — documentation-only avec impact structurant aval |
+| **Review Pack** | FULL · écrasé intégralement · contenu complet C1 inclus |
+| **Review Handoff** | required · publish-in-cycle · branche `sfia/review-handoff` · L3 borné |
+| **Fake / Real** | N/A · aucun trigger · preuve documentaire locale seulement |
 
 ---
 
-## 1. Git PRE
+## 1. Local Git Truth
 
-| Champ | Valeur |
+| Contrôle | Résultat |
 | --- | --- |
-| **Timestamp PRE** | 2026-08-18 13:27:18 CEST (+0200) |
-| **Branche au fetch** | `delivery/flex-office-demo-option-a` |
-| **HEAD PRE** | `0cdf57a12843891da8b8db2d550cb38c7ba9f60a` |
-| **origin/main PRE** | `e142f7bdb9ee29dbd258a68f016850269535f1e6` |
-| **origin/sfia/review-handoff PRE** | `eb45cb8b5aede4fcca0c4140e49c3e44ba26eba9` |
-| **Handoff blob PRE** | `1eba6f4ed096d9cca629105f728f6042e639e2a0` |
-| **Staged PRE** | EMPTY |
-| **Tracked dirty PRE** | EMPTY |
-| **Untracked PRE** | `.cursor/settings.json` · `.tmp-sfia-review/` · `projects/eventops-poc/` · `projects/flex-office-demo/` |
-| **PR #362** | MERGED · merge commit `e142f7bdb9ee29dbd258a68f016850269535f1e6` · mergedAt 2026-08-18T11:00:08Z |
-| **Post-merge CI** | run `32129543999` SUCCESS · headSha `e142f7b…` |
-| **Source branch rebaseline** | `docs/sfia-studio-product-completion-rebaseline` @ `69cb915ee00d901ba900e2992aa576dc56b863b5` PRESERVED |
-| **PRE-M6 source branch** | `delivery/sfia-studio-pre-m6-ui-option-a` @ `3c4c478d7664c6111f38e6c4f49e98042e3a8473` PRESERVED |
-| **STOP origin/main drift** | NON — origin/main = expected SHA · aucune évolution Studio non qualifiée |
+| `pwd` / toplevel | `/workspace` |
+| origin | `mcleland147/sfia-workspace` |
+| Branche | `docs/sfia-studio-product-completion-c1-cadrage` |
+| HEAD | `e142f7bdb9ee29dbd258a68f016850269535f1e6` |
+| origin/main | `e142f7bdb9ee29dbd258a68f016850269535f1e6` |
+| merge-base | `e142f7bdb9ee29dbd258a68f016850269535f1e6` |
+| Fichier cible | Présent · **UNTRACKED** |
+| Status initial | `?? projects/sfia-studio/product-completion/` |
+| Tracked dirty initial | EMPTY |
+| Staged initial | EMPTY |
+| Branche remote homonyme | Existe, mais pointe sur la même base `e142f7b…` ; aucun commit C1 |
+| Histoire ambiguë | NON |
+
+Aucun pull, rebase, reset, merge ou checkout forcé.
 
 ---
 
-## 2. Git POST (après branche locale + livrable)
+## 2. Qualification SFIA
 
-| Champ | Valeur |
-| --- | --- |
-| **Branche locale Cycle 1** | `docs/sfia-studio-product-completion-c1-cadrage` |
-| **HEAD POST** | `e142f7bdb9ee29dbd258a68f016850269535f1e6` (= origin/main) |
-| **Tracking** | set up to track `origin/main` (local only · **NO PUSH** de la branche projet) |
-| **origin/main POST** | `e142f7bdb9ee29dbd258a68f016850269535f1e6` |
-| **Fichier versionné créé** | `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` (untracked) |
-| **Autres fichiers tracked modifiés** | AUCUN |
-| **Staged projet** | EMPTY |
-| **Branche projet poussée** | NON |
-| **Commit projet** | NON |
+- Type : Cycle 1 — Cadrage, continuation / intégration documentaire.
+- Profil : Critical — le C1 fixe cible, completion bar, invariants et trajectoire aval ; aucune architecture / Delivery n'en découle automatiquement.
+- Typologie : DOC.
+- CKC : `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md` · version `0.1.0` · `candidate` · experimental cognitive guidance · aucune autorité d'exécution.
+- Convergence pre-check : chargé ; capacité servie = rendre la cible Product Completion décidée explicite, cohérente et consommable avant conception.
+- Runtime v3 : **NON ADOPTED**.
 
-`git status --short` POST (hors handoff) :
+---
+
+## 3. Sources réellement lues
+
+### Candidat local
+
+- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` — contenu candidat antérieur complet.
+
+### Construction / Roadmap
+
+- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` — complet.
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` — complet.
+
+### Doctrine produit v3
+
+- `projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md`
+- `projects/sfia-studio/sfia-v3-framing/31-doctrine-package-and-source-resolution.md`
+- `projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md`
+- `projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md`
+- `projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md`
+- `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md`
+- `projects/sfia-studio/sfia-v3-framing/36-sfia-v2.6-inheritance-and-adaptation-matrix.md`
+- `projects/sfia-studio/sfia-v3-framing/37-studio-v3-foundations-and-consolidation-decision-pack.md`
+
+### Processus SFIA v2.6 externe
+
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- `method/sfia-fast-track/core/sfia-knowledge-layer.md`
+- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md` — classification historique uniquement (le path archive optionnel fourni n'existe pas localement et n'était pas requis pour arbitrer le contenu).
+
+### Publication handoff
+
+- `scripts/sfia/publish-review-handoff.sh`
+- `scripts/sfia/README.md`
+
+---
+
+## 4. Décision Morris consommée
+
+**Autorité :** Morris.
+**Date :** 2026-08-19 — Europe/Paris.
+**Décision :** `VALIDATE SFIA STUDIO PRODUCT COMPLETION CYCLE 1 REVISED CADRAGE WITH ALL POINTS AGREED DURING A→Y REVIEW`.
+
+Statut cible intégré dans le C1 :
 
 ```text
-?? .cursor/settings.json
-?? .tmp-sfia-review/
-?? projects/eventops-poc/
-?? projects/flex-office-demo/
-?? projects/sfia-studio/product-completion/
+VALIDATED BY MORRIS — CONTENT DECISION CONSUMED — GIT INTEGRATION PENDING
 ```
 
-`git diff --name-status` / `git diff --stat` tracked : EMPTY (nouveau fichier untracked, conformément à l'interdiction `git add` projet).
-
-`git diff --stat --no-index` du livrable : 954 insertions / 1 file.
-
-`git diff --check` tracked : clean.
-
-`git diff --check --no-index` du livrable : aucun trailing whitespace / conflict / CR-at-EOL. Exit 1 = comportement `--no-index` quand les fichiers diffèrent, pas une erreur whitespace.
+Cette décision consomme le contenu fonctionnel. Elle ne consomme ni intégration Git, ni sync Roadmap/doctrine, ni C2, ni architecture, UX, Delivery, REAL ou adoption runtime.
 
 ---
 
-## 3. Dernier Review Handoff lu
+## 5. Objectif et scope
 
-| Champ | Valeur |
-| --- | --- |
-| **Commit** | `eb45cb8b5aede4fcca0c4140e49c3e44ba26eba9` |
-| **Blob** | `1eba6f4ed096d9cca629105f728f6042e639e2a0` |
-| **Path** | `sfia-review-handoff/latest-chatgpt-review.md` |
-| **Alignement prompt** | Conforme aux SHA attendus du GO |
+### Objectif
 
----
+Réécrire le candidat C1 comme document unique cohérent portant fidèlement la révision A→Y validée, préserver les faits / provenances utiles, supprimer les arbitrages résolus et préparer une review documentaire avant tout acte Git projet.
 
-## 4. Sources consultées
+### Écriture autorisée
 
-- Git courant + décisions Morris (PR #362, CI, PRE-M6 EXIT, MVP baseline)
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` (PC-A…N, B-PC-DEBT, M6/M7, B9, B10 — metadata pré-#362 non micro-fixée)
-- Doctrine v3 : `sfia-v3-framing/30`–`37` ; harvest `16`–`17`
-- Historiques : `01` · `04`–`07` · harvest `08`–`09`
-- Processus v2.6 : template d'exécution · routing guide · knowledge layer · operating model · guardrails · `sfia-v2.5-project-cycles-method-candidate.md` · CKC pilote cadrage
-- MVP : `projects/sfia-studio/app/features/pre-m6-product-ui/**` · `project-assistant/**` · `lib/oa/{project,cycle,decision,execution-contract,execution-attempt,evidence-review,doctrine}/**` · `lib/vertical-slice-runtime/**` · `lib/platform/ai/openaiProvider.ts`
-- Publisher : `scripts/sfia/publish-review-handoff.sh`
+- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
+- `.tmp-sfia-review/chatgpt-review.md`
+- handoff canonique sur `sfia/review-handoff` via publisher existant.
+
+### Hors scope respecté
+
+- Roadmap, Build Doctrine, framing `30`–`37`, method, prompts, scripts : non modifiés.
+- Aucun code, runtime, test applicatif, schema, API, persistence, UX/Figma, backlog, Delivery ou REAL.
+- Aucun stage / commit / push / PR / merge projet.
 
 ---
 
-## 5. Convergence Pre-check
+## 6. Modification réalisée
 
-| Champ | Qualification |
-| --- | --- |
-| **Capacité v3 servie** | Product-level integration des fondations V3-F01…F15 à travers une cible produit et une ProjectTrajectory cohérentes |
-| **Étapes de boucle** | intention / contexte · qualification · LPS · ProjectTrajectory · Recommendation / HumanDecision · ExecutionContract · Cursor / agent · Evidence / ReviewBundle · replanning · cycle history / capitalization |
-| **Milestone** | PRODUCT-COMPLETION — CYCLE 1 CADRAGE |
-| **État actuel** | MVP fonctionnel intégré sur main · PRE-M6 EXIT accepté avec dette gouvernée · runtime v3 NON ADOPTED |
-| **Prochaine capacité candidate** | Cycle 2 Conception fonctionnelle — **hypothèse / recommandation, pas décision** |
-| **Lien trajectoire** | Explicite — pas STOP TRAJECTORY LINK MISSING |
-
----
-
-## 6. Vérités consommées
-
-**MVP baseline :** CURRENT SFIA STUDIO VERTICAL SLICE ON MAIN IS THE FUNCTIONAL MVP BASELINE — REUSE EXISTING BACKBONE — DO NOT RESTART FROM ZERO — RUNTIME V3 REMAINS NON ADOPTED.
-
-**PRE-M6 EXIT :** ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT. PRE-M6 ≠ COMPLETE WITHOUT RESERVES.
-
-**Dette OPEN conservée :** UAT-UX-06 · UAT-RECOVERY-03 · V3-F10/M5-C · CONV-PL · PROP-PL · CONF-PL · N7-HID.
-
-**Roadmap metadata pré-#362 :** Git + GO + PR #362 MERGED supersèdent les champs « Cycle 1 NOT AUTHORIZED » / snapshot `a53c323…`. Roadmap **non modifiée**.
-
----
-
-## 7. Objectifs du Cycle 1
-
-Définir exhaustivement (niveau cadrage) : intention, utilisateurs, valeur, cible, capacités, scope/out-of-scope, parcours macro, NFR, dette, risques, inconnues, options M6/M7, ProjectTrajectory candidate, décisions Morris, next cycle. **Sans** conception détaillée, architecture technique, UX, backlog, Delivery, REAL.
-
----
-
-## 8. Fichier créé
+Fichier substantiellement réécrit :
 
 `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
 
-Statut document : **CANDIDATE — CYCLE 1 CADRAGE — AWAITING MORRIS REVIEW / DECISION**
+Sections A→Y réécrites / ajoutées :
 
-Exactement **1** nouveau fichier versionné. Aucun README supplémentaire. Aucun autre fichier versionné modifié.
+- autorité, statut validé, sources et convergence ;
+- résumé, intention, problème / valeur ;
+- rôle runtime Pilote et séparation Nora / Pilote / Cursor ;
+- outcomes / completion bar ;
+- capability map et inventaire MVP ;
+- parcours, scope, OOS ;
+- native ExecutionContract ;
+- AgentCapability authority envelope ;
+- Cycle Catalog Evolvability ;
+- sources / artefacts ; Product Experience ; continuity ; NFR ; debt ; risks ; unknowns ;
+- disposition historique M6 / M7 ;
+- succès / cohérence ;
+- trajectoire adaptative ;
+- Decision Pack final ; reuse matrix ; impacts doctrine/repository ; non-claims ; gate final.
+
+Éléments historiques préservés : SHA / PR MVP et rebaseline, M1–M5 KEEP, PRE-M6 avec dette, inventaire runtime, preuves M4/M5, B-PC-DEBT, source v3 exclusive et runtime NON ADOPTED.
 
 ---
 
-## 9. CONTENU COMPLET DU CADRAGE CRÉÉ
+## 7. Cross-section consistency pass
 
-Le contenu intégral suit. Une synthèse seule serait `REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING`.
+### Patterns recherchés
+
+Morris / Pilote / L0–L5 · 15 / 15/15 · M6 / M7 · ProjectTrajectory · process-local · conversation / continuity / transcript · AgentCapability · ExecutionContract · read/write/commit/push/PR/merge · C3/C4/Cycle 4 · CANDIDATE / AWAITING MORRIS REVIEW · D-PC-02…06 · C2 READY/authorized · runtime ADOPTED.
+
+### Résultats
+
+- PASS indépendant : aucune contradiction ou omission active.
+- Morris apparaît comme autorité de construction / décision, jamais persona runtime actif.
+- `CANDIDATE` ne qualifie plus le document ; il qualifie uniquement le CKC / provenance historique.
+- `15/15` est explicitement une mesure courante / historique, pas identité structurelle.
+- M6 / M7 n'apparaissent que comme historiques / superseded / absorbed ou dans le registre futur de sync.
+- ProjectTrajectory est MUST dans capacité, scope, durability et consistency invariants.
+- Continuité sémantique inter-session = MUST ; transcript exhaustif = non requis.
+- AgentCapability = authority / governance envelope ; effect taxonomy = interne, pas feature catalog.
+- Pas de waterfall C2→C3→C4 ; cycles aval dynamiques / conditionnels.
+- D-PC-02…06 ont une disposition finale et ne sont plus ouverts.
+- C2 = recommandation seulement ; **C2 EXECUTION NOT AUTHORIZED**.
+- Aucune source aval n'est prétendue synchronisée.
+
+### Réserves restantes
+
+- U-01 profondeur / types PJ ; U-02 frontières d'autorité ; U-03 niveau de preuve générique ; U-04 représentation native EC ; U-05 situations représentatives.
+- Dette documentaire transitoire : C1 local validé diverge temporairement de Roadmap / framing jusqu'à intégration puis cycle de sync séparé.
+
+---
+
+## 8. Décisions finales
+
+| ID | Statut |
+| --- | --- |
+| D-PC-01 | **ADOPTED BY MORRIS — 2026-08-19** |
+| D-PC-07 | **ADOPTED BY MORRIS — 2026-08-19** |
+| D-PC-08 | **ADOPTED BY MORRIS AS TRAJECTORY RECOMMENDATION — 2026-08-19** · C2 EXECUTION NOT AUTHORIZED |
+
+Disposition :
+
+- D-PC-02 = ABSORBED INTO D-PC-01 ;
+- D-PC-03 = SUPERSEDED ;
+- D-PC-04 = ABSORBED ;
+- D-PC-05 = ORIGINAL FORMULATION REPLACED ;
+- D-PC-06 = ABSORBED INTO SCOPE.
+
+M6 / M7 : **HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION**. Aucun séquencement ni option active. M8 hors scope / non requalifié.
+
+---
+
+## 9. Validations documentaires
+
+| Contrôle | Résultat |
+| --- | --- |
+| `git diff --check` tracked | PASS / empty |
+| `git diff --no-index --check /dev/null C1` | PASS — aucune erreur whitespace |
+| Vue diff untracked | `A projects/sfia-studio/product-completion/01-product-completion-cadrage.md` |
+| Stat | 1 fichier · 1133 insertions |
+| Autre modification projet | AUCUNE |
+| Sources protégées | UNCHANGED |
+| Sections A→Y | 25/25 présentes |
+| Statut cible | PRÉSENT |
+| 3 décisions finales | PRÉSENTES |
+| Disposition D-PC-02…06 | PRÉSENTE |
+| M6/M7 historique uniquement | PASS |
+| Catalog Evolvability MUST | PASS |
+| Continuity inter-session MUST | PASS |
+| Native EC parity | PASS |
+| AgentCapability envelope | PASS |
+| Registre impacts doctrine | PASS |
+| Gate final | PASS |
+| C2 non autorisé | EXPLICITE |
+
+Aucune validation applicative / runtime lancée : cycle DOC uniquement.
+
+---
+
+## 10. Fake / Real
+
+- applicable : N/A ;
+- trigger : non ;
+- fake/mock/fixture : aucun ;
+- OpenAI LIVE : 0 ;
+- Cursor REAL product process : 0 ;
+- preuve attendue : documentaire locale ;
+- hors scope : REAL BOUNDARY PROVEN / END-TO-END REAL PROVEN.
+
+---
+
+## 11. Non-claims
+
+- C1 non encore intégré à `main` ;
+- Roadmap / Build Doctrine / framing `30`–`37` non synchronisés ;
+- C2 non autorisé / non démarré ;
+- architecture / persistence / schema / API non choisis ;
+- UX / Figma non finalisés ;
+- backlog non défini ;
+- Delivery non autorisée ;
+- generic execution non prouvée ;
+- CKC Product Completion non implémentée ;
+- M6 / M7 non encore synchronisés dans Roadmap ;
+- runtime v3 NON ADOPTED ;
+- aucune nouvelle preuve REAL.
+
+---
+
+## 12. Gate suivant
+
+```text
+INTEGRATE VALIDATED C1
+  → SYNCHRONIZE IMPACTED GOVERNANCE/DOCTRINE SOURCES
+  → VERIFY REPO COHERENCE
+  → MORRIS GATE FOR C2 EXECUTION
+```
+
+Aucune transition automatique vers C2.
+
+---
+
+## 13. Verdict documentaire avant publication handoff
+
+**PASS — VALIDATED C1 REVISION INTEGRATED LOCALLY — FULL REVIEW PACK COMPLETE — READY FOR CANONICAL HANDOFF PUBLICATION — NO PROJECT GIT INTEGRATION**
+
+---
+
+## 14. CONTENU COMPLET FINAL DU C1
+
+Exigence FULL : contenu complet, pas une synthèse.
 
 # SFIA Studio — Product Completion — Cycle 1 Cadrage
 
 | Métadonnée | Valeur |
 | --- | --- |
 | **Projet** | SFIA Studio |
-| **Cycle** | 1 — Cadrage |
+| **Cycle** | 1 — Cadrage — continuation / intégration documentaire |
 | **Nom** | SFIA Studio Product Completion from MVP |
-| **Profil** | CRITICAL |
-| **Typologie** | EVOL / DOC |
-| **Milestone** | PRODUCT-COMPLETION — CYCLE 1 CADRAGE |
-| **Statut du document** | **CANDIDATE — CYCLE 1 CADRAGE — AWAITING MORRIS REVIEW / DECISION** |
-| **Autorité** | Morris décide. Cursor analyse et produit le cadrage dans le périmètre autorisé. |
+| **Profil** | **CRITICAL** |
+| **Typologie v2.4** | **DOC** — documentation-only avec impact structurant aval |
+| **Milestone / chantier** | PRODUCT-COMPLETION — CYCLE 1 CADRAGE |
+| **Statut du document** | **VALIDATED BY MORRIS — CONTENT DECISION CONSUMED — GIT INTEGRATION PENDING** |
+| **Décision de contenu** | `VALIDATE SFIA STUDIO PRODUCT COMPLETION CYCLE 1 REVISED CADRAGE WITH ALL POINTS AGREED DURING A→Y REVIEW` |
+| **Autorité / date** | Morris · 2026-08-19 · Europe/Paris |
 | **Git main de départ** | `origin/main` @ `e142f7bdb9ee29dbd258a68f016850269535f1e6` |
-| **Merge de rebaseline** | PR **#362** MERGED — Product Completion rebaseline |
-| **MVP baseline** | Vertical slice fonctionnel actuel sur `main` (PR **#361** / head `3c4c478d7664c6111f38e6c4f49e98042e3a8473` / merge `a53c323e47e5fae1d35671f3ae232609a59b0f3f`) |
+| **Branche de travail** | `docs/sfia-studio-product-completion-c1-cadrage` |
+| **État d’intégration** | Contenu révisé localement · fichier non staged / non commité · **pas intégré à `main`** |
+| **MVP baseline** | Vertical slice fonctionnel actuel sur `main` — PR #361 / merge `a53c323e47e5fae1d35671f3ae232609a59b0f3f` |
+| **Rebaseline Product Completion** | PR #362 MERGED / `origin/main` @ `e142f7bdb9ee29dbd258a68f016850269535f1e6` |
 | **PRE-M6 EXIT** | **ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT** |
-| **Doctrine produit cible** | SFIA Studio v3 exclusive — framing `30`–`37` — fondations **V3-F01…F15 VALIDATED** (doctrine) |
+| **Doctrine produit cible** | SFIA Studio v3 exclusive · framing `30`–`37` · fondations V3-F01…F15 VALIDATED (doctrine) |
 | **Runtime v3** | **NON ADOPTED** |
-| **Processus externe de ce cycle** | SFIA v2.6 (ChatGPT ↔ Cursor) — **interdit** comme doctrine produit runtime Studio |
-| **CKC** | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md` · version `0.1.0` · statut **candidate** · experimental cognitive guidance · **aucune autorité d’exécution** |
-| **Branche locale** | `docs/sfia-studio-product-completion-c1-cadrage` (locale seulement · **non poussée**) |
-| **GO Morris consommé** | GO MORRIS — CYCLE 1 CADRAGE — SFIA STUDIO PRODUCT COMPLETION FROM MVP — NO DELIVERY |
-| **Arborescence** | `projects/sfia-studio/product-completion/` porte le **nouveau lifecycle Product Completion**. Ce n’est **pas** une architecture parallèle. |
+| **Processus externe du cycle** | SFIA v2.6 ChatGPT ↔ Cursor · jamais doctrine runtime Studio |
+| **CKC** | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md` · `0.1.0` · **candidate** · guidance cognitive · aucune autorité d’exécution |
 
 ---
 
-## A. Autorité, sources, anti-claims
+## A. Autorité, décision consommée, sources et convergence
 
-### A.1 Hiérarchie d’autorité appliquée
+### A.1 Décision Morris consommée
+
+Morris a validé le 2026-08-19 l’intégralité de la révision A→Y de ce cadrage. Cette décision :
+
+- consomme le contenu fonctionnel de la cible Product Completion ;
+- adopte la cible / le périmètre (`D-PC-01`) ;
+- adopte la trajectoire Product Completion adaptative (`D-PC-07`) ;
+- adopte Cycle 2 — Conception fonctionnelle comme **recommandation de prochain cycle** (`D-PC-08`) ;
+- remplace les arbitrages encore ouverts du candidat antérieur par les dispositions enregistrées en §Y.
+
+Cette décision **ne constitue pas** :
+
+- une intégration Git de ce fichier ;
+- une synchronisation de la Build Doctrine, de la Roadmap ou des framings v3 ;
+- une autorisation de Cycle 2, conception, architecture, UX, Delivery ou REAL ;
+- une adoption runtime v3 ;
+- une autorisation de stage, commit, push, PR ou merge de la branche projet.
+
+### A.2 Hiérarchie d’autorité appliquée
 
 ```text
-Git / runtime proofs
-> décisions Morris
-> Convergence Build Doctrine / Roadmap (construction)
-> doctrine Studio v3 (destination produit)
-> docs projet historiques
-> contexte conversationnel / hypothèses
+Git courant / preuves runtime
+> décisions Morris explicites du 2026-08-19 pour les requalifications C1
+> sources projet versionnées
+> mémoire / hypothèses
 ```
 
-### A.2 GO consommé — ce qu’il autorise / n’autorise pas
+La Build Doctrine dit **comment construire**. La Convergence Roadmap dit **où en est la construction**. La doctrine v3 dit **ce que Studio doit devenir**. Le présent C1 validé porte la cible Product Completion décidée ; les deltas vers les sources versionnées sont identifiés en §Y.4 mais ne sont pas synchronisés ici.
 
-**Autorisé :** ouverture du Cycle 1 ; lecture Git ; branche locale depuis `origin/main` ; création de **ce seul** fichier versionné ; analyse repo-informed du MVP ; options / recommandations / risques / inconnues / critères / trajectoire candidate ; Review Pack FULL ; publication Review Handoff L3.
+### A.3 Sources de cadrage
 
-**Non autorisé par ce GO :** architecture fonctionnelle détaillée ; architecture technique ; choix de stack ; choix de persistence ; schema/migration ; UX/UI détaillée ; Figma ; backlog détaillé / user stories ; code ; Delivery ; mutation runtime ; OpenAI LIVE ; Cursor REAL produit ; commit projet ; push branche projet ; PR projet ; merge ; suppression de branche ; modification Build Doctrine / doctrine v3 / méthode / template / routing ; lancement automatique du Cycle 2 ; lancement M6 ou M7 ; runtime v3 ADOPTED.
-
-### A.3 Vérité de départ non négociable
-
-> **MORRIS DECISION — CURRENT SFIA STUDIO VERTICAL SLICE ON MAIN IS THE FUNCTIONAL MVP BASELINE FOR THE PRODUCT COMPLETION TRAJECTORY — REUSE EXISTING BACKBONE — DO NOT RESTART FROM ZERO — RUNTIME V3 REMAINS NON ADOPTED**
-
-> **PRE-M6 EXIT = ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT**
-
-Dette héritée **OPEN** (contraintes du cadrage, **pas** un chantier de micro-hardening ici) : `UAT-UX-06` · `UAT-RECOVERY-03` · `V3-F10 / M5-C` · Conversation process-local · Proposal process-local · Confirmation process-local · `N7-HID`.
-
-### A.4 Note Roadmap metadata (ne pas micro-fixer)
-
-La Roadmap sur `main` conserve encore des champs textuels pré-merge #362 (snapshot `a53c323…`, « Cycle 1 NOT AUTHORIZED », « NEXT REPO GATE = Draft PR rebaseline »). **Git actuel + GO consommé + PR #362 MERGED prime.** Ce cycle **ne modifie pas** la Roadmap.
-
-### A.5 Anti-claims (ouverts)
-
-Ce document **n’est pas** et **n’autorise pas** :
-
-- Cadrage **VALIDATED** / **ADOPTED** / **CLOSED**
-- Scope gelé définitivement
-- Trajectoire **ADOPTED**
-- READY FOR CONCEPTION / READY FOR DELIVERY
-- Cycle 2 autorisé
-- M6 / M7 lancés ou redéfinis par décision Morris
-- Runtime v3 ADOPTED
-- Architecture technique / stack / persistence choisies ici
-- UX détaillée / Figma
-- Backlog détaillé
-- Architecture parallèle au backbone MVP
-- Doctrine v2.6 comme runtime Studio
-- Remboursement de la dette héritée
-- Claim REAL nouveau
-- Décision Morris inventée
-
-### A.6 Sources consultées (path / statut)
-
-| Source | Statut d’usage pour ce cadrage |
+| Source | Autorité / usage |
 | --- | --- |
-| Git `origin/main` `e142f7b…` · PR #362 MERGED · CI `32129543999` SUCCESS | **SoT** |
-| Décision Morris MVP baseline + PRE-M6 EXIT (Roadmap / rebaseline) | **Autorité** |
-| `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` | Construction **VALIDATED — ACTIVE ON MAIN** |
-| `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | État construction — metadata pré-#362 **supersédée par Git** pour le GO Cycle 1 |
-| `projects/sfia-studio/sfia-v3-framing/30`–`37` | Doctrine produit cible **VALIDATED** · runtime **NON ADOPTED** |
-| `projects/sfia-studio/sfia-v3-framing/16`–`17` | Harvest parcours / couches d’information · **candidats historiques** · ne pas copier v2.6 comme doctrine Studio |
-| `projects/sfia-studio/01` · `04`–`07` | Historiques importants · **harvest** · postulat v2.6 Option C **SUPERSEDED** pour la cible Studio |
-| `projects/sfia-studio/08`–`09` | Conception/flux historiques · harvest sélectif · **pas** doctrine active Product Completion |
-| `projects/sfia-studio/app/**` | Preuve d’existence du MVP — lecture cadrage, pas revue de code exhaustive |
-| Processus v2.6 (`prompts/templates/sfia-cycle-execution-template.md` · routing · knowledge layer · operating model · guardrails · méthode cycles · CKC cadrage) | **Processus externe de ce cycle seulement** |
+| Git `origin/main` @ `e142f7b…` · PR #361 / #362 | SoT factuelle du MVP et de la rebaseline |
+| Décisions Morris 2026-08-19 A→Y | Autorité sur les requalifications explicites de ce C1 |
+| `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` | Lois de construction — KEEP |
+| `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | État de construction courant — KEEP, puis REQUALIFY / SYNC ultérieurement |
+| `projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md` | Doctrine connaissance, CKC, HumanDecision |
+| `projects/sfia-studio/sfia-v3-framing/31-doctrine-package-and-source-resolution.md` | DoctrinePackage, provenance, hiérarchie des sources |
+| `projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md` | LPS, ProjectTrajectory, replanification |
+| `projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md` | Observation / Hypothèse / Option / Recommandation / Décision |
+| `projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md` | ExecutionContract, AgentCapability, réversibilité |
+| `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md` | Evidence, ReviewBundle, dette, maturité |
+| `projects/sfia-studio/sfia-v3-framing/36-sfia-v2.6-inheritance-and-adaptation-matrix.md` | Héritage externe v2.6 → concepts v3 |
+| `projects/sfia-studio/sfia-v3-framing/37-studio-v3-foundations-and-consolidation-decision-pack.md` | Fondations V3-F01…F15 et anti-claims |
+| Processus v2.6 : template, routing, operating model, guardrails, knowledge layer | Processus externe d’exécution documentaire uniquement |
+| CKC Cadrage candidate | Guidance cognitive ; ne remplace ni décisions Morris, ni routing, ni template, ni Git |
 
-### A.7 Convergence pre-check
+Les docs historiques `01`, `04`–`09` restent des sources de provenance / harvest du candidat antérieur. Elles ne deviennent ni doctrine active ni seconde vérité.
+
+### A.4 SFIA Studio Convergence Pre-check
 
 | Champ | Qualification |
 | --- | --- |
-| **Capacité v3 servie** | Product-level integration des fondations **V3-F01…F15** à travers une cible produit et une ProjectTrajectory cohérentes. |
-| **Étapes de boucle particulièrement concernées** | intention / contexte · qualification · Living Project State · ProjectTrajectory · Recommendation / HumanDecision · ExecutionContract · Cursor / agent · Evidence / ReviewBundle · replanning · cycle history / capitalization |
-| **Milestone** | PRODUCT-COMPLETION — CYCLE 1 CADRAGE |
-| **État actuel** | MVP fonctionnel intégré sur `main`. PRE-M6 EXIT accepté pour la trajectoire produit avec dette gouvernée. Runtime v3 **NON ADOPTED**. |
-| **Prochaine capacité candidate** | À déterminer à l’issue de ce cadrage + revue Morris. **Hypothèse forte actuelle :** Cycle 2 — Conception fonctionnelle. **Ce n’est pas une décision.** |
-| **Lien trajectoire** | Explicite : MVP réutilisé → cadrage de la cible complète → cycles de conception/architecture/UX/backlog/technique/delivery selon dépendances réelles. **Pas** `STOP — TRAJECTORY LINK MISSING`. |
+| **Capacité v3 servie** | Rendre la cible Product Completion décidée explicite, cohérente, traçable et consommable avant conception |
+| **État actuel** | MVP fonctionnel existant ; M1–M5 réutilisables ; PRE-M6 = baseline fonctionnelle et référence UX héritée avec dette gouvernée |
+| **Milestone** | Product Completion — Cycle 1 Cadrage |
+| **Actifs clés** | M1–M5 KEEP · PRE-M6 KEEP/ADAPT · preuves UX HARVEST · v3 30–37 KEEP/ADAPT ultérieur · Build Doctrine KEEP · Roadmap KEEP/REQUALIFY/SYNC |
+| **Gap fermé par ce document** | Anciennes ambiguïtés sur rôle runtime, completion bar, continuité, ProjectTrajectory, catalogue, EC/AgentCapability, M6/M7 et trajectoire waterfall |
+| **Dépendance suivante** | Intégration Git du C1 puis synchronisation documentaire séparée et vérification de cohérence |
+| **Dette documentaire transitoire** | C1 local validé peut diverger des sources aval jusqu’à leur cycle de sync |
+| **Exit de cette divergence** | C1 intégré → sync dédiée → repo coherence |
+| **Lien trajectoire** | Explicite ; pas de `STOP — TRAJECTORY LINK MISSING` |
+
+### A.5 Statut des sources aval
+
+La Roadmap et les framings `30`–`37` restent les sources versionnées courantes. Certaines formulations y deviennent **temporairement stale** au regard des décisions C1 : rôle runtime, AgentCapability, ProjectTrajectory MUST, catalogue évolutif, continuité et disposition M6/M7. Ce document identifie les deltas ; il ne prétend pas les avoir synchronisés.
 
 ---
 
 ## B. Résumé exécutif
 
-**Pourquoi Product Completion existe.** Le vertical slice sur `main` a prouvé qu’une boucle projet gouvernée est **faisable et utilisable** (création de Project, Nora, qualification, HumanDecision, ExecutionContract, exécution bornée, Evidence, reprise honnête du durable). Il n’a **pas** encore défini ni construit le **produit cible abouti** : pilotage de projet complet, trajectoire exploitable, contrat d’exécution générique, autorités proportionnées, historique utile, artefacts/sources, durabilité de confort, expérience métier product-grade.
+SFIA Studio Product Completion part du vertical slice fonctionnel présent sur `main`. Ce MVP a prouvé un backbone utile : Project / LPS, Nora, qualification, HumanDecision, ExecutionContract, ExecutionAttempt, Evidence / ReviewBundle, reprise honnête du durable, OpenAI provider et gateway Cursor bornée. Il ne doit être ni rejeté ni confondu avec le produit abouti.
 
-**Pourquoi maintenant.** M1→M5 sont CLOSED. PRE-M6 EXIT est accepté **pour la trajectoire produit** avec dette gouvernée. Relancer un POC ou reconstruire depuis zéro violerait la décision Morris et la Build Doctrine (R3/R6/R7). Le goulot n’est plus la faisabilité de la boucle minimale : c’est le **cadrage de la cible complète** avant conception.
+Product Completion vise une boucle utilisateur end-to-end complète dans laquelle un **Pilote** peut créer et reprendre un Project, travailler avec Nora, comprendre et ajuster la ProjectTrajectory, décider explicitement, inspecter un ExecutionContract natif, autoriser les frontières nécessaires, faire exécuter le HOW technique par Cursor / un agent, comprendre SUCCESS / STOP / FAIL, examiner Evidence / ReviewBundle, puis reprendre ou replanifier sans faux contexte.
 
-**Problème produit restant malgré le MVP.** Morris peut déjà conduire une boucle bornée, mais le Studio n’est pas encore un cockpit de projet abouti : visibilité de trajectoire limitée ; historique factuel mais peu exploitable comme mémoire de cycle ; conversation/proposal/confirmation non durables ; ExecutionContract encore spécialisé (PREPARE / read-only borné) plutôt que générique ; artefacts utilisateur absents ; STOP/FAIL et Evidence encore trop techniques par endroits ; UX PRE-M6 utile mais non product-grade cible.
+La révision validée ferme les ambiguïtés du candidat antérieur :
 
-**Ce que le MVP a déjà prouvé (faits Git).** Backbone OA Native (Project, LPS, CycleInstance, HumanDecision, DecisionBasis, ExecutionContract, Attempt, Evidence, ReviewBundle) ; conversation dominante PRE-M6 ; OpenAI provider ; Cursor REAL gateway borné default OFF avec preuve historique M4 read-only ; recovery honnête du durable ; fake/real fidelity ; Git comme vérité.
+- le rôle fonctionnel runtime initial est **Pilote**, pas « Morris » comme persona produit ;
+- ProjectTrajectory et continuité sémantique inter-session sont des **MUST** ;
+- AgentCapability est une enveloppe d’autorité / gouvernance, pas un catalogue de fonctions Cursor ;
+- l’ExecutionContract natif doit conserver une parité fonctionnelle minimale avec la logique du contrat Cursor canonique, sans charger v2.6 comme doctrine runtime ;
+- le catalogue de types de cycle est évolutif ; le nombre courant `15` n’est pas un invariant structurel ;
+- M6 et M7 restent dans l’histoire mais sont **SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** et sortent du forward critical path ;
+- la trajectoire de construction est adaptative par capacités et dépendances, pas waterfall ;
+- seuls les vrais arbitrages résiduels restent ouverts.
 
-**Ce que ce cycle doit permettre de décider.** Cible métier ; utilisateurs ; MUST/SHOULD/FUTURE/OUT-OF-SCOPE ; carte de capacités ; parcours macro ; NFR candidates ; routage de la dette ; risques ; inconnues ; options M6/M7 ; ProjectTrajectory candidate ; prochain cycle. **Sans** concevoir ni livrer.
-
----
-
-## C. Intention vs solution
-
-### C.1 INTENTION
-
-Construire un **SFIA Studio abouti** qui internalise la boucle de pilotage projet avec Nora et l’exécution gouvernée, à partir du MVP existant, pour que Morris pilote un projet de bout en bout **sans reconstruire manuellement** la méthode, le contrat, les preuves et la reprise.
-
-### C.2 CONTRAINTES DOCTRINALES DÉJÀ DÉCIDÉES
-
-Ces éléments sont des **contraintes**, pas des solutions à concevoir ici :
-
-- doctrine Studio **v3 exclusive** (D-V3-02 / D-V3-03) — v2.6 = processus externe / historique, pas runtime Studio ;
-- conversation **dominante** (CC-D01) ;
-- **Project ≠ Cycle** (CC-D13) ;
-- Observation / Hypothèse / Option / Recommandation / Décision **distinctes** (CC-D05 / V3-F04) ;
-- HumanDecision explicite — aucune automatisation d’arbitrage (R13 / anti-L5) ;
-- ExecutionContract **natif structuré** ; export Markdown Cursor = **adaptateur** (V3-F11/F12, `34`) ;
-- Git = vérité technique et documentaire (R12) ;
-- ProjectTrajectory = recommandation jusqu’à HumanDecision (V3-F06) ;
-- Evidence / ReviewBundle / Artifact Completeness (V3-F14) ;
-- CKC = guidance cognitive, **aucune** autorité d’exécution (V3-F01) ;
-- réversibilité et confirmations proportionnées N1–N3 (CC-D06 / V3-F12) ;
-- IDs techniques **secondaires** dans l’UX ;
-- réutiliser le backbone MVP — **ne pas** restart from zero ;
-- runtime v3 **NON ADOPTED** même si des fondations sont IMPLEMENTED PARTIAL.
-
-### C.3 SOLUTIONS ENCORE À CONCEVOIR (hors cadrage)
-
-UX exacte et structure d’écrans ; modèle fonctionnel détaillé ; persistence des objets encore process-local / Memory ; APIs ; moteur Cursor générique ; schéma ; stack incremental vs G0 déjà consommé ; Figma Cycle 4 ; backlog.
-
-**Règle CKC :** ne pas présenter une solution candidate comme besoin. Exemple : « il faut SQLite pour la conversation » est une solution. Le besoin est : « Morris doit pouvoir reprendre honnêtement un échange de qualification s’il est dans le périmètre cible ».
+Le contenu C1 est validé par Morris. Son intégration Git, la synchronisation des sources impactées et l’autorisation de C2 restent des gates séparés.
 
 ---
 
-## D. Problème utilisateur / opportunité / valeur
+## C. Intention vs solutions
 
-### D.1 Requalification des docs 04–07
+### C.1 Intention validée
 
-Les docs historiques 04–07 décrivent correctement la **friction multi-outils** et le besoin d’un cockpit métier. Ils sont **dépassés** sur trois postulats :
+Construire, à partir du MVP existant, un SFIA Studio abouti qui internalise le pilotage de Project avec Nora et permet l’exécution gouvernée de cycles projet complets, tout en gardant les décisions structurantes humaines, les preuves auditables et la reprise honnête.
 
-| Postulat historique 04–07 | Traitement |
+### C.2 Contraintes doctrinales déjà décidées
+
+- doctrine Studio v3 exclusive ;
+- Git comme vérité technique / documentaire ;
+- rôle runtime fonctionnel générique **Pilote** ;
+- HumanDecision explicite du Pilote ;
+- Nora raisonne et recommande, elle ne décide pas ;
+- ExecutionContract natif structuré et inspectable ;
+- Cursor / agent autonome sur le HOW dans l’autorité effectivement accordée ;
+- ProjectTrajectory dynamique, recommandée puis validée humainement ;
+- CKC cognitif, sans autorité de décision ou d’exécution ;
+- Observation / Hypothèse / Option / Recommandation / Décision distinctes ;
+- Evidence / ReviewBundle et Artifact Completeness ;
+- confirmations proportionnées, sans micro-confirmations ;
+- pas de global L5, pas d’auto-escalade, pas de décision humaine inventée ;
+- réutilisation du backbone M1–M5 et du fonctionnel PRE-M6 ;
+- runtime v3 **NON ADOPTED**.
+
+### C.3 Solutions encore à concevoir
+
+Restent à concevoir ou qualifier dans les cycles aval : comportements fonctionnels détaillés ; représentation native de l’ExecutionContract ; modalités de continuité ; frontières d’autorité ; preuve de généricité ; structures d’information ; UX exacte ; architecture fonctionnelle si nécessaire ; architecture technique delta si nécessaire ; persistence / schemas / APIs éventuels ; backlog et slicing.
+
+Ce C1 ne choisit aucun mécanisme technique de registry, schema, configuration, API, chargement de catalogue ou persistence.
+
+---
+
+## D. Problème utilisateur, opportunité et valeur
+
+### D.1 Faits observés à la baseline MVP
+
+| Sujet | Fait Git / runtime hérité |
 | --- | --- |
-| Studio consomme SFIA v2.6 Option C | **REPLACE / SUPERSEDED** — cible = doctrine v3 exclusive |
-| POC = prochaine preuve | **REPLACE / SUPERSEDED** — le MVP fonctionnel existe sur `main` |
-| MVP non défini | **REPLACE / SUPERSEDED** — Morris a décidé le vertical slice actuel = baseline MVP |
-| Trajectoire pré-cadrage → POC → MVP | **HARVEST** l’idée de progressivité · **REPLACE** la séquence (MVP déjà là) |
-| Friction copier/coller GPT ↔ Cursor | **KEEP** comme problème encore partiellement vrai (contrat non générique, hors-Studio encore utilisé pour beaucoup de cycles) |
-| Morris utilisateur primaire / Git / gates / réversibilité / audit | **KEEP** |
+| Project / LPS | Durable et restart-safe sur le backbone produit |
+| Qualification | CycleInstance durable ; Proposal encore process-local |
+| Décision | HumanDecision / DecisionBasis durables |
+| Contrat | ExecutionContract natif durable, encore spécialisé / PREPARE-only pour la projection actuelle |
+| Exécution | Attempt / Evidence / ReviewBundle durables ; preuve M4 REAL read-only historique ; REAL default OFF |
+| ProjectTrajectory | Modélisée mais repository Memory, pas encore capacité produit complète |
+| Conversation / Proposal / Confirmation | Process-local / Memory selon l’objet |
+| History / Recovery | Ancres factuelles et recovery honnête, mais continuité sémantique incomplète |
+| Artefacts utilisateur | Pas d’intake PJ produit natif |
+| UX | PRE-M6 utile, mais présentation héritée et dette business-first sur Evidence |
 
-### D.2 Friction restante — faits observés vs hypothèses
+### D.2 Problème restant
 
-| Sujet | Faits observés (Git / MVP) | Hypothèse |
-| --- | --- | --- |
-| Friction restante | ExecutionContract PREPARE-only + capacité Cursor native = read-only borné. Write/commit/push/PR **pas** des classes produit natives. Conversation/proposal/confirmation process-local. | Sans contrat générique + autorités proportionnées, Morris continuera une boucle mixte Studio + ChatGPT/Cursor externe. |
-| Visibilité projet / trajectoire | LPS durable affiché (« ÉTAT DU PROJET »). `ProjectTrajectory` **modeled** + **Memory** (pas Product SQLite). LPS peut porter `trajectoryId` mais la trajectoire n’est pas un objet produit vivant. | Sans trajectoire exploitable, le LPS dit « où on en est factuellement » plus que « où on va / ce qui reste ». |
-| Historique exploitable | History = ancres factuelles (Project, LPS, cycle, Evidence, ReviewBundle, Recommendation). Pas de capsule de cycle (qualification, décisions, livrables, conversation liée). | Un historique d’ancres ne suffit pas à relire un cycle terminé comme mémoire de pilotage. |
-| Durabilité / reprise | Recovery honnête : durable relisible ; conversation/proposal/confirmation peuvent être perdues. `UAT-RECOVERY-03` : confirmation préparée non reprojetée après reload. | La reprise est sûre (fail-closed) mais pas continue. |
-| Gouvernance d’exécution | HD durable ; Confirmation Memory ; Gate D one-shot historique ; autorité locale Morris TEMPORARY WITH EXIT. | Le produit abouti doit rendre visibles gates, enveloppe d’autorité et sorties SUCCESS/STOP/FAIL **métier**. |
-| Contexte / sources / artefacts | DoctrinePackage pin/digest en snapshot F2. Pas d’intake PJ utilisateur produit. Evidence `type: artifact` = preuve d’exécution, pas pièce jointe Morris. | Sans rattachement de sources/PJ, Nora raisonne surtout sur le chat + Git/doctrine. |
-| UX product-grade | PRE-M6 Option A intégrée ; conversation dominante ; IDs secondaires en partie. `UAT-UX-06` : Evidence encore trop technique. | La baseline visuelle PRE-M6 est un **KEEP** à adapter, pas le produit fini. |
-| STOP / FAIL clairs | Statuts Attempt `succeeded/failed/timeout/cancelled` durables. Semantic labels UI existent. Pas de parcours produit générique STOP gouverné / FAIL technique / escalation sans promotion silencieuse. | Risque de lire un terminal technique comme succès métier. |
-| Nora → contrat → Cursor → Evidence → Nora | Chaîne **partielle** prouvée sur le slice (fixture-safe + M4 RO historique + M5 Evidence→RecommendNextGate). Pas une boucle projet générique continue. | C’est le cœur de valeur restant de Product Completion / M6 requalifié. |
+Le Pilote ne dispose pas encore d’une boucle produit générique et continue couvrant le chemin réel d’un Project. Il doit encore composer avec :
 
-**Valeur cible (qualitative, aucun seuil inventé) :** réduire la boucle externe ChatGPT↔Cursor pour le pilotage Studio ; rendre l’état et la trajectoire lisibles en quelques instants ; rendre les décisions et preuves retrouvables ; permettre une reprise honnête ; garder la technique secondaire.
+- une trajectoire insuffisamment opérationnelle ;
+- un contrat d’exécution qui n’a pas encore la complétude fonctionnelle du contrat Cursor canonique ;
+- des frontières d’autorité qui risquent d’être lues comme une liste de primitives techniques ;
+- une continuité inter-session qui dit vrai mais ne reprend pas toujours le contexte suffisant ;
+- une couverture cognitive liée au catalogue courant sans invariant d’évolutivité explicitement produit ;
+- une Evidence parfois trop technique ;
+- une présentation PRE-M6 qui ne constitue pas le contrat Product Experience final.
 
-**Coût de l’inaction :** figer le MVP comme produit ; empiler du micro-hardening PRE-M6 ; ou reconstruire une architecture parallèle « plus propre ».
+Ces absences sont des **gaps Product Completion**, pas automatiquement des bugs ou dettes PRE-M6.
 
----
+### D.3 Opportunité / valeur
 
-## E. Utilisateurs / bénéficiaires / stakeholders
+La valeur est de permettre au Pilote de :
 
-| Acteur | Nature | Rôle pour Product Completion |
-| --- | --- | --- |
-| **Morris** | Humain | **Utilisateur primaire** et **décideur** (L0). Seul opérateur cible **décidé**. |
-| **Futurs opérateurs autorisés** | Humain | **Candidats uniquement**. Aucune décision Morris ne les inscrit dans la cible actuelle. Le cadrage peut **préparer l’évolutivité** sans concevoir le multi-user. |
-| GPT / Nora | Système | Raisonne, challenge, recommande. **Pas** stakeholder humain. **Pas** décideur. |
-| Cursor / agent | Système | Exécute dans l’enveloppe autorisée. Autonome sur le HOW technique. |
-| Git / GitHub | Système | Vérité / revue / preuves. |
-| Sécurité / exploitation | Exigence future | Pas un persona inventé ; NFR à qualifier plus tard (M8 / cycles conditionnels). |
+- comprendre rapidement l’état, la trajectoire, les blockers et la prochaine action ;
+- travailler avec Nora sans piloter manuellement la méthode ;
+- prendre des décisions explicites sans subir un questionnaire ni des micro-confirmations ;
+- déléguer au bon niveau le HOW technique sous un contrat gouverné ;
+- distinguer résultat métier, STOP gouverné et failure technique ;
+- reprendre un Project sans faux souvenir, faux GO ou seconde vérité ;
+- faire évoluer le catalogue cognitif sans créer un moteur par type de cycle.
 
-**Interdit :** inventer organisation, équipe commerciale, rôle admin, ou persona sans source.
-
-**Inconnue critique liée :** Morris reste-t-il le seul opérateur cible à court terme ? Voir §T et D-PC-02.
+Le coût de l’inaction est soit de figer le MVP en faux produit final, soit de contourner Studio, soit de reconstruire une architecture parallèle malgré le backbone prouvé.
 
 ---
 
-## F. Vision produit cible
+## E. Utilisateurs, rôle runtime et gouvernance
 
-SFIA Studio est la **plateforme métier** qui permet à Morris de **créer, comprendre, piloter, décider, faire exécuter, prouver, reprendre et enchaîner** un projet sous doctrine v3, avec Nora comme surface dominante et Cursor comme exécuteur gouverné.
+### E.1 Rôle runtime fonctionnel
 
-Boucle métier cible (compatible Build Doctrine A3 + framing `30`) :
+Le rôle fonctionnel runtime initial est unique :
+
+| Rôle | Finalité |
+| --- | --- |
+| **Pilote** | Créer / reprendre un Project, travailler avec Nora, arbitrer, autoriser les frontières protégées et piloter la suite |
+
+Morris est l’autorité de **construction et de gouvernance de SFIA Studio**. Il peut utiliser le produit en tant que Pilote, mais le produit ne crée pas un persona runtime « Morris » particulier. De futurs utilisateurs peuvent également être Pilotes.
+
+Le multi-user futur concerne identité, isolation, authentification, partage et attribution. Il n’implique pas une multiplication de rôles fonctionnels dans le cadrage initial.
+
+**L0–L5 sont des niveaux d’autonomie, jamais des rôles utilisateur.**
+
+### E.2 Acteurs système
+
+| Acteur | Responsabilité |
+| --- | --- |
+| **Nora** | Comprendre, qualifier, challenger, analyser, distinguer les statuts épistémiques, préparer trajectoire / contrat, analyser Evidence, recommander |
+| **Cursor / agent** | Exécuter le HOW technique nécessaire au contrat dans l’autorité effectivement accordée ; STOP honnêtement si incapable ou hors enveloppe |
+| **Git / GitHub** | Vérité, historique, revue et preuves selon le contrat |
+| **DoctrinePackage / CKC** | Contexte doctrinal v3 piné / guidance cognitive ; aucune autorité d’exécution |
+
+### E.3 Gouvernance humaine
+
+Le Pilote :
+
+- arbitre les HumanDecisions structurantes ;
+- consomme les confirmations nécessaires ;
+- autorise les frontières protégées ;
+- ne confirme pas chaque micro-étape du HOW.
+
+Full project-cycle execution est une cible. **Full execution ≠ global L5 ≠ merge autonome.**
+
+---
+
+## F. Vision produit cible et séparation des responsabilités
+
+### F.1 Boucle cible
 
 ```text
-Morris
+Pilote
   → Studio / Nora
-  → contexte v3 (DoctrinePackage / CKC cognitif)
+  → contexte v3 / DoctrinePackage / CKC
   → qualification
   → analyse / clarification
   → Living Project State
-  → trajectoire / options / recommandation
-  → HumanDecision
-  → Confirmation (si requise, proportionnée)
+  → ProjectTrajectory / options / recommandation
+  → HumanDecision du Pilote
+  → Confirmation si nécessaire
   → ExecutionContract natif
-  → Cursor / agent sous contrat
+  → Cursor / agent
   → Evidence / ReviewBundle / Git
-  → Nora (analyse, sans transformer reco en décision)
-  → LPS / replanification
-  → décision Morris
+  → analyse Nora
+  → LPS / ProjectTrajectory / replanification
+  → décision Pilote
   → cycle suivant
 ```
 
-**Industrialisation** = industrialiser la **plateforme** (sûreté, observabilité, reprise, distribution éventuelle), **pas** « industrialiser les cycles ». M8 reste le lieu d’un futur claim runtime ADOPTED — **hors** succès de ce Cycle 1.
+### F.2 Nora
+
+Nora :
+
+- comprend l’intention et le contexte ;
+- qualifie cycle, profil, risques et lenses ;
+- challenge plutôt que transformer le parcours en questionnaire ;
+- sépare observation, hypothèse, option, recommandation et décision ;
+- prépare une trajectoire et un ExecutionContract ;
+- interprète Evidence sans la remplacer ;
+- recommande la suite sans consommer une HumanDecision.
+
+### F.3 Pilote
+
+Le Pilote :
+
+- comprend et corrige le contexte ;
+- choisit entre options ;
+- consomme les HumanDecisions structurantes ;
+- inspecte le contrat ;
+- confirme proportionnellement aux effets ;
+- arbitre STOP, réserves, replanification et cycle suivant.
+
+### F.4 Cursor / agent
+
+Cursor / l’agent :
+
+- exécute docs, code, fichiers, commandes, tests, captures, Git ou autres actions lorsque le contrat et l’enveloppe l’autorisent ;
+- reste autonome sur le HOW technique utile ;
+- respecte scope, protections, gates, stops et Evidence obligations ;
+- annonce son incapacité ou l’insuffisance d’autorité ;
+- ne transforme jamais un STOP, un timeout ou une failure en succès silencieux.
+
+Le HOW n’est contraint davantage que lorsque gouvernance, sécurité, preuve, reproductibilité ou protection l’exigent.
 
 ---
 
-## G. Product outcomes
+## G. Product outcomes et completion bar
 
-Résultats utilisateur attendus — **pas** des composants. Aucune métrique chiffrée inventée.
+### G.1 Outcomes
 
-| ID | Outcome |
+| ID | Résultat attendu pour le Pilote |
 | --- | --- |
-| O-01 | Comprendre l’état d’un projet en quelques instants (objectif, cycle, prochaine action, blockers). |
-| O-02 | Savoir où l’on est dans la trajectoire (proposé / actif / fait / bloqué) et ce qui peut être replanifié. |
-| O-03 | Travailler avec Nora sans piloter manuellement la méthode (qualification, challenge, options). |
-| O-04 | Prendre les décisions structurantes **explicitement** (GO / GO with reserves / AMEND / NO-GO). |
-| O-05 | Exécuter via Cursor **sans reconstruire manuellement** le contrat. |
-| O-06 | Distinguer succès métier, STOP gouverné, FAIL technique — aucun succès silencieux. |
-| O-07 | Retrouver décisions, cycles, preuves, livrables. |
-| O-08 | Reprendre honnêtement après interruption / reload. |
-| O-09 | Rattacher documents / PJ / sources au Project / Cycle, avec provenance. |
-| O-10 | Garder la technique (IDs, SHA, chemins) secondaire dans l’UX. |
-| O-11 | Voir la dette et les réserves, sans les oublier. |
-| O-12 | Enchaîner un cycle suivant après décision, sans reset de projet. |
+| O-01 | Créer, trouver, comprendre et reprendre un Project |
+| O-02 | Voir le chemin réel : done, active, proposed, blocked et dépendances |
+| O-03 | Travailler avec Nora sans piloter manuellement la méthode |
+| O-04 | Distinguer clairement Nora Recommendation, HumanDecision, Confirmation et résultat agent |
+| O-05 | Inspecter un ExecutionContract natif intelligible avant autorisation |
+| O-06 | Faire exécuter le HOW technique du cycle dans une enveloppe gouvernée |
+| O-07 | Comprendre SUCCESS / STOP / FAIL sans succès silencieux |
+| O-08 | Comprendre Evidence d’abord au niveau métier, avec profondeur technique accessible |
+| O-09 | Reprendre entre sessions avec contexte sémantique suffisant et sans mémoire inventée |
+| O-10 | Replanifier la ProjectTrajectory à partir des décisions et preuves |
+| O-11 | Ajouter / faire évoluer des types de cycle sans créer par défaut un nouveau moteur |
+| O-12 | Fermer Evidence → Nora → LPS / Trajectory / Recommendation |
+
+### G.2 Completion bar globale
+
+> **Product Completion est satisfait lorsque l’ensemble des capacités MUST forme une boucle utilisateur end-to-end cohérente, utilisable, gouvernée, restart-safe et prouvée, sans dépendre d’un nombre fixe de types de cycle ni d’une architecture parallèle, tandis que les SHOULD / FUTURE restants sont explicitement gouvernés et ne masquent aucun blocker de la capacité cible.**
+
+Product Completion **≠** runtime v3 ADOPTED. L’adoption est un état de maturité séparé, hors feature bar C1.
 
 ---
 
-## H. Carte de capacités de niveau cadrage
+## H. Carte de capacités requalifiée
 
-Requalification de **PC-A…PC-N** (Roadmap = inputs, **pas** specs validées). Niveau = cadrage. **Pas** d’implémentation.
+Les domaines PC-A…PC-N de la Roadmap restent des inputs historiques de cadrage. La décision `D-PC-01` adopte la carte cible suivante.
 
-Légende statut actuel : **KEEP** / **ADAPT** / **COMPLETE** / **NEW CAPABILITY** / **FUTURE**.
+| Domaine | Finalité | Niveau cible | Preuve MVP à réutiliser | Gap Product Completion |
+| --- | --- | --- | --- | --- |
+| **Project** | Créer / trouver / reprendre | MUST | Project durable `/studio` | Pilotage end-to-end |
+| **Living Project State** | État fiable, next action, blockers | MUST | LPS durable + Evidence refs | Compléter l’état utile |
+| **Nora** | Comprendre, qualifier, analyser, recommander | MUST | Conversation dominante + provider | Généricité et continuité |
+| **Qualification / CKC** | Mobiliser le bon contexte cognitif | MUST | CycleInstance + CKC binding | Couverture cognitive du catalogue applicable |
+| **Cycle Catalog Evolvability** | Faire évoluer les types sans moteur dédié | MUST | Catalogue courant / routing | Invariant d’évolutivité à concevoir |
+| **ProjectTrajectory** | Décrire le chemin réel et replanifier | MUST | Type + repository Memory | Capacité produit durable / reconstructible |
+| **HumanDecision** | Arbitrage explicite du Pilote | MUST | HD / DecisionBasis durables | UX / liens trajectoire complets |
+| **Confirmation** | Autoriser proportionnellement | MUST selon effet | Concept + path process-local | Sémantique consommée vs non consommée |
+| **Native ExecutionContract** | Contrat complet, inspectable et gouverné | MUST | Aggregate durable + PREPARE projection | Parité fonctionnelle canonique + généricité |
+| **AgentCapability** | Borner l’autorité effective de l’exécuteur | MUST | RO borné / Gate D historique | Enveloppe générique, pas catalogue de features |
+| **Cursor / agent execution** | Exécuter le HOW sous contrat | MUST | Gateway bornée default OFF | Mécanisme générique EC → agent |
+| **Execution lifecycle** | Suivre accepted / running / terminal | MUST | Attempt durable | Gérer tous effets autorisés |
+| **SUCCESS / STOP / FAIL** | Rendre le résultat honnête | MUST | Statuts + stopConditions partiels | Sémantique métier complète |
+| **Evidence / ReviewBundle** | Prouver et permettre l’analyse Nora | MUST | Durable / remount UI | Evidence business-first |
+| **Continuity / recovery** | Reprendre sans faux contexte | MUST | Recovery honnête du durable | Continuité sémantique inter-session |
+| **DoctrinePackage traceability** | Piner identité / version / digest / provenance | MUST | Pin / digest partiel | Audit complet de la résolution effective |
+| **Cycle / Project history** | Relire l’utile | MUST minimal / SHOULD riche | Ancres factuelles | Capsule riche non bloquante |
+| **Artifacts / PJ / sources** | Ajouter une matière utilisateur | SHOULD | Absent produit | Intake, provenance et types à concevoir |
+| **Product Experience** | Absorber la complexité, rendre les gates lisibles | MUST principes | PRE-M6 fonctionnel | Contrat final non hérité par défaut |
+| **Governance / audit** | Tracer autorité, dette, preuves | MUST | T-A7 / audit / Git | Intégration transverse complète |
 
-| Domaine | PC | Finalité utilisateur | Statut actuel | Preuve Git actuelle | Gap | Dépendances | Criticité | Niveau cadrage |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **Project / pilotage** | PC-A | Créer, lister, ouvrir, comprendre un projet | **KEEP** backbone · **ADAPT** pilotage | `/studio` · Product SQLite Project/LPS · PR #337/#361 | Pilotage ≠ liste + LPS : manque trajectoire, next-step vivant, blockers | LPS, Trajectory, Nora | Haute | MUST |
-| **Nora / conversation** | PC-B | Discuter, clarifier, challenger, proposer | **KEEP** surface · **COMPLETE** durabilité si in-scope | ConversationSurface dominante · OpenAI provider · process-local | Continuité d’échange ; anti-questionnaire | Qualification, LPS | Haute | MUST (conversation) · durabilité = décision |
-| **Qualification** | PC-C | Qualifier intention → cycle/profil/périmètre **métier** | **KEEP** F2 · **ADAPT** généricité | `qualify.ts` · CycleInstance SQLite · CKC binding M2 · Proposal process-local | Proposal non durable ; jargon encore présent en profondeur | CKC cognitif, LPS | Haute | MUST |
-| **Knowledge / DoctrinePackage / sources** | PC-N | Travailler avec un contexte v3 piné, traçable | **KEEP** pin/digest partiel · **COMPLETE** package produit | Doctrine types T-A0 · digest `F2ContextSnapshot` | DoctrinePackage runtime complet ; CKC 15/15 = M7 | V3-F03/F07 | Haute (pin) / M7 (15/15) | MUST pin · FUTURE 15/15 |
-| **LPS** | PC-A | Voir un état projet **utile** | **KEEP** durable · **ADAPT** utilité métier | `LivingProjectState` SQLite · LpsSurface · W1 Evidence refs | Panneau encore partiel vs contenu doctrinal `32` | Evidence, Trajectory, Decisions | Haute | MUST |
-| **ProjectTrajectory** | PC-E | Voir / ajuster une trajectoire dynamique | **ADAPT** modeled · **COMPLETE** produit | Types `ProjectTrajectory` · **Memory** repo · pas d’UI produit dédiée | Objet Memory ; pas de replanification produit | HD, LPS, Nora | Haute | MUST cible · durabilité à décider |
-| **Decision** | PC-B/C | Trancher explicitement | **KEEP** HD durable · **ADAPT** UX décision | HumanDecision + DecisionBasis SQLite M3 · GO/reserves/AMEND/NO-GO UI | AMEND loop G-UX-08 OPEN/DEFERRED | Proposal, Confirmation | Haute | MUST |
-| **ExecutionContract** | PC-G | Comprendre le contrat avant d’autoriser | **KEEP** natif · **ADAPT** vers générique | EC SQLite · `buildExecutionContract` · projection PREPARE-only | Encore spécialisé slice / RO ; pas contrat générique projet | HD, AgentCapability | Haute | MUST |
-| **AgentCapability / authority** | PC-I | Savoir ce que l’agent a le droit de faire | **KEEP** RO borné · **NEW** classes d’effet | `m4BoundedReadOnlyCursorAgent` · Gate D · local Morris TEMPORARY WITH EXIT | write/commit/push/PR/merge **non** natifs | ExecutionContract, gates | Haute | MUST classes cadrées · autorisation **pas** globale |
-| **Cursor projection** | PC-H | Cursor reçoit un adaptateur, reste autonome sur le HOW | **KEEP** adaptateur PREPARE · **ADAPT** générique | `cursorPrepareOnlyProjection.ts` · REAL gateway default OFF | Pas 15 moteurs ; pas commandes statiques par cycle ; projection générique absente | EC natif | Haute | MUST adaptateur · FOREIDDEN 15 moteurs |
-| **Execution lifecycle** | PC-J | Suivre une exécution | **KEEP** Attempt durable · **ADAPT** généricité | Attempt SQLite M5 · running observation UI | Lifecycle lié au slice actuel | Confirmation, gateway | Haute | MUST |
-| **STOP / escalation** | PC-J | Traiter STOP gouverné vs FAIL | **COMPLETE** / **NEW** parcours produit | Statuts Attempt + stopConditions sur EC · pas de parcours générique métier | Pas d’escalade automatique d’autorité | HD, gates | Haute | MUST |
-| **Evidence / ReviewBundle** | PC-K | Comprendre le résultat et la preuve | **KEEP** durable · **ADAPT** lisibilité | Evidence/RB SQLite · remount PR #351 · UAT-UX-06 OPEN | Preuve trop technique ; analyse Nora = Recommendation-only | Attempt, LPS | Haute | MUST |
-| **Cycle history** | PC-D | Relire un cycle terminé / l’historique projet | **ADAPT** ancres · **COMPLETE** capsule | HistorySurface / ProjectHistoryPanel = ancres factuelles | Pas de capsule (synthèse, décisions, livrables, lien conversation) | Evidence, HD, Cycle | Moyenne-haute | SHOULD (capsule) · MUST (ancres honnêtes) |
-| **Artifacts / attachments** | PC-F | Joindre / analyser une source ou PJ | **NEW CAPABILITY** | Absent produit. Evidence artifact ≠ PJ. D1 intake **FREEZE** parallèle | Intake + provenance + rattachement Project/Cycle | Knowledge, Nora | Moyenne | SHOULD · types MUST vs FUTURE = décision |
-| **Recovery / durability** | PC-L | Reprendre sans fiction | **KEEP** honest recovery · **COMPLETE** selon objets | RecoverySurface · durable restart-safe M1–M5 · process-local CONV/PROP/CONF | UAT-RECOVERY-03 ; journal M5-C | Confirmation, conversation | Haute (honnêteté) | MUST honnêteté · profondeur = décision |
-| **Product Experience** | PC-M | UX métier compréhensible, responsive | **KEEP** PRE-M6 baseline · **ADAPT** product-grade | ProductShell · Option A PR #361 · Visual Contract PRE-M6 Freeze | UAT-UX-06 ; G-UX-08 ; responsive/a11y à qualifier | Tous domaines | Haute | MUST principes · Figma = Cycle 4 conditionnel |
-| **Governance / audit** | PC-N / PC-I | Tracer, arrêter, ne pas contourner les gates | **KEEP** rails T-A7 · **ADAPT** visibilité | Honesty rails · provenance fields · anti-claims runtime | DebtItem runtime F10 incomplet ; journal sans owner | HD, Evidence, Git | Haute | MUST |
+### H.1 Inventaire MVP préservé
 
-**Interprétation :** le MVP **KEEP** le backbone. Product Completion **ADAPT/COMPLETE** la généricité, la lisibilité, la trajectoire, l’historique utile, les autorités, les artefacts et la durabilité proportionnée. Rien de tout cela n’autorise une architecture parallèle.
+| Brique actuelle | État factuel | Disposition |
+| --- | --- | --- |
+| Project / LPS | Product SQLite | KEEP |
+| CycleInstance | Product SQLite | KEEP |
+| Nora / conversation | Process-local | KEEP surface · COMPLETE continuité sémantique |
+| Proposal / Recommendation | Process-local / recommendation-only | KEEP séparation · COMPLETE reprise |
+| HumanDecision / DecisionBasis | Product SQLite | KEEP |
+| ExecutionContract | Product SQLite / projection PREPARE-only | KEEP / ADAPT |
+| Confirmation | Memory / process-local | KEEP concept · COMPLETE sémantique d’autorité |
+| ExecutionAttempt | Product SQLite | KEEP |
+| Evidence / ReviewBundle | Product SQLite | KEEP / ADAPT business-first |
+| ProjectTrajectory / Epistemic | Memory | COMPLETE / ADAPT |
+| DoctrinePackage / CKC runtime | Pin/digest + resolver partiel | KEEP / COMPLETE |
+| OpenAI provider | Présent | KEEP · aucun LIVE dans ce cycle |
+| Cursor REAL gateway | Présente, default OFF | KEEP · preuve historique seulement |
+| History / Recovery | Ancres durables / recovery honnête | KEEP / COMPLETE continuité |
+| PJ intake | Absent | NEW SHOULD |
+| Surfaces historiques D1 / OPS1 / execution-run | Parallèles / mécanismes harvestables | FREEZE / RETIRE LATER / HARVEST utile seulement |
+
+Absence d’une capacité future **≠** bug. Le backbone prouvé est réutilisé ; aucun restart from zero.
 
 ---
 
 ## I. Parcours utilisateur macro cibles
 
-Parcours **fonctionnels**, non visuels. Pas de wireframes, pas d’écran par écran.
+Parcours fonctionnels, non visuels :
 
-| # | Parcours | Entrée | Résultat utilisateur | Gate typique | Stop / erreur honnête |
-| --- | --- | --- | --- | --- | --- |
-| 1 | Créer un projet | Intention Morris | Project + LPS initial + conversation possible | Confirmation de création si structurante | Intention vide ; doctrine unresolved |
-| 2 | Reprendre un projet | Liste / projet courant | État durable relu ; pas d’invention de conversation perdue | — | Recovery explicite si process-local perdu |
-| 3 | Discuter avec Nora | Composer libre | Clarification, challenge, options — **≠** décision | — | Anti-questionnaire ; phrase chat ≠ GO |
-| 4 | Qualifier une intention / poursuivre | Conversation + contexte v3 | Qualification cycle/profil/périmètre proposée | Revue Morris si Critical / ambigu | CKC absent = fallback intra-v3 silencieux, pas v2.6 |
-| 5 | Consulter / ajuster une trajectoire | LPS / trajectoire | Trajectoire candidate ou validée visible ; replan = reco | HD si replan structurant | Trajectoire Memory actuelle ≠ disparition silencieuse du besoin |
-| 6 | Prendre une HumanDecision | Proposal / options | GO / GO with reserves / AMEND / NO-GO enregistré | Oui — décision humaine | AMEND aujourd’hui différé (G-UX-08) = gap connu |
-| 7 | Préparer / comprendre un ExecutionContract | Post-HD | Contrat natif lisible (objectif, scope, stops, preuves, autorité) | Revue avant confirmation | Champs unresolved visibles — pas de contrat fictif |
-| 8 | Autoriser une action proportionnée | Contrat + enveloppe | Confirmation N1–N3 selon effet | Oui si mutation / irréversible | Pas d’auto-escalade |
-| 9 | Suivre une exécution | Attempt running | Progression / running / attente résultat | Stop possible | Timeout ≠ succès |
-| 10 | Traiter SUCCESS | Attempt succeeded + Evidence | Preuve métier + reco Nora + LPS factuel | HD pour next step | Recommendation ≠ décision |
-| 11 | Traiter STOP gouverné | Stop condition / scope / source / cap | Exécution arrêtée ; Morris voit pourquoi et quoi décider | Oui pour élargir | STOP ≠ FAIL ≠ SUCCESS |
-| 12 | Traiter FAIL technique | Adapter / process / timeout | Échec visible ; pas de mutation déguisée en succès | Rejouer / requalifier | Journal technique ≠ Product Store |
-| 13 | Consulter Evidence / ReviewBundle | History / conversation | Preuve et revue utiles, IDs secondaires | — | UAT-UX-06 = gap lisibilité |
-| 14 | Reprendre après reload / interruption | Reload | Durable restauré ; process-local non inventé | Requalify si confirmation perdue | UAT-RECOVERY-03 |
-| 15 | Consulter un cycle terminé | History / capsule | Synthèse, décisions, livrables, preuves | — | Capsule = SHOULD (pas encore là) |
-| 16 | Consulter l’historique projet | History | Suite d’ancres / cycles dans le temps | — | Pas de seconde vérité vs Git |
-| 17 | Joindre / analyser un artefact ou une source | Workspace / conversation | Source rattachée, provenance, analyse Nora | Si write large / externe | artefact ≠ doctrine ; restitution ≠ SoT |
-| 18 | Lancer le cycle suivant après décision | Reco + HD | Nouveau CycleInstance sur **le même** Project | HD | Project ≠ Cycle ; pas de reset |
-
----
-
-## J. Périmètre cible
-
-Ce ne sont **pas** des tickets. Catégories de **cible produit abouti**.
-
-### J.1 MUST target capability
-
-- Créer / lister / ouvrir / reprendre un Project.
-- LPS utile (état, prochaine action, cycle distinct).
-- Conversation Nora dominante pour qualifier et accompagner.
-- HumanDecision explicite.
-- ExecutionContract natif intelligible, rattaché Project/Cycle/Decision.
-- Adaptateur Cursor (pas moteur par cycle).
-- Suivi d’exécution + Evidence/ReviewBundle utiles.
-- Distinction SUCCESS / STOP / FAIL.
-- Recovery **honnête**.
-- Git comme vérité ; anti-claims de maturité.
-- Réutilisation du backbone MVP.
-
-### J.2 SHOULD target capability
-
-- ProjectTrajectory **produit** (visible, replanifiable, pas seulement modeled/Memory).
-- Capsule / historique de cycle exploitable.
-- Durabilité Confirmation (ou requalify explicite sans execute silencieux).
-- Intake documents/PJ/sources avec provenance (profondeur = D-PC-06).
-- Autorités Cursor au-delà du read-only, **gated** (profondeur = D-PC-05).
-- Lisibilité Evidence métier (remboursement UAT-UX-06).
-- AMEND loop (G-UX-08) si toujours dans la cible UX.
-
-### J.3 FUTURE / OPTIONAL
-
-- Multi-user / IAM product-grade / Auth.js.
-- CKC 15/15 détaillé + validation système (M7).
-- Runtime v3 ADOPTED (M8).
-- Merge / push / PR **natifs** comme classes d’effet courantes.
-- Notion comme couche éditoriale (jamais SoT).
-- FinOps produit profond ; observabilité RUN industrialisée.
-- Tous les 15 types de cycle **prouvés** exécutables nativement (question M6, §U).
-- Capitalisation CKC → méthode v2.6 externe (gate méthode distinct).
-
-### J.4 OUT OF SCOPE (produit abouti **et** ce cycle)
-
-Voir §K.
+| # | Parcours | Résultat |
+| --- | --- | --- |
+| 1 | Créer un Project | Project + LPS initial fiables |
+| 2 | Trouver / reprendre un Project | État et contexte sémantique suffisant restaurés |
+| 3 | Discuter avec Nora | Intention comprise / challengée sans questionnaire rigide |
+| 4 | Qualifier une intention / poursuivre | Type, profil, contexte, CKC et risques proposés |
+| 5 | Consulter la ProjectTrajectory | Done / active / proposed / blocked / dépendances visibles |
+| 6 | Ajuster / replanifier | Recommandation Nora puis HumanDecision si structurante |
+| 7 | Prendre une HumanDecision | Choix explicite du Pilote, réserves traçables |
+| 8 | Préparer un ExecutionContract | Contrat natif complet rattaché au Project / Cycle / Decision |
+| 9 | Inspecter le contrat | Objectif, scope, protections, gates, stops, validations et Evidence compris |
+| 10 | Autoriser proportionnellement | Confirmation limitée à la frontière réellement protégée |
+| 11 | Suivre l’exécution | État et progrès honnêtes |
+| 12 | Traiter SUCCESS | Résultat + Evidence cohérents, puis analyse Nora |
+| 13 | Traiter STOP | Raison, travail réalisé, frontière atteinte et action attendue compris |
+| 14 | Traiter FAIL | Failure technique distincte du résultat métier |
+| 15 | Consulter Evidence / ReviewBundle | Lecture métier d’abord, technique accessible |
+| 16 | Reprendre après interruption | Aucune mémoire / décision / autorité inventée |
+| 17 | Consulter cycle / historique | Ancres fiables ; capsule riche si disponible |
+| 18 | Joindre / analyser une source | PJ / provenance rattachées si capacité SHOULD livrée |
+| 19 | Lancer le cycle suivant | Nouveau CycleInstance sur le même Project, après décision |
+| 20 | Faire évoluer le catalogue applicable | Nouveau type enrichit cognition / attentes sans moteur dédié par défaut |
 
 ---
 
-## K. Hors périmètre / non-objectifs
+## J. Périmètre cible adopté
 
-| Non-objectif | Pourquoi |
-| --- | --- |
-| Remplacer Git comme vérité | Doctrine / R12 |
-| Arbitrage automatique / L5 global | Anti-L5 · R13/R14 |
-| 15 moteurs Cursor spécifiques | PC-H · R6 |
-| Commandes Cursor statiques par cycle | Cursor autonome sur le HOW |
-| Architecture parallèle au backbone | R6 · décision Morris reuse |
-| v2.6 comme doctrine runtime Studio | D-V3-02/03 |
-| Migration générale des historiques | D7 |
-| POC gratuits | R7 |
-| Micro-hardening PRE-M6 non bloquant | PRE-M6 EXIT accepté · dette gouvernée |
-| Adoption runtime automatique | V3-F15 |
-| Notion comme SoT | Knowledge Layer v2.6 : Notion éditorial ; Git SoT |
-| Automatisation des décisions Morris | Gouvernance |
-| Restart from zero / rewrite M1–M5 | Décision Morris MVP |
-| Concevoir stack / schema / APIs dans Cycle 1 | Hors GO |
-| Figma / UX détaillée dans Cycle 1 | Cycle 4 conditionnel |
-| Lancer M6/M7/Cycle 2 par ce document | Revue Morris requise |
-| Stakeholders inventés | CKC |
+### J.1 MUST Product Completion
+
+- Project ;
+- Living Project State fiable ;
+- Nora ;
+- HumanDecision ;
+- native ExecutionContract ;
+- exécution Cursor / agent ;
+- Evidence / ReviewBundle ;
+- SUCCESS / STOP / FAIL ;
+- recovery ;
+- Git / reuse ;
+- ProjectTrajectory ;
+- continuité sémantique inter-session ;
+- AgentCapability comme authority / governance envelope ;
+- DoctrinePackage pin / traceability ;
+- couverture cognitive complète du catalogue applicable ;
+- **Cycle Catalog Evolvability** ;
+- mécanisme générique `ExecutionContract → Cursor / agent → Evidence` ;
+- capacité à faire exécuter le HOW technique du cycle sous contrat gouverné ;
+- parité fonctionnelle minimale de l’ExecutionContract natif avec la logique du contrat Cursor canonique ;
+- ExecutionContract inspectable et compréhensible par le Pilote ;
+- Evidence métier minimale compréhensible ;
+- boucle `Evidence → Nora → LPS / ProjectTrajectory / Recommendation` fermée ;
+- Product Experience absorbant la complexité ;
+- accessibilité comme principe produit MUST.
+
+### J.2 SHOULD
+
+- capsule de recovery / cycle history riche ;
+- présentation avancée du contrat, diff, synthèse et progressive disclosure ;
+- intake PJ / sources utilisateur ;
+- Evidence UX enrichie ;
+- AMEND UX sophistiqué ;
+- mémoire / historique riches au-delà du contexte nécessaire à l’intégrité.
+
+### J.3 FUTURE
+
+- multi-user : identité, isolation, authentification, partage ;
+- connecteurs Notion ;
+- FinOps / RUN profonds ;
+- opérations GitHub Studio-native si un jour utiles comme détail d’implémentation ;
+- capitalisation vers une méthode globale, sous gate séparé ;
+- états de maturité / adoption au-delà de la feature bar Product Completion.
+
+### J.4 OUT OF SCOPE de ce C1
+
+Voir §K. Les catégories MUST / SHOULD / FUTURE fixent une cible produit ; elles ne constituent ni backlog ni autorisation d’implémentation.
 
 ---
 
-## L. ExecutionContract / Cursor — cadrage fonctionnel seulement
+## K. Hors périmètre et non-objectifs
 
-**Doctrine acquise :** ExecutionContract Studio = contrat **natif structuré**. Export Markdown Cursor = **adaptateur**. Cursor reste autonome sur le HOW **dans l’enveloppe autorisée**.
+- remplacement de Git comme vérité ;
+- global L5 ;
+- N moteurs d’exécution par type de cycle ;
+- réimplémentation de Cursor ;
+- v2.6 comme doctrine runtime Studio ;
+- architecture parallèle au backbone ;
+- Notion comme SoT ;
+- choix d’architecture, persistence, schema ou API ;
+- UX détaillée / Figma ;
+- backlog / user stories ;
+- code / Delivery ;
+- REAL ;
+- adoption runtime ;
+- micro-hardening PRE-M6 sans lien avec un MUST ou une preuve ;
+- migration générale des historiques ;
+- automatisation d’une HumanDecision ;
+- transcript exhaustif comme condition de continuité ;
+- séquence fixe de cycles projet ;
+- synchronisation de la Roadmap / doctrine dans ce cycle ;
+- lancement de C2.
 
-### L.1 Informations métier / gouvernance qui doivent exister dans un contrat
+M8 n’est ni requalifié ni supprimé dans ce C1 ; il reste hors périmètre de cette revue.
 
-Sans API, sans schema, sans TypeScript :
+---
 
-- rattachement **Project / Cycle / HumanDecision** (et Confirmation si requise) ;
-- **action** métier (ce qui doit arriver) ;
-- **cible** et **périmètre** (in / out) ;
-- **sources** autorisées et fraîcheur attendue ;
-- **autorité requise** et **capacités** d’effet (read / write / git / protected) ;
-- **contraintes** et **stop conditions** (source absente, hors scope, chemin protégé, capacité insuffisante, Git incohérent) ;
-- **preuves attendues** (quoi doit exister pour SUCCESS) ;
-- **réversibilité** de l’effet ;
-- **fenêtre** d’exécution gouvernée (besoin : bornée ; pas un timeout client inventé) ;
-- statut du contrat (préparé / à confirmer / confirmé / exécutant / terminal) **lisible métier**.
+## L. Native ExecutionContract — cadrage fonctionnel
 
-### L.2 Expression sources / scope / stops / preuves / gates
+### L.1 Principe validé
 
-L’utilisateur doit pouvoir répondre : *quoi est autorisé, quoi est interdit, quand s’arrêter, quoi produire, qui a dit oui*. Les IDs restent secondaires.
+> **HARVEST CANONICAL CURSOR EXECUTION TEMPLATE LOGIC AS THE FUNCTIONAL BASELINE FOR THE NATIVE STUDIO EXECUTIONCONTRACT — ADAPT TO V3 / PILOTE / PRODUCT RUNTIME — DO NOT COPY V2.6 AS RUNTIME DOCTRINE.**
 
-### L.3 Autorité bornée
+L’ExecutionContract Studio est le contrat natif structuré. L’export Markdown Cursor est un adaptateur. Le contrat natif ne doit être ni une copie doctrinale de v2.6 ni une version appauvrie du contrat canonique.
 
-Le contrat **déclare** l’enveloppe ; il **n’accorde pas** une classe supérieure. Escalade = nouvelle décision Morris, jamais automatique.
+**Native ≠ simplifié. Structuré ≠ opaque.**
 
-### L.4 Remontée SUCCESS / STOP / FAIL
+### L.2 Parité fonctionnelle minimale
+
+Le contrat natif préserve au minimum :
+
+- objectif ;
+- contexte ;
+- sources et provenance / fraîcheur ;
+- périmètre IN / OUT ;
+- rattachement Project / Cycle / HumanDecision ;
+- autorité effective requise ;
+- protections ;
+- gates / Confirmations nécessaires ;
+- contraintes ;
+- stop conditions ;
+- validations ;
+- Evidence attendue ;
+- réversibilité / rollback attendu lorsque pertinent ;
+- résultat et limites lisibles.
+
+Le Pilote doit pouvoir inspecter et comprendre le contrat avec une clarté fonctionnelle **au moins comparable** au contrat Cursor canonique actuel.
+
+### L.3 Autonomie du HOW
+
+Le contrat exprime le résultat, les invariants et l’enveloppe. Cursor / l’agent choisit le HOW technique à l’intérieur. Le contrat ne prescrit des commandes ou une procédure que lorsque la gouvernance, la sécurité, la preuve, la reproductibilité ou une protection l’exigent.
+
+### L.4 Sorties
 
 | Sortie | Sens produit |
 | --- | --- |
-| SUCCESS | Preuves attendues disponibles **et** effet dans le périmètre |
-| STOP gouverné | Condition de gouvernance (scope, source, cap, gate) — **décision** requise pour continuer |
-| FAIL technique | Adapter / process / timeout / crash — **pas** un succès ; replay ou requalify |
+| **SUCCESS** | Résultat attendu et Evidence suffisante dans le scope |
+| **STOP gouverné** | Source, scope, gate, protection ou capability bloque honnêtement |
+| **FAIL technique** | Erreur de process / outil / timeout ; jamais succès métier |
 
-### L.5 Rattachement
-
-Un contrat sans Project, sans Decision lorsque l’effet est structurant, ou sans Evidence requirements, n’est pas un contrat produit abouti.
-
-**État MVP :** contrat natif existe et est durable ; projection Cursor PREPARE-only (`executionAllowed=false`) ; REAL default OFF. **ADAPT** vers un contrat **générique** de projet, pas un second moteur.
-
-**Interdit ici :** API, schema, interfaces TS, choix de moteur, prompt technique final.
+Ce C1 ne choisit ni schema, ni API, ni moteur, ni prompt technique final.
 
 ---
 
-## M. AgentCapability / authority envelope
+## M. AgentCapability et exécution
 
-Les classes d’effet **nécessaires au produit** ne sont **pas** toutes autorisées.
+### M.1 Définition validée
 
-| Classe d’effet | Besoin produit | Gate candidat | Dans Product Completion initial ? |
-| --- | --- | --- | --- |
-| **read** | Comprendre le repo / sources | N1 · déjà prouvé M4 RO borné | **MUST** — KEEP preuve |
-| **temporary generation** | Produire un artefact temporaire (rapport, projection) | N1–N2 | **MUST** besoin · pas d’auto-write Git |
-| **local write** | Modifier des fichiers autorisés | N2 (N3 si irréversible / protégé) | **SHOULD** pour boucle générique · **pas** autorisé globalement |
-| **commit** | Ancrer un résultat dans Git | N2–N3 + Morris si structurant | **SHOULD / FUTURE** — D-PC-05 |
-| **push** | Publier une branche | N3 Morris | **FUTURE** sauf décision contraire |
-| **PR** | Ouvrir une revue | N3 Morris | **FUTURE** sauf décision contraire |
-| **merge** | Intégrer | N3 Morris only | **FUTURE** · quasi irréversible |
-| **protected actions** | Secrets, doctrine, chemins protégés, delete critique | N3 Morris · fail-closed | **MUST** comme **refus par défaut** |
+AgentCapability est l’**authority / governance envelope** applicable à un exécuteur pour un ExecutionContract donné.
 
-Aucune escalade automatique. Ack critique (N2/N3 / IAM) reste **DEFERRED** historiquement (D-M4-05) — dette à router, pas à rembourser ici.
+Dimensions fonctionnelles :
+
+- scope ;
+- niveau d’autonomie ;
+- frontières protégées ;
+- gates / Confirmation ;
+- stop / escalation ;
+- obligations d’Evidence ;
+- rollback / reversibility ;
+- limites ;
+- executor sufficiency.
+
+### M.2 Autorité effective
+
+```text
+autorité humaine valide
+∩ scope de l’ExecutionContract
+∩ AgentCapability / policy
+∩ guardrails runtime
+= autorité effective
+```
+
+Aucune couche ne peut élargir seule l’autorité. Si l’exécuteur ou sa capability est insuffisant :
+
+```text
+SC-CAP → STOP / escalation honnête
+```
+
+### M.3 Taxonomie interne vs catalogue produit
+
+Les catégories read, temporary generation, local write, commit, push, PR, merge et protected actions peuvent rester une taxonomie interne de policy / effects. Elles **ne constituent pas** le catalogue fonctionnel Product Completion et ne deviennent pas toutes autorisées.
+
+L0–L5 qualifient l’autonomie. Ils ne décrivent ni les rôles ni une liste de features.
+
+Full project-cycle execution peut inclure docs, code, commandes, tests, captures et Git lorsque le contrat l’autorise. Elle ne signifie ni global L5, ni push / PR / merge autonome.
 
 ---
 
-## N. Sources / artefacts / pièces jointes
+## N. Cycle Catalog Evolvability — invariant MUST
 
-| Famille | Rôle | SoT ? | Cadrage |
-| --- | --- | --- | --- |
-| Contexte utilisateur (chat) | Intention, clarification | Non | Process-local aujourd’hui ; durabilité = décision |
-| Fichiers / PJ | Preuve ou matière à analyser | Non (artefact métier) | **NEW** SHOULD · types MUST vs FUTURE = D-PC-06 |
-| Documents projet versionnés | Cadrage, conception, etc. | Git | KEEP |
-| Git | Vérité code/docs/preuves | Oui | KEEP |
-| DoctrinePackage | Contexte doctrinal piné | Doctrine pinée | MUST pin · COMPLETE runtime package = plus tard |
-| CKC | Guidance cognitive | Non (pas d’autorité) | KEEP usage actuel · 15/15 = M7 |
-| Sources externes autorisées | Contexte borné | Selon autorisation | FUTURE / gated |
-| Provenance / fraîcheur | Faire confiance sans fiction | Attributs V3-F07 | MUST concept |
-| Rattachement Project / Cycle | Retrouver | Métadonnée d’état | MUST si intake in-scope |
-| Outputs générés | Restitutions | Non | restitution ≠ SoT |
+### N.1 Catalogue évolutif
 
-Règles : **artefact utilisateur ≠ doctrine** ; **restitution ≠ SoT**. Harvest possible de `17` (cinq couches) **sans** réactiver Excel/SQL comme doctrine ni D1 parallèle.
+Le produit consomme un **catalogue canonique de types de cycle**, actuellement composé de 15 types dans la baseline méthodologique observable. Le nombre 15 n’est ni l’identité du produit ni un invariant structurel. Le catalogue peut évoluer vers 16, 20, 30, 50 ou un autre nombre.
+
+Ajouter ou faire évoluer un type doit prioritairement enrichir :
+
+- qualification ;
+- CKC / contexte cognitif ;
+- attentes ;
+- risques ;
+- lenses ;
+- exit criteria ;
+- gates ;
+- stop conditions ;
+- sémantique d’Evidence.
+
+Cela ne doit pas nécessiter par défaut un nouveau moteur d’exécution.
+
+### N.2 Mécanisme générique
+
+```text
+cycle / contexte
+  → ExecutionContract
+  → Cursor / agent
+  → Evidence
+  → Nora
+```
+
+### N.3 Couverture cognitive
+
+La CKC completeness signifie **100 % de couverture du catalogue canonique applicable à la baseline méthodologique concernée**.
+
+`15/15` est uniquement la mesure courante parce que le catalogue actuel contient 15 types. Ce n’est jamais l’identité structurelle de la cible.
+
+Le CKC reste une guidance cognitive :
+
+- aucune autorité de décision ;
+- aucune autorité d’exécution ;
+- aucun élargissement de scope ;
+- aucune checklist brute imposée au Pilote.
+
+### N.4 Preuve future de généricité
+
+La preuve utilisera plusieurs situations suffisamment contrastées pour démontrer que le mécanisme n’est pas spécialisé sur un seul cas. Le nombre exact et les cycles représentatifs ne sont **pas décidés dans C1**.
+
+Aucune obligation Product Completion n’impose 15 moteurs ou 15 campagnes E2E distinctes.
 
 ---
 
-## O. Product Experience / UX — finalité seulement
+## O. Sources, artefacts et pièces jointes
 
-**Contraintes doctrinales acquises :** conversation dominante ; Project ≠ Cycle ; LPS utile / vivant ; gates visibles ; Obs/Hyp/Option/Reco/Decision distincts ; IDs secondaires ; confirmations proportionnées.
-
-**Besoins à cadrer (pas designer) :**
-
-| Surface | Finalité |
+| Famille | Cadrage |
 | --- | --- |
-| Home / Project | Lister, créer, reprendre |
-| Trajectoire | Voir le chemin, pas un stepper d’implémentation |
-| Cycle actif | Travailler le cycle sans le confondre avec le projet |
-| Cycle history / capsule | Relire un cycle terminé |
-| Decisions | Retrouver les arbitrages |
-| Evidence | Comprendre le résultat |
-| Artifacts | Voir les PJ/sources rattachées |
-| Blockers / STOP | Agir sur un stop |
-| Next action | Une phrase utile |
-| Responsive | Usage local Morris (macOS) ; référentiel a11y à qualifier |
-| Recovery | Honnêteté > magie |
+| Git / documents projet | SoT technique / documentaire |
+| DoctrinePackage | Identité, version, digest et provenance MUST traçables |
+| CKC | Guidance cognitive du catalogue applicable |
+| Contexte Pilote | Intention et corrections humaines ; pas une décision automatique |
+| Conversation / Proposal / Recommendation | Contexte sémantique actif à reprendre ou reconstruire |
+| PJ / fichiers utilisateur | SHOULD ; matière / preuve, jamais doctrine |
+| Sources externes autorisées | FUTURE / gated selon besoin |
+| Evidence / ReviewBundle | Preuve gouvernée ; pas restitution décorative |
+| Outputs générés | Restitutions ; jamais SoT concurrente |
 
-PRE-M6 Visual Contract (Freeze `uUdLBElF2B4dOefaAYt4QY`) = **référence visuelle héritée**, pas le contrat visuel final Product Completion.
+Règles :
 
-**Figma** = futur **Cycle 4** si trajectoire confirmée. **Aucune** mutation Figma ici.
+- artefact utilisateur ≠ doctrine ;
+- restitution ≠ SoT ;
+- provenance et fraîcheur doivent être visibles ;
+- rattachement Project / Cycle / Contract / Decision selon le sens ;
+- source absente ou stale → STOP / requalification, pas extrapolation.
+
+La profondeur et les types de PJ restent une inconnue de conception (§U).
 
 ---
 
-## P. Durabilité / reprise
+## P. Product Experience — principes seulement
 
-**Ne pas choisir la persistence.** Distinguer le besoin.
+**Conversation-first ≠ conversation-only.**
 
-### P.1 Durabilité indispensable à l’autorité / truth (déjà largement KEEP)
+Le Pilote doit pouvoir :
 
-Project · LPS · CycleInstance · HumanDecision · DecisionBasis · ExecutionContract · ExecutionAttempt · Evidence · ReviewBundle · liens factuels LPS.
+- créer, trouver et reprendre un Project ;
+- comprendre état, cycle, ProjectTrajectory, blockers et next action ;
+- distinguer HumanDecision, Nora Recommendation, Confirmation et résultat agent ;
+- inspecter l’ExecutionContract ;
+- comprendre Evidence d’abord au niveau métier / résultat ;
+- ouvrir la profondeur technique sans qu’elle soit la surface primaire ;
+- comprendre un STOP : pourquoi, ce qui a été fait, la frontière atteinte et l’action attendue ;
+- reprendre après interruption sans faux contexte.
 
-Sans ces objets, l’autorité et la reprise **mentiraient**. Ils sont durables sur le Product Store existant (fait G0-B consommé — **rappel de contrainte de construction**, pas un nouveau choix de cadrage).
+Principes :
 
-### P.2 Durabilité de confort / UX (ouverte)
+- IDs techniques secondaires ;
+- complexité méthodologique et technique absorbée par Studio / Nora autant que possible ;
+- gates visibles ;
+- confirmations proportionnées, pas de micro-confirmations ;
+- Observation / Hypothèse / Option / Recommandation / Décision distinguées ;
+- Project ≠ Cycle ;
+- accessibilité = MUST.
 
-| Objet | Besoin produit | État MVP | Classe cadrage |
+Disposition PRE-M6 :
+
+- backbone fonctionnel : **KEEP / ADAPT** ;
+- preuves et apprentissages UX : **HARVEST** ;
+- présentation héritée : référence historique, **pas** contrat visuel Product Completion final par défaut.
+
+Aucune UX détaillée ni mutation Figma dans ce C1.
+
+---
+
+## Q. Durabilité, continuité et reprise
+
+### Q.1 Principe
+
+> Tout état dont la perte pourrait conduire Studio à mentir sur le Project, l’autorité accordée, une exécution ou sa preuve doit être durable.
+
+Durable signifie **persisté ou reconstructible de manière fiable**. Ce C1 ne choisit pas la persistence.
+
+### Q.2 Truth / authority durability — MUST
+
+Doivent être durables / reconstructibles :
+
+- Project ;
+- Living Project State fiable ;
+- CycleInstance ;
+- HumanDecision ;
+- DecisionBasis ;
+- ExecutionContract ;
+- ExecutionAttempt dès qu’une exécution existe ;
+- Evidence / ReviewBundle ou références / provenance fiables ;
+- Confirmation consommée portant une autorité ;
+- ProjectTrajectory active / décidée ;
+- DoctrinePackage identity / version / digest / provenance ;
+- effective authority / policy envelope nécessaire à l’audit.
+
+### Q.3 Contexte suffisant pour Nora — MUST
+
+La continuité sémantique inter-session est MUST. Studio doit permettre à Nora de reprendre le pilotage sans inventer :
+
+- l’intention et l’état courant utiles ;
+- le cycle / la trajectoire active ;
+- les décisions et réserves ;
+- la Proposal / Recommendation encore active, reconstructible ou reprenable ;
+- la frontière d’autorité et l’exécution éventuelle ;
+- les preuves et la prochaine action.
+
+Un transcript exhaustif n’est **pas** requis.
+
+### Q.4 Mémoire riche — SHOULD / FUTURE
+
+Transcript complet, historique conversationnel exhaustif et capsules enrichies relèvent de SHOULD / FUTURE tant qu’ils ne sont pas nécessaires à l’intégrité.
+
+### Q.5 Confirmation
+
+- Confirmation **non consommée** : peut être reperdue si le comportement reste fail-closed et impose re-confirmation / requalification ;
+- Confirmation **consommée portant autorité** : durable / reconstructible ;
+- aucune Confirmation, mémoire ou HumanDecision ne peut être inventée.
+
+Information absente → requalification, jamais extrapolation.
+
+### Q.6 État MVP
+
+Le MVP est honnête sur ses limites process-local. Product Completion transforme cette honnêteté en continuité sémantique MUST, sans imposer le transcript intégral ni choisir le mécanisme technique dans C1.
+
+---
+
+## R. Exigences non fonctionnelles candidates
+
+Aucun seuil ni solution inventés.
+
+| NFR | Besoin produit | Risque | Preuve future attendue |
 | --- | --- | --- | --- |
-| Conversation | Continuité de clarification | Process-local | Confort **sauf** si l’audit de qualification l’exige |
-| Proposal | Reprendre une reco non décidée | Process-local | Confort + risque de re-qualifier |
-| Confirmation | Ne pas perdre un « oui » pré-exécution | Memory / process-local | **Proche de l’autorité** (UAT-RECOVERY-03) — fail-closed aujourd’hui |
-| ProjectTrajectory | Pilotage « où on va » | Memory | **Proche du pilotage** — SHOULD |
-| Epistemic items | Mémoire Obs/Hyp/Option | Memory | SHOULD / FUTURE profondeur |
-| Cycle history capsule | Relire un cycle | Ancres seulement | SHOULD |
-| Journal M5-C | Sûreté launch REAL | TEMPORARY WITH EXIT · owner non enregistré | Dette V3-F10 · **pas** Product Store |
+| Sécurité | Autorité effective bornée | Authority leak | Refus / STOP sur frontière non autorisée |
+| Confidentialité | Minimiser le contexte exposé | Fuite projet / secrets | Politique et Evidence sans secrets |
+| Traçabilité | Relier Project → Decision → Contract → Attempt → Evidence | Histoire opaque | Chaîne audit lisible |
+| Auditabilité | Reconstituer autorité et résultat | Faux GO / faux succès | État durable / reconstructible |
+| Réversibilité | Savoir arrêter / revenir | Mutation irréversible silencieuse | Policy / rollback proportionnés |
+| Fiabilité | SUCCESS / STOP / FAIL honnêtes | Failure masquée | Preuves terminales cohérentes |
+| Restart-safety | Reprendre sans mémoire inventée | Continuité artificielle | Reprise inter-session |
+| Accessibilité | Product Experience utilisable | Exclusion | Validation future sur référentiel choisi |
+| Performance | Interaction / exécution praticables | Latence / timeout mal interprété | Mesures sans SLA inventé |
+| Coût | Identifier les inducteurs | Coût opaque | Traces FinOps si besoin réel |
+| Maintenabilité | Réutiliser le backbone / éviter N moteurs | Fragmentation | Architecture sans parallèle |
+| Observabilité | Diagnostiquer sans second SoT | Journal opaque | Événements reliés aux artefacts |
+| Interopérabilité | Découpler EC natif et adaptateurs | Lock-in | Contrats d’adaptation |
+| Dépendance fournisseurs | OpenAI / Cursor peuvent varier | Indisponibilité | Mode STOP / dégradé honnête |
+| Rétention | Garder l’utile sans transcript par défaut | Volume / privacy | Politique qualifiée en conception |
+| Sobriété | Ne pas surcharger contexte / confirmations | UX et coût | Questions adaptatives / contexte proportionné |
 
-**Interruption / restart :** le produit abouti doit toujours **dire vrai** (ce qui est perdu est dit perdu). Rendre durable un objet de confort est une **décision** (D-PC-04), pas un bug du MVP.
-
----
-
-## Q. Exigences non fonctionnelles candidates
-
-Aucun seuil inventé. Chaque NFR = besoin + risque + moment de qualification + preuve future.
-
-| NFR | Besoin | Risque | Quand qualifier | Preuve future |
-| --- | --- | --- | --- | --- |
-| Sécurité | Contrôler effets agents, chemins protégés, gates | Authority leak · contournement UI | Conception + sécu conditionnelle | Parcours STOP / refuse |
-| Confidentialité | Minimiser contexte envoyé aux fournisseurs | Fuite projet / secrets | Conception / NFR sécu | Politique de contexte |
-| Secrets | Jamais dans Evidence/chat/Git | Exposition | Déjà fail-closed partiel · à confirmer | `containsSecrets: false` + audit |
-| Traçabilité | Relier intention → décision → contrat → preuve | Décision hors Git/état | Conception | Chaîne d’IDs secondaires + Git |
-| Auditabilité | Relire a posteriori | Histoire inventée | Cycle history | Capsule + Evidence |
-| Réversibilité | Arrêter / revert selon classe | Irréversible silencieux | AgentCapability | Taxonomie `34` projetée UX |
-| Fiabilité | Boucle reproductible | Divergence fake/real | QA | Fixtures = frontière externe seulement |
-| Restart-safety | Reprise honnête | Execute silencieux post-reload | Durability / QA | UAT-RECOVERY-03 |
-| Accessibilité | UI métier utilisable | Exclusion / non-conformité | UX Cycle 4 | Référentiel choisi **alors** |
-| Performance | Latence conversation / exec acceptable | UX bloquée · timeout mal lu | Pas de SLA maintenant | Observation ; `CURSOR_REAL_TIMEOUT_POLICY` OPEN |
-| Coût / FinOps | Voir inducteurs (tokens, exec, stockage) | Coût opaque | Transverse · pas bloquant Cycle 1 | FinOps isolé KEEP/FREEZE lots |
-| Maintenabilité | Réutiliser backbone | Rewrite / parallèle | Tous cycles | Classification KEEP/ADAPT |
-| Observabilité | Diagnostiquer sans seconde vérité | Bruit / fuite | RUN conditionnel | Journal ≠ Product Store |
-| Interopérabilité | Git, OpenAI, Cursor bornés | Lock-in / rupture | Conception / technique | Contrats d’adaptateur |
-| Dépendance fournisseurs | OpenAI / Cursor | Indisponibilité | Risque structurant | Mode dégradé honnête |
-| Rétention traces/contextes | Garder l’utile, pas tout le chat brut | RGPD / volume | Si conversation durable | Politique rétention |
-| Sobriété | Assez de contexte, pas trop | Sur-contexte / sur-auto | Qualification continue | Anti-questionnaire |
-| RGPD | Qualifier si données perso (opérateur unique aujourd’hui) | Traitement non cadré | Si multi-user ou rétention chat | Qualification · pas DPIA ici |
-
-**RGPD maintenant :** opérateur unique Morris, usage local. Qualification **légère** : pas de persona fichier client. Si conversation durable ou multi-user → **requalifier**.
+Les blocs spécialisés FinOps, GreenOps, RGPD, Performance, RSSI, DevOps, Release et RUN ne sont pas exécutés dans ce cycle.
 
 ---
 
-## R. Dette héritée (B-PC-DEBT)
+## S. Dette héritée et gaps Product Completion
 
-**Ne pas rembourser dans ce cycle.**
+### S.1 Principe de priorité
 
-| ID | État | Impact Product Completion | Cycle candidat | Condition de remboursement | Preuve future | Gate Morris |
-| --- | --- | --- | --- | --- | --- | --- |
-| **UAT-UX-06** | OPEN | Evidence trop technique | UX / Delivery UX | Evidence primaire métier, IDs secondaires | UAT/E2E sans IDs obligatoires | Si contrat de présentation change |
-| **UAT-RECOVERY-03** | OPEN | Confirmation préparée absente après reload | Conception durabilité / M6 requalifié | Restore honnête ou requalify sans execute silencieux | Reload proof | Si Confirmation persistée |
-| **V3-F10 / M5-C** | OPEN | Journal ≠ Product Store · owner absent | GO dédié post-conception | Safety equivalence + owner + retire ou KEEP restated | Morris GO journal | **Oui** (retirement) |
-| **CONV-PL** | OPEN | Perte conversation | Cadrage→conception durabilité | Durable **si** in-scope | Restart-safe conversation | Si persistence conversation |
-| **PROP-PL** | OPEN | Perte proposal | Idem | Durable **si** in-scope | Restart-safe proposal | Si persistence proposal |
-| **CONF-PL** | OPEN | Perte confirmation · fail-closed | Durability / M6 | Restart-safe ou requalify | Reload + no silent execute | Si Confirmation durable |
-| **N7-HID** | OPEN | Harness E2E faux négatif | QA Product Completion | Harness aligne IDs cachés | E2E aligné produit | Non (harness-only) |
+Une dette héritée n’a pas priorité parce qu’elle est ancienne. Elle est traitée lorsqu’elle :
 
-**Non classé dette PRE-M6 :** CKC 15/15 · Cursor write/dev/commit/push/PR générique · boucle projet arbitraire complète · runtime v3 adoption.
+- bloque une capacité MUST ;
+- bloque une preuve requise ;
+- bloque une condition de sûreté.
 
-Autres réserves **non bloquantes** à garder visibles : `CURSOR_REAL_TIMEOUT_POLICY` ; G-UX-08 AMEND ; Claims/Maturity Memory ; IAM/Ack ; D1/OPS1/execution-run **FREEZE** recommandés.
+Sinon elle reste gouvernée et routée. **Product Completion gap ≠ PRE-M6 debt.**
 
----
+### S.2 Routage requalifié
 
-## S. Risques structurants
+| ID | Statut / interprétation validée | Condition de traitement / preuve |
+| --- | --- | --- |
+| **UAT-UX-06** | OPEN · Evidence doit devenir business-first | Pilote comprend résultat sans dépendre des IDs |
+| **UAT-RECOVERY-03** | OPEN · Confirmation consommée portant autorité doit être durable / reconstructible | Reload sans faux GO ni silent execute |
+| **V3-F10 / M5-C** | OPEN · dette temporaire gouvernée ; journal non cible | Owner + safety equivalence + gate Morris pour retrait |
+| **CONV-PL** | OPEN · gap de continuité sémantique inter-session | Nora reprend le contexte suffisant |
+| **PROP-PL** | OPEN · Proposal / Recommendation active doit être reprenable / reconstructible | Arbitrage courant repris honnêtement |
+| **CONF-PL** | OPEN · aligner fail-closed et autorité consommée | Non consommée re-confirmée ; consommée auditable |
+| **N7-HID** | OPEN · harness-only QA debt | Assertions alignées sur Evidence métier / IDs secondaires |
+| **G-UX-08 AMEND** | Réserve non bloquante | Traiter si bloque le parcours décisionnel retenu |
+| **CURSOR_REAL_TIMEOUT_POLICY** | Réserve technique | Timeout ≠ business success ; qualifier pour future classe REAL |
 
-| ID | Risque | P | Impact | Mitigation cadrage | Gate |
-| --- | --- | --- | --- | --- | --- |
-| R-01 | Produit trop centré sur l’implémentation actuelle | M | Cible = slice figé | Intention vs solution · outcomes | Revue cible |
-| R-02 | Reconstruction au lieu de réutilisation | M | Perte M1–M5 | KEEP backbone · R3 | Anti-restart |
-| R-03 | Architecture parallèle | M | Dual-product | R6 · freeze D1/OPS1/execution-run | Si tentation rewrite |
-| R-04 | UI cockpit trop complexe | M | Charge cognitive | Conversation dominante · IDs secondaires | Cycle 4 |
-| R-05 | Questionnaire déguisé | M | Nora inutilisable | CKC anti-checklist · Composer libre | Conception |
-| R-06 | Automatisation excessive | M | Contournement Morris | Anti-L5 · reco ≠ décision | Tous cycles |
-| R-07 | Authority leak | M | Effet hors enveloppe | Classes d’effet + gates · pas d’auto-escalade | Sécu / HD |
-| R-08 | Divergence fake/real | M | Fausse preuve | R21 · fixture = frontière externe | REAL GO distinct |
-| R-09 | Seconde source de vérité | M | Git contourné | Restitution ≠ SoT · LPS dérivé | Conception |
-| R-10 | History/persistence surdimensionnée | M | Usine à gaz | Distinguer truth vs confort | D-PC-04 |
-| R-11 | Dépendance Cursor/OpenAI | H (fait) | Indispo / coût | Mode dégradé honnête · FinOps inducteurs | NFR |
-| R-12 | Product scope trop large | H | Trajectoire infinie | MUST/SHOULD/FUTURE · 5–10 décisions | Revue périmètre |
-| R-13 | Confusion Cycle vs Project | M | UX/doctrine cassée | CC-D13 · parcours 1/15/18 | Conception/UX |
-| R-14 | Roadmap linéaire vs Trajectory dynamique | M | 15 étapes forcées | Types ≠ séquence obligatoire | D-PC-07 |
-| R-15 | Dette héritée oubliée | M | Reprise PRE-M6 | B-PC-DEBT routée | Pas de micro-fix maintenant |
-| R-16 | Exigence 15 cycles à M6 arbitraire | H si non tranchée | Scope explosion ou 15 moteurs | Options §U | D-PC-03 |
+La couverture complète du catalogue applicable, la boucle générique Product Completion et runtime adoption ne sont **pas** des dettes PRE-M6.
+
+Aucune dette n’est remboursée dans ce cycle documentaire.
 
 ---
 
-## T. Hypothèses et inconnues critiques
+## T. Risques structurants
 
-Inconnues **qui peuvent invalider le cadrage** si fausses. **Pas** un questionnaire de 40 items. **Pas** de résolution par invention.
-
-| ID | Inconnue | Si fausse | Traitement |
+| ID | Risque | Impact | Mitigation de cadrage |
 | --- | --- | --- | --- |
-| U-01 | Morris reste le seul opérateur cible à court terme | Gouvernance, IAM, RGPD, UX multi-user trop tôt ou trop tard | D-PC-02 |
-| U-02 | Profondeur d’historique de cycle réellement utile (ancres vs capsule vs transcript) | Sur-persistence ou sous-mémoire | D-PC-04 + conception |
-| U-03 | Types de PJ réellement critiques (docs projet vs binaires vs URLs) | Intake inutile ou trop large | D-PC-06 |
-| U-04 | Autorité Cursor native du produit mature (RO vs write vs git) | Soit Studio reste un cockpit de lecture, soit fuites d’autorité | D-PC-05 |
-| U-05 | Durabilité Conversation/Proposal nécessaire au succès produit | Confort vs audit | D-PC-04 |
-| U-06 | M6 doit-il prouver 15 cycles exécutables ? | Scope M6 explosé | D-PC-03 |
-| U-07 | M7 reste-t-il après M6 ? | CKC 15/15 mal placé (trop tôt / oublié) | D-PC-03 |
-| U-08 | Critères de « produit abouti » (MUST de ce doc vs autre barre) | Trajectoire sans fin ou trop courte | D-PC-01 |
-| U-09 | G-UX-08 AMEND est-il MUST UX ? | Parcours décision incomplet | Conception / UX |
-| U-10 | Multi-user : concevoir maintenant ou seulement éviter les impasses ? | Refonte IAM tardive | D-PC-02 — recommandation : **préparer, ne pas livrer** |
-
-**Hypothèses assumées pour ce candidat (explicites, révisables) :**
-
-- H1 : la friction restante est la **généricité + lisibilité + continuité**, pas l’absence de backbone.
-- H2 : un contrat **générique** + adaptateur unique bat 15 moteurs (doctrine `34` / PC-H).
-- H3 : PRE-M6 UX est une **base** à adapter, pas à jeter.
-- H4 : « produit abouti » ≠ runtime ADOPTED.
-
----
-
-## U. M6 / M7 requalification
-
-M6 et M7 **ne sont pas supprimés**. Rôles historiques **KEEP** comme descriptions Roadmap. Requalification = **options**, pas décision Morris.
-
-### U.1 Question obligatoire
-
-> **Tous les 15 cycles doivent-ils être exécutables nativement via Studio à la sortie M6 ?**
-
-**Analyse (pas de réponse implicite) :**
-
-- La doctrine v3 démarre par **intention** puis qualification dynamique (`36` Adapted/Replaced). Les 15 types sont une **cartographie**, pas une séquence obligatoire (Roadmap Product Completion lifecycle).
-- Docs historiques 01/04/06 : couverture **progressive** ; pas d’obligation immédiate des 15 — **KEEP** ce principe, **REPLACE** le lien Option C.
-- Prouver 15 exécutions natives à M6 force soit **15 moteurs** (interdit), soit **15 campagnes UAT** sur un même moteur générique (preuve lourde, pas la même chose que « exécutable »).
-- Un moteur **générique gouverné** peut **héberger** n’importe quel type une fois le contrat et l’enveloppe prêts ; cela **≠** 15 types déjà exercés.
-- CKC 15/15 (M7) est une **complétude cognitive**, distincte de l’exécutabilité native.
-
-**Options pour la question 15-cycles-at-M6 :**
-
-| Option | Contenu | Bénéfice | Risque |
-| --- | --- | --- | --- |
-| **15-A** | Oui : 15 types exécutables nativement = exit M6 | Complet | Scope explosion · confusion CKC vs exec · 15 moteurs |
-| **15-B** | Non : M6 = boucle **générique** prouvée sur un sous-ensemble représentatif de types | Aligné doctrine · évite R-16 | Sous-couverture perçue |
-| **15-C** | Non à M6 ; **critère ultérieur** (post-M7 ou Product Completion tardif) | Sépare cognitif / exécution | M7 mal lu comme « tout est exécutable » |
-
-**Recommandation défendable : 15-B** (générique + sous-ensemble représentatif). **Pas** une décision Morris.
-
-### U.2 Options M6 / M7
-
-#### OPTION 1 — KEEP
-
-M6 reste « boucle projet complète » proche de la définition actuelle (conv → … → next step). M7 reste CKC 15/15 post-M6.
-
-- **Bénéfices :** continuité Roadmap ; peu de rewording.
-- **Risques :** M6 absorbe UX, durabilité, artefacts, autorités **et** la boucle générique → scope fourre-tout ; question des 15 cycles reste collée à M6.
-- **Dépendances :** Cycle 1+conception avant tout Delivery M6.
-- **Impact Roadmap :** mineur.
-- **Dette :** B-PC-DEBT toujours hors M6 auto-close.
-- **Preuve :** parcours e2e restart-safe (définition historique).
-- **Décision Morris :** D-PC-03.
-
-#### OPTION 2 — RECUT
-
-M6 = **capacité générique d’exécution gouvernée** (contrat natif générique, adaptateur Cursor unique, STOP/FAIL, Evidence→Nora→LPS→next), **indépendante du nombre de cycles**. M7 = **complétude cognitive CKC 15/15**.
-
-- **Bénéfices :** sépare exécution générique et cognitif ; répond 15-B ; évite 15 moteurs ; aligne PC-G/H/I/J/K.
-- **Risques :** « M6 complete » mal lu comme produit abouti (UX/artefacts/history encore ouverts).
-- **Dépendances :** conception du contrat générique + enveloppe d’autorité.
-- **Impact Roadmap :** rewording M6 exit après décision Morris (prochain update Roadmap — **pas ce cycle**).
-- **Dette :** UX/durabilité/PJ restent Product Completion **autour** de M6, pas silently in M6.
-- **Preuve :** une boucle générique documentée sur ≥1 type, plus un second type distinct si utile, **sans** exiger 15.
-- **Décision Morris :** D-PC-03.
-
-#### OPTION 3 — REPOSITION
-
-Certaines capacités Product Experience / project management / durability deviennent des **étapes explicites** avant ou autour de M6/M7 (ex. conception+UX+durability **puis** M6 générique **puis** M7 CKC).
-
-- **Bénéfices :** évite que M6 soit un dump ; rend visibles UX et reprise.
-- **Risques :** inflation de milestones ; confusion milestone construction vs cycle projet.
-- **Dépendances :** ProjectTrajectory candidate (§X) déjà dans ce sens.
-- **Impact Roadmap :** plus fort (noms/ordre).
-- **Dette :** routée par cycle, pas par « M6 magic ».
-- **Preuve :** chaque étape a un outcome utilisateur.
-- **Décision Morris :** D-PC-03.
-
-### U.3 Recommandation (non décidée)
-
-**OPTION 2 (RECUT) + séquencement de type OPTION 3 via la ProjectTrajectory** (conception / archi fonctionnelle / UX / backlog **avant** toute Delivery d’une boucle générique appelée M6). M7 **reste après** une M6 requalifiée, comme complétude CKC — **pas** un blocker du cadrage.
-
-M8 reste adoption / runtime ADOPTED — **hors** Product Completion initial.
+| R-01 | Overfit au MVP ou reconstruction inutile du prouvé | Produit trop étroit ou perte M1–M5 | KEEP backbone + completion bar |
+| R-02 | Reconstruction au lieu de reuse | Rework transverse | Classifications explicites |
+| R-03 | Architecture parallèle | Second produit / second SoT | Interdiction R6 |
+| R-04 | Complexité interne exposée au Pilote | Charge cognitive | Product Experience business-first |
+| R-05 | Questionnaire déguisé | Nora mécanique | Questions adaptatives |
+| R-06 | Automatisation excessive | HumanDecision contournée | Pilote + gates proportionnés |
+| R-07 | Authority leak | Effet non autorisé | Intersection d’autorité effective |
+| R-08 | Fake / REAL divergence | Fausse preuve | Preuves classées, aucun nouveau REAL ici |
+| R-09 | Second SoT | État contradictoire | Git / Evidence / provenance |
+| R-10 | Continuité confondue avec transcript exhaustif | Sur-persistence | Continuité sémantique MUST, transcript non requis |
+| R-11 | Dépendance OpenAI / Cursor | Indisponibilité / coût | Adaptateurs + STOP honnête |
+| R-12 | Scope produit trop large | Trajectoire infinie | MUST / SHOULD / FUTURE |
+| R-13 | Confusion Project / Cycle | Mauvais pilotage | Objets et parcours distincts |
+| R-14 | Confusion Roadmap / ProjectTrajectory / catalogue | Waterfall ou modèle figé | Distinctions §N / §X |
+| R-15 | Mauvaise gouvernance de dette | Micro-hardening ou blocker oublié | Priorité par MUST / preuve / sûreté |
+| R-16 | Couverture cognitive confondue avec généricité d’exécution | N moteurs / N campagnes arbitraires | Catalogue évolutif + mécanisme générique |
+| R-17 | Régression du native EC face au template canonique | Contrat incomplet / opaque | Parité fonctionnelle minimale |
+| R-18 | Drift doctrine / C1 / Roadmap | C2 sur cible stale | Sync dédiée avant gate C2 |
+| R-19 | Continuité artificielle / mémoire inventée | Faux contexte / faux GO | Requalification si information absente |
+| R-20 | ExecutionContract surcontraignant le HOW | Perte d’autonomie / fragilité | Contraindre seulement pour raison gouvernée |
 
 ---
 
-## V. Critères de succès produit
+## U. Inconnues résiduelles
 
-Aucun seuil arbitraire. Observables.
+Seules les inconnues susceptibles de modifier significativement conception, preuve ou trajectoire restent ouvertes :
 
-### V.1 Succès Cycle 1 (ce document)
+| ID | Inconnue | Impact à qualifier en conception |
+| --- | --- | --- |
+| U-01 | Profondeur et types de PJ / sources utilisateur | Scope intake, provenance, rétention |
+| U-02 | Frontières d’autorité et gates à matérialiser | Confirmation, protections, escalade |
+| U-03 | Niveau exact de preuve de généricité | Barre de preuve sans campagne arbitraire |
+| U-04 | Représentation native de l’ExecutionContract préservant parité et intelligibilité | Modèle fonctionnel / progressive disclosure |
+| U-05 | Situations / cycles représentatifs de la preuve | Contraste suffisant, nombre non décidé |
 
-- Intention distincte de la solution.
-- Problème / valeur requalifiés vs MVP.
-- Utilisateur primaire / stakeholders **sans invention**.
-- Périmètre / hors scope explicites.
-- Carte de capacités exploitable.
-- Parcours macro couverts.
-- NFR identifiées sans SLA inventés.
-- Dettes héritées routées.
-- Risques et inconnues visibles.
-- M6/M7 analysés en options.
-- ProjectTrajectory **candidate**.
-- Décisions Morris listées (regroupées).
-- Prochain cycle **recommandé**, non autorisé.
+Ne sont plus des inconnues :
 
-### V.2 Succès Product Completion (cible, pas claim actuel)
-
-- Un Project peut être créé, compris, piloté, repris.
-- Nora peut qualifier et accompagner un cycle.
-- Morris prend des décisions explicites.
-- Trajectoire exploitable et replanifiable.
-- ExecutionContract intelligible et gouverné.
-- Exécution Cursor possible **selon capabilities autorisées**.
-- STOP/FAIL ne deviennent pas des succès silencieux.
-- Evidence / ReviewBundle utiles.
-- Cycle history et project history exploitables au niveau décidé.
-- Reprise honnête.
-- Artefacts/sources traçables **si** in-scope.
-- Dette visible.
-- UX métier compréhensible.
-- Aucune architecture parallèle.
-- Runtime v3 adoption **toujours séparée** de l’implémentation.
+- rôle Pilote vs Morris runtime ;
+- nécessité de continuité sémantique ;
+- ProjectTrajectory MUST ;
+- mécanisme générique vs N moteurs ;
+- nombre fixe 15 ;
+- séquencement M6 / M7 ;
+- multi-user maintenant ;
+- completion bar Product Completion.
 
 ---
 
-## W. Critères de sortie Cycle 1
+## V. Disposition historique M6 / M7
 
-Le cadrage peut être **recommandé prêt à décision** (et l’est, comme candidat) si les critères V.1 tiennent.
+### V.1 Décision
 
-**Interdit :** « Cadrage validé » avant revue Morris.
+> **M6 / M7 — HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION.**
 
-**Maturité CKC estimée :** `suffisante_pour_decider` — périmètre + succès + inconnues listées ; **pas** `prete_a_borner` au sens « Cycle 2 ouvert ».
+Ils ne sont pas effacés de l’histoire et restent présents dans la Roadmap versionnée tant que le cycle de synchronisation n’a pas été exécuté. Ils sortent du forward critical path.
+
+### V.2 M6 historique
+
+La notion de boucle projet complète de M6 est absorbée dans les MUST Product Completion :
+
+- native ExecutionContract ;
+- AgentCapability ;
+- exécution générique ;
+- SUCCESS / STOP / FAIL ;
+- Evidence → Nora → LPS / ProjectTrajectory ;
+- continuité et prochaine décision.
+
+M6 n’est plus une option active, un futur jalon à recut ni une autorisation de Delivery.
+
+### V.3 M7 historique
+
+La notion de `15/15` CKC de M7 est absorbée dans :
+
+- couverture cognitive complète du catalogue applicable ;
+- Cycle Catalog Evolvability ;
+- validation cognitive sans autorité d’exécution.
+
+`15/15` reste une mesure historique / courante, pas une cible structurelle fixe. Il n’existe plus de séquencement actif M6 → M7 ni de choix 15-A / 15-B / 15-C.
+
+### V.4 M8
+
+M8 n’est pas requalifié, supprimé ou développé dans ce C1. Runtime v3 reste **NON ADOPTED**.
 
 ---
 
-## X. ProjectTrajectory candidate
+## W. Critères de succès, sortie C1 et cohérence
 
-**Statut : RECOMMENDATION jusqu’à décision Morris.** Pas 15 étapes imposées.
+### W.1 Succès du contenu C1 validé
 
-Point de départ :
+- cible Product Completion explicite ;
+- completion bar adoptée ;
+- intention séparée des solutions ;
+- rôle Pilote et gouvernance humaine clarifiés ;
+- MUST / SHOULD / FUTURE / OOS cohérents ;
+- capacités et parcours E2E ;
+- EC / AgentCapability / Cursor correctement séparés ;
+- catalogue de cycles évolutif ;
+- continuité inter-session MUST ;
+- NFR sans solution inventée ;
+- dette routée ;
+- risques structurants ;
+- vraies inconnues résiduelles seulement ;
+- M6 / M7 historiques et absorbés ;
+- ProjectTrajectory de construction adoptée ;
+- impacts doctrine / Roadmap identifiés ;
+- Decision Pack réduit aux décisions structurantes ;
+- prochain cycle recommandé mais non autorisé.
+
+### W.2 Succès Product Completion futur
+
+L’ensemble des MUST doit former une boucle utilisable, gouvernée, restart-safe et prouvée. Une implémentation partielle, un terminal technique, une coverage cognitive seule ou une preuve sur un unique cas spécialisé ne suffisent pas.
+
+### W.3 Exit de la continuation documentaire locale
+
+Le présent cycle local peut être déclaré prêt à review documentaire si :
+
+- ce fichier porte fidèlement la décision A→Y ;
+- les contradictions actives du candidat ont été retirées ;
+- les sources aval ne sont pas modifiées ;
+- le Review Pack FULL inclut le contenu complet ;
+- le Review Handoff canonique est publié / vérifié ;
+- aucun stage, commit, push, PR ou merge projet n’a eu lieu.
+
+### W.4 Invariants de cohérence
+
+- aucune section active ne présente Morris comme rôle runtime ;
+- ProjectTrajectory est MUST ;
+- continuité sémantique inter-session est MUST ;
+- AgentCapability n’est pas un feature catalog Cursor ;
+- le nombre 15 n’est pas un invariant produit ;
+- M6 / M7 ne sont pas des milestones forward actifs ;
+- la trajectoire n’impose pas C2 → C3 → C4 ;
+- D-PC-02…06 ne sont plus des décisions ouvertes ;
+- C2 reste recommandé mais **C2 EXECUTION NOT AUTHORIZED** ;
+- aucune source aval n’est prétendue déjà synchronisée.
+
+---
+
+## X. Product Completion ProjectTrajectory adoptée
+
+### X.1 Statut
+
+La trajectoire de construction suivante est **ADOPTED BY MORRIS — 2026-08-19** via `D-PC-07`. Son caractère adaptatif signifie que chaque sortie requalifie la suite ; elle n’autorise aucune transition automatique.
 
 ```text
-MVP ON MAIN (PR #361 / vérité #362)
-  → Cycle 1 Cadrage (ce cycle, candidate)
+MVP baseline
+  → C1 Cadrage
+  → validation Morris                     [CONSOMMÉE 2026-08-19]
+  → intégration locale de la révision     [PRÉSENT DOCUMENT]
+  → review ChatGPT / Morris
+  → intégration Git du C1                 [GATE DISTINCT]
+  → synchronisation doctrine / Roadmap impactées
+  → vérification repo coherence
+  → gate Morris
+  → Cycle 2 Conception fonctionnelle recommandé
+  → requalification dynamique de ProjectTrajectory
+  → cycles nécessaires selon gaps / dépendances
+  → conception suffisante par capacité
+  → slicing / Delivery E2E incrémental
+  → QA / proof par tranche
+  → Nora / replanification
+  → capacité suivante
+  → Product Completion integrated proof
+  → décision Morris de completion
 ```
 
-| Étape candidate | Nécessité | Entrée | Sortie | Dépendance | Décision Morris | Preuve attendue |
-| --- | --- | --- | --- | --- | --- | --- |
-| **C1 Cadrage** | Nécessaire | MVP + doctrine v3 + dette | Cible / scope / options | GO actuel | Revue de **ce** document | Ce fichier + handoff |
-| **C2 Conception fonctionnelle** | **Nécessaire** si usages MUST/SHOULD à détailler | Cadrage décidé | Comportements, règles, parcours détaillés **sans** UI | C1 accepté | GO Cycle 2 | Docs conception Product Completion (futurs) |
-| **C3 Architecture fonctionnelle** | **Nécessaire** pour frontières Project/Nora/contrat/preuves **après** comportements | Conception | Blocs logiques, flux, non-stack | C2 | GO C3 | Archi fonctionnelle **delta** vs backbone |
-| **C4 UX/UI** | **Conditionnel / probable** — surface conversationnelle est centrale | C2/C3 + harvest PRE-M6 | Contrat visuel Product Completion | C2 a minima | GO Figma/UX | Figma + comparaison runtime **plus tard** |
-| **C5 Backlog** | **Nécessaire** avant Delivery | C2–C4 selon besoin UX | Tranches capacité, pas tickets orphelins | C2 | GO backlog | Slices e2e |
-| **C6 Architecture technique** | **Conditionnel** — G0-A/G0-B **déjà consommés** | Écarts vs backbone | Delta technique, **pas** restart | C3 | GO technique | ADR delta · pas second store « par habitude » |
-| **Intégration / DevOps** | Conditionnel | Si CI/preuve l’exige | Pipeline borné | Existant Studio CI | Si gap réel | CI existante KEEP |
-| **Delivery / implémentation** | Nécessaire **par tranches de capacité** | Backlog + GO | Capacités e2e | Conception | GO par tranche · M6 Delivery **séparé** | Preuve utilisateur |
-| **QA / validation** | Nécessaire par tranche | Delivery | UAT/E2E · dettes | Delivery | Acceptation | Dont UAT-UX-06 / recovery |
-| **Sécurité / RSSI** | Conditionnel | Si write/git/IAM | Contrôles | AgentCapability | GO sécu | Threat/contrôles **alors** |
-| **Release** | Conditionnel | Si distribution | — | M8 plutôt | — | Hors initial |
-| **Observabilité / RUN** | Conditionnel | Si exploitation | — | M8 | — | Journal ≠ Product |
-| **PR readiness / post-merge / capitalisation** | **Transverse** chaque intégration | Diff | Handoff / Roadmap update | Git | GO commit/push/PR **distincts** | Process v2.6 externe |
+### X.2 Règles de trajectoire
 
-**Cycles nécessaires maintenant (candidate) :** C1 (ici) → C2.
+- **Architecture fonctionnelle** : conditionnelle si des frontières, rôles ou flux structurants doivent réellement être formalisés.
+- **UX/UI** : probablement nécessaire ; position déterminée par dépendances, pas par numéro fixe.
+- **Backlog** : incrémental avant les Delivery concernées, pas nécessairement intégral avant tout code.
+- **Architecture technique** : delta uniquement si besoin structurel réel.
+- **QA** : par tranche plus éventuelle preuve intégrée finale.
+- **Sécurité / DevOps / Release / RUN** : conditionnels à un besoin réel.
+- **PR readiness / post-merge / capitalisation** : transverses aux intégrations pertinentes, pas étapes métier fixes.
 
-**Conditionnels :** C4 selon besoin visuel ; C6 seulement en **delta** ; sécu/release/RUN selon autorités réellement visées.
+### X.3 Next-cycle recommendation
 
-**Transverses :** PR readiness, post-merge, capitalisation, honesty rails.
+Cycle 2 — Conception fonctionnelle est la prochaine capacité produit recommandée parce que le WHAT est cadré et que les principaux gaps portent d’abord sur comportements et règles fonctionnels.
 
-M6 (si OPTION 2) = **jalon de capacité** « boucle générique gouvernée », pas un 8ᵉ type de cycle forcé. M7 = jalon CKC, pas un cycle UX.
+C2 pourra détailler :
+
+- qualification / reasoning Nora ;
+- ProjectTrajectory ;
+- HumanDecision / Recommendation ;
+- native ExecutionContract ;
+- authority envelope ;
+- Confirmation ;
+- STOP / FAIL ;
+- Evidence return ;
+- recovery context ;
+- cycle catalog / CKC behavior ;
+- histoire / mémoire / provenance.
+
+La sortie C2 devra requalifier la trajectoire. Aucun C3 / cycle UX / Delivery n’est automatique.
+
+> **RECOMMENDED NEXT CYCLE ≠ EXECUTION AUTHORIZED.**
 
 ---
 
-## Y. Next-cycle options
+## Y. Décisions, réutilisation, impacts repository et gate
 
-| Option | Contenu | Quand elle gagne | Risque |
+### Y.1 Decision Pack final
+
+#### D-PC-01 — PRODUCT COMPLETION TARGET / SCOPE
+
+| Champ | Valeur |
+| --- | --- |
+| **Statut** | **ADOPTED BY MORRIS — 2026-08-19** |
+| **Objet** | Cible, completion bar, MUST / SHOULD / FUTURE / OOS révisés |
+| **Effet** | Remplace le périmètre candidat antérieur |
+| **Anti-claim** | Adoption de contenu ≠ intégration Git ≠ Delivery |
+
+#### D-PC-07 — PRODUCT COMPLETION TRAJECTORY
+
+| Champ | Valeur |
+| --- | --- |
+| **Statut** | **ADOPTED BY MORRIS — 2026-08-19** |
+| **Objet** | Trajectoire adaptative par capacités / dépendances ; M6 / M7 absorbés ; sync Git avant conception sur sources stale |
+| **Effet** | Remplace la séquence waterfall candidate |
+| **Anti-claim** | Trajectoire adoptée ≠ transitions autorisées |
+
+#### D-PC-08 — NEXT CYCLE RECOMMENDATION
+
+| Champ | Valeur |
+| --- | --- |
+| **Statut** | **ADOPTED BY MORRIS AS TRAJECTORY RECOMMENDATION — 2026-08-19** |
+| **Objet** | Cycle 2 — Conception fonctionnelle recommandé après repo coherence |
+| **Anti-claim** | **C2 EXECUTION NOT AUTHORIZED** |
+
+### Y.2 Disposition des décisions antérieures
+
+| ID | Disposition |
+| --- | --- |
+| **D-PC-02** | **ABSORBED INTO D-PC-01** — rôle runtime = Pilote |
+| **D-PC-03** | **SUPERSEDED** — disposition M6 / M7 + catalogue évolutif |
+| **D-PC-04** | **ABSORBED** — principes durability / continuity fixés ; représentation technique ultérieure |
+| **D-PC-05** | **ORIGINAL FORMULATION REPLACED** — EC + AgentCapability authority envelope ; pas de primitive Cursor feature catalog |
+| **D-PC-06** | **ABSORBED INTO SCOPE** — PJ / source intake SHOULD ; détails de conception ultérieurs |
+
+Aucune de ces décisions ne reste un arbitrage Morris ouvert.
+
+### Y.3 Reuse matrix finale
+
+| Actif | Classe | Traitement Product Completion |
+| --- | --- | --- |
+| M1–M5 | **KEEP** | Backbone prouvé |
+| PRE-M6 functional backbone | **KEEP / ADAPT** | Base produit, pas cible finale |
+| PRE-M6 UX Evidence / lessons | **HARVEST** | Apprentissage, pas contrat visuel |
+| PRE-M6 presentation | Historical reference | Pas le default final |
+| v3 framing `30`–`37` | **KEEP / ADAPT selectively later** | Baseline doctrine actuelle ; sync après C1 |
+| Build Doctrine | **KEEP** | Lois de construction |
+| Convergence Roadmap | **KEEP / REQUALIFY + SYNC later** | Artefact vivant |
+| Studio ExecutionContract | **KEEP / ADAPT** | Parité fonctionnelle + runtime v3 |
+| Logique template Cursor canonique v2.6 | **HARVEST** | Baseline fonctionnelle, jamais doctrine runtime |
+| ProjectTrajectory | **COMPLETE / ADAPT** | MUST core |
+| PJ / source intake | **NEW SHOULD** | Profondeur à concevoir |
+| D1 / OPS1 / execution-run | **FREEZE / RETIRE LATER / HARVEST utile** | Aucun moteur parallèle |
+| M6 / M7 | **SUPERSEDED / ABSORBED** | Trace historique conservée |
+
+Les docs historiques `04`–`07` restent des actifs de provenance / harvest. Leur ancien postulat v2.6 Option C et leur trajectoire POC sont superseded pour la cible Studio.
+
+### Y.4 Impacts doctrinaux et synchronisation repository
+
+Cette section **identifie** les impacts futurs ; elle ne les exécute pas.
+
+| # | Sujet | Sources probablement impactées | Traitement futur |
 | --- | --- | --- | --- |
-| **A — Cycle 2 Conception fonctionnelle** | Détailler comportements MUST/SHOULD, règles, parcours, ExecutionContract générique **fonctionnel**, durabilité comme besoin, artefacts comme règles | Usages encore trop gros pour architecturer ; CKC : « usages à détailler → conception » | Mini-conception trop technique |
-| **B — Architecture fonctionnelle avant conception détaillée** | Blocs et frontières d’abord | Si le cadrage avait déjà des comportements stables — **ce n’est pas le cas** pour EC générique, PJ, trajectory produit, STOP métier | Structurer trop tôt l’existant slice |
-| **C — UX/UI anticipée** | Explorer visuellement parce que le besoin utilisateur ne serait pas cadrable | Si Morris ne pouvait pas se représenter Home/LPS/conversation | Figma trop tôt · PRE-M6 existe déjà comme référence · Cycle 4 prévu |
+| 1 | **Pilote runtime** | Build Doctrine / framing applicable | ADAPT wording ; distinguer rôle runtime et Morris construction |
+| 2 | **AgentCapability** | framing `34` | ADAPT vers authority / governance envelope ; conserver taxonomie policy / effects utile |
+| 3 | **ExecutionContract** | framing `30`, `34`, `36` et sources liées | COMPLETE / ADAPT vers parité fonctionnelle canonique + runtime v3 |
+| 4 | **ProjectTrajectory** | framing `32` / Roadmap | COMPLETE / align MUST core |
+| 5 | **Cycle Catalog Evolvability** | framing `30`, `36`, Roadmap et routing applicable lors d’un cycle dédié | COMPLETE / REQUALIFY ; aucune promotion méthode globale ici |
+| 6 | **M6 / M7** | Convergence Roadmap | SUPERSEDE / ABSORB ; historique conservé ; retrait du forward path |
+| 7 | **Continuity / recovery** | framing LPS / trajectory et Roadmap liée | COMPLETE vers semantic inter-session continuity MUST |
+| 8 | **PRE-M6 reuse / Product Experience** | Roadmap / sources design applicables | KEEP / HARVEST fonctionnel et preuves UX ; pas de legacy presentation default |
 
-**Recommandation argumentée : A.**
-
-Raisons : (1) CKC Cadrage → Conception si usages à détailler ; (2) les gaps MUST (contrat générique, STOP, trajectoire, capsule, PJ, durabilité Confirmation) sont des **comportements**, pas d’abord des modules ; (3) une archi fonctionnelle maintenant recoderait le backbone ; (4) l’UX n’est pas le goulot de **compréhension** — PRE-M6 + outcomes suffisent à cadrer ; Figma reste Cycle 4 ; (5) `08` historique est harvest, pas spec active (Option C SUPERSEDED).
-
-**A n’est pas auto-sélectionné.** Morris tranche D-PC-08.
-
----
-
-## MORRIS DECISIONS REQUIRED
-
-Maximum structurant. Git a déjà répondu au reste.
-
-### D-PC-01 — Cible et périmètre Product Completion
-
-- **Contexte :** MUST/SHOULD/FUTURE/OOS de ce document vs barre « produit abouti » (U-08).
-- **Options :** (i) accepter la carte J/K ; (ii) resserrer (ex. PJ FUTURE, write FUTURE) ; (iii) élargir (ex. 15 exec natives, multi-user).
-- **Recommandation :** (i) carte J/K.
-- **Impact :** borne toute la trajectoire.
-- **Invariant :** MVP réutilisé ; v3 exclusive ; runtime non adopté.
-
-### D-PC-02 — Opérateur cible
-
-- **Contexte :** U-01 / U-10.
-- **Options :** (i) Morris seul à court terme, évolutivité sans delivery multi-user ; (ii) concevoir multi-user maintenant ; (iii) geler multi-user y compris evolutivité.
-- **Recommandation :** (i).
-- **Impact :** IAM/RGPD/UX.
-- **Invariant :** Morris reste L0 même si (ii).
-
-### D-PC-03 — Pack M6 / M7 / 15 cycles à M6
-
-- **Contexte :** §U.
-- **Options :** OPTION 1 KEEP · OPTION 2 RECUT · OPTION 3 REPOSITION ; et 15-A / 15-B / 15-C.
-- **Recommandation :** OPTION 2 + 15-B ; M7 après M6 requalifiée ; séquence conception/UX **autour** (esprit OPTION 3) sans renommer toutes les milestones maintenant.
-- **Impact :** exit proof M6 ; Roadmap (update **ultérieur**).
-- **Invariant :** M6/M7 non supprimés ; M6 Delivery **pas** autorisée par cette décision seule.
-
-### D-PC-04 — Profondeur de durabilité Product Completion initial
-
-- **Contexte :** P.2 · CONV/PROP/CONF · Trajectory · UAT-RECOVERY-03.
-- **Options :** (i) truth-only (KEEP actuel + recovery honnête) ; (ii) truth + Confirmation + Trajectory ; (iii) (ii) + Conversation/Proposal.
-- **Recommandation :** (ii) comme SHOULD ; (iii) si Morris juge la continuité de Nora MUST.
-- **Impact :** conception / éventuellement C6 delta — **pas** un choix SQLite ici.
-- **Invariant :** jamais inventer une conversation perdue ; fail-closed si Confirmation absente.
-
-### D-PC-05 — Enveloppe Cursor native initiale
-
-- **Contexte :** §M · U-04.
-- **Options :** (i) read + temporary generation seulement ; (ii) + local write gated ; (iii) + commit ; (iv) + push/PR/merge natifs.
-- **Recommandation :** (ii) comme cible initiale ; (iii) SHOULD ; (iv) FUTURE.
-- **Impact :** sécu, Ack, REAL GOs futurs.
-- **Invariant :** aucune classe n’est autorisée globalement ; REAL reste GO distinct.
-
-### D-PC-06 — Artefacts / PJ / sources
-
-- **Contexte :** §N · U-03.
-- **Options :** (i) Git + docs projet + DoctrinePackage seulement ; (ii) + PJ utilisateur bornées ; (iii) + sources externes.
-- **Recommandation :** (i) MUST ; (ii) SHOULD ; (iii) FUTURE gated.
-- **Impact :** Nora contexte ; RGPD/rétention si (ii)/(iii).
-- **Invariant :** artefact ≠ doctrine.
-
-### D-PC-07 — ProjectTrajectory candidate
-
-- **Contexte :** §X.
-- **Options :** (i) accepter C1→C2→C3→(C4)→C5→(C6 delta)→delivery par tranches ; (ii) compresser (ex. C2+C3) ; (iii) imposer 15 cycles projet.
-- **Recommandation :** (i).
-- **Impact :** planning réel.
-- **Invariant :** types de cycle disponibles ≠ 15 étapes obligatoires.
-
-### D-PC-08 — Prochain cycle
-
-- **Contexte :** §Y.
-- **Options :** A Conception fonctionnelle · B Architecture fonctionnelle · C UX/UI anticipée.
-- **Recommandation :** **A**.
-- **Impact :** prochain GO.
-- **Invariant :** aucun Cycle 2 sans GO explicite ; pas de Delivery.
-
----
-
-## Matrice de réutilisation des anciens actifs
-
-Les docs **04–07 ne deviennent pas** une deuxième doctrine active.
-
-| Actif | Statut historique | Valeur actuelle | Classe | Traitement Product Completion |
-| --- | --- | --- | --- | --- |
-| `04` detailed product framing | Validé D-VAL-9 · Option C | Friction, Morris, Git, gates | **HARVEST** / **REPLACE** Option C | Relu · non recopié · non réécrit |
-| `05` capabilities/use cases | C1–C16 cibles | Beaucoup encore vrais (qualification, contrat, suivi, preuves) | **HARVEST** / **ADAPT** | Mapper vers domaines §H · retirer POC/Option C |
-| `06` scope/success | Produit≠POC≠MVP | Distinctions utiles · MVP désormais défini | **HARVEST** / **REPLACE** MVP/POC | NFR candidates KEEP esprit |
-| `07` trajectory/decision pack | Trajectoire P0/POC | Historique consommé | **FREEZE** / **HARVEST** gates | Ne pas relancer POC |
-| `01` opportunity/vision | Pré-cadrage | Problème de plateforme | **HARVEST** | Vision réécrite v3 dans §F |
-| `08`–`09` conception/flux | Validés 2026-07-18 | Parcours F1–F12 harvestables | **HARVEST** / **ADAPT** | Reconception Product Completion au Cycle 2 · pas spec active |
-| `16`–`17` v3 journeys / info arch | Candidats | Patron parcours · 5 couches | **HARVEST** | Sans Excel/SQL doctrine · sans v2.6 SoT |
-| v3 framing `30`–`37` | Doctrine VALIDATED | Destination produit | **KEEP** | Cible · runtime non adopté |
-| Convergence Build Doctrine | VALIDATED construction | R1–R21 | **KEEP** | Non modifiée |
-| Convergence Roadmap | ACTIVE construction | PC-A…N · M6/M7 · B-PC-DEBT | **KEEP** + metadata pré-#362 **ignorée** | Non micro-fixée ici |
-| M1→M5 backbone | CLOSED/MERGED | MVP | **KEEP** | Réutiliser |
-| PRE-M6 UI | EXIT accepté + dette | ProductShell / conversation | **KEEP** / **ADAPT** | Pas rouvert |
-| OpenAI provider | Implémenté | Nora live possible | **KEEP** | **ZERO LIVE** ce cycle |
-| Cursor bounded REAL gateway | M4 CLOSED · default OFF | Preuve RO | **KEEP** | **ZERO REAL** ce cycle · futur GO |
-| Evidence / ReviewBundle | M5 ON MAIN | Preuve + reco | **KEEP** / **ADAPT** lisibilité | UAT-UX-06 |
-| History / Recovery | PRE-M6 | Honnêteté | **KEEP** / **COMPLETE** selon D-PC-04 | UAT-RECOVERY-03 |
-| ExecutionContract courant | M3 durable · PREPARE-only | Natif existant | **KEEP** / **ADAPT** générique | Pas second contrat |
-| Project / LPS | M1 durable | Socle | **KEEP** / **ADAPT** utilité | Contenu doctrinal `32` progressivement |
-| CycleInstance / CKC binding | M2 | Qualification réelle | **KEEP** | Proposal process-local = dette |
-| HumanDecision / DecisionBasis | M3 | Autorité | **KEEP** | Confirmation Memory = dette |
-| ProjectTrajectory modeled/Memory | T-A2 | Besoin réel | **COMPLETE** produit | Pas persistence choisie ici |
-| DoctrinePackage types | T-A0 | Pin partiel | **KEEP** / **COMPLETE** later | M7 pour 15/15 |
-| D1 / OPS1 UI / execution-run | Parallèles | Harvest OPS1 Cursor déjà classé | **FREEZE** / **HARVEST** déjà | Pas de nouvelle harvest inventée |
-| FinOps OA | Isolé | Inducteurs | **KEEP** isolé / **FREEZE** lots | Transverse |
-
----
-
-## Inventaire MVP actuel (lecture cadrage)
-
-**Surfaces utilisateur actuelles (PRE-M6 Option A — KEEP/ADAPT) :**
-
-- `/studio` — home projets (`ProductShell` + `ProjectsPage`)
-- `/studio/projects/new` — intention / création
-- `/studio/projects/[id]` — workspace : conversation dominante, LPS, history, recovery
-
-**Surfaces historiques encore présentes dans l’app** (`/`, `/workspace`, `/cycle-actif`, `/decision`, `/synthese`, `/projects/*`, `/ops1/*`, `/nouvelle-demande`) : **FREEZE / RETIRE LATER** recommandés — **pas** de retraite dans ce cycle.
-
-| Brique | Présent ? | Durabilité | Classe |
-| --- | --- | --- | --- |
-| Project / LPS | Oui | Product SQLite | KEEP |
-| Nora / conversation | Oui | Process-local | KEEP surface · durabilité ouverte |
-| Qualification F2 | Oui | Cycle SQLite · Proposal process-local | KEEP / COMPLETE proposal |
-| Proposal / Recommendation | Oui | Process-local / Recommendation-only | KEEP rails · durabilité ouverte |
-| HumanDecision | Oui | Product SQLite | KEEP |
-| DecisionBasis | Oui (embarqué HD) | Avec HD | KEEP |
-| ExecutionContract | Oui natif | Product SQLite | KEEP / ADAPT générique |
-| Confirmation | Oui concept + UI | Memory / process-local | KEEP concept · COMPLETE si D-PC-04 |
-| ExecutionAttempt | Oui | Product SQLite | KEEP |
-| Evidence / ReviewBundle | Oui | Product SQLite · remount UI | KEEP / ADAPT UX |
-| History / Recovery | Oui ancres + honesty | Durable facts only | KEEP / ADAPT capsule |
-| OpenAI provider | Oui | N/A | KEEP · unused this cycle |
-| Cursor REAL gateway | Oui, default OFF | Journal M5-C temporaire | KEEP · ZERO REAL ici |
-| ProjectTrajectory | Types + use cases | **Memory** | COMPLETE produit |
-| Epistemic | Types | **Memory** | ADAPT / FUTURE profondeur |
-| DoctrinePackage / CKC runtime | Pin/digest + resolver Memory | Partial | KEEP / FUTURE M7 |
-| Artefact / PJ intake | **Non** produit | — | NEW SHOULD |
-| Capability enforcement | RO borné + T-A7 | Local Morris TEMPORARY WITH EXIT | KEEP / NEW classes gated |
-
-Absence d’une capacité future **≠** bug.
-
----
-
-## Explicit non-claims (rappel de clôture documentaire)
-
-- Pas de cadrage validé.
-- Pas de scope / trajectory adopted.
-- Pas de Cycle 2 / M6 / M7 autorisés.
-- Pas de runtime v3 ADOPTED.
-- Pas d’architecture technique, stack, persistence, schema.
-- Pas d’UX détaillée ni Figma.
-- Pas de backlog détaillé.
-- Pas de Delivery, REAL, OpenAI live.
-- Pas de commit / push / PR / merge projet.
-- Pas de modification Doctrine / Roadmap / method / app.
-- Options M6/M7 et next cycle = **recommandations**.
-
----
-
-## Gate suivant
+Règle de synchronisation :
 
 ```text
-MORRIS REVIEW — SFIA STUDIO PRODUCT COMPLETION CYCLE 1 CADRAGE
-— DECIDE PRODUCT TARGET / SCOPE / TRAJECTORY / NEXT CYCLE
-— NO CONCEPTION OR DELIVERY UNTIL EXPLICIT GO
+C1 validé et intégré
+  → cycle documentaire séparé de synchronisation
+  → repo coherence
+  → gate Morris pour C2
 ```
 
----
+La divergence temporaire entre ce C1 validé localement et les sources versionnées est une dette documentaire transitoire explicite, pas une permission de les modifier ici.
 
-*SFIA Studio — Product Completion — Cycle 1 Cadrage — CANDIDATE — AWAITING MORRIS REVIEW / DECISION — Morris décide.*
+### Y.5 Non-claims finaux
 
+Le document peut dire :
 
----
+- C1 revised content **VALIDATED BY MORRIS** ;
+- Product Completion Target / Scope **ADOPTED BY MORRIS** ;
+- Product Completion Trajectory **ADOPTED BY MORRIS** ;
+- C2 Conception fonctionnelle **ADOPTED AS NEXT-CYCLE RECOMMENDATION**.
 
-## 10. Synthèse exploitable (ne remplace PAS le contenu §9)
+Le document ne dit pas :
 
-### Classification des actifs
-Voir matrice dans le cadrage : 04–07 HARVEST/REPLACE Option C · v3 30–37 KEEP cible · Build Doctrine/Roadmap KEEP construction · M1–M5 KEEP · PRE-M6 KEEP/ADAPT · OpenAI/Cursor gateway KEEP · Trajectory Memory COMPLETE produit · PJ NEW SHOULD.
+- C1 déjà intégré à `main` ;
+- Roadmap, Build Doctrine ou framing `30`–`37` déjà synchronisés ;
+- C2 autorisé ou démarré ;
+- architecture / persistence / schema / API choisis ;
+- UX / Figma Product Completion finalisés ;
+- backlog défini ;
+- Delivery autorisée ;
+- generic execution Product Completion prouvée ;
+- couverture CKC Product Completion déjà implémentée ;
+- M6 / M7 déjà synchronisés dans la Roadmap ;
+- runtime v3 ADOPTED ;
+- v3 promu baseline méthodologique globale ;
+- nouvelle preuve REAL.
 
-### Capability map
-Domaines requalifiés PC-A…PC-N : Project, Nora, Qualification, Knowledge, LPS, Trajectory, Decision, ExecutionContract, AgentCapability, Cursor adapter, Execution lifecycle, STOP/FAIL, Evidence, Cycle history, Artifacts, Recovery, Product Experience, Governance.
-
-### Scope
-MUST = Project/LPS/Nora/HD/EC natif/Evidence/STOP-FAIL/recovery honnête/reuse MVP.
-SHOULD = Trajectory produit, capsule, Confirmation durable ou requalify, PJ, write gated, Evidence métier, AMEND.
-FUTURE = multi-user, CKC 15/15, runtime ADOPTED, push/PR/merge natifs, Notion.
-OUT OF SCOPE = remplacer Git, L5, 15 moteurs, parallèle, v2.6 runtime, POC gratuits, micro-hardening PRE-M6, auto-adoption, auto-décision Morris.
-
-### User journeys
-18 parcours macro fonctionnels (créer → cycle suivant), non visuels.
-
-### NFR
-Identifiées sans seuils (sécu, confidentialité, secrets, traçabilité, audit, réversibilité, fiabilité, restart-safety, a11y, perf, FinOps, maintenabilité, observabilité, interop, fournisseurs, rétention, sobriété, RGPD qualification légère).
-
-### Dettes
-B-PC-DEBT intégralement routée, non remboursée.
-
-### Risques
-R-01…R-16 (reconstruction, parallèle, authority leak, 15-cycle arbitraire, etc.).
-
-### Inconnues
-U-01…U-10 (opérateur, history depth, PJ, autorité Cursor, durabilité conv, 15-at-M6, M7, barre « abouti », AMEND, multi-user evolutivité).
-
-### M6/M7 options
-OPTION 1 KEEP · OPTION 2 RECUT · OPTION 3 REPOSITION.
-Recommandation : OPTION 2 + séquence type OPTION 3 via ProjectTrajectory.
-15-cycles-at-M6 : 15-A/B/C · recommandation **15-B** (générique + sous-ensemble représentatif) · **pas** décision.
-
-### ProjectTrajectory candidate
-MVP → C1 → C2 conception → C3 archi fonctionnelle → C4 UX conditionnel → C5 backlog → C6 technique **delta** → delivery par tranches. M6 = jalon capacité générique si OPTION 2.
-
-### Morris Decisions Required
-D-PC-01 cible/périmètre · D-PC-02 opérateur · D-PC-03 M6/M7/15 · D-PC-04 durabilité · D-PC-05 enveloppe Cursor · D-PC-06 PJ · D-PC-07 trajectory · D-PC-08 next cycle.
-
-### Next-cycle options + recommandation
-A Conception fonctionnelle · B Archi fonctionnelle · C UX anticipée.
-**Recommandation : A.** Non autorisé.
-
----
-
-## 11. git diff --check / staged
-
-- tracked `git diff --check` : clean
-- livrable untracked `git diff --check --no-index` : pas d'issues whitespace
-- **Staged projet : EMPTY**
-
----
-
-## 12. ZERO REAL
-
-- Studio non démarré
-- OPENAI_LIVE_CALL_COUNT = 0
-- CURSOR_REAL_PRODUCT_PROCESS_COUNT = 0
-- Preuves REAL historiques citées uniquement comme evidence existante (M4 RO)
-
----
-
-## 13. Actions réalisées
-
-- date + git fetch origin main / handoff / rebaseline / pre-m6
-- Git truth check (main, PR #362, CI, branches préservées, blob handoff)
-- création branche locale `docs/sfia-studio-product-completion-c1-cadrage` depuis `origin/main`
-- lecture doctrine construction, roadmap, v3 30–37, historiques 01/04–07, harvest 08/09/16/17, processus v2.6, CKC, inventaire MVP
-- création de `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-- Review Pack FULL (ce fichier) avec contenu complet du cadrage
-- publication Review Handoff L3 (après ce pack)
-
----
-
-## 14. Actions NON réalisées
-
-- git add / commit / push branche projet
-- gh pr create / merge / delete branch / force push / rebase / amend / reset --hard / git clean
-- modification Build Doctrine, Roadmap, framing v3, docs 01–09, app, method, prompts, schemas, migrations
-- architecture technique / stack / persistence / schema
-- UX détaillée / Figma
-- backlog détaillé
-- Delivery / M6 / M7 / Cycle 2
-- OpenAI LIVE / Cursor REAL produit
-- remboursement dette
-- invention de décision Morris
-
----
-
-## 15. Verdict
-
-PASS — SFIA STUDIO PRODUCT COMPLETION CYCLE 1 CADRAGE PREPARED — CURRENT MVP REUSED AS BASELINE — PRODUCT INTENT / USERS / VALUE / TARGET CAPABILITIES / SCOPE / OUT-OF-SCOPE / MACRO JOURNEYS / NFR / GOVERNANCE / INHERITED DEBT / RISKS / UNKNOWNS QUALIFIED — HISTORICAL ASSETS CLASSIFIED — M6/M7 REQUALIFICATION OPTIONS PREPARED — CANDIDATE PROJECT TRAJECTORY PREPARED — MORRIS DECISIONS REQUIRED IDENTIFIED — NEXT-CYCLE OPTIONS + RECOMMENDATION PREPARED — RUNTIME V3 NON ADOPTED — ZERO REAL — NO DELIVERY — NO PROJECT COMMIT/PUSH/PR — READY FOR MORRIS CADRAGE REVIEW
-
-**Non-claims :** CADRAGE VALIDATED · SCOPE ADOPTED · TRAJECTORY ADOPTED · READY FOR DELIVERY · CYCLE 2 AUTHORIZED — **non utilisés**.
-
----
-
-## 16. Next gate
+### Y.6 Gate final
 
 ```text
-MORRIS REVIEW — SFIA STUDIO PRODUCT COMPLETION CYCLE 1 CADRAGE
-— DECIDE PRODUCT TARGET / SCOPE / TRAJECTORY / NEXT CYCLE
-— NO CONCEPTION OR DELIVERY UNTIL EXPLICIT GO
+INTEGRATE VALIDATED C1
+  → SYNCHRONIZE IMPACTED GOVERNANCE/DOCTRINE SOURCES
+  → VERIFY REPO COHERENCE
+  → MORRIS GATE FOR C2 EXECUTION
 ```
+
+**Aucune transition automatique vers C2.**
+
+---
+
+*SFIA Studio — Product Completion — Cycle 1 Cadrage — VALIDATED BY MORRIS — CONTENT DECISION CONSUMED — GIT INTEGRATION PENDING.*
+
+
+---
+
+## 15. Review Pack completeness
+
+| Champ | Valeur |
+| --- | --- |
+| Fichier modifié | C1 substantiellement réécrit |
+| Contenu complet final présent | **OUI** |
+| Synthèse seule | **NON** |
+| Review Pack | **FULL / COMPLETE** |
+| Publication handoff | Étape immédiatement suivante via publisher canonique |
+
+## 16. Actions projet non réalisées
+
+- staged C1 : NON ;
+- commit projet : NON ;
+- push projet : NON ;
+- PR : NON ;
+- merge : NON.
