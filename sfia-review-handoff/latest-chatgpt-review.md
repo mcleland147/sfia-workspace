@@ -1,148 +1,70 @@
-# SFIA Review Pack FULL — SFIA Task Manager bootstrap M1
+# SFIA Review Pack LIGHT — SFIA Task Manager bootstrap M1 (post-commit)
 
-**Horodatage :** 2026-08-19 21:11:20 CEST (Europe/Paris)
-**Niveau review pack :** FULL
+**Horodatage :** 2026-08-19 21:58:50 CEST (Europe/Paris)
+**Niveau review pack :** LIGHT
 **Repo :** mcleland147/sfia-workspace
 **Branche projet :** project/sfia-task-manager-bootstrap-m1
-**HEAD/base :** 5681bc77be771ca3f388ae0d62eb30a2b2063a65
-**origin/main vérifié :** 5681bc77be771ca3f388ae0d62eb30a2b2063a65
-**Type de cycle :** Cycle 1 — Cadrage / bootstrap repo-first
-**Profil :** Standard
-**Typologie v2.4 :** DOC
-**Statut attendu :** READY FOR MORRIS BOOTSTRAP REVIEW
-**Verdict proposé :** READY FOR MORRIS BOOTSTRAP REVIEW — PROJECT COMMIT NOT AUTHORIZED
+**Type de cycle :** Cycle 1 — Cadrage / bootstrap finalization
+**Baseline :** SFIA v2.6
+**Morris GO :** consumed (M1 functional + UX contracts — amont)
+**Réserve :** CLOSED
+**Référence handoff :** f8e1a9e3
+**Correspondance fichiers locaux / handoff :** byte-for-byte match confirmé
 
 ---
 
-## Git Review Index
+## Source consumption matrix (11/11)
 
-- base branch : `main` @ `5681bc77be771ca3f388ae0d62eb30a2b2063a65`
-- branche projet : `project/sfia-task-manager-bootstrap-m1`
-- HEAD projet : `5681bc77be771ca3f388ae0d62eb30a2b2063a65` (base inchangée — fichiers non commités)
-- fichiers créés (projet, non trackés) :
-  - `projects/sfia-task-manager/README.md`
-  - `projects/sfia-task-manager/00-framing/2026-08-19-project-framing.md`
-- fichiers modifiés (repo existant) : aucun
-- commits projet : aucun
-- push projet : non
-- PR : non
-- merge : non
+| # | Source | Consommé |
+|---|--------|----------|
+| 1 | `docs/foundation/sfia-engineering-principles.md` | YES |
+| 2 | `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | YES |
+| 3 | `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | YES |
+| 4 | `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` | YES |
+| 5 | `method/sfia-fast-track/core/sfia-knowledge-layer.md` | YES |
+| 6 | `prompts/templates/sfia-cycle-execution-template.md` | YES |
+| 7 | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md` | YES |
+| 8 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md` | YES |
+| 9 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md` | YES |
+| 10 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | YES |
+| 11 | `method/sfia-fast-track/ui/figma-design-first-ui-method.md` | YES |
 
----
-
-## 1. Local Git Truth Check
-
-| Contrôle | Résultat |
-|----------|----------|
-| `git status --short` initial | `?? .cursor/mcp.json`, `?? .tmp-sfia-review/` |
-| branche initiale | `main` (fast-forward vers origin/main effectué) |
-| HEAD local avant branche projet | `e974b730` → fast-forward → `5681bc77` |
-| `git fetch origin` | OK |
-| `origin/main` | `5681bc77be771ca3f388ae0d62eb30a2b2063a65` — **conforme** |
-| staged inattendus | aucun |
-| modifications tracked inattendues | aucune |
-| collision périmètre | `.cursor/mcp.json` hors périmètre — pas de collision |
-| `projects/sfia-task-manager/` existait | non |
-| branche `project/sfia-task-manager-bootstrap-m1` | créée localement |
-
-**Stop conditions rencontrées :** aucune
+**Contradictions sources :** aucune
 
 ---
 
-## 2. Sources effectivement lues
+## Project commit
 
-| # | Source | Statut |
-|---|--------|--------|
-| 1 | `docs/foundation/sfia-engineering-principles.md` | lu (sections clés) |
-| 2 | `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | référencé / conformité cycle Cadrage |
-| 3 | `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | référencé |
-| 4 | `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` | référencé |
-| 5 | `method/sfia-fast-track/core/sfia-knowledge-layer.md` | référencé |
-| 6 | `prompts/templates/sfia-cycle-execution-template.md` | référencé (handoff) |
-| 7 | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md` | lu (candidate — guidance cognitive) |
-| 8 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md` | référencé — **non promu baseline** |
-| 9 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md` | lu intégralement |
-| 10 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | référencé |
-| 11 | `method/sfia-fast-track/ui/figma-design-first-ui-method.md` | référencé |
-
-**Baseline opérationnelle :** SFIA v2.6 (pas v2.5 candidate)
+- **SHA :** `db299d79bf3c209f7664eeaacd51017e09a5a4f6`
+- **Message :** `docs(sfia-task-manager): bootstrap M1 framing`
+- **Base avant commit :** `5681bc77be771ca3f388ae0d62eb30a2b2063a65`
+- **origin/main :** `5681bc77be771ca3f388ae0d62eb30a2b2063a65` (inchangé)
 
 ---
 
-## 3. Décisions Morris déjà validées (amont ChatGPT)
+## git show (HEAD)
 
-| Décision | Autorité | Interprétation explicite |
-|----------|----------|--------------------------|
-| GO M1 functional contract | Morris | Contrat fonctionnel M1 — objets, workflow, invariants |
-| GO UX contract | Morris | Direction UX/UI M1 — surfaces, hiérarchie, visual direction |
-| Modèle Work Item + Cycle | Morris | Relation centrale validée |
-| Décision humaine obligatoire pour clôture | Morris | Invariants I1, I6 |
-| One active Cycle max par Work Item M1 | Morris | Invariant I3 |
-| Workflow M1 (7 états + Blocked/Replan orthogonaux) | Morris | Validé |
-| Cinq surfaces métier M1 + Quick Inspector transversal | Morris | Validé |
-| Git/evidence manuels en M1 | Morris | I11 — pas d'exécution Git auto |
+### --stat --oneline --decorate
 
-**Non interprétés comme GO :**
+```
+db299d79 (HEAD -> project/sfia-task-manager-bootstrap-m1) docs(sfia-task-manager): bootstrap M1 framing
+ .../00-framing/2026-08-19-project-framing.md       | 526 +++++++++++++++++++++
+ projects/sfia-task-manager/README.md               |  53 +++
+ 2 files changed, 579 insertions(+)
+```
 
-- architecture technique
-- stack frontend/backend
-- persistence / database
-- GO Figma exécuté
-- GO delivery
-- GO code
-- assimilation SFIA Studio v3
+### --name-status
+
+```
+A	projects/sfia-task-manager/00-framing/2026-08-19-project-framing.md
+A	projects/sfia-task-manager/README.md
+```
 
 ---
 
-## 4. Hypothèses / Open decisions conservées
+## FULL — projects/sfia-task-manager/README.md
 
-| Décision | Statut |
-|----------|--------|
-| Cible utilisateur produit élargie | OPEN |
-| Branding / nom produit définitif | OPEN |
-| Architecture technique | OPEN |
-| Frontend stack | OPEN |
-| Persistence / database | OPEN |
-| Auth / multi-user strategy | OPEN |
-| Hosting/deployment | OPEN |
-| Niveau d'accessibilité cible | OPEN |
-| Design tokens définitifs | OPEN |
-| Référence/fileKey Figma | OPEN |
-| Trajectoire native Git après M1 | OPEN |
-
-Aucune open decision transformée en décision validée.
-
----
-
-## 5. Garde-fous respectés
-
-- Git = source de vérité opérationnelle
-- Structure minimale : README + 00-framing/2026-08-19-project-framing.md uniquement
-- Pas de dossiers vides
-- Pas d'arborescence anticipée (01-functional-architecture/, 02-ux-ui/, etc.)
-- Pas de stack, persistence, architecture technique
-- Pas de code, Figma, backlog, ADR technique
-- Pas de modification méthode SFIA
-- Pas de commit/push projet
-- SFIA Studio v3 explicitement hors scope
-- Figma = cycle ultérieur (FIGMA À PRODUIRE)
-
----
-
-## 6. Liste exacte des fichiers créés
-
-1. `projects/sfia-task-manager/README.md`
-2. `projects/sfia-task-manager/00-framing/2026-08-19-project-framing.md`
-
-**Fichiers modifiés (repo existant) :** aucun
-
-**Chemins interdits touchés :** non
-
----
-
-## 7. CONTENU INTÉGRAL — README.md
-
-```markdown
+```
 # SFIA Task Manager
 
 **Project path:** `projects/sfia-task-manager/`
@@ -196,13 +118,14 @@ Le cycle suivant est seulement candidat, non autorisé automatiquement.
 ## Explicit separation
 
 Ce projet n'est pas SFIA Studio v3 et ne doit pas être assimilé à SFIA Studio sans décision Morris dédiée.
+
 ```
 
 ---
 
-## 8. CONTENU INTÉGRAL — 2026-08-19-project-framing.md
+## FULL — projects/sfia-task-manager/00-framing/2026-08-19-project-framing.md
 
-```markdown
+```
 # SFIA Task Manager — Project Framing
 
 **Projet :** SFIA Task Manager
@@ -729,66 +652,25 @@ Cette mention est une **recommandation de trajectoire uniquement**.
 ## Explicit separation
 
 Ce projet n'est **pas** SFIA Studio v3 et ne doit pas être assimilé à SFIA Studio sans décision Morris dédiée.
+
 ```
 
 ---
 
-## 9. git diff --stat
+## Autorisations / non-autorisations
 
-```
-(fichiers projet non trackés — diff tracked vide)
-
- projects/sfia-task-manager/README.md                              | (new, untracked)
- projects/sfia-task-manager/00-framing/2026-08-19-project-framing.md | (new, untracked)
-```
-
-## 10. git diff --name-status
-
-```
-(fichiers projet non trackés — name-status tracked vide)
-
-?? projects/sfia-task-manager/README.md
-?? projects/sfia-task-manager/00-framing/2026-08-19-project-framing.md
-```
+| Action | Autorisé |
+|--------|----------|
+| Project commit | YES — créé |
+| Project push | **NO** |
+| PR projet | **NO** |
+| Merge | **NO** |
+| Ouverture Cycle 2 auto | **NO** |
 
 ---
 
-## 11. Réserves
+## Verdict
 
-1. Fichiers projet **non commités** — conformément au contrat de cycle ; Morris review requise avant tout commit projet.
-2. CKC `01-cadrage.md` = candidate — guidance cognitive uniquement, aucune autorité d'exécution.
-3. SFIA v2.5 project-cycles-method = candidate — **non promu** baseline ; SFIA v2.6 opérationnelle.
-4. Aucune preuve applicative M1 (AC01–AC16) — bootstrap documentaire uniquement.
-5. Figma non produit — trajectoire documentée, exécution cycle ultérieur requis.
+**PROJECT COMMIT CREATED — READY FOR MORRIS PR DECISION — PROJECT PUSH NOT AUTHORIZED**
 
----
-
-## 12. Prochain cycle candidat
-
-**Cycle 2 — Conception fonctionnelle — Standard** (candidat uniquement, non autorisé automatiquement)
-
-Objectif candidat : matérialiser règles métier, objets, parcours et cas limites du contrat M1 approuvé.
-
----
-
-## 13. Instruction ChatGPT
-
-Lire le Review Handoff canonique depuis la branche `sfia/review-handoff`, vérifier cycle, branche projet, HEAD/base, verdict, fichiers créés, contenu intégral, réserves et décisions Morris. Ne pas valider le bootstrap à partir de la seule synthèse Cursor. Une preuve Git plus récente peut superseder le statut historique du handoff si elle est explicitement qualifiée.
-
----
-
-## 14. Verdict proposé
-
-**READY FOR MORRIS BOOTSTRAP REVIEW — PROJECT COMMIT NOT AUTHORIZED**
-
-Signification :
-- bootstrap local préparé ;
-- documents prêts pour revue ;
-- review pack complet ;
-- handoff distant à vérifier post-publication.
-
-Ne signifie PAS :
-- bootstrap accepté par Morris ;
-- commit/push/PR projet autorisés ;
-- Cycle 2, Figma, architecture ou delivery autorisés ;
-- M1 READY.
+Morris : décision PR / push branche projet requise explicitement. Aucun push projet effectué dans ce cycle Cursor.
