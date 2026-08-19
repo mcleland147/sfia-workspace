@@ -114,8 +114,8 @@ bash scripts/sfia/publish-review-handoff.sh \
 | Field | Value |
 |-------|-------|
 | canonical_path | sfia-review-handoff/latest-chatgpt-review.md |
-| blob | 7af967c3fa669c7f526d20a93abc35269c244a77 |
-| commit (handoff SHA) | cec92067bbcc577e64fadc2264428f2387764e38 |
+| blob | ce1fd4b99bb483523953ba46b0d536fdac8229c4 |
+| commit (handoff SHA) | ee270f2a168c9930ace87c38031d252f205d614f |
 | branch | sfia/review-handoff |
 
 ## Phase 7 — Final git truth (main workspace)
