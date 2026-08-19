@@ -370,9 +370,9 @@ index aa9b2d19..210e933a 100644
 - **Publisher** : `scripts/sfia/publish-review-handoff.sh`
 - **Branche handoff** : `sfia/review-handoff`
 - **Fichier canonique** : `sfia-review-handoff/latest-chatgpt-review.md`
-- **Commit handoff** : `56358bcd0fb69febc218f74df72c7100ed4eed09`
-- **Blob canonique** : `1352c3ff808dd1950a09157c50032c6cf718a7e5`
-- **Remote verified** : PASS · `origin/sfia/review-handoff` @ `56358bcd…`
+- **Commit handoff** : `fdec6c679f52d93a85937eb2f33d4ce86267d33a`
+- **Blob canonique** : `66df9bb387d38c02270037d302d331d7ac33af3e`
+- **Remote verified** : PASS · `origin/sfia/review-handoff` @ `fdec6c67…`
 - **Retour branche projet** : `docs/sfia-studio-pr365-post-merge-current-state-sync` · HEAD `75d77e21…`
 
 ---
