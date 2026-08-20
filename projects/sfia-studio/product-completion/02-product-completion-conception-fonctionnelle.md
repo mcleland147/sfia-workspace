@@ -7,15 +7,19 @@
 | **Profil document** | **CRITICAL** |
 | **Typologie** | **DOC** — documentation-only · impact structurant aval |
 | **Milestone** | PRODUCT COMPLETION — CYCLE 2 — CONCEPTION FONCTIONNELLE |
-| **Statut** | **VALIDATED BY MORRIS — PR #369 OPEN — PENDING MERGE ON MAIN** |
+| **Statut** | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** |
 | **Décision Morris validation C2** | VALIDATE SFIA STUDIO PRODUCT COMPLETION CYCLE 2 — FUNCTIONAL DESIGN — WITH NON-BLOCKING EDITORIAL RESERVES IDENTIFIED IN FINAL CHATGPT RE-REVIEW — NO DELIVERY — NO NEXT-CAPABILITY EXECUTION — RUNTIME V3 NON ADOPTED |
-| **GO Morris intégration Git C2** | GO MORRIS — C2 GIT INTEGRATION — **CONSUMED** — commit · push · PR #369 ouverte · **NO MERGE** |
+| **GO Morris intégration Git C2** | GO MORRIS — C2 GIT INTEGRATION — **CONSUMED** — commit · push · PR #369 |
+| **GO Morris merge PR #369** | GO MORRIS — PR #369 READY + MARK READY FOR REVIEW + MERGE INTO MAIN — **CONSUMED** — PR #369 **MERGED** |
 | **Provenance validation** | Handoff immuable `7802bbad306b8bc4caf28609fec554c808c44aef` · blob `a4477384ed7c713056c3b15bd189cbdaefd07b05` |
-| **Commit intégration C2** | `dff6778d04b85f511fb661e9edb71618e9f7af0a` |
-| **Pull Request** | #369 · `docs/sfia-studio-product-completion-c2-integration-clean` → `main` · Draft · **merge non autorisé** |
-| **Base Git (branche intégration propre)** | `db13f125785b248d1c3f059eb975e364558d0860` (origin/main courant) |
-| **origin/main observé** | `db13f125785b248d1c3f059eb975e364558d0860` |
-| **Branche intégration propre** | `docs/sfia-studio-product-completion-c2-integration-clean` · commitée · poussée · head `dff6778d…` · PR #369 |
+| **Commit intégration C2 (historique)** | `dff6778d04b85f511fb661e9edb71618e9f7af0a` — premier commit d'intégration sur branche propre |
+| **Head intégré** | `3c78c6763d0d090bdc38f3866ecd71ed6be219d0` — head PR #369 mergé |
+| **Pull Request** | #369 · **MERGED** · 2026-08-20 · `docs/sfia-studio-product-completion-c2-integration-clean` → `main` |
+| **Merge commit** | `2406ccda211842fc7f8da3699bb186a30f7dc105` |
+| **Base pré-merge (historique)** | `db13f125785b248d1c3f059eb975e364558d0860` |
+| **Base main de référence avant PR #370** | `2406ccda211842fc7f8da3699bb186a30f7dc105` *(historique · merge C2 fonctionnel PR #369)* |
+| **Branche intégration propre** | `docs/sfia-studio-product-completion-c2-integration-clean` · **PRESERVED** @ `3c78c676…` |
+| **Post-merge metadata coherence sync** | Carried by **PR #370** · integration status determined from **Git / PR evidence** |
 | **Anomalie intégration historique** | Remote commit `780ab4c5` sur `docs/sfia-studio-product-completion-c2-functional-design` — **UNAUTHORIZED HISTORICAL PROJECT COMMIT** · **SUPERSEDED FOR INTEGRATION** · **PRESERVED FOR AUDIT** · clean integration préparée depuis origin/main courant |
 | **GO Morris initial** | GO MORRIS — START PRODUCT COMPLETION CYCLE 2 — CONCEPTION FONCTIONNELLE — **NO DELIVERY** |
 | **GO Morris correction** | Morris a autorisé la correction à partir de la revue fonctionnelle consolidée (A→21) |
@@ -29,7 +33,9 @@
 
 ## 1. Métadonnées et autorité
 
-Ce document est la **conception fonctionnelle validée** du Cycle 2 Product Completion — **VALIDATED BY MORRIS — PR #369 OPEN — PENDING MERGE ON MAIN**. Il transforme la cible, le scope et la trajectoire validés en C1 en un **modèle fonctionnel** cohérent, testable et traçable — sans choisir architecture technique, persistence, schema, API, stack, Figma, backlog ou implémentation.
+Ce document est la **conception fonctionnelle validée et intégrée** du Cycle 2 Product Completion — **VALIDATED BY MORRIS — INTEGRATED ON MAIN** (PR #369 / merge `2406ccda…`). Il transforme la cible, le scope et la trajectoire validés en C1 en un **modèle fonctionnel** cohérent, testable et traçable — sans choisir architecture technique, persistence, schema, API, stack, Figma, backlog ou implémentation.
+
+**Distinction current-state :** Document content fonctionnel = **VALIDATED** · Functional C2 = **INTEGRATED ON MAIN** · Post-merge metadata coherence sync = **carried by PR #370** · integration status = **Git / PR evidence authoritative**.
 
 | Champ | Valeur |
 | --- | --- |
@@ -37,18 +43,18 @@ Ce document est la **conception fonctionnelle validée** du Cycle 2 Product Comp
 | **Autorisation C2** | GO Morris C2 distinct de la validation C1 — consommé pour démarrer C2 · correction autorisée par revue consolidée |
 | **Doctrine active** | Framings v3 `30`–`37` — **VALIDATED** / doctrine active · read-only pour ce cycle |
 | **Build Doctrine / Roadmap** | read-only pour ce cycle |
-| **Effet de ce C2** | Conception fonctionnelle **validée** · commitée sur branche propre · PR #369 ouverte · merge main **pending** · Review Handoff **≠** merge |
-| **Gate suivant** | **MORRIS C2 PR READINESS REVIEW → MERGE GO** (merge **non autorisé** par ouverture PR seule) |
+| **Effet de ce C2** | Conception fonctionnelle **validée** · **INTEGRATED ON MAIN** via PR #369 / `2406ccda…` · Review Handoff **≠** merge |
+| **Gate suivant** | **PR #370 post-merge documentary coherence integration** → when Git proves integration → **NEXT-CAPABILITY REQUALIFICATION** → Morris GO séparé avant toute exécution |
 
 ### 1.1 Anti-claims d'autorité
 
 | Claim interdit | Règle |
 | --- | --- |
 | C2 functional design validé | **OUI** — validation Morris C2 consommée |
-| C2 intégré / mergé sur main | **NON** — PR #369 ouverte · merge pending Morris GO |
+| C2 intégré / mergé sur main | **OUI** — PR #369 **MERGED** · merge `2406ccda…` |
 | Delivery autorisé | **NON** |
 | runtime v3 ADOPTED | **NON ADOPTED** |
-| Capacité suivante autorisée | **NON** — requalification après intégration Git |
+| Capacité suivante autorisée | **NON** — **NOT SELECTED** · requalification requise · Morris GO séparé |
 
 ---
 
@@ -77,7 +83,7 @@ Matrice par rôle — **≠** pyramide globale unique :
 | **Framings 30–37** | Doctrine produit v3 active |
 | **Build Doctrine** | Lois de construction SFIA Studio |
 | **Convergence Roadmap** | État de convergence · prochaine capacité |
-| **C2 functional design validé** | Modèle fonctionnel Morris-validated · PR #369 · **pending merge on main** |
+| **C2 functional design validé** | Modèle fonctionnel Morris-validated · PR #369 **MERGED** · **INTEGRATED ON MAIN** |
 | **Actifs harvestés (08–10, PRE-M6)** | Provenance · réutilisation · **≠** SoT actuelle |
 | **CKC Conception fonctionnelle** | Guidance cognitive · **aucune autorité** décisionnelle |
 | **Processus externe v2.6** | ChatGPT ↔ Cursor · process-only |
@@ -102,7 +108,7 @@ En cas de conflit réel **de même niveau / même domaine** non résoluble par l
 
 | Distinction | Règle |
 | --- | --- |
-| C1 validé vs C2 validé vs C2 intégré | C1 = baseline intégrée · C2 = functional design **validé Morris** · PR #369 ouverte · merge main = **pending** |
+| C1 validé vs C2 validé vs C2 intégré | C1 = baseline intégrée · C2 = functional design **validé Morris** · PR #369 **MERGED** · **INTEGRATED ON MAIN** |
 | GO Morris C1 vs GO Morris C2 | Autorisations distinctes · C2 ne découle pas automatiquement de C1 |
 | Pilote vs Morris | Pilote = acteur runtime générique · Morris = autorité construction/gouvernance **repo SFIA Studio** |
 | Recommendation vs HumanDecision | Nora recommande · Pilote décide explicitement · Recommendation **sans autorité** |
@@ -155,14 +161,14 @@ Governed inherited debt remains as recorded by C1/PRE-M6 ; C2 does not reclassif
 **C. Historical / documentary / presentation reserves** :
 
 - PRE-M6 presentation héritée ≠ Product Experience final
-- Roadmap snapshots stale · métadonnées divergentes — **non corrigées dans ce cycle**
+- Roadmap snapshots : **RESERVE-ROADMAP-METADATA** — closure condition = PR #370 integrated on main with post-merge coherence content · current closure status resolved from Git evidence
 - Build Doctrine EC order historique — voir RESERVE-GOV-EC-ORDER §20
 
 **Gate suivant :**
-MORRIS C2 PR READINESS REVIEW → MERGE GO (PR #369 · merge non autorisé sans GO explicite).
+PR #370 post-merge documentary coherence integration → when Git proves integration → NEXT-CAPABILITY REQUALIFICATION → Morris GO séparé avant toute exécution.
 
 **Capacité suivante :**
-À requalifier seulement après intégration Git C2 + vérification post-merge de cohérence. Aucune exécution downstream autorisée.
+**NOT SELECTED** · **NOT AUTHORIZED**. À requalifier once Git proves PR #370 integration. Aucune exécution downstream autorisée.
 
 ### 3.1 Classification des actifs (disposition de réutilisation — **≠** claim de maturité)
 
@@ -1134,7 +1140,7 @@ Format : **Given / When / Then** observable.
 | ID | Réserve |
 | --- | --- |
 | **RESERVE-GOV-EC-ORDER** | Build Doctrine A3 historique mentionne Confirmation avant EC — autorité C1 = Prepare→Inspect→Authorize→Execute · **ne pas modifier Build Doctrine** dans C2 |
-| **RESERVE-ROADMAP-METADATA** | Snapshots Roadmap / métadonnées stale · non corrigés dans ce cycle |
+| **RESERVE-ROADMAP-METADATA** | Closure condition = PR #370 integrated on main with post-merge coherence content · current closure status must be resolved from Git evidence |
 | **RESERVE-RUNTIME** | runtime v3 **NON ADOPTED** |
 | **RESERVE-PRE-M6** | Presentation PRE-M6 ≠ Product Experience final |
 | **RESERVE-TRAJECTORY-MEMORY** | ProjectTrajectory Memory runtime · cible durable C1 |
@@ -1179,9 +1185,9 @@ Format : **Given / When / Then** observable.
 
 ### 21.2 Ce qui bloque encore
 
-- Merge C2 sur main = **pending** — PR #369 ouverte · gate **MORRIS C2 PR READINESS REVIEW → MERGE GO** requis
+- Post-merge documentary coherence sync = **carried by PR #370** · integration status = **Git / PR evidence authoritative**
 - Aucune représentation composants · UX visuelle · stories delivery
-- Capacité suivante = **NON SÉLECTIONNÉE · NON AUTORISÉE**
+- Capacité suivante = **NON SÉLECTIONNÉE · NON AUTORISÉE** · requalification requise
 
 ### 21.3 Capacités suivantes — options (sans sélection)
 
@@ -1190,27 +1196,30 @@ Format : **Given / When / Then** observable.
 | **Architecture fonctionnelle** | Frontières modules · responsabilités runtime | Découpage structurant avant UX/backlog | Partiellement — comportements définis · frontières composants pas |
 | **UX / Product Experience** | Parcours · CA · A11Y functional · MD-C2-03 | Pilote-facing flows · progressive disclosure EC | Oui après validation Morris |
 | **Backlog / slicing** | CA · MUST map | Delivery incrémental | Après UX ou archi fct si retenue |
-| **Intégration Git C2** | Validation Morris C2 effectuée · GO intégration consommé | Merge sur main via PR #369 | PR **ouverte** · commit `dff6778d…` · merge **pending** Morris GO |
+| **Intégration Git C2** | Validation Morris C2 effectuée · GO intégration consommé · GO merge consommé | Merge sur main via PR #369 | **MERGED** · `2406ccda…` · branches source **PRESERVED** |
 
-**Aucune capacité suivante n'est sélectionnée ni autorisée** — options présentées pour requalification Morris **après** intégration Git C2.
+**Aucune capacité suivante n'est sélectionnée ni autorisée** — options présentées pour requalification Morris **après** post-merge coherence.
 
 ### 21.4 Trajectoire recommandée (gates séparés)
 
 ```text
-Validation Morris C2 (effectuée)
-  → Préparation branche intégration propre depuis origin/main (effectuée)
-  → GO Morris intégration Git C2 (consommé)
-  → Commit dff6778d… · push · PR #369 ouverte (effectué)
-  → MORRIS C2 PR READINESS REVIEW → MERGE GO (gate courant)
-  → Merge PR #369 sur main (gate ultérieur · non autorisé sans GO)
-  → Vérification post-merge cohérence
-  → Requalification capacité suivante (Architecture fct · UX/PE · Backlog — au choix Morris)
+C1 VALIDATED + INTEGRATED
+  → C2 functional design
+  → Morris validation C2 (effectuée)
+  → Clean Git integration (branche propre)
+  → PR #369
+  → Morris merge GO (consommé)
+  → PR #369 MERGED · merge 2406ccda… (effectué)
+  → PR #370 post-merge documentary coherence integration
+  → when Git proves integration
+  → NEXT-CAPABILITY REQUALIFICATION
+  → Morris GO séparé avant toute exécution
   → aucun C3/Delivery/next-capability automatique
 ```
 
 ### 21.5 Gate Morris requis
 
-**MORRIS C2 PR READINESS REVIEW → MERGE GO** → puis merge PR #369 sur main (gate ultérieur · **non autorisé** sans GO explicite) · **≠** autorisation Delivery · **≠** autorisation capacité suivante.
+**PR #370 post-merge documentary coherence integration** → when Git proves integration → **NEXT-CAPABILITY REQUALIFICATION** → Morris GO séparé · **≠** autorisation Delivery · **≠** autorisation capacité suivante · **≠** Architecture fonctionnelle selected · **≠** UX selected.
 
 ---
 
@@ -1218,11 +1227,12 @@ Validation Morris C2 (effectuée)
 
 Ce document **ne dit pas** :
 
-- C2 **intégré** Git · **mergé** sur main
+- Post-merge metadata sync integration status statically asserted without Git evidence
 - architecture · persistence · schema · API choisis
 - UX/Figma · backlog · Delivery autorisés
 - runtime v3 **ADOPTED** · READY FOR DELIVERY
 - capacité suivante **autorisée** · C3/C4/C5 **automatiques**
+- Architecture fonctionnelle selected · UX selected
 - Morris persona runtime · Morris « autorité L0 »
 - 15 cycles = invariant · M6/M7 forward
 - v2.6 = doctrine Studio
@@ -1230,11 +1240,11 @@ Ce document **ne dit pas** :
 - modèle fonctionnel = architecture de données / state-machine technique
 - Genericity proof = REAL-boundary proof
 - UserSource promu MUST (reste SHOULD C1)
-- Review Handoff = intégration Git C2
+- Review Handoff = merge C2
 - anomalie `780ab4c5` **résolue** · commit supprimé · branche régularisée · historique nettoyé
 
-**Historical integration anomaly :** remote commit `780ab4c5` was produced without the required project Git gate ; it is **superseded for integration** and **preserved as audit evidence**. Clean integration is prepared from current origin/main.
+**Historical integration anomaly :** remote commit `780ab4c5` was produced without the required project Git gate ; it is **superseded for integration** and **preserved as audit evidence**. Clean source branch `docs/sfia-studio-product-completion-c2-integration-clean` @ `3c78c676…` is **PRESERVED**.
 
 ---
 
-*SFIA Studio — Product Completion — Cycle 2 Conception fonctionnelle — VALIDATED BY MORRIS — PR #369 OPEN — PENDING MERGE ON MAIN — NO DELIVERY — NO NEXT-CAPABILITY EXECUTION — RUNTIME V3 NON ADOPTED — ZERO REAL*
+*SFIA Studio — Product Completion — Cycle 2 Conception fonctionnelle — VALIDATED BY MORRIS — INTEGRATED ON MAIN VIA PR #369 / `2406ccda211842fc7f8da3699bb186a30f7dc105` — POST-MERGE METADATA COHERENCE SYNC CARRIED BY PR #370 — GIT/PR EVIDENCE AUTHORITATIVE — NO DELIVERY — NO NEXT-CAPABILITY EXECUTION — RUNTIME V3 NON ADOPTED — ZERO REAL*
