@@ -17,9 +17,9 @@
 | **Pull Request** | #369 · **MERGED** · 2026-08-20 · `docs/sfia-studio-product-completion-c2-integration-clean` → `main` |
 | **Merge commit** | `2406ccda211842fc7f8da3699bb186a30f7dc105` |
 | **Base pré-merge (historique)** | `db13f125785b248d1c3f059eb975e364558d0860` |
-| **origin/main observé** | `2406ccda211842fc7f8da3699bb186a30f7dc105` |
+| **Base main de référence avant PR #370** | `2406ccda211842fc7f8da3699bb186a30f7dc105` *(historique · merge C2 fonctionnel PR #369)* |
 | **Branche intégration propre** | `docs/sfia-studio-product-completion-c2-integration-clean` · **PRESERVED** @ `3c78c676…` |
-| **Post-merge metadata sync** | Candidat local · **NOT YET INTEGRATED** — ce document sur main reste à synchroniser via cycle post-merge |
+| **Post-merge metadata coherence sync** | Carried by **PR #370** · integration status determined from **Git / PR evidence** |
 | **Anomalie intégration historique** | Remote commit `780ab4c5` sur `docs/sfia-studio-product-completion-c2-functional-design` — **UNAUTHORIZED HISTORICAL PROJECT COMMIT** · **SUPERSEDED FOR INTEGRATION** · **PRESERVED FOR AUDIT** · clean integration préparée depuis origin/main courant |
 | **GO Morris initial** | GO MORRIS — START PRODUCT COMPLETION CYCLE 2 — CONCEPTION FONCTIONNELLE — **NO DELIVERY** |
 | **GO Morris correction** | Morris a autorisé la correction à partir de la revue fonctionnelle consolidée (A→21) |
@@ -35,7 +35,7 @@
 
 Ce document est la **conception fonctionnelle validée et intégrée** du Cycle 2 Product Completion — **VALIDATED BY MORRIS — INTEGRATED ON MAIN** (PR #369 / merge `2406ccda…`). Il transforme la cible, le scope et la trajectoire validés en C1 en un **modèle fonctionnel** cohérent, testable et traçable — sans choisir architecture technique, persistence, schema, API, stack, Figma, backlog ou implémentation.
 
-**Distinction current-state :** Document content fonctionnel = **VALIDATED** · Functional C2 = **INTEGRATED ON MAIN** · Post-merge metadata sync candidate = **LOCAL / NOT YET INTEGRATED**.
+**Distinction current-state :** Document content fonctionnel = **VALIDATED** · Functional C2 = **INTEGRATED ON MAIN** · Post-merge metadata coherence sync = **carried by PR #370** · integration status = **Git / PR evidence authoritative**.
 
 | Champ | Valeur |
 | --- | --- |
@@ -44,7 +44,7 @@ Ce document est la **conception fonctionnelle validée et intégrée** du Cycle 
 | **Doctrine active** | Framings v3 `30`–`37` — **VALIDATED** / doctrine active · read-only pour ce cycle |
 | **Build Doctrine / Roadmap** | read-only pour ce cycle |
 | **Effet de ce C2** | Conception fonctionnelle **validée** · **INTEGRATED ON MAIN** via PR #369 / `2406ccda…` · Review Handoff **≠** merge |
-| **Gate suivant** | **POST-MERGE COHERENCE VALIDATION** → **NEXT-CAPABILITY REQUALIFICATION** → Morris GO séparé avant toute exécution |
+| **Gate suivant** | **PR #370 post-merge documentary coherence integration** → when Git proves integration → **NEXT-CAPABILITY REQUALIFICATION** → Morris GO séparé avant toute exécution |
 
 ### 1.1 Anti-claims d'autorité
 
@@ -161,14 +161,14 @@ Governed inherited debt remains as recorded by C1/PRE-M6 ; C2 does not reclassif
 **C. Historical / documentary / presentation reserves** :
 
 - PRE-M6 presentation héritée ≠ Product Experience final
-- Roadmap snapshots : **RESERVE-ROADMAP-METADATA CLOSED IN LOCAL CANDIDATE / PENDING GIT INTEGRATION** (sync post-merge C2)
+- Roadmap snapshots : **RESERVE-ROADMAP-METADATA** — closure condition = PR #370 integrated on main with post-merge coherence content · current closure status resolved from Git evidence
 - Build Doctrine EC order historique — voir RESERVE-GOV-EC-ORDER §20
 
 **Gate suivant :**
-POST-MERGE COHERENCE VALIDATION → NEXT-CAPABILITY REQUALIFICATION → Morris GO séparé avant toute exécution.
+PR #370 post-merge documentary coherence integration → when Git proves integration → NEXT-CAPABILITY REQUALIFICATION → Morris GO séparé avant toute exécution.
 
 **Capacité suivante :**
-**NOT SELECTED** · **NOT AUTHORIZED**. À requalifier après intégration du post-merge documentary sync. Aucune exécution downstream autorisée.
+**NOT SELECTED** · **NOT AUTHORIZED**. À requalifier once Git proves PR #370 integration. Aucune exécution downstream autorisée.
 
 ### 3.1 Classification des actifs (disposition de réutilisation — **≠** claim de maturité)
 
@@ -1140,7 +1140,7 @@ Format : **Given / When / Then** observable.
 | ID | Réserve |
 | --- | --- |
 | **RESERVE-GOV-EC-ORDER** | Build Doctrine A3 historique mentionne Confirmation avant EC — autorité C1 = Prepare→Inspect→Authorize→Execute · **ne pas modifier Build Doctrine** dans C2 |
-| **RESERVE-ROADMAP-METADATA** | **CLOSED IN LOCAL CANDIDATE / PENDING GIT INTEGRATION** — Roadmap current-state C2 sync préparé localement · pas encore intégré |
+| **RESERVE-ROADMAP-METADATA** | Closure condition = PR #370 integrated on main with post-merge coherence content · current closure status must be resolved from Git evidence |
 | **RESERVE-RUNTIME** | runtime v3 **NON ADOPTED** |
 | **RESERVE-PRE-M6** | Presentation PRE-M6 ≠ Product Experience final |
 | **RESERVE-TRAJECTORY-MEMORY** | ProjectTrajectory Memory runtime · cible durable C1 |
@@ -1185,7 +1185,7 @@ Format : **Given / When / Then** observable.
 
 ### 21.2 Ce qui bloque encore
 
-- Post-merge documentary coherence sync = **candidat local · NOT YET INTEGRATED**
+- Post-merge documentary coherence sync = **carried by PR #370** · integration status = **Git / PR evidence authoritative**
 - Aucune représentation composants · UX visuelle · stories delivery
 - Capacité suivante = **NON SÉLECTIONNÉE · NON AUTORISÉE** · requalification requise
 
@@ -1210,7 +1210,8 @@ C1 VALIDATED + INTEGRATED
   → PR #369
   → Morris merge GO (consommé)
   → PR #369 MERGED · merge 2406ccda… (effectué)
-  → Post-merge coherence sync (présent candidat local · not yet integrated)
+  → PR #370 post-merge documentary coherence integration
+  → when Git proves integration
   → NEXT-CAPABILITY REQUALIFICATION
   → Morris GO séparé avant toute exécution
   → aucun C3/Delivery/next-capability automatique
@@ -1218,7 +1219,7 @@ C1 VALIDATED + INTEGRATED
 
 ### 21.5 Gate Morris requis
 
-**POST-MERGE COHERENCE VALIDATION** → **NEXT-CAPABILITY REQUALIFICATION** → Morris GO séparé · **≠** autorisation Delivery · **≠** autorisation capacité suivante · **≠** Architecture fonctionnelle selected · **≠** UX selected.
+**PR #370 post-merge documentary coherence integration** → when Git proves integration → **NEXT-CAPABILITY REQUALIFICATION** → Morris GO séparé · **≠** autorisation Delivery · **≠** autorisation capacité suivante · **≠** Architecture fonctionnelle selected · **≠** UX selected.
 
 ---
 
@@ -1226,7 +1227,7 @@ C1 VALIDATED + INTEGRATED
 
 Ce document **ne dit pas** :
 
-- Post-merge metadata sync déjà intégré sur main
+- Post-merge metadata sync integration status statically asserted without Git evidence
 - architecture · persistence · schema · API choisis
 - UX/Figma · backlog · Delivery autorisés
 - runtime v3 **ADOPTED** · READY FOR DELIVERY
@@ -1246,4 +1247,4 @@ Ce document **ne dit pas** :
 
 ---
 
-*SFIA Studio — Product Completion — Cycle 2 Conception fonctionnelle — VALIDATED BY MORRIS — INTEGRATED ON MAIN VIA PR #369 / `2406ccda211842fc7f8da3699bb186a30f7dc105` — POST-MERGE METADATA SYNC CANDIDATE LOCAL / NOT YET INTEGRATED — NO DELIVERY — NO NEXT-CAPABILITY EXECUTION — RUNTIME V3 NON ADOPTED — ZERO REAL*
+*SFIA Studio — Product Completion — Cycle 2 Conception fonctionnelle — VALIDATED BY MORRIS — INTEGRATED ON MAIN VIA PR #369 / `2406ccda211842fc7f8da3699bb186a30f7dc105` — POST-MERGE METADATA COHERENCE SYNC CARRIED BY PR #370 — GIT/PR EVIDENCE AUTHORITATIVE — NO DELIVERY — NO NEXT-CAPABILITY EXECUTION — RUNTIME V3 NON ADOPTED — ZERO REAL*
