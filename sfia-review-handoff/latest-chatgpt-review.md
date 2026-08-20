@@ -1,104 +1,95 @@
-# SFIA Review Pack — FULL — Product Completion E2E Wireframes Git Integration
+# SFIA Review Pack — FULL — Product Completion E2E Wireframes PR Readiness
 
 ## 1. Timestamp (Europe/Paris)
 
-2026-08-20 16:51:40 CEST
+2026-08-20 17:18:38 CEST
 
-## 2. Repo / branch / base / HEAD
+## 2. Morris GO consumed
 
-| Field | Value |
-| --- | --- |
-| Repo | mcleland147/sfia-workspace |
-| Workspace | /Users/morris/Projects/sfia-workspace |
-| Branch | `design/sfia-studio-product-completion-e2e-wireframes-interaction-model` |
-| HEAD initial (pre-commit) | `6b67ada75ecf76a44a6046ecc753cd07571d190d` |
-| HEAD after local commit | `1754412066a4d3230942236316e35b44b4f2c30c` |
-| origin/main | `6b67ada75ecf76a44a6046ecc753cd07571d190d` |
-| ahead/behind | 0 behind / 1 ahead |
+Wording: « ok go »
 
-## 3. Local Git Truth
+Interpretation:
+
+GO PR READINESS + PROJECT BRANCH PUSH + DRAFT PR CREATION — PRODUCT COMPLETION E2E WIREFRAMES & INTERACTION MODEL — EXACT REVIEWED COMMIT ONLY — NO CONTENT CHANGE — NO MARK READY — NO MERGE — NO BRANCH DELETE — NO PENPOT MUTATION — NO SCREENS — NO COMPONENTS — NO DELIVERY — NO REAL — NO NEXT CAPABILITY — RUNTIME V3 NON ADOPTED.
+
+Prior authorities still applicable (not re-decided):
+- VALIDATE — E2E WIREFRAMES … PASS WITH NON-BLOCKING RESERVES …
+- GO INTEGRATION GIT — local commit authorized (already consumed)
+- ChatGPT verdict entrant: E2E WIREFRAMES GIT INTEGRATION — LOCAL INTEGRATION PASS
+- Handoff entrant: fb8e07e0… / blob 66207268…
+
+## 3. Cycle / profil / typologie
+
+- Type: **13 — PR readiness**
+- Profil: **Standard**
+- Typologie: **DOC / DESIGN ARTIFACT**
+
+## 4. Local Git Truth
 
 ```
 branch: design/sfia-studio-product-completion-e2e-wireframes-interaction-model
 HEAD: 1754412066a4d3230942236316e35b44b4f2c30c
 origin/main: 6b67ada75ecf76a44a6046ecc753cd07571d190d
+ahead/behind: 0 behind / 1 ahead
 status:
 ?? .tmp-sfia-review/
 ?? projects/eventops-poc/
 ?? projects/flex-office-demo/
 ```
 
-Pre-edit truth: branch/HEAD matched handoff design base `6b67ada7…` · candidate untracked present · 0 project commits · no staged · no main Studio/method drift.
+## 5. Current origin/main
 
-## 4. Main distant vérifié
+`6b67ada75ecf76a44a6046ecc753cd07571d190d` — exact expected `6b67ada75ecf76a44a6046ecc753cd07571d190d`. No drift.
 
-`origin/main` = `6b67ada75ecf76a44a6046ecc753cd07571d190d` (exact expected). Compatible. No STOP.
+## 6. Sources read
 
-## 5. Sources lues
-
-1. prompts/templates/sfia-cycle-execution-template.md (routed)
-2. method/sfia-fast-track/core/sfia-cycle-routing-guide.md (routed)
-3. method/.../02-fifteen-cycles-synthetic-map.md (CKC fallback Cycle 15)
-4. méthode cycles / template v2.6 posture Capitalisation
-5. Build Doctrine + Convergence Roadmap
-6. Product Completion C1 + C2 (READ ONLY)
-7. 01-experience-architecture.md (READ ONLY)
-8. Local candidat 02-end-to-end-wireframes-interaction-model.md
-9. Framing 32–35 + 37 applicable (READ ONLY)
-10. Review handoff provenance (E2E wireframes design cycle)
-
-## 6. Cycle / profil / typologie
-
-- Type: **15 — Capitalisation / intégration d’un actif validé**
-- Profil: **Standard**
-- Typologie: **DOC / DESIGN ARTIFACT**
-- Justification: design CRITICAL already executed/reviewed/validated; this cycle records decision in Git without new structural arbitration. Dominant risk = premature promotion.
+Template + routing + CKC synthetic map + Build Doctrine + Roadmap + C1/C2 + EA + E2E wireframes candidate + framings 32–35/37 + Review Handoff provenance.
 
 ## 7. CKC resolution
 
-- Cycle 15 detailed CKC: ABSENT
-- Fallback: fifteen-cycles synthetic map + méthode + template v2.6
-- Status: candidate cognitive guidance · no execution authority
-- Posture: Facts ≠ Recommendation ≠ Decision · anti-premature promotion · traceability
+Cycle 13 detailed CKC ABSENT · fallback synthetic map + template v2.6 · candidate cognitive guidance · no execution authority · posture scope/secrets/granularity/readiness.
 
 ## 8. Convergence Pre-check
 
-- Build Doctrine: VALIDATED — ACTIVE ON MAIN — READ ONLY
-- C1/C2/EA: VALIDATED BY MORRIS — INTEGRATED ON MAIN — READ ONLY
-- E2E Wireframes: VALIDATED BY MORRIS — was NOT YET INTEGRATED ON MAIN at cycle start
-- Milestone: PRODUCT COMPLETION — UX / PRODUCT EXPERIENCE — E2E WIREFRAMES & INTERACTION MODEL — GIT INTEGRATION
-- Next capability: NOT SELECTED
-- Parallel architecture: NONE
-- Runtime v3: NON ADOPTED
-- Fake/Real: N/A · DESIGN/DOCUMENTARY integration
+Build Doctrine / C1 / C2 / EA READ ONLY INTEGRATED ON MAIN.
+E2E Wireframes VALIDATED BY MORRIS · LOCAL INTEGRATION PASS · NOT YET INTEGRATED ON MAIN.
+Next capability NOT SELECTED · Screens/Components NOT AUTHORIZED · Delivery NOT AUTHORIZED · REAL ZERO · runtime v3 NON ADOPTED.
+H-01…H-04 CARRY · Confirmation process-local OPEN · Trajectory durability OPEN · R-INT-UX-02 ABSORBED/CLOSED.
 
-## 9. Morris tooling decision
+## 9. Exact reviewed commit
 
-PENPOT IS THE REFERENCE DESIGN WORKSPACE FOR SFIA STUDIO PRODUCT DESIGN WORK FROM THIS POINT FORWARD.
+```
+commit 1754412066a4d3230942236316e35b44b4f2c30c
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Thu Aug 20 16:51:03 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air1.home>
+CommitDate: Thu Aug 20 16:51:03 2026 +0200
 
-R-04 EA historical recommendation = **SUPERSEDED FOR FUTURE SFIA STUDIO PRODUCT DESIGN BY MORRIS PENPOT TOOLING DECISION**.
-≠ retroactive EA invalidation · ≠ global SFIA baseline · ≠ doctrine v3 · ≠ runtime v3 adoption.
-EA document NOT modified this cycle.
+    docs(sfia-studio): integrate validated E2E wireframes interaction model
 
-## 10. Morris validation wireframes
+    Co-authored-by: Cursor <cursoragent@cursor.com>
 
-Wording: « ok je valide les wireframes, go pour intégrer les travaux sur git »
+M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+A	projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md
+```
 
-Interpretation A:
+## 10. Exact 2-file scope
 
-VALIDATE — PRODUCT COMPLETION E2E WIREFRAMES & INTERACTION MODEL — PASS WITH NON-BLOCKING RESERVES — PENPOT VISUAL EVIDENCE DIRECTLY REVIEWED — H-01…H-04 CARRY — NO FUNCTIONAL ARCHITECTURE BLOCKER DEMONSTRATED — CANDIDATE APPROVED FOR GIT INTEGRATION — NO SCREENS — NO COMPONENTS — NO DELIVERY — NO REAL — NEXT CAPABILITY NOT SELECTED — RUNTIME V3 NON ADOPTED.
+```
+M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+A	projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md
+.../convergence/sfia-studio-convergence-roadmap.md |  31 +-
+ .../02-end-to-end-wireframes-interaction-model.md  | 694 +++++++++++++++++++++
+ 2 files changed, 713 insertions(+), 12 deletions(-)
+```
 
-## 11. Morris GO Git integration
+git diff --check: PASS (pre-commit).
 
-Interpretation B:
+## 11. Candidate status
 
-GO INTEGRATION GIT — PRODUCT COMPLETION E2E WIREFRAMES & INTERACTION MODEL VALIDATED — UPDATE VALIDATED CANDIDATE + CONVERGENCE ROADMAP + REVIEW PACK — CREATE ONE LOCAL PROJECT COMMIT — NO PROJECT PUSH — NO PR — NO MERGE — NO SCREENS — NO COMPONENTS — NO DELIVERY — NO REAL — NO NEXT CAPABILITY — RUNTIME V3 NON ADOPTED.
+VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT YET INTEGRATED ON MAIN.
 
-## 12. Candidate COMPLETE final
-
-Path: `projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md`
-
------ BEGIN CANDIDATE DOCUMENT -----
+----- BEGIN CANDIDATE DOCUMENT (immutable reviewed content) -----
 
 # SFIA Studio — Product Completion — UX / Product Experience — End-to-End Wireframes & Interaction Model
 
@@ -797,7 +788,181 @@ C1 INTEGRATED → C2 INTEGRATED → UX EA INTEGRATED → E2E WIREFRAMES **VALIDA
 
 ----- END CANDIDATE DOCUMENT -----
 
-## 13. Roadmap modifications (diff vs origin/main)
+## 12. Penpot tooling decision
+
+PENPOT IS THE REFERENCE DESIGN WORKSPACE FOR SFIA STUDIO PRODUCT DESIGN.
+R-04 SUPERSEDED FOR FUTURE SFIA STUDIO PRODUCT DESIGN BY MORRIS PENPOT TOOLING DECISION.
+≠ global SFIA baseline · ≠ doctrine v3 · ≠ runtime v3 · EA not rewritten.
+
+## 13. Visual review provenance
+
+12/12 boards directly reviewed · PASS WITH NON-BLOCKING RESERVES · Morris validated · Penpot NOT mutated this cycle.
+
+## 14. H-01…H-04
+
+All CARRY (not closed as final doctrine).
+
+## 15. Open runtime debts
+
+Confirmation process-local OPEN · ProjectTrajectory durability OPEN.
+
+## 16. Project branch push
+
+```
+git push -u origin HEAD
+* [new branch] -> design/sfia-studio-product-completion-e2e-wireframes-interaction-model
+```
+
+## 17. Remote branch SHA proof
+
+`origin/design/sfia-studio-product-completion-e2e-wireframes-interaction-model` = `1754412066a4d3230942236316e35b44b4f2c30c` · REMOTE_MATCH=OK · no force push.
+
+## 18–25. Draft PR
+
+- number: **374**
+- URL: https://github.com/mcleland147/sfia-workspace/pull/374
+- title: docs(sfia-studio): integrate validated E2E wireframes interaction model
+- draft: **true**
+- state: OPEN
+- base: main
+- head: design/sfia-studio-product-completion-e2e-wireframes-interaction-model
+- head SHA: `1754412066a4d3230942236316e35b44b4f2c30c`
+- commit count: **1**
+- changed_files: **2**
+- mergeable: MERGEABLE
+
+### PR JSON snapshot
+```
+{"baseRefName":"main","commits":[{"authoredDate":"2026-08-20T14:51:03Z","authors":[{"email":"morris@macbook-air1.home","id":"","login":"","name":"Morris Cleland"},{"email":"cursoragent@cursor.com","id":"U_kgDOC972lw","login":"cursoragent","name":"Cursor"}],"committedDate":"2026-08-20T14:51:03Z","messageBody":"Co-authored-by: Cursor <cursoragent@cursor.com>","messageHeadline":"docs(sfia-studio): integrate validated E2E wireframes interaction model","oid":"1754412066a4d3230942236316e35b44b4f2c30c"}],"headRefName":"design/sfia-studio-product-completion-e2e-wireframes-interaction-model","headRefOid":"1754412066a4d3230942236316e35b44b4f2c30c","isDraft":true,"mergeStateStatus":"CLEAN","mergeable":"MERGEABLE","number":374,"state":"OPEN","title":"docs(sfia-studio): integrate validated E2E wireframes interaction model","url":"https://github.com/mcleland147/sfia-workspace/pull/374"}
+```
+
+### PR body complet
+```
+## Summary
+
+Integrates the Morris-validated Product Completion E2E Wireframes & Interaction Model and synchronizes the SFIA Studio Convergence Roadmap with the validated design milestone.
+
+## Authority
+
+Morris design validation consumed:
+
+VALIDATE — PRODUCT COMPLETION E2E WIREFRAMES & INTERACTION MODEL — PASS WITH NON-BLOCKING RESERVES — PENPOT VISUAL EVIDENCE DIRECTLY REVIEWED — H-01…H-04 CARRY — NO FUNCTIONAL ARCHITECTURE BLOCKER DEMONSTRATED — CANDIDATE APPROVED FOR GIT INTEGRATION — NO SCREENS — NO COMPONENTS — NO DELIVERY — NO REAL — NEXT CAPABILITY NOT SELECTED — RUNTIME V3 NON ADOPTED.
+
+Morris local Git integration authorization consumed:
+
+GO INTEGRATION GIT — PRODUCT COMPLETION E2E WIREFRAMES & INTERACTION MODEL VALIDATED — UPDATE VALIDATED CANDIDATE + CONVERGENCE ROADMAP + REVIEW PACK — CREATE ONE LOCAL PROJECT COMMIT.
+
+PR readiness authorization consumed:
+
+Morris « ok go » — PROJECT BRANCH PUSH + DRAFT PR CREATION ONLY.
+
+## Scope
+
+Exactly two project files:
+
+- `projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md`
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+
+Reviewed commit:
+
+`1754412066a4d3230942236316e35b44b4f2c30c`
+
+No content change after ChatGPT review.
+
+## Product / UX status
+
+- C1: VALIDATED BY MORRIS — INTEGRATED ON MAIN
+- C2: VALIDATED BY MORRIS — INTEGRATED ON MAIN
+- UX Experience Architecture: VALIDATED BY MORRIS — INTEGRATED ON MAIN
+- E2E Wireframes & Interaction Model: VALIDATED BY MORRIS
+- Penpot visual evidence: 12/12 directly reviewed
+- A→W: COVERED
+- S1→S12: COVERED
+- demonstrated functional architecture blockers: 0
+
+## Studio design tooling
+
+MORRIS DECISION:
+
+PENPOT IS THE REFERENCE DESIGN WORKSPACE FOR SFIA STUDIO PRODUCT DESIGN.
+
+Scope:
+Studio product design only.
+
+Git remains the source of truth for governance, contracts and integration state.
+
+This does NOT promote Penpot as the global SFIA methodological baseline.
+
+## Open non-blocking reserves
+
+- H-01 — ProjectTrajectory placement: CARRY
+- H-02 — responsive working references: CARRY
+- H-03 — Evidence in-workspace preference: CARRY
+- H-04 — single CTA when unambiguous: CARRY
+- Confirmation process-local durability: OPEN
+- ProjectTrajectory runtime durability: OPEN
+
+R-INT-UX-02:
+ABSORBED / CLOSED by factual Roadmap maintenance.
+
+## Anti-claims
+
+This PR does NOT:
+
+- authorize Screens
+- authorize Components
+- authorize Delivery
+- produce REAL
+- adopt runtime v3
+- select the next Product Completion capability
+- prove E2E Wireframes integrated on main until merge occurs
+- close H-01…H-04 as final doctrine
+- change C1 / C2 / Experience Architecture
+- change Build Doctrine or v3 doctrine
+
+## Gate
+
+DRAFT PR ONLY.
+
+Mark Ready and Merge require separate Morris authorization.
+
+Made with [Cursor](https://cursor.com)
+```
+
+## 26. CI / checks
+
+Workflow run #232: https://github.com/mcleland147/sfia-workspace/actions/runs/32384965661
+
+```
+Build and validate SFIA Studio	pass	2m33s	https://github.com/mcleland147/sfia-workspace/actions/runs/32384965661/job/96477149314
+Detect SFIA Studio changes	pass	6s	https://github.com/mcleland147/sfia-workspace/actions/runs/32384965661/job/96477101351
+SFIA Studio Required Gate	pass	2s	https://github.com/mcleland147/sfia-workspace/actions/runs/32384965661/job/96478018263
+```
+
+**CI GREEN** — Detect / Build / Required Gate all SUCCESS.
+
+## 27–36. Anti-actions / anti-claims
+
+- no content change after review
+- no second project commit
+- no mark ready
+- no merge
+- no auto-merge
+- no branch delete
+- no Penpot mutation
+- no Screens / Components
+- no Delivery
+- ZERO REAL
+- next capability NOT SELECTED
+- runtime v3 NON ADOPTED
+
+## 37. Reserves / limits
+
+Draft PR only. Mark Ready / Merge require separate Morris GO after ChatGPT PR review.
+Main integration of Wireframes not proven until merge.
+H-01…H-04 remain CARRY.
+
+## Full Git diff (origin/main...HEAD)
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -887,138 +1052,711 @@ index 8a8f061e..58be94e9 100644
    → DYNAMIC PRODUCT TRAJECTORY — requalify after each capability
    → OPTIONAL CKC lessons → v2.6 capitalization — DISTINCT METHOD GATE — NOT DECIDED
 
+diff --git a/projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md b/projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md
+new file mode 100644
+index 00000000..33344d35
+--- /dev/null
++++ b/projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md
+@@ -0,0 +1,694 @@
++# SFIA Studio — Product Completion — UX / Product Experience — End-to-End Wireframes & Interaction Model
++
++| Métadonnée | Valeur |
++| --- | --- |
++| **Projet** | SFIA Studio — Product Completion |
++| **Cycle** | UX / Product Experience — End-to-End Wireframes & Interaction Model |
++| **Profil** | **CRITICAL** |
++| **Typologie** | **DOC / DESIGN ARTIFACT** |
++| **Type cycle** | **4 — UX/UI** |
++| **Milestone** | PRODUCT COMPLETION — UX / PRODUCT EXPERIENCE — END-TO-END WIREFRAMES & INTERACTION MODEL — GIT INTEGRATION |
++| **Statut contenu** | **VALIDATED BY MORRIS** |
++| **État Git** | **GIT INTEGRATION AUTHORIZED — NOT YET INTEGRATED ON MAIN** |
++| **Statut synthétique** | **VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT YET INTEGRATED ON MAIN** |
++| **Branche cycle** | `design/sfia-studio-product-completion-e2e-wireframes-interaction-model` |
++| **Base origin/main** | `6b67ada75ecf76a44a6046ecc753cd07571d190d` |
++| **Pull Request** | **ABSENT** — local project commit only · **NO** project push / PR / merge in this cycle |
++| **Décision Morris validation** | **CONSUMED** — wording « ok je valide les wireframes, go pour intégrer les travaux sur git » |
++| **GO Morris Git integration** | **CONSUMED** — LOCAL COMMIT AUTHORIZED · **NO** project push · **NO** PR · **NO** merge |
++| **C1** | VALIDATED BY MORRIS — INTEGRATED ON MAIN — **READ ONLY** |
++| **C2** | VALIDATED BY MORRIS — INTEGRATED ON MAIN — **READ ONLY** |
++| **Experience Architecture** | VALIDATED BY MORRIS — INTEGRATED ON MAIN — **READ ONLY** (PR #372) |
++| **Roadmap** | ACTIVE LIVING — **current-state sync authorized** this Git integration cycle |
++| **Penpot** | **REFERENCE DESIGN WORKSPACE** for SFIA Studio product design (Morris tooling decision) · page 02 **READ ONLY** this cycle · **≠** Git SoT · **≠** global SFIA baseline · **≠** doctrine v3 change |
++| **Runtime v3** | **NON ADOPTED** |
++| **Delivery** | **NOT AUTHORIZED** |
++| **REAL** | **ZERO REAL** |
++| **Code** | **NONE** |
++| **Screens / Components** | **NOT AUTHORIZED** · **NOT SELECTED** |
++| **Next UX / Product Completion capability** | **NOT SELECTED** — REQUIRES MAIN INTEGRATION PROOF THEN SEPARATE REQUALIFICATION AND GO |
++| **CKC UX dédié** | **ABSENT** — fallback = routing + template v2.6 §4.4 + C1 + C2 + EA + fifteen-cycles synthetic map |
++| **Project git commit this cycle** | **ONE LOCAL PROJECT COMMIT AUTHORIZED** · push / PR / merge **NOT** authorized |
++
++---
++
++## 1. Morris Penpot tooling decision
++
++### Wording Morris courant
++
++> « pour le prochain cycle ce sera aussi du penpot, en soit pour tous les travaux liés au design autour du produit sfia studio on passera par penpot , donc si on est en phase go »
++
++### Interprétation gouvernée consommée
++
++**DECISION MORRIS — SFIA STUDIO PRODUCT DESIGN TOOLING**
++
++**PENPOT IS THE REFERENCE DESIGN WORKSPACE FOR SFIA STUDIO PRODUCT DESIGN WORK FROM THIS POINT FORWARD.**
++
++Scope de cette décision :
++
++- SFIA Studio product design uniquement ;
++- UX architecture, wireframes, screens, composants et autres travaux visuels Studio futurs passent par Penpot sauf nouvelle décision Morris ;
++- Git reste la source de vérité de gouvernance, contrats, décisions et statut d’intégration ;
++- Penpot porte la référence visuelle de travail / design du produit Studio ;
++- cette décision **NE promeut PAS** Penpot comme baseline méthodologique SFIA globale ;
++- cette décision **NE modifie PAS** la doctrine produit v3 ;
++- cette décision **NE vaut PAS** runtime v3 adoption.
++
++### Effet sur R-04 (Experience Architecture)
++
++| Élément | Trace |
++| --- | --- |
++| **R-04 historique (EA)** | RECOMMENDATION de cycle : « Penpot remains cycle-local · Figma standard untouched » |
++| **Statut désormais** | **SUPERSEDED FOR FUTURE SFIA STUDIO PRODUCT DESIGN BY MORRIS PENPOT TOOLING DECISION** |
++| **Nature R-04** | Recommendation de cycle · **pas** décision structurante adoptée |
++| **Action ce cycle** | Tracer la supersession ici + Review Pack · **ne pas** réécrire rétroactivement `01-experience-architecture.md` |
++
++**Précisions obligatoires :**
++
++- **≠** invalidation rétroactive de l’Experience Architecture (EA reste VALIDATED / INTEGRATED) ;
++- **≠** promotion Penpot comme baseline / tooling global SFIA ;
++- **≠** changement de doctrine produit v3 ;
++- **≠** adoption runtime v3 ;
++- Figma standard méthodologique global **non remplacé** · pour Studio product design, Penpot est le workspace de référence ;
++- bloc Figma-to-code template §6.6 = **NOT ACTIVATED** (design-only · no code).
++
++---
++
++## 2a. Morris validation + GO Git integration (consumed)
++
++### Wording Morris
++
++> « ok je valide les wireframes, go pour intégrer les travaux sur git »
++
++Cette phrase consomme **deux** décisions distinctes.
++
++### A. Validation design
++
++**VALIDATE — PRODUCT COMPLETION E2E WIREFRAMES & INTERACTION MODEL — PASS WITH NON-BLOCKING RESERVES — PENPOT VISUAL EVIDENCE DIRECTLY REVIEWED — H-01…H-04 CARRY — NO FUNCTIONAL ARCHITECTURE BLOCKER DEMONSTRATED — CANDIDATE APPROVED FOR GIT INTEGRATION — NO SCREENS — NO COMPONENTS — NO DELIVERY — NO REAL — NEXT CAPABILITY NOT SELECTED — RUNTIME V3 NON ADOPTED.**
++
++Adopte comme résultat de cycle :
++
++- le modèle d’interaction E2E ;
++- couverture A→W ;
++- couverture S1→S12 ;
++- contrats Option / Recommendation / HumanDecision ;
++- EC / Confirmation / effective authority ;
++- Attempt / SUCCESS / STOP / FAIL / Evidence ;
++- Recovery / replanning ;
++- évaluation responsive ;
++- **H-01…H-04 restent CARRY** (≠ doctrine définitive fermée).
++
++Provenance visuelle ChatGPT (consommée, non rouverte) :
++
++- 12/12 boards WF-00…WF-09 + WF-R01/R02 inspectés ;
++- verdict : **VISUAL REVIEW PASS WITH NON-BLOCKING RESERVES** · READY FOR MORRIS VALIDATION DECISION.
++
++### B. GO Git integration
++
++**GO INTEGRATION GIT — PRODUCT COMPLETION E2E WIREFRAMES & INTERACTION MODEL VALIDATED — UPDATE VALIDATED CANDIDATE + CONVERGENCE ROADMAP + REVIEW PACK — CREATE ONE LOCAL PROJECT COMMIT — NO PROJECT PUSH — NO PR — NO MERGE — NO SCREENS — NO COMPONENTS — NO DELIVERY — NO REAL — NO NEXT CAPABILITY — RUNTIME V3 NON ADOPTED.**
++
++**Distinction obligatoire :** validation Morris **≠** intégration sur `main` · preuve Git `main` = gate ultérieur distinct.
++
++Penpot ce cycle Git : **READ ONLY** (aucune mutation visuelle).
++
++---
++
++## 2. GO cycle design (historique — déjà consommé)
++
++**GO MORRIS — START PRODUCT COMPLETION UX / PRODUCT EXPERIENCE — END-TO-END WIREFRAMES & INTERACTION MODEL — CRITICAL — PENPOT — NO CODE — NO DELIVERY — NO REAL — NO PROJECT GIT INTEGRATION — NO NEXT CAPABILITY — RUNTIME V3 NON ADOPTED.**
++
++**Autorisé :**
++
++- branche design depuis `origin/main` ;
++- création boards Penpot page **02 — Wireframes** ;
++- document candidat local repo-first ;
++- Review Pack FULL + preuves visuelles inspectables ;
++- Review Handoff publish-in-cycle (processus L3 borné) .
++
++**Non autorisé :**
++
++- code / Delivery / REAL ;
++- architecture fonctionnelle ou technique nouvelle ;
++- modification C1 / C2 / EA / Build Doctrine / framings ;
++- modification Roadmap (sync reportée) ;
++- pages Penpot 00 / 01 / 05 (READ ONLY) · 03 / 04 (UNTOUCHED) ;
++- Screens / Components ;
++- project git commit / push / PR ;
++- sélection automatique d’une capacité suivante ;
++- runtime v3 adoption.
++
++**Justification Critical :** matérialisation des interactions structurantes (Entry, LPS, Trajectory, Option/Rec/HD, EC, Confirmation, authority, Attempt, SUCCESS/STOP/FAIL, Evidence, Recovery). Une erreur de représentation altère autorité, décision humaine, gates, terminaux et reprise.
++
++---
++
++## 3. Purpose and non-goals
++
++### Purpose
++
++Matérialiser un **modèle wireframe end-to-end Pilote-facing** dérivé strictement de C1 + C2 + Experience Architecture validés, afin de **tester et rendre visible** l’expérience complète **avant** Screens haute fidélité, Components ou Delivery.
++
++Ce cycle ferme / prouve au niveau design :
++
++- la traversée A→W (Create **ou** Resume → Recovery) ;
++- le mapping S1→S12 sur boards inspectables ;
++- les contrats d’interaction (Option ≠ Rec ≠ HD · EC disclosure · Confirmation if required · Attempt · terminaux · Evidence · Recovery) ;
++- l’évaluation des hypothèses H-01…H-04 (CARRY / Recommendation) ;
++- la couverture CA-PC / MD-C2 / A11Y-PC au niveau wireframe ;
++- un registre de blockers d’architecture fonctionnelle **uniquement s’ils bloquent** le modèle d’interaction.
++
++### Non-goals
++
++- Screens haute fidélité / component library / design system final / tokens définitifs ;
++- visual polish / branding final / motion final / pixel-perfect ;
++- architecture fonctionnelle ou technique nouvelle ;
++- code / Delivery / REAL / runtime v3 adoption ;
++- modification C1 / C2 / EA / framings / Build Doctrine / template / routing ;
++- modification Roadmap (READ ONLY · sync post-validation) ;
++- project git commit / push / PR / merge ;
++- WCAG compliance complète déclarée ;
++- sélection / lancement d’un sous-cycle Screens/Components ;
++- copie UI PRE-M6 comme cible (KEEP/ADAPT patterns seulement).
++
++---
++
++## 4. Source hierarchy
++
++| Rang | Source | Rôle |
++| --- | --- | --- |
++| 1 | C1 `01-product-completion-cadrage.md` | Target / scope / PE principles · **READ ONLY** |
++| 2 | C2 `02-product-completion-conception-fonctionnelle.md` | Parcours A→W · CA-PC · A11Y · contracts · **READ ONLY** |
++| 3 | EA `01-experience-architecture.md` | Surfaces S1–S12 · UF · contracts UX · H-01…H-04 · **READ ONLY** |
++| 4 | Framings v3 `32`–`35` · `37` | Doctrine active · **READ ONLY** |
++| 5 | Build Doctrine + Convergence Roadmap | Gouvernance / trajectory · Roadmap **READ ONLY** this cycle |
++| 6 | PRE-M6 product UI + presentationLabels | Harvest KEEP/ADAPT patterns · ≠ copy UI |
++| 7 | Penpot file (page 02 WRITE · 00/01/05 RO · 03/04 untouched) | Preuve visuelle Studio product design |
++| 8 | Routing + template v2.6 | Process-only · CKC UX absent |
++
++**Git reste SoT** pour doctrine, décisions et statut d’intégration documentaire. Penpot = référence visuelle Studio · **≠** SoT gouvernance.
++
++---
++
++## 5. Convergence qualification
++
++| Élément | État |
++| --- | --- |
++| Build Doctrine | VALIDATED — ACTIVE ON MAIN — READ ONLY |
++| Roadmap | ACTIVE LIVING — READ ONLY this cycle · Morris a sélectionné **ce** cycle pour exécution · sync Roadmap **deferred** to post-validation Git cycle |
++| C1 | VALIDATED BY MORRIS — INTEGRATED ON MAIN — READ ONLY |
++| C2 | VALIDATED BY MORRIS — INTEGRATED ON MAIN — READ ONLY |
++| Experience Architecture | VALIDATED BY MORRIS — INTEGRATED ON MAIN — READ ONLY |
++| Capacité v3 servie | V3-F02 LPS · V3-F04 Epistemology · V3-F06 Trajectory · V3-F08 blocked · V3-F09 Replanning · V3-F11 AgentCapability · V3-F12 Execution governance · V3-F14 Evidence · V3-F15 anti-claims |
++| Milestone | PRODUCT COMPLETION — E2E WIREFRAMES & INTERACTION MODEL |
++| Pourquoi maintenant | C1+C2+EA intégrés · 0 blocker archi fct démontré · gap critique = matérialiser interaction E2E avant HF / Delivery |
++| Trajectoire | C1 → C2 → EA → **E2E Wireframes** → Morris validation → next-capability requalification |
++| Capacité suivante | **NOT SELECTED** |
++| Architecture parallèle | **INTERDITE** |
++| Fake / Real | N/A · Penpot = DESIGN ARTIFACT ≠ runtime proof ≠ REAL |
++| Niveau preuve attendu | E2E DESIGN / INTERACTION MODEL EVIDENCE |
++
++---
++
++## 6. Penpot source contract
++
++| Élément | Valeur |
++| --- | --- |
++| **File name** | Nouveau fichier 1 |
++| **File id** | `63bdc57a-636a-81ba-8008-82d2a50d5233` |
++| **Page 00 — Foundations** | **READ ONLY** — preuve EA validée · ne pas corriger / réécrire |
++| **Page 01 — User Flows** | **READ ONLY** — preuve EA validée · ne pas corriger / réécrire |
++| **Page 02 — Wireframes** | **WRITE** — seul espace autorisé ce cycle · id page `5de0e468-4bc9-80ee-8008-82d2f6c1ab48` |
++| **Page 03 — Screens** | **UNTOUCHED** |
++| **Page 04 — Components** | **UNTOUCHED** |
++| **Page 05 — States & Evidence** | **READ ONLY** — preuve EA validée · ne pas corriger / réécrire |
++
++**Disciplines appliquées :** IDs board · dimensions · structure · états · hypothèses · écarts · exports inspectables.
++
++**Aucun fallback Figma.** Pas de double source visuelle parallèle.
++
++---
++
++## 7. Board index (page 02)
++
++Largeurs = références **H-02** (1440 desktop boards · 2200 pour boards responsive côte-à-côte). Hauteurs = **content-driven** (hypothèse documentée : hauteur libre si contenu l’exige · largeur de référence identifiable).
++
++| Board | Penpot ID | Name | W×H | Role |
++| --- | --- | --- | --- | --- |
++| **WF-00** | `8a7c3763-1507-80e7-8008-83250baab017` | WF-00 — E2E Coverage / Navigation Map | 1440×1114 | Index A→W / S1–S12 / board map |
++| **WF-01** | `8a7c3763-1507-80e7-8008-83250b4fd067` | WF-01 — Project Entry — Create OR Resume | 1440×772 | A/B entry alternatives |
++| **WF-02** | `8a7c3763-1507-80e7-8008-8322d50b0dc3` | WF-02 — Workspace — Conversation + LPS + Qualification | 1440×547 | Conversation-dominant + LPS |
++| **WF-03** | `8a7c3763-1507-80e7-8008-8322f54f18d9` | WF-03 — Trajectory + Option + Recommendation + HumanDecision | 1440×704 | Epistemic triad + Trajectory · H-01 variants |
++| **WF-04** | `8a7c3763-1507-80e7-8008-8322f5b59a17` | WF-04 — ExecutionContract — Summary → Detail | 1440×529 | MD-C2-03 progressive disclosure |
++| **WF-05** | `8a7c3763-1507-80e7-8008-83250afe1905` | WF-05 — Confirmation / Authority / Authorization Blocked | 1440×691 | Confirm if required · authority · blocked |
++| **WF-06** | `8a7c3763-1507-80e7-8008-83231641cad4` | WF-06 — Attempt Running / Guardrails | 1440×403 | Progress + runtime guards persist |
++| **WF-07** | `8a7c3763-1507-80e7-8008-83231689a015` | WF-07 — SUCCESS / STOP / FAIL + Evidence | 1440×511 | Terminals distinct + Evidence · H-03 |
++| **WF-08** | `8a7c3763-1507-80e7-8008-832316dc8683` | WF-08 — Nora Analysis + Replanning + Recovery | 1440×304 | U / V / W |
++| **WF-09** | `8a7c3763-1507-80e7-8008-83231709a107` | WF-09 — Empty / Loading / Error / Blocked | 1440×415 | State principles · H-04 cases |
++| **WF-R01** | `8a7c3763-1507-80e7-8008-83233ae97e9c` | WF-R01 — Workspace / Trajectory responsive | 2200×602 | Compact 1024 + Mobile 390 · H-02 |
++| **WF-R02** | `8a7c3763-1507-80e7-8008-83233b51b13d` | WF-R02 — EC / Evidence / Recovery responsive | 2200×504 | Compact + Mobile · H-02 / H-03 |
++
++**Fidélité :** wireframe / interaction model · **≠** Screens · **≠** Components.
++
++---
++
++## 8. A→W coverage matrix
++
++| Journey (EA) | Steps C2 | Boards | Surfaces | Gates / proof |
++| --- | --- | --- | --- | --- |
++| **UF-01 Project Entry** | A/B → C | WF-00 · **WF-01** | S1, S2(**A**), S3(**B**/post-create), S8 | A/B alternatives · no forced Create for resume |
++| **UF-02 Understand & Qualify** | C → G | **WF-02** | S4, S5 | Clarification · LPS updated · method absorbed |
++| **UF-03 Trajectory & Decision** | H → J | **WF-03** | S4, S5, S6 | Option ≠ Rec ≠ HD · proposed ≠ decided |
++| **UF-04 Prepare & Authorize** | K → N | **WF-04** · **WF-05** | S4, S10, S11 | EC inspect → Confirm **if required** · authority / blocked |
++| **UF-05 Execute & Outcome** | O → T | **WF-06** · **WF-07** | S4, S12, S9 | Guards persist · SUCCESS ≠ STOP ≠ FAIL · Evidence |
++| **UF-06 Learn & Replan** | U → V | **WF-08** | S4, S5, S6 | Nora analysis · next Rec · HD if structurant |
++| **UF-07 Resume Anywhere** | W | **WF-01** · **WF-08** | S3, S8, S5, S7 | Honest resume · no fake GO / memory / authority |
++| **States / responsive** | transversal | **WF-09** · **WF-R01** · **WF-R02** | S1–S12 as needed | Empty/loading/error/blocked · H-02 |
++
++**Non-wizard :** A/B alternatives · Q/R/S branches · W transversal · un concept ≠ un écran.
++
++---
++
++## 9. S1→S12 coverage matrix
++
++| Surface | Job | Boards | Coverage |
++| --- | --- | --- | --- |
++| **S1** Entry / Projects | Lister · ouvrir · créer | WF-01 | MAPPED |
++| **S2** Create intention | Nom + intention (**A only**) | WF-01 | MAPPED (provisional PRE-M6 ADAPT) |
++| **S3** Workspace shell | Conversation + état | WF-02 · WF-R01 · WF-01(B) | MAPPED |
++| **S4** Conversation | Dominant interaction | WF-02…WF-08 | MAPPED |
++| **S5** LPS / project state | État business-first | WF-02 · WF-03 · WF-R01 | MAPPED |
++| **S6** Trajectory | Done / active / proposed / blocked | WF-03 · WF-R01 | MAPPED (région LPS préférée — H-01) |
++| **S7** History | Ancres durables minimales | WF-08 (resume strip) · WF-00 | PARTIALLY MAPPED (minimal) |
++| **S8** Recovery | Reprise honnête | WF-01(B) · WF-08 · WF-R02 | MAPPED |
++| **S9** Evidence reader | Business-first hierarchy | WF-07 · WF-R02 | MAPPED (in-workspace — H-03) |
++| **S10** EC disclosure | Summary → detail | WF-04 · WF-R02 | MAPPED |
++| **S11** Confirmation | Si requise après EC inspect | WF-05 | MAPPED (process-local debt carried) |
++| **S12** Attempt lifecycle | Progress + terminals | WF-06 · WF-07 | MAPPED |
++
++**Règle EA préservée :** conversation-first ≠ conversation-only · minimiser fragmentation et jargon méthode.
++
++---
++
++## 10. CA-PC / MD-C2 / A11Y coverage
++
++### 10.1 CA-PC (wireframe-level)
++
++| CA | Besoin observable | Board(s) | Coverage |
++| --- | --- | --- | --- |
++| CA-PC-01 | Create durable | WF-01 | MAPPED |
++| CA-PC-02 | Resume without fake GO | WF-01 · WF-08 | MAPPED |
++| CA-PC-03 / 04 | Qualification / Critical clarify | WF-02 | MAPPED |
++| CA-PC-05 | CKC absent / fallback | WF-02 status text | PARTIALLY MAPPED |
++| CA-PC-06…10 | Trajectory / Rec / HD / Option | WF-03 | MAPPED |
++| CA-PC-11…13 | Confirmation required / consumed / stale | WF-05 · WF-08 | MAPPED / PARTIAL (durability debt) |
++| CA-PC-14…16 | EC inspect / amend | WF-04 | MAPPED |
++| CA-PC-17…22 | Attempt / terminals / STOP/FAIL | WF-06 · WF-07 | MAPPED |
++| CA-PC-23 / 24 | Evidence + next | WF-07 · WF-08 | MAPPED |
++| CA-PC-25 | Resume or requalify | WF-08 | MAPPED |
++| CA-PC-26 | Catalog evolvability | — | NOT UX-SPECIFIC |
++| CA-PC-27…30 | SC-CAP / SC-SRC / no Attempt sans inspect | WF-05 · WF-09 | MAPPED |
++| CA-PC-31 | Cognitive path genericity | WF-00…WF-09 | PARTIALLY MAPPED via genericity |
++| CA-PC-32 / 33 | AgentCapability / DoctrinePackage | WF-04 · WF-05 | PARTIALLY MAPPED |
++| CA-PC-34 | Minimal history | WF-08 | MAPPED minimal |
++| CA-PC-35 | Method absorbed | WF-02 · WF-00 | MAPPED |
++
++**Aucun CA n’est VALIDATED / PROVEN / READY** dans ce cycle (design evidence seulement).
++
++### 10.2 MD-C2
++
++| MD | Application wireframe | Statut |
++| --- | --- | --- |
++| **MD-C2-01** genericity | Même parcours S3–S12 · pas d’UI par type de cycle | COVERED (architecture/wireframe) |
++| **MD-C2-03** EC Option B | WF-04 Summary → Detail avant authorize | COVERED |
++| **MD-C2-04** Capitalization orthogonal | Pas de surface Critical auto | COVERED |
++| **MD-C2-02** UserSource SHOULD | Non forcé dans UI Create | COVERED (non-exposure) |
++
++### 10.3 A11Y-PC
++
++| ID | Application wireframe | Board |
++| --- | --- | --- |
++| A11Y-PC-01 | Status / gate / SUCCESS/STOP/FAIL textuels | WF-05…WF-09 |
++| A11Y-PC-02 | Protected / effectful identifiable pre-exec | WF-05 |
++| A11Y-PC-03 | STOP/FAIL hors couleur seule | WF-07 · WF-09 |
++| A11Y-PC-04 | Hierarchy / headings wireframe | Tous boards |
++| A11Y-PC-05 | Consentement Confirmation when required | WF-05 |
++| A11Y-PC-06 | Primary Evidence lisible | WF-07 |
++
++**WCAG full compliance = NOT CLAIMED.**
++
++---
++
++## 11. Interaction model (Create/Resume → Recovery)
++
++### 11.1 Entry alternatives (A / B)
++
++```
++S1 Projects
++├── Path A Create → S2 intention → S3 workspace (post-create)
++└── Path B Resume → S3 workspace OR S8 Recovery (direct)
++```
++
++- **Aucune** séquence Entry → Create obligatoire pour un Project existant.
++- Resume **n’impose pas** Create.
++
++### 11.2 Core loop (post-entry)
++
++1. **Qualify** (S4+S5) — clarification · LPS durable · méthode absorbée.
++2. **Orient** (S4+S6) — Options · Recommendation (sans autorité) · Trajectory proposed.
++3. **Decide** — HumanDecision **si** arbitrage structurant (peut être in-conversation · pas d’écran HD obligatoire).
++4. **Prepare** (S10) — EC summary Pilote-first → full detail accessible.
++5. **Authorize** (S11 **if required**) — après EC inspect · proportionnée effects/reversibility/authority/protection/policy.
++6. **Authority check** — effective authority · executor sufficiency · **authorization blocked** = gate result ≠ nouvel état lifecycle EC.
++7. **Execute** (S12) — accepted → running · progrès observable · **runtime guardrails restent actifs**.
++8. **Terminal** — SUCCESS / STOP / FAIL textuellement distincts.
++9. **Evidence** (S9) — business-first · avant claim · next useful action.
++10. **Learn / Replan** (U/V) — Nora analysis · next Recommendation · HD si structurant.
++11. **Recover** (W) — reconstruct durable truth · disclose process-local loss · never invent GO/memory/authority/Confirmation.
++
++### 11.3 Spatial model
++
++| Zone | Contenu | Règle |
++| --- | --- | --- |
++| Shell | Project identity · status textuel | KEEP/ADAPT ProductShell |
++| Conversation (dominant) | Cards Option/Rec/HD/EC/Attempt/Evidence | Dominant ≠ only |
++| LPS panel / drawer | State + Trajectory region (H-01 A) | Compact/mobile → drawer |
++| Modals | Confirmation **if required** only | No micro-confirmation habit |
++
++---
++
++## 12. Responsive model
++
++| Reference | Size | Statut | Boards de test |
++| --- | --- | --- | --- |
++| Desktop | 1440×1024 (largeur boards 1440 · H content-driven) | **H-02 HYPOTHESIS** | WF-01…WF-09 |
++| Compact | 1024×768 | **H-02 HYPOTHESIS** | WF-R01 · WF-R02 |
++| Mobile | 390×844 | **H-02 HYPOTHESIS** | WF-R01 · WF-R02 |
++
++**Comportements testés :**
++
++- **Compact :** conversation full-width · LPS/Trajectory en drawer · EC summary full-width · Evidence in-workspace.
++- **Mobile :** stacked / tabs · EC stack · Evidence sheet · Recovery entry.
++
++**Sortie H-02 :** trio utile comme **working references** · **≠** doctrine · **≠** design-system breakpoints figés · statut **CARRY**.
++
++Hauteurs content-driven documentées (allowance H-02) : largeur de référence reste identifiable sur chaque board.
++
++---
++
++## 13. H-01…H-04 evaluation
++
++| ID | Hypothèse | Test boards | Finding | Statut |
++| --- | --- | --- | --- | --- |
++| **H-01** | Trajectory as region of LPS/workspace rather than separate route | WF-03 Variant A (S5+S6 in LPS) · Variant B (Trajectory card in S4 + LPS summary) | **Prefer Variant A (LPS region)** · Variant B comparable for conversational highlight · **dedicated Trajectory route eliminated** by C1/C2/EA (un concept ≠ un écran · minimise fragmentation) | **CARRY** — Recommendation only · **≠ CLOSED BY CURSOR** |
++| **H-02** | Viewport trio 1440 / 1024 / 390 | WF-R01 · WF-R02 (+ desktop boards) | Trio useful as working refs for workspace/trajectory/EC/Evidence/Recovery · heights may vary with content | **CARRY** — useful working refs · **not doctrine** |
++| **H-03** | Evidence primarily in-workspace, not separate app mode | WF-07 · WF-R02 | In-workspace reader preserves business-first hierarchy and next-action adjacency · separate app mode not required for PE | **CARRY** — prefer in-workspace Evidence |
++| **H-04** | Empty-state single primary CTA when unambiguous | WF-09 case A (single CTA) · case B (multi legitimate) | Single CTA when action unambiguous · multi when legitimate alternatives (e.g. resume **or** requalify) | **CARRY** — single CTA when unambiguous · multi when legitimate alternatives |
++
++**Statuts autorisés utilisés :** CARRY (+ Recommendation pour H-01).
++**Interdit ici :** CLOSED BY CURSOR pour arbitrage structurant.
++
++---
++
++## 14. Option / Recommendation / HumanDecision contracts
++
++| | Option | Recommendation | HumanDecision |
++| --- | --- | --- | --- |
++| Source | Nora / Studio | Nora | Pilote |
++| Authority | Aucune | **Aucune** | Structurante |
++| Label UX préféré | Option | **Recommandation** | Décision enregistrée |
++| Visual (WF-03) | Distinct | Distinct · **jamais stylisé comme décidé** | Distinct · recorded |
++| Trajectory link | — | proposed = Rec | Adoption / amend structurant = HD |
++
++**Règles wireframe :**
++
++- libellé générique unique « Proposition » **évité** pour Recommendation ;
++- phrase qualifiée peut devenir HD **sans** écran HD obligatoire (CA-PC-09) ;
++- unqualified phrase ≠ HD (CA-PC-08) ;
++- ProjectTrajectory proposed ≠ decided.
++
++Board de preuve : **WF-03**.
++
++---
++
++## 15. EC / Confirmation / authority contract
++
++### 15.1 ExecutionContract (MD-C2-03) — WF-04
++
++**Order :** K Prepare → L Inspect → M Confirmation **if required** → N effective authority / executor sufficiency → O Execute.
++
++**Summary Pilote-first (minimum) :** objectif · résultat attendu · scope IN/OUT · autorité / envelope utile · gates · risques · protections · Evidence attendue · rollback/reversibility · limites.
++
++**Full detail :** accessible **avant** authorize · **sans** isomorphisme template v2.6 · **sans** imposer un composant UI final.
++
++**Amend material** → re-inspect + re-evaluate Confirmations / gates.
++
++### 15.2 Confirmation / authority — WF-05
++
++> Confirmation **if required** by effects / reversibility / authority / protection / applicable policy, **after EC inspection**.
++
++- Proportionnée N1/N2/N3 by effects — **not** profile alone — **not** protected-boundary alone.
++- States pending / consumed / expired / invalidated — textuels.
++- Case « no Confirmation needed » explicite.
++- **Authorization blocked** = résultat gate / authority / SC-CAP · **≠** nouvel état lifecycle EC natif.
++- Effective authority = **intersection** · jamais somme / auto-escalade.
++- AgentCapability = envelope · ≠ effective authority.
++- PRE-M6 Confirmation process-local = **governed debt** carried · honesty required.
++
++---
++
++## 16. Attempt / terminal / Evidence contract
++
++### 16.1 Attempt — WF-06
++
++- Lifecycle : accepted → running → terminal (Q/R/S).
++- Progress observable.
++- **No routine micro-confirmation** after valid authorization.
++- **Runtime guardrails + stop conditions remain enforceable** (scope, protected boundaries, Git divergence, manual stop, late SC-*).
++- Attempt terminal ≠ CycleInstance closed ≠ Project archived.
++
++### 16.2 Terminals + Evidence — WF-07
++
++| Terminal | Meaning | Must show |
++| --- | --- | --- |
++| SUCCESS | Functional attempt success | ≠ READY ≠ ADOPTED |
++| STOP | Governed stop | why · boundary · next action |
++| FAIL | Technical failure | ≠ SUCCESS · recoverable next |
++
++**Evidence hierarchy (business-first) :**
++
++1. Business outcome / meaning for Pilote
++2. What was attempted / boundary
++3. Next useful action / Nora hook
++4. Technical detail secondary / expandable
++
++Primary Evidence readable without mandatory complex interaction (A11Y-PC-06). Placement : **in-workspace** (H-03 CARRY).
++
++---
++
++## 17. Recovery / replanning contract
++
++Board : **WF-08**.
++
++| Phase | Contenu | Règle |
++| --- | --- | --- |
++| **U** Nora analysis | Lecture Evidence → signification | Nora propose · ne décide pas |
++| **V** Replanning | Next path as **Recommendation** | HD seulement si structurant |
++| **W** Recovery / Resume | Reconstruct durable objects | Disclose process-local loss |
++
++**Anti-inventions :** jamais transcript inventé · fausse autorité · fausse Confirmation · faux GO.
++
++Paths : resume durable **or** explicit requalification. Stale Confirmation → refuse · new Confirmation if required.
++
++History (S7) : ancres minimales pour reprise — pas de dump technique.
++
++---
++
++## 18. PRE-M6 harvest notes
++
++Classification = **RECOMMENDATION de cycle** (héritée EA) · **pas** décision Morris nouvelle. Wireframe cible = C1+C2+EA · **≠** screenshot PRE-M6.
++
++| Asset | Disposition | Usage wireframe |
++| --- | --- | --- |
++| ProductShell | KEEP / ADAPT | WF-01 · WF-02 shell |
++| ProjectsPage | KEEP / ADAPT | WF-01 S1 |
++| NewProjectIntentionPage | ADAPT (provisional · A only) | WF-01 S2 |
++| ProjectWorkspacePage | KEEP / ADAPT | WF-02 |
++| ConversationSurface | KEEP / ADAPT | S4 cards |
++| LpsSurface | KEEP / ADAPT | S5 · Trajectory region |
++| HistorySurface | KEEP / ADAPT | Resume / W |
++| RecoverySurface | KEEP / ADAPT | S8 |
++| presentationLabels | KEEP | Terminals / Rec labels |
++| Responsive thresholds | HARVEST | H-02 tests WF-R01/R02 |
++| Legacy panels / studio-projects / vertical-slice | HARVEST patterns | ≠ dual entry · ≠ copy UI |
++
++**Aucune suppression exécutée.** RETIRE LATER ≠ delete now.
++
++---
++
++## 19. Design blocker register
++
++| ID | UX need | Existing capability | Missing boundary | Blocking E2E wireframe model? | Route | Morris now? |
++| --- | --- | --- | --- | --- | --- | --- |
++| FAB-01 | Trajectory first-class presentation | LPS/history + WF-03 region | Runtime durability incomplete | **NOT A BLOCKER** | ADAPT surface · Screens later | No |
++| FAB-02 | Confirmation restart-safe | Process-local Confirmation | Durability semantics | **NOT A BLOCKER** (honesty + debt known) | Future dedicated cycle | Separate if redesign |
++| FAB-03 | AgentCapability Pilote summary | EC fields | Presentation polish | **NOT A BLOCKER** | Progressive disclosure ADAPT | No |
++| FAB-04 | Evidence business-first | ReviewBundle + WF-07 | HF hierarchy polish | **NOT A BLOCKER** | Screens ADAPT | No |
++
++**Count demonstrated functional-architecture blockers blocking this design cycle: 0.**
++
++Aucun besoin démontré de découpage modules/services pour trancher le modèle d’interaction E2E.
++
++---
++
++## 20. Open reserves
++
++| ID | Reserve | Blocking validation? |
++| --- | --- | --- |
++| **H-01** | CARRY — prefer Variant A (LPS region) · Recommendation only | No |
++| **H-02** | CARRY — viewport trio working refs · not doctrine | No |
++| **H-03** | CARRY — prefer in-workspace Evidence | No |
++| **H-04** | CARRY — single CTA when unambiguous · multi when legitimate | No |
++| **Confirmation process-local** | Governed debt inherited · honesty required | No |
++| **Trajectory durability** | Runtime / persistence incomplete vs presentation | No |
++| **R-INT-UX-02** | POST-SYNC SELF-REFERENCE STALENESS — **ABSORBED / CLOSED BY OPPORTUNISTIC ROADMAP MAINTENANCE** (snapshot current-state updated to verified `origin/main` @ `6b67ada7…`) · factual documentary · **≠** design decision · **≠** new correction cycle · Git SoT remains authoritative for self-reference | No |
++
++---
++
++## 21. Morris decision candidates (optional)
++
++| ID | Question | Blocking now? | Note |
++| --- | --- | --- | --- |
++| **OD-WF-01** | Close H-01 preference formally as Variant A (LPS region) | **No** | Optional · Recommendation already stated · non-blocking for candidate validation |
++| — | Normative a11y beyond A11Y-PC | No | Future |
++| — | Confirmation durability productization | No | Future dedicated cycle |
++| — | New Project visual frame adoption | No | After Screens gate |
++
++**Aucune décision Morris obligatoire** pour valider ce candidat design si les preuves boards + matrices tiennent.
++
++---
++
++## 22. Exit proof
++
++### Wireframe design exit (prouvé)
++
++- [x] candidate complete ;
++- [x] 12 Penpot boards (page 02) ;
++- [x] A→W covered ;
++- [x] S1→S12 covered ;
++- [x] visual review **PASS WITH NON-BLOCKING RESERVES** ;
++- [x] Morris **VALIDATED** ;
++- [x] H-01…H-04 **CARRY** ;
++- [x] 0 demonstrated functional architecture blocker ;
++- [x] Penpot tooling decision tracée · R-04 supersession documentée sans invalidation rétroactive EA.
++
++### Git integration exit (ce cycle — local)
++
++- [x] candidat marqué **VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT YET INTEGRATED ON MAIN** ;
++- [x] Roadmap current-state synchronisée ;
++- [x] exactly **2** project files in **one** local project commit ;
++- [x] FULL Review Pack + Review Handoff ;
++- [x] **NO** project push / PR / merge ;
++- [x] Penpot **READ ONLY** (no design mutation) ;
++- [x] Next capability **NOT SELECTED** ;
++- [x] Runtime v3 **NON ADOPTED** · Delivery **NOT AUTHORIZED** · REAL **ZERO** · Screens/Components **NOT AUTHORIZED**.
++
++**Next repository gate :** CHATGPT GIT INTEGRATION REVIEW → Morris GO **PR READINESS / PROJECT PUSH** if PASS.
++**Next product gate (after main integration proof) :** NEXT-CAPABILITY REQUALIFICATION · NEXT CAPABILITY **NOT SELECTED**.
++
++---
++
++## 23. Anti-claims
++
++Ce document **ne dit pas** :
++
++- VALIDATED WIREFRAMES = **INTEGRATED ON MAIN** (état = Git integration authorized · main proof pending) ;
++- VALIDATED WIREFRAMES = Screens / Components **authorized** ;
++- VALIDATED WIREFRAMES = Delivery **authorized** ;
++- VALIDATED WIREFRAMES = REAL / runtime v3 **ADOPTED** ;
++- VALIDATED WIREFRAMES = next Product Completion capability **selected** ;
++- VALIDATED WIREFRAMES = Product Completion **complete** ;
++- Morris validation = main integration ;
++- local project commit = push / PR / merge authorized ;
++- Penpot = baseline méthodologique SFIA **globale** ;
++- Penpot remplace Figma **dans la méthode SFIA globale** ;
++- Penpot = Git SoT ;
++- R-04 supersession = invalidation rétroactive EA ;
++- H-01…H-04 = **CLOSED** / doctrine définitive (ils restent **CARRY**) ;
++- Recommendation = HumanDecision = Option ;
++- Confirmation = protected-boundary only ;
++- Authorization cancels later stop conditions ;
++- Authorization blocked = native EC lifecycle state ;
++- SUCCESS = READY / ADOPTED ;
++- Attempt terminal = Cycle closed = Project archived ;
++- WCAG **compliant** ;
++- PRE-M6 = final PE UI ;
++- Functional architecture **selected** ;
++- Code / deterministic runtime proof produit.
++
++---
++
++## 24. Penpot evidence index
++
++Exports cycle-local (hors Git projet) :
++
++**Directory :** `.tmp-sfia-review/penpot-exports/02-wireframes/`
++
++| Board | Expected / observed export path | ID | W×H |
++| --- | --- | --- | --- |
++| WF-00 | `02-wireframes/01-wf-00-e2e-coverage-navigation-map.svg` (+ png/) | `8a7c3763-1507-80e7-8008-83250baab017` | 1440×1114 |
++| WF-01 | `02-wireframes/02-wf-01-project-entry-create-or-resume.svg` | `8a7c3763-1507-80e7-8008-83250b4fd067` | 1440×772 |
++| WF-02 | `02-wireframes/03-wf-02-workspace-conversation-lps-qualification.svg` | `8a7c3763-1507-80e7-8008-8322d50b0dc3` | 1440×547 |
++| WF-03 | `02-wireframes/04-wf-03-trajectory-option-recommendation-humandecision.svg` | `8a7c3763-1507-80e7-8008-8322f54f18d9` | 1440×704 |
++| WF-04 | `02-wireframes/05-wf-04-executioncontract-summary-detail.svg` | `8a7c3763-1507-80e7-8008-8322f5b59a17` | 1440×529 |
++| WF-05 | `02-wireframes/06-wf-05-confirmation-authority-authorization-blocked.svg` | `8a7c3763-1507-80e7-8008-83250afe1905` | 1440×691 |
++| WF-06 | `02-wireframes/07-wf-06-attempt-running-guardrails.svg` (or png/) | `8a7c3763-1507-80e7-8008-83231641cad4` | 1440×403 |
++| WF-07 | `02-wireframes/08-wf-07-success-stop-fail-evidence.svg` | `8a7c3763-1507-80e7-8008-83231689a015` | 1440×511 |
++| WF-08 | `02-wireframes/09-wf-08-nora-analysis-replanning-recovery.svg` | `8a7c3763-1507-80e7-8008-832316dc8683` | 1440×304 |
++| WF-09 | `02-wireframes/10-wf-09-empty-loading-error-blocked.svg` | `8a7c3763-1507-80e7-8008-83231709a107` | 1440×415 |
++| WF-R01 | `02-wireframes/11-wf-r01-workspace-trajectory-responsive.svg` | `8a7c3763-1507-80e7-8008-83233ae97e9c` | 2200×602 |
++| WF-R02 | `02-wireframes/12-wf-r02-ec-evidence-recovery-responsive.svg` | `8a7c3763-1507-80e7-8008-83233b51b13d` | 2200×504 |
++
++**Index companion :** `.tmp-sfia-review/penpot-exports/INDEX.md` (cycle review pack).
++**Do not commit** `.tmp-sfia-review/**` as product SoT.
++
++File Penpot : `63bdc57a-636a-81ba-8008-82d2a50d5233` · page `02 — Wireframes` · **READ ONLY** this Git cycle · visual evidence previously reviewed (12/12).
++
++---
++
++## 25. Next gate
++
++| Gate | Statut |
++| --- | --- |
++| **Design validation Morris** | **CONSUMED — VALIDATED** |
++| **Current repository gate** | **LOCAL GIT INTEGRATION** (this cycle) |
++| **After local commit** | CHATGPT GIT INTEGRATION REVIEW → Morris GO **PR READINESS / PROJECT PUSH** if PASS |
++| Screens / Components | **NOT** authorized · **NOT SELECTED** |
++| Main integration proof | **NOT YET** · requires push + PR + merge under separate GO |
++| Next Product Completion / UX capability | **NOT SELECTED** — requalification only **after** main integration proof |
++| Runtime v3 | **NON ADOPTED** |
++| Delivery / REAL | **NOT AUTHORIZED** / **ZERO REAL** |
++
++**Trajectoire :**
++
++C1 INTEGRATED → C2 INTEGRATED → UX EA INTEGRATED → E2E WIREFRAMES **VALIDATED BY MORRIS** → LOCAL GIT INTEGRATION → PR READINESS → MAIN INTEGRATION PROOF → NEXT-CAPABILITY REQUALIFICATION → NEXT CAPABILITY **NOT SELECTED** → NO EXECUTION WITHOUT MORRIS GO.
++
++---
++
++## 26. Trace synthèse cycle
++
++| Trace | Valeur |
++| --- | --- |
++| Branch | `design/sfia-studio-product-completion-e2e-wireframes-interaction-model` |
++| Base | `origin/main` = `6b67ada75ecf76a44a6046ecc753cd07571d190d` |
++| Design cycle type | **4 UX/UI** · **CRITICAL** · **DOC / DESIGN ARTIFACT** |
++| Git cycle type | **15 Capitalisation** · **Standard** · DOC / DESIGN ARTIFACT |
++| Tooling | Penpot = Studio product design reference workspace (Morris) |
++| R-04 | **SUPERSEDED FOR FUTURE SFIA STUDIO PRODUCT DESIGN BY MORRIS PENPOT TOOLING DECISION** |
++| Status | **VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT YET INTEGRATED ON MAIN** |
++| Blockers FAB | **0** |
++| H-01…H-04 | All **CARRY** |
++| R-INT-UX-02 | **ABSORBED / CLOSED BY OPPORTUNISTIC ROADMAP MAINTENANCE** |
++| Project git | **ONE LOCAL COMMIT** · **NO PUSH / PR / MERGE** |
++
++---
++
++*SFIA Studio — Product Completion — UX E2E Wireframes & Interaction Model — **VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT YET INTEGRATED ON MAIN** — NO SCREENS — NO COMPONENTS — NO DELIVERY — NO REAL — NEXT CAPABILITY NOT SELECTED — RUNTIME V3 NON ADOPTED*
 
 ```
 
-## 14. Penpot evidence index (12 boards — READ ONLY this cycle)
+## 38. Final verdict
 
-# Penpot export index — E2E Wireframes & Interaction Model
+READY FOR CHATGPT E2E WIREFRAMES PR REVIEW — DRAFT PR OPEN — PROJECT BRANCH PUSHED — REVIEWED COMMIT 1754412066a4d3230942236316e35b44b4f2c30c PRESERVED — EXACT 2-FILE / 1-COMMIT SCOPE — MORRIS VALIDATION PRESERVED — H-01…H-04 CARRIED — NO MARK READY — NO MERGE — NO SCREENS — NO COMPONENTS — NO DELIVERY — NO REAL — NEXT CAPABILITY NOT SELECTED — RUNTIME V3 NON ADOPTED — CI GREEN
 
-Temporary local review artifacts. **Do not commit.**
-
-- Exported: 2026-08-20 16:14:47 CEST
-- Penpot file: `63bdc57a-636a-81ba-8008-82d2a50d5233`
-- Page WRITE: `02 — Wireframes` (12 boards)
-- Pages READ ONLY unchanged: `00 — Foundations` (7), `01 — User Flows` (8), `05 — States & Evidence` (9)
-- Pages UNTOUCHED: `03 — Screens` (0), `04 — Components` (0)
-
-## Boards 12/12
-
-| # | Board | Penpot ID | Dims | A→W | Surfaces | Hypotheses | SVG | PNG | JPEG compact |
-|---:|---|---|---|---|---|---|---|---|---|
-| 1 | `WF-00` | `8a7c3763-1507-80e7-8008-83250baab017` | 1440×1114 | A→W index | S1–S12 | H-02 | `02-wireframes/01-wf-00-e2e-coverage-navigation-map.svg` | `png/02-wireframes/01-wf-00-e2e-coverage-navigation-map.png` | `review-copies/02-wireframes-compact/01-wf-00-e2e-coverage-navigation-map.jpg` |
-| 2 | `WF-01` | `8a7c3763-1507-80e7-8008-83250b4fd067` | 1440×772 | A/B | S1 S2 S3 S8 | — | `02-wireframes/02-wf-01-project-entry-create-or-resume.svg` | `png/02-wireframes/02-wf-01-project-entry-create-or-resume.png` | `review-copies/02-wireframes-compact/02-wf-01-project-entry-create-or-resume.jpg` |
-| 3 | `WF-02` | `8a7c3763-1507-80e7-8008-8322d50b0dc3` | 1440×547 | C–G | S3 S4 S5 | — | `02-wireframes/03-wf-02-workspace-conversation-lps-qualification.svg` | `png/02-wireframes/03-wf-02-workspace-conversation-lps-qualification.png` | `review-copies/02-wireframes-compact/03-wf-02-workspace-conversation-lps-qualification.jpg` |
-| 4 | `WF-03` | `8a7c3763-1507-80e7-8008-8322f54f18d9` | 1440×704 | H–J | S4 S5 S6 | H-01 | `02-wireframes/04-wf-03-trajectory-option-recommendation-humandecision.svg` | `png/02-wireframes/04-wf-03-trajectory-option-recommendation-humandecision.png` | `review-copies/02-wireframes-compact/04-wf-03-trajectory-option-recommendation-humandecision.jpg` |
-| 5 | `WF-04` | `8a7c3763-1507-80e7-8008-8322f5b59a17` | 1440×529 | K–L | S10 | — | `02-wireframes/05-wf-04-executioncontract-summary-detail.svg` | `png/02-wireframes/05-wf-04-executioncontract-summary-detail.png` | `review-copies/02-wireframes-compact/05-wf-04-executioncontract-summary-detail.jpg` |
-| 6 | `WF-05` | `8a7c3763-1507-80e7-8008-83250afe1905` | 1440×691 | M–N | S11 | — | `02-wireframes/06-wf-05-confirmation-authority-authorization-blocked.svg` | `png/02-wireframes/06-wf-05-confirmation-authority-authorization-blocked.png` | `review-copies/02-wireframes-compact/06-wf-05-confirmation-authority-authorization-blocked.jpg` |
-| 7 | `WF-06` | `8a7c3763-1507-80e7-8008-83231641cad4` | 1440×403 | O–P | S12 | — | `02-wireframes/07-wf-06-attempt-running-guardrails.svg` | `png/02-wireframes/07-wf-06-attempt-running-guardrails.png` | `review-copies/02-wireframes-compact/07-wf-06-attempt-running-guardrails.jpg` |
-| 8 | `WF-07` | `8a7c3763-1507-80e7-8008-83231689a015` | 1440×511 | Q/R/S–T | S9 S12 | H-03 | `02-wireframes/08-wf-07-success-stop-fail-evidence.svg` | `png/02-wireframes/08-wf-07-success-stop-fail-evidence.png` | `review-copies/02-wireframes-compact/08-wf-07-success-stop-fail-evidence.jpg` |
-| 9 | `WF-08` | `8a7c3763-1507-80e7-8008-832316dc8683` | 1440×304 | U V W | S4 S5 S6 S7 S8 | — | `02-wireframes/09-wf-08-nora-analysis-replanning-recovery.svg` | `png/02-wireframes/09-wf-08-nora-analysis-replanning-recovery.png` | `review-copies/02-wireframes-compact/09-wf-08-nora-analysis-replanning-recovery.jpg` |
-| 10 | `WF-09` | `8a7c3763-1507-80e7-8008-83231709a107` | 1440×415 | states | S1–S12 | H-04 | `02-wireframes/10-wf-09-empty-loading-error-blocked.svg` | `png/02-wireframes/10-wf-09-empty-loading-error-blocked.png` | `review-copies/02-wireframes-compact/10-wf-09-empty-loading-error-blocked.jpg` |
-| 11 | `WF-R01` | `8a7c3763-1507-80e7-8008-83233ae97e9c` | 2200×602 | responsive | S3 S5 S6 | H-02 | `02-wireframes/11-wf-r01-workspace-trajectory-responsive.svg` | `png/02-wireframes/11-wf-r01-workspace-trajectory-responsive.png` | `review-copies/02-wireframes-compact/11-wf-r01-workspace-trajectory-responsive.jpg` |
-| 12 | `WF-R02` | `8a7c3763-1507-80e7-8008-83233b51b13d` | 2200×504 | responsive | S8 S9 S10 | H-02 H-03 | `02-wireframes/12-wf-r02-ec-evidence-recovery-responsive.svg` | `png/02-wireframes/12-wf-r02-ec-evidence-recovery-responsive.png` | `review-copies/02-wireframes-compact/12-wf-r02-ec-evidence-recovery-responsive.jpg` |
-
-## Reserves noted on boards
-- H-01…H-04 = CARRY (not closed by Cursor)
-- Confirmation process-local durability OPEN
-- R-INT-UX-02 carried external (not fixed here)
-
-## 15. Visual review provenance
-
-ChatGPT direct visual review of WF-00…WF-09 + WF-R01/R02:
-
-E2E WIREFRAMES & INTERACTION MODEL — VISUAL REVIEW PASS WITH NON-BLOCKING RESERVES — A→W COVERED — S1→S12 COVERED — STRUCTURAL INTERACTIONS COHERENT — H-01…H-04 PROPERLY CARRIED — NO FUNCTIONAL ARCHITECTURE BLOCKER DEMONSTRATED — READY FOR MORRIS VALIDATION DECISION.
-
-Morris validation consumed. Penpot NOT mutated in this Git cycle.
-
-## 16. A→W coverage
-
-COVERED (design evidence + validated candidate matrices) — not reopened.
-
-## 17. S1→S12 coverage
-
-COVERED (S7 minimal/partial as documented) — not reopened.
-
-## 18. H-01…H-04
-
-All **CARRY**. Morris validation adopts candidate **with** these statuses. Not closed as final doctrine.
-
-## 19. Existing debts
-
-- Confirmation process-local: OPEN
-- ProjectTrajectory runtime durability: OPEN
-- H-01…H-04: CARRY
-- Upstream EC/Confirmation documentary reserves if applicable: preserved
-
-## 20. R-INT-UX-02 treatment
-
-**ABSORBED / CLOSED BY OPPORTUNISTIC ROADMAP MAINTENANCE**
-
-Snapshot current-state updated from stale `fb311f2f…` reference to verified `origin/main` @ `6b67ada7…`.
-Factual documentary · ≠ design decision · ≠ new correction cycle · Git SoT remains authoritative.
-
-## 21. Penpot tooling current-state
-
-Recorded on Roadmap + candidate: REFERENCE DESIGN WORKSPACE for SFIA Studio product design only.
-
-## 22–24. Exact commit / check
-
-### git show HEAD
-```
-commit 1754412066a4d3230942236316e35b44b4f2c30c
-Author:     Morris Cleland <morris@macbook-air1.home>
-AuthorDate: Thu Aug 20 16:51:03 2026 +0200
-Commit:     Morris Cleland <morris@macbook-air1.home>
-CommitDate: Thu Aug 20 16:51:03 2026 +0200
-
-    docs(sfia-studio): integrate validated E2E wireframes interaction model
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-A	projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md
-```
-
-### git diff --stat origin/main...HEAD
-```
-.../convergence/sfia-studio-convergence-roadmap.md |  31 +-
- .../02-end-to-end-wireframes-interaction-model.md  | 694 +++++++++++++++++++++
- 2 files changed, 713 insertions(+), 12 deletions(-)
-```
-
-### git diff --check
-PASS (trailing whitespace fixed before commit).
-
-## 25. Local commit SHA
-
-`1754412066a4d3230942236316e35b44b4f2c30c`
-
-Message: `docs(sfia-studio): integrate validated E2E wireframes interaction model`
-
-Exact files:
-1. A `projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md`
-2. M `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-
-## 26–34. Anti-actions / anti-claims
-
-- no project push
-- no PR
-- no merge
-- no Screens
-- no Components
-- no Delivery
-- ZERO REAL
-- next capability NOT SELECTED
-- runtime v3 NON ADOPTED
-- Penpot READ ONLY (no mutation)
-
-## 35. Reserves / limits
-
-Local commit ≠ main integration. PR readiness requires separate Morris GO. Screens/Components not selected. H-01…H-04 remain CARRY.
-
-## 36. Verdict
-
-READY FOR CHATGPT E2E WIREFRAMES GIT INTEGRATION REVIEW — MORRIS VALIDATION RECORDED — PENPOT TOOLING DECISION RECORDED — ROADMAP SYNCHRONIZED — EXACT 2-FILE LOCAL PROJECT COMMIT CREATED — H-01…H-04 CARRIED — REVIEW HANDOFF REMOTE VERIFIED — NO PROJECT PUSH — NO PR — NO MERGE — NO SCREENS — NO COMPONENTS — NO DELIVERY — NO REAL — NEXT CAPABILITY NOT SELECTED — RUNTIME V3 NON ADOPTED
-
-This verdict does NOT authorize project push, PR, merge, or next capability.
+This verdict does NOT authorize mark-ready or merge.
