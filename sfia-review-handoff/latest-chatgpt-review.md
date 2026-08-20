@@ -1,8 +1,8 @@
-# SFIA Review Pack LIGHT — SFIA Task Manager Cycle 13 PR Readiness (Cycle 3)
+# SFIA Review Pack LIGHT — SFIA Task Manager Cycle 14 Post-merge (Cycle 3)
 
-**Timestamp (Europe/Paris):** 2026-08-20 13:46:37 CEST
+**Timestamp (Europe/Paris):** 2026-08-20 13:49:11 CEST
 
-**Pack type:** LIGHT — Cycle 13 PR readiness for Cycle 3 Architecture fonctionnelle
+**Pack type:** LIGHT — Cycle 14 Post-merge
 
 **Profil:** Light
 
@@ -12,144 +12,113 @@
 
 ## Morris GO (exact)
 
-GO MORRIS — RUN CYCLE 13 PR READINESS FOR CYCLE 3 — IF PASS, PUSH PROJECT BRANCH + CREATE PR — NO MERGE — NO DOWNSTREAM CYCLE
+GO MORRIS — MERGE PR #371 — THEN RUN CYCLE 14 POST-MERGE CHECK — NO DOWNSTREAM CYCLE
 
 ---
 
-## Repository / Git truth
+## Pre-merge eligibility
 
 | Field | Value |
 |-------|-------|
-| Repository | mcleland147/sfia-workspace |
-| Branch | `project/sfia-task-manager-cycle-3-functional-architecture` |
-| HEAD | `ea6e71707fe5a059b6537c6231bdbdbf17ae5384` |
-| Parent | `32cce29f452e7db95d52ed71c578b1fc11d11b17` |
-| origin/main | `32cce29f452e7db95d52ed71c578b1fc11d11b17` |
-| Prior validation handoff | `6dc7df5b40ecb79f192422ae728e8082d5892fda` |
-| Tracked working tree | clean |
-| Remote branch pre-push | absent |
-
----
-
-## PR readiness
-
-| Check | Result |
-|-------|--------|
-| HEAD exact | PASS |
-| Parent/main exact | PASS |
-| Exactly 2 files | PASS |
-| diff --check | PASS |
-| Forbidden files | NONE |
-| Tech terms only as non-decisions | PASS |
-| Content VALIDATED / AFQ resolved / FQ OPEN / 0/16 / M1 NOT READY | PASS |
-| Duplicate PR | NONE |
-
-**Verdict:** **PR READINESS — PASS**
-
-### Diff
-
-```
-A	projects/sfia-task-manager/02-architecture/2026-08-20-m1-functional-architecture.md
-M	projects/sfia-task-manager/README.md
- 2 files changed, 570 insertions(+), 4 deletions(-)
-```
-
----
-
-## Project push
-
-**DONE**
-
-Remote branch SHA: `ea6e71707fe5a059b6537c6231bdbdbf17ae5384` — verified
-Main post-push recheck: `32cce29f` — PASS
-
----
-
-## Pull request
-
-| Field | Value |
-|-------|-------|
-| Number | **371** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/371 |
-| Title | docs(sfia-task-manager): validate M1 functional architecture |
-| State | **OPEN** |
-| isDraft | **false** |
-| base | main |
-| head | project/sfia-task-manager-cycle-3-functional-architecture |
+| PR | #371 |
+| State | OPEN → MERGED |
+| isDraft | false |
 | headRefOid | `ea6e71707fe5a059b6537c6231bdbdbf17ae5384` |
+| baseRefOid | `32cce29f452e7db95d52ed71c578b1fc11d11b17` |
 | mergeable | MERGEABLE |
-| mergeStateStatus | **BLOCKED** (checks pending at creation) |
-| Files | exactly 2 |
-| Commits | exactly 1 |
-
-### CI at creation
-
-- Detect SFIA Studio changes: **pending**
-- mergeStateStatus BLOCKED while checks pending — not a definitive SFIA block
-
-**Merge:** NOT AUTHORIZED
+| mergeStateStatus | CLEAN |
+| Detect SFIA Studio changes | success |
+| SFIA Studio Required Gate | success |
+| Build and validate SFIA Studio | skipped (non-Studio) |
+| SFIA Studio CI | completed / success |
 
 ---
 
-## PR body (complete)
+## Merge
 
-## Summary
-
-- Cycle 3 functional architecture validated by Morris
-- Includes:
-  - functional architecture document
-  - README tracking update
-- Preserves:
-  - M1 NOT READY
-  - FQ02–FQ05 OPEN
-  - AC demonstrated 0/16
-- No:
-  - technical architecture
-  - Figma
-  - backlog
-  - delivery
-  - downstream cycle
-
-## Scope
-
-- `projects/sfia-task-manager/README.md`
-- `projects/sfia-task-manager/02-architecture/2026-08-20-m1-functional-architecture.md`
-
-## Traceability
-
-- Project commit: `ea6e71707fe5a059b6537c6231bdbdbf17ae5384`
-- Parent/main at readiness: `32cce29f452e7db95d52ed71c578b1fc11d11b17`
-- Prior validation handoff: `6dc7df5b40ecb79f192422ae728e8082d5892fda`
-- Morris GO:
-  GO MORRIS — RUN CYCLE 13 PR READINESS FOR CYCLE 3 — IF PASS, PUSH PROJECT BRANCH + CREATE PR — NO MERGE — NO DOWNSTREAM CYCLE
-
-## Next gate
-
-- MORRIS MERGE DECISION
-- Merge is NOT authorized by this cycle.
-- Downstream cycles are NOT authorized.
-
+| Field | Value |
+|-------|-------|
+| Method | merge commit |
+| Merged | true |
+| Merge SHA | `e0c8e9ac200a6a7fae37790c8919d858dc2aa5b0` |
+| Merged at | 2026-08-20T11:48:15Z |
+| Merged by | Ludo243 |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/371 |
 
 ---
 
-## Preserved product state
+## Main after merge
+
+| Field | Value |
+|-------|-------|
+| Branch | main |
+| HEAD | `e0c8e9ac200a6a7fae37790c8919d858dc2aa5b0` |
+| origin/main | `e0c8e9ac200a6a7fae37790c8919d858dc2aa5b0` |
+| Ancestor ea6e7170 | PASS |
+| Ancestor 32cce29f | PASS |
+| Tracked working tree | clean |
+
+### Integration files
+
+```
+A projects/sfia-task-manager/02-architecture/2026-08-20-m1-functional-architecture.md
+M projects/sfia-task-manager/README.md
+```
+
+Exactly 2 files.
+
+### Content qualification
 
 | Item | Status |
 |------|--------|
+| Architecture VALIDATED BY MORRIS | PASS |
+| Cycle 3 visible in README | PASS |
+| Cycle 2 integrated via PR #368 | PASS |
+| M1 NOT READY | PASS |
+| AC demonstrated 0/16 | PASS |
+| FQ02–FQ05 OPEN | PASS |
+| AFQ01 / AFQ02 resolved | PASS |
+| No technical architecture decision | PASS |
+
+**Note (non-blocking tracking):** README Next step still mentions local commit / PR readiness wording from pre-merge tracking. Content is integrated on main; no opportunistic README rewrite authorized in Cycle 14.
+
+---
+
+## Post-merge CI
+
+**Query:** `gh run list --commit e0c8e9ac...`
+
+**Result:** POST-MERGE WORKFLOW NOT TRIGGERED / NOT APPLICABLE
+
+PR required gate was success before merge; Git integration proven.
+
+---
+
+## Branch cleanup
+
+| Target | Result |
+|--------|--------|
+| Local `project/sfia-task-manager-cycle-3-functional-architecture` | **DONE** (`git branch -d`) |
+| Remote same | **DONE** (`git push origin --delete`) |
+| Post-check | both absent |
+
+---
+
+## Preserved governance
+
+| Item | Status |
+|------|--------|
+| Architecture | VALIDATED BY MORRIS |
 | M1 | NOT READY |
-| AC demonstrated | 0/16 |
 | FQ02–FQ05 | OPEN |
-| AFQ01 / AFQ02 | RESOLVED BY EXISTING VALIDATED CONTRACT |
-| Figma | NOT EXECUTED |
-| Technical architecture | NOT DECIDED |
-| Backlog / delivery | NOT EXECUTED |
-| Downstream | NOT AUTHORIZED |
+| Cycle 4 / Figma / tech arch / backlog / delivery | **NOT AUTHORIZED** |
+| Downstream | **NOT AUTHORIZED** |
 
 ---
 
 ## Next gate
 
-**MORRIS MERGE DECISION**
+**MORRIS NEXT-CYCLE / TRAJECTORY DECISION**
 
 ---
 
@@ -161,4 +130,4 @@ Main post-push recheck: `32cce29f` — PASS
 
 ## Verdict
 
-**PR CREATED — CI PENDING — MERGE NOT AUTHORIZED — NO DOWNSTREAM CYCLE**
+**POST-MERGE VERIFIED — SFIA TASK MANAGER CYCLE 3 INTEGRATED ON MAIN — PR BRANCH CLEANED — NO DOWNSTREAM CYCLE AUTHORIZED**
