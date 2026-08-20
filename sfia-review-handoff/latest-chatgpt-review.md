@@ -1,17 +1,20 @@
-# ChatGPT Review Pack — Product Screens Correction PASS 2
+# ChatGPT Review Pack — Product Screens Correction PASS 3
 
-**Timestamp (Europe/Paris):** 2026-08-20 20:08:59 CEST
+**Timestamp (Europe/Paris):** 2026-08-20 20:45:03 CEST
 **Mode:** publish-in-cycle · FULL
 **Artifact Completeness:** CANDIDATE CONTENT COMPLETE
-**Visual evidence:** PRODUCED / AVAILABLE — PASS 2 fresh exports
+**Visual evidence:** PRODUCED / AVAILABLE — PASS 3 fresh exports (3 screens + crops)
 
 ## 1. Timestamp
-2026-08-20 20:08:59 CEST
+2026-08-20 20:45:03 CEST
 
-## 2. Morris GO Pass 2
-« ok go » -> governed PASS 2 affordance restoration + inspectable evidence + polish · page 03 only · no functional redesign · no Components · no Roadmap · no project git · next NOT SELECTED · runtime v3 NON ADOPTED.
+## 2. Morris wording
+« ok go »
 
-## 3. Local Git Truth
+## 3. Interpretation gouvernée PASS 3
+GO MORRIS — PRODUCT SCREENS VISUAL CORRECTION PASS 3 — UX-BLK-01/02/03 only — Penpot page 03 — 3 frames in place — no functional redesign — no Components — no page 04 — no Roadmap — no C1/C2/EA/Wireframes change — no code — no Delivery — ZERO REAL — no project git — next NOT SELECTED — H-01…H-04 CARRY — runtime v3 NON ADOPTED.
+
+## 4-5. Local Git Truth
 branch `design/sfia-studio-product-completion-product-screens-visual-state-contract` · HEAD `047959d36341627247f21411f3681ce45be958f9` · origin/main `047959d36341627247f21411f3681ce45be958f9` · tracked NONE · staged NONE
 
 ```
@@ -21,61 +24,52 @@ branch `design/sfia-studio-product-completion-product-screens-visual-state-contr
 ?? projects/sfia-studio/product-completion/ux-product-experience/03-product-screens-visual-state-contract.md
 ```
 
-## 4. Cycle / profile / type
-4 UX/UI · CRITICAL · DOC/DESIGN ARTIFACT · VISUAL CORRECTION PASS 2 + AFFORDANCE RESTORATION
+## 6. Cycle / profile / typology
+4 UX/UI · CRITICAL · DOC/DESIGN ARTIFACT · MICRO PASS 3
 
-## 5. Sources
-Template · routing · method · fifteen-cycles · Build Doctrine · Roadmap RO · C1 · C2 · EA · Wireframes · candidate 03 · framings · handoff · second DIRECT VISUAL RE-REVIEW ChatGPT
+## 7. CKC
+ABSENT UX CKC · fallback fifteen-cycles + method UX/UI · FIDELITE > minimalisme
 
-## 6. CKC
-ABSENT UX CKC · fallback · FIDELITE · risk = visual minimalism causing affordance loss
+## 8. Convergence
+Screens candidate → Pass1 → Pass2 → ChatGPT full source-contract review → Pass3 (3 BLK) → ChatGPT 3-screen re-review → Morris validation if PASS · next NOT SELECTED
 
-## 7. Convergence
-Wireframes integrated -> Screens candidate -> pass1 -> re-review NOT PASS -> PASS 2 -> ChatGPT review -> Morris -> future Git · next NOT SELECTED
+## 9. Sources lues
+Template · routing · method v2.5 · fifteen-cycles · Build Doctrine · Roadmap RO · C1 · C2 · EA · Wireframes · candidate 03 · framings 32/33/34/35/37 · handoff PASS2 `fd893138` / blob `0b2f0b43…`
 
-## 8. Second direct ChatGPT review verdict
-NOT PASS · polish improved · SC-05/06 fixed · incomplete LPS/Trajectory/SC-14/responsive · affordance regressions · no C2 delta · H-01..H-04 CARRY
+## 10. Verdict ChatGPT source-contract précédent
+Structure cohérente · A→W/S1→S12 largement préservés · SC-03…06/08…14+responsive acceptables · 0 delta architecture · 3 corrections ciblées restantes (UX-BLK-01/02/03)
 
-## 9-14. AR corrections
-AR-01..AR-06 all **CORRECTED**
+## 11. UX-BLK-01 SC-02
+Before: Intention + Contexte only · Nom absent.
+After: **Nom du projet** (Task-manager) → Intention → Contexte optionnel → Creer / Annuler.
+Evidence: `02-sc-02-create-project-pass3.*` + crop `sc02-create-fields-pass3.*`
+Status: **CORRECTED**
 
-## 15-16. LPS / Trajectory containment
-SC-03 LPS fully contained · SC-04 Trajectory fully contained + PROPOSED != DECIDED
+## 12. UX-BLK-02 SC-07
+Before: « Confirmation — Non applicable (blocked avant) » ambigu.
+After: Confirmation **Consommee — ne confere pas l autorite** THEN Effective authority **INSUFFICIENT → Authorization blocked** · no execute · no auto-escalade · blocked ≠ EC lifecycle.
+Evidence: `07-sc-07-…-pass3.*` + crop `sc07-authority-sequence-pass3.*`
+Status: **CORRECTED**
 
-## 17. Responsive evidence
-VERTICAL root boards + 7 separate crops
+## 13. UX-BLK-03 SC-01
+Before: brand/title collision · Create clipped · Examiner Evidence truncated · actions near right edge.
+After: brand/title stacked with spacing · Create fully inset · Examiner Evidence full · action group right-aligned with margin.
+Evidence: `01-sc-01-…-pass3.*` + crop `sc01-header-actions-pass3.*`
+Status: **CORRECTED**
 
-## 18. Final polish
-SC-07..13 densified · no new functions
+## 14-16. Final states
+SC-01 / SC-02 / SC-07 — see evidence + candidate.
 
-## 19. 17-screen inventory
-See INDEX
+## 17. Non-regression
+SC-01 CTAs complete · SC-02 fields complete · SC-07 sequence unambiguous · A→W preserved · S1→S12 preserved with S2 restored · H-01…H-04 CARRY · no new screen/component/route
 
-## 20-21. A->W / S1->S12
-PRESERVED
+## 18-19. Penpot integrity
+00=7 · 01=8 · 02=12 · 03=17 · 04=0 · 05=9 · Components=0 · IDs unchanged
 
-## 22. Semantic non-regression checklist
-All YES — see candidate
+## 20. Export inventory
+See INDEX below.
 
-## 23-30. Contracts proof
-Option/Rec/HD · LPS · Trajectory · EC/Confirmation/authority · Attempt/terminals · Evidence · Recovery · SC-14 — restored/preserved
-
-## 31-32. Responsive boards + 7 crops
-See INDEX crops/
-
-## 33. Typography truth
-Penpot Inter (SoT). Final PNG evidence regenerated with **rsvg-convert** (aspect-correct). qlmanage square thumbs are NOT valid for LPS/sidebar review. Font substitution may still occur in raster — SoT = Penpot/SVG Inter.
-
-## 34. A11Y
-Structural screen contract · WCAG NOT CLAIMED
-
-## 35. H-01..H-04
-CARRY all · no auto-closure
-
-## 36-38. Candidates / FAB / debts
-Candidates only · FAB=0 · debts OPEN/CARRY
-
-## 39. Candidate COMPLETE
+## 21. Candidate COMPLETE final
 
 ### BEGIN CANDIDATE FULL TEXT
 
@@ -88,12 +82,12 @@ Candidates only · FAB=0 · debts OPEN/CARRY
 | **Type** | **4 — UX/UI** |
 | **Profil** | **CRITICAL** |
 | **Typologie** | **DOC / DESIGN ARTIFACT** |
-| **Milestone** | PRODUCT SCREENS & VISUAL STATE CONTRACT — CORRECTION PASS 2 |
+| **Milestone** | PRODUCT SCREENS & VISUAL STATE CONTRACT — CORRECTION PASS 3 |
 | **Statut contenu** | **CANDIDATE — MORRIS VALIDATION REQUIRED** |
 | **Etat Git** | **NOT INTEGRATED ON MAIN** |
 | **Branche** | `design/sfia-studio-product-completion-product-screens-visual-state-contract` |
 | **Base** | `047959d36341627247f21411f3681ce45be958f9` |
-| **Penpot** | page **03 WRITE** · 00/01/02/05 RO · **04 = 0** |
+| **Penpot** | page **03 WRITE** (3 frames Pass 3) · 00/01/02/05 RO · **04 = 0** |
 | **Typography** | **Inter** (Penpot SoT) |
 | **Runtime v3** | **NON ADOPTED** |
 | **Code / Components / Delivery / REAL** | NONE / NOT AUTHORIZED / NOT AUTHORIZED / ZERO |
@@ -101,153 +95,126 @@ Candidates only · FAB=0 · debts OPEN/CARRY
 
 ---
 
-## Morris GO Pass 2
+## Morris GO Pass 3
 
 Wording Morris : « ok go »
 
 Interpretation:
 
-**GO MORRIS — PRODUCT SCREENS VISUAL CORRECTION PASS 2 — RESTORE ALL REQUIRED INTERACTION AFFORDANCES — COMPLETE DIRECTLY INSPECTABLE LPS / TRAJECTORY / STATES / RESPONSIVE EVIDENCE — PRESERVE CURRENT VISUAL POLISH AND IMPROVE DENSITY WHERE USEFUL — PENPOT PAGE 03 ONLY — NO FUNCTIONAL REDESIGN — NO COMPONENTS — NO PAGE 04 — NO C1/C2/EA/WIREFRAMES CHANGE — NO ROADMAP WRITE — NO CODE — NO DELIVERY — ZERO REAL — NO PROJECT GIT INTEGRATION — NO NEXT CAPABILITY — RUNTIME V3 NON ADOPTED.**
+**GO MORRIS — PRODUCT SCREENS VISUAL CORRECTION PASS 3 — CORRECT UX-BLK-01 SC-02 PROJECT NAME + UX-BLK-02 SC-07 CONFIRMATION/AUTHORITY SEQUENCE + UX-BLK-03 SC-01 VISUAL CONTAINMENT — PENPOT PAGE 03 ONLY — PRESERVE ALL OTHER VALIDATED SCREEN CONTRACTS — UPDATE CANDIDATE + REVIEW PACK + REVIEW HANDOFF — NO FUNCTIONAL REDESIGN — NO COMPONENTS — NO PAGE 04 — NO ROADMAP — NO C1/C2/EA/WIREFRAMES CHANGE — NO CODE — NO DELIVERY — ZERO REAL — NO PROJECT COMMIT — NO PROJECT PUSH — NO PR — NO MERGE — NO NEXT CAPABILITY — H-01…H-04 REMAIN CARRY — RUNTIME V3 NON ADOPTED.**
 
 ---
 
-## DIRECT VISUAL REVIEW CORRECTION — PASS 2
+## DIRECT SOURCE-CONTRACT + VISUAL REVIEW — PASS 2 FOLLOW-UP
 
 | Champ | Valeur |
 | --- | --- |
-| Date | 2026-08-20 20:08:59 CEST |
-| Pass 1 | polish improved · SC-05/06 containment fixed · but evidence incomplete + affordance regressions |
-| Second re-review | **NOT PASS** |
-| Principle | **AFFORDANCE COMPLETENESS > MINIMALISME VISUEL** |
+| Date | 2026-08-20 20:45:03 CEST |
+| Pass 2 handoff | `fd893138` / blob `0b2f0b433a2c00c2ff085a87819d4d67a2140650` |
+| ChatGPT full source-contract review | 3 targeted corrections remaining |
+| Scope Pass 3 | **SC-01 · SC-02 · SC-07 only** |
 
-### Affordance regressions
+### UX blockers
 
 | ID | Issue | Status |
 | --- | --- | --- |
-| AR-01 | SC-01 Resume actions | **CORRECTED** |
-| AR-02 | SC-02 Create CTA | **CORRECTED** |
-| AR-03 | SC-04 HumanDecision action | **CORRECTED** |
-| AR-04 | SC-05 Inspect Detail | **CORRECTED** |
-| AR-05 | SC-06 Positive Confirmation | **CORRECTED** (Je confirme != execute) |
-| AR-06 | SC-14 states/actions | **CORRECTED** |
+| UX-BLK-01 | SC-02 — Project Name missing | **CORRECTED** |
+| UX-BLK-02 | SC-07 — Confirmation / authority ordering ambiguity | **CORRECTED** |
+| UX-BLK-03 | SC-01 — containment / clipping | **CORRECTED** |
 
-### Containment / evidence
+### Evidence
 
-| Item | Status |
+`.tmp-sfia-review/penpot-exports/03-screens-pass3/` — 3 full SVG/PNG + 3 crops + INDEX · PNG via rsvg-convert.
+
+### Claims after Pass 3
+
+| Claim | Status |
 | --- | --- |
-| P2-07 SC-03 LPS | FULLY CONTAINED |
-| P2-08 SC-04 Trajectory | FULLY CONTAINED + PROPOSED != DECIDED |
-| P2-09 Responsive | VERTICAL stacks + 7 crops |
-| P2-10 Polish | SC-07..13 densified |
+| A→W | **PRESERVED** after corrections |
+| S1→S12 | **PRESERVED — S2 SCREEN CONTRACT RESTORED** (Nom + Intention + contexte optionnel) |
+| Functional architecture blocker | **0** requiring functional-architecture delta |
+| H-01…H-04 | **CARRY** |
+| Confirmation process-local | **OPEN** |
+| Trajectory durability | **OPEN** |
+| UAT | **OPEN** |
 
-### H-01..H-04
+### Anti-claims
 
-H-01 CARRY · H-02 CARRY · H-03 CARRY · H-04 CARRY — no auto-closure.
+- candidate ≠ Morris validated
+- visual correction ≠ Git integration
+- screen evidence ≠ runtime implementation
+- ≠ Components · ≠ Delivery · ≠ REAL · ≠ WCAG compliance
+- ≠ next capability selected · ≠ runtime v3 ADOPTED
 
 ---
 
-## Source hierarchy / contracts
+## Source hierarchy
 
-C1/C2/EA/Wireframes READ ONLY SoT. A->W / S1->S12 PRESERVED.
+C1/C2/EA/Wireframes READ ONLY SoT. Screens = candidate visual contract only.
 
-## Visual language
+## Semantic non-regression (Pass 3 focus)
 
-bg #F4F2EE · primary #0F766E · Inter · radius 8-12 · != Design System.
-
-## Semantic non-regression checklist
-
-SC-01 Resume/Create YES · SC-02 Create YES · SC-03 LPS YES · SC-04 HD CTA YES · SC-05 Inspect YES · SC-06 Je confirme YES · SC-07..13 YES · SC-14 five states YES · Responsive YES.
+- SC-01: Create / Resume / Requalifier / Examiner Evidence / Voir l'etat visibles · zero clipping
+- SC-02: Nom + Intention + Contexte optionnel + Creer + Annuler · no method questionnaire
+- SC-07: Confirmation consommee ≠ authority · effective authority INSUFFICIENT → blocked · no execute · no auto-escalade
 
 ## Component candidates
 
-Candidates only · page 04 untouched.
-
-## Functional blockers
-
-0 demonstrated.
-
-## Debts
-
-H-01..H-04 CARRY · Confirmation process-local OPEN · Trajectory durability OPEN · UAT OPEN.
+Candidates only · page 04 untouched · Components = 0.
 
 ## Exit proof
 
-Pass 2 affordances restored · LPS/Trajectory/SC-14/responsive inspectable · polish without functional redesign · exports fresh.
-
-Remaining: CHATGPT DIRECT VISUAL RE-REVIEW -> Morris validation.
-
-## Anti-claims
-
-!= Morris validation · != Git integration · != Components/Delivery/REAL · != next capability · != WCAG · != runtime v3 ADOPTED.
+Pass 3 three corrections demonstrated in Penpot + exports. Remaining: ChatGPT direct 3-screen re-review → Morris validation decision.
 
 ---
 
-*PASS 2 — CANDIDATE — MORRIS VALIDATION REQUIRED — NOT INTEGRATED ON MAIN*
+*PASS 3 — CANDIDATE — MORRIS VALIDATION REQUIRED — NOT INTEGRATED ON MAIN*
 
 ### END CANDIDATE FULL TEXT
 
-## 40. INDEX complete
+## INDEX
 
 ### BEGIN INDEX
 
-# Penpot exports — Product Screens CORRECTION PASS 2 (temporary)
+# Penpot exports — Product Screens CORRECTION PASS 3 (temporary)
 
 Local review artifacts only. Do NOT commit.
 
-File: `63bdc57a-636a-81ba-8008-82d2a50d5233` · Page **03 — Screens**
-Pass: DIRECT VISUAL REVIEW CORRECTION — PASS 2 · AFFORDANCE RESTORATION
-
-## Boards
-
-| Screen | Penpot frame ID | Export | Notes |
-| --- | --- | --- | --- |
-| SC-01 | `f96faf07-9757-8064-8008-8342ef9ffbf6` | `01-sc-01-projects-entry-resume.svg` | AR-01 Restored |
-| SC-02 | `f96faf07-9757-8064-8008-8342f00967d2` | `02-sc-02-create-project.svg` | AR-02 Restored |
-| SC-03 | `f96faf07-9757-8064-8008-8342f04b1b3b` | `03-sc-03-workspace-qualification.svg` | P2-07 LPS full |
-| SC-04 | `f96faf07-9757-8064-8008-8342f091da3d` | `04-sc-04-trajectory-option-recommendation-humandecision.svg` | AR-03 + P2-08 |
-| SC-05 | `f96faf07-9757-8064-8008-834317179cb3` | `05-sc-05-executioncontract-summary.svg` | AR-04 Restored |
-| SC-06 | `f96faf07-9757-8064-8008-834317a7f741` | `06-sc-06-executioncontract-detail-confirmation.svg` | AR-05 Restored |
-| SC-07 | `f96faf07-9757-8064-8008-83431809b949` | `07-sc-07-authorization-blocked-executor-insufficient.svg` | P2-10 |
-| SC-08 | `f96faf07-9757-8064-8008-8343184c4752` | `08-sc-08-attempt-running.svg` | P2-10 |
-| SC-09 | `f96faf07-9757-8064-8008-834340bfc1fe` | `09-sc-09-success-evidence.svg` | P2-10 |
-| SC-10 | `f96faf07-9757-8064-8008-8343411bf67a` | `10-sc-10-stop-evidence-next-action.svg` | P2-10 |
-| SC-11 | `f96faf07-9757-8064-8008-8343416932ea` | `11-sc-11-fail-recovery-action.svg` | P2-10 |
-| SC-12 | `f96faf07-9757-8064-8008-834341afedfa` | `12-sc-12-nora-analysis-replanning.svg` | P2-10 |
-| SC-13 | `f96faf07-9757-8064-8008-83435d4a9af6` | `13-sc-13-recovery-resume.svg` | P2-10 |
-| SC-14 | `f96faf07-9757-8064-8008-83435deabeb8` | `14-sc-14-empty-loading-error-blocked.svg` | AR-06 Restored |
-| SC-R01 | `f96faf07-9757-8064-8008-83435e88a090` | `15-sc-r01-workspace-trajectory-responsive.svg` | VERTICAL 1480x2700 |
-| SC-R02 | `f96faf07-9757-8064-8008-834375783f19` | `16-sc-r02-ec-confirmation-responsive.svg` | VERTICAL 1080x1900 |
-| SC-R03 | `f96faf07-9757-8064-8008-83437671266c` | `17-sc-r03-evidence-recovery-responsive.svg` | VERTICAL 1080x1900 |
-
-## Responsive crops
-
-| Crop | File |
+| Metadonnee | Valeur |
 | --- | --- |
-| SC-R01-D | `crops/sc-r01-desktop.svg` (+png) |
-| SC-R01-C | `crops/sc-r01-compact.svg` (+png) |
-| SC-R01-M | `crops/sc-r01-mobile.svg` (+png) |
-| SC-R02-C | `crops/sc-r02-compact.svg` (+png) |
-| SC-R02-M | `crops/sc-r02-mobile.svg` (+png) |
-| SC-R03-C | `crops/sc-r03-compact.svg` (+png) |
-| SC-R03-M | `crops/sc-r03-mobile.svg` (+png) |
+| Timestamp | 2026-08-20 20:45:03 CEST |
+| Penpot file | `63bdc57a-636a-81ba-8008-82d2a50d5233` |
+| Page | **03 — Screens** |
+| Scope | SC-01 · SC-02 · SC-07 ONLY |
+| PNG pipeline | `rsvg-convert` aspect-correct |
+| Typography SoT | Penpot **Inter** |
+| Page counts after | 00=7 · 01=8 · 02=12 · 03=17 · 04=0 · 05=9 |
+| Components | **0** |
 
-**Typography Penpot SoT:** Inter (395 texts). PNG qlmanage may substitute fonts.
+## Frames
 
-**Visual evidence:** PRODUCED / AVAILABLE — PASS 2 fresh exports only.
+| UX-BLK | Screen | Frame ID | Full SVG | Full PNG | Dims (PNG) |
+| --- | --- | --- | --- | --- | --- |
+| UX-BLK-03 | SC-01 | `f96faf07-9757-8064-8008-8342ef9ffbf6` | `01-sc-01-projects-entry-resume-pass3.svg` | `01-sc-01-projects-entry-resume-pass3.png` | (1600, 1134) |
+| UX-BLK-01 | SC-02 | `f96faf07-9757-8064-8008-8342f00967d2` | `02-sc-02-create-project-pass3.svg` | `02-sc-02-create-project-pass3.png` | (1600, 1023) |
+| UX-BLK-02 | SC-07 | `f96faf07-9757-8064-8008-83431809b949` | `07-sc-07-authorization-blocked-executor-insufficient-pass3.svg` | `07-sc-07-authorization-blocked-executor-insufficient-pass3.png` | (1600, 1023) |
+
+## Crops
+
+| Crop | Purpose | Files |
+| --- | --- | --- |
+| sc01-header-actions-pass3 | header brand/title + Create + project action rows | `.svg` + `.png` |
+| sc02-create-fields-pass3 | Nom / Intention / Contexte / CTAs | `.svg` + `.png` |
+| sc07-authority-sequence-pass3 | Confirmation → effective authority sequence | `.svg` + `.png` |
+
+## Notes
+
+- IDs unchanged · no duplicates · page 03 still 17 · page 04 empty · Components 0.
+- Other PASS 2 screens not re-exported here (unchanged by design).
 
 ### END INDEX
 
-## 41. Exports inventory
-17 SVG + 17 PNG + 7 crop SVG + 7 crop PNG + INDEX
-PNG pipeline final = rsvg-convert aspect-correct (Pass 2 evidence fix after qlmanage letterboxing).
-
-## 42. Penpot page counts
-00=7 · 01=8 · 02=12 · 03=17 · 04=0 · 05=9
-
-## 43. page 04 = 0
-CONFIRMED · library components 0
-
-## 44. Git status/diff
+## 22-24. Git
 ```
 ?? .tmp-sfia-review/
 ?? projects/eventops-poc/
@@ -260,15 +227,35 @@ CONFIRMED · library components 0
 ```
 (empty)
 ```
+staged NONE · no project commit
 
-## 45-52. Guards
-no project commit/push/PR · no Components · no code · no Delivery · ZERO REAL · next NOT SELECTED · runtime v3 NON ADOPTED
+## 25-27. Guards git projet
+no project commit · no project push · no PR/merge
 
-## 53. Final verdict
+## 28-30. Debts
+H-01…H-04 CARRY · Confirmation process-local OPEN · Trajectory durability OPEN
 
-**READY FOR CHATGPT PRODUCT SCREENS DIRECT VISUAL RE-REVIEW PASS 2 — ALL REQUIRED INTERACTION AFFORDANCES RESTORED — SC-01 RESUME ACTIONS PRESENT — SC-02 CREATE PROJECT ACTION PRESENT — SC-04 HUMANDECISION ACTION PRESENT — SC-05 INSPECT DETAIL ACTION PRESENT — SC-06 POSITIVE CONFIRMATION ACTION PRESENT WITHOUT BYPASSING AUTHORITY — SC-14 FIVE STATES FULLY VISIBLE WITH REQUIRED ACTIONS — SC-03 LPS FULLY CONTAINED — SC-04 PROJECTTRAJECTORY FULLY CONTAINED — RESPONSIVE ROOT BOARDS AND SEPARATE VIEWPORT EXPORTS DIRECTLY REVIEWABLE — FINAL SCREEN POLISH COMPLETED WITHOUT FUNCTIONAL REDESIGN — A→W PRESERVED — S1→S12 PRESERVED — H-01…H-04 REMAIN GOVERNED — ZERO FUNCTIONAL ARCHITECTURE BLOCKERS DEMONSTRATED — NO COMPONENTS — NO CODE — NO DELIVERY — NO REAL — NO PROJECT GIT INTEGRATION — NEXT CAPABILITY NOT SELECTED — RUNTIME V3 NON ADOPTED**
+## 31-36. Scope guards
+no Components · no code · no Delivery · ZERO REAL · next NOT SELECTED · runtime v3 NON ADOPTED
 
----
+## 37. Final verdict
 
-## Instruction ChatGPT
-Inspect PASS 2 exports (SC-01/02/04/05/06/03/14 + R01-R03 vertical + crops). Verify AR-01..06 and containment. Do not authorize Git/Components/Delivery/REAL/next capability.
+**READY FOR CHATGPT PRODUCT SCREENS DIRECT VISUAL RE-REVIEW PASS 3 — UX-BLK-01 SC-02 PROJECT NAME RESTORED — UX-BLK-02 SC-07 CONFIRMATION / EFFECTIVE AUTHORITY SEQUENCE DISAMBIGUATED — UX-BLK-03 SC-01 VISUAL CONTAINMENT AND CLIPPING CORRECTED — EXACTLY THREE PENPOT SCREENS MODIFIED IN PLACE — SCREEN INVENTORY 17 PRESERVED — PAGE 04 EMPTY — COMPONENTS ZERO — A→W PRESERVED — S1→S12 PRESERVED WITH S2 SCREEN CONTRACT RESTORED — H-01…H-04 CARRY — ZERO FUNCTIONAL ARCHITECTURE DELTA REQUIRED — FRESH DIRECT VISUAL EVIDENCE PRODUCED — CANDIDATE UPDATED — REVIEW HANDOFF REMOTE VERIFIED — NO PROJECT COMMIT — NO PROJECT PUSH — NO PR — NO MERGE — NO COMPONENTS — NO CODE — NO DELIVERY — ZERO REAL — NEXT CAPABILITY NOT SELECTED — RUNTIME V3 NON ADOPTED**
+
+## 38. Instruction ChatGPT
+Inspecter DIRECTEMENT uniquement les preuves PASS 3 :
+- SC-01 full + crop header/actions
+- SC-02 full + crop create fields
+- SC-07 full + crop authority sequence
+
+Verifier : absence de clipping SC-01 ; presence reelle de Nom du projet SC-02 ; ordre Confirmation / effective authority non ambigu SC-07.
+
+Ne pas rouvrir les ecrans deja PASS sans preuve de regression.
+Ne pas valider a la place de Morris.
+Ne pas autoriser Git integration / Components / Delivery / REAL / next capability.
+
+Si les trois corrections sont PASS :
+READY FOR MORRIS PRODUCT SCREENS VALIDATION DECISION
+
+Sinon :
+RETURN TARGETED CORRECTION FINDINGS ONLY.
