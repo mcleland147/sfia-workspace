@@ -64,7 +64,7 @@ Option/Rec/HD · LPS · Trajectory · EC/Confirmation/authority · Attempt/termi
 See INDEX crops/
 
 ## 33. Typography truth
-Penpot Inter (395). PNG may substitute — SoT = Penpot/SVG
+Penpot Inter (SoT). Final PNG evidence regenerated with **rsvg-convert** (aspect-correct). qlmanage square thumbs are NOT valid for LPS/sidebar review. Font substitution may still occur in raster — SoT = Penpot/SVG Inter.
 
 ## 34. A11Y
 Structural screen contract · WCAG NOT CLAIMED
@@ -239,6 +239,7 @@ Pass: DIRECT VISUAL REVIEW CORRECTION — PASS 2 · AFFORDANCE RESTORATION
 
 ## 41. Exports inventory
 17 SVG + 17 PNG + 7 crop SVG + 7 crop PNG + INDEX
+PNG pipeline final = rsvg-convert aspect-correct (Pass 2 evidence fix after qlmanage letterboxing).
 
 ## 42. Penpot page counts
 00=7 · 01=8 · 02=12 · 03=17 · 04=0 · 05=9
