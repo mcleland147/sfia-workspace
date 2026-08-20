@@ -1,858 +1,916 @@
-# SFIA Review Pack — FULL — Cycle 4 UX/UI — SFIA Task Manager
+# Review Pack FULL — Product Completion Cycle 3 — Functional Architecture
 
-**Timestamp (Europe/Paris):** 2026-08-20 23:58:15 CEST
-**Cycle:** Cycle 4 — UX/UI
-**Profil:** Standard
-**Typologie:** DOC / DESIGN
-**Baseline:** SFIA v2.6
-**Project:** SFIA Task Manager
-**Branch:** `project/sfia-task-manager-cycle-4-ux-ui`
+## 1. Timestamp
 
-## Exact Morris GOs
+2026-08-21 00:02:05 CEST (Europe/Paris)
 
-Cycle 4:
-`GO MORRIS — OPEN CYCLE 4 UX/UI — STANDARD — FIGMA DESIGN-FIRST — INCLUDE R-DOC-02 TRACKING CORRECTION — NO TECH ARCH / BACKLOG / DELIVERY`
+## 2. Morris GO wording
 
-Figma source:
-`GO MORRIS — CREATE NEW FIGMA DESIGN FILE "SFIA Task Manager" IN CURRENT PRO TEAM — USE IT AS CYCLE 4 FIGMA SOURCE CANDIDATE — NO DESIGN VALIDATION IMPLIED`
+« ok go pour l'architecture fonctionnelle dans ce cas »
 
-## Git Truth
+## 3. Interprétation gouvernée
 
-### Before / after fast-forward
-- Branch: `project/sfia-task-manager-cycle-4-ux-ui`
-- HEAD before (known): `6b67ada75ecf76a44a6046ecc753cd07571d190d`
-- origin/main expected: `f850259768e2a4736dc8cce19cd062244a52d727`
-- origin/main actual: `f850259768e2a4736dc8cce19cd062244a52d727`
-- Main drift: **NONE**
-- CYCLE 4 BASE HEAD / HEAD after FF: `f850259768e2a4736dc8cce19cd062244a52d727`
-- Remote project branch `project/sfia-task-manager-cycle-4-ux-ui`: **ABSENT**
-- `e0c8e9ac…` ancestor of origin/main: YES
-- Working tree tracked at start of production: clean (aside from later candidate edits)
-- Staged: NONE throughout
+GO MORRIS — START PRODUCT COMPLETION CYCLE 3 — ARCHITECTURE FONCTIONNELLE — CRITICAL DOC CYCLE — PRODUCE LOCAL FUNCTIONAL ARCHITECTURE CANDIDATE — REUSE CURRENT BACKBONE — NO PARALLEL ARCHITECTURE — NO TECHNICAL ARCHITECTURE DECISION — NO BACKLOG — NO CODE — NO DELIVERY — ZERO REAL — NO PENPOT MUTATION — NO PROJECT COMMIT — NO PROJECT PUSH — NO PR — NO MERGE — RUNTIME V3 NON ADOPTED.
 
-### Validations after production (no stage)
+## 4. Cycle / profil / typologie
+
+- Cycle : **3 — Architecture fonctionnelle**
+- Profil : **CRITICAL**
+- Typologie : **DOC**
+- QA : CRITICAL DOCUMENT REVIEW
+- Statut candidat : **CANDIDATE — NOT VALIDATED BY MORRIS — NOT INTEGRATED ON MAIN**
+
+## 5. CKC fallback et limites
+
+- CKC détaillé : **ABSENT** (ne pas utiliser pilote 03-architecture-technique = Cycle 6)
+- Fallback : `02-fifteen-cycles-synthetic-map.md` + méthode v2.6
+- Guidance Cycle 3 : modules/flux · frontiers/interfaces/responsabilités · risque sur-architecture · P1 Moyen
+- Status : method-candidate · experimental · **aucune autorité d'exécution** · couverture **INCOMPLETE**
+
+## 6. Fake / Real
+
+- Applicable : **N/A** (cycle documentaire)
+- Fake/mock/fixture : NONE
+- REAL : **ZERO**
+- Evidence level : DOCUMENTARY / REPOSITORY → FUNCTIONAL ARCHITECTURE DOCUMENTARY CANDIDATE REVIEWABLE
+- Claims interdits : READY FOR REAL · REAL BOUNDARY PROVEN · END-TO-END REAL PROVEN
+
+## 7. Local Git Truth
+
+- Workspace : `/Users/morris/Projects/sfia-workspace`
+- Branch : `docs/sfia-studio-product-completion-functional-architecture`
+- HEAD : `f850259768e2a4736dc8cce19cd062244a52d727` (tracks origin/main)
+- Tracked/staged : CLEAN before create · after create only new untracked candidate
+- Untracked historiques : `.tmp-sfia-review/` · `projects/eventops-poc/` · `projects/flex-office-demo/`
+- Drift from expected main : **NONE**
+
+## 8. Base origin/main
+
+`f850259768e2a4736dc8cce19cd062244a52d727` — Merge PR #377
+
+## 9. Convergence Pre-check
+
+- Build Doctrine VALIDATED ACTIVE · Roadmap ACTIVE · both READ ONLY
+- C1/C2/EA/Wireframes/Screens VALIDATED INTEGRATED READ ONLY
+- Capability : V3-F05 structured by V3-F01…F15 applicable
+- Next capability execution beyond this Cycle 3 : **NOT auto-selected**
+- Runtime backbone exists · no parallel architecture introduced
+
+## 10. Sources réellement lues
+
+PROCESSUS : template · routing · chatgpt-cursor operating model · rules-and-guardrails · method candidate · CKC README · fifteen-cycles synthetic map
+
+CONVERGENCE : build-doctrine · roadmap (RO)
+
+PRODUCT COMPLETION : 01 cadrage · 02 conception · 01 EA · 02 wireframes · 03 screens (RO)
+
+DOCTRINE V3 : framings 30–37 · historical harvest 09
+
+RUNTIME AUDIT (RO) : OA domains project/cycle/decision/doctrine/execution-contract/execution-attempt/evidence-review/execution-run/finops · vertical-slice-core/runtime/slice · adapters · /studio surfaces
+
+## 11. Audit runtime ciblé (summary)
+
+- Product SQLite durable : Project, LPS, CycleInstance, HumanDecision, EC, Attempt, Evidence, ReviewBundle
+- Process-local / Memory : Trajectory, Epistemic, Confirmation, Claims/Maturity, conversation/proposal, execution-run D2
+- Composition : vertical-slice-runtime wires OA for Product path
+- Product UI : `/studio` · legacy shells FREEZE/HARVEST
+- G0-A OA backbone · G0-B Product SQLite — already decided
+
+## 12–15. Capability map / boundaries / ownership / flows
+
+See full candidate document sections 5–8 (included in full below).
+
+## 16–18. A→W / S1→S12 / framing 09
+
+- A→W : fully mapped §9 — no orphans · auth order K→L→M→N→O preserved
+- S1→S12 : fully mapped §10 · H-01…H-04 CARRY
+- Framing 09 : KEEP/ADAPT orchestration concepts · **REJECT Mode Controller / v2.6 coexistence**
+
+## 19–25. Options / ADR / tech delta / backlog handoff / debts / anti-claims / exit / next gates
+
+See candidate §16–23.
+
+**Technical delta verdict :** TARGETED DELTA REQUIRED (Trajectory + Confirmation consumed durability) · **NOT** full Cycle 6 · **NOT** stack re-choice.
+
+**Backlog :** inputs only · **no stories**.
+
+## 26. git status final
+
 ```
- M projects/sfia-task-manager/README.md
-?? projects/sfia-task-manager/03-design/
-?? .cursor/mcp.json
 ?? .tmp-sfia-review/
+?? projects/eventops-poc/
+?? projects/flex-office-demo/
+?? projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md
+
 ```
-Staged: NONE
 
-## Sources consultées
+Exact project create :
 
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-- method/sfia-fast-track/core/sfia-knowledge-layer.md
-- method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md (CKC candidate — no execution authority)
-- method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md
-- method/sfia-fast-track/ui/figma-design-first-ui-method.md
-- method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md
-- projects/sfia-task-manager/README.md
-- projects/sfia-task-manager/00-framing/2026-08-19-project-framing.md (read-only)
-- projects/sfia-task-manager/01-functional/2026-08-19-m1-functional-spec.md (read-only)
-- projects/sfia-task-manager/02-architecture/2026-08-20-m1-functional-architecture.md (read-only)
+`?? projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md`
 
-CKC Cycle 4: candidate / experimental cognitive guidance — fallback synthetic map + Cycle 4 UX/UI method. Principal risk: design extrapolation.
+## 27. Actions NOT performed
 
-## Product contract preserved
+- no project commit
+- no project push
+- no PR
+- no merge
+- no branch delete
+- no Roadmap / Build Doctrine / C1 / C2 / UX / framing modification
+- no code / tests / schema / API / DB / persistence change
+- no technical architecture execution
+- no backlog / user stories
+- no Components
+- no Penpot mutation
+- no Figma
+- no Delivery
+- no REAL
+- no runtime v3 adoption
 
-8 objects M1 · 7 lifecycle states · Blocked orthogonal · REPLAN = Decision result · NO-GO → In Progress same Cycle · Quick Inspector transversal · Git refs manual · Human Decision never automated · M1 NOT READY · AC 0/16 · FQ02–FQ05 OPEN
+## 28. Final verdict
 
-## Figma Local Truth (revalidated)
+READY FOR CHATGPT PRODUCT COMPLETION FUNCTIONAL ARCHITECTURE REVIEW — CYCLE 3 CRITICAL — C1 TARGET PRESERVED — C2 A→W FULLY MAPPED — S1→S12 PRODUCT EXPERIENCE PRESERVED — FUNCTIONAL CAPABILITY MAP COMPLETE — RESPONSIBILITY BOUNDARIES EXPLICIT — STATE OWNERSHIP EXPLICIT — EXISTING RUNTIME CLASSIFIED KEEP/ADAPT/COMPLETE/HARVEST/REPLACE/FREEZE/RETIRE LATER — NO PARALLEL ARCHITECTURE INTRODUCED — HISTORICAL FRAMING 09 HARVESTED WITHOUT V2.6 COEXISTENCE — TECHNICAL ARCHITECTURE DELTA QUALIFIED BUT NOT EXECUTED — BACKLOG HANDOFF INPUTS PREPARED BUT NO BACKLOG CREATED — OPEN DEBTS PRESERVED — FULL REVIEW PACK COMPLETE — REVIEW HANDOFF REMOTE VERIFIED — NO PROJECT COMMIT — NO PROJECT PUSH — NO PR — NO MERGE — NO PENPOT MUTATION — NO CODE — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED
 
-| Champ | Valeur |
-|-------|--------|
-| MCP | AVAILABLE |
-| URL | https://www.figma.com/design/2U8pJCYBMtGxaK0F0Ef1nO |
-| fileKey | `2U8pJCYBMtGxaK0F0Ef1nO` |
-| Editor type | figma (Design) |
-| Account | ludo_zaya / ludo_zaya@hotmail.fr |
-| Plan / seat | Pro / Full |
-| WRITE | YES |
-| Pages | M1 — Core Screens (`0:1`) ; M1 — Critical States (`3:2`) |
-| Frames | 10/10 at 1440×1024 |
-| Design validation Morris | NO |
-| Framing historical OPEN fileKey | HISTORICAL OPEN DECISION SUPERSEDED FOR CYCLE 4 CANDIDATE SOURCE BY EXPLICIT MORRIS GO (framing not modified) |
+## 29. Instruction ChatGPT
 
-### Frame registry
+Review latest sfia/review-handoff.
 
-| Frame | Node ID | Screenshot |
-|-------|---------|------------|
-| 01 — Workboard | `4:2` | YES |
-| Quick Inspector | `4:52` | (panel in 01) |
-| 02 — Work Item | `4:56` | YES |
-| 03 — Cycle Workspace | `5:2` | YES |
-| 04 — Review & Decision | `5:39` | YES |
-| 05 — Project | `5:80` | YES |
-| 06 — Work Item / Blocked | `5:113` | YES |
-| 07 — Work Item / Cannot Ready | `5:140` | YES |
-| 08 — Review / GO WITH RESERVE | `5:168` | YES |
-| 09 — Review / REPLAN | `5:194` | YES |
-| 10 — Empty Workspace | `5:222` | YES |
+Verify cycle/branch/HEAD/base ; **full created document content** ; C1 preserved ; C2 A→W ; S1→S12 ; boundaries ; no duplicate/orphan responsibility ; state ownership ; runtime classification ; no parallel architecture ; framing 09 harvest/reject ; no v2.6 runtime coexistence ; tech delta qualification ; backlog handoff only ; options≠decisions ; reserves ; no project commit/push/PR/merge ; no code/Delivery/REAL ; handoff remote verified.
 
-Screenshots: obtained via MCP `get_screenshot` for all 10 frames; asset URLs are short-lived (not durable repo binaries). Visual contract extracted in brief.
+If PASS: CHATGPT PRODUCT COMPLETION FUNCTIONAL ARCHITECTURE REVIEW — PASS → READY FOR MORRIS FUNCTIONAL ARCHITECTURE VALIDATION DECISION.
 
-### MCP limitations
-- One page switch per `use_figma` call
-- Screenshot URLs ephemeral
-- Medium-fidelity structural frames (no pixel polish / full DS)
-
-## Governance flags
-
-| Flag | Value |
-|------|-------|
-| Accessibility target | OPEN |
-| Design tokens final | OPEN |
-| FQ02–FQ05 | OPEN |
-| AC demonstrated | 0/16 |
-| M1 | NOT READY |
-| Tech arch | NOT EXECUTED |
-| Backlog | NOT EXECUTED |
-| Delivery | NOT EXECUTED |
-| Runtime screenshot | N/A |
-| Figma vs runtime | NOT EXECUTED |
-| Project commit | NO |
-| Project push | NO |
-| PR | NO |
-| Project staged | NONE |
-
-## R-DOC-02 before / after
-
-**Before (obsolete conceptual tracking):** implied Cycle 3 validated locally / next = PR readiness-push style tracking after Cycle 3 era.
-
-**After (candidate README):** Status = M1 / UX/UI DESIGN CANDIDATE IN PROGRESS; Current cycle = Cycle 4 authorized; Prior = Cycle 3 validated + PR #371 on main; Design source candidate Figma fileKey; Next = MORRIS CYCLE 4 VISUAL / UX REVIEW; R-DOC-02 = CORRECTED IN CYCLE 4 CANDIDATE — NOT YET INTEGRATED.
-
-## README diff (useful)
-
-diff --git a/projects/sfia-task-manager/README.md b/projects/sfia-task-manager/README.md
-index 2866c47c..0fce2596 100644
---- a/projects/sfia-task-manager/README.md
-+++ b/projects/sfia-task-manager/README.md
-@@ -2,7 +2,7 @@
-
- **Project path:** `projects/sfia-task-manager/`
-
--**Status:** M1 / FUNCTIONAL ARCHITECTURE VALIDATED
-+**Status:** M1 / UX/UI DESIGN CANDIDATE IN PROGRESS
-
- **Operational process baseline:** SFIA v2.6
-
-@@ -16,11 +16,11 @@ M1 fonctionnel + UX d'une boucle de gestion de travail gouvernée par SFIA.
-
- ## Current cycle
-
--Cycle 3 — Architecture fonctionnelle — Standard — VALIDATED BY MORRIS
-+Cycle 4 — UX/UI — Standard — AUTHORIZED BY MORRIS
-
- ## Prior milestone
-
--Cycle 2 — Conception fonctionnelle — VALIDATED BY MORRIS — INTEGRATED ON MAIN via PR #368
-+Cycle 3 — Functional Architecture — VALIDATED BY MORRIS — INTEGRATED ON MAIN via PR #371
-
- ## Functional specification
-
-@@ -30,6 +30,19 @@ Cycle 2 — Conception fonctionnelle — VALIDATED BY MORRIS — INTEGRATED ON M
-
- - `02-architecture/2026-08-20-m1-functional-architecture.md` — M1 functional architecture (validated by Morris)
-
-+## UX/UI / Design
-+
-+- `03-design/2026-08-20-m1-ux-ui-contract.md` — M1 UX/UI contract (candidate / Morris review required)
-+- `03-design/2026-08-20-figma-design-brief.md` — Figma design brief (candidate)
-+- `03-design/2026-08-20-figma-review-checklist.md` — Morris Figma review checklist
-+
-+## Design source candidate
-+
-+Figma — SFIA Task Manager
-+URL: https://www.figma.com/design/2U8pJCYBMtGxaK0F0Ef1nO
-+fileKey: `2U8pJCYBMtGxaK0F0Ef1nO`
-+Status: CYCLE 4 FIGMA SOURCE CANDIDATE — **NOT VALIDATED BY MORRIS**
-+
- ## Key validated decisions
-
- - GO M1 functional contract — Morris
-@@ -50,9 +63,14 @@ M1 NOT READY — AC demonstrated 0/16
-
- ## Next step
-
--Cycle 3 functional architecture validated and committed locally.
--Next project integration step requires a distinct Morris GO for PR readiness / project push.
--No Figma, technical architecture, backlog or delivery is authorized.
-+Morris Cycle 4 visual / UX review of the UX/UI contract and Figma design candidate.
-+No technical architecture, backlog or delivery is authorized.
-+
-+## Tracking note (R-DOC-02)
-+
-+R-DOC-02: CORRECTED IN CYCLE 4 CANDIDATE — NOT YET INTEGRATED
-+
-+(Previous obsolete tracking that still implied Cycle 3 local-only / PR readiness as next was corrected in this candidate README.)
-
- ## SFIA references
-
-
-## COMPLETE FILE: 2026-08-20-m1-ux-ui-contract.md
-
-# SFIA Task Manager — M1 UX/UI Contract
-
-**Projet :** SFIA Task Manager
-**Chemin :** `projects/sfia-task-manager/03-design/2026-08-20-m1-ux-ui-contract.md`
-**Cycle :** Cycle 4 — UX/UI
-**Profil :** Standard
-**Typologie :** DOC / DESIGN
-**Baseline process :** SFIA v2.6
-**Viewport cible :** desktop-first 1440 × 1024
-**Fidélité :** moyenne fidélité structurante
-**Statut :** UX/UI CONTRACT — CANDIDATE — MORRIS REVIEW REQUIRED
+Do NOT validate on Morris behalf. Do NOT initiate Architecture technique. Do NOT initiate Backlog. Do NOT authorize Delivery.
 
 ---
 
-## 1. Purpose / authority
-
-Transformer le contrat fonctionnel M1 validé et l'architecture fonctionnelle validée en expérience visuelle et interactionnelle explicite — sans modifier le modèle métier, le lifecycle ou les décisions humaines.
-
-## 2. Exact Morris Cycle 4 GO
-
-GO MORRIS — OPEN CYCLE 4 UX/UI — STANDARD — FIGMA DESIGN-FIRST — INCLUDE R-DOC-02 TRACKING CORRECTION — NO TECH ARCH / BACKLOG / DELIVERY
-
-## 3. Exact Morris Figma source GO
-
-GO MORRIS — CREATE NEW FIGMA DESIGN FILE "SFIA Task Manager" IN CURRENT PRO TEAM — USE IT AS CYCLE 4 FIGMA SOURCE CANDIDATE — NO DESIGN VALIDATION IMPLIED
-
-| Élément | Valeur |
-|---------|--------|
-| Figma file | SFIA Task Manager |
-| URL | https://www.figma.com/design/2U8pJCYBMtGxaK0F0Ef1nO |
-| fileKey | `2U8pJCYBMtGxaK0F0Ef1nO` |
-| Source status | CYCLE 4 FIGMA SOURCE CANDIDATE |
-| Design validation Morris | **NO** |
-
-Historical framing decision « Référence/fileKey Figma = OPEN » is **HISTORICAL OPEN DECISION SUPERSEDED FOR CYCLE 4 CANDIDATE SOURCE BY EXPLICIT MORRIS GO**. Framing file itself is not modified.
-
-## 4. Sources / precedence
-
-1. Git main courant
-2. Décisions Morris explicites (Cycle 4 GO + Figma source GO + FQ01 / architecture)
-3. Spec fonctionnelle Cycle 2 validée
-4. Architecture fonctionnelle Cycle 3 validée
-5. Framing historique (baseline ; formulations obsolètes n'écrasent pas les décisions Morris postérieures)
-6. Guidance CKC candidate (sans autorité d'exécution)
-
-## 5. M1 maturity
-
-| Élément | Valeur |
-|---------|--------|
-| M1 | **NOT READY** |
-| AC demonstrated | **0/16** |
-| Architecture technique | NOT EXECUTED |
-| Backlog | NOT EXECUTED |
-| Delivery/code | NOT EXECUTED |
-| Design Morris validation | **NO** |
-
-## 6. UX principles
-
-| ID | Principe |
-|----|----------|
-| UX-P1 | Répondre immédiatement : où / pourquoi / bloque / next action / preuve / décision |
-| UX-P2 | Hiérarchie State → Next action → Risk/blocker → Evidence → Decision → History |
-| UX-P3 | Sobre, professionnelle, dense, orientée contrôle |
-| UX-P4 | Pas clone Jira ; pas interface AI futuriste ; IA non centrale |
-| UX-P5 | Couleur sémantique ; information critique jamais couleur-only |
-| UX-P6 | Surfaces = projections ; pas sources de vérité métier distinctes |
-| UX-P7 | Action indisponible = reason visible (pas silent disable) |
-| UX-P8 | Blocked orthogonal au lifecycle |
-| UX-P9 | Human Decision jamais automatisée |
-| UX-P10 | Desktop-first 1440×1024 ; moyenne fidélité structurante |
-
-## 7. Information hierarchy
-
-State → Next action → Risk / blocker → Evidence → Decision → History
-
-## 8. Navigation model
-
-| Zone | Rôle |
-|------|------|
-| Primary nav | Workboard / Work Item / Cycle Workspace / Review & Decision / Project |
-| Contextual | Quick Inspector (Workboard transversal) |
-| No | secondary analytics nav, AI chat dock, configurable Jira-like workflow |
-
-## 9. Screen map
-
-| # | Frame | Page Figma |
-|---|-------|------------|
-| 01 | Workboard | M1 — Core Screens |
-| 02 | Work Item | M1 — Core Screens |
-| 03 | Cycle Workspace | M1 — Core Screens |
-| 04 | Review & Decision | M1 — Core Screens |
-| 05 | Project | M1 — Core Screens |
-| 06 | Work Item / Blocked | M1 — Critical States |
-| 07 | Work Item / Cannot Ready | M1 — Critical States |
-| 08 | Review / GO WITH RESERVE | M1 — Critical States |
-| 09 | Review / REPLAN | M1 — Critical States |
-| 10 | Empty Workspace | M1 — Critical States |
-
-## 10. Surface responsibility matrix
-
-| Surface | Objectif | Affiche | Actions | Ne possède PAS |
-|---------|----------|---------|---------|----------------|
-| Workboard | Lecture kanban + next action | WI cards, columns, Blocked flag | create WI, open WI, inspect | Decision verdict, Cycle contract |
-| Work Item | Qualification / détail | Intent→History | qualify, ready prep, block/unblock | Auto-decision |
-| Cycle Workspace | Exécution bornée | Contract vs control | progress, attach evidence, gates | Done verdict |
-| Review & Decision | Preuve vs expected + verdict | Expected vs Actual | GO / GO WITH RESERVE / REPLAN / NO-GO | Create Project |
-| Project | Agrégation | Project intent + WI list | open WI, create WI | Cycle internals |
-| Quick Inspector | Aperçu transversal Workboard | title, objective, status, next_action, blocked, cycle, gate | navigation only | Source de vérité ; 6e domaine |
-
-## 11. Workboard specification
-
-Colonnes : Inbox · Qualified · Ready · In Progress · Review · Decision · Done
-
-Carte minimale : title, project, SFIA profile, blocked indicator si applicable, next_action, current gate si applicable.
-
-Pas de badge status redondant si la colonne suffit.
-
-Quick Inspector : panneau transversal ; projection uniquement.
-
-## 12. Work Item specification
-
-Sections : Intent, Qualification, Scope, Dependencies, Guardrails, Exit Proof, Current Cycle, Next Action, History.
-
-Next Action prioritaire.
-
-Interdit : comments/subtasks Jira-like, AI assistant central.
-
-## 13. Cycle Workspace specification
-
-Zone principale — Execution Contract : objective, cycle_type, profile, scope, out_of_scope, guardrails, allowed/forbidden files.
-
-Zone contrôle — Gates, Stop Conditions, Exit Proof, Evidence, review pack status, git refs informationnels.
-
-Lecture : autorisé vs contrôle de sortie.
-
-## 14. Review & Decision specification
-
-Comparaison explicite Expected exit proof vs Actual evidence.
-
-Aussi : validation results, reservations, guardrail violations, review pack status, Git refs, human decision.
-
-Verdicts : GO · GO WITH RESERVE · REPLAN · NO-GO.
-
-Action indisponible = reason visible.
-
-## 15. Project specification
-
-Intention Project, Work Items, états, blocked indicators, next actions, current Cycles utiles.
-
-Interdit : advanced analytics, reporting complexe, workflow configurable.
-
-## 16. Quick Inspector specification
-
-Transversal Workboard. Affiche : title, objective court, status, next_action, blocked/reason, current Cycle, current Gate.
-
-Ne possède aucun état métier.
-
-## 17. Critical states matrix
-
-| Frame | Base | Différenciateur |
-|-------|------|-----------------|
-| 06 Blocked | Work Item | flag Blocked + reason + unblock + next_action ; lifecycle inchangé |
-| 07 Cannot Ready | Work Item Qualified | Ready indisponible + champs manquants + corrective |
-| 08 GO WITH RESERVE | Review | reserve + follow-up + Decision |
-| 09 REPLAN | Review | reason + Cycle historical + retour Q/R + history preserved |
-| 10 Empty | Workspace | empty state + first action |
-
-## 18. Blocked UX
-
-Lifecycle state courant visible.
-Blocked = true + reason + unblock condition + next_action.
-Pas de colonne/status Blocked.
-
-## 19. Cannot Ready UX
-
-Ready indisponible avec liste des préconditions manquantes (profile, in_scope, out_of_scope, dependencies, guardrails, exit_proof) + action corrective.
-Pas de bouton grisé silencieux.
-
-## 20. GO WITH RESERVE UX
-
-Expected vs Actual + reserve obligatoire + follow-up/next_action + author/date.
-Trajectoire de réserve visible.
-
-## 21. REPLAN UX
-
-Reason + Cycle → Historical + Evidence/Decision conservées + retour Qualified OU Ready + next_action.
-Pas de reset / suppression / effacement historique.
-
-## 22. Empty Workspace UX
-
-État vide clair + explication minimale + première action.
-Pas de wizard/onboarding long/IA centrale.
-
-## 23. Interaction rules
-
-| Règle | Comportement |
-|-------|--------------|
-| Primary CTA | Une action primaire claire par surface |
-| Secondary | Visible mais subordonnée |
-| Destructive / structurant | Confirmation humaine explicite |
-| Disabled | Toujours avec reason |
-| Navigation | Conserve contexte WI/Cycle |
-
-## 24. Disabled / error explanation rules
-
-Toute action structurante indisponible expose la cause et la next_action corrective.
-Errors : message + champ concerné + remediation.
-
-## 25. Desktop 1440×1024 assumptions
-
-Toutes frames candidates : 1440 × 1024.
-Desktop-first ; pas de responsive mobile complet dans ce cycle.
-
-## 26. Accessibility candidate guardrails
-
-Accessibility target contractuel : **OPEN**.
-
-Guardrails candidats (non contractuels) :
-- info critique non couleur-only ;
-- contraste lisible ;
-- labels textuels ;
-- disabled expliqué ;
-- focus/clavier = exigences candidates.
-
-## 27. Design-token candidate status
-
-Design tokens définitifs : **OPEN**.
-Valeurs utilisées en Figma = **CANDIDATE — NOT VALIDATED DESIGN TOKEN**.
-
-## 28. Figma source
-
-| Champ | Valeur |
-|-------|--------|
-| URL | https://www.figma.com/design/2U8pJCYBMtGxaK0F0Ef1nO |
-| fileKey | `2U8pJCYBMtGxaK0F0Ef1nO` |
-| Editor type | Figma Design |
-| Status | CYCLE 4 FIGMA SOURCE CANDIDATE |
-| Pages | M1 — Core Screens (`0:1`) ; M1 — Critical States (`3:2`) |
-| Design validation | **NOT VALIDATED BY MORRIS** |
-
-| Frame | Node ID | W×H |
-|-------|---------|-----|
-| 01 — Workboard | `4:2` | 1440×1024 |
-| Quick Inspector (transversal) | `4:52` | (panel inside 01) |
-| 02 — Work Item | `4:56` | 1440×1024 |
-| 03 — Cycle Workspace | `5:2` | 1440×1024 |
-| 04 — Review & Decision | `5:39` | 1440×1024 |
-| 05 — Project | `5:80` | 1440×1024 |
-| 06 — Work Item / Blocked | `5:113` | 1440×1024 |
-| 07 — Work Item / Cannot Ready | `5:140` | 1440×1024 |
-| 08 — Review / GO WITH RESERVE | `5:168` | 1440×1024 |
-| 09 — Review / REPLAN | `5:194` | 1440×1024 |
-| 10 — Empty Workspace | `5:222` | 1440×1024 |
-
-Screenshots MCP: YES for frames 01–10 (ephemeral asset URLs; not design validation).
-
-## 29. AC01–AC16 design traceability
-
-| AC | Surface / état UX | Coverage |
-|----|-------------------|----------|
-| AC01 | Project | MAPPED / NOT DEMONSTRATED |
-| AC02 | Workboard Inbox | MAPPED / NOT DEMONSTRATED |
-| AC03 | Work Item Qualify | MAPPED / NOT DEMONSTRATED |
-| AC04 | Cannot Ready | MAPPED / NOT DEMONSTRATED |
-| AC05–AC07 | Cycle Workspace | MAPPED / NOT DEMONSTRATED |
-| AC08 | Blocked | MAPPED / NOT DEMONSTRATED |
-| AC09–AC10 | Cycle / Review evidence | MAPPED / NOT DEMONSTRATED |
-| AC11–AC12 | Review Decision / Done | MAPPED / NOT DEMONSTRATED |
-| AC13 | REPLAN | MAPPED / NOT DEMONSTRATED |
-| AC14 | Workboard / Project | MAPPED / NOT DEMONSTRATED |
-| AC15 | History sections | MAPPED / NOT DEMONSTRATED |
-| AC16 | No auto decision UI | MAPPED / NOT DEMONSTRATED |
-
-**AC demonstrated : 0/16**
-
-## 30. Explicit non-decisions
-
-Frontend stack · backend · APIs · database · auth · hosting · Figma Make · design tokens définitifs · accessibility target contractuel · branding définitif · backlog · delivery · Git native · agent UI central.
-
-## 31. Open questions
-
-| # | Question | Statut |
-|---|----------|--------|
-| FQ02–FQ05 | Type / priority / Evidence delete / archive | **OPEN** |
-| UX-Q1 | Densité exacte carte Workboard | OPEN — NON BLOCKING |
-| UX-Q2 | Placement Quick Inspector gauche/droite | OPEN — NON BLOCKING |
-| Accessibility target | WCAG level | **OPEN** |
-| Design tokens final | Palette/type/spacing | **OPEN** |
-
-## 32. Exit proof Cycle 4
-
-- 5 surfaces + Quick Inspector
-- 10 frames mappées
-- variants critiques explicites
-- aucune règle métier nouvelle
-- Figma source candidate tracée
-- M1 NOT READY / AC 0/16
-- tokens candidate only
-- design non validé Morris
-
-## 33. Morris visual review gate
-
-Next gate : **MORRIS CYCLE 4 VISUAL / UX REVIEW**
-
-Not authorized : project commit / push / PR / delivery / tech arch / backlog / M1 READY / design validated without Morris.
-
-## COMPLETE FILE: 2026-08-20-figma-design-brief.md
-
-# SFIA Task Manager — Figma Design Brief
-
-**Chemin :** `projects/sfia-task-manager/03-design/2026-08-20-figma-design-brief.md`
-**Cycle :** Cycle 4 — UX/UI
-**Statut :** FIGMA DESIGN BRIEF — SOURCE ESTABLISHED — DESIGN CANDIDATE
-**Validation Morris :** NOT VALIDATED BY MORRIS
+## 30. FULL CREATED DOCUMENT (Artifact Completeness)
+
+```markdown
+# SFIA Studio — Product Completion — Cycle 3 — Architecture fonctionnelle
+
+| Métadonnée | Valeur |
+| --- | --- |
+| **Projet** | SFIA Studio — Product Completion |
+| **Cycle** | **3 — Architecture fonctionnelle** |
+| **Profil** | **CRITICAL** |
+| **Typologie** | **DOC** |
+| **Niveau QA** | CRITICAL DOCUMENT REVIEW |
+| **Milestone** | PRODUCT COMPLETION — CYCLE 3 — FUNCTIONAL ARCHITECTURE |
+| **Base Git** | `origin/main` @ `f850259768e2a4736dc8cce19cd062244a52d727` (PR #377 merge · Product Screens post-merge sync) |
+| **Branche locale** | `docs/sfia-studio-product-completion-functional-architecture` |
+| **Morris GO** | **CONSUMED** — wording « ok go pour l'architecture fonctionnelle dans ce cas » |
+| **Statut** | **CANDIDATE — NOT VALIDATED BY MORRIS — NOT INTEGRATED ON MAIN** |
+| **C1** | VALIDATED BY MORRIS — INTEGRATED ON MAIN — **READ ONLY** |
+| **C2** | VALIDATED BY MORRIS — INTEGRATED ON MAIN — **READ ONLY** |
+| **Experience Architecture** | VALIDATED BY MORRIS — INTEGRATED ON MAIN — **READ ONLY** |
+| **E2E Wireframes** | VALIDATED BY MORRIS — INTEGRATED ON MAIN — **READ ONLY** |
+| **Product Screens** | VALIDATED BY MORRIS — INTEGRATED ON MAIN — **READ ONLY** |
+| **Build Doctrine / Roadmap** | VALIDATED / ACTIVE — **READ ONLY** this cycle |
+| **CKC** | détaillé **ABSENT** · fallback `02-fifteen-cycles-synthetic-map.md` + méthode v2.6 · method-candidate · **aucune autorité d'exécution** · couverture **INCOMPLETE** |
+| **Runtime v3** | **NON ADOPTED** |
+| **Delivery** | **NOT AUTHORIZED** |
+| **REAL** | **ZERO** |
+| **Code / Components / Penpot** | NONE / NOT AUTHORIZED / READ ONLY |
+| **Project commit / push / PR** | **NOT AUTHORIZED** this cycle |
+| **Timestamp candidat** | 2026-08-21 00:00 CEST (+0200) |
 
 ---
 
-## Morris GOs
+## 1. Purpose / Non-goals
 
-Cycle 4 :
-GO MORRIS — OPEN CYCLE 4 UX/UI — STANDARD — FIGMA DESIGN-FIRST — INCLUDE R-DOC-02 TRACKING CORRECTION — NO TECH ARCH / BACKLOG / DELIVERY
+### Purpose
 
-Figma source :
-GO MORRIS — CREATE NEW FIGMA DESIGN FILE "SFIA Task Manager" IN CURRENT PRO TEAM — USE IT AS CYCLE 4 FIGMA SOURCE CANDIDATE — NO DESIGN VALIDATION IMPLIED
+Produire une **architecture fonctionnelle cible** de Product Completion qui transforme :
 
-## Source contract
+- C1 (target / scope / trajectory) ;
+- C2 (comportement A→W + contrats) ;
+- Product Experience validée (S1→S12 / Wireframes / Screens) ;
+- runtime / backbone OA existant ;
 
-| Champ | Valeur |
-|-------|--------|
-| Name | SFIA Task Manager |
-| URL | https://www.figma.com/design/2U8pJCYBMtGxaK0F0Ef1nO |
-| fileKey | `2U8pJCYBMtGxaK0F0Ef1nO` |
-| Editor type | Figma Design |
-| Account (revalidated) | ludo_zaya / ludo_zaya@hotmail.fr |
-| Plan / seat (revalidated) | Pro / Full |
-| WRITE | YES (seat Full + file accessible) |
-| Source-of-truth status | CYCLE 4 FIGMA SOURCE CANDIDATE — NOT VALIDATED BY MORRIS |
-| Framing note | Historical OPEN fileKey superseded for Cycle 4 candidate source by explicit Morris GO |
+en une **structure de capabilities, responsabilités, frontières, flux et dépendances** exploitable avant :
 
-## Objectif visuel
+1. qualification du besoin d'**Architecture technique delta** ;
+2. **Cycle 5 Backlog / User Stories** ;
+3. **Delivery** capability-driven.
 
-Matérialiser le contrat M1 en moyenne fidélité structurante : structure, hiérarchie, densité, états, actions, lisibilité.
+### Ce que ce document est
 
-## Viewport / fidelity
+- arbitrage de **structure métier / fonctionnelle** ;
+- carte de responsabilités et ownership d'état ;
+- classification KEEP/ADAPT/COMPLETE/HARVEST/REPLACE/FREEZE/RETIRE LATER du runtime ;
+- qualification du delta technique **sans l'exécuter** ;
+- inputs de handoff Backlog **sans créer le backlog**.
 
-1440 × 1024 · desktop-first · moyenne fidélité structurante
+### Ce que ce document n'est pas
 
-## Pages
-
-| Page | Contenu |
-|------|---------|
-| M1 — Core Screens | Frames 01–05 |
-| M1 — Critical States | Frames 06–10 |
-
-## Frames 01–10
-
-| # | Name | Hierarchy focus | Mandatory content |
-|---|------|-----------------|-------------------|
-| 01 | Workboard | State + next action | 7 columns, cards, Quick Inspector |
-| 02 | Work Item | Next Action priority | Intent→History sections |
-| 03 | Cycle Workspace | Allowed vs control | Contract + Gates/Evidence/Exit |
-| 04 | Review & Decision | Evidence vs expected | Expected/Actual + verdicts |
-| 05 | Project | Aggregate state | Project intent + WI list |
-| 06 | Work Item / Blocked | Risk/blocker | reason/unblock/next_action |
-| 07 | Work Item / Cannot Ready | Missing fields | missing list + corrective |
-| 08 | Review / GO WITH RESERVE | Reserve path | reserve + follow-up |
-| 09 | Review / REPLAN | History preserved | reason + historical cycle + Q/R |
-| 10 | Empty Workspace | First action | empty + CTA |
-
-## Visual direction
-
-Sobre · professionnelle · dense · control/decision · no Jira clone · no AI-first · semantic color · no critical info color-only
-
-## Candidate tokens (NOT VALIDATED)
-
-| Token | Candidate value | Status |
-|-------|-----------------|--------|
-| bg/app | #F4F5F7 | CANDIDATE — NOT VALIDATED DESIGN TOKEN |
-| bg/surface | #FFFFFF | CANDIDATE — NOT VALIDATED DESIGN TOKEN |
-| bg/sidebar | #1F2933 | CANDIDATE — NOT VALIDATED DESIGN TOKEN |
-| text/primary | #111827 | CANDIDATE — NOT VALIDATED DESIGN TOKEN |
-| text/secondary | #4B5563 | CANDIDATE — NOT VALIDATED DESIGN TOKEN |
-| text/on-dark | #F9FAFB | CANDIDATE — NOT VALIDATED DESIGN TOKEN |
-| border/default | #D1D5DB | CANDIDATE — NOT VALIDATED DESIGN TOKEN |
-| accent/primary | #1D4ED8 | CANDIDATE — NOT VALIDATED DESIGN TOKEN |
-| status/blocked | #B45309 | CANDIDATE — NOT VALIDATED DESIGN TOKEN |
-| status/danger | #B91C1C | CANDIDATE — NOT VALIDATED DESIGN TOKEN |
-| status/success | #047857 | CANDIDATE — NOT VALIDATED DESIGN TOKEN |
-| font/ui | Inter / system sans | CANDIDATE — NOT VALIDATED DESIGN TOKEN |
-| space/base | 8 / 12 / 16 / 24 | CANDIDATE — NOT VALIDATED DESIGN TOKEN |
-| radius/card | 8 | CANDIDATE — NOT VALIDATED DESIGN TOKEN |
-
-## Accessibility candidate guardrails
-
-Target contractuel OPEN. Apply: non color-only critical info, readable contrast, explicit labels, explained disabled, keyboard/focus as candidates.
-
-## Forbidden interpretations
-
-No tech arch · no stack · no backlog · no delivery · no 6th business surface · no Blocked lifecycle column · no silent disabled · no AI-central UI · no design validation claim
-
-## Open Morris decisions
-
-Accessibility target · design tokens final · branding · FQ02–FQ05 · visual validation of this candidate
-
-## Production registry
-
-Pages:
-- M1 — Core Screens — pageId `0:1`
-- M1 — Critical States — pageId `3:2`
-
-Quick Inspector (Workboard transversal): nodeId `4:52` (child of `01 — Workboard` / `4:2`)
-
-| Frame | Node ID | W×H | Screenshot MCP |
-|-------|---------|-----|----------------|
-| 01 Workboard | `4:2` | 1440×1024 | YES |
-| 02 Work Item | `4:56` | 1440×1024 | YES |
-| 03 Cycle Workspace | `5:2` | 1440×1024 | YES |
-| 04 Review & Decision | `5:39` | 1440×1024 | YES |
-| 05 Project | `5:80` | 1440×1024 | YES |
-| 06 Blocked | `5:113` | 1440×1024 | YES |
-| 07 Cannot Ready | `5:140` | 1440×1024 | YES |
-| 08 GO WITH RESERVE | `5:168` | 1440×1024 | YES |
-| 09 REPLAN | `5:194` | 1440×1024 | YES |
-| 10 Empty Workspace | `5:222` | 1440×1024 | YES |
-
-Frames produced: **10/10**
-
-## Visual contract extracted (from produced Figma)
-
-Common shell (all frames):
-- Layout: HORIZONTAL Auto Layout
-- Sidebar 220 × 1024 (dark `#1F2933` candidate) + Main 1220 × 1024
-- Main padding: 28 / 28 / 24 / 24 · gap 16
-- Typography: Inter Regular / Semi Bold / Bold (candidate)
-- NEXT ACTION banner: accent stroke + tinted fill + text label (not color-only)
-
-Per-frame notes:
-| Frame | Layout principal | Zones / actions | Disabled / empty |
-|-------|------------------|-----------------|------------------|
-| 01 | 7 lifecycle columns + QI panel | Cards: title/project/profile/gate/next; QI transversal | N/A |
-| 02 | Vertical sections stack | Next Action stroke-emphasis | N/A |
-| 03 | Two-zone split 560+560 | Execution Contract vs Exit control | N/A |
-| 04 | Expected vs Actual + verdict row | GO / GO WITH RESERVE / REPLAN / NO-GO | GO reason text when incomplete |
-| 05 | Aggregated WI rows | Blocked indicator text on WI-099 | N/A |
-| 06 | Work Item variant | Lifecycle + Blocked=true + reason + unblock | Orthogonal blocked |
-| 07 | Work Item variant | Missing fields list + corrective | Ready unavailable explained |
-| 08 | Review variant | Reserve + follow-up + author/date | N/A |
-| 09 | Review variant | Historical cycle + conserved evidence | Not a reset |
-| 10 | Empty state center | Minimal copy + Create Project CTA | Empty explained |
-
-Uncertainty: denser production content vs pixel polish intentionally deferred (medium fidelity). No functional rule invented beyond validated M1 contract.
-
-## MCP limitations
-
-- `use_figma`: one `setCurrentPageAsync` per call — Core and Critical built in separate invocations.
-- Screenshot URLs from `get_screenshot` are short-lived MCP asset URLs (not durable repo artifacts).
-- File display name via API may show as Document; URL/fileKey remain authoritative.
-- No design-system library import used (from-scratch candidate patterns).
-- Validation status remains: **NOT VALIDATED BY MORRIS**.
-
-## COMPLETE FILE: 2026-08-20-figma-review-checklist.md
-
-# SFIA Task Manager — Figma Review Checklist (Morris)
-
-**Chemin :** `projects/sfia-task-manager/03-design/2026-08-20-figma-review-checklist.md`
-**Cycle :** Cycle 4 — UX/UI
-**Source Figma :** https://www.figma.com/design/2U8pJCYBMtGxaK0F0Ef1nO (`2U8pJCYBMtGxaK0F0Ef1nO`)
-**Statut :** CHECKLIST FOR MORRIS REVIEW — NOT PRE-VALIDATED
-
-Columns for Morris use: Criterion | Status | Evidence / node | Morris comment | Decision
+| Distinction | Non-goal |
+| --- | --- |
+| vs **C2** | Ne re-spécifie pas les comportements A→W ; les **consomme** |
+| vs **UX** | Ne redesign pas S1→S12 / Screens ; les **sert** |
+| vs **Architecture technique** | Ne choisit pas stack / DB / API / schema / deployment |
+| vs **Backlog** | Ne produit pas stories / points / sprints |
+| vs **code / Components** | N'implémente rien ; n'autorise pas Components |
+| vs **Build Doctrine A3 historique** | Ne réécrit pas Build Doctrine (voir RESERVE-GOV-EC-ORDER) |
 
 ---
 
-## A. Global
+## 2. Source hierarchy
 
-| Criterion | Status | Evidence / node | Morris comment | Decision |
-|-----------|--------|-----------------|----------------|----------|
-| 1440×1024 respected | | 01–10 all 1440×1024 (`4:2`…`5:222`) | | |
-| 5 surfaces present | | 01–05 on page `0:1` | | |
-| Quick Inspector transversal (not 6th domain) | | `4:52` inside `4:2` | | |
-| 5 critical states present | | 06–10 on page `3:2` | | |
-| Sobre / professionnel / dense | | screenshots MCP YES 01–10 | | |
-| Control / decision oriented | | frames 03–04, 08–09 | | |
-| No Jira clone | | no subtasks/comments/metadata chrome | | |
-| No AI-first | | no AI assistant surface | | |
-| Hierarchy State → Next Action → Risk → Evidence → Decision → History | | NEXT ACTION banners + sections | | |
+```text
+Git current (authoritative)
+  > Morris decisions (construction gates)
+  > C1 Product Completion cadrage
+  > C2 Conception fonctionnelle
+  > framings 30–37 (doctrine v3 VALIDATED)
+  > Product Experience validated (EA → Wireframes → Screens)
+  > Build Doctrine / Convergence Roadmap (construction laws / living state)
+  > runtime evidence (OA / vertical-slice — READ ONLY)
+  > historical harvest (framing 09)
+  > recommendation / hypothesis (this candidate)
+```
 
-## B. Hierarchy / information
+**Ordre d'autorité UX :** C1 → C2 → EA → Wireframes → Screens.
+Ne pas réouvrir les décisions validées sans contradiction structurante démontrée.
 
-| Criterion | Status | Evidence / node | Morris comment | Decision |
-|-----------|--------|-----------------|----------------|----------|
-| State visible first | | column headers / lifecycle labels | | |
-| Next Action prominent | | accent NEXT ACTION banners | | |
-| Risk/blocker explicit when present | | `5:113`, WI-099 blocked labels | | |
-| Evidence visible where required | | `5:39`, `5:2` control zone | | |
-| Decision human-only | | verdict row + disabled reason text | | |
-| History reconstructible | | History section / REPLAN conserved | | |
+---
 
-## C. Per-frame (01–10)
+## 3. Convergence qualification
 
-For each frame: structure correct · mandatory content · primary actions · disabled reasons · no invented business rule · no critical info color-only
+| Champ | Contenu |
+| --- | --- |
+| **Capability v3 servie** | **V3-F05** (chaîne conversation → décision → exécution) structurée par V3-F01…F15 applicables (CKC, LPS, DoctrinePackage, Epistemology, Trajectory, Provenance, Contradictions, Replanning, DebtItem, AgentCapability, Action/reversibility, Artifact completeness, Maturity) |
+| **Milestone** | PRODUCT COMPLETION — CYCLE 3 — FUNCTIONAL ARCHITECTURE |
+| **Current state** | C1/C2/EA/Wireframes/Screens **INTEGRATED** · Product Screens design trajectory segment closed for current design scope · runtime backbone OA **exists** · Product Completion **not complete** · runtime v3 **NON ADOPTED** |
+| **Gaps (entrée)** | frontières fonctionnelles formalisées absentes · ProjectTrajectory durability OPEN · Confirmation process-local OPEN · UAT OPEN · H-01…H-04 CARRY |
+| **Dependencies** | C1+C2+PE validated · OA Native Backbone (G0-A) · Product SQLite (G0-B) · no parallel engine |
+| **Critical path** | Product Completion target → **functional architecture** → technical-delta qualification → backlog → capability-driven Delivery |
+| **Exit proof (candidat)** | voir §23 |
+| **Debt/exit** | voir §21 |
+| **Next gate** | ChatGPT Functional Architecture Review → Morris Validation Decision · **≠** auto Architecture technique · **≠** auto Backlog |
 
-| Frame | Structure | Mandatory content | Primary actions | Disabled reasons | No invented rules | No color-only critical | Evidence / node | Morris comment | Decision |
-|-------|-----------|-------------------|-----------------|------------------|-------------------|------------------------|-----------------|----------------|----------|
-| 01 Workboard | | | | | | | `4:2` (+ QI `4:52`) | | |
-| 02 Work Item | | | | | | | `4:56` | | |
-| 03 Cycle Workspace | | | | | | | `5:2` | | |
-| 04 Review & Decision | | | | | | | `5:39` | | |
-| 05 Project | | | | | | | `5:80` | | |
-| 06 Blocked | | | | | | | `5:113` | | |
-| 07 Cannot Ready | | | | | | | `5:140` | | |
-| 08 GO WITH RESERVE | | | | | | | `5:168` | | |
-| 09 REPLAN | | | | | | | `5:194` | | |
-| 10 Empty Workspace | | | | | | | `5:222` | | |
+### Build Doctrine challenges (R1–R21 appliqués)
 
-## D. Critical variants
+1. Capability utilisateur : boucle Pilote-facing Product Completion (Create/Resume → Evidence → Recovery).
+2. Pourquoi maintenant : PE validée ; découpage Backlog/Delivery nécessite frontières ; risque parallèle élevé sans Cycle 3.
+3. Actifs : OA KEEP/ADAPT/COMPLETE (voir §12).
+4. Risque parallèle : **mitigé** par recommandation reuse OA + composition runtime (pas de second moteur).
+5. Frontières nécessaires : ownership Project/LPS/Decision/EC/Attempt/Evidence/Trajectory/Confirmation.
+6. Responsabilités uniques : HumanDecision=Pilote ; Recommendation=Nora ; persistence LPS=Studio ; HOW=Cursor sous envelope.
+7. Flux A→W : §9–§10.
+8. Couvert runtime : Project/LPS/CycleInstance/HD/EC/Attempt/Evidence durable partiel ; Trajectory+Confirmation process-local.
+9. Vrais gaps : Trajectory durable · Confirmation durable (consumed) · PE↔OA surface completeness · UAT.
+10. Architecture technique : **TARGETED DELTA REQUIRED** (pas rewrite).
+11. Backlog : capabilities + slices + acceptance boundaries (§19) — pas stories.
+12. Exit proof Cycle 3 : §23.
 
-| Criterion | Status | Evidence / node | Morris comment | Decision |
-|-----------|--------|-----------------|----------------|----------|
-| Blocked orthogonal (not lifecycle column) | | `5:113` | | |
-| Cannot Ready explanatory (not silent grey) | | `5:140` | | |
-| GO WITH RESERVE shows reserve + follow-up | | `5:168` | | |
-| REPLAN preserves history / Cycle historical | | `5:194` | | |
-| Empty Workspace clear first action | | `5:222` | | |
+---
 
-## E. Governance
+## 4. Architecture principles
 
-| Criterion | Status | Evidence / node | Morris comment | Decision |
-|-----------|--------|-----------------|----------------|----------|
-| Figma candidate only (not validated) | | | | |
-| Tokens candidate only | | | | |
-| Accessibility target OPEN | | | | |
-| FQ02–FQ05 OPEN | | | | |
-| No tech arch | | | | |
-| No backlog | | | | |
-| No delivery | | | | |
-| M1 NOT READY | | | | |
-| AC demonstrated 0/16 | | | | |
-| No project commit implied | | | | |
+Dérivés de C1/C2/framings 30–37 / Build Doctrine :
 
-## F. Morris decision record
+1. **Project ≠ Cycle** — Project durable porte LPS ; CycleInstance porte qualification/session épistémique.
+2. **Recommendation ≠ HumanDecision** — Nora propose ; Pilote décide ; jamais auto-promotion.
+3. **ProjectTrajectory ≠ Roadmap** — Trajectory = état projet vivant ; Roadmap = construction convergence.
+4. **CKC ≠ authority** — guidance method-candidate ; aucune autorité d'exécution runtime.
+5. **ExecutionContract = contrat fonctionnel natif** — Markdown Cursor = adapter/projection seulement.
+6. **AgentCapability = governance envelope** ≠ catalogue features Cursor ≠ effective authority.
+7. **Confirmation after EC inspection when required** — ordre C2 : K→L→M(if)→N→O (voir RESERVE-GOV-EC-ORDER).
+8. **Evidence before claim** — tout terminal Q/R/S produit Evidence avant claim.
+9. **Recovery fail-closed** — jamais inventer GO / mémoire / Confirmation / authority.
+10. **Doctrine v3 exclusive** — pas de coexistence opérationnelle v2.6/runtime.
+11. **Business-first** — Evidence/UX métier avant profondeur technique.
+12. **No parallel engine** — un mécanisme générique EC→agent→Evidence ; pas N moteurs par type de cycle.
+13. **effective authority = intersection** human ∩ EC ∩ AgentCapability ∩ guardrails ∩ Confirmation(if required).
+14. **Facts ≠ Recommendation ≠ Decision** — epistemology preservée.
 
-| Decision | Result | Date | Notes |
-|----------|--------|------|-------|
-| Visual accept / revise / reject | | | Do not prefill |
-| Token promotion | | | Remains OPEN unless Morris decides |
-| Accessibility target | | | Remains OPEN unless Morris decides |
-| Project commit authorization | | | Separate GO required |
+---
 
-## COMPLETE FILE: README.md (post R-DOC-02 candidate)
+## 5. Functional capability map
 
-# SFIA Task Manager
+Regroupement par **responsabilité cohérente** (≠ 1 concept C2 = 1 module).
 
-**Project path:** `projects/sfia-task-manager/`
+| ID | Capability | Responsabilité | Couvre |
+| --- | --- | --- | --- |
+| **FC-01 Project Continuity** | Create / open / resume Project | Identité projet + entrée A/B | A, B, W (entry) |
+| **FC-02 Knowledge & Doctrine** | Résoudre contexte / DoctrinePackage / sources | Pins doctrine + fraîcheur | D |
+| **FC-03 Cycle Qualification** | Qualifier cycle / profil / CKC / lenses | CycleInstance + CKC resolution | E |
+| **FC-04 Nora Reasoning** | Clarification / options / recommendation / analysis | Propose only | C, F, I, U |
+| **FC-05 Living Project State** | Maintenir LPS business-first | Versioned project state | G |
+| **FC-06 Trajectory & Replanning** | Options trajectoire / proposed vs decided / replan | ProjectTrajectory lifecycle | H, V |
+| **FC-07 Human Decision** | Enregistrer décisions structurantes Pilote | HumanDecision + DecisionBasis | J |
+| **FC-08 Execution Contracting** | Préparer / inspecter EC | Native EC progressive disclosure | K, L |
+| **FC-09 Authorization Gate** | Confirmation if required + effective authority / executor sufficiency | Confirmation · authority check · blocked states | M, N |
+| **FC-10 Governed Execution** | Attempt under contract | Attempt lifecycle + runtime guards | O, P |
+| **FC-11 Terminal Outcomes** | SUCCESS / STOP / FAIL honesty | Terminal branches | Q, R, S |
+| **FC-12 Evidence & Review** | Evidence / ReviewBundle business-first | Artifact completeness loop | T |
+| **FC-13 Recovery Continuity** | Reprise inter-session fail-closed | Resume / requalify | W |
+| **FC-14 Product Experience Shell** | Surfaces S1→S12 / Screens | Présentation Pilote-facing | all UX |
+| **FC-15 Cross-cutting Governance** | Audit / policy / debt / maturity claims | Transverse stops & provenance | all |
 
-**Status:** M1 / UX/UI DESIGN CANDIDATE IN PROGRESS
+**Composition runtime (non-capability métier séparée) :** `vertical-slice-runtime` = **orchestration KEEP/ADAPT** qui compose FC-01…FC-12 sur OA — **≠** nouveau domaine métier.
 
-**Operational process baseline:** SFIA v2.6
+---
 
-## Purpose
+## 6. Domain / responsibility boundaries
 
-Transformer une intention de travail en travail qualifié, exécuté dans un cycle SFIA borné, vérifié par des preuves et clôturé par une décision humaine, avec historique et prochaine action explicites.
+### FC-01 Project Continuity
+| | |
+| --- | --- |
+| **Owns** | Project identity, list/create/open, resume entry |
+| **Does not own** | Trajectory decisions, EC, Attempt |
+| **In** | Pilote intention / project id |
+| **Out** | Project handle + entry mode A|B |
+| **Durable** | Project MUST |
+| **Authority** | Pilote create/open |
 
-## Initial scope
+### FC-02 Knowledge & Doctrine
+| | |
+| --- | --- |
+| **Owns** | DoctrinePackage resolve/validate, digest/provenance pin |
+| **Does not own** | HumanDecision, EC content |
+| **Durable** | DoctrinePackage identity/digest MUST (filesystem pins today) |
+| **Authority** | Studio resolve ; Pilote does not invent doctrine |
 
-M1 fonctionnel + UX d'une boucle de gestion de travail gouvernée par SFIA.
+### FC-03 Cycle Qualification
+| | |
+| --- | --- |
+| **Owns** | CycleInstance, CKC resolution, qualification profile |
+| **Does not own** | Recommendation authority, Confirmation |
+| **Durable** | CycleInstance MUST ; CKC resolution reconstructible |
+| **Authority** | Studio qualify ; Nora may assist ; Pilote does not bypass CKC as fake authority |
 
-## Current cycle
+### FC-04 Nora Reasoning
+| | |
+| --- | --- |
+| **Owns** | Clarification dialogue, Options, Recommendation, post-Evidence analysis |
+| **Does not own** | HumanDecision, Execution, Confirmation grant |
+| **Process-local allowed** | Conversation / proposal drafts |
+| **Authority** | **Propose only** |
 
-Cycle 4 — UX/UI — Standard — AUTHORIZED BY MORRIS
+### FC-05 Living Project State
+| | |
+| --- | --- |
+| **Owns** | LPS versions, factual appends (evidenceIds, etc.) |
+| **Does not own** | Deciding trajectory, inventing HD |
+| **Durable** | LPS MUST |
+| **Write authority** | Studio system factual writer + governed use-cases |
 
-## Prior milestone
+### FC-06 Trajectory & Replanning
+| | |
+| --- | --- |
+| **Owns** | proposed vs decided trajectory versions, replanning after Evidence |
+| **Does not own** | Roadmap construction state |
+| **Durable** | **MUST (target)** — currently Memory → OPEN debt |
+| **Authority** | Nora proposes ; Pilote adopts via HD ; Studio persists |
 
-Cycle 3 — Functional Architecture — VALIDATED BY MORRIS — INTEGRATED ON MAIN via PR #371
+### FC-07 Human Decision
+| | |
+| --- | --- |
+| **Owns** | HumanDecision, DecisionBasis, decision history |
+| **Does not own** | Confirmation semantics (FC-09), Attempt |
+| **Durable** | HD MUST |
+| **Authority** | **Pilote only** |
 
-## Functional specification
+### FC-08 Execution Contracting
+| | |
+| --- | --- |
+| **Owns** | ExecutionContract prepared→inspected lifecycle, disclosure fields |
+| **Does not own** | Authorization result, Attempt running |
+| **Durable** | EC MUST |
+| **Authority** | Studio prepare ; Pilote inspect |
 
-- `01-functional/2026-08-19-m1-functional-spec.md` — M1 functional specification (validated by Morris)
+### FC-09 Authorization Gate
+| | |
+| --- | --- |
+| **Owns** | Confirmation (if required), effective authority evaluation, executor sufficiency, authorization_blocked presentation |
+| **Does not own** | EC content, Attempt execution HOW |
+| **Durable** | **Consumed Confirmation carrying authority = MUST** (currently process-local → OPEN debt) |
+| **Authority** | Pilote grants Confirmation ; Studio evaluates intersection fail-closed |
 
-## Functional architecture
+### FC-10 Governed Execution
+| | |
+| --- | --- |
+| **Owns** | ExecutionAttempt accepted→running→terminal ; runtime guardrails after auth |
+| **Does not own** | Closing CycleInstance / archiving Project |
+| **Durable** | Attempt MUST when exists |
+| **Authority** | Cursor/agent HOW inside envelope only |
 
-- `02-architecture/2026-08-20-m1-functional-architecture.md` — M1 functional architecture (validated by Morris)
+### FC-11 Terminal Outcomes
+| | |
+| --- | --- |
+| **Owns** | Distinct SUCCESS / STOP / FAIL semantics |
+| **Does not own** | Evidence payload storage (FC-12) |
+| **Evidence obligation** | Always hand off to FC-12 |
 
-## UX/UI / Design
+### FC-12 Evidence & Review
+| | |
+| --- | --- |
+| **Owns** | Evidence, ReviewBundle, business-first hierarchy, reinjection to Nora/LPS |
+| **Does not own** | Maturity/claim promotion without evidence |
+| **Durable** | Evidence + ReviewBundle MUST |
+| **Process-local** | ClaimEvaluation / MaturityAssessment may remain until gated |
 
-- `03-design/2026-08-20-m1-ux-ui-contract.md` — M1 UX/UI contract (candidate / Morris review required)
-- `03-design/2026-08-20-figma-design-brief.md` — Figma design brief (candidate)
-- `03-design/2026-08-20-figma-review-checklist.md` — Morris Figma review checklist
+### FC-13 Recovery Continuity
+| | |
+| --- | --- |
+| **Owns** | Resume from durable truth ; disclose process-local loss ; requalify path |
+| **Does not own** | Inventing missing Confirmation/HD |
+| **Fail-closed** | Mandatory |
 
-## Design source candidate
+### FC-14 Product Experience Shell
+| | |
+| --- | --- |
+| **Owns** | Surfaces S1→S12 / Screens presentation & interaction affordances |
+| **Does not own** | Domain persistence rules |
+| **Authority** | Presentation only — never creates authority |
 
-Figma — SFIA Task Manager
-URL: https://www.figma.com/design/2U8pJCYBMtGxaK0F0Ef1nO
-fileKey: `2U8pJCYBMtGxaK0F0Ef1nO`
-Status: CYCLE 4 FIGMA SOURCE CANDIDATE — **NOT VALIDATED BY MORRIS**
+### FC-15 Cross-cutting Governance
+| | |
+| --- | --- |
+| **Owns** | Audit journals, stop taxonomy placement, DebtItem tracking, anti-claims |
+| **Does not own** | A parallel “Stop Engine” product |
 
-## Key validated decisions
+### Ambiguities explicites (non résolues en silence)
 
-- GO M1 functional contract — Morris
-- GO UX contract — Morris
-- modèle central Work Item + Cycle
-- décision humaine obligatoire pour clôture
-- one active Cycle maximum par Work Item en M1
-- workflow M1 défini
-- cinq surfaces métier M1
-- Git/evidence manuels en M1
-- aucune architecture technique choisie
-- aucune persistence choisie
-- aucun GO delivery
+| Ambiguïté | Traitement |
+| --- | --- |
+| Build Doctrine A3 lists Confirmation before EC | **RESERVE-GOV-EC-ORDER** — C1/C2 order wins for Product Completion behavior ; Build Doctrine **not rewritten** this cycle |
+| `execution-run` D2 vs Attempt product | D2 = **FREEZE / parallel historical lane** — not Product Completion critical path |
+| FinOps Postgres | **Orthogonal** — KEEP as transverse ; not PE capability owner |
 
-## Maturity
+---
 
-M1 NOT READY — AC demonstrated 0/16
+## 7. State ownership matrix
 
-## Next step
+| Object | Functional owner | Lifecycle | Durability | Write authority | SoT | Recovery |
+| --- | --- | --- | --- | --- | --- | --- |
+| Project | FC-01 | create→active | MUST durable | Pilote/Studio | Product SQLite | resume by id |
+| LPS | FC-05 | append-only versions | MUST durable | Studio factual | Product SQLite | latest version |
+| DoctrinePackageRef | FC-02 | pin/validate | MUST pin/digest | Studio | Filesystem package + pin in LPS | re-resolve pin |
+| CycleInstance | FC-03 | create→active | MUST durable | Studio | Product SQLite | by project link |
+| CKC resolution | FC-03 | per qualification | reconstructible | Studio/CKC resolver | resolver + cycle link | re-resolve |
+| Observation/Hypothesis/Option | FC-04 | ephemeral→recorded option | process-local allowed until HD | Nora propose | conversation/proposal | disclose loss |
+| Recommendation | FC-04 | proposed | reconstructible MUST (target) | Nora | prefer durable link | never treat as HD |
+| HumanDecision | FC-07 | record/supersede | MUST durable | Pilote | Product SQLite | history |
+| ProjectTrajectory | FC-06 | proposed/decided versions | **MUST durable (target)** · **OPEN runtime Memory** | Studio after HD | Memory today → COMPLETE | never invent decided |
+| Confirmation | FC-09 | pending→consumed/expired/invalidated | **consumed MUST durable (target)** · **OPEN process-local** | Pilote grant / Studio enforce | Memory today → COMPLETE | never reuse stale |
+| ExecutionContract | FC-08 | prepared→inspected→authorized* | MUST durable | Studio + Pilote inspect | Product SQLite | re-inspect if amend |
+| AgentCapability / effective authority result | FC-09 / FC-15 | evaluated per authorize | audit envelope MUST | Studio evaluate | audit + EC fields | re-evaluate |
+| ExecutionAttempt | FC-10 | accepted→running→terminal | MUST durable | Studio + adapter | Product SQLite | terminal honesty |
+| Evidence | FC-12 | register/ingest | MUST durable | Studio | Product SQLite | required post-terminal |
+| ReviewBundle | FC-12 | open→freeze/complete | MUST durable | Studio / Pilote review acts | Product SQLite | remount |
+| DebtItem | FC-15 | open→exit | tracked | Morris/construction + product debt | docs/Roadmap | carry |
+| Recovery state | FC-13 | resume/requalify | derived from durable | Studio disclose | durable ∩ disclosed gaps | fail-closed |
 
-Morris Cycle 4 visual / UX review of the UX/UI contract and Figma design candidate.
-No technical architecture, backlog or delivery is authorized.
+\* “authorized” = gate result consuming inspected EC + Confirmation(if) + authority — not a substitute for EC content.
 
-## Tracking note (R-DOC-02)
+---
 
-R-DOC-02: CORRECTED IN CYCLE 4 CANDIDATE — NOT YET INTEGRATED
+## 8. Functional flows (Mermaid)
 
-(Previous obsolete tracking that still implied Cycle 3 local-only / PR readiness as next was corrected in this candidate README.)
+### F1 — Create / Resume Project
 
-## SFIA references
+```mermaid
+flowchart TD
+  Start([Pilote entry]) --> Choice{Create or Resume?}
+  Choice -->|A Create| Create[FC-01 Create Project]
+  Choice -->|B Resume| Resume[FC-01 Open Project]
+  Create --> WS[FC-14 Workspace S3]
+  Resume --> RecoverCheck{Durable truth sufficient?}
+  RecoverCheck -->|yes| WS
+  RecoverCheck -->|no| Recov[FC-13 Recovery / requalify]
+  Recov --> WS
+```
 
-- `docs/foundation/sfia-engineering-principles.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md`
-- `method/sfia-fast-track/ui/figma-design-first-ui-method.md`
+### F2 — Intention → context → qualification → clarification → LPS
 
-## Explicit separation
+```mermaid
+flowchart LR
+  C[C Intention] --> D[FC-02 Doctrine/context]
+  D --> E[FC-03 Qualify cycle/CKC]
+  E --> F[FC-04 Nora clarification]
+  F --> G[FC-05 Update LPS]
+```
 
-Ce projet n'est pas SFIA Studio v3 et ne doit pas être assimilé à SFIA Studio sans décision Morris dédiée.
+### F3 — Trajectory → Options → Recommendation → HumanDecision
 
-## Réserves
+```mermaid
+flowchart TD
+  H[FC-06 Consult/propose Trajectory] --> I[FC-04 Options + Recommendation]
+  I --> NeedHD{Structural change?}
+  NeedHD -->|no| Cont[Continue without HD]
+  NeedHD -->|yes| J[FC-07 HumanDecision Pilote]
+  J --> Decided[Trajectory DECIDED]
+```
 
-- Design candidate only — NOT VALIDATED BY MORRIS
-- Tokens / accessibility remain OPEN
-- Screenshot proofs are MCP ephemeral URLs, not checked into project git
-- Framing fileKey historically OPEN left unmodified (superseded note in Cycle 4 docs only)
-- Medium fidelity: structural validation intent, not pixel-perfect delivery claim
+### F4 — Prepare EC → Inspect → Confirmation if required → authority
 
-## Verdict
+```mermaid
+flowchart TD
+  K[FC-08 Prepare EC] --> L[FC-08 Pilote Inspect EC]
+  L --> NeedConf{Protected boundary?}
+  NeedConf -->|yes| M[FC-09 Confirmation]
+  NeedConf -->|no| N[FC-09 Effective authority / executor]
+  M --> N
+  N --> Ok{Sufficient?}
+  Ok -->|yes| AuthZ[Authorization granted]
+  Ok -->|no| Blocked[Authorization blocked SC-07]
+```
 
-**UX/UI + FIGMA DESIGN CANDIDATE COMPLETE — READY FOR MORRIS VISUAL REVIEW — NO PROJECT COMMIT**
+### F5 — Execute → Attempt → terminals → Evidence
 
-## Next gate
+```mermaid
+flowchart TD
+  O[FC-10 Launch under contract] --> P[Attempt running]
+  P --> Term{Terminal}
+  Term -->|Q| Succ[SUCCESS]
+  Term -->|R| Stop[STOP]
+  Term -->|S| Fail[FAIL]
+  Succ --> T[FC-12 Evidence/ReviewBundle]
+  Stop --> T
+  Fail --> T
+```
 
-**MORRIS CYCLE 4 VISUAL / UX REVIEW**
+### F6 — Nora analysis → replanning → HD → updated trajectory
 
-No downstream cycle authorized.
-No project commit / push / PR authorized by this candidate production.
+```mermaid
+flowchart LR
+  T[Evidence] --> U[FC-04 Nora analysis]
+  U --> V[FC-06 Replanning Recommendation]
+  V --> J2[FC-07 HumanDecision if structural]
+  J2 --> H2[FC-06 Updated Trajectory]
+```
 
-## Instruction ChatGPT
+### F7 — Inter-session Recovery
 
-Before answering Morris, read canonical handoff from Git branch `sfia/review-handoff` file `sfia-review-handoff/latest-chatgpt-review.md` and verify cycle, branch, base/HEAD, verdict, files, Figma IDs, proofs, reserves, absence of project commit/push/PR, next gate.
+```mermaid
+flowchart TD
+  Open[Resume Project] --> Load[Load durable: Project LPS Cycle HD EC Attempt Evidence]
+  Load --> Gaps{Process-local gaps?}
+  Gaps -->|none material| Cont[Continue at honest state]
+  Gaps -->|Confirmation/Trajectory/proposal lost| Disclose[FC-13 Disclose loss]
+  Disclose --> Path{Resume durable OR requalify}
+  Path --> Cont
+```
+
+---
+
+## 9. A→W traceability
+
+| Step | Capability | State read | State written | Human gate | Evidence/output |
+| --- | --- | --- | --- | --- | --- |
+| A | FC-01 | — | Project | Pilote create | Project id |
+| B | FC-01/13 | Project durable | resume context | Pilote open | workspace |
+| C | FC-04/14 | Project | intention utterance | — | conversation |
+| D | FC-02 | sources/doctrine | DoctrinePackageRef | — | pin/digest |
+| E | FC-03 | doctrine/project | CycleInstance + CKC | — | qualification |
+| F | FC-04 | cycle/LPS | clarification | — | Options prep |
+| G | FC-05 | cycle/rec | LPS version | — | LPS snapshot |
+| H | FC-06 | LPS/cycle | Trajectory proposed | — | trajectory view |
+| I | FC-04 | trajectory | Recommendation | — | Rec (no authority) |
+| J | FC-07 | Rec/basis | HumanDecision | **Pilote HD** | decided basis |
+| K | FC-08 | HD/LPS | EC prepared | — | EC |
+| L | FC-08 | EC | EC inspected | **Pilote inspect** | inspected EC |
+| M | FC-09 | EC inspected | Confirmation pending→consumed | **Pilote confirm if req** | Confirmation |
+| N | FC-09 | EC+Conf+AgentCapability | authority result | blocked if fail | authz/blocked |
+| O | FC-10 | authorized EC | Attempt accepted | — | launch |
+| P | FC-10 | Attempt | running updates | — | progress |
+| Q | FC-11 | Attempt | terminal_success | — | terminal |
+| R | FC-11 | Attempt | terminal_stop | — | terminal |
+| S | FC-11 | Attempt | terminal_fail | — | terminal |
+| T | FC-12 | Attempt terminal | Evidence/RB | — | Evidence |
+| U | FC-04 | Evidence | analysis Rec | — | analysis |
+| V | FC-06 | analysis | Trajectory update Rec | HD if structural | replan |
+| W | FC-13 | durable set | recovery disclosure | Pilote choose path | resume/requalify |
+
+**Aucune étape orpheline.** Ordre d'autorisation **K→L→M(if)→N→O→P** préservé.
+
+---
+
+## 10. S1→S12 / Product Experience traceability
+
+| Surface | Capability | Notes |
+| --- | --- | --- |
+| S1 Entry/Projects | FC-01 / FC-14 | SC-01 |
+| S2 Create intention | FC-01 / FC-14 | SC-02 · A only |
+| S3 Workspace shell | FC-14 (+01/05) | SC-03 |
+| S4 Conversation | FC-04 / FC-14 | dominant |
+| S5 LPS panel | FC-05 / FC-14 | business-first |
+| S6 Trajectory region | FC-06 / FC-14 | H-01 CARRY · SC-04 |
+| S7 History | FC-13 / FC-15 | minimal MUST |
+| S8 Recovery | FC-13 / FC-14 | SC-13 |
+| S9 Evidence reader | FC-12 / FC-14 | SC-09…11 · H-03 CARRY |
+| S10 EC disclosure | FC-08 / FC-14 | SC-05/06 |
+| S11 Confirmation | FC-09 / FC-14 | SC-06/07 · process-local debt |
+| S12 Attempt lifecycle | FC-10/11 / FC-14 | SC-08…11 |
+
+Screens SC-01…SC-14 + SC-R01…R03 = **validated PE evidence** · Components **0** · H-01…H-04 **CARRY** · UX-BLK-01/02/03 **CLOSED BY EVIDENCE**.
+
+Architecture fonctionnelle **sert** PE validée — **n'invente pas** de seconde UX.
+
+---
+
+## 11. Existing asset classification
+
+| Asset | Current purpose | Evidence | Class | Target role | Gap | Exit if temporary |
+| --- | --- | --- | --- | --- | --- | --- |
+| OA Project (+ LPS SQLite) | Project/LPS durable | M1 on main | **KEEP** | FC-01/05 SoT | — | — |
+| OA Cycle (CycleInstance SQLite) | Qualification durable | M2 | **KEEP** | FC-03 | Trajectory/Epistemic Memory | COMPLETE Trajectory |
+| OA Doctrine (filesystem) | Package resolve | T-A0 | **KEEP** | FC-02 | — | — |
+| OA Decision (HD SQLite) | HumanDecision durable | M3 | **KEEP** | FC-07 | Confirmation Memory | COMPLETE Confirmation |
+| OA ExecutionContract SQLite | Native EC | M3 | **KEEP** | FC-08 | — | — |
+| OA ExecutionAttempt SQLite | Attempt + REAL boundary off | M4/M5 | **KEEP** | FC-10 | REAL gated separately | — |
+| OA Evidence/Review SQLite | Evidence/RB | M5 | **KEEP** | FC-12 | Claims/Maturity Memory | later COMPLETE if required |
+| Cycle Trajectory Memory | Trajectory versions | runtime | **COMPLETE** | FC-06 durable | durability OPEN | COMPLETE → Product SQLite under existing ports |
+| Confirmation Memory | Confirmation lifecycle | runtime | **COMPLETE** | FC-09 consumed durable | process-local OPEN | COMPLETE consumed semantics |
+| Epistemic Memory | epistemic state | runtime | **ADAPT** | support FC-04/06 | may stay process-local until proven MUST | exit if blocks recovery |
+| vertical-slice-core | Local Project+Doctrine composition | code | **KEEP** | composition | — | — |
+| vertical-slice-runtime | Full OA stack wiring + PE UI bridge | code | **ADAPT** | PE↔OA orchestration | surface completeness vs Screens | — |
+| vertical-slice (demo VS states) | Historical demo mapping | code | **HARVEST / FREEZE** | learning only | ≠ PE SoT | RETIRE LATER when unused |
+| lib/adapters fixtures | Fixture→domain for legacy shells | code | **FREEZE** | non-critical | not PE path | RETIRE LATER |
+| Legacy UI `/workspace` `/decision` `/cycle-actif`… | Parallel shells | routes | **HARVEST / FREEZE** | selective patterns only | ≠ Product Screens SoT | RETIRE LATER with Morris |
+| Product UI `/studio` | Product entry/workspace | routes | **KEEP / ADAPT** | FC-14 | align Screens contracts | — |
+| execution-run D2 Memory | Separate run lane | OA | **FREEZE** | non-PC critical path | parallel risk if promoted | keep isolated |
+| FinOps Postgres | Transverse cost | OA | **KEEP** orthogonal | not PE owner | — | — |
+| Historical framing 09 | Early functional arch | docs | **HARVEST** | concepts only | Mode Controller REJECT | — |
+| OPS1 Cursor harvest | REAL HOW patterns | historical | **HARVEST** | adapter patterns under EC | no parallel product path | — |
+
+**Règle :** REPLACE / RETIRE / parallel architecture = **MORRIS DECISION REQUIRED** — non décidé ici.
+
+---
+
+## 12. Historical framing 09 harvest
+
+| Concept 09 | Disposition |
+| --- | --- |
+| Separation cockpit / engines / executor | **KEEP** → FC-14 / OA / Cursor |
+| Project State Engine | **ADAPT** → FC-05 LPS |
+| Cycle Router | **ADAPT** → FC-03 (evolvable catalog, not N engines) |
+| Canonical Context / Doctrine | **KEEP** → FC-02 |
+| Guided Reasoning | **ADAPT** → FC-04 Nora propose-only |
+| Decision Engine | **ADAPT** → FC-07 Pilote HD |
+| Execution Orchestrator + EC pivot | **KEEP** → FC-08/10 |
+| Validation / Evidence | **KEEP** → FC-12 |
+| Replanning | **KEEP** → FC-06 |
+| Policy / Audit | **KEEP** → FC-15 |
+| **Mode Controller v2.6 / transition / v3 / fallback** | **REJECT** — v3 exclusive · no operational coexistence |
+| Multi human runtime personas | **REJECT/ADAPT** → single **Pilote** |
+| v2.6 as active runtime baseline | **SUPERSEDED** — v2.6 = process ChatGPT↔Cursor only |
+| SQL store prescription | **REJECT as prescription** — G0-B already decided Product SQLite ; no new schema here |
+| Action Compiler parallel path | **HARVEST carefully** — EC+Confirmation center |
+
+---
+
+## 13. Functional interfaces (not APIs)
+
+| Interface | Producer | Consumer | Meaning | Preconditions | Failure | Authority / Evidence |
+| --- | --- | --- | --- | --- | --- | --- |
+| FI-01 Current project state | FC-01/05 | FC-04 Nora | Valid Project+LPS snapshot | Project exists | fail-closed empty | Studio |
+| FI-02 Trajectory proposal | FC-04/06 | Pilote / FC-07 | Recommendation only | Context qualified | stay proposed | Nora · no HD |
+| FI-03 HumanDecision recorded | FC-07 | FC-06/08 | Structural adopt/amend | Qualified basis | reject incomplete | Pilote · DecisionBasis |
+| FI-04 EC prepared | FC-08 | Pilote | Inspectable contract | HD when required | cannot authorize | Studio |
+| FI-05 EC inspected | Pilote via FC-08 | FC-09 | Ready for authz path | Full disclosure available | re-inspect | Pilote |
+| FI-06 Confirmation consumed | FC-09 | FC-09/10 | Scoped consent | After inspect · still valid | expire/invalidate | Pilote · durable target |
+| FI-07 Authority result | FC-09 | FC-10 | Intersection evaluation | EC+envelope+Conf | authorization_blocked | Studio audit |
+| FI-08 Attempt under contract | FC-10 | FC-11/12 | Governed HOW | Authz granted | STOP/FAIL + Evidence | Cursor inside envelope |
+| FI-09 Evidence registered | FC-12 | FC-04/05/06 | Terminal truth | Attempt terminal | block claims | Studio |
+| FI-10 Recovery disclosure | FC-13 | Pilote | Honest gaps | Resume | requalify path | Studio never invents |
+
+---
+
+## 14. Contradiction / stop model
+
+Stops are **ported by contracts/policies**, not a parallel Stop Engine :
+
+| Stop class | Ported by |
+| --- | --- |
+| Source missing / freshness | FC-02 + EC fields |
+| Contradiction | FC-04/15 epistemology + fail-closed |
+| Decision missing | FC-07 gate before structural EC |
+| Scope | EC scope ∩ AgentCapability |
+| Evidence missing | FC-12 before claims |
+| Irreversible / protected action | FC-09 Confirmation + protections |
+| Executor insufficient | FC-09 SC-CAP / blocked |
+| Maturity claim | FC-12/15 evidence-before-claim |
+| Artifact incomplete | FC-12 |
+| Git incoherence | Git SoT + recovery |
+| Trajectory dependency | FC-06 proposed≠decided |
+| Doctrine fallback violation | FC-02 v3-only · REJECT Mode Controller |
+
+---
+
+## 15. Continuity / recovery architecture
+
+**Minimum durable to resume :** Project, LPS, CycleInstance, HD, EC, Attempt(if), Evidence(if), Doctrine pin, decided Trajectory (**target**), consumed Confirmation (**target**).
+
+**Never infer :** missing HD, missing Confirmation, invented authority, invented GO, invented decided Trajectory.
+
+**Stale behaviors :**
+- stale Confirmation → invalidate · re-confirm after re-inspect ;
+- missing Recommendation → disclose · Nora may repropose ;
+- Trajectory Memory loss → disclose · requalify / reconstruct from HD+LPS — **central OPEN gap**.
+
+**Fail-closed :** prefer blocked honest state over false continuity.
+
+---
+
+## 16. Architecture options / arbitrages
+
+### OPTION A — OA-domain-aligned capabilities (reuse-first)
+Map FC-* tightly onto existing OA folders + PE shell.
+**Benefits :** minimal parallel risk · backlog maps to existing ports.
+**Costs :** UX journeys span multiple OA calls (already true).
+**Parallel risk :** low.
+**Reversibility :** high.
+
+### OPTION B — Journey modules as primary cut (UF-01…07 as domains)
+**Benefits :** narrative clarity for Backlog.
+**Costs :** duplicates OA ownership · high parallel risk.
+**Parallel risk :** **high** — rejected as default.
+
+### OPTION C — Hybrid orchestration + OA ownership
+PE shell + `vertical-slice-runtime` as orchestration ; OA remains SoT domains.
+**Benefits :** matches current code · preserves PE.
+**Costs :** must keep orchestration thin (no second business engine).
+**Parallel risk :** low if orchestration stays composition-only.
+
+### RECOMMENDATION (candidate — ≠ Morris Decision)
+
+**RECOMMEND OPTION A + thin orchestration from OPTION C** :
+
+- Functional capabilities §5 as the **product cut** ;
+- OA domains remain **implementation ownership anchors** ;
+- `vertical-slice-runtime` = KEEP/ADAPT composition — **not** a new business domain ;
+- REJECT OPTION B as default (parallel architecture risk).
+
+Status : **RECOMMENDATION** · Gate : Morris Functional Architecture Validation.
+
+---
+
+## 17. Technical architecture delta qualification
+
+| Item | Status | Verdict |
+| --- | --- | --- |
+| OA Native Backbone (G0-A) | Decided + implemented | **KEEP** — no re-decision |
+| Product SQLite (G0-B) | Decided + implemented | **KEEP** — no new DB choice |
+| Project/LPS/HD/EC/Attempt/Evidence durable | Implemented | **KEEP** |
+| ProjectTrajectory Memory | Gap vs C2 MUST | **TARGETED DELTA REQUIRED** — COMPLETE under existing ports |
+| Confirmation process-local | Gap vs consumed MUST | **TARGETED DELTA REQUIRED** — COMPLETE consumed durability |
+| PE Surfaces vs Screens | Partial runtime UI | **ADAPT** Delivery later — not Cycle 6 stack choice |
+| New stack / API gateway / schema redesign | Not required to state FC | **NOT REQUIRED BEFORE BACKLOG** |
+| Full Cycle 6 greenfield architecture | Unnecessary | **NOT REQUIRED** |
+| REAL / Gate D expansion | Separate Morris gates | **OUT OF SCOPE** |
+
+**Overall technical-delta verdict :**
+**TARGETED DELTA REQUIRED** (Trajectory durability + Confirmation consumed durability + PE↔OA completeness)
+**≠** full Architecture technique rewrite
+**≠** stack/persistence re-selection.
+
+Cycle 6 may be opened later as **targeted delta** only after Morris validation of this Cycle 3 — **not auto-authorized**.
+
+---
+
+## 18. Backlog handoff readiness (no backlog)
+
+### Capabilities for future stories (inputs only)
+FC-01…FC-15 as epic-level capability boundaries.
+
+### Candidate vertical slices (logical — not scheduled)
+1. Resume honesty (FC-01/13) with durable set disclosure
+2. Trajectory durable proposed/decided (FC-06 COMPLETE)
+3. Confirmation consumed durable + order K→L→M→N (FC-09 COMPLETE)
+4. EC inspect progressive disclosure fidelity (FC-08/14)
+5. Attempt terminals + Evidence reinjection (FC-10…12)
+6. Nora analysis → replan → HD (FC-04/06/07)
+
+### Order constraints
+- No Attempt without inspected EC + authority path
+- No Confirmation before EC inspect
+- Evidence after every terminal
+- Trajectory decided only via HD
+- Recovery never invents authority
+
+### Acceptance boundaries (architecture-level)
+- A→W coverage preserved
+- S1→S12 served without second UX
+- effective authority = intersection
+- fail-closed recovery
+
+### Already validated (do not re-open in stories)
+D-PC-01/07 · MD-C2-01…04 · PE EA/Wireframes/Screens · G0-A/B
+
+### Unresolved (block naive stories)
+- Trajectory durability design detail (tech delta)
+- Confirmation durability design detail (tech delta)
+- H-01…H-04 still CARRY (UX representation — not blockers)
+- UAT OPEN
+
+### Technical delta dependencies
+Slices 2–3 depend on targeted durability COMPLETE — may need Cycle 6 **targeted** or Delivery design notes under existing ports — **Morris gate later**.
+
+**INTERDIT ici :** user stories · story points · sprint plan · Delivery order decided.
+
+---
+
+## 19. Architecture decision register
+
+| ID | Observation | Options | Recommendation | Impact | Reversibility | Gate | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| ADR-FA-01 | Need functional cut for PC | A OA-aligned / B journey modules / C hybrid | A + thin C orchestration | Backlog shape | High | Morris validation | **RECOMMENDATION** |
+| ADR-FA-02 | Avoid parallel engine | Keep OA vs new domains | Keep OA | R6 compliance | High | — | **DECISION ALREADY VALIDATED** (G0-A / C1) |
+| ADR-FA-03 | Auth order Confirmation vs EC | Build Doctrine A3 vs C2 | Follow C2 K→L→M→N ; reserve Build Doctrine rewrite | PE + runtime | Med | Future doctrine sync | **OBSERVATION** + **RESERVE-GOV-EC-ORDER** |
+| ADR-FA-04 | Trajectory durability | Keep Memory / COMPLETE SQLite | COMPLETE under ports | Recovery | Med | Tech delta / Delivery | **RECOMMENDATION** |
+| ADR-FA-05 | Confirmation durability | Keep process-local / COMPLETE consumed | COMPLETE consumed semantics | Authority continuity | Med | Tech delta / Delivery | **RECOMMENDATION** |
+| ADR-FA-06 | Mode Controller / v2.6 coexistence | Harvest / Reject | **Reject** | Doctrine purity | High | — | **DECISION ALREADY VALIDATED** (D-V3 exclusive) |
+| ADR-FA-07 | execution-run D2 | Promote / Freeze | Freeze off PC path | Parallel risk | High | Morris if change | **RECOMMENDATION** |
+| ADR-FA-08 | Cycle 6 need | Full / Targeted / None | Targeted delta | Sequencing | High | After Cycle 3 validated | **RECOMMENDATION** |
+| ADR-FA-09 | Next after FA integrated | Tech delta vs Backlog | Requalification — not selected | Trajectory | High | Morris | **MORRIS DECISION REQUIRED** (future) |
+
+---
+
+## 20. Debt / reserves
+
+| Item | Status | Owner | Exit |
+| --- | --- | --- | --- |
+| H-01…H-04 | **CARRY** | PE / Morris | Representation decision later ≠ doctrine now |
+| Confirmation process-local | **OPEN** | FC-09 / runtime | COMPLETE consumed durability |
+| ProjectTrajectory runtime durability | **OPEN** | FC-06 / runtime | COMPLETE durable trajectory |
+| UAT | **OPEN** | Product Completion | UAT gate |
+| SC-02 evidence-framing | **NON-BLOCKING** | PE evidence | optional reframe · design not reopened |
+| RESERVE-GOV-EC-ORDER | **OPEN** | Build Doctrine vs C2 | dedicated doctrine sync gate |
+| Inherited Pre-M6 governed debt (UAT-UX-06, UAT-RECOVERY-03, V3-F10, N7, process-local) | **CARRY** | Roadmap | Product Completion path |
+| Runtime v3 | **NON ADOPTED** | Morris | adoption proofs/gates |
+
+---
+
+## 21. Anti-claims
+
+**FUNCTIONAL ARCHITECTURE CANDIDATE**
+
+- ≠ MORRIS VALIDATED
+- ≠ INTEGRATED ON MAIN
+- ≠ TECHNICAL ARCHITECTURE DECIDED
+- ≠ BACKLOG READY
+- ≠ DELIVERY AUTHORIZED
+- ≠ COMPONENTS AUTHORIZED
+- ≠ REAL
+- ≠ PRODUCT COMPLETION COMPLETE
+- ≠ RUNTIME V3 ADOPTED
+- ≠ H-01…H-04 closed
+- ≠ Confirmation durability solved
+- ≠ ProjectTrajectory durability solved
+- ≠ Mode Controller / v2.6 coexistence revived
+- ≠ parallel architecture authorized
+
+---
+
+## 22. Exit proof (candidat reviewable)
+
+| Criterion | Status |
+| --- | --- |
+| C1 target preserved | **YES** |
+| C2 A→W fully mapped | **YES** (§9) |
+| S1→S12 fully mapped | **YES** (§10) |
+| Responsibilities non-duplicated or ambiguity explicit | **YES** (§6 ambiguities) |
+| Existing runtime classified | **YES** (§11) |
+| No parallel architecture introduced | **YES** (reject Option B default) |
+| State ownership explicit | **YES** (§7) |
+| Functional flows complete F1–F7 | **YES** (§8) |
+| Structural options/gates explicit | **YES** (§16–19) |
+| Technical delta qualified | **YES** — TARGETED DELTA REQUIRED |
+| Backlog handoff inputs present | **YES** — no backlog created |
+| Debts/reserves preserved | **YES** |
+| No technical implementation claim | **YES** |
+| No Delivery / REAL claim | **YES** |
+
+---
+
+## 23. Next gates
+
+1. **CHATGPT FUNCTIONAL ARCHITECTURE REVIEW** (immediate)
+2. If PASS → **MORRIS FUNCTIONAL ARCHITECTURE VALIDATION DECISION**
+3. If validated → **Git integration gate** (separate GO)
+4. After integrated → **NEXT-CYCLE REQUALIFICATION** : Architecture technique delta **VS** Backlog
+
+**Ni Architecture technique ni Backlog ne sont autorisés automatiquement.**
+
+---
+
+## 24. Critical path statement
+
+Product Completion target → **functional architecture (this candidate)** → technical-delta qualification → backlog → capability-driven Delivery
+
+est plus cohérent que :
+
+- component-first ;
+- waterfall automatique de tous les cycles ;
+- Delivery direct sans architecture ;
+- réécriture complète du backbone.
+
+Conserve : **capability-driven trajectory** + **cycle-driven maturation**.
+
+---
+
+*CANDIDATE — NOT VALIDATED BY MORRIS — NOT INTEGRATED ON MAIN — NO CODE — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED — NEXT CAPABILITY NOT SELECTED*
+
+```
