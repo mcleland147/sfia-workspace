@@ -1,8 +1,8 @@
-# SFIA Review Pack FULL — SFIA Task Manager Cycle 3 AFQ Targeted Correction
+# SFIA Review Pack FULL — SFIA Task Manager Cycle 3 Architecture Validation
 
-**Timestamp (Europe/Paris):** 2026-08-20 13:32:44 CEST
+**Timestamp (Europe/Paris):** 2026-08-20 13:43:03 CEST
 
-**Pack type:** FULL — Cycle 3 Architecture fonctionnelle — targeted correction AFQ01/AFQ02
+**Pack type:** FULL — Cycle 3 Architecture fonctionnelle — validation + local project commit
 
 **Profil:** Standard
 
@@ -12,7 +12,7 @@
 
 ## Morris GO (exact)
 
-GO MORRIS — CYCLE 3 TARGETED CORRECTION — RECLASSIFY AFQ01 / AFQ02 AS RESOLVED BY EXISTING VALIDATED CONTRACT — NO NEW FUNCTIONAL DECISION — NO PROJECT COMMIT
+GO MORRIS — VALIDATE CYCLE 3 FUNCTIONAL ARCHITECTURE — CREATE LOCAL PROJECT COMMIT — NO PUSH / PR / MERGE
 
 ---
 
@@ -22,177 +22,75 @@ GO MORRIS — CYCLE 3 TARGETED CORRECTION — RECLASSIFY AFQ01 / AFQ02 AS RESOLV
 |-------|-------|
 | Repository | mcleland147/sfia-workspace |
 | Branch | `project/sfia-task-manager-cycle-3-functional-architecture` |
-| HEAD | `32cce29f452e7db95d52ed71c578b1fc11d11b17` |
+| HEAD before | `32cce29f452e7db95d52ed71c578b1fc11d11b17` |
+| HEAD after / project commit | `ea6e71707fe5a059b6537c6231bdbdbf17ae5384` |
+| Parent | `32cce29f452e7db95d52ed71c578b1fc11d11b17` |
 | origin/main | `32cce29f452e7db95d52ed71c578b1fc11d11b17` |
-| Prior handoff (pre-correction) | `b5d2db5fdcedc212264d258bbed0d04ea7e9fdd3` |
 | Remote project branch | **ABSENT** |
-| Project commit | **NO / NOT AUTHORIZED** |
 | Project push | **NO / NOT AUTHORIZED** |
 | PR | **NO / NOT AUTHORIZED** |
-| Staged | **NONE** |
-
-Working tree project:
-- `M projects/sfia-task-manager/README.md` (unchanged during this correction)
-- `?? projects/sfia-task-manager/02-architecture/2026-08-20-m1-functional-architecture.md`
+| Merge | **NO / NOT AUTHORIZED** |
 
 ---
 
-## Sources read
+## Commit evidence
 
-1. `prompts/templates/sfia-cycle-execution-template.md`
-2. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-3. `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md`
-4. `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md` (§4.3)
-5. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-6. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-7. `method/sfia-fast-track/core/sfia-knowledge-layer.md`
-8. `projects/sfia-task-manager/README.md`
-9. `projects/sfia-task-manager/00-framing/2026-08-19-project-framing.md`
-10. `projects/sfia-task-manager/01-functional/2026-08-19-m1-functional-spec.md`
-11. Immutable handoff `b5d2db5f` — Cycle 3 candidate before AFQ correction
+**Message:** `docs(sfia-task-manager): validate M1 functional architecture`
 
----
-
-## Hash proof
-
-| Artifact | Before | After |
-|----------|--------|-------|
-| README | `8a20fb4495047a893f6ec595da3946e5304a0a12` | `8a20fb4495047a893f6ec595da3946e5304a0a12` |
-| Architecture | `17adda4a46038ad0bfa4d748a8aac01e737418e3` | `82134b5cf0c6a608a543ff4e6ad9f2ab85df3512` |
-
-**README changed during correction:** NO
-**Architecture hash changed:** YES
-
----
-
-## Source proof — AFQ01
-
-Validated Cycle functional contract places `git_refs` on Cycle (repo/ref/branch/HEAD/commit/PR/files), manual/informational under I11.
-Cycle 3 candidate already maps Git refs ownership to Cycle / zone C.
-Therefore no separate M1 Git-refs functional module/object is required.
-
-## Source proof — AFQ02
-
-Validated framing: Quick Inspector = transversal Workboard component — not a sixth business domain.
-Cycle 3 surface matrix already treats it as projection under Workboard / zone G.
-Therefore Quick Inspector is not a separate functional authority.
-
----
-
-## BEFORE / AFTER statuses
-
-| Item | Before | After |
-|------|--------|-------|
-| AFQ01 | OPEN — NON BLOCKING | **RESOLVED BY EXISTING VALIDATED CONTRACT** |
-| AFQ02 | OPEN — NON BLOCKING | **RESOLVED BY EXISTING VALIDATED CONTRACT** |
-| AF-D11 | OPEN — NON BLOCKING | **RESOLVED BY EXISTING VALIDATED CONTRACT** |
-
-**New functional decision:** NO
-**Architecture rule changed:** NO
-
-### AFQ01 resolution
-
-Git refs remain owned by Cycle in M1; no separate module/object.
-Future native Git capability remains outside M1 (distinct future cycle/gate).
-
-### AFQ02 resolution
-
-Quick Inspector remains transversal Workboard projection; not sixth business domain; not separate source of truth.
-
----
-
-## Targeted correction BEFORE/AFTER diff (complete)
-
-```diff
---- /tmp/sfia-task-manager-cycle3-architecture-before-afq-correction.md	2026-08-20 13:31:28
-+++ /Users/l/Projects/sfia-workspace/projects/sfia-task-manager/02-architecture/2026-08-20-m1-functional-architecture.md	2026-08-20 13:31:51
-@@ -21,6 +21,19 @@
- ### Décision Morris ouvrant ce cycle (exact)
-
- GO MORRIS — OPEN CYCLE 3 ARCHITECTURE FONCTIONNELLE — STANDARD — INCLUDE R-DOC-01 TRACKING CORRECTION — NO FIGMA / TECH ARCH / BACKLOG / DELIVERY
-+
-+### Targeted correction (documentary only)
-+
-+**GO Morris :** GO MORRIS — CYCLE 3 TARGETED CORRECTION — RECLASSIFY AFQ01 / AFQ02 AS RESOLVED BY EXISTING VALIDATED CONTRACT — NO NEW FUNCTIONAL DECISION — NO PROJECT COMMIT
-+
-+| Élément | Qualification |
-+|---------|---------------|
-+| Nature | Documentary qualification correction only |
-+| New functional decision | **NO** |
-+| Architecture rule changed | **NO** |
-+| Scope expansion | **NO** |
-+| Project commit | **NOT AUTHORIZED** |
-+| Document status | remains **FUNCTIONAL ARCHITECTURE — MORRIS REVIEW REQUIRED** |
-
- ### Distinction architecture fonctionnelle vs technique
-
-@@ -425,10 +438,25 @@
-
- | # | Question | Pourquoi | Statut |
- |---|----------|----------|--------|
--| AFQ01 | Faut-il un « module » fonctionnel distinct pour Git refs au-delà du Cycle contract ? | Spec place git_refs sur Cycle ; surface Cycle Workspace les affiche | **OPEN — NON BLOCKING** — ownership reste Cycle (zone C) ; pas de 9e objet |
--| AFQ02 | Quick Inspector est-il une zone G autonome ou un aspect Workboard ? | Framing : transversal Workboard, pas 6e domaine | **OPEN — NON BLOCKING** — traité comme projection transversale G sous Workboard |
-+| AFQ01 | Faut-il un « module » fonctionnel distinct pour Git refs au-delà du Cycle contract ? | Spec Cycle contract porte déjà `git_refs` (manuel/informationnel, I11) ; Cycle Workspace les affiche | **RESOLVED BY EXISTING VALIDATED CONTRACT** |
-+| AFQ02 | Quick Inspector est-il une zone G autonome ou un aspect Workboard ? | Framing : composant transversal Workboard — pas sixième domaine métier | **RESOLVED BY EXISTING VALIDATED CONTRACT** |
-+
-+#### AFQ01 — résolution (contrat existant)
-
-+Git refs ownership remains **Cycle** in M1.
-+No distinct Git-refs functional module or ninth M1 object is introduced.
-+This is derived from the validated Cycle functional contract and I11.
-+A future native Git capability remains outside M1 and would require a distinct future cycle/gate.
-+
-+#### AFQ02 — résolution (contrat existant)
-+
-+Quick Inspector remains a transversal **Workboard** projection within zone G.
-+It is not a sixth business domain.
-+It is not a separate functional authority or source of truth.
-+This is derived from the validated framing / surface contract.
-+
- Aucune **MORRIS DECISION REQUIRED — BLOCKING** découverte pour poursuivre ce Cycle 3.
-+AFQ01 / AFQ02 are resolved by existing validated contracts, without new Morris functional decision.
-
- ---
-
-@@ -446,7 +474,7 @@
- | AF-D8 | REPLAN = sole new-trajectory outcome | **MORRIS DECISION ALREADY CONSUMED** / spec L |
- | AF-D9 | E04 remain In Progress | **MORRIS DECISION ALREADY CONSUMED** / spec E04 |
- | AF-D10 | FQ02–FQ05 remain OPEN | **OPEN — NON BLOCKING** |
--| AF-D11 | AFQ01–AFQ02 non blocking | **OPEN — NON BLOCKING** |
-+| AF-D11 | AFQ01–AFQ02 resolved from existing validated sources | **RESOLVED BY EXISTING VALIDATED CONTRACT** |
- | AF-D12 | Aucune architecture technique / Figma / backlog / delivery | **Explicit non-decision** (GO Morris) |
-
- Aucun ADR technique. Aucune « décision d’architecture Cursor » structurante auto-consommée.
-@@ -501,7 +529,7 @@
- | AC01–AC16 mappés ; **0/16 demonstrated** | PASS |
- | Aucune architecture technique décidée | PASS |
- | FQ02–FQ05 OPEN | PASS |
--| Ambiguïtés structurelles remontées (AFQ01–02 non blocking) | PASS |
-+| AFQ01 / AFQ02 resolved by existing validated contracts (no new Morris functional decision) | PASS |
- | Aucune Morris decision bloquante masquée | PASS |
-
- **Présentation :** READY FOR MORRIS ARCHITECTURE REVIEW — **PROJECT COMMIT NOT AUTHORIZED** par le GO actuel.
+**name-status:**
+```
+A	projects/sfia-task-manager/02-architecture/2026-08-20-m1-functional-architecture.md
+M	projects/sfia-task-manager/README.md
 
 ```
 
+**stat:**
+```
+ .../2026-08-20-m1-functional-architecture.md       | 554 +++++++++++++++++++++
+ projects/sfia-task-manager/README.md               |  20 +-
+ 2 files changed, 570 insertions(+), 4 deletions(-)
+
+```
+
+**show:**
+```
+commit ea6e71707fe5a059b6537c6231bdbdbf17ae5384
+Author:     Ludo243 <ludo_zaya@hotmail.fr>
+AuthorDate: Thu Aug 20 13:42:49 2026 +0200
+Commit:     Ludo243 <ludo_zaya@hotmail.fr>
+CommitDate: Thu Aug 20 13:42:49 2026 +0200
+
+    docs(sfia-task-manager): validate M1 functional architecture
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+A	projects/sfia-task-manager/02-architecture/2026-08-20-m1-functional-architecture.md
+M	projects/sfia-task-manager/README.md
+
+```
+
+Working tree after commit: clean (except historical untracked `.cursor/mcp.json`, `.tmp-sfia-review/`).
+
 ---
 
-## Preserved state
+## Validation summary
 
 | Item | Status |
 |------|--------|
-| Objects | 8/8 |
-| Surfaces | 5/5 + Quick Inspector transversal |
-| Lifecycle | 7/7 |
-| FQ01 | DECIDED BY MORRIS |
+| Cycle 3 functional architecture | **VALIDATED BY MORRIS** |
+| AFQ01 | RESOLVED BY EXISTING VALIDATED CONTRACT |
+| AFQ02 | RESOLVED BY EXISTING VALIDATED CONTRACT |
 | FQ02–FQ05 | **OPEN** |
 | Framing open decisions | **11/11 OPEN** |
+| Objects | **8/8** |
+| Surfaces | **5/5 + Quick Inspector** |
+| Lifecycle | **7/7** |
+| Zones | A–G |
 | I1–I12 | MAPPED |
 | AC01–AC16 | MAPPED / NOT DEMONSTRATED |
 | AC demonstrated | **0/16** |
 | M1 | **NOT READY** |
-| R-DOC-01 | CORRECTED IN CYCLE 3 CANDIDATE — NOT YET INTEGRATED |
-| Document status | FUNCTIONAL ARCHITECTURE — MORRIS REVIEW REQUIRED |
+| R-DOC-01 | integrated in README tracking (Cycle 2 on main via PR #368; Cycle 3 validated) |
 | Figma | NOT EXECUTED |
 | Technical architecture | NOT EXECUTED / NOT DECIDED |
 | Persistence/database | NOT DECIDED |
@@ -205,10 +103,10 @@ Quick Inspector remains transversal Workboard projection; not sixth business dom
 
 ## Next gate
 
-**MORRIS ARCHITECTURE VALIDATION / PROJECT COMMIT DECISION**
+**MORRIS PR READINESS / PROJECT PUSH DECISION**
 
+No push authorized by this GO.
 No downstream cycle authorized.
-This correction does **not** mean ARCHITECTURE VALIDATED BY MORRIS.
 
 ---
 
@@ -216,9 +114,9 @@ This correction does **not** mean ARCHITECTURE VALIDATED BY MORRIS.
 
 | Requirement | Status |
 |-------------|--------|
-| Corrected architecture full content | YES |
-| README complete current candidate | YES |
-| BEFORE/AFTER targeted correction diff | YES |
+| Architecture full content | YES |
+| README full content | YES |
+| Commit evidence | YES |
 | Synthesis only | NO |
 | Review pack verdict | **COMPLETE** |
 
@@ -226,18 +124,18 @@ This correction does **not** mean ARCHITECTURE VALIDATED BY MORRIS.
 
 ## Verdict
 
-**CYCLE 3 TARGETED CORRECTION COMPLETE — AFQ01 / AFQ02 RESOLVED BY EXISTING VALIDATED CONTRACT — READY FOR MORRIS ARCHITECTURE VALIDATION / PROJECT COMMIT DECISION — PROJECT COMMIT NOT AUTHORIZED**
+**CYCLE 3 FUNCTIONAL ARCHITECTURE VALIDATED — PROJECT COMMIT CREATED — READY FOR MORRIS PR READINESS / PROJECT PUSH DECISION — NO PUSH AUTHORIZED**
 
 ---
 
-## README — complete current candidate
+## README — complete committed content
 
 ```markdown
 # SFIA Task Manager
 
 **Project path:** `projects/sfia-task-manager/`
 
-**Status:** M1 / FUNCTIONAL ARCHITECTURE IN PROGRESS
+**Status:** M1 / FUNCTIONAL ARCHITECTURE VALIDATED
 
 **Operational process baseline:** SFIA v2.6
 
@@ -251,7 +149,7 @@ M1 fonctionnel + UX d'une boucle de gestion de travail gouvernée par SFIA.
 
 ## Current cycle
 
-Cycle 3 — Architecture fonctionnelle — Standard — AUTHORIZED BY MORRIS
+Cycle 3 — Architecture fonctionnelle — Standard — VALIDATED BY MORRIS
 
 ## Prior milestone
 
@@ -263,7 +161,7 @@ Cycle 2 — Conception fonctionnelle — VALIDATED BY MORRIS — INTEGRATED ON M
 
 ## Functional architecture
 
-- `02-architecture/2026-08-20-m1-functional-architecture.md` — M1 functional architecture (candidate / Morris review required)
+- `02-architecture/2026-08-20-m1-functional-architecture.md` — M1 functional architecture (validated by Morris)
 
 ## Key validated decisions
 
@@ -285,7 +183,8 @@ M1 NOT READY — AC demonstrated 0/16
 
 ## Next step
 
-Morris review of Cycle 3 functional architecture.
+Cycle 3 functional architecture validated and committed locally.
+Next project integration step requires a distinct Morris GO for PR readiness / project push.
 No Figma, technical architecture, backlog or delivery is authorized.
 
 ## SFIA references
@@ -306,7 +205,7 @@ Ce projet n'est pas SFIA Studio v3 et ne doit pas être assimilé à SFIA Studio
 
 ---
 
-## Functional architecture — complete corrected content
+## Functional architecture — complete committed content
 
 ```markdown
 # SFIA Task Manager — M1 Functional Architecture
@@ -319,7 +218,7 @@ Ce projet n'est pas SFIA Studio v3 et ne doit pas être assimilé à SFIA Studio
 **Baseline process :** SFIA v2.6
 **Source framing :** `projects/sfia-task-manager/00-framing/2026-08-19-project-framing.md`
 **Source spec fonctionnelle :** `projects/sfia-task-manager/01-functional/2026-08-19-m1-functional-spec.md`
-**Statut :** FUNCTIONAL ARCHITECTURE — MORRIS REVIEW REQUIRED
+**Statut :** FUNCTIONAL ARCHITECTURE — VALIDATED BY MORRIS — 2026-08-20
 
 ---
 
@@ -343,8 +242,21 @@ GO MORRIS — OPEN CYCLE 3 ARCHITECTURE FONCTIONNELLE — STANDARD — INCLUDE R
 | New functional decision | **NO** |
 | Architecture rule changed | **NO** |
 | Scope expansion | **NO** |
-| Project commit | **NOT AUTHORIZED** |
-| Document status | remains **FUNCTIONAL ARCHITECTURE — MORRIS REVIEW REQUIRED** |
+| Project commit | was not authorized by that GO |
+
+### Cycle 3 functional architecture validation
+
+**GO Morris :** GO MORRIS — VALIDATE CYCLE 3 FUNCTIONAL ARCHITECTURE — CREATE LOCAL PROJECT COMMIT — NO PUSH / PR / MERGE
+
+| Élément | Statut post-validation |
+|---------|-------------------------|
+| Cycle 3 functional architecture | **VALIDATED BY MORRIS** (documentaire/fonctionnelle uniquement) |
+| AFQ01 / AFQ02 | RESOLVED BY EXISTING VALIDATED CONTRACT |
+| FQ02–FQ05 | **OPEN** |
+| AC demonstrated | **0/16** |
+| M1 | **NOT READY** |
+| Project push / PR / merge | **NOT AUTHORIZED** |
+| Downstream (Figma / tech arch / backlog / delivery) | **NOT AUTHORIZED** |
 
 ### Distinction architecture fonctionnelle vs technique
 
@@ -843,7 +755,7 @@ Cette architecture fonctionnelle **prépare** conceptuellement :
 | AFQ01 / AFQ02 resolved by existing validated contracts (no new Morris functional decision) | PASS |
 | Aucune Morris decision bloquante masquée | PASS |
 
-**Présentation :** READY FOR MORRIS ARCHITECTURE REVIEW — **PROJECT COMMIT NOT AUTHORIZED** par le GO actuel.
+**Présentation :** Cycle 3 functional architecture **VALIDATED BY MORRIS** — local project commit authorized by validation GO — **push / PR / merge NOT AUTHORIZED**.
 
 ---
 
