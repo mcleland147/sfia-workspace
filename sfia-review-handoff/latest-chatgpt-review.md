@@ -1,97 +1,108 @@
-# Review Pack FULL — Product Completion Cycle 3 — Functional Architecture CORRECTION PASS (FA-R01…FA-R09)
+# Review Pack FULL — Product Completion Cycle 3 — FINAL MICRO-CORRECTION (FA-R10…FA-R12)
 
 ## 1. Timestamp
 
-2026-08-21 00:34:02 CEST (Europe/Paris)
+2026-08-21 00:46:01 CEST (Europe/Paris)
 
-## 2. Morris correction GO
+## 2. Morris GO wording
 
-Wording : « ok go »
+« ok go »
 
-Contexte : ChatGPT C1+C2 alignment review = TRAJECTORY ALIGNMENT PASS · FUNCTIONAL ARCHITECTURE VALIDATION READINESS — CHANGES REQUIRED.
+## 3. Interpretation
 
-Interprétation :
+GO MORRIS — APPLY FINAL TARGETED TRACEABILITY / OWNERSHIP CORRECTIONS FA-R10…FA-R12 TO PRODUCT COMPLETION CYCLE 3 FUNCTIONAL ARCHITECTURE CANDIDATE — PRESERVE FC-01…FC-15 — PRESERVE OA-ALIGNED OPTION A + THIN OPTION C ORCHESTRATION — NO ARCHITECTURE REDESIGN — NO NEW CAPABILITY — NO TECHNICAL ARCHITECTURE — NO BACKLOG — NO CODE — NO COMPONENTS — NO DELIVERY — ZERO REAL — NO PROJECT COMMIT — NO PROJECT PUSH — NO PR — NO MERGE — RUNTIME V3 NON ADOPTED.
 
-GO MORRIS — CORRECT PRODUCT COMPLETION CYCLE 3 FUNCTIONAL ARCHITECTURE CANDIDATE FROM CHATGPT C1+C2 ALIGNMENT REVIEW — PRESERVE ARCHITECTURAL DIRECTION — APPLY TARGETED SEMANTIC / RESPONSIBILITY / TRACEABILITY CORRECTIONS — NO ARCHITECTURE REDESIGN — NO NEW CAPABILITY SELECTION — NO TECHNICAL ARCHITECTURE — NO BACKLOG — NO CODE — NO DELIVERY — ZERO REAL — NO PROJECT COMMIT — NO PROJECT PUSH — NO PR — NO MERGE — RUNTIME V3 NON ADOPTED.
+Incoming ChatGPT state: ARCHITECTURAL DIRECTION PASS · FA-R01…FA-R09 PASS · C1/C2 TARGET TRAJECTORY PASS · CHANGES REQUIRED only for FA-R10…FA-R12 + CA-PC-33/35 editorial.
 
-## 3. Cycle / profil / typologie
+## 4. Cycle 3 Critical DOC
 
-- Cycle : **3 — Architecture fonctionnelle · CORRECTION PASS** (même cycle)
-- Profil : **CRITICAL**
-- Typologie : **DOC**
-- Statut : CANDIDATE — NOT VALIDATED BY MORRIS — NOT INTEGRATED ON MAIN — CORRECTION PASS APPLIED
+FINAL MICRO-CORRECTION PASS · same cycle · no new cycle.
 
-## 4. Local Git Truth
+## 5. Local Git Truth
 
-- Branch : `docs/sfia-studio-product-completion-functional-architecture`
-- HEAD : `f850259768e2a4736dc8cce19cd062244a52d727`
-- origin/main : `f850259768e2a4736dc8cce19cd062244a52d727`
-- Drift : NONE
-- Candidate : untracked only
-- Historical untracked preserved : `.tmp-sfia-review/` · `eventops-poc/` · `flex-office-demo/`
+- Branch: `docs/sfia-studio-product-completion-functional-architecture`
+- HEAD / origin/main: `f850259768e2a4736dc8cce19cd062244a52d727`
+- Drift: NONE
+- Candidate untracked only
+- Historical untracked preserved
 
-## 5. origin/main
+## 6. Base origin/main
 
 `f850259768e2a4736dc8cce19cd062244a52d727`
 
-## 6. CKC fallback
-
-- V3-F01 CKC = VALIDATED doctrine (distinguished)
-- Cycle 3 detailed CKC ABSENT
-- method assets = candidate/incomplete process guidance
-- Fallback synthetic map + v2.6 process · no execution authority
-
 ## 7. Convergence Pre-check
 
-Build Doctrine / Roadmap READ ONLY · R1–R21 applied · no parallel architecture · OA-aligned + thin orchestration preserved · FC-01…FC-15 preserved
+Build Doctrine / Roadmap READ ONLY · capability-driven + cycle-driven · no parallel architecture · OA-aligned preserved
 
-## 8. C1/C2 sources
+## 8. Sources read
 
-C1 + C2 VALIDATED INTEGRATED READ ONLY · PE EA/Wireframes/Screens READ ONLY · framings 30–37 applicable · prior handoff tip `a4c38c09…` / blob `54867d3b…`
+Process templates/routing/operating-model/rules/method/synthetic-map · C1 · C2 · PE contracts as needed · framings applicable · incoming handoff
 
-## 9–10. Corrections FA-R01…FA-R09 (before → after)
+## 9. Incoming handoff
 
-| ID | Before | After |
-| --- | --- | --- |
-| **FA-R01** | Universal Git>Morris>C1>C2 pyramid | Layered authority-by-role table (§2) |
-| **FA-R02** | CKC≈method-candidate only | V3-F01 doctrine VALIDATED vs method assets candidate · no authority · fallback intra-DoctrinePackage v3 |
-| **FA-R03** | Observation/Hypothesis/Option process-local until HD | Drafts process-local · materialized EpistemicItems durable with provenance · ≠ conditioned on HD |
-| **FA-R04** | Compact intersection formula | C1+C2 wording · Confirmation = scoped consent · C2 order strict · RESERVE-GOV-EC-ORDER OPEN |
-| **FA-R05** | FC-09 owned UX presentation · FC-11 owned terminal writes | FC-09 domain authz · FC-14 presentation · FC-10 terminal states · FC-11 semantics only |
-| **FA-R06** | Catalog evolvability implicit | Explicit in FC-03 · C1 J.1/N · CA-PC-26/31 · no FC-16 |
-| **FA-R07** | Accessibility weak | A11Y-PC-01…06 on FC-14 · C1 MUST · S1→S12 note |
-| **FA-R08** | EC parity thin | Native parity field list · CA-PC-14/15/16 · native≠simplified |
-| **FA-R09** | Tech delta bundled PE completeness | Durability = targeted tech delta · PE↔OA = Delivery/UI adaptation · Cycle 6 not justified |
+- commit: `460d8c6fcdce462726a5b0d7f9efc2ac48a74225`
+- blob: `3e6de2440bdf1d6c5aec849fbf2675b9b0041430`
 
-## 11. C1 Completion Bar
+## 10. FA-R01…FA-R09
 
-Full matrix in candidate §21bis — **no unmapped MUST**.
+**CLOSED** (unchanged by this pass)
 
-## 12. C2 alignment checklist
+## 11. FA-R10 before/after
 
-Full checklist in candidate §21ter — A→W 100% · critical invariants PASS.
+Before: claim « Aucun MUST C1 absent » without explicit Git/reuse · Qualification/CKC · Confirmation · Execution lifecycle · History · Governance rows.
 
-## 13–16. Final maps
+After: §21bis complete C1 §H + §J.1 matrix including all FA-R10 rows · Git/reuse COVERED via FC-15 + principles + asset classification · Confirmation COVERED WITH OPEN RUNTIME GAP · History COVERED via FC-13 · etc.
 
-See full document : capability map FC-01…15 · ownership FC-09≠14 / FC-10≠11 · state ownership epistemic · effective authority wording.
+## 12. FA-R11 before/after
 
-## 17–21. CKC / Catalog / A11Y / EC parity / tech vs Delivery
+Before: AgentCapability = envelope (thin).
 
-All explicit in corrected candidate §§4–6, 10, 17, 21bis/21ter.
+After: FC-09 explicit CA-PC-32 dimensions list (scope, autonomy, protected boundaries, gates/Confirmations, stop/escalation, Evidence obligations, reversibility/rollback, limits, executor sufficiency) · FC-15 transverse policy/audit only · §21ter CA-PC-32 PASS.
 
-## 22–23. A→W / S1→S12
+## 13. FA-R12 before/after
 
-Preserved · Q/R/S ownership corrected · Accessibility MUST note added.
+Before: S7 → FC-13 / FC-15 ambiguous co-ownership.
 
-## 24. Open debts/reserves
+After: FC-13 owns MINIMAL PROJECT/CYCLE HISTORY PROJECTION · FC-15 supports provenance/audit only · does NOT own user History · S7 primary FC-13 · FI-11 added · §21ter CA-PC-34 PASS.
+
+## 14. CA-PC-33 / 35
+
+- CA-PC-33 → PASS → FC-02 (identity/version/digest/provenance)
+- CA-PC-35 → PASS → FC-03 + FC-04 + FC-14 (method absorbed; Pilote does not manually orchestrate cycle/profile/CKC/lenses)
+
+## 15. Final C1 §H + §J.1
+
+Full matrix in §21bis — **Aucun MUST C1 §H / §J.1 absent**.
+
+## 16. Final C2 checklist
+
+§21ter includes CA-PC-14/15/16/26/31/32/33/34/35 + A11Y-PC-01…06 + A→W invariants — all PASS.
+
+## 17–18. FC-13/15 ownership · FC-09 AgentCapability
+
+As corrected above — no FC-16 · no redesign.
+
+## 19. Git/reuse
+
+Principle 17 + FC-15 owns + §21bis row COVERED.
+
+## 20. Architecture direction unchanged
+
+FC-01…15 · OPTION A + thin C · reject journey modules · reject Mode Controller · targeted tech delta · PE completeness = Delivery/UI — **PRESERVED**.
+
+## 21–22. A→W / S1→S12
+
+Preserved · S7 ownership clarified.
+
+## 23. Debts/reserves
 
 H-01…H-04 CARRY · Confirmation process-local OPEN · Trajectory durability OPEN · UAT OPEN · SC-02 NON-BLOCKING · RESERVE-GOV-EC-ORDER OPEN · runtime v3 NON ADOPTED
 
-## 25. Anti-claims
+## 24. Anti-claims
 
 Candidate ≠ Morris validated ≠ integrated ≠ tech decided ≠ backlog ready ≠ Delivery ≠ Components ≠ REAL ≠ Product Completion complete ≠ runtime v3 ADOPTED
 
-## 26. git status / diff final
+## 25. git status
 
 ```
 ?? .tmp-sfia-review/
@@ -101,29 +112,27 @@ Candidate ≠ Morris validated ≠ integrated ≠ tech decided ≠ backlog ready
 
 ```
 
-Only authorized project file : untracked `03-product-completion-architecture-fonctionnelle.md`
+## 26. Actions NOT performed
 
-## 27. Actions NOT performed
+no project commit/push/PR/merge/branch delete · no Roadmap/Build Doctrine/C1/C2/UX/framing · no redesign · no new capability · no Architecture technique · no backlog/stories · no code · no Components · no Penpot · no Delivery · no REAL · no runtime v3 adoption
 
-no project commit/push/PR/merge/branch delete · no Roadmap/Build Doctrine/C1/C2/UX/framing mods · no architecture redesign · no new capability · no Architecture technique · no backlog/stories · no code · no Components · no Penpot · no Delivery · no REAL · no runtime v3 adoption
+## 27. Final verdict
 
-## 28. Final verdict
+READY FOR CHATGPT PRODUCT COMPLETION FUNCTIONAL ARCHITECTURE FINAL C1+C2 ALIGNMENT REVIEW — CYCLE 3 CRITICAL — FA-R01…FA-R12 CLOSED — C1 §H + §J.1 FULLY TRACEABLE — GIT/REUSE EXPLICIT — QUALIFICATION/CKC EXPLICIT — CONFIRMATION EXPLICIT — EXECUTION LIFECYCLE EXPLICIT — MINIMAL PROJECT/CYCLE HISTORY OWNERSHIP EXPLICIT — GOVERNANCE/AUDIT EXPLICIT — CA-PC-32/33/34/35 EXPLICIT — C2 A→W FULLY PRESERVED — FC-01…FC-15 PRESERVED — OA-ALIGNED OPTION A + THIN C PRESERVED — NO PARALLEL ARCHITECTURE — TARGETED TECHNICAL DELTA UNCHANGED — NO ARCHITECTURE TECHNIQUE EXECUTION — NO BACKLOG — OPEN DEBTS PRESERVED — FULL REVIEW PACK COMPLETE — REVIEW HANDOFF REMOTE VERIFIED — NO PROJECT COMMIT — NO PROJECT PUSH — NO PR — NO MERGE — NO CODE — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED
 
-READY FOR CHATGPT PRODUCT COMPLETION FUNCTIONAL ARCHITECTURE C1+C2 ALIGNMENT RE-REVIEW — CYCLE 3 CRITICAL — FA-R01…FA-R09 ADDRESSED — C1 COMPLETION BAR FULLY TRACEABLE — C2 A→W FULLY PRESERVED — CYCLE CATALOG EVOLVABILITY EXPLICIT — CKC V3 DOCTRINE VS CURRENT CANDIDATE ASSETS DISTINGUISHED — EPISTEMIC PERSISTENCE ALIGNED — EFFECTIVE AUTHORITY HARMONIZED — FUNCTIONAL OWNERSHIP NON-DUPLICATED — ACCESSIBILITY MUST EXPLICIT — NATIVE EC FUNCTIONAL PARITY EXPLICIT — TARGETED TECHNICAL DELTA SEPARATED FROM DELIVERY UI ADAPTATION — OA-ALIGNED ARCHITECTURE PRESERVED — NO PARALLEL ARCHITECTURE — OPEN DEBTS PRESERVED — FULL REVIEW PACK COMPLETE — REVIEW HANDOFF REMOTE VERIFIED — NO PROJECT COMMIT — NO PROJECT PUSH — NO PR — NO MERGE — NO CODE — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED
-
-## 29. Instruction ChatGPT
+## 28. Instruction ChatGPT
 
 Review latest sfia/review-handoff.
 
-Perform C1+C2 alignment re-review of FA-R01…FA-R09, C1 MUST bar, C2 A→W, no redesign/parallel engine, OA-aligned preserved, debts carried, no project commit/push/PR/merge, no Architecture technique, no Backlog, no code/Delivery/REAL.
+Perform FINAL Cycle 3 C1+C2 alignment review of FA-R01…FA-R12, C1 §H/J.1, CA-PC-32/33/34/35, History FC-13, AgentCapability FC-09, Git/reuse, A→W, OA-aligned, no redesign/parallel/backlog/code/Delivery/REAL.
 
-If PASS: CHATGPT PRODUCT COMPLETION FUNCTIONAL ARCHITECTURE C1+C2 ALIGNMENT RE-REVIEW — PASS → READY FOR MORRIS FUNCTIONAL ARCHITECTURE VALIDATION DECISION.
+If PASS: CHATGPT PRODUCT COMPLETION FUNCTIONAL ARCHITECTURE FINAL C1+C2 ALIGNMENT REVIEW — PASS → READY FOR MORRIS FUNCTIONAL ARCHITECTURE VALIDATION DECISION.
 
 Do NOT validate on Morris behalf. Do NOT authorize Git integration. Do NOT initiate Architecture technique / Backlog / Delivery.
 
 ---
 
-## 30. FULL CORRECTED CANDIDATE (Artifact Completeness)
+## 29. FULL FINAL CANDIDATE (Artifact Completeness)
 
 ```markdown
 # SFIA Studio — Product Completion — Cycle 3 — Architecture fonctionnelle
@@ -155,6 +164,8 @@ Do NOT validate on Morris behalf. Do NOT authorize Git integration. Do NOT initi
 | **Project commit / push / PR** | **NOT AUTHORIZED** this cycle |
 | **Timestamp candidat** | 2026-08-21 00:00 CEST (+0200) |
 | **Timestamp correction** | 2026-08-21 00:31 CEST (+0200) — FA-R01…FA-R09 |
+| **Timestamp final micro-correction** | 2026-08-21 00:44 CEST (+0200) — FA-R10…FA-R12 · CA-PC-32/33/34/35 |
+| **Correction GO final** | **CONSUMED** — wording « ok go » · ChatGPT C1+C2 re-review = CHANGES REQUIRED · FA-R10…FA-R12 only |
 
 ---
 
@@ -286,6 +297,7 @@ Dérivés de C1/C2/framings 30–37 / Build Doctrine :
 14. **Facts ≠ Recommendation ≠ Decision** — epistemology preservée · EpistemicItems matérialisés durables (FA-R03).
 15. **Accessibility = MUST** (FA-R07 / C1 · A11Y-PC-01…06) — portée surtout par FC-14 + owners métier concernés · ≠ WCAG claim runtime.
 16. **Cycle Catalog Evolvability = MUST** (FA-R06 / C1 J.1·N · CA-PC-26 · CA-PC-31) — 15 types courants ≠ invariant produit.
+17. **Git / reuse = MUST** (C1 J.1 · FA-R10) — Git = SoT technique/documentaire · KEEP/ADAPT/COMPLETE/HARVEST avant CREATE · no restart from zero · no parallel architecture · runtime evidence ≠ redéfinition C1/C2 · porté par FC-15 + principles + asset classification.
 
 ---
 
@@ -303,13 +315,13 @@ Regroupement par **responsabilité cohérente** (≠ 1 concept C2 = 1 module).
 | **FC-06 Trajectory & Replanning** | Options trajectoire / proposed vs decided / replan | ProjectTrajectory lifecycle | H, V |
 | **FC-07 Human Decision** | Enregistrer décisions structurantes Pilote | HumanDecision + DecisionBasis | J |
 | **FC-08 Execution Contracting** | Préparer / inspecter EC · **parity native minimale C1** | Native EC progressive disclosure (CA-PC-14/15/16) | K, L |
-| **FC-09 Authorization Gate** | Confirmation semantics + effective authority / executor sufficiency + blocked reason + next action | Authz result domain · **≠ UX presentation** | M, N |
+| **FC-09 Authorization Gate** | Confirmation + effective authority / executor + blocked reason/next action + **AgentCapability envelope eval (CA-PC-32)** | Authz result domain · **≠ UX presentation** | M, N |
 | **FC-10 Governed Execution** | Attempt under contract | Attempt lifecycle accepted→running→**terminal state writes** + runtime guards | O, P, Q/R/S state |
 | **FC-11 Terminal Outcome Semantics** | Signification métier SUCCESS / STOP / FAIL · anti-claims · Evidence obligations | Semantics only · **≠ second Attempt lifecycle** | Q, R, S meaning |
 | **FC-12 Evidence & Review** | Evidence / ReviewBundle business-first | Artifact completeness loop | T |
-| **FC-13 Recovery Continuity** | Reprise inter-session fail-closed | Resume / requalify | W |
+| **FC-13 Recovery Continuity** | Reprise inter-session fail-closed + **minimal Project/Cycle History projection** | Resume / requalify / History utile (CA-PC-34) | W · S7 |
 | **FC-14 Product Experience Shell** | Surfaces S1→S12 / Screens + **Accessibility MUST** | Présentation / affordances / A11Y-PC · **≠ domain authz** | all UX |
-| **FC-15 Cross-cutting Governance** | Audit / policy / debt / maturity claims | Transverse stops & provenance | all |
+| **FC-15 Cross-cutting Governance** | Audit / policy / DebtItem / provenance / anti-claims / maturity discipline · **Git/reuse governance** | Transverse · **≠ user History projection** | all |
 
 **Composition runtime (non-capability métier séparée) :** `vertical-slice-runtime` = **orchestration KEEP/ADAPT** qui compose FC-01…FC-12 sur OA — **≠** nouveau domaine métier.
 
@@ -395,6 +407,8 @@ Regroupement par **responsabilité cohérente** (≠ 1 concept C2 = 1 module).
 | **Does not own** | EC content ; Attempt HOW ; **UX presentation** (FC-14) |
 | **Durable** | **Consumed Confirmation carrying authority = MUST** (currently process-local → OPEN debt) |
 | **Authority** | Pilote grants Confirmation (consentement borné scope+contexte+validité) ; Studio evaluates intersection fail-closed |
+| **AgentCapability applicable / evaluated envelope (CA-PC-32)** | scope · autonomy level · protected boundaries · applicable gates/Confirmations · stop/escalation · Evidence obligations · reversibility/rollback expectations · limits · executor sufficiency |
+| **AgentCapability anti-claims** | ≠ Cursor feature catalog · ≠ L0–L5 as authority hierarchy · FC-09 **consomme/évalue** l'envelope · FC-15 porte policy/audit transverse sans second owner contradictoire |
 
 ### FC-10 Governed Execution
 | | |
@@ -422,9 +436,11 @@ Regroupement par **responsabilité cohérente** (≠ 1 concept C2 = 1 module).
 ### FC-13 Recovery Continuity
 | | |
 | --- | --- |
-| **Owns** | Resume from durable truth ; disclose process-local loss ; requalify path |
-| **Does not own** | Inventing missing Confirmation/HD |
+| **Owns** | Resume from durable truth ; disclose process-local loss ; requalify path ; **MINIMAL PROJECT / CYCLE HISTORY PROJECTION** nécessaire à la continuité / reprise (CA-PC-34) |
+| **History projection includes** | CycleInstances passés · principales HumanDecisions · Attempts · terminal outcomes · Evidence anchors · continuity capsule utile au resume |
+| **Does not own** | Inventing missing Confirmation/HD ; audit technique complet ; logs exhaustifs ; Git provenance brute ; policy |
 | **Fail-closed** | Mandatory |
+| **Transcript** | Complet **NON** requis |
 
 ### FC-14 Product Experience Shell
 | | |
@@ -437,8 +453,9 @@ Regroupement par **responsabilité cohérente** (≠ 1 concept C2 = 1 module).
 ### FC-15 Cross-cutting Governance
 | | |
 | --- | --- |
-| **Owns** | Audit journals, stop taxonomy placement, DebtItem tracking, anti-claims |
-| **Does not own** | A parallel “Stop Engine” product |
+| **Owns** | Audit journals ; stop taxonomy placement ; DebtItem tracking ; anti-claims ; provenance ; policy ; maturity/evidence discipline ; **Git/reuse governance anchors** (SoT Git · KEEP/ADAPT/COMPLETE/HARVEST before CREATE · no restart from zero · no parallel architecture) |
+| **Supports History** | Provenance / audit traces consumed by FC-13 History projection |
+| **Does not own** | A parallel “Stop Engine” product ; **user-facing History projection** (FC-13) |
 
 ### Ambiguities explicites (non résolues en silence)
 
@@ -612,7 +629,7 @@ flowchart TD
 | S4 Conversation | FC-04 / FC-14 | dominant |
 | S5 LPS panel | FC-05 / FC-14 | business-first |
 | S6 Trajectory region | FC-06 / FC-14 | H-01 CARRY · SC-04 |
-| S7 History | FC-13 / FC-15 | minimal MUST |
+| S7 History | **FC-13 primary** · FC-15 provenance/audit support | CA-PC-34 minimal MUST · transcript non requis |
 | S8 Recovery | FC-13 / FC-14 | SC-13 |
 | S9 Evidence reader | FC-12 / FC-14 | SC-09…11 · H-03 CARRY |
 | S10 EC disclosure | FC-08 / FC-14 | SC-05/06 |
@@ -692,6 +709,7 @@ Architecture fonctionnelle **sert** PE validée — **n'invente pas** de seconde
 | FI-08 Attempt under contract | FC-10 | FC-11(semantics) / FC-12 | Governed HOW · terminal **state** by FC-10 | Authz granted | STOP/FAIL + Evidence | Cursor inside envelope |
 | FI-09 Evidence registered | FC-12 | FC-04/05/06 | Terminal truth | Attempt terminal | block claims | Studio |
 | FI-10 Recovery disclosure | FC-13 | Pilote | Honest gaps | Resume | requalify path | Studio never invents |
+| FI-11 Minimal History projection | FC-13 | Pilote / FC-14 | Continuity capsule : past CycleInstances · key HDs · Attempts · terminals · Evidence anchors | Durable set available | disclose gaps · fail-closed | FC-15 audit/provenance support · ≠ exhaustive logs |
 
 ---
 
@@ -723,6 +741,8 @@ Stops are **ported by contracts/policies**, not a parallel Stop Engine :
 **Never infer :** missing HD, missing Confirmation, invented authority, invented GO, invented decided Trajectory, invented materialized epistemic status.
 
 **Transcript complet :** NON requis (continuité sémantique ≠ exhaustive conversation log).
+
+**Minimal History (CA-PC-34) :** FC-13 owns user-facing projection ; FC-15 supports with audit/provenance only.
 
 **Stale behaviors :**
 - stale Confirmation → invalidate · re-confirm after re-inspect ;
@@ -895,34 +915,43 @@ Dedicated Cycle 6 = requalify later — **Morris gate**.
 ---
 
 
-## 21bis. C1 Completion Bar traceability (MUST)
+## 21bis. C1 Completion Bar traceability (MUST) — FA-R10
 
-| C1 MUST | Owner FC-* | Invariant / flow | Status | Gap |
+Couverture **C1 §H + §J.1** (traçabilité seule · ≠ backlog · ≠ FC-16+).
+
+| C1 MUST (§H / §J.1) | Owner FC-* | Invariant / flow | Status | Gap |
 | --- | --- | --- | --- | --- |
 | Project | FC-01 | A/B create/open | **COVERED** | — |
 | LPS | FC-05 | G append versions | **COVERED** | — |
 | Nora | FC-04 | C/F/I/U propose-only | **COVERED** | — |
-| HumanDecision | FC-07 | J Pilote-only | **COVERED** | — |
-| Native EC | FC-08 | K/L parity CA-PC-14/15/16 | **COVERED** | — |
-| Cursor/agent execution | FC-10 | O/P under envelope | **COVERED** | REAL gated separately |
-| Evidence/ReviewBundle | FC-12 | T after every terminal | **COVERED** | — |
-| SUCCESS/STOP/FAIL | FC-10 state + FC-11 semantics | Q/R/S distinct | **COVERED** | — |
-| Recovery | FC-13 | W fail-closed | **COVERED** | — |
+| Qualification / CKC | FC-03 | E cycle/profile/CKC/catalog resolution | **COVERED** | method CKC assets incomplete ≠ doctrine gap |
+| Cycle Catalog Evolvability | FC-03 | C1 J.1/N · CA-PC-26 · 15 ≠ invariant | **COVERED** | — |
 | ProjectTrajectory | FC-06 | H/V proposed≠decided | **COVERED WITH OPEN RUNTIME GAP** | Memory → COMPLETE |
+| HumanDecision | FC-07 | J Pilote-only | **COVERED** | — |
+| Confirmation | FC-09 | M if required · scope+context+validity | **COVERED WITH OPEN RUNTIME GAP** | consumed durability OPEN |
+| Native EC | FC-08 | K/L parity CA-PC-14/15/16 | **COVERED** | — |
+| AgentCapability | FC-09 (+ FC-15 policy/audit) | CA-PC-32 envelope dimensions | **COVERED** | — |
+| Cursor/agent execution | FC-10 | O/P under envelope | **COVERED** | REAL gated separately |
+| Execution lifecycle | FC-10 | accepted→running→terminal state | **COVERED** | — |
+| SUCCESS/STOP/FAIL | FC-10 state + FC-11 semantics | Q/R/S distinct | **COVERED** | — |
+| Evidence / ReviewBundle | FC-12 | T after every terminal | **COVERED** | — |
+| Continuity / recovery | FC-13 | W fail-closed | **COVERED** | — |
 | Semantic continuity | FC-05/06/13 + FA-R03 | durable truth · transcript non requis | **COVERED WITH OPEN RUNTIME GAP** | Trajectory/Conf/epistemic durable gaps |
-| AgentCapability | FC-09 / FC-15 | envelope ≠ effective authority | **COVERED** | — |
-| DoctrinePackage | FC-02 | D pin/digest | **COVERED** | — |
-| Cognitive catalog coverage | FC-03 | CA-PC-31 | **COVERED** | method CKC assets incomplete ≠ doctrine gap |
-| Cycle Catalog Evolvability | FC-03 | C1 J.1/N · CA-PC-26 | **COVERED** | — |
+| DoctrinePackage traceability | FC-02 | identity/version/digest/provenance (CA-PC-33) | **COVERED** | — |
+| Cycle / Project history minimal | **FC-13** (+ FC-15 provenance/audit) | CA-PC-34 anchors · S7 | **COVERED** | — |
+| Product Experience | FC-14 (+ FC-03/04 method absorption CA-PC-35) | S1→S12 · Pilote n'orchestre pas cycle/profile/CKC/lenses | **COVERED** | Delivery surface completeness |
+| Governance / audit | FC-15 | authority trace · DebtItem · provenance · anti-claims · maturity/evidence discipline | **COVERED** | — |
+| Git / reuse | FC-15 + Architecture Principles + Existing Asset Classification | Git SoT · KEEP/ADAPT/COMPLETE/HARVEST before CREATE · no restart from zero · no parallel architecture · runtime evidence ≠ redefine C1/C2 | **COVERED** | — |
+| Cognitive catalog coverage | FC-03 | CA-PC-31 | **COVERED** | method assets incomplete ≠ doctrine gap |
 | Generic EC→agent→Evidence | FC-08/10/12 | one mechanism | **COVERED** | — |
 | HOW delegation | FC-10 | Cursor inside envelope | **COVERED** | — |
+| EC parity | FC-08 | native ≠ simplified | **COVERED** | — |
 | EC inspectability | FC-08 / FC-14 | L progressive disclosure | **COVERED** | Delivery UI fidelity |
 | Evidence business-first | FC-12 / FC-14 | hierarchy | **COVERED** | — |
 | Evidence→Nora→LPS/Trajectory loop | FC-12→04→05/06 | F6 | **COVERED** | — |
-| PE complexity absorption | FC-14 | S1→S12 | **COVERED** | Delivery surface completeness |
 | Accessibility | FC-14 (+09/11/12) | A11Y-PC-01…06 | **COVERED** | Delivery implementation |
 
-**Aucun MUST C1 absent.** Cette matrice ≠ backlog.
+**Aucun MUST C1 §H / §J.1 absent** (après FA-R10). Cette matrice ≠ backlog.
 
 ## 21ter. C2 alignment checklist
 
@@ -943,6 +972,10 @@ Dedicated Cycle 6 = requalify later — **Morris gate**.
 | Catalog evolvability | **PASS** (FC-03 · CA-PC-26) |
 | CA-PC-14/15/16 | **PASS** (FC-08) |
 | CA-PC-31 | **PASS** (FC-03) |
+| CA-PC-32 AgentCapability completeness | **PASS** (FC-09 + FC-15 transverse policy/audit) |
+| CA-PC-33 DoctrinePackage traceability | **PASS** (FC-02 · identity/version/digest/provenance) |
+| CA-PC-34 Minimal Project/Cycle history | **PASS** (FC-13 primary · FC-15 provenance/audit support) |
+| CA-PC-35 Product Experience absorbs method | **PASS** (FC-03 + FC-04 + FC-14 · Pilote n'orchestre pas cycle/profile/CKC/lenses) |
 | A11Y-PC-01…06 | **PASS** (FC-14) |
 
 ## 22. Exit proof (candidat reviewable)
@@ -953,9 +986,11 @@ Dedicated Cycle 6 = requalify later — **Morris gate**.
 | C1 Completion Bar MUST fully traceable | **YES** (§21bis) |
 | C2 A→W fully mapped | **YES** (§9) |
 | C2 critical invariants preserved | **YES** (§21ter) |
-| FA-R01…FA-R09 addressed | **YES** |
+| FA-R01…FA-R12 addressed | **YES** |
+| C1 §H + §J.1 fully traceable (incl. Git/reuse · History · Confirmation · Execution lifecycle · Governance) | **YES** (§21bis) |
+| CA-PC-32/33/34/35 explicit | **YES** (§21ter) |
 | S1→S12 fully mapped | **YES** (§10) |
-| Responsibilities non-duplicated or ambiguity explicit | **YES** (§6 · FC-09≠14 · FC-10≠11) |
+| Responsibilities non-duplicated or ambiguity explicit | **YES** (§6 · FC-09≠14 · FC-10≠11 · FC-13 History ≠ FC-15 audit) |
 | Existing runtime classified | **YES** (§11) |
 | No parallel architecture introduced | **YES** (reject Option B default) |
 | State ownership explicit · epistemic FA-R03 | **YES** (§7) |
@@ -971,7 +1006,7 @@ Dedicated Cycle 6 = requalify later — **Morris gate**.
 
 ## 23. Next gates
 
-1. **CHATGPT PRODUCT COMPLETION FUNCTIONAL ARCHITECTURE C1+C2 ALIGNMENT RE-REVIEW** (immediate)
+1. **CHATGPT PRODUCT COMPLETION FUNCTIONAL ARCHITECTURE FINAL C1+C2 ALIGNMENT REVIEW** (immediate)
 2. If PASS → **MORRIS FUNCTIONAL ARCHITECTURE VALIDATION DECISION**
 3. If validated → **Git integration gate** (separate GO)
 4. After integrated → **NEXT-CYCLE REQUALIFICATION** : Architecture technique delta **VS** Backlog
@@ -995,6 +1030,6 @@ Conserve : **capability-driven trajectory** + **cycle-driven maturation**.
 
 ---
 
-*CANDIDATE — CORRECTION PASS FA-R01…FA-R09 APPLIED — NOT VALIDATED BY MORRIS — NOT INTEGRATED ON MAIN — NO CODE — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED — NEXT CAPABILITY NOT SELECTED*
+*CANDIDATE — CORRECTION PASS FA-R01…FA-R12 APPLIED — NOT VALIDATED BY MORRIS — NOT INTEGRATED ON MAIN — NO CODE — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED — NEXT CAPABILITY NOT SELECTED*
 
 ```
