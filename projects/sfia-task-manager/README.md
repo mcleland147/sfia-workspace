@@ -2,7 +2,7 @@
 
 **Project path:** `projects/sfia-task-manager/`
 
-**Status:** M1 / FUNCTIONAL DESIGN VALIDATED
+**Status:** M1 / FUNCTIONAL ARCHITECTURE VALIDATED
 
 **Operational process baseline:** SFIA v2.6
 
@@ -16,11 +16,19 @@ M1 fonctionnel + UX d'une boucle de gestion de travail gouvernée par SFIA.
 
 ## Current cycle
 
-Cycle 2 — Conception fonctionnelle — Standard — VALIDATED BY MORRIS
+Cycle 3 — Architecture fonctionnelle — Standard — VALIDATED BY MORRIS
+
+## Prior milestone
+
+Cycle 2 — Conception fonctionnelle — VALIDATED BY MORRIS — INTEGRATED ON MAIN via PR #368
 
 ## Functional specification
 
 - `01-functional/2026-08-19-m1-functional-spec.md` — M1 functional specification (validated by Morris)
+
+## Functional architecture
+
+- `02-architecture/2026-08-20-m1-functional-architecture.md` — M1 functional architecture (validated by Morris)
 
 ## Key validated decisions
 
@@ -36,11 +44,15 @@ Cycle 2 — Conception fonctionnelle — Standard — VALIDATED BY MORRIS
 - aucune persistence choisie
 - aucun GO delivery
 
+## Maturity
+
+M1 NOT READY — AC demonstrated 0/16
+
 ## Next step
 
-Cycle 2 validated and committed locally.
+Cycle 3 functional architecture validated and committed locally.
 Next project integration step requires a distinct Morris GO for PR readiness / project push.
-No downstream cycle is authorized.
+No Figma, technical architecture, backlog or delivery is authorized.
 
 ## SFIA references
 
