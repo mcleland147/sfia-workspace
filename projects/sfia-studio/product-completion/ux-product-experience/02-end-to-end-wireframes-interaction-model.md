@@ -7,28 +7,36 @@
 | **Profil** | **CRITICAL** |
 | **Typologie** | **DOC / DESIGN ARTIFACT** |
 | **Type cycle** | **4 — UX/UI** |
-| **Milestone** | PRODUCT COMPLETION — UX / PRODUCT EXPERIENCE — END-TO-END WIREFRAMES & INTERACTION MODEL — GIT INTEGRATION |
+| **Milestone** | PRODUCT COMPLETION — UX / PRODUCT EXPERIENCE — END-TO-END WIREFRAMES & INTERACTION MODEL — POST-MERGE COHERENCE |
 | **Statut contenu** | **VALIDATED BY MORRIS** |
-| **État Git** | **GIT INTEGRATION AUTHORIZED — NOT YET INTEGRATED ON MAIN** |
-| **Statut synthétique** | **VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT YET INTEGRATED ON MAIN** |
-| **Branche cycle** | `design/sfia-studio-product-completion-e2e-wireframes-interaction-model` |
-| **Base origin/main** | `6b67ada75ecf76a44a6046ecc753cd07571d190d` |
-| **Pull Request** | **ABSENT** — local project commit only · **NO** project push / PR / merge in this cycle |
+| **État Git** | **INTEGRATED ON MAIN** |
+| **Statut synthétique** | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** |
+| **Pull Request** | **#374 — MERGED** |
+| **Reviewed / integrated head** | `1754412066a4d3230942236316e35b44b4f2c30c` |
+| **Merge commit** | `404d2d3eb43dfa37ac2de6be02d604cfc215e03b` |
+| **Base pré-merge (historique)** | `6b67ada75ecf76a44a6046ecc753cd07571d190d` |
+| **CI PR** | SFIA Studio CI **#232** — SUCCESS · run `32384965661` |
+| **CI post-merge** | SFIA Studio CI **#233** (push/main @ `404d2d3e…`) — SUCCESS · run `32385895300` |
+| **Branche source PR** | `design/sfia-studio-product-completion-e2e-wireframes-interaction-model` · **POST-MERGE BRANCH CLEANUP COMPLETED** (local + remote deleted) · cleanup **≠** product validation change |
 | **Décision Morris validation** | **CONSUMED** — wording « ok je valide les wireframes, go pour intégrer les travaux sur git » |
-| **GO Morris Git integration** | **CONSUMED** — LOCAL COMMIT AUTHORIZED · **NO** project push · **NO** PR · **NO** merge |
+| **GO Morris Git integration** | **CONSUMED** — LOCAL COMMIT AUTHORIZED (historical) |
+| **GO PR readiness / Draft PR** | **CONSUMED** — Morris « ok go » — push + Draft PR #374 |
+| **GO mark-ready / merge PR #374** | **CONSUMED** — GO MARK READY + MERGE PR #374 |
+| **GO post-merge** | **CONSUMED** — GO POST-MERGE PR #374 — VERIFY MAIN INTEGRATION + POST-MERGE CI + SAFE SOURCE-BRANCH CLEANUP + DOCUMENTARY COHERENCE SYNC |
+| **Main integration proof** | **SATISFIED** — PR #374 MERGED · head ancestor of `origin/main` · merge `404d2d3e…` |
 | **C1** | VALIDATED BY MORRIS — INTEGRATED ON MAIN — **READ ONLY** |
 | **C2** | VALIDATED BY MORRIS — INTEGRATED ON MAIN — **READ ONLY** |
 | **Experience Architecture** | VALIDATED BY MORRIS — INTEGRATED ON MAIN — **READ ONLY** (PR #372) |
-| **Roadmap** | ACTIVE LIVING — **current-state sync authorized** this Git integration cycle |
-| **Penpot** | **REFERENCE DESIGN WORKSPACE** for SFIA Studio product design (Morris tooling decision) · page 02 **READ ONLY** this cycle · **≠** Git SoT · **≠** global SFIA baseline · **≠** doctrine v3 change |
+| **Roadmap** | ACTIVE LIVING — **current-state sync authorized** this post-merge coherence cycle |
+| **Penpot** | **REFERENCE DESIGN WORKSPACE** for SFIA Studio product design (Morris tooling decision) · page 02 **READ ONLY** · **≠** Git SoT · **≠** global SFIA baseline · **≠** doctrine v3 change |
 | **Runtime v3** | **NON ADOPTED** |
 | **Delivery** | **NOT AUTHORIZED** |
 | **REAL** | **ZERO REAL** |
 | **Code** | **NONE** |
 | **Screens / Components** | **NOT AUTHORIZED** · **NOT SELECTED** |
-| **Next UX / Product Completion capability** | **NOT SELECTED** — REQUIRES MAIN INTEGRATION PROOF THEN SEPARATE REQUALIFICATION AND GO |
+| **Next UX / Product Completion capability** | **NOT SELECTED** — **NEXT-CAPABILITY REQUALIFICATION REQUIRED** · no execution without separate Morris GO |
 | **CKC UX dédié** | **ABSENT** — fallback = routing + template v2.6 §4.4 + C1 + C2 + EA + fifteen-cycles synthetic map |
-| **Project git commit this cycle** | **ONE LOCAL PROJECT COMMIT AUTHORIZED** · push / PR / merge **NOT** authorized |
+| **Project git commit this cycle** | **ONE LOCAL DOCUMENTARY SYNC COMMIT AUTHORIZED** · project push / new PR / new merge **NOT** authorized |
 
 ---
 
@@ -107,9 +115,23 @@ Provenance visuelle ChatGPT (consommée, non rouverte) :
 
 **GO INTEGRATION GIT — PRODUCT COMPLETION E2E WIREFRAMES & INTERACTION MODEL VALIDATED — UPDATE VALIDATED CANDIDATE + CONVERGENCE ROADMAP + REVIEW PACK — CREATE ONE LOCAL PROJECT COMMIT — NO PROJECT PUSH — NO PR — NO MERGE — NO SCREENS — NO COMPONENTS — NO DELIVERY — NO REAL — NO NEXT CAPABILITY — RUNTIME V3 NON ADOPTED.**
 
-**Distinction obligatoire :** validation Morris **≠** intégration sur `main` · preuve Git `main` = gate ultérieur distinct.
+**Distinction obligatoire :** validation Morris **≠** intégration sur `main`. Git prouve désormais l’intégration via PR **#374** / merge `404d2d3e…` / head `17544120…`.
 
-Penpot ce cycle Git : **READ ONLY** (aucune mutation visuelle).
+Penpot ce cycle post-merge : **READ ONLY** (aucune mutation visuelle).
+
+---
+
+## 2b. GO post-merge (consumed)
+
+### Wording Morris
+
+> « go post merge »
+
+### Interprétation gouvernée consommée
+
+**GO POST-MERGE PR #374 — VERIFY MAIN INTEGRATION + POST-MERGE CI + SAFE SOURCE-BRANCH CLEANUP + DOCUMENTARY COHERENCE SYNC — UPDATE E2E WIREFRAMES CANDIDATE + CONVERGENCE ROADMAP — CREATE ONE LOCAL SYNC COMMIT — REVIEW HANDOFF AUTHORIZED — NO NEW PROJECT PUSH — NO NEW PR — NO NEW MERGE — NO PENPOT MUTATION — NO SCREENS — NO COMPONENTS — NO DELIVERY — NO REAL — NO NEXT CAPABILITY — RUNTIME V3 NON ADOPTED.**
+
+Autorise uniquement la cohérence documentaire post-merge + cleanup sûr de la branche source PR #374. **≠** sélection de capacité suivante · **≠** Screens · **≠** Components · **≠** Delivery · **≠** REAL · **≠** runtime v3 adoption · **≠** intégration distante automatique du sync.
 
 ---
 
@@ -193,18 +215,18 @@ Ce cycle ferme / prouve au niveau design :
 | Élément | État |
 | --- | --- |
 | Build Doctrine | VALIDATED — ACTIVE ON MAIN — READ ONLY |
-| Roadmap | ACTIVE LIVING — READ ONLY this cycle · Morris a sélectionné **ce** cycle pour exécution · sync Roadmap **deferred** to post-validation Git cycle |
+| Roadmap | ACTIVE LIVING — **current-state sync authorized** this post-merge coherence cycle |
 | C1 | VALIDATED BY MORRIS — INTEGRATED ON MAIN — READ ONLY |
 | C2 | VALIDATED BY MORRIS — INTEGRATED ON MAIN — READ ONLY |
 | Experience Architecture | VALIDATED BY MORRIS — INTEGRATED ON MAIN — READ ONLY |
+| E2E Wireframes & Interaction Model | VALIDATED BY MORRIS — **INTEGRATED ON MAIN** (PR #374) |
 | Capacité v3 servie | V3-F02 LPS · V3-F04 Epistemology · V3-F06 Trajectory · V3-F08 blocked · V3-F09 Replanning · V3-F11 AgentCapability · V3-F12 Execution governance · V3-F14 Evidence · V3-F15 anti-claims |
-| Milestone | PRODUCT COMPLETION — E2E WIREFRAMES & INTERACTION MODEL |
-| Pourquoi maintenant | C1+C2+EA intégrés · 0 blocker archi fct démontré · gap critique = matérialiser interaction E2E avant HF / Delivery |
-| Trajectoire | C1 → C2 → EA → **E2E Wireframes** → Morris validation → next-capability requalification |
+| Milestone | PRODUCT COMPLETION — E2E WIREFRAMES & INTERACTION MODEL — POST-MERGE COHERENCE |
+| Trajectoire | C1 INTEGRATED → C2 INTEGRATED → EA INTEGRATED → E2E WIREFRAMES **INTEGRATED** → **NEXT-CAPABILITY REQUALIFICATION REQUIRED** |
 | Capacité suivante | **NOT SELECTED** |
 | Architecture parallèle | **INTERDITE** |
-| Fake / Real | N/A · Penpot = DESIGN ARTIFACT ≠ runtime proof ≠ REAL |
-| Niveau preuve attendu | E2E DESIGN / INTERACTION MODEL EVIDENCE |
+| Fake / Real | N/A · documentary post-merge · Penpot = DESIGN EVIDENCE ≠ runtime ≠ REAL |
+| Niveau preuve | VALIDATED DESIGN + GIT MAIN INTEGRATION PROOF |
 
 ---
 
@@ -216,7 +238,7 @@ Ce cycle ferme / prouve au niveau design :
 | **File id** | `63bdc57a-636a-81ba-8008-82d2a50d5233` |
 | **Page 00 — Foundations** | **READ ONLY** — preuve EA validée · ne pas corriger / réécrire |
 | **Page 01 — User Flows** | **READ ONLY** — preuve EA validée · ne pas corriger / réécrire |
-| **Page 02 — Wireframes** | **WRITE** — seul espace autorisé ce cycle · id page `5de0e468-4bc9-80ee-8008-82d2f6c1ab48` |
+| **Page 02 — Wireframes** | **READ ONLY** — validated evidence · **no** mutation this post-merge cycle · id page `5de0e468-4bc9-80ee-8008-82d2f6c1ab48` |
 | **Page 03 — Screens** | **UNTOUCHED** |
 | **Page 04 — Components** | **UNTOUCHED** |
 | **Page 05 — States & Evidence** | **READ ONLY** — preuve EA validée · ne pas corriger / réécrire |
@@ -568,10 +590,11 @@ Aucun besoin démontré de découpage modules/services pour trancher le modèle 
 
 ## 22. Exit proof
 
-### Wireframe design exit (prouvé)
+### E2E WIREFRAMES DESIGN EXIT (prouvé)
 
 - [x] candidate complete ;
-- [x] 12 Penpot boards (page 02) ;
+- [x] Penpot page **02** ;
+- [x] **12** boards ;
 - [x] A→W covered ;
 - [x] S1→S12 covered ;
 - [x] visual review **PASS WITH NON-BLOCKING RESERVES** ;
@@ -580,19 +603,26 @@ Aucun besoin démontré de découpage modules/services pour trancher le modèle 
 - [x] 0 demonstrated functional architecture blocker ;
 - [x] Penpot tooling decision tracée · R-04 supersession documentée sans invalidation rétroactive EA.
 
-### Git integration exit (ce cycle — local)
+### GIT INTEGRATION EXIT (prouvé)
 
-- [x] candidat marqué **VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT YET INTEGRATED ON MAIN** ;
-- [x] Roadmap current-state synchronisée ;
-- [x] exactly **2** project files in **one** local project commit ;
+- [x] PR **#374 MERGED** ;
+- [x] head `1754412066a4d3230942236316e35b44b4f2c30c` ;
+- [x] merge `404d2d3eb43dfa37ac2de6be02d604cfc215e03b` ;
+- [x] main integration proof **SATISFIED** ;
+- [x] PR CI SFIA Studio **#232 SUCCESS** ;
+- [x] post-merge CI SFIA Studio **#233 SUCCESS** (push/main) ;
+- [x] source branch cleanup **COMPLETED** (local + remote) ;
+- [x] candidat marqué **VALIDATED BY MORRIS — INTEGRATED ON MAIN** ;
+- [x] Roadmap current-state synchronisée (post-merge coherence) ;
+- [x] exactly **2** project files in **one** local documentary sync commit ;
 - [x] FULL Review Pack + Review Handoff ;
-- [x] **NO** project push / PR / merge ;
+- [x] **NO** project push of sync · **NO** new PR · **NO** new merge ;
 - [x] Penpot **READ ONLY** (no design mutation) ;
 - [x] Next capability **NOT SELECTED** ;
 - [x] Runtime v3 **NON ADOPTED** · Delivery **NOT AUTHORIZED** · REAL **ZERO** · Screens/Components **NOT AUTHORIZED**.
 
-**Next repository gate :** CHATGPT GIT INTEGRATION REVIEW → Morris GO **PR READINESS / PROJECT PUSH** if PASS.
-**Next product gate (after main integration proof) :** NEXT-CAPABILITY REQUALIFICATION · NEXT CAPABILITY **NOT SELECTED**.
+**Next product gate :** **NEXT-CAPABILITY REQUALIFICATION REQUIRED** · NEXT CAPABILITY **NOT SELECTED** · no execution without separate Morris GO.
+**Next repository gate (after this sync is reviewed) :** CHATGPT POST-MERGE COHERENCE REVIEW → Morris GO Git integration of sync if PASS.
 
 ---
 
@@ -600,19 +630,19 @@ Aucun besoin démontré de découpage modules/services pour trancher le modèle 
 
 Ce document **ne dit pas** :
 
-- VALIDATED WIREFRAMES = **INTEGRATED ON MAIN** (état = Git integration authorized · main proof pending) ;
-- VALIDATED WIREFRAMES = Screens / Components **authorized** ;
-- VALIDATED WIREFRAMES = Delivery **authorized** ;
-- VALIDATED WIREFRAMES = REAL / runtime v3 **ADOPTED** ;
-- VALIDATED WIREFRAMES = next Product Completion capability **selected** ;
-- VALIDATED WIREFRAMES = Product Completion **complete** ;
-- Morris validation = main integration ;
-- local project commit = push / PR / merge authorized ;
+- E2E WIREFRAMES **INTEGRATED ON MAIN** = Screens / Components **authorized** ;
+- E2E WIREFRAMES **INTEGRATED ON MAIN** = Delivery **authorized** ;
+- E2E WIREFRAMES **INTEGRATED ON MAIN** = REAL ;
+- E2E WIREFRAMES **INTEGRATED ON MAIN** = Product Completion **complete** ;
+- E2E WIREFRAMES **INTEGRATED ON MAIN** = runtime v3 **ADOPTED** ;
+- E2E WIREFRAMES **INTEGRATED ON MAIN** = next capability **selected** ;
+- E2E WIREFRAMES **INTEGRATED ON MAIN** = H-01…H-04 **closed as doctrine** (ils restent **CARRY**) ;
+- Morris validation alone = main integration (Git proves integration via PR #374) ;
+- local documentary sync commit = project push / new PR / new merge authorized ;
 - Penpot = baseline méthodologique SFIA **globale** ;
 - Penpot remplace Figma **dans la méthode SFIA globale** ;
 - Penpot = Git SoT ;
 - R-04 supersession = invalidation rétroactive EA ;
-- H-01…H-04 = **CLOSED** / doctrine définitive (ils restent **CARRY**) ;
 - Recommendation = HumanDecision = Option ;
 - Confirmation = protected-boundary only ;
 - Authorization cancels later stop conditions ;
@@ -650,7 +680,7 @@ Exports cycle-local (hors Git projet) :
 **Index companion :** `.tmp-sfia-review/penpot-exports/INDEX.md` (cycle review pack).
 **Do not commit** `.tmp-sfia-review/**` as product SoT.
 
-File Penpot : `63bdc57a-636a-81ba-8008-82d2a50d5233` · page `02 — Wireframes` · **READ ONLY** this Git cycle · visual evidence previously reviewed (12/12).
+File Penpot : `63bdc57a-636a-81ba-8008-82d2a50d5233` · page `02 — Wireframes` · **READ ONLY** · visual evidence previously reviewed (12/12) · **≠** Screens/Components authorized.
 
 ---
 
@@ -659,17 +689,16 @@ File Penpot : `63bdc57a-636a-81ba-8008-82d2a50d5233` · page `02 — Wireframes`
 | Gate | Statut |
 | --- | --- |
 | **Design validation Morris** | **CONSUMED — VALIDATED** |
-| **Current repository gate** | **LOCAL GIT INTEGRATION** (this cycle) |
-| **After local commit** | CHATGPT GIT INTEGRATION REVIEW → Morris GO **PR READINESS / PROJECT PUSH** if PASS |
+| **Main integration proof** | **SATISFIED** — PR #374 MERGED |
+| **Current product gate** | **NEXT-CAPABILITY REQUALIFICATION REQUIRED** |
 | Screens / Components | **NOT** authorized · **NOT SELECTED** |
-| Main integration proof | **NOT YET** · requires push + PR + merge under separate GO |
-| Next Product Completion / UX capability | **NOT SELECTED** — requalification only **after** main integration proof |
+| Next Product Completion / UX capability | **NOT SELECTED** — no execution without separate Morris GO |
 | Runtime v3 | **NON ADOPTED** |
 | Delivery / REAL | **NOT AUTHORIZED** / **ZERO REAL** |
 
 **Trajectoire :**
 
-C1 INTEGRATED → C2 INTEGRATED → UX EA INTEGRATED → E2E WIREFRAMES **VALIDATED BY MORRIS** → LOCAL GIT INTEGRATION → PR READINESS → MAIN INTEGRATION PROOF → NEXT-CAPABILITY REQUALIFICATION → NEXT CAPABILITY **NOT SELECTED** → NO EXECUTION WITHOUT MORRIS GO.
+C1 INTEGRATED → C2 INTEGRATED → UX EXPERIENCE ARCHITECTURE INTEGRATED → E2E WIREFRAMES & INTERACTION MODEL **INTEGRATED** → **NEXT-CAPABILITY REQUALIFICATION REQUIRED** → NEXT CAPABILITY **NOT SELECTED** → NO EXECUTION WITHOUT MORRIS GO.
 
 ---
 
@@ -677,18 +706,21 @@ C1 INTEGRATED → C2 INTEGRATED → UX EA INTEGRATED → E2E WIREFRAMES **VALIDA
 
 | Trace | Valeur |
 | --- | --- |
-| Branch | `design/sfia-studio-product-completion-e2e-wireframes-interaction-model` |
-| Base | `origin/main` = `6b67ada75ecf76a44a6046ecc753cd07571d190d` |
-| Design cycle type | **4 UX/UI** · **CRITICAL** · **DOC / DESIGN ARTIFACT** |
-| Git cycle type | **15 Capitalisation** · **Standard** · DOC / DESIGN ARTIFACT |
+| Historical source branch | `design/sfia-studio-product-completion-e2e-wireframes-interaction-model` · **CLEANUP COMPLETED** |
+| Sync branch (local) | `docs/sfia-studio-product-completion-e2e-wireframes-post-merge-sync` |
+| PR / head / merge | **#374 MERGED** · `17544120…` · `404d2d3e…` |
+| Design cycle type | **4 UX/UI** · **CRITICAL** · **DOC / DESIGN ARTIFACT** (historical) |
+| Post-merge cycle type | **POST-MERGE + 15 Capitalisation** · **Standard** · DOC / DESIGN ARTIFACT |
 | Tooling | Penpot = Studio product design reference workspace (Morris) |
 | R-04 | **SUPERSEDED FOR FUTURE SFIA STUDIO PRODUCT DESIGN BY MORRIS PENPOT TOOLING DECISION** |
-| Status | **VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT YET INTEGRATED ON MAIN** |
+| Status | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** |
 | Blockers FAB | **0** |
 | H-01…H-04 | All **CARRY** |
+| Confirmation process-local | **OPEN** |
+| ProjectTrajectory runtime durability | **OPEN** |
 | R-INT-UX-02 | **ABSORBED / CLOSED BY OPPORTUNISTIC ROADMAP MAINTENANCE** |
-| Project git | **ONE LOCAL COMMIT** · **NO PUSH / PR / MERGE** |
+| Project git this cycle | **ONE LOCAL DOCUMENTARY SYNC COMMIT** · **NO PROJECT PUSH / NEW PR / NEW MERGE** |
 
 ---
 
-*SFIA Studio — Product Completion — UX E2E Wireframes & Interaction Model — **VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT YET INTEGRATED ON MAIN** — NO SCREENS — NO COMPONENTS — NO DELIVERY — NO REAL — NEXT CAPABILITY NOT SELECTED — RUNTIME V3 NON ADOPTED*
+*SFIA Studio — Product Completion — UX E2E Wireframes & Interaction Model — **VALIDATED BY MORRIS — INTEGRATED ON MAIN** via PR #374 — H-01…H-04 CARRY — NO SCREENS — NO COMPONENTS — NO DELIVERY — NO REAL — NEXT CAPABILITY NOT SELECTED — RUNTIME V3 NON ADOPTED*
