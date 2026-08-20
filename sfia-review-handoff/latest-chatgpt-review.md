@@ -1,167 +1,129 @@
-# SFIA Review Pack — FULL — C2 Git Integration Preparation
+# SFIA Review Pack — FULL — C2 Git Integration Execution
 
 | Field | Value |
 | --- | --- |
-| **Timestamp (Europe/Paris)** | 2026-08-20 01:51:34 CEST |
+| **Timestamp (Europe/Paris)** | 2026-08-20 02:09:29 CEST |
 | **Repo** | mcleland147/sfia-workspace |
-| **origin/main** | `db13f125785b248d1c3f059eb975e364558d0860` |
-| **Clean integration branch** | `docs/sfia-studio-product-completion-c2-integration-clean` (local only · not pushed) |
-| **Clean branch HEAD** | `db13f125785b248d1c3f059eb975e364558d0860` (= origin/main · no project commit) |
-| **Old C2 branch** | `docs/sfia-studio-product-completion-c2-functional-design` |
-| **Old remote commit (audit)** | `780ab4c57c6461eca97c43bd9f6cb17158169783` |
-| **Merge-base old branch / main** | `5681bc77be771ca3f388ae0d62eb30a2b2063a65` |
-| **Divergence main...old branch** | `4	1` |
-| **Git status** | `?? .tmp-sfia-review/ · ?? projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md` |
+| **Morris GO** | GO MORRIS — C2 GIT INTEGRATION — COMMIT VALIDATED C2 ON CLEAN INTEGRATION BRANCH + PUSH + OPEN PR AGAINST CURRENT MAIN — PRESERVE HISTORICAL `780ab4c5` BRANCH FOR AUDIT — NO MERGE UNTIL PR READINESS REVIEW AND EXPLICIT MORRIS GO — NO DELIVERY — NO NEXT-CAPABILITY EXECUTION — RUNTIME V3 NON ADOPTED |
+| **Cycle** | PRODUCT COMPLETION — CYCLE 2 — GIT INTEGRATION |
+| **Profile** | CRITICAL · DOC |
 
 ---
 
-## Morris C2 validation consumed
+## Pre-check Git
 
-**VALIDATE SFIA STUDIO PRODUCT COMPLETION CYCLE 2 — FUNCTIONAL DESIGN — WITH NON-BLOCKING EDITORIAL RESERVES IDENTIFIED IN FINAL CHATGPT RE-REVIEW — NO DELIVERY — NO NEXT-CAPABILITY EXECUTION — RUNTIME V3 NON ADOPTED.**
+| Check | Result |
+| --- | --- |
+| Branch | `docs/sfia-studio-product-completion-c2-integration-clean` |
+| origin/main | `db13f125785b248d1c3f059eb975e364558d0860` |
+| merge-base | `db13f125785b248d1c3f059eb975e364558d0860` |
+| ahead/behind | 0 / 1 |
+| Staged before commit | exactly 1 C2 file |
+| Clean remote before push | absent (verified) |
 
 ---
 
-## Source C2 validée (handoff immuable)
+## Source validated C2 provenance
 
 | Field | Value |
 | --- | --- |
-| Handoff commit | `7802bbad306b8bc4caf28609fec554c808c44aef` |
-| Blob | `a4477384ed7c713056c3b15bd189cbdaefd07b05` |
-| Local pre-edit match | **EXACT** · sha256 `b829d061e0e71610ed7b6930ccc0ba87d9a50c6fc8f8faa4c113864141017cce` |
+| Validation handoff | `7802bbad306b8bc4caf28609fec554c808c44aef` · blob `a4477384ed7c713056c3b15bd189cbdaefd07b05` |
+| Integration prep handoff | `1928426a08352b83c559b6c0226ee6dd32026b03` · blob `879e632416c8faa42b8ccd1c9d5837e6a2785659` |
+| Local match prep handoff | **EXACT** before commit |
 
 ---
 
-## Anomalie 780ab4c5
+## Historical anomaly
 
-UNAUTHORIZED HISTORICAL PROJECT COMMIT · SUPERSEDED FOR INTEGRATION · PRESERVED FOR AUDIT · NOT PART OF CLEAN INTEGRATION TRAJECTORY.
-
----
-
-## Diff classification (validated handoff → final prepared)
-
-### POST-VALIDATION STATUS SYNC (16 line changes)
-
-- Ce document est le **functional reference candidate** du Cycle 2 Product Completion — **candidate for Morris review**. Il transforme la cibl
-+ Ce document est la **conception fonctionnelle validée** du Cycle 2 Product Completion — **VALIDATED BY MORRIS — PENDING GIT INTEGRATION**. I
-- | **C2 functional reference candidate** | Modèle fonctionnel proposé · non validé |
-+ | **C2 functional design validé** | Modèle fonctionnel Morris-validated · **pending Git integration on main** |
-- | C1 validé vs C2 candidate | C1 = baseline intégrée · C2 = functional reference candidate **non validée** |
-+ | C1 validé vs C2 validé vs C2 intégré | C1 = baseline intégrée · C2 = functional design **validé Morris** · intégration Git = **pending** |
-- | **Exit criteria / proof attendu C2** | Modèle fonctionnel unique · cohérent C1/v3 · parcours A–W · objets · états · règles · authority · S
-+ | **Exit criteria / proof attendu C2** | Modèle fonctionnel unique · cohérent C1/v3 · parcours A–W · objets · états · règles · authority · S
-- - Validation Morris C2 **non effectuée** (candidate corrected · ready for Morris validation gate)
-- - Intégration Git C2 = **gate séparé** post-validation
-+ - Intégration Git C2 sur main = **pending** — gate **MORRIS C2 GIT INTEGRATION GO** requis
-+ - Capacité suivante = **NON SÉLECTIONNÉE · NON AUTORISÉE**
-- - C2 **validé** par Morris · **intégré** Git · **mergé**
-- - C3/C4/C5 **automatiques**
-+ - C2 **intégré** Git · **mergé** sur main
-+ - capacité suivante **autorisée** · C3/C4/C5 **automatiques**
-
-### EDITORIAL RESERVE FIX 1 (10 line changes)
-
-- | **Effet de ce C2** | Candidate locale · **aucune intégration Git projet** dans ce cycle · Review Handoff **≠** intégration Git C2 |
-- | **Gate suivant** | **MORRIS C2 FUNCTIONAL VALIDATION** (validation séparée · intégration Git = gate ultérieur) |
-- | C2 validé | **NON** — candidate for Morris review uniquement |
-- | C2 intégré / mergé | **NON** — candidate locale · intégration Git = gate ultérieur |
-- | C3 automatique | **NON** — requalification après validation Morris |
-+ | **Effet de ce C2** | Conception fonctionnelle **validée** · intégration Git **pending** · Review Handoff **≠** intégration Git C2 |
-+ | **Gate suivant** | **MORRIS C2 GIT INTEGRATION GO** |
-+ | C2 functional design validé | **OUI** — validation Morris C2 consommée |
-+ | C2 intégré / mergé sur main | **NON** — pending Git integration |
-+ | Capacité suivante autorisée | **NON** — requalification après intégration Git |
-
-### EDITORIAL RESERVE FIX 2 (15 line changes)
-
--
-- **C. Documentary / repository reserves** :
--
-- | **Gate suivant** | MORRIS C2 FUNCTIONAL VALIDATION |
-- | **Capacité suivante** | **À REQUALIFIER APRÈS validation Morris C2** — voir §21 |
-+ Governed inherited debt remains as recorded by C1/PRE-M6 ; C2 does not reclassify additional gaps as debt.
-+
-+ **C. Historical / documentary / presentation reserves** :
-+
-+
-+ **Gate suivant :**
-+ MORRIS C2 GIT INTEGRATION GO.
-+
-+ **Capacité suivante :**
-+ À requalifier seulement après intégration Git C2 + vérification post-merge de cohérence. Aucune exécution downstream autorisée.
-
-### GIT PROVENANCE / ANOMALY TRACE (42 line changes)
-
-- | **Statut** | **CANDIDATE CORRECTED** — post re-review · **NOT validated** · ready for Morris C2 functional validation |
-- | **Base Git (branche cycle HEAD)** | `5681bc77be771ca3f388ae0d62eb30a2b2063a65` |
-- | **origin/main observé** | `b66cd328bff01a6b2d40f0810db150e22c5ca695` — **non mergé dans la branche cycle** |
-- | **Branche locale cycle** | `docs/sfia-studio-product-completion-c2-functional-design` · candidat local non commité · intégration Git proje
-- | **Branche distante projet (audit)** | `780ab4c57c6461eca97c43bd9f6cb17158169783` — commit/push projet non autorisé antérieur · **non régul
-+ | **Statut** | **VALIDATED BY MORRIS — PENDING GIT INTEGRATION** |
-+ | **Décision Morris validation C2** | VALIDATE SFIA STUDIO PRODUCT COMPLETION CYCLE 2 — FUNCTIONAL DESIGN — WITH NON-BLOCKING EDITORIAL RESE
-+ | **Provenance validation** | Handoff immuable `7802bbad306b8bc4caf28609fec554c808c44aef` · blob `a4477384ed7c713056c3b15bd189cbdaefd07b05`
-+ | **Base Git (branche intégration propre)** | `db13f125785b248d1c3f059eb975e364558d0860` (origin/main courant) |
-+ | **origin/main observé** | `db13f125785b248d1c3f059eb975e364558d0860` |
-+ | **Branche intégration propre** | `docs/sfia-studio-product-completion-c2-integration-clean` · locale · **non poussée** · **non commitée**
-+ | **Anomalie intégration historique** | Remote commit `780ab4c5` sur `docs/sfia-studio-product-completion-c2-functional-design` — **UNAUTHOR
-- | **Intégration Git C2** | Validation Morris | Merge candidate sur main | Gate distinct · **≠** Review Handoff |
--
-- **Aucune capacité suivante n'est sélectionnée ici** — options présentées pour requalification Morris post-validation.
-- Correction C2 consolidée (présent document)
--   → ChatGPT re-review fonctionnelle
--   → MORRIS C2 FUNCTIONAL VALIDATION
--   → Gate intégration Git C2 (séparé)
--   → aucun C3/Delivery automatique
-- **MORRIS C2 FUNCTIONAL VALIDATION** → puis **GO / NO-GO** validation contenu · intégration Git = gate ultérieur · **≠** autorisation Deliver
-+ | **Intégration Git C2** | Validation Morris C2 effectuée | Merge candidate sur main | Gate **pending** · branche propre `docs/sfia-studio-p
-+
-+ **Aucune capacité suivante n'est sélectionnée ni autorisée** — options présentées pour requalification Morris **après** intégration Git C2.
-+ Validation Morris C2 (effectuée)
-+   → Préparation branche intégration propre depuis origin/main (présent cycle)
-+   → MORRIS C2 GIT INTEGRATION GO
-+   → Commit / PR / merge C2 sur main (gate ultérieur)
-+   → Vérification post-merge cohérence
-+   → aucun C3/Delivery/next-capability automatique
-+ **MORRIS C2 GIT INTEGRATION GO** → puis commit / PR / merge sur main (gates ultérieurs) · **≠** autorisation Delivery · **≠** autorisation c
-- - commit/push projet dans **ce** correctif (aucun nouveau) · commit/push historique non autorisé `780ab4c5` reste sur branche distante · non
--
--
-- *SFIA Studio — Product Completion — Cycle 2 Conception fonctionnelle — CANDIDATE CORRECTED — READY FOR MORRIS C2 FUNCTIONAL VALIDATION — NOT
-+ - anomalie `780ab4c5` **résolue** · commit supprimé · branche régularisée · historique nettoyé
-+
-+ **Historical integration anomaly :** remote commit `780ab4c5` was produced without the required project Git gate ; it is **superseded for in
-+
-+ ---
-+
-+ *SFIA Studio — Product Completion — Cycle 2 Conception fonctionnelle — VALIDATED BY MORRIS — PENDING GIT INTEGRATION — NO DELIVERY — NO NEXT
-
-
-All differences in authorized categories only. No functional drift.
+| Field | Value |
+| --- | --- |
+| Old branch | `docs/sfia-studio-product-completion-c2-functional-design` |
+| Old commit | `780ab4c57c6461eca97c43bd9f6cb17158169783` |
+| Classification | UNAUTHORIZED · SUPERSEDED FOR INTEGRATION · PRESERVED FOR AUDIT |
+| Post-push old branch tip | `780ab4c5` (unchanged) |
 
 ---
 
-## Validations
+## Staging proof
 
-- MD-C2-01/03/04 DECIDED · MD-C2-02 RETIRED · CA-PC-01…35 unchanged
-- §21: C2 validated · Git integration pending · next capability not selected
-- No staged files · no project commit · branch HEAD = origin/main
+```
+A  projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md
+```
+
+No `.tmp-sfia-review` staged.
+
+---
+
+## Commit
+
+| Field | Value |
+| --- | --- |
+| SHA | `dff6778d04b85f511fb661e9edb71618e9f7af0a` |
+| Message | docs(sfia-studio): integrate validated Product Completion C2 functional design |
+| Files | 1 — C2 only |
+| diff --check | clean |
+
+---
+
+## Push
+
+| Field | Value |
+| --- | --- |
+| Remote branch | `origin/docs/sfia-studio-product-completion-c2-integration-clean` |
+| Remote SHA | `dff6778d04b85f511fb661e9edb71618e9f7af0a` (verified match) |
+
+---
+
+## Pull Request
+
+| Field | Value |
+| --- | --- |
+| Number | #369 |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/369 |
+| State | OPEN |
+| Draft | true |
+| baseRefName | main |
+| baseRefOid | `db13f125785b248d1c3f059eb975e364558d0860` |
+| headRefName | docs/sfia-studio-product-completion-c2-integration-clean |
+| headRefOid | `dff6778d04b85f511fb661e9edb71618e9f7af0a` |
+| Changed files | 1 |
+| Commits | 1 |
+| mergeable | MERGEABLE |
+| mergeStateStatus | BLOCKED (draft / checks) |
+
+Changed file: `projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md` (+1235)
+
+---
+
+## CI / checks
+
+| Check | Status |
+| --- | --- |
+| SFIA Studio CI / Detect SFIA Studio changes | **PENDING** |
+
+No SUCCESS/FAILURE yet at pack generation time.
 
 ---
 
 ## Actions NOT performed
 
-project commit · project push · PR · merge · force-push · branch delete · cherry-pick 780ab4c5
+merge · push main · force-push · delete old branch · cherry-pick 780ab4c5 · Delivery · next capability · runtime v3 ADOPTED
+
+---
+
+## Remaining reserves
+
+RESERVE-GOV-EC-ORDER · RESERVE-ROADMAP-METADATA · RESERVE-RUNTIME · historical branch cleanup post-integration gate
 
 ---
 
 ## Verdict
 
-**READY FOR MORRIS C2 GIT INTEGRATION GO — C2 VALIDATED CONTENT PREPARED ON CLEAN LOCAL BASE — HISTORICAL 780ab4c5 QUARANTINED BY NON-USE AND PRESERVED FOR AUDIT — NO PROJECT COMMIT/PUSH/PR/MERGE — NO DELIVERY — NO NEXT-CAPABILITY EXECUTION — RUNTIME V3 NON ADOPTED**
-
-Prior C2 handoff immutability preserved at commit `7802bbad…`.
+**READY FOR CHATGPT C2 PR READINESS REVIEW — CI PENDING — C2 VALIDATED CONTENT COMMITTED AND PUSHED ON CLEAN BRANCH — PR OPEN — HISTORICAL `780ab4c5` PRESERVED FOR AUDIT — NO MERGE AUTHORIZED — NO DELIVERY — NO NEXT-CAPABILITY EXECUTION — RUNTIME V3 NON ADOPTED**
 
 ---
 
-# COMPLETE C2 FINAL PREPARED — FULL CONTENT
+# COMPLETE INTEGRATED C2 — FULL CONTENT
 
 ```markdown
 # SFIA Studio — Product Completion — Cycle 2 Conception fonctionnelle
