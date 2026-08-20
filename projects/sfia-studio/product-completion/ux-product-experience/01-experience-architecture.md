@@ -6,16 +6,24 @@
 | **Cycle** | UX / Product Experience — Experience Architecture & Penpot Design Contract |
 | **Profil** | **CRITICAL** |
 | **Typologie** | **DOC / DESIGN ARTIFACT** |
-| **Milestone** | PRODUCT COMPLETION — UX / PRODUCT EXPERIENCE — EXPERIENCE ARCHITECTURE — GIT INTEGRATION |
+| **Milestone** | PRODUCT COMPLETION — UX / PRODUCT EXPERIENCE — EXPERIENCE ARCHITECTURE — POST-MERGE COHERENCE |
 | **Statut contenu** | **VALIDATED BY MORRIS** |
-| **État Git** | **GIT INTEGRATION AUTHORIZED — LOCAL INTEGRATION IN PROGRESS / NOT INTEGRATED ON MAIN** |
-| **Statut synthétique** | **VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT INTEGRATED ON MAIN** |
+| **État Git** | **INTEGRATED ON MAIN** |
+| **Statut synthétique** | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** |
+| **Pull Request** | **#372 — MERGED** |
+| **Head intégré** | `ce9bdd0952322c8666751fa948b529657ec3036c` |
+| **Merge commit** | `fb311f2fa57ba8acb37b1878b739669623ac5565` |
+| **Base pré-merge (historique)** | `e0c8e9ac200a6a7fae37790c8919d858dc2aa5b0` |
+| **CI PR** | SFIA Studio CI **#228** — SUCCESS |
+| **CI post-merge** | SFIA Studio CI **#229** (push/main @ `fb311f2f…`) — SUCCESS · run `32371869969` |
+| **Branche source PR** | `design/sfia-studio-product-completion-ux-experience-architecture` · **POST-MERGE CLEANUP COMPLETED** (local + remote deleted) · cleanup **≠** product validation change |
 | **Décision Morris validation** | **CONSUMED** — VALIDATE — PRODUCT COMPLETION UX EXPERIENCE ARCHITECTURE — PASS WITH NON-BLOCKING RESERVES — CANDIDATE APPROVED FOR GIT INTEGRATION — NO DELIVERY — NO REAL — NO RUNTIME V3 ADOPTION — NEXT UX SUBCYCLE REQUIRES SEPARATE QUALIFICATION AND GO |
 | **GO Morris intégration** | **CONSUMED** — GO INTEGRATION GIT — PRODUCT COMPLETION UX EXPERIENCE ARCHITECTURE VALIDATED — UPDATE CANDIDATE + ROADMAP + REVIEW PACK — NO DELIVERY — NO REAL — NO NEXT UX SUBCYCLE |
 | **GO Morris démarrage** | START PRODUCT COMPLETION UX / PRODUCT EXPERIENCE — EXPERIENCE ARCHITECTURE / DESIGN CONTRACT — PENPOT TACTICAL FOR THIS CYCLE ONLY — NO DOCTRINE CHANGE — NO CODE — NO DELIVERY — NO REAL — NO PROJECT GIT INTEGRATION — RUNTIME V3 NON ADOPTED |
 | **GO Morris correction** | **CONSUMED** — « ok go correction » — correction locale bornée candidat + Penpot cycle-local + Review Handoff · **≠** commit/push/PR projet · **≠** Delivery · **≠** REAL |
-| **Base Git** | `origin/main` @ `e0c8e9ac200a6a7fae37790c8919d858dc2aa5b0` (PR #371 merge · Task Manager hors périmètre · descend de PR #370 `32cce29f…`) |
-| **Branche locale** | `design/sfia-studio-product-completion-ux-experience-architecture` |
+| **GO PR readiness / Draft PR** | **CONSUMED** — Morris « ok go » — push + Draft PR #372 |
+| **GO merge PR #372** | **CONSUMED** |
+| **GO post-merge** | **CONSUMED** — GO POST-MERGE PR #372 — VERIFY MAIN INTEGRATION + DOCUMENTARY COHERENCE SYNC + SAFE PR-BRANCH CLEANUP |
 | **C1** | VALIDATED BY MORRIS — INTEGRATED ON MAIN |
 | **C2** | VALIDATED BY MORRIS — INTEGRATED ON MAIN |
 | **Penpot** | CYCLE-LOCAL DESIGN TOOL / TACTICAL WORKSPACE · **≠** SFIA doctrine · **≠** Figma standard replaced · **≠** Git SoT |
@@ -81,7 +89,7 @@ Git reste SoT pour doctrine, décisions et candidat documentaire.
 4. **Risque seconde architecture :** Mitigé en dérivant strictement de C1/C2, en classifiant PRE-M6 (KEEP/ADAPT/HARVEST), en interdisant une architecture fonctionnelle complète dans ce cycle.
 5. **Gaps fermables ensemble :** IA Pilote, hierarchy business-first, A→W journeys, CA-PC mapping, Trajectory/Rec/HD/EC/Confirm/Attempt/Evidence/Recovery contracts, A11Y functional, empty/loading/error/blocked.
 6. **Preuve :** Document candidat + Penpot boards inspectables (00/01/05) + matrices A→W/CA-PC/harvest + blocker register + captures.
-7. **Gate suivant :** ChatGPT UX re-review → Morris UX Experience Architecture decision → sous-cycle UX à requalifier.
+7. **Gate suivant :** UX Experience Architecture **VALIDATED BY MORRIS** + **INTEGRATED ON MAIN** via PR #372 → **NEXT-CAPABILITY REQUALIFICATION REQUIRED** → Morris GO séparé avant toute exécution. *(R-INT-UX-01 CLOSED BY POST-MERGE DOCUMENTARY COHERENCE — correction éditoriale/factuelle · ≠ nouvelle décision produit · ≠ sélection du prochain sous-cycle)*
 8. **Dette temporaire :** Hypothèses viewport 1440/1024/390 ; New Project provisional ; Penpot cycle-local tool ; Confirmation process-local (héritée) jusqu'à cycle dédié.
 9. **Candidates vs décisions :** Tout board/surface = CANDIDATE · MD-C2 déjà DECIDED/RETIRED · aucune nouvelle décision Morris forcée sauf blockers listés.
 10. **Gate Morris :** Validation / amend Experience Architecture candidate (distinct du GO d'intégration Git et de tout sous-cycle).
@@ -527,18 +535,25 @@ Après CORR-UX-01…12 : **aucun** besoin démontré de découpage modules/servi
 | Evidence visuelle | **24/24** Penpot boards (pages 00/01/05) re-reviewed from corrected exports — **PASS** |
 | Décision Morris validation | **CONSUMED** (texte exact en métadonnées) |
 | GO intégration Git locale | **CONSUMED** (texte exact en métadonnées) |
+| PR readiness / push / Draft PR | **CONSUMED** — Morris « ok go » · PR **#372** |
+| PR CI | SFIA Studio CI **#228** — SUCCESS |
+| GO merge PR #372 | **CONSUMED** |
+| Merge | PR **#372 MERGED** · merge `fb311f2fa57ba8acb37b1878b739669623ac5565` · head `ce9bdd0952322c8666751fa948b529657ec3036c` |
+| Post-merge CI | SFIA Studio CI **#229** — SUCCESS (push/main) |
+| GO post-merge | **CONSUMED** |
+| R-INT-UX-01 | **CLOSED BY POST-MERGE DOCUMENTARY COHERENCE** (factual editorial alignment of §3.7) |
 
 **Distinctions obligatoires :**
 
-- validation Morris **≠** intégration main ;
-- commit local **≠** push ;
-- push **≠** PR ;
-- PR **≠** merge ;
-- validation Experience Architecture **≠** Delivery ;
-- validation Experience Architecture **≠** runtime v3 adoption ;
-- validation Experience Architecture **≠** autorisation du prochain sous-cycle UX.
+- Validation Morris et intégration Git sont des **gates distincts**. La validation a précédé l’intégration ; Git prouve désormais l’intégration sur main via PR #372 / `fb311f2f…`.
+- **INTEGRATED ON MAIN ≠** Delivery ;
+- **INTEGRATED ON MAIN ≠** runtime v3 adoption ;
+- **INTEGRATED ON MAIN ≠** Product Completion complete ;
+- **INTEGRATED ON MAIN ≠** next UX subcycle authorized ;
+- commit local sync post-merge **≠** push / PR / merge du sync (hors scope de ce cycle) ;
+- PR branch cleanup **≠** product validation change.
 
-Cette section est une **trace de revue documentaire / design**, pas un claim runtime.
+Cette section est une **trace de revue documentaire / design / Git**, pas un claim runtime.
 
 ---
 
@@ -546,7 +561,9 @@ Cette section est une **trace de revue documentaire / design**, pas un claim run
 
 | ID | Question | Blocking now? |
 | --- | --- | --- |
-| — | None required for this **local Git integration** of the validated Experience Architecture | — |
+| — | None required for this **post-merge documentary coherence** sync | — |
+
+**NEXT UX / PRODUCT COMPLETION CAPABILITY :** **NOT SELECTED — REQUALIFICATION REQUIRED**
 
 Optional future (non-blocking · **≠** next subcycle selected): normative a11y level beyond A11Y-PC ; Confirmation durability productization ; New Project visual frame adoption ; ProjectTrajectory placement (H-01) ; responsive thresholds (H-02) ; Evidence placement (H-03).
 
@@ -554,19 +571,24 @@ Optional future (non-blocking · **≠** next subcycle selected): normative a11y
 
 ## 26. Exit criteria / next gate
 
-**Exit (Git integration locale — ce cycle) :**
+**Experience Architecture integration exit (prouvé) :**
 
-- Document Experience Architecture matérialise VALIDATED BY MORRIS + NOT INTEGRATED ON MAIN
-- Convergence Roadmap current-state synchronisée
-- Commit projet **LOCAL** borné (EA + Roadmap uniquement)
-- Review Pack FULL + Review Handoff remote verified
-- **NO** project push · **NO** PR · **NO** merge
+- VALIDATED BY MORRIS ;
+- INTEGRATED ON MAIN ;
+- PR #372 MERGED ;
+- head `ce9bdd0952322c8666751fa948b529657ec3036c` ;
+- merge `fb311f2fa57ba8acb37b1878b739669623ac5565` ;
+- PR CI #228 SUCCESS · post-merge CI #229 SUCCESS ;
+- review evidence preserved ;
+- non-blocking reserves **carried** (H-01…H-04 · Confirmation process-local · Trajectory durability) ;
+- R-INT-UX-01 **CLOSED** (factual editorial).
 
-**Gates restants (NOT AUTHORIZED ici) :**
+**Next product gate :**
 
-- project push / PR readiness / merge → gates Morris distincts
-- next UX subcycle → **NOT SELECTED** · requalification + GO séparés
-- Delivery · REAL · runtime v3 adoption → **NOT AUTHORIZED**
+- **NEXT-CAPABILITY REQUALIFICATION REQUIRED**
+- Next capability : **NOT SELECTED**
+- No execution without separate Morris GO
+- Wireframes / Screens / Components : **NOT DECIDED / NOT AUTHORIZED** by this document
 
 ---
 
@@ -574,15 +596,16 @@ Optional future (non-blocking · **≠** next subcycle selected): normative a11y
 
 Ce document **ne dit pas** :
 
-- UX Experience Architecture **INTEGRATED ON MAIN** (tant que Git main ne le prouve pas)
+- UX Experience Architecture **INTEGRATED ON MAIN** = Product Completion **complete**
+- UX Experience Architecture **INTEGRATED ON MAIN** = Delivery **authorized**
+- UX Experience Architecture **INTEGRATED ON MAIN** = REAL / runtime v3 **ADOPTED**
+- UX Experience Architecture **INTEGRATED ON MAIN** = next UX subcycle **authorized**
 - Penpot **adopted as SFIA standard**
 - Figma standard **replaced**
 - Functional architecture **selected**
 - UI Delivery **authorized**
 - Backlog **authorized**
-- Product Completion **complete**
 - READY FOR REAL / runtime v3 **ADOPTED**
-- Project push / PR / merge **authorized**
 - Next UX subcycle **selected or automatically authorized**
 - WCAG **compliant**
 - PRE-M6 **final PE**
@@ -594,9 +617,10 @@ Ce document **ne dit pas** :
 - EC lifecycle invente un état « blocked » natif
 - HARVEST = RETIRE LATER = suppression immédiate
 - CORR-UX-01…12 still OPEN (ils sont **CLOSED**)
+- R-INT-UX-01 still OPEN (elle est **CLOSED** factuellement)
 
-**Réserves non bloquantes conservées :** H-01…H-04 · Confirmation process-local · ProjectTrajectory runtime durability incomplète · éventuelle réserve documentaire upstream ordre EC/Confirmation si toujours applicable.
+**Réserves non bloquantes encore ouvertes :** H-01…H-04 · Confirmation process-local · ProjectTrajectory runtime durability incomplète · éventuelle réserve documentaire upstream ordre EC/Confirmation si toujours applicable.
 
 ---
 
-*SFIA Studio — Product Completion — UX Experience Architecture — VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT INTEGRATED ON MAIN — Penpot tactical / cycle-local evidence — NO CODE — NO DELIVERY — NO REAL — NO PROJECT PUSH — NO PR — NO MERGE — NEXT UX SUBCYCLE NOT SELECTED — RUNTIME V3 NON ADOPTED*
+*SFIA Studio — Product Completion — UX Experience Architecture — VALIDATED BY MORRIS — INTEGRATED ON MAIN via PR #372 — NO DELIVERY — NO REAL — NEXT UX SUBCYCLE NOT SELECTED — RUNTIME V3 NON ADOPTED*
