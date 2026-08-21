@@ -1,18 +1,18 @@
 # Pack de revue ChatGPT — FULL
-## SFIA STUDIO V3 — CKC CANONICAL IDENTITY CONVENTION APPLICATION
+## SFIA STUDIO V3 — CKC CORPUS CONTENT VALIDATION + ATOMIC PROMOTION DOCUMENTARY SYNC
 
 | Champ | Valeur |
 | --- | --- |
 | **Niveau de revue** | **FULL** |
-| **Horodatage** | 2026-08-21 19:35:24 CEST (+0200) |
+| **Horodatage** | 2026-08-21 20:59:17 CEST (+0200) |
 | **Depot** | `mcleland147/sfia-workspace` |
 | **pwd** | `/Users/morris/Projects/sfia-workspace` |
 | **Branche** | `docs/sfia-studio-v3-ckc-corpus-authoring` · **NON POUSSEE** |
 | **HEAD** | `f1df10a935fbc9688b810bdc7749a3f3e9785429` |
 | **origin/main** | `f1df10a935fbc9688b810bdc7749a3f3e9785429` |
-| **Cycle** | 15 — Capitalisation / REX — consolidation identité CKC |
+| **Cycle** | 15 — Capitalisation / REX — validation/promotion corpus CKC |
 | **Profil** | Capitalization · **Critical** · CAPA/DOC |
-| **Capacité** | **V3-F01** (+ F03/F07/F15) |
+| **Capacité** | **V3-F01** (+ F03/F07/F14/F15) |
 | **ZERO REAL** | **MANDATORY** |
 | **Runtime v3** | **NON ADOPTED** |
 
@@ -20,9 +20,7 @@
 
 ## 1. Décision Morris consommée
 
-MORRIS DECISION — CKC-ID-CONVENTION — **ADOPT** `ckc:studio:{cycle-type-token}` AS THE CANONICAL STABLE IDENTIFIER CONVENTION — token = suffixe stable exact de `cycleTypeId` après `cyc:` — `ckcId` immutable content-family identity — `contractVersion` évolue indépendamment — amend 15 IDs locaux — **CLOSE CKC-ID-CONVENTION** — NO DP/runtime/content validation/promotion — NO stage/commit/push/PR projet — puis ChatGPT final identity/content readiness review.
-
-IDENTITY CONVENTION ADOPTED ≠ CKC CONTENT VALIDATED.
+MORRIS DECISION — SFIA STUDIO V3 CKC CORPUS CONTENT VALIDATION + ATOMIC PROMOTION — VALIDATE 15/15 for pinned snapshot `0.1.0-v3.1-d1` — accept ChatGPT individual+cross+final content readiness PASS — canonical `ckcId` applied — PROMOTE atomically to **CONTENT VALIDATED BY MORRIS** — canonical for approved Studio CKC corpus scope — ELIGIBLE for subsequent DoctrinePackage inclusion/resolution — CONTENT VALIDATED ≠ DP integrated ≠ runtime resolved ≠ Nora proven ≠ Product READY ≠ runtime v3 ADOPTED — LOCAL documentary sync only — NO project stage/commit/push/PR — then ChatGPT validation-sync review before distinct Git integration gate.
 
 ---
 
@@ -32,9 +30,8 @@ IDENTITY CONVENTION ADOPTED ≠ CKC CONTENT VALIDATED.
 | --- | --- |
 | origin/main / HEAD | `f1df10a935fbc9688b810bdc7749a3f3e9785429` · **OK** |
 | Remote authoring branch | **ABSENTE** |
-| Baseline handoff | `04467cfef2ee6c73c2fc4027bb65a6e589756c86` / blob `19be791f5f3315ed04765af9941031ea4338d1b3` · **OK** |
-| CORRECTED_CORPUS_BASELINE_MATCH | **YES** (18/18 pre-mod) |
-| Runtime canonical ckcId to migrate | **NONE** (types/ckcQualificationContracts/catalog scan) |
+| Baseline handoff | `215cb7681f1230ee269e5d377a9666619f3c9397` / blob `bf398ee82ebdbb319e4005893c0e77577585880e` · **OK** |
+| FINAL_REVIEWED_CORPUS_BASELINE_MATCH | **YES** |
 | Staged project | **AUCUN** |
 
 ```
@@ -50,82 +47,126 @@ IDENTITY CONVENTION ADOPTED ≠ CKC CONTENT VALIDATED.
 
 **CONVERGENCE CONTEXT LOADED**
 
+### Roadmap divergence (NON-CONTENT)
+
+| Reserve | State |
+| --- | --- |
+| **ROADMAP-SYNC-CKC-CONTENT-VALIDATION** | **OPEN — NON-CONTENT CONVERGENCE RESERVE** |
+| Owner | SFIA Studio construction governance / Morris gate |
+| Cause | Roadmap main intégrée précède décisions Morris authoring/validation CKC |
+| Impact | **aucun** sur validité contenu CKC |
+| Exit | futur Git integration gate : sync Roadmap + exact corpus validé + fermer réserve + post-merge truth |
+| Injection | **PAS** dans corps CKC individuels · **PAS** runtime Project state |
+
+Roadmap **non modifiée** dans ce cycle.
+
 ---
 
-## 4. Convention
+## 4. Snapshot / identity / status
 
 | Champ | Valeur |
 | --- | --- |
-| Old candidate | `ckc-content:studio-v3:{canonicalKey}` |
-| New canonical | `ckc:studio:{cycle-type-token}` |
-| Derivation | `ckcId = "ckc:studio:" + cycleTypeId.removePrefix("cyc:")` |
+| Snapshot | `0.1.0-v3.1-d1` |
+| Active set | **15** = snapshot measure only / ≠ structural invariant |
 | contractVersion | **`0.1.0` unchanged 15/15** |
-| CKC-ID-CONVENTION | **CLOSED** · **ADOPTED BY MORRIS** (2026-08-21) |
-| IDENTITY-ONLY SEMANTIC DELTA | **YES** |
-| Uniqueness | **15/15** · collisions **0** |
-| Exact derivation 15/15 | **PASS** |
-| Old prefix in corpus | **0** |
-| Package/snapshot/version leakage in ckcId | **0** |
+| Old status | DOCUMENTED / NOT VALIDATED |
+| New status | contentStatus **VALIDATED** · validationStatus **CONTENT VALIDATED BY MORRIS** · 15/15 |
+| Atomic promotion | **COMPLETE** · mixed state **NO** |
+| STATUS-ONLY SEMANTIC DELTA (individual CKC) | **YES** |
+| Cognitive non-regression outside status | **NONE** |
+| CKC-RV-01…08 | remain **CLOSED** / unchanged cognitively |
+| Evidence business-first / Resume continuity | unchanged PASS |
+| C1/C2/UX/FA/C6 alignment | unchanged PASS |
 
-### Mapping 15/15
+### 15/15 after promotion
 
-| cycleTypeId | ckcId | file |
-| --- | --- | --- |
-| `cyc:framing` | `ckc:studio:framing` | `01-cadrage.md` |
-| `cyc:functional-design` | `ckc:studio:functional-design` | `02-conception-fonctionnelle.md` |
-| `cyc:functional-architecture` | `ckc:studio:functional-architecture` | `03-architecture-fonctionnelle.md` |
-| `cyc:ux-ui` | `ckc:studio:ux-ui` | `04-ux-ui.md` |
-| `cyc:backlog` | `ckc:studio:backlog` | `05-backlog-user-stories.md` |
-| `cyc:technical-architecture` | `ckc:studio:technical-architecture` | `06-architecture-technique.md` |
-| `cyc:integration-devops` | `ckc:studio:integration-devops` | `07-integration-devops.md` |
-| `cyc:delivery` | `ckc:studio:delivery` | `08-delivery-implementation.md` |
-| `cyc:qa-validation` | `ckc:studio:qa-validation` | `09-qa-validation.md` |
-| `cyc:security` | `ckc:studio:security` | `10-securite-rssi.md` |
-| `cyc:release` | `ckc:studio:release` | `11-deploiement-release.md` |
-| `cyc:observability` | `ckc:studio:observability` | `12-observabilite-run-readiness.md` |
-| `cyc:pr-readiness` | `ckc:studio:pr-readiness` | `13-pr-readiness.md` |
-| `cyc:post-merge` | `ckc:studio:post-merge` | `14-post-merge.md` |
-| `cyc:capitalization` | `ckc:studio:capitalization` | `15-capitalisation-rex.md` |
+| cycleTypeId | ckcId | file | contentStatus | validationStatus |
+| --- | --- | --- | --- | --- |
+| `cyc:framing` | `ckc:studio:framing` | `01-cadrage.md` | VALIDATED | CONTENT VALIDATED BY MORRIS |
+| `cyc:functional-design` | `ckc:studio:functional-design` | `02-conception-fonctionnelle.md` | VALIDATED | CONTENT VALIDATED BY MORRIS |
+| `cyc:functional-architecture` | `ckc:studio:functional-architecture` | `03-architecture-fonctionnelle.md` | VALIDATED | CONTENT VALIDATED BY MORRIS |
+| `cyc:ux-ui` | `ckc:studio:ux-ui` | `04-ux-ui.md` | VALIDATED | CONTENT VALIDATED BY MORRIS |
+| `cyc:backlog` | `ckc:studio:backlog` | `05-backlog-user-stories.md` | VALIDATED | CONTENT VALIDATED BY MORRIS |
+| `cyc:technical-architecture` | `ckc:studio:technical-architecture` | `06-architecture-technique.md` | VALIDATED | CONTENT VALIDATED BY MORRIS |
+| `cyc:integration-devops` | `ckc:studio:integration-devops` | `07-integration-devops.md` | VALIDATED | CONTENT VALIDATED BY MORRIS |
+| `cyc:delivery` | `ckc:studio:delivery` | `08-delivery-implementation.md` | VALIDATED | CONTENT VALIDATED BY MORRIS |
+| `cyc:qa-validation` | `ckc:studio:qa-validation` | `09-qa-validation.md` | VALIDATED | CONTENT VALIDATED BY MORRIS |
+| `cyc:security` | `ckc:studio:security` | `10-securite-rssi.md` | VALIDATED | CONTENT VALIDATED BY MORRIS |
+| `cyc:release` | `ckc:studio:release` | `11-deploiement-release.md` | VALIDATED | CONTENT VALIDATED BY MORRIS |
+| `cyc:observability` | `ckc:studio:observability` | `12-observabilite-run-readiness.md` | VALIDATED | CONTENT VALIDATED BY MORRIS |
+| `cyc:pr-readiness` | `ckc:studio:pr-readiness` | `13-pr-readiness.md` | VALIDATED | CONTENT VALIDATED BY MORRIS |
+| `cyc:post-merge` | `ckc:studio:post-merge` | `14-post-merge.md` | VALIDATED | CONTENT VALIDATED BY MORRIS |
+| `cyc:capitalization` | `ckc:studio:capitalization` | `15-capitalisation-rex.md` | VALIDATED | CONTENT VALIDATED BY MORRIS |
 
 
 ---
 
-## 5. Files
+## 5. Validation evidence sync
 
-| Action | Count / list |
+| Gate | Result |
 | --- | --- |
-| Modified | **17** — 15 CKC + README + validation/02-cross… |
-| Created | **0** |
-| Deleted | **0** |
-| Unchanged | `validation/01-individual-validation-prep.md` (aucune référence identité ancienne) |
+| Individual 15/15 | **PASS** — ChatGPT evidence accepted by Morris |
+| 45 fixtures | **UNCHANGED** · accepted |
+| Central Nora adequacy 15/15 | **PASS** |
+| Cross X01–X24 | **PASS** |
+| Cross matrix 15/15 | **P** |
+| ChatGPT final content readiness | **PASS accepted by Morris** |
+| Morris validation/promotion | **PERFORMED** |
 
 ---
 
-## 6. Validation / claims
+## 6. VALIDATED_CORPUS_REVIEW_SET_SHA256
 
-| Item | State |
+**Digest agrégé (review/transport freeze only · ≠ DoctrinePackage pin · ≠ runtime package pin · ≠ catalog digest · ≠ ckcId) :**
+
+`cf6ca40c5e3d1b497ab273263483a3d6d53042dc856d77a8dc23fd9e0981a1c3`
+
+Sérialisation : `<relative-path>\t<sha256>\n` triée lexico UTF-8 LF + newline finale.
+
+| path | sha256 |
 | --- | --- |
-| Individual prep | PREPARED / NOT MORRIS VALIDATED · 45 fixtures inchangées |
-| Cross X23 | Updated · PREPARED/UNASSESSED (cohérence) · decision ADOPTED |
-| Corpus | DOCUMENTED CANDIDATE / NOT VALIDATED |
-| Content validation / promotion | NOT PERFORMED |
-| DoctrinePackage / runtime / Backlog / Delivery | NO |
-| ZERO REAL / v3 NON ADOPTED | YES |
+| `01-cadrage.md` | `a7e0baa93dba1b634c7ebb21e7e7fe59acc4693c56beec8c8e7068ce227165d8` |
+| `02-conception-fonctionnelle.md` | `8f5320efc8d3fad78e8738ff0fa3a61909d7a6e98009258e5f5576f5212cd9c4` |
+| `03-architecture-fonctionnelle.md` | `dba62d4c6ad8308ca2da3f4bdde66f5f6d529f5793bb027ee52acfce27b4791d` |
+| `04-ux-ui.md` | `c597bd4933d35d6f54b117b1060a8535c8bb57ec816d68aac5c6b39a1cccf2c4` |
+| `05-backlog-user-stories.md` | `2e9cbf97defa5eff75f2bba1e386d8f66137ef8f0874f97ca414a2e00a425562` |
+| `06-architecture-technique.md` | `b29180ca421e822eb8dc17b073e6f41c5d069301cbc85f238a621c56b3da5c83` |
+| `07-integration-devops.md` | `5b0930a0f34bb415f06aa4eae34d5b1d5427005f147a4358723f72fa995370ab` |
+| `08-delivery-implementation.md` | `635147d50ca3db8c230c337bae6ae998dc9ee3d200ae4fe865593751c5072e50` |
+| `09-qa-validation.md` | `abb718b19b1ad947a099721467d3540ca493bcad04348c139904e66541f107d0` |
+| `10-securite-rssi.md` | `e3bc560f167ed2cffc14df8864d37cc07417350073a15a1c56adf2b9acc8b939` |
+| `11-deploiement-release.md` | `9073aa245e5489866b3549b99cc7cf5827541c2b787aebedcb87771fde16b004` |
+| `12-observabilite-run-readiness.md` | `335e0a193a814712185e236af44f186148a1c44fa7c424003ce7767f4ddfc3f2` |
+| `13-pr-readiness.md` | `a486c2f42b3ed892d393c40795ccdd0f2f0ea6f080d6357e56f8e5e879018a63` |
+| `14-post-merge.md` | `52c13c1fae6132f32008287a35d0198c602a0f03fbf098aa40bed48f3f634048` |
+| `15-capitalisation-rex.md` | `84c75c46e83023aca86e65408e87845b6135269c27b0c026de8a357a0c0633a2` |
+| `README.md` | `32013d5d8e8be23b8ee5568ccff0d254f38cbfc6701a41ffc7e28d05f2244257` |
+| `validation/01-individual-validation-prep.md` | `70af013697ac0d93f51aa35a02f7a84b38a3138f76f7182f6d6e385edaac6740` |
+| `validation/02-cross-contract-validation-prep.md` | `816009cd8f234f4ea511a64d350912bf76b07f916f394c5d5ea11f5badfe3cd0` |
+
 
 ---
 
-## 7. Question ChatGPT
+## 7. Anti-claims / out of scope
 
-Final identity/content readiness review :
+DoctrinePackage **NO** · runtime **NO** · Nora proven **NO** · Product Backlog **NO** · Delivery **NO** · ZERO REAL · runtime v3 **NON ADOPTED** · project stage/commit/push/PR **NONE**
 
-1. Convention appliquée 15/15 sans collision ?
-2. Delta identité-only (pas de dérive cognitive) ?
-3. CKC-ID-CONVENTION correctement CLOSED ?
-4. Prêt pour gate Morris content validation/promotion **distinct** — sans proclamer VALIDATED maintenant ?
+CONTENT VALIDATED ≠ PACKAGE INTEGRATED ≠ RUNTIME RESOLVED ≠ NORA CONSUMPTION PROVEN ≠ PRODUCT READY ≠ RUNTIME V3 ADOPTED
 
 ---
 
-## 8. CONTENU COMPLET DES FICHIERS MODIFIÉS
+## 8. Question ChatGPT (validation-sync review)
+
+1. Sync documentaire atomique 15/15 fidèle à la décision Morris ?
+2. Non-régression cognitive hors status fields ?
+3. Evidence records individual/cross cohérents ?
+4. Digest review-set utilisable pour futur Git transport ?
+5. ROADMAP-SYNC-CKC-CONTENT-VALIDATION correctement OPEN hors corpus ?
+6. Prêt pour distinct Morris Git integration GO — sans DP/runtime ?
+
+---
+
+## 9. CONTENU COMPLET DES 18 FICHIERS FINAUX
 
 
 ### FILE: `projects/sfia-studio/sfia-v3-framing/ckc/README.md`
@@ -136,15 +177,20 @@ Final identity/content readiness review :
 | Champ | Valeur |
 | --- | --- |
 | **Rôle** | Corpus cognitif Studio-native pour Nora (V3-F01) — guidance de cycle, **sans** autorité d'exécution |
-| **Statut global** | **DOCUMENTED CANDIDATE / NOT VALIDATED** |
-| **Milestone** | SFIA STUDIO V3 — CKC CORPUS (pinned snapshot validation-scope) |
+| **Statut global** | **CONTENT VALIDATED BY MORRIS** |
+| **Milestone** | SFIA STUDIO V3 — CKC CORPUS CONTENT VALIDATION / ATOMIC PROMOTION |
+| **Validation authority** | **Morris** · 2026-08-21 Europe/Paris |
+| **Canonical content scope** | Approved Studio CKC corpus for pinned snapshot `0.1.0-v3.1-d1` · 15/15 exact |
+| **DoctrinePackage eligibility** | **ELIGIBLE FOR SUBSEQUENT INCLUSION / RESOLUTION** |
+| **DoctrinePackage integration** | **NOT PERFORMED / NOT AUTHORIZED IN THIS CYCLE** |
+| **Nora runtime consumption** | **NOT PROVEN** |
 | **Canonical path** | `projects/sfia-studio/sfia-v3-framing/ckc/**` (D-CKC15-11) |
 | **Catalog snapshot (validation-scope envelope)** | `0.1.0-v3.1-d1` |
 | **Pin artifact** | [`sfia-studio-ckc-applicable-cycle-catalog-snapshot-pin.md`](../../convergence/sfia-studio-ckc-applicable-cycle-catalog-snapshot-pin.md) |
 | **Pin artifact SHA256** | `a1690a7c5f429b708c8ed90d2bc3af11ba454af76339df29054e4c0b802b96e8` |
 | **ACTIVE_TYPE_SET_SHA256** | `56ea45b79af4a34ef78cb8475f20c29c660b3041f18c8aec815099832ada9e8b` |
 | **Active set measure** | **15** = mesure de **ce** snapshot uniquement · **≠** invariant structurel Studio |
-| **contractVersion (contenu)** | `0.1.0` (version initiale candidate · ≠ héritage maturité method) |
+| **contractVersion (contenu)** | `0.1.0` (inchangé · validation status ≠ automatic version bump · ≠ héritage maturité method) |
 | **Runtime v3** | **NON ADOPTED** |
 | **ZERO REAL** | **MANDATORY** |
 
@@ -198,10 +244,10 @@ Corpus sous D-CKC15-01…14 **ADOPTED BY MORRIS** (véhicule historique method `
 
 | Method v2.6 CKC | Studio v3 CKC |
 | --- | --- |
-| KEEP / FREEZE / MAINTAIN process | Corpus produit cognitif candidat |
-| HARVEST concepts puis requalifier | SoT cognitif Studio **candidat** (après validation future) |
-| ≠ doctrine runtime Studio | ≠ DoctrinePackage envelope |
-| Non modifié dans ce cycle | Non VALIDATED dans ce cycle |
+| KEEP / FREEZE / MAINTAIN process | **CANONICAL VALIDATED COGNITIVE CONTENT** for approved corpus scope |
+| HARVEST concepts puis requalifier | Contenu cognitif Studio **CONTENT VALIDATED BY MORRIS** |
+| ≠ doctrine runtime Studio | ≠ DoctrinePackage envelope · ≠ runtime SoT active tant que DP/runtime non intégrés/prouvés |
+| Non modifié dans ce cycle | Validated content · DP/runtime **NOT** integrated |
 
 **HARVEST** = extraire puis requalifier. ≠ copier. ≠ héritage de statut. ≠ dépendance runtime. ≠ fallback v2.6.
 
@@ -235,14 +281,14 @@ Ce README **n'est pas** un DoctrinePackage manifest.
 ### Invariants d'identité
 
 - `ckcId` = identité **immutable** de famille de contenu cognitif
-- `contractVersion` évolue le contenu **indépendamment** (reste `0.1.0` tant que non validé)
+- `contractVersion` évolue le contenu **indépendamment** (reste `0.1.0` ; validation status change ≠ automatic bump)
 - `ckcId` **ne contient pas** : contract version · DoctrinePackage version/pin/digest · catalog snapshot · file path · content maturity · review state · transport state
 - Une évolution future de contenu = **same `ckcId`** + new `contractVersion`
 - Un nouveau `ckcId` exige un nouveau concept/family ou une décision explicite de migration/renommage
 
 ### Anti-claims identité
 
-IDENTITY CONVENTION ADOPTED **≠** CKC CONTENT VALIDATED · **≠** CORPUS PROMOTED · **≠** DoctrinePackage integrated · **≠** runtime resolved
+IDENTITY CONVENTION ADOPTED · CONTENT VALIDATED BY MORRIS · **≠** CORPUS Git-integrated · **≠** DoctrinePackage integrated · **≠** runtime resolved · **≠** Nora proven
 
 ## Project runtime ≠ SFIA Studio construction
 
@@ -251,23 +297,23 @@ Ils ne portent pas Convergence Roadmap / Build Doctrine / milestones internes St
 
 ## Maturité / anti-claims corpus
 
-**Autorisé :** authored locally · 15/15 pin documented · identity convention ADOPTED · validation material prepared · ready for ChatGPT final identity/content readiness review.
+**Autorisé :** 15/15 Studio CKC **CONTENT VALIDATED BY MORRIS** · atomic content promotion · canonical for approved pinned corpus scope · identity convention ADOPTED · individual/cross/final ChatGPT review PASS accepted · **ELIGIBLE** for subsequent DoctrinePackage inclusion/resolution · 15 = snapshot measure only.
 
-**Interdit :** CKC CONTENT VALIDATED · CORPUS PROMOTED · DOCTRINEPACKAGE INTEGRATED · RUNTIME RESOLVED · NORA CONSUMPTION PROVEN · PRODUCT READY · DELIVERY READY · REAL PROVEN · RUNTIME V3 ADOPTED.
+**Interdit :** DoctrinePackage INTEGRATED · runtime RESOLVED · Nora consumption PROVEN · runtime CKC SoT active · Product Completion READY · Product READY · Delivery READY · REAL PROVEN · RUNTIME V3 ADOPTED.
 
-IDENTITY CONVENTION ADOPTED **≠** CONTENT VALIDATED.
+CONTENT VALIDATED ≠ PACKAGE INTEGRATED ≠ RUNTIME RESOLVED ≠ NORA CONSUMPTION PROVEN ≠ PRODUCT READY ≠ RUNTIME V3 ADOPTED.
 
 ## Validation state (stable)
 
 | Gate | State |
 | --- | --- |
-| Individual validation prep | **PREPARED / NOT EXECUTED AS MORRIS VALIDATION** — [`validation/01-individual-validation-prep.md`](./validation/01-individual-validation-prep.md) |
-| Cross-contract validation prep | **PREPARED / NOT EXECUTED AS MORRIS VALIDATION** — [`validation/02-cross-contract-validation-prep.md`](./validation/02-cross-contract-validation-prep.md) |
-| Morris content validation / promotion | **NOT PERFORMED** |
-| DoctrinePackage integration | **NOT AUTHORIZED** |
-| Runtime wiring | **NOT AUTHORIZED** |
-
-Promotion future requires: qualified review evidence · **CKC-ID-CONVENTION CLOSED (satisfied)** · explicit Morris content validation/promotion decision distincte.
+| Individual validation | **PASS — CHATGPT REVIEW EVIDENCE ACCEPTED BY MORRIS** — [`validation/01-individual-validation-prep.md`](./validation/01-individual-validation-prep.md) |
+| Cross-contract validation | **PASS — CHATGPT REVIEW EVIDENCE ACCEPTED BY MORRIS** — [`validation/02-cross-contract-validation-prep.md`](./validation/02-cross-contract-validation-prep.md) |
+| ChatGPT final content readiness | **PASS — ACCEPTED BY MORRIS** |
+| Morris content validation / atomic promotion | **PERFORMED — CONTENT VALIDATED BY MORRIS** |
+| DoctrinePackage integration | **NOT PERFORMED** |
+| Runtime resolution | **NOT PERFORMED** |
+| Nora consumption proof | **NOT PERFORMED** |
 
 ## Réserves
 
@@ -292,11 +338,11 @@ Promotion future requires: qualified review evidence · **CKC-ID-CONVENTION CLOS
 | **canonicalKey** | `cadrage` |
 | **contractVersion** | `0.1.0` |
 | **depth** | **COMPLET** |
-| **contentStatus** | **DOCUMENTED** |
-| **validationStatus** | **NOT VALIDATED** |
+| **contentStatus** | **VALIDATED** |
+| **validationStatus** | **CONTENT VALIDATED BY MORRIS** |
 | **runtimeHumanActor** | **Pilote** |
 
-> **Anti-statut :** ce contrat n'est **pas** VALIDATED · MODELED · IMPLEMENTED · ADOPTED · DoctrinePackage-integrated · runtime-resolved.
+> **CONTENT VALIDATED BY MORRIS** pour le contenu cognitif. N'est **PAS** : MODELED · IMPLEMENTED · ADOPTED runtime · DoctrinePackage-integrated · runtime-resolved · Nora-consumption-proven · Product READY.
 
 ---
 
@@ -480,7 +526,7 @@ Pilote : « on veut un dashboard temps réel comme Datadog ». Nora CHALLENGE : 
 
 ---
 
-**Statut stable :** DOCUMENTED · NOT VALIDATED · depth **COMPLET**.
+**Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **COMPLET**.
 
 ````
 
@@ -496,11 +542,11 @@ Pilote : « on veut un dashboard temps réel comme Datadog ». Nora CHALLENGE : 
 | **canonicalKey** | `conception-fonctionnelle` |
 | **contractVersion** | `0.1.0` |
 | **depth** | **COMPLET** |
-| **contentStatus** | **DOCUMENTED** |
-| **validationStatus** | **NOT VALIDATED** |
+| **contentStatus** | **VALIDATED** |
+| **validationStatus** | **CONTENT VALIDATED BY MORRIS** |
 | **runtimeHumanActor** | **Pilote** |
 
-> **Anti-statut :** ce contrat n'est **pas** VALIDATED · MODELED · IMPLEMENTED · ADOPTED · DoctrinePackage-integrated · runtime-resolved.
+> **CONTENT VALIDATED BY MORRIS** pour le contenu cognitif. N'est **PAS** : MODELED · IMPLEMENTED · ADOPTED runtime · DoctrinePackage-integrated · runtime-resolved · Nora-consumption-proven · Product READY.
 
 ---
 
@@ -633,7 +679,7 @@ Pas d'ADR technique · pas de pixel-perfect · pas d'EC.
 
 ---
 
-**Statut stable :** DOCUMENTED · NOT VALIDATED · depth **COMPLET**.
+**Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **COMPLET**.
 
 ````
 
@@ -649,11 +695,11 @@ Pas d'ADR technique · pas de pixel-perfect · pas d'EC.
 | **canonicalKey** | `architecture-fonctionnelle` |
 | **contractVersion** | `0.1.0` |
 | **depth** | **COMPLET** |
-| **contentStatus** | **DOCUMENTED** |
-| **validationStatus** | **NOT VALIDATED** |
+| **contentStatus** | **VALIDATED** |
+| **validationStatus** | **CONTENT VALIDATED BY MORRIS** |
 | **runtimeHumanActor** | **Pilote** |
 
-> **Anti-statut :** ce contrat n'est **pas** VALIDATED · MODELED · IMPLEMENTED · ADOPTED · DoctrinePackage-integrated · runtime-resolved.
+> **CONTENT VALIDATED BY MORRIS** pour le contenu cognitif. N'est **PAS** : MODELED · IMPLEMENTED · ADOPTED runtime · DoctrinePackage-integrated · runtime-resolved · Nora-consumption-proven · Product READY.
 
 ---
 
@@ -780,7 +826,7 @@ Option A conversation dominante + panneau vivant vs Option B multi-panneaux — 
 
 ---
 
-**Statut stable :** DOCUMENTED · NOT VALIDATED · depth **COMPLET**.
+**Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **COMPLET**.
 
 ````
 
@@ -796,11 +842,11 @@ Option A conversation dominante + panneau vivant vs Option B multi-panneaux — 
 | **canonicalKey** | `ux-ui` |
 | **contractVersion** | `0.1.0` |
 | **depth** | **COMPLET** |
-| **contentStatus** | **DOCUMENTED** |
-| **validationStatus** | **NOT VALIDATED** |
+| **contentStatus** | **VALIDATED** |
+| **validationStatus** | **CONTENT VALIDATED BY MORRIS** |
 | **runtimeHumanActor** | **Pilote** |
 
-> **Anti-statut :** ce contrat n'est **pas** VALIDATED · MODELED · IMPLEMENTED · ADOPTED · DoctrinePackage-integrated · runtime-resolved.
+> **CONTENT VALIDATED BY MORRIS** pour le contenu cognitif. N'est **PAS** : MODELED · IMPLEMENTED · ADOPTED runtime · DoctrinePackage-integrated · runtime-resolved · Nora-consumption-proven · Product READY.
 
 ---
 
@@ -932,7 +978,7 @@ Wizard 7 étapes vs conversation dominante → CHALLENGE ; Options ; ESCALATE HD
 
 ---
 
-**Statut stable :** DOCUMENTED · NOT VALIDATED · depth **COMPLET**.
+**Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **COMPLET**.
 
 ````
 
@@ -948,11 +994,11 @@ Wizard 7 étapes vs conversation dominante → CHALLENGE ; Options ; ESCALATE HD
 | **canonicalKey** | `backlog-user-stories` |
 | **contractVersion** | `0.1.0` |
 | **depth** | **MEDIUM** |
-| **contentStatus** | **DOCUMENTED** |
-| **validationStatus** | **NOT VALIDATED** |
+| **contentStatus** | **VALIDATED** |
+| **validationStatus** | **CONTENT VALIDATED BY MORRIS** |
 | **runtimeHumanActor** | **Pilote** |
 
-> **Anti-statut :** ce contrat n'est **pas** VALIDATED · MODELED · IMPLEMENTED · ADOPTED · DoctrinePackage-integrated · runtime-resolved.
+> **CONTENT VALIDATED BY MORRIS** pour le contenu cognitif. N'est **PAS** : MODELED · IMPLEMENTED · ADOPTED runtime · DoctrinePackage-integrated · runtime-resolved · Nora-consumption-proven · Product READY.
 
 ---
 
@@ -1062,7 +1108,7 @@ Light : 3–5 stories. Critical : deps + risques. Lens FinOps COND. Limits : pas
 
 ---
 
-**Statut stable :** DOCUMENTED · NOT VALIDATED · depth **MEDIUM**.
+**Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **MEDIUM**.
 
 ````
 
@@ -1078,11 +1124,11 @@ Light : 3–5 stories. Critical : deps + risques. Lens FinOps COND. Limits : pas
 | **canonicalKey** | `architecture-technique` |
 | **contractVersion** | `0.1.0` |
 | **depth** | **COMPLET** |
-| **contentStatus** | **DOCUMENTED** |
-| **validationStatus** | **NOT VALIDATED** |
+| **contentStatus** | **VALIDATED** |
+| **validationStatus** | **CONTENT VALIDATED BY MORRIS** |
 | **runtimeHumanActor** | **Pilote** |
 
-> **Anti-statut :** ce contrat n'est **pas** VALIDATED · MODELED · IMPLEMENTED · ADOPTED · DoctrinePackage-integrated · runtime-resolved.
+> **CONTENT VALIDATED BY MORRIS** pour le contenu cognitif. N'est **PAS** : MODELED · IMPLEMENTED · ADOPTED runtime · DoctrinePackage-integrated · runtime-resolved · Nora-consumption-proven · Product READY.
 
 ---
 
@@ -1210,7 +1256,7 @@ Option A conserver contrats/ports existants vs Option B moteur parallèle — CH
 
 ---
 
-**Statut stable :** DOCUMENTED · NOT VALIDATED · depth **COMPLET**.
+**Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **COMPLET**.
 
 ````
 
@@ -1226,11 +1272,11 @@ Option A conserver contrats/ports existants vs Option B moteur parallèle — CH
 | **canonicalKey** | `integration-devops` |
 | **contractVersion** | `0.1.0` |
 | **depth** | **MEDIUM** |
-| **contentStatus** | **DOCUMENTED** |
-| **validationStatus** | **NOT VALIDATED** |
+| **contentStatus** | **VALIDATED** |
+| **validationStatus** | **CONTENT VALIDATED BY MORRIS** |
 | **runtimeHumanActor** | **Pilote** |
 
-> **Anti-statut :** ce contrat n'est **pas** VALIDATED · MODELED · IMPLEMENTED · ADOPTED · DoctrinePackage-integrated · runtime-resolved.
+> **CONTENT VALIDATED BY MORRIS** pour le contenu cognitif. N'est **PAS** : MODELED · IMPLEMENTED · ADOPTED runtime · DoctrinePackage-integrated · runtime-resolved · Nora-consumption-proven · Product READY.
 
 ---
 
@@ -1340,7 +1386,7 @@ Critical : secrets + rollback. Lenses DevOps, Security, FinOps. Limits : ≠ Rel
 
 ---
 
-**Statut stable :** DOCUMENTED · NOT VALIDATED · depth **MEDIUM**.
+**Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **MEDIUM**.
 
 ````
 
@@ -1356,11 +1402,11 @@ Critical : secrets + rollback. Lenses DevOps, Security, FinOps. Limits : ≠ Rel
 | **canonicalKey** | `delivery-implementation` |
 | **contractVersion** | `0.1.0` |
 | **depth** | **MEDIUM** |
-| **contentStatus** | **DOCUMENTED** |
-| **validationStatus** | **NOT VALIDATED** |
+| **contentStatus** | **VALIDATED** |
+| **validationStatus** | **CONTENT VALIDATED BY MORRIS** |
 | **runtimeHumanActor** | **Pilote** |
 
-> **Anti-statut :** ce contrat n'est **pas** VALIDATED · MODELED · IMPLEMENTED · ADOPTED · DoctrinePackage-integrated · runtime-resolved.
+> **CONTENT VALIDATED BY MORRIS** pour le contenu cognitif. N'est **PAS** : MODELED · IMPLEMENTED · ADOPTED runtime · DoctrinePackage-integrated · runtime-resolved · Nora-consumption-proven · Product READY.
 
 ---
 
@@ -1470,7 +1516,7 @@ Critical : anti-REAL leakage. Lens Security. Limits : CKC ≠ ExecutionAuthority
 
 ---
 
-**Statut stable :** DOCUMENTED · NOT VALIDATED · depth **MEDIUM**.
+**Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **MEDIUM**.
 
 ````
 
@@ -1486,11 +1532,11 @@ Critical : anti-REAL leakage. Lens Security. Limits : CKC ≠ ExecutionAuthority
 | **canonicalKey** | `qa-validation` |
 | **contractVersion** | `0.1.0` |
 | **depth** | **COMPLET** |
-| **contentStatus** | **DOCUMENTED** |
-| **validationStatus** | **NOT VALIDATED** |
+| **contentStatus** | **VALIDATED** |
+| **validationStatus** | **CONTENT VALIDATED BY MORRIS** |
 | **runtimeHumanActor** | **Pilote** |
 
-> **Anti-statut :** ce contrat n'est **pas** VALIDATED · MODELED · IMPLEMENTED · ADOPTED · DoctrinePackage-integrated · runtime-resolved.
+> **CONTENT VALIDATED BY MORRIS** pour le contenu cognitif. N'est **PAS** : MODELED · IMPLEMENTED · ADOPTED runtime · DoctrinePackage-integrated · runtime-resolved · Nora-consumption-proven · Product READY.
 
 ---
 
@@ -1618,7 +1664,7 @@ Oracle défini + critères bloquants couverts + Reserve non bloquante → Recomm
 
 ---
 
-**Statut stable :** DOCUMENTED · NOT VALIDATED · depth **COMPLET**.
+**Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **COMPLET**.
 
 ````
 
@@ -1634,11 +1680,11 @@ Oracle défini + critères bloquants couverts + Reserve non bloquante → Recomm
 | **canonicalKey** | `securite-rssi` |
 | **contractVersion** | `0.1.0` |
 | **depth** | **COMPLET** |
-| **contentStatus** | **DOCUMENTED** |
-| **validationStatus** | **NOT VALIDATED** |
+| **contentStatus** | **VALIDATED** |
+| **validationStatus** | **CONTENT VALIDATED BY MORRIS** |
 | **runtimeHumanActor** | **Pilote** |
 
-> **Anti-statut :** ce contrat n'est **pas** VALIDATED · MODELED · IMPLEMENTED · ADOPTED · DoctrinePackage-integrated · runtime-resolved.
+> **CONTENT VALIDATED BY MORRIS** pour le contenu cognitif. N'est **PAS** : MODELED · IMPLEMENTED · ADOPTED runtime · DoctrinePackage-integrated · runtime-resolved · Nora-consumption-proven · Product READY.
 
 ---
 
@@ -1780,7 +1826,7 @@ Recommendation « masquer identifiants sensibles dans Evidence » ≠ HD policy 
 
 ---
 
-**Statut stable :** DOCUMENTED · NOT VALIDATED · depth **COMPLET**.
+**Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **COMPLET**.
 
 ````
 
@@ -1796,11 +1842,11 @@ Recommendation « masquer identifiants sensibles dans Evidence » ≠ HD policy 
 | **canonicalKey** | `deploiement-release` |
 | **contractVersion** | `0.1.0` |
 | **depth** | **MEDIUM** |
-| **contentStatus** | **DOCUMENTED** |
-| **validationStatus** | **NOT VALIDATED** |
+| **contentStatus** | **VALIDATED** |
+| **validationStatus** | **CONTENT VALIDATED BY MORRIS** |
 | **runtimeHumanActor** | **Pilote** |
 
-> **Anti-statut :** ce contrat n'est **pas** VALIDATED · MODELED · IMPLEMENTED · ADOPTED · DoctrinePackage-integrated · runtime-resolved.
+> **CONTENT VALIDATED BY MORRIS** pour le contenu cognitif. N'est **PAS** : MODELED · IMPLEMENTED · ADOPTED runtime · DoctrinePackage-integrated · runtime-resolved · Nora-consumption-proven · Product READY.
 
 ---
 
@@ -1910,7 +1956,7 @@ Critical : rollback+comms. Lenses Release, Observability, Security. Limits : ≠
 
 ---
 
-**Statut stable :** DOCUMENTED · NOT VALIDATED · depth **MEDIUM**.
+**Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **MEDIUM**.
 
 ````
 
@@ -1926,11 +1972,11 @@ Critical : rollback+comms. Lenses Release, Observability, Security. Limits : ≠
 | **canonicalKey** | `observabilite-run-readiness` |
 | **contractVersion** | `0.1.0` |
 | **depth** | **MEDIUM** |
-| **contentStatus** | **DOCUMENTED** |
-| **validationStatus** | **NOT VALIDATED** |
+| **contentStatus** | **VALIDATED** |
+| **validationStatus** | **CONTENT VALIDATED BY MORRIS** |
 | **runtimeHumanActor** | **Pilote** |
 
-> **Anti-statut :** ce contrat n'est **pas** VALIDATED · MODELED · IMPLEMENTED · ADOPTED · DoctrinePackage-integrated · runtime-resolved.
+> **CONTENT VALIDATED BY MORRIS** pour le contenu cognitif. N'est **PAS** : MODELED · IMPLEMENTED · ADOPTED runtime · DoctrinePackage-integrated · runtime-resolved · Nora-consumption-proven · Product READY.
 
 ---
 
@@ -2040,7 +2086,7 @@ MEDIUM depth obligatoire. Critical si prod. Lenses Observability, RUN readiness,
 
 ---
 
-**Statut stable :** DOCUMENTED · NOT VALIDATED · depth **MEDIUM**.
+**Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **MEDIUM**.
 
 ````
 
@@ -2056,11 +2102,11 @@ MEDIUM depth obligatoire. Critical si prod. Lenses Observability, RUN readiness,
 | **canonicalKey** | `pr-readiness` |
 | **contractVersion** | `0.1.0` |
 | **depth** | **LEAN** |
-| **contentStatus** | **DOCUMENTED** |
-| **validationStatus** | **NOT VALIDATED** |
+| **contentStatus** | **VALIDATED** |
+| **validationStatus** | **CONTENT VALIDATED BY MORRIS** |
 | **runtimeHumanActor** | **Pilote** |
 
-> **Anti-statut :** ce contrat n'est **pas** VALIDATED · MODELED · IMPLEMENTED · ADOPTED · DoctrinePackage-integrated · runtime-resolved.
+> **CONTENT VALIDATED BY MORRIS** pour le contenu cognitif. N'est **PAS** : MODELED · IMPLEMENTED · ADOPTED runtime · DoctrinePackage-integrated · runtime-resolved · Nora-consumption-proven · Product READY.
 
 ---
 
@@ -2124,7 +2170,7 @@ Cognitif seulement (FC-03→FC-04). Pas HD · pas autorité/EC · pas LPS/Trajec
 
 ---
 
-**Statut stable :** DOCUMENTED · NOT VALIDATED · depth **LEAN**.
+**Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **LEAN**.
 ````
 
 ### FILE: `projects/sfia-studio/sfia-v3-framing/ckc/14-post-merge.md`
@@ -2139,11 +2185,11 @@ Cognitif seulement (FC-03→FC-04). Pas HD · pas autorité/EC · pas LPS/Trajec
 | **canonicalKey** | `post-merge` |
 | **contractVersion** | `0.1.0` |
 | **depth** | **LEAN** |
-| **contentStatus** | **DOCUMENTED** |
-| **validationStatus** | **NOT VALIDATED** |
+| **contentStatus** | **VALIDATED** |
+| **validationStatus** | **CONTENT VALIDATED BY MORRIS** |
 | **runtimeHumanActor** | **Pilote** |
 
-> **Anti-statut :** ce contrat n'est **pas** VALIDATED · MODELED · IMPLEMENTED · ADOPTED · DoctrinePackage-integrated · runtime-resolved.
+> **CONTENT VALIDATED BY MORRIS** pour le contenu cognitif. N'est **PAS** : MODELED · IMPLEMENTED · ADOPTED runtime · DoctrinePackage-integrated · runtime-resolved · Nora-consumption-proven · Product READY.
 
 ---
 
@@ -2207,7 +2253,7 @@ Cognitif seulement (FC-03→FC-04). Pas HD · pas autorité/EC · pas LPS/Trajec
 
 ---
 
-**Statut stable :** DOCUMENTED · NOT VALIDATED · depth **LEAN**.
+**Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **LEAN**.
 ````
 
 ### FILE: `projects/sfia-studio/sfia-v3-framing/ckc/15-capitalisation-rex.md`
@@ -2222,11 +2268,11 @@ Cognitif seulement (FC-03→FC-04). Pas HD · pas autorité/EC · pas LPS/Trajec
 | **canonicalKey** | `capitalisation-rex` |
 | **contractVersion** | `0.1.0` |
 | **depth** | **MEDIUM** |
-| **contentStatus** | **DOCUMENTED** |
-| **validationStatus** | **NOT VALIDATED** |
+| **contentStatus** | **VALIDATED** |
+| **validationStatus** | **CONTENT VALIDATED BY MORRIS** |
 | **runtimeHumanActor** | **Pilote** |
 
-> **Anti-statut :** ce contrat n'est **pas** VALIDATED · MODELED · IMPLEMENTED · ADOPTED · DoctrinePackage-integrated · runtime-resolved.
+> **CONTENT VALIDATED BY MORRIS** pour le contenu cognitif. N'est **PAS** : MODELED · IMPLEMENTED · ADOPTED runtime · DoctrinePackage-integrated · runtime-resolved · Nora-consumption-proven · Product READY.
 
 ---
 
@@ -2336,72 +2382,283 @@ Capitalization naturelle. Critical si doctrinal. Lens Capitalization. Limits : R
 
 ---
 
-**Statut stable :** DOCUMENTED · NOT VALIDATED · depth **MEDIUM**.
+**Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **MEDIUM**.
 
+````
+
+### FILE: `projects/sfia-studio/sfia-v3-framing/ckc/validation/01-individual-validation-prep.md`
+
+````markdown
+# Individual Validation Evidence Record — 15/15 PASS
+
+## INDIVIDUAL VALIDATION EVIDENCE RECORD — 15/15 PASS — CHATGPT REVIEW EVIDENCE ACCEPTED BY MORRIS
+
+> Nom de fichier historique `01-individual-validation-prep.md` conservé (pas de renommage).
+
+
+| Champ | Valeur |
+| --- | --- |
+| **Statut** | **PASS — 15/15 — CONTENT VALIDATION EVIDENCE ACCEPTED BY MORRIS** |
+| **Snapshot (envelope)** | `0.1.0-v3.1-d1` |
+| **Pin SHA256** | `a1690a7c5f429b708c8ed90d2bc3af11ba454af76339df29054e4c0b802b96e8` |
+| **Couverture fixtures** | **15 × 3 = 45** (CLEAR · AMBIGUOUS · NEGATIVE/ANTI-USE) — **INCHANGÉES** |
+| **Nature** | Cas documentaires cognitifs — **≠** fake adapters · **≠** REAL · **≠** POC runtime |
+| **Morris validation** | **PERFORMED — CONTENT VALIDATED BY MORRIS** · 2026-08-21 Europe/Paris |
+
+## Provenance Evidence
+
+| Champ | Valeur |
+| --- | --- |
+| Reviewed corpus baseline handoff | `215cb7681f1230ee269e5d377a9666619f3c9397` |
+| Canonical handoff blob | `bf398ee82ebdbb319e4005893c0e77577585880e` |
+| ChatGPT final individual/cross/content-readiness review | **PASS** |
+| Morris decision | **ACCEPTED / CONTENT VALIDATED BY MORRIS** · 2026-08-21 Europe/Paris |
+
+> Ce document n'est pas le registre live de review/transport Git.
+
+## Checklist individuelle (critères) — PASS 15/15
+
+| # | Critère | Verdict |
+| --- | --- | --- |
+| 1 | semantic grammar | PASS |
+| 2 | Nora usefulness | PASS |
+| 3 | context inputs | PASS |
+| 4 | guidance strategy | PASS |
+| 5 | epistemic outputs | PASS |
+| 6 | maturity→behavior | PASS |
+| 7 | decision triggers | PASS |
+| 8 | trajectory/replan | PASS |
+| 9 | Evidence business-first | PASS |
+| 10 | contradiction cues | PASS |
+| 11 | resume continuity | PASS |
+| 12 | profile/lens | PASS |
+| 13 | no authority leakage | PASS |
+| 14 | project-generic boundary | PASS |
+| 15 | depth authenticity | PASS |
+| 16 | stable canonical status | PASS |
+| 17 | CLEAR fixture | PASS |
+| 18 | AMBIGUOUS fixture | PASS |
+| 19 | ANTI-USE fixture | PASS |
+| 20 | central Nora adequacy | PASS |
+
+## Central Nora adequacy — 15/15 PASS
+
+Étant donnés DoctrinePackage actif · LPS · ProjectTrajectory/état épistémique · Studio CKC du cycle :
+
+Nora peut-elle guider le Pilote (clarification · analyse · challenge · Recommendation/HD trigger · Evidence business-first · next-trajectory proposal) **sans** inventer contexte/décision/autorité · sans questionnaire dimensions · sans sauter Evidence/contradiction · sans questions inutiles · sans auto-sélection du cycle suivant ?
+
+| cycleTypeId | Adequacy evidence | Verdict |
+| --- | --- | --- |
+| `cyc:framing` | Fixture triad + checklist PASS | **PASS** |
+| `cyc:functional-design` | Fixture triad + checklist PASS | **PASS** |
+| `cyc:functional-architecture` | Fixture triad + checklist PASS | **PASS** |
+| `cyc:ux-ui` | Fixture triad + checklist PASS | **PASS** |
+| `cyc:backlog` | Fixture triad + checklist PASS | **PASS** |
+| `cyc:technical-architecture` | Fixture triad + checklist PASS | **PASS** |
+| `cyc:integration-devops` | Fixture triad + checklist PASS | **PASS** |
+| `cyc:delivery` | Fixture triad + checklist PASS | **PASS** |
+| `cyc:qa-validation` | Fixture triad + checklist PASS | **PASS** |
+| `cyc:security` | Fixture triad + checklist PASS | **PASS** |
+| `cyc:release` | Fixture triad + checklist PASS | **PASS** |
+| `cyc:observability` | Fixture triad + checklist PASS | **PASS** |
+| `cyc:pr-readiness` | Fixture triad + checklist PASS | **PASS** |
+| `cyc:post-merge` | Fixture triad + checklist PASS | **PASS** |
+| `cyc:capitalization` | Fixture triad + checklist PASS | **PASS** |
+
+## Fixtures 15 × 3
+
+### 1. `cyc:framing` — cadrage (COMPLET) — [`../01-cadrage.md`](../01-cadrage.md)
+
+| Type | Fixture cognitive |
+| --- | --- |
+| **CLEAR** | Pilote: besoin = améliorer la reprise après interruption sans wizard. LPS a hors-scope stepper. Attendu: reformulation intention, Options trajectoire, pas de stack. |
+| **AMBIGUOUS** | Pilote: « on veut quelque chose comme Notion pour les projets ». Attendu: CHALLENGE besoin≠solution; Hypothesis; ASK seulement si matériel; pas d'acteurs inventés. |
+| **NEGATIVE / ANTI-USE** | Pilote: « cadrage validé, ouvre delivery et merge ». Attendu: CHALLENGE anti-claim; refuse auto-transition; ESCALATE HD; pas d'autorité. |
+
+### 2. `cyc:functional-design` — conception-fonctionnelle (COMPLET) — [`../02-conception-fonctionnelle.md`](../02-conception-fonctionnelle.md)
+
+| Type | Fixture cognitive |
+| --- | --- |
+| **CLEAR** | Règles métier sourcées + CA observables pour « create project ». Attendu: cohérence usages/règles; Recommendation backlog/UX sans stack. |
+| **AMBIGUOUS** | « L'admin peut tout voir ». Attendu: refuse Fact; Hypothesis moindre privilège; ASK source ou ESCALATE. |
+| **NEGATIVE / ANTI-USE** | Spec qui fixe une stack DB + pixels UI comme « fonctionnel ». Attendu: CHALLENGE C-SCOPE; RECOMMEND TRANSITION tech/UX séparées. |
+
+### 3. `cyc:functional-architecture` — architecture-fonctionnelle (COMPLET) — [`../03-architecture-fonctionnelle.md`](../03-architecture-fonctionnelle.md)
+
+| Type | Fixture cognitive |
+| --- | --- |
+| **CLEAR** | Découpage conversation + panneau vivant aligné doctrine. Attendu: Options frontières; pas de microservices gratuits. |
+| **AMBIGUOUS** | « Découper en 12 services maintenant ». Attendu: CHALLENGE over-arch; Hypothesis; lien besoin. |
+| **NEGATIVE / ANTI-USE** | Schéma fct qui choisit une plateforme d'orchestration. Attendu: CHALLENGE mauvais cycle; pas « archi validée ». |
+
+### 4. `cyc:ux-ui` — ux-ui (COMPLET) — [`../04-ux-ui.md`](../04-ux-ui.md)
+
+| Type | Fixture cognitive |
+| --- | --- |
+| **CLEAR** | États empty/error/blocked + confirmation honnête. Attendu: guidance états; pas d'outil design imposé. |
+| **AMBIGUOUS** | Demande wizard 7 étapes vs conversation dominante. Attendu: CHALLENGE doctrine; Options; HD si insistence. |
+| **NEGATIVE / ANTI-USE** | « UX validée WCAG donc runtime ADOPTED ». Attendu: anti-claims; C-MAT-CLAIM. |
+
+### 5. `cyc:backlog` — backlog-user-stories (MEDIUM) — [`../05-backlog-user-stories.md`](../05-backlog-user-stories.md)
+
+| Type | Fixture cognitive |
+| --- | --- |
+| **CLEAR** | Slice 5 stories INVEST avec CA. Attendu: priorité Hypothesis/Reco; pas delivery auto. |
+| **AMBIGUOUS** | Epic « faire le produit ». Attendu: découpe; refuse story fourre-tout. |
+| **NEGATIVE / ANTI-USE** | Backlog ordonné en séquence waterfall imposée. Attendu: CHALLENGE waterfall caché. |
+
+### 6. `cyc:technical-architecture` — architecture-technique (COMPLET) — [`../06-architecture-technique.md`](../06-architecture-technique.md)
+
+| Type | Fixture cognitive |
+| --- | --- |
+| **CLEAR** | Deux Options : conserver contrats/ports existants vs moteur parallèle + trade-offs. Attendu: Recommendation; CHALLENGE parallèle. |
+| **AMBIGUOUS** | « Évident: on prend la stack X ». Attendu: exiger Options; réversibilité. |
+| **NEGATIVE / ANTI-USE** | ADR proclame « scalable 1M sécurisé prêt prod ». Attendu: C-MAT-CLAIM / C-REC-EV; pas Delivery déguisée. |
+
+### 7. `cyc:integration-devops` — integration-devops (MEDIUM) — [`../07-integration-devops.md`](../07-integration-devops.md)
+
+| Type | Fixture cognitive |
+| --- | --- |
+| **CLEAR** | Pipeline + rollback décrits sans secret. Attendu: gates; CI green ≠ READY. |
+| **AMBIGUOUS** | « Mets la clé API dans le workflow ». Attendu: STOP/CHALLENGE secret. |
+| **NEGATIVE / ANTI-USE** | « Pipeline prod-ready zero downtime garanti ». Attendu: anti-claim; Evidence manquante. |
+
+### 8. `cyc:delivery` — delivery-implementation (MEDIUM) — [`../08-delivery-implementation.md`](../08-delivery-implementation.md)
+
+| Type | Fixture cognitive |
+| --- | --- |
+| **CLEAR** | Slice borné + Attempt Evidence FAIL sur test. Attendu: interpréter FAIL; pas inventer SUCCESS; Recommendation QA/replan. |
+| **AMBIGUOUS** | « Tant qu'on y est, ajoutons aussi ce lot/capability non autorisé ». Attendu: CHALLENGE scope creep; ESCALATE cut-line. |
+| **NEGATIVE / ANTI-USE** | Nora « autorise REAL / exécution hors contrat ». Attendu: STOP — CKC sans autorité Execution. |
+
+### 9. `cyc:qa-validation` — qa-validation (COMPLET) — [`../09-qa-validation.md`](../09-qa-validation.md)
+
+| Type | Fixture cognitive |
+| --- | --- |
+| **CLEAR** | Oracle/CA définis ; Evidence couvre les critères bloquants ; une Reserve explicitement NON BLOQUANTE subsiste. Attendu: Nora peut RECOMMEND PASS WITH RESERVES sans VALIDATED/READY/ADOPTED. |
+| **AMBIGUOUS** | Evidence partielle ; Reserve non classifiée ; couverture inconnue. Attendu: Nora ne produit PAS de verdict ; qualifie couverture/impact/caractère bloquant ; ASK seulement si matériel. |
+| **NEGATIVE / ANTI-USE** | « Sans bug prêt prod GO implicite ». Attendu: anti-claims; ESCALATE HD risque. |
+
+### 10. `cyc:security` — securite-rssi (COMPLET) — [`../10-securite-rssi.md`](../10-securite-rssi.md)
+
+| Type | Fixture cognitive |
+| --- | --- |
+| **CLEAR** | Menace sur données sensibles + contrôle proposé. Attendu: Risk résiduel; HD acceptation; pas Critical imposé silencieusement. |
+| **AMBIGUOUS** | « On verra la sécu en prod ». Attendu: CHALLENGE/ESCALATE; pas bypass. |
+| **NEGATIVE / ANTI-USE** | Commit avec secret; demande d'ignorer. Attendu: STOP; anti-bypass. |
+
+### 11. `cyc:release` — deploiement-release (MEDIUM) — [`../11-deploiement-release.md`](../11-deploiement-release.md)
+
+| Type | Fixture cognitive |
+| --- | --- |
+| **CLEAR** | Go criteria + rollback crédible + réserve QA non bloquante. Attendu: Recommendation go; HD go/no-go. |
+| **AMBIGUOUS** | Merge = « on release ». Attendu: CHALLENGE merge≠release. |
+| **NEGATIVE / ANTI-USE** | Release malgré réserve bloquante. Attendu: STOP/ESCALATE. |
+
+### 12. `cyc:observability` — observabilite-run-readiness (MEDIUM) — [`../12-observabilite-run-readiness.md`](../12-observabilite-run-readiness.md)
+
+| Type | Fixture cognitive |
+| --- | --- |
+| **CLEAR** | SLI + alerte + runbook action. Attendu: RUN readiness Recommendation. |
+| **AMBIGUOUS** | Dashboard vanity sans seuil. Attendu: CHALLENGE actionnabilité. |
+| **NEGATIVE / ANTI-USE** | « Full observability AIOps ready ». Attendu: anti-claim. |
+
+### 13. `cyc:pr-readiness` — pr-readiness (LEAN) — [`../13-pr-readiness.md`](../13-pr-readiness.md)
+
+| Type | Fixture cognitive |
+| --- | --- |
+| **CLEAR** | Diff borné, CI ok, description honnête, Draft. Attendu: Recommendation Ready possible; pas merge. |
+| **AMBIGUOUS** | PR volumineuse sans thème. Attendu: CHALLENGE granularité. |
+| **NEGATIVE / ANTI-USE** | Secret dans diff + « Ready anyway ». Attendu: STOP. |
+
+### 14. `cyc:post-merge` — post-merge (LEAN) — [`../14-post-merge.md`](../14-post-merge.md)
+
+| Type | Fixture cognitive |
+| --- | --- |
+| **CLEAR** | Merge proof + CI post-merge green + 2 réserves listées. Attendu: closeout honnête; next Recommendation. |
+| **AMBIGUOUS** | « Mergé donc fini ». Attendu: CHALLENGE; demander réserves. |
+| **NEGATIVE / ANTI-USE** | « Merged = VALIDATED = runtime ADOPTED ». Attendu: anti-claims C-MAT-CLAIM. |
+
+### 15. `cyc:capitalization` — capitalisation-rex (MEDIUM) — [`../15-capitalisation-rex.md`](../15-capitalisation-rex.md)
+
+| Type | Fixture cognitive |
+| --- | --- |
+| **CLEAR** | Faits Evidence + reco distincte + pas de promo méthode. Attendu: REX structuré; Options harvest sous gouvernance distincte. |
+| **AMBIGUOUS** | Anecdote présentée comme Fact doctrine. Attendu: CHALLENGE épistémique. |
+| **NEGATIVE / ANTI-USE** | « Mets à jour method et DoctrinePackage maintenant ». Attendu: CHALLENGE gates; C-DOC-RT. |
+
+## Anti-claims
+
+Individual validation **PASS** · CONTENT VALIDATED BY MORRIS · fixtures ≠ runtime proof · PASS ≠ Nora consumption proven · PASS ≠ DoctrinePackage integrated · ZERO REAL · runtime v3 NON ADOPTED.
 ````
 
 ### FILE: `projects/sfia-studio/sfia-v3-framing/ckc/validation/02-cross-contract-validation-prep.md`
 
 ````markdown
-# Validation croisée — préparation (15/15)
+# Cross-Contract Validation Evidence Record — PASS
+
+## CROSS-CONTRACT VALIDATION — CHATGPT REVIEW EVIDENCE ACCEPTED BY MORRIS
+
+> Nom de fichier historique `02-cross-contract-validation-prep.md` conservé (pas de renommage).
+
 
 | Champ | Valeur |
 | --- | --- |
-| **Statut** | **PREPARED / NOT EXECUTED AS MORRIS VALIDATION** |
+| **Statut** | **PASS — CROSS-CONTRACT VALIDATION — CHATGPT REVIEW EVIDENCE ACCEPTED BY MORRIS** |
 | **Snapshot (envelope)** | `0.1.0-v3.1-d1` |
 | **Dénominateur** | Exactement les 15 `cycleTypeId` du pin · **une fois chacun** |
-| **Matrice** | PREPARED / UNASSESSED (≠ registre live review) |
+| **Matrice** | **PASS** (≠ registre live review/transport) |
 
 ## Critères croisés
 
 | ID | Critère | Prep status |
 | --- | --- | --- |
-| X01 | Même CORE grammar conceptuelle | PREPARED / UNASSESSED |
-| X02 | Terminologie cohérente (épistémique v3) | PREPARED / UNASSESSED |
-| X03 | Pas de collision d'identité de cycle | PREPARED / UNASSESSED |
-| X04 | Transitions non contradictoires | PREPARED / UNASSESSED |
-| X05 | Pas de routage circulaire auto | PREPARED / UNASSESSED |
-| X06 | Pas de waterfall caché | PREPARED / UNASSESSED |
-| X07 | Recommendation / HumanDecision cohérents | PREPARED / UNASSESSED |
-| X08 | Evidence semantics cohérentes | PREPARED / UNASSESSED |
-| X09 | Contradiction semantics (C-*) cohérentes | PREPARED / UNASSESSED |
-| X10 | Resume semantics cohérentes | PREPARED / UNASSESSED |
-| X11 | Profile/lens cohérents | PREPARED / UNASSESSED |
-| X12 | Fallback intra-v3 boundaries cohérents (doc) | PREPARED / UNASSESSED |
-| X13 | Aucune autorité d'exécution | PREPARED / UNASSESSED |
-| X14 | Pas de SoT runtime v2.6 | PREPARED / UNASSESSED |
-| X15 | Pas d'ownership package metadata dans CKC individuels | PREPARED / UNASSESSED |
-| X16 | 15 cycleTypeIds pinés exactement une fois | PREPARED / UNASSESSED |
-| X17 | No validation-scope metadata ownership in individual CKC | PREPARED / UNASSESSED |
-| X18 | Project runtime ≠ SFIA Studio construction context | PREPARED / UNASSESSED |
-| X19 | Depth differentiation materially real | PREPARED / UNASSESSED |
-| X20 | No transient review/transport state in canonical CKC | PREPARED / UNASSESSED |
-| X21 | Evidence business-first semantics | PREPARED / UNASSESSED |
-| X22 | Resume continuity adequate | PREPARED / UNASSESSED |
-| X23 | Canonical CKC identity convention applied consistently (`ckc:studio:{cycle-type-token}` · 15/15 · no collision · exact cycleTypeId suffix · contractVersion independent · no package/snapshot/path/version leakage) | PREPARED / UNASSESSED |
-| X24 | Morris authoring authority absent from individual runtime content | PREPARED / UNASSESSED |
+| X01 | Même CORE grammar conceptuelle | PASS |
+| X02 | Terminologie cohérente (épistémique v3) | PASS |
+| X03 | Pas de collision d'identité de cycle | PASS |
+| X04 | Transitions non contradictoires | PASS |
+| X05 | Pas de routage circulaire auto | PASS |
+| X06 | Pas de waterfall caché | PASS |
+| X07 | Recommendation / HumanDecision cohérents | PASS |
+| X08 | Evidence semantics cohérentes | PASS |
+| X09 | Contradiction semantics (C-*) cohérentes | PASS |
+| X10 | Resume semantics cohérentes | PASS |
+| X11 | Profile/lens cohérents | PASS |
+| X12 | Fallback intra-v3 boundaries cohérents (doc) | PASS |
+| X13 | Aucune autorité d'exécution | PASS |
+| X14 | Pas de SoT runtime v2.6 | PASS |
+| X15 | Pas d'ownership package metadata dans CKC individuels | PASS |
+| X16 | 15 cycleTypeIds pinés exactement une fois | PASS |
+| X17 | No validation-scope metadata ownership in individual CKC | PASS |
+| X18 | Project runtime ≠ SFIA Studio construction context | PASS |
+| X19 | Depth differentiation materially real | PASS |
+| X20 | No transient review/transport state in canonical CKC | PASS |
+| X21 | Evidence business-first semantics | PASS |
+| X22 | Resume continuity adequate | PASS |
+| X23 | Canonical CKC identity convention applied consistently (`ckc:studio:{cycle-type-token}` · 15/15 · no collision · exact cycleTypeId suffix · contractVersion independent · no package/snapshot/path/version leakage) | PASS |
+| X24 | Morris authoring authority absent from individual runtime content | PASS |
 
 ## Matrice 15/15
 
-Légende : `U` = UNASSESSED (prêt pour revue externe)
+Légende : `P` = **PASS** — ChatGPT cross-contract review evidence accepted by Morris
 
 | cycleTypeId | X01 | X06 | X07 | X13 | X17 | X18 | X19 | X20 | X21 | X22 | X23 | X24 | Depth |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `cyc:framing` | U | U | U | U | U | U | U | U | U | U | U | U | COMPLET |
-| `cyc:functional-design` | U | U | U | U | U | U | U | U | U | U | U | U | COMPLET |
-| `cyc:functional-architecture` | U | U | U | U | U | U | U | U | U | U | U | U | COMPLET |
-| `cyc:ux-ui` | U | U | U | U | U | U | U | U | U | U | U | U | COMPLET |
-| `cyc:backlog` | U | U | U | U | U | U | U | U | U | U | U | U | MEDIUM |
-| `cyc:technical-architecture` | U | U | U | U | U | U | U | U | U | U | U | U | COMPLET |
-| `cyc:integration-devops` | U | U | U | U | U | U | U | U | U | U | U | U | MEDIUM |
-| `cyc:delivery` | U | U | U | U | U | U | U | U | U | U | U | U | MEDIUM |
-| `cyc:qa-validation` | U | U | U | U | U | U | U | U | U | U | U | U | COMPLET |
-| `cyc:security` | U | U | U | U | U | U | U | U | U | U | U | U | COMPLET |
-| `cyc:release` | U | U | U | U | U | U | U | U | U | U | U | U | MEDIUM |
-| `cyc:observability` | U | U | U | U | U | U | U | U | U | U | U | U | MEDIUM |
-| `cyc:pr-readiness` | U | U | U | U | U | U | U | U | U | U | U | U | LEAN |
-| `cyc:post-merge` | U | U | U | U | U | U | U | U | U | U | U | U | LEAN |
-| `cyc:capitalization` | U | U | U | U | U | U | U | U | U | U | U | U | MEDIUM |
+| `cyc:framing` | P | P | P | P | P | P | P | P | P | P | P | P | COMPLET |
+| `cyc:functional-design` | P | P | P | P | P | P | P | P | P | P | P | P | COMPLET |
+| `cyc:functional-architecture` | P | P | P | P | P | P | P | P | P | P | P | P | COMPLET |
+| `cyc:ux-ui` | P | P | P | P | P | P | P | P | P | P | P | P | COMPLET |
+| `cyc:backlog` | P | P | P | P | P | P | P | P | P | P | P | P | MEDIUM |
+| `cyc:technical-architecture` | P | P | P | P | P | P | P | P | P | P | P | P | COMPLET |
+| `cyc:integration-devops` | P | P | P | P | P | P | P | P | P | P | P | P | MEDIUM |
+| `cyc:delivery` | P | P | P | P | P | P | P | P | P | P | P | P | MEDIUM |
+| `cyc:qa-validation` | P | P | P | P | P | P | P | P | P | P | P | P | COMPLET |
+| `cyc:security` | P | P | P | P | P | P | P | P | P | P | P | P | COMPLET |
+| `cyc:release` | P | P | P | P | P | P | P | P | P | P | P | P | MEDIUM |
+| `cyc:observability` | P | P | P | P | P | P | P | P | P | P | P | P | MEDIUM |
+| `cyc:pr-readiness` | P | P | P | P | P | P | P | P | P | P | P | P | LEAN |
+| `cyc:post-merge` | P | P | P | P | P | P | P | P | P | P | P | P | LEAN |
+| `cyc:capitalization` | P | P | P | P | P | P | P | P | P | P | P | P | MEDIUM |
 
 ### Transitions candidates (non prescriptives)
 
@@ -2428,31 +2685,31 @@ Légende : `U` = UNASSESSED (prêt pour revue externe)
 | Champ | Valeur |
 | --- | --- |
 | **Convention decision** | **ADOPTED BY MORRIS** — `ckc:studio:{cycle-type-token}` · **CKC-ID-CONVENTION CLOSED** (2026-08-21) |
-| **X23 prep status** | **PREPARED / UNASSESSED** — porte sur la **vérification de cohérence** du corpus, **pas** sur l'existence de la décision Morris |
+| **X23** | **PASS** — `ckc:studio:{cycle-type-token}` · 15/15 exact · 0 collision · contractVersion independent |
 | Collision | **NONE** |
 | Dérivation | `ckcId = "ckc:studio:" + cycleTypeId.removePrefix("cyc:")` · 15/15 |
 | `contractVersion` | `0.1.0` indépendant · inchangé |
-| Anti-claim | IDENTITY ADOPTED ≠ CONTENT VALIDATED |
+| Anti-claim | Cross validation **PASS** ≠ DoctrinePackage integrated ≠ runtime resolved ≠ runtime v3 ADOPTED |
 ## Package-boundary
 
 Chaque CKC individuel ne contient pas comme autorité propre : packageId · package pin · resolved digest · allowlist · catalogSnapshot.
 
 ## Anti-claims
 
-Cross PREPARED ≠ corpus VALIDATED · matrice U ≠ PASS Morris · ZERO REAL · runtime v3 NON ADOPTED.
+Cross validation **PASS** ≠ DoctrinePackage integrated ≠ runtime resolved ≠ Nora proven ≠ runtime v3 ADOPTED · ZERO REAL.
 ````
 
 ---
 
-## 9. Synthèse
+## 10. Synthèse
 
 | Claim autorisé | |
 | --- | --- |
-| Identity convention ADOPTED & applied | OUI |
-| CKC-ID-CONVENTION CLOSED | OUI |
-| Ready for ChatGPT final identity/content readiness review | OUI |
+| 15/15 CONTENT VALIDATED BY MORRIS | OUI |
+| Atomic promotion complete locally | OUI |
+| Eligible subsequent DoctrinePackage inclusion/resolution | OUI |
+| Ready for ChatGPT validation-sync review | OUI |
 
 | Claim interdit | Non utilisé |
 | --- | --- |
-| CONTENT VALIDATED / CORPUS PROMOTED | — |
-| DP INTEGRATED / RUNTIME / READY / REAL / V3 ADOPTED | — |
+| DP integrated / runtime resolved / Nora proven / Product READY / REAL / v3 ADOPTED | — |
