@@ -4,12 +4,12 @@
 | Field | Value |
 | --- | --- |
 | **Review level** | **FULL** |
-| **Timestamp** | 2026-08-21 16:07:07 CEST |
-| **Repo / pwd** |  /  |
-| **Branch** |  · **NOT PUSHED** |
-| **HEAD** |  |
-| **origin/main** |  |
-| **Main match expected** |  · **YES** |
+| **Timestamp** | 2026-08-21 16:08:01 CEST |
+| **Repo / pwd** | `mcleland147/sfia-workspace` / `/Users/morris/Projects/sfia-workspace` |
+| **Branch** | `method/sfia-ckc-15-validation-framing` · **NOT PUSHED** |
+| **HEAD** | `09f0dfa81a327da148459c69c609c9ca17a9f701` |
+| **origin/main** | `09f0dfa81a327da148459c69c609c9ca17a9f701` |
+| **Main match expected** | `09f0dfa81a327da148459c69c609c9ca17a9f701` · **YES** |
 | **Cycle** | Consolidation foundation / documentary validation synchronization |
 | **Subject** | SFIA Studio v3 CKC Runtime Cognitive Contracts framing |
 | **Profile** | **CRITICAL** |
@@ -27,9 +27,9 @@
 | origin/main drifted | **NO** |
 | Tracked modifications | **NONE** |
 | Staged | **NONE** |
-| Framing path |  · **untracked** (local) |
+| Framing path | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/06-fifteen-ckc-validation-framing.md` · **untracked** (local) |
 | Canonical CKC dir created | **NO** |
-| Unrelated preserved |  ·  ·  |
+| Unrelated preserved | `.tmp-sfia-review/` · `projects/eventops-poc/` · `projects/flex-office-demo/` |
 
 ---
 
@@ -37,7 +37,7 @@
 
 ### A. Framing validation — CONSUMED
 
-VALIDATE D-CKC15-01…14 · hard Method v2.6 / Studio v3 separation · Studio-native CKC role · CORE grammar · COMPLET/MEDIUM/LEAN · Observability MEDIUM · VALIDATED = content-level only · fixtures + Nora adequacy · 100% pinned catalog snapshot · KEEP+HARVEST method · intra-DP v3 fallback only · canonical path  · atomic promotion · KEEP/FREEZE/MAINTAIN v2.6 · Studio CKC before Product Backlog.
+VALIDATE D-CKC15-01…14 · hard Method v2.6 / Studio v3 separation · Studio-native CKC role · CORE grammar · COMPLET/MEDIUM/LEAN · Observability MEDIUM · VALIDATED = content-level only · fixtures + Nora adequacy · 100% pinned catalog snapshot · KEEP+HARVEST method · intra-DP v3 fallback only · canonical path `projects/sfia-studio/sfia-v3-framing/ckc/**` · atomic promotion · KEEP/FREEZE/MAINTAIN v2.6 · Studio CKC before Product Backlog.
 
 **Authority / date :** Morris · **2026-08-21 Europe/Paris**
 **Framing VALIDATED ONLY** · no Studio CKC created · no runtime · no DP · no Backlog · ZERO REAL · runtime v3 NON ADOPTED.
@@ -52,18 +52,18 @@ Record validation in exact framing · local sync only · then ChatGPT review bef
 
 ## 3. Sources read (read-only)
 
--
--
--
--
--
--
--
--
--
--
--
--
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
+- `projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md`
+- `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md`
+- `projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md`
+- `projects/sfia-studio/sfia-v3-framing/31-doctrine-package-and-source-resolution.md`
+- `projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md`
+- `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md`
+- `projects/sfia-studio/sfia-v3-framing/37-studio-v3-foundations-and-consolidation-decision-pack.md`
 - Prior corrected framing (R-CKC-01/02/03) + previous Review Handoff
 
 ---
@@ -83,8 +83,8 @@ Record validation in exact framing · local sync only · then ChatGPT review bef
 
 | Field | Value |
 | --- | --- |
-| Previous handoff commit |  |
-| Previous handoff blob |  |
+| Previous handoff commit | `328a97d468a4f169ed05cc985f89b095ea345e66` |
+| Previous handoff blob | `0203bac32050d336e50d3ea2177ba90250f19084` |
 | Match expected | **YES** |
 | Prior content | R-CKC-01/02/03 CLOSED · framing correction PASS · awaiting Morris framing validation |
 
@@ -96,7 +96,7 @@ Record validation in exact framing · local sync only · then ChatGPT review bef
 | --- | --- | --- |
 | Status | FRAMING CANDIDATE / AWAITING MORRIS VALIDATION | **VALIDATED BY MORRIS — LOCAL DOCUMENTARY SYNC — NOT YET INTEGRATED ON MAIN** |
 | D-CKC15-01…14 | Candidate / Decision required | **ADOPTED / VALIDATED BY MORRIS** |
-| D-CKC15-11 path | Recommendation Option A · Morris-gated | **ADOPTED**  · not materialized |
+| D-CKC15-11 path | Recommendation Option A · Morris-gated | **ADOPTED** `projects/sfia-studio/sfia-v3-framing/ckc/**` · not materialized |
 | Next gate | Morris framing validation | **ChatGPT documentary sync review** → distinct Git integration GO → later distinct authoring GO |
 
 ---
@@ -115,7 +115,7 @@ Record validation in exact framing · local sync only · then ChatGPT review bef
 | D-CKC15-08 | 100% pinned Cycle Catalog snapshot · 15 non-invariant (R-CKC-03) | **ADOPTED / VALIDATED BY MORRIS** |
 | D-CKC15-09 | KEEP method + HARVEST · never Studio SoT | **ADOPTED / VALIDATED BY MORRIS** |
 | D-CKC15-10 | Intra-DoctrinePackage v3 only · no runtime v2.6 fallback | **ADOPTED / VALIDATED BY MORRIS** |
-| D-CKC15-11 | Canonical path  | **ADOPTED / VALIDATED BY MORRIS** · path ≠ materialized |
+| D-CKC15-11 | Canonical path `projects/sfia-studio/sfia-v3-framing/ckc/**` | **ADOPTED / VALIDATED BY MORRIS** · path ≠ materialized |
 | D-CKC15-12 | Atomic corpus validation/promotion vs pinned snapshot | **ADOPTED / VALIDATED BY MORRIS** |
 | D-CKC15-13 | Method KEEP/FREEZE/MAINTAIN · no default v2.6 sync | **ADOPTED / VALIDATED BY MORRIS** |
 | D-CKC15-14 | Studio CKC initiative before Product Backlog | **ADOPTED / VALIDATED BY MORRIS** · Backlog not opened |
@@ -179,11 +179,11 @@ ZERO REAL · runtime v3 NON ADOPTED · no Backlog · no Delivery
 
 | Check | Result |
 | --- | --- |
-| Modified project file | **ONLY**  (untracked) |
+| Modified project file | **ONLY** `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/06-fifteen-ckc-validation-framing.md` (untracked) |
 | Other project files | **NONE** |
 | Staged | **NONE** |
-|  | clean (no tracked diff) |
-| Document sha256 |  |
+| `git diff --check` | clean (no tracked diff) |
+| Document sha256 | `ac781106f0e50f2ba7abe9a408a4ddccba7a72574557de685204226c74320d95` |
 | Scope drift | **NO** |
 
 ---
@@ -194,7 +194,8 @@ ZERO REAL · runtime v3 NON ADOPTED · no Backlog · no Delivery
 - Canonical directory deliberately **not** created.
 - Runtime still references method-candidate assets (transitional · read-only this pass).
 - No project commit/push/PR authorized by this sync.
-- Trailing markdown hard-break spaces stripped for handoff  compliance.
+- First handoff publish `50ceb8ab…` had shell-corrupted metadata fields; this pack corrects them (content document was already complete).
+- Trailing markdown hard-break spaces stripped for handoff `git diff --check` compliance.
 
 ---
 
@@ -206,10 +207,10 @@ ZERO REAL · runtime v3 NON ADOPTED · no Backlog · no Delivery
 
 ## 15. COMPLETE MODIFIED DOCUMENT
 
-Path:
-SHA256:
+Path: `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/06-fifteen-ckc-validation-framing.md`
+SHA256: `ac781106f0e50f2ba7abe9a408a4ddccba7a72574557de685204226c74320d95`
 
-markdown
+````markdown
 # SFIA Studio v3 — CKC Runtime Cognitive Contracts — Current Catalog Framing
 
 | Métadonnée | Valeur |
@@ -1051,8 +1052,7 @@ This document does **not** :
 ---
 
 *STATUS = VALIDATED BY MORRIS — LOCAL DOCUMENTARY SYNC — NOT YET INTEGRATED ON MAIN · D-CKC15-01…14 ADOPTED · ZERO REAL · RUNTIME V3 NON ADOPTED · CANONICAL PATH ADOPTED ≠ MATERIALIZED · FRAMING PATH method ≠ STUDIO CKC TARGET PATH*
-
-
+````
 
 ---
 
