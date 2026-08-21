@@ -7,19 +7,30 @@
 | **Cycle** | Cadrage Studio — CKC Runtime Cognitive Contracts |
 | **Profil** | **CRITICAL** |
 | **Typologie** | **DOC** |
-| **Status** | **VALIDATED BY MORRIS — LOCAL DOCUMENTARY SYNC — NOT YET INTEGRATED ON MAIN** |
+| **Status** | **VALIDATED BY MORRIS — CANONICAL FRAMING** |
 | **Primary v3 capability** | **V3-F01 — CKC AS CANONICAL COGNITIVE LAYER** |
 | **Supporting foundations** | V3-F02 · V3-F03 · V3-F04 · V3-F05 · V3-F06 · V3-F07 · V3-F08 · V3-F09 · V3-F14 · V3-F15 |
-| **Milestone** | SFIA STUDIO V3 — CKC RUNTIME COGNITIVE CONTRACTS — FRAMING VALIDATION SYNC |
+| **Milestone** | SFIA STUDIO V3 — CKC RUNTIME COGNITIVE CONTRACTS — CANONICAL FRAMING STABILITY |
 | **Runtime v3** | **NON ADOPTED** |
-| **ZERO REAL** | **MANDATORY** |
-| **Git base** | `origin/main` @ `09f0dfa81a327da148459c69c609c9ca17a9f701` |
-| **Branch locale** | `method/sfia-ckc-15-validation-framing` · **NOT PUSHED** |
-| **Morris framing validation** | **CONSUMED** — VALIDATE D-CKC15-01…14 · **2026-08-21 Europe/Paris** |
-| **Morris documentary sync GO** | **CONSUMED** — record validation in exact framing · local sync only · no authoring / runtime / DP integration / Backlog |
+| **ZERO REAL** | **MANDATORY** under this framing work |
 | **D-CKC15-01…14** | **ADOPTED / VALIDATED BY MORRIS** |
-| **Canonical Studio CKC path (documentary target)** | `projects/sfia-studio/sfia-v3-framing/ckc/**` · **ADOPTED BY MORRIS** · directory/files **NOT CREATED** |
-| **Note d’emplacement** | Ce fichier est le **véhicule historique de cadrage** créé depuis l’initiative method CKC. Il enregistre la validation Morris. **Ce chemin method n’est PAS** le chemin Studio CKC cible (`sfia-v3-framing/ckc/**`). Path adopted ≠ path materialized. |
+| **Canonical Studio CKC path (documentary target)** | `projects/sfia-studio/sfia-v3-framing/ckc/**` · **ADOPTED BY MORRIS** · directory/files **NOT CREATED BY THIS FRAMING** |
+| **Repository transport / PR / CI / review state** | **RESOLVE FROM CURRENT GIT + LATEST QUALIFIED REVIEW HANDOFF** — not persisted as canonical current state |
+| **Note d’emplacement** | Ce fichier est le **véhicule historique de cadrage** créé depuis l’initiative method CKC. Il enregistre la validation Morris. **Ce chemin method n’est PAS** le chemin Studio CKC cible (`sfia-v3-framing/ckc/**`). Path adopted ≠ path materialized. Framing validated ≠ Studio CKC authored. |
+
+### Historical framing integration proof (immutable provenance)
+
+| Evidence | Value |
+| --- | --- |
+| **Historical framing integration** | **PR #385** · MERGED |
+| **Source head** | `ed6e3cbac285e1a952e0132e8bdfafe944458d5a` |
+| **Historical framing integration merge** | `377aba895080ac91eb6891d8ddd661598f834036` |
+| **Merged at** | **2026-08-21 16:18:45 CEST** (`2026-08-21T14:18:45Z`) |
+| **Source branch (historical)** | `method/sfia-ckc-15-validation-framing` · PUSHED / MERGED via PR #385 |
+| **Historical PR #385 CI** | run `32491011925` · **SUCCESS** · head `ed6e3cba…` |
+| **Historical post-merge CI observation** | At **2026-08-21** observation time · no applicable post-merge workflow run resolved for merge `377aba89…` · PR CI SUCCESS ≠ post-merge CI SUCCESS · **current CI** = resolve from Git when needed |
+| **Morris framing validation** | **CONSUMED** — VALIDATE D-CKC15-01…14 · **2026-08-21 Europe/Paris** |
+| **Morris Ready/Merge (PR #385)** | **CONSUMED** — historical |
 
 ---
 
@@ -64,7 +75,8 @@ Définir le **cadrage Studio-native** permettant de construire, valider et promo
 - ≠ modifier C1/C2/UX/FA/v3 framing · Build Doctrine · Roadmap
 - ≠ migration · implementation · Backlog · Delivery · REAL
 - ≠ runtime v3 ADOPTED
-- ≠ commit / push / PR / merge projet
+- ≠ Studio CKC authoring / canonical `ckc/` materialization without distinct Morris GO
+- ≠ open Product Backlog · Delivery · REAL by this framing
 - ≠ adopter silencieusement un chemin source runtime
 - ≠ matérialiser `projects/sfia-studio/sfia-v3-framing/ckc/` sans GO d’authoring distinct (path ADOPTED ≠ materialized)
 
@@ -76,11 +88,13 @@ Définir le **cadrage Studio-native** permettant de construire, valider et promo
 | --- | --- |
 | **Primary capability** | **V3-F01** — CKC as canonical cognitive layer |
 | **Supporting** | F02 LPS · F03 DoctrinePackage · F04 Epistemology · F05 Conv→Dec→Exec · F06 Trajectory · F07 Provenance · F08 Contradictions · F09 Replanning · F14 Evidence · F15 Claims/maturity |
-| **Current state** | Framing content reviewed PASS by ChatGPT · D-CKC15-01…14 **ADOPTED / VALIDATED BY MORRIS** · framing local sync **NOT YET ON MAIN** · Studio CKC corpus **does not exist** · runtime still transitional on method CKCs · Product Backlog **unopened** · runtime v3 **NON ADOPTED** |
-| **Gap closed by this sync** | Morris validation not previously recorded in the exact framing candidate · now recorded |
-| **Critical path** | documentary validation sync → ChatGPT review → distinct Git integration GO → Git integration / post-merge truth → distinct CKC authoring GO → Studio CKC corpus for pinned catalog snapshot → individual/cross validation → Morris content validation → later DoctrinePackage/runtime integration → Nora consumption proof → Product Completion requalification |
-| **No Product Backlog now** | **YES** |
-| **Framing decisions** | **D-CKC15-01…14 ADOPTED / VALIDATED BY MORRIS** · framing content **VALIDATED BY MORRIS** · local sync **NOT YET ON MAIN** |
+| **Current state** | Framing content **VALIDATED BY MORRIS** · D-CKC15-01…14 **ADOPTED** · historical integration proven by PR #385 / merge `377aba89…` · Studio CKC corpus **not created by this framing** · no authoring authority yet · runtime still transitional on method CKCs · Product Backlog **not authorized/opened by this framing** · runtime v3 **NON ADOPTED** · canonical path **ADOPTED** but **not materialized** |
+| **Repository transport rule** | Live branch / PR / CI / review / handoff transport state = **RESOLVE FROM CURRENT GIT + LATEST QUALIFIED REVIEW HANDOFF** · not persisted here as canonical current state |
+| **Forward product / construction trajectory** | fresh applicable Cycle Catalog snapshot qualification → pin applicable catalog snapshot → **distinct Morris CKC authoring GO** → Studio CKC corpus authoring → individual validation → cross-contract validation → Morris content validation → DoctrinePackage/runtime integration qualification → Nora semantic-consumption proof → Product Completion requalification → only then reconsider Product Backlog |
+| **Historical consumed (provenance)** | documentary validation · Morris framing validation · PR #385 Ready/Merge · framing bytes integrated via historical merge `377aba89…` |
+| **No Product Backlog by this framing** | **YES** |
+| **Catalog pin by this framing** | **NOT PERFORMED / NOT ADOPTED** |
+| **Framing decisions** | **D-CKC15-01…14 ADOPTED / VALIDATED BY MORRIS** · framing content **VALIDATED BY MORRIS — CANONICAL FRAMING** |
 
 ---
 
@@ -585,7 +599,7 @@ No directory / index / CKC file / allowlist / source-routing change in this docu
 | Resolver proves resolution/fallback but not full Studio-native semantic consumption | **QUALIFY / ADAPT later** |
 | Nora context composition | **QUALIFY / likely COMPLETE later** |
 
-**DO NOT modify runtime in this pass.**
+**DO NOT modify runtime by this framing.**
 
 ### Future exit
 
@@ -620,7 +634,7 @@ validated Studio CKC corpus
 | Nora context composition | **QUALIFY / likely COMPLETE** |
 | Modeled schemas | **AUDIT first** · no schema invention here |
 | v3 framing docs | possible documentary sync **AFTER** validated decisions · separate GO |
-| Build Doctrine / Roadmap / Product Completion | **NO CHANGE** in this framing pass |
+| Build Doctrine / Roadmap / Product Completion | **NO CHANGE** by this framing |
 
 ---
 
@@ -633,15 +647,18 @@ validated Studio CKC corpus
 | Product next-cycle requalification | executed (conversation) |
 | Previous product recommendation | future durability-centered Backlog · **NOT ADOPTED** |
 | Morris ordering | **STUDIO CKC FIRST BEFORE PRODUCT BACKLOG** (D-CKC15-14 **ADOPTED**) |
-| Framing | **VALIDATED BY MORRIS** |
-| Documentary sync | **LOCAL** · awaiting ChatGPT review before Git integration |
-| Studio CKC corpus | **NOT CREATED** |
-| Product Backlog | **NOT OPENED** |
+| Framing | **VALIDATED BY MORRIS** · historical integration proof = PR #385 / merge `377aba895080ac91eb6891d8ddd661598f834036` |
+| Repository transport state | **RESOLVE FROM CURRENT GIT + LATEST QUALIFIED REVIEW HANDOFF** · no repository transport gate persisted as Product trajectory |
+| Studio CKC corpus | **NOT CREATED BY THIS FRAMING** |
+| Product Backlog | **NOT AUTHORIZED / NOT OPENED BY THIS FRAMING** |
+| Durability-centered Backlog | **NOT ADOPTED** |
+| Catalog snapshot pin | **NOT PERFORMED BY THIS FRAMING** |
 
 ### Prerequisite wording (D-CKC15-14 ADOPTED)
 
 Studio CKC framing **VALIDATED BY MORRIS**
-→ (after Git integration + post-merge truth) distinct Morris GO → Studio CKC corpus built for **pinned applicable Cycle Catalog snapshot**
+→ fresh applicable Cycle Catalog qualification / pin
+→ **distinct Morris GO** → Studio CKC corpus built for **pinned applicable Cycle Catalog snapshot**
 → cross-validated
 → Morris **content** validated (`validated` = eligible for DP inclusion/resolution · ≠ runtime proven)
 → appropriate DoctrinePackage/runtime integration qualification
@@ -650,14 +667,15 @@ Studio CKC framing **VALIDATED BY MORRIS**
 → Product Completion requalification
 → only then consider Backlog
 
-**Do not state :** CKC authoring authorized by framing validation · Backlog selected · Durable Governed Continuity adopted · Delivery authorized.
+**Do not state :** CKC authoring authorized by framing validation · catalog already pinned · Backlog selected · Durable Governed Continuity adopted · Delivery authorized.
+
 ---
 
 ## 30. Morris Decision Pack — D-CKC15-01…14 ADOPTED / VALIDATED BY MORRIS
 
 **Authority :** Morris · **2026-08-21 Europe/Paris**
 **Framing validation decision consumed.**
-**Documentary sync GO consumed** (local record only · ≠ Git integration · ≠ authoring · ≠ runtime).
+**Historical framing validation / PR #385 Ready+Merge consumed** · **≠** authoring · **≠** runtime · **≠** DoctrinePackage · **≠** catalog pin.
 
 Historical candidate/recommendation language for these decisions is **SUPERSEDED** as open choice. Decision content preserved.
 
@@ -738,44 +756,57 @@ Historical candidate/recommendation language for these decisions is **SUPERSEDED
 
 ---
 
-## 31. Exit proof of documentary validation sync
+## 31. Exit proofs
 
-LOCAL DOCUMENTARY SYNC READY FOR CHATGPT REVIEW if :
+### 31.A HISTORICAL — documentary validation sync (SATISFIED PRE-PR #385)
 
-1. Framing status = **VALIDATED BY MORRIS — LOCAL DOCUMENTARY SYNC — NOT YET INTEGRATED ON MAIN** — **YES**
-2. D-CKC15-01…14 recorded **ADOPTED / VALIDATED BY MORRIS** — **YES**
-3. v2.6 / Studio corpus separation preserved — **YES**
-4. Method CKCs KEEP / FREEZE / MAINTAIN preserved — **YES**
-5. Studio-native canonical role recorded adopted — **YES**
-6–15. Semantic grammar / depth / extensions / validated semantics / protocol / coverage / harvest / fallback / path / atomic promotion / v2.6 / trajectory prerequisite recorded adopted — **YES**
-16. Canonical path `projects/sfia-studio/sfia-v3-framing/ckc/**` recorded · directory **NOT** created — **YES**
-17. R-CKC-01 / 02 / 03 remain **CLOSED** — **YES**
-18. No Studio CKC created — **YES**
-19. No runtime / DoctrinePackage modified — **YES**
-20. Product Backlog unopened — **YES**
-21. ZERO REAL · runtime v3 **NON ADOPTED** — **YES**
-22. Git project commit/push/PR **not** performed — **YES**
+Pre-integration checklist (historical provenance only):
+
+1. Framing status then recorded as VALIDATED BY MORRIS pending Git integration — **YES (then)**
+2. D-CKC15-01…14 ADOPTED / VALIDATED BY MORRIS — **YES**
+3–21. Separation · KEEP/FREEZE/MAINTAIN · grammar · depth · R-CKC · no Studio CKC · no DP/runtime · Backlog unopened · ZERO REAL · NON ADOPTED — **YES**
+22. Git project commit/push/PR not performed — **YES (then · HISTORICAL)**
+
+### 31.B CANONICAL FRAMING STABILITY INVARIANTS
+
+These invariants must remain true across ordinary future repository transport (branch / Ready / merge / CI / handoff advance) without requiring another truth-only edit:
+
+1. Framing content **VALIDATED BY MORRIS**.
+2. D-CKC15-01…14 **ADOPTED**.
+3. R-CKC-01 / 02 / 03 **CLOSED**.
+4. Hard Method v2.6 / Studio v3 separation preserved.
+5. Method CKCs **KEEP / FREEZE / MAINTAIN**.
+6. Canonical Studio CKC path **ADOPTED** · not materialized by this framing.
+7. Studio CKC corpus **not created by this framing validation**.
+8. Content **VALIDATED** ≠ package integrated / runtime resolved / Nora proven / Product READY / runtime ADOPTED.
+9. 100% coverage applies to a **pinned applicable catalog snapshot** · not a moving repository count.
+10. Repository branch / PR / CI / review transport state **resolves from current Git + latest qualified Review Handoff**.
+11. Canonical framing does **NOT** encode its own live transport gate.
+12. Forward construction prerequisite = **fresh catalog qualification/pin** + **distinct Morris authoring GO**.
+13. No Backlog / Delivery / REAL authorization from this framing.
+14. Runtime v3 **NON ADOPTED**.
 
 ---
 
-## 32. Current / next gates
+## 32. Repository governance + forward product gate
 
-### CURRENT GATE (framing validation CONSUMED)
+### A. Repository governance rule
 
-**ChatGPT review** of this documentary validation sync.
+Live repository transport / PR / CI / review gates are **resolved from current Git and the latest qualified Review Handoff**. They are **not** persisted here as canonical current state.
 
-### If PASS — NEXT GATE
+Historical immutable integration proofs (e.g. PR #385 / merge `377aba89…`) may remain as provenance.
 
-**Distinct Morris Git integration authorization** for the exact framing document
-(validation decision ≠ Git integration authorization).
+### B. Forward product / construction gate
 
-### Only after Git integration + post-merge truth — FUTURE GATE
+**Next capability prerequisite :** fresh applicable Cycle Catalog snapshot qualification / pin.
 
-**Distinct Morris GO** to start Studio CKC authoring against a freshly qualified/pinned applicable Cycle Catalog snapshot.
+**Then :** **DISTINCT MORRIS GO** required before Studio CKC authoring.
 
 **No auto-start.**
 
-**NOT YET AUTHORIZED :** Studio CKC creation · `sfia-v3-framing/ckc/` materialization · DoctrinePackage integration · runtime adaptation · Product Backlog · Delivery · REAL · runtime v3 ADOPTED.
+Catalog pin is **not** selected or adopted by this framing document.
+
+**Not authorized by this framing :** Studio CKC creation · `sfia-v3-framing/ckc/` materialization · DoctrinePackage integration · runtime adaptation · Product Backlog · Delivery · REAL · runtime v3 ADOPTED.
 
 ---
 
@@ -784,12 +815,13 @@ LOCAL DOCUMENTARY SYNC READY FOR CHATGPT REVIEW if :
 | Claim | Truth |
 | --- | --- |
 | **FRAMING VALIDATED** | ≠ **STUDIO CKC CORPUS CREATED** |
-| **D-CKC15-01…14 ADOPTED** | ≠ **CKC CONTENT 15/15 VALIDATED** |
+| **Historical framing integration (PR #385)** | ≠ **STUDIO CKC AUTHORING AUTHORIZED** |
+| **D-CKC15-01…14 ADOPTED** | ≠ **CKC CONTENT CORPUS VALIDATED** |
 | **Canonical source path adopted** | ≠ **directory/files created** |
 | Studio CKC content VALIDATED later | ≠ DoctrinePackage integrated |
 | DoctrinePackage integrated | ≠ Nora consumption proven |
 | Nora consumption proven | ≠ Product Completion READY automatically |
-| Technical SUCCESS | ≠ runtime v3 ADOPTED |
+| Technical SUCCESS / historical PR CI SUCCESS | ≠ runtime v3 ADOPTED · ≠ live CI invented |
 | CKC | ≠ HumanDecision ≠ authority ≠ Confirmation ≠ ExecutionContract ≠ Evidence ≠ LPS ≠ ProjectTrajectory |
 | Method v2.6 CKCs | **KEEP / FREEZE / MAINTAIN** |
 | Target Studio fallback | **NO** runtime v2.6 fallback · intra-DoctrinePackage v3 only |
@@ -802,40 +834,43 @@ This document does **not** :
 - claim CKC body owns DoctrinePackage pin or resolved digest
 - claim atomic 100% against a moving repository count
 - change v2.6 routing/template · open Product Backlog
-- authorize Delivery / REAL / implementation / Git project integration
+- authorize Delivery / REAL / implementation / Studio CKC authoring
+- pin an applicable Cycle Catalog snapshot
+- persist live branch / Draft PR / current review / current CI as canonical product state
 - adopt runtime v3 · treat Nora Recommendation as HumanDecision · treat CKC as authority
 - claim 15 is a structural Studio invariant
-- claim framing integrated on main
 
 ---
 
-## 34. Final sync status model
+## 34. Final status model
 
 | Assertion | State |
 | --- | --- |
 | CKC Studio framing content | **VALIDATED BY MORRIS** |
 | D-CKC15-01…14 | **ADOPTED BY MORRIS** |
-| Framing local document | **SYNCHRONIZED** |
-| Framing integrated on main | **NO / NOT YET** |
+| Historical framing integration | **PR #385** / merge `377aba895080ac91eb6891d8ddd661598f834036` |
+| Repository transport / PR / CI / review state | **RESOLVE FROM CURRENT GIT + LATEST QUALIFIED REVIEW HANDOFF** |
 | Method CKC v2.6 | **KEEP / FREEZE / MAINTAIN** |
-| Studio CKC corpus | **NOT CREATED** |
-| Studio CKC content 15/15 | **NOT VALIDATED** |
+| Studio CKC corpus | **NOT CREATED BY THIS FRAMING** |
+| Studio CKC content corpus | **NOT YET VALIDATED** |
 | Canonical Studio CKC path | **ADOPTED** `projects/sfia-studio/sfia-v3-framing/ckc/**` |
-| Canonical path materialized | **NO / NOT YET** |
-| DoctrinePackage integration | **NOT PERFORMED** |
-| Runtime CKC integration | **NOT PERFORMED** |
+| Canonical path materialized | **NO** — requires distinct authorized authoring action |
+| DoctrinePackage integration | **NOT AUTHORIZED / NOT PERFORMED BY THIS FRAMING** |
+| Runtime CKC integration | **NOT AUTHORIZED / NOT PERFORMED BY THIS FRAMING** |
 | Nora consumption | **NOT PROVEN** |
-| Product Backlog | **NOT OPENED** |
+| Product Backlog | **NOT AUTHORIZED / NOT OPENED BY THIS FRAMING** |
 | Delivery | **NOT AUTHORIZED** |
-| REAL | **ZERO** |
+| REAL | **ZERO** under this framing work |
 | Runtime v3 | **NON ADOPTED** |
+| Forward prerequisite | fresh applicable Cycle Catalog qualification/pin → distinct Morris authoring GO |
+| Catalog pin | **NOT PERFORMED BY THIS FRAMING** |
 
 ---
 
 ## 35. Final framing verdict
 
-**SFIA STUDIO V3 CKC FRAMING DOCUMENTARY VALIDATION SYNC PASS — FRAMING RECORDED VALIDATED BY MORRIS — D-CKC15-01…14 RECORDED ADOPTED — HARD METHOD V2.6 / STUDIO V3 CORPUS SEPARATION PRESERVED — STUDIO-NATIVE NORA COGNITIVE GRAMMAR ADOPTED — VALIDATED SEMANTICS PRESERVED AS CONTENT-LEVEL ONLY — PINNED CYCLE CATALOG COVERAGE RULE PRESERVED — CANONICAL STUDIO CKC SOURCE LOCATION RECORDED AS projects/sfia-studio/sfia-v3-framing/ckc/** — METHOD V2.6 CKCS KEEP / FREEZE / MAINTAIN — R-CKC-01/02/03 REMAIN CLOSED — NO STUDIO CKC CREATED — NO CANONICAL DIRECTORY CREATED — NO DOCTRINEPACKAGE INTEGRATION — NO RUNTIME MODIFICATION — NO PRODUCT BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED — LOCAL DOCUMENTARY SYNC ONLY — READY FOR CHATGPT REVIEW BEFORE DISTINCT GIT INTEGRATION GO.**
+**SFIA STUDIO V3 CKC RUNTIME COGNITIVE CONTRACTS FRAMING VALIDATED BY MORRIS — D-CKC15-01…14 ADOPTED — R-CKC-01/02/03 CLOSED — HARD METHOD V2.6 / STUDIO V3 CORPUS SEPARATION ADOPTED — METHOD V2.6 CKCS KEEP / FREEZE / MAINTAIN — STUDIO-NATIVE NORA COGNITIVE CONTRACT GRAMMAR ADOPTED — CONTENT VALIDATION DISTINCT FROM RUNTIME MATURITY — 100% COVERAGE DEFINED AGAINST PINNED APPLICABLE CYCLE CATALOG SNAPSHOT — CANONICAL STUDIO CKC PATH projects/sfia-studio/sfia-v3-framing/ckc/** ADOPTED — HISTORICAL FRAMING INTEGRATION PROVEN BY PR #385 / MERGE 377aba895080ac91eb6891d8ddd661598f834036 — LIVE REPOSITORY TRANSPORT / PR / CI / REVIEW STATE RESOLVES FROM CURRENT GIT + LATEST QUALIFIED REVIEW HANDOFF — NO STUDIO CKC CORPUS CREATED BY THIS FRAMING — NO DOCTRINEPACKAGE/RUNTIME INTEGRATION AUTHORIZED BY THIS FRAMING — NO PRODUCT BACKLOG / DELIVERY / REAL AUTHORIZED — RUNTIME V3 NON ADOPTED — NEXT PRODUCT PREREQUISITE = FRESH APPLICABLE CYCLE CATALOG QUALIFICATION/PIN → DISTINCT MORRIS CKC AUTHORING GO.**
 
 ---
 
-*STATUS = VALIDATED BY MORRIS — LOCAL DOCUMENTARY SYNC — NOT YET INTEGRATED ON MAIN · D-CKC15-01…14 ADOPTED · ZERO REAL · RUNTIME V3 NON ADOPTED · CANONICAL PATH ADOPTED ≠ MATERIALIZED · FRAMING PATH method ≠ STUDIO CKC TARGET PATH*
+*STATUS = VALIDATED BY MORRIS — CANONICAL FRAMING · D-CKC15-01…14 ADOPTED · ZERO REAL UNDER THIS FRAMING · RUNTIME V3 NON ADOPTED · CANONICAL PATH ADOPTED ≠ MATERIALIZED · TRANSPORT STATE = RESOLVE FROM GIT + REVIEW HANDOFF · FRAMING PATH method ≠ STUDIO CKC TARGET PATH*
