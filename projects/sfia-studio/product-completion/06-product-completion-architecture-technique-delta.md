@@ -8,21 +8,25 @@
 | **Profile** | **CRITICAL** |
 | **Typology** | **DOC** |
 | **Milestone** | PRODUCT COMPLETION — CYCLE 6 — TARGETED TECHNICAL ARCHITECTURE DELTA — TRUTH & AUTHORITY DURABILITY |
-| **Git base** | `origin/main` @ `641cf9b3ed6c0f879c932bfe535ed4876ee08969` (PR **#382** merge — C6 Targeted Technical Architecture) |
-| **Post-merge CI entry proof** | SFIA Studio CI run **`32470240316`** · event `push` · branch `main` · headSha `641cf9b3…` · conclusion **success** |
+| **Git base** | `origin/main` @ `e21803b1b316627a9dc917465707e96443378913` (PR **#383** merge — C6 documentary closure) |
+| **Post-merge CI entry proof** | SFIA Studio CI run **`32473181947`** · event `push` · branch `main` · headSha `e21803b1…` · conclusion **success** |
 | **Morris start GO** | **CONSUMED** — GO MORRIS — START CYCLE 6 TARGETED TECHNICAL ARCHITECTURE DELTA — ARCHITECTURE / ANALYSIS ONLY |
 | **Morris architecture validation** | **CONSUMED** — MORRIS VALIDATION — CYCLE 6 TARGETED TECHNICAL ARCHITECTURE — ADOPT C6-R1 CONSOLIDATED ARCHITECTURE DIRECTION · **2026-08-21 Europe/Paris** |
 | **ChatGPT final documentary review** | **PASS** |
 | **Morris Git integration GO** | **CONSUMED** — commit exact 2 files · push source branch · Draft PR #382 · later merge under distinct Morris gate |
 | **PR #382** | **MERGED** · source head `fe46d2c117e2c3314af885e1a19a0f0c4e4c3ce0` · merge `641cf9b3ed6c0f879c932bfe535ed4876ee08969` · PR CI `32469751405` **SUCCESS** · post-merge CI `32470240316` **SUCCESS** |
-| **Source branch** | `docs/sfia-studio-product-completion-c6-technical-architecture-delta` · **PRESERVED** (no delete) |
-| **Morris post-merge GO** | **CONSUMED** — GO MORRIS — C6 POST-MERGE DOCUMENTARY COHERENCE + EXIT QUALIFICATION ONLY |
-| **Morris C6 closure decision** | **CONSUMED** — GO MORRIS — ACCEPT C6 EXIT PROOF + CLOSE C6 TARGETED TECHNICAL ARCHITECTURE — TD-C6-01…06 REMAIN ADOPTED — AUTHORIZE DOCUMENTARY CLOSURE SYNC OF EXACT C6 + ROADMAP FILES — NO IMPLEMENTATION — NO MIGRATION — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED — THEN NEXT-CYCLE REQUALIFICATION, NO CAPABILITY AUTO-SELECTED |
+| **Original architecture source branch** | `docs/sfia-studio-product-completion-c6-technical-architecture-delta` @ `fe46d2c1…` · **PRESERVED** |
+| **Morris post-merge GO (architecture)** | **CONSUMED** — GO MORRIS — C6 POST-MERGE DOCUMENTARY COHERENCE + EXIT QUALIFICATION ONLY |
+| **Morris C6 closure decision** | **CONSUMED** — ACCEPT C6 EXIT PROOF + CLOSE C6 · TD-C6-01…06 REMAIN ADOPTED |
 | **C6 EXIT PROOF** | **ACCEPTED BY MORRIS** |
 | **C6 status** | **CLOSED BY MORRIS** · ≠ IMPLEMENTED · ≠ MIGRATED · ≠ runtime durability complete · ≠ BACKLOG · ≠ DELIVERY · ≠ REAL · ≠ Product Completion complete · ≠ RUNTIME V3 ADOPTED |
-| **Candidate status** | **C6 CONSOLIDATED TECHNICAL ARCHITECTURE — TD-C6-01…06 ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #382 — POST-MERGE TRUTH VERIFIED — EXIT PROOF ACCEPTED BY MORRIS — C6 CLOSED BY MORRIS — DOCUMENTARY CLOSURE SYNC LOCAL / NOT YET INTEGRATED ON MAIN — NOT IMPLEMENTED — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED** |
-| **Closure documentary sync** | **LOCAL — NOT YET INTEGRATED ON MAIN** · branch `docs/sfia-studio-product-completion-c6-post-merge-closure` · **NOT PUSHED** · **NO** project commit/push/PR in this pass |
-| **Branch (local closure)** | `docs/sfia-studio-product-completion-c6-post-merge-closure` · **NOT PUSHED** |
+| **PR #383** | **MERGED** · source head `c0cd769ea2054cee8794ca05175e7e870e50e9c7` · merge `e21803b1b316627a9dc917465707e96443378913` · PR CI `32472673361` **SUCCESS** · post-merge CI `32473181947` **SUCCESS** |
+| **Closure source branch** | `docs/sfia-studio-product-completion-c6-post-merge-closure` @ `c0cd769e…` · **PRESERVED** |
+| **Closure documentary sync** | **INTEGRATED ON MAIN VIA PR #383** |
+| **C6 POST-MERGE TRUTH** | **PASS / SATISFIED** (exact content blobs match · post-merge CI SUCCESS) |
+| **Morris post-merge truth GO** | **CONSUMED** — GO MORRIS — C6 POST-MERGE COHERENCE SYNC + TRUTH QUALIFICATION ONLY · **NO** project commit/push/PR in this pass |
+| **Candidate status** | **C6 CONSOLIDATED TECHNICAL ARCHITECTURE — TD-C6-01…06 ADOPTED BY MORRIS — ARCHITECTURE INTEGRATED ON MAIN VIA PR #382 — CLOSURE DOCUMENTATION INTEGRATED ON MAIN VIA PR #383 — POST-MERGE TRUTH SATISFIED — EXIT PROOF ACCEPTED BY MORRIS — C6 CLOSED BY MORRIS — FINAL DOCUMENTARY COHERENCE CANDIDATE LOCAL / AWAITING CHATGPT REVIEW + DISTINCT GIT INTEGRATION GATE — NOT IMPLEMENTED — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED** |
+| **Branch (local truth sync)** | `docs/sfia-studio-product-completion-c6-post-merge-truth-sync` · **NOT PUSHED** |
 | **Primary path** | `projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md` |
 | **Runtime v3** | **NON ADOPTED** |
 | **Delivery / Backlog / REAL** | **NOT AUTHORIZED** · **ZERO REAL** |
@@ -77,14 +81,15 @@ Concevoir **COMMENT** fermer, sous OA Native Backbone + Product SQLite existants
 | Champ | Contenu |
 | --- | --- |
 | **Capability v3** | Truth & Authority Durability — V3-F06 Trajectory · V3-F04/F08 Epistemology · V3-F07 Provenance · V3-F11/F12 Authority/execution governance · C1 semantic continuity |
-| **Current state** | C6 technical architecture **INTEGRATED ON MAIN** via PR **#382** (`641cf9b3…`) · source head `fe46d2c1…` · PR CI `32469751405` SUCCESS · post-merge CI `32470240316` SUCCESS · C6-R1 / TD-C6-01…06 **ADOPTED BY MORRIS** · ChatGPT final documentary review **PASS** · post-merge content truth **PASS** · **C6 EXIT PROOF ACCEPTED BY MORRIS** · **C6 CLOSED BY MORRIS** · documentary closure sync **LOCAL / NOT YET INTEGRATED ON MAIN** · **NOT IMPLEMENTED** · runtime implementation **OPEN / NOT AUTHORIZED** · runtime v3 **NON ADOPTED** |
+| **Current state** | Architecture **INTEGRATED ON MAIN** via PR **#382** · closure documentation **INTEGRATED ON MAIN** via PR **#383** (`e21803b1…` · head `c0cd769e…`) · PR CI `32472673361` SUCCESS · post-merge CI `32473181947` SUCCESS · content truth PASS · **C6 POST-MERGE TRUTH SATISFIED** · C6-R1 / TD-C6-01…06 **ADOPTED BY MORRIS** · **C6 EXIT PROOF ACCEPTED BY MORRIS** · **C6 CLOSED BY MORRIS** · final documentary coherence candidate **LOCAL / AWAITING CHATGPT REVIEW** · **NOT IMPLEMENTED** · runtime implementation **OPEN / NOT AUTHORIZED** · runtime v3 **NON ADOPTED** |
 | **Dependencies** | C1/C2/FA/UX integrated · Build Doctrine order aligned · Product SQLite M1–M5 durable backbone KEEP |
 | **Assets** | OA KEEP · Product SQLite KEEP · existing ports KEEP · Memory Trajectory/Confirmation/Epistemic → COMPLETE/ADAPT under adopted direction · Authority Memory + receipts QUALIFY |
 | **Gaps closed by C6 (design)** | Trajectory durability · Confirmation lifecycle from `granted` · selective Epistemic by materialization · AuthorityVerificationReceipt audit · U2/U2b execution checkpoints |
-| **Critical path** | **C6 DOCUMENTARY CLOSURE GIT INTEGRATION** (exact C6 + Roadmap · distinct later GO) → after Git-integrated closure truth revalidated → **NEXT-CYCLE REQUALIFICATION** · capability selection **NONE / NOT YET** · Delivery only under later distinct GO |
+| **Critical path** | Final documentary coherence ChatGPT review → distinct Git integration GO for this truth-sync candidate → then **NEXT-CYCLE REQUALIFICATION** · capability selection **NONE / NOT YET** · Delivery only under later distinct GO |
 | **Exit proof C6 (documentary)** | TD-C6-01…06 adopted · consolidated corrections applied · Review Pack FULL · no unauthorized implementation claims |
 | **Debt / exit** | Runtime durability remains OPEN until Delivery · H-01…H-04 CARRY · UAT OPEN · SC-02 NON-BLOCKING · Pre-M6 debt CARRY · M5-C journal debt OPEN |
-| **Next capability after C6 exit** | **NEXT-CYCLE REQUALIFICATION** · ≠ Backlog auto · ≠ Delivery auto |
+| **Next ordered step after C6 exit** | **NEXT-CYCLE REQUALIFICATION** — only after final documentary coherence record is Git-integrated · **NOT EXECUTED** · ≠ capability · ≠ Backlog auto · ≠ Delivery auto |
+| **Next capability** | **NONE / NOT YET** — to be determined only by NEXT-CYCLE REQUALIFICATION + applicable Morris decision/gate · next cycle **NOT SELECTED** |
 
 ---
 
@@ -642,22 +647,22 @@ Avoid overdocumentation: do not ADR already-decided OA/SQLite/ports.
 ### Remaining Morris / repository gates (NOT TD-C6-01…06)
 
 1. ~~ChatGPT final documentary review~~ → **PASS**
-2. ~~C6 documentary Git integration (commit/push/Draft PR)~~ → **CONSUMED**
-3. ~~PR readiness / merge of PR #382~~ → **COMPLETE** (MERGED · source branch **PRESERVED**)
-4. ~~Post-merge CI + content truth + exit qualification~~ → **PASS / SATISFIED**
-5. ~~Morris C6 CLOSURE decision~~ → **CONSUMED** · **C6 EXIT PROOF ACCEPTED BY MORRIS** · **C6 CLOSED BY MORRIS**
-6. **C6 DOCUMENTARY CLOSURE GIT INTEGRATION** (exact C6 + Roadmap · distinct later GO) — current repository gate · sync still **LOCAL / NOT YET INTEGRATED ON MAIN**
-7. **NEXT-CYCLE REQUALIFICATION** = **NEXT ORDERED STEP AFTER** closure sync is Git-integrated and truth revalidated · **NOT EXECUTED in this pass** · capability selection **NONE / NOT YET**
-8. Later distinct GO for any Delivery / implementation
+2. ~~C6 architecture Git integration (PR #382)~~ → **COMPLETE**
+3. ~~Morris C6 CLOSURE decision~~ → **CONSUMED** · **C6 EXIT PROOF ACCEPTED BY MORRIS** · **C6 CLOSED BY MORRIS**
+4. ~~C6 documentary closure Git integration (PR #383)~~ → **COMPLETE ON MAIN** · post-merge CI `32473181947` SUCCESS · content truth PASS · **C6 POST-MERGE TRUTH SATISFIED**
+5. **Final documentary coherence** candidate (this pass) — **LOCAL** · awaiting ChatGPT review + distinct Git integration GO
+6. **NEXT-CYCLE REQUALIFICATION** = **NEXT ORDERED STEP AFTER** this final coherence record is Git-integrated · **NOT EXECUTED in this pass** · capability selection **NONE / NOT YET**
+7. Later distinct GO for any Delivery / implementation
 
-### Documentary conditions for this Morris closure sync pass
+### Documentary conditions for this post-merge truth / coherence pass
 
-1. C6 EXIT PROOF **ACCEPTED BY MORRIS**
-2. C6 **CLOSED BY MORRIS**
-3. TD-C6-01…06 remain **ADOPTED** (substance unchanged)
-4. Closure documentary sync **LOCAL only** · **NO** project commit/push/PR
-5. Runtime implementation remains **OPEN / NOT AUTHORIZED**
-6. Reserves remain OPEN/CARRY (Trajectory/Confirmation/Epistemic runtime · H-01…H-04 · UAT · SC-02 · Pre-M6 · M5-C · v3 NON ADOPTED)
+1. PR #383 MERGED · head `c0cd769e…` · merge `e21803b1…`
+2. PR CI `32472673361` SUCCESS · post-merge CI `32473181947` SUCCESS
+3. Exact content blobs match (C6 `9c07ce6b…` · Roadmap `378dcf31…`)
+4. Closure + original C6 source branches **PRESERVED**
+5. Status sync **LOCAL only** · **NO** project commit/push/PR in this GO
+6. C6 EXIT PROOF **ACCEPTED BY MORRIS** · C6 **CLOSED BY MORRIS** · TD-C6-01…06 remain **ADOPTED**
+7. Runtime implementation **OPEN / NOT AUTHORIZED** · reserves remain OPEN/CARRY
 
 ---
 
@@ -698,23 +703,26 @@ Prerequisites only (≠ stories · ≠ authorized):
 | Runtime v3 NON ADOPTED | **PASS** |
 | **C6 EXIT PROOF** | **ACCEPTED BY MORRIS** |
 | **C6 CLOSED** | **YES — CLOSED BY MORRIS** |
-| Documentary closure sync Git-integrated | **NOT YET** (LOCAL only) |
+| Documentary closure sync Git-integrated | **PASS** (PR **#383** on main) |
+| C6 POST-MERGE TRUTH | **SATISFIED** |
+| Final documentary coherence Git-integrated | **NOT YET** (LOCAL candidate this pass) |
 | Implementation / Delivery-ready | **NOT CLAIMED** |
 
-**C6 EXIT PROOF ACCEPTED BY MORRIS. C6 CLOSED BY MORRIS.** Remaining repository gate = **C6 DOCUMENTARY CLOSURE GIT INTEGRATION** only. After that: **NEXT-CYCLE REQUALIFICATION**.
+**C6 EXIT PROOF ACCEPTED BY MORRIS. C6 CLOSED BY MORRIS. C6 CLOSURE INTEGRATION + POST-MERGE TRUTH SATISFIED.** Remaining gate for this candidate = ChatGPT review + distinct Git integration of final documentary coherence · then **NEXT-CYCLE REQUALIFICATION**.
 
 ---
 
 ## 24. Morris decisions required (remaining)
 
-**Consumed / closed:** TD-C6-01…06 · ChatGPT final documentary review PASS · Git integration · PR #382 merge · post-merge CI + content truth · exit qualification · **Morris C6 CLOSURE decision** (exit proof accepted · C6 closed).
+**Consumed / closed:** TD-C6-01…06 · ChatGPT final documentary review PASS · PR #382 · exit qualification · Morris C6 CLOSURE · PR #383 · post-merge CI + content truth (**C6 POST-MERGE TRUTH SATISFIED**).
 
 **Still required (documentary/Git gates only):**
 
-1. Distinct later GO for **C6 documentary closure Git integration** (exact C6 + Roadmap)
-2. After closure sync is Git-integrated and truth revalidated: **NEXT-CYCLE REQUALIFICATION** (**NOT EXECUTED** in this pass)
-3. Capability selection **NONE / NOT YET** — only after requalification + Morris gate
-4. Do **not** infer Backlog / Delivery / REAL / runtime v3 from C6 closure
+1. ChatGPT review of this final documentary coherence candidate
+2. Distinct later GO for Git integration of this truth-sync candidate (exact C6 + Roadmap)
+3. After that integration + truth revalidation: **NEXT-CYCLE REQUALIFICATION** (**NOT EXECUTED** in this pass)
+4. Capability selection **NONE / NOT YET**
+5. Do **not** infer Backlog / Delivery / REAL / runtime v3 from C6 closure or post-merge truth
 
 ---
 
@@ -724,6 +732,7 @@ This document does **NOT**:
 
 - implement or migrate anything
 - claim C6 CLOSED = architecture implemented / migrations applied / runtime durability complete
+- claim post-merge truth PASS = Delivery authorized
 - complete Product Completion
 - authorize Backlog / Delivery / REAL
 - adopt runtime v3
@@ -734,8 +743,7 @@ This document does **NOT**:
 - treat restored `granted` as effective authority
 - treat proposed Trajectory as current effective Trajectory
 - invent a second Attempt lifecycle
-- claim documentary closure sync is already on main
-- authorize project commit/push/PR for this closure sync without a later distinct GO
+- authorize project commit/push/PR for this final coherence candidate without a later distinct GO
 - execute NEXT-CYCLE REQUALIFICATION in this pass
 - select a next capability / cycle
 
@@ -743,15 +751,15 @@ This document does **NOT**:
 
 ## 26. Final candidate verdict
 
-**C6 CONSOLIDATED TECHNICAL ARCHITECTURE — TD-C6-01…06 ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #382 — POST-MERGE TRUTH VERIFIED — EXIT PROOF ACCEPTED BY MORRIS — C6 CLOSED BY MORRIS — DOCUMENTARY CLOSURE SYNC LOCAL / NOT YET INTEGRATED ON MAIN — NOT IMPLEMENTED — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED**
+**C6 CONSOLIDATED TECHNICAL ARCHITECTURE — TD-C6-01…06 ADOPTED BY MORRIS — ARCHITECTURE INTEGRATED ON MAIN VIA PR #382 — CLOSURE DOCUMENTATION INTEGRATED ON MAIN VIA PR #383 — POST-MERGE TRUTH SATISFIED — EXIT PROOF ACCEPTED BY MORRIS — C6 CLOSED BY MORRIS — FINAL DOCUMENTARY COHERENCE CANDIDATE LOCAL / AWAITING CHATGPT REVIEW + DISTINCT GIT INTEGRATION GATE — NOT IMPLEMENTED — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED**
 
 Do **not** declare:
 - READY FOR DELIVERY
 - IMPLEMENTED / MIGRATED
 - RUNTIME V3 ADOPTED
-- closure sync already on main
+- NEXT-CYCLE REQUALIFICATION executed
 - next capability / Backlog / Delivery cycle selected
 
 ---
 
-*ARCHITECTURE DIRECTION ADOPTED BY MORRIS · INTEGRATED ON MAIN · EXIT PROOF ACCEPTED BY MORRIS · C6 CLOSED BY MORRIS · CLOSURE SYNC LOCAL ONLY · NO CODE · NO MIGRATION · NO BACKLOG · NO DELIVERY · ZERO REAL · RUNTIME V3 NON ADOPTED · ADOPTION ≠ IMPLEMENTATION*
+*ARCHITECTURE DIRECTION ADOPTED BY MORRIS · CLOSURE INTEGRATED ON MAIN · POST-MERGE TRUTH SATISFIED · C6 CLOSED BY MORRIS · FINAL COHERENCE LOCAL ONLY · NO CODE · NO MIGRATION · NO BACKLOG · NO DELIVERY · ZERO REAL · RUNTIME V3 NON ADOPTED · ADOPTION ≠ IMPLEMENTATION*
