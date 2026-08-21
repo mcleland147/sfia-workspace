@@ -145,4 +145,3 @@ Pas d'ADR technique · pas de pixel-perfect · pas d'EC.
 ---
 
 **Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **COMPLET**.
-

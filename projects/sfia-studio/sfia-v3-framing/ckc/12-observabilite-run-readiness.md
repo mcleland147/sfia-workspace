@@ -122,4 +122,3 @@ MEDIUM depth obligatoire. La production est un signal de criticité, pas une req
 ---
 
 **Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **MEDIUM**.
-

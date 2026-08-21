@@ -122,4 +122,3 @@ Light : 3–5 stories. Critical : deps + risques. Lens FinOps COND. Limits : pas
 ---
 
 **Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **MEDIUM**.
-

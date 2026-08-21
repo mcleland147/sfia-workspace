@@ -122,4 +122,3 @@ Critical : rollback+comms. Lenses Release, Observability, Security. Limits : ≠
 ---
 
 **Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **MEDIUM**.
-

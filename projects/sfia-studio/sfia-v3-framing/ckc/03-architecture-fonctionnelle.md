@@ -139,4 +139,3 @@ Option A conversation dominante + panneau vivant vs Option B multi-panneaux — 
 ---
 
 **Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **COMPLET**.
-

@@ -122,4 +122,3 @@ Capitalization naturelle. Un enjeu doctrinal est un signal de criticité, pas un
 ---
 
 **Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **MEDIUM**.
-

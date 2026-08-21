@@ -140,4 +140,3 @@ Oracle défini + critères bloquants couverts + Reserve non bloquante → Recomm
 ---
 
 **Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **COMPLET**.
-

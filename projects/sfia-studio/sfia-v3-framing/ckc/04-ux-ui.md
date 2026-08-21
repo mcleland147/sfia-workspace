@@ -144,4 +144,3 @@ Wizard 7 étapes vs conversation dominante → CHALLENGE ; Options ; ESCALATE HD
 ---
 
 **Statut stable :** CONTENT VALIDATED BY MORRIS · contractVersion `0.1.0` · depth **COMPLET**.
-
