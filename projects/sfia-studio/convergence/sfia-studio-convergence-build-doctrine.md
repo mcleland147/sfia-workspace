@@ -35,7 +35,9 @@ Ce document **n’est pas** :
 
 ## A3. Cible produit (boucle métier)
 
-Décision Morris explicite — cible produit Studio (≠ runtime ADOPTED). **Pilote** est le rôle runtime fonctionnel générique ; Morris reste l’autorité de construction / gouvernance de SFIA Studio et peut utiliser le produit en tant que Pilote sans devenir un persona runtime spécifique :
+Décision Morris explicite — cible produit Studio (≠ runtime ADOPTED). **Pilote** est le rôle runtime fonctionnel générique ; Morris reste l’autorité de construction / gouvernance de SFIA Studio et peut utiliser le produit en tant que Pilote sans devenir un persona runtime spécifique.
+
+Ordre d’autorité d’exécution aligné sur Product Completion C2 + Functional Architecture (≠ spécification technique) :
 
 ```text
 Pilote
@@ -46,14 +48,36 @@ Pilote
   → Living Project State
   → ProjectTrajectory / options / recommandation
   → HumanDecision du Pilote
-  → Confirmation (si requise)
-  → ExecutionContract
+  → ExecutionContract natif préparé
+  → ExecutionContract inspecté par le Pilote
+  → Confirmation si requise par les effets / frontières protégées
+  → vérification / calcul de l’autorité effective + executor sufficiency
   → Cursor / agent sous contrat
   → Evidence / ReviewBundle / Git
   → analyse Nora
   → mise à jour LPS / ProjectTrajectory / replanification
   → décision Pilote
   → cycle suivant
+```
+
+Clarifications minimales (gouvernance d’exécution — ≠ implémentation) :
+
+- Confirmation porte sur le **contrat / les effets inspectés** ;
+- Confirmation est **conditionnelle** — jamais une étape obligatoire gratuite ;
+- aucune Confirmation ne précède l’**inspection** du contrat qu’elle autorise ;
+- l’**autorité effective** est résolue **après** les Confirmations requises et **avant** Execute ;
+- l’absence de Confirmation requise **n’empêche pas** le calcul d’autorité ;
+- aucune couche ne peut élargir seule l’autorité.
+
+Référence fonctionnelle d’autorité :
+
+```text
+valid human authorization
+∩ ExecutionContract scope
+∩ AgentCapability / policy
+∩ runtime guardrails
+∩ valid required Confirmations
+= effective authority
 ```
 
 Fondations doctrine produit associées : **V3-F01…V3-F15** (VALIDATED doctrine ; runtime coverage progressive via Roadmap).
