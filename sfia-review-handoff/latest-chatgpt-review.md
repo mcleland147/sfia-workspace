@@ -1,135 +1,65 @@
-# Review Pack FULL — SFIA Studio EC Order Governance Sync — CONSOLIDATION FOUNDATION CRITICAL DOC
+# Review Pack FULL — SFIA Studio EC Order Governance Sync — CYCLE 13 PR READINESS — CRITICAL DOC
 
 ## 1. Timestamp
 
-2026-08-21 09:25:32 CEST (Europe/Paris)
+2026-08-21 09:35:56 CEST (Europe/Paris)
 
-## 2. Exact Morris wording
+## 2. Morris wording
 
-« ok bon je veux bien qu'on fasse ca, et qu'après derrière on parte sur le cycle d'architecture technique pour le delta et qu'ensuite on requalifie »
+« ok go »
 
-## 3. Governed interpretation
+## 3. Governed PR-readiness interpretation
 
-MORRIS DECISION — EXECUTE RESERVE-GOV-EC-ORDER GOVERNANCE SYNC NOW — ALIGN BUILD DOCTRINE EXECUTION ORDER WITH VALIDATED C2 / FUNCTIONAL ARCHITECTURE ORDER — CLOSE RESERVE-GOV-EC-ORDER — SELECT CYCLE 6 TARGETED TECHNICAL ARCHITECTURE DELTA AS NEXT PRODUCT CYCLE AFTER SUCCESSFUL GOVERNANCE SYNC INTEGRATION / POST-MERGE VERIFICATION — AFTER CYCLE 6 EXIT RUN NEXT-CYCLE REQUALIFICATION — MODIFY ONLY BUILD DOCTRINE + CONVERGENCE ROADMAP — ONE LOCAL PROJECT COMMIT — FULL REVIEW PACK — PUBLISH REVIEW HANDOFF — NO PROJECT PUSH — NO PR — NO MERGE — NO SOURCE BRANCH DELETE — NO TECHNICAL ARCHITECTURE EXECUTION IN THIS CYCLE — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED.
+GO MORRIS — EC ORDER GOVERNANCE SYNC — CYCLE 13 PR READINESS ONLY — REVIEW EXACT LOCAL CANDIDATE HEAD fbf33a271967cc9fcec0e65d615377e3677d5ca1 AGAINST MAIN 14329c607bc93c42b128790c72634457d8b2c7e8 — VERIFY EXACT ONE-COMMIT TWO-FILE DIFF — VERIFY BUILD DOCTRINE EXECUTION ORDER ALIGNMENT — VERIFY RESERVE-GOV-EC-ORDER CLOSED — VERIFY MORRIS TRAJECTORY DECISION RECORDED — VERIFY CYCLE 6 TARGETED TECHNICAL ARCHITECTURE DELTA SELECTED BUT NOT EXECUTED — VERIFY AUTO-STABILITY — PREPARE PR TITLE/BODY — FULL REVIEW PACK — PUBLISH REVIEW HANDOFF — NO PROJECT MUTATION — NO PROJECT PUSH — NO PR CREATION — NO MERGE — NO SOURCE BRANCH DELETE — NO CYCLE 6 EXECUTION — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED.
 
-## 4. Routing
+## 4. Cycle / profile / typology
 
-- Family: SFIA method / foundation — Studio construction governance consolidation
-- Type: Consolidation foundation
+- Cycle: **13 — PR Readiness**
+- Object: Consolidation foundation / governance sync
 - Profile: **CRITICAL**
 - Typology: **DOC**
-- This cycle executes step 1 only (Governance EC Order Sync)
-- Cycle 6 Technical Architecture Delta = **SELECTED**, **not executed**
+- Template: `prompts/templates/2026-07-04-05-validate-pr-readiness.md` (assess only · no push · no PR · no merge)
 
 ## 5. Local Git Truth
 
 - branch: `docs/sfia-studio-governance-ec-order-sync`
-- created from `origin/main` @ `14329c607bc93c42b128790c72634457d8b2c7e8`
-- tracked CLEAN before edits · staged NONE before edits
-- untracked historiques only: `.tmp-sfia-review/` · `projects/eventops-poc/` · `projects/flex-office-demo/`
+- HEAD: `fbf33a271967cc9fcec0e65d615377e3677d5ca1`
+- HEAD^: `14329c607bc93c42b128790c72634457d8b2c7e8`
+- tracked CLEAN · staged NONE
+- untracked historiques: `.tmp-sfia-review/` · `projects/eventops-poc/` · `projects/flex-office-demo/`
 
-## 6. origin/main
+## 6. Remote main truth
 
-`14329c607bc93c42b128790c72634457d8b2c7e8` = PR #380 merge · post-merge CI #245 SUCCESS (run `32456002052`)
+`origin/main` = `14329c607bc93c42b128790c72634457d8b2c7e8` · PR #380 merge · post-merge CI #245 SUCCESS · unchanged
 
-## 7. Sources (read / applied)
+## 7. Incoming handoff
 
-Build Doctrine · Convergence Roadmap · C1 · C2 · Functional Architecture (read-only) · framing 32/34/35 applicable · routing/operating model/guardrails/validation checklist · process SFIA v2.6
+- commit `2b676691e9930c7b5c6324cfffaacaf0d113b7be`
+- blob `491c7317eae516f7c2fabac230db139f703b8d2f`
+- Governance sync consolidation pack · MATCH · not superseded
 
-## 8. Convergence pre-check
+## 8. Source list
 
-- Build Doctrine: VALIDATED — ACTIVE ON MAIN (pre-edit order conflict on A3)
-- C1/C2/FA: VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE COHERENCE COMPLETE
-- Runtime v3: NON ADOPTED
-- Parallel architecture: NONE
-- Debt created: NONE
-- Gap closed: RESERVE-GOV-EC-ORDER
-- Next after this sync: Cycle 6 Targeted Technical Architecture Delta
+PR readiness template · cycle execution template · routing/operating/guardrails · validation checklist §12 · Build Doctrine · Roadmap · C1/C2/FA (read-only) · framing 32/34/35 applicable
 
-## 9. Exact conflict before
+## 9. Exact commit SHA / parent / message
 
-Build Doctrine A3 historical active sequence:
+- HEAD `fbf33a271967cc9fcec0e65d615377e3677d5ca1`
+- parent `14329c607bc93c42b128790c72634457d8b2c7e8`
+- message: `docs(sfia-studio): align execution contract confirmation governance`
+
+## 10. Ahead / behind
+
+left-right `0	1` → behind 0 / ahead 1 · count **1**
+
+## 11. Exact file scope
 
 ```
-HumanDecision → Confirmation (si requise) → ExecutionContract → Cursor / agent
+M projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 ```
 
-## 10. Target validated order
-
-```
-HumanDecision
-→ Prepare ExecutionContract
-→ Inspect ExecutionContract
-→ Confirmation if required
-→ effective authority / executor sufficiency
-→ Execute
-```
-
-## 11. Complete modified Build Doctrine section (A3)
-
-```markdown
-## A3. Cible produit (boucle métier)
-
-Décision Morris explicite — cible produit Studio (≠ runtime ADOPTED). **Pilote** est le rôle runtime fonctionnel générique ; Morris reste l’autorité de construction / gouvernance de SFIA Studio et peut utiliser le produit en tant que Pilote sans devenir un persona runtime spécifique.
-
-Ordre d’autorité d’exécution aligné sur Product Completion C2 + Functional Architecture (≠ spécification technique) :
-
-```text
-Pilote
-  → SFIA Studio / Nora
-  → connaissance + contexte v3 (DoctrinePackage / CKC)
-  → qualification cycle / profil / lenses
-  → analyse / clarification
-  → Living Project State
-  → ProjectTrajectory / options / recommandation
-  → HumanDecision du Pilote
-  → ExecutionContract natif préparé
-  → ExecutionContract inspecté par le Pilote
-  → Confirmation si requise par les effets / frontières protégées
-  → vérification / calcul de l’autorité effective + executor sufficiency
-  → Cursor / agent sous contrat
-  → Evidence / ReviewBundle / Git
-  → analyse Nora
-  → mise à jour LPS / ProjectTrajectory / replanification
-  → décision Pilote
-  → cycle suivant
-```
-
-Clarifications minimales (gouvernance d’exécution — ≠ implémentation) :
-
-- Confirmation porte sur le **contrat / les effets inspectés** ;
-- Confirmation est **conditionnelle** — jamais une étape obligatoire gratuite ;
-- aucune Confirmation ne précède l’**inspection** du contrat qu’elle autorise ;
-- l’**autorité effective** est résolue **après** les Confirmations requises et **avant** Execute ;
-- l’absence de Confirmation requise **n’empêche pas** le calcul d’autorité ;
-- aucune couche ne peut élargir seule l’autorité.
-
-Référence fonctionnelle d’autorité :
-
-```text
-valid human authorization
-∩ ExecutionContract scope
-∩ AgentCapability / policy
-∩ runtime guardrails
-∩ valid required Confirmations
-= effective authority
-```
-
-Fondations doctrine produit associées : **V3-F01…V3-F15** (VALIDATED doctrine ; runtime coverage progressive via Roadmap).
-```
-
-## 12. Modified Roadmap sections (summary of edits)
-
-- Snapshot Git courant → main `14329c60…` / PR #380 / CI #245
-- Timestamp maintenance courant → governance sync · RESERVE CLOSED · Cycle 6 SELECTED
-- FA metadata → RESERVE-GOV-EC-ORDER CLOSED · PM-R02 CLOSED
-- New rows: RESERVE-GOV-EC-ORDER CLOSED · Morris trajectory DECIDED
-- Gates courants → auto-stable conditional rule
-- B3 CURRENT REPOSITORY GATE → auto-stable
-- B3 NEXT PRODUCT CAPABILITY → Cycle 6 SELECTED BY MORRIS + targeted scope
-- M5 next gates · Pre-M6 Remaining · B10 critical path updated accordingly
-
-## 13. Useful full diff origin/main..HEAD
+## 12. Full useful diff origin/main..HEAD
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md b/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
@@ -271,125 +201,235 @@ index e12a43ce..339176f1 100644
 
 ```
 
-## 14. Exact file scope
+### Complete modified Build Doctrine A3
 
+```markdown
+## A3. Cible produit (boucle métier)
+
+Décision Morris explicite — cible produit Studio (≠ runtime ADOPTED). **Pilote** est le rôle runtime fonctionnel générique ; Morris reste l’autorité de construction / gouvernance de SFIA Studio et peut utiliser le produit en tant que Pilote sans devenir un persona runtime spécifique.
+
+Ordre d’autorité d’exécution aligné sur Product Completion C2 + Functional Architecture (≠ spécification technique) :
+
+```text
+Pilote
+  → SFIA Studio / Nora
+  → connaissance + contexte v3 (DoctrinePackage / CKC)
+  → qualification cycle / profil / lenses
+  → analyse / clarification
+  → Living Project State
+  → ProjectTrajectory / options / recommandation
+  → HumanDecision du Pilote
+  → ExecutionContract natif préparé
+  → ExecutionContract inspecté par le Pilote
+  → Confirmation si requise par les effets / frontières protégées
+  → vérification / calcul de l’autorité effective + executor sufficiency
+  → Cursor / agent sous contrat
+  → Evidence / ReviewBundle / Git
+  → analyse Nora
+  → mise à jour LPS / ProjectTrajectory / replanification
+  → décision Pilote
+  → cycle suivant
 ```
-M projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+
+Clarifications minimales (gouvernance d’exécution — ≠ implémentation) :
+
+- Confirmation porte sur le **contrat / les effets inspectés** ;
+- Confirmation est **conditionnelle** — jamais une étape obligatoire gratuite ;
+- aucune Confirmation ne précède l’**inspection** du contrat qu’elle autorise ;
+- l’**autorité effective** est résolue **après** les Confirmations requises et **avant** Execute ;
+- l’absence de Confirmation requise **n’empêche pas** le calcul d’autorité ;
+- aucune couche ne peut élargir seule l’autorité.
+
+Référence fonctionnelle d’autorité :
+
+```text
+valid human authorization
+∩ ExecutionContract scope
+∩ AgentCapability / policy
+∩ runtime guardrails
+∩ valid required Confirmations
+= effective authority
 ```
 
-## 15. No C1 / C2 / FA mutation
+Fondations doctrine produit associées : **V3-F01…V3-F15** (VALIDATED doctrine ; runtime coverage progressive via Roadmap).
+```
 
-Confirmed — protected Product Completion / framing / app / method paths untouched.
+## 13. Build Doctrine order validation
 
-## 16. RESERVE-GOV-EC-ORDER closure proof
+PASS:
+HumanDecision → EC Prepare → EC Inspect → Confirmation if required → effective authority / executor sufficiency → Execute
+- old active order Confirmation→ExecutionContract **ABSENT**
+- Confirmation conditional · applies to inspected effects
+- effective authority after required Confirmations · before Execute
+- no second contradictory active sequence
 
-Roadmap records:
+## 14. Roadmap reserve closure validation
 
-**CLOSED** — Build Doctrine execution order aligned with validated C2 / Functional Architecture:
-HumanDecision → EC Prepare → EC Inspect → Confirmation if required → effective authority → Execute.
+PASS: **RESERVE-GOV-EC-ORDER CLOSED** — content-based (Build Doctrine aligned to C2/FA)
+Confirmation **runtime** durability remains **OPEN**
 
-Closure is a **content property** of the aligned Build Doctrine + Roadmap pair.
-≠ claim that this governance-sync PR is already merged.
-Confirmation **runtime** durability remains **OPEN**.
+## 15. Morris trajectory decision validation
 
-## 17. Morris trajectory decision
+PASS: Governance EC Order Sync → Cycle 6 Targeted Technical Architecture Delta → NEXT-CYCLE REQUALIFICATION · **DECIDED BY MORRIS**
 
-**DECIDED BY MORRIS**:
-1. Governance EC Order Sync
-2. Cycle 6 Targeted Technical Architecture Delta
-3. Next-Cycle Requalification
+## 16. Cycle 6 targeted scope validation
 
-## 18. Cycle 6 selected scope
+PASS SELECTED BY MORRIS · NOT EXECUTED · targeted to Trajectory durability · consumed Confirmation durability · Epistemic QUALIFICATION only · reuse OA/ports/Product SQLite/G0-B · no greenfield/new stack/DB re-decision/API redesign · no Backlog/Delivery/REAL auto
 
-- ProjectTrajectory active/decided durability or reliable reconstruction
-- consumed authority-bearing Confirmation durability / auditability
-- EpistemicItems durability inclusion QUALIFICATION only
-- reuse OA domains / existing ports
-- reuse Product SQLite / G0-B
-- no new stack / no DB re-decision / no greenfield / no API gateway redesign
-- no REAL / no Delivery
+## 17. Reserves carried
 
-## 19. Cycle 6 entry condition
+H-01…H-04 · Confirmation runtime OPEN · Trajectory OPEN · Epistemic QUALIFICATION OPEN · UAT OPEN · SC-02 NON-BLOCKING · Pre-M6 CARRY · M5-C journal debt if applicable · runtime v3 NON ADOPTED
 
-Cycle 6 may start only when:
-- Build Doctrine execution order alignment is present on main
-- governance sync integration is Git-proven
-- post-merge repository / CI verification passes
-- fresh Repo-informed + Convergence pre-check passes
+## 18. Auto-stability result
 
-## 20. Post-Cycle-6 requalification rule
-
-Targeted Technical Architecture Delta → validation / integration / proof → **NEXT-CYCLE REQUALIFICATION**.
-No automatic Backlog. No automatic Delivery.
-
-## 21. Auto-stability test
-
-Q: If this commit is later merged into main exactly as-is, will Build Doctrine + Roadmap remain factually coherent without a second documentary “sync of the sync”?
-
-**YES.**
-
-Gates use conditional auto-stable rules (if alignment absent from main / if present on main + proven).
-No current-state wording depends on LOCAL / NOT PUSHED / PENDING PR / WAITING MERGE for this vehicle.
-
+If `fbf33a27…` merged as-is: docs remain coherent without “sync of the sync” → **YES**
+Transport claims LOCAL/NOT PUSHED/PENDING PR/WAITING MERGE as current governance state → **ABSENT**
 **AUTO_STABILITY_TEST=PASS**
 
-## 22. Reserves still open
+## 19. Protected-path check
 
-- H-01…H-04 CARRY
-- Confirmation **runtime** durability OPEN
+PASS — no C1/C2/FA/UX/framing/app/method/prompts/.github/scripts/tools/package/secrets
+
+## 20. diff --check
+
+CLEAN · SECRET_SCAN=clean
+
+## 21. Remote branch duplication
+
+ABSENT
+
+## 22. PR duplication
+
+NONE
+
+## 23. PR title draft
+
+```
+docs(sfia-studio): align execution contract confirmation governance
+```
+
+## 24. Full PR body draft
+
+## Summary
+
+- Align the active SFIA Studio Build Doctrine execution-authority order with the Morris-validated Product Completion C2 and Functional Architecture.
+- Close RESERVE-GOV-EC-ORDER.
+- Record the Morris-selected next capability: Cycle 6 Targeted Technical Architecture Delta.
+- Preserve Next-Cycle Requalification after Cycle 6.
+
+## Governance alignment
+
+Validated execution order:
+
+HumanDecision
+→ ExecutionContract Prepare
+→ ExecutionContract Inspect
+→ Confirmation if required
+→ effective authority / executor sufficiency
+→ Execute
+
+Confirmation remains conditional and applies only to inspected effects / protected boundaries.
+
+## Scope
+
+- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+
+Exactly one candidate project commit.
+
+## Trajectory
+
+Morris decision:
+
+Governance EC Order Sync
+→ Cycle 6 Targeted Technical Architecture Delta
+→ Next-Cycle Requalification
+
+Cycle 6 scope remains targeted to:
+
+- active/decided ProjectTrajectory durability or reliable reconstruction;
+- consumed authority-bearing Confirmation durability / auditability;
+- EpistemicItems durability inclusion only if required by semantic continuity / project truth.
+
+## Reuse / architecture constraints
+
+- OA domains remain ownership anchors.
+- Existing ports are reused.
+- Product SQLite / G0-B remains the selected persistence backbone.
+- No parallel architecture.
+- No new stack.
+- No DB technology re-decision.
+- No greenfield architecture.
+
+## Reserves carried
+
+- H-01…H-04
+- Confirmation runtime durability OPEN
 - ProjectTrajectory runtime durability OPEN
 - Epistemic durability qualification OPEN
 - UAT OPEN
 - SC-02 NON-BLOCKING
 - Pre-M6 governed debt CARRY
-- M5-C technical journal debt OPEN
 - runtime v3 NON ADOPTED
 
-## 23. Anti-claims
+## Anti-claims
 
-This cycle does NOT:
-- execute Cycle 6 Technical Architecture
-- select schema / SQL / ports redesign
-- authorize Backlog or Delivery or REAL
-- complete Product Completion
-- adopt runtime v3
-- close Confirmation runtime durability
-- rewrite C1/C2/FA
-- push project branch / create PR / merge / delete branches
+This PR does NOT:
 
-## 24. git diff --check
+- execute Cycle 6;
+- decide technical schemas or persistence details;
+- authorize Backlog;
+- authorize Delivery;
+- authorize REAL;
+- complete Product Completion;
+- adopt runtime v3;
+- authorize its own merge.
 
-CLEAN
+## Gate
 
-## 25. Commit SHA / parent / count
+PR creation requires a separate Morris GO after PR Readiness PASS.
+Merge requires another explicit Morris GO.
+After governance sync integration + post-merge verification, Cycle 6 may start under a fresh repo/convergence pre-check.
 
-- HEAD: `fbf33a271967cc9fcec0e65d615377e3677d5ca1`
-- parent: `14329c607bc93c42b128790c72634457d8b2c7e8`
-- count origin/main..HEAD: **1**
-- message: `docs(sfia-studio): align execution contract confirmation governance`
+## 25. Checklist §12
+
+- [x] correct branch
+- [x] correct commit
+- [x] exact base
+- [x] diff scope
+- [x] protected paths
+- [x] documentary completeness
+- [x] diff --check
+- [x] reserves
+- [x] no secrets / no temp project files committed
+- [x] no accidental code/workflow/method mutation
+- [x] human gate before push/PR
+- [x] PR summary ready
 
 ## 26. Actions NOT performed
 
-no C1/C2/FA/UX/v3 framing/app mutation · no technical architecture execution · no persistence/schema/API · no tests/workflows · no Backlog · no Delivery · no REAL · no runtime v3 adoption · no project push · no PR · no merge · no branch delete · exactly one local project commit · Review Handoff only via L3
+no project file modification · no new project commit · no amend · no rebase · no project push · no PR · no merge · no source branch delete · no C1/C2/FA/v3 framing/app/method mutation · no Architecture technique execution · no Backlog · no Delivery · no REAL · no runtime v3 adoption
 
 ## 27. Final verdict
 
-READY FOR CHATGPT SFIA STUDIO EC ORDER GOVERNANCE SYNC REVIEW — CRITICAL DOC — BUILD DOCTRINE ORDER ALIGNED — HUMANDECISION → EC PREPARE → EC INSPECT → CONFIRMATION IF REQUIRED → EFFECTIVE AUTHORITY → EXECUTE — RESERVE-GOV-EC-ORDER CLOSED — MORRIS TRAJECTORY DECISION RECORDED — CYCLE 6 TARGETED TECHNICAL ARCHITECTURE DELTA SELECTED AS NEXT PRODUCT CAPABILITY — CYCLE 6 ENTRY CONDITION = GOVERNANCE SYNC INTEGRATED + POST-MERGE VERIFIED + FRESH PRE-CHECK — AFTER CYCLE 6 = NEXT-CYCLE REQUALIFICATION — EXACT 2-FILE SCOPE — ONE LOCAL PROJECT COMMIT — AUTO-STABILITY PASS — FULL REVIEW PACK COMPLETE — REVIEW HANDOFF REMOTE VERIFIED — NO PROJECT PUSH — NO PR — NO MERGE — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED.
+**READY FOR PR**
 
-## 28. Next repository gate
+READY FOR PR — SFIA STUDIO EC ORDER GOVERNANCE SYNC — CYCLE 13 CRITICAL DOC — BRANCH docs/sfia-studio-governance-ec-order-sync — HEAD fbf33a271967cc9fcec0e65d615377e3677d5ca1 — BASE 14329c607bc93c42b128790c72634457d8b2c7e8 — ONE COMMIT — EXACT 2-FILE SCOPE — BUILD DOCTRINE ORDER ALIGNED — RESERVE-GOV-EC-ORDER CLOSED — MORRIS TRAJECTORY DECISION RECORDED — CYCLE 6 TARGETED TECHNICAL ARCHITECTURE DELTA SELECTED BUT NOT EXECUTED — AFTER CYCLE 6 NEXT-CYCLE REQUALIFICATION — AUTO-STABILITY PASS — OPEN RUNTIME RESERVES CARRIED — PR TITLE/BODY READY — FULL REVIEW PACK COMPLETE — REVIEW HANDOFF REMOTE VERIFIED — NO PROJECT MUTATION — NO PROJECT PUSH — NO PR — NO MERGE — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED.
 
-If ChatGPT PASS → **READY FOR MORRIS EC ORDER GOVERNANCE SYNC — CYCLE 13 PR READINESS GO**
+## 28. Next gate
 
-Then separate: PR Readiness → push + Draft PR → merge GO → post-merge verification → then Cycle 6 may start under entry conditions.
+If ChatGPT PASS → **READY FOR MORRIS EC ORDER GOVERNANCE SYNC PROJECT BRANCH PUSH + DRAFT PR CREATION GO**
+(push exact HEAD + Draft PR only · no merge)
+
+Not consumed now.
 
 ## 29. Instruction ChatGPT
 
-Verify branch/base · Build Doctrine + Roadmap only · exact 2-file scope · C1/C2/FA untouched · order exact · Confirmation after EC inspect · effective authority before Execute · RESERVE CLOSED · Cycle 6 SELECTED BY MORRIS · targeted scope · no greenfield · no Backlog/Delivery · requalification after Cycle 6 · auto-stability PASS · one local commit · no push/PR/merge · Review Pack FULL · handoff remote verified · runtime v3 NON ADOPTED.
+Verify Cycle 13 CRITICAL DOC · branch · HEAD fbf33a27… · parent/base 14329c60… · main unchanged · count 1 · exact 2 files · BD order · no contradictory order · RESERVE CLOSED · trajectory recorded · Cycle 6 targeted SELECTED not executed · after Cycle 6 requalification · reserves · auto-stability PASS · protected paths · diff --check · remote branch absent · PR absent · title/body · Review Pack FULL · handoff remote verified · no mutation/push/PR/merge · no Backlog/Delivery/REAL · runtime v3 NON ADOPTED.
 
 If PASS:
-CHATGPT SFIA STUDIO EC ORDER GOVERNANCE SYNC REVIEW — PASS
-→ READY FOR MORRIS EC ORDER GOVERNANCE SYNC — CYCLE 13 PR READINESS GO
+CHATGPT SFIA STUDIO EC ORDER GOVERNANCE SYNC CYCLE 13 PR READINESS REVIEW — PASS
+→ READY FOR MORRIS EC ORDER GOVERNANCE SYNC PROJECT BRANCH PUSH + DRAFT PR CREATION GO
 
 ## 30. git show fuller
 
