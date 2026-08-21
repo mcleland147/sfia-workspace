@@ -1,237 +1,58 @@
-# Review Pack FULL — Product Completion Functional Architecture — CYCLE 14 PM-R01 MICRO-CORRECTION
+# Review Pack FULL — Product Completion Functional Architecture Post-Merge Sync — CYCLE 13 PR READINESS
 
 ## 1. Timestamp
 
-2026-08-21 01:58:20 CEST (Europe/Paris)
+2026-08-21 02:16:24 CEST (Europe/Paris)
 
 ## 2. Morris wording
 
-« ok go »
+« go post merge »
 
 ## 3. Governed interpretation
 
-GO MORRIS — CORRECT PM-R01 ONLY IN PRODUCT COMPLETION FUNCTIONAL ARCHITECTURE CYCLE 14 POST-MERGE SYNC — UPDATE THE SINGLE STALE ROADMAP CURRENT REPOSITORY GATE LINE — PRESERVE ALL OTHER POST-MERGE CONTENT — AMEND THE EXISTING UNPUSHED LOCAL POST-MERGE COMMIT — KEEP EXACTLY ONE POST-MERGE PROJECT COMMIT — PUBLISH UPDATED FULL REVIEW HANDOFF — NO PROJECT PUSH — NO PR — NO MERGE — NO SOURCE BRANCH DELETE — NO TECHNICAL ARCHITECTURE — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED.
+GO MORRIS — RUN CYCLE 13 PR READINESS FOR PRODUCT COMPLETION FUNCTIONAL ARCHITECTURE POST-MERGE SYNC — REVIEW LOCAL COMMIT 0aa644d935b5df1ba7f4c2278fd63320555b9f6a AGAINST CURRENT MAIN 18b89ec9d6f1a91f8ff49df9c895299b6676b572 — VERIFY EXACT TWO-FILE DOC SCOPE — VERIFY PM-R01 CLOSED — VERIFY FUNCTIONAL ARCHITECTURE CONTENT UNCHANGED DURING PM-R01 — VERIFY POST-MERGE STATUS / ROADMAP COHERENCE / RESERVES / ANTI-CLAIMS — PREPARE PR TITLE + BODY DRAFT — PUBLISH FULL REVIEW HANDOFF — NO PROJECT FILE CHANGE — NO PROJECT COMMIT — NO PROJECT PUSH — NO PR CREATION — NO READY-FOR-REVIEW — NO MERGE — NO SOURCE BRANCH DELETE — NO TECHNICAL ARCHITECTURE — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED.
 
-## 4. Cycle 14 Standard DOC — PM-R01 correction
+## 4. Cycle 13 / Standard / DOC
 
-- Cycle: **14 — Post-merge**
-- Sub-phase: **PM-R01 MICRO-CORRECTION PASS**
-- Profile: STANDARD · Typology: DOC
-- ≠ new Cycle 14 · ≠ Cycle 13 now
+- Cycle: **13 — PR Readiness**
+- Profile: **STANDARD**
+- Typology: **DOC**
+- Object: post-merge documentary sync only (architecture already on main via PR #378)
+- Unique verdict: READY FOR PR / WITH RESERVES / NOT READY
 
-## 5. Local Git Truth (before correction)
+## 5–6. Git Truth / origin/main
 
 - branch: `docs/sfia-studio-product-completion-functional-architecture-post-merge-sync`
-- HEAD was: `a913e572b5296b77a35a377fcc21e563798e58a0`
-- parent: `18b89ec9d6f1a91f8ff49df9c895299b6676b572`
-- ahead/behind: 1/0 · commit count 1 · tracked CLEAN
+- HEAD: `0aa644d935b5df1ba7f4c2278fd63320555b9f6a`
+- HEAD^: `18b89ec9d6f1a91f8ff49df9c895299b6676b572`
+- origin/main: `18b89ec9d6f1a91f8ff49df9c895299b6676b572`
+- left-right: `0	1` → behind 0 / ahead 1
+- tracked CLEAN · staged NONE
+- untracked historiques only
 
-## 6. origin/main
+## 7. Incoming handoff
 
-`18b89ec9d6f1a91f8ff49df9c895299b6676b572` = `18b89ec9d6f1a91f8ff49df9c895299b6676b572` — no drift
+- commit `95c957ad1f6561b0280ef8b38233ab349f6d7f31`
+- blob `8f5da4589e5d8614a8c69a9a3d16ff62e6ed8287`
+- PM-R01 CLOSED · amended HEAD 0aa644d… · FA blob `5fb6496b…` · MATCH
 
-## 7. Incoming local commit
+## 8–12. Branch / HEAD / parent / ahead-behind / count / scope / message
 
-`a913e572b5296b77a35a377fcc21e563798e58a0` — Cycle 14 post-merge sync (pre-PM-R01)
-
-## 8. Incoming handoff
-
-- commit `61d889394b032b3a41ee8fd8a35a64a0794c19d9`
-- blob `19d52b53cb30de460799e630fa3e9db7e028f906`
-
-## 9. ChatGPT finding PM-R01
-
-POST-MERGE EVIDENCE — PASS
-POST-MERGE DOCUMENTARY COHERENCE — 1 CORRECTION REQUIRED
-**PM-R01 — ROADMAP CURRENT GATE COHERENCE**
-
-## 10. Exact stale line BEFORE
-
+- HEAD `0aa644d935b5df1ba7f4c2278fd63320555b9f6a`
+- parent/base `18b89ec9d6f1a91f8ff49df9c895299b6676b572`
+- commit count **1**
+- message: `docs(sfia-studio): sync functional architecture post-merge state`
+- scope:
 ```
-| **Next immediate gate (repo)** | Functional Architecture **VALIDATED** · current = **LOCAL GIT INTEGRATION** → ChatGPT Local Integration Review → Cycle 13 PR Readiness · **≠** Architecture technique · **≠** Backlog · **≠** Delivery |
-```
-
-## 11. Exact corrected line AFTER
-
-```
-| **Next immediate gate (repo)** | Functional Architecture **VALIDATED BY MORRIS — INTEGRATED ON MAIN** via PR **#378** · current = **POST-MERGE COHERENCE** → post-merge sync review → post-merge sync Git integration · **≠** Architecture technique · **≠** Backlog · **≠** Delivery |
-```
-
-## 12. Global Roadmap current-state search result
-
-| Occurrence | Classification |
-| --- | --- |
-| L14 Timestamp historique FA local integration | **HISTORICAL** — preserved |
-| L16/L18/L20 other UX historiques | **HISTORICAL** — preserved (non-FA) |
-| L93 CURRENT REPOSITORY GATE | **CURRENT** — already correct (POST-MERGE COHERENCE) |
-| L449 Next immediate gate (repo) | **CURRENT** — **PM-R01 FIXED** |
-| L450 Next product gate | **CURRENT** — already correct |
-
-## 13. No additional current-state contradiction
-
-After PM-R01: no current-state line claims FA = LOCAL GIT INTEGRATION / NOT YET INTEGRATED ON MAIN.
-No STOP — PM-R01 SCOPE EXPANSION.
-
-## 14. Historical LOCAL GIT INTEGRATION entries preserved
-
-Yes — L14 (and other historical UX rows) unchanged.
-
-## 15. FA file unchanged during PM-R01
-
-- FA blob before: `5fb6496bdaeeb60e46eca440480c826a24eae815`
-- FA blob after: `5fb6496bdaeeb60e46eca440480c826a24eae815`
-- **IDENTICAL**
-
-## 16. Staged scope (PM-R01)
-
-Only:
-`M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-
-## 17. Amend command/result
-
-```
-git commit --amend --no-edit
-```
-SUCCESS — single post-merge commit retained.
-
-## 18–19. Old / new commit SHA
-
-- OLD: `a913e572b5296b77a35a377fcc21e563798e58a0`
-- NEW: `0aa644d935b5df1ba7f4c2278fd63320555b9f6a`
-
-## 20. Parent SHA
-
-`18b89ec9d6f1a91f8ff49df9c895299b6676b572` = `18b89ec9d6f1a91f8ff49df9c895299b6676b572` — **PRESERVED**
-
-## 21. Total commit count
-
-`origin/main..HEAD` = **1**
-
-## 22. Final full commit file scope
-
-Exactly 2 files (Cycle 14 complete commit, Roadmap only changed in PM-R01):
-- M `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- M `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md`
-
-```
-commit 0aa644d935b5df1ba7f4c2278fd63320555b9f6a
-Author:     Morris Cleland <morris@macbook-air1.home>
-AuthorDate: Fri Aug 21 01:41:42 2026 +0200
-Commit:     Morris Cleland <morris@macbook-air1.home>
-CommitDate: Fri Aug 21 01:57:55 2026 +0200
-
-    docs(sfia-studio): sync functional architecture post-merge state
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
 M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 M	projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md
-
 ```
 
-## 23. git diff --check
+## 13. git diff --check
 
-`git diff --check origin/main..HEAD` → CLEAN
+CLEAN
 
-## 24. Final worktree status
-
-```
-?? .tmp-sfia-review/
-?? projects/eventops-poc/
-?? projects/flex-office-demo/
-
-```
-
-## 25. Reserves carried
-
-H-01…H-04 · Confirmation durability OPEN · ProjectTrajectory durability OPEN · Epistemic durability targeted if applicable · UAT OPEN · SC-02 NON-BLOCKING · RESERVE-GOV-EC-ORDER OPEN · Pre-M6 debt CARRY · runtime v3 NON ADOPTED · source branch cleanup NOT PERFORMED
-
-## 26. Next product cycle
-
-**NOT SELECTED** · Technical Architecture Delta VS Backlog **NOT SELECTED / NOT AUTHORIZED**
-
-## 27. Actions NOT performed
-
-no second project commit · no project push · no PR · no merge · no source branch delete · no FA content modification · no C1/C2/UX/Build Doctrine/v3 framing · no code/tests/CI · no Architecture technique · no Backlog · no Components/Penpot · no Delivery · no REAL · no runtime v3 adoption
-
-## 28. Anti-claims
-
-PM-R01 ≠ new Cycle 14 · ≠ Cycle 13 · ≠ Architecture technique · ≠ Backlog · ≠ Delivery · ≠ REAL · ≠ runtime v3 ADOPTED · ≠ next cycle selected · ≠ source branch cleanup · ≠ project push/PR/merge
-
-## 29. Final verdict
-
-READY FOR CHATGPT PRODUCT COMPLETION FUNCTIONAL ARCHITECTURE POST-MERGE PM-R01 RE-REVIEW — CYCLE 14 STANDARD DOC — PM-R01 CLOSED — ROADMAP CURRENT REPOSITORY GATE NOW ALIGNED WITH PR #378 MERGED / FUNCTIONAL ARCHITECTURE VALIDATED BY MORRIS — INTEGRATED ON MAIN / POST-MERGE COHERENCE — HISTORICAL PRE-MERGE ENTRIES PRESERVED — FUNCTIONAL ARCHITECTURE FILE UNCHANGED DURING PM-R01 — EXISTING LOCAL POST-MERGE COMMIT AMENDED — EXACTLY ONE POST-MERGE COMMIT REMAINS — PARENT 18b89ec9d6f1a91f8ff49df9c895299b6676b572 PRESERVED — EXACT TWO-FILE FINAL COMMIT SCOPE PRESERVED — ALL OPEN RESERVES CARRIED — NEXT PRODUCT CYCLE NOT SELECTED — FULL REVIEW PACK COMPLETE — REVIEW HANDOFF REMOTE VERIFIED — NO PROJECT PUSH — NO PR — NO MERGE — NO SOURCE BRANCH DELETE — NO TECHNICAL ARCHITECTURE — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED.
-
-## 30. Instruction ChatGPT
-
-Re-review strictly:
-- latest Review Handoff
-- amended commit `0aa644d935b5df1ba7f4c2278fd63320555b9f6a`
-- parent `18b89ec9…`
-- commit count = 1
-- final 2-file scope
-- PM-R01 before/after
-- no second current-state contradiction
-- FA unchanged (blob `5fb6496bdaeeb60e46eca440480c826a24eae815`)
-- main still `18b89ec9…`
-- no project push / PR / merge
-
-If PASS:
-CHATGPT PRODUCT COMPLETION FUNCTIONAL ARCHITECTURE POST-MERGE PM-R01 RE-REVIEW — PASS
-→ READY FOR MORRIS POST-MERGE SYNC PR READINESS GO
-
-Do NOT launch Cycle 13 without Morris GO. Do NOT push. Do NOT create PR. Do NOT delete branch. Do NOT launch Architecture technique / Backlog.
-
----
-
-## 31. Artifact A — Cycle 14 already validated content (pre-PM-R01)
-
-Previous handoff `61d88939…` / blob `19d52b53…` carried:
-- PR #378 MERGED · merge `18b89ec9…` · PR CI #240 · post-merge CI #241
-- FA recorded INTEGRATED ON MAIN
-- local post-merge commit `a913e572…` · exact 2-file scope
-- PM-R01 still present as stale Next immediate gate line
-
-## 32. Artifact B — PM-R01-only delta vs a913e572… (exactly one line)
-
-```diff
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 106ee104..20848142 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -446,7 +446,7 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | **Dépendances** | M4 — **SATISFIED / CLOSED** · Architecture — **CONSUMED** · Delivery — **CONSUMED / MERGED** · UI rehydrate — **CONSUMED / MERGED** · Capitalization Roadmap — **CONSUMED / MERGED** · Closure gate — **CONSUMED** |
- | **Statut** | **M5 EXIT PROOF ACCEPTED BY MORRIS — CLOSED** |
- | **Next convergence capability (current)** | C1+C2+UX EA+E2E Wireframes+Product Screens+Functional Architecture **INTEGRATED ON MAIN** · PR **#378 MERGED** · post-merge coherence **CURRENT** · M5 remains **CLOSED** · PRE-M6 EXIT remains accepted with governed debt · next cycle **NOT SELECTED** |
--| **Next immediate gate (repo)** | Functional Architecture **VALIDATED** · current = **LOCAL GIT INTEGRATION** → ChatGPT Local Integration Review → Cycle 13 PR Readiness · **≠** Architecture technique · **≠** Backlog · **≠** Delivery |
-+| **Next immediate gate (repo)** | Functional Architecture **VALIDATED BY MORRIS — INTEGRATED ON MAIN** via PR **#378** · current = **POST-MERGE COHERENCE** → post-merge sync review → post-merge sync Git integration · **≠** Architecture technique · **≠** Backlog · **≠** Delivery |
- | **Next product gate** | Functional Architecture **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · post-merge sync review → post-merge sync Git integration → **NEXT-CYCLE REQUALIFICATION** (Technical Architecture Delta **VS** Backlog) · NEXT CYCLE **NOT SELECTED** · **NO EXECUTION WITHOUT MORRIS GO** |
- | **M6 / M7 disposition** | Historical milestones **SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** |
-
-```
-
-## 33. Section complète autour de PM-R01 (after)
-
-```markdown
-| **M5-B** | **W1 ADOPTED + IMPLEMENTED ON MAIN** — factual LPS link update + Recommendation separate · system factual writer (PR #350) |
-| **M5-C** | **KEEP TEMPORARY WITH EXIT** — journal still present ; not retired ; owner **NOT EXPLICITLY RECORDED** (**POST-M5 GOVERNANCE DEBT / DECISION REQUIRED**) |
-| **Actifs** | domain/ports/use cases **KEEP** · Product SQLite Attempt/Evidence/RB **COMPLETE** · LPS **KEEP** + W1 append **COMPLETE** · Nora/F3 durable remount consumer **COMPLETE** · launch journal **KEEP TEMPORARY WITH EXIT** |
-| **Technical / Functional Exit** | **SATISFIED ON MAIN** — M5-01…M5-34 · process A→B restart · remount UI M5-27/M5-28 · anti-claims · ZERO unauthorized REAL · CI #184/#185/#186/#187 SUCCESS |
-| **Exit Proof** | **ACCEPTED BY MORRIS** |
-| **Intégration** | PR #350 merge `8f753218…` · PR #351 merge `d8961f1d…` · capitalization PR #352 merge `3467ecd…` · exit handoff `54b0f5b4…` · post-merge handoff `0121e184…` |
-| **Dépendances** | M4 — **SATISFIED / CLOSED** · Architecture — **CONSUMED** · Delivery — **CONSUMED / MERGED** · UI rehydrate — **CONSUMED / MERGED** · Capitalization Roadmap — **CONSUMED / MERGED** · Closure gate — **CONSUMED** |
-| **Statut** | **M5 EXIT PROOF ACCEPTED BY MORRIS — CLOSED** |
-| **Next convergence capability (current)** | C1+C2+UX EA+E2E Wireframes+Product Screens+Functional Architecture **INTEGRATED ON MAIN** · PR **#378 MERGED** · post-merge coherence **CURRENT** · M5 remains **CLOSED** · PRE-M6 EXIT remains accepted with governed debt · next cycle **NOT SELECTED** |
-| **Next immediate gate (repo)** | Functional Architecture **VALIDATED BY MORRIS — INTEGRATED ON MAIN** via PR **#378** · current = **POST-MERGE COHERENCE** → post-merge sync review → post-merge sync Git integration · **≠** Architecture technique · **≠** Backlog · **≠** Delivery |
-| **Next product gate** | Functional Architecture **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · post-merge sync review → post-merge sync Git integration → **NEXT-CYCLE REQUALIFICATION** (Technical Architecture Delta **VS** Backlog) · NEXT CYCLE **NOT SELECTED** · **NO EXECUTION WITHOUT MORRIS GO** |
-| **M6 / M7 disposition** | Historical milestones **SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** |
-
-
-### Pre-M6 Convergence Gate — User Journey / UX Baseline
-
-```
-
-## 34. Full commit diff origin/main..HEAD (2 files — Cycle 14 + PM-R01)
+## 14. Full useful diff origin/main..HEAD
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -425,4 +246,217 @@ index da2d766c..5fb6496b 100644
 
 -*VALIDATED BY MORRIS — LOCAL GIT INTEGRATION — NOT YET INTEGRATED ON MAIN — FA-R01…FA-R12 CLOSED — NO CODE — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED — NEXT CYCLE NOT SELECTED*
 +*VALIDATED BY MORRIS — INTEGRATED ON MAIN via PR #378 — POST-MERGE COHERENCE SYNC LOCAL — FA-R01…FA-R12 CLOSED — NO CODE — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED — NEXT CYCLE NOT SELECTED — SOURCE BRANCH CLEANUP NOT PERFORMED*
+```
+
+## 15. Functional Architecture metadata/status review
+
+Verified on HEAD:
+- Statut contenu = VALIDATED BY MORRIS
+- Etat Git = INTEGRATED ON MAIN via PR #378
+- Statut synthétique = VALIDATED BY MORRIS — INTEGRATED ON MAIN
+- reviewed head 1018aa79… · merge 18b89ec9…
+- PR CI #240 SUCCESS · post-merge CI #241 SUCCESS
+- Morris merge GO + Post-merge GO consumed
+- Post-merge coherence sync = LOCAL … NOT INTEGRATED ON MAIN (documentary sync vehicle)
+- source branch cleanup NOT PERFORMED
+- Delivery NOT AUTHORIZED · REAL ZERO · runtime v3 NON ADOPTED · next cycle NOT SELECTED
+
+## 16. No functional content drift
+
+Diff FA limited to metadata/status/evidence/gates/anti-claims.
+FC-01…FC-15 · A→W · S1→S12 · ADR-FA-01/04/05/07/08/09 substance not redesigned.
+FA blob `5fb6496bdaeeb60e46eca440480c826a24eae815` (= PM-R01 identity `5fb6496bdaeeb60e46eca440480c826a24eae815`).
+
+## 17. PM-R01 closure proof
+
+`Next immediate gate (repo)` NOW:
+Functional Architecture VALIDATED BY MORRIS — INTEGRATED ON MAIN via PR #378 · current = POST-MERGE COHERENCE → post-merge sync review → post-merge sync Git integration
+NO current LOCAL GIT INTEGRATION claim.
+Historical LOCAL GIT INTEGRATION entries preserved (timestamp historique).
+
+## 18. Roadmap current-state review
+
+- Snapshot: main @ 18b89ec9… · PR #378 MERGED · FA INTEGRATED · CI #240/#241
+- CURRENT REPOSITORY GATE = POST-MERGE COHERENCE → sync review → sync Git integration
+- NEXT PRODUCT CAPABILITY = NOT SELECTED
+- Tech Delta VS Backlog NOT SELECTED
+- source branch cleanup NOT PERFORMED
+
+## 19. Historical entries preserved
+
+Yes (FA local integration historique + other UX historiques).
+
+## 20. Protected paths
+
+Only the two authorized paths touched. No app/framing/C1/C2/UX/method/prompts/scripts/.github/tools/package/lock/secrets.
+
+## 21. Secret / accidental content
+
+SECRET_SCAN=clean · ACCIDENTAL_PATH=clean
+
+## 22. Reserves
+
+H-01…H-04 CARRY · Confirmation OPEN · Trajectory OPEN · Epistemic targeted if applicable · UAT OPEN · SC-02 NON-BLOCKING · RESERVE-GOV-EC-ORDER OPEN · Pre-M6 CARRY · source branch cleanup NOT PERFORMED · runtime v3 NON ADOPTED
+
+## 23. Anti-claims
+
+Sync PR ≠ FA substance change ≠ Architecture technique ≠ Backlog ≠ Delivery ≠ REAL ≠ runtime v3 ADOPTED ≠ next cycle selected ≠ reserves closed ≠ source branch delete ≠ merge authorization · no CI SUCCESS claim for 0aa644d…
+
+## 24. PR title draft
+
+```
+docs(sfia-studio): sync functional architecture post-merge state
+```
+
+## 25. Full PR body draft
+
+## Summary
+
+- Synchronize Product Completion Functional Architecture metadata with the factual merge of PR #378.
+- Synchronize Convergence Roadmap to the same post-merge truth.
+- Close the documentary current-state inconsistency PM-R01.
+
+## Authority
+
+- Functional Architecture validated by Morris.
+- PR #378 integration reviewed and merged after explicit Morris GO.
+- Morris Post-merge GO: « go post merge ».
+- ChatGPT Cycle 14 initial review identified PM-R01 only.
+- Morris PM-R01 correction GO: « ok go ».
+- ChatGPT PM-R01 re-review: PASS.
+- Morris Post-merge Sync PR Readiness GO: « go post merge ».
+
+## Git evidence
+
+- source architecture head: 1018aa79d1d8ebb8783d11ce25ff08036764e87e
+- PR #378 merge: 18b89ec9d6f1a91f8ff49df9c895299b6676b572
+- PR CI #240 SUCCESS
+- post-merge CI #241 SUCCESS
+- post-merge sync head: 0aa644d935b5df1ba7f4c2278fd63320555b9f6a
+- base: 18b89ec9d6f1a91f8ff49df9c895299b6676b572
+- 1 commit
+- exactly 2 documentation files.
+
+## Scope
+
+1. projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+2. projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md
+
+## Post-merge coherence
+
+- Functional Architecture = VALIDATED BY MORRIS — INTEGRATED ON MAIN.
+- PR #378 merge recorded.
+- PM-R01 CLOSED.
+- Roadmap current gate = POST-MERGE COHERENCE.
+- Historical pre-merge entries preserved.
+- FC-01…FC-15 / A→W / ADR status unchanged.
+
+## Reserves
+
+- H-01…H-04
+- Confirmation durability OPEN
+- ProjectTrajectory durability OPEN
+- Epistemic durability targeted if applicable
+- UAT OPEN
+- SC-02 NON-BLOCKING
+- RESERVE-GOV-EC-ORDER OPEN
+- Pre-M6 governed debt CARRY
+- source branch cleanup NOT PERFORMED
+- runtime v3 NON ADOPTED
+
+## Anti-claims
+
+This PR does NOT:
+
+- change Functional Architecture substance;
+- select Architecture technique;
+- select Backlog;
+- authorize Delivery;
+- authorize REAL;
+- adopt runtime v3;
+- select the next product cycle;
+- close open reserves;
+- delete source branches;
+- authorize its own merge.
+
+## Gate
+
+- This readiness cycle does not create the PR.
+- Project branch push + Draft PR creation require a distinct Morris GO.
+- Merge requires a later explicit Morris GO.
+- After eventual sync merge, repository proof must be checked before next-cycle requalification.
+
+
+## 26. Checklist §12
+
+- [x] branche correcte
+- [x] commit cohérent
+- [x] diff contrôlé
+- [x] protected paths
+- [x] documents attendus
+- [x] contrôles exécutés
+- [x] réserves identifiées
+- [x] synthèse PR (title+body)
+- [x] pas de Notion sync
+- [x] validation Morris prévue avant PR creation
+
+## 27. Remote branch / PR duplication
+
+- remote post-merge sync branch: **ABSENT**
+- PR for head: **AUCUNE**
+
+## 28. Actions NOT performed
+
+no project file modification · no project commit/amend/rebase · no project push · no PR · no Ready for Review · no merge · no source branch delete · no Roadmap/FA/C1/C2/UX/Build Doctrine/v3 framing mutation this cycle · no code/tests/CI · no Architecture technique · no Backlog · no Components/Penpot · no Delivery · no REAL · no runtime v3 adoption
+
+## 29. Final verdict
+
+**READY FOR PR**
+
+READY FOR PR — PRODUCT COMPLETION FUNCTIONAL ARCHITECTURE POST-MERGE SYNC — CYCLE 13 STANDARD DOC — BRANCH docs/sfia-studio-product-completion-functional-architecture-post-merge-sync — HEAD 0aa644d935b5df1ba7f4c2278fd63320555b9f6a — BASE 18b89ec9d6f1a91f8ff49df9c895299b6676b572 — 1 COMMIT — EXACTLY 2 PROJECT FILES — PM-R01 CLOSED — FUNCTIONAL ARCHITECTURE VALIDATED BY MORRIS / INTEGRATED ON MAIN TRUTH PRESERVED — NO FUNCTIONAL CONTENT DRIFT — ROADMAP POST-MERGE CURRENT STATE COHERENT — HISTORICAL PRE-MERGE ENTRIES PRESERVED — ALL OPEN RESERVES CARRIED — NEXT PRODUCT CYCLE NOT SELECTED — PR TITLE/BODY DRAFT READY — FULL REVIEW PACK COMPLETE — REVIEW HANDOFF REMOTE VERIFIED — NO PROJECT PUSH — NO PR CREATED — NO MERGE — NO SOURCE BRANCH DELETE — NO ARCHITECTURE TECHNIQUE — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED.
+
+## 30. Next Morris gate
+
+If ChatGPT PASS → **READY FOR MORRIS POST-MERGE SYNC PROJECT BRANCH PUSH + DRAFT PR CREATION GO**
+(push exact HEAD + Draft PR only · no merge · no project mutation)
+
+Not consumed now.
+
+## 31. Instruction ChatGPT
+
+Review latest handoff. Verify Cycle 13 Standard DOC · branch · HEAD 0aa644d… · parent/base 18b89ec9… · main unchanged · 1/0 · count 1 · exact 2 files · PM-R01 CLOSED · FA substance unchanged · Roadmap coherent · historiques · reserves · next cycle NOT SELECTED · protected paths · PR title/body · no secrets · no mutation · no push/PR/merge · no source branch delete · handoff remote verified.
+
+If PASS:
+CHATGPT PRODUCT COMPLETION FUNCTIONAL ARCHITECTURE POST-MERGE SYNC CYCLE 13 PR READINESS REVIEW — PASS
+→ READY FOR MORRIS POST-MERGE SYNC PROJECT BRANCH PUSH + DRAFT PR CREATION GO
+
+Do NOT push. Do NOT create PR. Do NOT merge. Do NOT delete branches. Do NOT launch Architecture technique. Do NOT launch Backlog.
+
+---
+
+## 32. git show fuller
+
+```
+commit 0aa644d935b5df1ba7f4c2278fd63320555b9f6a
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Fri Aug 21 01:41:42 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air1.home>
+CommitDate: Fri Aug 21 01:57:55 2026 +0200
+
+    docs(sfia-studio): sync functional architecture post-merge state
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+M	projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md
+
+```
+
+## 33. Final git status
+
+```
+?? .tmp-sfia-review/
+?? projects/eventops-poc/
+?? projects/flex-office-demo/
+
 ```
