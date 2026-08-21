@@ -1,116 +1,119 @@
 # ChatGPT Review Pack — FULL
 # SFIA STUDIO — DoctrinePackage / Runtime CKC Integration Qualification
-# Cycle 6 Targeted Technical Architecture Qualification
+# CORRECTION PASS (R1–R5 + D01/D03 hardening)
 
 ## 1. Timestamp (Europe/Paris)
-2026-08-21T23:50:43+02:00
+2026-08-22T00:12:46+02:00
 
 ## 2. Repo / pwd
-- repo: /Users/morris/Projects/sfia-workspace
+- repo: mcleland147/sfia-workspace
 - pwd: /Users/morris/Projects/sfia-workspace
-- remote: https://github.com/mcleland147/sfia-workspace.git
 
-## 3. Branch / HEAD
-- branch: `docs/sfia-studio-doctrinepackage-ckc-integration-qualification`
-- HEAD: `c4dc1c9ce78290f00354e58dde451dd09616f49e`
-- local qualification branch only — **NO project push**
+## 3. Local branch
+`docs/sfia-studio-doctrinepackage-ckc-integration-qualification`
 
-## 4. origin/main
-- `c4dc1c9ce78290f00354e58dde451dd09616f49e`
-- expected: `c4dc1c9ce78290f00354e58dde451dd09616f49e`
-- MATCH: YES (PR #389 merge)
-- post-merge CI known: run `32527209975` SUCCESS
+## 4. Local HEAD
+`c4dc1c9ce78290f00354e58dde451dd09616f49e`
 
-## 5. Status initial
+## 5. origin/main
+`c4dc1c9ce78290f00354e58dde451dd09616f49e` — expected `c4dc1c9ce78290f00354e58dde451dd09616f49e` — MATCH YES
+
+## 6. Status initial
 ```
 ?? .tmp-sfia-review/
 ?? projects/eventops-poc/
 ?? projects/flex-office-demo/
 ?? projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md
 ```
-- staged project files: NONE
-- unrelated untracked preserved: `.tmp-sfia-review/`, `projects/eventops-poc/`, `projects/flex-office-demo/`
 
-## 6. GO Morris exact consommé
-SFIA STUDIO DOCTRINEPACKAGE / RUNTIME CKC INTEGRATION QUALIFICATION
-— START A TARGETED CYCLE 6 TECHNICAL ARCHITECTURE QUALIFICATION
-— PROFILE CRITICAL — TYPE EVOL/DOC
-— SERVE V3-F03 + V3-F07 + V3-F01
-— REUSE OA DOCTRINE BACKBONE
-— QUALIFY DELTA: Cycle Catalog → DoctrinePackage v3 → Studio-native CKC → Nora
-— NO PARALLEL RESOLVER / REGISTRY — NO CODE — NO RUNTIME MOD — NO DELIVERY — ZERO REAL
-— RUNTIME V3 NON ADOPTED
-— OUTPUT DECISION-READY QUALIFICATION + REVIEW PACK FULL + HANDOFF
-— CHATGPT REVIEW BEFORE ARCHITECTURE ADOPTION OR DELIVERY
+## 7. Staged initial
+NONE
 
-## 7. Cycle / profile / type
-- Cycle: 6 — Targeted technical architecture qualification (NEW trajectory segment)
-- NOT a reopen of Product Completion C6 Truth & Authority Durability
-- Profile: CRITICAL
-- Type: EVOL / DOC
-- Caps: V3-F03 DoctrinePackage · V3-F07 Provenance · V3-F01 CKC cognitive layer
+## 8. GO Morris consommé
+CORRECTION DOCUMENTAIRE LOCALE BORNÉE du candidat DoctrinePackage/CKC integration qualification
+suite au verdict ChatGPT CHANGES REQUIRED BEFORE MORRIS ARCHITECTURE DECISION.
+Autorise uniquement R1–R5 + Decision Pack/Recommendations update + Review Pack FULL + Handoff.
+N'autorise PAS adoption DPCKC · code · runtime · project Git transport.
 
-## 8. Convergence pre-check
-**CAPABILITY:** V3-F03 + V3-F07 + V3-F01
-**MILESTONE:** DOCTRINEPACKAGE / RUNTIME CKC INTEGRATION QUALIFICATION
-**CURRENT STATE:** CKC 15/15 CONTENT VALIDATED INTEGRATED ON MAIN · freeze `6db507e68e58…` · ROADMAP-SYNC-CKC-CONTENT-VALIDATION CLOSED ON MAIN · ROADMAP-POST-MERGE-CKC-388 CLOSED ON MAIN BY GIT+CI · DoctrinePackage framing VALIDATED · modeled backbone EXISTS · runtime coverage PARTIAL · CKC runtime binding TRANSITIONAL/method-candidate · Nora Studio CKC semantic consumption NOT PROVEN · Backlog NOT OPEN · Delivery NO · REAL ZERO · runtime v3 NON ADOPTED
-**TRAJECTORY:** validated CKC corpus → this qualification → Morris architecture decision → future implementation qualification → future bounded Delivery → Nora semantic Evidence → Product Completion continuation · no auto-transition
-**VERDICT:** **CONVERGENCE CONTEXT LOADED**
+## 9. Cycle / profile / type
+Cycle 6 targeted technical architecture — SAME segment — CORRECTION PASS
+Profile CRITICAL · Type EVOL/DOC · Caps V3-F03+V3-F07+V3-F01
+Old Product Completion C6 NOT REOPENED
 
-## 9. Sources lues (read-only)
-- prompts/templates/sfia-cycle-execution-template.md (process)
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md (process harvest only)
-- convergence Build Doctrine · Roadmap · CKC catalog snapshot pin
-- product-completion 01–03 + 06 (C6 CLOSED READ ONLY)
-- framing 30, 31, 34–37
-- ckc/06-architecture-technique.md (CONTENT VALIDATED · guidance · authority NONE)
-- latest handoff baseline commit `eaaa98d07b008263e21c7d29c178756564da2bc1` blob `c471247c83fe9175334126164c7b43210fe4aa08`
+## 10. Convergence pre-check
+CONVERGENCE CONTEXT LOADED
+Build Doctrine VALIDATED/ACTIVE · C1 VALIDATED · CKC 15/15 CONTENT VALIDATED INTEGRATED ON MAIN
+Gap: DoctrinePackage resolve + CKC qualification exist but not joined by package-native Studio CKC binding
+CKC runtime binding METHOD-CANDIDATE/TRANSITIONAL · Nora semantic NOT PROVEN
+Backlog NOT OPEN · Delivery NO · REAL ZERO · runtime v3 NON ADOPTED
 
-## 10. Latest handoff (pre-publish baseline)
-- commit: `eaaa98d07b008263e21c7d29c178756564da2bc1` (expected eaaa98d0…)
-- blob: `c471247c83fe9175334126164c7b43210fe4aa08` (expected c471247c…)
-- MATCH expected: YES
+## 11. Sources lues
+Process templates · Build Doctrine · Roadmap · CKC catalog pin · PC 01–03 + 06 CLOSED · framing 30/31/34/35/37 · ckc/06
+Code evidence: qualifyCycleWithCkc.ts · f2/qualify.ts · orchestrateF2.ts · buildProjectSystemPrompt.ts · doctrinePackageRepositoryPort.ts · filesystemDoctrinePackageRepository.ts
+Baseline handoff below
 
-## 11–13. Architecture inventory + paths + F1–F11
-See qualification document sections E + verified facts. Summary:
+## 12. Baseline handoff
+commit `3ef0abc2e32e4ddc7026a4f4c46659116707eebf`
+blob `b136c534715d2447776effb640325c26c3c80fa9`
+remote readback MATCH · full initial candidate content present (CONTENT_MATCH baseline)
 
-**Doctrine:** domain/types.ts · digest.ts · errors.ts · invariants.ts · resolveDoctrinePackage.ts · validateDoctrinePackage.ts · ports/* · filesystemDoctrinePackageRepository.ts · ajvSchemaValidationAdapter.ts · sha256DigestVerificationAdapter.ts · fixtures/registry.json · fixtures/packages/pkg-studio-v3-oa-1.0.0/manifest.json
+## 13. ChatGPT review verdict
+CHANGES REQUIRED BEFORE MORRIS ARCHITECTURE DECISION — accepted as input to this correction pass
 
-**Cycle/CKC:** cycleTypeCatalog.ts · catalogFingerprint.ts · catalogProjection.ts · ckcQualification* · ckcConsumptionProof.ts · qualifyCycle.ts · qualifyCycleWithCkc.ts · resolveCycleKnowledgeContract.ts · ckcResolver.ts · ckcQualificationResolver.ts (port+infra) · ckcReferenceManifest.ts · memoryCkcResolver.ts
+## 14. Exact corrections R1–R5
+- R1 DPCKC-D08: two boundaries (resolution/qualification ≠ Nora semantic)
+- R2 DPCKC-D04 + §O/P: Morris construction/promotion ≠ Pilote HumanDecision
+- R3 DPCKC-D10: logical repository seam ≠ LocalDoctrineRegistry/filesystem permanent Product SoT
+- R4 DPCKC-D01: concrete I2-A/I2-B/I2-C + version invariants
+- R5 DPCKC-D03: canonical ckcId CLOSED · no Catalog independent SoT field · package index materializes
 
-**Nora/VS boundary:** vertical-slice-runtime/service.ts · localProjectComposition.ts (DEFAULT_LOCAL_DOCTRINE_PIN) · createProject.ts · liveProjectContext.ts · features/project-assistant/f2/orchestrateF2.ts
+## 15. Before/after R1
+BEFORE: equated oa.ckcQualification / QualifyCycleWithCkc with Nora semantic-consumption boundary
+AFTER: Boundary A = resolution/qualification KEEP/ADAPT · Boundary B = future F2 semantic-consumption seam ADAPT · evidence from orchestrateF2 order intent→qualify→cycle/proposal · qualify.ts no CKC content · buildProjectSystemPrompt metadata only
 
-| Fact | Result |
-|---|---|
-| F1 Manifest fields | TRUE |
-| F2 Pin fields | TRUE |
-| F3 ResolveDoctrinePackage ports/fail-closed/no method fallback | TRUE |
-| F4 FS+AJV+SHA256 | TRUE |
-| F5 Catalog method paths | TRUE (6) |
-| F6 method-candidate + synthetic | TRUE |
-| F7 CKC_REFERENCE_MANIFEST 4 pilots + synthetic | TRUE |
-| F8 QualificationResolver method-candidate path binding | TRUE |
-| F9 ConsumptionProof lacks package provenance | TRUE |
-| F10 ResolveCycleKnowledgeContract CkcResolverPort + execAuth false + fallback intra_v3_only\|none | TRUE |
-| F11 Fixture ≠ auto product | TRUE (also DEFAULT_LOCAL_DOCTRINE_PIN) |
+## 16. Before/after R2
+BEFORE: "HumanDecision Morris/pilote" ambiguity on pin upgrade
+AFTER: Authority Matrix · Morris=promotion/construction · Nora=Recommendation · Pilote=Project HumanDecision · no silent upgrade
 
-## 14. Contradictions found
-- None vs ChatGPT pre-check F1–F11.
-- Structural finding (not contradiction): Doctrine resolve path (Project pin) and CKC qualification path (method catalog) are **not joined** for Studio CKC content binding.
-- DEFAULT_LOCAL_DOCTRINE_PIN uses fixture identity — reinforces F11 (do not promote silently).
+## 17. Before/after R3
+BEFORE: KEEP LocalDoctrineRegistry as "the registry mechanism"
+AFTER: KEEP DoctrinePackageRepositoryPort logical seam · filesystem/LocalDoctrineRegistry = current adapter/materialization ≠ permanent Product SoT
 
-## 15–16. Current / target flow
-CURRENT: Catalog → method paths → CKC_REFERENCE_MANIFEST → CkcQualificationResolver → method-candidate → CkcConsumptionProof (parallel: Project→ResolveDoctrinePackage→doctrinePackageRef)
-TARGET: Catalog → DoctrinePackage pin → ResolveDoctrinePackage → package-authorized CKC binding → Studio-native CKC → cognitive context → Nora
-FORBIDDEN: Catalog → `projects/sfia-studio/sfia-v3-framing/ckc/<file>.md` shortcut
+## 18. D01 hardening complete
+I1 / I2-A `pkg:sfia-studio-v3` / I2-B `pkg:sfia-studio-doctrine-v3` / I2-C challenged
+Recommendation exacte I2-B · packageVersion ≠ digest ≠ contractVersion · fixture KEEP-AS-TEST-FIXTURE
 
-## 17–31. Analyses
-Full content in §35 document: asset classification · options A/B/C · identity · catalog ownership · pin P1/P2/P3 · fallback · provenance · Nora boundary · consumption proof · method exit · no-parallel · dependencies · debt/exits · E2E proof · Decision Pack.
+## 19. D03 hardening complete
+Canonical derivation CLOSED · Catalog no independent ckcId SoT · package index materializes+verifies · IDENTITY DERIVATION ≠ RUNTIME BINDING
 
-## 32–34. Decision Pack / Recommendations / Morris gates
-See document §§Y–Z. Recommendations ≠ Morris decisions. All DPCKC-D01…D10 require Morris YES for architecture adopt.
+## 20. Corrected authority matrix
+See document §X.0
 
-## 35. FULL CONTENT — new qualification document
+## 21. Corrected Nora boundaries
+See document §Q · DPCKC-D08
+
+## 22. Corrected E2E proof
+Phase A resolution proof · Phase B Nora semantic proof · consumed=true insufficient for Phase B
+
+## 23. Option B consistency recheck
+RECONFIRMED — Manifest→indexDigest→index map→sourceDigest · no second registry/resolver · R-CKC-01 · path ≠ business identity
+
+## 24. No-parallel architecture check
+NO second DoctrinePackage resolver · CKC resolver engine · registry engine · catalog · orchestration engine
+
+## 25. Updated Decision Pack
+DPCKC-D01…D10 rewritten as required (full text in §29)
+
+## 26. Updated Recommendations
+See §Z.1 — Recommendations ≠ Morris decisions · architecture NOT ADOPTED
+
+## 27. Exact remaining Morris decisions
+All DPCKC-D01…D10 YES — only after ChatGPT PASS
+
+## 28. Anti-claims
+See §AA
+
+## 29. FULL corrected qualification document
 Path: `projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md`
 
 ```markdown
@@ -118,7 +121,7 @@ Path: `projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-
 
 | Champ | Valeur |
 |---|---|
-| **Statut** | **CANDIDATE — AWAITING CHATGPT REVIEW / MORRIS ARCHITECTURE DECISION** |
+| **Statut** | **CANDIDATE — CORRECTION PASS (R1–R5) — AWAITING CHATGPT ARCHITECTURE RE-REVIEW / MORRIS DECISION PACK ONLY IF CHATGPT PASS** |
 | **Autorité** | **AUCUNE** — document candidaté uniquement · **≠** Morris-adopted · **≠** READY · **≠** ADOPTED · **≠** Backlog · **≠** Delivery · **≠** REAL |
 | **Rôle** | Qualification d’architecture d’intégration : binding runtime Catalog → **DoctrinePackage** → CKC (Studio corpus) |
 | **Base Git vérifiée** | `origin/main` @ `c4dc1c9c` *(contexte de rédaction)* |
@@ -129,6 +132,8 @@ Path: `projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-
 | **C6 Product Completion** | **CLOSED** — `06-product-completion-architecture-technique-delta.md` · **DO NOT REOPEN** |
 | **runtime v3** | **NON ADOPTED** · **ZERO REAL** · **no Backlog / no Delivery** |
 | **Recommendation ≠ Decision** | Toute recommandation de ce document est **tentative** jusqu’à décision Morris explicite |
+| **Correction pass** | R1 D08 dual boundary · R2 D04 Morris≠Pilote · R3 D10 logical repo≠filesystem SoT · R4 D01 identity/version · R5 D03 ckcId ownership |
+| **Architecture adopted?** | **NO** — Recommendations ≠ Morris decisions · DPCKC-D01…D10 **not consumed** |
 
 ---
 
@@ -362,25 +367,29 @@ Dispositions = **recommandations candidates** ≠ Morris-adopted.
 |---|---|---|
 | Studio CKC corpus 15/15 (`sfia-v3-framing/ckc/**`) | **KEEP** (content) · **COMPLETE** (runtime binding later) | Contenu validé ; binding package manquant |
 | Freeze `6db507e68e58…` | **KEEP** (audit transport) | Preuve review · ≠ package digest |
-| `ResolveDoctrinePackage` + ports/adapters | **ADAPT** (extend consumers) · **KEEP** engine | Réutiliser ; ne pas forker |
+| `ResolveDoctrinePackage` + ports | **KEEP** engine · **ADAPT** consumers | Réutiliser ; ne pas forker |
+| `DoctrinePackageRepositoryPort` | **KEEP** (logical seam) | Architectural repository mechanism |
+| `FilesystemDoctrinePackageRepository` + `LocalDoctrineRegistry` | **KEEP/ADAPT** as **current adapter/materialization** | ≠ permanent Product SoT (D10) |
 | `DoctrinePackageManifest` types | **COMPLETE** (modeled delta CKC binding fields) | F1 sans champs CKC binding |
-| `DoctrinePackagePin` / Project pin path | **KEEP** shape · **ADAPT** ownership/product identity | P1 recommandé |
-| Fixture `pkg:studio-v3-oa@1.0.0` | **KEEP-AS-TEST-FIXTURE** / **HARVEST** | F11 · product identity = Morris decision |
-| `CycleTypeCatalog` identity/lifecycle/selectability | **KEEP** | Catalogue de types |
+| `DoctrinePackagePin` / Project pin path | **KEEP** shape · **ADAPT** product identity + authority split | P1 · Morris≠Pilote |
+| Fixture `pkg:studio-v3-oa@1.0.0` | **KEEP-AS-TEST-FIXTURE** / **HARVEST** | F11 · product = I2-B recommended |
+| `CycleTypeCatalog` identity/lifecycle/selectability | **KEEP** | Catalogue de types · no independent ckcId SoT field |
+| Canonical ckcId derivation rule | **KEEP** (CLOSED) | IDENTITY DERIVATION ≠ RUNTIME BINDING |
 | Catalog `ckc.primaryReference` method paths | **REMOVE** (source selection) via **ADAPT** | HR-01 |
 | Catalog `doctrineStatus=method-candidate` hardcode | **ADAPT** / **RETIRE LATER** (method semantics) | Remplacer par statut package-aware |
 | `CKC_REFERENCE_MANIFEST` method pilots | **REPLACE** (by package-internal index) · method **FREEZE** | Transitional debt |
 | Synthetic map method path | **FREEZE** method asset · optional **package-internal** policy later | Prefer no synthetic for current 15/15 if all detailed |
-| `CkcQualificationResolver` | **ADAPT** | Ports + rules package-bound |
+| `CkcQualificationResolver` / `QualifyCycleWithCkc` / `oa.ckcQualification` | **KEEP/ADAPT** = **Boundary A** | Resolution/qualification · ≠ Nora semantic |
 | `CkcResolverPort` / `ResolveCycleKnowledgeContract` | **ADAPT** | Garder port ; changer source |
-| `QualifyCycleWithCkc` | **ADAPT** | Preuve enrichie |
-| `CkcConsumptionProof` | **COMPLETE** | Ajouter package identity/digest/provenance |
+| `CkcConsumptionProof` | **COMPLETE** (Phase A) | Package+ckc digests · ≠ Phase B |
 | `createCkcQualificationServices` | **ADAPT** | Inject package resolution context |
 | vertical-slice `service.ts` wiring | **ADAPT** | Joindre pin projet → CKC resolve |
-| F2 `orchestrateF2` / `qualify` | **ADAPT** (boundary only) | Pas de second orchestration |
+| F2 `qualify.ts` | **KEEP/ADAPT** Boundary A DTO mapping | No CKC content transport today |
+| F2 `orchestrateF2` | **ADAPT** for future **Boundary B** seam | No second orchestration engine |
+| `buildProjectSystemPrompt` | **KEEP** F1 metadata | ≠ CKC content injection proof |
 | Method pilots / synthetic map files | **FREEZE** / **HARVEST** concepts | ≠ runtime SoT Studio |
 | C6 delta doc | **FREEZE CLOSED** | DO NOT REOPEN |
-| Parallel new CKC registry/resolver/catalog | **REJECT** (default) | §U |
+| Parallel new CKC registry/resolver/catalog/orchestrator | **REJECT** (default) | §U |
 
 ---
 
@@ -390,27 +399,45 @@ Dispositions = **recommandations candidates** ≠ Morris-adopted.
 
 | Propriété | Fixture actuelle | Package produit (cible candidaté) |
 |---|---|---|
-| Id | `pkg:studio-v3-oa` | **À décider Morris** (≠ auto-renommer fixture) |
-| Version | `1.0.0` | Version produit distincte / semver package |
-| Digest | pin local historique | Digest package publié incluant index CKC |
+| Id | `pkg:studio-v3-oa` | **À décider Morris** parmi conventions concrètes §H.2 (≠ auto-renommer fixture) |
+| Version | `1.0.0` | `packageVersion` publiée (≠ digest · ≠ CKC `contractVersion`) |
+| Digest | pin local historique | Empreinte immuable de **cette** version matérialisée |
 | Rôle | tests + DEFAULT local demo pin | Envelope runtime Project + CKC bindings |
-| Corpus | non lié Studio 15/15 | Bindings `ckc:studio:*` @ contractVersion validée |
+| Corpus | non lié Studio 15/15 | Bindings `ckc:studio:*` @ `contractVersion` validée |
 
-### H.2 Options d’identité produit
+### H.2 Invariants d’identité / version (obligatoires)
 
-| Option | Description | Trade-offs |
+| Terme | Signifie | Ne signifie pas |
 |---|---|---|
-| **I1** | Promouvoir `pkg:studio-v3-oa` en package produit | Simple · **contaminé** par sémantique fixture/test · risque audit confus |
-| **I2** | Nouvel id produit (ex. `pkg:studio-v3-ckc-…`) · fixture conservée séparée | Clair · migration pin · Morris gate structurel |
-| **I3** | Family id stable + version channels (draft/published) | Plus riche · plus de surface modeled |
+| **PACKAGE ID** | Identité stable de famille produit (`doctrinePackageId`) | Path · branch · freeze corpus · catalogHash · digest seul |
+| **PACKAGE VERSION** | Version d’un package **publié** ; change lorsque envelope / bindings / contenu canonique produisent une nouvelle version distribuable | Digest · `contractVersion` CKC · freshness signal |
+| **PACKAGE DIGEST** | Empreinte immuable du contenu matérialisé de **cette** version | Identity · semver · `contractVersion` |
+| **CKC contractVersion** | Version contractuelle **intrinsèque** du CKC (R-CKC-01) | `packageVersion` · package digest |
 
-### H.3 Recommendation (tentative)
+**Invariant :** `packageVersion ≠ digest ≠ CKC contractVersion`.
 
-- **KEEP-AS-TEST-FIXTURE / HARVEST** pour `pkg:studio-v3-oa@1.0.0`.
-- **Product identity = Morris decision** (favoriser **I2** pour clarté audit).
-- Ne jamais traiter `DEFAULT_LOCAL_DOCTRINE_PIN` comme preuve d’adoption produit.
+Ne jamais dériver `packageId` de : filesystem path · branch · corpus review freeze · catalog hash · digest seul.
 
-**Morris decision required :** **YES** (identité produit).
+### H.3 Options concrètes d’identité produit (max 3 + reject promote-fixture)
+
+| Option | Convention | Semantic meaning | Longevity | Coupling | Audit | Future | Migration fixture | Reversibility |
+|---|---|---|---|---|---|---|---|---|
+| **I1** | Promote `pkg:studio-v3-oa` | Fixture → product | Faible (contaminé test) | Fort coupling historique T-A0 | Confusion fixture/product | Mauvaise | Nulle | Faible |
+| **I2-A** | `pkg:sfia-studio-v3` | Famille produit Studio v3 (envelope doctrine large) | Haute | Faible coupling « CKC-only » | Clair, générique | Compatible élargissement doctrine | Pin swap explicite | Moyenne |
+| **I2-B** | `pkg:sfia-studio-doctrine-v3` | Famille **doctrine** Studio v3 (envelope explicite) | Haute | Nomme le rôle doctrinale | Très clair audit | Aligné DoctrinePackage framing | Pin swap explicite | Moyenne |
+| **I2-C** | `pkg:sfia-studio-v3-oa` | Variante « OA » héritée du modeled backbone | Moyenne | Couplage couche OA / naming legacy | Moyen | Risque confusion avec fixture `studio-v3-oa` | Plus risqué | Moyenne |
+
+**Écart I2-A vs I2-B :** I2-A = product family Studio ; I2-B = product family **doctrine** (plus précis si DoctrinePackage enveloppe framing + CKC + autres sources, pas seulement CKC). I2-C challengée : trop proche de la fixture.
+
+### H.4 Recommendation (tentative — exacte)
+
+1. **KEEP-AS-TEST-FIXTURE / HARVEST** : `pkg:studio-v3-oa@1.0.0` (sauf décision Morris contraire).
+2. **Product identity Recommendation = I2-B** : `pkg:sfia-studio-doctrine-v3`.
+3. **First product `packageVersion`** : `1.0.0` **nouvelle** lignée produit (≠ « promouvoir » la fixture 1.0.0 ; digests distincts ; pin Project distinct).
+4. `DEFAULT_LOCAL_DOCTRINE_PIN` ≠ preuve d’adoption produit.
+5. **Publication/promotion** d’une version package = **Morris construction/governance gate** (§Authority Matrix) · **≠** HumanDecision Pilote.
+
+**Morris decision required :** **YES** (identité produit + première version + reject I1).
 
 ---
 
@@ -446,9 +473,33 @@ Réutiliser `sources: DoctrineSourceRef[]` existant comme binding CKC « génér
 | | Risque de binding flou / non auditable |
 | | **Challenged — non recommandé** comme mécanisme primaire |
 
-### I.4 Recommendation (tentative)
+### I.4 Option B — chaîne d’intégrité (clarification ; no code)
 
-**Prefer Option B** (package-internal CKC index + artifact digests) pour auditabilité et séparation R-CKC-01.
+Candidat :
+
+```text
+DoctrinePackageManifest (envelope)
+  → référence package-internal CKC index + expected indexDigest
+  → package digest couvre le manifest canonicalisé (incl. ref+indexDigest)
+  → index mappe cycleTypeId → ckcId + contractVersion + sourceRef/sourceDigest
+       + policy/fallback applicable
+  → source CKC vérifiée (digest) sous allowlist package
+  → resolution/provenance
+  → (futur) semantic context → Nora
+```
+
+Vérifications Option B :
+
+- **pas** de second registry engine ;
+- **pas** de second resolver engine ;
+- path **n’est pas** business identity (R-CKC-01 + package id) ;
+- manifest reste envelope ;
+- verification transitive package → index → CKC source ;
+- respecte R-CKC-01.
+
+### I.5 Recommendation (tentative)
+
+**Prefer Option B** (package-internal CKC index + artifact digests) — **reconfirmed** after R1–R5.
 
 **Morris decision required :** **YES** (binding model).
 
@@ -456,24 +507,46 @@ Réutiliser `sources: DoctrineSourceRef[]` existant comme binding CKC « génér
 
 ## J. Cycle catalog responsibility
 
-### J.1 KEEP
+### J.1 KEEP in Catalog
 
-- Identité `cycleTypeId` / `canonicalKey` / labels.
-- Lifecycle / selectability.
+- `cycleTypeId` · `canonicalKey` · labels.
+- Lifecycle / selectability / ordering/display.
+- Cycle semantics.
 - Fingerprint catalogue (version/hash) pour cohérence projection.
-- Sémantique « CKC mandatory / executionAuthority=false / fail-closed unavailable ».
+- Sémantique « CKC mandatory / `executionAuthority=false` / fail-closed unavailable » (sans path SoT).
 
-### J.2 REMOVE / move out
+### J.2 REMOVE / MOVE OUT of Catalog
 
-- **Source selection** : paths `method/sfia-fast-track/**`.
-- Choix d’artifact CKC concret (primaryReference path).
-- Autorité de doctrine content (method-candidate path).
+- Repository path / method path to CKC source.
+- Package source selection · fallback source path.
+- Doctrine package digest / package version / runtime source allowlist.
 
-### J.3 Recommendation (tentative)
+### J.3 Canonical ckcId identity (CLOSED — do not reopen)
 
-**KEEP** identity/semantics · **REMOVE** paths/source selection · catalog devient **sélecteur de type**, pas **locator de contenu**. Le locator passe par DoctrinePackage index.
+Convention **ADOPTED BY MORRIS** (CKC-ID-CONVENTION CLOSED) :
 
-**Morris decision required :** **YES** si retrait des paths est considéré structural breaking pour D1 fingerprint (gate structurel).
+```text
+ckcId = "ckc:studio:" + cycleTypeId.removePrefix("cyc:")
+```
+
+Ex. `cyc:technical-architecture` → `ckc:studio:technical-architecture`.
+
+| Couche | Owns | Ne owns pas |
+|---|---|---|
+| **CycleTypeCatalog** | `cycleTypeId` · semantics · selectability | Source path · package pin · content digest |
+| **Canonical identity rule** | Relation déterministe `cycleTypeId → ckcId` | Runtime binding / digests |
+| **Package CKC index** | Matérialise `cycleTypeId` + `ckcId` + `contractVersion` + source/digest + policy ; **vérifie** cohérence `ckcId`↔`cycleTypeId` | Réécriture de la convention identity |
+
+**IDENTITY DERIVATION ≠ RUNTIME BINDING.**
+
+### J.4 Recommendation (tentative — exacte)
+
+1. **KEEP** Catalog identity/semantics · **REMOVE** paths/source selection.
+2. **NE PAS** dupliquer `ckcId` comme nouvelle source indépendante dans CycleTypeCatalog si la dérivation canonique CLOSED suffit.
+3. Package index **matérialise** `ckcId` pour validation/audit et **échoue clos** si incohérent avec `cycleTypeId`.
+4. Option contradictoire (explicit `ckcId` field in Catalog) = **challengée / non recommandée** sauf preuve repo d’impossibilité de dérivation — Morris gate si proposée.
+
+**Morris decision required :** **YES** (catalog path removal + confirm no explicit catalog `ckcId` field).
 
 ---
 
@@ -529,13 +602,13 @@ CycleTypeId
 
 ### L.3 Convention id
 
-Conserver `ckc:studio:{cycle-type-token}` (ADOPTED au cadrage). Le runtime binding doit résoudre via **identité**, pas via path repo brut.
+Conserver `ckc:studio:{cycle-type-token}` = dérivation `ckc:studio:` + suffixe `cycleTypeId` sans préfixe `cyc:` (**ADOPTED / CLOSED**). Le runtime binding résout via **identité + digest package-index**, pas via path repo brut.
 
 ### L.4 Recommendation
 
-Binding **by identity + digest**, never by ambient filesystem path outside package allowlist.
+Binding **by identity + digest**, never by ambient filesystem path outside package allowlist. Catalog ne stocke pas une seconde SoT `ckcId` (§J).
 
-**Morris decision required :** **NO** pour R-CKC-01 lui-même (déjà CLOSED) · **YES** pour la forme concrète d’index (lié DPCKC-D03).
+**Morris decision required :** **NO** pour R-CKC-01 / convention id (déjà CLOSED) · **YES** pour la forme concrète d’index (DPCKC-D02) et ownership catalog (DPCKC-D03).
 
 ---
 
@@ -605,62 +678,107 @@ Binding **by identity + digest**, never by ambient filesystem path outside packa
 
 | Option | Description | Trade-offs |
 |---|---|---|
-| **P1** | **Project durable `DoctrinePackagePin`** (aligné `CreateProject` / LPS) | Cohérent audit projet · upgrade via Recommendation→**HumanDecision** · déjà amorcé |
-| **P2** | Global studio default pin only | Simple démo · faible isolation multi-project · danger fixture leakage |
-| **P3** | CycleInstance-local pin | Fine-grained · complexité · divergence LPS/Project |
+| **Option P1** | **Project durable `DoctrinePackagePin`** (aligné `CreateProject` / LPS) | Audit projet · upgrade Project via Nora Recommendation → **HumanDecision Pilote** · déjà amorcé |
+| **Option P2** | Runtime global default pin only | Simple démo · faible isolation multi-project · danger fixture leakage |
+| **Option P3** | Hybrid / CycleInstance-local pin | Fine-grained · complexité · divergence LPS/Project |
+
+### Authority split (obligatoire — R2)
+
+| Acte | Autorité |
+|---|---|
+| Construction / architecture Studio · policies · gates | **Morris** |
+| Product package identity · publication / **promotion** d’une version DoctrinePackage disponible | **Morris** |
+| Default produit structurant (si adopté) | **Morris** |
+| Recommendation d’upgrade de pin pour **un** Project | **Nora** (Recommendation only) |
+| Accept / reject upgrade pin **dans** un Project | **HumanDecision Pilote** |
+| Execution authority | **NEVER** from CKC / DoctrinePackage |
+
+**Interdit :** formulation « HumanDecision Morris/pilote ». Morris ≠ Pilote sauf si Morris agit **lui-même** comme utilisateur Pilote du produit.
 
 ### Recommendation (tentative)
 
-**Prefer P1.** Upgrade de pin = proposition cognitive → **HumanDecision** Morris/pilote · jamais auto-mute silencieuse.
+**Prefer Option P1.**
+- **No silent upgrade.**
+- Package **promotion/availability** = Morris gate.
+- Project **selection/upgrade** = Nora Recommendation → HumanDecision **Pilote** under Studio policy.
+- Pilote **ne promeut pas** un package global.
 
-Si P1 confirme le modèle structural Project/LPS déjà présent : gate Morris **toujours requis pour product package identity**, mais ownership P1 peut être **low-friction** (non-structural vs status quo createProject).
-
-**Morris decision required :** **YES** si écart vs P1 · **YES** pour product pin default · ownership P1 elle-même = **Recommendation** alignée code actuel (Morris confirm).
+**Morris decision required :** **YES** (confirm P1 + authority split).
 
 ---
 
 ## P. Package staleness / update behavior
 
-| Signal | Comportement candidat |
-|---|---|
-| Manifest `freshness` aging/stale | Surface honesty · **≠** auto-upgrade |
-| Registry newer version | Recommendation only |
-| Pin digest mismatch | Fail-closed resolve |
-| CKC content newer than pin | Invisible jusqu’à HumanDecision d’upgrade pin |
-| Revoked package | Fail-closed |
+| Signal | Comportement candidat | Autorité |
+|---|---|---|
+| Manifest `freshness` aging/stale | Surface honesty · **≠** auto-upgrade | Policy Studio (Morris construction) |
+| Newer published package version available | Signal / honesty · **≠** auto-swap pin | **Morris** publishes/promotes availability · Nora may Recommend Project upgrade |
+| Project pin upgrade proposal | Recommendation only | **Nora** |
+| Accept/reject Project pin upgrade | Durable pin change | **HumanDecision Pilote** |
+| Pin digest mismatch | Fail-closed resolve | Runtime fail-closed |
+| CKC content newer than pinned package | Invisible until Project upgrade accepted | Pilote (Project) · pas promotion globale |
+| Revoked package | Fail-closed | Morris governance + runtime |
 
-**Recommendation :** pin durable Project · updates via **Recommendation → HumanDecision** · no silent floating `latest`.
+**Recommendation :** pin durable Project (P1) · **no silent floating `latest`** · Project updates via **Nora Recommendation → HumanDecision Pilote** · package promotion remains **Morris**.
 
-**Morris decision required :** **YES** (update policy).
+**Morris decision required :** **YES** (update/staleness policy + authority split).
 
 ---
 
-## Q. Nora consumption — current / target boundary (repo)
-
-### Q.1 Current (repo-found)
-
-1. `vertical-slice-runtime/service.ts` crée `ckcQualification` via `createCkcQualificationServices`.
-2. `orchestrateF2.ts` passe `oa.ckcQualification`.
-3. `qualify.ts` / `QualifyCycleWithCkc` + `CkcQualificationResolver` produisent une résolution / proof path-based method-candidate.
-4. Doctrine pin path reste **parallèle** (create/LPS/live context).
-
-### Q.2 Critical boundary
+## Q. Nora consumption — TWO boundaries (repo-corrected · R1)
 
 **RESOLUTION PROOF ≠ NORA SEMANTIC CONSUMPTION PROOF.**
 
-| Couche | Statut actuel | Lecture |
-|---|---|---|
-| Resolution proof (`consumed=true`) | Existe (technique) | Preuve de résolution interne seulement |
-| Nora semantic consumption proof | **ABSENT / NOT PROVEN** | Ne pas claim « Nora uses CKC » |
-| Target | Proof package-bound + future semantic evidence | Qualification / exit proofs distincts |
+### Q.1 Current path (exact repo evidence)
 
-### Q.3 Target boundary (candidat)
+`orchestrateF2.ts` (header) : **intent → qualify → durable CycleInstance + LPS → live ContextSnapshot → proposal**.
 
-- OA continue d’exposer **un** port de qualification CKC.
-- Nora/F2 consomme ce port **sans** moteur parallèle.
-- Preuve sémantique Nora = **capability/exit distinct** après binding runtime prouvé.
+Ordre observé (actionable path) :
 
-**Morris decision required :** **NO** pour reconnaître la frontière actuelle (fait repo) · **YES** pour critères de preuve sémantique future (peut être hors ce pack si borné).
+1. `analyzeIntent` — cognition IA d’intention (**sans** contenu CKC Studio injecté).
+2. `qualifyWithCkc` → `QualifyCycleWithCkc` / `CkcQualificationResolver` — résolution + proof + profil/rationale ; **`proof.consumed=true` validé** ; **ne transporte pas** le contenu cognitif CKC.
+3. `qualify.ts` mappe vers `QualificationDto` (catalogVersion/hash · detailedStatus · disclosures · `ckcResolutionRef` · `executionAuthority=false`) — **toujours sans contenu CKC**.
+4. Création CycleInstance / LPS / proposal — post-qualification.
+
+`buildProjectSystemPrompt.ts` : metadata Project/LPS/Doctrine (id/version/status/digest) pour F1 — **≠** preuve d’injection du contenu Studio CKC.
+
+Doctrine pin resolve (createProject / LPS) reste **parallèle** et non joint au binding CKC content.
+
+### Q.2 Boundary A — CKC RESOLUTION / QUALIFICATION
+
+| | |
+|---|---|
+| **KEEP / ADAPT** | `CkcResolverPort` · `CkcQualificationResolver` · `QualifyCycleWithCkc` · `oa.ckcQualification` · `f2/qualify.ts` |
+| **Responsabilité** | Résoudre · vérifier · produire provenance/proof · calculer qualification/profil |
+| **NE FAIT PAS** | Prouver que Nora a raisonné avec le contenu CKC |
+
+### Q.3 Boundary B — NORA SEMANTIC CONSUMPTION (FUTURE SEAM)
+
+Seam cognitif **futur**, **après** résolution package/CKC, qui injecte le contenu cognitif résolu dans le raisonnement Nora.
+
+| | |
+|---|---|
+| **ADAPT** | Existing F2 / project-assistant orchestration (`orchestrateF2.ts` + providers existants) |
+| **NE PAS inventer** | `NoraContextService` · `KnowledgeEngine` · second orchestrator · second resolver |
+| **Statut** | **NOT PROVEN** aujourd’hui |
+
+### Q.4 Target flow (candidat)
+
+```text
+Resolve DoctrinePackage
+  → resolve package CKC binding (Option B index)
+  → verify CKC (identity + digests)
+  → construct resolved cognitive context
+  → Nora semantic reasoning
+  → qualification / recommendation / proposal as applicable
+  → semantic-consumption Evidence
+```
+
+**Delta futur signalé (sans coder) :** l’ordre actuel F2 fait l’intent AI **avant** qualify, et qualify **sans** contenu CKC. Une semantic-consumption step post-resolution peut exiger un **réordonnancement / insertion** dans `orchestrateF2` — à qualifier en implementation gate — **sans** contredire la boucle produit validée (intent → qualify → cycle/LPS → proposal) et **sans** nouveau moteur.
+
+**Recommendation :** KEEP Boundary A · ADAPT F2 orchestration for Boundary B post-resolution · no parallel engine.
+
+**Morris decision required :** **YES** (DPCKC-D08 — two boundaries + future seam).
 
 ---
 
@@ -678,14 +796,14 @@ Inclut : cycleTypeId · detailedStatus · level/status/source · expected/used r
 
 Champs additionnels minimaux : package pin fields · `ckcId` · `contractVersion` · content/index digests · doctrineStatus package-aware (valeur exacte = décision) · conserver `executionAuthority=false`.
 
-### R.3 Sémantique `consumed`
+### R.3 Sémantique `consumed` — Phase A vs Phase B
 
-| Flag | Signifie | Ne signifie pas |
-|---|---|---|
-| `consumed=true` | Proof builder accepted resolution coherence | Nora a lu/appliqué le CKC sémantiquement |
-| Future Nora semantic proof | Evidence d’usage cognitif gouverné | Auto-vrai si resolve OK |
+| Flag / proof | Phase | Signifie | Ne signifie pas |
+|---|---|---|---|
+| `CkcConsumptionProof.consumed=true` (+ package fields futurs) | **Phase A — RESOLUTION** | Cohérence résolution / qualification | Nora a raisonné avec le contenu CKC |
+| Future Nora semantic-consumption Evidence | **Phase B — SEMANTIC** | Contenu cognitif résolu a atteint le contexte de raisonnement Nora ; output attributable | Auto-vrai si resolve OK |
 
-**Morris decision required :** **YES** (schema proof).
+**Morris decision required :** **YES** (schema proof Phase A · critères Phase B via D08).
 
 ---
 
@@ -729,28 +847,44 @@ Champs additionnels minimaux : package pin fields · `ckcId` · `contractVersion
 | Concern | Engine existant | Action |
 |---|---|---|
 | Package resolve | `ResolveDoctrinePackage` | **ADAPT** consumers |
+| Logical repository seam | `DoctrinePackageRepositoryPort` | **KEEP** as architectural seam |
+| Current filesystem adapter | `FilesystemDoctrinePackageRepository` + `LocalDoctrineRegistry` / `registry.json` | **KEEP/ADAPT as current implementation** — **≠** permanent Product SoT by documentary fiat |
 | CKC resolve port | `CkcResolverPort` / `ResolveCycleKnowledgeContract` | **ADAPT** |
-| Qualification | `CkcQualificationResolver` + `QualifyCycleWithCkc` | **ADAPT** |
+| Qualification | `CkcQualificationResolver` + `QualifyCycleWithCkc` | **ADAPT** (Boundary A) |
 | Catalog | `CycleTypeCatalog` | **KEEP** identity · **REMOVE** paths |
+| F2 orchestration | `orchestrateF2.ts` | **ADAPT** for Boundary B seam · **no** second orchestrator |
 | Composition | `createCkcQualificationServices` + vertical-slice | **ADAPT** |
 
-### U.2 Interdits par défaut
+### U.2 Logical repository ≠ filesystem Product SoT (R3)
+
+| Couche | Disposition |
+|---|---|
+| **ONE logical DoctrinePackage repository / resolution mechanism** | **KEEP** |
+| **NO PARALLEL REGISTRY ENGINE** | Invariant |
+| `DoctrinePackageRepositoryPort` | Architectural seam |
+| Filesystem + `LocalDoctrineRegistry` + `relativePackageDir` | Current materialization/adapter strategy |
+| Long-term product root / materialization policy | **OPEN** — future implementation qualification · Morris gate **if structural** |
+| Fixture package | **≠** product package |
+
+### U.3 Interdits par défaut
 
 - Second DoctrinePackage resolver.
-- Second CKC registry parallèle au package index.
+- Second registry **engine**.
+- Second CKC resolver engine.
 - Second cycle catalog.
-- Second F2/Nora orchestration path pour CKC.
+- Second F2/Nora orchestration engine.
 - Shortcut filesystem Studio CKC hors package allowlist.
+- Canoniser LocalDoctrineRegistry/filesystem comme SoT produit permanente **sans** gate Morris + implementation qualification.
 
-### U.3 Exception rule
+### U.4 Exception rule
 
 Un nouvel engine **seulement si** preuve écrite d’impossibilité d’étendre ports/use-cases existants **et** Morris gate explicite.
 
-### U.4 Recommendation (tentative)
+### U.5 Recommendation (tentative)
 
-**ADAPT** `ResolveDoctrinePackage` + `CkcResolverPort` + `QualifyCycleWithCkc` — **no parallel engines**.
+**ADAPT** `ResolveDoctrinePackage` + `CkcResolverPort` + `QualifyCycleWithCkc` + F2 orchestration seam — **no parallel engines** · **no parallel registry engine**.
 
-**Morris decision required :** **NO** si ADOPT de la reco ADAPT · **YES** seulement si quelqu’un propose un fork.
+**Morris decision required :** **NO** pour reject parallel engines (default) · **YES** pour D10 materialization/product root if treated structural · **YES** si quelqu’un propose un fork.
 
 ---
 
@@ -789,19 +923,46 @@ Chaque debt : **KEEP TEMPORARY WITH EXIT** jusqu’au gate Delivery pertinent �
 
 ## X. End-to-end exit proof + negative proofs
 
-### X.1 Exit proof positif (candidat — futur, post-décision / post-implémentation autorisée)
+### X.0 Decision Authority Matrix (R2)
 
-1. Project créé avec **product** DoctrinePackagePin (≠ fixture seule).
-2. `ResolveDoctrinePackage` → ref+provenance OK.
-3. Pour chaque `cycleTypeId` du snapshot applicable : index package → `ckcId` Studio → content digest verify.
-4. `CkcConsumptionProof` contient package identity + ckc identity + digests.
-5. Aucune résolution produit ne lit `method/sfia-fast-track/**` comme SoT.
-6. `executionAuthority=false` conservé.
-7. Tests négatifs §X.2 PASS.
+| Domaine | Autorité |
+|---|---|
+| Construction / architecture Studio | **Morris** |
+| DoctrinePackage product identity | **Morris** |
+| Publication / promotion d’une package version | **Morris** |
+| Runtime policy (fail-closed, no silent upgrade, fallback) | **Morris** construction gate |
+| Recommendation d’upgrade pin pour un Project | **Nora** |
+| Accept / reject Project pin upgrade | **HumanDecision Pilote** |
+| Execution authority | **NEVER** from CKC / DoctrinePackage |
+| Cursor | **no structural decision** |
 
-**Note :** cet exit proof **n’est pas** satisfait aujourd’hui. Document = qualification only.
+### X.1 PHASE A — PACKAGE / CKC RESOLUTION PROOF (candidat futur)
 
-### X.2 Negative proofs (doivent échouer clos)
+Given Project pin + `cycleTypeId` · When resolving · Then prove:
+
+1. package id / version / digest résolus ;
+2. package integrity vérifiée ;
+3. CKC identity (`ckcId` / `cycleTypeId` / `contractVersion`) + `sourceDigest` ;
+4. source autorisée (allowlist package) ;
+5. fallback policy (none / intra-package only) ;
+6. provenance / correlation ;
+7. aucun method/** runtime SoT ;
+8. `executionAuthority=false`.
+
+`consumed=true` peut contribuer à Phase A · **insuffisant** pour Phase B.
+
+### X.2 PHASE B — NORA SEMANTIC CONSUMPTION PROOF (candidat futur)
+
+Given Phase A · When Nora reasons for the cycle · Then prove:
+
+1. actual resolved CKC cognitive content reached Nora’s reasoning context ;
+2. output exhibits behavior materially attributable to applicable CKC guidance ;
+3. provenance anchors output to package + CKC ;
+4. no raw method / v2.6 doctrine injected ;
+5. Recommendation remains Recommendation ;
+6. no HumanDecision invented.
+
+### X.3 Negative proofs (fail-closed)
 
 | # | Cas | Attendu |
 |---|---|---|
@@ -812,34 +973,37 @@ Chaque debt : **KEEP TEMPORARY WITH EXIT** jusqu’au gate Delivery pertinent �
 | N5 | Attempt method path bypass | rejected / unreachable in product path |
 | N6 | `legacyV26Fallback=true` | rejected |
 | N7 | `executionAuthority=true` on CKC | rejected |
-| N8 | Claim Nora semantic solely from `consumed=true` | invalid claim |
+| N8 | Claim Phase B solely from `consumed=true` | **invalid claim** |
+| N9 | Silent Project pin upgrade | forbidden |
+| N10 | Pilote « promotes » global package | forbidden (Morris-only promotion) |
 
-### X.3 Non-exit (anti)
+### X.4 Non-exit (anti)
 
 - Corpus CONTENT VALIDATED ≠ runtime integrated.
 - Fixture resolve OK ≠ product package.
-- F2 wiring exists ≠ Nora semantic consumption.
+- F2 wiring / Boundary A exists ≠ Nora semantic consumption (Phase B).
+- LocalDoctrineRegistry exists ≠ permanent Product SoT.
 
 ---
 
 ## Y. Decision pack DPCKC-D01…D10
 
-Chaque item : Options · Trade-offs · Recommendation · Impact · Reversibility · Evidence · Debt · **Morris decision required**.
+Chaque item : Options · Trade-offs · Recommendation · Impact · Reversibility · Evidence · Debt/exit · **Morris decision required**.
 
-Hard rule transverse (non-negotiable candidate) : target flow = **Catalog → DoctrinePackage → CKC** only · never Catalog→Studio file path shortcut · engines = **ADAPT** existing OA (no parallel resolver/registry/catalog/orchestration without separate Morris STOP gate).
+Hard rules transverses (candidates) : Catalog → DoctrinePackage → CKC · ADAPT existing OA · no parallel resolver/registry/catalog/orchestration engines · **RESOLUTION PROOF ≠ NORA SEMANTIC CONSUMPTION PROOF** · Morris construction/promotion ≠ Pilote HumanDecision.
 
-### DPCKC-D01 — Package product identity convention
+### DPCKC-D01 — Package product identity + version semantics
 
 | | |
 |---|---|
-| **Question** | Quelle identité/version produit pour le DoctrinePackage Studio CKC-capable ? |
-| **Options** | I1 promote fixture `pkg:studio-v3-oa@1.0.0` · I2 new product id/version · I3 multi-package family |
-| **Trade-offs** | §H — fixture leakage vs clean product lineage |
-| **Recommendation** | **I2** · fixture KEEP-AS-TEST-FIXTURE/HARVEST · identity never derived from path/branch/freeze/catalogHash/digest-alone |
-| **Impact** | Pin defaults · registry entries · audit strings |
+| **Question** | Quelle identité produit + sémantique de version pour le DoctrinePackage Studio ? |
+| **Options** | **I1** promote `pkg:studio-v3-oa` · **I2-A** `pkg:sfia-studio-v3` · **I2-B** `pkg:sfia-studio-doctrine-v3` · **I2-C** `pkg:sfia-studio-v3-oa` (challenged) |
+| **Trade-offs** | §H — fixture contamination vs clarity vs OA-legacy proximity |
+| **Recommendation** | **I2-B** `pkg:sfia-studio-doctrine-v3` · first product `packageVersion=1.0.0` as **new lineage** (≠ promote fixture) · fixture KEEP-AS-TEST-FIXTURE/HARVEST · invariants: packageId stable · packageVersion ≠ digest ≠ CKC contractVersion · never derive id from path/branch/freeze/catalogHash/digest |
+| **Impact** | Pins · registry entries · audit · DEFAULT local pin quarantine |
 | **Reversibility** | Medium (pin migration) |
-| **Evidence** | F11 · DEFAULT_LOCAL_DOCTRINE_PIN · fixture manifest |
-| **Debt** | Dual fixture/product until cutover |
+| **Evidence** | F11 · DEFAULT_LOCAL_DOCTRINE_PIN · fixture manifest · framing 31 |
+| **Debt/exit** | Dual fixture/product until cutover · exit when product pin is default under Morris |
 | **Morris decision required** | **YES** |
 
 ### DPCKC-D02 — DoctrinePackage→CKC binding representation
@@ -847,41 +1011,41 @@ Hard rule transverse (non-negotiable candidate) : target flow = **Catalog → Do
 | | |
 |---|---|
 | **Question** | Comment le package autorise-t-il le binding CKC ? |
-| **Options** | A inline in Manifest · **B package-internal CKC index** · C generic `sources[]` only |
-| **Trade-offs** | §I — auditability vs schema simplicity |
-| **Recommendation** | **Option B** |
+| **Options** | A inline Manifest · **B package-internal CKC index** · C generic `sources[]` |
+| **Trade-offs** | §I — auditability vs simplicity |
+| **Recommendation** | **Option B reconfirmed** — Manifest envelope references index+indexDigest · index maps cycleTypeId→ckcId+contractVersion+sourceRef/sourceDigest+policy · transitive integrity · no second registry/resolver · path ≠ business identity · R-CKC-01 respected |
 | **Impact** | Modeled Manifest/index delta · resolver ADAPT |
 | **Reversibility** | Medium |
-| **Evidence** | Current Manifest lacks CKC fields (F1 gap) |
-| **Debt** | Modeled COMPLETE required before Delivery |
+| **Evidence** | F1 gap · Option B integrity chain §I.4 |
+| **Debt/exit** | Modeled COMPLETE before Delivery |
 | **Morris decision required** | **YES** |
 
-### DPCKC-D03 — Cycle Catalog target ownership of CKC identity
+### DPCKC-D03 — Catalog ownership / canonical ckcId
 
 | | |
 |---|---|
-| **Question** | Que garde / perd le CycleTypeCatalog ? `ckcId` stocké ou dérivé ? |
-| **Options** | Keep paths · REMOVE paths KEEP semantics · store explicit `ckcId` · derive `ckc:studio:{token}` only |
-| **Trade-offs** | §J — fingerprint churn · identity stability |
-| **Recommendation** | **KEEP** identity/semantics · **REMOVE** paths/source selection/package digests · prefer stable `ckcId` reference (explicit or closed derivation) without path SoT |
-| **Impact** | catalog fingerprint · qualification projection |
+| **Question** | Ownership Catalog vs canonical ckcId vs package binding ? |
+| **Options** | (1) Keep paths · (2) REMOVE paths KEEP semantics + **canonical derivation only** · (3) explicit `ckcId` field in Catalog as independent SoT |
+| **Trade-offs** | §J — fingerprint churn · identity stability · duplication risk |
+| **Recommendation** | **Option (2)** — Catalog owns cycleTypeId/semantics/lifecycle · canonical rule CLOSED owns `ckcId="ckc:studio:"+cycleTypeId.removePrefix("cyc:")` · **do not** duplicate `ckcId` as independent Catalog SoT · package index **materializes** ckcId for audit and verifies coherence · IDENTITY DERIVATION ≠ RUNTIME BINDING · option (3) challenged unless impossibility proven |
+| **Impact** | catalog fingerprint · projection · index validation |
 | **Reversibility** | Low if fingerprint contract changes |
-| **Evidence** | F5–F6 · CYCLE_TYPE_CATALOG_VERSION `0.1.0-v3.1-d1` |
-| **Debt** | Transitional dual mapping until package index live |
+| **Evidence** | CKC-ID-CONVENTION CLOSED · validation X23 · F5–F6 |
+| **Debt/exit** | Transitional dual mapping until package index live |
 | **Morris decision required** | **YES** |
 
-### DPCKC-D04 — Package pin ownership / persistence boundary
+### DPCKC-D04 — Package pin ownership + authority split
 
 | | |
 |---|---|
-| **Question** | Où vit le DoctrinePackagePin durable ? |
-| **Options** | **Option P1** Project durable pin · Option P2 runtime global only · Option P3 hybrid/cycle-local |
-| **Trade-offs** | §O — reproducibility · multi-project · upgrade |
-| **Recommendation** | **Option P1** (aligné CreateProject/LPS) · upgrade via Recommendation→HumanDecision |
-| **Impact** | Project/LPS continuity · C1 auditability |
+| **Question** | Où vit le pin durable et qui décide promotion vs Project upgrade ? |
+| **Options** | **Option P1** Project durable pin · P2 global only · P3 hybrid/cycle-local |
+| **Trade-offs** | §O/P — reproducibility · multi-project · upgrade honesty |
+| **Recommendation** | **Option P1** · **Morris** = construction/governance/package **promotion**/availability/policies · **Nora** = Recommendation d’upgrade Project · **Pilote** = HumanDecision accept/reject pin **dans** le Project · no silent upgrade · Pilote ne promeut pas un package global · jamais « HumanDecision Morris/pilote » |
+| **Impact** | Project/LPS continuity · C1 audit · UX upgrade |
 | **Reversibility** | Medium |
-| **Evidence** | createProject + doctrinePackageRef · DEFAULT_LOCAL_DOCTRINE_PIN |
-| **Debt** | Fixture pin still default locally |
+| **Evidence** | createProject + doctrinePackageRef · framing 30/31 |
+| **Debt/exit** | Fixture default pin until product pin Morris |
 | **Morris decision required** | **YES** |
 
 ### DPCKC-D05 — Intra-package fallback policy
@@ -889,84 +1053,84 @@ Hard rule transverse (non-negotiable candidate) : target flow = **Catalog → Do
 | | |
 |---|---|
 | **Question** | Fallback CKC si primary unavailable dans un package valide ? |
-| **Options** | none (fail-closed) · package-internal synthetic optional · keep method synthetic |
-| **Trade-offs** | §M — honesty vs catalog evolvability |
-| **Recommendation** | **none** for first 15/15 detailed product package · synthetic only future **intra-package v3** optional for new cycle types · package failure itself never falls back to method/v2.6 |
-| **Impact** | Qualification fail-closed surface |
-| **Reversibility** | High if policy remains package-declared |
-| **Evidence** | 15/15 Studio CKC CONTENT VALIDATED · F8 method synthetic today |
-| **Debt** | Tests currently expect synthetic_map |
+| **Options** | none · package-internal synthetic optional · keep method synthetic |
+| **Trade-offs** | §M |
+| **Recommendation** | **none** for first 15/15 detailed product package · synthetic only future **intra-package v3** optional · package failure never falls back to method/v2.6 |
+| **Impact** | Qualification fail-closed |
+| **Reversibility** | High if package-declared |
+| **Evidence** | 15/15 CONTENT VALIDATED · F8 |
+| **Debt/exit** | Tests expect synthetic_map today |
 | **Morris decision required** | **YES** |
 
-### DPCKC-D06 — CKC source digest / provenance representation
+### DPCKC-D06 — CKC source digest / provenance chain
 
 | | |
 |---|---|
-| **Question** | Quelle chaîne digest/provenance package→CKC→consumption ? |
-| **Options** | Minimal pin+package only · full chain pin→package→binding→sourceDigest→resolution→proof · catalogHash as substitute |
-| **Trade-offs** | §N — audit strength vs payload size |
-| **Recommendation** | **Full chain** · catalogVersion/Hash may remain cycle-type provenance · **never** replace package/CKC provenance |
-| **Impact** | Proof/audit schema · digest adapters reuse |
+| **Question** | Quelle chaîne digest/provenance ? |
+| **Options** | Minimal pin+package · **full chain** · catalogHash as substitute |
+| **Trade-offs** | §N |
+| **Recommendation** | **Full chain** pin→package→index→sourceDigest→resolution→Phase A proof · catalogVersion/Hash may remain cycle-type provenance · **never** replace package/CKC provenance · Phase B semantic proof remains distinct |
+| **Impact** | Proof/audit · digest adapters reuse |
 | **Reversibility** | Medium |
-| **Evidence** | F3/F9/F10 · SHA256 adapter exists |
-| **Debt** | Proof schema incomplete today |
+| **Evidence** | F3/F9/F10 · SHA256 adapter |
+| **Debt/exit** | Proof schema incomplete |
 | **Morris decision required** | **YES** |
 
 ### DPCKC-D07 — CkcConsumptionProof evolution
 
 | | |
 |---|---|
-| **Question** | KEEP / ADAPT / REPLACE la proof actuelle ? |
-| **Options** | KEEP as-is · **ADAPT/COMPLETE** fields · REPLACE parallel type |
-| **Trade-offs** | §R — dual proofs vs additive |
-| **Recommendation** | **ADAPT/COMPLETE** current proof with package id/version/digest + ckcId/contractVersion/sourceDigest + resolution/fallback + correlation · **RESOLUTION PROOF ≠ NORA SEMANTIC CONSUMPTION PROOF** |
-| **Impact** | Tests · F2 audit surface |
+| **Question** | KEEP / ADAPT / REPLACE la proof ? |
+| **Options** | KEEP · **ADAPT/COMPLETE** · REPLACE parallel type |
+| **Trade-offs** | §R |
+| **Recommendation** | **ADAPT/COMPLETE** with package id/version/digest + ckcId/contractVersion/sourceDigest + resolution/fallback + correlation · this is **Phase A resolution proof** · **≠** Phase B Nora semantic-consumption Evidence |
+| **Impact** | Tests · F2 QualificationDto surface |
 | **Reversibility** | Medium |
-| **Evidence** | F9 current proof lacks package fields |
-| **Debt** | Semantic Nora proof remains separate exit |
+| **Evidence** | F9 · qualify.ts does not transport CKC content |
+| **Debt/exit** | Phase B remains separate exit |
 | **Morris decision required** | **YES** |
 
-### DPCKC-D08 — Nora consumption boundary
+### DPCKC-D08 — TWO boundaries: resolution/qualification vs Nora semantic consumption
 
 | | |
 |---|---|
-| **Question** | Point minimal d’injection CKC résolu vers Nora ? |
-| **Options** | Invent new NoraContextService · reuse `oa.ckcQualification` / QualifyCycleWithCkc boundary · inject raw markdown into F2 |
-| **Trade-offs** | §Q — invent vs ADAPT |
-| **Recommendation** | **Reuse existing** `createCkcQualificationServices` → `orchestrateF2` / QualifyCycleWithCkc boundary · package-resolved CKC enters there · no invented service · no HumanDecision/executionAuthority |
-| **Impact** | Future wiring only after Morris + implementation gate |
-| **Reversibility** | High if kept at existing boundary |
-| **Evidence** | service.ts · orchestrateF2.ts · qualifyCycleWithCkc.ts |
-| **Debt** | Paths not joined to DoctrinePackage for CKC content yet |
-| **Morris decision required** | **YES** (boundary confirm) |
+| **Question** | Quelles frontières resolution vs Nora semantic ? |
+| **Options** | (wrong) equate `oa.ckcQualification` with Nora semantic boundary · (correct) **two boundaries** · invent new NoraContextService |
+| **Trade-offs** | §Q — invent vs ADAPT · order delta |
+| **Recommendation** | **Boundary A KEEP/ADAPT** : CkcResolverPort / CkcQualificationResolver / QualifyCycleWithCkc / oa.ckcQualification / f2/qualify.ts — resolve/verify/proof/qualification · **Boundary B FUTURE ADAPT** : semantic-consumption step in existing `orchestrateF2` / project-assistant after package+CKC resolution — inject resolved cognitive content into Nora reasoning · **no** new service/engine · current F2 order (intent AI before qualify ; qualify without CKC content) may need insertion/reorder under later implementation gate without new orchestrator · `buildProjectSystemPrompt` metadata ≠ CKC content injection |
+| **Impact** | Future F2 ADAPT · Evidence Phase B |
+| **Reversibility** | High if kept at existing seams |
+| **Evidence** | orchestrateF2.ts · qualify.ts · qualifyCycleWithCkc.ts · buildProjectSystemPrompt.ts |
+| **Debt/exit** | Paths not joined · Phase B NOT PROVEN |
+| **Morris decision required** | **YES** |
 
 ### DPCKC-D09 — Disposition of method-candidate runtime bindings
 
 | | |
 |---|---|
-| **Question** | Sortie des bindings method-candidate / method paths / CKC_REFERENCE_MANIFEST ? |
+| **Question** | Sortie method-candidate / method paths / CKC_REFERENCE_MANIFEST ? |
 | **Options** | immediate delete · REPLACE/RETIRE LATER after product package · keep forever |
-| **Trade-offs** | §S — purity vs transitional risk |
-| **Recommendation** | method CKC corpus **FREEZE/HARVEST** · catalog/manifest method bindings **REPLACE then RETIRE LATER** · exit when runtime no longer consumes `method/**` as doctrine SoT · **no delete in this cycle** |
+| **Trade-offs** | §S |
+| **Recommendation** | method corpus **FREEZE/HARVEST** · catalog/manifest method bindings **REPLACE then RETIRE LATER** · exit when runtime no longer consumes `method/**` as doctrine SoT · **no delete in this cycle** |
 | **Impact** | Resolver/tests/catalog |
 | **Reversibility** | Medium during dual-run |
 | **Evidence** | F5–F8 |
-| **Debt** | Transitional method-candidate until product package live |
+| **Debt/exit** | Transitional method-candidate |
 | **Morris decision required** | **YES** |
 
-### DPCKC-D10 — Fixture / local registry disposition
+### DPCKC-D10 — Logical repository seam vs filesystem materialization
 
 | | |
 |---|---|
-| **Question** | Rôle de LocalDoctrineRegistry + fixture package vs product package root ? |
-| **Options** | Promote fixture registry as product · keep fixture for tests + separate product materialization · invent second registry |
-| **Trade-offs** | §H/U — no parallel registry |
-| **Recommendation** | **KEEP** LocalDoctrineRegistry as **the** registry mechanism · fixture package quarantined for tests · product package materialization distinct (root/policy = Morris gate if structural) · **NO second registry** |
-| **Impact** | Dev/test vs runtime packaging |
-| **Reversibility** | Medium |
-| **Evidence** | F4/F11 · filesystemDoctrinePackageRepository |
-| **Debt** | Product root / Git→materialization still open if structural |
-| **Morris decision required** | **YES** (fixture vs product + materialization if structural) |
+| **Question** | Que canoniser comme architecture vs adapter ? |
+| **Options** | (wrong) LocalDoctrineRegistry as permanent Product SoT · (correct) **one logical repository/resolution mechanism** · invent second registry |
+| **Trade-offs** | §U — portability vs current FS demo |
+| **Recommendation** | **KEEP** `DoctrinePackageRepositoryPort` + existing resolver backbone as **logical** seam · **KEEP/ADAPT** `FilesystemDoctrinePackageRepository` as **current adapter** · LocalDoctrineRegistry/`registry.json`/`relativePackageDir` = **current local/test materialization** — **not** permanent Product SoT by this document · fixture ≠ product · long-term product root/policy = future implementation qualification + Morris gate **if structural** · **NO parallel registry engine** |
+| **Impact** | Dev/test vs future packaging |
+| **Reversibility** | High for adapter swap behind port |
+| **Evidence** | doctrinePackageRepositoryPort.ts · filesystemDoctrinePackageRepository.ts · F4/F11 |
+| **Debt/exit** | Product materialization OPEN |
+| **Morris decision required** | **YES** |
 
 ---
 
@@ -974,103 +1138,111 @@ Hard rule transverse (non-negotiable candidate) : target flow = **Catalog → Do
 
 ### Z.1 Recommendations consolidées (tentative — ≠ adopted)
 
-1. Cible unique : **Catalog → DoctrinePackage → CKC** (hard rule).
-2. **DPCKC-D01** product identity **I2** · fixture KEEP-AS-TEST-FIXTURE/HARVEST.
-3. **DPCKC-D02** binding **Option B** package-internal CKC index + digests.
-4. **DPCKC-D03** Catalog KEEP identity/semantics · REMOVE paths/source selection.
-5. **DPCKC-D04** pin **Option P1** Project durable · upgrade via Recommendation→HumanDecision (no silent upgrade).
-6. **DPCKC-D05** fallback **none** for 15/15 detailed product package · synthetic only future intra-package optional.
-7. **DPCKC-D06** full provenance chain · catalogHash ≠ package/CKC substitute.
-8. **DPCKC-D07** ADAPT/COMPLETE `CkcConsumptionProof` · **RESOLUTION PROOF ≠ NORA SEMANTIC CONSUMPTION PROOF**.
-9. **DPCKC-D08** Nora boundary = existing `oa.ckcQualification` / QualifyCycleWithCkc — no invented service.
-10. **DPCKC-D09** method-candidate bindings REPLACE/RETIRE LATER · method corpus FREEZE/HARVEST.
-11. **DPCKC-D10** one LocalDoctrineRegistry · fixture ≠ product materialization · no second registry.
-12. Engines : **ADAPT** ResolveDoctrinePackage + CkcResolverPort + QualifyCycleWithCkc — no parallel.
+1. Target : **Catalog → DoctrinePackage → Studio CKC → Nora**.
+2. **D01** = **I2-B** `pkg:sfia-studio-doctrine-v3` · new lineage `1.0.0` · fixture quarantine · packageVersion ≠ digest ≠ contractVersion.
+3. **D02** = **Option B** reconfirmed (index + transitive digests).
+4. **D03** = Catalog REMOVE paths · canonical ckcId derivation CLOSED · no independent Catalog ckcId SoT · package index materializes/verifies ckcId.
+5. **D04** = **Option P1** · Morris promotion ≠ Pilote Project HumanDecision · Nora recommends Project upgrade.
+6. **D05** = fallback **none** for first 15/15 product package.
+7. **D06** = full provenance chain · catalogHash ≠ substitute.
+8. **D07** = ADAPT/COMPLETE Phase A proof · ≠ Phase B.
+9. **D08** = **two boundaries** — KEEP resolution · ADAPT F2 for future semantic consumption · no invented Nora service.
+10. **D09** = method FREEZE/HARVEST · bindings REPLACE/RETIRE LATER.
+11. **D10** = logical repository port KEEP · filesystem/LocalDoctrineRegistry = current adapter ≠ permanent Product SoT.
+12. Engines : **ADAPT only** — no parallel resolver/registry/catalog/orchestration.
 13. Old Product Completion C6 remain **CLOSED**.
+14. Architecture **NOT ADOPTED** by this correction pass.
 
-### Z.2 Morris decisions required (explicit)
+### Z.2 Morris decisions required (explicit — remaining)
 
 | ID | Décision | Blocking for architecture adopt? |
 |---|---|---|
-| DPCKC-D01 | Product package identity (I2?) | **YES** |
-| DPCKC-D02 | Binding Option B | **YES** |
-| DPCKC-D03 | Catalog ownership / path removal / ckcId | **YES** |
-| DPCKC-D04 | Confirm Option P1 pin ownership | **YES** |
+| DPCKC-D01 | I2-B identity + version semantics | **YES** |
+| DPCKC-D02 | Option B binding | **YES** |
+| DPCKC-D03 | Catalog ownership + canonical ckcId (no Catalog SoT field) | **YES** |
+| DPCKC-D04 | P1 + Morris≠Pilote authority | **YES** |
 | DPCKC-D05 | Fallback none (15/15) | **YES** |
 | DPCKC-D06 | Provenance/digest chain | **YES** |
-| DPCKC-D07 | Consumption proof ADAPT | **YES** |
-| DPCKC-D08 | Nora boundary confirm | **YES** |
+| DPCKC-D07 | Phase A proof ADAPT | **YES** |
+| DPCKC-D08 | Two boundaries + F2 semantic seam | **YES** |
 | DPCKC-D09 | Method-candidate exit timing | **YES** |
-| DPCKC-D10 | Fixture/registry/product materialization | **YES** |
+| DPCKC-D10 | Logical repo vs filesystem materialization | **YES** |
 
-**Après adopt architecture :** gates distincts toujours requis pour modeled delta · implementation · Delivery · REAL · Nora semantic proof. **Aucun** n’est autorisé par ce seul document.
-
----
+**Après ChatGPT PASS puis Morris adopt architecture :** gates distincts toujours requis pour modeled delta · implementation · Delivery · REAL · Phase B Nora semantic proof. **Aucun** n’est autorisé par ce seul document. **DPCKC-D01…D10 not consumed by Cursor.**
 
 ## AA. Anti-claims
 
-- Ce document **CANDIDATE** ≠ Morris-adopted ≠ READY ≠ ADOPTED.
-- Studio CKC **15/15 CONTENT VALIDATED** ≠ DoctrinePackage-integrated ≠ runtime-resolved ≠ Nora-consumption-proven.
-- Freeze `6db507e68e58…` ≠ package digest ≠ pin runtime ≠ catalog hash ≠ ckcId.
+- Ce document **CANDIDATE (correction pass)** ≠ Morris-adopted ≠ READY ≠ ADOPTED.
+- Studio CKC **15/15 CONTENT VALIDATED** ≠ DoctrinePackage-integrated ≠ runtime-resolved ≠ Nora Phase B proven.
+- Freeze `6db507e68e58…` ≠ package digest ≠ pin ≠ catalog hash ≠ ckcId ≠ packageVersion.
 - `ResolveDoctrinePackage` OK ≠ CKC Studio bound.
-- `CkcConsumptionProof.consumed=true` ≠ Nora semantic consumption.
-- Fixture `pkg:studio-v3-oa@1.0.0` ≠ product package.
-- F2/`oa.ckcQualification` wiring ≠ « Nora uses Studio CKC ».
+- `CkcConsumptionProof.consumed=true` = **Phase A only** ≠ Nora semantic consumption.
+- `oa.ckcQualification` / QualifyCycleWithCkc = **Boundary A** ≠ Boundary B.
+- `buildProjectSystemPrompt` doctrine metadata ≠ CKC content injection.
+- Fixture `pkg:studio-v3-oa@1.0.0` ≠ product package (I2-B recommended separately).
+- LocalDoctrineRegistry/filesystem ≠ permanent Product SoT by documentary fiat.
+- F2 wiring ≠ « Nora uses Studio CKC ».
 - Method pilots availability ≠ Studio SoT.
-- Recommendation ≠ HumanDecision ≠ ExecutionAuthority.
+- Recommendation ≠ HumanDecision Pilote ≠ Morris construction decision ≠ ExecutionAuthority.
+- **Never** « HumanDecision Morris/pilote » as a single authority.
 - runtime v3 **NON ADOPTED** — inchangé.
 - **ZERO REAL** · **no Backlog** · **no Delivery** — inchangé.
-- C6 **CLOSED** — **DO NOT REOPEN** ; cette qualification **n’est pas** C6.
-- Option B / P1 / ADAPT = **recommendations** jusqu’à Morris.
-- ChatGPT review PASS (futur) ≠ Morris adopt.
-- Catalog snapshot 15 = mesure ≠ invariant structurel.
+- C6 **CLOSED** — **DO NOT REOPEN**.
+- Option B / P1 / I2-B / ADAPT = **recommendations** jusqu’à Morris.
+- ChatGPT re-review PASS (futur) ≠ Morris adopt.
 - Product Complete **non claimable**.
-
----
 
 ## AB. Next capability candidate
 
 | Champ | Valeur |
 |---|---|
-| **Now** | ChatGPT review de **cette** qualification candidate |
-| **Then** | Morris architecture decision sur DPCKC-D01…D10 |
-| **If adopted** | Modeled delta Manifest/index + proof schema (capability candidate distincte) |
-| **Still not** | Backlog auto · Delivery · REAL · runtime v3 adoption · Nora semantic claim · C6 reopen |
-| **Roadmap reading** | Prochaine capacité de convergence déjà signalée : DoctrinePackage / runtime CKC integration — **REQUIRES DISTINCT MORRIS GATE** |
+| **Now** | ChatGPT **architecture re-review** of this **correction pass** |
+| **Then (only if ChatGPT PASS)** | Morris Decision Pack DPCKC-D01…D10 |
+| **If Morris adopts** | Modeled delta Manifest/index + proof schema (distinct gate) |
+| **Still not** | Architecture auto-adopt · Backlog · Delivery · REAL · runtime v3 · Phase B claim · C6 reopen · Cursor structural decision |
+| **Roadmap reading** | DoctrinePackage / runtime CKC integration — **REQUIRES DISTINCT MORRIS GATE AFTER CHATGPT PASS** |
 
 **Statut final de ce fichier :**
-**CANDIDATE — AWAITING CHATGPT REVIEW / MORRIS ARCHITECTURE DECISION.**
+**CANDIDATE — CORRECTION PASS (R1–R5) — AWAITING CHATGPT ARCHITECTURE RE-REVIEW / MORRIS DECISION PACK ONLY IF CHATGPT PASS.**
 
 ---
 
-*Fin du document candidat. Recommendation ≠ Morris Decision. UTF-8. Aucune autorité Delivery.*
+*Fin du document candidat (correction). Recommendation ≠ Morris Decision. UTF-8. Aucune autorité Delivery. Architecture NOT ADOPTED.*
 
 ```
 
-## 36. Files modified
-- NEW (untracked local only): `projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md`
-- process: `.tmp-sfia-review/chatgpt-review.md` (this file)
+## 30. Exact project diff
+```
+(file currently untracked — full content in §29; no committed baseline on this branch)
+```
+Note: file is untracked on local qualification branch (never project-committed). Full content above is authoritative for re-review.
 
-## 37. Staged
+## 31. Modified files
+- projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md (local only)
+- .tmp-sfia-review/chatgpt-review.md (process)
+
+## 32. Staged
 NONE
 
-## 38. Project commit / push / PR
-NONE — LOCAL DOCUMENTARY QUALIFICATION ONLY
+## 33. Project commit
+NONE
 
-## 39. Unrelated untracked preserved
-YES — `.tmp-sfia-review/` · `projects/eventops-poc/` · `projects/flex-office-demo/`
+## 34. Project push
+NONE
 
-## 40. Final status
-Qualification document CANDIDATE complete · Decision Pack complete · no code · no runtime · no project Git transport
+## 35. Project PR
+NONE
 
-## 41. Reserves
-- Recommendations remain tentative until ChatGPT architecture review then Morris Decision Pack.
-- Package product identity / materialization root remain structural if Morris disagrees with I2/P1.
-- Nora semantic consumption remains NOT PROVEN by design of this gate.
-- Old Product Completion C6 NOT reopened.
+## 36. Unrelated artifacts preserved
+YES — .tmp-sfia-review/ · projects/eventops-poc/ · projects/flex-office-demo/
 
-## 42. Verdict
-**SFIA STUDIO DOCTRINEPACKAGE / RUNTIME CKC INTEGRATION QUALIFICATION PASS**
-— READY FOR CHATGPT ARCHITECTURE REVIEW
-— THEN MORRIS ARCHITECTURE DECISION GATE
-— NO IMPLEMENTATION OR DELIVERY BEFORE THAT GATE
+## 37. Final git status
+(see after publish; expected: untracked doc + tmp + unrelated)
+
+## 38. Reserves
+Architecture NOT ADOPTED · DPCKC not consumed · Phase B NOT PROVEN · product materialization root still OPEN if structural · F2 reorder/insert for Boundary B is future implementation delta only
+
+## 39. Verdict
+SFIA STUDIO DOCTRINEPACKAGE / RUNTIME CKC INTEGRATION QUALIFICATION CORRECTION PASS
+— READY FOR CHATGPT ARCHITECTURE RE-REVIEW
+— THEN MORRIS DECISION PACK GATE ONLY IF CHATGPT PASS
