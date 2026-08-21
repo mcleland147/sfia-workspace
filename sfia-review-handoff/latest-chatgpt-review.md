@@ -1,21 +1,19 @@
-# Review Pack FULL — SFIA Studio Product Completion Cycle 6 — Post-Merge Coherence + Exit Qualification
+# Review Pack FULL — SFIA Studio Product Completion Cycle 6 — Morris Closure Decision + Local Documentary Closure Sync
 
 ## 1. Timestamp
 
-2026-08-21 12:05:10 CEST (Europe/Paris)
+2026-08-21 12:13:38 CEST (Europe/Paris)
 
-## 2. GO courant consommé
+## 2. Exact Morris closure decision consumed
 
-GO MORRIS — C6 POST-MERGE DOCUMENTARY COHERENCE + EXIT QUALIFICATION ONLY.
-
-Authorized: verify merge/CI · local status sync on exact 2 docs · exit qualification · Review Pack FULL · Handoff L3.
-**NOT** authorized: project commit/push/PR · merge · branch delete · code · migration · Backlog · Delivery · REAL · runtime v3 ADOPTED · next-capability selection · C6 CLOSED without distinct Morris decision.
+GO MORRIS — ACCEPT C6 EXIT PROOF + CLOSE C6 TARGETED TECHNICAL ARCHITECTURE — TD-C6-01…06 REMAIN ADOPTED — AUTHORIZE DOCUMENTARY CLOSURE SYNC OF EXACT C6 + ROADMAP FILES — NO IMPLEMENTATION — NO MIGRATION — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED — THEN NEXT-CYCLE REQUALIFICATION, NO CAPABILITY AUTO-SELECTED.
 
 ## 3. Local Git Truth Check
 
-- local branch: `docs/sfia-studio-product-completion-c6-post-merge-closure` (created from merge tip · **NOT PUSHED**)
+- branch: `docs/sfia-studio-product-completion-c6-post-merge-closure` (**NOT PUSHED**)
 - HEAD: `641cf9b3ed6c0f879c932bfe535ed4876ee08969`
 - origin/main: `641cf9b3ed6c0f879c932bfe535ed4876ee08969`
+- staged: NONE
 - status:
 ```
  M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -33,61 +31,47 @@ M	projects/sfia-studio/product-completion/06-product-completion-architecture-tec
 ```
 - diff --stat:
 ```
- .../convergence/sfia-studio-convergence-roadmap.md | 21 ++---
- ...duct-completion-architecture-technique-delta.md | 99 ++++++++++++----------
- 2 files changed, 67 insertions(+), 53 deletions(-)
+ .../convergence/sfia-studio-convergence-roadmap.md |  23 ++--
+ ...duct-completion-architecture-technique-delta.md | 116 ++++++++++++---------
+ 2 files changed, 81 insertions(+), 58 deletions(-)
 
 ```
 - diff --check: CLEAN
-- staged: NONE
 
-## 4. PR #382 merge proof
+## 4. main / PR #382 / CI proofs
 
-- state: **MERGED**
-- mergedAt: 2026-08-21T09:55:55Z
-- headRefOid: `fe46d2c117e2c3314af885e1a19a0f0c4e4c3ce0`
-- mergeCommit: `641cf9b3ed6c0f879c932bfe535ed4876ee08969`
-- base: main · head: `docs/sfia-studio-product-completion-c6-technical-architecture-delta`
+- main = `641cf9b3ed6c0f879c932bfe535ed4876ee08969`
+- PR #382 MERGED · source head `fe46d2c117e2c3314af885e1a19a0f0c4e4c3ce0`
+- PR CI `32469751405` SUCCESS
+- post-merge CI `32470240316` SUCCESS (push/main)
 
-## 5. main SHA proof
+## 5. Prior handoff commit/blob
 
-`origin/main` = `641cf9b3ed6c0f879c932bfe535ed4876ee08969`
+- commit `262e23b5526b0747fd52a582395c99eea193998d`
+- blob `e829b6d4a5927879edc7a84b1600a61c0b2fcd2b`
+- reviewed post-merge candidate verified before applying Morris closure (EXIT PROOF SATISFIED · C6 CLOSED = NO → now closed)
 
-## 6. Source branch preservation proof
+## 6. Exact 2-file scope
 
-```
-fe46d2c117e2c3314af885e1a19a0f0c4e4c3ce0	refs/heads/docs/sfia-studio-product-completion-c6-technical-architecture-delta
-```
-PRESERVED · NO DELETE
+1. `projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md`
+2. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 
-## 7. PR CI proof
+## 7. C6 closure state transition
 
-- run `32469751405` · pull_request · head `fe46d2c1…` · **SUCCESS**
-- Detect / Build / Required Gate — SUCCESS
+BEFORE → AFTER:
+- EXIT PROOF SATISFIED / READY FOR MORRIS CLOSURE → **EXIT PROOF ACCEPTED BY MORRIS**
+- C6 CLOSED = NO → **C6 CLOSED BY MORRIS**
+- current gate Morris closure → **C6 DOCUMENTARY CLOSURE GIT INTEGRATION**
+- next requalification after closure → **NEXT-CYCLE REQUALIFICATION AFTER closure Git integration** (NOT EXECUTED)
+- capability selection → **NONE / NOT YET**
 
-## 8. Post-merge CI proof
+## 8. TD-C6-01…06 preserved
 
-- run **`32470240316`** · event `push` · headBranch `main` · headSha `641cf9b3…` · conclusion **success**
-- Detect SFIA Studio changes — SUCCESS
-- Build and validate SFIA Studio — SUCCESS
-- SFIA Studio Required Gate — SUCCESS
-- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/32470240316
+- TD-C6-01 T-A · TD-C6-02 C-A · TD-C6-03 A-A · TD-C6-04 E-A SELECTIVE-BY-MATERIALIZATION · TD-C6-05 granted-upward / requested ephemeral · TD-C6-06 explicit current pointer
+- U2 / U2b preserved
+- substance NOT redesigned
 
-## 9. Exact content truth proof
-
-`git diff fe46d2c1… 641cf9b3… -- 06 + Roadmap` = **empty** (merge transported PR content without unexpected mutation).
-
-Invariants preserved on tip/local candidate: TD-C6-01…06 · U2/U2b · receipt≠authority · granted≠effective authority · proposed≠current · selective-by-materialization · runtime v3 NON ADOPTED.
-
-## 10. Sources lues
-
-Build Doctrine · Roadmap · C1/C2/FA · PE UX · framing 31–35 · CKC architecture technique (guidance only) · C6 doc · process template.
-
-## 11. C6 qualification
-
-CRITICAL / DOC / Truth & Authority Durability · C6-R1 ADOPTED · architecture INTEGRATED ON MAIN · runtime OPEN/NOT AUTHORIZED · EXIT PROOF SATISFIED · C6 CLOSED = NO.
-
-## 12. COMPLETE modified `06` content
+## 9. COMPLETE modified C6 document
 
 ```markdown
 # Product Completion — Cycle 6 Targeted Technical Architecture Delta
@@ -108,8 +92,12 @@ CRITICAL / DOC / Truth & Authority Durability · C6-R1 ADOPTED · architecture I
 | **Morris Git integration GO** | **CONSUMED** — commit exact 2 files · push source branch · Draft PR #382 · later merge under distinct Morris gate |
 | **PR #382** | **MERGED** · source head `fe46d2c117e2c3314af885e1a19a0f0c4e4c3ce0` · merge `641cf9b3ed6c0f879c932bfe535ed4876ee08969` · PR CI `32469751405` **SUCCESS** · post-merge CI `32470240316` **SUCCESS** |
 | **Source branch** | `docs/sfia-studio-product-completion-c6-technical-architecture-delta` · **PRESERVED** (no delete) |
-| **Morris post-merge GO** | **CONSUMED** — GO MORRIS — C6 POST-MERGE DOCUMENTARY COHERENCE + EXIT QUALIFICATION ONLY · **NO** project commit/push/PR in this pass |
-| **Candidate status** | **C6 CONSOLIDATED TECHNICAL ARCHITECTURE — TD-C6-01…06 ADOPTED BY MORRIS — CHATGPT FINAL DOCUMENTARY REVIEW PASS — INTEGRATED ON MAIN VIA PR #382 — POST-MERGE TRUTH VERIFIED — C6 EXIT PROOF SATISFIED — READY FOR MORRIS C6 CLOSURE DECISION** · **NOT CLOSED** · ≠ IMPLEMENTED · ≠ MIGRATED · ≠ DELIVERY · ≠ BACKLOG · ≠ PRODUCT COMPLETION COMPLETE · ≠ RUNTIME V3 ADOPTED |
+| **Morris post-merge GO** | **CONSUMED** — GO MORRIS — C6 POST-MERGE DOCUMENTARY COHERENCE + EXIT QUALIFICATION ONLY |
+| **Morris C6 closure decision** | **CONSUMED** — GO MORRIS — ACCEPT C6 EXIT PROOF + CLOSE C6 TARGETED TECHNICAL ARCHITECTURE — TD-C6-01…06 REMAIN ADOPTED — AUTHORIZE DOCUMENTARY CLOSURE SYNC OF EXACT C6 + ROADMAP FILES — NO IMPLEMENTATION — NO MIGRATION — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED — THEN NEXT-CYCLE REQUALIFICATION, NO CAPABILITY AUTO-SELECTED |
+| **C6 EXIT PROOF** | **ACCEPTED BY MORRIS** |
+| **C6 status** | **CLOSED BY MORRIS** · ≠ IMPLEMENTED · ≠ MIGRATED · ≠ runtime durability complete · ≠ BACKLOG · ≠ DELIVERY · ≠ REAL · ≠ Product Completion complete · ≠ RUNTIME V3 ADOPTED |
+| **Candidate status** | **C6 CONSOLIDATED TECHNICAL ARCHITECTURE — TD-C6-01…06 ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #382 — POST-MERGE TRUTH VERIFIED — EXIT PROOF ACCEPTED BY MORRIS — C6 CLOSED BY MORRIS — DOCUMENTARY CLOSURE SYNC LOCAL / NOT YET INTEGRATED ON MAIN — NOT IMPLEMENTED — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED** |
+| **Closure documentary sync** | **LOCAL — NOT YET INTEGRATED ON MAIN** · branch `docs/sfia-studio-product-completion-c6-post-merge-closure` · **NOT PUSHED** · **NO** project commit/push/PR in this pass |
 | **Branch (local closure)** | `docs/sfia-studio-product-completion-c6-post-merge-closure` · **NOT PUSHED** |
 | **Primary path** | `projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md` |
 | **Runtime v3** | **NON ADOPTED** |
@@ -165,11 +153,11 @@ Concevoir **COMMENT** fermer, sous OA Native Backbone + Product SQLite existants
 | Champ | Contenu |
 | --- | --- |
 | **Capability v3** | Truth & Authority Durability — V3-F06 Trajectory · V3-F04/F08 Epistemology · V3-F07 Provenance · V3-F11/F12 Authority/execution governance · C1 semantic continuity |
-| **Current state** | C6 technical architecture **INTEGRATED ON MAIN** via PR **#382** (`641cf9b3…`) · source head `fe46d2c1…` · PR CI `32469751405` SUCCESS · post-merge CI `32470240316` SUCCESS · C6-R1 / TD-C6-01…06 **ADOPTED BY MORRIS** · ChatGPT final documentary review **PASS** · post-merge content truth **PASS** · **C6 EXIT PROOF SATISFIED** · **C6 NOT CLOSED** · **NOT IMPLEMENTED** · runtime v3 **NON ADOPTED** |
+| **Current state** | C6 technical architecture **INTEGRATED ON MAIN** via PR **#382** (`641cf9b3…`) · source head `fe46d2c1…` · PR CI `32469751405` SUCCESS · post-merge CI `32470240316` SUCCESS · C6-R1 / TD-C6-01…06 **ADOPTED BY MORRIS** · ChatGPT final documentary review **PASS** · post-merge content truth **PASS** · **C6 EXIT PROOF ACCEPTED BY MORRIS** · **C6 CLOSED BY MORRIS** · documentary closure sync **LOCAL / NOT YET INTEGRATED ON MAIN** · **NOT IMPLEMENTED** · runtime implementation **OPEN / NOT AUTHORIZED** · runtime v3 **NON ADOPTED** |
 | **Dependencies** | C1/C2/FA/UX integrated · Build Doctrine order aligned · Product SQLite M1–M5 durable backbone KEEP |
 | **Assets** | OA KEEP · Product SQLite KEEP · existing ports KEEP · Memory Trajectory/Confirmation/Epistemic → COMPLETE/ADAPT under adopted direction · Authority Memory + receipts QUALIFY |
 | **Gaps closed by C6 (design)** | Trajectory durability · Confirmation lifecycle from `granted` · selective Epistemic by materialization · AuthorityVerificationReceipt audit · U2/U2b execution checkpoints |
-| **Critical path** | Morris C6 **CLOSURE** decision (distinct) → if accepted: C6 CLOSED → **NEXT-CYCLE REQUALIFICATION** → capability selection only after requalification · Delivery only under later distinct GO |
+| **Critical path** | **C6 DOCUMENTARY CLOSURE GIT INTEGRATION** (exact C6 + Roadmap · distinct later GO) → after Git-integrated closure truth revalidated → **NEXT-CYCLE REQUALIFICATION** · capability selection **NONE / NOT YET** · Delivery only under later distinct GO |
 | **Exit proof C6 (documentary)** | TD-C6-01…06 adopted · consolidated corrections applied · Review Pack FULL · no unauthorized implementation claims |
 | **Debt / exit** | Runtime durability remains OPEN until Delivery · H-01…H-04 CARRY · UAT OPEN · SC-02 NON-BLOCKING · Pre-M6 debt CARRY · M5-C journal debt OPEN |
 | **Next capability after C6 exit** | **NEXT-CYCLE REQUALIFICATION** · ≠ Backlog auto · ≠ Delivery auto |
@@ -727,24 +715,25 @@ Avoid overdocumentation: do not ADR already-decided OA/SQLite/ports.
 - H-01…H-04 CARRY · UAT OPEN · SC-02 NON-BLOCKING · Pre-M6 debt CARRY · M5-C journal debt OPEN
 - runtime v3 **NON ADOPTED**
 
-### Remaining Morris gates (NOT TD-C6-01…06)
+### Remaining Morris / repository gates (NOT TD-C6-01…06)
 
 1. ~~ChatGPT final documentary review~~ → **PASS**
 2. ~~C6 documentary Git integration (commit/push/Draft PR)~~ → **CONSUMED**
 3. ~~PR readiness / merge of PR #382~~ → **COMPLETE** (MERGED · source branch **PRESERVED**)
-4. ~~Post-merge CI + content truth + exit qualification~~ → **PASS / SATISFIED** (this pass · local documentary sync only)
-5. **Morris C6 CLOSURE decision** (distinct) — required · **C6 CLOSED = NO / NOT YET**
-6. **NEXT-CYCLE REQUALIFICATION** only **AFTER** closure acceptance
-7. Later distinct GO for any Delivery / implementation
+4. ~~Post-merge CI + content truth + exit qualification~~ → **PASS / SATISFIED**
+5. ~~Morris C6 CLOSURE decision~~ → **CONSUMED** · **C6 EXIT PROOF ACCEPTED BY MORRIS** · **C6 CLOSED BY MORRIS**
+6. **C6 DOCUMENTARY CLOSURE GIT INTEGRATION** (exact C6 + Roadmap · distinct later GO) — current repository gate · sync still **LOCAL / NOT YET INTEGRATED ON MAIN**
+7. **NEXT-CYCLE REQUALIFICATION** = **NEXT ORDERED STEP AFTER** closure sync is Git-integrated and truth revalidated · **NOT EXECUTED in this pass** · capability selection **NONE / NOT YET**
+8. Later distinct GO for any Delivery / implementation
 
-### Documentary exit conditions for this post-merge coherence pass
+### Documentary conditions for this Morris closure sync pass
 
-1. PR #382 MERGED on main `641cf9b3…` with source head `fe46d2c1…`
-2. PR CI `32469751405` SUCCESS · post-merge CI `32470240316` SUCCESS
-3. Content truth on main matches PR #382 (no unexpected mutation)
-4. Source branch preserved
-5. Status sync local only · **NO** project commit/push/PR in this GO
-6. C6 EXIT PROOF **SATISFIED** · C6 **NOT CLOSED** without distinct Morris closure decision
+1. C6 EXIT PROOF **ACCEPTED BY MORRIS**
+2. C6 **CLOSED BY MORRIS**
+3. TD-C6-01…06 remain **ADOPTED** (substance unchanged)
+4. Closure documentary sync **LOCAL only** · **NO** project commit/push/PR
+5. Runtime implementation remains **OPEN / NOT AUTHORIZED**
+6. Reserves remain OPEN/CARRY (Trajectory/Confirmation/Epistemic runtime · H-01…H-04 · UAT · SC-02 · Pre-M6 · M5-C · v3 NON ADOPTED)
 
 ---
 
@@ -767,7 +756,7 @@ Prerequisites only (≠ stories · ≠ authorized):
 | Criterion | Status |
 | --- | --- |
 | Architecture-only targeted delta | **PASS** |
-| TD-C6-01…06 adopted | **PASS** |
+| TD-C6-01…06 adopted | **PASS** (remain ADOPTED) |
 | C1 alignment | **PASS** |
 | C2 alignment | **PASS** |
 | Product Experience alignment | **PASS** |
@@ -783,24 +772,25 @@ Prerequisites only (≠ stories · ≠ authorized):
 | No implementation / migration | **PASS** |
 | No Backlog / Delivery / REAL | **PASS** |
 | Runtime v3 NON ADOPTED | **PASS** |
-| **C6 EXIT PROOF** | **SATISFIED** |
-| **C6 CLOSED** | **NO — MORRIS CLOSURE DECISION REQUIRED** |
+| **C6 EXIT PROOF** | **ACCEPTED BY MORRIS** |
+| **C6 CLOSED** | **YES — CLOSED BY MORRIS** |
+| Documentary closure sync Git-integrated | **NOT YET** (LOCAL only) |
 | Implementation / Delivery-ready | **NOT CLAIMED** |
 
-Cycle 6 exit proof is **SATISFIED**. Cycle 6 is **not** closed until a distinct Morris closure decision.
+**C6 EXIT PROOF ACCEPTED BY MORRIS. C6 CLOSED BY MORRIS.** Remaining repository gate = **C6 DOCUMENTARY CLOSURE GIT INTEGRATION** only. After that: **NEXT-CYCLE REQUALIFICATION**.
 
 ---
 
 ## 24. Morris decisions required (remaining)
 
-**Consumed / closed:** TD-C6-01…06 · ChatGPT final documentary review PASS · Git integration · PR #382 merge · post-merge CI + content truth · exit qualification evidence.
+**Consumed / closed:** TD-C6-01…06 · ChatGPT final documentary review PASS · Git integration · PR #382 merge · post-merge CI + content truth · exit qualification · **Morris C6 CLOSURE decision** (exit proof accepted · C6 closed).
 
-**Still required:**
+**Still required (documentary/Git gates only):**
 
-1. **Morris C6 CLOSURE decision** (distinct) — accept exit proof → C6 CLOSED, or withhold
-2. After closure acceptance only: **NEXT-CYCLE REQUALIFICATION**
-3. Capability selection only after requalification + Morris gate
-4. Do **not** infer Backlog / Delivery / REAL / runtime v3 from C6 integration or exit proof
+1. Distinct later GO for **C6 documentary closure Git integration** (exact C6 + Roadmap)
+2. After closure sync is Git-integrated and truth revalidated: **NEXT-CYCLE REQUALIFICATION** (**NOT EXECUTED** in this pass)
+3. Capability selection **NONE / NOT YET** — only after requalification + Morris gate
+4. Do **not** infer Backlog / Delivery / REAL / runtime v3 from C6 closure
 
 ---
 
@@ -809,7 +799,7 @@ Cycle 6 exit proof is **SATISFIED**. Cycle 6 is **not** closed until a distinct 
 This document does **NOT**:
 
 - implement or migrate anything
-- claim architecture direction adoption = implementation / migrations / runtime proof
+- claim C6 CLOSED = architecture implemented / migrations applied / runtime durability complete
 - complete Product Completion
 - authorize Backlog / Delivery / REAL
 - adopt runtime v3
@@ -820,103 +810,106 @@ This document does **NOT**:
 - treat restored `granted` as effective authority
 - treat proposed Trajectory as current effective Trajectory
 - invent a second Attempt lifecycle
-- declare **C6 CLOSED** without distinct Morris closure decision
-- authorize project commit/push/PR for this post-merge coherence candidate without a later distinct GO
+- claim documentary closure sync is already on main
+- authorize project commit/push/PR for this closure sync without a later distinct GO
+- execute NEXT-CYCLE REQUALIFICATION in this pass
+- select a next capability / cycle
 
 ---
 
 ## 26. Final candidate verdict
 
-**C6 CONSOLIDATED TECHNICAL ARCHITECTURE — TD-C6-01…06 ADOPTED BY MORRIS — CHATGPT FINAL DOCUMENTARY REVIEW PASS — INTEGRATED ON MAIN VIA PR #382 — POST-MERGE TRUTH VERIFIED — C6 EXIT PROOF SATISFIED — READY FOR MORRIS C6 CLOSURE DECISION**
+**C6 CONSOLIDATED TECHNICAL ARCHITECTURE — TD-C6-01…06 ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #382 — POST-MERGE TRUTH VERIFIED — EXIT PROOF ACCEPTED BY MORRIS — C6 CLOSED BY MORRIS — DOCUMENTARY CLOSURE SYNC LOCAL / NOT YET INTEGRATED ON MAIN — NOT IMPLEMENTED — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED**
 
 Do **not** declare:
-- C6 CLOSED
-- C6 COMPLETE as product capability closed without Morris closure
 - READY FOR DELIVERY
 - IMPLEMENTED / MIGRATED
 - RUNTIME V3 ADOPTED
-- next Backlog / Delivery cycle selected
+- closure sync already on main
+- next capability / Backlog / Delivery cycle selected
 
 ---
 
-*ARCHITECTURE DIRECTION ADOPTED BY MORRIS · INTEGRATED ON MAIN · EXIT PROOF SATISFIED · C6 NOT CLOSED · NO CODE · NO MIGRATION · NO BACKLOG · NO DELIVERY · ZERO REAL · RUNTIME V3 NON ADOPTED · ADOPTION ≠ IMPLEMENTATION*
+*ARCHITECTURE DIRECTION ADOPTED BY MORRIS · INTEGRATED ON MAIN · EXIT PROOF ACCEPTED BY MORRIS · C6 CLOSED BY MORRIS · CLOSURE SYNC LOCAL ONLY · NO CODE · NO MIGRATION · NO BACKLOG · NO DELIVERY · ZERO REAL · RUNTIME V3 NON ADOPTED · ADOPTION ≠ IMPLEMENTATION*
 ```
 
-## 13. Roadmap useful/full diff
+## 10. FULL/useful Roadmap diff
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 532313e4..e2ed15c8 100644
+index 532313e4..378dcf31 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -10,7 +10,8 @@
+@@ -10,7 +10,9 @@
  | **Snapshot Git historique post-C1** | origin/main @ `dbd5ff995974e605146e8347f0f27867f04e93f7` · PR #365 **MERGED** · C1 Product Completion intégré + governance/doctrine sync · 2026-08-19T10:08:16Z *(historique)* |
  | **Snapshot Git historique pre-C1** | origin/main @ `a53c323e47e5fae1d35671f3ae232609a59b0f3f` *(PR #361 merge — Pre-M6 product vertical slice / functional MVP baseline on main · head `3c4c478…` · post-merge CI run `32122892559` SUCCESS · source branch `delivery/sfia-studio-pre-m6-ui-option-a` **PRESERVED** · historical prior main `a3ac418…` via PR #360)* |
  | **Timestamp création** | 2026-08-12 21:53:10 CEST (+0200) *(historique)* |
 -| **Timestamp maintenance courant** | 2026-08-21 11:46 CEST (+0200) — PRODUCT COMPLETION — **CYCLE 6** — ChatGPT final documentary review **PASS** — Morris C6 documentary Git integration GO **CONSUMED** — C6-R1 / TD-C6-01…06 **ADOPTED BY MORRIS** — exact two-file transport **AUTHORIZED** — source branch commit/push + Draft PR = current repository gate — path `projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md` — **NOT YET INTEGRATED ON MAIN** · **NOT YET CLOSED** · **NOT IMPLEMENTED** — Governance EC Order Sync PR **#381 MERGED** (`72734b8f…`) · post-merge CI **`32461659466` SUCCESS** — **RESERVE-GOV-EC-ORDER CLOSED ON MAIN** — H-01…H-04 **CARRY** — Confirmation **runtime** durability **OPEN** — ProjectTrajectory durability **OPEN** — Epistemic materialization runtime **OPEN** — UAT **OPEN** — SC-02 **NON-BLOCKING** — Pre-M6 debt **CARRY** — next = PR readiness after qualified CI → Morris merge GO (distinct) → post-integration / C6 exit qualification → **NEXT-CYCLE REQUALIFICATION** — **NO BACKLOG** — **NO DELIVERY** — **ZERO REAL** — RUNTIME V3 **NON ADOPTED** |
-+| **Timestamp maintenance courant** | 2026-08-21 12:02 CEST (+0200) — PRODUCT COMPLETION — **CYCLE 6** — PR **#382 MERGED** (`641cf9b3…` · source head `fe46d2c1…`) — PR CI **`32469751405` SUCCESS** — post-merge CI **`32470240316` SUCCESS** — source branch **PRESERVED** — C6-R1 / TD-C6-01…06 **ADOPTED BY MORRIS** — ChatGPT final documentary review **PASS** — technical architecture **INTEGRATED ON MAIN** — runtime implementation **OPEN / NOT AUTHORIZED** — **C6 EXIT PROOF SATISFIED — READY FOR MORRIS CLOSURE DECISION** — **C6 CLOSED = NO / NOT YET** — H-01…H-04 **CARRY** — Confirmation/Trajectory/Epistemic **runtime** durability **OPEN** — UAT **OPEN** — SC-02 **NON-BLOCKING** — Pre-M6 debt **CARRY** — next = **MORRIS C6 CLOSURE DECISION** → if accepted: C6 CLOSED → **NEXT-CYCLE REQUALIFICATION** — **NO BACKLOG** — **NO DELIVERY** — **ZERO REAL** — RUNTIME V3 **NON ADOPTED** |
++| **Timestamp maintenance courant** | 2026-08-21 12:11 CEST (+0200) — PRODUCT COMPLETION — **CYCLE 6 CLOSED BY MORRIS** — **C6 EXIT PROOF ACCEPTED BY MORRIS** — C6-R1 / TD-C6-01…06 **ADOPTED BY MORRIS** — architecture **INTEGRATED ON MAIN** via PR **#382** (`641cf9b3…` · head `fe46d2c1…`) — PR CI **`32469751405` SUCCESS** — post-merge CI **`32470240316` SUCCESS** — source branch **PRESERVED** — documentary closure sync **LOCAL / NOT YET INTEGRATED ON MAIN** — runtime implementation **OPEN / NOT AUTHORIZED** — H-01…H-04 **CARRY** — Confirmation/Trajectory/Epistemic **runtime** durability **OPEN** — UAT **OPEN** — SC-02 **NON-BLOCKING** — Pre-M6 debt **CARRY** — M5-C journal debt **OPEN** — CURRENT REPOSITORY GATE = **C6 DOCUMENTARY CLOSURE GIT INTEGRATION** — NEXT PRODUCT STEP = **NEXT-CYCLE REQUALIFICATION** ONLY AFTER closure sync Git-integrated + truth revalidated — CAPABILITY SELECTION = **NONE / NOT YET** — **NO BACKLOG** — **NO DELIVERY** — **ZERO REAL** — RUNTIME V3 **NON ADOPTED** |
++| **Timestamp maintenance historique Cycle 6 exit proof ready for Morris closure** | 2026-08-21 12:02 CEST (+0200) — PR **#382 MERGED** (`641cf9b3…`) — post-merge CI **`32470240316` SUCCESS** — **C6 EXIT PROOF SATISFIED — READY FOR MORRIS CLOSURE DECISION** — **C6 CLOSED = NO / NOT YET** *(historique · superseded by Morris closure decision ACCEPT EXIT PROOF + CLOSE C6)* — **NO DELIVERY** — **ZERO REAL** — RUNTIME V3 **NON ADOPTED** |
 +| **Timestamp maintenance historique Cycle 6 Git integration transport** | 2026-08-21 11:46 CEST (+0200) — ChatGPT final documentary review **PASS** — Morris Git integration GO **CONSUMED** — exact two-file transport / Draft PR — **NOT YET INTEGRATED ON MAIN** *(historique · superseded by PR #382 merge `641cf9b3…`)* — **NO DELIVERY** — **ZERO REAL** — RUNTIME V3 **NON ADOPTED** |
  | **Timestamp maintenance historique Cycle 6 documentary correction (pre-Git GO)** | 2026-08-21 11:34 CEST (+0200) — C6-R1 **ADOPTED BY MORRIS** — documentary correction **IN PROGRESS / LOCAL** — awaiting ChatGPT final review / Git integration GO *(historique · superseded by ChatGPT PASS + Git integration GO)* — **NO DELIVERY** — **ZERO REAL** — RUNTIME V3 **NON ADOPTED** |
  | **Timestamp maintenance historique Cycle 6 start (pre-adoption)** | 2026-08-21 10:32 CEST (+0200) — CYCLE 6 **STARTED BY MORRIS** — architecture candidate · technical decisions were **NOT ADOPTED** *(historique · superseded by C6-R1 Morris adoption / documentary correction)* — **NO DELIVERY** — **ZERO REAL** — RUNTIME V3 **NON ADOPTED** |
  | **Timestamp maintenance historique Governance EC Order Sync integrated** | 2026-08-21 09:22 CEST (+0200) — CONSOLIDATION FOUNDATION / GOVERNANCE SYNC — **RESERVE-GOV-EC-ORDER CLOSED** — Cycle 6 was **SELECTED BY MORRIS** (≠ started) — *(historique · superseded by Cycle 6 start maintenance)* — **NO DELIVERY** — **ZERO REAL** — RUNTIME V3 **NON ADOPTED** |
-@@ -35,9 +36,9 @@
+@@ -35,9 +37,9 @@
  | **Product Completion Functional Architecture (Cycle 3)** | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · path : `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md` · PR **#378 MERGED** · head `1018aa79d1d8ebb8783d11ce25ff08036764e87e` · merge `18b89ec9d6f1a91f8ff49df9c895299b6676b572` · PR CI **#240 SUCCESS** · post-merge CI **#241 SUCCESS** · post-merge sync PR **#379 MERGED** · sync head `0aa644d935b5df1ba7f4c2278fd63320555b9f6a` · sync merge `134f4105fea09543a100749e74ca5e3be32bfda2` · PR CI **#242 SUCCESS** · post-merge CI **#243 SUCCESS** · final closure PR **#380 MERGED** · head `53aeceea…` · merge `14329c60…` · post-merge CI **#245 SUCCESS** · **POST-MERGE COHERENCE COMPLETE** · PM-R01 **CLOSED** · PM-R02 **CLOSED** · FC-01…FC-15 **APPROVED** · OA-aligned Option A + thin orchestration C **APPROVED** · no parallel architecture · targeted durability technical delta **QUALIFIED** (functional target · technical realization OPEN until Cycle 6) · FA-R01…FA-R12 **CLOSED** · C1 §H/J.1 + C2 A→W preserved · H-01…H-04 **CARRY** · Confirmation **runtime** durability **OPEN** · ProjectTrajectory durability **OPEN** · UAT **OPEN** · SC-02 **NON-BLOCKING** · **RESERVE-GOV-EC-ORDER CLOSED** (Build Doctrine A3 aligned · content property · ≠ FA file rewritten this cycle) · Pre-M6 debt **CARRY** · source branch cleanup **NOT PERFORMED** · **≠** Architecture technique executed · **≠** Backlog · **≠** Delivery · **≠** REAL |
  | **RESERVE-GOV-EC-ORDER** | **CLOSED ON MAIN** via PR **#381** — Build Doctrine execution order aligned with validated C2 / Functional Architecture : HumanDecision → EC Prepare → EC Inspect → Confirmation if required → effective authority → Execute · Confirmation **runtime** durability remains **OPEN** · ≠ reserve reopen |
  | **Morris trajectory decision (post-FA requalification)** | **DECIDED BY MORRIS** — sequence : **1.** Governance EC Order Sync (**INTEGRATED**) · **2.** Cycle 6 Targeted Technical Architecture Delta (**STARTED — architecture candidate**) · **3.** Next-Cycle Requalification · ≠ technical decisions adopted · ≠ schema IMPLEMENTED · ≠ Delivery · ≠ Backlog · ≠ runtime v3 ADOPTED |
 -| **Product Completion Cycle 6 Targeted Technical Architecture Delta** | **STARTED BY MORRIS** · C6-R1 direction **ADOPTED BY MORRIS** (TD-C6-01 T-A · TD-C6-02 C-A · TD-C6-03 A-A · TD-C6-04 E-A SELECTIVE-BY-MATERIALIZATION · TD-C6-05 granted-upward / requested ephemeral · TD-C6-06 explicit current pointer) · ChatGPT final documentary review **PASS** · Morris Git integration GO **CONSUMED** · path : `projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md` · base `72734b8f…` · post-merge CI `32461659466` SUCCESS · exact two-file transport / Draft PR **AUTHORIZED** · **NOT YET INTEGRATED ON MAIN** · **NOT YET CLOSED** · **≠ IMPLEMENTED** · **≠ MIGRATED** · **≠ Backlog** · **≠ Delivery** · **≠ REAL** · runtime v3 **NON ADOPTED** |
-+| **Product Completion Cycle 6 Targeted Technical Architecture Delta** | **INTEGRATED ON MAIN** via PR **#382** · merge `641cf9b3…` · source head `fe46d2c1…` · PR CI `32469751405` SUCCESS · post-merge CI `32470240316` SUCCESS · source branch **PRESERVED** · C6-R1 / TD-C6-01…06 **ADOPTED BY MORRIS** · ChatGPT final documentary review **PASS** · **C6 EXIT PROOF SATISFIED — READY FOR MORRIS CLOSURE DECISION** · **C6 CLOSED = NO / NOT YET** · runtime implementation **OPEN / NOT AUTHORIZED** · **≠ IMPLEMENTED** · **≠ MIGRATED** · **≠ Backlog** · **≠ Delivery** · **≠ REAL** · runtime v3 **NON ADOPTED** |
++| **Product Completion Cycle 6 Targeted Technical Architecture Delta** | **CLOSED BY MORRIS** · **C6 EXIT PROOF ACCEPTED BY MORRIS** · C6-R1 / TD-C6-01…06 **ADOPTED BY MORRIS** · architecture **INTEGRATED ON MAIN** via PR **#382** · merge `641cf9b3…` · source head `fe46d2c1…` · PR CI `32469751405` SUCCESS · post-merge CI `32470240316` SUCCESS · source branch **PRESERVED** · documentary closure sync **LOCAL / NOT YET INTEGRATED ON MAIN** · runtime implementation **OPEN / NOT AUTHORIZED** · **≠ IMPLEMENTED** · **≠ MIGRATED** · **≠ Backlog** · **≠ Delivery** · **≠ REAL** · runtime v3 **NON ADOPTED** |
  | **SFIA Studio product design tooling** | **MORRIS DECISION — PENPOT IS THE REFERENCE DESIGN WORKSPACE FOR SFIA STUDIO PRODUCT DESIGN** · Studio product design only · Git remains SoT for governance/contracts/decisions · R-04 EA historical recommendation **SUPERSEDED FOR FUTURE SFIA STUDIO PRODUCT DESIGN** · **≠** global SFIA methodological baseline · **≠** v3 doctrine change · **≠** runtime v3 adoption · EA document **not** retroactively rewritten |
 -| **Gates courants** | C1 **INTEGRATED** → C2 **INTEGRATED** → UX EA / Wireframes / Screens **INTEGRATED** → FUNCTIONAL ARCHITECTURE **INTEGRATED** → Governance EC Order Sync **INTEGRATED** (PR **#381**) → **CYCLE 6** C6-R1 **ADOPTED BY MORRIS** · ChatGPT final documentary review **PASS** · Morris Git integration GO **CONSUMED** → source branch transport / Draft PR → PR readiness after qualified CI → Morris merge GO (distinct) → post-integration / C6 exit qualification → **NEXT-CYCLE REQUALIFICATION** · **≠** implementation authorized · **≠** Backlog auto · **≠** Delivery · **≠** REAL · **NO EXECUTION WITHOUT MORRIS GO** |
-+| **Gates courants** | C1 **INTEGRATED** → C2 **INTEGRATED** → UX EA / Wireframes / Screens **INTEGRATED** → FUNCTIONAL ARCHITECTURE **INTEGRATED** → Governance EC Order Sync **INTEGRATED** (PR **#381**) → **CYCLE 6 TECHNICAL ARCHITECTURE INTEGRATED ON MAIN** (PR **#382**) · **C6 EXIT PROOF SATISFIED** → **MORRIS C6 CLOSURE DECISION** → if accepted: C6 CLOSED → **NEXT-CYCLE REQUALIFICATION** → capability selection only after requalification · **≠** implementation authorized · **≠** Backlog auto · **≠** Delivery · **≠** REAL · **NO EXECUTION WITHOUT MORRIS GO** |
++| **Gates courants** | C1 **INTEGRATED** → C2 **INTEGRATED** → UX EA / Wireframes / Screens **INTEGRATED** → FUNCTIONAL ARCHITECTURE **INTEGRATED** → Governance EC Order Sync **INTEGRATED** (PR **#381**) → **CYCLE 6 TECHNICAL ARCHITECTURE INTEGRATED ON MAIN** (PR **#382**) → **C6 EXIT PROOF ACCEPTED BY MORRIS** → **C6 CLOSED BY MORRIS** → **C6 DOCUMENTARY CLOSURE GIT INTEGRATION** (local sync pending) → after Git-integrated closure → **NEXT-CYCLE REQUALIFICATION** → capability selection **NONE / NOT YET** · **≠** implementation authorized · **≠** Backlog auto · **≠** Delivery · **≠** REAL · **NO EXECUTION WITHOUT MORRIS GO** |
  | **Intégration Git** | **C2 :** PR #369 / head `3c78c6763d0d090bdc38f3866ecd71ed6be219d0` / merge `2406ccda211842fc7f8da3699bb186a30f7dc105` · **Post-merge sync :** PR #370 (integration vehicle · Git evidence authoritative) · CI SFIA Studio **#222** SUCCESS (PR head) · post-merge CI **#223** SUCCESS · source branch `docs/sfia-studio-product-completion-c2-integration-clean` **PRESERVED** · historical unauthorized branch `docs/sfia-studio-product-completion-c2-functional-design` @ `780ab4c5` **PRESERVED FOR AUDIT** · Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration · **M4 post-pre-reproof Roadmap :** PR #347 / merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS · **M4 GOVERNED REAL COMPLETION PROOF** handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · **M4 closure Roadmap :** PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · **M5 Entry Qualification** handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · **M5 Delivery (Option B + W1) :** PR #350 / head `17461dad78f92a3d5e5e1d9bd36aa20d1e86ac11` / merge `8f753218e4fff7d68d78c1d57e9c3e8fb7e60943` · CI SFIA Studio **#184** SUCCESS · post-merge CI **#185** SUCCESS · **M5 UI/Nora durable rehydrate :** PR #351 / head `ced7b172969c27b5e2d6fda06e9caa8c84e1e0d7` / merge `d8961f1d85a98b5d4185f007f16ddac209e2e557` · CI SFIA Studio **#186** SUCCESS · post-merge CI **#187** SUCCESS · M5 exit re-evaluation handoff `54b0f5b43a50861c26226aa3ffc06460f8ffbafe` · blob `131c85172bbd6370a3edcd71347a64932c9303ab` · M5 EXIT PROOF **SATISFIED ON MAIN** · **M5 capitalization / Roadmap sync :** PR #352 / head `c26824c602ec041cb1d40e9078191c0f1cde4e95` / merge `3467ecdf74ac2010c45f34545fb8684563dea547` · CI SFIA Studio PR run **#31875337665** SUCCESS · post-merge CI run **#31875621317** SUCCESS · post-merge handoff `0121e184c936f8dc73ffe80e20d43027fec495d7` · blob `4c293ae07a0d516b16d6dd2d4087d3e25858e275` · GO Morris **ACCEPT M5 EXIT PROOF + CLOSE M5 — KEEP M5-C TECHNICAL JOURNAL — ZERO REAL — NO M6 EXECUTION — RUNTIME V3 NON ADOPTED — NO BRANCH DELETE** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · User wording **« ok go pour la modification »** · governed interpretation **ALIGN M5 CLOSURE ROADMAP WITH PRE-M6 USER JOURNEY / UX BASELINE TRAJECTORY — KEEP M5 CLOSED — KEEP M5-C — NO UX DESIGN EXECUTION YET — NO FIGMA ACTION YET — NO UI DELIVERY — NO M6 — ZERO REAL — NO PROJECT GIT WRITE** · **M5 closure / Pre-M6 sequencing Roadmap :** PR #353 / title `docs(sfia-studio): close M5 and sequence Pre-M6 UX baseline` / base `3467ecdf74ac2010c45f34545fb8684563dea547` / head `7a744c8cec889be547eebe231279620189819dd0` / merge `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` — records M5 closure + inserts Pre-M6 before M6 · **≠** Slice A candidate (Slice A is later local work) · PRE-M6 USER JOURNEY / UX BASELINE = **FUNCTIONAL BASELINE + GAP READINESS COMPLETE · G-UX-15 EXIT PROOF ACCEPTED / TECHNICAL BLOCKER CLOSED · LOCAL CANDIDATE NOT YET ON MAIN · FIGMA/UI DELIVERY NOT AUTHORIZED** · **G-UX-15 Slice A controlled integration :** PR #354 / title `feat(sfia-studio): close Pre-M6 G-UX-15 execution wiring gap` / base `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` / head `22ae8e5e4bddb0f997384a5e8ba87c9b35245693` / merge `a6df83a640afeb0911cb572d118d27a03c9923a7` · CI SFIA Studio **#192** SUCCESS · post-merge main CI **#193** SUCCESS · post-merge truth **PASS** (exact 5-file SHAs on main) · feature branch **PRESERVED** (no delete) · **Cycle 14 docs sync :** PR #355 / title `docs(sfia-studio): sync Pre-M6 G-UX-15 post-merge current state` / merge `dd284e9f20de89b2c8fc7782e4177d0d125c24d2` — **MERGED ON MAIN** · **historique :** OPEN / DRAFT avant merge · **Cycle 15 visual adoption docs integration :** PR #356 / title `docs(sfia-studio): record Pre-M6 visual contract adoption` / head `3a93d0e5cfd86e46bb795ce22c0f7dd79078ef2a` / merge `50f31994b0d9b5a3a3514e2fa9a063d688071c50` — **MERGED ON MAIN** · CI SFIA Studio **#198** SUCCESS on final PR head · post-merge main CI **#199** SUCCESS · post-merge truth **PASS** · source branch **PRESERVED** (NO BRANCH DELETE) · **historique :** OPEN / DRAFT avant merge · **D-PRE-M6-UX-05 :** ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN (Freeze `uUdLBElF2B4dOefaAYt4QY`) — UI Delivery still **NOT AUTHORIZED** · **Cycle 14 PR #356 post-merge current-state sync :** PR #357 / title `docs(sfia-studio): sync PR 356 post-merge current state` / head `70643624c494f16fb91e3bede772a80f4eece783` / merge `b834fdd40d3e7028e80cf7b388b93df2f31e18e4` — **MERGED ON MAIN** · CI SFIA Studio **#200** SUCCESS on PR head · post-merge CI **#201** SUCCESS · source branch **PRESERVED** · **historique :** OPEN / DRAFT avant merge · **PRE-M6 UI DELIVERY GATE / SCOPE QUALIFICATION :** **COMPLETE** — Review Handoff `2577776360c8a5a3492806b447d4bf88f0239898` / blob `9084a97b368472aaaa7ab61f85baf2efcb819e51` — verdict READY FOR MORRIS DELIVERY DECISION (**≠** UI Delivery authorized) — OPTION A = RECOMMENDATION AWAITING MORRIS DECISION *(historique qualification)* · **Cycle 15 Pre-M6 UI gap + CKC trajectory Roadmap :** PR #358 / title `docs(sfia-studio): record Pre-M6 UI gap and CKC trajectory` / head `c91ce1afd498ef9a5275e3b90509e7a045f240a0` / merge `0a80b92cb2c05f5b3f001438988b52c07c3bf0b6` — **MERGED ON MAIN** · CI SFIA Studio **#202** SUCCESS on PR head · post-merge CI **#203** SUCCESS · source branch **PRESERVED** · **historique :** OPEN / DRAFT avant merge · GO Morris **ADOPT PRE-M6 UI DELIVERY SCOPE OPTION A** (user « bon ok go option A ») — OPTION A = **ADOPTED BY MORRIS AS PRE-M6 UI DELIVERY SCOPE** · OPTION A SCOPE ADOPTED **≠** UI DELIVERY EXECUTION AUTHORIZED · NEXT PRODUCT GATE *(historique jusqu’à PR #361)* = **MORRIS PRE-M6 UI DELIVERY EXECUTION AUTHORIZATION — OPTION A** · **PR #359** Option A adoption sync **MERGED** (`0d33478…`) · **PR #360** fake-real progressive proof **MERGED** (`a3ac418…`) · **PRE-M6 PRODUCT VERTICAL SLICE :** PR #361 / title `feat(sfia-studio): consolidate Pre-M6 product vertical slice` / head `3c4c478d7664c6111f38e6c4f49e98042e3a8473` / merge `a53c323e47e5fae1d35671f3ae232609a59b0f3f` — **MERGED ON MAIN** · post-merge CI run **`32122892559` SUCCESS** · source branch `delivery/sfia-studio-pre-m6-ui-option-a` **PRESERVED** · GO Morris **PR #361 READY + MERGE — PRESERVE SOURCE BRANCH — THEN POST-MERGE VALIDATION** · **MORRIS DECISION — CURRENT SFIA STUDIO VERTICAL SLICE ON MAIN IS THE FUNCTIONAL MVP BASELINE FOR THE PRODUCT COMPLETION TRAJECTORY — REUSE EXISTING BACKBONE — DO NOT RESTART FROM ZERO — RUNTIME V3 REMAINS NON ADOPTED** · **MORRIS DECISION — ACCEPT PRE-M6 EXIT FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT — CURRENT MAIN VERTICAL SLICE IS THE SFIA STUDIO FUNCTIONAL MVP BASELINE FOR PRODUCT COMPLETION — CARRY UAT-UX-06 / UAT-RECOVERY-03 / V3-F10 / PROCESS-LOCAL DURABILITY / N7 AS GOVERNED DEBT — RUNTIME V3 REMAINS NON ADOPTED** · PRE-M6 EXIT = **ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT** · PRE-M6 **≠ COMPLETE WITHOUT RESERVES** · NEXT PRODUCT GATE = **GO MORRIS — CYCLE 1 CADRAGE — SFIA STUDIO PRODUCT COMPLETION FROM MVP** (consumable only after this documentation is integrated on main · **NOT AUTHORIZED now**) · NEXT REPOSITORY GATE = **MORRIS REVIEW — PRODUCT COMPLETION REBASELINE DRAFT PR — NO MERGE UNTIL EXPLICIT GO** |
  | **Sources** | Git `main` @ `a53c323e47e5fae1d35671f3ae232609a59b0f3f` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347/#348/#349/#350/#351/#352/#353/#354/#355/#356/#357/#358/#359/#360/#361 · CI #158/#162/#166/#172/#176/#178/#184/#185/#186/#187/#192/#193/#197/#198/#199/#200/#201/#202/#203 · Pre-M6 UI Delivery qualification handoff `2577776360c8a5a3492806b447d4bf88f0239898` / blob `9084a97b368472aaaa7ab61f85baf2efcb819e51` · GO Morris **ADOPT PRE-M6 UI DELIVERY SCOPE OPTION A** · PR #352 CI run #31875337665 / post-merge #31875621317 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · D-PRE-M6-UX-05 visual review handoff `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593ddbdc286cd244790f0ca1d2c421128202c5c` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · M5 Entry Qualification handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · GO Morris **VALIDATE D-PRE-M6-UX-05 FIGMA VISUAL CONTRACT — ADOPT AS PRE-M6 VISUAL REFERENCE** · M4 Product path on main `projects/sfia-studio/app/**` |
  | **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M5 Entry Qualification **COMPLETE** · M5 architecture trajectory **ADOPTED BY MORRIS** · M5 Delivery **IMPLEMENTED ON MAIN** (PR #350) · M5 UI rehydrate **IMPLEMENTED ON MAIN** (PR #351) · M5 technical/functional exit proof **SATISFIED ON MAIN** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · M5 CLOSED **≠** M6 AUTHORIZED · M5 CLOSED **≠** M6 STARTED · M5 CLOSED **≠** runtime v3 ADOPTED · M5 CLOSED **≠** global v3 baseline promoted · M5 CLOSED **≠** M5-C retired · M5 exit accepted **≠** global Cursor REAL authorization · M5 CLOSED future **≠** M6 automatically authorized · Pre-M6 trajectory decided **≠** Pre-M6 UX qualification executed · **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE ≠ UI Delivery authorized ≠ runtime implemented ≠ browser/product E2E proven ≠ Figma/runtime aligned ≠ WCAG compliant ≠ Pre-M6 complete ≠ historical UI retired** · Accepted M-03/M-04/provenance reserves ≠ reserves closed · new UX baseline **≠** runtime rewrite · existing UI not canonical **≠** existing UI automatically deleted · UI asset audit **COMPLETE/CLASSIFIED** **≠** individual dispositions ADOPTED · existing UI audit **≠** REPLACE/retirement authorized · M1→M5 runtime KEEP **≠** all runtime complete · Pre-M6 user proof **≠** runtime v3 ADOPTED · M6 after Pre-M6 **≠** M6 automatically authorized · Validated UX decisions in framing **30/37** (CC-D01) prevail over older candidate wording in framing **11** · M5-A OPTION B **IMPLEMENTED ON MAIN** · M5-B W1 **IMPLEMENTED ON MAIN** · M5-B W1 factual write-back **≠** Recommendation becomes Decision · Recommendation **≠** HumanDecision · Recommendation **≠** gate consumed · Recommendation **≠** ExecutionAuthority · LPS factual evidence link **≠** structural trajectory validation · readback **≠** execution · remount UI visibility **≠** automatic next-cycle launch · M5-C KEEP TEMPORARY WITH EXIT **≠** technical journal retired · durable Product Attempt **≠** technical M4 journal automatically obsolete · M5 implementation **≠** runtime v3 ADOPTED · M5 implementation **≠** global v3 baseline promoted · M5 ZERO REAL **≠** global Cursor REAL authorization · M5 architecture ADOPTED **≠** M6 started · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **unchanged by M5 architecture decision** **≠** M4/M5 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · runtime v3 **NON ADOPTED** · ≠ full OA durable · G-UX-15 technical blocker **CLOSED BY MORRIS** ≠ Pre-M6 complete · G-UX-15 exit proof accepted ≠ browser/product E2E proven · fixture-safe proof accepted ≠ REAL proof · G-UX-15 Slice A **MERGED ON MAIN** (PR #354) ≠ Pre-M6 complete · merged on main ≠ product/browser E2E proven · merged on main ≠ UI Delivery/M6 authorized · Pre-M6 progress ≠ M6 authorized · Confirmation process-local = KEEP RESERVE ≠ restart-safe Confirmation · **PR #356 MERGED ≠ UI Delivery authorized** · CI #197/#198/#199 SUCCESS ≠ Pre-M6 complete ≠ UI Delivery authorized · post-merge truth PASS ≠ UI Delivery gate consumed · UI Delivery qualification COMPLETE ≠ UI Delivery authorized · **Option A SCOPE ADOPTED BY MORRIS ≠ UI Delivery execution authorized** · gap treatment adopted as scope ≠ gap closed · G-UX-08 deferred ≠ G-UX-08 closed · G-UX-09 accepted ≠ Conversation durable · Confirmation KEEP ≠ restart-safe · G-UX-11 planned ≠ browser E2E proven · M7 CKC 15/15 future ≠ CKC complete now ≠ CKC Delivery authorized · 4 pilots + 11 fallback ≠ CKC system complete · CKC→v2.6 capitalization option ≠ v2.6 modification decided · CKC validation future ≠ runtime v3 ADOPTED · PR #357 MERGED ≠ UI Delivery authorized · CI #201 SUCCESS ≠ Pre-M6 complete · PR #358 MERGED ≠ UI Delivery authorized · CI #202/#203 SUCCESS ≠ Pre-M6 complete ≠ Delivery authorized · Option A scope adopted ≠ Delivery GO consumed · Execution Authorization IS the Delivery GO ≠ second Delivery GO required · G-UX-11 E2E exit proof ≠ Delivery entry prerequisite · global v3 baseline **NOT PROMOTED** · **PR #361 MERGED ≠ PRE-M6 COMPLETE ≠ PRE-M6 EXIT ACCEPTED ≠ runtime v3 ADOPTED ≠ M6 AUTHORIZED ≠ M7 AUTHORIZED ≠ CKC 15/15 COMPLETE ≠ generic Cursor write/dev/commit/push/PR proven** · **MVP FUNCTIONAL BASELINE ≠ produit final ≠ UX finale ≠ production-ready ≠ generic ExecutionContract complete** · Product Completion trajectory recorded **≠** Cycle 1 Cadrage authorized **≠** Delivery authorized · PRE-M6 requalification **≠** PRE-M6 CLOSED · **PRE-M6 EXIT ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT ≠ PRE-M6 COMPLETE ≠ PRE-M6 all gaps closed ≠ runtime v3 ADOPTED ≠ M6 STARTED ≠ M6 AUTHORIZED ≠ Product Completion Delivery authorized ≠ Cycle 1 Cadrage authorized** |
-@@ -98,8 +99,8 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
+@@ -98,8 +100,8 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
  | Product Completion Product Screens & Visual State Contract | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · `projects/sfia-studio/product-completion/ux-product-experience/03-product-screens-visual-state-contract.md` · PR #376 / head `6e2cd066…` / merge `7d2f9a61…` · PR CI **#236 SUCCESS** · post-merge CI **#237 SUCCESS** · Penpot `63bdc57a…` page 03 · 17 screens · page 04 = 0 · Components 0 · C1 alignment PASS · PASS 3 PASS WITH ONE NON-BLOCKING EVIDENCE-FRAMING RESERVE · UX-BLK-01/02/03 CLOSED · H-01…H-04 **CARRY** · source branch cleanup **COMPLETED** · **≠** Components · **≠** Delivery |
  | Product Completion Functional Architecture (Cycle 3) | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md` · PR #378 / head `1018aa79…` / merge `18b89ec9…` · PR CI **#240 SUCCESS** · post-merge CI **#241 SUCCESS** · post-merge sync PR **#379** / head `0aa644d…` / merge `134f4105…` · PR CI **#242 SUCCESS** · post-merge CI **#243 SUCCESS** · final closure PR **#380** / head `53aeceea…` / merge `14329c60…` · post-merge CI **#245 SUCCESS** · **POST-MERGE COHERENCE COMPLETE** · PM-R01/PM-R02 **CLOSED** · FC-01…FC-15 APPROVED · OA Option A + thin C APPROVED · targeted durability delta QUALIFIED · FA-R01…FA-R12 CLOSED · **RESERVE-GOV-EC-ORDER CLOSED** (Build Doctrine A3 content alignment) · **≠** Architecture technique executed · **≠** Backlog · **≠** Delivery |
  | COMPLETED / INTEGRATED | **C1 CADRAGE** · **C2 FUNCTIONAL DESIGN** · **UX EXPERIENCE ARCHITECTURE** · **E2E WIREFRAMES & INTERACTION MODEL** · **PRODUCT SCREENS & VISUAL STATE CONTRACT** · **FUNCTIONAL ARCHITECTURE (Cycle 3)** · post-merge sync PR **#379** · final closure PR **#380** · PR #369 / `2406ccda…` · PR #370 post-merge sync **HISTORICAL / MERGED** · PR #372 / `fb311f2f…` · PR #373 / `6b67ada7…` · PR #374 / `404d2d3e…` · PR #375 post-merge sync · PR #376 / `7d2f9a61…` · PR #378 / `18b89ec9…` · PR #379 / `134f4105…` · PR #380 / `14329c60…` |
 -| CURRENT REPOSITORY GATE | Governance EC Order Sync **INTEGRATED ON MAIN** (PR **#381** / `72734b8f…` / CI `32461659466`) · **RESERVE-GOV-EC-ORDER CLOSED ON MAIN** · **CYCLE 6** ChatGPT final documentary review **PASS** · Morris Git integration GO **CONSUMED** · C6-R1 **ADOPTED BY MORRIS** · exact two-file source-branch transport / Draft PR = current gate · **NOT YET INTEGRATED ON MAIN** · next = **PR readiness after qualified CI** → Morris merge GO (distinct) · **after C6 exit** → **NEXT-CYCLE REQUALIFICATION** · **≠** implementation · **≠** Backlog · **≠** Delivery · **≠** REAL · source branch cleanup **NOT PERFORMED** |
 -| NEXT PRODUCT CAPABILITY | **CYCLE 6 — TARGETED TECHNICAL ARCHITECTURE DELTA** · direction **ADOPTED BY MORRIS** · content final review **PASS** · Git integration transport **IN PROGRESS** · **NOT YET CLOSED** · **NOT IMPLEMENTED** · OA/ports/Product SQLite KEEP · **no** new stack/DB/greenfield/API gateway · **no** REAL · **no** Delivery · **after Cycle 6 exit** → **NEXT-CYCLE REQUALIFICATION** · **≠** Backlog auto · **≠** next cycle selected by this sync |
-+| CURRENT REPOSITORY GATE | main = `641cf9b3ed6c0f879c932bfe535ed4876ee08969` · PR **#382 MERGED** · source head `fe46d2c1…` · PR CI `32469751405` SUCCESS · post-merge CI `32470240316` SUCCESS · source branch **PRESERVED** · C6 technical architecture **INTEGRATED ON MAIN** · **C6 EXIT PROOF SATISFIED** · **C6 CLOSED = NO / NOT YET** · current gate = **MORRIS C6 CLOSURE DECISION** → if accepted: C6 CLOSED → **NEXT-CYCLE REQUALIFICATION** · **≠** implementation · **≠** Backlog · **≠** Delivery · **≠** REAL · source branch cleanup **NOT PERFORMED** |
-+| NEXT PRODUCT CAPABILITY | **AFTER Morris C6 CLOSURE** only → **NEXT-CYCLE REQUALIFICATION** · capability selection only after requalification + Morris gate · C6 runtime implementation remains **OPEN / NOT AUTHORIZED** · OA/ports/Product SQLite KEEP · **no** Backlog auto · **no** Delivery · **no** REAL · **≠** next cycle selected by this sync |
++| CURRENT REPOSITORY GATE | main technical architecture truth = `641cf9b3ed6c0f879c932bfe535ed4876ee08969` · PR **#382 MERGED** · post-merge CI `32470240316` SUCCESS · source branch **PRESERVED** · **C6 EXIT PROOF ACCEPTED BY MORRIS** · **C6 CLOSED BY MORRIS** · documentary closure sync **LOCAL / NOT YET INTEGRATED ON MAIN** · current gate = **C6 DOCUMENTARY CLOSURE GIT INTEGRATION** · **≠** implementation · **≠** Backlog · **≠** Delivery · **≠** REAL · source branch cleanup **NOT PERFORMED** |
++| NEXT PRODUCT CAPABILITY | **NEXT-CYCLE REQUALIFICATION** = **NEXT ORDERED STEP AFTER** C6 documentary closure Git integration + truth revalidation · capability selection = **NONE / NOT YET** · C6 runtime implementation remains **OPEN / NOT AUTHORIZED** · OA/ports/Product SQLite KEEP · **no** Backlog auto · **no** Delivery · **no** REAL · **≠** next cycle/capability selected by this sync |
  | M6 / M7 | **HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** · traces conservées · hors forward critical path |
 
  ### Candidat local non-main (dirty `delivery/sfia-studio-f3-real-prerequisites`) — historique / harvest
-@@ -453,9 +454,9 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
+@@ -453,9 +455,9 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
  | **Intégration** | PR #350 merge `8f753218…` · PR #351 merge `d8961f1d…` · capitalization PR #352 merge `3467ecd…` · exit handoff `54b0f5b4…` · post-merge handoff `0121e184…` |
  | **Dépendances** | M4 — **SATISFIED / CLOSED** · Architecture — **CONSUMED** · Delivery — **CONSUMED / MERGED** · UI rehydrate — **CONSUMED / MERGED** · Capitalization Roadmap — **CONSUMED / MERGED** · Closure gate — **CONSUMED** |
  | **Statut** | **M5 EXIT PROOF ACCEPTED BY MORRIS — CLOSED** |
 -| **Next convergence capability (current)** | C1+C2+UX+FA+Governance EC Order Sync **INTEGRATED ON MAIN** · **CYCLE 6** C6-R1 **ADOPTED BY MORRIS** · ChatGPT final review **PASS** · Git integration GO **CONSUMED** · Draft PR transport · M5 remains **CLOSED** · PRE-M6 EXIT remains accepted with governed debt · **≠** implementation · **≠** merged |
 -| **Next immediate gate (repo)** | **PR readiness review after qualified CI** → Morris merge GO (distinct) → post-integration / C6 exit qualification → **NEXT-CYCLE REQUALIFICATION** · **≠** Backlog · **≠** Delivery · **NO EXECUTION WITHOUT MORRIS GO** |
 -| **Next product gate** | Same as repo gate for C6 merge/exit path · then **NEXT-CYCLE REQUALIFICATION** · **≠** Backlog auto · **≠** Delivery · **NO EXECUTION WITHOUT MORRIS GO** |
-+| **Next convergence capability (current)** | C1+C2+UX+FA+Governance EC Order Sync+**C6 technical architecture** **INTEGRATED ON MAIN** (PR **#382** / `641cf9b3…`) · **C6 EXIT PROOF SATISFIED** · **C6 NOT CLOSED** · M5 remains **CLOSED** · PRE-M6 EXIT remains accepted with governed debt · runtime implementation **NOT AUTHORIZED** |
-+| **Next immediate gate (repo)** | **MORRIS C6 CLOSURE DECISION** → if accepted: C6 CLOSED → **NEXT-CYCLE REQUALIFICATION** → capability selection only after requalification · **≠** Backlog · **≠** Delivery · **NO EXECUTION WITHOUT MORRIS GO** |
-+| **Next product gate** | Same as repo gate · **NEXT-CYCLE REQUALIFICATION** only after C6 closure · **≠** Backlog auto · **≠** Delivery · **NO EXECUTION WITHOUT MORRIS GO** |
++| **Next convergence capability (current)** | C1+C2+UX+FA+Governance EC Order Sync+**C6 technical architecture** **INTEGRATED ON MAIN** (PR **#382** / `641cf9b3…`) · **C6 EXIT PROOF ACCEPTED BY MORRIS** · **C6 CLOSED BY MORRIS** · documentary closure sync **LOCAL** · M5 remains **CLOSED** · PRE-M6 EXIT remains accepted with governed debt · runtime implementation **NOT AUTHORIZED** · next capability **NONE / NOT YET** |
++| **Next immediate gate (repo)** | **C6 DOCUMENTARY CLOSURE GIT INTEGRATION** → after Git-integrated closure truth revalidated → **NEXT-CYCLE REQUALIFICATION** · capability selection **NONE / NOT YET** · **≠** Backlog · **≠** Delivery · **NO EXECUTION WITHOUT MORRIS GO** |
++| **Next product gate** | Same as repo gate · **NEXT-CYCLE REQUALIFICATION NOT YET EXECUTED** · **≠** Backlog auto · **≠** Delivery · **NO EXECUTION WITHOUT MORRIS GO** |
  | **M6 / M7 disposition** | Historical milestones **SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** |
 
 
-@@ -726,8 +727,8 @@ CRITICAL PATH:
+@@ -726,8 +728,9 @@ CRITICAL PATH:
    → FUNCTIONAL ARCHITECTURE POST-MERGE DOCUMENTARY SYNC — **MERGED** (PR #379 / head `0aa644d…` / merge `134f4105…` · PR CI #242 SUCCESS · post-merge CI #243 SUCCESS · PM-R01 CLOSED · **POST-MERGE COHERENCE COMPLETE**)
    → FUNCTIONAL ARCHITECTURE FINAL POST-MERGE CLOSURE — **MERGED** (PR #380 / head `53aeceea…` / merge `14329c60…` · post-merge CI #245 SUCCESS · PM-R02 CLOSED)
    → GOVERNANCE EC ORDER SYNC — **MERGED ON MAIN** (PR #381 / head `fbf33a27…` / merge `72734b8f…` · post-merge CI `32461659466` SUCCESS) · **RESERVE-GOV-EC-ORDER CLOSED ON MAIN**
 -  → CYCLE 6 — TARGETED TECHNICAL ARCHITECTURE DELTA — **STARTED BY MORRIS** · C6-R1 **ADOPTED BY MORRIS** (TD-C6-01…06) — ChatGPT final documentary review **PASS** — Morris Git integration GO **CONSUMED** — exact two-file transport / Draft PR — **NOT YET INTEGRATED ON MAIN** — **≠ IMPLEMENTED** · **≠ CLOSED** · **≠ Delivery** · **≠ Backlog**
 -  → AFTER CYCLE 6 EXIT — **NEXT-CYCLE REQUALIFICATION** — **NO EXECUTION WITHOUT MORRIS GO**
-+  → CYCLE 6 — TARGETED TECHNICAL ARCHITECTURE DELTA — **INTEGRATED ON MAIN** via PR **#382** (`641cf9b3…` · head `fe46d2c1…`) — PR CI `32469751405` SUCCESS · post-merge CI `32470240316` SUCCESS — source branch **PRESERVED** — **C6 EXIT PROOF SATISFIED** — **C6 CLOSED = NO / NOT YET** — **≠ IMPLEMENTED** · **≠ Delivery** · **≠ Backlog**
-+  → AFTER MORRIS C6 CLOSURE — **NEXT-CYCLE REQUALIFICATION** — **NO EXECUTION WITHOUT MORRIS GO**
++  → CYCLE 6 — TARGETED TECHNICAL ARCHITECTURE DELTA — architecture **INTEGRATED ON MAIN** via PR **#382** (`641cf9b3…` · head `fe46d2c1…`) — PR CI `32469751405` SUCCESS · post-merge CI `32470240316` SUCCESS — source branch **PRESERVED** — **C6 EXIT PROOF ACCEPTED BY MORRIS** — **C6 CLOSED BY MORRIS** — documentary closure sync **LOCAL / NOT YET INTEGRATED ON MAIN** — **≠ IMPLEMENTED** · **≠ Delivery** · **≠ Backlog**
++  → CURRENT REPOSITORY GATE — **C6 DOCUMENTARY CLOSURE GIT INTEGRATION**
++  → AFTER CLOSURE GIT INTEGRATION — **NEXT-CYCLE REQUALIFICATION** — capability selection **NONE / NOT YET** — **NO EXECUTION WITHOUT MORRIS GO**
    → DYNAMIC PRODUCT TRAJECTORY — requalify after each capability
    → OPTIONAL CKC lessons → v2.6 capitalization — DISTINCT METHOD GATE — NOT DECIDED
 
 
 ```
 
-## 13b. `06` status-sync diff
+## 10b. C6 status-sync diff
 
 ```diff
 diff --git a/projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md b/projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md
-index 230eecca..94593923 100644
+index 230eecca..9c07ce6b 100644
 --- a/projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md
 +++ b/projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md
-@@ -8,14 +8,17 @@
+@@ -8,14 +8,21 @@
  | **Profile** | **CRITICAL** |
  | **Typology** | **DOC** |
  | **Milestone** | PRODUCT COMPLETION — CYCLE 6 — TARGETED TECHNICAL ARCHITECTURE DELTA — TRUTH & AUTHORITY DURABILITY |
@@ -933,28 +926,36 @@ index 230eecca..94593923 100644
 +| **Morris Git integration GO** | **CONSUMED** — commit exact 2 files · push source branch · Draft PR #382 · later merge under distinct Morris gate |
 +| **PR #382** | **MERGED** · source head `fe46d2c117e2c3314af885e1a19a0f0c4e4c3ce0` · merge `641cf9b3ed6c0f879c932bfe535ed4876ee08969` · PR CI `32469751405` **SUCCESS** · post-merge CI `32470240316` **SUCCESS** |
 +| **Source branch** | `docs/sfia-studio-product-completion-c6-technical-architecture-delta` · **PRESERVED** (no delete) |
-+| **Morris post-merge GO** | **CONSUMED** — GO MORRIS — C6 POST-MERGE DOCUMENTARY COHERENCE + EXIT QUALIFICATION ONLY · **NO** project commit/push/PR in this pass |
-+| **Candidate status** | **C6 CONSOLIDATED TECHNICAL ARCHITECTURE — TD-C6-01…06 ADOPTED BY MORRIS — CHATGPT FINAL DOCUMENTARY REVIEW PASS — INTEGRATED ON MAIN VIA PR #382 — POST-MERGE TRUTH VERIFIED — C6 EXIT PROOF SATISFIED — READY FOR MORRIS C6 CLOSURE DECISION** · **NOT CLOSED** · ≠ IMPLEMENTED · ≠ MIGRATED · ≠ DELIVERY · ≠ BACKLOG · ≠ PRODUCT COMPLETION COMPLETE · ≠ RUNTIME V3 ADOPTED |
++| **Morris post-merge GO** | **CONSUMED** — GO MORRIS — C6 POST-MERGE DOCUMENTARY COHERENCE + EXIT QUALIFICATION ONLY |
++| **Morris C6 closure decision** | **CONSUMED** — GO MORRIS — ACCEPT C6 EXIT PROOF + CLOSE C6 TARGETED TECHNICAL ARCHITECTURE — TD-C6-01…06 REMAIN ADOPTED — AUTHORIZE DOCUMENTARY CLOSURE SYNC OF EXACT C6 + ROADMAP FILES — NO IMPLEMENTATION — NO MIGRATION — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED — THEN NEXT-CYCLE REQUALIFICATION, NO CAPABILITY AUTO-SELECTED |
++| **C6 EXIT PROOF** | **ACCEPTED BY MORRIS** |
++| **C6 status** | **CLOSED BY MORRIS** · ≠ IMPLEMENTED · ≠ MIGRATED · ≠ runtime durability complete · ≠ BACKLOG · ≠ DELIVERY · ≠ REAL · ≠ Product Completion complete · ≠ RUNTIME V3 ADOPTED |
++| **Candidate status** | **C6 CONSOLIDATED TECHNICAL ARCHITECTURE — TD-C6-01…06 ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #382 — POST-MERGE TRUTH VERIFIED — EXIT PROOF ACCEPTED BY MORRIS — C6 CLOSED BY MORRIS — DOCUMENTARY CLOSURE SYNC LOCAL / NOT YET INTEGRATED ON MAIN — NOT IMPLEMENTED — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED** |
++| **Closure documentary sync** | **LOCAL — NOT YET INTEGRATED ON MAIN** · branch `docs/sfia-studio-product-completion-c6-post-merge-closure` · **NOT PUSHED** · **NO** project commit/push/PR in this pass |
 +| **Branch (local closure)** | `docs/sfia-studio-product-completion-c6-post-merge-closure` · **NOT PUSHED** |
  | **Primary path** | `projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md` |
  | **Runtime v3** | **NON ADOPTED** |
  | **Delivery / Backlog / REAL** | **NOT AUTHORIZED** · **ZERO REAL** |
-@@ -70,11 +73,11 @@ Concevoir **COMMENT** fermer, sous OA Native Backbone + Product SQLite existants
+@@ -70,11 +77,11 @@ Concevoir **COMMENT** fermer, sous OA Native Backbone + Product SQLite existants
  | Champ | Contenu |
  | --- | --- |
  | **Capability v3** | Truth & Authority Durability — V3-F06 Trajectory · V3-F04/F08 Epistemology · V3-F07 Provenance · V3-F11/F12 Authority/execution governance · C1 semantic continuity |
 -| **Current state** | Governance EC Order Sync **INTEGRATED ON MAIN** (PR #381 / `72734b8f…` / CI `32461659466` SUCCESS) · C6 **STARTED BY MORRIS** · C6-R1 direction **ADOPTED BY MORRIS** (TD-C6-01…06) · ChatGPT final documentary review **PASS** · Morris Git integration GO **CONSUMED** · transport **AUTHORIZED** · **NOT YET INTEGRATED ON MAIN** · **NOT YET CLOSED** · **NOT IMPLEMENTED** |
-+| **Current state** | C6 technical architecture **INTEGRATED ON MAIN** via PR **#382** (`641cf9b3…`) · source head `fe46d2c1…` · PR CI `32469751405` SUCCESS · post-merge CI `32470240316` SUCCESS · C6-R1 / TD-C6-01…06 **ADOPTED BY MORRIS** · ChatGPT final documentary review **PASS** · post-merge content truth **PASS** · **C6 EXIT PROOF SATISFIED** · **C6 NOT CLOSED** · **NOT IMPLEMENTED** · runtime v3 **NON ADOPTED** |
++| **Current state** | C6 technical architecture **INTEGRATED ON MAIN** via PR **#382** (`641cf9b3…`) · source head `fe46d2c1…` · PR CI `32469751405` SUCCESS · post-merge CI `32470240316` SUCCESS · C6-R1 / TD-C6-01…06 **ADOPTED BY MORRIS** · ChatGPT final documentary review **PASS** · post-merge content truth **PASS** · **C6 EXIT PROOF ACCEPTED BY MORRIS** · **C6 CLOSED BY MORRIS** · documentary closure sync **LOCAL / NOT YET INTEGRATED ON MAIN** · **NOT IMPLEMENTED** · runtime implementation **OPEN / NOT AUTHORIZED** · runtime v3 **NON ADOPTED** |
  | **Dependencies** | C1/C2/FA/UX integrated · Build Doctrine order aligned · Product SQLite M1–M5 durable backbone KEEP |
  | **Assets** | OA KEEP · Product SQLite KEEP · existing ports KEEP · Memory Trajectory/Confirmation/Epistemic → COMPLETE/ADAPT under adopted direction · Authority Memory + receipts QUALIFY |
  | **Gaps closed by C6 (design)** | Trajectory durability · Confirmation lifecycle from `granted` · selective Epistemic by materialization · AuthorityVerificationReceipt audit · U2/U2b execution checkpoints |
 -| **Critical path** | Source branch commit/push + Draft PR → PR readiness after qualified CI → Morris merge GO (distinct) → post-integration proof / C6 exit qualification → **NEXT-CYCLE REQUALIFICATION** · Delivery only under later distinct GO |
-+| **Critical path** | Morris C6 **CLOSURE** decision (distinct) → if accepted: C6 CLOSED → **NEXT-CYCLE REQUALIFICATION** → capability selection only after requalification · Delivery only under later distinct GO |
++| **Critical path** | **C6 DOCUMENTARY CLOSURE GIT INTEGRATION** (exact C6 + Roadmap · distinct later GO) → after Git-integrated closure truth revalidated → **NEXT-CYCLE REQUALIFICATION** · capability selection **NONE / NOT YET** · Delivery only under later distinct GO |
  | **Exit proof C6 (documentary)** | TD-C6-01…06 adopted · consolidated corrections applied · Review Pack FULL · no unauthorized implementation claims |
  | **Debt / exit** | Runtime durability remains OPEN until Delivery · H-01…H-04 CARRY · UAT OPEN · SC-02 NON-BLOCKING · Pre-M6 debt CARRY · M5-C journal debt OPEN |
  | **Next capability after C6 exit** | **NEXT-CYCLE REQUALIFICATION** · ≠ Backlog auto · ≠ Delivery auto |
-@@ -635,20 +638,21 @@ Avoid overdocumentation: do not ADR already-decided OA/SQLite/ports.
- ### Remaining Morris gates (NOT TD-C6-01…06)
+@@ -632,23 +639,25 @@ Avoid overdocumentation: do not ADR already-decided OA/SQLite/ports.
+ - H-01…H-04 CARRY · UAT OPEN · SC-02 NON-BLOCKING · Pre-M6 debt CARRY · M5-C journal debt OPEN
+ - runtime v3 **NON ADOPTED**
+
+-### Remaining Morris gates (NOT TD-C6-01…06)
++### Remaining Morris / repository gates (NOT TD-C6-01…06)
 
  1. ~~ChatGPT final documentary review~~ → **PASS**
 -2. ~~Distinct Morris GO for C6 project Git integration~~ → **CONSUMED** (this transport: commit exact 2 files · push source branch · Draft PR · **NO MERGE**)
@@ -962,31 +963,35 @@ index 230eecca..94593923 100644
 -4. Distinct Morris merge GO (if authorized)
 -5. Post-integration proof / C6 exit qualification
 -6. **NEXT-CYCLE REQUALIFICATION** after C6 exit
-+2. ~~C6 documentary Git integration (commit/push/Draft PR)~~ → **CONSUMED**
-+3. ~~PR readiness / merge of PR #382~~ → **COMPLETE** (MERGED · source branch **PRESERVED**)
-+4. ~~Post-merge CI + content truth + exit qualification~~ → **PASS / SATISFIED** (this pass · local documentary sync only)
-+5. **Morris C6 CLOSURE decision** (distinct) — required · **C6 CLOSED = NO / NOT YET**
-+6. **NEXT-CYCLE REQUALIFICATION** only **AFTER** closure acceptance
- 7. Later distinct GO for any Delivery / implementation
-
+-7. Later distinct GO for any Delivery / implementation
+-
 -### Documentary exit conditions for this Git integration transport
-+### Documentary exit conditions for this post-merge coherence pass
-
+-
 -1. TD-C6-01…06 recorded ADOPTED with consolidated wording
 -2. U2/U2b · authority formula · E-A selective-by-materialization · granted semantics preserved
 -3. Roadmap synchronized factually for transport gate
 -4. Exact two project files committed · source branch pushed · Draft PR created
 -5. No merge · no ready-for-review · no code/migration/Backlog/Delivery/REAL · runtime v3 NON ADOPTED
-+1. PR #382 MERGED on main `641cf9b3…` with source head `fe46d2c1…`
-+2. PR CI `32469751405` SUCCESS · post-merge CI `32470240316` SUCCESS
-+3. Content truth on main matches PR #382 (no unexpected mutation)
-+4. Source branch preserved
-+5. Status sync local only · **NO** project commit/push/PR in this GO
-+6. C6 EXIT PROOF **SATISFIED** · C6 **NOT CLOSED** without distinct Morris closure decision
++2. ~~C6 documentary Git integration (commit/push/Draft PR)~~ → **CONSUMED**
++3. ~~PR readiness / merge of PR #382~~ → **COMPLETE** (MERGED · source branch **PRESERVED**)
++4. ~~Post-merge CI + content truth + exit qualification~~ → **PASS / SATISFIED**
++5. ~~Morris C6 CLOSURE decision~~ → **CONSUMED** · **C6 EXIT PROOF ACCEPTED BY MORRIS** · **C6 CLOSED BY MORRIS**
++6. **C6 DOCUMENTARY CLOSURE GIT INTEGRATION** (exact C6 + Roadmap · distinct later GO) — current repository gate · sync still **LOCAL / NOT YET INTEGRATED ON MAIN**
++7. **NEXT-CYCLE REQUALIFICATION** = **NEXT ORDERED STEP AFTER** closure sync is Git-integrated and truth revalidated · **NOT EXECUTED in this pass** · capability selection **NONE / NOT YET**
++8. Later distinct GO for any Delivery / implementation
++
++### Documentary conditions for this Morris closure sync pass
++
++1. C6 EXIT PROOF **ACCEPTED BY MORRIS**
++2. C6 **CLOSED BY MORRIS**
++3. TD-C6-01…06 remain **ADOPTED** (substance unchanged)
++4. Closure documentary sync **LOCAL only** · **NO** project commit/push/PR
++5. Runtime implementation remains **OPEN / NOT AUTHORIZED**
++6. Reserves remain OPEN/CARRY (Trajectory/Confirmation/Epistemic runtime · H-01…H-04 · UAT · SC-02 · Pre-M6 · M5-C · v3 NON ADOPTED)
 
  ---
 
-@@ -670,30 +674,41 @@ Prerequisites only (≠ stories · ≠ authorized):
+@@ -670,30 +679,42 @@ Prerequisites only (≠ stories · ≠ authorized):
 
  | Criterion | Status |
  | --- | --- |
@@ -1002,7 +1007,7 @@ index 230eecca..94593923 100644
 -
 -Cycle 6 is **not** product-closed by this Git transport. Merge and exit require distinct GOs.
 +| Architecture-only targeted delta | **PASS** |
-+| TD-C6-01…06 adopted | **PASS** |
++| TD-C6-01…06 adopted | **PASS** (remain ADOPTED) |
 +| C1 alignment | **PASS** |
 +| C2 alignment | **PASS** |
 +| Product Experience alignment | **PASS** |
@@ -1018,111 +1023,123 @@ index 230eecca..94593923 100644
 +| No implementation / migration | **PASS** |
 +| No Backlog / Delivery / REAL | **PASS** |
 +| Runtime v3 NON ADOPTED | **PASS** |
-+| **C6 EXIT PROOF** | **SATISFIED** |
-+| **C6 CLOSED** | **NO — MORRIS CLOSURE DECISION REQUIRED** |
++| **C6 EXIT PROOF** | **ACCEPTED BY MORRIS** |
++| **C6 CLOSED** | **YES — CLOSED BY MORRIS** |
++| Documentary closure sync Git-integrated | **NOT YET** (LOCAL only) |
 +| Implementation / Delivery-ready | **NOT CLAIMED** |
 +
-+Cycle 6 exit proof is **SATISFIED**. Cycle 6 is **not** closed until a distinct Morris closure decision.
++**C6 EXIT PROOF ACCEPTED BY MORRIS. C6 CLOSED BY MORRIS.** Remaining repository gate = **C6 DOCUMENTARY CLOSURE GIT INTEGRATION** only. After that: **NEXT-CYCLE REQUALIFICATION**.
 
  ---
 
  ## 24. Morris decisions required (remaining)
 
 -**Consumed / closed:** TD-C6-01…06 · ChatGPT final documentary review PASS · Morris C6 documentary Git integration GO (commit/push/Draft PR only).
-+**Consumed / closed:** TD-C6-01…06 · ChatGPT final documentary review PASS · Git integration · PR #382 merge · post-merge CI + content truth · exit qualification evidence.
++**Consumed / closed:** TD-C6-01…06 · ChatGPT final documentary review PASS · Git integration · PR #382 merge · post-merge CI + content truth · exit qualification · **Morris C6 CLOSURE decision** (exit proof accepted · C6 closed).
 
--**Still required (documentary/Git gates only):**
-+**Still required:**
+ **Still required (documentary/Git gates only):**
 
 -1. PR readiness review after qualified CI
 -2. Distinct Morris merge GO (if authorized)
 -3. Post-integration / C6 exit qualification under distinct GO
 -4. Do **not** infer Backlog / Delivery / REAL / runtime v3 from architecture adoption or this Draft PR
-+1. **Morris C6 CLOSURE decision** (distinct) — accept exit proof → C6 CLOSED, or withhold
-+2. After closure acceptance only: **NEXT-CYCLE REQUALIFICATION**
-+3. Capability selection only after requalification + Morris gate
-+4. Do **not** infer Backlog / Delivery / REAL / runtime v3 from C6 integration or exit proof
++1. Distinct later GO for **C6 documentary closure Git integration** (exact C6 + Roadmap)
++2. After closure sync is Git-integrated and truth revalidated: **NEXT-CYCLE REQUALIFICATION** (**NOT EXECUTED** in this pass)
++3. Capability selection **NONE / NOT YET** — only after requalification + Morris gate
++4. Do **not** infer Backlog / Delivery / REAL / runtime v3 from C6 closure
 
  ---
 
-@@ -713,25 +728,23 @@ This document does **NOT**:
+@@ -702,7 +723,7 @@ Cycle 6 is **not** product-closed by this Git transport. Merge and exit require
+ This document does **NOT**:
+
+ - implement or migrate anything
+-- claim architecture direction adoption = implementation / migrations / runtime proof
++- claim C6 CLOSED = architecture implemented / migrations applied / runtime durability complete
+ - complete Product Completion
+ - authorize Backlog / Delivery / REAL
+ - adopt runtime v3
+@@ -713,25 +734,24 @@ This document does **NOT**:
  - treat restored `granted` as effective authority
  - treat proposed Trajectory as current effective Trajectory
  - invent a second Attempt lifecycle
 -- claim main already runs durable Trajectory/Confirmation
 -- authorize merge / ready-for-review / auto-merge / branch delete without distinct Morris GO
-+- declare **C6 CLOSED** without distinct Morris closure decision
-+- authorize project commit/push/PR for this post-merge coherence candidate without a later distinct GO
++- claim documentary closure sync is already on main
++- authorize project commit/push/PR for this closure sync without a later distinct GO
++- execute NEXT-CYCLE REQUALIFICATION in this pass
++- select a next capability / cycle
 
  ---
 
  ## 26. Final candidate verdict
 
 -**C6 CONSOLIDATED TECHNICAL ARCHITECTURE — CONTENT FINAL REVIEW PASS — TD-C6-01…06 ADOPTED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT YET INTEGRATED ON MAIN**
-+**C6 CONSOLIDATED TECHNICAL ARCHITECTURE — TD-C6-01…06 ADOPTED BY MORRIS — CHATGPT FINAL DOCUMENTARY REVIEW PASS — INTEGRATED ON MAIN VIA PR #382 — POST-MERGE TRUTH VERIFIED — C6 EXIT PROOF SATISFIED — READY FOR MORRIS C6 CLOSURE DECISION**
++**C6 CONSOLIDATED TECHNICAL ARCHITECTURE — TD-C6-01…06 ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #382 — POST-MERGE TRUTH VERIFIED — EXIT PROOF ACCEPTED BY MORRIS — C6 CLOSED BY MORRIS — DOCUMENTARY CLOSURE SYNC LOCAL / NOT YET INTEGRATED ON MAIN — NOT IMPLEMENTED — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED**
 
  Do **not** declare:
 -- C6 COMPLETE
- - C6 CLOSED
+-- C6 CLOSED
 -- TECHNICAL ARCHITECTURE COMPLETE
-+- C6 COMPLETE as product capability closed without Morris closure
  - READY FOR DELIVERY
  - IMPLEMENTED / MIGRATED
  - RUNTIME V3 ADOPTED
 -
 -Merge requires a separate Morris GO after PR readiness.
-+- next Backlog / Delivery cycle selected
++- closure sync already on main
++- next capability / Backlog / Delivery cycle selected
 
  ---
 
 -*ARCHITECTURE DIRECTION ADOPTED BY MORRIS · CONTENT FINAL REVIEW PASS · GIT INTEGRATION TRANSPORT ONLY · NO MERGE · NO CODE · NO MIGRATION · NO BACKLOG · NO DELIVERY · ZERO REAL · RUNTIME V3 NON ADOPTED · ADOPTION ≠ IMPLEMENTATION*
-+*ARCHITECTURE DIRECTION ADOPTED BY MORRIS · INTEGRATED ON MAIN · EXIT PROOF SATISFIED · C6 NOT CLOSED · NO CODE · NO MIGRATION · NO BACKLOG · NO DELIVERY · ZERO REAL · RUNTIME V3 NON ADOPTED · ADOPTION ≠ IMPLEMENTATION*
++*ARCHITECTURE DIRECTION ADOPTED BY MORRIS · INTEGRATED ON MAIN · EXIT PROOF ACCEPTED BY MORRIS · C6 CLOSED BY MORRIS · CLOSURE SYNC LOCAL ONLY · NO CODE · NO MIGRATION · NO BACKLOG · NO DELIVERY · ZERO REAL · RUNTIME V3 NON ADOPTED · ADOPTION ≠ IMPLEMENTATION*
 
 ```
 
-## 14. Exact exit criteria table
+## 11. Exit proof accepted
 
-| Criterion | Status |
-| --- | --- |
-| Documentary architecture scope targeted | PASS |
-| TD-C6-01…06 adopted | PASS |
-| C1 alignment | PASS |
-| C2 alignment | PASS |
-| Product Experience alignment | PASS |
-| Functional Architecture alignment | PASS |
-| OA/Product SQLite/ports preserved | PASS |
-| No parallel architecture | PASS |
-| PR #382 exact scope | PASS |
-| PR CI 32469751405 | PASS |
-| Merge | PASS |
-| Content on main | PASS |
-| Source branch preserved | PASS |
-| Post-merge CI 32470240316 | PASS |
-| No implementation/migration | PASS |
-| No Backlog/Delivery/REAL | PASS |
-| Runtime v3 NON ADOPTED | PASS |
-| **C6 EXIT PROOF** | **SATISFIED** |
-| **C6 CLOSED** | **NO — MORRIS DECISION REQUIRED** |
+**C6 EXIT PROOF = ACCEPTED BY MORRIS**
 
-## 15. Reserves still OPEN
+## 12. C6 CLOSED BY MORRIS
 
-Confirmation/Trajectory/Epistemic **runtime** durability OPEN · H-01…H-04 · UAT · SC-02 · Pre-M6 · M5-C · runtime v3 NON ADOPTED
+**YES — CLOSED BY MORRIS**
+≠ implemented · ≠ migrated · ≠ Delivery · ≠ Backlog · ≠ REAL · ≠ Product Completion complete · ≠ runtime v3 ADOPTED
 
-## 16. No code/migration/Backlog/Delivery/REAL proof
+## 13. Documentary closure sync
 
-Exact 2 documentary files modified locally · no app/migration/method/doctrine edits · no project commit/push/PR in this GO.
+**LOCAL / NOT YET INTEGRATED ON MAIN** · branch NOT PUSHED · no project commit/push/PR
 
-## 17. Runtime v3
+## 14. Remaining reserves OPEN/CARRY
+
+ProjectTrajectory runtime · Confirmation runtime · Epistemic materialization runtime · H-01…H-04 · UAT · SC-02 NON-BLOCKING · Pre-M6 · M5-C · runtime v3 NON ADOPTED
+
+## 15. No implementation/migration/Backlog/Delivery/REAL
+
+CONFIRMED — documentary status sync only.
+
+## 16. Runtime v3
 
 **NON ADOPTED**
 
-## 18. Morris decisions still required
+## 17. Next repository gate
 
-1. **Morris C6 CLOSURE decision** (distinct)
-2. After closure: NEXT-CYCLE REQUALIFICATION
-3. Capability selection only after requalification + Morris gate
-4. Later Delivery/implementation only under distinct GO
+**C6 DOCUMENTARY CLOSURE GIT INTEGRATION**
 
-## 19. Final verdict
+## 18. Next ordered product step
 
-**C6 POST-MERGE COHERENCE CANDIDATE READY FOR CHATGPT REVIEW — C6 EXIT PROOF SATISFIED — MORRIS CLOSURE DECISION REQUIRED — NO PROJECT GIT INTEGRATION PERFORMED**
+**NEXT-CYCLE REQUALIFICATION** ONLY AFTER closure sync Git-integrated + truth revalidated · **NOT EXECUTED** in this pass
+
+## 19. Next capability selection
+
+**NONE / NOT YET**
+
+## 20. Source branch preservation
+
+```
+fe46d2c117e2c3314af885e1a19a0f0c4e4c3ce0	refs/heads/docs/sfia-studio-product-completion-c6-technical-architecture-delta
+```
+PRESERVED
+
+## 21. Final verdict
+
+**C6 CLOSURE DOCUMENTARY CANDIDATE READY FOR CHATGPT REVIEW — C6 EXIT PROOF ACCEPTED BY MORRIS — C6 CLOSED BY MORRIS — CLOSURE SYNC LOCAL / NOT YET INTEGRATED ON MAIN — NEXT REPOSITORY GATE = C6 CLOSURE GIT INTEGRATION — THEN NEXT-CYCLE REQUALIFICATION — NO CAPABILITY SELECTED**
