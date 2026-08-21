@@ -1,44 +1,41 @@
 # Pack de revue ChatGPT — FULL
-## SFIA STUDIO V3 — CKC CORPUS ALIGNMENT CORRECTION PASS (CKC-RV-01…08)
+## SFIA STUDIO V3 — CKC CANONICAL IDENTITY CONVENTION APPLICATION
 
 | Champ | Valeur |
 | --- | --- |
 | **Niveau de revue** | **FULL** |
-| **Horodatage** | 2026-08-21 19:17:34 CEST (+0200) |
+| **Horodatage** | 2026-08-21 19:35:24 CEST (+0200) |
 | **Depot** | `mcleland147/sfia-workspace` |
 | **pwd** | `/Users/morris/Projects/sfia-workspace` |
-| **Branche locale** | `docs/sfia-studio-v3-ckc-corpus-authoring` · **NON POUSSEE** |
+| **Branche** | `docs/sfia-studio-v3-ckc-corpus-authoring` · **NON POUSSEE** |
 | **HEAD** | `f1df10a935fbc9688b810bdc7749a3f3e9785429` |
 | **origin/main** | `f1df10a935fbc9688b810bdc7749a3f3e9785429` |
-| **Cycle** | 15 — Capitalisation / REX — correction alignement |
-| **Profil** | Capitalization |
-| **Profondeur contrôle** | **Critical** |
-| **Typologie** | CAPA / DOC |
-| **Capacité** | **V3-F01** |
+| **Cycle** | 15 — Capitalisation / REX — consolidation identité CKC |
+| **Profil** | Capitalization · **Critical** · CAPA/DOC |
+| **Capacité** | **V3-F01** (+ F03/F07/F15) |
 | **ZERO REAL** | **MANDATORY** |
 | **Runtime v3** | **NON ADOPTED** |
 
 ---
 
-## 1. GO Morris consommé
+## 1. Décision Morris consommée
 
-GO MORRIS — pass LOCAL de correction du corpus Studio CKC suite revue ChatGPT (CKC-RV-01…08 + Evidence business-first + Resume continuity) — 18 fichiers uniquement — PAS stage/commit/push/PR projet — PAS VALIDATED — PAS ckcId ADOPTED — PAS DoctrinePackage/runtime — ZERO REAL — Review Pack FULL + Handoff L3 borné.
+MORRIS DECISION — CKC-ID-CONVENTION — **ADOPT** `ckc:studio:{cycle-type-token}` AS THE CANONICAL STABLE IDENTIFIER CONVENTION — token = suffixe stable exact de `cycleTypeId` après `cyc:` — `ckcId` immutable content-family identity — `contractVersion` évolue indépendamment — amend 15 IDs locaux — **CLOSE CKC-ID-CONVENTION** — NO DP/runtime/content validation/promotion — NO stage/commit/push/PR projet — puis ChatGPT final identity/content readiness review.
+
+IDENTITY CONVENTION ADOPTED ≠ CKC CONTENT VALIDATED.
 
 ---
 
-## 2. Local Git Truth
+## 2. Local Git Truth / baseline
 
 | Controle | Resultat |
 | --- | --- |
-| origin/main | `f1df10a935fbc9688b810bdc7749a3f3e9785429` · **OK** |
-| HEAD | `f1df10a935fbc9688b810bdc7749a3f3e9785429` · **OK** |
-| Branche | `docs/sfia-studio-v3-ckc-corpus-authoring` |
+| origin/main / HEAD | `f1df10a935fbc9688b810bdc7749a3f3e9785429` · **OK** |
 | Remote authoring branch | **ABSENTE** |
+| Baseline handoff | `04467cfef2ee6c73c2fc4027bb65a6e589756c86` / blob `19be791f5f3315ed04765af9941031ea4338d1b3` · **OK** |
+| CORRECTED_CORPUS_BASELINE_MATCH | **YES** (18/18 pre-mod) |
+| Runtime canonical ckcId to migrate | **NONE** (types/ckcQualificationContracts/catalog scan) |
 | Staged project | **AUCUN** |
-| Baseline handoff | commit `9d5cc56bb795e4f569a50f069ec959d85fc84740` · blob `df92193aae824c7347ea2efbcba2a51db640a776` · **OK** |
-| BASELINE_REVIEWED_CORPUS_MATCH | **YES** (18/18) |
-
-### git status
 
 ```
 ?? .tmp-sfia-review/
@@ -53,101 +50,82 @@ GO MORRIS — pass LOCAL de correction du corpus Studio CKC suite revue ChatGPT 
 
 **CONVERGENCE CONTEXT LOADED**
 
-V3-F01 · FC-02→FC-03→FC-04 · OA KEEP / Product SQLite KEEP / no parallel · conversation-first · Evidence business-first · corpus DOCUMENTED/NOT VALIDATED · next = ChatGPT re-review · CKC-ID-CONVENTION OPEN.
-
 ---
 
-## 4. CKC-RV-01…08
+## 4. Convention
 
-| ID | Before | Correction | Verdict |
-| --- | --- | --- | --- |
-| **RV-01** | `catalogSnapshot` + footers snapshot dans 15 CKC | metadata/footer snapshot retirés ; snapshot reste README/validation/envelope | **PASS** |
-| **RV-02** | fuites construction (Morris, Pre-M6, Product Completion, H-01…04, Product SQLite, ports OA, M6, ROADMAP…) | corps PROJECT-GENERIC ; Pilote respecte policies Project | **PASS** (grep 0) |
-| **RV-03** | depth label-only (MEDIUM/LEAN ≈ COMPLET) | COMPLET avg~154 · MEDIUM 125 · LEAN 78 ; LEAN structure condensée | **PASS** |
-| **RV-04** | Critical imposé sécu si PII/prod | CHALLENGE + RECOMMEND requalification + ESCALATE ; pas d'imposition | **PASS** |
-| **RV-05** | QA CLEAR sous-déterminé | CLEAR = oracle + critères bloquants couverts + Reserve NON BLOQUANTE → PASS WITH RESERVES ; AMBIGUOUS = pas de verdict | **PASS** |
-| **RV-06** | reviewStatus / AWAITING CHATGPT | retirés des 15 ; footer stable DOCUMENTED/NOT VALIDATED ; README resolve-from-git | **PASS** |
-| **RV-07** | ckcIdConvention répété dans corps | retiré des 15 ; README réserve **OPEN** ; pattern candidate conservé | **PASS** (non décidé) |
-| **RV-08** | authoringAuthority Morris dans corps | retiré ; Morris uniquement enveloppe README | **PASS** (Morris=0 dans 15) |
-
-### Hardening
-
-| Item | Verdict |
+| Champ | Valeur |
 | --- | --- |
-| Evidence business-first | **PASS** — significative/insuffisante/supportable/non-supportable/impact contextualisés |
-| Resume continuity | **PASS** — anchors enrichis (LEAN inclus) |
+| Old candidate | `ckc-content:studio-v3:{canonicalKey}` |
+| New canonical | `ckc:studio:{cycle-type-token}` |
+| Derivation | `ckcId = "ckc:studio:" + cycleTypeId.removePrefix("cyc:")` |
+| contractVersion | **`0.1.0` unchanged 15/15** |
+| CKC-ID-CONVENTION | **CLOSED** · **ADOPTED BY MORRIS** (2026-08-21) |
+| IDENTITY-ONLY SEMANTIC DELTA | **YES** |
+| Uniqueness | **15/15** · collisions **0** |
+| Exact derivation 15/15 | **PASS** |
+| Old prefix in corpus | **0** |
+| Package/snapshot/version leakage in ckcId | **0** |
 
-### Alignement
+### Mapping 15/15
 
-| Surface | Verdict |
+| cycleTypeId | ckcId | file |
+| --- | --- | --- |
+| `cyc:framing` | `ckc:studio:framing` | `01-cadrage.md` |
+| `cyc:functional-design` | `ckc:studio:functional-design` | `02-conception-fonctionnelle.md` |
+| `cyc:functional-architecture` | `ckc:studio:functional-architecture` | `03-architecture-fonctionnelle.md` |
+| `cyc:ux-ui` | `ckc:studio:ux-ui` | `04-ux-ui.md` |
+| `cyc:backlog` | `ckc:studio:backlog` | `05-backlog-user-stories.md` |
+| `cyc:technical-architecture` | `ckc:studio:technical-architecture` | `06-architecture-technique.md` |
+| `cyc:integration-devops` | `ckc:studio:integration-devops` | `07-integration-devops.md` |
+| `cyc:delivery` | `ckc:studio:delivery` | `08-delivery-implementation.md` |
+| `cyc:qa-validation` | `ckc:studio:qa-validation` | `09-qa-validation.md` |
+| `cyc:security` | `ckc:studio:security` | `10-securite-rssi.md` |
+| `cyc:release` | `ckc:studio:release` | `11-deploiement-release.md` |
+| `cyc:observability` | `ckc:studio:observability` | `12-observabilite-run-readiness.md` |
+| `cyc:pr-readiness` | `ckc:studio:pr-readiness` | `13-pr-readiness.md` |
+| `cyc:post-merge` | `ckc:studio:post-merge` | `14-post-merge.md` |
+| `cyc:capitalization` | `ckc:studio:capitalization` | `15-capitalisation-rex.md` |
+
+
+---
+
+## 5. Files
+
+| Action | Count / list |
 | --- | --- |
-| C1 | **PASS** — CKC MUST cognitif · 15 non-invariant · trajectoire dynamique · continuité · Evidence BF |
-| C2 | **PASS** — Nora propose · Pilote décide · Reco≠HD · pas d'autorité EC |
-| UX | **PASS** — conversation-first · pas questionnaire dimensions · pas micro-confirmations |
-| FA | **PASS** — FC-03→FC-04 · ne possède pas LPS/Trajectory/Decision/EC/Evidence |
-| C6 | **PASS** — aucune dépendance Product SQLite/OA/schema · pas de parallèle · TD non rouverts |
+| Modified | **17** — 15 CKC + README + validation/02-cross… |
+| Created | **0** |
+| Deleted | **0** |
+| Unchanged | `validation/01-individual-validation-prep.md` (aucune référence identité ancienne) |
 
 ---
 
-## 5. Depth metrics (indicatif, non doctrinal)
+## 6. Validation / claims
 
-| cycleTypeId | file | depth | headings | lines | assessment |
-| --- | --- | --- | --- | --- | --- |
-| `cyc:framing` | `01-cadrage.md` | COMPLET | 15 | 199 | rich expansion · cycle-specific |
-| `cyc:functional-design` | `02-conception-fonctionnelle.md` | COMPLET | 12 | 148 | rich expansion · cycle-specific |
-| `cyc:functional-architecture` | `03-architecture-fonctionnelle.md` | COMPLET | 12 | 142 | rich expansion · cycle-specific |
-| `cyc:ux-ui` | `04-ux-ui.md` | COMPLET | 12 | 147 | rich expansion · cycle-specific |
-| `cyc:backlog` | `05-backlog-user-stories.md` | MEDIUM | 10 | 125 | condensed grammar · cycle-specific dominant |
-| `cyc:technical-architecture` | `06-architecture-technique.md` | COMPLET | 12 | 143 | rich expansion · cycle-specific |
-| `cyc:integration-devops` | `07-integration-devops.md` | MEDIUM | 10 | 125 | condensed grammar · cycle-specific dominant |
-| `cyc:delivery` | `08-delivery-implementation.md` | MEDIUM | 10 | 125 | condensed grammar · cycle-specific dominant |
-| `cyc:qa-validation` | `09-qa-validation.md` | COMPLET | 12 | 143 | rich expansion · cycle-specific |
-| `cyc:security` | `10-securite-rssi.md` | COMPLET | 13 | 157 | rich expansion · cycle-specific |
-| `cyc:release` | `11-deploiement-release.md` | MEDIUM | 10 | 125 | condensed grammar · cycle-specific dominant |
-| `cyc:observability` | `12-observabilite-run-readiness.md` | MEDIUM | 10 | 125 | condensed grammar · cycle-specific dominant |
-| `cyc:pr-readiness` | `13-pr-readiness.md` | LEAN | 7 | 78 | compact LEAN · behavioral contracts preserved |
-| `cyc:post-merge` | `14-post-merge.md` | LEAN | 7 | 78 | compact LEAN · behavioral contracts preserved |
-| `cyc:capitalization` | `15-capitalisation-rex.md` | MEDIUM | 10 | 125 | condensed grammar · cycle-specific dominant |
-
-
-Ordre constaté : COMPLET > MEDIUM > LEAN (moyennes 154.1 > 125 > 78).
-
----
-
-## 6. Mechanical checks
-
-| Check | Result |
+| Item | State |
 | --- | --- |
-| 18 files exact | PASS |
-| 15 cycleTypeId pin | PASS |
-| catalogSnapshot in 15 | **0** |
-| reviewStatus / AWAITING | **0** |
-| authoringAuthority / ckcIdConvention in 15 | **0** |
-| Morris / PRE-M6 / Product Completion / H-01…04 / Product SQLite / ROADMAP-SYNC in 15 | **0** |
-| 45 fixtures | PASS |
-| X17–X24 present | PASS |
-| CKC-ID-CONVENTION | **OPEN** |
-| staged/commit/push/PR projet | **NONE** |
+| Individual prep | PREPARED / NOT MORRIS VALIDATED · 45 fixtures inchangées |
+| Cross X23 | Updated · PREPARED/UNASSESSED (cohérence) · decision ADOPTED |
+| Corpus | DOCUMENTED CANDIDATE / NOT VALIDATED |
+| Content validation / promotion | NOT PERFORMED |
+| DoctrinePackage / runtime / Backlog / Delivery | NO |
+| ZERO REAL / v3 NON ADOPTED | YES |
 
 ---
 
-## 7. Réserves
+## 7. Question ChatGPT
 
-CKC-ID-CONVENTION **OPEN** · RUNTIME-CATALOG-METHOD-MAPPING-DEBT · D1-EXACT-15-VALIDATOR-DEBT · NORA-CONSUMPTION-UNPROVEN · DP-INTEGRATION-NOT-STARTED
+Final identity/content readiness review :
 
----
-
-## 8. Question ChatGPT (re-review)
-
-1. RV-01…08 correctement fermés ?
-2. Depth COMPLET/MEDIUM/LEAN matériellement réelle ?
-3. Project-generic boundary OK ?
-4. Evidence BF + Resume continuity OK ?
-5. Prêt pour re-review PASS **sans** VALIDATED / **sans** adopter ckcId ?
+1. Convention appliquée 15/15 sans collision ?
+2. Delta identité-only (pas de dérive cognitive) ?
+3. CKC-ID-CONVENTION correctement CLOSED ?
+4. Prêt pour gate Morris content validation/promotion **distinct** — sans proclamer VALIDATED maintenant ?
 
 ---
 
-## 9. CONTENU COMPLET DES 18 FICHIERS CORRIGÉS
+## 8. CONTENU COMPLET DES FICHIERS MODIFIÉS
 
 
 ### FILE: `projects/sfia-studio/sfia-v3-framing/ckc/README.md`
@@ -186,23 +164,23 @@ Ne jamais écrire que Studio possède structurellement 15 cycles.
 
 ## Index 15/15
 
-| # | cycleTypeId | canonicalKey | Fichier | Depth |
-| --- | --- | --- | --- | --- |
-| 1 | `cyc:framing` | `cadrage` | [`01-cadrage.md`](./01-cadrage.md) | **COMPLET** |
-| 2 | `cyc:functional-design` | `conception-fonctionnelle` | [`02-conception-fonctionnelle.md`](./02-conception-fonctionnelle.md) | **COMPLET** |
-| 3 | `cyc:functional-architecture` | `architecture-fonctionnelle` | [`03-architecture-fonctionnelle.md`](./03-architecture-fonctionnelle.md) | **COMPLET** |
-| 4 | `cyc:ux-ui` | `ux-ui` | [`04-ux-ui.md`](./04-ux-ui.md) | **COMPLET** |
-| 5 | `cyc:backlog` | `backlog-user-stories` | [`05-backlog-user-stories.md`](./05-backlog-user-stories.md) | **MEDIUM** |
-| 6 | `cyc:technical-architecture` | `architecture-technique` | [`06-architecture-technique.md`](./06-architecture-technique.md) | **COMPLET** |
-| 7 | `cyc:integration-devops` | `integration-devops` | [`07-integration-devops.md`](./07-integration-devops.md) | **MEDIUM** |
-| 8 | `cyc:delivery` | `delivery-implementation` | [`08-delivery-implementation.md`](./08-delivery-implementation.md) | **MEDIUM** |
-| 9 | `cyc:qa-validation` | `qa-validation` | [`09-qa-validation.md`](./09-qa-validation.md) | **COMPLET** |
-| 10 | `cyc:security` | `securite-rssi` | [`10-securite-rssi.md`](./10-securite-rssi.md) | **COMPLET** |
-| 11 | `cyc:release` | `deploiement-release` | [`11-deploiement-release.md`](./11-deploiement-release.md) | **MEDIUM** |
-| 12 | `cyc:observability` | `observabilite-run-readiness` | [`12-observabilite-run-readiness.md`](./12-observabilite-run-readiness.md) | **MEDIUM** |
-| 13 | `cyc:pr-readiness` | `pr-readiness` | [`13-pr-readiness.md`](./13-pr-readiness.md) | **LEAN** |
-| 14 | `cyc:post-merge` | `post-merge` | [`14-post-merge.md`](./14-post-merge.md) | **LEAN** |
-| 15 | `cyc:capitalization` | `capitalisation-rex` | [`15-capitalisation-rex.md`](./15-capitalisation-rex.md) | **MEDIUM** |
+| # | cycleTypeId | ckcId | canonicalKey | Fichier | Depth |
+| --- | --- | --- | --- | --- | --- |
+| 1 | `cyc:framing` | `ckc:studio:framing` | `cadrage` | [`01-cadrage.md`](./01-cadrage.md) | **COMPLET** |
+| 2 | `cyc:functional-design` | `ckc:studio:functional-design` | `conception-fonctionnelle` | [`02-conception-fonctionnelle.md`](./02-conception-fonctionnelle.md) | **COMPLET** |
+| 3 | `cyc:functional-architecture` | `ckc:studio:functional-architecture` | `architecture-fonctionnelle` | [`03-architecture-fonctionnelle.md`](./03-architecture-fonctionnelle.md) | **COMPLET** |
+| 4 | `cyc:ux-ui` | `ckc:studio:ux-ui` | `ux-ui` | [`04-ux-ui.md`](./04-ux-ui.md) | **COMPLET** |
+| 5 | `cyc:backlog` | `ckc:studio:backlog` | `backlog-user-stories` | [`05-backlog-user-stories.md`](./05-backlog-user-stories.md) | **MEDIUM** |
+| 6 | `cyc:technical-architecture` | `ckc:studio:technical-architecture` | `architecture-technique` | [`06-architecture-technique.md`](./06-architecture-technique.md) | **COMPLET** |
+| 7 | `cyc:integration-devops` | `ckc:studio:integration-devops` | `integration-devops` | [`07-integration-devops.md`](./07-integration-devops.md) | **MEDIUM** |
+| 8 | `cyc:delivery` | `ckc:studio:delivery` | `delivery-implementation` | [`08-delivery-implementation.md`](./08-delivery-implementation.md) | **MEDIUM** |
+| 9 | `cyc:qa-validation` | `ckc:studio:qa-validation` | `qa-validation` | [`09-qa-validation.md`](./09-qa-validation.md) | **COMPLET** |
+| 10 | `cyc:security` | `ckc:studio:security` | `securite-rssi` | [`10-securite-rssi.md`](./10-securite-rssi.md) | **COMPLET** |
+| 11 | `cyc:release` | `ckc:studio:release` | `deploiement-release` | [`11-deploiement-release.md`](./11-deploiement-release.md) | **MEDIUM** |
+| 12 | `cyc:observability` | `ckc:studio:observability` | `observabilite-run-readiness` | [`12-observabilite-run-readiness.md`](./12-observabilite-run-readiness.md) | **MEDIUM** |
+| 13 | `cyc:pr-readiness` | `ckc:studio:pr-readiness` | `pr-readiness` | [`13-pr-readiness.md`](./13-pr-readiness.md) | **LEAN** |
+| 14 | `cyc:post-merge` | `ckc:studio:post-merge` | `post-merge` | [`14-post-merge.md`](./14-post-merge.md) | **LEAN** |
+| 15 | `cyc:capitalization` | `ckc:studio:capitalization` | `capitalisation-rex` | [`15-capitalisation-rex.md`](./15-capitalisation-rex.md) | **MEDIUM** |
 
 ## Décisions applicables (D-CKC15-01…14)
 
@@ -243,16 +221,28 @@ Ce README **n'est pas** un DoctrinePackage manifest.
 - Elle ne crée **pas** de persona Morris dans Studio.
 - **Pilote** = acteur humain runtime Project.
 
-## Convention `ckcId` — réserve OPEN
+## Convention `ckcId` — CLOSED / ADOPTED BY MORRIS
 
 | Champ | Valeur |
 | --- | --- |
-| **CKC-ID-CONVENTION** | **OPEN** |
-| Current authoring pattern | `ckc-content:studio-v3:{canonicalKey}` |
-| Nature | candidate / reversible / no runtime propagation |
-| Owner / gate | Morris — construction / validation / promotion Studio |
-| Exit | avant validation/promotion canonique : **ADOPT** current convention **OU** **AMEND / REPLACE** |
-| Anti-claim | 15 `ckcId` présents **≠** convention canonique adoptée |
+| **CKC-ID-CONVENTION** | **CLOSED** |
+| **CANONICAL IDENTITY CONVENTION** | **ADOPTED BY MORRIS** |
+| **Date** | 2026-08-21 Europe/Paris |
+| **Convention** | `ckc:studio:{cycle-type-token}` |
+| **Token** | suffixe stable exact de `cycleTypeId` après le préfixe `cyc:` |
+| **Dérivation** | `ckcId = "ckc:studio:" + cycleTypeId.removePrefix("cyc:")` (documentaire · pas de helper runtime dans ce cycle) |
+
+### Invariants d'identité
+
+- `ckcId` = identité **immutable** de famille de contenu cognitif
+- `contractVersion` évolue le contenu **indépendamment** (reste `0.1.0` tant que non validé)
+- `ckcId` **ne contient pas** : contract version · DoctrinePackage version/pin/digest · catalog snapshot · file path · content maturity · review state · transport state
+- Une évolution future de contenu = **same `ckcId`** + new `contractVersion`
+- Un nouveau `ckcId` exige un nouveau concept/family ou une décision explicite de migration/renommage
+
+### Anti-claims identité
+
+IDENTITY CONVENTION ADOPTED **≠** CKC CONTENT VALIDATED · **≠** CORPUS PROMOTED · **≠** DoctrinePackage integrated · **≠** runtime resolved
 
 ## Project runtime ≠ SFIA Studio construction
 
@@ -261,9 +251,11 @@ Ils ne portent pas Convergence Roadmap / Build Doctrine / milestones internes St
 
 ## Maturité / anti-claims corpus
 
-**Autorisé :** authored locally · 15/15 pin documented · validation material prepared · ready for ChatGPT re-review.
+**Autorisé :** authored locally · 15/15 pin documented · identity convention ADOPTED · validation material prepared · ready for ChatGPT final identity/content readiness review.
 
-**Interdit :** CKC CONTENT VALIDATED · CORPUS PROMOTED · DOCTRINEPACKAGE INTEGRATED · RUNTIME RESOLVED · NORA CONSUMPTION PROVEN · PRODUCT READY · DELIVERY READY · REAL PROVEN · RUNTIME V3 ADOPTED · ckcId convention ADOPTED.
+**Interdit :** CKC CONTENT VALIDATED · CORPUS PROMOTED · DOCTRINEPACKAGE INTEGRATED · RUNTIME RESOLVED · NORA CONSUMPTION PROVEN · PRODUCT READY · DELIVERY READY · REAL PROVEN · RUNTIME V3 ADOPTED.
+
+IDENTITY CONVENTION ADOPTED **≠** CONTENT VALIDATED.
 
 ## Validation state (stable)
 
@@ -275,13 +267,13 @@ Ils ne portent pas Convergence Roadmap / Build Doctrine / milestones internes St
 | DoctrinePackage integration | **NOT AUTHORIZED** |
 | Runtime wiring | **NOT AUTHORIZED** |
 
-Promotion future requires: qualified review evidence · **CKC-ID-CONVENTION resolved** · explicit Morris content validation/promotion decision.
+Promotion future requires: qualified review evidence · **CKC-ID-CONVENTION CLOSED (satisfied)** · explicit Morris content validation/promotion decision distincte.
 
 ## Réserves
 
 | ID | Description |
 | --- | --- |
-| **CKC-ID-CONVENTION** | **OPEN** — pattern candidate non adopté |
+| **CKC-ID-CONVENTION** | **CLOSED** — convention `ckc:studio:{cycle-type-token}` **ADOPTED BY MORRIS** (2026-08-21) |
 | **RUNTIME-CATALOG-METHOD-MAPPING-DEBT** | Mappings method sur catalog = dette transitionnelle ; non SoT Studio |
 | **D1-EXACT-15-VALIDATOR-DEBT** | Validateur runtime exact-15 = keep/adapt later |
 | **NORA-CONSUMPTION-UNPROVEN** | Aucune preuve runtime Nora |
@@ -295,7 +287,7 @@ Promotion future requires: qualified review evidence · **CKC-ID-CONVENTION reso
 
 | Champ | Valeur |
 | --- | --- |
-| **ckcId** | `ckc-content:studio-v3:cadrage` |
+| **ckcId** | `ckc:studio:framing` |
 | **cycleTypeId** | `cyc:framing` |
 | **canonicalKey** | `cadrage` |
 | **contractVersion** | `0.1.0` |
@@ -499,7 +491,7 @@ Pilote : « on veut un dashboard temps réel comme Datadog ». Nora CHALLENGE : 
 
 | Champ | Valeur |
 | --- | --- |
-| **ckcId** | `ckc-content:studio-v3:conception-fonctionnelle` |
+| **ckcId** | `ckc:studio:functional-design` |
 | **cycleTypeId** | `cyc:functional-design` |
 | **canonicalKey** | `conception-fonctionnelle` |
 | **contractVersion** | `0.1.0` |
@@ -652,7 +644,7 @@ Pas d'ADR technique · pas de pixel-perfect · pas d'EC.
 
 | Champ | Valeur |
 | --- | --- |
-| **ckcId** | `ckc-content:studio-v3:architecture-fonctionnelle` |
+| **ckcId** | `ckc:studio:functional-architecture` |
 | **cycleTypeId** | `cyc:functional-architecture` |
 | **canonicalKey** | `architecture-fonctionnelle` |
 | **contractVersion** | `0.1.0` |
@@ -799,7 +791,7 @@ Option A conversation dominante + panneau vivant vs Option B multi-panneaux — 
 
 | Champ | Valeur |
 | --- | --- |
-| **ckcId** | `ckc-content:studio-v3:ux-ui` |
+| **ckcId** | `ckc:studio:ux-ui` |
 | **cycleTypeId** | `cyc:ux-ui` |
 | **canonicalKey** | `ux-ui` |
 | **contractVersion** | `0.1.0` |
@@ -951,7 +943,7 @@ Wizard 7 étapes vs conversation dominante → CHALLENGE ; Options ; ESCALATE HD
 
 | Champ | Valeur |
 | --- | --- |
-| **ckcId** | `ckc-content:studio-v3:backlog-user-stories` |
+| **ckcId** | `ckc:studio:backlog` |
 | **cycleTypeId** | `cyc:backlog` |
 | **canonicalKey** | `backlog-user-stories` |
 | **contractVersion** | `0.1.0` |
@@ -1081,7 +1073,7 @@ Light : 3–5 stories. Critical : deps + risques. Lens FinOps COND. Limits : pas
 
 | Champ | Valeur |
 | --- | --- |
-| **ckcId** | `ckc-content:studio-v3:architecture-technique` |
+| **ckcId** | `ckc:studio:technical-architecture` |
 | **cycleTypeId** | `cyc:technical-architecture` |
 | **canonicalKey** | `architecture-technique` |
 | **contractVersion** | `0.1.0` |
@@ -1229,7 +1221,7 @@ Option A conserver contrats/ports existants vs Option B moteur parallèle — CH
 
 | Champ | Valeur |
 | --- | --- |
-| **ckcId** | `ckc-content:studio-v3:integration-devops` |
+| **ckcId** | `ckc:studio:integration-devops` |
 | **cycleTypeId** | `cyc:integration-devops` |
 | **canonicalKey** | `integration-devops` |
 | **contractVersion** | `0.1.0` |
@@ -1359,7 +1351,7 @@ Critical : secrets + rollback. Lenses DevOps, Security, FinOps. Limits : ≠ Rel
 
 | Champ | Valeur |
 | --- | --- |
-| **ckcId** | `ckc-content:studio-v3:delivery-implementation` |
+| **ckcId** | `ckc:studio:delivery` |
 | **cycleTypeId** | `cyc:delivery` |
 | **canonicalKey** | `delivery-implementation` |
 | **contractVersion** | `0.1.0` |
@@ -1489,7 +1481,7 @@ Critical : anti-REAL leakage. Lens Security. Limits : CKC ≠ ExecutionAuthority
 
 | Champ | Valeur |
 | --- | --- |
-| **ckcId** | `ckc-content:studio-v3:qa-validation` |
+| **ckcId** | `ckc:studio:qa-validation` |
 | **cycleTypeId** | `cyc:qa-validation` |
 | **canonicalKey** | `qa-validation` |
 | **contractVersion** | `0.1.0` |
@@ -1637,7 +1629,7 @@ Oracle défini + critères bloquants couverts + Reserve non bloquante → Recomm
 
 | Champ | Valeur |
 | --- | --- |
-| **ckcId** | `ckc-content:studio-v3:securite-rssi` |
+| **ckcId** | `ckc:studio:security` |
 | **cycleTypeId** | `cyc:security` |
 | **canonicalKey** | `securite-rssi` |
 | **contractVersion** | `0.1.0` |
@@ -1799,7 +1791,7 @@ Recommendation « masquer identifiants sensibles dans Evidence » ≠ HD policy 
 
 | Champ | Valeur |
 | --- | --- |
-| **ckcId** | `ckc-content:studio-v3:deploiement-release` |
+| **ckcId** | `ckc:studio:release` |
 | **cycleTypeId** | `cyc:release` |
 | **canonicalKey** | `deploiement-release` |
 | **contractVersion** | `0.1.0` |
@@ -1929,7 +1921,7 @@ Critical : rollback+comms. Lenses Release, Observability, Security. Limits : ≠
 
 | Champ | Valeur |
 | --- | --- |
-| **ckcId** | `ckc-content:studio-v3:observabilite-run-readiness` |
+| **ckcId** | `ckc:studio:observability` |
 | **cycleTypeId** | `cyc:observability` |
 | **canonicalKey** | `observabilite-run-readiness` |
 | **contractVersion** | `0.1.0` |
@@ -2059,7 +2051,7 @@ MEDIUM depth obligatoire. Critical si prod. Lenses Observability, RUN readiness,
 
 | Champ | Valeur |
 | --- | --- |
-| **ckcId** | `ckc-content:studio-v3:pr-readiness` |
+| **ckcId** | `ckc:studio:pr-readiness` |
 | **cycleTypeId** | `cyc:pr-readiness` |
 | **canonicalKey** | `pr-readiness` |
 | **contractVersion** | `0.1.0` |
@@ -2142,7 +2134,7 @@ Cognitif seulement (FC-03→FC-04). Pas HD · pas autorité/EC · pas LPS/Trajec
 
 | Champ | Valeur |
 | --- | --- |
-| **ckcId** | `ckc-content:studio-v3:post-merge` |
+| **ckcId** | `ckc:studio:post-merge` |
 | **cycleTypeId** | `cyc:post-merge` |
 | **canonicalKey** | `post-merge` |
 | **contractVersion** | `0.1.0` |
@@ -2225,7 +2217,7 @@ Cognitif seulement (FC-03→FC-04). Pas HD · pas autorité/EC · pas LPS/Trajec
 
 | Champ | Valeur |
 | --- | --- |
-| **ckcId** | `ckc-content:studio-v3:capitalisation-rex` |
+| **ckcId** | `ckc:studio:capitalization` |
 | **cycleTypeId** | `cyc:capitalization` |
 | **canonicalKey** | `capitalisation-rex` |
 | **contractVersion** | `0.1.0` |
@@ -2348,199 +2340,6 @@ Capitalization naturelle. Critical si doctrinal. Lens Capitalization. Limits : R
 
 ````
 
-### FILE: `projects/sfia-studio/sfia-v3-framing/ckc/validation/01-individual-validation-prep.md`
-
-````markdown
-# Validation individuelle — préparation (D-CKC15-07)
-
-| Champ | Valeur |
-| --- | --- |
-| **Statut** | **PREPARED / NOT EXECUTED AS MORRIS VALIDATION** |
-| **Snapshot (envelope)** | `0.1.0-v3.1-d1` |
-| **Pin SHA256** | `a1690a7c5f429b708c8ed90d2bc3af11ba454af76339df29054e4c0b802b96e8` |
-| **Couverture fixtures** | **15 × 3 = 45** (CLEAR · AMBIGUOUS · NEGATIVE/ANTI-USE) |
-| **Nature** | Cas documentaires cognitifs — **≠** fake adapters · **≠** REAL · **≠** POC runtime |
-| **Morris validation** | **NOT PERFORMED** |
-
-> Matériel préparé pour revue externe. Ce document n'est pas le registre live de review transport.
-> Cases = **PREPARED / UNASSESSED** jusqu'à Evidence de revue qualifiée.
-
-## Checklist individuelle (critères)
-
-| # | Critère | État prep |
-| --- | --- | --- |
-| 1 | semantic grammar | PREPARED / UNASSESSED |
-| 2 | Nora usefulness | PREPARED / UNASSESSED |
-| 3 | context inputs | PREPARED / UNASSESSED |
-| 4 | guidance strategy | PREPARED / UNASSESSED |
-| 5 | epistemic outputs | PREPARED / UNASSESSED |
-| 6 | maturity→behavior | PREPARED / UNASSESSED |
-| 7 | decision triggers | PREPARED / UNASSESSED |
-| 8 | trajectory/replan | PREPARED / UNASSESSED |
-| 9 | Evidence business-first | PREPARED / UNASSESSED |
-| 10 | contradiction cues | PREPARED / UNASSESSED |
-| 11 | resume continuity | PREPARED / UNASSESSED |
-| 12 | profile/lens | PREPARED / UNASSESSED |
-| 13 | no authority leakage | PREPARED / UNASSESSED |
-| 14 | project-generic boundary | PREPARED / UNASSESSED |
-| 15 | depth authenticity | PREPARED / UNASSESSED |
-| 16 | stable canonical status | PREPARED / UNASSESSED |
-| 17 | CLEAR fixture | PREPARED / UNASSESSED |
-| 18 | AMBIGUOUS fixture | PREPARED / UNASSESSED |
-| 19 | ANTI-USE fixture | PREPARED / UNASSESSED |
-| 20 | central Nora adequacy (prep only) | PREPARED / UNASSESSED |
-
-## Central Nora adequacy (préparation)
-
-Étant donnés DoctrinePackage actif · LPS · ProjectTrajectory/état épistémique · Studio CKC du cycle :
-
-Nora peut-elle guider le Pilote (clarification · analyse · challenge · Recommendation/HD trigger · Evidence business-first · next-trajectory proposal) **sans** inventer contexte/décision/autorité · sans questionnaire dimensions · sans sauter Evidence/contradiction · sans questions inutiles · sans auto-sélection du cycle suivant ?
-
-| cycleTypeId | Adequacy prep | Future verdict slot |
-| --- | --- | --- |
-| `cyc:framing` | Fixture triad + checklist prêtes | UNASSESSED (PASS/NOT VALIDATABLE) |
-| `cyc:functional-design` | Fixture triad + checklist prêtes | UNASSESSED (PASS/NOT VALIDATABLE) |
-| `cyc:functional-architecture` | Fixture triad + checklist prêtes | UNASSESSED (PASS/NOT VALIDATABLE) |
-| `cyc:ux-ui` | Fixture triad + checklist prêtes | UNASSESSED (PASS/NOT VALIDATABLE) |
-| `cyc:backlog` | Fixture triad + checklist prêtes | UNASSESSED (PASS/NOT VALIDATABLE) |
-| `cyc:technical-architecture` | Fixture triad + checklist prêtes | UNASSESSED (PASS/NOT VALIDATABLE) |
-| `cyc:integration-devops` | Fixture triad + checklist prêtes | UNASSESSED (PASS/NOT VALIDATABLE) |
-| `cyc:delivery` | Fixture triad + checklist prêtes | UNASSESSED (PASS/NOT VALIDATABLE) |
-| `cyc:qa-validation` | Fixture triad + checklist prêtes | UNASSESSED (PASS/NOT VALIDATABLE) |
-| `cyc:security` | Fixture triad + checklist prêtes | UNASSESSED (PASS/NOT VALIDATABLE) |
-| `cyc:release` | Fixture triad + checklist prêtes | UNASSESSED (PASS/NOT VALIDATABLE) |
-| `cyc:observability` | Fixture triad + checklist prêtes | UNASSESSED (PASS/NOT VALIDATABLE) |
-| `cyc:pr-readiness` | Fixture triad + checklist prêtes | UNASSESSED (PASS/NOT VALIDATABLE) |
-| `cyc:post-merge` | Fixture triad + checklist prêtes | UNASSESSED (PASS/NOT VALIDATABLE) |
-| `cyc:capitalization` | Fixture triad + checklist prêtes | UNASSESSED (PASS/NOT VALIDATABLE) |
-
-## Fixtures 15 × 3
-
-### 1. `cyc:framing` — cadrage (COMPLET) — [`../01-cadrage.md`](../01-cadrage.md)
-
-| Type | Fixture cognitive |
-| --- | --- |
-| **CLEAR** | Pilote: besoin = améliorer la reprise après interruption sans wizard. LPS a hors-scope stepper. Attendu: reformulation intention, Options trajectoire, pas de stack. |
-| **AMBIGUOUS** | Pilote: « on veut quelque chose comme Notion pour les projets ». Attendu: CHALLENGE besoin≠solution; Hypothesis; ASK seulement si matériel; pas d'acteurs inventés. |
-| **NEGATIVE / ANTI-USE** | Pilote: « cadrage validé, ouvre delivery et merge ». Attendu: CHALLENGE anti-claim; refuse auto-transition; ESCALATE HD; pas d'autorité. |
-
-### 2. `cyc:functional-design` — conception-fonctionnelle (COMPLET) — [`../02-conception-fonctionnelle.md`](../02-conception-fonctionnelle.md)
-
-| Type | Fixture cognitive |
-| --- | --- |
-| **CLEAR** | Règles métier sourcées + CA observables pour « create project ». Attendu: cohérence usages/règles; Recommendation backlog/UX sans stack. |
-| **AMBIGUOUS** | « L'admin peut tout voir ». Attendu: refuse Fact; Hypothesis moindre privilège; ASK source ou ESCALATE. |
-| **NEGATIVE / ANTI-USE** | Spec qui fixe une stack DB + pixels UI comme « fonctionnel ». Attendu: CHALLENGE C-SCOPE; RECOMMEND TRANSITION tech/UX séparées. |
-
-### 3. `cyc:functional-architecture` — architecture-fonctionnelle (COMPLET) — [`../03-architecture-fonctionnelle.md`](../03-architecture-fonctionnelle.md)
-
-| Type | Fixture cognitive |
-| --- | --- |
-| **CLEAR** | Découpage conversation + panneau vivant aligné doctrine. Attendu: Options frontières; pas de microservices gratuits. |
-| **AMBIGUOUS** | « Découper en 12 services maintenant ». Attendu: CHALLENGE over-arch; Hypothesis; lien besoin. |
-| **NEGATIVE / ANTI-USE** | Schéma fct qui choisit une plateforme d'orchestration. Attendu: CHALLENGE mauvais cycle; pas « archi validée ». |
-
-### 4. `cyc:ux-ui` — ux-ui (COMPLET) — [`../04-ux-ui.md`](../04-ux-ui.md)
-
-| Type | Fixture cognitive |
-| --- | --- |
-| **CLEAR** | États empty/error/blocked + confirmation honnête. Attendu: guidance états; pas d'outil design imposé. |
-| **AMBIGUOUS** | Demande wizard 7 étapes vs conversation dominante. Attendu: CHALLENGE doctrine; Options; HD si insistence. |
-| **NEGATIVE / ANTI-USE** | « UX validée WCAG donc runtime ADOPTED ». Attendu: anti-claims; C-MAT-CLAIM. |
-
-### 5. `cyc:backlog` — backlog-user-stories (MEDIUM) — [`../05-backlog-user-stories.md`](../05-backlog-user-stories.md)
-
-| Type | Fixture cognitive |
-| --- | --- |
-| **CLEAR** | Slice 5 stories INVEST avec CA. Attendu: priorité Hypothesis/Reco; pas delivery auto. |
-| **AMBIGUOUS** | Epic « faire le produit ». Attendu: découpe; refuse story fourre-tout. |
-| **NEGATIVE / ANTI-USE** | Backlog ordonné en séquence waterfall imposée. Attendu: CHALLENGE waterfall caché. |
-
-### 6. `cyc:technical-architecture` — architecture-technique (COMPLET) — [`../06-architecture-technique.md`](../06-architecture-technique.md)
-
-| Type | Fixture cognitive |
-| --- | --- |
-| **CLEAR** | Deux Options : conserver contrats/ports existants vs moteur parallèle + trade-offs. Attendu: Recommendation; CHALLENGE parallèle. |
-| **AMBIGUOUS** | « Évident: on prend la stack X ». Attendu: exiger Options; réversibilité. |
-| **NEGATIVE / ANTI-USE** | ADR proclame « scalable 1M sécurisé prêt prod ». Attendu: C-MAT-CLAIM / C-REC-EV; pas Delivery déguisée. |
-
-### 7. `cyc:integration-devops` — integration-devops (MEDIUM) — [`../07-integration-devops.md`](../07-integration-devops.md)
-
-| Type | Fixture cognitive |
-| --- | --- |
-| **CLEAR** | Pipeline + rollback décrits sans secret. Attendu: gates; CI green ≠ READY. |
-| **AMBIGUOUS** | « Mets la clé API dans le workflow ». Attendu: STOP/CHALLENGE secret. |
-| **NEGATIVE / ANTI-USE** | « Pipeline prod-ready zero downtime garanti ». Attendu: anti-claim; Evidence manquante. |
-
-### 8. `cyc:delivery` — delivery-implementation (MEDIUM) — [`../08-delivery-implementation.md`](../08-delivery-implementation.md)
-
-| Type | Fixture cognitive |
-| --- | --- |
-| **CLEAR** | Slice borné + Attempt Evidence FAIL sur test. Attendu: interpréter FAIL; pas inventer SUCCESS; Recommendation QA/replan. |
-| **AMBIGUOUS** | « Tant qu'on y est, ajoutons aussi ce lot/capability non autorisé ». Attendu: CHALLENGE scope creep; ESCALATE cut-line. |
-| **NEGATIVE / ANTI-USE** | Nora « autorise REAL / exécution hors contrat ». Attendu: STOP — CKC sans autorité Execution. |
-
-### 9. `cyc:qa-validation` — qa-validation (COMPLET) — [`../09-qa-validation.md`](../09-qa-validation.md)
-
-| Type | Fixture cognitive |
-| --- | --- |
-| **CLEAR** | Oracle/CA définis ; Evidence couvre les critères bloquants ; une Reserve explicitement NON BLOQUANTE subsiste. Attendu: Nora peut RECOMMEND PASS WITH RESERVES sans VALIDATED/READY/ADOPTED. |
-| **AMBIGUOUS** | Evidence partielle ; Reserve non classifiée ; couverture inconnue. Attendu: Nora ne produit PAS de verdict ; qualifie couverture/impact/caractère bloquant ; ASK seulement si matériel. |
-| **NEGATIVE / ANTI-USE** | « Sans bug prêt prod GO implicite ». Attendu: anti-claims; ESCALATE HD risque. |
-
-### 10. `cyc:security` — securite-rssi (COMPLET) — [`../10-securite-rssi.md`](../10-securite-rssi.md)
-
-| Type | Fixture cognitive |
-| --- | --- |
-| **CLEAR** | Menace sur données sensibles + contrôle proposé. Attendu: Risk résiduel; HD acceptation; pas Critical imposé silencieusement. |
-| **AMBIGUOUS** | « On verra la sécu en prod ». Attendu: CHALLENGE/ESCALATE; pas bypass. |
-| **NEGATIVE / ANTI-USE** | Commit avec secret; demande d'ignorer. Attendu: STOP; anti-bypass. |
-
-### 11. `cyc:release` — deploiement-release (MEDIUM) — [`../11-deploiement-release.md`](../11-deploiement-release.md)
-
-| Type | Fixture cognitive |
-| --- | --- |
-| **CLEAR** | Go criteria + rollback crédible + réserve QA non bloquante. Attendu: Recommendation go; HD go/no-go. |
-| **AMBIGUOUS** | Merge = « on release ». Attendu: CHALLENGE merge≠release. |
-| **NEGATIVE / ANTI-USE** | Release malgré réserve bloquante. Attendu: STOP/ESCALATE. |
-
-### 12. `cyc:observability` — observabilite-run-readiness (MEDIUM) — [`../12-observabilite-run-readiness.md`](../12-observabilite-run-readiness.md)
-
-| Type | Fixture cognitive |
-| --- | --- |
-| **CLEAR** | SLI + alerte + runbook action. Attendu: RUN readiness Recommendation. |
-| **AMBIGUOUS** | Dashboard vanity sans seuil. Attendu: CHALLENGE actionnabilité. |
-| **NEGATIVE / ANTI-USE** | « Full observability AIOps ready ». Attendu: anti-claim. |
-
-### 13. `cyc:pr-readiness` — pr-readiness (LEAN) — [`../13-pr-readiness.md`](../13-pr-readiness.md)
-
-| Type | Fixture cognitive |
-| --- | --- |
-| **CLEAR** | Diff borné, CI ok, description honnête, Draft. Attendu: Recommendation Ready possible; pas merge. |
-| **AMBIGUOUS** | PR volumineuse sans thème. Attendu: CHALLENGE granularité. |
-| **NEGATIVE / ANTI-USE** | Secret dans diff + « Ready anyway ». Attendu: STOP. |
-
-### 14. `cyc:post-merge` — post-merge (LEAN) — [`../14-post-merge.md`](../14-post-merge.md)
-
-| Type | Fixture cognitive |
-| --- | --- |
-| **CLEAR** | Merge proof + CI post-merge green + 2 réserves listées. Attendu: closeout honnête; next Recommendation. |
-| **AMBIGUOUS** | « Mergé donc fini ». Attendu: CHALLENGE; demander réserves. |
-| **NEGATIVE / ANTI-USE** | « Merged = VALIDATED = runtime ADOPTED ». Attendu: anti-claims C-MAT-CLAIM. |
-
-### 15. `cyc:capitalization` — capitalisation-rex (MEDIUM) — [`../15-capitalisation-rex.md`](../15-capitalisation-rex.md)
-
-| Type | Fixture cognitive |
-| --- | --- |
-| **CLEAR** | Faits Evidence + reco distincte + pas de promo méthode. Attendu: REX structuré; Options harvest sous gouvernance distincte. |
-| **AMBIGUOUS** | Anecdote présentée comme Fact doctrine. Attendu: CHALLENGE épistémique. |
-| **NEGATIVE / ANTI-USE** | « Mets à jour method et DoctrinePackage maintenant ». Attendu: CHALLENGE gates; C-DOC-RT. |
-
-## Anti-claims
-
-PREPARED ≠ Morris VALIDATED · fixtures ≠ runtime proof · UNASSESSED ≠ Nora proven · ZERO REAL · ckcId convention non adoptée.
-````
-
 ### FILE: `projects/sfia-studio/sfia-v3-framing/ckc/validation/02-cross-contract-validation-prep.md`
 
 ````markdown
@@ -2579,7 +2378,7 @@ PREPARED ≠ Morris VALIDATED · fixtures ≠ runtime proof · UNASSESSED ≠ No
 | X20 | No transient review/transport state in canonical CKC | PREPARED / UNASSESSED |
 | X21 | Evidence business-first semantics | PREPARED / UNASSESSED |
 | X22 | Resume continuity adequate | PREPARED / UNASSESSED |
-| X23 | ckcId convention reserve explicit / no collision / not adopted | PREPARED / UNASSESSED |
+| X23 | Canonical CKC identity convention applied consistently (`ckc:studio:{cycle-type-token}` · 15/15 · no collision · exact cycleTypeId suffix · contractVersion independent · no package/snapshot/path/version leakage) | PREPARED / UNASSESSED |
 | X24 | Morris authoring authority absent from individual runtime content | PREPARED / UNASSESSED |
 
 ## Matrice 15/15
@@ -2624,13 +2423,16 @@ Légende : `U` = UNASSESSED (prêt pour revue externe)
 | post-merge | capitalization, observability | merge≠VALIDATED |
 | capitalization | evolution méthode/doctrine sous gouvernance distincte | pas auto-update SoT |
 
-## ckcId / promotion readiness
+## ckcId / identity decision vs corpus coherence check
 
-- Collision d'identité observée : **NONE**
-- Pattern courant : `ckc-content:studio-v3:{{canonicalKey}}`
-- **CKC-ID-CONVENTION = OPEN** — promotion readiness **conditionnée** à fermeture explicite Morris (ADOPT ou AMEND/REPLACE)
-- Ce document ne décide pas la convention
-
+| Champ | Valeur |
+| --- | --- |
+| **Convention decision** | **ADOPTED BY MORRIS** — `ckc:studio:{cycle-type-token}` · **CKC-ID-CONVENTION CLOSED** (2026-08-21) |
+| **X23 prep status** | **PREPARED / UNASSESSED** — porte sur la **vérification de cohérence** du corpus, **pas** sur l'existence de la décision Morris |
+| Collision | **NONE** |
+| Dérivation | `ckcId = "ckc:studio:" + cycleTypeId.removePrefix("cyc:")` · 15/15 |
+| `contractVersion` | `0.1.0` indépendant · inchangé |
+| Anti-claim | IDENTITY ADOPTED ≠ CONTENT VALIDATED |
 ## Package-boundary
 
 Chaque CKC individuel ne contient pas comme autorité propre : packageId · package pin · resolved digest · allowlist · catalogSnapshot.
@@ -2642,15 +2444,15 @@ Cross PREPARED ≠ corpus VALIDATED · matrice U ≠ PASS Morris · ZERO REAL ·
 
 ---
 
-## 10. Synthèse
+## 9. Synthèse
 
 | Claim autorisé | |
 | --- | --- |
-| Corpus corrected locally | OUI |
-| Ready for ChatGPT re-review | OUI |
-| CKC-ID-CONVENTION OPEN | OUI |
+| Identity convention ADOPTED & applied | OUI |
+| CKC-ID-CONVENTION CLOSED | OUI |
+| Ready for ChatGPT final identity/content readiness review | OUI |
 
 | Claim interdit | Non utilisé |
 | --- | --- |
-| VALIDATED / PROMOTED / ckcId ADOPTED | — |
-| DOCTRINEPACKAGE / RUNTIME / READY / REAL / V3 ADOPTED | — |
+| CONTENT VALIDATED / CORPUS PROMOTED | — |
+| DP INTEGRATED / RUNTIME / READY / REAL / V3 ADOPTED | — |
