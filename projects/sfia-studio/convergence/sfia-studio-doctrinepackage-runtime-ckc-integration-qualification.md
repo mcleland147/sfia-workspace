@@ -2,12 +2,12 @@
 
 | Champ | Valeur |
 |---|---|
-| **Statut** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #390 — POST-MERGE COHERENCE SYNC INTEGRATED ON MAIN VIA PR #391 — POST-SYNC GIT+CONTENT TRUTH SATISFIED — POST-SYNC PUSH/MAIN CI NOT YET PROVEN — NEXT = POST-SYNC CI EVIDENCE (RESOLVE FROM GIT) → IMPLEMENTATION/MODELED REQUALIFICATION CANDIDATE (DISTINCT MORRIS GATE)** |
+| **Statut** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #390 — POST-MERGE COHERENCE SYNC INTEGRATED ON MAIN VIA PR #391 — POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED — PUSH/MAIN CI `32562243107` SUCCESS — NEXT = IMPLEMENTATION/MODELED REQUALIFICATION CANDIDATE — DISTINCT MORRIS GATE REQUIRED — NOT AUTHORIZED** |
 | **Autorité** | Architecture direction **ADOPTED BY MORRIS** (D01-NARROW · D02 Option B · D05 fallback NONE) · architecture record **INTEGRATED ON MAIN** (PR #390) · **≠** implemented · **≠** modeled complete · **≠** runtime resolved · **≠** Nora semantic proven · **≠** Product READY · **≠** Backlog · **≠** Delivery · **≠** REAL · **≠** runtime v3 ADOPTED |
 | **Rôle** | Documentary adoption record : Catalog → DoctrinePackage → Studio CKC → Nora (direction only) |
 | **Base Git vérifiée** | `origin/main` @ `5c3bc58e…` *(post-sync truth · PR #391 merge)* |
 | **PR #390 integration** | **MERGED** · merge `2ffc67e621c96ebc0df3de74d3866a58926bcfe9` · head `b03fd8b6d9556dcd238f755668f677e75c09c1a6` · on-main blob `51abaf1fa29e33a63f75a225704fbf5715b15742` · post-merge push/main CI **`32559982270` SUCCESS** |
-| **Post-merge coherence sync** | **MERGED ON MAIN VIA PR #391** · merge `5c3bc58ee9b64f8ba419778f594a249187d053d7` · head `a144d7c7752736193167f81352c0291929db02a8` · on-main architecture blob `ec1cf16c11359ec09d60b545f9957f82372870a0` · on-main Roadmap blob `ea8e629035ad4f756f026cc01e3e6ab1edca3234` · post-sync Git+content truth **SATISFIED** · qualified transport baseline head `3dbc7887…` · qualified transport baseline CI **`32561088751` SUCCESS** · PR head CI **`32561807048` SUCCESS** *(head `a144d7c7…` · ≠ substitute for push/main)* · post-sync push/main CI **NOT YET PROVEN** · **≠** runtime implementation |
+| **Post-merge coherence sync** | **MERGED ON MAIN VIA PR #391** · merge `5c3bc58ee9b64f8ba419778f594a249187d053d7` · head `a144d7c7752736193167f81352c0291929db02a8` · on-main architecture blob `ec1cf16c11359ec09d60b545f9957f82372870a0` · on-main Roadmap blob `ea8e629035ad4f756f026cc01e3e6ab1edca3234` · post-sync Git+content truth **SATISFIED** · qualified transport baseline head `3dbc7887…` · qualified transport baseline CI **`32561088751` SUCCESS** · PR head CI **`32561807048` SUCCESS** *(head `a144d7c7…` · ≠ substitute for push/main)* · post-sync push/main CI **`32562243107` SUCCESS** *(run #269 · event `push` · head `5c3bc58e…`)* · **POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED** · **≠** runtime implementation |
 | **Corpus Studio CKC** | **15/15 CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN** · path `projects/sfia-studio/sfia-v3-framing/ckc/**` |
 | **Freeze review/transport** | `6db507e68e5817088fc366aa74c416b4d9906da4c5bbb1eb1f427ae283759fcf` *(≠ DoctrinePackage digest · ≠ runtime package pin · ≠ catalog digest · ≠ ckcId)* |
 | **Roadmap sync content** | **ROADMAP-SYNC-CKC-CONTENT-VALIDATION CLOSED ON MAIN** |
@@ -30,14 +30,14 @@
 | Chemin canonique | `projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md` |
 | Nature | Architecture qualification + **documentary adoption record** |
 | Langue | Prose technique FR/EN alignée docs SFIA Studio |
-| Consommateur attendu | Post-sync Git+content truth → post-sync push/main CI evidence **RESOLVE FROM GIT** → implementation/modeled requalification candidate → distinct Morris GO before implementation |
+| Consommateur attendu | Post-sync Git+CI+content truth **SATISFIED** → implementation/modeled requalification candidate → distinct Morris GO required before any requalification/execution |
 | Non-consommateur | Delivery engines · Cursor REAL · Product Backlog auto-open · new re-decision of D01-NARROW / D02 / D05 |
 
 ### A.2 Autorité
 
-1. **Git + tests** sur `origin/main` @ `5c3bc58e…` = post-sync truth after PR #391 merge · architecture record intégré via PR #390 (merge `2ffc67e6…` · blob historique `51abaf1f…` · post-merge CI `32559982270` SUCCESS) · coherence sync intégré via PR #391 (merge `5c3bc58e…` · on-main blob `ec1cf16c…`).
+1. **Git + tests** sur `origin/main` @ `5c3bc58e…` = post-sync truth after PR #391 merge · architecture record intégré via PR #390 (merge `2ffc67e6…` · blob historique `51abaf1f…` · post-merge CI `32559982270` SUCCESS) · coherence sync intégré via PR #391 (merge `5c3bc58e…` · on-main blob `ec1cf16c…`) · post-sync push/main CI **`32562243107` SUCCESS** *(run #269 · event `push`)*.
 2. **Décisions Morris déjà consommées** (corpus CKC 15/15, C6 CLOSED, pin catalogue validation-scope, R-CKC-01/02/03 CLOSED, **DPCKC-D01-NARROW · D02 Option B · D05 fallback NONE**) = autorité de trajectoire / direction d’architecture **déjà actée** · **sans** autoriser implémentation runtime.
-3. **Ce document** est le **record documentaire** d’une direction d’architecture adoptée par Morris (**D01-NARROW, D02, D05**) · **intégré on main** via PR #390 + PR #391 · post-sync Git+content truth **SATISFIED** · post-sync push/main CI **NOT YET PROVEN** · **L’adoption documentaire ≠ implémentation ≠ runtime adoption.** **Architecture record integrated on main ≠ runtime DoctrinePackage/CKC binding implemented.**
+3. **Ce document** est le **record documentaire** d’une direction d’architecture adoptée par Morris (**D01-NARROW, D02, D05**) · **intégré on main** via PR #390 + PR #391 · post-sync Git+CI+content truth **SATISFIED** · push/main CI **`32562243107` SUCCESS** · **L’adoption documentaire ≠ implémentation ≠ runtime adoption.** **Architecture record integrated on main ≠ runtime DoctrinePackage/CKC binding implemented.**
 4. Conversation / Recommendation / ChatGPT review = **entrées cognitives**, jamais substituts à HumanDecision Morris ni à preuve Git.
 
 ### A.3 Périmètre IN
@@ -155,7 +155,7 @@ Anti-lecture : Conversation ≠ Decision. ChatGPT review ≠ Morris adopt.
 | CKC runtime qualification | D1/D2 method-candidate path-based | **≠** Studio corpus binding |
 | runtime v3 | **NON ADOPTED** | Inchangé |
 | Product Backlog / Delivery / REAL | **NOT OPENED / NOT AUTHORIZED / ZERO** | Inchangé |
-| **Cette qualification DP↔CKC** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #390 + PR #391** | **NOT IMPLEMENTED** · **≠** runtime DoctrinePackage/CKC binding · D01-NARROW / D02 / D05 consumed · remaining items inherited/deferred · coherence sync **INTEGRATED ON MAIN** · post-sync Git+content truth **SATISFIED** · post-sync push/main CI **NOT YET PROVEN** |
+| **Cette qualification DP↔CKC** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #390 + PR #391** | **NOT IMPLEMENTED** · **≠** runtime DoctrinePackage/CKC binding · D01-NARROW / D02 / D05 consumed · remaining items inherited/deferred · coherence sync **INTEGRATED ON MAIN** · post-sync push/main CI **`32562243107` SUCCESS** · **POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED** |
 
 **Verdict de convergence :**
 
@@ -164,8 +164,10 @@ DoctrinePackage / runtime CKC architecture
 = ARCHITECTURE DIRECTION ADOPTED BY MORRIS
 = ARCHITECTURE RECORD INTEGRATED ON MAIN (PR #390 + PR #391)
 = NOT IMPLEMENTED (runtime binding)
-= POST-SYNC GIT+CONTENT TRUTH SATISFIED
-= POST-SYNC PUSH/MAIN CI NOT YET PROVEN
+= POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED
+= PUSH/MAIN CI 32562243107 SUCCESS
+= IMPLEMENTATION/MODELED REQUALIFICATION CANDIDATE ONLY
+= DISTINCT MORRIS GATE REQUIRED
 ```
 
 **Trajectoire :**
@@ -176,11 +178,13 @@ architecture qualification
   → PR #390 merged (architecture record on main)
   → PR #391 merged (coherence sync on main)
   → post-sync Git+content truth satisfied
-  → post-sync push/main CI evidence (NOT YET PROVEN)
+  → post-sync push/main CI 32562243107 SUCCESS
+  → post-sync Git+CI+content truth SATISFIED
   → implementation/modeled requalification candidate
+  → distinct Morris gate
 ```
 
-Le **Morris architecture decision pack** pour D01-NARROW / D02 / D05 a **déjà été consommé**. Aucun nouveau pack de décision d’architecture n’est requis ici. Le prochain gate Morris applicable = **distinct gate for implementation/modeled requalification** · **not** authorized until post-sync push/main CI proven · **not** implementation execution by documentary sync alone.
+Le **Morris architecture decision pack** pour D01-NARROW / D02 / D05 a **déjà été consommé**. Aucun nouveau pack de décision d’architecture n’est requis ici. Le prochain gate Morris applicable = **distinct gate for implementation/modeled requalification** · CI prerequisite **SATISFIED** · requalification **not** authorized until distinct Morris gate · **not** implementation execution by documentary sync alone.
 
 ---
 
@@ -1030,14 +1034,14 @@ Architecture direction adopted ≠ implemented ≠ modeled complete ≠ runtime 
 1. Preserve product-first locked flow §F.2 / §Q / §Y D08.
 2. Preserve UX method absorption §A.7.
 3. ADAPT existing OA only · no parallel engines/SoTs (§U / §X.5).
-4. Proceed under post-sync truth: await post-sync push/main CI evidence **RESOLVE FROM GIT** → then implementation/modeled requalification candidate under separate gates · Phase A then Phase B proofs · **NOT AUTHORIZED** until post-sync CI proven.
+4. Post-sync Git+CI+content truth **SATISFIED** → implementation/modeled requalification may now be proposed as next candidate → requires distinct Morris gate → no automatic transition → Phase A / Phase B proofs remain downstream → **NOT AUTHORIZED** by this cycle.
 5. Debt DK-01…DK-08 remain OPEN until their exits are evidenced (§V) — architecture adoption alone closes none.
 
 ---
 
 ## AA. Anti-claims
 
-- **Architecture direction ADOPTED BY MORRIS** · architecture record **INTEGRATED ON MAIN VIA PR #390 + PR #391** ≠ implemented ≠ modeled complete ≠ runtime resolved ≠ Nora Phase B proven ≠ Product READY ≠ runtime v3 ADOPTED · post-sync Git+content truth **SATISFIED** · post-sync push/main CI **NOT YET PROVEN** · PR head CI `32561807048` **≠** substitute for push/main CI.
+- **Architecture direction ADOPTED BY MORRIS** · architecture record **INTEGRATED ON MAIN VIA PR #390 + PR #391** ≠ implemented ≠ modeled complete ≠ runtime resolved ≠ Nora Phase B proven ≠ Product READY ≠ runtime v3 ADOPTED · post-sync push/main CI **`32562243107` SUCCESS** · **POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED** · PR head CI `32561807048` **≠** substitute for push/main CI.
 - D01-NARROW adopts **family id only** · first `packageVersion` **DEFERRED** · fixture `pkg:studio-v3-oa` **not** promoted.
 - D02 Option B ≠ schema/field names decided.
 - D05 NONE ≠ all future packages forever · future intra-package synthetic only under later gates.
@@ -1053,14 +1057,13 @@ Architecture direction adopted ≠ implemented ≠ modeled complete ≠ runtime 
 
 | Champ | Valeur |
 |---|---|
-| **Now** | Post-sync Git+content truth **SATISFIED** · post-sync push/main CI **NOT YET PROVEN** |
-| **Then** | Post-sync push/main CI evidence **RESOLVE FROM GIT** |
-| **After CI evidence** | Implementation / modeled **requalification** (separate gate · **REQUIRES DISTINCT MORRIS GATE** · **NOT AUTHORIZED** until post-sync CI proven) |
+| **Now** | Post-sync Git+CI+content truth **SATISFIED** · push/main CI **`32562243107` SUCCESS** |
+| **Next** | Implementation / modeled **requalification** = **CANDIDATE** · separate gate · **REQUIRES DISTINCT MORRIS GATE** · **NOT AUTHORIZED BY CURRENT CYCLE** |
 | **Still not** | Code · runtime wiring · Backlog · Delivery · REAL · Phase A/B claims · packageVersion adoption · schema finalization |
 | **Debt** | DK-01…DK-08 remain visible until exits proven |
 
 **Statut final :**
-**ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #390 + PR #391 — POST-SYNC GIT+CONTENT TRUTH SATISFIED — POST-SYNC PUSH/MAIN CI NOT YET PROVEN — NEXT = POST-SYNC CI EVIDENCE → IMPLEMENTATION/MODELED REQUALIFICATION CANDIDATE (DISTINCT MORRIS GATE).**
+**ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #390 + PR #391 — POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED — PUSH/MAIN CI `32562243107` SUCCESS — NEXT = IMPLEMENTATION/MODELED REQUALIFICATION CANDIDATE — DISTINCT MORRIS GATE REQUIRED — NOT AUTHORIZED.**
 
 ---
 
