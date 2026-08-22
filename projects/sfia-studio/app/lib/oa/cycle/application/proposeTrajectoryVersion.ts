@@ -12,7 +12,7 @@ import type {
   ProposeTrajectoryVersionRequest,
   TrajectoryResult,
 } from "../domain/types";
-import type { MemoryCycleStore } from "../infrastructure/memoryCycleStore";
+import type { CyclePersistenceUnitOfWorkPort } from "../ports/cyclePersistenceUnitOfWorkPort";
 import type { CycleAuditPort } from "../ports/cycleAudit";
 import type { TrajectoryRepositoryPort } from "../ports/trajectoryRepository";
 
@@ -42,7 +42,7 @@ export class ProposeTrajectoryVersion {
     private readonly projectServices: ProjectServices,
     private readonly clock: ClockPort,
     private readonly audit: CycleAuditPort,
-    private readonly store?: MemoryCycleStore,
+    private readonly store?: CyclePersistenceUnitOfWorkPort,
   ) {}
 
   async execute(
@@ -176,10 +176,14 @@ export class ProposeTrajectoryVersion {
           supersedesTrajectoryVersion: current.version,
         };
 
-        await this.trajectories.markSuperseded(
-          current.trajectoryId,
-          current.version,
-        );
+        const promotesEffectiveCurrent =
+          status === "validated" || status === "active";
+        if (promotesEffectiveCurrent) {
+          await this.trajectories.markSuperseded(
+            current.trajectoryId,
+            current.version,
+          );
+        }
         await this.trajectories.save(trajectory);
         nextTrajectory = trajectory;
 

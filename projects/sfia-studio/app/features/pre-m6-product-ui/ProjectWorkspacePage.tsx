@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { shouldShowProjectRecovery } from "@/features/project-assistant/presentationLabels";
+import { shouldShowProjectRecovery, w1RestartHonestyMessage } from "@/features/project-assistant/presentationLabels";
 import type { ProjectAssistantRehydrateEvidenceOutcomeSuccess } from "@/features/project-assistant/types";
 import { getProjectRuntimeAction } from "@/lib/vertical-slice-runtime/actions";
 import { useProductConversation } from "./hooks/useProductConversation";
@@ -126,9 +126,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
         />
       ) : (
         <p className={styles.durabilityHint} data-testid="project-durability-hint">
-          La conversation, la proposition et la confirmation restent
-          process-local et peuvent être perdues au rechargement. Ce qui est
-          enregistré pour le projet peut être relu.
+          {w1RestartHonestyMessage()}
         </p>
       )}
 

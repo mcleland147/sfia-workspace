@@ -59,6 +59,41 @@ export class FakeConversationProvider implements ConversationProvider {
       throw new Error("FAKE_PROVIDER_ERROR");
     }
 
+    if (
+      messages.some((m) =>
+        m.role === "system" &&
+        m.content.includes("SFIA Studio CKC COGNITIVE REASONING"),
+      )
+    ) {
+      const hasCkcContext = messages.some(
+        (m) =>
+          m.content.toLowerCase().includes("anti scope creep") ||
+          m.content.includes("ckc:studio:delivery"),
+      );
+      if (hasCkcContext) {
+        return {
+          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — anti scope creep : borner le slice avant toute extension. RECOMMANDATION — PAS UNE DÉCISION MORRIS.",
+          usage: {
+            inputTokens: 10 * this.callCount,
+            outputTokens: 5 * this.callCount,
+            totalTokens: 15 * this.callCount,
+            model: "fake-test-model",
+            providerResponseId: `fake-resp-${this.callCount}`,
+          },
+        };
+      }
+      return {
+        text: "[TEST/FAKE · NON LIVE] RECOMMANDATION générique sans guidance CKC package résolu.",
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+
     // F2 deterministic structured intent JSON (TEST/FAKE only)
     if (lastUser?.content.includes("__F2_INFORMATIVE__")) {
       return {
@@ -289,7 +324,6 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
-    // Default unmarked analysis prompts (system asks for JSON): informative fail-open for F1
     if (messages.some((m) => m.role === "system" && m.content.includes("SFIA Studio F2"))) {
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({

@@ -60,11 +60,7 @@ export class MemoryTrajectoryRepository implements TrajectoryRepositoryPort {
     }
     const key = trajectoryKey(trajectory.trajectoryId, trajectory.version);
     this.store.trajectoriesByKey.set(key, structuredClone(trajectory));
-    if (
-      trajectory.status === "candidate" ||
-      trajectory.status === "validated" ||
-      trajectory.status === "active"
-    ) {
+    if (trajectory.status === "validated" || trajectory.status === "active") {
       this.store.currentTrajectoryByProject.set(trajectory.projectId, key);
     }
   }

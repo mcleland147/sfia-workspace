@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "0.1.0-product-ckc-index",
+  "contractVersion": "0.1.0",
+  "entries": [
+    {
+      "cycleTypeId": "cyc:framing",
+      "ckcId": "ckc:studio:framing",
+      "contractVersion": "0.1.0",
+      "artifactFile": "ckc/01-cadrage.md",
+      "sourceDigest": "sha256:6dff6cc6b69915867df9f9eee446f1aace0047125d321241d309a2bae06e9e29"
+    },
+    {
+      "cycleTypeId": "cyc:functional-design",
+      "ckcId": "ckc:studio:functional-design",
+      "contractVersion": "0.1.0",
+      "artifactFile": "ckc/02-conception-fonctionnelle.md",
+      "sourceDigest": "sha256:f6f99654e7c91bd7ca2b19f74425b9903293baf3181c4f910c5cc585924bac88"
+    },
+    {
+      "cycleTypeId": "cyc:functional-architecture",
+      "ckcId": "ckc:studio:functional-architecture",
+      "contractVersion": "0.1.0",
+      "artifactFile": "ckc/03-architecture-fonctionnelle.md",
+      "sourceDigest": "sha256:06f24ed94d03d011fbaaf930071394b1a755b733593bcec7bfdd3fcae1322e47"
+    },
+    {
+      "cycleTypeId": "cyc:ux-ui",
+      "ckcId": "ckc:studio:ux-ui",
+      "contractVersion": "0.1.0",
+      "artifactFile": "ckc/04-ux-ui.md",
+      "sourceDigest": "sha256:4b5cc9d37d9e3eda3acd2d2d9790ffedc25edc4925d6b6a4e852930c2d2e5f50"
+    },
+    {
+      "cycleTypeId": "cyc:backlog",
+      "ckcId": "ckc:studio:backlog",
+      "contractVersion": "0.1.0",
+      "artifactFile": "ckc/05-backlog-user-stories.md",
+      "sourceDigest": "sha256:dafb51ae28c07ec8b9b48fcc0c69d4d272c893ebd97c4c3260afb850b7e337bb"
+    },
+    {
+      "cycleTypeId": "cyc:technical-architecture",
+      "ckcId": "ckc:studio:technical-architecture",
+      "contractVersion": "0.1.0",
+      "artifactFile": "ckc/06-architecture-technique.md",
+      "sourceDigest": "sha256:7d6d9cb9ac438a3965daf87a37b3f263f9b99e9a0045663cb3c5dc316224646e"
+    },
+    {
+      "cycleTypeId": "cyc:integration-devops",
+      "ckcId": "ckc:studio:integration-devops",
+      "contractVersion": "0.1.0",
+      "artifactFile": "ckc/07-integration-devops.md",
+      "sourceDigest": "sha256:934959b29fa94af01d9b4db1e48674d9ac8da79c9fe9c05859bd6c13fd0a192e"
+    },
+    {
+      "cycleTypeId": "cyc:delivery",
+      "ckcId": "ckc:studio:delivery",
+      "contractVersion": "0.1.0",
+      "artifactFile": "ckc/08-delivery-implementation.md",
+      "sourceDigest": "sha256:3b5b31426bf13a55d7288f604e0366759850c6c25547f1897cd3c3fbc9fda433"
+    },
+    {
+      "cycleTypeId": "cyc:qa-validation",
+      "ckcId": "ckc:studio:qa-validation",
+      "contractVersion": "0.1.0",
+      "artifactFile": "ckc/09-qa-validation.md",
+      "sourceDigest": "sha256:15f8185b024b45976846d2db24800e2ca274829e5c904535eaa7b81326e5e6a2"
+    },
+    {
+      "cycleTypeId": "cyc:security",
+      "ckcId": "ckc:studio:security",
+      "contractVersion": "0.1.0",
+      "artifactFile": "ckc/10-securite-rssi.md",
+      "sourceDigest": "sha256:1b115e5fee19591977f1388ab1983ca983a35799bbcc6ae9085667131d850f79"
+    },
+    {
+      "cycleTypeId": "cyc:release",
+      "ckcId": "ckc:studio:release",
+      "contractVersion": "0.1.0",
+      "artifactFile": "ckc/11-deploiement-release.md",
+      "sourceDigest": "sha256:e5ad45b6d4d5634130ebd04903d7c49844db2d916cced0779f52e7ac7f7f909d"
+    },
+    {
+      "cycleTypeId": "cyc:observability",
+      "ckcId": "ckc:studio:observability",
+      "contractVersion": "0.1.0",
+      "artifactFile": "ckc/12-observabilite-run-readiness.md",
+      "sourceDigest": "sha256:d89591e6c3f6ba5c959c9b6377ac08963d407ea4415be80639ae16d2049289c6"
+    },
+    {
+      "cycleTypeId": "cyc:pr-readiness",
+      "ckcId": "ckc:studio:pr-readiness",
+      "contractVersion": "0.1.0",
+      "artifactFile": "ckc/13-pr-readiness.md",
+      "sourceDigest": "sha256:a486c2f42b3ed892d393c40795ccdd0f2f0ea6f080d6357e56f8e5e879018a63"
+    },
+    {
+      "cycleTypeId": "cyc:post-merge",
+      "ckcId": "ckc:studio:post-merge",
+      "contractVersion": "0.1.0",
+      "artifactFile": "ckc/14-post-merge.md",
+      "sourceDigest": "sha256:52c13c1fae6132f32008287a35d0198c602a0f03fbf098aa40bed48f3f634048"
+    },
+    {
+      "cycleTypeId": "cyc:capitalization",
+      "ckcId": "ckc:studio:capitalization",
+      "contractVersion": "0.1.0",
+      "artifactFile": "ckc/15-capitalisation-rex.md",
+      "sourceDigest": "sha256:94002ef5c669e8b84f1cea2ea223dea18b26e244f665ac20531839a111cf844c"
+    }
+  ],
+  "digest": "sha256:79e6f559f1ba5c931b143ca2dbe562f25f6cd7c78de71afc943dd9f7eda7631c"
+}

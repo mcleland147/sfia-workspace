@@ -1,5 +1,12 @@
 "use client";
 
+import {
+  W1_DURABLE_DISCLOSURE,
+  W1_NON_DURABLE_DISCLOSURE,
+  W1_PROPOSED_NOT_DECIDED_DISCLOSURE,
+  W1_REQUALIFY_CTA,
+  W1_RESTORED_GRANTED_NOT_CURRENT_AUTHORITY,
+} from "@/features/project-assistant/presentationLabels";
 import styles from "./RecoverySurface.module.css";
 
 /**
@@ -25,10 +32,17 @@ export function RecoverySurface({
           Reprenez où le projet en est réellement
         </h2>
         <p className={styles.text}>
-          Ce qui est enregistré (projet, état du projet, décisions et contrats)
-          peut être relu. La conversation, la proposition et la confirmation
-          restent process-local et peuvent être perdues au rechargement.
+          Ce qui est durablement enregistré (projet, LPS, trajectoire effective,
+          consentements accordés/consommés, épistémique matérialisé) peut être
+          relu. La conversation, la confirmation demandée et les propositions
+          process-local peuvent être perdues au rechargement.
         </p>
+        <ul className={styles.disclosureList} data-testid="w1-recovery-disclosures">
+          <li>{W1_DURABLE_DISCLOSURE}</li>
+          <li>{W1_NON_DURABLE_DISCLOSURE}</li>
+          <li>{W1_PROPOSED_NOT_DECIDED_DISCLOSURE}</li>
+          <li>{W1_RESTORED_GRANTED_NOT_CURRENT_AUTHORITY}</li>
+        </ul>
       </div>
       <div className={styles.actions}>
         <button
@@ -45,7 +59,7 @@ export function RecoverySurface({
           data-testid="recovery-requalify"
           onClick={onRequalify}
         >
-          Repartir d&apos;une nouvelle intention
+          {W1_REQUALIFY_CTA}
         </button>
       </div>
     </section>

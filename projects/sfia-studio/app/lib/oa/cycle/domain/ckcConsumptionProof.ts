@@ -25,10 +25,17 @@ export type CkcConsumptionProof = {
   readonly catalogHash: string;
   readonly correlationId: string;
   readonly resolvedAt: string;
-  readonly doctrineStatus: "method-candidate";
+  readonly doctrineStatus: "method-candidate" | "product-studio-native";
   readonly executionAuthority: false;
   readonly consumed: true;
   readonly disclosures: readonly string[];
+  readonly doctrinePackageId?: string;
+  readonly packageVersion?: string;
+  readonly packageDigest?: string;
+  readonly indexDigest?: string;
+  readonly ckcId?: string;
+  readonly ckcContractVersion?: string;
+  readonly sourceDigest?: string;
 };
 
 export type CkcConsumptionProofResult =
@@ -101,7 +108,47 @@ function fallbackDisclosureCount(
   return disclosures.filter((item) => item === FALLBACK_DISCLOSURE).length;
 }
 
-function isProjectionConsistent(
+function hasProductProvenance(
+  resolution: CkcQualificationResolution,
+): boolean {
+  return Boolean(
+    resolution.doctrinePackageId &&
+      resolution.packageVersion &&
+      resolution.packageDigest &&
+      resolution.indexDigest &&
+      resolution.ckcId &&
+      resolution.ckcContractVersion &&
+      resolution.sourceDigest &&
+      resolution.usedReference === resolution.ckcId,
+  );
+}
+
+function isProductProjectionConsistent(
+  projection: ValidatedCycleTypeProjection,
+  resolution: CkcQualificationResolution,
+): boolean {
+  return (
+    projection.cycleTypeId === resolution.cycleTypeId &&
+    projection.catalogVersion === resolution.catalogVersion &&
+    projection.catalogHash === resolution.catalogHash &&
+    projection.correlationId === resolution.correlationId &&
+    resolution.doctrineStatus === "product-studio-native" &&
+    resolution.executionAuthority === false &&
+    resolution.fallbackPolicy === "none" &&
+    isIso8601DateTime(resolution.resolvedAt) &&
+    Boolean(resolution.usedReference) &&
+    resolution.exploitable &&
+    resolution.detailedStatus === "resolved_detailed" &&
+    resolution.level === "detailed" &&
+    resolution.status === "resolved" &&
+    resolution.source === "product_package" &&
+    resolution.fallbackUsed === false &&
+    fallbackDisclosureCount(resolution.disclosures) === 0 &&
+    hasProductProvenance(resolution)
+  );
+}
+
+function isMethodProjectionConsistent(
   projection: ValidatedCycleTypeProjection,
   resolution: CkcQualificationResolution,
 ): boolean {
@@ -161,6 +208,16 @@ function isProjectionConsistent(
   );
 }
 
+function isProjectionConsistent(
+  projection: ValidatedCycleTypeProjection,
+  resolution: CkcQualificationResolution,
+): boolean {
+  if (resolution.doctrineStatus === "product-studio-native") {
+    return isProductProjectionConsistent(projection, resolution);
+  }
+  return isMethodProjectionConsistent(projection, resolution);
+}
+
 /** Pure fail-closed proof builder. Functional failures are values, not throws. */
 export function buildCkcConsumptionProof(
   projection: ValidatedCycleTypeProjection,
@@ -197,10 +254,21 @@ export function buildCkcConsumptionProof(
     catalogHash: resolution.catalogHash,
     correlationId: resolution.correlationId,
     resolvedAt: resolution.resolvedAt,
-    doctrineStatus: "method-candidate" as const,
+    doctrineStatus: resolution.doctrineStatus,
     executionAuthority: false as const,
     consumed: true as const,
     disclosures: Object.freeze([...resolution.disclosures]),
+    ...(resolution.doctrineStatus === "product-studio-native"
+      ? {
+          doctrinePackageId: resolution.doctrinePackageId,
+          packageVersion: resolution.packageVersion,
+          packageDigest: resolution.packageDigest,
+          indexDigest: resolution.indexDigest,
+          ckcId: resolution.ckcId,
+          ckcContractVersion: resolution.ckcContractVersion,
+          sourceDigest: resolution.sourceDigest,
+        }
+      : {}),
   };
 
   return { ok: true, proof: Object.freeze(proof) };

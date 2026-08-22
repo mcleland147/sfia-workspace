@@ -12,9 +12,6 @@ import { QualifyCycle } from "../../application/qualifyCycle";
 import { ResolveCycleKnowledgeContract } from "../../application/resolveCycleKnowledgeContract";
 import { UpdateEpistemicState } from "../../application/updateEpistemicState";
 import { MemoryCkcResolver } from "../memoryCkcResolver";
-import { MemoryCycleStore } from "../memoryCycleStore";
-import { MemoryEpistemicRepository } from "../memoryEpistemicRepository";
-import { MemoryTrajectoryRepository } from "../memoryTrajectoryRepository";
 import type { CycleAuditPort } from "../../ports/cycleAudit";
 import type { CyclePersistenceUnitOfWorkPort } from "../../ports/cyclePersistenceUnitOfWorkPort";
 import type { CycleRepositoryPort } from "../../ports/cycleRepository";
@@ -23,6 +20,8 @@ import type { EpistemicRepositoryPort } from "../../ports/epistemicRepository";
 import type { TrajectoryRepositoryPort } from "../../ports/trajectoryRepository";
 import { SqliteCycleAuditJournal } from "./sqliteCycleAuditJournal";
 import { SqliteCycleRepository } from "./sqliteCycleRepository";
+import { SqliteEpistemicRepository } from "./sqliteEpistemicRepository";
+import { SqliteTrajectoryRepository } from "./sqliteTrajectoryRepository";
 
 export type CreateSqliteCycleServicesOptions = {
   projectServices: ProjectServices;
@@ -54,17 +53,15 @@ export type SqliteCycleServices = {
 };
 
 /**
- * CycleInstance durable services on Product SQLite (M2).
- * Trajectory/Epistemic remain Memory (out of M2 durability scope).
+ * CycleInstance + Trajectory + Epistemic durable services on Product SQLite (M2/M6).
  */
 export function createSqliteCycleServices(
   options: CreateSqliteCycleServicesOptions,
 ): SqliteCycleServices {
   const productStore = options.productStore;
-  const memory = new MemoryCycleStore();
   const cycles = new SqliteCycleRepository(productStore);
-  const trajectories = new MemoryTrajectoryRepository(memory);
-  const epistemic = new MemoryEpistemicRepository(memory);
+  const trajectories = new SqliteTrajectoryRepository(productStore);
+  const epistemic = new SqliteEpistemicRepository(productStore);
   const clock = options.clock ?? new SystemClock();
   const audit = options.audit ?? new SqliteCycleAuditJournal(productStore);
   const ckc = options.ckcResolver ?? new MemoryCkcResolver();
@@ -91,7 +88,7 @@ export function createSqliteCycleServices(
       options.projectServices,
       clock,
       audit,
-      memory,
+      productStore,
     ),
     getCurrentTrajectory: new GetCurrentTrajectory(trajectories, clock, audit),
     getTrajectoryVersion: new GetTrajectoryVersion(trajectories, clock, audit),
@@ -100,14 +97,14 @@ export function createSqliteCycleServices(
       options.projectServices,
       clock,
       audit,
-      memory,
+      productStore,
     ),
     getEpistemicState: new GetEpistemicState(epistemic, clock, audit),
     updateEpistemicState: new UpdateEpistemicState(
       epistemic,
       clock,
       audit,
-      memory,
+      productStore,
     ),
     resolveCycleKnowledgeContract: new ResolveCycleKnowledgeContract(
       ckc,

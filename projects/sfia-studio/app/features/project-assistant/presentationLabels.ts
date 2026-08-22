@@ -117,6 +117,59 @@ export function shouldShowProjectRecovery(input: {
   return false;
 }
 
+/** W1 Track E — honest durable vs process-local disclosure strings. */
+export const W1_DURABLE_DISCLOSURE =
+  "Durable : Project, LPS, trajectoire effective/décidée, confirmation accordée/consommée (consentement historique), épistémique matérialisé.";
+
+export const W1_NON_DURABLE_DISCLOSURE =
+  "Process-local / peut nécessiter reconstruction : conversation, confirmation demandée, proposition F2, propositions non matérialisées.";
+
+export const W1_PROPOSED_NOT_DECIDED_DISCLOSURE =
+  "Une trajectoire proposée (candidate/recommandation) n'est pas la trajectoire effective/décidée courante.";
+
+export const W1_RESTORED_GRANTED_NOT_CURRENT_AUTHORITY =
+  "Une confirmation accordée restaurée depuis l'état durable est un consentement historique scoped — pas l'autorité effective courante ; revalidation applicable requise avant exécution.";
+
+export const W1_REQUALIFY_CTA =
+  "Repartir d'une nouvelle intention (requalification contrôlée — pas de requalify silencieux)";
+
+export const W1_REQUALIFY_SHORT_CTA = "Requalifier (contrôlé)";
+
+export function w1RecoveryDisclosures(): {
+  durable: readonly string[];
+  nonDurable: readonly string[];
+  restoredGrantedNotice: string;
+  requalifyCta: string;
+} {
+  return Object.freeze({
+    durable: Object.freeze([
+      "Project",
+      "LPS",
+      "Trajectoire effective/décidée",
+      "Confirmation accordée/consommée (consentement historique)",
+      "Épistémique matérialisé",
+    ]),
+    nonDurable: Object.freeze([
+      "Conversation",
+      "Confirmation demandée",
+      "Proposition F2 process-local",
+      "Propositions non matérialisées",
+    ]),
+    restoredGrantedNotice: W1_RESTORED_GRANTED_NOT_CURRENT_AUTHORITY,
+    requalifyCta: W1_REQUALIFY_CTA,
+    proposedNotDecided: W1_PROPOSED_NOT_DECIDED_DISCLOSURE,
+  });
+}
+
+export function w1RestartHonestyMessage(): string {
+  return [
+    W1_DURABLE_DISCLOSURE,
+    W1_NON_DURABLE_DISCLOSURE,
+    W1_PROPOSED_NOT_DECIDED_DISCLOSURE,
+    W1_RESTORED_GRANTED_NOT_CURRENT_AUTHORITY,
+  ].join(" ");
+}
+
 /**
  * Map Attempt technical status to French user labels.
  * "bloqué avant exécution" must not invent an Attempt ID (caller responsibility).

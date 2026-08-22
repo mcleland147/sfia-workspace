@@ -21,7 +21,16 @@ import type {
 import { orchestrateProjectAssistantTurn } from "../orchestrateTurn";
 import { analyzeIntent } from "./intentAnalysis";
 import { evaluateMorrisGateRequired } from "./gatePolicy";
+import {
+  enrichQualificationWithCkcSemantics,
+  isProductStudioNativeCkcProof,
+  loadProductCkcCognitiveContent,
+  buildCkcCognitivePromptSection,
+  reasonWithResolvedCkcContext,
+} from "./ckcCognitiveContext";
 import { projectCkcResolutionRef, qualifyWithCkc } from "./qualify";
+import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
+import type { DoctrinePackagePin } from "@/lib/oa/doctrine";
 import {
   F2_PROCESS_LOCAL_NOTICE,
   createProposalId,
@@ -64,6 +73,16 @@ function toContextDto(
     activeCycleInstanceId: result.livingState.activeCycleInstanceId ?? null,
     ckcResolutionRef: result.livingState.ckcResolutionRef ?? null,
   };
+}
+
+function doctrinePackagePinFromProject(
+  project: ProjectAssistantContextDto,
+): DoctrinePackagePin {
+  return Object.freeze({
+    doctrinePackageId: project.doctrineId,
+    version: project.doctrineVersion,
+    digest: project.doctrineDigest as DoctrinePackagePin["digest"],
+  });
 }
 
 function snapshotFrom(project: ProjectAssistantContextDto): F2ContextSnapshot {
@@ -380,6 +399,43 @@ export async function orchestrateAssistantSend(input: {
   }
 
   let { qualification } = qualified;
+  const projectSummary = [
+    `name=${project.name}`,
+    `objective=${project.objective}`,
+    `criticality=${project.criticality}`,
+    `lps=${project.lpsId}@${project.lpsVersion}`,
+  ].join(" | ");
+
+  if (isProductStudioNativeCkcProof(qualified.raw.proof)) {
+    const packagePin = doctrinePackagePinFromProject(project);
+    const registryRoot = resolveProductDoctrineRegistryRoot();
+    const ckcContent = loadProductCkcCognitiveContent({
+      registryRoot,
+      cycleTypeId: qualification.cycleTypeId,
+      packagePin,
+    });
+    let ckcCognitiveRecommendation: string | undefined;
+    if (ckcContent) {
+      const reasoning = await reasonWithResolvedCkcContext({
+        userContent: content,
+        projectSummary,
+        intentSummary:
+          analysis.rephrasedRequest ??
+          analysis.objective ??
+          "Intention actionable",
+        ckcPromptSection: buildCkcCognitivePromptSection(ckcContent),
+      });
+      ckcCognitiveRecommendation = reasoning.recommendation;
+    }
+    qualification = enrichQualificationWithCkcSemantics({
+      qualification,
+      proof: qualified.raw.proof,
+      registryRoot,
+      packagePin,
+      ckcCognitiveRecommendation,
+    });
+  }
+
   const ckcResolutionRef =
     qualification.ckcResolutionRef ??
     projectCkcResolutionRef(qualified.raw.proof);
@@ -503,6 +559,9 @@ export async function orchestrateAssistantSend(input: {
     `Profil recommandé: ${qualification.recommendedProfile}.`,
     `LPS v${preLpsVersion} → v${project.lpsVersion}.`,
     qualification.recommendationLabel,
+    ...(qualification.ckcCognitiveRecommendation
+      ? [qualification.ckcCognitiveRecommendation]
+      : []),
     morrisGateRequired
       ? "DÉCISION REQUISE — gate Morris ouvert."
       : "NO MORRIS GATE REQUIRED — AUCUNE EXÉCUTION — F2 S'ARRÊTE ICI.",

@@ -25,6 +25,74 @@ import {
   type CkcReferenceManifest,
   type CkcReferenceManifestEntry,
 } from "./ckcReferenceManifest";
+import {
+  PRODUCT_DOCTRINE_PACKAGE_ID,
+  findProductCkcIndexEntry,
+  loadProductCkcIndexSync,
+  type Digest,
+  type ProductCkcIndexLoadResult,
+} from "@/lib/oa/doctrine";
+
+export type CkcQualificationResolverProductBinding = {
+  readonly registryRoot: string;
+  readonly doctrinePackageId?: string;
+  readonly packageVersion?: string;
+  readonly packageDigest?: Digest;
+};
+
+/** @deprecated Use CkcQualificationResolverProductBinding — kept for test imports. */
+export type ProductCkcQualificationResolverOptions =
+  CkcQualificationResolverProductBinding;
+
+function productResolution(
+  projection: ValidatedCycleTypeProjection,
+  resolvedAt: string,
+  input: {
+    readonly detailedStatus: CkcQualificationDetailedStatus;
+    readonly level: CkcQualificationResolution["level"];
+    readonly status: CkcQualificationResolution["status"];
+    readonly source: CkcQualificationResolution["source"];
+    readonly usedReference?: string;
+    readonly exploitable: boolean;
+    readonly packageVersion?: string;
+    readonly packageDigest?: string;
+    readonly indexDigest?: string;
+    readonly ckcId?: string;
+    readonly ckcContractVersion?: string;
+    readonly sourceDigest?: string;
+  },
+): CkcQualificationResolution {
+  return Object.freeze({
+    cycleTypeId: projection.cycleTypeId,
+    detailedStatus: input.detailedStatus,
+    level: input.level,
+    status: input.status,
+    source: input.source,
+    fallbackPolicy: "none" as const,
+    expectedPrimaryReference: input.ckcId ?? projection.cycleTypeId,
+    ...(input.usedReference ? { usedReference: input.usedReference } : {}),
+    fallbackUsed: false as const,
+    doctrineStatus: "product-studio-native" as const,
+    executionAuthority: false as const,
+    catalogVersion: projection.catalogVersion,
+    catalogHash: projection.catalogHash,
+    correlationId: projection.correlationId,
+    resolvedAt,
+    exploitable: input.exploitable,
+    disclosures: Object.freeze([]),
+    ...(input.packageVersion
+      ? {
+          doctrinePackageId: PRODUCT_DOCTRINE_PACKAGE_ID,
+          packageVersion: input.packageVersion,
+          packageDigest: input.packageDigest,
+          indexDigest: input.indexDigest,
+          ckcId: input.ckcId,
+          ckcContractVersion: input.ckcContractVersion,
+          sourceDigest: input.sourceDigest,
+        }
+      : {}),
+  });
+}
 
 const MAPPING_KEYS = new Set([
   "mandatory",
@@ -126,14 +194,24 @@ function resolution(
 export class CkcQualificationResolver
   implements CkcQualificationResolverPort
 {
+  private readonly productLoaded?: ProductCkcIndexLoadResult;
+
   constructor(
     private readonly manifest: CkcReferenceManifest = CKC_REFERENCE_MANIFEST,
     private readonly audit?: CycleAuditPort,
-  ) {}
+    productBinding?: CkcQualificationResolverProductBinding,
+  ) {
+    if (productBinding) {
+      this.productLoaded = loadProductCkcIndexSync(productBinding);
+    }
+  }
 
   resolve(
     input: CkcQualificationResolveInput,
   ): CkcQualificationResolutionOutcome {
+    if (this.productLoaded !== undefined) {
+      return this.resolveProductPackage(input);
+    }
     const { projection, resolvedAt } = input;
 
     if (!this.tryEmit("oa.ckc.resolution_started", projection, resolvedAt, "started")) {
@@ -431,6 +509,167 @@ export class CkcQualificationResolver
     });
   }
 
+  private resolveProductPackage(
+    input: CkcQualificationResolveInput,
+  ): CkcQualificationResolutionOutcome {
+    const { projection, resolvedAt } = input;
+
+    if (
+      !this.tryEmit("oa.ckc.resolution_started", projection, resolvedAt, "started")
+    ) {
+      return this.productAuditFailure(projection, resolvedAt);
+    }
+
+    try {
+      if (!isIso8601DateTime(resolvedAt)) {
+        return this.productFailure(
+          projection,
+          resolvedAt,
+          "unresolved_invalid_mapping",
+          "CKC_RESOLUTION_INCOHERENT",
+        );
+      }
+      if (projection.ckc.executionAuthority !== false) {
+        return this.productFailure(
+          projection,
+          resolvedAt,
+          "unresolved_invalid_mapping",
+          "CKC_EXECUTION_AUTHORITY_FORBIDDEN",
+        );
+      }
+      const loaded = this.productLoaded;
+      if (!loaded?.ok) {
+        return this.productFailure(
+          projection,
+          resolvedAt,
+          "unresolved_unavailable",
+          loaded &&
+            (loaded.kind === "digest_mismatch" ||
+              loaded.kind === "source_digest_mismatch")
+            ? "CKC_RESOLUTION_INCOHERENT"
+            : "CKC_UNAVAILABLE",
+        );
+      }
+
+      const entry = findProductCkcIndexEntry(
+        loaded.index,
+        projection.cycleTypeId,
+      );
+      if (!entry) {
+        return this.productFailure(
+          projection,
+          resolvedAt,
+          "unresolved_unavailable",
+          "CKC_UNAVAILABLE",
+        );
+      }
+
+      return this.success(
+        projection,
+        productResolution(projection, resolvedAt, {
+          detailedStatus: "resolved_detailed",
+          level: "detailed",
+          status: "resolved",
+          source: "product_package",
+          usedReference: entry.ckcId,
+          exploitable: true,
+          packageVersion: loaded.packageVersion,
+          packageDigest: loaded.packageDigest,
+          indexDigest: loaded.indexDigest,
+          ckcId: entry.ckcId,
+          ckcContractVersion: entry.contractVersion,
+          sourceDigest: entry.sourceDigest,
+        }),
+      );
+    } catch {
+      return this.productFailure(
+        projection,
+        resolvedAt,
+        "unresolved_unavailable",
+        "D2_INTERNAL_ERROR",
+      );
+    }
+  }
+
+  private productFailure(
+    projection: ValidatedCycleTypeProjection,
+    resolvedAt: string,
+    detailedStatus: Extract<
+      CkcQualificationDetailedStatus,
+      "unresolved_invalid_mapping" | "unresolved_unavailable"
+    >,
+    code: CkcQualificationErrorCode,
+  ): CkcQualificationResolutionOutcome {
+    const failed = productResolution(projection, resolvedAt, {
+      detailedStatus,
+      level: "absent",
+      status:
+        detailedStatus === "unresolved_invalid_mapping"
+          ? "invalid"
+          : "unavailable",
+      source: "unavailable",
+      exploitable: false,
+    });
+    const error = createCkcQualificationError({
+      code,
+      correlationId: projection.correlationId,
+      cycleTypeId: projection.cycleTypeId,
+      detailedStatus,
+    });
+    if (
+      !this.tryEmit(
+        "oa.ckc.resolution_failed",
+        projection,
+        resolvedAt,
+        "error",
+        detailedStatus,
+        code,
+      )
+    ) {
+      return this.productAuditFailure(projection, resolvedAt);
+    }
+    if (
+      !this.tryEmit(
+        "oa.ckc.consumption_rejected",
+        projection,
+        resolvedAt,
+        "error",
+        detailedStatus,
+        code,
+      )
+    ) {
+      return this.productAuditFailure(projection, resolvedAt);
+    }
+    return Object.freeze({
+      ok: false as const,
+      resolution: failed,
+      error,
+    });
+  }
+
+  private productAuditFailure(
+    projection: ValidatedCycleTypeProjection,
+    resolvedAt: string,
+  ): CkcQualificationResolutionOutcome {
+    const failed = productResolution(projection, resolvedAt, {
+      detailedStatus: "unresolved_unavailable",
+      level: "absent",
+      status: "unavailable",
+      source: "unavailable",
+      exploitable: false,
+    });
+    return Object.freeze({
+      ok: false as const,
+      resolution: failed,
+      error: createCkcQualificationError({
+        code: "D2_INTERNAL_ERROR",
+        correlationId: projection.correlationId,
+        cycleTypeId: projection.cycleTypeId,
+        detailedStatus: "unresolved_unavailable",
+      }),
+    });
+  }
+
   private tryEmit(
     event:
       | "oa.ckc.resolution_started"
@@ -463,4 +702,11 @@ export class CkcQualificationResolver
       return false;
     }
   }
+}
+
+export function createProductCkcQualificationResolver(
+  options: CkcQualificationResolverProductBinding,
+  audit?: CycleAuditPort,
+): CkcQualificationResolver {
+  return new CkcQualificationResolver(undefined, audit, options);
 }

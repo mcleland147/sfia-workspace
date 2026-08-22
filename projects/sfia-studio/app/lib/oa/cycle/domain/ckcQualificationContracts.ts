@@ -102,7 +102,7 @@ export type CkcQualificationResolution = {
   readonly usedReference?: string;
   readonly fallbackUsed: boolean;
   readonly fallbackReference?: string;
-  readonly doctrineStatus: "method-candidate";
+  readonly doctrineStatus: "method-candidate" | "product-studio-native";
   readonly executionAuthority: false;
   readonly catalogVersion: string;
   readonly catalogHash: string;
@@ -110,4 +110,11 @@ export type CkcQualificationResolution = {
   readonly resolvedAt: string;
   readonly exploitable: boolean;
   readonly disclosures: readonly string[];
+  readonly doctrinePackageId?: string;
+  readonly packageVersion?: string;
+  readonly packageDigest?: string;
+  readonly indexDigest?: string;
+  readonly ckcId?: string;
+  readonly ckcContractVersion?: string;
+  readonly sourceDigest?: string;
 };

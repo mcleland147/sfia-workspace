@@ -42,6 +42,15 @@ export type F2ContextSnapshot = {
   ckcResolutionRef?: string | null;
 };
 
+export type CkcSemanticProvenance = {
+  readonly ckcId: string;
+  readonly cycleTypeId: string;
+  readonly doctrinePackageId: string;
+  readonly packageVersion: string;
+  readonly contentDigest: string;
+  readonly doctrineStatus: "product-studio-native";
+};
+
 export type QualificationDto = {
   cycleTypeId: string;
   cycleLabel: string;
@@ -60,6 +69,10 @@ export type QualificationDto = {
   /** Durable CKC binding projection (no raw CKC dimensions). */
   ckcResolutionRef?: string;
   executionAuthority?: false;
+  /** W1 bounded seam — attributable product-package CKC guidance (Recommendation only). */
+  ckcSemanticProvenance?: CkcSemanticProvenance;
+  /** W1 bounded seam — Nora/provider cognitive output attributable to resolved CKC. */
+  ckcCognitiveRecommendation?: string;
   /** Set after durable CycleInstance create (M2). */
   cycleInstanceId?: string;
   cycleStatus?: string;

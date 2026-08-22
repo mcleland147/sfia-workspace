@@ -17,5 +17,8 @@ export type ProductSqliteHandle = ProjectPersistenceUnitOfWorkPort & {
     | "attempt"
     | "evidence"
     | "review_bundle"
+    | "trajectory"
+    | "confirmation"
+    | "epistemic"
     | null;
 };

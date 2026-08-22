@@ -11,6 +11,11 @@ import {
 } from "@/lib/oa/cycle";
 import type { F2QualificationSignals, QualificationDto } from "./types";
 
+export {
+  enrichQualificationWithCkcSemantics,
+  type CkcQualificationProof,
+} from "./ckcCognitiveContext";
+
 export function projectCkcResolutionRef(
   proof: CkcQualificationSuccessResult["proof"],
 ): string {

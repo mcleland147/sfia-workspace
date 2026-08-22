@@ -12,7 +12,7 @@ import type {
   ProjectTrajectory,
   TrajectoryResult,
 } from "../domain/types";
-import type { MemoryCycleStore } from "../infrastructure/memoryCycleStore";
+import type { CyclePersistenceUnitOfWorkPort } from "../ports/cyclePersistenceUnitOfWorkPort";
 import type { CycleAuditPort } from "../ports/cycleAudit";
 import type { TrajectoryRepositoryPort } from "../ports/trajectoryRepository";
 
@@ -30,7 +30,7 @@ export class CreateInitialTrajectory {
     private readonly projectServices: ProjectServices,
     private readonly clock: ClockPort,
     private readonly audit: CycleAuditPort,
-    private readonly store?: MemoryCycleStore,
+    private readonly store?: CyclePersistenceUnitOfWorkPort,
   ) {}
 
   async execute(

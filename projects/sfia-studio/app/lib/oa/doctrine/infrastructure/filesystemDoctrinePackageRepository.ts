@@ -17,6 +17,7 @@ import type {
 } from "../ports/doctrinePackageRepositoryPort";
 
 const MAX_MANIFEST_BYTES = 256_000;
+const MAX_PACKAGE_FILE_BYTES = 512_000;
 const REGISTRY_FILE = "registry.json";
 const MANIFEST_FILE = "manifest.json";
 
@@ -69,6 +70,13 @@ export class FilesystemDoctrinePackageRepository
     doctrinePackageId: string,
     version: string,
   ): Promise<LocalRegistryEntry | null> {
+    return this.findEntrySync(doctrinePackageId, version);
+  }
+
+  findEntrySync(
+    doctrinePackageId: string,
+    version: string,
+  ): LocalRegistryEntry | null {
     const registry = this.loadRegistry();
     const entry = registry.entries.find(
       (e) =>
@@ -84,6 +92,10 @@ export class FilesystemDoctrinePackageRepository
   async loadManifest(
     entry: LocalRegistryEntry,
   ): Promise<DoctrinePackageLoadResult> {
+    return this.loadManifestSync(entry);
+  }
+
+  loadManifestSync(entry: LocalRegistryEntry): DoctrinePackageLoadResult {
     const pathViolation = assertSafeRelativePackageDir(entry.relativePackageDir);
     if (pathViolation) {
       return {
@@ -207,6 +219,129 @@ export class FilesystemDoctrinePackageRepository
         ok: false,
         kind: "io_error",
         message: "manifest read failed",
+      };
+    }
+  }
+
+  async loadPackageFile(
+    entry: LocalRegistryEntry,
+    relativePath: string,
+  ): Promise<DoctrinePackageLoadResult> {
+    return this.loadPackageFileSync(entry, relativePath);
+  }
+
+  loadPackageFileSync(
+    entry: LocalRegistryEntry,
+    relativePath: string,
+  ): DoctrinePackageLoadResult {
+    const pathViolation = assertSafeRelativePackageDir(entry.relativePackageDir);
+    if (pathViolation) {
+      return {
+        ok: false,
+        kind: "path_forbidden",
+        message: "relative package path forbidden",
+      };
+    }
+    if (
+      typeof relativePath !== "string" ||
+      !relativePath.trim() ||
+      relativePath.includes("\0") ||
+      path.isAbsolute(relativePath) ||
+      relativePath.startsWith("..") ||
+      relativePath.split(/[/\\]/).some((segment) => segment === "..")
+    ) {
+      return {
+        ok: false,
+        kind: "path_forbidden",
+        message: "relative file path forbidden",
+      };
+    }
+
+    const root = this.root();
+    const packageDir = path.resolve(root, entry.relativePackageDir);
+    const targetPath = path.resolve(packageDir, relativePath);
+    if (
+      targetPath !== packageDir &&
+      !targetPath.startsWith(packageDir + path.sep)
+    ) {
+      return {
+        ok: false,
+        kind: "path_forbidden",
+        message: "resolved file escapes package dir",
+      };
+    }
+
+    try {
+      let rootReal: string;
+      let packageDirReal: string;
+      let targetReal: string;
+      try {
+        rootReal = fs.realpathSync(root);
+        packageDirReal = fs.realpathSync(packageDir);
+        targetReal = fs.realpathSync(targetPath);
+      } catch {
+        return {
+          ok: false,
+          kind: "not_found",
+          message: "package file not found",
+        };
+      }
+
+      if (!isPathInsideRoot(rootReal, packageDirReal)) {
+        return {
+          ok: false,
+          kind: "path_forbidden",
+          message: "package path symlink escapes registry root",
+        };
+      }
+      if (!isPathInsideRoot(packageDirReal, targetReal)) {
+        return {
+          ok: false,
+          kind: "path_forbidden",
+          message: "package file symlink escapes package dir",
+        };
+      }
+      if (!fs.statSync(targetReal).isFile()) {
+        return {
+          ok: false,
+          kind: "not_found",
+          message: "package file not found",
+        };
+      }
+
+      const buf = fs.readFileSync(targetReal);
+      if (buf.length > MAX_PACKAGE_FILE_BYTES) {
+        return {
+          ok: false,
+          kind: "too_large",
+          message: "package file exceeds size limit",
+        };
+      }
+      if (buf.includes(0)) {
+        return {
+          ok: false,
+          kind: "io_error",
+          message: "binary package file refused",
+        };
+      }
+      const rawText = buf.toString("utf8");
+      let rawJson: unknown;
+      try {
+        rawJson = JSON.parse(rawText);
+      } catch {
+        rawJson = undefined;
+      }
+      return {
+        ok: true,
+        rawText,
+        rawJson,
+        absoluteManifestPath: targetReal,
+      };
+    } catch {
+      return {
+        ok: false,
+        kind: "io_error",
+        message: "package file read failed",
       };
     }
   }

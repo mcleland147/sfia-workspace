@@ -5,6 +5,7 @@ import {
   MemoryLocalProjectCreationAudit,
   NoOpLocalProjectCreationAudit,
   createLocalVerticalSliceServices,
+  resolveDoctrinePackagePinForRegistry,
   type LocalProjectFacade,
   type LocalProjectIdSource,
   type LocalVerticalSliceCompositionOptions,
@@ -153,7 +154,11 @@ function resolveAudit(
 function wireOaStack(
   projectServices: ProjectServices,
   clock: ClockPort,
-  options?: { realBoundary?: RealBoundaryWiring },
+  options?: {
+    realBoundary?: RealBoundaryWiring;
+    registryRoot?: string;
+    doctrinePackagePin?: DoctrinePackagePin;
+  },
 ): RuntimeOaStack {
   // M2/M3: same Product SQLite store for Project/LPS + Cycle + Decision + Contract.
   const productSqlite =
@@ -167,7 +172,11 @@ function wireOaStack(
         clock,
       })
     : createInMemoryCycleServices({ projectServices, clock });
-  const ckcQualification = createCkcQualificationServices({ clock });
+  const ckcQualification = createCkcQualificationServices({
+    clock,
+    registryRoot: options?.registryRoot,
+    doctrinePackagePin: options?.doctrinePackagePin,
+  });
   const authorityResolver = new MemoryAuthorityResolver();
   // M3 authority is fail-closed unless env enabled; registration happens per-scope in F2/F3.
   void isM3LocalAuthorityEnabled;
@@ -369,10 +378,15 @@ export function createRuntimeApplicationService(
   }
 
   const roots = resolveDefaultVerticalSliceRoots();
+  const registryRoot = options.registryRoot ?? roots.registryRoot;
+  const doctrinePackagePin = resolveDoctrinePackagePinForRegistry(
+    registryRoot,
+    options.doctrinePackagePin,
+  );
   const services = createLocalVerticalSliceServices({
-    registryRoot: options.registryRoot ?? roots.registryRoot,
+    registryRoot,
     schemasRoot: options.schemasRoot ?? roots.schemasRoot,
-    doctrinePackagePin: options.doctrinePackagePin,
+    doctrinePackagePin,
     idSource: options.idSource,
     nowIso: options.nowIso,
     audit: resolveAudit(options.auditMode ?? "noop", options.sqliteAuditStore),
@@ -387,6 +401,8 @@ export function createRuntimeApplicationService(
     });
   const oa = wireOaStack(services.projectServices, services.clock, {
     realBoundary: composedBoundary,
+    registryRoot,
+    doctrinePackagePin,
   });
   return new RuntimeApplicationService(
     services.facade,
