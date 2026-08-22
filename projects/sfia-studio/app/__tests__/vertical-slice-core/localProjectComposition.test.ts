@@ -17,7 +17,7 @@ import {
 } from "@/lib/vertical-slice-core";
 
 const APP_ROOT = path.resolve(__dirname, "../..");
-const REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+const REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/product");
 const SCHEMAS_ROOT = path.resolve(
   APP_ROOT,
   "../sfia-v3-modeled/v3-native-option-a/schemas",
@@ -147,7 +147,7 @@ describe("visible slice V1 Project/LPS happy path", () => {
       perceivedCriticality: "STANDARD",
       constraints: ["No IAM", "No product persistence"],
       doctrine: {
-        id: "pkg:studio-v3-oa",
+        id: "pkg:sfia-studio-doctrine-v3",
         version: "1.0.0",
         digest: DEFAULT_LOCAL_DOCTRINE_PIN.digest,
         status: "resolved",

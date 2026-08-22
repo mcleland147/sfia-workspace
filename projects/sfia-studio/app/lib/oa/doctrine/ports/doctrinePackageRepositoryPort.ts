@@ -34,6 +34,12 @@ export interface DoctrinePackageRepositoryPort {
   loadManifest(
     entry: LocalRegistryEntry,
   ): Promise<DoctrinePackageLoadResult>;
+
+  /** Safe read of a file under an allowlisted package directory. */
+  loadPackageFile(
+    entry: LocalRegistryEntry,
+    relativePath: string,
+  ): Promise<DoctrinePackageLoadResult>;
 }
 
 export interface DoctrinePackageMetadata {

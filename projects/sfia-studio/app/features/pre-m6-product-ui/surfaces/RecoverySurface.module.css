@@ -41,6 +41,18 @@
   color: var(--pm6-muted-strong);
 }
 
+.disclosureList {
+  margin: var(--pm6-space-2) 0 0;
+  padding-left: 1.1rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--pm6-muted-strong);
+}
+
+.disclosureList li + li {
+  margin-top: var(--pm6-space-1);
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;

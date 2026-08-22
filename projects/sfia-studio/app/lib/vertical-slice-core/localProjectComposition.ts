@@ -13,6 +13,7 @@ import {
   type ClockPort,
   type DoctrinePackagePin,
 } from "@/lib/oa/doctrine";
+import { DEFAULT_PRODUCT_DOCTRINE_PIN } from "@/lib/oa/doctrine/product/constants";
 import {
   MemoryProjectAuditJournal,
   createSqliteProductProjectServices,
@@ -38,12 +39,31 @@ import type {
   PerceivedCriticality,
 } from "./types";
 
-export const DEFAULT_LOCAL_DOCTRINE_PIN: DoctrinePackagePin = Object.freeze({
+export const DEFAULT_LOCAL_DOCTRINE_PIN: DoctrinePackagePin =
+  DEFAULT_PRODUCT_DOCTRINE_PIN;
+
+/** Historical fixture package — TEST-ONLY / QUARANTINED (G2 D05). */
+export const FIXTURE_DOCTRINE_PIN: DoctrinePackagePin = Object.freeze({
   doctrinePackageId: "pkg:studio-v3-oa",
   version: "1.0.0",
   digest:
     "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622",
 });
+
+export function resolveDoctrinePackagePinForRegistry(
+  registryRoot: string,
+  override?: DoctrinePackagePin,
+): DoctrinePackagePin {
+  if (override) return override;
+  const normalized = path.resolve(registryRoot);
+  const fixturesRoot = path.resolve(
+    path.join(process.cwd(), "lib/oa/doctrine/fixtures"),
+  );
+  if (normalized === fixturesRoot) {
+    return FIXTURE_DOCTRINE_PIN;
+  }
+  return DEFAULT_PRODUCT_DOCTRINE_PIN;
+}
 
 const LOCAL_ACTOR = Object.freeze({
   actorId: "actor:local-project-owner-demo",
@@ -507,10 +527,15 @@ export function createLocalVerticalSliceServices(
       ? null
       : (options.audit ?? null);
 
+  const doctrinePackagePin = resolveDoctrinePackagePinForRegistry(
+    options.registryRoot,
+    options.doctrinePackagePin,
+  );
+
   return Object.freeze({
     facade: new LocalProjectFacadeImpl(
       projectServices,
-      options.doctrinePackagePin ?? DEFAULT_LOCAL_DOCTRINE_PIN,
+      doctrinePackagePin,
       idSource,
       audit,
       () => clock.nowIso(),

@@ -63,8 +63,12 @@ export {
 export { SqliteCycleRepository } from "./infrastructure/sqlite/sqliteCycleRepository";
 export { SqliteCycleAuditJournal } from "./infrastructure/sqlite/sqliteCycleAuditJournal";
 
-import type { ClockPort } from "@/lib/oa/doctrine";
-import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
+import type { ClockPort, DoctrinePackagePin } from "@/lib/oa/doctrine";
+import {
+  FixedClock,
+  PRODUCT_DOCTRINE_PACKAGE_ID,
+  SystemClock,
+} from "@/lib/oa/doctrine";
 import type { ProjectServices } from "@/lib/oa/project";
 import { CreateCycle } from "./application/createCycle";
 import { CreateInitialTrajectory } from "./application/createInitialTrajectory";
@@ -134,8 +138,18 @@ export type CreateCkcQualificationServicesOptions = {
   readonly clock?: ClockPort;
   readonly audit?: CycleAuditPort;
   readonly resolver?: CkcQualificationResolverPort;
+  readonly registryRoot?: string;
+  readonly doctrinePackagePin?: DoctrinePackagePin;
+  readonly productResolverFactory?: (
+    audit: CycleAuditPort,
+    registryRoot: string,
+  ) => CkcQualificationResolverPort;
   readonly qualifyCycle?: QualifyCycleExecutor;
 };
+
+function usesProductDoctrinePin(pin?: DoctrinePackagePin): boolean {
+  return pin?.doctrinePackageId === PRODUCT_DOCTRINE_PACKAGE_ID;
+}
 
 function createFailureAwareAudit(audit: CycleAuditPort): CycleAuditPort & {
   readonly hasFailed: () => boolean;
@@ -157,6 +171,32 @@ function createFailureAwareAudit(audit: CycleAuditPort): CycleAuditPort & {
   };
 }
 
+/**
+ * Default CKC resolver selection (COR-W1-07).
+ *
+ * Product doctrine pin (`pkg:sfia-studio-doctrine-v3`) ALWAYS selects the
+ * product-bound resolver path. Missing/invalid registryRoot must fail closed
+ * as Product CKC unavailable — NEVER silently fall back to method-candidate.
+ *
+ * Explicit `options.resolver` injection remains for deliberate test/DI only.
+ */
+function createDefaultCkcQualificationResolver(
+  options: CreateCkcQualificationServicesOptions,
+  audit: CycleAuditPort,
+): CkcQualificationResolverPort {
+  if (usesProductDoctrinePin(options.doctrinePackagePin)) {
+    const pin = options.doctrinePackagePin!;
+    return new CkcQualificationResolver(undefined, audit, {
+      // Empty/absent root is handled fail-closed inside product index load.
+      registryRoot: options.registryRoot ?? "",
+      doctrinePackageId: pin.doctrinePackageId,
+      packageVersion: pin.version,
+      packageDigest: pin.digest,
+    });
+  }
+  return new CkcQualificationResolver(undefined, audit);
+}
+
 /** Read-only D2-A → D2-B → D2-C composition without repositories or mutation. */
 export function createCkcQualificationServices(
   options: CreateCkcQualificationServicesOptions = {},
@@ -166,7 +206,7 @@ export function createCkcQualificationServices(
   const failureAwareAudit = createFailureAwareAudit(audit);
   const resolver =
     options.resolver ??
-    new CkcQualificationResolver(undefined, failureAwareAudit);
+    createDefaultCkcQualificationResolver(options, failureAwareAudit);
   const qualifyCycle =
     options.qualifyCycle ?? new QualifyCycle(clock, failureAwareAudit);
 

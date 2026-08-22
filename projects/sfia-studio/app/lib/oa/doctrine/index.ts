@@ -35,6 +35,13 @@ export {
   MemoryDoctrineAuditJournal,
 } from "./infrastructure/observability";
 
+export {
+  DEFAULT_PRODUCT_DOCTRINE_PIN,
+  PRODUCT_DOCTRINE_PACKAGE_ID,
+  PRODUCT_DOCTRINE_PACKAGE_VERSION,
+} from "./product/constants";
+export * from "./product/productCkcIndex";
+
 import path from "node:path";
 import { ResolveDoctrinePackage } from "./application/resolveDoctrinePackage";
 import { AjvSchemaValidationAdapter } from "./infrastructure/ajvSchemaValidationAdapter";

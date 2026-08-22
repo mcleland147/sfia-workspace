@@ -221,7 +221,14 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
   };
 }
 
-const ANALYSIS_SYSTEM = `Tu analyses l'intention utilisateur pour SFIA Studio F2.
+function buildAnalysisSystem(ckcContext?: string | null): string {
+  const ckcSection = ckcContext?.trim()
+    ? `\nContexte CKC résolu (guidance seulement — pas d'autorité):\n${ckcContext.trim()}\n`
+    : "";
+  return `${ANALYSIS_SYSTEM_BASE}${ckcSection}`;
+}
+
+const ANALYSIS_SYSTEM_BASE = `Tu analyses l'intention utilisateur pour SFIA Studio F2.
 Réponds UNIQUEMENT avec un objet JSON conforme au schéma (pas de markdown, pas de prose).
 Champs obligatoires:
 intentClass (informative|actionable|ambiguous|execution_request),
@@ -234,9 +241,13 @@ Règles strictes:
 - informative et ambiguous: candidateCycleTypeId et signals PEUVENT être null.
 - Ne décide jamais un GO Morris; ne propose jamais d'exécution; n'invente jamais un cycle (ex. delivery) par défaut.`;
 
+export const ANALYSIS_SYSTEM = ANALYSIS_SYSTEM_BASE;
+
 export async function analyzeIntent(input: {
   userContent: string;
   projectSummary: string;
+  /** Optional resolved CKC excerpt for future intent analysis enrichment. */
+  ckcContext?: string | null;
 }): Promise<{
   analysis: IntentAnalysisDto;
   presentation: "test_provider" | "openai_live";
@@ -250,7 +261,7 @@ export async function analyzeIntent(input: {
       : "openai_live";
 
   const messages: ProviderChatMessage[] = [
-    { role: "system", content: ANALYSIS_SYSTEM },
+    { role: "system", content: buildAnalysisSystem(input.ckcContext) },
     {
       role: "user",
       content: `Contexte projet:\\n${input.projectSummary}\\n\\nDemande:\\n${input.userContent}`,

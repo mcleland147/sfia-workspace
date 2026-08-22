@@ -295,6 +295,7 @@ describe("T-A2 Trajectory", () => {
       trajectoryId: "trj:replan",
       projectId: "prj:trj-2",
       steps: STEPS_V1,
+      status: "active",
       expectedLpsVersion: 1,
       createdBy: ACTOR,
     });
@@ -316,6 +317,7 @@ describe("T-A2 Trajectory", () => {
       expectedVersion: 1,
       expectedLpsVersion: 2,
       steps: v2Steps,
+      status: "validated",
       createdBy: ACTOR,
     });
     expect(v2.ok).toBe(true);
@@ -373,6 +375,7 @@ describe("T-A2 Trajectory", () => {
       trajectoryId: "trj:race",
       projectId: "prj:trj-race",
       steps: STEPS_V1,
+      status: "active",
       expectedLpsVersion: 1,
       createdBy: ACTOR,
     });
@@ -418,6 +421,7 @@ describe("T-A2 Trajectory", () => {
       trajectoryId: "trj:rb",
       projectId: "prj:trj-rb",
       steps: STEPS_V1,
+      status: "active",
       expectedLpsVersion: 1,
       createdBy: ACTOR,
     });
@@ -430,6 +434,7 @@ describe("T-A2 Trajectory", () => {
         ...STEPS_V1,
         { stepId: "stp:x", order: 3, label: "X", state: "pending" },
       ],
+      status: "validated",
       createdBy: ACTOR,
     });
     const rollback = await cycle.proposeTrajectoryVersion.execute({
@@ -438,6 +443,7 @@ describe("T-A2 Trajectory", () => {
       expectedVersion: 2,
       expectedLpsVersion: 3,
       steps: structuredClone(STEPS_V1),
+      status: "validated",
       createdBy: ACTOR,
     });
     expect(rollback.ok).toBe(true);
@@ -690,6 +696,7 @@ describe("T-A2 immutability / anti-aliasing", () => {
       trajectoryId: "trj:alias",
       projectId: "prj:alias-cyc",
       steps: STEPS_V1,
+      status: "active",
       expectedLpsVersion: 1,
       createdBy: ACTOR,
     });

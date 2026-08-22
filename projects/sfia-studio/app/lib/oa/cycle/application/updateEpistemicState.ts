@@ -10,7 +10,7 @@ import type {
   UpdateEpistemicResult,
   UpdateEpistemicStateRequest,
 } from "../domain/types";
-import type { MemoryCycleStore } from "../infrastructure/memoryCycleStore";
+import type { CyclePersistenceUnitOfWorkPort } from "../ports/cyclePersistenceUnitOfWorkPort";
 import type { MemoryEpistemicRepository } from "../infrastructure/memoryEpistemicRepository";
 import type { CycleAuditPort } from "../ports/cycleAudit";
 import type { EpistemicRepositoryPort } from "../ports/epistemicRepository";
@@ -29,7 +29,7 @@ export class UpdateEpistemicState {
       Partial<Pick<MemoryEpistemicRepository, "saveForProject">>,
     private readonly clock: ClockPort,
     private readonly audit: CycleAuditPort,
-    private readonly store?: MemoryCycleStore,
+    private readonly store?: CyclePersistenceUnitOfWorkPort,
   ) {}
 
   async execute(

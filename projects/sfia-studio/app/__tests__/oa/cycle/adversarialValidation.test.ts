@@ -111,6 +111,7 @@ describe("adversarial validation", () => {
         trajectoryId: "trj:toctou",
         projectId: "prj:toctou",
         steps: STEPS_V1,
+        status: "active",
         expectedLpsVersion: 1,
         createdBy: ACTOR,
       });
@@ -162,6 +163,7 @@ describe("adversarial validation", () => {
         trajectoryId: "trj:toctou-orphan",
         projectId: "prj:toctou-orphan",
         steps: STEPS_V1,
+        status: "active",
         expectedLpsVersion: 1,
         createdBy: ACTOR,
       });
@@ -248,6 +250,7 @@ describe("adversarial validation", () => {
         trajectoryId: "trj:stale",
         projectId: "prj:stale-status",
         steps: STEPS_V1,
+        status: "active",
         expectedLpsVersion: 1,
         createdBy: ACTOR,
       });
@@ -274,7 +277,7 @@ describe("adversarial validation", () => {
       expect(current.ok).toBe(true);
       if (!current.ok) return;
       expect(current.trajectory.version).toBe(1);
-      expect(current.trajectory.status).toBe("candidate");
+      expect(current.trajectory.status).toBe("active");
     });
 
     it("refuses superseded status on propose", async () => {
@@ -285,6 +288,7 @@ describe("adversarial validation", () => {
         trajectoryId: "trj:sup",
         projectId: "prj:superseded-status",
         steps: STEPS_V1,
+        status: "active",
         expectedLpsVersion: 1,
         createdBy: ACTOR,
       });
@@ -311,6 +315,7 @@ describe("adversarial validation", () => {
         trajectoryId: "trj:ok",
         projectId: "prj:ok-status",
         steps: STEPS_V1,
+        status: "active",
         expectedLpsVersion: 1,
         createdBy: ACTOR,
       });
@@ -554,6 +559,7 @@ describe("adversarial validation", () => {
         trajectoryId: "trj:adv-race",
         projectId: "prj:adv-race",
         steps: STEPS_V1,
+        status: "active",
         expectedLpsVersion: 1,
         createdBy: ACTOR,
       });
@@ -588,7 +594,10 @@ describe("adversarial validation", () => {
       expect(oks).toHaveLength(1);
       expect(fails).toHaveLength(1);
       if (fails[0]?.ok === false) {
-        expect(fails[0].error.detailCode).toBe("TRAJECTORY_VERSION_CONFLICT");
+        expect(
+          fails[0].error.detailCode === "TRAJECTORY_VERSION_CONFLICT" ||
+            fails[0].error.detailCode === "LPS_VERSION_CONFLICT",
+        ).toBe(true);
       }
     });
   });

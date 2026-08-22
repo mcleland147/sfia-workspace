@@ -1,5 +1,13 @@
 "use client";
 
+import {
+  W1_DURABLE_DISCLOSURE,
+  W1_NON_DURABLE_DISCLOSURE,
+  W1_PROPOSED_NOT_DECIDED_DISCLOSURE,
+  W1_REQUALIFY_SHORT_CTA,
+  W1_RESTORED_GRANTED_NOT_CURRENT_AUTHORITY,
+  w1RestartHonestyMessage,
+} from "@/features/project-assistant/presentationLabels";
 import styles from "./project-recovery-banner.module.css";
 
 /**
@@ -24,11 +32,14 @@ export function ProjectRecoveryBanner({
           Reprise après rechargement
         </h2>
         <p className={styles.body}>
-          L&apos;état durable du projet (projet, état vivant, décisions et
-          contrats déjà enregistrés) peut être relu. La conversation, la
-          proposition et la confirmation restent process-local et peuvent être
-          perdues au rechargement — aucune durabilité inventée.
+          {w1RestartHonestyMessage()}
         </p>
+        <ul className={styles.disclosureList} data-testid="w1-recovery-disclosures">
+          <li>{W1_DURABLE_DISCLOSURE}</li>
+          <li>{W1_NON_DURABLE_DISCLOSURE}</li>
+          <li>{W1_PROPOSED_NOT_DECIDED_DISCLOSURE}</li>
+          <li>{W1_RESTORED_GRANTED_NOT_CURRENT_AUTHORITY}</li>
+        </ul>
       </div>
       <div className={styles.actions}>
         <button
@@ -45,7 +56,7 @@ export function ProjectRecoveryBanner({
           data-testid="recovery-requalify"
           onClick={onRequalify}
         >
-          Requalifier
+          {W1_REQUALIFY_SHORT_CTA}
         </button>
       </div>
     </section>

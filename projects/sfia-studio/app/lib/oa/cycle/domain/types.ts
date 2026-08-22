@@ -69,6 +69,7 @@ export type CkcFallbackPolicy = "intra_v3_only" | "none";
 export type CkcSource =
   | "repository_candidate"
   | "intra_v3_synthetic"
+  | "product_package"
   | "unavailable";
 
 export type CycleInstance = {

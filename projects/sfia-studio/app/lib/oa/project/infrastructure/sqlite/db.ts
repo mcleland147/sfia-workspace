@@ -3,7 +3,9 @@ import { DatabaseSync } from "node:sqlite";
 export const PRODUCT_SCHEMA_VERSION_M1 = "m1-0.1.0" as const;
 export const PRODUCT_SCHEMA_VERSION_M2 = "m2-0.1.0" as const;
 export const PRODUCT_SCHEMA_VERSION_M3 = "m3-0.1.0" as const;
-export const PRODUCT_SCHEMA_VERSION = "m5-0.1.0" as const;
+export const PRODUCT_SCHEMA_VERSION_M5 = "m5-0.1.0" as const;
+export const PRODUCT_SCHEMA_VERSION_M6 = "m6-0.1.0" as const;
+export const PRODUCT_SCHEMA_VERSION = PRODUCT_SCHEMA_VERSION_M6;
 
 const BASE_SCHEMA_SQL = `
 PRAGMA foreign_keys = ON;
@@ -195,6 +197,60 @@ CREATE TABLE IF NOT EXISTS oa_review_bundle_idempotency (
 );
 `;
 
+const M6_TRAJECTORY_CONFIRMATION_EPISTEMIC_SCHEMA_SQL = `
+CREATE TABLE IF NOT EXISTS oa_project_trajectories (
+  trajectory_id TEXT NOT NULL,
+  project_id TEXT NOT NULL,
+  version INTEGER NOT NULL,
+  status TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  PRIMARY KEY (trajectory_id, version),
+  FOREIGN KEY (project_id) REFERENCES oa_projects(project_id),
+  UNIQUE (project_id, version)
+);
+
+CREATE INDEX IF NOT EXISTS idx_oa_project_trajectories_project
+  ON oa_project_trajectories(project_id, version);
+
+CREATE TABLE IF NOT EXISTS oa_project_trajectory_current (
+  project_id TEXT PRIMARY KEY NOT NULL,
+  trajectory_id TEXT NOT NULL,
+  version INTEGER NOT NULL,
+  occ_token TEXT NOT NULL,
+  FOREIGN KEY (project_id) REFERENCES oa_projects(project_id)
+);
+
+CREATE TABLE IF NOT EXISTS oa_confirmations (
+  confirmation_id TEXT PRIMARY KEY NOT NULL,
+  idempotency_key TEXT NOT NULL UNIQUE,
+  project_id TEXT,
+  status TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_oa_confirmations_project
+  ON oa_confirmations(project_id, status);
+
+CREATE TABLE IF NOT EXISTS oa_epistemic_items (
+  epistemic_item_id TEXT PRIMARY KEY NOT NULL,
+  project_id TEXT NOT NULL,
+  type TEXT NOT NULL,
+  status TEXT NOT NULL,
+  materialized INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  FOREIGN KEY (project_id) REFERENCES oa_projects(project_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_oa_epistemic_items_project
+  ON oa_epistemic_items(project_id, type, status, materialized);
+`;
+
 function readSchemaVersion(db: DatabaseSync): string | null {
   const row = db
     .prepare("SELECT value FROM schema_meta WHERE key = ?")
@@ -236,8 +292,12 @@ function applyM5(db: DatabaseSync): void {
   db.exec(M5_ATTEMPT_EVIDENCE_SCHEMA_SQL);
 }
 
+function applyM6(db: DatabaseSync): void {
+  db.exec(M6_TRAJECTORY_CONFIRMATION_EPISTEMIC_SCHEMA_SQL);
+}
+
 /**
- * Open Product SQLite with additive M1→M2→M3→M5 migration.
+ * Open Product SQLite with additive M1→M2→M3→M5→M6 migration.
  * Fail closed on unknown/future schema versions.
  */
 export function openProductSqlite(dbPath: string): DatabaseSync {
@@ -250,18 +310,25 @@ export function openProductSqlite(dbPath: string): DatabaseSync {
     applyM2(db);
     applyM3(db);
     applyM5(db);
+    applyM6(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION_M2) {
     applyM3(db);
     applyM5(db);
+    applyM6(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION_M3) {
     applyM5(db);
+    applyM6(db);
+    setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
+  } else if (version === PRODUCT_SCHEMA_VERSION_M5) {
+    applyM6(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION) {
     applyM2(db);
     applyM3(db);
     applyM5(db);
+    applyM6(db);
   } else {
     try {
       db.close();

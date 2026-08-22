@@ -13,8 +13,6 @@ import { RequestConfirmation } from "../../application/requestConfirmation";
 import { SupersedeHumanDecision } from "../../application/supersedeHumanDecision";
 import { VerifyAuthority } from "../../application/verifyAuthority";
 import { MemoryAuthorityResolver } from "../memoryAuthorityResolver";
-import { MemoryConfirmationRepository } from "../memoryConfirmationRepository";
-import { MemoryDecisionStore } from "../memoryDecisionStore";
 import type { AuthorityResolverPort } from "../../ports/authorityResolver";
 import type { ConfirmationRepositoryPort } from "../../ports/confirmationRepository";
 import type { DecisionAuditPort } from "../../ports/decisionAudit";
@@ -22,6 +20,7 @@ import type { DecisionPersistenceUnitOfWorkPort } from "../../ports/decisionPers
 import type { DecisionRepositoryPort } from "../../ports/decisionRepository";
 import { SqliteDecisionAuditJournal } from "./sqliteDecisionAuditJournal";
 import { SqliteDecisionRepository } from "./sqliteDecisionRepository";
+import { SqliteConfirmationRepository } from "./sqliteConfirmationRepository";
 
 export type CreateSqliteDecisionServicesOptions = {
   projectServices: ProjectServices;
@@ -53,16 +52,14 @@ export type SqliteDecisionServices = {
 };
 
 /**
- * HumanDecision durable services on Product SQLite (M3).
- * Confirmations remain Memory (process-local) on a dedicated MemoryDecisionStore.
+ * HumanDecision + Confirmation durable services on Product SQLite (M3/M6).
  */
 export function createSqliteDecisionServices(
   options: CreateSqliteDecisionServicesOptions,
 ): SqliteDecisionServices {
   const productStore = options.productStore;
-  const confirmationStore = new MemoryDecisionStore();
   const decisions = new SqliteDecisionRepository(productStore);
-  const confirmations = new MemoryConfirmationRepository(confirmationStore);
+  const confirmations = new SqliteConfirmationRepository(productStore);
   const clock = options.clock ?? new SystemClock();
   const audit = options.audit ?? new SqliteDecisionAuditJournal(productStore);
   const authority =
@@ -90,32 +87,32 @@ export function createSqliteDecisionServices(
       confirmations,
       clock,
       audit,
-      confirmationStore,
+      productStore,
     ),
     grantConfirmation: new GrantConfirmation(
       confirmations,
       authority,
       clock,
       audit,
-      confirmationStore,
+      productStore,
     ),
     refuseConfirmation: new RefuseConfirmation(
       confirmations,
       clock,
       audit,
-      confirmationStore,
+      productStore,
     ),
     consumeConfirmation: new ConsumeConfirmation(
       confirmations,
       clock,
       audit,
-      confirmationStore,
+      productStore,
     ),
     cancelConfirmation: new CancelConfirmation(
       confirmations,
       clock,
       audit,
-      confirmationStore,
+      productStore,
     ),
     supersedeHumanDecision: new SupersedeHumanDecision(
       decisions,

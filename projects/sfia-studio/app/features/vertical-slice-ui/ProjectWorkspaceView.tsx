@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/Card";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { StatusPill } from "@/components/ui/StatusPill";
+import { w1RestartHonestyMessage } from "@/features/project-assistant/presentationLabels";
 import type { getProjectRuntimeAction } from "@/lib/vertical-slice-runtime/actions";
 import styles from "./project-workspace.module.css";
 
@@ -129,6 +130,12 @@ function ProjectProjection({ result }: { result: GetProjectSuccess }) {
           data-testid="workspace-primary-assistant-hint"
         >
           Parcours principal : conversation de qualification.
+        </p>
+        <p
+          className={styles.hint}
+          data-testid="workspace-w1-durability-disclosure"
+        >
+          {w1RestartHonestyMessage()}
         </p>
         <div className={styles.secondaryActions}>
           <CtaButton

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "0.1.0-oa-registry",
+  "entries": [
+    {
+      "doctrinePackageId": "pkg:sfia-studio-doctrine-v3",
+      "version": "1.0.0",
+      "digest": "sha256:4c8a85cf684331720c34a01f9e1dfe3a91305dd1e6f52306c50fc59bd3355608",
+      "relativePackageDir": "packages/pkg-sfia-studio-doctrine-v3-1.0.0",
+      "status": "published"
+    }
+  ]
+}
