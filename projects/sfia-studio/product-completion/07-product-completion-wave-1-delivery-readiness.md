@@ -7,20 +7,22 @@
 | **Profil SFIA** | CRITICAL |
 | **Typologie** | DOC |
 | **Vague** | **W1 — Vérité, contexte et continuité** |
-| **Base Git** | `origin/main` @ `aca3dc8ab250ea1d751a833912787751e856c7b6` |
-| **Branche analyse** | `docs/sfia-studio-product-completion-backlog` *(local · non intégrée)* |
+| **Base Git** | `origin/main` @ `7750b2a4017338c1a236433c4db8f5cc97dc2feb` |
+| **Branche analyse** | `docs/sfia-studio-g2-doctrinepackage-materialization-decision` *(G2 truth sync candidate · ≠ main until merge)* |
 | **GO Morris consommé (backlog)** | **VALIDATE SFIA STUDIO PRODUCT COMPLETION CYCLE 5** — modèle 5 Epics · 4 Vagues · cut-line P0/P1 · CKC RESOLVE→CONSUME→INTEGRATE · réserve audit R5 non bloquante · **NO DELIVERY AUTHORIZED BY THIS VALIDATION** |
 | **GO Morris consommé (readiness Cursor)** | **QUALIFICATION READINESS W1** — analyse repo-first · aucune implémentation |
+| **GO Morris consommé (G2 truth sync)** | **RECORD G2 PRODUCT DOCTRINEPACKAGE MATERIALIZATION DECISION IN GIT** — synchronize DP↔CKC · W1 readiness · backlog · Roadmap · **NO G3 · NO PACKAGE IMPLEMENTATION · NO DELIVERY** |
 | **Verdict ChatGPT (review finale)** | **W1 READINESS QUALIFIED — MACRO SCOPE + ARCHITECTURE SUFFICIENT — DELIVERY NOT YET AUTHORIZED — NO STRUCTURAL ARCHITECTURE GAP** |
-| **Statut** | **CHATGPT READINESS QUALIFIED — MACRO SCOPE / ARCHITECTURE SUFFICIENT — GOVERNANCE RECORD CONSOLIDATED — AWAITING G1 GIT TRUTH + G2 PACKAGE MATERIALIZATION DECISION + G3 MORRIS W1 DELIVERY GO — NO DELIVERY AUTHORIZED** |
+| **Statut** | **CHATGPT READINESS QUALIFIED — INTEGRATED ON MAIN (PR #393) — G1 CLOSED — G2 DECIDED BY MORRIS — G2 DOCUMENTARY SYNC CANDIDATE — G3 NOT AUTHORIZED — NO DELIVERY AUTHORIZED** |
 | **Runtime v3** | **NON ADOPTED** |
 | **Delivery** | **NON AUTORISÉE** |
 | **REAL** | **ZERO** |
 
 ## Anti-affirmations
 
-- **≠** Backlog intégré sur main · **≠** W1 implémentée · **≠** W1 prouvée · **≠** READY FOR DELIVERY · **≠** packageVersion choisi · **≠** Phase B complète · **≠** REAL · **≠** runtime v3 ADOPTED.
-- Le backlog Morris-validé reste **candidat local** jusqu'à intégration Git distincte.
+- **≠** W1 implémentée · **≠** W1 prouvée · **≠** READY FOR DELIVERY · **≠** Phase B complète · **≠** REAL · **≠** runtime v3 ADOPTED.
+- Backlog + readiness + Roadmap **INTEGRATED ON MAIN** via PR #393 · G1 **CLOSED**.
+- `packageVersion` **`1.0.0`** **choisi par Morris (G2)** · **≠** product package matérialisé · **≠** runtime binding implémenté.
 - `consumed=true` **≠** preuve Nora Phase B · Phase A **≠** Phase B.
 
 ---
@@ -31,13 +33,14 @@
 |---|---|
 | repo | `mcleland147/sfia-workspace` |
 | pwd | `/Users/morris/Projects/sfia-workspace` |
-| branch | `docs/sfia-studio-product-completion-backlog` |
-| HEAD | `aca3dc8ab250ea1d751a833912787751e856c7b6` |
-| origin/main | `aca3dc8ab250ea1d751a833912787751e856c7b6` |
-| backlog local | `05-product-completion-backlog-user-stories.md` — **integration candidate** |
-| readiness handoff | `c94629c8` / blob `d9794c9a…` |
-| drift backlog ↔ handoff | **Aucun drift matériel détecté** sur structure W1 / 5 Epics / 4 Vagues |
-| intégration Git (G1) | **INTEGRATION CANDIDATE — NOT YET SATISFIED ON MAIN** |
+| branch | `docs/sfia-studio-g2-doctrinepackage-materialization-decision` |
+| HEAD | *(G2 truth sync candidate · see PR)* |
+| origin/main | `7750b2a4017338c1a236433c4db8f5cc97dc2feb` |
+| PR #393 | **MERGED** · merge `7750b2a4017338c1a236433c4db8f5cc97dc2feb` |
+| push/main CI | SFIA Studio CI **run #274** · databaseId **`32575982499`** · event `push` · conclusion **SUCCESS** |
+| backlog on main | `05-product-completion-backlog-user-stories.md` — **INTEGRATED ON MAIN** |
+| readiness on main | `07-product-completion-wave-1-delivery-readiness.md` — **INTEGRATED ON MAIN** |
+| intégration Git (G1) | **CLOSED / SATISFIED** — PR #393 merge + push/main CI #274 SUCCESS |
 
 ---
 
@@ -49,7 +52,7 @@
 | **NO DELIVERY** par validation backlog | Ce document ne autorise pas Delivery |
 | C6 **CLOSED** Morris | TD-C6-01…06 = implement-only · pas de réouverture |
 | D01-NARROW · D02 Option B · D05 NONE **ADOPTED** | Direction Phase A suffisante · pas de réouverture |
-| packageVersion / matérialisation **DEFERRED** | Gate **G2** ouverte |
+| **G2 DECIDED BY MORRIS (2026-08-22)** | `pkg:sfia-studio-doctrine-v3@1.0.0` · OPTION A root `projects/sfia-studio/app/lib/oa/doctrine/product/` · resolver/repository **KEEP** · fixture **QUARANTINE / TEST-ONLY → RETIRE LATER** · **implementation = G3** |
 | Réserve audit R5 (non bloquante) | Acceptée · traçabilité TE vs US clarifiée |
 | runtime v3 **NON ADOPTED** | Hors scope W1 |
 
@@ -59,7 +62,7 @@
 
 | Priorité | Sources |
 |---|---|
-| 1 — Backlog validé | `05-product-completion-backlog-user-stories.md` (local candidate) |
+| 1 — Backlog validé | `05-product-completion-backlog-user-stories.md` — **INTEGRATED ON MAIN (PR #393)** |
 | 2 — Produit / architecture | C1 · C2 · FA · UX · C6 delta · DP↔CKC qualification |
 | 3 — Runtime Git | `projects/sfia-studio/app/**` (état `@ origin/main`) |
 | 4 — Process | Build Doctrine · Roadmap · SFIA method · CKC delivery guidance (cognitive only) |
@@ -169,7 +172,7 @@
 | 3 | ResolveDoctrinePackage / ports | **KEEP** | |
 | 4 | FilesystemDoctrinePackageRepository | **KEEP / ADAPT** | Adapter matérialisation future · ≠ décision SoT permanente |
 | 5 | Fixture `pkg:studio-v3-oa` | **FREEZE / QUARANTINE** | Ne pas promouvoir silencieusement |
-| 6 | Family `pkg:sfia-studio-doctrine-v3` | **ADOPTED identity · MATERIALIZATION OPEN** | Pas dans registry |
+| 6 | Family `pkg:sfia-studio-doctrine-v3` | **ADOPTED identity · G2 DECISION CLOSED · RUNTIME MATERIALIZATION OPEN** | `1.0.0` + OPTION A root decided · not in registry yet |
 | 7 | Manifest contract | **ADAPT / COMPLETE** | Index CKC interne package (D02) |
 | 8 | CycleTypeCatalog core | **KEEP** | Routing identity |
 | 9 | Catalog method-path CKC bindings | **REPLACE / ADAPT** | Exit SoT runtime |
@@ -193,8 +196,8 @@
 
 | Gap ID | Description | US/REQ | Priorité | Bloque Delivery ? |
 |---|---|---|---|---|
-| GAP-W1-01 | Backlog + readiness + roadmap pas sur main | **G1** | P0 governance | **OUI** (ferme à merge PR) |
-| GAP-W1-02 | Product package non matérialisé · packageVersion non choisi | **G2** · DK-04 | P0 | **OUI** |
+| GAP-W1-01 | Backlog + readiness + roadmap pas sur main | **G1** | P0 governance | **NON** — **CLOSED / SATISFIED** · PR #393 + CI #274 |
+| GAP-W1-02 | Product package non matérialisé | **G2 structural + G3 runtime** | P0 | **OUI** — G2 decision **CLOSED** · runtime materialization **OPEN — G3 implementation gap** |
 | GAP-W1-03 | CKC runtime dépend manifest/chemins méthode | DK-01…07 · US-P0-06 | P0 | **OUI** |
 | GAP-W1-04 | Trajectory Memory-only | TD-C6-01/06 · US-P0-03 | P0 | **OUI** |
 | GAP-W1-05 | Confirmation Memory-only | TD-C6-02/05 · US-P0-04 | P0 | **OUI** |
@@ -217,37 +220,40 @@
 | Registry contenu | `fixtures/registry.json` — 1 entry |
 | `pkg:sfia-studio-doctrine-v3` | Docs convergence only |
 
-### Gate Morris minimum (G2) — **NE PAS CHOISIR**
+### Gate Morris minimum (G2) — **DECIDED BY MORRIS**
 
-Décision requise :
-1. **first packageVersion** (ex. `1.0.0` vs autre)
-2. **physical materialization root** (sous `fixtures/` vs répertoire produit dédié)
-3. **cutover policy** : quand remplacer default pin · quarantaine fixture
+**G2 structural decision CLOSED (Morris 2026-08-22) :**
 
-**Options minimales (recommandation candidate non décisionnelle) :** voir §26 **PRODUCT DOCTRINEPACKAGE MATERIALIZATION — MORRIS DECISION PACK**.
+1. **first packageVersion** = **`1.0.0`**
+2. **physical materialization root** = **OPTION A** `projects/sfia-studio/app/lib/oa/doctrine/product/`
+3. **historical fixture** = **QUARANTINE / TEST-ONLY → RETIRE LATER**
+
+**Still G3 (implementation · NOT AUTHORIZED) :** exact cutover policy · default pin replacement · registry/manifest creation · runtime wiring.
+
+**Decision record :** voir §26 **PRODUCT DOCTRINEPACKAGE MATERIALIZATION — MORRIS DECISION PACK**.
 
 ---
 
 ## 26. PRODUCT DOCTRINEPACKAGE MATERIALIZATION — MORRIS DECISION PACK
 
-**But :** préparer **G2** sans prendre la décision · **G2 DECISION PACK = READY FOR MORRIS** · **G2 DECISION = NOT YET TAKEN**.
+**But :** enregistrer **G2 DECIDED BY MORRIS** · conserver provenance historique Options A/B/C · **G2 Git sync = candidate until PR merge**.
 
 ### Facts locked
 
 | Fact | Statut |
 |---|---|
 | Product family identity | `pkg:sfia-studio-doctrine-v3` — **ADOPTED** |
-| Historical fixture | `pkg:studio-v3-oa@1.0.0` — **≠ product package** |
+| Historical fixture | `pkg:studio-v3-oa@1.0.0` — **≠ product package** · **QUARANTINE / TEST-ONLY → RETIRE LATER** *(G2)* · **still present until G3** |
 | D02 Option B | package manifest → digest-protected internal CKC index → Studio-native CKC — **ADOPTED** |
 | D05 fallback | **NONE** for first product package — **ADOPTED** |
 | `DoctrinePackageRepositoryPort` | **KEEP** |
 | `ResolveDoctrinePackage` | **KEEP** |
 | `FilesystemDoctrinePackageRepository` | current adapter — **MAY BE REUSED** |
-| Current physical layout (`lib/oa/doctrine/fixtures/`) | **≠ permanent Product SoT automatically** |
-| first `packageVersion` | **OPEN / DEFERRED** |
-| physical materialization root | **OPEN / DEFERRED** |
+| Current physical layout (`lib/oa/doctrine/fixtures/`) | **≠ permanent Product SoT** · **current runtime root until G3** |
+| first `packageVersion` | **`1.0.0` — ADOPTED BY MORRIS — G2** |
+| physical materialization root | **OPTION A** `projects/sfia-studio/app/lib/oa/doctrine/product/` — **ADOPTED BY MORRIS — G2** |
 
-**Repo evidence (runtime @ `origin/main` @ `aca3dc8…`) :**
+**Repo evidence (runtime @ `origin/main` @ `7750b2a…`) :**
 
 | Élément | Chemin actuel |
 |---|---|
@@ -259,17 +265,17 @@ Décision requise :
 
 **HARD RULE :** `fixtures/packages` **≠** racine produit permanente recommandée · toute option utilisant ce chemin = **TEMPORARY TRANSITION ONLY · WITH EXPLICIT EXIT · NOT RECOMMENDED AS TARGET**.
 
-### OPTION A — PRODUCT-NATIVE ROOT CLOSE TO EXISTING DOCTRINE MODULE
+### OPTION A — PRODUCT-NATIVE ROOT CLOSE TO EXISTING DOCTRINE MODULE — **ADOPTED BY MORRIS (G2)**
 
 | Dimension | Détail |
 |---|---|
 | **Principe** | Réutiliser `FilesystemDoctrinePackageRepository` + ports existants · racine sémantiquement honnête **non-fixture** sous le module doctrine OA |
-| **Candidate root** | `projects/sfia-studio/app/lib/oa/doctrine/product/` *(registry.json + packages/)* — **DISCOVERED FROM REPO** : même contrat `registry.json` + `relativePackageDir` que l'adaptateur actuel |
+| **Candidate root** | `projects/sfia-studio/app/lib/oa/doctrine/product/` *(registry.json + packages/)* — **ADOPTED BY MORRIS — G2** |
 | **Adapter reused** | `FilesystemDoctrinePackageRepository` · `ResolveDoctrinePackage` · wiring via `registryRoot` option |
 | **File impact (future G3)** | **CREATE** `product/registry.json` · **CREATE** `product/packages/pkg-sfia-studio-doctrine-v3-{version}/manifest.json` + CKC index · **MODIFY** `paths.ts` or composition default `registryRoot` · **MODIFY** `localProjectComposition.ts` default pin · tests pointing at `fixtures/` |
 | **Fixture isolation** | `fixtures/` reste pour tests/historique · fixture quarantaine explicite · pas de promotion silencieuse |
-| **Cutover** | Morris décide pin default + moment cutover · dual-registry transition possible short-term |
-| **Test/CI** | Tests doctrine existants (`resolveDoctrinePackage.test.ts`) · adapter registry root in tests · remote CI @ `aca3dc8` **GREEN** (run `32564693798`) |
+| **Cutover** | G3 implementation · pin default + moment cutover · dual-registry transition possible short-term |
+| **Test/CI** | Tests doctrine existants (`resolveDoctrinePackage.test.ts`) · adapter registry root in tests · remote CI @ `7750b2a` **GREEN** (run #274 `32575982499`) |
 | **Provenance** | Product packages = published product artifacts · digest-protected manifest |
 | **Debt** | Deux racines registry possibles pendant transition |
 | **Exit path** | Fixture registry read-only/quarantine · single product registryRoot en production path |
@@ -277,9 +283,9 @@ Décision requise :
 | **Cons** | Migration wiring default root · coordination tests |
 | **Risks** | Confusion si transition mal documentée |
 
-**Recommendation candidate (non décisionnelle) : OPTION A** — meilleur fit repo · séparation fixture/product explicite.
+**MORRIS DECISION — OPTION A ADOPTED** *(2026-08-22)* — historical recommendation candidate superseded.
 
-### OPTION B — PRODUCT-LEVEL PACKAGE ROOT UNDER SFIA STUDIO PROJECT
+### OPTION B — PRODUCT-LEVEL PACKAGE ROOT UNDER SFIA STUDIO PROJECT — **NOT SELECTED** *(historical alternative)*
 
 | Dimension | Détail |
 |---|---|
@@ -297,7 +303,7 @@ Décision requise :
 | **Cons** | Plus de wiring path · pas de precedent repo today |
 | **Risks** | Résolution path Next.js vs tests vs CI |
 
-### OPTION C — TEMPORARY EXISTING FIXTURE ROOT
+### OPTION C — TEMPORARY EXISTING FIXTURE ROOT — **NOT SELECTED** *(historical alternative · NOT RECOMMENDED AS TARGET)*
 
 | Dimension | Détail |
 |---|---|
@@ -312,30 +318,39 @@ Décision requise :
 | **Cons** | Violates semantic honesty · debt durable · **NOT RECOMMENDED AS TARGET** |
 | **Risks** | Promotion silencieuse fixture→product · confusion gouvernance |
 
-### packageVersion — decision table (candidates only · **NOT DECIDED**)
+### packageVersion — decision table
+
+| Decision | Value | Rationale | Means | Does NOT mean |
+|---|---|---|---|---|
+| **MORRIS G2** | **`1.0.0`** | Convention semver · first published product envelope | First immutable published product identity under family | Runtime maturity · W1 complete · Phase B · REAL · runtime v3 ADOPTED |
+
+**Historical candidates (superseded by G2) :**
 
 | Candidate | Rationale | Means | Does NOT mean |
 |---|---|---|---|
-| Semver initial e.g. `1.0.0` | Convention semver · first published product envelope | First immutable published product identity under family | Runtime maturity · W1 complete · Phase B · REAL |
 | `0.1.0` | Pre-release semantics | Early product envelope · explicit non-final | **≠** CKC `contractVersion 0.1.0` automatically |
 | `0.1.0-v3.1-d1`-style | Alignement naming catalogue snapshot | Traceability to catalog pin | **≠** package digest · **≠** catalog hash · coupling risk |
 
-**MORRIS DECISION REQUIRED — VERSION SEMANTICS NOT DERIVABLE FROM IMPLEMENTATION ALONE.**
-
 `packageVersion` **≠** runtime maturity · **≠** CKC `contractVersion` · **≠** package digest · **≠** runtime v3 ADOPTED.
 
-### G2 MORRIS DECISION — PRODUCT DOCTRINEPACKAGE MATERIALIZATION
+### G2 MORRIS DECISION — PRODUCT DOCTRINEPACKAGE MATERIALIZATION — **DECIDED**
 
 ```
 - package family:     pkg:sfia-studio-doctrine-v3  [LOCKED]
-- first packageVersion:   [MORRIS DECISION]
-- materialization strategy/root:  [MORRIS DECISION]
+- first packageVersion:   1.0.0  [ADOPTED BY MORRIS — G2]
+- materialization strategy/root:  OPTION A — projects/sfia-studio/app/lib/oa/doctrine/product/  [ADOPTED BY MORRIS — G2]
 - existing resolver/repository:   KEEP  [LOCKED]
 - binding:              D02 OPTION B  [LOCKED]
 - fallback:             NONE  [LOCKED]
-- historical fixture:   [QUARANTINE / TEMPORARY SUPPORT / RETIRE LATER — MORRIS DECISION IF NEEDED]
+- historical fixture:   QUARANTINE / TEST-ONLY → RETIRE LATER  [ADOPTED BY MORRIS — G2]
 - implementation:       NOT AUTHORIZED UNTIL G3
 ```
+
+**Future G3 file impact (EXPECTED CREATE · not authorized this cycle) :**
+
+- `projects/sfia-studio/app/lib/oa/doctrine/product/registry.json`
+- `projects/sfia-studio/app/lib/oa/doctrine/product/packages/...`
+- `fixtures/registry.json` remains **CONDITIONAL transitional/quarantine only**
 
 ---
 
@@ -420,7 +435,7 @@ Décision requise :
 | `lib/oa/cycle/domain/cycleTypeCatalog.ts` | A3 ADAPT |
 | `lib/oa/cycle/domain/ckcConsumptionProof.ts` | A5 |
 | `lib/vertical-slice-core/localProjectComposition.ts` | A1 pin/registry (G2-dependent root) |
-| Product DoctrinePackage registry/materialization (G2-dependent) | **LIKELY under recommended Option A candidate:** `lib/oa/doctrine/product/` — registry + package tree · **CREATE** under G3 after G2 |
+| Product DoctrinePackage registry/materialization (G2-dependent) | **G2 ADOPTED OPTION A:** `lib/oa/doctrine/product/` — registry + package tree · **EXPECTED CREATE under G3** · **NOT AUTHORIZED this cycle** |
 | `lib/oa/doctrine/fixtures/registry.json` | **CONDITIONAL ONLY** — transitional/quarantine handling if explicitly required · **NOT target product registry** · **NOT guaranteed future modification** |
 | `features/project-assistant/f2/orchestrateF2.ts` | C/D |
 | `features/project-assistant/f2/qualify.ts` | C |
@@ -446,7 +461,7 @@ Décision requise :
 
 | Commande | Résultat | Classification |
 |---|---|---|
-| Remote `origin/main` CI @ `aca3dc8…` | **SUCCESS** — run `32564693798` (typecheck · lint · build · unit · integration) | **CANONICAL BASELINE GREEN** |
+| Remote `origin/main` CI @ `7750b2a…` | **SUCCESS** — run #274 `32575982499` (typecheck · lint · build · unit · integration) | **CANONICAL BASELINE GREEN** |
 | `npm run typecheck` (local) | **FAIL** — module `pg` FinOps absent localement | **LOCAL ENVIRONMENT / DEPENDENCY LIMITATION** · NON-W1 BLOCKING = **NO** |
 | `npm test` OA subset (local) | **192/194 PASS** — 2 restart process proof (TSX worker path) | **LOCAL ENVIRONMENT / TEST INVOCATION LIMITATION** · unless CI reproduces |
 
@@ -527,9 +542,9 @@ G3 W1 Delivery GO -------------> TRACK C (composition) → TRACK D (seam) → TR
 
 | Gate | But | Statut | Owner | Exit / evidence |
 |---|---|---|---|---|
-| **G1** | Product Completion Git truth — backlog Morris-validé · readiness ChatGPT-qualifiée · roadmap sync sur **main** | **INTEGRATION CANDIDATE — NOT YET SATISFIED ON MAIN** | Morris | Draft PR review → PR readiness → merge GO → merge + push/main evidence |
-| **G2** | Product DoctrinePackage materialization — `packageVersion` · root · cutover · fixture exit | **OPEN** | Morris | Decision pack §26 · **NOT YET TAKEN** |
-| **G3** | GO Morris W1 Delivery — umbrella autorise Track A+B+C+D+E sous décisions adoptées (C6 · D01/D02/D05) | **NOT AUTHORIZED** | Morris | Requiert G1 + G2 satisfaits |
+| **G1** | Product Completion Git truth — backlog Morris-validé · readiness ChatGPT-qualifiée · roadmap sync sur **main** | **CLOSED / SATISFIED** | Morris | PR #393 merge `7750b2a…` + push/main CI #274 SUCCESS |
+| **G2** | Product DoctrinePackage materialization — `packageVersion` · root · fixture disposition | **DECIDED BY MORRIS** · Git sync **CANDIDATE** | Morris | Decision §26 · G2 truth sync PR · **≠** implementation |
+| **G3** | GO Morris W1 Delivery — umbrella autorise Track A+B+C+D+E sous décisions adoptées (C6 · D01/D02/D05 · G2) | **NOT AUTHORIZED** | Morris | Requiert G2 Git integration qualified + **new** Morris G3 GO |
 
 **G3 consomme (implémentation · pas réouverture) :** TD-C6-01…06 · D01-NARROW · D02 Option B · D05 NONE · bounded seam US-P0-08 · **≠** full Phase B · **≠** REAL · **≠** runtime v3.
 
@@ -551,9 +566,9 @@ G3 W1 Delivery GO -------------> TRACK C (composition) → TRACK D (seam) → TR
 
 | Décision | Blocker ? | Owner |
 |---|---|---|
-| **G1** merge Draft PR (Product Completion truth on main) | **OUI** before Delivery | Morris |
-| **G2** first packageVersion + materialization root/strategy | **OUI** before Phase A impl | Morris |
-| **G3** W1 Delivery GO (umbrella) | **OUI** before any W1 coding | Morris |
+| **G1** merge Product Completion truth on main | **CLOSED** — PR #393 |
+| **G2** first packageVersion + materialization root/strategy | **DECIDED BY MORRIS** — Git sync candidate · runtime impl **OPEN (G3)** |
+| **G3** W1 Delivery GO (umbrella) | **OUI** before any W1 coding · **NOT AUTHORIZED** |
 | TD-C6-03 in W1 scope vs W2 | **NON** — optionnel W1 | Morris/ChatGPT |
 
 **Aucune** nouvelle architecture DB/stack/registry/resolver parallèle requise · **NO STRUCTURAL ARCHITECTURE GAP**.
@@ -612,15 +627,15 @@ W1 **ne doit pas** :
 | Architecture sufficiente ? | **OUI** |
 | Nouvelle architecture requise ? | **NON** |
 | Moteur parallèle requis ? | **NON** |
-| Backlog Git-intégré ? | **NON** *(G1 integration candidate)* |
-| packageVersion décidé ? | **NON** *(G2 OPEN)* |
+| Backlog Git-intégré ? | **OUI** *(G1 CLOSED · PR #393)* |
+| packageVersion décidé ? | **OUI** *(G2 · `1.0.0` · ≠ materialized)* |
 | Product package matérialisé ? | **NON** |
-| Phase A runtime bound ? | **NON** *(impl not authorized)* |
+| Phase A runtime bound ? | **NON** *(G3 impl not authorized)* |
 | Trajectory durable ? | **NON** *(impl not done)* |
 | Confirmation durable ? | **NON** |
 | Epistemic sélectif durable ? | **NON** |
 | Seam CKC→Nora prouvée ? | **NON** |
-| Baseline CI/tests | **GREEN on main** @ `aca3dc8` (CI `32564693798`) · local limitations only |
+| Baseline CI/tests | **GREEN on main** @ `7750b2a` (CI #274 `32575982499` SUCCESS) · local limitations only |
 | Delivery GO recommandé now ? | **NON** |
 | Structural architecture gap ? | **NON** |
 
@@ -628,13 +643,14 @@ W1 **ne doit pas** :
 
 ## **W1 READINESS QUALIFIED — MACRO SCOPE + ARCHITECTURE SUFFICIENT — DELIVERY NOT YET AUTHORIZED — NO STRUCTURAL ARCHITECTURE GAP**
 
-Architecture et macro scope **qualifiés** · ports OA/Product SQLite **réutilisables** · **pas** d'architecture parallèle · C6 + D01/D02/D05 **suffisants sous G3** · **deux gates pré-Delivery** : **G1 Git truth** + **G2 package materialization** · puis **G3** autorise implémentation W1 · Track A **∥** Track B · **DELIVERY NOT AUTHORIZED**.
+Architecture et macro scope **qualifiés** · ports OA/Product SQLite **réutilisables** · **pas** d'architecture parallèle · C6 + D01/D02/D05 + **G2 structural decision** **suffisants sous G3** · **G1 CLOSED** · **G2 DECIDED** · **G3** autorise implémentation W1 **only after new Morris GO** · Track A **∥** Track B · **DELIVERY NOT AUTHORIZED**.
 
 ### Blockers before G3 W1 Delivery GO
 
-1. **G1** — Product Completion sources on main *(merge Draft PR)*
-2. **G2** — Morris Product DoctrinePackage materialization decision *(Decision pack §26 ready · decision not taken)*
+1. **G2 Git truth integration** — G2 Morris decision documentary sync on main *(this PR candidate)*
+2. **G3** — **new** Morris W1 Delivery GO *(NOT AUTHORIZED · successful G2 merge ≠ automatic G3)*
+3. **Runtime gaps** — product package materialization · Phase A impl · C6 durability · bounded seam *(G3 implementation · not closed)*
 
 ---
 
-*Qualifié 2026-08-22 · ChatGPT readiness review consolidated · truth-sync Cycle 7 · NO Delivery · NO REAL · G2 + G3 Morris decisions required.*
+*Qualifié 2026-08-22 · ChatGPT readiness review consolidated · G1 CLOSED PR #393 · G2 DECIDED BY MORRIS · G2 Git sync Cycle 7 · G3 NOT AUTHORIZED · NO Delivery · NO REAL · runtime v3 NON ADOPTED.*
