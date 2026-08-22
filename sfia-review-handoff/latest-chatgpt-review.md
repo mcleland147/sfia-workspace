@@ -1,173 +1,162 @@
-# SFIA Studio — PR #391 Post-Merge Push/Main CI Truth Closure
+# SFIA Studio — PR #391 Post-Merge Truth Micro-Correction (CI Closure)
 
 ## Metadata
 
-- **Timestamp:** 2026-08-22 10:47 CEST (+0200) — Europe/Paris
+- **Timestamp:** 2026-08-22 10:54 CEST (+0200) — Europe/Paris
 - **Cycle:** 14 — Post-merge
 - **Profile:** STANDARD
-- **Typology:** DOC / validation read-only
+- **Typology:** DOC — documentary truth micro-correction
 - **Repo:** `mcleland147/sfia-workspace`
-- **pwd:** `/Users/morris/Projects/sfia-workspace`
 - **Branch:** `docs/sfia-studio-doctrinepackage-ckc-post-merge-truth`
-- **HEAD:** `f8eb2de4c81f8891dd29ab1fd41ca4cf36606203`
+- **HEAD (unchanged):** `f8eb2de4c81f8891dd29ab1fd41ca4cf36606203`
 - **origin/main:** `5c3bc58ee9b64f8ba419778f594a249187d053d7`
-- **Micro-sync vs main:** 0 behind / 1 ahead
+- **Ahead/behind vs main:** 0 behind / 1 ahead (commit base unchanged; working tree now has unstaged doc edits)
 
-## Git status (exact)
+## GO Morris consumed
 
+**GO MORRIS — DOCTRINEPACKAGE/CKC POST-#391 TRUTH MICRO-CORRECTION — RECORD PUSH/MAIN CI `32562243107` SUCCESS AND POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED — EXACT TWO CONVERGENCE DOCS ONLY — NO RUNTIME — NO BACKLOG — NO DELIVERY — NO REAL — NO PR — NO MERGE — NO IMPLEMENTATION/MODELED REQUALIFICATION.**
+
+Limits: local bounded edit of two docs only · no project commit/push/PR/merge · requalification not authorized.
+
+## Git status
+
+**Before modification:**
+- HEAD `f8eb2de4…` · clean tracked tree
+- Untracked: `.tmp-sfia-review/`, `projects/eventops-poc/`, `projects/flex-office-demo/`
+
+**After modification:**
 ```
+ M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+ M projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md
 ?? .tmp-sfia-review/
 ?? projects/eventops-poc/
 ?? projects/flex-office-demo/
 ```
-
 - **Staged:** none
-- **Tracked modifications:** none
-- **merge-base(main, micro-sync):** `5c3bc58ee9b64f8ba419778f594a249187d053d7`
+- **Project commit:** none
+- **Project push:** none
 
-## Cycle objective
-
-Resolve single question: does a `SFIA Studio CI` GitHub Actions run exist for `push` on `main` with `headSha = 5c3bc58ee9b64f8ba419778f594a249187d053d7`?
-
-**No project files modified in this cycle.**
-
-## Sources consulted (read-only)
-
-1. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-2. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-3. `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-4. `projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md`
-5. `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md`
-6. `projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md`
-7. `projects/sfia-studio/product-completion/ux-product-experience/03-product-screens-visual-state-contract.md`
-8. `projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md`
-9. `projects/sfia-studio/sfia-v3-framing/31-doctrine-package-and-source-resolution.md`
-10. `projects/sfia-studio/sfia-v3-framing/ckc/14-post-merge.md`
-11. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-12. `prompts/templates/sfia-cycle-execution-template.md`
-13. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-14. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-15. `.github/workflows/sfia-studio-ci.yml`
-
-## gh auth
-
-```
-github.com — Logged in as mcleland147 — token scopes include workflow
-```
-
-## Commands executed
-
-### 1. gh run list (workflow SFIA Studio CI, branch main, event push)
-
-```bash
-gh run list \
-  --repo mcleland147/sfia-workspace \
-  --workflow "SFIA Studio CI" \
-  --branch main \
-  --event push \
-  --limit 100 \
-  --json databaseId,number,event,headBranch,headSha,status,conclusion,createdAt,updatedAt,url
-```
-
-**Exact match found (first result):**
+## CI truth recorded (authoritative)
 
 | Field | Value |
 |---|---|
-| databaseId | `32562243107` |
-| number | `269` |
+| run ID | `32562243107` |
+| run number | `269` |
+| workflow | SFIA Studio CI |
 | event | `push` |
-| headBranch | `main` |
+| branch | `main` |
 | headSha | `5c3bc58ee9b64f8ba419778f594a249187d053d7` |
 | status | `completed` |
 | conclusion | `success` |
-| createdAt | `2026-08-22T08:25:30Z` |
-| updatedAt | `2026-08-22T08:28:15Z` |
-| url | https://github.com/mcleland147/sfia-workspace/actions/runs/32562243107 |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/32562243107 |
 
-### 2. gh api corroboration
+**PR CI (distinct, preserved):** run `32561807048` · event `pull_request` · head `a144d7c7…` · **≠ push/main proof**
 
-```bash
-gh api -X GET repos/mcleland147/sfia-workspace/actions/runs \
-  -f head_sha=5c3bc58ee9b64f8ba419778f594a249187d053d7 \
-  -f event=push \
-  -f branch=main \
-  -f per_page=100
-```
+## Sources read (read-only)
 
-**Result:** `total_count: 1` — single run `32562243107` · workflow `SFIA Studio CI` · display_title `Merge pull request #391 ...` · conclusion `success`.
+Build Doctrine, Roadmap, C1/C2/FA/C6, architecture qualification doc, framing 31 + ckc/14-post-merge, routing guide, cycle template, operating model, rules/guardrails, `sfia-studio-ci.yml`, canonical handoff `sfia-review-handoff/latest-chatgpt-review.md`.
 
-### 3. gh run view (jobs)
+## Files modified (exactly 2)
 
-```bash
-gh run view 32562243107 --repo mcleland147/sfia-workspace --json databaseId,number,event,headBranch,headSha,status,conclusion,createdAt,updatedAt,url,jobs
-```
+### 1. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 
-**Jobs:**
+**Sections touched (current rows only):**
+- Snapshot Git courant
+- Timestamp maintenance courant (title → POST-MERGE TRUTH CLOSURE)
+- DoctrinePackage / runtime CKC architecture qualification row
+- Gates courants
+- CURRENT REPOSITORY TRANSITION
+- NEXT ORDERED STEP
+- NEXT PRODUCT CAPABILITY
 
-| Job | Conclusion | Job URL |
-|---|---|---|
-| Detect SFIA Studio changes | success | https://github.com/mcleland147/sfia-workspace/actions/runs/32562243107/job/97005524982 |
-| Build and validate SFIA Studio | success | https://github.com/mcleland147/sfia-workspace/actions/runs/32562243107/job/97005535838 |
-| SFIA Studio Required Gate | success | https://github.com/mcleland147/sfia-workspace/actions/runs/32562243107/job/97005808198 |
+**Nature:** Replace active `NOT YET PROVEN` / `RESOLVE FROM GIT` / `BLOCKED until post-sync CI proven` with run `32562243107` SUCCESS and **POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED**; forward gate = ChatGPT final review → Morris Git integration gate; requalification remains candidate only.
 
-## PR #391 truth (context)
+### 2. `projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md`
 
-| Field | Value |
-|---|---|
-| state | MERGED |
-| url | https://github.com/mcleland147/sfia-workspace/pull/391 |
-| headRefOid | `a144d7c7752736193167f81352c0291929db02a8` |
-| mergeCommit | `5c3bc58ee9b64f8ba419778f594a249187d053d7` |
-| mergedAt | `2026-08-22T08:25:28Z` |
+**Sections touched (active claims only):**
+- Header Statut + Post-merge coherence sync row
+- A.1 Consommateur · A.2 Autorité
+- D convergence table + verdict block + trajectory + Morris gate paragraph
+- Z.4 · AA · AB · Statut final
 
-## PR CI vs push/main CI (mandatory distinction)
+**Nature:** Record push/main CI `32562243107` SUCCESS; elevate to **POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED**; remove CI blocker; requalification = candidate only · distinct Morris gate · NOT AUTHORIZED.
 
-| Run | ID | Event | headSha | Conclusion | Role |
-|---|---|---|---|---|---|
-| PR head CI | `32561807048` | `pull_request` | `a144d7c7…` | success | Proves PR head only · **≠ push/main post-merge proof** |
-| Push/main CI | `32562243107` | `push` | `5c3bc58e…` | success | **Authoritative post-#391 merge push/main proof** |
+## Stale active claims check
 
-## Impact on f8eb2de4
+**Removed/replaced in current sections:**
+- `post-sync push/main CI NOT YET PROVEN`
+- `post-sync push/main CI evidence RESOLVE FROM GIT`
+- `BLOCKED until post-sync CI proven`
+- `NOT AUTHORIZED until post-sync CI proven` (as CI blocker)
 
-Commit `f8eb2de4c81f8891dd29ab1fd41ca4cf36606203` states **POST-SYNC PUSH/MAIN CI NOT YET PROVEN**.
+**Historical occurrences preserved (intentional):**
+- Roadmap lines 17–18: `RESOLVE FROM GIT` in *(historique)* maintenance rows
+- Roadmap line 747: historical PR #384 transport narrative
+- Roadmap line 14 historique PR #388: `RESOLVE FROM CURRENT GIT` in pre-merge candidate context
 
-**Assessment:** **STALE — CI SUCCESS MUST BE RECORDED**
-
-This cycle did **not** modify `f8eb2de4…`. Documentary requalification of that candidate requires a **separate Morris gate** and bounded micro-correction pass.
+**grep post-check:** No active current-row stale CI blocker remains. Both files contain `32562243107` and `POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED`.
 
 ## Invariants preserved
 
-- Architecture D01-NARROW / D02 Option B / D05 fallback NONE unchanged
-- C6 CLOSED — not reopened
+- D01-NARROW / D02 Option B / D05 fallback NONE unchanged
+- D03/D04/D06–D10 inherited/deferred unchanged
 - DK-01…DK-08 OPEN
+- C6 CLOSED — not reopened
 - runtime package→CKC binding NOT IMPLEMENTED
-- product package NOT MATERIALIZED · packageVersion DEFERRED
+- packageVersion DEFERRED · product package NOT MATERIALIZED
 - Nora Phase B NOT PROVEN
 - Product Backlog NOT OPEN · Delivery NO · ZERO REAL · runtime v3 NON ADOPTED
-- implementation/modeled requalification NOT AUTHORIZED in this cycle
+- implementation/modeled requalification NOT AUTHORIZED
 
-## Reserves
+## Validation
 
-- CI = evidence only · never authority
-- SUCCESS ≠ READY ≠ ADOPTED
-- Post-sync content truth was already SATISFIED before this cycle
-- Documentary candidate `f8eb2de4…` remains unpushed to main and unmerged
+```
+git diff --name-only
+→ exactly 2 project files
 
-## Morris gates
+git diff --check
+→ clean (no whitespace errors)
 
-- This cycle: read-only CI truth closure only
-- Next recommended (not executed): Morris GO for bounded documentary update of `f8eb2de4…` to record run `32562243107` SUCCESS before any Draft PR transport
-- Implementation/modeled requalification: still requires **distinct Morris gate** after documentary coherence
+git diff --cached --name-only
+→ empty
+
+project commit/push/PR
+→ none
+```
+
+## Full diff (working tree vs HEAD f8eb2de4)
+
+```diff
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md ...
+- post-sync push/main CI NOT YET PROVEN
++ post-sync push/main CI `32562243107` SUCCESS ... POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED
+- next repository step = post-sync push/main CI evidence RESOLVE FROM GIT
++ next repository step = current local documentary micro-correction → ChatGPT final review → distinct Morris Git integration / transport gate
+- BLOCKED until post-sync push/main CI proven
++ post-sync push/main CI prerequisite SATISFIED via run `32562243107` SUCCESS · candidate NOT AUTHORIZED pending distinct Morris requalification gate
+
+diff --git a/projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md ...
+- POST-SYNC PUSH/MAIN CI NOT YET PROVEN
++ POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED · PUSH/MAIN CI `32562243107` SUCCESS
+- RESOLVE FROM GIT / await CI / blocked until CI proven
++ CI prerequisite SATISFIED · requalification candidate · DISTINCT MORRIS GATE REQUIRED · NOT AUTHORIZED
+```
+
+(See working tree `git diff` for complete line-level diff — 2 files, whitespace-clean.)
+
+## Actions explicitly NOT executed
+
+- git add / commit / push on project branch
+- PR create / merge / branch delete
+- implementation/modeled requalification
+- code / runtime / Backlog / Delivery / REAL
+
+## Next recommended gate
+
+ChatGPT final documentary review → if PASS → distinct Morris Git integration / transport gate for unstaged local corrections on `docs/sfia-studio-doctrinepackage-ckc-post-merge-truth`.
+
+**Not executed in this cycle.**
 
 ## Final verdict
 
-**CAS A — EXACT RUN FOUND + SUCCESS**
-
-```
-POST-#391 PUSH/MAIN CI = PROVEN SUCCESS
-POST-SYNC GIT+CI+CONTENT TRUTH = SATISFIED
-```
-
-Matching run: **`32562243107`** (run number **269**) · event **`push`** · branch **`main`** · headSha **`5c3bc58ee9b64f8ba419778f594a249187d053d7`** · conclusion **`success`**.
-
-**GO MORRIS REQUIRED NEXT?** **Yes** — for documentary micro-correction of candidate `f8eb2de4…` to record proven push/main CI `32562243107` SUCCESS (not for implementation/modeled requalification).
+**PASS — POST-#391 TRUTH MICRO-CORRECTION COMPLETE LOCALLY — POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED RECORDED — EXACT TWO PROJECT DOCS MODIFIED — UNSTAGED — NO PROJECT COMMIT/PUSH/PR/MERGE — IMPLEMENTATION/MODELED REQUALIFICATION STILL REQUIRES DISTINCT MORRIS GATE**
