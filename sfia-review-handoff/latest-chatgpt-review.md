@@ -1,21 +1,19 @@
-# SFIA Studio — Product Completion — W2 Delivery Readiness Qualification — FULL Review Pack
+# SFIA Studio — Product Completion — W2 Delivery Readiness R1→R13 Correction — FULL Review Pack
 
-**Timestamp (Europe/Paris):** 2026-08-23 00:57:44 CEST
-**Cycle / profile / typology:** 8 — Delivery readiness · CRITICAL · DOC
-**Morris GO:** GO MORRIS — START W2 DELIVERY READINESS QUALIFICATION — W2-G1 PREPARATION ONLY — REPO-FIRST — NO CODE — NO DELIVERY — NO REAL
-**Scope:** W2 readiness document only · no implementation · no Git transport project · no merge
+**Timestamp (Europe/Paris):** 2026-08-23 01:30:17 CEST
+**Cycle / profile / typology:** 8 — Delivery readiness correction · CRITICAL · DOC
+**Morris GO:** correction locale W2 readiness R1→R13 · NO CODE · NO DELIVERY · NO REAL · NO PROJECT GIT TRANSPORT
+**Scope:** `08-product-completion-wave-2-delivery-readiness.md` only
 
 ---
 
 ## 1. VERDICT
 
-**W2 READINESS QUALIFIED — MACRO SCOPE + ARCHITECTURE SUFFICIENT — BACKEND-READY / PRODUCT-INCOMPLETE — DELIVERY NOT YET AUTHORIZED — NO STRUCTURAL ARCHITECTURE GAP**
-
-W2-G1 preparation candidate produced locally for ChatGPT source-locked review.
+**W2 DELIVERY READINESS VERTICAL COHERENCE CORRECTION COMPLETE — R1→R13 APPLIED — ACTIVE CONTRADICTIONS 0 — READY FOR CHATGPT RE-REVIEW**
 
 ---
 
-## 2. Git Truth
+## 2. Local Git Truth
 
 | Item | Value |
 |---|---|
@@ -23,172 +21,167 @@ W2-G1 preparation candidate produced locally for ChatGPT source-locked review.
 | branch | `docs/sfia-studio-product-completion-w2-delivery-readiness` |
 | HEAD | `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` |
 | origin/main | `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` |
-| W1 Delivery PR | **#395 MERGED** · merge `ddd39181e9cf823a0d5055eefba7a873940c38c2` · push/main CI **`32589270526` SUCCESS** · **8/8 PASS** |
-| W1 roadmap closure PR | **#397 MERGED** · merge `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` |
-| new file | `projects/sfia-studio/product-completion/08-product-completion-wave-2-delivery-readiness.md` (430 lines) |
-| staged / tracked mods | none (untracked candidate) |
-| project commit/push | **NOT PERFORMED** (by design) |
+| status | 1 untracked project file (readiness) · no staged project changes |
+| project commit/push/PR | **NOT PERFORMED** |
 
 ---
 
 ## 3. Morris GO consumed
 
-**GO MORRIS — START W2 DELIVERY READINESS QUALIFICATION — W2-G1 PREPARATION ONLY — REPO-FIRST — NO CODE — NO DELIVERY — NO REAL**
+**SFIA STUDIO — PRODUCT COMPLETION — W2 DELIVERY READINESS CORRECTION R1→R13**
 
-Objectives satisfied:
-- Verify current Git truth post-W1 closure
-- Audit Studio runtime post-W1
-- Qualify W2 from validated backlog + runtime
-- Produce single W2 readiness document with scope, inventory, classification, gaps, W2-G1/G2/G3 model, decision pack, tracks, critical path, parallelization, exit contracts, file mapping, risks, Fake/Real qualification
-- Produce FULL Review Pack
-- Publish bounded L3 canonical Review Handoff
-
-Exclusions honored: no code · no runtime changes · no tests · no project staging/commit/push/PR/merge · no W2 Delivery · no REAL.
+Authority YES: local readiness correction · Review Pack · handoff L3
+Authority NO: project staging/commit/push/PR/merge · W2-G2 · W2-G3 · code · Delivery · REAL
 
 ---
 
-## 4. Executive summary
+## 4. Vertical coherence verdict
 
-### W2 macro scope (backlog §9)
-**Cognition, trajectoire et décision humaine** — Nora / trajectory / HumanDecision / EC inspect / Phase B start.
-
-### Primary US in scope
-US-P1-01 · US-P1-02 · US-P1-03 · US-P1-14 · US-P1-15 · US-P1-16
-
-### W1 substrate received (PR #395)
-- Trajectory SQLite durable (backend)
-- Confirmation selective durability (backend)
-- Epistemic selective SQLite (backend)
-- Phase A package-bound CKC + product doctrine pin
-- Bounded CKC→Nora seam (US-P0-08 proven)
-- HumanDecision SQLite + DecisionBasis domain
-- EC SQLite + M3 PREPARE/resolve
-
-### Structuring gap (W2 critical)
-**Trajectory durable exists in backend but is NOT wired into F2/product UI.** Dual truth: process-local `proposalStore` vs durable `ProjectTrajectory`. This blocks US-P1-01/02 and is the W2 critical path bottleneck.
-
-### Secondary gaps
-- EC inspect progressive disclosure incomplete (US-P1-03)
-- Phase B beyond W1 seam (US-P1-14 / DK-08)
-- Minimal history projection incomplete (US-P1-15)
-- TD-C6-03 AuthorityVerificationReceipt missing (US-P1-16)
-- Disclosure drift: `disclosures.ts` still claims trajectory/epistemic/confirmation process-local despite W1 SQLite
-
-### Verdict binaries
-| Question | Answer |
+| Layer | Verdict |
 |---|---|
-| Architecture sufficient? | **YES** |
-| Structural architecture gap? | **NO** |
-| W2 scope bounded? | **YES** |
-| W2 Delivery authorized? | **NO** |
-| W2-G2 Morris decision made? | **NO** |
-| REAL | **ZERO** |
+| C1 | PASS — target preserved |
+| C2 | PASS — H→N contract preserved |
+| Product Experience | PASS — contract preserved |
+| Functional Architecture | PASS — FC-04/06/07/08/09/14/15 preserved |
+| C6 | CLOSED / NOT REOPENED |
+| Backlog | PASS — four-wave trajectory preserved |
+| W1 | 8/8 PASS unchanged |
+| W2 | CONFIRMED as cognition/trajectory/HD/pre-authorization wave |
 
 ---
 
-## 5. W2 gate model
+## 5. Sources read (read-only)
 
-| Gate | Purpose | State |
-|---|---|---|
-| W2-G1 | Readiness qualification (this cycle) | **CANDIDATE** |
-| W2-G2 | Morris W2 scope/convergence decision | **NOT AUTHORIZED** |
-| W2-G3 | Morris W2 Delivery GO | **NOT AUTHORIZED** |
-| GO Phase B distinct | US-P1-14 full closure | **NOT AUTHORIZED** |
+- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+- projects/sfia-studio/product-completion/01-product-completion-cadrage.md
+- projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md
+- projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md
+- projects/sfia-studio/product-completion/05-product-completion-backlog-user-stories.md
+- projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md
+- projects/sfia-studio/product-completion/07-product-completion-wave-1-delivery-readiness.md
+- projects/sfia-studio/product-completion/08-product-completion-wave-2-delivery-readiness.md (prior)
+- projects/sfia-studio/product-completion/ux-product-experience/01-experience-architecture.md
+- projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md
+- projects/sfia-studio/product-completion/ux-product-experience/03-product-screens-visual-state-contract.md
+- projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md
+- projects/sfia-studio/sfia-v3-framing/31-doctrine-package-and-source-resolution.md
+- projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md
+- projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md
+- projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md
+- projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md
+- projects/sfia-studio/sfia-v3-framing/37-studio-v3-foundations-and-consolidation-decision-pack.md
+- projects/sfia-studio/sfia-v3-framing/ckc/08-delivery-implementation.md
+- projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md
+- projects/sfia-studio/app/features/project-assistant/f2/proposalStore.ts
+- projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts
+- projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+- projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
+- projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
+- projects/sfia-studio/app/lib/oa/cycle/application/proposeTrajectoryVersion.ts
+- projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcQualificationResolver.ts
+- projects/sfia-studio/app/lib/oa/cycle/index.ts (COR-W1-07)
+- projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts
+- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+- prompts/templates/sfia-cycle-execution-template.md
+- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+- PR #395 / PR #397 (Git evidence only)
 
 ---
 
-## 6. Decision pack candidates (Morris W2-G2)
+## 6. Correction matrix R1→R13
 
-| ID | Arbitration | Recommendation |
-|---|---|---|
-| D-W2-01 | Proposal process-local vs Trajectory durable | Replace or project — avoid prolonged dual truth |
-| D-W2-02 | Phase B scope W2 vs W2+W3 | W2 = seam extension + 2-cycle proof; full closure may extend W3 |
-| D-W2-03 | TD-C6-03 in W2 | Implement in W2 (US-P1-16 P1) |
-| D-W2-04 | studio-projects parallel path | FREEZE — `/studio` canonical |
-| D-W2-05 | Live vs fake Phase B sign-off | Live matrix required for US-P1-14 Morris gate |
-| D-W2-06 | Disclosure correction timing | Pre-W2-G3 honesty pass (Track E first) |
+| ID | Title | Status | Before | After | Sections |
+|---|---|---|---|---|---|
+| **R1** | W2-G1/G2/G3 semantics | APPLIED | Gaps Delivery bloquaient W2-G1/G3 | Gaps = W2 DELIVERY SCOPE / EXIT BLOCKERS; seuls blockers G1=document integration; G3=W2-G2+scope stabilisé | §multiple |
+| **R2** | US-P1-08 / REQ-10 | APPLIED | Absents du scope principal | US-P1-08 + REQ-10 + exit AgentCapability AUTHORIZED/BLOCKED ajoutés | §multiple |
+| **R3** | Proposal ≠ ProjectTrajectory | APPLIED | proposalStore REPLACE | KEEP/ADAPT TEMPORARY WITH EXIT; boundary Proposal/Epistemic/Trajectory explicite | §multiple |
+| **R4** | Phase B ≠ LIVE obligatoire | APPLIED | LIVE matrix required for US-P1-14 | Deterministic product-native acceptable; A≠B; REAL gate distinct | §multiple |
+| **R5** | W2-G2 Decision Pack | APPLIED | 6 décisions dont FREEZE/disclosure/fake | 4 décisions structurantes D-W2-01…04; TD-C6-03 default W2 | §multiple |
+| **R6** | Morris runtime exit | APPLIED | Non mentionné | LOCAL_MORRIS_M3_ACTOR TEMPORARY WITH EXIT; cible Pilote C1/C2 | §multiple |
+| **R7** | US-P1-15 W2/W3 | APPLIED | History vague | Projection durable W2; pas créer Attempts; enrichissement W3 | §multiple |
+| **R8** | Source hierarchy | APPLIED | Backlog priorité 1 | Hiérarchie par rôle; Backlog slicing only | §multiple |
+| **R9** | Trajectory promotion enforcement | APPLIED | HD sans promotion seulement | GAP-W2-05 P0: no current/decided from Recommendation alone | §multiple |
+| **R10** | HD ≠ trajectory selection | APPLIED | HD domain ready implied resolved | GAP-W2-06: GO on Proposal ≠ Option/Trajectory selection | §multiple |
+| **R11** | Phase B order + tracks | APPLIED | D after A; E→A→C→D | H→N order; tracks E,D,A,B,C; D∥A convergence | §multiple |
+| **R12** | Method path cleanup | APPLIED | DK-01/02 P2 critical | Canonical /studio proven fail-closed; DK DOWNSTREAM RETIRE-LATER | §multiple |
+| **R13** | EC re-inspect minimum | APPLIED | Mentionné sans borne AMEND | Re-inspect minimum W2; SHOULD-05 AMEND hors W2 | §multiple |
 
 ---
 
-## 7. Tracks and critical path
+## 7. W2 scope final
 
-| Track | Focus |
+### US included
+US-P1-01 · US-P1-02 · US-P1-03 · US-P1-08 · US-P1-14 (slice) · US-P1-15 (slice) · US-P1-16
+
+### REQ included
+REQ-07 · REQ-09 · REQ-10 · REQ-17 · REQ-20 · REQ-24
+
+### FC owners
+FC-04 · FC-06 · FC-07 · FC-08 · FC-09 · FC-14 · FC-15
+
+### Boundaries
+- W1: 8/8 substrate — do not reopen
+- W2: H→N stop before Execute
+- W3: Execute/Evidence/replan downstream
+- W4: PE closure downstream
+
+---
+
+## 8. W2-G2 Decision Pack (candidates only)
+
+| ID | Decision |
 |---|---|
-| A | Trajectory product loop (F2 wire · options UI · HD→decided) |
-| B | Read model + minimal history |
-| C | EC inspect + governance presentation + TD-C6-03 |
-| D | CKC Phase B proof (multi-cycle · live matrix) |
-| E | Disclosure honesty sync |
+| D-W2-01 | Proposal/Epistemic/ProjectTrajectory boundary |
+| D-W2-02 | Exact W2 Phase B cut-line (US-P1-14 W2–W3) |
+| D-W2-03 | Trajectory promotion enforcement boundary |
+| D-W2-04 | EC inspect / re-inspection minimal semantics |
 
-**Critical path:** E → A → C → D (B parallel with A)
-
----
-
-## 8. Gap register (top)
-
-| Gap | Priority | Blocks W2-G1? |
-|---|---|---|
-| GAP-W2-01 Trajectory not wired F2/UI | P0 | YES |
-| GAP-W2-02 Dual truth Proposal vs Trajectory | P0 | YES |
-| GAP-W2-03 HD without trajectory promotion | P0 | YES |
-| GAP-W2-04 No trajectory options UI | P0 | YES |
-| GAP-W2-10 Disclosure drift | P0 | YES |
-| GAP-W2-05 EC inspect incomplete | P1 | NO |
-| GAP-W2-06 Phase B incomplete | P1 | PARTIAL |
-| GAP-W2-07 History minimal incomplete | P1 | NO |
-| GAP-W2-08 TD-C6-03 missing | P1 | NO |
+TD-C6-03: ADOPTED C6 · default W2 implementation recommendation.
 
 ---
 
-## 9. Asset classification (summary)
+## 9. Exit final H→N (18 steps)
 
-| Verdict | Examples |
-|---|---|
-| KEEP | OA backbone · SQLite stack · SqliteTrajectoryRepository · SqliteDecisionRepository |
-| COMPLETE (backend) | Trajectory application layer |
-| ADAPT | orchestrateF2 · ConversationSurface · disclosures · ckcCognitiveContext |
-| REPLACE (W2) | proposalStore (dual truth) |
-| FREEZE | studio-projects parallel path |
-| HARVEST | ProjectAssistantPanel legacy |
-| MISSING | TD-C6-03 AuthorityVerificationReceipt |
+Present in readiness §15 — integrated E2E exit mandatory · STOP AVANT EXECUTE.
 
 ---
 
 ## 10. Fake / Real qualification
 
-- Phase A CKC + SQLite governance: **REAL**
-- F2 intent + CKC cognitive Nora default: **FAKE** (live available)
-- US-P1-14 Morris gate should require **live semantic differentiation** across multiple cycle types
-- Agent execution: **FIXTURE** (W3 / distinct REAL gate)
+- Product-native deterministic (A) ≠ REAL boundary (B)
+- Phase B W2 tranche: deterministic acceptable
+- No mandatory LIVE for US-P1-14 in W2
+- No new REAL W2 without distinct Morris gate
 
 ---
 
-## 11. W2 exit contracts (future — NOT AUTHORIZED)
+## 11. Contradiction check
 
-1. Options + Recommendation ≠ HD (US-P1-01)
-2. HD durable + trajectory decided link (US-P1-02)
-3. EC summary→detail→re-inspect (US-P1-03)
-4. Phase B differentiated Nora on ≥2 cycle types (US-P1-14 partial OK W2)
-5. Minimal history recoverable (US-P1-15)
-6. Governance/audit presentation + TD-C6-03 if adopted (US-P1-16)
-7. Disclosure honesty aligned post-W1
-
----
-
-## 12. Anti-claims
-
-- ≠ W2 implemented
-- ≠ W2 proven
-- ≠ Phase B complete
-- ≠ W1 seam = US-P1-14 closure
-- ≠ W2-G2 / W2-G3 authorized
-- ≠ Delivery authorized
-- ≠ REAL authorized
-- ≠ runtime v3 ADOPTED
+| Check | Result |
+|---|---|
+| Gaps as pre-G3 impl requirements | **0** (corrected) |
+| proposalStore REPLACE | **0** |
+| LIVE required Phase B | **0** (only "LIVE NOT required") |
+| US-P1-08 / REQ-10 present | **YES** |
+| ACTIVE CONTRADICTIONS | **0** |
 
 ---
 
-## 13. Full readiness document
+## 12. Files modified
+
+| File | Action |
+|---|---|
+| `projects/sfia-studio/product-completion/08-product-completion-wave-2-delivery-readiness.md` | **CORRECTED** (local untracked) |
+| `.tmp-sfia-review/chatgpt-review.md` | **REPLACED** (this pack) |
+| All other project files | **UNCHANGED** |
+
+Staging / commit / push / PR: **NO**
+
+---
+
+## 13. FULL corrected readiness document
 
 ```markdown
 # SFIA Studio — Product Completion — Wave 2 — Delivery Readiness Qualification
@@ -202,11 +195,11 @@ US-P1-01 · US-P1-02 · US-P1-03 · US-P1-14 · US-P1-15 · US-P1-16
 | **Vague** | **W2 — Cognition, trajectoire et décision humaine** |
 | **Base Git** | `origin/main` @ `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` |
 | **Branche analyse** | `docs/sfia-studio-product-completion-w2-delivery-readiness` *(W2 readiness candidate · ≠ main until merge)* |
-| **GO Morris consommé (backlog)** | **VALIDATE SFIA STUDIO PRODUCT COMPLETION CYCLE 5** — W2 backlog scope authoritative · **NO DELIVERY AUTHORIZED BY BACKLOG VALIDATION** |
+| **GO Morris consommé (backlog)** | **VALIDATE SFIA STUDIO PRODUCT COMPLETION CYCLE 5** — slicing W2 authoritative · **≠** redéfinition C1/C2 · **NO DELIVERY AUTHORIZED BY BACKLOG VALIDATION** |
 | **GO Morris consommé (W1 closure)** | **G3 W1 Delivery CONSUMED / SATISFIED** — PR **#395** merge `ddd39181…` · **8/8 exit contracts PASS** · push/main CI **`32589270526` SUCCESS** |
-| **GO Morris consommé (readiness Cursor)** | **QUALIFICATION READINESS W2 — W2-G1 PREPARATION ONLY** — analyse repo-first · aucune implémentation · aucune Delivery · aucun REAL |
-| **Verdict ChatGPT (review finale)** | **PENDING** — candidat local pour revue |
-| **Statut** | **LOCAL W2 READINESS CANDIDATE — NOT INTEGRATED — W2-G1 NOT AUTHORIZED — DELIVERY NOT AUTHORIZED — REAL ZERO** |
+| **GO Morris consommé (readiness Cursor)** | **QUALIFICATION READINESS W2 — W2-G1 PREPARATION ONLY** · **CORRECTION R1→R13** — analyse repo-first · aucune implémentation · aucune Delivery · aucun REAL |
+| **Verdict ChatGPT (review finale)** | **PENDING** — candidat corrigé pour re-revue |
+| **Statut** | **LOCAL W2 READINESS CANDIDATE (R1→R13 CORRECTED) — NOT INTEGRATED — W2-G1 CANDIDATE — W2-G2/W2-G3 NOT AUTHORIZED — DELIVERY NOT AUTHORIZED — REAL ZERO** |
 | **Runtime v3** | **NON ADOPTED** |
 | **Delivery** | **NON AUTORISÉE** |
 | **REAL** | **ZERO** |
@@ -214,10 +207,11 @@ US-P1-01 · US-P1-02 · US-P1-03 · US-P1-14 · US-P1-15 · US-P1-16
 ## Anti-affirmations
 
 - **≠** W2 implémentée · **≠** W2 prouvée · **≠** READY FOR DELIVERY · **≠** Phase B complète · **≠** REAL · **≠** runtime v3 ADOPTED.
-- W1 **CLOSED / INTEGRATED ON MAIN** (PR #395) · **≠** autorisation automatique W2.
+- W1 **CLOSED / INTEGRATED ON MAIN** (PR #395) · **8/8 PASS** · **≠** autorisation automatique W2.
 - W1 bounded seam (US-P0-08) **≠** US-P1-14 Phase B closure · `consumed=true` resolver **≠** preuve sémantique Nora complète.
-- Trajectory/Confirmation SQLite W1 **≠** boucle produit trajectoire/options/HD W2 câblée.
-- Ce document **≠** Morris W2 GO · **≠** W2 Delivery GO.
+- Trajectory/Confirmation SQLite W1 **≠** boucle produit H→N W2 câblée.
+- Proposal F2 **≠** ProjectTrajectory · Recommendation **≠** HumanDecision · deterministic product-native proof **≠** REAL boundary proven.
+- Ce document **≠** Morris W2-G2 · **≠** W2-G3 Delivery GO.
 
 ---
 
@@ -234,8 +228,8 @@ US-P1-01 · US-P1-02 · US-P1-03 · US-P1-14 · US-P1-15 · US-P1-16
 | W1 roadmap closure PR | **#397 MERGED** · merge `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` |
 | backlog on main | `05-product-completion-backlog-user-stories.md` — **INTEGRATED ON MAIN** |
 | W1 readiness on main | `07-product-completion-wave-1-delivery-readiness.md` — **INTEGRATED ON MAIN** |
-| W2 readiness | `08-product-completion-wave-2-delivery-readiness.md` — **LOCAL CANDIDATE** |
-| qualification timestamp | 2026-08-23 00:56:53 CEST (+0200) |
+| W2 readiness | `08-product-completion-wave-2-delivery-readiness.md` — **LOCAL CANDIDATE (R1→R13 corrected)** |
+| qualification timestamp | 2026-08-23 01:29:30 CEST (+0200) |
 
 ---
 
@@ -243,41 +237,89 @@ US-P1-01 · US-P1-02 · US-P1-03 · US-P1-14 · US-P1-15 · US-P1-16
 
 | Décision | Effet readiness W2 |
 |---|---|
-| Backlog Cycle 5 **VALIDÉ** Morris | Scope W2 authoritative depuis backlog · US-P1-01…03 · 14…16 · REQ-07/09/17/20/24 |
-| W1 Delivery **CONSUMED** (G3) | Substrat durable disponible : Trajectory SQLite · Confirmation selective · Phase A · bounded seam |
+| Backlog Cycle 5 **VALIDÉ** Morris | Slicing / priorité / Epics / Waves W2 authoritative · **≠** redéfinition C1/C2/FA |
+| W1 Delivery **CONSUMED** (G3) | Substrat durable : Trajectory SQLite · Confirmation selective · Phase A · bounded seam |
 | **NO DELIVERY** par validation backlog | Ce document ne autorise pas Delivery W2 |
-| C6 **CLOS** Morris | TD-C6-01…06 = implement-only · TD-C6-03 optional W1 · **requis W2 pour US-P1-16** |
-| D01/D02/D05 **ADOPTED** | Direction Phase A suffisante · DK-01/02 restent gaps implémentation résiduels |
+| C6 **CLOS** Morris | TD-C6-01…06 = implement-only · **ne pas rouvrir** · TD-C6-03 **ADOPTED** · implémentation W2 |
+| D01/D02/D05 **ADOPTED** | Direction Phase A suffisante |
+| Pilote = runtime actor (C1/C2) | Morris runtime authority = **TEMPORARY WITH EXIT** · W2 cible = HumanDecision Pilote générique |
 | runtime v3 **NON ADOPTED** | Hors scope W2 |
-| REAL | Gate Morris **distinct** · **ZERO** · hors W2 qualification delivery |
+| REAL | Gate Morris **distinct** · **ZERO** · aucune nouvelle preuve LIVE/REAL W2 autorisée |
 | W2 entry | **CANDIDATE / NOT AUTHORIZED** — qualification distincte requise avant tout GO |
 
 ---
 
-## 3. Hiérarchie des sources
+## 3. Hiérarchie des sources (par rôle)
 
-| Priorité | Sources |
+| Priorité | Rôle | Sources |
+|---|---|---|
+| 1 | **Git/runtime Evidence** | Ce qui existe factuellement dans le repo @ `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` |
+| 2 | **Décisions Morris** | Autorité construction / gates / arbitrages adoptés |
+| 3 | **C1** | Target / scope / completion bar / outcomes O-01…O-12 |
+| 4 | **C2** | Comportement fonctionnel A→W · règles d'autorité H→N |
+| 5 | **Product Experience validée** | Contrat Pilote-facing S1→S12 · SC-04/05/06/07 |
+| 6 | **Functional Architecture** | Responsabilités FC-01→FC-15 · ownership |
+| 7 | **C6** | Décisions techniques ciblées adoptées · implement-only |
+| 8 | **Backlog** | Slicing / priorité / Epics / Waves / User Stories **dérivées** du corpus précédent |
+| 9 | **W1 readiness + preuve W1** | Substrat livré · PR #395 evidence |
+| 10 | **Roadmap** | État convergence / prochaine capacité |
+| 11 | **v3 framing** | Doctrine cible applicable · contradiction-check only |
+
+**Règles :**
+- Le Backlog est **authoritative pour le découpage W2 validé** (Epics · Waves · US · REQ mapping).
+- Le Backlog **ne peut pas** contredire ou redéfinir C1/C2/FA/UX.
+- Le runtime code peut **démontrer un gap** · jamais **redéfinir** la cible produit.
+
+---
+
+## 4. Revue verticale C1→W2 — conclusion enregistrée
+
+> Cette section enregistre le verdict de cohérence verticale · **≠** nouvelle validation Morris des documents sources.
+
+| Couche | Verdict |
 |---|---|
-| 1 — Backlog validé | `05-product-completion-backlog-user-stories.md` — W2 §9 macro-vague |
-| 2 — W1 readiness + exit proof | `07-product-completion-wave-1-delivery-readiness.md` · PR #395 evidence |
-| 3 — Produit / architecture | C1 · C2 · UX · FA · C6 delta · DP↔CKC qualification |
-| 4 — Runtime Git | `projects/sfia-studio/app/**` @ `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` |
-| 5 — Roadmap convergence | `convergence/sfia-studio-convergence-roadmap.md` — NEXT = W2 entry qualification |
-| 6 — v3 framing | Contradiction-check only |
+| C1 vision / métier | **PASS** |
+| C2 comportement H→N | **PASS** |
+| Product Experience | **PASS** |
+| Functional Architecture FC-04/06/07/08/09/14/15 | **PASS** |
+| C6 | **CLOSED / sufficient / do not reopen** |
+| Backlog | **PASS / faithful to product corpus** |
+| W1 scope | **coherent foundation** |
+| W1 implementation | **8/8 PASS** (PR #395) |
+| W2 as next macro-wave | **PASS** |
+| Structural architecture gap | **NONE** |
+| Parallel architecture required | **NO** |
+| W2 readiness details | **corrections R1→R13 required before W2-G1 integration** |
 
 ---
 
-## 4. Capacité / outcome produit W2
+## 5. Capacité / outcome produit W2 — formulation canonique H→N
 
-**Résultat utilisateur W2 (backlog §9) :** le Pilote peut **voir des options de trajectoire et une recommandation Nora distinctes de sa décision**, **enregistrer un HumanDecision structurant lié à la trajectoire**, **inspecter un ExecutionContract avant autorisation**, et bénéficier d'une **consommation CKC Phase B** au-delà du seam W1 — **sans** closure exécution/evidence E2E (W3) ni Product Experience closure (W4).
+**Chaîne capacitaire W2 (C2 H→N · FC-04/06/07/08/09/14/15) :**
 
-**Outcomes C1 servis (cible W2) :** O-02 (chemin réel) · O-03 (Nora informé CKC — Phase B start) · O-04 (Rec ≠ HD ≠ Confirmation) · O-05 (EC inspectable) · prérequis O-10.
+```
+qualification / CKC applicable
+  → cognition Nora réellement contextualisée (Phase B tranche W2)
+  → ProjectTrajectory / Options / Recommendation
+  → HumanDecision explicite du Pilote
+  → ProjectTrajectory décidée / current
+  → ExecutionContract PREPARE
+  → inspection Pilote (summary → detail → re-inspect si amend matériel)
+  → Confirmation si requise
+  → AgentCapability / effective authority / executor sufficiency
+  → AUTHORIZED ou BLOCKED honnête
+  → STOP W2 AVANT EXECUTE
+```
 
-**Lot cohérent ?** **OUI avec condition** — la boucle trajectoire→recommandation→décision→préparation EC doit être câblée produit ; sinon risque de « backend-ready / UI-thin » avec dual truth Proposal process-local vs Trajectory durable.
+**Résultat utilisateur W2 :** à la sortie W2, un Pilote doit pouvoir **reprendre un Project fiable**, recevoir de Nora des **Options et une Recommendation réellement contextualisées**, prendre une **HumanDecision structurante**, faire évoluer honnêtement la **ProjectTrajectory**, **préparer puis inspecter l'ExecutionContract**, satisfaire les **Confirmations** éventuellement requises et obtenir une **évaluation compréhensible de l'autorité effective et de la suffisance de l'exécuteur** — puis **s'arrêter avant Execute**.
+
+**Outcomes C1 servis (cible W2) :** O-02 · O-03 (Phase B tranche) · O-04 · O-05 · prérequis O-10.
+
+**Lot cohérent ?** **OUI** — sous réserve que la boucle H→N soit câblée produit sur `/studio` · sans aspirer Execute/Evidence W3 ni PE closure W4.
 
 ---
 
-## 5. Scope W2 exact
+## 6. Scope W2 exact
 
 ### Inclus (P1 W2-primary + enablers)
 
@@ -285,31 +327,47 @@ US-P1-01 · US-P1-02 · US-P1-03 · US-P1-14 · US-P1-15 · US-P1-16
 |---|---|
 | US-P1-01 | Options trajectoire + Recommendation ≠ HD |
 | US-P1-02 | HumanDecision structurante tracée + liaison trajectoire |
-| US-P1-03 | EC inspectable progressive disclosure |
-| US-P1-14 | CKC Phase B — consommation sémantique Nora *(start W2 · closure partielle W3 possible)* |
-| US-P1-15 | Historique minimal Project / Cycle |
+| US-P1-03 | EC inspectable progressive disclosure + re-inspect minimum |
+| US-P1-08 | AgentCapability envelope explicite |
+| US-P1-14 | CKC Phase B — consommation sémantique Nora *(tranche W2 · full track closure W2–W3)* |
+| US-P1-15 | Historique minimal Project / Cycle *(projection W2 · enrichissement W3)* |
 | US-P1-16 | Vérité gouvernance / audit intelligible |
 | REQ-07 | HumanDecision / DecisionBasis closure produit |
 | REQ-09 | EC native + inspect + parité |
+| REQ-10 | AgentCapability / executor sufficiency |
 | REQ-17 | Historique minimal |
 | REQ-20 | Gouvernance / audit transverse présentation |
 | REQ-24 | CKC Phase B semantic proof |
-| TD-C6-03 | AuthorityVerificationReceipt *(enabler US-P1-16)* |
+| TD-C6-03 | AuthorityVerificationReceipt *(ADOPTED C6 · implémentation W2 par défaut)* |
 | TD-C6-06 | Pointeur trajectoire courante explicite *(produit)* |
 
-### Explicitement hors W2 (W3/W4)
+### Exit fonctionnel AgentCapability (US-P1-08 / REQ-10)
+
+**Given** un EC inspecté et les éventuelles Confirmations requises valides,
+**When** AgentCapability + policies + guardrails + autorité humaine + scope EC sont évalués,
+**Then** effective authority et executor sufficiency sont déterminables,
+**And** insuffisance ⇒ BLOCKED/STOP avec raison et next action,
+**And** **aucun Execute** n'est déclenché dans W2.
+
+**AgentCapability :** ≠ feature catalog Cursor · ≠ effective authority · ≠ autonomie L0–L5 seule.
+
+### Explicitement hors W2
 
 | Reste | Vague |
 |---|---|
-| US-P1-04…07 exécution/evidence/boucle | W3 |
-| US-P0-07 closure E2E recovery/replan | W3 |
-| US-P1-10/13 PE closure · A11Y baseline | W4 |
-| REAL agent execution | gated séparément |
+| Execute · Attempt lifecycle · SUCCESS/STOP/FAIL | **W3** |
+| Evidence · Nora post-Evidence · replan E2E | **W3** |
+| US-P0-07 closure E2E recovery/replan | **W3** |
+| US-P1-04…07 exécution/evidence/boucle | **W3** |
+| Catalog evolvability proof | **W3** |
+| US-P1-10/13 PE closure · A11Y baseline complète | **W4** |
+| SHOULD-05 AMEND sophistiqué post-collaboration | **W4 / downstream** |
+| REAL agent execution | gate Morris **distinct** |
 | runtime v3 adoption | gate Morris distinct |
 
 ### Frontière W1 → W2 (reçu de W1)
 
-W2 **reçoit** de W1 :
+W2 **reçoit** de W1 (PR #395 · **ne pas rouvrir**) :
 - Trajectory SQLite durable (TD-C6-01/06 backend)
 - Confirmation selective durability (TD-C6-02/05 backend)
 - Epistemic selective SQLite (TD-C6-04 backend)
@@ -318,324 +376,383 @@ W2 **reçoit** de W1 :
 - HumanDecision SQLite + DecisionBasis domain
 - EC SQLite + M3 PREPARE/resolve
 
-W2 **ne doit pas** re-ouvrir :
-- C6 architecture decisions
-- G2 package identity (`pkg:sfia-studio-doctrine-v3@1.0.0`)
-- W1 exit contracts (8/8 PASS)
+---
+
+## 7. Sémantique Proposal / Epistemic / ProjectTrajectory (R3)
+
+| Concept | Rôle W2 |
+|---|---|
+| **Proposal / conversation draft** | Enveloppe interactionnelle éphémère (objective, scope, risks, reservations, blocks, stopConditions, sources…) · **explicitement non-SoT** · autorisé tant que non matérialisé |
+| **Epistemic materialized Option / Recommendation** | Durable ou reconstructible selon FA/C6 · supporte Options/Recommendation visibles |
+| **ProjectTrajectory** | **SoT** des versions de trajectoire |
+| **HumanDecision** | **Seule autorité** pour adoption/amendement structurant de trajectoire |
+
+**Interdit :** architecture où Proposal et ProjectTrajectory portent deux « current trajectories » concurrentes.
+
+**`proposalStore.ts` :** **KEEP / ADAPT TEMPORARY WITH EXIT** — enveloppe éphémère F2 · projection/materialization des éléments de trajectoire vers Epistemic/ProjectTrajectory · HumanDecision requis pour decided/current.
 
 ---
 
-## 6. Inventaire état repo courant (post-W1)
+## 8. Inventaire état repo courant (post-W1)
 
 ### DoctrinePackage / CKC
 
 | Élément | État post-W1 |
 |---|---|
-| `pkg:sfia-studio-doctrine-v3@1.0.0` | **MATERIALIZED** — `registry.json` + package dir on main |
-| `productCkcIndex` | **IMPLEMENTED** — package-internal index |
-| `ckcQualificationResolver.ts` | **ADAPT** — product-native primary · method manifest fallback residual (DK-01/02) |
-| `qualifyCycleWithCkc.ts` | **KEEP** — orchestrateur unique |
-| Phase A proof | **PROVEN** — tests `productCkcQualification.test.ts` |
-| Phase B seam | **PARTIAL** — `ckcCognitiveContext.ts` + `w1CkcSemanticSeam.test.ts` · ≠ catalogue complet |
+| `pkg:sfia-studio-doctrine-v3@1.0.0` | **MATERIALIZED** |
+| `productCkcIndex` | **IMPLEMENTED** |
+| `ckcQualificationResolver.ts` | **KEEP / ADAPT** — product-native sur pin produit (COR-W1-07 fail-closed) · code method manifest **historique** non consommé sur chemin canonique `/studio` |
+| Phase A proof | **DETERMINISTIC PROVEN** (product package path) |
+| Phase B seam | **PARTIAL** — `ckcCognitiveContext.ts` · tranche W2 à étendre |
 
-### Product SQLite (M1–M5 + W1 extensions)
+### Product SQLite
 
-| Domaine | SQLite ? | État W2-relevant |
-|---|---|---|
-| Project / LPS | **OUI** | **KEEP** — restart-safe |
-| CycleInstance | **OUI** | **KEEP** |
-| HumanDecision | **OUI** | **KEEP** — F2 `recordDecision.ts` wired · **pas liaison trajectoire** |
-| ExecutionContract | **OUI** | **KEEP** — summary UI partial |
-| ExecutionAttempt / Evidence | **OUI** | W3 scope |
-| **Trajectory** | **OUI** (W1) | **KEEP backend** · **NOT wired F2/UI** |
-| **Epistemic** | **OUI** selective (W1) | **KEEP backend** · **NOT wired options/rec** |
-| **Confirmation** | **OUI** selective (W1) | **KEEP** · UI copy still says process-local |
+| Domaine | État W2-relevant |
+|---|---|
+| Trajectory | **KEEP backend** · **NOT wired F2/UI** |
+| Epistemic | **KEEP backend** · **NOT wired options/rec** |
+| HumanDecision | **KEEP** · F2 `recordDecision.ts` · **GO générique sur Proposal** · **≠ sélection trajectoire W2** |
+| Confirmation | **KEEP** · durable `granted+` · UI/disclosure drift |
+| ExecutionContract | **KEEP** · summary UI partial |
 
 ### F2 / Cognition pipeline
 
 | Élément | État |
 |---|---|
-| `orchestrateF2.ts` | Qualify → cycle/LPS → proposal · **ADAPT** — must wire trajectory |
-| `proposalStore.ts` | **Process-local** · **REPLACE/COMPLEMENT** for durable trajectory model |
-| `ckcCognitiveContext.ts` | Bounded seam · **ADAPT** for Phase B |
-| `recordDecision.ts` | HD durable on GO · **ADAPT** — trajectory promotion missing |
-| Conversation / proposals | **Process-local** — disclosed honestly except stale trajectory/confirmation copy |
+| `orchestrateF2.ts` | **ADAPT** — wire cognition → trajectory → decision |
+| `proposalStore.ts` | **KEEP / ADAPT TEMPORARY WITH EXIT** |
+| `recordDecision.ts` | **ADAPT** — `LOCAL_MORRIS_M3_ACTOR` **TEMPORARY WITH EXIT** · cible Pilote générique |
+| `ckcCognitiveContext.ts` | **ADAPT** — Phase B cognition avant Recommendation |
 
 ### UI product path
 
-| Route / surface | État W2 |
+| Surface | État W2 |
 |---|---|
-| `/studio/*` → `pre-m6-product-ui` | **KEEP** — canonical W2 product path |
-| `ConversationSurface.tsx` | Rec/HD labels · EC summary · **ADAPT** for trajectory options + inspect flow |
-| `HistorySurface.tsx` | Anchors only · **ADAPT** for US-P1-15 |
-| `studio-projects/*` | **FREEZE** — parallel legacy · not W2 canonical |
-| `getProjectRuntimeAction` | **ADAPT** — missing trajectory/decisions/attempts projection |
+| `/studio/*` → `pre-m6-product-ui` | **KEEP** — chemin canonique unique |
+| `ConversationSurface.tsx` | **ADAPT** — options · inspect · authority blocked |
+| `HistorySurface.tsx` | **ADAPT** — projection historique minimale |
+| `disclosures.ts` | **ADAPT** (W2 Delivery) — claims obsolètes trajectory/epistemic/confirmation |
 
-### Disclosure honesty (W2-G1 blocker)
+### Chemin canonique CKC method fallback (R12)
 
-| Surface | Problème |
+**Preuve repo :** `createDefaultCkcQualificationResolver` (COR-W1-07) — pin produit **fail-closed** · **pas** de fallback method-candidate sur `/studio`.
+
+| Élément | Classification W2 |
 |---|---|
-| `disclosures.ts:36` | Claims Trajectory/Epistemic Memory process-local — **contradicts W1 SQLite** |
-| Conversation UI | Confirmation process-local copy — **contradicts W1 durable granted+** |
-| `RecoverySurface.tsx` | Mixed — some durable claims, inconsistent with disclosures |
+| DK-01/02 · `CKC_REFERENCE_MANIFEST` | **DOWNSTREAM / RETIRE-LATER** — chemin historique · **hors critical path W2** |
+| GAP méthode sur chemin canonique | **NON BLOQUANT** pour W2 |
 
 ---
 
-## 7. Classification des actifs W2
+## 9. Classification des actifs W2
 
 | # | Actif | Verdict | Notes W2 |
 |---|---|---|---|
-| 1 | OA Native backbone | **KEEP** | Ports/use-cases pattern |
-| 2 | Product SQLite stack | **KEEP** | W1 extended · extend projections only |
-| 3 | `SqliteTrajectoryRepository` | **KEEP** | Backend complete · wire product |
-| 4 | Trajectory application layer | **COMPLETE** (backend) | `proposeTrajectoryVersion` etc. · not in F2 |
-| 5 | `SqliteDecisionRepository` | **KEEP** | HD durable |
-| 6 | `SqliteConfirmationRepository` | **KEEP** | W1 selective durability |
-| 7 | `SqliteEpistemicRepository` | **KEEP** | Selective materialization rules |
-| 8 | `orchestrateF2.ts` | **ADAPT** | Central W2 integration point |
-| 9 | `proposalStore.ts` | **REPLACE** (W2) | Conflicts with durable trajectory/options |
-| 10 | `ckcCognitiveContext.ts` | **ADAPT** | Phase B extension |
-| 11 | `ckcQualificationResolver.ts` | **ADAPT** | Remove method fallback (DK-01/02) |
-| 12 | `pre-m6-product-ui` | **KEEP / ADAPT** | Canonical product shell |
-| 13 | `ConversationSurface.tsx` | **ADAPT** | Trajectory options · EC inspect state machine |
-| 14 | `HistorySurface.tsx` | **ADAPT** | Minimal history timeline |
-| 15 | `presentationLabels.ts` | **ADAPT** | Audit/governance copy |
-| 16 | `disclosures.ts` | **ADAPT** | Sync W1 durability truth |
-| 17 | `vertical-slice-runtime/service.ts` | **KEEP / ADAPT** | Extend runtime DTO |
-| 18 | `studio-projects/*` | **FREEZE** | Non-canonical parallel |
-| 19 | `ProjectAssistantPanel.tsx` | **HARVEST** | Legacy · tests only |
-| 20 | `fakeProvider.ts` | **KEEP** | Qualification/demo · ≠ REAL |
-| 21 | TD-C6-03 receipt | **COMPLETE** | **MISSING** — no implementation |
-| 22 | Method `CKC_REFERENCE_MANIFEST` | **REPLACE** | DK-02 residual |
+| 1 | OA Native backbone | **KEEP** | |
+| 2 | Product SQLite stack | **KEEP** | |
+| 3 | `SqliteTrajectoryRepository` | **KEEP** | Backend complete |
+| 4 | Trajectory application layer | **COMPLETE** (backend) | Wire product + enforcement |
+| 5 | `SqliteDecisionRepository` | **KEEP** | |
+| 6 | `SqliteConfirmationRepository` | **KEEP** | |
+| 7 | `SqliteEpistemicRepository` | **KEEP** | |
+| 8 | `orchestrateF2.ts` | **ADAPT** | H→N integration |
+| 9 | `proposalStore.ts` | **KEEP / ADAPT TEMPORARY WITH EXIT** | Enveloppe éphémère · ≠ Trajectory SoT |
+| 10 | `recordDecision.ts` | **ADAPT** | Morris actor → Pilote · trajectory link |
+| 11 | `ckcCognitiveContext.ts` | **ADAPT** | Phase B cognition |
+| 12 | `ckcQualificationResolver.ts` | **KEEP** (product path) | Method branch = RETIRE-LATER |
+| 13 | `pre-m6-product-ui` | **KEEP / ADAPT** | |
+| 14 | `ConversationSurface.tsx` | **ADAPT** | |
+| 15 | `HistorySurface.tsx` | **ADAPT** | |
+| 16 | `disclosures.ts` | **ADAPT** | W2 Delivery scope |
+| 17 | `vertical-slice-runtime/service.ts` | **KEEP / ADAPT** | Runtime projection |
+| 18 | `studio-projects/*` | **FREEZE** | Build Doctrine · pas chemin parallèle |
+| 19 | TD-C6-03 receipt | **COMPLETE** (impl) | **MISSING** — W2 Delivery |
+| 20 | `fakeProvider.ts` | **KEEP** | Deterministic qualification · ≠ REAL |
 
 ---
 
-## 8. Registre des écarts W2
+## 10. Registre des écarts W2
 
-| Gap ID | Description | US/REQ | Priorité | Bloque W2-G1 ? | Bloque Delivery ? |
+> **Sémantique gaps :** les écarts ci-dessous sont des **W2 DELIVERY SCOPE / W2 EXIT BLOCKERS** · ils **ne bloquent pas** la qualification documentaire W2-G1 qui les identifie.
+
+| Gap ID | Description | US/REQ | Priorité | Bloque W2-G1 ? | W2 exit blocker ? |
 |---|---|---|---|---|---|
-| GAP-W2-01 | Trajectory durable non câblée F2/UI | US-P1-01/02 · TD-C6-06 | P0 | **OUI** | **OUI** |
-| GAP-W2-02 | Dual truth Proposal process-local vs Trajectory | US-P1-01/02 | P0 | **OUI** | **OUI** |
-| GAP-W2-03 | HD sans promotion trajectoire decided | US-P1-02 · REQ-07 | P0 | **OUI** | **OUI** |
-| GAP-W2-04 | Options trajectoire absentes UI (SC-04) | US-P1-01 | P0 | **OUI** | **OUI** |
-| GAP-W2-05 | EC inspect progressive disclosure incomplet | US-P1-03 · REQ-09 | P1 | NON | **OUI** |
-| GAP-W2-06 | Phase B ≠ W1 seam — multi-cycle proof | US-P1-14 · REQ-24 · DK-08 | P1 | PARTIEL | **OUI** (US-P1-14) |
-| GAP-W2-07 | Historique minimal incomplet | US-P1-15 · REQ-17 | P1 | NON | **OUI** |
-| GAP-W2-08 | TD-C6-03 AuthorityVerificationReceipt absent | US-P1-16 · REQ-20 | P1 | NON | **OUI** (US-P1-16) |
-| GAP-W2-09 | Gouvernance/audit presentation thin | US-P1-16 · REQ-20 | P1 | NON | **OUI** |
-| GAP-W2-10 | Disclosure drift trajectory/confirmation | transverse | P0 | **OUI** | **OUI** (honesty) |
-| GAP-W2-11 | Runtime projection gap (no trajectory in DTO) | US-P1-15/16 | P1 | NON | **OUI** |
-| GAP-W2-12 | Method manifest fallback residual | DK-01/02 | P2 | NON | PARTIEL |
-| GAP-W2-13 | W2 readiness doc not on main | governance | P0 | **OUI** | NON (pre-G1) |
-| GAP-W2-14 | Live Phase B semantic proof matrix | US-P1-14 | P1 | NON | **OUI** (Morris gate) |
+| GAP-W2-01 | Trajectory durable non câblée F2/UI | US-P1-01/02 · TD-C6-06 | P0 | **NON** | **OUI** |
+| GAP-W2-02 | Boundary Proposal/Epistemic/Trajectory non matérialisée | US-P1-01/02 | P0 | **NON** | **OUI** |
+| GAP-W2-03 | HD sans promotion trajectoire decided | US-P1-02 · REQ-07 | P0 | **NON** | **OUI** |
+| GAP-W2-04 | Options trajectoire absentes UI (SC-04) | US-P1-01 | P0 | **NON** | **OUI** |
+| GAP-W2-05 | **Trajectory promotion sans HD** — aucun wiring `/studio` ne doit rendre current/decided par Recommendation seule | US-P1-01/02 · REQ-07 | P0 | **NON** | **OUI** |
+| GAP-W2-06 | HD actuelle = GO/NO_GO/AMEND sur Proposal · **≠** sélection Option/Trajectory | US-P1-02 · REQ-07 | P0 | **NON** | **OUI** |
+| GAP-W2-07 | Morris runtime actor (`LOCAL_MORRIS_M3_ACTOR`) vs Pilote cible C1/C2 | transverse | P1 | **NON** | **OUI** |
+| GAP-W2-08 | Phase B cognition non intégrée avant Recommendation complète | US-P1-14 · REQ-24 | P0 | **NON** | **OUI** |
+| GAP-W2-09 | EC inspect + re-inspect minimum incomplet | US-P1-03 · REQ-09 | P1 | **NON** | **OUI** |
+| GAP-W2-10 | AgentCapability / executor sufficiency non déterminable produit | US-P1-08 · REQ-10 | P1 | **NON** | **OUI** |
+| GAP-W2-11 | Historique minimal projection incomplet | US-P1-15 · REQ-17 | P1 | **NON** | **OUI** |
+| GAP-W2-12 | TD-C6-03 AuthorityVerificationReceipt absent | US-P1-16 · REQ-20 | P1 | **NON** | **OUI** |
+| GAP-W2-13 | Gouvernance/audit presentation thin | US-P1-16 · REQ-20 | P1 | **NON** | **OUI** |
+| GAP-W2-14 | Disclosure drift (`disclosures.ts` + UI copy) | transverse | P1 | **NON** | **OUI** (exit honesty) |
+| GAP-W2-15 | Runtime projection gap (trajectory/decisions/attempts) | US-P1-15/16 | P1 | **NON** | **OUI** |
+| GAP-W2-16 | W2 readiness doc not on main | governance | P0 | **OUI** | NON (pre-integration) |
+| GAP-W2-17 | Method manifest code historique (DK-01/02) | DK-01/02 | P3 | **NON** | **NON** (canonical path proven) |
 
 ---
 
-## 9. Modèle de gates W2
+## 11. Modèle de gates W2
 
-| Gate | But | État |
+| Gate | Porte | État |
 |---|---|---|
-| **W2-G1** | W2 Delivery Readiness Qualification — scope · architecture · gaps · tracks · exit proof model | **IN PROGRESS** (this document) |
-| **W2-G2** | Morris W2 scope / convergence decision — autorise ou borne la Delivery W2 | **NOT AUTHORIZED** |
-| **W2-G3** | Morris W2 Delivery GO — umbrella tracks · implémentation autorisée | **NOT AUTHORIZED** |
-| **GO Phase B distinct** | US-P1-14 full semantic closure | **NOT AUTHORIZED** — distinct de W2-G3 slice possible |
+| **W2-G1** | Qualification documentaire : scope · architecture suffisante · gaps · tracks · exit contracts · decision pack candidates · cohérence verticale | **CANDIDATE** (ce document corrigé) |
+| **W2-G2** | Décisions structurantes Morris : D-W2-01…04 · tranche Phase B W2 · enforcement boundaries | **NOT AUTHORIZED** |
+| **W2-G3** | Morris W2 Delivery GO — autorise implémentation des tracks W2 | **NOT AUTHORIZED** |
 
-**Règle :** W1 G3 satisfied **≠** W2-G2 automatic · W2-G1 qualified **≠** W2-G3 Delivery authorized.
+### W2-G1 porte (qualification)
+- scope W2 borné et cohérent C1→Backlog
+- architecture suffisante confirmée
+- gaps identifiés et classés
+- tracks / exit contracts / stops définis
+- décisions W2-G2 listées comme **candidates**
+- document revu/intégré sur main
+
+**Les gaps runtime à implémenter pendant W2 NE BLOQUENT PAS** l'existence ou la validation du readiness qui les identifie.
+
+### Blockers before W2-G2 Morris decision
+1. **W2-G1 documentaire qualifié/intégré** — ce document sur main + ChatGPT re-review
+2. Aucune contradiction active documentée (target: **0**)
+
+### Blockers before W2-G3 Delivery GO
+1. **W2-G2** — décisions structurantes D-W2-01…04 consommées par Morris
+2. Scope / tracks / exits / stops stabilisés post-G2
+3. Aucune décision structurelle non résolue
+4. Architecture suffisante confirmée (**déjà qualifiée W2-G1**)
+
+**Les GAP-W2-01…15 sont des obligations de Delivery/exit W2** · à implémenter **sous** W2-G3 · **pas** des pré-requis avant W2-G3.
 
 ---
 
-## 10. Decision pack candidates (Morris W2-G2)
+## 12. Decision pack candidates (Morris W2-G2 uniquement)
 
-| # | Arbitrage | Options | Recommandation readiness |
-|---|---|---|---|
-| D-W2-01 | Proposal process-local vs Trajectory durable | A) Remplacer proposal par trajectory versions · B) Projection proposal→trajectory draft · C) Dual path temporaire | **A ou B** — C risque dual truth prolongé |
-| D-W2-02 | Phase B scope dans W2 vs W2+W3 split | A) W2 = seam extension + 2-cycle proof · B) W2 = full US-P1-14 closure | **A** — aligné backlog W2–W3 pour US-P1-14 |
-| D-W2-03 | TD-C6-03 dans W2-G3 ou defer | A) Implement receipt W2 · B) Defer W3 | **A** — US-P1-16 P1 W2 |
-| D-W2-04 | `studio-projects` parallel path | A) FREEZE strict · B) Port features back | **A FREEZE** — `/studio` canonical |
-| D-W2-05 | Live vs fake for Phase B sign-off | A) Fake sufficient for W2-G3 · B) Live matrix required for US-P1-14 Morris gate | **B** for US-P1-14 · fake OK for other W2 tracks |
-| D-W2-06 | Disclosure correction timing | A) Pre-W2-G3 honesty pass · B) With Track A | **A** — W2-G1 convergence trust |
+> Décisions **candidates** · **≠** adoptées par ce document.
+
+| # | Arbitrage structurant | Recommandation readiness |
+|---|---|---|
+| **D-W2-01** | Boundary sémantique Proposal / Epistemic / ProjectTrajectory | Proposal **KEEP/ADAPT ephemeral** · matérialisation trajectoire → Epistemic/ProjectTrajectory · **HD required** for decided/current |
+| **D-W2-02** | Tranche exacte Phase B W2 | Backlog a établi US-P1-14 **W2–W3** · décider **tranche W2 minimale** pour exit W2 · full track closure reste W3 si requis |
+| **D-W2-03** | Trajectory promotion enforcement boundary | Où/comment garantir au niveau **product application path** qu'aucune promotion effective current n'a lieu sans HD appropriée · **sans** second moteur |
+| **D-W2-04** | EC Inspect minimal state / re-inspection semantics | Comment matérialiser « inspecté » et « re-inspect required after material amendment » · **sans** lifecycle parallèle gratuit |
+
+**TD-C6-03 :** architecture **ADOPTED** en C6 · backlog lie REQ-20 / W2 · **inclusion W2 = recommandation par défaut** · defer W3 = déviation scope nécessitant justification Morris.
+
+**Retirés du Decision Pack structurel** (reclassés) :
+- `studio-projects` FREEZE → contrainte Build Doctrine / no parallel path
+- disclosure timing → séquençage Delivery (Track E)
+- fake vs LIVE → qualification de preuve / REAL gate distinct
 
 ---
 
-## 11. Tracks W2
+## 13. Tracks W2 (ordre cognitif H→N)
 
-| Track | Stories / TE | Dépendances | Parallelizable |
-|---|---|---|---|
-| **A — Trajectory product loop** | US-P1-01 · US-P1-02 · TD-C6-06 | W1 trajectory backend | **∥ B, E** |
-| **B — Read model + history** | US-P1-15 · REQ-17 | Runtime DTO extension | **∥ A, C, E** |
-| **C — EC inspect + authority presentation** | US-P1-03 · US-P1-08 · US-P1-16 · TD-C6-03 | US-P0-05 order | **∥ B** after A partial |
-| **D — CKC Phase B proof** | US-P1-14 · REQ-24 · DK-08 | Phase A stable · Track A context | After A stable |
-| **E — Disclosure honesty** | transverse | None | **∥ all** — **first** |
+| Track | Stories / TE | Rôle |
+|---|---|---|
+| **E — Truth / disclosure honesty** | transverse · GAP-W2-14 | Aligner disclosures/UI avec vérité W1 durable |
+| **D — CKC Phase B cognition integration** | US-P1-14 · REQ-24 · DK-08 | CKC → cognition Nora **avant** Recommendation complète |
+| **A — Trajectory / Options / Recommendation / HD** | US-P1-01/02 · TD-C6-06 · GAP-W2-05/06 | Boucle trajectoire + enforcement HD |
+| **B — Read model / minimal history** | US-P1-15 · REQ-17 | Projection historique sans créer Attempts W3 |
+| **C — EC Inspect / AgentCapability / authority / audit** | US-P1-03/08/16 · REQ-09/10/20 · TD-C6-03 | Après contrat décision/trajectory stable |
 
 ### Critical path
 
 ```
-E (honesty) → A (trajectory wire) → A3 (HD→decided) → C (EC inspect) → D (Phase B proof)
-                     ↘ B (history projection) ↗
+E (honesty, tôt) + D (cognition) ∥ A (foundations)
+  → convergence D+A avant exit Recommendation/HD complète
+  → C (EC/authority) après trajectory/HD stable
+  → B parallèle quand projection indépendante
 ```
 
-**Bottleneck structurant :** GAP-W2-01/02 — trajectory not in product loop.
+**Bottleneck structurant :** convergence Track D (cognition) + Track A (trajectory/HD enforcement).
+
+### Parallélisation recommandée
+- **E** très tôt · parallèle si sûr
+- **D ∥ A** lorsque fichiers non chevauchants
+- **Convergence D+A** avant exit Recommendation/HD
+- **B** parallèle
+- **C** après décision/trajectory suffisamment stable
 
 ---
 
-## 12. Parallélisation
+## 14. US-P1-15 / REQ-17 — borne W2 vs W3
 
-| Phase | Tracks | Rationale |
-|---|---|---|
-| Phase 0 | E | Fix disclosure drift — low risk · high trust |
-| Phase 1 | A ∥ B | Trajectory wire + runtime projection independent backend |
-| Phase 2 | C | EC inspect needs decided trajectory context |
-| Phase 3 | D | Phase B proof needs stable qualify→trajectory→Nora path |
-| Continuous | Tests + UX wireframe alignment (SC-04/05/06) | |
+**W2 doit pouvoir projeter/retrouver** l'historique minimal **déjà durable** :
+- CycleInstances
+- principales HumanDecisions / DecisionBasis
+- ProjectTrajectory versions / current
+- ExecutionContracts pertinents
+- Attempts / outcomes / Evidence anchors **déjà existants** lorsque présents
 
----
+**W2 n'a pas à :**
+- créer de nouveaux Attempts pour satisfaire History
+- implémenter closure Recovery/Evidence/replan W3
+- produire la capsule riche SHOULD post-Completion
 
-## 13. Exit contracts W2 (future — NOT AUTHORIZED)
-
-W2 est **CLOSED** lorsque, sur **`/studio/*`** avec Product SQLite durable path, un scénario reproductible démontre :
-
-1. **Options + Recommendation** — options trajectoire visibles · Recommendation badge distinct · pas de GO implicite (US-P1-01)
-2. **HumanDecision structurante** — HD durable avec DecisionBasis · liaison trajectoire decided (US-P1-02)
-3. **EC inspectable** — résumé → détail → re-inspect après amend matériel (US-P1-03)
-4. **Phase B start** — comportement Nora différencié sur ≥2 cycle types qualifiés · attributable CKC · ≠ `consumed=true` seul (US-P1-14 partial acceptable W2 · full closure may extend W3)
-5. **Historique minimal** — cycles · décisions · attempts/outcomes · ancres evidence récupérables (US-P1-15)
-6. **Gouvernance lisible** — états bloqués expliqués · receipt ≠ autorité en présentation · TD-C6-03 si Morris adopts D-W2-03-A (US-P1-16)
-7. **Disclosure honesty** — trajectory/confirmation durability aligned with runtime (GAP-W2-10 closed)
-
-**Technical SUCCESS alone ≠ W2 exit.** UAT slice required per backlog §9.
+**W3** enrichira naturellement l'historique avec les nouvelles exécutions.
 
 ---
 
-## 14. Future file mapping (indicatif — NOT AUTHORIZED)
+## 15. Exit contracts W2 (future — NOT AUTHORIZED)
+
+### Sous-exits composants
+
+1. Options + Recommendation distinctes (US-P1-01)
+2. HumanDecision structurante + trajectory decided (US-P1-02)
+3. EC summary → detail + re-inspect minimum (US-P1-03)
+4. Phase B tranche — CKC atteint cognition Nora · ≥2 cycle types si tranche retenue (US-P1-14)
+5. Historique minimal projection (US-P1-15)
+6. Gouvernance/audit + TD-C6-03 (US-P1-16)
+7. AgentCapability → AUTHORIZED/BLOCKED (US-P1-08)
+8. Disclosure honesty (GAP-W2-14)
+
+### EXIT FINAL intégré obligatoire (parcours H→N E2E)
+
+Sur **`/studio/*`** · un scénario reproductible **intégré** démontre :
+
+1. Project repris sur chemin canonique
+2. Contexte / LPS / qualification applicables
+3. DoctrinePackage + CKC applicables résolus
+4. CKC pertinent atteint réellement cognition Nora (tranche Phase B W2)
+5. Nora produit Options
+6. Recommendation explicitement distincte
+7. Aucune auto-décision
+8. Pilote prend HumanDecision structurante
+9. DecisionBasis relie option / recommendation / trajectory
+10. ProjectTrajectory décidée/current devient véridique
+11. EC natif préparé
+12. Pilote inspecte EC
+13. Amendement matériel ⇒ re-inspect required
+14. Confirmation uniquement si requise et après inspection
+15. AgentCapability évaluée
+16. Effective authority + executor sufficiency déterminées
+17. Résultat = AUTHORIZED ou BLOCKED avec raison + next action
+18. **STOP AVANT EXECUTE**
+
+**Interdit comme exit :**
+- composants verts séparément sans parcours intégré
+- repo-only backend proof
+- « technical SUCCESS ⇒ W2 closed »
+- deterministic ⇒ REAL
+- W2 closed ⇒ Product Completion complete
+- W2 closed ⇒ runtime v3 ADOPTED
+
+---
+
+## 16. Future file mapping (indicatif — NOT AUTHORIZED)
 
 | Area | Primary files |
 |---|---|
-| F2 trajectory wire | `features/project-assistant/f2/orchestrateF2.ts`, `recordDecision.ts`, `types.ts` |
-| Proposal→trajectory | `features/project-assistant/f2/proposalStore.ts` (replace/complement) |
-| Phase B | `features/project-assistant/f2/ckcCognitiveContext.ts` |
-| Runtime projection | `lib/vertical-slice-runtime/service.ts`, `types.ts`, `actions.ts` |
-| UI trajectory/options | `features/pre-m6-product-ui/surfaces/ConversationSurface.tsx` |
-| UI history | `features/pre-m6-product-ui/surfaces/HistorySurface.tsx` |
-| UI EC inspect | `ConversationSurface.tsx`, `presentationLabels.ts` |
-| Disclosures | `lib/vertical-slice-runtime/disclosures.ts` |
-| TD-C6-03 | `lib/oa/decision/**` (new receipt type + presentation) |
-| Tests | `__tests__/project-assistant/w2*.test.ts`, `w1CkcSemanticSeam.test.ts` (extend) |
+| H→N F2 wire | `orchestrateF2.ts`, `recordDecision.ts`, `types.ts` |
+| Proposal ephemeral | `proposalStore.ts` (KEEP/ADAPT) |
+| Phase B cognition | `ckcCognitiveContext.ts` |
+| Runtime projection | `vertical-slice-runtime/service.ts`, `types.ts`, `actions.ts` |
+| UI | `ConversationSurface.tsx`, `HistorySurface.tsx`, `presentationLabels.ts` |
+| Disclosures | `disclosures.ts` |
+| TD-C6-03 | `lib/oa/decision/**` |
+| Tests | `__tests__/project-assistant/w2*.test.ts` |
 
 ---
 
-## 15. Risques / dettes / stops
+## 17. Risques / dettes / stops
 
 | ID | Risque | Mitigation |
 |---|---|---|
-| R-W2-01 | Dual truth Proposal vs Trajectory confuses Pilote | D-W2-01 decision before W2-G3 |
-| R-W2-02 | Premature Phase B sign-off from W1 seam | Separate GO Phase B gate · live proof matrix |
-| R-W2-03 | Disclosure drift erodes trust | Track E first · gate W2 exit #7 |
-| R-W2-04 | Parallel `studio-projects` diverges | FREEZE · single canonical `/studio` |
-| R-W2-05 | Backend-ready UI-thin false progress | Exit contracts require UI proof not repo-only |
-| R-W2-06 | AMEND complexity (SHOULD-05) | Defer AMEND loop depth · GO/NO_GO first |
+| R-W2-01 | Confusion Proposal vs Trajectory SoT | D-W2-01 · enforcement GAP-W2-05 |
+| R-W2-02 | Recommendation promue en current sans HD | GAP-W2-05 · D-W2-03 |
+| R-W2-03 | Phase B sign-off prématuré depuis seam W1 | Tranche W2 distincte · D-W2-02 |
+| R-W2-04 | Morris runtime actor perçu comme persona produit | GAP-W2-07 · TEMPORARY WITH EXIT |
+| R-W2-05 | Backend-ready UI-thin | Exit intégré 18 steps obligatoire |
+| R-W2-06 | AMEND sophistiqué aspiré dans W2 | Borne W4/SHOULD-05 |
 
-**STOP conditions :**
-- Any W2 Delivery without Morris W2-G3 GO
-- Claiming US-P1-14 closed on fake-only proof without Morris approval
-- Pulling W3 execution/evidence into W2 scope
-- REAL execution without distinct Morris gate
-
----
-
-## 16. Fake / Real qualification W2
-
-| Layer | Default | Real when | W2 impact |
-|---|---|---|---|
-| Catalog/signal qualification | **REAL** | Always deterministic | Trustworthy cycle type |
-| Phase A CKC resolution | **REAL** | Product package pin | W1 proven |
-| Phase A method fallback | method-candidate | Index miss | DK-01/02 — reduce in W2 |
-| F2 intent analysis | **FAKE**/LIVE | Provider env | Affects clarification path |
-| CKC cognitive Nora | **FAKE** default | OpenAI live | W1 seam proven fake · US-P1-14 needs live matrix |
-| Trajectory/HD/EC/Confirmation | **REAL** SQLite | Product path | Durable governance |
-| Agent execution | **FIXTURE** | `SFIA_STUDIO_CURSOR_REAL` gated | W3 scope |
-
-**Bottom line :** W2 qualification/demo viable on **fake Nora + real SQLite + real Phase A** for Tracks A/B/C/E · **US-P1-14 Morris gate** should require **live semantic differentiation** across multiple cycle types.
+**STOP conditions W2 :**
+- Delivery sans Morris W2-G3 GO
+- Execute / Attempt / Evidence loop (W3)
+- REAL sans gate Morris distinct
+- Claim Product Completion terminée
 
 ---
 
-## 17. Frontière handoff W3
+## 18. Fake / Real / Deterministic qualification
 
-W3 reçoit :
-- US-P1-04…07 execution/evidence loop
-- US-P0-07 recovery E2E closure
-- US-P1-14 full Phase B closure (if split from W2)
-- O-06/O-07/O-08/O-11/O-12 outcomes
+### Distinction obligatoire
 
-W2 **ne doit pas** :
-- Claim execution/evidence E2E closed
-- Claim recovery/replan E2E closed
-- Pull REAL agent execution
+| Niveau | Signification |
+|---|---|
+| **A — Product-native deterministic** | SQLite · DoctrinePackage resolution · CKC package binding · fake/deterministic Nora provider |
+| **B — REAL boundary** | Fournisseur externe réellement appelé · Cursor/agent réellement invoqué · frontière externe significative |
+
+**A ≠ B.** Deterministic proven **≠** REAL boundary proven **≠** end-to-end REAL proven.
+
+### Table qualification W2
+
+| Layer | Niveau | Notes |
+|---|---|---|
+| Catalog/signal qualification | **A — deterministic** | |
+| Phase A CKC (product pin) | **A — product-native deterministic** | COR-W1-07 fail-closed |
+| Phase B cognition (tranche W2) | **A — deterministic acceptable** | Preuve multi-cycle sur même chemin produit · **≠** obligation LIVE |
+| F2 intent / Nora provider | **A default** · **B** si REAL gate | |
+| Trajectory/HD/EC/Confirmation SQLite | **A — product-native** | |
+| Agent execution | **hors W2** | W3 · REAL gate distinct |
+
+**Règle :** aucune nouvelle preuve LIVE/REAL significative W2 sans **GO Morris REAL distinct**. Un test OpenAI LIVE peut devenir future REAL boundary proof sous ce gate.
 
 ---
 
-## 18. Verdict readiness
+## 19. Frontières W1 / W3 / W4
+
+| Vague | Périmètre |
+|---|---|
+| **W1** | Truth/context/continuity · 8/8 PASS · **ne pas rouvrir** |
+| **W2** | Cognition · trajectory/options/recommendation · HD · EC Prepare/Inspect · Confirmation/AgentCapability/authority prep · history projection · Phase B tranche · **stop before Execute** |
+| **W3** | Execute · Attempt · SUCCESS/STOP/FAIL · Evidence · Nora post-Evidence · replan E2E · recovery closure · CKC track closure · catalog evolvability |
+| **W4** | Product Experience closure · S1→S12 · A11Y baseline · UAT final |
+
+Utiliser **DOWNSTREAM — W3/W4** pour capacités futures · **≠** « réserve » pour travail fonctionnel prévu.
+
+---
+
+## 20. Verdict readiness
 
 ### Réponses binaires obligatoires
 
 | Question | Réponse |
 |---|---|
+| Revue verticale C1→W2 cohérente ? | **OUI** (corrections appliquées) |
 | W1 substrate sufficient for W2 ? | **OUI** |
 | Nouvelle architecture requise ? | **NON** |
 | Moteur parallèle requis ? | **NON** |
-| Trajectory backend ready ? | **OUI** |
-| Trajectory product-wired ? | **NON** |
-| HD domain ready ? | **OUI** |
-| HD trajectory-linked ? | **NON** |
-| Phase A ready ? | **OUI** |
-| Phase B complete ? | **NON** |
-| W1 seam sufficient for US-P1-14 ? | **NON** |
-| EC inspect UI started ? | **PARTIEL** |
-| History minimal UI ? | **PARTIEL** |
-| TD-C6-03 implemented ? | **NON** |
-| Disclosure honest post-W1 ? | **NON** |
-| W2 scope sufficiently bounded ? | **OUI** |
 | Structural architecture gap ? | **NON** |
-| W2-G1 readiness qualified ? | **OUI** (candidate) |
+| W2 scope sufficiently bounded ? | **OUI** |
+| US-P1-08 / REQ-10 explicit ? | **OUI** |
+| Proposal ≠ ProjectTrajectory ? | **OUI** |
+| Recommendation ≠ HumanDecision ? | **OUI** |
+| Trajectory current requires HD enforcement ? | **OUI** (gap identifié) |
+| Pilote = runtime actor target ? | **OUI** |
+| Phase B cognition before EC in H→N ? | **OUI** |
+| LIVE required for Phase B W2 ? | **NON** |
+| Deterministic ≠ REAL ? | **OUI** |
+| C6 reopened ? | **NON** |
+| W2-G1 readiness qualified ? | **OUI** (candidate corrected) |
 | W2-G2 Morris decision made ? | **NON** |
-| W2 Delivery GO recommended now ? | **NON** |
+| W2-G3 Delivery authorized ? | **NON** |
+| ACTIVE CONTRADICTIONS ? | **0** |
 
 ### Verdict scale
 
-## **W2 READINESS QUALIFIED — MACRO SCOPE + ARCHITECTURE SUFFICIENT — BACKEND-READY / PRODUCT-INCOMPLETE — DELIVERY NOT YET AUTHORIZED — NO STRUCTURAL ARCHITECTURE GAP**
+## **W2 READINESS QUALIFIED — MACRO SCOPE + ARCHITECTURE SUFFICIENT — H→N CONTRACT ALIGNED — DELIVERY NOT YET AUTHORIZED — NO STRUCTURAL ARCHITECTURE GAP**
 
-Architecture et macro scope W2 **qualifiés** · substrat W1 **réutilisable** · gap structurant = **trajectory product loop + disclosure honesty** · **pas** d'architecture parallèle · **W2-G1 candidate** · **W2-G2/W2-G3 NOT AUTHORIZED** · **DELIVERY NOT AUTHORIZED** · **REAL ZERO**.
-
-### Blockers before W2-G2 Morris decision
-
-1. **This document Git integration** — W2 readiness on main
-2. **ChatGPT review** — source-locked qualification review
-3. **Morris W2-G2** — consume decision pack D-W2-01…06
-
-### Blockers before W2-G3 Delivery GO
-
-1. **W2-G2 Morris scope decision**
-2. **GAP-W2-01…04** — trajectory product loop
-3. **GAP-W2-10** — disclosure honesty
-4. **Runtime gaps** per adopted W2 tracks · exit contracts 1–7
+Macro scope W2 **qualifié** · chaîne H→N **alignée C2** · substrat W1 **réutilisable** · gaps classés comme **W2 Delivery scope** · **W2-G1 candidate (R1→R13)** · **W2-G2/W2-G3 NOT AUTHORIZED** · **DELIVERY NOT AUTHORIZED** · **REAL ZERO**.
 
 ---
 
-*Qualifié 2026-08-23 00:56:53 CEST (+0200) · W2-G1 preparation only · W1 CLOSED PR #395 · W2 NOT AUTHORIZED · NO Delivery · NO REAL · runtime v3 NON ADOPTED.*
+*Corrigé 2026-08-23 01:29:30 CEST (+0200) · R1→R13 applied · W2-G1 preparation only · W1 CLOSED PR #395 · W2 NOT AUTHORIZED · NO Delivery · NO REAL · runtime v3 NON ADOPTED.*
 ```
 
 ---
 
-## 14. Review instructions for ChatGPT
-
-1. Verify W2 scope matches backlog §9 and W1 handoff §23 inverse boundary.
-2. Challenge dual-truth Proposal vs Trajectory analysis — is D-W2-01 recommendation sufficient?
-3. Confirm Phase B partial vs full split aligns with DK-08 and US-P1-14 wording.
-4. Check disclosure drift evidence (`disclosures.ts:36`).
-5. Validate gate model W2-G1/G2/G3 does not collapse into automatic W2 Delivery after W1.
-6. Confirm NO DELIVERY / NO REAL / NO CODE claims are consistent throughout.
-
-**Expected review outcome:** W2 READINESS QUALIFIED or targeted corrections R1…Rn — **NOT** Delivery authorization.
-
----
-
-*Generated 2026-08-23 00:57:44 CEST · W2-G1 preparation only · project Git transport NOT performed.*
+*Generated 2026-08-23 01:30:17 CEST · R1→R13 correction cycle · NO PROJECT GIT TRANSPORT*
