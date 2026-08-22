@@ -1,871 +1,296 @@
-# SFIA Review Pack — FULL — Cycle 4 R-UI-01 Background Consistency Fix — SFIA Task Manager
+# SFIA Studio — Cycle 7 — PR #393 Targeted Governance Correction — Review Pack FULL
 
-**Timestamp (Europe/Paris):** 2026-08-22 15:23:01 CEST
-**Cycle:** Cycle 4 — UX/UI — R-UI-01 Core Background Consistency Fix
-**Profil:** Standard
-**Typologie:** DESIGN / targeted visual consistency fix
+| Field | Value |
+|---|---|
+| **Timestamp (Europe/Paris)** | 2026-08-22T15:25:00+02:00 |
+| **Cycle** | 7 — Intégration / DevOps |
+| **Profil SFIA** | CRITICAL |
+| **Typologie** | DOC |
+| **Milestone** | PRODUCT COMPLETION — PR #393 TARGETED GOVERNANCE TRUTH FIX |
+| **Runtime v3** | NON ADOPTED |
+| **Delivery** | NOT AUTHORIZED |
+| **REAL** | ZERO |
 
-## Exact Morris decision
+## GO Morris Consumed
 
-« ok go » — approves R-UI-01: CORE SCREEN 04 GLOBAL BACKGROUND INCONSISTENT WITH APP SHELL — MINOR VISUAL FIX
+**GO MORRIS — APPLY CHATGPT TARGETED GOVERNANCE CORRECTIONS TO PR #393** — same branch · 2-file fix · commit/push · handoff · KEEP DRAFT · NO MERGE · NO G2 · NO G3.
 
-Prior handoff: `2582d3f301613ebfec674af5d2dfdc3e06e72aa1` (final visual polish — documentary evidence regularization required)
+## Local Git Truth
 
-## Git local truth
+| Field | Value |
+|---|---|
+| branch | docs/sfia-studio-product-completion-backlog |
+| HEAD before | 2dfca155ba9dc87c187bec93e6b0bf1b41050d09 |
+| HEAD after | d8be777333bb885fb670f04dd3d7f7b03bd9ea8b |
+| origin/main | aca3dc8ab250ea1d751a833912787751e856c7b6 |
 
-- Branch: `project/sfia-task-manager-cycle-4-ux-ui`
-- Project HEAD: `f850259768e2a4736dc8cce19cd062244a52d727`
-- origin/main: `aca3dc8ab250ea1d751a833912787751e856c7b6`
-- Remote project branch: **ABSENT** (expected)
-- Staged: **NONE**
-- Project commit: **NO**
-- Project push: **NO**
-- PR: **NO**
-- Project docs modified this micro-fix: **NONE**
+## PR #393 Before
 
-## Figma
+| Field | Value |
+|---|---|
+| state | OPEN · DRAFT |
+| head | 2dfca155 |
+| prior CI | run **#272** / **32571367715** SUCCESS *(superseded)* |
 
-- fileKey: `2U8pJCYBMtGxaK0F0Ef1nO`
-- URL: https://www.figma.com/design/2U8pJCYBMtGxaK0F0Ef1nO
-- WRITE: **YES**
-- Frame modified: **04 only** (`14:106`)
+## PR #393 After
 
-## R-UI-01 — Background consistency
+| Field | Value |
+|---|---|
+| state | OPEN · DRAFT |
+| head | d8be7773 |
+| commits | 2 |
+| total PR files | 3 (Roadmap unchanged this commit) |
+| current-head CI | run **32575458167** SUCCESS @ d8be7773 |
 
-### Before
+## ChatGPT Findings R1→R4 Applied
 
-| Node | Role | Fill |
-|------|------|------|
-| `13:114` Main (ref 02) | Core reference | `#FFFFFF` |
-| `14:2` Main (ref 03) | Core reference | `#FFFFFF` |
-| `14:106` frame | Top-level | `#F6F9FD` |
-| `14:106` Main (`14:120`) | App content area | **`#F5F3FF`** (lavender — inconsistent) |
+| ID | Fix |
+|---|---|
+| R1 | Backlog §10/§11/footer current truth · G1 IN PROGRESS via PR #393 |
+| R2 | W1 gate routing → G3 (+ G2 prerequisite where applicable) |
+| R3 | Readiness C6 stale "GO C6 Delivery" → G3 parallel model |
+| R4 | fixtures/registry.json → G2-conditional · Option A recommendation only |
 
-### Mutation
+## Roadmap
 
-- Node mutated: **`14:120`** (Main inside `14:106`) only
-- Action: copy exact fill from frame 02 Main (`13:128`)
-- Frame top-level `14:106` unchanged: `#F6F9FD`
+**ZERO modification** this cycle · read-only check PASS · G1/G2/G3 coherent on PR branch.
 
-### After
+## G2 Integrity
 
-| Node | Fill | Match core |
-|------|------|------------|
-| `14:120` Main | **`#FFFFFF`** | **YES** — equals 02/03/05 Main |
-| `14:106` frame | `#F6F9FD` | YES |
+- G2 = OPEN / NOT YET TAKEN
+- packageVersion = NOT DECIDED
+- Option A = RECOMMENDATION CANDIDATE only (audit reserve)
+- ChatGPT candidate: Option A `lib/oa/doctrine/product/` · version `1.0.0` · fixture quarantine — **≠ Morris decision**
 
-### Semantic colors preserved
+## Actions Not Executed
 
-| Element | Node | Fill after | Preserved |
-|---------|------|------------|-----------|
-| Human Decision | `14:165` | `#F5F3FF` | YES |
-| Expected Exit Proof | `14:125` | `#EFF6FF` | YES |
-| Actual Evidence | `14:139` | `#ECFEFF` | YES |
-| GO | `14:171` | `#ECFDF5` | YES |
-| GO WITH RESERVE | `14:175` | `#FFFBEB` | YES |
-| REPLAN | `14:178` | `#EFF6FF` | YES |
-| NO-GO | `14:181` | `#FEF2F2` | YES |
-
-## Layout / content / functional
-
-- Layout changes: **NONE**
-- Content changes: **NONE**
-- Functional changes: **NONE**
-- Overflow violations on 04: **0**
-- Other frames modified: **NONE**
-- Top-level IDs: **ALL PRESERVED**
-
-## Native screenshots
-
-| Frame | Node | Result |
-|-------|------|--------|
-| 04 Review & Decision | `14:106` | **PASS** 1440×1024 |
-| 02 Work Item (comparison) | `13:114` | **PASS** 1440×1024 |
-
-## Governance
-
-M1 **NOT READY** · AC **0/16** · Design tokens final **OPEN** · Accessibility target **OPEN** · FQ02–FQ05 **OPEN** · Tech arch NOT EXECUTED · Backlog NOT EXECUTED · Delivery NOT EXECUTED
+No Roadmap change · no merge · no ready-for-review · no package · no Delivery · no REAL.
 
 ## Verdict
 
-**CYCLE 4 R-UI-01 BACKGROUND CONSISTENCY FIX COMPLETE — CORE APP SHELL RESTORED ON FRAME 04 — DOCUMENTARY REVIEW EVIDENCE REGULARIZED — READY FOR CHATGPT FINAL CYCLE 4 REVIEW — NO PROJECT COMMIT**
-
-Not concluded: CYCLE 4 VALIDATED · FIGMA VALIDATED BY MORRIS · TOKENS VALIDATED · M1 READY
-
-## Next gate
-
-**CHATGPT FINAL CYCLE 4 REVIEW → MORRIS CYCLE 4 UX/UI VALIDATION DECISION**
+PR #393 TARGETED GOVERNANCE CORRECTIONS COMPLETE — CURRENT-HEAD CI SUCCESS — READY FOR CHATGPT FINAL PR READINESS REVIEW — NO MERGE.
 
 ---
 
-# DOCUMENTARY EVIDENCE REGULARIZATION
-
-The following sections reproduce IN FULL the locally modified Cycle 4 design documentation not fully embedded in prior handoffs. No project files were modified for this regularization — content read from local candidate state.
-
-# SFIA Task Manager — M1 UX/UI Contract
-
-**Projet :** SFIA Task Manager
-**Chemin :** `projects/sfia-task-manager/03-design/2026-08-20-m1-ux-ui-contract.md`
-**Cycle :** Cycle 4 — UX/UI
-**Profil :** Standard
-**Typologie :** DOC / DESIGN
-**Baseline process :** SFIA v2.6
-**Viewport cible :** desktop-first 1440 × 1024
-**Fidélité :** representative medium fidelity (targeted refinement applied 2026-08-22)
-**Statut :** UX/UI CONTRACT — CANDIDATE — MORRIS REVIEW REQUIRED
-
----
-
-## 1. Purpose / authority
-
-Transformer le contrat fonctionnel M1 validé et l'architecture fonctionnelle validée en expérience visuelle et interactionnelle explicite — sans modifier le modèle métier, le lifecycle ou les décisions humaines.
-
-## 2. Exact Morris Cycle 4 GO
-
-GO MORRIS — OPEN CYCLE 4 UX/UI — STANDARD — FIGMA DESIGN-FIRST — INCLUDE R-DOC-02 TRACKING CORRECTION — NO TECH ARCH / BACKLOG / DELIVERY
-
-## 3. Exact Morris Figma source GO
-
-GO MORRIS — CREATE NEW FIGMA DESIGN FILE "SFIA Task Manager" IN CURRENT PRO TEAM — USE IT AS CYCLE 4 FIGMA SOURCE CANDIDATE — NO DESIGN VALIDATION IMPLIED
-
-## 3b. Morris luminous visual direction (2026-08-22)
-
-GO MORRIS — « Je trouve l'interface un peu terne, rajoute un peu de couleur à tout ça. Que ce soit lumineux mais très lisible et fluide pour l'utilisateur. »
-
-Scope: visual direction only — luminosity, controlled semantic color, readability, visual fluidity. No functional redesign, no new navigation, no new product rules, no lifecycle/content changes.
-
-Applied in Figma candidate (all 10 frames). Palette and tokens remain **CANDIDATE — NOT VALIDATED DESIGN TOKEN**. Design validation Morris: **NO**.
-
-## 3c. Morris final visual polish (2026-08-22)
-
-GO MORRIS — « ok go la dessus alors » — validates ChatGPT-proposed refinement direction: rhythm, depth, iconography, information signatures, header enrichment, critical-state composition (06–09), dynamism without product rule changes.
-
-Scope: visual polish only. Luminous palette preserved. No functional redesign. No new interactions. Design validation Morris: **NO**.
-
-| Élément | Valeur |
-|---------|--------|
-| Figma file | SFIA Task Manager |
-| URL | https://www.figma.com/design/2U8pJCYBMtGxaK0F0Ef1nO |
-| fileKey | `2U8pJCYBMtGxaK0F0Ef1nO` |
-| Source status | CYCLE 4 FIGMA SOURCE CANDIDATE |
-| Design validation Morris | **NO** |
-
-Historical framing decision « Référence/fileKey Figma = OPEN » is **HISTORICAL OPEN DECISION SUPERSEDED FOR CYCLE 4 CANDIDATE SOURCE BY EXPLICIT MORRIS GO**. Framing file itself is not modified.
-
-## 4. Sources / precedence
-
-1. Git main courant
-2. Décisions Morris explicites (Cycle 4 GO + Figma source GO + FQ01 / architecture)
-3. Spec fonctionnelle Cycle 2 validée
-4. Architecture fonctionnelle Cycle 3 validée
-5. Framing historique (baseline ; formulations obsolètes n'écrasent pas les décisions Morris postérieures)
-6. Guidance CKC candidate (sans autorité d'exécution)
-
-## 5. M1 maturity
-
-| Élément | Valeur |
-|---------|--------|
-| M1 | **NOT READY** |
-| AC demonstrated | **0/16** |
-| Architecture technique | NOT EXECUTED |
-| Backlog | NOT EXECUTED |
-| Delivery/code | NOT EXECUTED |
-| Design Morris validation | **NO** |
-
-## 6. UX principles
-
-| ID | Principe |
-|----|----------|
-| UX-P1 | Répondre immédiatement : où / pourquoi / bloque / next action / preuve / décision |
-| UX-P2 | Hiérarchie State → Next action → Risk/blocker → Evidence → Decision → History |
-| UX-P3 | Sobre, professionnelle, dense, orientée contrôle |
-| UX-P4 | Pas clone Jira ; pas interface AI futuriste ; IA non centrale |
-| UX-P5 | Couleur sémantique ; information critique jamais couleur-only |
-| UX-P6 | Surfaces = projections ; pas sources de vérité métier distinctes |
-| UX-P7 | Action indisponible = reason visible (pas silent disable) |
-| UX-P8 | Blocked orthogonal au lifecycle |
-| UX-P9 | Human Decision jamais automatisée |
-| UX-P10 | Desktop-first 1440×1024 ; moyenne fidélité structurante |
-
-## 7. Information hierarchy
-
-State → Next action → Risk / blocker → Evidence → Decision → History
-
-## 8. Navigation model
-
-| Zone | Rôle |
-|------|------|
-| Primary nav | Workboard / Work Item / Cycle Workspace / Review & Decision / Project |
-| Contextual | Quick Inspector (Workboard transversal) |
-| No | secondary analytics nav, AI chat dock, configurable Jira-like workflow |
-
-## 9. Screen map
-
-| # | Frame | Page Figma |
-|---|-------|------------|
-| 01 | Workboard | M1 — Core Screens |
-| 02 | Work Item | M1 — Core Screens |
-| 03 | Cycle Workspace | M1 — Core Screens |
-| 04 | Review & Decision | M1 — Core Screens |
-| 05 | Project | M1 — Core Screens |
-| 06 | Work Item / Blocked | M1 — Critical States |
-| 07 | Work Item / Cannot Ready | M1 — Critical States |
-| 08 | Review / GO WITH RESERVE | M1 — Critical States |
-| 09 | Review / REPLAN | M1 — Critical States |
-| 10 | Empty Workspace | M1 — Critical States |
-
-## 10. Surface responsibility matrix
-
-| Surface | Objectif | Affiche | Actions | Ne possède PAS |
-|---------|----------|---------|---------|----------------|
-| Workboard | Lecture kanban + next action | WI cards, columns, Blocked flag | create WI, open WI, inspect | Decision verdict, Cycle contract |
-| Work Item | Qualification / détail | Intent→History | qualify, ready prep, block/unblock | Auto-decision |
-| Cycle Workspace | Exécution bornée | Contract vs control | progress, attach evidence, gates | Done verdict |
-| Review & Decision | Preuve vs expected + verdict | Expected vs Actual | GO / GO WITH RESERVE / REPLAN / NO-GO | Create Project |
-| Project | Agrégation | Project intent + WI list | open WI, create WI | Cycle internals |
-| Quick Inspector | Aperçu transversal Workboard | title, objective, status, next_action, blocked, cycle, gate | navigation only | Source de vérité ; 6e domaine |
-
-## 11. Workboard specification
-
-Colonnes : Inbox · Qualified · Ready · In Progress · Review · Decision · Done
-
-Carte minimale : title, project, SFIA profile, blocked indicator si applicable, next_action, current gate si applicable.
-
-Pas de badge status redondant si la colonne suffit.
-
-Quick Inspector : panneau transversal ; projection uniquement.
-
-## 12. Work Item specification
-
-Sections : Intent, Qualification, Scope, Dependencies, Guardrails, Exit Proof, Current Cycle, Next Action, History.
-
-Next Action prioritaire.
-
-Interdit : comments/subtasks Jira-like, AI assistant central.
-
-## 13. Cycle Workspace specification
-
-Zone principale — Execution Contract : objective, cycle_type, profile, scope, out_of_scope, guardrails, allowed/forbidden files.
-
-Zone contrôle — Gates, Stop Conditions, Exit Proof, Evidence, review pack status, git refs informationnels.
-
-Lecture : autorisé vs contrôle de sortie.
-
-## 14. Review & Decision specification
-
-Comparaison explicite Expected exit proof vs Actual evidence.
-
-Aussi : validation results, reservations, guardrail violations, review pack status, Git refs, human decision.
-
-Verdicts : GO · GO WITH RESERVE · REPLAN · NO-GO.
-
-Action indisponible = reason visible.
-
-## 15. Project specification
-
-Intention Project, Work Items, états, blocked indicators, next actions, current Cycles utiles.
-
-Interdit : advanced analytics, reporting complexe, workflow configurable.
-
-## 16. Quick Inspector specification
-
-Transversal Workboard. Affiche : title, objective court, status, next_action, blocked/reason, current Cycle, current Gate.
-
-Ne possède aucun état métier.
-
-## 17. Critical states matrix
-
-| Frame | Base | Différenciateur |
-|-------|------|-----------------|
-| 06 Blocked | Work Item | flag Blocked + reason + unblock + next_action ; lifecycle inchangé |
-| 07 Cannot Ready | Work Item Qualified | Ready indisponible + champs manquants + corrective |
-| 08 GO WITH RESERVE | Review | reserve + follow-up + Decision |
-| 09 REPLAN | Review | reason + Cycle historical + retour Q/R + history preserved |
-| 10 Empty | Workspace | empty state + first action |
-
-## 18. Blocked UX
-
-Lifecycle state courant visible.
-Blocked = true + reason + unblock condition + next_action.
-Pas de colonne/status Blocked.
-
-## 19. Cannot Ready UX
-
-Ready indisponible avec liste des préconditions manquantes (profile, in_scope, out_of_scope, dependencies, guardrails, exit_proof) + action corrective.
-Pas de bouton grisé silencieux.
-
-## 20. GO WITH RESERVE UX
-
-Expected vs Actual + reserve obligatoire + follow-up/next_action + author/date.
-Trajectoire de réserve visible.
-
-## 21. REPLAN UX
-
-Reason + Cycle → Historical + Evidence/Decision conservées + retour Qualified OU Ready + next_action.
-Pas de reset / suppression / effacement historique.
-
-## 22. Empty Workspace UX
-
-État vide clair + explication minimale + première action.
-Pas de wizard/onboarding long/IA centrale.
-
-## 23. Interaction rules
-
-| Règle | Comportement |
-|-------|--------------|
-| Primary CTA | Une action primaire claire par surface |
-| Secondary | Visible mais subordonnée |
-| Destructive / structurant | Confirmation humaine explicite |
-| Disabled | Toujours avec reason |
-| Navigation | Conserve contexte WI/Cycle |
-
-## 24. Disabled / error explanation rules
-
-Toute action structurante indisponible expose la cause et la next_action corrective.
-Errors : message + champ concerné + remediation.
-
-## 25. Desktop 1440×1024 assumptions
-
-Toutes frames candidates : 1440 × 1024.
-Desktop-first ; pas de responsive mobile complet dans ce cycle.
-
-## 26. Accessibility candidate guardrails
-
-Accessibility target contractuel : **OPEN**.
-
-Guardrails candidats (non contractuels) :
-- info critique non couleur-only ;
-- contraste lisible ;
-- labels textuels ;
-- disabled expliqué ;
-- focus/clavier = exigences candidates.
-
-## 27. Design-token candidate status
-
-Design tokens définitifs : **OPEN**.
-Valeurs utilisées en Figma = **CANDIDATE — NOT VALIDATED DESIGN TOKEN**.
-
-## 28. Figma source
-
-| Champ | Valeur |
-|-------|--------|
-| URL | https://www.figma.com/design/2U8pJCYBMtGxaK0F0Ef1nO |
-| fileKey | `2U8pJCYBMtGxaK0F0Ef1nO` |
-| Editor type | Figma Design |
-| Status | CYCLE 4 FIGMA SOURCE CANDIDATE |
-| Pages | M1 — Core Screens (`0:1`) ; M1 — Critical States (`3:2`) |
-| Design validation | **NOT VALIDATED BY MORRIS** |
-
-| Frame | Node ID | W×H |
-|-------|---------|-----|
-| 01 — Workboard | `13:2` | 1440×1024 |
-| Quick Inspector (transversal) | `13:91` | (panel inside 01) |
-| 02 — Work Item | `13:114` | 1440×1024 |
-| 03 — Cycle Workspace | `14:2` | 1440×1024 |
-| 04 — Review & Decision | `14:106` | 1440×1024 |
-| 05 — Project | `14:184` | 1440×1024 |
-| 06 — Work Item / Blocked | `16:2` | 1440×1024 |
-| 07 — Work Item / Cannot Ready | `16:27` | 1440×1024 |
-| 08 — Review / GO WITH RESERVE | `16:74` | 1440×1024 |
-| 09 — Review / REPLAN | `16:96` | 1440×1024 |
-| 10 — Empty Workspace | `16:119` | 1440×1024 |
-
-Targeted refinement (2026-08-22): frames rebuilt with representative content and visual affordances. Buttons/CTAs shown are **VISUAL CANDIDATES** for comprehension — not new validated M1 behaviors unless already in functional contract.
-
-Screenshots MCP: YES for frames 01–10 (ephemeral asset URLs; not design validation).
-
-## 29. AC01–AC16 design traceability
-
-| AC | Surface / état UX | Coverage |
-|----|-------------------|----------|
-| AC01 | Project | MAPPED / NOT DEMONSTRATED |
-| AC02 | Workboard Inbox | MAPPED / NOT DEMONSTRATED |
-| AC03 | Work Item Qualify | MAPPED / NOT DEMONSTRATED |
-| AC04 | Cannot Ready | MAPPED / NOT DEMONSTRATED |
-| AC05–AC07 | Cycle Workspace | MAPPED / NOT DEMONSTRATED |
-| AC08 | Blocked | MAPPED / NOT DEMONSTRATED |
-| AC09–AC10 | Cycle / Review evidence | MAPPED / NOT DEMONSTRATED |
-| AC11–AC12 | Review Decision / Done | MAPPED / NOT DEMONSTRATED |
-| AC13 | REPLAN | MAPPED / NOT DEMONSTRATED |
-| AC14 | Workboard / Project | MAPPED / NOT DEMONSTRATED |
-| AC15 | History sections | MAPPED / NOT DEMONSTRATED |
-| AC16 | No auto decision UI | MAPPED / NOT DEMONSTRATED |
-
-**AC demonstrated : 0/16**
-
-## 30. Explicit non-decisions
-
-Frontend stack · backend · APIs · database · auth · hosting · Figma Make · design tokens définitifs · accessibility target contractuel · branding définitif · backlog · delivery · Git native · agent UI central.
-
-## 31. Open questions
-
-| # | Question | Statut |
-|---|----------|--------|
-| FQ02–FQ05 | Type / priority / Evidence delete / archive | **OPEN** |
-| UX-Q1 | Densité exacte carte Workboard | OPEN — NON BLOCKING |
-| UX-Q2 | Placement Quick Inspector gauche/droite | OPEN — NON BLOCKING |
-| Accessibility target | WCAG level | **OPEN** |
-| Design tokens final | Palette/type/spacing | **OPEN** |
-
-## 32. Exit proof Cycle 4
-
-- 5 surfaces + Quick Inspector
-- 10 frames mappées
-- variants critiques explicites
-- aucune règle métier nouvelle
-- Figma source candidate tracée
-- M1 NOT READY / AC 0/16
-- tokens candidate only
-- design non validé Morris
-
-## 33. Morris visual review gate
-
-Next gate : **MORRIS CYCLE 4 VISUAL / UX REVIEW**
-
-Not authorized : project commit / push / PR / delivery / tech arch / backlog / M1 READY / design validated without Morris.
-
-
----
-
-# APPENDIX B — FIGMA DESIGN BRIEF (FULL LOCAL CANDIDATE)
-
-# SFIA Task Manager — Figma Design Brief
-
-**Chemin :** `projects/sfia-task-manager/03-design/2026-08-20-figma-design-brief.md`
-**Cycle :** Cycle 4 — UX/UI
-**Statut :** FIGMA DESIGN BRIEF — SOURCE ESTABLISHED — DESIGN CANDIDATE — FINAL VISUAL POLISH APPLIED
-**Validation Morris :** NOT VALIDATED BY MORRIS
-
----
-
-## Morris GOs
-
-Cycle 4 :
-GO MORRIS — OPEN CYCLE 4 UX/UI — STANDARD — FIGMA DESIGN-FIRST — INCLUDE R-DOC-02 TRACKING CORRECTION — NO TECH ARCH / BACKLOG / DELIVERY
-
-Figma source :
-GO MORRIS — CREATE NEW FIGMA DESIGN FILE "SFIA Task Manager" IN CURRENT PRO TEAM — USE IT AS CYCLE 4 FIGMA SOURCE CANDIDATE — NO DESIGN VALIDATION IMPLIED
-
-Targeted refinement (2026-08-22) :
-GO MORRIS — CYCLE 4 TARGETED FIGMA REFINEMENT — PRESERVE CURRENT UX/UI CONTRACT AND FUNCTIONAL RULES — RAISE CORE AND CRITICAL FRAMES TO REPRESENTATIVE MEDIUM FIDELITY WITH REALISTIC CONTENT AND INTERACTION AFFORDANCES — NO NEW PRODUCT DECISION — NO TECH ARCH / BACKLOG / DELIVERY — NO PROJECT COMMIT / PUSH / PR
-
-Luminous visual refinement (2026-08-22) :
-GO MORRIS — « Je trouve l'interface un peu terne, rajoute un peu de couleur à tout ça. Que ce soit lumineux mais très lisible et fluide pour l'utilisateur. » — CYCLE 4 LUMINOUS VISUAL REFINEMENT — PRESERVE UX CONTRACT, CONTENT, LAYOUT AND FUNCTIONAL RULES — APPLY CONTROLLED COLOR AND READABILITY DIRECTION ONLY — NO NEW PRODUCT DECISION — NO TECH ARCH / BACKLOG / DELIVERY — NO PROJECT COMMIT / PUSH / PR
-
-Final visual polish (2026-08-22) :
-GO MORRIS — « ok go la dessus alors » — CYCLE 4 FINAL VISUAL POLISH — RHYTHM / DEPTH / ICONOGRAPHY / CRITICAL-STATE COMPOSITION — PRESERVE LUMINOUS DIRECTION, UX CONTRACT, CONTENT AND FUNCTIONAL RULES — NO NEW PRODUCT DECISION — NO TECH ARCH / BACKLOG / DELIVERY — NO PROJECT COMMIT / PUSH / PR
-
-## Source contract
-
-| Champ | Valeur |
-|-------|--------|
-| Name | SFIA Task Manager |
-| URL | https://www.figma.com/design/2U8pJCYBMtGxaK0F0Ef1nO |
-| fileKey | `2U8pJCYBMtGxaK0F0Ef1nO` |
-| Editor type | Figma Design |
-| Account (revalidated) | ludo_zaya / ludo_zaya@hotmail.fr |
-| Plan / seat (revalidated) | Pro / Full |
-| WRITE | YES (seat Full + file accessible) |
-| Source-of-truth status | CYCLE 4 FIGMA SOURCE CANDIDATE — NOT VALIDATED BY MORRIS |
-| Framing note | Historical OPEN fileKey superseded for Cycle 4 candidate source by explicit Morris GO |
-
-## Objectif visuel
-
-Matérialiser le contrat M1 en moyenne fidélité structurante : structure, hiérarchie, densité, états, actions, lisibilité.
-
-## Viewport / fidelity
-
-1440 × 1024 · desktop-first · **representative medium fidelity** (structural wireframes elevated with realistic content, states, and visual affordances — not pixel polish)
-
-## Pages
-
-| Page | Contenu |
-|------|---------|
-| M1 — Core Screens | Frames 01–05 |
-| M1 — Critical States | Frames 06–10 |
-
-## Frames 01–10
-
-| # | Name | Hierarchy focus | Mandatory content |
-|---|------|-----------------|-------------------|
-| 01 | Workboard | State + next action | 7 columns, cards, Quick Inspector |
-| 02 | Work Item | Next Action priority | Intent→History sections |
-| 03 | Cycle Workspace | Allowed vs control | Contract + Gates/Evidence/Exit |
-| 04 | Review & Decision | Evidence vs expected | Expected/Actual + verdicts |
-| 05 | Project | Aggregate state | Project intent + WI list |
-| 06 | Work Item / Blocked | Risk/blocker | reason/unblock/next_action |
-| 07 | Work Item / Cannot Ready | Missing fields | missing list + corrective |
-| 08 | Review / GO WITH RESERVE | Reserve path | reserve + follow-up |
-| 09 | Review / REPLAN | History preserved | reason + historical cycle + Q/R |
-| 10 | Empty Workspace | First action | empty + CTA |
-
-## Visual direction
-
-**Before luminous refinement:** professional but gray / subdued / visually flat — charcoal sidebar, uniform gray surfaces, limited chromatic hierarchy.
-
-**After luminous refinement (Morris direction):** luminous · fresh · controlled semantic color · high readability · visually fluid · professional control/decision tool — no rainbow UI · no gaming UI · no marketing dashboard · no glassmorphism excess.
-
-Principles retained: dense · control/decision · no Jira clone · no AI-first · semantic color · no critical info color-only · badges always include text.
-
-## Candidate tokens (NOT VALIDATED)
-
-All values below are **CANDIDATE — NOT VALIDATED DESIGN TOKEN**. Design tokens final = **OPEN**.
-
-| Token | Candidate value | Role |
-|-------|-----------------|------|
-| bg/app | #F6F9FD | Very light blue-tinted app background |
-| bg/surface | #FFFFFF | Primary cards / panels |
-| bg/surface-secondary | #F8FBFF | Secondary panels / column headers |
-| bg/surface-blue-tint | #EFF6FF | NEXT ACTION, QI, active accents |
-| bg/surface-cyan-tint | #ECFEFF | Exit Control, Actual Evidence |
-| bg/sidebar | #172554 | Deep navy sidebar (replaces charcoal #1F2933) |
-| text/primary | #0F172A | Headings / primary body |
-| text/secondary | #475569 | Labels / secondary body |
-| text/on-dark | #F8FAFC | Sidebar active / primary buttons |
-| text/nav-inactive | #CBD5E1 | Sidebar inactive nav |
-| border/neutral | #D7E1EC | Structural borders |
-| border/subtle | #E5EDF5 | Card / row separators |
-| accent/primary | #2563EB | Primary blue — CTA, NEXT ACTION label |
-| accent/primary-strong | #1D4ED8 | Hover / emphasis |
-| accent/azure | #0EA5E9 | QI border, Exit Control accent |
-| accent/cyan | #0891B2 | Ready / teal accents |
-| status/success | #059669 | Attached / Present / Done / GO |
-| status/success-soft | #ECFDF5 | Success tinted backgrounds |
-| status/warning | #D97706 | Pending / reserve / attention |
-| status/warning-soft | #FFFBEB | Warning tinted backgrounds |
-| status/danger | #DC2626 | Missing / Blocked / NO-GO |
-| status/danger-soft | #FEF2F2 | Danger tinted backgrounds |
-| status/info-violet | #7C3AED | Review / Decision / REPLAN (limited) |
-| status/info-violet-soft | #F5F3FF | Human Decision panel |
-| status/indigo | #4F46E5 | Qualified badge |
-| font/ui | Inter / system sans | Unchanged |
-| space/base | 8 / 12 / 16 / 24 | Unchanged |
-| radius/card | 8 / 10 | Unchanged |
-| shadow/structural | 0 1px 4px rgba(15,30,50,0.08) | Subtle only — no marketing SaaS shadow |
-
-## Semantic status mapping (candidate)
-
-| Status / state | Color family | Application |
-|----------------|--------------|-------------|
-| In Progress | blue / blue-tint | Badge + column rhythm |
-| Ready | cyan / blue-light | Badge |
-| Qualified | indigo / neutral-blue | Badge |
-| Review | violet / blue-purple (moderate) | Badge + review cards |
-| Done | green | Badge + Done column accent |
-| Pending | amber | Gate / pending badges |
-| Blocked / Missing | red or amber by severity | Banner, badge, row tint |
-| Decision | blue/violet controlled | Human Decision panel |
-| GO | green outline/tint when available | Verdict button |
-| GO WITH RESERVE | amber soft | Verdict + frame 08 |
-| REPLAN | blue/violet controlled | Verdict + frame 09 |
-| NO-GO | red soft | Verdict button |
-| Attached / Present | green soft + text | Evidence rows |
-| Missing | red soft + text | Evidence / checklist rows |
-
-## Accessibility candidate guardrails
-
-Target contractuel OPEN. Apply: non color-only critical info, readable contrast, explicit labels, explained disabled, keyboard/focus as candidates.
-
-## Forbidden interpretations
-
-No tech arch · no stack · no backlog · no delivery · no 6th business surface · no Blocked lifecycle column · no silent disabled · no AI-central UI · no design validation claim
-
-## Open Morris decisions
-
-Accessibility target · design tokens final · branding · FQ02–FQ05 · visual validation of this candidate
-
-## Production registry (post targeted refinement — 2026-08-22)
-
-Pages:
-- M1 — Core Screens — pageId `0:1`
-- M1 — Critical States — pageId `3:2`
-
-Quick Inspector (Workboard transversal): nodeId `13:91` (child of `01 — Workboard` / `13:2`)
-
-| Frame | Node ID | W×H | Screenshot MCP |
-|-------|---------|-----|----------------|
-| 01 Workboard | `13:2` | 1440×1024 | YES |
-| 02 Work Item | `13:114` | 1440×1024 | YES |
-| 03 Cycle Workspace | `14:2` | 1440×1024 | YES |
-| 04 Review & Decision | `14:106` | 1440×1024 | YES |
-| 05 Project | `14:184` | 1440×1024 | YES |
-| 06 Blocked | `16:2` | 1440×1024 | YES |
-| 07 Cannot Ready | `16:27` | 1440×1024 | YES |
-| 08 GO WITH RESERVE | `16:74` | 1440×1024 | YES |
-| 09 REPLAN | `16:96` | 1440×1024 | YES |
-| 10 Empty Workspace | `16:119` | 1440×1024 | YES |
-
-Frames present: **10/10**
-
-Prior registry (pre-refinement handoff `03bbac31`): node IDs `4:2`…`5:222` — superseded by rebuild preserving same frame names and contract scope.
-
-## Representative scenario (cross-screen)
-
-| Entity | Value |
-|--------|-------|
-| Project | Alpha |
-| Primary WI | WI-104 — Prepare authentication evidence |
-| Profile | Standard |
-| Lifecycle (WI-104) | In Progress |
-| Cycle (WI-104) | C-12 |
-| Gate | Review pack — Pending |
-| Evidence | E-1 validation note (attached), E-2 screenshot (attached), Git reference (missing) |
-| Next action (WI-104) | Attach missing Git reference |
-| Blocked WI | WI-099 — Qualified + Blocked (D-17 vendor API) |
-| Cannot Ready WI | WI-077 — missing Profile/Out of scope/Guardrails/Exit proof |
-
-## Targeted refinement — before vs after (content/fidelity)
-
-| Frame | Prior issue (ChatGPT review) | After refinement |
-|-------|------------------------------|------------------|
-| 01 Workboard | Sparse cards, thin QI | Multiple realistic cards across columns; QI panel with identity, badges, Open actions |
-| 02 Work Item | Placeholder section text | Real Intent→History content; evidence sidebar; Edit/Attach/Open affordances |
-| 03 Cycle Workspace | Abstract bullet lists | Label/value/status blocks; gate pending reason; evidence rows with Attach |
-| 04 Review & Decision | Already strong | Structured evidence rows; validation results; GO disabled reason adjacent |
-| 05 Project | Simple list | Intent + operational table (state/blocked/cycle/gate/next); summary badges |
-| 06 Blocked | Rule shown, thin UX | BLOCKED banner; dependency; unblock condition; Resolve action |
-| 07 Cannot Ready | Missing fields listed | Checklist with Present/Missing badges; Mark Ready disabled + reason |
-| 08 GO WITH RESERVE | Reserve path thin | Decision panel with reserve, follow-up WI-095, author/date note |
-| 09 REPLAN | History rule stated | Historical cycle, preserved evidence, NOT CREATED YET for new cycle |
-| 10 Empty Workspace | Adequate | Light polish — dual CTA Create Project / Capture Work Item |
-
-## Luminous visual refinement — before vs after (2026-08-22)
-
-| Frame | Before (gray/subdued) | After (luminous/controlled color) |
-|-------|----------------------|-----------------------------------|
-| 01 Workboard | Charcoal sidebar, flat gray canvas, low-contrast cards | Navy sidebar `#172554`; blue-tint app bg; column headers tinted; active/blocked card accents; QI `#EFF6FF` + azure border |
-| 02 Work Item | Uniform gray sections | White section cards + subtle blue borders; NEXT ACTION blue tint + primary border; semantic Exit Proof rows (green/red/amber) |
-| 03 Cycle Workspace | Flat two-column split | Execution Contract neutral cool `#F8FBFF`; Exit Control cyan tint + azure 2px border; gate/evidence semantic colors |
-| 04 Review & Decision | Muted panels | Expected Exit Proof blue-neutral; Actual Evidence cyan tint; Human Decision violet soft; 4 verdicts outline/tint (not saturated permanent buttons) |
-| 05 Project | Gray table | Status chips semantic; WI-104 row blue highlight; primary Next Action CTA |
-| 06 Blocked | Thin warning | Amber soft BLOCKED banner + visible border; corrective CTA primary blue |
-| 07 Cannot Ready | Flat checklist | Missing=red soft / Present=green soft rows; disabled Mark Ready readable |
-| 08 GO WITH RESERVE | Thin reserve panel | Amber/gold soft dominant; reserve + follow-up legible |
-| 09 REPLAN | Neutral history | Violet soft REPLAN panel; historical info neutral; NOT CREATED amber |
-| 10 Empty Workspace | Adequate but flat | Brightest screen — white card on blue tint; primary Create Project blue |
-
-Placeholders remaining: **NONE** (no “Functional fields from validated contract” generic text)
-
-## Visual affordances introduced (VISUAL CANDIDATES — not new M1 behaviors)
-
-Open Work Item · Open Cycle · Attach evidence · Edit qualification/scope · View history · Resolve dependency · Mark Ready (disabled + reason) · Complete missing fields · Record/view Decision · Update scope · Create Project · Capture Work Item
-
-All affordances map to existing contract surfaces/actions or explanatory UI only. No new product rule introduced.
-
-## Visual contract extracted (from produced Figma)
-
-Common shell (all frames):
-- Layout: HORIZONTAL Auto Layout
-- Sidebar 220 × 1024 (deep navy `#172554` candidate) + Main 1220 × 1024
-- App background: `#F6F9FD` · Main padding: 28 / 28 / 24 / 24 · gap 16
-- Typography: Inter Regular / Semi Bold / Bold (candidate) — improved title/body contrast; secondary text `#475569` (not too pale)
-- NEXT ACTION banner: `#EFF6FF` fill + `#2563EB` border + blue label + primary CTA (not color-only)
-- Sidebar active nav: primary blue fill + white text + optional azure stroke
-- Structural shadow: subtle 1px drop only on cards/panels (not decorative float)
-
-Per-frame notes:
-| Frame | Layout principal | Zones / actions | Disabled / empty |
-|-------|------------------|-----------------|------------------|
-| 01 | 7 lifecycle columns + QI panel | Cards: title/project/profile/gate/next; QI transversal | N/A |
-| 02 | Vertical sections stack | Next Action stroke-emphasis | N/A |
-| 03 | Two-zone split 560+560 | Execution Contract vs Exit control | N/A |
-| 04 | Expected vs Actual + verdict row | GO / GO WITH RESERVE / REPLAN / NO-GO | GO reason text when incomplete |
-| 05 | Aggregated WI rows | Blocked indicator text on WI-099 | N/A |
-| 06 | Work Item variant | Lifecycle + Blocked=true + reason + unblock | Orthogonal blocked |
-| 07 | Work Item variant | Missing fields list + corrective | Ready unavailable explained |
-| 08 | Review variant | Reserve + follow-up + author/date | N/A |
-| 09 | Review variant | Historical cycle + conserved evidence | Not a reset |
-| 10 | Empty state center | Minimal copy + Create Project CTA | Empty explained |
-
-Uncertainty: denser production content vs pixel polish intentionally deferred (medium fidelity). No functional rule invented beyond validated M1 contract.
-
-## Final visual polish — before vs after (2026-08-22)
-
-| Aspect | BEFORE (post-luminous) | AFTER (final polish) |
-|--------|------------------------|----------------------|
-| Composition | luminous/readable but visually static in parts | more rhythmic, less top-left isolated content |
-| Depth | limited surface hierarchy | 3-level depth: app bg / white surfaces / elevated tinted panels |
-| Iconography | minimal | light line-style icons (14px) — always icon + text |
-| Headers (02–05) | functional but flat | elevated headers with shadow, padding, section identity |
-| Critical states 06–09 | small isolated cards in large canvas | composed panels ~780px, structured sections |
-| REPLAN (09) | text list only | trajectory line C-12 → Historical → Ready → Next Action |
-| GO WITH RESERVE (08) | single amber card | structured Reserve / Follow-up / Human Decision blocks |
-| Quick Inspector | layout-fixed, flat | subtle L2 shadow elevation preserved layout |
-
-## Iconography candidate (NOT VALIDATED)
-
-| Category | Symbol candidate | Usage |
-|----------|------------------|-------|
-| NEXT ACTION | → | banners, CTAs |
-| STATE | ◉ | headers, state markers |
-| EVIDENCE | ◧ | Expected/Actual panels, rows |
-| DECISION | ◉ | Human Decision, verdict context |
-| HISTORY | ◷ | history sections |
-| SCOPE | ⊞ | Scope sections |
-| GUARDRAIL | ⛨ | Guardrails sections |
-| BLOCKED | ⚠ | blocked banner |
-| SUCCESS | ✓ | attached/present/GO |
-| MISSING | ✕ | missing evidence/fields |
-| REPLAN | ↻ | REPLAN trajectory |
-| CYCLE | ↻ | cycle context |
-
-All icons paired with text labels — no icon-only critical information.
-
-## Depth hierarchy candidate (NOT VALIDATED)
-
-| Level | Surface | Treatment |
-|-------|---------|-----------|
-| L0 | App background `#F6F9FD` | flat |
-| L1 | Cards/panels white `#FFFFFF` | subtle border `#E5EDF5` |
-| L2 | Focused/actionable panels | tinted bg + accent border + shadow `0 2px 8px rgba(15,23,42,0.05–0.08)` |
-
-## Information signatures (5 categories)
-
-| Category | Visual signature |
-|----------|------------------|
-| STATE | badge + status marker icon |
-| NEXT ACTION | blue/azure tint panel + → icon + primary CTA |
-| EVIDENCE | ◧ icon + tinted panel + semantic row colors |
-| DECISION | violet tint elevated panel + ◉ icon |
-| HISTORY | ◷ icon + secondary neutral panel |
-
-## Critical-state composition refinements
-
-| Frame | Composition applied |
-|-------|---------------------|
-| 06 Blocked | State banner (⚠) + blocking context panel + Next Action — ~780px composed width |
-| 07 Cannot Ready | State header + readiness checklist with ✓/✕ per field + recovery CTA |
-| 08 GO WITH RESERVE | Decision header + Reserve / Follow-up / Human Decision structured blocks |
-| 09 REPLAN | Trajectory line + preserved evidence note + NOT CREATED YET amber signal |
-
-## MCP limitations
-
-- `use_figma`: one `setCurrentPageAsync` per call — Core and Critical built in separate invocations.
-- Screenshot URLs from `get_screenshot` are short-lived MCP asset URLs (not durable repo artifacts).
-- File display name via API may show as Document; URL/fileKey remain authoritative.
-- No design-system library import used (from-scratch candidate patterns).
-- Validation status remains: **NOT VALIDATED BY MORRIS**.
-
-
----
-
-# APPENDIX C — FIGMA REVIEW CHECKLIST (FULL LOCAL CANDIDATE)
-
-# SFIA Task Manager — Figma Review Checklist (Morris)
-
-**Chemin :** `projects/sfia-task-manager/03-design/2026-08-20-figma-review-checklist.md`
-**Cycle :** Cycle 4 — UX/UI
-**Source Figma :** https://www.figma.com/design/2U8pJCYBMtGxaK0F0Ef1nO (`2U8pJCYBMtGxaK0F0Ef1nO`)
-**Statut :** CHECKLIST FOR MORRIS REVIEW — NOT PRE-VALIDATED
-
-Columns for Morris use: Criterion | Status | Evidence / node | Morris comment | Decision
-
----
-
-## A. Global
-
-| Criterion | Status | Evidence / node | Morris comment | Decision |
-|-----------|--------|-----------------|----------------|----------|
-| 1440×1024 respected | | 01–10 all 1440×1024 (`13:2`…`16:119`) | | |
-| 5 surfaces present | | 01–05 on page `0:1` | | |
-| Quick Inspector transversal (not 6th domain) | | `13:91` inside `13:2` | | |
-| 5 critical states present | | 06–10 on page `3:2` | | |
-| Sobre / professionnel / dense | | screenshots MCP YES 01–10 | | |
-| Luminous / readable (Morris direction) | | blue-tint bg `#F6F9FD`, improved contrast, not gray-flat | | |
-| Controlled semantic color palette | | blue/azure dominant + cyan/teal + green/amber/red/violet limited | | |
-| No excessive saturation / no rainbow UI | | outline/tint verdicts; no full-sat column backgrounds | | |
-| No color-only critical information | | badges with text; borders + labels alongside color | | |
-| Consistent palette across 01–10 | | same candidate tokens applied globally | | |
-| Control / decision oriented | | frames 03–04, 08–09 | | |
-| No Jira clone | | no subtasks/comments/metadata chrome | | |
-| No AI-first | | no AI assistant surface | | |
-| Hierarchy State → Next Action → Risk → Evidence → Decision → History | | NEXT ACTION banners + sections | | |
-
-## B. Hierarchy / information
-
-| Criterion | Status | Evidence / node | Morris comment | Decision |
-|-----------|--------|-----------------|----------------|----------|
-| State visible first | | column headers / lifecycle labels | | |
-| Next Action prominent | | accent NEXT ACTION banners | | |
-| Risk/blocker explicit when present | | `5:113`, WI-099 blocked labels | | |
-| Evidence visible where required | | `5:39`, `5:2` control zone | | |
-| Decision human-only | | verdict row + disabled reason text | | |
-| History reconstructible | | History section / REPLAN conserved | | |
-
-## C. Per-frame (01–10)
-
-For each frame: structure correct · mandatory content · primary actions · disabled reasons · no invented business rule · no critical info color-only
-
-| Frame | Structure | Mandatory content | Primary actions | Disabled reasons | No invented rules | No color-only critical | Evidence / node | Morris comment | Decision |
-|-------|-----------|-------------------|-----------------|------------------|-------------------|------------------------|-----------------|----------------|----------|
-| 01 Workboard | | | | | | | `13:2` (+ QI `13:91`) | | |
-| 02 Work Item | | | | | | | `13:114` | | |
-| 03 Cycle Workspace | | | | | | | `14:2` | | |
-| 04 Review & Decision | | | | | | | `14:106` | | |
-| 05 Project | | | | | | | `14:184` | | |
-| 06 Blocked | | | | | | | `16:2` | | |
-| 07 Cannot Ready | | | | | | | `16:27` | | |
-| 08 GO WITH RESERVE | | | | | | | `16:74` | | |
-| 09 REPLAN | | | | | | | `16:96` | | |
-| 10 Empty Workspace | | | | | | | `16:119` | | |
-
-## D. Critical variants
-
-| Criterion | Status | Evidence / node | Morris comment | Decision |
-|-----------|--------|-----------------|----------------|----------|
-| Blocked orthogonal (not lifecycle column) | | `16:2` | | |
-| Cannot Ready explanatory (not silent grey) | | `16:27` | | |
-| GO WITH RESERVE shows reserve + follow-up | | `16:74` | | |
-| REPLAN preserves history / Cycle historical | | `16:96` | | |
-| Empty Workspace clear first action | | `16:119` | | |
-
-## E. Governance
-
-| Criterion | Status | Evidence / node | Morris comment | Decision |
-|-----------|--------|-----------------|----------------|----------|
-| Figma candidate only (not validated) | | | | |
-| Tokens candidate only | | | | |
-| Accessibility target OPEN | | | | |
-| FQ02–FQ05 OPEN | | | | |
-| No tech arch | | | | |
-| No backlog | | | | |
-| No delivery | | | | |
-| M1 NOT READY | | | | |
-| AC demonstrated 0/16 | | | | |
-| No project commit implied | | | | |
-
-## F. Luminous visual refinement (Morris 2026-08-22)
-
-| Criterion | Status | Evidence / node | Morris comment | Decision |
-|-----------|--------|-----------------|----------------|----------|
-| Perceptibly more luminous than prior gray candidate | | app bg `#F6F9FD`, white cards, navy sidebar | | |
-| NEXT ACTION visually primary | | blue tint banners all frames | | |
-| Human Decision explicit on 04 | | violet soft panel `14:106` | | |
-| 4 verdicts visible on 04 (not 4 saturated permanent buttons) | | GO / GO WITH RESERVE / REPLAN / NO-GO outline+tint | | |
-| Sidebar brighter (navy not charcoal) | | `#172554` all frames | | |
-| Status badges semantic + text | | In Progress/Ready/Done/etc. | | |
-| Layout non-regression (02/03/04) | | overflow 0 on `13:114`, `14:2`, `14:106` | | |
-
-## G. Final visual polish (Morris 2026-08-22)
-
-| Criterion | Status | Evidence / node | Morris comment | Decision |
-|-----------|--------|-----------------|----------------|----------|
-| Visual rhythm improved vs luminous-only | | composed panels, headers, card rails | | |
-| Light iconography coherent (icon + text) | | → ◧ ◉ ✓ ✕ ⚠ ↻ across frames | | |
-| Depth hierarchy consistent (L0/L1/L2) | | shadows on headers, QI, critical panels | | |
-| Information signatures distinguishable | | STATE/NEXT ACTION/EVIDENCE/DECISION/HISTORY | | |
-| Critical states 06–09 more composed | | ~780px panels, not isolated top-left cards | | |
-| REPLAN trajectory readable | | `16:96` trajectory line | | |
-| GO WITH RESERVE composition readable | | `16:74` structured blocks | | |
-| Quick Inspector layout non-regression | | `13:92` width 1132, no clipping | | |
-| No clipping / no overflow | | 0 violations all 10 frames | | |
-| No icon-only critical information | | all icons paired with text | | |
-
-## H. Morris decision record
-
-| Decision | Result | Date | Notes |
-|----------|--------|------|-------|
-| Visual accept / revise / reject | | | Do not prefill |
-| Token promotion | | | Remains OPEN unless Morris decides |
-| Accessibility target | | | Remains OPEN unless Morris decides |
-| Project commit authorization | | | Separate GO required |
+## FULL DIFF (2 files)
+
+diff --git a/projects/sfia-studio/product-completion/05-product-completion-backlog-user-stories.md b/projects/sfia-studio/product-completion/05-product-completion-backlog-user-stories.md
+index 2066acc0..6aa7d525 100644
+--- a/projects/sfia-studio/product-completion/05-product-completion-backlog-user-stories.md
++++ b/projects/sfia-studio/product-completion/05-product-completion-backlog-user-stories.md
+@@ -151,29 +151,29 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
+
+ | ID exigence | Exigence canonique | Source C1 | Niveau | Owner FA | Refs C2 / CA | Refs UX | Contrainte tech | Contrainte CKC/DP | État déclaré source | Écart restant | Priorité écart | Epic | Vague | Preuve de sortie | Gate Morris |
+ |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+-| **REQ-01** | Continuité Project — créer, retrouver, reprendre un Project durable | H Project · J.1 | MUST | FC-01 | A,B · CA-PC-01/02 | S1,S2 · UF-01/07 | OA Native + Product SQLite · no parallel product path | — | PARTIAL | Finition pilotage E2E · contrat reprise honnête | P1 | EPIC-A | W1 | CA-PC-01/02 | GO slice Delivery |
+-| **REQ-02** | Living Project State — état métier fiable, prochaine action, blockers | H LPS · J.1 | MUST | FC-05 | G · CA-PC-25 | S5 · SC-03 | SQLite LPS · Nora proposes · Studio persists | — | PARTIAL | État métier utile complet au-delà des ancres | **P0** | EPIC-A | W1 | CA-PC-25 | GO slice Delivery |
+-| **REQ-03** | Raisonnement Nora — comprendre, qualifier, analyser, recommander (**propose-only**) | H Nora · J.1 | MUST | FC-04 | C,D,E,F,I,U · CA-PC-03/35 | S3,S4 · UF-02/06 | Process-local conv · no LIVE this cycle | Phase B downstream (REQ-24) | PARTIAL | Continuité sémantique inter-session · pas d'autorité inventée | **P0** | **EPIC-B** *(A/D consomment)* | W1–W3 | CA-PC-03/25/35 | GO slice Delivery |
+-| **REQ-04** | Qualification / CKC — couverture cognitive complète du catalogue applicable | H Qualification/CKC · J.1 | MUST | FC-03 | E · CA-PC-31 | S3 · UF-02 | Package-bound resolver ADAPT | D01-NARROW · D02 Option B · D05 NONE · DK-01…07 | OPEN | SoT chemin méthode → index package · fail-closed NONE | **P0** | EPIC-A | W1 | CA-PC-31 · Phase A proof | **GO implémentation DP** |
++| **REQ-01** | Continuité Project — créer, retrouver, reprendre un Project durable | H Project · J.1 | MUST | FC-01 | A,B · CA-PC-01/02 | S1,S2 · UF-01/07 | OA Native + Product SQLite · no parallel product path | — | PARTIAL | Finition pilotage E2E · contrat reprise honnête | P1 | EPIC-A | W1 | CA-PC-01/02 | **G3 W1 Delivery GO** |
++| **REQ-02** | Living Project State — état métier fiable, prochaine action, blockers | H LPS · J.1 | MUST | FC-05 | G · CA-PC-25 | S5 · SC-03 | SQLite LPS · Nora proposes · Studio persists | — | PARTIAL | État métier utile complet au-delà des ancres | **P0** | EPIC-A | W1 | CA-PC-25 | **G3 W1 Delivery GO** |
++| **REQ-03** | Raisonnement Nora — comprendre, qualifier, analyser, recommander (**propose-only**) | H Nora · J.1 | MUST | FC-04 | C,D,E,F,I,U · CA-PC-03/35 | S3,S4 · UF-02/06 | Process-local conv · no LIVE this cycle | Phase B downstream (REQ-24) | PARTIAL | Continuité sémantique inter-session · pas d'autorité inventée | **P0** | **EPIC-B** *(A/D consomment)* | W1–W3 | CA-PC-03/25/35 | **G3 W1 Delivery GO** (W1 slice · W2/W3 downstream) |
++| **REQ-04** | Qualification / CKC — couverture cognitive complète du catalogue applicable | H Qualification/CKC · J.1 | MUST | FC-03 | E · CA-PC-31 | S3 · UF-02 | Package-bound resolver ADAPT | D01-NARROW · D02 Option B · D05 NONE · DK-01…07 | OPEN | SoT chemin méthode → index package · fail-closed NONE | **P0** | EPIC-A | W1 | CA-PC-31 · Phase A proof | **G3 W1 Delivery GO** (after **G2** where package materialization required) |
+ | **REQ-05** | Évolutivité Cycle Catalog — nouveau type ≠ nouveau moteur | H Cycle Catalog · J.1 | MUST | FC-03 | E · CA-PC-26 | S3 | Catalog routing ADAPT · no N engines | Package index artifact | PARTIAL | Invariant démontrable post Phase A | P1 | EPIC-A | W3 | CA-PC-26 | GO slice Delivery |
+-| **REQ-06** | ProjectTrajectory — `proposed` vs `decided` durable | H ProjectTrajectory · J.1 | MUST | FC-06 | H,V · CA-PC-06/07 | S6 · SC-04 | TD-C6-01/06 **ADOPTED — implement only** | — | OPEN | Mémoire seule → SQLite · pointeur courant explicite | **P0** | EPIC-B | W1 | CA-PC-06/07 | **GO Delivery durabilité C6** |
++| **REQ-06** | ProjectTrajectory — `proposed` vs `decided` durable | H ProjectTrajectory · J.1 | MUST | FC-06 | H,V · CA-PC-06/07 | S6 · SC-04 | TD-C6-01/06 **ADOPTED — implement only** | — | OPEN | Mémoire seule → SQLite · pointeur courant explicite | **P0** | EPIC-B | W1 | CA-PC-06/07 | **G3 W1 Delivery GO** |
+ | **REQ-07** | HumanDecision / DecisionBasis — arbitrage Pilote explicite | H HumanDecision · J.1 | MUST | FC-07 | J · CA-PC-08/09/10 | S4,S6 · UF-03 | HD SQLite durable | Recommendation ≠ HD | PARTIAL | UX liaison trajectoire · complétude DecisionBasis | P1 | EPIC-B | W2 | CA-PC-08/10 | GO slice Delivery |
+-| **REQ-08** | Confirmation — autorisation proportionnelle quand les effets l'exigent | H Confirmation · J.1 | MUST | FC-09 | M · CA-PC-11/13/30 | S11 · UF-04 · SC-06/07 | TD-C6-02/05 **ADOPTED** · K→L→M→N | — | OPEN | `granted` durable · autorité consommée · pas de confirm avant inspect | **P0** | EPIC-C | W1 | CA-PC-11/13/30 | **GO Delivery durabilité C6** |
++| **REQ-08** | Confirmation — autorisation proportionnelle quand les effets l'exigent | H Confirmation · J.1 | MUST | FC-09 | M · CA-PC-11/13/30 | S11 · UF-04 · SC-06/07 | TD-C6-02/05 **ADOPTED** · K→L→M→N | — | OPEN | `granted` durable · autorité consommée · pas de confirm avant inspect | **P0** | EPIC-C | W1 | CA-PC-11/13/30 | **G3 W1 Delivery GO** |
+ | **REQ-09** | ExecutionContract native + inspect + parité canonique | H Native EC · J.1 | MUST | FC-08 | K,L · CA-PC-14/15/16 | S10 · SC-05/06 · UF-04 | EC SQLite · PREPARE projection ADAPT | — | PARTIAL | Parité champs · fidélité progressive disclosure | P1 | EPIC-C/E | W2 | CA-PC-14/15/16 | GO slice Delivery |
+ | **REQ-10** | Enveloppe AgentCapability — bornes autorité/gouvernance génériques | H AgentCapability · J.1 | MUST | FC-09 | N · CA-PC-27/32 | S11 · SC-07 | Bounded RO · Gate D patterns · not feature catalog | — | PARTIAL | Enveloppe générique déterminable · UX état bloqué | P1 | EPIC-C | W2 | CA-PC-32 | GO slice Delivery |
+ | **REQ-11** | Mécanisme générique EC → agent d'exécution | H Cursor/agent · J.1 | MUST | FC-10 | O,P · CA-PC-17/19 | S12 · UF-05 | Fixture default · REAL gated · one mechanism | — | PARTIAL | Chemin générique productisé · gate REAL séparée | **P1** | EPIC-D | W3 | CA-PC-17/19 | GO slice Delivery · REAL distinct |
+ | **REQ-12** | Cycle de vie exécution / Attempt — accepted→running→terminal | H Execution lifecycle · J.1 | MUST | FC-10 | O · CA-PC-17/18 | S12 · WF-06 | Attempt SQLite · scope enforcement | — | PARTIAL | Tous effets autorisés · visibilité cycle de vie | **P1** | EPIC-D | W3 | CA-PC-17/18 | GO slice Delivery |
+ | **REQ-13** | SUCCESS / STOP / FAIL — terminaux métier honnêtes | H SUCCESS/STOP/FAIL · J.1 | MUST | FC-11 | Q,R,S · CA-PC-20/21/22 | S12 · SC-08–11 · UF-05 | Terminal mapping ADAPT | A11Y text distinction | PARTIAL | Sémantiques métier distinctes · pas de READY auto | **P1** | EPIC-D | W3 | CA-PC-20/22 | GO slice Delivery |
+ | **REQ-14** | Evidence / ReviewBundle — preuve business-first | H Evidence · J.1 | MUST | FC-12 | T · CA-PC-23 | S9 · SC-09/10 · UF-05 | Evidence SQLite · rehydrate | — | PARTIAL | UX hiérarchie business-first | **P1** | EPIC-D/E | W3 | CA-PC-23 | GO slice Delivery |
+-| **REQ-15** | Recovery / continuité sémantique inter-session | H Continuity/recovery · J.1 | MUST | FC-13 | W · CA-PC-25 | S8 · UF-07 · SC-13/14 | Fail-closed resume · no invented state | — | PARTIAL | Boucle replan complète · disclosure honnête | **P0** | EPIC-A/D | W1/W3 | CA-PC-25 | GO slice Delivery |
+-| **REQ-16** | Traçabilité DoctrinePackage — pin, digest, audit provenance | H DoctrinePackage · J.1 | MUST | FC-02 | D · CA-PC-33/34 | S2 · SC-02 | Pin partial · resolver ADAPT | D01 · DK-03/04 | PARTIAL | Résolution audit complète · preuve consommation | **P0** | EPIC-A | W1 | CA-PC-33/34 · DK-03 | **GO implémentation DP** |
++| **REQ-15** | Recovery / continuité sémantique inter-session | H Continuity/recovery · J.1 | MUST | FC-13 | W · CA-PC-25 | S8 · UF-07 · SC-13/14 | Fail-closed resume · no invented state | — | PARTIAL | Boucle replan complète · disclosure honnête | **P0** | EPIC-A/D | W1/W3 | CA-PC-25 | **G3 W1 Delivery GO** (W1 foundation · W3 E2E downstream) |
++| **REQ-16** | Traçabilité DoctrinePackage — pin, digest, audit provenance | H DoctrinePackage · J.1 | MUST | FC-02 | D · CA-PC-33/34 | S2 · SC-02 | Pin partial · resolver ADAPT | D01 · DK-03/04 | PARTIAL | Résolution audit complète · preuve consommation | **P0** | EPIC-A | W1 | CA-PC-33/34 · DK-03 | **G3 W1 Delivery GO** (after **G2**) |
+ | **REQ-17** | Historique minimal Project / Cycle | H Cycle/Project history · J.1 | MUST minimal | FC-01/13 | transverse · CA-PC-34 | S1,S8 | Factual anchors SQLite | — | PARTIAL | Cycles/décisions/attempts/outcomes récupérables | P1 | EPIC-A/D | W2 | CA-PC-34 | GO slice Delivery |
+ | **REQ-18** | Product Experience — complexité méthode absorbée | H Product Experience · J.1 | MUST | FC-14 | all · CA-PC-35 | S1→S12 · UF-01…07 | Pre-M6 KEEP/ADAPT · SC contract | — | PARTIAL | Alignement contrat PE final · harvest legacy | P1 | EPIC-E | W4 | CA-PC-35 · UF coverage | GO slice Delivery |
+ | **REQ-19** | Baseline accessibilité (**MUST**) | J.1 accessibility | MUST | FC-14 | §17 · A11Y-PC-01…06 | all SC · F00-05 | Functional a11y · ≠ WCAG claim | — | PARTIAL | Baseline gates/terminaux/Confirmation/Evidence | **P1** | EPIC-E | W4 | A11Y-PC-* | GO slice Delivery |
+ | **REQ-20** | Gouvernance / audit transverse | H Governance/audit · J.1 | MUST | FC-15 | transverse · CA-PC-12 | S11 blocked · transverse | T-A7 patterns · receipt ≠ authority | — | PARTIAL | Intégration audit autorité · présentation transverse | P1 | **CROSS-CUTTING FC-15** · présentation E · enabler autorité C | W2 | CA-PC-12 · TD-C6-03 | GO slice Delivery |
+ | **REQ-21** | Invariant Git / reuse — SoT construction externe | J.1 Git/reuse | MUST | FC-15 | transverse · CA-PC-26 | — | Git SoT ext. · repo reuse KEEP | — | **SATISFIED** | Invariant tenu · polish UX gouvernance uniquement | **N/A** | EPIC-A/E | — | CA-PC-26 | N/A (invariant) |
+ | **REQ-22** | Boucle fermée Evidence → Nora → LPS / Trajectory | J.1 closed loop | MUST | FC-04/06 | U,V · CA-PC-24 | S12 · UF-06 | postEvidenceNoraAnalysis partial | — | PARTIAL | Chaîne replan complète vers HD/trajectory | P1 | EPIC-D | W3 | CA-PC-24 | GO slice Delivery |
+-| **REQ-23** | CKC Phase A — résolution boundée au package | DP↔CKC workstream | MUST | FC-02/03 | E · CA-PC-31 | S3 | Resolver ADAPT · no parallel engine | D01/D02/D05 · DK-01…07 | OPEN | Binding runtime NON IMPLÉMENTÉ | **P0** | EPIC-A | W1 | Phase A proof schema | **GO implémentation DP** |
++| **REQ-23** | CKC Phase A — résolution boundée au package | DP↔CKC workstream | MUST | FC-02/03 | E · CA-PC-31 | S3 | Resolver ADAPT · no parallel engine | D01/D02/D05 · DK-01…07 | OPEN | Binding runtime NON IMPLÉMENTÉ | **P0** | EPIC-A | W1 | Phase A proof schema | **G3 W1 Delivery GO** (after **G2**) |
+ | **REQ-24** | CKC Phase B — consommation sémantique Nora | DP↔CKC workstream | MUST | FC-04 | E post-qual · CA-PC-35 | S3,S4 | Explicit anti-claim · semantic proof | DK-08 | DEFERRED | `consumed` ≠ sémantique Nora tant que non prouvé | **P1** | **EPIC-B** *(D consommateur aval)* | W2–W3 | DK-08 exit · semantic proof | GO Phase B distinct |
+ | **SHOULD-01** | Historique riche / capsule recovery | J.2 | SHOULD | FC-13 | W enrich | S7/S8 | Non-blocking Completion | — | OPEN | Capsule riche au-delà des ancres minimales | P2 | EPIC-D | Post-W4 (P2) | — | Post-Completion |
+ | **SHOULD-02** | Présentation EC avancée (diff, synthèse) | J.2 | SHOULD | FC-08/14 | L extend | S10 · SC-05/06 | Progressive disclosure extension | — | OPEN | UX diff/synthèse | P2 | EPIC-E | Post-W4 (P2) | — | Post-Completion |
+@@ -215,7 +215,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
+ | **Architecture consommée** | OA Native · G0-A/G0-B · C6 CLOS (pas de réouverture) |
+ | **Enablers techniques** | — (comportement/UX principal) |
+ | **Risques** | Fatigue sur-disclosure · sous-disclosure fausse confiance |
+-| **Gate Morris** | GO slice Delivery (Wave 1 entry) |
++| **Gate Morris** | **G3 W1 Delivery GO** |
+ | **Vague** | W1 |
+ | **Traçabilité source** | C1 H Project/LPS · J.1 · C2 §15 · UX SC-01/13/14 |
+
+@@ -244,7 +244,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
+ | **Architecture consommée** | Continuité sémantique MUST · matérialisation sélective TD-C6-04 (aval) |
+ | **Enablers techniques** | TD-C6-04 (persistance épistémique sélective) |
+ | **Risques** | Sur-persistance propositions · sous-persistance blockers |
+-| **Gate Morris** | GO slice Delivery |
++| **Gate Morris** | **G3 W1 Delivery GO** (W1 slice · W2 downstream per wave qualification) |
+ | **Vague** | W1–W2 |
+ | **Traçabilité source** | C1 J.1 continuité sémantique · C2 §15.2 · FA FC-04 COMPLETE continuity |
+
+@@ -273,7 +273,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
+ | **Architecture consommée** | TD-C6-01 T-A · TD-C6-06 pointeur courant explicite · **ADOPTÉ — implementer uniquement** |
+ | **Enablers techniques** | TD-C6-01 (`SqliteTrajectoryRepository`) · TD-C6-06 (pointeur courant) |
+ | **Risques** | Double Memory+SQLite pendant migration · concurrence sur pointeur courant |
+-| **Gate Morris** | **GO Delivery durabilité C6** |
++| **Gate Morris** | **G3 W1 Delivery GO** |
+ | **Vague** | W1 |
+ | **Traçabilité source** | C1 H ProjectTrajectory · C6 TD-C6-01/06 · C2 §6.7 |
+
+@@ -302,7 +302,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
+ | **Architecture consommée** | TD-C6-02 C-A · TD-C6-05 granted-upward · **ADOPTÉ — implementer uniquement** |
+ | **Enablers techniques** | TD-C6-02 · TD-C6-05 |
+ | **Risques** | Grants durables trop larges · fatigue UX reconfirm |
+-| **Gate Morris** | **GO Delivery durabilité C6** |
++| **Gate Morris** | **G3 W1 Delivery GO** |
+ | **Vague** | W1 |
+ | **Traçabilité source** | C1 H Confirmation · C6 TD-C6-02/05 · C2 §10.3 |
+
+@@ -331,7 +331,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
+ | **Architecture consommée** | Ordre K→L→M→N · C6 CLOS |
+ | **Enablers techniques** | — (application ordre dans chemin produit) |
+ | **Risques** | Routes legacy contournant ordre (D1/OPS1) |
+-| **Gate Morris** | GO slice Delivery |
++| **Gate Morris** | **G3 W1 Delivery GO** |
+ | **Vague** | W1 |
+ | **Traçabilité source** | C2 ordre K→L→M→N · UX WF-05 · FA BR-PC-* |
+
+@@ -360,7 +360,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
+ | **Architecture consommée** | D01-NARROW · D02 Option B · D05 NONE · **≠ sémantique Nora Phase B** |
+ | **Enablers techniques** | DK-01…07 · matérialisation/index package |
+ | **Risques** | Résolveur parallèle · fuite pin fixture (DK-04) |
+-| **Gate Morris** | **GO implémentation DP** (distinct from Delivery) |
++| **Gate Morris** | **G3 W1 Delivery GO** (after **G2**) |
+ | **Vague** | W1 |
+ | **Traçabilité source** | DP↔CKC qualification doc §I/V · C1 J.1 CKC coverage · DP↔CKC §V DK register |
+
+@@ -389,7 +389,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
+ | **Architecture consommée** | Recovery fail-closed · Recommendation ≠ HD |
+ | **Enablers techniques** | — (composition boucle) |
+ | **Risques** | Replan partiel sans durabilité trajectoire · requalification silencieuse ou replan structurel sans HumanDecision Pilote appropriée / gate produit applicable |
+-| **Gate Morris** | GO slice Delivery |
++| **Gate Morris** | **G3 W1 Delivery GO** (W1 foundation slice · W3 E2E closure downstream) |
+ | **Vague** | **W1** (foundation slice : resume/recovery prerequisites) · **W3** (closure E2E après Attempt/Evidence/terminaux) |
+ | **Traçabilité source** | C1 J.1 recovery + closed loop · C2 §15 · UX UF-06 |
+
+@@ -418,7 +418,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
+ | **Architecture consommée** | Phase A ≠ Phase B · anti-affirmation DK-08 |
+ | **Enablers techniques** | DK-08 (partiel) |
+ | **Risques** | Sign-off Phase B prématuré · confusion démo seam avec couverture catalogue entière |
+-| **Gate Morris** | Revue sortie Vague 1 · GO Phase B distinct pour clôture complète |
++| **Gate Morris** | **G3 W1 Delivery GO** (bounded seam W1) · **GO Phase B distinct** for full closure (US-P1-14) |
+ | **Vague** | W1 (bornée) · clôture complète W2–W3 |
+ | **Traçabilité source** | DP↔CKC §V Phase B · amend GO Wave 1 exit · C1 REQ-24 |
+
+@@ -666,7 +666,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
+ | **Architecture consommée** | D01-NARROW · pin partiel aujourd'hui |
+ | **Enablers techniques** | DK-03 |
+ | **Risques** | Exposition mécanique package interne au-delà besoin métier |
+-| **Gate Morris** | GO implémentation DP · GO slice Delivery |
++| **Gate Morris** | **G3 W1 Delivery GO** (after **G2**) · future W2 slice gate |
+ | **Vague** | W1–W2 |
+ | **Traçabilité source** | C1 J.1 DoctrinePackage · DP↔CKC §I |
+
+@@ -789,19 +789,19 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
+
+ | ID Enabler | Description | Statut | Epic principal | US fonctionnelles servies | Sortie / preuve | Gate Morris |
+ |---|---|---|---|---|---|---|
+-| **TD-C6-01** | Durabilité SQLite trajectoire (T-A) | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-B | US-P0-03 · US-P1-01 · US-P1-02 · US-P1-07 | CA-PC-06/07 · tests persistance repo | GO Delivery durabilité C6 |
+-| **TD-C6-02** | Scope SQLite Confirmation (C-A) | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-C | US-P0-04 · US-P0-05 | CA-PC-11/13 · tests autorité restart | GO Delivery durabilité C6 |
+-| **TD-C6-03** | AuthorityVerificationReceipt (A-A) | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-C/E | US-P1-16 · REQ-20 | CA-PC-12 · receipt ≠ preuve autorité | GO Delivery durabilité C6 |
+-| **TD-C6-04** | Persistance épistémique sélective (E-A) | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-A/B | US-P0-02 · US-P1-01 | CA-PC-25 · tests règles matérialisation | GO Delivery durabilité C6 |
+-| **TD-C6-05** | Confirmation durable depuis `granted` upward | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-C | US-P0-04 · US-P0-05 | granted survit restart · requested éphémère | GO Delivery durabilité C6 |
+-| **TD-C6-06** | Pointeur trajectoire courante explicite | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-B | US-P0-03 · US-P1-01 · US-P1-07 | pas de proposed-as-current · tests pointeur | GO Delivery durabilité C6 |
+-| **DK-01** | Retirer chemins méthode catalogue comme SoT | OPEN | EPIC-A | US-P0-06 · US-P1-09 | index package remplace 6 refs méthode | GO implémentation DP |
+-| **DK-02** | Remplacer méthode `CKC_REFERENCE_MANIFEST` | OPEN | EPIC-A | US-P0-06 | artefact index interne package | GO implémentation DP |
+-| **DK-03** | Preuve consommation avec identité package | OPEN | EPIC-A | US-P0-06 · REQ-16 | schéma preuve COMPLETE · CA-PC-33 | GO implémentation DP |
+-| **DK-04** | Fuite pin fixture par défaut vers UX démo | OPEN/DEFERRED | EPIC-A | US-P0-06 (materialization) | cutover package produit · quarantaine fixture | gate matérialisation package |
+-| **DK-05** | `doctrineStatus=method-candidate` hardcoded | OPEN | EPIC-A | US-P0-06 | décision statut package-aware | GO implémentation DP |
+-| **DK-06** | Chemins dual A/B non joints (composition) | OPEN | EPIC-A | US-P0-06 | composition service/F2 ADAPT | GO implémentation DP |
+-| **DK-07** | Fallback méthode synthétique comme policy globale | OPEN | EPIC-A | US-P0-06 | policy locale package ou none · D05 NONE | GO implémentation DP |
++| **TD-C6-01** | Durabilité SQLite trajectoire (T-A) | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-B | US-P0-03 · US-P1-01 · US-P1-02 · US-P1-07 | CA-PC-06/07 · tests persistance repo | **G3 W1 Delivery GO** |
++| **TD-C6-02** | Scope SQLite Confirmation (C-A) | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-C | US-P0-04 · US-P0-05 | CA-PC-11/13 · tests autorité restart | **G3 W1 Delivery GO** |
++| **TD-C6-03** | AuthorityVerificationReceipt (A-A) | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-C/E | US-P1-16 · REQ-20 | CA-PC-12 · receipt ≠ preuve autorité | **G3 W1 Delivery GO** (optional W1 scope) |
++| **TD-C6-04** | Persistance épistémique sélective (E-A) | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-A/B | US-P0-02 · US-P1-01 | CA-PC-25 · tests règles matérialisation | **G3 W1 Delivery GO** |
++| **TD-C6-05** | Confirmation durable depuis `granted` upward | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-C | US-P0-04 · US-P0-05 | granted survit restart · requested éphémère | **G3 W1 Delivery GO** |
++| **TD-C6-06** | Pointeur trajectoire courante explicite | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-B | US-P0-03 · US-P1-01 · US-P1-07 | pas de proposed-as-current · tests pointeur | **G3 W1 Delivery GO** |
++| **DK-01** | Retirer chemins méthode catalogue comme SoT | OPEN | EPIC-A | US-P0-06 · US-P1-09 | index package remplace 6 refs méthode | **G3 W1 Delivery GO** (after **G2**) |
++| **DK-02** | Remplacer méthode `CKC_REFERENCE_MANIFEST` | OPEN | EPIC-A | US-P0-06 | artefact index interne package | **G3 W1 Delivery GO** (after **G2**) |
++| **DK-03** | Preuve consommation avec identité package | OPEN | EPIC-A | US-P0-06 · REQ-16 | schéma preuve COMPLETE · CA-PC-33 | **G3 W1 Delivery GO** (after **G2**) |
++| **DK-04** | Fuite pin fixture par défaut vers UX démo | OPEN/DEFERRED | EPIC-A | US-P0-06 (materialization) | cutover package produit · quarantaine fixture | **G2** · **G3 W1 Delivery GO** after G2 |
++| **DK-05** | `doctrineStatus=method-candidate` hardcoded | OPEN | EPIC-A | US-P0-06 | décision statut package-aware | **G3 W1 Delivery GO** (after **G2**) |
++| **DK-06** | Chemins dual A/B non joints (composition) | OPEN | EPIC-A | US-P0-06 | composition service/F2 ADAPT | **G3 W1 Delivery GO** (after **G2**) |
++| **DK-07** | Fallback méthode synthétique comme policy globale | OPEN | EPIC-A | US-P0-06 | policy locale package ou none · D05 NONE | **G3 W1 Delivery GO** (after **G2**) |
+ | **DK-08** | Sur-interprétation résolution `consumed` comme sémantique Nora | OPEN | **EPIC-B** *(D aval)* | US-P1-14 · US-P0-08 · REQ-24 | anti-affirmation explicite + preuve sémantique · sortie Phase B | GO Phase B distinct |
+
+ **Règles :** C6 **CLOS — NE PAS ROUVRIR** · enablers **implement-only** · sorties DK **≠** autorisées par adoption architecture seule · productisation REAL et runtime v3 restent **gates Morris séparées**.
+@@ -832,15 +832,27 @@ Post-W4 : P2 SHOULD · P3 FUTURE. **UAT/e2e requis par sortie de Vague** — SUC
+ | **P3** | FUTURE-01…06 |
+ | **N/A** | REQ-21 Git/reuse SATISFIED |
+
+-**NON AUTORISÉ :** Delivery · REAL · runtime v3 · choix packageVersion · intégration Git Backlog.
++**NON AUTORISÉ :** Delivery · REAL · runtime v3 adoption · packageVersion selection / package implementation.
++
++**Backlog Git integration :** **IN PROGRESS** via G1 / Draft PR #393 · **≠ integrated on main until merge**.
+
+-**Prochaine gate :** REVUE CHATGPT VERROUILLÉE AUX SOURCES → VALIDATION BACKLOG MORRIS → readiness Vague 1 (GO distinct).
++**CURRENT :** Backlog **VALIDATED BY MORRIS** · W1 readiness **CHATGPT QUALIFIED** · **G1 IN PROGRESS** via PR #393
++
++**NEXT :** G1 merge/main truth → **G2** Morris Product DoctrinePackage Materialization Decision → **G3** Morris W1 Delivery GO.
+
+ ---
+
+-## 11. Gates Morris restantes
++## 11. Gates Morris restantes (modèle actif pré-W1)
++
++| Gate | But | État |
++|---|---|---|
++| **G1** | Product Completion Git truth — backlog · readiness · roadmap sur **main** | **IN PROGRESS** via Draft PR #393 · ≠ main until merge |
++| **G2** | Product DoctrinePackage materialization — `packageVersion` · root · cutover · fixture exit | **OPEN** |
++| **G3** | Morris W1 Delivery GO — umbrella Tracks A–E (C6 · DP Phase A · bounded seam · product proof) | **NOT AUTHORIZED** |
++
++**Downstream distinct (hors G3) :** full Phase B (US-P1-14) · REAL · future W2/W3/W4 Delivery gates · runtime v3 adoption · future Git transport/merge gates par tranche.
+
+-Validation backlog Morris · GO implémentation DP · matérialisation package/packageVersion (DK-04) · GO Phase B distinct · GO Delivery durabilité C6 · GO slice Delivery par Vague · gate REAL (distinct de REQ-11) · runtime v3 PAS ce cycle.
++**Historical / absorbed into G3 :** validation backlog Morris *(satisfied)* · GO implémentation DP · GO Delivery durabilité C6 · GO slice Delivery micro-gates W1.
+
+ ---
+
+@@ -880,4 +892,4 @@ Validation backlog Morris · GO implémentation DP · matérialisation package/p
+
+ ---
+
+-*Corrigé 2026-08-22 13:08 UTC+02:00 · Corrections ciblées R1→R8 · Delivery NON AUTORISÉE · validation Morris requise.*
++*Validated by Morris 2026-08-22 · integration candidate via Draft PR #393 · G1 in progress · G2 OPEN · G3 NOT AUTHORIZED · Delivery NO · REAL ZERO · runtime v3 NON ADOPTED.*
+diff --git a/projects/sfia-studio/product-completion/07-product-completion-wave-1-delivery-readiness.md b/projects/sfia-studio/product-completion/07-product-completion-wave-1-delivery-readiness.md
+index a72cd1a2..b7579906 100644
+--- a/projects/sfia-studio/product-completion/07-product-completion-wave-1-delivery-readiness.md
++++ b/projects/sfia-studio/product-completion/07-product-completion-wave-1-delivery-readiness.md
+@@ -369,7 +369,7 @@ Décision requise :
+
+ **Schema :** une migration additive sur `lib/oa/project/infrastructure/sqlite/db.ts` suffit (M5 pattern).
+
+-**Parallélisation B vs A :** B1–B3 peuvent démarrer **en parallèle** de A2–A4 **après** GO C6 Delivery · B5 (schema) doit coordonner migrations · **A1 (matérialisation) bloque A** mais **ne bloque pas** B1–B3 techniquement.
++**Parallélisation B vs A :** Track B / B1–B3 peuvent démarrer sous **G3 W1 Delivery GO**, **en parallèle** de Track A selon les dépendances **G2** applicables, avec coordination du schema B5 · **A1 (matérialisation) bloque A** mais **ne bloque pas** B1–B3 techniquement une fois G3 ouvert.
+
+ **Pas de réouverture C6.**
+
+@@ -419,8 +419,9 @@ Décision requise :
+ | `lib/oa/cycle/infrastructure/ckcReferenceManifest.ts` | A3 replace |
+ | `lib/oa/cycle/domain/cycleTypeCatalog.ts` | A3 ADAPT |
+ | `lib/oa/cycle/domain/ckcConsumptionProof.ts` | A5 |
+-| `lib/vertical-slice-core/localProjectComposition.ts` | A1 pin/registry |
+-| `lib/oa/doctrine/fixtures/registry.json` | A1 |
++| `lib/vertical-slice-core/localProjectComposition.ts` | A1 pin/registry (G2-dependent root) |
++| Product DoctrinePackage registry/materialization (G2-dependent) | **LIKELY under recommended Option A candidate:** `lib/oa/doctrine/product/` — registry + package tree · **CREATE** under G3 after G2 |
++| `lib/oa/doctrine/fixtures/registry.json` | **CONDITIONAL ONLY** — transitional/quarantine handling if explicitly required · **NOT target product registry** · **NOT guaranteed future modification** |
+ | `features/project-assistant/f2/orchestrateF2.ts` | C/D |
+ | `features/project-assistant/f2/qualify.ts` | C |
+ | `features/pre-m6-product-ui/surfaces/RecoverySurface.tsx` | E |
