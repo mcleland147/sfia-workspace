@@ -15,9 +15,12 @@
 | **C6 Product Completion** | **CLOSED** — `06-product-completion-architecture-technique-delta.md` · **DO NOT REOPEN** |
 | **runtime v3** | **NON ADOPTED** · **ZERO REAL** · **no Backlog / no Delivery** |
 | **Recommendation ≠ Decision** | Remaining recommendations / deferred items ≠ new Morris decisions · adoption ≠ implementation |
-| **Adoption gate** | D01-NARROW + D02 Option B + D05 fallback NONE **ADOPTED BY MORRIS** · first `packageVersion` **DEFERRED** |
+| **Adoption gate** | D01-NARROW + D02 Option B + D05 fallback NONE **ADOPTED BY MORRIS** · first product `packageVersion` **`1.0.0` ADOPTED BY MORRIS — G2** *(2026-08-22)* |
+| **G2 PRODUCT DOCTRINEPACKAGE MATERIALIZATION** | **DECIDED BY MORRIS — 2026-08-22** · package family `pkg:sfia-studio-doctrine-v3` · first `packageVersion` **`1.0.0`** · product materialization root **OPTION A** `projects/sfia-studio/app/lib/oa/doctrine/product/` · resolver/repository **KEEP** · binding **D02 OPTION B KEEP** · fallback **D05 NONE KEEP** · historical fixture **`pkg:studio-v3-oa@1.0.0` = QUARANTINE / TEST-ONLY → RETIRE LATER** · **implementation NOT AUTHORIZED — requires G3** · G2 Git documentary sync **CANDIDATE until PR merge** · **≠** materialized · **≠** runtime v3 ADOPTED |
 | **Product primes technique** | C1 → C2 → UX → FA → C6 → doctrine/CKC · **if conflict, correct this document** |
 | **Architecture direction?** | **ADOPTED BY MORRIS** · **INTEGRATED ON MAIN VIA PR #390** · **NOT IMPLEMENTED** · **≠** runtime DoctrinePackage binding |
+
+**G2 anti-claim :** `packageVersion` **`1.0.0`** denotes the first product DoctrinePackage envelope version. It **does NOT** claim: Studio runtime v3 adoption · Product Completion maturity · Phase B completion · W1 completion · REAL readiness.
 
 ---
 
@@ -380,8 +383,10 @@ Dispositions = **recommandations candidates** ≠ Morris-adopted.
 |---|---|---|
 | **doctrinePackageId** | `pkg:sfia-studio-doctrine-v3` | **ADOPTED BY MORRIS** (DPCKC-D01-NARROW) |
 | **Fixture** | `pkg:studio-v3-oa` | **KEEP-AS-TEST-FIXTURE / HARVEST** · **NOT** product package · **NOT** promoted |
-| **First product `packageVersion`** | — | **DEFERRED** to future materialization / publication gate |
+| **First product `packageVersion`** | **`1.0.0`** | **ADOPTED BY MORRIS — G2** *(2026-08-22)* |
 | **packageDigest** | — | Produced at materialization of a published version · ≠ identity · ≠ packageVersion · ≠ CKC contractVersion |
+
+**Anti-claim :** `1.0.0` denotes the first product DoctrinePackage envelope version. It **does NOT** claim: Studio runtime v3 adoption · Product Completion maturity · Phase B completion · W1 completion · REAL readiness.
 
 **Invariants ADOPTED / inherited :**
 
@@ -389,15 +394,27 @@ Dispositions = **recommandations candidates** ≠ Morris-adopted.
 - `packageVersion ≠ packageDigest ≠ CKC contractVersion`.
 - Technical identifiers = progressive disclosure / audit · **not** Pilote primary UX (§A.7).
 
-### H.2 What this gate did NOT adopt
+### H.2 What this gate did NOT adopt — superseded by G2 (historical preserved)
 
-- First product `packageVersion` (e.g. `1.0.0`) — **DEFERRED**.
+**Historical state before G2 (architecture adoption gate PR #390/#391) :**
+
+- First product `packageVersion` — **DEFERRED**.
 - Exact registry entries / digests / materialization root — **DEFERRED**.
 - Runtime cutover from fixture default pin — future evidence + gate.
 
-### H.3 Fixture ≠ product (preserved)
+**Current Morris G2 decision (2026-08-22) :**
 
-`DEFAULT_LOCAL_DOCTRINE_PIN` / fixture `pkg:studio-v3-oa@1.0.0` remain test/demo material until a future product package materialization/cutover gate. Architecture adoption alone **does not** close DK-04.
+- First product `packageVersion` = **`1.0.0`** — **ADOPTED BY MORRIS — G2**.
+- Product materialization root = **OPTION A** `projects/sfia-studio/app/lib/oa/doctrine/product/` — **DECIDED BY MORRIS — G2**.
+- Historical fixture disposition = **QUARANTINE / TEST-ONLY → RETIRE LATER** — **DECIDED BY MORRIS — G2**.
+
+**Still deferred / implementation details (G3+) :**
+
+- Exact manifest/index JSON field schema · exact TypeScript contracts · digests generated at materialization · exact cutover implementation sequence · runtime wiring · implementation evidence.
+
+### H.3 Fixture ≠ product (preserved · HR-04)
+
+`DEFAULT_LOCAL_DOCTRINE_PIN` / fixture `pkg:studio-v3-oa@1.0.0` = **QUARANTINE / TEST-ONLY → RETIRE LATER** *(G2 target disposition)* · **currently still present** until G3 implementation/cutover · **≠** already retired · **≠** product package. Architecture adoption + G2 structural decision alone **do not** close DK-04 runtime gap.
 
 ## I. Package binding — D02 OPTION B ADOPTED BY MORRIS
 
@@ -760,7 +777,7 @@ Exact rename/schema = **IMPLEMENTATION DETAIL / DEFER** unless it alters authori
 | T-A0 ResolveDoctrinePackage | Satisfait (foundation) | Envelope resolve |
 | Modeled delta Manifest/index | **OPEN** | Binding |
 | Product package family identity | **SATISFIED — D01-NARROW ADOPTED** | `pkg:sfia-studio-doctrine-v3` |
-| Product packageVersion / materialization | **OPEN / DEFERRED** | Future publication / materialization gate |
+| Product packageVersion / materialization target | **G2 DECISION CLOSED** · **`1.0.0` + OPTION A root DECIDED BY MORRIS** · runtime materialization **OPEN — G3 implementation gap** | G3 W1 Delivery GO + implementation evidence |
 | Proof schema delta | **OPEN** | Audit |
 | Catalog path removal ADAPT | **OPEN** | HR-01 runtime |
 | C6 | **CLOSED** | N/A — do not reopen |
@@ -792,7 +809,7 @@ Exact rename/schema = **IMPLEMENTATION DETAIL / DEFER** unless it alters authori
 | **NO PARALLEL REGISTRY ENGINE** | Invariant |
 | `DoctrinePackageRepositoryPort` | Architectural seam |
 | Filesystem + `LocalDoctrineRegistry` + `relativePackageDir` | Current materialization/adapter strategy |
-| Long-term product root / materialization policy | **OPEN** — future implementation qualification · Morris gate **if structural** |
+| Long-term product root / materialization policy | **TARGET PRODUCT ROOT DECIDED BY G2** — OPTION A `projects/sfia-studio/app/lib/oa/doctrine/product/` · exact implementation mechanics = **G3** · current runtime still uses fixture root until G3 implementation |
 | Fixture package | **≠** product package |
 
 ### U.3 Interdits par défaut
@@ -813,7 +830,7 @@ Un nouvel engine **seulement si** preuve écrite d’impossibilité d’étendre
 
 **ADAPT** `ResolveDoctrinePackage` + `CkcResolverPort` + `QualifyCycleWithCkc` + F2 orchestration seam — **no parallel engines** · **no parallel registry engine**.
 
-**Status :** No-parallel = **INHERITED** · D10 physical root **DEFERRED** · Morris only if a structural repository architecture change is newly proposed.
+**Status :** No-parallel = **INHERITED** · D10 target product root **DECIDED BY G2 (OPTION A)** · exact implementation mechanics **G3** · Morris only if a **new** structural repository architecture change is proposed beyond G2.
 
 ---
 
@@ -859,7 +876,8 @@ Chaque debt : **KEEP TEMPORARY WITH EXIT** jusqu’au gate Delivery pertinent �
 | Product DoctrinePackage family identity (`pkg:sfia-studio-doctrine-v3`) | **Morris — ADOPTED** (D01-NARROW) |
 | Option B binding architecture | **Morris — ADOPTED** (D02) |
 | First product package fallback NONE | **Morris — ADOPTED** (D05) |
-| First `packageVersion` · exact schemas · physical root · F2 placement · cutover date | **NOT decided this gate** · DEFERRED |
+| First `packageVersion` · product materialization root | **DECIDED BY MORRIS — G2** · `1.0.0` · OPTION A `projects/sfia-studio/app/lib/oa/doctrine/product/` |
+| Exact schemas · F2 placement · cutover date · runtime wiring | **Still G3 implementation details** · **NOT materialized** |
 | Runtime policy construction (fail-closed, no silent upgrade) | **Morris** construction |
 | Project package upgrade Recommendation | **Nora** |
 | Accept/reject Project pin upgrade | **HumanDecision Pilote** |
@@ -1007,10 +1025,11 @@ Categories after this documentary adoption update:
 
 | | |
 |---|---|
-| **Status** | **INHERITED BUILD CONSTRAINT** |
+| **Status** | **INHERITED BUILD CONSTRAINT + G2 TARGET ROOT DECIDED** |
 | **Keep** | `DoctrinePackageRepositoryPort` + `ResolveDoctrinePackage` backbone |
-| **Current adapter** | FilesystemDoctrinePackageRepository / LocalDoctrineRegistry = materialization only · **≠** permanent Product SoT by documentary fiat |
-| **Deferred** | Physical package root / materialization strategy |
+| **Current adapter** | FilesystemDoctrinePackageRepository / LocalDoctrineRegistry = materialization only · **≠** permanent Product SoT by documentary fiat · **current runtime** still resolves via `fixtures/` until G3 |
+| **G2 decided (Morris 2026-08-22)** | Target product materialization root = **OPTION A** `projects/sfia-studio/app/lib/oa/doctrine/product/` · resolver/repository **KEEP** · **≠** implemented · **≠** materialized |
+| **Still G3** | Exact manifest/index JSON · registry wiring · default pin cutover · digests · implementation sequence |
 | **Forbid** | Parallel repository/registry engine |
 
 ### Y.1 Morris decided in THIS gate
@@ -1019,9 +1038,13 @@ Categories after this documentary adoption update:
 2. Option B binding architecture (D02).
 3. Initial product package fallback = NONE (D05).
 
-### Y.2 Morris DID NOT decide in this gate
+### Y.2 Morris DID NOT decide in architecture adoption gate (PR #390/#391) — superseded for version/root by G2
 
-First `packageVersion` · exact schema names · exact TypeScript contracts · physical package root · filesystem production strategy · exact migration implementation · exact F2 function placement · runtime cutover date · method asset deletion · Delivery scope · runtime v3 adoption.
+**Historical (architecture gate) :** first `packageVersion` · physical package root — **DEFERRED**.
+
+**G2 Morris decision (2026-08-22) — recorded in this document :** first `packageVersion` **`1.0.0`** · product materialization root **OPTION A** · fixture **QUARANTINE / TEST-ONLY → RETIRE LATER**.
+
+**Still not decided / G3 implementation :** exact schema names · exact TypeScript contracts · exact migration implementation · exact F2 function placement · runtime cutover date · method asset deletion · Delivery scope · runtime v3 adoption.
 
 ### Y.3 No additional adoption may be inferred
 
@@ -1042,7 +1065,7 @@ Architecture direction adopted ≠ implemented ≠ modeled complete ≠ runtime 
 ## AA. Anti-claims
 
 - **Architecture direction ADOPTED BY MORRIS** · architecture record **INTEGRATED ON MAIN VIA PR #390 + PR #391** ≠ implemented ≠ modeled complete ≠ runtime resolved ≠ Nora Phase B proven ≠ Product READY ≠ runtime v3 ADOPTED · post-sync push/main CI **`32562243107` SUCCESS** · **POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED** · PR head CI `32561807048` **≠** substitute for push/main CI.
-- D01-NARROW adopts **family id only** · first `packageVersion` **DEFERRED** · fixture `pkg:studio-v3-oa` **not** promoted.
+- D01-NARROW adopts **family id** · first `packageVersion` **`1.0.0` ADOPTED BY MORRIS — G2** · **≠** runtime materialized · fixture `pkg:studio-v3-oa@1.0.0` **QUARANTINE / TEST-ONLY → RETIRE LATER** · **not** promoted · **still present** until G3.
 - D02 Option B ≠ schema/field names decided.
 - D05 NONE ≠ all future packages forever · future intra-package synthetic only under later gates.
 - D03/D04/D06/D07/D08/D09/D10 **not** re-opened as Morris choices in this gate.
@@ -1059,7 +1082,7 @@ Architecture direction adopted ≠ implemented ≠ modeled complete ≠ runtime 
 |---|---|
 | **Now** | Post-sync Git+CI+content truth **SATISFIED** · push/main CI **`32562243107` SUCCESS** |
 | **Next** | Implementation / modeled **requalification** = **CANDIDATE** · separate gate · **REQUIRES DISTINCT MORRIS GATE** · **NOT AUTHORIZED BY CURRENT CYCLE** |
-| **Still not** | Code · runtime wiring · Backlog · Delivery · REAL · Phase A/B claims · packageVersion adoption · schema finalization |
+| **Still not** | Code · runtime wiring · Backlog · Delivery · REAL · Phase A/B claims · **runtime package materialization** · schema finalization · G3 W1 Delivery |
 | **Debt** | DK-01…DK-08 remain visible until exits proven |
 
 **Statut final :**
@@ -1067,4 +1090,4 @@ Architecture direction adopted ≠ implemented ≠ modeled complete ≠ runtime 
 
 ---
 
-*Fin du record d’adoption documentaire (cohérence §T + DK-04). Family identity ADOPTED · packageVersion/materialization DEFERRED. Architecture direction ≠ implementation. UTF-8. ZERO REAL.*
+*Fin du record d’adoption documentaire (cohérence §T + DK-04). Family identity ADOPTED · G2 `packageVersion` **`1.0.0`** + OPTION A product root **DECIDED BY MORRIS** · runtime materialization **NOT IMPLEMENTED** · G3 **NOT AUTHORIZED**. Architecture direction ≠ implementation. UTF-8. ZERO REAL.*

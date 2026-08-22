@@ -6,14 +6,14 @@
 | **Cycle** | 5 — Backlog / user stories — **PASSE D'AMENDEMENT** |
 | **Profil SFIA** | STANDARD |
 | **Typologie** | DOC |
-| **Base Git** | `origin/main` @ `aca3dc8ab250ea1d751a833912787751e856c7b6` |
-| **Branche auteur** | `docs/sfia-studio-product-completion-backlog` *(intégration candidate · Draft PR · ≠ main)* |
+| **Base Git** | `origin/main` @ `7750b2a4017338c1a236433c4db8f5cc97dc2feb` |
+| **Branche auteur** | `docs/sfia-studio-g2-doctrinepackage-materialization-decision` *(G2 truth sync candidate · ≠ main until merge)* |
 | **GO Morris consommé (initial)** | DÉMARRAGE CYCLE 5 BACKLOG / USER STORIES |
 | **GO Morris consommé (amend)** | **AMENDEMENT CYCLE 5 BACKLOG SOUS CORPUS PRODUIT VERROUILLÉ** |
 | **GO Morris consommé (correction)** | **CORRECTION CIBLÉE BACKLOG APRÈS REVUE CHATGPT VERROUILLÉE AUX SOURCES** — appliquer uniquement R1→R8 · préserver 5 Epics · préserver 4 Vagues · CKC Phase A+B explicite · PAS DE CODE · PAS DE DELIVERY · PAS DE REAL |
 | **GO Morris consommé (validation)** | **VALIDATE SFIA STUDIO PRODUCT COMPLETION CYCLE 5 — BACKLOG / USER STORIES — SOURCE-LOCKED PRODUCT MODEL — FIVE FUNCTIONAL EPICS — FOUR MACRO WAVES — P0/P1 PRODUCT COMPLETION CUT-LINE — CKC TRACK RESOLVE → CONSUME → INTEGRATE — NON-BLOCKING AUDIT RESERVE R5 ACCEPTED — NO DELIVERY AUTHORIZED BY THIS VALIDATION — RUNTIME V3 NON ADOPTED** *(2026-08-22 · parcours Product Completion)* |
-| **Statut** | **VALIDATED BY MORRIS — INTEGRATION CANDIDATE — NOT YET ON MAIN** |
-| **Intégration Git** | **INTEGRATION CANDIDATE** — transport via Draft PR `docs/sfia-studio-product-completion-backlog` → `main` · **≠ INTEGRATED ON MAIN** tant que PR non mergée |
+| **Statut** | **VALIDATED BY MORRIS — INTEGRATED ON MAIN (PR #393)** |
+| **Intégration Git** | **INTEGRATED ON MAIN** — PR #393 **MERGED** · merge `7750b2a4017338c1a236433c4db8f5cc97dc2feb` · push/main CI #274 **`32575982499` SUCCESS** · **G1 CLOSED** |
 | **Modèle validé** | **5 Epics fonctionnels · 4 macro Vagues · cut-line P0+P1 · réserve audit R5 ACCEPTED — NON-BLOCKING** |
 | **Runtime v3** | **NON ADOPTED** |
 | **Delivery** | **NON AUTORISÉE** |
@@ -21,8 +21,8 @@
 
 ## Anti-affirmations
 
-- **≠** INTEGRATED ON MAIN · **≠** PRÊT POUR DELIVERY · **≠** autorisation de Delivery · **≠** W1 implémentée · **≠** runtime v3 ADOPTED.
-- Validation Morris backlog **≠** GO Delivery W1 · **≠** matérialisation DoctrinePackage · **≠** packageVersion choisi.
+- **≠** PRÊT POUR DELIVERY · **≠** autorisation de Delivery · **≠** W1 implémentée · **≠** runtime v3 ADOPTED · **≠** product package matérialisé.
+- Validation Morris backlog **≠** GO Delivery W1 · **≠** matérialisation runtime DoctrinePackage · **G2** `packageVersion` **`1.0.0` DECIDED BY MORRIS** · **≠** implemented.
 - Contenu backlog dérivé **UNIQUEMENT** du corpus produit verrouillé (§4 GO amend) — pas Roadmap · pas méthode/v2.6 · pas use-cases historiques.
 - Priorité d'écart **≠** niveau C1 MUST/SHOULD/FUTURE · un MUST SATISFIED peut être **N/A**.
 - Enabler technique **≠** User Story · Phase A **≠** Phase B · `consumed=true` **≠** preuve sémantique Nora.
@@ -105,7 +105,7 @@ Traverse **EPIC-A → EPIC-B → EPIC-D**. **Pas de second moteur de qualificati
 | Périmètre | Obligation de sortie |
 |---|---|
 | Vérité DoctrinePackage applicable au Project | Pin + manifest reconstructible |
-| Dépendance matérialisation/cutover package produit | **DIFFÉRÉ — gate Morris** (Cursor NE DOIT PAS choisir packageVersion) |
+| Dépendance matérialisation/cutover package produit | **G2 DECISION CLOSED** · **`1.0.0` + OPTION A root DECIDED BY MORRIS** · **implementation awaits G3** |
 | Manifest package → index CKC interne protégé par digest | DK-01, DK-02 |
 | `cycleTypeId` → `ckcId` + `contractVersion` + `sourceDigest` | Resolver ADAPT · fail-closed |
 | Provenance + preuve de consommation | DK-03 · CA-PC-33/34 |
@@ -113,7 +113,7 @@ Traverse **EPIC-A → EPIC-B → EPIC-D**. **Pas de second moteur de qualificati
 | Retirer chemins méthode comme SoT runtime Studio | DK-01…07 selon applicabilité |
 | Preuve de résolution **ne peut pas revendiquer usage sémantique Nora** | Anti-affirmation Phase A ≠ Phase B |
 
-**Gate structurelle ouverte :** premier `packageVersion` produit / détails matérialisation restent **DIFFÉRÉS** — dépendance **gate Morris** explicite (DK-04).
+**Gate structurelle :** G2 Morris decision **CLOSED** (`1.0.0` · OPTION A root · fixture quarantine/test-only → retire later) · **runtime materialization OPEN — G3 implementation gap** (DK-04).
 
 **US principale :** US-P0-06 · **Vague :** W1
 
@@ -795,13 +795,13 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
 | **TD-C6-04** | Persistance épistémique sélective (E-A) | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-A/B | US-P0-02 · US-P1-01 | CA-PC-25 · tests règles matérialisation | **G3 W1 Delivery GO** |
 | **TD-C6-05** | Confirmation durable depuis `granted` upward | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-C | US-P0-04 · US-P0-05 | granted survit restart · requested éphémère | **G3 W1 Delivery GO** |
 | **TD-C6-06** | Pointeur trajectoire courante explicite | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-B | US-P0-03 · US-P1-01 · US-P1-07 | pas de proposed-as-current · tests pointeur | **G3 W1 Delivery GO** |
-| **DK-01** | Retirer chemins méthode catalogue comme SoT | OPEN | EPIC-A | US-P0-06 · US-P1-09 | index package remplace 6 refs méthode | **G3 W1 Delivery GO** (after **G2**) |
-| **DK-02** | Remplacer méthode `CKC_REFERENCE_MANIFEST` | OPEN | EPIC-A | US-P0-06 | artefact index interne package | **G3 W1 Delivery GO** (after **G2**) |
-| **DK-03** | Preuve consommation avec identité package | OPEN | EPIC-A | US-P0-06 · REQ-16 | schéma preuve COMPLETE · CA-PC-33 | **G3 W1 Delivery GO** (after **G2**) |
-| **DK-04** | Fuite pin fixture par défaut vers UX démo | OPEN/DEFERRED | EPIC-A | US-P0-06 (materialization) | cutover package produit · quarantaine fixture | **G2** · **G3 W1 Delivery GO** after G2 |
-| **DK-05** | `doctrineStatus=method-candidate` hardcoded | OPEN | EPIC-A | US-P0-06 | décision statut package-aware | **G3 W1 Delivery GO** (after **G2**) |
-| **DK-06** | Chemins dual A/B non joints (composition) | OPEN | EPIC-A | US-P0-06 | composition service/F2 ADAPT | **G3 W1 Delivery GO** (after **G2**) |
-| **DK-07** | Fallback méthode synthétique comme policy globale | OPEN | EPIC-A | US-P0-06 | policy locale package ou none · D05 NONE | **G3 W1 Delivery GO** (after **G2**) |
+| **DK-01** | Retirer chemins méthode catalogue comme SoT | OPEN | EPIC-A | US-P0-06 · US-P1-09 | index package remplace 6 refs méthode | **G3 W1 Delivery GO** · G2 prerequisite **SATISFIED** |
+| **DK-02** | Remplacer méthode `CKC_REFERENCE_MANIFEST` | OPEN | EPIC-A | US-P0-06 | artefact index interne package | **G3 W1 Delivery GO** · G2 prerequisite **SATISFIED** |
+| **DK-03** | Preuve consommation avec identité package | OPEN | EPIC-A | US-P0-06 · REQ-16 | schéma preuve COMPLETE · CA-PC-33 | **G3 W1 Delivery GO** · G2 prerequisite **SATISFIED** |
+| **DK-04** | Fuite pin fixture par défaut vers UX démo | **G2 DECISION CLOSED / IMPLEMENTATION OPEN** | EPIC-A | US-P0-06 (materialization) | cutover package produit · quarantaine fixture | **G3 W1 Delivery GO** · G2 prerequisite **SATISFIED** by Morris decision |
+| **DK-05** | `doctrineStatus=method-candidate` hardcoded | OPEN | EPIC-A | US-P0-06 | décision statut package-aware | **G3 W1 Delivery GO** · G2 prerequisite **SATISFIED** |
+| **DK-06** | Chemins dual A/B non joints (composition) | OPEN | EPIC-A | US-P0-06 | composition service/F2 ADAPT | **G3 W1 Delivery GO** · G2 prerequisite **SATISFIED** |
+| **DK-07** | Fallback méthode synthétique comme policy globale | OPEN | EPIC-A | US-P0-06 | policy locale package ou none · D05 NONE | **G3 W1 Delivery GO** · G2 prerequisite **SATISFIED** |
 | **DK-08** | Sur-interprétation résolution `consumed` comme sémantique Nora | OPEN | **EPIC-B** *(D aval)* | US-P1-14 · US-P0-08 · REQ-24 | anti-affirmation explicite + preuve sémantique · sortie Phase B | GO Phase B distinct |
 
 **Règles :** C6 **CLOS — NE PAS ROUVRIR** · enablers **implement-only** · sorties DK **≠** autorisées par adoption architecture seule · productisation REAL et runtime v3 restent **gates Morris séparées**.
@@ -832,13 +832,13 @@ Post-W4 : P2 SHOULD · P3 FUTURE. **UAT/e2e requis par sortie de Vague** — SUC
 | **P3** | FUTURE-01…06 |
 | **N/A** | REQ-21 Git/reuse SATISFIED |
 
-**NON AUTORISÉ :** Delivery · REAL · runtime v3 adoption · packageVersion selection / package implementation.
+**NON AUTORISÉ :** Delivery · REAL · runtime v3 adoption · **package implementation** · **G3 W1 Delivery** *(not authorized)*.
 
-**Backlog Git integration :** **IN PROGRESS** via G1 / Draft PR #393 · **≠ integrated on main until merge**.
+**Backlog Git integration :** **G1 CLOSED** — PR #393 merge `7750b2a…` · push/main CI #274 SUCCESS.
 
-**CURRENT :** Backlog **VALIDATED BY MORRIS** · W1 readiness **CHATGPT QUALIFIED** · **G1 IN PROGRESS** via PR #393
+**CURRENT :** Backlog **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · W1 readiness **CHATGPT QUALIFIED — INTEGRATED ON MAIN** · **G1 CLOSED** · **G2 DECIDED BY MORRIS** · **G2 Git sync candidate** · **G3 NOT AUTHORIZED**
 
-**NEXT :** G1 merge/main truth → **G2** Morris Product DoctrinePackage Materialization Decision → **G3** Morris W1 Delivery GO.
+**NEXT :** complete G2 Git truth integration → ChatGPT post-merge evidence → **G3 Morris W1 Delivery GO** candidate *(≠ automatic)*.
 
 ---
 
@@ -846,8 +846,8 @@ Post-W4 : P2 SHOULD · P3 FUTURE. **UAT/e2e requis par sortie de Vague** — SUC
 
 | Gate | But | État |
 |---|---|---|
-| **G1** | Product Completion Git truth — backlog · readiness · roadmap sur **main** | **IN PROGRESS** via Draft PR #393 · ≠ main until merge |
-| **G2** | Product DoctrinePackage materialization — `packageVersion` · root · cutover · fixture exit | **OPEN** |
+| **G1** | Product Completion Git truth — backlog · readiness · roadmap sur **main** | **CLOSED** — PR #393 merge + CI #274 |
+| **G2** | Product DoctrinePackage materialization — `packageVersion` · root · fixture disposition | **DECIDED BY MORRIS** · Git sync **CANDIDATE** |
 | **G3** | Morris W1 Delivery GO — umbrella Tracks A–E (C6 · DP Phase A · bounded seam · product proof) | **NOT AUTHORIZED** |
 
 **Downstream distinct (hors G3) :** full Phase B (US-P1-14) · REAL · future W2/W3/W4 Delivery gates · runtime v3 adoption · future Git transport/merge gates par tranche.
@@ -892,4 +892,4 @@ Post-W4 : P2 SHOULD · P3 FUTURE. **UAT/e2e requis par sortie de Vague** — SUC
 
 ---
 
-*Validated by Morris 2026-08-22 · integration candidate via Draft PR #393 · G1 in progress · G2 OPEN · G3 NOT AUTHORIZED · Delivery NO · REAL ZERO · runtime v3 NON ADOPTED.*
+*Validated by Morris 2026-08-22 · integrated on main PR #393 · G1 CLOSED · G2 DECIDED BY MORRIS · G3 NOT AUTHORIZED · Delivery NO · REAL ZERO · runtime v3 NON ADOPTED · product package NOT MATERIALIZED.*
