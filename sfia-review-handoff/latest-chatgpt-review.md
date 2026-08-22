@@ -1,103 +1,148 @@
-# SFIA Studio — PR #391 Post-Merge Truth Micro-Correction (CI Closure) — Review Handoff Regularized
+# SFIA Studio — PR #391 Post-Merge CI Truth — Git Integration Transport
 
 ## Metadata
 
-- **Timestamp:** 2026-08-22 11:01 CEST (+0200) — Europe/Paris
-- **Regularization:** REVIEW HANDOFF INCOMPLETE remediated — complete raw two-file diff embedded below
-- **Cycle:** 14 — Post-merge
+- **Timestamp:** 2026-08-22 11:07 CEST (+0200) — Europe/Paris
+- **Cycle:** 14 — Post-merge (repository Git integration / transport)
+- **Typology:** DOC
 - **Profile:** STANDARD
-- **Typology:** DOC — documentary truth micro-correction (handoff regularization only)
 - **Repo:** `mcleland147/sfia-workspace`
 - **Branch:** `docs/sfia-studio-doctrinepackage-ckc-post-merge-truth`
-- **HEAD (unchanged):** `f8eb2de4c81f8891dd29ab1fd41ca4cf36606203`
-- **origin/main:** `5c3bc58ee9b64f8ba419778f594a249187d053d7`
-- **Ahead/behind vs main:** 0 behind / 1 ahead (commit base unchanged; working tree has unstaged doc edits)
 
 ## GO Morris consumed
 
-**GO MORRIS — DOCTRINEPACKAGE/CKC POST-#391 TRUTH MICRO-CORRECTION — RECORD PUSH/MAIN CI `32562243107` SUCCESS AND POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED — EXACT TWO CONVERGENCE DOCS ONLY — NO RUNTIME — NO BACKLOG — NO DELIVERY — NO REAL — NO PR — NO MERGE — NO IMPLEMENTATION/MODELED REQUALIFICATION.**
+**GO MORRIS — POST-#391 TRUTH MICRO-CORRECTION GIT INTEGRATION — EXACT TWO CONVERGENCE DOCS — STAGE + COMMIT + PUSH SOURCE BRANCH + DRAFT PR TO MAIN — NO MERGE — NO BRANCH DELETE — NO RUNTIME — NO BACKLOG — NO DELIVERY — NO REAL — NO IMPLEMENTATION/MODELED REQUALIFICATION.**
 
-Limits: local bounded edit of two docs only · no project commit/push/PR/merge · requalification not authorized.
+Limits: exact two docs · Draft PR only · no merge · no branch delete · no requalification/runtime/Backlog/Delivery/REAL.
 
-## CI truth recorded (authoritative)
+## ChatGPT source verdict
+
+PASS — FINAL DOCUMENTARY REVIEW COMPLETE — READY FOR DISTINCT MORRIS GIT INTEGRATION / DRAFT PR GATE.
+
+**Review handoff before transport:**
+- commit: `1779ae95c2fcad9a48aa52c684b20368a3131446`
+- blob: `360f236242273891d7da88c225b1b6c5dfdc8fce`
+
+## Local Git truth before transport
 
 | Field | Value |
 |---|---|
-| run ID | `32562243107` |
-| run number | `269` |
-| workflow | SFIA Studio CI |
-| event | `push` |
-| branch | `main` |
-| headSha | `5c3bc58ee9b64f8ba419778f594a249187d053d7` |
-| status | `completed` |
-| conclusion | `success` |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/32562243107 |
+| repo | `/Users/morris/Projects/sfia-workspace` |
+| branch | `docs/sfia-studio-doctrinepackage-ckc-post-merge-truth` |
+| HEAD (initial) | `f8eb2de4c81f8891dd29ab1fd41ca4cf36606203` |
+| origin/main | `5c3bc58ee9b64f8ba419778f594a249187d053d7` |
+| origin branch (before push) | `f8eb2de4c81f8891dd29ab1fd41ca4cf36606203` |
+| ahead/behind (before new commit) | 0 behind / 1 ahead |
+| modified unstaged | exactly 2 convergence docs |
+| staged (before) | none |
+| untracked (hors scope) | `.tmp-sfia-review/`, `projects/eventops-poc/`, `projects/flex-office-demo/` |
 
-**PR CI (distinct, preserved):** run `32561807048` · event `pull_request` · head `a144d7c7…` · **≠ push/main proof**
+## Reviewed diff identity
 
-## Sources read (read-only)
+Transported diff matches ChatGPT-validated handoff: CI `32562243107` SUCCESS · **POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED** · active CI blockers removed · historical rows preserved · requalification CANDIDATE ONLY · DISTINCT MORRIS GATE REQUIRED · NOT AUTHORIZED.
 
-Build Doctrine, Roadmap, C1/C2/FA/C6, architecture qualification doc, framing 31 + ckc/14-post-merge, routing guide, cycle template, operating model, rules/guardrails, `sfia-studio-ci.yml`, canonical handoff `sfia-review-handoff/latest-chatgpt-review.md`.
+## Staging validation
 
-## Files modified (exactly 2 — project worktree unchanged during regularization)
-
-### 1. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-
-**Sections touched (current rows only):** Snapshot Git courant · Timestamp maintenance courant · DoctrinePackage / runtime CKC architecture qualification row · Gates courants · CURRENT REPOSITORY TRANSITION · NEXT ORDERED STEP · NEXT PRODUCT CAPABILITY
-
-### 2. `projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md`
-
-**Sections touched (active claims only):** Header Statut + Post-merge coherence sync row · A.1 Consommateur · A.2 Autorité · D convergence table + verdict block + trajectory + Morris gate paragraph · Z.4 · AA · AB · Statut final
-
-## Stale active claims check
-
-**Removed/replaced in current sections:** `NOT YET PROVEN` · `RESOLVE FROM GIT` (post-sync CI wait) · `BLOCKED until post-sync CI proven`
-
-**Historical occurrences preserved:** Roadmap historique rows with `RESOLVE FROM GIT` · Roadmap line 747 PR #384 narrative
-
-## Invariants preserved
-
-D01/D02/D05 unchanged · C6 CLOSED · DK-01…08 OPEN · runtime binding NOT IMPLEMENTED · packageVersion DEFERRED · Backlog NOT OPEN · Delivery NO · ZERO REAL · runtime v3 NON ADOPTED · implementation/modeled requalification NOT AUTHORIZED
-
-## Validation — exact command outputs
-
-### git status --short
-
-```
- M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
- M projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md
-?? .tmp-sfia-review/
-?? projects/eventops-poc/
-?? projects/flex-office-demo/
-
-```
-
-### git diff --name-only
-
+**Exact staged paths:**
 ```
 projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md
-
 ```
 
-### git diff --cached --name-only
+**git diff --cached --check:** clean (empty output)
 
+## Commit
+
+| Field | Value |
+|---|---|
+| SHA | `c8db36f52849f421a0604b321606c0fd30e83426` |
+| message | `docs(sfia-studio): record PR 391 post-merge CI truth` |
+| files | exactly 2 (26 insertions, 23 deletions) |
+
+**git diff HEAD^ HEAD --name-only:**
 ```
-(empty output)
+projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md
 ```
 
-### git diff --check
+## Push
 
-```
-(empty output — clean)
-```
+| Field | Value |
+|---|---|
+| remote branch before | `f8eb2de4c81f8891dd29ab1fd41ca4cf36606203` |
+| remote branch after | `c8db36f52849f421a0604b321606c0fd30e83426` |
+| fast-forward | yes (`f8eb2de4..c8db36f5`) |
+| force push | no |
 
-## Full diff (working tree vs HEAD f8eb2de4) — COMPLETE RAW OUTPUT
+## Draft PR
+
+| Field | Value |
+|---|---|
+| action | created (no prior open PR on branch) |
+| number | **#392** |
+| title | `docs(sfia-studio): record PR #391 post-merge CI truth` |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/392 |
+| state | OPEN |
+| isDraft | true |
+| base | `main` |
+| head | `docs/sfia-studio-doctrinepackage-ckc-post-merge-truth` |
+| head SHA | `c8db36f52849f421a0604b321606c0fd30e83426` |
+| mergeable | MERGEABLE |
+| mergeStateStatus | BLOCKED (draft) |
+
+**Exact PR changed files (2):**
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+- `projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md`
+
+## CI initial state
+
+| Field | Value |
+|---|---|
+| workflow | SFIA Studio CI |
+| run ID | `32564094731` |
+| run number | `270` |
+| event | `pull_request` |
+| branch | `docs/sfia-studio-doctrinepackage-ckc-post-merge-truth` |
+| headSha | `c8db36f52849f421a0604b321606c0fd30e83426` |
+| status | **QUEUED** (at transport time) |
+| conclusion | *(pending)* |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/32564094731 |
+
+**Historical push/main proof (unchanged):** run `32562243107` SUCCESS on `main` @ `5c3bc58e…` — PR CI does not substitute for push/main proof.
+
+**Explicit:** CI SUCCESS on PR #392 would **NOT** authorize merge without distinct explicit Morris GO.
+
+## Invariants preserved
+
+- D01-NARROW / D02 Option B / D05 fallback NONE unchanged
+- C6 CLOSED
+- DK-01…DK-08 OPEN
+- runtime DoctrinePackage→CKC binding NOT IMPLEMENTED
+- packageVersion DEFERRED
+- Product Backlog NOT OPEN · Delivery NO · ZERO REAL · runtime v3 NON ADOPTED
+- implementation/modeled requalification NOT AUTHORIZED
+
+## Actions NOT executed
+
+- merge PR
+- branch delete
+- mark ready for review
+- auto-merge
+- force push / rebase
+- runtime / code changes
+- Backlog / Delivery / REAL
+- implementation/modeled requalification
+- packageVersion decision
+
+## Next recommended gate
+
+ChatGPT PR readiness review after remote PR/CI evidence settles. No merge until distinct explicit Morris GO.
+
+## Committed diff — COMPLETE RAW OUTPUT
 
 Command:
-
 ```
-git diff -- \
+git diff f8eb2de4..c8db36f5 -- \
   projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md \
   projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md
 ```
@@ -256,21 +301,8 @@ index 51f98ce3..124301c9 100644
 
  ---
 
-
 ```
-
-## Actions explicitly NOT executed
-
-- git add / commit / push on project branch
-- PR create / merge / branch delete
-- implementation/modeled requalification
-- code / runtime / Backlog / Delivery / REAL
-- Git integration gate
-
-## Next recommended gate
-
-ChatGPT final documentary review → if PASS → distinct Morris Git integration / transport gate for unstaged local corrections on `docs/sfia-studio-doctrinepackage-ckc-post-merge-truth`.
 
 ## Final verdict
 
-**PASS — REVIEW HANDOFF REGULARIZED — COMPLETE MODIFIED CONTENT PUBLISHED — PROJECT WORKTREE UNCHANGED — READY FOR CHATGPT FINAL DOCUMENTARY REVIEW**
+**PASS — POST-#391 TRUTH MICRO-CORRECTION TRANSPORTED — EXACT TWO DOCS COMMITTED AND PUSHED — DRAFT PR OPEN TO MAIN — NO MERGE — NO BRANCH DELETE — NO RUNTIME/BACKLOG/DELIVERY/REAL — IMPLEMENTATION/MODELED REQUALIFICATION NOT AUTHORIZED — READY FOR CHATGPT PR READINESS REVIEW**
