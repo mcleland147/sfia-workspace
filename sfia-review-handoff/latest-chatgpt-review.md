@@ -1,9 +1,9 @@
 # ChatGPT Review Pack — FULL
-# SFIA STUDIO — DoctrinePackage / Runtime CKC Integration
-# ARCHITECTURE DOCUMENTARY ADOPTION UPDATE
+# SFIA STUDIO — DoctrinePackage / Runtime CKC
+# FINAL DOCUMENTARY COHERENCE CORRECTION
 
 ## 1. Timestamp (Europe/Paris)
-2026-08-22T06:58:57+02:00
+2026-08-22T07:07:42+02:00
 
 ## 2. Repo / pwd
 mcleland147/sfia-workspace · /Users/morris/Projects/sfia-workspace
@@ -28,83 +28,56 @@ mcleland147/sfia-workspace · /Users/morris/Projects/sfia-workspace
 ## 7. Staged status
 NONE
 
-## 8. Exact GO Morris consumed
-Documentary adoption update after ChatGPT product-aligned PASS and Morris adoption of ONLY:
-- DPCKC-D01-NARROW → `pkg:sfia-studio-doctrine-v3` (first packageVersion DEFERRED)
-- DPCKC-D02 OPTION B
-- DPCKC-D05 fallback NONE for first 15/15 product package
-No code · no runtime · no roadmap · no project Git transport · no Backlog/Delivery/REAL · runtime v3 NON ADOPTED
+## 8. GO Morris consumed
+GO MORRIS — FINAL DOCUMENTARY COHERENCE CORRECTION — SAME CYCLE 6 — UPDATE ONLY STALE PRE-ADOPTION WORDING IN A.1, A.2 AND CONVERGENCE/CURRENT-STATE — PRESERVE D01-NARROW/D02/D05 EXACTLY — NO NEW ARCHITECTURE DECISION — NO CODE — NO RUNTIME — NO ROADMAP — NO BACKLOG — NO DELIVERY — ZERO REAL — NO PROJECT STAGE/COMMIT/PUSH/PR — REVIEW PACK FULL + HANDOFF — THEN CHATGPT FINAL DOCUMENTARY REVIEW BEFORE DISTINCT GIT INTEGRATION GATE.
+
+(User: "ouais go" consuming ChatGPT-proposed GO.)
 
 ## 9. Cycle / profile / type
 Same Cycle 6 · CRITICAL · EVOL/DOC · V3-F03+V3-F07+V3-F01
 
-## 10. C1/C2/UX/FA/C6 product-first pre-check
-Product sources remain normative READ ONLY · candidate corrected to record adoption without reopening C1/C2/UX/FA/C6
-Product Completion C6 CLOSED · TD-C6-01…06 ADOPTED · DO NOT REOPEN
+## 10. Baseline handoff
+commit `9e4737f565c4e1a68d3eab328ea14c133f714f16`
+blob `aeeb13fe88ec4d8f7f91d0a12222f8fa1f0e062d`
+ChatGPT documentary adoption review: ARCHITECTURE CONTENT PASS · DOCUMENTARY STATE COHERENCE CHANGES REQUIRED · GIT NOT READY
 
-## 11. Convergence verdict
-CONVERGENCE CONTEXT LOADED
-Architecture direction ADOPTED BY MORRIS · implementation NOT STARTED/NOT AUTHORIZED · Nora semantic NOT PROVEN · ZERO REAL · runtime v3 NON ADOPTED
+## 11. Corrections applied (ONLY three zones)
 
-## 12. Sources read
-Product hierarchy L1–L6 as contract · process templates PROCESS ONLY · candidate L8
+### A.1 before → after
+BEFORE: Nature = candidate · Consommateur = ChatGPT → décision architecture Morris
+AFTER:
+Nature = Architecture qualification + documentary adoption record
+Consommateur = ChatGPT documentary coherence review → distinct Git integration gate → future implementation requalification
 
-## 13. Baseline handoff
-commit `30264cae1753acef81775b7a612f04af97aadb10`
-blob `b5b68186d71ae7b6ed2599d604fb041f7a0e16f2`
-FINAL PRODUCT-ALIGNMENT CORRECTION PASS · MATCH · SUPERSEDED by this adoption update for D01/D02/D05 pending language
+### A.2 before → after
+BEFORE: Ce document = CANDIDATE uniquement · Aucune clause Morris-adopted
+AFTER:
+Record documentaire partiellement adopté : D01-NARROW, D02, D05 adoptés ; inherited/derived hérités ; deferred/recommendations non adoptés ; adoption ≠ implementation ≠ Git ≠ runtime
 
-## 14. ChatGPT full product-aligned PASS
-PASS — PRODUCT TRAJECTORY ALIGNMENT SATISFIED · FUNCTIONAL CONTRACT PRESERVED · PRODUCT EXPERIENCE PRESERVED · FA BOUNDARIES PRESERVED · C6/OA REUSE PRESERVED · CKC ROLE PRESERVED · NO PARALLEL ARCHITECTURE · READY FOR MORRIS ARCHITECTURE DECISION GATE (now consumed for D01-NARROW/D02/D05)
+### Convergence before → after
+BEFORE: CANDIDATE | Awaiting ChatGPT + Morris · exige Morris architecture decision pack distinct
+AFTER:
+ARCHITECTURE DIRECTION ADOPTED BY MORRIS = NOT IMPLEMENTED = NOT GIT-INTEGRATED ; decision pack D01/D02/D05 already consumed ; next = Git integration gate
 
-## 15. D01-NARROW exact adopted decision
-`doctrinePackageId = pkg:sfia-studio-doctrine-v3`
-fixture `pkg:studio-v3-oa` KEEP-AS-TEST-FIXTURE/HARVEST NOT promoted
-packageId never derived from path/branch/freeze/catalogHash/digest
+## 12. D01-NARROW / D02 / D05
+PRESERVED EXACTLY AS ADOPTED — no reopen · no rewrite of decision substance
 
-## 16. D02 exact adopted decision
-OPTION B: Manifest → digest-protected package-internal CKC index → Studio-native CKC
-integrity pin→manifest→indexDigest→sourceDigest · R-CKC-01 · no parallel engines · no Catalog→file SoT
+## 13. No new architecture decision
+YES
 
-## 17. D05 exact adopted decision
-First product package 15/15: fallback NONE · fail-closed · no method/v2.6/silent other package/global synthetic
-Future intra-package synthetic only under later gates — NOT adopted now
+## 14. No code / runtime / roadmap / backlog / delivery / REAL
+YES
 
-## 18. Explicitly deferred packageVersion
-First product packageVersion DEFERRED to materialization/publication gate
-Invariant: packageVersion ≠ packageDigest ≠ CKC contractVersion
+## 15. Anti double-truth
+Document no longer simultaneously claims ADOPTED and CANDIDATE awaiting Morris architecture decision
 
-## 19–25. D03…D10 status
-D03 INHERITED/DERIVED · D04 INHERITED HOW DEFERRED · D06 INHERITED/DERIVED schema DEFERRED · D07 INHERITED honesty naming DEFERRED · D08 INHERITED functional order · D09 INHERITED convergence exit · D10 INHERITED no-parallel root DEFERRED
-
-## 26. Updated authority matrix
-See document §X.0 / §Y.1 / §Y.2
-
-## 27. Product-flow preservation
-Locked graph preserved §F.2 · A1→A2→B · controlled requalification
-
-## 28. UX method-absorption preservation
-§A.6–A.7 unchanged in intent · business consequence first · progressive disclosure
-
-## 29. No-parallel check
-All NO — second resolver/CKC engine/registry/catalog/F2 orchestrator/Project doctrine SoT/new persistence = NO
-
-## 30. Debt/exits
-DK-01…DK-08 remain OPEN — architecture adoption alone closes none
-
-## 31. Phase A/B anti-claims
-Architecture adoption does NOT satisfy Phase A or Phase B proofs
-
-## 32. Exact remaining deferred items
-packageVersion · schemas · TS contracts · physical root · FS production · migration · F2 placement · cutover date · method deletion · Delivery scope · runtime adoption
-
-## 33. FULL updated project document
+## 16. FULL document content
 ```markdown
 # SFIA Studio — Qualification architecture DoctrinePackage ↔ runtime CKC
 
 | Champ | Valeur |
 |---|---|
-| **Statut** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS — DOCUMENTARY ADOPTION UPDATE — AWAITING CHATGPT REVIEW / DISTINCT GIT INTEGRATION GATE** |
+| **Statut** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS — DOCUMENTARY COHERENCE CORRECTION — AWAITING CHATGPT FINAL DOCUMENTARY REVIEW / DISTINCT GIT INTEGRATION GATE** |
 | **Autorité** | Architecture direction **ADOPTED BY MORRIS** (D01-NARROW · D02 Option B · D05 fallback NONE) · **≠** implemented · **≠** modeled complete · **≠** Git-integrated · **≠** runtime resolved · **≠** Nora semantic proven · **≠** Product READY · **≠** Backlog · **≠** Delivery · **≠** REAL · **≠** runtime v3 ADOPTED |
 | **Rôle** | Documentary adoption record : Catalog → DoctrinePackage → Studio CKC → Nora (direction only) |
 | **Base Git vérifiée** | `origin/main` @ `c4dc1c9c` *(contexte de rédaction)* |
@@ -128,16 +101,16 @@ packageVersion · schemas · TS contracts · physical root · FS production · m
 | Élément | Valeur |
 |---|---|
 | Chemin canonique | `projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md` |
-| Nature | Qualification d’architecture **candidate** (gouvernance / design) |
+| Nature | Architecture qualification + **documentary adoption record** |
 | Langue | Prose technique FR/EN alignée docs SFIA Studio |
-| Consommateur attendu | ChatGPT review → décision d’architecture Morris |
-| Non-consommateur | Delivery engines · Cursor REAL · Product Backlog auto-open |
+| Consommateur attendu | ChatGPT documentary coherence review → **distinct Git integration gate** → future implementation requalification |
+| Non-consommateur | Delivery engines · Cursor REAL · Product Backlog auto-open · new re-decision of D01-NARROW / D02 / D05 |
 
 ### A.2 Autorité
 
-1. **Git + tests** sur la base indiquée = preuve d’état courant.
-2. **Décisions Morris explicites** déjà consommées (corpus CKC 15/15, C6 CLOSED, pin catalogue validation-scope, R-CKC-01/02/03 CLOSED au cadrage) = autorité de trajectoire **déjà actée**, **sans** autoriser l’intégration runtime DoctrinePackage↔CKC.
-3. **Ce document** = **CANDIDATE** uniquement. Aucune clause n’est Morris-adopted par le seul fait d’être écrite ici.
+1. **Git + tests** sur la base indiquée = preuve d’état courant (document encore **local / not Git-integrated**).
+2. **Décisions Morris déjà consommées** (corpus CKC 15/15, C6 CLOSED, pin catalogue validation-scope, R-CKC-01/02/03 CLOSED, **DPCKC-D01-NARROW · D02 Option B · D05 fallback NONE**) = autorité de trajectoire / direction d’architecture **déjà actée**, **sans** autoriser implémentation runtime ni Git integration sans gate distinct.
+3. **Ce document** est le **record documentaire** d’une direction d’architecture **partiellement adoptée** par Morris : **D01-NARROW, D02 et D05 sont adoptés** ; les contraintes inherited/derived restent héritées ; les éléments deferred/recommendations **ne sont pas** adoptés. **L’adoption documentaire ≠ implémentation ≠ intégration Git ≠ runtime adoption.**
 4. Conversation / Recommendation / ChatGPT review = **entrées cognitives**, jamais substituts à HumanDecision Morris ni à preuve Git.
 
 ### A.3 Périmètre IN
@@ -221,7 +194,7 @@ Ces deux moteurs **ne sont pas joints** pour le binding de contenu CKC. Le pin D
 
 **Problème d’architecture :** sans modèle d’intégration Catalog→DoctrinePackage→CKC, le Studio conserve une **double vérité** (package pin vs method path CKC), viole la trajectoire STUDIO CKC FIRST au runtime, et rend impossible une preuve d’audit digeste/provenance du CKC réellement lié au package résolu.
 
-**Ce document ne décide pas** l’implémentation. Il qualifie options, dettes, et gates Morris requis.
+**Ce document ne décide pas** l’implémentation. Il **enregistre** la direction d’architecture adoptée (D01-NARROW · D02 · D05), les contraintes héritées, les dettes ouvertes, et les gates suivants (Git integration → implementation requalification). Il **ne rouvre pas** D01/D02/D05.
 
 ---
 
@@ -255,9 +228,29 @@ Anti-lecture : Conversation ≠ Decision. ChatGPT review ≠ Morris adopt.
 | CKC runtime qualification | D1/D2 method-candidate path-based | **≠** Studio corpus binding |
 | runtime v3 | **NON ADOPTED** | Inchangé |
 | Product Backlog / Delivery / REAL | **NOT OPENED / NOT AUTHORIZED / ZERO** | Inchangé |
-| **Cette qualification DP↔CKC** | **CANDIDATE** | Awaiting ChatGPT + Morris |
+| **Cette qualification DP↔CKC** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS** | **NOT IMPLEMENTED** · **NOT GIT-INTEGRATED** · D01-NARROW / D02 / D05 consumed · remaining items inherited/deferred |
 
-**Verdict de convergence (candidat) :** la capacité suivante de gouvernance est bien la **qualification d’intégration DoctrinePackage / runtime CKC**. Elle n’est **pas** ouverte en Backlog/Delivery. Elle exige un **Morris architecture decision pack** distinct après review.
+**Verdict de convergence :**
+
+```text
+DoctrinePackage / runtime CKC architecture
+= ARCHITECTURE DIRECTION ADOPTED BY MORRIS
+= NOT IMPLEMENTED
+= NOT GIT-INTEGRATED
+```
+
+**Trajectoire :**
+
+```text
+architecture adoption (D01-NARROW · D02 · D05)
+  → documentary coherence (this pass)
+  → ChatGPT documentary review
+  → distinct Git integration gate
+  → PR / CI / post-merge
+  → implementation requalification
+```
+
+Le **Morris architecture decision pack** pour D01-NARROW / D02 / D05 a **déjà été consommé**. Aucun nouveau pack de décision d’architecture n’est requis ici. Le prochain gate Morris applicable = **Git integration** (distinct), seulement après ChatGPT documentary PASS.
 
 ---
 
@@ -1137,43 +1130,30 @@ Architecture direction adopted ≠ implemented ≠ modeled complete ≠ Git-inte
 | **Debt** | DK-01…DK-08 remain visible until exits proven |
 
 **Statut final :**
-**ARCHITECTURE DIRECTION ADOPTED BY MORRIS — DOCUMENTARY ADOPTION UPDATE — AWAITING CHATGPT REVIEW / DISTINCT GIT INTEGRATION GATE.**
+**ARCHITECTURE DIRECTION ADOPTED BY MORRIS — DOCUMENTARY COHERENCE CORRECTION — AWAITING CHATGPT FINAL DOCUMENTARY REVIEW / DISTINCT GIT INTEGRATION GATE.**
 
 ---
 
-*Fin du record d’adoption documentaire. Architecture direction ≠ implementation. UTF-8. ZERO REAL.*
+*Fin du record d’adoption documentaire (cohérence A.1/A.2/Convergence). Architecture direction ≠ implementation. UTF-8. ZERO REAL.*
 
 ```
 
-## 34. Exact project diff
-(file untracked on local qualification branch — §33 authoritative)
-
-## 35. Modified files
+## 17. Modified files
 projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md
 .tmp-sfia-review/chatgpt-review.md
 
-## 36. Staged
+## 18. Staged
 NONE
 
-## 37. Project commit
+## 19. Project commit / push / PR
 NONE
 
-## 38. Project push
-NONE
-
-## 39. Project PR
-NONE
-
-## 40. Unrelated artifacts preserved
+## 20. Unrelated preserved
 YES
 
-## 41. Final status
-ARCHITECTURE DIRECTION ADOPTED BY MORRIS — documentary adoption update complete locally — not Git-integrated
-
-## 42. Reserves
-Not implemented · packageVersion deferred · debts open · C6 not reopened · no inferred extra adoption
-
-## 43. Final verdict
-SFIA STUDIO DOCTRINEPACKAGE / RUNTIME CKC ARCHITECTURE DOCUMENTARY ADOPTION UPDATE PASS
-— READY FOR CHATGPT DOCUMENTARY ADOPTION REVIEW
-— THEN DISTINCT MORRIS GIT INTEGRATION GATE ONLY IF PASS
+## 21. Final verdict
+SFIA STUDIO DOCTRINEPACKAGE / RUNTIME CKC FINAL DOCUMENTARY COHERENCE CORRECTION PASS
+— A.1 / A.2 / CONVERGENCE COHERENT WITH ADOPTION
+— D01-NARROW / D02 / D05 PRESERVED
+— READY FOR CHATGPT FINAL DOCUMENTARY REVIEW
+— THEN DISTINCT GIT INTEGRATION GATE ONLY IF PASS
