@@ -7,13 +7,13 @@
 | **Profil SFIA** | CRITICAL |
 | **Typologie** | DOC |
 | **Vague** | **W2 — Cognition, trajectoire et décision humaine** |
-| **Base Git** | `origin/main` @ `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` |
+| **Base Git (qualification snapshot)** | `origin/main` @ `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` — **≠ embed permanent `origin/main` HEAD** |
 | **Branche analyse** | `docs/sfia-studio-product-completion-w2-delivery-readiness` *(W2 readiness candidate · ≠ main until merge)* |
 | **GO Morris consommé (backlog)** | **VALIDATE SFIA STUDIO PRODUCT COMPLETION CYCLE 5** — slicing W2 authoritative · **≠** redéfinition C1/C2 · **NO DELIVERY AUTHORIZED BY BACKLOG VALIDATION** |
 | **GO Morris consommé (W1 closure)** | **G3 W1 Delivery CONSUMED / SATISFIED** — PR **#395** merge `ddd39181…` · **8/8 exit contracts PASS** · push/main CI **`32589270526` SUCCESS** |
-| **GO Morris consommé (readiness Cursor)** | **QUALIFICATION READINESS W2 — W2-G1 PREPARATION ONLY** · **CORRECTION R1→R13** · **MICRO-CORRECTION R14→R15** — analyse repo-first · aucune implémentation · aucune Delivery · aucun REAL |
-| **Verdict ChatGPT (review finale)** | **PENDING** — candidat corrigé pour re-revue |
-| **Statut** | **LOCAL W2 READINESS CANDIDATE (R1→R13 + R14→R15 CORRECTED) — NOT INTEGRATED — W2-G1 CANDIDATE — W2-G2/W2-G3/GO PHASE B NOT AUTHORIZED — DELIVERY NOT AUTHORIZED — REAL ZERO** |
+| **GO Morris consommé (readiness Cursor)** | **QUALIFICATION READINESS W2 — W2-G1** · **CORRECTION R1→R13** · **MICRO-CORRECTION R14→R15** · **GIT-STATE STABILITY MICRO-CORRECTION #398** — analyse repo-first · aucune implémentation · aucune Delivery · aucun REAL |
+| **Verdict ChatGPT (review finale)** | **W2 READINESS QUALIFIED — MACRO SCOPE + ARCHITECTURE SUFFICIENT — H→N CONTRACT ALIGNED — DELIVERY NOT YET AUTHORIZED — NO STRUCTURAL ARCHITECTURE GAP** |
+| **Statut** | **W2-G1 CONTENT QUALIFIED — GIT INTEGRATION STATE = RESOLVE FROM REPOSITORY** · R1→R15 APPLIED · PR **#398** transport proof · **≠ INTEGRATED ON MAIN until merge** · W2-G2/W2-G3/GO PHASE B NOT AUTHORIZED — DELIVERY NOT AUTHORIZED — REAL ZERO** |
 | **Runtime v3** | **NON ADOPTED** |
 | **Delivery** | **NON AUTORISÉE** |
 | **REAL** | **ZERO** |
@@ -29,6 +29,8 @@
 - W2-G1 PASS **≠** W2-G2 consumed **≠** W2-G3 consumed **≠** GO Phase B consumed.
 - W2-G3 **≠** automatic Phase B authorization.
 - GO Phase B distinct **≠** Phase B complete · Phase B slice W2 proven **≠** CKC track complete.
+- W2-G1 content qualified **≠** W2-G1 integrated on main until merge proof · `origin/main` HEAD **RESOLVE FROM REPOSITORY**.
+- PR #398 merge **≠** W2-G2 · **≠** W2-G3 · **≠** GO Phase B consumed.
 
 ---
 
@@ -39,14 +41,15 @@
 | repo | `mcleland147/sfia-workspace` |
 | pwd | `/Users/morris/Projects/sfia-workspace` |
 | branch | `docs/sfia-studio-product-completion-w2-delivery-readiness` |
-| HEAD | `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` |
-| origin/main | `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` |
+| HEAD (qualification snapshot) | `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` — base d'entrée qualification |
+| `origin/main` HEAD | **RESOLVE FROM REPOSITORY** *(Git SoT · ce document ≠ pin permanent)* |
+| W2-G1 transport PR | **#398 OPEN / DRAFT** · head `e958bfa4…` · PR CI **`32606156268` SUCCESS** · merge **≠** consommé par ce document |
 | W1 Delivery PR | **#395 MERGED** · merge `ddd39181e9cf823a0d5055eefba7a873940c38c2` · push/main CI **`32589270526` SUCCESS** · **8/8 PASS** |
 | W1 roadmap closure PR | **#397 MERGED** · merge `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` |
 | backlog on main | `05-product-completion-backlog-user-stories.md` — **INTEGRATED ON MAIN** |
 | W1 readiness on main | `07-product-completion-wave-1-delivery-readiness.md` — **INTEGRATED ON MAIN** |
-| W2 readiness | `08-product-completion-wave-2-delivery-readiness.md` — **LOCAL CANDIDATE (R1→R13 corrected)** |
-| qualification timestamp | 2026-08-23 01:29:30 CEST (+0200) |
+| W2 readiness | `08-product-completion-wave-2-delivery-readiness.md` — **CONTENT QUALIFIED** · Git integration **RESOLVE FROM REPOSITORY** (PR **#398**) |
+| qualification timestamp | 2026-08-23 01:57:59 CEST (+0200) — **GIT-STATE STABILITY MICRO-CORRECTION #398** |
 
 ---
 
@@ -62,7 +65,7 @@
 | Pilote = runtime actor (C1/C2) | Morris runtime authority = **TEMPORARY WITH EXIT** · W2 cible = HumanDecision Pilote générique |
 | runtime v3 **NON ADOPTED** | Hors scope W2 |
 | REAL | Gate Morris **distinct** · **ZERO** · aucune nouvelle preuve LIVE/REAL W2 autorisée |
-| W2 entry | **CANDIDATE / NOT AUTHORIZED** — qualification distincte requise avant tout GO |
+| W2 entry | **CONTENT QUALIFIED** · macro-wave confirmed · **W2-G2/W2-G3 NOT AUTHORIZED** |
 
 ---
 
@@ -106,7 +109,7 @@
 | W2 as next macro-wave | **PASS** |
 | Structural architecture gap | **NONE** |
 | Parallel architecture required | **NO** |
-| W2 readiness details | **corrections R1→R15 required before W2-G1 integration** |
+| W2 readiness details | **R1→R15 APPLIED / NO REMAINING CONTENT CORRECTION** · Git integration state **RESOLVE FROM REPOSITORY** |
 
 ---
 
@@ -309,7 +312,6 @@ W2 **reçoit** de W1 (PR #395 · **ne pas rouvrir**) :
 | GAP-W2-13 | Gouvernance/audit presentation thin | US-P1-16 · REQ-20 | P1 | **NON** | **OUI** |
 | GAP-W2-14 | Disclosure drift (`disclosures.ts` + UI copy) | transverse | P1 | **NON** | **OUI** (exit honesty) |
 | GAP-W2-15 | Runtime projection gap (trajectory/decisions/attempts) | US-P1-15/16 | P1 | **NON** | **OUI** |
-| GAP-W2-16 | W2 readiness doc not on main | governance | P0 | **OUI** | NON (pre-integration) |
 | GAP-W2-17 | Method manifest code historique (DK-01/02) | DK-01/02 | P3 | **NON** | **NON** (canonical path proven) |
 
 ---
@@ -318,7 +320,7 @@ W2 **reçoit** de W1 (PR #395 · **ne pas rouvrir**) :
 
 | Gate | Porte | État |
 |---|---|---|
-| **W2-G1** | Readiness / Git truth / scope · gaps · tracks · exits · decision pack candidates | **CANDIDATE** (ce document corrigé) |
+| **W2-G1** | Readiness content · scope · gaps · tracks · exits · decision pack candidates | **CONTENT QUALIFIED** · Git integration **RESOLVE FROM REPOSITORY** |
 | **W2-G2** | Décisions structurantes Morris : D-W2-01…04 · tranche Phase B W2 · enforcement boundaries | **NOT AUTHORIZED** |
 | **W2-G3** | Umbrella W2 Delivery GO — autorise implémentation générale des tracks W2 autorisés | **NOT AUTHORIZED** |
 | **GO Phase B distinct** | Autorisation spécifique US-P1-14 / REQ-24 / DK-08 — implémentation et preuve sémantique Phase B selon tranche décidée | **NOT AUTHORIZED / NOT CONSUMED** |
@@ -329,7 +331,7 @@ W2 **reçoit** de W1 (PR #395 · **ne pas rouvrir**) :
 
 | Gate | Rôle |
 |---|---|
-| **W2-G1** | Qualification documentaire · scope/gaps/tracks/exits |
+| **W2-G1** | Qualification documentaire · scope/gaps/tracks/exits · **content SATISFIED** · integration **RESOLVE FROM REPOSITORY** |
 | **W2-G2** | Décisions structurantes Morris (D-W2-01…04) · dont D-W2-02 fixe la tranche Phase B W2 |
 | **W2-G3** | Umbrella GO Delivery W2 · autorise implémentation des tracks W2 autorisés |
 | **GO Phase B distinct** | Gate spécifique backlog pour toute implémentation/preuve Phase B couverte par US-P1-14 |
@@ -337,7 +339,7 @@ W2 **reçoit** de W1 (PR #395 · **ne pas rouvrir**) :
 **Séquence candidate (aucun gate consommé par ce cycle) :**
 
 ```
-W2-G1 integrated
+W2-G1 content qualified (+ Git integration RESOLVE FROM REPOSITORY / merge proof)
   → W2-G2 decisions consumed
   → W2-G3 Delivery GO (umbrella)
   → GO Phase B distinct (avant implémentation/preuve Phase B requérant ce gate)
@@ -352,13 +354,24 @@ W2-G1 integrated
 - gaps identifiés et classés
 - tracks / exit contracts / stops définis
 - décisions W2-G2 listées comme **candidates**
-- document revu/intégré sur main
+- contenu qualifié ChatGPT (R1→R15) · intégration Git **RESOLVE FROM REPOSITORY** (preuve nommée PR **#398**)
 
 **Les gaps runtime à implémenter pendant W2 NE BLOQUENT PAS** l'existence ou la validation du readiness qui les identifie.
 
+### W2-G1 Git integration proof (externe aux gaps fonctionnels)
+
+| Proof | État |
+|---|---|
+| Content qualification (R1→R15) | **SATISFIED** |
+| Git transport PR **#398** | **OPEN / DRAFT** · head `e958bfa4…` · PR CI **`32606156268` SUCCESS** |
+| Integration on `main` | **RESOLVE FROM REPOSITORY** — preuve nommée PR **#398** · **≠** auto-claim intégré avant merge |
+
+> L'intégration Git n'est **pas** un gap fonctionnel W2 · c'est une preuve externe de gate.
+
 ### Blockers before W2-G2 Morris decision
-1. **W2-G1 documentaire qualifié/intégré** — ce document sur main + ChatGPT re-review
-2. Aucune contradiction active documentée (target: **0**)
+1. **W2-G1 content qualification** — **SATISFIED** (ChatGPT final review PASS)
+2. **W2-G1 Git integration proof** — merge PR **#398** · état **RESOLVE FROM REPOSITORY** jusqu'à preuve merge
+3. Aucune contradiction active documentée (target: **0**)
 
 ### Blockers before W2-G3 Delivery GO
 1. **W2-G2** — décisions structurantes D-W2-01…04 consommées par Morris
@@ -606,7 +619,8 @@ Utiliser **DOWNSTREAM — W3/W4** pour capacités futures · **≠** « réserve
 | LIVE required for Phase B W2 ? | **NON** |
 | Deterministic ≠ REAL ? | **OUI** |
 | C6 reopened ? | **NON** |
-| W2-G1 readiness qualified ? | **OUI** (candidate corrected) |
+| W2-G1 content qualified ? | **OUI** (R1→R15 applied) |
+| W2-G1 integrated on main ? | **RESOLVE FROM REPOSITORY** (PR **#398**) |
 | W2-G2 Morris decision made ? | **NON** |
 | W2-G3 Delivery authorized ? | **NON** |
 | GO Phase B distinct consumed ? | **NON** |
@@ -616,10 +630,10 @@ Utiliser **DOWNSTREAM — W3/W4** pour capacités futures · **≠** « réserve
 
 ### Verdict scale
 
-## **W2 READINESS QUALIFIED — MACRO SCOPE + ARCHITECTURE SUFFICIENT — H→N CONTRACT ALIGNED — DELIVERY NOT YET AUTHORIZED — NO STRUCTURAL ARCHITECTURE GAP**
+## ****W2 READINESS QUALIFIED — MACRO SCOPE + ARCHITECTURE SUFFICIENT — H→N CONTRACT ALIGNED — DELIVERY NOT YET AUTHORIZED — NO STRUCTURAL ARCHITECTURE GAP****
 
-Macro scope W2 **qualifié** · chaîne H→N **alignée C2** · **GO Phase B distinct** restauré comme gate explicite non-consommé · exit 18 étapes qualifié comme **bounded W2 Product E2E/UAT slice** · **W2-G1 candidate (R1→R13 + R14→R15)** · **W2-G2/W2-G3/GO PHASE B NOT AUTHORIZED** · **DELIVERY NOT AUTHORIZED** · **REAL ZERO**.
+Macro scope W2 **qualifié** · chaîne H→N **alignée C2** · **GO Phase B distinct** gate explicite non-consommé · exit 18 étapes = **bounded W2 Product E2E/UAT slice** · **W2-G1 CONTENT QUALIFIED** · Git integration **RESOLVE FROM REPOSITORY** (PR **#398**) · **W2-G2/W2-G3/GO PHASE B NOT AUTHORIZED** · **DELIVERY NOT AUTHORIZED** · **REAL ZERO**.
 
 ---
 
-*Corrigé 2026-08-23 01:39:44 CEST (+0200) · R1→R13 + R14→R15 applied · W2-G1 preparation only · W1 CLOSED PR #395 · W2 NOT AUTHORIZED · GO Phase B NOT CONSUMED · NO Delivery · NO REAL · runtime v3 NON ADOPTED.*
+*Corrigé 2026-08-23 01:57:59 CEST (+0200) · R1→R15 applied · Git-state stability micro-correction PR #398 · W2-G1 CONTENT QUALIFIED · integration RESOLVE FROM REPOSITORY · W1 CLOSED PR #395 · W2-G2/W2-G3 NOT AUTHORIZED · GO Phase B NOT CONSUMED · NO Delivery · NO REAL · runtime v3 NON ADOPTED.*
