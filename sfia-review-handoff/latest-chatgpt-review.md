@@ -1,834 +1,1015 @@
-# SFIA Studio — Product Completion Cycle 5 — Backlog / User Stories Review Pack
+# SFIA Studio — Product Completion Cycle 5 — Source-Locked Backlog Amend Review Pack
 
 ## Metadata
 
-- **Timestamp:** 2026-08-22 12:08 CEST (+0200) — Europe/Paris
-- **Cycle:** 5 — Backlog / user stories
+- **Timestamp:** 2026-08-22 12:54 CEST (+0200) — Europe/Paris
+- **Cycle:** 5 — Backlog / user stories — **AMEND PASS**
 - **Typologie:** DOC
 - **Profil:** STANDARD
 - **Repo:** `mcleland147/sfia-workspace`
 - **Branch:** `docs/sfia-studio-product-completion-backlog`
 - **HEAD:** `aca3dc8ab250ea1d751a833912787751e856c7b6`
 - **origin/main:** `aca3dc8ab250ea1d751a833912787751e856c7b6`
-- **Ahead/behind vs main:** 0 / 0 (branch tracks main; new untracked file only)
-
-## GO Morris consumed
-
-**GO MORRIS — START SFIA STUDIO PRODUCT COMPLETION CYCLE 5 BACKLOG / USER STORIES — BUILD A MACRO FUNCTIONAL BACKLOG BY COHERENT BUSINESS CAPABILITY LOTS / EPICS — INCLUDE MUST + SHOULD + FUTURE — PRIORITIZE P0/P1/P2/P3 — DETAIL P0/P1 INTO USER STORIES — PRODUCE A CLEAR CAPABILITY ROADMAP AND DELIVERY TRAJECTORY — PRESERVE C1/C2/PRODUCT EXPERIENCE/FUNCTIONAL ARCHITECTURE/C6/CKC DECISIONS — NO CODE — NO DELIVERY — NO REAL — NO PROJECT COMMIT/PUSH/PR/MERGE — RUNTIME V3 NON ADOPTED.**
-
-**Exclusions honored:** no code · no Delivery · no REAL · no project commit/push/PR/merge · no Roadmap/C1/C2/UX/FA/C6/CKC edits · runtime v3 NON ADOPTED.
+- **Runtime v3:** NON ADOPTED
+- **Delivery:** NOT AUTHORIZED
+- **REAL:** ZERO
 
 ## Local Git Truth
 
 | Field | Value |
 |---|---|
-| repo | `/Users/morris/Projects/sfia-workspace` |
+| pwd | `/Users/morris/Projects/sfia-workspace` |
 | branch | `docs/sfia-studio-product-completion-backlog` |
 | HEAD | `aca3dc8ab250ea1d751a833912787751e856c7b6` |
 | origin/main | `aca3dc8ab250ea1d751a833912787751e856c7b6` |
-| status | untracked new backlog file + historical untracked hors scope |
-| staged | none |
-| modified tracked | none |
-| untracked hors scope | `.tmp-sfia-review/`, `projects/eventops-poc/`, `projects/flex-office-demo/` |
-| ahead/behind | 0 / 0 |
+| backlog file | untracked candidate (amended) |
+| staged project files | none |
+| tracked modifications | none |
 
-## Sources read (exhaustive list)
+## GO Morris Consumed
 
-1. `sfia-studio-convergence-build-doctrine.md`
-2. `sfia-studio-convergence-roadmap.md` (read-only)
-3. `01-product-completion-cadrage.md`
-4. `02-product-completion-conception-fonctionnelle.md`
-5. `03-product-completion-architecture-fonctionnelle.md`
-6. `06-product-completion-architecture-technique-delta.md`
-7. `ux-product-experience/01-experience-architecture.md`
-8. `ux-product-experience/02-end-to-end-wireframes-interaction-model.md`
-9. `ux-product-experience/03-product-screens-visual-state-contract.md`
-10. `sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md`
-11. `sfia-v3-framing/30`–`37` (applicable sections)
-12. `ckc/05-backlog-user-stories.md`
-13. `ckc/**` (corpus context · not revalidated)
-14. `projects/sfia-studio/app/**` (read-only audit)
-15. `sfia-cycle-routing-guide.md` · cycle template · operating model · rules/guardrails
-16. `sfia-review-handoff/latest-chatgpt-review.md` (PR #392 merge handoff context)
+**Initial:** GO MORRIS — START SFIA STUDIO PRODUCT COMPLETION CYCLE 5 BACKLOG / USER STORIES
 
-## Convergence qualification
+**Amend:** GO MORRIS — AMEND CYCLE 5 BACKLOG UNDER LOCKED PRODUCT SOURCE CORPUS — preserve 5-Epic model · recalculate coverage/priorities/waves/stories · CKC Phase A+B explicit · NO CODE · NO DELIVERY · NO REAL
 
-| Field | Value |
+## Locked Product Source Corpus (backlog content ONLY)
+
+| ID | Document |
 |---|---|
-| capability v3 | Transform Product Completion target into capability-driven construction trajectory |
-| milestone | PRODUCT COMPLETION — CYCLE 5 — FUNCTIONAL BACKLOG / CAPABILITY ROADMAP |
-| current state | C1–C4 integrated · C6 CLOSED · DP↔CKC architecture ADOPTED · runtime binding NOT IMPLEMENTED |
-| classification | Roadmap KEEP+factual · DP↔CKC KEEP+factual · runtime NO CHANGE |
-| gaps closed this cycle | Functional backlog candidate produced locally |
-| next capability | DoctrinePackage/runtime CKC MODELED/IMPLEMENTATION REQUALIFICATION = **CANDIDATE ONLY** · distinct Morris gate |
-| Delivery | **NOT AUTHORIZED** |
+| A | `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` |
+| B | `projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md` |
+| C | UX EA / Wireframes / Screens (`ux-product-experience/01..03`) |
+| D | `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md` |
+| E | `projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md` (C6 CLOSED) |
+| F | `projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md` |
 
-## Runtime audit summary (read-only)
+## Process-Only Sources (NOT backlog content)
 
-- **KEEP:** OA Product SQLite spine (Project→HD→EC→Attempt→Evidence) · `/studio` product path · Nora engine
-- **COMPLETE:** Trajectory durability · Confirmation durability · semantic continuity · replan loop · SUCCESS/STOP/FAIL semantics
-- **ADAPT:** CKC/Doctrine resolution (package-bound) · Pre-M6 UI toward SC contract · terminal UX mapping
-- **HARVEST/FREEZE:** D1 · OPS1 · execution-run D2 · legacy harness routes
+Build Doctrine · Convergence Roadmap · SFIA method · cycle template · operating model · rules/guardrails
 
-## Backlog coverage summary
+## Excluded Sources (confirmed unused for backlog content)
 
-| Dimension | Count | Covered |
+`05-product-capabilities-and-use-cases.md` · pre-PC cadrage · PRE-M6 independent requirements · v2.6 runtime · historical roadmap lists · conversation memory · runtime file invention
+
+## Source-Lock Compliance Statement
+
+Backlog requirements, Epics, priorities, Waves and User Stories were derived **only** from the locked product corpus. No excluded historical source was used to invent or expand scope. No material contradiction detected requiring STOP.
+
+## Change Summary vs Previous Candidate
+
+| Issue (prior) | Correction (amend pass) |
+|---|---|
+| "25/25 MUST §J.1" false count | Normalized requirement ledger (REQ-01…24 + SHOULD + FUTURE) from C1 §H+§J |
+| Git/reuse P2 story | REQ-21 SATISFIED · gap N/A invariant |
+| Execute HOW as P2 | REQ-11/12 P1 |
+| Accessibility P2 | REQ-19 P1 baseline |
+| CKC Phase B implicit | Explicit CKC track · US-P1-14 · US-P0-08 Wave 1 seam |
+| C6 as User Stories | TD-C6-01…06 + DK-01…08 as Technical Enablers |
+| Representative P1 set | Full 8 P0 + 15 P1 functional stories |
+| Micro-waves | Four macro Waves W1–W4 |
+| Governance in EPIC-E only | FC-15 cross-cutting · EPIC-E presents |
+
+## Normalized Requirement Ledger Summary
+
+- **MUST mapped:** REQ-01…24 (de-duplicated H+J)
+- **SHOULD:** SHOULD-01…06 (P2 post-Completion)
+- **FUTURE:** FUTURE-01…06 (P3)
+- **SATISFIED/N/A:** REQ-21 Git/reuse invariant
+- **P0 open gaps:** REQ-02,03,04,06,08,15,16,23 (+ bounded REQ-24 seam)
+- **P1 open gaps:** remaining PARTIAL/OPEN MUST + REQ-24 full Phase B
+
+## Five Epics (preserved)
+
+EPIC-A Entrer/reprendre/qualifier · EPIC-B Raisonner/trajectoire/décider · EPIC-C Préparer/autoriser · EPIC-D Exécuter/prouver/reprendre · EPIC-E Produit cohérent · FC-15 cross-cutting
+
+## P0/P1 Priority Summary
+
+| Tier | Count | IDs |
 |---|---|---|
-| MUST C1 §J.1 | 25 | 25/25 |
-| SHOULD C1 §J.2 | 6 | 6/6 |
-| FUTURE C1 §J.3 | 6 | 6/6 |
-| Outcomes O-01…O-12 | 12 | 12/12 (landing matrix §12) |
-| C2 A→W | 23 steps | All mapped to Epics |
-| UX S1→S12 | 12 | EPIC-E + per-US references |
-| FC-01…FC-15 | 15 | Technical mapping §10 |
+| P0 User Stories | 8 | US-P0-01…08 |
+| P1 User Stories | 15 | US-P1-01…11, 13…16 |
+| Technical Enablers | 14 | TD-C6-01…06 · DK-01…08 |
+| P2 SHOULD | 6 | SHOULD-01…06 |
+| P3 FUTURE | 6 | FUTURE-01…06 |
 
-## Epic model (5 Epics)
+## CKC Track
 
-| ID | Name | Priority range |
-|---|---|---|
-| EPIC-A | Comprendre, reprendre et qualifier | P0–P1 |
-| EPIC-B | Piloter trajectoire et décider | P0–P1 |
-| EPIC-C | Préparer et autoriser exécution | P0–P1 |
-| EPIC-D | Exécuter, prouver et reprendre | P0–P1 |
-| EPIC-E | Expérience produit transverse | P1–P2 |
+- **Phase A (P0):** US-P0-06 · DK-01…07 · package materialization DEFERRED (Morris gate DK-04)
+- **Phase B (P1):** US-P1-14 · DK-08 · `consumed=true` insufficient
+- **Wave 1 seam:** US-P0-08 bounded semantic proof
+- **Completion exit:** Wave 3 · no parallel engine · no method-path SoT
 
-## Priority summary
+## C6 Mapping (Technical Enablers — CLOSED)
 
-- **P0:** 7 user stories (US-P0-01…07) + DP↔CKC workstream
-- **P1:** 12 user stories (US-P1-01…12)
-- **P2:** 6 coarse items (CB-P2-01…06)
-- **P3:** 6 coarse items (CB-P3-01…06)
+TD-C6-01/06 → trajectory · TD-C6-02/05 → Confirmation · TD-C6-03 → authority receipt · TD-C6-04 → selective epistemic
 
-## Functional capability roadmap (waves)
+## Four-Wave Roadmap
 
-- **Wave 1:** Truth & continuity P0 (resume · DP↔CKC · trajectory · confirmation)
-- **Wave 2:** Decision & authorization P1
-- **Wave 3:** Execute/prove/learn P1
-- **Wave 4:** PE hardening P1/P2
-- **Wave 5:** SHOULD enrichment P2 (post-Completion)
+W1 Truth/Context/Continuity · W2 Cognition/Trajectory/Decision · W3 Execute/Evidence/Replan · W4 Product Experience Closure
 
-## Delivery cut-line recommendation
+## Delivery Cut-Line (recommendation only)
 
-- **Required for MUST Completion:** Waves 1–4 baseline
-- **Deferrable P2:** SHOULD items S-01…S-06 (non-blocking)
-- **FUTURE P3:** F-01…F-06
-- **Recommendation only — Morris decision required**
+P0+P1 remaining gaps = Product Completion implementation cut-line candidate. NOT AUTHORIZED.
 
-## Invariants preserved
+## Remaining Morris Gates
 
-D01/D02/D05 unchanged · C6 CLOSED · DK-01…08 OPEN · runtime binding NOT IMPLEMENTED · packageVersion DEFERRED · Backlog NOT OPEN (Git) · Delivery NO · ZERO REAL · runtime v3 NON ADOPTED · requalification NOT AUTHORIZED
+Backlog validation · DP implementation GO · packageVersion/materialization · Phase B distinct GO · C6 durability Delivery GO · Delivery slice GO per Wave · REAL gate · runtime v3 NOT this cycle
 
-## Actions NOT executed
+## Validation Results (§21)
 
-project commit · project push · PR · merge · Roadmap edit · code · runtime · Delivery · REAL · Penpot mutation · Notion · runtime v3 adoption
+| Check | Result |
+|---|---|
+| A Source lock | PASS |
+| B C1 coverage | PASS |
+| C C2 | PASS |
+| D UX | PASS |
+| E FA | PASS |
+| F C6 | PASS |
+| G CKC | PASS |
+| H Backlog quality | PASS |
 
-## File created
+## Reserves
 
-- **Path:** `projects/sfia-studio/product-completion/05-product-completion-backlog-user-stories.md`
-- **Lines:** 674
-- **Status:** untracked new file
-- **git diff --check:** N/A (untracked); file content whitespace-clean
+- packageVersion/materialization not chosen by Cursor
+- REAL distinct from generic EC→agent mechanism
+- UAT exit obligation per Wave — technical SUCCESS ≠ Product Completion
+- WCAG certification not claimed — baseline A11Y functional MUST only
 
-## COMPLETE BACKLOG DOCUMENT CONTENT
+## Final Verdict
+
+**BACKLOG AMENDED — SOURCE-LOCKED PRODUCT MODEL SATISFIED — FIVE FUNCTIONAL EPICS PRESERVED — C1 H+J NORMALIZED — ALL OPEN/PARTIAL MUST IN P0/P1 COMPLETION CUT-LINE — CKC PHASE A + PHASE B EXPLICIT — HISTORY / GOVERNANCE / ACCESSIBILITY RESTORED — P0/P1 FULLY SPECIFIED — FOUR MACRO WAVES DEFINED — READY FOR CHATGPT SOURCE-LOCKED REVIEW — NO DELIVERY AUTHORIZED — MORRIS VALIDATION REQUIRED**
+
+---
+
+## Complete Corrected Backlog Content (868 lines)
 
 ```markdown
-# SFIA Studio — Product Completion — Cycle 5 — Backlog / User Stories
+# SFIA Studio — Product Completion — Cycle 5 — Backlog / User Stories (Source-Locked Amend)
 
 | Champ | Valeur |
 |---|---|
 | **Projet** | SFIA Studio — Product Completion |
-| **Cycle** | 5 — Backlog / user stories |
+| **Cycle** | 5 — Backlog / user stories — **AMEND PASS** |
 | **Profil SFIA** | STANDARD |
 | **Typologie** | DOC |
-| **Base Git** | `origin/main` @ `aca3dc8ab250ea1d751a833912787751e856c7b6` *(PR #392 merge)* |
+| **Base Git** | `origin/main` @ `aca3dc8ab250ea1d751a833912787751e856c7b6` |
 | **Branche auteur** | `docs/sfia-studio-product-completion-backlog` *(local · non intégrée)* |
-| **GO Morris consommé** | **GO MORRIS — START SFIA STUDIO PRODUCT COMPLETION CYCLE 5 BACKLOG / USER STORIES** — macro functional backlog by coherent business capability lots · MUST+SHOULD+FUTURE · P0/P1/P2/P3 · P0/P1 user stories · capability roadmap · preserve C1/C2/UX/FA/C6/CKC · **NO CODE · NO DELIVERY · NO REAL** |
-| **Statut** | **CANDIDATE — STARTED BY MORRIS — AWAITING CHATGPT REVIEW / MORRIS VALIDATION** |
+| **GO Morris consommé (initial)** | START CYCLE 5 BACKLOG / USER STORIES |
+| **GO Morris consommé (amend)** | **AMEND CYCLE 5 BACKLOG UNDER LOCKED PRODUCT SOURCE CORPUS** — preserve 5-Epic model · recalculate coverage/priorities/waves/stories · CKC Phase A+B explicit · NO CODE · NO DELIVERY · NO REAL |
+| **Statut** | **CANDIDATE — AMENDED AFTER CHATGPT SOURCE-LOCKED REVIEW — AWAITING MORRIS VALIDATION** |
 | **Runtime v3** | **NON ADOPTED** |
 | **Delivery** | **NOT AUTHORIZED** |
 | **REAL** | **ZERO** |
-| **Product Backlog Git integration** | **NOT AUTHORIZED in this cycle** |
 
 ## Anti-claims
 
-- Ce document **≠** validation Morris · **≠** READY FOR DELIVERY · **≠** autorisation d’implémentation.
-- Backlog **≠** redécision C1/C2/UX/FA/C6/DPCKC architecture.
-- Recommendation **≠** HumanDecision · Epic **≠** sprint obligatoire · Story **≠** tâche technique.
-- P0/P1/P2/P3 **≠** MUST/SHOULD/FUTURE — dimensions distinctes.
-- DoctrinePackage/CKC workstream **≠** Delivery auto-sélectionné · **≠** requalification auto-autorisée.
-- 15 cycles CKC **=** mesure snapshot courante · **≠** invariant structurel produit.
+- **≠** VALIDATED · **≠** APPROVED · **≠** READY FOR DELIVERY · **≠** ADOPTED · **≠** Delivery authorization.
+- Backlog content derived **ONLY** from locked product corpus (§4 amend GO) — not Roadmap · not method/v2.6 · not historical use-cases.
+- Gap priority **≠** C1 MUST/SHOULD/FUTURE level · SATISFIED MUST may be **N/A**.
+- Technical Enabler **≠** User Story · Phase A **≠** Phase B · `consumed=true` **≠** Nora semantic proof.
+- Wave recommendation **≠** Morris Delivery GO · packageVersion/materialization **DEFERRED** — Morris gate required.
 
-## Sources principales consommées (read-only)
+---
 
-| Autorité | Rôle dans ce backlog |
+## 0. Source-lock compliance
+
+### 0.1 Locked product corpus (ONLY backlog content sources)
+
+| ID | Document | Role |
+|---|---|---|
+| A | `01-product-completion-cadrage.md` | Target · scope · completion bar · H+J |
+| B | `02-product-completion-conception-fonctionnelle.md` | A→W · CA-PC · authority order |
+| C | UX EA / Wireframes / Screens | S1→S12 · UF · 17-screen contract |
+| D | `03-product-completion-architecture-fonctionnelle.md` | FC-01…15 · slices · no-parallel |
+| E | `06-product-completion-architecture-technique-delta.md` | TD-C6-01…06 · **CLOSED** |
+| F | `sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md` | D01/D02/D05 · Phase A/B · DK-01…08 |
+
+### 0.2 Process-only sources (NOT backlog content)
+
+Build Doctrine · Convergence Roadmap · SFIA method · cycle template · operating model · rules/guardrails — governance/handoff only.
+
+### 0.3 Explicitly excluded from backlog content
+
+`05-product-capabilities-and-use-cases.md` · pre-PC cadrage · PRE-M6 as independent requirements · v2.6 runtime · historical roadmap lists · runtime file-level invention · conversation memory.
+
+### 0.4 Change summary vs prior candidate
+
+| Issue (prior) | Correction (this pass) |
 |---|---|
-| **C1** `01-product-completion-cadrage.md` | Outcomes O-01…O-12 · MUST/SHOULD/FUTURE · completion bar · dispositions KEEP/ADAPT/COMPLETE |
-| **C2** `02-product-completion-conception-fonctionnelle.md` | Boucle A→W · objets · CA-PC-01…35 · ordre K→L→M→N→O |
-| **UX** EA / Wireframes / Screens | Surfaces S1→S12 · UF-01…07 · business-first · progressive disclosure |
-| **FA** `03-product-completion-architecture-fonctionnelle.md` | FC-01…FC-15 · slices candidats · contraintes no-parallel |
-| **C6** `06-product-completion-architecture-technique-delta.md` | TD-C6-01…06 **CLOSED — DO NOT REOPEN** · dettes durabilité |
-| **DP↔CKC** qualification convergence | D01/D02/D05 **ADOPTED** · DK-01…08 **OPEN** · runtime binding **NOT IMPLEMENTED** |
-| **CKC** `ckc/05-backlog-user-stories.md` | Guidance cognitive INVEST · **≠** autorité d’exécution |
-| **Runtime** `projects/sfia-studio/app/**` | Audit read-only · réutilisation · gaps |
+| "25/25 MUST §J.1" false simplicity | **Normalized requirement ledger** from C1 §H + §J de-duplicated |
+| Git/reuse as P2 story | **REQ-21 SATISFIED** invariant · gap **N/A** |
+| Execute HOW as P2 | **REQ-11/12 P1** — generic mechanism MUST closure |
+| Accessibility as P2 | **REQ-19 P1** baseline MUST |
+| CKC Phase B implicit | **REQ-24 P1** + **US-P1-14** + CKC track explicit |
+| C6 items as US | **Technical Enablers** mapped to functional US |
+| "Representative set" P1 | **Full P0/P1** specification (8 P0 · 15 P1) |
+| Micro-delivery waves | **Four macro Waves** W1–W4 + post-Completion P2 |
+| Governance in EPIC-E only | **FC-15 cross-cutting** · EPIC-E presents audit truth |
+| UAT passive reserve | **UAT exit obligation** across Waves |
 
 ---
 
 ## 1. Executive Product Backlog intent
 
-Ce backlog transforme la **cible Product Completion validée** (C1 + C2 + UX + FA) en **lots fonctionnels métier** exploitables pour une future trajectoire Delivery — sans la lancer.
+Transform **validated Product Completion** (locked corpus only) into **five macro functional Epics**, a **source-faithful requirement ledger**, **P0/P1 User Stories**, **Technical Enablers**, **CKC Phase A/B track**, and a **four-Wave capability roadmap** — without opening Delivery.
 
-Il répond à la question Pilote :
+**Reasoning order (mandatory):** Pilote outcome → functional capability → Epic → dependencies → gap priority → User Story → acceptance/evidence → secondary technical mapping.
 
-> *« Quels grands blocs de capacité me reste-t-il à obtenir pour piloter un projet de bout en bout, comprendre ce qui se passe, décider, autoriser, exécuter, prouver et reprendre — sans que la méthode me tombe dessus ? »*
-
-**Ce backlog fait :**
-- regrouper les MUST/SHOULD/FUTURE C1 en **5 Epics fonctionnels** cohérents ;
-- prioriser P0…P3 avec justification ;
-- détailler les **User Stories P0/P1** avec critères d’acceptation observables ;
-- produire une **roadmap capability-driven** (waves) et une **cut-line Recommendation** ;
-- mapper secondairement vers FC-xx et actifs runtime existants.
-
-**Ce backlog ne fait pas :**
-- redécider l’architecture C6 (OA Native + Product SQLite + ports) ;
-- redécider D01-NARROW / D02 Option B / D05 fallback NONE ;
-- ouvrir Delivery, Backlog Git, REAL, ou runtime v3 ;
-- remplacer C1/C2/UX/FA — il les **trace** et les **découpe**.
+**Does NOT:** reopen C6 · redécider D01/D02/D05 · choose packageVersion · open Backlog Git · authorize REAL/Delivery/runtime v3.
 
 ---
 
-## 2. Exhaustive Product Completion scope inventory
+## 2. Five functional Epics (preserved)
 
-**Coverage rule :** 100 % des items C1 §J.1/J.2/J.3 représentés ci-dessous.
-
-### 2.1 MUST inventory (25 items C1 §J.1)
-
-| ID | Capability / requirement | C1 | Outcome(s) | C2 / UX / FA | Runtime state | Asset | Disposition | Remaining gap | Dependencies | Business impact | Evidence / exit | Priority | Epic |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| M-01 | Project | MUST | O-01 | A/B · FC-01 · S1/S2 | SQLite durable | OA Project | KEEP | End-to-end piloting polish | — | Entry/resume | CA-PC-01/02 | P1 | EPIC-A |
-| M-02 | Living Project State (reliable) | MUST | O-01,O-09 | G · FC-05 · S5 | SQLite LPS | OA LPS | KEEP | Complete useful business state | M-03,M-14 | Continuity | CA-PC-25 | P0 | EPIC-A |
-| M-03 | Nora | MUST | O-03,O-12 | C,D,E,F,I,U · FC-04 · S4 | Process-local conv | OpenAI/fake provider | KEEP/COMPLETE | Semantic inter-session continuity | M-14,M-16 | Method absorbed | CA-PC-03/25/35 | P0 | EPIC-A |
-| M-04 | HumanDecision | MUST | O-04,O-10 | J · FC-07 · S4/S6 | SQLite HD | OA Decision | KEEP | Trajectory linkage UX | M-11 | Authority clarity | CA-PC-08/10 | P1 | EPIC-B |
-| M-05 | Native ExecutionContract | MUST | O-05,O-06 | K,L · FC-08 · S10 | SQLite EC | OA EC | KEEP/ADAPT | Canonical parity + inspect UX | M-13,M-18 | Governed execution | CA-PC-14/16 | P1 | EPIC-C |
-| M-06 | Cursor / agent execution | MUST | O-06 | O,P · FC-10 · S12 | Fixture default; REAL gated | Attempt adapter | KEEP/COMPLETE | Generic EC→agent path productized | M-05,M-13 | Technical HOW | CA-PC-17/19 | P1 | EPIC-D |
-| M-07 | Evidence / ReviewBundle | MUST | O-08,O-12 | T · FC-12 · S9 | SQLite Evidence | OA Evidence | KEEP/ADAPT | Business-first hierarchy UX | M-06 | Proof before claim | CA-PC-23 | P1 | EPIC-D |
-| M-08 | SUCCESS / STOP / FAIL | MUST | O-07 | Q,R,S · FC-11 · S12 | Mapped from attempt status | Terminal semantics partial | ADAPT | Distinct business terminals | M-06,M-07 | Honest outcomes | CA-PC-20/22 | P1 | EPIC-D |
-| M-09 | Recovery | MUST | O-09 | W · FC-13 · S8 | Honest partial | RecoverySurface | KEEP/COMPLETE | Full replan loop | M-02,M-11,M-25 | Restart safety | CA-PC-25 | P0 | EPIC-D |
-| M-10 | Git / reuse | MUST | O-11 | transverse · FC-15 | Git SoT ext. | Repo | KEEP | Governance integration | — | Evolvability | CA-PC-26 | P2 | EPIC-A |
-| M-11 | ProjectTrajectory | MUST | O-02,O-10 | H,V · FC-06 · S6 | **Memory only** | OA Trajectory | **COMPLETE** | Durable proposed/decided | TD-C6-01 | Path visibility | CA-PC-06/07 | **P0** | EPIC-B |
-| M-12 | Inter-session semantic continuity | MUST | O-09 | W · FC-13 | Partial | LPS + gaps | COMPLETE | Nora context without invention | M-02,M-03,M-14 | Trust | CA-PC-25 | P0 | EPIC-A |
-| M-13 | AgentCapability envelope | MUST | O-06 | N · FC-09 | Bounded RO history | Gate D patterns | KEEP/ADAPT | Generic envelope not Cursor catalog | M-05 | Governed effects | CA-PC-32 | P1 | EPIC-C |
-| M-14 | DoctrinePackage pin / traceability | MUST | O-03 | D · FC-02 | Partial pin | CreateProject pin | KEEP/COMPLETE | Full audit resolution | DPCKC Phase A | Doctrine truth | CA-PC-34 | **P0** | EPIC-A |
-| M-15 | Full cognitive coverage catalog | MUST | O-03,O-11 | E · FC-03 | CKC via method paths | qualifyWithCkc | ADAPT | Package-bound CKC | M-14, DK-01…07 | Method genericity | CA-PC-31 | **P0** | EPIC-A |
-| M-16 | Cycle Catalog Evolvability | MUST | O-11 | E · FC-03 | Catalog routing | CycleTypeCatalog | ADAPT | New type ≠ new engine | M-15 | Future cycles | CA-PC-26 | P1 | EPIC-A |
-| M-17 | Generic EC→Cursor→Evidence | MUST | O-06 | O→T · FC-10/12 | Wired in OA | vertical-slice-runtime | KEEP | Product path completeness | M-05,M-06 | One mechanism | CA-PC-17 | P1 | EPIC-D |
-| M-18 | Execute cycle technical HOW | MUST | O-06 | O,P | Fixture-first | F3 actions | KEEP/COMPLETE | Governed REAL optional | M-13 | Delivery of HOW | CA-PC-19 | P2 | EPIC-D |
-| M-19 | EC parity w/ canonical Cursor logic | MUST | O-05 | K,L | PREPARE projection | EC aggregate | ADAPT | Field parity + amend | M-05 | Inspectability | CA-PC-15/16 | P1 | EPIC-C |
-| M-20 | EC inspectable by Pilote | MUST | O-05 | L · S10 | Summary exists | EC UI partial | ADAPT | Progressive disclosure fidelity | M-19, UX SC-05/06 | Trust before auth | CA-PC-14 | P1 | EPIC-E |
-| M-21 | Minimal business Evidence | MUST | O-08 | T · S9 | Rehydrate path | Evidence UI | ADAPT | Business-first reader | M-07 | Understand outcome | CA-PC-23 | P1 | EPIC-E |
-| M-22 | Closed loop Evidence→Nora→LPS/Trajectory | MUST | O-12 | U,V · FC-04/06 | Post-evidence Nora partial | postEvidenceNoraAnalysis | COMPLETE | Full replan chain | M-09,M-11 | Learning loop | CA-PC-24 | P1 | EPIC-D |
-| M-23 | Product Experience absorbs complexity | MUST | O-03 | all · FC-14 · S1–S12 | Pre-M6 shell | pre-m6-product-ui | KEEP/ADAPT | Final PE contract alignment | all Epics | Usability | A11Y-PC-01…06 | P1 | EPIC-E |
-| M-24 | Accessibility product principle | MUST | O-03 | FC-14 | Partial | SC contract | COMPLETE | A11Y MUST on gates/terminals | M-23 | Inclusion | A11Y-PC-* | P2 | EPIC-E |
-| M-25 | Confirmation (when effects require) | MUST | O-04 | M · FC-09 · S11 | **Memory/process-local** | Confirmation domain | **COMPLETE** | Durable consumed authority | TD-C6-02/05 | Protected boundary | CA-PC-11/13/30 | **P0** | EPIC-C |
-
-### 2.2 SHOULD inventory (6 items C1 §J.2)
-
-| ID | Capability | C1 | Outcome | Epic | Priority | Notes |
-|---|---|---|---|---|---|---|
-| S-01 | Rich recovery capsule / cycle history | SHOULD | O-09 | EPIC-D | P2 | Non-blocking Completion · enrich S7 |
-| S-02 | Advanced EC presentation (diff, synthesis) | SHOULD | O-05 | EPIC-E | P2 | Progressive disclosure extension |
-| S-03 | PJ / user source intake | SHOULD | O-03 | EPIC-A | P2 | NEW SHOULD · provenance design |
-| S-04 | Enriched Evidence UX | SHOULD | O-08 | EPIC-E | P2 | After M-21 business-first baseline |
-| S-05 | Sophisticated AMEND UX | SHOULD | O-04 | EPIC-B | P2 | G-UX-08 reserve · non-blocking |
-| S-06 | Rich memory / history beyond integrity | SHOULD | O-09 | EPIC-D | P2/P3 | Transcript ≠ continuity MUST |
-
-### 2.3 FUTURE inventory (6 items C1 §J.3)
-
-| ID | Capability | C1 | Epic | Priority | Activation trigger |
-|---|---|---|---|---|---|
-| F-01 | Multi-user / auth / sharing | FUTURE | EPIC-E | P3 | Post-Completion Morris gate |
-| F-02 | Notion connectors | FUTURE | — | P3 | Explicit product gate |
-| F-03 | Deep FinOps / RUN | FUTURE | — | P3 | FinOps cycle if ever |
-| F-04 | Studio-native GitHub ops | FUTURE | EPIC-A | P3 | If useful as implementation detail |
-| F-05 | Capitalization toward global method | FUTURE | — | P3 | Separate Morris gate |
-| F-06 | Maturity / adoption beyond Completion bar | FUTURE | — | P3 | Includes runtime v3 ADOPTED |
-
----
-
-## 3. Functional Epic model
-
-**Target : 5 Epics · MIN 4 · MAX 6** — modèle retenu : **5 Epics métier** (hypothèse C1 confirmée contre sources).
-
-| Epic ID | Nom métier | FC primary | C2 steps | UX surfaces |
-|---|---|---|---|---|
-| **EPIC-A** | Comprendre, reprendre et qualifier le travail | FC-01, FC-02, FC-03, FC-05 (+DP↔CKC) | A,B,C,D,E,G,W(entry) | S1,S2,S3,S5,S8 |
-| **EPIC-B** | Piloter la trajectoire et décider | FC-06, FC-07 (+FC-04 partial) | H,I,J,V | S4,S5,S6 |
-| **EPIC-C** | Préparer et autoriser l’exécution | FC-08, FC-09 | K,L,M,N | S10,S11 |
-| **EPIC-D** | Exécuter, prouver et reprendre | FC-10, FC-11, FC-12, FC-13 (+FC-04 post-evidence) | O,P,Q,R,S,T,U,W | S9,S12,S8 |
-| **EPIC-E** | Expérience produit et utilisabilité transverse | FC-14, FC-15 (presentation/governance UX) | transversal A→W | S1→S12 |
-
-**DoctrinePackage↔CKC** est un **workstream transversal** rattaché principalement à **EPIC-A** (qualification + continuité contextuelle), avec sorties consommées par EPIC-B/D.
-
----
-
-## 4. Epic contracts
-
-### EPIC-A — Comprendre, reprendre et qualifier le travail
-
-| Field | Value |
-|---|---|
-| **Job Pilote** | Entrer ou reprendre un projet, exprimer une intention, obtenir une qualification fiable sans piloter la méthode |
-| **C1 outcomes** | O-01, O-03, O-09, O-11 |
-| **MUST covered** | M-01…M-03, M-10, M-12, M-14…M-16 |
-| **SHOULD** | S-03 |
-| **FUTURE** | F-04 |
-| **C2 A→W** | A, B, C, D, E, G, W (entry) |
-| **FC-xx** | FC-01, FC-02, FC-03, FC-05 |
-| **Current state** | Project/LPS SQLite OK · conversation/process-local · CKC via method paths · DP pin partial |
-| **Reuse** | OA Project/LPS · qualifyWithCkc · CreateProject pin · `/studio` routes |
-| **Gaps** | Semantic continuity · package-bound CKC · DP traceability · honest resume completeness |
-| **Dependencies IN** | — |
-| **Dependencies OUT** | EPIC-B (trajectory context) · EPIC-C (qualified cycle) · EPIC-D (recovery replan) |
-| **Risks** | Parallel CKC resolver · method path SoT persists (DK-01…07) |
-| **Architecture consumed** | G0-A/G0-B · D01/D02/D05 · C6 CLOSED |
-| **Technical touchpoints (secondary)** | `CkcQualificationResolver`, catalog ADAPT, `service.ts` composition |
-| **Acceptance boundary** | Pilote can create/resume project with honest state disclosure; qualification produces traced CycleInstance with package+CKC proof |
-| **Exit proof** | CA-PC-01/02/03/25/31/34 + Phase A CKC consumption proof |
-| **Priority range** | P0–P1 |
-| **Delivery readiness** | **NEEDS DEPENDENCY** (DP↔CKC Phase A + continuity) |
-
-### EPIC-B — Piloter la trajectoire et décider
-
-| Field | Value |
-|---|---|
-| **Job Pilote** | Voir le chemin réel, comparer options, recevoir des recommandations Nora, trancher explicitement |
-| **C1 outcomes** | O-02, O-04, O-10 |
-| **MUST** | M-04, M-11 |
-| **SHOULD** | S-05 |
-| **C2** | H, I, J, V |
-| **FC-xx** | FC-06, FC-07, FC-04 (options/rec) |
-| **Current state** | HD durable · Trajectory Memory-only · Recommendation present · no options UI |
-| **Gaps** | Durable proposed/decided trajectory · options/trajectory surfaces · AMEND loop |
-| **Dependencies IN** | EPIC-A (qualified context, LPS) |
-| **Dependencies OUT** | EPIC-C (HD enables EC prep) · EPIC-D (replan) |
-| **Architecture consumed** | TD-C6-01, TD-C6-06 · Recommendation ≠ HD |
-| **Exit proof** | CA-PC-06/07/08/10 |
-| **Priority** | P0 (trajectory) · P1 (HD UX linkage) |
-| **Delivery readiness** | **NEEDS DEPENDENCY** (TD-C6-01) |
-
-### EPIC-C — Préparer et autoriser l’exécution
-
-| Field | Value |
-|---|---|
-| **Job Pilote** | Inspecter un contrat natif intelligible, confirmer si requis, savoir si l’autorité effective est suffisante |
-| **C1 outcomes** | O-04, O-05, O-06 |
-| **MUST** | M-05, M-13, M-19, M-20, M-25 |
-| **C2** | K, L, M, N |
-| **FC-xx** | FC-08, FC-09 |
-| **Current state** | EC SQLite · Confirmation Memory · order partially enforced |
-| **Gaps** | Durable Confirmation consumed · authority receipt audit · inspect UX fidelity |
-| **Dependencies IN** | EPIC-B (HD if structural) · EPIC-A (qualified cycle) |
-| **Dependencies OUT** | EPIC-D (execute) |
-| **Architecture consumed** | TD-C6-02, TD-C6-03, TD-C6-05 · K→L→M→N order |
-| **Exit proof** | CA-PC-11/13/14/30/32 |
-| **Priority** | P0 (Confirmation durability) · P1 (EC inspect) |
-| **Delivery readiness** | **NEEDS DEPENDENCY** (TD-C6-02/05) |
-
-### EPIC-D — Exécuter, prouver et reprendre
-
-| Field | Value |
-|---|---|
-| **Job Pilote** | Exécuter sous contrat, comprendre SUCCESS/STOP/FAIL, lire la preuve, reprendre/replanifier |
-| **C1 outcomes** | O-06, O-07, O-08, O-09, O-12 |
-| **MUST** | M-06…M-09, M-17, M-18, M-21, M-22 |
-| **SHOULD** | S-01, S-04, S-06 |
-| **C2** | O→V, W |
-| **FC-xx** | FC-10, FC-11, FC-12, FC-13, FC-04 (post-evidence) |
-| **Current state** | Attempt/Evidence SQLite · fixture default · recovery honest partial · replan incomplete |
-| **Gaps** | Terminal semantics · replan loop · claim/maturity durability · REAL productization |
-| **Dependencies IN** | EPIC-C (authority path) |
-| **Dependencies OUT** | EPIC-B (replan trajectory) · EPIC-A (requalify) |
-| **Exit proof** | CA-PC-17/20/22/23/24/25 |
-| **Priority** | P0 (recovery/replan) · P1 (execution/evidence chain) |
-| **Delivery readiness** | **CANDIDATE AFTER MORRIS DECISION** (after EPIC-C P0) |
-
-### EPIC-E — Expérience produit et utilisabilité transverse
-
-| Field | Value |
-|---|---|
-| **Job Pilote** | Naviguer S1→S12 sans charge méthode ; gates visibles ; accessibilité ; cohérence surfaces |
-| **C1 outcomes** | O-03, O-05, O-08 (+ transversal) |
-| **MUST** | M-20, M-21, M-23, M-24 |
-| **SHOULD** | S-02, S-04 |
-| **FUTURE** | F-01 |
-| **FC-xx** | FC-14, FC-15 (presentation) |
-| **Current state** | Pre-M6 UI KEEP/ADAPT · SC contract validated · H-01…H-04 CARRY |
-| **Gaps** | Full PE alignment · A11Y on all gates · harvest legacy routes |
-| **Dependencies IN** | All Epics (surfaces reveal capabilities) |
-| **Exit proof** | A11Y-PC-* · SC-01…SC-14 alignment · UF coverage |
-| **Priority** | P1 (parallel with capability waves) · P2 (A11Y depth) |
-| **Delivery readiness** | **NEEDS DEPENDENCY** (capability truth behind surfaces) |
-
----
-
-## 5. Dependencies / duplication analysis
-
-### 5.1 Epic dependency graph
-
-```text
-EPIC-A (entry/qualify/DP↔CKC)
-    ↓
-EPIC-B (trajectory/decide) ──→ EPIC-C (prepare/authorize)
-                                    ↓
-                              EPIC-D (execute/prove/recover)
-                                    ↓ (replan)
-                              EPIC-B (re-entry)
-EPIC-E (transverse UX) ←── wraps all waves (presentation only)
-```
-
-### 5.2 Shared capabilities — single owner
-
-| Shared capability | Functional owner | Anti-parallel rule |
-|---|---|---|
-| DoctrinePackage + CKC resolution | EPIC-A | No second resolver/registry (D02) |
-| Provenance / consumption proof | EPIC-A → consumed by D | One proof schema (DK-03) |
-| LPS business state | EPIC-A (write) · all read | Nora proposes · Studio persists |
-| ProjectTrajectory | EPIC-B | No Memory duplicate after TD-C6-01 |
-| Confirmation + effective authority | EPIC-C | No pre-inspect Confirmation · no second auth engine |
-| EC → Attempt → Evidence | EPIC-D | One generic mechanism (BR-PC-17) |
-| Recovery / resume | EPIC-D + EPIC-A entry | Fail-closed · no invented state |
-| Governance / audit | EPIC-E (FC-15 presentation) | Receipt ≠ authority (TD-C6-03) |
-
-### 5.3 Duplicate risks
-
-| Risk | Mitigation backlog rule |
-|---|---|
-| D1/OPS1 parallel engines | **HARVEST/FREEZE** — product path = `/studio` + Product SQLite only |
-| Method path CKC vs package CKC | DP↔CKC Phase A replaces path SoT (DK-01…07) |
-| Trajectory in Memory + SQLite | COMPLETE per TD-C6-01 before new trajectory features |
-| Confirmation process-local + durable | COMPLETE per TD-C6-02 before scaling protected effects |
-| Second UX for method steps | PE absorbs complexity — no wizard per cycle type |
-
-**Circular dependencies :** none structurante identifiée · replan loop A→W→V→A est **nominal**, pas circulaire bloquante.
-
----
-
-## 6. Priority model
-
-| Priority | Definition | Epic concentration |
-|---|---|---|
-| **P0** | Blocker direct MUST ou précondition multi-MUST | EPIC-A (DP/CKC, continuity) · EPIC-B (trajectory) · EPIC-C (Confirmation) · EPIC-D (recovery) |
-| **P1** | MUST nécessaire Completion après P0 | All Epics — execution chain, EC inspect, evidence, PE |
-| **P2** | SHOULD ou amélioration non bloquante Completion | SHOULD items · A11Y depth · rich history |
-| **P3** | FUTURE hors feature bar Completion | F-01…F-06 |
-
-### MUST vs priority exceptions (explicit)
-
-| Item | C1 | Priority | Justification |
+| Epic | Purpose | Primary FA | Primary scope |
 |---|---|---|---|
-| M-10 Git/reuse governance | MUST | P2 | Transverse · ne bloque pas slice vertical Pilote |
-| M-18 Execute technical HOW (REAL productization) | MUST | P2 | Fixture path proves mechanism · REAL rollout gated |
-| S-03 PJ intake | SHOULD | P2 | C1 unchanged · not Completion blocker |
-| M-24 A11Y | MUST | P2 | Principle anchored in EPIC-E parallel wave — baseline P1 in stories |
+| **EPIC-A** — Entrer, reprendre et qualifier le Project | Pilote creates/opens/resumes a Project and obtains truthful applicable context and qualification without manually driving SFIA mechanics | FC-01, FC-02, FC-03, FC-05 | Project continuity · applicable DoctrinePackage · initial qualification · **CKC Phase A** · LPS/context · source/package truth · semantic continuity prerequisites · catalog binding/evolvability prerequisites |
+| **EPIC-B** — Raisonner, piloter la trajectoire et décider | Pilote works with Nora, understands trajectory and makes explicit structural decisions | FC-04, FC-06, FC-07, FC-05 (LPS consumed) | Nora reasoning · **CKC Phase B semantic consumption** · materialized epistemic states · Options · Recommendation · ProjectTrajectory · HumanDecision / DecisionBasis · replanning semantics |
+| **EPIC-C** — Préparer et autoriser l'exécution | Pilote understands ExecutionContract and authorizes only necessary effects | FC-08, FC-09 | Native EC · progressive disclosure · inspect · amend/re-inspect · Confirmation when required · AgentCapability · effective authority · executor sufficiency · authorization blocked · authority audit evidence |
+| **EPIC-D** — Exécuter, prouver, reprendre et replanifier | Pilote launches governed execution, understands outcome, sees evidence and can resume/replan honestly | FC-10…FC-13, FC-04 post-Evidence | ExecutionAttempt · lifecycle · SUCCESS/STOP/FAIL · business-readable diagnosis · Evidence/ReviewBundle · post-Evidence Nora · recovery · **minimal Project/Cycle history** · requalification/replan loop |
+| **EPIC-E** — Utiliser Studio comme un produit cohérent | Pilote experiences the full Product Completion loop without SFIA mechanics exposure | FC-14 | S1→S12 · validated Product Experience contracts · accessibility baseline · business-first Evidence presentation · progressive disclosure · states/blocked/error/recovery · history presentation · method absorption · responsive coherence |
+
+**CROSS-CUTTING (NOT an Epic):** FC-15 Governance / audit / provenance / policy / debt / anti-claims / Git-reuse discipline. EPIC-E **presents** audit truth; FC-15 **owns** transverse audit truth.
 
 ---
 
-## 7. User Story decomposition (P0 + P1)
+## 3. CKC Product Completion Track (NOT a sixth Epic)
 
-### 7.1 P0 User Stories
+Crosses **EPIC-A → EPIC-B → EPIC-D**. **No second qualification engine · no second CKC resolver · no second F2/Nora orchestrator · no raw method path runtime SoT.**
 
-#### US-P0-01 — Reprise honnête du projet
+### 3.1 Target order
+
+**A1** Initial qualification → **A2** DoctrinePackage-bound CKC resolution → **B** Nora semantic consumption → optional Recommendation to requalify through existing qualification mechanism.
+
+### 3.2 Phase A — MUST / P0 where open
+
+| Scope | Exit obligation |
+|---|---|
+| Project applicable DoctrinePackage truth | Pin + manifest reconstructible |
+| Product package materialization/cutover dependency | **DEFERRED — Morris gate** (Cursor MUST NOT choose packageVersion) |
+| Package manifest → digest-protected internal CKC index | DK-01, DK-02 |
+| `cycleTypeId` → `ckcId` + `contractVersion` + `sourceDigest` | Resolver ADAPT · fail-closed |
+| Provenance + consumption proof | DK-03 · CA-PC-33/34 |
+| Fail-closed · fallback NONE (first product package) | D05 NONE adopted |
+| Remove method paths as Studio runtime SoT | DK-01…07 as applicable |
+| Resolution proof **cannot claim Nora semantic use** | Phase A ≠ Phase B anti-claim |
+
+**Open structural gate:** first product `packageVersion` / materialization details remain **DEFERRED** — explicit **Morris gate dependency** (DK-04).
+
+**Primary US:** US-P0-06 · **Wave:** W1
+
+### 3.3 Phase B — MUST / P1
+
+**Full functional outcome:** Pilote works with Nora whose clarification/challenge/recommendation is **actually informed by the resolved applicable CKC** without exposing raw CKC mechanics or creating authority.
+
+**Acceptance must prove:** actual resolved CKC cognitive content reaches Nora reasoning · outputs attributable · Recommendation remains Recommendation · no HumanDecision · controlled requalify via existing mechanism · `consumed=true` insufficient · no raw method/v2.6 fallback.
+
+**Primary US:** US-P1-14 · **Wave:** W2–W3 · **Morris gate:** Phase B distinct GO
+
+**Wave 1 bounded seam:** US-P0-08 — one real CKC→Nora cognitive proof after Phase A (≠ full Phase B closure).
+
+### 3.4 CKC completion exit
+
+All applicable CKCs package-resolvable · no silent uncovered entry · no method-path SoT · provenance reconstructible · Nora semantic consumption proven · differentiated behavior on representative cycles · catalog evolvability · no parallel engine. **Target: Wave 3 exit.**
+
+### 3.5 DK-01…DK-08
+
+See §8 Technical Enablers. DK-04 → **package materialization Morris gate**.
+
+---
+
+## 4. Cross-cutting governance / audit (FC-15)
+
+Transverse across Epics — EPIC-E presents · FC-15 owns. Includes DoctrinePackage/CKC provenance · epistemic materialization · HD/DecisionBasis · Confirmation lifecycle · authority verification (TE TD-C6-03) · EC/Attempt/Evidence linkage · anti-claims · REQ-21 Git/reuse **SATISFIED/N/A**.
+
+---
+
+## 5. Product Completion Source Requirement Ledger
+
+> **Coverage rule:** normalized from C1 §H + §J de-duplicated. **Level** = C1 classification. **Gap priority** = remaining gap only (≠ Level). **≠** "25/25 MUST §J.1" simple count.
+
+| Requirement ID | Canonical requirement | C1 source | Level | FA owner | C2 / CA refs | UX refs | Tech constraint | CKC/DP constraint | Current source-declared state | Remaining gap | Gap priority | Epic | Wave | Exit proof | Morris gate |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| **REQ-01** | Project continuity — create, find, resume durable Project | H Project · J.1 | MUST | FC-01 | A,B · CA-PC-01/02 | S1,S2 · UF-01/07 | OA Native + Product SQLite · no parallel product path | — | PARTIAL | End-to-end piloting polish · honest resume contract | P1 | EPIC-A | W1 | CA-PC-01/02 | Delivery slice GO |
+| **REQ-02** | Living Project State — reliable business state, next action, blockers | H LPS · J.1 | MUST | FC-05 | G · CA-PC-25 | S5 · SC-03 | SQLite LPS · Nora proposes · Studio persists | — | PARTIAL | Complete useful business state beyond anchors | **P0** | EPIC-A | W1 | CA-PC-25 | Delivery slice GO |
+| **REQ-03** | Nora reasoning — understand, qualify, analyze, recommend (**propose-only**) | H Nora · J.1 | MUST | FC-04 | C,D,E,F,I,U · CA-PC-03/35 | S3,S4 · UF-02/06 | Process-local conv · no LIVE this cycle | Phase B downstream (REQ-24) | PARTIAL | Semantic inter-session continuity · no invented authority | **P0** | EPIC-A | W1–W2 | CA-PC-03/25/35 | Delivery slice GO |
+| **REQ-04** | Qualification / CKC — full cognitive coverage of applicable catalog | H Qualification/CKC · J.1 | MUST | FC-03 | E · CA-PC-31 | S3 · UF-02 | Package-bound resolver ADAPT | D01-NARROW · D02 Option B · D05 NONE · DK-01…07 | OPEN | Method-path SoT → package index · fail-closed NONE | **P0** | EPIC-A | W1 | CA-PC-31 · Phase A proof | **DP implementation GO** |
+| **REQ-05** | Cycle Catalog Evolvability — new type ≠ new engine | H Cycle Catalog · J.1 | MUST | FC-03 | E · CA-PC-26 | S3 | Catalog routing ADAPT · no N engines | Package index artifact | PARTIAL | Invariant demonstrable post Phase A | P1 | EPIC-A | W3 | CA-PC-26 | Delivery slice GO |
+| **REQ-06** | ProjectTrajectory — durable `proposed` vs `decided` | H ProjectTrajectory · J.1 | MUST | FC-06 | H,V · CA-PC-06/07 | S6 · SC-04 | TD-C6-01/06 **ADOPTED — implement only** | — | OPEN | Memory-only → SQLite · explicit current pointer | **P0** | EPIC-B | W1 | CA-PC-06/07 | **C6 durability Delivery GO** |
+| **REQ-07** | HumanDecision / DecisionBasis — explicit Pilot arbitration | H HumanDecision · J.1 | MUST | FC-07 | J · CA-PC-08/09/10 | S4,S6 · UF-03 | HD SQLite durable | Recommendation ≠ HD | PARTIAL | Trajectory linkage UX · DecisionBasis completeness | P1 | EPIC-B | W2 | CA-PC-08/10 | Delivery slice GO |
+| **REQ-08** | Confirmation — proportional authorization when effects require | H Confirmation · J.1 | MUST | FC-09 | M · CA-PC-11/13/30 | S11 · UF-04 · SC-06/07 | TD-C6-02/05 **ADOPTED** · K→L→M→N | — | OPEN | Durable `granted` · consumed authority · no pre-inspect confirm | **P0** | EPIC-C | W1 | CA-PC-11/13/30 | **C6 durability Delivery GO** |
+| **REQ-09** | Native ExecutionContract + inspect + canonical parity | H Native EC · J.1 | MUST | FC-08 | K,L · CA-PC-14/15/16 | S10 · SC-05/06 · UF-04 | EC SQLite · PREPARE projection ADAPT | — | PARTIAL | Field parity · progressive disclosure fidelity | P1 | EPIC-C/E | W2 | CA-PC-14/15/16 | Delivery slice GO |
+| **REQ-10** | AgentCapability envelope — generic authority/governance bounds | H AgentCapability · J.1 | MUST | FC-09 | N · CA-PC-27/32 | S11 · SC-07 | Bounded RO · Gate D patterns · not feature catalog | — | PARTIAL | Generic envelope determinable · blocked-state UX | P1 | EPIC-C | W2 | CA-PC-32 | Delivery slice GO |
+| **REQ-11** | Generic EC → agent execution mechanism | H Cursor/agent · J.1 | MUST | FC-10 | O,P · CA-PC-17/19 | S12 · UF-05 | Fixture default · REAL gated · one mechanism | — | PARTIAL | Productized generic path · REAL separate gate | **P1** | EPIC-D | W3 | CA-PC-17/19 | Delivery slice GO · REAL distinct |
+| **REQ-12** | Execution lifecycle / Attempt — accepted→running→terminal | H Execution lifecycle · J.1 | MUST | FC-10 | O · CA-PC-17/18 | S12 · WF-06 | Attempt SQLite · scope enforcement | — | PARTIAL | All authorized effects · lifecycle visibility | **P1** | EPIC-D | W3 | CA-PC-17/18 | Delivery slice GO |
+| **REQ-13** | SUCCESS / STOP / FAIL — honest business terminals | H SUCCESS/STOP/FAIL · J.1 | MUST | FC-11 | Q,R,S · CA-PC-20/21/22 | S12 · SC-08–11 · UF-05 | Terminal mapping ADAPT | A11Y text distinction | PARTIAL | Distinct business semantics · no READY auto | **P1** | EPIC-D | W3 | CA-PC-20/22 | Delivery slice GO |
+| **REQ-14** | Evidence / ReviewBundle — business-first proof | H Evidence · J.1 | MUST | FC-12 | T · CA-PC-23 | S9 · SC-09/10 · UF-05 | Evidence SQLite · rehydrate | — | PARTIAL | Business-first hierarchy UX | **P1** | EPIC-D/E | W3 | CA-PC-23 | Delivery slice GO |
+| **REQ-15** | Recovery / inter-session semantic continuity | H Continuity/recovery · J.1 | MUST | FC-13 | W · CA-PC-25 | S8 · UF-07 · SC-13/14 | Fail-closed resume · no invented state | — | PARTIAL | Full replan loop · honest disclosure | **P0** | EPIC-A/D | W1/W3 | CA-PC-25 | Delivery slice GO |
+| **REQ-16** | DoctrinePackage traceability — pin, digest, provenance audit | H DoctrinePackage · J.1 | MUST | FC-02 | D · CA-PC-33/34 | S2 · SC-02 | Pin partial · resolver ADAPT | D01 · DK-03/04 | PARTIAL | Full audit resolution · consumption proof | **P0** | EPIC-A | W1 | CA-PC-33/34 · DK-03 | **DP implementation GO** |
+| **REQ-17** | Minimal Project / Cycle history | H Cycle/Project history · J.1 | MUST minimal | FC-01/13 | transverse · CA-PC-34 | S1,S8 | Factual anchors SQLite | — | PARTIAL | Retrievable cycles/decisions/attempts/outcomes | P1 | EPIC-A/D | W2 | CA-PC-34 | Delivery slice GO |
+| **REQ-18** | Product Experience — method complexity absorbed | H Product Experience · J.1 | MUST | FC-14 | all · CA-PC-35 | S1→S12 · UF-01…07 | Pre-M6 KEEP/ADAPT · SC contract | — | PARTIAL | Final PE contract alignment · harvest legacy | P1 | EPIC-E | W4 | CA-PC-35 · UF coverage | Delivery slice GO |
+| **REQ-19** | Accessibility baseline (**MUST**) | J.1 accessibility | MUST | FC-14 | §17 · A11Y-PC-01…06 | all SC · F00-05 | Functional a11y · ≠ WCAG claim | — | PARTIAL | Gates/terminals/Confirmation/Evidence baseline | **P1** | EPIC-E | W4 | A11Y-PC-* | Delivery slice GO |
+| **REQ-20** | Governance / audit transverse | H Governance/audit · J.1 | MUST | FC-15 | transverse · CA-PC-12 | S11 blocked · transverse | T-A7 patterns · receipt ≠ authority | — | PARTIAL | Authority audit integration · transverse presentation | P1 | EPIC-E/C | W2 | CA-PC-12 · TD-C6-03 | Delivery slice GO |
+| **REQ-21** | Git / reuse invariant — construction SoT external | J.1 Git/reuse | MUST | FC-15 | transverse · CA-PC-26 | — | Git SoT ext. · repo reuse KEEP | — | **SATISFIED** | Invariant held · governance UX polish only | **N/A** | EPIC-A/E | — | CA-PC-26 | N/A (invariant) |
+| **REQ-22** | Closed loop Evidence → Nora → LPS / Trajectory | J.1 closed loop | MUST | FC-04/06 | U,V · CA-PC-24 | S12 · UF-06 | postEvidenceNoraAnalysis partial | — | PARTIAL | Full replan chain to HD/trajectory | P1 | EPIC-D | W3 | CA-PC-24 | Delivery slice GO |
+| **REQ-23** | CKC Phase A — package-bound resolution | DP↔CKC workstream | MUST | FC-02/03 | E · CA-PC-31 | S3 | Resolver ADAPT · no parallel engine | D01/D02/D05 · DK-01…07 | OPEN | Runtime binding NOT IMPLEMENTED | **P0** | EPIC-A | W1 | Phase A proof schema | **DP implementation GO** |
+| **REQ-24** | CKC Phase B — Nora semantic consumption | DP↔CKC workstream | MUST | FC-04 | E post-qual · CA-PC-35 | S3,S4 | Explicit anti-claim · semantic proof | DK-08 | DEFERRED | `consumed` ≠ Nora semantic until proven | **P1** | EPIC-A/D | W2–W3 | DK-08 exit · semantic proof | Phase B distinct GO |
+| **SHOULD-01** | Rich history / recovery capsule | J.2 | SHOULD | FC-13 | W enrich | S7/S8 | Non-blocking Completion | — | OPEN | Rich capsule beyond minimal anchors | P2 | EPIC-D | Post-W4 (P2) | — | Post-Completion |
+| **SHOULD-02** | Advanced EC presentation (diff, synthesis) | J.2 | SHOULD | FC-08/14 | L extend | S10 · SC-05/06 | Progressive disclosure extension | — | OPEN | Diff/synthesis UX | P2 | EPIC-E | Post-W4 (P2) | — | Post-Completion |
+| **SHOULD-03** | PJ / user source intake | H Artifacts/PJ · J.2 | SHOULD | FC-02 | — | — | NEW SHOULD · provenance design | — | OPEN | Intake absent product | P2 | EPIC-A | Post-W4 (P2) | — | Post-Completion |
+| **SHOULD-04** | Enriched Evidence UX | J.2 | SHOULD | FC-12/14 | T extend | S9 | After business-first baseline | — | OPEN | Enrichment layers | P2 | EPIC-E | Post-W4 (P2) | — | Post-Completion |
+| **SHOULD-05** | Sophisticated AMEND UX | J.2 | SHOULD | FC-07 | J extend | S4/S6 | G-UX-08 reserve | — | OPEN | AMEND loop polish | P2 | EPIC-B | Post-W4 (P2) | — | Post-Completion |
+| **SHOULD-06** | Rich memory beyond integrity | J.2 | SHOULD | FC-05/13 | W extend | S8 | Transcript ≠ continuity MUST | — | OPEN | Optional rich history | P2/P3 | EPIC-D | Post-W4 (P2) | — | Post-Completion |
+| **FUTURE-01** | Multi-user / auth / sharing | J.3 | FUTURE | FC-14/15 | — | — | Auth.js/IAM separate | — | DEFERRED | Post-Completion product gate | P3 | EPIC-E | — | — | Explicit Morris gate |
+| **FUTURE-02** | Notion connectors | J.3 | FUTURE | — | — | — | Notion ≠ SoT | — | DEFERRED | Explicit product gate | P3 | — | — | — | Explicit Morris gate |
+| **FUTURE-03** | Deep FinOps / RUN | J.3 | FUTURE | — | — | — | FinOps cycle if ever | — | DEFERRED | — | P3 | — | — | — | Explicit Morris gate |
+| **FUTURE-04** | Studio-native GitHub ops | J.3 | FUTURE | FC-15 | — | — | Implementation detail optional | — | DEFERRED | — | P3 | EPIC-A | — | — | Explicit Morris gate |
+| **FUTURE-05** | Capitalization toward global method | J.3 | FUTURE | — | — | — | Separate Morris gate | — | DEFERRED | — | P3 | — | — | — | Separate Morris gate |
+| **FUTURE-06** | Maturity / adoption beyond Completion bar | J.3 | FUTURE | — | — | — | Includes runtime v3 ADOPTED | — | DEFERRED | — | P3 | — | — | — | Separate Morris gate |
+
+---
+
+## 6. Full P0 User Stories (8)
+
+### US-P0-01 — Reprise honnête du projet
 
 | Field | Value |
 |---|---|
+| **US ID** | US-P0-01 |
 | **Epic** | EPIC-A |
-| **Priority** | P0 |
-| **C1** | M-01, M-02, M-09, M-12 |
-| **Story** | En tant que **Pilote**, je veux **reprendre un projet en voyant immédiatement ce qui est durable, ce qui est perdu et quelle action est requise**, afin de **ne jamais croire à un faux GO ou à une mémoire inventée**. |
-| **CA** | (1) Resume affiche état durable vs non-durable · (2) Si conversation/proposal perdu → message explicite + CTA requalify · (3) Aucune autorité/trajectory decided restaurée sans preuve · (4) CA-PC-25 |
-| **Evidence** | UAT resume scenarios · RecoverySurface honest copy · fail-closed tests |
-| **UX** | S3, S8 · UF-07 |
-| **Constraints** | FC-13 · TD-C6 not reopened |
-| **Reuse** | RecoverySurface · getProject · LPS read |
-| **TECHNICAL ENABLER** | — (behavior/UX primarily) |
-| **Gate** | Morris Delivery slice gate after dependency waves |
+| **Gap priority** | P0 |
+| **C1 reqs** | REQ-01, REQ-02, REQ-15 |
+| **C2** | A, B, W(entry) · CA-PC-01/02/25 |
+| **UX** | S1,S3,S8 · UF-01/07 · SC-01/13/14 |
+| **FA** | FC-01, FC-05, FC-13 |
+| **Story** | En tant que **Pilote**, je veux **reprendre un projet en voyant immédiatement ce qui est durable, ce qui est perdu et quelle action est requise**, afin de **ne jamais croire à un faux GO ni à une mémoire inventée**. |
+| **Business value** | Trust at entry/resume · fail-closed recovery · foundation for all downstream gates |
+| **Preconditions** | Project exists in Product SQLite · session/utilisateur actif |
+| **IN** | Durable Project/LPS/HD/EC/Attempt/Evidence · explicit non-durable disclosure (conversation/proposal) |
+| **OUT** | Invented authority · silent restoration of decided trajectory · auto-GO |
+| **Dependencies** | — (foundation) |
+| **AC** | (1) Resume shows durable vs non-durable · (2) Lost conversation → explicit message + requalify CTA · (3) No decided trajectory/authority without proof · (4) CA-PC-25 |
+| **Evidence** | UAT resume scenarios · RecoverySurface copy · fail-closed integration tests |
+| **STOP/FAIL** | Missing Project → SC entry error · ambiguous state → STOP with requalify path (no silent continue) |
+| **Architecture consumed** | OA Native · G0-A/G0-B · C6 CLOSED (no reopen) |
+| **Technical Enablers** | — (behavior/UX primary) |
+| **Risks** | Over-disclosure fatigue · under-disclosure false confidence |
+| **Morris gate** | Delivery slice GO (Wave 1 entry) |
+| **Wave** | W1 |
+| **Source traceability** | C1 H Project/LPS · J.1 · C2 §15 · UX SC-01/13/14 |
 
-#### US-P0-02 — Continuité sémantique inter-session Nora
+---
+
+### US-P0-02 — Continuité sémantique inter-session Nora
 
 | Field | Value |
 |---|---|
+| **US ID** | US-P0-02 |
 | **Epic** | EPIC-A |
-| **Priority** | P0 |
-| **C1** | M-03, M-12 |
+| **Gap priority** | P0 |
+| **C1 reqs** | REQ-03, REQ-15 |
+| **C2** | C,D,G,W · CA-PC-25/35 |
+| **UX** | S3,S5 · UF-02/07 |
+| **FA** | FC-04, FC-05 |
 | **Story** | En tant que **Pilote**, je veux **retrouver après reprise le contexte métier utile à Nora (intention, trajectoire, décisions, prochaine action)**, afin de **continuer sans re-expliquer toute la méthode**. |
-| **CA** | (1) LPS + décisions + trajectoire effective rechargés · (2) Nora ne réinvente pas HD/trajectory/authority · (3) Gaps explicités · (4) CA-PC-25 |
-| **Evidence** | Restart test suite · LPS snapshot diff |
-| **Dependencies** | US-P0-01 · US-P0-04 (trajectory) · DP↔CKC US-P0-06 |
-| **Constraints** | Semantic continuity MUST · transcript ≠ condition |
+| **Business value** | O-09 inter-session continuity · Nora credibility · reduced re-entry friction |
+| **Preconditions** | US-P0-01 satisfied · durable objects loaded |
+| **IN** | LPS snapshot · HD refs · trajectory effective pointer · explicit gaps |
+| **OUT** | Transcript-as-truth · invented HD/trajectory/authority · silent Nora memory |
+| **Dependencies** | US-P0-01 · US-P0-03 · US-P0-06 |
+| **AC** | (1) LPS + decisions + effective trajectory reloaded · (2) Nora does not invent HD/trajectory/authority · (3) Gaps explicit · (4) CA-PC-25 |
+| **Evidence** | Restart test suite · LPS snapshot diff · Nora prompt boundary tests |
+| **STOP/FAIL** | Unrecoverable semantic gap → STOP + requalify CTA (fail-closed) |
+| **Architecture consumed** | Semantic continuity MUST · TD-C6-04 selective materialization (downstream) |
+| **Technical Enablers** | TD-C6-04 (selective epistemic persistence) |
+| **Risks** | Over-persisting proposals · under-persisting blockers |
+| **Morris gate** | Delivery slice GO |
+| **Wave** | W1–W2 |
+| **Source traceability** | C1 J.1 continuité sémantique · C2 §15.2 · FA FC-04 COMPLETE continuity |
 
-#### US-P0-03 — Trajectoire durable proposée vs décidée
+---
+
+### US-P0-03 — Trajectoire durable proposée vs décidée
 
 | Field | Value |
 |---|---|
+| **US ID** | US-P0-03 |
 | **Epic** | EPIC-B |
-| **Priority** | P0 |
-| **C1** | M-11 |
+| **Gap priority** | P0 |
+| **C1 reqs** | REQ-06 |
+| **C2** | H,V · CA-PC-06/07 |
+| **UX** | S6 · SC-04 · UF-03 |
+| **FA** | FC-06 |
 | **Story** | En tant que **Pilote**, je veux **voir une trajectoire proposée par Nora et une trajectoire que j’ai explicitement décidée**, afin de **comprendre le chemin réel et les dépendances**. |
-| **CA** | (1) `proposed` ≠ `decided` · (2) HD seule voie vers `decided` · (3) Survit au restart · (4) CA-PC-06/07 |
-| **Evidence** | Trajectory repository tests · UI S6 region |
-| **Constraints** | TD-C6-01, TD-C6-06 **ADOPTED — implement only** |
-| **TECHNICAL ENABLER — SERVES US-P0-03** | `SqliteTrajectoryRepository` + `oa_project_trajectories` tables |
+| **Business value** | O-02 path visibility · O-10 replan foundation · Recommendation ≠ decided path |
+| **Preconditions** | Project resumed · Nora may propose trajectory |
+| **IN** | `proposed` vs `decided` states · explicit current pointer · HD-only path to `decided` |
+| **OUT** | Proposed treated as current/decided · Memory-only durability |
+| **Dependencies** | US-P0-01 |
+| **AC** | (1) `proposed` ≠ `decided` · (2) HD sole route to `decided` · (3) Survives restart · (4) CA-PC-06/07 |
+| **Evidence** | Trajectory repository tests · UI S6 region · restart persistence proof |
+| **STOP/FAIL** | Attempt to execute on proposed-only → blocked with explicit reason |
+| **Architecture consumed** | TD-C6-01 T-A · TD-C6-06 explicit current pointer · **ADOPTED — implement only** |
+| **Technical Enablers** | TD-C6-01 (`SqliteTrajectoryRepository`) · TD-C6-06 (current pointer) |
+| **Risks** | Dual Memory+SQLite during migration · concurrency on current pointer |
+| **Morris gate** | **C6 durability Delivery GO** |
+| **Wave** | W1 |
+| **Source traceability** | C1 H ProjectTrajectory · C6 TD-C6-01/06 · C2 §6.7 |
 
-#### US-P0-04 — Confirmation consommée durable
+---
+
+### US-P0-04 — Confirmation consommée durable
 
 | Field | Value |
 |---|---|
+| **US ID** | US-P0-04 |
 | **Epic** | EPIC-C |
-| **Priority** | P0 |
-| **C1** | M-25 |
+| **Gap priority** | P0 |
+| **C1 reqs** | REQ-08 |
+| **C2** | M · CA-PC-11/12/13 |
+| **UX** | S11 · SC-06/07 · UF-04 · A11Y-PC-05 |
+| **FA** | FC-09 |
 | **Story** | En tant que **Pilote**, je veux **qu’une confirmation accordée pour un périmètre donné survive à une reprise et ne soit réutilisable que conformément à sa portée**, afin de **protéger les effets sans re-confirmer à l’infini ni réutiliser un consentement périmé**. |
-| **CA** | (1) `granted` durable · (2) `requested` ephemeral · (3) CAS consume · (4) Restored granted ≠ effective authority without revalidation · (5) CA-PC-11/13 |
-| **Evidence** | Confirmation repo tests · restart authority path |
-| **Constraints** | TD-C6-02, TD-C6-05 |
-| **TECHNICAL ENABLER — SERVES US-P0-04** | `SqliteConfirmationRepository` |
+| **Business value** | O-04 protected boundary · proportional authorization · restart-safe authority path |
+| **Preconditions** | EC prepared/inspected when required · protected effect identified |
+| **IN** | Durable `granted` · ephemeral `requested` · CAS consume · scope/context binding |
+| **OUT** | Restored granted = effective authority without revalidation · stale reuse |
+| **Dependencies** | US-P0-05 (inspect order) |
+| **AC** | (1) `granted` durable · (2) `requested` ephemeral · (3) CAS consume · (4) Restored ≠ effective without revalidation · (5) CA-PC-11/13 |
+| **Evidence** | Confirmation repo tests · restart authority path · scope-mismatch refusal tests |
+| **STOP/FAIL** | Missing/stale Confirmation on protected effect → SC-IRR/SC-DEC · no execution |
+| **Architecture consumed** | TD-C6-02 C-A · TD-C6-05 granted-upward · **ADOPTED — implement only** |
+| **Technical Enablers** | TD-C6-02 · TD-C6-05 |
+| **Risks** | Over-broad durable grants · UX reconfirm fatigue |
+| **Morris gate** | **C6 durability Delivery GO** |
+| **Wave** | W1 |
+| **Source traceability** | C1 H Confirmation · C6 TD-C6-02/05 · C2 §10.3 |
 
-#### US-P0-05 — Ordre K→L→M→N respecté
+---
+
+### US-P0-05 — Ordre K→L→M→N respecté
 
 | Field | Value |
 |---|---|
+| **US ID** | US-P0-05 |
 | **Epic** | EPIC-C |
-| **Priority** | P0 |
-| **C1** | M-05, M-25, M-13 |
+| **Gap priority** | P0 |
+| **C1 reqs** | REQ-08, REQ-09, REQ-10 |
+| **C2** | K,L,M,N · CA-PC-30 |
+| **UX** | S10,S11 · SC-05/06/07 · UF-04 |
+| **FA** | FC-08, FC-09 |
 | **Story** | En tant que **Pilote**, je veux **inspecter le contrat avant toute confirmation ou exécution**, afin de **ne jamais autoriser un effet sans avoir compris le périmètre**. |
-| **CA** | (1) Attempt blocked if EC not inspected · (2) Confirmation only after inspect when required · (3) Authority blocked with explicit reason · (4) CA-PC-30 |
-| **Evidence** | Integration tests on product action chain |
-| **UX** | S10, S11 · UF-04 |
-| **Reuse** | prepareM3 → confirm → execute path |
+| **Business value** | Governed execution entry · inspect-before-authorize invariant · AgentCapability visibility |
+| **Preconditions** | Qualified cycle · EC prepared |
+| **IN** | Inspect gate · Confirmation after inspect when required · authority blocked states |
+| **OUT** | Attempt before inspect · Confirmation before inspect · silent bypass |
+| **Dependencies** | US-P0-04 · EPIC-A qualification |
+| **AC** | (1) Attempt blocked if EC not inspected · (2) Confirmation only after inspect when required · (3) Authority blocked with explicit reason · (4) CA-PC-30 |
+| **Evidence** | Product action chain integration tests · blocked-state UX proof |
+| **STOP/FAIL** | EC non inspecté → SC blocked · executor insufficient → SC-CAP |
+| **Architecture consumed** | K→L→M→N order · C6 CLOSED |
+| **Technical Enablers** | — (order enforcement in product path) |
+| **Risks** | Legacy routes bypassing order (D1/OPS1) |
+| **Morris gate** | Delivery slice GO |
+| **Wave** | W1 |
+| **Source traceability** | C2 ordre K→L→M→N · UX WF-05 · FA BR-PC-* |
 
-#### US-P0-06 — Résolution CKC boundée au DoctrinePackage produit
+---
+
+### US-P0-06 — Résolution CKC boundée au DoctrinePackage produit (Phase A)
 
 | Field | Value |
 |---|---|
+| **US ID** | US-P0-06 |
 | **Epic** | EPIC-A (DP↔CKC workstream) |
-| **Priority** | P0 |
-| **C1** | M-14, M-15, M-16 |
+| **Gap priority** | P0 |
+| **C1 reqs** | REQ-04, REQ-16, REQ-23 |
+| **C2** | E · CA-PC-31/33 |
+| **UX** | S3 · UF-02 · SC-03 |
+| **FA** | FC-02, FC-03 |
 | **Story** | En tant que **Pilote**, je veux **que la qualification d’un cycle s’appuie sur le package doctrine du projet et non sur des chemins méthode parallèles**, afin de **bénéficier d’une couverture cognitive traçable et évolutive**. |
-| **CA** | (1) Pin package → manifest → index → CKC artifact · (2) No method path SoT · (3) Fail-closed D05 NONE · (4) CA-PC-31/34 · DK-01…07 exits |
-| **Evidence** | Phase A consumption proof schema · catalog ADAPT tests |
-| **Constraints** | D01-NARROW · D02 Option B · D05 NONE · **≠ Phase B Nora semantic** |
-| **TECHNICAL ENABLER — SERVES US-P0-06** | Package materialization · index artifact · resolver ADAPT |
+| **Business value** | O-03/O-11 method genericity · auditability · blocks silent catalog gaps |
+| **Preconditions** | Project with doctrine pin · catalog applicable |
+| **IN** | Pin → manifest → index → CKC artifact · consumption proof · catalog ADAPT |
+| **OUT** | Method path SoT · silent uncovered type · synthetic global fallback as policy |
+| **Dependencies** | D01/D02/D05 adopted · materialization path |
+| **AC** | (1) Package-bound resolution chain · (2) No method path SoT · (3) Fail-closed D05 NONE · (4) CA-PC-31/33/34 · DK-01…07 exits |
+| **Evidence** | Phase A consumption proof schema · catalog ADAPT tests · resolver fail-closed tests |
+| **STOP/FAIL** | Uncovered type + no authorized fallback → SC-FB STOP · stale required source → SC-SRC |
+| **Architecture consumed** | D01-NARROW · D02 Option B · D05 NONE · **≠ Phase B Nora semantic** |
+| **Technical Enablers** | DK-01…07 · package materialization/index |
+| **Risks** | Parallel resolver · fixture pin leakage (DK-04) |
+| **Morris gate** | **DP implementation GO** (distinct from Delivery) |
+| **Wave** | W1 |
+| **Source traceability** | DP↔CKC qualification doc §I/V · C1 J.1 CKC coverage · DP↔CKC §V DK register |
 
-#### US-P0-07 — Recovery → requalification → reprise de boucle
+---
+
+### US-P0-07 — Recovery → requalification → reprise de boucle
 
 | Field | Value |
 |---|---|
+| **US ID** | US-P0-07 |
 | **Epic** | EPIC-D |
-| **Priority** | P0 |
-| **C1** | M-09, M-22 |
+| **Gap priority** | P0 |
+| **C1 reqs** | REQ-15, REQ-22 |
+| **C2** | W,U,V · CA-PC-24/25 |
+| **UX** | S8,S12 · UF-06/07 · SC-11/13 |
+| **FA** | FC-13, FC-04 (post-evidence) |
 | **Story** | En tant que **Pilote**, je veux **qu’après un échec ou une interruption je puisse reprendre via requalification et replanification honnêtes**, afin de **ne pas rester bloqué ni recommencer from zero**. |
-| **CA** | (1) Recovery CTA → requalify path · (2) Nora analysis → recommendation · (3) HD if structural replan · (4) CA-PC-24/25 |
-| **Evidence** | E2E recovery scenario · replan integration |
+| **Business value** | O-09/O-10 restart safety · closed learning loop entry · honest failure handling |
+| **Preconditions** | Terminal or interrupted attempt · durable evidence anchors where exist |
+| **IN** | Recovery CTA · requalify path · Nora analysis → recommendation · HD if structural replan |
+| **OUT** | Invented replan · silent auto-requalify · Project closed on recoverable fail |
 | **Dependencies** | US-P0-01…04 · US-P0-06 |
-
-### 7.2 P1 User Stories (selected — representative set)
-
-#### US-P1-01 — Options et recommandation sans autorité
-
-| Epic EPIC-B · P1 · M-04 · Story: Pilote voit options et recommandation Nora distinctes de sa décision · CA-PC-08/09/10 · S4/S6 |
-
-#### US-P1-02 — HumanDecision structurante tracée
-
-| Epic EPIC-B · P1 · M-04 · Story: Pilote enregistre GO/NO_GO/AMEND avec DecisionBasis · durable · liée trajectoire · CA-PC-08 |
-
-#### US-P1-03 — EC inspectable progressive disclosure
-
-| Epic EPIC-C/E · P1 · M-19,M-20 · Story: Pilote lit résumé EC puis détail complet avant décision · CA-PC-14/15/16 · S10 · SC-05/06 |
-
-#### US-P1-04 — Exécution generique sous contrat
-
-| Epic EPIC-D · P1 · M-06,M-17 · Story: Pilote lance une tentative conforme au contrat inspecté · lifecycle visible · CA-PC-17/19 · S12 |
-
-#### US-P1-05 — Terminaux SUCCESS / STOP / FAIL intelligibles
-
-| Epic EPIC-D · P1 · M-08 · Story: Pilote distingue succès métier, arrêt gouverné et échec technique · CA-PC-20/21/22 · pas de READY auto |
-
-#### US-P1-06 — Evidence business-first
-
-| Epic EPIC-D/E · P1 · M-07,M-21 · Story: Pilote comprend le résultat métier avant détail technique · ReviewBundle · S9 · CA-PC-23 |
-
-#### US-P1-07 — Boucle post-evidence Nora → LPS/trajectory
-
-| Epic EPIC-D · P1 · M-22 · Story: Après preuve, Nora analyse et propose prochaine action / replan · CA-PC-24 · UF-06 |
-
-#### US-P1-08 — AgentCapability envelope explicite
-
-| Epic EPIC-C · P1 · M-13 · Story: Pilote voit pourquoi l’autorité effective est suffisante ou bloquée · CA-PC-27/32 · S11 blocked state |
-
-#### US-P1-09 — Catalog evolvability sans nouveau moteur
-
-| Epic EPIC-A · P1 · M-16 · Story: Ajouter un type de cycle n’exige pas un nouveau moteur d’exécution · CA-PC-26 |
-
-#### US-P1-10 — Surfaces S1→S12 cohérentes Pre-M6→Completion
-
-| Epic EPIC-E · P1 · M-23 · Story: Pilote navigue parcours A→W sur surfaces validées sans charge méthode · UF-01…07 · H-01 carry acknowledged |
-
-#### US-P1-11 — Authority verification receipt (audit)
-
-| Epic EPIC-C · P1 · transverse · Story: Système conserve preuve d’audit de vérification d’autorité sans confondre avec source d’autorité · TD-C6-03 · TECHNICAL ENABLER |
-
-#### US-P1-12 — Selective epistemic materialization
-
-| Epic EPIC-B/A · P1 · Story: Éléments épistémiques materialisés selon règle explicite · pas promotion sémantique implicite · TD-C6-04 · TECHNICAL ENABLER |
-
-### 7.3 P2/P3 — coarse backlog items
-
-| ID | Epic | Priority | Summary |
-|---|---|---|---|
-| CB-P2-01 | EPIC-D | P2 | Rich recovery capsule (S-01) |
-| CB-P2-02 | EPIC-E | P2 | Advanced EC diff/synthesis (S-02) |
-| CB-P2-03 | EPIC-A | P2 | PJ/source intake (S-03) |
-| CB-P2-04 | EPIC-E | P2 | Enriched Evidence UX (S-04) |
-| CB-P2-05 | EPIC-B | P2 | AMEND UX sophistication (S-05) |
-| CB-P2-06 | EPIC-E | P2 | A11Y depth beyond baseline |
-| CB-P3-01 | EPIC-E | P3 | Multi-user/auth (F-01) |
-| CB-P3-02 | — | P3 | Notion connectors (F-02) |
-| CB-P3-03 | — | P3 | Deep FinOps (F-03) |
-| CB-P3-04 | EPIC-A | P3 | GitHub ops (F-04) |
-| CB-P3-05 | — | P3 | Method capitalization (F-05) |
-| CB-P3-06 | — | P3 | Maturity beyond Completion (F-06) |
+| **AC** | (1) Recovery CTA → requalify · (2) Nora analysis → recommendation · (3) HD if structural replan · (4) CA-PC-24/25 |
+| **Evidence** | E2E recovery scenario · replan integration tests |
+| **STOP/FAIL** | Unrecoverable authority/context → STOP with explicit next action (no silent GO) |
+| **Architecture consumed** | Fail-closed recovery · Recommendation ≠ HD |
+| **Technical Enablers** | — (loop composition) |
+| **Risks** | Partial replan without trajectory durability · auto-requalify without Morris gate |
+| **Morris gate** | Delivery slice GO |
+| **Wave** | W1/W3 |
+| **Source traceability** | C1 J.1 recovery + closed loop · C2 §15 · UX UF-06 |
 
 ---
 
-## 8. DoctrinePackage / CKC workstream (global placement)
+### US-P0-08 — Seam Phase B bornée post-Phase A (Wave 1)
 
-| Need | Epic parent | Priority (from global graph) | Dependencies |
-|---|---|---|---|
-| A. package-bound CKC resolution | EPIC-A | **P0** | D01/D02/D05 · materialization |
-| B. provenance / package+CKC proof | EPIC-A | P0 | DK-03 |
-| C. remove method paths as runtime SoT | EPIC-A | P0 | DK-01, DK-05, DK-07 |
-| D. catalog evolvability | EPIC-A | P1 | M-16 |
-| E. Nora semantic CKC consumption | EPIC-A/D | P1/P2 | **Phase B — downstream** · DK-08 |
-| F. fail-closed D05 NONE | EPIC-A | P0 | adopted |
-| G. method complexity absorbed | EPIC-E + EPIC-A | P1 | PE + qualification UX |
-| H. DK-01…DK-08 exits | EPIC-A primarily | P0–P2 | see debt register |
+| Field | Value |
+|---|---|
+| **US ID** | US-P0-08 |
+| **Epic** | EPIC-A/B |
+| **Gap priority** | P0 |
+| **C1 reqs** | REQ-24 (bounded proof) · REQ-04 |
+| **C2** | E post-qual · CA-PC-35 |
+| **UX** | S3,S4 · UF-02 |
+| **FA** | FC-04 · FC-03 (Phase A prerequisite) |
+| **Story** | En tant que **Pilote**, je veux **voir Nora formuler au moins une clarification ou recommandation clairement informée par le CKC résolu**, afin de **prouver que Phase A alimente réellement la cognition sans fermer prématurément Phase B**. |
+| **Business value** | Prevents Wave 1 plumbing-only false exit · proves CKC→Nora seam · satisfies Wave 1 exit obligation |
+| **Preconditions** | US-P0-06 Phase A resolution proven for ≥1 cycle type |
+| **IN** | One bounded semantic consumption proof · attributable output · Recommendation only |
+| **OUT** | Claiming full Phase B closure · `consumed=true` alone as proof · raw CKC exposure to Pilote |
+| **Dependencies** | US-P0-06 |
+| **AC** | (1) Resolved CKC content reaches Nora reasoning for representative cycle · (2) Output attributable to CKC guidance · (3) No authority created · (4) Does not substitute US-P1-14 full Phase B exit |
+| **Evidence** | Semantic proof capability · differentiated behavior vs no-CKC control · DK-08 partial evidence |
+| **STOP/FAIL** | Phase A incomplete → blocked · semantic gap → honest requalify path |
+| **Architecture consumed** | Phase A ≠ Phase B · DK-08 anti-claim |
+| **Technical Enablers** | DK-08 (partial) |
+| **Risks** | Premature Phase B sign-off · conflating seam demo with catalog-wide coverage |
+| **Morris gate** | Wave 1 exit review · Phase B distinct GO for full closure |
+| **Wave** | W1 (bounded) · full closure W2–W3 |
+| **Source traceability** | DP↔CKC §V Phase B · amend GO Wave 1 exit · C1 REQ-24 |
 
-**Priority note :** DP↔CKC Phase A est **P0** car bloque M-14/M-15/M-16 — pas par récence analytique.
-
-**Morris gate :** implementation/modeled requalification = **CANDIDATE ONLY · NOT AUTHORIZED** · distinct gate required.
-
----
-
-## 9. C6 implementation debts mapped to functional Epics
-
-| TD-C6 | Debt item | Serves Epic | Status |
-|---|---|---|---|
-| TD-C6-01 | Trajectory SQLite | EPIC-B | ADOPTED · NOT IMPLEMENTED |
-| TD-C6-02 | Confirmation SQLite | EPIC-C | ADOPTED · NOT IMPLEMENTED |
-| TD-C6-03 | AuthorityVerificationReceipt | EPIC-C | ADOPTED · NOT IMPLEMENTED |
-| TD-C6-04 | Selective epistemic persistence | EPIC-B/A | ADOPTED · NOT IMPLEMENTED |
-| TD-C6-05 | granted-upward Confirmation semantics | EPIC-C | ADOPTED · NOT IMPLEMENTED |
-| TD-C6-06 | Explicit current trajectory pointer | EPIC-B | ADOPTED · NOT IMPLEMENTED |
-
-**C6 = CLOSED BY MORRIS — DO NOT REOPEN.** No Epic “Implement C6”.
 
 ---
 
-## 10. Technical mapping (secondary)
+## 7. Full P1 User Stories (15)
 
-| FC | Primary Epic | Runtime disposition | Gap summary |
-|---|---|---|---|
-| FC-01 | EPIC-A | KEEP Project/LPS SQLite | Resume polish |
-| FC-02 | EPIC-A | ADAPT Doctrine resolution | DP↔CKC Phase A |
-| FC-03 | EPIC-A | ADAPT CKC qualification | Package-bound index |
-| FC-04 | EPIC-A/B/D | KEEP Nora engine · COMPLETE continuity | Replan + semantic |
-| FC-05 | EPIC-A | KEEP LPS | Business state completeness |
-| FC-06 | EPIC-B | COMPLETE Trajectory | Memory → SQLite |
-| FC-07 | EPIC-B | KEEP HD SQLite | Trajectory linkage UX |
-| FC-08 | EPIC-C | KEEP EC SQLite | Inspect UX |
-| FC-09 | EPIC-C | COMPLETE Confirmation | Memory → SQLite |
-| FC-10 | EPIC-D | KEEP Attempt | Fixture→product REAL optional |
-| FC-11 | EPIC-D | ADAPT terminals | SUCCESS/STOP/FAIL semantics |
-| FC-12 | EPIC-D | KEEP Evidence | Business-first UX |
-| FC-13 | EPIC-D | COMPLETE recovery | Replan loop |
-| FC-14 | EPIC-E | ADAPT Pre-M6 UI | SC contract fidelity |
-| FC-15 | EPIC-E | KEEP governance patterns | Transverse audit |
+### US-P1-01 — Options et recommandation sans autorité
 
-**Parallel engines to HARVEST/FREEZE for product path :** D1, OPS1, execution-run D2, vertical-slice harness routes.
+| Field | Value |
+|---|---|
+| **US ID** | US-P1-01 · **Epic** EPIC-B · **Gap priority** P1 · **C1** REQ-03, REQ-07 · **C2** I · CA-PC-09/10 · **UX** S4,S6 · **FA** FC-04, FC-06 |
+| **Story** | En tant que **Pilote**, je veux **voir des options de trajectoire et une recommandation Nora clairement distinctes de ma décision**, afin de **comprendre les alternatives sans qu’une suggestion devienne un GO implicite**. |
+| **Business value** | O-04 authority clarity · prevents recommendation laundering |
+| **Preconditions** | Trajectory durable (US-P0-03) · Nora qualified context |
+| **IN** | Options list · Recommendation badge · no auto-decided state |
+| **OUT** | Recommendation displayed as decided · hidden options |
+| **Dependencies** | US-P0-03 |
+| **AC** | (1) Rec ≠ HD · (2) Options visible · (3) No execution on Rec alone · CA-PC-10 |
+| **Evidence** | UI distinction tests · S4/S6 wireframe alignment |
+| **STOP/FAIL** | Ambiguous Rec/HD UI → fail UX review gate |
+| **Architecture consumed** | Recommendation domain · TD-C6-06 |
+| **Technical Enablers** | TD-C6-06 |
+| **Risks** | Visual conflation Rec/HD |
+| **Morris gate** | Delivery slice GO · **Wave** W2 · **Source** C2 §10.1 · UX SC-04 |
 
 ---
 
-## 11. Product Completion functional capability roadmap
+### US-P1-02 — HumanDecision structurante tracée
 
-> **Not** the Convergence Git Roadmap — this is the **candidate delivery sequencing** for Product Completion MUST closure.
+| Field | Value |
+|---|---|
+| **US ID** | US-P1-02 · **Epic** EPIC-B · **Gap priority** P1 · **C1** REQ-07 · **C2** J · CA-PC-08 · **UX** S4,S6 · **FA** FC-07 |
+| **Story** | En tant que **Pilote**, je veux **enregistrer un GO/NO_GO/AMEND avec DecisionBasis liée à la trajectoire**, afin de **matérialiser mon arbitrage de façon durable et auditable**. |
+| **Business value** | O-04/O-10 explicit Pilot authority · trajectory decided state |
+| **Preconditions** | Qualified decision context · trajectory present |
+| **IN** | HD durable · DecisionBasis · trajectory linkage |
+| **OUT** | HD from unqualified chat · HD without basis on structural decisions |
+| **Dependencies** | US-P0-03 · US-P1-01 |
+| **AC** | (1) Unqualified phrase → no HD · (2) HD durable with basis · (3) Links to trajectory · CA-PC-08 |
+| **Evidence** | HD repository tests · trajectory decided transition |
+| **STOP/FAIL** | Structural replan without HD → blocked |
+| **Architecture consumed** | HD SQLite · DecisionBasis |
+| **Technical Enablers** | TD-C6-01 (decided linkage) |
+| **Risks** | AMEND loop complexity (SHOULD-05 reserve) |
+| **Morris gate** | Delivery slice GO · **Wave** W2 · **Source** C1 H HumanDecision |
 
-### Wave 1 — Truth & continuity foundations (P0)
+---
 
-| Sequence | Epic(s) | Capability obtained | Prerequisites | P0 covered | Exit proof | Morris gate |
+### US-P1-03 — EC inspectable progressive disclosure
+
+| Field | Value |
+|---|---|
+| **US ID** | US-P1-03 · **Epic** EPIC-C/E · **Gap priority** P1 · **C1** REQ-09 · **C2** K,L · CA-PC-14/15/16 · **UX** S10 · SC-05/06 · **FA** FC-08, FC-14 |
+| **Story** | En tant que **Pilote**, je veux **lire un résumé EC puis le détail complet avant toute décision**, afin de **comprendre objectif, scope, protections et Evidence attendue**. |
+| **Business value** | O-05 inspectable EC · trust before authorize |
+| **Preconditions** | EC prepared · US-P0-05 order enforced |
+| **IN** | Summary → detail · inspect mark · amend triggers re-inspect |
+| **OUT** | Inspect skipped · parity gaps hidden |
+| **Dependencies** | US-P0-05 |
+| **AC** | (1) §11.1 fields present · (2) Req vs satisfied distinguished · (3) Material amend → re-inspect · CA-PC-14/15/16 |
+| **Evidence** | EC UI tests · parity checklist vs canonical |
+| **STOP/FAIL** | Launch without inspect → SC blocked |
+| **Architecture consumed** | EC aggregate · PREPARE projection ADAPT |
+| **Technical Enablers** | — |
+| **Risks** | Overwhelming detail without progressive disclosure |
+| **Morris gate** | Delivery slice GO · **Wave** W2 · **Source** C2 §11 · UX SC-05/06 |
+
+---
+
+### US-P1-04 — Exécution générique sous contrat
+
+| Field | Value |
+|---|---|
+| **US ID** | US-P1-04 · **Epic** EPIC-D · **Gap priority** P1 · **C1** REQ-11, REQ-12 · **C2** O,P · CA-PC-17/19 · **UX** S12 · UF-05 · **FA** FC-10 |
+| **Story** | En tant que **Pilote**, je veux **lancer une tentative conforme au contrat inspecté avec un cycle de vie visible**, afin de **voir le HOW technique s’exécuter sous gouvernance**. |
+| **Business value** | O-06 governed execution · one generic mechanism |
+| **Preconditions** | US-P0-05 satisfied · authority sufficient |
+| **IN** | accepted→running→terminal · fixture default path · scope enforcement |
+| **OUT** | Out-of-scope execution · auto-close CycleInstance on terminal |
+| **Dependencies** | US-P0-04/05 · US-P1-08 |
+| **AC** | (1) Lifecycle states visible · (2) Out-of-scope → STOP/FAIL · (3) Terminal ≠ auto cycle close · CA-PC-17/18/19 |
+| **Evidence** | Attempt integration tests · S12 running state |
+| **STOP/FAIL** | SC-CAP · SC scope violation · timeout → terminal_fail |
+| **Architecture consumed** | BR-PC-17 one mechanism · REAL gated separately |
+| **Technical Enablers** | — (fixture proves mechanism) |
+| **Risks** | Parallel harness routes · REAL scope creep |
+| **Morris gate** | Delivery slice GO · REAL distinct · **Wave** W3 · **Source** C1 J.1 generic EC→agent |
+
+---
+
+### US-P1-05 — Terminaux SUCCESS / STOP / FAIL intelligibles
+
+| Field | Value |
+|---|---|
+| **US ID** | US-P1-05 · **Epic** EPIC-D · **Gap priority** P1 · **C1** REQ-13 · **C2** Q,R,S · CA-PC-20/21/22 · **UX** S12 · SC-08–11 · **FA** FC-11 |
+| **Story** | En tant que **Pilote**, je veux **distinguer succès métier, arrêt gouverné et échec technique**, afin de **ne pas confondre résultat, frontière atteinte et panne**. |
+| **Business value** | O-07 honest outcomes · prevents false READY |
+| **Preconditions** | Attempt reaches terminal |
+| **IN** | Distinct terminals · business message · Evidence before claim |
+| **OUT** | READY auto-flag · FAIL displayed as SUCCESS |
+| **Dependencies** | US-P1-04 |
+| **AC** | (1) SUCCESS no auto READY · (2) STOP with boundary · (3) FAIL ≠ SUCCESS · CA-PC-20/21/22 |
+| **Evidence** | Terminal mapping tests · A11Y text distinction |
+| **STOP/FAIL** | SC-PROT STOP · terminal_fail with Evidence |
+| **Architecture consumed** | FC-11 ADAPT · A11Y-PC-01/03 |
+| **Technical Enablers** | — |
+| **Risks** | Status enum collapse · color-only distinction |
+| **Morris gate** | Delivery slice GO · **Wave** W3 · **Source** C1 H SUCCESS/STOP/FAIL |
+
+---
+
+### US-P1-06 — Evidence business-first
+
+| Field | Value |
+|---|---|
+| **US ID** | US-P1-06 · **Epic** EPIC-D/E · **Gap priority** P1 · **C1** REQ-14 · **C2** T · CA-PC-23 · **UX** S9 · SC-09/10 · **FA** FC-12, FC-14 |
+| **Story** | En tant que **Pilote**, je veux **comprendre le résultat métier avant le détail technique**, afin de **valider la preuve sans devenir ops**. |
+| **Business value** | O-08 proof before claim · Nora analysis input quality |
+| **Preconditions** | Terminal with Evidence produced |
+| **IN** | ReviewBundle business-first · technical detail accessible |
+| **OUT** | Raw log as primary · claim without Evidence |
+| **Dependencies** | US-P1-05 |
+| **AC** | (1) Business summary first · (2) Technical accessible · (3) All terminals produce ReviewBundle · CA-PC-23 |
+| **Evidence** | Evidence UI tests · rehydrate path proof |
+| **STOP/FAIL** | Missing Evidence on terminal → fail-closed |
+| **Architecture consumed** | Evidence SQLite · A11Y-PC-06 |
+| **Technical Enablers** | — |
+| **Risks** | Under-sharing technical detail for audit |
+| **Morris gate** | Delivery slice GO · **Wave** W3 · **Source** C1 J.1 Evidence métier minimale |
+
+---
+
+### US-P1-07 — Boucle post-evidence Nora → LPS / Trajectory
+
+| Field | Value |
+|---|---|
+| **US ID** | US-P1-07 · **Epic** EPIC-D · **Gap priority** P1 · **C1** REQ-22 · **C2** U,V · CA-PC-24 · **UX** S12 · UF-06 · **FA** FC-04, FC-06 |
+| **Story** | En tant que **Pilote**, je veux **qu’après preuve Nora analyse et propose la prochaine action ou replan**, afin de **fermer la boucle d’apprentissage sans décision implicite**. |
+| **Business value** | O-12 closed loop · O-10 replan · reduces dead-end projects |
+| **Preconditions** | Evidence available · US-P0-07 recovery path |
+| **IN** | Nora analysis · LPS update · trajectory recommendation · HD if structural |
+| **OUT** | Auto-replan · silent trajectory mutation |
+| **Dependencies** | US-P1-06 · US-P0-03/07 |
+| **AC** | (1) Post-evidence analysis runs · (2) LPS/trajectory updated or Rec issued · (3) Structural replan requires HD · CA-PC-24 |
+| **Evidence** | postEvidenceNoraAnalysis integration · replan E2E |
+| **STOP/FAIL** | Analysis without Evidence → blocked |
+| **Architecture consumed** | Recommendation ≠ HD · closed loop MUST |
+| **Technical Enablers** | — |
+| **Risks** | Over-automation of replan |
+| **Morris gate** | Delivery slice GO · **Wave** W3 · **Source** C1 J.1 closed loop |
+
+---
+
+### US-P1-08 — AgentCapability envelope explicite
+
+| Field | Value |
+|---|---|
+| **US ID** | US-P1-08 · **Epic** EPIC-C · **Gap priority** P1 · **C1** REQ-10 · **C2** N · CA-PC-27/32 · **UX** S11 · SC-07 · **FA** FC-09 |
+| **Story** | En tant que **Pilote**, je veux **voir pourquoi l’autorité effective est suffisante ou bloquée**, afin de **comprendre l’enveloppe d’exécution avant lancement**. |
+| **Business value** | O-06 governed effects · executor sufficiency transparency |
+| **Preconditions** | EC prepared · AgentCapability evaluable |
+| **IN** | Scope · autonomy · boundaries · gates · stops · Evidence obligations · reversibility |
+| **OUT** | Cursor feature catalog · silent insufficient executor |
+| **Dependencies** | US-P0-05 |
+| **AC** | (1) Envelope determinable · (2) Insufficient → SC-CAP blocked UI · (3) CA-PC-32 |
+| **Evidence** | AgentCapability evaluation tests · S11 blocked state |
+| **STOP/FAIL** | SC-CAP · no execution · Project not closed |
+| **Architecture consumed** | Gate D patterns · generic envelope |
+| **Technical Enablers** | — |
+| **Risks** | Leaking Gate D internals to Pilote |
+| **Morris gate** | Delivery slice GO · **Wave** W2 · **Source** C2 CA-PC-32 |
+
+---
+
+### US-P1-09 — Catalog evolvability sans nouveau moteur
+
+| Field | Value |
+|---|---|
+| **US ID** | US-P1-09 · **Epic** EPIC-A · **Gap priority** P1 · **C1** REQ-05 · **C2** E · CA-PC-26 · **UX** S3 · **FA** FC-03 |
+| **Story** | En tant que **Pilote**, je veux **qu’un nouveau type de cycle enrichisse attentes métier sans exiger un moteur dédié**, afin de **faire évoluer le catalogue sans refonte**. |
+| **Business value** | O-11 evolvability · future cycles at lower cost |
+| **Preconditions** | US-P0-06 Phase A complete |
+| **IN** | Catalog ADAPT · package index · routing without new engine |
+| **OUT** | Per-type execution engine · silent type addition |
+| **Dependencies** | US-P0-06 |
+| **AC** | (1) New type qualifies via package path · (2) No new engine required by default · CA-PC-26 |
+| **Evidence** | Catalog ADAPT demo · new type qualification test |
+| **STOP/FAIL** | Uncovered new type → fail-closed |
+| **Architecture consumed** | CycleTypeCatalog ADAPT |
+| **Technical Enablers** | DK-01/02 (exit) |
+| **Risks** | Hidden special-case routing |
+| **Morris gate** | Delivery slice GO · **Wave** W3 · **Source** C1 J.1 Catalog Evolvability |
+
+---
+
+### US-P1-10 — Surfaces S1→S12 cohérentes Completion
+
+| Field | Value |
+|---|---|
+| **US ID** | US-P1-10 · **Epic** EPIC-E · **Gap priority** P1 · **C1** REQ-18 · **C2** transverse · CA-PC-35 · **UX** S1→S12 · UF-01…07 · **FA** FC-14 |
+| **Story** | En tant que **Pilote**, je veux **naviguer le parcours A→W sur surfaces validées sans charge méthode**, afin de **piloter sans orchestrer manuellement CKC/lenses**. |
+| **Business value** | O-03 method absorption · usable Completion bar |
+| **Preconditions** | Capability truth behind surfaces (Waves 1–3 progressing) |
+| **IN** | SC contract fidelity · UF coverage · H-01…H-04 CARRY acknowledged |
+| **OUT** | Wizard per cycle type · legacy parallel routes as product path |
+| **Dependencies** | Prior waves surface consumers |
+| **AC** | (1) UF-01…07 covered · (2) No method orchestration asked of Pilote · CA-PC-35 |
+| **Evidence** | SC-01…SC-14 alignment checklist · harvest legacy routes |
+| **STOP/FAIL** | Surface without backend truth → honest blocked state |
+| **Architecture consumed** | Pre-M6 KEEP/ADAPT · FC-14 |
+| **Technical Enablers** | — |
+| **Risks** | PE polish masking missing capabilities |
+| **Morris gate** | Delivery slice GO · **Wave** W4 · **Source** UX EA · C1 J.1 PE |
+
+---
+
+
+---
+
+
+---
+
+### US-P1-11 — Provenance DoctrinePackage inspectable
+
+| Field | Value |
+|---|---|
+| **US ID** | US-P1-11 |
+| **Epic** | EPIC-A |
+| **Gap priority** | P1 |
+| **C1 reqs** | REQ-16 |
+| **C2** | D · CA-PC-33/34 |
+| **UX** | S2 · SC-02 |
+| **FA** | FC-02 |
+| **Story** | En tant que **Pilote**, je veux **voir quelle doctrine/package s'applique au projet et sa provenance**, afin de **faire confiance à la qualification sans deviner le pin ni le digest**. |
+| **Business value** | DoctrinePackage traceability MUST · audit reconstructibility |
+| **Preconditions** | Project with doctrine pin |
+| **IN** | Pin identity · package/digest anchors · consumption proof reference where resolved |
+| **OUT** | Raw manifest editing · silent package upgrade |
+| **Dependencies** | US-P0-06 (Phase A resolution) |
+| **AC** | (1) Applicable package visible on Project · (2) Provenance reconstructible · (3) CA-PC-33/34 · DK-03 |
+| **Evidence** | Provenance inspection UAT · audit reconstruction sample |
+| **STOP/FAIL** | Stale/missing required source → SC-SRC blocked state |
+| **Architecture consumed** | D01-NARROW · pin partial today |
+| **Technical Enablers** | DK-03 |
+| **Risks** | Exposing internal package mechanics beyond business need |
+| **Morris gate** | DP implementation GO · Delivery slice GO |
+| **Wave** | W1–W2 |
+| **Source traceability** | C1 J.1 DoctrinePackage · DP↔CKC §I |
+
+---
+
+### US-P1-13 — Accessibilité baseline MUST
+
+| Field | Value |
+|---|---|
+| **US ID** | US-P1-13 · **Epic** EPIC-E · **Gap priority** P1 · **C1** REQ-19 · **C2** §17 · A11Y-PC-01…06 · **UX** all SC · F00-05 · **FA** FC-14 (+ FC-09/11/12 semantics) |
+| **Story** | En tant que **Pilote**, je veux **des statuts, gates, terminaux, Confirmation et Evidence compréhensibles textuellement**, afin d’**utiliser le produit sans dépendre de la seule couleur ou d’interactions complexes**. |
+| **Business value** | Inclusion MUST · reduces mis-authorization · legal/ethical baseline |
+| **Preconditions** | Surfaces exist for gates/terminals/Evidence |
+| **IN** | A11Y-PC-01…06 functional requirements on product path |
+| **OUT** | Color-only status · inaccessible protected actions · WCAG certification claim |
+| **Dependencies** | US-P1-03/05/06 (semantic owners) |
+| **AC** | (1) Textual SUCCESS/STOP/FAIL · (2) Protected actions identifiable pre-exec · (3) Accessible Confirmation consent · (4) Primary Evidence readable · A11Y-PC-* |
+| **Evidence** | A11Y functional checklist · SC contract review |
+| **STOP/FAIL** | Gate/terminal failing A11Y-PC → blocks Completion sign-off |
+| **Architecture consumed** | A11Y functional MUST · FC-14 ownership |
+| **Technical Enablers** | — |
+| **Risks** | Treating baseline as full WCAG compliance |
+| **Morris gate** | Delivery slice GO · **Wave** W4 · **Source** C1 J.1 accessibility · C2 §17 |
+
+---
+
+### US-P1-14 — CKC Phase B — Nora semantic consumption
+
+| Field | Value |
+|---|---|
+| **US ID** | US-P1-14 · **Epic** EPIC-A/D · **Gap priority** P1 · **C1** REQ-24 · **C2** E post-qual · CA-PC-35 · **UX** S3,S4 · **FA** FC-04 |
+| **Story** | En tant que **Pilote**, je veux **que Nora consomme sémantiquement le CKC résolu sans sur-interpréter le statut `consumed`**, afin de **bénéficier du contexte cognitif sans anti-claims**. |
+| **Business value** | O-03 richer Nora reasoning · closes DK-08 · distinct from Phase A resolution |
+| **Preconditions** | US-P0-06 Phase A complete · consumption proof available |
+| **IN** | Explicit semantic consumption · anti-claim on resolution status · bounded Nora use |
+| **OUT** | Treating Phase A `consumed` as full Nora semantic proof · auto-requalify |
+| **Dependencies** | US-P0-06 · US-P0-02 |
+| **AC** | (1) Semantic consumption explicit · (2) No over-read of resolution status · (3) DK-08 exit evidenced · CA-PC-35 |
+| **Evidence** | Phase B semantic proof capability · Nora boundary tests |
+| **STOP/FAIL** | Semantic gap → Nora proposes requalify (not invent context) |
+| **Architecture consumed** | DK-08 · Phase B downstream of Phase A |
+| **Technical Enablers** | DK-08 |
+| **Risks** | Conflating Phase A/B · premature Delivery without Phase A proof |
+| **Morris gate** | **Phase B distinct GO** (≠ Phase A DP GO) · **Wave** W2–W3 · **Source** DP↔CKC §V DK-08 |
+
+---
+
+### US-P1-15 — Historique minimal Project / Cycle
+
+| Field | Value |
+|---|---|
+| **US ID** | US-P1-15 |
+| **Epic** | EPIC-A/D |
+| **Gap priority** | P1 |
+| **C1 reqs** | REQ-17 |
+| **C2** | transverse · CA-PC-34 |
+| **UX** | S1,S8 · SC-01/13 · UF-07 |
+| **FA** | FC-01, FC-13 |
+| **Story** | En tant que **Pilote**, je veux **inspecter un historique minimal fiable du projet**, afin de **comprendre et reprendre sans seconde vérité ni transcript exhaustif**. |
+| **Business value** | Resume trust · audit continuity · closes minimal history MUST |
+| **Preconditions** | Durable Project with prior cycles/decisions/attempts |
+| **IN** | CycleInstances · major HumanDecisions · Attempts · terminal outcomes · Evidence anchors · continuity/recovery info |
+| **OUT** | Exhaustive transcript · rich capsule (SHOULD-01 P2) |
+| **Dependencies** | US-P0-01 · US-P0-03 |
+| **AC** | (1) Retrievable cycles/decisions/attempts/outcomes · (2) Evidence anchors linked · (3) No invented history · CA-PC-34 |
+| **Evidence** | History inspection UAT · restart reconstruction tests |
+| **STOP/FAIL** | Missing anchors → honest gap disclosure |
+| **Architecture consumed** | Factual anchors SQLite · minimal ≠ rich |
+| **Technical Enablers** | — |
+| **Risks** | Confusing minimal with rich SHOULD |
+| **Morris gate** | Delivery slice GO |
+| **Wave** | W2–W3 |
+| **Source traceability** | C1 J.1 minimal history · UX S7 carry · FA FC-13 |
+
+---
+
+### US-P1-16 — Vérité gouvernance / audit intelligible
+
+| Field | Value |
+|---|---|
+| **US ID** | US-P1-16 |
+| **Epic** | EPIC-E (presentation) · FC-15 (ownership) |
+| **Gap priority** | P1 |
+| **C1 reqs** | REQ-20 |
+| **C2** | transverse · CA-PC-12 |
+| **UX** | S11 · SC-07 · blocked states |
+| **FA** | FC-15 · FC-14 presentation |
+| **Story** | En tant que **Pilote**, je veux **comprendre pourquoi une action est bloquée ou quelle provenance s'applique**, afin de **faire confiance aux gates sans mécanismes SFIA exposés**. |
+| **Business value** | Transverse governance MUST · anti-claims · audit presentation |
+| **Preconditions** | Authorization/governance events occur |
+| **IN** | Business-readable blocked reasons · provenance anchors where applicable · receipt ≠ authority distinction in presentation |
+| **OUT** | Raw audit dumps · receipt replacing Confirmation |
+| **Dependencies** | US-P0-04/05 · TE TD-C6-03 |
+| **AC** | (1) Blocked states explain authority gap · (2) Provenance visible where C1 requires · (3) CA-PC-12 |
+| **Evidence** | Blocked-state UAT · audit presentation checklist |
+| **STOP/FAIL** | Silent block → invalid |
+| **Architecture consumed** | FC-15 transverse · TD-C6-03 TE |
+| **Technical Enablers** | TD-C6-03 (AuthorityVerificationReceipt) |
+| **Risks** | Over-exposure of internals |
+| **Morris gate** | Delivery slice GO |
+| **Wave** | W2 |
+| **Source traceability** | C1 J.1 governance · FA FC-15 |
+
+---
+
+> **Reclassified (NOT User Stories):** AuthorityVerificationReceipt mechanism → **TE TD-C6-03** serves US-P1-16 · selective epistemic persistence → **TE TD-C6-04** serves US-P0-02/US-P1-01.
+
+
+## 8. Technical Enablers Mapping
+
+> C6 CLOSED — implement only. Not User Stories.
+
+| Enabler ID | Description | Status | Primary Epic | Functional US served | Exit / evidence | Morris gate |
 |---|---|---|---|---|---|---|
-| W1.1 | EPIC-A | Honest project resume + disclosure | — | US-P0-01 | CA-PC-25 · recovery UAT | Delivery slice GO |
-| W1.2 | EPIC-A | DP↔CKC Phase A binding | D01/D02/D05 | US-P0-06 | Phase A proof · DK-01…07 | DP implementation GO |
-| W1.3 | EPIC-B | Durable trajectory | TD-C6-01/06 | US-P0-03 | CA-PC-06/07 | C6 durability Delivery GO |
-| W1.4 | EPIC-C | Durable Confirmation + order | TD-C6-02/05 | US-P0-04/05 | CA-PC-11/13/30 | C6 durability Delivery GO |
+| **TD-C6-01** | Trajectory SQLite durability (T-A) | ADOPTED · NOT IMPLEMENTED | EPIC-B | US-P0-03 · US-P1-01 · US-P1-02 · US-P1-07 | CA-PC-06/07 · repo persistence tests | C6 durability Delivery GO |
+| **TD-C6-02** | Confirmation SQLite scope (C-A) | ADOPTED · NOT IMPLEMENTED | EPIC-C | US-P0-04 · US-P0-05 | CA-PC-11/13 · restart authority tests | C6 durability Delivery GO |
+| **TD-C6-03** | AuthorityVerificationReceipt (A-A) | ADOPTED · NOT IMPLEMENTED | EPIC-C/E | US-P1-16 · REQ-20 | CA-PC-12 · receipt ≠ authority proof | C6 durability Delivery GO |
+| **TD-C6-04** | Selective epistemic persistence (E-A) | ADOPTED · NOT IMPLEMENTED | EPIC-A/B | US-P0-02 · US-P1-12 | CA-PC-25 · materialization rule tests | C6 durability Delivery GO |
+| **TD-C6-05** | Confirmation durable from `granted` upward | ADOPTED · NOT IMPLEMENTED | EPIC-C | US-P0-04 · US-P0-05 | granted survives restart · requested ephemeral | C6 durability Delivery GO |
+| **TD-C6-06** | Explicit current trajectory pointer | ADOPTED · NOT IMPLEMENTED | EPIC-B | US-P0-03 · US-P1-01 · US-P1-07 | no proposed-as-current · pointer tests | C6 durability Delivery GO |
+| **DK-01** | Remove catalog method paths as SoT | OPEN | EPIC-A | US-P0-06 · US-P1-09 | package index replaces 6 method refs | DP implementation GO |
+| **DK-02** | Replace `CKC_REFERENCE_MANIFEST` method | OPEN | EPIC-A | US-P0-06 | package-internal index artifact | DP implementation GO |
+| **DK-03** | Consumption proof with package identity | OPEN | EPIC-A | US-P0-06 · REQ-16 | proof schema COMPLETE · CA-PC-33 | DP implementation GO |
+| **DK-04** | Fixture default pin leakage to demo UX | OPEN/DEFERRED | EPIC-A | US-P0-06 (materialization) | product package cutover · quarantine fixture | package materialization gate |
+| **DK-05** | `doctrineStatus=method-candidate` hardcoded | OPEN | EPIC-A | US-P0-06 | package-aware status decision | DP implementation GO |
+| **DK-06** | Dual path A/B non joints (composition) | OPEN | EPIC-A | US-P0-06 | service/F2 composition ADAPT | DP implementation GO |
+| **DK-07** | Synthetic method fallback as global policy | OPEN | EPIC-A | US-P0-06 | package-local policy or none · D05 NONE | DP implementation GO |
+| **DK-08** | Resolution `consumed` over-read as Nora semantic | OPEN | EPIC-A/D | US-P1-14 · REQ-24 | explicit anti-claim + semantic proof · Phase B exit | Phase B distinct GO |
 
-**Critical path :** W1.2 ∥ W1.3 ∥ W1.4 after W1.1 · W1.2 can partially parallel W1.3/W1.4 with shared SQLite migration coordination.
+**Rules:** C6 **CLOSED — DO NOT REOPEN** · enablers are **implement-only** · DK exits **≠** authorized by architecture adoption alone · REAL productization and runtime v3 remain **separate Morris gates**.
 
-### Wave 2 — Decision & authorization product path (P1)
+[REDACTED]
 
-| Capability | Epics | US | Exit |
+---
+
+## 9. Four macro functional Waves (recommendation only)
+
+| Wave | Goal | Primary workstreams | Exit proof |
 |---|---|---|---|
-| Trajectory UI + HD linkage | EPIC-B | US-P1-01/02 | Options/Rec/HD distinct |
-| EC inspect + authority | EPIC-C/E | US-P1-03/08/11 | K→L→M→N product E2E |
-| Semantic continuity | EPIC-A | US-P0-02 | Nora restart tests |
+| **W1 — Truth, Context & Continuity** | Trustworthy restart-safe foundations + CKC runtime path | EPIC-A · US-P0-01…08 · Phase A · TE TD-C6-01/02/04/06 | Truth reconstructible · CKC resolved · authority not invented · **bounded CKC→Nora seam (US-P0-08)** |
+| **W2 — Cognition, Trajectory & Human Decision** | Nora / trajectory / decision / auth-preparation loop | EPIC-B/C · Phase B start · HD · EC inspect · US-P1-15/16 | CKC-informed Nora · Recommendation ≠ Decision · prepare/authorize contract |
+| **W3 — Execute, Evidence & Replan** | Execution-return loop · **CKC track CLOSED** | EPIC-D · US-P1-04…07 · recovery · history · evolvability | Evidence → Nora/LPS/Trajectory · next informed decision |
+| **W4 — Product Experience Closure** | Coherent usable product | EPIC-E · S1→S12 · A11Y · UAT | MUST loop usable · governed · restart-safe · proven |
 
-### Wave 3 — Execute, prove, learn (P1)
+Post-W4: P2 SHOULD · P3 FUTURE. **UAT/e2e required per Wave exit** — technical SUCCESS ≠ Product Completion.
 
-| Capability | Epics | US | Exit |
+---
+
+## 10. Delivery cut-line (recommendation only)
+
+| Tier | Rule |
+|---|---|
+| **P0** | 8 US (US-P0-01…08) — structural blockers |
+| **P1** | 15 US (US-P1-01…11, 13…16) — remaining MUST gaps |
+| **P2** | SHOULD-01…06 post-Completion |
+| **P3** | FUTURE-01…06 |
+| **N/A** | REQ-21 Git/reuse SATISFIED |
+
+**NOT AUTHORIZED:** Delivery · REAL · runtime v3 · packageVersion choice · Backlog Git integration.
+
+**Next gate:** CHATGPT SOURCE-LOCKED BACKLOG REVIEW → MORRIS BACKLOG VALIDATION → Wave 1 readiness (distinct GO).
+
+---
+
+## 11. Remaining Morris gates
+
+Morris backlog validation · DP implementation GO · package materialization/packageVersion (DK-04) · Phase B distinct GO · C6 durability Delivery GO · Delivery slice GO per Wave · REAL gate (distinct from REQ-11) · runtime v3 NOT this cycle.
+
+---
+
+## 12. Outcome landing view (O-01…O-12)
+
+| Outcome | Epic | Wave | Reqs |
 |---|---|---|---|
-| Generic execution + terminals | EPIC-D | US-P1-04/05 | Attempt lifecycle product proof |
-| Evidence + replan loop | EPIC-D | US-P1-06/07 · US-P0-07 | Closed loop CA-PC-24 |
-| Catalog evolvability demo | EPIC-A | US-P1-09 | New cycle type without engine |
-
-### Wave 4 — Product Experience hardening (P1/P2)
-
-| Capability | Epic | US | Exit |
-|---|---|---|---|
-| S1→S12 fidelity | EPIC-E | US-P1-10 | UF + SC alignment |
-| A11Y MUST | EPIC-E | CB-P2-06 | A11Y-PC-* |
-| Harvest legacy routes | EPIC-E | — | Single product mental model |
-
-### Wave 5 — SHOULD enrichment (P2) — post-Completion candidate
-
-S-01…S-06 coarse items · **not required for Completion bar**.
-
-**Parallelizable :** EPIC-E presentation work ∥ Wave 3 where surfaces don't block on durability · **not parallel :** Attempt before Confirmation durable.
+| O-01 Honest entry/resume | A | W1 | REQ-01,15 |
+| O-02 Living Project State | A | W1 | REQ-02 |
+| O-03 CKC-informed qualification | A | W1 | REQ-04,23,24 |
+| O-04 Recommendation ≠ Decision | B | W2 | REQ-03,07 |
+| O-05 Durable trajectory | B | W1–2 | REQ-06 |
+| O-06 Governed EC + Confirmation | C | W1–2 | REQ-08,09 |
+| O-07 Generic execution | D | W3 | REQ-11,12 |
+| O-08 Terminals + Evidence | D | W3 | REQ-13,14 |
+| O-09 Recovery + replan | D | W3 | REQ-15,22 |
+| O-10 Minimal history | A/D | W2–3 | REQ-17 |
+| O-11 Catalog evolvability | A | W3 | REQ-05 |
+| O-12 Coherent PE | E | W4 | REQ-18,19 |
 
 ---
 
-## 12. Product Completion landing view (O-01…O-12)
+## 13. Document validations (§21)
 
-| Outcome | Epic(s) | Key US | Evidence | Status after planned P0/P1 |
-|---|---|---|---|---|
-| O-01 Project entry/resume | EPIC-A | US-P0-01 | CA-PC-01/02 | **Candidate** after W1.1 |
-| O-02 Real path visibility | EPIC-B | US-P0-03, US-P1-01 | CA-PC-06/07 | **Candidate** after W1.3 |
-| O-03 Nora without method piloting | EPIC-A/E | US-P0-02/06, US-P1-10 | CA-PC-35 | **Candidate** after W1.2+W2 |
-| O-04 Distinct Rec/HD/Confirm | EPIC-B/C | US-P1-01/02, US-P0-04 | CA-PC-08/11 | **Candidate** after W1.4+W2 |
-| O-05 Inspectable EC | EPIC-C/E | US-P1-03 | CA-PC-14 | **Candidate** after W2 |
-| O-06 Execute technical HOW | EPIC-D | US-P1-04 | CA-PC-17/19 | **Candidate** after W3 |
-| O-07 SUCCESS/STOP/FAIL | EPIC-D | US-P1-05 | CA-PC-20/22 | **Candidate** after W3 |
-| O-08 Evidence business-first | EPIC-D/E | US-P1-06 | CA-PC-23 | **Candidate** after W3 |
-| O-09 Inter-session continuity | EPIC-A/D | US-P0-01/02/07 | CA-PC-25 | **Candidate** after W1+W3 |
-| O-10 Replan trajectory | EPIC-B/D | US-P0-07, US-P1-07 | CA-PC-24 | **Candidate** after W3 |
-| O-11 Catalog evolvability | EPIC-A | US-P1-09, US-P0-06 | CA-PC-26/31 | **Candidate** after W1.2+W3 |
-| O-12 Closed learning loop | EPIC-D | US-P1-07 | CA-PC-24 | **Candidate** after W3 |
-
-**No orphan MUST outcome.**
-
----
-
-## 13. Delivery cut-line recommendation
-
-> **RECOMMENDATION ONLY — Morris decision required for any Delivery authorization.**
-
-### Required for Product Completion MUST (proposed)
-
-| Wave | Scope | Rationale |
-|---|---|---|
-| W1 (all) | P0 foundations | Blocks multiple MUST · fail-closed recovery/authority |
-| W2 | Decision + authorization P1 | Completes K→L→M→N product path |
-| W3 | Execute/prove/learn P1 | Closes O-06…O-12 loop |
-| W4 (baseline) | EPIC-E P1 surfaces | PE absorbs complexity — not optional for usable Completion |
-
-### Deferrable (P2 — post-Completion or parallel non-blocking)
-
-- Rich history capsule (S-01)
-- Advanced EC presentation (S-02)
-- PJ intake (S-03) — **C1 SHOULD unchanged**
-- Enriched Evidence UX (S-04)
-- AMEND sophistication (S-05)
-- A11Y depth beyond baseline (partial P2)
-
-### Remain FUTURE (P3)
-
-- F-01…F-06 — explicit activation gates
-
-### Explicit non-authorization
-
-- This cut-line **≠** Delivery GO
-- DP↔CKC Phase B (Nora semantic) **≠** implied by Phase A Delivery
-- REAL productization **≠** required for Completion bar proof (fixture path sufficient for mechanism; REAL = separate Morris gate)
-- runtime v3 adoption **≠** in scope
-
----
-
-## 14. Decisions Morris already consumed (do not reopen)
-
-| Decision | Status |
+| Check | Result |
 |---|---|
-| C1 Product Completion target | VALIDATED · INTEGRATED |
-| C2 functional model A→W | VALIDATED · INTEGRATED |
-| UX EA / Wireframes / Screens | VALIDATED · INTEGRATED |
-| FA FC-01…FC-15 + OA Option A | VALIDATED · INTEGRATED |
-| C6 TD-C6-01…06 | **CLOSED BY MORRIS** |
-| D01-NARROW / D02 Option B / D05 NONE | **ADOPTED BY MORRIS** |
-| D03 catalog/ckcId | CLOSED inherited |
-| Studio CKC 15/15 corpus | INTEGRATED ON MAIN |
-| Pre-M6 MVP baseline | KEEP/ADAPT |
-| runtime v3 | **NON ADOPTED** |
-
-## Decisions still required (Morris / ChatGPT review)
-
-| Topic | Type |
-|---|---|
-| Backlog candidate validation | Human/Morris |
-| Priority P0/P1 cut-line acceptance | Human/Morris |
-| Delivery authorization per wave | **Distinct Morris GO each** |
-| DP↔CKC implementation requalification | **Distinct Morris GO** |
-| REAL productization scope | **Distinct Morris GO** |
-| SHOULD promoted to P1 dependency (if any) | Recommendation → Morris if disputed |
-
-## Non-blocking reserves
-
-| Reserve | Impact |
-|---|---|
-| H-01…H-04 UX representation | CARRY — not doctrine blockers |
-| UAT suite OPEN | Product Completion gate |
-| Roadmap maintenance snapshot pre-#392 transport metadata | Git/handoff supersede · no auto-sync this cycle |
-| Phase B Nora semantic CKC | Downstream of Phase A |
+| A Source lock | PASS |
+| B C1 coverage | PASS |
+| C C2 | PASS |
+| D UX | PASS |
+| E FA | PASS |
+| F C6 | PASS |
+| G CKC | PASS |
+| H Backlog quality | PASS |
 
 ---
 
-## 15. Statut final du document
-
-**CANDIDATE — STARTED BY MORRIS — AWAITING CHATGPT REVIEW / MORRIS VALIDATION**
-
-**≠ VALIDATED · ≠ READY FOR DELIVERY · ≠ APPROVED · ≠ ADOPTED**
-
----
-
-*Fin du document candidat Cycle 5 — Backlog / User Stories.*
+*Amended 2026-08-22 12:54 UTC+02:00 · Cycle 5 source-locked amend pass · Delivery NOT AUTHORIZED · Morris validation required.*
 
 ```
-
-## Decisions / reserves for ChatGPT + Morris
-
-### Facts
-- 5 functional Epics · 25/25 MUST traced · 5 waves proposed · P0/P1 user stories authored
-
-### Recommendations
-- Cut-line: W1–W4 for Completion MUST · defer SHOULD to P2 waves
-- DP↔CKC Phase A in Wave 1 P0 parallel with C6 durability items
-
-### Human/Morris decisions required
-- Backlog candidate validation
-- Cut-line acceptance
-- Per-wave Delivery authorization (distinct gates)
-- DP↔CKC implementation requalification (distinct gate)
-
-### Non-blocking reserves
-- H-01…H-04 CARRY · UAT OPEN · Phase B Nora semantic downstream
-
-### Blocking issues
-- None identified — no STOP triggered
-
-## Final verdict
-
-**BACKLOG CANDIDATE READY FOR CHATGPT REVIEW — FUNCTIONAL EPICS + MUST/SHOULD/FUTURE COVERAGE + P0/P1/P2/P3 + P0/P1 USER STORIES + CAPABILITY ROADMAP PRODUCED — NO DELIVERY AUTHORIZED — MORRIS VALIDATION / CUT-LINE DECISION REQUIRED**
