@@ -1,311 +1,834 @@
-# SFIA Studio — PR #392 Merge + Post-Merge Validation
+# SFIA Studio — Product Completion Cycle 5 — Backlog / User Stories Review Pack
 
 ## Metadata
 
-- **Timestamp:** 2026-08-22 11:24 CEST (+0200) — Europe/Paris
-- **Cycle:** 14 — Post-merge (PR merge + post-merge Git/CI validation)
-- **Typology:** DOC
-- **Profile:** STANDARD
+- **Timestamp:** 2026-08-22 12:08 CEST (+0200) — Europe/Paris
+- **Cycle:** 5 — Backlog / user stories
+- **Typologie:** DOC
+- **Profil:** STANDARD
+- **Repo:** `mcleland147/sfia-workspace`
+- **Branch:** `docs/sfia-studio-product-completion-backlog`
+- **HEAD:** `aca3dc8ab250ea1d751a833912787751e856c7b6`
+- **origin/main:** `aca3dc8ab250ea1d751a833912787751e856c7b6`
+- **Ahead/behind vs main:** 0 / 0 (branch tracks main; new untracked file only)
 
 ## GO Morris consumed
 
-**GO MORRIS — PR #392 READY + MERGE — EXACT TWO CONVERGENCE DOCS — PRESERVE SOURCE BRANCH — THEN POST-MERGE GIT/CI VALIDATION — NO RUNTIME — NO BACKLOG — NO DELIVERY — NO REAL — NO IMPLEMENTATION/MODELED REQUALIFICATION.**
+**GO MORRIS — START SFIA STUDIO PRODUCT COMPLETION CYCLE 5 BACKLOG / USER STORIES — BUILD A MACRO FUNCTIONAL BACKLOG BY COHERENT BUSINESS CAPABILITY LOTS / EPICS — INCLUDE MUST + SHOULD + FUTURE — PRIORITIZE P0/P1/P2/P3 — DETAIL P0/P1 INTO USER STORIES — PRODUCE A CLEAR CAPABILITY ROADMAP AND DELIVERY TRAJECTORY — PRESERVE C1/C2/PRODUCT EXPERIENCE/FUNCTIONAL ARCHITECTURE/C6/CKC DECISIONS — NO CODE — NO DELIVERY — NO REAL — NO PROJECT COMMIT/PUSH/PR/MERGE — RUNTIME V3 NON ADOPTED.**
 
-Limits: merge documentaire only · preserve source branch · no runtime/Backlog/Delivery/REAL/requalification · no additional doc sync in this cycle.
+**Exclusions honored:** no code · no Delivery · no REAL · no project commit/push/PR/merge · no Roadmap/C1/C2/UX/FA/C6/CKC edits · runtime v3 NON ADOPTED.
 
-## Pre-merge Git truth
+## Local Git Truth
 
 | Field | Value |
 |---|---|
 | repo | `/Users/morris/Projects/sfia-workspace` |
-| local branch | `docs/sfia-studio-doctrinepackage-ckc-post-merge-truth` |
-| local HEAD | `c8db36f52849f421a0604b321606c0fd30e83426` |
-| origin/main (before) | `5c3bc58ee9b64f8ba419778f594a249187d053d7` |
-| origin source branch (before) | `c8db36f52849f421a0604b321606c0fd30e83426` |
-| ahead/behind | 0 behind / 2 ahead |
-| local status | clean tracked · untracked hors scope only |
+| branch | `docs/sfia-studio-product-completion-backlog` |
+| HEAD | `aca3dc8ab250ea1d751a833912787751e856c7b6` |
+| origin/main | `aca3dc8ab250ea1d751a833912787751e856c7b6` |
+| status | untracked new backlog file + historical untracked hors scope |
+| staged | none |
+| modified tracked | none |
 | untracked hors scope | `.tmp-sfia-review/`, `projects/eventops-poc/`, `projects/flex-office-demo/` |
+| ahead/behind | 0 / 0 |
 
-## PR #392 pre-merge
+## Sources read (exhaustive list)
 
-| Field | Value |
-|---|---|
-| number | **#392** |
-| title | `docs(sfia-studio): record PR #391 post-merge CI truth` |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/392 |
-| state | OPEN → MERGED |
-| isDraft (before ready) | true → false after `gh pr ready` |
-| baseRefName | `main` |
-| baseRefOid | `5c3bc58ee9b64f8ba419778f594a249187d053d7` |
-| headRefName | `docs/sfia-studio-doctrinepackage-ckc-post-merge-truth` |
-| headRefOid | `c8db36f52849f421a0604b321606c0fd30e83426` |
-| mergeable | MERGEABLE |
-| exact files (2) | Roadmap + DP↔CKC qualification |
+1. `sfia-studio-convergence-build-doctrine.md`
+2. `sfia-studio-convergence-roadmap.md` (read-only)
+3. `01-product-completion-cadrage.md`
+4. `02-product-completion-conception-fonctionnelle.md`
+5. `03-product-completion-architecture-fonctionnelle.md`
+6. `06-product-completion-architecture-technique-delta.md`
+7. `ux-product-experience/01-experience-architecture.md`
+8. `ux-product-experience/02-end-to-end-wireframes-interaction-model.md`
+9. `ux-product-experience/03-product-screens-visual-state-contract.md`
+10. `sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md`
+11. `sfia-v3-framing/30`–`37` (applicable sections)
+12. `ckc/05-backlog-user-stories.md`
+13. `ckc/**` (corpus context · not revalidated)
+14. `projects/sfia-studio/app/**` (read-only audit)
+15. `sfia-cycle-routing-guide.md` · cycle template · operating model · rules/guardrails
+16. `sfia-review-handoff/latest-chatgpt-review.md` (PR #392 merge handoff context)
 
-**Repository setting:** `delete_branch_on_merge = false` — source branch preservation guaranteed.
-
-## PR CI (pre-merge evidence)
-
-| Field | Value |
-|---|---|
-| run ID | `32564094731` |
-| run # | `270` |
-| event | `pull_request` |
-| headSha | `c8db36f52849f421a0604b321606c0fd30e83426` |
-| status | completed |
-| conclusion | success |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/32564094731 |
-
-**Jobs:** Detect SFIA Studio changes = success · Build and validate SFIA Studio = success · SFIA Studio Required Gate = success
-
-## Ready transition
-
-- **Executed:** yes (`gh pr ready 392`)
-- **Result:** isDraft = false · head/base unchanged
-
-## Merge
+## Convergence qualification
 
 | Field | Value |
 |---|---|
-| method | merge commit (`merge_method=merge`) |
-| API result | `{"sha":"aca3dc8ab250ea1d751a833912787751e856c7b6","merged":true,"message":"Pull Request successfully merged"}` |
-| MERGE_SHA | `aca3dc8ab250ea1d751a833912787751e856c7b6` |
-| mergedAt | `2026-08-22T09:20:44Z` |
-| PR final state | MERGED |
+| capability v3 | Transform Product Completion target into capability-driven construction trajectory |
+| milestone | PRODUCT COMPLETION — CYCLE 5 — FUNCTIONAL BACKLOG / CAPABILITY ROADMAP |
+| current state | C1–C4 integrated · C6 CLOSED · DP↔CKC architecture ADOPTED · runtime binding NOT IMPLEMENTED |
+| classification | Roadmap KEEP+factual · DP↔CKC KEEP+factual · runtime NO CHANGE |
+| gaps closed this cycle | Functional backlog candidate produced locally |
+| next capability | DoctrinePackage/runtime CKC MODELED/IMPLEMENTATION REQUALIFICATION = **CANDIDATE ONLY** · distinct Morris gate |
+| Delivery | **NOT AUTHORIZED** |
 
-## Post-merge Git truth
+## Runtime audit summary (read-only)
 
-| Field | Value |
-|---|---|
-| old main | `5c3bc58ee9b64f8ba419778f594a249187d053d7` |
-| new origin/main | `aca3dc8ab250ea1d751a833912787751e856c7b6` |
-| exact integrated files | exactly 2 convergence docs |
-| head→merge content equality | **PASS** (`git diff --exit-code` exit 0) |
+- **KEEP:** OA Product SQLite spine (Project→HD→EC→Attempt→Evidence) · `/studio` product path · Nora engine
+- **COMPLETE:** Trajectory durability · Confirmation durability · semantic continuity · replan loop · SUCCESS/STOP/FAIL semantics
+- **ADAPT:** CKC/Doctrine resolution (package-bound) · Pre-M6 UI toward SC contract · terminal UX mapping
+- **HARVEST/FREEZE:** D1 · OPS1 · execution-run D2 · legacy harness routes
 
-## Source branch preservation
+## Backlog coverage summary
 
-| Field | Value |
-|---|---|
-| branch | `docs/sfia-studio-doctrinepackage-ckc-post-merge-truth` |
-| remote SHA | `c8db36f52849f421a0604b321606c0fd30e83426` |
-| preserved | **yes** |
-| branch delete command | none |
+| Dimension | Count | Covered |
+|---|---|---|
+| MUST C1 §J.1 | 25 | 25/25 |
+| SHOULD C1 §J.2 | 6 | 6/6 |
+| FUTURE C1 §J.3 | 6 | 6/6 |
+| Outcomes O-01…O-12 | 12 | 12/12 (landing matrix §12) |
+| C2 A→W | 23 steps | All mapped to Epics |
+| UX S1→S12 | 12 | EPIC-E + per-US references |
+| FC-01…FC-15 | 15 | Technical mapping §10 |
 
-## Post-merge push/main CI
+## Epic model (5 Epics)
 
-| Field | Value |
-|---|---|
-| run ID | `32564693798` |
-| run # | `271` |
-| workflow | SFIA Studio CI |
-| event | `push` |
-| branch | `main` |
-| headSha | `aca3dc8ab250ea1d751a833912787751e856c7b6` |
-| status | completed |
-| conclusion | success |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/32564693798 |
+| ID | Name | Priority range |
+|---|---|---|
+| EPIC-A | Comprendre, reprendre et qualifier | P0–P1 |
+| EPIC-B | Piloter trajectoire et décider | P0–P1 |
+| EPIC-C | Préparer et autoriser exécution | P0–P1 |
+| EPIC-D | Exécuter, prouver et reprendre | P0–P1 |
+| EPIC-E | Expérience produit transverse | P1–P2 |
 
-**Jobs:** Detect SFIA Studio changes = success · Build and validate SFIA Studio = success · SFIA Studio Required Gate = success
+## Priority summary
 
-**Distinct proofs preserved:**
-- PR #391 historical push/main CI `32562243107` on `5c3bc58e…` — unchanged historical proof
-- PR #392 PR CI `32564094731` — pre-merge transport proof only
-- PR #392 post-merge push/main CI `32564693798` — merge #392 proof on `aca3dc8a…`
+- **P0:** 7 user stories (US-P0-01…07) + DP↔CKC workstream
+- **P1:** 12 user stories (US-P1-01…12)
+- **P2:** 6 coarse items (CB-P2-01…06)
+- **P3:** 6 coarse items (CB-P3-01…06)
 
-## Content truth on origin/main
+## Functional capability roadmap (waves)
 
-Confirmed present on merged main:
-- push/main PR #391 CI `32562243107` SUCCESS
-- **POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED**
-- implementation/modeled requalification = CANDIDATE ONLY
-- DISTINCT MORRIS GATE REQUIRED · NOT AUTHORIZED
-- runtime binding NOT IMPLEMENTED · packageVersion DEFERRED
-- Backlog NOT OPEN · Delivery NO · ZERO REAL · runtime v3 NON ADOPTED
-- DK-01…DK-08 OPEN · C6 CLOSED
+- **Wave 1:** Truth & continuity P0 (resume · DP↔CKC · trajectory · confirmation)
+- **Wave 2:** Decision & authorization P1
+- **Wave 3:** Execute/prove/learn P1
+- **Wave 4:** PE hardening P1/P2
+- **Wave 5:** SHOULD enrichment P2 (post-Completion)
 
-**Living Roadmap self-reference reserve (non-blocking):** maintenance snapshot still references pre-#392 transport metadata (`origin/main @ 5c3bc58e…`, local micro-correction next step). Per cycle rule, this does **not** auto-open a new doc correction in this merge cycle.
+## Delivery cut-line recommendation
+
+- **Required for MUST Completion:** Waves 1–4 baseline
+- **Deferrable P2:** SHOULD items S-01…S-06 (non-blocking)
+- **FUTURE P3:** F-01…F-06
+- **Recommendation only — Morris decision required**
 
 ## Invariants preserved
 
-D01/D02/D05 unchanged · C6 CLOSED · DK-01…08 OPEN · runtime binding NOT IMPLEMENTED · packageVersion DEFERRED · Backlog NOT OPEN · Delivery NO · ZERO REAL · runtime v3 NON ADOPTED · Nora Phase B NOT PROVEN · implementation/modeled requalification NOT AUTHORIZED
+D01/D02/D05 unchanged · C6 CLOSED · DK-01…08 OPEN · runtime binding NOT IMPLEMENTED · packageVersion DEFERRED · Backlog NOT OPEN (Git) · Delivery NO · ZERO REAL · runtime v3 NON ADOPTED · requalification NOT AUTHORIZED
 
 ## Actions NOT executed
 
-branch deletion · further doc sync · runtime · Backlog · Delivery · REAL · requalification · packageVersion/schema · runtime v3 adoption · auto-merge · repository settings change · force push/rebase/squash
+project commit · project push · PR · merge · Roadmap edit · code · runtime · Delivery · REAL · Penpot mutation · Notion · runtime v3 adoption
 
-## Next recommended gate
+## File created
 
-ChatGPT post-merge validation / closure review.
+- **Path:** `projects/sfia-studio/product-completion/05-product-completion-backlog-user-stories.md`
+- **Lines:** 674
+- **Status:** untracked new file
+- **git diff --check:** N/A (untracked); file content whitespace-clean
 
-After that review only, next capability may be presented to Morris as **DoctrinePackage/runtime CKC MODELED / IMPLEMENTATION REQUALIFICATION CANDIDATE** — requires **DISTINCT MORRIS GO**.
+## COMPLETE BACKLOG DOCUMENT CONTENT
 
-## Integrated diff (5c3bc58e..aca3dc8a) — COMPLETE RAW OUTPUT
+```markdown
+# SFIA Studio — Product Completion — Cycle 5 — Backlog / User Stories
 
-```diff
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index ea8e6290..a74ff1f4 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -6,11 +6,11 @@
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
- | **Doctrine cible** | SFIA Studio v3 framing `30`–`37` (destination produit) |
- | **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
--| **Snapshot Git courant** | Git current state = **resolve from repository; Git is authoritative** · maintenance base `origin/main` @ `2ffc67e621c96ebc0df3de74d3866a58926bcfe9` · PR **#390 MERGED** (DoctrinePackage/runtime CKC architecture record) · head `b03fd8b6d9556dcd238f755668f677e75c09c1a6` · merge `2ffc67e621c96ebc0df3de74d3866a58926bcfe9` · architecture doc blob `51abaf1fa29e33a63f75a225704fbf5715b15742` · post-merge CI **`32559982270` SUCCESS** · C1+C2+UX+FA **INTEGRATED** · C6 **CLOSED** · CKC 15/15 **INTEGRATED ON MAIN** · DoctrinePackage/runtime CKC architecture direction **ADOPTED BY MORRIS — INTEGRATED ON MAIN** · **≠** runtime binding implemented · PR **#391** = **CURRENT TRANSPORT VEHICLE** · branch `docs/sfia-studio-doctrinepackage-ckc-post-merge-coherence` · qualified transport baseline head `3dbc7887…` · qualified transport baseline CI **`32561088751` SUCCESS** · integration state **RESOLVE FROM GIT** |
-+| **Snapshot Git courant** | Git current state = **resolve from repository; Git is authoritative** · maintenance base `origin/main` @ `5c3bc58ee9b64f8ba419778f594a249187d053d7` · PR **#390 MERGED** (DoctrinePackage/runtime CKC architecture record) · head `b03fd8b6d9556dcd238f755668f677e75c09c1a6` · merge `2ffc67e621c96ebc0df3de74d3866a58926bcfe9` · PR **#391 MERGED** (post-merge coherence sync) · merge `5c3bc58ee9b64f8ba419778f594a249187d053d7` · head `a144d7c7752736193167f81352c0291929db02a8` · on-main architecture blob `ec1cf16c11359ec09d60b545f9957f82372870a0` · on-main Roadmap blob `ea8e629035ad4f756f026cc01e3e6ab1edca3234` · post-sync Git+content truth **SATISFIED** · PR head CI **`32561807048` SUCCESS** *(≠ substitute for push/main)* · post-sync push/main CI **`32562243107` SUCCESS** *(run #269 · event `push` · head `5c3bc58e…`)* · **POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED** · C1+C2+UX+FA **INTEGRATED** · C6 **CLOSED** · CKC 15/15 **INTEGRATED ON MAIN** · DoctrinePackage/runtime CKC architecture direction **ADOPTED BY MORRIS — INTEGRATED ON MAIN** · **≠** runtime binding implemented |
- | **Snapshot Git historique post-C1** | origin/main @ `dbd5ff995974e605146e8347f0f27867f04e93f7` · PR #365 **MERGED** · C1 Product Completion intégré + governance/doctrine sync · 2026-08-19T10:08:16Z *(historique)* |
- | **Snapshot Git historique pre-C1** | origin/main @ `a53c323e47e5fae1d35671f3ae232609a59b0f3f` *(PR #361 merge — Pre-M6 product vertical slice / functional MVP baseline on main · head `3c4c478…` · post-merge CI run `32122892559` SUCCESS · source branch `delivery/sfia-studio-pre-m6-ui-option-a` **PRESERVED** · historical prior main `a3ac418…` via PR #360)* |
- | **Timestamp création** | 2026-08-12 21:53:10 CEST (+0200) *(historique)* |
--| **Timestamp maintenance courant** | 2026-08-22 10:12 CEST (+0200) — **DOCTRINEPACKAGE / RUNTIME CKC PR #391 MERGE-SAFE STATE CORRECTION** — PR **#390 MERGED** · head `b03fd8b6d9556dcd238f755668f677e75c09c1a6` · merge `2ffc67e621c96ebc0df3de74d3866a58926bcfe9` · `origin/main` @ `2ffc67e621c96ebc0df3de74d3866a58926bcfe9` · architecture record blob `51abaf1fa29e33a63f75a225704fbf5715b15742` · post-merge push/main CI **`32559982270` SUCCESS** · D01-NARROW / D02 Option B / D05 fallback NONE **ADOPTED BY MORRIS — INTEGRATED ON MAIN AS ARCHITECTURE RECORD** · D03/D04/D06–D10 inherited/deferred · **≠** implemented · **≠** runtime package→CKC binding · **≠** packageVersion decided · **≠** product package materialized · **≠** Nora Phase B proven · DK-01…DK-08 **OPEN** · **ROADMAP-POST-MERGE-CKC-388 CLOSED ON MAIN** (PR **#389** / merge `c4dc1c9c…`) · PR **#391** = **CURRENT TRANSPORT VEHICLE** · branch `docs/sfia-studio-doctrinepackage-ckc-post-merge-coherence` · qualified transport baseline head `3dbc7887…` · qualified transport baseline CI **`32561088751` SUCCESS** · integration state **RESOLVE FROM GIT** · Product Backlog **NOT OPEN** · Delivery **NO** · **ZERO REAL** · runtime v3 **NON ADOPTED** · next repository step = ChatGPT **FINAL PR READINESS** for PR #391 → **si PASS Morris merge gate** → post-sync Git/CI/content truth · next product/convergence step after sync integration = **DoctrinePackage/runtime CKC MODELED / IMPLEMENTATION REQUALIFICATION** · **REQUIRES DISTINCT MORRIS GATE** · **≠** Backlog · **≠** Delivery |
-+| **Timestamp maintenance courant** | 2026-08-22 10:54 CEST (+0200) — **DOCTRINEPACKAGE / RUNTIME CKC PR #391 POST-MERGE TRUTH CLOSURE** — PR **#390 MERGED** · merge `2ffc67e621c96ebc0df3de74d3866a58926bcfe9` · PR **#391 MERGED** · merge `5c3bc58ee9b64f8ba419778f594a249187d053d7` · head `a144d7c7752736193167f81352c0291929db02a8` · `origin/main` @ `5c3bc58ee9b64f8ba419778f594a249187d053d7` · on-main architecture blob `ec1cf16c11359ec09d60b545f9957f82372870a0` · on-main Roadmap blob `ea8e629035ad4f756f026cc01e3e6ab1edca3234` · post-sync Git+content truth **SATISFIED** · PR head CI **`32561807048` SUCCESS** *(head `a144d7c7…` · ≠ substitute for push/main)* · post-sync push/main CI **`32562243107` SUCCESS** *(run #269 · event `push` · head `5c3bc58e…`)* · **POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED** · D01-NARROW / D02 Option B / D05 fallback NONE **ADOPTED BY MORRIS — INTEGRATED ON MAIN AS ARCHITECTURE RECORD** · D03/D04/D06–D10 inherited/deferred · **≠** implemented · **≠** runtime package→CKC binding · **≠** packageVersion decided · **≠** product package materialized · **≠** Nora Phase B proven · DK-01…DK-08 **OPEN** · **ROADMAP-POST-MERGE-CKC-388 CLOSED ON MAIN** (PR **#389** / merge `c4dc1c9c…`) · Product Backlog **NOT OPEN** · Delivery **NO** · **ZERO REAL** · runtime v3 **NON ADOPTED** · next repository step = current local documentary micro-correction → ChatGPT final review → distinct Morris Git integration / transport gate · next product/convergence step = **DoctrinePackage/runtime CKC MODELED / IMPLEMENTATION REQUALIFICATION CANDIDATE** · post-sync push/main CI prerequisite **SATISFIED** via run `32562243107` SUCCESS · candidate **NOT AUTHORIZED** pending distinct Morris requalification gate · **REQUIRES DISTINCT MORRIS GATE** · **≠** Backlog · **≠** Delivery |
- | **Timestamp maintenance historique PR #388 post-merge coherence (pre-PR #390)** | 2026-08-21 22:53 CEST (+0200) — **STUDIO V3 CKC VALIDATED CORPUS — POST-MERGE COHERENCE** — PR **#388 MERGED** · head `ed012eec244777ed4a9832818c6bdc9e5a28158c` · merge `50111cbe17c47e91d82103ded1a6f49c61397a39` · `origin/main` @ `50111cbe17c47e91d82103ded1a6f49c61397a39` — corpus Studio-native CKC **15/15 CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN** · freeze review/transport **`6db507e68e5817088fc366aa74c416b4d9906da4c5bbb1eb1f427ae283759fcf`** *(≠ DoctrinePackage digest · ≠ runtime package pin · ≠ catalog digest · ≠ ckcId)* · post-merge CI push/main run **`32525166583` SUCCESS** · source branch `docs/sfia-studio-v3-ckc-corpus-authoring` **PRESERVED** · **ROADMAP-SYNC-CKC-CONTENT-VALIDATION CLOSED ON MAIN** · **ROADMAP-POST-MERGE-CKC-388 CLOSED IN LOCAL POST-MERGE CANDIDATE** *(CLOSED LOCALLY ≠ Roadmap sync PR integrated on main)* · **CKC-ID-CONVENTION / CKC-RV-01…08 / CKC-VS-R01/R02 CLOSED** · snapshot **`0.1.0-v3.1-d1`** · **15** = mesure snapshot only · DoctrinePackage **NOT INTEGRATED** · runtime **NOT MODIFIED / NOT RESOLVED** · Nora consumption **NOT PROVEN** · Product Backlog **NOT OPEN** · Delivery **NO** · **ZERO REAL** · runtime v3 **NON ADOPTED** · prochaine capacité candidate = **DoctrinePackage / runtime CKC integration QUALIFICATION** · **REQUIRES DISTINCT MORRIS GATE** · prochaine porte dépôt = ChatGPT post-merge review → **distinct Morris Git integration GO** pour Roadmap-only Draft PR | *(historique · superseded by PR #389 Roadmap sync + PR #390 architecture integration + this maintenance)* |
- | **Timestamp maintenance historique PR #388 Git integration candidate (pre-merge)** | 2026-08-21 22:36 CEST (+0200) — **STUDIO V3 CKC VALIDATED CORPUS GIT INTEGRATION** · **PR #388 CI EOF HYGIENE / FREEZE REQUALIFICATION** — corpus Studio-native CKC **15/15 CONTENT VALIDATED BY MORRIS** · snapshot **`0.1.0-v3.1-d1`** · **15** = **mesure snapshot uniquement / ≠ invariant structurel** · canonical `ckcId` = `ckc:studio:{cycle-type-token}` · **CKC-ID-CONVENTION CLOSED / ADOPTED BY MORRIS** · **CKC-RV-01…08 CLOSED** · **CKC-VS-R01 CLOSED** (Observability production = criticality signal only / no auto-Critical) · **CKC-VS-R02 CLOSED** (Capitalization doctrinal = criticality signal only / no auto-Critical) · freeze review/transport autoritatif **`POST_EOF_HYGIENE_VALIDATED_CORPUS_REVIEW_SET_SHA256` = `6db507e68e5817088fc366aa74c416b4d9906da4c5bbb1eb1f427ae283759fcf`** *(supersedes `7b58cb50cf46db942a2f999e780506b36c060f7e8fd369127125641bae147969` by CI EOF hygiene only · 13 CKC extra blank EOF removed · cognitive content unchanged · ≠ DoctrinePackage digest · ≠ runtime package pin · ≠ catalog digest · ≠ ckcId)* · PR **#388** remains **DRAFT / NOT YET ON MAIN** · next = CI evidence → **ChatGPT PR READINESS REVIEW** · candidat Git = **IN PROGRESS / NOT YET INTEGRATED ON MAIN** · transport = **RESOLVE FROM CURRENT GIT + LATEST QUALIFIED REVIEW HANDOFF** · **ROADMAP-SYNC-CKC-CONTENT-VALIDATION CLOSED IN THIS INTEGRATION CANDIDATE** *(≠ INTEGRATED ON MAIN)* · **ROADMAP-SYNC-CKC-PIN** remains **CLOSED** · DoctrinePackage **NOT INTEGRATED** · runtime **NOT RESOLVED / NOT MODIFIED** · Nora consumption **NOT PROVEN** · Product Backlog **NOT OPEN** · Delivery **NO** · **ZERO REAL** · runtime v3 **NON ADOPTED** · prochaine porte = **ChatGPT PR READINESS REVIEW** de la Draft PR · **≠** READY · **≠** merge sans GO Morris distinct | *(historique · superseded by PR #388 merge `50111cbe17c47e91d82103ded1a6f49c61397a39` + post-merge CI `32525166583` SUCCESS)* |
- | **Timestamp maintenance historique pin catalogue + sync Roadmap (pre-corpus Git)** | 2026-08-21 17:23 CEST (+0200) — **STUDIO CKC FIRST** (D-CKC15-14 **ADOPTED BY MORRIS**) — C6 **CLOSED** · PR **#384** post-merge truth **SATISFIED** — cadrage CKC Studio **VALIDATED BY MORRIS** — pin catalogue `0.1.0-v3.1-d1` · 15 = mesure snapshot · **ROADMAP-SYNC-CKC-PIN CLOSED** — prochain était **GO Morris distinct d’authoring Studio CKC** *(historique · superseded by authoring + content validation + post-validation corrections + Morris reconfirmed freeze + Git integration candidate)* — **≠** Backlog · **≠** Delivery · **ZERO REAL** · runtime v3 **NON ADOPTED** |
-@@ -51,9 +51,9 @@
- | **ROADMAP-SYNC-CKC-PIN** | **CLOSED** — Roadmap synchronisé avec trajectoire CKC-first + pin catalogue validation-scope · owner was construction governance / Morris gate |
- | **ROADMAP-SYNC-CKC-CONTENT-VALIDATION** | **CLOSED ON MAIN** — content-validation sync claims integrated with PR **#388** corpus+Roadmap merge · freeze `6db507e68e5817088fc366aa74c416b4d9906da4c5bbb1eb1f427ae283759fcf` on main · **≠** DoctrinePackage · **≠** Nora proven |
- | **ROADMAP-POST-MERGE-CKC-388** | **CLOSED ON MAIN** via PR **#389** / merge `c4dc1c9ce78290f00354e58dde451dd09616f49e` · post-merge CI **`32527209975` SUCCESS** · Roadmap sync integrated on main · **≠** DoctrinePackage runtime binding · **≠** Nora proven |
--| **DoctrinePackage / runtime CKC architecture qualification** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN** via PR **#390** · head `b03fd8b6d9556dcd238f755668f677e75c09c1a6` · merge `2ffc67e621c96ebc0df3de74d3866a58926bcfe9` · blob `51abaf1fa29e33a63f75a225704fbf5715b15742` · post-merge CI **`32559982270` SUCCESS** · path `projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md` · D01-NARROW / D02 Option B / D05 fallback NONE **ADOPTED** · **≠** implemented · **≠** runtime package→CKC binding · **≠** packageVersion decided · **≠** Nora Phase B proven · post-merge coherence sync **TRANSPORTED VIA PR #391** · integration state **RESOLVE FROM GIT** |
-+| **DoctrinePackage / runtime CKC architecture qualification** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN** via PR **#390 + PR #391** · PR #390 merge `2ffc67e621c96ebc0df3de74d3866a58926bcfe9` · PR #391 merge `5c3bc58ee9b64f8ba419778f594a249187d053d7` · head `a144d7c7752736193167f81352c0291929db02a8` · on-main architecture blob `ec1cf16c11359ec09d60b545f9957f82372870a0` · path `projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md` · D01-NARROW / D02 Option B / D05 fallback NONE **ADOPTED** · **≠** implemented · **≠** runtime package→CKC binding · **≠** packageVersion decided · **≠** Nora Phase B proven · post-sync push/main CI **`32562243107` SUCCESS** · **POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED** |
- | **SFIA Studio product design tooling** | **MORRIS DECISION — PENPOT IS THE REFERENCE DESIGN WORKSPACE FOR SFIA STUDIO PRODUCT DESIGN** · Studio product design only · Git remains SoT for governance/contracts/decisions · R-04 EA historical recommendation **SUPERSEDED FOR FUTURE SFIA STUDIO PRODUCT DESIGN** · **≠** global SFIA methodological baseline · **≠** v3 doctrine change · **≠** runtime v3 adoption · EA document **not** retroactively rewritten |
--| **Gates courants** | C1…C6 **INTEGRATED / C6 CLOSED** · trajectoire **STUDIO CKC FIRST** · pin **`0.1.0-v3.1-d1`** · Studio CKC corpus **15/15 INTEGRATED ON MAIN** via PR **#388** · **ROADMAP-POST-MERGE-CKC-388 CLOSED ON MAIN** (PR **#389**) · DoctrinePackage/runtime CKC architecture **ADOPTED BY MORRIS — INTEGRATED ON MAIN** via PR **#390** · post-merge CI **`32559982270` SUCCESS** · **≠** runtime binding implemented · **≠** packageVersion decided · DK-01…DK-08 **OPEN** · PR **#391** = **CURRENT TRANSPORT VEHICLE** · integration state **RESOLVE FROM GIT** · prochain dépôt = ChatGPT **FINAL PR READINESS** for PR #391 → **si PASS Morris merge gate** → post-sync Git/CI/content truth · prochaine capacité candidate après sync integration = **DoctrinePackage/runtime CKC MODELED / IMPLEMENTATION REQUALIFICATION** · **REQUIRES DISTINCT MORRIS GATE** · **≠** Backlog · **≠** Delivery · **≠** REAL · **NO EXECUTION WITHOUT MORRIS GO** |
-+| **Gates courants** | C1…C6 **INTEGRATED / C6 CLOSED** · trajectoire **STUDIO CKC FIRST** · pin **`0.1.0-v3.1-d1`** · Studio CKC corpus **15/15 INTEGRATED ON MAIN** via PR **#388** · **ROADMAP-POST-MERGE-CKC-388 CLOSED ON MAIN** (PR **#389**) · DoctrinePackage/runtime CKC architecture **ADOPTED BY MORRIS — INTEGRATED ON MAIN** via PR **#390 + PR #391** · post-sync push/main CI **`32562243107` SUCCESS** · **POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED** · **≠** runtime binding implemented · **≠** packageVersion decided · DK-01…DK-08 **OPEN** · post-#391 CI prerequisite **SATISFIED** · prochaine capacité candidate = **DoctrinePackage/runtime CKC MODELED / IMPLEMENTATION REQUALIFICATION** · **REQUIRES DISTINCT MORRIS GATE** · **NOT AUTHORIZED BY THIS DOCUMENTARY CORRECTION** · **≠** Backlog · **≠** Delivery · **≠** REAL · **NO EXECUTION WITHOUT MORRIS GO** |
- | **Intégration Git** | **C2 :** PR #369 / head `3c78c6763d0d090bdc38f3866ecd71ed6be219d0` / merge `2406ccda211842fc7f8da3699bb186a30f7dc105` · **Post-merge sync :** PR #370 (integration vehicle · Git evidence authoritative) · CI SFIA Studio **#222** SUCCESS (PR head) · post-merge CI **#223** SUCCESS · source branch `docs/sfia-studio-product-completion-c2-integration-clean` **PRESERVED** · historical unauthorized branch `docs/sfia-studio-product-completion-c2-functional-design` @ `780ab4c5` **PRESERVED FOR AUDIT** · Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration · **M4 post-pre-reproof Roadmap :** PR #347 / merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS · **M4 GOVERNED REAL COMPLETION PROOF** handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · **M4 closure Roadmap :** PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · **M5 Entry Qualification** handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · **M5 Delivery (Option B + W1) :** PR #350 / head `17461dad78f92a3d5e5e1d9bd36aa20d1e86ac11` / merge `8f753218e4fff7d68d78c1d57e9c3e8fb7e60943` · CI SFIA Studio **#184** SUCCESS · post-merge CI **#185** SUCCESS · **M5 UI/Nora durable rehydrate :** PR #351 / head `ced7b172969c27b5e2d6fda06e9caa8c84e1e0d7` / merge `d8961f1d85a98b5d4185f007f16ddac209e2e557` · CI SFIA Studio **#186** SUCCESS · post-merge CI **#187** SUCCESS · M5 exit re-evaluation handoff `54b0f5b43a50861c26226aa3ffc06460f8ffbafe` · blob `131c85172bbd6370a3edcd71347a64932c9303ab` · M5 EXIT PROOF **SATISFIED ON MAIN** · **M5 capitalization / Roadmap sync :** PR #352 / head `c26824c602ec041cb1d40e9078191c0f1cde4e95` / merge `3467ecdf74ac2010c45f34545fb8684563dea547` · CI SFIA Studio PR run **#31875337665** SUCCESS · post-merge CI run **#31875621317** SUCCESS · post-merge handoff `0121e184c936f8dc73ffe80e20d43027fec495d7` · blob `4c293ae07a0d516b16d6dd2d4087d3e25858e275` · GO Morris **ACCEPT M5 EXIT PROOF + CLOSE M5 — KEEP M5-C TECHNICAL JOURNAL — ZERO REAL — NO M6 EXECUTION — RUNTIME V3 NON ADOPTED — NO BRANCH DELETE** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · User wording **« ok go pour la modification »** · governed interpretation **ALIGN M5 CLOSURE ROADMAP WITH PRE-M6 USER JOURNEY / UX BASELINE TRAJECTORY — KEEP M5 CLOSED — KEEP M5-C — NO UX DESIGN EXECUTION YET — NO FIGMA ACTION YET — NO UI DELIVERY — NO M6 — ZERO REAL — NO PROJECT GIT WRITE** · **M5 closure / Pre-M6 sequencing Roadmap :** PR #353 / title `docs(sfia-studio): close M5 and sequence Pre-M6 UX baseline` / base `3467ecdf74ac2010c45f34545fb8684563dea547` / head `7a744c8cec889be547eebe231279620189819dd0` / merge `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` — records M5 closure + inserts Pre-M6 before M6 · **≠** Slice A candidate (Slice A is later local work) · PRE-M6 USER JOURNEY / UX BASELINE = **FUNCTIONAL BASELINE + GAP READINESS COMPLETE · G-UX-15 EXIT PROOF ACCEPTED / TECHNICAL BLOCKER CLOSED · LOCAL CANDIDATE NOT YET ON MAIN · FIGMA/UI DELIVERY NOT AUTHORIZED** · **G-UX-15 Slice A controlled integration :** PR #354 / title `feat(sfia-studio): close Pre-M6 G-UX-15 execution wiring gap` / base `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` / head `22ae8e5e4bddb0f997384a5e8ba87c9b35245693` / merge `a6df83a640afeb0911cb572d118d27a03c9923a7` · CI SFIA Studio **#192** SUCCESS · post-merge main CI **#193** SUCCESS · post-merge truth **PASS** (exact 5-file SHAs on main) · feature branch **PRESERVED** (no delete) · **Cycle 14 docs sync :** PR #355 / title `docs(sfia-studio): sync Pre-M6 G-UX-15 post-merge current state` / merge `dd284e9f20de89b2c8fc7782e4177d0d125c24d2` — **MERGED ON MAIN** · **historique :** OPEN / DRAFT avant merge · **Cycle 15 visual adoption docs integration :** PR #356 / title `docs(sfia-studio): record Pre-M6 visual contract adoption` / head `3a93d0e5cfd86e46bb795ce22c0f7dd79078ef2a` / merge `50f31994b0d9b5a3a3514e2fa9a063d688071c50` — **MERGED ON MAIN** · CI SFIA Studio **#198** SUCCESS on final PR head · post-merge main CI **#199** SUCCESS · post-merge truth **PASS** · source branch **PRESERVED** (NO BRANCH DELETE) · **historique :** OPEN / DRAFT avant merge · **D-PRE-M6-UX-05 :** ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN (Freeze `uUdLBElF2B4dOefaAYt4QY`) — UI Delivery still **NOT AUTHORIZED** · **Cycle 14 PR #356 post-merge current-state sync :** PR #357 / title `docs(sfia-studio): sync PR 356 post-merge current state` / head `70643624c494f16fb91e3bede772a80f4eece783` / merge `b834fdd40d3e7028e80cf7b388b93df2f31e18e4` — **MERGED ON MAIN** · CI SFIA Studio **#200** SUCCESS on PR head · post-merge CI **#201** SUCCESS · source branch **PRESERVED** · **historique :** OPEN / DRAFT avant merge · **PRE-M6 UI DELIVERY GATE / SCOPE QUALIFICATION :** **COMPLETE** — Review Handoff `2577776360c8a5a3492806b447d4bf88f0239898` / blob `9084a97b368472aaaa7ab61f85baf2efcb819e51` — verdict READY FOR MORRIS DELIVERY DECISION (**≠** UI Delivery authorized) — OPTION A = RECOMMENDATION AWAITING MORRIS DECISION *(historique qualification)* · **Cycle 15 Pre-M6 UI gap + CKC trajectory Roadmap :** PR #358 / title `docs(sfia-studio): record Pre-M6 UI gap and CKC trajectory` / head `c91ce1afd498ef9a5275e3b90509e7a045f240a0` / merge `0a80b92cb2c05f5b3f001438988b52c07c3bf0b6` — **MERGED ON MAIN** · CI SFIA Studio **#202** SUCCESS on PR head · post-merge CI **#203** SUCCESS · source branch **PRESERVED** · **historique :** OPEN / DRAFT avant merge · GO Morris **ADOPT PRE-M6 UI DELIVERY SCOPE OPTION A** (user « bon ok go option A ») — OPTION A = **ADOPTED BY MORRIS AS PRE-M6 UI DELIVERY SCOPE** · OPTION A SCOPE ADOPTED **≠** UI DELIVERY EXECUTION AUTHORIZED · NEXT PRODUCT GATE *(historique jusqu’à PR #361)* = **MORRIS PRE-M6 UI DELIVERY EXECUTION AUTHORIZATION — OPTION A** · **PR #359** Option A adoption sync **MERGED** (`0d33478…`) · **PR #360** fake-real progressive proof **MERGED** (`a3ac418…`) · **PRE-M6 PRODUCT VERTICAL SLICE :** PR #361 / title `feat(sfia-studio): consolidate Pre-M6 product vertical slice` / head `3c4c478d7664c6111f38e6c4f49e98042e3a8473` / merge `a53c323e47e5fae1d35671f3ae232609a59b0f3f` — **MERGED ON MAIN** · post-merge CI run **`32122892559` SUCCESS** · source branch `delivery/sfia-studio-pre-m6-ui-option-a` **PRESERVED** · GO Morris **PR #361 READY + MERGE — PRESERVE SOURCE BRANCH — THEN POST-MERGE VALIDATION** · **MORRIS DECISION — CURRENT SFIA STUDIO VERTICAL SLICE ON MAIN IS THE FUNCTIONAL MVP BASELINE FOR THE PRODUCT COMPLETION TRAJECTORY — REUSE EXISTING BACKBONE — DO NOT RESTART FROM ZERO — RUNTIME V3 REMAINS NON ADOPTED** · **MORRIS DECISION — ACCEPT PRE-M6 EXIT FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT — CURRENT MAIN VERTICAL SLICE IS THE SFIA STUDIO FUNCTIONAL MVP BASELINE FOR PRODUCT COMPLETION — CARRY UAT-UX-06 / UAT-RECOVERY-03 / V3-F10 / PROCESS-LOCAL DURABILITY / N7 AS GOVERNED DEBT — RUNTIME V3 REMAINS NON ADOPTED** · PRE-M6 EXIT = **ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT** · PRE-M6 **≠ COMPLETE WITHOUT RESERVES** · NEXT PRODUCT GATE = **GO MORRIS — CYCLE 1 CADRAGE — SFIA STUDIO PRODUCT COMPLETION FROM MVP** (consumable only after this documentation is integrated on main · **NOT AUTHORIZED now**) · NEXT REPOSITORY GATE = **MORRIS REVIEW — PRODUCT COMPLETION REBASELINE DRAFT PR — NO MERGE UNTIL EXPLICIT GO** |
- | **Sources** | Git `main` @ `a53c323e47e5fae1d35671f3ae232609a59b0f3f` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347/#348/#349/#350/#351/#352/#353/#354/#355/#356/#357/#358/#359/#360/#361 · CI #158/#162/#166/#172/#176/#178/#184/#185/#186/#187/#192/#193/#197/#198/#199/#200/#201/#202/#203 · Pre-M6 UI Delivery qualification handoff `2577776360c8a5a3492806b447d4bf88f0239898` / blob `9084a97b368472aaaa7ab61f85baf2efcb819e51` · GO Morris **ADOPT PRE-M6 UI DELIVERY SCOPE OPTION A** · PR #352 CI run #31875337665 / post-merge #31875621317 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · D-PRE-M6-UX-05 visual review handoff `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593ddbdc286cd244790f0ca1d2c421128202c5c` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · M5 Entry Qualification handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · GO Morris **VALIDATE D-PRE-M6-UX-05 FIGMA VISUAL CONTRACT — ADOPT AS PRE-M6 VISUAL REFERENCE** · M4 Product path on main `projects/sfia-studio/app/**` |
- | **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M5 Entry Qualification **COMPLETE** · M5 architecture trajectory **ADOPTED BY MORRIS** · M5 Delivery **IMPLEMENTED ON MAIN** (PR #350) · M5 UI rehydrate **IMPLEMENTED ON MAIN** (PR #351) · M5 technical/functional exit proof **SATISFIED ON MAIN** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · M5 CLOSED **≠** M6 AUTHORIZED · M5 CLOSED **≠** M6 STARTED · M5 CLOSED **≠** runtime v3 ADOPTED · M5 CLOSED **≠** global v3 baseline promoted · M5 CLOSED **≠** M5-C retired · M5 exit accepted **≠** global Cursor REAL authorization · M5 CLOSED future **≠** M6 automatically authorized · Pre-M6 trajectory decided **≠** Pre-M6 UX qualification executed · **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE ≠ UI Delivery authorized ≠ runtime implemented ≠ browser/product E2E proven ≠ Figma/runtime aligned ≠ WCAG compliant ≠ Pre-M6 complete ≠ historical UI retired** · Accepted M-03/M-04/provenance reserves ≠ reserves closed · new UX baseline **≠** runtime rewrite · existing UI not canonical **≠** existing UI automatically deleted · UI asset audit **COMPLETE/CLASSIFIED** **≠** individual dispositions ADOPTED · existing UI audit **≠** REPLACE/retirement authorized · M1→M5 runtime KEEP **≠** all runtime complete · Pre-M6 user proof **≠** runtime v3 ADOPTED · M6 after Pre-M6 **≠** M6 automatically authorized · Validated UX decisions in framing **30/37** (CC-D01) prevail over older candidate wording in framing **11** · M5-A OPTION B **IMPLEMENTED ON MAIN** · M5-B W1 **IMPLEMENTED ON MAIN** · M5-B W1 factual write-back **≠** Recommendation becomes Decision · Recommendation **≠** HumanDecision · Recommendation **≠** gate consumed · Recommendation **≠** ExecutionAuthority · LPS factual evidence link **≠** structural trajectory validation · readback **≠** execution · remount UI visibility **≠** automatic next-cycle launch · M5-C KEEP TEMPORARY WITH EXIT **≠** technical journal retired · durable Product Attempt **≠** technical M4 journal automatically obsolete · M5 implementation **≠** runtime v3 ADOPTED · M5 implementation **≠** global v3 baseline promoted · M5 ZERO REAL **≠** global Cursor REAL authorization · M5 architecture ADOPTED **≠** M6 started · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **unchanged by M5 architecture decision** **≠** M4/M5 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · runtime v3 **NON ADOPTED** · ≠ full OA durable · G-UX-15 technical blocker **CLOSED BY MORRIS** ≠ Pre-M6 complete · G-UX-15 exit proof accepted ≠ browser/product E2E proven · fixture-safe proof accepted ≠ REAL proof · G-UX-15 Slice A **MERGED ON MAIN** (PR #354) ≠ Pre-M6 complete · merged on main ≠ product/browser E2E proven · merged on main ≠ UI Delivery/M6 authorized · Pre-M6 progress ≠ M6 authorized · Confirmation process-local = KEEP RESERVE ≠ restart-safe Confirmation · **PR #356 MERGED ≠ UI Delivery authorized** · CI #197/#198/#199 SUCCESS ≠ Pre-M6 complete ≠ UI Delivery authorized · post-merge truth PASS ≠ UI Delivery gate consumed · UI Delivery qualification COMPLETE ≠ UI Delivery authorized · **Option A SCOPE ADOPTED BY MORRIS ≠ UI Delivery execution authorized** · gap treatment adopted as scope ≠ gap closed · G-UX-08 deferred ≠ G-UX-08 closed · G-UX-09 accepted ≠ Conversation durable · Confirmation KEEP ≠ restart-safe · G-UX-11 planned ≠ browser E2E proven · M7 CKC 15/15 future ≠ CKC complete now ≠ CKC Delivery authorized · 4 pilots + 11 fallback ≠ CKC system complete · CKC→v2.6 capitalization option ≠ v2.6 modification decided · CKC validation future ≠ runtime v3 ADOPTED · PR #357 MERGED ≠ UI Delivery authorized · CI #201 SUCCESS ≠ Pre-M6 complete · PR #358 MERGED ≠ UI Delivery authorized · CI #202/#203 SUCCESS ≠ Pre-M6 complete ≠ Delivery authorized · Option A scope adopted ≠ Delivery GO consumed · Execution Authorization IS the Delivery GO ≠ second Delivery GO required · G-UX-11 E2E exit proof ≠ Delivery entry prerequisite · global v3 baseline **NOT PROMOTED** · **PR #361 MERGED ≠ PRE-M6 COMPLETE ≠ PRE-M6 EXIT ACCEPTED ≠ runtime v3 ADOPTED ≠ M6 AUTHORIZED ≠ M7 AUTHORIZED ≠ CKC 15/15 COMPLETE ≠ generic Cursor write/dev/commit/push/PR proven** · **MVP FUNCTIONAL BASELINE ≠ produit final ≠ UX finale ≠ production-ready ≠ generic ExecutionContract complete** · Product Completion trajectory recorded **≠** Cycle 1 Cadrage authorized **≠** Delivery authorized · PRE-M6 requalification **≠** PRE-M6 CLOSED · **PRE-M6 EXIT ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT ≠ PRE-M6 COMPLETE ≠ PRE-M6 all gaps closed ≠ runtime v3 ADOPTED ≠ M6 STARTED ≠ M6 AUTHORIZED ≠ Product Completion Delivery authorized ≠ Cycle 1 Cadrage authorized** |
-@@ -114,9 +114,9 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
- | Product Completion Product Screens & Visual State Contract | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · `projects/sfia-studio/product-completion/ux-product-experience/03-product-screens-visual-state-contract.md` · PR #376 / head `6e2cd066…` / merge `7d2f9a61…` · PR CI **#236 SUCCESS** · post-merge CI **#237 SUCCESS** · Penpot `63bdc57a…` page 03 · 17 screens · page 04 = 0 · Components 0 · C1 alignment PASS · PASS 3 PASS WITH ONE NON-BLOCKING EVIDENCE-FRAMING RESERVE · UX-BLK-01/02/03 CLOSED · H-01…H-04 **CARRY** · source branch cleanup **COMPLETED** · **≠** Components · **≠** Delivery |
- | Product Completion Functional Architecture (Cycle 3) | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md` · PR #378 / head `1018aa79…` / merge `18b89ec9…` · PR CI **#240 SUCCESS** · post-merge CI **#241 SUCCESS** · post-merge sync PR **#379** / head `0aa644d…` / merge `134f4105…` · PR CI **#242 SUCCESS** · post-merge CI **#243 SUCCESS** · final closure PR **#380** / head `53aeceea…` / merge `14329c60…` · post-merge CI **#245 SUCCESS** · **POST-MERGE COHERENCE COMPLETE** · PM-R01/PM-R02 **CLOSED** · FC-01…FC-15 APPROVED · OA Option A + thin C APPROVED · targeted durability delta QUALIFIED · FA-R01…FA-R12 CLOSED · **RESERVE-GOV-EC-ORDER CLOSED** (Build Doctrine A3 content alignment) · **≠** Architecture technique executed · **≠** Backlog · **≠** Delivery |
- | COMPLETED / INTEGRATED | **C1 CADRAGE** · **C2 FUNCTIONAL DESIGN** · **UX EXPERIENCE ARCHITECTURE** · **E2E WIREFRAMES & INTERACTION MODEL** · **PRODUCT SCREENS & VISUAL STATE CONTRACT** · **FUNCTIONAL ARCHITECTURE (Cycle 3)** · post-merge sync PR **#379** · final closure PR **#380** · PR #369 / `2406ccda…` · PR #370 post-merge sync **HISTORICAL / MERGED** · PR #372 / `fb311f2f…` · PR #373 / `6b67ada7…` · PR #374 / `404d2d3e…` · PR #375 post-merge sync · PR #376 / `7d2f9a61…` · PR #378 / `18b89ec9…` · PR #379 / `134f4105…` · PR #380 / `14329c60…` |
--| CURRENT REPOSITORY TRANSITION | `origin/main` @ `2ffc67e621c96ebc0df3de74d3866a58926bcfe9` · PR **#390 MERGED** · head `b03fd8b6d9556dcd238f755668f677e75c09c1a6` · DoctrinePackage/runtime CKC architecture record **INTEGRATED ON MAIN** · blob `51abaf1fa29e33a63f75a225704fbf5715b15742` · post-merge CI **`32559982270` SUCCESS** · PR **#391** = **CURRENT TRANSPORT VEHICLE** · branch `docs/sfia-studio-doctrinepackage-ckc-post-merge-coherence` · qualified transport baseline head `3dbc7887…` · qualified transport baseline CI **`32561088751` SUCCESS** · integration state **RESOLVE FROM GIT** · **≠** runtime implementation · **≠** Backlog · **≠** Delivery · **≠** REAL |
--| NEXT ORDERED STEP | ChatGPT **FINAL PR READINESS** for PR #391 → **si PASS** → **Morris merge gate** → merge → post-sync Git/CI/content truth · **≠** Backlog · **≠** Delivery · **≠** implementation execution |
--| NEXT PRODUCT CAPABILITY | **NEXT PRODUCT/CONVERGENCE STEP CANDIDATE (after sync integration) = DoctrinePackage/runtime CKC MODELED / IMPLEMENTATION REQUALIFICATION** · **REQUIRES DISTINCT MORRIS GATE** · **≠** execution authorized · **≠** Backlog open · C6 runtime implementation remains **OPEN / NOT AUTHORIZED** · Product Backlog **NOT OPEN** · Delivery **NO** · ZERO REAL · runtime v3 **NON ADOPTED** · Nora semantic-consumption proof remains downstream |
-+| CURRENT REPOSITORY TRANSITION | `origin/main` @ `5c3bc58ee9b64f8ba419778f594a249187d053d7` · PR **#390 MERGED** · PR **#391 MERGED** · head `a144d7c7752736193167f81352c0291929db02a8` · DoctrinePackage/runtime CKC architecture + coherence sync **INTEGRATED ON MAIN** · on-main architecture blob `ec1cf16c11359ec09d60b545f9957f82372870a0` · on-main Roadmap blob `ea8e629035ad4f756f026cc01e3e6ab1edca3234` · post-sync Git+content truth **SATISFIED** · push/main CI **`32562243107` SUCCESS** · **POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED** · **≠** runtime implementation · **≠** Backlog · **≠** Delivery · **≠** REAL |
-+| NEXT ORDERED STEP | Current documentary truth micro-correction → ChatGPT final review → distinct Morris Git integration gate → product capability requalification remains a separate Morris gate · **≠** Backlog · **≠** Delivery · **≠** implementation execution |
-+| NEXT PRODUCT CAPABILITY | **NEXT PRODUCT/CONVERGENCE STEP CANDIDATE = DoctrinePackage/runtime CKC MODELED / IMPLEMENTATION REQUALIFICATION** · **REQUIRES DISTINCT MORRIS GATE** · post-sync push/main CI prerequisite **SATISFIED** via run `32562243107` SUCCESS · candidate remains **NOT AUTHORIZED** pending distinct Morris requalification gate · **≠** execution authorized · **≠** Backlog open · C6 runtime implementation remains **OPEN / NOT AUTHORIZED** · Product Backlog **NOT OPEN** · Delivery **NO** · ZERO REAL · runtime v3 **NON ADOPTED** · Nora semantic-consumption proof remains downstream |
- | M6 / M7 | **HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** · traces conservées · hors forward critical path |
+| Champ | Valeur |
+|---|---|
+| **Projet** | SFIA Studio — Product Completion |
+| **Cycle** | 5 — Backlog / user stories |
+| **Profil SFIA** | STANDARD |
+| **Typologie** | DOC |
+| **Base Git** | `origin/main` @ `aca3dc8ab250ea1d751a833912787751e856c7b6` *(PR #392 merge)* |
+| **Branche auteur** | `docs/sfia-studio-product-completion-backlog` *(local · non intégrée)* |
+| **GO Morris consommé** | **GO MORRIS — START SFIA STUDIO PRODUCT COMPLETION CYCLE 5 BACKLOG / USER STORIES** — macro functional backlog by coherent business capability lots · MUST+SHOULD+FUTURE · P0/P1/P2/P3 · P0/P1 user stories · capability roadmap · preserve C1/C2/UX/FA/C6/CKC · **NO CODE · NO DELIVERY · NO REAL** |
+| **Statut** | **CANDIDATE — STARTED BY MORRIS — AWAITING CHATGPT REVIEW / MORRIS VALIDATION** |
+| **Runtime v3** | **NON ADOPTED** |
+| **Delivery** | **NOT AUTHORIZED** |
+| **REAL** | **ZERO** |
+| **Product Backlog Git integration** | **NOT AUTHORIZED in this cycle** |
 
- ### Candidat local non-main (dirty `delivery/sfia-studio-f3-real-prerequisites`) — historique / harvest
-diff --git a/projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md b/projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md
-index ec1cf16c..124301c9 100644
---- a/projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md
-@@ -2,12 +2,12 @@
+## Anti-claims
 
- | Champ | Valeur |
- |---|---|
--| **Statut** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #390 — POST-MERGE GIT+CI+CONTENT TRUTH SATISFIED — COHERENCE SYNC TRANSPORTED VIA PR #391 — PR #391 INTEGRATION STATE = RESOLVE FROM GIT — AWAITING CHATGPT FINAL PR READINESS / MORRIS MERGE GATE** |
-+| **Statut** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #390 — POST-MERGE COHERENCE SYNC INTEGRATED ON MAIN VIA PR #391 — POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED — PUSH/MAIN CI `32562243107` SUCCESS — NEXT = IMPLEMENTATION/MODELED REQUALIFICATION CANDIDATE — DISTINCT MORRIS GATE REQUIRED — NOT AUTHORIZED** |
- | **Autorité** | Architecture direction **ADOPTED BY MORRIS** (D01-NARROW · D02 Option B · D05 fallback NONE) · architecture record **INTEGRATED ON MAIN** (PR #390) · **≠** implemented · **≠** modeled complete · **≠** runtime resolved · **≠** Nora semantic proven · **≠** Product READY · **≠** Backlog · **≠** Delivery · **≠** REAL · **≠** runtime v3 ADOPTED |
- | **Rôle** | Documentary adoption record : Catalog → DoctrinePackage → Studio CKC → Nora (direction only) |
--| **Base Git vérifiée** | `origin/main` @ `2ffc67e6` *(post-merge truth · PR #390)* |
-+| **Base Git vérifiée** | `origin/main` @ `5c3bc58e…` *(post-sync truth · PR #391 merge)* |
- | **PR #390 integration** | **MERGED** · merge `2ffc67e621c96ebc0df3de74d3866a58926bcfe9` · head `b03fd8b6d9556dcd238f755668f677e75c09c1a6` · on-main blob `51abaf1fa29e33a63f75a225704fbf5715b15742` · post-merge push/main CI **`32559982270` SUCCESS** |
--| **Post-merge coherence sync** | **TRANSPORTED VIA PR #391** · PR #391 = **CURRENT TRANSPORT VEHICLE** · base `main` @ `2ffc67e6…` · branch `docs/sfia-studio-doctrinepackage-ckc-post-merge-coherence` · qualified transport baseline head `3dbc7887…` · qualified transport baseline CI **`32561088751` SUCCESS** · integration state **RESOLVE FROM GIT** · **≠** merged · **≠** runtime implementation |
-+| **Post-merge coherence sync** | **MERGED ON MAIN VIA PR #391** · merge `5c3bc58ee9b64f8ba419778f594a249187d053d7` · head `a144d7c7752736193167f81352c0291929db02a8` · on-main architecture blob `ec1cf16c11359ec09d60b545f9957f82372870a0` · on-main Roadmap blob `ea8e629035ad4f756f026cc01e3e6ab1edca3234` · post-sync Git+content truth **SATISFIED** · qualified transport baseline head `3dbc7887…` · qualified transport baseline CI **`32561088751` SUCCESS** · PR head CI **`32561807048` SUCCESS** *(head `a144d7c7…` · ≠ substitute for push/main)* · post-sync push/main CI **`32562243107` SUCCESS** *(run #269 · event `push` · head `5c3bc58e…`)* · **POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED** · **≠** runtime implementation |
- | **Corpus Studio CKC** | **15/15 CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN** · path `projects/sfia-studio/sfia-v3-framing/ckc/**` |
- | **Freeze review/transport** | `6db507e68e5817088fc366aa74c416b4d9906da4c5bbb1eb1f427ae283759fcf` *(≠ DoctrinePackage digest · ≠ runtime package pin · ≠ catalog digest · ≠ ckcId)* |
- | **Roadmap sync content** | **ROADMAP-SYNC-CKC-CONTENT-VALIDATION CLOSED ON MAIN** |
-@@ -30,14 +30,14 @@
- | Chemin canonique | `projects/sfia-studio/convergence/sfia-studio-doctrinepackage-runtime-ckc-integration-qualification.md` |
- | Nature | Architecture qualification + **documentary adoption record** |
- | Langue | Prose technique FR/EN alignée docs SFIA Studio |
--| Consommateur attendu | ChatGPT **FINAL PR READINESS** → **si PASS** : Morris merge gate → merge → post-sync Git+CI+content truth → implementation/modeled requalification candidate → distinct Morris GO before implementation |
-+| Consommateur attendu | Post-sync Git+CI+content truth **SATISFIED** → implementation/modeled requalification candidate → distinct Morris GO required before any requalification/execution |
- | Non-consommateur | Delivery engines · Cursor REAL · Product Backlog auto-open · new re-decision of D01-NARROW / D02 / D05 |
+- Ce document **≠** validation Morris · **≠** READY FOR DELIVERY · **≠** autorisation d’implémentation.
+- Backlog **≠** redécision C1/C2/UX/FA/C6/DPCKC architecture.
+- Recommendation **≠** HumanDecision · Epic **≠** sprint obligatoire · Story **≠** tâche technique.
+- P0/P1/P2/P3 **≠** MUST/SHOULD/FUTURE — dimensions distinctes.
+- DoctrinePackage/CKC workstream **≠** Delivery auto-sélectionné · **≠** requalification auto-autorisée.
+- 15 cycles CKC **=** mesure snapshot courante · **≠** invariant structurel produit.
 
- ### A.2 Autorité
+## Sources principales consommées (read-only)
 
--1. **Git + tests** sur `origin/main` @ `2ffc67e6` = preuve que le **record d’architecture** est **intégré on main** via PR #390 (blob `51abaf1f…` · post-merge CI `32559982270` SUCCESS).
-+1. **Git + tests** sur `origin/main` @ `5c3bc58e…` = post-sync truth after PR #391 merge · architecture record intégré via PR #390 (merge `2ffc67e6…` · blob historique `51abaf1f…` · post-merge CI `32559982270` SUCCESS) · coherence sync intégré via PR #391 (merge `5c3bc58e…` · on-main blob `ec1cf16c…`) · post-sync push/main CI **`32562243107` SUCCESS** *(run #269 · event `push`)*.
- 2. **Décisions Morris déjà consommées** (corpus CKC 15/15, C6 CLOSED, pin catalogue validation-scope, R-CKC-01/02/03 CLOSED, **DPCKC-D01-NARROW · D02 Option B · D05 fallback NONE**) = autorité de trajectoire / direction d’architecture **déjà actée** · **sans** autoriser implémentation runtime.
--3. **Ce document** est le **record documentaire** d’une direction d’architecture adoptée par Morris (**D01-NARROW, D02, D05**) · **intégré on main** via PR #390 · la **cohérence post-merge** est **transportée via PR #391** · statut d’intégration PR #391 = **RESOLVE FROM GIT** · baseline transport qualifiée head `3dbc7887…` · CI `32561088751` SUCCESS · **≠** merged · **L’adoption documentaire ≠ implémentation ≠ runtime adoption.** **Architecture record integrated on main ≠ runtime DoctrinePackage/CKC binding implemented.**
-+3. **Ce document** est le **record documentaire** d’une direction d’architecture adoptée par Morris (**D01-NARROW, D02, D05**) · **intégré on main** via PR #390 + PR #391 · post-sync Git+CI+content truth **SATISFIED** · push/main CI **`32562243107` SUCCESS** · **L’adoption documentaire ≠ implémentation ≠ runtime adoption.** **Architecture record integrated on main ≠ runtime DoctrinePackage/CKC binding implemented.**
- 4. Conversation / Recommendation / ChatGPT review = **entrées cognitives**, jamais substituts à HumanDecision Morris ni à preuve Git.
+| Autorité | Rôle dans ce backlog |
+|---|---|
+| **C1** `01-product-completion-cadrage.md` | Outcomes O-01…O-12 · MUST/SHOULD/FUTURE · completion bar · dispositions KEEP/ADAPT/COMPLETE |
+| **C2** `02-product-completion-conception-fonctionnelle.md` | Boucle A→W · objets · CA-PC-01…35 · ordre K→L→M→N→O |
+| **UX** EA / Wireframes / Screens | Surfaces S1→S12 · UF-01…07 · business-first · progressive disclosure |
+| **FA** `03-product-completion-architecture-fonctionnelle.md` | FC-01…FC-15 · slices candidats · contraintes no-parallel |
+| **C6** `06-product-completion-architecture-technique-delta.md` | TD-C6-01…06 **CLOSED — DO NOT REOPEN** · dettes durabilité |
+| **DP↔CKC** qualification convergence | D01/D02/D05 **ADOPTED** · DK-01…08 **OPEN** · runtime binding **NOT IMPLEMENTED** |
+| **CKC** `ckc/05-backlog-user-stories.md` | Guidance cognitive INVEST · **≠** autorité d’exécution |
+| **Runtime** `projects/sfia-studio/app/**` | Audit read-only · réutilisation · gaps |
 
- ### A.3 Périmètre IN
-@@ -155,17 +155,19 @@ Anti-lecture : Conversation ≠ Decision. ChatGPT review ≠ Morris adopt.
- | CKC runtime qualification | D1/D2 method-candidate path-based | **≠** Studio corpus binding |
- | runtime v3 | **NON ADOPTED** | Inchangé |
- | Product Backlog / Delivery / REAL | **NOT OPENED / NOT AUTHORIZED / ZERO** | Inchangé |
--| **Cette qualification DP↔CKC** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #390** | **NOT IMPLEMENTED** · **≠** runtime DoctrinePackage/CKC binding · D01-NARROW / D02 / D05 consumed · remaining items inherited/deferred · coherence sync **TRANSPORTED VIA PR #391** · integration state **RESOLVE FROM GIT** |
-+| **Cette qualification DP↔CKC** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #390 + PR #391** | **NOT IMPLEMENTED** · **≠** runtime DoctrinePackage/CKC binding · D01-NARROW / D02 / D05 consumed · remaining items inherited/deferred · coherence sync **INTEGRATED ON MAIN** · post-sync push/main CI **`32562243107` SUCCESS** · **POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED** |
+---
 
- **Verdict de convergence :**
+## 1. Executive Product Backlog intent
 
- ```text
- DoctrinePackage / runtime CKC architecture
- = ARCHITECTURE DIRECTION ADOPTED BY MORRIS
--= ARCHITECTURE RECORD INTEGRATED ON MAIN (PR #390)
-+= ARCHITECTURE RECORD INTEGRATED ON MAIN (PR #390 + PR #391)
- = NOT IMPLEMENTED (runtime binding)
--= COHERENCE SYNC TRANSPORTED VIA PR #391
--= PR #391 INTEGRATION STATE = RESOLVE FROM GIT
-+= POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED
-+= PUSH/MAIN CI 32562243107 SUCCESS
-+= IMPLEMENTATION/MODELED REQUALIFICATION CANDIDATE ONLY
-+= DISTINCT MORRIS GATE REQUIRED
- ```
+Ce backlog transforme la **cible Product Completion validée** (C1 + C2 + UX + FA) en **lots fonctionnels métier** exploitables pour une future trajectoire Delivery — sans la lancer.
 
- **Trajectoire :**
-@@ -174,15 +176,15 @@ DoctrinePackage / runtime CKC architecture
- architecture qualification
-   → Morris adoption (D01-NARROW · D02 · D05)
-   → PR #390 merged (architecture record on main)
--  → post-merge truth satisfied
--  → coherence sync transported via PR #391
--  → ChatGPT final PR readiness
--  → Morris merge gate if PASS
--  → post-sync truth
-+  → PR #391 merged (coherence sync on main)
-+  → post-sync Git+content truth satisfied
-+  → post-sync push/main CI 32562243107 SUCCESS
-+  → post-sync Git+CI+content truth SATISFIED
-   → implementation/modeled requalification candidate
-+  → distinct Morris gate
- ```
+Il répond à la question Pilote :
 
--Le **Morris architecture decision pack** pour D01-NARROW / D02 / D05 a **déjà été consommé**. Aucun nouveau pack de décision d’architecture n’est requis ici. Le prochain gate Morris applicable après ChatGPT FINAL PR READINESS PASS = **merge gate** for PR #391 · **not** implementation execution.
-+Le **Morris architecture decision pack** pour D01-NARROW / D02 / D05 a **déjà été consommé**. Aucun nouveau pack de décision d’architecture n’est requis ici. Le prochain gate Morris applicable = **distinct gate for implementation/modeled requalification** · CI prerequisite **SATISFIED** · requalification **not** authorized until distinct Morris gate · **not** implementation execution by documentary sync alone.
+> *« Quels grands blocs de capacité me reste-t-il à obtenir pour piloter un projet de bout en bout, comprendre ce qui se passe, décider, autoriser, exécuter, prouver et reprendre — sans que la méthode me tombe dessus ? »*
 
- ---
+**Ce backlog fait :**
+- regrouper les MUST/SHOULD/FUTURE C1 en **5 Epics fonctionnels** cohérents ;
+- prioriser P0…P3 avec justification ;
+- détailler les **User Stories P0/P1** avec critères d’acceptation observables ;
+- produire une **roadmap capability-driven** (waves) et une **cut-line Recommendation** ;
+- mapper secondairement vers FC-xx et actifs runtime existants.
 
-@@ -1032,14 +1034,14 @@ Architecture direction adopted ≠ implemented ≠ modeled complete ≠ runtime
- 1. Preserve product-first locked flow §F.2 / §Q / §Y D08.
- 2. Preserve UX method absorption §A.7.
- 3. ADAPT existing OA only · no parallel engines/SoTs (§U / §X.5).
--4. Proceed to ChatGPT **FINAL PR READINESS** for PR #391 → **Morris merge gate if PASS** → post-sync truth → implementation/modeled requalification candidate under separate gates · Phase A then Phase B proofs.
-+4. Post-sync Git+CI+content truth **SATISFIED** → implementation/modeled requalification may now be proposed as next candidate → requires distinct Morris gate → no automatic transition → Phase A / Phase B proofs remain downstream → **NOT AUTHORIZED** by this cycle.
- 5. Debt DK-01…DK-08 remain OPEN until their exits are evidenced (§V) — architecture adoption alone closes none.
+**Ce backlog ne fait pas :**
+- redécider l’architecture C6 (OA Native + Product SQLite + ports) ;
+- redécider D01-NARROW / D02 Option B / D05 fallback NONE ;
+- ouvrir Delivery, Backlog Git, REAL, ou runtime v3 ;
+- remplacer C1/C2/UX/FA — il les **trace** et les **découpe**.
 
- ---
+---
 
- ## AA. Anti-claims
+## 2. Exhaustive Product Completion scope inventory
 
--- **Architecture direction ADOPTED BY MORRIS** · architecture record **INTEGRATED ON MAIN VIA PR #390** ≠ implemented ≠ modeled complete ≠ runtime resolved ≠ Nora Phase B proven ≠ Product READY ≠ runtime v3 ADOPTED · post-merge coherence sync **TRANSPORTED VIA PR #391** · PR #391 integration state **RESOLVE FROM GIT** · **≠** merged.
-+- **Architecture direction ADOPTED BY MORRIS** · architecture record **INTEGRATED ON MAIN VIA PR #390 + PR #391** ≠ implemented ≠ modeled complete ≠ runtime resolved ≠ Nora Phase B proven ≠ Product READY ≠ runtime v3 ADOPTED · post-sync push/main CI **`32562243107` SUCCESS** · **POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED** · PR head CI `32561807048` **≠** substitute for push/main CI.
- - D01-NARROW adopts **family id only** · first `packageVersion` **DEFERRED** · fixture `pkg:studio-v3-oa` **not** promoted.
- - D02 Option B ≠ schema/field names decided.
- - D05 NONE ≠ all future packages forever · future intra-package synthetic only under later gates.
-@@ -1055,14 +1057,13 @@ Architecture direction adopted ≠ implemented ≠ modeled complete ≠ runtime
+**Coverage rule :** 100 % des items C1 §J.1/J.2/J.3 représentés ci-dessous.
 
- | Champ | Valeur |
- |---|---|
--| **Now** | ChatGPT **FINAL PR READINESS** for PR #391 |
--| **Then (only if PASS)** | Morris **merge gate** → merge → post-sync Git+CI+content truth |
--| **After sync integration evidence** | Implementation / modeled **requalification** (separate gate · **REQUIRES DISTINCT MORRIS GATE** · **NOT AUTHORIZED** by this pass) |
-+| **Now** | Post-sync Git+CI+content truth **SATISFIED** · push/main CI **`32562243107` SUCCESS** |
-+| **Next** | Implementation / modeled **requalification** = **CANDIDATE** · separate gate · **REQUIRES DISTINCT MORRIS GATE** · **NOT AUTHORIZED BY CURRENT CYCLE** |
- | **Still not** | Code · runtime wiring · Backlog · Delivery · REAL · Phase A/B claims · packageVersion adoption · schema finalization |
- | **Debt** | DK-01…DK-08 remain visible until exits proven |
+### 2.1 MUST inventory (25 items C1 §J.1)
 
- **Statut final :**
--**ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #390 — POST-MERGE GIT+CI+CONTENT TRUTH SATISFIED — COHERENCE SYNC TRANSPORTED VIA PR #391 — PR #391 INTEGRATION STATE = RESOLVE FROM GIT — AWAITING CHATGPT FINAL PR READINESS / MORRIS MERGE GATE.**
-+**ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN VIA PR #390 + PR #391 — POST-SYNC GIT+CI+CONTENT TRUTH SATISFIED — PUSH/MAIN CI `32562243107` SUCCESS — NEXT = IMPLEMENTATION/MODELED REQUALIFICATION CANDIDATE — DISTINCT MORRIS GATE REQUIRED — NOT AUTHORIZED.**
+| ID | Capability / requirement | C1 | Outcome(s) | C2 / UX / FA | Runtime state | Asset | Disposition | Remaining gap | Dependencies | Business impact | Evidence / exit | Priority | Epic |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| M-01 | Project | MUST | O-01 | A/B · FC-01 · S1/S2 | SQLite durable | OA Project | KEEP | End-to-end piloting polish | — | Entry/resume | CA-PC-01/02 | P1 | EPIC-A |
+| M-02 | Living Project State (reliable) | MUST | O-01,O-09 | G · FC-05 · S5 | SQLite LPS | OA LPS | KEEP | Complete useful business state | M-03,M-14 | Continuity | CA-PC-25 | P0 | EPIC-A |
+| M-03 | Nora | MUST | O-03,O-12 | C,D,E,F,I,U · FC-04 · S4 | Process-local conv | OpenAI/fake provider | KEEP/COMPLETE | Semantic inter-session continuity | M-14,M-16 | Method absorbed | CA-PC-03/25/35 | P0 | EPIC-A |
+| M-04 | HumanDecision | MUST | O-04,O-10 | J · FC-07 · S4/S6 | SQLite HD | OA Decision | KEEP | Trajectory linkage UX | M-11 | Authority clarity | CA-PC-08/10 | P1 | EPIC-B |
+| M-05 | Native ExecutionContract | MUST | O-05,O-06 | K,L · FC-08 · S10 | SQLite EC | OA EC | KEEP/ADAPT | Canonical parity + inspect UX | M-13,M-18 | Governed execution | CA-PC-14/16 | P1 | EPIC-C |
+| M-06 | Cursor / agent execution | MUST | O-06 | O,P · FC-10 · S12 | Fixture default; REAL gated | Attempt adapter | KEEP/COMPLETE | Generic EC→agent path productized | M-05,M-13 | Technical HOW | CA-PC-17/19 | P1 | EPIC-D |
+| M-07 | Evidence / ReviewBundle | MUST | O-08,O-12 | T · FC-12 · S9 | SQLite Evidence | OA Evidence | KEEP/ADAPT | Business-first hierarchy UX | M-06 | Proof before claim | CA-PC-23 | P1 | EPIC-D |
+| M-08 | SUCCESS / STOP / FAIL | MUST | O-07 | Q,R,S · FC-11 · S12 | Mapped from attempt status | Terminal semantics partial | ADAPT | Distinct business terminals | M-06,M-07 | Honest outcomes | CA-PC-20/22 | P1 | EPIC-D |
+| M-09 | Recovery | MUST | O-09 | W · FC-13 · S8 | Honest partial | RecoverySurface | KEEP/COMPLETE | Full replan loop | M-02,M-11,M-25 | Restart safety | CA-PC-25 | P0 | EPIC-D |
+| M-10 | Git / reuse | MUST | O-11 | transverse · FC-15 | Git SoT ext. | Repo | KEEP | Governance integration | — | Evolvability | CA-PC-26 | P2 | EPIC-A |
+| M-11 | ProjectTrajectory | MUST | O-02,O-10 | H,V · FC-06 · S6 | **Memory only** | OA Trajectory | **COMPLETE** | Durable proposed/decided | TD-C6-01 | Path visibility | CA-PC-06/07 | **P0** | EPIC-B |
+| M-12 | Inter-session semantic continuity | MUST | O-09 | W · FC-13 | Partial | LPS + gaps | COMPLETE | Nora context without invention | M-02,M-03,M-14 | Trust | CA-PC-25 | P0 | EPIC-A |
+| M-13 | AgentCapability envelope | MUST | O-06 | N · FC-09 | Bounded RO history | Gate D patterns | KEEP/ADAPT | Generic envelope not Cursor catalog | M-05 | Governed effects | CA-PC-32 | P1 | EPIC-C |
+| M-14 | DoctrinePackage pin / traceability | MUST | O-03 | D · FC-02 | Partial pin | CreateProject pin | KEEP/COMPLETE | Full audit resolution | DPCKC Phase A | Doctrine truth | CA-PC-34 | **P0** | EPIC-A |
+| M-15 | Full cognitive coverage catalog | MUST | O-03,O-11 | E · FC-03 | CKC via method paths | qualifyWithCkc | ADAPT | Package-bound CKC | M-14, DK-01…07 | Method genericity | CA-PC-31 | **P0** | EPIC-A |
+| M-16 | Cycle Catalog Evolvability | MUST | O-11 | E · FC-03 | Catalog routing | CycleTypeCatalog | ADAPT | New type ≠ new engine | M-15 | Future cycles | CA-PC-26 | P1 | EPIC-A |
+| M-17 | Generic EC→Cursor→Evidence | MUST | O-06 | O→T · FC-10/12 | Wired in OA | vertical-slice-runtime | KEEP | Product path completeness | M-05,M-06 | One mechanism | CA-PC-17 | P1 | EPIC-D |
+| M-18 | Execute cycle technical HOW | MUST | O-06 | O,P | Fixture-first | F3 actions | KEEP/COMPLETE | Governed REAL optional | M-13 | Delivery of HOW | CA-PC-19 | P2 | EPIC-D |
+| M-19 | EC parity w/ canonical Cursor logic | MUST | O-05 | K,L | PREPARE projection | EC aggregate | ADAPT | Field parity + amend | M-05 | Inspectability | CA-PC-15/16 | P1 | EPIC-C |
+| M-20 | EC inspectable by Pilote | MUST | O-05 | L · S10 | Summary exists | EC UI partial | ADAPT | Progressive disclosure fidelity | M-19, UX SC-05/06 | Trust before auth | CA-PC-14 | P1 | EPIC-E |
+| M-21 | Minimal business Evidence | MUST | O-08 | T · S9 | Rehydrate path | Evidence UI | ADAPT | Business-first reader | M-07 | Understand outcome | CA-PC-23 | P1 | EPIC-E |
+| M-22 | Closed loop Evidence→Nora→LPS/Trajectory | MUST | O-12 | U,V · FC-04/06 | Post-evidence Nora partial | postEvidenceNoraAnalysis | COMPLETE | Full replan chain | M-09,M-11 | Learning loop | CA-PC-24 | P1 | EPIC-D |
+| M-23 | Product Experience absorbs complexity | MUST | O-03 | all · FC-14 · S1–S12 | Pre-M6 shell | pre-m6-product-ui | KEEP/ADAPT | Final PE contract alignment | all Epics | Usability | A11Y-PC-01…06 | P1 | EPIC-E |
+| M-24 | Accessibility product principle | MUST | O-03 | FC-14 | Partial | SC contract | COMPLETE | A11Y MUST on gates/terminals | M-23 | Inclusion | A11Y-PC-* | P2 | EPIC-E |
+| M-25 | Confirmation (when effects require) | MUST | O-04 | M · FC-09 · S11 | **Memory/process-local** | Confirmation domain | **COMPLETE** | Durable consumed authority | TD-C6-02/05 | Protected boundary | CA-PC-11/13/30 | **P0** | EPIC-C |
 
- ---
+### 2.2 SHOULD inventory (6 items C1 §J.2)
+
+| ID | Capability | C1 | Outcome | Epic | Priority | Notes |
+|---|---|---|---|---|---|---|
+| S-01 | Rich recovery capsule / cycle history | SHOULD | O-09 | EPIC-D | P2 | Non-blocking Completion · enrich S7 |
+| S-02 | Advanced EC presentation (diff, synthesis) | SHOULD | O-05 | EPIC-E | P2 | Progressive disclosure extension |
+| S-03 | PJ / user source intake | SHOULD | O-03 | EPIC-A | P2 | NEW SHOULD · provenance design |
+| S-04 | Enriched Evidence UX | SHOULD | O-08 | EPIC-E | P2 | After M-21 business-first baseline |
+| S-05 | Sophisticated AMEND UX | SHOULD | O-04 | EPIC-B | P2 | G-UX-08 reserve · non-blocking |
+| S-06 | Rich memory / history beyond integrity | SHOULD | O-09 | EPIC-D | P2/P3 | Transcript ≠ continuity MUST |
+
+### 2.3 FUTURE inventory (6 items C1 §J.3)
+
+| ID | Capability | C1 | Epic | Priority | Activation trigger |
+|---|---|---|---|---|---|
+| F-01 | Multi-user / auth / sharing | FUTURE | EPIC-E | P3 | Post-Completion Morris gate |
+| F-02 | Notion connectors | FUTURE | — | P3 | Explicit product gate |
+| F-03 | Deep FinOps / RUN | FUTURE | — | P3 | FinOps cycle if ever |
+| F-04 | Studio-native GitHub ops | FUTURE | EPIC-A | P3 | If useful as implementation detail |
+| F-05 | Capitalization toward global method | FUTURE | — | P3 | Separate Morris gate |
+| F-06 | Maturity / adoption beyond Completion bar | FUTURE | — | P3 | Includes runtime v3 ADOPTED |
+
+---
+
+## 3. Functional Epic model
+
+**Target : 5 Epics · MIN 4 · MAX 6** — modèle retenu : **5 Epics métier** (hypothèse C1 confirmée contre sources).
+
+| Epic ID | Nom métier | FC primary | C2 steps | UX surfaces |
+|---|---|---|---|---|
+| **EPIC-A** | Comprendre, reprendre et qualifier le travail | FC-01, FC-02, FC-03, FC-05 (+DP↔CKC) | A,B,C,D,E,G,W(entry) | S1,S2,S3,S5,S8 |
+| **EPIC-B** | Piloter la trajectoire et décider | FC-06, FC-07 (+FC-04 partial) | H,I,J,V | S4,S5,S6 |
+| **EPIC-C** | Préparer et autoriser l’exécution | FC-08, FC-09 | K,L,M,N | S10,S11 |
+| **EPIC-D** | Exécuter, prouver et reprendre | FC-10, FC-11, FC-12, FC-13 (+FC-04 post-evidence) | O,P,Q,R,S,T,U,W | S9,S12,S8 |
+| **EPIC-E** | Expérience produit et utilisabilité transverse | FC-14, FC-15 (presentation/governance UX) | transversal A→W | S1→S12 |
+
+**DoctrinePackage↔CKC** est un **workstream transversal** rattaché principalement à **EPIC-A** (qualification + continuité contextuelle), avec sorties consommées par EPIC-B/D.
+
+---
+
+## 4. Epic contracts
+
+### EPIC-A — Comprendre, reprendre et qualifier le travail
+
+| Field | Value |
+|---|---|
+| **Job Pilote** | Entrer ou reprendre un projet, exprimer une intention, obtenir une qualification fiable sans piloter la méthode |
+| **C1 outcomes** | O-01, O-03, O-09, O-11 |
+| **MUST covered** | M-01…M-03, M-10, M-12, M-14…M-16 |
+| **SHOULD** | S-03 |
+| **FUTURE** | F-04 |
+| **C2 A→W** | A, B, C, D, E, G, W (entry) |
+| **FC-xx** | FC-01, FC-02, FC-03, FC-05 |
+| **Current state** | Project/LPS SQLite OK · conversation/process-local · CKC via method paths · DP pin partial |
+| **Reuse** | OA Project/LPS · qualifyWithCkc · CreateProject pin · `/studio` routes |
+| **Gaps** | Semantic continuity · package-bound CKC · DP traceability · honest resume completeness |
+| **Dependencies IN** | — |
+| **Dependencies OUT** | EPIC-B (trajectory context) · EPIC-C (qualified cycle) · EPIC-D (recovery replan) |
+| **Risks** | Parallel CKC resolver · method path SoT persists (DK-01…07) |
+| **Architecture consumed** | G0-A/G0-B · D01/D02/D05 · C6 CLOSED |
+| **Technical touchpoints (secondary)** | `CkcQualificationResolver`, catalog ADAPT, `service.ts` composition |
+| **Acceptance boundary** | Pilote can create/resume project with honest state disclosure; qualification produces traced CycleInstance with package+CKC proof |
+| **Exit proof** | CA-PC-01/02/03/25/31/34 + Phase A CKC consumption proof |
+| **Priority range** | P0–P1 |
+| **Delivery readiness** | **NEEDS DEPENDENCY** (DP↔CKC Phase A + continuity) |
+
+### EPIC-B — Piloter la trajectoire et décider
+
+| Field | Value |
+|---|---|
+| **Job Pilote** | Voir le chemin réel, comparer options, recevoir des recommandations Nora, trancher explicitement |
+| **C1 outcomes** | O-02, O-04, O-10 |
+| **MUST** | M-04, M-11 |
+| **SHOULD** | S-05 |
+| **C2** | H, I, J, V |
+| **FC-xx** | FC-06, FC-07, FC-04 (options/rec) |
+| **Current state** | HD durable · Trajectory Memory-only · Recommendation present · no options UI |
+| **Gaps** | Durable proposed/decided trajectory · options/trajectory surfaces · AMEND loop |
+| **Dependencies IN** | EPIC-A (qualified context, LPS) |
+| **Dependencies OUT** | EPIC-C (HD enables EC prep) · EPIC-D (replan) |
+| **Architecture consumed** | TD-C6-01, TD-C6-06 · Recommendation ≠ HD |
+| **Exit proof** | CA-PC-06/07/08/10 |
+| **Priority** | P0 (trajectory) · P1 (HD UX linkage) |
+| **Delivery readiness** | **NEEDS DEPENDENCY** (TD-C6-01) |
+
+### EPIC-C — Préparer et autoriser l’exécution
+
+| Field | Value |
+|---|---|
+| **Job Pilote** | Inspecter un contrat natif intelligible, confirmer si requis, savoir si l’autorité effective est suffisante |
+| **C1 outcomes** | O-04, O-05, O-06 |
+| **MUST** | M-05, M-13, M-19, M-20, M-25 |
+| **C2** | K, L, M, N |
+| **FC-xx** | FC-08, FC-09 |
+| **Current state** | EC SQLite · Confirmation Memory · order partially enforced |
+| **Gaps** | Durable Confirmation consumed · authority receipt audit · inspect UX fidelity |
+| **Dependencies IN** | EPIC-B (HD if structural) · EPIC-A (qualified cycle) |
+| **Dependencies OUT** | EPIC-D (execute) |
+| **Architecture consumed** | TD-C6-02, TD-C6-03, TD-C6-05 · K→L→M→N order |
+| **Exit proof** | CA-PC-11/13/14/30/32 |
+| **Priority** | P0 (Confirmation durability) · P1 (EC inspect) |
+| **Delivery readiness** | **NEEDS DEPENDENCY** (TD-C6-02/05) |
+
+### EPIC-D — Exécuter, prouver et reprendre
+
+| Field | Value |
+|---|---|
+| **Job Pilote** | Exécuter sous contrat, comprendre SUCCESS/STOP/FAIL, lire la preuve, reprendre/replanifier |
+| **C1 outcomes** | O-06, O-07, O-08, O-09, O-12 |
+| **MUST** | M-06…M-09, M-17, M-18, M-21, M-22 |
+| **SHOULD** | S-01, S-04, S-06 |
+| **C2** | O→V, W |
+| **FC-xx** | FC-10, FC-11, FC-12, FC-13, FC-04 (post-evidence) |
+| **Current state** | Attempt/Evidence SQLite · fixture default · recovery honest partial · replan incomplete |
+| **Gaps** | Terminal semantics · replan loop · claim/maturity durability · REAL productization |
+| **Dependencies IN** | EPIC-C (authority path) |
+| **Dependencies OUT** | EPIC-B (replan trajectory) · EPIC-A (requalify) |
+| **Exit proof** | CA-PC-17/20/22/23/24/25 |
+| **Priority** | P0 (recovery/replan) · P1 (execution/evidence chain) |
+| **Delivery readiness** | **CANDIDATE AFTER MORRIS DECISION** (after EPIC-C P0) |
+
+### EPIC-E — Expérience produit et utilisabilité transverse
+
+| Field | Value |
+|---|---|
+| **Job Pilote** | Naviguer S1→S12 sans charge méthode ; gates visibles ; accessibilité ; cohérence surfaces |
+| **C1 outcomes** | O-03, O-05, O-08 (+ transversal) |
+| **MUST** | M-20, M-21, M-23, M-24 |
+| **SHOULD** | S-02, S-04 |
+| **FUTURE** | F-01 |
+| **FC-xx** | FC-14, FC-15 (presentation) |
+| **Current state** | Pre-M6 UI KEEP/ADAPT · SC contract validated · H-01…H-04 CARRY |
+| **Gaps** | Full PE alignment · A11Y on all gates · harvest legacy routes |
+| **Dependencies IN** | All Epics (surfaces reveal capabilities) |
+| **Exit proof** | A11Y-PC-* · SC-01…SC-14 alignment · UF coverage |
+| **Priority** | P1 (parallel with capability waves) · P2 (A11Y depth) |
+| **Delivery readiness** | **NEEDS DEPENDENCY** (capability truth behind surfaces) |
+
+---
+
+## 5. Dependencies / duplication analysis
+
+### 5.1 Epic dependency graph
+
+```text
+EPIC-A (entry/qualify/DP↔CKC)
+    ↓
+EPIC-B (trajectory/decide) ──→ EPIC-C (prepare/authorize)
+                                    ↓
+                              EPIC-D (execute/prove/recover)
+                                    ↓ (replan)
+                              EPIC-B (re-entry)
+EPIC-E (transverse UX) ←── wraps all waves (presentation only)
+```
+
+### 5.2 Shared capabilities — single owner
+
+| Shared capability | Functional owner | Anti-parallel rule |
+|---|---|---|
+| DoctrinePackage + CKC resolution | EPIC-A | No second resolver/registry (D02) |
+| Provenance / consumption proof | EPIC-A → consumed by D | One proof schema (DK-03) |
+| LPS business state | EPIC-A (write) · all read | Nora proposes · Studio persists |
+| ProjectTrajectory | EPIC-B | No Memory duplicate after TD-C6-01 |
+| Confirmation + effective authority | EPIC-C | No pre-inspect Confirmation · no second auth engine |
+| EC → Attempt → Evidence | EPIC-D | One generic mechanism (BR-PC-17) |
+| Recovery / resume | EPIC-D + EPIC-A entry | Fail-closed · no invented state |
+| Governance / audit | EPIC-E (FC-15 presentation) | Receipt ≠ authority (TD-C6-03) |
+
+### 5.3 Duplicate risks
+
+| Risk | Mitigation backlog rule |
+|---|---|
+| D1/OPS1 parallel engines | **HARVEST/FREEZE** — product path = `/studio` + Product SQLite only |
+| Method path CKC vs package CKC | DP↔CKC Phase A replaces path SoT (DK-01…07) |
+| Trajectory in Memory + SQLite | COMPLETE per TD-C6-01 before new trajectory features |
+| Confirmation process-local + durable | COMPLETE per TD-C6-02 before scaling protected effects |
+| Second UX for method steps | PE absorbs complexity — no wizard per cycle type |
+
+**Circular dependencies :** none structurante identifiée · replan loop A→W→V→A est **nominal**, pas circulaire bloquante.
+
+---
+
+## 6. Priority model
+
+| Priority | Definition | Epic concentration |
+|---|---|---|
+| **P0** | Blocker direct MUST ou précondition multi-MUST | EPIC-A (DP/CKC, continuity) · EPIC-B (trajectory) · EPIC-C (Confirmation) · EPIC-D (recovery) |
+| **P1** | MUST nécessaire Completion après P0 | All Epics — execution chain, EC inspect, evidence, PE |
+| **P2** | SHOULD ou amélioration non bloquante Completion | SHOULD items · A11Y depth · rich history |
+| **P3** | FUTURE hors feature bar Completion | F-01…F-06 |
+
+### MUST vs priority exceptions (explicit)
+
+| Item | C1 | Priority | Justification |
+|---|---|---|---|
+| M-10 Git/reuse governance | MUST | P2 | Transverse · ne bloque pas slice vertical Pilote |
+| M-18 Execute technical HOW (REAL productization) | MUST | P2 | Fixture path proves mechanism · REAL rollout gated |
+| S-03 PJ intake | SHOULD | P2 | C1 unchanged · not Completion blocker |
+| M-24 A11Y | MUST | P2 | Principle anchored in EPIC-E parallel wave — baseline P1 in stories |
+
+---
+
+## 7. User Story decomposition (P0 + P1)
+
+### 7.1 P0 User Stories
+
+#### US-P0-01 — Reprise honnête du projet
+
+| Field | Value |
+|---|---|
+| **Epic** | EPIC-A |
+| **Priority** | P0 |
+| **C1** | M-01, M-02, M-09, M-12 |
+| **Story** | En tant que **Pilote**, je veux **reprendre un projet en voyant immédiatement ce qui est durable, ce qui est perdu et quelle action est requise**, afin de **ne jamais croire à un faux GO ou à une mémoire inventée**. |
+| **CA** | (1) Resume affiche état durable vs non-durable · (2) Si conversation/proposal perdu → message explicite + CTA requalify · (3) Aucune autorité/trajectory decided restaurée sans preuve · (4) CA-PC-25 |
+| **Evidence** | UAT resume scenarios · RecoverySurface honest copy · fail-closed tests |
+| **UX** | S3, S8 · UF-07 |
+| **Constraints** | FC-13 · TD-C6 not reopened |
+| **Reuse** | RecoverySurface · getProject · LPS read |
+| **TECHNICAL ENABLER** | — (behavior/UX primarily) |
+| **Gate** | Morris Delivery slice gate after dependency waves |
+
+#### US-P0-02 — Continuité sémantique inter-session Nora
+
+| Field | Value |
+|---|---|
+| **Epic** | EPIC-A |
+| **Priority** | P0 |
+| **C1** | M-03, M-12 |
+| **Story** | En tant que **Pilote**, je veux **retrouver après reprise le contexte métier utile à Nora (intention, trajectoire, décisions, prochaine action)**, afin de **continuer sans re-expliquer toute la méthode**. |
+| **CA** | (1) LPS + décisions + trajectoire effective rechargés · (2) Nora ne réinvente pas HD/trajectory/authority · (3) Gaps explicités · (4) CA-PC-25 |
+| **Evidence** | Restart test suite · LPS snapshot diff |
+| **Dependencies** | US-P0-01 · US-P0-04 (trajectory) · DP↔CKC US-P0-06 |
+| **Constraints** | Semantic continuity MUST · transcript ≠ condition |
+
+#### US-P0-03 — Trajectoire durable proposée vs décidée
+
+| Field | Value |
+|---|---|
+| **Epic** | EPIC-B |
+| **Priority** | P0 |
+| **C1** | M-11 |
+| **Story** | En tant que **Pilote**, je veux **voir une trajectoire proposée par Nora et une trajectoire que j’ai explicitement décidée**, afin de **comprendre le chemin réel et les dépendances**. |
+| **CA** | (1) `proposed` ≠ `decided` · (2) HD seule voie vers `decided` · (3) Survit au restart · (4) CA-PC-06/07 |
+| **Evidence** | Trajectory repository tests · UI S6 region |
+| **Constraints** | TD-C6-01, TD-C6-06 **ADOPTED — implement only** |
+| **TECHNICAL ENABLER — SERVES US-P0-03** | `SqliteTrajectoryRepository` + `oa_project_trajectories` tables |
+
+#### US-P0-04 — Confirmation consommée durable
+
+| Field | Value |
+|---|---|
+| **Epic** | EPIC-C |
+| **Priority** | P0 |
+| **C1** | M-25 |
+| **Story** | En tant que **Pilote**, je veux **qu’une confirmation accordée pour un périmètre donné survive à une reprise et ne soit réutilisable que conformément à sa portée**, afin de **protéger les effets sans re-confirmer à l’infini ni réutiliser un consentement périmé**. |
+| **CA** | (1) `granted` durable · (2) `requested` ephemeral · (3) CAS consume · (4) Restored granted ≠ effective authority without revalidation · (5) CA-PC-11/13 |
+| **Evidence** | Confirmation repo tests · restart authority path |
+| **Constraints** | TD-C6-02, TD-C6-05 |
+| **TECHNICAL ENABLER — SERVES US-P0-04** | `SqliteConfirmationRepository` |
+
+#### US-P0-05 — Ordre K→L→M→N respecté
+
+| Field | Value |
+|---|---|
+| **Epic** | EPIC-C |
+| **Priority** | P0 |
+| **C1** | M-05, M-25, M-13 |
+| **Story** | En tant que **Pilote**, je veux **inspecter le contrat avant toute confirmation ou exécution**, afin de **ne jamais autoriser un effet sans avoir compris le périmètre**. |
+| **CA** | (1) Attempt blocked if EC not inspected · (2) Confirmation only after inspect when required · (3) Authority blocked with explicit reason · (4) CA-PC-30 |
+| **Evidence** | Integration tests on product action chain |
+| **UX** | S10, S11 · UF-04 |
+| **Reuse** | prepareM3 → confirm → execute path |
+
+#### US-P0-06 — Résolution CKC boundée au DoctrinePackage produit
+
+| Field | Value |
+|---|---|
+| **Epic** | EPIC-A (DP↔CKC workstream) |
+| **Priority** | P0 |
+| **C1** | M-14, M-15, M-16 |
+| **Story** | En tant que **Pilote**, je veux **que la qualification d’un cycle s’appuie sur le package doctrine du projet et non sur des chemins méthode parallèles**, afin de **bénéficier d’une couverture cognitive traçable et évolutive**. |
+| **CA** | (1) Pin package → manifest → index → CKC artifact · (2) No method path SoT · (3) Fail-closed D05 NONE · (4) CA-PC-31/34 · DK-01…07 exits |
+| **Evidence** | Phase A consumption proof schema · catalog ADAPT tests |
+| **Constraints** | D01-NARROW · D02 Option B · D05 NONE · **≠ Phase B Nora semantic** |
+| **TECHNICAL ENABLER — SERVES US-P0-06** | Package materialization · index artifact · resolver ADAPT |
+
+#### US-P0-07 — Recovery → requalification → reprise de boucle
+
+| Field | Value |
+|---|---|
+| **Epic** | EPIC-D |
+| **Priority** | P0 |
+| **C1** | M-09, M-22 |
+| **Story** | En tant que **Pilote**, je veux **qu’après un échec ou une interruption je puisse reprendre via requalification et replanification honnêtes**, afin de **ne pas rester bloqué ni recommencer from zero**. |
+| **CA** | (1) Recovery CTA → requalify path · (2) Nora analysis → recommendation · (3) HD if structural replan · (4) CA-PC-24/25 |
+| **Evidence** | E2E recovery scenario · replan integration |
+| **Dependencies** | US-P0-01…04 · US-P0-06 |
+
+### 7.2 P1 User Stories (selected — representative set)
+
+#### US-P1-01 — Options et recommandation sans autorité
+
+| Epic EPIC-B · P1 · M-04 · Story: Pilote voit options et recommandation Nora distinctes de sa décision · CA-PC-08/09/10 · S4/S6 |
+
+#### US-P1-02 — HumanDecision structurante tracée
+
+| Epic EPIC-B · P1 · M-04 · Story: Pilote enregistre GO/NO_GO/AMEND avec DecisionBasis · durable · liée trajectoire · CA-PC-08 |
+
+#### US-P1-03 — EC inspectable progressive disclosure
+
+| Epic EPIC-C/E · P1 · M-19,M-20 · Story: Pilote lit résumé EC puis détail complet avant décision · CA-PC-14/15/16 · S10 · SC-05/06 |
+
+#### US-P1-04 — Exécution generique sous contrat
+
+| Epic EPIC-D · P1 · M-06,M-17 · Story: Pilote lance une tentative conforme au contrat inspecté · lifecycle visible · CA-PC-17/19 · S12 |
+
+#### US-P1-05 — Terminaux SUCCESS / STOP / FAIL intelligibles
+
+| Epic EPIC-D · P1 · M-08 · Story: Pilote distingue succès métier, arrêt gouverné et échec technique · CA-PC-20/21/22 · pas de READY auto |
+
+#### US-P1-06 — Evidence business-first
+
+| Epic EPIC-D/E · P1 · M-07,M-21 · Story: Pilote comprend le résultat métier avant détail technique · ReviewBundle · S9 · CA-PC-23 |
+
+#### US-P1-07 — Boucle post-evidence Nora → LPS/trajectory
+
+| Epic EPIC-D · P1 · M-22 · Story: Après preuve, Nora analyse et propose prochaine action / replan · CA-PC-24 · UF-06 |
+
+#### US-P1-08 — AgentCapability envelope explicite
+
+| Epic EPIC-C · P1 · M-13 · Story: Pilote voit pourquoi l’autorité effective est suffisante ou bloquée · CA-PC-27/32 · S11 blocked state |
+
+#### US-P1-09 — Catalog evolvability sans nouveau moteur
+
+| Epic EPIC-A · P1 · M-16 · Story: Ajouter un type de cycle n’exige pas un nouveau moteur d’exécution · CA-PC-26 |
+
+#### US-P1-10 — Surfaces S1→S12 cohérentes Pre-M6→Completion
+
+| Epic EPIC-E · P1 · M-23 · Story: Pilote navigue parcours A→W sur surfaces validées sans charge méthode · UF-01…07 · H-01 carry acknowledged |
+
+#### US-P1-11 — Authority verification receipt (audit)
+
+| Epic EPIC-C · P1 · transverse · Story: Système conserve preuve d’audit de vérification d’autorité sans confondre avec source d’autorité · TD-C6-03 · TECHNICAL ENABLER |
+
+#### US-P1-12 — Selective epistemic materialization
+
+| Epic EPIC-B/A · P1 · Story: Éléments épistémiques materialisés selon règle explicite · pas promotion sémantique implicite · TD-C6-04 · TECHNICAL ENABLER |
+
+### 7.3 P2/P3 — coarse backlog items
+
+| ID | Epic | Priority | Summary |
+|---|---|---|---|
+| CB-P2-01 | EPIC-D | P2 | Rich recovery capsule (S-01) |
+| CB-P2-02 | EPIC-E | P2 | Advanced EC diff/synthesis (S-02) |
+| CB-P2-03 | EPIC-A | P2 | PJ/source intake (S-03) |
+| CB-P2-04 | EPIC-E | P2 | Enriched Evidence UX (S-04) |
+| CB-P2-05 | EPIC-B | P2 | AMEND UX sophistication (S-05) |
+| CB-P2-06 | EPIC-E | P2 | A11Y depth beyond baseline |
+| CB-P3-01 | EPIC-E | P3 | Multi-user/auth (F-01) |
+| CB-P3-02 | — | P3 | Notion connectors (F-02) |
+| CB-P3-03 | — | P3 | Deep FinOps (F-03) |
+| CB-P3-04 | EPIC-A | P3 | GitHub ops (F-04) |
+| CB-P3-05 | — | P3 | Method capitalization (F-05) |
+| CB-P3-06 | — | P3 | Maturity beyond Completion (F-06) |
+
+---
+
+## 8. DoctrinePackage / CKC workstream (global placement)
+
+| Need | Epic parent | Priority (from global graph) | Dependencies |
+|---|---|---|---|
+| A. package-bound CKC resolution | EPIC-A | **P0** | D01/D02/D05 · materialization |
+| B. provenance / package+CKC proof | EPIC-A | P0 | DK-03 |
+| C. remove method paths as runtime SoT | EPIC-A | P0 | DK-01, DK-05, DK-07 |
+| D. catalog evolvability | EPIC-A | P1 | M-16 |
+| E. Nora semantic CKC consumption | EPIC-A/D | P1/P2 | **Phase B — downstream** · DK-08 |
+| F. fail-closed D05 NONE | EPIC-A | P0 | adopted |
+| G. method complexity absorbed | EPIC-E + EPIC-A | P1 | PE + qualification UX |
+| H. DK-01…DK-08 exits | EPIC-A primarily | P0–P2 | see debt register |
+
+**Priority note :** DP↔CKC Phase A est **P0** car bloque M-14/M-15/M-16 — pas par récence analytique.
+
+**Morris gate :** implementation/modeled requalification = **CANDIDATE ONLY · NOT AUTHORIZED** · distinct gate required.
+
+---
+
+## 9. C6 implementation debts mapped to functional Epics
+
+| TD-C6 | Debt item | Serves Epic | Status |
+|---|---|---|---|
+| TD-C6-01 | Trajectory SQLite | EPIC-B | ADOPTED · NOT IMPLEMENTED |
+| TD-C6-02 | Confirmation SQLite | EPIC-C | ADOPTED · NOT IMPLEMENTED |
+| TD-C6-03 | AuthorityVerificationReceipt | EPIC-C | ADOPTED · NOT IMPLEMENTED |
+| TD-C6-04 | Selective epistemic persistence | EPIC-B/A | ADOPTED · NOT IMPLEMENTED |
+| TD-C6-05 | granted-upward Confirmation semantics | EPIC-C | ADOPTED · NOT IMPLEMENTED |
+| TD-C6-06 | Explicit current trajectory pointer | EPIC-B | ADOPTED · NOT IMPLEMENTED |
+
+**C6 = CLOSED BY MORRIS — DO NOT REOPEN.** No Epic “Implement C6”.
+
+---
+
+## 10. Technical mapping (secondary)
+
+| FC | Primary Epic | Runtime disposition | Gap summary |
+|---|---|---|---|
+| FC-01 | EPIC-A | KEEP Project/LPS SQLite | Resume polish |
+| FC-02 | EPIC-A | ADAPT Doctrine resolution | DP↔CKC Phase A |
+| FC-03 | EPIC-A | ADAPT CKC qualification | Package-bound index |
+| FC-04 | EPIC-A/B/D | KEEP Nora engine · COMPLETE continuity | Replan + semantic |
+| FC-05 | EPIC-A | KEEP LPS | Business state completeness |
+| FC-06 | EPIC-B | COMPLETE Trajectory | Memory → SQLite |
+| FC-07 | EPIC-B | KEEP HD SQLite | Trajectory linkage UX |
+| FC-08 | EPIC-C | KEEP EC SQLite | Inspect UX |
+| FC-09 | EPIC-C | COMPLETE Confirmation | Memory → SQLite |
+| FC-10 | EPIC-D | KEEP Attempt | Fixture→product REAL optional |
+| FC-11 | EPIC-D | ADAPT terminals | SUCCESS/STOP/FAIL semantics |
+| FC-12 | EPIC-D | KEEP Evidence | Business-first UX |
+| FC-13 | EPIC-D | COMPLETE recovery | Replan loop |
+| FC-14 | EPIC-E | ADAPT Pre-M6 UI | SC contract fidelity |
+| FC-15 | EPIC-E | KEEP governance patterns | Transverse audit |
+
+**Parallel engines to HARVEST/FREEZE for product path :** D1, OPS1, execution-run D2, vertical-slice harness routes.
+
+---
+
+## 11. Product Completion functional capability roadmap
+
+> **Not** the Convergence Git Roadmap — this is the **candidate delivery sequencing** for Product Completion MUST closure.
+
+### Wave 1 — Truth & continuity foundations (P0)
+
+| Sequence | Epic(s) | Capability obtained | Prerequisites | P0 covered | Exit proof | Morris gate |
+|---|---|---|---|---|---|---|
+| W1.1 | EPIC-A | Honest project resume + disclosure | — | US-P0-01 | CA-PC-25 · recovery UAT | Delivery slice GO |
+| W1.2 | EPIC-A | DP↔CKC Phase A binding | D01/D02/D05 | US-P0-06 | Phase A proof · DK-01…07 | DP implementation GO |
+| W1.3 | EPIC-B | Durable trajectory | TD-C6-01/06 | US-P0-03 | CA-PC-06/07 | C6 durability Delivery GO |
+| W1.4 | EPIC-C | Durable Confirmation + order | TD-C6-02/05 | US-P0-04/05 | CA-PC-11/13/30 | C6 durability Delivery GO |
+
+**Critical path :** W1.2 ∥ W1.3 ∥ W1.4 after W1.1 · W1.2 can partially parallel W1.3/W1.4 with shared SQLite migration coordination.
+
+### Wave 2 — Decision & authorization product path (P1)
+
+| Capability | Epics | US | Exit |
+|---|---|---|---|
+| Trajectory UI + HD linkage | EPIC-B | US-P1-01/02 | Options/Rec/HD distinct |
+| EC inspect + authority | EPIC-C/E | US-P1-03/08/11 | K→L→M→N product E2E |
+| Semantic continuity | EPIC-A | US-P0-02 | Nora restart tests |
+
+### Wave 3 — Execute, prove, learn (P1)
+
+| Capability | Epics | US | Exit |
+|---|---|---|---|
+| Generic execution + terminals | EPIC-D | US-P1-04/05 | Attempt lifecycle product proof |
+| Evidence + replan loop | EPIC-D | US-P1-06/07 · US-P0-07 | Closed loop CA-PC-24 |
+| Catalog evolvability demo | EPIC-A | US-P1-09 | New cycle type without engine |
+
+### Wave 4 — Product Experience hardening (P1/P2)
+
+| Capability | Epic | US | Exit |
+|---|---|---|---|
+| S1→S12 fidelity | EPIC-E | US-P1-10 | UF + SC alignment |
+| A11Y MUST | EPIC-E | CB-P2-06 | A11Y-PC-* |
+| Harvest legacy routes | EPIC-E | — | Single product mental model |
+
+### Wave 5 — SHOULD enrichment (P2) — post-Completion candidate
+
+S-01…S-06 coarse items · **not required for Completion bar**.
+
+**Parallelizable :** EPIC-E presentation work ∥ Wave 3 where surfaces don't block on durability · **not parallel :** Attempt before Confirmation durable.
+
+---
+
+## 12. Product Completion landing view (O-01…O-12)
+
+| Outcome | Epic(s) | Key US | Evidence | Status after planned P0/P1 |
+|---|---|---|---|---|
+| O-01 Project entry/resume | EPIC-A | US-P0-01 | CA-PC-01/02 | **Candidate** after W1.1 |
+| O-02 Real path visibility | EPIC-B | US-P0-03, US-P1-01 | CA-PC-06/07 | **Candidate** after W1.3 |
+| O-03 Nora without method piloting | EPIC-A/E | US-P0-02/06, US-P1-10 | CA-PC-35 | **Candidate** after W1.2+W2 |
+| O-04 Distinct Rec/HD/Confirm | EPIC-B/C | US-P1-01/02, US-P0-04 | CA-PC-08/11 | **Candidate** after W1.4+W2 |
+| O-05 Inspectable EC | EPIC-C/E | US-P1-03 | CA-PC-14 | **Candidate** after W2 |
+| O-06 Execute technical HOW | EPIC-D | US-P1-04 | CA-PC-17/19 | **Candidate** after W3 |
+| O-07 SUCCESS/STOP/FAIL | EPIC-D | US-P1-05 | CA-PC-20/22 | **Candidate** after W3 |
+| O-08 Evidence business-first | EPIC-D/E | US-P1-06 | CA-PC-23 | **Candidate** after W3 |
+| O-09 Inter-session continuity | EPIC-A/D | US-P0-01/02/07 | CA-PC-25 | **Candidate** after W1+W3 |
+| O-10 Replan trajectory | EPIC-B/D | US-P0-07, US-P1-07 | CA-PC-24 | **Candidate** after W3 |
+| O-11 Catalog evolvability | EPIC-A | US-P1-09, US-P0-06 | CA-PC-26/31 | **Candidate** after W1.2+W3 |
+| O-12 Closed learning loop | EPIC-D | US-P1-07 | CA-PC-24 | **Candidate** after W3 |
+
+**No orphan MUST outcome.**
+
+---
+
+## 13. Delivery cut-line recommendation
+
+> **RECOMMENDATION ONLY — Morris decision required for any Delivery authorization.**
+
+### Required for Product Completion MUST (proposed)
+
+| Wave | Scope | Rationale |
+|---|---|---|
+| W1 (all) | P0 foundations | Blocks multiple MUST · fail-closed recovery/authority |
+| W2 | Decision + authorization P1 | Completes K→L→M→N product path |
+| W3 | Execute/prove/learn P1 | Closes O-06…O-12 loop |
+| W4 (baseline) | EPIC-E P1 surfaces | PE absorbs complexity — not optional for usable Completion |
+
+### Deferrable (P2 — post-Completion or parallel non-blocking)
+
+- Rich history capsule (S-01)
+- Advanced EC presentation (S-02)
+- PJ intake (S-03) — **C1 SHOULD unchanged**
+- Enriched Evidence UX (S-04)
+- AMEND sophistication (S-05)
+- A11Y depth beyond baseline (partial P2)
+
+### Remain FUTURE (P3)
+
+- F-01…F-06 — explicit activation gates
+
+### Explicit non-authorization
+
+- This cut-line **≠** Delivery GO
+- DP↔CKC Phase B (Nora semantic) **≠** implied by Phase A Delivery
+- REAL productization **≠** required for Completion bar proof (fixture path sufficient for mechanism; REAL = separate Morris gate)
+- runtime v3 adoption **≠** in scope
+
+---
+
+## 14. Decisions Morris already consumed (do not reopen)
+
+| Decision | Status |
+|---|---|
+| C1 Product Completion target | VALIDATED · INTEGRATED |
+| C2 functional model A→W | VALIDATED · INTEGRATED |
+| UX EA / Wireframes / Screens | VALIDATED · INTEGRATED |
+| FA FC-01…FC-15 + OA Option A | VALIDATED · INTEGRATED |
+| C6 TD-C6-01…06 | **CLOSED BY MORRIS** |
+| D01-NARROW / D02 Option B / D05 NONE | **ADOPTED BY MORRIS** |
+| D03 catalog/ckcId | CLOSED inherited |
+| Studio CKC 15/15 corpus | INTEGRATED ON MAIN |
+| Pre-M6 MVP baseline | KEEP/ADAPT |
+| runtime v3 | **NON ADOPTED** |
+
+## Decisions still required (Morris / ChatGPT review)
+
+| Topic | Type |
+|---|---|
+| Backlog candidate validation | Human/Morris |
+| Priority P0/P1 cut-line acceptance | Human/Morris |
+| Delivery authorization per wave | **Distinct Morris GO each** |
+| DP↔CKC implementation requalification | **Distinct Morris GO** |
+| REAL productization scope | **Distinct Morris GO** |
+| SHOULD promoted to P1 dependency (if any) | Recommendation → Morris if disputed |
+
+## Non-blocking reserves
+
+| Reserve | Impact |
+|---|---|
+| H-01…H-04 UX representation | CARRY — not doctrine blockers |
+| UAT suite OPEN | Product Completion gate |
+| Roadmap maintenance snapshot pre-#392 transport metadata | Git/handoff supersede · no auto-sync this cycle |
+| Phase B Nora semantic CKC | Downstream of Phase A |
+
+---
+
+## 15. Statut final du document
+
+**CANDIDATE — STARTED BY MORRIS — AWAITING CHATGPT REVIEW / MORRIS VALIDATION**
+
+**≠ VALIDATED · ≠ READY FOR DELIVERY · ≠ APPROVED · ≠ ADOPTED**
+
+---
+
+*Fin du document candidat Cycle 5 — Backlog / User Stories.*
 
 ```
 
+## Decisions / reserves for ChatGPT + Morris
+
+### Facts
+- 5 functional Epics · 25/25 MUST traced · 5 waves proposed · P0/P1 user stories authored
+
+### Recommendations
+- Cut-line: W1–W4 for Completion MUST · defer SHOULD to P2 waves
+- DP↔CKC Phase A in Wave 1 P0 parallel with C6 durability items
+
+### Human/Morris decisions required
+- Backlog candidate validation
+- Cut-line acceptance
+- Per-wave Delivery authorization (distinct gates)
+- DP↔CKC implementation requalification (distinct gate)
+
+### Non-blocking reserves
+- H-01…H-04 CARRY · UAT OPEN · Phase B Nora semantic downstream
+
+### Blocking issues
+- None identified — no STOP triggered
+
 ## Final verdict
 
-**PASS — PR #392 MERGED ON MAIN — EXACT TWO CONVERGENCE DOCS INTEGRATED — SOURCE BRANCH PRESERVED — POST-MERGE PUSH/MAIN CI SUCCESS — POST-MERGE GIT/CI TRUTH PROVEN — NO RUNTIME/BACKLOG/DELIVERY/REAL — IMPLEMENTATION/MODELED REQUALIFICATION NOT AUTHORIZED — READY FOR CHATGPT POST-MERGE CLOSURE REVIEW**
+**BACKLOG CANDIDATE READY FOR CHATGPT REVIEW — FUNCTIONAL EPICS + MUST/SHOULD/FUTURE COVERAGE + P0/P1/P2/P3 + P0/P1 USER STORIES + CAPABILITY ROADMAP PRODUCED — NO DELIVERY AUTHORIZED — MORRIS VALIDATION / CUT-LINE DECISION REQUIRED**
