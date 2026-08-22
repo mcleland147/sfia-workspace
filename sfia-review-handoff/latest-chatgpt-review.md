@@ -1,296 +1,646 @@
-# SFIA Studio — Cycle 7 — PR #393 Targeted Governance Correction — Review Pack FULL
+# SFIA Review Pack — FULL — Cycle 5 Technical Architecture — SFIA Task Manager
 
-| Field | Value |
-|---|---|
-| **Timestamp (Europe/Paris)** | 2026-08-22T15:25:00+02:00 |
-| **Cycle** | 7 — Intégration / DevOps |
-| **Profil SFIA** | CRITICAL |
-| **Typologie** | DOC |
-| **Milestone** | PRODUCT COMPLETION — PR #393 TARGETED GOVERNANCE TRUTH FIX |
-| **Runtime v3** | NON ADOPTED |
-| **Delivery** | NOT AUTHORIZED |
-| **REAL** | ZERO |
+**Timestamp (Europe/Paris):** 2026-08-22 15:50:48 CEST
+**Cycle:** Cycle 5 — Technical Architecture
+**Profil:** Standard
+**Typologie:** DOC / TECHNICAL ARCHITECTURE CANDIDATE
 
-## GO Morris Consumed
+## Exact Morris decision
 
-**GO MORRIS — APPLY CHATGPT TARGETED GOVERNANCE CORRECTIONS TO PR #393** — same branch · 2-file fix · commit/push · handoff · KEEP DRAFT · NO MERGE · NO G2 · NO G3.
+GO MORRIS — OPEN CYCLE 5 TECHNICAL ARCHITECTURE — STANDARD — USE VALIDATED FUNCTIONAL ARCHITECTURE AND UX/UI REFERENCE AS INPUT — NO DELIVERY / NO BACKLOG EXECUTION / NO IMPLEMENTATION
 
-## Local Git Truth
+Prior handoff: `94478d9fc4cde80c8e91b228e875234e43a75214` (R-UI-01 background consistency fix)
 
-| Field | Value |
-|---|---|
-| branch | docs/sfia-studio-product-completion-backlog |
-| HEAD before | 2dfca155ba9dc87c187bec93e6b0bf1b41050d09 |
-| HEAD after | d8be777333bb885fb670f04dd3d7f7b03bd9ea8b |
-| origin/main | aca3dc8ab250ea1d751a833912787751e856c7b6 |
+## Git local truth
 
-## PR #393 Before
+- Repository: `mcleland147/sfia-workspace`
+- Branch: `project/sfia-task-manager-cycle-4-ux-ui`
+- Project HEAD: `f850259768e2a4736dc8cce19cd062244a52d727`
+- origin/main: `7750b2a4017338c1a236433c4db8f5cc97dc2feb` (advanced since Cycle 4 baseline — no project path conflict verified)
+- Remote project branch: **ABSENT** (expected)
+- Staged: **NONE**
+- Project commit: **NO**
+- Project push: **NO**
+- PR: **NO**
 
-| Field | Value |
-|---|---|
-| state | OPEN · DRAFT |
-| head | 2dfca155 |
-| prior CI | run **#272** / **32571367715** SUCCESS *(superseded)* |
+## Sources read
 
-## PR #393 After
+From origin/main method:
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/2026-07-07-sfia-v2-technical-architecture-decision-documentation-standard.md`
 
-| Field | Value |
-|---|---|
-| state | OPEN · DRAFT |
-| head | d8be7773 |
-| commits | 2 |
-| total PR files | 3 (Roadmap unchanged this commit) |
-| current-head CI | run **32575458167** SUCCESS @ d8be7773 |
+Project sources:
+- `projects/sfia-task-manager/README.md` (updated Cycle 5 tracking)
+- `projects/sfia-task-manager/00-framing/2026-08-19-project-framing.md`
+- `projects/sfia-task-manager/01-functional/2026-08-19-m1-functional-spec.md`
+- `projects/sfia-task-manager/02-architecture/2026-08-20-m1-functional-architecture.md`
+- `projects/sfia-task-manager/03-design/2026-08-20-m1-ux-ui-contract.md`
+- `projects/sfia-task-manager/03-design/2026-08-20-figma-design-brief.md`
+- `projects/sfia-task-manager/03-design/2026-08-20-figma-review-checklist.md`
 
-## ChatGPT Findings R1→R4 Applied
+## Files created
 
-| ID | Fix |
-|---|---|
-| R1 | Backlog §10/§11/footer current truth · G1 IN PROGRESS via PR #393 |
-| R2 | W1 gate routing → G3 (+ G2 prerequisite where applicable) |
-| R3 | Readiness C6 stale "GO C6 Delivery" → G3 parallel model |
-| R4 | fixtures/registry.json → G2-conditional · Option A recommendation only |
+- `projects/sfia-task-manager/04-technical-architecture/2026-08-22-m1-technical-architecture.md`
 
-## Roadmap
+## Files modified
 
-**ZERO modification** this cycle · read-only check PASS · G1/G2/G3 coherent on PR branch.
+- `projects/sfia-task-manager/README.md` — Cycle 5 tracking, link to technical architecture deliverable
 
-## G2 Integrity
+## Implementation status
 
-- G2 = OPEN / NOT YET TAKEN
-- packageVersion = NOT DECIDED
-- Option A = RECOMMENDATION CANDIDATE only (audit reserve)
-- ChatGPT candidate: Option A `lib/oa/doctrine/product/` · version `1.0.0` · fixture quarantine — **≠ Morris decision**
+**NOT EXECUTED** — no code, no app, no dependencies, no Figma changes
 
-## Actions Not Executed
+## Architecture coverage
 
-No Roadmap change · no merge · no ready-for-review · no package · no Delivery · no REAL.
+| Section | Covered |
+|---------|---------|
+| A Purpose | YES |
+| B System Boundary | YES |
+| C Runtime Architecture Candidate | YES |
+| D Frontend Candidate | YES |
+| E Backend / Services Candidate | YES |
+| F Data Architecture Candidate | YES |
+| G Identity / Security Candidate | YES |
+| H Integration Boundaries | YES |
+| I Evidence Strategy AC01–AC16 | YES |
+| J Technical Decisions Open | YES (TD-01–TD-12) |
+| K Risks / Constraints | YES |
+| L Next Architecture Gate | YES |
+
+## Open technical decisions
+
+TD-01 stack frontend · TD-02 stack backend · TD-03 runtime topology · TD-04 persistence · TD-05 evidence blob storage · TD-06 hosting · TD-07 authentication · TD-08 authorization · TD-09 API style · TD-10 observability · TD-11 CI/CD · TD-12 design tokens binding — **ALL OPEN — Morris decision required**
+
+## Governance
+
+M1 **NOT READY** · AC **0/16** · Design tokens final **OPEN** · Accessibility target **OPEN** · FQ02–FQ05 **OPEN** · Backlog **NOT AUTHORIZED** · Delivery **NOT AUTHORIZED**
 
 ## Verdict
 
-PR #393 TARGETED GOVERNANCE CORRECTIONS COMPLETE — CURRENT-HEAD CI SUCCESS — READY FOR CHATGPT FINAL PR READINESS REVIEW — NO MERGE.
+**CYCLE 5 TECHNICAL ARCHITECTURE CANDIDATE COMPLETE — READY FOR MORRIS TECHNICAL ARCHITECTURE REVIEW — PROJECT COMMIT NOT AUTHORIZED**
+
+Not concluded: ARCHITECTURE ADOPTED · READY FOR DELIVERY · M1 READY · IMPLEMENTATION READY
+
+## Next gate
+
+**MORRIS TECHNICAL ARCHITECTURE REVIEW**
 
 ---
 
-## FULL DIFF (2 files)
+# APPENDIX — FULL TECHNICAL ARCHITECTURE CANDIDATE DOCUMENT
 
-diff --git a/projects/sfia-studio/product-completion/05-product-completion-backlog-user-stories.md b/projects/sfia-studio/product-completion/05-product-completion-backlog-user-stories.md
-index 2066acc0..6aa7d525 100644
---- a/projects/sfia-studio/product-completion/05-product-completion-backlog-user-stories.md
-+++ b/projects/sfia-studio/product-completion/05-product-completion-backlog-user-stories.md
-@@ -151,29 +151,29 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
+# SFIA Task Manager — M1 Technical Architecture Candidate
 
- | ID exigence | Exigence canonique | Source C1 | Niveau | Owner FA | Refs C2 / CA | Refs UX | Contrainte tech | Contrainte CKC/DP | État déclaré source | Écart restant | Priorité écart | Epic | Vague | Preuve de sortie | Gate Morris |
- |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
--| **REQ-01** | Continuité Project — créer, retrouver, reprendre un Project durable | H Project · J.1 | MUST | FC-01 | A,B · CA-PC-01/02 | S1,S2 · UF-01/07 | OA Native + Product SQLite · no parallel product path | — | PARTIAL | Finition pilotage E2E · contrat reprise honnête | P1 | EPIC-A | W1 | CA-PC-01/02 | GO slice Delivery |
--| **REQ-02** | Living Project State — état métier fiable, prochaine action, blockers | H LPS · J.1 | MUST | FC-05 | G · CA-PC-25 | S5 · SC-03 | SQLite LPS · Nora proposes · Studio persists | — | PARTIAL | État métier utile complet au-delà des ancres | **P0** | EPIC-A | W1 | CA-PC-25 | GO slice Delivery |
--| **REQ-03** | Raisonnement Nora — comprendre, qualifier, analyser, recommander (**propose-only**) | H Nora · J.1 | MUST | FC-04 | C,D,E,F,I,U · CA-PC-03/35 | S3,S4 · UF-02/06 | Process-local conv · no LIVE this cycle | Phase B downstream (REQ-24) | PARTIAL | Continuité sémantique inter-session · pas d'autorité inventée | **P0** | **EPIC-B** *(A/D consomment)* | W1–W3 | CA-PC-03/25/35 | GO slice Delivery |
--| **REQ-04** | Qualification / CKC — couverture cognitive complète du catalogue applicable | H Qualification/CKC · J.1 | MUST | FC-03 | E · CA-PC-31 | S3 · UF-02 | Package-bound resolver ADAPT | D01-NARROW · D02 Option B · D05 NONE · DK-01…07 | OPEN | SoT chemin méthode → index package · fail-closed NONE | **P0** | EPIC-A | W1 | CA-PC-31 · Phase A proof | **GO implémentation DP** |
-+| **REQ-01** | Continuité Project — créer, retrouver, reprendre un Project durable | H Project · J.1 | MUST | FC-01 | A,B · CA-PC-01/02 | S1,S2 · UF-01/07 | OA Native + Product SQLite · no parallel product path | — | PARTIAL | Finition pilotage E2E · contrat reprise honnête | P1 | EPIC-A | W1 | CA-PC-01/02 | **G3 W1 Delivery GO** |
-+| **REQ-02** | Living Project State — état métier fiable, prochaine action, blockers | H LPS · J.1 | MUST | FC-05 | G · CA-PC-25 | S5 · SC-03 | SQLite LPS · Nora proposes · Studio persists | — | PARTIAL | État métier utile complet au-delà des ancres | **P0** | EPIC-A | W1 | CA-PC-25 | **G3 W1 Delivery GO** |
-+| **REQ-03** | Raisonnement Nora — comprendre, qualifier, analyser, recommander (**propose-only**) | H Nora · J.1 | MUST | FC-04 | C,D,E,F,I,U · CA-PC-03/35 | S3,S4 · UF-02/06 | Process-local conv · no LIVE this cycle | Phase B downstream (REQ-24) | PARTIAL | Continuité sémantique inter-session · pas d'autorité inventée | **P0** | **EPIC-B** *(A/D consomment)* | W1–W3 | CA-PC-03/25/35 | **G3 W1 Delivery GO** (W1 slice · W2/W3 downstream) |
-+| **REQ-04** | Qualification / CKC — couverture cognitive complète du catalogue applicable | H Qualification/CKC · J.1 | MUST | FC-03 | E · CA-PC-31 | S3 · UF-02 | Package-bound resolver ADAPT | D01-NARROW · D02 Option B · D05 NONE · DK-01…07 | OPEN | SoT chemin méthode → index package · fail-closed NONE | **P0** | EPIC-A | W1 | CA-PC-31 · Phase A proof | **G3 W1 Delivery GO** (after **G2** where package materialization required) |
- | **REQ-05** | Évolutivité Cycle Catalog — nouveau type ≠ nouveau moteur | H Cycle Catalog · J.1 | MUST | FC-03 | E · CA-PC-26 | S3 | Catalog routing ADAPT · no N engines | Package index artifact | PARTIAL | Invariant démontrable post Phase A | P1 | EPIC-A | W3 | CA-PC-26 | GO slice Delivery |
--| **REQ-06** | ProjectTrajectory — `proposed` vs `decided` durable | H ProjectTrajectory · J.1 | MUST | FC-06 | H,V · CA-PC-06/07 | S6 · SC-04 | TD-C6-01/06 **ADOPTED — implement only** | — | OPEN | Mémoire seule → SQLite · pointeur courant explicite | **P0** | EPIC-B | W1 | CA-PC-06/07 | **GO Delivery durabilité C6** |
-+| **REQ-06** | ProjectTrajectory — `proposed` vs `decided` durable | H ProjectTrajectory · J.1 | MUST | FC-06 | H,V · CA-PC-06/07 | S6 · SC-04 | TD-C6-01/06 **ADOPTED — implement only** | — | OPEN | Mémoire seule → SQLite · pointeur courant explicite | **P0** | EPIC-B | W1 | CA-PC-06/07 | **G3 W1 Delivery GO** |
- | **REQ-07** | HumanDecision / DecisionBasis — arbitrage Pilote explicite | H HumanDecision · J.1 | MUST | FC-07 | J · CA-PC-08/09/10 | S4,S6 · UF-03 | HD SQLite durable | Recommendation ≠ HD | PARTIAL | UX liaison trajectoire · complétude DecisionBasis | P1 | EPIC-B | W2 | CA-PC-08/10 | GO slice Delivery |
--| **REQ-08** | Confirmation — autorisation proportionnelle quand les effets l'exigent | H Confirmation · J.1 | MUST | FC-09 | M · CA-PC-11/13/30 | S11 · UF-04 · SC-06/07 | TD-C6-02/05 **ADOPTED** · K→L→M→N | — | OPEN | `granted` durable · autorité consommée · pas de confirm avant inspect | **P0** | EPIC-C | W1 | CA-PC-11/13/30 | **GO Delivery durabilité C6** |
-+| **REQ-08** | Confirmation — autorisation proportionnelle quand les effets l'exigent | H Confirmation · J.1 | MUST | FC-09 | M · CA-PC-11/13/30 | S11 · UF-04 · SC-06/07 | TD-C6-02/05 **ADOPTED** · K→L→M→N | — | OPEN | `granted` durable · autorité consommée · pas de confirm avant inspect | **P0** | EPIC-C | W1 | CA-PC-11/13/30 | **G3 W1 Delivery GO** |
- | **REQ-09** | ExecutionContract native + inspect + parité canonique | H Native EC · J.1 | MUST | FC-08 | K,L · CA-PC-14/15/16 | S10 · SC-05/06 · UF-04 | EC SQLite · PREPARE projection ADAPT | — | PARTIAL | Parité champs · fidélité progressive disclosure | P1 | EPIC-C/E | W2 | CA-PC-14/15/16 | GO slice Delivery |
- | **REQ-10** | Enveloppe AgentCapability — bornes autorité/gouvernance génériques | H AgentCapability · J.1 | MUST | FC-09 | N · CA-PC-27/32 | S11 · SC-07 | Bounded RO · Gate D patterns · not feature catalog | — | PARTIAL | Enveloppe générique déterminable · UX état bloqué | P1 | EPIC-C | W2 | CA-PC-32 | GO slice Delivery |
- | **REQ-11** | Mécanisme générique EC → agent d'exécution | H Cursor/agent · J.1 | MUST | FC-10 | O,P · CA-PC-17/19 | S12 · UF-05 | Fixture default · REAL gated · one mechanism | — | PARTIAL | Chemin générique productisé · gate REAL séparée | **P1** | EPIC-D | W3 | CA-PC-17/19 | GO slice Delivery · REAL distinct |
- | **REQ-12** | Cycle de vie exécution / Attempt — accepted→running→terminal | H Execution lifecycle · J.1 | MUST | FC-10 | O · CA-PC-17/18 | S12 · WF-06 | Attempt SQLite · scope enforcement | — | PARTIAL | Tous effets autorisés · visibilité cycle de vie | **P1** | EPIC-D | W3 | CA-PC-17/18 | GO slice Delivery |
- | **REQ-13** | SUCCESS / STOP / FAIL — terminaux métier honnêtes | H SUCCESS/STOP/FAIL · J.1 | MUST | FC-11 | Q,R,S · CA-PC-20/21/22 | S12 · SC-08–11 · UF-05 | Terminal mapping ADAPT | A11Y text distinction | PARTIAL | Sémantiques métier distinctes · pas de READY auto | **P1** | EPIC-D | W3 | CA-PC-20/22 | GO slice Delivery |
- | **REQ-14** | Evidence / ReviewBundle — preuve business-first | H Evidence · J.1 | MUST | FC-12 | T · CA-PC-23 | S9 · SC-09/10 · UF-05 | Evidence SQLite · rehydrate | — | PARTIAL | UX hiérarchie business-first | **P1** | EPIC-D/E | W3 | CA-PC-23 | GO slice Delivery |
--| **REQ-15** | Recovery / continuité sémantique inter-session | H Continuity/recovery · J.1 | MUST | FC-13 | W · CA-PC-25 | S8 · UF-07 · SC-13/14 | Fail-closed resume · no invented state | — | PARTIAL | Boucle replan complète · disclosure honnête | **P0** | EPIC-A/D | W1/W3 | CA-PC-25 | GO slice Delivery |
--| **REQ-16** | Traçabilité DoctrinePackage — pin, digest, audit provenance | H DoctrinePackage · J.1 | MUST | FC-02 | D · CA-PC-33/34 | S2 · SC-02 | Pin partial · resolver ADAPT | D01 · DK-03/04 | PARTIAL | Résolution audit complète · preuve consommation | **P0** | EPIC-A | W1 | CA-PC-33/34 · DK-03 | **GO implémentation DP** |
-+| **REQ-15** | Recovery / continuité sémantique inter-session | H Continuity/recovery · J.1 | MUST | FC-13 | W · CA-PC-25 | S8 · UF-07 · SC-13/14 | Fail-closed resume · no invented state | — | PARTIAL | Boucle replan complète · disclosure honnête | **P0** | EPIC-A/D | W1/W3 | CA-PC-25 | **G3 W1 Delivery GO** (W1 foundation · W3 E2E downstream) |
-+| **REQ-16** | Traçabilité DoctrinePackage — pin, digest, audit provenance | H DoctrinePackage · J.1 | MUST | FC-02 | D · CA-PC-33/34 | S2 · SC-02 | Pin partial · resolver ADAPT | D01 · DK-03/04 | PARTIAL | Résolution audit complète · preuve consommation | **P0** | EPIC-A | W1 | CA-PC-33/34 · DK-03 | **G3 W1 Delivery GO** (after **G2**) |
- | **REQ-17** | Historique minimal Project / Cycle | H Cycle/Project history · J.1 | MUST minimal | FC-01/13 | transverse · CA-PC-34 | S1,S8 | Factual anchors SQLite | — | PARTIAL | Cycles/décisions/attempts/outcomes récupérables | P1 | EPIC-A/D | W2 | CA-PC-34 | GO slice Delivery |
- | **REQ-18** | Product Experience — complexité méthode absorbée | H Product Experience · J.1 | MUST | FC-14 | all · CA-PC-35 | S1→S12 · UF-01…07 | Pre-M6 KEEP/ADAPT · SC contract | — | PARTIAL | Alignement contrat PE final · harvest legacy | P1 | EPIC-E | W4 | CA-PC-35 · UF coverage | GO slice Delivery |
- | **REQ-19** | Baseline accessibilité (**MUST**) | J.1 accessibility | MUST | FC-14 | §17 · A11Y-PC-01…06 | all SC · F00-05 | Functional a11y · ≠ WCAG claim | — | PARTIAL | Baseline gates/terminaux/Confirmation/Evidence | **P1** | EPIC-E | W4 | A11Y-PC-* | GO slice Delivery |
- | **REQ-20** | Gouvernance / audit transverse | H Governance/audit · J.1 | MUST | FC-15 | transverse · CA-PC-12 | S11 blocked · transverse | T-A7 patterns · receipt ≠ authority | — | PARTIAL | Intégration audit autorité · présentation transverse | P1 | **CROSS-CUTTING FC-15** · présentation E · enabler autorité C | W2 | CA-PC-12 · TD-C6-03 | GO slice Delivery |
- | **REQ-21** | Invariant Git / reuse — SoT construction externe | J.1 Git/reuse | MUST | FC-15 | transverse · CA-PC-26 | — | Git SoT ext. · repo reuse KEEP | — | **SATISFIED** | Invariant tenu · polish UX gouvernance uniquement | **N/A** | EPIC-A/E | — | CA-PC-26 | N/A (invariant) |
- | **REQ-22** | Boucle fermée Evidence → Nora → LPS / Trajectory | J.1 closed loop | MUST | FC-04/06 | U,V · CA-PC-24 | S12 · UF-06 | postEvidenceNoraAnalysis partial | — | PARTIAL | Chaîne replan complète vers HD/trajectory | P1 | EPIC-D | W3 | CA-PC-24 | GO slice Delivery |
--| **REQ-23** | CKC Phase A — résolution boundée au package | DP↔CKC workstream | MUST | FC-02/03 | E · CA-PC-31 | S3 | Resolver ADAPT · no parallel engine | D01/D02/D05 · DK-01…07 | OPEN | Binding runtime NON IMPLÉMENTÉ | **P0** | EPIC-A | W1 | Phase A proof schema | **GO implémentation DP** |
-+| **REQ-23** | CKC Phase A — résolution boundée au package | DP↔CKC workstream | MUST | FC-02/03 | E · CA-PC-31 | S3 | Resolver ADAPT · no parallel engine | D01/D02/D05 · DK-01…07 | OPEN | Binding runtime NON IMPLÉMENTÉ | **P0** | EPIC-A | W1 | Phase A proof schema | **G3 W1 Delivery GO** (after **G2**) |
- | **REQ-24** | CKC Phase B — consommation sémantique Nora | DP↔CKC workstream | MUST | FC-04 | E post-qual · CA-PC-35 | S3,S4 | Explicit anti-claim · semantic proof | DK-08 | DEFERRED | `consumed` ≠ sémantique Nora tant que non prouvé | **P1** | **EPIC-B** *(D consommateur aval)* | W2–W3 | DK-08 exit · semantic proof | GO Phase B distinct |
- | **SHOULD-01** | Historique riche / capsule recovery | J.2 | SHOULD | FC-13 | W enrich | S7/S8 | Non-blocking Completion | — | OPEN | Capsule riche au-delà des ancres minimales | P2 | EPIC-D | Post-W4 (P2) | — | Post-Completion |
- | **SHOULD-02** | Présentation EC avancée (diff, synthèse) | J.2 | SHOULD | FC-08/14 | L extend | S10 · SC-05/06 | Progressive disclosure extension | — | OPEN | UX diff/synthèse | P2 | EPIC-E | Post-W4 (P2) | — | Post-Completion |
-@@ -215,7 +215,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
- | **Architecture consommée** | OA Native · G0-A/G0-B · C6 CLOS (pas de réouverture) |
- | **Enablers techniques** | — (comportement/UX principal) |
- | **Risques** | Fatigue sur-disclosure · sous-disclosure fausse confiance |
--| **Gate Morris** | GO slice Delivery (Wave 1 entry) |
-+| **Gate Morris** | **G3 W1 Delivery GO** |
- | **Vague** | W1 |
- | **Traçabilité source** | C1 H Project/LPS · J.1 · C2 §15 · UX SC-01/13/14 |
+**Projet :** SFIA Task Manager
+**Chemin :** `projects/sfia-task-manager/04-technical-architecture/2026-08-22-m1-technical-architecture.md`
+**Cycle :** Cycle 5 — Technical Architecture
+**Profil :** Standard
+**Typologie :** DOC / TECHNICAL ARCHITECTURE CANDIDATE
+**Baseline process :** SFIA v2.6
+**Statut :** TECHNICAL ARCHITECTURE — CANDIDATE — NOT ADOPTED — MORRIS REVIEW REQUIRED
 
-@@ -244,7 +244,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
- | **Architecture consommée** | Continuité sémantique MUST · matérialisation sélective TD-C6-04 (aval) |
- | **Enablers techniques** | TD-C6-04 (persistance épistémique sélective) |
- | **Risques** | Sur-persistance propositions · sous-persistance blockers |
--| **Gate Morris** | GO slice Delivery |
-+| **Gate Morris** | **G3 W1 Delivery GO** (W1 slice · W2 downstream per wave qualification) |
- | **Vague** | W1–W2 |
- | **Traçabilité source** | C1 J.1 continuité sémantique · C2 §15.2 · FA FC-04 COMPLETE continuity |
+---
 
-@@ -273,7 +273,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
- | **Architecture consommée** | TD-C6-01 T-A · TD-C6-06 pointeur courant explicite · **ADOPTÉ — implementer uniquement** |
- | **Enablers techniques** | TD-C6-01 (`SqliteTrajectoryRepository`) · TD-C6-06 (pointeur courant) |
- | **Risques** | Double Memory+SQLite pendant migration · concurrence sur pointeur courant |
--| **Gate Morris** | **GO Delivery durabilité C6** |
-+| **Gate Morris** | **G3 W1 Delivery GO** |
- | **Vague** | W1 |
- | **Traçabilité source** | C1 H ProjectTrajectory · C6 TD-C6-01/06 · C2 §6.7 |
+## A. Purpose
 
-@@ -302,7 +302,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
- | **Architecture consommée** | TD-C6-02 C-A · TD-C6-05 granted-upward · **ADOPTÉ — implementer uniquement** |
- | **Enablers techniques** | TD-C6-02 · TD-C6-05 |
- | **Risques** | Grants durables trop larges · fatigue UX reconfirm |
--| **Gate Morris** | **GO Delivery durabilité C6** |
-+| **Gate Morris** | **G3 W1 Delivery GO** |
- | **Vague** | W1 |
- | **Traçabilité source** | C1 H Confirmation · C6 TD-C6-02/05 · C2 §10.3 |
+### Objectif
 
-@@ -331,7 +331,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
- | **Architecture consommée** | Ordre K→L→M→N · C6 CLOS |
- | **Enablers techniques** | — (application ordre dans chemin produit) |
- | **Risques** | Routes legacy contournant ordre (D1/OPS1) |
--| **Gate Morris** | GO slice Delivery |
-+| **Gate Morris** | **G3 W1 Delivery GO** |
- | **Vague** | W1 |
- | **Traçabilité source** | C2 ordre K→L→M→N · UX WF-05 · FA BR-PC-* |
+Proposer une **architecture technique candidate** permettant de transformer, sans les remettre en cause :
 
-@@ -360,7 +360,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
- | **Architecture consommée** | D01-NARROW · D02 Option B · D05 NONE · **≠ sémantique Nora Phase B** |
- | **Enablers techniques** | DK-01…07 · matérialisation/index package |
- | **Risques** | Résolveur parallèle · fuite pin fixture (DK-04) |
--| **Gate Morris** | **GO implémentation DP** (distinct from Delivery) |
-+| **Gate Morris** | **G3 W1 Delivery GO** (after **G2**) |
- | **Vague** | W1 |
- | **Traçabilité source** | DP↔CKC qualification doc §I/V · C1 J.1 CKC coverage · DP↔CKC §V DK register |
+- l'architecture fonctionnelle validée Cycle 3 ;
+- la référence UX/UI Cycle 4 (contrat + design Figma candidate) ;
+- les invariants fonctionnels M1 (I1–I12, AC01–AC16) ;
 
-@@ -389,7 +389,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
- | **Architecture consommée** | Recovery fail-closed · Recommendation ≠ HD |
- | **Enablers techniques** | — (composition boucle) |
- | **Risques** | Replan partiel sans durabilité trajectoire · requalification silencieuse ou replan structurel sans HumanDecision Pilote appropriée / gate produit applicable |
--| **Gate Morris** | GO slice Delivery |
-+| **Gate Morris** | **G3 W1 Delivery GO** (W1 foundation slice · W3 E2E closure downstream) |
- | **Vague** | **W1** (foundation slice : resume/recovery prerequisites) · **W3** (closure E2E après Attempt/Evidence/terminaux) |
- | **Traçabilité source** | C1 J.1 recovery + closed loop · C2 §15 · UX UF-06 |
+en un **contrat technique exploitable** pour une future implémentation.
 
-@@ -418,7 +418,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
- | **Architecture consommée** | Phase A ≠ Phase B · anti-affirmation DK-08 |
- | **Enablers techniques** | DK-08 (partiel) |
- | **Risques** | Sign-off Phase B prématuré · confusion démo seam avec couverture catalogue entière |
--| **Gate Morris** | Revue sortie Vague 1 · GO Phase B distinct pour clôture complète |
-+| **Gate Morris** | **G3 W1 Delivery GO** (bounded seam W1) · **GO Phase B distinct** for full closure (US-P1-14) |
- | **Vague** | W1 (bornée) · clôture complète W2–W3 |
- | **Traçabilité source** | DP↔CKC §V Phase B · amend GO Wave 1 exit · C1 REQ-24 |
+### Relation avec l'architecture fonctionnelle
 
-@@ -666,7 +666,7 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
- | **Architecture consommée** | D01-NARROW · pin partiel aujourd'hui |
- | **Enablers techniques** | DK-03 |
- | **Risques** | Exposition mécanique package interne au-delà besoin métier |
--| **Gate Morris** | GO implémentation DP · GO slice Delivery |
-+| **Gate Morris** | **G3 W1 Delivery GO** (after **G2**) · future W2 slice gate |
- | **Vague** | W1–W2 |
- | **Traçabilité source** | C1 J.1 DoctrinePackage · DP↔CKC §I |
+| Entrée Cycle 3 | Traduction technique candidate |
+|----------------|--------------------------------|
+| Zones A–G (responsabilités fonctionnelles) | Boundaries logiques candidates pour modules/composants — **sans choix définitif** |
+| 8 objets M1 + ownership matrix | Modèle de domaine et persistence candidate |
+| Interaction contracts sémantiques | Use cases / commandes / API candidates |
+| Surfaces G = projections | Couche présentation candidate — non source de vérité |
+| Activity append-only fonctionnelle | Journal d'événements / audit trail candidate |
 
-@@ -789,19 +789,19 @@ Transverse aux Epics — EPIC-E présente · FC-15 possède. Inclut provenance D
+Ce document **ne remplace pas** l'architecture fonctionnelle. Toute tension non résolue : l'architecture fonctionnelle et les décisions Morris prévalent.
 
- | ID Enabler | Description | Statut | Epic principal | US fonctionnelles servies | Sortie / preuve | Gate Morris |
- |---|---|---|---|---|---|---|
--| **TD-C6-01** | Durabilité SQLite trajectoire (T-A) | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-B | US-P0-03 · US-P1-01 · US-P1-02 · US-P1-07 | CA-PC-06/07 · tests persistance repo | GO Delivery durabilité C6 |
--| **TD-C6-02** | Scope SQLite Confirmation (C-A) | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-C | US-P0-04 · US-P0-05 | CA-PC-11/13 · tests autorité restart | GO Delivery durabilité C6 |
--| **TD-C6-03** | AuthorityVerificationReceipt (A-A) | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-C/E | US-P1-16 · REQ-20 | CA-PC-12 · receipt ≠ preuve autorité | GO Delivery durabilité C6 |
--| **TD-C6-04** | Persistance épistémique sélective (E-A) | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-A/B | US-P0-02 · US-P1-01 | CA-PC-25 · tests règles matérialisation | GO Delivery durabilité C6 |
--| **TD-C6-05** | Confirmation durable depuis `granted` upward | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-C | US-P0-04 · US-P0-05 | granted survit restart · requested éphémère | GO Delivery durabilité C6 |
--| **TD-C6-06** | Pointeur trajectoire courante explicite | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-B | US-P0-03 · US-P1-01 · US-P1-07 | pas de proposed-as-current · tests pointeur | GO Delivery durabilité C6 |
--| **DK-01** | Retirer chemins méthode catalogue comme SoT | OPEN | EPIC-A | US-P0-06 · US-P1-09 | index package remplace 6 refs méthode | GO implémentation DP |
--| **DK-02** | Remplacer méthode `CKC_REFERENCE_MANIFEST` | OPEN | EPIC-A | US-P0-06 | artefact index interne package | GO implémentation DP |
--| **DK-03** | Preuve consommation avec identité package | OPEN | EPIC-A | US-P0-06 · REQ-16 | schéma preuve COMPLETE · CA-PC-33 | GO implémentation DP |
--| **DK-04** | Fuite pin fixture par défaut vers UX démo | OPEN/DEFERRED | EPIC-A | US-P0-06 (materialization) | cutover package produit · quarantaine fixture | gate matérialisation package |
--| **DK-05** | `doctrineStatus=method-candidate` hardcoded | OPEN | EPIC-A | US-P0-06 | décision statut package-aware | GO implémentation DP |
--| **DK-06** | Chemins dual A/B non joints (composition) | OPEN | EPIC-A | US-P0-06 | composition service/F2 ADAPT | GO implémentation DP |
--| **DK-07** | Fallback méthode synthétique comme policy globale | OPEN | EPIC-A | US-P0-06 | policy locale package ou none · D05 NONE | GO implémentation DP |
-+| **TD-C6-01** | Durabilité SQLite trajectoire (T-A) | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-B | US-P0-03 · US-P1-01 · US-P1-02 · US-P1-07 | CA-PC-06/07 · tests persistance repo | **G3 W1 Delivery GO** |
-+| **TD-C6-02** | Scope SQLite Confirmation (C-A) | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-C | US-P0-04 · US-P0-05 | CA-PC-11/13 · tests autorité restart | **G3 W1 Delivery GO** |
-+| **TD-C6-03** | AuthorityVerificationReceipt (A-A) | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-C/E | US-P1-16 · REQ-20 | CA-PC-12 · receipt ≠ preuve autorité | **G3 W1 Delivery GO** (optional W1 scope) |
-+| **TD-C6-04** | Persistance épistémique sélective (E-A) | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-A/B | US-P0-02 · US-P1-01 | CA-PC-25 · tests règles matérialisation | **G3 W1 Delivery GO** |
-+| **TD-C6-05** | Confirmation durable depuis `granted` upward | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-C | US-P0-04 · US-P0-05 | granted survit restart · requested éphémère | **G3 W1 Delivery GO** |
-+| **TD-C6-06** | Pointeur trajectoire courante explicite | ADOPTÉ · NON IMPLÉMENTÉ | EPIC-B | US-P0-03 · US-P1-01 · US-P1-07 | pas de proposed-as-current · tests pointeur | **G3 W1 Delivery GO** |
-+| **DK-01** | Retirer chemins méthode catalogue comme SoT | OPEN | EPIC-A | US-P0-06 · US-P1-09 | index package remplace 6 refs méthode | **G3 W1 Delivery GO** (after **G2**) |
-+| **DK-02** | Remplacer méthode `CKC_REFERENCE_MANIFEST` | OPEN | EPIC-A | US-P0-06 | artefact index interne package | **G3 W1 Delivery GO** (after **G2**) |
-+| **DK-03** | Preuve consommation avec identité package | OPEN | EPIC-A | US-P0-06 · REQ-16 | schéma preuve COMPLETE · CA-PC-33 | **G3 W1 Delivery GO** (after **G2**) |
-+| **DK-04** | Fuite pin fixture par défaut vers UX démo | OPEN/DEFERRED | EPIC-A | US-P0-06 (materialization) | cutover package produit · quarantaine fixture | **G2** · **G3 W1 Delivery GO** after G2 |
-+| **DK-05** | `doctrineStatus=method-candidate` hardcoded | OPEN | EPIC-A | US-P0-06 | décision statut package-aware | **G3 W1 Delivery GO** (after **G2**) |
-+| **DK-06** | Chemins dual A/B non joints (composition) | OPEN | EPIC-A | US-P0-06 | composition service/F2 ADAPT | **G3 W1 Delivery GO** (after **G2**) |
-+| **DK-07** | Fallback méthode synthétique comme policy globale | OPEN | EPIC-A | US-P0-06 | policy locale package ou none · D05 NONE | **G3 W1 Delivery GO** (after **G2**) |
- | **DK-08** | Sur-interprétation résolution `consumed` comme sémantique Nora | OPEN | **EPIC-B** *(D aval)* | US-P1-14 · US-P0-08 · REQ-24 | anti-affirmation explicite + preuve sémantique · sortie Phase B | GO Phase B distinct |
+### Relation avec la référence UX/UI
 
- **Règles :** C6 **CLOS — NE PAS ROUVRIR** · enablers **implement-only** · sorties DK **≠** autorisées par adoption architecture seule · productisation REAL et runtime v3 restent **gates Morris séparées**.
-@@ -832,15 +832,27 @@ Post-W4 : P2 SHOULD · P3 FUTURE. **UAT/e2e requis par sortie de Vague** — SUC
- | **P3** | FUTURE-01…06 |
- | **N/A** | REQ-21 Git/reuse SATISFIED |
+| Entrée Cycle 4 | Traduction technique candidate |
+|----------------|--------------------------------|
+| 5 surfaces métier + Quick Inspector | Routes/vues candidates mappées 1:1 aux frames Figma |
+| Hiérarchie State → Next Action → Evidence → Decision | Ordre de chargement / priorité UI candidate |
+| États critiques 06–10 | Variantes de vue / routes dérivées — pas nouveaux objets |
+| Design Figma candidate | Référence visuelle pour implémentation future — **non binding stack** |
+| Tokens / palette | **OPEN** — candidats documentés en design brief, non promus |
 
--**NON AUTORISÉ :** Delivery · REAL · runtime v3 · choix packageVersion · intégration Git Backlog.
-+**NON AUTORISÉ :** Delivery · REAL · runtime v3 adoption · packageVersion selection / package implementation.
-+
-+**Backlog Git integration :** **IN PROGRESS** via G1 / Draft PR #393 · **≠ integrated on main until merge**.
+L'UX/UI reference informe **comment** présenter ; l'architecture fonctionnelle informe **quoi** autoriser techniquement.
 
--**Prochaine gate :** REVUE CHATGPT VERROUILLÉE AUX SOURCES → VALIDATION BACKLOG MORRIS → readiness Vague 1 (GO distinct).
-+**CURRENT :** Backlog **VALIDATED BY MORRIS** · W1 readiness **CHATGPT QUALIFIED** · **G1 IN PROGRESS** via PR #393
-+
-+**NEXT :** G1 merge/main truth → **G2** Morris Product DoctrinePackage Materialization Decision → **G3** Morris W1 Delivery GO.
+### Autorité et qualification
 
- ---
+**GO Morris (Cycle 5) :**
 
--## 11. Gates Morris restantes
-+## 11. Gates Morris restantes (modèle actif pré-W1)
-+
-+| Gate | But | État |
-+|---|---|---|
-+| **G1** | Product Completion Git truth — backlog · readiness · roadmap sur **main** | **IN PROGRESS** via Draft PR #393 · ≠ main until merge |
-+| **G2** | Product DoctrinePackage materialization — `packageVersion` · root · cutover · fixture exit | **OPEN** |
-+| **G3** | Morris W1 Delivery GO — umbrella Tracks A–E (C6 · DP Phase A · bounded seam · product proof) | **NOT AUTHORIZED** |
-+
-+**Downstream distinct (hors G3) :** full Phase B (US-P1-14) · REAL · future W2/W3/W4 Delivery gates · runtime v3 adoption · future Git transport/merge gates par tranche.
+OPEN CYCLE 5 TECHNICAL ARCHITECTURE — STANDARD — USE VALIDATED FUNCTIONAL ARCHITECTURE AND UX/UI REFERENCE AS INPUT — NO DELIVERY / NO BACKLOG EXECUTION / NO IMPLEMENTATION
 
--Validation backlog Morris · GO implémentation DP · matérialisation package/packageVersion (DK-04) · GO Phase B distinct · GO Delivery durabilité C6 · GO slice Delivery par Vague · gate REAL (distinct de REQ-11) · runtime v3 PAS ce cycle.
-+**Historical / absorbed into G3 :** validation backlog Morris *(satisfied)* · GO implémentation DP · GO Delivery durabilité C6 · GO slice Delivery micro-gates W1.
+| Qualification | Valeur |
+|---------------|--------|
+| Nature | Documentaire / candidate uniquement |
+| Architecture adoptée | **NO** |
+| Stack choisie | **NO** |
+| Implementation | **NOT EXECUTED** |
+| M1 | **NOT READY** |
+| AC demonstrated | **0/16** |
 
- ---
+---
 
-@@ -880,4 +892,4 @@ Validation backlog Morris · GO implémentation DP · matérialisation package/p
+## B. System Boundary
 
- ---
+### Inside the system (M1 candidate scope)
 
--*Corrigé 2026-08-22 13:08 UTC+02:00 · Corrections ciblées R1→R8 · Delivery NON AUTORISÉE · validation Morris requise.*
-+*Validated by Morris 2026-08-22 · integration candidate via Draft PR #393 · G1 in progress · G2 OPEN · G3 NOT AUTHORIZED · Delivery NO · REAL ZERO · runtime v3 NON ADOPTED.*
-diff --git a/projects/sfia-studio/product-completion/07-product-completion-wave-1-delivery-readiness.md b/projects/sfia-studio/product-completion/07-product-completion-wave-1-delivery-readiness.md
-index a72cd1a2..b7579906 100644
---- a/projects/sfia-studio/product-completion/07-product-completion-wave-1-delivery-readiness.md
-+++ b/projects/sfia-studio/product-completion/07-product-completion-wave-1-delivery-readiness.md
-@@ -369,7 +369,7 @@ Décision requise :
+| Boundary | Contenu |
+|----------|---------|
+| **Core domain** | Lifecycle Work Item, Cycle execution, Gates, Evidence, Human Decision, Activity |
+| **Organisation** | Workspace, Project, regroupement WI |
+| **Presentation** | Workboard, Work Item, Cycle Workspace, Review & Decision, Project, Quick Inspector |
+| **Rules engine (candidate)** | Enforcement I1–I12, transitions lifecycle, guards Cannot Ready / Done / NO-GO / REPLAN |
+| **Audit** | Activity journal reconstructible (AF-P8, AC15) |
 
- **Schema :** une migration additive sur `lib/oa/project/infrastructure/sqlite/db.ts` suffit (M5 pattern).
+### Outside the system (explicit exclusions M1)
 
--**Parallélisation B vs A :** B1–B3 peuvent démarrer **en parallèle** de A2–A4 **après** GO C6 Delivery · B5 (schema) doit coordonner migrations · **A1 (matérialisation) bloque A** mais **ne bloque pas** B1–B3 techniquement.
-+**Parallélisation B vs A :** Track B / B1–B3 peuvent démarrer sous **G3 W1 Delivery GO**, **en parallèle** de Track A selon les dépendances **G2** applicables, avec coordination du schema B5 · **A1 (matérialisation) bloque A** mais **ne bloque pas** B1–B3 techniquement une fois G3 ouvert.
+| External | Relation |
+|----------|----------|
+| **Git provider (native)** | Hors M1 — refs manuelles/informationnelles uniquement (I11) |
+| **CI/CD pipelines** | Hors M1 |
+| **Identity provider / SSO** | Hors M1 — auth candidate OPEN |
+| **AI agent / Cursor product** | Hors M1 — recommendation-only si un jour intégré |
+| **Email / notifications** | Hors M1 |
+| **File storage cloud natif** | Hors M1 — Evidence = records + références candidate |
+| **Analytics / reporting avancé** | Hors M1 |
 
- **Pas de réouverture C6.**
+### Dependencies potentielles (non choisies)
 
-@@ -419,8 +419,9 @@ Décision requise :
- | `lib/oa/cycle/infrastructure/ckcReferenceManifest.ts` | A3 replace |
- | `lib/oa/cycle/domain/cycleTypeCatalog.ts` | A3 ADAPT |
- | `lib/oa/cycle/domain/ckcConsumptionProof.ts` | A5 |
--| `lib/vertical-slice-core/localProjectComposition.ts` | A1 pin/registry |
--| `lib/oa/doctrine/fixtures/registry.json` | A1 |
-+| `lib/vertical-slice-core/localProjectComposition.ts` | A1 pin/registry (G2-dependent root) |
-+| Product DoctrinePackage registry/materialization (G2-dependent) | **LIKELY under recommended Option A candidate:** `lib/oa/doctrine/product/` — registry + package tree · **CREATE** under G3 after G2 |
-+| `lib/oa/doctrine/fixtures/registry.json` | **CONDITIONAL ONLY** — transitional/quarantine handling if explicitly required · **NOT target product registry** · **NOT guaranteed future modification** |
- | `features/project-assistant/f2/orchestrateF2.ts` | C/D |
- | `features/project-assistant/f2/qualify.ts` | C |
- | `features/pre-m6-product-ui/surfaces/RecoverySurface.tsx` | E |
+| Dependency type | Candidate need | Decision |
+|-----------------|----------------|----------|
+| Runtime (browser / desktop / server) | Exécuter UI + logique métier | **OPEN** |
+| Persistence store | Objets M1 + Activity | **OPEN** |
+| File/blob store (optional) | Attachments Evidence | **OPEN** |
+| Auth provider (optional) | Single-user M1 → multi-user future | **OPEN** |
+
+---
+
+## C. Runtime Architecture Candidate
+
+### Type d'application candidate (options — non exclusives)
+
+| Option | Description | Fit M1 | Trade-off candidate |
+|--------|-------------|--------|---------------------|
+| **A1 — SPA + API** | Frontend riche + backend REST/GraphQL | Fort — surfaces denses, états complexes | 2 runtimes à opérer |
+| **A2 — Full-stack monolith** | UI + domaine + persistence même déploiement | Fort — M1 scope borné | Scaling horizontal plus tard |
+| **A3 — Local-first desktop** | App locale avec persistence embarquée | Moyen — operator unique M1 | Distribution / updates |
+| **A4 — SSR hybrid** | Server-rendered + hydration client | Moyen | Complexité routing/état |
+
+**Qualification :** Option candidate **A1 ou A2** à évaluer — alignement fort avec desktop-first 1440×1024 et densité UX. **Décision Morris requise.**
+
+### Responsabilités principales (layers candidates)
+
+```mermaid
+flowchart TB
+  subgraph presentation["Presentation Layer (candidate)"]
+    UI[UI Surfaces + Quick Inspector]
+  end
+  subgraph application["Application Layer (candidate)"]
+    UC[Use Cases / Commands]
+    QRY[Queries / Projections]
+  end
+  subgraph domain["Domain Layer (candidate)"]
+    DOM[Domain Model — 8 objects]
+    RULE[Lifecycle + Invariant Rules]
+  end
+  subgraph infrastructure["Infrastructure Layer (candidate)"]
+    REPO[Repositories]
+    ACT[Activity Store]
+    FILE[Evidence Storage Adapter]
+  end
+  UI --> UC
+  UI --> QRY
+  UC --> DOM
+  UC --> RULE
+  DOM --> REPO
+  RULE --> REPO
+  UC --> ACT
+  UC --> FILE
+```
+
+### Séparation composants candidate
+
+| Composant candidate | Responsabilité | Zone fonctionnelle |
+|--------------------|----------------|---------------------|
+| **Presentation** | Rendu surfaces, états UI, disabled+reason | G |
+| **Application / Use Cases** | Orchestration interactions (Qualify, StartCycle, ApplyGo, …) | B–E |
+| **Domain** | Entités, invariants, transitions autorisées | B–E |
+| **Infrastructure** | Persistence, Activity append, file refs | F, D |
+| **Integration adapters** | Git refs manuels, imports futurs | C (informational) |
+
+**Règle :** Decision verdict logic reste dans Domain/Application — jamais dans Presentation seule (AC16, I1).
+
+---
+
+## D. Frontend Candidate
+
+### Responsabilités UI
+
+| Responsabilité | Détail |
+|----------------|--------|
+| **Projection** | Afficher état courant des objets — ne pas posséder lifecycle/verdict |
+| **Interaction dispatch** | Émettre intentions utilisateur vers use cases |
+| **State presentation** | Lifecycle column, badges, Blocked flag, gate status |
+| **Disabled + reason** | Toute action indisponible expose cause (UX-P7, spec E01–E16) |
+| **Navigation contextuelle** | Conserver WI/Cycle/Project context entre surfaces |
+
+### Mapping Figma → routes/vues candidates
+
+| Frame Figma | Node ID | Route/view candidate | Surface métier |
+|-------------|---------|---------------------|----------------|
+| 01 Workboard | `13:2` | `/workboard` | Workboard |
+| Quick Inspector | `13:91` | panel transversal on `/workboard` | Quick Inspector |
+| 02 Work Item | `13:114` | `/work-items/:id` | Work Item |
+| 03 Cycle Workspace | `14:2` | `/work-items/:id/cycle` | Cycle Workspace |
+| 04 Review & Decision | `14:106` | `/work-items/:id/review` | Review & Decision |
+| 05 Project | `14:184` | `/projects/:id` | Project |
+| 06 Blocked | `16:2` | variant `/work-items/:id` (blocked) | Critical state |
+| 07 Cannot Ready | `16:27` | variant `/work-items/:id` (cannot-ready) | Critical state |
+| 08 GO WITH RESERVE | `16:74` | variant `/work-items/:id/review` | Critical state |
+| 09 REPLAN | `16:96` | variant `/work-items/:id/review` | Critical state |
+| 10 Empty Workspace | `16:119` | `/` or `/empty` | Empty state |
+
+**Note :** Critical states = **variants de vue** sur surfaces existantes — pas nouvelles routes métier.
+
+### Gestion états UI candidate
+
+| Pattern candidate | Usage |
+|-------------------|-------|
+| **Server/state sync** | Source de vérité = backend/domain — UI recharge après commande |
+| **Optimistic UI (optional)** | Candidate future — risque AC16 si mal borné |
+| **Form state local** | Qualification, reserve text, decision author/date — ephemeral until submit |
+| **Selection state** | Workboard card selection → Quick Inspector payload |
+
+### Gestion interactions candidate
+
+| Interaction class | Frontend behavior candidate |
+|-------------------|----------------------------|
+| **Structural commands** | Qualify, StartCycle, Block, ApplyGo — confirm + disabled guards |
+| **Evidence attach** | Form + file/reference metadata — manual M1 |
+| **Decision record** | Explicit human fields (author, date, verdict) — no auto-fill verdict |
+| **Navigation-only** | Open Work Item, Open Cycle — read context |
+
+### Framework candidate (OPEN)
+
+Options à évaluer : React, Vue, Svelte, Solid — avec state management candidate (TanStack Query, Redux, Zustand, etc.). **Aucune option adoptée.**
+
+---
+
+## E. Backend / Services Candidate
+
+### Logique métier (domain services candidates)
+
+| Service candidate | Zone | Responsabilités |
+|-----------------|------|-----------------|
+| **WorkItemLifecycleService** | B | Transitions lifecycle, Blocked flag, next_action, Cannot Ready guards |
+| **CycleExecutionService** | C | StartCycle, one-active-Cycle (I3), contract enforcement, gate updates |
+| **EvidenceService** | D | AttachEvidence, expected vs actual comparison inputs |
+| **DecisionService** | E | RecordDecision, ApplyGo/GoWithReserve/NoGo/Replan — **human-only** |
+| **ActivityService** | F | Append events on every structural interaction |
+| **ProjectWorkspaceService** | A | CreateProject, aggregate queries |
+
+### Lifecycle enforcement candidate
+
+| Rule | Technical enforcement candidate |
+|------|--------------------------------|
+| I3 one active Cycle | Unique constraint / domain guard on `current_cycle_id` |
+| I1 human verdict for Done | DecisionService gate — no Done without Decision record |
+| I2 exit proof satisfied | EvidenceService + DecisionService joint validation |
+| I8 Blocked orthogonal | Separate `blocked` flag — not lifecycle column enum |
+| NO-GO (FQ01) | DecisionService returns WI to In Progress, Cycle stays Active |
+| REPLAN | CycleService closes historical, WI → Qualified/Ready |
+
+### Decision handling candidate
+
+```
+DecisionService.applyVerdict(verdict, author, date, reason?, reserve?)
+  → validate Decision Pending
+  → validate exit_proof if GO*
+  → persist Decision (immutable record candidate)
+  → apply lifecycle + Cycle effects per verdict
+  → append Activity events
+  → return updated projections
+```
+
+**Interdit techniquement :** auto-verdict, scheduled Done, AI-triggered ApplyGo without human confirmation.
+
+### Evidence handling candidate
+
+| Aspect | Candidate approach |
+|--------|-------------------|
+| Storage | Evidence record + optional blob reference |
+| Types | validation note, screenshot, git ref manual, review summary |
+| Attachment | Operator-initiated only (AC09) |
+| Comparison | Review surface loads expected (WI exit_proof) vs actual (Evidence records) |
+| Delete policy | **OPEN** (FQ04) — default candidate: no delete post-Decision |
+
+---
+
+## F. Data Architecture Candidate
+
+### Objets persistés (candidate entity model)
+
+| Entity | Key fields candidate | Authority |
+|--------|---------------------|-----------|
+| **Workspace** | id, name, created_at | A |
+| **Project** | id, workspace_id, intent, created_at | A |
+| **WorkItem** | id, project_id, status, blocked, blocked_reason, unblock_condition, next_action, qualification fields, exit_proof_spec, current_cycle_id | B |
+| **Cycle** | id, work_item_id, status (active/historical), profile, scope, guardrails, git_refs_manual, started_at, closed_at | C |
+| **Gate** | id, cycle_id, name, status, reason | C |
+| **Evidence** | id, work_item_id, cycle_id?, type, reference, content_ref, attached_at | D |
+| **Decision** | id, work_item_id, cycle_id, verdict, author, date, reason, reserve, recorded_at | E |
+| **Activity** | id, entity_type, entity_id, event_type, payload, timestamp | F |
+
+### Relations candidate
+
+```mermaid
+erDiagram
+  Workspace ||--o{ Project : contains
+  Project ||--o{ WorkItem : contains
+  WorkItem ||--o| Cycle : "current (0..1 active)"
+  WorkItem ||--o{ Cycle : "historical"
+  Cycle ||--o{ Gate : has
+  WorkItem ||--o{ Evidence : has
+  WorkItem ||--o{ Decision : has
+  WorkItem ||--o{ Activity : logs
+```
+
+### Historique et audit trail candidate
+
+| Mechanism | Candidate |
+|-----------|-----------|
+| **Activity table/event log** | Append-only — every structural interaction |
+| **Cycle historical** | Status=historical — never overwrite (I4) |
+| **Decision records** | Immutable after record — corrections = new Activity note, not silent edit |
+| **Evidence preservation** | Retained on REPLAN/NO-GO — FQ04 OPEN for delete policy |
+
+### Ownership / consistency candidate
+
+| Pattern candidate | Usage |
+|-------------------|-------|
+| **Single writer per aggregate** | WorkItem aggregate root for lifecycle |
+| **Transactional commands** | StartCycle, ApplyGo — atomic state + Activity |
+| **Optimistic concurrency (optional)** | Version field on WorkItem — **OPEN** |
+
+### Persistence technology (OPEN)
+
+Options candidates : PostgreSQL, SQLite, embedded DB, document store. **Aucune base choisie.** Schema detail deferred to implementation cycle after Morris adoption.
+
+---
+
+## G. Identity / Security Candidate
+
+### M1 assumption candidate
+
+| Aspect | M1 candidate | Future |
+|--------|--------------|--------|
+| **Users** | Single operator implicit (local/dev) | Multi-user |
+| **Decision authority** | Same operator en M1 | Role-based separation candidate |
+| **Auth** | None or minimal local | SSO/OAuth candidate |
+| **Authorization** | All commands allowed to operator | RBAC by role candidate |
+
+### Authentication candidate (OPEN)
+
+| Option | Fit M1 | Notes |
+|--------|--------|-------|
+| No auth (local tool) | High for dev/demo | Not production |
+| Simple session auth | Medium | Enables future multi-user |
+| SSO (OIDC) | Low for M1 | Enterprise future |
+
+### Authorization candidate (OPEN)
+
+| Role candidate (future) | Permissions candidate |
+|-------------------------|----------------------|
+| **Operator** | CRUD WI, attach evidence, prepare review |
+| **Decision authority** | Record/apply Decision only |
+| **Viewer** | Read-only projections |
+
+M1 : distinction Operator vs Decision authority may be **same user, different UI affordances** — not enforced by RBAC until Morris decides.
+
+### Security constraints candidate
+
+| Constraint | Candidate enforcement |
+|------------|----------------------|
+| No auto structural decision | Server-side guards (AC16) |
+| Human Decision fields required | Validation on RecordDecision |
+| No silent disabled | API returns reason codes → UI displays |
+| Audit trail | Activity immutable append |
+
+---
+
+## H. Integration Boundaries
+
+### Git (manual / informational — I11)
+
+| Aspect | M1 candidate |
+|--------|--------------|
+| Native Git sync | **OUT OF SCOPE** |
+| Git refs on Cycle | Manual text fields — display in Cycle Workspace |
+| Future native Git | Separate integration adapter — future cycle + Morris GO |
+
+### Files externes
+
+| Type | Candidate |
+|------|-----------|
+| Evidence screenshots | File upload → blob store reference on Evidence record |
+| Validation notes | Text or file attachment |
+| Export/import | **OPEN** — not required M1 |
+
+### APIs externes
+
+| API | M1 |
+|-----|-----|
+| External REST/GraphQL consumption | **NONE** |
+| Webhooks | **NONE** |
+| Future SFIA Studio convergence | **N/A** — distinct project unless Morris decides |
+
+### Imports/exports candidate (OPEN)
+
+Future candidates : JSON export of Project/WI history for backup — not M1 scope.
+
+---
+
+## I. Evidence Strategy (AC01–AC16)
+
+### Principle
+
+AC demonstration requires **observable, reproducible proofs** — not architecture adoption alone. This section defines how the **candidate architecture enables** future demonstration.
+
+| Proof type | Candidate mechanism |
+|------------|---------------------|
+| **E2E scenario tests** | Script Playwright/Cypress against deployed candidate |
+| **Domain integration tests** | Test use cases with in-memory or test DB |
+| **Activity audit assertions** | Verify event sequence for AC15 |
+| **API contract tests** | Verify guards return expected errors (E01, E05, …) |
+
+### AC mapping — preuves attendues
+
+| AC | Observable proof candidate | Events / states vérifiables |
+|----|---------------------------|----------------------------|
+| AC01 | Project entity exists, visible on Project surface | `project.created` Activity |
+| AC02 | WI created with status=Inbox | `work_item.created`, status=Inbox |
+| AC03 | Qualification fields populated, status=Qualified | `lifecycle.changed` → Qualified |
+| AC04 | Ready transition rejected, reason lists missing fields | Guard error E01, status stays Qualified |
+| AC05 | Cycle created, WI In Progress | `cycle.started`, current_cycle set |
+| AC06 | Second StartCycle rejected while active | Guard E02, one active Cycle |
+| AC07 | Gate blocks transition when pending | Gate status pending, transition refused |
+| AC08 | Blocked=true, lifecycle unchanged, reason+unblock present | `work_item.blocked`, status unchanged |
+| AC09 | Evidence record attached manually | `evidence.attached` |
+| AC10 | Review shows scope/guardrails/exit_proof | Query projection completeness |
+| AC11 | Decision record with author/date/verdict | `decision.recorded` |
+| AC12 | Done rejected without decision or exit_proof | Guards E05/E06 |
+| AC13 | REPLAN closes Cycle historical, WI reset trajectory | `replan.executed`, new Cycle NOT auto-created |
+| AC14 | Workboard/Project show current states | Projection query test |
+| AC15 | Activity timeline reconstructs full path | Activity sequence assertion |
+| AC16 | No API/command applies verdict without human Decision | Negative test — auto paths blocked |
+
+**AC demonstrated : 0/16** — architecture candidate maps all AC ; demonstration deferred to implementation cycle.
+
+---
+
+## J. Technical Decisions Open
+
+Toutes les décisions structurantes restent **OPEN — Morris decision required**.
+
+| # | Decision | Options candidates (non exhaustif) | Impact | Status |
+|---|----------|-----------------------------------|--------|--------|
+| TD-01 | **Stack frontend** | React, Vue, Svelte, Solid | Surfaces, hiring, ecosystem | **OPEN** |
+| TD-02 | **Stack backend** | Node, Python, Go, Rust, .NET | Domain implementation | **OPEN** |
+| TD-03 | **Runtime topology** | SPA+API, monolith, local-first | Ops complexity | **OPEN** |
+| TD-04 | **Persistence** | PostgreSQL, SQLite, embedded | Deployment, scaling | **OPEN** |
+| TD-05 | **Evidence blob storage** | DB blob, filesystem, S3-compatible | Attachments | **OPEN** |
+| TD-06 | **Hosting** | Local, VPS, cloud PaaS, container | Availability | **OPEN** |
+| TD-07 | **Authentication** | None, session, OIDC | Multi-user path | **OPEN** |
+| TD-08 | **Authorization model** | Single-user, RBAC | Decision separation | **OPEN** |
+| TD-09 | **API style** | REST, GraphQL, RPC, in-process | Frontend coupling | **OPEN** |
+| TD-10 | **Observability** | Logs, metrics, tracing | RUN readiness | **OPEN** |
+| TD-11 | **CI/CD** | GitHub Actions, other | Delivery pipeline | **OPEN** |
+| TD-12 | **Design tokens binding** | CSS vars, Tailwind, design system lib | UI fidelity vs Figma | **OPEN** |
+
+**Aucune option ci-dessus n'est adoptée par ce document.**
+
+---
+
+## K. Risks / Constraints
+
+### Risks
+
+| ID | Risk | Mitigation candidate |
+|----|------|---------------------|
+| TR-01 | UI becomes source of truth (surfaces own state) | Strict projection pattern ; server-authoritative |
+| TR-02 | Decision automation creep (AC16 violation) | DecisionService isolated ; no background jobs on verdict |
+| TR-03 | Lifecycle/Cycle desync (I3 violation) | Aggregate root + DB constraint candidate |
+| TR-04 | Evidence loss on REPLAN (I5) | Immutable Evidence + explicit FQ04 policy before delete |
+| TR-05 | Over-engineering before M1 demo | Defer microservices, event sourcing, CQRS |
+| TR-06 | Figma drift from implementation | Design coverage checklist per surface |
+| TR-07 | Stack decision premature | This cycle = candidate only ; Morris gate before code |
+
+### Constraints
+
+| Constraint | Source |
+|------------|--------|
+| 8 objects only — no 9th | Functional architecture |
+| Human Decision never automated | I1, AC16 |
+| Git manual only M1 | I11 |
+| Blocked orthogonal | I8 |
+| One active Cycle | I3 |
+| Desktop-first 1440×1024 | UX contract |
+| M1 NOT READY / 0/16 AC | All cycles |
+| FQ02–FQ05 OPEN | Functional spec |
+
+### Potential debt candidates
+
+| Debt | Trigger |
+|------|---------|
+| Single-user auth shortcut | Choosing no auth for M1 demo |
+| In-memory Activity for prototype | Before persistence decision |
+| Hardcoded Workspace | M1 single-tenant assumption |
+
+---
+
+## L. Next Architecture Gate
+
+### Decision Morris suivante
+
+**MORRIS TECHNICAL ARCHITECTURE REVIEW** — adopt, revise, or reject this candidate.
+
+| Outcome | Effect |
+|---------|--------|
+| **Adopt (with reserves)** | Promote selected TD-xx to ADR candidates ; authorize backlog/delivery planning cycle |
+| **Revise** | Cursor/ChatGPT iteration on candidate — still no implementation |
+| **Reject** | Stop downstream ; rework inputs |
+
+### Conditions de passage vers implémentation
+
+| # | Condition | Status |
+|---|-----------|--------|
+| G1 | Morris validates technical architecture candidate (or revised version) | **PENDING** |
+| G2 | Stack decisions TD-01–04 resolved by Morris | **OPEN** |
+| G3 | UX/UI reference validated by Morris (Cycle 4) | **PENDING** |
+| G4 | Backlog cycle authorized (separate Morris GO) | **NOT AUTHORIZED** |
+| G5 | Delivery cycle authorized (separate Morris GO) | **NOT AUTHORIZED** |
+| G6 | M1 AC demonstration plan accepted | **OPEN** |
+
+### Downstream candidates (NOT AUTHORIZED)
+
+| Cycle candidate | Input from this document |
+|-----------------|-------------------------|
+| Backlog / user stories | Interaction contracts → stories |
+| Delivery / implementation | Domain model + surfaces |
+| QA / validation | AC proof strategy §I |
+| DevOps | TD-11, hosting |
+
+**No downstream cycle authorized by this Cycle 5 GO.**
+
+---
+
+## Explicit non-decisions
+
+- Frontend framework adopted
+- Backend language adopted
+- Database chosen
+- Cloud/hosting chosen
+- Auth provider chosen
+- API protocol chosen
+- Microservices split
+- Event sourcing / CQRS
+- Git native integration
+- Design tokens finalized
+- M1 READY
+- Implementation started
+
+---
+
+## Traceability
+
+| Source | Path | Status consumed |
+|--------|------|-----------------|
+| Functional spec | `01-functional/2026-08-19-m1-functional-spec.md` | VALIDATED BY MORRIS |
+| Functional architecture | `02-architecture/2026-08-20-m1-functional-architecture.md` | VALIDATED BY MORRIS |
+| UX/UI contract | `03-design/2026-08-20-m1-ux-ui-contract.md` | CANDIDATE — Cycle 4 |
+| Figma design brief | `03-design/2026-08-20-figma-design-brief.md` | CANDIDATE — Cycle 4 |
+| Figma source | fileKey `2U8pJCYBMtGxaK0F0Ef1nO` | CANDIDATE — NOT VALIDATED BY MORRIS |
+
+---
+
+## Explicit separation
+
+Ce projet n'est **pas** SFIA Studio v3. SFIA v2.6 = baseline process. Architecture **technique candidate** uniquement — **NOT ADOPTED**.
