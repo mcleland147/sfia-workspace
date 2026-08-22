@@ -369,7 +369,7 @@ Décision requise :
 
 **Schema :** une migration additive sur `lib/oa/project/infrastructure/sqlite/db.ts` suffit (M5 pattern).
 
-**Parallélisation B vs A :** B1–B3 peuvent démarrer **en parallèle** de A2–A4 **après** GO C6 Delivery · B5 (schema) doit coordonner migrations · **A1 (matérialisation) bloque A** mais **ne bloque pas** B1–B3 techniquement.
+**Parallélisation B vs A :** Track B / B1–B3 peuvent démarrer sous **G3 W1 Delivery GO**, **en parallèle** de Track A selon les dépendances **G2** applicables, avec coordination du schema B5 · **A1 (matérialisation) bloque A** mais **ne bloque pas** B1–B3 techniquement une fois G3 ouvert.
 
 **Pas de réouverture C6.**
 
@@ -419,8 +419,9 @@ Décision requise :
 | `lib/oa/cycle/infrastructure/ckcReferenceManifest.ts` | A3 replace |
 | `lib/oa/cycle/domain/cycleTypeCatalog.ts` | A3 ADAPT |
 | `lib/oa/cycle/domain/ckcConsumptionProof.ts` | A5 |
-| `lib/vertical-slice-core/localProjectComposition.ts` | A1 pin/registry |
-| `lib/oa/doctrine/fixtures/registry.json` | A1 |
+| `lib/vertical-slice-core/localProjectComposition.ts` | A1 pin/registry (G2-dependent root) |
+| Product DoctrinePackage registry/materialization (G2-dependent) | **LIKELY under recommended Option A candidate:** `lib/oa/doctrine/product/` — registry + package tree · **CREATE** under G3 after G2 |
+| `lib/oa/doctrine/fixtures/registry.json` | **CONDITIONAL ONLY** — transitional/quarantine handling if explicitly required · **NOT target product registry** · **NOT guaranteed future modification** |
 | `features/project-assistant/f2/orchestrateF2.ts` | C/D |
 | `features/project-assistant/f2/qualify.ts` | C |
 | `features/pre-m6-product-ui/surfaces/RecoverySurface.tsx` | E |
