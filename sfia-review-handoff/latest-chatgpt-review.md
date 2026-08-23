@@ -1,421 +1,117 @@
-# REVIEW PACK FULL — W2-G3 DELIVERY — UMBRELLA OPTION A
+# REVIEW PACK FULL — W2-G3 E+A+B+C — CORRECTION PASS
 
-Réinitialisé entièrement au début du cycle. Mono-cycle uniquement. Pas d'append d'un cycle antérieur.
+Mono-cycle CORRECTION. Réinitialisé au début du correction pass. Permet de revoir l'état W2 FINAL COMPLET.
 
-## 1. Horodatage
+## A. Metadata
 
-- Généré: 2026-08-23 05:06 CEST (+0200)
-- Cycle: Delivery / implémentation — EVOL — CRITICAL
-- Capacité: W2 — Cognition, trajectoire et décision humaine
-- Milestone: W2-G3 Delivery — Umbrella Option A (E+A+B+C)
-- Verdict recherché: READY FOR CHATGPT REVIEW — W2-G3 E+A+B+C DELIVERY IMPLEMENTED
+- Horodatage: 2026-08-23 06:14 CEST (+0200)
+- Repo: mcleland147/sfia-workspace
+- Branche: delivery/sfia-studio-w2-g3-umbrella-a
+- HEAD: 3a86f8190deb34e37bede868a6e765b0440fc839
+- origin/main: 3a86f8190deb34e37bede868a6e765b0440fc839
+- Prior handoff commit: 3e936f7323d94431033ec582880d64aa076b4631
+- Prior review blob: 3d7112d7a14feccfa04abb9c1df0f631ddc2f99d
+- Drift: aucun
 
-## 2. Repo / branche / HEAD / origin/main / base
+## B. Decisions / Gates
 
-| Champ | Valeur |
+- W2-G3 EABC GO: CONSUMED
+- Correction GO: CONSUMED
+- D-W2-04-R1: ADOPTED BY MORRIS (inspectionFingerprint; confirmationRef/immutableAfterConfirm excluded from sufficiency)
+- Phase B / Track D: NOT CONSUMED
+- Execute / REAL / project Git integration: OUT
+- Runtime v3: NON ADOPTED
+- C6: CLOSED — TD-C6-03 completed in adopted architecture; no reopen
+- No new Confirmation multi-factor C2 policy adopted — PASS_WITH_KNOWN_SIMPLIFICATION (lifecycle owner = ValidateExecutionContract)
+
+## C. Stage 0 Structural Pre-flight (READ-ONLY before mutations)
+
+### Confirmation policy
+- Canonical writer: ValidateExecutionContract (N1→validated; N2/N3/MORRIS→confirmation_required)
+- No multi-factor C2 owner exists yet
+- Verdict: **PASS_WITH_KNOWN_SIMPLIFICATION**
+- W2 now consumes EC status; does not re-derive `requiredAuthority !== N1` as primary rule
+- Does NOT claim full C2 closure
+
+### U3 HumanDecision ↔ decided trajectory
+- Failure window existed: HD commit then promote fail → orphan accepted HD
+- Shared SqliteProductStore + nested ALS transactions exist
+- Verdict: **PASS_EXISTING_ARCHITECTURE_SUFFICES**
+- Fix: outer `projectServices.store.runInTransaction` around HD+promote
+
+### F2 vs W2 HumanDecision
+- F2: DecisionBasis sourceType proposal, scope f2-proposal:*, ConversationSurface Approuver…
+- W2: DecisionBasis trajectory_option, scope w2-trajectory-decision:*, TrajectorySurface Décider cette option
+- Verdict: **DISTINCT_PRESERVE**
+- UX: “Décision sur la proposition” vs “Décision de trajectoire”
+
+Structural decision required: **NO**
+
+## D. Audit source mapping (summary)
+
+| Layer | Verdict |
 |---|---|
-| repo | mcleland147/sfia-workspace |
-| toplevel | /Users/morris/Projects/sfia-workspace |
-| branche projet | delivery/sfia-studio-w2-g3-umbrella-a |
-| HEAD projet | 3a86f8190deb34e37bede868a6e765b0440fc839 |
-| origin/main | 3a86f8190deb34e37bede868a6e765b0440fc839 |
-| base | origin/main (identique HEAD; Delivery non commité) |
-| référence contrat | origin/main = 3a86f8190deb34e37bede868a6e765b0440fc839 |
-| drift | AUCUN — origin/main n'a pas bougé depuis la référence |
+| C1 | Path H→N preserved; STOP BEFORE EXECUTE |
+| C2 | Option≠Reco≠HD; Confirmation after inspect if required; known simplification on confirm derivation |
+| UX | Progressive EC disclosure + Confirmation affordance honesty; /studio captures |
+| FA | FC-09 order preserved |
+| C6 | U1/U3 via Product UoW; TD-C6-03 receipt; CLOSED |
+| CKC | W1 seam preserved; Recommendation source=optionSetRef; Phase B not claimed |
+| W1 | Qualification precedes options; trajectory/epistemic/confirmation durability kept |
+| W2 | EABC corrected per A1–E4 |
 
-## 3. Local Git Truth Check
-
-Exécuté avant mutation et re-contrôlé en fin de cycle:
+## E. Pre-correction state
 
 ```
-pwd = /Users/morris/Projects/sfia-workspace
-git rev-parse --show-toplevel = /Users/morris/Projects/sfia-workspace
-git fetch origin = OK
-git branch --show-current = delivery/sfia-studio-w2-g3-umbrella-a
-git rev-parse HEAD = 3a86f8190deb34e37bede868a6e765b0440fc839
-git rev-parse origin/main = 3a86f8190deb34e37bede868a6e765b0440fc839
-git status --short = modifications W2-G3 locales + untracked in-scope + untracked hors scope préservés
-git diff --cached --stat = vide
-```
-
-Règles respectées:
-
-1. origin/main n'a pas évolué depuis 3a86f819… — pas de requalification.
-2. Branche historique W2-G2 déjà intégrée sur main (PR #399 merge 3a86f819…). Non réouverte.
-3. Aucun tracked/staged change inexplicable: tout le diff projet appartient à ce Delivery E+A+B+C.
-4. Untracked hors scope préservés intacts: `projects/eventops-poc/`, `projects/flex-office-demo/`. `.tmp-sfia-review/` réinitialisé puis remplacé par ce pack.
-5. Aucune branche supprimée. Aucun rebase/merge. Aucun commit/push/PR/merge projet.
-
-## 4. Décision Morris consommée
-
-**GO MORRIS — W2-G3 DELIVERY — UMBRELLA OPTION A**
-
-AUTHORIZED: Track E + Track A + Track B + Track C
-SEQUENCING: E tôt; A et B coordonnés; C après contrats A stables.
-D-W2-01, D-W2-03, D-W2-04, TD-C6-03: à implémenter selon décisions déjà adoptées.
-D-W2-02: ADOPTED comme décision de conception, mais GO Phase B distinct NON consommé.
-
-## 5. Gates non consommés
-
-- GO PHASE B — Track D = NOT AUTHORIZED / NOT CONSUMED
-- Execute = OUT OF SCOPE
-- Cursor REAL = OUT OF SCOPE
-- OpenAI LIVE comme preuve W2 = OUT OF SCOPE
-- runtime v3 ADOPTED = NOT CLAIMED
-- réouverture C6 = INTERDITE
-- Git integration projet (commit/push/PR/merge) = NOT AUTHORIZED
-- W2 complete / Product Completion complete = NOT CLAIMED
-
-## 6. Sources effectivement lues
-
-Processus externe SFIA v2.6:
-
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- prompts/templates/sfia-cycle-execution-template.md (routing Delivery + Review Pack/Handoff)
-
-Convergence:
-
-- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md (lecture; aucune sync écrite)
-
-Product Completion (READ ONLY):
-
-- 01-product-completion-cadrage.md
-- 02-product-completion-conception-fonctionnelle.md
-- 03-product-completion-architecture-fonctionnelle.md
-- 06-product-completion-architecture-technique-delta.md
-- 07-product-completion-wave-1-delivery-readiness.md
-- 08-product-completion-wave-2-delivery-readiness.md
-
-Doctrine Studio v3 applicable:
-
-- 30-knowledge-context-human-decision-doctrine.md
-- 31-doctrine-package-and-source-resolution.md
-- 32-living-project-state-and-dynamic-trajectory.md
-- 33-epistemology-provenance-and-contradiction-model.md
-- 34-agent-capabilities-reversibility-and-execution-governance.md
-- 35-artifact-evidence-debt-and-controlled-learning.md
-- 37-studio-v3-foundations-and-consolidation-decision-pack.md
-
-CKC / cognition — lu uniquement pour préserver le seam W1:
-
-- features/project-assistant/f2/ckcCognitiveContext.ts (LU, NON ÉTENDU)
-- features/project-assistant/f2/orchestrateF2.ts (LU, NON MODIFIÉ)
-
-UX: contrats Product Experience existants / tokens `--pm6-*` du shell /studio. Aucune nouvelle source Figma d'exécution utilisée. Verdict visuel fort: REVIEW INCONCLUSIVE — RUNTIME/DESIGN COMPARISON INCOMPLETE.
-
-## 7. Qualification
-
-- Type: Delivery / implémentation
-- Typologie: EVOL
-- Profil: CRITICAL
-- Capacité v3: W2
-- Tracks autorisés: E A B C
-- Track D: INTERDIT
-- Outcomes C1 principalement servis: O-02, O-03 (sans empiéter sur D), O-04, O-05, O-09, O-10, préparation contrôlée de O-06 sans Execute
-- Prochaine capacité: Track D uniquement après GO Morris Phase B distinct; puis preuve W2 complète
-
-## 8. Classification KEEP / ADAPT / COMPLETE / TEMPORARY WITH EXIT
-
-KEEP
-
-- OA backbone (cycle / decision / execution-contract)
-- Product SQLite (G0-B) — extension additive M7 seulement
-- Project / LPS durability
-- CycleInstance
-- HumanDecision / DecisionBasis infrastructure
-- ExecutionContract aggregate existant (aucun nouveau statut métier)
-- Confirmation selective durability adoptée
-- ProjectTrajectory repository / use cases existants
-- bounded CKC→Nora seam W1 (`ckcCognitiveContext.ts`)
-- canonical /studio product path
-- C6 CLOSED
-
-ADAPT / COMPLETE
-
-- product application wiring ProjectTrajectory (`features/project-assistant/w2/*`)
-- Option / Recommendation / HumanDecision semantics
-- generic Pilote actor semantics (`LOCAL_PILOTE_ACTOR`)
-- EC inspection (D-W2-04)
-- AuthorityVerificationReceipt (TD-C6-03)
-- AgentCapability projection (enveloppe gouvernance)
-- minimal history/read model
-- disclosures/UI truth
-- PromoteDecidedTrajectory (use case OA, enforcement HD sur product path)
-
-TEMPORARY WITH EXIT
-
-- process-local Proposal F2 (D-W2-01) — non promu en SoT
-- LOCAL_SINGLE_USER_AUTHORITY_TEMPORARY_WITH_EXIT (Pilote)
-- forceLocalAuthority dans les tests déterministes (frontière locale, pas REAL)
-
-INTERDIT — NON FAIT
-
-- second trajectory / decision / Nora engine
-- second product store
-- second DoctrinePackage / CKC resolver
-- fork de /studio
-- orchestrateW2 / orchestratePhaseB
-- Execute / REAL / Phase B
-
-## 9–10. Fichiers modifiés + contenu exploitable
-
-Voir sections automatiques ci-dessous: chaque fichier a une finalité, puis le diff (tracked) ou le contenu intégral (untracked nouveau). Impact invariants rappelé par track.
-
-Fichiers hors scope NON touchés: eventops-poc, flex-office-demo, docs Product Completion, ckcCognitiveContext.ts, orchestrateF2.ts.
-
-## 11. Track E — implémentation et preuves
-
-Changements:
-
-- `disclosures.ts`: ProjectTrajectory / Epistemic / granted Confirmation = restart-safe; requested Confirmation = process-local; w2Cognition=IN_PROGRESS_NOT_COMPLETE; ckcPhaseBCognition=NOT_AUTHORIZED_NOT_IMPLEMENTED; messages M7 + Phase B not implemented + runtime v3 not ADOPTED.
-- `presentationLabels.ts`: requiredAuthority MORRIS → "autorité structurante"; restart honesty distingue confirmation demandée vs accordée et trajectoire effective/décidée.
-- `f3/constants.ts`: "décision Morris" runtime → "décision humaine".
-- HistorySurface / labels tests alignés.
-
-Preuves:
-
-- w2EabcDelivery Track E test PASS
-- presentationLabels.test.ts PASS (3 assertions mises à jour vers autorité structurante|Morris)
-
-Réserves:
-
-- surfaces F2 conversationnelles historiques peuvent encore mentionner Morris dans des labels F3 (`F3_LABELS.recommendationNotDecision` reste "PAS UNE DÉCISION MORRIS") — hors refonte Product Experience; non présenté comme W2 complete.
-
-## 12. Track A — implémentation et preuves
-
-Invariants implémentés:
-
-- Option ≠ Recommendation ≠ HumanDecision
-- Recommendation.isHumanDecision=false et promotesTrajectory=false
-- PROPOSED ≠ DECIDED: candidate n'est jamais current
-- Promotion uniquement via `decideTrajectory` après HD acceptée Pilote + DecisionBasis trajectory_option
-- `assertDecisionAuthorizesPromotion` fail-closed
-- `promoteDecidedTrajectory` exige decisionRef; ne vérifie pas lui-même la HD (D-W2-03 product path)
-- reload Product SQLite conserve decided/current
-- actor runtime = Pilote; authority class OA = morris
-- pas d'auto-décision; option inconnue refusée
-- D-W2-01: Proposal non persistée; Options/DecisionRef matérialisés Epistemic + ProjectTrajectory
-
-Preuves:
-
-- deriveTrajectoryOptions / Recommendation PASS
-- refuse promotion without HD PASS
-- propose candidate not current then promote after Pilote HD PASS
-- restart keeps decided/current PASS
-- TrajectorySurface UI: OPTION vs RECOMMANDATION — PAS UNE DÉCISION; Décider cette option; no auto-decision PASS
-
-Réserves:
-
-- Options dérivées de la qualification W1 (cycle type / profil / signaux) — déterministe, sans contenu CKC Phase B. Attribution CKC reportée si déjà présente, jamais inventée.
-- `forceLocalAuthority` requis en tests pour le gate local — realism gap documenté, pas un second chemin produit.
-
-## 13. Track B — implémentation et preuves
-
-- `projectHistory.ts` compose Project/LPS, Cycle, Trajectory versions/current, HumanDecision/DecisionBasis, ExecutionContract pertinents.
-- Bornes: max 5 versions / 5 décisions / 5 contrats.
-- Absences honnêtes: Conversation, Proposition F2, transcript.
-- HistorySurface adapté: ancres durables + liste d'absences. Pas de timeline riche. Pas de nouvel audit store.
-
-Preuves:
-
-- Track B test PASS (anchors + absent conversation/proposal, no transcript)
-- restart test relit history après reboot SQLite PASS
-
-Réserves:
-
-- HistorySurface n'est pas un redesign Product Experience; fidélité visuelle vs contrat Figma = INCONCLUSIVE.
-
-## 14. Track C — implémentation et preuves
-
-Précondition: contrats A stables (HD → decided trajectory → prepareM3FromDecision existant).
-
-D-W2-04:
-
-- InspectionAttestation liée à executionContractId + version + inspectionFingerprint + actor + inspectedAt
-- inspectionFingerprint = material sémantique moins confirmationRef/immutableAfterConfirm (confirm-after-inspect ne stale pas)
-- aucun nouveau statut métier EC
-- amendement matériel / supersession ⇒ attestation insuffisante ⇒ réinspection
-
-TD-C6-03:
-
-- AuthorityVerificationReceipt persisté (M7) — C6 non rouvert
-
-Ordre produit:
-
-PREPARED → INSPECTS → Confirmation si requise → authority/executor sufficiency → AUTHORIZED|BLOCKED → STOP BEFORE EXECUTE
-
-AgentCapability = enveloppe gouvernance via registry OA existant + agentMatchViolation. Absence ⇒ BLOCKED.
-
-Preuves (w2EabcDelivery integrated):
-
-- unread inspection insufficient
-- authorize uninspected → BLOCKED inspection_required, receipt avr:, executionPerformed=false, attemptCreated=false
-- inspect → INSPECTÉ, grantsAuthority=false
-- confirm after inspect possible; fabricated=false
-- supersede scope_change → successor unread → BLOCKED reinspection
-- never startExecution / ExecutionAttempt
-
-Réserves:
-
-- outcome AUTHORIZED dépend de Confirmation + executor registry local; le chemin intégré prouve BLOCKED honnête et STOP BEFORE EXECUTE. AUTHORIZED est un outcome possible du même chemin lorsque inspection+confirmation+capability sont suffisants; pas de claim READY FOR REAL.
-- M7 est une migration additive du Product SQLite KEEP, pas une nouvelle persistence concurrente.
-
-## 15. Track D — confirmation explicite de non-implémentation
-
-- `ckcCognitiveContext.ts`: git diff vide
-- `orchestrateF2.ts`: git diff vide
-- aucun orchestrateW2 / orchestratePhaseB
-- aucun test nommé preuve Phase B
-- disclosures: ckcPhaseBCognition=NOT_AUTHORIZED_NOT_IMPLEMENTED
-- Options/Recommendation n'injectent pas le CKC complet
-- D-W2-02 ADOPTED ≠ GO Phase B consommé
-- EABC implemented ≠ Phase B implemented
-
-## 16. Tests exécutés + résultats
-
-Commandes (cwd projects/sfia-studio/app):
-
-```
-npx vitest run \
-  __tests__/project-assistant/w2EabcDelivery.test.ts \
-  __tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx \
-  __tests__/project-assistant/w1RecoveryFoundation.test.tsx \
-  __tests__/project-assistant/presentationLabels.test.ts \
-  __tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx \
-  __tests__/project-assistant/ProjectAssistantPanel.test.tsx \
-  __tests__/oa/decision/m3HumanDecisionDurability.test.ts \
-  __tests__/oa/decision/decisionConfirmationAuthority.test.ts \
-  __tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts \
-  __tests__/oa/cycle/m2ProductCycleDurability.test.ts \
-  __tests__/recommendation-vs-decision.test.tsx
-```
-
-Résultat final ciblé: **11 files passed / 114 tests passed**.
-
-Sous-ensemble EABC+UI: 9 passed (7 delivery + 2 UI).
-
-Typecheck: erreurs in-scope W2 corrigées (`inspectExecutionContract` + export `InspectionInsufficiencyReason`). Erreurs préexistantes hors scope: `pg` / FinOps postgres (non introduites ici).
-
-`m3RestartProcessProof.test.ts`: FAIL préexistant — `node_modules/.bin/tsx` absent du worktree app; indépendant de W2-G3; non utilisé comme preuve de ce cycle.
-
-Tests négatifs couverts: no HD ⇒ no promotion; option inventée refusée; inspection absente/stale ⇒ BLOCKED; no Execute; no auto-HumanDecision.
-
-Restart proof: Product SQLite reboot conserve trajectory decided/current + history decision.
-
-## 17. Preuve E2E déterministe product-native
-
-Chemin prouvé dans `w2EabcDelivery.test.ts` (node, Product SQLite temp, /studio application path):
-
-Project/resume → LPS/context → qualification W1 existante → Options → Recommendation → no auto-decision → Pilote HumanDecision → DecisionBasis trajectory_option → ProjectTrajectory decided/current → ExecutionContract prepared (prepareM3FromDecision, executionAllowed=false) → inspected → BLOCKED if uninspected → Confirmation if required after inspect → AgentCapability évaluée → AUTHORIZED ou BLOCKED → STOP BEFORE EXECUTE → supersede matériel → réinspection exigée.
-
-CKC W1 peut être présent comme attribution déjà livrée. Jamais présenté comme preuve Phase B.
-
-Cette preuve = preuve E+A+B+C autorisée. ≠ preuve finale complète W2.
-
-## 18. Captures / runtime proof pour UI modifiée
-
-- Tests React Testing Library de TrajectorySurface: labels OPTION / RECOMMANDATION — PAS UNE DÉCISION / DÉCISION HUMAINE PRISE / BLOQUÉ — ACTION REQUISE / arrêt avant exécution. PASS.
-- Tokens CSS: `--pm6-surface`, `--pm6-border-soft`, `--pm6-radius-lg`, `--pm6-shadow-card` (shell existant).
-- Accessibilité: aria-labelledby, role=alert/status, aria-label sur Décider.
-- Aucune capture navigateur /studio seedée dans ce cycle (pas de serveur /studio exercé bout-en-bout ici).
-- Aucune source Figma d'exécution validée consommée via MCP.
-
-**REVIEW INCONCLUSIVE — RUNTIME/DESIGN COMPARISON INCOMPLETE**
-
-Cela n'invalide pas les assertions fonctionnelles déterministes.
-
-## 19. Fake / Real qualification
-
-Applicable: oui.
-
-Niveau ce cycle: **DETERMINISTIC PROVEN** pour E+A+B+C.
-
-REAL BOUNDARY PROVEN: OUT OF SCOPE
-END-TO-END REAL PROVEN: OUT OF SCOPE
-OpenAI LIVE: OUT OF SCOPE
-Cursor REAL: OUT OF SCOPE
-
-Fixtures/mocks:
-
-- UI tests mockent les server actions (même DTOs produit).
-- Tests node utilisent Product SQLite réel + OA réel + `forceLocalAuthority` pour le gate local.
-- Aucun second chemin produit.
-
-Realism gaps:
-
-- autorité locale TEMPORARY WITH EXIT
-- Options déterministes hors CKC Phase B
-- executor registry local / fixture F3
-- DETERMINISTIC PROVEN ≠ READY FOR REAL ≠ REAL BOUNDARY PROVEN
-
-## 20. Dettes / réserves / realism gaps
-
-Blocking current EABC review: aucun identifié pour le périmètre autorisé.
-
-Phase B governed remaining gap: Track D / US-P1-14 / REQ-24 — GO Phase B distinct requis.
-
-Later W2 exit gap: preuve W2 complète après D; ≥2 cycle types Phase B; REAL distinct.
-
-Nonblocking debt:
-
-- F3_LABELS.recommendationNotDecision copy historique "MORRIS"
-- m3RestartProcessProof tsx PATH préexistant
-- typecheck FinOps/pg préexistant
-- visual /studio vs design contract incomplete
-- forceLocalAuthority test inject
-- Proposal process-local TEMPORARY WITH EXIT (D-W2-01)
-
-## 21. Confirmation STOP BEFORE EXECUTE
-
-- authorizeExecutionContract / types: executionPerformed=false, attemptCreated=false
-- aucun appel startExecution / confirmAndExecute dans w2/
-- prepareM3FromDecision: executionAllowed=false (préexistant, réutilisé)
-- UI: "Aucune exécution n'a été lancée : arrêt avant exécution."
-- Integrated test assert executionPerformed=false after authorize and after stale authorize
-
-## 22. Confirmation C6 CLOSED / no parallel architecture
-
-- TD-C6-03 complété dans l'architecture déjà adoptée
-- C6 non rouvert
-- Product SQLite unique; M7 additif
-- un seul chemin product application w2/; F2 orchestrate inchangé
-- un seul resolver DoctrinePackage/CKC (W1 seam intact)
-
-## 23. Confirmation no project commit/push/PR/merge
-
-Aucun commit projet. Aucun push projet. Aucun PR. Aucun merge. main intact.
-Seul git write autorisé après ce pack: publisher L3 borné `sfia/review-handoff`.
-
-## 24. Diff stat final
-
-Voir bloc généré ci-dessous (`git diff --stat` + liste untracked in-scope).
-
-## 25. Verdict
-
-READY FOR CHATGPT REVIEW — W2-G3 E+A+B+C DELIVERY IMPLEMENTED
-
-Anti-claims:
-
-- W2-G3 GO ≠ W2 complete
-- EABC implemented ≠ Phase B implemented
-- D-W2-02 adopted ≠ GO Phase B
-- deterministic ≠ REAL
-- no Execute
-- no runtime v3 ADOPTED
-- CI/tests green ≠ Product Completion
-- ≠ READY FOR PR / READY FOR MERGE
-
-Instruction ChatGPT: requalifier à partir du Git courant, du diff réel, des preuves, de ce Review Pack, du handoff canonique, et des gates Morris. Revue ChatGPT avant toute décision de commit/push/PR/merge projet.
-
----
-
-# ANNEXE — DIFFS TRACKED ET FICHIERS NOUVEAUX
-
-
-## Diff stat (tracked)
-
-```
+2026-08-23 05:42:35 +0200
+HEAD=3a86f8190deb34e37bede868a6e765b0440fc839
+ORIGIN_MAIN=3a86f8190deb34e37bede868a6e765b0440fc839
+PRIOR_HANDOFF=3e936f7323d94431033ec582880d64aa076b4631
+PRIOR_BLOB=3d7112d7a14feccfa04abb9c1df0f631ddc2f99d
+===STATUS===
+ M projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
+ M projects/sfia-studio/app/__tests__/project-assistant/presentationLabels.test.ts
+ M projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx
+ M projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
+ M projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+ M projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.tsx
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.tsx
+ M projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts
+ M projects/sfia-studio/app/features/project-assistant/f3/constants.ts
+ M projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
+ M projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
+ M projects/sfia-studio/app/lib/oa/cycle/index.ts
+ M projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/createSqliteCycleServices.ts
+ M projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts
+ M projects/sfia-studio/app/lib/oa/decision/domain/types.ts
+ M projects/sfia-studio/app/lib/oa/decision/index.ts
+ M projects/sfia-studio/app/lib/oa/decision/infrastructure/localSingleUserAuthority.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/index.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/infrastructure/sqlite/createSqliteExecutionContractServices.ts
+ M projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
+ M projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts
+?? .tmp-sfia-review/
+?? projects/eventops-poc/
+?? projects/flex-office-demo/
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
+?? projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
+?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.module.css
+?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+?? projects/sfia-studio/app/features/project-assistant/w2/
+?? projects/sfia-studio/app/lib/oa/cycle/application/promoteDecidedTrajectory.ts
+?? projects/sfia-studio/app/lib/oa/execution-contract/application/recordAuthorityVerification.ts
+?? projects/sfia-studio/app/lib/oa/execution-contract/application/recordContractInspection.ts
+?? projects/sfia-studio/app/lib/oa/execution-contract/domain/authorityVerificationReceipt.ts
+?? projects/sfia-studio/app/lib/oa/execution-contract/domain/inspectionAttestation.ts
+?? projects/sfia-studio/app/lib/oa/execution-contract/infrastructure/memoryAuthorityVerificationReceiptRepository.ts
+?? projects/sfia-studio/app/lib/oa/execution-contract/infrastructure/memoryInspectionAttestationRepository.ts
+?? projects/sfia-studio/app/lib/oa/execution-contract/infrastructure/sqlite/sqliteAuthorityVerificationReceiptRepository.ts
+?? projects/sfia-studio/app/lib/oa/execution-contract/infrastructure/sqlite/sqliteInspectionAttestationRepository.ts
+?? projects/sfia-studio/app/lib/oa/execution-contract/ports/authorityVerificationReceiptRepository.ts
+?? projects/sfia-studio/app/lib/oa/execution-contract/ports/inspectionAttestationRepository.ts
+===DIFF STAT===
  .../ProjectAssistantPanel.test.tsx                 |  7 ++
  .../project-assistant/presentationLabels.test.ts   | 10 +--
  .../vertical-slice-ui/projectWorkspaceUi.test.tsx  |  7 ++
@@ -439,13 +135,183 @@ Instruction ChatGPT: requalifier à partir du Git courant, du diff réel, des pr
  .../app/lib/oa/project/infrastructure/sqlite/db.ts | 58 ++++++++++++-
  .../app/lib/vertical-slice-runtime/disclosures.ts  | 51 +++++++++---
  22 files changed, 492 insertions(+), 57 deletions(-)
+===TRACKED===
+projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
+projects/sfia-studio/app/__tests__/project-assistant/presentationLabels.test.ts
+projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx
+projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
+projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.tsx
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.tsx
+projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts
+projects/sfia-studio/app/features/project-assistant/f3/constants.ts
+projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
+projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
+projects/sfia-studio/app/lib/oa/cycle/index.ts
+projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/createSqliteCycleServices.ts
+projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts
+projects/sfia-studio/app/lib/oa/decision/domain/types.ts
+projects/sfia-studio/app/lib/oa/decision/index.ts
+projects/sfia-studio/app/lib/oa/decision/infrastructure/localSingleUserAuthority.ts
+projects/sfia-studio/app/lib/oa/execution-contract/index.ts
+projects/sfia-studio/app/lib/oa/execution-contract/infrastructure/sqlite/createSqliteExecutionContractServices.ts
+projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
+projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts
+===UNTRACKED IN-SCOPE===
+projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
+projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.module.css
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+projects/sfia-studio/app/features/project-assistant/w2/actions.ts
+projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
+projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts
+projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
+projects/sfia-studio/app/features/project-assistant/w2/inspectExecutionContract.ts
+projects/sfia-studio/app/features/project-assistant/w2/projectHistory.ts
+projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
+projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
+projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
+projects/sfia-studio/app/features/project-assistant/w2/types.ts
+projects/sfia-studio/app/lib/oa/cycle/application/promoteDecidedTrajectory.ts
+projects/sfia-studio/app/lib/oa/execution-contract/application/recordAuthorityVerification.ts
+projects/sfia-studio/app/lib/oa/execution-contract/application/recordContractInspection.ts
+projects/sfia-studio/app/lib/oa/execution-contract/domain/authorityVerificationReceipt.ts
+projects/sfia-studio/app/lib/oa/execution-contract/domain/inspectionAttestation.ts
+projects/sfia-studio/app/lib/oa/execution-contract/infrastructure/memoryAuthorityVerificationReceiptRepository.ts
+projects/sfia-studio/app/lib/oa/execution-contract/infrastructure/memoryInspectionAttestationRepository.ts
+projects/sfia-studio/app/lib/oa/execution-contract/infrastructure/sqlite/sqliteAuthorityVerificationReceiptRepository.ts
+projects/sfia-studio/app/lib/oa/execution-contract/infrastructure/sqlite/sqliteInspectionAttestationRepository.ts
+projects/sfia-studio/app/lib/oa/execution-contract/ports/authorityVerificationReceiptRepository.ts
+projects/sfia-studio/app/lib/oa/execution-contract/ports/inspectionAttestationRepository.ts
+
 ```
 
-## Untracked in-scope
+Prior known issues addressed in this pass: A1 selected≠recommended steps; A2 silent re-derive; A3 unsafe candidate reuse; A4 U3 window; B1 CKC source claim; C2 duplicated heuristic; C3 cross-project; C4 evidence ids; C5 AUTHORIZED OR BLOCKED; missing /studio runtime capture; Pilote copy residues.
 
+## F. Corrections (A1→E4 + truth sweep)
+
+### A1 selected option / decided trajectory
+- Problem: candidate steps from recommended option
+- Fix: PromoteDecidedTrajectoryRequest.steps?; decide always seals selected.steps
+- Proof: w2Eabc A1 asserts current steps == selected ≠ recommended when distinct
+
+### A2 exact OptionSet binding
+- Problem: decide action re-derived from live qualification
+- Fix: presentedOptionSet Observation + loadPresentedOptionSet; refuse OPTION_SET_STALE
+- Proof: A2 test
+
+### A3 candidate reuse
+- Problem: reuse across digests
+- Fix: reuse only same optionSetDigest; else rebind/supersede Observation
+- Proof: A3 test
+
+### A4 U3 consistency
+- Problem: HD then promote non-atomic
+- Fix: outer Product UoW; failNextSave trajectory rolls back HD
+- Proof: A4 fault injection
+
+### B1 CKC provenance
+- Recommendation epistemic source = optionSetRef; ckcAttribution relatedObject only
+- Proof: B1 test; Phase B disclosure unchanged
+
+### B2 W1 seam
+- ckcCognitiveContext: copy-only (“décision humaine”); no cognition/loading/resolver change
+- orchestrateF2: not functionally extended for Phase B
+
+### C1 D-W2-04-R1
+- Already largely implemented; tests: confirm binding keeps inspection; material supersede invalidates; grantsAuthority=false
+
+### C2 Confirmation
+- resolveConfirmationRequirement from EC status
+- confirm refuses validated; allows confirmation_required only
+- Known simplification documented
+
+### C3 project binding
+- inspect/confirm/authorize require projectId match contract.projectId
+
+### C4 receipt evidence
+- authorityEvidenceIds includes evidence when used; empty on early BLOCKED
+
+### C5 AUTHORIZED + BLOCKED
+- NEGATIVE and POSITIVE mechanism proofs split; POSITIVE ≠ full /studio E2E
+- /studio runtime capture showed BLOCKED (honest) with STOP BEFORE EXECUTE
+
+### E1 F2/W2
+- DISTINCT labels applied
+
+### E2/E3 UX
+- EC facts: action/target/scope/capabilities/constraints/stops/reversibility
+- Confirm button only when status=confirmation_required AND inspectionSufficient
+
+### E4 /studio runtime
+- Playwright e2e/studio-w2-g3-correction-runtime.spec.ts PASS
+- Captures under .tmp-sfia-review/runtime-captures/w2-g3-correction/
+- Design comparison: structural/behavioral vs Experience Architecture + Visual State Contract; pixel fidelity vs Figma = INCONCLUSIVE (no Figma MCP source consumed)
+
+### Pilote sweep
+- User-facing “PAS UNE DÉCISION MORRIS” → “PAS UNE DÉCISION HUMAINE” on project-assistant + related tests
+- authority class `morris` / canActAsMorris / LOCAL_MORRIS_* historical identifiers preserved
+- prepareM3FromDecision actor → LOCAL_PILOTE_ACTOR
+
+## G. D-W2-04-R1
+
+Decision exacte: sufficiency via inspectionFingerprint excluding confirmationRef/immutableAfterConfirm; semanticFingerprint retained for audit; supersession requires new inspection; no new EC status; C6 closed.
+
+Implementation: inspectionAttestation.ts computeInspectionFingerprint + evaluateInspectionSufficiency.
+
+Tests: C1 suite in w2EabcDelivery.
+
+## H. Final consolidated diff
+
+See annexes below: tracked diffs + full new files. Diff stat:
+
+```
+ .../runningAttemptRefresh.ui.test.tsx              |  6 +-
+ .../uatUxSemanticReserves.ui.test.tsx              |  2 +-
+ .../ProjectAssistantPanel.test.tsx                 | 15 +++-
+ .../project-assistant/presentationLabels.test.ts   | 10 +--
+ .../project-assistant/w1CkcSemanticSeam.test.ts    |  4 +-
+ .../studio-projects/projectPrincipalAmend.test.tsx |  4 +-
+ .../vertical-slice-ui/projectWorkspaceUi.test.tsx  |  7 ++
+ .../features/pre-m6-product-ui/ProductShell.tsx    |  6 +-
+ .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |  7 ++
+ .../features/pre-m6-product-ui/ProjectsPage.tsx    |  2 +-
+ .../surfaces/ConversationSurface.tsx               | 10 +--
+ .../pre-m6-product-ui/surfaces/HistorySurface.tsx  | 97 +++++++++++++++++++++-
+ .../app/features/project-assistant/actions.ts      |  6 +-
+ .../project-assistant/f2/ckcCognitiveContext.ts    |  4 +-
+ .../app/features/project-assistant/f2/qualify.ts   |  2 +-
+ .../project-assistant/f2/recordDecision.ts         | 12 +--
+ .../app/features/project-assistant/f2/types.ts     |  2 +-
+ .../app/features/project-assistant/f3/constants.ts |  8 +-
+ .../f3/e2eOptionATerminalAttempt.ts                |  2 +-
+ .../project-assistant/f3/prepareM3FromDecision.ts  | 17 ++--
+ .../app/features/project-assistant/f3/types.ts     |  4 +-
+ .../project-assistant/presentationLabels.ts        | 10 +--
+ .../sfia-studio/app/lib/oa/cycle/domain/types.ts   | 32 +++++++
+ projects/sfia-studio/app/lib/oa/cycle/index.ts     | 11 +++
+ .../sqlite/createSqliteCycleServices.ts            |  9 ++
+ .../app/lib/oa/cycle/ports/cycleAudit.ts           | 13 +++
+ .../app/lib/oa/decision/domain/types.ts            | 31 ++++++-
+ projects/sfia-studio/app/lib/oa/decision/index.ts  |  3 +
+ .../infrastructure/localSingleUserAuthority.ts     | 84 ++++++++++++++++---
+ .../app/lib/oa/execution-contract/index.ts         | 60 +++++++++++++
+ .../createSqliteExecutionContractServices.ts       | 35 ++++++++
+ .../app/lib/oa/project/infrastructure/sqlite/db.ts | 58 ++++++++++++-
+ .../infrastructure/sqlite/sqliteProductStore.ts    |  3 +
+ .../app/lib/platform/ai/fakeProvider.ts            |  2 +-
+ .../app/lib/vertical-slice-runtime/disclosures.ts  | 51 +++++++++---
+ projects/sfia-studio/app/playwright.config.ts      |  2 +
+ 36 files changed, 543 insertions(+), 88 deletions(-)
+```
+
+Untracked in-scope:
 - `projects/sfia-studio/app/features/project-assistant/w2/types.ts`
 - `projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts`
 - `projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/presentedOptionSet.ts`
 - `projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts`
 - `projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts`
 - `projects/sfia-studio/app/features/project-assistant/w2/projectHistory.ts`
@@ -469,16 +335,132 @@ Instruction ChatGPT: requalifier à partir du Git courant, du diff réel, des pr
 - `projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts`
 - `projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts`
 - `projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx`
+- `projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts`
 
-## Fichiers tracked — finalité + diff
+## I. Tests
+
+Commands:
+- vitest w2EabcDelivery → **13 passed**
+- vitest adjacent (UI/labels/W1/OA) → **114 passed** (10 files including prior set)
+- playwright e2e/studio-w2-g3-correction-runtime.spec.ts → **1 passed**
+- tsc in-scope W2: clean (FinOps/pg pre-existing noise filtered)
+- git diff --check: clean
+
+Negative: no HD; stale optionSet; uninspected/stale EC; cross-project; no Execute
+Fault injection: A4 promote failure rolls back HD
+Restart: decided trajectory + history
+
+## J. Runtime proof
+
+Manifest:
+```
+{"id":"01-studio-home","file":"01-studio-home.png","screen":"ProjectsHome","state":"loaded","route":"http://127.0.0.1:3020/studio","timestamp":"2026-08-23T04:13:22.928Z","sha256":"08c30b98520e4bbc4240e3e3d70998b6aa92a26aa8364a078a0236bdfee5b352","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W2-G3 CORRECTION /STUDIO PROOF"}
+{"id":"02-workspace","file":"02-workspace.png","screen":"ProjectWorkspace","state":"opened","route":"http://127.0.0.1:3020/studio/projects/prj%3A9870bc5f-1898-4e78-a990-343b6ead25ec","timestamp":"2026-08-23T04:13:24.633Z","sha256":"425e1ca7b91928de2a2337a5b4f278fc40cfe2b010646c740e6381b69fecba63","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W2-G3 CORRECTION /STUDIO PROOF"}
+{"id":"02b-qualified-gate","file":"02b-qualified-gate.png","screen":"ConversationSurface","state":"f2_gate_qualified","route":"http://127.0.0.1:3020/studio/projects/prj%3A9870bc5f-1898-4e78-a990-343b6ead25ec","timestamp":"2026-08-23T04:13:24.783Z","sha256":"90f758efec271184e66fec868a7fe36c615631aa57e808eb4f416faba9730bcd","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W2-G3 CORRECTION /STUDIO PROOF"}
+{"id":"03-trajectory-idle","file":"03-trajectory-idle.png","screen":"TrajectorySurface","state":"idle_after_qualification","route":"http://127.0.0.1:3020/studio/projects/prj%3A9870bc5f-1898-4e78-a990-343b6ead25ec","timestamp":"2026-08-23T04:13:24.904Z","sha256":"c63b3b8ba785c1902e83483b2db90f390f5e64b1fd8519d7953a0aaa62313d4a","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W2-G3 CORRECTION /STUDIO PROOF"}
+{"id":"04-options-recommendation","file":"04-options-recommendation.png","screen":"TrajectorySurface","state":"options_proposed","route":"http://127.0.0.1:3020/studio/projects/prj%3A9870bc5f-1898-4e78-a990-343b6ead25ec","timestamp":"2026-08-23T04:13:25.227Z","sha256":"839ffd43c5077eb3453dffb5d021201a661e980177b5e0e6fca01640589f24cb","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W2-G3 CORRECTION /STUDIO PROOF"}
+{"id":"05-human-decision-trajectory","file":"05-human-decision-trajectory.png","screen":"TrajectorySurface","state":"decided","route":"http://127.0.0.1:3020/studio/projects/prj%3A9870bc5f-1898-4e78-a990-343b6ead25ec","timestamp":"2026-08-23T04:13:25.397Z","sha256":"9f76a25fe5ba9f7c15ac0350b021769379c00957b059059bc1dcf6eb44fa936e","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W2-G3 CORRECTION /STUDIO PROOF"}
+{"id":"06-execution-contract","file":"06-execution-contract.png","screen":"TrajectorySurface","state":"contract_prepared","route":"http://127.0.0.1:3020/studio/projects/prj%3A9870bc5f-1898-4e78-a990-343b6ead25ec","timestamp":"2026-08-23T04:13:25.570Z","sha256":"afdd4e788445cc3e70dfaf047790a9089d2749708f3f51a4cfac2d2e2aeceb35","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W2-G3 CORRECTION /STUDIO PROOF"}
+{"id":"07-inspected","file":"07-inspected.png","screen":"TrajectorySurface","state":"inspected","route":"http://127.0.0.1:3020/studio/projects/prj%3A9870bc5f-1898-4e78-a990-343b6ead25ec","timestamp":"2026-08-23T04:13:25.757Z","sha256":"d6b9fe032a10d1d9f2ec69da399676529d281b704ca4043212a7b95d76166daa","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W2-G3 CORRECTION /STUDIO PROOF"}
+{"id":"08-authorization-stop","file":"08-authorization-stop.png","screen":"TrajectorySurface","state":"blocked","route":"http://127.0.0.1:3020/studio/projects/prj%3A9870bc5f-1898-4e78-a990-343b6ead25ec","timestamp":"2026-08-23T04:13:25.943Z","sha256":"e855fad10ee54453e267839ee6127fa1662f47fc079c6dddbc5bbb09b6f996bb","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W2-G3 CORRECTION /STUDIO PROOF"}
+
+```
+
+Route: /studio → /studio/projects/new → /studio/projects/prj:… → TrajectorySurface
+Scenario: qualify F2 gate → Options → Recommendation → Décision de trajectoire → EC → inspect → authorize → STOP BEFORE EXECUTE (outcome BLOCKED honest on /studio path)
+Captures: 01…08 png present
+
+## K. Fake/Real
+
+DETERMINISTIC PRODUCT-NATIVE PROVEN for corrections.
+forceLocalAuthority / SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1 documented TEMPORARY WITH EXIT.
+POSITIVE AUTHORIZATION MECHANISM uses same OA/SQLite path with capable EC fixture — not a second product path.
+REAL untouched. DETERMINISTIC ≠ READY FOR REAL.
+
+## L. Architecture
+
+KEEP OA + Product SQLite + W1 CKC seam + /studio + C6 CLOSED.
+ADAPT/COMPLETE w2 product path, promote steps seal, presented OptionSet, UoW, inspect/receipt, UX.
+No second SoT / engine / resolver.
+Track D untouched (no Phase B cognition).
+Temporary: Proposal process-local; local Pilote authority.
+Documentary sync for D-W2-04-R1 deferred (gate ultérieur).
+
+## M. Git
+
+No project commit/push/PR/merge.
+Handoff L3 only after this pack.
+
+## Verdict
+
+READY FOR CHATGPT RE-REVIEW — W2-G3 E+A+B+C CORRECTIONS APPLIED
+
+Anti-claims: corrections ≠ W2 complete; EABC ≠ Phase B; D-W2-02 adopted ≠ GO Phase B; D-W2-04-R1 ≠ C6 reopen; deterministic ≠ REAL; AUTHORIZED ≠ Execute; no Attempt; no runtime v3; tests green ≠ Product Completion; ≠ READY FOR PR/MERGE.
+
+---
+
+# ANNEXE — TRACKED DIFFS (consolidated vs working tree / origin/main HEAD)
+
+
+### `projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx`
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
+index a8913736..9b8af16b 100644
+--- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
+@@ -69,7 +69,7 @@ const NO_EVIDENCE_OUTCOME = {
+ const F3_LABELS = {
+   fixtureNoReal: "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
+   noGitWrite: "AUCUN GIT WRITE PRODUIT",
+-  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+   cursorRealBlocked: "CURSOR REAL BLOQUÉ",
+   hardOpen: "HARD R-T-A3-1 / R-T-A3-2 OPEN",
+ } as const;
+@@ -558,7 +558,7 @@ describe("Option A running Attempt refresh uses the canonical M3 action", () =>
+             irreversible: false,
+             lowRiskBounded: true,
+           },
+-          recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++          recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+         },
+         proposal,
+         decision: null,
+@@ -791,7 +791,7 @@ describe("Option A running Attempt refresh uses the canonical M3 action", () =>
+             irreversible: false,
+             lowRiskBounded: true,
+           },
+-          recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++          recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+         },
+         proposal,
+         decision: null,
+```
+
+### `projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx`
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx
+index 20b68935..1ed2b066 100644
+--- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx
+@@ -16,7 +16,7 @@ import type { ProjectAssistantRehydrateEvidenceOutcomeSuccess } from "@/features
+ const F3_LABELS = {
+   fixtureNoReal: "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
+   noGitWrite: "AUCUN GIT WRITE PRODUIT",
+-  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+   cursorRealBlocked: "CURSOR REAL BLOQUÉ",
+   hardOpen: "HARD R-T-A3-1 / R-T-A3-2 OPEN",
+ } as const;
+```
 
 ### `projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx`
 
-**Finalité:** Non-régression panel assistant.
-
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx b/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
-index a91692f7..daca0adc 100644
+index a91692f7..7553b57b 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
 @@ -113,6 +113,13 @@ const SUCCESS_RESULT = {
@@ -495,11 +477,45 @@ index a91692f7..daca0adc 100644
      messages: [] as const,
    },
  };
+@@ -183,7 +190,7 @@ const DURABLE_REHYDRATE_SUCCESS = {
+     hardBlockers: [] as string[],
+     nextGateCode: null,
+     nextActionCode: null,
+-    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS" as const,
++    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE" as const,
+     mode: "fixture" as const,
+   },
+   lpsVersion: 3,
+@@ -479,7 +486,7 @@ describe("M5-27/M5-28 durable Nora/UI rehydrate", () => {
+       "draft",
+     );
+     expect(screen.getByTestId("durable-recommendation-label")).toHaveTextContent(
+-      "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++      "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+     );
+     expect(
+       screen.getByTestId("durable-recommendation-execution-authority"),
+@@ -507,7 +514,7 @@ describe("M5-27/M5-28 durable Nora/UI rehydrate", () => {
+     ).toHaveTextContent("rb:m5-ui");
+     expect(
+       screen.getByTestId("durable-recommendation-label"),
+-    ).toHaveTextContent("RECOMMANDATION — PAS UNE DÉCISION MORRIS");
++    ).toHaveTextContent("RECOMMANDATION — PAS UNE DÉCISION HUMAINE");
+
+     first.unmount();
+
+@@ -517,7 +524,7 @@ describe("M5-27/M5-28 durable Nora/UI rehydrate", () => {
+     ).toHaveTextContent("rb:m5-ui");
+     expect(
+       screen.getByTestId("durable-recommendation-label"),
+-    ).toHaveTextContent("RECOMMANDATION — PAS UNE DÉCISION MORRIS");
++    ).toHaveTextContent("RECOMMANDATION — PAS UNE DÉCISION HUMAINE");
+     expect(
+       screen.getByTestId("durable-recommendation-execution-authority"),
+     ).toHaveTextContent("executionAuthority: false");
 ```
 
 ### `projects/sfia-studio/app/__tests__/project-assistant/presentationLabels.test.ts`
-
-**Finalité:** Alignement tests copy autorité structurante.
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/presentationLabels.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/presentationLabels.test.ts
@@ -553,9 +569,61 @@ index dd14cea9..f753d59d 100644
  });
 ```
 
-### `projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx`
+### `projects/sfia-studio/app/__tests__/project-assistant/w1CkcSemanticSeam.test.ts`
 
-**Finalité:** Non-régression workspace /studio + surface trajectoire.
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w1CkcSemanticSeam.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/w1CkcSemanticSeam.test.ts
+index 9612e01b..5736e62a 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/w1CkcSemanticSeam.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/w1CkcSemanticSeam.test.ts
+@@ -47,7 +47,7 @@ function baseQualification(): QualificationDto {
+       irreversible: false,
+       lowRiskBounded: true,
+     },
+-    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+     executionAuthority: false,
+   };
+ }
+@@ -140,7 +140,7 @@ describe("W1 bounded CKC→Nora semantic seam", () => {
+     expect(control.recommendation.toLowerCase()).not.toMatch(/anti scope creep/);
+     expect(treatment.recommendation.toLowerCase()).toMatch(/anti scope creep/);
+     expect(treatment.recommendation).toContain("RECOMMANDATION");
+-    expect(treatment.recommendation).toContain("PAS UNE DÉCISION MORRIS");
++    expect(treatment.recommendation).toContain("PAS UNE DÉCISION HUMAINE");
+   });
+
+ });
+```
+
+### `projects/sfia-studio/app/__tests__/studio-projects/projectPrincipalAmend.test.tsx`
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/studio-projects/projectPrincipalAmend.test.tsx b/projects/sfia-studio/app/__tests__/studio-projects/projectPrincipalAmend.test.tsx
+index fe247b3a..bf6294e4 100644
+--- a/projects/sfia-studio/app/__tests__/studio-projects/projectPrincipalAmend.test.tsx
++++ b/projects/sfia-studio/app/__tests__/studio-projects/projectPrincipalAmend.test.tsx
+@@ -137,7 +137,7 @@ const DURABLE_OUTCOME: ProjectAssistantRehydrateEvidenceOutcomeSuccess = {
+     hardBlockers: [],
+     nextGateCode: null,
+     nextActionCode: null,
+-    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+     mode: "FIXTURE",
+   },
+   lpsVersion: 2,
+@@ -201,7 +201,7 @@ describe("ProjectPrincipalClient AMEND readback / recovery", () => {
+     const history = await screen.findByTestId("project-history-panel");
+     await waitFor(() => {
+       expect(
+-        within(history).getByText("RECOMMANDATION — PAS UNE DÉCISION MORRIS"),
++        within(history).getByText("RECOMMANDATION — PAS UNE DÉCISION HUMAINE"),
+       ).toBeVisible();
+     });
+     expect(within(history).getByText("Evidence")).toBeVisible();
+```
+
+### `projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx b/projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx
@@ -580,8 +648,6 @@ index 40b71275..12fe3207 100644
 
 ### `projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx`
 
-**Finalité:** UI mineure — copy/accessibilité existante.
-
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
 index aed5e763..2a304a13 100644
@@ -603,8 +669,6 @@ index aed5e763..2a304a13 100644
 ```
 
 ### `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
-
-**Finalité:** UI — monte TrajectorySurface sur le chemin canonique /studio.
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
@@ -636,8 +700,6 @@ index 467a5955..e733d001 100644
 
 ### `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.tsx`
 
-**Finalité:** UI mineure — copy projets.
-
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.tsx
 index d79b2de2..82aac0ec 100644
@@ -656,11 +718,9 @@ index d79b2de2..82aac0ec 100644
 
 ### `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`
 
-**Finalité:** UI mineure — distinction recommandation / décision.
-
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-index ef57c90a..f2f98e84 100644
+index ef57c90a..2907fbf2 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
 @@ -232,11 +232,11 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
@@ -677,6 +737,24 @@ index ef57c90a..f2f98e84 100644
                  </p>
                  <p className={styles.bubbleText}>{message.content}</p>
                </div>
+@@ -392,7 +392,7 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
+               <dt>Votre accord</dt>
+               <dd data-testid="f2-gate-required">
+                 {activeProposal.morrisGateRequired
+-                  ? "Décision requise"
++                  ? "Décision sur la proposition requise"
+                   : "Aucune décision requise pour l’instant"}
+               </dd>
+             </div>
+@@ -482,7 +482,7 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
+           aria-live="polite"
+         >
+           <header className={styles.cardHead}>
+-            <p className={styles.cardEyebrow}>Décision enregistrée</p>
++            <p className={styles.cardEyebrow}>Décision sur la proposition</p>
+             <h3 className={styles.cardTitle}>
+               Votre décision est prise en compte
+             </h3>
 @@ -1275,7 +1275,7 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
            </button>
          </div>
@@ -689,8 +767,6 @@ index ef57c90a..f2f98e84 100644
 ```
 
 ### `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.tsx`
-
-**Finalité:** Track B — HistorySurface lit le read model W2; pas de transcript.
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.tsx
@@ -840,9 +916,88 @@ index 7858c3cd..89a911f8 100644
        <ol className={styles.timeline}>
 ```
 
-### `projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts`
+### `projects/sfia-studio/app/features/project-assistant/actions.ts`
 
-**Finalité:** Track A — F2 recordDecision utilise LOCAL_PILOTE_ACTOR; authority class OA 'morris' conservée; pas de second moteur.
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
+index cda05fe5..efd0e91b 100644
+--- a/projects/sfia-studio/app/features/project-assistant/actions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
+@@ -617,7 +617,7 @@ export async function projectAssistantConfirmAndExecuteF3FixtureAction(input: {
+       `Attempt ${f3.attempt.attemptId} · ${f3.attempt.status}`,
+       `Evidence ${f3.evidence.evidenceId} · non verified`,
+       `ReviewBundle ${f3.reviewBundle.reviewBundleId}`,
+-      "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++      "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+       "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
+       "CURSOR REAL BLOQUÉ",
+       persistenceNotice,
+@@ -755,7 +755,7 @@ export async function projectAssistantConfirmAndExecuteResolvedM3Action(input: {
+       `Attempt ${f3.attempt.attemptId} · ${f3.attempt.status}`,
+       `Evidence ${f3.evidence.evidenceId} · non verified`,
+       `ReviewBundle ${f3.reviewBundle.reviewBundleId}`,
+-      "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++      "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+       semantic,
+       isCursorReal ? null : "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
+       isCursorReal ? null : "CURSOR REAL BLOQUÉ",
+@@ -836,7 +836,7 @@ export async function projectAssistantRehydrateEvidenceOutcomeAction(input: {
+       `LPS v${rehydrated.lpsVersion}`,
+       `Evidence ${rehydrated.evidenceIds.join(", ") || "—"}`,
+       `ReviewBundle ${rehydrated.reviewBundleIds.join(", ") || "—"}`,
+-      "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++      "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+       persistenceNotice,
+     ].join(" — "),
+     project,
+```
+
+### `projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts b/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
+index 5368f46e..af1714c7 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
+@@ -168,7 +168,7 @@ export async function reasonWithResolvedCkcContext(input: {
+       : "openai_live";
+
+   const systemContent = input.ckcPromptSection?.trim()
+-    ? `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nContexte CKC résolu (guidance seulement — pas d'autorité, pas de décision Morris):\n${input.ckcPromptSection.trim()}`
++    ? `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nContexte CKC résolu (guidance seulement — pas d'autorité, pas de décision humaine):\n${input.ckcPromptSection.trim()}`
+     : `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nAucun contexte CKC package résolu — recommandation générique uniquement.`;
+
+   const completion = await provider.complete([
+@@ -235,7 +235,7 @@ export function enrichQualificationWithCkcSemantics(input: {
+     rationale,
+     isMorrisDecision: false,
+     executionAuthority: false,
+-    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+     ckcSemanticProvenance: content.provenance,
+     ckcCognitiveRecommendation: input.ckcCognitiveRecommendation ?? undefined,
+     disclosures: [
+```
+
+### `projects/sfia-studio/app/features/project-assistant/f2/qualify.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/qualify.ts b/projects/sfia-studio/app/features/project-assistant/f2/qualify.ts
+index 19cef9d9..d8ee4069 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/qualify.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/qualify.ts
+@@ -68,7 +68,7 @@ export async function qualifyWithCkc(input: {
+     detailedStatus: result.detailedStatus,
+     disclosures: [...result.disclosures],
+     signals: input.signals,
+-    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+     ckcResolutionRef: projectCkcResolutionRef(result.proof),
+     executionAuthority: false,
+   };
+```
+
+### `projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts b/projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts
@@ -889,13 +1044,29 @@ index 8f85ba7b..4379ac42 100644
      reversible: true,
 ```
 
-### `projects/sfia-studio/app/features/project-assistant/f3/constants.ts`
+### `projects/sfia-studio/app/features/project-assistant/f2/types.ts`
 
-**Finalité:** Track E — notices F3: Recommendation n'est pas une décision humaine (plus une décision Morris runtime).
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/types.ts b/projects/sfia-studio/app/features/project-assistant/f2/types.ts
+index 5df83b9e..337235e2 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/types.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/types.ts
+@@ -65,7 +65,7 @@ export type QualificationDto = {
+   detailedStatus: string;
+   disclosures: string[];
+   signals: F2QualificationSignals;
+-  recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS";
++  recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE";
+   /** Durable CKC binding projection (no raw CKC dimensions). */
+   ckcResolutionRef?: string;
+   executionAuthority?: false;
+```
+
+### `projects/sfia-studio/app/features/project-assistant/f3/constants.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/constants.ts b/projects/sfia-studio/app/features/project-assistant/f3/constants.ts
-index 28c537de..3d262624 100644
+index 28c537de..f64adc42 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f3/constants.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f3/constants.ts
 @@ -60,17 +60,17 @@ export const F3_PROCESS_LOCAL_NOTICE =
@@ -919,11 +1090,132 @@ index 28c537de..3d262624 100644
 
  /**
   * Route F3 ephemeral disclosure by OA composition persistence, not by
+@@ -87,7 +87,7 @@ export function resolveF3EphemeralNotice(
+ export const F3_LABELS = Object.freeze({
+   fixtureNoReal: "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
+   noGitWrite: "AUCUN GIT WRITE PRODUIT",
+-  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+   cursorRealBlocked: "CURSOR REAL BLOQUÉ",
+   noReadyClaim: "PAS DE CLAIM READY",
+   noTa6Complete: "T-A6 COMPLETE NON DÉCLARÉ",
+```
+
+### `projects/sfia-studio/app/features/project-assistant/f3/e2eOptionATerminalAttempt.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/e2eOptionATerminalAttempt.ts b/projects/sfia-studio/app/features/project-assistant/f3/e2eOptionATerminalAttempt.ts
+index da387051..5c9eac73 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/e2eOptionATerminalAttempt.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/e2eOptionATerminalAttempt.ts
+@@ -50,7 +50,7 @@ function absentRecommendation(): F3ExecutePayload["recommendation"] {
+   return {
+     kind: "recommendation",
+     status: "absent",
+-    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+     executionAuthority: false,
+     gateConsumed: false,
+     decisionCreated: false,
+```
+
+### `projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts b/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
+index c7afcf35..faa507a8 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
+@@ -9,9 +9,10 @@ import type {
+   MemoryAuthorityResolver,
+ } from "@/lib/oa/decision";
+ import {
+-  LOCAL_MORRIS_M3_ACTOR,
+-  registerM3LocalMorrisAuthority,
++  LOCAL_PILOTE_ACTOR,
++  registerLocalPiloteAuthority,
+ } from "@/lib/oa/decision";
++/** W2: Pilote is the product decision-maker; Morris remains authority CLASS only. */
+ import type {
+   CursorPrepareOnlyProjection,
+   ExecutionContractServices,
+@@ -41,6 +42,9 @@ export type F3M3PreparePayload = {
+     scope: string;
+     requiredAuthority: string;
+     constraints: string[];
++    stopConditions: string[];
++    requiredCapabilities: string[];
++    reversibility: string;
+     semanticFingerprint: string;
+   };
+   cursorProjection: CursorPrepareOnlyProjection;
+@@ -224,7 +228,7 @@ export async function prepareM3FromDecision(input: {
+
+   const fields = fieldsFromBasis(basis, decision.decisionId);
+   const issuedAt = input.deps.nowIso();
+-  const authority = registerM3LocalMorrisAuthority({
++  const authority = registerLocalPiloteAuthority({
+     authorityResolver: input.deps.authorityResolver,
+     scope: fields.scope,
+     issuedAt,
+@@ -262,7 +266,7 @@ export async function prepareM3FromDecision(input: {
+       reversibility: fields.reversibility,
+       idempotencyKey,
+       correlationId: `cor:m3-prep:${decision.decisionId}`,
+-      actor: LOCAL_MORRIS_M3_ACTOR,
++      actor: LOCAL_PILOTE_ACTOR,
+       authorityEvidenceId: authority.evidenceId,
+     });
+
+@@ -278,7 +282,7 @@ export async function prepareM3FromDecision(input: {
+     await input.deps.executionContractServices.validateExecutionContract.execute(
+       {
+         executionContractId: built.contract.executionContractId,
+-        actor: LOCAL_MORRIS_M3_ACTOR,
++        actor: LOCAL_PILOTE_ACTOR,
+         authorityEvidenceId: authority.evidenceId,
+       },
+     );
+@@ -322,6 +326,9 @@ export async function prepareM3FromDecision(input: {
+         scope: contract.scope,
+         requiredAuthority: contract.requiredAuthority,
+         constraints: [...contract.constraints],
++        stopConditions: [...contract.stopConditions],
++        requiredCapabilities: [...contract.requiredCapabilities],
++        reversibility: contract.reversibility,
+         semanticFingerprint: contract.semanticFingerprint ?? cursorProjection.fingerprint,
+       },
+       cursorProjection,
+```
+
+### `projects/sfia-studio/app/features/project-assistant/f3/types.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/types.ts b/projects/sfia-studio/app/features/project-assistant/f3/types.ts
+index 538e9b7c..d24de60d 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/types.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/types.ts
+@@ -68,7 +68,7 @@ export type F3RecommendationDto = {
+   hardBlockers: string[];
+   nextGateCode: string | null;
+   nextActionCode: string | null;
+-  recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS";
++  recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE";
+   mode: F3Mode;
+   analysisStatus?: "available" | "unavailable" | "not_attempted";
+   analysisText?: string | null;
+@@ -79,7 +79,7 @@ export type F3RecommendationDto = {
+ export type F3Labels = {
+   fixtureNoReal: "FIXTURE — AUCUNE EXÉCUTION RÉELLE";
+   noGitWrite: "AUCUN GIT WRITE PRODUIT";
+-  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION MORRIS";
++  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE";
+   cursorRealBlocked: "CURSOR REAL BLOQUÉ";
+   hardOpen: "HARD R-T-A3-1 / R-T-A3-2 OPEN";
+ };
 ```
 
 ### `projects/sfia-studio/app/features/project-assistant/presentationLabels.ts`
-
-**Finalité:** Track E/A — copy Pilote: autorité structurante plutôt que persona Morris; message de reprise distinguant confirmation demandée vs accordée.
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts b/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
@@ -969,11 +1261,9 @@ index c4a0a8bf..3e54ae46 100644
 
 ### `projects/sfia-studio/app/lib/oa/cycle/domain/types.ts`
 
-**Finalité:** Track A — PromoteDecidedTrajectory request/result types; decisionRef obligatoire.
-
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts b/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
-index 54b7d52c..c2cf80f2 100644
+index 54b7d52c..c151d57c 100644
 --- a/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
 +++ b/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
 @@ -104,6 +104,13 @@ export type ProjectTrajectory = {
@@ -990,7 +1280,7 @@ index 54b7d52c..c2cf80f2 100644
  };
 
  export type EpistemicItem = {
-@@ -212,6 +219,25 @@ export type ProposeTrajectoryVersionRequest = {
+@@ -212,6 +219,31 @@ export type ProposeTrajectoryVersionRequest = {
    expectedLpsVersion: number;
  };
 
@@ -1008,6 +1298,12 @@ index 54b7d52c..c2cf80f2 100644
 +  status?: "validated" | "active";
 +  decisionRef: string;
 +  decidedOptionRef?: string;
++  /**
++   * W2 A1 — when provided, these steps become the decided trajectory content
++   * (same version, candidate → validated). Used so a Pilote-selected option
++   * that differs from the recommended outline is sealed at promote time.
++   */
++  steps?: TrajectoryStep[];
 +  createdBy: ActorReference;
 +  correlationId?: string;
 +  expectedLpsVersion: number;
@@ -1019,8 +1315,6 @@ index 54b7d52c..c2cf80f2 100644
 ```
 
 ### `projects/sfia-studio/app/lib/oa/cycle/index.ts`
-
-**Finalité:** Track A — export PromoteDecidedTrajectory.
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/index.ts b/projects/sfia-studio/app/lib/oa/cycle/index.ts
@@ -1070,8 +1364,6 @@ index e566fcaa..b45985c5 100644
 
 ### `projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/createSqliteCycleServices.ts`
 
-**Finalité:** Track A — câblage OA existant du use case de promotion.
-
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/createSqliteCycleServices.ts b/projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/createSqliteCycleServices.ts
 index a4a9937e..8823ec68 100644
@@ -1111,8 +1403,6 @@ index a4a9937e..8823ec68 100644
 
 ### `projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts`
 
-**Finalité:** Track A — événement d'audit trajectory.decided.
-
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts b/projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts
 index b6d90df8..422b847d 100644
@@ -1142,14 +1432,12 @@ index b6d90df8..422b847d 100644
 
 ### `projects/sfia-studio/app/lib/oa/decision/domain/types.ts`
 
-**Finalité:** Track A — DecisionBasis.sourceType trajectory_option + trajectoryContext.
-
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/decision/domain/types.ts b/projects/sfia-studio/app/lib/oa/decision/domain/types.ts
-index f206e707..d51d7c69 100644
+index f206e707..434c1439 100644
 --- a/projects/sfia-studio/app/lib/oa/decision/domain/types.ts
 +++ b/projects/sfia-studio/app/lib/oa/decision/domain/types.ts
-@@ -72,15 +72,38 @@ export type DecisionBasisProposalContext = {
+@@ -72,15 +72,40 @@ export type DecisionBasisProposalContext = {
    ckcResolutionRef?: string;
  };
 
@@ -1172,6 +1460,8 @@ index f206e707..d51d7c69 100644
 +  recommendedOptionRef?: string;
 +  /** Durable Epistemic item refs materializing the options/recommendation. */
 +  epistemicRefs?: string[];
++  /** W2 A2 — digest of the exact presented OptionSet sealed at propose. */
++  optionSetDigest?: string;
 +};
 +
  export type DecisionBasis = {
@@ -1195,8 +1485,6 @@ index f206e707..d51d7c69 100644
 
 ### `projects/sfia-studio/app/lib/oa/decision/index.ts`
 
-**Finalité:** Track A — export acteur Pilote / helpers.
-
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/decision/index.ts b/projects/sfia-studio/app/lib/oa/decision/index.ts
 index 90b46031..fb258a60 100644
@@ -1216,8 +1504,6 @@ index 90b46031..fb258a60 100644
 ```
 
 ### `projects/sfia-studio/app/lib/oa/decision/infrastructure/localSingleUserAuthority.ts`
-
-**Finalité:** Track A — acteur runtime Pilote + registerLocalPiloteAuthority; acteur Morris historique conservé en lecture.
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/decision/infrastructure/localSingleUserAuthority.ts b/projects/sfia-studio/app/lib/oa/decision/infrastructure/localSingleUserAuthority.ts
@@ -1377,8 +1663,6 @@ index c871ad51..edf98d63 100644
 
 ### `projects/sfia-studio/app/lib/oa/execution-contract/index.ts`
 
-**Finalité:** Track C — barrel OA: inspect / receipt / types.
-
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-contract/index.ts b/projects/sfia-studio/app/lib/oa/execution-contract/index.ts
 index e496c5af..c1e035a0 100644
@@ -1521,8 +1805,6 @@ index e496c5af..c1e035a0 100644
 
 ### `projects/sfia-studio/app/lib/oa/execution-contract/infrastructure/sqlite/createSqliteExecutionContractServices.ts`
 
-**Finalité:** Track C — composition services EC existants + inspect/receipt.
-
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-contract/infrastructure/sqlite/createSqliteExecutionContractServices.ts b/projects/sfia-studio/app/lib/oa/execution-contract/infrastructure/sqlite/createSqliteExecutionContractServices.ts
 index 1bb759dc..1c64bfb4 100644
@@ -1613,8 +1895,6 @@ index 1bb759dc..1c64bfb4 100644
 ```
 
 ### `projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts`
-
-**Finalité:** Track C — migration additive M7 sur le Product SQLite KEEP (tables attestation + receipt). Pas de second SoT.
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts b/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
@@ -1728,9 +2008,44 @@ index 64d02470..13a553da 100644
        db.close();
 ```
 
-### `projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts`
+### `projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProductStore.ts`
 
-**Finalité:** Track E — aligner les disclosures runtime avec la vérité durable W1/W2 (trajectory/epistemic/granted confirmation) et déclarer honnêtement W2 incomplet + Phase B non autorisée.
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProductStore.ts b/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProductStore.ts
+index 47348033..b83140c5 100644
+--- a/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProductStore.ts
++++ b/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProductStore.ts
+@@ -41,6 +41,9 @@ export class SqliteProductStore
+     | "attempt"
+     | "evidence"
+     | "review_bundle"
++    | "trajectory"
++    | "confirmation"
++    | "epistemic"
+     | null = null;
+
+   private queue: Promise<void> = Promise.resolve();
+```
+
+### `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+index 1ea5e810..35672d38 100644
+--- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
++++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+@@ -72,7 +72,7 @@ export class FakeConversationProvider implements ConversationProvider {
+       );
+       if (hasCkcContext) {
+         return {
+-          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — anti scope creep : borner le slice avant toute extension. RECOMMANDATION — PAS UNE DÉCISION MORRIS.",
++          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — anti scope creep : borner le slice avant toute extension. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
+           usage: {
+             inputTokens: 10 * this.callCount,
+             outputTokens: 5 * this.callCount,
+```
+
+### `projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts
@@ -1832,11 +2147,27 @@ index 516058f4..d8ab14e6 100644
 
 ```
 
-## Fichiers nouveaux — finalité + contenu intégral
+### `projects/sfia-studio/app/playwright.config.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/playwright.config.ts b/projects/sfia-studio/app/playwright.config.ts
+index 04d7eef5..feff58f6 100644
+--- a/projects/sfia-studio/app/playwright.config.ts
++++ b/projects/sfia-studio/app/playwright.config.ts
+@@ -27,6 +27,8 @@ export default defineConfig({
+     env: {
+       ...process.env,
+       OPS1_E2E_ALLOW_DIRTY_PRINCIPAL: "1",
++      // Local Pilote authority TEMPORARY WITH EXIT — required for /studio HD path.
++      SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY: "1",
+       D1_INTAKE_PROVIDER: process.env.D1_INTAKE_PROVIDER || "fake",
+       // Default E2E: fake provider. Real live capture/smoke: OPS1_ALLOW_LIVE_SMOKE=1
+       // without forcing fake (secrets must already be in the environment).
+```
+
+# ANNEXE — UNTRACKED NEW FILES (full content)
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/types.ts`
-
-**Finalité:** Track A/C — DTOs produit: Option ≠ Recommendation ≠ HD; STOP BEFORE EXECUTE.
 
 ```ts
 /**
@@ -2039,8 +2370,6 @@ export type DecideTrajectoryResult =
 ```
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts`
-
-**Finalité:** Track A — dérivation déterministe Options + Recommendation (pas Phase B).
 
 ```ts
 /**
@@ -2245,8 +2574,6 @@ export function deriveTrajectoryRecommendation(
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts`
 
-**Finalité:** Track A — lit la qualification W1 déjà durable; n'étend pas CKC.
-
 ```ts
 /**
  * W2 Track A — server-side resolution of the qualification truth that feeds
@@ -2346,9 +2673,212 @@ export async function resolveW2QualificationInputs(input: {
 }
 ```
 
-### `projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts`
+### `projects/sfia-studio/app/features/project-assistant/w2/presentedOptionSet.ts`
 
-**Finalité:** Track A — matérialise candidate ProjectTrajectory + Epistemic; jamais current; Proposal reste éphémère (D-W2-01).
+```ts
+/**
+ * W2 Track A — durable presented OptionSet binding.
+ *
+ * Propose materialises an Epistemic Observation that pins the exact OptionSet
+ * shown to the Pilote. Decide loads that Observation and never re-derives
+ * options from live qualification (A2).
+ */
+
+import { computeDecisionBasisSourceDigest } from "@/lib/oa/decision";
+import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import type { TrajectoryOptionDto, TrajectoryRecommendationDto } from "./types";
+
+export const W2_PRESENTED_OPTION_SET_KIND = "w2_presented_option_set" as const;
+
+export type OptionSetDigestInputs = {
+  readonly cycleTypeId: string;
+  readonly recommendedProfile: string;
+  readonly criticalSignalsPresent: boolean;
+  readonly irreversible: boolean;
+  readonly reservations: readonly string[];
+  readonly options: readonly TrajectoryOptionDto[];
+  readonly recommendedOptionRef: string;
+};
+
+export type QualificationDigestInputs = {
+  readonly cycleTypeId: string;
+  readonly recommendedProfile: string;
+  readonly criticalSignalsPresent: boolean;
+  readonly irreversible: boolean;
+  readonly reservations: readonly string[];
+  readonly ckcAttribution: string | null;
+};
+
+export type PresentedOptionSetBinding = {
+  readonly kind: typeof W2_PRESENTED_OPTION_SET_KIND;
+  readonly optionSetRef: string;
+  readonly optionSetDigest: string;
+  readonly qualificationDigest: string;
+  readonly trajectoryId: string;
+  readonly candidateVersion: number;
+  readonly optionRefs: readonly string[];
+  readonly recommendedOptionRef: string;
+  readonly options: readonly TrajectoryOptionDto[];
+  readonly recommendation: TrajectoryRecommendationDto;
+  readonly epistemicRefs: readonly string[];
+  readonly cycleTypeId: string;
+  readonly recommendedProfile: string;
+  readonly criticalSignalsPresent: boolean;
+  readonly irreversible: boolean;
+  readonly reservations: readonly string[];
+  readonly ckcAttribution: string | null;
+};
+
+export function computeQualificationDigest(
+  inputs: QualificationDigestInputs,
+): string {
+  return computeDecisionBasisSourceDigest({
+    cycleTypeId: inputs.cycleTypeId,
+    recommendedProfile: inputs.recommendedProfile,
+    criticalSignalsPresent: inputs.criticalSignalsPresent,
+    irreversible: inputs.irreversible,
+    reservations: [...inputs.reservations],
+    ckcAttribution: inputs.ckcAttribution,
+  });
+}
+
+export function computeOptionSetDigest(inputs: OptionSetDigestInputs): string {
+  return computeDecisionBasisSourceDigest({
+    cycleTypeId: inputs.cycleTypeId,
+    recommendedProfile: inputs.recommendedProfile,
+    criticalSignalsPresent: inputs.criticalSignalsPresent,
+    irreversible: inputs.irreversible,
+    reservations: [...inputs.reservations],
+    options: inputs.options.map((o) => ({
+      optionRef: o.optionRef,
+      label: o.label,
+      stepIds: o.steps.map((s) => s.stepId),
+    })),
+    recommendedOptionRef: inputs.recommendedOptionRef,
+  });
+}
+
+export function optionSetObservationId(optionSetRef: string): string {
+  return `epi:${optionSetRef.replace("optset:", "set-")}`;
+}
+
+export function serializePresentedOptionSet(
+  binding: PresentedOptionSetBinding,
+): string {
+  return JSON.stringify(binding);
+}
+
+function isPresentedBinding(value: unknown): value is PresentedOptionSetBinding {
+  if (!value || typeof value !== "object") return false;
+  const v = value as Record<string, unknown>;
+  return (
+    v.kind === W2_PRESENTED_OPTION_SET_KIND &&
+    typeof v.optionSetRef === "string" &&
+    typeof v.optionSetDigest === "string" &&
+    typeof v.qualificationDigest === "string" &&
+    typeof v.trajectoryId === "string" &&
+    typeof v.candidateVersion === "number" &&
+    Array.isArray(v.options) &&
+    typeof v.recommendedOptionRef === "string"
+  );
+}
+
+export function parsePresentedOptionSetStatement(
+  statement: string,
+): PresentedOptionSetBinding | null {
+  try {
+    const parsed: unknown = JSON.parse(statement);
+    return isPresentedBinding(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+export type LoadPresentedOptionSetResult =
+  | { readonly ok: true; readonly presented: PresentedOptionSetBinding }
+  | { readonly ok: false; readonly code: string; readonly message: string };
+
+/**
+ * Fail-closed load of the exact OptionSet presented at propose time.
+ */
+export async function loadPresentedOptionSet(
+  oa: RuntimeOaStack,
+  projectId: string,
+  optionSetRef: string,
+): Promise<LoadPresentedOptionSetResult> {
+  const epistemic = await oa.cycleServices.getEpistemicState.execute({
+    projectId,
+  });
+  if (!epistemic.ok) {
+    return {
+      ok: false,
+      code: "OPTION_SET_STALE",
+      message:
+        "État épistémique illisible — le jeu d'options présenté est indisponible.",
+    };
+  }
+
+  const observationId = optionSetObservationId(optionSetRef);
+  const item = epistemic.state.items.find(
+    (i) =>
+      i.epistemicItemId === observationId &&
+      i.type === "Observation" &&
+      i.status === "active",
+  );
+  if (!item) {
+    return {
+      ok: false,
+      code: "OPTION_SET_STALE",
+      message:
+        "Jeu d'options présenté introuvable — aucune décision possible sur cette référence.",
+    };
+  }
+
+  const presented = parsePresentedOptionSetStatement(item.statement);
+  if (!presented || presented.optionSetRef !== optionSetRef) {
+    return {
+      ok: false,
+      code: "OPTION_SET_STALE",
+      message:
+        "Liaison du jeu d'options présenté illisible ou incohérente — fail-closed.",
+    };
+  }
+
+  return { ok: true, presented };
+}
+
+/**
+ * Find the latest active OptionSet Observation bound to a trajectory version.
+ */
+export async function findLatestOptionSetBindingForTrajectory(
+  oa: RuntimeOaStack,
+  projectId: string,
+  trajectoryId: string,
+  candidateVersion: number,
+): Promise<PresentedOptionSetBinding | null> {
+  const epistemic = await oa.cycleServices.getEpistemicState.execute({
+    projectId,
+  });
+  if (!epistemic.ok) return null;
+
+  const matches: PresentedOptionSetBinding[] = [];
+  for (const item of epistemic.state.items) {
+    if (item.type !== "Observation" || item.status !== "active") continue;
+    if (!item.relatedObjects?.includes(trajectoryId)) continue;
+    const parsed = parsePresentedOptionSetStatement(item.statement);
+    if (!parsed) continue;
+    if (
+      parsed.trajectoryId === trajectoryId &&
+      parsed.candidateVersion === candidateVersion
+    ) {
+      matches.push(parsed);
+    }
+  }
+  return matches.length > 0 ? matches[matches.length - 1]! : null;
+}
+```
+
+### `projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts`
 
 ```ts
 /**
@@ -2356,9 +2886,9 @@ export async function resolveW2QualificationInputs(input: {
  * accompanying Recommendation, and materialise the PROPOSED trajectory.
  *
  * Durability follows D-W2-01: what must survive is materialised as durable
- * Epistemic items (Option / Recommendation) plus one durable `candidate`
- * ProjectTrajectory version. Nothing here promotes the trajectory and nothing
- * here records a decision — PROPOSED ≠ DECIDED.
+ * Epistemic items (Option / Recommendation / presented OptionSet Observation)
+ * plus one durable `candidate` ProjectTrajectory version. Nothing here promotes
+ * the trajectory and nothing here records a decision — PROPOSED ≠ DECIDED.
  *
  * Reuses existing OA use cases only. No parallel engine, no second store.
  */
@@ -2368,6 +2898,14 @@ import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
 import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
 import type { ProjectTrajectory, TrajectoryStep } from "@/lib/oa/cycle";
+import {
+  computeOptionSetDigest,
+  computeQualificationDigest,
+  findLatestOptionSetBindingForTrajectory,
+  optionSetObservationId,
+  serializePresentedOptionSet,
+  type PresentedOptionSetBinding,
+} from "./presentedOptionSet";
 import {
   deriveTrajectoryOptions,
   deriveTrajectoryRecommendation,
@@ -2467,55 +3005,33 @@ export async function proposeTrajectoryOptions(
   const recommendation = deriveTrajectoryRecommendation(inputs);
   const optionSetRef = `optset:w2-${shortId()}`;
   const correlationId = input.correlationId ?? `cor:w2-opt-${shortId()}`;
-
-  const epistemicItems = [
-    ...options.map((option) => ({
-      epistemicItemId: optionEpistemicId(option.optionRef, optionSetRef),
-      type: "Option" as const,
-      statement: optionStatement(option),
-      status: "active" as const,
-      source: optionSetRef,
-      relatedObjects: [input.projectId, option.optionRef, optionSetRef],
-    })),
-    {
-      epistemicItemId: `epi:${optionSetRef.replace("optset:", "rec-")}`,
-      type: "Recommendation" as const,
-      statement: recommendationStatement(recommendation, options),
-      status: "active" as const,
-      source: input.ckcAttribution ?? optionSetRef,
-      relatedObjects: [
-        input.projectId,
-        recommendation.recommendedOptionRef,
-        optionSetRef,
-      ],
-    },
-  ];
-
-  const materialized = await oa.cycleServices.updateEpistemicState.execute({
-    projectId: input.projectId,
-    items: epistemicItems,
-    createdBy: NORA_OPTION_AUTHOR,
-    correlationId,
+  const qualificationDigest = computeQualificationDigest({
+    cycleTypeId: input.cycleTypeId,
+    recommendedProfile: input.recommendedProfile,
+    criticalSignalsPresent: input.criticalSignalsPresent,
+    irreversible: input.irreversible,
+    reservations: input.reservations,
+    ckcAttribution: input.ckcAttribution,
   });
-  if (!materialized.ok) {
-    return {
-      ok: false,
-      code: materialized.error.detailCode,
-      message: `Matérialisation des options échouée (${materialized.error.detailCode}).`,
-    };
-  }
+  const optionSetDigest = computeOptionSetDigest({
+    cycleTypeId: input.cycleTypeId,
+    recommendedProfile: input.recommendedProfile,
+    criticalSignalsPresent: input.criticalSignalsPresent,
+    irreversible: input.irreversible,
+    reservations: input.reservations,
+    options,
+    recommendedOptionRef: recommendation.recommendedOptionRef,
+  });
 
-  // The proposed trajectory mirrors the recommended option's outline. It stays
-  // `candidate`: the effective current pointer must not move without a decision.
+  // The proposed trajectory mirrors the recommended option's outline for
+  // presentation. Decide seals the Pilote-selected option's steps (A1).
   const proposedSteps: TrajectoryStep[] = structuredClone(
     (options.find((o) => o.optionRef === recommendation.recommendedOptionRef) ??
       options[0]!).steps,
   ) as TrajectoryStep[];
 
-  // A `candidate` is never the effective current pointer (D-W2-03).
-  // ProposeTrajectoryVersion requires an existing current pointer and OCC
-  // against that pointer — so an undecided candidate is reused, not rewritten
-  // into a parallel version.
+  // A3 — candidate reuse is digest-bound. An undecided candidate is a working
+  // surface for the latest propose, not a historical archive across digests.
   const current = await oa.cycleServices.getCurrentTrajectory.execute({
     projectId: input.projectId,
   });
@@ -2524,34 +3040,26 @@ export async function proposeTrajectoryOptions(
   let proposedTrajectoryId: string;
   let proposedVersion: number;
 
-  const reuseExistingCandidate =
+  const existingCandidateReusable =
     latest !== null &&
     latest.status === "candidate" &&
     (!current.ok || latest.version !== current.trajectory.version);
 
+  let reuseExistingCandidate = false;
+  if (existingCandidateReusable && latest) {
+    const prior = await findLatestOptionSetBindingForTrajectory(
+      oa,
+      input.projectId,
+      latest.trajectoryId,
+      latest.version,
+    );
+    reuseExistingCandidate =
+      prior !== null && prior.optionSetDigest === optionSetDigest;
+  }
+
   if (reuseExistingCandidate && latest) {
     proposedTrajectoryId = latest.trajectoryId;
     proposedVersion = latest.version;
-  } else if (!latest) {
-    const trajectoryId = `trj:w2-${shortId()}`;
-    const created = await oa.cycleServices.createInitialTrajectory.execute({
-      trajectoryId,
-      projectId: input.projectId,
-      steps: proposedSteps,
-      status: "candidate",
-      createdBy: NORA_OPTION_AUTHOR,
-      correlationId,
-      expectedLpsVersion: live.context.lpsVersion,
-    });
-    if (!created.ok) {
-      return {
-        ok: false,
-        code: created.error.detailCode,
-        message: `Création de la trajectoire proposée échouée (${created.error.detailCode}).`,
-      };
-    }
-    proposedTrajectoryId = created.trajectory.trajectoryId;
-    proposedVersion = created.trajectory.version;
   } else if (current.ok) {
     const proposed = await oa.cycleServices.proposeTrajectoryVersion.execute({
       trajectoryId: current.trajectory.trajectoryId,
@@ -2572,11 +3080,125 @@ export async function proposeTrajectoryOptions(
     }
     proposedTrajectoryId = proposed.trajectory.trajectoryId;
     proposedVersion = proposed.trajectory.version;
+  } else if (!latest) {
+    const trajectoryId = `trj:w2-${shortId()}`;
+    const created = await oa.cycleServices.createInitialTrajectory.execute({
+      trajectoryId,
+      projectId: input.projectId,
+      steps: proposedSteps,
+      status: "candidate",
+      createdBy: NORA_OPTION_AUTHOR,
+      correlationId,
+      expectedLpsVersion: live.context.lpsVersion,
+    });
+    if (!created.ok) {
+      return {
+        ok: false,
+        code: created.error.detailCode,
+        message: `Création de la trajectoire proposée échouée (${created.error.detailCode}).`,
+      };
+    }
+    proposedTrajectoryId = created.trajectory.trajectoryId;
+    proposedVersion = created.trajectory.version;
+  } else if (latest.status === "candidate") {
+    // Digest mismatch, no current pointer: reuse the same candidate slot as the
+    // working surface and replace the OptionSet binding below (A3 practical).
+    proposedTrajectoryId = latest.trajectoryId;
+    proposedVersion = latest.version;
   } else {
     return {
       ok: false,
       code: "TRAJECTORY_NOT_FOUND",
       message: "Aucune trajectoire proposée ni courante n'est disponible.",
+    };
+  }
+
+  const optionEpistemicItems = options.map((option) => ({
+    epistemicItemId: optionEpistemicId(option.optionRef, optionSetRef),
+    type: "Option" as const,
+    statement: optionStatement(option),
+    status: "active" as const,
+    source: optionSetRef,
+    relatedObjects: [input.projectId, option.optionRef, optionSetRef],
+  }));
+
+  const recommendationItem = {
+    epistemicItemId: `epi:${optionSetRef.replace("optset:", "rec-")}`,
+    type: "Recommendation" as const,
+    // Process/qualification source — CKC attribution is context only (A2).
+    statement: [
+      recommendationStatement(recommendation, options),
+      input.ckcAttribution
+        ? ` CKC context (not semantic cause): ${input.ckcAttribution}.`
+        : " CKC context: none.",
+    ].join(""),
+    status: "active" as const,
+    source: optionSetRef,
+    relatedObjects: [
+      input.projectId,
+      recommendation.recommendedOptionRef,
+      optionSetRef,
+      ...(input.ckcAttribution ? [input.ckcAttribution] : []),
+    ],
+  };
+
+  const epistemicRefs = [
+    ...optionEpistemicItems.map((i) => i.epistemicItemId),
+    recommendationItem.epistemicItemId,
+    optionSetObservationId(optionSetRef),
+  ];
+
+  const presentedBinding: PresentedOptionSetBinding = {
+    kind: "w2_presented_option_set",
+    optionSetRef,
+    optionSetDigest,
+    qualificationDigest,
+    trajectoryId: proposedTrajectoryId,
+    candidateVersion: proposedVersion,
+    optionRefs: options.map((o) => o.optionRef),
+    recommendedOptionRef: recommendation.recommendedOptionRef,
+    options,
+    recommendation,
+    epistemicRefs,
+    cycleTypeId: input.cycleTypeId,
+    recommendedProfile: input.recommendedProfile,
+    criticalSignalsPresent: input.criticalSignalsPresent,
+    irreversible: input.irreversible,
+    reservations: [...input.reservations],
+    ckcAttribution: input.ckcAttribution,
+  };
+
+  // Supersede prior OptionSet Observation bound to the same candidate slot (A3).
+  const priorBinding = await findLatestOptionSetBindingForTrajectory(
+    oa,
+    input.projectId,
+    proposedTrajectoryId,
+    proposedVersion,
+  );
+
+  const observationItem = {
+    epistemicItemId: optionSetObservationId(optionSetRef),
+    type: "Observation" as const,
+    statement: serializePresentedOptionSet(presentedBinding),
+    status: "active" as const,
+    source: optionSetRef,
+    relatedObjects: [input.projectId, optionSetRef, proposedTrajectoryId],
+    ...(priorBinding
+      ? { supersedes: optionSetObservationId(priorBinding.optionSetRef) }
+      : {}),
+  };
+
+  const materialized = await oa.cycleServices.updateEpistemicState.execute({
+    projectId: input.projectId,
+    items: [...optionEpistemicItems, recommendationItem, observationItem],
+    createdBy: NORA_OPTION_AUTHOR,
+    correlationId,
+  });
+  if (!materialized.ok) {
+    return {
+      ok: false,
+      code: materialized.error.detailCode,
+      message: `Matérialisation des options échouée (${materialized.error.detailCode}).`,
     };
   }
 
@@ -2587,7 +3209,7 @@ export async function proposeTrajectoryOptions(
     recommendedProfile: input.recommendedProfile,
     options,
     recommendation,
-    epistemicRefs: epistemicItems.map((i) => i.epistemicItemId),
+    epistemicRefs,
     proposedTrajectory: {
       trajectoryId: proposedTrajectoryId,
       version: proposedVersion,
@@ -2607,8 +3229,6 @@ export const W2_DECISION_ACTOR = LOCAL_PILOTE_ACTOR;
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts`
 
-**Finalité:** Track A — unique chemin produit HD Pilote → DecisionBasis → promotion.
-
 ```ts
 /**
  * W2 Track A — product application path enforcement of D-W2-03.
@@ -2620,6 +3240,9 @@ export const W2_DECISION_ACTOR = LOCAL_PILOTE_ACTOR;
  *
  * Reuses existing OA use cases (RecordHumanDecision, PromoteDecidedTrajectory,
  * UpdateEpistemicState). OCC/CAS and LPS invariants stay owned by OA.
+ *
+ * A4/U3: recordHumanDecision + promoteDecidedTrajectory run in one outer
+ * Product UoW so an accepted HD cannot commit without a decided trajectory.
  */
 
 import { randomBytes, randomUUID } from "node:crypto";
@@ -2631,6 +3254,11 @@ import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
+import type { TrajectoryStep } from "@/lib/oa/cycle";
+import {
+  computeOptionSetDigest,
+  loadPresentedOptionSet,
+} from "./presentedOptionSet";
 import type { DecideTrajectoryResult, TrajectoryOptionDto } from "./types";
 
 function shortId(): string {
@@ -2729,8 +3357,9 @@ export type DecideTrajectoryInput = {
   readonly oa: RuntimeOaStack;
   readonly projectId: string;
   readonly optionSetRef: string;
-  readonly options: readonly TrajectoryOptionDto[];
-  readonly recommendedOptionRef: string;
+  /** Optional hint — decide always reloads the durable presented set (A2). */
+  readonly options?: readonly TrajectoryOptionDto[];
+  readonly recommendedOptionRef?: string;
   readonly selectedOptionRef: string;
   readonly trajectoryId: string;
   readonly candidateVersion: number;
@@ -2743,6 +3372,28 @@ export type DecideTrajectoryInput = {
   readonly forceLocalAuthority?: boolean;
 };
 
+type AtomicDecideOutcome = {
+  readonly decisionId: string;
+  readonly promoted: {
+    readonly trajectoryId: string;
+    readonly version: number;
+    readonly status: "validated" | "active";
+    readonly decidedByDecisionRef?: string;
+    readonly decidedOptionRef?: string;
+  };
+  readonly livingProjectStateVersion: number;
+};
+
+class DecideAtomicFailure extends Error {
+  constructor(
+    readonly code: string,
+    message: string,
+  ) {
+    super(message);
+    this.name = "DecideAtomicFailure";
+  }
+}
+
 export async function decideTrajectory(
   input: DecideTrajectoryInput,
 ): Promise<DecideTrajectoryResult> {
@@ -2750,7 +3401,54 @@ export async function decideTrajectory(
   void input.claimedAuthorityLevel;
 
   const { oa } = input;
-  const selected = input.options.find(
+
+  // A2 — exact presented OptionSet binding; never re-derive from live state.
+  const loaded = await loadPresentedOptionSet(
+    oa,
+    input.projectId,
+    input.optionSetRef,
+  );
+  if (!loaded.ok) {
+    return { ok: false, code: loaded.code, message: loaded.message };
+  }
+  const presented = loaded.presented;
+
+  if (
+    presented.trajectoryId !== input.trajectoryId ||
+    presented.candidateVersion !== input.candidateVersion
+  ) {
+    return {
+      ok: false,
+      code: "TRAJECTORY_MISMATCH",
+      message:
+        "La trajectoire/version client ne correspond pas à la liaison présentée.",
+    };
+  }
+
+  const recomputedDigest = computeOptionSetDigest({
+    cycleTypeId: presented.cycleTypeId,
+    recommendedProfile: presented.recommendedProfile,
+    criticalSignalsPresent: presented.criticalSignalsPresent,
+    irreversible: presented.irreversible,
+    reservations: presented.reservations,
+    options: presented.options,
+    recommendedOptionRef: presented.recommendedOptionRef,
+  });
+  if (recomputedDigest !== presented.optionSetDigest) {
+    return {
+      ok: false,
+      code: "OPTION_SET_STALE",
+      message:
+        "Le digest du jeu d'options présenté ne correspond plus au contenu scellé.",
+    };
+  }
+
+  const options = presented.options;
+  const recommendedOptionRef = presented.recommendedOptionRef;
+  const epistemicRefs = presented.epistemicRefs;
+  const optionSetDigest = presented.optionSetDigest;
+
+  const selected = options.find(
     (o) => o.optionRef === input.selectedOptionRef,
   );
   if (!selected) {
@@ -2805,15 +3503,16 @@ export async function decideTrajectory(
     return { ok: false, code: authority.code, message: authority.message };
   }
 
-  const optionRefs = input.options.map((o) => o.optionRef);
+  const optionRefs = options.map((o) => o.optionRef);
   const decisionBasis: DecisionBasis = {
     sourceType: "trajectory_option",
     sourceRef: input.optionSetRef,
     sourceDigest: computeDecisionBasisSourceDigest({
       optionSetRef: input.optionSetRef,
+      optionSetDigest,
       optionRefs,
       selectedOptionRef: input.selectedOptionRef,
-      recommendedOptionRef: input.recommendedOptionRef,
+      recommendedOptionRef,
       trajectoryId: input.trajectoryId,
       candidateVersion: input.candidateVersion,
       steps: selected.steps.map((s) => ({
@@ -2837,8 +3536,9 @@ export async function decideTrajectory(
       candidateVersion: input.candidateVersion,
       optionRefs,
       selectedOptionRef: input.selectedOptionRef,
-      recommendedOptionRef: input.recommendedOptionRef,
-      epistemicRefs: input.epistemicRefs ? [...input.epistemicRefs] : undefined,
+      recommendedOptionRef,
+      epistemicRefs: epistemicRefs ? [...epistemicRefs] : undefined,
+      optionSetDigest,
     },
     executionBasis: {
       objective: live.context.objective,
@@ -2855,98 +3555,129 @@ export async function decideTrajectory(
 
   const decisionId = `dec:w2-trj:${randomUUID()}`;
   const reserves = input.reservesText?.trim();
-  const recorded = await oa.decisionServices.recordHumanDecision.execute({
-    decisionId,
-    projectId: input.projectId,
-    cycleInstanceId: live.context.activeCycleInstanceId ?? undefined,
-    subject: `W2 trajectory arbitration for ${input.optionSetRef}`,
-    options: input.options.map((o) => ({
-      optionId: o.optionRef,
-      label: o.label,
-      impacts: [...o.impacts],
-      recommended: o.optionRef === input.recommendedOptionRef,
-    })),
-    selectedOptionId: input.selectedOptionRef,
-    actor: LOCAL_PILOTE_ACTOR,
-    authority: "morris",
-    status: "accepted",
-    reversible: true,
-    scope,
-    reservations: reserves
-      ? [
-          {
-            reservationId: `rsv:${randomUUID()}`,
-            statement: reserves,
-            blocking: false,
-          },
-        ]
-      : undefined,
-    rationale: `Pilote a retenu ${selected.label} parmi ${optionRefs.length} options.`,
-    authorityEvidenceId: authority.evidenceId,
-    decisionBasis,
-    linkToLivingProjectState: true,
-    expectedLpsVersion: live.context.lpsVersion,
-    correlationId: `w2-dec:${input.optionSetRef}`,
-  });
 
-  if (!recorded.ok) {
+  let atomic: AtomicDecideOutcome;
+  try {
+    // A4/U3 — single Product UoW around HD + promote (nested UoWs join).
+    atomic = await oa.projectServices.store.runInTransaction(async () => {
+      const recorded = await oa.decisionServices.recordHumanDecision.execute({
+        decisionId,
+        projectId: input.projectId,
+        cycleInstanceId: live.context.activeCycleInstanceId ?? undefined,
+        subject: `W2 trajectory arbitration for ${input.optionSetRef}`,
+        options: options.map((o) => ({
+          optionId: o.optionRef,
+          label: o.label,
+          impacts: [...o.impacts],
+          recommended: o.optionRef === recommendedOptionRef,
+        })),
+        selectedOptionId: input.selectedOptionRef,
+        actor: LOCAL_PILOTE_ACTOR,
+        authority: "morris",
+        status: "accepted",
+        reversible: true,
+        scope,
+        reservations: reserves
+          ? [
+              {
+                reservationId: `rsv:${randomUUID()}`,
+                statement: reserves,
+                blocking: false,
+              },
+            ]
+          : undefined,
+        rationale: `Pilote a retenu ${selected.label} parmi ${optionRefs.length} options.`,
+        authorityEvidenceId: authority.evidenceId,
+        decisionBasis,
+        linkToLivingProjectState: true,
+        expectedLpsVersion: live.context.lpsVersion,
+        correlationId: `w2-dec:${input.optionSetRef}`,
+      });
+
+      if (!recorded.ok) {
+        throw new DecideAtomicFailure(
+          recorded.error.detailCode,
+          recorded.error.message,
+        );
+      }
+
+      // Re-read the durable decision: promotion is authorised by persisted truth,
+      // never by the in-flight request payload.
+      const readback = await oa.decisionServices.getHumanDecision.execute({
+        decisionId,
+      });
+      const guard = assertDecisionAuthorizesPromotion({
+        decision: readback.ok ? readback.decision : null,
+        projectId: input.projectId,
+        trajectoryId: input.trajectoryId,
+        candidateVersion: input.candidateVersion,
+        selectedOptionRef: input.selectedOptionRef,
+      });
+      if (!guard.ok) {
+        throw new DecideAtomicFailure(guard.code, guard.message);
+      }
+
+      const lpsAfterDecision =
+        recorded.livingProjectStateVersion ?? live.context.lpsVersion;
+
+      const promoted = await oa.cycleServices.promoteDecidedTrajectory.execute({
+        trajectoryId: input.trajectoryId,
+        projectId: input.projectId,
+        expectedVersion: input.candidateVersion,
+        status: "validated",
+        decisionRef: decisionId,
+        decidedOptionRef: input.selectedOptionRef,
+        // A1 — seal selected option steps onto the decided trajectory.
+        steps: structuredClone(selected.steps) as TrajectoryStep[],
+        createdBy: LOCAL_PILOTE_ACTOR,
+        correlationId: `w2-promote:${input.optionSetRef}`,
+        expectedLpsVersion: lpsAfterDecision,
+      });
+      if (!promoted.ok) {
+        throw new DecideAtomicFailure(
+          promoted.error.detailCode,
+          `Promotion de la trajectoire décidée refusée (${promoted.error.detailCode}).`,
+        );
+      }
+
+      return {
+        decisionId,
+        promoted: {
+          trajectoryId: promoted.trajectory.trajectoryId,
+          version: promoted.trajectory.version,
+          status: promoted.trajectory.status as "validated" | "active",
+          decidedByDecisionRef: promoted.trajectory.decidedByDecisionRef,
+          decidedOptionRef: promoted.trajectory.decidedOptionRef,
+        },
+        livingProjectStateVersion:
+          promoted.livingProjectStateVersion ?? lpsAfterDecision,
+      };
+    });
+  } catch (err) {
+    if (err instanceof DecideAtomicFailure) {
+      return { ok: false, code: err.code, message: err.message };
+    }
     return {
       ok: false,
-      code: recorded.error.detailCode,
-      message: recorded.error.message,
+      code: "PERSISTENCE_FAILURE",
+      message:
+        "Échec atomique décision+promotion — aucune décision orpheline n'a été commitée.",
     };
   }
 
-  // Re-read the durable decision: promotion is authorised by persisted truth,
-  // never by the in-flight request payload.
-  const readback = await oa.decisionServices.getHumanDecision.execute({
-    decisionId,
-  });
-  const guard = assertDecisionAuthorizesPromotion({
-    decision: readback.ok ? readback.decision : null,
-    projectId: input.projectId,
-    trajectoryId: input.trajectoryId,
-    candidateVersion: input.candidateVersion,
-    selectedOptionRef: input.selectedOptionRef,
-  });
-  if (!guard.ok) {
-    return { ok: false, code: guard.code, message: guard.message };
-  }
-
-  const lpsAfterDecision =
-    recorded.livingProjectStateVersion ?? live.context.lpsVersion;
-
-  const promoted = await oa.cycleServices.promoteDecidedTrajectory.execute({
-    trajectoryId: input.trajectoryId,
-    projectId: input.projectId,
-    expectedVersion: input.candidateVersion,
-    status: "validated",
-    decisionRef: decisionId,
-    decidedOptionRef: input.selectedOptionRef,
-    createdBy: LOCAL_PILOTE_ACTOR,
-    correlationId: `w2-promote:${input.optionSetRef}`,
-    expectedLpsVersion: lpsAfterDecision,
-  });
-  if (!promoted.ok) {
-    return {
-      ok: false,
-      code: promoted.error.detailCode,
-      message: `Promotion de la trajectoire décidée refusée (${promoted.error.detailCode}).`,
-    };
-  }
-
+  // Epistemic DecisionRef is best-effort after the atomic HD+promote commit.
   await oa.cycleServices.updateEpistemicState.execute({
     projectId: input.projectId,
     items: [
       {
         epistemicItemId: `epi:w2-decref-${shortId()}`,
         type: "DecisionRef",
-        statement: `Décision humaine ${decisionId} — option retenue ${input.selectedOptionRef} — trajectoire ${input.trajectoryId} v${promoted.trajectory.version} décidée/courante.`,
+        statement: `Décision humaine ${atomic.decisionId} — option retenue ${input.selectedOptionRef} — trajectoire ${input.trajectoryId} v${atomic.promoted.version} décidée/courante.`,
         status: "active",
-        source: decisionId,
+        source: atomic.decisionId,
         relatedObjects: [
           input.projectId,
-          decisionId,
+          atomic.decisionId,
           input.trajectoryId,
           input.selectedOptionRef,
         ],
@@ -2959,7 +3690,7 @@ export async function decideTrajectory(
   return {
     ok: true,
     decision: {
-      decisionId,
+      decisionId: atomic.decisionId,
       selectedOptionRef: input.selectedOptionRef,
       actorRole: "Pilote",
       authorityClass: "morris",
@@ -2969,24 +3700,21 @@ export async function decideTrajectory(
       reservesText: reserves ?? null,
     },
     trajectory: {
-      trajectoryId: promoted.trajectory.trajectoryId,
-      version: promoted.trajectory.version,
-      status: "validated",
+      trajectoryId: atomic.promoted.trajectoryId,
+      version: atomic.promoted.version,
+      status: atomic.promoted.status,
       statusLabel: "TRAJECTOIRE DÉCIDÉE / COURANTE",
       isCurrent: true,
-      decidedByDecisionRef: promoted.trajectory.decidedByDecisionRef ?? null,
-      decidedOptionRef: promoted.trajectory.decidedOptionRef ?? null,
+      decidedByDecisionRef: atomic.promoted.decidedByDecisionRef ?? null,
+      decidedOptionRef: atomic.promoted.decidedOptionRef ?? null,
     },
-    livingProjectStateVersion:
-      promoted.livingProjectStateVersion ?? lpsAfterDecision,
+    livingProjectStateVersion: atomic.livingProjectStateVersion,
     executionPerformed: false,
   };
 }
 ```
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/projectHistory.ts`
-
-**Finalité:** Track B — read model MUST-MINIMAL depuis repos OA existants.
 
 ```ts
 /**
@@ -3213,8 +3941,6 @@ export async function readW2ProjectHistory(input: {
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/inspectExecutionContract.ts`
 
-**Finalité:** Track C — inspection produit liée à la version réellement lue.
-
 ```ts
 /**
  * W2 Track C — ExecutionContract inspection at the product application path.
@@ -3318,6 +4044,7 @@ export async function readContractInspectionState(input: {
 
 export type InspectExecutionContractInput = {
   readonly oa: RuntimeOaStack;
+  readonly projectId: string;
   readonly executionContractId: string;
   /** Facts the Pilote confirms having read on this contract version. */
   readonly inspectedFacts?: readonly string[];
@@ -3341,6 +4068,26 @@ const DEFAULT_INSPECTED_FACTS: readonly string[] = Object.freeze([
 export async function inspectExecutionContract(
   input: InspectExecutionContractInput,
 ): Promise<InspectExecutionContractResult> {
+  const loaded =
+    await input.oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: input.executionContractId,
+    });
+  if (!loaded.ok) {
+    return {
+      ok: false,
+      code: loaded.error.detailCode,
+      message: "ExecutionContract introuvable — inspection impossible.",
+    };
+  }
+  if (loaded.contract.projectId !== input.projectId) {
+    return {
+      ok: false,
+      code: "PROJECT_MISMATCH",
+      message:
+        "Le contrat d'exécution n'appartient pas au projet demandé — inspection refusée.",
+    };
+  }
+
   const recorded =
     await input.oa.executionContractServices.recordContractInspection.execute({
       executionContractId: input.executionContractId,
@@ -3373,8 +4120,6 @@ export async function inspectExecutionContract(
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts`
 
-**Finalité:** Track C — Confirmation seulement si requise et seulement après inspection.
-
 ```ts
 /**
  * W2 Track C — scoped Confirmation captured for authorization, never for
@@ -3382,8 +4127,10 @@ export async function inspectExecutionContract(
  *
  * Product order enforced: a Confirmation can only be captured after a
  * sufficient inspection of the exact contract version, and only when the
- * contract's required authority actually demands one. An N1 contract is
+ * contract's required authority actually demands one. A contract whose lifecycle status is `validated` (N1 path) is
  * refused here rather than being made to carry a gratuitous Confirmation.
+ * Status is the primary owner; `requiredAuthority === "N1"` remains a
+ * secondary fail-closed check.
  *
  * Nothing in this module executes: it stops at contract status `confirmed`.
  */
@@ -3402,6 +4149,7 @@ export function w2ConfirmationActionRef(input: {
 
 export type ConfirmForAuthorizationInput = {
   readonly oa: RuntimeOaStack;
+  readonly projectId: string;
   readonly executionContractId: string;
   /** Test inject for the local single-user authority gate. */
   readonly forceLocalAuthority?: boolean;
@@ -3424,6 +4172,25 @@ export async function confirmExecutionContractForAuthorization(
   }
   const contract = loaded.contract;
 
+  if (contract.projectId !== input.projectId) {
+    return {
+      ok: false,
+      code: "PROJECT_MISMATCH",
+      message:
+        "Le contrat d'exécution n'appartient pas au projet demandé — confirmation refusée.",
+    };
+  }
+
+  // Status-first: validated is the N1 path — refuse gratuitous confirmation.
+  if (contract.status === "validated") {
+    return {
+      ok: false,
+      code: "CONFIRMATION_NOT_REQUIRED",
+      message:
+        "Aucune confirmation n'est requise pour ce contrat — rien à confirmer.",
+    };
+  }
+  // Secondary fail-closed when status is available but authority class is N1.
   if (contract.requiredAuthority === "N1") {
     return {
       ok: false,
@@ -3443,10 +4210,8 @@ export async function confirmExecutionContractForAuthorization(
       executionPerformed: false,
     };
   }
-  if (
-    contract.status !== "validated" &&
-    contract.status !== "confirmation_required"
-  ) {
+  // Allow confirm only from confirmation_required (ValidateExecutionContract owner).
+  if (contract.status !== "confirmation_required") {
     return {
       ok: false,
       code: "STATE_CONFLICT",
@@ -3562,8 +4327,6 @@ export async function confirmExecutionContractForAuthorization(
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts`
 
-**Finalité:** Track C — AUTHORIZED/BLOCKED + receipt; jamais Execute.
-
 ```ts
 /**
  * W2 Track C — effective authority evaluation at the product application path.
@@ -3607,33 +4370,68 @@ import type {
 } from "./types";
 
 /**
- * Mirrors the adopted OA rule in ValidateExecutionContract: only N1 contracts
- * reach `validated` without a Confirmation. No new semantics are invented.
+ * Confirmation requirement from the canonical ExecutionContract lifecycle.
+ *
+ * PASS_WITH_KNOWN_SIMPLIFICATION — full C2 multi-factor formula not claimed;
+ * lifecycle owner is ValidateExecutionContract (N1 → validated without confirm;
+ * N2|N3|MORRIS → confirmation_required). Status is the primary owner here;
+ * `requiredAuthority !== "N1"` is intentionally not the primary rule.
  */
 export function resolveConfirmationRequirement(
   contract: Pick<ExecutionContract, "requiredAuthority" | "confirmationRef" | "status">,
 ): ConfirmationRequirementDto {
-  const required = contract.requiredAuthority !== "N1";
   const confirmationRef = contract.confirmationRef ?? null;
-  if (!required) {
-    return {
-      required: false,
-      satisfied: true,
-      confirmationRef,
-      statusLabel: "CONFIRMATION NON REQUISE",
-      fabricated: false,
-    };
+
+  switch (contract.status) {
+    case "validated":
+      // ValidateExecutionContract wrote validated ⇒ confirmation not required (N1).
+      return {
+        required: false,
+        satisfied: true,
+        confirmationRef,
+        statusLabel: "CONFIRMATION NON REQUISE",
+        fabricated: false,
+      };
+    case "confirmation_required":
+      return {
+        required: true,
+        satisfied: false,
+        confirmationRef,
+        statusLabel: "CONFIRMATION REQUISE — MANQUANTE",
+        fabricated: false,
+      };
+    case "confirmed": {
+      const satisfied = confirmationRef !== null;
+      return {
+        required: true,
+        satisfied,
+        confirmationRef,
+        statusLabel: satisfied
+          ? "CONFIRMATION REQUISE — OBTENUE"
+          : "CONFIRMATION REQUISE — MANQUANTE",
+        fabricated: false,
+      };
+    }
+    default:
+      // draft/proposed (and any other pre-validate status): unknown-not-yet.
+      // Authorize must block via contract_state_conflict before confirmation.
+      if (confirmationRef !== null) {
+        return {
+          required: true,
+          satisfied: false,
+          confirmationRef,
+          statusLabel: "CONFIRMATION REQUISE — MANQUANTE",
+          fabricated: false,
+        };
+      }
+      return {
+        required: false,
+        satisfied: false,
+        confirmationRef: null,
+        statusLabel: "CONFIRMATION NON REQUISE",
+        fabricated: false,
+      };
   }
-  const satisfied = contract.status === "confirmed" && confirmationRef !== null;
-  return {
-    required: true,
-    satisfied,
-    confirmationRef,
-    statusLabel: satisfied
-      ? "CONFIRMATION REQUISE — OBTENUE"
-      : "CONFIRMATION REQUISE — MANQUANTE",
-    fabricated: false,
-  };
 }
 
 /**
@@ -3776,6 +4574,7 @@ function mapAuthorizationFailure(
 
 export type EvaluateExecutionAuthorizationInput = {
   readonly oa: RuntimeOaStack;
+  readonly projectId: string;
   readonly executionContractId: string;
   /** Hostile client fields — never trusted. */
   readonly claimedAuthorityLevel?: unknown;
@@ -3804,6 +4603,15 @@ export async function evaluateExecutionAuthorization(
   }
   const contract = contractResult.contract;
 
+  if (contract.projectId !== input.projectId) {
+    return {
+      ok: false,
+      code: "PROJECT_MISMATCH",
+      message:
+        "Le contrat d'exécution n'appartient pas au projet demandé — évaluation refusée.",
+    };
+  }
+
   const inspectionResult = await readContractInspectionState({
     oa,
     executionContractId: input.executionContractId,
@@ -3823,6 +4631,7 @@ export async function evaluateExecutionAuthorization(
     blockedReason: AuthorityVerificationBlockedReason | undefined,
     verifiedAuthorityLevel: string | null,
     blockedDetail?: string,
+    authorityEvidenceIds: readonly string[] = [],
   ): Promise<EvaluateExecutionAuthorizationResult> => {
     const { receipt } =
       await oa.executionContractServices.recordAuthorityVerification.execute({
@@ -3843,7 +4652,7 @@ export async function evaluateExecutionAuthorization(
         target: contract.target,
         scope: contract.scope,
         agentCapability: capability,
-        authorityEvidenceIds: [],
+        authorityEvidenceIds: [...authorityEvidenceIds],
         outcome: outcome === "AUTHORIZED" ? "authorized" : "blocked",
         blockedReason,
         blockedDetail,
@@ -3890,12 +4699,26 @@ export async function evaluateExecutionAuthorization(
     );
   }
 
-  // 2. Confirmation only when required — never fabricated, never gratuitous.
+  // 2. Pre-validate statuses are not authorization-ready (ValidateExecutionContract owns lifecycle).
+  if (
+    contract.status !== "validated" &&
+    contract.status !== "confirmation_required" &&
+    contract.status !== "confirmed"
+  ) {
+    return finish(
+      "BLOCKED",
+      "contract_state_conflict",
+      null,
+      `status_${contract.status}`,
+    );
+  }
+
+  // 3. Confirmation only when required — never fabricated, never gratuitous.
   if (confirmation.required && !confirmation.satisfied) {
     return finish("BLOCKED", "confirmation_required", null, `status_${contract.status}`);
   }
 
-  // 3. Effective authority through the existing OA gate (no parallel path).
+  // 4. Effective authority through the existing OA gate (no parallel path).
   const authority = registerLocalPiloteAuthority({
     authorityResolver: oa.authorityResolver,
     scope: contract.scope,
@@ -3916,33 +4739,35 @@ export async function evaluateExecutionAuthorization(
       authorityEvidenceId: authority.evidenceId,
       correlationId: `w2-authz:${contract.executionContractId}`,
     });
+  const authorityEvidenceIds = [authority.evidenceId];
+
   if (!checked.ok) {
     return finish(
       "BLOCKED",
       mapAuthorizationFailure(checked.error.detailCode),
       null,
       checked.error.detailCode,
+      authorityEvidenceIds,
     );
   }
 
-  // 4. Executor sufficiency — an authorized human still needs a capable agent.
+  // 5. Executor sufficiency — an authorized human still needs a capable agent.
   if (!capability.sufficient) {
     return finish(
       "BLOCKED",
       "executor_capability_insufficient",
       "N3",
       capability.reason,
+      authorityEvidenceIds,
     );
   }
 
   // STOP BEFORE EXECUTE — nothing beyond this verdict is invoked.
-  return finish("AUTHORIZED", undefined, "N3");
+  return finish("AUTHORIZED", undefined, "N3", undefined, authorityEvidenceIds);
 }
 ```
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/actions.ts`
-
-**Finalité:** Track A/B/C — server actions /studio; champs hostiles ignorés.
 
 ```ts
 "use server";
@@ -3964,9 +4789,9 @@ import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";
 import { confirmExecutionContractForAuthorization } from "./confirmForAuthorization";
 import { decideTrajectory } from "./decideTrajectory";
 import { inspectExecutionContract } from "./inspectExecutionContract";
+import { loadPresentedOptionSet } from "./presentedOptionSet";
 import { proposeTrajectoryOptions } from "./proposeTrajectoryOptions";
 import { readW2ProjectHistory } from "./projectHistory";
-import { deriveTrajectoryOptions, deriveTrajectoryRecommendation } from "./trajectoryOptions";
 import { resolveW2QualificationInputs } from "./qualificationInputs";
 import type {
   ConfirmForAuthorizationResult,
@@ -4022,35 +4847,30 @@ export async function w2DecideTrajectoryAction(input: {
   const runtime = getRuntimeApplicationService();
   if (!runtime.oa) return OA_UNAVAILABLE;
 
-  const qualification = await resolveW2QualificationInputs({
-    oa: runtime.oa,
-    projectId: input.projectId,
-  });
-  if (!qualification.ok) {
+  // A2 — load the exact presented OptionSet; never re-derive from live qualification.
+  const presented = await loadPresentedOptionSet(
+    runtime.oa,
+    input.projectId,
+    input.optionSetRef,
+  );
+  if (!presented.ok) {
     return {
       ok: false,
-      code: qualification.code,
-      message: qualification.message,
+      code: presented.code,
+      message: presented.message,
     };
   }
-
-  // Options and recommendation are re-derived from durable truth, never taken
-  // from the request: the Pilote decides among what the server actually
-  // proposed.
-  const options = deriveTrajectoryOptions(qualification.qualification.inputs);
-  const recommendation = deriveTrajectoryRecommendation(
-    qualification.qualification.inputs,
-  );
 
   return decideTrajectory({
     oa: runtime.oa,
     projectId: input.projectId,
     optionSetRef: input.optionSetRef,
-    options,
-    recommendedOptionRef: recommendation.recommendedOptionRef,
+    options: presented.presented.options,
+    recommendedOptionRef: presented.presented.recommendedOptionRef,
     selectedOptionRef: input.selectedOptionRef,
     trajectoryId: input.trajectoryId,
     candidateVersion: input.candidateVersion,
+    epistemicRefs: presented.presented.epistemicRefs,
     reservesText: input.reservesText ?? null,
     canActAsMorris: input.canActAsMorris,
     claimedAuthorityLevel: input.claimedAuthorityLevel,
@@ -4067,6 +4887,7 @@ export async function w2InspectExecutionContractAction(input: {
 
   return inspectExecutionContract({
     oa: runtime.oa,
+    projectId: input.projectId,
     executionContractId: input.executionContractId,
     expectedVersion: input.expectedVersion,
   });
@@ -4081,6 +4902,7 @@ export async function w2ConfirmExecutionContractAction(input: {
 
   return confirmExecutionContractForAuthorization({
     oa: runtime.oa,
+    projectId: input.projectId,
     executionContractId: input.executionContractId,
   });
 }
@@ -4097,6 +4919,7 @@ export async function w2AuthorizeExecutionContractAction(input: {
 
   return evaluateExecutionAuthorization({
     oa: runtime.oa,
+    projectId: input.projectId,
     executionContractId: input.executionContractId,
     canActAsMorris: input.canActAsMorris,
     claimedAuthorityLevel: input.claimedAuthorityLevel,
@@ -4118,14 +4941,12 @@ export async function w2ReadProjectHistoryAction(input: {
 
 ### `projects/sfia-studio/app/lib/oa/cycle/application/promoteDecidedTrajectory.ts`
 
-**Finalité:** Track A — use case OA: candidate → validated/active avec decisionRef; la vérification HD reste sur le product path (D-W2-03).
-
 ```ts
 import { randomBytes } from "node:crypto";
 import type { ClockPort } from "@/lib/oa/doctrine";
 import type { ProjectServices } from "@/lib/oa/project";
 import { createCycleError } from "../domain/errors";
-import { isOaIdentifier } from "../domain/invariants";
+import { isOaIdentifier, validateTrajectorySteps } from "../domain/invariants";
 import type {
   ProjectTrajectory,
   PromoteDecidedTrajectoryRequest,
@@ -4236,6 +5057,15 @@ export class PromoteDecidedTrajectory {
         return fail("TRAJECTORY_INVALID", "expected_lps_version_invalid");
       }
 
+      let sealedSteps: ProjectTrajectory["steps"] | undefined;
+      if (request.steps !== undefined) {
+        sealedSteps = structuredClone(request.steps);
+        const stepsViolation = validateTrajectorySteps(sealedSteps);
+        if (stepsViolation) {
+          return fail(stepsViolation.detailCode, stepsViolation.reason);
+        }
+      }
+
       const projectResult = await this.projectServices.getProject.execute({
         projectId: request.projectId,
       });
@@ -4266,6 +5096,7 @@ export class PromoteDecidedTrajectory {
           status,
           decidedByDecisionRef: request.decisionRef,
           decidedOptionRef: request.decidedOptionRef,
+          ...(sealedSteps !== undefined ? { steps: sealedSteps } : {}),
         };
 
         // Supersede the previously decided version before moving the pointer.
@@ -4379,8 +5210,6 @@ export class PromoteDecidedTrajectory {
 ```
 
 ### `projects/sfia-studio/app/lib/oa/execution-contract/domain/inspectionAttestation.ts`
-
-**Finalité:** Track C / D-W2-04 — InspectionAttestation + fingerprint d'inspection (confirmation exclue) + sufficiency fail-closed.
 
 ```ts
 /**
@@ -4513,8 +5342,6 @@ export function evaluateInspectionSufficiency(input: {
 
 ### `projects/sfia-studio/app/lib/oa/execution-contract/domain/authorityVerificationReceipt.ts`
 
-**Finalité:** Track C / TD-C6-03 — AuthorityVerificationReceipt dans l'architecture adoptée.
-
 ```ts
 /**
  * TD-C6-03 (option A-A) — AuthorityVerificationReceipt.
@@ -4598,8 +5425,6 @@ export type AuthorityVerificationReceipt = {
 ```
 
 ### `projects/sfia-studio/app/lib/oa/execution-contract/application/recordContractInspection.ts`
-
-**Finalité:** Track C — enregistrement + lecture d'état d'inspection, sans nouveau statut EC.
 
 ```ts
 import { randomBytes } from "node:crypto";
@@ -4785,8 +5610,6 @@ export class GetContractInspectionState {
 
 ### `projects/sfia-studio/app/lib/oa/execution-contract/application/recordAuthorityVerification.ts`
 
-**Finalité:** Track C — matérialisation auditable AUTHORIZED/BLOCKED.
-
 ```ts
 import { randomBytes } from "node:crypto";
 import type { ClockPort } from "@/lib/oa/doctrine";
@@ -4881,8 +5704,6 @@ export class RecordAuthorityVerification {
 
 ### `projects/sfia-studio/app/lib/oa/execution-contract/ports/inspectionAttestationRepository.ts`
 
-**Finalité:** Track C — port append-only attestations.
-
 ```ts
 import type { InspectionAttestation } from "../domain/inspectionAttestation";
 
@@ -4899,8 +5720,6 @@ export interface InspectionAttestationRepositoryPort {
 ```
 
 ### `projects/sfia-studio/app/lib/oa/execution-contract/ports/authorityVerificationReceiptRepository.ts`
-
-**Finalité:** Track C — port append-only receipts.
 
 ```ts
 import type { AuthorityVerificationReceipt } from "../domain/authorityVerificationReceipt";
@@ -4919,8 +5738,6 @@ export interface AuthorityVerificationReceiptRepositoryPort {
 ```
 
 ### `projects/sfia-studio/app/lib/oa/execution-contract/infrastructure/memoryInspectionAttestationRepository.ts`
-
-**Finalité:** Track C — repo mémoire (tests).
 
 ```ts
 import type { InspectionAttestation } from "../domain/inspectionAttestation";
@@ -4947,8 +5764,6 @@ export class MemoryInspectionAttestationRepository
 ```
 
 ### `projects/sfia-studio/app/lib/oa/execution-contract/infrastructure/memoryAuthorityVerificationReceiptRepository.ts`
-
-**Finalité:** Track C — repo mémoire (tests).
 
 ```ts
 import type { AuthorityVerificationReceipt } from "../domain/authorityVerificationReceipt";
@@ -4985,8 +5800,6 @@ export class MemoryAuthorityVerificationReceiptRepository
 ```
 
 ### `projects/sfia-studio/app/lib/oa/execution-contract/infrastructure/sqlite/sqliteInspectionAttestationRepository.ts`
-
-**Finalité:** Track C — repo Product SQLite existant (pas un second store).
 
 ```ts
 import type { ProductSqliteHandle } from "@/lib/oa/project";
@@ -5045,8 +5858,6 @@ export class SqliteInspectionAttestationRepository
 ```
 
 ### `projects/sfia-studio/app/lib/oa/execution-contract/infrastructure/sqlite/sqliteAuthorityVerificationReceiptRepository.ts`
-
-**Finalité:** Track C — repo Product SQLite existant (pas un second store).
 
 ```ts
 import type { ProductSqliteHandle } from "@/lib/oa/project";
@@ -5123,8 +5934,6 @@ export class SqliteAuthorityVerificationReceiptRepository
 
 ### `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
 
-**Finalité:** UI /studio — Options / Recommendation / HD / inspect / AUTHORIZED|BLOCKED.
-
 ```tsx
 "use client";
 
@@ -5165,6 +5974,10 @@ type PreparedContract = {
   readonly target: string;
   readonly scope: string;
   readonly requiredAuthority: string;
+  readonly constraints: readonly string[];
+  readonly stopConditions: readonly string[];
+  readonly requiredCapabilities: readonly string[];
+  readonly reversibility: string;
   readonly semanticFingerprint: string;
 };
 
@@ -5263,6 +6076,12 @@ export function TrajectorySurface({
       target: result.f3.contract.target,
       scope: result.f3.contract.scope,
       requiredAuthority: result.f3.contract.requiredAuthority,
+      constraints: [...(result.f3.contract.constraints ?? [])],
+      stopConditions: [...(result.f3.contract.stopConditions ?? [])],
+      requiredCapabilities: [
+        ...(result.f3.contract.requiredCapabilities ?? []),
+      ],
+      reversibility: result.f3.contract.reversibility ?? "non précisée",
       semanticFingerprint: result.f3.contract.semanticFingerprint,
     });
     setInspection(null);
@@ -5448,7 +6267,7 @@ export function TrajectorySurface({
           data-testid="w2-decision"
         >
           <h3 id="w2-decision-title" className={styles.blockTitle}>
-            {decision.statusLabel}
+            Décision de trajectoire — {decision.statusLabel}
           </h3>
           <dl className={styles.facts}>
             <div>
@@ -5499,18 +6318,60 @@ export function TrajectorySurface({
           <h3 id="w2-contract-title" className={styles.blockTitle}>
             Contrat d&apos;exécution préparé
           </h3>
-          <dl className={styles.facts}>
+          <dl className={styles.facts} data-testid="w2-contract-facts">
             <div>
               <dt>Version</dt>
               <dd data-testid="w2-contract-version">v{contract.version}</dd>
             </div>
             <div>
               <dt>Statut</dt>
-              <dd>{contract.status}</dd>
+              <dd data-testid="w2-contract-status">{contract.status}</dd>
+            </div>
+            <div>
+              <dt>Action</dt>
+              <dd data-testid="w2-contract-action">{contract.action}</dd>
+            </div>
+            <div>
+              <dt>Cible</dt>
+              <dd data-testid="w2-contract-target">{contract.target}</dd>
+            </div>
+            <div>
+              <dt>Périmètre</dt>
+              <dd data-testid="w2-contract-scope">{contract.scope}</dd>
             </div>
             <div>
               <dt>Autorité requise</dt>
               <dd>{contract.requiredAuthority}</dd>
+            </div>
+            <div>
+              <dt>Capacités</dt>
+              <dd data-testid="w2-contract-capabilities">
+                {contract.requiredCapabilities.length
+                  ? contract.requiredCapabilities.join(", ")
+                  : "Aucune"}
+              </dd>
+            </div>
+            <div>
+              <dt>Réversibilité</dt>
+              <dd data-testid="w2-contract-reversibility">
+                {contract.reversibility}
+              </dd>
+            </div>
+            <div>
+              <dt>Contraintes</dt>
+              <dd data-testid="w2-contract-constraints">
+                {contract.constraints.length
+                  ? contract.constraints.join(" · ")
+                  : "Aucune"}
+              </dd>
+            </div>
+            <div>
+              <dt>Conditions d&apos;arrêt</dt>
+              <dd data-testid="w2-contract-stops">
+                {contract.stopConditions.length
+                  ? contract.stopConditions.join(" · ")
+                  : "Aucune"}
+              </dd>
             </div>
             <div>
               <dt>Empreinte sémantique</dt>
@@ -5530,17 +6391,20 @@ export function TrajectorySurface({
             >
               Inspecter le contrat
             </button>
-            {contract.requiredAuthority !== "N1" &&
-            contract.status !== "confirmed" ? (
+            {contract.status === "confirmation_required" ? (
               <button
                 type="button"
                 className={styles.secondaryAction}
                 data-testid="w2-confirm-contract"
                 onClick={() => void confirmForAuthorization()}
-                disabled={busy !== null || inspection === null}
+                disabled={
+                  busy !== null ||
+                  inspection === null ||
+                  !inspection.inspectionSufficient
+                }
                 title={
-                  inspection === null
-                    ? "Inspecter le contrat avant de confirmer"
+                  inspection === null || !inspection.inspectionSufficient
+                    ? "Inspection suffisante requise avant de confirmer"
                     : undefined
                 }
               >
@@ -5631,8 +6495,6 @@ export function TrajectorySurface({
 ```
 
 ### `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.module.css`
-
-**Finalité:** UI — tokens --pm6-* existants; pas de nouveau langage visuel.
 
 ```css
 .root {
@@ -5899,8 +6761,6 @@ export function TrajectorySurface({
 
 ### `projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts`
 
-**Finalité:** Preuve déterministe E+A+B+C product-native, restart, inspect stale, no Execute.
-
 ```ts
 // @vitest-environment node
 /**
@@ -5910,6 +6770,12 @@ export function TrajectorySurface({
 import { afterEach, describe, expect, it } from "vitest";
 import { RUNTIME_DISCLOSURES } from "@/lib/vertical-slice-runtime/disclosures";
 import { prepareM3FromDecision } from "@/features/project-assistant/f3/prepareM3FromDecision";
+import {
+  F3_ACTION,
+  F3_CAPABILITY,
+  F3_SCOPE,
+  F3_TARGET,
+} from "@/features/project-assistant/f3/constants";
 import { evaluateExecutionAuthorization } from "@/features/project-assistant/w2/authorizeExecutionContract";
 import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
 import { assertDecisionAuthorizesPromotion, decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
@@ -6046,13 +6912,18 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
     });
     expect(before.ok).toBe(false);
 
+    const selectedOption = proposed.options[0]!; // GOVERNED — not the Standard recommendation
+    expect(selectedOption.optionRef).not.toBe(
+      proposed.recommendation.recommendedOptionRef,
+    );
+
     const decided = await decideTrajectory({
       oa,
       projectId: seeded.projectId,
       optionSetRef: proposed.optionSetRef,
       options: proposed.options,
       recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
-      selectedOptionRef: proposed.options[1]!.optionRef,
+      selectedOptionRef: selectedOption.optionRef,
       trajectoryId: proposed.proposedTrajectory.trajectoryId,
       candidateVersion: proposed.proposedTrajectory.version,
       epistemicRefs: proposed.epistemicRefs,
@@ -6078,6 +6949,11 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
     expect(current.trajectory.decidedByDecisionRef).toBe(
       decided.decision.decisionId,
     );
+    // A1 — decided trajectory content equals the selected option steps.
+    expect(current.trajectory.steps.map((s) => s.stepId)).toEqual(
+      selectedOption.steps.map((s) => s.stepId),
+    );
+    expect(current.trajectory.decidedOptionRef).toBe(selectedOption.optionRef);
 
     const durable = await oa.decisionServices.getHumanDecision.execute({
       decisionId: decided.decision.decisionId,
@@ -6087,8 +6963,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
     expect(durable.decision.actor.actorId).toBe(LOCAL_PILOTE_ACTOR.actorId);
     expect(durable.decision.decisionBasis?.sourceType).toBe("trajectory_option");
     expect(durable.decision.decisionBasis?.trajectoryContext?.selectedOptionRef).toBe(
-      proposed.options[1]!.optionRef,
+      selectedOption.optionRef,
     );
+    expect(durable.decision.decisionBasis?.trajectoryContext?.optionSetDigest).toBeTruthy();
 
     const unknown = await decideTrajectory({
       oa,
@@ -6103,6 +6980,273 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
     });
     expect(unknown.ok).toBe(false);
     if (!unknown.ok) expect(unknown.code).toBe("OPTION_NOT_PRESENTED");
+  });
+
+  it("A2 — decide loads presented OptionSet and refuses stale / mismatched binding", async () => {
+    const db = tempProductDbPath("w2-a2.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w2a2" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "a2" });
+    const oa = runtime.oa!;
+    const qualification = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(qualification.ok).toBe(true);
+    if (!qualification.ok) return;
+
+    const proposed = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+    });
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) return;
+
+    const epistemic = await oa.cycleServices.getEpistemicState.execute({
+      projectId: seeded.projectId,
+    });
+    expect(epistemic.ok).toBe(true);
+    if (!epistemic.ok) return;
+    const setObservation = epistemic.state.items.find(
+      (i) =>
+        i.type === "Observation" &&
+        i.source === proposed.optionSetRef &&
+        i.status === "active",
+    );
+    expect(setObservation).toBeTruthy();
+    const recommendation = epistemic.state.items.find(
+      (i) => i.type === "Recommendation" && i.status === "active",
+    );
+    expect(recommendation?.source).toBe(proposed.optionSetRef);
+    expect(recommendation?.relatedObjects).toContain("ckcres:w2-harness");
+
+    // Live qualification drift must not reshape the sealed presented set.
+    await oa.cycleServices.updateEpistemicState.execute({
+      projectId: seeded.projectId,
+      items: [
+        {
+          epistemicItemId: "epi:w2-rsv-a2-drift",
+          type: "Reservation",
+          statement: "Réserve ouverte après propose",
+          status: "active",
+          blocking: false,
+        },
+      ],
+      createdBy: LOCAL_PILOTE_ACTOR,
+    });
+    const driftedQual = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(driftedQual.ok).toBe(true);
+    if (!driftedQual.ok) return;
+    expect(driftedQual.qualification.inputs.reservations.length).toBeGreaterThan(
+      0,
+    );
+    const liveRecommendation = deriveTrajectoryRecommendation(
+      driftedQual.qualification.inputs,
+    );
+    expect(liveRecommendation.recommendedOptionRef).toBe(CLARIFY_OPTION_REF);
+    expect(proposed.recommendation.recommendedOptionRef).not.toBe(
+      CLARIFY_OPTION_REF,
+    );
+
+    const decided = await decideTrajectory({
+      oa,
+      projectId: seeded.projectId,
+      optionSetRef: proposed.optionSetRef,
+      selectedOptionRef: proposed.recommendation.recommendedOptionRef,
+      trajectoryId: proposed.proposedTrajectory.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory.version,
+      forceLocalAuthority: true,
+    });
+    expect(decided.ok).toBe(true);
+    if (!decided.ok) return;
+    expect(decided.decision.selectedOptionRef).toBe(
+      proposed.recommendation.recommendedOptionRef,
+    );
+
+    const mismatch = await decideTrajectory({
+      oa,
+      projectId: seeded.projectId,
+      optionSetRef: proposed.optionSetRef,
+      selectedOptionRef: proposed.recommendation.recommendedOptionRef,
+      trajectoryId: "trj:w2-forged",
+      candidateVersion: proposed.proposedTrajectory.version,
+      forceLocalAuthority: true,
+    });
+    expect(mismatch.ok).toBe(false);
+    if (!mismatch.ok) expect(mismatch.code).toBe("TRAJECTORY_MISMATCH");
+
+    const missing = await decideTrajectory({
+      oa,
+      projectId: seeded.projectId,
+      optionSetRef: "optset:w2-missing",
+      selectedOptionRef: proposed.recommendation.recommendedOptionRef,
+      trajectoryId: proposed.proposedTrajectory.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory.version,
+      forceLocalAuthority: true,
+    });
+    expect(missing.ok).toBe(false);
+    if (!missing.ok) expect(missing.code).toBe("OPTION_SET_STALE");
+  });
+
+  it("A3 — digest-mismatched propose replaces OptionSet binding on candidate slot", async () => {
+    const db = tempProductDbPath("w2-a3.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w2a3" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "a3" });
+    const oa = runtime.oa!;
+    const qualification = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(qualification.ok).toBe(true);
+    if (!qualification.ok) return;
+
+    const first = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+    expect(first.recommendation.recommendedOptionRef).toBe(BOUNDED_OPTION_REF);
+
+    await oa.cycleServices.updateEpistemicState.execute({
+      projectId: seeded.projectId,
+      items: [
+        {
+          epistemicItemId: "epi:w2-rsv-a3",
+          type: "Reservation",
+          statement: "Réserve qui change le profil recommandé",
+          status: "active",
+          blocking: false,
+        },
+      ],
+      createdBy: LOCAL_PILOTE_ACTOR,
+    });
+    const requal = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(requal.ok).toBe(true);
+    if (!requal.ok) return;
+
+    const second = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...requal.qualification.inputs,
+    });
+    expect(second.ok).toBe(true);
+    if (!second.ok) return;
+    expect(second.recommendation.recommendedOptionRef).toBe(CLARIFY_OPTION_REF);
+    expect(second.optionSetRef).not.toBe(first.optionSetRef);
+    // Same candidate working surface — binding replaced, not claimed as old set.
+    expect(second.proposedTrajectory.trajectoryId).toBe(
+      first.proposedTrajectory.trajectoryId,
+    );
+    expect(second.proposedTrajectory.version).toBe(
+      first.proposedTrajectory.version,
+    );
+
+    const epistemic = await oa.cycleServices.getEpistemicState.execute({
+      projectId: seeded.projectId,
+    });
+    expect(epistemic.ok).toBe(true);
+    if (!epistemic.ok) return;
+    const firstObs = epistemic.state.items.find(
+      (i) => i.source === first.optionSetRef && i.type === "Observation",
+    );
+    const secondObs = epistemic.state.items.find(
+      (i) => i.source === second.optionSetRef && i.type === "Observation",
+    );
+    expect(firstObs?.status).toBe("superseded");
+    expect(secondObs?.status).toBe("active");
+
+    // Old option set must not decide as if it were the new set.
+    const staleDecide = await decideTrajectory({
+      oa,
+      projectId: seeded.projectId,
+      optionSetRef: first.optionSetRef,
+      selectedOptionRef: first.recommendation.recommendedOptionRef,
+      trajectoryId: first.proposedTrajectory.trajectoryId,
+      candidateVersion: first.proposedTrajectory.version,
+      forceLocalAuthority: true,
+    });
+    expect(staleDecide.ok).toBe(false);
+    if (!staleDecide.ok) expect(staleDecide.code).toBe("OPTION_SET_STALE");
+
+    const freshDecide = await decideTrajectory({
+      oa,
+      projectId: seeded.projectId,
+      optionSetRef: second.optionSetRef,
+      selectedOptionRef: second.recommendation.recommendedOptionRef,
+      trajectoryId: second.proposedTrajectory.trajectoryId,
+      candidateVersion: second.proposedTrajectory.version,
+      forceLocalAuthority: true,
+    });
+    expect(freshDecide.ok).toBe(true);
+  });
+
+  it("A4 — HD+promote share one Product UoW (promote failure rolls back HD)", async () => {
+    const db = tempProductDbPath("w2-a4.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w2a4" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "a4" });
+    const oa = runtime.oa!;
+    const qualification = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(qualification.ok).toBe(true);
+    if (!qualification.ok) return;
+    const proposed = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+    });
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) return;
+
+    const store = oa.projectServices.store as {
+      failNextSave?: string | null;
+    };
+    store.failNextSave = "trajectory";
+
+    const failed = await decideTrajectory({
+      oa,
+      projectId: seeded.projectId,
+      optionSetRef: proposed.optionSetRef,
+      selectedOptionRef: proposed.recommendation.recommendedOptionRef,
+      trajectoryId: proposed.proposedTrajectory.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory.version,
+      forceLocalAuthority: true,
+    });
+    expect(failed.ok).toBe(false);
+    store.failNextSave = null;
+
+    const history = await oa.decisionServices.listDecisionHistory.execute({
+      projectId: seeded.projectId,
+    });
+    const accepted = history.ok
+      ? history.decisions.filter((d) => d.status === "accepted")
+      : [];
+    expect(accepted).toHaveLength(0);
+
+    const current = await oa.cycleServices.getCurrentTrajectory.execute({
+      projectId: seeded.projectId,
+    });
+    expect(current.ok).toBe(false);
+
+    const recovered = await decideTrajectory({
+      oa,
+      projectId: seeded.projectId,
+      optionSetRef: proposed.optionSetRef,
+      selectedOptionRef: proposed.recommendation.recommendedOptionRef,
+      trajectoryId: proposed.proposedTrajectory.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory.version,
+      forceLocalAuthority: true,
+    });
+    expect(recovered.ok).toBe(true);
   });
 
   it("keeps decided/current after Product SQLite restart", async () => {
@@ -6160,6 +7304,50 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
   });
 });
 
+describe("W2 Track B1 — CKC provenance honesty", () => {
+
+  it("B1 — Recommendation epistemic source is optionSetRef, not ckcAttribution", async () => {
+    const db = tempProductDbPath("w2-b1.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w2b1" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "b1" });
+    const oa = runtime.oa!;
+    const qualification = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(qualification.ok).toBe(true);
+    if (!qualification.ok) return;
+    expect(qualification.qualification.inputs.ckcAttribution).toBeTruthy();
+
+    const proposed = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+    });
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) return;
+
+    const epistemic = await oa.cycleServices.getEpistemicState.execute({
+      projectId: seeded.projectId,
+    });
+    expect(epistemic.ok).toBe(true);
+    if (!epistemic.ok) return;
+    const recommendation = epistemic.state.items.find(
+      (i) => i.type === "Recommendation" && i.status === "active",
+    );
+    expect(recommendation).toBeTruthy();
+    expect(recommendation?.source).toBe(proposed.optionSetRef);
+    expect(recommendation?.source).not.toBe(
+      qualification.qualification.inputs.ckcAttribution,
+    );
+    // CKC may appear as related context, never as epistemic source.
+    expect(recommendation?.relatedObjects).toContain(
+      qualification.qualification.inputs.ckcAttribution,
+    );
+  });
+
+});
+
 describe("W2 Track B — minimal history", () => {
   it("projects durable anchors only and reports process-local absences", async () => {
     const db = tempProductDbPath("w2-b.sqlite");
@@ -6181,12 +7369,130 @@ describe("W2 Track B — minimal history", () => {
   });
 });
 
-describe("W2 Track C + integrated E+A+B+C product path", () => {
-  it("walks Options → HD → decided trajectory → inspect → confirm → AUTHORIZED/BLOCKED and never executes", async () => {
-    const db = tempProductDbPath("w2-eabc.sqlite");
-    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w2e" });
+describe("W2 Track C — inspection binding + authorization mechanism proofs", () => {
+  it("C1 / D-W2-04-R1 — confirm (binding only) keeps inspection; material change invalidates; grantsAuthority always false", async () => {
+    const db = tempProductDbPath("w2-c1.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w2c1" });
+    // Standard profile: Critical cycles fail-close confirm until acknowledged (R-T-A3-1).
     const seeded = await seedQualifiedProject(runtime, {
-      suffix: "e",
+      suffix: "c1",
+      profile: "Standard",
+    });
+    const oa = runtime.oa!;
+
+    const qualification = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(qualification.ok).toBe(true);
+    if (!qualification.ok) return;
+
+    const proposed = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+    });
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) return;
+
+    const decided = await decideTrajectory({
+      oa,
+      projectId: seeded.projectId,
+      optionSetRef: proposed.optionSetRef,
+      options: proposed.options,
+      recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
+      selectedOptionRef: GOVERNED_OPTION_REF,
+      trajectoryId: proposed.proposedTrajectory.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory.version,
+      forceLocalAuthority: true,
+    });
+    expect(decided.ok).toBe(true);
+    if (!decided.ok) return;
+
+    const context = await currentF2Context(runtime, seeded.projectId);
+    const prepared = await prepareM3FromDecision({
+      projectId: seeded.projectId,
+      decisionId: decided.decision.decisionId,
+      currentContext: context,
+      deps: {
+        decisionServices: oa.decisionServices,
+        authorityResolver: oa.authorityResolver,
+        executionContractServices: oa.executionContractServices,
+        nowIso: () => oa.clock.nowIso(),
+        forceM3Authority: true,
+      },
+    });
+    expect(prepared.ok).toBe(true);
+    if (!prepared.ok) return;
+    const executionContractId = prepared.payload.contract.executionContractId;
+
+    const inspected = await inspectExecutionContract({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId,
+    });
+    expect(inspected.ok).toBe(true);
+    if (!inspected.ok) return;
+    expect(inspected.inspectionSufficient).toBe(true);
+    expect(inspected.grantsAuthority).toBe(false);
+
+    const confirmed = await confirmExecutionContractForAuthorization({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(confirmed.ok).toBe(true);
+    if (!confirmed.ok) return;
+    expect(confirmed.executionPerformed).toBe(false);
+
+    const afterConfirm = await readContractInspectionState({
+      oa,
+      executionContractId,
+    });
+    expect(afterConfirm.ok).toBe(true);
+    if (!afterConfirm.ok) return;
+    expect(afterConfirm.inspectionSufficient).toBe(true);
+    expect(afterConfirm.grantsAuthority).toBe(false);
+
+    const amendAuthority = registerLocalPiloteAuthority({
+      authorityResolver: oa.authorityResolver,
+      scope: prepared.payload.contract.scope,
+      issuedAt: oa.clock.nowIso(),
+      forceEnable: true,
+    });
+    expect(amendAuthority.ok).toBe(true);
+    if (!amendAuthority.ok) return;
+
+    const successor = await oa.executionContractServices.supersedeExecutionContract.execute({
+      newExecutionContractId: `${executionContractId}:amended`,
+      supersedesExecutionContractId: executionContractId,
+      supersessionReason: "scope_change",
+      actor: LOCAL_PILOTE_ACTOR,
+      authorityEvidenceId: amendAuthority.evidenceId,
+      action: "w2:amended-action",
+      target: prepared.payload.contract.target,
+      scope: prepared.payload.contract.scope,
+      requiredAuthority: "MORRIS",
+    });
+    expect(successor.ok).toBe(true);
+    if (!successor.ok) return;
+
+    const afterMaterial = await readContractInspectionState({
+      oa,
+      executionContractId: successor.contract.executionContractId,
+    });
+    expect(afterMaterial.ok).toBe(true);
+    if (!afterMaterial.ok) return;
+    expect(afterMaterial.inspectionSufficient).toBe(false);
+    expect(afterMaterial.grantsAuthority).toBe(false);
+  });
+
+  it("NEGATIVE AUTHORIZATION MECHANISM PROOF — uninspected and stale-after-supersede stay BLOCKED", async () => {
+    const db = tempProductDbPath("w2-c-neg.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w2cn" });
+    const seeded = await seedQualifiedProject(runtime, {
+      suffix: "cn",
       profile: "Critical",
     });
     const oa = runtime.oa!;
@@ -6205,7 +7511,6 @@ describe("W2 Track C + integrated E+A+B+C product path", () => {
     });
     expect(proposed.ok).toBe(true);
     if (!proposed.ok) return;
-    expect(proposed.recommendation.recommendedOptionRef).toBe(GOVERNED_OPTION_REF);
 
     const decided = await decideTrajectory({
       oa,
@@ -6252,6 +7557,7 @@ describe("W2 Track C + integrated E+A+B+C product path", () => {
 
     const blockedUninspected = await evaluateExecutionAuthorization({
       oa,
+      projectId: seeded.projectId,
       executionContractId,
       forceLocalAuthority: true,
     });
@@ -6265,40 +7571,13 @@ describe("W2 Track C + integrated E+A+B+C product path", () => {
 
     const inspected = await inspectExecutionContract({
       oa,
+      projectId: seeded.projectId,
       executionContractId,
     });
     expect(inspected.ok).toBe(true);
     if (!inspected.ok) return;
     expect(inspected.inspectionSufficient).toBe(true);
-    expect(inspected.statusLabel).toBe("INSPECTÉ");
     expect(inspected.grantsAuthority).toBe(false);
-
-    const prematureConfirm = await confirmExecutionContractForAuthorization({
-      oa,
-      executionContractId,
-      forceLocalAuthority: true,
-    });
-    // Confirmation is required for MORRIS contracts; after inspect it may succeed.
-    if (prematureConfirm.ok) {
-      expect(prematureConfirm.executionPerformed).toBe(false);
-      expect(prematureConfirm.statusLabel).toBe("CONFIRMATION REQUISE — OBTENUE");
-    }
-
-    const afterInspectBlocked = await evaluateExecutionAuthorization({
-      oa,
-      executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(afterInspectBlocked.ok).toBe(true);
-    if (!afterInspectBlocked.ok) return;
-    expect(afterInspectBlocked.executionPerformed).toBe(false);
-    expect(afterInspectBlocked.attemptCreated).toBe(false);
-    expect(["AUTHORIZED", "BLOCKED"]).toContain(afterInspectBlocked.outcome);
-    if (afterInspectBlocked.outcome === "BLOCKED") {
-      expect(afterInspectBlocked.reasonText.length).toBeGreaterThan(0);
-      expect(afterInspectBlocked.nextAction.length).toBeGreaterThan(0);
-    }
-    expect(afterInspectBlocked.confirmation.fabricated).toBe(false);
 
     const amendAuthority = registerLocalPiloteAuthority({
       authorityResolver: oa.authorityResolver,
@@ -6323,16 +7602,9 @@ describe("W2 Track C + integrated E+A+B+C product path", () => {
     expect(successor.ok).toBe(true);
     if (!successor.ok) return;
 
-    const stale = await readContractInspectionState({
-      oa,
-      executionContractId: successor.contract.executionContractId,
-    });
-    expect(stale.ok).toBe(true);
-    if (!stale.ok) return;
-    expect(stale.inspectionSufficient).toBe(false);
-
     const blockedStale = await evaluateExecutionAuthorization({
       oa,
+      projectId: seeded.projectId,
       executionContractId: successor.contract.executionContractId,
       forceLocalAuthority: true,
     });
@@ -6341,27 +7613,129 @@ describe("W2 Track C + integrated E+A+B+C product path", () => {
     expect(blockedStale.outcome).toBe("BLOCKED");
     expect(blockedStale.reasonCode).toMatch(/inspection|reinspection/);
     expect(blockedStale.executionPerformed).toBe(false);
+    expect(blockedStale.attemptCreated).toBe(false);
+  });
 
-    const history = await readW2ProjectHistory({
+  it("POSITIVE AUTHORIZATION MECHANISM PROOF — inspect+confirm+AUTHORIZE on capable EC (not full /studio E2E)", async () => {
+    const db = tempProductDbPath("w2-c-pos.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w2cp" });
+    const seeded = await seedQualifiedProject(runtime, {
+      suffix: "cp",
+      profile: "Critical",
+    });
+    const oa = runtime.oa!;
+
+    const qualification = await resolveW2QualificationInputs({
       oa,
       projectId: seeded.projectId,
     });
-    expect(history.ok).toBe(true);
-    if (!history.ok) return;
-    expect(history.history.trajectory.effectiveCurrent?.decidedByDecisionRef).toBe(
-      decided.decision.decisionId,
-    );
-    expect(history.history.decisions.some((d) => d.decisionId === decided.decision.decisionId)).toBe(
-      true,
-    );
-    expect(history.history.contracts.length).toBeGreaterThan(0);
+    expect(qualification.ok).toBe(true);
+    if (!qualification.ok) return;
+
+    const proposed = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+    });
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) return;
+
+    const decided = await decideTrajectory({
+      oa,
+      projectId: seeded.projectId,
+      optionSetRef: proposed.optionSetRef,
+      options: proposed.options,
+      recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
+      selectedOptionRef: GOVERNED_OPTION_REF,
+      trajectoryId: proposed.proposedTrajectory.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory.version,
+      forceLocalAuthority: true,
+    });
+    expect(decided.ok).toBe(true);
+    if (!decided.ok) return;
+
+    // Capable EC via OA build+validate with F3 fixture envelope (prepareM3 yields unresolved caps).
+    const scope = F3_SCOPE;
+    const authority = registerLocalPiloteAuthority({
+      authorityResolver: oa.authorityResolver,
+      scope,
+      issuedAt: oa.clock.nowIso(),
+      forceEnable: true,
+    });
+    expect(authority.ok).toBe(true);
+    if (!authority.ok) return;
+
+    const executionContractId = `xct:w2-pos:${decided.decision.decisionId.replace(/[^a-zA-Z0-9:_-]/g, "").slice(0, 40)}`;
+    const built = await oa.executionContractServices.buildExecutionContract.execute({
+      executionContractId,
+      projectId: seeded.projectId,
+      decisionRefs: [decided.decision.decisionId],
+      action: F3_ACTION,
+      target: F3_TARGET,
+      scope,
+      requiredCapabilities: [F3_CAPABILITY],
+      requiredAuthority: "N2",
+      constraints: ["W2_POS_PROOF", "NO_EXECUTE"],
+      stopConditions: ["AUTHORITY_DENIED"],
+      evidenceRequirements: ["evreq:w2-pos-proof"],
+      reversibility: "reversible",
+      idempotencyKey: `idem:w2-pos:${decided.decision.decisionId}`,
+      correlationId: `cor:w2-pos:${decided.decision.decisionId}`,
+      actor: LOCAL_PILOTE_ACTOR,
+      authorityEvidenceId: authority.evidenceId,
+    });
+    expect(built.ok).toBe(true);
+    if (!built.ok) return;
+
+    const validated = await oa.executionContractServices.validateExecutionContract.execute({
+      executionContractId: built.contract.executionContractId,
+      actor: LOCAL_PILOTE_ACTOR,
+      authorityEvidenceId: authority.evidenceId,
+    });
+    expect(validated.ok).toBe(true);
+    if (!validated.ok) return;
+    expect(validated.contract.status).toBe("confirmation_required");
+
+    const inspected = await inspectExecutionContract({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId,
+    });
+    expect(inspected.ok).toBe(true);
+    if (!inspected.ok) return;
+    expect(inspected.inspectionSufficient).toBe(true);
+    expect(inspected.grantsAuthority).toBe(false);
+
+    const confirmed = await confirmExecutionContractForAuthorization({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(confirmed.ok).toBe(true);
+    if (!confirmed.ok) return;
+    expect(confirmed.executionPerformed).toBe(false);
+
+    const authorized = await evaluateExecutionAuthorization({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(authorized.ok).toBe(true);
+    if (!authorized.ok) return;
+    expect(authorized.outcome).toBe("AUTHORIZED");
+    expect(authorized.executionPerformed).toBe(false);
+    expect(authorized.attemptCreated).toBe(false);
+    expect(authorized.confirmation.fabricated).toBe(false);
+    expect(authorized.agentCapability.sufficient).toBe(true);
+    expect(authorized.authorityReceiptRef).toMatch(/^avr:/);
   });
 });
+
 ```
 
 ### `projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts`
-
-**Finalité:** Harness Product SQLite temporaire pour la preuve W2.
 
 ```ts
 /**
@@ -6560,8 +7934,6 @@ export async function currentF2Context(
 ```
 
 ### `projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx`
-
-**Finalité:** Tests UI Option/Recommendation/HD/STOP BEFORE EXECUTE.
 
 ```tsx
 /** @vitest-environment jsdom */
@@ -6763,11 +8135,15 @@ describe("W2 TrajectorySurface", () => {
         contract: {
           executionContractId: "xct:w2-ui",
           version: 1,
-          status: "prepared",
+          status: "confirmation_required",
           action: "w2:inspect-only",
           target: "studio",
           scope: "w2-ui",
           requiredAuthority: "MORRIS",
+          constraints: ["AUCUNE EXÉCUTION"],
+          stopConditions: ["STOP AVANT EXECUTE"],
+          requiredCapabilities: ["cap:f3-fixture-docs"],
+          reversibility: "reversible",
           semanticFingerprint: "abc123def456",
         },
       },
@@ -6775,6 +8151,34 @@ describe("W2 TrajectorySurface", () => {
 
     fireEvent.click(screen.getByTestId("w2-prepare-contract"));
     expect(await screen.findByTestId("w2-contract")).toBeVisible();
+    expect(screen.getByTestId("w2-contract-action")).toHaveTextContent(
+      "w2:inspect-only",
+    );
+    expect(screen.getByTestId("w2-contract-capabilities")).toHaveTextContent(
+      "cap:f3-fixture-docs",
+    );
+    // E3 — Confirmation affordance requires sufficient inspection, not mere presence.
+    expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
+
+    inspectMock.mockResolvedValue({
+      ok: true,
+      executionContractId: "xct:w2-ui",
+      contractVersion: 1,
+      semanticFingerprint: "abc123def456",
+      statusLabel: "INSPECTÉ",
+      inspectionSufficient: true,
+      attestationRef: "att:test",
+      attestedVersion: 1,
+      staleAttestationRef: null,
+      reinspectionRequired: false,
+      reason: "inspected",
+      grantsAuthority: false,
+    });
+    fireEvent.click(screen.getByTestId("w2-inspect-contract"));
+    expect(await screen.findByTestId("w2-inspection-state")).toHaveTextContent(
+      "INSPECTÉ",
+    );
+    expect(screen.getByTestId("w2-confirm-contract")).not.toBeDisabled();
 
     authorizeMock.mockResolvedValue({
       ok: true,
@@ -6830,6 +8234,216 @@ describe("W2 TrajectorySurface", () => {
     );
     expect(screen.getByTestId("w2-confirmation-state")).toHaveTextContent(
       "CONFIRMATION REQUISE — MANQUANTE",
+    );
+  });
+});
+```
+
+### `projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts`
+
+```ts
+/**
+ * W2-G3 correction pass — /studio runtime product proof (deterministic).
+ * Captures Options → Recommendation → HD → Trajectory → EC → inspect →
+ * AUTHORIZED|BLOCKED → STOP BEFORE EXECUTE on the canonical /studio path.
+ * No REAL · no Execute · Track D untouched.
+ */
+import { test, expect, type Page } from "@playwright/test";
+import fs from "node:fs";
+import path from "node:path";
+import crypto from "node:crypto";
+
+const CAPTURE_ROOT = path.resolve(
+  process.cwd(),
+  "../../../.tmp-sfia-review/runtime-captures/w2-g3-correction",
+);
+const MANIFEST = path.join(CAPTURE_ROOT, "manifest.jsonl");
+
+async function capture(
+  page: Page,
+  id: string,
+  meta: { screen: string; state: string },
+) {
+  fs.mkdirSync(CAPTURE_ROOT, { recursive: true });
+  const file = path.join(CAPTURE_ROOT, `${id}.png`);
+  await page.screenshot({ path: file, fullPage: true });
+  const sha256 = crypto
+    .createHash("sha256")
+    .update(fs.readFileSync(file))
+    .digest("hex");
+  fs.appendFileSync(
+    MANIFEST,
+    `${JSON.stringify({
+      id,
+      file: path.basename(file),
+      ...meta,
+      route: page.url(),
+      timestamp: new Date().toISOString(),
+      sha256,
+      provenance:
+        "CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W2-G3 CORRECTION /STUDIO PROOF",
+    })}\n`,
+    "utf8",
+  );
+}
+
+test.describe("W2-G3 correction /studio runtime proof", () => {
+  test.describe.configure({ timeout: 240_000 });
+
+  test("walks Options → HD → EC inspect → STOP BEFORE EXECUTE", async ({
+    page,
+  }) => {
+    fs.mkdirSync(CAPTURE_ROOT, { recursive: true });
+    fs.writeFileSync(MANIFEST, "");
+
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/studio");
+    await expect(page.getByTestId("studio-projects-home")).toBeVisible({
+      timeout: 30_000,
+    });
+    await capture(page, "01-studio-home", {
+      screen: "ProjectsHome",
+      state: "loaded",
+    });
+
+    await page.goto("/studio/projects/new");
+    await expect(page.getByTestId("create-project-form")).toBeVisible();
+    await page.locator("#project-name").fill("W2-G3 Correction Runtime Proof");
+    await page
+      .locator("#project-objective")
+      .fill(
+        "Prouver Options / Recommendation / Décision de trajectoire / inspection — aucune exécution.",
+      );
+    await page.getByTestId("create-project-submit").click();
+    await expect(page.getByTestId("open-project-workspace")).toBeVisible({
+      timeout: 30_000,
+    });
+    await page.getByTestId("open-project-workspace").click();
+    await expect(page.getByTestId("project-principal")).toBeVisible({
+      timeout: 30_000,
+    });
+    await capture(page, "02-workspace", {
+      screen: "ProjectWorkspace",
+      state: "opened",
+    });
+
+    // W1 qualification must precede W2 options (CYCLE_NOT_QUALIFIED otherwise).
+    const input = page.getByTestId("project-assistant-input");
+    await expect(input).toBeEnabled({ timeout: 15_000 });
+    await input.fill("Préparer une livraison gated __F2_GATED_STANDARD__");
+    await page.getByTestId("project-assistant-send").click();
+    await expect(page.getByTestId("project-assistant-gate")).toBeVisible({
+      timeout: 60_000,
+    });
+    await capture(page, "02b-qualified-gate", {
+      screen: "ConversationSurface",
+      state: "f2_gate_qualified",
+    });
+
+    const trajectory = page.getByTestId("w2-trajectory-panel");
+    await expect(trajectory).toBeVisible({ timeout: 15_000 });
+    await trajectory.scrollIntoViewIfNeeded();
+    await capture(page, "03-trajectory-idle", {
+      screen: "TrajectorySurface",
+      state: "idle_after_qualification",
+    });
+
+    await page.getByTestId("w2-propose-options").click();
+    const optionsOrError = page
+      .getByTestId("w2-options")
+      .or(page.getByTestId("w2-error"));
+    await expect(optionsOrError).toBeVisible({ timeout: 60_000 });
+    if (await page.getByTestId("w2-error").isVisible()) {
+      const err = await page.getByTestId("w2-error").textContent();
+      throw new Error(`w2 propose failed: ${err}`);
+    }
+    await expect(page.getByTestId("w2-options")).toBeVisible();
+    await expect(page.getByTestId("w2-recommendation")).toContainText(
+      "RECOMMANDATION — PAS UNE DÉCISION",
+    );
+    await expect(page.getByTestId("w2-proposed-trajectory")).toContainText(
+      "TRAJECTOIRE PROPOSÉE",
+    );
+    await expect(page.getByTestId("w2-decision")).toHaveCount(0);
+    await capture(page, "04-options-recommendation", {
+      screen: "TrajectorySurface",
+      state: "options_proposed",
+    });
+
+    const decideButtons = page.locator("[data-testid^='w2-decide-']");
+    await expect(decideButtons.first()).toBeVisible();
+    await decideButtons.first().click();
+    await expect(page.getByTestId("w2-decision")).toBeVisible({
+      timeout: 45_000,
+    });
+    await expect(page.getByTestId("w2-decision")).toContainText(
+      "Décision de trajectoire",
+    );
+    await expect(page.getByTestId("w2-decided-trajectory")).toContainText(
+      "TRAJECTOIRE DÉCIDÉE / COURANTE",
+    );
+    await capture(page, "05-human-decision-trajectory", {
+      screen: "TrajectorySurface",
+      state: "decided",
+    });
+
+    await page.getByTestId("w2-prepare-contract").click();
+    await expect(page.getByTestId("w2-contract")).toBeVisible({
+      timeout: 45_000,
+    });
+    await expect(page.getByTestId("w2-contract-action")).toBeVisible();
+    await expect(page.getByTestId("w2-contract-facts")).toBeVisible();
+    await capture(page, "06-execution-contract", {
+      screen: "TrajectorySurface",
+      state: "contract_prepared",
+    });
+
+    const confirm = page.getByTestId("w2-confirm-contract");
+    if (await confirm.count()) {
+      await expect(confirm).toBeDisabled();
+    }
+
+    await page.getByTestId("w2-inspect-contract").click();
+    await expect(page.getByTestId("w2-inspection-state")).toBeVisible({
+      timeout: 30_000,
+    });
+    await capture(page, "07-inspected", {
+      screen: "TrajectorySurface",
+      state: "inspected",
+    });
+
+    await page.getByTestId("w2-authorize-contract").click();
+    await expect(page.getByTestId("w2-authorization")).toBeVisible({
+      timeout: 30_000,
+    });
+    await expect(page.getByTestId("w2-stop-before-execute")).toContainText(
+      "arrêt avant exécution",
+    );
+    const outcome = page.getByTestId("w2-authorization-outcome");
+    await expect(outcome).toBeVisible();
+    const outcomeText = (await outcome.textContent()) ?? "";
+    expect(
+      outcomeText.includes("AUTORISÉ") || outcomeText.includes("BLOQUÉ"),
+    ).toBe(true);
+    await capture(page, "08-authorization-stop", {
+      screen: "TrajectorySurface",
+      state: outcomeText.includes("AUTORISÉ") ? "authorized" : "blocked",
+    });
+
+    const history = page.getByTestId("project-history");
+    if (await history.count()) {
+      await history.scrollIntoViewIfNeeded();
+      await capture(page, "09-history", {
+        screen: "HistorySurface",
+        state: "visible",
+      });
+    }
+
+    expect(fs.existsSync(path.join(CAPTURE_ROOT, "04-options-recommendation.png"))).toBe(
+      true,
+    );
+    expect(fs.existsSync(path.join(CAPTURE_ROOT, "08-authorization-stop.png"))).toBe(
+      true,
     );
   });
 });
