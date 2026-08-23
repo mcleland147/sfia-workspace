@@ -1,98 +1,65 @@
 # ChatGPT Review Pack — FULL
-## W2 Track D / Bounded CKC Phase B Delivery — Cycle 8
+## W2 Track D / Bounded CKC Phase B Delivery — Cycle 8 Correction R1
 
 ## A. Metadata
 
 | Field | Value |
 |---|---|
-| timestamp (UTC) | 2026-08-23T13:18:31Z |
+| timestamp (UTC) | 2026-08-23T14:06:39Z |
 | repo | mcleland147/sfia-workspace |
 | branch | `delivery/sfia-studio-w2-track-d-phase-b` |
-| pre-HEAD / current HEAD | `40de367e2a5a74423f3cab843b7e7a0d1f9879df` |
+| HEAD | `40de367e2a5a74423f3cab843b7e7a0d1f9879df` |
 | origin/main | `40de367e2a5a74423f3cab843b7e7a0d1f9879df` |
-| cycle | 8 — Delivery / implémentation |
+| cycle | 8 — Delivery / correction R1 |
 | typology | INC |
 | profile | CRITICAL |
 | capacity | W2 Track D — bounded CKC Phase B |
-| functional owner | EPIC-B · US-P1-14 · REQ-24 |
-| design decision | D-W2-02 ADOPTED |
-| Morris Phase B GO | **CONSUMED** |
-| project Git integration | **NOT AUTHORIZED** (no commit / push / PR / merge) |
-| REAL | **NOT AUTHORIZED** |
+| Phase B GO | CONSUMED (parent Delivery) |
+| R1 correction GO | **CONSUMED** |
+| project Git integration | **NOT CONSUMED** |
+| REAL | NOT CONSUMED |
 | Execute | OUT |
 | FinOps/T7 | FREEZE |
 | C6 | CLOSED |
 | runtime v3 | NON ADOPTED |
 | proof ceiling | DETERMINISTIC PROVEN |
+| prior handoff (superseded by R1) | commit `e0c80a4f…` / blob `38168b68…` |
 
-Expected origin/main match: `40de367e2a5a74423f3cab843b7e7a0d1f9879df` — **MATCH**.
-PR #402 MERGED at that SHA (qualification document 09 integrated).
+Expected origin/main / HEAD base: `40de367e2a5a74423f3cab843b7e7a0d1f9879df` — **MATCH**.
 
 ## B. Sources actually read
 
-### Process
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-- method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/ (01–04 only; no Delivery pilot)
+Process routing/v2.6 · convergence · product-completion 01–09 (09 RO) · UX 01–03 RO ·
+v3 framing 30/31/32/33/37 · canonical `ckcConsumptionProof.ts` (RO) ·
+candidate runtime/tests: fakeProvider, ckcCognitiveContext, proposeTrajectoryOptions,
+presentedOptionSet, decideTrajectory, w1/w2/PhaseB tests · prior FULL handoff.
 
-### Convergence / Product Completion
-- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md (READ ONLY; not mutated)
-- projects/sfia-studio/product-completion/01…09 (09 READ ONLY; not mutated)
-- ux-product-experience/01…03 (READ ONLY contradiction check)
-- sfia-v3-framing/30,31,32,33,37
+## C. Pre-R1 local Git truth
 
-### Product-native CKC (READ ONLY)
-- pkg-sfia-studio-doctrine-v3-1.0.0/ckc/08-delivery-implementation.md
-- pkg-sfia-studio-doctrine-v3-1.0.0/ckc/10-securite-rssi.md
+Branch `delivery/sfia-studio-w2-track-d-phase-b` · HEAD=`40de367e…` · local uncommitted
+Phase B candidate · staged empty · unrelated untracked preserved · prior R0 handoff
+`e0c80a4f` / blob `38168b68`.
 
-### Runtime / tests inspected & adapted
-- f2/ckcCognitiveContext.ts, orchestrateF2.ts, qualify.ts, types.ts
-- w2/actions.ts, qualificationInputs.ts, proposeTrajectoryOptions.ts, trajectoryOptions.ts, presentedOptionSet.ts, types.ts, decideTrajectory.ts
-- fakeProvider.ts, disclosures.ts, paths.ts (via barrel), index.ts
-- oa doctrine product / ckcConsumptionProof (READ ONLY)
-- w1CkcSemanticSeam, w2EabcDelivery, w2Harness, NEW w2TrackDPhaseB
+## D. ChatGPT R1 findings (binding)
 
-## C. Local Git truth
+1. **Semantic Fake oracle weakness** — Fake keyed off `ckc:studio:*` IDs → P3/P4 could pass without content.
+2. **Canonical proof gate permissiveness** — `product-studio-native + ckcId` / nested provenance alone insufficiently strict.
+3. **UX raw CKC mechanics** — `[CKC:…]` rationale + Epistemic `CKC provenance: … digest=… fp=…` leakage.
+4. **Pre-Phase-B OptionSet cutover** — legacy binding without fingerprint must fail-closed.
+5. **File envelope regularization** — `index.ts` + two disclosure mock tests authorized.
+6. **PB-RES-REAL-01** — deterministic ≠ REAL; record only.
 
-### Before Delivery (expected / verified)
-- branch created: `delivery/sfia-studio-w2-track-d-phase-b` from `origin/main`
-- HEAD = origin/main = `40de367e2a5a74423f3cab843b7e7a0d1f9879df`
-- unrelated untracked preserved: `.tmp-sfia-review/`, `projects/eventops-poc/`, `projects/flex-office-demo/`
+## E. Files modified by R1 + complete Delivery candidate list
 
-### After Delivery (pre-handoff; project uncommitted)
+### R1 primary edits
+- `lib/platform/ai/fakeProvider.ts` — remove CKC ID specialized triggers
+- `features/project-assistant/f2/ckcCognitiveContext.ts` — strict gate + business-first rationale
+- `features/project-assistant/w2/proposeTrajectoryOptions.ts` — no raw provenance in Epistemic statement
+- `__tests__/project-assistant/w1CkcSemanticSeam.test.ts` — complete proof fixture + UX assertions
+- `__tests__/project-assistant/w2TrackDPhaseB.test.ts` — R1-S/G/UX/CUT matrix
+
+### Complete Delivery candidate (all local mods)
 ```
-branch: delivery/sfia-studio-w2-track-d-phase-b
-HEAD: 40de367e2a5a74423f3cab843b7e7a0d1f9879df
-origin/main: 40de367e2a5a74423f3cab843b7e7a0d1f9879df
-status --short:
-M projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
- M projects/sfia-studio/app/__tests__/project-assistant/w1CkcSemanticSeam.test.ts
- M projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts
- M projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
- M projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx
- M projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
- M projects/sfia-studio/app/features/project-assistant/w2/actions.ts
- M projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
- M projects/sfia-studio/app/features/project-assistant/w2/presentedOptionSet.ts
- M projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
- M projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
- M projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
- M projects/sfia-studio/app/features/project-assistant/w2/types.ts
- M projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
- M projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts
- M projects/sfia-studio/app/lib/vertical-slice-runtime/index.ts
-?? .tmp-sfia-review/
-?? projects/eventops-poc/
-?? projects/flex-office-demo/
-?? projects/sfia-studio/app/__tests__/project-assistant/w2TrackDPhaseB.test.ts
-
-diff --cached --name-only:
-(empty)
-
-diff --name-only:
 projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
 projects/sfia-studio/app/__tests__/project-assistant/w1CkcSemanticSeam.test.ts
 projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts
@@ -109,95 +76,16 @@ projects/sfia-studio/app/features/project-assistant/w2/types.ts
 projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
 projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts
 projects/sfia-studio/app/lib/vertical-slice-runtime/index.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/w2TrackDPhaseB.test.ts
 ```
 
-Project commit: **NONE** (not authorized).
-Staged: **EMPTY**.
+Regularized (R1-05, no further role expansion):
+- `lib/vertical-slice-runtime/index.ts`
+- `__tests__/project-assistant/ProjectAssistantPanel.test.tsx`
+- `__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx`
 
-## D. Convergence qualification
+## F. Full useful diff — COMPLETE final candidate after R1
 
-| Dimension | Value |
-|---|---|
-| capacity | W2 Track D — bounded CKC Phase B Delivery |
-| milestone | Product Completion Wave 2 — Track D Phase B (bounded) |
-| current state | LOCAL Delivery candidate; deterministic proof green; awaiting ChatGPT review then Morris Git gate |
-| assets | existing W2 path ADAPT/COMPLETE; product DoctrinePackage KEEP; CKC package content KEEP |
-| gaps closed this cycle | CKC cognition before Options/Recommendation; generic multi-cycle helper; fail-closed; OA flat proof gate; semantic fingerprint binding |
-| gaps remaining | full CKC track (W3); REAL boundary; W2 final closure; FinOps freeze; Confirmation residual if any |
-| dependencies | D-W2-02; GO Phase B consumed; FakeConversationProvider |
-| trajectory | Track D Phase B Delivery → ChatGPT review → Morris Git integration decision |
-| exit proof | P1→P12 + I1→I4 + PB-DLV-01…06 deterministic |
-| debt/exit | disclosure honest bounded claim; Roadmap lag (post-Delivery sync later) |
-| next gate | ChatGPT FULL review of this handoff |
-| next capacity | Morris project Git integration (NOT CONSUMED) OR return on gaps |
-
-## E. Documentary snapshot reconciliation
-
-1. **PR #402** merged at `40de367e…` — qualification document 09 **INTEGRATED ON MAIN**.
-2. Embedded 09 statements (`LOCAL CANDIDATE`, `NOT INTEGRATED ON MAIN`, Git integration NOT AUTHORIZED) are **HISTORICAL SNAPSHOT** from pre-merge — **not mutated** this cycle.
-3. Roadmap still naming Track D Phase B QUALIFICATION as next capacity = **documentary lag** after PR #402 — **not mutated** this cycle.
-4. Current gate truth: GO Phase B **CONSUMED**; Phase B Delivery **authorized locally**; W2 **NOT finally closed**; Product Completion **NON TERMINATED**.
-
-## F. Exact current→target call graph
-
-### Before (W2 Options path)
-```
-resolveW2QualificationInputs
-  → proposeTrajectoryOptions
-      → deriveTrajectoryOptions / deriveTrajectoryRecommendation  (NO CKC cognition)
-      → createInitialTrajectory / proposeTrajectoryVersion
-      → updateEpistemicState (OptionSet / Recommendation)
-  → HumanDecision only via decideTrajectory (Pilote)
-  → STOP BEFORE EXECUTE
-```
-F2 seam: `isProductStudioNativeCkcProof` required nested `packageProvenance` → **unreachable** with flat OA `CkcConsumptionProof`.
-Production helper: delivery-biased `DISTINCTIVE_PHRASES`.
-
-### After (Phase B)
-```
-resolveW2QualificationInputs  (+ packagePin, objective, projectTitle from durable LPS/Project)
-  → proposeTrajectoryOptions
-      → resolveProductDoctrineRegistryRoot (barrel)
-      → loadProductCkcCognitiveContent (product package index + artifact)
-      → buildCkcCognitivePromptSection (generic Markdown extraction)
-      → reasonWithResolvedCkcContext (ConversationProvider / Fake)
-      → FAIL CLOSED if CKC missing or provider throws (ZERO durable mutation)
-      → deriveTrajectoryOptions (governed catalogue unchanged)
-      → deriveTrajectoryRecommendation + CKC enrichment (rationale/challenge)
-      → computeCkcSemanticFingerprint → qualificationDigest / optionSetDigest
-      → ONLY THEN createInitialTrajectory / proposeTrajectoryVersion / updateEpistemicState
-  → HumanDecision only via decideTrajectory (Pilote; live fingerprint stale check)
-  → STOP BEFORE EXECUTE
-```
-No `orchestrateAssistantSend` / proposalStore on W2 path.
-
-## G. Exact modified project file list
-
-| File | Classification |
-|---|---|
-| features/project-assistant/f2/ckcCognitiveContext.ts | ADAPT |
-| features/project-assistant/w2/proposeTrajectoryOptions.ts | ADAPT/COMPLETE |
-| features/project-assistant/w2/qualificationInputs.ts | COMPLETE |
-| features/project-assistant/w2/actions.ts | COMPLETE |
-| features/project-assistant/w2/presentedOptionSet.ts | COMPLETE |
-| features/project-assistant/w2/types.ts | COMPLETE |
-| features/project-assistant/w2/trajectoryOptions.ts | COMPLETE |
-| features/project-assistant/w2/decideTrajectory.ts | ADAPT |
-| lib/platform/ai/fakeProvider.ts | ADAPT |
-| lib/vertical-slice-runtime/disclosures.ts | COMPLETE (post-proof) |
-| lib/vertical-slice-runtime/index.ts | ADAPT (re-export registry root; import-boundary coherence) |
-| __tests__/…/w1CkcSemanticSeam.test.ts | ADAPT |
-| __tests__/…/w2EabcDelivery.test.ts | ADAPT |
-| __tests__/…/w2Harness.ts | ADAPT |
-| __tests__/…/w2TrackDPhaseB.test.ts | NEW |
-| __tests__/…/ProjectAssistantPanel.test.tsx | ADAPT (disclosure mock) |
-| __tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx | ADAPT (disclosure mock) |
-
-**NOT modified:** Roadmap, doc 09, product CKC packages, CkcConsumptionProof domain, persistence/schema, UI production screens, FinOps, CI.
-
-## H. Complete exploitable modified content
-
-### H.1 Full `git diff` (all tracked modifications)
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx b/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
 index 7553b57b..b57ebd18 100644
@@ -213,23 +101,62 @@ index 7553b57b..b57ebd18 100644
    },
  };
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w1CkcSemanticSeam.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/w1CkcSemanticSeam.test.ts
-index 5736e62a..7da15445 100644
+index 5736e62a..27cf07b1 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/w1CkcSemanticSeam.test.ts
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/w1CkcSemanticSeam.test.ts
-@@ -77,6 +77,13 @@ function productNativeProof() {
+@@ -76,7 +76,19 @@ function methodCandidateProof() {
+ function productNativeProof() {
    return {
      ...methodCandidateProof(),
++    source: "product_package" as const,
      doctrineStatus: "product-studio-native" as const,
 +    doctrinePackageId: DEFAULT_PRODUCT_DOCTRINE_PIN.doctrinePackageId,
 +    packageVersion: DEFAULT_PRODUCT_DOCTRINE_PIN.version,
 +    packageDigest: DEFAULT_PRODUCT_DOCTRINE_PIN.digest,
++    indexDigest:
++      "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
 +    ckcId: "ckc:studio:delivery",
 +    ckcContractVersion: "0.1.0",
 +    sourceDigest:
 +      "sha256:3318640c67e03090a63e7a37742002926e5baf1b6aad61496d0087d0f562151c",
++    usedReference: "ckc:studio:delivery",
++    expectedPrimaryReference: "ckc:studio:delivery",
      packageProvenance: {
        ckcId: "ckc:studio:delivery",
        cycleTypeId: "cyc:delivery",
+@@ -159,7 +171,7 @@ describe("W1 bounded CKC→Nora semantic seam — enrichment", () => {
+     expect(enriched.ckcCognitiveRecommendation).toBeUndefined();
+   });
+
+-  it("treatment: product-native proof enriches rationale with attributable CKC marker", () => {
++  it("treatment: product-native proof enriches rationale with CKC guidance without raw mechanics", () => {
+     const enriched = enrichQualificationWithCkcSemantics({
+       qualification: baseQualification(),
+       proof: productNativeProof(),
+@@ -168,8 +180,10 @@ describe("W1 bounded CKC→Nora semantic seam — enrichment", () => {
+       ckcCognitiveRecommendation:
+         "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — anti scope creep : borner le slice.",
+     });
+-    expect(enriched.rationale).toContain(CKC_ATTRIBUTION_MARKER_PREFIX);
+-    expect(enriched.rationale.toLowerCase()).toMatch(/anti scope creep|scope creep/);
++    expect(enriched.rationale).not.toContain(CKC_ATTRIBUTION_MARKER_PREFIX);
++    expect(enriched.rationale).not.toMatch(/\[CKC:/);
++    expect(enriched.rationale).not.toMatch(/ckc:studio:/);
++    expect(enriched.rationale.toLowerCase()).toMatch(/anti scope creep|scope creep|borner/);
+     expect(enriched.isMorrisDecision).toBe(false);
+     expect(enriched.executionAuthority).toBe(false);
+     expect(enriched.ckcSemanticProvenance?.ckcId).toBe("ckc:studio:delivery");
+@@ -189,7 +203,9 @@ describe("W1 bounded CKC→Nora semantic seam — enrichment", () => {
+       content,
+     });
+     expect(rationale).toMatch(/Base\./);
+-    expect(rationale.toLowerCase()).toMatch(/anti scope creep|scope creep/);
++    expect(rationale.toLowerCase()).toMatch(/anti scope creep|scope creep|borner|guidance|finalit/);
++    expect(rationale).not.toContain(CKC_ATTRIBUTION_MARKER_PREFIX);
++    expect(rationale).not.toMatch(/\[CKC:/);
+   });
+ });
+
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts
 index 3a773550..4a6cf790 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts
@@ -743,7 +670,7 @@ index 12fe3207..fc2c1905 100644
    },
  };
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts b/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
-index af1714c7..00158e32 100644
+index af1714c7..8d5b13c0 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
 @@ -1,10 +1,14 @@
@@ -762,7 +689,18 @@ index af1714c7..00158e32 100644
  import {
    isFakeConversationProviderForced,
    resolveConversationProvider,
-@@ -41,6 +45,8 @@ export type CkcCognitiveProvenance = {
+@@ -28,6 +32,10 @@ export {
+   PRODUCT_DOCTRINE_PACKAGE_ID,
+ };
+
++/**
++ * Historical marker — MUST NOT appear in Pilote-facing Recommendation rationale
++ * (R1-03 business-first). Retained for negative assertions only.
++ */
+ export const CKC_ATTRIBUTION_MARKER_PREFIX =
+   "[CKC ATTRIBUTABLE · ckc:studio:" as const;
+
+@@ -41,6 +49,8 @@ export type CkcCognitiveProvenance = {
    readonly packageVersion: string;
    readonly contentDigest: string;
    readonly doctrineStatus: "product-studio-native";
@@ -771,7 +709,7 @@ index af1714c7..00158e32 100644
  };
 
  export type ProductCkcCognitiveContent = {
-@@ -50,48 +56,153 @@ export type ProductCkcCognitiveContent = {
+@@ -50,48 +60,172 @@ export type ProductCkcCognitiveContent = {
    readonly provenance: CkcCognitiveProvenance;
  };
 
@@ -902,6 +840,11 @@ index af1714c7..00158e32 100644
    return lines.join(" · ");
  }
 
++/**
++ * Business-first Recommendation rationale (R1-03).
++ * Cognitive guidance may inform the text; CKC IDs / package digests / fingerprints
++ * must not appear as Pilote-facing prose. Structured provenance is separate.
++ */
  export function deriveCkcAttributedRecommendation(input: {
    baseRationale: string;
    content: ProductCkcCognitiveContent | null;
@@ -913,16 +856,31 @@ index af1714c7..00158e32 100644
 -  const guidance =
 -    extractDistinctiveGuidance(input.content.markdown) ??
 -    "Guidance CKC product package applicable.";
+-  const marker = `${CKC_ATTRIBUTION_MARKER_PREFIX}${input.content.ckcId.replace(/^ckc:studio:/, "")}]`;
+-  return `${input.baseRationale} ${marker} ${guidance}`;
 +  const guidance = extractCkcGuidanceFromMarkdown(input.content.markdown);
 +  const guidanceText =
-+    guidance.condensed[0] ?? "Guidance CKC product package applicable.";
-   const marker = `${CKC_ATTRIBUTION_MARKER_PREFIX}${input.content.ckcId.replace(/^ckc:studio:/, "")}]`;
--  return `${input.baseRationale} ${marker} ${guidance}`;
-+  const cognitive = input.cognitiveRecommendation?.trim();
++    guidance.condensed[0] ??
++    "Appliquer la guidance cycle applicable avant toute extension.";
++  const cognitive = scrubTechnicalCkcMechanics(
++    input.cognitiveRecommendation?.trim() ?? "",
++  );
 +  if (cognitive) {
-+    return `${input.baseRationale} ${marker} ${cognitive} · ${guidanceText}`;
++    return `${input.baseRationale} ${cognitive} · ${guidanceText}`;
 +  }
-+  return `${input.baseRationale} ${marker} ${guidanceText}`;
++  return `${input.baseRationale} ${guidanceText}`;
++}
++
++/** Strip technical CKC mechanics that must not leak into Pilote-facing prose. */
++function scrubTechnicalCkcMechanics(text: string): string {
++  if (!text) return text;
++  return text
++    .replace(/\[CKC[^\]]*\]/gi, "")
++    .replace(/\bckc:studio:[a-z0-9_-]+\b/gi, "")
++    .replace(/\bdigest\s*=\s*sha256:[a-f0-9]+\b/gi, "")
++    .replace(/\bfp\s*=\s*sha256:[a-f0-9]+\b/gi, "")
++    .replace(/\s{2,}/g, " ")
++    .trim();
 +}
 +
 +/**
@@ -944,7 +902,7 @@ index af1714c7..00158e32 100644
  }
 
  export function loadProductCkcCognitiveContent(input: {
-@@ -136,6 +247,7 @@ export function loadProductCkcCognitiveContent(input: {
+@@ -136,6 +270,7 @@ export function loadProductCkcCognitiveContent(input: {
      packageVersion: indexResult.packageVersion,
      contentDigest: indexEntry.sourceDigest,
      doctrineStatus: "product-studio-native",
@@ -952,7 +910,7 @@ index af1714c7..00158e32 100644
    });
 
    return Object.freeze({
-@@ -190,18 +302,23 @@ export async function reasonWithResolvedCkcContext(input: {
+@@ -190,18 +325,56 @@ export async function reasonWithResolvedCkcContext(input: {
  export type CkcQualificationProof = CkcQualificationSuccessResult["proof"] & {
    doctrineStatus?: string;
    packageProvenance?: CkcCognitiveProvenance;
@@ -964,8 +922,9 @@ index af1714c7..00158e32 100644
  };
 
 +/**
-+ * Aligns with CURRENT canonical OA flat product-native proof fields.
-+ * Nested packageProvenance remains accepted for legacy test fixtures.
++ * Defensive consumer gate aligned with canonical OA flat product-native proof
++ * (R1-02). Nested packageProvenance alone is NEVER sufficient.
++ * Does not mutate / compete with CkcConsumptionProof domain.
 + */
  export function isProductStudioNativeCkcProof(
    proof: CkcQualificationProof,
@@ -979,12 +938,44 @@ index af1714c7..00158e32 100644
 -  );
 +): boolean {
 +  if (proof.doctrineStatus !== "product-studio-native") return false;
-+  if (proof.packageProvenance?.ckcId) return true;
-+  return Boolean(proof.ckcId);
++  if (proof.detailedStatus !== "resolved_detailed") return false;
++  if (proof.level !== "detailed") return false;
++  if (proof.status !== "resolved") return false;
++  if (proof.source !== "product_package") return false;
++  if (proof.fallbackUsed !== false) return false;
++  if (proof.executionAuthority !== false) return false;
++  if (proof.consumed !== true) return false;
++
++  const ckcId = nonEmpty(proof.ckcId);
++  const doctrinePackageId = nonEmpty(proof.doctrinePackageId);
++  const packageVersion = nonEmpty(proof.packageVersion);
++  const packageDigest = nonEmpty(proof.packageDigest);
++  const indexDigest = nonEmpty(proof.indexDigest);
++  const ckcContractVersion = nonEmpty(proof.ckcContractVersion);
++  const sourceDigest = nonEmpty(proof.sourceDigest);
++  if (
++    !ckcId ||
++    !doctrinePackageId ||
++    !packageVersion ||
++    !packageDigest ||
++    !indexDigest ||
++    !ckcContractVersion ||
++    !sourceDigest
++  ) {
++    return false;
++  }
++  if (proof.usedReference !== ckcId) return false;
++  return true;
++}
++
++function nonEmpty(value: string | undefined | null): string | null {
++  if (typeof value !== "string") return null;
++  const trimmed = value.trim();
++  return trimmed.length > 0 ? trimmed : null;
  }
 
  export function enrichQualificationWithCkcSemantics(input: {
-@@ -228,6 +345,7 @@ export function enrichQualificationWithCkcSemantics(input: {
+@@ -228,6 +401,7 @@ export function enrichQualificationWithCkcSemantics(input: {
    const rationale = deriveCkcAttributedRecommendation({
      baseRationale: input.qualification.rationale,
      content,
@@ -1098,7 +1089,7 @@ index 2009d21e..e440e65e 100644
  }
 
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-index cb7b2074..92d88650 100644
+index cb7b2074..fb81048d 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
 @@ -1,23 +1,36 @@
@@ -1337,29 +1328,28 @@ index cb7b2074..92d88650 100644
    if (priorBinding) {
      for (const priorOption of priorBinding.options) {
        if (!options.some((o) => o.optionRef === priorOption.optionRef)) {
-@@ -295,16 +381,17 @@ export async function proposeTrajectoryOptions(
+@@ -295,23 +381,21 @@ export async function proposeTrajectoryOptions(
      );
    });
 
-+  const provenanceAudit = recommendation.ckcProvenance
-+    ? ` CKC provenance: ${recommendation.ckcProvenance.ckcId}@${recommendation.ckcProvenance.doctrinePackageId}@${recommendation.ckcProvenance.packageVersion} digest=${recommendation.ckcProvenance.contentDigest} fp=${recommendation.ckcProvenance.semanticFingerprint}.`
-+    : "";
-+
++  // R1-03: Epistemic Recommendation statement stays business-first.
++  // Structured audit provenance lives on recommendation.ckcProvenance /
++  // presented binding / relatedObjects tags — not in Pilote-facing prose.
    const recommendationItem = withPriorSetSupersedes(
      {
        epistemicItemId: optionSetRecommendationId(optionSetRef),
        type: "Recommendation" as const,
 -      // Process/qualification source — CKC attribution is context only.
-       statement: [
-         recommendationStatement(recommendation, options),
+-      statement: [
+-        recommendationStatement(recommendation, options),
 -        input.ckcAttribution
 -          ? ` CKC context (not semantic cause): ${input.ckcAttribution}.`
 -          : " CKC context: none.",
-+        provenanceAudit,
-       ].join(""),
+-      ].join(""),
++      statement: recommendationStatement(recommendation, options),
        status: "active" as const,
        source: optionSetRef,
-@@ -312,6 +399,7 @@ export async function proposeTrajectoryOptions(
+       relatedObjects: [
          input.projectId,
          recommendation.recommendedOptionRef,
          optionSetRef,
@@ -1367,7 +1357,7 @@ index cb7b2074..92d88650 100644
          ...(input.ckcAttribution ? [input.ckcAttribution] : []),
        ],
      },
-@@ -344,6 +432,7 @@ export async function proposeTrajectoryOptions(
+@@ -344,6 +428,7 @@ export async function proposeTrajectoryOptions(
      irreversible: input.irreversible,
      reservations: [...input.reservations],
      ckcAttribution: input.ckcAttribution,
@@ -1375,7 +1365,7 @@ index cb7b2074..92d88650 100644
    };
 
    const observationItem = withPriorSetSupersedes(
-@@ -392,6 +481,7 @@ export async function proposeTrajectoryOptions(
+@@ -392,6 +477,7 @@ export async function proposeTrajectoryOptions(
      phase: "OPTIONS_PROPOSED",
      autoDecisionPerformed: false,
      executionPerformed: false,
@@ -1505,7 +1495,7 @@ index 474590ae..19655ba4 100644
 
  export type W2Failure = {
 diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-index 35672d38..b07de001 100644
+index 35672d38..c9e5894a 100644
 --- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
 +++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
 @@ -65,14 +65,34 @@ export class FakeConversationProvider implements ConversationProvider {
@@ -1518,9 +1508,10 @@ index 35672d38..b07de001 100644
 -          m.content.includes("ckc:studio:delivery"),
 -      );
 -      if (hasCkcContext) {
++      // Specialized Fake CKC cognition keys off CONTENT markers only.
++      // CKC IDs (ckc:studio:*) must never trigger specialized behavior (R1-01).
 +      const joined = messages.map((m) => m.content).join("\n").toLowerCase();
 +      const hasSecurity =
-+        joined.includes("ckc:studio:security") ||
 +        joined.includes("risque résiduel") ||
 +        joined.includes("risque residuel") ||
 +        joined.includes("adversarial") ||
@@ -1528,7 +1519,6 @@ index 35672d38..b07de001 100644
 +      const hasDelivery =
 +        joined.includes("anti scope creep") ||
 +        joined.includes("scope creep") ||
-+        joined.includes("ckc:studio:delivery") ||
 +        joined.includes("implémentation bornée") ||
 +        joined.includes("implementation bornee");
 +      if (hasSecurity) {
@@ -1611,12 +1601,9 @@ index 8f9f75dc..871f3c92 100644
  export {
    RuntimeApplicationService,
    createRuntimeApplicationService,
-
 ```
 
-### H.2 NEW file — complete content
-`projects/sfia-studio/app/__tests__/project-assistant/w2TrackDPhaseB.test.ts`
-
+## G. Complete new w2TrackDPhaseB.test.ts
 ```typescript
 // @vitest-environment node
 /**
@@ -1810,6 +1797,11 @@ describe("Phase B P5–P9 — W2 product path ordering / integrity", () => {
     expect(proposed.recommendation.rationale.toLowerCase()).toMatch(
       /anti scope creep/,
     );
+    // R1-UX: business-first rationale / statement
+    expect(proposed.recommendation.rationale).not.toMatch(/\[CKC:/);
+    expect(proposed.recommendation.rationale).not.toMatch(/ckc:studio:/);
+    expect(proposed.recommendation.rationale).not.toMatch(/digest=/);
+    expect(proposed.recommendation.rationale).not.toMatch(/\bfp=/);
     expect(proposed.recommendation.isHumanDecision).toBe(false);
     expect(proposed.recommendation.promotesTrajectory).toBe(false);
     expect(proposed.autoDecisionPerformed).toBe(false);
@@ -1832,6 +1824,23 @@ describe("Phase B P5–P9 — W2 product path ordering / integrity", () => {
     expect(presented.presented.ckcSemanticFingerprint).toBe(
       proposed.recommendation.ckcProvenance?.semanticFingerprint,
     );
+
+    const epistemic = await runtime.oa!.cycleServices.getEpistemicState.execute({
+      projectId: seeded.projectId,
+    });
+    expect(epistemic.ok).toBe(true);
+    if (!epistemic.ok) return;
+    const recItem = epistemic.state.items.find(
+      (i) =>
+        i.type === "Recommendation" &&
+        i.status === "active" &&
+        i.source === proposed.optionSetRef,
+    );
+    expect(recItem).toBeTruthy();
+    expect(recItem!.statement).not.toMatch(/CKC provenance:/);
+    expect(recItem!.statement).not.toMatch(/digest=/);
+    expect(recItem!.statement).not.toMatch(/\bfp=/);
+    expect(recItem!.statement).not.toMatch(/\[CKC:/);
   });
 
   it("two-cycle same production path: delivery vs security", async () => {
@@ -2118,8 +2127,98 @@ describe("Phase B I1–I4 — binding / idempotence (PB-DLV-01)", () => {
   });
 });
 
-describe("Phase B gate + genericity", () => {
-  it("flat OA product-native proof satisfies gate without nested packageProvenance", () => {
+describe("Phase B R1 — semantic Fake oracle (content-only)", () => {
+  it("R1-S01/S02/S03: specialized Fake requires semantic content; ID-only stays generic", async () => {
+    const {
+      FakeConversationProvider,
+      setConversationProviderForTests,
+    } = await import("@/lib/platform/ai");
+    const {
+      CKC_COGNITIVE_REASONING_SYSTEM_MARKER,
+    } = await import("@/features/project-assistant/f2/ckcCognitiveContext");
+
+    const provider = new FakeConversationProvider();
+    setConversationProviderForTests(provider);
+
+    const deliveryContent = await provider.complete([
+      {
+        role: "system",
+        content: `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nGuidance: anti scope creep — borner le slice.`,
+      },
+      { role: "user", content: "Instruire" },
+    ]);
+    expect(deliveryContent.text.toLowerCase()).toMatch(/anti scope creep/);
+
+    const securityContent = await provider.complete([
+      {
+        role: "system",
+        content: `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nGuidance: posture adversarial ; risque résiduel ; secret en repo.`,
+      },
+      { role: "user", content: "Instruire" },
+    ]);
+    expect(securityContent.text.toLowerCase()).toMatch(
+      /adversarial|risque résiduel|secret/,
+    );
+
+    const idOnlySecurity = await provider.complete([
+      {
+        role: "system",
+        content: `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nCKC ckc:studio:security (cyc:security) — no distinctive guidance.`,
+      },
+      { role: "user", content: "Instruire" },
+    ]);
+    expect(idOnlySecurity.text.toLowerCase()).toContain("générique");
+    expect(idOnlySecurity.text.toLowerCase()).not.toMatch(
+      /adversarial|risque résiduel|secret en repo/,
+    );
+
+    const idOnlyDelivery = await provider.complete([
+      {
+        role: "system",
+        content: `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nCKC ckc:studio:delivery (cyc:delivery) — no distinctive guidance.`,
+      },
+      { role: "user", content: "Instruire" },
+    ]);
+    expect(idOnlyDelivery.text.toLowerCase()).toContain("générique");
+    expect(idOnlyDelivery.text.toLowerCase()).not.toMatch(/anti scope creep/);
+  });
+});
+
+describe("Phase B R1 — canonical product-native proof gate", () => {
+  const completeCanonical = () =>
+    ({
+      cycleTypeId: "cyc:delivery",
+      detailedStatus: "resolved_detailed" as const,
+      level: "detailed" as const,
+      status: "resolved" as const,
+      source: "product_package" as const,
+      expectedPrimaryReference: "ckc:studio:delivery",
+      usedReference: "ckc:studio:delivery",
+      fallbackUsed: false,
+      catalogVersion: "test",
+      catalogHash: "sha256:test",
+      correlationId: "cor:gate",
+      resolvedAt: "2026-08-23T12:00:00.000Z",
+      doctrineStatus: "product-studio-native" as const,
+      executionAuthority: false as const,
+      consumed: true as const,
+      disclosures: [] as readonly string[],
+      ckcId: "ckc:studio:delivery",
+      doctrinePackageId: DEFAULT_PRODUCT_DOCTRINE_PIN.doctrinePackageId,
+      packageVersion: DEFAULT_PRODUCT_DOCTRINE_PIN.version,
+      packageDigest: DEFAULT_PRODUCT_DOCTRINE_PIN.digest,
+      indexDigest:
+        "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      ckcContractVersion: "0.1.0",
+      sourceDigest:
+        "sha256:3318640c67e03090a63e7a37742002926e5baf1b6aad61496d0087d0f562151c",
+    }) as const;
+
+  it("R1-G01: complete canonical flat product-native proof passes", () => {
+    expect(isProductStudioNativeCkcProof(completeCanonical())).toBe(true);
+  });
+
+  it("R1-G02: product-studio-native + ckcId only fails", () => {
     expect(
       isProductStudioNativeCkcProof({
         cycleTypeId: "cyc:delivery",
@@ -2132,39 +2231,201 @@ describe("Phase B gate + genericity", () => {
         fallbackUsed: false,
         catalogVersion: "test",
         catalogHash: "sha256:test",
-        correlationId: "cor:flat",
+        correlationId: "cor:id-only",
         resolvedAt: "2026-08-23T12:00:00.000Z",
         doctrineStatus: "product-studio-native",
         executionAuthority: false,
         consumed: true,
         disclosures: [],
         ckcId: "ckc:studio:delivery",
-        doctrinePackageId: DEFAULT_PRODUCT_DOCTRINE_PIN.doctrinePackageId,
-        packageVersion: DEFAULT_PRODUCT_DOCTRINE_PIN.version,
       }),
-    ).toBe(true);
+    ).toBe(false);
+  });
+
+  it("R1-G03: nested packageProvenance alone with incomplete flat proof fails", () => {
     expect(
       isProductStudioNativeCkcProof({
         cycleTypeId: "cyc:delivery",
         detailedStatus: "resolved_detailed",
         level: "detailed",
         status: "resolved",
-        source: "repository_candidate",
+        source: "product_package",
         expectedPrimaryReference: "ckc:studio:delivery",
         usedReference: "ckc:studio:delivery",
         fallbackUsed: false,
         catalogVersion: "test",
         catalogHash: "sha256:test",
-        correlationId: "cor:method",
+        correlationId: "cor:nested",
         resolvedAt: "2026-08-23T12:00:00.000Z",
-        doctrineStatus: "method-candidate",
+        doctrineStatus: "product-studio-native",
         executionAuthority: false,
         consumed: true,
         disclosures: [],
+        packageProvenance: {
+          ckcId: "ckc:studio:delivery",
+          cycleTypeId: "cyc:delivery",
+          doctrinePackageId: DEFAULT_PRODUCT_DOCTRINE_PIN.doctrinePackageId,
+          packageVersion: DEFAULT_PRODUCT_DOCTRINE_PIN.version,
+          contentDigest: "sha256:deadbeef",
+          doctrineStatus: "product-studio-native",
+        },
       }),
     ).toBe(false);
   });
 
+  it("R1-G04: wrong source fails", () => {
+    expect(
+      isProductStudioNativeCkcProof({
+        ...completeCanonical(),
+        source: "repository_candidate",
+      }),
+    ).toBe(false);
+  });
+
+  it("R1-G05: fallbackUsed true fails", () => {
+    expect(
+      isProductStudioNativeCkcProof({
+        ...completeCanonical(),
+        fallbackUsed: true,
+      }),
+    ).toBe(false);
+  });
+
+  it("R1-G06: missing required digest/provenance fails", () => {
+    const { indexDigest: _drop, ...missingIndex } = completeCanonical();
+    expect(isProductStudioNativeCkcProof(missingIndex)).toBe(false);
+    const { packageDigest: _drop2, ...missingPkg } = completeCanonical();
+    expect(isProductStudioNativeCkcProof(missingPkg)).toBe(false);
+  });
+
+  it("R1-G07: usedReference mismatch fails", () => {
+    expect(
+      isProductStudioNativeCkcProof({
+        ...completeCanonical(),
+        usedReference: "ckc:other",
+      }),
+    ).toBe(false);
+  });
+
+  it("method-candidate remains false", () => {
+    expect(
+      isProductStudioNativeCkcProof({
+        ...completeCanonical(),
+        doctrineStatus: "method-candidate",
+        source: "repository_candidate",
+      }),
+    ).toBe(false);
+  });
+});
+
+describe("Phase B R1 — legacy pre-Phase-B OptionSet cutover", () => {
+  it("R1-CUT01…04: legacy binding without fingerprint is fail-closed; no HD/promote/Execute", async () => {
+    const {
+      computeQualificationDigest,
+      optionSetObservationId,
+    } = await import("@/features/project-assistant/w2/presentedOptionSet");
+    const { LOCAL_PILOTE_ACTOR } = await import("@/lib/oa/decision");
+
+    const runtime = bootW2Runtime({
+      productDbPath: tempProductDbPath("pb-cutover.sqlite"),
+      idPrefix: "pbcut",
+    });
+    const seeded = await seedQualifiedProject(runtime, {
+      suffix: "cut",
+      cycleTypeId: "cyc:delivery",
+    });
+    const { proposed } = await proposeFor(runtime, seeded.projectId);
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) return;
+
+    const presented = await loadPresentedOptionSet(
+      runtime.oa!,
+      seeded.projectId,
+      proposed.optionSetRef,
+    );
+    expect(presented.ok).toBe(true);
+    if (!presented.ok) return;
+
+    // Construct representative pre-Phase-B binding: no fingerprint, legacy digest.
+    const legacyDigest = computeQualificationDigest({
+      cycleTypeId: presented.presented.cycleTypeId,
+      recommendedProfile: presented.presented.recommendedProfile,
+      criticalSignalsPresent: presented.presented.criticalSignalsPresent,
+      irreversible: presented.presented.irreversible,
+      reservations: presented.presented.reservations,
+      ckcAttribution: presented.presented.ckcAttribution,
+      ckcSemanticFingerprint: null,
+    });
+    const legacyBinding = {
+      ...presented.presented,
+      qualificationDigest: legacyDigest,
+      ckcSemanticFingerprint: null,
+    };
+    // Omit fingerprint key to mimic historical JSON shape.
+    const { ckcSemanticFingerprint: _omit, ...legacyWithoutFp } = legacyBinding;
+    void _omit;
+
+    await runtime.oa!.cycleServices.updateEpistemicState.execute({
+      projectId: seeded.projectId,
+      items: [
+        {
+          epistemicItemId: optionSetObservationId(proposed.optionSetRef),
+          type: "Observation",
+          statement: JSON.stringify(legacyWithoutFp),
+          status: "active",
+          source: proposed.optionSetRef,
+          relatedObjects: [seeded.projectId, proposed.optionSetRef],
+        },
+      ],
+      createdBy: LOCAL_PILOTE_ACTOR,
+    });
+
+    const decisionsBefore =
+      await runtime.oa!.decisionServices.listDecisionHistory.execute({
+        projectId: seeded.projectId,
+      });
+    const decisionCountBefore = decisionsBefore.ok
+      ? decisionsBefore.decisions.length
+      : 0;
+
+    const selected =
+      proposed.options.find((o) => o.optionRef === proposed.recommendation.recommendedOptionRef) ??
+      proposed.options[0]!;
+    const decided = await decideTrajectory({
+      oa: runtime.oa!,
+      projectId: seeded.projectId,
+      optionSetRef: proposed.optionSetRef,
+      options: proposed.options,
+      recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
+      selectedOptionRef: selected.optionRef,
+      trajectoryId: proposed.proposedTrajectory.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory.version,
+      epistemicRefs: proposed.epistemicRefs,
+      reservesText: null,
+      forceLocalAuthority: true,
+    });
+
+    expect(decided.ok).toBe(false);
+    if (decided.ok) return;
+    expect(decided.code).toBe("OPTION_SET_STALE");
+
+    const decisionsAfter =
+      await runtime.oa!.decisionServices.listDecisionHistory.execute({
+        projectId: seeded.projectId,
+      });
+    const decisionCountAfter = decisionsAfter.ok
+      ? decisionsAfter.decisions.length
+      : 0;
+    expect(decisionCountAfter).toBe(decisionCountBefore);
+
+    const current = await runtime.oa!.cycleServices.getCurrentTrajectory.execute({
+      projectId: seeded.projectId,
+    });
+    expect(current.ok).toBe(false);
+  });
+});
+
+describe("Phase B gate + genericity", () => {
   it("production cognitive helper has no cycleTypeId branching", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
@@ -2178,168 +2439,113 @@ describe("Phase B gate + genericity", () => {
     expect(text).not.toMatch(/DISTINCTIVE_PHRASES/);
   });
 });
-
 ```
 
-## I. PB-DLV-01…06 evidence
+## H. R1 proof matrix
 
-### PB-DLV-01 — Binding / idempotence
-- `computeCkcSemanticFingerprint` from cycleTypeId/ckcId/packageId/version/contentDigest/packageDigest
-- Included in `qualificationDigest` / presented binding
-- Raw provider prose **excluded** from version identity
-- I1–I4 tests green; D-W2-A3-01 stale/exact OptionSet tests preserved in w2EabcDelivery
-
-### PB-DLV-02 — Generic multi-cycle cognition
-- `extractCkcGuidanceFromMarkdown` — Finalité / Nora / Signals / anti-claims / decision guidance
-- **No** production `if cycleType ===` / `switch(cycleTypeId)` / `DISTINCTIVE_PHRASES`
-- delivery/security are test representatives only; Fake adapter may key off CKC content markers
-
-### PB-DLV-03 — Semantic cause
-- Provider cognition runs **before** OptionSet/Recommendation materialization
-- Recommendation rationale/challenge enriched from CKC cognitive result
-- Governed Options catalogue unchanged (governed/bounded/clarify)
-- Recommendation ≠ HumanDecision
-
-### PB-DLV-04 — No Proposal-store dependency
-- Inputs from Project + LPS + CycleInstance + doctrine pin + resolved CKC
-- No proposalStore / F2 Proposal / orchestrateAssistantSend
-
-### PB-DLV-05 — Fail closed before durable mutation
-- Missing CKC → `CKC_UNAVAILABLE`, no trajectory/OptionSet write
-- Forced Fake provider failure → `PROVIDER_COGNITION_FAILED`, no mutation
-- Adversarial P11 tests green
-
-### PB-DLV-06 — Provenance / business-first
-- Persisted `ckcProvenance` on Recommendation: ckcId, cycleTypeId, packageId, version, contentDigest, fingerprint
-- Pilote-facing text remains business rationale; no raw Markdown/package dump in UX
-
-## J. P1→P12 Exit Matrix
-
-| ID | Result | Proof |
+| ID | Result | Notes |
 |---|---|---|
-| P1 | PASS | delivery product-native resolution + provenance |
-| P2 | PASS | security same path, distinct ckcId/digest |
-| P3 | PASS | control vs delivery treatment semantic difference |
-| P4 | PASS | security treatment distinct from delivery |
-| P5 | PASS | cognition before mutation; `ckcCognitionCompletedBeforeMutation` |
-| P6 | PASS | reconstructible provenance on Recommendation |
-| P7 | PASS | type Recommendation; no HD; autoDecision=false |
-| P8 | PASS | candidate/proposed only until Pilote HD |
-| P9 | PASS | no Confirmation/authority/Execute; executionPerformed=false |
-| P10 | PASS | requalify via existing createCycle path |
-| P11 | PASS | CKC miss + provider fail → zero durable mutation |
-| P12 | PASS | W1 seam + W2 EABC + product doctrine/index/qualification + full unit suite green |
+| R1-S01 | PASS | Delivery Fake requires semantic Delivery content |
+| R1-S02 | PASS | Security Fake requires semantic Security content |
+| R1-S03 | PASS | ID-only CKC prompt → generic (not specialized) |
+| R1-G01 | PASS | Complete canonical flat proof → true |
+| R1-G02 | PASS | ckcId-only → false |
+| R1-G03 | PASS | nested packageProvenance incomplete flat → false |
+| R1-G04 | PASS | wrong source → false |
+| R1-G05 | PASS | fallbackUsed true → false |
+| R1-G06 | PASS | missing digest/provenance → false |
+| R1-G07 | PASS | usedReference ≠ ckcId → false |
+| R1-UX01 | PASS | rationale CKC-informed semantically |
+| R1-UX02 | PASS | no [CKC:/ckc:studio:/digest=/fp= in rationale |
+| R1-UX03 | PASS | Epistemic statement no raw technical provenance |
+| R1-UX04 | PASS | structured recommendation.ckcProvenance intact |
+| R1-CUT01 | PASS | legacy OptionSet → OPTION_SET_STALE |
+| R1-CUT02 | PASS | no HumanDecision recorded |
+| R1-CUT03 | PASS | no decided/current trajectory |
+| R1-CUT04 | PASS | no Confirmation/authority/Execute from reject path |
+| PB-RES-REAL-01 | RECORDED | no implementation |
 
-## K. I1→I4 Binding Matrix
+## I. P1→P12 (re-proof)
 
-| ID | Result | Proof |
-|---|---|---|
-| I1 | PASS | exact semantic retry → no trajectory version bump |
-| I2 | PASS | superficial Fake rewording → no version bump |
-| I3 | PASS | material cycle/CKC change → binding/digest changes |
-| I4 | PASS | HD consumes exact presented OptionSet |
+| ID | Result |
+|---|---|
+| P1–P12 | **ALL PASS** (semantic-content-only Fake for P3/P4) |
 
-## L. Genericity proof
-- Same production path for delivery and security
-- Source scan: no cycleType branching / DISTINCTIVE_PHRASES in ckcCognitiveContext.ts
-- Fake provider may emit distinct deterministic markers from **CKC content** in prompt
+## J. I1→I4 (re-proof)
 
-## M. Fake / Real qualification
-- Boundary: ConversationProvider / FakeConversationProvider
-- `OPS1_CONVERSATION_PROVIDER=fake` forced in Phase B tests
-- Same production W2 cognition orchestration path
-- **No** OpenAI LIVE / credentials / REAL configuration
-- Proof ceiling: **DETERMINISTIC PROVEN**
-- Remaining realism gaps: live provider latency/failure shapes; REAL boundary not proven; READY FOR REAL = false
+| ID | Result |
+|---|---|
+| I1–I4 | **ALL PASS** |
 
-## N. Authority anti-regression
-- Recommendation remains Recommendation
-- No auto HumanDecision
-- No Confirmation creation from CKC cognition
-- No authority grant / ExecutionAttempt / Execute
-- STOP BEFORE EXECUTE preserved
-- C6 U1/U2/U3 untouched
+## K. PB-DLV-01…06
 
-## O. Validation outputs
+| ID | Status |
+|---|---|
+| PB-DLV-01 Binding/idempotence | KEEP — green |
+| PB-DLV-02 Generic multi-cycle | KEEP — green |
+| PB-DLV-03 Semantic cause | STRENGTHENED (R1-01) |
+| PB-DLV-04 No Proposal-store | KEEP |
+| PB-DLV-05 Fail closed | KEEP |
+| PB-DLV-06 Business-first / audit below | STRENGTHENED (R1-03) |
 
-### Targeted
-```
-npm test -- --run w1CkcSemanticSeam w2EabcDelivery w2TrackDPhaseB
-→ 49 passed (6+28+15)
-```
+## L. UX contract check
 
-### Product doctrine / CKC
-```
-productDoctrinePackage + productCkcIndex + productCkcQualification
-→ 14 passed
-```
+Studio absorbs cycle/CKC/DoctrinePackage mechanics from Pilote-facing Recommendation
+prose. Structured audit provenance retained on DTO/binding. No production UI
+component change. No Penpot.
 
-### typecheck
-```
-npm run typecheck → exit 0
-```
+## M. C1/C2/FA/C6/W1/W2 trajectory
 
-### lint
-```
-npm run lint → No ESLint warnings or errors
-```
+R1 changed **architecture**: **NO**.
+C6 reopening: **NO**. Parallel engines: **NO**.
 
-### build
-```
-npm run build → Compiled successfully; static generation OK
-```
+## N. Fake / Real — PB-RES-REAL-01
 
-### full unit suite
-```
-npm test
-→ Test Files  211 passed | 13 skipped (224)
-→ Tests  1978 passed | 131 skipped (2109)
-(FinOps postgres integration skipped by design — FREEZE; not run via test:db)
-```
+FakeConversationProvider substitutes ConversationProvider only.
+Proof: **DETERMINISTIC PROVEN**.
+NOT: REAL BOUNDARY PROVEN / READY FOR REAL / END-TO-END REAL PROVEN.
+Future REAL qualification must include the NEW W2 cognition call.
 
-### git diff --check
+## O. Validation
+
 ```
-exit 0 (clean)
+targeted w1+w2Eabc+w2TrackDPhaseB: 58 passed
+productDoctrine/CKC: 14 passed
+typecheck: exit 0
+lint: No ESLint warnings or errors
+build: Compiled successfully
+full Vitest: Test Files 211 passed | 13 skipped; Tests 1987 passed | 131 skipped
+git diff --check: clean
 ```
 
 Full suite tail:
 ```
- ↓ __tests__/oa/finops/postgres/t3.alert-review.integration.test.ts (7 tests | 7 skipped)
  ↓ __tests__/oa/finops/postgres/t4.enforcement-projection.integration.test.ts (14 tests | 14 skipped)
- ↓ __tests__/oa/finops/postgres/t4.projection-refresh.integration.test.ts (8 tests | 8 skipped)
- ↓ __tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts (4 tests | 4 skipped)
- ↓ __tests__/oa/finops/postgres/t6.runtime-composition.integration.test.ts (4 tests | 4 skipped)
  ↓ __tests__/oa/finops/postgres/t7.rollout.integration.test.ts (12 tests | 12 skipped)
- ↓ __tests__/oa/finops/postgres/t7.foundation-runtime.integration.test.ts (16 tests | 16 skipped)
+ ↓ __tests__/oa/finops/postgres/t6.runtime-composition.integration.test.ts (4 tests | 4 skipped)
  ↓ __tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts (19 tests | 19 skipped)
+ ↓ __tests__/oa/finops/postgres/t7.foundation-runtime.integration.test.ts (16 tests | 16 skipped)
  ↓ __tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts (23 tests | 23 skipped)
 
  Test Files  211 passed | 13 skipped (224)
-      Tests  1978 passed | 131 skipped (2109)
-   Start at  15:09:33
-   Duration  12.51s (transform 5.42s, setup 7.30s, collect 26.86s, tests 36.03s, environment 8.21s, prepare 7.93s)
+      Tests  1987 passed | 131 skipped (2118)
+   Start at  16:04:17
+   Duration  14.24s (transform 6.60s, setup 8.00s, collect 32.58s, tests 41.62s, environment 9.13s, prepare 8.69s)
 
 ```
 
-## P. Reserves / debt
+## P. Remaining gaps / debt
 
-Qualification doc 09 non-blocking reserves retain original IDs (not reused).
-Downstream Delivery constraints PB-DLV-01…06 addressed in this Delivery.
+Full CKC track W3 · REAL boundary · Roadmap post-Delivery sync · W2 closure ·
+FinOps FREEZE · Confirmation residual unchanged · PB-RES-REAL-01
 
-Remaining debt:
-- Full CKC catalog/track closure → W3 (not this cycle)
-- REAL boundary proof
-- W2 final closure Morris gate
-- Roadmap post-Delivery truth-sync (later)
-- FinOps/T7 remains FREEZE
-- Confirmation residual (historical consent only) unchanged
-
-## Q. Morris decisions / gates remaining
+## Q. Gates
 
 | Gate | Status |
 |---|---|
 | Phase B GO | CONSUMED |
-| Project Git integration | **NOT CONSUMED** |
+| R1 correction GO | CONSUMED |
+| Project Git integration | NOT CONSUMED |
 | W2 final closure | NOT CONSUMED |
 | REAL | NOT CONSUMED |
 | FinOps unfreeze | NOT CONSUMED |
@@ -2347,19 +2553,40 @@ Remaining debt:
 
 ## R. Anti-claims
 
-- Phase B deterministic ≠ REAL BOUNDARY PROVEN ≠ READY FOR REAL
-- Phase B bounded ≠ full CKC track
-- Phase B implementation ≠ W2 automatically closed
-- Recommendation ≠ HumanDecision
-- CKC ≠ execution authority
-- No Execute
-- FinOps remains FREEZE
-- C6 remains CLOSED
-- runtime v3 NON ADOPTED
-- Product Completion incomplete
-- local Delivery ≠ integrated on main
-- no project commit / push / PR / merge this cycle
+deterministic ≠ REAL · bounded Phase B ≠ full CKC · Phase B ≠ W2 closed ·
+Recommendation ≠ HD · structured provenance ≠ user-facing method exposure ·
+legacy OptionSet fail-closed ≠ migration · no Execute · C6 CLOSED · FinOps FREEZE ·
+v3 NON ADOPTED · Product Completion incomplete · local ≠ main
 
-## S. Final verdict
+## S. Verdict
 
-**PHASE B BOUNDED DELIVERY — DETERMINISTIC PROOF READY FOR CHATGPT REVIEW — PROJECT GIT INTEGRATION NOT AUTHORIZED**
+**PHASE B R1 CORRECTION — DETERMINISTIC PROOF READY FOR CHATGPT REVIEW — PROJECT GIT INTEGRATION NOT AUTHORIZED**
+
+### Post-R1 Git status snapshot
+```
+branch: delivery/sfia-studio-w2-track-d-phase-b
+HEAD: 40de367e2a5a74423f3cab843b7e7a0d1f9879df
+origin/main: 40de367e2a5a74423f3cab843b7e7a0d1f9879df
+status --short:
+M projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
+ M projects/sfia-studio/app/__tests__/project-assistant/w1CkcSemanticSeam.test.ts
+ M projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts
+ M projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
+ M projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx
+ M projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/actions.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/presentedOptionSet.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/types.ts
+ M projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+ M projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts
+ M projects/sfia-studio/app/lib/vertical-slice-runtime/index.ts
+?? .tmp-sfia-review/
+?? projects/eventops-poc/
+?? projects/flex-office-demo/
+?? projects/sfia-studio/app/__tests__/project-assistant/w2TrackDPhaseB.test.ts
+diff --cached: (empty)
+```
