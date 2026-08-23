@@ -2083,4 +2083,3 @@ describe("W2 Track C — inspection binding + authorization mechanism proofs", (
     expect(authorized.authorityReceiptRef).toMatch(/^avr:/);
   });
 });
-
