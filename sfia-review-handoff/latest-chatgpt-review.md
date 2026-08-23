@@ -1,14 +1,13 @@
-# W2-G3 Post-Merge Convergence Roadmap Truth-Sync — FULL REVIEW PACK
+# W2-G3 Post-Merge Roadmap Truth-Sync — GIT INTEGRATION FULL REVIEW PACK
 
 ## FINAL VERDICT
 
-**ROADMAP POST-MERGE TRUTH-SYNC READY FOR CHATGPT REVIEW — PROJECT GIT INTEGRATION NOT AUTHORIZED**
+**ROADMAP TRUTH-SYNC DRAFT PR READY FOR CHATGPT PR READINESS REVIEW — MERGE NOT AUTHORIZED**
 
-- Local documentary candidate only on `docs/sfia-studio-w2-g3-post-merge-truth-sync`.
-- Exactly one project file modified: Convergence Roadmap.
-- No project commit / push / PR in this cycle.
-- FinOps/T7 FREEZE recorded; T7-C04 deferred; Track D = next capacity.
-- Merge of this Roadmap candidate requires a distinct Morris GO after ChatGPT review.
+- Project commit + normal push + Draft PR #401 completed.
+- CI run `32635211017` SUCCESS / Required Gate PASS.
+- FinOps/T7 remains FREEZE (notice step only; PostgreSQL FinOps not executed).
+- Merge / ready-for-review / Phase B / Execute / REAL remain unauthorized.
 
 ---
 
@@ -16,77 +15,95 @@
 
 | Field | Value |
 |---|---|
-| Timestamp (UTC) | 2026-08-23T10:31:41Z |
-| Local maintenance stamp | 2026-08-23 12:25 CEST |
+| Timestamp (UTC) | 2026-08-23T11:01:18Z |
+| Local | 2026-08-23 13:01:18 CEST (+0200) |
 | Repo | mcleland147/sfia-workspace |
 | Branch | docs/sfia-studio-w2-g3-post-merge-truth-sync |
-| Pre-cycle origin/main | dd852243a652e85cce455a68fae5ac7aa13d2bea |
-| Cycle / type / profile | Post-merge / Roadmap · DOC · Standard |
-| Morris GO | post-merge truth-sync PR #400 — CONSUMED |
-| Project Git integration | **NOT AUTHORIZED** |
-
-## B. Sources actually read
-
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md (READ ONLY)
-- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md (MUTATED)
-- projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-- projects/sfia-studio/product-completion/05-product-completion-backlog-user-stories.md
-- projects/sfia-studio/product-completion/08-product-completion-wave-2-delivery-readiness.md
-- projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md
-- PR #400 Git evidence (MERGED) + CI 32632461315 + post-merge CI 32633308148
-
-## C. Git Truth
-
-| Fact | Value |
-|---|---|
+| Original base / pre-commit HEAD | `dd852243a652e85cce455a68fae5ac7aa13d2bea` |
+| Project commit | `f3c07781ae6f22c480584e79f0a7b2514b2d900b` |
 | origin/main | `dd852243a652e85cce455a68fae5ac7aa13d2bea` |
-| PR #400 | MERGED / CLOSED |
-| delivery head | `a276f170faece84a2121f5fe5796c24ae443674d` |
-| merge SHA | `dd852243a652e85cce455a68fae5ac7aa13d2bea` |
-| PR-head CI | **32632461315 SUCCESS** / Required Gate PASS / FinOps NOT EXECUTED |
-| Post-merge main CI | **32633308148 SUCCESS** (observable) |
+| Cycle | Post-merge / Git integration · DOC · Standard |
+| Morris GO | Git integration of W2-G3 post-merge Roadmap truth-sync — **CONSUMED** |
+| Merge | **NOT AUTHORIZED** |
 
-FinOps NOT EXECUTED ≠ FinOps PASS.
+## B. Transport freeze
 
-## D. Convergence qualification
-
-| Item | Value |
+| Check | Result |
 |---|---|
-| Capacity | Product Completion construction-governance continuity |
-| Milestone | W2-G3 post-merge truth synchronization |
-| Assets | OA KEEP · Product SQLite KEEP · ProjectTrajectory KEEP/W2 SoT · EC KEEP · AVR KEEP · C6 CLOSED · FinOps FREEZE · Track D NEXT |
-| Gaps | Track D / Phase B pending · W2 not closed · Execute/REAL out |
-| Next capacity | W2 Track D / bounded CKC Phase B qualification |
-| Next Morris gate | distinct GO Phase B |
-| Exit proof | Roadmap current truth coherent with PR #400 + FinOps FREEZE |
-| Debt/exit FinOps | FREEZE until future need + Morris unfreeze GO |
+| Reviewed candidate unchanged | **YES** (no content correction; whitespace-only pack-serialization delta vs prior handoff embedded diff) |
+| Exact file count | **1** |
+| `git diff --check` / cached check | **PASS** |
+| Diff stats | 52 insertions / 38 deletions |
+| Active W2-G3 NOT AUTHORIZED | **0** |
+| Active Phase B GO consumed | **0** |
+| Active FinOps PASS | **0** |
+| Active jump to W3 Delivery | **0** (explicit ≠ jump to W3 Delivery) |
 
-## E. Contradiction sweep BEFORE
+Governance markers confirmed on candidate:
+- W2-G3 E+A+B+C INTEGRATED ON MAIN
+- Track D = next capacity
+- GO Phase B NOT CONSUMED
+- FinOps/T7 FREEZE · T7-C04 DEFERRED
+- W2 NOT FINALLY CLOSED
+- Execute OUT · REAL OUT · runtime v3 NON ADOPTED · C6 CLOSED
 
-### CURRENT stale claims (updated this cycle)
-- Snapshot Git courant: W2-G3 NOT AUTHORIZED / DELIVERY NOT AUTHORIZED / ≠ W2 started
-- Timestamp maintenance courant: W2-G2 stamp; W2-G3 NOT AUTHORIZED
-- Morris trajectory NOW: W2-G3 NOT AUTHORIZED / Delivery NOT AUTHORIZED
-- Gates courants: NEXT = W2-G2 sync → W2-G3
-- B3 CURRENT / NEXT ORDERED / NEXT PRODUCT CAPABILITY: pre-W2-G3
-- M5 next-gates table: W2-G3 NOT AUTHORIZED
-- Product Completion Statut / Next cycle: W2-G3 NOT AUTHORIZED
-- Pre-M6 NOW blocks pointing at W2-G3 qualification
-- V3-F05/F06 gaps: pre-W2-G3
-- B10 CURRENT/NEXT + duplicated NEXT blocks
-- FinOps still soft RECOMMENDATION (not D-W2-CI-FINOPS-FREEZE-01)
+## C. Project commit
 
-### HISTORICAL preserved
-- Timestamp historique W2-G2 (demoted) with W2-G3 NOT AUTHORIZED *(true at that timestamp)*
-- Other historique timestamps
-- Pre-M6 NOT AUTHORIZED wording in historical Intégration Git narrative
-- D-W2-02 ADOPTED · GO Phase B NOT CONSUMED (still true)
+| Field | Value |
+|---|---|
+| SHA | `f3c07781ae6f22c480584e79f0a7b2514b2d900b` |
+| Message | `docs(sfia-studio): sync W2-G3 post-merge roadmap truth` |
+| Exact files | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
+| Amend / --no-verify / second commit | **none** |
 
-## F. Exact modified content (complete useful unified diff)
+## D. Push
+
+| Field | Value |
+|---|---|
+| Remote branch | `origin/docs/sfia-studio-w2-g3-post-merge-truth-sync` |
+| Remote SHA | `f3c07781ae6f22c480584e79f0a7b2514b2d900b` |
+| Force | **no** |
+| Pre-push remote branch | ABSENT |
+| Pre-push origin/main | `dd852243…` (no drift) |
+
+## E. Draft PR
+
+| Field | Value |
+|---|---|
+| Number | **#401** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/401 |
+| Base | `main` @ `dd852243a652e85cce455a68fae5ac7aa13d2bea` |
+| Head | `docs/sfia-studio-w2-g3-post-merge-truth-sync` @ `f3c07781ae6f22c480584e79f0a7b2514b2d900b` |
+| State | OPEN |
+| Draft | **true** |
+| Ready / merge | **NOT performed** |
+
+## F. CI
+
+| Field | Value |
+|---|---|
+| Run | **32635211017** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/32635211017 |
+| Status / conclusion | completed / **success** |
+| Detect SFIA Studio changes | SUCCESS |
+| Build and validate SFIA Studio | SUCCESS (Typecheck · Lint · Build · Vitest · FinOps/T7 freeze notice · modeled governance · secret scan · trailing whitespace) |
+| SFIA Studio Required Gate | SUCCESS |
+| FinOps PostgreSQL / migrate / test:db | **NOT EXECUTED** (freeze) · ≠ FinOps PASS |
+
+## G. Current governance truth
+
+- W2-G3 E+A+B+C **INTEGRATED ON MAIN** (PR #400)
+- W2 **NOT FINALLY CLOSED**
+- Track D / bounded CKC Phase B = **NEXT CAPACITY**
+- GO Phase B **NOT CONSUMED**
+- D-W2-CI-FINOPS-FREEZE-01 **ADOPTED** / FinOps **FREEZE**
+- T7-C04 **DEFERRED**
+- C6 **CLOSED**
+- Execute **OUT** · REAL **OUT**
+- runtime v3 **NON ADOPTED**
+- Product Completion **NON TERMINATED**
+
+## H. Exact modified content (complete commit patch)
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -322,55 +339,20 @@ index cac9d807..d177daea 100644
 
 ```
 
-## G. Contradiction sweep AFTER
+## I. Anti-claims
 
-| Check | Result |
-|---|---|
-| active W2-G3 NOT AUTHORIZED stale claims | **0** (only historique W2-G2 stamp) |
-| active Delivery-not-authorized W2-G3 stale claims | **0** |
-| active Phase-B-consumed false claims | **0** (GO Phase B remains NOT CONSUMED) |
-| active FinOps-PASS false claims | **0** (explicit ≠ FinOps PASS) |
-| active direct-W3-next claiming bypass Track D | **0** (next = Track D; ≠ jump to W3 Delivery) |
+- PR created ≠ merge authorized
+- Roadmap on branch ≠ main updated
+- CI green ≠ W2 closed
+- FinOps frozen ≠ FinOps PASS
+- Track D next ≠ Phase B authorized
+- W2-G3 integrated ≠ W2 closed
+- Draft PR ≠ ready-for-review
 
-## H. Non-mutation proof
+## J. Verdict
 
-| Path | Changed |
-|---|---|
-| Convergence Roadmap | YES (only) |
-| Build Doctrine | NO |
-| Product Completion docs | NO |
-| W2 readiness | NO |
-| v3 framing | NO |
-| runtime/code/tests | NO |
-| CI workflows | NO |
-| FinOps assets | NO |
-| package.json | NO |
+**ROADMAP TRUTH-SYNC DRAFT PR READY FOR CHATGPT PR READINESS REVIEW — MERGE NOT AUTHORIZED**
 
-## I. Remaining gaps / anti-claims
+## K. Instruction ChatGPT
 
-- Track D / Phase B pending
-- W2 not finally closed
-- Execute OUT · REAL OUT
-- FinOps frozen ≠ fixed/PASS
-- runtime v3 NON ADOPTED
-- Product Completion not complete
-- Confirmation simplification later
-- Figma/Product Experience later
-- local Roadmap candidate ≠ integrated on main
-
-## J. Validation
-
-- `git diff --check` PASS
-- `git diff --name-only` = exactly Roadmap
-- Markdown tables structurally intact
-- No application QA run (documentary only)
-
-## K. Project Git actions
-
-- project commit = **none**
-- project push = **none**
-- project PR = **none**
-
-## L. Instruction ChatGPT
-
-Inspect this handoff and the local Roadmap candidate on `docs/sfia-studio-w2-g3-post-merge-truth-sync`. Verify W2-G3 INTEGRATED ON MAIN, FinOps FREEZE, Track D as next capacity, and absence of active stale W2-G3-not-authorized claims. Project Git integration of this Roadmap remains a distinct Morris GO.
+Inspect Draft PR #401 and this handoff. Confirm Roadmap-only scope, CI SUCCESS with FinOps freeze preserved, and governance anti-claims. Merge remains a distinct Morris GO.
