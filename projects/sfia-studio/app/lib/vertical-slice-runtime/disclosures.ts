@@ -6,8 +6,9 @@ import "./serverGuard";
  * ProjectTrajectory/materialized Epistemic/granted Confirmation are Product SQLite
  * restart-safe on the Product path; conversation/proposal/requested Confirmation
  * remain process-local.
- * Not a product-ready / v3-ADOPTED / Cursor REAL / Gate D / W2-complete claim
- * surface. Bounded Phase B cognition may be IMPLEMENTED_DETERMINISTIC_NOT_REAL.
+ * Not a product-ready / v3-ADOPTED / Cursor REAL / Gate D claim surface.
+ * W2 H→N bounded capacity is CLOSED BY MORRIS; Product Completion remains incomplete;
+ * W3 NOT AUTHORIZED; bounded Phase B cognition may be IMPLEMENTED_DETERMINISTIC_NOT_REAL.
  */
 export interface RuntimeDisclosures {
   readonly runtimeMode: "LOCAL_PROCESS";
@@ -39,12 +40,15 @@ export interface RuntimeDisclosures {
    * effective authority — revalidation is always required before authorization.
    */
   readonly restoredConfirmationIsHistoricalConsentOnly: true;
-  /** W2 capability is under delivery — never presented as complete. */
-  readonly w2Cognition: "IN_PROGRESS_NOT_COMPLETE";
+  /**
+   * W2 H→N bounded capacity CLOSED BY MORRIS after Final Closure Requalification.
+   * ≠ Product Completion complete · ≠ W3 authorized · ≠ REAL · ≠ runtime v3 ADOPTED.
+   */
+  readonly w2Cognition: "CLOSED_BY_MORRIS";
   /**
    * Bounded W2 Track D Phase B: product-native CKC cognition on the W2 path,
-   * deterministic Fake proof only. NOT REAL, NOT full CKC track, NOT W2 closed,
-   * runtime v3 NON ADOPTED.
+   * deterministic Fake proof only. NOT REAL, NOT full CKC track,
+   * W2 CLOSED BY MORRIS, runtime v3 NON ADOPTED.
    */
   readonly ckcPhaseBCognition: "IMPLEMENTED_DETERMINISTIC_NOT_REAL";
   readonly messages: readonly string[];
@@ -66,8 +70,8 @@ export const RUNTIME_DISCLOSURE_MESSAGES: readonly string[] = Object.freeze([
   "Real agent execution is disabled.",
   "Delivery and cutover are not authorized.",
   "Runtime v3 is not ADOPTED.",
-  "W2 cognition/trajectory/decision capability is in progress — not complete.",
-  "CKC Phase B bounded cognition is IMPLEMENTED with DETERMINISTIC proof only — NOT REAL, NOT full CKC track, W2 NOT closed, runtime v3 NON ADOPTED.",
+  "W2 cognition/trajectory/decision capability is CLOSED BY MORRIS — Product Completion remains incomplete; W3 NOT AUTHORIZED; W2-CL-R04 OPEN_NON_BLOCKING; PB-RES-REAL-01 OPEN / TRACE ONLY.",
+  "CKC Phase B bounded cognition is IMPLEMENTED with DETERMINISTIC proof only — NOT REAL, NOT full CKC track, W2 CLOSED BY MORRIS, runtime v3 NON ADOPTED.",
 ]);
 
 export const RUNTIME_DISCLOSURES: RuntimeDisclosures = Object.freeze({
@@ -89,7 +93,7 @@ export const RUNTIME_DISCLOSURES: RuntimeDisclosures = Object.freeze({
   grantedConfirmationRestartSafe: true,
   requestedConfirmationRestartSafe: false,
   restoredConfirmationIsHistoricalConsentOnly: true,
-  w2Cognition: "IN_PROGRESS_NOT_COMPLETE",
+  w2Cognition: "CLOSED_BY_MORRIS",
   ckcPhaseBCognition: "IMPLEMENTED_DETERMINISTIC_NOT_REAL",
   messages: RUNTIME_DISCLOSURE_MESSAGES,
 });
