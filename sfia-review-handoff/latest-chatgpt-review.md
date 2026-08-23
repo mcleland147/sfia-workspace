@@ -1,2521 +1,309 @@
 # ChatGPT Review Pack — FULL
-## W2 Track D / Bounded CKC Phase B — Git Integration
+## SFIA Studio — W2 Track D / Phase B Post-Merge Roadmap Truth-Sync
 
 ## A. Metadata
 
 | Field | Value |
 |---|---|
-| timestamp (UTC) | 2026-08-23T14:26:06Z |
+| timestamp (UTC) | 2026-08-23T14:52:16Z |
 | repo | mcleland147/sfia-workspace |
-| branch | `delivery/sfia-studio-w2-track-d-phase-b` |
-| original base | `40de367e2a5a74423f3cab843b7e7a0d1f9879df` |
-| project commit SHA | `1cdf4b41270cffe31be28e02e3effe17a1b15477` |
-| origin/main | `40de367e2a5a74423f3cab843b7e7a0d1f9879df` |
-| remote Delivery SHA | `1cdf4b41270cffe31be28e02e3effe17a1b15477` |
-| Phase B GO | CONSUMED |
-| R1 correction GO | CONSUMED |
-| Git integration GO | **CONSUMED** |
-| merge | **NOT AUTHORIZED** |
+| branch | `docs/sfia-studio-w2-phase-b-post-merge-roadmap-sync` |
+| HEAD | `e4a93fea77c7edd01c4e6fc2d47455db14e102e8` |
+| origin/main | `e4a93fea77c7edd01c4e6fc2d47455db14e102e8` |
+| cycle | Post-merge / Roadmap project truth-sync |
+| typology | DOC |
+| profile | CRITICAL |
+| Roadmap truth-sync GO | **CONSUMED** |
+| W2 closure qualification | **NOT STARTED** |
+| project Git integration | **NOT AUTHORIZED** |
+| W3 | NOT AUTHORIZED |
 | REAL | NOT CONSUMED |
 | Execute | OUT |
 | FinOps/T7 | FREEZE |
 | C6 | CLOSED |
 | runtime v3 | NON ADOPTED |
-| prior R1 handoff | commit `5c61a330…` / blob `0fa67bc1…` |
-| Draft PR | **#403** |
 
-## B. Candidate freeze
+## B. Sources actually read
 
-- Candidate **unchanged** from reviewed R1 (no functional code edit this cycle).
-- Exact **17** project files (frozen set).
-- Known NON-BLOCKING comment debt carried unchanged in `w2EabcDelivery.test.ts`:
-  `No Execute · no REAL · no Phase B / Track D.` (historical header debt).
-- Pre-commit targeted smoke: **58 PASS**.
+- Process: cycle-execution-template, cycle-routing-guide, chatgpt-cursor-operating-model, rules-and-guardrails
+- Convergence: build-doctrine, **roadmap** (edited)
+- Product Completion: 01, 05, 08, 09 (read-only)
+- V3 framing: 30, 31, 32, 33, 37 (contradiction check)
+- Git: PR #403, head `1cdf4b41…`, merge `e4a93fea…`, CI `32645232920`, post-merge push/main CI `32646038871`
 
-## C. Commit evidence
+## C. Git truth
 
-| Field | Value |
-|---|---|
-| SHA | `1cdf4b41270cffe31be28e02e3effe17a1b15477` |
-| message | `feat(sfia-studio): complete W2 bounded CKC Phase B` |
-| file count | 17 |
-
-Exact files:
 ```
-projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
-projects/sfia-studio/app/__tests__/project-assistant/w1CkcSemanticSeam.test.ts
-projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts
-projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
-projects/sfia-studio/app/__tests__/project-assistant/w2TrackDPhaseB.test.ts
-projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx
-projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
-projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
-projects/sfia-studio/app/features/project-assistant/w2/presentedOptionSet.ts
-projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
-projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
-projects/sfia-studio/app/features/project-assistant/w2/types.ts
-projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts
-projects/sfia-studio/app/lib/vertical-slice-runtime/index.ts
-```
-
-## D. Push evidence
-
-| Field | Value |
-|---|---|
-| remote branch | `origin/delivery/sfia-studio-w2-track-d-phase-b` |
-| SHA | `1cdf4b41270cffe31be28e02e3effe17a1b15477` |
-| push | normal (`-u`) |
-| force | **no** |
-
-## E. Draft PR
-
-| Field | Value |
-|---|---|
-| number | **403** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/403 |
-| base | main @ `40de367e…` |
-| head | delivery/sfia-studio-w2-track-d-phase-b @ `1cdf4b41…` |
-| draft | **true** |
-| mergeable | MERGEABLE |
-
-## F. CI
-
-| Field | Value |
-|---|---|
-| run ID | **32645232920** |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/32645232920 |
-| conclusion | **success** |
-
-Jobs:
-- Detect SFIA Studio changes — success
-- Build and validate SFIA Studio — success
-  - Typecheck / Lint / Build / Unit tests (Vitest)
-  - FinOps/T7 freeze notice — success (frozen)
-  - Modeled governance / Secret scan / Trailing whitespace — success
-- SFIA Studio Required Gate — success
-
-FinOps: **FREEZE** (notice only; postgres not executed).
-
-## G. Functional / architectural truth
-
-- D-W2-02 ADOPTED · US-P1-14 / REQ-24 Phase B complete (bounded).
-- P1→P12 PASS · I1→I4 PASS · R1-S/G/UX/CUT PASS.
-- PB-DLV-01…06 preserved (03/06 strengthened in R1).
-- PB-RES-REAL-01 OPEN / TRACE ONLY.
-- Proof ceiling: DETERMINISTIC PROVEN ≠ REAL.
-
-## H. Convergence state
-
-C1/C2/UX/FA/C6/CKC/W1/W2 aligned · architecture parallel = **no** ·
-C6 reopening = **no** · W2 finally closed = **no** · W3 started = **no**.
-
-## I. Complete modified content — project commit patch
-
-```diff
-commit 1cdf4b41270cffe31be28e02e3effe17a1b15477
-Author:     Morris Cleland <morris@macbook-air1.home>
-AuthorDate: Sun Aug 23 16:21:39 2026 +0200
-Commit:     Morris Cleland <morris@macbook-air1.home>
-CommitDate: Sun Aug 23 16:21:39 2026 +0200
-
-    feat(sfia-studio): complete W2 bounded CKC Phase B
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx b/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
-index 7553b57b..b57ebd18 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
-@@ -119,7 +119,7 @@ const SUCCESS_RESULT = {
-     requestedConfirmationRestartSafe: false as const,
-     restoredConfirmationIsHistoricalConsentOnly: true as const,
-     w2Cognition: "IN_PROGRESS_NOT_COMPLETE" as const,
--    ckcPhaseBCognition: "NOT_AUTHORIZED_NOT_IMPLEMENTED" as const,
-+    ckcPhaseBCognition: "IMPLEMENTED_DETERMINISTIC_NOT_REAL" as const,
-     messages: [] as const,
-   },
- };
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w1CkcSemanticSeam.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/w1CkcSemanticSeam.test.ts
-index 5736e62a..27cf07b1 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/w1CkcSemanticSeam.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/w1CkcSemanticSeam.test.ts
-@@ -76,7 +76,19 @@ function methodCandidateProof() {
- function productNativeProof() {
-   return {
-     ...methodCandidateProof(),
-+    source: "product_package" as const,
-     doctrineStatus: "product-studio-native" as const,
-+    doctrinePackageId: DEFAULT_PRODUCT_DOCTRINE_PIN.doctrinePackageId,
-+    packageVersion: DEFAULT_PRODUCT_DOCTRINE_PIN.version,
-+    packageDigest: DEFAULT_PRODUCT_DOCTRINE_PIN.digest,
-+    indexDigest:
-+      "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-+    ckcId: "ckc:studio:delivery",
-+    ckcContractVersion: "0.1.0",
-+    sourceDigest:
-+      "sha256:3318640c67e03090a63e7a37742002926e5baf1b6aad61496d0087d0f562151c",
-+    usedReference: "ckc:studio:delivery",
-+    expectedPrimaryReference: "ckc:studio:delivery",
-     packageProvenance: {
-       ckcId: "ckc:studio:delivery",
-       cycleTypeId: "cyc:delivery",
-@@ -159,7 +171,7 @@ describe("W1 bounded CKC→Nora semantic seam — enrichment", () => {
-     expect(enriched.ckcCognitiveRecommendation).toBeUndefined();
-   });
-
--  it("treatment: product-native proof enriches rationale with attributable CKC marker", () => {
-+  it("treatment: product-native proof enriches rationale with CKC guidance without raw mechanics", () => {
-     const enriched = enrichQualificationWithCkcSemantics({
-       qualification: baseQualification(),
-       proof: productNativeProof(),
-@@ -168,8 +180,10 @@ describe("W1 bounded CKC→Nora semantic seam — enrichment", () => {
-       ckcCognitiveRecommendation:
-         "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — anti scope creep : borner le slice.",
-     });
--    expect(enriched.rationale).toContain(CKC_ATTRIBUTION_MARKER_PREFIX);
--    expect(enriched.rationale.toLowerCase()).toMatch(/anti scope creep|scope creep/);
-+    expect(enriched.rationale).not.toContain(CKC_ATTRIBUTION_MARKER_PREFIX);
-+    expect(enriched.rationale).not.toMatch(/\[CKC:/);
-+    expect(enriched.rationale).not.toMatch(/ckc:studio:/);
-+    expect(enriched.rationale.toLowerCase()).toMatch(/anti scope creep|scope creep|borner/);
-     expect(enriched.isMorrisDecision).toBe(false);
-     expect(enriched.executionAuthority).toBe(false);
-     expect(enriched.ckcSemanticProvenance?.ckcId).toBe("ckc:studio:delivery");
-@@ -189,7 +203,9 @@ describe("W1 bounded CKC→Nora semantic seam — enrichment", () => {
-       content,
-     });
-     expect(rationale).toMatch(/Base\./);
--    expect(rationale.toLowerCase()).toMatch(/anti scope creep|scope creep/);
-+    expect(rationale.toLowerCase()).toMatch(/anti scope creep|scope creep|borner|guidance|finalit/);
-+    expect(rationale).not.toContain(CKC_ATTRIBUTION_MARKER_PREFIX);
-+    expect(rationale).not.toMatch(/\[CKC:/);
-   });
- });
-
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts
-index 3a773550..4a6cf790 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts
-@@ -3,7 +3,7 @@
-  * W2-G3 E+A+B+C — deterministic product-native proof.
-  * No Execute · no REAL · no Phase B / Track D.
-  */
--import { afterEach, describe, expect, it } from "vitest";
-+import { afterEach, beforeEach, describe, expect, it } from "vitest";
- import { RUNTIME_DISCLOSURES } from "@/lib/vertical-slice-runtime/disclosures";
- import { prepareM3FromDecision } from "@/features/project-assistant/f3/prepareM3FromDecision";
- import {
-@@ -50,25 +50,32 @@ import {
-   seedQualifiedProject,
-   tempProductDbPath,
- } from "./w2Harness";
-+import { setConversationProviderForTests } from "@/lib/platform/ai";
-+
-+beforeEach(() => {
-+  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-+  setConversationProviderForTests(null);
-+});
-
- afterEach(() => {
-   cleanupW2TempDirs();
- });
-
- describe("W2 Track E — disclosure honesty", () => {
--  it("states trajectory / epistemic / granted confirmation as durable and Phase B as not implemented", () => {
-+  it("states trajectory / epistemic / granted confirmation as durable and Phase B as deterministic-only", () => {
-     expect(RUNTIME_DISCLOSURES.projectTrajectoryRestartSafe).toBe(true);
-     expect(RUNTIME_DISCLOSURES.materializedEpistemicRestartSafe).toBe(true);
-     expect(RUNTIME_DISCLOSURES.grantedConfirmationRestartSafe).toBe(true);
-     expect(RUNTIME_DISCLOSURES.requestedConfirmationRestartSafe).toBe(false);
-     expect(RUNTIME_DISCLOSURES.w2Cognition).toBe("IN_PROGRESS_NOT_COMPLETE");
-     expect(RUNTIME_DISCLOSURES.ckcPhaseBCognition).toBe(
--      "NOT_AUTHORIZED_NOT_IMPLEMENTED",
-+      "IMPLEMENTED_DETERMINISTIC_NOT_REAL",
-     );
-     const joined = RUNTIME_DISCLOSURES.messages.join(" ");
-     expect(joined).toMatch(/ProjectTrajectory versions/);
-     expect(joined).not.toMatch(/Trajectory\/Epistemic Memory remain process-local/);
--    expect(joined).toMatch(/CKC Phase B cognition integration is NOT authorized/);
-+    expect(joined).toMatch(/IMPLEMENTED with DETERMINISTIC proof only/);
-+    expect(joined).toMatch(/NOT REAL/);
-     expect(joined).toMatch(/Runtime v3 is not ADOPTED/);
-     expect(w1RestartHonestyMessage()).toMatch(/trajectoire effective\/décidée/i);
-     expect(w1RestartHonestyMessage()).toMatch(/confirmation demandée/i);
-@@ -142,6 +149,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(proposed.ok).toBe(true);
-     if (!proposed.ok) return;
-@@ -243,6 +253,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(proposed.ok).toBe(true);
-     if (!proposed.ok) return;
-@@ -255,8 +268,12 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-     expect(loaded.ok).toBe(true);
-     if (!loaded.ok) return;
-     expect(loaded.presented.qualificationDigest).toBe(
--      computeQualificationDigest(qualification.qualification.inputs),
-+      computeQualificationDigest({
-+        ...qualification.qualification.inputs,
-+        ckcSemanticFingerprint: loaded.presented.ckcSemanticFingerprint,
-+      }),
-     );
-+    expect(loaded.presented.ckcSemanticFingerprint).toBeTruthy();
-
-     const epistemic = await oa.cycleServices.getEpistemicState.execute({
-       projectId: seeded.projectId,
-@@ -301,6 +318,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(proposed.ok).toBe(true);
-     if (!proposed.ok) return;
-@@ -325,8 +345,8 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-     expect(driftedQual.ok).toBe(true);
-     if (!driftedQual.ok) return;
-     expect(
--      computeQualificationDigest(driftedQual.qualification.inputs),
--    ).not.toBe(computeQualificationDigest(qualification.qualification.inputs));
-+      computeQualificationDigest({ ...driftedQual.qualification.inputs, ckcSemanticFingerprint: null }),
-+    ).not.toBe(computeQualificationDigest({ ...qualification.qualification.inputs, ckcSemanticFingerprint: null }));
-     expect(
-       deriveTrajectoryRecommendation(driftedQual.qualification.inputs)
-         .recommendedOptionRef,
-@@ -376,6 +396,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(proposed.ok).toBe(true);
-     if (!proposed.ok) return;
-@@ -453,6 +476,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa: oa1,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(proposed.ok).toBe(true);
-     if (!proposed.ok) return;
-@@ -502,6 +528,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(first.ok).toBe(true);
-     if (!first.ok) return;
-@@ -510,6 +539,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(second.ok).toBe(true);
-     if (!second.ok) return;
-@@ -581,6 +613,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(first.ok).toBe(true);
-     if (!first.ok) return;
-@@ -619,6 +654,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...requal.qualification.inputs,
-+      packagePin: requal.qualification.packagePin,
-+      objective: requal.qualification.objective,
-+      projectTitle: requal.qualification.projectTitle,
-     });
-     expect(second.ok).toBe(true);
-     if (!second.ok) return;
-@@ -654,7 +692,10 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-     expect(loadedY.presented.optionSetDigest).not.toBe(firstDigest);
-     expect(loadedY.presented.candidateVersion).toBe(2);
-     expect(loadedY.presented.qualificationDigest).toBe(
--      computeQualificationDigest(requal.qualification.inputs),
-+      computeQualificationDigest({
-+        ...requal.qualification.inputs,
-+        ckcSemanticFingerprint: loadedY.presented.ckcSemanticFingerprint,
-+      }),
-     );
-
-     const v1 = await oa.cycleServices.getTrajectoryVersion.execute({
-@@ -697,6 +738,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(first.ok).toBe(true);
-     if (!first.ok) return;
-@@ -724,6 +768,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...requal.qualification.inputs,
-+      packagePin: requal.qualification.packagePin,
-+      objective: requal.qualification.objective,
-+      projectTitle: requal.qualification.projectTitle,
-     });
-     expect(second.ok).toBe(true);
-     if (!second.ok) return;
-@@ -793,6 +840,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa: oa1,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(first.ok).toBe(true);
-     if (!first.ok) return;
-@@ -827,7 +877,10 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa: oa1,
-       projectId: seeded.projectId,
-       ...requal.qualification.inputs,
--    });
-+packagePin: requal.qualification.packagePin,
-+objective: requal.qualification.objective,
-+projectTitle: requal.qualification.projectTitle,
-+});
-     expect(second.ok).toBe(true);
-     if (!second.ok) return;
-
-@@ -878,6 +931,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(first.ok).toBe(true);
-     if (!first.ok) return;
-@@ -950,6 +1006,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(first.ok).toBe(true);
-     if (!first.ok) return;
-@@ -982,6 +1041,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...requal.qualification.inputs,
-+      packagePin: requal.qualification.packagePin,
-+      objective: requal.qualification.objective,
-+      projectTitle: requal.qualification.projectTitle,
-     });
-     expect(second.ok).toBe(true);
-     if (!second.ok) return;
-@@ -1015,6 +1077,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(first.ok).toBe(true);
-     if (!first.ok) return;
-@@ -1040,6 +1105,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...afterDecideQual.qualification.inputs,
-+      packagePin: afterDecideQual.qualification.packagePin,
-+      objective: afterDecideQual.qualification.objective,
-+      projectTitle: afterDecideQual.qualification.projectTitle,
-     });
-     expect(x.ok).toBe(true);
-     if (!x.ok) return;
-@@ -1069,6 +1137,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...requal.qualification.inputs,
-+      packagePin: requal.qualification.packagePin,
-+      objective: requal.qualification.objective,
-+      projectTitle: requal.qualification.projectTitle,
-     });
-     expect(y.ok).toBe(true);
-     if (!y.ok) return;
-@@ -1116,6 +1187,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(first.ok).toBe(true);
-     if (!first.ok) return;
-@@ -1164,6 +1238,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(first.ok).toBe(true);
-     if (!first.ok) return;
-@@ -1191,6 +1268,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...requal.qualification.inputs,
-+      packagePin: requal.qualification.packagePin,
-+      objective: requal.qualification.objective,
-+      projectTitle: requal.qualification.projectTitle,
-     });
-     expect(second.ok).toBe(true);
-     if (!second.ok) return;
-@@ -1266,6 +1346,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa: oa1,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(first.ok).toBe(true);
-     if (!first.ok) return;
-@@ -1292,7 +1375,10 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa: oa1,
-       projectId: seeded.projectId,
-       ...requal.qualification.inputs,
--    });
-+packagePin: requal.qualification.packagePin,
-+objective: requal.qualification.objective,
-+projectTitle: requal.qualification.projectTitle,
-+});
-     expect(second.ok).toBe(true);
-     if (!second.ok) return;
-
-@@ -1333,6 +1419,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(first.ok).toBe(true);
-     if (!first.ok) return;
-@@ -1340,6 +1429,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(second.ok).toBe(true);
-     if (!second.ok) return;
-@@ -1398,6 +1490,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(first.ok).toBe(true);
-     if (!first.ok) return;
-@@ -1475,6 +1570,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(first.ok).toBe(true);
-     if (!first.ok) return;
-@@ -1554,6 +1652,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(proposed.ok).toBe(true);
-     if (!proposed.ok) return;
-@@ -1614,6 +1715,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
-       oa: first.oa!,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(proposed.ok).toBe(true);
-     if (!proposed.ok) return;
-@@ -1674,6 +1778,9 @@ describe("W2 Track B1 — CKC provenance honesty", () => {
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(proposed.ok).toBe(true);
-     if (!proposed.ok) return;
-@@ -1742,6 +1849,9 @@ describe("W2 Track C — inspection binding + authorization mechanism proofs", (
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(proposed.ok).toBe(true);
-     if (!proposed.ok) return;
-@@ -1859,6 +1969,9 @@ describe("W2 Track C — inspection binding + authorization mechanism proofs", (
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(proposed.ok).toBe(true);
-     if (!proposed.ok) return;
-@@ -1987,6 +2100,9 @@ describe("W2 Track C — inspection binding + authorization mechanism proofs", (
-       oa,
-       projectId: seeded.projectId,
-       ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-     });
-     expect(proposed.ok).toBe(true);
-     if (!proposed.ok) return;
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts b/projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
-index 32cbd11a..cfbb6b1e 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
-@@ -102,9 +102,11 @@ export async function seedQualifiedProject(
-     profile?: "Standard" | "Critical";
-     reservations?: readonly { statement: string; blocking?: boolean }[];
-     suffix?: string;
-+    cycleTypeId?: string;
-   },
- ): Promise<SeededW2Project> {
-   const suffix = options?.suffix ?? "a";
-+  const cycleTypeId = options?.cycleTypeId ?? "cyc:delivery";
-   const created = await runtime.createProject({
-     name: `W2 harness ${suffix}`,
-     objective: "Prouver Options / Décision / Trajectoire / Autorité",
-@@ -128,7 +130,7 @@ export async function seedQualifiedProject(
-   const cycleInstanceId = `cyc:inst:w2-${suffix}`;
-   const cycle = await oa.cycleServices.createCycle.execute({
-     cycleInstanceId,
--    cycleTypeId: "cyc:delivery",
-+    cycleTypeId,
-     projectId,
-     signals: options?.profile === "Critical" ? { irreversible: true } : {},
-     justification:
-@@ -170,6 +172,43 @@ export async function seedQualifiedProject(
-   };
- }
-
-+/** Resolve qualification + propose Options on the production W2 Phase B path. */
-+export async function proposeW2OptionsForProject(
-+  runtime: RuntimeApplicationService,
-+  projectId: string,
-+) {
-+  const oa = runtime.oa;
-+  if (!oa) {
-+    return {
-+      ok: false as const,
-+      code: "OA_STACK_UNAVAILABLE",
-+      message: "OA stack unavailable",
-+    };
-+  }
-+  const { resolveW2QualificationInputs } = await import(
-+    "@/features/project-assistant/w2/qualificationInputs"
-+  );
-+  const { proposeTrajectoryOptions } = await import(
-+    "@/features/project-assistant/w2/proposeTrajectoryOptions"
-+  );
-+  const qualification = await resolveW2QualificationInputs({ oa, projectId });
-+  if (!qualification.ok) {
-+    return {
-+      ok: false as const,
-+      code: qualification.code,
-+      message: qualification.message,
-+    };
-+  }
-+  return proposeTrajectoryOptions({
-+    oa,
-+    projectId,
-+    ...qualification.qualification.inputs,
-+    packagePin: qualification.qualification.packagePin,
-+    objective: qualification.qualification.objective,
-+    projectTitle: qualification.qualification.projectTitle,
-+  });
-+}
-+
- /** F2 context snapshot expected by the F3 prepare/resolve product path. */
- export async function currentF2Context(
-   runtime: RuntimeApplicationService,
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w2TrackDPhaseB.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/w2TrackDPhaseB.test.ts
-new file mode 100644
-index 00000000..670e1349
---- /dev/null
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/w2TrackDPhaseB.test.ts
-@@ -0,0 +1,834 @@
-+// @vitest-environment node
-+/**
-+ * W2 Track D / bounded CKC Phase B — deterministic product-native exit proof.
-+ * FakeConversationProvider only · same production W2 path · STOP BEFORE EXECUTE.
-+ * Proof ceiling: DETERMINISTIC PROVEN ≠ REAL.
-+ */
-+import { afterEach, beforeEach, describe, expect, it } from "vitest";
-+import {
-+  FakeConversationProvider,
-+  setConversationProviderForTests,
-+} from "@/lib/platform/ai";
-+import {
-+  buildCkcCognitivePromptSection,
-+  computeCkcSemanticFingerprint,
-+  isProductStudioNativeCkcProof,
-+  loadProductCkcCognitiveContent,
-+  reasonWithResolvedCkcContext,
-+} from "@/features/project-assistant/f2/ckcCognitiveContext";
-+import { DEFAULT_PRODUCT_DOCTRINE_PIN } from "@/lib/oa/doctrine/product/constants";
-+import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
-+import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
-+import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
-+import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
-+import { BOUNDED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
-+import { loadPresentedOptionSet } from "@/features/project-assistant/w2/presentedOptionSet";
-+import {
-+  bootW2Runtime,
-+  cleanupW2TempDirs,
-+  proposeW2OptionsForProject,
-+  seedQualifiedProject,
-+  tempProductDbPath,
-+  W2_REGISTRY_ROOT,
-+  W2_TEST_ACTOR,
-+} from "./w2Harness";
-+
-+const PRODUCT_REGISTRY = resolveProductDoctrineRegistryRoot();
-+
-+beforeEach(() => {
-+  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-+  setConversationProviderForTests(null);
-+});
-+
-+afterEach(() => {
-+  setConversationProviderForTests(null);
-+  cleanupW2TempDirs();
-+});
-+
-+async function proposeFor(
-+  runtime: ReturnType<typeof bootW2Runtime>,
-+  projectId: string,
-+) {
-+  const oa = runtime.oa!;
-+  const qualification = await resolveW2QualificationInputs({ oa, projectId });
-+  expect(qualification.ok).toBe(true);
-+  if (!qualification.ok) throw new Error("qualification failed");
-+  return {
-+    qualification,
-+    proposed: await proposeTrajectoryOptions({
-+      oa,
-+      projectId,
-+      ...qualification.qualification.inputs,
-+      packagePin: qualification.qualification.packagePin,
-+      objective: qualification.qualification.objective,
-+      projectTitle: qualification.qualification.projectTitle,
-+    }),
-+  };
-+}
-+
-+describe("Phase B P1/P2 — product-native resolution", () => {
-+  it("P1: cyc:delivery resolves product package CKC with provenance", () => {
-+    const content = loadProductCkcCognitiveContent({
-+      registryRoot: PRODUCT_REGISTRY,
-+      cycleTypeId: "cyc:delivery",
-+      packagePin: DEFAULT_PRODUCT_DOCTRINE_PIN,
-+    });
-+    expect(content).toBeTruthy();
-+    expect(content?.ckcId).toBe("ckc:studio:delivery");
-+    expect(content?.provenance.doctrinePackageId).toBe(
-+      DEFAULT_PRODUCT_DOCTRINE_PIN.doctrinePackageId,
-+    );
-+    expect(content?.provenance.contentDigest).toMatch(/^sha256:/);
-+    expect(content?.markdown.toLowerCase()).toMatch(/anti scope creep|scope creep/);
-+  });
-+
-+  it("P2: cyc:security resolves via same path with distinct ckcId/digest", () => {
-+    const delivery = loadProductCkcCognitiveContent({
-+      registryRoot: PRODUCT_REGISTRY,
-+      cycleTypeId: "cyc:delivery",
-+      packagePin: DEFAULT_PRODUCT_DOCTRINE_PIN,
-+    });
-+    const security = loadProductCkcCognitiveContent({
-+      registryRoot: PRODUCT_REGISTRY,
-+      cycleTypeId: "cyc:security",
-+      packagePin: DEFAULT_PRODUCT_DOCTRINE_PIN,
-+    });
-+    expect(security).toBeTruthy();
-+    expect(security?.ckcId).toBe("ckc:studio:security");
-+    expect(security?.ckcId).not.toBe(delivery?.ckcId);
-+    expect(security?.provenance.contentDigest).not.toBe(
-+      delivery?.provenance.contentDigest,
-+    );
-+    expect(security?.markdown.toLowerCase()).toMatch(
-+      /adversarial|risque résiduel|secret/,
-+    );
-+  });
-+});
-+
-+describe("Phase B P3/P4 — control vs treatment semantic cause", () => {
-+  it("P3: delivery CKC treatment differs from no-CKC control", async () => {
-+    const content = loadProductCkcCognitiveContent({
-+      registryRoot: PRODUCT_REGISTRY,
-+      cycleTypeId: "cyc:delivery",
-+      packagePin: DEFAULT_PRODUCT_DOCTRINE_PIN,
-+    });
-+    expect(content).toBeTruthy();
-+    if (!content) return;
-+    const control = await reasonWithResolvedCkcContext({
-+      userContent: "Instruire Options",
-+      projectSummary: "name=Test",
-+      intentSummary: "cyc:delivery",
-+      ckcPromptSection: null,
-+    });
-+    const treatment = await reasonWithResolvedCkcContext({
-+      userContent: "Instruire Options",
-+      projectSummary: "name=Test",
-+      intentSummary: "cyc:delivery",
-+      ckcPromptSection: buildCkcCognitivePromptSection(content),
-+    });
-+    expect(control.recommendation.toLowerCase()).toContain("générique");
-+    expect(treatment.recommendation.toLowerCase()).toMatch(/anti scope creep/);
-+    expect(treatment.recommendation).toContain("PAS UNE DÉCISION HUMAINE");
-+  });
-+
-+  it("P4: security CKC treatment is semantically distinct from delivery", async () => {
-+    const delivery = loadProductCkcCognitiveContent({
-+      registryRoot: PRODUCT_REGISTRY,
-+      cycleTypeId: "cyc:delivery",
-+      packagePin: DEFAULT_PRODUCT_DOCTRINE_PIN,
-+    })!;
-+    const security = loadProductCkcCognitiveContent({
-+      registryRoot: PRODUCT_REGISTRY,
-+      cycleTypeId: "cyc:security",
-+      packagePin: DEFAULT_PRODUCT_DOCTRINE_PIN,
-+    })!;
-+    const d = await reasonWithResolvedCkcContext({
-+      userContent: "Instruire Options",
-+      projectSummary: "name=Test",
-+      intentSummary: "cyc:delivery",
-+      ckcPromptSection: buildCkcCognitivePromptSection(delivery),
-+    });
-+    const s = await reasonWithResolvedCkcContext({
-+      userContent: "Instruire Options",
-+      projectSummary: "name=Test",
-+      intentSummary: "cyc:security",
-+      ckcPromptSection: buildCkcCognitivePromptSection(security),
-+    });
-+    expect(d.recommendation.toLowerCase()).toMatch(/anti scope creep/);
-+    expect(s.recommendation.toLowerCase()).toMatch(
-+      /adversarial|risque résiduel|secret/,
-+    );
-+    expect(d.recommendation).not.toBe(s.recommendation);
-+  });
-+});
-+
-+describe("Phase B P5–P9 — W2 product path ordering / integrity", () => {
-+  it("P5/P6/P7/P8/P9: cognition before mutation; provenance; no HD/authority/Execute", async () => {
-+    const runtime = bootW2Runtime({
-+      productDbPath: tempProductDbPath("pb-p5.sqlite"),
-+      idPrefix: "pbp5",
-+    });
-+    expect(W2_REGISTRY_ROOT).toContain("doctrine/product");
-+    const seeded = await seedQualifiedProject(runtime, {
-+      suffix: "p5",
-+      cycleTypeId: "cyc:delivery",
-+    });
-+    const { proposed } = await proposeFor(runtime, seeded.projectId);
-+    expect(proposed.ok).toBe(true);
-+    if (!proposed.ok) return;
-+
-+    expect(proposed.ckcCognitionCompletedBeforeMutation).toBe(true);
-+    expect(proposed.recommendation.ckcProvenance?.ckcId).toBe(
-+      "ckc:studio:delivery",
-+    );
-+    expect(proposed.recommendation.ckcProvenance?.contentDigest).toMatch(
-+      /^sha256:/,
-+    );
-+    expect(proposed.recommendation.ckcProvenance?.semanticFingerprint).toMatch(
-+      /^sha256:/,
-+    );
-+    expect(proposed.recommendation.rationale.toLowerCase()).toMatch(
-+      /anti scope creep/,
-+    );
-+    // R1-UX: business-first rationale / statement
-+    expect(proposed.recommendation.rationale).not.toMatch(/\[CKC:/);
-+    expect(proposed.recommendation.rationale).not.toMatch(/ckc:studio:/);
-+    expect(proposed.recommendation.rationale).not.toMatch(/digest=/);
-+    expect(proposed.recommendation.rationale).not.toMatch(/\bfp=/);
-+    expect(proposed.recommendation.isHumanDecision).toBe(false);
-+    expect(proposed.recommendation.promotesTrajectory).toBe(false);
-+    expect(proposed.autoDecisionPerformed).toBe(false);
-+    expect(proposed.executionPerformed).toBe(false);
-+    expect(proposed.proposedTrajectory.status).toBe("candidate");
-+    expect(proposed.proposedTrajectory.isCurrent).toBe(false);
-+
-+    const current = await runtime.oa!.cycleServices.getCurrentTrajectory.execute({
-+      projectId: seeded.projectId,
-+    });
-+    expect(current.ok).toBe(false);
-+
-+    const presented = await loadPresentedOptionSet(
-+      runtime.oa!,
-+      seeded.projectId,
-+      proposed.optionSetRef,
-+    );
-+    expect(presented.ok).toBe(true);
-+    if (!presented.ok) return;
-+    expect(presented.presented.ckcSemanticFingerprint).toBe(
-+      proposed.recommendation.ckcProvenance?.semanticFingerprint,
-+    );
-+
-+    const epistemic = await runtime.oa!.cycleServices.getEpistemicState.execute({
-+      projectId: seeded.projectId,
-+    });
-+    expect(epistemic.ok).toBe(true);
-+    if (!epistemic.ok) return;
-+    const recItem = epistemic.state.items.find(
-+      (i) =>
-+        i.type === "Recommendation" &&
-+        i.status === "active" &&
-+        i.source === proposed.optionSetRef,
-+    );
-+    expect(recItem).toBeTruthy();
-+    expect(recItem!.statement).not.toMatch(/CKC provenance:/);
-+    expect(recItem!.statement).not.toMatch(/digest=/);
-+    expect(recItem!.statement).not.toMatch(/\bfp=/);
-+    expect(recItem!.statement).not.toMatch(/\[CKC:/);
-+  });
-+
-+  it("two-cycle same production path: delivery vs security", async () => {
-+    const runtime = bootW2Runtime({
-+      productDbPath: tempProductDbPath("pb-2cyc.sqlite"),
-+      idPrefix: "pb2c",
-+    });
-+    const deliverySeed = await seedQualifiedProject(runtime, {
-+      suffix: "del",
-+      cycleTypeId: "cyc:delivery",
-+    });
-+    const delivery = await proposeFor(runtime, deliverySeed.projectId);
-+    expect(delivery.proposed.ok).toBe(true);
-+    if (!delivery.proposed.ok) return;
-+
-+    const securitySeed = await seedQualifiedProject(runtime, {
-+      suffix: "sec",
-+      cycleTypeId: "cyc:security",
-+    });
-+    const security = await proposeFor(runtime, securitySeed.projectId);
-+    expect(security.proposed.ok).toBe(true);
-+    if (!security.proposed.ok) return;
-+
-+    expect(delivery.proposed.recommendation.ckcProvenance?.ckcId).toBe(
-+      "ckc:studio:delivery",
-+    );
-+    expect(security.proposed.recommendation.ckcProvenance?.ckcId).toBe(
-+      "ckc:studio:security",
-+    );
-+    expect(delivery.proposed.recommendation.rationale.toLowerCase()).toMatch(
-+      /anti scope creep/,
-+    );
-+    expect(security.proposed.recommendation.rationale.toLowerCase()).toMatch(
-+      /adversarial|risque résiduel|secret/,
-+    );
-+    expect(
-+      delivery.proposed.recommendation.ckcProvenance?.semanticFingerprint,
-+    ).not.toBe(
-+      security.proposed.recommendation.ckcProvenance?.semanticFingerprint,
-+    );
-+  });
-+});
-+
-+describe("Phase B P10 — requalification via existing createCycle", () => {
-+  it("honest cycle-type change yields distinct fingerprint / binding", async () => {
-+    const runtime = bootW2Runtime({
-+      productDbPath: tempProductDbPath("pb-p10.sqlite"),
-+      idPrefix: "pbp10",
-+    });
-+    const seeded = await seedQualifiedProject(runtime, {
-+      suffix: "rq",
-+      cycleTypeId: "cyc:delivery",
-+    });
-+    const first = await proposeFor(runtime, seeded.projectId);
-+    expect(first.proposed.ok).toBe(true);
-+    if (!first.proposed.ok) return;
-+    const v1 = first.proposed.proposedTrajectory.version;
-+
-+    const overview = await runtime.getProject(seeded.projectId);
-+    expect(overview.ok).toBe(true);
-+    if (!overview.ok) return;
-+    const requal = await runtime.oa!.cycleServices.createCycle.execute({
-+      cycleInstanceId: "cyc:inst:w2-rq-sec",
-+      cycleTypeId: "cyc:security",
-+      projectId: seeded.projectId,
-+      signals: {},
-+      objective: "Requalification sécurité",
-+      scope: "w2-requal",
-+      createdBy: W2_TEST_ACTOR,
-+      linkAsActiveCycle: true,
-+      expectedLpsVersion: overview.livingState.version,
-+      ckcResolutionRef: "ckcres:w2-harness-sec",
-+    });
-+    expect(requal.ok).toBe(true);
-+
-+    const second = await proposeFor(runtime, seeded.projectId);
-+    expect(second.proposed.ok).toBe(true);
-+    if (!second.proposed.ok) return;
-+    expect(second.proposed.recommendation.ckcProvenance?.ckcId).toBe(
-+      "ckc:studio:security",
-+    );
-+    expect(
-+      second.proposed.recommendation.ckcProvenance?.semanticFingerprint,
-+    ).not.toBe(first.proposed.recommendation.ckcProvenance?.semanticFingerprint);
-+    expect(second.proposed.proposedTrajectory.version).toBeGreaterThan(v1);
-+  });
-+});
-+
-+describe("Phase B P11 — fail closed before mutation", () => {
-+  it("P11A: missing cycle CKC yields no trajectory", async () => {
-+    const runtime = bootW2Runtime({
-+      productDbPath: tempProductDbPath("pb-p11a.sqlite"),
-+      idPrefix: "p11a",
-+    });
-+    const seeded = await seedQualifiedProject(runtime, { suffix: "p11a" });
-+    const oa = runtime.oa!;
-+    const overview = await runtime.getProject(seeded.projectId);
-+    if (!overview.ok) throw new Error("overview");
-+    // Force an unknown cycle type that is not in the product index.
-+    const bad = await oa.cycleServices.createCycle.execute({
-+      cycleInstanceId: "cyc:inst:w2-p11a-bad",
-+      cycleTypeId: "cyc:nonexistent-phase-b",
-+      projectId: seeded.projectId,
-+      signals: {},
-+      objective: "fail closed",
-+      scope: "p11a",
-+      createdBy: W2_TEST_ACTOR,
-+      linkAsActiveCycle: true,
-+      expectedLpsVersion: overview.livingState.version,
-+      ckcResolutionRef: "ckcres:bad",
-+    });
-+    // createCycle may accept unknown type at OA level; propose must fail closed.
-+    if (bad.ok) {
-+      const proposed = await proposeW2OptionsForProject(
-+        runtime,
-+        seeded.projectId,
-+      );
-+      expect(proposed.ok).toBe(false);
-+      if (proposed.ok) return;
-+      expect(proposed.code).toBe("CKC_UNAVAILABLE");
-+    }
-+    const traj = await oa.cycleServices.getCurrentTrajectory.execute({
-+      projectId: seeded.projectId,
-+    });
-+    expect(traj.ok).toBe(false);
-+  });
-+
-+  it("P11B: forced fake-provider error → no OptionSet/trajectory mutation", async () => {
-+    setConversationProviderForTests(
-+      new FakeConversationProvider({ failOnCall: 1 }),
-+    );
-+    const runtime = bootW2Runtime({
-+      productDbPath: tempProductDbPath("pb-p11b.sqlite"),
-+      idPrefix: "p11b",
-+    });
-+    const seeded = await seedQualifiedProject(runtime, { suffix: "p11b" });
-+    const proposed = await proposeW2OptionsForProject(
-+      runtime,
-+      seeded.projectId,
-+    );
-+    expect(proposed.ok).toBe(false);
-+    if (proposed.ok) return;
-+    expect(proposed.code).toBe("PROVIDER_COGNITION_FAILED");
-+
-+    const latest = await runtime.oa!.cycleServices.getCurrentTrajectory.execute({
-+      projectId: seeded.projectId,
-+    });
-+    expect(latest.ok).toBe(false);
-+    const epistemic = await runtime.oa!.cycleServices.getEpistemicState.execute({
-+      projectId: seeded.projectId,
-+    });
-+    if (epistemic.ok) {
-+      const options = epistemic.state.items.filter((i) => i.type === "Option");
-+      const recs = epistemic.state.items.filter(
-+        (i) => i.type === "Recommendation",
-+      );
-+      expect(options).toHaveLength(0);
-+      expect(recs).toHaveLength(0);
-+    }
-+  });
-+});
-+
-+describe("Phase B I1–I4 — binding / idempotence (PB-DLV-01)", () => {
-+  it("I1: exact semantic retry reuses candidate version", async () => {
-+    const runtime = bootW2Runtime({
-+      productDbPath: tempProductDbPath("pb-i1.sqlite"),
-+      idPrefix: "pbi1",
-+    });
-+    const seeded = await seedQualifiedProject(runtime, { suffix: "i1" });
-+    const first = await proposeFor(runtime, seeded.projectId);
-+    expect(first.proposed.ok).toBe(true);
-+    if (!first.proposed.ok) return;
-+    const second = await proposeFor(runtime, seeded.projectId);
-+    expect(second.proposed.ok).toBe(true);
-+    if (!second.proposed.ok) return;
-+    expect(second.proposed.proposedTrajectory.version).toBe(
-+      first.proposed.proposedTrajectory.version,
-+    );
-+    expect(second.proposed.proposedTrajectory.trajectoryId).toBe(
-+      first.proposed.proposedTrajectory.trajectoryId,
-+    );
-+  });
-+
-+  it("I2: superficial provider rewording does not bump trajectory version", async () => {
-+    const runtime = bootW2Runtime({
-+      productDbPath: tempProductDbPath("pb-i2.sqlite"),
-+      idPrefix: "pbi2",
-+    });
-+    const seeded = await seedQualifiedProject(runtime, { suffix: "i2" });
-+    const first = await proposeFor(runtime, seeded.projectId);
-+    expect(first.proposed.ok).toBe(true);
-+    if (!first.proposed.ok) return;
-+
-+    setConversationProviderForTests(
-+      new FakeConversationProvider({
-+        scripted: [
-+          "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — anti scope creep : WORDING VARIANT A. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
-+        ],
-+      }),
-+    );
-+    // Scripted complete() is only used when NOT matching CKC system marker branch.
-+    // Force a provider that still matches CKC branch but with different wording via subclass:
-+    setConversationProviderForTests(
-+      new (class extends FakeConversationProvider {
-+        override async complete(
-+          messages: Parameters<FakeConversationProvider["complete"]>[0],
-+        ) {
-+          const base = await super.complete(messages);
-+          if (
-+            messages.some(
-+              (m) =>
-+                m.role === "system" &&
-+                m.content.includes("SFIA Studio CKC COGNITIVE REASONING"),
-+            )
-+          ) {
-+            return {
-+              ...base,
-+              text: `${base.text} · WORDING VARIANT SUPERFICIEL`,
-+            };
-+          }
-+          return base;
-+        }
-+      })(),
-+    );
-+
-+    const second = await proposeFor(runtime, seeded.projectId);
-+    expect(second.proposed.ok).toBe(true);
-+    if (!second.proposed.ok) return;
-+    expect(second.proposed.proposedTrajectory.version).toBe(
-+      first.proposed.proposedTrajectory.version,
-+    );
-+    // Rationale may differ in wording but fingerprint (binding) is stable.
-+    expect(
-+      second.proposed.recommendation.ckcProvenance?.semanticFingerprint,
-+    ).toBe(first.proposed.recommendation.ckcProvenance?.semanticFingerprint);
-+  });
-+
-+  it("I3: material cycle/CKC change changes binding", async () => {
-+    const delivery = loadProductCkcCognitiveContent({
-+      registryRoot: PRODUCT_REGISTRY,
-+      cycleTypeId: "cyc:delivery",
-+      packagePin: DEFAULT_PRODUCT_DOCTRINE_PIN,
-+    })!;
-+    const security = loadProductCkcCognitiveContent({
-+      registryRoot: PRODUCT_REGISTRY,
-+      cycleTypeId: "cyc:security",
-+      packagePin: DEFAULT_PRODUCT_DOCTRINE_PIN,
-+    })!;
-+    expect(computeCkcSemanticFingerprint(delivery.provenance)).not.toBe(
-+      computeCkcSemanticFingerprint(security.provenance),
-+    );
-+  });
-+
-+  it("I4: HumanDecision binds exact presented OptionSet", async () => {
-+    const runtime = bootW2Runtime({
-+      productDbPath: tempProductDbPath("pb-i4.sqlite"),
-+      idPrefix: "pbi4",
-+    });
-+    const seeded = await seedQualifiedProject(runtime, { suffix: "i4" });
-+    const { proposed } = await proposeFor(runtime, seeded.projectId);
-+    expect(proposed.ok).toBe(true);
-+    if (!proposed.ok) return;
-+
-+    const selected =
-+      proposed.options.find((o) => o.optionRef === BOUNDED_OPTION_REF) ??
-+      proposed.options[0]!;
-+    const decided = await decideTrajectory({
-+      oa: runtime.oa!,
-+      projectId: seeded.projectId,
-+      optionSetRef: proposed.optionSetRef,
-+      options: proposed.options,
-+      recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
-+      selectedOptionRef: selected.optionRef,
-+      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-+      candidateVersion: proposed.proposedTrajectory.version,
-+      epistemicRefs: proposed.epistemicRefs,
-+      reservesText: null,
-+    });
-+    expect(decided.ok).toBe(true);
-+    if (!decided.ok) return;
-+    expect(decided.trajectory.isCurrent).toBe(true);
-+    expect(decided.decision.selectedOptionRef).toBe(selected.optionRef);
-+    expect(decided.executionPerformed).toBe(false);
-+  });
-+});
-+
-+describe("Phase B R1 — semantic Fake oracle (content-only)", () => {
-+  it("R1-S01/S02/S03: specialized Fake requires semantic content; ID-only stays generic", async () => {
-+    const {
-+      FakeConversationProvider,
-+      setConversationProviderForTests,
-+    } = await import("@/lib/platform/ai");
-+    const {
-+      CKC_COGNITIVE_REASONING_SYSTEM_MARKER,
-+    } = await import("@/features/project-assistant/f2/ckcCognitiveContext");
-+
-+    const provider = new FakeConversationProvider();
-+    setConversationProviderForTests(provider);
-+
-+    const deliveryContent = await provider.complete([
-+      {
-+        role: "system",
-+        content: `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nGuidance: anti scope creep — borner le slice.`,
-+      },
-+      { role: "user", content: "Instruire" },
-+    ]);
-+    expect(deliveryContent.text.toLowerCase()).toMatch(/anti scope creep/);
-+
-+    const securityContent = await provider.complete([
-+      {
-+        role: "system",
-+        content: `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nGuidance: posture adversarial ; risque résiduel ; secret en repo.`,
-+      },
-+      { role: "user", content: "Instruire" },
-+    ]);
-+    expect(securityContent.text.toLowerCase()).toMatch(
-+      /adversarial|risque résiduel|secret/,
-+    );
-+
-+    const idOnlySecurity = await provider.complete([
-+      {
-+        role: "system",
-+        content: `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nCKC ckc:studio:security (cyc:security) — no distinctive guidance.`,
-+      },
-+      { role: "user", content: "Instruire" },
-+    ]);
-+    expect(idOnlySecurity.text.toLowerCase()).toContain("générique");
-+    expect(idOnlySecurity.text.toLowerCase()).not.toMatch(
-+      /adversarial|risque résiduel|secret en repo/,
-+    );
-+
-+    const idOnlyDelivery = await provider.complete([
-+      {
-+        role: "system",
-+        content: `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nCKC ckc:studio:delivery (cyc:delivery) — no distinctive guidance.`,
-+      },
-+      { role: "user", content: "Instruire" },
-+    ]);
-+    expect(idOnlyDelivery.text.toLowerCase()).toContain("générique");
-+    expect(idOnlyDelivery.text.toLowerCase()).not.toMatch(/anti scope creep/);
-+  });
-+});
-+
-+describe("Phase B R1 — canonical product-native proof gate", () => {
-+  const completeCanonical = () =>
-+    ({
-+      cycleTypeId: "cyc:delivery",
-+      detailedStatus: "resolved_detailed" as const,
-+      level: "detailed" as const,
-+      status: "resolved" as const,
-+      source: "product_package" as const,
-+      expectedPrimaryReference: "ckc:studio:delivery",
-+      usedReference: "ckc:studio:delivery",
-+      fallbackUsed: false,
-+      catalogVersion: "test",
-+      catalogHash: "sha256:test",
-+      correlationId: "cor:gate",
-+      resolvedAt: "2026-08-23T12:00:00.000Z",
-+      doctrineStatus: "product-studio-native" as const,
-+      executionAuthority: false as const,
-+      consumed: true as const,
-+      disclosures: [] as readonly string[],
-+      ckcId: "ckc:studio:delivery",
-+      doctrinePackageId: DEFAULT_PRODUCT_DOCTRINE_PIN.doctrinePackageId,
-+      packageVersion: DEFAULT_PRODUCT_DOCTRINE_PIN.version,
-+      packageDigest: DEFAULT_PRODUCT_DOCTRINE_PIN.digest,
-+      indexDigest:
-+        "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-+      ckcContractVersion: "0.1.0",
-+      sourceDigest:
-+        "sha256:3318640c67e03090a63e7a37742002926e5baf1b6aad61496d0087d0f562151c",
-+    }) as const;
-+
-+  it("R1-G01: complete canonical flat product-native proof passes", () => {
-+    expect(isProductStudioNativeCkcProof(completeCanonical())).toBe(true);
-+  });
-+
-+  it("R1-G02: product-studio-native + ckcId only fails", () => {
-+    expect(
-+      isProductStudioNativeCkcProof({
-+        cycleTypeId: "cyc:delivery",
-+        detailedStatus: "resolved_detailed",
-+        level: "detailed",
-+        status: "resolved",
-+        source: "product_package",
-+        expectedPrimaryReference: "ckc:studio:delivery",
-+        usedReference: "ckc:studio:delivery",
-+        fallbackUsed: false,
-+        catalogVersion: "test",
-+        catalogHash: "sha256:test",
-+        correlationId: "cor:id-only",
-+        resolvedAt: "2026-08-23T12:00:00.000Z",
-+        doctrineStatus: "product-studio-native",
-+        executionAuthority: false,
-+        consumed: true,
-+        disclosures: [],
-+        ckcId: "ckc:studio:delivery",
-+      }),
-+    ).toBe(false);
-+  });
-+
-+  it("R1-G03: nested packageProvenance alone with incomplete flat proof fails", () => {
-+    expect(
-+      isProductStudioNativeCkcProof({
-+        cycleTypeId: "cyc:delivery",
-+        detailedStatus: "resolved_detailed",
-+        level: "detailed",
-+        status: "resolved",
-+        source: "product_package",
-+        expectedPrimaryReference: "ckc:studio:delivery",
-+        usedReference: "ckc:studio:delivery",
-+        fallbackUsed: false,
-+        catalogVersion: "test",
-+        catalogHash: "sha256:test",
-+        correlationId: "cor:nested",
-+        resolvedAt: "2026-08-23T12:00:00.000Z",
-+        doctrineStatus: "product-studio-native",
-+        executionAuthority: false,
-+        consumed: true,
-+        disclosures: [],
-+        packageProvenance: {
-+          ckcId: "ckc:studio:delivery",
-+          cycleTypeId: "cyc:delivery",
-+          doctrinePackageId: DEFAULT_PRODUCT_DOCTRINE_PIN.doctrinePackageId,
-+          packageVersion: DEFAULT_PRODUCT_DOCTRINE_PIN.version,
-+          contentDigest: "sha256:deadbeef",
-+          doctrineStatus: "product-studio-native",
-+        },
-+      }),
-+    ).toBe(false);
-+  });
-+
-+  it("R1-G04: wrong source fails", () => {
-+    expect(
-+      isProductStudioNativeCkcProof({
-+        ...completeCanonical(),
-+        source: "repository_candidate",
-+      }),
-+    ).toBe(false);
-+  });
-+
-+  it("R1-G05: fallbackUsed true fails", () => {
-+    expect(
-+      isProductStudioNativeCkcProof({
-+        ...completeCanonical(),
-+        fallbackUsed: true,
-+      }),
-+    ).toBe(false);
-+  });
-+
-+  it("R1-G06: missing required digest/provenance fails", () => {
-+    const { indexDigest: _drop, ...missingIndex } = completeCanonical();
-+    expect(isProductStudioNativeCkcProof(missingIndex)).toBe(false);
-+    const { packageDigest: _drop2, ...missingPkg } = completeCanonical();
-+    expect(isProductStudioNativeCkcProof(missingPkg)).toBe(false);
-+  });
-+
-+  it("R1-G07: usedReference mismatch fails", () => {
-+    expect(
-+      isProductStudioNativeCkcProof({
-+        ...completeCanonical(),
-+        usedReference: "ckc:other",
-+      }),
-+    ).toBe(false);
-+  });
-+
-+  it("method-candidate remains false", () => {
-+    expect(
-+      isProductStudioNativeCkcProof({
-+        ...completeCanonical(),
-+        doctrineStatus: "method-candidate",
-+        source: "repository_candidate",
-+      }),
-+    ).toBe(false);
-+  });
-+});
-+
-+describe("Phase B R1 — legacy pre-Phase-B OptionSet cutover", () => {
-+  it("R1-CUT01…04: legacy binding without fingerprint is fail-closed; no HD/promote/Execute", async () => {
-+    const {
-+      computeQualificationDigest,
-+      optionSetObservationId,
-+    } = await import("@/features/project-assistant/w2/presentedOptionSet");
-+    const { LOCAL_PILOTE_ACTOR } = await import("@/lib/oa/decision");
-+
-+    const runtime = bootW2Runtime({
-+      productDbPath: tempProductDbPath("pb-cutover.sqlite"),
-+      idPrefix: "pbcut",
-+    });
-+    const seeded = await seedQualifiedProject(runtime, {
-+      suffix: "cut",
-+      cycleTypeId: "cyc:delivery",
-+    });
-+    const { proposed } = await proposeFor(runtime, seeded.projectId);
-+    expect(proposed.ok).toBe(true);
-+    if (!proposed.ok) return;
-+
-+    const presented = await loadPresentedOptionSet(
-+      runtime.oa!,
-+      seeded.projectId,
-+      proposed.optionSetRef,
-+    );
-+    expect(presented.ok).toBe(true);
-+    if (!presented.ok) return;
-+
-+    // Construct representative pre-Phase-B binding: no fingerprint, legacy digest.
-+    const legacyDigest = computeQualificationDigest({
-+      cycleTypeId: presented.presented.cycleTypeId,
-+      recommendedProfile: presented.presented.recommendedProfile,
-+      criticalSignalsPresent: presented.presented.criticalSignalsPresent,
-+      irreversible: presented.presented.irreversible,
-+      reservations: presented.presented.reservations,
-+      ckcAttribution: presented.presented.ckcAttribution,
-+      ckcSemanticFingerprint: null,
-+    });
-+    const legacyBinding = {
-+      ...presented.presented,
-+      qualificationDigest: legacyDigest,
-+      ckcSemanticFingerprint: null,
-+    };
-+    // Omit fingerprint key to mimic historical JSON shape.
-+    const { ckcSemanticFingerprint: _omit, ...legacyWithoutFp } = legacyBinding;
-+    void _omit;
-+
-+    await runtime.oa!.cycleServices.updateEpistemicState.execute({
-+      projectId: seeded.projectId,
-+      items: [
-+        {
-+          epistemicItemId: optionSetObservationId(proposed.optionSetRef),
-+          type: "Observation",
-+          statement: JSON.stringify(legacyWithoutFp),
-+          status: "active",
-+          source: proposed.optionSetRef,
-+          relatedObjects: [seeded.projectId, proposed.optionSetRef],
-+        },
-+      ],
-+      createdBy: LOCAL_PILOTE_ACTOR,
-+    });
-+
-+    const decisionsBefore =
-+      await runtime.oa!.decisionServices.listDecisionHistory.execute({
-+        projectId: seeded.projectId,
-+      });
-+    const decisionCountBefore = decisionsBefore.ok
-+      ? decisionsBefore.decisions.length
-+      : 0;
-+
-+    const selected =
-+      proposed.options.find((o) => o.optionRef === proposed.recommendation.recommendedOptionRef) ??
-+      proposed.options[0]!;
-+    const decided = await decideTrajectory({
-+      oa: runtime.oa!,
-+      projectId: seeded.projectId,
-+      optionSetRef: proposed.optionSetRef,
-+      options: proposed.options,
-+      recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
-+      selectedOptionRef: selected.optionRef,
-+      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-+      candidateVersion: proposed.proposedTrajectory.version,
-+      epistemicRefs: proposed.epistemicRefs,
-+      reservesText: null,
-+      forceLocalAuthority: true,
-+    });
-+
-+    expect(decided.ok).toBe(false);
-+    if (decided.ok) return;
-+    expect(decided.code).toBe("OPTION_SET_STALE");
-+
-+    const decisionsAfter =
-+      await runtime.oa!.decisionServices.listDecisionHistory.execute({
-+        projectId: seeded.projectId,
-+      });
-+    const decisionCountAfter = decisionsAfter.ok
-+      ? decisionsAfter.decisions.length
-+      : 0;
-+    expect(decisionCountAfter).toBe(decisionCountBefore);
-+
-+    const current = await runtime.oa!.cycleServices.getCurrentTrajectory.execute({
-+      projectId: seeded.projectId,
-+    });
-+    expect(current.ok).toBe(false);
-+  });
-+});
-+
-+describe("Phase B gate + genericity", () => {
-+  it("production cognitive helper has no cycleTypeId branching", async () => {
-+    const fs = await import("node:fs");
-+    const path = await import("node:path");
-+    const file = path.join(
-+      process.cwd(),
-+      "features/project-assistant/f2/ckcCognitiveContext.ts",
-+    );
-+    const text = fs.readFileSync(file, "utf8");
-+    expect(text).not.toMatch(/if\s*\(\s*cycleType\s*===/);
-+    expect(text).not.toMatch(/switch\s*\(\s*cycleTypeId\s*\)/);
-+    expect(text).not.toMatch(/DISTINCTIVE_PHRASES/);
-+  });
-+});
-diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx b/projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx
-index 12fe3207..fc2c1905 100644
---- a/projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx
-@@ -121,7 +121,7 @@ const SUCCESS_RESULT = {
-     requestedConfirmationRestartSafe: false as const,
-     restoredConfirmationIsHistoricalConsentOnly: true as const,
-     w2Cognition: "IN_PROGRESS_NOT_COMPLETE" as const,
--    ckcPhaseBCognition: "NOT_AUTHORIZED_NOT_IMPLEMENTED" as const,
-+    ckcPhaseBCognition: "IMPLEMENTED_DETERMINISTIC_NOT_REAL" as const,
-     messages: [] as const,
-   },
- };
-diff --git a/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts b/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
-index af1714c7..8d5b13c0 100644
---- a/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
-@@ -1,10 +1,14 @@
- /**
-- * W1 bounded CKC→Nora semantic seam.
-+ * W1/W2 CKC→Nora cognitive seam.
-  * Loads resolved product-package CKC through the DoctrinePackage repository seam
-  * and derives attributable Recommendations via the existing conversation provider.
-  * No live OpenAI · no execution authority · no Morris decision.
-+ *
-+ * Phase B: generic Markdown extraction (no cycleType production branching).
-+ * Gate aligns with flat OA CkcConsumptionProof product-native fields.
-  */
-
-+import { createHash } from "node:crypto";
- import {
-   isFakeConversationProviderForced,
-   resolveConversationProvider,
-@@ -28,6 +32,10 @@ export {
-   PRODUCT_DOCTRINE_PACKAGE_ID,
- };
-
-+/**
-+ * Historical marker — MUST NOT appear in Pilote-facing Recommendation rationale
-+ * (R1-03 business-first). Retained for negative assertions only.
-+ */
- export const CKC_ATTRIBUTION_MARKER_PREFIX =
-   "[CKC ATTRIBUTABLE · ckc:studio:" as const;
-
-@@ -41,6 +49,8 @@ export type CkcCognitiveProvenance = {
-   readonly packageVersion: string;
-   readonly contentDigest: string;
-   readonly doctrineStatus: "product-studio-native";
-+  /** Optional package pin digest when available from LPS/proof. */
-+  readonly packageDigest?: string;
- };
-
- export type ProductCkcCognitiveContent = {
-@@ -50,48 +60,172 @@ export type ProductCkcCognitiveContent = {
-   readonly provenance: CkcCognitiveProvenance;
- };
-
--const DISTINCTIVE_PHRASES = [
--  "anti scope creep",
--  "scope creep",
--] as const;
--
--function extractDistinctiveGuidance(markdown: string): string | null {
--  const lower = markdown.toLowerCase();
--  for (const phrase of DISTINCTIVE_PHRASES) {
--    if (lower.includes(phrase)) {
--      return phrase === "anti scope creep"
--        ? "Contrainte CKC : anti scope creep — borner le slice avant toute extension."
--        : "Contrainte CKC : surveiller le scope creep — pas d'élargissement non autorisé.";
--    }
-+export type ExtractedCkcGuidance = {
-+  readonly finality: string | null;
-+  readonly posture: string | null;
-+  readonly signals: string | null;
-+  readonly antiClaims: string | null;
-+  /** Bounded condensed lines for prompt/rationale — derived generically. */
-+  readonly condensed: readonly string[];
-+};
-+
-+/**
-+ * Generic CKC Markdown section extraction.
-+ * No cycleTypeId branching — content comes from the product package.
-+ */
-+export function extractCkcGuidanceFromMarkdown(
-+  markdown: string,
-+): ExtractedCkcGuidance {
-+  const finality = extractSection(markdown, [
-+    /^##\s*Finalité\s*$/im,
-+    /^##\s*Finalite\s*$/im,
-+  ]);
-+  const posture = extractSection(markdown, [
-+    /^##\s*Nora posture(?:\s*&?\s*guidance)?\s*$/im,
-+    /^##\s*Nora posture\s*$/im,
-+  ]);
-+  const signals = extractSection(markdown, [
-+    /^##\s*Signals?\s*$/im,
-+    /^##\s*Signaux\s*$/im,
-+    /^###\s*Guidance(?:\s*\(condensé\))?\s*$/im,
-+    /^###\s*Guidance strategy/im,
-+  ]);
-+  const antiClaims = extractSection(markdown, [
-+    /^##\s*Anti-claims?\s*$/im,
-+    /^##\s*Anti-claim\s*$/im,
-+    /^##\s*Contradictions?\s*$/im,
-+  ]);
-+
-+  const condensed: string[] = [];
-+  pushCondensed(condensed, finality, 180);
-+  pushCondensed(condensed, posture, 220);
-+  pushCondensed(condensed, signals, 220);
-+  pushCondensed(condensed, antiClaims, 160);
-+
-+  if (condensed.length === 0) {
-+    const firstMeaningful = markdown
-+      .split(/\n+/)
-+      .map((l) => l.trim())
-+      .find((l) => l.length > 20 && !l.startsWith("#") && !l.startsWith("|") && !l.startsWith(">"));
-+    if (firstMeaningful) condensed.push(clip(firstMeaningful, 180));
-+  }
-+
-+  return Object.freeze({
-+    finality,
-+    posture,
-+    signals,
-+    antiClaims,
-+    condensed: Object.freeze([...condensed]),
-+  });
-+}
-+
-+function extractSection(
-+  markdown: string,
-+  headers: readonly RegExp[],
-+): string | null {
-+  for (const header of headers) {
-+    const match = header.exec(markdown);
-+    if (!match || match.index === undefined) continue;
-+    const start = match.index + match[0].length;
-+    const rest = markdown.slice(start);
-+    const nextHeader = rest.search(/\n##\s+/);
-+    const body = (nextHeader >= 0 ? rest.slice(0, nextHeader) : rest).trim();
-+    if (body.length > 0) return body;
-   }
-   return null;
- }
-
-+function pushCondensed(
-+  out: string[],
-+  section: string | null,
-+  max: number,
-+): void {
-+  if (!section) return;
-+  const line = section
-+    .split(/\n+/)
-+    .map((l) => l.replace(/^[-*|>]+\s*/, "").trim())
-+    .filter((l) => l.length > 0 && !l.startsWith("| ---") && !l.startsWith("|---"))
-+    .slice(0, 3)
-+    .join(" · ");
-+  if (line) out.push(clip(line, max));
-+}
-+
-+function clip(text: string, max: number): string {
-+  const compact = text.replace(/\s+/g, " ").trim();
-+  return compact.length <= max ? compact : `${compact.slice(0, max - 1)}…`;
-+}
-+
- export function buildCkcCognitivePromptSection(
-   content: ProductCkcCognitiveContent,
-   provenance: CkcCognitiveProvenance = content.provenance,
- ): string {
--  const guidance = extractDistinctiveGuidance(content.markdown);
-+  const guidance = extractCkcGuidanceFromMarkdown(content.markdown);
-   const lines = [
-     `CKC ${provenance.ckcId} (${provenance.cycleTypeId})`,
-     `Package ${provenance.doctrinePackageId}@${provenance.packageVersion}`,
--    guidance ?? "Guidance delivery : implémentation bornée, pas de redesign.",
-+    `contentDigest ${provenance.contentDigest}`,
-+    ...guidance.condensed.map((c) => `Guidance: ${c}`),
-   ];
-+  if (guidance.condensed.length === 0) {
-+    lines.push("Guidance CKC product package applicable.");
-+  }
-   return lines.join(" · ");
- }
-
-+/**
-+ * Business-first Recommendation rationale (R1-03).
-+ * Cognitive guidance may inform the text; CKC IDs / package digests / fingerprints
-+ * must not appear as Pilote-facing prose. Structured provenance is separate.
-+ */
- export function deriveCkcAttributedRecommendation(input: {
-   baseRationale: string;
-   content: ProductCkcCognitiveContent | null;
-+  cognitiveRecommendation?: string | null;
- }): string {
-   if (!input.content) {
-     return input.baseRationale;
-   }
--  const guidance =
--    extractDistinctiveGuidance(input.content.markdown) ??
--    "Guidance CKC product package applicable.";
--  const marker = `${CKC_ATTRIBUTION_MARKER_PREFIX}${input.content.ckcId.replace(/^ckc:studio:/, "")}]`;
--  return `${input.baseRationale} ${marker} ${guidance}`;
-+  const guidance = extractCkcGuidanceFromMarkdown(input.content.markdown);
-+  const guidanceText =
-+    guidance.condensed[0] ??
-+    "Appliquer la guidance cycle applicable avant toute extension.";
-+  const cognitive = scrubTechnicalCkcMechanics(
-+    input.cognitiveRecommendation?.trim() ?? "",
-+  );
-+  if (cognitive) {
-+    return `${input.baseRationale} ${cognitive} · ${guidanceText}`;
-+  }
-+  return `${input.baseRationale} ${guidanceText}`;
-+}
-+
-+/** Strip technical CKC mechanics that must not leak into Pilote-facing prose. */
-+function scrubTechnicalCkcMechanics(text: string): string {
-+  if (!text) return text;
-+  return text
-+    .replace(/\[CKC[^\]]*\]/gi, "")
-+    .replace(/\bckc:studio:[a-z0-9_-]+\b/gi, "")
-+    .replace(/\bdigest\s*=\s*sha256:[a-f0-9]+\b/gi, "")
-+    .replace(/\bfp\s*=\s*sha256:[a-f0-9]+\b/gi, "")
-+    .replace(/\s{2,}/g, " ")
-+    .trim();
-+}
-+
-+/**
-+ * Stable semantic fingerprint for W2 binding (PB-DLV-01).
-+ * Excludes raw provider prose — material CKC identity/content only.
-+ */
-+export function computeCkcSemanticFingerprint(
-+  provenance: CkcCognitiveProvenance,
-+): string {
-+  const payload = [
-+    provenance.cycleTypeId,
-+    provenance.ckcId,
-+    provenance.doctrinePackageId,
-+    provenance.packageVersion,
-+    provenance.contentDigest,
-+    provenance.packageDigest ?? "",
-+  ].join("|");
-+  return `sha256:${createHash("sha256").update(payload, "utf8").digest("hex")}`;
- }
-
- export function loadProductCkcCognitiveContent(input: {
-@@ -136,6 +270,7 @@ export function loadProductCkcCognitiveContent(input: {
-     packageVersion: indexResult.packageVersion,
-     contentDigest: indexEntry.sourceDigest,
-     doctrineStatus: "product-studio-native",
-+    packageDigest: input.packagePin.digest,
-   });
-
-   return Object.freeze({
-@@ -190,18 +325,56 @@ export async function reasonWithResolvedCkcContext(input: {
- export type CkcQualificationProof = CkcQualificationSuccessResult["proof"] & {
-   doctrineStatus?: string;
-   packageProvenance?: CkcCognitiveProvenance;
-+  ckcId?: string;
-+  doctrinePackageId?: string;
-+  packageVersion?: string;
-+  sourceDigest?: string;
-+  packageDigest?: string;
- };
-
-+/**
-+ * Defensive consumer gate aligned with canonical OA flat product-native proof
-+ * (R1-02). Nested packageProvenance alone is NEVER sufficient.
-+ * Does not mutate / compete with CkcConsumptionProof domain.
-+ */
- export function isProductStudioNativeCkcProof(
-   proof: CkcQualificationProof,
--): proof is CkcQualificationProof & {
--  doctrineStatus: "product-studio-native";
--  packageProvenance: CkcCognitiveProvenance;
--} {
--  return (
--    proof.doctrineStatus === "product-studio-native" &&
--    Boolean(proof.packageProvenance?.ckcId)
--  );
-+): boolean {
-+  if (proof.doctrineStatus !== "product-studio-native") return false;
-+  if (proof.detailedStatus !== "resolved_detailed") return false;
-+  if (proof.level !== "detailed") return false;
-+  if (proof.status !== "resolved") return false;
-+  if (proof.source !== "product_package") return false;
-+  if (proof.fallbackUsed !== false) return false;
-+  if (proof.executionAuthority !== false) return false;
-+  if (proof.consumed !== true) return false;
-+
-+  const ckcId = nonEmpty(proof.ckcId);
-+  const doctrinePackageId = nonEmpty(proof.doctrinePackageId);
-+  const packageVersion = nonEmpty(proof.packageVersion);
-+  const packageDigest = nonEmpty(proof.packageDigest);
-+  const indexDigest = nonEmpty(proof.indexDigest);
-+  const ckcContractVersion = nonEmpty(proof.ckcContractVersion);
-+  const sourceDigest = nonEmpty(proof.sourceDigest);
-+  if (
-+    !ckcId ||
-+    !doctrinePackageId ||
-+    !packageVersion ||
-+    !packageDigest ||
-+    !indexDigest ||
-+    !ckcContractVersion ||
-+    !sourceDigest
-+  ) {
-+    return false;
-+  }
-+  if (proof.usedReference !== ckcId) return false;
-+  return true;
-+}
-+
-+function nonEmpty(value: string | undefined | null): string | null {
-+  if (typeof value !== "string") return null;
-+  const trimmed = value.trim();
-+  return trimmed.length > 0 ? trimmed : null;
- }
-
- export function enrichQualificationWithCkcSemantics(input: {
-@@ -228,6 +401,7 @@ export function enrichQualificationWithCkcSemantics(input: {
-   const rationale = deriveCkcAttributedRecommendation({
-     baseRationale: input.qualification.rationale,
-     content,
-+    cognitiveRecommendation: input.ckcCognitiveRecommendation,
-   });
-
-   return {
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-index 1a7a01e3..5ec3c340 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-@@ -58,6 +58,9 @@ export async function w2ProposeTrajectoryOptionsAction(input: {
-     oa: runtime.oa,
-     projectId: input.projectId,
-     ...qualification.qualification.inputs,
-+    packagePin: qualification.qualification.packagePin,
-+    objective: qualification.qualification.objective,
-+    projectTitle: qualification.qualification.projectTitle,
-   });
- }
-
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts b/projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
-index 3bb43041..d5e285c3 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
-@@ -15,7 +15,10 @@
-
- import { randomBytes, randomUUID } from "node:crypto";
- import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
--import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
-+import {
-+  readLiveProjectContext,
-+  resolveProductDoctrineRegistryRoot,
-+} from "@/lib/vertical-slice-runtime";
- import type { DecisionBasis, HumanDecision } from "@/lib/oa/decision";
- import {
-   computeDecisionBasisSourceDigest,
-@@ -23,6 +26,10 @@ import {
-   registerLocalPiloteAuthority,
- } from "@/lib/oa/decision";
- import type { TrajectoryStep } from "@/lib/oa/cycle";
-+import {
-+  computeCkcSemanticFingerprint,
-+  loadProductCkcCognitiveContent,
-+} from "@/features/project-assistant/f2/ckcCognitiveContext";
- import {
-   computeOptionSetDigest,
-   computeQualificationDigest,
-@@ -227,14 +234,24 @@ export async function decideTrajectory(
-       message: liveQualification.message,
-     };
-   }
-+  const currentQual = liveQualification.qualification;
-+  const registryRoot = resolveProductDoctrineRegistryRoot();
-+  const liveCkc = loadProductCkcCognitiveContent({
-+    registryRoot,
-+    cycleTypeId: currentQual.inputs.cycleTypeId,
-+    packagePin: currentQual.packagePin,
-+  });
-+  const liveFingerprint = liveCkc
-+    ? computeCkcSemanticFingerprint(liveCkc.provenance)
-+    : null;
-   const currentQualificationDigest = computeQualificationDigest({
--    cycleTypeId: liveQualification.qualification.inputs.cycleTypeId,
--    recommendedProfile: liveQualification.qualification.inputs.recommendedProfile,
--    criticalSignalsPresent:
--      liveQualification.qualification.inputs.criticalSignalsPresent,
--    irreversible: liveQualification.qualification.inputs.irreversible,
--    reservations: liveQualification.qualification.inputs.reservations,
--    ckcAttribution: liveQualification.qualification.inputs.ckcAttribution,
-+    cycleTypeId: currentQual.inputs.cycleTypeId,
-+    recommendedProfile: currentQual.inputs.recommendedProfile,
-+    criticalSignalsPresent: currentQual.inputs.criticalSignalsPresent,
-+    irreversible: currentQual.inputs.irreversible,
-+    reservations: currentQual.inputs.reservations,
-+    ckcAttribution: currentQual.inputs.ckcAttribution,
-+    ckcSemanticFingerprint: liveFingerprint,
-   });
-   if (currentQualificationDigest !== presented.qualificationDigest) {
-     return {
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/presentedOptionSet.ts b/projects/sfia-studio/app/features/project-assistant/w2/presentedOptionSet.ts
-index 2009d21e..e440e65e 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/presentedOptionSet.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/presentedOptionSet.ts
-@@ -29,6 +29,11 @@ export type QualificationDigestInputs = {
-   readonly irreversible: boolean;
-   readonly reservations: readonly string[];
-   readonly ckcAttribution: string | null;
-+  /**
-+   * Stable CKC semantic fingerprint (PB-DLV-01). Material cycle/CKC/content
-+   * change invalidates binding; raw provider prose is never included.
-+   */
-+  readonly ckcSemanticFingerprint: string | null;
- };
-
- export type PresentedOptionSetBinding = {
-@@ -49,6 +54,7 @@ export type PresentedOptionSetBinding = {
-   readonly irreversible: boolean;
-   readonly reservations: readonly string[];
-   readonly ckcAttribution: string | null;
-+  readonly ckcSemanticFingerprint: string | null;
- };
-
- export function computeQualificationDigest(
-@@ -61,6 +67,7 @@ export function computeQualificationDigest(
-     irreversible: inputs.irreversible,
-     reservations: [...inputs.reservations],
-     ckcAttribution: inputs.ckcAttribution,
-+    ckcSemanticFingerprint: inputs.ckcSemanticFingerprint,
-   });
- }
-
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-index cb7b2074..fb81048d 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-@@ -1,23 +1,36 @@
- /**
-- * W2 Track A — product application path: publish trajectory Options and the
-- * accompanying Recommendation, and materialise the PROPOSED trajectory.
-+ * W2 Track A + Track D Phase B — product application path: publish trajectory
-+ * Options and the accompanying Recommendation, and materialise the PROPOSED
-+ * trajectory.
-  *
-- * Durability follows D-W2-01: what must survive is materialised as durable
-- * Epistemic items (Option / Recommendation / presented OptionSet Observation)
-- * plus one durable `candidate` ProjectTrajectory version. Nothing here promotes
-- * the trajectory and nothing here records a decision — PROPOSED ≠ DECIDED.
-+ * Phase B order (binding):
-+ *   resolve inputs → load product CKC → provider cognition → derive Options →
-+ *   enrich Recommendation → digests → ONLY THEN durable trajectory/epistemic writes.
-  *
-- * D-W2-A3-01 — material reinstruction mints a new candidate version on the same
-- * ProjectTrajectory SoT; exact semantic idempotence may reuse the same version.
-+ * Durability follows D-W2-01. D-W2-A3-01 idempotence uses stable CKC semantic
-+ * fingerprint (not raw provider prose). STOP BEFORE EXECUTE.
-  *
-- * Reuses existing OA use cases only. No parallel engine, no second store.
-+ * Reuses existing OA use cases only. No parallel engine, no Proposal-store.
-  */
-
- import { randomBytes } from "node:crypto";
- import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
--import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
-+import {
-+  readLiveProjectContext,
-+  resolveProductDoctrineRegistryRoot,
-+} from "@/lib/vertical-slice-runtime";
- import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
- import type { ProjectTrajectory, TrajectoryStep } from "@/lib/oa/cycle";
-+import type { DoctrinePackagePin } from "@/lib/oa/doctrine";
-+import {
-+  buildCkcCognitivePromptSection,
-+  computeCkcSemanticFingerprint,
-+  deriveCkcAttributedRecommendation,
-+  loadProductCkcCognitiveContent,
-+  reasonWithResolvedCkcContext,
-+  type CkcCognitiveProvenance,
-+  type ProductCkcCognitiveContent,
-+} from "@/features/project-assistant/f2/ckcCognitiveContext";
- import {
-   computeOptionSetDigest,
-   computeQualificationDigest,
-@@ -34,6 +47,7 @@ import {
-   type TrajectoryOptionInputs,
- } from "./trajectoryOptions";
- import type {
-+  CkcRecommendationProvenanceDto,
-   ProposeTrajectoryOptionsResult,
-   TrajectoryOptionDto,
-   TrajectoryRecommendationDto,
-@@ -91,11 +105,6 @@ function recommendationStatement(
-   return `${recommendation.label} — option recommandée: ${target?.label ?? recommendation.recommendedOptionRef}. ${recommendation.rationale}`;
- }
-
--/**
-- * A3-EPI-01 — when presenting a successor OptionSet, declare supersedes links
-- * so UpdateEpistemicState retires the prior set's Observation, Recommendation,
-- * and corresponding Options (by optionRef). No delete; history stays durable.
-- */
- function withPriorSetSupersedes<T extends object>(
-   item: T,
-   priorEpistemicItemId: string | undefined,
-@@ -104,6 +113,39 @@ function withPriorSetSupersedes<T extends object>(
-   return { ...item, supersedes: priorEpistemicItemId };
- }
-
-+function toProvenanceDto(
-+  provenance: CkcCognitiveProvenance,
-+  fingerprint: string,
-+): CkcRecommendationProvenanceDto {
-+  return Object.freeze({
-+    ckcId: provenance.ckcId,
-+    cycleTypeId: provenance.cycleTypeId,
-+    doctrinePackageId: provenance.doctrinePackageId,
-+    packageVersion: provenance.packageVersion,
-+    contentDigest: provenance.contentDigest,
-+    semanticFingerprint: fingerprint,
-+    doctrineStatus: "product-studio-native",
-+  });
-+}
-+
-+function enrichRecommendationWithCognition(input: {
-+  base: TrajectoryRecommendationDto;
-+  content: ProductCkcCognitiveContent;
-+  cognitiveRecommendation: string;
-+  fingerprint: string;
-+}): TrajectoryRecommendationDto {
-+  const rationale = deriveCkcAttributedRecommendation({
-+    baseRationale: input.base.rationale,
-+    content: input.content,
-+    cognitiveRecommendation: input.cognitiveRecommendation,
-+  });
-+  return {
-+    ...input.base,
-+    rationale,
-+    ckcProvenance: toProvenanceDto(input.content.provenance, input.fingerprint),
-+  };
-+}
-+
- export type ProposeTrajectoryOptionsInput = {
-   readonly oa: RuntimeOaStack;
-   readonly projectId: string;
-@@ -113,8 +155,11 @@ export type ProposeTrajectoryOptionsInput = {
-   readonly criticalSignalsPresent: boolean;
-   readonly irreversible: boolean;
-   readonly reservations: readonly string[];
--  /** W1 bounded CKC seam attribution, or null when unavailable. */
-+  /** Opaque LPS CKC resolution ref (secondary pointer). */
-   readonly ckcAttribution: string | null;
-+  readonly packagePin: DoctrinePackagePin;
-+  readonly objective: string;
-+  readonly projectTitle: string;
-   readonly correlationId?: string;
- };
-
-@@ -127,6 +172,49 @@ export async function proposeTrajectoryOptions(
-     return { ok: false, code: live.code, message: live.message };
-   }
-
-+  // ── Phase B: product-native CKC cognition BEFORE any durable mutation ──
-+  const registryRoot = resolveProductDoctrineRegistryRoot();
-+  const ckcContent = loadProductCkcCognitiveContent({
-+    registryRoot,
-+    cycleTypeId: input.cycleTypeId,
-+    packagePin: input.packagePin,
-+  });
-+  if (!ckcContent) {
-+    return {
-+      ok: false,
-+      code: "CKC_UNAVAILABLE",
-+      message:
-+        "CKC product-native introuvable ou incohérent pour le cycle actif — aucune mutation de trajectoire/OptionSet.",
-+    };
-+  }
-+
-+  const ckcPromptSection = buildCkcCognitivePromptSection(ckcContent);
-+  let cognitiveRecommendation: string;
-+  try {
-+    const reasoning = await reasonWithResolvedCkcContext({
-+      userContent: `Instruire Options/Recommendation pour le cycle ${input.cycleTypeId}`,
-+      projectSummary: [
-+        `name=${input.projectTitle}`,
-+        `objective=${input.objective}`,
-+        `projectId=${input.projectId}`,
-+      ].join(" | "),
-+      intentSummary: `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`,
-+      ckcPromptSection,
-+    });
-+    cognitiveRecommendation = reasoning.recommendation;
-+  } catch (error) {
-+    const detail = error instanceof Error ? error.message : "provider_error";
-+    return {
-+      ok: false,
-+      code: "PROVIDER_COGNITION_FAILED",
-+      message: `Cognition Nora/provider échouée (${detail}) — aucune mutation de trajectoire/OptionSet.`,
-+    };
-+  }
-+
-+  const semanticFingerprint = computeCkcSemanticFingerprint(
-+    ckcContent.provenance,
-+  );
-+
-   const inputs: TrajectoryOptionInputs = {
-     cycleTypeId: input.cycleTypeId,
-     recommendedProfile: input.recommendedProfile,
-@@ -136,7 +224,14 @@ export async function proposeTrajectoryOptions(
-     ckcAttribution: input.ckcAttribution,
-   };
-   const options = deriveTrajectoryOptions(inputs);
--  const recommendation = deriveTrajectoryRecommendation(inputs);
-+  const baseRecommendation = deriveTrajectoryRecommendation(inputs);
-+  const recommendation = enrichRecommendationWithCognition({
-+    base: baseRecommendation,
-+    content: ckcContent,
-+    cognitiveRecommendation,
-+    fingerprint: semanticFingerprint,
-+  });
-+
-   const optionSetRef = `optset:w2-${shortId()}`;
-   const correlationId = input.correlationId ?? `cor:w2-opt-${shortId()}`;
-   const qualificationDigest = computeQualificationDigest({
-@@ -146,6 +241,7 @@ export async function proposeTrajectoryOptions(
-     irreversible: input.irreversible,
-     reservations: input.reservations,
-     ckcAttribution: input.ckcAttribution,
-+    ckcSemanticFingerprint: semanticFingerprint,
-   });
-   const optionSetDigest = computeOptionSetDigest({
-     cycleTypeId: input.cycleTypeId,
-@@ -157,8 +253,6 @@ export async function proposeTrajectoryOptions(
-     recommendedOptionRef: recommendation.recommendedOptionRef,
-   });
-
--  // The proposed trajectory mirrors the recommended option's outline for
--  // presentation. Decide seals the Pilote-selected option's steps (A1).
-   const proposedSteps: TrajectoryStep[] = structuredClone(
-     (options.find((o) => o.optionRef === recommendation.recommendedOptionRef) ??
-       options[0]!).steps,
-@@ -168,7 +262,6 @@ export async function proposeTrajectoryOptions(
-
-   let proposedTrajectoryId: string;
-   let proposedVersion: number;
--  /** Prior candidate version whose OptionSet Observation should be superseded. */
-   let observationSupersedeVersion: number | null = null;
-
-   const existingCandidate =
-@@ -189,14 +282,10 @@ export async function proposeTrajectoryOptions(
-   }
-
-   if (reuseExistingCandidate && existingCandidate) {
--    // A3-1 — exact semantic idempotence: same SoT version, no artificial bump.
-     proposedTrajectoryId = existingCandidate.trajectoryId;
-     proposedVersion = existingCandidate.version;
-     observationSupersedeVersion = existingCandidate.version;
-   } else if (latest) {
--    // D-W2-A3-01 — OCC against lineage HEAD (latest), never client-invented.
--    // Material change on an undecided candidate → vN+1 + supersede vN.
--    // First propose after a decided current → candidate ahead of current.
-     const liveAfterHead = await readLiveProjectContext(oa, input.projectId);
-     if (!liveAfterHead.ok) {
-       return {
-@@ -261,9 +350,6 @@ export async function proposeTrajectoryOptions(
-   const priorOptionRefs = new Set(
-     priorBinding?.options.map((o) => o.optionRef) ?? [],
-   );
--  // Current W2 catalogue always re-emits the same structuring optionRefs.
--  // If a prior Option cannot be retired via an optionRef-matched replacement,
--  // that would require a Morris retirement semantic — fail closed here.
-   if (priorBinding) {
-     for (const priorOption of priorBinding.options) {
-       if (!options.some((o) => o.optionRef === priorOption.optionRef)) {
-@@ -295,23 +381,21 @@ export async function proposeTrajectoryOptions(
-     );
-   });
-
-+  // R1-03: Epistemic Recommendation statement stays business-first.
-+  // Structured audit provenance lives on recommendation.ckcProvenance /
-+  // presented binding / relatedObjects tags — not in Pilote-facing prose.
-   const recommendationItem = withPriorSetSupersedes(
-     {
-       epistemicItemId: optionSetRecommendationId(optionSetRef),
-       type: "Recommendation" as const,
--      // Process/qualification source — CKC attribution is context only.
--      statement: [
--        recommendationStatement(recommendation, options),
--        input.ckcAttribution
--          ? ` CKC context (not semantic cause): ${input.ckcAttribution}.`
--          : " CKC context: none.",
--      ].join(""),
-+      statement: recommendationStatement(recommendation, options),
-       status: "active" as const,
-       source: optionSetRef,
-       relatedObjects: [
-         input.projectId,
-         recommendation.recommendedOptionRef,
-         optionSetRef,
-+        recommendation.ckcProvenance?.ckcId ?? "ckc:none",
-         ...(input.ckcAttribution ? [input.ckcAttribution] : []),
-       ],
-     },
-@@ -344,6 +428,7 @@ export async function proposeTrajectoryOptions(
-     irreversible: input.irreversible,
-     reservations: [...input.reservations],
-     ckcAttribution: input.ckcAttribution,
-+    ckcSemanticFingerprint: semanticFingerprint,
-   };
-
-   const observationItem = withPriorSetSupersedes(
-@@ -392,6 +477,7 @@ export async function proposeTrajectoryOptions(
-     phase: "OPTIONS_PROPOSED",
-     autoDecisionPerformed: false,
-     executionPerformed: false,
-+    ckcCognitionCompletedBeforeMutation: true,
-   };
- }
-
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts b/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
-index 4e66eb70..370ba80d 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
-@@ -7,12 +7,14 @@
-  * set and the recommendation are reproducible for a given project state and a
-  * hostile payload cannot reshape what is proposed or decided.
-  *
-- * This reads the W1 CKC attribution already carried by the LPS. It performs no
-- * cognition and is not a Phase B integration point.
-+ * Phase B: also surfaces doctrine pin fields from LPS for product-native CKC
-+ * load. No Proposal-store / F2 process-local dependency.
-  */
-
- import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
- import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
-+import type { DoctrinePackagePin } from "@/lib/oa/doctrine";
-+import type { Digest } from "@/lib/oa/doctrine/domain/types";
- import type { TrajectoryOptionInputs } from "./trajectoryOptions";
-
- export type ResolvedW2Qualification = {
-@@ -20,6 +22,8 @@ export type ResolvedW2Qualification = {
-   readonly activeCycleInstanceId: string;
-   readonly lpsVersion: number;
-   readonly objective: string;
-+  readonly projectTitle: string;
-+  readonly packagePin: DoctrinePackagePin;
- };
-
- const MAX_REPORTED_RESERVATIONS = 5;
-@@ -77,6 +81,12 @@ export async function resolveW2QualificationInputs(input: {
-       )
-     : false;
-
-+  const packagePin: DoctrinePackagePin = Object.freeze({
-+    doctrinePackageId: live.context.doctrinePackageId,
-+    version: live.context.doctrineVersion,
-+    digest: live.context.doctrineDigest as Digest,
-+  });
-+
-   return {
-     ok: true,
-     qualification: {
-@@ -91,6 +101,8 @@ export async function resolveW2QualificationInputs(input: {
-       activeCycleInstanceId: cycleInstanceId,
-       lpsVersion: live.context.lpsVersion,
-       objective: live.context.objective,
-+      projectTitle: live.context.projectTitle,
-+      packagePin,
-     },
-   };
- }
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
-index e3f4ce4e..957ddada 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
-@@ -173,6 +173,7 @@ export function deriveTrajectoryRecommendation(
-       isHumanDecision: false,
-       promotesTrajectory: false,
-       ckcAttribution: inputs.ckcAttribution,
-+      ckcProvenance: null,
-     };
-   }
-   if (inputs.criticalSignalsPresent || inputs.recommendedProfile === "Critical") {
-@@ -184,6 +185,7 @@ export function deriveTrajectoryRecommendation(
-       isHumanDecision: false,
-       promotesTrajectory: false,
-       ckcAttribution: inputs.ckcAttribution,
-+      ckcProvenance: null,
-     };
-   }
-   return {
-@@ -194,5 +196,6 @@ export function deriveTrajectoryRecommendation(
-     isHumanDecision: false,
-     promotesTrajectory: false,
-     ckcAttribution: inputs.ckcAttribution,
-+    ckcProvenance: null,
-   };
- }
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/types.ts b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
-index 474590ae..19655ba4 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/types.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
-@@ -23,6 +23,16 @@ export type TrajectoryOptionDto = {
-   readonly steps: readonly TrajectoryStep[];
- };
-
-+export type CkcRecommendationProvenanceDto = {
-+  readonly ckcId: string;
-+  readonly cycleTypeId: string;
-+  readonly doctrinePackageId: string;
-+  readonly packageVersion: string;
-+  readonly contentDigest: string;
-+  readonly semanticFingerprint: string;
-+  readonly doctrineStatus: "product-studio-native";
-+};
-+
- export type TrajectoryRecommendationDto = {
-   readonly label: "RECOMMANDATION — PAS UNE DÉCISION";
-   readonly recommendedOptionRef: string;
-@@ -35,6 +45,11 @@ export type TrajectoryRecommendationDto = {
-    * Absent attribution is reported honestly rather than invented.
-    */
-   readonly ckcAttribution: string | null;
-+  /**
-+   * Phase B reconstructible package/CKC provenance (audit).
-+   * Business-first rationale remains above; raw CKC markdown is never stored here.
-+   */
-+  readonly ckcProvenance: CkcRecommendationProvenanceDto | null;
- };
-
- export type TrajectoryDecisionPhase =
-@@ -82,6 +97,8 @@ export type TrajectoryOptionSetDto = {
-   readonly phase: "OPTIONS_PROPOSED";
-   readonly autoDecisionPerformed: false;
-   readonly executionPerformed: false;
-+  /** Phase B ordering proof: cognition completed before durable mutation. */
-+  readonly ckcCognitionCompletedBeforeMutation: true;
- };
-
- export type W2Failure = {
-diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-index 35672d38..c9e5894a 100644
---- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-+++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-@@ -65,14 +65,34 @@ export class FakeConversationProvider implements ConversationProvider {
-         m.content.includes("SFIA Studio CKC COGNITIVE REASONING"),
-       )
-     ) {
--      const hasCkcContext = messages.some(
--        (m) =>
--          m.content.toLowerCase().includes("anti scope creep") ||
--          m.content.includes("ckc:studio:delivery"),
--      );
--      if (hasCkcContext) {
-+      // Specialized Fake CKC cognition keys off CONTENT markers only.
-+      // CKC IDs (ckc:studio:*) must never trigger specialized behavior (R1-01).
-+      const joined = messages.map((m) => m.content).join("\n").toLowerCase();
-+      const hasSecurity =
-+        joined.includes("risque résiduel") ||
-+        joined.includes("risque residuel") ||
-+        joined.includes("adversarial") ||
-+        joined.includes("secret en repo");
-+      const hasDelivery =
-+        joined.includes("anti scope creep") ||
-+        joined.includes("scope creep") ||
-+        joined.includes("implémentation bornée") ||
-+        joined.includes("implementation bornee");
-+      if (hasSecurity) {
-         return {
--          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — anti scope creep : borner le slice avant toute extension. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
-+          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — posture adversarial : risque résiduel majeures → HumanDecision explicite ; secret en repo → STOP. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
-+          usage: {
-+            inputTokens: 10 * this.callCount,
-+            outputTokens: 5 * this.callCount,
-+            totalTokens: 15 * this.callCount,
-+            model: "fake-test-model",
-+            providerResponseId: `fake-resp-${this.callCount}`,
-+          },
-+        };
-+      }
-+      if (hasDelivery) {
-+        return {
-+          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — anti scope creep : borner le slice avant toute extension ; pas de silent REAL ; Evidence/done honnête. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
-           usage: {
-             inputTokens: 10 * this.callCount,
-             outputTokens: 5 * this.callCount,
-diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts
-index d8ab14e6..31d63580 100644
---- a/projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts
-+++ b/projects/sfia-studio/app/lib/vertical-slice-runtime/disclosures.ts
-@@ -6,8 +6,8 @@ import "./serverGuard";
-  * ProjectTrajectory/materialized Epistemic/granted Confirmation are Product SQLite
-  * restart-safe on the Product path; conversation/proposal/requested Confirmation
-  * remain process-local.
-- * Not a product-ready / v3-ADOPTED / Cursor REAL / Gate D / W2-complete /
-- * CKC Phase B claim surface.
-+ * Not a product-ready / v3-ADOPTED / Cursor REAL / Gate D / W2-complete claim
-+ * surface. Bounded Phase B cognition may be IMPLEMENTED_DETERMINISTIC_NOT_REAL.
-  */
- export interface RuntimeDisclosures {
-   readonly runtimeMode: "LOCAL_PROCESS";
-@@ -41,8 +41,12 @@ export interface RuntimeDisclosures {
-   readonly restoredConfirmationIsHistoricalConsentOnly: true;
-   /** W2 capability is under delivery — never presented as complete. */
-   readonly w2Cognition: "IN_PROGRESS_NOT_COMPLETE";
--  /** CKC Phase B cognition integration requires a distinct Morris GO — not consumed. */
--  readonly ckcPhaseBCognition: "NOT_AUTHORIZED_NOT_IMPLEMENTED";
-+  /**
-+   * Bounded W2 Track D Phase B: product-native CKC cognition on the W2 path,
-+   * deterministic Fake proof only. NOT REAL, NOT full CKC track, NOT W2 closed,
-+   * runtime v3 NON ADOPTED.
-+   */
-+  readonly ckcPhaseBCognition: "IMPLEMENTED_DETERMINISTIC_NOT_REAL";
-   readonly messages: readonly string[];
- }
-
-@@ -63,7 +67,7 @@ export const RUNTIME_DISCLOSURE_MESSAGES: readonly string[] = Object.freeze([
-   "Delivery and cutover are not authorized.",
-   "Runtime v3 is not ADOPTED.",
-   "W2 cognition/trajectory/decision capability is in progress — not complete.",
--  "CKC Phase B cognition integration is NOT authorized and NOT implemented (distinct Morris GO required).",
-+  "CKC Phase B bounded cognition is IMPLEMENTED with DETERMINISTIC proof only — NOT REAL, NOT full CKC track, W2 NOT closed, runtime v3 NON ADOPTED.",
- ]);
-
- export const RUNTIME_DISCLOSURES: RuntimeDisclosures = Object.freeze({
-@@ -86,7 +90,7 @@ export const RUNTIME_DISCLOSURES: RuntimeDisclosures = Object.freeze({
-   requestedConfirmationRestartSafe: false,
-   restoredConfirmationIsHistoricalConsentOnly: true,
-   w2Cognition: "IN_PROGRESS_NOT_COMPLETE",
--  ckcPhaseBCognition: "NOT_AUTHORIZED_NOT_IMPLEMENTED",
-+  ckcPhaseBCognition: "IMPLEMENTED_DETERMINISTIC_NOT_REAL",
-   messages: RUNTIME_DISCLOSURE_MESSAGES,
- });
-
-diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/index.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/index.ts
-index 8f9f75dc..871f3c92 100644
---- a/projects/sfia-studio/app/lib/vertical-slice-runtime/index.ts
-+++ b/projects/sfia-studio/app/lib/vertical-slice-runtime/index.ts
-@@ -19,7 +19,7 @@ export {
-   toRuntimeProjectListItem,
-   toRuntimeProjectState,
- } from "./mapping";
--export { resolveDefaultVerticalSliceRoots } from "./paths";
-+export { resolveDefaultVerticalSliceRoots, resolveProductDoctrineRegistryRoot } from "./paths";
- export {
-   RuntimeApplicationService,
-   createRuntimeApplicationService,
-```
-
-## J. Remaining debt
-
-- PB-RES-REAL-01
-- full CKC track W3
-- Roadmap post-Delivery sync
-- W2 final closure
-- FinOps FREEZE
-- historical w2Eabc header comment debt (NON-BLOCKING)
-
-## K. Anti-claims
-
-- deterministic ≠ REAL
-- bounded Phase B ≠ full CKC track
-- Phase B integrated ≠ W2 closed
-- Recommendation ≠ HumanDecision
-- CKC ≠ execution authority
-- no Execute
-- C6 CLOSED
-- FinOps FREEZE
-- runtime v3 NON ADOPTED
-- Product Completion incomplete
-- Draft PR ≠ merge authorization
-
-## L. Verdict
-
-**PHASE B DRAFT PR READY FOR CHATGPT PR READINESS REVIEW — MERGE NOT AUTHORIZED**
-
-### Final Git status snapshot
-```
-branch: delivery/sfia-studio-w2-track-d-phase-b
-HEAD: 1cdf4b41270cffe31be28e02e3effe17a1b15477
-origin/main: 40de367e2a5a74423f3cab843b7e7a0d1f9879df
-remote delivery: 1cdf4b41270cffe31be28e02e3effe17a1b15477
+branch: docs/sfia-studio-w2-phase-b-post-merge-roadmap-sync
+HEAD: e4a93fea77c7edd01c4e6fc2d47455db14e102e8
+origin/main: e4a93fea77c7edd01c4e6fc2d47455db14e102e8
 status --short:
+M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 ?? .tmp-sfia-review/
 ?? projects/eventops-poc/
 ?? projects/flex-office-demo/
+diff --name-only: projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+diff --cached: (empty)
 ```
+
+## D. Post-merge evidence
+
+| Item | Value |
+|---|---|
+| PR | **#403 MERGED** |
+| head | `1cdf4b41270cffe31be28e02e3effe17a1b15477` |
+| merge | `e4a93fea77c7edd01c4e6fc2d47455db14e102e8` |
+| PR-head CI | **`32645232920` SUCCESS** · Required Gate PASS |
+| head→merge content delta | **0 files** |
+| Distinct post-merge push/main CI | **FOUND during Cursor discovery** — run **`32646038871` SUCCESS** · event `push` · headSha `e4a93fea…` · Detect / Build+validate / Required Gate all **success** · URL https://github.com/mcleland147/sfia-workspace/actions/runs/32646038871 |
+
+Roadmap records both PR-head CI and this distinct push/main CI (honest discovery; not invented).
+
+## E. Before / after forward trajectory
+
+### Before (active)
+- NEXT CAPACITY = Track D / bounded CKC Phase B qualification
+- GO Phase B NOT CONSUMED
+- Phase B not started / next ordered step = Phase B qualification
+
+### After (active)
+- Track D / bounded CKC Phase B **INTEGRATED ON MAIN** (PR #403)
+- DETERMINISTIC PROVEN
+- NEXT CAPACITY = **W2 FINAL CLOSURE QUALIFICATION**
+- W2 NOT FINALLY CLOSED
+- W3 NOT STARTED / NOT AUTHORIZED
+- REAL OUT · FinOps FREEZE · C6 CLOSED · runtime v3 NON ADOPTED
+
+## F. Exact Roadmap sections modified
+
+1. Snapshot Git courant
+2. Timestamp maintenance courant (new Phase B post-merge)
+3. Previous W2-G3 timestamp → historique (superseded)
+4. W2-G2 historique supersession note updated
+5. Morris trajectory decision (post-C6 / CKC) NOW row
+6. New milestone: Product Completion W2 Track D / bounded CKC Phase B
+7. W2-G3 Delivery row anti-claim refresh
+8. Gates courants
+9. CURRENT REPOSITORY TRANSITION / NEXT ORDERED STEP / NEXT PRODUCT CAPABILITY
+10. D-W2-02 status + W2-G2 anti-claims
+11. M5 Next convergence / product / immediate gates
+12. Pre-M6 Remaining / Future work / Next after / Next Morris product gate
+13. PRODUCT-COMPLETION Statut + Next cycle
+14. V3-F01 / F05 / F06 foundation rows
+15. DoctrinePackage / Studio CKC corpus rows (Phase B integrated honesty)
+16. Product Completion sequence CURRENT/NEXT bullets
+
+## G. Complete exploitable modified content
+
+```diff
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+index d177daea..62a3bd7f 100644
+--- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
++++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+@@ -6,9 +6,10 @@
+ | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
+ | **Doctrine cible** | SFIA Studio v3 framing `30`–`37` (destination produit) |
+ | **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
+-| **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; ce document **≠** embed permanent `origin/main` HEAD)* · **Référence de maintenance / entrée post-merge W2-G3** = PR **#400 MERGED** · delivery head `a276f170faece84a2121f5fe5796c24ae443674d` · merge `dd852243a652e85cce455a68fae5ac7aa13d2bea` · PR-head CI **`32632461315` SUCCESS / Required Gate PASS** · push/main CI **`32633308148` SUCCESS** · **W2-G3 E+A+B+C INTEGRATED ON MAIN** · FinOps/T7 **FREEZE** (D-W2-CI-FINOPS-FREEZE-01) · FinOps PostgreSQL **NOT REQUIRED** on Studio core gate · T7-C04 **DEFERRED** · W1 Delivery PR **#395 MERGED** · W2 readiness PR **#398 MERGED** · **W2-G1 INTEGRATED** · **W2-G2 DECIDED** · D-W2-01…04 **ADOPTED** · W2 **NOT FINALLY CLOSED** · Track D / bounded CKC Phase B = **NEXT CAPACITY** · GO Phase B distinct **NOT CONSUMED** · C6 **CLOSED** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · Product Completion **NON TERMINÉE** · **≠** Phase B complete · **≠** FinOps PASS · **≠** W2 closed |
+-| **Timestamp maintenance courant** | 2026-08-23 12:25 CEST (+0200) — **W2-G3 POST-MERGE TRUTH SYNC** — `origin/main` HEAD **RESOLVE FROM REPOSITORY** · PR **#400 MERGED** · delivery head `a276f170…` · merge `dd852243…` · PR-head CI **`32632461315` SUCCESS** · push/main CI **`32633308148` SUCCESS** · **W2-G3 E+A+B+C INTEGRATED ON MAIN** · governed H→N trajectory through authority boundary · **STOP BEFORE EXECUTE** · D-W2-CI-FINOPS-FREEZE-01 **ADOPTED** · FinOps/T7 **FREEZE** · T7-C04 **DEFERRED** · W2 **NOT FINALLY CLOSED** · **NEXT CAPACITY** = Track D / bounded CKC Phase B qualification · **NEXT DECISION GATE** = distinct Morris GO Phase B · GO Phase B **NOT CONSUMED** · C6 **CLOSED** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · **≠** FinOps fixed/PASS · **≠** Phase B started · **≠** W2 closed · **≠** Product Completion terminée |
+-| **Timestamp maintenance historique W2-G2 decision truth sync** | 2026-08-23 02:36 CEST (+0200) — **W2-G2 DECISION TRUTH SYNC** — *(historique · superseded by W2-G3 post-merge truth sync)* — `origin/main` HEAD **RESOLVE FROM REPOSITORY** · W2-G1 **INTEGRATED ON MAIN** · PR **#398 MERGED** · merge `8df647c5e7db8a82c9c3b578ee1603e0851cc579` · push/main CI **`32607589306` SUCCESS** · W2-G2 **DECIDED BY MORRIS** · D-W2-01…04 **ADOPTED** · W2-G2 truth sync Git integration evidence = **RESOLVE FROM REPOSITORY** · W2-G3 **NOT AUTHORIZED** *(true at that timestamp · later satisfied by PR #400)* · GO Phase B distinct **NOT CONSUMED** · W2 Delivery **NOT AUTHORIZED** *(true at that timestamp)* · REAL **ZERO** · runtime v3 **NON ADOPTED** · **≠** Phase B started · **≠** W2 implemented · **≠** post-merge candidate SHA/CI embed loop |
++| **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; ce document **≠** embed permanent `origin/main` HEAD)* · **Référence de maintenance / entrée post-merge Phase B** = PR **#403 MERGED** · Phase B project head `1cdf4b41270cffe31be28e02e3effe17a1b15477` · merge `e4a93fea77c7edd01c4e6fc2d47455db14e102e8` · PR-head CI **`32645232920` SUCCESS / Required Gate PASS** · head→merge content delta **0 files** · push/main CI **`32646038871` SUCCESS / Required Gate PASS** *(attached to merge `e4a93fea…`)* · **Track D / bounded CKC Phase B INTEGRATED ON MAIN** · proof **DETERMINISTIC PROVEN** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · W1 Delivery PR **#395 MERGED** · W2 readiness PR **#398 MERGED** · **W2-G1 INTEGRATED** · **W2-G2 DECIDED** · D-W2-01…04 **ADOPTED** · **W2-G3 E+A+B+C INTEGRATED** (PR **#400**) · W2 **NOT FINALLY CLOSED** · **NEXT CAPACITY** = **W2 FINAL CLOSURE QUALIFICATION** · W3 **NOT STARTED / NOT AUTHORIZED** · FinOps/T7 **FREEZE** (D-W2-CI-FINOPS-FREEZE-01) · FinOps PostgreSQL **NOT REQUIRED** on Studio core gate · T7-C04 **DEFERRED** · C6 **CLOSED** · Execute **OUT** · REAL **OUT / NOT CONSUMED** · runtime v3 **NON ADOPTED** · Product Completion **NON TERMINÉE** · **≠** W2 closed · **≠** W3 authorized · **≠** REAL BOUNDARY PROVEN · **≠** FinOps PASS |
++| **Timestamp maintenance courant** | 2026-08-23 16:48 CEST (+0200) — **W2 TRACK D / BOUNDED CKC PHASE B POST-MERGE TRUTH SYNC** — `origin/main` HEAD **RESOLVE FROM REPOSITORY** · PR **#403 MERGED** · Phase B head `1cdf4b41270cffe31be28e02e3effe17a1b15477` · merge `e4a93fea77c7edd01c4e6fc2d47455db14e102e8` · PR-head CI **`32645232920` SUCCESS / Required Gate PASS** · head→merge **0-file content delta** · push/main CI **`32646038871` SUCCESS / Required Gate PASS** · **bounded Phase B INTEGRATED ON MAIN** · **DETERMINISTIC PROVEN** · Phase B GO / R1 GO / Git integration GO **CONSUMED historically** · W2 **NOT FINALLY CLOSED** · **NEXT CAPACITY** = **W2 FINAL CLOSURE QUALIFICATION** *(distinct cycle · NOT STARTED)* · W3 **NOT STARTED / NOT AUTHORIZED** · full CKC track **DOWNSTREAM W3** · PB-RES-REAL-01 **OPEN** · FinOps/T7 **FREEZE** · T7-C04 **DEFERRED** · C6 **CLOSED** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · Product Completion **NON TERMINÉE** · **≠** W2 closed · **≠** W3 GO · **≠** REAL · **≠** FinOps PASS |
++| **Timestamp maintenance historique W2-G3 post-merge truth sync** | 2026-08-23 12:25 CEST (+0200) — **W2-G3 POST-MERGE TRUTH SYNC** — *(historique · superseded by Phase B post-merge truth sync)* — `origin/main` HEAD **RESOLVE FROM REPOSITORY** · PR **#400 MERGED** · delivery head `a276f170…` · merge `dd852243…` · PR-head CI **`32632461315` SUCCESS** · push/main CI **`32633308148` SUCCESS** · **W2-G3 E+A+B+C INTEGRATED ON MAIN** · governed H→N trajectory through authority boundary · **STOP BEFORE EXECUTE** · D-W2-CI-FINOPS-FREEZE-01 **ADOPTED** · FinOps/T7 **FREEZE** · T7-C04 **DEFERRED** · W2 **NOT FINALLY CLOSED** · **NEXT CAPACITY** *(true at that timestamp)* = Track D / bounded CKC Phase B qualification · **NEXT DECISION GATE** *(true at that timestamp)* = distinct Morris GO Phase B · GO Phase B **NOT CONSUMED** *(true at that timestamp · later CONSUMED · Phase B INTEGRATED via PR #403)* · C6 **CLOSED** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · **≠** FinOps fixed/PASS · **≠** Phase B started *(true then)* · **≠** W2 closed · **≠** Product Completion terminée |
++| **Timestamp maintenance historique W2-G2 decision truth sync** | 2026-08-23 02:36 CEST (+0200) — **W2-G2 DECISION TRUTH SYNC** — *(historique · superseded by W2-G3 post-merge then Phase B post-merge truth sync)* — `origin/main` HEAD **RESOLVE FROM REPOSITORY** · W2-G1 **INTEGRATED ON MAIN** · PR **#398 MERGED** · merge `8df647c5e7db8a82c9c3b578ee1603e0851cc579` · push/main CI **`32607589306` SUCCESS** · W2-G2 **DECIDED BY MORRIS** · D-W2-01…04 **ADOPTED** · W2-G2 truth sync Git integration evidence = **RESOLVE FROM REPOSITORY** · W2-G3 **NOT AUTHORIZED** *(true at that timestamp · later satisfied by PR #400)* · GO Phase B distinct **NOT CONSUMED** *(true at that timestamp)* · W2 Delivery **NOT AUTHORIZED** *(true at that timestamp)* · REAL **ZERO** · runtime v3 **NON ADOPTED** · **≠** Phase B started · **≠** W2 implemented · **≠** post-merge candidate SHA/CI embed loop |
+ | **Timestamp maintenance historique G2 pre-W1** | 2026-08-22 16:00 CEST (+0200) — **G2 PRODUCT DOCTRINEPACKAGE MATERIALIZATION DECISION TRUTH SYNC** — *(historique · superseded by W1 post-merge truth sync)* — G1 **CLOSED** (PR #393 merge `7750b2a…` · CI #274 SUCCESS) · G2 Morris decision **`pkg:sfia-studio-doctrine-v3@1.0.0`** · materialization **OPTION A** · resolver/repository **KEEP** · binding **D02 OPTION B** · fallback **NONE** · fixture quarantine/test-only → retire later · **implementation NOT AUTHORIZED until G3** *(true at that timestamp · later satisfied by W1)* · G2 Git sync was then **branch/PR candidate until merge** · **G3 NOT AUTHORIZED** *(true at that timestamp)* · product package runtime **NOT MATERIALIZED** *(true at that timestamp)* · REAL **ZERO** · runtime v3 **NON ADOPTED** |
+ | **Timestamp maintenance historique pre-W1 truth sync** | 2026-08-22 13:50 CEST (+0200) — **PRODUCT COMPLETION PRE-W1 GIT TRUTH SYNC + PACKAGE DECISION PREP** — *(historique · superseded by G2 truth sync then W1 post-merge)* — Backlog Cycle 5 **VALIDATED BY MORRIS** · 5 Epics · 4 Waves · P0/P1 cut-line · réserve R5 non bloquante · W1 **Truth / Context / Continuity** selected · W1 readiness **CHATGPT QUALIFIED** — macro scope + architecture sufficient · **NO STRUCTURAL ARCHITECTURE GAP** · C6 implement-only · D01/D02/D05 sufficient · active gates **G1** Git truth (integration candidate) · **G2** Product DoctrinePackage materialization **OPEN** · **G3** W1 Delivery **NOT AUTHORIZED** · Track A **∥** Track B candidate · Phase A → bounded Nora seam W1 · full Phase B later · REAL **ZERO** · runtime v3 **NON ADOPTED** · **≠** Delivery · **≠** packageVersion decided · **≠** product package materialized |
+ | **Timestamp maintenance historique PR #391 post-merge** | 2026-08-22 10:54 CEST (+0200) — **DOCTRINEPACKAGE / RUNTIME CKC PR #391 POST-MERGE TRUTH CLOSURE** — *(historique · superseded by pre-W1 truth sync maintenance)* — PR **#390 MERGED** · PR **#391 MERGED** · `origin/main` @ `5c3bc58ee9b64f8ba419778f594a249187d053d7` · Product Backlog **NOT OPEN** · next step = DoctrinePackage requalification candidate |
+@@ -47,21 +48,22 @@
+ | **Product Completion Functional Architecture (Cycle 3)** | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · path : `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md` · PR **#378 MERGED** · head `1018aa79d1d8ebb8783d11ce25ff08036764e87e` · merge `18b89ec9d6f1a91f8ff49df9c895299b6676b572` · PR CI **#240 SUCCESS** · post-merge CI **#241 SUCCESS** · post-merge sync PR **#379 MERGED** · sync head `0aa644d935b5df1ba7f4c2278fd63320555b9f6a` · sync merge `134f4105fea09543a100749e74ca5e3be32bfda2` · PR CI **#242 SUCCESS** · post-merge CI **#243 SUCCESS** · final closure PR **#380 MERGED** · head `53aeceea…` · merge `14329c60…` · post-merge CI **#245 SUCCESS** · **POST-MERGE COHERENCE COMPLETE** · PM-R01 **CLOSED** · PM-R02 **CLOSED** · FC-01…FC-15 **APPROVED** · OA-aligned Option A + thin orchestration C **APPROVED** · no parallel architecture · targeted durability technical delta **QUALIFIED** then **partially realized via W1** · FA-R01…FA-R12 **CLOSED** · C1 §H/J.1 + C2 A→W preserved · H-01…H-04 **CARRY** · Confirmation **runtime** durability **IMPLEMENTED AT W1 SCOPE** (requested ephemeral / granted+ durable · PR #395) · ProjectTrajectory durability **IMPLEMENTED AT W1 SCOPE** (PR #395) · **downstream gaps remain** (HD/replan liaison complète · Recovery E2E · taxonomie épistémique complète → W2/W3) · UAT **OPEN** · SC-02 **NON-BLOCKING** · **RESERVE-GOV-EC-ORDER CLOSED** · Pre-M6 debt **CARRY** · source branch cleanup **NOT PERFORMED** · **≠** Architecture technique fully exhausted · **≠** Product Completion terminée · **≠** REAL |
+ | **RESERVE-GOV-EC-ORDER** | **CLOSED ON MAIN** via PR **#381** — Build Doctrine execution order aligned with validated C2 / Functional Architecture : HumanDecision → EC Prepare → EC Inspect → Confirmation if required → effective authority → Execute · Confirmation **runtime** durability **IMPLEMENTED AT W1 SCOPE** (PR #395) · remaining continuity/authority gaps stay **DOWNSTREAM** · ≠ reserve reopen |
+ | **Morris trajectory decision (post-FA requalification)** | **HISTORICAL** — Governance EC Order Sync → C6 → Next-Cycle Requalification *(superseded for forward path by CKC-first)* |
+-| **Morris trajectory decision (post-C6 / CKC)** | **SUPERSEDED FOR FORWARD PATH** — CKC-first + G2 + W1 Delivery completed · **NOW:** W1 **INTEGRATED ON MAIN** (PR **#395**) · W2 readiness **INTEGRATED ON MAIN** (PR **#398**) · **W2-G1 INTEGRATED** · **W2-G2 DECIDED** · D-W2-01…04 **ADOPTED** · **W2-G3 E+A+B+C INTEGRATED ON MAIN** (PR **#400** / merge `dd852243…`) · FinOps/T7 **FREEZE** · W2 **NOT FINALLY CLOSED** · **NEXT CAPACITY** = Track D / bounded CKC Phase B qualification · GO Phase B distinct **NOT CONSUMED** · **≠** Phase B complete · **≠** Product Completion terminée · **≠** REAL · runtime v3 **NON ADOPTED** |
+-| **Product Completion W2-G3 Delivery** | **INTEGRATED ON MAIN** · PR **#400 MERGED** · delivery head `a276f170faece84a2121f5fe5796c24ae443674d` · merge `dd852243a652e85cce455a68fae5ac7aa13d2bea` · PR-head CI **`32632461315` SUCCESS / Required Gate PASS** · push/main CI **`32633308148` SUCCESS** · E+A+B+C governed trajectory: Options / Recommendation / HumanDecision / EC inspect / conditional Confirmation / authority+executor sufficiency · **STOP BEFORE EXECUTE** · ProjectTrajectory SoT **KEEP** · C6 **CLOSED** · D-W2-CI-FINOPS-FREEZE-01 **ADOPTED** · FinOps/T7 **FREEZE** · T7-C04 **DEFERRED** · **≠** Track D / Phase B consumed · **≠** W2 finally closed · **≠** Execute · **≠** REAL · **≠** FinOps PASS · runtime v3 **NON ADOPTED** |
++| **Morris trajectory decision (post-C6 / CKC)** | **SUPERSEDED FOR FORWARD PATH** — CKC-first + G2 + W1 Delivery completed · **NOW:** W1 **INTEGRATED ON MAIN** (PR **#395**) · W2 readiness **INTEGRATED ON MAIN** (PR **#398**) · **W2-G1 INTEGRATED** · **W2-G2 DECIDED** · D-W2-01…04 **ADOPTED** · **W2-G3 E+A+B+C INTEGRATED ON MAIN** (PR **#400** / merge `dd852243…`) · **Track D / bounded CKC Phase B INTEGRATED ON MAIN** (PR **#403** / head `1cdf4b41…` / merge `e4a93fea…`) · Phase B **DETERMINISTIC PROVEN** · Phase B GO **CONSUMED historically** · FinOps/T7 **FREEZE** · W2 **NOT FINALLY CLOSED** · **NEXT CAPACITY** = **W2 FINAL CLOSURE QUALIFICATION** · full CKC closure **DOWNSTREAM W3** · W3 **NOT STARTED / NOT AUTHORIZED** · **≠** W2 closed · **≠** Product Completion terminée · **≠** REAL · runtime v3 **NON ADOPTED** |
++| **Product Completion W2 Track D / bounded CKC Phase B** | **INTEGRATED ON MAIN** · PR **#403 MERGED** · head `1cdf4b41270cffe31be28e02e3effe17a1b15477` · merge `e4a93fea77c7edd01c4e6fc2d47455db14e102e8` · PR-head CI **`32645232920` SUCCESS / Required Gate PASS** · head→merge **0-file content delta** · push/main CI **`32646038871` SUCCESS / Required Gate PASS** · D-W2-02 / US-P1-14 / REQ-24 · product-native CKC cognition before Options/Recommendation · delivery + security via **same generic product path** · Recommendation remains Recommendation · no automatic HumanDecision · no authority from CKC · **STOP BEFORE EXECUTE** · legacy OptionSet cutover fail-closed · business-first Pilote output · structured provenance retained · proof **DETERMINISTIC PROVEN** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · W2 **NOT FINALLY CLOSED** · full CKC track **DOWNSTREAM W3** · C6 **CLOSED** · FinOps/T7 **FREEZE** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · **≠** W2 closed · **≠** full CKC completion · **≠** REAL BOUNDARY PROVEN · **≠** W3 authorized |
++| **Product Completion W2-G3 Delivery** | **INTEGRATED ON MAIN** · PR **#400 MERGED** · delivery head `a276f170faece84a2121f5fe5796c24ae443674d` · merge `dd852243a652e85cce455a68fae5ac7aa13d2bea` · PR-head CI **`32632461315` SUCCESS / Required Gate PASS** · push/main CI **`32633308148` SUCCESS** · E+A+B+C governed trajectory: Options / Recommendation / HumanDecision / EC inspect / conditional Confirmation / authority+executor sufficiency · **STOP BEFORE EXECUTE** · ProjectTrajectory SoT **KEEP** · C6 **CLOSED** · D-W2-CI-FINOPS-FREEZE-01 **ADOPTED** · FinOps/T7 **FREEZE** · T7-C04 **DEFERRED** · Phase B later **INTEGRATED** via PR **#403** · **≠** W2 finally closed · **≠** Execute · **≠** REAL · **≠** FinOps PASS · runtime v3 **NON ADOPTED** |
+ | **Product Completion Backlog (Cycle 5)** | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · PR **#393 MERGED** · merge `7750b2a4017338c1a236433c4db8f5cc97dc2feb` · path `projects/sfia-studio/product-completion/05-product-completion-backlog-user-stories.md` · 5 Epics · 4 Waves · P0/P1 cut-line · réserve R5 non bloquante · **≠** Delivery authorized by validation alone · W1 Delivery later **CONSUMED via distinct G3/Morris GOs** |
+ | **Product Completion W1 Readiness** | **CHATGPT QUALIFIED — INTEGRATED ON MAIN** · PR **#393** · path `07-product-completion-wave-1-delivery-readiness.md` · macro scope + architecture sufficient · **NO STRUCTURAL ARCHITECTURE GAP** · readiness **≠** Delivery · Delivery later executed under **G3** and closed by PR **#395** |
+ | **Product Completion W1 Delivery** | **INTEGRATED ON MAIN / POST-MERGE PROVEN** · PR **#395 MERGED** · head `7d302f24a733a30f0d801b653fcd89b25058ce77` · merge `ddd39181e9cf823a0d5055eefba7a873940c38c2` · PR CI **`32588888075` SUCCESS** · push/main CI **`32589270526` SUCCESS** · source branch `delivery/sfia-studio-product-completion-w1-g3` **PRESERVED** · **8/8 exit contracts PASS** · Product DoctrinePackage `pkg:sfia-studio-doctrine-v3@1.0.0` **MATERIALIZED** · CKC Phase A package-bound **INTEGRATED** · fail-closed Product pin · fallback **NONE** · single CKC resolver · single DoctrinePackage seam · bounded CKC→Nora seam **PROVEN** · ProjectTrajectory / Confirmation / selective epistemic / Recovery foundation **IN SCOPE PASS** · W1 REAL **ZERO** · **≠** Phase B complete · **≠** Recovery E2E · **≠** Product Experience closure · **≠** runtime v3 ADOPTED |
+ | **Product Completion Cycle 6 Targeted Technical Architecture Delta** | **CLOSED BY MORRIS** · **C6 EXIT PROOF ACCEPTED BY MORRIS** · C6-R1 / TD-C6-01…06 **ADOPTED BY MORRIS** · architecture **INTEGRATED ON MAIN** via PR **#382** · closure documentation **INTEGRATED ON MAIN** via PR **#383** · merge `e21803b1…` · head `c0cd769e…` · PR CI `32472673361` SUCCESS · post-merge CI `32473181947` SUCCESS · **C6 POST-MERGE TRUTH SATISFIED** · final documentary coherence **PR #384 MERGED** · **C6 remains CLOSED** · **≠ C6 reopened** · runtime realization via W1: **TD-C6-01 / 02 / 04 / 05 / 06 IMPLEMENTED THROUGH W1** (PR #395) · **TD-C6-03 AuthorityVerificationReceipt = DOWNSTREAM / OPTIONAL** · **≠ Backlog rewrite** · **≠ REAL** · runtime v3 **NON ADOPTED** |
+ | **SFIA Studio v3 CKC Runtime Cognitive Contracts framing** | **VALIDATED BY MORRIS — CANONICAL FRAMING** · D-CKC15-01…14 **ADOPTED** · R-CKC-01/02/03 **CLOSED** · intégration historique PR **#385** · stabilité transport-state PR **#386** / merge `eb962616…` · véhicule historique method `06-fifteen-ckc-validation-framing.md` · chemin Studio `projects/sfia-studio/sfia-v3-framing/ckc/**` **INTEGRATED ON MAIN** via PR **#388** (18 fichiers) · corpus **15/15 CONTENT VALIDATED** · Product DoctrinePackage + CKC Phase A **INTEGRATED** via W1 (PR #395) · Phase A **≠** Phase B complete · runtime v3 **NON ADOPTED** |
+ | **CKC Applicable Cycle Catalog Snapshot Pin** | **PINNED BY MORRIS — VALIDATION SCOPE** · version catalogue **`0.1.0-v3.1-d1`** · source `cycleTypeCatalog.ts` @ Git `eb962616…` · ensemble actif applicable **15** = **mesure snapshot uniquement / ≠ invariant structurel** · artefact `projects/sfia-studio/convergence/sfia-studio-ckc-applicable-cycle-catalog-snapshot-pin.md` · **≠** pin DoctrinePackage · **≠** pin doctrine runtime Project |
+-| **Studio CKC validated corpus (V3-F01)** | **15/15 CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN** · PR **#388 MERGED** · head `ed012eec244777ed4a9832818c6bdc9e5a28158c` · merge `50111cbe17c47e91d82103ded1a6f49c61397a39` · path `projects/sfia-studio/sfia-v3-framing/ckc/**` (18 files) · canonical identity `ckc:studio:{cycle-type-token}` · **CKC-ID-CONVENTION CLOSED / ADOPTED** · **CKC-RV-01…08 CLOSED** · **CKC-VS-R01/R02 CLOSED** · freeze review/transport **`6db507e68e5817088fc366aa74c416b4d9906da4c5bbb1eb1f427ae283759fcf`** · post-merge CI **`32525166583` SUCCESS** · source branch **PRESERVED** · Product DoctrinePackage + Phase A later **INTEGRATED via W1** (PR #395) · Phase B **≠** complete · bounded Nora seam W1 **PROVEN** · **≠** full Phase B cognition · **≠** Delivery W2+ · runtime v3 **NON ADOPTED** |
++| **Studio CKC validated corpus (V3-F01)** | **15/15 CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN** · PR **#388 MERGED** · head `ed012eec244777ed4a9832818c6bdc9e5a28158c` · merge `50111cbe17c47e91d82103ded1a6f49c61397a39` · path `projects/sfia-studio/sfia-v3-framing/ckc/**` (18 files) · canonical identity `ckc:studio:{cycle-type-token}` · **CKC-ID-CONVENTION CLOSED / ADOPTED** · **CKC-RV-01…08 CLOSED** · **CKC-VS-R01/R02 CLOSED** · freeze review/transport **`6db507e68e5817088fc366aa74c416b4d9906da4c5bbb1eb1f427ae283759fcf`** · post-merge CI **`32525166583` SUCCESS** · source branch **PRESERVED** · Product DoctrinePackage + Phase A later **INTEGRATED via W1** (PR #395) · bounded Phase B later **INTEGRATED via PR #403** · **≠** full CKC track / W3 · bounded Nora seam W1 **PROVEN** · **≠** Product Completion terminée · runtime v3 **NON ADOPTED** |
+ | **ROADMAP-SYNC-CKC-PIN** | **CLOSED** — Roadmap synchronisé avec trajectoire CKC-first + pin catalogue validation-scope · owner was construction governance / Morris gate |
+ | **ROADMAP-SYNC-CKC-CONTENT-VALIDATION** | **CLOSED ON MAIN** — content-validation sync claims integrated with PR **#388** corpus+Roadmap merge · freeze `6db507e68e5817088fc366aa74c416b4d9906da4c5bbb1eb1f427ae283759fcf` on main · **≠** DoctrinePackage · **≠** Nora proven |
+ | **ROADMAP-POST-MERGE-CKC-388** | **CLOSED ON MAIN** via PR **#389** / merge `c4dc1c9ce78290f00354e58dde451dd09616f49e` · post-merge CI **`32527209975` SUCCESS** · Roadmap sync integrated on main · **≠** DoctrinePackage runtime binding · **≠** Nora proven |
+-| **DoctrinePackage / runtime CKC architecture qualification** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN** via PR **#390 + PR #391** · **G2 materialization DECIDED + GIT-INTEGRATED** via PR **#394** (`b3e978fe…`) · **W1 runtime materialization INTEGRATED** via PR **#395** (`ddd39181…`) · `pkg:sfia-studio-doctrine-v3@1.0.0` · OPTION A root `projects/sfia-studio/app/lib/oa/doctrine/product/` · resolver/repository **KEEP** · D02 Option B **KEEP** · fallback **NONE** · fixture quarantine/test-only → retire later · Product pin **fail-closed** · Phase A package-bound **INTEGRATED** · Phase A **≠** Phase B complete · bounded CKC→Nora seam **PROVEN (W1)** · full Phase B / generic cognition **DOWNSTREAM W2/W3** · runtime v3 **NON ADOPTED** |
++| **DoctrinePackage / runtime CKC architecture qualification** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN** via PR **#390 + PR #391** · **G2 materialization DECIDED + GIT-INTEGRATED** via PR **#394** (`b3e978fe…`) · **W1 runtime materialization INTEGRATED** via PR **#395** (`ddd39181…`) · `pkg:sfia-studio-doctrine-v3@1.0.0` · OPTION A root `projects/sfia-studio/app/lib/oa/doctrine/product/` · resolver/repository **KEEP** · D02 Option B **KEEP** · fallback **NONE** · fixture quarantine/test-only → retire later · Product pin **fail-closed** · Phase A package-bound **INTEGRATED** · Phase A **≠** Phase B complete · bounded CKC→Nora seam **PROVEN (W1)** · bounded Phase B / generic multi-cycle cognition **INTEGRATED** (PR **#403**) · full CKC catalog evolvability **DOWNSTREAM W3** · runtime v3 **NON ADOPTED** |
+ | **SFIA Studio product design tooling** | **MORRIS DECISION — PENPOT IS THE REFERENCE DESIGN WORKSPACE FOR SFIA STUDIO PRODUCT DESIGN** · Studio product design only · Git remains SoT for governance/contracts/decisions · R-04 EA historical recommendation **SUPERSEDED FOR FUTURE SFIA STUDIO PRODUCT DESIGN** · **≠** global SFIA methodological baseline · **≠** v3 doctrine change · **≠** runtime v3 adoption · EA document **not** retroactively rewritten |
+-| **Gates courants** | C1…C6 **INTEGRATED / C6 CLOSED** · CKC 15/15 **ON MAIN** · Backlog Cycle 5 **INTEGRATED ON MAIN** · W1 readiness + Delivery **INTEGRATED ON MAIN** · **G1 CLOSED** · **G2 DECIDED + INTEGRATED** (PR #394) · **G3 W1 Delivery CONSUMED / SATISFIED** · W2 readiness **INTEGRATED ON MAIN** (PR **#398**) · **W2-G1 INTEGRATED** · **W2-G2 DECIDED** · **W2-G3 E+A+B+C INTEGRATED ON MAIN** (PR **#400**) · FinOps/T7 **FREEZE** · **NEXT GATES** = Track D / bounded CKC Phase B qualification → distinct Morris GO Phase B · GO Phase B distinct **NOT CONSUMED** · W2 **NOT FINALLY CLOSED** · Execute **OUT** · REAL = gate Morris distinct · runtime v3 **NON ADOPTED** · Product Completion **NON TERMINÉE** · **NO EXECUTION WITHOUT MORRIS GO** |
++| **Gates courants** | C1…C6 **INTEGRATED / C6 CLOSED** · CKC 15/15 **ON MAIN** · Backlog Cycle 5 **INTEGRATED ON MAIN** · W1 readiness + Delivery **INTEGRATED ON MAIN** · **G1 CLOSED** · **G2 DECIDED + INTEGRATED** (PR #394) · **G3 W1 Delivery CONSUMED / SATISFIED** · W2 readiness **INTEGRATED ON MAIN** (PR **#398**) · **W2-G1 INTEGRATED** · **W2-G2 DECIDED** · **W2-G3 E+A+B+C INTEGRATED ON MAIN** (PR **#400**) · **Track D / bounded CKC Phase B INTEGRATED ON MAIN** (PR **#403**) · FinOps/T7 **FREEZE** · **NEXT GATES** = **W2 FINAL CLOSURE QUALIFICATION** → possible later Morris W2 closure decision · W2 **NOT FINALLY CLOSED** · W3 **NOT STARTED / NOT AUTHORIZED** · Execute **OUT** · REAL = gate Morris distinct **NOT CONSUMED** · runtime v3 **NON ADOPTED** · Product Completion **NON TERMINÉE** · **NO EXECUTION WITHOUT MORRIS GO** |
+ | **Intégration Git** | **C2 :** PR #369 / head `3c78c6763d0d090bdc38f3866ecd71ed6be219d0` / merge `2406ccda211842fc7f8da3699bb186a30f7dc105` · **Post-merge sync :** PR #370 (integration vehicle · Git evidence authoritative) · CI SFIA Studio **#222** SUCCESS (PR head) · post-merge CI **#223** SUCCESS · source branch `docs/sfia-studio-product-completion-c2-integration-clean` **PRESERVED** · historical unauthorized branch `docs/sfia-studio-product-completion-c2-functional-design` @ `780ab4c5` **PRESERVED FOR AUDIT** · Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration · **M4 post-pre-reproof Roadmap :** PR #347 / merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS · **M4 GOVERNED REAL COMPLETION PROOF** handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · **M4 closure Roadmap :** PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · **M5 Entry Qualification** handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · **M5 Delivery (Option B + W1) :** PR #350 / head `17461dad78f92a3d5e5e1d9bd36aa20d1e86ac11` / merge `8f753218e4fff7d68d78c1d57e9c3e8fb7e60943` · CI SFIA Studio **#184** SUCCESS · post-merge CI **#185** SUCCESS · **M5 UI/Nora durable rehydrate :** PR #351 / head `ced7b172969c27b5e2d6fda06e9caa8c84e1e0d7` / merge `d8961f1d85a98b5d4185f007f16ddac209e2e557` · CI SFIA Studio **#186** SUCCESS · post-merge CI **#187** SUCCESS · M5 exit re-evaluation handoff `54b0f5b43a50861c26226aa3ffc06460f8ffbafe` · blob `131c85172bbd6370a3edcd71347a64932c9303ab` · M5 EXIT PROOF **SATISFIED ON MAIN** · **M5 capitalization / Roadmap sync :** PR #352 / head `c26824c602ec041cb1d40e9078191c0f1cde4e95` / merge `3467ecdf74ac2010c45f34545fb8684563dea547` · CI SFIA Studio PR run **#31875337665** SUCCESS · post-merge CI run **#31875621317** SUCCESS · post-merge handoff `0121e184c936f8dc73ffe80e20d43027fec495d7` · blob `4c293ae07a0d516b16d6dd2d4087d3e25858e275` · GO Morris **ACCEPT M5 EXIT PROOF + CLOSE M5 — KEEP M5-C TECHNICAL JOURNAL — ZERO REAL — NO M6 EXECUTION — RUNTIME V3 NON ADOPTED — NO BRANCH DELETE** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · User wording **« ok go pour la modification »** · governed interpretation **ALIGN M5 CLOSURE ROADMAP WITH PRE-M6 USER JOURNEY / UX BASELINE TRAJECTORY — KEEP M5 CLOSED — KEEP M5-C — NO UX DESIGN EXECUTION YET — NO FIGMA ACTION YET — NO UI DELIVERY — NO M6 — ZERO REAL — NO PROJECT GIT WRITE** · **M5 closure / Pre-M6 sequencing Roadmap :** PR #353 / title `docs(sfia-studio): close M5 and sequence Pre-M6 UX baseline` / base `3467ecdf74ac2010c45f34545fb8684563dea547` / head `7a744c8cec889be547eebe231279620189819dd0` / merge `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` — records M5 closure + inserts Pre-M6 before M6 · **≠** Slice A candidate (Slice A is later local work) · PRE-M6 USER JOURNEY / UX BASELINE = **FUNCTIONAL BASELINE + GAP READINESS COMPLETE · G-UX-15 EXIT PROOF ACCEPTED / TECHNICAL BLOCKER CLOSED · LOCAL CANDIDATE NOT YET ON MAIN · FIGMA/UI DELIVERY NOT AUTHORIZED** · **G-UX-15 Slice A controlled integration :** PR #354 / title `feat(sfia-studio): close Pre-M6 G-UX-15 execution wiring gap` / base `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` / head `22ae8e5e4bddb0f997384a5e8ba87c9b35245693` / merge `a6df83a640afeb0911cb572d118d27a03c9923a7` · CI SFIA Studio **#192** SUCCESS · post-merge main CI **#193** SUCCESS · post-merge truth **PASS** (exact 5-file SHAs on main) · feature branch **PRESERVED** (no delete) · **Cycle 14 docs sync :** PR #355 / title `docs(sfia-studio): sync Pre-M6 G-UX-15 post-merge current state` / merge `dd284e9f20de89b2c8fc7782e4177d0d125c24d2` — **MERGED ON MAIN** · **historique :** OPEN / DRAFT avant merge · **Cycle 15 visual adoption docs integration :** PR #356 / title `docs(sfia-studio): record Pre-M6 visual contract adoption` / head `3a93d0e5cfd86e46bb795ce22c0f7dd79078ef2a` / merge `50f31994b0d9b5a3a3514e2fa9a063d688071c50` — **MERGED ON MAIN** · CI SFIA Studio **#198** SUCCESS on final PR head · post-merge main CI **#199** SUCCESS · post-merge truth **PASS** · source branch **PRESERVED** (NO BRANCH DELETE) · **historique :** OPEN / DRAFT avant merge · **D-PRE-M6-UX-05 :** ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN (Freeze `uUdLBElF2B4dOefaAYt4QY`) — UI Delivery still **NOT AUTHORIZED** · **Cycle 14 PR #356 post-merge current-state sync :** PR #357 / title `docs(sfia-studio): sync PR 356 post-merge current state` / head `70643624c494f16fb91e3bede772a80f4eece783` / merge `b834fdd40d3e7028e80cf7b388b93df2f31e18e4` — **MERGED ON MAIN** · CI SFIA Studio **#200** SUCCESS on PR head · post-merge CI **#201** SUCCESS · source branch **PRESERVED** · **historique :** OPEN / DRAFT avant merge · **PRE-M6 UI DELIVERY GATE / SCOPE QUALIFICATION :** **COMPLETE** — Review Handoff `2577776360c8a5a3492806b447d4bf88f0239898` / blob `9084a97b368472aaaa7ab61f85baf2efcb819e51` — verdict READY FOR MORRIS DELIVERY DECISION (**≠** UI Delivery authorized) — OPTION A = RECOMMENDATION AWAITING MORRIS DECISION *(historique qualification)* · **Cycle 15 Pre-M6 UI gap + CKC trajectory Roadmap :** PR #358 / title `docs(sfia-studio): record Pre-M6 UI gap and CKC trajectory` / head `c91ce1afd498ef9a5275e3b90509e7a045f240a0` / merge `0a80b92cb2c05f5b3f001438988b52c07c3bf0b6` — **MERGED ON MAIN** · CI SFIA Studio **#202** SUCCESS on PR head · post-merge CI **#203** SUCCESS · source branch **PRESERVED** · **historique :** OPEN / DRAFT avant merge · GO Morris **ADOPT PRE-M6 UI DELIVERY SCOPE OPTION A** (user « bon ok go option A ») — OPTION A = **ADOPTED BY MORRIS AS PRE-M6 UI DELIVERY SCOPE** · OPTION A SCOPE ADOPTED **≠** UI DELIVERY EXECUTION AUTHORIZED · NEXT PRODUCT GATE *(historique jusqu’à PR #361)* = **MORRIS PRE-M6 UI DELIVERY EXECUTION AUTHORIZATION — OPTION A** · **PR #359** Option A adoption sync **MERGED** (`0d33478…`) · **PR #360** fake-real progressive proof **MERGED** (`a3ac418…`) · **PRE-M6 PRODUCT VERTICAL SLICE :** PR #361 / title `feat(sfia-studio): consolidate Pre-M6 product vertical slice` / head `3c4c478d7664c6111f38e6c4f49e98042e3a8473` / merge `a53c323e47e5fae1d35671f3ae232609a59b0f3f` — **MERGED ON MAIN** · post-merge CI run **`32122892559` SUCCESS** · source branch `delivery/sfia-studio-pre-m6-ui-option-a` **PRESERVED** · GO Morris **PR #361 READY + MERGE — PRESERVE SOURCE BRANCH — THEN POST-MERGE VALIDATION** · **MORRIS DECISION — CURRENT SFIA STUDIO VERTICAL SLICE ON MAIN IS THE FUNCTIONAL MVP BASELINE FOR THE PRODUCT COMPLETION TRAJECTORY — REUSE EXISTING BACKBONE — DO NOT RESTART FROM ZERO — RUNTIME V3 REMAINS NON ADOPTED** · **MORRIS DECISION — ACCEPT PRE-M6 EXIT FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT — CURRENT MAIN VERTICAL SLICE IS THE SFIA STUDIO FUNCTIONAL MVP BASELINE FOR PRODUCT COMPLETION — CARRY UAT-UX-06 / UAT-RECOVERY-03 / V3-F10 / PROCESS-LOCAL DURABILITY / N7 AS GOVERNED DEBT — RUNTIME V3 REMAINS NON ADOPTED** · PRE-M6 EXIT = **ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT** · PRE-M6 **≠ COMPLETE WITHOUT RESERVES** · NEXT PRODUCT GATE = **GO MORRIS — CYCLE 1 CADRAGE — SFIA STUDIO PRODUCT COMPLETION FROM MVP** (consumable only after this documentation is integrated on main · **NOT AUTHORIZED now**) · NEXT REPOSITORY GATE = **MORRIS REVIEW — PRODUCT COMPLETION REBASELINE DRAFT PR — NO MERGE UNTIL EXPLICIT GO** |
+ | **Sources** | Git `main` @ `a53c323e47e5fae1d35671f3ae232609a59b0f3f` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347/#348/#349/#350/#351/#352/#353/#354/#355/#356/#357/#358/#359/#360/#361 · CI #158/#162/#166/#172/#176/#178/#184/#185/#186/#187/#192/#193/#197/#198/#199/#200/#201/#202/#203 · Pre-M6 UI Delivery qualification handoff `2577776360c8a5a3492806b447d4bf88f0239898` / blob `9084a97b368472aaaa7ab61f85baf2efcb819e51` · GO Morris **ADOPT PRE-M6 UI DELIVERY SCOPE OPTION A** · PR #352 CI run #31875337665 / post-merge #31875621317 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · D-PRE-M6-UX-05 visual review handoff `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593ddbdc286cd244790f0ca1d2c421128202c5c` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · M5 Entry Qualification handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · GO Morris **VALIDATE D-PRE-M6-UX-05 FIGMA VISUAL CONTRACT — ADOPT AS PRE-M6 VISUAL REFERENCE** · M4 Product path on main `projects/sfia-studio/app/**` |
+ | **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M5 Entry Qualification **COMPLETE** · M5 architecture trajectory **ADOPTED BY MORRIS** · M5 Delivery **IMPLEMENTED ON MAIN** (PR #350) · M5 UI rehydrate **IMPLEMENTED ON MAIN** (PR #351) · M5 technical/functional exit proof **SATISFIED ON MAIN** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · M5 CLOSED **≠** M6 AUTHORIZED · M5 CLOSED **≠** M6 STARTED · M5 CLOSED **≠** runtime v3 ADOPTED · M5 CLOSED **≠** global v3 baseline promoted · M5 CLOSED **≠** M5-C retired · M5 exit accepted **≠** global Cursor REAL authorization · M5 CLOSED future **≠** M6 automatically authorized · Pre-M6 trajectory decided **≠** Pre-M6 UX qualification executed · **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE ≠ UI Delivery authorized ≠ runtime implemented ≠ browser/product E2E proven ≠ Figma/runtime aligned ≠ WCAG compliant ≠ Pre-M6 complete ≠ historical UI retired** · Accepted M-03/M-04/provenance reserves ≠ reserves closed · new UX baseline **≠** runtime rewrite · existing UI not canonical **≠** existing UI automatically deleted · UI asset audit **COMPLETE/CLASSIFIED** **≠** individual dispositions ADOPTED · existing UI audit **≠** REPLACE/retirement authorized · M1→M5 runtime KEEP **≠** all runtime complete · Pre-M6 user proof **≠** runtime v3 ADOPTED · M6 after Pre-M6 **≠** M6 automatically authorized · Validated UX decisions in framing **30/37** (CC-D01) prevail over older candidate wording in framing **11** · M5-A OPTION B **IMPLEMENTED ON MAIN** · M5-B W1 **IMPLEMENTED ON MAIN** · M5-B W1 factual write-back **≠** Recommendation becomes Decision · Recommendation **≠** HumanDecision · Recommendation **≠** gate consumed · Recommendation **≠** ExecutionAuthority · LPS factual evidence link **≠** structural trajectory validation · readback **≠** execution · remount UI visibility **≠** automatic next-cycle launch · M5-C KEEP TEMPORARY WITH EXIT **≠** technical journal retired · durable Product Attempt **≠** technical M4 journal automatically obsolete · M5 implementation **≠** runtime v3 ADOPTED · M5 implementation **≠** global v3 baseline promoted · M5 ZERO REAL **≠** global Cursor REAL authorization · M5 architecture ADOPTED **≠** M6 started · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **unchanged by M5 architecture decision** **≠** M4/M5 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · runtime v3 **NON ADOPTED** · ≠ full OA durable · G-UX-15 technical blocker **CLOSED BY MORRIS** ≠ Pre-M6 complete · G-UX-15 exit proof accepted ≠ browser/product E2E proven · fixture-safe proof accepted ≠ REAL proof · G-UX-15 Slice A **MERGED ON MAIN** (PR #354) ≠ Pre-M6 complete · merged on main ≠ product/browser E2E proven · merged on main ≠ UI Delivery/M6 authorized · Pre-M6 progress ≠ M6 authorized · Confirmation process-local = KEEP RESERVE *(HISTORICAL Pre-M6 / G-UX-15)* · **SUPERSEDED for Confirmation by W1 selective durability** · **≠** restart-safe Confirmation as full envelope · **PR #356 MERGED ≠ UI Delivery authorized** · CI #197/#198/#199 SUCCESS ≠ Pre-M6 complete ≠ UI Delivery authorized · post-merge truth PASS ≠ UI Delivery gate consumed · UI Delivery qualification COMPLETE ≠ UI Delivery authorized · **Option A SCOPE ADOPTED BY MORRIS ≠ UI Delivery execution authorized** · gap treatment adopted as scope ≠ gap closed · G-UX-08 deferred ≠ G-UX-08 closed · G-UX-09 accepted ≠ Conversation durable · Confirmation KEEP *(historical Pre-M6)* ≠ restart-safe · G-UX-11 planned ≠ browser E2E proven · M7 CKC 15/15 future ≠ CKC complete now ≠ CKC Delivery authorized · 4 pilots + 11 fallback ≠ CKC system complete · CKC→v2.6 capitalization option ≠ v2.6 modification decided · CKC validation future ≠ runtime v3 ADOPTED · PR #357 MERGED ≠ UI Delivery authorized · CI #201 SUCCESS ≠ Pre-M6 complete · PR #358 MERGED ≠ UI Delivery authorized · CI #202/#203 SUCCESS ≠ Pre-M6 complete ≠ Delivery authorized · Option A scope adopted ≠ Delivery GO consumed · Execution Authorization IS the Delivery GO ≠ second Delivery GO required · G-UX-11 E2E exit proof ≠ Delivery entry prerequisite · global v3 baseline **NOT PROMOTED** · **PR #361 MERGED ≠ PRE-M6 COMPLETE ≠ PRE-M6 EXIT ACCEPTED ≠ runtime v3 ADOPTED ≠ M6 AUTHORIZED ≠ M7 AUTHORIZED ≠ CKC 15/15 COMPLETE ≠ generic Cursor write/dev/commit/push/PR proven** · **MVP FUNCTIONAL BASELINE ≠ produit final ≠ UX finale ≠ production-ready ≠ generic ExecutionContract complete** · Product Completion trajectory recorded **≠** Cycle 1 Cadrage authorized **≠** Delivery authorized · PRE-M6 requalification **≠** PRE-M6 CLOSED · **PRE-M6 EXIT ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT ≠ PRE-M6 COMPLETE ≠ PRE-M6 all gaps closed ≠ runtime v3 ADOPTED ≠ M6 STARTED ≠ M6 AUTHORIZED ≠ Product Completion Delivery authorized ≠ Cycle 1 Cadrage authorized** |
+@@ -122,9 +124,9 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
+ | Product Completion Product Screens & Visual State Contract | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · `projects/sfia-studio/product-completion/ux-product-experience/03-product-screens-visual-state-contract.md` · PR #376 / head `6e2cd066…` / merge `7d2f9a61…` · PR CI **#236 SUCCESS** · post-merge CI **#237 SUCCESS** · Penpot `63bdc57a…` page 03 · 17 screens · page 04 = 0 · Components 0 · C1 alignment PASS · PASS 3 PASS WITH ONE NON-BLOCKING EVIDENCE-FRAMING RESERVE · UX-BLK-01/02/03 CLOSED · H-01…H-04 **CARRY** · source branch cleanup **COMPLETED** · **≠** Components · **≠** Delivery |
+ | Product Completion Functional Architecture (Cycle 3) | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md` · PR #378 / head `1018aa79…` / merge `18b89ec9…` · PR CI **#240 SUCCESS** · post-merge CI **#241 SUCCESS** · post-merge sync PR **#379** / head `0aa644d…` / merge `134f4105…` · PR CI **#242 SUCCESS** · post-merge CI **#243 SUCCESS** · final closure PR **#380** / head `53aeceea…` / merge `14329c60…` · post-merge CI **#245 SUCCESS** · **POST-MERGE COHERENCE COMPLETE** · PM-R01/PM-R02 **CLOSED** · FC-01…FC-15 APPROVED · OA Option A + thin C APPROVED · targeted durability delta QUALIFIED then **W1-realized for Confirmation + ProjectTrajectory** · FA-R01…FA-R12 CLOSED · **RESERVE-GOV-EC-ORDER CLOSED** · downstream HD/replan / Phase B / Recovery E2E remain · **≠** Product Completion terminée · **≠** Delivery W2+ |
+ | COMPLETED / INTEGRATED | **C1 CADRAGE** · **C2 FUNCTIONAL DESIGN** · **UX EXPERIENCE ARCHITECTURE** · **E2E WIREFRAMES & INTERACTION MODEL** · **PRODUCT SCREENS & VISUAL STATE CONTRACT** · **FUNCTIONAL ARCHITECTURE (Cycle 3)** · post-merge sync PR **#379** · final closure PR **#380** · PR #369 / `2406ccda…` · PR #370 post-merge sync **HISTORICAL / MERGED** · PR #372 / `fb311f2f…` · PR #373 / `6b67ada7…` · PR #374 / `404d2d3e…` · PR #375 post-merge sync · PR #376 / `7d2f9a61…` · PR #378 / `18b89ec9…` · PR #379 / `134f4105…` · PR #380 / `14329c60…` |
+-| CURRENT REPOSITORY TRANSITION | W1 Delivery **INTEGRATED / POST-MERGE PROVEN** (PR **#395**) · W2 readiness **INTEGRATED ON MAIN** (PR **#398**) · **W2-G3 E+A+B+C INTEGRATED ON MAIN** (PR **#400** / merge `dd852243…` / PR-head CI **`32632461315` SUCCESS** / push/main CI **`32633308148` SUCCESS**) · `origin/main` HEAD **RESOLVE FROM REPOSITORY** · FinOps/T7 **FREEZE** · W2 **NOT FINALLY CLOSED** · GO Phase B distinct **NOT CONSUMED** · **≠** Phase B complete · **≠** FinOps PASS |
+-| NEXT ORDERED STEP | Track D / bounded CKC Phase B **qualification** → distinct Morris **GO Phase B** if later authorized · GO Phase B distinct **NOT CONSUMED** · W2 **NOT FINALLY CLOSED** · broader CKC track may continue through W3 after bounded Track D · **≠** jump to W3 Delivery · **≠** full CKC completion · **≠** REAL |
+-| NEXT PRODUCT CAPABILITY | **W2 Track D / bounded CKC Phase B qualification** — W2-G1…G3 E+A+B+C **INTEGRATED** · D-W2-02 = **ADOPTED DESIGN** · GO Phase B **NOT CONSUMED** · objectif = CKC-informed Nora before Options/Recommendation · ≥2 cycle-type deterministic proof · **≠** Phase B implementation authorized · **≠** W2 finally closed · **≠** full CKC completion · REAL **OUTSIDE** until distinct Morris gates · runtime v3 **NON ADOPTED** |
++| CURRENT REPOSITORY TRANSITION | W1 Delivery **INTEGRATED / POST-MERGE PROVEN** (PR **#395**) · W2 readiness **INTEGRATED ON MAIN** (PR **#398**) · **W2-G3 E+A+B+C INTEGRATED ON MAIN** (PR **#400** / merge `dd852243…`) · **Track D / bounded CKC Phase B INTEGRATED / DETERMINISTIC PROVEN** (PR **#403** / head `1cdf4b41…` / merge `e4a93fea…` / PR-head CI **`32645232920` SUCCESS** / push/main CI **`32646038871` SUCCESS**) · `origin/main` HEAD **RESOLVE FROM REPOSITORY** · FinOps/T7 **FREEZE** · W2 **NOT FINALLY CLOSED** · **NEXT** = **W2 FINAL CLOSURE QUALIFICATION** · W3 **NOT STARTED** · REAL **OUT** · **≠** W2 closed · **≠** FinOps PASS |
++| NEXT ORDERED STEP | **W2 FINAL CLOSURE QUALIFICATION** → distinct cycle → evaluate integrated W2 against H→N bounded exit contract → possible later Morris W2 closure decision · W2 closure qualification **NOT STARTED** · W2 closure decision **NOT CONSUMED** · **≠** W2 already closed · **≠** W3 GO · **≠** REAL GO |
++| NEXT PRODUCT CAPABILITY | **W2 FINAL CLOSURE QUALIFICATION** — evidence-based qualification of the integrated W2 bounded capacity against H→N exit contract · **≠** new runtime implementation by default · **≠** W2 closure already decided · if an unresolved W2 exit blocker appears → return to ChatGPT for requalification · **≠** silent W3 open · W3 **NOT AUTHORIZED** · REAL **OUTSIDE** until distinct Morris gates · runtime v3 **NON ADOPTED** |
+ | M6 / M7 | **HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** · traces conservées · hors forward critical path |
+
+ ### Candidat local non-main (dirty `delivery/sfia-studio-f3-real-prerequisites`) — historique / harvest
+@@ -302,12 +304,12 @@ GO : **ADOPT W2-G2 DECISION PACK** — D-W2-01…04 · TD-C6-03 included W2 by a
+ | ID | Décision | Statut |
+ | --- | --- | --- |
+ | **D-W2-01** | Proposal ephemeral / Epistemic materialization / ProjectTrajectory SoT | **ADOPTED** |
+-| **D-W2-02** | Bounded Phase B W2 — CKC-informed Nora before Options/Recommendation — ≥2 cycle-type deterministic proof | **ADOPTED** · GO Phase B distinct **NOT CONSUMED** |
++| **D-W2-02** | Bounded Phase B W2 — CKC-informed Nora before Options/Recommendation — ≥2 cycle-type deterministic proof | **ADOPTED** · Phase B GO later **CONSUMED** · Phase B **INTEGRATED ON MAIN** (PR **#403**) · W2 **NOT FINALLY CLOSED** |
+ | **D-W2-03** | Product application path enforcement for structuring HD→decided/current trajectory using existing OA + C6 U1/U3 | **ADOPTED** |
+ | **D-W2-04** | EC inspection attestation bound to contract/version/fingerprint — material amendment requires re-inspection — no new EC status | **ADOPTED** |
+ | **TD-C6-03** | INCLUDED W2 — inherited ADOPTED C6 | **not a new W2 architecture decision** |
+
+-**Anti-claims :** Decision adoption **≠** implementation · W2-G2 **≠** W2-G3 · D-W2-02 **≠** GO Phase B distinct · W2-G2 **≠** Delivery · W2-G3 integrated **≠** W2 closed · W2-G2 **≠** REAL · W2-G2 **≠** runtime v3 ADOPTED · W2-G3 Delivery **INTEGRATED ON MAIN** (PR #400)
++**Anti-claims :** Decision adoption **≠** implementation · W2-G2 **≠** W2-G3 · D-W2-02 design **≠** W2 finally closed · W2-G2 **≠** Delivery · W2-G3 integrated **≠** W2 closed · Phase B integrated **≠** W2 closed · W2-G2 **≠** REAL · W2-G2 **≠** runtime v3 ADOPTED · W2-G3 Delivery **INTEGRATED ON MAIN** (PR #400) · Phase B **INTEGRATED ON MAIN** (PR #403)
+
+ ### Pre-M6 trajectory sequencing — CONSUMED DECISION
+
+@@ -492,9 +494,9 @@ GO : **ADOPT W2-G2 DECISION PACK** — D-W2-01…04 · TD-C6-03 included W2 by a
+ | **Intégration** | PR #350 merge `8f753218…` · PR #351 merge `d8961f1d…` · capitalization PR #352 merge `3467ecd…` · exit handoff `54b0f5b4…` · post-merge handoff `0121e184…` |
+ | **Dépendances** | M4 — **SATISFIED / CLOSED** · Architecture — **CONSUMED** · Delivery — **CONSUMED / MERGED** · UI rehydrate — **CONSUMED / MERGED** · Capitalization Roadmap — **CONSUMED / MERGED** · Closure gate — **CONSUMED** |
+ | **Statut** | **M5 EXIT PROOF ACCEPTED BY MORRIS — CLOSED** |
+-| **Next convergence capability (current)** | **W2 Track D / bounded CKC Phase B qualification** — W2-G1…G3 E+A+B+C **INTEGRATED ON MAIN** (PR **#400**) · D-W2-01…04 **ADOPTED** · D-W2-02 **≠** GO Phase B consumed · FinOps/T7 **FREEZE** · W2 **NOT FINALLY CLOSED** · Phase B **≠** complete · runtime v3 **NON ADOPTED** |
+-| **Next immediate gate (repo)** | Roadmap W2-G3 post-merge truth-sync Git integration = **DISTINCT MORRIS GO AFTER CHATGPT REVIEW** · aucun autre write projet automatique · **NO AUTOMATIC PROJECT WRITE** |
+-| **Next product gate** | Track D / bounded CKC Phase B **qualification** → distinct Morris **GO Phase B** · **≠** Phase B started · **≠** W2 closed · **≠** REAL |
++| **Next convergence capability (current)** | **W2 FINAL CLOSURE QUALIFICATION** — W2-G1…G3 E+A+B+C **INTEGRATED ON MAIN** (PR **#400**) · Track D / bounded CKC Phase B **INTEGRATED ON MAIN** (PR **#403**) · D-W2-01…04 **ADOPTED** · Phase B **DETERMINISTIC PROVEN** · FinOps/T7 **FREEZE** · W2 **NOT FINALLY CLOSED** · W3 **NOT STARTED** · runtime v3 **NON ADOPTED** |
++| **Next immediate gate (repo)** | Roadmap Phase B post-merge truth-sync Git integration = **DISTINCT MORRIS GO AFTER CHATGPT REVIEW** · aucun autre write projet automatique · **NO AUTOMATIC PROJECT WRITE** |
++| **Next product gate** | **W2 FINAL CLOSURE QUALIFICATION** → distinct cycle · **≠** W2 closed · **≠** W3 authorized · **≠** REAL |
+ | **M6 / M7 disposition** | Historical milestones **SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** |
+
+
+@@ -512,14 +514,14 @@ GO : **ADOPT W2-G2 DECISION PACK** — D-W2-01…04 · TD-C6-03 included W2 by a
+ | **Existing UI assets** | **UI ASSET AUDIT = COMPLETE / CLASSIFIED** — candidate classes KEEP / ADAPT / COMPLETE / HARVEST / REPLACE / FREEZE / RETIRE LATER identified · **AUDITED / CLASSIFIED** · individual dispositions remain **recommendations** until the relevant Morris / Delivery gate · **≠** all dispositions ADOPTED · **≠** legacy retirement authorized · **no** automatic deletion |
+ | **État historique à la sortie Pre-M6** | *(HISTORICAL Pre-M6 exit snapshot · **≠** current W1 runtime state)* · Functional baseline **ADOPTED** · G-UX readiness **COMPLETE** · G-UX-15 CLOSED/MERGED · D-PRE-M6-UX-05 **ADOPTED ON MAIN** · Option A scope **ADOPTED** · Option A Delivery **EXECUTED AND INTEGRATED ON MAIN via PR #361** (`a53c323…` / head `3c4c478…` / post-merge CI `32122892559` SUCCESS) · vertical slice = **MVP FUNCTIONAL BASELINE** (Morris) · **at Pre-M6 exit:** Confirmation / Conversation / Proposal were **process-local KEEP** · **supersession later:** W1 (PR #395) extended Confirmation to selective durability (`requested` ephemeral / `granted+` durable) · Conversation / Proposal remain process-local / reconstructible per their contract · PRE-M6 EXIT = **ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT** · PRE-M6 **≠ COMPLETE WITHOUT RESERVES** |
+ | **Completed** | User Journey Qualification · Functional IA · UI asset audit · G-UX readiness · Slice A (PR #354) · docs syncs PR #355/#356/#357/#358 · D-PRE-M6-UX-05 visual adoption · **OPTION A SCOPE ADOPTED** · **PR #361 PRODUCT VERTICAL SLICE MERGED** · post-merge CI SUCCESS · historical Delivery Execution Authorization **CONSUMED / SUPERSEDED** · **PRE-M6 EXIT ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT** |
+-| **Remaining** | Product Completion MUST gaps + governed inherited debt **CARRIED OPEN** (UAT-UX-06, UAT-RECOVERY-03 E2E, V3-F10, conversation/proposal process-local, N7 harness) · UX EA / E2E Wireframes / Screens non-blocking reserves **CARRIED OPEN** (H-01…H-04 · SC-02 evidence-framing reserve) · Confirmation **runtime** + ProjectTrajectory durability **IMPLEMENTED AT W1 SCOPE** (PR #395) · W2-G3 E+A+B+C **INTEGRATED** (PR #400) · remaining Track D / Phase B / Recovery E2E → **W2/W3** · **RESERVE-GOV-EC-ORDER CLOSED** · R-INT-UX-01 **CLOSED** · R-INT-UX-02 **ABSORBED / CLOSED** · C1…C6 / UX / backlog / W1 / W2-G3 **INTEGRATED ON MAIN** · next capability = **Track D / bounded CKC Phase B qualification** · runtime v3 **NON ADOPTED** |
+-| **Future work sequence** | **HISTORICAL / SUPERSEDED** *(Pre-M6 exit sequencing)* — then was: 1. NEXT-CAPABILITY REQUALIFICATION · 2. Morris decision / GO distinct · 3. execution only after GO · 4. dynamic requalification · **no named next subcycle selected** at that time · **NOW superseded by:** W1 integrated → W2 readiness **INTEGRATED** (PR **#398**) → W2-G2 **DECIDED** → **W2-G3 E+A+B+C INTEGRATED** (PR **#400**) → Track D / Phase B qualification · PRE-M6 remains **historical harvest source**, not forward critical path |
++| **Remaining** | Product Completion MUST gaps + governed inherited debt **CARRIED OPEN** (UAT-UX-06, UAT-RECOVERY-03 E2E, V3-F10, conversation/proposal process-local, N7 harness) · UX EA / E2E Wireframes / Screens non-blocking reserves **CARRIED OPEN** (H-01…H-04 · SC-02 evidence-framing reserve) · Confirmation **runtime** + ProjectTrajectory durability **IMPLEMENTED AT W1 SCOPE** (PR #395) · W2-G3 E+A+B+C **INTEGRATED** (PR #400) · Track D / bounded Phase B **INTEGRATED** (PR #403) · remaining Recovery E2E + full CKC track → **W2 closure / W3** · **RESERVE-GOV-EC-ORDER CLOSED** · R-INT-UX-01 **CLOSED** · R-INT-UX-02 **ABSORBED / CLOSED** · C1…C6 / UX / backlog / W1 / W2-G3 / Phase B **INTEGRATED ON MAIN** · next capability = **W2 FINAL CLOSURE QUALIFICATION** · runtime v3 **NON ADOPTED** |
++| **Future work sequence** | **HISTORICAL / SUPERSEDED** *(Pre-M6 exit sequencing)* — then was: 1. NEXT-CAPABILITY REQUALIFICATION · 2. Morris decision / GO distinct · 3. execution only after GO · 4. dynamic requalification · **no named next subcycle selected** at that time · **NOW superseded by:** W1 integrated → W2 readiness **INTEGRATED** (PR **#398**) → W2-G2 **DECIDED** → **W2-G3 E+A+B+C INTEGRATED** (PR **#400**) → **Track D / Phase B INTEGRATED** (PR **#403**) → **W2 FINAL CLOSURE QUALIFICATION** · PRE-M6 remains **historical harvest source**, not forward critical path |
+ | **Figma** | **ADOPTED AS PRE-M6 VISUAL REFERENCE / HISTORICAL LEARNING SOURCE** · Freeze `uUdLBElF2B4dOefaAYt4QY` · **≠** contrat visuel Product Completion final · aucune mutation Figma dans ce sync |
+ | **UI Delivery** | **HISTORICAL — EXECUTED via PR #361** · Option A Delivery Execution Authorization **CONSUMED / SUPERSEDED** · **≠** PRE-M6 EXIT ACCEPTED · **≠** product-grade UX complete |
+ | **Future proof expected** | Product Completion cadrage evidence pack after Cycle 1 GO · **no new REAL in this cycle** |
+ | **Anti-scope** | No runtime rewrite · no parallel engine · no M6 Delivery now · no CKC Delivery now · no Cursor REAL · PRE-M6 EXIT ACCEPTED **≠** PRE-M6 COMPLETE WITHOUT RESERVES · MVP **≠** produit final |
+ | **Statut** | **PRE-M6 FUNCTIONAL BASELINE ADOPTED** · **PR #361 MERGED / POST-MERGE CI GREEN** · **MVP FUNCTIONAL BASELINE RECORDED** · **PRE-M6 EXIT ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT** · **≠ COMPLETE WITHOUT RESERVES** · M6/M7 désormais historiques / absorbés · **RUNTIME V3 NON ADOPTED** · **ZERO REAL** |
+-| **Next after Pre-M6 product proof** | **HISTORICAL / SUPERSEDED** — C1…Screens path was recorded as next-capability requalification · next capability **NOT SELECTED** *(true at that Pre-M6→early Product Completion timestamp)* · **NOW:** W1 **INTEGRATED** · W2-G1…G3 E+A+B+C **INTEGRATED** (PR **#400**) · next = Track D / bounded CKC Phase B qualification |
++| **Next after Pre-M6 product proof** | **HISTORICAL / SUPERSEDED** — C1…Screens path was recorded as next-capability requalification · next capability **NOT SELECTED** *(true at that Pre-M6→early Product Completion timestamp)* · **NOW:** W1 **INTEGRATED** · W2-G1…G3 E+A+B+C **INTEGRATED** (PR **#400**) · Track D / Phase B **INTEGRATED** (PR **#403**) · next = **W2 FINAL CLOSURE QUALIFICATION** |
+
+
+ #### PRE-M6 UI DELIVERY — QUALIFICATION CAPITALIZATION
+@@ -534,7 +536,7 @@ GO : **ADOPT W2-G2 DECISION PACK** — D-W2-01…04 · TD-C6-03 included W2 by a
+ | **Capability (adopted scope)** | Le **Pilote** peut entrer dans Studio → lister/créer/ouvrir Project → comprendre Project/LPS → converser avec Nora → distinguer Qualification / Proposal / Recommendation → prendre HumanDecision → inspecter ExecutionContract → confirmer honnêtement → observer Attempt → inspecter Evidence / ReviewBundle / History → reprendre après reload · scope historiquement validé par Morris |
+ | **Reuse principle** | **KEEP** existing M1→M5 OA runtime · **no** parallel UI/business engine · **no** new persistence by default |
+ | **Option B note** | OPTION A + full G-UX-08 AMEND loop — only if Morris requires amend scenario in first Pre-M6 UAT · **not** selected for this scope decision |
+-| **Next Morris product gate** | **HISTORICAL / CONSUMED** par C1 PR #364 · *(gate courant at that Pre-M6 qualification timestamp = post-merge repo coherence · **SUPERSEDED**)* · **NOW:** W2-G3 E+A+B+C **INTEGRATED ON MAIN** (PR **#400**) · next = Track D / bounded CKC Phase B qualification → distinct Morris GO Phase B |
++| **Next Morris product gate** | **HISTORICAL / CONSUMED** par C1 PR #364 · *(gate courant at that Pre-M6 qualification timestamp = post-merge repo coherence · **SUPERSEDED**)* · **NOW:** W2-G3 E+A+B+C **INTEGRATED ON MAIN** (PR **#400**) · Track D / Phase B **INTEGRATED ON MAIN** (PR **#403**) · next = **W2 FINAL CLOSURE QUALIFICATION** |
+
+ #### PRE-M6 UI DELIVERY — MAJOR GAP TREATMENT
+
+@@ -586,12 +588,12 @@ UAT-RECOVERY-03 Git test: prepared confirmation gate is process-local React stat
+ | Champ | Contenu |
+ | --- | --- |
+ | **ID** | PRODUCT-COMPLETION |
+-| **Statut** | trajectory **ACTIVE** · C1…C6 / UX / backlog / W1 / W2 readiness **INTEGRATED** selon états existants · **W1 Delivery INTEGRATED ON MAIN** (PR #395 · **8/8 PASS**) · **W2-G1…G3 E+A+B+C INTEGRATED ON MAIN** (PR **#400**) · FinOps/T7 **FREEZE** · Product Completion globale **NON TERMINÉE** · W2 **NOT FINALLY CLOSED** · GO Phase B distinct **NOT CONSUMED** · runtime v3 **NON ADOPTED** |
++| **Statut** | trajectory **ACTIVE** · C1…C6 / UX / backlog / W1 / W2 readiness **INTEGRATED** selon états existants · **W1 Delivery INTEGRATED ON MAIN** (PR #395 · **8/8 PASS**) · **W2-G1…G3 E+A+B+C INTEGRATED ON MAIN** (PR **#400**) · **Track D / bounded CKC Phase B INTEGRATED ON MAIN** (PR **#403**) · FinOps/T7 **FREEZE** · Product Completion globale **NON TERMINÉE** · W2 **NOT FINALLY CLOSED** · next = **W2 FINAL CLOSURE QUALIFICATION** · runtime v3 **NON ADOPTED** |
+ | **Principe** | Do **not** restart M1→M5. Reuse the current main MVP as backbone. Relaunch a complete project lifecycle to build the target SFIA Studio product. |
+ | **Morris MVP wording** | **CURRENT SFIA STUDIO VERTICAL SLICE ON MAIN IS THE FUNCTIONAL MVP BASELINE FOR THE PRODUCT COMPLETION TRAJECTORY — REUSE EXISTING BACKBONE — DO NOT RESTART FROM ZERO — RUNTIME V3 REMAINS NON ADOPTED** |
+ | **MVP means** | exploitable proof of the fundamental product loop · technical/functional base to reuse · starting point of the new product lifecycle |
+ | **MVP does not mean** | PRE-M6 automatically closed · final product · runtime v3 ADOPTED · generic Cursor execution complete · CKC complete · final UX · production-ready |
+-| **Next cycle** | **W2 Track D / bounded CKC Phase B qualification** — W2-G1…G3 E+A+B+C **INTEGRATED** · GO Phase B **NOT CONSUMED** · **NO EXECUTION WITHOUT MORRIS GO** |
++| **Next cycle** | **W2 FINAL CLOSURE QUALIFICATION** — Phase B **INTEGRATED** (PR **#403**) · W2 **NOT FINALLY CLOSED** · **NO EXECUTION WITHOUT MORRIS GO** |
+ | **Cycle 2 objective** | Conception fonctionnelle **VALIDATED + INTEGRATED** · **next-capability execution NOT AUTHORIZED** until distinct Morris GO |
+
+ #### Product Completion target domains (D-PC-01 adopted)
+@@ -696,12 +698,12 @@ Not classified as PRE-M6 debt: couverture cognitive du catalogue applicable · g
+
+ | Fondation | Capacité | État courant | Milestone(s) | Preuve attendue | Gap / décision |
+ | --- | --- | --- | --- | --- | --- |
+-| V3-F01 CKC | Qualification cognitive | **PARTIAL RUNTIME** — F2 qualify + CycleInstance/CKC binding **on main** (M2) · Product CKC Phase A package-bound **INTEGRATED ON MAIN** (PR #395) · Product pin fail-closed · bounded CKC→Nora seam **PROVEN (W1)** · proposal process-local · corpus Studio-native **INTEGRATED** · état catalogue baseline mesure `15` non structurel | M2, W1, Product Completion | CKC lié cycle + Phase A cognitive-only · coverage catalogue applicable | **Phase B / cognition générique → W2/W3** · Proposal/Recommendation active reprenable · CKC Delivery **NOT NOW** |
++| V3-F01 CKC | Qualification cognitive | **PARTIAL RUNTIME** — F2 qualify + CycleInstance/CKC binding **on main** (M2) · Product CKC Phase A package-bound **INTEGRATED ON MAIN** (PR #395) · Product pin fail-closed · bounded CKC→Nora seam **PROVEN (W1)** · bounded Phase B cognition **INTEGRATED** (PR #403 · DETERMINISTIC PROVEN) · proposal process-local · corpus Studio-native **INTEGRATED** · état catalogue baseline mesure `15` non structurel | M2, W1, W2, Product Completion | CKC lié cycle + Phase A/B cognitive-only · coverage catalogue applicable | **full CKC catalog/track → W3** · Proposal/Recommendation active reprenable · CKC Delivery **NOT NOW** |
+ | V3-F02 LPS | Living Project State | **PARTIAL RUNTIME** — LPS durable on main ; M5-B W1 factual Evidence/RB write-back **IMPLEMENTED ON MAIN** | M1, M5, Product Completion | M1 restart · W1 append · semantic inter-session continuity | contexte suffisant durable/reconstructible ; transcript exhaustif non requis |
+ | V3-F03 DoctrinePackage | Package pin/digest | **PARTIAL→EXTENDED RUNTIME** — digest in live `F2ContextSnapshot` **on main** (M2) · Product DoctrinePackage `pkg:sfia-studio-doctrine-v3@1.0.0` **MATERIALIZED ON MAIN** (G2 decision PR #394 · W1 delivery PR #395) · root `projects/sfia-studio/app/lib/oa/doctrine/product/` · resolver/repository **KEEP** · fallback **NONE** | M1–M2, G2, W1 | live digest + Product package pin/resolution | fixture quarantine/test-only → retire later · **≠** runtime v3 ADOPTED |
+ | V3-F04 Épistémologie | Obs/Hyp/… | **PARTIAL RUNTIME** — DOC + UI tags partiels (base M2) · **persistance épistémique sélective W1 INTEGRATED** (PR #395) | M2, W1, Product Completion | tags/stop contradictions · selective epistemic continuity | **taxonomie épistémique complète → W2** |
+-| V3-F05 Chaîne conv→exec | Boucle native | **PARTIAL RUNTIME** — M1→M5 CLOSED · PRE-M6 vertical slice **ON MAIN** · C1 Target / Scope **ADOPTED / INTEGRATED** · C2 functional design **VALIDATED / INTEGRATED ON MAIN** (PR #369) · W1 Truth/Context/Continuity **INTEGRATED ON MAIN** (PR #395) · **W2-G3 E+A+B+C governed trajectory INTEGRATED ON MAIN** (PR #400) · STOP BEFORE EXECUTE · full generic continuous loop + Track D Phase B remain | M2–M5 · Pre-M6 · Product Completion · W2 | Conception fonctionnelle **INTEGRATED** · W1 **INTEGRATED** · W2-G3 **INTEGRATED** · next = Track D / Phase B qualification | PRE-M6 ≠ produit final · W2-G3 ≠ W2 closed · GO Phase B **NOT CONSUMED** · runtime v3 NON ADOPTED |
+-| V3-F06 Trajectory | ProjectTrajectory **MUST** | **PARTIAL→EXTENDED RUNTIME** — ProjectTrajectory **durable W1 INTEGRATED ON MAIN** (PR #395) · **W2 governed trajectory SoT INTEGRATED** (PR #400) · current-pointer / proposal ≠ effective current semantics · ≠ Roadmap · ≠ catalogue | M3, W1, W2, Product Completion | chemin Project réel + continuity + W2 HD seal | **Track D Phase B / replan depth remain** |
++| V3-F05 Chaîne conv→exec | Boucle native | **PARTIAL RUNTIME** — M1→M5 CLOSED · PRE-M6 vertical slice **ON MAIN** · C1 Target / Scope **ADOPTED / INTEGRATED** · C2 functional design **VALIDATED / INTEGRATED ON MAIN** (PR #369) · W1 Truth/Context/Continuity **INTEGRATED ON MAIN** (PR #395) · **W2-G3 E+A+B+C governed trajectory INTEGRATED ON MAIN** (PR #400) · **Track D / bounded Phase B INTEGRATED** (PR #403) · STOP BEFORE EXECUTE · full generic continuous loop / W2 final closure remain | M2–M5 · Pre-M6 · Product Completion · W2 | Conception fonctionnelle **INTEGRATED** · W1 **INTEGRATED** · W2-G3 **INTEGRATED** · Phase B **INTEGRATED** · next = **W2 FINAL CLOSURE QUALIFICATION** | PRE-M6 ≠ produit final · Phase B ≠ W2 closed · runtime v3 NON ADOPTED |
++| V3-F06 Trajectory | ProjectTrajectory **MUST** | **PARTIAL→EXTENDED RUNTIME** — ProjectTrajectory **durable W1 INTEGRATED ON MAIN** (PR #395) · **W2 governed trajectory SoT INTEGRATED** (PR #400) · Phase B CKC-informed Options/Recommendation **INTEGRATED** (PR #403) · current-pointer / proposal ≠ effective current semantics · ≠ Roadmap · ≠ catalogue | M3, W1, W2, Product Completion | chemin Project réel + continuity + W2 HD seal | **W2 final closure / replan depth / W3 remain** |
+ | V3-F07 Provenance | Source hierarchy | Doctrine FS | M2, Product Completion | provenance on artifacts / contract / Evidence | later |
+ | V3-F08 Contradictions | Stop/contradiction | DOC | Product Completion | UI stop + record | later |
+ | V3-F09 Replanif | Governed replan | DOC · M5 preserves Recommendation-only (W1) · structural replanning remains Product Completion MUST | Product Completion | next-step from ReviewBundle / HumanDecision Pilote | after functional conception |
+@@ -772,8 +774,8 @@ CRITICAL PATH:
+   → G2 DOCTRINEPACKAGE MATERIALIZATION DECISION — PR **#394 MERGED** (`b3e978fe…`) · `pkg:sfia-studio-doctrine-v3@1.0.0` · OPTION A root · KEEP resolver/repository · D02 Option B · fallback NONE
+   → G3 W1 DELIVERY GO — **CONSUMED** · W1 Delivery PR **#395 MERGED** · head `7d302f24…` · merge `ddd39181…` · PR CI `32588888075` SUCCESS · push/main CI `32589270526` SUCCESS · **8/8 W1 EXIT CONTRACTS PASS** · Product DoctrinePackage + CKC Phase A **INTEGRATED** · source Delivery branch **PRESERVED**
+   → PR #396 ROADMAP W1 TRUTH SYNC — **MERGED** · head `d5164cac…` · merge `fdcb57a4…` · PR CI `32591270493` SUCCESS · push/main CI **`32591909031` SUCCESS** · source branch `docs/sfia-studio-w1-post-merge-roadmap-truth-sync` **PRESERVED** · W1 ROADMAP POST-MERGE TRUTH = **SATISFIED**
+-  → CURRENT — **W2-G3 E+A+B+C INTEGRATED ON MAIN** (PR **#400** / merge `dd852243…` / PR-head CI `32632461315` SUCCESS / push/main CI `32633308148` SUCCESS) · FinOps/T7 **FREEZE** · W2 **NOT FINALLY CLOSED** · `origin/main` HEAD **RESOLVE FROM REPOSITORY**
+-  → NEXT — Track D / bounded CKC Phase B qualification → distinct Morris GO Phase B · GO Phase B **NOT CONSUMED** · **≠** W2 closed · **≠** full CKC completion · **≠** REAL authorized
++  → CURRENT — **Track D / bounded CKC Phase B INTEGRATED ON MAIN** (PR **#403** / head `1cdf4b41…` / merge `e4a93fea…` / PR-head CI `32645232920` SUCCESS / push/main CI `32646038871` SUCCESS) · prior W2-G3 E+A+B+C **INTEGRATED** (PR **#400**) · FinOps/T7 **FREEZE** · W2 **NOT FINALLY CLOSED** · `origin/main` HEAD **RESOLVE FROM REPOSITORY**
++  → NEXT — **W2 FINAL CLOSURE QUALIFICATION** → distinct cycle → evaluate integrated W2 against H→N bounded exit contract → possible later Morris W2 closure decision · **≠** W2 already closed · **≠** W3 GO · **≠** REAL authorized
+   → DYNAMIC PRODUCT TRAJECTORY — requalify after each capability
+   → OPTIONAL CKC lessons → v2.6 capitalization — DISTINCT METHOD GATE — NOT DECIDED
+
+```
+
+## H. Historical preservation proof
+
+| Historical statement | Why not current contradiction |
+|---|---|
+| Timestamp maintenance historique W2-G3 post-merge (12:25 CEST) | Marked historique · superseded · “true at that timestamp” for Phase B next / GO NOT CONSUMED |
+| Timestamp maintenance historique W2-G2 | Marked historique · GO Phase B NOT CONSUMED true then |
+| pre-W1 “full Phase B later” | Historical pre-W1 snapshot |
+| W2-G2 Decision Pack GO wording historically | Updated D-W2-02 row to Phase B later CONSUMED / INTEGRATED; anti-claims refreshed |
+
+## I. Current-state contradiction scan
+
+Active stale hits for:
+- GO Phase B NOT CONSUMED
+- Track D qualification = NEXT CAPACITY
+- Phase B NOT STARTED / Phase B qualification as next
+
+**ACTIVE_STALE_COUNT = 0**
+
+Required active truths present: PR #403 MERGED · DETERMINISTIC PROVEN · W2 FINAL CLOSURE QUALIFICATION · W2 NOT FINALLY CLOSED · W3 NOT STARTED · C6 CLOSED · FinOps FREEZE · runtime v3 NON ADOPTED.
+
+## J. Convergence qualification
+
+| Dimension | Value |
+|---|---|
+| capacity | W2 Phase B post-merge Roadmap truth-sync |
+| milestone | Living Roadmap current-state alignment after PR #403 |
+| current state | LOCAL documentary candidate · awaiting ChatGPT review then distinct Morris Git gate |
+| assets | Roadmap living SoT only |
+| gaps closed | forward-looking Phase B lag after merge |
+| gaps remaining | W2 final closure qualification not started · PB-RES-REAL-01 · W3 · Roadmap Git integration |
+| dependencies | PR #403 merged · CI evidence |
+| trajectory | Phase B integrated → W2 final closure qualification |
+| exit proof | documentary consistency + Roadmap-only diff + handoff |
+| debt/exit | PB-RES-REAL-01 · full CKC W3 · FinOps FREEZE · W2 not closed |
+| next gate | ChatGPT review of this handoff → Morris Roadmap Git integration |
+| next capability | W2 FINAL CLOSURE QUALIFICATION (distinct cycle · NOT STARTED) |
+
+## K. Anti-claims
+
+- Phase B integrated ≠ W2 closed
+- deterministic ≠ REAL
+- W2 closure qualification ≠ closure decision
+- Roadmap next capacity ≠ authorization
+- W3 downstream ≠ W3 authorized
+- C6 remains CLOSED
+- FinOps remains FREEZE
+- runtime v3 NON ADOPTED
+- Product Completion incomplete
+- this documentary candidate ≠ project commit / PR / merge
+
+## L. Verdict
+
+**W2 PHASE B POST-MERGE ROADMAP TRUTH-SYNC READY FOR CHATGPT REVIEW — PROJECT GIT INTEGRATION NOT AUTHORIZED**
