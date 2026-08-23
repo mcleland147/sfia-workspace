@@ -212,3 +212,52 @@ export type DecideTrajectoryResult =
       readonly executionPerformed: false;
     }
   | W2Failure;
+
+/* -------------------------------------------------------------------------- */
+/* Track C — material constraint amendment (OA supersession seam)              */
+/* -------------------------------------------------------------------------- */
+
+export type AmendedExecutionContractDto = {
+  readonly executionContractId: string;
+  readonly version: number;
+  readonly status: string;
+  readonly action: string;
+  readonly target: string;
+  readonly scope: string;
+  readonly requiredAuthority: string;
+  readonly constraints: readonly string[];
+  readonly stopConditions: readonly string[];
+  readonly requiredCapabilities: readonly string[];
+  readonly reversibility: string;
+  readonly semanticFingerprint: string;
+  readonly supersedesExecutionContractId: string | null;
+  readonly supersessionReason: string | null;
+};
+
+export type AmendExecutionContractSuccess = {
+  readonly ok: true;
+  readonly priorExecutionContractId: string;
+  readonly priorContractVersion: number;
+  readonly priorInspectionAttestationRef: string | null;
+  readonly successor: AmendedExecutionContractDto;
+  readonly supersedesExecutionContractId: string;
+  readonly materialAmendment: true;
+  readonly priorInspectionDoesNotCoverSuccessor: true;
+  /** Current successor inspection truth — never forged from predecessor. */
+  readonly reinspectionRequired: boolean;
+  readonly statusLabel:
+    | "CONTRAT AMENDÉ — RÉINSPECTION REQUISE"
+    | "CONTRAT AMENDÉ — RÉINSPECTION DÉJÀ SATISFAITE";
+  readonly successorInspection: ContractInspectionStateDto;
+  readonly additionalConstraint: string;
+  readonly replayed: boolean;
+  readonly humanDecisionCreated: false;
+  readonly authorityGranted: false;
+  readonly confirmationGranted: false;
+  readonly executionPerformed: false;
+  readonly attemptCreated: false;
+};
+
+export type AmendExecutionContractResult =
+  | AmendExecutionContractSuccess
+  | W2Failure;
