@@ -43,7 +43,7 @@
 | branch | `docs/sfia-studio-product-completion-w2-delivery-readiness` |
 | HEAD (qualification snapshot) | `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` — base d'entrée qualification |
 | `origin/main` HEAD | **RESOLVE FROM REPOSITORY** *(Git SoT · ce document ≠ pin permanent)* |
-| W2-G1 transport PR | **#398** · STATE = **RESOLVE FROM REPOSITORY** · latest reviewed head `43400a2f…` · PR CI **`32606632173` SUCCESS** · merge **≠** consommé par ce document |
+| W2-G1 transport PR | **#398** · STATE = **RESOLVE FROM REPOSITORY** · PR/head/CI/integration evidence = **RESOLVE FROM REPOSITORY** · merge **≠** consommé par ce document |
 | W1 Delivery PR | **#395 MERGED** · merge `ddd39181e9cf823a0d5055eefba7a873940c38c2` · push/main CI **`32589270526` SUCCESS** · **8/8 PASS** |
 | W1 roadmap closure PR | **#397 MERGED** · merge `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` |
 | backlog on main | `05-product-completion-backlog-user-stories.md` — **INTEGRATED ON MAIN** |
@@ -363,7 +363,7 @@ W2-G1 content qualified (+ Git integration RESOLVE FROM REPOSITORY / merge proof
 | Proof | État |
 |---|---|
 | Content qualification (R1→R15) | **SATISFIED** |
-| Git transport PR **#398** | STATE = **RESOLVE FROM REPOSITORY** · reviewed head `43400a2f…` · PR CI **`32606632173` SUCCESS** |
+| Git transport PR **#398** | STATE = **RESOLVE FROM REPOSITORY** · current PR/head/CI evidence = **RESOLVE FROM REPOSITORY** |
 | Integration on `main` | **RESOLVE FROM REPOSITORY** — preuve nommée PR **#398** · **≠** auto-claim intégré avant merge |
 
 > L'intégration Git n'est **pas** un gap fonctionnel W2 · c'est une preuve externe de gate.
