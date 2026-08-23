@@ -1,34 +1,32 @@
-# SFIA Studio — PR #398 Final W2-G1 Git-Proof Stability Correction — FULL Review Pack
+# SFIA Studio — PR #398 Permanent Git-Proof Stabilization — FULL Review Pack
 
-**Timestamp (Europe/Paris):** 2026-08-23 02:09:13 CEST
-**Morris GO:** FINAL W2-G1 GIT-PROOF STABILITY CORRECTION — TWO PR-PROOF REFERENCES ONLY
+**Timestamp (Europe/Paris):** 2026-08-23 02:13:29 CEST
+**Morris GO:** FINAL PERMANENT GIT-PROOF STABILIZATION — PURE RESOLVE FROM REPOSITORY ONLY
 
 ---
 
 ## 1. VERDICT
 
-**PR #398 FINAL GIT-PROOF STABILITY CORRECTION COMPLETE — TWO SUPERSEDED PR REFERENCES REPLACED — NO FUNCTIONAL CONTENT CHANGE — DRAFT PRESERVED — NO MARK-READY — NO MERGE**
+**PR #398 PERMANENT GIT-PROOF STABILIZATION COMPLETE — EMBEDDED HEAD/CI REMOVED FROM TWO PR-PROOF ROWS — PURE RESOLVE FROM REPOSITORY ONLY — NO FUNCTIONAL CONTENT CHANGE**
 
 ---
 
 ## 2. Changes (exactly 2 lines)
 
-| Location | Change |
-|---|---|
-| `W2-G1 transport PR` row | STATE = RESOLVE FROM REPOSITORY · head `43400a2f…` · CI `32606632173` |
-| `W2-G1 Git integration proof` row | Same stabilization |
+Removed embedded `reviewed head` / `PR CI` from:
+- `W2-G1 transport PR` row
+- `W2-G1 Git integration proof` row
 
-Removed superseded: head `e958bfa4…` · CI `32606156268`
+Replaced with pure **RESOLVE FROM REPOSITORY** for PR/head/CI/integration evidence.
 
 ---
 
-## 3. Git / PR
+## 3. Git
 
 | Item | Value |
 |---|---|
-| commit | `aebba5d309d79fd656f7c0bd0f6e55e1f52bbcb8` |
-| PR | **#398** OPEN / DRAFT |
-| CI | [{"conclusion":"success","databaseId":32606986187,"headSha":"aebba5d309d79fd656f7c0bd0f6e55e1f52bbcb8"}] |
+| commit | `691e08371d6e570d5c77238707bfca93de5f3462` |
+| PR | **#398** OPEN / DRAFT · 4 commits |
 
 ---
 
@@ -36,15 +34,15 @@ Removed superseded: head `e958bfa4…` · CI `32606156268`
 
 ```diff
 diff --git a/projects/sfia-studio/product-completion/08-product-completion-wave-2-delivery-readiness.md b/projects/sfia-studio/product-completion/08-product-completion-wave-2-delivery-readiness.md
-index 4e600ce4..5f86d134 100644
+index 5f86d134..113cd016 100644
 --- a/projects/sfia-studio/product-completion/08-product-completion-wave-2-delivery-readiness.md
 +++ b/projects/sfia-studio/product-completion/08-product-completion-wave-2-delivery-readiness.md
 @@ -43,7 +43,7 @@
  | branch | `docs/sfia-studio-product-completion-w2-delivery-readiness` |
  | HEAD (qualification snapshot) | `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` — base d'entrée qualification |
  | `origin/main` HEAD | **RESOLVE FROM REPOSITORY** *(Git SoT · ce document ≠ pin permanent)* |
--| W2-G1 transport PR | **#398 OPEN / DRAFT** · head `e958bfa4…` · PR CI **`32606156268` SUCCESS** · merge **≠** consommé par ce document |
-+| W2-G1 transport PR | **#398** · STATE = **RESOLVE FROM REPOSITORY** · latest reviewed head `43400a2f…` · PR CI **`32606632173` SUCCESS** · merge **≠** consommé par ce document |
+-| W2-G1 transport PR | **#398** · STATE = **RESOLVE FROM REPOSITORY** · latest reviewed head `43400a2f…` · PR CI **`32606632173` SUCCESS** · merge **≠** consommé par ce document |
++| W2-G1 transport PR | **#398** · STATE = **RESOLVE FROM REPOSITORY** · PR/head/CI/integration evidence = **RESOLVE FROM REPOSITORY** · merge **≠** consommé par ce document |
  | W1 Delivery PR | **#395 MERGED** · merge `ddd39181e9cf823a0d5055eefba7a873940c38c2` · push/main CI **`32589270526` SUCCESS** · **8/8 PASS** |
  | W1 roadmap closure PR | **#397 MERGED** · merge `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` |
  | backlog on main | `05-product-completion-backlog-user-stories.md` — **INTEGRATED ON MAIN** |
@@ -52,8 +50,8 @@ index 4e600ce4..5f86d134 100644
  | Proof | État |
  |---|---|
  | Content qualification (R1→R15) | **SATISFIED** |
--| Git transport PR **#398** | **OPEN / DRAFT** · head `e958bfa4…` · PR CI **`32606156268` SUCCESS** |
-+| Git transport PR **#398** | STATE = **RESOLVE FROM REPOSITORY** · reviewed head `43400a2f…` · PR CI **`32606632173` SUCCESS** |
+-| Git transport PR **#398** | STATE = **RESOLVE FROM REPOSITORY** · reviewed head `43400a2f…` · PR CI **`32606632173` SUCCESS** |
++| Git transport PR **#398** | STATE = **RESOLVE FROM REPOSITORY** · current PR/head/CI evidence = **RESOLVE FROM REPOSITORY** |
  | Integration on `main` | **RESOLVE FROM REPOSITORY** — preuve nommée PR **#398** · **≠** auto-claim intégré avant merge |
 
  > L'intégration Git n'est **pas** un gap fonctionnel W2 · c'est une preuve externe de gate.
@@ -109,7 +107,7 @@ index 4e600ce4..5f86d134 100644
 | branch | `docs/sfia-studio-product-completion-w2-delivery-readiness` |
 | HEAD (qualification snapshot) | `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` — base d'entrée qualification |
 | `origin/main` HEAD | **RESOLVE FROM REPOSITORY** *(Git SoT · ce document ≠ pin permanent)* |
-| W2-G1 transport PR | **#398** · STATE = **RESOLVE FROM REPOSITORY** · latest reviewed head `43400a2f…` · PR CI **`32606632173` SUCCESS** · merge **≠** consommé par ce document |
+| W2-G1 transport PR | **#398** · STATE = **RESOLVE FROM REPOSITORY** · PR/head/CI/integration evidence = **RESOLVE FROM REPOSITORY** · merge **≠** consommé par ce document |
 | W1 Delivery PR | **#395 MERGED** · merge `ddd39181e9cf823a0d5055eefba7a873940c38c2` · push/main CI **`32589270526` SUCCESS** · **8/8 PASS** |
 | W1 roadmap closure PR | **#397 MERGED** · merge `bfa60c2d2ec0d828a5bf703e3fcaec3f0bb76197` |
 | backlog on main | `05-product-completion-backlog-user-stories.md` — **INTEGRATED ON MAIN** |
@@ -429,7 +427,7 @@ W2-G1 content qualified (+ Git integration RESOLVE FROM REPOSITORY / merge proof
 | Proof | État |
 |---|---|
 | Content qualification (R1→R15) | **SATISFIED** |
-| Git transport PR **#398** | STATE = **RESOLVE FROM REPOSITORY** · reviewed head `43400a2f…` · PR CI **`32606632173` SUCCESS** |
+| Git transport PR **#398** | STATE = **RESOLVE FROM REPOSITORY** · current PR/head/CI evidence = **RESOLVE FROM REPOSITORY** |
 | Integration on `main` | **RESOLVE FROM REPOSITORY** — preuve nommée PR **#398** · **≠** auto-claim intégré avant merge |
 
 > L'intégration Git n'est **pas** un gap fonctionnel W2 · c'est une preuve externe de gate.
@@ -707,4 +705,4 @@ Macro scope W2 **qualifié** · chaîne H→N **alignée C2** · **GO Phase B di
 
 ---
 
-*Generated 2026-08-23 02:09:13 CEST*
+*Generated 2026-08-23 02:13:29 CEST*
