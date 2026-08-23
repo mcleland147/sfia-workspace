@@ -77,8 +77,16 @@ TD-01 stack frontend · TD-02 stack backend · TD-03 runtime topology · TD-04 p
 
 ## Next step
 
-Project integration requires a **distinct Morris GO for PR readiness / push**.
+Cycle 13 PR readiness was executed and identified the README current-truth corrections now being regularized.
 
+After this targeted correction is reviewed, PR readiness must be revalidated against current origin/main.
+
+Project push and PR creation remain subject to:
+1. a successful renewed PR-readiness verdict; and
+2. a distinct Morris authorization for project push + PR.
+
+**NO PROJECT PUSH AUTHORIZED**
+**NO PR AUTHORIZED**
 **NO BACKLOG EXECUTION AUTHORIZED**
 **NO DELIVERY AUTHORIZED**
 **NO IMPLEMENTATION AUTHORIZED**
@@ -87,7 +95,11 @@ Cycle 6 is **not** opened by Cycle 4/5 validation.
 
 ## Tracking note (R-DOC-02)
 
-R-DOC-02: CORRECTED IN CYCLE 4 CANDIDATE — local regularization of validated Cycle 4/5 artifacts pending PR readiness GO.
+R-DOC-02: CLOSED — tracking correction completed in Cycle 4 and regularized in local Git.
+
+Cycle 13 PR readiness has been executed; no PR-readiness GO remains pending for R-DOC-02.
+
+This closure does not imply PR readiness, project push authorization, PR creation, merge, backlog, delivery, implementation, or M1 READY.
 
 ## SFIA references
 
