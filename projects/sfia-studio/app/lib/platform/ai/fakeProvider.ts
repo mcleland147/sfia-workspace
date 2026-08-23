@@ -65,14 +65,34 @@ export class FakeConversationProvider implements ConversationProvider {
         m.content.includes("SFIA Studio CKC COGNITIVE REASONING"),
       )
     ) {
-      const hasCkcContext = messages.some(
-        (m) =>
-          m.content.toLowerCase().includes("anti scope creep") ||
-          m.content.includes("ckc:studio:delivery"),
-      );
-      if (hasCkcContext) {
+      // Specialized Fake CKC cognition keys off CONTENT markers only.
+      // CKC IDs (ckc:studio:*) must never trigger specialized behavior (R1-01).
+      const joined = messages.map((m) => m.content).join("\n").toLowerCase();
+      const hasSecurity =
+        joined.includes("risque résiduel") ||
+        joined.includes("risque residuel") ||
+        joined.includes("adversarial") ||
+        joined.includes("secret en repo");
+      const hasDelivery =
+        joined.includes("anti scope creep") ||
+        joined.includes("scope creep") ||
+        joined.includes("implémentation bornée") ||
+        joined.includes("implementation bornee");
+      if (hasSecurity) {
         return {
-          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — anti scope creep : borner le slice avant toute extension. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
+          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — posture adversarial : risque résiduel majeures → HumanDecision explicite ; secret en repo → STOP. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
+          usage: {
+            inputTokens: 10 * this.callCount,
+            outputTokens: 5 * this.callCount,
+            totalTokens: 15 * this.callCount,
+            model: "fake-test-model",
+            providerResponseId: `fake-resp-${this.callCount}`,
+          },
+        };
+      }
+      if (hasDelivery) {
+        return {
+          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — anti scope creep : borner le slice avant toute extension ; pas de silent REAL ; Evidence/done honnête. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
           usage: {
             inputTokens: 10 * this.callCount,
             outputTokens: 5 * this.callCount,

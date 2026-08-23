@@ -23,6 +23,16 @@ export type TrajectoryOptionDto = {
   readonly steps: readonly TrajectoryStep[];
 };
 
+export type CkcRecommendationProvenanceDto = {
+  readonly ckcId: string;
+  readonly cycleTypeId: string;
+  readonly doctrinePackageId: string;
+  readonly packageVersion: string;
+  readonly contentDigest: string;
+  readonly semanticFingerprint: string;
+  readonly doctrineStatus: "product-studio-native";
+};
+
 export type TrajectoryRecommendationDto = {
   readonly label: "RECOMMANDATION — PAS UNE DÉCISION";
   readonly recommendedOptionRef: string;
@@ -35,6 +45,11 @@ export type TrajectoryRecommendationDto = {
    * Absent attribution is reported honestly rather than invented.
    */
   readonly ckcAttribution: string | null;
+  /**
+   * Phase B reconstructible package/CKC provenance (audit).
+   * Business-first rationale remains above; raw CKC markdown is never stored here.
+   */
+  readonly ckcProvenance: CkcRecommendationProvenanceDto | null;
 };
 
 export type TrajectoryDecisionPhase =
@@ -82,6 +97,8 @@ export type TrajectoryOptionSetDto = {
   readonly phase: "OPTIONS_PROPOSED";
   readonly autoDecisionPerformed: false;
   readonly executionPerformed: false;
+  /** Phase B ordering proof: cognition completed before durable mutation. */
+  readonly ckcCognitionCompletedBeforeMutation: true;
 };
 
 export type W2Failure = {

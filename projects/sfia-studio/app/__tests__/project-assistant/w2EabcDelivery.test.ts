@@ -3,7 +3,7 @@
  * W2-G3 E+A+B+C — deterministic product-native proof.
  * No Execute · no REAL · no Phase B / Track D.
  */
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { RUNTIME_DISCLOSURES } from "@/lib/vertical-slice-runtime/disclosures";
 import { prepareM3FromDecision } from "@/features/project-assistant/f3/prepareM3FromDecision";
 import {
@@ -50,25 +50,32 @@ import {
   seedQualifiedProject,
   tempProductDbPath,
 } from "./w2Harness";
+import { setConversationProviderForTests } from "@/lib/platform/ai";
+
+beforeEach(() => {
+  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+  setConversationProviderForTests(null);
+});
 
 afterEach(() => {
   cleanupW2TempDirs();
 });
 
 describe("W2 Track E — disclosure honesty", () => {
-  it("states trajectory / epistemic / granted confirmation as durable and Phase B as not implemented", () => {
+  it("states trajectory / epistemic / granted confirmation as durable and Phase B as deterministic-only", () => {
     expect(RUNTIME_DISCLOSURES.projectTrajectoryRestartSafe).toBe(true);
     expect(RUNTIME_DISCLOSURES.materializedEpistemicRestartSafe).toBe(true);
     expect(RUNTIME_DISCLOSURES.grantedConfirmationRestartSafe).toBe(true);
     expect(RUNTIME_DISCLOSURES.requestedConfirmationRestartSafe).toBe(false);
     expect(RUNTIME_DISCLOSURES.w2Cognition).toBe("IN_PROGRESS_NOT_COMPLETE");
     expect(RUNTIME_DISCLOSURES.ckcPhaseBCognition).toBe(
-      "NOT_AUTHORIZED_NOT_IMPLEMENTED",
+      "IMPLEMENTED_DETERMINISTIC_NOT_REAL",
     );
     const joined = RUNTIME_DISCLOSURES.messages.join(" ");
     expect(joined).toMatch(/ProjectTrajectory versions/);
     expect(joined).not.toMatch(/Trajectory\/Epistemic Memory remain process-local/);
-    expect(joined).toMatch(/CKC Phase B cognition integration is NOT authorized/);
+    expect(joined).toMatch(/IMPLEMENTED with DETERMINISTIC proof only/);
+    expect(joined).toMatch(/NOT REAL/);
     expect(joined).toMatch(/Runtime v3 is not ADOPTED/);
     expect(w1RestartHonestyMessage()).toMatch(/trajectoire effective\/décidée/i);
     expect(w1RestartHonestyMessage()).toMatch(/confirmation demandée/i);
@@ -142,6 +149,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(proposed.ok).toBe(true);
     if (!proposed.ok) return;
@@ -243,6 +253,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(proposed.ok).toBe(true);
     if (!proposed.ok) return;
@@ -255,8 +268,12 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
     expect(loaded.ok).toBe(true);
     if (!loaded.ok) return;
     expect(loaded.presented.qualificationDigest).toBe(
-      computeQualificationDigest(qualification.qualification.inputs),
+      computeQualificationDigest({
+        ...qualification.qualification.inputs,
+        ckcSemanticFingerprint: loaded.presented.ckcSemanticFingerprint,
+      }),
     );
+    expect(loaded.presented.ckcSemanticFingerprint).toBeTruthy();
 
     const epistemic = await oa.cycleServices.getEpistemicState.execute({
       projectId: seeded.projectId,
@@ -301,6 +318,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(proposed.ok).toBe(true);
     if (!proposed.ok) return;
@@ -325,8 +345,8 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
     expect(driftedQual.ok).toBe(true);
     if (!driftedQual.ok) return;
     expect(
-      computeQualificationDigest(driftedQual.qualification.inputs),
-    ).not.toBe(computeQualificationDigest(qualification.qualification.inputs));
+      computeQualificationDigest({ ...driftedQual.qualification.inputs, ckcSemanticFingerprint: null }),
+    ).not.toBe(computeQualificationDigest({ ...qualification.qualification.inputs, ckcSemanticFingerprint: null }));
     expect(
       deriveTrajectoryRecommendation(driftedQual.qualification.inputs)
         .recommendedOptionRef,
@@ -376,6 +396,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(proposed.ok).toBe(true);
     if (!proposed.ok) return;
@@ -453,6 +476,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa: oa1,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(proposed.ok).toBe(true);
     if (!proposed.ok) return;
@@ -502,6 +528,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(first.ok).toBe(true);
     if (!first.ok) return;
@@ -510,6 +539,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(second.ok).toBe(true);
     if (!second.ok) return;
@@ -581,6 +613,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(first.ok).toBe(true);
     if (!first.ok) return;
@@ -619,6 +654,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...requal.qualification.inputs,
+      packagePin: requal.qualification.packagePin,
+      objective: requal.qualification.objective,
+      projectTitle: requal.qualification.projectTitle,
     });
     expect(second.ok).toBe(true);
     if (!second.ok) return;
@@ -654,7 +692,10 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
     expect(loadedY.presented.optionSetDigest).not.toBe(firstDigest);
     expect(loadedY.presented.candidateVersion).toBe(2);
     expect(loadedY.presented.qualificationDigest).toBe(
-      computeQualificationDigest(requal.qualification.inputs),
+      computeQualificationDigest({
+        ...requal.qualification.inputs,
+        ckcSemanticFingerprint: loadedY.presented.ckcSemanticFingerprint,
+      }),
     );
 
     const v1 = await oa.cycleServices.getTrajectoryVersion.execute({
@@ -697,6 +738,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(first.ok).toBe(true);
     if (!first.ok) return;
@@ -724,6 +768,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...requal.qualification.inputs,
+      packagePin: requal.qualification.packagePin,
+      objective: requal.qualification.objective,
+      projectTitle: requal.qualification.projectTitle,
     });
     expect(second.ok).toBe(true);
     if (!second.ok) return;
@@ -793,6 +840,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa: oa1,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(first.ok).toBe(true);
     if (!first.ok) return;
@@ -827,7 +877,10 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa: oa1,
       projectId: seeded.projectId,
       ...requal.qualification.inputs,
-    });
+packagePin: requal.qualification.packagePin,
+objective: requal.qualification.objective,
+projectTitle: requal.qualification.projectTitle,
+});
     expect(second.ok).toBe(true);
     if (!second.ok) return;
 
@@ -878,6 +931,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(first.ok).toBe(true);
     if (!first.ok) return;
@@ -950,6 +1006,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(first.ok).toBe(true);
     if (!first.ok) return;
@@ -982,6 +1041,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...requal.qualification.inputs,
+      packagePin: requal.qualification.packagePin,
+      objective: requal.qualification.objective,
+      projectTitle: requal.qualification.projectTitle,
     });
     expect(second.ok).toBe(true);
     if (!second.ok) return;
@@ -1015,6 +1077,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(first.ok).toBe(true);
     if (!first.ok) return;
@@ -1040,6 +1105,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...afterDecideQual.qualification.inputs,
+      packagePin: afterDecideQual.qualification.packagePin,
+      objective: afterDecideQual.qualification.objective,
+      projectTitle: afterDecideQual.qualification.projectTitle,
     });
     expect(x.ok).toBe(true);
     if (!x.ok) return;
@@ -1069,6 +1137,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...requal.qualification.inputs,
+      packagePin: requal.qualification.packagePin,
+      objective: requal.qualification.objective,
+      projectTitle: requal.qualification.projectTitle,
     });
     expect(y.ok).toBe(true);
     if (!y.ok) return;
@@ -1116,6 +1187,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(first.ok).toBe(true);
     if (!first.ok) return;
@@ -1164,6 +1238,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(first.ok).toBe(true);
     if (!first.ok) return;
@@ -1191,6 +1268,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...requal.qualification.inputs,
+      packagePin: requal.qualification.packagePin,
+      objective: requal.qualification.objective,
+      projectTitle: requal.qualification.projectTitle,
     });
     expect(second.ok).toBe(true);
     if (!second.ok) return;
@@ -1266,6 +1346,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa: oa1,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(first.ok).toBe(true);
     if (!first.ok) return;
@@ -1292,7 +1375,10 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa: oa1,
       projectId: seeded.projectId,
       ...requal.qualification.inputs,
-    });
+packagePin: requal.qualification.packagePin,
+objective: requal.qualification.objective,
+projectTitle: requal.qualification.projectTitle,
+});
     expect(second.ok).toBe(true);
     if (!second.ok) return;
 
@@ -1333,6 +1419,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(first.ok).toBe(true);
     if (!first.ok) return;
@@ -1340,6 +1429,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(second.ok).toBe(true);
     if (!second.ok) return;
@@ -1398,6 +1490,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(first.ok).toBe(true);
     if (!first.ok) return;
@@ -1475,6 +1570,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(first.ok).toBe(true);
     if (!first.ok) return;
@@ -1554,6 +1652,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(proposed.ok).toBe(true);
     if (!proposed.ok) return;
@@ -1614,6 +1715,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       oa: first.oa!,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(proposed.ok).toBe(true);
     if (!proposed.ok) return;
@@ -1674,6 +1778,9 @@ describe("W2 Track B1 — CKC provenance honesty", () => {
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(proposed.ok).toBe(true);
     if (!proposed.ok) return;
@@ -1742,6 +1849,9 @@ describe("W2 Track C — inspection binding + authorization mechanism proofs", (
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(proposed.ok).toBe(true);
     if (!proposed.ok) return;
@@ -1859,6 +1969,9 @@ describe("W2 Track C — inspection binding + authorization mechanism proofs", (
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(proposed.ok).toBe(true);
     if (!proposed.ok) return;
@@ -1987,6 +2100,9 @@ describe("W2 Track C — inspection binding + authorization mechanism proofs", (
       oa,
       projectId: seeded.projectId,
       ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
     });
     expect(proposed.ok).toBe(true);
     if (!proposed.ok) return;

@@ -6,8 +6,8 @@ import "./serverGuard";
  * ProjectTrajectory/materialized Epistemic/granted Confirmation are Product SQLite
  * restart-safe on the Product path; conversation/proposal/requested Confirmation
  * remain process-local.
- * Not a product-ready / v3-ADOPTED / Cursor REAL / Gate D / W2-complete /
- * CKC Phase B claim surface.
+ * Not a product-ready / v3-ADOPTED / Cursor REAL / Gate D / W2-complete claim
+ * surface. Bounded Phase B cognition may be IMPLEMENTED_DETERMINISTIC_NOT_REAL.
  */
 export interface RuntimeDisclosures {
   readonly runtimeMode: "LOCAL_PROCESS";
@@ -41,8 +41,12 @@ export interface RuntimeDisclosures {
   readonly restoredConfirmationIsHistoricalConsentOnly: true;
   /** W2 capability is under delivery — never presented as complete. */
   readonly w2Cognition: "IN_PROGRESS_NOT_COMPLETE";
-  /** CKC Phase B cognition integration requires a distinct Morris GO — not consumed. */
-  readonly ckcPhaseBCognition: "NOT_AUTHORIZED_NOT_IMPLEMENTED";
+  /**
+   * Bounded W2 Track D Phase B: product-native CKC cognition on the W2 path,
+   * deterministic Fake proof only. NOT REAL, NOT full CKC track, NOT W2 closed,
+   * runtime v3 NON ADOPTED.
+   */
+  readonly ckcPhaseBCognition: "IMPLEMENTED_DETERMINISTIC_NOT_REAL";
   readonly messages: readonly string[];
 }
 
@@ -63,7 +67,7 @@ export const RUNTIME_DISCLOSURE_MESSAGES: readonly string[] = Object.freeze([
   "Delivery and cutover are not authorized.",
   "Runtime v3 is not ADOPTED.",
   "W2 cognition/trajectory/decision capability is in progress — not complete.",
-  "CKC Phase B cognition integration is NOT authorized and NOT implemented (distinct Morris GO required).",
+  "CKC Phase B bounded cognition is IMPLEMENTED with DETERMINISTIC proof only — NOT REAL, NOT full CKC track, W2 NOT closed, runtime v3 NON ADOPTED.",
 ]);
 
 export const RUNTIME_DISCLOSURES: RuntimeDisclosures = Object.freeze({
@@ -86,7 +90,7 @@ export const RUNTIME_DISCLOSURES: RuntimeDisclosures = Object.freeze({
   requestedConfirmationRestartSafe: false,
   restoredConfirmationIsHistoricalConsentOnly: true,
   w2Cognition: "IN_PROGRESS_NOT_COMPLETE",
-  ckcPhaseBCognition: "NOT_AUTHORIZED_NOT_IMPLEMENTED",
+  ckcPhaseBCognition: "IMPLEMENTED_DETERMINISTIC_NOT_REAL",
   messages: RUNTIME_DISCLOSURE_MESSAGES,
 });
 

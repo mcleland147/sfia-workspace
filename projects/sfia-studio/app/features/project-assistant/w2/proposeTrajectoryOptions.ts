@@ -1,23 +1,36 @@
 /**
- * W2 Track A — product application path: publish trajectory Options and the
- * accompanying Recommendation, and materialise the PROPOSED trajectory.
+ * W2 Track A + Track D Phase B — product application path: publish trajectory
+ * Options and the accompanying Recommendation, and materialise the PROPOSED
+ * trajectory.
  *
- * Durability follows D-W2-01: what must survive is materialised as durable
- * Epistemic items (Option / Recommendation / presented OptionSet Observation)
- * plus one durable `candidate` ProjectTrajectory version. Nothing here promotes
- * the trajectory and nothing here records a decision — PROPOSED ≠ DECIDED.
+ * Phase B order (binding):
+ *   resolve inputs → load product CKC → provider cognition → derive Options →
+ *   enrich Recommendation → digests → ONLY THEN durable trajectory/epistemic writes.
  *
- * D-W2-A3-01 — material reinstruction mints a new candidate version on the same
- * ProjectTrajectory SoT; exact semantic idempotence may reuse the same version.
+ * Durability follows D-W2-01. D-W2-A3-01 idempotence uses stable CKC semantic
+ * fingerprint (not raw provider prose). STOP BEFORE EXECUTE.
  *
- * Reuses existing OA use cases only. No parallel engine, no second store.
+ * Reuses existing OA use cases only. No parallel engine, no Proposal-store.
  */
 
 import { randomBytes } from "node:crypto";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
+import {
+  readLiveProjectContext,
+  resolveProductDoctrineRegistryRoot,
+} from "@/lib/vertical-slice-runtime";
 import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
 import type { ProjectTrajectory, TrajectoryStep } from "@/lib/oa/cycle";
+import type { DoctrinePackagePin } from "@/lib/oa/doctrine";
+import {
+  buildCkcCognitivePromptSection,
+  computeCkcSemanticFingerprint,
+  deriveCkcAttributedRecommendation,
+  loadProductCkcCognitiveContent,
+  reasonWithResolvedCkcContext,
+  type CkcCognitiveProvenance,
+  type ProductCkcCognitiveContent,
+} from "@/features/project-assistant/f2/ckcCognitiveContext";
 import {
   computeOptionSetDigest,
   computeQualificationDigest,
@@ -34,6 +47,7 @@ import {
   type TrajectoryOptionInputs,
 } from "./trajectoryOptions";
 import type {
+  CkcRecommendationProvenanceDto,
   ProposeTrajectoryOptionsResult,
   TrajectoryOptionDto,
   TrajectoryRecommendationDto,
@@ -91,17 +105,45 @@ function recommendationStatement(
   return `${recommendation.label} — option recommandée: ${target?.label ?? recommendation.recommendedOptionRef}. ${recommendation.rationale}`;
 }
 
-/**
- * A3-EPI-01 — when presenting a successor OptionSet, declare supersedes links
- * so UpdateEpistemicState retires the prior set's Observation, Recommendation,
- * and corresponding Options (by optionRef). No delete; history stays durable.
- */
 function withPriorSetSupersedes<T extends object>(
   item: T,
   priorEpistemicItemId: string | undefined,
 ): T & { supersedes?: string } {
   if (!priorEpistemicItemId) return item;
   return { ...item, supersedes: priorEpistemicItemId };
+}
+
+function toProvenanceDto(
+  provenance: CkcCognitiveProvenance,
+  fingerprint: string,
+): CkcRecommendationProvenanceDto {
+  return Object.freeze({
+    ckcId: provenance.ckcId,
+    cycleTypeId: provenance.cycleTypeId,
+    doctrinePackageId: provenance.doctrinePackageId,
+    packageVersion: provenance.packageVersion,
+    contentDigest: provenance.contentDigest,
+    semanticFingerprint: fingerprint,
+    doctrineStatus: "product-studio-native",
+  });
+}
+
+function enrichRecommendationWithCognition(input: {
+  base: TrajectoryRecommendationDto;
+  content: ProductCkcCognitiveContent;
+  cognitiveRecommendation: string;
+  fingerprint: string;
+}): TrajectoryRecommendationDto {
+  const rationale = deriveCkcAttributedRecommendation({
+    baseRationale: input.base.rationale,
+    content: input.content,
+    cognitiveRecommendation: input.cognitiveRecommendation,
+  });
+  return {
+    ...input.base,
+    rationale,
+    ckcProvenance: toProvenanceDto(input.content.provenance, input.fingerprint),
+  };
 }
 
 export type ProposeTrajectoryOptionsInput = {
@@ -113,8 +155,11 @@ export type ProposeTrajectoryOptionsInput = {
   readonly criticalSignalsPresent: boolean;
   readonly irreversible: boolean;
   readonly reservations: readonly string[];
-  /** W1 bounded CKC seam attribution, or null when unavailable. */
+  /** Opaque LPS CKC resolution ref (secondary pointer). */
   readonly ckcAttribution: string | null;
+  readonly packagePin: DoctrinePackagePin;
+  readonly objective: string;
+  readonly projectTitle: string;
   readonly correlationId?: string;
 };
 
@@ -127,6 +172,49 @@ export async function proposeTrajectoryOptions(
     return { ok: false, code: live.code, message: live.message };
   }
 
+  // ── Phase B: product-native CKC cognition BEFORE any durable mutation ──
+  const registryRoot = resolveProductDoctrineRegistryRoot();
+  const ckcContent = loadProductCkcCognitiveContent({
+    registryRoot,
+    cycleTypeId: input.cycleTypeId,
+    packagePin: input.packagePin,
+  });
+  if (!ckcContent) {
+    return {
+      ok: false,
+      code: "CKC_UNAVAILABLE",
+      message:
+        "CKC product-native introuvable ou incohérent pour le cycle actif — aucune mutation de trajectoire/OptionSet.",
+    };
+  }
+
+  const ckcPromptSection = buildCkcCognitivePromptSection(ckcContent);
+  let cognitiveRecommendation: string;
+  try {
+    const reasoning = await reasonWithResolvedCkcContext({
+      userContent: `Instruire Options/Recommendation pour le cycle ${input.cycleTypeId}`,
+      projectSummary: [
+        `name=${input.projectTitle}`,
+        `objective=${input.objective}`,
+        `projectId=${input.projectId}`,
+      ].join(" | "),
+      intentSummary: `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`,
+      ckcPromptSection,
+    });
+    cognitiveRecommendation = reasoning.recommendation;
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : "provider_error";
+    return {
+      ok: false,
+      code: "PROVIDER_COGNITION_FAILED",
+      message: `Cognition Nora/provider échouée (${detail}) — aucune mutation de trajectoire/OptionSet.`,
+    };
+  }
+
+  const semanticFingerprint = computeCkcSemanticFingerprint(
+    ckcContent.provenance,
+  );
+
   const inputs: TrajectoryOptionInputs = {
     cycleTypeId: input.cycleTypeId,
     recommendedProfile: input.recommendedProfile,
@@ -136,7 +224,14 @@ export async function proposeTrajectoryOptions(
     ckcAttribution: input.ckcAttribution,
   };
   const options = deriveTrajectoryOptions(inputs);
-  const recommendation = deriveTrajectoryRecommendation(inputs);
+  const baseRecommendation = deriveTrajectoryRecommendation(inputs);
+  const recommendation = enrichRecommendationWithCognition({
+    base: baseRecommendation,
+    content: ckcContent,
+    cognitiveRecommendation,
+    fingerprint: semanticFingerprint,
+  });
+
   const optionSetRef = `optset:w2-${shortId()}`;
   const correlationId = input.correlationId ?? `cor:w2-opt-${shortId()}`;
   const qualificationDigest = computeQualificationDigest({
@@ -146,6 +241,7 @@ export async function proposeTrajectoryOptions(
     irreversible: input.irreversible,
     reservations: input.reservations,
     ckcAttribution: input.ckcAttribution,
+    ckcSemanticFingerprint: semanticFingerprint,
   });
   const optionSetDigest = computeOptionSetDigest({
     cycleTypeId: input.cycleTypeId,
@@ -157,8 +253,6 @@ export async function proposeTrajectoryOptions(
     recommendedOptionRef: recommendation.recommendedOptionRef,
   });
 
-  // The proposed trajectory mirrors the recommended option's outline for
-  // presentation. Decide seals the Pilote-selected option's steps (A1).
   const proposedSteps: TrajectoryStep[] = structuredClone(
     (options.find((o) => o.optionRef === recommendation.recommendedOptionRef) ??
       options[0]!).steps,
@@ -168,7 +262,6 @@ export async function proposeTrajectoryOptions(
 
   let proposedTrajectoryId: string;
   let proposedVersion: number;
-  /** Prior candidate version whose OptionSet Observation should be superseded. */
   let observationSupersedeVersion: number | null = null;
 
   const existingCandidate =
@@ -189,14 +282,10 @@ export async function proposeTrajectoryOptions(
   }
 
   if (reuseExistingCandidate && existingCandidate) {
-    // A3-1 — exact semantic idempotence: same SoT version, no artificial bump.
     proposedTrajectoryId = existingCandidate.trajectoryId;
     proposedVersion = existingCandidate.version;
     observationSupersedeVersion = existingCandidate.version;
   } else if (latest) {
-    // D-W2-A3-01 — OCC against lineage HEAD (latest), never client-invented.
-    // Material change on an undecided candidate → vN+1 + supersede vN.
-    // First propose after a decided current → candidate ahead of current.
     const liveAfterHead = await readLiveProjectContext(oa, input.projectId);
     if (!liveAfterHead.ok) {
       return {
@@ -261,9 +350,6 @@ export async function proposeTrajectoryOptions(
   const priorOptionRefs = new Set(
     priorBinding?.options.map((o) => o.optionRef) ?? [],
   );
-  // Current W2 catalogue always re-emits the same structuring optionRefs.
-  // If a prior Option cannot be retired via an optionRef-matched replacement,
-  // that would require a Morris retirement semantic — fail closed here.
   if (priorBinding) {
     for (const priorOption of priorBinding.options) {
       if (!options.some((o) => o.optionRef === priorOption.optionRef)) {
@@ -295,23 +381,21 @@ export async function proposeTrajectoryOptions(
     );
   });
 
+  // R1-03: Epistemic Recommendation statement stays business-first.
+  // Structured audit provenance lives on recommendation.ckcProvenance /
+  // presented binding / relatedObjects tags — not in Pilote-facing prose.
   const recommendationItem = withPriorSetSupersedes(
     {
       epistemicItemId: optionSetRecommendationId(optionSetRef),
       type: "Recommendation" as const,
-      // Process/qualification source — CKC attribution is context only.
-      statement: [
-        recommendationStatement(recommendation, options),
-        input.ckcAttribution
-          ? ` CKC context (not semantic cause): ${input.ckcAttribution}.`
-          : " CKC context: none.",
-      ].join(""),
+      statement: recommendationStatement(recommendation, options),
       status: "active" as const,
       source: optionSetRef,
       relatedObjects: [
         input.projectId,
         recommendation.recommendedOptionRef,
         optionSetRef,
+        recommendation.ckcProvenance?.ckcId ?? "ckc:none",
         ...(input.ckcAttribution ? [input.ckcAttribution] : []),
       ],
     },
@@ -344,6 +428,7 @@ export async function proposeTrajectoryOptions(
     irreversible: input.irreversible,
     reservations: [...input.reservations],
     ckcAttribution: input.ckcAttribution,
+    ckcSemanticFingerprint: semanticFingerprint,
   };
 
   const observationItem = withPriorSetSupersedes(
@@ -392,6 +477,7 @@ export async function proposeTrajectoryOptions(
     phase: "OPTIONS_PROPOSED",
     autoDecisionPerformed: false,
     executionPerformed: false,
+    ckcCognitionCompletedBeforeMutation: true,
   };
 }
 

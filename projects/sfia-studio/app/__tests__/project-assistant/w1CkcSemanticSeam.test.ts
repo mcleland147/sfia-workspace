@@ -76,7 +76,19 @@ function methodCandidateProof() {
 function productNativeProof() {
   return {
     ...methodCandidateProof(),
+    source: "product_package" as const,
     doctrineStatus: "product-studio-native" as const,
+    doctrinePackageId: DEFAULT_PRODUCT_DOCTRINE_PIN.doctrinePackageId,
+    packageVersion: DEFAULT_PRODUCT_DOCTRINE_PIN.version,
+    packageDigest: DEFAULT_PRODUCT_DOCTRINE_PIN.digest,
+    indexDigest:
+      "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    ckcId: "ckc:studio:delivery",
+    ckcContractVersion: "0.1.0",
+    sourceDigest:
+      "sha256:3318640c67e03090a63e7a37742002926e5baf1b6aad61496d0087d0f562151c",
+    usedReference: "ckc:studio:delivery",
+    expectedPrimaryReference: "ckc:studio:delivery",
     packageProvenance: {
       ckcId: "ckc:studio:delivery",
       cycleTypeId: "cyc:delivery",
@@ -159,7 +171,7 @@ describe("W1 bounded CKC→Nora semantic seam — enrichment", () => {
     expect(enriched.ckcCognitiveRecommendation).toBeUndefined();
   });
 
-  it("treatment: product-native proof enriches rationale with attributable CKC marker", () => {
+  it("treatment: product-native proof enriches rationale with CKC guidance without raw mechanics", () => {
     const enriched = enrichQualificationWithCkcSemantics({
       qualification: baseQualification(),
       proof: productNativeProof(),
@@ -168,8 +180,10 @@ describe("W1 bounded CKC→Nora semantic seam — enrichment", () => {
       ckcCognitiveRecommendation:
         "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — anti scope creep : borner le slice.",
     });
-    expect(enriched.rationale).toContain(CKC_ATTRIBUTION_MARKER_PREFIX);
-    expect(enriched.rationale.toLowerCase()).toMatch(/anti scope creep|scope creep/);
+    expect(enriched.rationale).not.toContain(CKC_ATTRIBUTION_MARKER_PREFIX);
+    expect(enriched.rationale).not.toMatch(/\[CKC:/);
+    expect(enriched.rationale).not.toMatch(/ckc:studio:/);
+    expect(enriched.rationale.toLowerCase()).toMatch(/anti scope creep|scope creep|borner/);
     expect(enriched.isMorrisDecision).toBe(false);
     expect(enriched.executionAuthority).toBe(false);
     expect(enriched.ckcSemanticProvenance?.ckcId).toBe("ckc:studio:delivery");
@@ -189,7 +203,9 @@ describe("W1 bounded CKC→Nora semantic seam — enrichment", () => {
       content,
     });
     expect(rationale).toMatch(/Base\./);
-    expect(rationale.toLowerCase()).toMatch(/anti scope creep|scope creep/);
+    expect(rationale.toLowerCase()).toMatch(/anti scope creep|scope creep|borner|guidance|finalit/);
+    expect(rationale).not.toContain(CKC_ATTRIBUTION_MARKER_PREFIX);
+    expect(rationale).not.toMatch(/\[CKC:/);
   });
 });
 

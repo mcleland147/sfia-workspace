@@ -7,12 +7,14 @@
  * set and the recommendation are reproducible for a given project state and a
  * hostile payload cannot reshape what is proposed or decided.
  *
- * This reads the W1 CKC attribution already carried by the LPS. It performs no
- * cognition and is not a Phase B integration point.
+ * Phase B: also surfaces doctrine pin fields from LPS for product-native CKC
+ * load. No Proposal-store / F2 process-local dependency.
  */
 
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
+import type { DoctrinePackagePin } from "@/lib/oa/doctrine";
+import type { Digest } from "@/lib/oa/doctrine/domain/types";
 import type { TrajectoryOptionInputs } from "./trajectoryOptions";
 
 export type ResolvedW2Qualification = {
@@ -20,6 +22,8 @@ export type ResolvedW2Qualification = {
   readonly activeCycleInstanceId: string;
   readonly lpsVersion: number;
   readonly objective: string;
+  readonly projectTitle: string;
+  readonly packagePin: DoctrinePackagePin;
 };
 
 const MAX_REPORTED_RESERVATIONS = 5;
@@ -77,6 +81,12 @@ export async function resolveW2QualificationInputs(input: {
       )
     : false;
 
+  const packagePin: DoctrinePackagePin = Object.freeze({
+    doctrinePackageId: live.context.doctrinePackageId,
+    version: live.context.doctrineVersion,
+    digest: live.context.doctrineDigest as Digest,
+  });
+
   return {
     ok: true,
     qualification: {
@@ -91,6 +101,8 @@ export async function resolveW2QualificationInputs(input: {
       activeCycleInstanceId: cycleInstanceId,
       lpsVersion: live.context.lpsVersion,
       objective: live.context.objective,
+      projectTitle: live.context.projectTitle,
+      packagePin,
     },
   };
 }

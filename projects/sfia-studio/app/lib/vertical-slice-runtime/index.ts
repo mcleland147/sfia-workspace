@@ -19,7 +19,7 @@ export {
   toRuntimeProjectListItem,
   toRuntimeProjectState,
 } from "./mapping";
-export { resolveDefaultVerticalSliceRoots } from "./paths";
+export { resolveDefaultVerticalSliceRoots, resolveProductDoctrineRegistryRoot } from "./paths";
 export {
   RuntimeApplicationService,
   createRuntimeApplicationService,

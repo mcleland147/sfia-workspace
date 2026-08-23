@@ -119,7 +119,7 @@ const SUCCESS_RESULT = {
     requestedConfirmationRestartSafe: false as const,
     restoredConfirmationIsHistoricalConsentOnly: true as const,
     w2Cognition: "IN_PROGRESS_NOT_COMPLETE" as const,
-    ckcPhaseBCognition: "NOT_AUTHORIZED_NOT_IMPLEMENTED" as const,
+    ckcPhaseBCognition: "IMPLEMENTED_DETERMINISTIC_NOT_REAL" as const,
     messages: [] as const,
   },
 };

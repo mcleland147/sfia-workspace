@@ -102,9 +102,11 @@ export async function seedQualifiedProject(
     profile?: "Standard" | "Critical";
     reservations?: readonly { statement: string; blocking?: boolean }[];
     suffix?: string;
+    cycleTypeId?: string;
   },
 ): Promise<SeededW2Project> {
   const suffix = options?.suffix ?? "a";
+  const cycleTypeId = options?.cycleTypeId ?? "cyc:delivery";
   const created = await runtime.createProject({
     name: `W2 harness ${suffix}`,
     objective: "Prouver Options / Décision / Trajectoire / Autorité",
@@ -128,7 +130,7 @@ export async function seedQualifiedProject(
   const cycleInstanceId = `cyc:inst:w2-${suffix}`;
   const cycle = await oa.cycleServices.createCycle.execute({
     cycleInstanceId,
-    cycleTypeId: "cyc:delivery",
+    cycleTypeId,
     projectId,
     signals: options?.profile === "Critical" ? { irreversible: true } : {},
     justification:
@@ -168,6 +170,43 @@ export async function seedQualifiedProject(
     cycleInstanceId,
     lpsVersion: after.livingState.version,
   };
+}
+
+/** Resolve qualification + propose Options on the production W2 Phase B path. */
+export async function proposeW2OptionsForProject(
+  runtime: RuntimeApplicationService,
+  projectId: string,
+) {
+  const oa = runtime.oa;
+  if (!oa) {
+    return {
+      ok: false as const,
+      code: "OA_STACK_UNAVAILABLE",
+      message: "OA stack unavailable",
+    };
+  }
+  const { resolveW2QualificationInputs } = await import(
+    "@/features/project-assistant/w2/qualificationInputs"
+  );
+  const { proposeTrajectoryOptions } = await import(
+    "@/features/project-assistant/w2/proposeTrajectoryOptions"
+  );
+  const qualification = await resolveW2QualificationInputs({ oa, projectId });
+  if (!qualification.ok) {
+    return {
+      ok: false as const,
+      code: qualification.code,
+      message: qualification.message,
+    };
+  }
+  return proposeTrajectoryOptions({
+    oa,
+    projectId,
+    ...qualification.qualification.inputs,
+    packagePin: qualification.qualification.packagePin,
+    objective: qualification.qualification.objective,
+    projectTitle: qualification.qualification.projectTitle,
+  });
 }
 
 /** F2 context snapshot expected by the F3 prepare/resolve product path. */
