@@ -78,13 +78,13 @@ GO MORRIS — VALIDATE CYCLE 4 UX/UI DESIGN AS REFERENCE — FREEZE UX CONTRACT 
 5. Framing historique (baseline ; formulations obsolètes n'écrasent pas les décisions Morris postérieures)
 6. Guidance CKC candidate (sans autorité d'exécution)
 
-## 5. M1 maturity
+## 5. M1 maturity — snapshot at Cycle 4 freeze
 
 | Élément | Valeur |
 |---------|--------|
 | M1 | **NOT READY** |
 | AC demonstrated | **0/16** |
-| Architecture technique | NOT EXECUTED |
+| Architecture technique | NOT EXECUTED AT CYCLE 4 FREEZE |
 | Backlog | NOT EXECUTED |
 | Delivery/code | NOT EXECUTED |
 | Design Morris validation | **YES — AS CYCLE 4 DESIGN REFERENCE** |
