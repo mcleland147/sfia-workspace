@@ -77,13 +77,9 @@ TD-01 stack frontend · TD-02 stack backend · TD-03 runtime topology · TD-04 p
 
 ## Next step
 
-Cycle 13 PR readiness was executed and identified the README current-truth corrections now being regularized.
+Project push and PR creation remain gated by explicit Morris authorization.
 
-After this targeted correction is reviewed, PR readiness must be revalidated against current origin/main.
-
-Project push and PR creation remain subject to:
-1. a successful renewed PR-readiness verdict; and
-2. a distinct Morris authorization for project push + PR.
+Any PR-readiness evidence used for that authorization must match the current project HEAD and the current origin/main considered at decision time.
 
 **NO PROJECT PUSH AUTHORIZED**
 **NO PR AUTHORIZED**
