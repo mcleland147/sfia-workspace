@@ -8,11 +8,13 @@ const {
   decideMock,
   inspectMock,
   authorizeMock,
+  amendMock,
 } = vi.hoisted(() => ({
   proposeMock: vi.fn(),
   decideMock: vi.fn(),
   inspectMock: vi.fn(),
   authorizeMock: vi.fn(),
+  amendMock: vi.fn(),
 }));
 
 vi.mock("@/features/project-assistant/w2/actions", () => ({
@@ -22,6 +24,7 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
   w2ConfirmExecutionContractAction: vi.fn(),
   w2AuthorizeExecutionContractAction: (...args: unknown[]) =>
     authorizeMock(...args),
+  w2AmendExecutionContractAction: (...args: unknown[]) => amendMock(...args),
   w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
     ok: false,
     code: "UNUSED",
@@ -42,6 +45,7 @@ beforeEach(() => {
   decideMock.mockReset();
   inspectMock.mockReset();
   authorizeMock.mockReset();
+  amendMock.mockReset();
 });
 
 describe("W2 TrajectorySurface", () => {
@@ -241,6 +245,161 @@ describe("W2 TrajectorySurface", () => {
       "INSPECTÉ",
     );
     expect(screen.getByTestId("w2-confirm-contract")).not.toBeDisabled();
+
+    // Amendment affordance appears only after sufficient inspection.
+    expect(screen.getByTestId("w2-amendment-form")).toBeVisible();
+    expect(screen.queryByTestId("w2-amendment-notice")).toBeNull();
+
+    amendMock.mockResolvedValue({
+      ok: true,
+      priorExecutionContractId: "xct:w2-ui",
+      priorContractVersion: 1,
+      priorInspectionAttestationRef: "att:test",
+      successor: {
+        executionContractId: "xct:w2-ui:amd:deadbeef",
+        version: 1,
+        status: "confirmation_required",
+        action: "w2:inspect-only",
+        target: "studio",
+        scope: "w2-ui",
+        requiredAuthority: "MORRIS",
+        constraints: ["AUCUNE EXÉCUTION", "BORNER LE SLICE"],
+        stopConditions: ["STOP AVANT EXECUTE"],
+        requiredCapabilities: ["cap:f3-fixture-docs"],
+        reversibility: "reversible",
+        semanticFingerprint: "fff111aaa222",
+        supersedesExecutionContractId: "xct:w2-ui",
+        supersessionReason: "w2_constraint_amendment",
+      },
+      supersedesExecutionContractId: "xct:w2-ui",
+      materialAmendment: true,
+      priorInspectionDoesNotCoverSuccessor: true,
+      reinspectionRequired: true,
+      statusLabel: "CONTRAT AMENDÉ — RÉINSPECTION REQUISE",
+      successorInspection: {
+        executionContractId: "xct:w2-ui:amd:deadbeef",
+        contractVersion: 1,
+        semanticFingerprint: "fff111aaa222",
+        statusLabel: "NON INSPECTÉ",
+        inspectionSufficient: false,
+        attestationRef: null,
+        attestedVersion: null,
+        staleAttestationRef: null,
+        reinspectionRequired: false,
+        reason: "no_attestation",
+        grantsAuthority: false,
+      },
+      additionalConstraint: "BORNER LE SLICE",
+      replayed: false,
+      humanDecisionCreated: false,
+      authorityGranted: false,
+      confirmationGranted: false,
+      executionPerformed: false,
+      attemptCreated: false,
+    });
+
+    fireEvent.change(screen.getByTestId("w2-amend-constraint"), {
+      target: { value: "BORNER LE SLICE" },
+    });
+    fireEvent.click(screen.getByTestId("w2-amend-contract"));
+    expect(await screen.findByTestId("w2-amendment-notice")).toBeVisible();
+    expect(screen.getByTestId("w2-amendment-status")).toHaveTextContent(
+      /réinspection requise/i,
+    );
+    expect(screen.getByTestId("w2-contract-constraints")).toHaveTextContent(
+      "BORNER LE SLICE",
+    );
+    expect(screen.getByTestId("w2-inspection-state")).toHaveTextContent(
+      "NON INSPECTÉ",
+    );
+    expect(screen.queryByTestId("w2-amendment-form")).toBeNull();
+    expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
+    expect(amendMock).toHaveBeenCalledWith({
+      projectId: "prj:w2-ui",
+      executionContractId: "xct:w2-ui",
+      additionalConstraint: "BORNER LE SLICE",
+    });
+
+    // R1 — UI consumes application statusLabel (not a hardcoded false required).
+    amendMock.mockResolvedValue({
+      ok: true,
+      priorExecutionContractId: "xct:w2-ui",
+      priorContractVersion: 1,
+      priorInspectionAttestationRef: "att:test",
+      successor: {
+        executionContractId: "xct:w2-ui:amd:deadbeef",
+        version: 1,
+        status: "confirmation_required",
+        action: "w2:inspect-only",
+        target: "studio",
+        scope: "w2-ui",
+        requiredAuthority: "MORRIS",
+        constraints: ["AUCUNE EXÉCUTION", "BORNER LE SLICE"],
+        stopConditions: ["STOP AVANT EXECUTE"],
+        requiredCapabilities: ["cap:f3-fixture-docs"],
+        reversibility: "reversible",
+        semanticFingerprint: "fff111aaa222",
+        supersedesExecutionContractId: "xct:w2-ui",
+        supersessionReason: "w2_constraint_amendment",
+      },
+      supersedesExecutionContractId: "xct:w2-ui",
+      materialAmendment: true,
+      priorInspectionDoesNotCoverSuccessor: true,
+      reinspectionRequired: false,
+      statusLabel: "CONTRAT AMENDÉ — RÉINSPECTION DÉJÀ SATISFAITE",
+      successorInspection: {
+        executionContractId: "xct:w2-ui:amd:deadbeef",
+        contractVersion: 1,
+        semanticFingerprint: "fff111aaa222",
+        statusLabel: "INSPECTÉ",
+        inspectionSufficient: true,
+        attestationRef: "att:successor",
+        attestedVersion: 1,
+        staleAttestationRef: null,
+        reinspectionRequired: false,
+        reason: "inspected",
+        grantsAuthority: false,
+      },
+      additionalConstraint: "BORNER LE SLICE",
+      replayed: true,
+      humanDecisionCreated: false,
+      authorityGranted: false,
+      confirmationGranted: false,
+      executionPerformed: false,
+      attemptCreated: false,
+    });
+    // Re-open form by mocking a second inspect-sufficient path isn't needed —
+    // call amend again via preparing another inspect cycle: force form by
+    // clicking inspect mock first then amend with already-satisfied truth.
+    inspectMock.mockResolvedValue({
+      ok: true,
+      executionContractId: "xct:w2-ui:amd:deadbeef",
+      contractVersion: 1,
+      semanticFingerprint: "fff111aaa222",
+      statusLabel: "INSPECTÉ",
+      inspectionSufficient: true,
+      attestationRef: "att:successor",
+      attestedVersion: 1,
+      staleAttestationRef: null,
+      reinspectionRequired: false,
+      reason: "inspected",
+      grantsAuthority: false,
+    });
+    fireEvent.click(screen.getByTestId("w2-inspect-contract"));
+    expect(await screen.findByTestId("w2-amendment-form")).toBeVisible();
+    fireEvent.change(screen.getByTestId("w2-amend-constraint"), {
+      target: { value: "BORNER LE SLICE" },
+    });
+    fireEvent.click(screen.getByTestId("w2-amend-contract"));
+    expect(await screen.findByTestId("w2-amendment-status")).toHaveTextContent(
+      "RÉINSPECTION DÉJÀ SATISFAITE",
+    );
+    expect(screen.getByTestId("w2-amendment-status")).not.toHaveTextContent(
+      "RÉINSPECTION REQUISE",
+    );
+    expect(screen.getByTestId("w2-inspection-state")).toHaveTextContent(
+      "INSPECTÉ",
+    );
 
     authorizeMock.mockResolvedValue({
       ok: true,

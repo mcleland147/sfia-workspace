@@ -13,6 +13,7 @@
  */
 
 import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
+import { amendExecutionContractWithConstraint } from "./amendExecutionContract";
 import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";
 import { confirmExecutionContractForAuthorization } from "./confirmForAuthorization";
 import { decideTrajectory } from "./decideTrajectory";
@@ -22,6 +23,7 @@ import { proposeTrajectoryOptions } from "./proposeTrajectoryOptions";
 import { readW2ProjectHistory } from "./projectHistory";
 import { resolveW2QualificationInputs } from "./qualificationInputs";
 import type {
+  AmendExecutionContractResult,
   ConfirmForAuthorizationResult,
   DecideTrajectoryResult,
   EvaluateExecutionAuthorizationResult,
@@ -154,6 +156,32 @@ export async function w2AuthorizeExecutionContractAction(input: {
     executionContractId: input.executionContractId,
     canActAsMorris: input.canActAsMorris,
     claimedAuthorityLevel: input.claimedAuthorityLevel,
+  });
+}
+
+/**
+ * Pilote material amendment — append one tightening execution constraint via
+ * OA supersession. Client cannot choose actor/authority; no Execute.
+ */
+export async function w2AmendExecutionContractAction(input: {
+  projectId: string;
+  executionContractId: string;
+  additionalConstraint: string;
+  /** Hostile — ignored. */
+  canActAsMorris?: unknown;
+  claimedAuthorityLevel?: unknown;
+}): Promise<AmendExecutionContractResult> {
+  void input.canActAsMorris;
+  void input.claimedAuthorityLevel;
+
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) return OA_UNAVAILABLE;
+
+  return amendExecutionContractWithConstraint({
+    oa: runtime.oa,
+    projectId: input.projectId,
+    executionContractId: input.executionContractId,
+    additionalConstraint: input.additionalConstraint,
   });
 }
 

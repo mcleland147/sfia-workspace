@@ -12,6 +12,7 @@ import {
   F3_SCOPE,
   F3_TARGET,
 } from "@/features/project-assistant/f3/constants";
+import { amendExecutionContractWithConstraint } from "@/features/project-assistant/w2/amendExecutionContract";
 import { evaluateExecutionAuthorization } from "@/features/project-assistant/w2/authorizeExecutionContract";
 import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
 import { assertDecisionAuthorizesPromotion, decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
@@ -38,11 +39,9 @@ import {
   deriveTrajectoryRecommendation,
 } from "@/features/project-assistant/w2/trajectoryOptions";
 import { w1RestartHonestyMessage } from "@/features/project-assistant/presentationLabels";
-import {
-  LOCAL_PILOTE_ACTOR,
-  registerLocalPiloteAuthority,
-} from "@/lib/oa/decision";
+import { LOCAL_PILOTE_ACTOR, registerLocalPiloteAuthority } from "@/lib/oa/decision";
 import type { TrajectoryStep } from "@/lib/oa/cycle";
+import { createExecutionError } from "@/lib/oa/execution-contract/domain/errors";
 import {
   bootW2Runtime,
   cleanupW2TempDirs,
@@ -2197,5 +2196,627 @@ describe("W2 Track C — inspection binding + authorization mechanism proofs", (
     expect(authorized.confirmation.fabricated).toBe(false);
     expect(authorized.agentCapability.sufficient).toBe(true);
     expect(authorized.authorityReceiptRef).toMatch(/^avr:/);
+  });
+});
+
+describe("W2 Track C — material constraint amendment (R02 product seam)", () => {
+  const TIGHTENING =
+    "W2_R02_TIGHTEN: borner strictement le slice livré — aucune extension silencieuse";
+
+  async function prepareInspectedM3(input: {
+    suffix: string;
+    idPrefix: string;
+  }) {
+    const db = tempProductDbPath(`w2-r02-${input.suffix}.sqlite`);
+    const runtime = bootW2Runtime({
+      productDbPath: db,
+      idPrefix: input.idPrefix,
+    });
+    const seeded = await seedQualifiedProject(runtime, {
+      suffix: input.suffix,
+      profile: "Standard",
+    });
+    const oa = runtime.oa!;
+
+    const qualification = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(qualification.ok).toBe(true);
+    if (!qualification.ok) throw new Error("qualification failed");
+
+    const proposed = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
+    });
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) throw new Error("propose failed");
+
+    const decided = await decideTrajectory({
+      oa,
+      projectId: seeded.projectId,
+      optionSetRef: proposed.optionSetRef,
+      options: proposed.options,
+      recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
+      selectedOptionRef: GOVERNED_OPTION_REF,
+      trajectoryId: proposed.proposedTrajectory.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory.version,
+      forceLocalAuthority: true,
+    });
+    expect(decided.ok).toBe(true);
+    if (!decided.ok) throw new Error("decide failed");
+
+    const context = await currentF2Context(runtime, seeded.projectId);
+    const prepared = await prepareM3FromDecision({
+      projectId: seeded.projectId,
+      decisionId: decided.decision.decisionId,
+      currentContext: context,
+      deps: {
+        decisionServices: oa.decisionServices,
+        authorityResolver: oa.authorityResolver,
+        executionContractServices: oa.executionContractServices,
+        nowIso: () => oa.clock.nowIso(),
+        forceM3Authority: true,
+      },
+    });
+    expect(prepared.ok).toBe(true);
+    if (!prepared.ok) throw new Error("prepare failed");
+
+    const executionContractId = prepared.payload.contract.executionContractId;
+    const inspected = await inspectExecutionContract({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId,
+    });
+    expect(inspected.ok).toBe(true);
+    if (!inspected.ok) throw new Error("inspect failed");
+    expect(inspected.inspectionSufficient).toBe(true);
+
+    return {
+      oa,
+      projectId: seeded.projectId,
+      executionContractId,
+      priorAction: prepared.payload.contract.action,
+      priorTarget: prepared.payload.contract.target,
+      priorScope: prepared.payload.contract.scope,
+      priorAuthority: prepared.payload.contract.requiredAuthority,
+      priorConstraints: [...prepared.payload.contract.constraints],
+      attestationRef: inspected.attestationRef,
+    };
+  }
+
+  it("R02-U01 — inspected EC + tightening constraint → OA supersession successor", async () => {
+    const ctx = await prepareInspectedM3({ suffix: "u01", idPrefix: "r02u1" });
+    const priorLoad =
+      await ctx.oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: ctx.executionContractId,
+      });
+    expect(priorLoad.ok).toBe(true);
+    if (!priorLoad.ok) return;
+    const priorDecisionRefs = [...(priorLoad.contract.decisionRefs ?? [])];
+
+    const amended = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    expect(amended.ok).toBe(true);
+    if (!amended.ok) return;
+    expect(amended.executionPerformed).toBe(false);
+    expect(amended.attemptCreated).toBe(false);
+    expect(amended.materialAmendment).toBe(true);
+    expect(amended.successor.executionContractId).not.toBe(
+      ctx.executionContractId,
+    );
+    expect(amended.successor.supersedesExecutionContractId).toBe(
+      ctx.executionContractId,
+    );
+    expect(amended.successor.action).toBe(ctx.priorAction);
+    expect(amended.successor.target).toBe(ctx.priorTarget);
+    expect(amended.successor.scope).toBe(ctx.priorScope);
+    expect(amended.successor.requiredAuthority).toBe(ctx.priorAuthority);
+    expect(amended.successor.constraints).toContain(TIGHTENING);
+    expect(amended.successor.constraints.length).toBe(
+      ctx.priorConstraints.length + 1,
+    );
+
+    const priorAfter =
+      await ctx.oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: ctx.executionContractId,
+      });
+    expect(priorAfter.ok).toBe(true);
+    if (!priorAfter.ok) return;
+    expect(priorAfter.contract.status).toBe("superseded");
+    expect(amended.successor.constraints).not.toEqual(
+      priorAfter.contract.constraints,
+    );
+
+    const successorLoad =
+      await ctx.oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: amended.successor.executionContractId,
+      });
+    expect(successorLoad.ok).toBe(true);
+    if (!successorLoad.ok) return;
+    expect(successorLoad.contract.decisionRefs).toEqual(priorDecisionRefs);
+  });
+
+  it("R02-U02 — successor has no sufficient inherited inspection", async () => {
+    const ctx = await prepareInspectedM3({ suffix: "u02", idPrefix: "r02u2" });
+    const amended = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    expect(amended.ok).toBe(true);
+    if (!amended.ok) return;
+    expect(amended.priorInspectionDoesNotCoverSuccessor).toBe(true);
+    expect(amended.reinspectionRequired).toBe(true);
+    expect(amended.successorInspection.inspectionSufficient).toBe(false);
+    expect(amended.successorInspection.attestationRef).toBeNull();
+    expect(amended.successorInspection.executionContractId).toBe(
+      amended.successor.executionContractId,
+    );
+    expect(amended.priorInspectionAttestationRef).toBe(ctx.attestationRef);
+  });
+
+  it("R02-U03 — authorize before successor re-inspection → BLOCKED inspection_required", async () => {
+    const ctx = await prepareInspectedM3({ suffix: "u03", idPrefix: "r02u3" });
+    const amended = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    expect(amended.ok).toBe(true);
+    if (!amended.ok) return;
+
+    const blocked = await evaluateExecutionAuthorization({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: amended.successor.executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(blocked.ok).toBe(true);
+    if (!blocked.ok) return;
+    expect(blocked.outcome).toBe("BLOCKED");
+    expect(blocked.reasonCode).toBe("inspection_required");
+    expect(blocked.executionPerformed).toBe(false);
+    expect(blocked.attemptCreated).toBe(false);
+  });
+
+  it("R02-U04/U05 — inspect successor then authority → STOP BEFORE EXECUTE", async () => {
+    const ctx = await prepareInspectedM3({ suffix: "u45", idPrefix: "r02u45" });
+    const amended = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    expect(amended.ok).toBe(true);
+    if (!amended.ok) return;
+
+    const reinspected = await inspectExecutionContract({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: amended.successor.executionContractId,
+    });
+    expect(reinspected.ok).toBe(true);
+    if (!reinspected.ok) return;
+    expect(reinspected.inspectionSufficient).toBe(true);
+    expect(reinspected.statusLabel).toBe("INSPECTÉ");
+
+    if (amended.successor.status === "confirmation_required") {
+      const confirmed = await confirmExecutionContractForAuthorization({
+        oa: ctx.oa,
+        projectId: ctx.projectId,
+        executionContractId: amended.successor.executionContractId,
+        forceLocalAuthority: true,
+      });
+      expect(confirmed.ok).toBe(true);
+      if (!confirmed.ok) return;
+      expect(confirmed.executionPerformed).toBe(false);
+    }
+
+    const verdict = await evaluateExecutionAuthorization({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: amended.successor.executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(verdict.ok).toBe(true);
+    if (!verdict.ok) return;
+    expect(["AUTHORIZED", "BLOCKED"]).toContain(verdict.outcome);
+    expect(verdict.executionPerformed).toBe(false);
+    expect(verdict.attemptCreated).toBe(false);
+    expect(verdict.reasonText.length).toBeGreaterThan(0);
+    expect(verdict.nextAction.length).toBeGreaterThan(0);
+  });
+
+  it("R02-U06 — empty/duplicate amendment fail-closed", async () => {
+    const ctx = await prepareInspectedM3({ suffix: "u06", idPrefix: "r02u6" });
+    const empty = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      additionalConstraint: "   ",
+      forceLocalAuthority: true,
+    });
+    expect(empty.ok).toBe(false);
+    if (empty.ok) return;
+    expect(empty.code).toBe("CONSTRAINT_EMPTY");
+
+    const first = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+
+    // Re-inspect successor then try duplicate of the same constraint.
+    await inspectExecutionContract({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: first.successor.executionContractId,
+    });
+    const dup = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: first.successor.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    expect(dup.ok).toBe(false);
+    if (dup.ok) return;
+    expect(dup.code).toBe("CONSTRAINT_DUPLICATE");
+  });
+
+  it("R02-U07 — same amendment replay reuses successor", async () => {
+    const ctx = await prepareInspectedM3({ suffix: "u07", idPrefix: "r02u7" });
+    const first = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+
+    const replay = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    expect(replay.ok).toBe(true);
+    if (!replay.ok) return;
+    expect(replay.replayed).toBe(true);
+    expect(replay.successor.executionContractId).toBe(
+      first.successor.executionContractId,
+    );
+  });
+
+  it("R02-U08 — project mismatch / uninspected prior fail-closed", async () => {
+    const ctx = await prepareInspectedM3({ suffix: "u08", idPrefix: "r02u8" });
+    const mismatch = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: "prj:other-project",
+      executionContractId: ctx.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    expect(mismatch.ok).toBe(false);
+    if (mismatch.ok) return;
+    expect(mismatch.code).toBe("PROJECT_MISMATCH");
+
+    // Fresh prepare without inspect.
+    const db = tempProductDbPath("w2-r02-u08b.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "r02u8b" });
+    const seeded = await seedQualifiedProject(runtime, {
+      suffix: "u08b",
+      profile: "Standard",
+    });
+    const oa = runtime.oa!;
+    const qualification = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    if (!qualification.ok) return;
+    const proposed = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
+    });
+    if (!proposed.ok) return;
+    const decided = await decideTrajectory({
+      oa,
+      projectId: seeded.projectId,
+      optionSetRef: proposed.optionSetRef,
+      options: proposed.options,
+      recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
+      selectedOptionRef: GOVERNED_OPTION_REF,
+      trajectoryId: proposed.proposedTrajectory.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory.version,
+      forceLocalAuthority: true,
+    });
+    if (!decided.ok) return;
+    const context = await currentF2Context(runtime, seeded.projectId);
+    const prepared = await prepareM3FromDecision({
+      projectId: seeded.projectId,
+      decisionId: decided.decision.decisionId,
+      currentContext: context,
+      deps: {
+        decisionServices: oa.decisionServices,
+        authorityResolver: oa.authorityResolver,
+        executionContractServices: oa.executionContractServices,
+        nowIso: () => oa.clock.nowIso(),
+        forceM3Authority: true,
+      },
+    });
+    if (!prepared.ok) return;
+
+    const uninspected = await amendExecutionContractWithConstraint({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId: prepared.payload.contract.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    expect(uninspected.ok).toBe(false);
+    if (uninspected.ok) return;
+    expect(uninspected.code).toBe("INSPECTION_REQUIRED_BEFORE_AMENDMENT");
+  });
+
+  it("R1-U09 — partial validation failure then replay validates SAME successor", async () => {
+    const ctx = await prepareInspectedM3({ suffix: "r1u09", idPrefix: "r1u9" });
+    const validateSvc =
+      ctx.oa.executionContractServices.validateExecutionContract;
+    const originalExecute = validateSvc.execute.bind(validateSvc);
+    let failOnce = true;
+    const spy = async (
+      ...args: Parameters<typeof validateSvc.execute>
+    ): ReturnType<typeof validateSvc.execute> => {
+      if (failOnce) {
+        failOnce = false;
+        return {
+          ok: false as const,
+          error: createExecutionError({
+            detailCode: "CONTRACT_INVALID",
+            timestamp: ctx.oa.clock.nowIso(),
+            correlationId: "cor:r1-u09",
+            internalCauseRef: "forced_r1_validation_failure",
+          }),
+          durationMs: 0,
+        };
+      }
+      return originalExecute(...args);
+    };
+    validateSvc.execute = spy;
+
+    const first = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    expect(first.ok).toBe(false);
+    if (first.ok) return;
+
+    const priorAfterFail =
+      await ctx.oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: ctx.executionContractId,
+      });
+    expect(priorAfterFail.ok).toBe(true);
+    if (!priorAfterFail.ok) return;
+    expect(priorAfterFail.contract.status).toBe("superseded");
+
+    const history =
+      await ctx.oa.executionContractServices.listExecutionContractHistory.execute(
+        { projectId: ctx.projectId },
+      );
+    expect(history.ok).toBe(true);
+    if (!history.ok) return;
+    const drafts = history.contracts.filter(
+      (c) =>
+        c.supersedesExecutionContractId === ctx.executionContractId &&
+        (c.status === "draft" || c.status === "proposed"),
+    );
+    expect(drafts.length).toBe(1);
+    const durableSuccessorId = drafts[0]!.executionContractId;
+
+    // Restore real validation and retry SAME amendment.
+    validateSvc.execute = originalExecute;
+    const replay = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    expect(replay.ok).toBe(true);
+    if (!replay.ok) return;
+    expect(replay.replayed).toBe(true);
+    expect(replay.successor.executionContractId).toBe(durableSuccessorId);
+    expect(["validated", "confirmation_required", "confirmed"]).toContain(
+      replay.successor.status,
+    );
+    expect(replay.successor.status).not.toBe("draft");
+    expect(replay.successor.status).not.toBe("proposed");
+    expect(replay.executionPerformed).toBe(false);
+    expect(replay.attemptCreated).toBe(false);
+
+    const historyAfter =
+      await ctx.oa.executionContractServices.listExecutionContractHistory.execute(
+        { projectId: ctx.projectId },
+      );
+    expect(historyAfter.ok).toBe(true);
+    if (!historyAfter.ok) return;
+    const successors = historyAfter.contracts.filter(
+      (c) => c.supersedesExecutionContractId === ctx.executionContractId,
+    );
+    expect(successors.length).toBe(1);
+  });
+
+  it("R1-U10 — governed identity mismatch fail-closed", async () => {
+    const ctx = await prepareInspectedM3({
+      suffix: "r1u10",
+      idPrefix: "r1u10",
+    });
+    const first = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+
+    const getSvc = ctx.oa.executionContractServices.getExecutionContract;
+    const originalGet = getSvc.execute.bind(getSvc);
+    getSvc.execute = async (request) => {
+      const loaded = await originalGet(request);
+      if (
+        !loaded.ok ||
+        loaded.contract.executionContractId !==
+          first.successor.executionContractId
+      ) {
+        return loaded;
+      }
+      return {
+        ...loaded,
+        contract: {
+          ...loaded.contract,
+          requiredAuthority: "N1",
+        },
+      };
+    };
+
+    const conflict = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    getSvc.execute = originalGet;
+    expect(conflict.ok).toBe(false);
+    if (conflict.ok) return;
+    expect(conflict.code).toBe("AMENDMENT_IDENTITY_CONFLICT");
+  });
+
+  it("R1-U11 — replay after successor reinspection ⇒ reinspectionRequired=false", async () => {
+    const ctx = await prepareInspectedM3({
+      suffix: "r1u11",
+      idPrefix: "r1u11",
+    });
+    const amended = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    expect(amended.ok).toBe(true);
+    if (!amended.ok) return;
+    expect(amended.reinspectionRequired).toBe(true);
+    expect(amended.statusLabel).toBe("CONTRAT AMENDÉ — RÉINSPECTION REQUISE");
+
+    const reinspected = await inspectExecutionContract({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: amended.successor.executionContractId,
+    });
+    expect(reinspected.ok).toBe(true);
+    if (!reinspected.ok) return;
+    expect(reinspected.inspectionSufficient).toBe(true);
+
+    const replay = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    expect(replay.ok).toBe(true);
+    if (!replay.ok) return;
+    expect(replay.replayed).toBe(true);
+    expect(replay.successor.executionContractId).toBe(
+      amended.successor.executionContractId,
+    );
+    expect(replay.successorInspection.inspectionSufficient).toBe(true);
+    expect(replay.reinspectionRequired).toBe(false);
+    expect(replay.statusLabel).toBe(
+      "CONTRAT AMENDÉ — RÉINSPECTION DÉJÀ SATISFAITE",
+    );
+    expect(replay.priorInspectionDoesNotCoverSuccessor).toBe(true);
+    expect(replay.executionPerformed).toBe(false);
+    expect(replay.attemptCreated).toBe(false);
+  });
+
+  it("R1-U12 — incompatible successor status fail-closed", async () => {
+    const ctx = await prepareInspectedM3({
+      suffix: "r1u12",
+      idPrefix: "r1u12",
+    });
+    const first = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+
+    const getSvc = ctx.oa.executionContractServices.getExecutionContract;
+    const originalGet = getSvc.execute.bind(getSvc);
+    getSvc.execute = async (request) => {
+      const loaded = await originalGet(request);
+      if (
+        !loaded.ok ||
+        loaded.contract.executionContractId !==
+          first.successor.executionContractId
+      ) {
+        return loaded;
+      }
+      return {
+        ...loaded,
+        contract: {
+          ...loaded.contract,
+          status: "executing",
+        },
+      };
+    };
+
+    const blocked = await amendExecutionContractWithConstraint({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      additionalConstraint: TIGHTENING,
+      forceLocalAuthority: true,
+    });
+    getSvc.execute = originalGet;
+    expect(blocked.ok).toBe(false);
+    if (blocked.ok) return;
+    expect(blocked.code).toBe("CONTRACT_STATE_CONFLICT");
   });
 });

@@ -14,6 +14,7 @@
 import { useCallback, useState } from "react";
 import { projectAssistantPrepareM3Action } from "@/features/project-assistant/actions";
 import {
+  w2AmendExecutionContractAction,
   w2AuthorizeExecutionContractAction,
   w2ConfirmExecutionContractAction,
   w2DecideTrajectoryAction,
@@ -21,6 +22,7 @@ import {
   w2ProposeTrajectoryOptionsAction,
 } from "@/features/project-assistant/w2/actions";
 import type {
+  AmendExecutionContractSuccess,
   ContractInspectionStateDto,
   DecidedTrajectoryDto,
   ExecutionAuthorizationOutcomeDto,
@@ -44,6 +46,13 @@ type PreparedContract = {
   readonly semanticFingerprint: string;
 };
 
+type AmendmentNotice = {
+  readonly priorExecutionContractId: string;
+  readonly additionalConstraint: string;
+  readonly statusLabel: string;
+  readonly priorInspectionDoesNotCoverSuccessor: true;
+};
+
 type Busy =
   | null
   | "options"
@@ -51,7 +60,8 @@ type Busy =
   | "contract"
   | "inspection"
   | "confirmation"
-  | "authorization";
+  | "authorization"
+  | "amendment";
 
 export function TrajectorySurface({
   projectId,
@@ -74,6 +84,9 @@ export function TrajectorySurface({
     useState<ContractInspectionStateDto | null>(null);
   const [authorization, setAuthorization] =
     useState<ExecutionAuthorizationOutcomeDto | null>(null);
+  const [amendmentDraft, setAmendmentDraft] = useState("");
+  const [amendmentNotice, setAmendmentNotice] =
+    useState<AmendmentNotice | null>(null);
 
   const proposeOptions = useCallback(async () => {
     setBusy("options");
@@ -91,6 +104,8 @@ export function TrajectorySurface({
     setContract(null);
     setInspection(null);
     setAuthorization(null);
+    setAmendmentDraft("");
+    setAmendmentNotice(null);
     onDurableFactsChanged?.();
   }, [projectId, onDurableFactsChanged]);
 
@@ -149,6 +164,8 @@ export function TrajectorySurface({
     });
     setInspection(null);
     setAuthorization(null);
+    setAmendmentDraft("");
+    setAmendmentNotice(null);
     onDurableFactsChanged?.();
   }, [decision, projectId, onDurableFactsChanged]);
 
@@ -168,7 +185,65 @@ export function TrajectorySurface({
     const { ok: _ok, ...state } = result;
     setInspection(state);
     setAuthorization(null);
-  }, [contract, projectId]);
+    if (amendmentNotice && state.inspectionSufficient) {
+      setAmendmentNotice({
+        ...amendmentNotice,
+        statusLabel: "CONTRAT AMENDÉ — RÉINSPECTION DÉJÀ SATISFAITE",
+      });
+    }
+  }, [contract, projectId, amendmentNotice]);
+
+  const amendContract = useCallback(async () => {
+    if (!contract || !inspection?.inspectionSufficient) return;
+    const constraint = amendmentDraft.trim();
+    if (!constraint) {
+      setError("Indiquez une contrainte d'exécution supplémentaire.");
+      return;
+    }
+    setBusy("amendment");
+    setError(null);
+    const result = await w2AmendExecutionContractAction({
+      projectId,
+      executionContractId: contract.executionContractId,
+      additionalConstraint: constraint,
+    });
+    setBusy(null);
+    if (!result.ok) {
+      setError(result.message);
+      return;
+    }
+    const amended = result as AmendExecutionContractSuccess;
+    setContract({
+      executionContractId: amended.successor.executionContractId,
+      version: amended.successor.version,
+      status: amended.successor.status,
+      action: amended.successor.action,
+      target: amended.successor.target,
+      scope: amended.successor.scope,
+      requiredAuthority: amended.successor.requiredAuthority,
+      constraints: [...amended.successor.constraints],
+      stopConditions: [...amended.successor.stopConditions],
+      requiredCapabilities: [...amended.successor.requiredCapabilities],
+      reversibility: amended.successor.reversibility,
+      semanticFingerprint: amended.successor.semanticFingerprint,
+    });
+    setInspection(amended.successorInspection);
+    setAuthorization(null);
+    setAmendmentDraft("");
+    setAmendmentNotice({
+      priorExecutionContractId: amended.priorExecutionContractId,
+      additionalConstraint: amended.additionalConstraint,
+      statusLabel: amended.statusLabel,
+      priorInspectionDoesNotCoverSuccessor: true,
+    });
+    onDurableFactsChanged?.();
+  }, [
+    contract,
+    inspection,
+    amendmentDraft,
+    projectId,
+    onDurableFactsChanged,
+  ]);
 
   const confirmForAuthorization = useCallback(async () => {
     if (!contract) return;
@@ -443,6 +518,57 @@ export function TrajectorySurface({
               </dd>
             </div>
           </dl>
+
+          {amendmentNotice ? (
+            <div
+              className={styles.amendmentNotice}
+              data-testid="w2-amendment-notice"
+              role="status"
+            >
+              <p className={styles.blockBody} data-testid="w2-amendment-status">
+                {amendmentNotice.statusLabel}
+              </p>
+              <p className={styles.blockNote}>
+                L&apos;inspection précédente couvrait le contrat précédent, pas
+                le successeur amendé.
+              </p>
+              <p className={styles.blockNote} data-testid="w2-amendment-lineage">
+                Successeur de {amendmentNotice.priorExecutionContractId} ·
+                contrainte ajoutée : {amendmentNotice.additionalConstraint}
+              </p>
+            </div>
+          ) : null}
+
+          {inspection?.inspectionSufficient ? (
+            <div
+              className={styles.amendmentForm}
+              data-testid="w2-amendment-form"
+            >
+              <p className={styles.blockTitle}>Amender le contrat</p>
+              <label className={styles.amendmentLabel} htmlFor="w2-amend-constraint">
+                Contrainte d&apos;exécution supplémentaire
+              </label>
+              <input
+                id="w2-amend-constraint"
+                className={styles.amendmentInput}
+                data-testid="w2-amend-constraint"
+                type="text"
+                value={amendmentDraft}
+                onChange={(event) => setAmendmentDraft(event.target.value)}
+                disabled={busy !== null}
+                placeholder="Ex. : borner strictement le slice livré"
+              />
+              <button
+                type="button"
+                className={styles.secondaryAction}
+                data-testid="w2-amend-contract"
+                onClick={() => void amendContract()}
+                disabled={busy !== null || amendmentDraft.trim().length === 0}
+              >
+                Appliquer l&apos;amendement
+              </button>
+            </div>
+          ) : null}
 
           <div className={styles.actions}>
             <button
