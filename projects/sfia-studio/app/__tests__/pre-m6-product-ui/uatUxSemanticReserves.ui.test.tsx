@@ -260,7 +260,10 @@ describe("UAT-UX-03 confirmation surface", () => {
       "CURSOR CLI REAL PROFILE",
     );
     expect(screen.getByTestId("f3-contract-authority-user")).toHaveTextContent(
-      /Morris/,
+      /autorité structurante/i,
+    );
+    expect(screen.getByTestId("f3-contract-authority-user")).not.toHaveTextContent(
+      /Morris/i,
     );
     expect(screen.getByTestId("f3-contract-semantic-chip")).toHaveTextContent(
       /contrôlée/,
