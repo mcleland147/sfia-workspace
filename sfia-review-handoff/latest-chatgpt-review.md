@@ -1,942 +1,463 @@
-# FULL Review Pack — W2 Final Closure Product Correction R1
+# REVIEW PACK FULL — W2 FINAL CLOSURE PRODUCT CORRECTION R1 — GIT INTEGRATION
 
 ## A. Metadata
 
-| Field | Value |
-|---|---|
-| Timestamp | 2026-08-23 (Europe/Paris) |
-| Repo | mcleland147/sfia-workspace |
-| Branch | delivery/sfia-studio-w2-final-closure-product-correction |
-| HEAD | 17f528cd81fc495400b8b15e26830695347995f2 |
-| origin/main | 17f528cd81fc495400b8b15e26830695347995f2 |
-| Cycle | 8 — Delivery R1 |
-| Typology | INC |
-| Profile | CRITICAL |
-| R1 Morris GO | CONSUMED |
-| Git integration | NOT AUTHORIZED |
-| W2 requalification | NOT AUTHORIZED |
-| W2 closure | NOT AUTHORIZED |
+| Champ | Valeur |
+| --- | --- |
+| **Timestamp** | 2026-08-23 19:09:04 CEST (+0200) — Europe/Paris |
+| **Repo** | `mcleland147/sfia-workspace` |
+| **Branch** | `delivery/sfia-studio-w2-final-closure-product-correction` |
+| **origin/main** | `17f528cd81fc495400b8b15e26830695347995f2` |
+| **PRE_COMMIT_HEAD** | `17f528cd81fc495400b8b15e26830695347995f2` |
+| **PROJECT_COMMIT** | `330b36258f5a5fcb117fb562b12ff173b3675d94` |
+| **Cycle** | Repository execution / Git integration |
+| **Typologie** | INC |
+| **Profil** | CRITICAL |
+| **Git integration GO** | CONSUMED |
+| **Merge** | NOT AUTHORIZED |
+| **W2 Final Closure Requalification** | NOT AUTHORIZED |
+| **W2 closure** | NOT AUTHORIZED |
+| **W3** | NOT AUTHORIZED |
+| **REAL** | OUT |
+| **FinOps/T7** | FREEZE |
+| **C6** | CLOSED |
+| **runtime v3** | NON ADOPTED |
+| **Product content mutation during integration** | FORBIDDEN / NONE |
 
 ## B. Sources actually read
 
-Process + Convergence + PC 01–03/06/08/09 + frozen doc10 + prior handoff 5827488b… + amendExecutionContract + types + TrajectorySurface + OA supersede/validate/inspect/authorize (READ ONLY) + resolveM3 (READ ONLY) + R1 tests/importBoundaries.
+- `prompts/templates/sfia-cycle-execution-template.md` (v2.6 external process)
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` (presence confirmed)
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` (presence confirmed)
+- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` (presence confirmed; diff=0)
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` (presence confirmed; diff=0)
+- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` (presence confirmed)
+- `projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md` (presence confirmed)
+- Latest remote Review Handoff: `sfia-review-handoff/latest-chatgpt-review.md` on `sfia/review-handoff`
+  - commit `96563287e8f36fb368c98f09fcaeb6277ed1ebe4`
+  - blob `bf6d2ba7a46fa65d9806687e3722fc0d981b79e5`
+- `scripts/sfia/publish-review-handoff.sh` (publisher mechanism)
 
-## C. Local Git Truth
+## C. Local Git Truth before integration
 
-- branch delivery/sfia-studio-w2-final-closure-product-correction @ 17f528cd…
-- origin/main 17f528cd…
-- staged empty; remote delivery branch ABSENT
-- doc10 frozen 1f815591… unchanged
-- lib/oa diff EMPTY
+| Check | Result |
+| --- | --- |
+| `pwd` / toplevel | `/Users/morris/Projects/sfia-workspace` |
+| branch | `delivery/sfia-studio-w2-final-closure-product-correction` |
+| HEAD | `17f528cd81fc495400b8b15e26830695347995f2` |
+| `origin/main` | `17f528cd81fc495400b8b15e26830695347995f2` |
+| staged | EMPTY |
+| remote delivery branch | ABSENT (`git ls-remote` empty) |
+| unrelated untracked preserved | `.tmp-sfia-review/`, `projects/eventops-poc/`, `projects/flex-office-demo/`, frozen doc10 |
+| `git diff --check` | clean |
+| `lib/oa` diff | EMPTY |
 
-## D. Prior reviewed candidate
+## D. Reviewed candidate provenance
 
 | Item | Value |
-|---|---|
-| Handoff commit | 5827488b184a186d34b381944c4c9b555dd64194 |
-| Handoff blob | 661c6029ffc05d3164f9d429b79dfb4511d23c1b |
-| ChatGPT | CHANGES REQUIRED |
-| Blocker | R02 recovery/idempotency — draft successor accepted on replay without revalidation; reinspectionRequired always true |
+| --- | --- |
+| Latest accepted Review Handoff commit | `96563287e8f36fb368c98f09fcaeb6277ed1ebe4` |
+| Latest accepted Review Handoff blob | `bf6d2ba7a46fa65d9806687e3722fc0d981b79e5` |
+| ChatGPT review verdict | **PASS — W2 FINAL CLOSURE PRODUCT CORRECTION R1 READY FOR MORRIS GIT INTEGRATION DECISION** |
+| R01 | LOCALLY CLOSED |
+| R02 | LOCALLY CLOSED / RECOVERY-SAFE |
+| C6 | CLOSED |
+| Content mutation under this GO | NONE — transported reviewed candidate only |
 
-## E. Convergence state
+## E. Frozen candidate proof
 
-- R01 FROZEN LOCALLY CLOSED
-- R02 corrected with recovery-safe replay
-- C6 CLOSED · W3 OUT · REAL OUT · FinOps FREEZE · runtime v3 NON ADOPTED
+### Exact 9 tracked paths (project commit)
 
-## F. R1 design
+1. `projects/sfia-studio/app/features/project-assistant/w2/amendExecutionContract.ts` (**NEW**)
+2. `projects/sfia-studio/app/features/project-assistant/w2/actions.ts`
+3. `projects/sfia-studio/app/features/project-assistant/w2/types.ts`
+4. `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
+5. `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.module.css`
+6. `projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts`
+7. `projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx`
+8. `projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts`
+9. `projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts`
 
-1. **Governed identity** (`verifyGovernedAmendmentSuccessor`): successor id, project/cycle, supersedes, reason, idempotencyKey, authority, decisionRefs, scope, action/target, capabilities, stop/evidence, reversibility, window, exact constraints = prior+amendment, doctrinePackageRef/inputs/expectedOutputs/adapterExportRef via canonicalizeJson.
-2. **Status policy**: draft|proposed → register Pilote + validate SAME successor; validated|confirmation_required|confirmed → use as-is; cancelled|superseded|executing|completed|failed|unknown → fail closed.
-3. **Pre-validation recovery**: never return success for unvalidated durable successor.
-4. **Bounded race**: CONTRACT_ALREADY_EXISTS → reload expected successor once → same recover path (no recursion).
-5. **Inspection truth**: reinspectionRequired = !successorInspection.inspectionSufficient; labels REQUISE vs DÉJÀ SATISFAITE; priorInspectionDoesNotCoverSuccessor always true.
-6. **No OA change**.
+### Pre-commit validation (frozen candidate; no content fix)
 
-## G. COMPLETE useful R1 diffs / content
+| Suite | Result |
+| --- | --- |
+| EABC `w2EabcDelivery.test.ts` | **39 PASS** |
+| Phase B `w2TrackDPhaseB.test.ts` | **24 PASS** |
+| UI `trajectorySurface.ui.test.tsx` | **2 PASS** |
+| `importBoundaries.test.ts` | **5 PASS** |
+| Playwright `studio-w2-g3-correction-runtime.spec.ts` | **1 PASS** |
+| Full Vitest | **1998 PASS / 131 SKIP** |
+| `npm run typecheck` | PASS |
+| `npm run lint` | PASS |
+| `npm run build` | PASS |
+| `git diff --check` | clean |
 
-### FULL FILE — amendExecutionContract.ts
-```typescript
-/**
- * W2 Track C — thin product application seam: Pilote material amendment of an
- * already-inspected ExecutionContract by appending ONE tightening constraint.
- *
- * Reuses exclusively:
- *   supersedeExecutionContract → validateExecutionContract → inspection state
- *
- * R1 recovery:
- *   durable draft|proposed successor is revalidated on replay BEFORE success;
- *   governed identity is fail-closed; reinspectionRequired reflects CURRENT
- *   successor inspection truth (never forged across EC IDs).
- */
+No content mutation during Git integration.
 
-import { createHash } from "node:crypto";
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import { canonicalizeJson } from "@/lib/oa/doctrine";
-import {
-  LOCAL_PILOTE_ACTOR,
-  registerLocalPiloteAuthority,
-} from "@/lib/oa/decision";
-import type { ExecutionContract } from "@/lib/oa/execution-contract";
-import { readContractInspectionState } from "./inspectExecutionContract";
-import type {
-  AmendExecutionContractResult,
-  AmendedExecutionContractDto,
-  ContractInspectionStateDto,
-  W2Failure,
-} from "./types";
+## F. C6 guard
 
-export const W2_CONSTRAINT_AMENDMENT_REASON = "w2_constraint_amendment";
+| Guard | Result |
+| --- | --- |
+| `git diff --name-only -- projects/sfia-studio/app/lib/oa` | EMPTY |
+| schema / migration files in candidate | NONE |
+| Product Completion docs in commit | NONE (doc10 untracked only) |
+| Roadmap diff | 0 |
+| Build Doctrine diff | 0 |
+| v3 framing diff | 0 |
+| new engine / store / lifecycle | NONE |
+| C6 | remains **CLOSED** |
 
-export type AmendExecutionContractInput = {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-  readonly executionContractId: string;
-  readonly additionalConstraint: string;
-  /** Test inject for the local single-user authority gate. */
-  readonly forceLocalAuthority?: boolean;
-};
+## G. doc10
 
-function fail(code: string, message: string): W2Failure {
-  return { ok: false, code, message };
-}
+| Check | Value |
+| --- | --- |
+| Path | `projects/sfia-studio/product-completion/10-product-completion-wave-2-final-closure-qualification.md` |
+| Pre-integration hash | `1f81559157200cc554e003e2391502c6c1df5ec1` |
+| Post-commit hash | `1f81559157200cc554e003e2391502c6c1df5ec1` |
+| Status | UNTRACKED / UNSTAGED / UNCOMMITTED |
+| In project commit | NO |
 
-function normalizeConstraint(raw: string): string | null {
-  const trimmed = raw.replace(/\u0000/g, "").trim();
-  if (!trimmed) return null;
-  return trimmed.replace(/\s+/g, " ");
-}
+## H. Project commit
 
-function amendmentDigest(
-  priorExecutionContractId: string,
-  normalizedConstraint: string,
-): string {
-  return createHash("sha256")
-    .update("w2-constraint-amend\n", "utf8")
-    .update(priorExecutionContractId, "utf8")
-    .update("\n", "utf8")
-    .update(normalizedConstraint, "utf8")
-    .digest("hex")
-    .slice(0, 16);
-}
+| Field | Value |
+| --- | --- |
+| SHA | `330b36258f5a5fcb117fb562b12ff173b3675d94` |
+| Message | `feat(sfia-studio): complete W2 final closure product correction` |
+| Parent | `17f528cd81fc495400b8b15e26830695347995f2` |
+| Files | exact 9 reviewed paths |
+| File count | 9 |
+| Merge commit | NO |
+| `origin/main..HEAD` count | 1 |
 
-function successorIdFor(
-  priorExecutionContractId: string,
-  digest: string,
-): string {
-  const base = priorExecutionContractId.slice(0, 72);
-  return `${base}:amd:${digest}`;
-}
+## I. Push
 
-function idempotencyKeyFor(digest: string): string {
-  return `idem:w2-constraint-amend:${digest}`;
-}
+| Field | Value |
+| --- | --- |
+| Branch | `delivery/sfia-studio-w2-final-closure-product-correction` |
+| Remote SHA | `330b36258f5a5fcb117fb562b12ff173b3675d94` |
+| Local SHA | `330b36258f5a5fcb117fb562b12ff173b3675d94` |
+| Push type | NORMAL (`git push -u origin …`) |
+| Force | NO |
+| Tags | NONE |
 
-function sameStringList(
-  left: readonly string[] | undefined,
-  right: readonly string[] | undefined,
-): boolean {
-  const a = left ?? [];
-  const b = right ?? [];
-  if (a.length !== b.length) return false;
-  return a.every((value, index) => value === b[index]);
-}
+## J. Draft PR
 
-function sameOptionalMaterial(left: unknown, right: unknown): boolean {
-  if (left === undefined && right === undefined) return true;
-  if (left === undefined || right === undefined) return false;
-  return canonicalizeJson(left) === canonicalizeJson(right);
-}
+| Field | Value |
+| --- | --- |
+| Number | **#405** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/405 |
+| Title | `feat(sfia-studio): complete W2 final closure product correction` |
+| Base | `main` |
+| Base SHA | `17f528cd81fc495400b8b15e26830695347995f2` |
+| Head | `delivery/sfia-studio-w2-final-closure-product-correction` |
+| Head SHA | `330b36258f5a5fcb117fb562b12ff173b3675d94` |
+| Draft | **true** |
+| Commit count | **1** |
+| Changed files | **exactly 9** |
+| Mergeability | MERGEABLE |
+| Ready for review | NO (remains Draft) |
+| Merge | NOT PERFORMED / NOT AUTHORIZED |
 
-/**
- * Fail-closed governed identity for a deterministic W2 constraint successor.
- * Exported for R1 unit proof of the application guard (no OA mutation).
- */
-export function verifyGovernedAmendmentSuccessor(input: {
-  readonly prior: ExecutionContract;
-  readonly successor: ExecutionContract;
-  readonly expectedSuccessorId: string;
-  readonly expectedIdempotencyKey: string;
-  readonly normalizedConstraint: string;
-}): W2Failure | null {
-  const { prior, successor } = input;
-  const expectedConstraints = [...prior.constraints, input.normalizedConstraint];
+## K. CI
 
-  if (successor.executionContractId !== input.expectedSuccessorId) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "Identité successeur déterministe mismatch.",
-    );
-  }
-  if (successor.projectId !== prior.projectId) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "projectId successeur incompatible avec le prédécesseur.",
-    );
-  }
-  if ((successor.cycleInstanceId ?? null) !== (prior.cycleInstanceId ?? null)) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "cycleInstanceId successeur incompatible.",
-    );
-  }
-  if (successor.supersedesExecutionContractId !== prior.executionContractId) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "Lignage supersedesExecutionContractId incorrect.",
-    );
-  }
-  if (successor.supersessionReason !== W2_CONSTRAINT_AMENDMENT_REASON) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "supersessionReason d'amendement W2 incorrect.",
-    );
-  }
-  if (successor.idempotencyKey !== input.expectedIdempotencyKey) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "idempotencyKey d'amendement mismatch.",
-    );
-  }
-  if (successor.requiredAuthority !== prior.requiredAuthority) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "requiredAuthority ne peut pas dériver silencieusement.",
-    );
-  }
-  if (!sameStringList(successor.decisionRefs, prior.decisionRefs)) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "decisionRefs successeur incompatibles.",
-    );
-  }
-  if (successor.scope !== prior.scope) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "scope successeur incompatible.",
-    );
-  }
-  if (successor.action !== prior.action || successor.target !== prior.target) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "action/target ne peuvent pas dériver silencieusement.",
-    );
-  }
-  if (
-    !sameStringList(successor.requiredCapabilities, prior.requiredCapabilities)
-  ) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "requiredCapabilities successeur incompatibles.",
-    );
-  }
-  if (!sameStringList(successor.stopConditions, prior.stopConditions)) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "stopConditions successeur incompatibles.",
-    );
-  }
-  if (
-    !sameStringList(
-      successor.evidenceRequirements,
-      prior.evidenceRequirements,
-    )
-  ) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "evidenceRequirements successeur incompatibles.",
-    );
-  }
-  if (successor.reversibility !== prior.reversibility) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "reversibility successeur incompatible.",
-    );
-  }
-  if (
-    (successor.executionWindowClass ?? null) !==
-    (prior.executionWindowClass ?? null)
-  ) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "executionWindowClass successeur incompatible.",
-    );
-  }
-  if (!sameStringList(successor.constraints, expectedConstraints)) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "contraintes successeur ≠ prédécesseur + contrainte d'amendement.",
-    );
-  }
-  if (
-    !sameOptionalMaterial(
-      successor.doctrinePackageRef,
-      prior.doctrinePackageRef,
-    )
-  ) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "doctrinePackageRef successeur incompatible.",
-    );
-  }
-  if (!sameOptionalMaterial(successor.inputs, prior.inputs)) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "inputs successeur incompatibles.",
-    );
-  }
-  if (
-    !sameOptionalMaterial(successor.expectedOutputs, prior.expectedOutputs)
-  ) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "expectedOutputs successeur incompatibles.",
-    );
-  }
-  if (
-    !sameOptionalMaterial(successor.adapterExportRef, prior.adapterExportRef)
-  ) {
-    return fail(
-      "AMENDMENT_IDENTITY_CONFLICT",
-      "adapterExportRef successeur incompatible.",
-    );
-  }
-  return null;
-}
+| Field | Value |
+| --- | --- |
+| Workflow | SFIA Studio CI |
+| Run ID | **32653718872** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/32653718872 |
+| Event | `pull_request` |
+| Base | `main` @ `17f528cd…` |
+| Head | `330b36258f5a5fcb117fb562b12ff173b3675d94` |
+| Status | completed |
+| Conclusion | **success** |
 
-function toContractDto(contract: ExecutionContract): AmendedExecutionContractDto {
-  return {
-    executionContractId: contract.executionContractId,
-    version: contract.version,
-    status: contract.status,
-    action: contract.action,
-    target: contract.target,
-    scope: contract.scope,
-    requiredAuthority: contract.requiredAuthority,
-    constraints: [...(contract.constraints ?? [])],
-    stopConditions: [...(contract.stopConditions ?? [])],
-    requiredCapabilities: [...(contract.requiredCapabilities ?? [])],
-    reversibility: contract.reversibility ?? "non précisée",
-    semanticFingerprint: contract.semanticFingerprint ?? "",
-    supersedesExecutionContractId: contract.supersedesExecutionContractId ?? null,
-    supersessionReason: contract.supersessionReason ?? null,
-  };
-}
+### Jobs
 
-function successPayload(input: {
-  prior: ExecutionContract;
-  priorInspectionAttestationRef: string | null;
-  successor: ExecutionContract;
-  successorInspection: ContractInspectionStateDto;
-  replayed: boolean;
-  additionalConstraint: string;
-}): AmendExecutionContractResult {
-  const reinspectionRequired = !input.successorInspection.inspectionSufficient;
-  return {
-    ok: true,
-    priorExecutionContractId: input.prior.executionContractId,
-    priorContractVersion: input.prior.version,
-    priorInspectionAttestationRef: input.priorInspectionAttestationRef,
-    successor: toContractDto(input.successor),
-    supersedesExecutionContractId: input.prior.executionContractId,
-    materialAmendment: true,
-    priorInspectionDoesNotCoverSuccessor: true,
-    reinspectionRequired,
-    statusLabel: reinspectionRequired
-      ? "CONTRAT AMENDÉ — RÉINSPECTION REQUISE"
-      : "CONTRAT AMENDÉ — RÉINSPECTION DÉJÀ SATISFAITE",
-    successorInspection: input.successorInspection,
-    additionalConstraint: input.additionalConstraint,
-    replayed: input.replayed,
-    humanDecisionCreated: false,
-    authorityGranted: false,
-    confirmationGranted: false,
-    executionPerformed: false,
-    attemptCreated: false,
-  };
-}
+| Job | Conclusion |
+| --- | --- |
+| Detect SFIA Studio changes | success |
+| Build and validate SFIA Studio | success (typecheck, lint, build, Vitest, FinOps/T7 freeze notice, modeled governance, secret scan, trailing whitespace) |
+| SFIA Studio Required Gate | success |
 
-async function loadContract(
-  oa: RuntimeOaStack,
-  executionContractId: string,
-): Promise<
-  | { ok: true; contract: ExecutionContract }
-  | { ok: false; code: string; message: string }
-> {
-  const loaded = await oa.executionContractServices.getExecutionContract.execute({
-    executionContractId,
-  });
-  if (!loaded.ok) {
-    return {
-      ok: false,
-      code: loaded.error.detailCode,
-      message: "Contrat d'exécution introuvable — amendement impossible.",
-    };
-  }
-  return { ok: true, contract: loaded.contract };
-}
+**FinOps/T7:** freeze notice executed; no PostgreSQL FinOps activation.
 
-async function registerPiloteAuthority(
-  input: AmendExecutionContractInput,
-  scope: string,
-  digest: string,
-): Promise<
-  | { ok: true; evidenceId: string }
-  | { ok: false; code: string; message: string }
-> {
-  const authority = registerLocalPiloteAuthority({
-    authorityResolver: input.oa.authorityResolver,
-    scope,
-    issuedAt: input.oa.clock.nowIso(),
-    evidenceId: `evd:w2-amend:${digest}`,
-    forceEnable: input.forceLocalAuthority === true,
-  });
-  if (!authority.ok) {
-    return fail(authority.code, authority.message);
-  }
-  return { ok: true, evidenceId: authority.evidenceId };
-}
+## L. Current governance
 
-/**
- * Recover an existing deterministic successor: identity → status policy →
- * validate draft|proposed → current inspection truth.
- */
-async function recoverExistingSuccessor(input: {
-  readonly amendInput: AmendExecutionContractInput;
-  readonly prior: ExecutionContract;
-  readonly successor: ExecutionContract;
-  readonly expectedSuccessorId: string;
-  readonly expectedIdempotencyKey: string;
-  readonly normalizedConstraint: string;
-  readonly digest: string;
-}): Promise<AmendExecutionContractResult> {
-  const identity = verifyGovernedAmendmentSuccessor({
-    prior: input.prior,
-    successor: input.successor,
-    expectedSuccessorId: input.expectedSuccessorId,
-    expectedIdempotencyKey: input.expectedIdempotencyKey,
-    normalizedConstraint: input.normalizedConstraint,
-  });
-  if (identity) return identity;
+- R01/R02 reviewed candidate **transported** to Draft PR #405.
+- **W2 NOT FINALLY CLOSED**.
+- **W2 Final Closure Requalification NOT AUTHORIZED / NOT STARTED**.
+- **W3 OUT**.
+- **REAL OUT**.
+- **PB-RES-REAL-01 OPEN**.
+- **FinOps FREEZE**.
+- **C6 CLOSED**.
+- **runtime v3 NON ADOPTED**.
 
-  let successor = input.successor;
-  const status = successor.status;
+## M. Final local/remote Git truth
 
-  if (status === "draft" || status === "proposed") {
-    const authority = await registerPiloteAuthority(
-      input.amendInput,
-      input.prior.scope,
-      input.digest,
-    );
-    if (!authority.ok) return authority;
+| Field | Value |
+| --- | --- |
+| Current branch | `delivery/sfia-studio-w2-final-closure-product-correction` |
+| HEAD | `330b36258f5a5fcb117fb562b12ff173b3675d94` |
+| `origin/delivery/…` | `330b36258f5a5fcb117fb562b12ff173b3675d94` |
+| `origin/main` | `17f528cd81fc495400b8b15e26830695347995f2` |
+| Tracked working diff | EMPTY |
+| Staged | EMPTY |
+| doc10 | untracked + frozen hash unchanged |
+| Merge | NONE |
 
-    const validated =
-      await input.amendInput.oa.executionContractServices.validateExecutionContract.execute(
-        {
-          executionContractId: successor.executionContractId,
-          actor: LOCAL_PILOTE_ACTOR,
-          authorityEvidenceId: authority.evidenceId,
-        },
-      );
-    if (!validated.ok) {
-      return fail(
-        validated.error.detailCode,
-        `Validation du contrat amendé refusée (${validated.error.detailCode}).`,
-      );
-    }
-    successor = validated.contract;
-  } else if (
-    status === "validated" ||
-    status === "confirmation_required" ||
-    status === "confirmed"
-  ) {
-    // Already past validation — use durable state as-is.
-  } else if (
-    status === "cancelled" ||
-    status === "superseded" ||
-    status === "executing" ||
-    status === "completed" ||
-    status === "failed"
-  ) {
-    return fail(
-      "CONTRACT_STATE_CONFLICT",
-      `Successeur d'amendement dans un état incompatible (${status}).`,
-    );
-  } else {
-    return fail(
-      "CONTRACT_STATE_CONFLICT",
-      `Statut successeur inconnu/incompatible (${String(status)}).`,
-    );
-  }
+## N. Explicit remaining Morris gates
 
-  const successorInspection = await readContractInspectionState({
-    oa: input.amendInput.oa,
-    executionContractId: successor.executionContractId,
-  });
-  if (!successorInspection.ok) return successorInspection;
+NOT CONSUMED:
 
-  const priorInspection = await readContractInspectionState({
-    oa: input.amendInput.oa,
-    executionContractId: input.prior.executionContractId,
-  });
+1. ChatGPT PR readiness review
+2. Morris merge GO
+3. Merge
+4. Post-merge proof
+5. W2 Final Closure Requalification GO
+6. W2 closure decision
+7. W3 GO
+8. REAL GO
+9. FinOps unfreeze
+10. runtime v3 adoption
 
-  return successPayload({
-    prior: input.prior,
-    priorInspectionAttestationRef: priorInspection.ok
-      ? priorInspection.attestationRef ?? priorInspection.staleAttestationRef
-      : null,
-    successor,
-    successorInspection,
-    replayed: true,
-    additionalConstraint: input.normalizedConstraint,
-  });
-}
+No automatic chaining.
 
-/**
- * Append one tightening execution constraint via OA supersession.
- */
-export async function amendExecutionContractWithConstraint(
-  input: AmendExecutionContractInput,
-): Promise<AmendExecutionContractResult> {
-  const normalized = normalizeConstraint(input.additionalConstraint);
-  if (!normalized) {
-    return fail(
-      "CONSTRAINT_EMPTY",
-      "La contrainte d'exécution supplémentaire est vide — amendement refusé.",
-    );
-  }
+## O. Anti-claims
 
-  const priorLoad = await loadContract(input.oa, input.executionContractId);
-  if (!priorLoad.ok) return fail(priorLoad.code, priorLoad.message);
-  let prior = priorLoad.contract;
+- Git integration ≠ merge
+- Draft PR ≠ READY for merge
+- CI green ≠ W2 requalification
+- R01/R02 integrated ≠ W2 closure
+- W2 requalification ≠ W2 closure
+- W2 closure ≠ W3 authorization
+- deterministic ≠ REAL
+- AUTHORIZED ≠ Execute
+- C6 CLOSED
+- FinOps FREEZE
+- runtime v3 NON ADOPTED
+- Product Completion incomplete
 
-  if (prior.projectId !== input.projectId) {
-    return fail(
-      "PROJECT_MISMATCH",
-      "Le contrat n'appartient pas au projet demandé — amendement refusé.",
-    );
-  }
+## P. Verdict
 
-  const digest = amendmentDigest(prior.executionContractId, normalized);
-  const newExecutionContractId = successorIdFor(
-    prior.executionContractId,
-    digest,
-  );
-  const idempotencyKey = idempotencyKeyFor(digest);
+**W2 FINAL CLOSURE PRODUCT CORRECTION R1 DRAFT PR READY FOR CHATGPT PR READINESS REVIEW — MERGE AND W2 REQUALIFICATION NOT AUTHORIZED**
 
-  // Replay / recovery path: deterministic successor already durable.
-  const existingSuccessor = await loadContract(
-    input.oa,
-    newExecutionContractId,
-  );
-  if (existingSuccessor.ok) {
-    const priorRefresh = await loadContract(
-      input.oa,
-      prior.executionContractId,
-    );
-    if (priorRefresh.ok) prior = priorRefresh.contract;
+---
 
-    return recoverExistingSuccessor({
-      amendInput: input,
-      prior,
-      successor: existingSuccessor.contract,
-      expectedSuccessorId: newExecutionContractId,
-      expectedIdempotencyKey: idempotencyKey,
-      normalizedConstraint: normalized,
-      digest,
-    });
-  }
+## Appendix — Complete project commit patch
 
-  if (
-    prior.status === "superseded" ||
-    prior.status === "cancelled" ||
-    prior.status === "executing" ||
-    prior.status === "completed" ||
-    prior.status === "failed"
-  ) {
-    return fail(
-      "CONTRACT_STATE_CONFLICT",
-      `Le contrat (statut ${prior.status}) ne peut pas être amendé.`,
-    );
-  }
+Parent: `17f528cd81fc495400b8b15e26830695347995f2`
+Commit: `330b36258f5a5fcb117fb562b12ff173b3675d94`
 
-  if (prior.constraints.includes(normalized)) {
-    return fail(
-      "CONSTRAINT_DUPLICATE",
-      "Cette contrainte est déjà présente sur le contrat — amendement refusé.",
-    );
-  }
+Reference: accepted FULL candidate Review Handoff commit `96563287…` / blob `bf6d2ba7…` (PASS R1). This Git integration transported that frozen candidate without content mutation.
 
-  const priorInspection = await readContractInspectionState({
-    oa: input.oa,
-    executionContractId: prior.executionContractId,
-  });
-  if (!priorInspection.ok) return priorInspection;
-  if (!priorInspection.inspectionSufficient) {
-    return fail(
-      "INSPECTION_REQUIRED_BEFORE_AMENDMENT",
-      "Le contrat doit être inspecté avant un amendement matériel.",
-    );
-  }
-
-  const authority = await registerPiloteAuthority(
-    input,
-    prior.scope,
-    digest,
-  );
-  if (!authority.ok) return authority;
-
-  const superseded =
-    await input.oa.executionContractServices.supersedeExecutionContract.execute({
-      newExecutionContractId,
-      supersedesExecutionContractId: prior.executionContractId,
-      supersessionReason: W2_CONSTRAINT_AMENDMENT_REASON,
-      actor: LOCAL_PILOTE_ACTOR,
-      authorityEvidenceId: authority.evidenceId,
-      expectedVersion: prior.version,
-      constraints: [...prior.constraints, normalized],
-      idempotencyKey,
-      correlationId: `cor:w2-amend:${digest}`,
-      status: "draft",
-    });
-
-  if (!superseded.ok) {
-    // Bounded race recovery: reload expected successor once — no recursion.
-    if (superseded.error.detailCode === "CONTRACT_ALREADY_EXISTS") {
-      const raced = await loadContract(input.oa, newExecutionContractId);
-      if (!raced.ok) {
-        return fail(
-          "AMENDMENT_RECOVERY_FAILED",
-          "Course supersession: successeur déterministe introuvable après CONTRACT_ALREADY_EXISTS.",
-        );
-      }
-      const priorRefresh = await loadContract(
-        input.oa,
-        prior.executionContractId,
-      );
-      if (priorRefresh.ok) prior = priorRefresh.contract;
-      return recoverExistingSuccessor({
-        amendInput: input,
-        prior,
-        successor: raced.contract,
-        expectedSuccessorId: newExecutionContractId,
-        expectedIdempotencyKey: idempotencyKey,
-        normalizedConstraint: normalized,
-        digest,
-      });
-    }
-    return fail(
-      superseded.error.detailCode,
-      `Amendement refusé (${superseded.error.detailCode}).`,
-    );
-  }
-
-  const validated =
-    await input.oa.executionContractServices.validateExecutionContract.execute({
-      executionContractId: superseded.contract.executionContractId,
-      actor: LOCAL_PILOTE_ACTOR,
-      authorityEvidenceId: authority.evidenceId,
-    });
-  if (!validated.ok) {
-    return fail(
-      validated.error.detailCode,
-      `Validation du contrat amendé refusée (${validated.error.detailCode}).`,
-    );
-  }
-
-  const priorAfter = superseded.supersededContract ?? prior;
-  const successorInspection = await readContractInspectionState({
-    oa: input.oa,
-    executionContractId: validated.contract.executionContractId,
-  });
-  if (!successorInspection.ok) return successorInspection;
-
-  // Fresh create path: successor must not inherit sufficient inspection.
-  if (successorInspection.inspectionSufficient) {
-    return fail(
-      "INSPECTION_INVARIANT_VIOLATED",
-      "Le successeur ne doit pas hériter d'une inspection suffisante — arrêt fail-closed.",
-    );
-  }
-
-  return successPayload({
-    prior: priorAfter,
-    priorInspectionAttestationRef: priorInspection.attestationRef,
-    successor: validated.contract,
-    successorInspection,
-    replayed: false,
-    additionalConstraint: normalized,
-  });
-}
-
-```
-
-### DIFF — projects/sfia-studio/app/features/project-assistant/w2/types.ts
 ```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/types.ts b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
-index 19655ba4..baf0653b 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/types.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
-@@ -212,3 +212,52 @@ export type DecideTrajectoryResult =
-       readonly executionPerformed: false;
-     }
-   | W2Failure;
+commit 330b36258f5a5fcb117fb562b12ff173b3675d94
+Author: Morris Cleland <morris@macbook-air1.home>
+Date:   Sun Aug 23 19:05:12 2026 +0200
+
+    feat(sfia-studio): complete W2 final closure product correction
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
+index 8fdf9ad0..681c6621 100644
+--- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
+@@ -8,11 +8,13 @@ const {
+   decideMock,
+   inspectMock,
+   authorizeMock,
++  amendMock,
+ } = vi.hoisted(() => ({
+   proposeMock: vi.fn(),
+   decideMock: vi.fn(),
+   inspectMock: vi.fn(),
+   authorizeMock: vi.fn(),
++  amendMock: vi.fn(),
+ }));
+
+ vi.mock("@/features/project-assistant/w2/actions", () => ({
+@@ -22,6 +24,7 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
+   w2ConfirmExecutionContractAction: vi.fn(),
+   w2AuthorizeExecutionContractAction: (...args: unknown[]) =>
+     authorizeMock(...args),
++  w2AmendExecutionContractAction: (...args: unknown[]) => amendMock(...args),
+   w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
+     ok: false,
+     code: "UNUSED",
+@@ -42,6 +45,7 @@ beforeEach(() => {
+   decideMock.mockReset();
+   inspectMock.mockReset();
+   authorizeMock.mockReset();
++  amendMock.mockReset();
+ });
+
+ describe("W2 TrajectorySurface", () => {
+@@ -242,6 +246,161 @@ describe("W2 TrajectorySurface", () => {
+     );
+     expect(screen.getByTestId("w2-confirm-contract")).not.toBeDisabled();
+
++    // Amendment affordance appears only after sufficient inspection.
++    expect(screen.getByTestId("w2-amendment-form")).toBeVisible();
++    expect(screen.queryByTestId("w2-amendment-notice")).toBeNull();
 +
-+/* -------------------------------------------------------------------------- */
-+/* Track C — material constraint amendment (OA supersession seam)              */
-+/* -------------------------------------------------------------------------- */
-+
-+export type AmendedExecutionContractDto = {
-+  readonly executionContractId: string;
-+  readonly version: number;
-+  readonly status: string;
-+  readonly action: string;
-+  readonly target: string;
-+  readonly scope: string;
-+  readonly requiredAuthority: string;
-+  readonly constraints: readonly string[];
-+  readonly stopConditions: readonly string[];
-+  readonly requiredCapabilities: readonly string[];
-+  readonly reversibility: string;
-+  readonly semanticFingerprint: string;
-+  readonly supersedesExecutionContractId: string | null;
-+  readonly supersessionReason: string | null;
-+};
-+
-+export type AmendExecutionContractSuccess = {
-+  readonly ok: true;
-+  readonly priorExecutionContractId: string;
-+  readonly priorContractVersion: number;
-+  readonly priorInspectionAttestationRef: string | null;
-+  readonly successor: AmendedExecutionContractDto;
-+  readonly supersedesExecutionContractId: string;
-+  readonly materialAmendment: true;
-+  readonly priorInspectionDoesNotCoverSuccessor: true;
-+  /** Current successor inspection truth — never forged from predecessor. */
-+  readonly reinspectionRequired: boolean;
-+  readonly statusLabel:
-+    | "CONTRAT AMENDÉ — RÉINSPECTION REQUISE"
-+    | "CONTRAT AMENDÉ — RÉINSPECTION DÉJÀ SATISFAITE";
-+  readonly successorInspection: ContractInspectionStateDto;
-+  readonly additionalConstraint: string;
-+  readonly replayed: boolean;
-+  readonly humanDecisionCreated: false;
-+  readonly authorityGranted: false;
-+  readonly confirmationGranted: false;
-+  readonly executionPerformed: false;
-+  readonly attemptCreated: false;
-+};
-+
-+export type AmendExecutionContractResult =
-+  | AmendExecutionContractSuccess
-+  | W2Failure;
-
-```
-
-### DIFF — projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-index 9a6e254d..6408b737 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-@@ -14,6 +14,7 @@
- import { useCallback, useState } from "react";
- import { projectAssistantPrepareM3Action } from "@/features/project-assistant/actions";
- import {
-+  w2AmendExecutionContractAction,
-   w2AuthorizeExecutionContractAction,
-   w2ConfirmExecutionContractAction,
-   w2DecideTrajectoryAction,
-@@ -21,6 +22,7 @@ import {
-   w2ProposeTrajectoryOptionsAction,
- } from "@/features/project-assistant/w2/actions";
- import type {
-+  AmendExecutionContractSuccess,
-   ContractInspectionStateDto,
-   DecidedTrajectoryDto,
-   ExecutionAuthorizationOutcomeDto,
-@@ -44,6 +46,13 @@ type PreparedContract = {
-   readonly semanticFingerprint: string;
- };
-
-+type AmendmentNotice = {
-+  readonly priorExecutionContractId: string;
-+  readonly additionalConstraint: string;
-+  readonly statusLabel: string;
-+  readonly priorInspectionDoesNotCoverSuccessor: true;
-+};
-+
- type Busy =
-   | null
-   | "options"
-@@ -51,7 +60,8 @@ type Busy =
-   | "contract"
-   | "inspection"
-   | "confirmation"
--  | "authorization";
-+  | "authorization"
-+  | "amendment";
-
- export function TrajectorySurface({
-   projectId,
-@@ -74,6 +84,9 @@ export function TrajectorySurface({
-     useState<ContractInspectionStateDto | null>(null);
-   const [authorization, setAuthorization] =
-     useState<ExecutionAuthorizationOutcomeDto | null>(null);
-+  const [amendmentDraft, setAmendmentDraft] = useState("");
-+  const [amendmentNotice, setAmendmentNotice] =
-+    useState<AmendmentNotice | null>(null);
-
-   const proposeOptions = useCallback(async () => {
-     setBusy("options");
-@@ -91,6 +104,8 @@ export function TrajectorySurface({
-     setContract(null);
-     setInspection(null);
-     setAuthorization(null);
-+    setAmendmentDraft("");
-+    setAmendmentNotice(null);
-     onDurableFactsChanged?.();
-   }, [projectId, onDurableFactsChanged]);
-
-@@ -149,6 +164,8 @@ export function TrajectorySurface({
-     });
-     setInspection(null);
-     setAuthorization(null);
-+    setAmendmentDraft("");
-+    setAmendmentNotice(null);
-     onDurableFactsChanged?.();
-   }, [decision, projectId, onDurableFactsChanged]);
-
-@@ -168,7 +185,65 @@ export function TrajectorySurface({
-     const { ok: _ok, ...state } = result;
-     setInspection(state);
-     setAuthorization(null);
--  }, [contract, projectId]);
-+    if (amendmentNotice && state.inspectionSufficient) {
-+      setAmendmentNotice({
-+        ...amendmentNotice,
-+        statusLabel: "CONTRAT AMENDÉ — RÉINSPECTION DÉJÀ SATISFAITE",
-+      });
-+    }
-+  }, [contract, projectId, amendmentNotice]);
-+
-+  const amendContract = useCallback(async () => {
-+    if (!contract || !inspection?.inspectionSufficient) return;
-+    const constraint = amendmentDraft.trim();
-+    if (!constraint) {
-+      setError("Indiquez une contrainte d'exécution supplémentaire.");
-+      return;
-+    }
-+    setBusy("amendment");
-+    setError(null);
-+    const result = await w2AmendExecutionContractAction({
-+      projectId,
-+      executionContractId: contract.executionContractId,
-+      additionalConstraint: constraint,
-+    });
-+    setBusy(null);
-+    if (!result.ok) {
-+      setError(result.message);
-+      return;
-+    }
-+    const amended = result as AmendExecutionContractSuccess;
-+    setContract({
-+      executionContractId: amended.successor.executionContractId,
-+      version: amended.successor.version,
-+      status: amended.successor.status,
-+      action: amended.successor.action,
-+      target: amended.successor.target,
-+      scope: amended.successor.scope,
-+      requiredAuthority: amended.successor.requiredAuthority,
-+      constraints: [...amended.successor.constraints],
-+      stopConditions: [...amended.successor.stopConditions],
-+      requiredCapabilities: [...amended.successor.requiredCapabilities],
-+      reversibility: amended.successor.reversibility,
-+      semanticFingerprint: amended.successor.semanticFingerprint,
-+    });
-+    setInspection(amended.successorInspection);
-+    setAuthorization(null);
-+    setAmendmentDraft("");
-+    setAmendmentNotice({
-+      priorExecutionContractId: amended.priorExecutionContractId,
-+      additionalConstraint: amended.additionalConstraint,
-+      statusLabel: amended.statusLabel,
++    amendMock.mockResolvedValue({
++      ok: true,
++      priorExecutionContractId: "xct:w2-ui",
++      priorContractVersion: 1,
++      priorInspectionAttestationRef: "att:test",
++      successor: {
++        executionContractId: "xct:w2-ui:amd:deadbeef",
++        version: 1,
++        status: "confirmation_required",
++        action: "w2:inspect-only",
++        target: "studio",
++        scope: "w2-ui",
++        requiredAuthority: "MORRIS",
++        constraints: ["AUCUNE EXÉCUTION", "BORNER LE SLICE"],
++        stopConditions: ["STOP AVANT EXECUTE"],
++        requiredCapabilities: ["cap:f3-fixture-docs"],
++        reversibility: "reversible",
++        semanticFingerprint: "fff111aaa222",
++        supersedesExecutionContractId: "xct:w2-ui",
++        supersessionReason: "w2_constraint_amendment",
++      },
++      supersedesExecutionContractId: "xct:w2-ui",
++      materialAmendment: true,
 +      priorInspectionDoesNotCoverSuccessor: true,
++      reinspectionRequired: true,
++      statusLabel: "CONTRAT AMENDÉ — RÉINSPECTION REQUISE",
++      successorInspection: {
++        executionContractId: "xct:w2-ui:amd:deadbeef",
++        contractVersion: 1,
++        semanticFingerprint: "fff111aaa222",
++        statusLabel: "NON INSPECTÉ",
++        inspectionSufficient: false,
++        attestationRef: null,
++        attestedVersion: null,
++        staleAttestationRef: null,
++        reinspectionRequired: false,
++        reason: "no_attestation",
++        grantsAuthority: false,
++      },
++      additionalConstraint: "BORNER LE SLICE",
++      replayed: false,
++      humanDecisionCreated: false,
++      authorityGranted: false,
++      confirmationGranted: false,
++      executionPerformed: false,
++      attemptCreated: false,
 +    });
-+    onDurableFactsChanged?.();
-+  }, [
-+    contract,
-+    inspection,
-+    amendmentDraft,
-+    projectId,
-+    onDurableFactsChanged,
-+  ]);
-
-   const confirmForAuthorization = useCallback(async () => {
-     if (!contract) return;
-@@ -444,6 +519,57 @@ export function TrajectorySurface({
-             </div>
-           </dl>
-
-+          {amendmentNotice ? (
-+            <div
-+              className={styles.amendmentNotice}
-+              data-testid="w2-amendment-notice"
-+              role="status"
-+            >
-+              <p className={styles.blockBody} data-testid="w2-amendment-status">
-+                {amendmentNotice.statusLabel}
-+              </p>
-+              <p className={styles.blockNote}>
-+                L&apos;inspection précédente couvrait le contrat précédent, pas
-+                le successeur amendé.
-+              </p>
-+              <p className={styles.blockNote} data-testid="w2-amendment-lineage">
-+                Successeur de {amendmentNotice.priorExecutionContractId} ·
-+                contrainte ajoutée : {amendmentNotice.additionalConstraint}
-+              </p>
-+            </div>
-+          ) : null}
 +
-+          {inspection?.inspectionSufficient ? (
-+            <div
-+              className={styles.amendmentForm}
-+              data-testid="w2-amendment-form"
-+            >
-+              <p className={styles.blockTitle}>Amender le contrat</p>
-+              <label className={styles.amendmentLabel} htmlFor="w2-amend-constraint">
-+                Contrainte d&apos;exécution supplémentaire
-+              </label>
-+              <input
-+                id="w2-amend-constraint"
-+                className={styles.amendmentInput}
-+                data-testid="w2-amend-constraint"
-+                type="text"
-+                value={amendmentDraft}
-+                onChange={(event) => setAmendmentDraft(event.target.value)}
-+                disabled={busy !== null}
-+                placeholder="Ex. : borner strictement le slice livré"
-+              />
-+              <button
-+                type="button"
-+                className={styles.secondaryAction}
-+                data-testid="w2-amend-contract"
-+                onClick={() => void amendContract()}
-+                disabled={busy !== null || amendmentDraft.trim().length === 0}
-+              >
-+                Appliquer l&apos;amendement
-+              </button>
-+            </div>
-+          ) : null}
++    fireEvent.change(screen.getByTestId("w2-amend-constraint"), {
++      target: { value: "BORNER LE SLICE" },
++    });
++    fireEvent.click(screen.getByTestId("w2-amend-contract"));
++    expect(await screen.findByTestId("w2-amendment-notice")).toBeVisible();
++    expect(screen.getByTestId("w2-amendment-status")).toHaveTextContent(
++      /réinspection requise/i,
++    );
++    expect(screen.getByTestId("w2-contract-constraints")).toHaveTextContent(
++      "BORNER LE SLICE",
++    );
++    expect(screen.getByTestId("w2-inspection-state")).toHaveTextContent(
++      "NON INSPECTÉ",
++    );
++    expect(screen.queryByTestId("w2-amendment-form")).toBeNull();
++    expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
++    expect(amendMock).toHaveBeenCalledWith({
++      projectId: "prj:w2-ui",
++      executionContractId: "xct:w2-ui",
++      additionalConstraint: "BORNER LE SLICE",
++    });
 +
-           <div className={styles.actions}>
-             <button
-               type="button"
-
-```
-
-### DIFF — projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts
-```diff
++    // R1 — UI consumes application statusLabel (not a hardcoded false required).
++    amendMock.mockResolvedValue({
++      ok: true,
++      priorExecutionContractId: "xct:w2-ui",
++      priorContractVersion: 1,
++      priorInspectionAttestationRef: "att:test",
++      successor: {
++        executionContractId: "xct:w2-ui:amd:deadbeef",
++        version: 1,
++        status: "confirmation_required",
++        action: "w2:inspect-only",
++        target: "studio",
++        scope: "w2-ui",
++        requiredAuthority: "MORRIS",
++        constraints: ["AUCUNE EXÉCUTION", "BORNER LE SLICE"],
++        stopConditions: ["STOP AVANT EXECUTE"],
++        requiredCapabilities: ["cap:f3-fixture-docs"],
++        reversibility: "reversible",
++        semanticFingerprint: "fff111aaa222",
++        supersedesExecutionContractId: "xct:w2-ui",
++        supersessionReason: "w2_constraint_amendment",
++      },
++      supersedesExecutionContractId: "xct:w2-ui",
++      materialAmendment: true,
++      priorInspectionDoesNotCoverSuccessor: true,
++      reinspectionRequired: false,
++      statusLabel: "CONTRAT AMENDÉ — RÉINSPECTION DÉJÀ SATISFAITE",
++      successorInspection: {
++        executionContractId: "xct:w2-ui:amd:deadbeef",
++        contractVersion: 1,
++        semanticFingerprint: "fff111aaa222",
++        statusLabel: "INSPECTÉ",
++        inspectionSufficient: true,
++        attestationRef: "att:successor",
++        attestedVersion: 1,
++        staleAttestationRef: null,
++        reinspectionRequired: false,
++        reason: "inspected",
++        grantsAuthority: false,
++      },
++      additionalConstraint: "BORNER LE SLICE",
++      replayed: true,
++      humanDecisionCreated: false,
++      authorityGranted: false,
++      confirmationGranted: false,
++      executionPerformed: false,
++      attemptCreated: false,
++    });
++    // Re-open form by mocking a second inspect-sufficient path isn't needed —
++    // call amend again via preparing another inspect cycle: force form by
++    // clicking inspect mock first then amend with already-satisfied truth.
++    inspectMock.mockResolvedValue({
++      ok: true,
++      executionContractId: "xct:w2-ui:amd:deadbeef",
++      contractVersion: 1,
++      semanticFingerprint: "fff111aaa222",
++      statusLabel: "INSPECTÉ",
++      inspectionSufficient: true,
++      attestationRef: "att:successor",
++      attestedVersion: 1,
++      staleAttestationRef: null,
++      reinspectionRequired: false,
++      reason: "inspected",
++      grantsAuthority: false,
++    });
++    fireEvent.click(screen.getByTestId("w2-inspect-contract"));
++    expect(await screen.findByTestId("w2-amendment-form")).toBeVisible();
++    fireEvent.change(screen.getByTestId("w2-amend-constraint"), {
++      target: { value: "BORNER LE SLICE" },
++    });
++    fireEvent.click(screen.getByTestId("w2-amend-contract"));
++    expect(await screen.findByTestId("w2-amendment-status")).toHaveTextContent(
++      "RÉINSPECTION DÉJÀ SATISFAITE",
++    );
++    expect(screen.getByTestId("w2-amendment-status")).not.toHaveTextContent(
++      "RÉINSPECTION REQUISE",
++    );
++    expect(screen.getByTestId("w2-inspection-state")).toHaveTextContent(
++      "INSPECTÉ",
++    );
++
+     authorizeMock.mockResolvedValue({
+       ok: true,
+       executionContractId: "xct:w2-ui",
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts
 index 4a6cf790..3c548ad0 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts
@@ -1589,212 +1110,18 @@ index 4a6cf790..3c548ad0 100644
 +    expect(blocked.code).toBe("CONTRACT_STATE_CONFLICT");
 +  });
 +});
-
-```
-
-### DIFF — projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-index 8fdf9ad0..681c6621 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-@@ -8,11 +8,13 @@ const {
-   decideMock,
-   inspectMock,
-   authorizeMock,
-+  amendMock,
- } = vi.hoisted(() => ({
-   proposeMock: vi.fn(),
-   decideMock: vi.fn(),
-   inspectMock: vi.fn(),
-   authorizeMock: vi.fn(),
-+  amendMock: vi.fn(),
- }));
-
- vi.mock("@/features/project-assistant/w2/actions", () => ({
-@@ -22,6 +24,7 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
-   w2ConfirmExecutionContractAction: vi.fn(),
-   w2AuthorizeExecutionContractAction: (...args: unknown[]) =>
-     authorizeMock(...args),
-+  w2AmendExecutionContractAction: (...args: unknown[]) => amendMock(...args),
-   w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
-     ok: false,
-     code: "UNUSED",
-@@ -42,6 +45,7 @@ beforeEach(() => {
-   decideMock.mockReset();
-   inspectMock.mockReset();
-   authorizeMock.mockReset();
-+  amendMock.mockReset();
- });
-
- describe("W2 TrajectorySurface", () => {
-@@ -242,6 +246,161 @@ describe("W2 TrajectorySurface", () => {
-     );
-     expect(screen.getByTestId("w2-confirm-contract")).not.toBeDisabled();
-
-+    // Amendment affordance appears only after sufficient inspection.
-+    expect(screen.getByTestId("w2-amendment-form")).toBeVisible();
-+    expect(screen.queryByTestId("w2-amendment-notice")).toBeNull();
-+
-+    amendMock.mockResolvedValue({
-+      ok: true,
-+      priorExecutionContractId: "xct:w2-ui",
-+      priorContractVersion: 1,
-+      priorInspectionAttestationRef: "att:test",
-+      successor: {
-+        executionContractId: "xct:w2-ui:amd:deadbeef",
-+        version: 1,
-+        status: "confirmation_required",
-+        action: "w2:inspect-only",
-+        target: "studio",
-+        scope: "w2-ui",
-+        requiredAuthority: "MORRIS",
-+        constraints: ["AUCUNE EXÉCUTION", "BORNER LE SLICE"],
-+        stopConditions: ["STOP AVANT EXECUTE"],
-+        requiredCapabilities: ["cap:f3-fixture-docs"],
-+        reversibility: "reversible",
-+        semanticFingerprint: "fff111aaa222",
-+        supersedesExecutionContractId: "xct:w2-ui",
-+        supersessionReason: "w2_constraint_amendment",
-+      },
-+      supersedesExecutionContractId: "xct:w2-ui",
-+      materialAmendment: true,
-+      priorInspectionDoesNotCoverSuccessor: true,
-+      reinspectionRequired: true,
-+      statusLabel: "CONTRAT AMENDÉ — RÉINSPECTION REQUISE",
-+      successorInspection: {
-+        executionContractId: "xct:w2-ui:amd:deadbeef",
-+        contractVersion: 1,
-+        semanticFingerprint: "fff111aaa222",
-+        statusLabel: "NON INSPECTÉ",
-+        inspectionSufficient: false,
-+        attestationRef: null,
-+        attestedVersion: null,
-+        staleAttestationRef: null,
-+        reinspectionRequired: false,
-+        reason: "no_attestation",
-+        grantsAuthority: false,
-+      },
-+      additionalConstraint: "BORNER LE SLICE",
-+      replayed: false,
-+      humanDecisionCreated: false,
-+      authorityGranted: false,
-+      confirmationGranted: false,
-+      executionPerformed: false,
-+      attemptCreated: false,
-+    });
-+
-+    fireEvent.change(screen.getByTestId("w2-amend-constraint"), {
-+      target: { value: "BORNER LE SLICE" },
-+    });
-+    fireEvent.click(screen.getByTestId("w2-amend-contract"));
-+    expect(await screen.findByTestId("w2-amendment-notice")).toBeVisible();
-+    expect(screen.getByTestId("w2-amendment-status")).toHaveTextContent(
-+      /réinspection requise/i,
-+    );
-+    expect(screen.getByTestId("w2-contract-constraints")).toHaveTextContent(
-+      "BORNER LE SLICE",
-+    );
-+    expect(screen.getByTestId("w2-inspection-state")).toHaveTextContent(
-+      "NON INSPECTÉ",
-+    );
-+    expect(screen.queryByTestId("w2-amendment-form")).toBeNull();
-+    expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
-+    expect(amendMock).toHaveBeenCalledWith({
-+      projectId: "prj:w2-ui",
-+      executionContractId: "xct:w2-ui",
-+      additionalConstraint: "BORNER LE SLICE",
-+    });
-+
-+    // R1 — UI consumes application statusLabel (not a hardcoded false required).
-+    amendMock.mockResolvedValue({
-+      ok: true,
-+      priorExecutionContractId: "xct:w2-ui",
-+      priorContractVersion: 1,
-+      priorInspectionAttestationRef: "att:test",
-+      successor: {
-+        executionContractId: "xct:w2-ui:amd:deadbeef",
-+        version: 1,
-+        status: "confirmation_required",
-+        action: "w2:inspect-only",
-+        target: "studio",
-+        scope: "w2-ui",
-+        requiredAuthority: "MORRIS",
-+        constraints: ["AUCUNE EXÉCUTION", "BORNER LE SLICE"],
-+        stopConditions: ["STOP AVANT EXECUTE"],
-+        requiredCapabilities: ["cap:f3-fixture-docs"],
-+        reversibility: "reversible",
-+        semanticFingerprint: "fff111aaa222",
-+        supersedesExecutionContractId: "xct:w2-ui",
-+        supersessionReason: "w2_constraint_amendment",
-+      },
-+      supersedesExecutionContractId: "xct:w2-ui",
-+      materialAmendment: true,
-+      priorInspectionDoesNotCoverSuccessor: true,
-+      reinspectionRequired: false,
-+      statusLabel: "CONTRAT AMENDÉ — RÉINSPECTION DÉJÀ SATISFAITE",
-+      successorInspection: {
-+        executionContractId: "xct:w2-ui:amd:deadbeef",
-+        contractVersion: 1,
-+        semanticFingerprint: "fff111aaa222",
-+        statusLabel: "INSPECTÉ",
-+        inspectionSufficient: true,
-+        attestationRef: "att:successor",
-+        attestedVersion: 1,
-+        staleAttestationRef: null,
-+        reinspectionRequired: false,
-+        reason: "inspected",
-+        grantsAuthority: false,
-+      },
-+      additionalConstraint: "BORNER LE SLICE",
-+      replayed: true,
-+      humanDecisionCreated: false,
-+      authorityGranted: false,
-+      confirmationGranted: false,
-+      executionPerformed: false,
-+      attemptCreated: false,
-+    });
-+    // Re-open form by mocking a second inspect-sufficient path isn't needed —
-+    // call amend again via preparing another inspect cycle: force form by
-+    // clicking inspect mock first then amend with already-satisfied truth.
-+    inspectMock.mockResolvedValue({
-+      ok: true,
-+      executionContractId: "xct:w2-ui:amd:deadbeef",
-+      contractVersion: 1,
-+      semanticFingerprint: "fff111aaa222",
-+      statusLabel: "INSPECTÉ",
-+      inspectionSufficient: true,
-+      attestationRef: "att:successor",
-+      attestedVersion: 1,
-+      staleAttestationRef: null,
-+      reinspectionRequired: false,
-+      reason: "inspected",
-+      grantsAuthority: false,
-+    });
-+    fireEvent.click(screen.getByTestId("w2-inspect-contract"));
-+    expect(await screen.findByTestId("w2-amendment-form")).toBeVisible();
-+    fireEvent.change(screen.getByTestId("w2-amend-constraint"), {
-+      target: { value: "BORNER LE SLICE" },
-+    });
-+    fireEvent.click(screen.getByTestId("w2-amend-contract"));
-+    expect(await screen.findByTestId("w2-amendment-status")).toHaveTextContent(
-+      "RÉINSPECTION DÉJÀ SATISFAITE",
-+    );
-+    expect(screen.getByTestId("w2-amendment-status")).not.toHaveTextContent(
-+      "RÉINSPECTION REQUISE",
-+    );
-+    expect(screen.getByTestId("w2-inspection-state")).toHaveTextContent(
-+      "INSPECTÉ",
-+    );
-+
-     authorizeMock.mockResolvedValue({
-       ok: true,
-       executionContractId: "xct:w2-ui",
-
-```
-
-### DIFF — projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts
-```diff
+diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+index 0305f5ed..5363c98a 100644
+--- a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
++++ b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+@@ -85,6 +85,7 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
+       "features/project-assistant/f3/e2eOptionATerminalAttempt.ts:@/lib/vertical-slice-runtime",
+       "features/project-assistant/f3/e2eOptionATerminalAttempt.ts:@/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl",
+       "features/project-assistant/w2/actions.ts:@/lib/vertical-slice-runtime",
++      "features/project-assistant/w2/amendExecutionContract.ts:@/lib/vertical-slice-runtime",
+       "features/project-assistant/w2/authorizeExecutionContract.ts:@/lib/vertical-slice-runtime",
+       "features/project-assistant/w2/confirmForAuthorization.ts:@/lib/vertical-slice-runtime",
+       "features/project-assistant/w2/decideTrajectory.ts:@/lib/vertical-slice-runtime",
 diff --git a/projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts b/projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts
 index 23ed4596..61536724 100644
 --- a/projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts
@@ -2039,106 +1366,967 @@ index 23ed4596..61536724 100644
 +    ).toBe(true);
    });
  });
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.module.css
+index 03098b34..2c6e756f 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.module.css
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.module.css
+@@ -232,6 +232,34 @@
+   color: var(--pm6-ink);
+ }
 
++.amendmentNotice,
++.amendmentForm {
++  display: flex;
++  flex-direction: column;
++  gap: var(--pm6-space-2);
++  padding: var(--pm6-space-3);
++  border: 1px solid var(--pm6-border-soft);
++  border-radius: var(--pm6-radius-md, 8px);
++  background: var(--pm6-surface-soft, transparent);
++}
++
++.amendmentLabel {
++  font-size: 0.78rem;
++  font-weight: 600;
++  color: var(--pm6-muted-strong);
++}
++
++.amendmentInput {
++  width: 100%;
++  box-sizing: border-box;
++  padding: 0.55rem 0.7rem;
++  border: 1px solid var(--pm6-border-soft);
++  border-radius: var(--pm6-radius-md, 8px);
++  font: inherit;
++  color: var(--pm6-ink);
++  background: var(--pm6-surface);
++}
++
+ .authorized {
+   border-color: var(--pm6-ok);
+   background: var(--pm6-ok-tint);
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+index 9a6e254d..6408b737 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+@@ -14,6 +14,7 @@
+ import { useCallback, useState } from "react";
+ import { projectAssistantPrepareM3Action } from "@/features/project-assistant/actions";
+ import {
++  w2AmendExecutionContractAction,
+   w2AuthorizeExecutionContractAction,
+   w2ConfirmExecutionContractAction,
+   w2DecideTrajectoryAction,
+@@ -21,6 +22,7 @@ import {
+   w2ProposeTrajectoryOptionsAction,
+ } from "@/features/project-assistant/w2/actions";
+ import type {
++  AmendExecutionContractSuccess,
+   ContractInspectionStateDto,
+   DecidedTrajectoryDto,
+   ExecutionAuthorizationOutcomeDto,
+@@ -44,6 +46,13 @@ type PreparedContract = {
+   readonly semanticFingerprint: string;
+ };
+
++type AmendmentNotice = {
++  readonly priorExecutionContractId: string;
++  readonly additionalConstraint: string;
++  readonly statusLabel: string;
++  readonly priorInspectionDoesNotCoverSuccessor: true;
++};
++
+ type Busy =
+   | null
+   | "options"
+@@ -51,7 +60,8 @@ type Busy =
+   | "contract"
+   | "inspection"
+   | "confirmation"
+-  | "authorization";
++  | "authorization"
++  | "amendment";
+
+ export function TrajectorySurface({
+   projectId,
+@@ -74,6 +84,9 @@ export function TrajectorySurface({
+     useState<ContractInspectionStateDto | null>(null);
+   const [authorization, setAuthorization] =
+     useState<ExecutionAuthorizationOutcomeDto | null>(null);
++  const [amendmentDraft, setAmendmentDraft] = useState("");
++  const [amendmentNotice, setAmendmentNotice] =
++    useState<AmendmentNotice | null>(null);
+
+   const proposeOptions = useCallback(async () => {
+     setBusy("options");
+@@ -91,6 +104,8 @@ export function TrajectorySurface({
+     setContract(null);
+     setInspection(null);
+     setAuthorization(null);
++    setAmendmentDraft("");
++    setAmendmentNotice(null);
+     onDurableFactsChanged?.();
+   }, [projectId, onDurableFactsChanged]);
+
+@@ -149,6 +164,8 @@ export function TrajectorySurface({
+     });
+     setInspection(null);
+     setAuthorization(null);
++    setAmendmentDraft("");
++    setAmendmentNotice(null);
+     onDurableFactsChanged?.();
+   }, [decision, projectId, onDurableFactsChanged]);
+
+@@ -168,7 +185,65 @@ export function TrajectorySurface({
+     const { ok: _ok, ...state } = result;
+     setInspection(state);
+     setAuthorization(null);
+-  }, [contract, projectId]);
++    if (amendmentNotice && state.inspectionSufficient) {
++      setAmendmentNotice({
++        ...amendmentNotice,
++        statusLabel: "CONTRAT AMENDÉ — RÉINSPECTION DÉJÀ SATISFAITE",
++      });
++    }
++  }, [contract, projectId, amendmentNotice]);
++
++  const amendContract = useCallback(async () => {
++    if (!contract || !inspection?.inspectionSufficient) return;
++    const constraint = amendmentDraft.trim();
++    if (!constraint) {
++      setError("Indiquez une contrainte d'exécution supplémentaire.");
++      return;
++    }
++    setBusy("amendment");
++    setError(null);
++    const result = await w2AmendExecutionContractAction({
++      projectId,
++      executionContractId: contract.executionContractId,
++      additionalConstraint: constraint,
++    });
++    setBusy(null);
++    if (!result.ok) {
++      setError(result.message);
++      return;
++    }
++    const amended = result as AmendExecutionContractSuccess;
++    setContract({
++      executionContractId: amended.successor.executionContractId,
++      version: amended.successor.version,
++      status: amended.successor.status,
++      action: amended.successor.action,
++      target: amended.successor.target,
++      scope: amended.successor.scope,
++      requiredAuthority: amended.successor.requiredAuthority,
++      constraints: [...amended.successor.constraints],
++      stopConditions: [...amended.successor.stopConditions],
++      requiredCapabilities: [...amended.successor.requiredCapabilities],
++      reversibility: amended.successor.reversibility,
++      semanticFingerprint: amended.successor.semanticFingerprint,
++    });
++    setInspection(amended.successorInspection);
++    setAuthorization(null);
++    setAmendmentDraft("");
++    setAmendmentNotice({
++      priorExecutionContractId: amended.priorExecutionContractId,
++      additionalConstraint: amended.additionalConstraint,
++      statusLabel: amended.statusLabel,
++      priorInspectionDoesNotCoverSuccessor: true,
++    });
++    onDurableFactsChanged?.();
++  }, [
++    contract,
++    inspection,
++    amendmentDraft,
++    projectId,
++    onDurableFactsChanged,
++  ]);
+
+   const confirmForAuthorization = useCallback(async () => {
+     if (!contract) return;
+@@ -444,6 +519,57 @@ export function TrajectorySurface({
+             </div>
+           </dl>
+
++          {amendmentNotice ? (
++            <div
++              className={styles.amendmentNotice}
++              data-testid="w2-amendment-notice"
++              role="status"
++            >
++              <p className={styles.blockBody} data-testid="w2-amendment-status">
++                {amendmentNotice.statusLabel}
++              </p>
++              <p className={styles.blockNote}>
++                L&apos;inspection précédente couvrait le contrat précédent, pas
++                le successeur amendé.
++              </p>
++              <p className={styles.blockNote} data-testid="w2-amendment-lineage">
++                Successeur de {amendmentNotice.priorExecutionContractId} ·
++                contrainte ajoutée : {amendmentNotice.additionalConstraint}
++              </p>
++            </div>
++          ) : null}
++
++          {inspection?.inspectionSufficient ? (
++            <div
++              className={styles.amendmentForm}
++              data-testid="w2-amendment-form"
++            >
++              <p className={styles.blockTitle}>Amender le contrat</p>
++              <label className={styles.amendmentLabel} htmlFor="w2-amend-constraint">
++                Contrainte d&apos;exécution supplémentaire
++              </label>
++              <input
++                id="w2-amend-constraint"
++                className={styles.amendmentInput}
++                data-testid="w2-amend-constraint"
++                type="text"
++                value={amendmentDraft}
++                onChange={(event) => setAmendmentDraft(event.target.value)}
++                disabled={busy !== null}
++                placeholder="Ex. : borner strictement le slice livré"
++              />
++              <button
++                type="button"
++                className={styles.secondaryAction}
++                data-testid="w2-amend-contract"
++                onClick={() => void amendContract()}
++                disabled={busy !== null || amendmentDraft.trim().length === 0}
++              >
++                Appliquer l&apos;amendement
++              </button>
++            </div>
++          ) : null}
++
+           <div className={styles.actions}>
+             <button
+               type="button"
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
+index 5ec3c340..41f57980 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
+@@ -13,6 +13,7 @@
+  */
+
+ import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
++import { amendExecutionContractWithConstraint } from "./amendExecutionContract";
+ import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";
+ import { confirmExecutionContractForAuthorization } from "./confirmForAuthorization";
+ import { decideTrajectory } from "./decideTrajectory";
+@@ -22,6 +23,7 @@ import { proposeTrajectoryOptions } from "./proposeTrajectoryOptions";
+ import { readW2ProjectHistory } from "./projectHistory";
+ import { resolveW2QualificationInputs } from "./qualificationInputs";
+ import type {
++  AmendExecutionContractResult,
+   ConfirmForAuthorizationResult,
+   DecideTrajectoryResult,
+   EvaluateExecutionAuthorizationResult,
+@@ -157,6 +159,32 @@ export async function w2AuthorizeExecutionContractAction(input: {
+   });
+ }
+
++/**
++ * Pilote material amendment — append one tightening execution constraint via
++ * OA supersession. Client cannot choose actor/authority; no Execute.
++ */
++export async function w2AmendExecutionContractAction(input: {
++  projectId: string;
++  executionContractId: string;
++  additionalConstraint: string;
++  /** Hostile — ignored. */
++  canActAsMorris?: unknown;
++  claimedAuthorityLevel?: unknown;
++}): Promise<AmendExecutionContractResult> {
++  void input.canActAsMorris;
++  void input.claimedAuthorityLevel;
++
++  const runtime = getRuntimeApplicationService();
++  if (!runtime.oa) return OA_UNAVAILABLE;
++
++  return amendExecutionContractWithConstraint({
++    oa: runtime.oa,
++    projectId: input.projectId,
++    executionContractId: input.executionContractId,
++    additionalConstraint: input.additionalConstraint,
++  });
++}
++
+ export async function w2ReadProjectHistoryAction(input: {
+   projectId: string;
+ }): Promise<ReadW2ProjectHistoryResult> {
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/amendExecutionContract.ts b/projects/sfia-studio/app/features/project-assistant/w2/amendExecutionContract.ts
+new file mode 100644
+index 00000000..d61360f6
+--- /dev/null
++++ b/projects/sfia-studio/app/features/project-assistant/w2/amendExecutionContract.ts
+@@ -0,0 +1,611 @@
++/**
++ * W2 Track C — thin product application seam: Pilote material amendment of an
++ * already-inspected ExecutionContract by appending ONE tightening constraint.
++ *
++ * Reuses exclusively:
++ *   supersedeExecutionContract → validateExecutionContract → inspection state
++ *
++ * R1 recovery:
++ *   durable draft|proposed successor is revalidated on replay BEFORE success;
++ *   governed identity is fail-closed; reinspectionRequired reflects CURRENT
++ *   successor inspection truth (never forged across EC IDs).
++ */
++
++import { createHash } from "node:crypto";
++import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
++import { canonicalizeJson } from "@/lib/oa/doctrine";
++import {
++  LOCAL_PILOTE_ACTOR,
++  registerLocalPiloteAuthority,
++} from "@/lib/oa/decision";
++import type { ExecutionContract } from "@/lib/oa/execution-contract";
++import { readContractInspectionState } from "./inspectExecutionContract";
++import type {
++  AmendExecutionContractResult,
++  AmendedExecutionContractDto,
++  ContractInspectionStateDto,
++  W2Failure,
++} from "./types";
++
++export const W2_CONSTRAINT_AMENDMENT_REASON = "w2_constraint_amendment";
++
++export type AmendExecutionContractInput = {
++  readonly oa: RuntimeOaStack;
++  readonly projectId: string;
++  readonly executionContractId: string;
++  readonly additionalConstraint: string;
++  /** Test inject for the local single-user authority gate. */
++  readonly forceLocalAuthority?: boolean;
++};
++
++function fail(code: string, message: string): W2Failure {
++  return { ok: false, code, message };
++}
++
++function normalizeConstraint(raw: string): string | null {
++  const trimmed = raw.replace(/\u0000/g, "").trim();
++  if (!trimmed) return null;
++  return trimmed.replace(/\s+/g, " ");
++}
++
++function amendmentDigest(
++  priorExecutionContractId: string,
++  normalizedConstraint: string,
++): string {
++  return createHash("sha256")
++    .update("w2-constraint-amend\n", "utf8")
++    .update(priorExecutionContractId, "utf8")
++    .update("\n", "utf8")
++    .update(normalizedConstraint, "utf8")
++    .digest("hex")
++    .slice(0, 16);
++}
++
++function successorIdFor(
++  priorExecutionContractId: string,
++  digest: string,
++): string {
++  const base = priorExecutionContractId.slice(0, 72);
++  return `${base}:amd:${digest}`;
++}
++
++function idempotencyKeyFor(digest: string): string {
++  return `idem:w2-constraint-amend:${digest}`;
++}
++
++function sameStringList(
++  left: readonly string[] | undefined,
++  right: readonly string[] | undefined,
++): boolean {
++  const a = left ?? [];
++  const b = right ?? [];
++  if (a.length !== b.length) return false;
++  return a.every((value, index) => value === b[index]);
++}
++
++function sameOptionalMaterial(left: unknown, right: unknown): boolean {
++  if (left === undefined && right === undefined) return true;
++  if (left === undefined || right === undefined) return false;
++  return canonicalizeJson(left) === canonicalizeJson(right);
++}
++
++/**
++ * Fail-closed governed identity for a deterministic W2 constraint successor.
++ * Exported for R1 unit proof of the application guard (no OA mutation).
++ */
++export function verifyGovernedAmendmentSuccessor(input: {
++  readonly prior: ExecutionContract;
++  readonly successor: ExecutionContract;
++  readonly expectedSuccessorId: string;
++  readonly expectedIdempotencyKey: string;
++  readonly normalizedConstraint: string;
++}): W2Failure | null {
++  const { prior, successor } = input;
++  const expectedConstraints = [...prior.constraints, input.normalizedConstraint];
++
++  if (successor.executionContractId !== input.expectedSuccessorId) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "Identité successeur déterministe mismatch.",
++    );
++  }
++  if (successor.projectId !== prior.projectId) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "projectId successeur incompatible avec le prédécesseur.",
++    );
++  }
++  if ((successor.cycleInstanceId ?? null) !== (prior.cycleInstanceId ?? null)) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "cycleInstanceId successeur incompatible.",
++    );
++  }
++  if (successor.supersedesExecutionContractId !== prior.executionContractId) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "Lignage supersedesExecutionContractId incorrect.",
++    );
++  }
++  if (successor.supersessionReason !== W2_CONSTRAINT_AMENDMENT_REASON) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "supersessionReason d'amendement W2 incorrect.",
++    );
++  }
++  if (successor.idempotencyKey !== input.expectedIdempotencyKey) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "idempotencyKey d'amendement mismatch.",
++    );
++  }
++  if (successor.requiredAuthority !== prior.requiredAuthority) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "requiredAuthority ne peut pas dériver silencieusement.",
++    );
++  }
++  if (!sameStringList(successor.decisionRefs, prior.decisionRefs)) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "decisionRefs successeur incompatibles.",
++    );
++  }
++  if (successor.scope !== prior.scope) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "scope successeur incompatible.",
++    );
++  }
++  if (successor.action !== prior.action || successor.target !== prior.target) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "action/target ne peuvent pas dériver silencieusement.",
++    );
++  }
++  if (
++    !sameStringList(successor.requiredCapabilities, prior.requiredCapabilities)
++  ) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "requiredCapabilities successeur incompatibles.",
++    );
++  }
++  if (!sameStringList(successor.stopConditions, prior.stopConditions)) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "stopConditions successeur incompatibles.",
++    );
++  }
++  if (
++    !sameStringList(
++      successor.evidenceRequirements,
++      prior.evidenceRequirements,
++    )
++  ) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "evidenceRequirements successeur incompatibles.",
++    );
++  }
++  if (successor.reversibility !== prior.reversibility) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "reversibility successeur incompatible.",
++    );
++  }
++  if (
++    (successor.executionWindowClass ?? null) !==
++    (prior.executionWindowClass ?? null)
++  ) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "executionWindowClass successeur incompatible.",
++    );
++  }
++  if (!sameStringList(successor.constraints, expectedConstraints)) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "contraintes successeur ≠ prédécesseur + contrainte d'amendement.",
++    );
++  }
++  if (
++    !sameOptionalMaterial(
++      successor.doctrinePackageRef,
++      prior.doctrinePackageRef,
++    )
++  ) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "doctrinePackageRef successeur incompatible.",
++    );
++  }
++  if (!sameOptionalMaterial(successor.inputs, prior.inputs)) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "inputs successeur incompatibles.",
++    );
++  }
++  if (
++    !sameOptionalMaterial(successor.expectedOutputs, prior.expectedOutputs)
++  ) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "expectedOutputs successeur incompatibles.",
++    );
++  }
++  if (
++    !sameOptionalMaterial(successor.adapterExportRef, prior.adapterExportRef)
++  ) {
++    return fail(
++      "AMENDMENT_IDENTITY_CONFLICT",
++      "adapterExportRef successeur incompatible.",
++    );
++  }
++  return null;
++}
++
++function toContractDto(contract: ExecutionContract): AmendedExecutionContractDto {
++  return {
++    executionContractId: contract.executionContractId,
++    version: contract.version,
++    status: contract.status,
++    action: contract.action,
++    target: contract.target,
++    scope: contract.scope,
++    requiredAuthority: contract.requiredAuthority,
++    constraints: [...(contract.constraints ?? [])],
++    stopConditions: [...(contract.stopConditions ?? [])],
++    requiredCapabilities: [...(contract.requiredCapabilities ?? [])],
++    reversibility: contract.reversibility ?? "non précisée",
++    semanticFingerprint: contract.semanticFingerprint ?? "",
++    supersedesExecutionContractId: contract.supersedesExecutionContractId ?? null,
++    supersessionReason: contract.supersessionReason ?? null,
++  };
++}
++
++function successPayload(input: {
++  prior: ExecutionContract;
++  priorInspectionAttestationRef: string | null;
++  successor: ExecutionContract;
++  successorInspection: ContractInspectionStateDto;
++  replayed: boolean;
++  additionalConstraint: string;
++}): AmendExecutionContractResult {
++  const reinspectionRequired = !input.successorInspection.inspectionSufficient;
++  return {
++    ok: true,
++    priorExecutionContractId: input.prior.executionContractId,
++    priorContractVersion: input.prior.version,
++    priorInspectionAttestationRef: input.priorInspectionAttestationRef,
++    successor: toContractDto(input.successor),
++    supersedesExecutionContractId: input.prior.executionContractId,
++    materialAmendment: true,
++    priorInspectionDoesNotCoverSuccessor: true,
++    reinspectionRequired,
++    statusLabel: reinspectionRequired
++      ? "CONTRAT AMENDÉ — RÉINSPECTION REQUISE"
++      : "CONTRAT AMENDÉ — RÉINSPECTION DÉJÀ SATISFAITE",
++    successorInspection: input.successorInspection,
++    additionalConstraint: input.additionalConstraint,
++    replayed: input.replayed,
++    humanDecisionCreated: false,
++    authorityGranted: false,
++    confirmationGranted: false,
++    executionPerformed: false,
++    attemptCreated: false,
++  };
++}
++
++async function loadContract(
++  oa: RuntimeOaStack,
++  executionContractId: string,
++): Promise<
++  | { ok: true; contract: ExecutionContract }
++  | { ok: false; code: string; message: string }
++> {
++  const loaded = await oa.executionContractServices.getExecutionContract.execute({
++    executionContractId,
++  });
++  if (!loaded.ok) {
++    return {
++      ok: false,
++      code: loaded.error.detailCode,
++      message: "Contrat d'exécution introuvable — amendement impossible.",
++    };
++  }
++  return { ok: true, contract: loaded.contract };
++}
++
++async function registerPiloteAuthority(
++  input: AmendExecutionContractInput,
++  scope: string,
++  digest: string,
++): Promise<
++  | { ok: true; evidenceId: string }
++  | { ok: false; code: string; message: string }
++> {
++  const authority = registerLocalPiloteAuthority({
++    authorityResolver: input.oa.authorityResolver,
++    scope,
++    issuedAt: input.oa.clock.nowIso(),
++    evidenceId: `evd:w2-amend:${digest}`,
++    forceEnable: input.forceLocalAuthority === true,
++  });
++  if (!authority.ok) {
++    return fail(authority.code, authority.message);
++  }
++  return { ok: true, evidenceId: authority.evidenceId };
++}
++
++/**
++ * Recover an existing deterministic successor: identity → status policy →
++ * validate draft|proposed → current inspection truth.
++ */
++async function recoverExistingSuccessor(input: {
++  readonly amendInput: AmendExecutionContractInput;
++  readonly prior: ExecutionContract;
++  readonly successor: ExecutionContract;
++  readonly expectedSuccessorId: string;
++  readonly expectedIdempotencyKey: string;
++  readonly normalizedConstraint: string;
++  readonly digest: string;
++}): Promise<AmendExecutionContractResult> {
++  const identity = verifyGovernedAmendmentSuccessor({
++    prior: input.prior,
++    successor: input.successor,
++    expectedSuccessorId: input.expectedSuccessorId,
++    expectedIdempotencyKey: input.expectedIdempotencyKey,
++    normalizedConstraint: input.normalizedConstraint,
++  });
++  if (identity) return identity;
++
++  let successor = input.successor;
++  const status = successor.status;
++
++  if (status === "draft" || status === "proposed") {
++    const authority = await registerPiloteAuthority(
++      input.amendInput,
++      input.prior.scope,
++      input.digest,
++    );
++    if (!authority.ok) return authority;
++
++    const validated =
++      await input.amendInput.oa.executionContractServices.validateExecutionContract.execute(
++        {
++          executionContractId: successor.executionContractId,
++          actor: LOCAL_PILOTE_ACTOR,
++          authorityEvidenceId: authority.evidenceId,
++        },
++      );
++    if (!validated.ok) {
++      return fail(
++        validated.error.detailCode,
++        `Validation du contrat amendé refusée (${validated.error.detailCode}).`,
++      );
++    }
++    successor = validated.contract;
++  } else if (
++    status === "validated" ||
++    status === "confirmation_required" ||
++    status === "confirmed"
++  ) {
++    // Already past validation — use durable state as-is.
++  } else if (
++    status === "cancelled" ||
++    status === "superseded" ||
++    status === "executing" ||
++    status === "completed" ||
++    status === "failed"
++  ) {
++    return fail(
++      "CONTRACT_STATE_CONFLICT",
++      `Successeur d'amendement dans un état incompatible (${status}).`,
++    );
++  } else {
++    return fail(
++      "CONTRACT_STATE_CONFLICT",
++      `Statut successeur inconnu/incompatible (${String(status)}).`,
++    );
++  }
++
++  const successorInspection = await readContractInspectionState({
++    oa: input.amendInput.oa,
++    executionContractId: successor.executionContractId,
++  });
++  if (!successorInspection.ok) return successorInspection;
++
++  const priorInspection = await readContractInspectionState({
++    oa: input.amendInput.oa,
++    executionContractId: input.prior.executionContractId,
++  });
++
++  return successPayload({
++    prior: input.prior,
++    priorInspectionAttestationRef: priorInspection.ok
++      ? priorInspection.attestationRef ?? priorInspection.staleAttestationRef
++      : null,
++    successor,
++    successorInspection,
++    replayed: true,
++    additionalConstraint: input.normalizedConstraint,
++  });
++}
++
++/**
++ * Append one tightening execution constraint via OA supersession.
++ */
++export async function amendExecutionContractWithConstraint(
++  input: AmendExecutionContractInput,
++): Promise<AmendExecutionContractResult> {
++  const normalized = normalizeConstraint(input.additionalConstraint);
++  if (!normalized) {
++    return fail(
++      "CONSTRAINT_EMPTY",
++      "La contrainte d'exécution supplémentaire est vide — amendement refusé.",
++    );
++  }
++
++  const priorLoad = await loadContract(input.oa, input.executionContractId);
++  if (!priorLoad.ok) return fail(priorLoad.code, priorLoad.message);
++  let prior = priorLoad.contract;
++
++  if (prior.projectId !== input.projectId) {
++    return fail(
++      "PROJECT_MISMATCH",
++      "Le contrat n'appartient pas au projet demandé — amendement refusé.",
++    );
++  }
++
++  const digest = amendmentDigest(prior.executionContractId, normalized);
++  const newExecutionContractId = successorIdFor(
++    prior.executionContractId,
++    digest,
++  );
++  const idempotencyKey = idempotencyKeyFor(digest);
++
++  // Replay / recovery path: deterministic successor already durable.
++  const existingSuccessor = await loadContract(
++    input.oa,
++    newExecutionContractId,
++  );
++  if (existingSuccessor.ok) {
++    const priorRefresh = await loadContract(
++      input.oa,
++      prior.executionContractId,
++    );
++    if (priorRefresh.ok) prior = priorRefresh.contract;
++
++    return recoverExistingSuccessor({
++      amendInput: input,
++      prior,
++      successor: existingSuccessor.contract,
++      expectedSuccessorId: newExecutionContractId,
++      expectedIdempotencyKey: idempotencyKey,
++      normalizedConstraint: normalized,
++      digest,
++    });
++  }
++
++  if (
++    prior.status === "superseded" ||
++    prior.status === "cancelled" ||
++    prior.status === "executing" ||
++    prior.status === "completed" ||
++    prior.status === "failed"
++  ) {
++    return fail(
++      "CONTRACT_STATE_CONFLICT",
++      `Le contrat (statut ${prior.status}) ne peut pas être amendé.`,
++    );
++  }
++
++  if (prior.constraints.includes(normalized)) {
++    return fail(
++      "CONSTRAINT_DUPLICATE",
++      "Cette contrainte est déjà présente sur le contrat — amendement refusé.",
++    );
++  }
++
++  const priorInspection = await readContractInspectionState({
++    oa: input.oa,
++    executionContractId: prior.executionContractId,
++  });
++  if (!priorInspection.ok) return priorInspection;
++  if (!priorInspection.inspectionSufficient) {
++    return fail(
++      "INSPECTION_REQUIRED_BEFORE_AMENDMENT",
++      "Le contrat doit être inspecté avant un amendement matériel.",
++    );
++  }
++
++  const authority = await registerPiloteAuthority(
++    input,
++    prior.scope,
++    digest,
++  );
++  if (!authority.ok) return authority;
++
++  const superseded =
++    await input.oa.executionContractServices.supersedeExecutionContract.execute({
++      newExecutionContractId,
++      supersedesExecutionContractId: prior.executionContractId,
++      supersessionReason: W2_CONSTRAINT_AMENDMENT_REASON,
++      actor: LOCAL_PILOTE_ACTOR,
++      authorityEvidenceId: authority.evidenceId,
++      expectedVersion: prior.version,
++      constraints: [...prior.constraints, normalized],
++      idempotencyKey,
++      correlationId: `cor:w2-amend:${digest}`,
++      status: "draft",
++    });
++
++  if (!superseded.ok) {
++    // Bounded race recovery: reload expected successor once — no recursion.
++    if (superseded.error.detailCode === "CONTRACT_ALREADY_EXISTS") {
++      const raced = await loadContract(input.oa, newExecutionContractId);
++      if (!raced.ok) {
++        return fail(
++          "AMENDMENT_RECOVERY_FAILED",
++          "Course supersession: successeur déterministe introuvable après CONTRACT_ALREADY_EXISTS.",
++        );
++      }
++      const priorRefresh = await loadContract(
++        input.oa,
++        prior.executionContractId,
++      );
++      if (priorRefresh.ok) prior = priorRefresh.contract;
++      return recoverExistingSuccessor({
++        amendInput: input,
++        prior,
++        successor: raced.contract,
++        expectedSuccessorId: newExecutionContractId,
++        expectedIdempotencyKey: idempotencyKey,
++        normalizedConstraint: normalized,
++        digest,
++      });
++    }
++    return fail(
++      superseded.error.detailCode,
++      `Amendement refusé (${superseded.error.detailCode}).`,
++    );
++  }
++
++  const validated =
++    await input.oa.executionContractServices.validateExecutionContract.execute({
++      executionContractId: superseded.contract.executionContractId,
++      actor: LOCAL_PILOTE_ACTOR,
++      authorityEvidenceId: authority.evidenceId,
++    });
++  if (!validated.ok) {
++    return fail(
++      validated.error.detailCode,
++      `Validation du contrat amendé refusée (${validated.error.detailCode}).`,
++    );
++  }
++
++  const priorAfter = superseded.supersededContract ?? prior;
++  const successorInspection = await readContractInspectionState({
++    oa: input.oa,
++    executionContractId: validated.contract.executionContractId,
++  });
++  if (!successorInspection.ok) return successorInspection;
++
++  // Fresh create path: successor must not inherit sufficient inspection.
++  if (successorInspection.inspectionSufficient) {
++    return fail(
++      "INSPECTION_INVARIANT_VIOLATED",
++      "Le successeur ne doit pas hériter d'une inspection suffisante — arrêt fail-closed.",
++    );
++  }
++
++  return successPayload({
++    prior: priorAfter,
++    priorInspectionAttestationRef: priorInspection.attestationRef,
++    successor: validated.contract,
++    successorInspection,
++    replayed: false,
++    additionalConstraint: normalized,
++  });
++}
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/types.ts b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
+index 19655ba4..baf0653b 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/types.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
+@@ -212,3 +212,52 @@ export type DecideTrajectoryResult =
+       readonly executionPerformed: false;
+     }
+   | W2Failure;
++
++/* -------------------------------------------------------------------------- */
++/* Track C — material constraint amendment (OA supersession seam)              */
++/* -------------------------------------------------------------------------- */
++
++export type AmendedExecutionContractDto = {
++  readonly executionContractId: string;
++  readonly version: number;
++  readonly status: string;
++  readonly action: string;
++  readonly target: string;
++  readonly scope: string;
++  readonly requiredAuthority: string;
++  readonly constraints: readonly string[];
++  readonly stopConditions: readonly string[];
++  readonly requiredCapabilities: readonly string[];
++  readonly reversibility: string;
++  readonly semanticFingerprint: string;
++  readonly supersedesExecutionContractId: string | null;
++  readonly supersessionReason: string | null;
++};
++
++export type AmendExecutionContractSuccess = {
++  readonly ok: true;
++  readonly priorExecutionContractId: string;
++  readonly priorContractVersion: number;
++  readonly priorInspectionAttestationRef: string | null;
++  readonly successor: AmendedExecutionContractDto;
++  readonly supersedesExecutionContractId: string;
++  readonly materialAmendment: true;
++  readonly priorInspectionDoesNotCoverSuccessor: true;
++  /** Current successor inspection truth — never forged from predecessor. */
++  readonly reinspectionRequired: boolean;
++  readonly statusLabel:
++    | "CONTRAT AMENDÉ — RÉINSPECTION REQUISE"
++    | "CONTRAT AMENDÉ — RÉINSPECTION DÉJÀ SATISFAITE";
++  readonly successorInspection: ContractInspectionStateDto;
++  readonly additionalConstraint: string;
++  readonly replayed: boolean;
++  readonly humanDecisionCreated: false;
++  readonly authorityGranted: false;
++  readonly confirmationGranted: false;
++  readonly executionPerformed: false;
++  readonly attemptCreated: false;
++};
++
++export type AmendExecutionContractResult =
++  | AmendExecutionContractSuccess
++  | W2Failure;
 ```
-
-### RETAINED / EXPLICITLY AUTHORIZED — importBoundaries.test.ts
-
-Allowlist addition for:
-`features/project-assistant/w2/amendExecutionContract.ts:@/lib/vertical-slice-runtime`
-
-No wildcard; no further expansion.
-
-## H. Overall candidate file list
-
-1. w2/amendExecutionContract.ts (NEW + R1)
-2. w2/actions.ts (pre-R1)
-3. w2/types.ts (R1 DTO truth)
-4. TrajectorySurface.tsx (R1 status consumption)
-5. TrajectorySurface.module.css (pre-R1)
-6. w2EabcDelivery.test.ts (R02 + R1-U09…U12)
-7. trajectorySurface.ui.test.tsx (R1 truth assertion)
-8. studio-w2-g3-correction-runtime.spec.ts (R01 freeze + minimal R1 label compatibility)
-9. importBoundaries.test.ts (explicitly authorized)
-
-## I. Test proof
-
-| Campaign | Result |
-|---|---|
-| Baseline EABC+PhaseB | 59 PASS |
-| Baseline UI+importBoundaries | 7 PASS |
-| Baseline Playwright | 1 PASS |
-| R1-U09 partial failure recovery | PASS |
-| R1-U10 identity conflict | PASS |
-| R1-U11 post-reinspect replay | PASS |
-| R1-U12 incompatible status | PASS |
-| Targeted EABC | 39 PASS |
-| Phase B | 24 PASS |
-| UI | 2 PASS |
-| importBoundaries | 5 PASS |
-| Playwright | 1 PASS |
-| Full Vitest | 1998 PASS / 131 SKIP |
-| typecheck | PASS |
-| lint | PASS |
-| build | PASS |
-| diff check | clean |
-
-## J. Recovery evidence
-
-- Force validate fail once after supersede → application failure
-- Successor remains draft durable; prior superseded
-- Retry same amendment → same successor id; validate SAME; replayed=true; not draft/proposed
-- History still exactly 1 successor (no second supersession)
-
-## K. Identity conflict evidence
-
-- Intercept getExecutionContract to corrupt requiredAuthority on successor
-- Replay → AMENDMENT_IDENTITY_CONFLICT
-
-## L. Reinspection truth
-
-- Immediate amendment → reinspectionRequired=true / RÉINSPECTION REQUISE
-- After successor inspect + replay → reinspectionRequired=false / RÉINSPECTION DÉJÀ SATISFAITE
-- priorInspectionDoesNotCoverSuccessor remains true
-- UI consumes statusLabel (no hardcoded false required)
-
-## M. R01 freeze
-
-- Playwright still asserts anti scope creep + Contexte de cycle rattaché + no raw CKC
-- Phase B 24 PASS unchanged
-- FakeConversationProvider untouched
-
-## N. C6 guard
-
-- lib/oa diff = 0
-- schema/migrations = 0
-- new engine/store/lifecycle = 0
-
-## O. Fake / Real
-
-- Deterministic Product E2E · REAL OUT · PB-RES-REAL-01 OPEN/TRACE ONLY
-
-## P. Frozen doc10
-
-| Pre | Post | Unchanged |
-|---|---|---|
-| 1f81559157200cc554e003e2391502c6c1df5ec1 | 1f81559157200cc554e003e2391502c6c1df5ec1 | YES |
-
-## Q. Residuals
-
-- W2-CL-R03 / R04 OPEN_NON_BLOCKING unchanged
-- PB-RES-REAL-01 OPEN unchanged
-
-## R. Morris gates remaining
-
-- Project Git integration NOT AUTHORIZED
-- W2 Final Closure Requalification NOT AUTHORIZED
-- W2 closure / W3 / REAL / FinOps / v3 NOT CONSUMED
-
-## S. Anti-claims
-
-R1 PASS ≠ main · local R01/R02 ≠ W2 closure · Git integration ≠ requalification · deterministic ≠ REAL · AUTHORIZED ≠ Execute · C6 CLOSED · FinOps FREEZE · v3 NON ADOPTED · Product Completion incomplete
-
-## T. Verdict
-
-**W2 FINAL CLOSURE PRODUCT CORRECTION R1 PASS — R01/R02 LOCALLY CLOSED WITH RECOVERY-SAFE R02 — READY FOR CHATGPT REVIEW — PROJECT GIT INTEGRATION AND W2 REQUALIFICATION NOT AUTHORIZED**
