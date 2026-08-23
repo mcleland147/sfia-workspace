@@ -1,46 +1,148 @@
-# SFIA Studio — Review Pack FULL — W2-G2 Ordering Neutralization Micro-Correction
+# REVIEW PACK FULL — W2-G2 DECISION TRUTH SYNC — GIT TRANSPORT
 
 | Champ | Valeur |
-|---|---|
-| **Timestamp** | 2026-08-23 03:00 CEST (+0200) |
-| **Cycle** | W2-G2 Decision Truth Sync — Ordering Neutralization |
+| --- | --- |
+| **Timestamp** | 2026-08-23 03:15:35 CEST (+0200) |
+| **Cycle** | W2-G2 Decision Truth Sync — Git Transport |
 | **Profil** | CRITICAL |
-| **Typologie** | DOC |
-| **Autorité Morris** | GO ordering neutralization — readiness only — no project Git transport |
-| **Verdict** | ORDERING NEUTRALIZATION APPLIED — READY FOR CHATGPT RE-REVIEW |
+| **Typologie** | DOC / Integration-DevOps transport |
+| **Review Pack** | **FULL / COMPLETE** |
 
-## Correction appliquée (readiness uniquement)
+## 1. GO Morris consommé
 
-**Retiré :** `Point d'ordre établi` imposant W2-G3 GO avant GO Phase B distinct + séquence `W2-G3 GO → GO Phase B distinct → Delivery tracks`.
+GO MORRIS — W2-G2 DECISION TRUTH SYNC GIT TRANSPORT — EXACTLY TWO DOCUMENTS — COMMIT + PUSH + DRAFT PR — PRESERVE SOURCE BRANCH — NO MARK-READY — NO MERGE — NO W2-G3 — NO PHASE B GO — NO DELIVERY — NO REAL — RUNTIME v3 NON ADOPTED.
 
-**Remplacé par :** `Relation d'autorité établie` — deux gates non équivalents · Track D Phase B requiert GO Phase B distinct · ordre relatif W2-G3 ↔ GO Phase B **non décidé par W2-G2**.
+## 2. Source review freeze
 
-Séquence post-G2 s'arrête à `W2-G3 QUALIFICATION → distinct Morris W2-G3 GO if later authorized`.
+| Élément | Valeur |
+| --- | --- |
+| Source handoff commit | `35fa84bc197f87fc1e3b1ec1333e5d51209dbca8` |
+| Source handoff blob | `5c4c7cf5311c18467a63667138988cb2a93da290` |
+| Local reviewed diff SHA256 | `075de2124589e5152bbc60db777ebaa968f328ac67ff087d74693fdc3750db40` |
+| EXPECTED_ROADMAP_BLOB | `cac9d807f2ff595de90aeb619fd529bd7048b414` |
+| EXPECTED_READINESS_BLOB | `a8c58752f20ce58fa76c632b552a82fdda95d5b7` |
+| Raw `cmp` local vs handoff diff | **NO** — trailing-whitespace-only artifact delta in handoff publication |
+| Normalized diff content match | **YES** |
+| `git diff --check` (pre-commit) | **PASS** |
 
-## Git Truth
+## 3. Local Git Truth avant transport
 
-| Field | Value |
-|---|---|
-| branch | docs/sfia-studio-w2-g2-decision-truth-sync |
-| origin/main | 8df647c5e7db8a82c9c3b578ee1603e0851cc579 |
-| fichiers modifiés vs main | 2 (readiness + roadmap — roadmap inchangée dans cette micro-correction) |
-| staged | none |
+| Élément | Valeur |
+| --- | --- |
+| Repo | `mcleland147/sfia-workspace` |
+| Branch | `docs/sfia-studio-w2-g2-decision-truth-sync` |
+| HEAD before | `8df647c5e7db8a82c9c3b578ee1603e0851cc579` |
+| origin/main | `8df647c5e7db8a82c9c3b578ee1603e0851cc579` |
+| Staged before | empty |
+| Modified before (exactly 2) | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` · `projects/sfia-studio/product-completion/08-product-completion-wave-2-delivery-readiness.md` |
 
-## Fichiers touchés cette micro-correction
+## 4. Project commit
 
-- `projects/sfia-studio/product-completion/08-product-completion-wave-2-delivery-readiness.md` **ONLY**
+| Élément | Valeur |
+| --- | --- |
+| PROJECT_COMMIT | `d07e1dbe28cb4b26e7dfda29aeb9d9e6c7bae6ab` |
+| PROJECT_PARENT | `8df647c5e7db8a82c9c3b578ee1603e0851cc579` |
+| Message | `docs(sfia-studio): record W2-G2 decision truth` |
+| Files (exactly 2) | roadmap + readiness |
+| Committed blobs == expected blobs | **YES** |
 
-## ACTIVE CONTRADICTIONS = 0
+## 5. Push
 
-## Authority
+| Élément | Valeur |
+| --- | --- |
+| Remote branch | `docs/sfia-studio-w2-g2-decision-truth-sync` |
+| Remote SHA | `d07e1dbe28cb4b26e7dfda29aeb9d9e6c7bae6ab` |
+| Force used | **NO** |
+| Source branch preserved | **YES** |
 
-YES: readiness ordering neutralization · Review Pack · L3 handoff
-NO: roadmap change · project commit/push · W2-G3 · Phase B GO · Delivery · REAL
+## 6. Draft PR
 
----
+| Élément | Valeur |
+| --- | --- |
+| PR number | **399** |
+| PR URL | https://github.com/mcleland147/sfia-workspace/pull/399 |
+| State | **OPEN** |
+| Draft | **true** |
+| Base | `main` |
+| Head | `docs/sfia-studio-w2-g2-decision-truth-sync` |
+| Head SHA | `d07e1dbe28cb4b26e7dfda29aeb9d9e6c7bae6ab` |
+| Commits | **1** |
+| Files | **2** |
+| File paths | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` · `projects/sfia-studio/product-completion/08-product-completion-wave-2-delivery-readiness.md` |
+| PR diff == reviewed freeze | **YES** (`cmp` exact match) |
 
-## DIFF COMPLET CUMULATIF (readiness + roadmap vs main)
+## 7. PR CI
 
+| Élément | Valeur |
+| --- | --- |
+| Workflow | SFIA Studio CI |
+| Run id | **32609757090** |
+| Event | `pull_request` |
+| Branch/head | `docs/sfia-studio-w2-g2-decision-truth-sync` |
+| head_sha | `d07e1dbe28cb4b26e7dfda29aeb9d9e6c7bae6ab` |
+| Conclusion | **success** |
+| Detect SFIA Studio changes | **pass** |
+| Build and validate SFIA Studio | **pass** |
+| SFIA Studio Required Gate | **pass** |
+
+## 8. Décisions enregistrées
+
+- **D-W2-01** — Proposal ephemeral; Epistemic materialization; ProjectTrajectory SoT; proposalStore KEEP/ADAPT TEMPORARY WITH EXIT
+- **D-W2-02** — Bounded Phase B W2; CKC-informed Nora before Options/Recommendation; ≥2 cycle-type deterministic proof; GO Phase B NOT CONSUMED
+- **D-W2-03** — Product path enforcement HD→decided/current via existing OA + C6 U1/U3; no second engine
+- **D-W2-04** — EC inspection attestation bound to contract/version/fingerprint; re-inspection on material amendment; no new EC status
+- **TD-C6-03** — INCLUDED W2 from adopted C6 default
+
+## 9. Gate state
+
+| Gate | État |
+| --- | --- |
+| W2-G1 | **INTEGRATED** |
+| W2-G2 decision | **DECIDED BY MORRIS** |
+| D-W2-01…04 | **ADOPTED** |
+| TD-C6-03 | **INCLUDED W2** |
+| W2-G2 Git integration | **PENDING MERGE/POST-MERGE PROOF** |
+| W2-G3 | **NOT AUTHORIZED** |
+| GO Phase B distinct | **NOT CONSUMED** |
+| W2-G3 ↔ GO Phase B ordering | **UNDECIDED** |
+| Delivery | **NO** |
+| REAL | **ZERO** |
+| runtime v3 | **NON ADOPTED** |
+
+## 10. Authority
+
+### YES (consumed this cycle)
+- Stage exact 2 docs
+- One project commit
+- Normal push source branch
+- Draft PR
+- PR CI observation
+- Review Pack FULL
+- L3 Review Handoff publication
+
+### NO (not consumed / forbidden)
+- Content edits to reviewed documents
+- mark-ready
+- merge / auto-merge
+- branch deletion
+- W2-G3
+- GO Phase B distinct
+- Delivery
+- REAL
+- runtime v3 adoption
+
+## 11. Réserves / stops
+
+- Raw handoff `cmp` failed on trailing-whitespace-only diff artifact; normalized content match **YES**; committed blobs verified **YES**.
+- No other stops.
+
+## 12. Verdict transport
+
+**W2-G2 DECISION TRUTH SYNC GIT TRANSPORT COMPLETE** — REVIEWED CONTENT FREEZE PRESERVED — EXACTLY TWO DOCUMENTS — ONE PROJECT COMMIT — SOURCE BRANCH PUSHED AND PRESERVED — DRAFT PR OPEN — PR DIFF MATCHES CHATGPT-REVIEWED FREEZE — PR CI SUCCESS INCLUDING REQUIRED GATE — REVIEW PACK FULL — W2-G2 GOVERNANCE DECIDED BUT GIT INTEGRATION NOT YET COMPLETE UNTIL MERGE + POST-MERGE PROOF — NO MARK-READY — NO MERGE — W2-G3 NOT AUTHORIZED — GO PHASE B DISTINCT NOT CONSUMED — RELATIVE ORDER UNDECIDED — NO DELIVERY — NO REAL — RUNTIME v3 NON ADOPTED — READY FOR CHATGPT PR READINESS REVIEW.
+
+## 13. Diff exploitable complet (origin/main...HEAD)
+
+```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 index e0c8611d..cac9d807 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -458,3 +560,4 @@ index 113cd016..a8c58752 100644
 
 -*Corrigé 2026-08-23 01:57:59 CEST (+0200) · R1→R15 applied · Git-state stability micro-correction PR #398 · W2-G1 CONTENT QUALIFIED · integration RESOLVE FROM REPOSITORY · W1 CLOSED PR #395 · W2-G2/W2-G3 NOT AUTHORIZED · GO Phase B NOT CONSUMED · NO Delivery · NO REAL · runtime v3 NON ADOPTED.*
 +*Corrigé 2026-08-23 03:00 CEST (+0200) · W2-G2 ORDERING NEUTRALIZATION micro-correction · W2-G2 DECISION TRUTH SYNC · W2-G1 INTEGRATED PR #398 · W2-G2 DECIDED BY MORRIS · D-W2-01…04 ADOPTED · truth-sync Git integration RESOLVE FROM REPOSITORY · W2-G3 NOT AUTHORIZED · GO Phase B NOT CONSUMED · NO Delivery · NO REAL · runtime v3 NON ADOPTED.*
+```
