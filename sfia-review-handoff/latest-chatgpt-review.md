@@ -1,78 +1,45 @@
-# SFIA Studio — Review Pack FULL — W2-G2 Decision Truth Sync
+# SFIA Studio — Review Pack FULL — W2-G2 Ordering Neutralization Micro-Correction
 
 | Champ | Valeur |
 |---|---|
-| **Timestamp** | 2026-08-23 02:36 CEST (+0200) |
-| **Cycle** | W2-G2 Decision Truth Sync |
+| **Timestamp** | 2026-08-23 03:00 CEST (+0200) |
+| **Cycle** | W2-G2 Decision Truth Sync — Ordering Neutralization |
 | **Profil** | CRITICAL |
 | **Typologie** | DOC |
-| **Autorité Morris consommée** | GO truth sync · ADOPT W2-G2 Decision Pack (D-W2-01…04 · TD-C6-03 included W2 by adopted C6 default) |
-| **Verdict** | W2-G2 DECISION TRUTH SYNC COMPLETE — READY FOR CHATGPT REVIEW |
+| **Autorité Morris** | GO ordering neutralization — readiness only — no project Git transport |
+| **Verdict** | ORDERING NEUTRALIZATION APPLIED — READY FOR CHATGPT RE-REVIEW |
 
-## Local Git Truth
+## Correction appliquée (readiness uniquement)
+
+**Retiré :** `Point d'ordre établi` imposant W2-G3 GO avant GO Phase B distinct + séquence `W2-G3 GO → GO Phase B distinct → Delivery tracks`.
+
+**Remplacé par :** `Relation d'autorité établie` — deux gates non équivalents · Track D Phase B requiert GO Phase B distinct · ordre relatif W2-G3 ↔ GO Phase B **non décidé par W2-G2**.
+
+Séquence post-G2 s'arrête à `W2-G3 QUALIFICATION → distinct Morris W2-G3 GO if later authorized`.
+
+## Git Truth
 
 | Field | Value |
 |---|---|
-| repo | mcleland147/sfia-workspace |
 | branch | docs/sfia-studio-w2-g2-decision-truth-sync |
-| HEAD | 8df647c5e7db8a82c9c3b578ee1603e0851cc579 (unchanged — local edits uncommitted) |
 | origin/main | 8df647c5e7db8a82c9c3b578ee1603e0851cc579 |
-| working tree | 2 project docs modified · untracked .tmp-sfia-review/ · no staged files |
+| fichiers modifiés vs main | 2 (readiness + roadmap — roadmap inchangée dans cette micro-correction) |
 | staged | none |
 
-## W2-G1 proof (historique fermé)
+## Fichiers touchés cette micro-correction
 
-- PR **#398 MERGED**
-- merge `8df647c5e7db8a82c9c3b578ee1603e0851cc579`
-- push/main CI **32607589306 SUCCESS** (Detect / Build / Required Gate)
+- `projects/sfia-studio/product-completion/08-product-completion-wave-2-delivery-readiness.md` **ONLY**
 
-## W2-G2 decisions enregistrées
-
-| ID | Résumé | Statut |
-|---|---|---|
-| D-W2-01 | Proposal ephemeral · Epistemic materialization · ProjectTrajectory SoT · proposalStore KEEP/ADAPT TEMPORARY WITH EXIT | ADOPTED BY MORRIS |
-| D-W2-02 | Bounded Phase B W2 · CKC-informed Nora before Options/Recommendation · ≥2 cycle-type deterministic proof · STOP before Execute | ADOPTED BY MORRIS · GO Phase B distinct NOT CONSUMED |
-| D-W2-03 | Product application path enforcement HD→decided/current using existing OA + C6 U1/U3 | ADOPTED BY MORRIS |
-| D-W2-04 | EC inspection attestation bound to contract/version/fingerprint · material amendment requires re-inspection · no new EC status | ADOPTED BY MORRIS |
-| TD-C6-03 | INCLUDED W2 — inherited ADOPTED C6 default | not new W2 architecture decision |
-
-## Distinction clé
-
-- **W2-G2 decision** = consumed by Morris (governance durable)
-- **W2-G2 truth sync Git integration** = RESOLVE FROM REPOSITORY (no embedded candidate HEAD/CI)
-
-## Anti-claims
-
-- W2-G2 DECIDED ≠ W2-G3 GO
-- D-W2-02 ADOPTED ≠ GO Phase B distinct consumed
-- W2-G2 DECIDED ≠ Delivery / REAL / runtime v3 ADOPTED
-- Decision adoption ≠ implementation
-- No dynamic candidate HEAD/CI embedded for truth-sync integration state
-
-## Fichiers modifiés (exactement 2)
-
-1. projects/sfia-studio/product-completion/08-product-completion-wave-2-delivery-readiness.md
-2. projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-
-## Validation
-
-- git diff --check: PASS (no whitespace errors)
-- git diff --stat: 2 files · +113 / -74
-- staged: empty
-- ACTIVE CONTRADICTIONS = 0
+## ACTIVE CONTRADICTIONS = 0
 
 ## Authority
 
-| YES | NO |
-|---|---|
-| local documentation truth sync | project staging/commit |
-| readiness + roadmap update | project push / PR / merge |
-| Review Pack FULL | W2-G3 |
-| L3 Review Handoff | GO Phase B / Delivery / REAL / runtime v3 adoption |
+YES: readiness ordering neutralization · Review Pack · L3 handoff
+NO: roadmap change · project commit/push · W2-G3 · Phase B GO · Delivery · REAL
 
 ---
 
-## DIFF COMPLET (exploitable)
+## DIFF COMPLET CUMULATIF (readiness + roadmap vs main)
 
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 index e0c8611d..cac9d807 100644
@@ -243,7 +210,7 @@ index e0c8611d..cac9d807 100644
  CKC COVERAGE: catalogue applicable evolvable — Phase A integrated · Phase B downstream — current 15-type baseline is a measure, not a structural invariant
  CKC→V2.6 CAPITALIZATION: FUTURE OPTION — DISTINCT METHOD GATE — NOT DECIDED — Studio doctrine remains v3-exclusive
 diff --git a/projects/sfia-studio/product-completion/08-product-completion-wave-2-delivery-readiness.md b/projects/sfia-studio/product-completion/08-product-completion-wave-2-delivery-readiness.md
-index 113cd016..0920895a 100644
+index 113cd016..a8c58752 100644
 --- a/projects/sfia-studio/product-completion/08-product-completion-wave-2-delivery-readiness.md
 +++ b/projects/sfia-studio/product-completion/08-product-completion-wave-2-delivery-readiness.md
 @@ -7,13 +7,14 @@
@@ -347,7 +314,7 @@ index 113cd016..0920895a 100644
  | **W2-G3** | Umbrella W2 Delivery GO — autorise implémentation générale des tracks W2 autorisés | **NOT AUTHORIZED** |
  | **GO Phase B distinct** | Autorisation spécifique US-P1-14 / REQ-24 / DK-08 — implémentation et preuve sémantique Phase B selon tranche décidée | **NOT AUTHORIZED / NOT CONSUMED** |
 
-@@ -331,30 +346,32 @@ W2 **reçoit** de W1 (PR #395 · **ne pas rouvrir**) :
+@@ -331,30 +346,30 @@ W2 **reçoit** de W1 (PR #395 · **ne pas rouvrir**) :
 
  | Gate | Rôle |
  |---|---|
@@ -366,17 +333,17 @@ index 113cd016..0920895a 100644
 -W2-G1 content qualified (+ Git integration RESOLVE FROM REPOSITORY / merge proof)
 -  → W2-G2 decisions consumed
 -  → W2-G3 Delivery GO (umbrella)
+-  → GO Phase B distinct (avant implémentation/preuve Phase B requérant ce gate)
+-  → Delivery tracks selon leurs gates respectifs
 +W2-G1 INTEGRATED ON MAIN
 +  → W2-G2 DECIDED BY MORRIS
 +  → W2-G2 decision truth sync Git integration (RESOLVE FROM REPOSITORY until proven)
 +  → W2-G3 QUALIFICATION
 +  → distinct Morris W2-G3 GO if later authorized
-   → GO Phase B distinct (avant implémentation/preuve Phase B requérant ce gate)
-   → Delivery tracks selon leurs gates respectifs
  ```
 
 -**Point d'ordre à confirmer par Morris :** W2-G3 peut autoriser le Delivery W2 umbrella avant consommation de GO Phase B distinct · **mais** toute tranche Phase B soumise au gate backlog reste **STOP** jusqu'au GO Phase B distinct · **W2-G3 ≠ GO Phase B distinct**.
-+**Point d'ordre établi :** W2-G3 peut autoriser le Delivery W2 umbrella avant consommation de GO Phase B distinct · **mais** toute tranche Phase B soumise au gate backlog reste **STOP** jusqu'au GO Phase B distinct · **W2-G3 ≠ GO Phase B distinct**.
++**Relation d'autorité établie :** W2-G3 et GO Phase B distinct sont **deux gates non équivalents** · Track D Phase B ne peut implémenter/prouver la tranche Phase B **sans** GO Phase B distinct · l'ordre relatif de consommation de W2-G3 et du GO Phase B distinct **n'est pas décidé par W2-G2** et reste à fixer explicitement par Morris si nécessaire · **W2-G3 ≠ GO Phase B distinct**.
 
  ### W2-G1 porte (qualification)
  - scope W2 borné et cohérent C1→Backlog
@@ -390,7 +357,7 @@ index 113cd016..0920895a 100644
 
  **Les gaps runtime à implémenter pendant W2 NE BLOQUENT PAS** l'existence ou la validation du readiness qui les identifie.
 
-@@ -363,21 +380,28 @@ W2-G1 content qualified (+ Git integration RESOLVE FROM REPOSITORY / merge proof
+@@ -363,21 +378,28 @@ W2-G1 content qualified (+ Git integration RESOLVE FROM REPOSITORY / merge proof
  | Proof | État |
  |---|---|
  | Content qualification (R1→R15) | **SATISFIED** |
@@ -429,7 +396,7 @@ index 113cd016..0920895a 100644
 
  **Les GAP-W2-01…15 sont des obligations de Delivery/exit W2** · à implémenter **sous** W2-G3 · **pas** des pré-requis avant W2-G3.
 
-@@ -385,18 +409,18 @@ W2-G1 content qualified (+ Git integration RESOLVE FROM REPOSITORY / merge proof
+@@ -385,18 +407,18 @@ W2-G1 content qualified (+ Git integration RESOLVE FROM REPOSITORY / merge proof
 
  ---
 
@@ -456,7 +423,7 @@ index 113cd016..0920895a 100644
 
  **Retirés du Decision Pack structurel** (reclassés) :
  - `studio-projects` FREEZE → contrainte Build Doctrine / no parallel path
-@@ -466,7 +490,7 @@ E (honesty, tôt) + D (cognition) ∥ A (foundations)
+@@ -466,7 +488,7 @@ E (honesty, tôt) + D (cognition) ∥ A (foundations)
  1. Options + Recommendation distinctes (US-P1-01)
  2. HumanDecision structurante + trajectory decided (US-P1-02)
  3. EC summary → detail + re-inspect minimum (US-P1-03)
@@ -465,7 +432,7 @@ index 113cd016..0920895a 100644
  5. Historique minimal projection (US-P1-15)
  6. Gouvernance/audit + TD-C6-03 (US-P1-16)
  7. AgentCapability → AUTHORIZED/BLOCKED (US-P1-08)
-@@ -620,8 +644,9 @@ Utiliser **DOWNSTREAM — W3/W4** pour capacités futures · **≠** « réserve
+@@ -620,8 +642,9 @@ Utiliser **DOWNSTREAM — W3/W4** pour capacités futures · **≠** « réserve
  | Deterministic ≠ REAL ? | **OUI** |
  | C6 reopened ? | **NON** |
  | W2-G1 content qualified ? | **OUI** (R1→R15 applied) |
@@ -477,7 +444,7 @@ index 113cd016..0920895a 100644
  | W2-G3 Delivery authorized ? | **NON** |
  | GO Phase B distinct consumed ? | **NON** |
  | W2 bounded UAT/E2E slice defined ? | **OUI** |
-@@ -630,10 +655,10 @@ Utiliser **DOWNSTREAM — W3/W4** pour capacités futures · **≠** « réserve
+@@ -630,10 +653,10 @@ Utiliser **DOWNSTREAM — W3/W4** pour capacités futures · **≠** « réserve
 
  ### Verdict scale
 
@@ -490,4 +457,4 @@ index 113cd016..0920895a 100644
  ---
 
 -*Corrigé 2026-08-23 01:57:59 CEST (+0200) · R1→R15 applied · Git-state stability micro-correction PR #398 · W2-G1 CONTENT QUALIFIED · integration RESOLVE FROM REPOSITORY · W1 CLOSED PR #395 · W2-G2/W2-G3 NOT AUTHORIZED · GO Phase B NOT CONSUMED · NO Delivery · NO REAL · runtime v3 NON ADOPTED.*
-+*Corrigé 2026-08-23 02:36 CEST (+0200) · W2-G2 DECISION TRUTH SYNC · W2-G1 INTEGRATED PR #398 · W2-G2 DECIDED BY MORRIS · D-W2-01…04 ADOPTED · truth-sync Git integration RESOLVE FROM REPOSITORY · W2-G3 NOT AUTHORIZED · GO Phase B NOT CONSUMED · NO Delivery · NO REAL · runtime v3 NON ADOPTED.*
++*Corrigé 2026-08-23 03:00 CEST (+0200) · W2-G2 ORDERING NEUTRALIZATION micro-correction · W2-G2 DECISION TRUTH SYNC · W2-G1 INTEGRATED PR #398 · W2-G2 DECIDED BY MORRIS · D-W2-01…04 ADOPTED · truth-sync Git integration RESOLVE FROM REPOSITORY · W2-G3 NOT AUTHORIZED · GO Phase B NOT CONSUMED · NO Delivery · NO REAL · runtime v3 NON ADOPTED.*
