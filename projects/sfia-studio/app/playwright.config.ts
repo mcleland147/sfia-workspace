@@ -27,6 +27,8 @@ export default defineConfig({
     env: {
       ...process.env,
       OPS1_E2E_ALLOW_DIRTY_PRINCIPAL: "1",
+      // Local Pilote authority TEMPORARY WITH EXIT — required for /studio HD path.
+      SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY: "1",
       D1_INTAKE_PROVIDER: process.env.D1_INTAKE_PROVIDER || "fake",
       // Default E2E: fake provider. Real live capture/smoke: OPS1_ALLOW_LIVE_SMOKE=1
       // without forcing fake (secrets must already be in the environment).

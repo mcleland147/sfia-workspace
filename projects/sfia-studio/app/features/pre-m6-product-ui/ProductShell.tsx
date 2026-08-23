@@ -82,9 +82,9 @@ export function ProductShell({
             )}
           </nav>
 
-          <span className={styles.avatar} title="Morris">
-            <span aria-hidden>M</span>
-            <span className={styles.srOnly}>Morris</span>
+          <span className={styles.avatar} title="Pilote">
+            <span aria-hidden>P</span>
+            <span className={styles.srOnly}>Pilote</span>
           </span>
         </div>
       </header>

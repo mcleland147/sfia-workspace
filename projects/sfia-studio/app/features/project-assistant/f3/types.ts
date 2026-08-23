@@ -68,7 +68,7 @@ export type F3RecommendationDto = {
   hardBlockers: string[];
   nextGateCode: string | null;
   nextActionCode: string | null;
-  recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS";
+  recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE";
   mode: F3Mode;
   analysisStatus?: "available" | "unavailable" | "not_attempted";
   analysisText?: string | null;
@@ -79,7 +79,7 @@ export type F3RecommendationDto = {
 export type F3Labels = {
   fixtureNoReal: "FIXTURE — AUCUNE EXÉCUTION RÉELLE";
   noGitWrite: "AUCUN GIT WRITE PRODUIT";
-  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION MORRIS";
+  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE";
   cursorRealBlocked: "CURSOR REAL BLOQUÉ";
   hardOpen: "HARD R-T-A3-1 / R-T-A3-2 OPEN";
 };

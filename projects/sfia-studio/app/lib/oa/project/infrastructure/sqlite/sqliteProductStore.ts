@@ -41,6 +41,9 @@ export class SqliteProductStore
     | "attempt"
     | "evidence"
     | "review_bundle"
+    | "trajectory"
+    | "confirmation"
+    | "epistemic"
     | null = null;
 
   private queue: Promise<void> = Promise.resolve();

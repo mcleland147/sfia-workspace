@@ -65,7 +65,7 @@ export type QualificationDto = {
   detailedStatus: string;
   disclosures: string[];
   signals: F2QualificationSignals;
-  recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS";
+  recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE";
   /** Durable CKC binding projection (no raw CKC dimensions). */
   ckcResolutionRef?: string;
   executionAuthority?: false;

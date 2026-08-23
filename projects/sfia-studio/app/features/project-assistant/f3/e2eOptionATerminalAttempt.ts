@@ -50,7 +50,7 @@ function absentRecommendation(): F3ExecutePayload["recommendation"] {
   return {
     kind: "recommendation",
     status: "absent",
-    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
+    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
     executionAuthority: false,
     gateConsumed: false,
     decisionCreated: false,

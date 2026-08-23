@@ -234,7 +234,7 @@ describe("UAT-UX contract / Fake-Real / marker presentation", () => {
     expect(facts.capabilities).toEqual(["cap:cursor.read_only"]);
     expect(facts.reversibility).toBe("Réversible");
     expect(facts.constraints).toContain("Pas d'écriture Git");
-    expect(facts.authority).toMatch(/Morris/);
+    expect(facts.authority).toMatch(/autorité structurante|Morris/);
     expect(JSON.stringify(facts).toLowerCase()).not.toMatch(/readme uniquement/);
     expect(JSON.stringify(facts).toLowerCase()).not.toMatch(/aucun shell/);
   });
@@ -307,7 +307,7 @@ describe("UAT-UX contract / Fake-Real / marker presentation", () => {
         kind: "execute",
       }),
     ).toBe(
-      "Exécution Cursor réelle enregistrée. La recommandation n'est pas une décision Morris.",
+      "Exécution Cursor réelle enregistrée. La recommandation n'est pas une décision humaine.",
     );
   });
 
@@ -436,7 +436,7 @@ describe("UAT-UX contract / Fake-Real / marker presentation", () => {
     expect(summary.evidence).toBe("Une preuve a été enregistrée.");
     expect(summary.reviewBundle).toMatch(/brouillon/i);
     expect(summary.next).toMatch(/continue_conversation/);
-    expect(summary.next).toMatch(/pas une décision Morris/i);
+    expect(summary.next).toMatch(/pas une décision humaine/i);
   });
 
   it("T13/T14 — failed/timeout/running are not success", () => {
@@ -542,7 +542,7 @@ describe("UAT-UX-09 pre-confirmation Fake/Real truth", () => {
       "Pas de commande client",
     ]);
     expect(facts.stopConditions).toEqual(["GATE_D_REQUIRED"]);
-    expect(facts.authority).toMatch(/Morris/);
+    expect(facts.authority).toMatch(/autorité structurante|Morris/);
   });
 
   it("T-UX09-5 — session DET regression unchanged", () => {
@@ -587,7 +587,7 @@ describe("UAT-UX-09 pre-confirmation Fake/Real truth", () => {
       requiredAuthority: "MORRIS",
       constraints: ["NO GIT WRITE"],
     });
-    expect(facts.authority).toMatch(/Morris/);
+    expect(facts.authority).toMatch(/autorité structurante|Morris/);
     expect(facts.constraints).toContain("Pas d'écriture Git");
   });
 });

@@ -40,9 +40,24 @@ export {
   type ResolvedExecutionWindow,
 } from "./domain/executionWindowPolicy";
 
+export {
+  evaluateInspectionSufficiency,
+  type InspectionAttestation,
+  type InspectionInsufficiencyReason,
+  type InspectionSufficiency,
+} from "./domain/inspectionAttestation";
+export type {
+  AgentCapabilitySufficiency,
+  AuthorityVerificationBlockedReason,
+  AuthorityVerificationOutcome,
+  AuthorityVerificationReceipt,
+} from "./domain/authorityVerificationReceipt";
+
 export * from "./ports/executionContractRepository";
 export * from "./ports/executionAudit";
 export * from "./ports/executionContractPersistenceUnitOfWorkPort";
+export type { InspectionAttestationRepositoryPort } from "./ports/inspectionAttestationRepository";
+export type { AuthorityVerificationReceiptRepositoryPort } from "./ports/authorityVerificationReceiptRepository";
 
 export { BuildExecutionContract } from "./application/buildExecutionContract";
 export { GetExecutionContract } from "./application/getExecutionContract";
@@ -52,6 +67,17 @@ export { ConfirmExecutionContract } from "./application/confirmExecutionContract
 export { SupersedeExecutionContract } from "./application/supersedeExecutionContract";
 export { CancelExecutionContract } from "./application/cancelExecutionContract";
 export { CheckExecutionAuthorization } from "./application/checkExecutionAuthorization";
+export {
+  GetContractInspectionState,
+  RecordContractInspection,
+  type GetContractInspectionStateResult,
+  type RecordContractInspectionRequest,
+  type RecordContractInspectionResult,
+} from "./application/recordContractInspection";
+export {
+  RecordAuthorityVerification,
+  type RecordAuthorityVerificationRequest,
+} from "./application/recordAuthorityVerification";
 
 export {
   projectCursorPrepareOnly,
@@ -60,6 +86,10 @@ export {
 
 export { MemoryExecutionContractStore } from "./infrastructure/memoryExecutionContractStore";
 export { MemoryExecutionContractRepository } from "./infrastructure/memoryExecutionContractRepository";
+export { MemoryInspectionAttestationRepository } from "./infrastructure/memoryInspectionAttestationRepository";
+export { MemoryAuthorityVerificationReceiptRepository } from "./infrastructure/memoryAuthorityVerificationReceiptRepository";
+export { SqliteInspectionAttestationRepository } from "./infrastructure/sqlite/sqliteInspectionAttestationRepository";
+export { SqliteAuthorityVerificationReceiptRepository } from "./infrastructure/sqlite/sqliteAuthorityVerificationReceiptRepository";
 export {
   ConsoleExecutionAuditJournal,
   MemoryExecutionAuditJournal,
@@ -89,8 +119,12 @@ import { GetExecutionContract } from "./application/getExecutionContract";
 import { ListExecutionContractHistory } from "./application/listExecutionContractHistory";
 import { SupersedeExecutionContract } from "./application/supersedeExecutionContract";
 import { ValidateExecutionContract } from "./application/validateExecutionContract";
+import { GetContractInspectionState, RecordContractInspection } from "./application/recordContractInspection";
+import { RecordAuthorityVerification } from "./application/recordAuthorityVerification";
 import { MemoryExecutionContractRepository } from "./infrastructure/memoryExecutionContractRepository";
 import { MemoryExecutionContractStore } from "./infrastructure/memoryExecutionContractStore";
+import { MemoryAuthorityVerificationReceiptRepository } from "./infrastructure/memoryAuthorityVerificationReceiptRepository";
+import { MemoryInspectionAttestationRepository } from "./infrastructure/memoryInspectionAttestationRepository";
 import {
   ConsoleExecutionAuditJournal,
   MemoryExecutionAuditJournal,
@@ -98,11 +132,17 @@ import {
 import type { ExecutionAuditPort } from "./ports/executionAudit";
 import type { ExecutionContractPersistenceUnitOfWorkPort } from "./ports/executionContractPersistenceUnitOfWorkPort";
 import type { ExecutionContractRepositoryPort } from "./ports/executionContractRepository";
+import type { InspectionAttestationRepositoryPort } from "./ports/inspectionAttestationRepository";
+import type { AuthorityVerificationReceiptRepositoryPort } from "./ports/authorityVerificationReceiptRepository";
 
 export type ExecutionContractServices = {
   store: ExecutionContractPersistenceUnitOfWorkPort;
   contracts: ExecutionContractRepositoryPort;
   audit: ExecutionAuditPort;
+  /** W2 (D-W2-04) — append-only inspection proof. */
+  inspectionAttestations: InspectionAttestationRepositoryPort;
+  /** W2 (TD-C6-03) — append-only authority evaluation snapshots. */
+  authorityReceipts: AuthorityVerificationReceiptRepositoryPort;
   buildExecutionContract: BuildExecutionContract;
   getExecutionContract: GetExecutionContract;
   listExecutionContractHistory: ListExecutionContractHistory;
@@ -111,6 +151,9 @@ export type ExecutionContractServices = {
   supersedeExecutionContract: SupersedeExecutionContract;
   cancelExecutionContract: CancelExecutionContract;
   checkExecutionAuthorization: CheckExecutionAuthorization;
+  recordContractInspection: RecordContractInspection;
+  getContractInspectionState: GetContractInspectionState;
+  recordAuthorityVerification: RecordAuthorityVerification;
 };
 
 export type CreateInMemoryExecutionContractServicesOptions = {
@@ -133,6 +176,8 @@ export function createInMemoryExecutionContractServices(
   const audit = options.audit ?? new ConsoleExecutionAuditJournal();
   const authority =
     options.authorityResolver ?? options.decisionServices.authority;
+  const inspectionAttestations = new MemoryInspectionAttestationRepository();
+  const authorityReceipts = new MemoryAuthorityVerificationReceiptRepository();
 
   const cancelExecutionContract = new CancelExecutionContract(
     contracts,
@@ -146,6 +191,8 @@ export function createInMemoryExecutionContractServices(
     store,
     contracts,
     audit,
+    inspectionAttestations,
+    authorityReceipts,
     buildExecutionContract: new BuildExecutionContract(
       contracts,
       authority,
@@ -194,6 +241,19 @@ export function createInMemoryExecutionContractServices(
       options.cycleServices,
       clock,
       audit,
+    ),
+    recordContractInspection: new RecordContractInspection(
+      contracts,
+      inspectionAttestations,
+      clock,
+    ),
+    getContractInspectionState: new GetContractInspectionState(
+      contracts,
+      inspectionAttestations,
+    ),
+    recordAuthorityVerification: new RecordAuthorityVerification(
+      authorityReceipts,
+      clock,
     ),
   };
 }

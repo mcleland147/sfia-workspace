@@ -107,6 +107,12 @@ jobs:
           echo "studio_changed=${studio_changed}"
           echo "studio_changed=${studio_changed}" >> "${GITHUB_OUTPUT}"
 
+  # FinOps/T7 CI FREEZE — D-W2-CI-FINOPS-FREEZE-01
+  # Morris decision 2026-08-23.
+  # FinOps/T7 is outside the current Product Completion critical path.
+  # PostgreSQL migrate/test are intentionally excluded from the required Studio gate.
+  # Existing FinOps assets remain preserved.
+  # Reactivation requires a distinct Morris GO.
   validate:
     name: Build and validate SFIA Studio
     needs: detect
@@ -122,20 +128,6 @@ jobs:
       run:
         shell: bash
         working-directory: projects/sfia-studio/app
-    services:
-      postgres:
-        image: postgres:16-alpine
-        env:
-          POSTGRES_USER: sfia_ci
-          POSTGRES_PASSWORD: sfia_ci_local_only
-          POSTGRES_DB: sfia_studio_finops_t1
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U sfia_ci -d sfia_studio_finops_t1"
-          --health-interval 5s
-          --health-timeout 5s
-          --health-retries 10
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -162,22 +154,17 @@ jobs:
         run: npm run build
 
       - name: Unit tests (Vitest)
-        # DB connection env intentionally absent at this step:
-        # PostgreSQL integration tests must stay skipped until after migrate.
         run: npm test
 
-      - name: FinOps T1 migrate up (CI-A)
-        env:
-          # Local CI-A ephemeral Postgres only — not Neon; not a real secret.
-          DATABASE_URL_DIRECT: postgres://sfia_ci:sfia_ci_local_only@localhost:5432/sfia_studio_finops_t1
-        run: npm run migrate:up
-
-      - name: FinOps T1 PostgreSQL integration tests (CI-A)
-        env:
-          # Local CI-A ephemeral Postgres only — not Neon; not a real secret.
-          DATABASE_URL: postgres://sfia_ci:sfia_ci_local_only@localhost:5432/sfia_studio_finops_t1
-          DATABASE_URL_DIRECT: postgres://sfia_ci:sfia_ci_local_only@localhost:5432/sfia_studio_finops_t1
-        run: npm run test:db
+      - name: FinOps/T7 freeze notice
+        working-directory: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          echo "FinOps/T7 = FROZEN (D-W2-CI-FINOPS-FREEZE-01)."
+          echo "PostgreSQL FinOps integration validation = NOT REQUIRED on this gate."
+          echo "T7-C04 = known / deferred — not diagnosed or fixed in this cycle."
+          echo "No FinOps readiness claim."
+          echo "Unfreeze requires a distinct Morris GO."
 
       - name: Modeled governance tests
         working-directory: projects/sfia-studio
@@ -260,4 +247,4 @@ jobs:
             exit 1
           fi
 
-          echo "Required gate PASS: Studio validation succeeded."
+          echo "Required gate PASS: current SFIA Studio core validation succeeded; FinOps/T7 remains frozen and excluded from this gate."

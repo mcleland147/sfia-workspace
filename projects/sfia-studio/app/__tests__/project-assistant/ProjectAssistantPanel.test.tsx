@@ -113,6 +113,13 @@ const SUCCESS_RESULT = {
     cycleInstanceRestartSafe: true as const,
     humanDecisionRestartSafe: true as const,
     executionContractRestartSafe: true as const,
+    projectTrajectoryRestartSafe: true as const,
+    materializedEpistemicRestartSafe: true as const,
+    grantedConfirmationRestartSafe: true as const,
+    requestedConfirmationRestartSafe: false as const,
+    restoredConfirmationIsHistoricalConsentOnly: true as const,
+    w2Cognition: "IN_PROGRESS_NOT_COMPLETE" as const,
+    ckcPhaseBCognition: "NOT_AUTHORIZED_NOT_IMPLEMENTED" as const,
     messages: [] as const,
   },
 };
@@ -183,7 +190,7 @@ const DURABLE_REHYDRATE_SUCCESS = {
     hardBlockers: [] as string[],
     nextGateCode: null,
     nextActionCode: null,
-    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS" as const,
+    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE" as const,
     mode: "fixture" as const,
   },
   lpsVersion: 3,
@@ -479,7 +486,7 @@ describe("M5-27/M5-28 durable Nora/UI rehydrate", () => {
       "draft",
     );
     expect(screen.getByTestId("durable-recommendation-label")).toHaveTextContent(
-      "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
+      "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
     );
     expect(
       screen.getByTestId("durable-recommendation-execution-authority"),
@@ -507,7 +514,7 @@ describe("M5-27/M5-28 durable Nora/UI rehydrate", () => {
     ).toHaveTextContent("rb:m5-ui");
     expect(
       screen.getByTestId("durable-recommendation-label"),
-    ).toHaveTextContent("RECOMMANDATION — PAS UNE DÉCISION MORRIS");
+    ).toHaveTextContent("RECOMMANDATION — PAS UNE DÉCISION HUMAINE");
 
     first.unmount();
 
@@ -517,7 +524,7 @@ describe("M5-27/M5-28 durable Nora/UI rehydrate", () => {
     ).toHaveTextContent("rb:m5-ui");
     expect(
       screen.getByTestId("durable-recommendation-label"),
-    ).toHaveTextContent("RECOMMANDATION — PAS UNE DÉCISION MORRIS");
+    ).toHaveTextContent("RECOMMANDATION — PAS UNE DÉCISION HUMAINE");
     expect(
       screen.getByTestId("durable-recommendation-execution-authority"),
     ).toHaveTextContent("executionAuthority: false");

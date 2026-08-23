@@ -291,7 +291,7 @@ export function requiredAuthorityUserLabel(
   const raw = nonempty(authority);
   if (!raw) return null;
   if (raw === "MORRIS") {
-    return "Votre confirmation est requise maintenant (autorité Morris).";
+    return "Votre confirmation est requise maintenant (autorité structurante).";
   }
   return `Autorité requise : ${raw}.`;
 }
@@ -531,7 +531,7 @@ export function resolvePersistenceNotice(input: {
     return F3_PRODUCT_DURABLE_BOUNDED_NOTICE;
   }
   if (looksDeterministicTestBoundary(facts)) {
-    return "Exécution déterministe de test enregistrée. La recommandation n'est pas une décision Morris.";
+    return "Exécution déterministe de test enregistrée. La recommandation n'est pas une décision humaine.";
   }
   const mode = (input.mode ?? "").toUpperCase();
   if (mode.includes("CURSOR_CLI_REAL")) return F3_SESSION_CURSOR_REAL_NOTICE;
@@ -566,13 +566,13 @@ export function nextActionUserLabel(input: {
   const gate = nonempty(input.nextGateCode);
   const action = nonempty(input.nextActionCode);
   if (action && gate) {
-    return `Prochaine action recommandée : ${action} (seuil ${gate}). Ce n'est pas une décision Morris.`;
+    return `Prochaine action recommandée : ${action} (seuil ${gate}). Ce n'est pas une décision humaine.`;
   }
   if (action) {
-    return `Prochaine action recommandée : ${action}. Ce n'est pas une décision Morris.`;
+    return `Prochaine action recommandée : ${action}. Ce n'est pas une décision humaine.`;
   }
   if (gate) {
-    return `Prochain seuil recommandé : ${gate}. Ce n'est pas une décision Morris.`;
+    return `Prochain seuil recommandé : ${gate}. Ce n'est pas une décision humaine.`;
   }
   return "Poursuivez avec Nora pour décider de la suite. Aucune nouvelle exécution ou décision n'est lancée automatiquement.";
 }

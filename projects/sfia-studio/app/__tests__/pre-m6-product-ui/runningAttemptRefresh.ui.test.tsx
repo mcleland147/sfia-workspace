@@ -69,7 +69,7 @@ const NO_EVIDENCE_OUTCOME = {
 const F3_LABELS = {
   fixtureNoReal: "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
   noGitWrite: "AUCUN GIT WRITE PRODUIT",
-  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
+  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
   cursorRealBlocked: "CURSOR REAL BLOQUÉ",
   hardOpen: "HARD R-T-A3-1 / R-T-A3-2 OPEN",
 } as const;
@@ -558,7 +558,7 @@ describe("Option A running Attempt refresh uses the canonical M3 action", () => 
             irreversible: false,
             lowRiskBounded: true,
           },
-          recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
+          recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
         },
         proposal,
         decision: null,
@@ -791,7 +791,7 @@ describe("Option A running Attempt refresh uses the canonical M3 action", () => 
             irreversible: false,
             lowRiskBounded: true,
           },
-          recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
+          recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
         },
         proposal,
         decision: null,

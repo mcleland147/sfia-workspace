@@ -16,7 +16,7 @@ import type { ProjectAssistantRehydrateEvidenceOutcomeSuccess } from "@/features
 const F3_LABELS = {
   fixtureNoReal: "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
   noGitWrite: "AUCUN GIT WRITE PRODUIT",
-  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
+  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
   cursorRealBlocked: "CURSOR REAL BLOQUÉ",
   hardOpen: "HARD R-T-A3-1 / R-T-A3-2 OPEN",
 } as const;
@@ -260,7 +260,10 @@ describe("UAT-UX-03 confirmation surface", () => {
       "CURSOR CLI REAL PROFILE",
     );
     expect(screen.getByTestId("f3-contract-authority-user")).toHaveTextContent(
-      /Morris/,
+      /autorité structurante/i,
+    );
+    expect(screen.getByTestId("f3-contract-authority-user")).not.toHaveTextContent(
+      /Morris/i,
     );
     expect(screen.getByTestId("f3-contract-semantic-chip")).toHaveTextContent(
       /contrôlée/,

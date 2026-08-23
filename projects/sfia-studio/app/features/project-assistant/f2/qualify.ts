@@ -68,7 +68,7 @@ export async function qualifyWithCkc(input: {
     detailedStatus: result.detailedStatus,
     disclosures: [...result.disclosures],
     signals: input.signals,
-    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
+    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
     ckcResolutionRef: projectCkcResolutionRef(result.proof),
     executionAuthority: false,
   };

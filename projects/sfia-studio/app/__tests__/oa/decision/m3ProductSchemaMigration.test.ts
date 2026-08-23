@@ -131,7 +131,7 @@ describe("M3 Product SQLite schema migration", () => {
       .get("schema_version") as { value: string };
     expect(version.value).toBe(PRODUCT_SCHEMA_VERSION);
     expect(PRODUCT_SCHEMA_VERSION_M3).toBe("m3-0.1.0");
-    expect(PRODUCT_SCHEMA_VERSION).toBe("m6-0.1.0");
+    expect(PRODUCT_SCHEMA_VERSION).toBe("m7-0.1.0");
 
     const decisions = svc.store.db
       .prepare(

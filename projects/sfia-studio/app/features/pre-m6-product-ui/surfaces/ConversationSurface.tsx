@@ -232,11 +232,11 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
               data-role={message.role}
             >
               <span className={styles.turnAvatar} aria-hidden>
-                {message.role === "user" ? "M" : "N"}
+                {message.role === "user" ? "P" : "N"}
               </span>
               <div className={styles.bubble}>
                 <p className={styles.bubbleAuthor}>
-                  {message.role === "user" ? "Morris" : "Nora"}
+                  {message.role === "user" ? "Pilote" : "Nora"}
                 </p>
                 <p className={styles.bubbleText}>{message.content}</p>
               </div>
@@ -392,7 +392,7 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
               <dt>Votre accord</dt>
               <dd data-testid="f2-gate-required">
                 {activeProposal.morrisGateRequired
-                  ? "Décision requise"
+                  ? "Décision sur la proposition requise"
                   : "Aucune décision requise pour l’instant"}
               </dd>
             </div>
@@ -482,7 +482,7 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
           aria-live="polite"
         >
           <header className={styles.cardHead}>
-            <p className={styles.cardEyebrow}>Décision enregistrée</p>
+            <p className={styles.cardEyebrow}>Décision sur la proposition</p>
             <h3 className={styles.cardTitle}>
               Votre décision est prise en compte
             </h3>
@@ -1275,7 +1275,7 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
           </button>
         </div>
         <p className={styles.composerCaption}>
-          Morris pilote. La décision vous appartient toujours.
+          Vous pilotez. La décision vous appartient toujours.
         </p>
       </form>
 

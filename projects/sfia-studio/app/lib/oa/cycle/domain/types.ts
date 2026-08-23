@@ -104,6 +104,13 @@ export type ProjectTrajectory = {
   status: TrajectoryStatus;
   steps: TrajectoryStep[];
   supersedesTrajectoryVersion?: number;
+  /**
+   * W2: durable HumanDecision reference that promoted this version to
+   * decided/current. Absent on `candidate` (proposed) versions.
+   */
+  decidedByDecisionRef?: string;
+  /** W2: product-level Option reference selected by the HumanDecision. */
+  decidedOptionRef?: string;
 };
 
 export type EpistemicItem = {
@@ -207,6 +214,31 @@ export type ProposeTrajectoryVersionRequest = {
   expectedVersion: number;
   steps: TrajectoryStep[];
   status?: TrajectoryStatus;
+  createdBy: ActorReference;
+  correlationId?: string;
+  expectedLpsVersion: number;
+};
+
+/**
+ * W2 — promote an existing `candidate` trajectory version to decided/current.
+ * `decisionRef` is mandatory: OA never promotes a structuring trajectory
+ * without a decision reference. Product-path enforcement (D-W2-03) verifies
+ * that the reference is an accepted durable HumanDecision.
+ */
+export type PromoteDecidedTrajectoryRequest = {
+  trajectoryId: string;
+  projectId: string;
+  /** Version of the candidate to promote. */
+  expectedVersion: number;
+  status?: "validated" | "active";
+  decisionRef: string;
+  decidedOptionRef?: string;
+  /**
+   * W2 A1 — when provided, these steps become the decided trajectory content
+   * (same version, candidate → validated). Used so a Pilote-selected option
+   * that differs from the recommended outline is sealed at promote time.
+   */
+  steps?: TrajectoryStep[];
   createdBy: ActorReference;
   correlationId?: string;
   expectedLpsVersion: number;
