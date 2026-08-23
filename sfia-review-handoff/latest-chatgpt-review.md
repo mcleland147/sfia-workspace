@@ -1,7 +1,7 @@
-# REVIEW PACK FULL — W2-G3 — MICRO-CORRECTION A2+A3
+# REVIEW PACK FULL — W2-G3 — A3 CANDIDATE REINSTRUCTION VERSIONING
 
-Mono-cycle MICRO-CORRECTION. Réinitialisé au début de ce micro-pass.
-Permet de revoir le DELTA A2/A3 et l’état consolidé Delivery + correction + micro-pass (toujours non commité sur la branche projet).
+Mono-cycle A3 FINAL MICRO-CORRECTION. Réinitialisé au début de ce cycle.
+Delivery W2-G3 EABC + corrections A2 + A3 versioning restent **non commités** sur la branche projet.
 
 ---
 
@@ -9,361 +9,248 @@ Permet de revoir le DELTA A2/A3 et l’état consolidé Delivery + correction + 
 
 | Field | Value |
 |---|---|
-| Timestamp (UTC) | 2026-08-23T07:44:00Z |
+| Timestamp (UTC) | 2026-08-23T07:58:37Z |
 | Repo | mcleland147/sfia-workspace |
 | Branch | `delivery/sfia-studio-w2-g3-umbrella-a` |
 | HEAD | `3a86f8190deb34e37bede868a6e765b0440fc839` |
 | origin/main | `3a86f8190deb34e37bede868a6e765b0440fc839` |
-| Drift vs origin/main | NONE (commit pointers identical) |
-| Incoming handoff | W2-G3 E+A+B+C — CORRECTION PASS |
-| Incoming handoff blob | `8f7719bc5addc3f9e40468178962726cc2dab246` |
-| Gates | W2-G3 EABC CONSUMED · prior Correction CONSUMED · A2+A3 micro-correction CONSUMED · Track D / Phase B NOT CONSUMED · Execute OUT · REAL OUT · Project Git integration NOT AUTHORIZED · C6 CLOSED · Runtime v3 NON ADOPTED |
+| Drift | NONE |
+| Incoming handoff commit | `b0fbad1c7ad688813f080ea1a5d090055b641dd1` |
+| Incoming handoff blob | `d4eafccd7a55fce26dabeb33427f243283aebbba` |
+| Incoming verdict | A2 PASS / A3 STOP |
+| Decision | **D-W2-A3-01 Candidate Reinstruction Versioning — ADOPTED BY MORRIS — CONSUMED** |
+| Gates | Phase B OUT · Execute OUT · REAL OUT · Project Git OUT · C6 CLOSED · Runtime v3 NON ADOPTED |
 
 ---
 
-## B. Scope
+## B. Local Git Truth
 
-### In scope (this micro-pass)
-
-- **A2** — stale qualification enforcement at `decideTrajectory`
-- **A3** — Stage 0 repository discovery + STOP (no invented versioning)
-- Tests proving A2 + documenting A3 structural gap
-- Non-regression A1/A4/B/C/E + Playwright `/studio`
-- Review Pack FULL + L3 handoff publish only
-
-### Explicit non-goals
-
-- Track D / CKC Phase B
-- Execute / Attempt / REAL
-- Project commit / push / PR / merge
-- New ProjectTrajectory SoT / parallel engine / new versioning policy
-- C6 reopen
-- UI redesign / Figma claims
-- Redefinition of `computeQualificationDigest` matter
+- Branch / HEAD / origin/main match expected.
+- Staged: **empty**.
+- Working tree: prior Delivery + A2 intact + this A3 delta.
+- Out-of-scope preserved: `projects/eventops-poc/`, `projects/flex-office-demo/`.
+- No reset / stash / destructive checkout.
 
 ---
 
-## C. Local Git Truth
+## C. Decision consumed — D-W2-A3-01
 
-### Initial (micro-pass start)
+### Semantics applied
 
-- Branch / HEAD / origin/main match expected `3a86f819…`
-- Staged: empty
-- Working tree: Delivery W2-G3 EABC + prior correction pass (uncommitted) intact
-- Out-of-scope preserved: `projects/eventops-poc/`, `projects/flex-office-demo/`
+1. Same ProjectTrajectory SoT (`same trajectoryId`).
+2. Material OptionSet / qualification change → **new candidate version** (never reuse T@vN for Y).
+3. Prior undecided candidate → `status=superseded`; payload (steps) immutable; `T@vN+1.supersedesTrajectoryVersion = vN`.
+4. Candidate never updates `oa_project_trajectory_current`.
+5. OCC on lineage HEAD `expectedVersion`; conflict → `TRAJECTORY_VERSION_CONFLICT`.
+6. Atomic Product UoW: supersede + save next + LPS append.
+7. Presented OptionSet X stays bound to old version; Y binds only to new version.
+8. A2 remains authoritative for decide freshness.
+9. No second SoT / engine / status / table / C6 reopen.
 
-### Tracked modified (consolidated Delivery+correction vs origin/main)
+### Anti-claims
 
-36 tracked files under `projects/sfia-studio/` (+543 / −88) — prior Delivery/correction; **not reopened** by this micro-pass except via non-regression.
-
-### Untracked in-scope (Delivery + correction + micro)
-
-- `projects/sfia-studio/app/features/project-assistant/w2/` (entire W2 product path)
-- `projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts`
-- `projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts`
-- `projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts`
-- TrajectorySurface UI + OA promote/inspect/receipt files from prior Delivery/correction
-- `.tmp-sfia-review/` (this pack)
-
-### Untracked out-of-scope (preserved)
-
-- `projects/eventops-poc/`
-- `projects/flex-office-demo/`
-
-### Files modified by THIS micro-pass only
-
-1. `projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts` — A2 qualificationDigest live check
-2. `projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts` — A2-1/2/5/6 + A3 Stage 0 evidence rewrite
-
-**Not mutated for A3:** `proposeTrajectoryOptions.ts` (unsafe T@vN reuse path left as discovered evidence; no invented primitive).
+- A3 implemented ≠ W2 complete
+- candidate version ≠ current
+- Recommendation ≠ HD
+- DETERMINISTIC ≠ REAL
+- ≠ READY FOR PR / MERGE
 
 ---
 
-## D. Stage 0 A3 Discovery — READ ONLY
+## D. Inventory before implementation
 
-### 1. Current semantics of inspected primitives
-
-| Primitive | Semantics |
+| Concern | Prior behavior |
 |---|---|
-| `createInitialTrajectory` | Creates `trj:*` **v1** only. Fails if trajectoryId exists OR project already has a **current** pointer. Candidate status does **not** install current. |
-| `proposeTrajectoryVersion` | Requires `findCurrentByProjectId`. OCC on `expectedVersion === current.version`. Writes `version = current.version + 1`. With `status: "candidate"`, does **not** mark prior current superseded / does **not** move current pointer. Appends LPS link to new version. |
-| `markSuperseded` | Sets status=`superseded` on `(trajectoryId, version)` via save; used when propose installs validated/active. |
-| `getCurrentTrajectory` | Reads `oa_project_trajectory_current` pointer only (validated/active). |
-| `getTrajectoryVersion` | Reads durable row by projectId + version. |
-| Repository uniqueness | PK `(trajectory_id, version)`. Current pointer updated only for `validated` \| `active`. |
+| `ProposeTrajectoryVersion` | Required **current** pointer; OCC on current.version only |
+| W2 digest mismatch + no current | Reused same `trajectoryId@version`, Observation-only rebind (**A3 bug**) |
+| `findById` | Prefers current pointer, so not sufficient alone as lineage HEAD when candidate is ahead of current |
+| Port methods | `findCurrent`, `findByProjectAndVersion`, `findById`, `save`, `markSuperseded` — **sufficient** via probe |
 
-### 2. Primitive for: candidate vN + OptionSet X → material change → distinct candidate → same SoT → no rewrite of vN → not current?
-
-**Partial only:**
-
-- **When a current trajectory exists:** `proposeTrajectoryVersion` already yields same `trajectoryId` + next version as candidate without rewriting the prior current payload. Compatible with C6 / D-W2-01 / D-W2-03 (reuse OA; ProjectTrajectory remains SoT; candidate ≠ current until HD+promote).
-- **When only an undecided candidate exists (no current):** **NO** adopted primitive. `proposeTrajectoryVersion` fails with `TRAJECTORY_NOT_FOUND` / `missing_current_trajectory`. `createInitialTrajectory` cannot append vN+1 on the same id (id already exists) and must not mint a second trajectoryId as workaround.
-
-### 3. Same trajectoryId + next distinct version naturally?
-
-- **Yes** iff current pointer exists (`proposeTrajectoryVersion`).
-- **No** for first undecided candidate reinstruction (primary W2 path before first HD).
-
-### 4. Adopted candidate→candidate / candidate supersession rule?
-
-**None** for undecided candidate without current. Supersession of prior current occurs only when proposing validated/active (or via promote path). Observation supersession exists in W2 epistemic layer but does **not** version the ProjectTrajectory candidate.
-
-### 5. Existing primitive merely unwired by W2?
-
-- **Wired when current exists** (propose path already calls `proposeTrajectoryVersion`).
-- **Not merely unwired** for no-current + digest mismatch: the gap is in the **adopted OA model**, not a missing W2 call. Current W2 fallback (lines 220–224 of `proposeTrajectoryOptions.ts`) **reuses same trajectoryId + same candidateVersion** and only rebinds Observation — exactly the A3 blocker.
-
-### Stage 0 conclusion
-
-**STRUCTURAL DECISION REQUIRED**
-
-`STOP — CANDIDATE REINSTRUCTION MODEL INSUFFICIENT — MORRIS STRUCTURAL DECISION REQUIRED`
-
-A2 may proceed independently (done below). A3 not solved technically.
+**Port extension:** NONE. Lineage HEAD resolved with existing queries.
 
 ---
 
-## E. A2 — Stale Qualification Enforcement — PASS
+## E. Implementation
 
-### Exact bug
+### E.1 Lineage HEAD resolution (`resolveTrajectoryLineageHead`)
 
-Presented OptionSet already sealed `qualificationDigest`, but `decideTrajectory` accepted the presented set even after material qualification drift (e.g. new active Reservation changing digest / recommendation). Prior correction test even asserted decide X still PASS after drift.
+Deterministic, server-side:
 
-### Correction
+1. If `findCurrentByProjectId` → start there (must match `trajectoryId`).
+2. Else `findById(trajectoryId)` (latest when no current).
+3. Probe `findByProjectAndVersion(projectId, version+1…)` until gap.
+4. Result = OCC base.
 
-In `decideTrajectory`, after loading the exact durable presented set and verifying optionSetDigest integrity:
+Covers:
 
-1. Resolve **current** qualification server-side via existing `resolveW2QualificationInputs` (no client matter).
-2. Recompute `computeQualificationDigest` with the **same** contract used at propose.
-3. Compare to `presented.qualificationDigest`.
-4. On mismatch → `OPTION_SET_STALE`, **no HD**, **no promotion**, message requires réinstruction.
-5. On match → proceed with the **presented** options only (no re-derivation of a substitute set Y).
+- **CAS A** — no current, candidate v1 → head=v1 → mint v2.
+- **CAS B** — current vN + undecided candidate vN+1 → head=vN+1 → mint vN+2 (no silent reuse of vN+1).
 
-### Digest owner / matter
+### E.2 `ProposeTrajectoryVersion` adaptation
 
-Unchanged: `computeQualificationDigest` over cycleTypeId, recommendedProfile, criticalSignalsPresent, irreversible, reservations, ckcAttribution. No functional redefinition.
+- OCC: `expectedVersion === head.version` else `TRAJECTORY_VERSION_CONFLICT`.
+- Refuse if `head.version+1` already exists (extra collision guard).
+- Create `vN+1` with `supersedesTrajectoryVersion = head.version`.
+- Supersede prior when:
+  - proposing `validated|active` (existing), **or**
+  - `head.status === "candidate"` (D-W2-A3-01).
+- Proposing `candidate` from decided current: **does not** supersede current; current pointer unchanged.
+- Candidate save never installs current (existing `shouldUpdateCurrentPointer`).
+- All in existing Product UoW / cycle store transaction + LPS append.
 
-### Anti-rederive
+### E.3 W2 `proposeTrajectoryOptions`
 
-Freshness check answers only: “Is presented X still valid for arbitration?” It never substitutes Y, never records HD as if Pilote saw Y.
+Removed fallback:
 
-### Code excerpt (micro-pass)
-
-```typescript
-const liveQualification = await resolveW2QualificationInputs({ oa, projectId: input.projectId });
-// ...
-const currentQualificationDigest = computeQualificationDigest({ ...liveQualification.qualification.inputs });
-if (currentQualificationDigest !== presented.qualificationDigest) {
-  return { ok: false, code: "OPTION_SET_STALE", message: "… réinstruction requise. Aucune décision enregistrée." };
-}
+```
+digest mismatch + no current → reuse same version
 ```
 
-### Tests A2
+New:
+
+1. Exact idempotence (same `optionSetDigest` **and** `qualificationDigest` on latest candidate) → reuse same version (A3-1).
+2. Else if lineage exists → `proposeTrajectoryVersion` with `expectedVersion = latest.version`.
+3. Else → `createInitialTrajectory` v1 candidate.
+4. Observation supersede targets the **prior candidate version’s** OptionSet (not a silent trajectory rewrite).
+
+### E.4 A2 intact
+
+`decideTrajectory` still compares live `qualificationDigest` vs presented; mismatch → `OPTION_SET_STALE`.
+
+---
+
+## F. Cases
+
+| Case | Result |
+|---|---|
+| No-current reinstruction (CAS A) | T@v1 superseded → T@v2 candidate; current=none |
+| Current + first candidate (A3-7) | T@vN current preserved; T@vN+1 candidate |
+| Current + reinstruct undecided candidate (CAS B / A3-8) | T@vN+1 superseded → T@vN+2 candidate; current stays vN |
+| Exact idempotence | No artificial version bump |
+
+**No STOP for lineage head** — CAS B satisfied without new repository contract.
+
+---
+
+## G. Tests
+
+### A3 matrix
 
 | ID | Result |
 |---|---|
-| A2-1 happy path unchanged → decide X → HD + current | PASS |
-| A2-2 reservation drift → OPTION_SET_STALE · 0 accepted HD · no current | PASS |
-| A2-3 profile/critical drift | not separately added (reservation path covers digest matter; profile change needs cycle rewrite outside micro-scope) |
-| A2-4 CKC attribution ref drift | not separately added (would need Track D / LPS rewrite; digest already includes ckcAttribution) |
-| A2-5 hostile client options/authority fields ignored; forged trajectory/missing set refused | PASS |
-| A2-6 restart Product SQLite + durable drift still STALE | PASS |
+| A3-1 exact idempotence | PASS |
+| A3-2 first candidate reinstruction | PASS |
+| A3-3 old X refused | PASS (with A3-4) |
+| A3-4 new Y decidable / selected steps | PASS |
+| A3-5 history + restart | PASS |
+| A3-6 OCC concurrency | PASS |
+| A3-6b reinstruction atomicity (fail save) | PASS |
+| A3-7 current then one candidate | PASS |
+| A3-8 current + reinstruct undecided | PASS |
 
-**Verdict A2: PASS**
+### Non-regression
 
----
-
-## F. A3 — Candidate Semantic Identity — STOP + Decision Pack
-
-### Verdict
-
-**STOP — CANDIDATE REINSTRUCTION MODEL INSUFFICIENT — MORRIS STRUCTURAL DECISION REQUIRED**
-
-No technical A3 fix applied. Unsafe reuse path left as discovery evidence (not claimed fixed).
-
-### Decision pack (Morris)
-
-#### A. État actuel
-
-- First propose without current → `createInitialTrajectory` → candidate T@v1 + OptionSet X Observation.
-- Material digest mismatch without current → W2 currently reuses T@v1 and supersedes Observation only (`proposeTrajectoryOptions` fallback).
-- `proposeTrajectoryVersion` cannot run without current.
-- After a decided current exists, next propose already uses `proposeTrajectoryVersion` → T@vN+1 (sufficient for that subcase only).
-
-#### B. Failure scenario
-
-OptionSet X bound to T@vN → qualification drifts → OptionSet Y presented still claiming T@vN → candidate identity silently means X then Y → history dishonest; A2 stale on X helps decide-time but does not restore semantic identity of the candidate version.
-
-#### C. Invariant cible
-
-If Y’s optionSetDigest / qualificationDigest differs materially from X, Y must not bind to the same `(trajectoryId, version)` as X. Old candidate/version content must not be rewritten to mean Y. Same ProjectTrajectory SoT preferred; new distinct candidate version if model supports it.
-
-#### D. Primitives disponibles
-
-`createInitialTrajectory`, `proposeTrajectoryVersion` (requires current), `markSuperseded`, get current/version, Observation supersession.
-
-#### E. Pourquoi insuffisantes
-
-No adopted candidate→candidate version bump without current. Creating a second trajectoryId is forbidden as workaround. Rewriting T@vN is forbidden. Inventing `reproposeCandidateVersion` / new status / new table / new SoT would reopen C6 / structural model without Morris.
-
-#### F. Options minimales de modèle (NON DÉCISIONNELLES — Cursor)
-
-1. **Extend `ProposeTrajectoryVersion`** (or twin OA use case under existing SoT) to OCC against **latest undecided candidate** when no current — mint vN+1, leave vN immutable, do not install current.
-2. **Product policy:** fail-closed reinstruction before first decision (refuse second propose until HD or explicit discard) — still needs Morris product rule; does not alone give distinct candidate versions.
-3. **Adopt explicit candidate supersession rule** (status / supersedesTrajectoryVersion on candidate→candidate) under D-W2-01/03 — Morris framing required.
-4. **Do not** mint second trajectoryId; **do not** reopen C6 with a parallel Proposal SoT.
-
-#### G. Impacts
-
-- W2 propose path before first HD blocked or reshaped depending on option.
-- History honesty / audit of OptionSet↔candidate bindings.
-- Possible LPS append semantics for candidate-only version bumps.
-- Tests A3-1…A3-5 become implementable only after model choice.
-
-#### H. Recommandation Cursor (non décisionnelle)
-
-Prefer option **F.1** if Morris wants same SoT + natural version lineage without second id; otherwise choose an explicit fail-closed product rule (F.2) as interim. Do not invent outside adopted OA.
-
-#### I. Fichiers potentiellement concernés (après décision Morris)
-
-- `lib/oa/cycle/application/proposeTrajectoryVersion.ts` (or new adopted twin)
-- `features/project-assistant/w2/proposeTrajectoryOptions.ts`
-- trajectory repository / invariants / tests OA + `w2EabcDelivery.test.ts`
-
-#### J. C6
-
-**C6 remains CLOSED** until Morris decides otherwise. No parallel architecture introduced in this micro-pass.
-
-### A3 evidence test
-
-`A3 — Stage 0 evidence: material digests reinstruction reuses T@vN (model insufficient)` — proves second propose reuses same id/version AND `proposeTrajectoryVersion` without current returns `TRAJECTORY_NOT_FOUND`.
-
----
-
-## G. Non-regressions
-
-### A1
-
-Selecting non-recommended option still seals selected option steps on decided/current (`proposes a candidate… then promotes only after Pilote HD`). PASS in suite.
-
-### A4
-
-`A4 — HD+promote share one Product UoW` — promote fault → 0 accepted HD → no current → recover decide PASS.
-
-### B/C/E (suite w2EabcDelivery)
-
-- Recommendation `source === optionSetRef` (not CKC as semantic cause) — covered in A2-1 epistemic check + prior Track B.
-- Phase B disclosure `NOT_AUTHORIZED_NOT_IMPLEMENTED` — Track E disclosure test PASS.
-- Inspection / Confirmation / AUTHORIZED / STOP before Execute / no Attempt — remaining suite cases PASS (16/16).
-- Playwright `/studio` correction path PASS (see H).
-
-Pre-existing out-of-scope UI fail (not aggravated by A2/A3):
-
-- `uatUxSemanticReserves.ui.test.tsx` — expects `/Morris/` on confirmation summary; UI shows “autorité structurante”. Prior Delivery text drift; **not** touched by this micro-pass.
-
----
-
-## H. Tests
-
-### Commands & counts
-
-| Command | Result |
+| Suite | Result |
 |---|---|
-| `npx vitest run __tests__/project-assistant/w2EabcDelivery.test.ts` | **16 passed / 16** |
-| OA trajectory: `cycleTrajectoryEpistemicCkc` + `w1TrajectoryDurability` | **25 passed / 25** |
-| Adjacent UI/W2 batch (9 files) | **87 passed**, **1 failed** (`uatUxSemanticReserves` pre-existing) |
-| `npx playwright test e2e/studio-w2-g3-correction-runtime.spec.ts` | **1 passed / 1** (~7.4s) |
-| In-scope `tsc` filter on A2/A3 paths | **NO_IN_SCOPE_TSC_ERRORS** |
-| Full `tsc` | FinOps/`pg` pre-existing errors only |
-| `git diff --check` (micro files) | clean |
+| A1 / A2 / A4 in `w2EabcDelivery` | PASS |
+| `w2EabcDelivery` full | **23/23 PASS** |
+| OA `cycleTrajectoryEpistemicCkc` | **22/22 PASS** |
+| OA `w1TrajectoryDurability` | **3/3 PASS** |
+| OA `adversarialValidation` | **22/22 PASS** |
+| TrajectorySurface + labels + W1 CKC | **45/45 PASS** |
+| Playwright `studio-w2-g3-correction-runtime.spec.ts` | **1/1 PASS** |
+| In-scope tsc | clean |
+| `git diff --check` (A3 files) | clean |
 
-### Restart
+### Known pre-existing (non-blocking)
 
-A2-6 PASS (SQLite reopen detects durable qualification drift).
-
-### Playwright
-
-Canonical `/studio` Options → HD → EC inspect → STOP BEFORE EXECUTE — PASS. No Execute. Visual Figma: INCONCLUSIVE / non-blocking (unchanged).
+`uatUxSemanticReserves` Morris label mismatch — out of A3 diff; unchanged known reserve.
 
 ---
 
-## I. Final diff
+## H. Final consolidated diff
 
-### Distinction
+### This A3 pass — files touched
 
-| Layer | Status |
+1. `projects/sfia-studio/app/lib/oa/cycle/application/proposeTrajectoryVersion.ts` — lineage HEAD OCC + candidate supersession
+2. `projects/sfia-studio/app/lib/oa/cycle/index.ts` — export `resolveTrajectoryLineageHead`
+3. `projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts` — remove unsafe reuse; wire version bump
+4. `projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts` — A3-1…A3-8 (+6b)
+
+### Prior Delivery / A2 (still untracked / modified, not reopened)
+
+- Full `features/project-assistant/w2/*` including A2 `decideTrajectory`
+- TrajectorySurface, OA promote/inspect/receipts, disclosures, e2e, harness
+- Tracked delta vs origin/main: 36 files (+543/−88) from prior cycles
+
+### Exploitable A3 delta summary
+
+**Before:** material Y could bind to same T@vN as X when no current.
+**After:** Y binds to T@vN+1; X’s candidate superseded; Observation X superseded; A2 still blocks stale decide.
+
+Key helper excerpt:
+
+```typescript
+export async function resolveTrajectoryLineageHead(trajectories, projectId, trajectoryId) {
+  const current = await trajectories.findCurrentByProjectId(projectId);
+  let head = current && current.trajectoryId === trajectoryId
+    ? current
+    : await trajectories.findById(trajectoryId);
+  // probe findByProjectAndVersion forward…
+  return head;
+}
+```
+
+Supersession rule excerpt:
+
+```typescript
+if (promotesEffectiveCurrent || head.status === "candidate") {
+  await this.trajectories.markSuperseded(head.trajectoryId, head.version);
+}
+await this.trajectories.save(trajectory); // candidate → no current pointer
+```
+
+---
+
+## I. Architecture proof
+
+| Claim | Evidence |
 |---|---|
-| Prior Delivery EABC + Correction Pass | Intact, uncommitted |
-| Micro-pass A2 | Applied in `decideTrajectory.ts` + tests |
-| Micro-pass A3 | STOP only — Stage 0 evidence test; no propose rewrite |
-
-### Consolidated vs origin/main
-
-- Tracked: 36 files, +543/−88 (prior Delivery/correction)
-- Untracked W2 tree + tests + e2e + OA promote/inspect (full product path still local)
-
-### Micro-pass modified content (reviewable)
-
-**`decideTrajectory.ts`** — added import of `computeQualificationDigest` + `resolveW2QualificationInputs`; after optionSetDigest seal check, live qualification digest compare → `OPTION_SET_STALE`.
-
-**`w2EabcDelivery.test.ts`** — replaced incorrect “decide after drift PASS” A2 with A2-1/2/5/6; rewrote A3 as Stage 0 insufficiency evidence (reuse T@vN + proposeVersion without current fails).
-
-### Remaining A3 risk in tree
-
-`proposeTrajectoryOptions.ts` lines 220–224 still reuse T@vN on digest mismatch without current. **Known / intentional non-fix pending Morris.** A2 blocks deciding a stale X after drift even if that path runs.
+| Same SoT | Same `trajectoryId` across X→Y |
+| No second engine | Adapted `ProposeTrajectoryVersion` only |
+| No new status | Uses existing `superseded` / `candidate` |
+| No new table / port method | Probe via existing queries |
+| Current pointer projection only | Candidate save does not update current |
+| C6 CLOSED | No parallel Proposal domain |
+| A2 intact | Live qualification digest check unchanged |
 
 ---
 
-## J. Architecture
+## J. Remaining gaps
 
-| Item | Status |
-|---|---|
-| OA KEEP | YES |
-| Product SQLite KEEP | YES |
-| ProjectTrajectory unique SoT | YES |
-| No second SoT / parallel engine | YES |
-| C6 | CLOSED |
-| Runtime v3 | NON ADOPTED |
-
----
-
-## K. Remaining gaps
-
-- **A3 structural model** — blocking for honest candidate reinstruction before first HD
-- Phase B / Track D — not consumed
-- W2 final exit — not claimed
-- Confirmation known simplification (EC lifecycle) — retained from prior correction
+- Phase B / Track D — not authorized
+- Full W2 product exit — not claimed
+- Confirmation multi-factor simplification — retained known
 - REAL — OUT
-- Visual Figma fidelity — INCONCLUSIVE
-- Pre-existing UAT-UX Morris label drift — out of micro-scope
+- Figma visual fidelity — INCONCLUSIVE
+- UAT Morris label reserve — pre-existing
 
 ---
 
-## L. Git
+## K. Git boundaries
 
-- **No** project `git add` / commit / push / PR / merge
-- Handoff L3 only on `sfia/review-handoff` (see publication section after publish)
-- Return to branch `delivery/sfia-studio-w2-g3-umbrella-a` with local Delivery intact
-
----
-
-## M. Verdict (this micro-cycle)
-
-**A2: PASS**
-
-**A3: STOP — CANDIDATE REINSTRUCTION MODEL INSUFFICIENT — MORRIS STRUCTURAL DECISION REQUIRED**
-
-Combined cycle verdict for ChatGPT:
-
-**STOP — CANDIDATE REINSTRUCTION MODEL INSUFFICIENT — MORRIS STRUCTURAL DECISION REQUIRED**
-
-(with A2 micro-correction applied and reviewable; A3 not claimed fixed)
+- **No** project commit / push / PR / merge
+- Handoff L3 only on `sfia/review-handoff`
+- Return to `delivery/sfia-studio-w2-g3-umbrella-a` with Delivery intact
 
 ---
 
-## N. Instruction ChatGPT
+## L. Verdict
 
-1. Re-review A2 qualification stale enforcement.
-2. Confirm Stage 0 A3 discovery and decision pack; **do not** treat T@vN reuse as acceptable.
-3. Morris must choose a candidate reinstruction model before any further A3 implementation.
-4. No project Git integration until A3 model decision + subsequent delivery GO.
+**READY FOR CHATGPT RE-REVIEW — W2-G3 A3 CANDIDATE REINSTRUCTION VERSIONING IMPLEMENTED**
+
+---
+
+## M. Instruction ChatGPT
+
+Re-review A3 (CAS A + CAS B + OCC + A2 coexistence) before any project Git integration.
