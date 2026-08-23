@@ -47,7 +47,7 @@ function baseQualification(): QualificationDto {
       irreversible: false,
       lowRiskBounded: true,
     },
-    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
+    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
     executionAuthority: false,
   };
 }
@@ -140,7 +140,7 @@ describe("W1 bounded CKC→Nora semantic seam", () => {
     expect(control.recommendation.toLowerCase()).not.toMatch(/anti scope creep/);
     expect(treatment.recommendation.toLowerCase()).toMatch(/anti scope creep/);
     expect(treatment.recommendation).toContain("RECOMMANDATION");
-    expect(treatment.recommendation).toContain("PAS UNE DÉCISION MORRIS");
+    expect(treatment.recommendation).toContain("PAS UNE DÉCISION HUMAINE");
   });
 
 });

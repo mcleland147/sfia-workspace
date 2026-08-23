@@ -1,5 +1,7 @@
 /**
- * Record Morris-gate HumanDecision via OA DecisionServices (M3 durable).
+ * Record the structuring gate HumanDecision via OA DecisionServices (M3 durable).
+ * The product runtime decision-maker is the generic Pilote actor; `authority:
+ * "morris"` stays the OA domain authority class for structuring decisions.
  * Authority evidence is server-owned LOCAL_SINGLE_USER_AUTHORITY_TEMPORARY_WITH_EXIT
  * when configured; fail-closed otherwise. Client claims ignored.
  */
@@ -12,8 +14,8 @@ import type {
 } from "@/lib/oa/decision";
 import {
   computeDecisionBasisSourceDigest,
-  LOCAL_MORRIS_M3_ACTOR,
-  registerM3LocalMorrisAuthority,
+  LOCAL_PILOTE_ACTOR,
+  registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
 import type {
   DecisionDto,
@@ -234,7 +236,7 @@ export async function recordF2Decision(input: {
   const scope = proposalScope(proposal);
   const issuedAt = input.nowIso();
 
-  const authority = registerM3LocalMorrisAuthority({
+  const authority = registerLocalPiloteAuthority({
     authorityResolver: input.authorityResolver,
     scope,
     issuedAt,
@@ -286,7 +288,7 @@ export async function recordF2Decision(input: {
     subject: `F2 gate for ${proposal.proposalId}`,
     options,
     selectedOptionId: mapped.selectedOptionId,
-    actor: LOCAL_MORRIS_M3_ACTOR,
+    actor: LOCAL_PILOTE_ACTOR,
     authority: "morris",
     status: mapped.humanStatus,
     reversible: true,

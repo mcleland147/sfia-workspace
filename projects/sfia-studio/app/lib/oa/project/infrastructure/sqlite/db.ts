@@ -5,7 +5,8 @@ export const PRODUCT_SCHEMA_VERSION_M2 = "m2-0.1.0" as const;
 export const PRODUCT_SCHEMA_VERSION_M3 = "m3-0.1.0" as const;
 export const PRODUCT_SCHEMA_VERSION_M5 = "m5-0.1.0" as const;
 export const PRODUCT_SCHEMA_VERSION_M6 = "m6-0.1.0" as const;
-export const PRODUCT_SCHEMA_VERSION = PRODUCT_SCHEMA_VERSION_M6;
+export const PRODUCT_SCHEMA_VERSION_M7 = "m7-0.1.0" as const;
+export const PRODUCT_SCHEMA_VERSION = PRODUCT_SCHEMA_VERSION_M7;
 
 const BASE_SCHEMA_SQL = `
 PRAGMA foreign_keys = ON;
@@ -251,6 +252,47 @@ CREATE INDEX IF NOT EXISTS idx_oa_epistemic_items_project
   ON oa_epistemic_items(project_id, type, status, materialized);
 `;
 
+/**
+ * W2 (M7) — audit-only governance proof.
+ * Both tables are append-only snapshots. Neither grants authority: an
+ * attestation proves an inspection happened on an exact contract version, and
+ * a receipt proves how effective authority was evaluated at a point in time.
+ */
+const M7_INSPECTION_AUTHORITY_SCHEMA_SQL = `
+CREATE TABLE IF NOT EXISTS oa_ec_inspection_attestations (
+  attestation_id TEXT PRIMARY KEY NOT NULL,
+  execution_contract_id TEXT NOT NULL,
+  contract_version INTEGER NOT NULL,
+  semantic_fingerprint TEXT NOT NULL,
+  project_id TEXT,
+  actor_id TEXT NOT NULL,
+  inspected_at TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_oa_ec_inspection_contract
+  ON oa_ec_inspection_attestations(execution_contract_id, contract_version, inspected_at);
+
+CREATE TABLE IF NOT EXISTS oa_authority_verification_receipts (
+  receipt_id TEXT PRIMARY KEY NOT NULL,
+  execution_contract_id TEXT NOT NULL,
+  contract_version INTEGER NOT NULL,
+  semantic_fingerprint TEXT NOT NULL,
+  project_id TEXT,
+  actor_id TEXT NOT NULL,
+  outcome TEXT NOT NULL,
+  verified_at TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_oa_authority_receipts_contract
+  ON oa_authority_verification_receipts(execution_contract_id, verified_at);
+CREATE INDEX IF NOT EXISTS idx_oa_authority_receipts_project
+  ON oa_authority_verification_receipts(project_id, verified_at);
+`;
+
 function readSchemaVersion(db: DatabaseSync): string | null {
   const row = db
     .prepare("SELECT value FROM schema_meta WHERE key = ?")
@@ -296,8 +338,12 @@ function applyM6(db: DatabaseSync): void {
   db.exec(M6_TRAJECTORY_CONFIRMATION_EPISTEMIC_SCHEMA_SQL);
 }
 
+function applyM7(db: DatabaseSync): void {
+  db.exec(M7_INSPECTION_AUTHORITY_SCHEMA_SQL);
+}
+
 /**
- * Open Product SQLite with additive M1→M2→M3→M5→M6 migration.
+ * Open Product SQLite with additive M1→M2→M3→M5→M6→M7 migration.
  * Fail closed on unknown/future schema versions.
  */
 export function openProductSqlite(dbPath: string): DatabaseSync {
@@ -311,24 +357,32 @@ export function openProductSqlite(dbPath: string): DatabaseSync {
     applyM3(db);
     applyM5(db);
     applyM6(db);
+    applyM7(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION_M2) {
     applyM3(db);
     applyM5(db);
     applyM6(db);
+    applyM7(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION_M3) {
     applyM5(db);
     applyM6(db);
+    applyM7(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION_M5) {
     applyM6(db);
+    applyM7(db);
+    setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
+  } else if (version === PRODUCT_SCHEMA_VERSION_M6) {
+    applyM7(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION) {
     applyM2(db);
     applyM3(db);
     applyM5(db);
     applyM6(db);
+    applyM7(db);
   } else {
     try {
       db.close();

@@ -72,7 +72,7 @@ export class FakeConversationProvider implements ConversationProvider {
       );
       if (hasCkcContext) {
         return {
-          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — anti scope creep : borner le slice avant toute extension. RECOMMANDATION — PAS UNE DÉCISION MORRIS.",
+          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — anti scope creep : borner le slice avant toute extension. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
           usage: {
             inputTokens: 10 * this.callCount,
             outputTokens: 5 * this.callCount,

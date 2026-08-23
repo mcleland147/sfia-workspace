@@ -46,7 +46,10 @@ export {
   M3_LOCAL_AUTHORITY_SOURCE,
   M3_LOCAL_AUTHORITY_ENV,
   LOCAL_MORRIS_M3_ACTOR,
+  LOCAL_PILOTE_ACTOR,
+  LOCAL_PILOTE_ACTOR_ID,
   isM3LocalAuthorityEnabled,
+  registerLocalPiloteAuthority,
   registerM3LocalMorrisAuthority,
 } from "./infrastructure/localSingleUserAuthority";
 export { SqliteDecisionRepository } from "./infrastructure/sqlite/sqliteDecisionRepository";

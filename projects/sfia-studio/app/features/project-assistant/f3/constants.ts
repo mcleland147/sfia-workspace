@@ -60,17 +60,17 @@ export const F3_PROCESS_LOCAL_NOTICE =
  * Distinguishes execution mode (fixture) from persistence durability (Product).
  */
 export const F3_PRODUCT_DURABLE_NOTICE =
-  "F3 fixture execution — Attempt, Evidence, ReviewBundle and LPS evidence links are persisted in Product SQLite. REAL execution remains disabled. Recommendation is not a Morris decision.";
+  "F3 fixture execution — Attempt, Evidence, ReviewBundle and LPS evidence links are persisted in Product SQLite. REAL execution remains disabled. Recommendation is not a human decision.";
 
 /**
  * Durable read after a bounded Attempt whose REAL vs deterministic provenance
  * is no longer discriminable from LPS facts. Fail-closed: never claim REAL.
  */
 export const F3_PRODUCT_DURABLE_BOUNDED_NOTICE =
-  "Lecture durable du résultat — aucune nouvelle exécution. Un résultat d'exécution borné a été enregistré. La recommandation n'est pas une décision Morris.";
+  "Lecture durable du résultat — aucune nouvelle exécution. Un résultat d'exécution borné a été enregistré. La recommandation n'est pas une décision humaine.";
 
 export const F3_SESSION_CURSOR_REAL_NOTICE =
-  "Exécution Cursor réelle enregistrée. La recommandation n'est pas une décision Morris." as const;
+  "Exécution Cursor réelle enregistrée. La recommandation n'est pas une décision humaine." as const;
 
 /**
  * Route F3 ephemeral disclosure by OA composition persistence, not by
@@ -87,7 +87,7 @@ export function resolveF3EphemeralNotice(
 export const F3_LABELS = Object.freeze({
   fixtureNoReal: "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
   noGitWrite: "AUCUN GIT WRITE PRODUIT",
-  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
+  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
   cursorRealBlocked: "CURSOR REAL BLOQUÉ",
   noReadyClaim: "PAS DE CLAIM READY",
   noTa6Complete: "T-A6 COMPLETE NON DÉCLARÉ",

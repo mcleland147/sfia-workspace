@@ -32,9 +32,53 @@ export class TrajectoryVersionConflictSignal extends Error {
 }
 
 /**
- * ProposeTrajectoryVersion — expectedVersion required; supersede previous;
- * cyclic deps → TRAJECTORY_INVALID; mutex like T-A1; deep clone.
+ * D-W2-A3-01 — resolve the semantic lineage HEAD for a ProjectTrajectory.
+ *
+ * Prefer current when present, then probe forward with findByProjectAndVersion
+ * so an undecided candidate ahead of current (CAS B) is the OCC base.
+ * When no current exists, start from findById (latest for trajectoryId) and
+ * probe forward the same way (CAS A).
+ *
+ * Uses existing repository queries only — no new SoT / port contract.
+ */
+export async function resolveTrajectoryLineageHead(
+  trajectories: TrajectoryRepositoryPort,
+  projectId: string,
+  trajectoryId: string,
+): Promise<ProjectTrajectory | null> {
+  const current = await trajectories.findCurrentByProjectId(projectId);
+  let head: ProjectTrajectory | null = null;
+
+  if (current) {
+    if (current.trajectoryId !== trajectoryId) {
+      return null;
+    }
+    head = current;
+  } else {
+    const byId = await trajectories.findById(trajectoryId);
+    if (!byId || byId.projectId !== projectId) {
+      return null;
+    }
+    head = byId;
+  }
+
+  let probe = head.version + 1;
+  for (;;) {
+    const next = await trajectories.findByProjectAndVersion(projectId, probe);
+    if (!next) break;
+    if (next.trajectoryId !== trajectoryId) break;
+    head = next;
+    probe += 1;
+  }
+  return head;
+}
+
+/**
+ * ProposeTrajectoryVersion — expectedVersion required against lineage HEAD;
+ * supersede previous candidate (D-W2-A3-01) or previous current when installing
+ * validated/active; cyclic deps → TRAJECTORY_INVALID; deep clone.
  * Logical rollback = propose new version restoring prior steps (never rewrite history).
+ * Candidate status never updates oa_project_trajectory_current.
  */
 export class ProposeTrajectoryVersion {
   constructor(
@@ -150,21 +194,35 @@ export class ProposeTrajectoryVersion {
       let lpsVersion = 0;
 
       const persist = async () => {
-        const current = await this.trajectories.findCurrentByProjectId(
+        const head = await resolveTrajectoryLineageHead(
+          this.trajectories,
           request.projectId,
+          request.trajectoryId,
         );
-        if (!current) {
-          throw new Error("missing_current_trajectory");
+        if (!head) {
+          throw new Error("missing_lineage_head");
         }
-        if (current.trajectoryId !== request.trajectoryId) {
+        if (head.trajectoryId !== request.trajectoryId) {
           throw new Error("trajectory_id_mismatch");
         }
-        if (request.expectedVersion !== current.version) {
-          throw new TrajectoryVersionConflictSignal(current.version);
+        if (head.projectId !== request.projectId) {
+          throw new Error("project_id_mismatch");
+        }
+        if (request.expectedVersion !== head.version) {
+          throw new TrajectoryVersionConflictSignal(head.version);
         }
 
-        nextVersion = current.version + 1;
-        previousVersion = current.version;
+        // Refuse silent rewrite: next version must not already exist.
+        const colliding = await this.trajectories.findByProjectAndVersion(
+          request.projectId,
+          head.version + 1,
+        );
+        if (colliding) {
+          throw new TrajectoryVersionConflictSignal(colliding.version);
+        }
+
+        nextVersion = head.version + 1;
+        previousVersion = head.version;
 
         const trajectory: ProjectTrajectory = {
           schemaVersion: "0.1.0-oa",
@@ -173,15 +231,17 @@ export class ProposeTrajectoryVersion {
           version: nextVersion,
           status,
           steps: structuredClone(steps),
-          supersedesTrajectoryVersion: current.version,
+          supersedesTrajectoryVersion: head.version,
         };
 
         const promotesEffectiveCurrent =
           status === "validated" || status === "active";
-        if (promotesEffectiveCurrent) {
+        // D-W2-A3-01: candidate→candidate supersedes prior candidate only.
+        // Proposing a new candidate from a decided current leaves current intact.
+        if (promotesEffectiveCurrent || head.status === "candidate") {
           await this.trajectories.markSuperseded(
-            current.trajectoryId,
-            current.version,
+            head.trajectoryId,
+            head.version,
           );
         }
         await this.trajectories.save(trajectory);
@@ -241,8 +301,18 @@ export class ProposeTrajectoryVersion {
               .currentVersion,
           });
         }
-        if (err instanceof Error && err.message === "missing_current_trajectory") {
-          return fail("TRAJECTORY_NOT_FOUND", "missing_current_trajectory");
+        if (
+          err instanceof Error &&
+          (err.message === "missing_lineage_head" ||
+            err.message === "missing_current_trajectory")
+        ) {
+          return fail("TRAJECTORY_NOT_FOUND", "missing_lineage_head");
+        }
+        if (err instanceof Error && err.message === "trajectory_id_mismatch") {
+          return fail("TRAJECTORY_INVALID", "trajectory_id_mismatch");
+        }
+        if (err instanceof Error && err.message === "project_id_mismatch") {
+          return fail("TRAJECTORY_INVALID", "project_id_mismatch");
         }
         return fail("PERSISTENCE_FAILURE", "atomic_propose_failed");
       }

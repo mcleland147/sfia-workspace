@@ -46,6 +46,19 @@ export type CycleAuditEvent =
       durationMs: number;
     }
   | {
+      event: "oa.trajectory.decided";
+      ts: string;
+      correlationId?: string;
+      projectId: string;
+      trajectoryId: string;
+      version: number;
+      decisionRef: string;
+      status?: string;
+      result: "ok" | "error";
+      detailCode?: string;
+      durationMs: number;
+    }
+  | {
       event: "oa.trajectory.version_conflict";
       ts: string;
       correlationId?: string;

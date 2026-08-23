@@ -54,7 +54,7 @@ function badgeFor(status: string): Badge {
   }
 }
 
-/** F1 — Projects entry point. Nora recommends, Morris decides. */
+/** F1 — Projects entry point. Nora recommends, the Pilote decides. */
 export function ProjectsPage() {
   const [state, setState] = useState<ListState>({ status: "loading" });
 

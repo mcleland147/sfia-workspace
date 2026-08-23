@@ -137,7 +137,7 @@ const DURABLE_OUTCOME: ProjectAssistantRehydrateEvidenceOutcomeSuccess = {
     hardBlockers: [],
     nextGateCode: null,
     nextActionCode: null,
-    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
+    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
     mode: "FIXTURE",
   },
   lpsVersion: 2,
@@ -201,7 +201,7 @@ describe("ProjectPrincipalClient AMEND readback / recovery", () => {
     const history = await screen.findByTestId("project-history-panel");
     await waitFor(() => {
       expect(
-        within(history).getByText("RECOMMANDATION — PAS UNE DÉCISION MORRIS"),
+        within(history).getByText("RECOMMANDATION — PAS UNE DÉCISION HUMAINE"),
       ).toBeVisible();
     });
     expect(within(history).getByText("Evidence")).toBeVisible();

@@ -7,6 +7,7 @@ import { GetCurrentTrajectory } from "../../application/getCurrentTrajectory";
 import { GetCycle } from "../../application/getCycle";
 import { GetEpistemicState } from "../../application/getEpistemicState";
 import { GetTrajectoryVersion } from "../../application/getTrajectoryVersion";
+import { PromoteDecidedTrajectory } from "../../application/promoteDecidedTrajectory";
 import { ProposeTrajectoryVersion } from "../../application/proposeTrajectoryVersion";
 import { QualifyCycle } from "../../application/qualifyCycle";
 import { ResolveCycleKnowledgeContract } from "../../application/resolveCycleKnowledgeContract";
@@ -47,6 +48,7 @@ export type SqliteCycleServices = {
   getCurrentTrajectory: GetCurrentTrajectory;
   getTrajectoryVersion: GetTrajectoryVersion;
   proposeTrajectoryVersion: ProposeTrajectoryVersion;
+  promoteDecidedTrajectory: PromoteDecidedTrajectory;
   getEpistemicState: GetEpistemicState;
   updateEpistemicState: UpdateEpistemicState;
   resolveCycleKnowledgeContract: ResolveCycleKnowledgeContract;
@@ -93,6 +95,13 @@ export function createSqliteCycleServices(
     getCurrentTrajectory: new GetCurrentTrajectory(trajectories, clock, audit),
     getTrajectoryVersion: new GetTrajectoryVersion(trajectories, clock, audit),
     proposeTrajectoryVersion: new ProposeTrajectoryVersion(
+      trajectories,
+      options.projectServices,
+      clock,
+      audit,
+      productStore,
+    ),
+    promoteDecidedTrajectory: new PromoteDecidedTrajectory(
       trajectories,
       options.projectServices,
       clock,

@@ -115,6 +115,13 @@ const SUCCESS_RESULT = {
     cycleInstanceRestartSafe: true as const,
     humanDecisionRestartSafe: true as const,
     executionContractRestartSafe: true as const,
+    projectTrajectoryRestartSafe: true as const,
+    materializedEpistemicRestartSafe: true as const,
+    grantedConfirmationRestartSafe: true as const,
+    requestedConfirmationRestartSafe: false as const,
+    restoredConfirmationIsHistoricalConsentOnly: true as const,
+    w2Cognition: "IN_PROGRESS_NOT_COMPLETE" as const,
+    ckcPhaseBCognition: "NOT_AUTHORIZED_NOT_IMPLEMENTED" as const,
     messages: [] as const,
   },
 };

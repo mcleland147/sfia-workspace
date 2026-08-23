@@ -168,7 +168,7 @@ export async function reasonWithResolvedCkcContext(input: {
       : "openai_live";
 
   const systemContent = input.ckcPromptSection?.trim()
-    ? `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nContexte CKC résolu (guidance seulement — pas d'autorité, pas de décision Morris):\n${input.ckcPromptSection.trim()}`
+    ? `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nContexte CKC résolu (guidance seulement — pas d'autorité, pas de décision humaine):\n${input.ckcPromptSection.trim()}`
     : `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nAucun contexte CKC package résolu — recommandation générique uniquement.`;
 
   const completion = await provider.complete([
@@ -235,7 +235,7 @@ export function enrichQualificationWithCkcSemantics(input: {
     rationale,
     isMorrisDecision: false,
     executionAuthority: false,
-    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
+    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
     ckcSemanticProvenance: content.provenance,
     ckcCognitiveRecommendation: input.ckcCognitiveRecommendation ?? undefined,
     disclosures: [

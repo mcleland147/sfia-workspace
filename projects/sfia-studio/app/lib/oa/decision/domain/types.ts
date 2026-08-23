@@ -72,15 +72,40 @@ export type DecisionBasisProposalContext = {
   ckcResolutionRef?: string;
 };
 
+/**
+ * W2 — durable linkage from a structuring HumanDecision to the Option set it
+ * arbitrated and to the trajectory version it is allowed to promote.
+ * Options are described by reference/label only: a Recommendation recorded
+ * here is never itself a decision.
+ */
+export type DecisionBasisTrajectoryContext = {
+  /** Trajectory aggregate the decision arbitrates. */
+  trajectoryId: string;
+  /** Candidate (proposed) version the decision may promote. */
+  candidateVersion: number;
+  /** Option refs presented to the Pilote, in presentation order. */
+  optionRefs: string[];
+  /** Option the Pilote selected — must belong to optionRefs. */
+  selectedOptionRef: string;
+  /** Option that Nora recommended, when any. Never a decision. */
+  recommendedOptionRef?: string;
+  /** Durable Epistemic item refs materializing the options/recommendation. */
+  epistemicRefs?: string[];
+  /** W2 A2 — digest of the exact presented OptionSet sealed at propose. */
+  optionSetDigest?: string;
+};
+
 export type DecisionBasis = {
-  sourceType: "proposal";
-  /** Opaque proposal id — not an F2 type import. */
+  sourceType: "proposal" | "trajectory_option";
+  /** Opaque source id (proposal id or trajectory option-set ref) — not an F2 type import. */
   sourceRef: string;
-  /** SHA-256 hex of canonical JSON over stable proposal fields. */
+  /** SHA-256 hex of canonical JSON over stable source fields. */
   sourceDigest: string;
   projectId: string;
   cycleInstanceId?: string;
   proposalContext: DecisionBasisProposalContext;
+  /** Present when sourceType is `trajectory_option`. */
+  trajectoryContext?: DecisionBasisTrajectoryContext;
   executionBasis: {
     objective?: string;
     scope?: string;

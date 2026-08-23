@@ -9,9 +9,10 @@ import type {
   MemoryAuthorityResolver,
 } from "@/lib/oa/decision";
 import {
-  LOCAL_MORRIS_M3_ACTOR,
-  registerM3LocalMorrisAuthority,
+  LOCAL_PILOTE_ACTOR,
+  registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
+/** W2: Pilote is the product decision-maker; Morris remains authority CLASS only. */
 import type {
   CursorPrepareOnlyProjection,
   ExecutionContractServices,
@@ -41,6 +42,9 @@ export type F3M3PreparePayload = {
     scope: string;
     requiredAuthority: string;
     constraints: string[];
+    stopConditions: string[];
+    requiredCapabilities: string[];
+    reversibility: string;
     semanticFingerprint: string;
   };
   cursorProjection: CursorPrepareOnlyProjection;
@@ -224,7 +228,7 @@ export async function prepareM3FromDecision(input: {
 
   const fields = fieldsFromBasis(basis, decision.decisionId);
   const issuedAt = input.deps.nowIso();
-  const authority = registerM3LocalMorrisAuthority({
+  const authority = registerLocalPiloteAuthority({
     authorityResolver: input.deps.authorityResolver,
     scope: fields.scope,
     issuedAt,
@@ -262,7 +266,7 @@ export async function prepareM3FromDecision(input: {
       reversibility: fields.reversibility,
       idempotencyKey,
       correlationId: `cor:m3-prep:${decision.decisionId}`,
-      actor: LOCAL_MORRIS_M3_ACTOR,
+      actor: LOCAL_PILOTE_ACTOR,
       authorityEvidenceId: authority.evidenceId,
     });
 
@@ -278,7 +282,7 @@ export async function prepareM3FromDecision(input: {
     await input.deps.executionContractServices.validateExecutionContract.execute(
       {
         executionContractId: built.contract.executionContractId,
-        actor: LOCAL_MORRIS_M3_ACTOR,
+        actor: LOCAL_PILOTE_ACTOR,
         authorityEvidenceId: authority.evidenceId,
       },
     );
@@ -322,6 +326,9 @@ export async function prepareM3FromDecision(input: {
         scope: contract.scope,
         requiredAuthority: contract.requiredAuthority,
         constraints: [...contract.constraints],
+        stopConditions: [...contract.stopConditions],
+        requiredCapabilities: [...contract.requiredCapabilities],
+        reversibility: contract.reversibility,
         semanticFingerprint: contract.semanticFingerprint ?? cursorProjection.fingerprint,
       },
       cursorProjection,

@@ -14,11 +14,20 @@ import { GetExecutionContract } from "../../application/getExecutionContract";
 import { ListExecutionContractHistory } from "../../application/listExecutionContractHistory";
 import { SupersedeExecutionContract } from "../../application/supersedeExecutionContract";
 import { ValidateExecutionContract } from "../../application/validateExecutionContract";
+import { RecordAuthorityVerification } from "../../application/recordAuthorityVerification";
+import {
+  GetContractInspectionState,
+  RecordContractInspection,
+} from "../../application/recordContractInspection";
 import type { ExecutionAuditPort } from "../../ports/executionAudit";
 import type { ExecutionContractPersistenceUnitOfWorkPort } from "../../ports/executionContractPersistenceUnitOfWorkPort";
 import type { ExecutionContractRepositoryPort } from "../../ports/executionContractRepository";
+import type { InspectionAttestationRepositoryPort } from "../../ports/inspectionAttestationRepository";
+import type { AuthorityVerificationReceiptRepositoryPort } from "../../ports/authorityVerificationReceiptRepository";
 import { SqliteExecutionAuditJournal } from "./sqliteExecutionAuditJournal";
 import { SqliteExecutionContractRepository } from "./sqliteExecutionContractRepository";
+import { SqliteAuthorityVerificationReceiptRepository } from "./sqliteAuthorityVerificationReceiptRepository";
+import { SqliteInspectionAttestationRepository } from "./sqliteInspectionAttestationRepository";
 
 export type CreateSqliteExecutionContractServicesOptions = {
   projectServices: ProjectServices;
@@ -35,6 +44,8 @@ export type SqliteExecutionContractServices = {
   contracts: ExecutionContractRepositoryPort;
   audit: ExecutionAuditPort;
   productStore: ProductSqliteHandle;
+  inspectionAttestations: InspectionAttestationRepositoryPort;
+  authorityReceipts: AuthorityVerificationReceiptRepositoryPort;
   buildExecutionContract: BuildExecutionContract;
   getExecutionContract: GetExecutionContract;
   listExecutionContractHistory: ListExecutionContractHistory;
@@ -43,6 +54,9 @@ export type SqliteExecutionContractServices = {
   supersedeExecutionContract: SupersedeExecutionContract;
   cancelExecutionContract: CancelExecutionContract;
   checkExecutionAuthorization: CheckExecutionAuthorization;
+  recordContractInspection: RecordContractInspection;
+  getContractInspectionState: GetContractInspectionState;
+  recordAuthorityVerification: RecordAuthorityVerification;
 };
 
 /**
@@ -57,6 +71,12 @@ export function createSqliteExecutionContractServices(
   const audit = options.audit ?? new SqliteExecutionAuditJournal(productStore);
   const authority =
     options.authorityResolver ?? options.decisionServices.authority;
+  const inspectionAttestations = new SqliteInspectionAttestationRepository(
+    productStore,
+  );
+  const authorityReceipts = new SqliteAuthorityVerificationReceiptRepository(
+    productStore,
+  );
 
   const cancelExecutionContract = new CancelExecutionContract(
     contracts,
@@ -71,6 +91,8 @@ export function createSqliteExecutionContractServices(
     contracts,
     audit,
     productStore,
+    inspectionAttestations,
+    authorityReceipts,
     buildExecutionContract: new BuildExecutionContract(
       contracts,
       authority,
@@ -119,6 +141,19 @@ export function createSqliteExecutionContractServices(
       options.cycleServices,
       clock,
       audit,
+    ),
+    recordContractInspection: new RecordContractInspection(
+      contracts,
+      inspectionAttestations,
+      clock,
+    ),
+    getContractInspectionState: new GetContractInspectionState(
+      contracts,
+      inspectionAttestations,
+    ),
+    recordAuthorityVerification: new RecordAuthorityVerification(
+      authorityReceipts,
+      clock,
     ),
   };
 }

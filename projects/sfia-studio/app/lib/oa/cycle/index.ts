@@ -35,7 +35,9 @@ export { GetTrajectoryVersion } from "./application/getTrajectoryVersion";
 export {
   ProposeTrajectoryVersion,
   TrajectoryVersionConflictSignal,
+  resolveTrajectoryLineageHead,
 } from "./application/proposeTrajectoryVersion";
+export { PromoteDecidedTrajectory } from "./application/promoteDecidedTrajectory";
 export { GetEpistemicState } from "./application/getEpistemicState";
 export { UpdateEpistemicState } from "./application/updateEpistemicState";
 export { ResolveCycleKnowledgeContract } from "./application/resolveCycleKnowledgeContract";
@@ -76,6 +78,7 @@ import { GetCurrentTrajectory } from "./application/getCurrentTrajectory";
 import { GetCycle } from "./application/getCycle";
 import { GetEpistemicState } from "./application/getEpistemicState";
 import { GetTrajectoryVersion } from "./application/getTrajectoryVersion";
+import { PromoteDecidedTrajectory } from "./application/promoteDecidedTrajectory";
 import { ProposeTrajectoryVersion } from "./application/proposeTrajectoryVersion";
 import { QualifyCycle } from "./application/qualifyCycle";
 import {
@@ -116,6 +119,8 @@ export type CycleServices = {
   getCurrentTrajectory: GetCurrentTrajectory;
   getTrajectoryVersion: GetTrajectoryVersion;
   proposeTrajectoryVersion: ProposeTrajectoryVersion;
+  /** W2: candidate → decided/current promotion, decisionRef mandatory. */
+  promoteDecidedTrajectory: PromoteDecidedTrajectory;
   getEpistemicState: GetEpistemicState;
   updateEpistemicState: UpdateEpistemicState;
   resolveCycleKnowledgeContract: ResolveCycleKnowledgeContract;
@@ -260,6 +265,13 @@ export function createInMemoryCycleServices(
     getCurrentTrajectory: new GetCurrentTrajectory(trajectories, clock, audit),
     getTrajectoryVersion: new GetTrajectoryVersion(trajectories, clock, audit),
     proposeTrajectoryVersion: new ProposeTrajectoryVersion(
+      trajectories,
+      options.projectServices,
+      clock,
+      audit,
+      store,
+    ),
+    promoteDecidedTrajectory: new PromoteDecidedTrajectory(
       trajectories,
       options.projectServices,
       clock,
