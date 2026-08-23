@@ -120,7 +120,7 @@ const SUCCESS_RESULT = {
     grantedConfirmationRestartSafe: true as const,
     requestedConfirmationRestartSafe: false as const,
     restoredConfirmationIsHistoricalConsentOnly: true as const,
-    w2Cognition: "IN_PROGRESS_NOT_COMPLETE" as const,
+    w2Cognition: "CLOSED_BY_MORRIS" as const,
     ckcPhaseBCognition: "IMPLEMENTED_DETERMINISTIC_NOT_REAL" as const,
     messages: [] as const,
   },

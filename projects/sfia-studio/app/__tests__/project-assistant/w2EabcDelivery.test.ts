@@ -66,7 +66,7 @@ describe("W2 Track E — disclosure honesty", () => {
     expect(RUNTIME_DISCLOSURES.materializedEpistemicRestartSafe).toBe(true);
     expect(RUNTIME_DISCLOSURES.grantedConfirmationRestartSafe).toBe(true);
     expect(RUNTIME_DISCLOSURES.requestedConfirmationRestartSafe).toBe(false);
-    expect(RUNTIME_DISCLOSURES.w2Cognition).toBe("IN_PROGRESS_NOT_COMPLETE");
+    expect(RUNTIME_DISCLOSURES.w2Cognition).toBe("CLOSED_BY_MORRIS");
     expect(RUNTIME_DISCLOSURES.ckcPhaseBCognition).toBe(
       "IMPLEMENTED_DETERMINISTIC_NOT_REAL",
     );
@@ -76,6 +76,9 @@ describe("W2 Track E — disclosure honesty", () => {
     expect(joined).toMatch(/IMPLEMENTED with DETERMINISTIC proof only/);
     expect(joined).toMatch(/NOT REAL/);
     expect(joined).toMatch(/Runtime v3 is not ADOPTED/);
+    expect(joined).toMatch(/CLOSED BY MORRIS/);
+    expect(joined).toMatch(/W3 NOT AUTHORIZED/);
+    expect(joined).not.toMatch(/W2 NOT closed/);
     expect(w1RestartHonestyMessage()).toMatch(/trajectoire effective\/décidée/i);
     expect(w1RestartHonestyMessage()).toMatch(/confirmation demandée/i);
   });
