@@ -15,7 +15,10 @@
 
 import { randomBytes, randomUUID } from "node:crypto";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
+import {
+  readLiveProjectContext,
+  resolveProductDoctrineRegistryRoot,
+} from "@/lib/vertical-slice-runtime";
 import type { DecisionBasis, HumanDecision } from "@/lib/oa/decision";
 import {
   computeDecisionBasisSourceDigest,
@@ -23,6 +26,10 @@ import {
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
 import type { TrajectoryStep } from "@/lib/oa/cycle";
+import {
+  computeCkcSemanticFingerprint,
+  loadProductCkcCognitiveContent,
+} from "@/features/project-assistant/f2/ckcCognitiveContext";
 import {
   computeOptionSetDigest,
   computeQualificationDigest,
@@ -227,14 +234,24 @@ export async function decideTrajectory(
       message: liveQualification.message,
     };
   }
+  const currentQual = liveQualification.qualification;
+  const registryRoot = resolveProductDoctrineRegistryRoot();
+  const liveCkc = loadProductCkcCognitiveContent({
+    registryRoot,
+    cycleTypeId: currentQual.inputs.cycleTypeId,
+    packagePin: currentQual.packagePin,
+  });
+  const liveFingerprint = liveCkc
+    ? computeCkcSemanticFingerprint(liveCkc.provenance)
+    : null;
   const currentQualificationDigest = computeQualificationDigest({
-    cycleTypeId: liveQualification.qualification.inputs.cycleTypeId,
-    recommendedProfile: liveQualification.qualification.inputs.recommendedProfile,
-    criticalSignalsPresent:
-      liveQualification.qualification.inputs.criticalSignalsPresent,
-    irreversible: liveQualification.qualification.inputs.irreversible,
-    reservations: liveQualification.qualification.inputs.reservations,
-    ckcAttribution: liveQualification.qualification.inputs.ckcAttribution,
+    cycleTypeId: currentQual.inputs.cycleTypeId,
+    recommendedProfile: currentQual.inputs.recommendedProfile,
+    criticalSignalsPresent: currentQual.inputs.criticalSignalsPresent,
+    irreversible: currentQual.inputs.irreversible,
+    reservations: currentQual.inputs.reservations,
+    ckcAttribution: currentQual.inputs.ckcAttribution,
+    ckcSemanticFingerprint: liveFingerprint,
   });
   if (currentQualificationDigest !== presented.qualificationDigest) {
     return {

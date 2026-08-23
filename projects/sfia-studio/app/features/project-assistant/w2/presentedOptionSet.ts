@@ -29,6 +29,11 @@ export type QualificationDigestInputs = {
   readonly irreversible: boolean;
   readonly reservations: readonly string[];
   readonly ckcAttribution: string | null;
+  /**
+   * Stable CKC semantic fingerprint (PB-DLV-01). Material cycle/CKC/content
+   * change invalidates binding; raw provider prose is never included.
+   */
+  readonly ckcSemanticFingerprint: string | null;
 };
 
 export type PresentedOptionSetBinding = {
@@ -49,6 +54,7 @@ export type PresentedOptionSetBinding = {
   readonly irreversible: boolean;
   readonly reservations: readonly string[];
   readonly ckcAttribution: string | null;
+  readonly ckcSemanticFingerprint: string | null;
 };
 
 export function computeQualificationDigest(
@@ -61,6 +67,7 @@ export function computeQualificationDigest(
     irreversible: inputs.irreversible,
     reservations: [...inputs.reservations],
     ckcAttribution: inputs.ckcAttribution,
+    ckcSemanticFingerprint: inputs.ckcSemanticFingerprint,
   });
 }
 

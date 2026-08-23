@@ -173,6 +173,7 @@ export function deriveTrajectoryRecommendation(
       isHumanDecision: false,
       promotesTrajectory: false,
       ckcAttribution: inputs.ckcAttribution,
+      ckcProvenance: null,
     };
   }
   if (inputs.criticalSignalsPresent || inputs.recommendedProfile === "Critical") {
@@ -184,6 +185,7 @@ export function deriveTrajectoryRecommendation(
       isHumanDecision: false,
       promotesTrajectory: false,
       ckcAttribution: inputs.ckcAttribution,
+      ckcProvenance: null,
     };
   }
   return {
@@ -194,5 +196,6 @@ export function deriveTrajectoryRecommendation(
     isHumanDecision: false,
     promotesTrajectory: false,
     ckcAttribution: inputs.ckcAttribution,
+    ckcProvenance: null,
   };
 }

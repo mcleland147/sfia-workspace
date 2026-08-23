@@ -58,6 +58,9 @@ export async function w2ProposeTrajectoryOptionsAction(input: {
     oa: runtime.oa,
     projectId: input.projectId,
     ...qualification.qualification.inputs,
+    packagePin: qualification.qualification.packagePin,
+    objective: qualification.qualification.objective,
+    projectTitle: qualification.qualification.projectTitle,
   });
 }
 
