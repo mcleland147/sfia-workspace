@@ -1,750 +1,111 @@
-# REVIEW PACK FULL — W2-G3 — A3 CANDIDATE REINSTRUCTION VERSIONING
+# REVIEW PACK FULL — W2-G3 — A3 FINAL CLEANUP
 
-REPUBLICATION — CONTENT COMPLETE.
-Previous handoff `db0f59d7` / blob `cf339bf7` was INCOMPLETE (summary-only).
-This pack embeds the FULL exploitable contents of all four A3 delta files.
+REPUBLICATION WITH COMPLETE MODIFIED FILE BODIES.
 
 ## A. Metadata
 
 | Field | Value |
 |---|---|
-| Timestamp (UTC) | 2026-08-23T08:02:01Z |
+| Timestamp (UTC) | 2026-08-23T08:22:06Z |
 | Repo | mcleland147/sfia-workspace |
 | Branch | `delivery/sfia-studio-w2-g3-umbrella-a` |
 | HEAD | `3a86f8190deb34e37bede868a6e765b0440fc839` |
 | origin/main | `3a86f8190deb34e37bede868a6e765b0440fc839` |
 | Drift | NONE |
-| Prior incomplete handoff | commit `db0f59d72fe8660e985ae5433c8175ddf634c863` blob `cf339bf7a1bbeabffb165c1367d6aad61f30a14a` |
-| Decision | D-W2-A3-01 ADOPTED / CONSUMED |
+| Incoming handoff | commit `943fc5b5054752a3a655331a264e6dc16163f3fa` |
+| Incoming blob | `bbb37426a5fb2302460c1238c79a18fb7b46ec6c` |
+| Decision | D-W2-A3-01 unchanged / A3-EPI-01 + H1 + H2 consumed |
 | Gates | Phase B OUT · Execute OUT · REAL OUT · Project Git OUT · C6 CLOSED |
 
-## B. Why this republication
+## B. Local Git Truth
 
-ChatGPT could not review CRITICAL code because the project branch is local/unpushed and the prior handoff omitted file bodies.
-This document is the reviewable source of truth for the A3 delta.
+- Delivery W2-G3 + prior A1/A2/A3/A4/B/C/E local uncommitted, intact
+- Staged empty
+- Out-of-scope preserved: eventops-poc/, flex-office-demo/
 
-## C. A3 delta file inventory (exact paths)
+## C. Scope
 
-1. `projects/sfia-studio/app/lib/oa/cycle/application/proposeTrajectoryVersion.ts`
-2. `projects/sfia-studio/app/lib/oa/cycle/index.ts`
-3. `projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts`
-4. `projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts`
+- **A3-EPI-01 BLOCKING**: supersede Observation + Recommendation + Options on X→Y (and idempotent refresh)
+- **A3-H1 TEST-ONLY**: sequential stale OCC → TRAJECTORY_VERSION_CONFLICT + currentVersion=2
+- **A3-H2 TEST-ONLY**: stale expectedLpsVersion → LPS_VERSION_CONFLICT + full UoW rollback
+- Non-goals: A3 versioning rebuild, Track D, Phase B, Execute, REAL, UI redesign, C6
 
-## D. Review focus checklist (for ChatGPT)
+## D. Source alignment
 
-Inspect in the FULL FILES below:
+Build Doctrine reuse · D-W2-01/D-W2-03 · doctrine 33 · D-W2-A3-01 KEEP · EpistemicItem.supersedes + UpdateEpistemicState KEEP
 
-1. `resolveTrajectoryLineageHead` — current vs findById start; probe `version+1` loop; break on missing / trajectoryId mismatch; projectId check
-2. OCC base = lineage head; `TRAJECTORY_VERSION_CONFLICT` mapping; collision guard on existing vN+1
-3. Transaction order: markSuperseded (when candidate or promoting currentable) → save vN+1 → LPS append; all inside UoW
-4. Candidate never updates current pointer (status candidate path)
-5. W2 idempotence: both optionSetDigest AND qualificationDigest must match to reuse version
-6. Material path calls proposeTrajectoryVersion with expectedVersion = latest.version (not client-invented)
-7. Tests A3-1..A3-8 assertions are strict (version bump, superseded payload equality, OCC single winner, CAS B current preserved)
+## E. Before state (problem)
 
-## E. QA snapshot (unchanged claims; re-verify against code below)
+Material X→Y could leave:
+- Observation X = superseded
+- Recommendation X = **active** (forbidden)
+- Options X = **active** (forbidden)
+while Y items were also active → contradictory epistemic truth.
 
-- w2EabcDelivery: 23/23
-- OA trajectory + adversarial: 47/47
-- Playwright /studio correction: 1/1
-- No project commit/push/PR/merge
+## F. A3-EPI-01 implementation
 
-## F. Verdict claimed
+- Load prior PresentedOptionSet binding when reinstruction/idempotent refresh
+- Deterministic IDs: `optionSetObservationId`, `optionSetRecommendationId`, `optionSetOptionId`
+- Each Y Option with matching optionRef supersedes X Option
+- Y Recommendation supersedes X Recommendation
+- Y Observation supersedes X Observation
+- Fail-closed if prior Option has no optionRef match (`EPISTEMIC_OPTION_RETIREMENT_UNSUPPORTED`)
+- No delete; status-only retirement via existing UpdateEpistemicState
 
-READY FOR CHATGPT RE-REVIEW — W2-G3 A3 CANDIDATE REINSTRUCTION VERSIONING IMPLEMENTED
+## G. A3-H1
 
-(only valid if the embedded sources below are reviewable)
+Sequential: writer A expectedVersion=1 → v2 PASS; writer B expectedVersion=1 → TRAJECTORY_VERSION_CONFLICT currentVersion=2; no v3.
+Production OA code: **unchanged** for H1.
 
----
+## H. A3-H2
 
-# G. FULL MODIFIED CONTENT — A3 DELTA
+expectedVersion=1 correct + expectedLpsVersion=1 stale → LPS_VERSION_CONFLICT after markSuperseded+save path; rollback → v1 candidate intact, v2 absent, LPS unchanged, current none.
+Production OA code: **unchanged** for H2.
 
-## FILE: `projects/sfia-studio/app/lib/oa/cycle/application/proposeTrajectoryVersion.ts`
+## I. Non-regression / QA
 
-### A3 PRIMARY — ProposeTrajectoryVersion + resolveTrajectoryLineageHead (FULL FILE)
+| Suite | Result |
+|---|---|
+| w2EabcDelivery | **28/28 PASS** |
+| OA trajectory + adversarial | **47/47 PASS** |
+| UI sample (trajectory/labels/W1) | **45/45 PASS** |
+| Playwright /studio correction | **1/1 PASS** |
+| In-scope tsc | clean |
 
-```typescript
-import { randomBytes } from "node:crypto";
-import type { ClockPort } from "@/lib/oa/doctrine";
-import type { ProjectServices } from "@/lib/oa/project";
-import { createCycleError } from "../domain/errors";
-import {
-  assertTrajectorySize,
-  validateProposeTrajectoryStatus,
-  validateTrajectorySteps,
-} from "../domain/invariants";
-import type {
-  ProjectTrajectory,
-  ProposeTrajectoryVersionRequest,
-  TrajectoryResult,
-} from "../domain/types";
-import type { CyclePersistenceUnitOfWorkPort } from "../ports/cyclePersistenceUnitOfWorkPort";
-import type { CycleAuditPort } from "../ports/cycleAudit";
-import type { TrajectoryRepositoryPort } from "../ports/trajectoryRepository";
+Known out-of-scope reserve: uatUxSemanticReserves Morris label (preexisting).
 
-function newId(prefix: "cor"): string {
-  return `${prefix}:${randomBytes(8).toString("hex")}`;
-}
+## J. Modified content this micro-pass
 
-/** Thrown inside a transaction when optimistic expectedVersion mismatches. */
-export class TrajectoryVersionConflictSignal extends Error {
-  readonly currentVersion: number;
+FULL bodies in section N below:
+1. proposeTrajectoryOptions.ts
+2. presentedOptionSet.ts
+3. w2EabcDelivery.test.ts
 
-  constructor(currentVersion: number) {
-    super("trajectory_version_conflict");
-    this.name = "TrajectoryVersionConflictSignal";
-    this.currentVersion = currentVersion;
-  }
-}
+OA cycle proposeTrajectoryVersion: **not modified** this pass.
 
-/**
- * D-W2-A3-01 — resolve the semantic lineage HEAD for a ProjectTrajectory.
- *
- * Prefer current when present, then probe forward with findByProjectAndVersion
- * so an undecided candidate ahead of current (CAS B) is the OCC base.
- * When no current exists, start from findById (latest for trajectoryId) and
- * probe forward the same way (CAS A).
- *
- * Uses existing repository queries only — no new SoT / port contract.
- */
-export async function resolveTrajectoryLineageHead(
-  trajectories: TrajectoryRepositoryPort,
-  projectId: string,
-  trajectoryId: string,
-): Promise<ProjectTrajectory | null> {
-  const current = await trajectories.findCurrentByProjectId(projectId);
-  let head: ProjectTrajectory | null = null;
+## K. Consolidated state
 
-  if (current) {
-    if (current.trajectoryId !== trajectoryId) {
-      return null;
-    }
-    head = current;
-  } else {
-    const byId = await trajectories.findById(trajectoryId);
-    if (!byId || byId.projectId !== projectId) {
-      return null;
-    }
-    head = byId;
-  }
+- Prior Delivery + A3 versioning still uncommitted
+- This cleanup = epistemic supersession + proof tests only
+- git project integration NOT AUTHORIZED
 
-  let probe = head.version + 1;
-  for (;;) {
-    const next = await trajectories.findByProjectAndVersion(projectId, probe);
-    if (!next) break;
-    if (next.trajectoryId !== trajectoryId) break;
-    head = next;
-    probe += 1;
-  }
-  return head;
-}
+## L. Architecture
 
-/**
- * ProposeTrajectoryVersion — expectedVersion required against lineage HEAD;
- * supersede previous candidate (D-W2-A3-01) or previous current when installing
- * validated/active; cyclic deps → TRAJECTORY_INVALID; deep clone.
- * Logical rollback = propose new version restoring prior steps (never rewrite history).
- * Candidate status never updates oa_project_trajectory_current.
- */
-export class ProposeTrajectoryVersion {
-  constructor(
-    private readonly trajectories: TrajectoryRepositoryPort,
-    private readonly projectServices: ProjectServices,
-    private readonly clock: ClockPort,
-    private readonly audit: CycleAuditPort,
-    private readonly store?: CyclePersistenceUnitOfWorkPort,
-  ) {}
+same SoT · no new status · no parallel engine · C6 CLOSED · candidate ≠ current
 
-  async execute(
-    request: ProposeTrajectoryVersionRequest,
-  ): Promise<TrajectoryResult> {
-    const started = Date.now();
-    const timestamp = this.clock.nowIso();
-    const correlationId = request.correlationId ?? newId("cor");
+## M. Verdict
 
-    const fail = (
-      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
-      internalCauseRef?: string,
-      extra?: Partial<Parameters<typeof createCycleError>[0]>,
-    ): TrajectoryResult => {
-      const durationMs = Date.now() - started;
-      const error = createCycleError({
-        detailCode,
-        timestamp,
-        correlationId,
-        projectId: request.projectId,
-        trajectoryId: request.trajectoryId,
-        expectedVersion: request.expectedVersion,
-        internalCauseRef,
-        ...extra,
-      });
-      if (detailCode === "TRAJECTORY_VERSION_CONFLICT") {
-        this.audit.append({
-          event: "oa.trajectory.version_conflict",
-          ts: timestamp,
-          correlationId,
-          projectId: request.projectId,
-          trajectoryId: request.trajectoryId,
-          expectedVersion: request.expectedVersion,
-          currentVersion: extra?.currentVersion,
-          result: "conflict",
-          detailCode: "TRAJECTORY_VERSION_CONFLICT",
-          durationMs,
-        });
-      } else {
-        this.audit.append({
-          event: "oa.trajectory.version_proposed",
-          ts: timestamp,
-          correlationId,
-          projectId: request.projectId,
-          trajectoryId: request.trajectoryId,
-          version: request.expectedVersion + 1,
-          result: "error",
-          detailCode,
-          durationMs,
-        });
-      }
-      return { ok: false, error, durationMs };
-    };
+READY FOR CHATGPT RE-REVIEW — W2-G3 A3 FINAL CLEANUP APPLIED
 
-    try {
-      if (!request.createdBy?.actorId) {
-        return fail("TRAJECTORY_INVALID", "created_by_required");
-      }
-      if (
-        !Number.isInteger(request.expectedVersion) ||
-        request.expectedVersion < 1
-      ) {
-        return fail("TRAJECTORY_INVALID", "expected_version_invalid");
-      }
-      if (
-        !Number.isInteger(request.expectedLpsVersion) ||
-        request.expectedLpsVersion < 1
-      ) {
-        return fail("TRAJECTORY_INVALID", "expected_lps_version_invalid");
-      }
-
-      // Clone FIRST then validate — closes TOCTOU on request.steps mutation after await.
-      const steps = structuredClone(request.steps);
-      const status = request.status ?? "candidate";
-
-      const statusViolation = validateProposeTrajectoryStatus(status);
-      if (statusViolation) {
-        return fail(statusViolation.detailCode, statusViolation.reason);
-      }
-
-      const stepsViolation = validateTrajectorySteps(steps);
-      if (stepsViolation) {
-        return fail(stepsViolation.detailCode, stepsViolation.reason);
-      }
-
-      const sizeViolation = assertTrajectorySize({
-        steps,
-        status,
-        version: request.expectedVersion + 1,
-      });
-      if (sizeViolation) {
-        return fail(sizeViolation.detailCode, sizeViolation.reason);
-      }
-
-      const projectResult = await this.projectServices.getProject.execute({
-        projectId: request.projectId,
-      });
-      if (!projectResult.ok) {
-        return fail("PROJECT_NOT_FOUND", "missing_project");
-      }
-
-      let nextTrajectory: ProjectTrajectory | undefined;
-      let nextVersion = 0;
-      let previousVersion = 0;
-      let lpsVersion = 0;
-
-      const persist = async () => {
-        const head = await resolveTrajectoryLineageHead(
-          this.trajectories,
-          request.projectId,
-          request.trajectoryId,
-        );
-        if (!head) {
-          throw new Error("missing_lineage_head");
-        }
-        if (head.trajectoryId !== request.trajectoryId) {
-          throw new Error("trajectory_id_mismatch");
-        }
-        if (head.projectId !== request.projectId) {
-          throw new Error("project_id_mismatch");
-        }
-        if (request.expectedVersion !== head.version) {
-          throw new TrajectoryVersionConflictSignal(head.version);
-        }
-
-        // Refuse silent rewrite: next version must not already exist.
-        const colliding = await this.trajectories.findByProjectAndVersion(
-          request.projectId,
-          head.version + 1,
-        );
-        if (colliding) {
-          throw new TrajectoryVersionConflictSignal(colliding.version);
-        }
-
-        nextVersion = head.version + 1;
-        previousVersion = head.version;
-
-        const trajectory: ProjectTrajectory = {
-          schemaVersion: "0.1.0-oa",
-          trajectoryId: request.trajectoryId,
-          projectId: request.projectId,
-          version: nextVersion,
-          status,
-          steps: structuredClone(steps),
-          supersedesTrajectoryVersion: head.version,
-        };
-
-        const promotesEffectiveCurrent =
-          status === "validated" || status === "active";
-        // D-W2-A3-01: candidate→candidate supersedes prior candidate only.
-        // Proposing a new candidate from a decided current leaves current intact.
-        if (promotesEffectiveCurrent || head.status === "candidate") {
-          await this.trajectories.markSuperseded(
-            head.trajectoryId,
-            head.version,
-          );
-        }
-        await this.trajectories.save(trajectory);
-        nextTrajectory = trajectory;
-
-        const currentLps =
-          await this.projectServices.getCurrentLivingProjectState.execute({
-            projectId: request.projectId,
-          });
-        if (!currentLps.ok) {
-          throw new Error("missing_current_lps");
-        }
-
-        const appended =
-          await this.projectServices.appendLivingProjectStateVersion.execute({
-            projectId: request.projectId,
-            expectedVersion: request.expectedLpsVersion,
-            objective: currentLps.livingProjectState.objective,
-            createdBy: request.createdBy,
-            correlationId,
-            context: currentLps.livingProjectState.context,
-            scope: currentLps.livingProjectState.scope,
-            trajectoryId: request.trajectoryId,
-            trajectoryVersion: nextVersion,
-          });
-
-        if (!appended.ok) {
-          if (appended.error.detailCode === "LPS_VERSION_CONFLICT") {
-            const err = new Error("lps_version_conflict") as Error & {
-              currentVersion?: number;
-            };
-            err.currentVersion = appended.error.currentVersion;
-            throw err;
-          }
-          throw new Error("lps_append_failed");
-        }
-        lpsVersion = appended.livingProjectState.version;
-      };
-
-      try {
-        if (this.store) {
-          await this.store.runInTransaction(persist);
-        } else {
-          await persist();
-        }
-      } catch (err) {
-        if (err instanceof TrajectoryVersionConflictSignal) {
-          return fail("TRAJECTORY_VERSION_CONFLICT", "expected_version_mismatch", {
-            expectedVersion: request.expectedVersion,
-            currentVersion: err.currentVersion,
-          });
-        }
-        if (err instanceof Error && err.message === "lps_version_conflict") {
-          return fail("LPS_VERSION_CONFLICT", "expected_version_mismatch", {
-            expectedVersion: request.expectedLpsVersion,
-            currentVersion: (err as Error & { currentVersion?: number })
-              .currentVersion,
-          });
-        }
-        if (
-          err instanceof Error &&
-          (err.message === "missing_lineage_head" ||
-            err.message === "missing_current_trajectory")
-        ) {
-          return fail("TRAJECTORY_NOT_FOUND", "missing_lineage_head");
-        }
-        if (err instanceof Error && err.message === "trajectory_id_mismatch") {
-          return fail("TRAJECTORY_INVALID", "trajectory_id_mismatch");
-        }
-        if (err instanceof Error && err.message === "project_id_mismatch") {
-          return fail("TRAJECTORY_INVALID", "project_id_mismatch");
-        }
-        return fail("PERSISTENCE_FAILURE", "atomic_propose_failed");
-      }
-
-      if (!nextTrajectory) {
-        return fail("PERSISTENCE_FAILURE", "atomic_propose_incomplete");
-      }
-
-      const durationMs = Date.now() - started;
-      this.audit.append({
-        event: "oa.trajectory.version_proposed",
-        ts: timestamp,
-        correlationId,
-        projectId: request.projectId,
-        trajectoryId: request.trajectoryId,
-        version: nextVersion,
-        previousVersion,
-        result: "ok",
-        durationMs,
-      });
-
-      return {
-        ok: true,
-        trajectory: structuredClone(nextTrajectory),
-        livingProjectStateVersion: lpsVersion,
-        durationMs,
-      };
-    } catch {
-      return fail("PERSISTENCE_FAILURE", "unexpected_exception");
-    }
-  }
-}
-```
-
-END FILE `projects/sfia-studio/app/lib/oa/cycle/application/proposeTrajectoryVersion.ts` — 347 lines
+≠ Git integration authorization.
 
 ---
 
-## FILE: `projects/sfia-studio/app/lib/oa/cycle/index.ts`
-
-### A3 — cycle barrel export (FULL FILE; note resolveTrajectoryLineageHead export)
-
-```typescript
-/**
- * T-A2 Cycle / Trajectory / Epistemic / CKC Foundation — public barrel.
- *
- * Isolated Option A v3-native module. Consumes T-A1 project + T-A0 doctrine
- * public APIs only. Does not replace d1 / OPS1 / MethodMode. In-memory only.
- */
-
-export * from "./domain/types";
-export * from "./domain/errors";
-export * from "./domain/invariants";
-export * from "./domain/qualification";
-export * from "./domain/cycleTypeCatalog";
-export * from "./domain/ckcQualificationContracts";
-export * from "./domain/ckcQualificationErrors";
-export * from "./domain/ckcConsumptionProof";
-export * from "./domain/ckcQualificationResult";
-export * from "./domain/catalogFingerprint";
-export * from "./domain/catalogProjection";
-
-export * from "./ports/cycleRepository";
-export * from "./ports/cyclePersistenceUnitOfWorkPort";
-export * from "./ports/trajectoryRepository";
-export * from "./ports/epistemicRepository";
-export * from "./ports/ckcResolver";
-export * from "./ports/ckcQualificationResolver";
-export * from "./ports/cycleAudit";
-
-export { QualifyCycle } from "./application/qualifyCycle";
-export * from "./application/qualifyCycleWithCkc";
-export { CreateCycle } from "./application/createCycle";
-export { GetCycle } from "./application/getCycle";
-export { CreateInitialTrajectory } from "./application/createInitialTrajectory";
-export { GetCurrentTrajectory } from "./application/getCurrentTrajectory";
-export { GetTrajectoryVersion } from "./application/getTrajectoryVersion";
-export {
-  ProposeTrajectoryVersion,
-  TrajectoryVersionConflictSignal,
-  resolveTrajectoryLineageHead,
-} from "./application/proposeTrajectoryVersion";
-export { PromoteDecidedTrajectory } from "./application/promoteDecidedTrajectory";
-export { GetEpistemicState } from "./application/getEpistemicState";
-export { UpdateEpistemicState } from "./application/updateEpistemicState";
-export { ResolveCycleKnowledgeContract } from "./application/resolveCycleKnowledgeContract";
-
-export { MemoryCycleStore } from "./infrastructure/memoryCycleStore";
-export { MemoryCycleRepository } from "./infrastructure/memoryCycleRepository";
-export { MemoryTrajectoryRepository } from "./infrastructure/memoryTrajectoryRepository";
-export { MemoryEpistemicRepository } from "./infrastructure/memoryEpistemicRepository";
-export {
-  MemoryCkcResolver,
-  type CkcRegistryEntry,
-} from "./infrastructure/memoryCkcResolver";
-export {
-  ConsoleCycleAuditJournal,
-  MemoryCycleAuditJournal,
-} from "./infrastructure/observability";
-export * from "./infrastructure/ckcReferenceManifest";
-export * from "./infrastructure/ckcQualificationResolver";
-export {
-  createSqliteCycleServices,
-  createTestSqliteCycleServices,
-  type CreateSqliteCycleServicesOptions,
-  type SqliteCycleServices,
-} from "./infrastructure/sqlite/createSqliteCycleServices";
-export { SqliteCycleRepository } from "./infrastructure/sqlite/sqliteCycleRepository";
-export { SqliteCycleAuditJournal } from "./infrastructure/sqlite/sqliteCycleAuditJournal";
-
-import type { ClockPort, DoctrinePackagePin } from "@/lib/oa/doctrine";
-import {
-  FixedClock,
-  PRODUCT_DOCTRINE_PACKAGE_ID,
-  SystemClock,
-} from "@/lib/oa/doctrine";
-import type { ProjectServices } from "@/lib/oa/project";
-import { CreateCycle } from "./application/createCycle";
-import { CreateInitialTrajectory } from "./application/createInitialTrajectory";
-import { GetCurrentTrajectory } from "./application/getCurrentTrajectory";
-import { GetCycle } from "./application/getCycle";
-import { GetEpistemicState } from "./application/getEpistemicState";
-import { GetTrajectoryVersion } from "./application/getTrajectoryVersion";
-import { PromoteDecidedTrajectory } from "./application/promoteDecidedTrajectory";
-import { ProposeTrajectoryVersion } from "./application/proposeTrajectoryVersion";
-import { QualifyCycle } from "./application/qualifyCycle";
-import {
-  QualifyCycleWithCkc,
-  type QualifyCycleExecutor,
-} from "./application/qualifyCycleWithCkc";
-import { ResolveCycleKnowledgeContract } from "./application/resolveCycleKnowledgeContract";
-import { UpdateEpistemicState } from "./application/updateEpistemicState";
-import { CkcQualificationResolver } from "./infrastructure/ckcQualificationResolver";
-import { MemoryCkcResolver } from "./infrastructure/memoryCkcResolver";
-import { MemoryCycleRepository } from "./infrastructure/memoryCycleRepository";
-import { MemoryCycleStore } from "./infrastructure/memoryCycleStore";
-import { MemoryEpistemicRepository } from "./infrastructure/memoryEpistemicRepository";
-import { MemoryTrajectoryRepository } from "./infrastructure/memoryTrajectoryRepository";
-import {
-  ConsoleCycleAuditJournal,
-  MemoryCycleAuditJournal,
-} from "./infrastructure/observability";
-import type { CycleAuditPort } from "./ports/cycleAudit";
-import type { CyclePersistenceUnitOfWorkPort } from "./ports/cyclePersistenceUnitOfWorkPort";
-import type { CycleRepositoryPort } from "./ports/cycleRepository";
-import type { CkcResolverPort } from "./ports/ckcResolver";
-import type { CkcQualificationResolverPort } from "./ports/ckcQualificationResolver";
-import type { EpistemicRepositoryPort } from "./ports/epistemicRepository";
-import type { TrajectoryRepositoryPort } from "./ports/trajectoryRepository";
-
-export type CycleServices = {
-  store: CyclePersistenceUnitOfWorkPort;
-  cycles: CycleRepositoryPort;
-  trajectories: TrajectoryRepositoryPort;
-  epistemic: EpistemicRepositoryPort;
-  ckc: CkcResolverPort;
-  audit: CycleAuditPort;
-  qualifyCycle: QualifyCycle;
-  createCycle: CreateCycle;
-  getCycle: GetCycle;
-  createInitialTrajectory: CreateInitialTrajectory;
-  getCurrentTrajectory: GetCurrentTrajectory;
-  getTrajectoryVersion: GetTrajectoryVersion;
-  proposeTrajectoryVersion: ProposeTrajectoryVersion;
-  /** W2: candidate → decided/current promotion, decisionRef mandatory. */
-  promoteDecidedTrajectory: PromoteDecidedTrajectory;
-  getEpistemicState: GetEpistemicState;
-  updateEpistemicState: UpdateEpistemicState;
-  resolveCycleKnowledgeContract: ResolveCycleKnowledgeContract;
-};
-
-export type CreateInMemoryCycleServicesOptions = {
-  projectServices: ProjectServices;
-  clock?: ClockPort;
-  audit?: CycleAuditPort;
-  ckcResolver?: CkcResolverPort;
-};
-
-export type CkcQualificationServices = {
-  readonly audit: CycleAuditPort;
-  readonly resolver: CkcQualificationResolverPort;
-  readonly qualifyCycleWithCkc: QualifyCycleWithCkc;
-};
-
-export type CreateCkcQualificationServicesOptions = {
-  readonly clock?: ClockPort;
-  readonly audit?: CycleAuditPort;
-  readonly resolver?: CkcQualificationResolverPort;
-  readonly registryRoot?: string;
-  readonly doctrinePackagePin?: DoctrinePackagePin;
-  readonly productResolverFactory?: (
-    audit: CycleAuditPort,
-    registryRoot: string,
-  ) => CkcQualificationResolverPort;
-  readonly qualifyCycle?: QualifyCycleExecutor;
-};
-
-function usesProductDoctrinePin(pin?: DoctrinePackagePin): boolean {
-  return pin?.doctrinePackageId === PRODUCT_DOCTRINE_PACKAGE_ID;
-}
-
-function createFailureAwareAudit(audit: CycleAuditPort): CycleAuditPort & {
-  readonly hasFailed: () => boolean;
-} {
-  let failed = false;
-  return {
-    append(event): void {
-      if (failed) {
-        throw new Error("Audit sink unavailable.");
-      }
-      try {
-        audit.append(event);
-      } catch {
-        failed = true;
-        throw new Error("Audit sink unavailable.");
-      }
-    },
-    hasFailed: () => failed,
-  };
-}
-
-/**
- * Default CKC resolver selection (COR-W1-07).
- *
- * Product doctrine pin (`pkg:sfia-studio-doctrine-v3`) ALWAYS selects the
- * product-bound resolver path. Missing/invalid registryRoot must fail closed
- * as Product CKC unavailable — NEVER silently fall back to method-candidate.
- *
- * Explicit `options.resolver` injection remains for deliberate test/DI only.
- */
-function createDefaultCkcQualificationResolver(
-  options: CreateCkcQualificationServicesOptions,
-  audit: CycleAuditPort,
-): CkcQualificationResolverPort {
-  if (usesProductDoctrinePin(options.doctrinePackagePin)) {
-    const pin = options.doctrinePackagePin!;
-    return new CkcQualificationResolver(undefined, audit, {
-      // Empty/absent root is handled fail-closed inside product index load.
-      registryRoot: options.registryRoot ?? "",
-      doctrinePackageId: pin.doctrinePackageId,
-      packageVersion: pin.version,
-      packageDigest: pin.digest,
-    });
-  }
-  return new CkcQualificationResolver(undefined, audit);
-}
-
-/** Read-only D2-A → D2-B → D2-C composition without repositories or mutation. */
-export function createCkcQualificationServices(
-  options: CreateCkcQualificationServicesOptions = {},
-): CkcQualificationServices {
-  const clock = options.clock ?? new SystemClock();
-  const audit = options.audit ?? new ConsoleCycleAuditJournal();
-  const failureAwareAudit = createFailureAwareAudit(audit);
-  const resolver =
-    options.resolver ??
-    createDefaultCkcQualificationResolver(options, failureAwareAudit);
-  const qualifyCycle =
-    options.qualifyCycle ?? new QualifyCycle(clock, failureAwareAudit);
-
-  return Object.freeze({
-    audit,
-    resolver,
-    qualifyCycleWithCkc: new QualifyCycleWithCkc(
-      resolver,
-      qualifyCycle,
-      clock,
-      failureAwareAudit,
-    ),
-  });
-}
-
-/** Factory for in-memory Cycle/Trajectory/Epistemic/CKC services. */
-export function createInMemoryCycleServices(
-  options: CreateInMemoryCycleServicesOptions,
-): CycleServices {
-  const store = new MemoryCycleStore();
-  const cycles = new MemoryCycleRepository(store);
-  const trajectories = new MemoryTrajectoryRepository(store);
-  const epistemic = new MemoryEpistemicRepository(store);
-  const clock = options.clock ?? new SystemClock();
-  const audit = options.audit ?? new ConsoleCycleAuditJournal();
-  const ckc = options.ckcResolver ?? new MemoryCkcResolver();
-
-  return {
-    store,
-    cycles,
-    trajectories,
-    epistemic,
-    ckc,
-    audit,
-    qualifyCycle: new QualifyCycle(clock, audit),
-    createCycle: new CreateCycle(
-      cycles,
-      options.projectServices,
-      clock,
-      audit,
-      store,
-    ),
-    getCycle: new GetCycle(cycles, clock, audit),
-    createInitialTrajectory: new CreateInitialTrajectory(
-      trajectories,
-      options.projectServices,
-      clock,
-      audit,
-      store,
-    ),
-    getCurrentTrajectory: new GetCurrentTrajectory(trajectories, clock, audit),
-    getTrajectoryVersion: new GetTrajectoryVersion(trajectories, clock, audit),
-    proposeTrajectoryVersion: new ProposeTrajectoryVersion(
-      trajectories,
-      options.projectServices,
-      clock,
-      audit,
-      store,
-    ),
-    promoteDecidedTrajectory: new PromoteDecidedTrajectory(
-      trajectories,
-      options.projectServices,
-      clock,
-      audit,
-      store,
-    ),
-    getEpistemicState: new GetEpistemicState(epistemic, clock, audit),
-    updateEpistemicState: new UpdateEpistemicState(
-      epistemic,
-      clock,
-      audit,
-      store,
-    ),
-    resolveCycleKnowledgeContract: new ResolveCycleKnowledgeContract(
-      ckc,
-      clock,
-      audit,
-    ),
-  };
-}
-
-export function createTestCycleServices(
-  options: CreateInMemoryCycleServicesOptions & {
-    audit?: MemoryCycleAuditJournal;
-    fixedNowIso?: string;
-    ckcResolver?: MemoryCkcResolver;
-  },
-): CycleServices & { audit: MemoryCycleAuditJournal } {
-  const audit = options.audit ?? new MemoryCycleAuditJournal();
-  const clock =
-    options.clock ??
-    (options.fixedNowIso
-      ? new FixedClock(options.fixedNowIso)
-      : new FixedClock("2026-07-24T06:00:00.000Z"));
-  return createInMemoryCycleServices({
-    ...options,
-    clock,
-    audit,
-  }) as CycleServices & { audit: MemoryCycleAuditJournal };
-}
-```
-
-END FILE `projects/sfia-studio/app/lib/oa/cycle/index.ts` — 314 lines
-
----
+# N. FULL MODIFIED CONTENT
 
 ## FILE: `projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts`
 
-### A3 PRIMARY — W2 proposeTrajectoryOptions (FULL FILE)
+### A3-EPI-01 PRIMARY — proposeTrajectoryOptions (FULL FILE)
 
 ```typescript
 /**
@@ -772,6 +133,8 @@ import {
   computeQualificationDigest,
   findLatestOptionSetBindingForTrajectory,
   optionSetObservationId,
+  optionSetOptionId,
+  optionSetRecommendationId,
   serializePresentedOptionSet,
   type PresentedOptionSetBinding,
 } from "./presentedOptionSet";
@@ -823,11 +186,6 @@ async function resolveLatestTrajectory(
   return latest;
 }
 
-function optionEpistemicId(optionRef: string, optionSetRef: string): string {
-  const slug = optionRef.replace(/[^a-zA-Z0-9]/g, "-");
-  return `epi:${optionSetRef.replace("optset:", "opt-")}-${slug}`;
-}
-
 function optionStatement(option: TrajectoryOptionDto): string {
   const steps = option.steps.map((s) => `${s.order}. ${s.label}`).join(" | ");
   return `OPTION ${option.label} — ${option.intent} Étapes: ${steps}`;
@@ -841,6 +199,19 @@ function recommendationStatement(
     (o) => o.optionRef === recommendation.recommendedOptionRef,
   );
   return `${recommendation.label} — option recommandée: ${target?.label ?? recommendation.recommendedOptionRef}. ${recommendation.rationale}`;
+}
+
+/**
+ * A3-EPI-01 — when presenting a successor OptionSet, declare supersedes links
+ * so UpdateEpistemicState retires the prior set's Observation, Recommendation,
+ * and corresponding Options (by optionRef). No delete; history stays durable.
+ */
+function withPriorSetSupersedes<T extends object>(
+  item: T,
+  priorEpistemicItemId: string | undefined,
+): T & { supersedes?: string } {
+  if (!priorEpistemicItemId) return item;
+  return { ...item, supersedes: priorEpistemicItemId };
 }
 
 export type ProposeTrajectoryOptionsInput = {
@@ -987,34 +358,77 @@ export async function proposeTrajectoryOptions(
     proposedVersion = created.trajectory.version;
   }
 
-  const optionEpistemicItems = options.map((option) => ({
-    epistemicItemId: optionEpistemicId(option.optionRef, optionSetRef),
-    type: "Option" as const,
-    statement: optionStatement(option),
-    status: "active" as const,
-    source: optionSetRef,
-    relatedObjects: [input.projectId, option.optionRef, optionSetRef],
-  }));
+  const priorBinding =
+    observationSupersedeVersion !== null
+      ? await findLatestOptionSetBindingForTrajectory(
+          oa,
+          input.projectId,
+          proposedTrajectoryId,
+          observationSupersedeVersion,
+        )
+      : null;
 
-  const recommendationItem = {
-    epistemicItemId: `epi:${optionSetRef.replace("optset:", "rec-")}`,
-    type: "Recommendation" as const,
-    // Process/qualification source — CKC attribution is context only.
-    statement: [
-      recommendationStatement(recommendation, options),
-      input.ckcAttribution
-        ? ` CKC context (not semantic cause): ${input.ckcAttribution}.`
-        : " CKC context: none.",
-    ].join(""),
-    status: "active" as const,
-    source: optionSetRef,
-    relatedObjects: [
-      input.projectId,
-      recommendation.recommendedOptionRef,
-      optionSetRef,
-      ...(input.ckcAttribution ? [input.ckcAttribution] : []),
-    ],
-  };
+  const priorOptionRefs = new Set(
+    priorBinding?.options.map((o) => o.optionRef) ?? [],
+  );
+  // Current W2 catalogue always re-emits the same structuring optionRefs.
+  // If a prior Option cannot be retired via an optionRef-matched replacement,
+  // that would require a Morris retirement semantic — fail closed here.
+  if (priorBinding) {
+    for (const priorOption of priorBinding.options) {
+      if (!options.some((o) => o.optionRef === priorOption.optionRef)) {
+        return {
+          ok: false,
+          code: "EPISTEMIC_OPTION_RETIREMENT_UNSUPPORTED",
+          message:
+            "Une Option antérieure n'a pas d'équivalent optionRef dans le nouvel OptionSet — retraite épistémique non supportée sans décision Morris.",
+        };
+      }
+    }
+  }
+
+  const optionEpistemicItems = options.map((option) => {
+    const priorOptionId =
+      priorBinding && priorOptionRefs.has(option.optionRef)
+        ? optionSetOptionId(priorBinding.optionSetRef, option.optionRef)
+        : undefined;
+    return withPriorSetSupersedes(
+      {
+        epistemicItemId: optionSetOptionId(optionSetRef, option.optionRef),
+        type: "Option" as const,
+        statement: optionStatement(option),
+        status: "active" as const,
+        source: optionSetRef,
+        relatedObjects: [input.projectId, option.optionRef, optionSetRef],
+      },
+      priorOptionId,
+    );
+  });
+
+  const recommendationItem = withPriorSetSupersedes(
+    {
+      epistemicItemId: optionSetRecommendationId(optionSetRef),
+      type: "Recommendation" as const,
+      // Process/qualification source — CKC attribution is context only.
+      statement: [
+        recommendationStatement(recommendation, options),
+        input.ckcAttribution
+          ? ` CKC context (not semantic cause): ${input.ckcAttribution}.`
+          : " CKC context: none.",
+      ].join(""),
+      status: "active" as const,
+      source: optionSetRef,
+      relatedObjects: [
+        input.projectId,
+        recommendation.recommendedOptionRef,
+        optionSetRef,
+        ...(input.ckcAttribution ? [input.ckcAttribution] : []),
+      ],
+    },
+    priorBinding
+      ? optionSetRecommendationId(priorBinding.optionSetRef)
+      : undefined,
+  );
 
   const epistemicRefs = [
     ...optionEpistemicItems.map((i) => i.epistemicItemId),
@@ -1042,27 +456,19 @@ export async function proposeTrajectoryOptions(
     ckcAttribution: input.ckcAttribution,
   };
 
-  const priorBinding =
-    observationSupersedeVersion !== null
-      ? await findLatestOptionSetBindingForTrajectory(
-          oa,
-          input.projectId,
-          proposedTrajectoryId,
-          observationSupersedeVersion,
-        )
-      : null;
-
-  const observationItem = {
-    epistemicItemId: optionSetObservationId(optionSetRef),
-    type: "Observation" as const,
-    statement: serializePresentedOptionSet(presentedBinding),
-    status: "active" as const,
-    source: optionSetRef,
-    relatedObjects: [input.projectId, optionSetRef, proposedTrajectoryId],
-    ...(priorBinding
-      ? { supersedes: optionSetObservationId(priorBinding.optionSetRef) }
-      : {}),
-  };
+  const observationItem = withPriorSetSupersedes(
+    {
+      epistemicItemId: optionSetObservationId(optionSetRef),
+      type: "Observation" as const,
+      statement: serializePresentedOptionSet(presentedBinding),
+      status: "active" as const,
+      source: optionSetRef,
+      relatedObjects: [input.projectId, optionSetRef, proposedTrajectoryId],
+    },
+    priorBinding
+      ? optionSetObservationId(priorBinding.optionSetRef)
+      : undefined,
+  );
 
   const materialized = await oa.cycleServices.updateEpistemicState.execute({
     projectId: input.projectId,
@@ -1103,13 +509,238 @@ export async function proposeTrajectoryOptions(
 export const W2_DECISION_ACTOR = LOCAL_PILOTE_ACTOR;
 ```
 
-END FILE `projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts` — 354 lines
+END FILE `projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts` — 399 lines
+
+---
+
+## FILE: `projects/sfia-studio/app/features/project-assistant/w2/presentedOptionSet.ts`
+
+### A3-EPI-01 — presentedOptionSet ID helpers (FULL FILE)
+
+```typescript
+/**
+ * W2 Track A — durable presented OptionSet binding.
+ *
+ * Propose materialises an Epistemic Observation that pins the exact OptionSet
+ * shown to the Pilote. Decide loads that Observation and never re-derives
+ * options from live qualification (A2).
+ */
+
+import { computeDecisionBasisSourceDigest } from "@/lib/oa/decision";
+import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import type { TrajectoryOptionDto, TrajectoryRecommendationDto } from "./types";
+
+export const W2_PRESENTED_OPTION_SET_KIND = "w2_presented_option_set" as const;
+
+export type OptionSetDigestInputs = {
+  readonly cycleTypeId: string;
+  readonly recommendedProfile: string;
+  readonly criticalSignalsPresent: boolean;
+  readonly irreversible: boolean;
+  readonly reservations: readonly string[];
+  readonly options: readonly TrajectoryOptionDto[];
+  readonly recommendedOptionRef: string;
+};
+
+export type QualificationDigestInputs = {
+  readonly cycleTypeId: string;
+  readonly recommendedProfile: string;
+  readonly criticalSignalsPresent: boolean;
+  readonly irreversible: boolean;
+  readonly reservations: readonly string[];
+  readonly ckcAttribution: string | null;
+};
+
+export type PresentedOptionSetBinding = {
+  readonly kind: typeof W2_PRESENTED_OPTION_SET_KIND;
+  readonly optionSetRef: string;
+  readonly optionSetDigest: string;
+  readonly qualificationDigest: string;
+  readonly trajectoryId: string;
+  readonly candidateVersion: number;
+  readonly optionRefs: readonly string[];
+  readonly recommendedOptionRef: string;
+  readonly options: readonly TrajectoryOptionDto[];
+  readonly recommendation: TrajectoryRecommendationDto;
+  readonly epistemicRefs: readonly string[];
+  readonly cycleTypeId: string;
+  readonly recommendedProfile: string;
+  readonly criticalSignalsPresent: boolean;
+  readonly irreversible: boolean;
+  readonly reservations: readonly string[];
+  readonly ckcAttribution: string | null;
+};
+
+export function computeQualificationDigest(
+  inputs: QualificationDigestInputs,
+): string {
+  return computeDecisionBasisSourceDigest({
+    cycleTypeId: inputs.cycleTypeId,
+    recommendedProfile: inputs.recommendedProfile,
+    criticalSignalsPresent: inputs.criticalSignalsPresent,
+    irreversible: inputs.irreversible,
+    reservations: [...inputs.reservations],
+    ckcAttribution: inputs.ckcAttribution,
+  });
+}
+
+export function computeOptionSetDigest(inputs: OptionSetDigestInputs): string {
+  return computeDecisionBasisSourceDigest({
+    cycleTypeId: inputs.cycleTypeId,
+    recommendedProfile: inputs.recommendedProfile,
+    criticalSignalsPresent: inputs.criticalSignalsPresent,
+    irreversible: inputs.irreversible,
+    reservations: [...inputs.reservations],
+    options: inputs.options.map((o) => ({
+      optionRef: o.optionRef,
+      label: o.label,
+      stepIds: o.steps.map((s) => s.stepId),
+    })),
+    recommendedOptionRef: inputs.recommendedOptionRef,
+  });
+}
+
+export function optionSetObservationId(optionSetRef: string): string {
+  return `epi:${optionSetRef.replace("optset:", "set-")}`;
+}
+
+/** Deterministic Recommendation EpistemicItem id for a presented OptionSet. */
+export function optionSetRecommendationId(optionSetRef: string): string {
+  return `epi:${optionSetRef.replace("optset:", "rec-")}`;
+}
+
+/** Deterministic Option EpistemicItem id for a presented Option within a set. */
+export function optionSetOptionId(
+  optionSetRef: string,
+  optionRef: string,
+): string {
+  const slug = optionRef.replace(/[^a-zA-Z0-9]/g, "-");
+  return `epi:${optionSetRef.replace("optset:", "opt-")}-${slug}`;
+}
+
+export function serializePresentedOptionSet(
+  binding: PresentedOptionSetBinding,
+): string {
+  return JSON.stringify(binding);
+}
+
+function isPresentedBinding(value: unknown): value is PresentedOptionSetBinding {
+  if (!value || typeof value !== "object") return false;
+  const v = value as Record<string, unknown>;
+  return (
+    v.kind === W2_PRESENTED_OPTION_SET_KIND &&
+    typeof v.optionSetRef === "string" &&
+    typeof v.optionSetDigest === "string" &&
+    typeof v.qualificationDigest === "string" &&
+    typeof v.trajectoryId === "string" &&
+    typeof v.candidateVersion === "number" &&
+    Array.isArray(v.options) &&
+    typeof v.recommendedOptionRef === "string"
+  );
+}
+
+export function parsePresentedOptionSetStatement(
+  statement: string,
+): PresentedOptionSetBinding | null {
+  try {
+    const parsed: unknown = JSON.parse(statement);
+    return isPresentedBinding(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+export type LoadPresentedOptionSetResult =
+  | { readonly ok: true; readonly presented: PresentedOptionSetBinding }
+  | { readonly ok: false; readonly code: string; readonly message: string };
+
+/**
+ * Fail-closed load of the exact OptionSet presented at propose time.
+ */
+export async function loadPresentedOptionSet(
+  oa: RuntimeOaStack,
+  projectId: string,
+  optionSetRef: string,
+): Promise<LoadPresentedOptionSetResult> {
+  const epistemic = await oa.cycleServices.getEpistemicState.execute({
+    projectId,
+  });
+  if (!epistemic.ok) {
+    return {
+      ok: false,
+      code: "OPTION_SET_STALE",
+      message:
+        "État épistémique illisible — le jeu d'options présenté est indisponible.",
+    };
+  }
+
+  const observationId = optionSetObservationId(optionSetRef);
+  const item = epistemic.state.items.find(
+    (i) =>
+      i.epistemicItemId === observationId &&
+      i.type === "Observation" &&
+      i.status === "active",
+  );
+  if (!item) {
+    return {
+      ok: false,
+      code: "OPTION_SET_STALE",
+      message:
+        "Jeu d'options présenté introuvable — aucune décision possible sur cette référence.",
+    };
+  }
+
+  const presented = parsePresentedOptionSetStatement(item.statement);
+  if (!presented || presented.optionSetRef !== optionSetRef) {
+    return {
+      ok: false,
+      code: "OPTION_SET_STALE",
+      message:
+        "Liaison du jeu d'options présenté illisible ou incohérente — fail-closed.",
+    };
+  }
+
+  return { ok: true, presented };
+}
+
+/**
+ * Find the latest active OptionSet Observation bound to a trajectory version.
+ */
+export async function findLatestOptionSetBindingForTrajectory(
+  oa: RuntimeOaStack,
+  projectId: string,
+  trajectoryId: string,
+  candidateVersion: number,
+): Promise<PresentedOptionSetBinding | null> {
+  const epistemic = await oa.cycleServices.getEpistemicState.execute({
+    projectId,
+  });
+  if (!epistemic.ok) return null;
+
+  const matches: PresentedOptionSetBinding[] = [];
+  for (const item of epistemic.state.items) {
+    if (item.type !== "Observation" || item.status !== "active") continue;
+    if (!item.relatedObjects?.includes(trajectoryId)) continue;
+    const parsed = parsePresentedOptionSetStatement(item.statement);
+    if (!parsed) continue;
+    if (
+      parsed.trajectoryId === trajectoryId &&
+      parsed.candidateVersion === candidateVersion
+    ) {
+      matches.push(parsed);
+    }
+  }
+  return matches.length > 0 ? matches[matches.length - 1]! : null;
+}
+```
+
+END FILE `projects/sfia-studio/app/features/project-assistant/w2/presentedOptionSet.ts` — 214 lines
 
 ---
 
 ## FILE: `projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts`
 
-### A3 PRIMARY — w2EabcDelivery tests including A3-1..A3-8 (FULL FILE)
+### A3-EPI-01 + H1 + H2 tests (FULL FILE)
 
 ```typescript
 // @vitest-environment node
@@ -1138,6 +769,9 @@ import {
   computeOptionSetDigest,
   computeQualificationDigest,
   loadPresentedOptionSet,
+  optionSetObservationId,
+  optionSetOptionId,
+  optionSetRecommendationId,
 } from "@/features/project-assistant/w2/presentedOptionSet";
 import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
 import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
@@ -2260,6 +1894,396 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
     expect(v2.ok).toBe(false);
   });
 
+  it("A3-EPI-01 — material X→Y supersedes Observation+Recommendation+Options of X", async () => {
+    const db = tempProductDbPath("w2-epi-1.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w2epi1" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "epi1" });
+    const oa = runtime.oa!;
+    const qualification = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(qualification.ok).toBe(true);
+    if (!qualification.ok) return;
+    const first = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+
+    await oa.cycleServices.updateEpistemicState.execute({
+      projectId: seeded.projectId,
+      items: [
+        {
+          epistemicItemId: "epi:w2-rsv-epi1",
+          type: "Reservation",
+          statement: "Drift matériel EPI",
+          status: "active",
+          blocking: false,
+        },
+      ],
+      createdBy: LOCAL_PILOTE_ACTOR,
+    });
+    const requal = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(requal.ok).toBe(true);
+    if (!requal.ok) return;
+    const second = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...requal.qualification.inputs,
+    });
+    expect(second.ok).toBe(true);
+    if (!second.ok) return;
+
+    const epistemic = await oa.cycleServices.getEpistemicState.execute({
+      projectId: seeded.projectId,
+    });
+    expect(epistemic.ok).toBe(true);
+    if (!epistemic.ok) return;
+    const byId = (id: string) =>
+      epistemic.state.items.find((i) => i.epistemicItemId === id);
+
+    expect(byId(optionSetObservationId(first.optionSetRef))?.status).toBe(
+      "superseded",
+    );
+    expect(byId(optionSetRecommendationId(first.optionSetRef))?.status).toBe(
+      "superseded",
+    );
+    for (const option of first.options) {
+      expect(
+        byId(optionSetOptionId(first.optionSetRef, option.optionRef))?.status,
+      ).toBe("superseded");
+    }
+
+    expect(byId(optionSetObservationId(second.optionSetRef))?.status).toBe(
+      "active",
+    );
+    expect(byId(optionSetRecommendationId(second.optionSetRef))?.status).toBe(
+      "active",
+    );
+    for (const option of second.options) {
+      expect(
+        byId(optionSetOptionId(second.optionSetRef, option.optionRef))?.status,
+      ).toBe("active");
+    }
+
+    const activeRecs = epistemic.state.items.filter(
+      (i) =>
+        i.type === "Recommendation" &&
+        i.status === "active" &&
+        typeof i.source === "string" &&
+        i.source.startsWith("optset:"),
+    );
+    expect(activeRecs).toHaveLength(1);
+    expect(activeRecs[0]?.source).toBe(second.optionSetRef);
+
+    for (const option of second.options) {
+      const activeForRef = epistemic.state.items.filter(
+        (i) =>
+          i.type === "Option" &&
+          i.status === "active" &&
+          i.relatedObjects?.includes(option.optionRef) &&
+          typeof i.source === "string" &&
+          i.source.startsWith("optset:"),
+      );
+      expect(activeForRef).toHaveLength(1);
+      expect(activeForRef[0]?.source).toBe(second.optionSetRef);
+    }
+  });
+
+  it("A3-EPI-04 — epistemic supersession survives Product SQLite restart", async () => {
+    const db = tempProductDbPath("w2-epi-4.sqlite");
+    const runtime1 = bootW2Runtime({ productDbPath: db, idPrefix: "w2epi4" });
+    const seeded = await seedQualifiedProject(runtime1, { suffix: "epi4" });
+    const oa1 = runtime1.oa!;
+    const qualification = await resolveW2QualificationInputs({
+      oa: oa1,
+      projectId: seeded.projectId,
+    });
+    expect(qualification.ok).toBe(true);
+    if (!qualification.ok) return;
+    const first = await proposeTrajectoryOptions({
+      oa: oa1,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+    await oa1.cycleServices.updateEpistemicState.execute({
+      projectId: seeded.projectId,
+      items: [
+        {
+          epistemicItemId: "epi:w2-rsv-epi4",
+          type: "Reservation",
+          statement: "Drift restart EPI",
+          status: "active",
+          blocking: false,
+        },
+      ],
+      createdBy: LOCAL_PILOTE_ACTOR,
+    });
+    const requal = await resolveW2QualificationInputs({
+      oa: oa1,
+      projectId: seeded.projectId,
+    });
+    expect(requal.ok).toBe(true);
+    if (!requal.ok) return;
+    const second = await proposeTrajectoryOptions({
+      oa: oa1,
+      projectId: seeded.projectId,
+      ...requal.qualification.inputs,
+    });
+    expect(second.ok).toBe(true);
+    if (!second.ok) return;
+
+    const runtime2 = bootW2Runtime({ productDbPath: db, idPrefix: "w2epi4b" });
+    const epistemic = await runtime2.oa!.cycleServices.getEpistemicState.execute({
+      projectId: seeded.projectId,
+    });
+    expect(epistemic.ok).toBe(true);
+    if (!epistemic.ok) return;
+    const byId = (id: string) =>
+      epistemic.state.items.find((i) => i.epistemicItemId === id);
+    expect(byId(optionSetRecommendationId(first.optionSetRef))?.status).toBe(
+      "superseded",
+    );
+    expect(byId(optionSetRecommendationId(second.optionSetRef))?.status).toBe(
+      "active",
+    );
+    expect(byId(optionSetObservationId(first.optionSetRef))?.status).toBe(
+      "superseded",
+    );
+    expect(byId(optionSetObservationId(second.optionSetRef))?.status).toBe(
+      "active",
+    );
+  });
+
+  it("A3-EPI-05 — idempotent refresh supersedes prior epistemic without trajectory bump", async () => {
+    const db = tempProductDbPath("w2-epi-5.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w2epi5" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "epi5" });
+    const oa = runtime.oa!;
+    const qualification = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(qualification.ok).toBe(true);
+    if (!qualification.ok) return;
+    const first = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+    const second = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+    });
+    expect(second.ok).toBe(true);
+    if (!second.ok) return;
+    expect(second.proposedTrajectory.version).toBe(
+      first.proposedTrajectory.version,
+    );
+
+    const epistemic = await oa.cycleServices.getEpistemicState.execute({
+      projectId: seeded.projectId,
+    });
+    expect(epistemic.ok).toBe(true);
+    if (!epistemic.ok) return;
+    expect(
+      epistemic.state.items.find(
+        (i) => i.epistemicItemId === optionSetObservationId(first.optionSetRef),
+      )?.status,
+    ).toBe("superseded");
+    expect(
+      epistemic.state.items.find(
+        (i) =>
+          i.epistemicItemId === optionSetRecommendationId(first.optionSetRef),
+      )?.status,
+    ).toBe("superseded");
+    for (const option of first.options) {
+      expect(
+        epistemic.state.items.find(
+          (i) =>
+            i.epistemicItemId ===
+            optionSetOptionId(first.optionSetRef, option.optionRef),
+        )?.status,
+      ).toBe("superseded");
+    }
+    const activeRecs = epistemic.state.items.filter(
+      (i) =>
+        i.type === "Recommendation" &&
+        i.status === "active" &&
+        typeof i.source === "string" &&
+        i.source.startsWith("optset:"),
+    );
+    expect(activeRecs).toHaveLength(1);
+    expect(activeRecs[0]?.source).toBe(second.optionSetRef);
+  });
+
+  it("A3-H1 — sequential stale expectedVersion yields TRAJECTORY_VERSION_CONFLICT", async () => {
+    const db = tempProductDbPath("w2-a3-h1.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w2a3h1" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "a3h1" });
+    const oa = runtime.oa!;
+    const qualification = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(qualification.ok).toBe(true);
+    if (!qualification.ok) return;
+    const first = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+
+    const afterFirst = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(afterFirst.ok).toBe(true);
+    if (!afterFirst.ok) return;
+    const steps = structuredClone(first.options[0]!.steps) as TrajectoryStep[];
+
+    const writerA = await oa.cycleServices.proposeTrajectoryVersion.execute({
+      trajectoryId: first.proposedTrajectory.trajectoryId,
+      projectId: seeded.projectId,
+      expectedVersion: 1,
+      steps,
+      status: "candidate",
+      createdBy: LOCAL_PILOTE_ACTOR,
+      expectedLpsVersion: afterFirst.qualification.lpsVersion,
+    });
+    expect(writerA.ok).toBe(true);
+    if (!writerA.ok) return;
+    expect(writerA.trajectory.version).toBe(2);
+
+    const afterA = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(afterA.ok).toBe(true);
+    if (!afterA.ok) return;
+
+    const writerB = await oa.cycleServices.proposeTrajectoryVersion.execute({
+      trajectoryId: first.proposedTrajectory.trajectoryId,
+      projectId: seeded.projectId,
+      expectedVersion: 1,
+      steps: structuredClone(steps),
+      status: "candidate",
+      createdBy: LOCAL_PILOTE_ACTOR,
+      expectedLpsVersion: afterA.qualification.lpsVersion,
+    });
+    expect(writerB.ok).toBe(false);
+    if (!writerB.ok) {
+      expect(writerB.error.detailCode).toBe("TRAJECTORY_VERSION_CONFLICT");
+      expect(writerB.error.currentVersion).toBe(2);
+    }
+
+    const v2 = await oa.cycleServices.getTrajectoryVersion.execute({
+      projectId: seeded.projectId,
+      version: 2,
+    });
+    expect(v2.ok).toBe(true);
+    if (!v2.ok) return;
+    expect(v2.trajectory.status).toBe("candidate");
+
+    const v3 = await oa.cycleServices.getTrajectoryVersion.execute({
+      projectId: seeded.projectId,
+      version: 3,
+    });
+    expect(v3.ok).toBe(false);
+  });
+
+  it("A3-H2 — LPS_VERSION_CONFLICT after trajectory mutations rolls back supersession", async () => {
+    const db = tempProductDbPath("w2-a3-h2.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w2a3h2" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "a3h2" });
+    const oa = runtime.oa!;
+    const qualification = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(qualification.ok).toBe(true);
+    if (!qualification.ok) return;
+    const first = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+
+    const v1Before = await oa.cycleServices.getTrajectoryVersion.execute({
+      projectId: seeded.projectId,
+      version: 1,
+    });
+    expect(v1Before.ok).toBe(true);
+    if (!v1Before.ok) return;
+    const historicSteps = structuredClone(v1Before.trajectory.steps);
+
+    const live = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(live.ok).toBe(true);
+    if (!live.ok) return;
+    expect(live.qualification.lpsVersion).toBeGreaterThan(1);
+
+    const failed = await oa.cycleServices.proposeTrajectoryVersion.execute({
+      trajectoryId: first.proposedTrajectory.trajectoryId,
+      projectId: seeded.projectId,
+      expectedVersion: 1,
+      steps: structuredClone(first.options[0]!.steps) as TrajectoryStep[],
+      status: "candidate",
+      createdBy: LOCAL_PILOTE_ACTOR,
+      // Stale but syntactically valid — OCC on trajectory passes; LPS append fails.
+      expectedLpsVersion: 1,
+    });
+    expect(failed.ok).toBe(false);
+    if (!failed.ok) {
+      expect(failed.error.detailCode).toBe("LPS_VERSION_CONFLICT");
+    }
+
+    const v1 = await oa.cycleServices.getTrajectoryVersion.execute({
+      projectId: seeded.projectId,
+      version: 1,
+    });
+    expect(v1.ok).toBe(true);
+    if (!v1.ok) return;
+    expect(v1.trajectory.status).toBe("candidate");
+    expect(v1.trajectory.steps).toEqual(historicSteps);
+
+    const v2 = await oa.cycleServices.getTrajectoryVersion.execute({
+      projectId: seeded.projectId,
+      version: 2,
+    });
+    expect(v2.ok).toBe(false);
+
+    const lpsAfter = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(lpsAfter.ok).toBe(true);
+    if (!lpsAfter.ok) return;
+    expect(lpsAfter.qualification.lpsVersion).toBe(live.qualification.lpsVersion);
+
+    const current = await oa.cycleServices.getCurrentTrajectory.execute({
+      projectId: seeded.projectId,
+    });
+    expect(current.ok).toBe(false);
+  });
+
   it("A4 — HD+promote share one Product UoW (promote failure rolls back HD)", async () => {
     const db = tempProductDbPath("w2-a4.sqlite");
     const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w2a4" });
@@ -2806,17 +2830,12 @@ describe("W2 Track C — inspection binding + authorization mechanism proofs", (
 });
 ```
 
-END FILE `projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts` — 1692 lines
+END FILE `projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts` — 2085 lines
 
 ---
 
-## H. Architecture / Git boundaries
+## O. Instruction ChatGPT
 
-- Same ProjectTrajectory SoT
-- No second engine / status / table / C6 reopen
-- Project Git integration NOT AUTHORIZED
-- This handoff is L3 mono-file on `sfia/review-handoff` only
-
-## I. Instruction ChatGPT
-
-Review the FULL FILE bodies in section G. Do not accept summary-only claims.
+Review FULL FILE bodies in section N.
+If PASS: next gate = READY FOR MORRIS GIT INTEGRATION DECISION — W2-G3 E+A+B+C
+No project Git integration before that re-review.
