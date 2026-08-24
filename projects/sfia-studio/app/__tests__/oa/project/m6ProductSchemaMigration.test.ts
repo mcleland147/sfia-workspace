@@ -113,7 +113,7 @@ describe("M6 Product SQLite schema migration", () => {
       .get("schema_version") as { value: string };
     expect(version.value).toBe(PRODUCT_SCHEMA_VERSION);
     expect(PRODUCT_SCHEMA_VERSION_M6).toBe("m6-0.1.0");
-    expect(PRODUCT_SCHEMA_VERSION).toBe("m7-0.1.0");
+    expect(PRODUCT_SCHEMA_VERSION).toBe("m8-0.1.0");
     expect(tableExists(svc.store.db, "oa_project_trajectories")).toBe(true);
     expect(tableExists(svc.store.db, "oa_project_trajectory_current")).toBe(
       true,
@@ -164,7 +164,7 @@ describe("M6 Product SQLite schema migration", () => {
       .prepare("SELECT value FROM schema_meta WHERE key = ?")
       .get("schema_version") as { value: string };
     expect(version.value).toBe(PRODUCT_SCHEMA_VERSION);
-    expect(PRODUCT_SCHEMA_VERSION).toBe("m7-0.1.0");
+    expect(PRODUCT_SCHEMA_VERSION).toBe("m8-0.1.0");
     expect(tableExists(svc.store.db, "oa_ec_inspection_attestations")).toBe(
       true,
     );
@@ -186,7 +186,7 @@ describe("M6 Product SQLite schema migration", () => {
     const reopenedVersion = reopened.store.db
       .prepare("SELECT value FROM schema_meta WHERE key = ?")
       .get("schema_version") as { value: string };
-    expect(reopenedVersion.value).toBe("m7-0.1.0");
+    expect(reopenedVersion.value).toBe("m8-0.1.0");
     expect(
       tableExists(reopened.store.db, "oa_ec_inspection_attestations"),
     ).toBe(true);

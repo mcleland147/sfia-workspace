@@ -19,8 +19,15 @@ import type {
   AuthorityClass,
   ExecutionWindowClass,
 } from "@/lib/oa/execution-contract";
+import type { BoundExecutionContractSnapshot } from "./boundExecutionContract";
 
 export type { ActorReference, ProvenanceRecord, AuthorityClass, ExecutionWindowClass };
+export type { BoundExecutionContractSnapshot };
+export {
+  BOUND_EXECUTION_CONTRACT_SNAPSHOT_SCHEMA_VERSION,
+  captureBoundExecutionContractSnapshot,
+  validateBoundExecutionContractSnapshot,
+} from "./boundExecutionContract";
 
 export const EXECUTION_ATTEMPT_SCHEMA_VERSION = "0.2.0-oa" as const;
 export const AGENT_DESCRIPTOR_SCHEMA_VERSION = "0.1.0-oa" as const;
@@ -138,6 +145,18 @@ export type ExecutionAttempt = {
    */
   executionWindowClass?: ExecutionWindowClass;
   resolvedMaxDurationMs?: number;
+  /** W3-B durable stop provenance (TD-W3B-04) — system-owned writes only. */
+  stopOrigin?: "USER_CANCEL" | "SYSTEM_GOVERNED_STOP";
+  stopCode?: string;
+  stopSourceRef?: string;
+  stopObservedAt?: string;
+  /** Immutable EC semantic fingerprint bound at Attempt acceptance (TD-W3B-02). */
+  executionContractSemanticFingerprint?: string;
+  /**
+   * TD-W3B-02 Option B — immutable canonical bound EC semantic snapshot.
+   * Optional for historical readability; mandatory on newly accepted Attempts.
+   */
+  boundExecutionContract?: BoundExecutionContractSnapshot;
 };
 
 /**

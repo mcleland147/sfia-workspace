@@ -234,7 +234,34 @@ export type ExecutionAttemptSnapshot = {
   status: string;
   resultRef?: string;
   errorRef?: string;
-  completedAt?: string;
+  stopReason?: string;
+  cancelledAt?: string;
   failedAt?: string;
+  timedOutAt?: string;
+  stopOrigin?: "USER_CANCEL" | "SYSTEM_GOVERNED_STOP";
+  stopCode?: string;
+  stopSourceRef?: string;
+  stopObservedAt?: string;
+  completedAt?: string;
   selectedAgentRef?: string;
+  /** Immutable EC semantic fingerprint bound at Attempt acceptance (TD-W3B-02). */
+  executionContractSemanticFingerprint?: string;
+  /** TD-W3B-02 Option B — optional historically; required for new Contract Result PASS. */
+  boundExecutionContract?: {
+    executionContractSchemaVersion: string;
+    executionContractVersion: number;
+    semanticFingerprint: string;
+    semanticMaterial: {
+      executionContractId: string;
+      projectId: string;
+      cycleInstanceId?: string;
+      action: string;
+      target: string;
+      scope: string;
+      expectedOutputs?: string[];
+      evidenceRequirements: string[];
+      requiredCapabilities: string[];
+      [key: string]: unknown;
+    };
+  };
 };

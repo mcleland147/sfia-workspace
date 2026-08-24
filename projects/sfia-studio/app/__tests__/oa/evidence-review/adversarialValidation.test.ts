@@ -182,7 +182,7 @@ describe("T-A6-D1 adversarial validation corrections", () => {
     expect(result.error.detailCode).toBe("EVIDENCE_INVALID");
   });
 
-  it("refuses timeout and cancelled Attempts on ingest", async () => {
+  it("refuses terminal ingest without diagnostic facts (W3-B fail-closed)", async () => {
     const s = buildServices();
     for (const status of ["timeout", "cancelled"] as const) {
       const attemptId = `xat:adv-${status}`;
@@ -202,7 +202,7 @@ describe("T-A6-D1 adversarial validation corrections", () => {
       });
       expect(result.ok).toBe(false);
       if (!result.ok) {
-        expect(result.error.detailCode).toBe("ATTEMPT_STATUS_REFUSED");
+        expect(result.error.detailCode).toBe("ATTEMPT_RESULT_UNAVAILABLE");
       }
     }
   });

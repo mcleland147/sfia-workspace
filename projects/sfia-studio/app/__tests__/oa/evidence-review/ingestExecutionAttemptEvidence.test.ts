@@ -40,7 +40,7 @@ describe("T-A6-D1 IngestExecutionAttemptEvidence", () => {
     expect(audit).not.toMatch(/PASS|payload|secret/i);
   });
 
-  it("refuses failed Attempt", async () => {
+  it("ingests failed Attempt with errorRef as diagnostic Evidence", async () => {
     const s = buildServices();
     s.fakeAttempts.seed({
       attemptId: "xat:fail-001",
@@ -48,6 +48,7 @@ describe("T-A6-D1 IngestExecutionAttemptEvidence", () => {
       executionContractVersion: 1,
       status: "failed",
       errorRef: "err:boom",
+      failedAt: "2026-07-26T01:00:00.000Z",
     });
     const result = await s.ingestExecutionAttemptEvidence.execute({
       evidenceId: "ev:fail-ingest",
@@ -55,10 +56,63 @@ describe("T-A6-D1 IngestExecutionAttemptEvidence", () => {
       idempotencyKey: "idem-ingest-fail-001",
       actor: SYSTEM_ACTOR,
       classification: "internal",
+      bindings: { projectId: "prj:campus360-oa" },
     });
-    expect(result.ok).toBe(false);
-    if (result.ok) return;
-    expect(result.error.detailCode).toBe("ATTEMPT_STATUS_REFUSED");
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.evidence.status).toBe("available");
+    expect(result.evidence.technicalResultRef).toBeUndefined();
+    expect(result.evidence.source).toContain("failed");
+  });
+
+  it("ingests cancelled Attempt with SYSTEM_GOVERNED_STOP as governed-stop Evidence", async () => {
+    const s = buildServices();
+    s.fakeAttempts.seed({
+      attemptId: "xat:cancel-001",
+      executionContractId: "xct:oa-001",
+      executionContractVersion: 1,
+      status: "cancelled",
+      stopReason: "EXECUTOR_INSUFFICIENT",
+      stopOrigin: "SYSTEM_GOVERNED_STOP",
+      cancelledAt: "2026-07-26T01:00:00.000Z",
+    });
+    const result = await s.ingestExecutionAttemptEvidence.execute({
+      evidenceId: "ev:cancel-ingest",
+      executionAttemptId: "xat:cancel-001",
+      idempotencyKey: "idem-ingest-cancel-001",
+      actor: SYSTEM_ACTOR,
+      classification: "internal",
+      bindings: { projectId: "prj:campus360-oa" },
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.evidence.status).toBe("available");
+    expect(result.evidence.location).toContain("governed-stop");
+    expect(result.evidence.source).toContain(":governed-stop");
+  });
+
+  it("ingests cancelled Attempt without trustworthy provenance as neutral cancellation", async () => {
+    const s = buildServices();
+    s.fakeAttempts.seed({
+      attemptId: "xat:cancel-neutral-001",
+      executionContractId: "xct:oa-001",
+      executionContractVersion: 1,
+      status: "cancelled",
+      stopReason: "Arrêt gouverné Pilote",
+      cancelledAt: "2026-07-26T01:00:00.000Z",
+    });
+    const result = await s.ingestExecutionAttemptEvidence.execute({
+      evidenceId: "ev:cancel-neutral",
+      executionAttemptId: "xat:cancel-neutral-001",
+      idempotencyKey: "idem-ingest-cancel-neutral-001",
+      actor: SYSTEM_ACTOR,
+      classification: "internal",
+      bindings: { projectId: "prj:campus360-oa" },
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.evidence.location).toContain("/cancellation");
+    expect(result.evidence.location).not.toContain("governed-stop");
   });
 
   it("refuses running Attempt", async () => {

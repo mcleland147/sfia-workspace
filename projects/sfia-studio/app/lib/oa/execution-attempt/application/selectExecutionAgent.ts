@@ -12,6 +12,7 @@ import type {
   ExecutionContractRepositoryPort,
 } from "@/lib/oa/execution-contract";
 import { createAttemptError, isExecutionAttemptDomainError } from "../domain/errors";
+import { captureBoundExecutionContractSnapshot } from "../domain/boundExecutionContract";
 import {
   AGENT_SELECTION_SCOPE,
   agentMatchViolation,
@@ -366,11 +367,17 @@ export class SelectExecutionAgent {
         return fail("ATTEMPT_ALREADY_EXISTS", "attempt_id_taken");
       }
 
+      const boundExecutionContract =
+        captureBoundExecutionContractSnapshot(contract);
+
       const attempt: ExecutionAttempt = {
         schemaVersion: "0.2.0-oa",
         attemptId: request.attemptId,
         executionContractId: contract.executionContractId,
-        executionContractVersion: contract.version,
+        executionContractVersion: boundExecutionContract.executionContractVersion,
+        executionContractSemanticFingerprint:
+          boundExecutionContract.semanticFingerprint,
+        boundExecutionContract,
         selectedAgentRef,
         status: "accepted",
         idempotencyKey: request.idempotencyKey,
@@ -469,8 +476,15 @@ export class SelectExecutionAgent {
         contractVersion: contract.version,
         durationMs,
       };
-    } catch {
-      return fail("EXECUTION_PERSISTENCE_FAILED", "unexpected_exception");
+    } catch (err) {
+      const cause =
+        err instanceof Error ? err.message : "unexpected_exception";
+      if (cause === "bound_snapshot_fingerprint_mismatch_at_capture") {
+        return fail("ATTEMPT_INVALID", cause, {
+          executionContractId: request.executionContractId,
+        });
+      }
+      return fail("EXECUTION_PERSISTENCE_FAILED", cause);
     }
   }
 }

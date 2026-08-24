@@ -229,6 +229,7 @@ export class CancelExecutionAttempt {
         cancelledAt: timestamp,
         cancellationRequested: true,
         stopReason: attempt.stopReason ?? request.reason,
+        stopOrigin: "USER_CANCEL",
         updatedAt: timestamp,
         version: attempt.version + 1,
       };

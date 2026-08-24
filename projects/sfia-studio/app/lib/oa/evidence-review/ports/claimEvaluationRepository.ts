@@ -3,7 +3,11 @@ import type { ClaimEvaluation } from "../domain/claimEvaluationTypes";
 export type ClaimEvaluationIdempotencyRecord = {
   claimEvaluationId: string;
   fingerprint: string;
-  operation: "evaluate_claim" | "confirm_claim" | "reject_claim";
+  operation:
+    | "evaluate_claim"
+    | "confirm_claim"
+    | "reject_claim"
+    | "evaluate_contract_result";
 };
 
 export interface ClaimEvaluationRepositoryPort {

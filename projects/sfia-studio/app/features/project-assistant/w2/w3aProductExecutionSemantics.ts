@@ -27,6 +27,7 @@ import {
   projectConfirmationRequirementFromEffects,
   qualifyEffectsFromActualExecutionWork,
 } from "./w3aActualExecutionWork";
+import { W3B_TEMP_ARTIFACT_EO_TEMPLATE } from "@/lib/oa/evidence-review/application/contractResultSemanticEvaluator";
 import {
   type EffectQualificationFailure,
   type QualifiedExecutionEffects,
@@ -258,9 +259,12 @@ export function deriveW3AExecutionEnvelope(input: {
       : null;
 
   const eb = input.basis.executionBasis;
-  const expectedOutputs = eb.expectedOutcome
-    ? [eb.expectedOutcome]
-    : [`Résultat d'exécution — ${effects.effectClass}`];
+  const expectedOutputs =
+    effects.effectClass === "generate-temporary-artifact"
+      ? [W3B_TEMP_ARTIFACT_EO_TEMPLATE]
+      : eb.expectedOutcome
+        ? [eb.expectedOutcome]
+        : [`Résultat d'exécution — ${effects.effectClass}`];
 
   return {
     ok: true,

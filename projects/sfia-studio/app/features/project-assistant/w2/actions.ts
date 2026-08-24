@@ -21,10 +21,16 @@ import { confirmExecutionContractForAuthorization } from "./confirmForAuthorizat
 import { decideTrajectory } from "./decideTrajectory";
 import {
   governedExecuteAuthorizedContract,
+  governedExecuteCancel,
   governedExecuteRecordResult,
   governedExecuteSelectAgent,
   governedExecuteStart,
 } from "./governedExecuteAuthorizedContract";
+import {
+  materializeW3bProductTerminal,
+  rehydrateLatestW3bProductTerminalForContract,
+  rehydrateW3bProductTerminal,
+} from "./materializeW3bProductTerminal";
 import { inspectExecutionContract } from "./inspectExecutionContract";
 import { loadPresentedOptionSet } from "./presentedOptionSet";
 import { prepareExecutionContractFromW2Decision } from "./prepareExecutionContractFromW2Decision";
@@ -39,6 +45,7 @@ import type {
   GovernedExecuteAuthorizedContractResult,
   GovernedExecutePhaseResult,
   InspectExecutionContractResult,
+  MaterializeProductOutcomeActionResult,
   PreparedExecutionContractResult,
   ProposeTrajectoryOptionsResult,
 } from "./types";
@@ -335,6 +342,106 @@ export async function w2GovernedExecuteCompleteAction(input: {
     canActAsMorris: input.canActAsMorris,
     authorityReceiptRef: input.authorityReceiptRef,
     real: input.real,
+  });
+}
+
+/**
+ * Cancel while Attempt is running (Pilote Arrêter).
+ * USER_CANCEL only — Product STOP requires SystemGovernedStop provenance.
+ */
+export async function w2GovernedExecuteCancelAction(input: {
+  projectId: string;
+  executionContractId: string;
+  attemptId: string;
+  reason?: string;
+  canActAsMorris?: unknown;
+  real?: unknown;
+}): Promise<GovernedExecuteAuthorizedContractResult> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) return OA_UNAVAILABLE;
+  return governedExecuteCancel({
+    oa: runtime.oa,
+    projectId: input.projectId,
+    executionContractId: input.executionContractId,
+    attemptId: input.attemptId,
+    reason: input.reason,
+    canActAsMorris: input.canActAsMorris,
+    real: input.real,
+  });
+}
+
+/**
+ * W3-B — FC-12 Evidence + RB + Contract Result CE then FC-11 projection.
+ */
+export async function w2MaterializeProductOutcomeAction(input: {
+  projectId: string;
+  attemptId: string;
+  claimedProductOutcome?: unknown;
+  cycleProfile?: unknown;
+  ckcId?: unknown;
+}): Promise<MaterializeProductOutcomeActionResult> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      code: "OA_UNAVAILABLE",
+      message: "OA runtime indisponible.",
+    };
+  }
+  return materializeW3bProductTerminal({
+    oa: runtime.oa,
+    projectId: input.projectId,
+    attemptId: input.attemptId,
+    claimedProductOutcome: input.claimedProductOutcome,
+    cycleProfile: input.cycleProfile,
+    ckcId: input.ckcId,
+  });
+}
+
+export async function w2RehydrateProductOutcomeAction(input: {
+  projectId: string;
+  attemptId: string;
+}): Promise<MaterializeProductOutcomeActionResult> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      code: "OA_UNAVAILABLE",
+      message: "OA runtime indisponible.",
+    };
+  }
+  return rehydrateW3bProductTerminal({
+    oa: runtime.oa,
+    projectId: input.projectId,
+    attemptId: input.attemptId,
+  });
+}
+
+export async function w2RehydrateLatestProductOutcomeAction(input: {
+  projectId: string;
+  executionContractId: string;
+}): Promise<
+  | {
+      readonly ok: true;
+      readonly product: import("./types").W3BProductOutcomeDto;
+      readonly attemptId: string;
+      readonly attemptStatus: string;
+      readonly reusedFromIdempotency: true;
+    }
+  | { readonly ok: false; readonly code: string; readonly message: string }
+> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      code: "OA_UNAVAILABLE",
+      message: "OA runtime indisponible.",
+    };
+  }
+  return rehydrateLatestW3bProductTerminalForContract({
+    oa: runtime.oa,
+    projectId: input.projectId,
+    executionContractId: input.executionContractId,
   });
 }
 

@@ -27,6 +27,7 @@ export default defineConfig({
     env: {
       ...process.env,
       OPS1_E2E_ALLOW_DIRTY_PRINCIPAL: "1",
+      SFIA_STUDIO_E2E_QA_CONTROL: "1",
       // Local Pilote authority TEMPORARY WITH EXIT — required for /studio HD path.
       SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY: "1",
       D1_INTAKE_PROVIDER: process.env.D1_INTAKE_PROVIDER || "fake",

@@ -22,6 +22,7 @@ import type { ExecutionAuditPort } from "../ports/executionAudit";
 import type { ExecutionContractRepositoryPort } from "../ports/executionContractRepository";
 import type { CancelExecutionContract } from "./cancelExecutionContract";
 import { verifyRequiredAuthority } from "./authorityHelper";
+import { computeExecutionContractSemanticFingerprint } from "../domain/semanticFingerprint";
 
 function newId(prefix: "cor"): string {
   return `${prefix}:${randomBytes(8).toString("hex")}`;
@@ -312,6 +313,10 @@ export class ConfirmExecutionContract {
           immutableAfterConfirm: true,
           version: current.version + 1,
         };
+        // confirmationRef / immutableAfterConfirm are semantic material fields —
+        // refresh fingerprint so Attempt-bound Option B capture can verify.
+        next.semanticFingerprint =
+          computeExecutionContractSemanticFingerprint(next);
         await this.contracts.save(next);
         contract = next;
       };

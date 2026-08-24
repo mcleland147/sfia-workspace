@@ -355,3 +355,58 @@ export type GovernedExecuteAuthorizedContractSuccess = GovernedExecutePhaseSucce
 export type GovernedExecuteAuthorizedContractResult =
   | GovernedExecuteAuthorizedContractSuccess
   | GovernedExecutePhaseFailure;
+
+export type W3BProductOutcomeDto = {
+  readonly outcome: "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED";
+  readonly businessHeadline: string;
+  readonly businessReason: string;
+  readonly claimAllowed: boolean;
+  readonly evidenceId: string | null;
+  readonly reviewBundleId: string | null;
+  readonly claimEvaluationId?: string | null;
+  readonly claimEvaluationStatus?: string | null;
+  readonly contractResultVerdict?: string | null;
+  readonly evidenceStatus: string | null;
+  readonly evidenceSummary: string | null;
+  readonly reviewBundleCompleteness: string | null;
+  readonly governedBoundary: string | null;
+  readonly technicalDetail: {
+    readonly attemptId: string;
+    readonly attemptStatus: string;
+    readonly resultRef: string | null;
+    readonly errorRef: string | null;
+    readonly stopReason: string | null;
+    readonly stopOrigin?: string | null;
+    readonly stopCode?: string | null;
+    readonly executionContractId: string;
+    readonly executionContractVersion: number;
+  };
+  readonly reservations: readonly string[];
+  readonly antiClaims: {
+    readonly ready: false;
+    readonly w3Closed: false;
+    readonly productCompletionComplete: false;
+    readonly runtimeV3Adopted: false;
+    readonly realProven: false;
+    readonly cycleAutoClosed: false;
+    readonly projectAutoArchived: false;
+  };
+  readonly cycleInstanceClosed: false;
+  readonly projectArchived: false;
+  readonly noraInvoked: false;
+  readonly replanInvoked: false;
+  readonly realExecution: false;
+};
+
+export type MaterializeProductOutcomeActionResult =
+  | {
+      readonly ok: true;
+      readonly product: W3BProductOutcomeDto;
+      readonly reusedFromIdempotency: boolean;
+    }
+  | {
+      readonly ok: false;
+      readonly code: string;
+      readonly message: string;
+      readonly product?: W3BProductOutcomeDto;
+    };

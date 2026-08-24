@@ -1082,14 +1082,17 @@ export class StartExecution {
     // Indeterminate adapter failure fails the contract; a deterministic
     // rejection leaves it `confirmed` so a Retry stays possible.
     let contractStatus: string | undefined;
+    let contractWrite:
+      | Awaited<ReturnType<ExecutionContractStatusWriter["write"]>>
+      | undefined;
     if (input.cause === "fail") {
-      const write = await this.contractStatusWriter.write({
+      contractWrite = await this.contractStatusWriter.write({
         executionContractId: input.attempt.executionContractId,
         expectedVersion: input.contractVersion,
         nextStatus: "failed",
         reason: "Launch failed before execution started",
       });
-      contractStatus = write.ok ? write.contract.status : undefined;
+      contractStatus = contractWrite.ok ? contractWrite.contract.status : undefined;
     }
 
     const durationMs = Date.now() - input.started;

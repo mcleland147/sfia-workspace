@@ -19,17 +19,26 @@ import type {
   ClaimEvaluationResult,
   ConfirmClaimEvaluationRequest,
 } from "../domain/claimEvaluationTypes";
+import {
+  CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
+  W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
+} from "../domain/contractResultTypes";
+import { validateBoundExecutionContractSnapshot } from "@/lib/oa/execution-attempt/domain/boundExecutionContract";
 import { containsForbiddenSecret } from "../domain/invariants";
 import type { EvidenceAuditPort } from "../ports/evidenceAudit";
 import type { ClaimAuthorityPort } from "../ports/claimAuthorityPort";
 import type { ClaimEvaluationRepositoryPort } from "../ports/claimEvaluationRepository";
 import type { EvidenceReaderPort } from "../ports/evidenceReader";
+import type { ExecutionAttemptReaderPort } from "../ports/executionAttemptReader";
 import type { IdGeneratorPort } from "../ports/idGenerator";
 import type { ReviewBundleReaderPort } from "../ports/reviewBundleReader";
 import {
   assessRequiredEvidence,
   detailCodeForAssessment,
 } from "./claimEvidenceAssessment";
+import { deriveCanonicalContractResultStatus } from "./contractResultAssessment";
+import { isW3bContractResultEvidenceUsable } from "./contractResultSemanticEvaluator";
+import type { ExecutionAttemptSnapshot } from "../domain/types";
 import {
   assertIdempotencyKey,
   fingerprintCommand,
@@ -47,6 +56,7 @@ export class ConfirmClaimEvaluation {
     private readonly clock: ClockPort,
     private readonly audit: EvidenceAuditPort,
     private readonly ids: IdGeneratorPort,
+    private readonly attempts?: ExecutionAttemptReaderPort,
   ) {}
 
   async execute(
@@ -266,13 +276,17 @@ export class ConfirmClaimEvaluation {
         );
       }
 
-      const requireMorris = current.criticality === "structural";
+      const requireMorris =
+        current.subjectKind !== CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT &&
+        current.criticality === "structural";
       const requiredLevel =
-        current.criticality === "structural"
-          ? ("N3" as const)
-          : current.criticality === "critical"
-            ? ("N2" as const)
-            : ("N1" as const);
+        current.subjectKind === CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT
+          ? ("N1" as const)
+          : current.criticality === "structural"
+            ? ("N3" as const)
+            : current.criticality === "critical"
+              ? ("N2" as const)
+              : ("N1" as const);
       const auth = this.authority.verify({
         actorId: request.actor.actorId,
         requiredLevel,
@@ -293,14 +307,200 @@ export class ConfirmClaimEvaluation {
         );
       }
 
+      if (
+        current.subjectKind === CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT &&
+        current.evaluationMethod === "deterministic"
+      ) {
+        return fail(
+          "CLAIM_EVALUATION_INVALID_STATE",
+          "contract_result_deterministic_no_human_confirm",
+          { claimEvaluation: current },
+        );
+      }
+
+      const isContractResult =
+        current.subjectKind === CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT;
+
+      let contractResultAttempt: ExecutionAttemptSnapshot | null = null;
+
+      if (isContractResult) {
+        if (!current.contractResultReviewPolicyRef) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "contract_result_missing_policy_ref",
+            { claimEvaluation: current },
+          );
+        }
+        if (
+          current.contractResultReviewPolicyRef !==
+          W3B_CONTRACT_RESULT_REVIEW_POLICY_REF
+        ) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "contract_result_unknown_policy_ref",
+            { claimEvaluation: current },
+          );
+        }
+        if (
+          !current.expectedOutputAssessments?.length ||
+          !current.evidenceRequirementAssessments?.length
+        ) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID_STATE",
+            "contract_result_confirm_missing_assessments",
+            { claimEvaluation: current },
+          );
+        }
+
+        const bindings = current.contractResultBindings;
+        if (!bindings?.executionAttemptId) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "contract_result_confirm_missing_attempt_binding",
+            { claimEvaluation: current },
+          );
+        }
+        if (!this.attempts) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "contract_result_confirm_attempt_reader_unavailable",
+            { claimEvaluation: current },
+          );
+        }
+        const attempt = await this.attempts.findById(bindings.executionAttemptId);
+        if (!attempt) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "contract_result_confirm_attempt_not_found",
+            { claimEvaluation: current },
+          );
+        }
+        if (!attempt.boundExecutionContract) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID_STATE",
+            "contract_result_confirm_missing_bound_snapshot",
+            { claimEvaluation: current },
+          );
+        }
+        const snapshotValidation = validateBoundExecutionContractSnapshot({
+          attempt,
+          requirePresent: true,
+          expectedProjectId: bindings.projectId,
+          expectedCycleInstanceId: bindings.cycleInstanceId ?? null,
+        });
+        if (!snapshotValidation.ok) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            snapshotValidation.reason,
+            { claimEvaluation: current },
+          );
+        }
+        if (
+          bindings.executionContractId !== attempt.executionContractId ||
+          bindings.executionContractVersion !==
+            attempt.executionContractVersion ||
+          bindings.executionContractSemanticFingerprint !==
+            attempt.boundExecutionContract.semanticFingerprint ||
+          bindings.reviewBundleId !== current.reviewBundleId ||
+          bindings.reviewBundleVersion !== current.reviewBundleVersion
+        ) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "contract_result_confirm_binding_mismatch",
+            { claimEvaluation: current },
+          );
+        }
+
+        // OB03 — W3-B Evidence freshness/usability fail-closed (stricter than generic).
+        for (const evidenceId of current.requiredEvidenceRefs) {
+          const live = await this.evidence.findById(evidenceId);
+          const frozenSnap = (bundle.frozenEvidenceSnapshots ?? []).find(
+            (s) => s.evidenceId === evidenceId,
+          );
+          if (
+            !live ||
+            !isW3bContractResultEvidenceUsable({
+              evidence: live,
+              snapshot: frozenSnap,
+            })
+          ) {
+            return fail(
+              "CLAIM_EVALUATION_INVALID_STATE",
+              "contract_result_confirm_evidence_not_w3b_usable",
+              {
+                claimEvaluation: current,
+                evidenceId,
+                reviewBundleId: current.reviewBundleId,
+              },
+            );
+          }
+        }
+
+        contractResultAttempt = attempt;
+      }
+
       const confirmationAuthority =
-        current.criticality === "structural"
-          ? ("morris" as const)
-          : ("authorized_human" as const);
+        isContractResult
+          ? ("authorized_human" as const)
+          : current.criticality === "structural"
+            ? ("morris" as const)
+            : ("authorized_human" as const);
+
+      const stampedExpectedOutputs = isContractResult
+        ? current.expectedOutputAssessments?.map((assessment) =>
+            assessment.result === "PASS"
+              ? {
+                  ...assessment,
+                  reviewConfirmation: {
+                    confirmedBy: { ...request.actor },
+                    confirmedAt: timestamp,
+                  },
+                }
+              : assessment,
+          )
+        : undefined;
+      const stampedEvidenceRequirements = isContractResult
+        ? current.evidenceRequirementAssessments?.map((assessment) =>
+            assessment.result === "SATISFIED"
+              ? {
+                  ...assessment,
+                  reviewConfirmation: {
+                    confirmedBy: { ...request.actor },
+                    confirmedAt: timestamp,
+                  },
+                }
+              : assessment,
+          )
+        : undefined;
+
+      let contractResultStatus: ClaimEvaluation["status"] = "pass";
+      if (isContractResult) {
+        if (!contractResultAttempt) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "contract_result_confirm_attempt_not_found",
+            { claimEvaluation: current },
+          );
+        }
+        // OB02 — derive from real Attempt.status (FC-10), never EO-inferred status.
+        const derivedStatus = deriveCanonicalContractResultStatus({
+          attemptStatus: contractResultAttempt.status,
+          expectedOutputAssessments: stampedExpectedOutputs ?? [],
+          evidenceRequirementAssessments: stampedEvidenceRequirements ?? [],
+        });
+        if (derivedStatus !== "pass") {
+          return fail(
+            "CLAIM_EVALUATION_INVALID_STATE",
+            "contract_result_confirm_derived_not_pass",
+            { claimEvaluation: current },
+          );
+        }
+        contractResultStatus = derivedStatus;
+      }
 
       const updated: ClaimEvaluation = {
         ...current,
-        status: "pass",
+        status: isContractResult ? contractResultStatus : "pass",
         providedEvidenceRefs: assessed.provided,
         evidenceAssessments: structuredClone(assessed.assessments),
         confirmedBy: { ...request.actor },
@@ -309,6 +509,12 @@ export class ConfirmClaimEvaluation {
         updatedAt: timestamp,
         version: current.version + 1,
         idempotencyKey: request.idempotencyKey,
+        ...(isContractResult
+          ? {
+              expectedOutputAssessments: stampedExpectedOutputs,
+              evidenceRequirementAssessments: stampedEvidenceRequirements,
+            }
+          : {}),
       };
       const shape = validateClaimEvaluationShape(updated);
       if (shape) {

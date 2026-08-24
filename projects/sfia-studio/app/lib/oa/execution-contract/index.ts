@@ -24,7 +24,9 @@ export * from "./domain/errors";
 export * from "./domain/invariants";
 export {
   computeExecutionContractSemanticFingerprint,
+  computeExecutionContractSemanticMaterialFingerprint,
   executionContractSemanticMaterial,
+  type ExecutionContractSemanticMaterial,
 } from "./domain/semanticFingerprint";
 export {
   DEFAULT_BOUNDED_READ_ONLY_M3_EXECUTION_WINDOW_CLASS,
