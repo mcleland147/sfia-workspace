@@ -896,4 +896,3 @@ Never ADOPTED / VALIDATED / DECIDED BY MORRIS in this document.
 **W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R06 CORRECTED CANDIDATE READY FOR CHATGPT ARCHITECTURE RE-REVIEW**
 
 Not validated · not adopted · TD-W3B-01…04 remain CANDIDATE · W3-B remains STRUCTURALLY BLOCKED until ChatGPT re-review + Morris TD validation and Delivery is separately requalified.
-
