@@ -1,10 +1,9 @@
 /**
- * TD-W3B-02 — deterministic EO/ER assessment for contract-result mode.
- * Free-text expectations remain EC source; identity is positional + fingerprint bound.
+ * TD-W3B-02 + ARCH-R02 — deterministic EO/ER assessment for contract-result mode.
+ * Identity: (semanticFingerprint, kind, ordinal). Semantic pass requires known applicable rule.
  */
-import type { ExecutionAttemptSnapshot } from "../domain/types";
-import type { Evidence } from "../domain/types";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import type { Evidence, ExecutionAttemptSnapshot } from "../domain/types";
 import type {
   ContractResultAssessmentProvenance,
   ExpectedOutputAssessment,
@@ -14,6 +13,11 @@ import {
   W3B_CONTRACT_RESULT_RULE_REF,
   buildContractResultItemId,
 } from "../domain/contractResultTypes";
+import {
+  assessTempArtifactEvidenceRequirement,
+  assessTempArtifactExpectedOutput,
+  resolveApplicableContractResultRule,
+} from "./contractResultSemanticEvaluator";
 
 export type ContractResultAssessmentInput = {
   readonly contract: ExecutionContract;
@@ -21,24 +25,23 @@ export type ContractResultAssessmentInput = {
   readonly evidence: Evidence;
   readonly evaluatedAt: string;
   readonly evaluatorRef?: string;
+  readonly frozenEvidenceSnapshot?: {
+    evidenceId: string;
+    evidenceVersion: number;
+    status: string;
+    availability: string;
+  };
 };
 
 function provenance(
   input: ContractResultAssessmentInput,
+  ruleRef: string,
 ): ContractResultAssessmentProvenance {
   return {
     evaluatorRef: input.evaluatorRef ?? "w3b-contract-result-assessor",
     evaluatedAt: input.evaluatedAt,
-    ruleRef: W3B_CONTRACT_RESULT_RULE_REF,
+    ruleRef,
   };
-}
-
-function eoPassEligible(input: ContractResultAssessmentInput): boolean {
-  if (input.attempt.status !== "succeeded") return false;
-  if (!input.attempt.resultRef?.trim()) return false;
-  if (!input.contract.scope?.trim()) return false;
-  if (input.evidence.technicalResultRef !== input.attempt.resultRef) return false;
-  return true;
 }
 
 export function assessExpectedOutputs(
@@ -46,8 +49,9 @@ export function assessExpectedOutputs(
 ): ExpectedOutputAssessment[] {
   const fp = input.contract.semanticFingerprint ?? "";
   const outputs = input.contract.expectedOutputs ?? [];
-  const prov = provenance(input);
-  const passEligible = eoPassEligible(input);
+  const rule = resolveApplicableContractResultRule(input.contract);
+  const ruleRef = rule.applicable ? rule.ruleRef : W3B_CONTRACT_RESULT_RULE_REF;
+  const prov = provenance(input, ruleRef);
 
   return outputs.map((expectation, ordinal) => {
     let result: ExpectedOutputAssessment["result"] = "NOT_PROVEN";
@@ -58,8 +62,13 @@ export function assessExpectedOutputs(
       input.attempt.stopOrigin === "SYSTEM_GOVERNED_STOP"
     ) {
       result = "NOT_PROVEN";
-    } else if (passEligible) {
-      result = "PASS";
+    } else if (rule.applicable) {
+      result = assessTempArtifactExpectedOutput({
+        expectation,
+        ordinal,
+        attempt: input.attempt,
+        evidence: input.evidence,
+      });
     }
     return {
       itemId: buildContractResultItemId({
@@ -70,7 +79,7 @@ export function assessExpectedOutputs(
       expectation,
       result,
       method: "deterministic",
-      ruleRef: W3B_CONTRACT_RESULT_RULE_REF,
+      ruleRef,
       provenance: prov,
     };
   });
@@ -81,21 +90,25 @@ export function assessEvidenceRequirements(
 ): EvidenceRequirementAssessment[] {
   const fp = input.contract.semanticFingerprint ?? "";
   const requirements = input.contract.evidenceRequirements ?? [];
-  const prov = provenance(input);
-  const evidenceOk =
-    input.evidence.status === "available" || input.evidence.status === "verified";
+  const rule = resolveApplicableContractResultRule(input.contract);
+  const ruleRef = rule.applicable ? rule.ruleRef : W3B_CONTRACT_RESULT_RULE_REF;
+  const prov = provenance(input, ruleRef);
 
   return requirements.map((requirement, ordinal) => {
     let result: EvidenceRequirementAssessment["result"] = "NOT_PROVEN";
-    if (!evidenceOk) {
-      result = "NOT_SATISFIED";
-    } else if (
+    if (
       input.attempt.status === "failed" ||
       input.attempt.status === "timeout"
     ) {
       result = "NOT_SATISFIED";
-    } else {
-      result = "SATISFIED";
+    } else if (rule.applicable) {
+      result = assessTempArtifactEvidenceRequirement({
+        requirement,
+        ordinal,
+        attempt: input.attempt,
+        evidence: input.evidence,
+        frozenSnapshot: input.frozenEvidenceSnapshot,
+      });
     }
     return {
       itemId: buildContractResultItemId({
@@ -106,7 +119,7 @@ export function assessEvidenceRequirements(
       requirement,
       result,
       method: "deterministic",
-      ruleRef: W3B_CONTRACT_RESULT_RULE_REF,
+      ruleRef,
       provenance: prov,
     };
   });
@@ -131,7 +144,8 @@ export function deriveCanonicalContractResultStatus(input: {
     input.attemptStatus === "succeeded" &&
     allEoPass &&
     allErSatisfied &&
-    input.expectedOutputAssessments.length > 0
+    input.expectedOutputAssessments.length > 0 &&
+    input.evidenceRequirementAssessments.length > 0
   ) {
     return "pass";
   }

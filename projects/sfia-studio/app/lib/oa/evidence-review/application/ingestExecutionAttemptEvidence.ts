@@ -5,7 +5,9 @@
  * - Terminal Attempts may produce Evidence:
  *   - succeeded + resultRef → available (technicalResultRef = resultRef)
  *   - failed | timeout with errorRef or stopReason → available diagnostic
- *   - cancelled with cancelledAt or stopReason → available governed-stop
+ *   - cancelled with USER_CANCEL → user-cancel diagnostic Evidence
+ *   - cancelled with SYSTEM_GOVERNED_STOP → governed-stop Evidence
+ *   - cancelled without trustworthy provenance → neutral cancellation diagnostic
  * - Non-terminal (accepted/running/result_pending) → ATTEMPT_STATUS_REFUSED.
  * - Created Evidence status is never "verified".
  * - ExecutionAttempt.succeeded ≠ Evidence verified ≠ Product SUCCESS/PASS.
@@ -224,12 +226,18 @@ export class IngestExecutionAttemptEvidence {
       }
 
       const storageMode = request.storageMode ?? "internal_payload_ref";
+      const cancelLocation =
+        attempt.stopOrigin === "SYSTEM_GOVERNED_STOP"
+          ? `refs/attempts/${attempt.attemptId}/governed-stop`
+          : attempt.stopOrigin === "USER_CANCEL"
+            ? `refs/attempts/${attempt.attemptId}/user-cancel`
+            : `refs/attempts/${attempt.attemptId}/cancellation`;
       const location =
         request.location ??
         (terminalKind === "succeeded"
           ? `refs/attempts/${attempt.attemptId}/result`
           : terminalKind === "cancelled"
-            ? `refs/attempts/${attempt.attemptId}/governed-stop`
+            ? cancelLocation
             : `refs/attempts/${attempt.attemptId}/diagnostic`);
 
       const producedAt =
@@ -246,7 +254,15 @@ export class IngestExecutionAttemptEvidence {
         schemaVersion: "0.2.0-oa",
         evidenceId: request.evidenceId,
         type: request.type ?? (terminalKind === "succeeded" ? "artifact" : "log_ref"),
-        source: `execution attempt ${attempt.attemptId} (${terminalKind})`,
+        source: `execution attempt ${attempt.attemptId} (${terminalKind}${
+          terminalKind === "cancelled"
+            ? attempt.stopOrigin === "SYSTEM_GOVERNED_STOP"
+              ? ":governed-stop"
+              : attempt.stopOrigin === "USER_CANCEL"
+                ? ":user-cancel"
+                : ":cancellation"
+            : ""
+        })`,
         sourceKind: "execution_attempt",
         location,
         digest: request.digest,

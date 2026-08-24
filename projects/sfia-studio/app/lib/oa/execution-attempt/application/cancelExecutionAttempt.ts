@@ -21,6 +21,7 @@ import type {
   ExecutionAttempt,
   ExecutionAttemptResult,
 } from "../domain/types";
+import { withAttemptContractBindingSync } from "../domain/types";
 import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
 import type { AgentRegistryPort } from "../ports/agentRegistry";
 import type { ExecutionAdapterPort } from "../ports/executionAdapter";
@@ -269,9 +270,27 @@ export class CancelExecutionAttempt {
         durationMs,
       });
 
+      let terminalAttempt = cancelled;
+      if (contractWrite.ok) {
+        terminalAttempt = withAttemptContractBindingSync(
+          cancelled,
+          contractWrite.contract,
+        );
+        if (
+          terminalAttempt.executionContractVersion !==
+          cancelled.executionContractVersion
+        ) {
+          terminalAttempt = {
+            ...terminalAttempt,
+            version: cancelled.version + 1,
+          };
+          await this.attempts.update(terminalAttempt, cancelled.version);
+        }
+      }
+
       return {
         ok: true,
-        attempt: structuredClone(cancelled),
+        attempt: structuredClone(terminalAttempt),
         contractStatus: contractWrite.ok
           ? contractWrite.contract.status
           : contract.status,

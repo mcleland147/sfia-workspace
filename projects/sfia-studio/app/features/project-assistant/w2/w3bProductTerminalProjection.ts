@@ -7,6 +7,7 @@ import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
 import type { ClaimEvaluation } from "@/lib/oa/evidence-review";
 import type { Evidence, ReviewBundle } from "@/lib/oa/evidence-review";
 import { CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT } from "@/lib/oa/evidence-review/domain/contractResultTypes";
+import { contractResultBindingsMatchCurrentFacts } from "@/lib/oa/evidence-review/domain/contractResultTypes";
 import { projectContractResultVerdict } from "@/lib/oa/evidence-review/application/contractResultVerdictProjection";
 
 export type W3BProductTerminalKind = "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED";
@@ -206,6 +207,28 @@ export function projectW3bProductTerminal(input: {
 
   const ce = input.claimEvaluation;
   const verdict = projectContractResultVerdict(ce.status);
+
+  if (
+    ce.contractResultBindings &&
+    !contractResultBindingsMatchCurrentFacts({
+      bindings: ce.contractResultBindings,
+      contract: input.contract,
+      attempt: input.attempt,
+      reviewBundle: {
+        reviewBundleId: input.reviewBundle.reviewBundleId,
+        frozenVersion: input.reviewBundle.frozenVersion,
+      },
+      evidenceIds: [input.evidence.evidenceId],
+    })
+  ) {
+    return {
+      ...base,
+      ...unclaimed(
+        "Évaluation Contract Result périmée — bindings EC/RB/Attempt ne correspondent plus.",
+      ),
+      evidenceSummary: evidenceSummaryFor("UNCLAIMED", input.attempt.status),
+    };
+  }
 
   if (
     input.attempt.status === "succeeded" &&

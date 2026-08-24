@@ -19,6 +19,7 @@ import type {
   ClaimEvaluationResult,
   ConfirmClaimEvaluationRequest,
 } from "../domain/claimEvaluationTypes";
+import { CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT } from "../domain/contractResultTypes";
 import { containsForbiddenSecret } from "../domain/invariants";
 import type { EvidenceAuditPort } from "../ports/evidenceAudit";
 import type { ClaimAuthorityPort } from "../ports/claimAuthorityPort";
@@ -266,13 +267,17 @@ export class ConfirmClaimEvaluation {
         );
       }
 
-      const requireMorris = current.criticality === "structural";
+      const requireMorris =
+        current.subjectKind !== CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT &&
+        current.criticality === "structural";
       const requiredLevel =
-        current.criticality === "structural"
-          ? ("N3" as const)
-          : current.criticality === "critical"
-            ? ("N2" as const)
-            : ("N1" as const);
+        current.subjectKind === CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT
+          ? ("N1" as const)
+          : current.criticality === "structural"
+            ? ("N3" as const)
+            : current.criticality === "critical"
+              ? ("N2" as const)
+              : ("N1" as const);
       const auth = this.authority.verify({
         actorId: request.actor.actorId,
         requiredLevel,
@@ -293,10 +298,23 @@ export class ConfirmClaimEvaluation {
         );
       }
 
+      if (
+        current.subjectKind === CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT &&
+        current.evaluationMethod === "deterministic"
+      ) {
+        return fail(
+          "CLAIM_EVALUATION_INVALID_STATE",
+          "contract_result_deterministic_no_human_confirm",
+          { claimEvaluation: current },
+        );
+      }
+
       const confirmationAuthority =
-        current.criticality === "structural"
-          ? ("morris" as const)
-          : ("authorized_human" as const);
+        current.subjectKind === CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT
+          ? ("authorized_human" as const)
+          : current.criticality === "structural"
+            ? ("morris" as const)
+            : ("authorized_human" as const);
 
       const updated: ClaimEvaluation = {
         ...current,

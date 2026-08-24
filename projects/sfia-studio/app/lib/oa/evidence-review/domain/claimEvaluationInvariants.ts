@@ -15,6 +15,10 @@ import type {
   ClaimEvaluationStatus,
   ClaimType,
 } from "./claimEvaluationTypes";
+import {
+  CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
+  W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
+} from "./contractResultTypes";
 
 export type ClaimInvariantViolation = {
   detailCode: ClaimEvaluationDetailCode;
@@ -190,6 +194,55 @@ export function validateClaimEvaluationShape(
         reason: "pass_requires_evidence_and_evaluated_at",
       };
     }
+
+    if (claim.subjectKind === CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT) {
+      if (!claim.contractResultReviewPolicyRef) {
+        return {
+          detailCode: "CLAIM_EVALUATION_INVALID",
+          reason: "contract_result_missing_policy_ref",
+        };
+      }
+      if (
+        claim.contractResultReviewPolicyRef !== W3B_CONTRACT_RESULT_REVIEW_POLICY_REF
+      ) {
+        return {
+          detailCode: "CLAIM_EVALUATION_INVALID",
+          reason: "contract_result_unknown_policy_ref",
+        };
+      }
+      if (claim.evaluationMethod === "deterministic") {
+        if (claim.confirmationAuthority !== "system_deterministic") {
+          return {
+            detailCode: "CLAIM_EVALUATION_INVALID",
+            reason: "contract_result_deterministic_requires_system_authority",
+          };
+        }
+      } else {
+        if (claim.confirmationAuthority !== "authorized_human") {
+          return {
+            detailCode: "CLAIM_EVALUATION_INVALID",
+            reason: "contract_result_human_requires_authorized_human",
+          };
+        }
+        if (!claim.confirmedBy || !claim.confirmedAt) {
+          return {
+            detailCode: "CLAIM_CONFIRMATION_REQUIRED",
+            reason: "contract_result_pass_requires_human_confirm",
+          };
+        }
+        if (
+          claim.confirmedBy.role === "system" ||
+          claim.confirmedBy.role === "agent"
+        ) {
+          return {
+            detailCode: "CLAIM_AUTHORITY_FORBIDDEN",
+            reason: "contract_result_system_or_agent_confirm",
+          };
+        }
+      }
+      return null;
+    }
+
     if (claim.criticality === "non_critical" && claim.evaluationMethod === "deterministic") {
       if (claim.confirmationAuthority !== "system_deterministic") {
         return {

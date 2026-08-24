@@ -11,6 +11,7 @@ import type {
   ExecutionAttempt,
   ExecutionAttemptResult,
 } from "../domain/types";
+import { withAttemptContractBindingSync } from "../domain/types";
 import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
 import type { AgentRegistryPort } from "../ports/agentRegistry";
 import type { ExecutionAdapterPort } from "../ports/executionAdapter";
@@ -226,9 +227,26 @@ export class SystemGovernedStop {
         durationMs,
       });
 
+      let terminalAttempt = stopped;
+      if (contractWrite.ok) {
+        terminalAttempt = withAttemptContractBindingSync(
+          stopped,
+          contractWrite.contract,
+        );
+        if (
+          terminalAttempt.executionContractVersion !== stopped.executionContractVersion
+        ) {
+          terminalAttempt = {
+            ...terminalAttempt,
+            version: stopped.version + 1,
+          };
+          await this.attempts.update(terminalAttempt, stopped.version);
+        }
+      }
+
       return {
         ok: true,
-        attempt: structuredClone(stopped),
+        attempt: structuredClone(terminalAttempt),
         contractStatus: contractWrite.ok
           ? contractWrite.contract.status
           : contract.status,

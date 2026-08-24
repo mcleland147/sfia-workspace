@@ -11,6 +11,7 @@ import type {
   CheckExecutionAuthorization,
   ExecutionContractRepositoryPort,
 } from "@/lib/oa/execution-contract";
+import { computeExecutionContractSemanticFingerprint } from "@/lib/oa/execution-contract";
 import { createAttemptError, isExecutionAttemptDomainError } from "../domain/errors";
 import {
   AGENT_SELECTION_SCOPE,
@@ -371,6 +372,9 @@ export class SelectExecutionAgent {
         attemptId: request.attemptId,
         executionContractId: contract.executionContractId,
         executionContractVersion: contract.version,
+        executionContractSemanticFingerprint:
+          contract.semanticFingerprint ??
+          computeExecutionContractSemanticFingerprint(contract),
         selectedAgentRef,
         status: "accepted",
         idempotencyKey: request.idempotencyKey,

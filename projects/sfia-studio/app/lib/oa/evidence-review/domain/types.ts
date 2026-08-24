@@ -244,4 +244,6 @@ export type ExecutionAttemptSnapshot = {
   stopObservedAt?: string;
   completedAt?: string;
   selectedAgentRef?: string;
+  /** Immutable EC semantic material bound at Attempt acceptance (TD-W3B-02). */
+  executionContractSemanticFingerprint?: string;
 };

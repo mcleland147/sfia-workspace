@@ -65,14 +65,15 @@ describe("T-A6-D1 IngestExecutionAttemptEvidence", () => {
     expect(result.evidence.source).toContain("failed");
   });
 
-  it("ingests cancelled Attempt with stopReason as governed-stop Evidence", async () => {
+  it("ingests cancelled Attempt with SYSTEM_GOVERNED_STOP as governed-stop Evidence", async () => {
     const s = buildServices();
     s.fakeAttempts.seed({
       attemptId: "xat:cancel-001",
       executionContractId: "xct:oa-001",
       executionContractVersion: 1,
       status: "cancelled",
-      stopReason: "Arrêt gouverné Pilote",
+      stopReason: "EXECUTOR_INSUFFICIENT",
+      stopOrigin: "SYSTEM_GOVERNED_STOP",
       cancelledAt: "2026-07-26T01:00:00.000Z",
     });
     const result = await s.ingestExecutionAttemptEvidence.execute({
@@ -87,6 +88,31 @@ describe("T-A6-D1 IngestExecutionAttemptEvidence", () => {
     if (!result.ok) return;
     expect(result.evidence.status).toBe("available");
     expect(result.evidence.location).toContain("governed-stop");
+    expect(result.evidence.source).toContain(":governed-stop");
+  });
+
+  it("ingests cancelled Attempt without trustworthy provenance as neutral cancellation", async () => {
+    const s = buildServices();
+    s.fakeAttempts.seed({
+      attemptId: "xat:cancel-neutral-001",
+      executionContractId: "xct:oa-001",
+      executionContractVersion: 1,
+      status: "cancelled",
+      stopReason: "Arrêt gouverné Pilote",
+      cancelledAt: "2026-07-26T01:00:00.000Z",
+    });
+    const result = await s.ingestExecutionAttemptEvidence.execute({
+      evidenceId: "ev:cancel-neutral",
+      executionAttemptId: "xat:cancel-neutral-001",
+      idempotencyKey: "idem-ingest-cancel-neutral-001",
+      actor: SYSTEM_ACTOR,
+      classification: "internal",
+      bindings: { projectId: "prj:campus360-oa" },
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.evidence.location).toContain("/cancellation");
+    expect(result.evidence.location).not.toContain("governed-stop");
   });
 
   it("refuses running Attempt", async () => {

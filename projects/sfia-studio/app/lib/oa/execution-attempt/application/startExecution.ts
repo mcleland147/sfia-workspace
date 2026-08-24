@@ -52,6 +52,7 @@ import type {
   ExecutionAttemptResult,
   StartExecutionRequest,
 } from "../domain/types";
+import { withAttemptContractBindingSync } from "../domain/types";
 import type {
   ContractSafetyIdentity,
   GateDGrant,
@@ -1028,9 +1029,24 @@ export class StartExecution {
       durationMs,
     });
 
+    let launchedAttempt = withAttemptContractBindingSync(
+      runningAttempt,
+      contractWrite.contract,
+    );
+    if (
+      launchedAttempt.executionContractVersion !==
+      runningAttempt.executionContractVersion
+    ) {
+      launchedAttempt = {
+        ...launchedAttempt,
+        version: runningAttempt.version + 1,
+      };
+      await this.attempts.update(launchedAttempt, runningAttempt.version);
+    }
+
     return {
       ok: true,
-      attempt: structuredClone(runningAttempt),
+      attempt: structuredClone(launchedAttempt),
       contractStatus: contractWrite.contract.status,
       contractVersion: contractWrite.contract.version,
       durationMs,
@@ -1082,14 +1098,35 @@ export class StartExecution {
     // Indeterminate adapter failure fails the contract; a deterministic
     // rejection leaves it `confirmed` so a Retry stays possible.
     let contractStatus: string | undefined;
+    let contractWrite:
+      | Awaited<ReturnType<ExecutionContractStatusWriter["write"]>>
+      | undefined;
     if (input.cause === "fail") {
-      const write = await this.contractStatusWriter.write({
+      contractWrite = await this.contractStatusWriter.write({
         executionContractId: input.attempt.executionContractId,
         expectedVersion: input.contractVersion,
         nextStatus: "failed",
         reason: "Launch failed before execution started",
       });
-      contractStatus = write.ok ? write.contract.status : undefined;
+      contractStatus = contractWrite.ok ? contractWrite.contract.status : undefined;
+    }
+
+    let terminalAttempt = persistedAttempt;
+    if (persistedAttempt && contractWrite?.ok) {
+      terminalAttempt = withAttemptContractBindingSync(
+        persistedAttempt,
+        contractWrite.contract,
+      );
+      if (
+        terminalAttempt.executionContractVersion !==
+        persistedAttempt.executionContractVersion
+      ) {
+        terminalAttempt = {
+          ...terminalAttempt,
+          version: persistedAttempt.version + 1,
+        };
+        await this.attempts.update(terminalAttempt, persistedAttempt.version);
+      }
     }
 
     const durationMs = Date.now() - input.started;
@@ -1120,7 +1157,7 @@ export class StartExecution {
         executionContractId: input.attempt.executionContractId,
         internalCauseRef: input.reason,
       }),
-      attempt: persistedAttempt,
+      attempt: terminalAttempt,
       durationMs,
     };
   }

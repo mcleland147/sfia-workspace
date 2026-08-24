@@ -22,7 +22,7 @@ import { CLAIM_EVALUATION_SCHEMA_VERSION } from "../domain/claimEvaluationTypes"
 import {
   CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
   W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
-  isAttemptContractVersionBound,
+  isAttemptContractExactlyBound,
 } from "../domain/contractResultTypes";
 import type { ExecutionAttemptSnapshot } from "../domain/types";
 import type { Evidence } from "../domain/types";
@@ -36,6 +36,7 @@ import {
   buildContractResultClaimStatement,
   deriveCanonicalContractResultStatus,
 } from "./contractResultAssessment";
+import { resolveApplicableContractResultRule } from "./contractResultSemanticEvaluator";
 import {
   assertIdempotencyKey,
   buildProvenance,
@@ -123,15 +124,68 @@ export class EvaluateContractResult {
       if (contract.executionContractId !== attempt.executionContractId) {
         return fail("CLAIM_EVALUATION_INVALID", "contract_attempt_mismatch");
       }
-      const versionAligned = isAttemptContractVersionBound({
-        contract,
-        attempt,
-      });
+      if (
+        !isAttemptContractExactlyBound({
+          contract: {
+            executionContractId: contract.executionContractId,
+            version: contract.version,
+            semanticFingerprint: contract.semanticFingerprint,
+          },
+          attempt,
+        })
+      ) {
+        return fail(
+          "CLAIM_EVALUATION_INVALID",
+          "contract_attempt_exact_binding_mismatch",
+        );
+      }
       if (evidence.bindings.executionAttemptId !== attempt.attemptId) {
         return fail("CLAIM_EVALUATION_INVALID", "evidence_attempt_mismatch");
       }
       if (reviewBundle.completeness !== "complete") {
         return fail("CLAIM_REVIEW_BUNDLE_INVALID", "review_bundle_incomplete");
+      }
+      if (!reviewBundle.frozenAt || !reviewBundle.frozenVersion) {
+        return fail(
+          "CLAIM_REVIEW_BUNDLE_INVALID",
+          "review_bundle_not_frozen",
+        );
+      }
+      if (reviewBundle.status !== "ready_for_review") {
+        return fail(
+          "CLAIM_REVIEW_BUNDLE_INVALID",
+          "review_bundle_not_ready_for_review",
+        );
+      }
+      if (reviewBundle.synthesisOnly) {
+        return fail(
+          "CLAIM_REVIEW_BUNDLE_INVALID",
+          "review_bundle_synthesis_only",
+        );
+      }
+
+      const frozenSnapshot = (reviewBundle.frozenEvidenceSnapshots ?? []).find(
+        (snap) => snap.evidenceId === evidence.evidenceId,
+      );
+      if (!frozenSnapshot) {
+        return fail(
+          "CLAIM_EVIDENCE_NOT_IN_REVIEW_BUNDLE",
+          "evidence_not_in_frozen_snapshot",
+        );
+      }
+      if (frozenSnapshot.evidenceVersion !== evidence.version) {
+        return fail(
+          "CLAIM_EVIDENCE_VERSION_MISMATCH",
+          "evidence_version_frozen_mismatch",
+        );
+      }
+
+      const applicableRule = resolveApplicableContractResultRule(contract);
+      if (!applicableRule.applicable) {
+        return fail(
+          "CLAIM_EVALUATION_INVALID",
+          "contract_result_rule_not_applicable",
+        );
       }
 
       const fingerprint = fingerprintCommand(
@@ -174,26 +228,16 @@ export class EvaluateContractResult {
         attempt,
         evidence,
         evaluatedAt: timestamp,
+        frozenEvidenceSnapshot: frozenSnapshot,
       };
-      const expectedOutputAssessments = versionAligned
-        ? assessExpectedOutputs(assessmentInput)
-        : assessExpectedOutputs(assessmentInput).map((a) => ({
-            ...a,
-            result: "NOT_PROVEN" as const,
-          }));
-      const evidenceRequirementAssessments = versionAligned
-        ? assessEvidenceRequirements(assessmentInput)
-        : assessEvidenceRequirements(assessmentInput).map((a) => ({
-            ...a,
-            result: "NOT_PROVEN" as const,
-          }));
-      const status = versionAligned
-        ? deriveCanonicalContractResultStatus({
-            attemptStatus: attempt.status,
-            expectedOutputAssessments,
-            evidenceRequirementAssessments,
-          })
-        : ("not_proven" as const);
+      const expectedOutputAssessments = assessExpectedOutputs(assessmentInput);
+      const evidenceRequirementAssessments =
+        assessEvidenceRequirements(assessmentInput);
+      const status = deriveCanonicalContractResultStatus({
+        attemptStatus: attempt.status,
+        expectedOutputAssessments,
+        evidenceRequirementAssessments,
+      });
 
       const claimEvaluation: ClaimEvaluation = {
         schemaVersion: CLAIM_EVALUATION_SCHEMA_VERSION,
@@ -206,11 +250,11 @@ export class EvaluateContractResult {
         }),
         criticality: "non_critical",
         evaluationMethod: "deterministic",
-        ruleRef: "w3b-product-completion-contract-result-v1",
+        ruleRef: applicableRule.ruleRef,
         requiredEvidenceRefs: [evidence.evidenceId],
         providedEvidenceRefs: [evidence.evidenceId],
         reviewBundleId: reviewBundle.reviewBundleId,
-        reviewBundleVersion: reviewBundle.version,
+        reviewBundleVersion: reviewBundle.frozenVersion,
         status,
         proposedBy: request.actor,
         confirmationAuthority: "system_deterministic",
@@ -233,10 +277,13 @@ export class EvaluateContractResult {
           cycleInstanceId: contract.cycleInstanceId ?? null,
           executionContractId: contract.executionContractId,
           executionContractVersion: attempt.executionContractVersion,
-          executionContractSemanticFingerprint: contract.semanticFingerprint ?? "",
+          executionContractSemanticFingerprint:
+            attempt.executionContractSemanticFingerprint ??
+            contract.semanticFingerprint ??
+            "",
           executionAttemptId: attempt.attemptId,
           reviewBundleId: reviewBundle.reviewBundleId,
-          reviewBundleVersion: reviewBundle.version,
+          reviewBundleVersion: reviewBundle.frozenVersion,
           evidenceRefs: [evidence.evidenceId],
         },
         expectedOutputAssessments,

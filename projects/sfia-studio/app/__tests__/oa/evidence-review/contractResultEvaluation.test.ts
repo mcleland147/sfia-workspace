@@ -1,5 +1,5 @@
 /**
- * W3-B Contract Result evaluation — TD-W3B-01/02 unit proofs.
+ * W3-B Contract Result evaluation — TD-W3B-01/02 + ARCH-R02 unit proofs.
  * @vitest-environment node
  */
 import { describe, expect, it } from "vitest";
@@ -8,9 +8,18 @@ import {
   assessEvidenceRequirements,
   deriveCanonicalContractResultStatus,
 } from "@/lib/oa/evidence-review/application/contractResultAssessment";
+import {
+  W3B_TEMP_ARTIFACT_EO_TEMPLATE,
+  W3B_TEMP_ARTIFACT_ER_KEY,
+  W3B_TEMP_ARTIFACT_RULE_REF,
+} from "@/lib/oa/evidence-review/application/contractResultSemanticEvaluator";
 import { validateClaimEvaluationShape } from "@/lib/oa/evidence-review/domain/claimEvaluationInvariants";
 import { CLAIM_EVALUATION_SCHEMA_VERSION } from "@/lib/oa/evidence-review/domain/claimEvaluationTypes";
-import { CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT } from "@/lib/oa/evidence-review/domain/contractResultTypes";
+import {
+  CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
+  W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
+  isAttemptContractExactlyBound,
+} from "@/lib/oa/evidence-review/domain/contractResultTypes";
 import { projectContractResultVerdict } from "@/lib/oa/evidence-review/application/contractResultVerdictProjection";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
 import type { Evidence } from "@/lib/oa/evidence-review";
@@ -22,18 +31,25 @@ const contract: ExecutionContract = {
   version: 1,
   status: "confirmed",
   semanticFingerprint: "fp:w3b:abc",
-  action: "generate",
-  target: "artifact",
-  scope: "temp artifact",
+  action: "product:generate-temporary-artifact",
+  target: "product:project-workspace",
+  scope: "product:temporary-local-artifact",
   requiredAuthority: "N3",
   constraints: [],
   stopConditions: ["EXECUTOR_INSUFFICIENT"],
-  evidenceRequirements: ["evreq:artifact"],
-  expectedOutputs: ["Temporary artifact produced"],
-  requiredCapabilities: ["generate"],
+  evidenceRequirements: [W3B_TEMP_ARTIFACT_ER_KEY],
+  expectedOutputs: [W3B_TEMP_ARTIFACT_EO_TEMPLATE],
+  requiredCapabilities: ["cap:product-temp-artifact"],
   reversibility: "reversible",
   idempotencyKey: "idem:ec:w3b",
   correlationId: "cor:ec:w3b:test",
+};
+
+const frozenSnapshot = {
+  evidenceId: "ev:w3b:1",
+  evidenceVersion: 1,
+  status: "available",
+  availability: "available",
 };
 
 const evidence: Evidence = {
@@ -68,22 +84,24 @@ const evidence: Evidence = {
   },
   version: 1,
   createdAt: "2026-08-24T00:00:00.000Z",
-  technicalResultRef: "res:w3b:1",
+  technicalResultRef: "res:w3a:abc123",
 };
 
 describe("Contract Result evaluation", () => {
-  it("succeeded + matching resultRef → EO PASS + ER SATISFIED + status pass", () => {
+  it("recognized operation + applicable facts → EO PASS + ER SATISFIED + status pass", () => {
     const eo = assessExpectedOutputs({
       contract,
       attempt: {
         attemptId: "xat:w3b:1",
         executionContractId: contract.executionContractId,
         executionContractVersion: 1,
+        executionContractSemanticFingerprint: contract.semanticFingerprint,
         status: "succeeded",
-        resultRef: "res:w3b:1",
+        resultRef: "res:w3a:abc123",
       },
       evidence,
       evaluatedAt: "2026-08-24T00:00:00.000Z",
+      frozenEvidenceSnapshot: frozenSnapshot,
     });
     const er = assessEvidenceRequirements({
       contract,
@@ -91,13 +109,16 @@ describe("Contract Result evaluation", () => {
         attemptId: "xat:w3b:1",
         executionContractId: contract.executionContractId,
         executionContractVersion: 1,
+        executionContractSemanticFingerprint: contract.semanticFingerprint,
         status: "succeeded",
-        resultRef: "res:w3b:1",
+        resultRef: "res:w3a:abc123",
       },
       evidence,
       evaluatedAt: "2026-08-24T00:00:00.000Z",
+      frozenEvidenceSnapshot: frozenSnapshot,
     });
     expect(eo[0]?.result).toBe("PASS");
+    expect(eo[0]?.ruleRef).toBe(W3B_TEMP_ARTIFACT_RULE_REF);
     expect(er[0]?.result).toBe("SATISFIED");
     const status = deriveCanonicalContractResultStatus({
       attemptStatus: "succeeded",
@@ -108,20 +129,91 @@ describe("Contract Result evaluation", () => {
     expect(projectContractResultVerdict(status)).toBe("PASS");
   });
 
-  it("technical succeeded alone without evidence match → not_proven", () => {
+  it("technical succeeded + resultRef + Evidence available + unknown EO text → NOT_PROVEN", () => {
+    const eo = assessExpectedOutputs({
+      contract: {
+        ...contract,
+        expectedOutputs: ["Temporary artifact produced"],
+      },
+      attempt: {
+        attemptId: "xat:w3b:1",
+        executionContractId: contract.executionContractId,
+        executionContractVersion: 1,
+        executionContractSemanticFingerprint: contract.semanticFingerprint,
+        status: "succeeded",
+        resultRef: "res:w3a:abc123",
+      },
+      evidence,
+      evaluatedAt: "2026-08-24T00:00:00.000Z",
+    });
+    expect(eo[0]?.result).toBe("NOT_PROVEN");
+  });
+
+  it("resultRef match alone without server-owned res:w3a shape → NOT_PROVEN", () => {
     const eo = assessExpectedOutputs({
       contract,
       attempt: {
         attemptId: "xat:w3b:1",
         executionContractId: contract.executionContractId,
         executionContractVersion: 1,
+        executionContractSemanticFingerprint: contract.semanticFingerprint,
         status: "succeeded",
         resultRef: "res:other",
+      },
+      evidence: { ...evidence, technicalResultRef: "res:other" },
+      evaluatedAt: "2026-08-24T00:00:00.000Z",
+    });
+    expect(eo[0]?.result).toBe("NOT_PROVEN");
+  });
+
+  it("Evidence available alone without frozen snapshot → ER NOT_PROVEN", () => {
+    const er = assessEvidenceRequirements({
+      contract,
+      attempt: {
+        attemptId: "xat:w3b:1",
+        executionContractId: contract.executionContractId,
+        executionContractVersion: 1,
+        executionContractSemanticFingerprint: contract.semanticFingerprint,
+        status: "succeeded",
+        resultRef: "res:w3a:abc123",
       },
       evidence,
       evaluatedAt: "2026-08-24T00:00:00.000Z",
     });
-    expect(eo[0]?.result).toBe("NOT_PROVEN");
+    expect(er[0]?.result).toBe("NOT_PROVEN");
+  });
+
+  it("exact binding requires id + version + fingerprint", () => {
+    expect(
+      isAttemptContractExactlyBound({
+        contract,
+        attempt: {
+          executionContractId: contract.executionContractId,
+          executionContractVersion: 1,
+          executionContractSemanticFingerprint: contract.semanticFingerprint,
+        },
+      }),
+    ).toBe(true);
+    expect(
+      isAttemptContractExactlyBound({
+        contract,
+        attempt: {
+          executionContractId: contract.executionContractId,
+          executionContractVersion: 2,
+          executionContractSemanticFingerprint: contract.semanticFingerprint,
+        },
+      }),
+    ).toBe(false);
+    expect(
+      isAttemptContractExactlyBound({
+        contract: { ...contract, semanticFingerprint: "fp:other" },
+        attempt: {
+          executionContractId: contract.executionContractId,
+          executionContractVersion: 1,
+          executionContractSemanticFingerprint: contract.semanticFingerprint,
+        },
+      }),
+    ).toBe(false);
   });
 
   it("failed attempt → fail / NOT_PROVEN verdict projection", () => {
@@ -131,6 +223,7 @@ describe("Contract Result evaluation", () => {
         attemptId: "xat:w3b:1",
         executionContractId: contract.executionContractId,
         executionContractVersion: 1,
+        executionContractSemanticFingerprint: contract.semanticFingerprint,
         status: "failed",
         errorRef: "err:w3b:1",
       },
@@ -142,7 +235,7 @@ describe("Contract Result evaluation", () => {
     expect(projectContractResultVerdict("not_proven")).toBe("NOT_PROVEN");
   });
 
-  it("contract-result claim shape validates", () => {
+  it("contract-result claim shape validates with bounded policy ref", () => {
     const violation = validateClaimEvaluationShape({
       schemaVersion: CLAIM_EVALUATION_SCHEMA_VERSION,
       claimEvaluationId: "clm:w3b:e79f8e3b38cf0f6f",
@@ -150,7 +243,7 @@ describe("Contract Result evaluation", () => {
       claimStatement: "Contract result assessment (pass) for EC test@v1",
       criticality: "non_critical",
       evaluationMethod: "deterministic",
-      ruleRef: "w3b-product-completion-contract-result-v1",
+      ruleRef: W3B_TEMP_ARTIFACT_RULE_REF,
       requiredEvidenceRefs: ["ev:w3b:1"],
       providedEvidenceRefs: ["ev:w3b:1"],
       reviewBundleId: "rb:w3b:e79f8e3b38cf0f6f",
@@ -170,6 +263,7 @@ describe("Contract Result evaluation", () => {
       },
       version: 1,
       subjectKind: CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
+      contractResultReviewPolicyRef: W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
     });
     expect(violation).toBeNull();
   });

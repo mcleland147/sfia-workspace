@@ -94,22 +94,74 @@ export function resolveContractResultConfirmationAuthority(
   return "authorized_human";
 }
 
-/** TA-5 post-selection status transitions may bump EC.version without EO/ER drift. */
-export const TA5_STATUS_VERSION_DRIFT_MAX = 2;
-
-export function isAttemptContractVersionBound(input: {
-  contract: { executionContractId: string; version: number };
+/** TD-W3B-02 — exact EC id + version + semanticFingerprint binding (zero drift tolerance). */
+export function isAttemptContractExactlyBound(input: {
+  contract: {
+    executionContractId: string;
+    version: number;
+    semanticFingerprint?: string;
+  };
   attempt: {
     executionContractId: string;
     executionContractVersion: number;
+    executionContractSemanticFingerprint?: string;
   };
 }): boolean {
+  const contractFp = (input.contract.semanticFingerprint ?? "").trim();
+  const attemptFp = (input.attempt.executionContractSemanticFingerprint ?? "").trim();
+  if (!contractFp || !attemptFp) return false;
+  return (
+    input.contract.executionContractId === input.attempt.executionContractId &&
+    input.contract.version === input.attempt.executionContractVersion &&
+    contractFp === attemptFp
+  );
+}
+
+export function contractResultBindingsMatchCurrentFacts(input: {
+  bindings: ContractResultBindings;
+  contract: {
+    projectId: string;
+    cycleInstanceId?: string | null;
+    executionContractId: string;
+    version: number;
+    semanticFingerprint?: string;
+  };
+  attempt: {
+    attemptId: string;
+    executionContractId: string;
+    executionContractVersion: number;
+    executionContractSemanticFingerprint?: string;
+  };
+  reviewBundle: {
+    reviewBundleId: string;
+    frozenVersion?: number;
+  };
+  evidenceIds: readonly string[];
+}): boolean {
+  const fp = (input.contract.semanticFingerprint ?? "").trim();
   if (
-    input.contract.executionContractId !== input.attempt.executionContractId
+    input.bindings.projectId !== input.contract.projectId ||
+    input.bindings.executionContractId !== input.contract.executionContractId ||
+    input.bindings.executionContractVersion !== input.contract.version ||
+    input.bindings.executionContractSemanticFingerprint !== fp ||
+    input.bindings.executionAttemptId !== input.attempt.attemptId ||
+    input.bindings.reviewBundleId !== input.reviewBundle.reviewBundleId ||
+    input.bindings.reviewBundleVersion !== input.reviewBundle.frozenVersion
   ) {
     return false;
   }
-  const drift =
-    input.contract.version - input.attempt.executionContractVersion;
-  return drift >= 0 && drift <= TA5_STATUS_VERSION_DRIFT_MAX;
+  if (
+    (input.contract.cycleInstanceId ?? null) !==
+    (input.bindings.cycleInstanceId ?? null)
+  ) {
+    return false;
+  }
+  if (!isAttemptContractExactlyBound({ contract: input.contract, attempt: input.attempt })) {
+    return false;
+  }
+  if (input.bindings.evidenceRefs.length !== input.evidenceIds.length) return false;
+  for (let i = 0; i < input.evidenceIds.length; i += 1) {
+    if (input.bindings.evidenceRefs[i] !== input.evidenceIds[i]) return false;
+  }
+  return true;
 }

@@ -143,7 +143,26 @@ export type ExecutionAttempt = {
   stopCode?: string;
   stopSourceRef?: string;
   stopObservedAt?: string;
+  /** Immutable EC semantic fingerprint bound at Attempt acceptance (TD-W3B-02). */
+  executionContractSemanticFingerprint?: string;
 };
+
+/** Sync Attempt EC binding after T-A5 contract status OCC bump (TD-W3B-02). */
+export function withAttemptContractBindingSync(
+  attempt: ExecutionAttempt,
+  contract: {
+    version: number;
+    semanticFingerprint?: string;
+  },
+): ExecutionAttempt {
+  return {
+    ...attempt,
+    executionContractVersion: contract.version,
+    executionContractSemanticFingerprint:
+      attempt.executionContractSemanticFingerprint ??
+      contract.semanticFingerprint,
+  };
+}
 
 /**
  * Canonical binding carried by the agent_selection Confirmation actionRef.

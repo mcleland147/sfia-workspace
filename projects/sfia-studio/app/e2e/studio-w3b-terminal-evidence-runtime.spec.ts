@@ -15,7 +15,7 @@ import {
 
 const CAPTURE_ROOT = path.resolve(
   process.cwd(),
-  "../../../.tmp-sfia-review/runtime-captures/w3-b-terminal-evidence",
+  "../../../.tmp-sfia-review/runtime-captures/w3-b-correction",
 );
 const MANIFEST = path.join(CAPTURE_ROOT, "manifest.jsonl");
 

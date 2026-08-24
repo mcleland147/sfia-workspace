@@ -184,6 +184,21 @@ export async function materializeW3bProductTerminal(input: {
     };
   }
 
+  const frozen = await services.freezeReviewBundle.execute({
+    reviewBundleId: ids.reviewBundleId,
+    expectedVersion: bundle.reviewBundle.version,
+    idempotencyKey: `idem:w3b-rb-freeze:${attempt.attemptId}`,
+    actor: LOCAL_PILOTE_ACTOR,
+  });
+
+  if (!frozen.ok) {
+    return {
+      ok: false,
+      code: frozen.error.detailCode,
+      message: frozen.error.message,
+    };
+  }
+
   if (!services.evaluateContractResult) {
     return {
       ok: false,
@@ -201,6 +216,8 @@ export async function materializeW3bProductTerminal(input: {
       attemptId: attempt.attemptId,
       executionContractId: attempt.executionContractId,
       executionContractVersion: attempt.executionContractVersion,
+      executionContractSemanticFingerprint:
+        attempt.executionContractSemanticFingerprint,
       status: attempt.status,
       resultRef: attempt.resultRef,
       errorRef: attempt.errorRef,
@@ -216,7 +233,7 @@ export async function materializeW3bProductTerminal(input: {
       selectedAgentRef: attempt.selectedAgentRef,
     },
     evidence: ingested.evidence,
-    reviewBundle: bundle.reviewBundle,
+    reviewBundle: frozen.reviewBundle,
   });
 
     if (!evaluated.ok) {
@@ -230,7 +247,7 @@ export async function materializeW3bProductTerminal(input: {
         attempt,
         contract,
         evidence: ingested.evidence,
-        reviewBundle: bundle.reviewBundle,
+        reviewBundle: frozen.reviewBundle,
         claimEvaluation: evaluated.claimEvaluation ?? null,
       }),
     };
@@ -241,13 +258,14 @@ export async function materializeW3bProductTerminal(input: {
     reusedFromIdempotency: Boolean(
       ingested.reusedFromIdempotencyKey ||
         bundle.reusedFromIdempotencyKey ||
+        frozen.reusedFromIdempotencyKey ||
         evaluated.reusedFromIdempotencyKey,
     ),
     product: projectFromFacts({
       attempt,
       contract,
       evidence: ingested.evidence,
-      reviewBundle: bundle.reviewBundle,
+      reviewBundle: frozen.reviewBundle,
       claimEvaluation: evaluated.claimEvaluation,
     }),
   };
