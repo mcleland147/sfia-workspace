@@ -7,6 +7,7 @@ import type {
   ClaimConfirmationAuthority,
   ClaimEvaluationMethod,
 } from "./claimEvaluationTypes";
+import type { ActorReference } from "@/lib/oa/doctrine";
 
 export const CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT =
   "execution_contract_result" as const;
@@ -48,6 +49,11 @@ export type ContractResultAssessmentProvenance = {
   readonly ruleRef?: string;
 };
 
+export type ContractResultReviewConfirmation = {
+  readonly confirmedBy: ActorReference;
+  readonly confirmedAt: string;
+};
+
 export type ExpectedOutputAssessment = {
   readonly itemId: ContractResultItemId;
   readonly expectation: string;
@@ -55,6 +61,7 @@ export type ExpectedOutputAssessment = {
   readonly method: ClaimEvaluationMethod;
   readonly ruleRef?: string;
   readonly provenance: ContractResultAssessmentProvenance;
+  readonly reviewConfirmation?: ContractResultReviewConfirmation;
 };
 
 export type EvidenceRequirementAssessment = {
@@ -64,6 +71,7 @@ export type EvidenceRequirementAssessment = {
   readonly method: ClaimEvaluationMethod;
   readonly ruleRef?: string;
   readonly provenance: ContractResultAssessmentProvenance;
+  readonly reviewConfirmation?: ContractResultReviewConfirmation;
 };
 
 /** Server-derived projection only — NOT durable SoT (ARCH-R06-A). */
@@ -94,11 +102,14 @@ export function resolveContractResultConfirmationAuthority(
   return "authorized_human";
 }
 
-/** TD-W3B-02 — exact EC id + version + semanticFingerprint binding (zero drift tolerance). */
-export function isAttemptContractExactlyBound(input: {
+/**
+ * TD-W3B-02 — immutable Attempt EC binding (acceptance-time id + version + fingerprint).
+ * Latest EC lifecycle/OCC bumps do NOT move Attempt binding; semantic material is
+ * resolved via fingerprint match against latest repository payload (Solution B/C hybrid).
+ */
+export function isAttemptContractImmutablyBound(input: {
   contract: {
     executionContractId: string;
-    version: number;
     semanticFingerprint?: string;
   };
   attempt: {
@@ -109,13 +120,17 @@ export function isAttemptContractExactlyBound(input: {
 }): boolean {
   const contractFp = (input.contract.semanticFingerprint ?? "").trim();
   const attemptFp = (input.attempt.executionContractSemanticFingerprint ?? "").trim();
-  if (!contractFp || !attemptFp) return false;
+  if (!contractFp || !attemptFp || !input.attempt.executionContractVersion) {
+    return false;
+  }
   return (
     input.contract.executionContractId === input.attempt.executionContractId &&
-    input.contract.version === input.attempt.executionContractVersion &&
     contractFp === attemptFp
   );
 }
+
+/** @deprecated alias — Pass 2: binding is immutable acceptance-time, not latest EC.version */
+export const isAttemptContractExactlyBound = isAttemptContractImmutablyBound;
 
 export function contractResultBindingsMatchCurrentFacts(input: {
   bindings: ContractResultBindings;
@@ -123,7 +138,6 @@ export function contractResultBindingsMatchCurrentFacts(input: {
     projectId: string;
     cycleInstanceId?: string | null;
     executionContractId: string;
-    version: number;
     semanticFingerprint?: string;
   };
   attempt: {
@@ -138,12 +152,13 @@ export function contractResultBindingsMatchCurrentFacts(input: {
   };
   evidenceIds: readonly string[];
 }): boolean {
-  const fp = (input.contract.semanticFingerprint ?? "").trim();
+  const attemptFp = (input.attempt.executionContractSemanticFingerprint ?? "").trim();
   if (
     input.bindings.projectId !== input.contract.projectId ||
     input.bindings.executionContractId !== input.contract.executionContractId ||
-    input.bindings.executionContractVersion !== input.contract.version ||
-    input.bindings.executionContractSemanticFingerprint !== fp ||
+    input.bindings.executionContractVersion !==
+      input.attempt.executionContractVersion ||
+    input.bindings.executionContractSemanticFingerprint !== attemptFp ||
     input.bindings.executionAttemptId !== input.attempt.attemptId ||
     input.bindings.reviewBundleId !== input.reviewBundle.reviewBundleId ||
     input.bindings.reviewBundleVersion !== input.reviewBundle.frozenVersion
@@ -156,7 +171,7 @@ export function contractResultBindingsMatchCurrentFacts(input: {
   ) {
     return false;
   }
-  if (!isAttemptContractExactlyBound({ contract: input.contract, attempt: input.attempt })) {
+  if (!isAttemptContractImmutablyBound({ contract: input.contract, attempt: input.attempt })) {
     return false;
   }
   if (input.bindings.evidenceRefs.length !== input.evidenceIds.length) return false;

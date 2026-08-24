@@ -18,7 +18,7 @@ import { CLAIM_EVALUATION_SCHEMA_VERSION } from "@/lib/oa/evidence-review/domain
 import {
   CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
   W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
-  isAttemptContractExactlyBound,
+  isAttemptContractImmutablyBound,
 } from "@/lib/oa/evidence-review/domain/contractResultTypes";
 import { projectContractResultVerdict } from "@/lib/oa/evidence-review/application/contractResultVerdictProjection";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
@@ -183,33 +183,29 @@ describe("Contract Result evaluation", () => {
     expect(er[0]?.result).toBe("NOT_PROVEN");
   });
 
-  it("exact binding requires id + version + fingerprint", () => {
+  it("immutable binding accepts lifecycle version drift when fingerprint matches", () => {
     expect(
-      isAttemptContractExactlyBound({
-        contract,
+      isAttemptContractImmutablyBound({
+        contract: {
+          executionContractId: contract.executionContractId,
+          semanticFingerprint: contract.semanticFingerprint,
+        },
         attempt: {
           executionContractId: contract.executionContractId,
-          executionContractVersion: 1,
+          executionContractVersion: 3,
           executionContractSemanticFingerprint: contract.semanticFingerprint,
         },
       }),
     ).toBe(true);
     expect(
-      isAttemptContractExactlyBound({
-        contract,
-        attempt: {
+      isAttemptContractImmutablyBound({
+        contract: {
           executionContractId: contract.executionContractId,
-          executionContractVersion: 2,
-          executionContractSemanticFingerprint: contract.semanticFingerprint,
+          semanticFingerprint: "fp:other",
         },
-      }),
-    ).toBe(false);
-    expect(
-      isAttemptContractExactlyBound({
-        contract: { ...contract, semanticFingerprint: "fp:other" },
         attempt: {
           executionContractId: contract.executionContractId,
-          executionContractVersion: 1,
+          executionContractVersion: 3,
           executionContractSemanticFingerprint: contract.semanticFingerprint,
         },
       }),

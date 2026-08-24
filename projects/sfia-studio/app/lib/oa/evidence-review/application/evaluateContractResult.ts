@@ -22,7 +22,7 @@ import { CLAIM_EVALUATION_SCHEMA_VERSION } from "../domain/claimEvaluationTypes"
 import {
   CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
   W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
-  isAttemptContractExactlyBound,
+  isAttemptContractImmutablyBound,
 } from "../domain/contractResultTypes";
 import type { ExecutionAttemptSnapshot } from "../domain/types";
 import type { Evidence } from "../domain/types";
@@ -125,10 +125,9 @@ export class EvaluateContractResult {
         return fail("CLAIM_EVALUATION_INVALID", "contract_attempt_mismatch");
       }
       if (
-        !isAttemptContractExactlyBound({
+        !isAttemptContractImmutablyBound({
           contract: {
             executionContractId: contract.executionContractId,
-            version: contract.version,
             semanticFingerprint: contract.semanticFingerprint,
           },
           attempt,
@@ -136,7 +135,7 @@ export class EvaluateContractResult {
       ) {
         return fail(
           "CLAIM_EVALUATION_INVALID",
-          "contract_attempt_exact_binding_mismatch",
+          "contract_attempt_immutable_binding_mismatch",
         );
       }
       if (evidence.bindings.executionAttemptId !== attempt.attemptId) {
@@ -181,12 +180,6 @@ export class EvaluateContractResult {
       }
 
       const applicableRule = resolveApplicableContractResultRule(contract);
-      if (!applicableRule.applicable) {
-        return fail(
-          "CLAIM_EVALUATION_INVALID",
-          "contract_result_rule_not_applicable",
-        );
-      }
 
       const fingerprint = fingerprintCommand(
         registerFingerprintBody({
@@ -195,8 +188,10 @@ export class EvaluateContractResult {
           reviewBundleId: reviewBundle.reviewBundleId,
           executionAttemptId: attempt.attemptId,
           executionContractId: contract.executionContractId,
-          contractVersion: contract.version,
-          semanticFingerprint: contract.semanticFingerprint,
+          contractVersion: attempt.executionContractVersion,
+          semanticFingerprint:
+            attempt.executionContractSemanticFingerprint ??
+            contract.semanticFingerprint,
           actor: request.actor,
         }),
       );
@@ -247,10 +242,14 @@ export class EvaluateContractResult {
           contract,
           attemptStatus: attempt.status,
           status,
+          boundContractVersion: attempt.executionContractVersion,
+          notApplicableReason: applicableRule.applicable
+            ? undefined
+            : "no_applicable_contract_result_rule",
         }),
         criticality: "non_critical",
         evaluationMethod: "deterministic",
-        ruleRef: applicableRule.ruleRef,
+        ...(applicableRule.applicable ? { ruleRef: applicableRule.ruleRef } : {}),
         requiredEvidenceRefs: [evidence.evidenceId],
         providedEvidenceRefs: [evidence.evidenceId],
         reviewBundleId: reviewBundle.reviewBundleId,

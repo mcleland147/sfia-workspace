@@ -11,7 +11,6 @@ import type {
   ExecutionAttemptResult,
   RecordExecutionFailureRequest,
 } from "../domain/types";
-import { withAttemptContractBindingSync } from "../domain/types";
 import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
 import type { AgentRegistryPort } from "../ports/agentRegistry";
 import type { ExecutionAttemptAuditPort } from "../ports/executionAttemptAudit";
@@ -169,26 +168,9 @@ export class RecordExecutionFailure {
         durationMs,
       });
 
-      let terminalAttempt = failed;
-      if (contractWrite.ok) {
-        terminalAttempt = withAttemptContractBindingSync(
-          failed,
-          contractWrite.contract,
-        );
-        if (
-          terminalAttempt.executionContractVersion !== failed.executionContractVersion
-        ) {
-          terminalAttempt = {
-            ...terminalAttempt,
-            version: failed.version + 1,
-          };
-          await this.attempts.update(terminalAttempt, failed.version);
-        }
-      }
-
       return {
         ok: true,
-        attempt: structuredClone(terminalAttempt),
+        attempt: structuredClone(failed),
         contractStatus: contractWrite.ok
           ? contractWrite.contract.status
           : contract.status,

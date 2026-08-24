@@ -3,7 +3,7 @@
  * No NLP, no resultRef-alone PASS, no Evidence-available-alone ER satisfaction.
  */
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
-import type { Evidence, ExecutionAttemptSnapshot } from "../domain/types";
+import type { Evidence, EvidenceStatus, ExecutionAttemptSnapshot } from "../domain/types";
 import type { ReviewBundleEvidenceSnapshot } from "../domain/reviewBundleTypes";
 
 export const W3B_TEMP_ARTIFACT_RULE_REF =
@@ -21,6 +21,11 @@ export const W3B_TEMP_ARTIFACT_ER_KEY = "evreq:generate-temporary-artifact" as c
 
 /** Governed W3-A execute path mints res:w3a:<hex> — server-owned shape only. */
 const W3A_RESULT_REF_PATTERN = /^res:w3a:[a-f0-9]+$/;
+
+const W3B_USABLE_EVIDENCE_STATUSES = new Set<EvidenceStatus>([
+  "available",
+  "verified",
+]);
 
 export type ApplicableContractResultRule =
   | { readonly applicable: true; readonly ruleRef: typeof W3B_TEMP_ARTIFACT_RULE_REF }
@@ -48,20 +53,32 @@ export function tempArtifactExecutionFactsHold(input: {
   return input.evidence.technicalResultRef === resultRef;
 }
 
+/** W3-B bounded ER validity — stale/rejected/unavailable Evidence cannot satisfy ER. */
+export function isW3bContractResultEvidenceUsable(input: {
+  evidence: Evidence;
+  snapshot: ReviewBundleEvidenceSnapshot | undefined;
+}): boolean {
+  const { evidence, snapshot } = input;
+  if (!snapshot) return false;
+  if (snapshot.evidenceId !== evidence.evidenceId) return false;
+  if (snapshot.evidenceVersion !== evidence.version) return false;
+  if (snapshot.availability !== "available") return false;
+  if (!W3B_USABLE_EVIDENCE_STATUSES.has(snapshot.status as EvidenceStatus)) {
+    return false;
+  }
+  if (evidence.availability !== "available") return false;
+  if (!W3B_USABLE_EVIDENCE_STATUSES.has(evidence.status)) return false;
+  if (evidence.freshness === "stale" || evidence.freshness === "unknown") {
+    return false;
+  }
+  return true;
+}
+
 export function evidenceMatchesFrozenSnapshot(input: {
   evidence: Evidence;
   snapshot: ReviewBundleEvidenceSnapshot | undefined;
 }): boolean {
-  if (!input.snapshot) return false;
-  if (input.snapshot.evidenceId !== input.evidence.evidenceId) return false;
-  if (input.snapshot.evidenceVersion !== input.evidence.version) return false;
-  if (
-    input.snapshot.availability === "unavailable" ||
-    input.snapshot.status === "unavailable"
-  ) {
-    return false;
-  }
-  return true;
+  return isW3bContractResultEvidenceUsable(input);
 }
 
 export function assessTempArtifactExpectedOutput(input: {

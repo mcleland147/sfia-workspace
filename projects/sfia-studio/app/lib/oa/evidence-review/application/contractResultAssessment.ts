@@ -10,7 +10,6 @@ import type {
   EvidenceRequirementAssessment,
 } from "../domain/contractResultTypes";
 import {
-  W3B_CONTRACT_RESULT_RULE_REF,
   buildContractResultItemId,
 } from "../domain/contractResultTypes";
 import {
@@ -35,12 +34,12 @@ export type ContractResultAssessmentInput = {
 
 function provenance(
   input: ContractResultAssessmentInput,
-  ruleRef: string,
+  ruleRef?: string,
 ): ContractResultAssessmentProvenance {
   return {
     evaluatorRef: input.evaluatorRef ?? "w3b-contract-result-assessor",
     evaluatedAt: input.evaluatedAt,
-    ruleRef,
+    ...(ruleRef ? { ruleRef } : {}),
   };
 }
 
@@ -50,7 +49,7 @@ export function assessExpectedOutputs(
   const fp = input.contract.semanticFingerprint ?? "";
   const outputs = input.contract.expectedOutputs ?? [];
   const rule = resolveApplicableContractResultRule(input.contract);
-  const ruleRef = rule.applicable ? rule.ruleRef : W3B_CONTRACT_RESULT_RULE_REF;
+  const ruleRef = rule.applicable ? rule.ruleRef : undefined;
   const prov = provenance(input, ruleRef);
 
   return outputs.map((expectation, ordinal) => {
@@ -91,7 +90,7 @@ export function assessEvidenceRequirements(
   const fp = input.contract.semanticFingerprint ?? "";
   const requirements = input.contract.evidenceRequirements ?? [];
   const rule = resolveApplicableContractResultRule(input.contract);
-  const ruleRef = rule.applicable ? rule.ruleRef : W3B_CONTRACT_RESULT_RULE_REF;
+  const ruleRef = rule.applicable ? rule.ruleRef : undefined;
   const prov = provenance(input, ruleRef);
 
   return requirements.map((requirement, ordinal) => {
@@ -156,11 +155,33 @@ export function buildContractResultClaimStatement(input: {
   contract: ExecutionContract;
   attemptStatus: string;
   status: "pass" | "fail" | "not_proven";
+  boundContractVersion?: number;
+  notApplicableReason?: string;
 }): string {
   const eoCount = input.contract.expectedOutputs?.length ?? 0;
   const erCount = input.contract.evidenceRequirements?.length ?? 0;
+  const version = input.boundContractVersion ?? input.contract.version;
+  const suffix = input.notApplicableReason
+    ? ` — ${input.notApplicableReason}`
+    : "";
   return (
     `Contract result assessment (${input.status}) for EC ${input.contract.executionContractId}` +
-    `@v${input.contract.version} — attempt ${input.attemptStatus} — EO:${eoCount} ER:${erCount}`
+    `@v${version} — attempt ${input.attemptStatus} — EO:${eoCount} ER:${erCount}${suffix}`
   );
+}
+
+/** Infer attempt terminal class from structured EO assessments for confirm re-derivation. */
+export function inferAttemptStatusFromContractResultAssessments(
+  expectedOutputAssessments: readonly ExpectedOutputAssessment[],
+): string {
+  if (expectedOutputAssessments.some((a) => a.result === "FAIL")) {
+    return "failed";
+  }
+  if (
+    expectedOutputAssessments.length > 0 &&
+    expectedOutputAssessments.every((a) => a.result === "PASS")
+  ) {
+    return "succeeded";
+  }
+  return "unknown";
 }

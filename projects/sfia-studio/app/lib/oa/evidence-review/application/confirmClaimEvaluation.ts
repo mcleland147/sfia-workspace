@@ -19,7 +19,10 @@ import type {
   ClaimEvaluationResult,
   ConfirmClaimEvaluationRequest,
 } from "../domain/claimEvaluationTypes";
-import { CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT } from "../domain/contractResultTypes";
+import {
+  CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
+  W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
+} from "../domain/contractResultTypes";
 import { containsForbiddenSecret } from "../domain/invariants";
 import type { EvidenceAuditPort } from "../ports/evidenceAudit";
 import type { ClaimAuthorityPort } from "../ports/claimAuthorityPort";
@@ -31,6 +34,10 @@ import {
   assessRequiredEvidence,
   detailCodeForAssessment,
 } from "./claimEvidenceAssessment";
+import {
+  deriveCanonicalContractResultStatus,
+  inferAttemptStatusFromContractResultAssessments,
+} from "./contractResultAssessment";
 import {
   assertIdempotencyKey,
   fingerprintCommand,
@@ -309,8 +316,56 @@ export class ConfirmClaimEvaluation {
         );
       }
 
+      const isContractResult =
+        current.subjectKind === CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT;
+
+      if (isContractResult) {
+        if (!current.contractResultReviewPolicyRef) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "contract_result_missing_policy_ref",
+            { claimEvaluation: current },
+          );
+        }
+        if (
+          current.contractResultReviewPolicyRef !==
+          W3B_CONTRACT_RESULT_REVIEW_POLICY_REF
+        ) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "contract_result_unknown_policy_ref",
+            { claimEvaluation: current },
+          );
+        }
+        if (
+          !current.expectedOutputAssessments?.length ||
+          !current.evidenceRequirementAssessments?.length
+        ) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID_STATE",
+            "contract_result_confirm_missing_assessments",
+            { claimEvaluation: current },
+          );
+        }
+        const attemptStatus = inferAttemptStatusFromContractResultAssessments(
+          current.expectedOutputAssessments,
+        );
+        const derivedStatus = deriveCanonicalContractResultStatus({
+          attemptStatus,
+          expectedOutputAssessments: current.expectedOutputAssessments,
+          evidenceRequirementAssessments: current.evidenceRequirementAssessments,
+        });
+        if (derivedStatus !== "pass") {
+          return fail(
+            "CLAIM_EVALUATION_INVALID_STATE",
+            "contract_result_confirm_derived_not_pass",
+            { claimEvaluation: current },
+          );
+        }
+      }
+
       const confirmationAuthority =
-        current.subjectKind === CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT
+        isContractResult
           ? ("authorized_human" as const)
           : current.criticality === "structural"
             ? ("morris" as const)
@@ -327,6 +382,27 @@ export class ConfirmClaimEvaluation {
         updatedAt: timestamp,
         version: current.version + 1,
         idempotencyKey: request.idempotencyKey,
+        ...(isContractResult
+          ? {
+              expectedOutputAssessments: current.expectedOutputAssessments?.map(
+                (assessment) => ({
+                  ...assessment,
+                  reviewConfirmation: {
+                    confirmedBy: { ...request.actor },
+                    confirmedAt: timestamp,
+                  },
+                }),
+              ),
+              evidenceRequirementAssessments:
+                current.evidenceRequirementAssessments?.map((assessment) => ({
+                  ...assessment,
+                  reviewConfirmation: {
+                    confirmedBy: { ...request.actor },
+                    confirmedAt: timestamp,
+                  },
+                })),
+            }
+          : {}),
       };
       const shape = validateClaimEvaluationShape(updated);
       if (shape) {
