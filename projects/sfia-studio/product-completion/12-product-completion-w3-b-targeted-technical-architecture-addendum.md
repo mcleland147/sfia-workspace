@@ -11,7 +11,8 @@
 | **Correction pass** | ARCH-R01…ARCH-R06 corrected · ChatGPT architecture re-review PASS · REVIEW-CLEAN |
 | **Scope** | **W3B-D01** Contract Result Satisfaction · **W3B-D02** System-governed terminal STOP **only** |
 | **Authority** | Morris = construction/architecture · ChatGPT = review · Cursor = repo-first analysis |
-| **Implementation** | Architecture **ADOPTED** · Delivery **NOT** restarted automatically · consumption only after DOC12 merge + post-merge truth + separate Delivery requalification |
+| **Implementation** | Architecture **ADOPTED / INTEGRATED ON MAIN** · Delivery **NOT** restarted · W3-B Delivery requires separate post-merge requalification + authorization before resumption |
+| **Git integration** | PR **#410 MERGED** — merge `bcc39fba04664edc09fca782e61e5f5e70a45d35` — 2026-08-24 |
 
 ---
 
@@ -105,7 +106,7 @@ Harvest without reopening: additive Product SQLite migrations · existing ports 
 | W1 | CLOSED |
 | W2 | CLOSED BY MORRIS |
 | W3-A | CLOSED BY MORRIS |
-| W3-B | DELIVERY IN PROGRESS / **STRUCTURALLY BLOCKED** (W3B-D01 · W3B-D02) |
+| W3-B | IN PROGRESS / NOT CLOSED · Architecture **ADOPTED / INTEGRATED ON MAIN** · W3B-D01/D02 **ARCHITECTURE GAP CLOSED / IMPLEMENTATION NOT YET PROVEN** · Delivery **PAUSED / NOT RESTARTED / REQUALIFICATION REQUIRED** |
 | W3 | IN PROGRESS / NOT CLOSED |
 | W3-C/D/E | NOT STARTED |
 | C6 | CLOSED |
@@ -787,7 +788,7 @@ No invented latency/SLA targets.
 
 ### Backlog note (no mutation this cycle)
 
-Future controlled backlog / Roadmap truth sync in a separate authorized cycle: annotate US-P1-05 / US-P1-06 with enablers W3B-D01 / W3B-D02. **No backlog rewrite now.**
+Post-merge DOC12 + Roadmap truth sync executed in Cycle 14 (local candidate). US-P1-05 / US-P1-06 backlog annotation remains future separate controlled backlog sync if needed. **No backlog rewrite now.**
 
 ---
 
@@ -891,10 +892,11 @@ Future controlled backlog / Roadmap truth sync in a separate authorized cycle: a
 ## 16. Morris decisions / remaining gates
 
 1. **TD-W3B-01…04** — **CLOSED** — VALIDATED / ADOPTED BY MORRIS on 2026-08-24.
-2. **Product SQLite / Option A** — resolved by TD-W3B-01 (adapted ClaimEvaluation durable on Product SQLite). Option B not reopened.
+2. **Product SQLite / Option A** — **CLOSED** at architecture decision level (TD-W3B-01). Option B not reopened.
 3. **Contract Result review policy reference shape** — remains a bounded Delivery detail to confirm/implement within the adopted architecture (minimal server-owned policy — not broad authority DSL).
-4. **Git integration** — DOC12 currently in Draft PR #410. Merge remains subject to a **distinct Morris GO** (not authorized in this cycle).
-5. **Delivery** — no automatic restart. Post-merge truth + Delivery requalification required before resumption.
+4. **Git integration** — **CLOSED** — PR **#410 MERGED** — `bcc39fba04664edc09fca782e61e5f5e70a45d35`.
+5. **Post-merge truth sync** — **CURRENT LOCAL CANDIDATE** — awaiting ChatGPT review.
+6. **Delivery** — **NOT** restarted. Requires post-merge truth integration then W3-B Delivery requalification. Restart requires distinct Morris authorization after qualification.
 
 ~~Prior open question on accepted→cancelled system STOP as Product STOP~~ — **resolved by ARCH-R03**. No C2/FA rewrite.
 
@@ -902,6 +904,6 @@ Future controlled backlog / Roadmap truth sync in a separate authorized cycle: a
 
 ## 17. Final architecture verdict (this document)
 
-**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R01…ARCH-R06 REVIEW-CLEAN — TD-W3B-01…04 VALIDATED / ADOPTED BY MORRIS**
+**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R01…ARCH-R06 REVIEW-CLEAN — TD-W3B-01…04 VALIDATED / ADOPTED BY MORRIS — INTEGRATED ON MAIN via PR #410 / `bcc39fba04664edc09fca782e61e5f5e70a45d35`**
 
-TD-W3B-01…04 adopted by Morris on 2026-08-24 · C6 remains CLOSED · W3-B Delivery remains blocked pending DOC12 merge, post-merge truth verification and separate Delivery requalification/authorization · no automatic Delivery restart.
+Architecture adopted and integrated on main · post-merge documentary truth sync pending Git integration · W3-B Delivery not restarted · W3-B remains incomplete pending implementation/proof · C6 remains CLOSED · runtime v3 NON ADOPTED.
