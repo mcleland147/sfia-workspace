@@ -60,7 +60,17 @@ export function validateBoundExecutionContractSnapshot(input: {
     executionContractId: string;
     executionContractVersion: number;
     executionContractSemanticFingerprint?: string;
-    boundExecutionContract?: BoundExecutionContractSnapshot;
+    boundExecutionContract?: {
+      executionContractSchemaVersion: string;
+      executionContractVersion: number;
+      semanticFingerprint: string;
+      semanticMaterial: ExecutionContractSemanticMaterial | {
+        executionContractId: string;
+        projectId: string;
+        cycleInstanceId?: string;
+        [key: string]: unknown;
+      };
+    };
   };
   requirePresent?: boolean;
   expectedProjectId?: string;
@@ -93,11 +103,14 @@ export function validateBoundExecutionContractSnapshot(input: {
   const attemptFp = (
     input.attempt.executionContractSemanticFingerprint ?? ""
   ).trim();
-  if (attemptFp && attemptFp !== snap.semanticFingerprint) {
+  // When a snapshot is present, Attempt fingerprint must match exactly.
+  if (!attemptFp || attemptFp !== snap.semanticFingerprint) {
     return { ok: false, reason: "bound_snapshot_attempt_fingerprint_mismatch" };
   }
   const recomputed =
-    computeExecutionContractSemanticMaterialFingerprint(snap.semanticMaterial);
+    computeExecutionContractSemanticMaterialFingerprint(
+      snap.semanticMaterial as ExecutionContractSemanticMaterial,
+    );
   if (recomputed !== snap.semanticFingerprint) {
     return { ok: false, reason: "bound_snapshot_fingerprint_corrupt" };
   }

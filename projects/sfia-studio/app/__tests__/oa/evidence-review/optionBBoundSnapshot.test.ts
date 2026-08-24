@@ -395,7 +395,7 @@ describe("Option B — Contract Result snapshot-only + freshness", () => {
     expect(evaluated.ok).toBe(false);
     if (evaluated.ok) return;
     expect(evaluated.error.internalCauseRef).toBe(
-      "bound_snapshot_corrupt_or_inconsistent",
+      "bound_snapshot_attempt_fingerprint_mismatch",
     );
   });
 
@@ -525,6 +525,7 @@ describe("Option B — Confirm exact binding", () => {
           status: "evaluating",
           proposedBy: { actorId: "actor:a", role: "project_owner" },
           proposedAt: "2026-08-24T00:00:00.000Z",
+          evaluatedAt: "2026-08-24T00:00:00.000Z",
           provenance: {
             schemaVersion: "0.1.0-oa",
             provenanceRecordId: "prv:1",
@@ -682,6 +683,7 @@ describe("Option B — Confirm exact binding", () => {
           status: "evaluating",
           proposedBy: { actorId: "actor:a", role: "project_owner" },
           proposedAt: "2026-08-24T00:00:00.000Z",
+          evaluatedAt: "2026-08-24T00:00:00.000Z",
           provenance: {
             schemaVersion: "0.1.0-oa",
             provenanceRecordId: "prv:1",
@@ -839,6 +841,7 @@ describe("Option B — Confirm exact binding", () => {
           status: "evaluating",
           proposedBy: { actorId: "actor:a", role: "project_owner" },
           proposedAt: "2026-08-24T00:00:00.000Z",
+          evaluatedAt: "2026-08-24T00:00:00.000Z",
           provenance: {
             schemaVersion: "0.1.0-oa",
             provenanceRecordId: "prv:1",
@@ -1126,5 +1129,729 @@ describe("Option B — lifecycle immutability of snapshot on spread updates", ()
         accepted.executionContractVersion,
       );
     }
+  });
+});
+
+describe("Option B micro-correction OB01 — canonical snapshot validation", () => {
+  const evidence = makeEvidence();
+  const reviewBundleBase = {
+    schemaVersion: "0.2.0-oa" as const,
+    reviewBundleId: "rb:w3b:1",
+    projectId: contract.projectId,
+    version: 2,
+    frozenAt: "2026-08-24T00:00:00.000Z",
+    frozenVersion: 2,
+    evidenceRefs: [evidence.evidenceId],
+    claimEvaluationRefs: [] as string[],
+    completeness: "complete" as const,
+    status: "ready_for_review" as const,
+    createdAt: "2026-08-24T00:00:00.000Z",
+    synthesisOnly: false,
+    provenance: {
+      schemaVersion: "0.1.0-oa" as const,
+      provenanceRecordId: "prv:rb",
+      actor: LOCAL_PILOTE_ACTOR,
+      source: "review" as const,
+      timestamp: "2026-08-24T00:00:00.000Z",
+      correlationId: "cor:rb",
+    },
+    frozenEvidenceSnapshots: [frozenSnapshot],
+  };
+
+  async function evaluateWithSnap(
+    snapOverrides: Record<string, unknown>,
+    contractOverrides: Partial<ExecutionContract> = {},
+  ) {
+    const snap = captureBoundExecutionContractSnapshot(contract);
+    return new EvaluateContractResult(
+      {
+        findById: async () => null,
+        findByIdempotencyKey: async () => null,
+        exists: async () => false,
+        create: async () => {},
+        update: async () => {},
+      },
+      { nowIso: () => "2026-08-24T00:00:00.000Z" },
+      { append: () => {} },
+      { newCorrelationId: () => "cor:1", newProvenanceId: () => "prv:1" },
+    ).execute({
+      claimEvaluationId: "clm:w3b:ob01",
+      idempotencyKey: `idem:ce:ob01:${JSON.stringify(snapOverrides).slice(0, 40)}`,
+      actor: LOCAL_PILOTE_ACTOR,
+      contract: { ...contract, ...contractOverrides },
+      attempt: makeAttempt({
+        boundExecutionContract: { ...snap, ...snapOverrides },
+      }),
+      evidence,
+      reviewBundle: reviewBundleBase,
+    });
+  }
+
+  it("A schema unsupported → Evaluate refuses", async () => {
+    const evaluated = await evaluateWithSnap({
+      executionContractSchemaVersion: "9.9.9-bad",
+    });
+    expect(evaluated.ok).toBe(false);
+    if (evaluated.ok) return;
+    expect(evaluated.error.internalCauseRef).toBe(
+      "bound_snapshot_schema_unsupported",
+    );
+  });
+
+  it("B projectId mismatch → Evaluate refuses", async () => {
+    const snap = captureBoundExecutionContractSnapshot(contract);
+    const evaluated = await new EvaluateContractResult(
+      {
+        findById: async () => null,
+        findByIdempotencyKey: async () => null,
+        exists: async () => false,
+        create: async () => {},
+        update: async () => {},
+      },
+      { nowIso: () => "2026-08-24T00:00:00.000Z" },
+      { append: () => {} },
+      { newCorrelationId: () => "cor:1", newProvenanceId: () => "prv:1" },
+    ).execute({
+      claimEvaluationId: "clm:w3b:ob01-proj",
+      idempotencyKey: "idem:ce:ob01-proj",
+      actor: LOCAL_PILOTE_ACTOR,
+      contract: { ...contract, projectId: "prj:other" },
+      attempt: makeAttempt({
+        boundExecutionContract: {
+          ...snap,
+          semanticMaterial: { ...snap.semanticMaterial, projectId: contract.projectId },
+        },
+      }),
+      evidence,
+      reviewBundle: reviewBundleBase,
+    });
+    expect(evaluated.ok).toBe(false);
+    if (evaluated.ok) return;
+    expect(evaluated.error.internalCauseRef).toBe(
+      "bound_snapshot_project_mismatch",
+    );
+  });
+
+  it("C cycleInstanceId mismatch → Evaluate refuses", async () => {
+    const withCycle = makeContract({ cycleInstanceId: "cyc:a" });
+    const snap = captureBoundExecutionContractSnapshot(withCycle);
+    const evaluated = await new EvaluateContractResult(
+      {
+        findById: async () => null,
+        findByIdempotencyKey: async () => null,
+        exists: async () => false,
+        create: async () => {},
+        update: async () => {},
+      },
+      { nowIso: () => "2026-08-24T00:00:00.000Z" },
+      { append: () => {} },
+      { newCorrelationId: () => "cor:1", newProvenanceId: () => "prv:1" },
+    ).execute({
+      claimEvaluationId: "clm:w3b:ob01-cycle",
+      idempotencyKey: "idem:ce:ob01-cycle",
+      actor: LOCAL_PILOTE_ACTOR,
+      contract: { ...withCycle, cycleInstanceId: "cyc:b" },
+      attempt: makeAttempt({
+        executionContractSemanticFingerprint: snap.semanticFingerprint,
+        boundExecutionContract: snap,
+      }),
+      evidence: makeEvidence({
+        bindings: {
+          projectId: withCycle.projectId,
+          executionContractId: withCycle.executionContractId,
+          executionAttemptId: "xat:w3b:optb",
+        },
+      }),
+      reviewBundle: { ...reviewBundleBase, projectId: withCycle.projectId },
+    });
+    expect(evaluated.ok).toBe(false);
+    if (evaluated.ok) return;
+    expect(evaluated.error.internalCauseRef).toBe(
+      "bound_snapshot_cycle_mismatch",
+    );
+  });
+
+  it("G–I FC-11 schema/project/cycle mismatch → no SUCCESS", () => {
+    const snap = captureBoundExecutionContractSnapshot(contract);
+    const attempt = makeAttempt({ boundExecutionContract: snap });
+    const bindings = {
+      projectId: contract.projectId,
+      executionContractId: contract.executionContractId,
+      executionContractVersion: contract.version,
+      executionContractSemanticFingerprint: fingerprint,
+      executionAttemptId: attempt.attemptId,
+      reviewBundleId: "rb:1",
+      reviewBundleVersion: 2,
+      evidenceRefs: [evidence.evidenceId],
+    };
+    expect(
+      contractResultBindingsMatchCurrentFacts({
+        bindings,
+        attempt: makeAttempt({
+          boundExecutionContract: {
+            ...snap,
+            executionContractSchemaVersion: "bad",
+          },
+        }),
+        reviewBundle: { reviewBundleId: "rb:1", frozenVersion: 2 },
+        evidenceIds: [evidence.evidenceId],
+      }),
+    ).toBe(false);
+    expect(
+      contractResultBindingsMatchCurrentFacts({
+        bindings,
+        attempt: makeAttempt({
+          boundExecutionContract: {
+            ...snap,
+            semanticMaterial: {
+              ...snap.semanticMaterial,
+              projectId: "prj:tampered",
+            },
+          },
+        }),
+        reviewBundle: { reviewBundleId: "rb:1", frozenVersion: 2 },
+        evidenceIds: [evidence.evidenceId],
+        projectId: contract.projectId,
+      }),
+    ).toBe(false);
+    expect(
+      contractResultBindingsMatchCurrentFacts({
+        bindings: { ...bindings, cycleInstanceId: "cyc:expected" },
+        attempt: makeAttempt({
+          boundExecutionContract: {
+            ...snap,
+            semanticMaterial: {
+              ...snap.semanticMaterial,
+              cycleInstanceId: "cyc:other",
+            },
+          },
+        }),
+        reviewBundle: { reviewBundleId: "rb:1", frozenVersion: 2 },
+        evidenceIds: [evidence.evidenceId],
+        cycleInstanceId: "cyc:expected",
+      }),
+    ).toBe(false);
+  });
+});
+
+
+  it("D–F Confirm refuses schema/project/cycle snapshot incoherence", async () => {
+    async function confirmWithSnap(snapPatch: Record<string, unknown>, bindingProjectId = contract.projectId, bindingCycle: string | null = null) {
+      const snap = captureBoundExecutionContractSnapshot(contract);
+      return new ConfirmClaimEvaluation(
+        {
+          findById: async () => ({
+            schemaVersion: CLAIM_EVALUATION_SCHEMA_VERSION,
+            claimEvaluationId: "clm:cr:ob01-confirm",
+            claimType: "conformite",
+            claimStatement: "x",
+            criticality: "non_critical",
+            evaluationMethod: "assisted",
+            requiredEvidenceRefs: ["ev:1"],
+            providedEvidenceRefs: ["ev:1"],
+            reviewBundleId: "rb:1",
+            reviewBundleVersion: 2,
+            status: "evaluating",
+            proposedBy: { actorId: "actor:a", role: "project_owner" },
+            proposedAt: "2026-08-24T00:00:00.000Z",
+            evaluatedAt: "2026-08-24T00:00:00.000Z",
+            provenance: {
+              schemaVersion: "0.1.0-oa",
+              provenanceRecordId: "prv:1",
+              actor: { actorId: "actor:a", role: "project_owner" },
+              source: "review",
+              timestamp: "2026-08-24T00:00:00.000Z",
+              correlationId: "cor:1",
+            },
+            version: 1,
+            subjectKind: CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
+            contractResultReviewPolicyRef: W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
+            contractResultBindings: {
+              projectId: bindingProjectId,
+              cycleInstanceId: bindingCycle,
+              executionContractId: contract.executionContractId,
+              executionContractVersion: contract.version,
+              executionContractSemanticFingerprint: fingerprint,
+              executionAttemptId: "xat:w3b:optb",
+              reviewBundleId: "rb:1",
+              reviewBundleVersion: 2,
+              evidenceRefs: ["ev:1"],
+            },
+            expectedOutputAssessments: [
+              {
+                itemId: { semanticFingerprint: fingerprint, itemKind: "EO", ordinal: 0 },
+                expectation: W3B_TEMP_ARTIFACT_EO_TEMPLATE,
+                result: "PASS",
+                method: "assisted",
+                provenance: { evaluatorRef: "w3b", evaluatedAt: "2026-08-24T00:00:00.000Z" },
+              },
+            ],
+            evidenceRequirementAssessments: [
+              {
+                itemId: { semanticFingerprint: fingerprint, itemKind: "ER", ordinal: 0 },
+                requirement: W3B_TEMP_ARTIFACT_ER_KEY,
+                result: "SATISFIED",
+                method: "assisted",
+                provenance: { evaluatorRef: "w3b", evaluatedAt: "2026-08-24T00:00:00.000Z" },
+              },
+            ],
+          }),
+          findByIdempotencyKey: async () => null,
+          exists: async () => true,
+          create: async () => {},
+          update: async () => {},
+        },
+        {
+          findById: async () => ({
+            schemaVersion: "0.2.0-oa",
+            reviewBundleId: "rb:1",
+            projectId: contract.projectId,
+            version: 2,
+            frozenVersion: 2,
+            frozenAt: "2026-08-24T00:00:00.000Z",
+            evidenceRefs: ["ev:1"],
+            claimEvaluationRefs: [],
+            completeness: "complete",
+            status: "ready_for_review",
+            createdAt: "2026-08-24T00:00:00.000Z",
+            synthesisOnly: false,
+            provenance: {
+              schemaVersion: "0.1.0-oa",
+              provenanceRecordId: "prv:rb",
+              actor: LOCAL_PILOTE_ACTOR,
+              source: "review",
+              timestamp: "2026-08-24T00:00:00.000Z",
+              correlationId: "cor:rb",
+            },
+            frozenEvidenceSnapshots: [
+              { evidenceId: "ev:1", evidenceVersion: 1, status: "verified", availability: "available" },
+            ],
+          }),
+        },
+        { findById: async () => makeEvidence({ evidenceId: "ev:1", status: "verified" }) },
+        { verify: () => ({ ok: true, reason: "ok", resolvedLevel: "N3", authorityEvidenceId: "auth:1" }) },
+        { nowIso: () => "2026-08-24T00:00:00.000Z" },
+        { append: () => {} },
+        { newCorrelationId: () => "cor:1", newProvenanceId: () => "prv:2" },
+        {
+          findById: async () =>
+            ({
+              ...makeAttempt({
+                boundExecutionContract: { ...snap, ...snapPatch },
+              }),
+              schemaVersion: "0.2.0-oa",
+              selectedAgentRef: "agt:1",
+              idempotencyKey: "idem:x",
+              correlationId: "cor:x",
+              version: 1,
+              createdAt: "2026-08-24T00:00:00.000Z",
+              provenance: {
+                schemaVersion: "0.1.0-oa",
+                provenanceRecordId: "prv:x",
+                actor: LOCAL_PILOTE_ACTOR,
+                source: "execution_adapter",
+                timestamp: "2026-08-24T00:00:00.000Z",
+                correlationId: "cor:x",
+              },
+            }) as never,
+        },
+      ).execute({
+        claimEvaluationId: "clm:cr:ob01-confirm",
+        expectedVersion: 1,
+        idempotencyKey: `idem:confirm:ob01:${JSON.stringify(snapPatch).slice(0, 24)}`,
+        actor: { actorId: "actor:b", role: "project_owner" },
+        authorityEvidenceId: "auth:1",
+      });
+    }
+
+    const schema = await confirmWithSnap({ executionContractSchemaVersion: "bad" });
+    expect(schema.ok).toBe(false);
+    if (!schema.ok) {
+      expect(schema.error.internalCauseRef).toBe("bound_snapshot_schema_unsupported");
+    }
+
+    const project = await confirmWithSnap({}, "prj:other");
+    expect(project.ok).toBe(false);
+    if (!project.ok) {
+      expect(project.error.internalCauseRef).toBe("bound_snapshot_project_mismatch");
+    }
+
+    const cycle = await confirmWithSnap({}, contract.projectId, "cyc:expected");
+    expect(cycle.ok).toBe(false);
+    if (!cycle.ok) {
+      expect(cycle.error.internalCauseRef).toBe("bound_snapshot_cycle_mismatch");
+    }
+  });
+
+describe("Option B micro-correction OB02 — real attempt.status at Confirm", () => {
+  function passAssessments() {
+    return {
+      expectedOutputAssessments: [
+        {
+          itemId: {
+            semanticFingerprint: fingerprint,
+            itemKind: "EO" as const,
+            ordinal: 0,
+          },
+          expectation: W3B_TEMP_ARTIFACT_EO_TEMPLATE,
+          result: "PASS" as const,
+          method: "assisted" as const,
+          provenance: {
+            evaluatorRef: "w3b",
+            evaluatedAt: "2026-08-24T00:00:00.000Z",
+          },
+        },
+      ],
+      evidenceRequirementAssessments: [
+        {
+          itemId: {
+            semanticFingerprint: fingerprint,
+            itemKind: "ER" as const,
+            ordinal: 0,
+          },
+          requirement: W3B_TEMP_ARTIFACT_ER_KEY,
+          result: "SATISFIED" as const,
+          method: "assisted" as const,
+          provenance: {
+            evaluatorRef: "w3b",
+            evaluatedAt: "2026-08-24T00:00:00.000Z",
+          },
+        },
+      ],
+    };
+  }
+
+  async function confirmWithAttemptStatus(status: string) {
+    const assessments = passAssessments();
+    return new ConfirmClaimEvaluation(
+      {
+        findById: async () => ({
+          schemaVersion: CLAIM_EVALUATION_SCHEMA_VERSION,
+          claimEvaluationId: "clm:cr:ob02",
+          claimType: "conformite",
+          claimStatement: "x",
+          criticality: "non_critical",
+          evaluationMethod: "assisted",
+          requiredEvidenceRefs: ["ev:1"],
+          providedEvidenceRefs: ["ev:1"],
+          reviewBundleId: "rb:1",
+          reviewBundleVersion: 2,
+          status: "evaluating",
+          proposedBy: { actorId: "actor:a", role: "project_owner" },
+          proposedAt: "2026-08-24T00:00:00.000Z",
+          evaluatedAt: "2026-08-24T00:00:00.000Z",
+          provenance: {
+            schemaVersion: "0.1.0-oa",
+            provenanceRecordId: "prv:1",
+            actor: { actorId: "actor:a", role: "project_owner" },
+            source: "review",
+            timestamp: "2026-08-24T00:00:00.000Z",
+            correlationId: "cor:1",
+          },
+          version: 1,
+          subjectKind: CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
+          contractResultReviewPolicyRef: W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
+          contractResultBindings: {
+            projectId: contract.projectId,
+            executionContractId: contract.executionContractId,
+            executionContractVersion: contract.version,
+            executionContractSemanticFingerprint: fingerprint,
+            executionAttemptId: "xat:w3b:optb",
+            reviewBundleId: "rb:1",
+            reviewBundleVersion: 2,
+            evidenceRefs: ["ev:1"],
+          },
+          ...assessments,
+        }),
+        findByIdempotencyKey: async () => null,
+        exists: async () => true,
+        create: async () => {},
+        update: async () => {},
+      },
+      {
+        findById: async () => ({
+          schemaVersion: "0.2.0-oa",
+          reviewBundleId: "rb:1",
+          projectId: contract.projectId,
+          version: 2,
+          frozenVersion: 2,
+          frozenAt: "2026-08-24T00:00:00.000Z",
+          evidenceRefs: ["ev:1"],
+          claimEvaluationRefs: [],
+          completeness: "complete",
+          status: "ready_for_review",
+          createdAt: "2026-08-24T00:00:00.000Z",
+          synthesisOnly: false,
+          provenance: {
+            schemaVersion: "0.1.0-oa",
+            provenanceRecordId: "prv:rb",
+            actor: LOCAL_PILOTE_ACTOR,
+            source: "review",
+            timestamp: "2026-08-24T00:00:00.000Z",
+            correlationId: "cor:rb",
+          },
+          frozenEvidenceSnapshots: [
+            {
+              evidenceId: "ev:1",
+              evidenceVersion: 1,
+              status: "verified",
+              availability: "available",
+            },
+          ],
+        }),
+      },
+      {
+        findById: async () =>
+          makeEvidence({ evidenceId: "ev:1", status: "verified" }),
+      },
+      {
+        verify: () => ({
+          ok: true,
+          reason: "ok",
+          resolvedLevel: "N3",
+          authorityEvidenceId: "auth:1",
+        }),
+      },
+      { nowIso: () => "2026-08-24T00:00:00.000Z" },
+      { append: () => {} },
+      { newCorrelationId: () => "cor:1", newProvenanceId: () => "prv:2" },
+      {
+        findById: async () =>
+          ({
+            ...makeAttempt({ status }),
+            schemaVersion: "0.2.0-oa",
+            selectedAgentRef: "agt:1",
+            idempotencyKey: "idem:x",
+            correlationId: "cor:x",
+            version: 1,
+            createdAt: "2026-08-24T00:00:00.000Z",
+            provenance: {
+              schemaVersion: "0.1.0-oa",
+              provenanceRecordId: "prv:x",
+              actor: LOCAL_PILOTE_ACTOR,
+              source: "execution_adapter",
+              timestamp: "2026-08-24T00:00:00.000Z",
+              correlationId: "cor:x",
+            },
+          }) as never,
+      },
+    ).execute({
+      claimEvaluationId: "clm:cr:ob02",
+      expectedVersion: 1,
+      idempotencyKey: `idem:confirm:ob02:${status}`,
+      actor: { actorId: "actor:b", role: "project_owner" },
+      authorityEvidenceId: "auth:1",
+    });
+  }
+
+  for (const status of [
+    "failed",
+    "cancelled",
+    "timeout",
+    "running",
+    "accepted",
+  ] as const) {
+    it(`EO PASS cannot mint pass when attempt.status=${status}`, async () => {
+      const result = await confirmWithAttemptStatus(status);
+      expect(result.ok).toBe(false);
+      if (result.ok) return;
+      expect(result.error.internalCauseRef).toBe(
+        "contract_result_confirm_derived_not_pass",
+      );
+    });
+  }
+
+  it("succeeded + EO PASS + ER SATISFIED + valid bindings → may pass", async () => {
+    const result = await confirmWithAttemptStatus("succeeded");
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.claimEvaluation.status).toBe("pass");
+  });
+});
+
+describe("Option B micro-correction OB03 — W3-B freshness at Confirm", () => {
+  async function confirmWithFreshness(
+    freshness: string | undefined,
+    snapshotStatus = "verified",
+  ) {
+    return new ConfirmClaimEvaluation(
+      {
+        findById: async () => ({
+          schemaVersion: CLAIM_EVALUATION_SCHEMA_VERSION,
+          claimEvaluationId: "clm:cr:ob03",
+          claimType: "conformite",
+          claimStatement: "x",
+          criticality: "non_critical",
+          evaluationMethod: "assisted",
+          requiredEvidenceRefs: ["ev:1"],
+          providedEvidenceRefs: ["ev:1"],
+          reviewBundleId: "rb:1",
+          reviewBundleVersion: 2,
+          status: "evaluating",
+          proposedBy: { actorId: "actor:a", role: "project_owner" },
+          proposedAt: "2026-08-24T00:00:00.000Z",
+          evaluatedAt: "2026-08-24T00:00:00.000Z",
+          provenance: {
+            schemaVersion: "0.1.0-oa",
+            provenanceRecordId: "prv:1",
+            actor: { actorId: "actor:a", role: "project_owner" },
+            source: "review",
+            timestamp: "2026-08-24T00:00:00.000Z",
+            correlationId: "cor:1",
+          },
+          version: 1,
+          subjectKind: CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
+          contractResultReviewPolicyRef: W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
+          contractResultBindings: {
+            projectId: contract.projectId,
+            executionContractId: contract.executionContractId,
+            executionContractVersion: contract.version,
+            executionContractSemanticFingerprint: fingerprint,
+            executionAttemptId: "xat:w3b:optb",
+            reviewBundleId: "rb:1",
+            reviewBundleVersion: 2,
+            evidenceRefs: ["ev:1"],
+          },
+          expectedOutputAssessments: [
+            {
+              itemId: {
+                semanticFingerprint: fingerprint,
+                itemKind: "EO",
+                ordinal: 0,
+              },
+              expectation: W3B_TEMP_ARTIFACT_EO_TEMPLATE,
+              result: "PASS",
+              method: "assisted",
+              provenance: {
+                evaluatorRef: "w3b",
+                evaluatedAt: "2026-08-24T00:00:00.000Z",
+              },
+            },
+          ],
+          evidenceRequirementAssessments: [
+            {
+              itemId: {
+                semanticFingerprint: fingerprint,
+                itemKind: "ER",
+                ordinal: 0,
+              },
+              requirement: W3B_TEMP_ARTIFACT_ER_KEY,
+              result: "SATISFIED",
+              method: "assisted",
+              provenance: {
+                evaluatorRef: "w3b",
+                evaluatedAt: "2026-08-24T00:00:00.000Z",
+              },
+            },
+          ],
+        }),
+        findByIdempotencyKey: async () => null,
+        exists: async () => true,
+        create: async () => {},
+        update: async () => {},
+      },
+      {
+        findById: async () => ({
+          schemaVersion: "0.2.0-oa",
+          reviewBundleId: "rb:1",
+          projectId: contract.projectId,
+          version: 2,
+          frozenVersion: 2,
+          frozenAt: "2026-08-24T00:00:00.000Z",
+          evidenceRefs: ["ev:1"],
+          claimEvaluationRefs: [],
+          completeness: "complete",
+          status: "ready_for_review",
+          createdAt: "2026-08-24T00:00:00.000Z",
+          synthesisOnly: false,
+          provenance: {
+            schemaVersion: "0.1.0-oa",
+            provenanceRecordId: "prv:rb",
+            actor: LOCAL_PILOTE_ACTOR,
+            source: "review",
+            timestamp: "2026-08-24T00:00:00.000Z",
+            correlationId: "cor:rb",
+          },
+          frozenEvidenceSnapshots: [
+            {
+              evidenceId: "ev:1",
+              evidenceVersion: 1,
+              status: snapshotStatus,
+              availability: "available",
+            },
+          ],
+        }),
+      },
+      {
+        findById: async () =>
+          makeEvidence({
+            evidenceId: "ev:1",
+            status: "verified",
+            freshness: freshness as never,
+          }),
+      },
+      {
+        verify: () => ({
+          ok: true,
+          reason: "ok",
+          resolvedLevel: "N3",
+          authorityEvidenceId: "auth:1",
+        }),
+      },
+      { nowIso: () => "2026-08-24T00:00:00.000Z" },
+      { append: () => {} },
+      { newCorrelationId: () => "cor:1", newProvenanceId: () => "prv:2" },
+      {
+        findById: async () =>
+          ({
+            ...makeAttempt({ status: "succeeded" }),
+            schemaVersion: "0.2.0-oa",
+            selectedAgentRef: "agt:1",
+            idempotencyKey: "idem:x",
+            correlationId: "cor:x",
+            version: 1,
+            createdAt: "2026-08-24T00:00:00.000Z",
+            provenance: {
+              schemaVersion: "0.1.0-oa",
+              provenanceRecordId: "prv:x",
+              actor: LOCAL_PILOTE_ACTOR,
+              source: "execution_adapter",
+              timestamp: "2026-08-24T00:00:00.000Z",
+              correlationId: "cor:x",
+            },
+          }) as never,
+      },
+    ).execute({
+      claimEvaluationId: "clm:cr:ob03",
+      expectedVersion: 1,
+      idempotencyKey: `idem:confirm:ob03:${freshness ?? "undef"}`,
+      actor: { actorId: "actor:b", role: "project_owner" },
+      authorityEvidenceId: "auth:1",
+    });
+  }
+
+  for (const freshness of [undefined, "unknown", "aging", "stale"] as const) {
+    it(`freshness=${String(freshness)} → Confirm refused`, async () => {
+      const result = await confirmWithFreshness(freshness);
+      expect(result.ok).toBe(false);
+      if (result.ok) return;
+      const cause = result.error.internalCauseRef ?? "";
+      expect(
+        cause === "contract_result_confirm_evidence_not_w3b_usable" ||
+          cause.startsWith("confirm_evidence_"),
+      ).toBe(true);
+    });
+  }
+
+  it("fresh + valid snapshot → Confirm may pass", async () => {
+    const result = await confirmWithFreshness("fresh");
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.claimEvaluation.status).toBe("pass");
+  });
+
+  it("live fresh but frozen snapshot incompatible → refused", async () => {
+    const result = await confirmWithFreshness("fresh", "stale");
+    expect(result.ok).toBe(false);
   });
 });

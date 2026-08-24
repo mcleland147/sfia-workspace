@@ -22,8 +22,8 @@ import { CLAIM_EVALUATION_SCHEMA_VERSION } from "../domain/claimEvaluationTypes"
 import {
   CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
   W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
-  isAttemptBoundSnapshotValid,
 } from "../domain/contractResultTypes";
+import { validateBoundExecutionContractSnapshot } from "@/lib/oa/execution-attempt/domain/boundExecutionContract";
 import type { ExecutionAttemptSnapshot } from "../domain/types";
 import type { Evidence } from "../domain/types";
 import type { ReviewBundle } from "../domain/reviewBundleTypes";
@@ -128,12 +128,20 @@ export class EvaluateContractResult {
 
       const snap = attempt.boundExecutionContract;
       // Historical Attempt without snapshot → durable NOT_PROVEN (not error).
-      // Corrupt/tampered snapshot → application error.
-      if (snap && !isAttemptBoundSnapshotValid(attempt)) {
-        return fail(
-          "CLAIM_EVALUATION_INVALID",
-          "bound_snapshot_corrupt_or_inconsistent",
-        );
+      // Corrupt/tampered/incoherent snapshot → application error via canonical validator.
+      if (snap) {
+        const snapshotValidation = validateBoundExecutionContractSnapshot({
+          attempt,
+          requirePresent: true,
+          expectedProjectId: contract.projectId,
+          expectedCycleInstanceId: contract.cycleInstanceId ?? null,
+        });
+        if (!snapshotValidation.ok) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            snapshotValidation.reason,
+          );
+        }
       }
 
       if (evidence.bindings.executionAttemptId !== attempt.attemptId) {

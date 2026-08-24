@@ -22,8 +22,8 @@ import type {
 import {
   CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
   W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
-  isAttemptBoundSnapshotValid,
 } from "../domain/contractResultTypes";
+import { validateBoundExecutionContractSnapshot } from "@/lib/oa/execution-attempt/domain/boundExecutionContract";
 import { containsForbiddenSecret } from "../domain/invariants";
 import type { EvidenceAuditPort } from "../ports/evidenceAudit";
 import type { ClaimAuthorityPort } from "../ports/claimAuthorityPort";
@@ -36,10 +36,9 @@ import {
   assessRequiredEvidence,
   detailCodeForAssessment,
 } from "./claimEvidenceAssessment";
-import {
-  deriveCanonicalContractResultStatus,
-  inferAttemptStatusFromContractResultAssessments,
-} from "./contractResultAssessment";
+import { deriveCanonicalContractResultStatus } from "./contractResultAssessment";
+import { isW3bContractResultEvidenceUsable } from "./contractResultSemanticEvaluator";
+import type { ExecutionAttemptSnapshot } from "../domain/types";
 import {
   assertIdempotencyKey,
   fingerprintCommand,
@@ -322,6 +321,8 @@ export class ConfirmClaimEvaluation {
       const isContractResult =
         current.subjectKind === CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT;
 
+      let contractResultAttempt: ExecutionAttemptSnapshot | null = null;
+
       if (isContractResult) {
         if (!current.contractResultReviewPolicyRef) {
           return fail(
@@ -381,10 +382,16 @@ export class ConfirmClaimEvaluation {
             { claimEvaluation: current },
           );
         }
-        if (!isAttemptBoundSnapshotValid(attempt)) {
+        const snapshotValidation = validateBoundExecutionContractSnapshot({
+          attempt,
+          requirePresent: true,
+          expectedProjectId: bindings.projectId,
+          expectedCycleInstanceId: bindings.cycleInstanceId ?? null,
+        });
+        if (!snapshotValidation.ok) {
           return fail(
             "CLAIM_EVALUATION_INVALID",
-            "contract_result_confirm_corrupt_bound_snapshot",
+            snapshotValidation.reason,
             { claimEvaluation: current },
           );
         }
@@ -403,6 +410,33 @@ export class ConfirmClaimEvaluation {
             { claimEvaluation: current },
           );
         }
+
+        // OB03 — W3-B Evidence freshness/usability fail-closed (stricter than generic).
+        for (const evidenceId of current.requiredEvidenceRefs) {
+          const live = await this.evidence.findById(evidenceId);
+          const frozenSnap = (bundle.frozenEvidenceSnapshots ?? []).find(
+            (s) => s.evidenceId === evidenceId,
+          );
+          if (
+            !live ||
+            !isW3bContractResultEvidenceUsable({
+              evidence: live,
+              snapshot: frozenSnap,
+            })
+          ) {
+            return fail(
+              "CLAIM_EVALUATION_INVALID_STATE",
+              "contract_result_confirm_evidence_not_w3b_usable",
+              {
+                claimEvaluation: current,
+                evidenceId,
+                reviewBundleId: current.reviewBundleId,
+              },
+            );
+          }
+        }
+
+        contractResultAttempt = attempt;
       }
 
       const confirmationAuthority =
@@ -441,11 +475,16 @@ export class ConfirmClaimEvaluation {
 
       let contractResultStatus: ClaimEvaluation["status"] = "pass";
       if (isContractResult) {
-        const attemptStatus = inferAttemptStatusFromContractResultAssessments(
-          stampedExpectedOutputs ?? [],
-        );
+        if (!contractResultAttempt) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "contract_result_confirm_attempt_not_found",
+            { claimEvaluation: current },
+          );
+        }
+        // OB02 — derive from real Attempt.status (FC-10), never EO-inferred status.
         const derivedStatus = deriveCanonicalContractResultStatus({
-          attemptStatus,
+          attemptStatus: contractResultAttempt.status,
           expectedOutputAssessments: stampedExpectedOutputs ?? [],
           evidenceRequirementAssessments: stampedEvidenceRequirements ?? [],
         });

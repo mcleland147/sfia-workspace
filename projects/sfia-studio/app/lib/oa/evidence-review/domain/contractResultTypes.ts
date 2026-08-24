@@ -9,7 +9,7 @@ import type {
   ClaimEvaluationMethod,
 } from "./claimEvaluationTypes";
 import type { ActorReference } from "@/lib/oa/doctrine";
-import { computeExecutionContractSemanticMaterialFingerprint } from "@/lib/oa/execution-contract";
+import { validateBoundExecutionContractSnapshot } from "@/lib/oa/execution-attempt/domain/boundExecutionContract";
 import type { ExecutionAttemptSnapshot } from "./types";
 
 export const CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT =
@@ -105,8 +105,14 @@ export function resolveContractResultConfirmationAuthority(
   return "authorized_human";
 }
 
+export type BoundSnapshotValidityExpectations = {
+  readonly expectedProjectId?: string;
+  readonly expectedCycleInstanceId?: string | null;
+};
+
 /**
- * TD-W3B-02 Option B — Attempt has a self-consistent bound snapshot.
+ * TD-W3B-02 Option B — Contract Result snapshot validity.
+ * Thin wrapper over canonical validateBoundExecutionContractSnapshot (requirePresent).
  * Does NOT consult latest ExecutionContract.
  */
 export function isAttemptBoundSnapshotValid(
@@ -117,29 +123,14 @@ export function isAttemptBoundSnapshotValid(
     | "executionContractSemanticFingerprint"
     | "boundExecutionContract"
   >,
+  expectations?: BoundSnapshotValidityExpectations,
 ): boolean {
-  const snap = attempt.boundExecutionContract;
-  if (!snap) return false;
-  if (
-    snap.semanticMaterial.executionContractId !== attempt.executionContractId
-  ) {
-    return false;
-  }
-  if (snap.executionContractVersion !== attempt.executionContractVersion) {
-    return false;
-  }
-  const attemptFp = (attempt.executionContractSemanticFingerprint ?? "").trim();
-  if (!attemptFp || attemptFp !== snap.semanticFingerprint) return false;
-  try {
-    const recomputed = computeExecutionContractSemanticMaterialFingerprint(
-      snap.semanticMaterial as Parameters<
-        typeof computeExecutionContractSemanticMaterialFingerprint
-      >[0],
-    );
-    return recomputed === snap.semanticFingerprint;
-  } catch {
-    return false;
-  }
+  return validateBoundExecutionContractSnapshot({
+    attempt,
+    requirePresent: true,
+    expectedProjectId: expectations?.expectedProjectId,
+    expectedCycleInstanceId: expectations?.expectedCycleInstanceId,
+  }).ok;
 }
 
 /**
@@ -193,17 +184,24 @@ export function contractResultBindingsMatchCurrentFacts(input: {
   cycleInstanceId?: string | null;
 }): boolean {
   const snap = input.attempt.boundExecutionContract;
-  if (!snap || !isAttemptBoundSnapshotValid(input.attempt)) return false;
-  const attemptFp = snap.semanticFingerprint;
-  const projectId =
-    input.projectId ?? snap.semanticMaterial.projectId;
-  const cycleInstanceId =
+  if (!snap) return false;
+  const expectedProjectId = input.projectId ?? input.bindings.projectId;
+  const expectedCycleInstanceId =
     input.cycleInstanceId !== undefined
       ? input.cycleInstanceId
-      : (snap.semanticMaterial.cycleInstanceId ?? null);
+      : (input.bindings.cycleInstanceId ?? null);
+  if (
+    !isAttemptBoundSnapshotValid(input.attempt, {
+      expectedProjectId,
+      expectedCycleInstanceId,
+    })
+  ) {
+    return false;
+  }
+  const attemptFp = snap.semanticFingerprint;
 
   if (
-    input.bindings.projectId !== projectId ||
+    input.bindings.projectId !== expectedProjectId ||
     input.bindings.executionContractId !== input.attempt.executionContractId ||
     input.bindings.executionContractVersion !==
       input.attempt.executionContractVersion ||
@@ -214,7 +212,10 @@ export function contractResultBindingsMatchCurrentFacts(input: {
   ) {
     return false;
   }
-  if ((input.bindings.cycleInstanceId ?? null) !== (cycleInstanceId ?? null)) {
+  if (
+    (input.bindings.cycleInstanceId ?? null) !==
+    (expectedCycleInstanceId ?? null)
+  ) {
     return false;
   }
   if (input.bindings.evidenceRefs.length !== input.evidenceIds.length) {
