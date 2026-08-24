@@ -24,6 +24,7 @@
 | FinOps | FREEZE |
 | W4 | OUT |
 | Runtime v3 | NON ADOPTED |
+| Handoff note | ChatGPT re-review: code `8c1f9b86` REVIEW-CLEAN; this republication remaps X-W3B-01…12 to canonical exit IDs only (no project commit) |
 
 ## Morris GO consumed
 
@@ -1314,20 +1315,22 @@ Captures: existing Option B / W3-B captures remain valid (behavior of product te
 
 ## X-W3B requalification
 
-| Exit | Verdict | Proof |
-|---|---|---|
-| X-W3B-01 Honest SUCCESS | PASS | W3-B product terminal + Playwright SUCCESS + Confirm succeeded-only path |
-| X-W3B-02 STOP distinct | PASS (NR) | systemGovernedStop + Playwright GOVERNED STOP |
-| X-W3B-03 Adapter FAIL distinct | PASS (NR) | Playwright ADAPTER_FAIL + w3bProductTerminal |
-| X-W3B-04 USER_CANCEL distinct | PASS (NR) | existing cancel suites + W3-A NR |
-| X-W3B-05 Durable NOT_PROVEN | PASS (NR) | missing snapshot / no evaluator tests in optionBBoundSnapshot |
-| X-W3B-06 Frozen RB | PASS (NR) | Confirm frozen snapshot + OB03 frozen incompatibility |
-| X-W3B-07 Evidence C09 | PASS (NR) | W3-B Evidence ingest + freshness allowlist + Confirm W3-B usable |
-| X-W3B-08 SQLite restart | PASS (NR) | optionB SQLite snapshot + product terminal TRUE RESTART |
-| X-W3B-09 Exact EC identity | PASS | OB01 canonical schema/EC/version/FP/project/cycle at Evaluate/Confirm/FC-11 |
-| X-W3B-10 Server ownership/review | PASS | Confirm real attempt.status + W3-B freshness + FC-12 authority unchanged |
-| X-W3B-11 Canonical /studio | PASS (NR) | Playwright `/studio` 3/3 |
-| X-W3B-12 No architecture parallelism | PASS | Single validator reuse; no EC history repo; no latest-EC; Option B preserved |
+Canonical exit IDs (stable across W3-B reviews). Prior published handoff `dd791f4a` mis-indexed X-02/X-04/X-05/X-06/X-07 labels; **proofs remapped only — no code change to `8c1f9b86`.**
+
+| ID | Exit canonique | Verdict | Proof (existing; remapped) |
+|---|---|---|---|
+| X-W3B-01 | Honest semantic SUCCESS | PASS | W3-B product terminal + Playwright SUCCESS + Confirm uses real `attempt.status==succeeded` only (OB02) |
+| X-W3B-02 | NOT_PROVEN fail-closed | PASS (NR) | Historical missing snapshot → durable NOT_PROVEN; no evaluator → NOT_PROVEN; corrupt snapshot → fail-closed (optionBBoundSnapshot) |
+| X-W3B-03 | FAIL distinct | PASS (NR) | Playwright ADAPTER_FAIL + w3bProductTerminal adapter FAIL path |
+| X-W3B-04 | SYSTEM_GOVERNED_STOP | PASS (NR) | `systemGovernedStop` suite + Playwright GOVERNED STOP |
+| X-W3B-05 | Cancel / pre-running block distinctions | PASS (NR) | USER_CANCEL distinct from STOP; cancel suites + W3-A NR; Confirm refuses `cancelled` technical status (OB02) |
+| X-W3B-06 | Evidence before claim / frozen RB | PASS (NR) | Frozen ReviewBundle exact binding at Confirm; OB03 frozen-snapshot incompatibility refuse; Evidence before claim C09 path |
+| X-W3B-07 | Business-first UX | PASS (NR) | W3-B product terminal business-first projection + Playwright `/studio` SUCCESS/STOP/FAIL surfaces |
+| X-W3B-08 | Restart honesty | PASS (NR) | Option B SQLite Attempt snapshot reload + product terminal TRUE RESTART rehydrate |
+| X-W3B-09 | Exact EC identity | PASS | OB01 canonical schema/EC/version/fingerprint/project/cycle at Evaluate/Confirm/FC-11 |
+| X-W3B-10 | Server ownership / review | PASS | Confirm real Attempt.status + W3-B fresh-only Evidence (OB02/OB03) + FC-12 authority unchanged |
+| X-W3B-11 | Canonical `/studio` | PASS (NR) | Playwright `/studio` 3/3 (SUCCESS / SYSTEM_GOVERNED_STOP / ADAPTER_FAIL) |
+| X-W3B-12 | No parallel architecture | PASS | Single validator reuse; no EC history repo; no latest-EC; Option B preserved |
 
 Even with X-01…12 PASS: **W3-B remains NOT CLOSED**.
 
@@ -1350,21 +1353,21 @@ Even with X-01…12 PASS: **W3-B remains NOT CLOSED**.
 ## Debt / reserves
 
 - `inferAttemptStatusFromContractResultAssessments` still exported unused (out-of-scope cleanup deferred)
-- W3-B NOT CLOSED pending ChatGPT re-review + distinct Morris Git integration decision
+- W3-B NOT CLOSED pending ChatGPT re-review of handoff X-matrix remap + distinct Morris Git integration decision
 - W3-C/D/E NOT STARTED; REAL OUT; FinOps FREEZE; W4 OUT; runtime v3 NON ADOPTED
 
 ## Git state / publish constraints
 
-- One new local commit above `66427eaf` (no amend / no rebase)
-- Exact-path staging only (no `git add .`)
+- Project candidate frozen at `8c1f9b86` (REVIEW-CLEAN per ChatGPT; **no new project commit**)
+- This republication is **handoff / Review Pack only** (X-matrix identity remap)
 - **No project push / PR / merge**
 - Review Handoff via `scripts/sfia/publish-review-handoff.sh` only
 
 ## Verdict
 
-**READY FOR REVIEW** — micro-correctif OB01–OB03 complete; awaiting ChatGPT re-review before any Morris Git integration decision.
+**READY FOR REVIEW** — code `8c1f9b86` REVIEW-CLEAN (OB01–OB03 PASS); handoff X-W3B-01…12 remapped to canonical exit IDs; awaiting ChatGPT re-review limitée à la matrice X puis Morris Git integration decision.
 
-Next gate: ChatGPT re-review ciblée du micro-correctif.
+Next gate: ChatGPT re-review ciblée de la matrice X-W3B (handoff only) → Morris Git integration decision.
 
 
 ## Post-commit Git
