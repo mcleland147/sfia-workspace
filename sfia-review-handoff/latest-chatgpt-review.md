@@ -1,499 +1,846 @@
-# SFIA Studio — W3-B Terminal + Evidence — RR-W3B-01…05 FINAL TARGETED CORRECTION
-## FULL Review Pack — STOP CYCLE
+# ChatGPT Review Pack — W3-B Targeted Technical Architecture Addendum
 
 ## 1. Timestamp
-- Local: 2026-08-24 14:11:40 CEST
-- UTC: 2026-08-24 12:11:40 UTC
 
-## 2. Local Git Truth Check
-- pwd / toplevel: /Users/morris/Projects/sfia-workspace
-- fetch origin --prune: performed
-- branch: `delivery/sfia-studio-product-completion-w3-b-terminal-evidence`
-- HEAD: `ba7aa2db408b7fd00faf9638da060ce0833b794b`
-- origin/main: `ba7aa2db408b7fd00faf9638da060ce0833b794b`
-- staged: EMPTY (verified)
-- candidate W3-B local uncommitted present
-- orthogonals preserved: `.tmp-sfia-review/`, `projects/eventops-poc/`, `projects/flex-office-demo/`
+- Local: 2026-08-24 14:45:30 CEST
+- UTC: 2026-08-24 12:45:30 UTC
+- Cycle: Architecture technique (type 6) — C6 Product Completion remains CLOSED
+- Profile: DOC / CRITICAL
+- Implementation: NONE
 
+## 2. Original W3-B worktree preservation proof
+
+| Check | Result |
+| --- | --- |
+| Path | `/Users/morris/Projects/sfia-workspace` |
+| Branch | `delivery/sfia-studio-product-completion-w3-b-terminal-evidence` |
+| HEAD | `ba7aa2db408b7fd00faf9638da060ce0833b794b` |
+| Expected HEAD | `ba7aa2db408b7fd00faf9638da060ce0833b794b` |
+| Dirty status lines | 25 (candidate intact; not reset/cleaned/committed by this cycle) |
+| Key untracked W3-B file | `w3bProductOutcomeSemantics.ts` present |
+| Architecture isolation | Separate worktree — delivery candidate untouched |
+
+**PASS — W3-B DELIVERY CANDIDATE PRESERVED**
+
+## 3. Architecture worktree Git Truth
+
+| Check | Result |
+| --- | --- |
+| Path | `/Users/morris/Projects/sfia-workspace-w3b-architecture-addendum` |
+| Branch | `docs/sfia-studio-w3-b-targeted-technical-architecture-addendum` |
+| HEAD | `ba7aa2db408b7fd00faf9638da060ce0833b794b` |
+| origin/main | `ba7aa2db408b7fd00faf9638da060ce0833b794b` |
+| Status | |
 ```
-M projects/sfia-studio/app/__tests__/oa/evidence-review/adversarialValidation.test.ts
- M projects/sfia-studio/app/__tests__/oa/evidence-review/ingestExecutionAttemptEvidence.test.ts
- M projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
- M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.module.css
- M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
- M projects/sfia-studio/app/features/project-assistant/w2/actions.ts
- M projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
- M projects/sfia-studio/app/features/project-assistant/w2/types.ts
- M projects/sfia-studio/app/lib/oa/evidence-review/application/ingestExecutionAttemptEvidence.ts
- M projects/sfia-studio/app/lib/oa/evidence-review/domain/types.ts
- M projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
- M projects/sfia-studio/app/playwright.config.ts
- M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
- M projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md
-?? .tmp-sfia-review/
-?? projects/eventops-poc/
-?? projects/flex-office-demo/
-?? projects/sfia-studio/app/__tests__/project-assistant/w3bProductOutcomeSemantics.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/w3bTerminalEvidence.test.ts
-?? projects/sfia-studio/app/app/api/e2e/w3b-boundary/
-?? projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
-?? projects/sfia-studio/app/e2e/support/w3bBoundaryControl.ts
-?? projects/sfia-studio/app/features/project-assistant/w2/w3bMaterializeProductOutcome.ts
-?? projects/sfia-studio/app/features/project-assistant/w2/w3bProductOutcomeSemantics.ts
-?? projects/sfia-studio/app/lib/vertical-slice-runtime/w3bE2eBoundaryControl.ts
+?? projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
 ```
+| Staged | EMPTY |
+| Project commit | NONE |
 
-## 3. HEAD / origin/main / branch
-| Field | Expected | Observed |
-|---|---|---|
-| Branch | delivery/sfia-studio-product-completion-w3-b-terminal-evidence | `delivery/sfia-studio-product-completion-w3-b-terminal-evidence` |
-| HEAD | ba7aa2db408b7fd00faf9638da060ce0833b794b | `ba7aa2db408b7fd00faf9638da060ce0833b794b` |
-| origin/main | ba7aa2db408b7fd00faf9638da060ce0833b794b | `ba7aa2db408b7fd00faf9638da060ce0833b794b` |
-| Base drift | none | NONE |
+## 4. origin/main proof
 
-## 4. Input handoff commit/blob verification
-| Field | Expected | Observed |
-|---|---|---|
-| Commit | fd4f1c95f7b6088c669ce2d85d1b7e6df5c8c6d7 | EXISTS (`git cat-file -e` OK) · `origin/sfia/review-handoff` |
-| Blob | f1e7f4fd2eba1a375ae209939259a0991cfb386d | EXISTS · matches remote canonical path |
-| Path | sfia-review-handoff/latest-chatgpt-review.md | canonical |
+`origin/main` = `ba7aa2db408b7fd00faf9638da060ce0833b794b` = expected `ba7aa2db408b7fd00faf9638da060ce0833b794b`
 
-## 5. Candidate freeze verification
-Prior handoff `fd4f1c95…` fileset still present (tracked modified + untracked W3-B files). No unexplained divergence. Staged EMPTY. **NO CANDIDATE STATE MISMATCH.**
+**PASS — no base drift**
 
-Tracked name-status:
-```
-M	projects/sfia-studio/app/__tests__/oa/evidence-review/adversarialValidation.test.ts
-M	projects/sfia-studio/app/__tests__/oa/evidence-review/ingestExecutionAttemptEvidence.test.ts
-M	projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.module.css
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-M	projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/types.ts
-M	projects/sfia-studio/app/lib/oa/evidence-review/application/ingestExecutionAttemptEvidence.ts
-M	projects/sfia-studio/app/lib/oa/evidence-review/domain/types.ts
-M	projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
-M	projects/sfia-studio/app/playwright.config.ts
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-M	projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md
-```
+## 5. Input STOP handoff commit/blob verification
 
-Untracked (W3-B + pack):
-```
-.tmp-sfia-review/chatgpt-review.md
-projects/sfia-studio/app/__tests__/project-assistant/w3bProductOutcomeSemantics.test.ts
-projects/sfia-studio/app/__tests__/project-assistant/w3bTerminalEvidence.test.ts
-projects/sfia-studio/app/app/api/e2e/w3b-boundary/route.ts
-projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
-projects/sfia-studio/app/e2e/support/w3bBoundaryControl.ts
-projects/sfia-studio/app/features/project-assistant/w2/w3bMaterializeProductOutcome.ts
-projects/sfia-studio/app/features/project-assistant/w2/w3bProductOutcomeSemantics.ts
-projects/sfia-studio/app/lib/vertical-slice-runtime/w3bE2eBoundaryControl.ts
-```
+| Item | Value |
+| --- | --- |
+| Input commit | `590c9b60ee96f2f1299382a7dedb5095fe964a8b` |
+| Expected blob | `7b9d31545ffdf06692df26cda6a33b5a4aeea438` |
+| Remote canonical blob at cycle start | `7b9d31545ffdf06692df26cda6a33b5a4aeea438` (verified) |
+| Remote blob before this publish | `7b9d31545ffdf06692df26cda6a33b5a4aeea438` |
 
-## 6. Morris correction instruction consumed + limites
-Instruction: « ok go correction »
-- AUTHORIZES: RR-W3B-01…05 discovery/correction; tests; Roadmap/doc11 honesty; FULL pack; L3 handoff publish
-- DOES NOT AUTHORIZE: project commit/push/PR/merge; W3-B closure; W3-C/D/E; REAL; W4; FinOps unfreeze; C6 reopen; runtime v3 adoption
-- STOP is an authorized correct cycle outcome when representability fails
+Input STOP pack verified before architecture analysis. This publish replaces canonical handoff with the architecture review pack.
 
-## 7. Sources actually read
-- Process: cycle execution template, routing guide, chatgpt-cursor operating model, rules/guardrails, CKC synthetic map (cognition)
-- Convergence: build doctrine + roadmap
-- Product Completion: 01, 02, UX 01–03, 03 FA (FC-11/12), 06 C6, 05 backlog, 11 readiness
-- Framing 34/35 + CKC 08 as cognition only
-- Input handoff fd4f1c95… / blob f1e7f4…
-- OA: ExecutionContract types, ExecutionAttempt, Evidence ingest, ReviewBundle completeness, ClaimEvaluation/EvaluateClaim/claimEvidenceAssessment
-- W3-A/W3-B: w3aProductExecutionSemantics, w3aQualifiedExecutionEffects, w3bProductOutcomeSemantics, w3bMaterializeProductOutcome, governedExecuteStart, w3bE2eBoundaryControl, StartExecution failLaunch/RTA5-08, CancelExecutionAttempt
-- FA: FC-11 owns SUCCESS/STOP/FAIL meaning; FC-10 owns terminal state
+## 6. Morris architecture decision consumed
+
+MORRIS DECISION — W3-B STRUCTURAL ARCHITECTURE GAP — OPEN BOUNDED W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — PRESERVE C1 TARGET AND C2 SUCCESS/STOP/FAIL SEMANTICS — PRESERVE FUNCTIONAL ARCHITECTURE FC-10/FC-11/FC-12 OWNERSHIP — CONSUME C6 TD-C6-01…06 AS CLOSED BASELINE / DO NOT REOPEN OR REDECIDE THEM — ADDRESS W3B-D01 CONTRACT RESULT SATISFACTION AND W3B-D02 SYSTEM-GOVERNED TERMINAL STOP ONLY — REUSE OA NATIVE BACKBONE / PRODUCT SQLITE / EXISTING PORTS / CLAIM-EVALUATION AND EXECUTIONATTEMPT SUBSTRATE — QUALIFY CLAIM-EVALUATION DURABILITY + EXPLICIT EC EXPECTED-OUTPUT / EVIDENCE-REQUIREMENT BINDING — QUALIFY FC-09→FC-10 SYSTEM-GOVERNED STOP FROM ACTUALLY OBSERVED RUNTIME GUARD WITH SYSTEM-DERIVED PROVENANCE — NO PRODUCTOUTCOME AGGREGATE — NO NEW STORE TECHNOLOGY — NO PARALLEL CLAIM ENGINE — NO STOP ENGINE — NO SECOND ATTEMPT LIFECYCLE — HUMAN CANCEL REMAINS DISTINCT — ADAPTER FAILURE REMAINS FAIL — NO C1/C2/FA/BACKLOG REWRITE UNLESS A NEW CONTRADICTION IS PROVEN — ARCHITECTURE / ANALYSIS ONLY — NO W3-B IMPLEMENTATION UNTIL ADDENDUM VALIDATED — W3-C/D/E NOT STARTED — REAL OUT — FINOPS FREEZE — W4 OUT — RUNTIME V3 NON ADOPTED.
+
+Choices in this cycle remain **CANDIDATE** until Morris validation.
+
+## 7. Source list actually read
+
+Process / CKC / convergence / product docs 01–11 + UX 01–03 + framing 34/35 + STOP handoff 590c9b60 + runtime ClaimEvaluation / Evidence / RB / EC / Cancel / Start / RecordFailure / authorize / TestExecutionAdapter / C6 U2-U2b sections. Full list mirrored in architecture doc and final report.
 
 ## 8. Convergence qualification
-- Capability: V3-F05 / Evidence anti-claims via US-P1-05/06 FC-11/12
-- Milestone: W3-B Terminal + Evidence — Final Targeted Correction
-- KEEP: OA backbone, Product SQLite, EC, Attempt, Evidence, RB, /studio, W3-A, TestExecutionAdapter
-- ADAPT blocked: cannot honestly adapt SUCCESS without new durable satisfaction fact
-- FREEZE: W3-C Nora/replan, W3-D/E, W4, REAL, FinOps, C6, runtime v3
-- Next: Morris structural decision / requalification — NOT Cursor invention
 
-## 9. Asset classification
-| Asset | Class |
-|---|---|
-| OA / SQLite / EC / Attempt / Evidence / RB / /studio / W3-A / TestExecutionAdapter | KEEP |
-| ClaimEvaluation | KEEP but insufficient for EO semantic SUCCESS (free-form claimStatement) |
-| FC-11 SUCCESS semantic EO/ER satisfaction | GAP — NOT REPRESENTABLE without new fact |
-| Synthetic governed_stop arm | RETIRE candidate (not cleaned this cycle — STOP before implementation) |
-| W3-C/D/E / W4 / REAL / FinOps / C6 | FREEZE / OUT |
+W1 CLOSED · W2 CLOSED · W3-A CLOSED · W3-B STRUCTURALLY BLOCKED · W3 IN PROGRESS · W3-C/D/E NOT STARTED · C6 CLOSED · REAL OUT · FinOps FREEZE · W4 OUT · runtime v3 NON ADOPTED · Product Completion INCOMPLETE.
 
-## 10. Findings ChatGPT RR-W3B-01…05
-1. SUCCESS truth insufficient (resultRef + nonempty EO + scope + RB complete)
-2. STOP synthetic (test injects stopCondition into Cancel)
-3. Test path cleanup (remove governed_stop)
-4. Browser auto-recovery after reload
-5. UI hygiene business-first
+Roadmap/doc11 READ ONLY this cycle.
 
-## 11. RR-W3B-01 discovery matrix (COMPLETE)
+## 9. C1/C2/FA/C6 consistency recheck
 
-| Cat | Durable fact? | Owner | Semantic vs presence? | Sufficient for SUCCESS? | Gap |
-|---|---|---|---|---|---|
-| A. EC expectedOutput | Yes as free-text string[] | ExecutionContract.expectedOutputs | Presence/prose only | NO | No EO_i satisfied durable fact; no EO to Evidence mapping |
-| B. EC evidenceRequirement | Yes as evreq identifiers | ExecutionContract.evidenceRequirements | Declared checklist | NO | Never evaluated by ingest / RB completeness / ClaimEvaluation / W3-B qualify |
-| C. Technical result | Yes | Attempt.status / resultRef / failedAt | Technical terminality | Necessary only | succeeded+resultRef != EO content |
-| D. Scope | Yes | ExecutionContract.scope | Non-empty string | Presence only | No semantic in-scope proof of result |
-| E. Evidence binding | Yes | Evidence.bindings | Structural identity | Necessary | Binding != EO/ER satisfaction |
-| F. Evidence availability/integrity/verification | Yes | Evidence.status/availability/digest; VerifyEvidenceIntegrity | Integrity | Gate only | verified != semantic EO |
-| G. ReviewBundle completeness/freeze | Yes | ReviewBundle.completeness | Structural (>=1 refs, !synthesisOnly) | Gate only | Ignores EO/ER |
-| H. ClaimEvaluation | Aggregate exists; unused on W3-B path | ClaimEvaluation.claimStatement free-form | Integrity of Evidence IDs vs free statement | Cannot close A/B | No fields binding to EC expectedOutputs/evidenceRequirements |
+Preserved. No contradiction STOP. Stops ported by contracts/policies — no Stop Engine. C6 TD-C6-01…06 not reopened.
 
-Key code refs:
-- EC fields: `lib/oa/execution-contract/domain/types.ts` expectedOutputs / evidenceRequirements
-- W3-A EO mint: `w3aProductExecutionSemantics.ts` free-text from expectedOutcome or effectClass label
-- ER mint: `w3aQualifiedExecutionEffects.ts` `evreq:${effectClass}` only
-- Current insufficient SUCCESS proxy: `w3bProductOutcomeSemantics.ts` `isExpectedContractResultSatisfied` (succeeded AND resultRef AND nonempty EO AND scope AND technicalResultRef==resultRef) — does not evaluate EO text
-- evidenceRequirements on ProductOutcomeContractContext never read in qualifyProductOutcome
-- Ingest anti-claim: Attempt.succeeded != Evidence verified != Product SUCCESS (`ingestExecutionAttemptEvidence.ts` header)
-- ClaimEvaluation: claimStatement free-form; EvaluateClaim length/secret checks only; assessRequiredEvidence = integrity/verified against Evidence IDs
-- RB completeness: `reviewBundleInvariants.ts` computeCompleteness — structural only
+## 10. Scope / non-goals
 
-## 12. RR-W3B-01 conclusion de représentabilité
-**NOT REPRESENTABLE** with adopted model alone.
+In: W3B-D01 + W3B-D02 architecture only.
+Out: implementation, migrations executed, Roadmap/doc11 edits, backlog rewrite, W3-C/D/E, W4, REAL, project Git integration.
 
-Missing fact (exact):
-No durable satisfaction fact mapping each ExecutionContract.expectedOutputs[i] (and each evidenceRequirements[j]) to Evidence/Attempt content. Available facts prove technical terminality, binding identity, Evidence integrity/availability, and structural ReviewBundle completeness — not semantic contract-result satisfaction.
+## 11. Current runtime files inspected
 
-Smallest honest resolutions (require Morris / architecture — NOT implemented this cycle):
-1. Adopt a durable EO/ER satisfaction evaluation seam (likely C6-sensitive new policy/fields) binding ClaimEvaluation or a new assessment to EC EO/ER; OR
-2. Requalify Product SUCCESS in FA/C1/C2 to mean only technical+structural (explicitly abandoning semantic EO proof) — Morris authority, not Cursor invention under C6 CLOSED.
+claimEvaluationTypes.ts · createSqliteEvidenceReviewServices.ts · execution-contract types · evidence/RB types · cancelExecutionAttempt.ts · startExecution.ts · recordExecutionFailure.ts · authorizeExecutionContract.ts · TestExecutionAdapter · C6 doc U2/U2b · FA FC-09…12.
 
-## 13. RR-W3B-01 exact implementation or exact STOP
-**STOP — W3-B SUCCESS CONTRACT SATISFACTION FACT NOT REPRESENTABLE**
+## 12. D01 current-state inventory
 
-No code invented. SUCCESS definition not weakened. No new store/schema/aggregate/policy. Candidate left without a dishonest SUCCESS fix.
+EO/ER on durable EC; Evidence/RB durable; ClaimEvaluation Memory-only assessing evidence-in-RB quality — no EO/ER identity assessments; no durable contract-result satisfaction fact.
 
-## 14. RR-W3B-02 governed STOP candidate matrix
+## 13. D01 representability gap
 
-| Boundary | Detected where | Attempt state | Durable fact | Cancelled without new lifecycle? | Pre-launch only? | Mod needed? | FC-10/C6 |
-|---|---|---|---|---|---|---|---|
-| EXECUTOR_INSUFFICIENT (capability) | FC-09 evaluateAgentCapability | No Attempt | AVR BLOCKED | No | Yes | Post-accept auto-cancel | Structural vs RTA5-08 |
-| AUTHORITY / scope | FC-09 / Start reval | Pre: none; post-accept Start leave accepted | Auth audit | No | Mostly | Auto-cancel | Structural |
-| CONFIRMATION_REQUIRED | FC-09 | No Attempt | Confirmation | No | Yes | — | FC-09 |
-| CONTEXT_STALE / TTL / agent match | Start | Stays accepted | Audit | No auto-cancel (RTA5-08) | Post-accept refuse | Human Cancel+token | RTA5-08 by design |
-| PROTECTED:* | Prep / execution-run PROTECTED_PATH | Not wired to Attempt Cancel on W3 fixture | EC constraint | No | — | Bridge to Cancel | Structural |
-| Adapter fail/reject | Start failLaunch | failed | EXECUTION_LAUNCH_FAILED… | Terminal FAIL not STOP | Launch after accept | Remap to cancelled blurs FAIL/STOP | C6-sensitive |
-| Pilot Arrêter | CancelExecutionAttempt | cancelled | cancelledAt+reason | Yes | N/A | STOP only if reason in EC tokens — still injection | Human Cancel != runtime detect |
-| w3b governed_stop arm | Test arm after Start | running to cancelled | Injected stopCondition | Yes — synthetic | N/A | Exists; dishonest | Test-only |
+SUCCESS not honestly representable from current durable facts without inventing EO/ER satisfaction (W3B-D01).
 
-## 15. RR-W3B-02 conclusion
-**NOT REPRESENTABLE** with current adopted model without structural change (RTA5-08 / new guard to Cancel ownership).
+## 14. D01 Option A full analysis
 
-Secondary STOP marker available:
-STOP — W3-B GOVERNED STOP PATH NOT REPRESENTABLE WITH CURRENT ADOPTED MODEL
+CLAIMEVALUATION DURABLE + explicit EC/EO/ER binding + Sqlite adapter behind existing port. Semantic owner FC-12; FC-11 consumes. See embedded doc §4.1.
 
-Primary cycle STOP remains RR-W3B-01 (execution order stops at step 7 before implementing 02–05).
+## 15. D01 Option B full analysis
 
-## 16. RR-W3B-02 exact implementation or STOP
-**Not implemented** — blocked by primary RR-W3B-01 STOP and independently NOT REPRESENTABLE.
+Keep CE process-local; durable structured assessment in Evidence/RB; reconstruct CE on restart. Higher ownership/parallel risk. See doc §4.2.
 
-## 17. RR-W3B-03 cleanup + callers
-**Not executed** (STOP before coding). Discovery notes for next Morris decision:
-- Remove: governed_stop arm, Playwright helper, Start injection, API payload, tests/captures relying on it
-- governedExecuteRecordFailure: candidate-added; grep callers before delete
-- Keep adapter_fail only if it solely configures TestExecutionAdapter
+## 16. Optional D01 option C
 
-## 18. Fake/Real qualification
-- Applicable: YES
-- Fake: TestExecutionAdapter (external executor only)
-- REAL: OUT
-- Deterministic != REAL; no READY FOR REAL
-- Synthetic governed_stop would violate Fake/Real fidelity for STOP (manufactures governance)
+New assessment aggregate outside ClaimEvaluation — rejected (parallel claim owner).
 
-## 19. RR-W3B-04 restart service proof
-Prior candidate already has Vitest TRUE RESTART (runtime A to B same SQLite). Not re-run as exit proof this STOP cycle (no SUCCESS honesty to prove). Service restart remains historical candidate capability, insufficient alone for W3-B PASS under RR-W3B-01.
+## 17. D01 recommendation
 
-## 20. RR-W3B-04 browser reload proof
-**NOT PROVEN this cycle** — STOP before implementation. Prior capture 06 used rehydrate fallback (explicitly forbidden as exit proof by RR-W3B-04). Would require auto-recovery after page.reload without manual rehydrate button.
+Option A — TD-W3B-01/02 CANDIDATE/RECOMMENDED.
 
-## 21. RR-W3B-05 UI delta
-**Not applied** (STOP before coding). Planned: demote Claim autorisé / READY / Apprentissage / manual rehydrate; keep business headline primary.
+## 18. D01 persistence design
 
-## 22. FULL content of new project files after this cycle
-**No new project files created this cycle.** Prior untracked W3-B files remain from previous correction candidate (unchanged by this STOP cycle except Roadmap/doc11).
+Product SQLite KEEP; candidate M8 oa_claim_evaluations (+ idempotency); no fake backfill; historical NOT_PROVEN.
 
-## 23. Diffs utiles — this cycle modifications only
+## 19. D01 transactional/restart design
 
-### Roadmap
+No forced single txn across human review; missing/stale assessment => NOT_PROVEN; CE idempotency + OCC.
+
+## 20. D01 security/authority assessment
+
+Client cannot forge PASS; assessment does not grant execute authority; human_review confirm != automatic Morris HD.
+
+## 21. D02 current-state inventory
+
+Cancel = human/Morris only -> cancelled; Start refuse leaves accepted (RTA5-08); fail -> failed; U2/U2b Product not implemented; M4 ambiguity refuses relaunch without terminal STOP.
+
+## 22. C6 U2/U2b harvest analysis
+
+Scenario #3 reusable pattern for launch-frontier STOP; insufficient alone; feeds FC-10 system stop; does not reopen TD-C6-*.
+
+## 23. D02 Option S1 full analysis
+
+Extend CancelExecutionAttempt — single entry, conflation/abuse risk. Doc §7.1.
+
+## 24. D02 Option S2 full analysis
+
+Separate FC-10 use case calling same cancelled transition — clearer abuse resistance. Doc §7.2. Recommended.
+
+## 25. D02 Option S3
+
+U2/U2b-only — insufficient alone; harvest into S2. Doc §7.3.
+
+## 26. D02 recommendation
+
+S2 + harvest S3 — TD-W3B-03/04 CANDIDATE/RECOMMENDED.
+
+## 27. D02 trusted guard/provenance contract
+
+Minimal guard fact: code, owner, project, EC id/version, Attempt id, observed facts, timestamp, policy/version, blocking/valid, audit. Prefer existing receipts/audit/checkpoints. No Guard aggregate by default.
+
+## 28. Pre-auth BLOCK vs post-auth STOP
+
+FC-09 BLOCKED != terminal STOP. No Attempt for pre-launch block. Post-accept observed guard -> FC-10 terminal STOP.
+
+## 29. Human Cancel distinction
+
+USER_CANCEL via existing Cancel. SYSTEM_GOVERNED_STOP via S2. Provenance not merged.
+
+## 30. FAIL distinction
+
+Adapter/technical -> failed / FAIL. Never map to STOP.
+
+## 31. Data/persistence impact matrix
+
+Embedded doc §8.
+
+## 32. Migration/backfill
+
+None executed. Forward-only after Delivery GO. No fake backfill. No retro SYSTEM_GOVERNED_STOP labeling.
+
+## 33. NFR/security
+
+Integrity, restart, idempotence, audit, forge resistance, authority separation — doc §9.
+
+## 34. Fake/Real qualification
+
+TestExecutionAdapter fake only; must not mint SUCCESS/STOP governance tokens. REAL OUT.
+
+## 35. W3-C impact
+
+Same Evidence/RB + durable assessment; no second Nora path.
+
+## 36. W3-D impact
+
+Generic assessment; no cycleType engine.
+
+## 37. W3-E impact
+
+Same canonical path.
+
+## 38. W4 boundary
+
+Presentation only; no UX this cycle.
+
+## 39. Backlog impact note
+
+Future annotate US-P1-05/06 with W3B-D01/D02 after validation. No backlog mutation now.
+
+## 40. Candidate decision register
+
+TD-W3B-01…04 = CANDIDATE / RECOMMENDED. Not ADOPTED.
+
+## 41. Future test strategy
+
+Doc §14 D01/D02 contracts. Not executed as Delivery proof.
+
+## 42. FULL content of new architecture document
+
+---BEGIN DOC 12---
+# 12 — Product Completion W3-B Targeted Technical Architecture Addendum
+
+| Field | Value |
+| --- | --- |
+| **Document** | `12-product-completion-w3-b-targeted-technical-architecture-addendum.md` |
+| **Cycle** | Architecture technique (cycle type 6) — **≠ reopen Product Completion C6** |
+| **Profile** | DOC / CRITICAL |
+| **Milestone** | W3-B STRUCTURAL ARCHITECTURE ADDENDUM |
+| **Base Git** | `origin/main` = `ba7aa2db408b7fd00faf9638da060ce0833b794b` |
+| **Status** | **CANDIDATE** — not ADOPTED · not DECIDED BY MORRIS |
+| **Scope** | **W3B-D01** Contract Result Satisfaction · **W3B-D02** System-governed terminal STOP **only** |
+| **Authority** | Morris = construction/architecture · ChatGPT = review · Cursor = repo-first analysis |
+| **Implementation** | **FORBIDDEN** until Morris validates this addendum |
+
+---
+
+## 0. Purpose (exactly two questions)
+
+### QUESTION A — W3B-D01
+
+How can Studio durably/reconstructibly prove that the expected results and Evidence requirements of an `ExecutionContract` are actually satisfied, without weakening C2 SUCCESS and without creating a parallel claim engine?
+
+### QUESTION B — W3B-D02
+
+How can an actually observed post-authorization runtime guard honestly cause a terminal STOP on the **same** `ExecutionAttempt`, with system-derived provenance, without creating a Stop Engine or a second Attempt lifecycle?
+
+Nothing else is in scope.
+
+---
+
+## 1. Non-negotiable contracts (consumed, not reopened)
+
+### 1.1 C1 / C2
+
+| Contract | Preserve |
+| --- | --- |
+| **C1** | Product target unchanged |
+| **C2 SUCCESS** | Expected result of EC obtained **+** Evidence sufficient in scope |
+| **C2 STOP** | Real frontier reached: source / scope / gate / protection / capability / maturity |
+| **C2 FAIL** | Process / tool / timeout / crash / unavailability |
+| **Anti-claims** | Technical success ≠ Product SUCCESS · Verified Evidence ≠ SUCCESS · Complete ReviewBundle ≠ SUCCESS · Attempt terminal ≠ Cycle close · SUCCESS ≠ READY ≠ runtime v3 ADOPTED |
+
+### 1.2 Functional ownership (FA)
+
+| Capability | Owns | Does not own |
+| --- | --- | --- |
+| **FC-09 Authorization Gate** | Confirmation semantics · effective authority · executor sufficiency · authorization / blocked | Attempt terminal STOP |
+| **FC-10 Governed Execution** | ExecutionAttempt lifecycle · runtime guardrails after auth · **terminal STATE writes** | Product SUCCESS/STOP/FAIL **meaning** |
+| **FC-11 Terminal Outcome Semantics** | Product meaning SUCCESS / STOP / FAIL · anti-claims · business qualification | Attempt transitions · Evidence storage · semantic EO/ER evaluator (must **consume** proven assessment) |
+| **FC-12 Evidence & Review** | Evidence · ReviewBundle · Evidence hierarchy · claim discipline | Attempt lifecycle · Product outcome meaning |
+
+**Stops** are ported by contracts/policies — **NOT** a parallel Stop Engine (FA explicit; framing 34 historical “Stop Condition Engine” language is doctrine-only and superseded for product ownership).
+
+### 1.3 C6 baseline (CLOSED BY MORRIS)
+
+| TD-C6 | Status |
+| --- | --- |
+| TD-C6-01…06 | **ADOPTED / CLOSED** — do **not** redecide |
+| Product SQLite | **KEEP** |
+| OA backbone / ports / Trajectory / Confirmation / AuthorityVerificationReceipt / Epistemic | **KEEP** |
+| U2 / U2b | Design CLOSED · Product Store checkpoints **NOT IMPLEMENTED** as named U2/U2b · M4 journal pattern harvestable |
+
+Harvest without reopening: additive Product SQLite migrations · existing ports + adapters · shared `SqliteProductStore` / UoW · restart fail-closed · idempotence · U2/U2b failure scenario #3 (external effect launched, ack durable absent → reconciliation / STOP · no silent retry) · no second Attempt lifecycle.
+
+### 1.4 Explicit forbids
+
+- No `ProductOutcome` aggregate
+- No new store technology
+- No parallel Claim Engine
+- No Stop Engine
+- No second Attempt lifecycle
+- Human Cancel remains distinct from system-governed STOP
+- Adapter technical failure remains **FAIL**
+- No C1/C2/FA/Backlog rewrite unless a new contradiction is proven
+- No W3-C/D/E start · REAL OUT · FinOps freeze · W4 OUT · runtime v3 NON ADOPTED
+
+---
+
+## 2. Convergence / wave state (preserve)
+
+| Item | State |
+| --- | --- |
+| W1 | CLOSED |
+| W2 | CLOSED BY MORRIS |
+| W3-A | CLOSED BY MORRIS |
+| W3-B | DELIVERY IN PROGRESS / **STRUCTURALLY BLOCKED** (W3B-D01 · W3B-D02) |
+| W3 | IN PROGRESS / NOT CLOSED |
+| W3-C/D/E | NOT STARTED |
+| C6 | CLOSED |
+| Product Completion | INCOMPLETE |
+| REAL / FinOps / W4 / runtime v3 | OUT / FREEZE / OUT / NON ADOPTED |
+
+Input STOP handoff (delivery structural proof): commit `590c9b60ee96f2f1299382a7dedb5095fe964a8b` · blob `7b9d31545ffdf06692df26cda6a33b5a4aeea438`.
+
+---
+
+## 3. W3B-D01 — Current-state inventory
+
+Repo base: `ba7aa2db` (architecture worktree; not the dirty W3-B delivery candidate).
+
+### 3.1 Object matrix
+
+| Object | Owner | Key fields | Durability | Semantic capability (EO/ER satisfaction) | Gaps | Reuse |
+| --- | --- | --- | --- | --- | --- | --- |
+| **ExecutionContract** | OA execution-contract (T-A4) | `expectedOutputs?: string[]` · `evidenceRequirements: string[]` · `executionContractId` · `version` · `semanticFingerprint` | Product SQLite `oa_execution_contracts` | **Declares** EO/ER only | No typed EO/ER identity VO · no PASS/FAIL per item · no link to Claim by EO/ER id | **KEEP** |
+| **Evidence** | OA evidence-review (T-A6-D1) / FC-12 | bindings (attempt/contract/…) · status · `technicalResultRef?` · digest/version | SQLite `oa_evidence` (+ idempotency) | Binds Attempt/EC · captures technical result · integrity → `verified` | No EO/ER identity · `verified ≠ PASS` · `technicalResultRef ≠ satisfied` | **KEEP** |
+| **ReviewBundle** | FC-12 | evidenceRefs · completeness · freeze/version · optional `executionContractId` | SQLite `oa_review_bundles` | Freeze evidence for claim assessment | Completeness ≠ EO/ER coverage · `claimEvaluationRefs` forced empty · no EC **version** on RB | **KEEP** / light **ADAPT** if CE refs needed |
+| **ClaimEvaluation** | FC-12 claim discipline (T-A6-D3) | RB id+frozen version · evidenceAssessments · status pass/fail/not_proven · method deterministic/assisted/human_review · confirmationAuthority | **Memory only** on Product path | Assesses **evidence quality vs frozen RB** | **No** EC id/version · **No** EO/ER assessments · lost on restart · free-text `claimStatement` ≠ semantic proof | **KEEP** ports/use-cases · **ADAPT** binding + durability |
+| **claimEvidenceAssessment** | shared helper | codes ok/missing/not_verified/… | none | Evidence-support-for-PASS only | No EO/ER matching | **KEEP** |
+| **EvaluateClaim / Confirm / Reject** | application | create+evaluate · confirm re-assess · reject | Memory repo | Claim verdict from evidence quality | Does not consult EC EO/ER | **KEEP** under ports · extend for contract-result mode |
+| **Product SQLite / UoW** | `SqliteProductStore` | schema `m7-0.1.0` · additive M1→M7 · `runInTransaction` | Durable | EC/Evidence/RB tables; **no claim tables** | No `oa_claim_evaluations` | **KEEP** style · candidate **M8** for claims |
+
+### 3.2 Proven representability gap (W3B-D01)
+
+There is **no durable, reconstructible fact** that:
+
+- each `expectedOutputs[i]` is **PASS / NOT_PROVEN / FAIL**, or
+- each `evidenceRequirements[j]` is **SATISFIED / NOT_SATISFIED / NOT_PROVEN**,
+
+bound to exact `executionContractId` + **version/fingerprint** + `executionAttemptId` + Evidence/RB refs + evaluation method + provenance.
+
+Available facts today prove **at most**:
+
+- Attempt technical `succeeded` + `resultRef`
+- Evidence binding / integrity / `verified`
+- ReviewBundle structural completeness
+- process-local ClaimEvaluation of evidence-in-RB (not EO/ER)
+
+**Forbidden equivalences (remain forbidden):**
+
+- free-text `claimStatement` as semantic proof
+- non-empty `expectedOutputs` ⇒ satisfied
+- Evidence `verified` ⇒ output satisfied
+- ReviewBundle complete ⇒ output satisfied
+
+### 3.3 Evaluator boundary (required)
+
+| Layer | Owner | Stores |
+| --- | --- | --- |
+| 1. Expectation | **ExecutionContract** (existing) | EO/ER declarations |
+| 2. Raw/technical proof | **Evidence / Attempt** (existing) | resultRef, integrity, bindings |
+| 3. Assessment | **ClaimEvaluation** (ADAPT) **or** reconstructible assessment substrate under FC-12 | structured EO/ER results + provenance |
+| 4. Product meaning | **FC-11** | SUCCESS/STOP/FAIL qualification **consuming** proven assessment — **not** inventing EO/ER evaluator |
+
+FC-11 must **not** become a duplicate semantic evaluator of EO/ER.
+
+### 3.4 Assessment authority / evaluation modes
+
+Existing ClaimEvaluation already has:
+
+- `evaluationMethod`: `deterministic` | `assisted` | `human_review`
+- `confirmationAuthority`: `system_deterministic` | `authorized_human` | `morris`
+- statuses including `not_proven` / `pass` / `fail`
+
+**CANDIDATE reuse** (no large DSL):
+
+| Mode | Meaning | SUCCESS gate |
+| --- | --- | --- |
+| `deterministic` / `system_deterministic` | Machine-evaluable against Evidence/Attempt facts | Fail-closed until PASS |
+| `assisted` | System proposes; human confirms | Fail-closed until confirmed PASS |
+| `human_review` | Human assessment required | Fail-closed until authorized confirm; **≠** structural HumanDecision / Morris decision by default |
+
+ReviewBundle review ≠ automatic Pilote/Morris HumanDecision. Product SUCCESS remains fail-closed while any **required** assessment is `NOT_PROVEN`.
+
+---
+
+## 4. W3B-D01 — Options
+
+### 4.1 Option A — CLAIMEVALUATION DURABLE (recommended candidate)
+
+**Description.** Adapt existing ClaimEvaluation under existing ports:
+
+1. Explicit binding: `projectId` · `executionContractId` · `executionContractVersion` (and/or fingerprint) · `executionAttemptId` · `cycleInstanceId?` · ReviewBundle id+frozen version · Evidence refs.
+2. Structured assessments (smallest honest shape):
+   - per expected-output identity (stable index or derived id from EC version material): `PASS | NOT_PROVEN | FAIL` + provenance
+   - per evidence-requirement identity: `SATISFIED | NOT_SATISFIED | NOT_PROVEN` + provenance
+3. Persist via **new Sqlite adapter** behind existing `ClaimEvaluationRepositoryPort` (Product SQLite additive M8) — swap Memory wiring in `createSqliteEvidenceReviewServices`.
+4. FC-11 consumes durable assessment: SUCCESS only when all **required** EO = PASS and ER = SATISFIED for the **exact** EC version bound to the Attempt; else NOT_PROVEN / FAIL per rules — never invent PASS.
+
+**Reuse.** ClaimEvaluation domain/ports/Evaluate/Confirm · Evidence/RB · EC · Product SQLite migration style · UoW.
+
+**Pros.** Single claim owner · restart reconstruction · OCC/idempotency patterns exist · methods/authority already model human vs deterministic · no parallel engine.
+
+**Cons.** Domain ADAPT (new fields) · schema bump · evaluate/confirm rules must forbid free-text-as-proof for contract-result claims · historical Memory claims irrecoverable.
+
+**Risks mitigated.** Parallel Claim Engine (avoided) · false SUCCESS (fail-closed NOT_PROVEN).
+
+### 4.2 Option B — CLAIMEVALUATION RECONSTRUCTIBLE FROM DURABLE ASSESSMENT EVIDENCE
+
+**Description.** Keep ClaimEvaluation process-local/Memory, but store structured EO/ER assessment as durable Evidence (or frozen RB attachment) with closed schema payload; reconstruct ClaimEvaluation exactly on restart from that Evidence + frozen RB + EC version.
+
+**Acceptable only if:** Evidence ownership remains coherent · no free-text inference on restart · no duplicate claim owner · no second aggregate/engine.
+
+**Pros.** Avoids claim table if assessment fits Evidence model · Evidence already durable.
+
+**Cons.** Blurs FC-12 “raw proof” vs “assessment” · risk of inventing assessment-as-Evidence subtype that becomes a shadow claim store · reconstruction rules must be bit-exact or honesty fails · RB already excludes claimEvaluationRefs · harder audit of claim lifecycle (confirm/reject/supersede).
+
+**Verdict on Option B.** Technically credible but **higher parallel-architecture risk** than A; acceptable only if Morris rejects claim table for process reasons. Not preferred.
+
+### 4.3 Option C (repo-supported alternative) — NEW CONTRACT-RESULT ASSESSMENT TABLE OUTSIDE CLAIMEVALUATION
+
+**Rejected as candidate.** Would create a second assessment owner parallel to ClaimEvaluation → violates “no parallel claim engine” unless ClaimEvaluation is deprecated for this path (out of scope / C6 conflict).
+
+### 4.4 D01 trade-off matrix
+
+| Criterion | A Durable CE | B Reconstruct from Evidence | C New aggregate |
+| --- | --- | --- | --- |
+| Semantic correctness | High (explicit EO/ER) | High if schema closed | High but ownership split |
+| Owner coherence | FC-12 ClaimEvaluation | Ambiguous (Evidence vs Claim) | Parallel owner — **fail** |
+| Durability / restart | Native | Indirect | Native |
+| Idempotence | Existing CE keys | New Evidence keys | New |
+| Schema impact | Additive M8 claim tables + CE fields | Evidence payload / type ADAPT | New table + new port |
+| Migration / backfill | Forward only · historical NOT_PROVEN | Same | Same |
+| Audit / provenance | Existing claim audit events | Evidence audit only | New audit surface |
+| Concurrency | OCC on CE | OCC on Evidence | New OCC |
+| Reversibility | Drop M8 / keep Memory fallback | Harder (Evidence pollution) | Harder |
+| W3-C impact | Same CE → Nora path | Reconstruction required every restart | Forces W3-C dual path |
+| Complexity | Medium | Medium-high | High |
+| Parallel risk | Low | Medium-high | **STOP** |
+
+### 4.5 D01 recommendation (CANDIDATE / RECOMMENDED — not ADOPTED)
+
+**Recommend Option A — ClaimEvaluation durable + explicit EC/EO/ER binding.**
+
+FC-11 consumes proven assessment; does not evaluate EO/ER itself.
+
+---
+
+## 5. W3B-D01 — Persistence / transactional design (candidate)
+
+### 5.1 Persistence
+
+| Item | Candidate |
+| --- | --- |
+| Technology | Product SQLite **KEEP** · no new DB |
+| Pattern | Mirror Evidence: `oa_claim_evaluations` + `oa_claim_evaluation_idempotency` · aggregate in `payload_json` · indexed ids |
+| Schema version | Candidate bump beyond `m7-0.1.0` (e.g. M8) — **not executed this cycle** |
+| Repository | `SqliteClaimEvaluationRepository` implementing existing port |
+| Factory | `createSqliteEvidenceReviewServices` swap Memory → Sqlite |
+| UoW | Existing `SqliteProductStore.runInTransaction` |
+| Unique / idempotency | Existing claim idempotency key + OCC version |
+| Supersession | Existing `supersedesClaimEvaluationId` · stale if EC version/fingerprint ≠ Attempt’s EC |
+| Stale EC amendment | Assessment bound to old version → treat as **NOT_PROVEN** for current SUCCESS; do not auto-migrate |
+| Delete/retention | Follow Evidence/RB retention; no silent rewrite of confirmed assessments |
+| Backfill | **None.** Historical process-local CE irrecoverable. Historical Attempts without assessment → **NOT_PROVEN**. No fake PASS. |
+
+### 5.2 Smallest honest assessment shape (not mandatory storage literal)
+
+For one EC version evaluation:
+
+```text
+expectedOutput[<stableId>]: PASS | NOT_PROVEN | FAIL  + method + evidenceRefs + evaluatedAt + actor/system provenance
+evidenceRequirement[<stableId>]: SATISFIED | NOT_SATISFIED | NOT_PROVEN  + …
+bindings: projectId, cycleInstanceId?, executionContractId, executionContractVersion|fingerprint,
+           executionAttemptId, reviewBundleId, reviewBundleVersion
 ```
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 82acdc98..05208c41 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -6,8 +6,11 @@
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
- | **Doctrine cible** | SFIA Studio v3 framing `30`–`37` (destination produit) |
- | **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
--| **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; ce document **≠** embed permanent `origin/main` HEAD)* · **Référence de maintenance / W3-A POST-CLOSURE** = `origin/main` @ `686e545a4bb058b95c8c456a517322ceb3e0bcaa` (merge PR **#408** W3-A Governed Execute) · candidate head `a69e3ad1924b7e33407ff0f9d62dd2189300f785` · head→merge **0-file / tree parity** · PR-head CI **`32702286010` SUCCESS** · push/main CI **`32703289053` SUCCESS** · prior W2 post-closure `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed` (PR **#406**) · **W2 CLOSED BY MORRIS** · **W3-A CLOSED BY MORRIS** · US-P1-04 / FC-10 **CLOSED for W3-A** · X-W3A-01…08 **PASS** · proof **DETERMINISTIC PRODUCT-NATIVE PROVEN** · TestExecutionAdapter **remains external executor fake** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · **W3 DELIVERY** = **AUTHORIZED BY MORRIS / IN PROGRESS / NOT CLOSED** · historical closed slice = **W3-A** · **next capability candidate** = **W3-B** (US-P1-05 / US-P1-06) · **W3-B NOT AUTHORIZED / NOT STARTED** · FinOps/T7 **FREEZE** · C6 **CLOSED** · REAL **OUT / NOT CONSUMED** · W4 **NOT STARTED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE / NON TERMINÉE** · **≠** W3 CLOSED · **≠** W3-B AUTHORIZED · **≠** READY FOR REAL · **≠** REAL BOUNDARY PROVEN · **≠** FinOps PASS · **≠** runtime v3 ADOPTED |
--| **Timestamp maintenance courant** | 2026-08-24 11:04 CEST (+0200) — **W3-A POST-CLOSURE TRUTH SYNC** — **W3-A CLOSED BY MORRIS** · US-P1-04 / FC-10 exit X-W3A-01…08 **SATISFIED** · PR **#408 MERGED** · merge `686e545a4bb058b95c8c456a517322ceb3e0bcaa` · PR-head CI **`32702286010` SUCCESS** · post-merge main CI **`32703289053` SUCCESS** · proof **DETERMINISTIC PRODUCT-NATIVE PROVEN** · TestExecutionAdapter remains fake external executor · W3 **IN PROGRESS / NOT CLOSED** · next capability candidate **W3-B** (US-P1-05 / US-P1-06) · **W3-B NOT AUTHORIZED / NOT STARTED** · REAL **OUT** · FinOps/T7 **FREEZE** · W4 **NOT STARTED** · C6 **CLOSED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **≠** W3 CLOSED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED |
-+| **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; ce document **≠** embed permanent `origin/main` HEAD)* · **Référence de maintenance / W3-B DELIVERY** = `origin/main` @ `ba7aa2db408b7fd00faf9638da060ce0833b794b` (merge PR **#409** W3-A post-closure truth sync) · prior W3-A merge PR **#408** `686e545a4bb058b95c8c456a517322ceb3e0bcaa` · **W2 CLOSED BY MORRIS** · **W3-A CLOSED BY MORRIS** · US-P1-04 / FC-10 **CLOSED for W3-A** · **W3 DELIVERY** = **AUTHORIZED BY MORRIS / IN PROGRESS / NOT CLOSED** · **W3-B** (US-P1-05 / US-P1-06 · FC-11 / FC-12) = **DELIVERY AUTHORIZED / IN PROGRESS / NOT CLOSED** · GO Morris W3-B Delivery **CONSUMED** · qualification **VALIDATED BY MORRIS** · branch locale `delivery/sfia-studio-product-completion-w3-b-terminal-evidence` · W3-C/D/E **NOT STARTED** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · FinOps/T7 **FREEZE** · C6 **CLOSED** · REAL **OUT / NOT CONSUMED** · W4 **NOT STARTED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE / NON TERMINÉE** · **≠** W3-B CLOSED · **≠** W3 CLOSED · **≠** READY FOR REAL · **≠** REAL BOUNDARY PROVEN · **≠** FinOps PASS · **≠** runtime v3 ADOPTED |
-+| **Timestamp maintenance courant** | 2026-08-24 14:10 CEST (+0200) — **STOP — W3-B SUCCESS CONTRACT SATISFACTION FACT NOT REPRESENTABLE** — RR-W3B-01…05 final targeted correction discovery · **no invented SUCCESS/STOP seam** · base `ba7aa2db…` · W3-A **CLOSED** · W3-B **IN PROGRESS / NOT CLOSED** · W3 **IN PROGRESS** · W3-C **NOT STARTED** · C6 **CLOSED** · REAL **OUT** · FinOps **FREEZE** · W4 **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **≠** W3-B CLOSED · **≠** READY FOR CHATGPT PASS · **≠** READY FOR REAL |
-+| **Timestamp maintenance historique W3-B R-W3B-01…07 correction candidate** | 2026-08-24 13:30 CEST (+0200) — **W3-B TARGETED CORRECTION CANDIDATE — READY FOR CHATGPT RE-REVIEW** — *(historique · superseded by RR-W3B-01 representability STOP)* — R-W3B-01…07 applied · second ChatGPT review later identified RR-W3B-01…05 gaps · handoff `fd4f1c95…` / blob `f1e7f4…` |
-+| **Timestamp maintenance historique W3-B DELIVERY START** | 2026-08-24 12:25 CEST (+0200) — **W3-B TERMINAL + EVIDENCE DELIVERY IN PROGRESS** — *(historique · superseded by ChatGPT CHANGES REQUIRED + targeted correction)* — GO Morris W3-B Delivery **CONSUMED** · qualification **VALIDATED BY MORRIS** · first candidate later **CHANGES REQUIRED** · W3-A **CLOSED** · W3 **IN PROGRESS** · REAL **OUT** · runtime v3 **NON ADOPTED** |
-+| **Timestamp maintenance historique W3-A POST-CLOSURE TRUTH SYNC** | 2026-08-24 11:04 CEST (+0200) — **W3-A POST-CLOSURE TRUTH SYNC** — *(historique · superseded by W3-B DELIVERY START)* — **W3-A CLOSED BY MORRIS** · PR **#408 MERGED** · later truth sync PR **#409** → `ba7aa2db…` · **W3-B** was **NOT AUTHORIZED / NOT STARTED** *(true then · later AUTHORIZED)* · REAL **OUT** · FinOps/T7 **FREEZE** · W4 **NOT STARTED** · C6 **CLOSED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** |
- | **Timestamp maintenance historique W3-A R16/R09 correction candidate** | 2026-08-24 08:44 CEST (+0200) — **W3-A R16 reserved Confirmation + R09 visual lifecycle** — *(historique · superseded by W3-A CLOSED + post-closure truth sync)* — contradiction fail-closed · system-owned constraint namespaces · legacy exploit blocked · R09 PNG 07/08/09 honest · Playwright Server Action latch (test-only) · W4 **NOT TOUCHED** · awaiting ChatGPT re-review *(true then · later integrated via PR #408)* · W3 **NOT CLOSED** · REAL **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** |
- | **Timestamp maintenance historique W2 POST-CLOSURE TRUTH SYNC** | 2026-08-23 20:37:16 CEST (+0200) — **W2 POST-CLOSURE TRUTH SYNC** — *(historique · superseded by W3 DELIVERY START)* — `origin/main` @ `1e4b0dbb…` then PR **#406** → `3a3b1cf…` · **W2 CLOSED BY MORRIS** · **NEXT CAPACITY** was **NEXT-CAPABILITY REQUALIFICATION** *(later SATISFIED / CONSUMED)* · W3 was **NOT STARTED / NOT AUTHORIZED** *(true then · later AUTHORIZED)* · FinOps/T7 **FREEZE** · C6 **CLOSED** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** |
- | **Timestamp maintenance historique W2 Phase B post-merge truth sync** | 2026-08-23 16:48 CEST (+0200) — **W2 TRACK D / BOUNDED CKC PHASE B POST-MERGE TRUTH SYNC** — `origin/main` HEAD **RESOLVE FROM REPOSITORY** · PR **#403 MERGED** · Phase B head `1cdf4b41270cffe31be28e02e3effe17a1b15477` · merge `e4a93fea77c7edd01c4e6fc2d47455db14e102e8` · PR-head CI **`32645232920` SUCCESS / Required Gate PASS** · head→merge **0-file content delta** · push/main CI **`32646038871` SUCCESS / Required Gate PASS** · **bounded Phase B INTEGRATED ON MAIN** · **DETERMINISTIC PROVEN** · Phase B GO / R1 GO / Git integration GO **CONSUMED historically** · W2 **NOT FINALLY CLOSED** · **NEXT CAPACITY** = **W2 FINAL CLOSURE QUALIFICATION** *(distinct cycle · NOT STARTED)* · W3 **NOT STARTED / NOT AUTHORIZED** · full CKC track **DOWNSTREAM W3** · PB-RES-REAL-01 **OPEN** · FinOps/T7 **FREEZE** · T7-C04 **DEFERRED** · C6 **CLOSED** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · Product Completion **NON TERMINÉE** · **≠** W2 closed · **≠** W3 GO · **≠** REAL · **≠** FinOps PASS  *(historique · superseded by W2 POST-CLOSURE TRUTH SYNC / Morris W2 CLOSED)* |
-@@ -51,13 +54,14 @@
- | **Product Completion Functional Architecture (Cycle 3)** | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · path : `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md` · PR **#378 MERGED** · head `1018aa79d1d8ebb8783d11ce25ff08036764e87e` · merge `18b89ec9d6f1a91f8ff49df9c895299b6676b572` · PR CI **#240 SUCCESS** · post-merge CI **#241 SUCCESS** · post-merge sync PR **#379 MERGED** · sync head `0aa644d935b5df1ba7f4c2278fd63320555b9f6a` · sync merge `134f4105fea09543a100749e74ca5e3be32bfda2` · PR CI **#242 SUCCESS** · post-merge CI **#243 SUCCESS** · final closure PR **#380 MERGED** · head `53aeceea…` · merge `14329c60…` · post-merge CI **#245 SUCCESS** · **POST-MERGE COHERENCE COMPLETE** · PM-R01 **CLOSED** · PM-R02 **CLOSED** · FC-01…FC-15 **APPROVED** · OA-aligned Option A + thin orchestration C **APPROVED** · no parallel architecture · targeted durability technical delta **QUALIFIED** then **partially realized via W1** · FA-R01…FA-R12 **CLOSED** · C1 §H/J.1 + C2 A→W preserved · H-01…H-04 **CARRY** · Confirmation **runtime** durability **IMPLEMENTED AT W1 SCOPE** (requested ephemeral / granted+ durable · PR #395) · ProjectTrajectory durability **IMPLEMENTED AT W1 SCOPE** (PR #395) · **downstream gaps remain** (HD/replan liaison complète · Recovery E2E · taxonomie épistémique complète → W2/W3) · UAT **OPEN** · SC-02 **NON-BLOCKING** · **RESERVE-GOV-EC-ORDER CLOSED** · Pre-M6 debt **CARRY** · source branch cleanup **NOT PERFORMED** · **≠** Architecture technique fully exhausted · **≠** Product Completion terminée · **≠** REAL |
- | **RESERVE-GOV-EC-ORDER** | **CLOSED ON MAIN** via PR **#381** — Build Doctrine execution order aligned with validated C2 / Functional Architecture : HumanDecision → EC Prepare → EC Inspect → Confirmation if required → effective authority → Execute · Confirmation **runtime** durability **IMPLEMENTED AT W1 SCOPE** (PR #395) · remaining continuity/authority gaps stay **DOWNSTREAM** · ≠ reserve reopen |
- | **Morris trajectory decision (post-FA requalification)** | **HISTORICAL** — Governance EC Order Sync → C6 → Next-Cycle Requalification *(superseded for forward path by CKC-first)* |
--| **Morris trajectory decision (post-C6 / CKC)** | **SUPERSEDED FOR FORWARD PATH** — CKC-first + G2 + W1 + W2 completed · **NOW:** **W2 CLOSED BY MORRIS** · **W3-A CLOSED BY MORRIS** · PR **#408** on main (`686e545a…`) · **GO MORRIS W3 DELIVERY CONSUMED** · **W3 DELIVERY AUTHORIZED BY MORRIS / IN PROGRESS / NOT CLOSED** · historical closed slice = **W3-A** · next capability candidate = **W3-B** · **W3-B NOT AUTHORIZED / NOT STARTED** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · FinOps/T7 **FREEZE** · C6 **CLOSED** · REAL **OUT** · W4 **NOT STARTED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **≠** W3 CLOSED · **≠** W3-B AUTHORIZED · **≠** REAL · **≠** FinOps PASS |
-+| **Morris trajectory decision (post-C6 / CKC)** | **SUPERSEDED FOR FORWARD PATH** — CKC-first + G2 + W1 + W2 completed · **NOW:** **W2 CLOSED BY MORRIS** · **W3-A CLOSED BY MORRIS** · PR **#408** / truth sync PR **#409** on main (`ba7aa2db…`) · **GO MORRIS W3 DELIVERY CONSUMED** · **W3 DELIVERY AUTHORIZED / IN PROGRESS / NOT CLOSED** · **W3-B DELIVERY AUTHORIZED / IN PROGRESS / NOT CLOSED** · GO Morris W3-B **CONSUMED** · W3-C **NOT STARTED** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · FinOps/T7 **FREEZE** · C6 **CLOSED** · REAL **OUT** · W4 **NOT STARTED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **≠** W3 CLOSED · **≠** W3-B CLOSED · **≠** REAL · **≠** FinOps PASS |
- | **Product Completion W2 Track D / bounded CKC Phase B** | **INTEGRATED ON MAIN** · PR **#403 MERGED** · head `1cdf4b41270cffe31be28e02e3effe17a1b15477` · merge `e4a93fea77c7edd01c4e6fc2d47455db14e102e8` · PR-head CI **`32645232920` SUCCESS / Required Gate PASS** · head→merge **0-file content delta** · push/main CI **`32646038871` SUCCESS / Required Gate PASS** · D-W2-02 / US-P1-14 / REQ-24 · product-native CKC cognition before Options/Recommendation · delivery + security via **same generic product path** · Recommendation remains Recommendation · no automatic HumanDecision · no authority from CKC · **STOP BEFORE EXECUTE** · legacy OptionSet cutover fail-closed · business-first Pilote output · structured provenance retained · proof **DETERMINISTIC PROVEN** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · W2 later **CLOSED BY MORRIS** *(post-requalification)* · full CKC track **DOWNSTREAM W3** · C6 **CLOSED** · FinOps/T7 **FREEZE** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · **≠** W2 incomplete at Phase B timestamp · **≠** full CKC completion · **≠** REAL BOUNDARY PROVEN · **≠** W3 authorized |
- | **Product Completion W2 Final Closure Requalification** | **ACCEPTED BY MORRIS** · Cycle 9 QA · typology DOC · evidence on `main@1e4b0dbb…` · X01…X08 **PROVEN** · H→N 18-step **PROVEN** · PASS WITH NON-BLOCKING RESERVES · W2-CL-R01…R03 **CLOSED** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · proof ceiling **DETERMINISTIC PRODUCT E2E PROVEN** · path `projects/sfia-studio/product-completion/10-product-completion-wave-2-final-closure-qualification.md` · **≠** W3 authorized · **≠** REAL · runtime v3 **NON ADOPTED** |
- | **Product Completion W2 Closure Decision** | **W2 CLOSED BY MORRIS** · exit contracts X01…X08 + integrated H→N path **ACCEPTED AS SUFFICIENT W2 EXIT PROOF** · residuals retained · Product Completion **INCOMPLETE** · W3 later **AUTHORIZED** under distinct GO · **≠** W3 CLOSED · **≠** REAL · **≠** FinOps PASS · runtime v3 **NON ADOPTED** |
- | **Product Completion W3 Delivery Readiness** | **QUALIFIED** · path `projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md` · GO Morris W3 Delivery **CONSUMED** · W3 scope = backlog existant · C6 **CLOSED** / implement-only · REAL **OUT** · FinOps **FREEZE** · W4 **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **≠** W3 CLOSED |
--| **Product Completion W3-A Governed Execute** | **CLOSED BY MORRIS / INTEGRATED ON MAIN** · PR **#408 MERGED** · candidate `a69e3ad1924b7e33407ff0f9d62dd2189300f785` · merge `686e545a4bb058b95c8c456a517322ceb3e0bcaa` · PR-head CI **`32702286010` SUCCESS** · push/main CI **`32703289053` SUCCESS** · head→merge **0-file / tree parity** · US-P1-04 / FC-10 · X-W3A-01…08 **PASS** · proof **DETERMINISTIC PRODUCT-NATIVE PROVEN** · TestExecutionAdapter remains external executor fake · post-merge evidence handoff `b3108f4f…` · source branch `delivery/sfia-studio-product-completion-w3-a-governed-execute` **PRESERVED** · **≠** W3 CLOSED · **≠** W3-B AUTHORIZED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED |
--| **Product Completion W3 Delivery** | **AUTHORIZED BY MORRIS / IN PROGRESS / NOT CLOSED** · historical closed slice **W3-A** · next capability candidate **W3-B** (US-P1-05 / US-P1-06) · **W3-B NOT AUTHORIZED / NOT STARTED** · requalification required · canonical `/studio` · **≠** W3 CLOSED · **≠** READY FOR REAL · **≠** Evidence loop complete |
-+| **Product Completion W3-A Governed Execute** | **CLOSED BY MORRIS / INTEGRATED ON MAIN** · PR **#408 MERGED** · candidate `a69e3ad1924b7e33407ff0f9d62dd2189300f785` · merge `686e545a4bb058b95c8c456a517322ceb3e0bcaa` · PR-head CI **`32702286010` SUCCESS** · push/main CI **`32703289053` SUCCESS** · head→merge **0-file / tree parity** · US-P1-04 / FC-10 · X-W3A-01…08 **PASS** · proof **DETERMINISTIC PRODUCT-NATIVE PROVEN** · TestExecutionAdapter remains external executor fake · post-merge evidence handoff `b3108f4f…` · source branch `delivery/sfia-studio-product-completion-w3-a-governed-execute` **PRESERVED** · **≠** W3 CLOSED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED |
-+| **Product Completion W3-B Terminal + Evidence** | **DELIVERY AUTHORIZED / IN PROGRESS / NOT CLOSED** · US-P1-05 / US-P1-06 · FC-11 / FC-12 · GO Morris W3-B Delivery **CONSUMED** · qualification **VALIDATED BY MORRIS** · base `ba7aa2db…` · branch `delivery/sfia-studio-product-completion-w3-b-terminal-evidence` · R-W3B-01…07 correction handoff `fd4f1c95…` received ChatGPT RR-W3B-01…05 · **RR-W3B-01 discovery STOP** — SUCCESS contract satisfaction fact **NOT REPRESENTABLE** with adopted model (no durable EO/ER satisfaction) · secondary discovery: RR-W3B-02 governed STOP also **NOT REPRESENTABLE** without synthetic Cancel injection · **≠** W3-B CLOSED · **≠** US finally satisfied · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED |
-+| **Product Completion W3 Delivery** | **AUTHORIZED BY MORRIS / IN PROGRESS / NOT CLOSED** · historical closed slice **W3-A** · active construction slice **W3-B** · W3-C next downstream **NOT STARTED** · canonical `/studio` · **≠** W3 CLOSED · **≠** READY FOR REAL |
- | **Product Completion W2 Final Closure Product Correction** | **INTEGRATED ON MAIN** · PR **#405 MERGED** · head `330b36258f5a5fcb117fb562b12ff173b3675d94` · merge `1e4b0dbb8de291f1a02e084f03231d62d04dfb0b` · PR-head CI SUCCESS · push/main CI **`32654262020` SUCCESS** · R01 Phase B Product E2E cognition · R02 material EC amend/reinspect + R1 recovery-safe · C6 **CLOSED** · no `lib/oa` mutation · **≠** W3 · **≠** REAL · runtime v3 **NON ADOPTED** |
- | **Product Completion W2-G3 Delivery** | **INTEGRATED ON MAIN** · PR **#400 MERGED** · delivery head `a276f170faece84a2121f5fe5796c24ae443674d` · merge `dd852243a652e85cce455a68fae5ac7aa13d2bea` · PR-head CI **`32632461315` SUCCESS / Required Gate PASS** · push/main CI **`32633308148` SUCCESS** · E+A+B+C governed trajectory: Options / Recommendation / HumanDecision / EC inspect / conditional Confirmation / authority+executor sufficiency · **STOP BEFORE EXECUTE** · ProjectTrajectory SoT **KEEP** · C6 **CLOSED** · D-W2-CI-FINOPS-FREEZE-01 **ADOPTED** · FinOps/T7 **FREEZE** · T7-C04 **DEFERRED** · Phase B later **INTEGRATED** via PR **#403** · **≠** W2 finally closed · **≠** Execute · **≠** REAL · **≠** FinOps PASS · runtime v3 **NON ADOPTED** |
- | **Product Completion Backlog (Cycle 5)** | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · PR **#393 MERGED** · merge `7750b2a4017338c1a236433c4db8f5cc97dc2feb` · path `projects/sfia-studio/product-completion/05-product-completion-backlog-user-stories.md` · 5 Epics · 4 Waves · P0/P1 cut-line · réserve R5 non bloquante · **≠** Delivery authorized by validation alone · W1 Delivery later **CONSUMED via distinct G3/Morris GOs** |
-@@ -72,7 +76,7 @@
- | **ROADMAP-POST-MERGE-CKC-388** | **CLOSED ON MAIN** via PR **#389** / merge `c4dc1c9ce78290f00354e58dde451dd09616f49e` · post-merge CI **`32527209975` SUCCESS** · Roadmap sync integrated on main · **≠** DoctrinePackage runtime binding · **≠** Nora proven |
- | **DoctrinePackage / runtime CKC architecture qualification** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN** via PR **#390 + PR #391** · **G2 materialization DECIDED + GIT-INTEGRATED** via PR **#394** (`b3e978fe…`) · **W1 runtime materialization INTEGRATED** via PR **#395** (`ddd39181…`) · `pkg:sfia-studio-doctrine-v3@1.0.0` · OPTION A root `projects/sfia-studio/app/lib/oa/doctrine/product/` · resolver/repository **KEEP** · D02 Option B **KEEP** · fallback **NONE** · fixture quarantine/test-only → retire later · Product pin **fail-closed** · Phase A package-bound **INTEGRATED** · Phase A **≠** Phase B complete · bounded CKC→Nora seam **PROVEN (W1)** · bounded Phase B / generic multi-cycle cognition **INTEGRATED** (PR **#403**) · full CKC catalog evolvability **DOWNSTREAM W3** · runtime v3 **NON ADOPTED** |
- | **SFIA Studio product design tooling** | **MORRIS DECISION — PENPOT IS THE REFERENCE DESIGN WORKSPACE FOR SFIA STUDIO PRODUCT DESIGN** · Studio product design only · Git remains SoT for governance/contracts/decisions · R-04 EA historical recommendation **SUPERSEDED FOR FUTURE SFIA STUDIO PRODUCT DESIGN** · **≠** global SFIA methodological baseline · **≠** v3 doctrine change · **≠** runtime v3 adoption · EA document **not** retroactively rewritten |
--| **Gates courants** | C1…C6 **INTEGRATED / C6 CLOSED** · W1 **CLOSED** · **W2 CLOSED BY MORRIS** · **W3-A CLOSED BY MORRIS** · PR **#408** on main (`686e545a…`) · **GO MORRIS W3 DELIVERY CONSUMED** · **W3 DELIVERY IN PROGRESS / NOT CLOSED** · next capability candidate **W3-B** · **W3-B NOT AUTHORIZED / NOT STARTED** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · FinOps/T7 **FREEZE** · REAL **NOT CONSUMED** · W4 **NOT STARTED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **NO REAL WITHOUT DISTINCT MORRIS GO** |
-+| **Gates courants** | C1…C6 **INTEGRATED / C6 CLOSED** · W1 **CLOSED** · **W2 CLOSED BY MORRIS** · **W3-A CLOSED BY MORRIS** · PR **#408** + truth sync PR **#409** on main (`ba7aa2db…`) · **GO MORRIS W3 DELIVERY CONSUMED** · **GO MORRIS W3-B DELIVERY CONSUMED** · **W3 DELIVERY IN PROGRESS / NOT CLOSED** · **W3-B IN PROGRESS / NOT CLOSED** · W3-C **NOT STARTED** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · FinOps/T7 **FREEZE** · REAL **NOT CONSUMED** · W4 **NOT STARTED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **NO REAL WITHOUT DISTINCT MORRIS GO** |
- | **Intégration Git** | **C2 :** PR #369 / head `3c78c6763d0d090bdc38f3866ecd71ed6be219d0` / merge `2406ccda211842fc7f8da3699bb186a30f7dc105` · **Post-merge sync :** PR #370 (integration vehicle · Git evidence authoritative) · CI SFIA Studio **#222** SUCCESS (PR head) · post-merge CI **#223** SUCCESS · source branch `docs/sfia-studio-product-completion-c2-integration-clean` **PRESERVED** · historical unauthorized branch `docs/sfia-studio-product-completion-c2-functional-design` @ `780ab4c5` **PRESERVED FOR AUDIT** · Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration · **M4 post-pre-reproof Roadmap :** PR #347 / merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS · **M4 GOVERNED REAL COMPLETION PROOF** handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · **M4 closure Roadmap :** PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · **M5 Entry Qualification** handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · **M5 Delivery (Option B + W1) :** PR #350 / head `17461dad78f92a3d5e5e1d9bd36aa20d1e86ac11` / merge `8f753218e4fff7d68d78c1d57e9c3e8fb7e60943` · CI SFIA Studio **#184** SUCCESS · post-merge CI **#185** SUCCESS · **M5 UI/Nora durable rehydrate :** PR #351 / head `ced7b172969c27b5e2d6fda06e9caa8c84e1e0d7` / merge `d8961f1d85a98b5d4185f007f16ddac209e2e557` · CI SFIA Studio **#186** SUCCESS · post-merge CI **#187** SUCCESS · M5 exit re-evaluation handoff `54b0f5b43a50861c26226aa3ffc06460f8ffbafe` · blob `131c85172bbd6370a3edcd71347a64932c9303ab` · M5 EXIT PROOF **SATISFIED ON MAIN** · **M5 capitalization / Roadmap sync :** PR #352 / head `c26824c602ec041cb1d40e9078191c0f1cde4e95` / merge `3467ecdf74ac2010c45f34545fb8684563dea547` · CI SFIA Studio PR run **#31875337665** SUCCESS · post-merge CI run **#31875621317** SUCCESS · post-merge handoff `0121e184c936f8dc73ffe80e20d43027fec495d7` · blob `4c293ae07a0d516b16d6dd2d4087d3e25858e275` · GO Morris **ACCEPT M5 EXIT PROOF + CLOSE M5 — KEEP M5-C TECHNICAL JOURNAL — ZERO REAL — NO M6 EXECUTION — RUNTIME V3 NON ADOPTED — NO BRANCH DELETE** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · User wording **« ok go pour la modification »** · governed interpretation **ALIGN M5 CLOSURE ROADMAP WITH PRE-M6 USER JOURNEY / UX BASELINE TRAJECTORY — KEEP M5 CLOSED — KEEP M5-C — NO UX DESIGN EXECUTION YET — NO FIGMA ACTION YET — NO UI DELIVERY — NO M6 — ZERO REAL — NO PROJECT GIT WRITE** · **M5 closure / Pre-M6 sequencing Roadmap :** PR #353 / title `docs(sfia-studio): close M5 and sequence Pre-M6 UX baseline` / base `3467ecdf74ac2010c45f34545fb8684563dea547` / head `7a744c8cec889be547eebe231279620189819dd0` / merge `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` — records M5 closure + inserts Pre-M6 before M6 · **≠** Slice A candidate (Slice A is later local work) · PRE-M6 USER JOURNEY / UX BASELINE = **FUNCTIONAL BASELINE + GAP READINESS COMPLETE · G-UX-15 EXIT PROOF ACCEPTED / TECHNICAL BLOCKER CLOSED · LOCAL CANDIDATE NOT YET ON MAIN · FIGMA/UI DELIVERY NOT AUTHORIZED** · **G-UX-15 Slice A controlled integration :** PR #354 / title `feat(sfia-studio): close Pre-M6 G-UX-15 execution wiring gap` / base `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` / head `22ae8e5e4bddb0f997384a5e8ba87c9b35245693` / merge `a6df83a640afeb0911cb572d118d27a03c9923a7` · CI SFIA Studio **#192** SUCCESS · post-merge main CI **#193** SUCCESS · post-merge truth **PASS** (exact 5-file SHAs on main) · feature branch **PRESERVED** (no delete) · **Cycle 14 docs sync :** PR #355 / title `docs(sfia-studio): sync Pre-M6 G-UX-15 post-merge current state` / merge `dd284e9f20de89b2c8fc7782e4177d0d125c24d2` — **MERGED ON MAIN** · **historique :** OPEN / DRAFT avant merge · **Cycle 15 visual adoption docs integration :** PR #356 / title `docs(sfia-studio): record Pre-M6 visual contract adoption` / head `3a93d0e5cfd86e46bb795ce22c0f7dd79078ef2a` / merge `50f31994b0d9b5a3a3514e2fa9a063d688071c50` — **MERGED ON MAIN** · CI SFIA Studio **#198** SUCCESS on final PR head · post-merge main CI **#199** SUCCESS · post-merge truth **PASS** · source branch **PRESERVED** (NO BRANCH DELETE) · **historique :** OPEN / DRAFT avant merge · **D-PRE-M6-UX-05 :** ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN (Freeze `uUdLBElF2B4dOefaAYt4QY`) — UI Delivery still **NOT AUTHORIZED** · **Cycle 14 PR #356 post-merge current-state sync :** PR #357 / title `docs(sfia-studio): sync PR 356 post-merge current state` / head `70643624c494f16fb91e3bede772a80f4eece783` / merge `b834fdd40d3e7028e80cf7b388b93df2f31e18e4` — **MERGED ON MAIN** · CI SFIA Studio **#200** SUCCESS on PR head · post-merge CI **#201** SUCCESS · source branch **PRESERVED** · **historique :** OPEN / DRAFT avant merge · **PRE-M6 UI DELIVERY GATE / SCOPE QUALIFICATION :** **COMPLETE** — Review Handoff `2577776360c8a5a3492806b447d4bf88f0239898` / blob `9084a97b368472aaaa7ab61f85baf2efcb819e51` — verdict READY FOR MORRIS DELIVERY DECISION (**≠** UI Delivery authorized) — OPTION A = RECOMMENDATION AWAITING MORRIS DECISION *(historique qualification)* · **Cycle 15 Pre-M6 UI gap + CKC trajectory Roadmap :** PR #358 / title `docs(sfia-studio): record Pre-M6 UI gap and CKC trajectory` / head `c91ce1afd498ef9a5275e3b90509e7a045f240a0` / merge `0a80b92cb2c05f5b3f001438988b52c07c3bf0b6` — **MERGED ON MAIN** · CI SFIA Studio **#202** SUCCESS on PR head · post-merge CI **#203** SUCCESS · source branch **PRESERVED** · **historique :** OPEN / DRAFT avant merge · GO Morris **ADOPT PRE-M6 UI DELIVERY SCOPE OPTION A** (user « bon ok go option A ») — OPTION A = **ADOPTED BY MORRIS AS PRE-M6 UI DELIVERY SCOPE** · OPTION A SCOPE ADOPTED **≠** UI DELIVERY EXECUTION AUTHORIZED · NEXT PRODUCT GATE *(historique jusqu’à PR #361)* = **MORRIS PRE-M6 UI DELIVERY EXECUTION AUTHORIZATION — OPTION A** · **PR #359** Option A adoption sync **MERGED** (`0d33478…`) · **PR #360** fake-real progressive proof **MERGED** (`a3ac418…`) · **PRE-M6 PRODUCT VERTICAL SLICE :** PR #361 / title `feat(sfia-studio): consolidate Pre-M6 product vertical slice` / head `3c4c478d7664c6111f38e6c4f49e98042e3a8473` / merge `a53c323e47e5fae1d35671f3ae232609a59b0f3f` — **MERGED ON MAIN** · post-merge CI run **`32122892559` SUCCESS** · source branch `delivery/sfia-studio-pre-m6-ui-option-a` **PRESERVED** · GO Morris **PR #361 READY + MERGE — PRESERVE SOURCE BRANCH — THEN POST-MERGE VALIDATION** · **MORRIS DECISION — CURRENT SFIA STUDIO VERTICAL SLICE ON MAIN IS THE FUNCTIONAL MVP BASELINE FOR THE PRODUCT COMPLETION TRAJECTORY — REUSE EXISTING BACKBONE — DO NOT RESTART FROM ZERO — RUNTIME V3 REMAINS NON ADOPTED** · **MORRIS DECISION — ACCEPT PRE-M6 EXIT FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT — CURRENT MAIN VERTICAL SLICE IS THE SFIA STUDIO FUNCTIONAL MVP BASELINE FOR PRODUCT COMPLETION — CARRY UAT-UX-06 / UAT-RECOVERY-03 / V3-F10 / PROCESS-LOCAL DURABILITY / N7 AS GOVERNED DEBT — RUNTIME V3 REMAINS NON ADOPTED** · PRE-M6 EXIT = **ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT** · PRE-M6 **≠ COMPLETE WITHOUT RESERVES** · NEXT PRODUCT GATE = **GO MORRIS — CYCLE 1 CADRAGE — SFIA STUDIO PRODUCT COMPLETION FROM MVP** (consumable only after this documentation is integrated on main · **NOT AUTHORIZED now**) · NEXT REPOSITORY GATE = **MORRIS REVIEW — PRODUCT COMPLETION REBASELINE DRAFT PR — NO MERGE UNTIL EXPLICIT GO** |
- | **Sources** | Git `main` @ `a53c323e47e5fae1d35671f3ae232609a59b0f3f` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347/#348/#349/#350/#351/#352/#353/#354/#355/#356/#357/#358/#359/#360/#361 · CI #158/#162/#166/#172/#176/#178/#184/#185/#186/#187/#192/#193/#197/#198/#199/#200/#201/#202/#203 · Pre-M6 UI Delivery qualification handoff `2577776360c8a5a3492806b447d4bf88f0239898` / blob `9084a97b368472aaaa7ab61f85baf2efcb819e51` · GO Morris **ADOPT PRE-M6 UI DELIVERY SCOPE OPTION A** · PR #352 CI run #31875337665 / post-merge #31875621317 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · D-PRE-M6-UX-05 visual review handoff `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593ddbdc286cd244790f0ca1d2c421128202c5c` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · M5 Entry Qualification handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · GO Morris **VALIDATE D-PRE-M6-UX-05 FIGMA VISUAL CONTRACT — ADOPT AS PRE-M6 VISUAL REFERENCE** · M4 Product path on main `projects/sfia-studio/app/**` |
- | **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M5 Entry Qualification **COMPLETE** · M5 architecture trajectory **ADOPTED BY MORRIS** · M5 Delivery **IMPLEMENTED ON MAIN** (PR #350) · M5 UI rehydrate **IMPLEMENTED ON MAIN** (PR #351) · M5 technical/functional exit proof **SATISFIED ON MAIN** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · M5 CLOSED **≠** M6 AUTHORIZED · M5 CLOSED **≠** M6 STARTED · M5 CLOSED **≠** runtime v3 ADOPTED · M5 CLOSED **≠** global v3 baseline promoted · M5 CLOSED **≠** M5-C retired · M5 exit accepted **≠** global Cursor REAL authorization · M5 CLOSED future **≠** M6 automatically authorized · Pre-M6 trajectory decided **≠** Pre-M6 UX qualification executed · **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE ≠ UI Delivery authorized ≠ runtime implemented ≠ browser/product E2E proven ≠ Figma/runtime aligned ≠ WCAG compliant ≠ Pre-M6 complete ≠ historical UI retired** · Accepted M-03/M-04/provenance reserves ≠ reserves closed · new UX baseline **≠** runtime rewrite · existing UI not canonical **≠** existing UI automatically deleted · UI asset audit **COMPLETE/CLASSIFIED** **≠** individual dispositions ADOPTED · existing UI audit **≠** REPLACE/retirement authorized · M1→M5 runtime KEEP **≠** all runtime complete · Pre-M6 user proof **≠** runtime v3 ADOPTED · M6 after Pre-M6 **≠** M6 automatically authorized · Validated UX decisions in framing **30/37** (CC-D01) prevail over older candidate wording in framing **11** · M5-A OPTION B **IMPLEMENTED ON MAIN** · M5-B W1 **IMPLEMENTED ON MAIN** · M5-B W1 factual write-back **≠** Recommendation becomes Decision · Recommendation **≠** HumanDecision · Recommendation **≠** gate consumed · Recommendation **≠** ExecutionAuthority · LPS factual evidence link **≠** structural trajectory validation · readback **≠** execution · remount UI visibility **≠** automatic next-cycle launch · M5-C KEEP TEMPORARY WITH EXIT **≠** technical journal retired · durable Product Attempt **≠** technical M4 journal automatically obsolete · M5 implementation **≠** runtime v3 ADOPTED · M5 implementation **≠** global v3 baseline promoted · M5 ZERO REAL **≠** global Cursor REAL authorization · M5 architecture ADOPTED **≠** M6 started · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **unchanged by M5 architecture decision** **≠** M4/M5 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · runtime v3 **NON ADOPTED** · ≠ full OA durable · G-UX-15 technical blocker **CLOSED BY MORRIS** ≠ Pre-M6 complete · G-UX-15 exit proof accepted ≠ browser/product E2E proven · fixture-safe proof accepted ≠ REAL proof · G-UX-15 Slice A **MERGED ON MAIN** (PR #354) ≠ Pre-M6 complete · merged on main ≠ product/browser E2E proven · merged on main ≠ UI Delivery/M6 authorized · Pre-M6 progress ≠ M6 authorized · Confirmation process-local = KEEP RESERVE *(HISTORICAL Pre-M6 / G-UX-15)* · **SUPERSEDED for Confirmation by W1 selective durability** · **≠** restart-safe Confirmation as full envelope · **PR #356 MERGED ≠ UI Delivery authorized** · CI #197/#198/#199 SUCCESS ≠ Pre-M6 complete ≠ UI Delivery authorized · post-merge truth PASS ≠ UI Delivery gate consumed · UI Delivery qualification COMPLETE ≠ UI Delivery authorized · **Option A SCOPE ADOPTED BY MORRIS ≠ UI Delivery execution authorized** · gap treatment adopted as scope ≠ gap closed · G-UX-08 deferred ≠ G-UX-08 closed · G-UX-09 accepted ≠ Conversation durable · Confirmation KEEP *(historical Pre-M6)* ≠ restart-safe · G-UX-11 planned ≠ browser E2E proven · M7 CKC 15/15 future ≠ CKC complete now ≠ CKC Delivery authorized · 4 pilots + 11 fallback ≠ CKC system complete · CKC→v2.6 capitalization option ≠ v2.6 modification decided · CKC validation future ≠ runtime v3 ADOPTED · PR #357 MERGED ≠ UI Delivery authorized · CI #201 SUCCESS ≠ Pre-M6 complete · PR #358 MERGED ≠ UI Delivery authorized · CI #202/#203 SUCCESS ≠ Pre-M6 complete ≠ Delivery authorized · Option A scope adopted ≠ Delivery GO consumed · Execution Authorization IS the Delivery GO ≠ second Delivery GO required · G-UX-11 E2E exit proof ≠ Delivery entry prerequisite · global v3 baseline **NOT PROMOTED** · **PR #361 MERGED ≠ PRE-M6 COMPLETE ≠ PRE-M6 EXIT ACCEPTED ≠ runtime v3 ADOPTED ≠ M6 AUTHORIZED ≠ M7 AUTHORIZED ≠ CKC 15/15 COMPLETE ≠ generic Cursor write/dev/commit/push/PR proven** · **MVP FUNCTIONAL BASELINE ≠ produit final ≠ UX finale ≠ production-ready ≠ generic ExecutionContract complete** · Product Completion trajectory recorded **≠** Cycle 1 Cadrage authorized **≠** Delivery authorized · PRE-M6 requalification **≠** PRE-M6 CLOSED · **PRE-M6 EXIT ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT ≠ PRE-M6 COMPLETE ≠ PRE-M6 all gaps closed ≠ runtime v3 ADOPTED ≠ M6 STARTED ≠ M6 AUTHORIZED ≠ Product Completion Delivery authorized ≠ Cycle 1 Cadrage authorized** |
+
+EO/ER stable ids: prefer **deterministic derivation** from EC version material (index + normalized string + fingerprint) rather than inventing a large DSL. EC remains source of expectation strings.
+
+### 5.3 Transactional units
+
+Do **not** force single SQL transaction across external human review.
+
+| Portion | Atomic? | Notes |
+| --- | --- | --- |
+| Terminal Attempt write | Existing FC-10 UoW | Unchanged |
+| Evidence materialization + RB update | Existing FC-12 patterns | Unchanged |
+| Contract-result assessment create/evaluate | CE UoW (+ optional same txn as Evidence if fully system-deterministic) | Idempotent by key |
+| Human confirm | Separate command | Re-assess frozen RB + EO/ER rules; fail-closed |
+| Crash window | Assessment missing | FC-11 → NOT_PROVEN / no SUCCESS |
+| EC amendment after assessment | Stale | New assessment required; old superseded or ignored |
+
+---
+
+## 6. W3B-D02 — Current-state inventory
+
+### 6.1 Guard matrix
+
+| Guard | Owner | Detection time | Attempt state | Durable evidence | Current transition | Desired W3B-D02 | Gap |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Pre-auth insufficient executor / FC-09 blocked | FC-09 | Pre-Attempt / Start re-check | No Attempt **or** stays `accepted` on Start refuse | AuthorityVerificationReceipt `blocked` | **BLOCKED** — no launch | Keep BLOCKED ≠ STOP | Do **not** invent Attempt for pre-launch block |
+| CancelExecutionAttempt (human / Morris emergency) | FC-10 | Command | → `cancelled` | Attempt + audit + `stopReason` | User/Morris cancel | **USER_CANCEL** distinct | No system path |
+| Start revalidation fail (TTL/authz/stale) | FC-10 + FC-09 | Start | Remains **`accepted`** | Audit refuse · RTA5-08 no auto-cancel | Refuse Start | May need system STOP when frontier unsafe | No terminal STOP write |
+| failLaunch / RecordExecutionFailure | FC-10 | Launch / adapter | → `failed` | Attempt + errorRef/stopReason | **FAIL** | Keep FAIL | Must not map to STOP |
+| TriggerAttemptTimeout autoSafety | FC-10 | Timeout | → `timeout` | Attempt | Technical timeout class | Fail-adjacent · ≠ policy STOP | Pattern for system gate only |
+| REAL launch ambiguity / `LAUNCH_RECONCILIATION_REQUIRED` | StartExecution + M4 journal | Post-invoke / pre-durable running | Often stays **`accepted`** | Journal CREATED±LAUNCHED | Refuse relaunch · **no** Cancel | C6 #3 reconciliation / STOP | Closest cousin to U2b · **no** terminal STOP |
+| C6 U2 / U2b Product checkpoints | C6 design | Start frontier | Design → running / STOP on ambiguity | Design markers | **NOT IMPLEMENTED** as Product U2/U2b | Harvest pattern | Doc-only Product; code refuses not stops |
+| Synthetic / client STOP reason | (forbidden) | — | — | — | Must not exist | System-derived only | Delivery candidate used dishonest tokens — structural gap |
+
+### 6.2 Lifecycle fact
+
+Runtime enum has **`cancelled`** (not literal `terminal_stop`). FA maps FC-11 STOP meaning onto FC-10 terminal **state** writes. Existing Cancel already writes `cancelled` + `cancelledAt` + `stopReason` from `accepted|running|result_pending`.
+
+**Human Cancel** today: Pilote N≥ authority **or** Morris emergency → adapter cancel when applicable → `cancelled`.
+
+**Trusted system Cancel path:** **absent**. `ActorReference.role: "system"` is not special-cased on Cancel.
+
+### 6.3 C6 U2 / U2b harvest analysis
+
+| Question | Answer |
+| --- | --- |
+| Does C6 already describe honest STOP after observed ambiguity? | **Yes** (scenario #3) |
+| Is Product U2/U2b implemented? | **No** (architecture CLOSED, implementation pending by design) |
+| Does M4 journal alone solve W3B-D02? | **No** — leaves Attempt `accepted` + refuse relaunch |
+| Is U2/U2b sufficient as **the only** STOP class? | **No** — one important class among runtime guards (capability/scope/protection/etc.) |
+| Can pattern generalize without Stop Engine? | **Yes** — as **inputs** (trusted guard facts) to a single FC-10 terminal transition |
+
+U2/U2b is **necessary harvest for launch-frontier STOP**, not a complete W3B-D02 solution by itself.
+
+---
+
+## 7. W3B-D02 — Options
+
+### 7.1 Option S1 — EXTEND CancelExecutionAttempt
+
+Allow a trusted system/runtime actor path on the **same** use case, bound to a verified guard fact, writing the same `cancelled` transition.
+
+| Pros | Cons |
+| --- | --- |
+| Single application entry · reuse all Cancel persist/audit/adapter logic | Risk conflating human and system cancel · API misuse if client can set system flag · authority model complexity inside one command |
+
+### 7.2 Option S2 — SEPARATE FC-10 APPLICATION USE CASE (recommended candidate)
+
+Conceptual responsibility: `StopExecutionAttemptFromRuntimeGuard` (name illustrative).
+
+- **Not** a new engine · **Not** a new lifecycle
+- Calls the **same** domain transition to `cancelled` (or shared internal transition helper)
+- Enforces: system/trusted caller only · verified guard provenance · **no** client-provided final governance reason · audit with system-derived `stopReason` / provenance
+- Leaves human `CancelExecutionAttempt` untouched
+
+| Pros | Cons |
+| --- | --- |
+| Clear ownership · abuse resistance · human Cancel pristine | Slight duplicate orchestration risk (mitigate by shared transition helper) |
+
+### 7.3 Option S3 — HARVEST C6 U2/U2b RECONCILIATION AS SOLE STOP PATH
+
+Use only checkpoint ambiguity → STOP.
+
+| Pros | Cons |
+| --- | --- |
+| Aligns C6 scenario #3 · no new lifecycle | Covers **one** STOP class · Product U2/U2b still unimplemented · does not cover post-running policy/capability boundaries · insufficient alone for W3-B honest STOP proof across C2 STOP frontiers |
+
+**S3 as exclusive solution: insufficient.** **S3 as harvested guard-fact producer feeding S2: recommended composition.**
+
+### 7.4 D02 trade-off matrix
+
+| Criterion | S1 Extend Cancel | S2 Separate use case | S3 U2/U2b only |
+| --- | --- | --- | --- |
+| FC-09 vs FC-10 | FC-10 | FC-10 (clearer) | FC-10 + incomplete Product U2 |
+| Trigger trust | Must harden Cancel | Native system-only | Journal/checkpoint trust |
+| Provenance | Easy to muddy | Cleaner | Strong for one class |
+| Client abuse | Higher | Lower | N/A for other guards |
+| Human cancel distinction | Harder | Easier | N/A |
+| FAIL distinction | Must keep | Must keep | Must keep |
+| Schema | Possibly `stopProvenance` field | Same | Checkpoint markers |
+| Testability | Medium | High | Medium |
+| REAL parity | Same path | Same path | REAL-oriented only |
+| Completeness for W3B-D02 | Possible | **Best** | Incomplete |
+
+### 7.5 D02 recommendation (CANDIDATE / RECOMMENDED — not ADOPTED)
+
+**Recommend Option S2** + **harvest S3** as a first-class **guard-fact source** (launch ambiguity / missing ack), plus future runtime guard observations under the same stop use case.
+
+Reuse Attempt status **`cancelled`** for FC-11 STOP meaning; distinguish provenance:
+
+| Kind | Representation candidate |
+| --- | --- |
+| **USER_CANCEL** | Existing Cancel path · human/Morris actor · reason taxonomy remains human |
+| **SYSTEM_GOVERNED_STOP** | S2 path · system-derived reason/provenance · guard code + observed facts |
+| **FAIL** | `failed` / failLaunch / RecordExecutionFailure / adapter technical fail |
+| **TIMEOUT** | existing timeout path (fail-adjacent; not policy STOP) |
+
+Prefer reuse of `stopReason` + audit detail / explicit provenance field on Attempt **only if** needed for restart reconstruction — **no** new Guard aggregate by default.
+
+### 7.6 Trusted guard fact (minimal)
+
+A trusted guard fact must resolve:
+
+- guard / stop code
+- source owner (FC-09 receipt · Start revalidation · U2b reconcile · policy version)
+- project · EC id/version · Attempt id
+- observed facts · timestamp
+- blocking = true · still valid = true
+- provenance/audit ref
+
+Prefer existing audit events, AuthorityVerificationReceipt, Attempt audit, C6 checkpoint markers (when implemented), runtime constraint markers. **Do not** auto-create a durable Guard aggregate.
+
+### 7.7 Pre-auth BLOCK vs post-auth STOP (mandatory)
+
+| Phase | Result |
+| --- | --- |
+| Pre-auth / pre-Attempt FC-09 insufficient | **BLOCKED** · **no** Attempt · **not** terminal STOP |
+| Post-accept / runtime · guard actually observed | FC-10 system-governed **terminal STOP** on **same** Attempt |
+| Adapter technical error | **FAIL** |
+| Human cancellation | **USER_CANCEL** |
+
+Never transform every FC-09 BLOCKED into terminal STOP. Never create an Attempt solely to represent a pre-launch block.
+
+### 7.8 Lifecycle checkpoint challenge
+
+C2/FA narrative: `accepted → running → terminal_*`.
+
+Repo reality: Cancel already terminals from **`accepted`** (pre-adapter) and from **`running`**.
+
+| Case | Architecture stance |
+| --- | --- |
+| Guard fails **before** running while Attempt `accepted` | Terminal STOP via same `cancelled` write is **consistent with existing Cancel** and C6 #3 intent · preferred over leaving zombie `accepted` |
+| Entering `running` only after coherent U2/U2b | **Aligns C6** · Product U2/U2b still delivery debt · architecture recommends fail-closed STOP when ambiguity observed, not silent stay-accepted forever |
+| Would making accepted→cancelled contradict C2? | **No proven contradiction** — C2 STOP is semantic; FA allows FC-10 terminal_stop **state** writes; Cancel already maps to STOP-capable terminal |
+
+If Morris requires literal `running` before any STOP: flag as **MORRIS DECISION REQUIRED** (lifecycle amendment). This addendum **does not** change transitions; it recommends reusing Cancel’s existing accepted→cancelled legality for system path.
+
+---
+
+## 8. Combined data / persistence impact register
+
+| Object | Current storage | Candidate change | New fields | New table? | Migration? | Repo change? | UoW | Recovery | Security | Owner | Reversible? | C6 conflict? | Parallel risk |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ClaimEvaluation | Memory | Sqlite + EO/ER binding | EC/Attempt binds · structured EO/ER assessments | `oa_claim_evaluations` (+ idempotency) | Additive M8 candidate | Sqlite adapter | Existing | Restart reconstruct | Client cannot write PASS | FC-12 | Yes (drop M8) | No | Low |
+| ExecutionContract | Sqlite | None for D01 expectation | — | No | No | No | — | — | — | T-A4 | — | No | None |
+| Evidence / RB | Sqlite | Optional CE ref / EC version on RB | Optional | No | Optional light | Optional | Existing | — | — | FC-12 | Yes | No | Low |
+| ExecutionAttempt | Sqlite | Optional stop provenance | `stopProvenance?` or typed stopReason prefix + audit | No preferred | Additive field candidate | Attempt repo ADAPT | Existing | Restart preserve | System-only write | FC-10 | Yes | No | Low if no Guard aggregate |
+| Cancel use case | App | Untouched (S2) or extended (S1) | — | No | No | App | — | — | — | FC-10 | — | No | S1 higher |
+| Stop-from-guard use case | Absent | Add FC-10 app use case | — | No | No | New app service | Existing Attempt txn | Idempotent stop | System caller | FC-10 | Yes | No | None if same transition |
+| Guard aggregate | Absent | **Do not create** | — | **No** | — | — | — | — | — | — | — | — | Avoid |
+| ProductOutcome | Absent | **Forbidden** | — | **No** | — | — | — | — | — | — | — | — | Avoid |
+| DB technology | Product SQLite | **KEEP** | — | — | — | — | — | — | — | C6 | — | Rede cision forbidden | — |
+
+---
+
+## 9. NFR / security (bounded)
+
+| NFR | Requirement |
+| --- | --- |
+| Integrity | No false SUCCESS · no false SYSTEM_GOVERNED_STOP |
+| Restart | Assessment + stop provenance reconstructible from Product SQLite / Attempt audit |
+| Idempotence | No duplicate assessment · no double stop · no double adapter cancel |
+| Consistency | Exact EC version/fingerprint · Attempt · Evidence · RB bindings |
+| Audit | Who/what assessed or stopped and why |
+| Security | Client cannot forge PASS or runtime guard · system stop not client-reason |
+| Authority | Assessment does **not** grant execution authority (FC-09 remains gate) |
+| Privacy | Evidence/diagnostic values obey current secret rules |
+| Recoverability | Missing/stale assessment → **NOT_PROVEN** · never invented SUCCESS · historical cancelled without system provenance **not** retro-labeled SYSTEM_GOVERNED_STOP |
+
+No invented latency/SLA targets.
+
+---
+
+## 10. Fake / Real qualification
+
+Architecture-only cycle — no Delivery proof execution.
+
+| Boundary | Rule |
+| --- | --- |
+| TestExecutionAdapter | External executor **fake only** · may emulate success/failure/timeout/cancel ack |
+| Must **not** | Manufacture Product SUCCESS · manufacture runtime policy STOP token · provide final governance outcome |
+| Future deterministic proof | Same EC · same Attempt · same FC-10 transition · same Evidence · same assessment · same FC-11 |
+| REAL | **OUT** |
+
+---
+
+## 11. Downstream impact
+
+| Wave | Impact |
+| --- | --- |
+| **W3-C** | Consume **same** W3-B Evidence/RB + durable contract-result assessment · no second Nora Evidence path · restart-safe |
+| **W3-D** | Assessment generic · **no** cycleType switch engine |
+| **W3-E** | Same canonical path |
+| **W4** | Presentation only downstream · no UX work here |
+
+If a design forced W3-C/D/E redesign → overarchitecture; **this recommendation does not**.
+
+### Backlog note (no mutation this cycle)
+
+Candidate future truth sync (post Morris validation): annotate US-P1-05 / US-P1-06 with adopted technical enablers **W3B-D01** / **W3B-D02**. **No backlog rewrite now.**
+
+---
+
+## 12. Candidate technical decision register
+
+| ID | Decision | Status |
+| --- | --- | --- |
+| **TD-W3B-01** | Contract-result assessment = **adapted ClaimEvaluation** with structured EO/ER assessments + Product SQLite durability (Option A) | **CANDIDATE / RECOMMENDED** |
+| **TD-W3B-02** | EO/ER identity = deterministic ids derived from EC version material + explicit EC id/version/fingerprint + Attempt + RB/Evidence bindings | **CANDIDATE / RECOMMENDED** |
+| **TD-W3B-03** | System-governed terminal STOP = **FC-10 separate use case** calling same Attempt `cancelled` transition (Option S2); human Cancel untouched | **CANDIDATE / RECOMMENDED** |
+| **TD-W3B-04** | Runtime guard provenance = trusted guard fact from existing receipts/audit/checkpoints (harvest U2/U2b pattern); optional Attempt provenance field; **no** Guard aggregate / Stop Engine | **CANDIDATE / RECOMMENDED** |
+
+Never ADOPTED / DECIDED BY MORRIS in this document.
+
+---
+
+## 13. Migration / backfill (candidate only)
+
+- New DBs: **NONE**
+- Historical ClaimEvaluations: may be **irrecoverable**
+- Historical Attempts without assessment: **NOT_PROVEN**
+- Historical cancelled without trustworthy system provenance: **do not** reclassify as SYSTEM_GOVERNED_STOP
+- Forward writes only after later Delivery GO
+- **No migration executed** in this architecture cycle
+
+---
+
+## 14. Future Delivery test contracts (not executed now)
+
+### D01
+
+- Technical succeeded + EO assessment NOT_PROVEN → **no SUCCESS**
+- All required EO PASS + ER SATISFIED → SUCCESS eligible (still anti-claims)
+- Wrong EC version → stale / NOT_PROVEN
+- Missing Evidence → NOT_PROVEN
+- Restart restores exact assessment
+- Hostile client cannot write PASS
+- EC amendment invalidates stale assessment for SUCCESS
+
+### D02
+
+- Pre-auth insufficient executor → BLOCKED / no Attempt
+- Accepted/running + actual runtime guard → terminal STOP (`cancelled`) with system provenance
+- System stop reason derived · not client-supplied
+- Human cancel distinct
+- Adapter fail → FAIL
+- Restart preserves provenance
+- Replay stop idempotent
+- No double adapter cancel
+
+---
+
+## 15. Exit contracts (architecture cycle self-check)
+
+Documented for Review Pack scoring; implementation not claimed.
+
+| ID | Intent |
+| --- | --- |
+| X-W3B-ARCH-01…03 | C1/C2/FA ownership preserved |
+| X-W3B-ARCH-04…06 | D01 gap + ≥2 options + durable/no parallel engine recommendation |
+| X-W3B-ARCH-07…10 | D02 gap + ≥2 options + same lifecycle + cancel/stop/fail distinct |
+| X-W3B-ARCH-11…13 | C6 consumed · OA/SQLite/ports · restart/idempotence/audit/migration explicit |
+| X-W3B-ARCH-14…16 | W3-C/D/E/W4 bounded · future tests · no app implementation |
+
+---
+
+## 16. Morris decisions required (post ChatGPT review)
+
+1. Validate or reject **TD-W3B-01…04** (CANDIDATE → ADOPTED or alternate).
+2. Confirm accepted→`cancelled` system STOP without requiring prior `running` (reuse Cancel legality) **or** require lifecycle amendment.
+3. Confirm Product SQLite M8 claim persistence vs Option B reconstruct-from-Evidence.
+4. Authorize later Git integration of this addendum · then W3-B Delivery requalification · **no automatic Delivery restart**.
+
+---
+
+## 17. Final architecture verdict (this document)
+
+**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — CANDIDATE READY FOR CHATGPT ARCHITECTURE REVIEW**
+
+Not validated · not adopted · W3-B remains STRUCTURALLY BLOCKED until Morris validates and Delivery is separately requalified.
+
+---END DOC 12---
+
+## 43. git diff --check
+
+```
+EXIT:0
 ```
 
-### doc11
+## 44. Final fileset (architecture worktree project changes)
+
 ```
-diff --git a/projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md b/projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md
-index 9458b8d9..c93ee26a 100644
---- a/projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md
-+++ b/projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md
-@@ -10,9 +10,11 @@
- | **Slice historique** | **W3-A — Governed Execute** (premier slice dépendant · **CLOSED BY MORRIS** · **≠** capacité roadmap indépendante) |
- | **Capacité fermée (W3-A)** | **US-P1-04** — Exécution générique sous contrat · **FC-10** Governed Execution — **CLOSED for W3-A** |
- | **Base Git (entrée W3)** | `origin/main` @ `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed` — Merge PR **#406** — docs(sfia-studio): sync W2 post-closure repository truth |
--| **Intégration W3-A** | PR **#408 MERGED** · candidate `a69e3ad1924b7e33407ff0f9d62dd2189300f785` · merge `686e545a4bb058b95c8c456a517322ceb3e0bcaa` · PR-head CI **`32702286010` SUCCESS** · push/main CI **`32703289053` SUCCESS** · head→merge **0-file / tree parity** |
--| **Branche projet (provenance historique)** | `delivery/sfia-studio-product-completion-w3-a-governed-execute` — **PRESERVED** · **≠** branche active de construction courante |
-+| **Intégration W3-A** | PR **#408 MERGED** · candidate `a69e3ad1924b7e33407ff0f9d62dd2189300f785` · merge `686e545a4bb058b95c8c456a517322ceb3e0bcaa` · PR-head CI **`32702286010` SUCCESS** · push/main CI **`32703289053` SUCCESS** · head→merge **0-file / tree parity** · post-closure truth sync PR **#409** → `ba7aa2db408b7fd00faf9638da060ce0833b794b` |
-+| **Branche projet (provenance historique)** | `delivery/sfia-studio-product-completion-w3-a-governed-execute` — **PRESERVED** |
-+| **Branche construction W3-B** | `delivery/sfia-studio-product-completion-w3-b-terminal-evidence` — **LOCAL / NO PROJECT COMMIT** |
- | **Statut W3-A** | **CLOSED BY MORRIS / INTEGRATED ON MAIN** · proof **DETERMINISTIC PRODUCT-NATIVE PROVEN** |
-+| **Statut W3-B** | **DELIVERY AUTHORIZED / IN PROGRESS / NOT CLOSED** · US-P1-05 / US-P1-06 · FC-11 / FC-12 · qualification **VALIDATED BY MORRIS** · GO Morris W3-B Delivery **CONSUMED** · R-W3B-01…07 correction reviewed · **RR-W3B-01…05 final correction** · local status **STOP — W3-B SUCCESS CONTRACT SATISFACTION FACT NOT REPRESENTABLE** · **≠** W3-B CLOSED · **≠** US satisfied |
- | **Statut readiness / Delivery W3** | **QUALIFIED** — GO Morris W3 Delivery **CONSUMED** · Delivery **IN PROGRESS** · W3 **NOT CLOSED** |
- | **W1** | **CLOSED** |
- | **W2** | **CLOSED BY MORRIS** |
-@@ -22,21 +24,24 @@
- | **W4** | **OUT / NOT STARTED** |
- | **runtime v3** | **NON ADOPTED** |
- | **Product Completion** | **INCOMPLETE** |
--| **Next capability candidate** | **W3-B REQUALIFICATION** (US-P1-05 / US-P1-06) — **NOT AUTHORIZED / NOT STARTED** |
-+| **Next capability downstream** | **W3-C** (Learn / Recovery / Replan · US-P1-07) — **NOT STARTED** |
- | **Chemin produit** | Canonique **`/studio`** |
-
- ## Anti-affirmations
-
- - W3 readiness / GO Delivery **≠** W3 CLOSED.
- - **W3-A CLOSED ≠ W3 CLOSED**.
-+- **W3-B IN PROGRESS ≠ W3-B CLOSED ≠ W3 CLOSED**.
- - **US-P1-04 CLOSED ≠ US-P1-05/06/07 CLOSED**.
- - AUTHORIZED (W2) **≠** Execute · Execute W3-A **≠** Product SUCCESS semantics.
- - Attempt terminal technique **≠** Product SUCCESS / STOP / FAIL · **≠** CycleInstance closed · **≠** Project archived.
-+- Evidence absent **≠** Product claim.
- - AuthorityVerificationReceipt **≠** reusable permission.
- - DETERMINISTIC PRODUCT-NATIVE PROVEN **≠** READY FOR REAL · **≠** REAL BOUNDARY PROVEN.
- - TestExecutionAdapter = fake external executor boundary only.
- - C6 CLOSED — ne pas rouvrir l’architecture.
--- **W3-B = NOT AUTHORIZED / NOT STARTED**.
-+- **W3-B = DELIVERY AUTHORIZED / IN PROGRESS** · **≠** CLOSED.
-+- W3-C/D/E **NOT STARTED**.
- - REAL OUT · FinOps FREEZE · W4 OUT · runtime v3 NON ADOPTED.
- - Product Completion **INCOMPLETE**.
- - Ce document **≠** Build Doctrine mutation · **≠** backlog rewrite.
-@@ -138,7 +143,8 @@ Cette décision est une décision historique de **CONSTRUCTION W3-A**. Elle n’
- | W3-A | **CLOSED BY MORRIS / INTEGRATED ON MAIN** · seam **W2 AUTHORIZED → Attempt fixture gouverné** proven |
- | W3-A ferme W3 ? | **NON** |
- | NEXT-CAPABILITY REQUALIFICATION (entrée W3) | **SATISFIED / CONSUMED** par la qualification W3 + GO Delivery |
--| Next capability candidate | **W3-B** — **NOT AUTHORIZED / NOT STARTED** · requalification required |
-+| Next capability downstream | **W3-C** — **NOT STARTED** |
-+| Capacité active | **W3-B** — **DELIVERY AUTHORIZED / IN PROGRESS / NOT CLOSED** |
- | Frontière W2 reprise | EC inspecté → Confirmation si requise → effective authority → **AUTHORIZED/BLOCKED** → **STOP BEFORE EXECUTE** (W2) · W3-A démarre **exactement** après AUTHORIZED |
-
- ---
-@@ -181,8 +187,8 @@ W3 macro reste **ouvert** jusqu’à fermeture des slices backlog W3 (dont US-P1
-
- | ID | Dette | Owner | Exit |
- |---|---|---|---|
--| W3A-D01 | Terminal technique `succeeded` **≠** sémantique Product SUCCESS/STOP/FAIL | W3-B | Fermeture US-P1-05 mapping métier — **OPEN** |
--| W3A-D02 | Evidence / Review / Nora post-Evidence **non fermés** | W3-B+ | US-P1-06 / US-P1-07 — **OPEN** |
-+| W3A-D01 | Terminal technique `succeeded` **≠** sémantique Product SUCCESS/STOP/FAIL | W3-B | Fermeture US-P1-05 mapping métier — **CANDIDATE CLOSE ON W3-B EXIT PASS** |
-+| W3A-D02 | Evidence / Review / Nora post-Evidence **non fermés** | W3-B + W3-C | Evidence+RB portion **CANDIDATE CLOSE ON W3-B EXIT** · Nora/replan **OPEN owner W3-C** |
- | W3A-D03 | Critical CycleInstance `proposed` sans API publique d’ack — EC cycle-linked confirm fail-closed (R-T-A3-1) | backlog / OA | Ne pas inventer AcknowledgeCriticalCycle ; path produit Standard primaire ; Critical agent_selection Confirmation harvestée pour Select — **OPEN** |
- | W3A-D04 | Preuve `/studio` Playwright R09 accepted→running→terminal | **CLOSED ON MAIN / proven after merge** — PASS · PR **#408** · push/main CI **`32703289053`** · captures 07/08/09 | Proven on main |
- | W2-CL-R04 | OPEN_NON_BLOCKING (carry) | Roadmap | Non bloquant W3-A — **OPEN_NON_BLOCKING** |
-@@ -199,11 +205,13 @@ W3 macro reste **ouvert** jusqu’à fermeture des slices backlog W3 (dont US-P1
- | W3-A project commit / branch push / PR #408 / merge | **CONSUMED** |
- | W3-A post-merge proof | **CONSUMED** — main CI **`32703289053` SUCCESS** |
- | Morris W3-A Closure Decision | **CONSUMED** |
--| Post-closure Roadmap/doc11 truth sync Git integration | **NOT CONSUMED** (local candidate only) |
--| GO W3-B | **NON CONSOMMÉ** |
-+| Post-closure Roadmap/doc11 truth sync Git integration | **CONSUMED** — PR **#409** merge `ba7aa2db…` · main CI **`32711277234` SUCCESS** |
-+| GO W3-B Delivery | **CONSUMED** — qualification **VALIDATED BY MORRIS** · delivery **IN PROGRESS** |
- | GO REAL | **NON CONSOMMÉ** |
- | FinOps/T7 | **FREEZE** |
-+| W3-B closure | **NON** |
- | W3 closure | **NON** |
-+| W3-C | **NOT STARTED** |
- | W4 | **OUT** |
- | Product Completion complete | **NON** |
- | runtime v3 ADOPTED | **NON** |
-@@ -212,12 +220,43 @@ W3 macro reste **ouvert** jusqu’à fermeture des slices backlog W3 (dont US-P1
-
- ## 7. Capacité suivante
-
--**W3-B** — terminal semantics Product (SUCCESS/STOP/FAIL) + Evidence business-first seam (US-P1-05 / US-P1-06) — **NEXT CAPABILITY CANDIDATE** — **REQUIRES CONVERGENCE REQUALIFICATION + DISTINCT MORRIS GO BEFORE DELIVERY**.
-+**W3-C** — Nora post-Evidence / LPS / Trajectory / Recovery / Replan (US-P1-07 + E2E) — **NOT STARTED**.
-
--**≠** autorisé par la seule fermeture W3-A · **≠** started · **≠** delivery next automatic.
-+**W3-B** remains the **active delivery slice** until ChatGPT review + distinct Morris Git integration GO.
-+
-+**≠** W3-B CLOSED by this readiness sync alone · **≠** W3 CLOSED · **≠** W3-C started.
-
- ---
-
- ## 8. Verdict readiness / closure
-
--**W3 DELIVERY READINESS = QUALIFIED** · GO Morris W3 **CONSUMED** · **W3-A CLOSED BY MORRIS / INTEGRATED ON MAIN** · Product Completion **INCOMPLETE** · W3 **IN PROGRESS / NOT CLOSED** · next = **W3-B REQUALIFICATION** · **W3-B NOT AUTHORIZED**.
-+**W3 DELIVERY READINESS = QUALIFIED** · GO Morris W3 **CONSUMED** · **W3-A CLOSED** · **W3-B DELIVERY AUTHORIZED / IN PROGRESS / NOT CLOSED** · Product Completion **INCOMPLETE** · W3 **IN PROGRESS / NOT CLOSED** · next downstream = **W3-C NOT STARTED**.
-+
-+## 1quinquies. Morris W3-B Delivery GO (consommée — synthèse)
-+
-+> **GO MORRIS — W3-B TERMINAL + EVIDENCE DELIVERY — IMPLEMENT VALIDATED W3-B QUALIFICATION — CONSUME W3-A CLOSED GOVERNED EXECUTE — US-P1-05 / US-P1-06 — FC-11 / FC-12 — REAL OUT — FINOPS FREEZE — W4 OUT — W3-C/D/E NOT STARTED — C6 CLOSED — RUNTIME V3 NON ADOPTED.**
-+
-+Cette décision **autorise** la construction locale W3-B. Elle **n’autorise pas** : W3-B CLOSED · W3 CLOSED · W3-C · REAL · W4 · FinOps unfreeze · runtime v3 ADOPTED · project commit/push/PR sans GO distinct post-review.
-+
-+### W3-B ChatGPT review → targeted correction (historique courant)
-+
-+| Fait | Valeur |
-+|---|---|
-+| Premier candidat | Review handoff `514f7731…` / blob `e2b3de74…` |
-+| Verdict ChatGPT | **CHANGES REQUIRED** — R-W3B-01…07 |
-+| Instruction Morris | « ok bon go correction avec ces dernières infos » — correction in place · **≠** GO commit/push/PR |
-+| Correction locale | Contract-aware FC-11 · SUCCESS honesty · governed STOP (EC stopCondition) · FAIL via TestExecutionAdapter · read-only rehydrate · true SQLite restart · generic Exécuter · `technicalResultRef` = resultRef only |
-+| Statut local actuel | **TARGETED CORRECTION CANDIDATE — READY FOR CHATGPT RE-REVIEW** *(historique · superseded)* |
-+| **≠** | W3-B CLOSED · W3 CLOSED · W3-C started · READY FOR REAL · runtime v3 ADOPTED |
-+
-+### W3-B RR-W3B-01…05 final targeted correction — STOP (courant)
-+
-+| Fait | Valeur |
-+|---|---|
-+| Input handoff | `fd4f1c95f7b6088c669ce2d85d1b7e6df5c8c6d7` / blob `f1e7f4fd2eba1a375ae209939259a0991cfb386d` |
-+| Instruction Morris | « ok go correction » — RR-W3B-01…05 only · **≠** GO commit/push/PR |
-+| RR-W3B-01 discovery | **NOT REPRESENTABLE** — no durable fact that each EC `expectedOutputs` item is semantically satisfied, nor that `evidenceRequirements` are met; ClaimEvaluation `claimStatement` is free-form; Evidence `verified` = integrity; RB `complete` = structural only |
-+| RR-W3B-02 discovery (secondary) | **NOT REPRESENTABLE** — post-accept runtime boundaries map to `failed` or non-terminal Start refuse; `cancelled`+governed STOP requires Cancel reason injection (synthetic arm / pilot token), not runtime-detected boundary |
-+| Action taken | **No invented SUCCESS/STOP seam** · no new store/schema/aggregate/policy · no C6 reopen · candidate code left without dishonest fix |
-+| Statut local actuel | **STOP — W3-B SUCCESS CONTRACT SATISFACTION FACT NOT REPRESENTABLE** |
-+| **≠** | W3-B CLOSED · READY FOR CHATGPT PASS · READY FOR REAL · W3-C started · runtime v3 ADOPTED |
+?? projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
 ```
 
-### Diffstat (includes prior uncommitted candidate + this docs sync)
-```
-.../evidence-review/adversarialValidation.test.ts  |  40 ++-
- .../ingestExecutionAttemptEvidence.test.ts         |  37 ++-
- .../importBoundaries.test.ts                       |   3 +
- .../surfaces/TrajectorySurface.module.css          |  29 ++
- .../surfaces/TrajectorySurface.tsx                 | 311 +++++++++++++++++++--
- .../app/features/project-assistant/w2/actions.ts   | 114 ++++++++
- .../w2/governedExecuteAuthorizedContract.ts        | 236 +++++++++++++++-
- .../app/features/project-assistant/w2/types.ts     |  50 ++++
- .../application/ingestExecutionAttemptEvidence.ts  |  77 ++++-
- .../app/lib/oa/evidence-review/domain/types.ts     |   4 +
- .../lib/vertical-slice-runtime/f3FixtureWiring.ts  |   4 +
- projects/sfia-studio/app/playwright.config.ts      |   2 +
- .../convergence/sfia-studio-convergence-roadmap.md |  16 +-
- ...product-completion-wave-3-delivery-readiness.md |  63 ++++-
- 14 files changed, 918 insertions(+), 68 deletions(-)
-```
+Only new architecture markdown under product-completion. No app/code.
 
-Note: Application code of prior R-W3B-01…07 candidate remains local uncommitted; this cycle did not invent a SUCCESS satisfaction seam or synthetic STOP fix.
+## 45. Staged set
 
-## 24. Tests exacts + résultats
-This STOP cycle: no new implementation tests required/run for RR-W3B-01 fix (none implemented).
-Prior candidate tests remain on disk but cannot be used to claim X-W3B-02 PASS under RR-W3B-01 honesty bar.
+EMPTY
 
-## 25. Captures + manifest
-No new honest SUCCESS/STOP captures produced this cycle (would be false proof). Prior captures under `.tmp-sfia-review/runtime-captures/w3-b-terminal-evidence/` are historical / insufficient under RR-W3B-01/02.
+## 46. No code modification proof
 
-## 26. W3-A regression
-Not re-executed this STOP cycle (no FC-10/W3-A code change). W3-A remains CLOSED BY MORRIS; candidate must not rewrite W3-A.
+Architecture worktree shows only untracked product-completion doc 12. No .ts/.tsx/SQL/migration changes.
 
-## 27. X-W3B-01…12 requalified matrix
-| Exit | Verdict | Proof |
-|---|---|---|
-| X-W3B-01 SINGLE FC-11 SEAM | NOT PROVEN / insufficient | Seam exists but SUCCESS policy dishonest under RR-W3B-01 |
-| X-W3B-02 SUCCESS HONESTY | BLOCKED / FAIL | EO/ER satisfaction fact missing |
-| X-W3B-03 STOP HONESTY | BLOCKED / FAIL | Only synthetic Cancel injection / pilot token |
-| X-W3B-04 FAIL HONESTY | NOT RE-PROVEN this cycle | Prior adapter_fail path remains candidate — not sufficient for W3-B PASS alone |
-| X-W3B-05 EVIDENCE EVERY TERMINAL | NOT PROVEN for honest SUCCESS/STOP | |
-| X-W3B-06 BUSINESS-FIRST REVIEW | NOT PROVEN (RR-W3B-05 not applied) | |
-| X-W3B-07 TRUE RESTART | Historical candidate only | Service restart exists; browser RR-W3B-04 incomplete |
-| X-W3B-08 W3-C COMPAT | NOT PROVEN | |
-| X-W3B-09 CATALOG GENERICITY | PASS | No new cycle switch |
-| X-W3B-10 LIFECYCLE HONESTY | PASS | No Cycle close / READY claims in this STOP cycle |
-| X-W3B-11 FAKE/REAL FIDELITY | FAIL if synthetic STOP kept | Discovery shows prior STOP was synthetic |
-| X-W3B-12 /studio PROOF | FAIL / NOT PROVEN | Cannot prove honest SUCCESS/STOP |
+## 47. No project commit/push/PR proof
 
-## 28. Debt/reserve matrix
-| ID | Status |
-|---|---|
-| W3A-D01 | OPEN — blocked by RR-W3B-01 representability |
-| W3A-D02 | Evidence/RB portion not candidate-closed; Nora = W3-C |
-| W3A-D03 | OPEN non-blocking |
-| W2-CL-R04 | OPEN_NON_BLOCKING |
-| PB-RES-REAL-01 | OPEN / TRACE ONLY |
-| NEW W3B-D01 | Missing durable EO/ER satisfaction fact — owner Morris/C6 decision — blocks W3-B SUCCESS honesty |
-| NEW W3B-D02 | No post-accept runtime to cancelled governed STOP without RTA5-08/structural change — owner Morris/C6 |
+Architecture branch not pushed. No project git commit. Handoff L3 publish is separate (sfia/review-handoff only).
 
-## 29. Roadmap/doc11 changes
-Updated to record exact STOP; prior READY FOR CHATGPT RE-REVIEW marked historique/superseded. No CLOSED claims.
+## 48. X-W3B-ARCH-01…16 matrix
 
-## 30. git diff --check
-PASS on Roadmap/doc11 (verified before publish).
+| ID | Result | Proof |
+| --- | --- | --- |
+| X-W3B-ARCH-01 | **PASS** | C1 preserved |
+| X-W3B-ARCH-02 | **PASS** | C2 SUCCESS/STOP/FAIL preserved |
+| X-W3B-ARCH-03 | **PASS** | FC-09/10/11/12 ownership preserved |
+| X-W3B-ARCH-04 | **PASS** | Repo: Memory CE; no EO/ER assessments |
+| X-W3B-ARCH-05 | **PASS** | Options A/B (+C rejected) |
+| X-W3B-ARCH-06 | **PASS** | Option A durable; no parallel engine |
+| X-W3B-ARCH-07 | **PASS** | Cancel/Start/RTA5-08/U2b inventory |
+| X-W3B-ARCH-08 | **PASS** | S1/S2/S3 compared |
+| X-W3B-ARCH-09 | **PASS** | Same Attempt cancelled + real guard facts |
+| X-W3B-ARCH-10 | **PASS** | Cancel / system STOP / FAIL distinct |
+| X-W3B-ARCH-11 | **PASS** | C6 CLOSED baseline consumed |
+| X-W3B-ARCH-12 | **PASS** | OA / Product SQLite / ports reused |
+| X-W3B-ARCH-13 | **PASS** | Restart/idempotence/audit/migration explicit |
+| X-W3B-ARCH-14 | **PASS** | W3-C/D/E/W4 bounded |
+| X-W3B-ARCH-15 | **PASS** | Future test contracts listed |
+| X-W3B-ARCH-16 | **PASS** | No application implementation |
 
-## 31. Final fileset tracked + untracked
-See section 5. Plus Roadmap/doc11 modified this cycle.
+## 49. Open reserves / debt
 
-## 32. Staged set
-```
-(empty)
-```
+- Product U2/U2b implementation remains C6 delivery debt
+- Dirty W3-B delivery candidate remains structurally blocked pending validation
+- Optional Morris decision: require running before STOP vs accept accepted->cancelled system STOP
+- Roadmap/doc11 truth sync deferred
 
-## 33. No project commit/push/PR proof
-HEAD remains `ba7aa2db408b7fd00faf9638da060ce0833b794b`. No project git add/commit/push/PR this cycle. Handoff L3 separately authorized.
+## 50. Final recommendation
 
-## 34. Blockers / reserves
-PRIMARY BLOCKER: STOP — W3-B SUCCESS CONTRACT SATISFACTION FACT NOT REPRESENTABLE
+After Morris validation: TD-W3B-01…04 as recommended (durable CE+EO/ER; FC-10 system stop use case; harvest U2/U2b; no parallel engines).
 
-SECONDARY BLOCKER (discovered): STOP — W3-B GOVERNED STOP PATH NOT REPRESENTABLE WITH CURRENT ADOPTED MODEL
+## 51. Morris decisions required
 
-RR-W3B-03/04/05 not started due to primary STOP.
+1. Validate/reject TD-W3B-01…04
+2. Confirm accepted->cancelled system STOP without lifecycle amendment
+3. Confirm M8 claim persistence vs Option B
+4. Later authorize Git integration of doc 12 then W3-B Delivery requalification
 
-## 35. Final verdict
-**STOP — W3-B SUCCESS CONTRACT SATISFACTION FACT NOT REPRESENTABLE**
+## 52. Final verdict
 
-## 36. Next gate
-Morris structural / product-definition decision (with ChatGPT advisory as needed):
-- either adopt durable EO/ER satisfaction evaluation (likely C6-sensitive), OR
-- requalify Product SUCCESS meaning in FA/C1/C2 authority documents,
-and separately resolve governed STOP representability (RTA5-08 / FC-10).
+**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — CANDIDATE READY FOR CHATGPT ARCHITECTURE REVIEW**
 
-Until then: no Cursor invention, no project Git integration GO, no W3-B CLOSED.
+## 53. Recommended next gate
 
-Anti-claims: != W3-B CLOSED · != US-P1-05/06 CLOSED · != W3 CLOSED · != READY FOR PROJECT GIT INTEGRATION · != READY FOR REAL · != W3-C STARTED · != PRODUCT COMPLETION COMPLETE · != RUNTIME V3 ADOPTED
+ChatGPT detailed architecture review -> Morris architecture validation/arbitration -> only then candidate Git integration -> post-merge truth -> W3-B Delivery requalification -> only then resume W3-B code correction.
+
+No automatic Delivery restart.
+
+---
+
+### State to preserve
+
+W1 CLOSED · W2 CLOSED · W3-A CLOSED · W3-B IN PROGRESS / STRUCTURALLY BLOCKED · W3 IN PROGRESS / NOT CLOSED · W3-C/D/E NOT STARTED · C6 CLOSED · REAL OUT · FINOPS FREEZE · W4 OUT · PRODUCT COMPLETION INCOMPLETE · RUNTIME V3 NON ADOPTED
