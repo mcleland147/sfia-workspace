@@ -1,14 +1,14 @@
-# SFIA Studio — W3-B Delivery Correction Pass 2 — Review Pack FULL
+# SFIA Studio — W3-B TD-W3B-02 Bound Contract Material Clarification — Review Pack FULL
 
-**Cycle 8 · CRITICAL · INC · Result proof correction (C07–C10 + R01 reserve)**
+**Cycle 6 · CRITICAL · DOC · Architecture technique — targeted clarification**
 
-Timestamps: **2026-08-24 23:25 CEST** · **2026-08-24 21:25 UTC**
+Timestamps: **2026-08-24 23:35 CEST** · **2026-08-24 21:35 UTC**
 
 ---
 
-## Morris GO (consumed)
+## Morris decision (exact — consumed)
 
-GO MORRIS — W3-B DELIVERY CORRECTION PASS 2 — SAME US-P1-05/06 — PRESERVE `0b1e50a5` AS REVIEWED CHECKPOINT — NEW LOCAL CORRECTION COMMIT ONLY — FIX IMMUTABLE EC BINDING + CONTRACT RESULT HUMAN CONFIRM DERIVATION + EVIDENCE VALIDITY FAIL-CLOSED + NOT_PROVEN MATERIALIZATION — PRESERVE FROZEN RB / STOP / CANCEL / /studio PROOFS — NO ARCHITECTURE REOPEN — NO DOC MUTATION — NO PUSH/PR/M/MERGE — C6 CLOSED — REAL OUT — FINOPS FREEZE — W4 OUT — RUNTIME V3 NON ADOPTED.
+MORRIS DECISION — W3-B TD-W3B-02 BOUND CONTRACT MATERIAL — OPTION B ADOPTED — EXECUTIONATTEMPT CAPTURES AT ACCEPTANCE AN IMMUTABLE CANONICAL SNAPSHOT OF THE BOUND EXECUTIONCONTRACT SEMANTIC MATERIAL USING THE EXISTING executionContractSemanticMaterial() REPRESENTATION + BOUND EC VERSION + SEMANTIC FINGERPRINT — EXISTING ATTEMPT PRODUCT-SQLITE PAYLOAD ONLY — EXECUTIONCONTRACT REMAINS THE SINGLE CURRENT LIFECYCLE SoT — SNAPSHOT IS HISTORICAL BINDING EVIDENCE, NOT A SECOND EC — NO LATEST-EC CROSS-VERSION MATCHING — NO AUTO-MIGRATION — NO EC HISTORY REPOSITORY — NO SEMANTIC-VERSION REDESIGN — C6 CLOSED — W1/W2/W3-A CLOSED — W3-B CURRENT / NOT CLOSED — W4 OUT — RUNTIME V3 NON ADOPTED.
 
 ---
 
@@ -16,1459 +16,483 @@ GO MORRIS — W3-B DELIVERY CORRECTION PASS 2 — SAME US-P1-05/06 — PRESERVE 
 
 | Item | Value |
 | --- | --- |
+| Repository | `mcleland147/sfia-workspace` |
 | origin/main | `a71d9413e0435a8252ab4c695163b67354d193aa` |
-| Branch | `delivery/sfia-studio-product-completion-w3-b-td-reconciled` |
-| Worktree | `/Users/morris/Projects/sfia-workspace-w3b-delivery-restart` |
-| Pass 1 reviewed checkpoint (preserved) | `0b1e50a5f6b5fb0c84c3015a5f3390fa139cfc09` |
-| Pass 2 correction commit | `756cda50e03b177ef6e41f52b6d43ab9e232efe2` |
-| Parent verified | `0b1e50a5f6b5fb0c84c3015a5f3390fa139cfc09` |
-| Prior checkpoint | `0ef57e73ed28e83c849962117a0a8566d0da8074` |
-| Project push | NOT performed |
-| PR / merge | NOT authorized |
-
-### Historical harvest source (read-only integrity)
-
-| Item | Value |
-| --- | --- |
-| Path | `/Users/morris/Projects/sfia-workspace` |
-| Branch | `delivery/sfia-studio-product-completion-w3-b-terminal-evidence` |
-| HEAD | `ba7aa2db408b7fd00faf9638da060ce0833b794b` |
-| Mutated this cycle | **NO** (read-only verified pre/post) |
+| Branch | `docs/sfia-studio-w3-b-td-w3b-02-bound-material-clarification` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-w3b-td02-clarification` |
+| Base | `a71d9413e0435a8252ab4c695163b67354d193aa` (exact `origin/main`) |
+| W3-B Delivery candidate (read-only reference) | `756cda50e03b177ef6e41f52b6d43ab9e232efe2` on `delivery/sfia-studio-product-completion-w3-b-td-reconciled` |
+| Delivery worktree | **NOT mutated** |
+| Project push / PR / merge | **NOT authorized** |
 
 ---
 
 ## Mandatory sources loaded
 
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-- `projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md`
-- `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md`
-- `projects/sfia-studio/product-completion/05-product-completion-backlog-user-stories.md`
-- `projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md`
-- `projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md`
-- `projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md`
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- Prior handoff `02652a85124a467bd0b3fcff445d8d5999b13fab` (blob `e3564960c330f7b0b0675ed9548bfa1bbea7cd82`)
+- Convergence: build doctrine + roadmap (main baseline)
+- Product completion: docs 01–12, UX experience architecture
+- v3 framing: 32, 34, 35, 37
+- Process: cycle execution template, routing guide
+- Runtime read-only: `semanticFingerprint.ts`, EC/Attempt types, `sqliteExecutionAttemptRepository.ts`
+- Latest W3-B Delivery handoff: `d1a611b0` / blob `43b1dfab…` — Pass 2 candidate `756cda50` + TD-W3B-02 structural blocker confirmed
 
 ---
 
-## ChatGPT Pass 1 findings consumed (Pass 2 targets)
+## Vertical C1 → W4 validation
 
-| ID | Pass 1 defect (`0b1e50a5`) | Pass 2 fix (`756cda50`) |
-| --- | --- | --- |
-| **R-W3B-C07** | `withAttemptContractBindingSync` moved Attempt `executionContractVersion` after lifecycle/OCC bumps — not immutable | Removed sync helper entirely; binding captured once at accept; never mutated post-acceptance |
-| **R-W3B-C08** | Generic `ConfirmClaimEvaluation` → unconditional global `pass` after authority | Contract-result branch re-derives status from EO/ER assessments; refuses confirm unless derived `pass`; stamps `reviewConfirmation` on assessments |
-| **R-W3B-C09** | `evidenceMatchesFrozenSnapshot` only checked id/version/availability | Added `isW3bContractResultEvidenceUsable` — status ∈ {available, verified}, freshness not stale/unknown, snapshot consistency |
-| **R-W3B-C10** | No applicable rule → `CLAIM_EVALUATION_INVALID` / `contract_result_rule_not_applicable` | Persists durable CE `status=not_proven`, no `ruleRef`, claimStatement `no_applicable_contract_result_rule` |
-| **R-W3B-R01** | EO template vs trajectory prose (Pass 1 change) | **Qualified, not reverted** — see reserve section |
-
----
-
-## EC version-transition matrix (mapped before correction)
-
-Repository behavior traced from `execution-contract` + `execution-attempt` application layer. T-A5 pattern: **each persisted EC status transition increments `version` by 1**; **`semanticFingerprint` is computed from semantic material fields and unchanged on pure lifecycle/OCC writes** unless action/target/scope/capabilities/EO/ER materially change (supersede/amend paths).
-
-| Transition | Incoming EC.version | Outgoing EC.version | semanticFingerprint | expectedOutputs / evidenceRequirements | Semantic vs OCC |
-| --- | --- | --- | --- | --- | --- |
-| **Prepare** (`buildExecutionContract`) | — | 1 | computed at create | from execution basis / server template | semantic create |
-| **Inspect** (`recordContractInspection`) | n | n (attestation separate) | unchanged on contract row | unchanged | attestation only |
-| **Validate** (`validateExecutionContract`) | n | n+1 | unchanged | unchanged | lifecycle/OCC |
-| **Confirm** (`confirmExecutionContract`) | n | n+1 | unchanged | unchanged | lifecycle/OCC |
-| **Authorize** (authority verification receipt) | n | n (receipt separate) | unchanged on contract | unchanged | receipt only |
-| **Select agent / accept Attempt** (`selectExecutionAgent`) | n | n (no EC write) | **bound on Attempt** | Attempt stores `executionContractVersion=n`, `executionContractSemanticFingerprint` | **immutable binding capture** |
-| **Start** (`startExecution`) | n | n (no EC write at accept) | unchanged | unchanged | **Start gate still requires `contract.version === attempt.executionContractVersion` at launch instant** |
-| **Record success** (`recordExecutionResult`) | n | n+1 typical | unchanged | unchanged | lifecycle/OCC — **Pass 2: no Attempt version sync** |
-| **Record failure** (`recordExecutionFailure`) | n | n+1 typical | unchanged | unchanged | lifecycle/OCC — **no Attempt sync** |
-| **Cancel attempt** (`cancelExecutionAttempt`) | n | may bump EC separately | unchanged unless amended | unchanged | **no Attempt sync** |
-| **System governed stop** (`systemGovernedStop`) | n | may bump EC | unchanged unless amended | unchanged | **no Attempt sync** |
-| **Cancel EC** (`cancelExecutionContract`) | n | n+1 | unchanged | unchanged | lifecycle/OCC |
-| **Supersede / amend** (`supersedeExecutionContract`) | — | new EC v1 | **new fingerprint** | may change EO/ER | semantic amendment → old Attempt binding stale |
-
-**Pass 1 defect:** post-terminal execution paths called `withAttemptContractBindingSync`, rewriting Attempt `executionContractVersion` to latest EC.version — violating TD-W3B-02 immutable binding.
-
-**Pass 2 correction:** Attempt binding frozen at accept; Contract Result evaluation uses **immutable Attempt version in bindings** + **fingerprint-gated latest EC payload** (Solution B/C hybrid — no EC-history aggregate).
-
----
-
-## R-W3B-C07 — Immutable EC binding implementation
-
-### Design
-
-1. **Capture once** at `selectExecutionAgent` accept:
-   - `executionContractId`
-   - `executionContractVersion` (= `contract.version` at accept)
-   - `executionContractSemanticFingerprint`
-
-2. **Remove** `withAttemptContractBindingSync` from `execution-attempt/domain/types.ts` and all call sites:
-   - `startExecution.ts`
-   - `recordExecutionResult.ts`
-   - `recordExecutionFailure.ts`
-   - `cancelExecutionAttempt.ts`
-   - `systemGovernedStop.ts`
-
-3. **`isAttemptContractImmutablyBound`** (`contractResultTypes.ts`):
-   - Requires matching id + fingerprint between Attempt and latest EC repository row
-   - Does **not** require latest EC.version === Attempt.version (lifecycle drift after binding allowed for evaluation)
-   - Fingerprint mismatch → fail-closed (semantic amendment / supersede)
-
-4. **`contractResultBindingsMatchCurrentFacts`**:
-   - Binds CE to Attempt's **immutable** `executionContractVersion` (not latest EC.version)
-   - Revalidates fingerprint via `isAttemptContractImmutablyBound`
-
-### Bound EC material resolution (no new architecture)
-
-**Mechanism:** Latest EC repository payload **gated by fingerprint equality** with Attempt-bound fingerprint. No version-tolerance, no sync-forward, no fake historical EC object.
-
-- If fingerprint matches: semantic material (EO/ER/action/capabilities) read from latest EC row is the same semantic contract the Attempt bound to.
-- If fingerprint differs: assessment context invalid → NOT_PROVEN / binding errors — old CE cannot PASS against amended EC.
-
-**Not used:** EC version history aggregate, cross-version equivalence, compare-against-latest ignoring version.
-
-### Proof no post-accept binding mutation
-
-- Grep: `withAttemptContractBindingSync` → **0 matches**
-- Terminal lifecycle handlers no longer assign `attempt.executionContractVersion = contract.version`
-- Test: `contractResultEvaluation.test.ts` — "immutable binding accepts lifecycle version drift when fingerprint matches" + rejects fingerprint mismatch
-
----
-
-## R-W3B-C08 — Contract Result human confirmation derives status
-
-### Prior defect
-
-Authorized human confirm on `execution_contract_result` could reach global `status: pass` without all EO PASS + ER SATISFIED.
-
-### After
-
-`confirmClaimEvaluation.ts` contract-result branch:
-
-1. Validates `contractResultReviewPolicyRef === W3B_CONTRACT_RESULT_REVIEW_POLICY_REF`
-2. Revalidates frozen RB + evidence (existing fail-closed path preserved)
-3. **Deterministic** contract-result → refused (`contract_result_deterministic_no_human_confirm`)
-4. Calls `inferAttemptStatusFromContractResultAssessments` + `deriveCanonicalContractResultStatus`
-5. If `derivedStatus !== "pass"` → refuse (`contract_result_confirm_derived_not_pass`)
-6. Only then sets global `pass` and stamps `reviewConfirmation` on each EO/ER assessment
-
-**Per-item reviewConfirmation:** Optional field on `ExpectedOutputAssessment` / `EvidenceRequirementAssessment`; populated on successful confirm. Human cannot mint PASS from NOT_PROVEN assessments — confirm only eligible when structured assessments already derive pass.
-
-**Generic structural Morris path:** unchanged (guarded by `subjectKind !== execution_contract_result`).
-
-### Tests (`contractResultCorrectionPass2.test.ts`)
-
-- Assisted confirm with NOT_PROVEN EO → refused
-- Derived pass path with pre-PASS assessments + confirm → allowed
-- Deterministic contract-result confirm → refused
-- Wrong/missing policyRef → fail-closed
-
----
-
-## R-W3B-C09 — Evidence validity contract
-
-### W3-B bounded evaluator filter (`isW3bContractResultEvidenceUsable`)
-
-| Snapshot status | Evidence status | availability | freshness | ER SATISFIED eligible |
-| --- | --- | --- | --- | --- |
-| available | available | available | fresh | yes (if semantic facts hold) |
-| verified | verified | available | fresh | yes |
-| stale | any | available | stale | **no → NOT_PROVEN** |
-| rejected | rejected | available | fresh | **no → NOT_PROVEN** |
-| superseded | superseded | available | fresh | **no → NOT_PROVEN** |
-| incomplete | incomplete | available | fresh | **no → NOT_PROVEN** |
-| expected | expected | available | fresh | **no → NOT_PROVEN** |
-| available | available | unavailable | fresh | **no → NOT_PROVEN** |
-| available | available | unknown | fresh | **no → NOT_PROVEN** |
-| id/version mismatch | — | — | — | **no → NOT_PROVEN** |
-
-`evidenceMatchesFrozenSnapshot` delegates to `isW3bContractResultEvidenceUsable`.
-
----
-
-## R-W3B-C10 — NOT_PROVEN materialization
-
-### Prior defect
-
-`EvaluateContractResult` returned error when `resolveApplicableContractResultRule` → not applicable.
-
-### After
-
-When request structurally valid (EC/Attempt/RB/Evidence bindings OK) but no applicable rule:
-
-- Persist CE: `status: not_proven`
-- EO/ER assessments: NOT_PROVEN
-- **No `ruleRef`** on CE (honest — no fake evaluator)
-- `claimStatement` includes `no_applicable_contract_result_rule` via `buildContractResultClaimStatement`
-- Idempotency fingerprint uses Attempt-bound version + fingerprint
-- Survives restart (SQLite durability via existing ClaimEvaluation repo)
-
-True invalidity (wrong ids, corrupt bindings, unfrozen RB) still returns application ERROR.
-
----
-
-## R-W3B-R01 — Business expectedOutcome reserve
-
-**Question A:** Is `executionBasis.expectedOutcome` a contractual business expectation inside EC `expectedOutputs`?
-
-**Question B:** Is it trajectory/intention prose while bounded technical EC expectation is the server-owned EO template?
-
-**Conclusion (B — current implementation correct, do not revert Pass 1):**
-
-- Trajectory / human-decision surfaces carry intention prose (`expectedOutcome`) for UX and governance narrative.
-- W3-A/W3-B bounded product path uses **server-owned canonical EO template** (`W3B_TEMP_ARTIFACT_EO_TEMPLATE`) in EC `expectedOutputs` for deterministic Contract Result evaluation.
-- C1/C2/FA adopt bounded product operations with explicit server evaluator — not free-text NLP matching.
-- Replacing trajectory prose in EC would reintroduce ARCH-R02 trust defect; duplicating as second EO would expand domain model (forbidden).
-
-**Verdict:** Reserve satisfied — **no BLOCKED: BUSINESS EXPECTATION REPRESENTATION CONFLICT**.
-
----
-
-## Architecture parallelism search (final candidate `756cda50`)
-
-| Prohibited pattern | Result |
+| Layer | Alignment |
 | --- | --- |
-| `withAttemptContractBindingSync` | **absent** |
-| `TA5_STATUS_VERSION_DRIFT_MAX` | **absent** |
-| Post-accept Attempt version mutation | **absent** |
-| `contract_result_rule_not_applicable` as normal inability-to-prove | **absent** (NOT_PROVEN CE instead) |
-| resultRef alone PASS | **absent** (evaluator facts required) |
-| Evidence available alone SATISFIED | **absent** (status/freshness filter) |
-| authorized_human → unconditional pass (contract-result) | **absent** (derive gate) |
-| ProductOutcome aggregate | **absent** |
-| StopEngine / GuardEngine | **absent** |
-| Alternate /studio route | **absent** |
-| New authority DSL | **absent** |
+| **C1 O-07…O-12** | Continuity/restart requires exact bound contract truth — Option B strengthens O-07/O-08/O-11 without new product concepts |
+| **C2 L→…→W** | Snapshot captured after W2 authorization boundary; no HumanDecision/Trajectory reopen |
+| **FA FC-08→FC-13** | FC-10 Attempt owns binding snapshot; FC-11 consumes CE+Attempt; FC-12 does not own EC lifecycle; no second engine |
+| **Backlog W3** | Execute/Prove/Replan unchanged; W3-B blocker closed at architecture level only |
+| **W4** | Internal honesty for S7/S8/S9/S10/S12; no new Product surface |
+| **v3 V3-F02/F06/F09/F11/F12/F14/F15** | Continuity, trajectory, replan, execution governance, evidence completeness, anti-claims — all compatible |
 
 ---
 
-## Modified files (exact)
+## Architectural contradiction (Delivery-evidenced)
 
+1. `ExecutionContract.version` = lifecycle/OCC revision counter (increments on validate/confirm/cancel/terminal paths).
+2. `semanticFingerprint` = hash of `executionContractSemanticMaterial()` — **excludes** `status` and `version`.
+3. Attempt binds `executionContractVersion` at accept.
+4. Post-accept lifecycle may bump EC.version without fingerprint change.
+5. Repository has **no** historical EC lookup by exact version.
+6. **Therefore:** Attempt@EC vN + latest EC vN+k (same fingerprint) **≠** exact bound material required by TD-W3B-02.
+7. Pass 2 Delivery fingerprint-gated latest-EC reads = **forbidden cross-version matching**.
+
+### Runtime evidence — semanticFingerprint.ts
+
+```typescript
+export type ExecutionContractSemanticMaterial = {
+  executionContractId: string;
+  projectId: string;
+  // ... action, target, scope, expectedOutputs, evidenceRequirements, etc.
+  // excludes status, version
+};
+
+export function executionContractSemanticMaterial(contract: Pick<ExecutionContract, ...>): ExecutionContractSemanticMaterial { ... }
+
+export function computeExecutionContractSemanticFingerprint(contract): string {
+  const material = executionContractSemanticMaterial(contract);
+  return sha256(canonicalizeJson(material));
+}
 ```
-projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultCorrectionPass2.test.ts  (new)
-projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultEvaluation.test.ts
-projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
-projects/sfia-studio/app/lib/oa/evidence-review/application/confirmClaimEvaluation.ts
-projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultAssessment.ts
-projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultSemanticEvaluator.ts
-projects/sfia-studio/app/lib/oa/evidence-review/application/evaluateContractResult.ts
-projects/sfia-studio/app/lib/oa/evidence-review/domain/contractResultTypes.ts
-projects/sfia-studio/app/lib/oa/execution-attempt/application/cancelExecutionAttempt.ts
-projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
-projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionResult.ts
-projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-projects/sfia-studio/app/lib/oa/execution-attempt/application/systemGovernedStop.ts
-projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
+
+### Runtime evidence — Attempt persistence
+
+- Domain: `ExecutionAttempt.executionContractVersion` at accept (`types.ts`)
+- Store: Product SQLite `oa_execution_attempts.payload_json` full Attempt JSON (`sqliteExecutionAttemptRepository.ts`)
+- **No** EC history table; **no** `findByIdAndVersion`
+
+---
+
+## Options A / B / C
+
+| Option | Summary | Decision |
+| --- | --- | --- |
+| **A** | Global semantic version separate from OCC | Not selected now — W2 blast radius; not permanently rejected |
+| **B** | Attempt-bound immutable snapshot at accept | **ADOPTED** |
+| **C** | EC history repository | Not selected — new persistence breadth; C6 impact |
+
+---
+
+## Option B — canonical snapshot contract
+
+```text
+ExecutionAttempt.boundExecutionContract:
+  executionContractSchemaVersion
+  executionContractVersion      # exact at acceptance
+  semanticFingerprint           # exact at acceptance
+  semanticMaterial              # executionContractSemanticMaterial(contract) at acceptance
 ```
 
-**Stat:** 14 files, +523 / −184 lines (`0b1e50a5..756cda50`)
+---
+
+## Ownership / SoT matrix
+
+| Aggregate | Role |
+| --- | --- |
+| ExecutionContract | Sole **current** mutable lifecycle SoT |
+| boundExecutionContract on Attempt | Immutable historical binding evidence |
+| ClaimEvaluation | Consumes bound snapshot for Contract Result |
+| FC-11 | Never evaluates latest EC heuristically |
+| FC-12 | Does not own EC lifecycle |
 
 ---
 
-## Validation commands / results
+## Binding / cross-version semantics
 
-| Gate | Command | Result |
+- Assessment uses **bound snapshot only** — no latest-EC substitution
+- Lifecycle OCC bump on current EC does **not** mutate Attempt binding
+- Amended/superseded EC: prior Attempt/CE valid only for prior snapshot; prior CE cannot satisfy new EC/Attempt
+- No version drift tolerance; no auto-migration
+
+---
+
+## Historical Attempts / persistence / parallelism
+
+- **No backfill** — missing snapshot → fail-closed NOT_PROVEN/UNCLAIMED (R-TD02-01)
+- **Persistence:** additive Attempt `payload_json` field only — no new table/DB (C6 CLOSED)
+- **No parallel architecture:** not a second EC, not EC history, not ProductOutcome, not Stop Engine
+
+---
+
+## Downstream impact (summary)
+
+| Wave | Impact |
+| --- | --- |
+| W1/W2/W3-A | No reopen |
+| W3-B | Architecture blocker closed; Delivery must persist snapshot + re-prove X-W3B-01…12 |
+| W3-C/D/E/W4/REAL/runtime v3 | As documented in DOC12 §11 |
+
+---
+
+## Debt / exits
+
+| ID | Reserve | Exit |
 | --- | --- | --- |
-| typecheck | `npm run typecheck` | PASS |
-| full Vitest | `npm test` | **2055 passed** (218 files) |
-| lint | `npm run lint` | PASS |
-| build | `npm run build` | PASS |
-| W3-B targeted | `contractResultCorrectionPass2.test.ts`, `contractResultEvaluation.test.ts`, W3-B integration | PASS |
-| W3-A regression | existing suite | PASS (no regressions) |
-| frozen RB regression | existing suite | PASS |
-| STOP/cancel regression | existing suite | PASS |
-| Playwright W3-B | `studio-w3b-terminal-evidence-runtime.spec.ts` (3 scenarios) | **3/3 PASS** |
-| git diff --check | pre-commit | PASS (no whitespace errors) |
+| R-TD02-01 | Historical Attempts lack snapshot | Fail-closed; no backfill for W3-B |
+| R-TD02-02 | Material duplication in Attempt payload | Accepted; not second mutable SoT |
+| R-TD02-03 | Future semantic material schema change | Versioning responsibility; not W3-B blocker |
 
 ---
 
-## Playwright / runtime captures
+## Modified project files (exactly two)
 
-**Capture root:** `.tmp-sfia-review/runtime-captures/w3-b-correction-2/`
+1. `projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md`
+2. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 
-| id | scenario | productOutcome |
-| --- | --- | --- |
-| 01-execution-before-claim | SUCCESS pre-claim | — |
-| 02-success-business-first | SUCCESS | SUCCESS |
-| 03-success-evidence-details | SUCCESS detail | SUCCESS |
-| 06-reload-durable-outcome | SUCCESS reload | SUCCESS |
-| 04-governed-stop-business-first | GOVERNED_STOP | STOP |
-| 05-adapter-fail-business-first | ADAPTER_FAIL | FAIL |
-
-**Manifest:** `manifest.jsonl` (6 entries, proofLevel DETERMINISTIC_PRODUCT_NATIVE, NOT REAL)
+**Stat:** 2 files, +176 / −22 lines
 
 ---
 
-## X-W3B-01…12 requalification (from scratch)
+## Wave / gate states
 
-| ID | Focus | Verdict |
-| --- | --- | --- |
-| X-01 | Semantic SUCCESS only with applicable rule + usable Evidence | **PASS** — evaluator + evidence usability + immutable binding + frozen RB + CE pass |
-| X-02 | Ordinary inability to prove → durable NOT_PROVEN | **PASS** — unknown action persists not_proven CE |
-| X-03 | FAIL distinct | **PASS** — adapter fail → FAIL, not STOP/NOT_PROVEN confusion |
-| X-04 | system STOP same Attempt | **PASS** — governed stop preserved, no Attempt version sync |
-| X-05 | cancel/block distinctions | **PASS** — USER_CANCEL vs SYSTEM_GOVERNED_STOP preserved |
-| X-06 | Evidence + frozen RB before claim | **PASS** — freeze→evaluate path unchanged |
-| X-07 | business-first UX | **PASS** — Playwright captures business-first terminals |
-| X-08 | restart honesty incl. immutable binding + NOT_PROVEN | **PASS** — reload capture + unit proofs |
-| X-09 | zero cross-version migration | **PASS** — sync helper removed; no tolerance constant |
-| X-10 | server evaluator + human confirm derives safely | **PASS** — derive gate on confirm |
-| X-11 | canonical /studio | **PASS** — same route, QA env bounded |
-| X-12 | no parallel architecture | **PASS** — search clean |
+| Gate | State |
+| --- | --- |
+| W1 / W2 / W3-A | CLOSED BY MORRIS |
+| W3 | IN PROGRESS / NOT CLOSED |
+| W3-B | CURRENT / NOT CLOSED |
+| W3-C/D/E | NOT STARTED |
+| C6 | CLOSED |
+| REAL | OUT |
+| FinOps/T7 | FREEZE |
+| W4 | OUT |
+| runtime v3 | NON ADOPTED |
 
 ---
 
-## Fake / Real
+## Next gate
 
-- All runtime captures: **NOT REAL** (local Playwright, bounded QA control)
-- REAL OUT — no REAL promotion
-
----
-
-## Debt / reserves
-
-- R-W3B-R01 documented (trajectory prose vs server EO template) — no domain expansion
-- Start gate still requires exact EC.version at launch instant (pre-existing); post-start lifecycle drift handled via fingerprint gate for Contract Result only
-- No EC version history repository — fingerprint gate is adopted bounded mechanism per TD-W3B-02 stop-condition analysis
-
----
-
-## W3-B OUT proof
-
-W3-B **NOT CLOSED** — awaiting ChatGPT review of Pass 2 correction commit `756cda50`.
-
-Candidate now closes Pass 2 proof gaps C07–C10; prior Pass 1 behavior C01–C06 preserved.
+ChatGPT review of architecture clarification → integrate/review-clean → resume same W3-B Delivery candidate correction (implement Option B snapshot + re-prove X-W3B-01…12).
 
 ---
 
 ## Verdict
 
-**READY FOR REVIEW** — new local commit `756cda50` above preserved checkpoint `0b1e50a5`; no push/PR/merge; historical harvest unchanged.
+**READY FOR REVIEW** — Morris Option B recorded in DOC12 + Roadmap; no code; no Delivery mutation; local project commit only.
 
 ---
 
-## Complete useful diff (`0b1e50a5` → `756cda50`)
-
-See embedded patch below (also at `.tmp-sfia-review/w3b-pass2-correction-diff.patch`).
+## Complete useful diff
 
 ```diff
-diff --git a/projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultCorrectionPass2.test.ts b/projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultCorrectionPass2.test.ts
-new file mode 100644
-index 00000000..64ce39a6
---- /dev/null
-+++ b/projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultCorrectionPass2.test.ts
-@@ -0,0 +1,336 @@
-+/**
-+ * W3-B correction pass 2 — C07/C08/C09/C10 proofs.
-+ * @vitest-environment node
-+ */
-+import { describe, expect, it } from "vitest";
-+import { EvaluateContractResult } from "@/lib/oa/evidence-review/application/evaluateContractResult";
-+import { ConfirmClaimEvaluation } from "@/lib/oa/evidence-review/application/confirmClaimEvaluation";
-+import {
-+  assessEvidenceRequirements,
-+  deriveCanonicalContractResultStatus,
-+} from "@/lib/oa/evidence-review/application/contractResultAssessment";
-+import {
-+  isW3bContractResultEvidenceUsable,
-+} from "@/lib/oa/evidence-review/application/contractResultSemanticEvaluator";
-+import {
-+  CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
-+  W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
-+  buildContractResultItemId,
-+} from "@/lib/oa/evidence-review/domain/contractResultTypes";
-+import {
-+  W3B_TEMP_ARTIFACT_EO_TEMPLATE,
-+} from "@/lib/oa/evidence-review/application/contractResultSemanticEvaluator";
-+import { CLAIM_EVALUATION_SCHEMA_VERSION } from "@/lib/oa/evidence-review/domain/claimEvaluationTypes";
-+import type { ExecutionContract } from "@/lib/oa/execution-contract";
-+import type { Evidence } from "@/lib/oa/evidence-review";
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+index 364ec831..07be7318 100644
+--- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
++++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+@@ -6,8 +6,9 @@
+ | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
+ | **Doctrine cible** | SFIA Studio v3 framing `30`–`37` (destination produit) |
+ | **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
+-| **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; ce document **≠** embed permanent `origin/main` HEAD)* · **Référence de maintenance / W3-B POST-MERGE** = `origin/main` @ `bcc39fba04664edc09fca782e61e5f5e70a45d35` (merge PR **#410** W3-B Targeted Technical Architecture) · PR head `cbad09d54518c56d9fd894a788e55b53d2b6b5a5` · PR-head CI **`32764582915` SUCCESS** · push/main CI **`32765431464` SUCCESS** · prior W3-A post-closure `ba7aa2db408b7fd00faf9638da060ce0833b794b` · **W2 CLOSED BY MORRIS** · **W3-A CLOSED BY MORRIS** · **W3-B targeted architecture ADOPTED BY MORRIS / INTEGRATED ON MAIN** · TD-W3B-01…04 **ADOPTED** · ARCH-R01…ARCH-R06 **REVIEW-CLEAN** · Option A **ADOPTED** · Option S2 **ADOPTED** · **W3 IN PROGRESS / NOT CLOSED** · **W3-B CURRENT CAPABILITY / NOT CLOSED** · W3-B Delivery **NOT RESTARTED / REQUALIFICATION REQUIRED** · W3-C/D/E **NOT STARTED** · C6 **CLOSED** · REAL **OUT / NOT CONSUMED** · FinOps/T7 **FREEZE** · W4 **OUT / NOT STARTED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE / NON TERMINÉE** · **≠** W3 CLOSED · **≠** W3-B complete · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED |
+-| **Timestamp maintenance courant** | 2026-08-24 21:07 CEST (+0200) — **W3-B POST-MERGE TRUTH SYNC** — PR **#410 MERGED** · merge `bcc39fba04664edc09fca782e61e5f5e70a45d35` · head `cbad09d54518c56d9fd894a788e55b53d2b6b5a5` · PR-head CI **`32764582915` SUCCESS** · push/main CI **`32765431464` SUCCESS** · TD-W3B-01…04 **ADOPTED / INTEGRATED ON MAIN** · post-merge DOC12 + Roadmap truth **represented in merge-stable form** · repository transport/integration state **RESOLVE FROM GIT / PR EVIDENCE** · W3-B Delivery **NOT RESTARTED** · W3 **IN PROGRESS / NOT CLOSED** · REAL **OUT** · FinOps/T7 **FREEZE** · W4 **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **≠** W3 CLOSED · **≠** W3-B complete · **≠** READY FOR REAL |
++| **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; ce document **≠** embed permanent `origin/main` HEAD)* · **Référence de maintenance courante** = `origin/main` @ `a71d9413e0435a8252ab4c695163b67354d193aa` · **W2 CLOSED BY MORRIS** · **W3-A CLOSED BY MORRIS** · **W3-B targeted architecture ADOPTED BY MORRIS / INTEGRATED ON MAIN** (PR **#410**) · **TD-W3B-02 Option B (bound snapshot) ADOPTED BY MORRIS — architecture clarification Cycle 6 DOC** · TD-W3B-01…04 **ADOPTED** · ARCH-R01…ARCH-R06 **REVIEW-CLEAN** · Option A **ADOPTED** · Option S2 **ADOPTED** · **W3 IN PROGRESS / NOT CLOSED** · **W3-B CURRENT CAPABILITY / NOT CLOSED** · W3-B Delivery **restarted under Morris** · local reviewed candidate **`756cda50`** · TD-W3B-02 structural blocker **closed at architecture level** · **implementation + re-proof still required** · clarification **must be review-clean before resuming same Delivery correction** · W3-C/D/E **NOT STARTED** · C6 **CLOSED** · REAL **OUT / NOT CONSUMED** · FinOps/T7 **FREEZE** · W4 **OUT / NOT STARTED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE / NON TERMINÉE** · **≠** W3 CLOSED · **≠** W3-B complete · **≠** READY FOR REAL |
++| **Timestamp maintenance courant** | 2026-08-24 23:35 CEST (+0200) — **W3-B TD-W3B-02 OPTION B ARCHITECTURE CLARIFICATION** — Morris Option B **ADOPTED** · Attempt-bound immutable canonical EC semantic snapshot · existing `executionContractSemanticMaterial()` · existing Attempt Product SQLite payload only · **no** latest-EC cross-version matching · **no** EC history repository · W3-B Delivery Pass 2 candidate `756cda50` exposed structural contradiction · architecture blocker **closed at DOC level** · Delivery correction **NOT resumed in this cycle** · W3 **IN PROGRESS / NOT CLOSED** · W3-B **NOT CLOSED** · C6 **CLOSED** · REAL **OUT** · FinOps/T7 **FREEZE** · W4 **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **≠** W3-B closure · **≠** W3-C start |
++| **Timestamp maintenance historique W3-B POST-MERGE TRUTH SYNC** | 2026-08-24 21:07 CEST (+0200) — **W3-B POST-MERGE TRUTH SYNC** — *(historique · superseded by TD-W3B-02 Option B clarification)* — PR **#410 MERGED** · merge `bcc39fba04664edc09fca782e61e5f5e70a45d35` · head `cbad09d54518c56d9fd894a788e55b53d2b6b5a5` · PR-head CI **`32764582915` SUCCESS** · push/main CI **`32765431464` SUCCESS** · TD-W3B-01…04 **ADOPTED / INTEGRATED ON MAIN** · W3-B Delivery **NOT RESTARTED** *(true then)* · W3 **IN PROGRESS / NOT CLOSED** · REAL **OUT** · FinOps/T7 **FREEZE** · W4 **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** |
+ | **Timestamp maintenance historique W3-A POST-CLOSURE TRUTH SYNC** | 2026-08-24 11:04 CEST (+0200) — **W3-A POST-CLOSURE TRUTH SYNC** — *(historique · superseded by W3-B POST-MERGE truth sync)* — **W3-A CLOSED BY MORRIS** · US-P1-04 / FC-10 exit X-W3A-01…08 **SATISFIED** · PR **#408 MERGED** · merge `686e545a4bb058b95c8c456a517322ceb3e0bcaa` · PR-head CI **`32702286010` SUCCESS** · post-merge main CI **`32703289053` SUCCESS** · proof **DETERMINISTIC PRODUCT-NATIVE PROVEN** · TestExecutionAdapter remains fake external executor · W3 **IN PROGRESS / NOT CLOSED** · next capability candidate **W3-B** (US-P1-05 / US-P1-06) · **W3-B NOT AUTHORIZED / NOT STARTED** *(true then · later architecture adopted via PR #410)* · REAL **OUT** · FinOps/T7 **FREEZE** · W4 **NOT STARTED** · C6 **CLOSED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **≠** W3 CLOSED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED |
+ | **Timestamp maintenance historique W3-A R16/R09 correction candidate** | 2026-08-24 08:44 CEST (+0200) — **W3-A R16 reserved Confirmation + R09 visual lifecycle** — *(historique · superseded by W3-A CLOSED + post-closure truth sync)* — contradiction fail-closed · system-owned constraint namespaces · legacy exploit blocked · R09 PNG 07/08/09 honest · Playwright Server Action latch (test-only) · W4 **NOT TOUCHED** · awaiting ChatGPT re-review *(true then · later integrated via PR #408)* · W3 **NOT CLOSED** · REAL **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** |
+ | **Timestamp maintenance historique W2 POST-CLOSURE TRUTH SYNC** | 2026-08-23 20:37:16 CEST (+0200) — **W2 POST-CLOSURE TRUTH SYNC** — *(historique · superseded by W3 DELIVERY START)* — `origin/main` @ `1e4b0dbb…` then PR **#406** → `3a3b1cf…` · **W2 CLOSED BY MORRIS** · **NEXT CAPACITY** was **NEXT-CAPABILITY REQUALIFICATION** *(later SATISFIED / CONSUMED)* · W3 was **NOT STARTED / NOT AUTHORIZED** *(true then · later AUTHORIZED)* · FinOps/T7 **FREEZE** · C6 **CLOSED** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** |
+@@ -52,14 +53,14 @@
+ | **Product Completion Functional Architecture (Cycle 3)** | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · path : `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md` · PR **#378 MERGED** · head `1018aa79d1d8ebb8783d11ce25ff08036764e87e` · merge `18b89ec9d6f1a91f8ff49df9c895299b6676b572` · PR CI **#240 SUCCESS** · post-merge CI **#241 SUCCESS** · post-merge sync PR **#379 MERGED** · sync head `0aa644d935b5df1ba7f4c2278fd63320555b9f6a` · sync merge `134f4105fea09543a100749e74ca5e3be32bfda2` · PR CI **#242 SUCCESS** · post-merge CI **#243 SUCCESS** · final closure PR **#380 MERGED** · head `53aeceea…` · merge `14329c60…` · post-merge CI **#245 SUCCESS** · **POST-MERGE COHERENCE COMPLETE** · PM-R01 **CLOSED** · PM-R02 **CLOSED** · FC-01…FC-15 **APPROVED** · OA-aligned Option A + thin orchestration C **APPROVED** · no parallel architecture · targeted durability technical delta **QUALIFIED** then **partially realized via W1** · FA-R01…FA-R12 **CLOSED** · C1 §H/J.1 + C2 A→W preserved · H-01…H-04 **CARRY** · Confirmation **runtime** durability **IMPLEMENTED AT W1 SCOPE** (requested ephemeral / granted+ durable · PR #395) · ProjectTrajectory durability **IMPLEMENTED AT W1 SCOPE** (PR #395) · **downstream gaps remain** (HD/replan liaison complète · Recovery E2E · taxonomie épistémique complète → W2/W3) · UAT **OPEN** · SC-02 **NON-BLOCKING** · **RESERVE-GOV-EC-ORDER CLOSED** · Pre-M6 debt **CARRY** · source branch cleanup **NOT PERFORMED** · **≠** Architecture technique fully exhausted · **≠** Product Completion terminée · **≠** REAL |
+ | **RESERVE-GOV-EC-ORDER** | **CLOSED ON MAIN** via PR **#381** — Build Doctrine execution order aligned with validated C2 / Functional Architecture : HumanDecision → EC Prepare → EC Inspect → Confirmation if required → effective authority → Execute · Confirmation **runtime** durability **IMPLEMENTED AT W1 SCOPE** (PR #395) · remaining continuity/authority gaps stay **DOWNSTREAM** · ≠ reserve reopen |
+ | **Morris trajectory decision (post-FA requalification)** | **HISTORICAL** — Governance EC Order Sync → C6 → Next-Cycle Requalification *(superseded for forward path by CKC-first)* |
+-| **Morris trajectory decision (post-C6 / CKC)** | **SUPERSEDED FOR FORWARD PATH** — CKC-first + G2 + W1 + W2 completed · **NOW:** **W2 CLOSED BY MORRIS** · **W3-A CLOSED BY MORRIS** · **W3-B targeted architecture ADOPTED BY MORRIS / INTEGRATED ON MAIN** via PR **#410** (`bcc39fba…`) · **W3 IN PROGRESS / NOT CLOSED** · **W3-B CURRENT CAPABILITY / NOT CLOSED** · W3-B Delivery **NOT RESTARTED / REQUALIFICATION REQUIRED** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · FinOps/T7 **FREEZE** · C6 **CLOSED** · REAL **OUT** · W4 **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **≠** W3 CLOSED · **≠** W3-B complete · **≠** REAL · **≠** FinOps PASS |
++| **Morris trajectory decision (post-C6 / CKC)** | **SUPERSEDED FOR FORWARD PATH** — CKC-first + G2 + W1 + W2 completed · **NOW:** **W2 CLOSED BY MORRIS** · **W3-A CLOSED BY MORRIS** · **W3-B targeted architecture ADOPTED BY MORRIS / INTEGRATED ON MAIN** via PR **#410** · **TD-W3B-02 Option B ADOPTED** (bound snapshot clarification) · **W3 IN PROGRESS / NOT CLOSED** · **W3-B CURRENT CAPABILITY / NOT CLOSED** · W3-B Delivery **restarted** · reviewed local candidate **`756cda50`** · TD-W3B-02 blocker **closed at architecture level** · **resume same Delivery correction after clarification review-clean** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · FinOps/T7 **FREEZE** · C6 **CLOSED** · REAL **OUT** · W4 **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **≠** W3 CLOSED · **≠** W3-B complete · **≠** REAL · **≠** FinOps PASS |
+ | **Product Completion W2 Track D / bounded CKC Phase B** | **INTEGRATED ON MAIN** · PR **#403 MERGED** · head `1cdf4b41270cffe31be28e02e3effe17a1b15477` · merge `e4a93fea77c7edd01c4e6fc2d47455db14e102e8` · PR-head CI **`32645232920` SUCCESS / Required Gate PASS** · head→merge **0-file content delta** · push/main CI **`32646038871` SUCCESS / Required Gate PASS** · D-W2-02 / US-P1-14 / REQ-24 · product-native CKC cognition before Options/Recommendation · delivery + security via **same generic product path** · Recommendation remains Recommendation · no automatic HumanDecision · no authority from CKC · **STOP BEFORE EXECUTE** · legacy OptionSet cutover fail-closed · business-first Pilote output · structured provenance retained · proof **DETERMINISTIC PROVEN** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · W2 later **CLOSED BY MORRIS** *(post-requalification)* · full CKC track **DOWNSTREAM W3** · C6 **CLOSED** · FinOps/T7 **FREEZE** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · **≠** W2 incomplete at Phase B timestamp · **≠** full CKC completion · **≠** REAL BOUNDARY PROVEN · **≠** W3 authorized |
+ | **Product Completion W2 Final Closure Requalification** | **ACCEPTED BY MORRIS** · Cycle 9 QA · typology DOC · evidence on `main@1e4b0dbb…` · X01…X08 **PROVEN** · H→N 18-step **PROVEN** · PASS WITH NON-BLOCKING RESERVES · W2-CL-R01…R03 **CLOSED** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · proof ceiling **DETERMINISTIC PRODUCT E2E PROVEN** · path `projects/sfia-studio/product-completion/10-product-completion-wave-2-final-closure-qualification.md` · **≠** W3 authorized · **≠** REAL · runtime v3 **NON ADOPTED** |
+ | **Product Completion W2 Closure Decision** | **W2 CLOSED BY MORRIS** · exit contracts X01…X08 + integrated H→N path **ACCEPTED AS SUFFICIENT W2 EXIT PROOF** · residuals retained · Product Completion **INCOMPLETE** · W3 later **AUTHORIZED** under distinct GO · **≠** W3 CLOSED · **≠** REAL · **≠** FinOps PASS · runtime v3 **NON ADOPTED** |
+ | **Product Completion W3 Delivery Readiness** | **QUALIFIED** · path `projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md` · GO Morris W3 Delivery **CONSUMED** · W3 scope = backlog existant · C6 **CLOSED** / implement-only · REAL **OUT** · FinOps **FREEZE** · W4 **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **≠** W3 CLOSED |
+ | **Product Completion W3-A Governed Execute** | **CLOSED BY MORRIS / INTEGRATED ON MAIN** · PR **#408 MERGED** · candidate `a69e3ad1924b7e33407ff0f9d62dd2189300f785` · merge `686e545a4bb058b95c8c456a517322ceb3e0bcaa` · PR-head CI **`32702286010` SUCCESS** · push/main CI **`32703289053` SUCCESS** · head→merge **0-file / tree parity** · US-P1-04 / FC-10 · X-W3A-01…08 **PASS** · proof **DETERMINISTIC PRODUCT-NATIVE PROVEN** · TestExecutionAdapter remains external executor fake · post-merge evidence handoff `b3108f4f…` · source branch `delivery/sfia-studio-product-completion-w3-a-governed-execute` **PRESERVED** · **≠** W3 CLOSED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED |
+ | **Product Completion W3-B Targeted Technical Architecture** | **VALIDATED / ADOPTED BY MORRIS — INTEGRATED ON MAIN** · path `projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md` · PR **#410 MERGED** · head `cbad09d54518c56d9fd894a788e55b53d2b6b5a5` · merge `bcc39fba04664edc09fca782e61e5f5e70a45d35` · PR-head CI **`32764582915` SUCCESS** · push/main CI **`32765431464` SUCCESS** · ARCH-R01…ARCH-R06 **REVIEW-CLEAN** · TD-W3B-01…04 **ADOPTED** · Option A ClaimEvaluation adaptation · Option S2 same-Attempt system-governed STOP · Product SQLite **KEEP** · C6 **CLOSED / not reopened** · no parallel Claim Engine · no Stop Engine · Delivery **NOT restarted** · **≠** W3-B complete · **≠** W3 closed · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED |
+-| **Product Completion W3 Delivery** | **AUTHORIZED BY MORRIS / IN PROGRESS / NOT CLOSED** · historical closed slice **W3-A** · **W3-B CURRENT CAPABILITY / IN PROGRESS AT PRODUCT-CAPABILITY LEVEL** · historical Delivery attempt existed under W3 Delivery GO then paused on W3B-D01/D02 structural architecture gaps · those architecture gaps **CLOSED AT ARCHITECTURE-DECISION LEVEL** through DOC12 (PR **#410**) · W3-B Delivery **NOT RESTARTED / REQUALIFICATION REQUIRED** against current main + adopted TD-W3B-01…04 + existing dirty Delivery candidate · canonical `/studio` · **≠** W3 CLOSED · **≠** W3-B Delivery authorized to resume · **≠** READY FOR REAL · **≠** Evidence loop complete |
++| **Product Completion W3 Delivery** | **AUTHORIZED BY MORRIS / IN PROGRESS / NOT CLOSED** · historical closed slice **W3-A** · **W3-B CURRENT CAPABILITY / IN PROGRESS AT PRODUCT-CAPABILITY LEVEL** · W3-B Delivery **restarted under Morris** · reviewed local candidate **`756cda50`** (Pass 2) · TD-W3B-02 structural blocker **closed at architecture level via Morris Option B** · **resume same Delivery correction after clarification review-clean** · canonical `/studio` · **≠** W3 CLOSED · **≠** W3-B closed · **≠** READY FOR REAL · **≠** Evidence loop complete |
+ | **Product Completion W2 Final Closure Product Correction** | **INTEGRATED ON MAIN** · PR **#405 MERGED** · head `330b36258f5a5fcb117fb562b12ff173b3675d94` · merge `1e4b0dbb8de291f1a02e084f03231d62d04dfb0b` · PR-head CI SUCCESS · push/main CI **`32654262020` SUCCESS** · R01 Phase B Product E2E cognition · R02 material EC amend/reinspect + R1 recovery-safe · C6 **CLOSED** · no `lib/oa` mutation · **≠** W3 · **≠** REAL · runtime v3 **NON ADOPTED** |
+ | **Product Completion W2-G3 Delivery** | **INTEGRATED ON MAIN** · PR **#400 MERGED** · delivery head `a276f170faece84a2121f5fe5796c24ae443674d` · merge `dd852243a652e85cce455a68fae5ac7aa13d2bea` · PR-head CI **`32632461315` SUCCESS / Required Gate PASS** · push/main CI **`32633308148` SUCCESS** · E+A+B+C governed trajectory: Options / Recommendation / HumanDecision / EC inspect / conditional Confirmation / authority+executor sufficiency · **STOP BEFORE EXECUTE** · ProjectTrajectory SoT **KEEP** · C6 **CLOSED** · D-W2-CI-FINOPS-FREEZE-01 **ADOPTED** · FinOps/T7 **FREEZE** · T7-C04 **DEFERRED** · Phase B later **INTEGRATED** via PR **#403** · **≠** W2 finally closed · **≠** Execute · **≠** REAL · **≠** FinOps PASS · runtime v3 **NON ADOPTED** |
+ | **Product Completion Backlog (Cycle 5)** | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · PR **#393 MERGED** · merge `7750b2a4017338c1a236433c4db8f5cc97dc2feb` · path `projects/sfia-studio/product-completion/05-product-completion-backlog-user-stories.md` · 5 Epics · 4 Waves · P0/P1 cut-line · réserve R5 non bloquante · **≠** Delivery authorized by validation alone · W1 Delivery later **CONSUMED via distinct G3/Morris GOs** |
+@@ -74,7 +75,7 @@
+ | **ROADMAP-POST-MERGE-CKC-388** | **CLOSED ON MAIN** via PR **#389** / merge `c4dc1c9ce78290f00354e58dde451dd09616f49e` · post-merge CI **`32527209975` SUCCESS** · Roadmap sync integrated on main · **≠** DoctrinePackage runtime binding · **≠** Nora proven |
+ | **DoctrinePackage / runtime CKC architecture qualification** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN** via PR **#390 + PR #391** · **G2 materialization DECIDED + GIT-INTEGRATED** via PR **#394** (`b3e978fe…`) · **W1 runtime materialization INTEGRATED** via PR **#395** (`ddd39181…`) · `pkg:sfia-studio-doctrine-v3@1.0.0` · OPTION A root `projects/sfia-studio/app/lib/oa/doctrine/product/` · resolver/repository **KEEP** · D02 Option B **KEEP** · fallback **NONE** · fixture quarantine/test-only → retire later · Product pin **fail-closed** · Phase A package-bound **INTEGRATED** · Phase A **≠** Phase B complete · bounded CKC→Nora seam **PROVEN (W1)** · bounded Phase B / generic multi-cycle cognition **INTEGRATED** (PR **#403**) · full CKC catalog evolvability **DOWNSTREAM W3** · runtime v3 **NON ADOPTED** |
+ | **SFIA Studio product design tooling** | **MORRIS DECISION — PENPOT IS THE REFERENCE DESIGN WORKSPACE FOR SFIA STUDIO PRODUCT DESIGN** · Studio product design only · Git remains SoT for governance/contracts/decisions · R-04 EA historical recommendation **SUPERSEDED FOR FUTURE SFIA STUDIO PRODUCT DESIGN** · **≠** global SFIA methodological baseline · **≠** v3 doctrine change · **≠** runtime v3 adoption · EA document **not** retroactively rewritten |
+-| **Gates courants** | C1…C6 **INTEGRATED / C6 CLOSED** · W1 **CLOSED** · **W2 CLOSED BY MORRIS** · **W3-A CLOSED BY MORRIS** · **W3-B architecture ADOPTED / INTEGRATED ON MAIN** (PR **#410** / `bcc39fba…`) · **W3 IN PROGRESS / NOT CLOSED** · **W3-B CURRENT CAPABILITY / NOT CLOSED** · **W3-B Delivery NOT RESTARTED / REQUALIFICATION REQUIRED** · W3-B Delivery restart requires distinct Morris decision after qualification · W3-C/D/E **NOT STARTED** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · FinOps/T7 **FREEZE** · REAL **NOT CONSUMED** · W4 **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · repository transport state **RESOLVE FROM GIT / PR EVIDENCE** · **NO REAL WITHOUT DISTINCT MORRIS GO** |
++| **Gates courants** | C1…C6 **INTEGRATED / C6 CLOSED** · W1 **CLOSED** · **W2 CLOSED BY MORRIS** · **W3-A CLOSED BY MORRIS** · **W3-B architecture ADOPTED / INTEGRATED ON MAIN** (PR **#410**) · **TD-W3B-02 Option B ADOPTED** (architecture clarification) · **W3 IN PROGRESS / NOT CLOSED** · **W3-B CURRENT CAPABILITY / NOT CLOSED** · W3-B Delivery **restarted** · candidate **`756cda50`** · **resume Delivery correction after clarification review-clean** · W3-C/D/E **NOT STARTED** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · FinOps/T7 **FREEZE** · REAL **NOT CONSUMED** · W4 **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **NO REAL WITHOUT DISTINCT MORRIS GO** |
+ | **Intégration Git** | **C2 :** PR #369 / head `3c78c6763d0d090bdc38f3866ecd71ed6be219d0` / merge `2406ccda211842fc7f8da3699bb186a30f7dc105` · **Post-merge sync :** PR #370 (integration vehicle · Git evidence authoritative) · CI SFIA Studio **#222** SUCCESS (PR head) · post-merge CI **#223** SUCCESS · source branch `docs/sfia-studio-product-completion-c2-integration-clean` **PRESERVED** · historical unauthorized branch `docs/sfia-studio-product-completion-c2-functional-design` @ `780ab4c5` **PRESERVED FOR AUDIT** · Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration · **M4 post-pre-reproof Roadmap :** PR #347 / merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS · **M4 GOVERNED REAL COMPLETION PROOF** handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · **M4 closure Roadmap :** PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · **M5 Entry Qualification** handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · **M5 Delivery (Option B + W1) :** PR #350 / head `17461dad78f92a3d5e5e1d9bd36aa20d1e86ac11` / merge `8f753218e4fff7d68d78c1d57e9c3e8fb7e60943` · CI SFIA Studio **#184** SUCCESS · post-merge CI **#185** SUCCESS · **M5 UI/Nora durable rehydrate :** PR #351 / head `ced7b172969c27b5e2d6fda06e9caa8c84e1e0d7` / merge `d8961f1d85a98b5d4185f007f16ddac209e2e557` · CI SFIA Studio **#186** SUCCESS · post-merge CI **#187** SUCCESS · M5 exit re-evaluation handoff `54b0f5b43a50861c26226aa3ffc06460f8ffbafe` · blob `131c85172bbd6370a3edcd71347a64932c9303ab` · M5 EXIT PROOF **SATISFIED ON MAIN** · **M5 capitalization / Roadmap sync :** PR #352 / head `c26824c602ec041cb1d40e9078191c0f1cde4e95` / merge `3467ecdf74ac2010c45f34545fb8684563dea547` · CI SFIA Studio PR run **#31875337665** SUCCESS · post-merge CI run **#31875621317** SUCCESS · post-merge handoff `0121e184c936f8dc73ffe80e20d43027fec495d7` · blob `4c293ae07a0d516b16d6dd2d4087d3e25858e275` · GO Morris **ACCEPT M5 EXIT PROOF + CLOSE M5 — KEEP M5-C TECHNICAL JOURNAL — ZERO REAL — NO M6 EXECUTION — RUNTIME V3 NON ADOPTED — NO BRANCH DELETE** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · User wording **« ok go pour la modification »** · governed interpretation **ALIGN M5 CLOSURE ROADMAP WITH PRE-M6 USER JOURNEY / UX BASELINE TRAJECTORY — KEEP M5 CLOSED — KEEP M5-C — NO UX DESIGN EXECUTION YET — NO FIGMA ACTION YET — NO UI DELIVERY — NO M6 — ZERO REAL — NO PROJECT GIT WRITE** · **M5 closure / Pre-M6 sequencing Roadmap :** PR #353 / title `docs(sfia-studio): close M5 and sequence Pre-M6 UX baseline` / base `3467ecdf74ac2010c45f34545fb8684563dea547` / head `7a744c8cec889be547eebe231279620189819dd0` / merge `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` — records M5 closure + inserts Pre-M6 before M6 · **≠** Slice A candidate (Slice A is later local work) · PRE-M6 USER JOURNEY / UX BASELINE = **FUNCTIONAL BASELINE + GAP READINESS COMPLETE · G-UX-15 EXIT PROOF ACCEPTED / TECHNICAL BLOCKER CLOSED · LOCAL CANDIDATE NOT YET ON MAIN · FIGMA/UI DELIVERY NOT AUTHORIZED** · **G-UX-15 Slice A controlled integration :** PR #354 / title `feat(sfia-studio): close Pre-M6 G-UX-15 execution wiring gap` / base `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` / head `22ae8e5e4bddb0f997384a5e8ba87c9b35245693` / merge `a6df83a640afeb0911cb572d118d27a03c9923a7` · CI SFIA Studio **#192** SUCCESS · post-merge main CI **#193** SUCCESS · post-merge truth **PASS** (exact 5-file SHAs on main) · feature branch **PRESERVED** (no delete) · **Cycle 14 docs sync :** PR #355 / title `docs(sfia-studio): sync Pre-M6 G-UX-15 post-merge current state` / merge `dd284e9f20de89b2c8fc7782e4177d0d125c24d2` — **MERGED ON MAIN** · **historique :** OPEN / DRAFT avant merge · **Cycle 15 visual adoption docs integration :** PR #356 / title `docs(sfia-studio): record Pre-M6 visual contract adoption` / head `3a93d0e5cfd86e46bb795ce22c0f7dd79078ef2a` / merge `50f31994b0d9b5a3a3514e2fa9a063d688071c50` — **MERGED ON MAIN** · CI SFIA Studio **#198** SUCCESS on final PR head · post-merge main CI **#199** SUCCESS · post-merge truth **PASS** · source branch **PRESERVED** (NO BRANCH DELETE) · **historique :** OPEN / DRAFT avant merge · **D-PRE-M6-UX-05 :** ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN (Freeze `uUdLBElF2B4dOefaAYt4QY`) — UI Delivery still **NOT AUTHORIZED** · **Cycle 14 PR #356 post-merge current-state sync :** PR #357 / title `docs(sfia-studio): sync PR 356 post-merge current state` / head `70643624c494f16fb91e3bede772a80f4eece783` / merge `b834fdd40d3e7028e80cf7b388b93df2f31e18e4` — **MERGED ON MAIN** · CI SFIA Studio **#200** SUCCESS on PR head · post-merge CI **#201** SUCCESS · source branch **PRESERVED** · **historique :** OPEN / DRAFT avant merge · **PRE-M6 UI DELIVERY GATE / SCOPE QUALIFICATION :** **COMPLETE** — Review Handoff `2577776360c8a5a3492806b447d4bf88f0239898` / blob `9084a97b368472aaaa7ab61f85baf2efcb819e51` — verdict READY FOR MORRIS DELIVERY DECISION (**≠** UI Delivery authorized) — OPTION A = RECOMMENDATION AWAITING MORRIS DECISION *(historique qualification)* · **Cycle 15 Pre-M6 UI gap + CKC trajectory Roadmap :** PR #358 / title `docs(sfia-studio): record Pre-M6 UI gap and CKC trajectory` / head `c91ce1afd498ef9a5275e3b90509e7a045f240a0` / merge `0a80b92cb2c05f5b3f001438988b52c07c3bf0b6` — **MERGED ON MAIN** · CI SFIA Studio **#202** SUCCESS on PR head · post-merge CI **#203** SUCCESS · source branch **PRESERVED** · **historique :** OPEN / DRAFT avant merge · GO Morris **ADOPT PRE-M6 UI DELIVERY SCOPE OPTION A** (user « bon ok go option A ») — OPTION A = **ADOPTED BY MORRIS AS PRE-M6 UI DELIVERY SCOPE** · OPTION A SCOPE ADOPTED **≠** UI DELIVERY EXECUTION AUTHORIZED · NEXT PRODUCT GATE *(historique jusqu’à PR #361)* = **MORRIS PRE-M6 UI DELIVERY EXECUTION AUTHORIZATION — OPTION A** · **PR #359** Option A adoption sync **MERGED** (`0d33478…`) · **PR #360** fake-real progressive proof **MERGED** (`a3ac418…`) · **PRE-M6 PRODUCT VERTICAL SLICE :** PR #361 / title `feat(sfia-studio): consolidate Pre-M6 product vertical slice` / head `3c4c478d7664c6111f38e6c4f49e98042e3a8473` / merge `a53c323e47e5fae1d35671f3ae232609a59b0f3f` — **MERGED ON MAIN** · post-merge CI run **`32122892559` SUCCESS** · source branch `delivery/sfia-studio-pre-m6-ui-option-a` **PRESERVED** · GO Morris **PR #361 READY + MERGE — PRESERVE SOURCE BRANCH — THEN POST-MERGE VALIDATION** · **MORRIS DECISION — CURRENT SFIA STUDIO VERTICAL SLICE ON MAIN IS THE FUNCTIONAL MVP BASELINE FOR THE PRODUCT COMPLETION TRAJECTORY — REUSE EXISTING BACKBONE — DO NOT RESTART FROM ZERO — RUNTIME V3 REMAINS NON ADOPTED** · **MORRIS DECISION — ACCEPT PRE-M6 EXIT FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT — CURRENT MAIN VERTICAL SLICE IS THE SFIA STUDIO FUNCTIONAL MVP BASELINE FOR PRODUCT COMPLETION — CARRY UAT-UX-06 / UAT-RECOVERY-03 / V3-F10 / PROCESS-LOCAL DURABILITY / N7 AS GOVERNED DEBT — RUNTIME V3 REMAINS NON ADOPTED** · PRE-M6 EXIT = **ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT** · PRE-M6 **≠ COMPLETE WITHOUT RESERVES** · NEXT PRODUCT GATE = **GO MORRIS — CYCLE 1 CADRAGE — SFIA STUDIO PRODUCT COMPLETION FROM MVP** (consumable only after this documentation is integrated on main · **NOT AUTHORIZED now**) · NEXT REPOSITORY GATE = **MORRIS REVIEW — PRODUCT COMPLETION REBASELINE DRAFT PR — NO MERGE UNTIL EXPLICIT GO** |
+ | **Sources** | Git `main` @ `a53c323e47e5fae1d35671f3ae232609a59b0f3f` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347/#348/#349/#350/#351/#352/#353/#354/#355/#356/#357/#358/#359/#360/#361 · CI #158/#162/#166/#172/#176/#178/#184/#185/#186/#187/#192/#193/#197/#198/#199/#200/#201/#202/#203 · Pre-M6 UI Delivery qualification handoff `2577776360c8a5a3492806b447d4bf88f0239898` / blob `9084a97b368472aaaa7ab61f85baf2efcb819e51` · GO Morris **ADOPT PRE-M6 UI DELIVERY SCOPE OPTION A** · PR #352 CI run #31875337665 / post-merge #31875621317 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · D-PRE-M6-UX-05 visual review handoff `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593ddbdc286cd244790f0ca1d2c421128202c5c` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · M5 Entry Qualification handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · GO Morris **VALIDATE D-PRE-M6-UX-05 FIGMA VISUAL CONTRACT — ADOPT AS PRE-M6 VISUAL REFERENCE** · M4 Product path on main `projects/sfia-studio/app/**` |
+ | **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M5 Entry Qualification **COMPLETE** · M5 architecture trajectory **ADOPTED BY MORRIS** · M5 Delivery **IMPLEMENTED ON MAIN** (PR #350) · M5 UI rehydrate **IMPLEMENTED ON MAIN** (PR #351) · M5 technical/functional exit proof **SATISFIED ON MAIN** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · M5 CLOSED **≠** M6 AUTHORIZED · M5 CLOSED **≠** M6 STARTED · M5 CLOSED **≠** runtime v3 ADOPTED · M5 CLOSED **≠** global v3 baseline promoted · M5 CLOSED **≠** M5-C retired · M5 exit accepted **≠** global Cursor REAL authorization · M5 CLOSED future **≠** M6 automatically authorized · Pre-M6 trajectory decided **≠** Pre-M6 UX qualification executed · **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE ≠ UI Delivery authorized ≠ runtime implemented ≠ browser/product E2E proven ≠ Figma/runtime aligned ≠ WCAG compliant ≠ Pre-M6 complete ≠ historical UI retired** · Accepted M-03/M-04/provenance reserves ≠ reserves closed · new UX baseline **≠** runtime rewrite · existing UI not canonical **≠** existing UI automatically deleted · UI asset audit **COMPLETE/CLASSIFIED** **≠** individual dispositions ADOPTED · existing UI audit **≠** REPLACE/retirement authorized · M1→M5 runtime KEEP **≠** all runtime complete · Pre-M6 user proof **≠** runtime v3 ADOPTED · M6 after Pre-M6 **≠** M6 automatically authorized · Validated UX decisions in framing **30/37** (CC-D01) prevail over older candidate wording in framing **11** · M5-A OPTION B **IMPLEMENTED ON MAIN** · M5-B W1 **IMPLEMENTED ON MAIN** · M5-B W1 factual write-back **≠** Recommendation becomes Decision · Recommendation **≠** HumanDecision · Recommendation **≠** gate consumed · Recommendation **≠** ExecutionAuthority · LPS factual evidence link **≠** structural trajectory validation · readback **≠** execution · remount UI visibility **≠** automatic next-cycle launch · M5-C KEEP TEMPORARY WITH EXIT **≠** technical journal retired · durable Product Attempt **≠** technical M4 journal automatically obsolete · M5 implementation **≠** runtime v3 ADOPTED · M5 implementation **≠** global v3 baseline promoted · M5 ZERO REAL **≠** global Cursor REAL authorization · M5 architecture ADOPTED **≠** M6 started · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **unchanged by M5 architecture decision** **≠** M4/M5 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · runtime v3 **NON ADOPTED** · ≠ full OA durable · G-UX-15 technical blocker **CLOSED BY MORRIS** ≠ Pre-M6 complete · G-UX-15 exit proof accepted ≠ browser/product E2E proven · fixture-safe proof accepted ≠ REAL proof · G-UX-15 Slice A **MERGED ON MAIN** (PR #354) ≠ Pre-M6 complete · merged on main ≠ product/browser E2E proven · merged on main ≠ UI Delivery/M6 authorized · Pre-M6 progress ≠ M6 authorized · Confirmation process-local = KEEP RESERVE *(HISTORICAL Pre-M6 / G-UX-15)* · **SUPERSEDED for Confirmation by W1 selective durability** · **≠** restart-safe Confirmation as full envelope · **PR #356 MERGED ≠ UI Delivery authorized** · CI #197/#198/#199 SUCCESS ≠ Pre-M6 complete ≠ UI Delivery authorized · post-merge truth PASS ≠ UI Delivery gate consumed · UI Delivery qualification COMPLETE ≠ UI Delivery authorized · **Option A SCOPE ADOPTED BY MORRIS ≠ UI Delivery execution authorized** · gap treatment adopted as scope ≠ gap closed · G-UX-08 deferred ≠ G-UX-08 closed · G-UX-09 accepted ≠ Conversation durable · Confirmation KEEP *(historical Pre-M6)* ≠ restart-safe · G-UX-11 planned ≠ browser E2E proven · M7 CKC 15/15 future ≠ CKC complete now ≠ CKC Delivery authorized · 4 pilots + 11 fallback ≠ CKC system complete · CKC→v2.6 capitalization option ≠ v2.6 modification decided · CKC validation future ≠ runtime v3 ADOPTED · PR #357 MERGED ≠ UI Delivery authorized · CI #201 SUCCESS ≠ Pre-M6 complete · PR #358 MERGED ≠ UI Delivery authorized · CI #202/#203 SUCCESS ≠ Pre-M6 complete ≠ Delivery authorized · Option A scope adopted ≠ Delivery GO consumed · Execution Authorization IS the Delivery GO ≠ second Delivery GO required · G-UX-11 E2E exit proof ≠ Delivery entry prerequisite · global v3 baseline **NOT PROMOTED** · **PR #361 MERGED ≠ PRE-M6 COMPLETE ≠ PRE-M6 EXIT ACCEPTED ≠ runtime v3 ADOPTED ≠ M6 AUTHORIZED ≠ M7 AUTHORIZED ≠ CKC 15/15 COMPLETE ≠ generic Cursor write/dev/commit/push/PR proven** · **MVP FUNCTIONAL BASELINE ≠ produit final ≠ UX finale ≠ production-ready ≠ generic ExecutionContract complete** · Product Completion trajectory recorded **≠** Cycle 1 Cadrage authorized **≠** Delivery authorized · PRE-M6 requalification **≠** PRE-M6 CLOSED · **PRE-M6 EXIT ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT ≠ PRE-M6 COMPLETE ≠ PRE-M6 all gaps closed ≠ runtime v3 ADOPTED ≠ M6 STARTED ≠ M6 AUTHORIZED ≠ Product Completion Delivery authorized ≠ Cycle 1 Cadrage authorized** |
+@@ -135,9 +136,9 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
+ | Product Completion Product Screens & Visual State Contract | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · `projects/sfia-studio/product-completion/ux-product-experience/03-product-screens-visual-state-contract.md` · PR #376 / head `6e2cd066…` / merge `7d2f9a61…` · PR CI **#236 SUCCESS** · post-merge CI **#237 SUCCESS** · Penpot `63bdc57a…` page 03 · 17 screens · page 04 = 0 · Components 0 · C1 alignment PASS · PASS 3 PASS WITH ONE NON-BLOCKING EVIDENCE-FRAMING RESERVE · UX-BLK-01/02/03 CLOSED · H-01…H-04 **CARRY** · source branch cleanup **COMPLETED** · **≠** Components · **≠** Delivery |
+ | Product Completion Functional Architecture (Cycle 3) | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md` · PR #378 / head `1018aa79…` / merge `18b89ec9…` · PR CI **#240 SUCCESS** · post-merge CI **#241 SUCCESS** · post-merge sync PR **#379** / head `0aa644d…` / merge `134f4105…` · PR CI **#242 SUCCESS** · post-merge CI **#243 SUCCESS** · final closure PR **#380** / head `53aeceea…` / merge `14329c60…` · post-merge CI **#245 SUCCESS** · **POST-MERGE COHERENCE COMPLETE** · PM-R01/PM-R02 **CLOSED** · FC-01…FC-15 APPROVED · OA Option A + thin C APPROVED · targeted durability delta QUALIFIED then **W1-realized for Confirmation + ProjectTrajectory** · FA-R01…FA-R12 CLOSED · **RESERVE-GOV-EC-ORDER CLOSED** · downstream HD/replan / Phase B / Recovery E2E remain · **≠** Product Completion terminée · **≠** Delivery W2+ |
+ | COMPLETED / INTEGRATED | **C1 CADRAGE** · **C2 FUNCTIONAL DESIGN** · **UX EXPERIENCE ARCHITECTURE** · **E2E WIREFRAMES & INTERACTION MODEL** · **PRODUCT SCREENS & VISUAL STATE CONTRACT** · **FUNCTIONAL ARCHITECTURE (Cycle 3)** · post-merge sync PR **#379** · final closure PR **#380** · PR #369 / `2406ccda…` · PR #370 post-merge sync **HISTORICAL / MERGED** · PR #372 / `fb311f2f…` · PR #373 / `6b67ada7…` · PR #374 / `404d2d3e…` · PR #375 post-merge sync · PR #376 / `7d2f9a61…` · PR #378 / `18b89ec9…` · PR #379 / `134f4105…` · PR #380 / `14329c60…` |
+-| CURRENT REPOSITORY TRANSITION | **W3-B targeted architecture INTEGRATED ON MAIN** via PR **#410** (`bcc39fba…`) · post-merge DOC12 + Roadmap truth **represented in merge-stable form** · repository integration status **RESOLVE FROM GIT / PR EVIDENCE** · **no Delivery restart** · FinOps/T7 **FREEZE** · REAL **OUT** · W4 **OUT** · Product Completion **INCOMPLETE** · W3 **IN PROGRESS / NOT CLOSED** |
+-| NEXT ORDERED STEP | Resolve current main / Git evidence · **IF** this post-merge truth state is not yet integrated on current main: complete its governed repository integration under the applicable Morris gate · **ONCE** this truth state is present on current main: perform **W3-B Delivery requalification** → distinct Morris Delivery restart decision if qualified · **≠** W3-B Delivery automatic · **≠** W3 closure · **≠** W3-C start · **≠** REAL GO · **≠** runtime v3 ADOPTED |
+-| NEXT PRODUCT CAPABILITY | **W3-B** — terminal semantics Product (SUCCESS/STOP/FAIL) + Evidence business-first (US-P1-05 / US-P1-06) — **CURRENT / IN PROGRESS / NOT CLOSED** · W3-B Delivery **NOT RESTARTED / REQUALIFICATION REQUIRED** · W3 macro **NOT CLOSED** · REAL **OUT** · runtime v3 **NON ADOPTED** |
++| CURRENT REPOSITORY TRANSITION | **TD-W3B-02 Option B architecture clarification** (Cycle 6 DOC) · W3-B Delivery reviewed candidate **`756cda50`** · structural blocker **closed at architecture level** · **implementation pending** · FinOps/T7 **FREEZE** · REAL **OUT** · W4 **OUT** · Product Completion **INCOMPLETE** · W3 **IN PROGRESS / NOT CLOSED** |
++| NEXT ORDERED STEP | **TD-W3B-02 clarification review/integration** (ChatGPT) → **resume same W3-B Delivery candidate correction** (persist bound snapshot · evaluate Contract Result from snapshot only · re-prove X-W3B-01…12) → later W3-B closure gate → downstream W3 only · **≠** W3-B automatic closure · **≠** W3-C start · **≠** REAL GO · **≠** runtime v3 ADOPTED |
++| NEXT PRODUCT CAPABILITY | **W3-B** — terminal semantics Product (SUCCESS/STOP/FAIL) + Evidence business-first (US-P1-05 / US-P1-06) — **CURRENT / IN PROGRESS / NOT CLOSED** · TD-W3B-02 Option B **ADOPTED** · Delivery correction **pending after clarification review** · W3 macro **NOT CLOSED** · REAL **OUT** · runtime v3 **NON ADOPTED** |
+ | M6 / M7 | **HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** · traces conservées · hors forward critical path |
+
+ ### Candidat local non-main (dirty `delivery/sfia-studio-f3-real-prerequisites`) — historique / harvest
+diff --git a/projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md b/projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
+index 380e4175..cecf9ae2 100644
+--- a/projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
++++ b/projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
+@@ -297,7 +297,7 @@ FC-11 Product SUCCESS requires **`status=pass`** on a contract-result ClaimEvalu
+ `ClaimEvaluation.status = pass` may be written **server-side only** when **ALL** hold:
+
+ 1. Attempt technical state is compatible for SUCCESS evaluation (technical succeeded / terminal success path — architecture does not weaken C2).
+-2. EC id / version / semanticFingerprint match **exactly** the Attempt’s bound contract material.
++2. EC id / version / semanticFingerprint match **exactly** the Attempt’s bound contract material (**bound semantic snapshot per TD-W3B-02 Option B — §4.10.2**).
+ 3. Bound ReviewBundle is the **expected frozen** version.
+ 4. All required Evidence are valid per FC-12 rules applicable to this assessment.
+ 5. **Every mandatory** expected-output assessment is **PASS**.
+@@ -402,6 +402,150 @@ No large EO/ER DSL. EC expectation **strings** remain the expectation source for
+
+ ---
+
++## 4.10.1 TD-W3B-02 — Current-model contradiction (Delivery-evidenced)
 +
-+const baseContract: ExecutionContract = {
-+  schemaVersion: "0.2.0-oa",
-+  executionContractId: "xct:w3b:pass2",
-+  projectId: "prj:w3b",
-+  version: 7,
-+  status: "completed",
-+  semanticFingerprint: "fp:w3b:pass2",
-+  action: "product:generate-temporary-artifact",
-+  target: "product:project-workspace",
-+  scope: "product:temporary-local-artifact",
-+  requiredAuthority: "N3",
-+  constraints: [],
-+  stopConditions: [],
-+  evidenceRequirements: ["evreq:generate-temporary-artifact"],
-+  expectedOutputs: [W3B_TEMP_ARTIFACT_EO_TEMPLATE],
-+  requiredCapabilities: ["cap:product-temp-artifact"],
-+  reversibility: "reversible",
-+  idempotencyKey: "idem:ec:pass2",
-+  correlationId: "cor:ec:pass2",
-+};
++W3-B Delivery Pass 2 review (`756cda50` local candidate above reviewed checkpoint `0b1e50a5`) exposed a **structural contradiction** between TD-W3B-02 and the current ExecutionContract version model. This section records the contradiction faithfully. **Do not weaken it.**
 +
-+const goodEvidence: Evidence = {
-+  schemaVersion: "0.2.0-oa",
-+  evidenceId: "ev:w3b:pass2",
-+  type: "artifact",
-+  source: "attempt",
-+  sourceKind: "execution_attempt",
-+  location: "refs/x",
-+  producedBy: { actorId: "actor:a", role: "project_owner" },
-+  producedAt: "2026-08-24T00:00:00.000Z",
-+  freshness: "fresh",
-+  status: "available",
-+  classification: "internal",
-+  storageMode: "metadata_only",
-+  availability: "available",
-+  retentionClass: "standard",
-+  legalHold: false,
-+  bindings: { executionAttemptId: "xat:w3b:1" },
-+  containsSecrets: false,
-+  provenance: {
-+    schemaVersion: "0.1.0-oa",
-+    provenanceRecordId: "prv:ev",
-+    actor: { actorId: "actor:a", role: "project_owner" },
-+    source: "execution_adapter",
-+    timestamp: "2026-08-24T00:00:00.000Z",
-+    correlationId: "cor:ev",
-+  },
-+  version: 1,
-+  createdAt: "2026-08-24T00:00:00.000Z",
-+  technicalResultRef: "res:w3a:abc1234567890ab",
-+};
++### Repository facts (read-only evidence on current main)
 +
-+describe("W3-B correction pass 2", () => {
-+  it("C09 — stale Evidence cannot satisfy ER", () => {
-+    expect(
-+      isW3bContractResultEvidenceUsable({
-+        evidence: { ...goodEvidence, status: "stale", freshness: "stale" },
-+        snapshot: {
-+          evidenceId: goodEvidence.evidenceId,
-+          evidenceVersion: 1,
-+          status: "stale",
-+          availability: "available",
-+        },
-+      }),
-+    ).toBe(false);
-+    const er = assessEvidenceRequirements({
-+      contract: baseContract,
-+      attempt: {
-+        attemptId: "xat:w3b:1",
-+        executionContractId: baseContract.executionContractId,
-+        executionContractVersion: 3,
-+        executionContractSemanticFingerprint: baseContract.semanticFingerprint,
-+        status: "succeeded",
-+        resultRef: "res:w3a:abc1234567890ab",
-+      },
-+      evidence: { ...goodEvidence, status: "stale", freshness: "stale" },
-+      evaluatedAt: "2026-08-24T00:00:00.000Z",
-+      frozenEvidenceSnapshot: {
-+        evidenceId: goodEvidence.evidenceId,
-+        evidenceVersion: 1,
-+        status: "stale",
-+        availability: "available",
-+      },
-+    });
-+    expect(er[0]?.result).toBe("NOT_PROVEN");
-+  });
++| Fact | Source |
++| --- | --- |
++| `ExecutionContract.version` increments on lifecycle/OCC transitions (validate, confirm, cancel, terminal record paths) | T-A5 execution-contract application layer |
++| `ExecutionContract.semanticFingerprint` is computed from execution-significant material via `executionContractSemanticMaterial()` and **excludes** `status` and `version` | `semanticFingerprint.ts` |
++| `ExecutionAttempt` binds `executionContractVersion` at accept/select | W3-A select/accept seam |
++| Repository exposes **current** EC lookup only — **no** `findByIdAndVersion` / EC history store | execution-contract repository ports |
++| Attempt durable persistence is Product SQLite `oa_execution_attempts.payload_json` | `sqliteExecutionAttemptRepository.ts` |
 +
-+  it("C10 — unknown action materializes durable not_proven CE", async () => {
-+    const evaluated = await new EvaluateContractResult(
-+      {
-+        findById: async () => null,
-+        findByIdempotencyKey: async () => null,
-+        exists: async () => false,
-+        create: async () => {},
-+        update: async () => {},
-+      },
-+      { nowIso: () => "2026-08-24T00:00:00.000Z" },
-+      { append: () => {} },
-+      { newCorrelationId: () => "cor:1", newProvenanceId: () => "prv:1" },
-+    ).execute({
-+      claimEvaluationId: "clm:w3b:unknown",
-+      idempotencyKey: "idem:ce:unknown",
-+      actor: { actorId: "actor:a", role: "project_owner" },
-+      contract: { ...baseContract, action: "product:unknown-action" },
-+      attempt: {
-+        attemptId: "xat:w3b:1",
-+        executionContractId: baseContract.executionContractId,
-+        executionContractVersion: 3,
-+        executionContractSemanticFingerprint: baseContract.semanticFingerprint,
-+        status: "succeeded",
-+        resultRef: "res:w3a:abc1234567890ab",
-+      },
-+      evidence: goodEvidence,
-+      reviewBundle: {
-+        schemaVersion: "0.2.0-oa",
-+        reviewBundleId: "rb:w3b:1",
-+        projectId: "prj:w3b",
-+        version: 2,
-+        frozenAt: "2026-08-24T00:00:00.000Z",
-+        frozenVersion: 2,
-+        evidenceRefs: [goodEvidence.evidenceId],
-+        claimEvaluationRefs: [],
-+        completeness: "complete",
-+        status: "ready_for_review",
-+        createdAt: "2026-08-24T00:00:00.000Z",
-+        synthesisOnly: false,
-+        provenance: {
-+          schemaVersion: "0.1.0-oa",
-+          provenanceRecordId: "prv:rb",
-+          actor: { actorId: "actor:a", role: "project_owner" },
-+          source: "review",
-+          timestamp: "2026-08-24T00:00:00.000Z",
-+          correlationId: "cor:rb",
-+        },
-+        frozenEvidenceSnapshots: [
-+          {
-+            evidenceId: goodEvidence.evidenceId,
-+            evidenceVersion: 1,
-+            status: "available",
-+            availability: "available",
-+          },
-+        ],
-+      },
-+    });
-+    expect(evaluated.ok).toBe(true);
-+    if (!evaluated.ok) return;
-+    expect(evaluated.claimEvaluation.status).toBe("not_proven");
-+    expect(evaluated.claimEvaluation.ruleRef).toBeUndefined();
-+    expect(evaluated.claimEvaluation.claimStatement).toContain(
-+      "no_applicable_contract_result_rule",
-+    );
-+  });
++### Contradiction
 +
-+  it("C08 — assisted confirm cannot mint pass from NOT_PROVEN EO assessments", async () => {
-+    const confirm = new ConfirmClaimEvaluation(
-+      {
-+        findById: async () => ({
-+          schemaVersion: CLAIM_EVALUATION_SCHEMA_VERSION,
-+          claimEvaluationId: "clm:cr:assisted",
-+          claimType: "conformite",
-+          claimStatement: "x",
-+          criticality: "non_critical",
-+          evaluationMethod: "assisted",
-+          requiredEvidenceRefs: ["ev:w3b:pass2"],
-+          providedEvidenceRefs: ["ev:w3b:pass2"],
-+          reviewBundleId: "rb:1",
-+          reviewBundleVersion: 2,
-+          status: "evaluating",
-+          proposedBy: { actorId: "actor:a", role: "project_owner" },
-+          proposedAt: "2026-08-24T00:00:00.000Z",
-+          provenance: {
-+            schemaVersion: "0.1.0-oa",
-+            provenanceRecordId: "prv:1",
-+            actor: { actorId: "actor:a", role: "project_owner" },
-+            source: "review",
-+            timestamp: "2026-08-24T00:00:00.000Z",
-+            correlationId: "cor:1",
-+          },
-+          version: 1,
-+          subjectKind: CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
-+          contractResultReviewPolicyRef: W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
-+          expectedOutputAssessments: [
-+            {
-+              itemId: buildContractResultItemId({
-+                semanticFingerprint: baseContract.semanticFingerprint!,
-+                itemKind: "EO",
-+                ordinal: 0,
-+              }),
-+              expectation: W3B_TEMP_ARTIFACT_EO_TEMPLATE,
-+              result: "NOT_PROVEN",
-+              method: "assisted",
-+              provenance: {
-+                evaluatorRef: "w3b",
-+                evaluatedAt: "2026-08-24T00:00:00.000Z",
-+              },
-+            },
-+          ],
-+          evidenceRequirementAssessments: [
-+            {
-+              itemId: buildContractResultItemId({
-+                semanticFingerprint: baseContract.semanticFingerprint!,
-+                itemKind: "ER",
-+                ordinal: 0,
-+              }),
-+              requirement: "evreq:generate-temporary-artifact",
-+              result: "SATISFIED",
-+              method: "assisted",
-+              provenance: {
-+                evaluatorRef: "w3b",
-+                evaluatedAt: "2026-08-24T00:00:00.000Z",
-+              },
-+            },
-+          ],
-+        }),
-+        findByIdempotencyKey: async () => null,
-+        exists: async () => true,
-+        create: async () => {},
-+        update: async () => {},
-+      },
-+      {
-+        findById: async () => ({
-+          schemaVersion: "0.2.0-oa",
-+          reviewBundleId: "rb:1",
-+          projectId: "prj:w3b",
-+          version: 2,
-+          frozenAt: "2026-08-24T00:00:00.000Z",
-+          frozenVersion: 2,
-+          evidenceRefs: ["ev:w3b:pass2"],
-+          claimEvaluationRefs: [],
-+          completeness: "complete",
-+          status: "ready_for_review",
-+          createdAt: "2026-08-24T00:00:00.000Z",
-+          synthesisOnly: false,
-+          provenance: {
-+            schemaVersion: "0.1.0-oa",
-+            provenanceRecordId: "prv:rb",
-+            actor: { actorId: "actor:a", role: "project_owner" },
-+            source: "review",
-+            timestamp: "2026-08-24T00:00:00.000Z",
-+            correlationId: "cor:rb",
-+          },
-+          frozenEvidenceSnapshots: [
-+            {
-+              evidenceId: "ev:w3b:pass2",
-+              evidenceVersion: 1,
-+              status: "verified",
-+              availability: "available",
-+            },
-+          ],
-+        }),
-+      },
-+      {
-+        findById: async () => ({ ...goodEvidence, status: "verified" as const }),
-+      },
-+      { verify: () => ({ ok: true, reason: "ok" }) },
-+      { nowIso: () => "2026-08-24T00:00:00.000Z" },
-+      { append: () => {} },
-+      { newCorrelationId: () => "cor:1", newProvenanceId: () => "prv:2" },
-+    );
-+    const result = await confirm.execute({
-+      claimEvaluationId: "clm:cr:assisted",
-+      expectedVersion: 1,
-+      idempotencyKey: "idem:confirm:assisted",
-+      actor: { actorId: "actor:b", role: "project_owner" },
-+    });
-+    expect(result.ok).toBe(false);
-+    if (result.ok) return;
-+    expect(result.error.internalCauseRef).toBe(
-+      "contract_result_confirm_derived_not_pass",
-+    );
-+  });
++1. Attempt binds EC `@vN` at acceptance.
++2. After acceptance, lifecycle operations may advance **current** `ExecutionContract.version` to `@vN+k` **without** changing `semanticFingerprint`.
++3. TD-W3B-02 requires Contract Result assessment against the **exact bound EC-version material**, not merely “same fingerprint on latest row”.
++4. Therefore: **Attempt bound to EC@vN + latest EC@vN+k with same fingerprint DOES NOT satisfy TD-W3B-02** if assessment reads latest EC payload as substitute material.
++5. **Forbidden workaround:** latest-EC cross-version matching, fingerprint-gated substitution, sync-forward of Attempt version, or tolerance of lifecycle drift for semantic material resolution.
 +
-+  it("C08 — assisted confirm may pass only when all assessments derive pass", async () => {
-+    const eoPass = {
-+      itemId: buildContractResultItemId({
-+        semanticFingerprint: baseContract.semanticFingerprint!,
-+        itemKind: "EO" as const,
-+        ordinal: 0,
-+      }),
-+      expectation: W3B_TEMP_ARTIFACT_EO_TEMPLATE,
-+      result: "PASS" as const,
-+      method: "assisted" as const,
-+      provenance: {
-+        evaluatorRef: "w3b",
-+        evaluatedAt: "2026-08-24T00:00:00.000Z",
-+      },
-+    };
-+    const erSat = {
-+      itemId: buildContractResultItemId({
-+        semanticFingerprint: baseContract.semanticFingerprint!,
-+        itemKind: "ER" as const,
-+        ordinal: 0,
-+      }),
-+      requirement: "evreq:generate-temporary-artifact",
-+      result: "SATISFIED" as const,
-+      method: "assisted" as const,
-+      provenance: {
-+        evaluatorRef: "w3b",
-+        evaluatedAt: "2026-08-24T00:00:00.000Z",
-+      },
-+    };
-+    expect(
-+      deriveCanonicalContractResultStatus({
-+        attemptStatus: "succeeded",
-+        expectedOutputAssessments: [eoPass],
-+        evidenceRequirementAssessments: [erSat],
-+      }),
-+    ).toBe("pass");
-+  });
-+});
-diff --git a/projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultEvaluation.test.ts b/projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultEvaluation.test.ts
-index 4e1a254b..fc67aaaf 100644
---- a/projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultEvaluation.test.ts
-+++ b/projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultEvaluation.test.ts
-@@ -18,7 +18,7 @@ import { CLAIM_EVALUATION_SCHEMA_VERSION } from "@/lib/oa/evidence-review/domain
- import {
-   CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
-   W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
--  isAttemptContractExactlyBound,
-+  isAttemptContractImmutablyBound,
- } from "@/lib/oa/evidence-review/domain/contractResultTypes";
- import { projectContractResultVerdict } from "@/lib/oa/evidence-review/application/contractResultVerdictProjection";
- import type { ExecutionContract } from "@/lib/oa/execution-contract";
-@@ -183,33 +183,29 @@ describe("Contract Result evaluation", () => {
-     expect(er[0]?.result).toBe("NOT_PROVEN");
-   });
-
--  it("exact binding requires id + version + fingerprint", () => {
-+  it("immutable binding accepts lifecycle version drift when fingerprint matches", () => {
-     expect(
--      isAttemptContractExactlyBound({
--        contract,
-+      isAttemptContractImmutablyBound({
-+        contract: {
-+          executionContractId: contract.executionContractId,
-+          semanticFingerprint: contract.semanticFingerprint,
-+        },
-         attempt: {
-           executionContractId: contract.executionContractId,
--          executionContractVersion: 1,
-+          executionContractVersion: 3,
-           executionContractSemanticFingerprint: contract.semanticFingerprint,
-         },
-       }),
-     ).toBe(true);
-     expect(
--      isAttemptContractExactlyBound({
--        contract,
--        attempt: {
-+      isAttemptContractImmutablyBound({
-+        contract: {
-           executionContractId: contract.executionContractId,
--          executionContractVersion: 2,
--          executionContractSemanticFingerprint: contract.semanticFingerprint,
-+          semanticFingerprint: "fp:other",
-         },
--      }),
--    ).toBe(false);
--    expect(
--      isAttemptContractExactlyBound({
--        contract: { ...contract, semanticFingerprint: "fp:other" },
-         attempt: {
-           executionContractId: contract.executionContractId,
--          executionContractVersion: 1,
-+          executionContractVersion: 3,
-           executionContractSemanticFingerprint: contract.semanticFingerprint,
-         },
-       }),
-diff --git a/projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts b/projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
-index 58eab085..126d1f9e 100644
---- a/projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
-+++ b/projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
-@@ -15,7 +15,7 @@ import {
-
- const CAPTURE_ROOT = path.resolve(
-   process.cwd(),
--  "../../../.tmp-sfia-review/runtime-captures/w3-b-correction",
-+  "../../../.tmp-sfia-review/runtime-captures/w3-b-correction-2",
- );
- const MANIFEST = path.join(CAPTURE_ROOT, "manifest.jsonl");
-
-diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/confirmClaimEvaluation.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/confirmClaimEvaluation.ts
-index 654eace8..513c47ad 100644
---- a/projects/sfia-studio/app/lib/oa/evidence-review/application/confirmClaimEvaluation.ts
-+++ b/projects/sfia-studio/app/lib/oa/evidence-review/application/confirmClaimEvaluation.ts
-@@ -19,7 +19,10 @@ import type {
-   ClaimEvaluationResult,
-   ConfirmClaimEvaluationRequest,
- } from "../domain/claimEvaluationTypes";
--import { CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT } from "../domain/contractResultTypes";
-+import {
-+  CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
-+  W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
-+} from "../domain/contractResultTypes";
- import { containsForbiddenSecret } from "../domain/invariants";
- import type { EvidenceAuditPort } from "../ports/evidenceAudit";
- import type { ClaimAuthorityPort } from "../ports/claimAuthorityPort";
-@@ -31,6 +34,10 @@ import {
-   assessRequiredEvidence,
-   detailCodeForAssessment,
- } from "./claimEvidenceAssessment";
-+import {
-+  deriveCanonicalContractResultStatus,
-+  inferAttemptStatusFromContractResultAssessments,
-+} from "./contractResultAssessment";
- import {
-   assertIdempotencyKey,
-   fingerprintCommand,
-@@ -309,8 +316,56 @@ export class ConfirmClaimEvaluation {
-         );
-       }
-
-+      const isContractResult =
-+        current.subjectKind === CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT;
++Pass 2 Delivery temporarily used fingerprint-gated latest-EC reads. Architecture review classifies that as **forbidden cross-version matching** under TD-W3B-02. **Morris Option B** closes the blocker without reopening C6 or inventing EC history.
 +
-+      if (isContractResult) {
-+        if (!current.contractResultReviewPolicyRef) {
-+          return fail(
-+            "CLAIM_EVALUATION_INVALID",
-+            "contract_result_missing_policy_ref",
-+            { claimEvaluation: current },
-+          );
-+        }
-+        if (
-+          current.contractResultReviewPolicyRef !==
-+          W3B_CONTRACT_RESULT_REVIEW_POLICY_REF
-+        ) {
-+          return fail(
-+            "CLAIM_EVALUATION_INVALID",
-+            "contract_result_unknown_policy_ref",
-+            { claimEvaluation: current },
-+          );
-+        }
-+        if (
-+          !current.expectedOutputAssessments?.length ||
-+          !current.evidenceRequirementAssessments?.length
-+        ) {
-+          return fail(
-+            "CLAIM_EVALUATION_INVALID_STATE",
-+            "contract_result_confirm_missing_assessments",
-+            { claimEvaluation: current },
-+          );
-+        }
-+        const attemptStatus = inferAttemptStatusFromContractResultAssessments(
-+          current.expectedOutputAssessments,
-+        );
-+        const derivedStatus = deriveCanonicalContractResultStatus({
-+          attemptStatus,
-+          expectedOutputAssessments: current.expectedOutputAssessments,
-+          evidenceRequirementAssessments: current.evidenceRequirementAssessments,
-+        });
-+        if (derivedStatus !== "pass") {
-+          return fail(
-+            "CLAIM_EVALUATION_INVALID_STATE",
-+            "contract_result_confirm_derived_not_pass",
-+            { claimEvaluation: current },
-+          );
-+        }
-+      }
++---
 +
-       const confirmationAuthority =
--        current.subjectKind === CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT
-+        isContractResult
-           ? ("authorized_human" as const)
-           : current.criticality === "structural"
-             ? ("morris" as const)
-@@ -327,6 +382,27 @@ export class ConfirmClaimEvaluation {
-         updatedAt: timestamp,
-         version: current.version + 1,
-         idempotencyKey: request.idempotencyKey,
-+        ...(isContractResult
-+          ? {
-+              expectedOutputAssessments: current.expectedOutputAssessments?.map(
-+                (assessment) => ({
-+                  ...assessment,
-+                  reviewConfirmation: {
-+                    confirmedBy: { ...request.actor },
-+                    confirmedAt: timestamp,
-+                  },
-+                }),
-+              ),
-+              evidenceRequirementAssessments:
-+                current.evidenceRequirementAssessments?.map((assessment) => ({
-+                  ...assessment,
-+                  reviewConfirmation: {
-+                    confirmedBy: { ...request.actor },
-+                    confirmedAt: timestamp,
-+                  },
-+                })),
-+            }
-+          : {}),
-       };
-       const shape = validateClaimEvaluationShape(updated);
-       if (shape) {
-diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultAssessment.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultAssessment.ts
-index 0ce7e74e..44c91cbe 100644
---- a/projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultAssessment.ts
-+++ b/projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultAssessment.ts
-@@ -10,7 +10,6 @@ import type {
-   EvidenceRequirementAssessment,
- } from "../domain/contractResultTypes";
- import {
--  W3B_CONTRACT_RESULT_RULE_REF,
-   buildContractResultItemId,
- } from "../domain/contractResultTypes";
- import {
-@@ -35,12 +34,12 @@ export type ContractResultAssessmentInput = {
-
- function provenance(
-   input: ContractResultAssessmentInput,
--  ruleRef: string,
-+  ruleRef?: string,
- ): ContractResultAssessmentProvenance {
-   return {
-     evaluatorRef: input.evaluatorRef ?? "w3b-contract-result-assessor",
-     evaluatedAt: input.evaluatedAt,
--    ruleRef,
-+    ...(ruleRef ? { ruleRef } : {}),
-   };
- }
-
-@@ -50,7 +49,7 @@ export function assessExpectedOutputs(
-   const fp = input.contract.semanticFingerprint ?? "";
-   const outputs = input.contract.expectedOutputs ?? [];
-   const rule = resolveApplicableContractResultRule(input.contract);
--  const ruleRef = rule.applicable ? rule.ruleRef : W3B_CONTRACT_RESULT_RULE_REF;
-+  const ruleRef = rule.applicable ? rule.ruleRef : undefined;
-   const prov = provenance(input, ruleRef);
-
-   return outputs.map((expectation, ordinal) => {
-@@ -91,7 +90,7 @@ export function assessEvidenceRequirements(
-   const fp = input.contract.semanticFingerprint ?? "";
-   const requirements = input.contract.evidenceRequirements ?? [];
-   const rule = resolveApplicableContractResultRule(input.contract);
--  const ruleRef = rule.applicable ? rule.ruleRef : W3B_CONTRACT_RESULT_RULE_REF;
-+  const ruleRef = rule.applicable ? rule.ruleRef : undefined;
-   const prov = provenance(input, ruleRef);
-
-   return requirements.map((requirement, ordinal) => {
-@@ -156,11 +155,33 @@ export function buildContractResultClaimStatement(input: {
-   contract: ExecutionContract;
-   attemptStatus: string;
-   status: "pass" | "fail" | "not_proven";
-+  boundContractVersion?: number;
-+  notApplicableReason?: string;
- }): string {
-   const eoCount = input.contract.expectedOutputs?.length ?? 0;
-   const erCount = input.contract.evidenceRequirements?.length ?? 0;
-+  const version = input.boundContractVersion ?? input.contract.version;
-+  const suffix = input.notApplicableReason
-+    ? ` — ${input.notApplicableReason}`
-+    : "";
-   return (
-     `Contract result assessment (${input.status}) for EC ${input.contract.executionContractId}` +
--    `@v${input.contract.version} — attempt ${input.attemptStatus} — EO:${eoCount} ER:${erCount}`
-+    `@v${version} — attempt ${input.attemptStatus} — EO:${eoCount} ER:${erCount}${suffix}`
-   );
- }
++## 4.10.2 TD-W3B-02 — Morris Option B: Bound ExecutionContract Semantic Snapshot
 +
-+/** Infer attempt terminal class from structured EO assessments for confirm re-derivation. */
-+export function inferAttemptStatusFromContractResultAssessments(
-+  expectedOutputAssessments: readonly ExpectedOutputAssessment[],
-+): string {
-+  if (expectedOutputAssessments.some((a) => a.result === "FAIL")) {
-+    return "failed";
-+  }
-+  if (
-+    expectedOutputAssessments.length > 0 &&
-+    expectedOutputAssessments.every((a) => a.result === "PASS")
-+  ) {
-+    return "succeeded";
-+  }
-+  return "unknown";
-+}
-diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultSemanticEvaluator.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultSemanticEvaluator.ts
-index b00afb09..a9bb0826 100644
---- a/projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultSemanticEvaluator.ts
-+++ b/projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultSemanticEvaluator.ts
-@@ -3,7 +3,7 @@
-  * No NLP, no resultRef-alone PASS, no Evidence-available-alone ER satisfaction.
-  */
- import type { ExecutionContract } from "@/lib/oa/execution-contract";
--import type { Evidence, ExecutionAttemptSnapshot } from "../domain/types";
-+import type { Evidence, EvidenceStatus, ExecutionAttemptSnapshot } from "../domain/types";
- import type { ReviewBundleEvidenceSnapshot } from "../domain/reviewBundleTypes";
-
- export const W3B_TEMP_ARTIFACT_RULE_REF =
-@@ -22,6 +22,11 @@ export const W3B_TEMP_ARTIFACT_ER_KEY = "evreq:generate-temporary-artifact" as c
- /** Governed W3-A execute path mints res:w3a:<hex> — server-owned shape only. */
- const W3A_RESULT_REF_PATTERN = /^res:w3a:[a-f0-9]+$/;
-
-+const W3B_USABLE_EVIDENCE_STATUSES = new Set<EvidenceStatus>([
-+  "available",
-+  "verified",
-+]);
++**Status:** **ADOPTED BY MORRIS — 2026-08-24 — targeted clarification (Cycle 6 DOC)**
 +
- export type ApplicableContractResultRule =
-   | { readonly applicable: true; readonly ruleRef: typeof W3B_TEMP_ARTIFACT_RULE_REF }
-   | { readonly applicable: false; readonly ruleRef: null };
-@@ -48,22 +53,34 @@ export function tempArtifactExecutionFactsHold(input: {
-   return input.evidence.technicalResultRef === resultRef;
- }
-
--export function evidenceMatchesFrozenSnapshot(input: {
-+/** W3-B bounded ER validity — stale/rejected/unavailable Evidence cannot satisfy ER. */
-+export function isW3bContractResultEvidenceUsable(input: {
-   evidence: Evidence;
-   snapshot: ReviewBundleEvidenceSnapshot | undefined;
- }): boolean {
--  if (!input.snapshot) return false;
--  if (input.snapshot.evidenceId !== input.evidence.evidenceId) return false;
--  if (input.snapshot.evidenceVersion !== input.evidence.version) return false;
--  if (
--    input.snapshot.availability === "unavailable" ||
--    input.snapshot.status === "unavailable"
--  ) {
-+  const { evidence, snapshot } = input;
-+  if (!snapshot) return false;
-+  if (snapshot.evidenceId !== evidence.evidenceId) return false;
-+  if (snapshot.evidenceVersion !== evidence.version) return false;
-+  if (snapshot.availability !== "available") return false;
-+  if (!W3B_USABLE_EVIDENCE_STATUSES.has(snapshot.status as EvidenceStatus)) {
-+    return false;
-+  }
-+  if (evidence.availability !== "available") return false;
-+  if (!W3B_USABLE_EVIDENCE_STATUSES.has(evidence.status)) return false;
-+  if (evidence.freshness === "stale" || evidence.freshness === "unknown") {
-     return false;
-   }
-   return true;
- }
-
-+export function evidenceMatchesFrozenSnapshot(input: {
-+  evidence: Evidence;
-+  snapshot: ReviewBundleEvidenceSnapshot | undefined;
-+}): boolean {
-+  return isW3bContractResultEvidenceUsable(input);
-+}
++**Morris decision (exact):** At Attempt binding/acceptance, capture an **immutable canonical snapshot** of bound ExecutionContract semantic material using the **existing** `executionContractSemanticMaterial()` representation, plus bound EC version and semantic fingerprint, persisted in the **existing** Attempt Product SQLite payload only. ExecutionContract remains the single **current** lifecycle SoT. The snapshot is historical binding evidence — **not** a second EC. **No** latest-EC cross-version matching. **No** auto-migration. **No** EC history repository. **No** semantic-version redesign.
 +
- export function assessTempArtifactExpectedOutput(input: {
-   expectation: string;
-   ordinal: number;
-diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/evaluateContractResult.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/evaluateContractResult.ts
-index 952c396e..5912f494 100644
---- a/projects/sfia-studio/app/lib/oa/evidence-review/application/evaluateContractResult.ts
-+++ b/projects/sfia-studio/app/lib/oa/evidence-review/application/evaluateContractResult.ts
-@@ -22,7 +22,7 @@ import { CLAIM_EVALUATION_SCHEMA_VERSION } from "../domain/claimEvaluationTypes"
- import {
-   CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
-   W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
--  isAttemptContractExactlyBound,
-+  isAttemptContractImmutablyBound,
- } from "../domain/contractResultTypes";
- import type { ExecutionAttemptSnapshot } from "../domain/types";
- import type { Evidence } from "../domain/types";
-@@ -125,10 +125,9 @@ export class EvaluateContractResult {
-         return fail("CLAIM_EVALUATION_INVALID", "contract_attempt_mismatch");
-       }
-       if (
--        !isAttemptContractExactlyBound({
-+        !isAttemptContractImmutablyBound({
-           contract: {
-             executionContractId: contract.executionContractId,
--            version: contract.version,
-             semanticFingerprint: contract.semanticFingerprint,
-           },
-           attempt,
-@@ -136,7 +135,7 @@ export class EvaluateContractResult {
-       ) {
-         return fail(
-           "CLAIM_EVALUATION_INVALID",
--          "contract_attempt_exact_binding_mismatch",
-+          "contract_attempt_immutable_binding_mismatch",
-         );
-       }
-       if (evidence.bindings.executionAttemptId !== attempt.attemptId) {
-@@ -181,12 +180,6 @@ export class EvaluateContractResult {
-       }
-
-       const applicableRule = resolveApplicableContractResultRule(contract);
--      if (!applicableRule.applicable) {
--        return fail(
--          "CLAIM_EVALUATION_INVALID",
--          "contract_result_rule_not_applicable",
--        );
--      }
-
-       const fingerprint = fingerprintCommand(
-         registerFingerprintBody({
-@@ -195,8 +188,10 @@ export class EvaluateContractResult {
-           reviewBundleId: reviewBundle.reviewBundleId,
-           executionAttemptId: attempt.attemptId,
-           executionContractId: contract.executionContractId,
--          contractVersion: contract.version,
--          semanticFingerprint: contract.semanticFingerprint,
-+          contractVersion: attempt.executionContractVersion,
-+          semanticFingerprint:
-+            attempt.executionContractSemanticFingerprint ??
-+            contract.semanticFingerprint,
-           actor: request.actor,
-         }),
-       );
-@@ -247,10 +242,14 @@ export class EvaluateContractResult {
-           contract,
-           attemptStatus: attempt.status,
-           status,
-+          boundContractVersion: attempt.executionContractVersion,
-+          notApplicableReason: applicableRule.applicable
-+            ? undefined
-+            : "no_applicable_contract_result_rule",
-         }),
-         criticality: "non_critical",
-         evaluationMethod: "deterministic",
--        ruleRef: applicableRule.ruleRef,
-+        ...(applicableRule.applicable ? { ruleRef: applicableRule.ruleRef } : {}),
-         requiredEvidenceRefs: [evidence.evidenceId],
-         providedEvidenceRefs: [evidence.evidenceId],
-         reviewBundleId: reviewBundle.reviewBundleId,
-diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/domain/contractResultTypes.ts b/projects/sfia-studio/app/lib/oa/evidence-review/domain/contractResultTypes.ts
-index af93bdb6..8717298f 100644
---- a/projects/sfia-studio/app/lib/oa/evidence-review/domain/contractResultTypes.ts
-+++ b/projects/sfia-studio/app/lib/oa/evidence-review/domain/contractResultTypes.ts
-@@ -7,6 +7,7 @@ import type {
-   ClaimConfirmationAuthority,
-   ClaimEvaluationMethod,
- } from "./claimEvaluationTypes";
-+import type { ActorReference } from "@/lib/oa/doctrine";
-
- export const CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT =
-   "execution_contract_result" as const;
-@@ -48,6 +49,11 @@ export type ContractResultAssessmentProvenance = {
-   readonly ruleRef?: string;
- };
-
-+export type ContractResultReviewConfirmation = {
-+  readonly confirmedBy: ActorReference;
-+  readonly confirmedAt: string;
-+};
++### Options considered (binding-material resolution)
 +
- export type ExpectedOutputAssessment = {
-   readonly itemId: ContractResultItemId;
-   readonly expectation: string;
-@@ -55,6 +61,7 @@ export type ExpectedOutputAssessment = {
-   readonly method: ClaimEvaluationMethod;
-   readonly ruleRef?: string;
-   readonly provenance: ContractResultAssessmentProvenance;
-+  readonly reviewConfirmation?: ContractResultReviewConfirmation;
- };
-
- export type EvidenceRequirementAssessment = {
-@@ -64,6 +71,7 @@ export type EvidenceRequirementAssessment = {
-   readonly method: ClaimEvaluationMethod;
-   readonly ruleRef?: string;
-   readonly provenance: ContractResultAssessmentProvenance;
-+  readonly reviewConfirmation?: ContractResultReviewConfirmation;
- };
-
- /** Server-derived projection only — NOT durable SoT (ARCH-R06-A). */
-@@ -94,11 +102,14 @@ export function resolveContractResultConfirmationAuthority(
-   return "authorized_human";
- }
-
--/** TD-W3B-02 — exact EC id + version + semanticFingerprint binding (zero drift tolerance). */
--export function isAttemptContractExactlyBound(input: {
-+/**
-+ * TD-W3B-02 — immutable Attempt EC binding (acceptance-time id + version + fingerprint).
-+ * Latest EC lifecycle/OCC bumps do NOT move Attempt binding; semantic material is
-+ * resolved via fingerprint match against latest repository payload (Solution B/C hybrid).
-+ */
-+export function isAttemptContractImmutablyBound(input: {
-   contract: {
-     executionContractId: string;
--    version: number;
-     semanticFingerprint?: string;
-   };
-   attempt: {
-@@ -109,21 +120,24 @@ export function isAttemptContractExactlyBound(input: {
- }): boolean {
-   const contractFp = (input.contract.semanticFingerprint ?? "").trim();
-   const attemptFp = (input.attempt.executionContractSemanticFingerprint ?? "").trim();
--  if (!contractFp || !attemptFp) return false;
-+  if (!contractFp || !attemptFp || !input.attempt.executionContractVersion) {
-+    return false;
-+  }
-   return (
-     input.contract.executionContractId === input.attempt.executionContractId &&
--    input.contract.version === input.attempt.executionContractVersion &&
-     contractFp === attemptFp
-   );
- }
-
-+/** @deprecated alias — Pass 2: binding is immutable acceptance-time, not latest EC.version */
-+export const isAttemptContractExactlyBound = isAttemptContractImmutablyBound;
++| Option | Summary | Decision |
++| --- | --- | --- |
++| **A** | Separate OCC revision from semantic contract version globally | **Not selected now** — broader EC model change; impacts W2 inspection/version semantics; wider migration blast radius; unnecessary on current W3 critical path. **Not permanently rejected** — possible future refactor if broader EC-version requirement appears. |
++| **B** | Attempt-bound immutable canonical semantic snapshot at accept | **ADOPTED** — local FC-10 ownership; no second EC lifecycle; reuses existing helper + Product SQLite Attempt payload; no new store/table/repository; supports exact restart/recovery; W1/W2/W3-A transparent; W4 transparent. |
++| **C** | Historical ExecutionContract repository / `findByIdAndVersion` | **Not selected** — new persistence/history capability; new repository breadth; larger C6/architecture impact; solves more than W3 needs. |
 +
- export function contractResultBindingsMatchCurrentFacts(input: {
-   bindings: ContractResultBindings;
-   contract: {
-     projectId: string;
-     cycleInstanceId?: string | null;
-     executionContractId: string;
--    version: number;
-     semanticFingerprint?: string;
-   };
-   attempt: {
-@@ -138,12 +152,13 @@ export function contractResultBindingsMatchCurrentFacts(input: {
-   };
-   evidenceIds: readonly string[];
- }): boolean {
--  const fp = (input.contract.semanticFingerprint ?? "").trim();
-+  const attemptFp = (input.attempt.executionContractSemanticFingerprint ?? "").trim();
-   if (
-     input.bindings.projectId !== input.contract.projectId ||
-     input.bindings.executionContractId !== input.contract.executionContractId ||
--    input.bindings.executionContractVersion !== input.contract.version ||
--    input.bindings.executionContractSemanticFingerprint !== fp ||
-+    input.bindings.executionContractVersion !==
-+      input.attempt.executionContractVersion ||
-+    input.bindings.executionContractSemanticFingerprint !== attemptFp ||
-     input.bindings.executionAttemptId !== input.attempt.attemptId ||
-     input.bindings.reviewBundleId !== input.reviewBundle.reviewBundleId ||
-     input.bindings.reviewBundleVersion !== input.reviewBundle.frozenVersion
-@@ -156,7 +171,7 @@ export function contractResultBindingsMatchCurrentFacts(input: {
-   ) {
-     return false;
-   }
--  if (!isAttemptContractExactlyBound({ contract: input.contract, attempt: input.attempt })) {
-+  if (!isAttemptContractImmutablyBound({ contract: input.contract, attempt: input.attempt })) {
-     return false;
-   }
-   if (input.bindings.evidenceRefs.length !== input.evidenceIds.length) return false;
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/cancelExecutionAttempt.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/cancelExecutionAttempt.ts
-index 4b21b467..75c286f6 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/cancelExecutionAttempt.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/cancelExecutionAttempt.ts
-@@ -21,7 +21,6 @@ import type {
-   ExecutionAttempt,
-   ExecutionAttemptResult,
- } from "../domain/types";
--import { withAttemptContractBindingSync } from "../domain/types";
- import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
- import type { AgentRegistryPort } from "../ports/agentRegistry";
- import type { ExecutionAdapterPort } from "../ports/executionAdapter";
-@@ -270,27 +269,9 @@ export class CancelExecutionAttempt {
-         durationMs,
-       });
++### Canonical snapshot contract (conceptual shape)
++
++```text
++ExecutionAttempt.boundExecutionContract:
++  executionContractSchemaVersion   # schema of semanticMaterial payload
++  executionContractVersion         # exact version at acceptance
++  semanticFingerprint              # exact fingerprint at acceptance
++  semanticMaterial                 # executionContractSemanticMaterial(contract) at acceptance
++```
++
++**Rules:**
++
++| Rule | Requirement |
++| --- | --- |
++| Material producer | **MUST** use existing `executionContractSemanticMaterial(contract)` — **not** a W3-B-specific subset |
++| Canonical representation | `ExecutionContractSemanticMaterial` is the execution-significant representation; excludes lifecycle (`status`, current OCC `version`, volatile provenance) while retaining execution-significant fields |
++| Capture point | Once at Attempt acceptance/binding (existing W3-A Select/accepted seam) |
++| Mutability | **Never** edited after capture; lifecycle writes **MUST NOT** mutate snapshot |
++| Second aggregate | Snapshot is **not** a second ExecutionContract; **not** promoted to current EC; **not** a repository/catalog |
++
++### Ownership / SoT matrix
++
++| Aggregate | Role |
++| --- | --- |
++| **ExecutionContract** | Sole mutable/current lifecycle SoT before and through execution lifecycle |
++| **Bound snapshot on Attempt** | Immutable historical binding evidence; exact material for Contract Result assessment |
++| **ClaimEvaluation** | Consumes bound snapshot (+ frozen RB + Evidence) for Contract Result assessment |
++| **FC-11** | Consumes CE + Attempt/Evidence truth; **never** evaluates latest EC heuristically |
++| **FC-12** | Does **not** own EC lifecycle |
++
++### Binding / cross-version semantics (TD-W3B-02 unchanged core + Option B material source)
++
++For an Attempt:
++
++| Binding element | Rule |
++| --- | --- |
++| `executionContractVersion` | Exact version at acceptance — **immutable** |
++| `semanticFingerprint` | Exact fingerprint at acceptance — **immutable** |
++| EO/ER item identity | `(bound semanticFingerprint, kind ∈ {EO, ER}, ordinal)` |
++| Assessment material source | **Bound snapshot only** — not latest EC row |
++| Latest EC substitution | **Forbidden** |
++| Version drift tolerance | **Forbidden** |
++| Cross-version semantic recognition | **Forbidden** |
++| Auto-migration | **Forbidden** |
++
++**Lifecycle OCC bump vs bound material:** A later lifecycle/OCC version bump on the **current** ExecutionContract **does not** mutate or migrate the Attempt's binding or snapshot.
++
++**Prior Attempt vs successor/amended EC:** A materially amended or superseding EC has its own material/fingerprint. It **does not** invalidate the historical truth of a completed prior Attempt. Prior CE remains valid **only** for its prior Attempt/bound snapshot. Prior CE **MUST NOT** satisfy a successor EC or a new Attempt.
++
++### Self-consistency / corruption rules (future Delivery)
++
++Future Delivery **MUST** fail-closed when snapshot integrity cannot be verified. Minimum checks:
++
++1. Snapshot EC id matches Attempt `executionContractId`.
++2. Snapshot bound version matches Attempt `executionContractVersion`.
++3. Recomputed fingerprint from snapshot `semanticMaterial` equals stored bound `semanticFingerprint`.
++4. Required identity/project/cycle relationships are coherent.
++
++**Forbidden on corruption/missing snapshot:** reconstruction from latest EC; fake historical EC object; auto-migration.
++
++### Historical Attempts (no backfill)
++
++| Case | Rule |
++| --- | --- |
++| Attempt **without** bound semantic snapshot | Remains readable; **MUST NOT** obtain Product SUCCESS via latest-EC reconstruction |
++| Contract Result for such Attempts | NOT_PROVEN / UNCLAIMED fail-closed per existing FC-11 contract |
++| Backfill / fake snapshot | **Forbidden** in this architecture cycle |
++| Migration redesign | **Out of scope** |
++
++### Persistence direction
++
++| Decision | Detail |
++| --- | --- |
++| Store | Existing ExecutionAttempt Product SQLite persistence (`payload_json`) |
++| Change class | Domain/payload **additive field** on Attempt aggregate |
++| Forbidden | New database technology; new aggregate repository; EC history table; new persistence engine |
++| SQL schema migration | Future Delivery detail if payload validation/versioning requires it — **no new table** in this architecture cycle |
++| C6 | **CLOSED — not reopened** |
++
++### Architecture parallelism check (Option B creates none of)
++
++- second ExecutionContract aggregate
++- EC-history repository
++- semantic-version subsystem
++- ProductOutcome aggregate
++- second Attempt lifecycle
++- second Claim Engine
++- Stop Engine
++- Evidence pipeline
++- W3-B-specific product route
++- per-cycle snapshot engine
++
++Snapshot is **one immutable value object** inside the existing Attempt aggregate.
++
++### Bounded reserves (R-TD02)
++
++| ID | Reserve | Exit |
++| --- | --- | --- |
++| **R-TD02-01** | Historical Attempts lack bound snapshot | Remain fail-closed; no backfill required for W3-B |
++| **R-TD02-02** | Snapshot duplicates canonical EC semantic material into Attempt payload | Accepted architectural duplication for historical binding; **not** a second mutable SoT |
++| **R-TD02-03** | Future change to `ExecutionContractSemanticMaterial` schema | Versioning responsibility for interpretability — **not** a W3-B blocker; no generalized migration framework now |
++
++---
++
+ ## 4.11 ARCH-R06-C — Mode-specific review authority (Contract Result)
 
--      let terminalAttempt = cancelled;
--      if (contractWrite.ok) {
--        terminalAttempt = withAttemptContractBindingSync(
--          cancelled,
--          contractWrite.contract,
--        );
--        if (
--          terminalAttempt.executionContractVersion !==
--          cancelled.executionContractVersion
--        ) {
--          terminalAttempt = {
--            ...terminalAttempt,
--            version: cancelled.version + 1,
--          };
--          await this.attempts.update(terminalAttempt, cancelled.version);
--        }
--      }
--
-       return {
-         ok: true,
--        attempt: structuredClone(terminalAttempt),
-+        attempt: structuredClone(cancelled),
-         contractStatus: contractWrite.ok
-           ? contractWrite.contract.status
-           : contract.status,
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
-index 9372cfb0..62267028 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
-@@ -11,7 +11,6 @@ import type {
-   ExecutionAttemptResult,
-   RecordExecutionFailureRequest,
- } from "../domain/types";
--import { withAttemptContractBindingSync } from "../domain/types";
- import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
- import type { AgentRegistryPort } from "../ports/agentRegistry";
- import type { ExecutionAttemptAuditPort } from "../ports/executionAttemptAudit";
-@@ -169,26 +168,9 @@ export class RecordExecutionFailure {
-         durationMs,
-       });
+ **Problem (repo-validated):** Generic ClaimEvaluation today couples `ClaimCriticality.structural` to Morris runtime authority:
+@@ -779,12 +923,17 @@ No invented latency/SLA targets.
 
--      let terminalAttempt = failed;
--      if (contractWrite.ok) {
--        terminalAttempt = withAttemptContractBindingSync(
--          failed,
--          contractWrite.contract,
--        );
--        if (
--          terminalAttempt.executionContractVersion !== failed.executionContractVersion
--        ) {
--          terminalAttempt = {
--            ...terminalAttempt,
--            version: failed.version + 1,
--          };
--          await this.attempts.update(terminalAttempt, failed.version);
--        }
--      }
--
-       return {
-         ok: true,
--        attempt: structuredClone(terminalAttempt),
-+        attempt: structuredClone(failed),
-         contractStatus: contractWrite.ok
-           ? contractWrite.contract.status
-           : contract.status,
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionResult.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionResult.ts
-index 62036ca0..c0d5d0da 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionResult.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionResult.ts
-@@ -16,7 +16,6 @@ import type {
-   ExecutionAttemptResult,
-   RecordExecutionResultRequest,
- } from "../domain/types";
--import { withAttemptContractBindingSync } from "../domain/types";
- import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
- import type { AgentRegistryPort } from "../ports/agentRegistry";
- import type { ExecutionAttemptAuditPort } from "../ports/executionAttemptAudit";
-@@ -232,23 +231,9 @@ export class RecordExecutionResult {
-         };
-       }
+ ## 11. Downstream impact
 
--      let terminalAttempt = withAttemptContractBindingSync(
--        succeeded,
--        contractWrite.contract,
--      );
--      if (
--        terminalAttempt.executionContractVersion !== succeeded.executionContractVersion
--      ) {
--        terminalAttempt = {
--          ...terminalAttempt,
--          version: succeeded.version + 1,
--        };
--        await this.attempts.update(terminalAttempt, succeeded.version);
--      }
--
-       return {
-         ok: true,
--        attempt: structuredClone(terminalAttempt),
-+        attempt: structuredClone(succeeded),
-         contractStatus: contractWrite.contract.status,
-         contractVersion: contractWrite.contract.version,
-         durationMs,
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-index 60829348..bf766c39 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-@@ -52,7 +52,6 @@ import type {
-   ExecutionAttemptResult,
-   StartExecutionRequest,
- } from "../domain/types";
--import { withAttemptContractBindingSync } from "../domain/types";
- import type {
-   ContractSafetyIdentity,
-   GateDGrant,
-@@ -1029,24 +1028,9 @@ export class StartExecution {
-       durationMs,
-     });
+-| Wave | Impact |
++| Wave / domain | Impact |
+ | --- | --- |
+-| **W3-C** | Consume **same** Evidence/RB + durable **contract-result** assessment · no second Nora path · restart-safe · fail-closed if assessment store down |
+-| **W3-D** | Assessment generic · **no** cycleType switch engine |
+-| **W3-E** | Same canonical path |
+-| **W4** | Presentation only · no UX work here |
++| **W1** | **No reopen.** Continuity/restart truth strengthened by Attempt-bound immutable contract material. |
++| **W2** | **No reopen.** HumanDecision, Trajectory, EC inspection, Confirmation, authority unchanged. Snapshot captured **only after** existing W2 authorization boundary. |
++| **W3-A** | **CLOSED / no reopen.** Capture at existing Select/accepted seam. No new execution engine. |
++| **W3-B** | **Direct TD-W3B-02 blocker closed at architecture level.** Future Delivery must: persist bound snapshot; evaluate Contract Result **only** from it; revalidate Confirm path against it; close remaining Evidence freshness reserves; rerun X-W3B-01…12. **≠ W3-B closed.** |
++| **W3-C/D/E** | No scope moved into W3-B. Snapshot provides stable historical contract context for Evidence→Nora/replan/recovery. Catalog evolvability remains downstream W3. |
++| **CKC** | No authority impact. `doctrinePackageRef` inside existing semantic material preserves provenance only. |
++| **W4** | No new Product concept/surface. Internal snapshot supports S7 History / S8 Recovery / S9 Evidence / S10 EC / S12 Attempt honesty. W4 remains Product Experience closure only. |
++| **REAL** | No gate impact. Same snapshot must serve deterministic and future REAL execution. REAL remains OUT. |
++| **runtime v3** | No promotion. NON ADOPTED. |
 
--    let launchedAttempt = withAttemptContractBindingSync(
--      runningAttempt,
--      contractWrite.contract,
--    );
--    if (
--      launchedAttempt.executionContractVersion !==
--      runningAttempt.executionContractVersion
--    ) {
--      launchedAttempt = {
--        ...launchedAttempt,
--        version: runningAttempt.version + 1,
--      };
--      await this.attempts.update(launchedAttempt, runningAttempt.version);
--    }
--
-     return {
-       ok: true,
--      attempt: structuredClone(launchedAttempt),
-+      attempt: structuredClone(runningAttempt),
-       contractStatus: contractWrite.contract.status,
-       contractVersion: contractWrite.contract.version,
-       durationMs,
-@@ -1111,24 +1095,6 @@ export class StartExecution {
-       contractStatus = contractWrite.ok ? contractWrite.contract.status : undefined;
-     }
+ ### Backlog note (no mutation this cycle)
 
--    let terminalAttempt = persistedAttempt;
--    if (persistedAttempt && contractWrite?.ok) {
--      terminalAttempt = withAttemptContractBindingSync(
--        persistedAttempt,
--        contractWrite.contract,
--      );
--      if (
--        terminalAttempt.executionContractVersion !==
--        persistedAttempt.executionContractVersion
--      ) {
--        terminalAttempt = {
--          ...terminalAttempt,
--          version: persistedAttempt.version + 1,
--        };
--        await this.attempts.update(terminalAttempt, persistedAttempt.version);
--      }
--    }
--
-     const durationMs = Date.now() - input.started;
-     this.audit.append({
-       event: "oa.execution_attempt.launch_failed",
-@@ -1157,7 +1123,7 @@ export class StartExecution {
-         executionContractId: input.attempt.executionContractId,
-         internalCauseRef: input.reason,
-       }),
--      attempt: terminalAttempt,
-+      attempt: persistedAttempt,
-       durationMs,
-     };
-   }
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/systemGovernedStop.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/systemGovernedStop.ts
-index b61aa0eb..14c3c5b4 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/systemGovernedStop.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/systemGovernedStop.ts
-@@ -11,7 +11,6 @@ import type {
-   ExecutionAttempt,
-   ExecutionAttemptResult,
- } from "../domain/types";
--import { withAttemptContractBindingSync } from "../domain/types";
- import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
- import type { AgentRegistryPort } from "../ports/agentRegistry";
- import type { ExecutionAdapterPort } from "../ports/executionAdapter";
-@@ -227,26 +226,9 @@ export class SystemGovernedStop {
-         durationMs,
-       });
+@@ -797,7 +946,7 @@ Post-merge DOC12 + Roadmap truth state is represented in this Cycle 14 documenta
+ | ID | Decision | Status |
+ | --- | --- | --- |
+ | **TD-W3B-01** | Contract-result assessment = adapted ClaimEvaluation + explicit **contract-result subject/mode** + structured EO/ER assessments + **`ClaimEvaluation.status` canonical durable verdict** + **`contractResultVerdict` server-derived projection only** + **explicit mode-specific confirmation authority (no automatic legacy structural→Morris in Contract Result mode)** + Product SQLite durability; generic ClaimEvaluation unchanged outside Contract Result mode (Option A) | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
+-| **TD-W3B-02** | EO/ER identity = deterministic immutable EC-version item identity `(semanticFingerprint, kind∈{EO,ER}, ordinal)` + explicit EC/Attempt/RB/Evidence bindings · **no** cross-version semantic matching · no auto-migrate | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
++| **TD-W3B-02** | EO/ER identity = deterministic immutable EC-version item identity `(semanticFingerprint, kind∈{EO,ER}, ordinal)` + explicit EC/Attempt/RB/Evidence bindings · **no** cross-version semantic matching · no auto-migrate · **bound semantic material = Attempt snapshot via Morris Option B** (`executionContractSemanticMaterial()` + version + fingerprint at accept · existing Attempt Product SQLite payload) | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24 · Option B clarification ADOPTED — 2026-08-24** |
+ | **TD-W3B-03** | SYSTEM_GOVERNED_STOP = separate FC-10 use case on same Attempt lifecycle for **post-running / proven execution-frontier** runtime guards · human Cancel distinct · pre-running block ≠ terminal STOP · adapter cancel ACK safety reused | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
+ | **TD-W3B-04** | Runtime guard STOP provenance = **mandatory durable server-owned** stop provenance on Attempt substrate · U2/U2b harvest as reconciliation/guard source · **no** Guard aggregate · **no** Stop Engine | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
 
--      let terminalAttempt = stopped;
--      if (contractWrite.ok) {
--        terminalAttempt = withAttemptContractBindingSync(
--          stopped,
--          contractWrite.contract,
--        );
--        if (
--          terminalAttempt.executionContractVersion !== stopped.executionContractVersion
--        ) {
--          terminalAttempt = {
--            ...terminalAttempt,
--            version: stopped.version + 1,
--          };
--          await this.attempts.update(terminalAttempt, stopped.version);
--        }
--      }
--
-       return {
-         ok: true,
--        attempt: structuredClone(terminalAttempt),
-+        attempt: structuredClone(stopped),
-         contractStatus: contractWrite.ok
-           ? contractWrite.contract.status
-           : contract.status,
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
-index 36f197ec..87f83533 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
-@@ -147,23 +147,6 @@ export type ExecutionAttempt = {
-   executionContractSemanticFingerprint?: string;
- };
+@@ -807,19 +956,22 @@ Post-merge DOC12 + Roadmap truth state is represented in this Cycle 14 documenta
+ | --- | --- |
+ | **Date** | 2026-08-24 |
+ | **Authority** | Morris — SFIA Studio construction / architecture governance |
+-| **Decision** | TD-W3B-01…04 **VALIDATED / ADOPTED** for W3-B |
+-| **Basis** | ARCH-R01…ARCH-R06 closed for architecture review · ChatGPT architecture re-review PASS · Option A REVIEW-CLEAN · Option S2 REVIEW-CLEAN · C6 remains CLOSED · no parallel Claim Engine · no Stop Engine · Product SQLite KEEP · generic ClaimEvaluation semantics outside Contract Result mode KEEP |
+-| **Anti-effects** | Adoption architecture ≠ merge PR #410 · ≠ Delivery restart · ≠ W3-B completion · ≠ W3 completion · ≠ Product Completion completion · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED |
++| **Decision** | TD-W3B-01…04 **VALIDATED / ADOPTED** for W3-B · **TD-W3B-02 Option B (bound snapshot) ADOPTED — 2026-08-24** |
++| **Basis** | ARCH-R01…ARCH-R06 closed for architecture review · ChatGPT architecture re-review PASS · Option A REVIEW-CLEAN · Option S2 REVIEW-CLEAN · C6 remains CLOSED · no parallel Claim Engine · no Stop Engine · Product SQLite KEEP · generic ClaimEvaluation semantics outside Contract Result mode KEEP · W3-B Delivery Pass 2 exposed TD-W3B-02 current-model contradiction · vertical C1→W4 review |
++| **Option B trace** | Attempt captures immutable `boundExecutionContract` at accept using existing `executionContractSemanticMaterial()` · no EC history repo · no latest-EC substitution |
++| **Anti-effects** | Adoption architecture ≠ merge PR #410 · ≠ Delivery implementation in DOC cycle · ≠ W3-B completion · ≠ W3 completion · ≠ Product Completion completion · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED |
 
--/** Sync Attempt EC binding after T-A5 contract status OCC bump (TD-W3B-02). */
--export function withAttemptContractBindingSync(
--  attempt: ExecutionAttempt,
--  contract: {
--    version: number;
--    semanticFingerprint?: string;
--  },
--): ExecutionAttempt {
--  return {
--    ...attempt,
--    executionContractVersion: contract.version,
--    executionContractSemanticFingerprint:
--      attempt.executionContractSemanticFingerprint ??
--      contract.semanticFingerprint,
--  };
--}
--
- /**
-  * Canonical binding carried by the agent_selection Confirmation actionRef.
-  * See invariants.formatAgentSelectionActionRef.
+ ---
+
+ ## 13. Migration / backfill (candidate only)
+
+ - New DBs: **NONE**
++- New EC history tables: **NONE** (Option B — Attempt payload only)
+ - Historical ClaimEvaluations: may be **irrecoverable**
+ - Historical Attempts without assessment: **NOT_PROVEN**
++- Historical Attempts **without bound semantic snapshot**: readable · Contract Result fail-closed · **no** latest-EC reconstruction · **no** fake snapshot · **no backfill** (R-TD02-01)
+ - Historical cancelled without trustworthy system provenance: **do not** reclassify as SYSTEM_GOVERNED_STOP
+-- Forward writes only after later Delivery GO
++- Forward snapshot capture only after later Delivery GO + architecture clarification review-clean
+ - **No migration executed** in this architecture cycle
+
+ ---
+@@ -896,7 +1048,8 @@ Post-merge DOC12 + Roadmap truth state is represented in this Cycle 14 documenta
+ 3. **Contract Result review policy reference shape** — remains a bounded Delivery detail to confirm/implement within the adopted architecture (minimal server-owned policy — not broad authority DSL).
+ 4. **Git integration** — **CLOSED** — PR **#410 MERGED** — `bcc39fba04664edc09fca782e61e5f5e70a45d35`.
+ 5. **Post-merge documentary truth** — represented in merge-stable form in this document and the living Roadmap · repository transport/integration status **RESOLVE FROM GIT / PR EVIDENCE** · no product/Delivery authority follows from transport status alone.
+-6. **Delivery** — **NOT** restarted · remains subject to W3-B Delivery requalification against current main · restart requires distinct Morris authorization if qualification passes · integration of this documentation alone never authorizes restart.
++6. **Delivery** — W3-B Delivery **restarted under Morris** and produced reviewed local candidate `756cda50` (Pass 2 above `0b1e50a5`) · review exposed TD-W3B-02 structural blocker · **Morris Option B now ADOPTED** in §4.10.2 · **architecture clarification must be review-clean before continuing same W3-B Delivery candidate correction** · this DOC cycle **does not** implement snapshot · **does not** close W3-B.
++7. **TD-W3B-02 architecture blocker** — **CLOSED at architecture-decision level** via Option B · **implementation + X-W3B-01…12 re-proof still required** in Delivery.
+
+ ~~Prior open question on accepted→cancelled system STOP as Product STOP~~ — **resolved by ARCH-R03**. No C2/FA rewrite.
+
+@@ -904,6 +1057,6 @@ Post-merge DOC12 + Roadmap truth state is represented in this Cycle 14 documenta
+
+ ## 17. Final architecture verdict (this document)
+
+-**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R01…ARCH-R06 REVIEW-CLEAN — TD-W3B-01…04 VALIDATED / ADOPTED BY MORRIS — INTEGRATED ON MAIN via PR #410 / `bcc39fba04664edc09fca782e61e5f5e70a45d35`**
++**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R01…ARCH-R06 REVIEW-CLEAN — TD-W3B-01…04 VALIDATED / ADOPTED BY MORRIS — TD-W3B-02 OPTION B CLARIFICATION ADOPTED — INTEGRATED ON MAIN via PR #410 / `bcc39fba04664edc09fca782e61e5f5e70a45d35`**
+
+-Architecture adopted and integrated on main · post-merge documentary truth represented in merge-stable form · repository integration status resolved from Git/PR evidence · W3-B Delivery not restarted · W3-B remains incomplete pending implementation/proof · C6 remains CLOSED · runtime v3 NON ADOPTED.
++Architecture adopted on main · TD-W3B-02 bound-material contradiction closed by Morris Option B at documentation level · W3-B **NOT CLOSED** · Delivery implementation/re-proof pending after clarification review · C6 remains CLOSED · REAL OUT · runtime v3 NON ADOPTED.
 ```
