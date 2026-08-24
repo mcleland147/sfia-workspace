@@ -1,198 +1,100 @@
-# SFIA Review Handoff — W3-B DOC12 Architecture Adoption Truth Sync
+# SFIA Review Handoff — W3-B Post-Merge Truth Sync
 
 ## 1. Cycle summary
 
-- Cycle: W3-B DOC12 architecture adoption truth sync (cycle 13 — documentary truth sync)
-- Timestamp CEST: 2026-08-24 20:49:15 CEST
-- Timestamp UTC: 2026-08-24 18:49:15 UTC
-- Profile: STANDARD
-- Morris authorization consumed: GO MORRIS — W3-B DOC12 ARCHITECTURE TRUTH SYNC — TD-W3B-01…04 VALIDATED / ADOPTED
+- Cycle: 14 — Post-merge · Profile STANDARD
+- Timestamp CEST: 2026-08-24 21:08:58 CEST
+- Timestamp UTC: 2026-08-24 19:08:58 UTC
+- Morris authorization: GO MORRIS — W3-B POST-MERGE TRUTH SYNC LOCAL CANDIDATE
 
-## 2. Repo / worktree
+## 2. Git evidence
 
 | Item | Value |
 | --- | --- |
-| Architecture worktree | /Users/morris/Projects/sfia-workspace-w3b-architecture-addendum |
-| origin/main | ba7aa2db408b7fd00faf9638da060ce0833b794b |
-| Architecture branch | docs/sfia-studio-w3-b-targeted-technical-architecture-addendum |
-| Starting HEAD | 6837eafa2232b32aa8b064edcf5b0f392d2fb8b1 |
-| Final HEAD | cbad09d54518c56d9fd894a788e55b53d2b6b5a5 |
-| Commit message | docs(sfia-studio): record W3-B architecture adoption |
+| origin/main | bcc39fba04664edc09fca782e61e5f5e70a45d35 |
+| PR #410 | MERGED |
+| PR head | cbad09d54518c56d9fd894a788e55b53d2b6b5a5 |
+| Merge commit | bcc39fba04664edc09fca782e61e5f5e70a45d35 |
+| Local branch | docs/sfia-studio-w3-b-post-merge-truth-sync |
+| Starting HEAD | bcc39fba04664edc09fca782e61e5f5e70a45d35 |
+| Local commit | 40dbf86ba6b4e2cb8d6f6cc82b31890f473b6c33 |
+| Commit message | docs(sfia-studio): sync W3-B post-merge truth |
+| **PROJECT BRANCH NOT PUSHED** | confirmed — remote branch absent |
 
-## 3. PR #410
+## 3. Modified files (exactly 2)
 
-- OPEN · Draft = true
-- base = main @ ba7aa2db408b7fd00faf9638da060ce0833b794b
-- head = docs/sfia-studio-w3-b-targeted-technical-architecture-addendum @ cbad09d5
-- changed files = DOC12 only
-- Ready-for-review transition: NOT performed
-- Merge: NOT authorized / NOT performed
+1. projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
+2. projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 
-## 4. Morris decision consumed
-
-Quote: « ok donc je valide tes recommandations et qu'on avance sur la suite »
-
-TD-W3B-01…04 = **VALIDATED / ADOPTED BY MORRIS — 2026-08-24**
-
-## 5. DOC12 sections modified
-
-1. Document metadata (Status, Correction pass, Implementation)
-2. §4.5 D01 recommendation heading + lead sentence
-3. §7.5 D02 recommendation heading + lead sentence
-4. §11 Backlog note
-5. §12 Adopted technical decisions + §12.1 Morris decision trace
-6. §16 Morris decisions / remaining gates
-7. §17 Final architecture verdict
-
-## 6. TD status before/after
-
-| ID | Before | After |
-| --- | --- | --- |
-| TD-W3B-01 | CANDIDATE / RECOMMENDED | VALIDATED / ADOPTED BY MORRIS — 2026-08-24 |
-| TD-W3B-02 | CANDIDATE / RECOMMENDED | VALIDATED / ADOPTED BY MORRIS — 2026-08-24 |
-| TD-W3B-03 | CANDIDATE / RECOMMENDED | VALIDATED / ADOPTED BY MORRIS — 2026-08-24 |
-| TD-W3B-04 | CANDIDATE / RECOMMENDED | VALIDATED / ADOPTED BY MORRIS — 2026-08-24 |
-
-## 7. Technical decision preservation
-
-TD Decision column text (TD-W3B-01…04): **IDENTICAL** before/after.
-Option A / Option S2 / ARCH-R01…R06 technical bodies: **UNCHANGED**.
-PASS — NO ARCHITECTURE SEMANTIC DRIFT
-
-## 8. Useful DOC12 diff
+## 4. DOC12 diff (complete)
 
 ```
 diff --git a/projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md b/projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
-index 1f7b04fd..92a10160 100644
+index 92a10160..086c44ab 100644
 --- a/projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
 +++ b/projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
-@@ -7,11 +7,11 @@
- | **Profile** | DOC / CRITICAL |
- | **Milestone** | W3-B STRUCTURAL ARCHITECTURE ADDENDUM |
- | **Base Git** | `origin/main` = `ba7aa2db408b7fd00faf9638da060ce0833b794b` |
--| **Status** | **CANDIDATE** — not ADOPTED · not DECIDED BY MORRIS |
--| **Correction pass** | ARCH-R01…ARCH-R06 documentary correction (ChatGPT CHANGES REQUIRED) |
-+| **Status** | **VALIDATED BY MORRIS** — TD-W3B-01…04 ADOPTED — 2026-08-24 |
-+| **Correction pass** | ARCH-R01…ARCH-R06 corrected · ChatGPT architecture re-review PASS · REVIEW-CLEAN |
- | **Scope** | **W3B-D01** Contract Result Satisfaction · **W3B-D02** System-governed terminal STOP **only** |
- | **Authority** | Morris = construction/architecture · ChatGPT = review · Cursor = repo-first analysis |
--| **Implementation** | **FORBIDDEN** until Morris validates this addendum |
-+| **Implementation** | Architecture **ADOPTED** · Delivery **NOT** restarted automatically · consumption only after DOC12 merge + post-merge truth + separate Delivery requalification |
-
- ---
-
-@@ -201,9 +201,9 @@ Unchanged posture: credible but higher parallel-architecture risk. Not preferred
- | Parallel risk | Low | Medium-high | **STOP** |
- | Reversibility | DEV rollback may drop M8; **not** runtime Memory fallback | Harder | Harder |
-
--### 4.5 D01 recommendation (CANDIDATE / RECOMMENDED — not ADOPTED)
-+### 4.5 D01 recommendation (VALIDATED / ADOPTED BY MORRIS — Option A · TD-W3B-01)
-
--**Recommend Option A** with ARCH-R01/R02/R06 contracts below.
-+**Adopted: Option A** with ARCH-R01/R02/R06 contracts below.
-
- ---
-
-@@ -587,9 +587,9 @@ Insufficient alone. **Harvest as guard/reconciliation source feeding S2.**
-
- Unchanged ranking: **S2 best** · S1 possible · S3 alone incomplete. Material correction: S2 must enforce post-running/proven frontier + durable provenance + adapter ACK safety.
-
--### 7.5 D02 recommendation (CANDIDATE / RECOMMENDED — not ADOPTED)
-+### 7.5 D02 recommendation (VALIDATED / ADOPTED BY MORRIS — Option S2 · TD-W3B-03/04)
-
--**Recommend Option S2** + **harvest S3** as guard/reconciliation source.
-+**Adopted: Option S2** + **harvest S3** as guard/reconciliation source.
-
- | Kind | Representation |
- | --- | --- |
-@@ -787,20 +787,28 @@ No invented latency/SLA targets.
-
- ### Backlog note (no mutation this cycle)
-
--Future truth sync (post Morris validation): annotate US-P1-05 / US-P1-06 with enablers W3B-D01 / W3B-D02. **No backlog rewrite now.**
-+Future controlled backlog / Roadmap truth sync in a separate authorized cycle: annotate US-P1-05 / US-P1-06 with enablers W3B-D01 / W3B-D02. **No backlog rewrite now.**
-
- ---
-
--## 12. Candidate technical decision register
-+## 12. Adopted technical decisions
-
- | ID | Decision | Status |
- | --- | --- | --- |
--| **TD-W3B-01** | ... | **CANDIDATE / RECOMMENDED** |
--| **TD-W3B-02** | ... | **CANDIDATE / RECOMMENDED** |
--| **TD-W3B-03** | ... | **CANDIDATE / RECOMMENDED** |
--| **TD-W3B-04** | ... | **CANDIDATE / RECOMMENDED** |
-+| **TD-W3B-01** | ... | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
-+| **TD-W3B-02** | ... | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
-+| **TD-W3B-03** | ... | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
-+| **TD-W3B-04** | ... | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
-
--Never ADOPTED / VALIDATED / DECIDED BY MORRIS in this document.
-+### 12.1 Morris decision trace
-+(added — see DOC12 §12.1)
-
- ---
-
--## 16. Morris decisions required
-+## 16. Morris decisions / remaining gates
- (updated — TD-W3B-01…04 CLOSED; merge + Delivery remain future gates)
-
- ---
-
- ## 17. Final architecture verdict (this document)
-
--**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R06 CORRECTED CANDIDATE READY FOR CHATGPT ARCHITECTURE RE-REVIEW**
-+**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R01…ARCH-R06 REVIEW-CLEAN — TD-W3B-01…04 VALIDATED / ADOPTED BY MORRIS**
-
--Not validated · not adopted · TD-W3B-01…04 remain CANDIDATE · ...
-+TD-W3B-01…04 adopted by Morris on 2026-08-24 · C6 remains CLOSED · W3-B Delivery remains blocked pending DOC12 merge ...
+@@ -11,7 +11,8 @@
+ | **Implementation** | Architecture **ADOPTED / INTEGRATED ON MAIN** · Delivery **NOT** restarted · W3-B Delivery requires separate post-merge requalification + authorization before resumption |
++| **Git integration** | PR **#410 MERGED** — merge `bcc39fba04664edc09fca782e61e5f5e70a45d35` — 2026-08-24 |
+@@ -105,7 +106,7 @@
+-| W3-B | DELIVERY IN PROGRESS / **STRUCTURALLY BLOCKED** (W3B-D01 · W3B-D02) |
++| W3-B | IN PROGRESS / NOT CLOSED · Architecture **ADOPTED / INTEGRATED ON MAIN** · W3B-D01/D02 **ARCHITECTURE GAP CLOSED / IMPLEMENTATION NOT YET PROVEN** · Delivery **PAUSED / NOT RESTARTED / REQUALIFICATION REQUIRED** |
+@@ -787,7 +788,7 @@
+-Future controlled backlog / Roadmap truth sync...
++Post-merge DOC12 + Roadmap truth sync executed in Cycle 14 (local candidate)...
+@@ -891,10 +892,11 @@
+-4. **Git integration** — DOC12 currently in Draft PR #410...
+-5. **Delivery** — no automatic restart...
++4. **Git integration** — **CLOSED** — PR **#410 MERGED** — `bcc39fba...`
++5. **Post-merge truth sync** — **CURRENT LOCAL CANDIDATE** — awaiting ChatGPT review.
++6. **Delivery** — **NOT** restarted...
+@@ -902,6 +904,6 @@
+-**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ... ADOPTED BY MORRIS**
+-TD-W3B-01…04 adopted ... pending DOC12 merge...
++**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ... INTEGRATED ON MAIN via PR #410 / bcc39fba...**
++Architecture adopted and integrated on main · post-merge documentary truth sync pending Git integration · W3-B Delivery not restarted...
 ```
 
-(Full TD decision text unchanged — abbreviated in diff excerpt only for table rows marked `...`.)
+## 5. Roadmap diff summary
 
-## 9. Convergence state
+- Snapshot Git courant → W3-B POST-MERGE maintenance reference
+- Timestamp maintenance courant → W3-B POST-MERGE TRUTH SYNC 2026-08-24 21:07 CEST
+- W3-A timestamp relabeled historique
+- Added Product Completion W3-B Targeted Technical Architecture row
+- W3 Delivery updated: W3-B CURRENT CAPABILITY, architecture gaps closed, Delivery NOT RESTARTED
+- Gates courants / CURRENT REPOSITORY TRANSITION / NEXT ORDERED STEP / NEXT PRODUCT CAPABILITY updated
 
-- C6 CLOSED
-- W3-B Delivery NOT restarted · remains blocked pending merge + requalification
-- W3 IN PROGRESS
-- Product Completion INCOMPLETE
+## 6. Technical decision preservation
+
+TD-W3B-01…04 Decision column text: **IDENTICAL** before/after.
+PASS — NO ARCHITECTURE SEMANTIC DRIFT
+
+## 7. Current W3-B state
+
+- Architecture: ADOPTED / INTEGRATED ON MAIN
+- W3B-D01/D02: ARCHITECTURE GAP CLOSED / IMPLEMENTATION NOT YET PROVEN
+- Delivery: NOT RESTARTED / REQUALIFICATION REQUIRED
+- Capability: IN PROGRESS / NOT CLOSED
+
+## 8. Convergence state
+
+- C6 CLOSED · W3 IN PROGRESS · Product Completion INCOMPLETE
 - REAL OUT · FinOps/T7 FREEZE · W4 OUT · runtime v3 NON ADOPTED
-- Roadmap/doc11 NOT touched
+- W3-C/D/E NOT STARTED
+
+## 9. Post-merge CI
+
+Run https://github.com/mcleland147/sfia-workspace/actions/runs/32765431464 — SUCCESS on bcc39fba
 
 ## 10. Delivery worktree preservation
 
-- Worktree: /Users/morris/Projects/sfia-workspace
-- Branch: delivery/sfia-studio-product-completion-w3-b-terminal-evidence
-- HEAD: ba7aa2db408b7fd00faf9638da060ce0833b794b
-- Dirty lines: 25 (preserved — no mutation by this cycle)
+/Users/morris/Projects/sfia-workspace — delivery/sfia-studio-product-completion-w3-b-terminal-evidence @ ba7aa2db — 25 dirty lines — unchanged
 
-## 11. CI
+## 11. Next gate
 
-| Item | Value |
-| --- | --- |
-| Workflow | SFIA Studio CI |
-| Run | https://github.com/mcleland147/sfia-workspace/actions/runs/32764582915 |
-| headSha | cbad09d54518c56d9fd894a788e55b53d2b6b5a5 |
-| Detect SFIA Studio changes | SUCCESS |
-| Build and validate SFIA Studio | SUCCESS |
-| Trailing whitespace check | SUCCESS |
-| SFIA Studio Required Gate | SUCCESS |
-| Overall conclusion | SUCCESS |
+ChatGPT review of local post-merge truth sync → future Morris Git integration GO → W3-B Delivery requalification.
+Merge NOT authorized in this cycle.
 
-## 12. Review Pack verdict
+## 12. Verdict
 
-READY FOR REVIEW — W3-B DOC12 ARCHITECTURE ADOPTION TRUTH SYNC complete.
-
-Verdict Cursor uniquement : DOC12 truth sync prêt pour ChatGPT targeted re-review. PR #410 reste GitHub Draft ; aucune transition Ready-for-review et aucun merge effectués.
-
-## 13. Reserves
-
-- Contract Result review policy reference shape: bounded Delivery detail
-- DOC12 merge: distinct Morris GO required (NOT authorized)
-- W3-B Delivery requalification: post-merge gate
-
-## 14. Next gate
-
-ChatGPT targeted re-review of DOC12 adoption truth sync.
-Merge NOT authorized.
+READY FOR REVIEW — W3-B POST-MERGE TRUTH SYNC LOCAL CANDIDATE — DOC12 + ROADMAP ONLY — PR #410 MERGE RECORDED — TD-W3B-01…04 PRESERVED ADOPTED — W3-B ARCHITECTURE INTEGRATED — DELIVERY NOT RESTARTED — LOCAL PROJECT COMMIT ONLY — PROJECT PUSH/PR/MERGE NOT PERFORMED — AWAITING CHATGPT REVIEW.
