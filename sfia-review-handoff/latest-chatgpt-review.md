@@ -1,259 +1,189 @@
-# ChatGPT Review Pack — W3-B DOC12 CI Hygiene Correction
+# SFIA Review Handoff — W3-B DOC12 Architecture Adoption Truth Sync
 
-## 1. Timestamp
+## 1. Cycle summary
 
-- Local (Europe/Paris / CEST): 2026-08-24 20:29:27 CEST
-- UTC: 2026-08-24 18:29:27 UTC
-- Cycle: PR #410 CI hygiene correction — DOC12 whitespace only
+- Cycle: W3-B DOC12 architecture adoption truth sync (cycle 13 — documentary truth sync)
+- Timestamp CEST: 2026-08-24 20:49:15 CEST
+- Timestamp UTC: 2026-08-24 18:49:15 UTC
 - Profile: STANDARD
-- Authorized blocks: H — Quality Gate; I — Governance / Closeout / Review Packaging
+- Morris authorization consumed: GO MORRIS — W3-B DOC12 ARCHITECTURE TRUTH SYNC — TD-W3B-01…04 VALIDATED / ADOPTED
 
-## 2. Morris GO consumed
-
-GO MORRIS — PR #410 CI HYGIENE CORRECTION — DOC12 WHITESPACE ONLY — IDENTIFY AND REMOVE TRAILING WHITESPACE CAUSING SFIA STUDIO CI FAILURE — NO SEMANTIC CONTENT CHANGE — SAME ARCHITECTURE BRANCH — SAME DRAFT PR #410 — COMMIT + PUSH AUTHORIZED — NO TD ADOPTION — NO ROADMAP/DOC11 — NO DELIVERY RESTART — NO READY FOR REVIEW — NO MERGE.
-
-## 3. Sources loaded
-
-- prompts/templates/sfia-cycle-execution-template.md (process)
-- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md (RO)
-- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md (RO)
-- projects/sfia-studio/product-completion/01-product-completion-cadrage.md (RO)
-- projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
-- .github/workflows/sfia-studio-ci.yml — Trailing whitespace check (authoritative)
-- origin/sfia/review-handoff latest-chatgpt-review.md
-  prior Git integration handoff commit 82cf8b1a0213ebc47d65185b6d3644889c39d37d
-  blob c473f6ed2153411677b4c39d30d036f1d4c43fc1 (verified at cycle start)
-
-## 4. Convergence qualification
-
-- Capability v3: W3-B terminal SUCCESS/STOP/FAIL + Evidence business-first
-- Milestone: Draft PR #410 DOC12 integration hygiene
-- W3 IN PROGRESS; W3-B STRUCTURALLY BLOCKED
-- ARCH-R01…R06 architecture review PASS / CLOSED FOR ARCHITECTURE REVIEW
-- Gap this cycle: CI Trailing whitespace check FAILURE only
-- No architecture parallelism; C6 CLOSED; Delivery not restarted
-
-CONVERGENCE CONTEXT LOADED
-
-## 5. Pre-change Git truth
+## 2. Repo / worktree
 
 | Item | Value |
 | --- | --- |
 | Architecture worktree | /Users/morris/Projects/sfia-workspace-w3b-architecture-addendum |
-| Branch | docs/sfia-studio-w3-b-targeted-technical-architecture-addendum |
-| Starting HEAD | 057ba005041d1fb50a2a4de3d178df4f45b87045 |
 | origin/main | ba7aa2db408b7fd00faf9638da060ce0833b794b |
-| Status before edit | untracked .tmp-sfia-review/ only |
-| Staged | EMPTY |
-| Remote architecture SHA | 057ba005041d1fb50a2a4de3d178df4f45b87045 |
+| Architecture branch | docs/sfia-studio-w3-b-targeted-technical-architecture-addendum |
+| Starting HEAD | 6837eafa2232b32aa8b064edcf5b0f392d2fb8b1 |
+| Final HEAD | cbad09d54518c56d9fd894a788e55b53d2b6b5a5 |
+| Commit message | docs(sfia-studio): record W3-B architecture adoption |
 
-## 6. PR #410 pre-change state
+## 3. PR #410
 
-- OPEN + Draft = true
-- base = main at ba7aa2db
-- head = docs/sfia-studio-w3-b-targeted-technical-architecture-addendum at 057ba005
-- files = DOC12 only
+- OPEN · Draft = true
+- base = main @ ba7aa2db408b7fd00faf9638da060ce0833b794b
+- head = docs/sfia-studio-w3-b-targeted-technical-architecture-addendum @ cbad09d5
+- changed files = DOC12 only
+- Ready-for-review transition: NOT performed
+- Merge: NOT authorized / NOT performed
 
-## 7. Original CI failure
+## 4. Morris decision consumed
 
-| Item | Value |
-| --- | --- |
-| Workflow | SFIA Studio CI |
-| Run | https://github.com/mcleland147/sfia-workspace/actions/runs/32760077818 |
-| Job | Build and validate SFIA Studio |
-| Step | Trailing whitespace check |
-| Conclusion | FAILURE |
-| Exact log | DOC12:899: new blank line at EOF. |
+Quote: « ok donc je valide tes recommandations et qu'on avance sur la suite »
 
-Authoritative CI rule in .github/workflows/sfia-studio-ci.yml:
+TD-W3B-01…04 = **VALIDATED / ADOPTED BY MORRIS — 2026-08-24**
 
-git diff --check BASE_SHA...HEAD
+## 5. DOC12 sections modified
 
-with BASE_SHA = ba7aa2db408b7fd00faf9638da060ce0833b794b.
+1. Document metadata (Status, Correction pass, Implementation)
+2. §4.5 D01 recommendation heading + lead sentence
+3. §7.5 D02 recommendation heading + lead sentence
+4. §11 Backlog note
+5. §12 Adopted technical decisions + §12.1 Morris decision trace
+6. §16 Morris decisions / remaining gates
+7. §17 Final architecture verdict
 
-Local reproduction before edit: FAIL exit 2, same message.
+## 6. TD status before/after
 
-Note: git diff --check (the actual CI step) flags new blank line at EOF.
-Horizontal trailing space/tab scan found 0 offenders.
-The CI defect was the extra newline at EOF, not trailing spaces/tabs on content lines.
+| ID | Before | After |
+| --- | --- | --- |
+| TD-W3B-01 | CANDIDATE / RECOMMENDED | VALIDATED / ADOPTED BY MORRIS — 2026-08-24 |
+| TD-W3B-02 | CANDIDATE / RECOMMENDED | VALIDATED / ADOPTED BY MORRIS — 2026-08-24 |
+| TD-W3B-03 | CANDIDATE / RECOMMENDED | VALIDATED / ADOPTED BY MORRIS — 2026-08-24 |
+| TD-W3B-04 | CANDIDATE / RECOMMENDED | VALIDATED / ADOPTED BY MORRIS — 2026-08-24 |
 
-## 8. Exact whitespace offender
+## 7. Technical decision preservation
 
-| Field | Value |
-| --- | --- |
-| Path | projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md |
-| git diff --check line | 899 |
-| Defect | extra blank line at EOF |
-| Character | one additional LF |
-| Removed count | 1 byte |
-| Trailing spaces/tabs on content lines | none |
-| Scope | DOC12 only |
+TD Decision column text (TD-W3B-01…04): **IDENTICAL** before/after.
+Option A / Option S2 / ARCH-R01…R06 technical bodies: **UNCHANGED**.
+PASS — NO ARCHITECTURE SEMANTIC DRIFT
 
-PASS — CI HYGIENE SCOPE = DOC12 ONLY
-
-## 9. Exact authorized change
-
-Removed the extra EOF newline only.
-Pre blob 9ce4dab8becf600488b0afba100f48d87b7c2500
-Post blob 1f7b04fde39a8f4fa4d6550774170e90c5b028c0
-No wording / heading / status / architecture change.
-
-## 10. Useful DOC12 diff (complete)
+## 8. Useful DOC12 diff
 
 ```
-commit 6837eafa2232b32aa8b064edcf5b0f392d2fb8b1
-Author: Morris Cleland <morris@macbook-air1.home>
-Date:   Mon Aug 24 20:24:56 2026 +0200
-
-    docs(sfia-studio): fix W3-B DOC12 whitespace hygiene
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
 diff --git a/projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md b/projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
-index 9ce4dab8..1f7b04fd 100644
+index 1f7b04fd..92a10160 100644
 --- a/projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
 +++ b/projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
-@@ -896,4 +896,3 @@ Never ADOPTED / VALIDATED / DECIDED BY MORRIS in this document.
- **W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R06 CORRECTED CANDIDATE READY FOR CHATGPT ARCHITECTURE RE-REVIEW**
+@@ -7,11 +7,11 @@
+ | **Profile** | DOC / CRITICAL |
+ | **Milestone** | W3-B STRUCTURAL ARCHITECTURE ADDENDUM |
+ | **Base Git** | `origin/main` = `ba7aa2db408b7fd00faf9638da060ce0833b794b` |
+-| **Status** | **CANDIDATE** — not ADOPTED · not DECIDED BY MORRIS |
+-| **Correction pass** | ARCH-R01…ARCH-R06 documentary correction (ChatGPT CHANGES REQUIRED) |
++| **Status** | **VALIDATED BY MORRIS** — TD-W3B-01…04 ADOPTED — 2026-08-24 |
++| **Correction pass** | ARCH-R01…ARCH-R06 corrected · ChatGPT architecture re-review PASS · REVIEW-CLEAN |
+ | **Scope** | **W3B-D01** Contract Result Satisfaction · **W3B-D02** System-governed terminal STOP **only** |
+ | **Authority** | Morris = construction/architecture · ChatGPT = review · Cursor = repo-first analysis |
+-| **Implementation** | **FORBIDDEN** until Morris validates this addendum |
++| **Implementation** | Architecture **ADOPTED** · Delivery **NOT** restarted automatically · consumption only after DOC12 merge + post-merge truth + separate Delivery requalification |
 
- Not validated · not adopted · TD-W3B-01…04 remain CANDIDATE · W3-B remains STRUCTURALLY BLOCKED until ChatGPT re-review + Morris TD validation and Delivery is separately requalified.
--
+ ---
+
+@@ -201,9 +201,9 @@ Unchanged posture: credible but higher parallel-architecture risk. Not preferred
+ | Parallel risk | Low | Medium-high | **STOP** |
+ | Reversibility | DEV rollback may drop M8; **not** runtime Memory fallback | Harder | Harder |
+
+-### 4.5 D01 recommendation (CANDIDATE / RECOMMENDED — not ADOPTED)
++### 4.5 D01 recommendation (VALIDATED / ADOPTED BY MORRIS — Option A · TD-W3B-01)
+
+-**Recommend Option A** with ARCH-R01/R02/R06 contracts below.
++**Adopted: Option A** with ARCH-R01/R02/R06 contracts below.
+
+ ---
+
+@@ -587,9 +587,9 @@ Insufficient alone. **Harvest as guard/reconciliation source feeding S2.**
+
+ Unchanged ranking: **S2 best** · S1 possible · S3 alone incomplete. Material correction: S2 must enforce post-running/proven frontier + durable provenance + adapter ACK safety.
+
+-### 7.5 D02 recommendation (CANDIDATE / RECOMMENDED — not ADOPTED)
++### 7.5 D02 recommendation (VALIDATED / ADOPTED BY MORRIS — Option S2 · TD-W3B-03/04)
+
+-**Recommend Option S2** + **harvest S3** as guard/reconciliation source.
++**Adopted: Option S2** + **harvest S3** as guard/reconciliation source.
+
+ | Kind | Representation |
+ | --- | --- |
+@@ -787,20 +787,28 @@ No invented latency/SLA targets.
+
+ ### Backlog note (no mutation this cycle)
+
+-Future truth sync (post Morris validation): annotate US-P1-05 / US-P1-06 with enablers W3B-D01 / W3B-D02. **No backlog rewrite now.**
++Future controlled backlog / Roadmap truth sync in a separate authorized cycle: annotate US-P1-05 / US-P1-06 with enablers W3B-D01 / W3B-D02. **No backlog rewrite now.**
+
+ ---
+
+-## 12. Candidate technical decision register
++## 12. Adopted technical decisions
+
+ | ID | Decision | Status |
+ | --- | --- | --- |
+-| **TD-W3B-01** | ... | **CANDIDATE / RECOMMENDED** |
+-| **TD-W3B-02** | ... | **CANDIDATE / RECOMMENDED** |
+-| **TD-W3B-03** | ... | **CANDIDATE / RECOMMENDED** |
+-| **TD-W3B-04** | ... | **CANDIDATE / RECOMMENDED** |
++| **TD-W3B-01** | ... | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
++| **TD-W3B-02** | ... | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
++| **TD-W3B-03** | ... | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
++| **TD-W3B-04** | ... | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
+
+-Never ADOPTED / VALIDATED / DECIDED BY MORRIS in this document.
++### 12.1 Morris decision trace
++(added — see DOC12 §12.1)
+
+ ---
+
+-## 16. Morris decisions required
++## 16. Morris decisions / remaining gates
+ (updated — TD-W3B-01…04 CLOSED; merge + Delivery remain future gates)
+
+ ---
+
+ ## 17. Final architecture verdict (this document)
+
+-**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R06 CORRECTED CANDIDATE READY FOR CHATGPT ARCHITECTURE RE-REVIEW**
++**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R01…ARCH-R06 REVIEW-CLEAN — TD-W3B-01…04 VALIDATED / ADOPTED BY MORRIS**
+
+-Not validated · not adopted · TD-W3B-01…04 remain CANDIDATE · ...
++TD-W3B-01…04 adopted by Morris on 2026-08-24 · C6 remains CLOSED · W3-B Delivery remains blocked pending DOC12 merge ...
 ```
 
-## 11. Semantic/content-equivalence proof
+(Full TD decision text unchanged — abbreviated in diff excerpt only for table rows marked `...`.)
 
-- Pre bytes ended with requalified + two newlines (len 51160)
-- Post bytes end with requalified + one newline (len 51159)
-- before.rstrip(newline) == after.rstrip(newline) → YES
-- Diff hunk is solely removal of the final empty line
-- No token/content difference after stripping extra trailing newlines
+## 9. Convergence state
 
-PASS — SEMANTIC CONTENT UNCHANGED
+- C6 CLOSED
+- W3-B Delivery NOT restarted · remains blocked pending merge + requalification
+- W3 IN PROGRESS
+- Product Completion INCOMPLETE
+- REAL OUT · FinOps/T7 FREEZE · W4 OUT · runtime v3 NON ADOPTED
+- Roadmap/doc11 NOT touched
 
-## 12. git diff --check result
+## 10. Delivery worktree preservation
 
-After correction:
+- Worktree: /Users/morris/Projects/sfia-workspace
+- Branch: delivery/sfia-studio-product-completion-w3-b-terminal-evidence
+- HEAD: ba7aa2db408b7fd00faf9638da060ce0833b794b
+- Dirty lines: 25 (preserved — no mutation by this cycle)
 
-- git diff --check worktree: PASS (exit 0)
-- git diff --check origin/main...HEAD: PASS (exit 0)
-- staged --check: PASS (exit 0)
+## 11. CI
 
-## 13. Exact local CI whitespace-rule reproduction
+(Pending — to be filled after workflow run completes)
 
-Command: git diff --check ba7aa2db408b7fd00faf9638da060ce0833b794b...HEAD
+## 12. Review Pack verdict
 
-- Before: FAIL (new blank line at EOF)
-- After commit 6837eafa: PASS
+READY FOR REVIEW — W3-B DOC12 ARCHITECTURE ADOPTION TRUTH SYNC complete.
 
-Full-scope vs origin/main: PASS (no other files in PR range)
+Verdict Cursor uniquement : DOC12 truth sync prêt pour ChatGPT targeted re-review. PR #410 reste GitHub Draft ; aucune transition Ready-for-review et aucun merge effectués.
 
-## 14. Staged file list (at commit)
+## 13. Reserves
 
-M  projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
+- Contract Result review policy reference shape: bounded Delivery detail
+- DOC12 merge: distinct Morris GO required (NOT authorized)
+- W3-B Delivery requalification: post-merge gate
 
-Exactly DOC12. .tmp-sfia-review not staged.
+## 14. Next gate
 
-## 15. Project commit
-
-- SHA: 6837eafa2232b32aa8b064edcf5b0f392d2fb8b1
-- Message: docs(sfia-studio): fix W3-B DOC12 whitespace hygiene
-- Files: DOC12 only (1 deletion)
-
-## 16. Push result / SHA equality
-
-- Pushed to origin/docs/sfia-studio-w3-b-targeted-technical-architecture-addendum
-- local HEAD = remote = 6837eafa2232b32aa8b064edcf5b0f392d2fb8b1
-- equality: YES
-
-## 17. PR #410 post-push
-
-| Item | Value |
-| --- | --- |
-| Number | 410 |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/410 |
-| State | OPEN |
-| Draft | true (unchanged) |
-| Base | main at ba7aa2db |
-| Head branch | docs/sfia-studio-w3-b-targeted-technical-architecture-addendum |
-| Head SHA | 6837eafa2232b32aa8b064edcf5b0f392d2fb8b1 |
-| Files | DOC12 only |
-| Ready-for-review | not performed |
-| Merge | not performed |
-
-## 18. New CI
-
-| Item | Value |
-| --- | --- |
-| Run | https://github.com/mcleland147/sfia-workspace/actions/runs/32762304405 |
-| Head SHA | 6837eafa2232b32aa8b064edcf5b0f392d2fb8b1 |
-| Detect SFIA Studio changes | SUCCESS |
-| Build and validate SFIA Studio | SUCCESS |
-| Trailing whitespace check (step) | SUCCESS |
-| SFIA Studio Required Gate | SUCCESS |
-| Run conclusion | success |
-
-## 19. Delivery worktree untouched
-
-| Item | Value |
-| --- | --- |
-| Path | /Users/morris/Projects/sfia-workspace |
-| Branch | delivery/sfia-studio-product-completion-w3-b-terminal-evidence |
-| HEAD | ba7aa2db408b7fd00faf9638da060ce0833b794b |
-| Dirty lines | 25 |
-| Commands this cycle | read-only status/rev-parse only |
-
-## 20. Explicit statuses
-
-- TD-W3B-01…04 = CANDIDATE / RECOMMENDED — NOT ADOPTED
-- C6 = CLOSED
-- W3-B = STRUCTURALLY BLOCKED
-- W3 = IN PROGRESS
-- Product Completion = INCOMPLETE
-- REAL = OUT
-- FinOps/T7 = FREEZE
-- W4 = OUT
-- runtime v3 = NON ADOPTED
-
-## 21. Known nonblocking reserve
-
-DOC12 historical wording still contains ARCH-R06 CORRECTED CANDIDATE READY FOR CHATGPT ARCHITECTURE RE-REVIEW.
-This is a known documentary lag. Not corrected here (out of hygiene scope). Later controlled truth-sync.
-
-## 22. Forbidden actions not performed
-
-- no Roadmap / doc11 / Build Doctrine / C1 / code / tests / migrations
-- no Delivery restart / no Delivery worktree mutation
-- no Ready-for-review
-- no merge / no new PR / no force push / no rebase
-- no TD adoption
-
-## 23. Final verdict
-
-W3-B DOC12 CI HYGIENE CORRECTION — PUSHED — CI GREEN — AWAITING CHATGPT PR RE-REVIEW
-
-Next gate: ChatGPT targeted PR re-review of PR #410.
-
----
-
-### Affected DOC12 closing section (post-correction)
-
-```
-3. Confirm Contract Result review policy reference shape at Delivery time (minimal server-owned policy — not broad authority DSL).
-4. Authorize later **Git integration** of this addendum · then W3-B Delivery requalification · **no automatic Delivery restart**.
-
-~~Prior open question on accepted→cancelled system STOP as Product STOP~~ — **resolved by ARCH-R03**. No C2/FA rewrite.
-
----
-
-## 17. Final architecture verdict (this document)
-
-**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R06 CORRECTED CANDIDATE READY FOR CHATGPT ARCHITECTURE RE-REVIEW**
-
-Not validated · not adopted · TD-W3B-01…04 remain CANDIDATE · W3-B remains STRUCTURALLY BLOCKED until ChatGPT re-review + Morris TD validation and Delivery is separately requalified.
-```
-
-### Architecture worktree status at pack time
-
-```
-?? .tmp-sfia-review/
-```
+ChatGPT targeted re-review of DOC12 adoption truth sync.
+Merge NOT authorized.
