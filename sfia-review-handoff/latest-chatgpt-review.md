@@ -1,243 +1,158 @@
-# ChatGPT Review Pack — W3-B Architecture Addendum ARCH-R06 Correction
+# ChatGPT Review Pack — W3-B DOC12 Git Integration
 
 ## 1. Timestamp
 
-- Local: 2026-08-24 19:49:33 CEST
-- UTC: 2026-08-24 17:49:33 UTC
-- Cycle: Architecture technique documentary correction ARCH-R06 only
+- Local (Europe/Paris): 2026-08-24 20:02:23 CEST
+- UTC: 2026-08-24 18:02:23 UTC
+- Cycle: 13 — PR readiness / Git integration documentaire
 - Profile: DOC / CRITICAL
-- Implementation: NONE
 
-## 2. Remote main Git Truth
+## 2. Morris GO consumed
+
+GO MORRIS — W3-B DOC12 GIT INTEGRATION — INTEGRATE REVIEWED W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM ONLY — EXACT REVIEWED CONTENT — COMMIT PROJECT DOC12 ONLY — PUSH ARCHITECTURE BRANCH — CREATE/REUSE DRAFT PR TO MAIN — NO MERGE — NO DELIVERY RESTART — NO ROADMAP/DOC11 SYNC — NO CODE — TD-W3B-01…04 REMAIN CANDIDATE / NOT ADOPTED.
+
+## 3. origin/main
 
 `origin/main` = `ba7aa2db408b7fd00faf9638da060ce0833b794b` = expected `ba7aa2db408b7fd00faf9638da060ce0833b794b`
 
 **PASS — no base drift**
 
-## 3. W3-B Delivery worktree preservation proof
+## 4. Architecture worktree branch/HEAD/status
 
-| Check | Result |
+| Item | Value |
+| --- | --- |
+| Path | `/Users/morris/Projects/sfia-workspace-w3b-architecture-addendum` |
+| Branch | `docs/sfia-studio-w3-b-targeted-technical-architecture-addendum` |
+| HEAD | `057ba005041d1fb50a2a4de3d178df4f45b87045` |
+| Status | |
+```
+?? .tmp-sfia-review/
+```
+
+## 5. Delivery preservation proof
+
+| Item | Value |
 | --- | --- |
 | Path | `/Users/morris/Projects/sfia-workspace` |
 | Branch | `delivery/sfia-studio-product-completion-w3-b-terminal-evidence` |
 | HEAD | `ba7aa2db408b7fd00faf9638da060ce0833b794b` |
 | Dirty lines | 25 |
-| Key W3-B file | `w3bProductOutcomeSemantics.ts` present |
-| Architecture cycle mutations | NONE on delivery worktree |
+| Modified by this cycle | NO |
 
 **PASS — W3-B DELIVERY CANDIDATE PRESERVED**
 
-## 4. Architecture worktree Git Truth
+## 6. Sources read
 
-| Check | Result |
-| --- | --- |
-| Path | `/Users/morris/Projects/sfia-workspace-w3b-architecture-addendum` |
-| Branch | `docs/sfia-studio-w3-b-targeted-technical-architecture-addendum` |
-| HEAD | `ba7aa2db408b7fd00faf9638da060ce0833b794b` |
-| origin/main | `ba7aa2db408b7fd00faf9638da060ce0833b794b` |
-| Status | |
-```
-?? .tmp-sfia-review/
-?? projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
-```
-| Staged | EMPTY |
-| Project commit | NONE |
+Process templates/routing/operating-model/guardrails · convergence doctrine/roadmap (RO) · product 01/02/03/06/11 · CKC architecture-technique (cognition only) · handoff `ea1dc4d3` · doc12 local · PR #410 verification.
 
-## 5. Input handoff commit/blob verification
+## 7. Convergence pre-check
+
+W1/W2/W3-A CLOSED · W3 IN PROGRESS · W3-B STRUCTURALLY BLOCKED · W3-C/D/E NOT STARTED · C6 CLOSED · REAL OUT · FinOps FREEZE · W4 OUT · Product Completion INCOMPLETE · runtime v3 NON ADOPTED.
+
+## 8. Input Review Handoff commit/blob
 
 | Item | Value |
 | --- | --- |
-| Input commit (ARCH-R01…05 corrected) | `08b7398e71c48f1bf6eb135812e6c6d124cb3aa6` |
-| Expected blob | `9adcd4e7b762b230a73a4b37f3b576d419899808` |
-| Remote blob at cycle start | `9adcd4e7b762b230a73a4b37f3b576d419899808` |
-| Match | YES |
-| Content | FULL doc12 ARCH-R01…05 · TD-W3B CANDIDATE · X-W3B-ARCH matrix |
+| ARCH-R06 handoff commit | `ea1dc4d358c61524fe12de24f4b7606c570b8f7d` |
+| ARCH-R06 handoff blob | `a538a8d62afbc7b2182e65546f55d7ef19fa1e97` |
+| Match expected | YES |
 
-Local doc12 matched embedded prior candidate; this cycle applies ARCH-R06 only.
+## 9. DOC12 integrity comparison
 
-## 6. Morris correction GO consumed
+| Check | Result |
+| --- | --- |
+| Pre-sync local vs handoff extract | ONE trailing blank line artifact only (handoff canonical had extra EOF blank line) |
+| Action | Local file aligned to handoff canonical extract (no architectural change) |
+| Post-sync MATCH | **YES** |
+| Committed blob hash | `9ce4dab8becf600488b0afba100f48d87b7c2500` |
 
-GO MORRIS — W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R06 DOCUMENTARY CORRECTION ONLY — CLOSE CONTRACT-RESULT CLAIM STATUS / CONFIRMATION-AUTHORITY COMPATIBILITY — PRESERVE OPTION A + S2 AND ARCH-R01…05 — ONE CANONICAL CONTRACT-RESULT VERDICT — TD-W3B-01…04 REMAIN CANDIDATE — NO CODE — NO DELIVERY RESTART — NO PROJECT COMMIT/PUSH/PR/MERGE.
+**PASS — reviewed content integrated**
 
-## 7. Source list actually read
+## 10. ChatGPT architecture re-review input
 
-Process templates/routing/operating-model/guardrails · CKC architecture-technique · convergence doctrine/roadmap (RO) · product 01/02/03/05/06/11 · framing 33/34/35 · prior handoff `08b7398e` · claimEvaluationTypes/invariants · evaluateClaim · confirmClaimEvaluation (L269–299) · claimAuthorityPort · doc12 full · local ARCH-R06 edits.
+ChatGPT architecture re-review ARCH-R01…ARCH-R06 = **PASS** (input to this Git integration cycle).
 
-## 8. Convergence pre-check
+## 11. TD-W3B-01…04 status (explicit)
 
-W1 CLOSED · W2 CLOSED · W3-A CLOSED · W3-B STRUCTURALLY BLOCKED · W3 IN PROGRESS · W3-C/D/E NOT STARTED · C6 CLOSED · REAL OUT · FinOps FREEZE · W4 OUT · runtime v3 NON ADOPTED · Product Completion INCOMPLETE.
+| ID | Status |
+| --- | --- |
+| TD-W3B-01 | CANDIDATE / RECOMMENDED — **NOT ADOPTED** |
+| TD-W3B-02 | CANDIDATE / RECOMMENDED — **NOT ADOPTED** |
+| TD-W3B-03 | CANDIDATE / RECOMMENDED — **NOT ADOPTED** |
+| TD-W3B-04 | CANDIDATE / RECOMMENDED — **NOT ADOPTED** |
 
-Roadmap/doc11 READ ONLY.
+Git integration ≠ TD validation ≠ architecture adoption.
 
-## 9. Correction scope
-
-ONLY doc12 ARCH-R06. Preserve ARCH-R01…05, Option A, S2. No code. No C1/C2/FA/C6/Backlog/Roadmap edits.
-
-## 10. Prior ChatGPT blocker ARCH-R06
-
-**CHANGES REQUIRED** — Contract-result mode vs legacy ClaimEvaluation status/confirmationAuthority compatibility:
-- dual verdict risk (`globalStatus` vs `status`)
-- automatic `structural → Morris` inheritance incompatible with Contract Result human_review semantics
-
-## 11. Runtime legacy facts revalidated
-
-**A. ClaimEvaluation canonical status exists:** `claimEvaluationTypes.ts` — pending|evaluating|pass|fail|not_proven|waived|disputed
-
-**B. Generic structural → Morris today:**
-- `confirmClaimEvaluation.ts` L269–299: structural → requireMorrisGate/N3/decision_maker → confirmationAuthority=morris
-- `claimEvaluationInvariants.ts` L228–237: structural PASS requires morris + decision_maker
-
-**CONFIRMED — ARCH-R06 input facts hold at ba7aa2db**
-
-## 12. ARCH-R06-A canonical verdict correction
-
-**Before:** `globalStatus` could read as independent durable SoT alongside `status`.
-
-**After:** `ClaimEvaluation.status` = ONLY durable canonical verdict; `contractResultVerdict` = server-derived projection only; FC-11 never arbitrates two truths.
-
-## 13. Contract-result mode authority contract final
-
-Mode-specific review policy bypasses generic structural→Morris for `execution_contract_result`. human_review = FC-12 act ≠ HumanDecision ≠ Morris gate. Cycle Critical ≠ authority selector.
-
-## 14. globalStatus before/after
-
-**Before:** `globalStatus: PASS|NOT_PROVEN|FAIL` in illustrative shape (ARCH-R01 draft).
-
-**After:** removed as durable field; replaced by canonical `status` + optional `contractResultVerdict` projection.
-
-## 15. human_review / structural authority before/after
-
-**Before:** risk of inheriting generic structural→Morris for Contract Result assessments.
-
-**After:** Contract Result structural criticality does NOT auto-trigger Morris/N3/decision_maker; generic legacy structural KEEP Morris outside Contract Result mode.
-
-## 16. Explicit Pilote vs Morris separation
-
-FC-12 Contract Result human_review confirm ≠ Pilote HumanDecision ≠ Morris construction gate. External Morris gate remains separate if genuinely required.
-
-## 17. ConfirmationAuthority behavior
-
-Contract Result mode: deterministic→system_deterministic when rules satisfied; assisted/human_review→authorized_human under explicit server-owned Contract Result review policy; morris only if separately required by adopted external rule — NOT via criticality inheritance.
-
-## 18. Updated TD-W3B-01
-
-Now includes canonical status, projection-only contractResultVerdict, mode-specific authority, no auto structural→Morris in Contract Result mode, generic compatibility KEEP. **CANDIDATE / RECOMMENDED**
-
-## 19–21. TD-W3B-02/03/04 status
-
-**KEEP CANDIDATE / RECOMMENDED** — no redesign.
-
-## 22. Updated future test contracts
-
-See doc12 §14 — ARCH-R06 cases added (dual verdict forbidden, structural≠Morris in Contract Result, generic structural KEEP Morris, cycle Critical≠authority).
-
-## 23. Updated X-W3B-ARCH matrix
-
-X-W3B-ARCH-01…16 updated where coherent; **X-W3B-ARCH-17 added** for ARCH-R06 explicit proof.
-
-## 24. No-parallel-architecture proof
-
-No Claim Engine · no authority engine · no second aggregate · adaptation branch inside ClaimEvaluation only.
-
-## 25. C6 CLOSED proof
-
-TD-C6-01…06 not reopened.
-
-## 26. W3 scope preservation
-
-W3-C/D/E not started · W4 OUT · Delivery blocked · no implementation.
-
-## 27. Fake/Real qualification
-
-TestExecutionAdapter fake only; cannot mint status=pass or contractResultVerdict; REAL OUT; DETERMINISTIC PROVEN ≠ READY FOR REAL.
-
-## 28. Files changed
-
-ONLY `projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md`
-
-## 29. git diff --check
+## 12. Staged set (at commit time)
 
 ```
-EXIT:0
+A  projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
 ```
 
-## 30. staged status
+Exactly one file.
 
-EMPTY
+## 13. Project commit SHA
 
-## 31. Review Pack completeness
+`057ba005041d1fb50a2a4de3d178df4f45b87045`
 
-FULL pack with embedded doc12 below.
+Message: `docs(sfia-studio): integrate W3-B targeted technical architecture addendum`
 
-## 32–36. Handoff publication
+## 14. Commit changed files
 
-To be verified after publish.
+```
+A  projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
+899 insertions
+```
 
-## 37. Final recommendation
+## 15. Push result / remote SHA
 
-ARCH-R06 corrected; TD-W3B-01…04 remain CANDIDATE; ready for ChatGPT targeted re-review of ARCH-R06.
+Branch pushed: `docs/sfia-studio-w3-b-targeted-technical-architecture-addendum`
+Remote SHA = `057ba005041d1fb50a2a4de3d178df4f45b87045` (verified)
 
-## 38. Morris decisions still required
+## 16. Draft PR
 
-Validate/reject TD-W3B-01…04 · optional Option B contest · Contract Result review policy shape at Delivery · later Git integration GO.
+| Item | Value |
+| --- | --- |
+| Number | **410** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/410 |
+| Base | `main` @ `ba7aa2db…` |
+| Head | `docs/sfia-studio-w3-b-targeted-technical-architecture-addendum` @ `057ba005041d1fb50a2a4de3d178df4f45b87045` |
+| State | OPEN |
+| Draft | **TRUE** |
 
-## 39. Final verdict
+## 17. PR changed files
 
-**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R06 CORRECTED CANDIDATE READY FOR CHATGPT ARCHITECTURE RE-REVIEW**
+```
+projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
+```
 
-## 40. Next gate
+Exactly DOC12 only. **PASS**
 
-ChatGPT architecture targeted re-review of ARCH-R06 → if PASS, Morris TD validation → distinct Git integration GO → post-merge truth → W3-B Delivery requalification → code only after.
+## 18. git diff --cached --check (pre-commit)
 
-No automatic Delivery restart.
+Flagged `new blank line at EOF` — present in canonical reviewed handoff extract; not a content drift.
 
----
+## 19. C6 / W3-B / Fake-Real
 
-### ARCH-R06 before/after summary
+- C6: CLOSED — not reopened
+- W3-B: STRUCTURALLY BLOCKED — Delivery NOT restarted
+- REAL: OUT · TestExecutionAdapter context unchanged · no REAL proof this cycle
 
-| Area | Before (08b7398e doc12) | After (ARCH-R06) |
-| --- | --- | --- |
-| Verdict SoT | `globalStatus` + `status` ambiguity | `ClaimEvaluation.status` canonical only |
-| Projection | globalStatus durable-looking | `contractResultVerdict` projection only |
-| Structural authority | implicit generic inheritance risk | mode-specific policy; structural≠Morris in Contract Result |
-| Generic CE | unchanged intent | explicit KEEP outside Contract Result mode |
+## 20. Reserves / next gates
 
----
+- TD adoption requires distinct Morris validation
+- Merge requires distinct Morris GO
+- Roadmap/doc11 sync out of scope
+- Contract Result review policy wiring = Delivery concern
+- Post-merge truth → W3-B Delivery requalification (no automatic restart)
 
-### X-W3B-ARCH-01…17 matrix
+## 21. Final verdict
 
-| ID | Result | Proof |
-| --- | --- | --- |
-| X-W3B-ARCH-01 | **PASS** | C1 preserved |
-| X-W3B-ARCH-02 | **PASS** | running→terminal preserved |
-| X-W3B-ARCH-03 | **PASS** | FC ownership preserved |
-| X-W3B-ARCH-04 | **PASS** | D01 gap + legacy facts |
-| X-W3B-ARCH-05 | **PASS** | Options retained |
-| X-W3B-ARCH-06 | **PASS** | canonical status + evaluator contract |
-| X-W3B-ARCH-07 | **PASS** | D02 inventory |
-| X-W3B-ARCH-08 | **PASS** | S1/S2/S3 retained |
-| X-W3B-ARCH-09 | **PASS** | post-running system STOP |
-| X-W3B-ARCH-10 | **PASS** | cancel/stop/fail distinct |
-| X-W3B-ARCH-11 | **PASS** | C6 CLOSED |
-| X-W3B-ARCH-12 | **PASS** | OA/SQLite/ports |
-| X-W3B-ARCH-13 | **PASS** | durable stop provenance + fail-closed |
-| X-W3B-ARCH-14 | **PASS** | W3-C/D/E/W4 bounded |
-| X-W3B-ARCH-15 | **PASS** | future tests incl ARCH-R06 |
-| X-W3B-ARCH-16 | **PASS** | no implementation |
-| X-W3B-ARCH-17 | **PASS** | one canonical verdict; no auto Morris in Contract Result; generic KEEP |
+**W3-B DOC12 GIT INTEGRATION — DRAFT PR READY FOR CHATGPT PR REVIEW**
 
 ---
 
-### Debt/reserves
-
-- Product U2/U2b C6 delivery debt unchanged
-- W3-B Delivery candidate STRUCTURALLY BLOCKED
-- Contract Result review policy wiring deferred to Delivery
-- TD-W3B-01…04 NOT ADOPTED
-
----
-
-### FULL modified content of doc12
+### FULL CONTENT OF INTEGRATED DOC12
 
 ---BEGIN DOC 12---
 # 12 — Product Completion W3-B Targeted Technical Architecture Addendum
@@ -1139,401 +1054,9 @@ Never ADOPTED / VALIDATED / DECIDED BY MORRIS in this document.
 
 Not validated · not adopted · TD-W3B-01…04 remain CANDIDATE · W3-B remains STRUCTURALLY BLOCKED until ChatGPT re-review + Morris TD validation and Delivery is separately requalified.
 
+
 ---END DOC 12---
 
-### Useful diff (ARCH-R06 vs prior handoff doc12)
+### State preserved
 
-```diff
---- /tmp/doc12-before-r06.md	2026-08-24 19:49:33
-+++ /Users/morris/Projects/sfia-workspace-w3b-architecture-addendum/projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md	2026-08-24 19:49:33
-@@ -8,7 +8,7 @@
- | **Milestone** | W3-B STRUCTURAL ARCHITECTURE ADDENDUM |
- | **Base Git** | `origin/main` = `ba7aa2db408b7fd00faf9638da060ce0833b794b` |
- | **Status** | **CANDIDATE** — not ADOPTED · not DECIDED BY MORRIS |
--| **Correction pass** | ARCH-R01…ARCH-R05 documentary correction (ChatGPT CHANGES REQUIRED) |
-+| **Correction pass** | ARCH-R01…ARCH-R06 documentary correction (ChatGPT CHANGES REQUIRED) |
- | **Scope** | **W3B-D01** Contract Result Satisfaction · **W3B-D02** System-governed terminal STOP **only** |
- | **Authority** | Morris = construction/architecture · ChatGPT = review · Cursor = repo-first analysis |
- | **Implementation** | **FORBIDDEN** until Morris validates this addendum |
-@@ -29,10 +29,12 @@
-
- ---
-
--## 0.1 Correction posture (ARCH-R01…05)
-+## 0.1 Correction posture (ARCH-R01…06)
-
--ChatGPT architecture review returned **CHANGES REQUIRED** (ARCH-R01…ARCH-R05).
-+ChatGPT architecture re-review returned **CHANGES REQUIRED** for ARCH-R06 after ARCH-R01…05 correction (handoff `08b7398e…` / blob `9adcd4e7…`).
-
-+Prior passes: ARCH-R01…ARCH-R05 (handoff `6b10cfe8…` / blob `60a2c068…`).
-+
- **KEEP core direction (unchanged):**
-
- | Topic | Keep |
-@@ -110,7 +112,8 @@
- | Product Completion | INCOMPLETE |
- | REAL / FinOps / W4 / runtime v3 | OUT / FREEZE / OUT / NON ADOPTED |
-
--Input architecture handoff: commit `6b10cfe835e91bf167f4a25ca255503bd2c06d2a` · blob `60a2c0689f26a8a7a2373477802f300682a9a572`.
-+Input architecture handoff (ARCH-R01…05 corrected): commit `08b7398e71c48f1bf6eb135812e6c6d124cb3aa6` · blob `9adcd4e7b762b230a73a4b37f3b576d419899808`.
-+Prior architecture handoff: commit `6b10cfe835e91bf167f4a25ca255503bd2c06d2a` · blob `60a2c0689f26a8a7a2373477802f300682a9a572`.
- Input STOP handoff (delivery structural proof): commit `590c9b60ee96f2f1299382a7dedb5095fe964a8b` · blob `7b9d31545ffdf06692df26cda6a33b5a4aeea438`.
-
- ---
-@@ -126,7 +129,7 @@
- | **ExecutionContract** | OA execution-contract (T-A4) | `expectedOutputs?: string[]` · `evidenceRequirements: string[]` · `executionContractId` · `version` · `semanticFingerprint` | Product SQLite `oa_execution_contracts` | **Declares** EO/ER only | No typed EO/ER identity VO · no PASS/FAIL per item · no link to Claim by EO/ER id | **KEEP** |
- | **Evidence** | OA evidence-review (T-A6-D1) / FC-12 | bindings (attempt/contract/…) · status · `technicalResultRef?` · digest/version | SQLite `oa_evidence` (+ idempotency) | Binds Attempt/EC · captures technical result · integrity → `verified` | No EO/ER identity · `verified ≠ PASS` · `technicalResultRef ≠ satisfied` | **KEEP** |
- | **ReviewBundle** | FC-12 | evidenceRefs · completeness · freeze/version · optional `executionContractId` | SQLite `oa_review_bundles` | Freeze evidence for claim assessment | Completeness ≠ EO/ER coverage · `claimEvaluationRefs` forced empty · no EC **version** on RB | **KEEP** / light **ADAPT** if CE refs needed |
--| **ClaimEvaluation** | FC-12 claim discipline (T-A6-D3) | generic singular claim · `claimStatement` · RB id+frozen version · evidenceAssessments · status · method · confirmationAuthority | **Memory only** on Product path today | Assesses **evidence quality vs frozen RB** | **No** contract-result subject · **No** EC id/version · **No** EO/ER assessments · lost on restart · free-text `claimStatement` ≠ semantic proof | **KEEP** ports/use-cases · **ADAPT** contract-result mode + durability |
-+| **ClaimEvaluation** | FC-12 claim discipline (T-A6-D3) | generic singular claim · `claimStatement` · RB id+frozen version · evidenceAssessments · **`status` canonical** · `criticality` · `evaluationMethod` · `confirmationAuthority` | **Memory only** on Product path today | Assesses **evidence quality vs frozen RB**; generic `structural` → Morris/N3/`decision_maker` today (`confirmClaimEvaluation.ts` L269–299; `claimEvaluationInvariants.ts` L228–237) | **No** contract-result subject · **No** mode-specific authority override · **No** EC id/version · **No** EO/ER assessments · lost on restart | **KEEP** ports/use-cases · **ADAPT** contract-result mode branch + durability |
- | **claimEvidenceAssessment** | shared helper | codes ok/missing/not_verified/… | none | Evidence-support-for-PASS only | No EO/ER matching | **KEEP** |
- | **EvaluateClaim / Confirm / Reject** | application | create+evaluate · confirm re-assess · reject · waiver/dispute | Memory repo | Claim verdict from evidence quality | Does not consult EC EO/ER | **KEEP** under ports · extend for contract-result mode |
- | **Product SQLite / UoW** | `SqliteProductStore` | schema `m7-0.1.0` · additive M1→M7 · `runInTransaction` | Durable | EC/Evidence/RB tables; **no claim tables** | No `oa_claim_evaluations` | **KEEP** style · candidate **M8** for claims |
-@@ -155,8 +158,8 @@
- | --- | --- | --- |
- | 1. Expectation | **ExecutionContract** (existing) | EO/ER declarations |
- | 2. Raw/technical proof | **Evidence / Attempt** (existing) | resultRef, integrity, bindings |
--| 3. Assessment | **ClaimEvaluation** ADAPT with **contract-result subject/mode** (FC-12) | structured EO/ER results + derived global status + provenance |
--| 4. Product meaning | **FC-11** | SUCCESS/STOP/FAIL qualification **consuming** proven **contract-result** assessment only |
-+| 3. Assessment | **ClaimEvaluation** ADAPT with **contract-result subject/mode** (FC-12) | structured EO/ER assessments + **canonical `status`** + provenance; **`contractResultVerdict` projection only** |
-+| 4. Product meaning | **FC-11** | SUCCESS/STOP/FAIL qualification **consuming** proven **contract-result** assessment only (`status=pass` under §4.7) |
-
- FC-11 must **not** become a duplicate semantic evaluator of EO/ER.
- Generic ClaimEvaluation without contract-result subject is **not consumable** for Product SUCCESS.
-@@ -171,9 +174,10 @@
-
- 1. Explicit **contract-result subject/mode** (see §4.6).
- 2. Explicit bindings + structured `expectedOutputAssessments[]` / `evidenceRequirementAssessments[]`.
--3. **Server-derived** global contract-result status (client cannot submit `status=pass` as Product SUCCESS decision).
--4. Persist via **new Sqlite adapter** behind existing `ClaimEvaluationRepositoryPort` (Product SQLite additive M8).
--5. FC-11 consumes only durable **contract-result** assessments under §4.7 PASS rules.
-+3. **Canonical durable verdict** = existing `ClaimEvaluation.status` (ARCH-R06-A); **`contractResultVerdict`** is server-derived projection only — never a second durable SoT.
-+4. **Mode-specific confirmation authority** that bypasses generic `structural → Morris` for contract-result mode (ARCH-R06-C).
-+5. Persist via **new Sqlite adapter** behind existing `ClaimEvaluationRepositoryPort` (Product SQLite additive M8).
-+6. FC-11 consumes only durable **contract-result** assessments with **`status=pass`** under §4.7 rules (projection must agree; FC-11 never arbitrates two truths).
-
- **Reuse.** ClaimEvaluation domain/ports/Evaluate/Confirm · Evidence/RB · EC · Product SQLite migration style · UoW.
-
-@@ -199,7 +203,7 @@
-
- ### 4.5 D01 recommendation (CANDIDATE / RECOMMENDED — not ADOPTED)
-
--**Recommend Option A** with ARCH-R01/R02 contracts below.
-+**Recommend Option A** with ARCH-R01/R02/R06 contracts below.
-
- ---
-
-@@ -244,44 +248,88 @@
- ### Client authority
-
- - Client **cannot** send `status=pass` (or equivalent) as a Product SUCCESS decision.
--- Global contract-result status is **derived server-side** from structured assessments + binding integrity (§4.7).
-+- Canonical **`ClaimEvaluation.status`** is written **server-side only** under §4.7 / §4.11 rules.
-+- **`contractResultVerdict`** (if present) is a **read-model projection** derived from canonical `status` + EO/ER assessments — never client-writable, never independently persisted as SoT.
- - Hostile client cannot mint Contract Result PASS.
-
--### Generic ClaimEvaluation compatibility
-+### Generic ClaimEvaluation compatibility (ARCH-R06-D preview)
-
- - Legacy/generic ClaimEvaluation (no contract-result subject) **KEEP** for non–Product-SUCCESS claim paths (maturity support, etc.).
- - Generic `pass` is **not** Contract Result PASS and is **not** consumable by FC-11 for Product SUCCESS.
-+- Generic **structural → Morris/N3/`decision_maker`** behavior **KEEP** outside contract-result mode (see §4.12).
- - Waiver/dispute legacy behavior on generic claims is preserved **outside** Contract Result mode; Contract Result uses §4.8.
-
- ---
-
--## 4.7 ARCH-R01 — Global Contract Result status derivation
-+## 4.7 ARCH-R01 + ARCH-R06-A/B — Canonical Contract Result verdict (`ClaimEvaluation.status`)
-
--A Contract Result Assessment may become global **PASS** only if **all** hold:
-+### ARCH-R06-A — ONE canonical Contract Result verdict
-
--1. Attempt technical state is in the applicable compatible state for SUCCESS evaluation (technical succeeded / terminal success path as defined by FC-10 — architecture does not weaken C2).
-+For `subjectKind = execution_contract_result`:
-+
-+1. **`ClaimEvaluation.status`** is the **ONLY** durable source of truth for Contract Result verdict / lifecycle.
-+2. **`contractResultVerdict: PASS | NOT_PROVEN | FAIL`** (formerly `globalStatus` in ARCH-R01 draft) is **NOT** a second independent durable state.
-+3. If `contractResultVerdict` appears in documentation or a future DTO:
-+   - it is a **server-derived read-model projection** only;
-+   - derived from canonical `ClaimEvaluation.status` + structured EO/ER assessments;
-+   - **never** client-writable;
-+   - **never** persisted as an independent second SoT;
-+   - **FC-11 never arbitrates** between `status` and `contractResultVerdict`.
-+4. **Recommendation:** keep `ClaimEvaluation.status` canonical; use `contractResultVerdict` naming to make projection role explicit. **Do not** create a second aggregate or state machine.
-+
-+### Mapping: canonical status ↔ Product consumability
-+
-+| Canonical `ClaimEvaluation.status` | `contractResultVerdict` projection | FC-11 Product SUCCESS consumable? |
-+| --- | --- | --- |
-+| `pass` | PASS | **Yes** (if all §4.7 conditions met at read time) |
-+| `not_proven` | NOT_PROVEN | **No** |
-+| `fail` | FAIL | **No** |
-+| `pending` | NOT_PROVEN | **No** |
-+| `evaluating` | NOT_PROVEN | **No** |
-+| `waived` | NOT_PROVEN | **No** (mandatory waived item ⇒ SUCCESS ineligible) |
-+| `disputed` | NOT_PROVEN | **No** |
-+
-+FC-11 Product SUCCESS requires **`status=pass`** on a contract-result ClaimEvaluation (plus existing anti-claims). Missing assessment ⇒ **NOT_PROVEN** / SUCCESS ineligible.
-+
-+### When may canonical `status` become `pass`? (ARCH-R01 §4.7 + ARCH-R06-B)
-+
-+`ClaimEvaluation.status = pass` may be written **server-side only** when **ALL** hold:
-+
-+1. Attempt technical state is compatible for SUCCESS evaluation (technical succeeded / terminal success path — architecture does not weaken C2).
- 2. EC id / version / semanticFingerprint match **exactly** the Attempt’s bound contract material.
- 3. Bound ReviewBundle is the **expected frozen** version.
- 4. All required Evidence are valid per FC-12 rules applicable to this assessment.
- 5. **Every mandatory** expected-output assessment is **PASS**.
- 6. **Every mandatory** evidence-requirement assessment is **SATISFIED**.
--7. Every assisted / human_review assessment that is required has been **confirmed** under claim confirmation authority.
--8. No mandatory assessment is `stale`, `disputed`, `not_proven`, or `fail` (or ER equivalent NOT_SATISFIED / NOT_PROVEN).
-+7. Every assisted / human_review item that is required has been **confirmed** under the applicable **mode-specific** review policy (§4.11) — not generic structural→Morris inheritance.
-+8. No mandatory assessment is stale, disputed, not_proven, or fail (or ER equivalent NOT_SATISFIED / NOT_PROVEN).
-
--Otherwise global status is **NOT_PROVEN** or **FAIL** as qualified by the failing assessments (fail-closed toward Product SUCCESS ineligibility).
-+Otherwise canonical status remains or becomes **`not_proven`** or **`fail`** as qualified (fail-closed toward Product SUCCESS ineligibility).
-
-+### ARCH-R06-B — Mode-specific status semantics
-+
-+| Status | Contract Result meaning |
-+| --- | --- |
-+| **`pending`** | Assessment not yet evaluated; **not consumable** for Product SUCCESS. |
-+| **`evaluating`** | Assisted/human_review awaiting required review confirmation; **not consumable** for Product SUCCESS. |
-+| **`pass`** | All §4.7 conditions satisfied; server-derived only; projection = PASS. |
-+| **`not_proven`** | Missing/stale Evidence; missing applicable evaluator; stale/wrong EC binding; required review/confirmation absent; mandatory waived item without EC amendment; any inability to prove honestly. |
-+| **`fail`** | Explicit negative semantic assessment: mandatory EO failed and/or ER not satisfied under applicable evaluator/review. |
-+| **`waived`** | May remain valid generic lifecycle concept; for Contract Result, mandatory item in waived state ⇒ **NOT Product SUCCESS eligible**; projects as NOT_PROVEN. |
-+| **`disputed`** | **Not consumable** for Product SUCCESS; projects as NOT_PROVEN until resolved through an explicitly governed later mechanism. |
-+
- **Explicitly forbidden implications:**
-
--| Fact | Product SUCCESS? | Contract Result PASS? |
-+| Fact | Product SUCCESS? | Contract Result PASS (`status=pass`)? |
- | --- | --- | --- |
- | technical Attempt succeeded | no | no (alone) |
- | Evidence verified | no | no (alone) |
- | ReviewBundle complete | no | no (alone) |
- | claimStatement present | no | no |
- | generic ClaimEvaluation pass | no | no |
-+| `contractResultVerdict=PASS` without `status=pass` | no | **invalid / must not occur** |
-+| client-supplied pass | no | **forbidden** |
-
--FC-11 Product SUCCESS requires Contract Result global **PASS** under this section (plus existing anti-claims). Missing Contract Result assessment ⇒ **NOT_PROVEN** / SUCCESS ineligible.
--
- ---
-
- ## 4.8 ARCH-R01 — Waiver / dispute (Contract Result)
-@@ -353,6 +401,70 @@
-
- ---
-
-+## 4.11 ARCH-R06-C — Mode-specific review authority (Contract Result)
-+
-+**Problem (repo-validated):** Generic ClaimEvaluation today couples `ClaimCriticality.structural` to Morris runtime authority:
-+
-+- `confirmClaimEvaluation.ts` L269–299: `structural → requireMorrisGate → N3 → decision_maker → confirmationAuthority=morris`
-+- `claimEvaluationInvariants.ts` L228–237: structural PASS requires `confirmationAuthority=morris` and `confirmedBy.role=decision_maker`
-+
-+This generic behavior **KEEP** outside contract-result mode. It **MUST NOT** automatically apply to `subjectKind=execution_contract_result`.
-+
-+### Rules for Contract Result mode
-+
-+1. **Evaluation method and review authority are distinct from `ClaimCriticality`.** `criticality` may remain metadata/risk/review-strength but **MUST NOT** be the sole authority selector in Contract Result mode.
-+
-+2. **`deterministic`:** Only server-owned known applicable reproducible evaluator/`ruleRef`. `confirmationAuthority=system_deterministic` may finalize when all Contract Result rules satisfied.
-+
-+3. **`assisted`:** System may propose/prepare; final semantic confirmation requires an **authorized FC-12 human reviewer** under an explicit **server-owned Contract Result review policy** (`contractResultReviewPolicyRef` or equivalent minimal reference — not a broad authority DSL). System alone **cannot** finalize `status=pass`.
-+
-+4. **`human_review`:** Explicit human review of Evidence/RB under FC-12. `confirmationAuthority` may be `authorized_human` under that policy. This act is **NOT**, by itself:
-+   - a HumanDecision;
-+   - a ProjectTrajectory adoption decision;
-+   - an ExecutionAuthority grant;
-+   - a Morris construction gate.
-+
-+5. **`ClaimCriticality.structural` MUST NOT automatically trigger** in Contract Result mode:
-+   - N3;
-+   - `requireMorrisGate`;
-+   - `decision_maker` role requirement;
-+   - `confirmationAuthority=morris`.
-+
-+6. Contract Result mode requires **explicit mode-specific confirmation invariants/policy** that **override or bypass** the generic legacy criticality→authority coupling inside Evaluate/Confirm paths when `subjectKind=execution_contract_result`.
-+
-+7. **Cycle profile Critical**, CKC criticality signals, Capitalization, or other cycle classification **MUST NOT** by themselves select claim review authority.
-+
-+8. If another adopted product rule genuinely requires a **Pilote HumanDecision**, that HumanDecision is a **separate prerequisite/object** — not created or satisfied by ClaimEvaluation confirmation.
-+
-+9. If a **Morris construction gate** is genuinely required, it remains an **EXTERNAL** construction/governance gate — not represented by Contract Result `human_review` merely because `criticality=structural`.
-+
-+10. **Smallest implementable policy:** one explicit server-owned Contract Result review policy reference per assessment context (e.g. W3-B Product Completion contract-result review policy). Delivery defines concrete policy wiring; architecture defines the boundary only.
-+
-+### Pilote vs Morris separation (explicit)
-+
-+| Act | What it is | What it is NOT |
-+| --- | --- | --- |
-+| FC-12 Contract Result `human_review` confirm | Claim/review act under FC-12 | HumanDecision · Morris gate · execution authority |
-+| Generic structural ClaimEvaluation confirm (legacy) | Maturity/claim path with Morris gate | Contract Result Product SUCCESS path |
-+| Morris construction validation (external) | Governance gate on architecture/TD adoption | Automatic consequence of Contract Result criticality |
-+
-+---
-+
-+## 4.12 ARCH-R06-D — Generic ClaimEvaluation compatibility
-+
-+Outside `subjectKind = execution_contract_result`:
-+
-+| Behavior | Status |
-+| --- | --- |
-+| Existing ClaimEvaluation `status` semantics | **KEEP** |
-+| Existing critical/structural authority rules | **KEEP** |
-+| Existing structural → Morris/N3/`decision_maker` | **KEEP** |
-+| Existing EvaluateClaim / ConfirmClaimEvaluation / RejectClaimEvaluation | **KEEP** unless a later separately authorized cycle changes them |
-+
-+ARCH-R06 is an **adaptation branch** inside the existing ClaimEvaluation model — **not** a global behavioral rewrite.
-+
-+---
-+
- ## 5. W3B-D01 — Persistence / transactional design (candidate)
-
- ### 5.1 Persistence
-@@ -390,10 +502,17 @@
- bindings: projectId, cycleInstanceId?, executionContractId, executionContractVersion,
-           executionContractSemanticFingerprint, executionAttemptId,
-           reviewBundleId, reviewBundleVersion, evidenceRefs[]
--expectedOutputAssessments[]: { itemId(fingerprint,EO,ordinal), result, method, ruleRef?, confirmed?, provenance, evaluatedAt }
--evidenceRequirementAssessments[]: { itemId(fingerprint,ER,ordinal), result, method, ruleRef?, confirmed?, provenance, evaluatedAt }
--globalStatus: PASS | NOT_PROVEN | FAIL   # SERVER-DERIVED ONLY
--claimStatement: projection only
-+expectedOutputAssessments[]: { itemId(fingerprint,EO,ordinal), result, method, ruleRef?, reviewConfirmation?, provenance, evaluatedAt }
-+evidenceRequirementAssessments[]: { itemId(fingerprint,ER,ordinal), result, method, ruleRef?, reviewConfirmation?, provenance, evaluatedAt }
-+status: pending | evaluating | pass | fail | not_proven | waived | disputed
-+  # CANONICAL durable verdict / lifecycle — ONLY SoT
-+contractResultVerdict: PASS | NOT_PROVEN | FAIL
-+  # SERVER-DERIVED PROJECTION ONLY — NOT independent durable SoT
-+confirmationAuthority: system_deterministic | authorized_human | morris
-+  # mode-specific policy applies in Contract Result mode (§4.11); structural≠Morris by default
-+criticality: non_critical | critical | structural
-+  # metadata/risk only in Contract Result mode — NOT sole authority selector
-+claimStatement: human-readable projection only
- ```
-
- ### 5.3 Transactional units
-@@ -404,7 +523,7 @@
- | --- | --- | --- |
- | Terminal Attempt write | Existing FC-10 UoW | Unchanged |
- | Evidence materialization + RB update | Existing FC-12 patterns | Unchanged |
--| Contract-result assessment create/evaluate | CE UoW | Idempotent; server derives globalStatus |
-+| Contract-result assessment create/evaluate | CE UoW | Idempotent; server writes canonical `status`; derives `contractResultVerdict` projection if exposed |
- | Human confirm (assisted/human_review) | Separate command | Re-assess; fail-closed |
- | Crash / missing assessment | — | FC-11 → NOT_PROVEN / no SUCCESS |
- | SQLite unavailable | — | Fail-closed · no Memory Product fallback |
-@@ -616,7 +735,7 @@
-
- | Object | Current storage | Candidate change | New fields | New table? | Migration? | Repo change? | UoW | Recovery | Security | Owner | Reversible? | C6 conflict? | Parallel risk |
- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
--| ClaimEvaluation | Memory | Sqlite + contract-result subject + EO/ER assessments + derived status | subjectKind · EC/Attempt/RB binds · assessments[] | `oa_claim_evaluations` (+ idempotency) | Additive M8 candidate | Sqlite adapter | Existing | Restart reconstruct · fail-closed if store down | Client cannot write PASS | FC-12 | DEV drop M8 only | No | Low |
-+| ClaimEvaluation | Memory | Sqlite + contract-result subject + EO/ER assessments + **canonical status** | subjectKind · EC/Attempt/RB binds · assessments[] · mode-specific review policy ref | `oa_claim_evaluations` (+ idempotency) | Additive M8 candidate | Sqlite adapter | Existing | Restart reconstruct · fail-closed if store down | Client cannot write `status=pass` | FC-12 | DEV drop M8 only | No | Low |
- | ExecutionContract | Sqlite | None for expectation source | — | No | No | No | — | — | — | T-A4 | — | No | None |
- | Evidence / RB | Sqlite | Optional CE ref / EC version | Optional | No | Optional light | Optional | Existing | — | — | FC-12 | Yes | No | Low |
- | ExecutionAttempt | Sqlite | **Mandatory** durable stop provenance for system STOP | `stopOrigin` · `stopCode` · `stopSourceRef` · `stopObservedAt` · optional version/digest | No | Additive field candidate | Attempt repo ADAPT | Existing | Restart distinguish cancel kinds | System-only write | FC-10 | Yes | No | Low |
-@@ -676,7 +795,7 @@
-
- | ID | Decision | Status |
- | --- | --- | --- |
--| **TD-W3B-01** | Contract-result assessment = adapted ClaimEvaluation + explicit **contract-result subject/mode** + structured EO/ER assessments + **server-derived** global status + Product SQLite durability (Option A) | **CANDIDATE / RECOMMENDED** |
-+| **TD-W3B-01** | Contract-result assessment = adapted ClaimEvaluation + explicit **contract-result subject/mode** + structured EO/ER assessments + **`ClaimEvaluation.status` canonical durable verdict** + **`contractResultVerdict` server-derived projection only** + **explicit mode-specific confirmation authority (no automatic legacy structural→Morris in Contract Result mode)** + Product SQLite durability; generic ClaimEvaluation unchanged outside Contract Result mode (Option A) | **CANDIDATE / RECOMMENDED** |
- | **TD-W3B-02** | EO/ER identity = deterministic immutable EC-version item identity `(semanticFingerprint, kind∈{EO,ER}, ordinal)` + explicit EC/Attempt/RB/Evidence bindings · **no** cross-version semantic matching · no auto-migrate | **CANDIDATE / RECOMMENDED** |
- | **TD-W3B-03** | SYSTEM_GOVERNED_STOP = separate FC-10 use case on same Attempt lifecycle for **post-running / proven execution-frontier** runtime guards · human Cancel distinct · pre-running block ≠ terminal STOP · adapter cancel ACK safety reused | **CANDIDATE / RECOMMENDED** |
- | **TD-W3B-04** | Runtime guard STOP provenance = **mandatory durable server-owned** stop provenance on Attempt substrate · U2/U2b harvest as reconciliation/guard source · **no** Guard aggregate · **no** Stop Engine | **CANDIDATE / RECOMMENDED** |
-@@ -701,18 +820,23 @@
- ### D01
-
- - Generic ClaimEvaluation PASS without contract-result subject → **not consumable** for Product SUCCESS
-+- **`status=pass` and `contractResultVerdict=PASS` must agree**; contradictory dual verdict forbidden
-+- **`contractResultVerdict` alone without `status=pass`** → **not consumable** for Product SUCCESS
- - Technical succeeded + EO NOT_PROVEN → **no SUCCESS**
--- All mandatory EO PASS + ER SATISFIED + exact EC/Attempt/RB bindings → SUCCESS **eligible** (anti-claims still apply)
--- Waived mandatory EO/ER → **no SUCCESS**
-+- All mandatory EO PASS + ER SATISFIED + exact EC/Attempt/RB bindings + **`status=pass`** → SUCCESS **eligible** (anti-claims still apply)
-+- Waived mandatory EO/ER → **no SUCCESS** (`status` not pass / projection NOT_PROVEN)
- - Disputed mandatory EO/ER → **no SUCCESS**
--- Deterministic without known server evaluator/`ruleRef` → **NOT_PROVEN**
--- Assisted without authorized confirmation → **no PASS**
--- human_review confirmed per claim authority → can satisfy item · **≠** structural HD by itself
--- Wrong EC version/fingerprint → stale / NOT_PROVEN
-+- Deterministic without known server evaluator/`ruleRef` → **`status=not_proven`**
-+- Assisted without authorized confirmation → **`status` remains evaluating / not pass**
-+- human_review confirmed per **Contract Result review policy** → can satisfy item · **≠** structural HumanDecision · **≠** Morris gate by default
-+- Contract Result with `criticality=structural` → **does NOT** auto-require Morris/N3/`decision_maker`
-+- Generic legacy structural ClaimEvaluation → **still requires Morris** (compatibility)
-+- Cycle Critical profile / CKC signal alone → **does not** select claim review authority
-+- Wrong EC version/fingerprint → stale / **`status=not_proven`**
- - EC reorder/amend → old item ids **not** reused
--- SQLite restart → exact Contract Result Assessment restored
-+- SQLite restart → exact Contract Result Assessment restored (**canonical `status` + assessments**)
- - SQLite unavailable → fail-closed · **no** Memory Product fallback
--- Hostile client cannot mint PASS / cannot set globalStatus=pass
-+- Hostile client cannot mint **`status=pass`** / cannot set `contractResultVerdict=PASS` independently
-
- ### D02
-
-@@ -734,14 +858,14 @@
-
- ## 15. Exit contracts (architecture cycle self-check)
-
--| ID | Intent after ARCH-R01…05 |
-+| ID | Intent after ARCH-R01…06 |
- | --- | --- |
- | X-W3B-ARCH-01 | C1 preserved |
- | X-W3B-ARCH-02 | C2 SUCCESS/STOP/FAIL + **running→terminal** Product path preserved |
- | X-W3B-ARCH-03 | FC-09/10/11/12 ownership preserved |
- | X-W3B-ARCH-04 | D01 gap proven from repo |
- | X-W3B-ARCH-05 | ≥2 D01 options compared (direction kept) |
--| X-W3B-ARCH-06 | Durable contract-result CE + **explicit evaluator/subject contract** · no parallel engine |
-+| X-W3B-ARCH-06 | Durable contract-result CE + explicit evaluator/subject/**canonical status** contract · no parallel engine |
- | X-W3B-ARCH-07 | D02 gap proven |
- | X-W3B-ARCH-08 | ≥2 D02 options compared |
- | X-W3B-ARCH-09 | Same Attempt lifecycle · system STOP **post-running / proven frontier** |
-@@ -750,8 +874,9 @@
- | X-W3B-ARCH-12 | OA / Product SQLite / ports reused |
- | X-W3B-ARCH-13 | Restart/idempotence/audit + **mandatory durable stop provenance** + no Memory Product fallback |
- | X-W3B-ARCH-14 | W3-C/D/E/W4 bounded |
--| X-W3B-ARCH-15 | Future Delivery tests corrected |
-+| X-W3B-ARCH-15 | Future Delivery tests corrected (incl. ARCH-R06) |
- | X-W3B-ARCH-16 | No application implementation |
-+| X-W3B-ARCH-17 | **ARCH-R06:** one canonical Contract Result verdict (`ClaimEvaluation.status`); `contractResultVerdict` projection only; Contract Result structural **≠** auto-Morris; generic legacy structural **KEEP** Morris; no second SoT / no authority engine |
-
- ---
-
-@@ -759,15 +884,15 @@
-
- 1. Validate or reject **TD-W3B-01…04** (remain CANDIDATE until then).
- 2. Confirm Product SQLite M8 ClaimEvaluation durability vs Option B (if still contested).
--3. Authorize later **Git integration** of this addendum · then W3-B Delivery requalification · **no automatic Delivery restart**.
-+3. Confirm Contract Result review policy reference shape at Delivery time (minimal server-owned policy — not broad authority DSL).
-+4. Authorize later **Git integration** of this addendum · then W3-B Delivery requalification · **no automatic Delivery restart**.
-
--~~Prior open question on accepted→cancelled system STOP as Product STOP~~ — **resolved by ARCH-R03 documentary correction**: Product SYSTEM_GOVERNED_STOP requires post-running / proven frontier; pre-running = BLOCK/REFUSE. No C2/FA rewrite.
-+~~Prior open question on accepted→cancelled system STOP as Product STOP~~ — **resolved by ARCH-R03**. No C2/FA rewrite.
-
- ---
-
- ## 17. Final architecture verdict (this document)
-
--**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — CORRECTED CANDIDATE READY FOR CHATGPT ARCHITECTURE RE-REVIEW**
-+**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R06 CORRECTED CANDIDATE READY FOR CHATGPT ARCHITECTURE RE-REVIEW**
-
--Not validated · not adopted · W3-B remains STRUCTURALLY BLOCKED until Morris validates TD-W3B-01…04 and Delivery is separately requalified.
--
-+Not validated · not adopted · TD-W3B-01…04 remain CANDIDATE · W3-B remains STRUCTURALLY BLOCKED until ChatGPT re-review + Morris TD validation and Delivery is separately requalified.
-```
-
-### Proof no app/code modification
-
-Architecture worktree: only doc12 under product-completion. Delivery worktree untouched.
-
-### Proof no project commit/push/PR
-
-No project git commit. Docs branch not pushed.
-
-### State to preserve
-
-W1 CLOSED · W2 CLOSED · W3-A CLOSED · W3-B STRUCTURALLY BLOCKED · W3 IN PROGRESS · W3-C/D/E NOT STARTED · C6 CLOSED · REAL OUT · FINOPS FREEZE · W4 OUT · PRODUCT COMPLETION INCOMPLETE · RUNTIME V3 NON ADOPTED
+DOC12 committed · branch pushed · Draft PR #410 OPEN · TD-W3B-01…04 CANDIDATE NOT ADOPTED · merge NOT AUTHORIZED · Delivery NOT RESTARTED
