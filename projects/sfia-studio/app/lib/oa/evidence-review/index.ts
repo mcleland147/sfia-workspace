@@ -73,6 +73,11 @@ export { StartReview } from "./application/startReview";
 export { CompleteReview } from "./application/completeReview";
 export { ReopenReview } from "./application/reopenReview";
 export { EvaluateClaim } from "./application/evaluateClaim";
+export { EvaluateContractResult } from "./application/evaluateContractResult";
+export type { EvaluateContractResultRequest } from "./application/evaluateContractResult";
+export { projectContractResultVerdict } from "./application/contractResultVerdictProjection";
+export * from "./domain/contractResultTypes";
+export { SqliteClaimEvaluationRepository } from "./infrastructure/sqlite/sqliteClaimEvaluationRepository";
 export { ConfirmClaimEvaluation } from "./application/confirmClaimEvaluation";
 export { RejectClaimEvaluation } from "./application/rejectClaimEvaluation";
 export { ProposeMaturity } from "./application/proposeMaturity";
@@ -131,6 +136,7 @@ import { ConfirmMaturity } from "./application/confirmMaturity";
 import { CreateReviewBundle } from "./application/createReviewBundle";
 import { DowngradeMaturity } from "./application/downgradeMaturity";
 import { EvaluateClaim } from "./application/evaluateClaim";
+import { EvaluateContractResult } from "./application/evaluateContractResult";
 import { FreezeReviewBundle } from "./application/freezeReviewBundle";
 import { IngestExecutionAttemptEvidence } from "./application/ingestExecutionAttemptEvidence";
 import { MarkEvidenceUnavailable } from "./application/markEvidenceUnavailable";
@@ -151,6 +157,7 @@ import {
   FixedIdGenerator,
   RandomIdGenerator,
 } from "./infrastructure/idGenerator";
+import type { ClaimEvaluationRepositoryPort } from "./ports/claimEvaluationRepository";
 import { MemoryClaimEvaluationRepository } from "./infrastructure/memoryClaimEvaluationRepository";
 import { MemoryClaimEvaluationStore } from "./infrastructure/memoryClaimEvaluationStore";
 import { MemoryEvidenceRepository } from "./infrastructure/memoryEvidenceRepository";
@@ -184,7 +191,7 @@ export type EvidenceReviewServices = {
   reviewBundleRepository: ReviewBundleRepositoryPort;
   reviewBundleReader: ReviewBundleReaderPort;
   claimEvaluationStore: MemoryClaimEvaluationStore;
-  claimEvaluationRepository: MemoryClaimEvaluationRepository;
+  claimEvaluationRepository: ClaimEvaluationRepositoryPort;
   claimEvaluationReader: ClaimEvaluationReaderPort;
   claimAuthority: ClaimAuthorityPort;
   maturityAssessmentStore: MemoryMaturityAssessmentStore;
@@ -208,6 +215,7 @@ export type EvidenceReviewServices = {
   completeReview: CompleteReview;
   reopenReview: ReopenReview;
   evaluateClaim: EvaluateClaim;
+  evaluateContractResult?: EvaluateContractResult;
   confirmClaimEvaluation: ConfirmClaimEvaluation;
   rejectClaimEvaluation: RejectClaimEvaluation;
   proposeMaturity: ProposeMaturity;
@@ -361,6 +369,12 @@ export function createInMemoryEvidenceReviewServices(
       reviewBundleReader,
       evidenceReader,
       claimAuthority,
+      clock,
+      audit,
+      ids,
+    ),
+    evaluateContractResult: new EvaluateContractResult(
+      claimEvaluationRepository,
       clock,
       audit,
       ids,

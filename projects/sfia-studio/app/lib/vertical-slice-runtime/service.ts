@@ -49,6 +49,7 @@ import {
   createInMemoryEvidenceReviewServices,
   createSqliteEvidenceReviewServices,
   type EvidenceReviewServices,
+  type SqliteEvidenceReviewServices,
 } from "@/lib/oa/evidence-review";
 import type { ProjectServices } from "@/lib/oa/project";
 import { SqliteProductStore } from "@/lib/oa/project/infrastructure/sqlite/sqliteProductStore";
@@ -125,7 +126,7 @@ export type RuntimeOaStack = {
   readonly authorityResolver: MemoryAuthorityResolver;
   readonly executionContractServices: ExecutionContractServices;
   readonly executionAttemptServices: ExecutionAttemptServices;
-  readonly evidenceReviewServices: EvidenceReviewServices;
+  readonly evidenceReviewServices: EvidenceReviewServices | SqliteEvidenceReviewServices;
   /** Explicit TestExecutionAdapter — never silent NoOp. */
   readonly fixtureAdapter: TestExecutionAdapter;
   /**

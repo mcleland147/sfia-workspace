@@ -8,6 +8,7 @@ import { ConfirmMaturity } from "../../application/confirmMaturity";
 import { CreateReviewBundle } from "../../application/createReviewBundle";
 import { DowngradeMaturity } from "../../application/downgradeMaturity";
 import { EvaluateClaim } from "../../application/evaluateClaim";
+import { EvaluateContractResult } from "../../application/evaluateContractResult";
 import { FreezeReviewBundle } from "../../application/freezeReviewBundle";
 import { IngestExecutionAttemptEvidence } from "../../application/ingestExecutionAttemptEvidence";
 import { MarkEvidenceUnavailable } from "../../application/markEvidenceUnavailable";
@@ -28,7 +29,7 @@ import {
   FixedIdGenerator,
   RandomIdGenerator,
 } from "../idGenerator";
-import { MemoryClaimEvaluationRepository } from "../memoryClaimEvaluationRepository";
+import type { ClaimEvaluationRepositoryPort } from "../../ports/claimEvaluationRepository";
 import { MemoryClaimEvaluationStore } from "../memoryClaimEvaluationStore";
 import { MemoryEvidenceStore } from "../memoryEvidenceStore";
 import { MemoryMaturityAssessmentRepository } from "../memoryMaturityAssessmentRepository";
@@ -53,6 +54,7 @@ import type { ReviewBundleReaderPort } from "../../ports/reviewBundleReader";
 import type { ReviewBundleRepositoryPort } from "../../ports/reviewBundleRepository";
 import { SqliteEvidenceRepository } from "./sqliteEvidenceRepository";
 import { SqliteReviewBundleRepository } from "./sqliteReviewBundleRepository";
+import { SqliteClaimEvaluationRepository } from "./sqliteClaimEvaluationRepository";
 
 export type CreateSqliteEvidenceReviewServicesOptions = {
   productStore: ProductSqliteHandle;
@@ -74,7 +76,7 @@ export type SqliteEvidenceReviewServices = {
   reviewBundleRepository: ReviewBundleRepositoryPort;
   reviewBundleReader: ReviewBundleReaderPort;
   claimEvaluationStore: MemoryClaimEvaluationStore;
-  claimEvaluationRepository: MemoryClaimEvaluationRepository;
+  claimEvaluationRepository: ClaimEvaluationRepositoryPort;
   claimEvaluationReader: ClaimEvaluationReaderPort;
   claimAuthority: ClaimAuthorityPort;
   maturityAssessmentStore: MemoryMaturityAssessmentStore;
@@ -99,6 +101,7 @@ export type SqliteEvidenceReviewServices = {
   completeReview: CompleteReview;
   reopenReview: ReopenReview;
   evaluateClaim: EvaluateClaim;
+  evaluateContractResult: EvaluateContractResult;
   confirmClaimEvaluation: ConfirmClaimEvaluation;
   rejectClaimEvaluation: RejectClaimEvaluation;
   proposeMaturity: ProposeMaturity;
@@ -108,8 +111,8 @@ export type SqliteEvidenceReviewServices = {
 };
 
 /**
- * Evidence + ReviewBundle durable on Product SQLite (M5-A).
- * ClaimEvaluation + MaturityAssessment remain Memory (out of minimal M5).
+ * Evidence + ReviewBundle + ClaimEvaluation durable on Product SQLite (M5/M8).
+ * MaturityAssessment remains Memory (out of minimal M5).
  */
 export function createSqliteEvidenceReviewServices(
   options: CreateSqliteEvidenceReviewServicesOptions,
@@ -125,9 +128,8 @@ export function createSqliteEvidenceReviewServices(
   );
   const claimEvaluationStore =
     options.claimEvaluationStore ?? new MemoryClaimEvaluationStore();
-  const claimEvaluationRepository = new MemoryClaimEvaluationRepository(
-    claimEvaluationStore,
-  );
+  const claimEvaluationRepository: ClaimEvaluationRepositoryPort =
+    new SqliteClaimEvaluationRepository(productStore);
   const claimEvaluationReader = new ClaimEvaluationRepositoryReader(
     claimEvaluationRepository,
     claimEvaluationStore,
@@ -232,6 +234,12 @@ export function createSqliteEvidenceReviewServices(
       reviewBundleReader,
       evidenceReader,
       claimAuthority,
+      clock,
+      audit,
+      ids,
+    ),
+    evaluateContractResult: new EvaluateContractResult(
+      claimEvaluationRepository,
       clock,
       audit,
       ids,

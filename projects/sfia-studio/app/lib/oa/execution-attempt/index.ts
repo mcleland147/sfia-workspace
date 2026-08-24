@@ -75,6 +75,8 @@ export {
   type GrantGateDResult,
 } from "./application/grantRealExecutionGate";
 export { CancelExecutionAttempt } from "./application/cancelExecutionAttempt";
+export { SystemGovernedStop } from "./application/systemGovernedStop";
+export type { SystemGovernedStopRequest } from "./application/systemGovernedStop";
 export { RecordExecutionResult } from "./application/recordExecutionResult";
 export { RecordExecutionFailure } from "./application/recordExecutionFailure";
 export { RetryExecutionAttempt } from "./application/retryExecutionAttempt";
@@ -164,6 +166,7 @@ import type { ExecutionContractServices } from "@/lib/oa/execution-contract";
 import { resolveAttemptPolicy } from "./application/attemptPolicy";
 import type { AttemptPolicy } from "./application/attemptPolicy";
 import { CancelExecutionAttempt } from "./application/cancelExecutionAttempt";
+import { SystemGovernedStop } from "./application/systemGovernedStop";
 import { CheckAttemptAuthorization } from "./application/checkAttemptAuthorization";
 import { ExecutionContractStatusWriter } from "./application/executionContractStatusWriter";
 import { GetExecutionAttempt } from "./application/getExecutionAttempt";
@@ -226,6 +229,7 @@ export type ExecutionAttemptServices = {
   selectExecutionAgent: SelectExecutionAgent;
   startExecution: StartExecution;
   cancelExecutionAttempt: CancelExecutionAttempt;
+  systemGovernedStop: SystemGovernedStop;
   recordExecutionResult: RecordExecutionResult;
   recordExecutionFailure: RecordExecutionFailure;
   retryExecutionAttempt: RetryExecutionAttempt;
@@ -358,6 +362,16 @@ export function createInMemoryExecutionAttemptServices(
       contracts,
       contractStatusWriter,
       authority,
+      registry,
+      adapter,
+      clock,
+      audit,
+      store,
+    ),
+    systemGovernedStop: new SystemGovernedStop(
+      attempts,
+      contracts,
+      contractStatusWriter,
       registry,
       adapter,
       clock,

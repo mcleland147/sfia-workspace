@@ -6,7 +6,8 @@ export const PRODUCT_SCHEMA_VERSION_M3 = "m3-0.1.0" as const;
 export const PRODUCT_SCHEMA_VERSION_M5 = "m5-0.1.0" as const;
 export const PRODUCT_SCHEMA_VERSION_M6 = "m6-0.1.0" as const;
 export const PRODUCT_SCHEMA_VERSION_M7 = "m7-0.1.0" as const;
-export const PRODUCT_SCHEMA_VERSION = PRODUCT_SCHEMA_VERSION_M7;
+export const PRODUCT_SCHEMA_VERSION_M8 = "m8-0.1.0" as const;
+export const PRODUCT_SCHEMA_VERSION = PRODUCT_SCHEMA_VERSION_M8;
 
 const BASE_SCHEMA_SQL = `
 PRAGMA foreign_keys = ON;
@@ -293,6 +294,30 @@ CREATE INDEX IF NOT EXISTS idx_oa_authority_receipts_project
   ON oa_authority_verification_receipts(project_id, verified_at);
 `;
 
+const M8_CLAIM_EVALUATION_SCHEMA_SQL = `
+CREATE TABLE IF NOT EXISTS oa_claim_evaluations (
+  claim_evaluation_id TEXT PRIMARY KEY NOT NULL,
+  project_id TEXT,
+  status TEXT NOT NULL,
+  idempotency_key TEXT UNIQUE,
+  version INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_oa_claim_evaluations_project
+  ON oa_claim_evaluations(project_id, created_at);
+
+CREATE TABLE IF NOT EXISTS oa_claim_evaluation_idempotency (
+  idempotency_key TEXT PRIMARY KEY NOT NULL,
+  claim_evaluation_id TEXT NOT NULL,
+  fingerprint TEXT NOT NULL,
+  operation TEXT NOT NULL,
+  FOREIGN KEY (claim_evaluation_id) REFERENCES oa_claim_evaluations(claim_evaluation_id)
+);
+`;
+
 function readSchemaVersion(db: DatabaseSync): string | null {
   const row = db
     .prepare("SELECT value FROM schema_meta WHERE key = ?")
@@ -342,8 +367,12 @@ function applyM7(db: DatabaseSync): void {
   db.exec(M7_INSPECTION_AUTHORITY_SCHEMA_SQL);
 }
 
+function applyM8(db: DatabaseSync): void {
+  db.exec(M8_CLAIM_EVALUATION_SCHEMA_SQL);
+}
+
 /**
- * Open Product SQLite with additive M1→M2→M3→M5→M6→M7 migration.
+ * Open Product SQLite with additive M1→M2→M3→M5→M6→M7→M8 migration.
  * Fail closed on unknown/future schema versions.
  */
 export function openProductSqlite(dbPath: string): DatabaseSync {
@@ -358,24 +387,32 @@ export function openProductSqlite(dbPath: string): DatabaseSync {
     applyM5(db);
     applyM6(db);
     applyM7(db);
+    applyM8(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION_M2) {
     applyM3(db);
     applyM5(db);
     applyM6(db);
     applyM7(db);
+    applyM8(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION_M3) {
     applyM5(db);
     applyM6(db);
     applyM7(db);
+    applyM8(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION_M5) {
     applyM6(db);
     applyM7(db);
+    applyM8(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION_M6) {
     applyM7(db);
+    applyM8(db);
+    setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
+  } else if (version === PRODUCT_SCHEMA_VERSION_M7) {
+    applyM8(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION) {
     applyM2(db);
@@ -383,6 +420,7 @@ export function openProductSqlite(dbPath: string): DatabaseSync {
     applyM5(db);
     applyM6(db);
     applyM7(db);
+    applyM8(db);
   } else {
     try {
       db.close();

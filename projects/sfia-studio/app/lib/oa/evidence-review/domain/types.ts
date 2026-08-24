@@ -234,7 +234,14 @@ export type ExecutionAttemptSnapshot = {
   status: string;
   resultRef?: string;
   errorRef?: string;
-  completedAt?: string;
+  stopReason?: string;
+  cancelledAt?: string;
   failedAt?: string;
+  timedOutAt?: string;
+  stopOrigin?: "USER_CANCEL" | "SYSTEM_GOVERNED_STOP";
+  stopCode?: string;
+  stopSourceRef?: string;
+  stopObservedAt?: string;
+  completedAt?: string;
   selectedAgentRef?: string;
 };

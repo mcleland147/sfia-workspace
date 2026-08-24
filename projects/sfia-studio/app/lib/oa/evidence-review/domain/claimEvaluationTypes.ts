@@ -6,6 +6,12 @@
  */
 
 import type { ActorReference, ProvenanceRecord } from "@/lib/oa/doctrine";
+import type {
+  ClaimEvaluationSubjectKind,
+  ContractResultBindings,
+  ExpectedOutputAssessment,
+  EvidenceRequirementAssessment,
+} from "./contractResultTypes";
 
 export type { ActorReference, ProvenanceRecord };
 
@@ -105,6 +111,12 @@ export type ClaimEvaluation = {
   idempotencyKey?: string;
   updatedAt?: string;
   rejectionReason?: string;
+  /** W3-B contract-result mode — explicit subject discriminant (not inferred from claimStatement). */
+  subjectKind?: ClaimEvaluationSubjectKind;
+  contractResultBindings?: ContractResultBindings;
+  expectedOutputAssessments?: ExpectedOutputAssessment[];
+  evidenceRequirementAssessments?: EvidenceRequirementAssessment[];
+  contractResultReviewPolicyRef?: string;
 };
 
 export type ClaimEvaluationDetailCode =

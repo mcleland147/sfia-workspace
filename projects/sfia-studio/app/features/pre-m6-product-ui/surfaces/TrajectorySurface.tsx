@@ -16,12 +16,15 @@ import {
   w2AuthorizeExecutionContractAction,
   w2ConfirmExecutionContractAction,
   w2DecideTrajectoryAction,
+  w2GovernedExecuteCancelAction,
   w2GovernedExecuteCompleteAction,
   w2GovernedExecuteSelectAction,
   w2GovernedExecuteStartAction,
   w2InspectExecutionContractAction,
+  w2MaterializeProductOutcomeAction,
   w2PrepareExecutionContractAction,
   w2ProposeTrajectoryOptionsAction,
+  w2RehydrateProductOutcomeAction,
 } from "@/features/project-assistant/w2/actions";
 import type {
   AmendExecutionContractSuccess,
@@ -32,6 +35,7 @@ import type {
   GovernedExecutePhaseSuccess,
   TrajectoryDecisionRecordDto,
   TrajectoryOptionSetDto,
+  W3BProductOutcomeDto,
 } from "@/features/project-assistant/w2/types";
 import styles from "./TrajectorySurface.module.css";
 
@@ -122,6 +126,9 @@ export function TrajectorySurface({
   const [attemptStatusLabel, setAttemptStatusLabel] = useState<string | null>(
     null,
   );
+  const [productOutcome, setProductOutcome] =
+    useState<W3BProductOutcomeDto | null>(null);
+  const [productEvidencePending, setProductEvidencePending] = useState(false);
   const [qualifiedOperationKind, setQualifiedOperationKind] =
     useState<QualifiedOperationKind | null>(null);
 
@@ -356,6 +363,8 @@ export function TrajectorySurface({
       setAttemptPhase(null);
       setAttemptPhaseHistory([]);
       setAttemptStatusLabel(null);
+      setProductOutcome(null);
+      setProductEvidencePending(false);
     });
 
     const selected = await w2GovernedExecuteSelectAction({
@@ -370,7 +379,6 @@ export function TrajectorySurface({
       }
       return;
     }
-    // Paint accepted before start (R09 observability — yield to browser).
     paintAttemptPhase(selected.phase, selected.attempt, selected.statusLabel);
     await yieldBrowserPaint();
 
@@ -396,6 +404,32 @@ export function TrajectorySurface({
       }
       return;
     }
+
+    // Adapter FAIL / governed STOP may terminate at Start — materialize without Complete.
+    if (started.phase === "terminal") {
+      paintAttemptPhase(started.phase, started.attempt, started.statusLabel);
+      flushSync(() => {
+        setProductEvidencePending(true);
+      });
+      await yieldBrowserPaint();
+      const materializedEarly = await w2MaterializeProductOutcomeAction({
+        projectId,
+        attemptId: started.attemptId,
+      });
+      setBusy(null);
+      if (!materializedEarly.ok) {
+        setError(materializedEarly.message);
+        if (materializedEarly.product) setProductOutcome(materializedEarly.product);
+        return;
+      }
+      flushSync(() => {
+        setProductEvidencePending(false);
+        setProductOutcome(materializedEarly.product);
+      });
+      onDurableFactsChanged?.();
+      return;
+    }
+
     paintAttemptPhase(started.phase, started.attempt, started.statusLabel);
     await yieldBrowserPaint();
 
@@ -404,8 +438,8 @@ export function TrajectorySurface({
       executionContractId: contract.executionContractId,
       attemptId: started.attemptId,
     });
-    setBusy(null);
     if (!completed.ok) {
+      setBusy(null);
       setError(completed.message);
       if (completed.attempt) {
         flushSync(() => {
@@ -415,8 +449,86 @@ export function TrajectorySurface({
       return;
     }
     paintAttemptPhase(completed.phase, completed.attempt, completed.statusLabel);
+    flushSync(() => {
+      setProductEvidencePending(true);
+    });
+    await yieldBrowserPaint();
+
+    const materialized = await w2MaterializeProductOutcomeAction({
+      projectId,
+      attemptId: completed.attemptId,
+    });
+    setBusy(null);
+    if (!materialized.ok) {
+      setError(materialized.message);
+      if (materialized.product) setProductOutcome(materialized.product);
+      return;
+    }
+    flushSync(() => {
+      setProductEvidencePending(false);
+      setProductOutcome(materialized.product);
+    });
     onDurableFactsChanged?.();
   }, [contract, authorization, projectId, onDurableFactsChanged]);
+
+  const stopRunningExecution = useCallback(async () => {
+    if (!contract || !attempt?.attemptId || attemptPhase !== "running") return;
+    setBusy("execute");
+    setError(null);
+    const cancelled = await w2GovernedExecuteCancelAction({
+      projectId,
+      executionContractId: contract.executionContractId,
+      attemptId: attempt.attemptId,
+    });
+    if (!cancelled.ok) {
+      setBusy(null);
+      setError(cancelled.message);
+      return;
+    }
+    paintAttemptPhase(cancelled.phase, cancelled.attempt, cancelled.statusLabel);
+    flushSync(() => {
+      setProductEvidencePending(true);
+    });
+    await yieldBrowserPaint();
+    const materialized = await w2MaterializeProductOutcomeAction({
+      projectId,
+      attemptId: cancelled.attemptId,
+    });
+    setBusy(null);
+    if (!materialized.ok) {
+      setError(materialized.message);
+      if (materialized.product) setProductOutcome(materialized.product);
+      return;
+    }
+    flushSync(() => {
+      setProductEvidencePending(false);
+      setProductOutcome(materialized.product);
+    });
+    onDurableFactsChanged?.();
+  }, [
+    contract,
+    attempt,
+    attemptPhase,
+    projectId,
+    onDurableFactsChanged,
+  ]);
+
+  const rehydrateProduct = useCallback(async () => {
+    if (!attempt?.attemptId) return;
+    setBusy("execute");
+    setError(null);
+    const result = await w2RehydrateProductOutcomeAction({
+      projectId,
+      attemptId: attempt.attemptId,
+    });
+    setBusy(null);
+    if (!result.ok) {
+      setError(result.message);
+      return;
+    }
+    setProductOutcome(result.product);
+    setProductEvidencePending(false);
+  }, [attempt, projectId]);
 
   return (
     <section
@@ -867,17 +979,19 @@ export function TrajectorySurface({
                 data-testid="w2-stop-before-execute"
               >
                 Autorisation évaluée — aucune tentative lancée tant que vous
-                n&apos;exécutez pas explicitement (W3-A fixture).
+                n&apos;exécutez pas explicitement.
               </p>
-              <button
-                type="button"
-                className={styles.primaryAction}
-                data-testid="w3a-governed-execute"
-                onClick={() => void governedExecute()}
-                disabled={busy !== null}
-              >
-                Exécuter (fixture gouvernée)
-              </button>
+              <div className={styles.actions}>
+                <button
+                  type="button"
+                  className={styles.primaryAction}
+                  data-testid="w3a-governed-execute"
+                  onClick={() => void governedExecute()}
+                  disabled={busy !== null}
+                >
+                  Exécuter
+                </button>
+              </div>
             </>
           ) : null}
           {authorization.outcome === "BLOCKED" ? (
@@ -896,7 +1010,7 @@ export function TrajectorySurface({
           role="status"
         >
           <h3 id="w3a-attempt-title" className={styles.blockTitle}>
-            Tentative d&apos;exécution (W3-A)
+            Tentative d&apos;exécution
           </h3>
           <p className={styles.blockBody} data-testid="w3a-attempt-status">
             {attemptStatusLabel ?? "Tentative en cours"} · phase{" "}
@@ -926,17 +1040,182 @@ export function TrajectorySurface({
               </dd>
             </div>
             <div>
-              <dt>REAL</dt>
-              <dd data-testid="w3a-attempt-real">non — fixture boundary</dd>
+              <dt>Effets externes</dt>
+              <dd data-testid="w3a-attempt-real">non</dd>
             </div>
             <div>
               <dt>Cycle auto-fermé</dt>
               <dd data-testid="w3a-cycle-closed">non</dd>
             </div>
           </dl>
+          {attemptPhase === "running" ? (
+            <div className={styles.actions}>
+              <button
+                type="button"
+                className={styles.secondaryAction}
+                data-testid="w3b-stop-running"
+                onClick={() => void stopRunningExecution()}
+                disabled={busy !== null}
+              >
+                Arrêter l&apos;exécution
+              </button>
+            </div>
+          ) : null}
           <p className={styles.blockNote} data-testid="w3a-terminal-honesty">
-            Terminal technique — résultat produit non encore qualifié (W3-B).
+            {productOutcome?.claimAllowed
+              ? "Terminal technique consommé — résultat produit qualifié ci-dessous."
+              : productEvidencePending
+                ? "Terminal technique — Evidence en cours / claim produit non encore émis."
+                : "Terminal technique — résultat produit non encore qualifié."}
           </p>
+          {productEvidencePending ? (
+            <p
+              className={styles.blockNote}
+              data-testid="w3b-evidence-pending"
+            >
+              Evidence requise avant tout claim de résultat produit.
+            </p>
+          ) : null}
+          {attempt?.attemptId && !productOutcome ? (
+            <button
+              type="button"
+              className={styles.secondaryAction}
+              data-testid="w3b-rehydrate-product"
+              onClick={() => void rehydrateProduct()}
+              disabled={busy !== null}
+            >
+              Recharger résultat produit (durable)
+            </button>
+          ) : null}
+        </section>
+      ) : null}
+
+      {productOutcome ? (
+        <section
+          className={styles.productOutcome}
+          aria-labelledby="w3b-product-title"
+          data-testid="w3b-product-outcome"
+          data-outcome={productOutcome.outcome}
+          role="status"
+        >
+          <h3 id="w3b-product-title" className={styles.blockTitle}>
+            Résultat produit
+          </h3>
+          <p
+            className={styles.productHeadline}
+            data-testid="w3b-product-headline"
+          >
+            <span data-testid="w3b-product-outcome-kind">
+              {productOutcome.outcome}
+            </span>
+            {" — "}
+            {productOutcome.businessHeadline}
+          </p>
+          <p className={styles.blockBody} data-testid="w3b-product-reason">
+            {productOutcome.businessReason}
+          </p>
+          {productOutcome.governedBoundary ? (
+            <p className={styles.blockBody} data-testid="w3b-governed-boundary">
+              Frontière : {productOutcome.governedBoundary}
+            </p>
+          ) : null}
+          <p className={styles.blockBody} data-testid="w3b-evidence-summary">
+            {productOutcome.evidenceSummary ??
+              "Evidence absente — aucun claim produit."}
+          </p>
+          <dl className={styles.facts}>
+            <div>
+              <dt>Evidence</dt>
+              <dd className={styles.code} data-testid="w3b-evidence-id">
+                {productOutcome.evidenceId ?? "—"}
+              </dd>
+            </div>
+            <div>
+              <dt>ReviewBundle</dt>
+              <dd className={styles.code} data-testid="w3b-review-bundle-id">
+                {productOutcome.reviewBundleId ?? "—"}
+              </dd>
+            </div>
+            <div>
+              <dt>Complétude revue</dt>
+              <dd data-testid="w3b-review-bundle-completeness">
+                {productOutcome.reviewBundleCompleteness ?? "—"}
+              </dd>
+            </div>
+            <div>
+              <dt>Claim autorisé</dt>
+              <dd data-testid="w3b-claim-allowed">
+                {productOutcome.claimAllowed ? "oui" : "non"}
+              </dd>
+            </div>
+            <div>
+              <dt>Apprentissage / replan</dt>
+              <dd data-testid="w3b-nora-replan">non</dd>
+            </div>
+            <div>
+              <dt>Cycle auto-fermé</dt>
+              <dd data-testid="w3b-cycle-closed">non</dd>
+            </div>
+            <div>
+              <dt>READY</dt>
+              <dd data-testid="w3b-ready">non</dd>
+            </div>
+          </dl>
+          <details className={styles.technicalDetails}>
+            <summary data-testid="w3b-technical-details-toggle">
+              Détail technique (secondaire)
+            </summary>
+            <dl className={styles.facts}>
+              <div>
+                <dt>Attempt</dt>
+                <dd
+                  className={styles.code}
+                  data-testid="w3b-technical-attempt-id"
+                >
+                  {productOutcome.technicalDetail.attemptId}
+                </dd>
+              </div>
+              <div>
+                <dt>Statut technique</dt>
+                <dd data-testid="w3b-technical-status">
+                  {productOutcome.technicalDetail.attemptStatus}
+                </dd>
+              </div>
+              <div>
+                <dt>resultRef</dt>
+                <dd className={styles.code} data-testid="w3b-technical-result-ref">
+                  {productOutcome.technicalDetail.resultRef ?? "—"}
+                </dd>
+              </div>
+              <div>
+                <dt>errorRef / stopReason</dt>
+                <dd
+                  className={styles.code}
+                  data-testid="w3b-technical-error-or-stop"
+                >
+                  {productOutcome.technicalDetail.errorRef ??
+                    productOutcome.technicalDetail.stopReason ??
+                    "—"}
+                </dd>
+              </div>
+            </dl>
+          </details>
+          {productOutcome.reservations.length > 0 ? (
+            <ul data-testid="w3b-reservations" className={styles.blockNote}>
+              {productOutcome.reservations.map((r) => (
+                <li key={r}>{r}</li>
+              ))}
+            </ul>
+          ) : null}
+          <button
+            type="button"
+            className={styles.secondaryAction}
+            data-testid="w3b-rehydrate-product"
+            onClick={() => void rehydrateProduct()}
+            disabled={busy !== null || !attempt?.attemptId}
+          >
+            Recharger résultat produit (durable)
+          </button>
         </section>
       ) : null}
     </section>

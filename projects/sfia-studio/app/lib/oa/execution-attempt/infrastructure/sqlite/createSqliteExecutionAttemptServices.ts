@@ -11,6 +11,7 @@ import {
   type AttemptPolicy,
 } from "../../application/attemptPolicy";
 import { CancelExecutionAttempt } from "../../application/cancelExecutionAttempt";
+import { SystemGovernedStop } from "../../application/systemGovernedStop";
 import { CheckAttemptAuthorization } from "../../application/checkAttemptAuthorization";
 import { ExecutionContractStatusWriter } from "../../application/executionContractStatusWriter";
 import { GetExecutionAttempt } from "../../application/getExecutionAttempt";
@@ -83,6 +84,7 @@ export type SqliteExecutionAttemptServices = {
   selectExecutionAgent: SelectExecutionAgent;
   startExecution: StartExecution;
   cancelExecutionAttempt: CancelExecutionAttempt;
+  systemGovernedStop: SystemGovernedStop;
   recordExecutionResult: RecordExecutionResult;
   recordExecutionFailure: RecordExecutionFailure;
   retryExecutionAttempt: RetryExecutionAttempt;
@@ -189,6 +191,16 @@ export function createSqliteExecutionAttemptServices(
       contracts,
       contractStatusWriter,
       authority,
+      registry,
+      adapter,
+      clock,
+      audit,
+      store,
+    ),
+    systemGovernedStop: new SystemGovernedStop(
+      attempts,
+      contracts,
+      contractStatusWriter,
       registry,
       adapter,
       clock,

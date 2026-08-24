@@ -17,6 +17,7 @@ export type AttemptAuditEventName =
   | "oa.execution_attempt.timed_out"
   | "oa.execution_attempt.cancellation_requested"
   | "oa.execution_attempt.cancelled"
+  | "oa.execution_attempt.system_governed_stop"
   | "oa.execution_attempt.cancellation_failed"
   | "oa.execution_attempt.retry_authorized"
   | "oa.execution_attempt.authorization_denied"

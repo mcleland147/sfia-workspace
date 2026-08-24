@@ -138,6 +138,11 @@ export type ExecutionAttempt = {
    */
   executionWindowClass?: ExecutionWindowClass;
   resolvedMaxDurationMs?: number;
+  /** W3-B durable stop provenance (TD-W3B-04) — system-owned writes only. */
+  stopOrigin?: "USER_CANCEL" | "SYSTEM_GOVERNED_STOP";
+  stopCode?: string;
+  stopSourceRef?: string;
+  stopObservedAt?: string;
 };
 
 /**

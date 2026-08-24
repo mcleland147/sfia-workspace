@@ -1,11 +1,14 @@
 /**
  * IngestExecutionAttemptEvidence — explicit T-A5 → T-A6 bridge (D-T-A6-DEL-04).
  *
- * Policy (documented, fail-closed):
- * - Only Attempt.status === "succeeded" WITH resultRef may produce Evidence.
- * - failed / running / other statuses are refused (ATTEMPT_STATUS_REFUSED).
- * - Created Evidence status is always "available" (never "verified").
- * - ExecutionAttempt.succeeded ≠ Evidence verified ≠ PASS.
+ * Policy (documented, fail-closed) — W3-B terminal coverage:
+ * - Terminal Attempts may produce Evidence:
+ *   - succeeded + resultRef → available (technicalResultRef = resultRef)
+ *   - failed | timeout with errorRef or stopReason → available diagnostic
+ *   - cancelled with cancelledAt or stopReason → available governed-stop
+ * - Non-terminal (accepted/running/result_pending) → ATTEMPT_STATUS_REFUSED.
+ * - Created Evidence status is never "verified".
+ * - ExecutionAttempt.succeeded ≠ Evidence verified ≠ Product SUCCESS/PASS.
  * - Attempt is never mutated.
  */
 import type { ClockPort } from "@/lib/oa/doctrine";
@@ -24,6 +27,7 @@ import type {
   Evidence,
   EvidenceResult,
   IngestExecutionAttemptEvidenceRequest,
+  ExecutionAttemptSnapshot,
 } from "../domain/types";
 import type { EvidenceAuditPort } from "../ports/evidenceAudit";
 import type { EvidenceRepositoryPort } from "../ports/evidenceRepository";
@@ -35,6 +39,18 @@ import {
   fingerprintCommand,
   registerFingerprintBody,
 } from "./evidenceSupport";
+
+type TerminalIngestKind = "succeeded" | "failed" | "timeout" | "cancelled";
+
+function classifyTerminalForIngest(
+  attempt: ExecutionAttemptSnapshot,
+): TerminalIngestKind | null {
+  if (attempt.status === "succeeded") return "succeeded";
+  if (attempt.status === "failed") return "failed";
+  if (attempt.status === "timeout") return "timeout";
+  if (attempt.status === "cancelled") return "cancelled";
+  return null;
+}
 
 export class IngestExecutionAttemptEvidence {
   constructor(
@@ -168,15 +184,33 @@ export class IngestExecutionAttemptEvidence {
         return fail("ATTEMPT_NOT_FOUND", "missing_attempt");
       }
 
-      // Fail-closed: only succeeded + resultRef produces candidate Evidence.
-      if (attempt.status !== "succeeded") {
+      const terminalKind = classifyTerminalForIngest(attempt);
+      if (!terminalKind) {
         return fail(
           "ATTEMPT_STATUS_REFUSED",
           `attempt_status_${attempt.status}`,
         );
       }
-      if (!attempt.resultRef || !isOaIdentifier(attempt.resultRef)) {
-        return fail("ATTEMPT_RESULT_UNAVAILABLE", "result_ref_missing");
+      if (terminalKind === "succeeded") {
+        if (!attempt.resultRef || !isOaIdentifier(attempt.resultRef)) {
+          return fail("ATTEMPT_RESULT_UNAVAILABLE", "result_ref_missing");
+        }
+      } else if (terminalKind === "failed" || terminalKind === "timeout") {
+        const hasDiagnostic =
+          (attempt.errorRef && isOaIdentifier(attempt.errorRef)) ||
+          (typeof attempt.stopReason === "string" &&
+            attempt.stopReason.trim().length > 0);
+        if (!hasDiagnostic) {
+          return fail("ATTEMPT_RESULT_UNAVAILABLE", "failure_diagnostic_missing");
+        }
+      } else if (terminalKind === "cancelled") {
+        const hasStopFact =
+          Boolean(attempt.cancelledAt) ||
+          (typeof attempt.stopReason === "string" &&
+            attempt.stopReason.trim().length > 0);
+        if (!hasStopFact) {
+          return fail("ATTEMPT_RESULT_UNAVAILABLE", "cancel_fact_missing");
+        }
       }
 
       const bindings = {
@@ -191,18 +225,33 @@ export class IngestExecutionAttemptEvidence {
 
       const storageMode = request.storageMode ?? "internal_payload_ref";
       const location =
-        request.location ?? `refs/attempts/${attempt.attemptId}/result`;
+        request.location ??
+        (terminalKind === "succeeded"
+          ? `refs/attempts/${attempt.attemptId}/result`
+          : terminalKind === "cancelled"
+            ? `refs/attempts/${attempt.attemptId}/governed-stop`
+            : `refs/attempts/${attempt.attemptId}/diagnostic`);
+
+      const producedAt =
+        attempt.completedAt ??
+        attempt.failedAt ??
+        attempt.cancelledAt ??
+        attempt.timedOutAt ??
+        timestamp;
+
+      const technicalResultRef =
+        terminalKind === "succeeded" ? attempt.resultRef : undefined;
 
       const evidence: Evidence = {
         schemaVersion: "0.2.0-oa",
         evidenceId: request.evidenceId,
-        type: request.type ?? "artifact",
-        source: `execution attempt ${attempt.attemptId}`,
+        type: request.type ?? (terminalKind === "succeeded" ? "artifact" : "log_ref"),
+        source: `execution attempt ${attempt.attemptId} (${terminalKind})`,
         sourceKind: "execution_attempt",
         location,
         digest: request.digest,
         producedBy: request.actor,
-        producedAt: attempt.completedAt ?? timestamp,
+        producedAt,
         freshness: "fresh",
         status: "available",
         classification: request.classification,
@@ -224,7 +273,7 @@ export class IngestExecutionAttemptEvidence {
         version: 1,
         createdAt: timestamp,
         idempotencyKey: request.idempotencyKey,
-        technicalResultRef: attempt.resultRef,
+        technicalResultRef,
       };
 
       const shape = validateEvidenceShape(evidence);
@@ -252,7 +301,6 @@ export class IngestExecutionAttemptEvidence {
         durationMs,
       });
 
-      // Prove Attempt was not mutated via reader contract (snapshot clone).
       return {
         ok: true,
         evidence: structuredClone(evidence),
