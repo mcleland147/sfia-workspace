@@ -119,11 +119,28 @@ Durable SoT remains **ExecutionContract** via existing `buildExecutionContract` 
 
 ```
 npm run typecheck — PASS
+npm run lint — PASS (no warnings)
+npm run build — PASS
 vitest w3aGovernedExecute.test.ts — 12/12 PASS
+vitest w2EabcDelivery.test.ts — 39/39 PASS
+vitest w2TrackDPhaseB.test.ts — PASS
 vitest trajectorySurface.ui.test.tsx — PASS
 vitest importBoundaries.test.ts — PASS
-Playwright /studio W3-A — NOT RUN (reserve R09)
+vitest __tests__/oa/execution-contract/ — PASS
+vitest full suite — 212 files / 2010 tests PASS · 13 skipped (131 tests)
+  (post-handoff fix: preM6.realProductWiringAmend.test.ts T1 — expect W3A agent registered)
+Playwright /studio W3-A Execute happy path — NOT RUN (reserve R09)
 ```
+
+## Review Handoff (published)
+
+| Field | Value |
+|---|---|
+| branch | `sfia/review-handoff` |
+| commit | `6d451afeff09e30e175ec425b06274f9f3f02e9a` |
+| blob | `eea2f512997d97d2433d29443d4b1f3d563e7774` |
+| canonical | `sfia-review-handoff/latest-chatgpt-review.md` |
+| verdict publisher | HANDOFF UPDATED — REMOTE VERIFIED |
 
 ## Files modified/created
 
@@ -135,7 +152,7 @@ Playwright /studio W3-A — NOT RUN (reserve R09)
 - `lib/vertical-slice-runtime/w3aProductFixtureWiring.ts`
 - `product-completion/11-product-completion-wave-3-delivery-readiness.md`
 
-**Modified:** TrajectorySurface, w2/actions, w2/types, service.ts, EC invariants, confirmExecutionContract, roadmap, UI tests, importBoundaries, w2Harness
+**Modified:** TrajectorySurface, w2/actions, w2/types, service.ts, EC invariants, confirmExecutionContract, roadmap, UI tests, importBoundaries, w2Harness, preM6.realProductWiringAmend.test.ts (registry agent list)
 
 ## Debts / reserves
 
