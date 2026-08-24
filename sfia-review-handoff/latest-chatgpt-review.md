@@ -1,14 +1,15 @@
-# SFIA Studio — W3-A FC-08 Native ExecutionContract Preparation Correction — FULL Review Pack
+# SFIA Studio — W3-A Option 4 Targeted Semantic Correction — FULL Review Pack
 
-> **REVIEW PACK TYPE**: FULL — includes complete source of all new modules and unified diffs of all modified files.
-> **Purpose**: enable ChatGPT code review without relying on Cursor assertions alone.
+> **REVIEW PACK TYPE**: FULL — complete sources + unified diffs.
+> **Entry handoff reviewed**: `82e0bfdc6ebbc22af0033562619d98ac039e7f85` / blob `f1424c8e6ec6cd205d4ec5b432bd922d2b377259`
+> **Verdict**: STOP — MORRIS DECISION REQUIRED — W3-A TARGETED CORRECTION EXCEEDS ADOPTED OPTION 4 BOUNDARY
 
 ## Metadata
 
 | Field | Value |
 |---|---|
-| **Timestamp Europe/Paris** | 2026-08-24 05:08:19 UTC+02:00 |
-| **Timestamp UTC** | 2026-08-24T03:08:19Z |
+| **Timestamp Europe/Paris** | 2026-08-24 05:41:57 UTC+02:00 |
+| **Timestamp UTC** | 2026-08-24T03:41:57Z |
 | **Repo** | mcleland147/sfia-workspace |
 | **Branch** | `delivery/sfia-studio-product-completion-w3-a-governed-execute` |
 | **HEAD** | `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed` |
@@ -18,27 +19,56 @@
 
 ## Morris decisions consumed
 
-**GO MORRIS W3 DELIVERY** (consumed): scope W3 only · W1/W2 closed · C6 implement-only · canonical `/studio` · REAL OUT · FinOps FREEZE · W4 OUT · runtime v3 NON ADOPTED.
-
-**Morris Option 4 R01** (adopted): FC-08 native EC preparation from qualified product context · HD when applicable · EC first durable SoT · no F3 semantic overwrite · TestExecutionAdapter fake only · no new aggregate/store/engine.
+**GO MORRIS W3 DELIVERY** (consumed) + **Option 4 R01** (adopted). Runtime v3 NON ADOPTED. REAL OUT.
 
 ## Local Git Truth
 
 - HEAD == origin/main == `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed`
-- staged: **VIDE**
-- working tree: **DIRTY** (candidat non commité — attendu)
+- staged: **VIDE** · working tree: **DIRTY** (candidat non commité)
 
-## Sensitive review anchors (cross-reference)
+## B1→B7 resolution matrix
 
-| Question | Where to verify in this pack |
-|---|---|
-| What does `deriveW3AExecutionEnvelope` do? | PART 1 `w3aProductExecutionSemantics.ts` |
-| How is EC built? | PART 1 `prepareExecutionContractFromW2Decision.ts` |
-| decisionRefs 0..n protection | PART 2 `invariants.ts`, `confirmExecutionContract.ts`; PART 1 test file |
-| F3 off canonical path | PART 2 `TrajectorySurface.tsx` diff |
-| Three Attempt phases | PART 1 `governedExecuteAuthorizedContract.ts`; PART 2 `w2/actions.ts`, `TrajectorySurface.tsx` |
-| No auto-confirmation | PART 1 `governedExecuteAuthorizedContract.ts` L329-336 |
-| Fixture adapts to contract | PART 1 `w3aProductFixtureWiring.ts`; PART 2 `service.ts` |
+| ID | Result | Evidence |
+|---|---|---|
+| B1 scope | **CORRECTED** | `deriveGovernedScope` · EC.scope = product scope · marker ≠ scope |
+| B2 requiredAuthority | **STOP** | `deriveRequiredAuthority` → `AUTHORITY_POLICY_UNRESOLVED` · no profile mapping · no ActionPolicy runtime |
+| B3 reversibility | **CORRECTED** | `deriveExecutionReversibility` → irreversible + REVERSIBILITY_UNRESOLVED · ≠ HD.reversible |
+| B4 fixture/EC | **CORRECTED** | `ContractShapedFixtureAgentRegistry` synthesizes FROM criteria · no co-hardcoded W3A agent |
+| B5 cycle | **CORRECTED** | prepare requires Decision cycle · Execute refuses missing `contract.cycleInstanceId` |
+| B6/R09 Playwright | **BLOCKED BY B2** | prepare fail-closed → Execute happy path unreachable |
+| B7 legacy F3 | **REVERTED** | `actions.ts` / `types.ts` restored to HEAD |
+
+## Final field sources
+
+| Field | Source | Notes |
+|---|---|---|
+| action | selected Option kind (GOVERNED/BOUNDED) | `product:trajectory-*-execution` · not fixture · not `w2:decide-trajectory:*` |
+| target | `sfia-studio/product-completion/project:{projectId}` | project-bound product workspace · ≠ F3 fixture target |
+| scope | DecisionBasis.executionBasis.scope \|\| option intent | authority-bearing · never W3-A marker |
+| requiredCapabilities | from action class before agent selection | `cap:product-trajectory-*-execution` |
+| requiredAuthority | **UNRESOLVED** | no adopted runtime ActionPolicy · prepare fail-closed |
+| reversibility | fail-closed irreversible | honesty pattern · not HD.reversible |
+
+## STOP detail — B2
+
+Missing owner: **runtime ActionPolicy / effects→AuthorityClass**.
+
+Inspected and rejected as insufficient:
+- framing 34 ActionPolicy table = doctrine VALIDATED · runtime v3 **NON ADOPTED** · Product Completion envelope not implemented
+- `evaluateMorrisGateRequired` = F2 Morris-gate boolean · not EC `requiredAuthority`
+- cycle profile Critical→N3 / else N2 = contradicts C2 (removed)
+- inventing AuthorityCatalog / W3-A matrix = forbidden
+
+Exact STOP:
+
+```
+STOP — MORRIS DECISION REQUIRED — W3-A TARGETED CORRECTION EXCEEDS ADOPTED OPTION 4 BOUNDARY
+```
+
+## B7 legacy F3
+
+- `projects/sfia-studio/app/features/project-assistant/actions.ts`: **NO DIFF vs HEAD (reverted)**
+- `projects/sfia-studio/app/features/project-assistant/types.ts`: **NO DIFF vs HEAD (reverted)**
 
 ---
 
@@ -48,39 +78,79 @@
 
 ```typescript
 /**
- * W3-A — product-native execution envelope semantics (NOT F3 fixture overwrite).
+ * W3-A — product-native FC-08 envelope derivation (Option 4).
  *
- * Stable contract-shaped fields for the canonical /studio W2→W3 path.
- * Project binding lives on ExecutionContract.projectId / inputs — not in target
- * matching alone. TestExecutionAdapter remains the external-executor fake.
+ * Sources (qualified product context only):
+ * - HumanDecision + DecisionBasis.executionBasis
+ * - presented Option (selected optionRef / intent / label)
+ * - Project/LPS objective
+ * - CycleInstance binding (required on W3-A path — see prepare module)
+ *
+ * NOT sources:
+ * - Cycle profile alone → requiredAuthority (C2: effects/policy, not profile)
+ * - HumanDecision.reversible → ExecutionContract.reversibility (decision ≠ effects)
+ * - Fixture agent constants (EC is prepared BEFORE agent selection)
+ * - F3 fixtureSafeM3ResolutionProfile overwrite
+ *
+ * Authority: no adopted runtime ActionPolicy maps effects→N1/N2/N3.
+ * When requiredAuthority cannot be derived honestly → FAIL-CLOSED
+ * (AUTHORITY_POLICY_UNRESOLVED). Do not invent Critical→N3 / Standard→N2.
+ *
+ * Reversibility: no adopted effect-reversibility analysis on DecisionBasis.
+ * Fail-closed field = irreversible + stop REVERSIBILITY_UNRESOLVED
+ * (same honesty pattern as prepareM3FromDecision — not a business claim).
  */
 
 import type { DecisionBasis } from "@/lib/oa/decision";
+import type { AuthorityClass, Reversibility } from "@/lib/oa/execution-contract";
 import {
   BOUNDED_OPTION_REF,
   CLARIFY_OPTION_REF,
   GOVERNED_OPTION_REF,
 } from "./trajectoryOptions";
 
-export const W3A_PRODUCT_ACTION = "product:governed-execution" as const;
-export const W3A_PRODUCT_TARGET = "sfia-studio/product-completion" as const;
-export const W3A_PRODUCT_SCOPE = "w3:governed-execute:studio-canonical" as const;
-export const W3A_PRODUCT_CAPABILITY = "cap:product-governed-execution" as const;
-/** Must stay aligned with vertical-slice-runtime/w3aProductFixtureWiring.ts */
-export const W3A_PRODUCT_AGENT_ID = "agt:w3a-product-fixture" as const;
+/**
+ * Product action class derived from the decided trajectory option kind.
+ * Represents the executable intention contracted after W2 HumanDecision —
+ * NOT a shell command, NOT a fixture matcher, NOT the decision operation
+ * (`w2:decide-trajectory:*`).
+ */
+export type W3AProductActionClass =
+  | "product:trajectory-governed-execution"
+  | "product:trajectory-bounded-execution";
+
+/**
+ * Product capability required by the action class BEFORE agent selection.
+ * Declares executor sufficiency need; never derived from a chosen agent.
+ */
+export type W3AProductCapability =
+  | "cap:product-trajectory-governed-execution"
+  | "cap:product-trajectory-bounded-execution";
+
+/** Implementation / provenance marker — NOT authority-bearing scope. */
+export const W3A_IMPLEMENTATION_MARKER =
+  "w3:governed-execute:studio-canonical" as const;
 
 export const W3A_PRODUCT_EVIDENCE_REQ = "evreq:product-governed-execution" as const;
 
+/**
+ * Synthetic fixture agent id prefix. Registry may build a contract-shaped
+ * descriptor AFTER EC preparation; this id is never an EC semantic source.
+ * Kept in sync with vertical-slice-runtime/w3aProductFixtureWiring.ts
+ */
+export const W3A_CONTRACT_SHAPED_AGENT_PREFIX = "agt:w3a-contract-shaped:" as const;
+
 export type W3AExecutionEnvelope = {
-  readonly action: string;
-  readonly target: string;
+  readonly action: W3AProductActionClass;
+  /** Real governed scope — authority-bearing (FC-09 / AgentCapability). */
   readonly scope: string;
-  readonly requiredCapabilities: readonly string[];
-  readonly requiredAuthority: "N2" | "N3";
+  readonly target: string;
+  readonly requiredCapabilities: readonly W3AProductCapability[];
+  readonly requiredAuthority: AuthorityClass;
   readonly constraints: readonly string[];
   readonly stopConditions: readonly string[];
   readonly evidenceRequirements: readonly string[];
-  readonly reversibility: "reversible" | "irreversible";
+  readonly reversibility: Reversibility;
   readonly expectedOutputs: readonly string[];
   readonly inputs: Record<string, unknown>;
 };
@@ -99,6 +169,7 @@ function productConstraints(basis: DecisionBasis): string[] {
     "NO_REAL",
     "NO_CURSOR_REAL",
     "NO_ATTEMPT_AT_PREPARE",
+    `IMPLEMENTATION_MARKER:${W3A_IMPLEMENTATION_MARKER}`,
     ...(eb.outOfScope ?? []).map((s) => `OUT_OF_SCOPE:${s}`),
     ...(eb.risks ?? []).map((s) => `RISK:${s}`),
     ...(eb.reservations ?? []).map((s) => `RESERVATION:${s}`),
@@ -112,13 +183,123 @@ function productStopConditions(basis: DecisionBasis): string[] {
     "AUTHORITY_DENIED",
     "CONTEXT_STALE",
     "DECISION_NOT_CURRENT",
+    "REVERSIBILITY_UNRESOLVED",
   ]);
   return [...stops];
 }
 
 /**
+ * Action class from decided Option kind (product trajectory vocabulary).
+ * Source: presented OptionSet selection — not fixture wiring.
+ */
+export function deriveActionClassFromOption(
+  selectedOptionRef: string,
+):
+  | { readonly ok: true; readonly action: W3AProductActionClass; readonly capability: W3AProductCapability }
+  | EnvelopePrepareFailure {
+  if (selectedOptionRef === GOVERNED_OPTION_REF) {
+    return {
+      ok: true,
+      action: "product:trajectory-governed-execution",
+      capability: "cap:product-trajectory-governed-execution",
+    };
+  }
+  if (selectedOptionRef === BOUNDED_OPTION_REF) {
+    return {
+      ok: true,
+      action: "product:trajectory-bounded-execution",
+      capability: "cap:product-trajectory-bounded-execution",
+    };
+  }
+  if (selectedOptionRef === CLARIFY_OPTION_REF) {
+    return {
+      ok: false,
+      code: "PREPARATION_BLOCKED",
+      message:
+        "Trajectoire « clarifier d'abord » — aucune préparation d'exécution autorisée.",
+    };
+  }
+  return {
+    ok: false,
+    code: "OPTION_NOT_EXECUTABLE",
+    message: `Option ${selectedOptionRef} — enveloppe d'exécution non préparable.`,
+  };
+}
+
+/**
+ * Authority-bearing scope: DecisionBasis.executionBasis.scope when present,
+ * else selected option intent. Never the W3-A implementation marker.
+ */
+export function deriveGovernedScope(input: {
+  readonly basis: DecisionBasis;
+  readonly selectedOptionIntent: string;
+}): { readonly ok: true; readonly scope: string } | EnvelopePrepareFailure {
+  const fromBasis = input.basis.executionBasis.scope?.trim() ?? "";
+  const fromIntent = input.selectedOptionIntent.trim();
+  const scope = fromBasis || fromIntent;
+  if (!scope) {
+    return {
+      ok: false,
+      code: "SCOPE_UNRESOLVED",
+      message:
+        "Scope d'exécution introuvable sur DecisionBasis/option — préparation bloquée.",
+    };
+  }
+  if (scope === W3A_IMPLEMENTATION_MARKER) {
+    return {
+      ok: false,
+      code: "SCOPE_MARKER_FORBIDDEN",
+      message:
+        "Le marqueur d'implémentation W3-A ne peut pas servir de scope authority-bearing.",
+    };
+  }
+  return { ok: true, scope };
+}
+
+/**
+ * Target: project-bound product workspace identity.
+ * Distinct from Project aggregate id (binding stays on EC.projectId) and from
+ * fixture targets (`sfia-studio/f3-fixture-only`).
+ */
+export function deriveProductTarget(projectId: string): string {
+  return `sfia-studio/product-completion/project:${projectId}`;
+}
+
+/**
+ * requiredAuthority — NO cycle-profile mapping.
+ *
+ * Adopted runtime ActionPolicy (effects → N1/N2/N3) is absent
+ * (framing 34 doctrine only · runtime v3 NON ADOPTED).
+ * Fail-closed until Morris adopts an authority derivation policy.
+ */
+export function deriveRequiredAuthority(_input: {
+  readonly basis: DecisionBasis;
+  readonly reversibility: Reversibility;
+  readonly action: W3AProductActionClass;
+}): { readonly ok: true; readonly requiredAuthority: AuthorityClass } | EnvelopePrepareFailure {
+  void _input;
+  return {
+    ok: false,
+    code: "AUTHORITY_POLICY_UNRESOLVED",
+    message:
+      "Aucune ActionPolicy runtime adoptée ne dérive requiredAuthority depuis effects/protection/réversibilité (C2). Critical≠N3 automatique. Préparation fail-closed — décision Morris requise sur la policy d'autorité d'exécution.",
+  };
+}
+
+/**
+ * Execution reversibility from effects/policy — NOT HumanDecision.reversible.
+ * Unsourced → irreversible + REVERSIBILITY_UNRESOLVED (honesty pattern).
+ */
+export function deriveExecutionReversibility(): {
+  readonly reversibility: Reversibility;
+  readonly unresolved: true;
+} {
+  return { reversibility: "irreversible", unresolved: true };
+}
+
+/**
  * Derive the FC-08 envelope from qualified W2 HumanDecision + selected option.
- * Fail-closed when the decided trajectory does not authorize execution prep.
+ * Fail-closed when required product fields cannot be prepared honestly.
  */
 export function deriveW3AExecutionEnvelope(input: {
   readonly projectId: string;
@@ -127,62 +308,47 @@ export function deriveW3AExecutionEnvelope(input: {
   readonly selectedOptionRef: string;
   readonly selectedOptionIntent: string;
   readonly selectedOptionLabel: string;
-  readonly cycleProfile: "Standard" | "Critical" | "Light" | string;
   readonly projectObjective: string | null;
-  readonly reversible: boolean;
 }):
   | { readonly ok: true; readonly envelope: W3AExecutionEnvelope }
   | EnvelopePrepareFailure {
-  if (input.selectedOptionRef === CLARIFY_OPTION_REF) {
-    return {
-      ok: false,
-      code: "PREPARATION_BLOCKED",
-      message:
-        "Trajectoire « clarifier d'abord » — aucune préparation d'exécution autorisée.",
-    };
-  }
+  const actionDerived = deriveActionClassFromOption(input.selectedOptionRef);
+  if (!actionDerived.ok) return actionDerived;
 
-  if (
-    input.selectedOptionRef !== GOVERNED_OPTION_REF &&
-    input.selectedOptionRef !== BOUNDED_OPTION_REF
-  ) {
-    return {
-      ok: false,
-      code: "OPTION_NOT_EXECUTABLE",
-      message: `Option ${input.selectedOptionRef} — enveloppe d'exécution non préparable.`,
-    };
-  }
+  const scopeDerived = deriveGovernedScope({
+    basis: input.basis,
+    selectedOptionIntent: input.selectedOptionIntent,
+  });
+  if (!scopeDerived.ok) return scopeDerived;
+
+  const { reversibility } = deriveExecutionReversibility();
+
+  const authorityDerived = deriveRequiredAuthority({
+    basis: input.basis,
+    reversibility,
+    action: actionDerived.action,
+  });
+  if (!authorityDerived.ok) return authorityDerived;
 
   const eb = input.basis.executionBasis;
-  const scope =
-    (eb.scope && eb.scope.trim()) || input.selectedOptionIntent.trim();
-  if (!scope) {
-    return {
-      ok: false,
-      code: "SCOPE_UNRESOLVED",
-      message: "Scope d'exécution introuvable — préparation bloquée.",
-    };
-  }
-
   const expectedOutputs = eb.expectedOutcome
     ? [eb.expectedOutcome]
     : [`Exécution gouvernée : ${input.selectedOptionLabel}`];
 
-  const requiredAuthority =
-    input.cycleProfile === "Critical" ? ("N3" as const) : ("N2" as const);
+  const target = deriveProductTarget(input.projectId);
 
   return {
     ok: true,
     envelope: {
-      action: W3A_PRODUCT_ACTION,
-      target: W3A_PRODUCT_TARGET,
-      scope: W3A_PRODUCT_SCOPE,
-      requiredCapabilities: [W3A_PRODUCT_CAPABILITY],
-      requiredAuthority,
+      action: actionDerived.action,
+      target,
+      scope: scopeDerived.scope,
+      requiredCapabilities: [actionDerived.capability],
+      requiredAuthority: authorityDerived.requiredAuthority,
       constraints: productConstraints(input.basis),
       stopConditions: productStopConditions(input.basis),
       evidenceRequirements: [W3A_PRODUCT_EVIDENCE_REQ],
-      reversibility: input.reversible ? "reversible" : "irreversible",
+      reversibility,
       expectedOutputs,
       inputs: {
         projectId: input.projectId,
@@ -190,12 +356,15 @@ export function deriveW3AExecutionEnvelope(input: {
         selectedOptionRef: input.selectedOptionRef,
         selectedOptionLabel: input.selectedOptionLabel,
         selectedOptionIntent: input.selectedOptionIntent,
-        executionScope: scope,
+        executionScope: scopeDerived.scope,
+        implementationMarker: W3A_IMPLEMENTATION_MARKER,
         objective: eb.objective ?? input.projectObjective,
         cycleTypeId: eb.cycleTypeId,
         recommendedProfile: eb.recommendedProfile,
         sourceRef: input.basis.sourceRef,
         sourceDigest: input.basis.sourceDigest,
+        reversibilitySource: "FAIL_CLOSED_UNRESOLVED",
+        authoritySource: "ACTION_POLICY_RUNTIME_ABSENT",
       },
     },
   };
@@ -205,9 +374,13 @@ export function deriveW3AExecutionEnvelope(input: {
 export function assertNotF3FixtureSemantics(fields: {
   action: string;
   target: string;
+  scope: string;
   requiredCapabilities: readonly string[];
 }): EnvelopePrepareFailure | null {
-  if (fields.action.includes("fixture") || fields.action === "fixture-docs-prepare") {
+  if (
+    fields.action.includes("fixture") ||
+    fields.action === "fixture-docs-prepare"
+  ) {
     return {
       ok: false,
       code: "F3_SEMANTIC_FORBIDDEN",
@@ -228,6 +401,13 @@ export function assertNotF3FixtureSemantics(fields: {
       message: "Capability fixture interdite sur le chemin canonique /studio.",
     };
   }
+  if (fields.scope === W3A_IMPLEMENTATION_MARKER) {
+    return {
+      ok: false,
+      code: "SCOPE_MARKER_FORBIDDEN",
+      message: "Scope authority-bearing ne peut pas être le marqueur W3-A.",
+    };
+  }
   return null;
 }
 ```
@@ -240,11 +420,11 @@ export function assertNotF3FixtureSemantics(fields: {
 /**
  * W3-A / FC-08 — native ExecutionContract preparation from qualified W2 context.
  *
- * Nora/Studio composes the complete FC-08 build inputs from durable truths:
- * HumanDecision + DecisionBasis + presented OptionSet + Project/Cycle context.
+ * Nora/Studio composes complete FC-08 build inputs from durable truths.
+ * ExecutionContract is the first durable SoT for the execution envelope.
  *
  * NO fixtureSafeM3ResolutionProfile · NO F3 semantic overwrite · NO Morris runtime persona.
- * ExecutionContract is the first durable SoT for the execution envelope.
+ * NO cycle-profile → requiredAuthority · NO HumanDecision.reversible → EC.reversibility.
  */
 
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
@@ -273,7 +453,7 @@ export type PreparedExecutionContractDto = {
   readonly reversibility: string;
   readonly semanticFingerprint: string;
   readonly decisionRefs: readonly string[];
-  readonly cycleInstanceId: string | null;
+  readonly cycleInstanceId: string;
 };
 
 export type PrepareExecutionContractFromW2DecisionResult =
@@ -289,6 +469,70 @@ export type PrepareExecutionContractFromW2DecisionResult =
 
 function safeIdSegment(value: string): string {
   return value.replace(/[^a-zA-Z0-9:_-]/g, "").slice(0, 48);
+}
+
+/**
+ * W3-A cycle binding: Decision / DecisionBasis cycle is required.
+ * activeCycleInstanceId may only confirm coherence — never invent a binding.
+ */
+async function resolveW3ACycleBinding(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly decisionCycleInstanceId: string | null | undefined;
+  readonly basisCycleInstanceId: string | null | undefined;
+  readonly activeCycleInstanceId: string | null | undefined;
+}): Promise<
+  | { readonly ok: true; readonly cycleInstanceId: string; readonly cycleProfile: string }
+  | { readonly ok: false; readonly code: string; readonly message: string }
+> {
+  const primary =
+    input.decisionCycleInstanceId?.trim() ||
+    input.basisCycleInstanceId?.trim() ||
+    "";
+  if (!primary) {
+    return {
+      ok: false,
+      code: "CYCLE_BINDING_REQUIRED",
+      message:
+        "W3-A exige un CycleInstance durable lié à la HumanDecision/DecisionBasis — préparation refusée.",
+    };
+  }
+
+  const cycle = await input.oa.cycleServices.getCycle.execute({
+    cycleInstanceId: primary,
+  });
+  if (!cycle.ok) {
+    return {
+      ok: false,
+      code: "CYCLE_NOT_FOUND",
+      message: "CycleInstance lié introuvable — préparation bloquée.",
+    };
+  }
+  if (cycle.cycle.projectId !== input.projectId) {
+    return {
+      ok: false,
+      code: "CYCLE_PROJECT_MISMATCH",
+      message: "CycleInstance / projet incohérents.",
+    };
+  }
+
+  const active = input.activeCycleInstanceId?.trim() || "";
+  if (active && active !== primary) {
+    // Coherence signal only — do not rebind. Warn via fail-closed when
+    // DecisionBasis and active diverge for the W3-A path.
+    return {
+      ok: false,
+      code: "CYCLE_ACTIVE_MISMATCH",
+      message:
+        "CycleInstance décisionnel ≠ activeCycleInstanceId — cohérence W3-A refusée (pas de fallback silencieux).",
+    };
+  }
+
+  return {
+    ok: true,
+    cycleInstanceId: primary,
+    cycleProfile: cycle.cycle.profile,
+  };
 }
 
 export async function prepareExecutionContractFromW2Decision(input: {
@@ -390,29 +634,15 @@ export async function prepareExecutionContractFromW2Decision(input: {
     };
   }
 
-  let cycleProfile: string = "Standard";
-  const cycleInstanceId =
-    decision.cycleInstanceId ??
-    basis.cycleInstanceId ??
-    input.currentContext.activeCycleInstanceId ??
-    null;
-  if (cycleInstanceId) {
-    const cycle = await oa.cycleServices.getCycle.execute({ cycleInstanceId });
-    if (!cycle.ok) {
-      return {
-        ok: false,
-        code: "CYCLE_NOT_FOUND",
-        message: "CycleInstance lié introuvable — préparation bloquée.",
-      };
-    }
-    if (cycle.cycle.projectId !== input.projectId) {
-      return {
-        ok: false,
-        code: "CYCLE_PROJECT_MISMATCH",
-        message: "CycleInstance / projet incohérents.",
-      };
-    }
-    cycleProfile = cycle.cycle.profile;
+  const cycleBinding = await resolveW3ACycleBinding({
+    oa,
+    projectId: input.projectId,
+    decisionCycleInstanceId: decision.cycleInstanceId,
+    basisCycleInstanceId: basis.cycleInstanceId,
+    activeCycleInstanceId: input.currentContext.activeCycleInstanceId,
+  });
+  if (!cycleBinding.ok) {
+    return cycleBinding;
   }
 
   const project = await oa.projectServices.getProject.execute({
@@ -428,6 +658,9 @@ export async function prepareExecutionContractFromW2Decision(input: {
     }
   }
 
+  // Note: cycleProfile is loaded for scrutiny/context only — NEVER for requiredAuthority.
+  void cycleBinding.cycleProfile;
+
   const envelopeResult = deriveW3AExecutionEnvelope({
     projectId: input.projectId,
     decisionId: decision.decisionId,
@@ -435,9 +668,7 @@ export async function prepareExecutionContractFromW2Decision(input: {
     selectedOptionRef: traj.selectedOptionRef,
     selectedOptionIntent: selected.intent,
     selectedOptionLabel: selected.label,
-    cycleProfile,
     projectObjective,
-    reversible: decision.reversible === true,
   });
   if (!envelopeResult.ok) {
     return envelopeResult;
@@ -447,6 +678,7 @@ export async function prepareExecutionContractFromW2Decision(input: {
   const f3Guard = assertNotF3FixtureSemantics({
     action: envelope.action,
     target: envelope.target,
+    scope: envelope.scope,
     requiredCapabilities: envelope.requiredCapabilities,
   });
   if (f3Guard) {
@@ -477,7 +709,7 @@ export async function prepareExecutionContractFromW2Decision(input: {
     await oa.executionContractServices.buildExecutionContract.execute({
       executionContractId,
       projectId: input.projectId,
-      cycleInstanceId: cycleInstanceId ?? undefined,
+      cycleInstanceId: cycleBinding.cycleInstanceId,
       decisionRefs: [decision.decisionId],
       action: envelope.action,
       target: envelope.target,
@@ -520,6 +752,14 @@ export async function prepareExecutionContractFromW2Decision(input: {
   }
 
   const contract = validated.contract;
+  if (!contract.cycleInstanceId) {
+    return {
+      ok: false,
+      code: "CYCLE_BINDING_REQUIRED",
+      message: "ExecutionContract matérialisé sans cycleInstanceId — refuse.",
+    };
+  }
+
   return {
     ok: true,
     contract: {
@@ -536,7 +776,7 @@ export async function prepareExecutionContractFromW2Decision(input: {
       reversibility: contract.reversibility,
       semanticFingerprint: contract.semanticFingerprint ?? "",
       decisionRefs: [...(contract.decisionRefs ?? [])],
-      cycleInstanceId: contract.cycleInstanceId ?? null,
+      cycleInstanceId: contract.cycleInstanceId,
     },
     decisionId: decision.decisionId,
     executionPerformed: false,
@@ -688,8 +928,19 @@ async function loadContract(
     };
   }
 
-  let selectionProfile: SelectionProfile = "standard";
-  if (contract.cycleInstanceId) {
+  let selectionProfile: SelectionProfile | null = null;
+  if (!contract.cycleInstanceId) {
+    return {
+      ok: false,
+      result: {
+        ok: false,
+        code: "CYCLE_BINDING_REQUIRED",
+        message:
+          "ExecutionContract sans cycleInstanceId — Execute W3-A refusé (pas de fallback Standard).",
+      },
+    };
+  }
+  {
     const cycle = await oa.cycleServices.getCycle.execute({
       cycleInstanceId: contract.cycleInstanceId,
     });
@@ -1145,24 +1396,38 @@ export async function governedExecuteAuthorizedContract(
 
 ```typescript
 /**
- * W3-A product-native fixture agent — contract-shaped, NOT F3 semantic constants.
- * Uses the same TestExecutionAdapter identity as the historical F3 fake boundary.
+ * W3-A — contract-shaped fixture agent boundary (B4).
+ *
+ * Order (mandatory):
+ *   qualified context → FC-08 EC → action/target/scope/caps
+ *   → AgentRegistry.findCandidates(criteria from EC)
+ *   → compatible fixture executor → TestExecutionAdapter
+ *
+ * The fixture ADAPTS to the contract. EC semantics are never taken from
+ * fixture constants. Legacy F3 agent remains for harvest/legacy tests only.
+ *
+ * Implements existing AgentRegistryPort — does NOT redesign the registry,
+ * add mutation APIs, or invent wildcards. When no static candidate matches
+ * a fully-resolved product contract, synthesizes a deterministic fixture
+ * descriptor whose allowed* fields EQUAL the contract criteria.
  */
 
 import type { ProvenanceRecord } from "@/lib/oa/doctrine";
-import type { AgentDescriptor } from "@/lib/oa/execution-attempt";
+import type {
+  AgentDescriptor,
+  AgentMatchCriteria,
+  AgentRegistryPort,
+} from "@/lib/oa/execution-attempt";
 import { F3_RUNTIME_ADAPTER_ID } from "./f3FixtureWiring";
+import { createHash } from "node:crypto";
 
-export const W3A_RUNTIME_AGENT_ID = "agt:w3a-product-fixture" as const;
-export const W3A_RUNTIME_ACTION = "product:governed-execution" as const;
-export const W3A_RUNTIME_TARGET = "sfia-studio/product-completion" as const;
-export const W3A_RUNTIME_SCOPE = "w3:governed-execute:studio-canonical" as const;
-export const W3A_RUNTIME_CAPABILITY = "cap:product-governed-execution" as const;
+/** Synthetic fixture agent id prefix — never an EC semantic source. */
+export const W3A_CONTRACT_SHAPED_AGENT_PREFIX = "agt:w3a-contract-shaped:" as const;
 
-function fixtureProvenance(nowIso: string): ProvenanceRecord {
+function fixtureProvenance(nowIso: string, agentId: string): ProvenanceRecord {
   return {
     schemaVersion: "0.1.0-oa",
-    provenanceRecordId: "prv:w3a-product-fixture-agent",
+    provenanceRecordId: `prv:${agentId}`,
     actor: {
       actorId: "actor:system",
       role: "system",
@@ -1170,34 +1435,116 @@ function fixtureProvenance(nowIso: string): ProvenanceRecord {
     },
     source: "system",
     timestamp: nowIso,
-    correlationId: "cor:w3a-product-fixture-agent",
+    correlationId: `cor:${agentId}`,
   };
 }
 
+/** Unresolved / sentinel criteria must NOT get a synthetic fixture. */
+export function criteriaAllowContractShapedFixture(
+  criteria: AgentMatchCriteria,
+): boolean {
+  if (criteria.requiredCapabilities.some((c) => c.includes("unresolved"))) {
+    return false;
+  }
+  if (
+    criteria.action.includes("UNRESOLVED") ||
+    criteria.target.includes("UNRESOLVED") ||
+    criteria.scope.includes("UNRESOLVED")
+  ) {
+    return false;
+  }
+  if (
+    criteria.action.includes("fixture") ||
+    criteria.target.includes("f3-fixture") ||
+    criteria.requiredCapabilities.some((c) => c.includes("f3-fixture"))
+  ) {
+    return false;
+  }
+  return (
+    criteria.action.length > 0 &&
+    criteria.target.length > 0 &&
+    criteria.scope.length > 0 &&
+    criteria.requiredCapabilities.length > 0
+  );
+}
+
+export function contractShapedAgentId(criteria: AgentMatchCriteria): string {
+  const digest = createHash("sha256")
+    .update(
+      [
+        criteria.action,
+        criteria.target,
+        criteria.scope,
+        ...criteria.requiredCapabilities,
+      ].join("|"),
+    )
+    .digest("hex")
+    .slice(0, 16);
+  return `${W3A_CONTRACT_SHAPED_AGENT_PREFIX}${digest}`;
+}
+
 /**
- * Deterministic executor matching W3-A product-native EC fields.
- * Legacy F3 agent remains registered for harvest/legacy tests only.
+ * Build a TestExecutionAdapter-compatible descriptor FROM contract criteria.
+ * EC-first: fields are copied from the contract match criteria, never the reverse.
  */
-export function createW3AProductFixtureAgentDescriptor(
+export function createContractShapedFixtureAgent(
+  criteria: AgentMatchCriteria,
   nowIso = "2026-08-11T00:00:00.000Z",
 ): AgentDescriptor {
+  const agentId = contractShapedAgentId(criteria);
   return Object.freeze({
     schemaVersion: "0.1.0-oa",
-    agentId: W3A_RUNTIME_AGENT_ID,
-    agentType: "product_governed_fixture",
+    agentId,
+    agentType: "product_contract_shaped_fixture",
     adapterRef: F3_RUNTIME_ADAPTER_ID,
-    supportedCapabilities: [W3A_RUNTIME_CAPABILITY],
-    allowedActions: [W3A_RUNTIME_ACTION],
-    allowedTargets: [W3A_RUNTIME_TARGET],
-    allowedScopes: [W3A_RUNTIME_SCOPE],
+    supportedCapabilities: [...criteria.requiredCapabilities],
+    allowedActions: [criteria.action],
+    allowedTargets: [criteria.target],
+    allowedScopes: [criteria.scope],
     trustLevel: "fixture",
     executionMode: "adapter_sync_fixture",
     healthStatus: "healthy",
     version: 1,
     enabled: true,
     createdAt: nowIso,
-    provenance: fixtureProvenance(nowIso),
+    provenance: fixtureProvenance(nowIso, agentId),
   });
+}
+
+/**
+ * Registry composition: static agents first; contract-shaped fixture only when
+ * no static candidate matches a fully-resolved product contract.
+ */
+export class ContractShapedFixtureAgentRegistry implements AgentRegistryPort {
+  private readonly synthesized = new Map<string, AgentDescriptor>();
+
+  constructor(
+    private readonly base: AgentRegistryPort,
+    private readonly nowIso: () => string = () => "2026-08-11T00:00:00.000Z",
+  ) {}
+
+  getAgent(agentId: string): AgentDescriptor | null {
+    const fromBase = this.base.getAgent(agentId);
+    if (fromBase) return fromBase;
+    const cached = this.synthesized.get(agentId);
+    return cached ? structuredClone(cached) : null;
+  }
+
+  listAgents(): AgentDescriptor[] {
+    return [
+      ...this.base.listAgents(),
+      ...[...this.synthesized.values()].map((a) => structuredClone(a)),
+    ].sort((a, b) => (a.agentId < b.agentId ? -1 : 1));
+  }
+
+  findCandidates(criteria: AgentMatchCriteria): AgentDescriptor[] {
+    const fromBase = this.base.findCandidates(criteria);
+    if (fromBase.length > 0) return fromBase;
+    if (!criteriaAllowContractShapedFixture(criteria)) return [];
+    const agent = createContractShapedFixtureAgent(criteria, this.nowIso());
+    this.synthesized.set(agent.agentId, agent);
+    return [structuredClone(agent)];
+  }
 }
 ```
 
@@ -1208,8 +1555,11 @@ export function createW3AProductFixtureAgentDescriptor(
 ```typescript
 // @vitest-environment node
 /**
- * W3-A — Governed Execute proofs A→I on the product OA path (deterministic).
- * ZERO REAL · no CycleInstance auto-close · AVR ≠ permission · Pilote actor.
+ * W3-A Option 4 targeted semantic correction — unit + product-seam proofs.
+ *
+ * B2: requiredAuthority has no adopted runtime ActionPolicy → prepare
+ * fail-closes with AUTHORITY_POLICY_UNRESOLVED (STOP Morris).
+ * Happy-path Execute is therefore NOT claimed in this cycle.
  */
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
@@ -1220,31 +1570,41 @@ import {
 import { prepareM3FromDecision } from "@/features/project-assistant/f3/prepareM3FromDecision";
 import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
 import {
-  W3A_PRODUCT_ACTION,
-  W3A_PRODUCT_AGENT_ID,
-  W3A_PRODUCT_CAPABILITY,
+  assertNotF3FixtureSemantics,
+  deriveActionClassFromOption,
+  deriveExecutionReversibility,
+  deriveGovernedScope,
+  deriveProductTarget,
+  deriveRequiredAuthority,
+  deriveW3AExecutionEnvelope,
+  W3A_IMPLEMENTATION_MARKER,
   W3A_PRODUCT_EVIDENCE_REQ,
-  W3A_PRODUCT_SCOPE,
-  W3A_PRODUCT_TARGET,
 } from "@/features/project-assistant/w2/w3aProductExecutionSemantics";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
+  type DecisionBasis,
 } from "@/lib/oa/decision";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
 import { evaluateExecutionAuthorization } from "@/features/project-assistant/w2/authorizeExecutionContract";
-import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
 import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
 import {
   governedExecuteAuthorizedContract,
-  governedExecuteRecordResult,
   governedExecuteSelectAgent,
-  governedExecuteStart,
 } from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
 import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
 import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
 import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
-import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
+import {
+  BOUNDED_OPTION_REF,
+  GOVERNED_OPTION_REF,
+} from "@/features/project-assistant/w2/trajectoryOptions";
+import {
+  criteriaAllowContractShapedFixture,
+  createContractShapedFixtureAgent,
+  ContractShapedFixtureAgentRegistry,
+} from "@/lib/vertical-slice-runtime/w3aProductFixtureWiring";
+import { MemoryAgentRegistry } from "@/lib/oa/execution-attempt";
 import {
   bootW2Runtime,
   cleanupW2TempDirs,
@@ -1262,321 +1622,165 @@ afterEach(() => {
   cleanupW2TempDirs();
 });
 
-async function reachAuthorizedResolvedContract(input: {
-  suffix: string;
-  profile?: "Standard" | "Critical";
-}) {
-  const db = tempProductDbPath(`w3a-${input.suffix}.sqlite`);
-  const runtime = bootW2Runtime({
-    productDbPath: db,
-    idPrefix: `w3a${input.suffix}`,
-  });
-  const seeded = await seedQualifiedProject(runtime, {
-    suffix: input.suffix,
-    profile: input.profile ?? "Standard",
-  });
-  const oa = runtime.oa!;
-
-  const qualification = await resolveW2QualificationInputs({
-    oa,
-    projectId: seeded.projectId,
-  });
-  expect(qualification.ok).toBe(true);
-  if (!qualification.ok) throw new Error("qual");
-
-  const proposed = await proposeTrajectoryOptions({
-    oa,
-    projectId: seeded.projectId,
-    ...qualification.qualification.inputs,
-    packagePin: qualification.qualification.packagePin,
-    objective: qualification.qualification.objective,
-    projectTitle: qualification.qualification.projectTitle,
-  });
-  expect(proposed.ok).toBe(true);
-  if (!proposed.ok) throw new Error("propose");
-
-  const decided = await decideTrajectory({
-    oa,
-    projectId: seeded.projectId,
-    optionSetRef: proposed.optionSetRef,
-    options: proposed.options,
-    recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
-    selectedOptionRef: GOVERNED_OPTION_REF,
-    trajectoryId: proposed.proposedTrajectory.trajectoryId,
-    candidateVersion: proposed.proposedTrajectory.version,
-    forceLocalAuthority: true,
-  });
-  expect(decided.ok).toBe(true);
-  if (!decided.ok) throw new Error("decide");
-
-  const context = await currentF2Context(runtime, seeded.projectId);
-  const prepared = await prepareExecutionContractFromW2Decision({
-    oa,
-    projectId: seeded.projectId,
-    decisionId: decided.decision.decisionId,
-    currentContext: context,
-    forceLocalAuthority: true,
-  });
-  if (!prepared.ok) {
-    console.error("PREPARE_FAIL", JSON.stringify(prepared, null, 2));
-    throw new Error(
-      "prepare: " +
-        (prepared as { code?: string; message?: string }).code +
-        " " +
-        (prepared as { message?: string }).message,
-    );
-  }
-  expect(prepared.ok).toBe(true);
-  expect(prepared.f3SemanticOverwrite).toBe(false);
-  expect(prepared.contract.action).toBe(W3A_PRODUCT_ACTION);
-  expect(prepared.contract.target).toBe(W3A_PRODUCT_TARGET);
-  expect(prepared.contract.requiredCapabilities).toContain(W3A_PRODUCT_CAPABILITY);
-  expect(prepared.contract.action).not.toBe(F3_ACTION);
-  expect(prepared.contract.target).not.toBe(F3_TARGET);
-
-  const executionContractId = prepared.contract.executionContractId;
-
-  const inspected = await inspectExecutionContract({
-    oa,
-    projectId: seeded.projectId,
-    executionContractId,
-  });
-  expect(inspected.ok).toBe(true);
-  if (!inspected.ok) throw new Error("inspect");
-
-  const contract = await oa.executionContractServices.getExecutionContract.execute({
-    executionContractId,
-  });
-  expect(contract.ok).toBe(true);
-  if (!contract.ok) throw new Error("get");
-
-  if (
-    contract.contract.status === "confirmation_required" ||
-    (contract.contract.status === "validated" &&
-      contract.contract.requiredAuthority !== "N1")
-  ) {
-    const confirmed = await confirmExecutionContractForAuthorization({
-      oa,
-      projectId: seeded.projectId,
-      executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(confirmed.ok).toBe(true);
-    if (!confirmed.ok) throw new Error("confirm");
-  }
-
-  const authorized = await evaluateExecutionAuthorization({
-    oa,
-    projectId: seeded.projectId,
-    executionContractId,
-    forceLocalAuthority: true,
-  });
-  expect(authorized.ok).toBe(true);
-  if (!authorized.ok) throw new Error("auth");
-
+function sampleBasis(scope?: string): DecisionBasis {
   return {
-    runtime,
-    oa,
-    projectId: seeded.projectId,
-    executionContractId,
-    authorized,
-    decisionId: decided.decision.decisionId,
+    sourceType: "trajectory_option",
+    sourceRef: "optset:test",
+    sourceDigest: "a".repeat(64),
+    projectId: "prj:test",
+    proposalContext: {
+      lpsId: "lps:test",
+      lpsVersion: 1,
+    },
+    trajectoryContext: {
+      trajectoryId: "trj:test",
+      candidateVersion: 1,
+      optionRefs: [GOVERNED_OPTION_REF],
+      selectedOptionRef: GOVERNED_OPTION_REF,
+      recommendedOptionRef: GOVERNED_OPTION_REF,
+    },
+    executionBasis: {
+      objective: "obj",
+      scope,
+      expectedOutcome: "outcome",
+      stopConditions: ["STOP"],
+    },
   };
 }
 
-describe("W3-A governed execute — product seam", () => {
-  it("A — AUTHORIZED happy path: Select→Start→Record fixture once; no REAL; cycle open", async () => {
-    const ctx = await reachAuthorizedResolvedContract({ suffix: "a" });
-    expect(ctx.authorized.outcome).toBe("AUTHORIZED");
-    expect(ctx.authorized.executionPerformed).toBe(false);
-    expect(ctx.authorized.attemptCreated).toBe(false);
-
-    const launchBefore = ctx.oa.fixtureAdapter.launchCallCount;
-    const executed = await governedExecuteAuthorizedContract({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.executionContractId,
-      forceLocalAuthority: true,
-      authorityReceiptRef: ctx.authorized.authorityReceiptRef,
-      canActAsMorris: true,
-      real: true,
+describe("W3-A semantic units (B1–B5)", () => {
+  it("B1 — governed scope from DecisionBasis; marker forbidden as scope", () => {
+    const a = deriveGovernedScope({
+      basis: sampleBasis("scope-alpha-qualified"),
+      selectedOptionIntent: "intent-fallback",
     });
-    expect(executed.ok).toBe(true);
-    if (!executed.ok) return;
-    expect(executed.executionPerformed).toBe(true);
-    expect(executed.attemptCreated).toBe(true);
-    expect(executed.attemptStatus).toBe("succeeded");
-    expect(executed.realExecution).toBe(false);
-    expect(executed.externalEffects).toBe(false);
-    expect(executed.gitWritePerformed).toBe(false);
-    expect(executed.authorityReceiptUsedAsPermission).toBe(false);
-    expect(executed.productSuccessSemantics).toBe(false);
-    expect(executed.cycleInstanceClosed).toBe(false);
-    expect(executed.projectArchived).toBe(false);
-    expect(executed.launchDelta).toBe(1);
-    expect(ctx.oa.fixtureAdapter.launchCallCount).toBe(launchBefore + 1);
-    expect(executed.selectedAgentRef).toBe(W3A_PRODUCT_AGENT_ID);
-    // Pilote path — no Morris actor in attempt selection actor field is enforced
-    // by composition using LOCAL_PILOTE_ACTOR (see source).
-    expect(executed.statusLabel).toContain("TERMINAL TECHNIQUE");
-    expect(executed.statusLabel).not.toContain("STOP");
-    expect(LOCAL_PILOTE_ACTOR.actorId).toMatch(/pilote/i);
+    expect(a.ok).toBe(true);
+    if (!a.ok) return;
+    expect(a.scope).toBe("scope-alpha-qualified");
+
+    const b = deriveGovernedScope({
+      basis: sampleBasis(undefined),
+      selectedOptionIntent: "intent-beta",
+    });
+    expect(b.ok).toBe(true);
+    if (!b.ok) return;
+    expect(b.scope).toBe("intent-beta");
+    expect(a.scope).not.toBe(b.scope);
+
+    const missing = deriveGovernedScope({
+      basis: sampleBasis(""),
+      selectedOptionIntent: "  ",
+    });
+    expect(missing.ok).toBe(false);
+    if (missing.ok) return;
+    expect(missing.code).toBe("SCOPE_UNRESOLVED");
+
+    const marker = deriveGovernedScope({
+      basis: sampleBasis(W3A_IMPLEMENTATION_MARKER),
+      selectedOptionIntent: "x",
+    });
+    expect(marker.ok).toBe(false);
   });
 
-  it("B — BLOCKED: no Attempt / no adapter launch", async () => {
-    const db = tempProductDbPath("w3a-b.sqlite");
-    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w3ab" });
-    const seeded = await seedQualifiedProject(runtime, { suffix: "b" });
-    const oa = runtime.oa!;
-    const qualification = await resolveW2QualificationInputs({
-      oa,
-      projectId: seeded.projectId,
+  it("B2 — requiredAuthority is NOT derived from cycle profile; fail-closed", () => {
+    const result = deriveRequiredAuthority({
+      basis: sampleBasis("s"),
+      reversibility: "irreversible",
+      action: "product:trajectory-governed-execution",
     });
-    expect(qualification.ok).toBe(true);
-    if (!qualification.ok) return;
-    const proposed = await proposeTrajectoryOptions({
-      oa,
-      projectId: seeded.projectId,
-      ...qualification.qualification.inputs,
-      packagePin: qualification.qualification.packagePin,
-      objective: qualification.qualification.objective,
-      projectTitle: qualification.qualification.projectTitle,
-    });
-    expect(proposed.ok).toBe(true);
-    if (!proposed.ok) return;
-    const decided = await decideTrajectory({
-      oa,
-      projectId: seeded.projectId,
-      optionSetRef: proposed.optionSetRef,
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.code).toBe("AUTHORITY_POLICY_UNRESOLVED");
+  });
+
+  it("B3 — execution reversibility ≠ HD.reversible; fail-closed unresolved", () => {
+    const rev = deriveExecutionReversibility();
+    expect(rev.reversibility).toBe("irreversible");
+    expect(rev.unresolved).toBe(true);
+  });
+
+  it("B4 — fixture descriptor is built FROM criteria (EC-first), not co-constants", () => {
+    const criteriaA = {
+      action: "product:trajectory-governed-execution",
+      target: "sfia-studio/product-completion/project:prj:a",
+      scope: "scope-a",
+      requiredCapabilities: ["cap:product-trajectory-governed-execution"],
+    };
+    const criteriaB = {
+      ...criteriaA,
+      scope: "scope-b",
+    };
+    const agentA = createContractShapedFixtureAgent(criteriaA);
+    const agentB = createContractShapedFixtureAgent(criteriaB);
+    expect(agentA.allowedScopes).toEqual(["scope-a"]);
+    expect(agentB.allowedScopes).toEqual(["scope-b"]);
+    expect(agentA.agentId).not.toBe(agentB.agentId);
+    expect(criteriaAllowContractShapedFixture({
+      action: "UNRESOLVED_ACTION",
+      target: "t",
+      scope: "s",
+      requiredCapabilities: ["cap:unresolved"],
+    })).toBe(false);
+
+    const base = new MemoryAgentRegistry([]);
+    const registry = new ContractShapedFixtureAgentRegistry(base);
+    const found = registry.findCandidates(criteriaA);
+    expect(found).toHaveLength(1);
+    expect(found[0].allowedActions).toEqual([criteriaA.action]);
+    expect(found[0].allowedTargets).toEqual([criteriaA.target]);
+    expect(found[0].allowedScopes).toEqual([criteriaA.scope]);
+  });
+
+  it("action/target derive from option/project — not F3", () => {
+    const action = deriveActionClassFromOption(GOVERNED_OPTION_REF);
+    expect(action.ok).toBe(true);
+    if (!action.ok) return;
+    expect(action.action).not.toBe(F3_ACTION);
+    expect(action.capability).not.toBe(F3_CAPABILITY);
+    const target = deriveProductTarget("prj:demo");
+    expect(target).toContain("prj:demo");
+    expect(target).not.toBe(F3_TARGET);
+    expect(
+      assertNotF3FixtureSemantics({
+        action: action.action,
+        target,
+        scope: "real-scope",
+        requiredCapabilities: [action.capability],
+      }),
+    ).toBeNull();
+  });
+
+  it("envelope compose fails on AUTHORITY_POLICY_UNRESOLVED (B2 blocks happy path)", () => {
+    const result = deriveW3AExecutionEnvelope({
+      projectId: "prj:x",
+      decisionId: "dec:x",
+      basis: sampleBasis("qualified-scope"),
       selectedOptionRef: GOVERNED_OPTION_REF,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
-      forceLocalAuthority: true,
+      selectedOptionIntent: "qualified-scope",
+      selectedOptionLabel: "Governed",
+      projectObjective: "obj",
     });
-    expect(decided.ok).toBe(true);
-    if (!decided.ok) return;
-
-    const context = await currentF2Context(runtime, seeded.projectId);
-    // Unresolved prepare → insufficient executor → BLOCKED
-    const prepared = await prepareM3FromDecision({
-      projectId: seeded.projectId,
-      decisionId: decided.decision.decisionId,
-      currentContext: context,
-      deps: {
-        decisionServices: oa.decisionServices,
-        authorityResolver: oa.authorityResolver,
-        executionContractServices: oa.executionContractServices,
-        nowIso: () => oa.clock.nowIso(),
-        forceM3Authority: true,
-      },
-    });
-    expect(prepared.ok).toBe(true);
-    if (!prepared.ok) return;
-
-    const executionContractId = prepared.payload.contract.executionContractId;
-    await inspectExecutionContract({
-      oa,
-      projectId: seeded.projectId,
-      executionContractId,
-    });
-    const authorized = await evaluateExecutionAuthorization({
-      oa,
-      projectId: seeded.projectId,
-      executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(authorized.ok).toBe(true);
-    if (!authorized.ok) return;
-    expect(authorized.outcome).toBe("BLOCKED");
-
-    const launchBefore = oa.fixtureAdapter.launchCallCount;
-    const executed = await governedExecuteAuthorizedContract({
-      oa,
-      projectId: seeded.projectId,
-      executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(executed.ok).toBe(false);
-    if (executed.ok) return;
-    expect(executed.code).toBe("NOT_AUTHORIZED");
-    expect(oa.fixtureAdapter.launchCallCount).toBe(launchBefore);
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.code).toBe("AUTHORITY_POLICY_UNRESOLVED");
   });
+});
 
-  it("C — stale after material amend: Execute blocked", async () => {
-    const ctx = await reachAuthorizedResolvedContract({ suffix: "c" });
-    expect(ctx.authorized.outcome).toBe("AUTHORIZED");
-
-    // Material supersession without reinspect → authorize BLOCKED → execute fail.
-    const prior = await ctx.oa.executionContractServices.getExecutionContract.execute({
-      executionContractId: ctx.executionContractId,
+describe("W3-A prepare product seam under Option 4 correction", () => {
+  async function decideGoverned(suffix: string, profile: "Standard" | "Critical" = "Standard") {
+    const db = tempProductDbPath(`w3a-sem-${suffix}.sqlite`);
+    const runtime = bootW2Runtime({
+      productDbPath: db,
+      idPrefix: `w3asem${suffix}`,
     });
-    expect(prior.ok).toBe(true);
-    if (!prior.ok) return;
-
-    const { registerLocalPiloteAuthority } = await import("@/lib/oa/decision");
-    const authority = registerLocalPiloteAuthority({
-      authorityResolver: ctx.oa.authorityResolver,
-      scope: prior.contract.scope,
-      issuedAt: ctx.oa.clock.nowIso(),
-      forceEnable: true,
-    });
-    expect(authority.ok).toBe(true);
-    if (!authority.ok) return;
-
-    const successor =
-      await ctx.oa.executionContractServices.supersedeExecutionContract.execute({
-        newExecutionContractId: `${ctx.executionContractId}:stale`,
-        supersedesExecutionContractId: ctx.executionContractId,
-        supersessionReason: "scope_change",
-        actor: LOCAL_PILOTE_ACTOR,
-        authorityEvidenceId: authority.evidenceId,
-        action: prior.contract.action,
-        target: prior.contract.target,
-        scope: prior.contract.scope,
-        requiredAuthority: prior.contract.requiredAuthority,
-        requiredCapabilities: [...prior.contract.requiredCapabilities],
-        constraints: [...prior.contract.constraints, "W3A_STALE"],
-        stopConditions: [...prior.contract.stopConditions],
-        reversibility: prior.contract.reversibility,
-      });
-    expect(successor.ok).toBe(true);
-    if (!successor.ok) return;
-
-    const validated =
-      await ctx.oa.executionContractServices.validateExecutionContract.execute({
-        executionContractId: successor.contract.executionContractId,
-        actor: LOCAL_PILOTE_ACTOR,
-        authorityEvidenceId: authority.evidenceId,
-      });
-    expect(validated.ok).toBe(true);
-
-    const launchBefore = ctx.oa.fixtureAdapter.launchCallCount;
-    const executed = await governedExecuteAuthorizedContract({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: successor.contract.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(executed.ok).toBe(false);
-    if (executed.ok) return;
-    expect(executed.code).toBe("NOT_AUTHORIZED");
-    expect(ctx.oa.fixtureAdapter.launchCallCount).toBe(launchBefore);
-  });
-
-  it("D — Confirmation missing when required: Execute blocked", async () => {
-    const db = tempProductDbPath("w3a-d.sqlite");
-    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w3ad" });
-    const seeded = await seedQualifiedProject(runtime, {
-      suffix: "d",
-      profile: "Critical",
-    });
+    const seeded = await seedQualifiedProject(runtime, { suffix, profile });
     const oa = runtime.oa!;
     const qualification = await resolveW2QualificationInputs({
       oa,
       projectId: seeded.projectId,
     });
     expect(qualification.ok).toBe(true);
-    if (!qualification.ok) return;
+    if (!qualification.ok) throw new Error("qual");
     const proposed = await proposeTrajectoryOptions({
       oa,
       projectId: seeded.projectId,
@@ -1586,277 +1790,7 @@ describe("W3-A governed execute — product seam", () => {
       projectTitle: qualification.qualification.projectTitle,
     });
     expect(proposed.ok).toBe(true);
-    if (!proposed.ok) return;
-    const decided = await decideTrajectory({
-      oa,
-      projectId: seeded.projectId,
-      optionSetRef: proposed.optionSetRef,
-      selectedOptionRef: GOVERNED_OPTION_REF,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
-      forceLocalAuthority: true,
-    });
-    expect(decided.ok).toBe(true);
-    if (!decided.ok) return;
-
-    const context = await currentF2Context(runtime, seeded.projectId);
-    const prepared = await prepareExecutionContractFromW2Decision({
-      oa,
-      projectId: seeded.projectId,
-      decisionId: decided.decision.decisionId,
-      currentContext: context,
-      forceLocalAuthority: true,
-    });
-    expect(prepared.ok).toBe(true);
-    if (!prepared.ok) return;
-    const executionContractId = prepared.contract.executionContractId;
-    await inspectExecutionContract({
-      oa,
-      projectId: seeded.projectId,
-      executionContractId,
-    });
-    // Intentionally skip confirm.
-    const launchBefore = oa.fixtureAdapter.launchCallCount;
-    const executed = await governedExecuteAuthorizedContract({
-      oa,
-      projectId: seeded.projectId,
-      executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(executed.ok).toBe(false);
-    if (executed.ok) return;
-    expect(executed.code).toBe("NOT_AUTHORIZED");
-    expect(oa.fixtureAdapter.launchCallCount).toBe(launchBefore);
-  });
-
-  it("E — executor insufficient: Execute blocked", async () => {
-    // Same as B (unresolved caps) — named explicitly for proof matrix E.
-    const db = tempProductDbPath("w3a-e.sqlite");
-    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w3ae" });
-    const seeded = await seedQualifiedProject(runtime, { suffix: "e" });
-    const oa = runtime.oa!;
-    const qualification = await resolveW2QualificationInputs({
-      oa,
-      projectId: seeded.projectId,
-    });
-    expect(qualification.ok).toBe(true);
-    if (!qualification.ok) return;
-    const proposed = await proposeTrajectoryOptions({
-      oa,
-      projectId: seeded.projectId,
-      ...qualification.qualification.inputs,
-      packagePin: qualification.qualification.packagePin,
-      objective: qualification.qualification.objective,
-      projectTitle: qualification.qualification.projectTitle,
-    });
-    expect(proposed.ok).toBe(true);
-    if (!proposed.ok) return;
-    const decided = await decideTrajectory({
-      oa,
-      projectId: seeded.projectId,
-      optionSetRef: proposed.optionSetRef,
-      selectedOptionRef: GOVERNED_OPTION_REF,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
-      forceLocalAuthority: true,
-    });
-    expect(decided.ok).toBe(true);
-    if (!decided.ok) return;
-    const context = await currentF2Context(runtime, seeded.projectId);
-    const prepared = await prepareM3FromDecision({
-      projectId: seeded.projectId,
-      decisionId: decided.decision.decisionId,
-      currentContext: context,
-      deps: {
-        decisionServices: oa.decisionServices,
-        authorityResolver: oa.authorityResolver,
-        executionContractServices: oa.executionContractServices,
-        nowIso: () => oa.clock.nowIso(),
-        forceM3Authority: true,
-      },
-    });
-    expect(prepared.ok).toBe(true);
-    if (!prepared.ok) return;
-    expect(prepared.payload.contract.requiredCapabilities).toContain(
-      "cap:unresolved",
-    );
-    const executionContractId = prepared.payload.contract.executionContractId;
-    await inspectExecutionContract({
-      oa,
-      projectId: seeded.projectId,
-      executionContractId,
-    });
-    const executed = await governedExecuteAuthorizedContract({
-      oa,
-      projectId: seeded.projectId,
-      executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(executed.ok).toBe(false);
-  });
-
-  it("F — replay / double invoke: no second launch", async () => {
-    const ctx = await reachAuthorizedResolvedContract({ suffix: "f" });
-    const first = await governedExecuteAuthorizedContract({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(first.ok).toBe(true);
-    if (!first.ok) return;
-    const launchAfterFirst = ctx.oa.fixtureAdapter.launchCallCount;
-
-    const second = await governedExecuteAuthorizedContract({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(second.ok).toBe(true);
-    if (!second.ok) return;
-    expect(second.reusedExistingAttempt).toBe(true);
-    expect(second.launchDelta).toBe(0);
-    expect(ctx.oa.fixtureAdapter.launchCallCount).toBe(launchAfterFirst);
-    expect(second.attemptId).toBe(first.attemptId);
-  });
-
-  it("G — lifecycle terminal ≠ CycleInstance closed / Project archived", async () => {
-    const ctx = await reachAuthorizedResolvedContract({ suffix: "g" });
-    const executed = await governedExecuteAuthorizedContract({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(executed.ok).toBe(true);
-    if (!executed.ok) return;
-    expect(executed.technicalTerminal).toBe(true);
-    expect(executed.cycleInstanceClosed).toBe(false);
-    expect(executed.projectArchived).toBe(false);
-
-    const project = await ctx.oa.projectServices.getProject.execute({
-      projectId: ctx.projectId,
-    });
-    expect(project.ok).toBe(true);
-    if (!project.ok) return;
-    expect(project.project.status).not.toBe("archived");
-    const cycleId = project.project.activeCycleInstanceId;
-    expect(cycleId).toBeTruthy();
-    if (!cycleId) return;
-    const cycle = await ctx.oa.cycleServices.getCycle.execute({
-      cycleInstanceId: cycleId,
-    });
-    expect(cycle.ok).toBe(true);
-    if (!cycle.ok) return;
-    expect(cycle.cycle.status).not.toBe("completed");
-    expect(cycle.cycle.status).not.toBe("cancelled");
-  });
-
-  it("H — AVR receipt is not permission (fresh verify required)", async () => {
-    const ctx = await reachAuthorizedResolvedContract({ suffix: "h" });
-    const receipt = ctx.authorized.authorityReceiptRef;
-    expect(receipt).toMatch(/^avr:/);
-
-    // Passing receipt explicitly must still re-evaluate; hostile Morris/real ignored.
-    const executed = await governedExecuteAuthorizedContract({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.executionContractId,
-      forceLocalAuthority: true,
-      authorityReceiptRef: receipt,
-      canActAsMorris: true,
-      claimedAuthorityLevel: "MORRIS",
-      real: true,
-    });
-    expect(executed.ok).toBe(true);
-    if (!executed.ok) return;
-    expect(executed.authorityReceiptUsedAsPermission).toBe(false);
-    expect(executed.realExecution).toBe(false);
-  });
-
-  it("I — Fake/Real: fixture only · externalEffects false · no Gate D claim", async () => {
-    const ctx = await reachAuthorizedResolvedContract({ suffix: "i" });
-    expect(ctx.oa.fixtureAdapter.adapterId).toMatch(/f3-test-fixture/);
-    expect(ctx.oa.fixtureAdapter.externalEffects).toBe(false);
-    const executed = await governedExecuteAuthorizedContract({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(executed.ok).toBe(true);
-    if (!executed.ok) return;
-    expect(executed.adapterId).toMatch(/f3-test-fixture/);
-    expect(executed.externalEffects).toBe(false);
-    expect(executed.realExecution).toBe(false);
-    // Selection profile sourced from CycleInstance (Standard → standard).
-    expect(executed.selectionProfile).toBe("standard");
-  });
-
-
-  it("R06 — lifecycle phases accepted → running → terminal observable", async () => {
-    const ctx = await reachAuthorizedResolvedContract({ suffix: "lifecycle" });
-    const selected = await governedExecuteSelectAgent({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(selected.ok).toBe(true);
-    if (!selected.ok) return;
-    expect(selected.phase).toBe("accepted");
-    expect(selected.attemptStatus).toBe("accepted");
-
-    const started = await governedExecuteStart({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.executionContractId,
-      attemptId: selected.attemptId,
-      forceLocalAuthority: true,
-    });
-    expect(started.ok).toBe(true);
-    if (!started.ok) return;
-    expect(started.phase).toBe("running");
-    expect(started.attemptStatus).toBe("running");
-
-    const terminal = await governedExecuteRecordResult({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.executionContractId,
-      attemptId: started.attemptId,
-      forceLocalAuthority: true,
-    });
-    expect(terminal.ok).toBe(true);
-    if (!terminal.ok) return;
-    expect(terminal.phase).toBe("terminal");
-    expect(terminal.attemptStatus).toBe("succeeded");
-  });
-
-  it("selectionProfile Critical maps from contract-bound CycleInstance", async () => {
-    const db = tempProductDbPath("w3a-crit-profile.sqlite");
-    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w3acritp" });
-    const seeded = await seedQualifiedProject(runtime, {
-      suffix: "critp",
-      profile: "Critical",
-    });
-    const oa = runtime.oa!;
-    const qualification = await resolveW2QualificationInputs({
-      oa,
-      projectId: seeded.projectId,
-    });
-    expect(qualification.ok).toBe(true);
-    if (!qualification.ok) return;
-    const proposed = await proposeTrajectoryOptions({
-      oa,
-      projectId: seeded.projectId,
-      ...qualification.qualification.inputs,
-      packagePin: qualification.qualification.packagePin,
-      objective: qualification.qualification.objective,
-      projectTitle: qualification.qualification.projectTitle,
-    });
-    expect(proposed.ok).toBe(true);
-    if (!proposed.ok) return;
+    if (!proposed.ok) throw new Error("propose");
     const decided = await decideTrajectory({
       oa,
       projectId: seeded.projectId,
@@ -1869,68 +1803,155 @@ describe("W3-A governed execute — product seam", () => {
       forceLocalAuthority: true,
     });
     expect(decided.ok).toBe(true);
-    if (!decided.ok) return;
+    if (!decided.ok) throw new Error("decide");
+    return { runtime, oa, seeded, decided };
+  }
 
-    const context = await currentF2Context(runtime, seeded.projectId);
+  it("prepare fail-closes AUTHORITY_POLICY_UNRESOLVED (B2) — no F3 overwrite path", async () => {
+    const ctx = await decideGoverned("auth");
+    const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
     const prepared = await prepareExecutionContractFromW2Decision({
-      oa,
-      projectId: seeded.projectId,
-      decisionId: decided.decision.decisionId,
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      decisionId: ctx.decided.decision.decisionId,
       currentContext: context,
       forceLocalAuthority: true,
     });
-    expect(prepared.ok).toBe(true);
-    if (!prepared.ok) return;
-    expect(prepared.contract.cycleInstanceId).toBe(seeded.cycleInstanceId);
-
-    const blocked = await governedExecuteSelectAgent({
-      oa,
-      projectId: seeded.projectId,
-      executionContractId: prepared.contract.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(blocked.ok).toBe(false);
-    if (blocked.ok) return;
-    expect(blocked.code).toBe("NOT_AUTHORIZED");
+    expect(prepared.ok).toBe(false);
+    if (prepared.ok) return;
+    expect(prepared.code).toBe("AUTHORITY_POLICY_UNRESOLVED");
   });
 
-  it("decisionRefs 0..n — contract without HD builds when legitimately empty", async () => {
-    const db = tempProductDbPath("w3a-zero-ref.sqlite");
-    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w3a0ref" });
-    const seeded = await seedQualifiedProject(runtime, { suffix: "0ref" });
+  it("B5 — Execute without contract cycle binding refuses (no silent Standard)", async () => {
+    const db = tempProductDbPath("w3a-cyc.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w3acyc" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "cyc" });
     const oa = runtime.oa!;
-
     const authority = registerLocalPiloteAuthority({
       authorityResolver: oa.authorityResolver,
-      scope: W3A_PRODUCT_SCOPE,
+      scope: "manual-scope",
       issuedAt: oa.clock.nowIso(),
       forceEnable: true,
     });
     expect(authority.ok).toBe(true);
     if (!authority.ok) return;
-
     const built = await oa.executionContractServices.buildExecutionContract.execute({
-      executionContractId: "xct:w3a:zero-ref",
+      executionContractId: "xct:w3a:no-cycle",
+      projectId: seeded.projectId,
+      // intentionally omit cycleInstanceId
+      decisionRefs: [],
+      action: "product:trajectory-governed-execution",
+      target: deriveProductTarget(seeded.projectId),
+      scope: "manual-scope",
+      requiredCapabilities: ["cap:product-trajectory-governed-execution"],
+      requiredAuthority: "N2",
+      constraints: ["TEST"],
+      stopConditions: ["AUTHORITY_DENIED", "REVERSIBILITY_UNRESOLVED"],
+      evidenceRequirements: [W3A_PRODUCT_EVIDENCE_REQ],
+      reversibility: "irreversible",
+      idempotencyKey: "idem:w3a:no-cycle",
+      correlationId: "cor:w3a:no-cycle",
+      actor: LOCAL_PILOTE_ACTOR,
+      authorityEvidenceId: authority.evidenceId,
+    });
+    expect(built.ok).toBe(true);
+    if (!built.ok) return;
+    const selected = await governedExecuteSelectAgent({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId: built.contract.executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(selected.ok).toBe(false);
+    if (selected.ok) return;
+    expect(selected.code).toBe("CYCLE_BINDING_REQUIRED");
+  });
+
+  it("decisionRefs 0..n still builds; BOUNDED option class distinct from GOVERNED", async () => {
+    const gov = deriveActionClassFromOption(GOVERNED_OPTION_REF);
+    const bnd = deriveActionClassFromOption(BOUNDED_OPTION_REF);
+    expect(gov.ok && bnd.ok).toBe(true);
+    if (!gov.ok || !bnd.ok) return;
+    expect(gov.action).not.toBe(bnd.action);
+    expect(gov.capability).not.toBe(bnd.capability);
+
+    const db = tempProductDbPath("w3a-zero-ref2.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w3a0r2" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "0r2" });
+    const oa = runtime.oa!;
+    const authority = registerLocalPiloteAuthority({
+      authorityResolver: oa.authorityResolver,
+      scope: "manual-scope",
+      issuedAt: oa.clock.nowIso(),
+      forceEnable: true,
+    });
+    expect(authority.ok).toBe(true);
+    if (!authority.ok) return;
+    const built = await oa.executionContractServices.buildExecutionContract.execute({
+      executionContractId: "xct:w3a:zero-ref-2",
       projectId: seeded.projectId,
       cycleInstanceId: seeded.cycleInstanceId,
       decisionRefs: [],
-      action: W3A_PRODUCT_ACTION,
-      target: W3A_PRODUCT_TARGET,
-      scope: W3A_PRODUCT_SCOPE,
-      requiredCapabilities: [W3A_PRODUCT_CAPABILITY],
+      action: gov.action,
+      target: deriveProductTarget(seeded.projectId),
+      scope: "manual-scope",
+      requiredCapabilities: [gov.capability],
       requiredAuthority: "N2",
-      constraints: ["NO_HD_REQUIRED_FIXTURE"],
+      constraints: ["NO_HD"],
       stopConditions: ["AUTHORITY_DENIED"],
       evidenceRequirements: [W3A_PRODUCT_EVIDENCE_REQ],
-      reversibility: "reversible",
-      idempotencyKey: "idem:w3a:zero-ref",
-      correlationId: "cor:w3a:zero-ref",
+      reversibility: "irreversible",
+      idempotencyKey: "idem:w3a:zero-ref-2",
+      correlationId: "cor:w3a:zero-ref-2",
       actor: LOCAL_PILOTE_ACTOR,
       authorityEvidenceId: authority.evidenceId,
     });
     expect(built.ok).toBe(true);
     if (!built.ok) return;
     expect(built.contract.decisionRefs).toEqual([]);
+  });
+
+  it("legacy unresolved prepare still BLOCKS execute (executor insufficient)", async () => {
+    const ctx = await decideGoverned("block");
+    const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
+    const prepared = await prepareM3FromDecision({
+      projectId: ctx.seeded.projectId,
+      decisionId: ctx.decided.decision.decisionId,
+      currentContext: context,
+      deps: {
+        decisionServices: ctx.oa.decisionServices,
+        authorityResolver: ctx.oa.authorityResolver,
+        executionContractServices: ctx.oa.executionContractServices,
+        nowIso: () => ctx.oa.clock.nowIso(),
+        forceM3Authority: true,
+      },
+    });
+    expect(prepared.ok).toBe(true);
+    if (!prepared.ok) return;
+    const executionContractId = prepared.payload.contract.executionContractId;
+    await inspectExecutionContract({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId,
+    });
+    const authorized = await evaluateExecutionAuthorization({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(authorized.ok).toBe(true);
+    if (!authorized.ok) return;
+    expect(authorized.outcome).toBe("BLOCKED");
+    const launchBefore = ctx.oa.fixtureAdapter.launchCallCount;
+    const executed = await governedExecuteAuthorizedContract({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(executed.ok).toBe(false);
+    expect(ctx.oa.fixtureAdapter.launchCallCount).toBe(launchBefore);
   });
 });
 ```
@@ -2007,15 +2028,27 @@ describe("W3-A governed execute — product seam", () => {
 
 > **MORRIS DECISION — W3-A R01 — ADOPT FC-08 NATIVE EXECUTIONCONTRACT PREPARATION COMPLETION — NORA/STUDIO PREPARES THE EXECUTION ENVELOPE FROM QUALIFIED PRODUCT CONTEXT — FC-08 REMAINS THE SINGLE OWNER — HUMANDECISION / DECISIONBASIS CONSUMED WHEN APPLICABLE — EXECUTIONCONTRACT IS THE FIRST DURABLE SoT FOR THE ENVELOPE — NO F3 SEMANTIC OVERWRITE ON CANONICAL `/studio` — TESTEXECUTIONADAPTER REMAINS THE DETERMINISTIC EXTERNAL-EXECUTOR FAKE — NO EXECUTIONINTENT / NEW AGGREGATE / NEW STORE / NEW ENGINE — C6 REMAINS CLOSED.**
 
-| Élément | État correction |
+### Correction ciblée post-revue ChatGPT (handoff `82e0bfdc…`)
+
+| Élément | État |
 |---|---|
-| Préparation canonique | `prepareExecutionContractFromW2Decision` — enveloppe produit depuis HD + OptionSet présenté + Cycle/Project |
-| F3 fixture overwrite | **SUPPRIMÉ** du chemin `/studio` · `fixtureSafeM3ResolutionProfile` = HARVEST/FREEZE legacy |
-| Agent fixture | `agt:w3a-product-fixture` — contract-shaped · **≠** `agt:f3-fixture` sur chemin canonique |
-| decisionRefs | **0..n** aligné C2/FA · validations conservées quand refs présentes |
-| W3-A correction | **LOCAL CANDIDATE** · **NOT CLOSED** jusqu'à revue ChatGPT |
-| R11 Critical genericity | **OPEN** — macro exit W3 · Standard path prouvé en priorité |
-| R12 Recovery | **OPEN** — owner W3-C |
+| B1 EC.scope | **CORRECTED** — scope authority-bearing = `DecisionBasis.executionBasis.scope` / option intent · marqueur W3-A **≠** scope |
+| B2 requiredAuthority | **FAIL-CLOSED / STOP** — `AUTHORITY_POLICY_UNRESOLVED` · pas de Critical→N3 / Standard→N2 · **aucune ActionPolicy runtime adoptée** (framing 34 doctrine only · runtime v3 NON ADOPTED) |
+| B3 EC.reversibility | **CORRECTED** — **≠** `HumanDecision.reversible` · fail-closed `irreversible` + `REVERSIBILITY_UNRESOLVED` |
+| B4 fixture / EC | **CORRECTED** — `ContractShapedFixtureAgentRegistry` synthétise l'agent **depuis** les critères EC · plus de co-constantes W3A |
+| B5 Cycle binding | **CORRECTED** — CycleInstance requis · Execute refuse sans `contract.cycleInstanceId` · pas de fallback Standard silencieux |
+| B7 legacy F3 | **REVERTED** — deltas `projectAssistantPrepareResolvedM3Action` / types retirés (non requis par `/studio`) |
+| decisionRefs | **0..n** KEEP |
+| R09 Playwright `/studio` Execute | **BLOCKED BY B2** — prepare fail-closed → happy path Execute non prouvable tant que policy autorité absente |
+| R11 Critical genericity | **OPEN** — macro W3 |
+| R12 Recovery | **OPEN** — W3-C |
+| W3-A | **NOT READY** · **STOP — MORRIS DECISION REQUIRED** sur AuthorityPolicy runtime |
+| REAL | **OUT** |
+
+**STOP exact :**
+> STOP — MORRIS DECISION REQUIRED — W3-A TARGETED CORRECTION EXCEEDS ADOPTED OPTION 4 BOUNDARY
+
+**Missing owner :** runtime ActionPolicy / effects→`requiredAuthority` (N1/N2/N3). Framing 34 table is doctrine-only ; Product Completion envelope not implemented ; runtime v3 NON ADOPTED. Inventing Critical→N3 or a W3-A AuthorityCatalog would reopen structural policy.
 
 ---
 
@@ -2159,36 +2192,98 @@ index 7acd0828..e0d8068e 100644
 ```typescript
 diff
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
-index cf70f5e8..08fddc1f 100644
+index cf70f5e8..2804e93a 100644
 --- a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 +++ b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
-@@ -57,6 +57,7 @@ import {
+@@ -57,6 +57,8 @@ import {
    createF3FixtureAgentDescriptor,
    createF3TestExecutionAdapter,
  } from "./f3FixtureWiring";
-+import { createW3AProductFixtureAgentDescriptor } from "./w3aProductFixtureWiring";
++import { ContractShapedFixtureAgentRegistry } from "./w3aProductFixtureWiring";
++import { MemoryAgentRegistry } from "@/lib/oa/execution-attempt";
  import {
    toCreateLocalProjectCommand,
    toCreateProjectRuntimeFailure,
-@@ -219,15 +220,13 @@ function wireOaStack(
-   // This composition does not instantiate StudioCursorRealLaunchGateway.
-   const fixtureAdapter = createF3TestExecutionAdapter();
-   const fixtureAgent = createF3FixtureAgentDescriptor(clock.nowIso());
-+  const w3aProductAgent = createW3AProductFixtureAgentDescriptor(clock.nowIso());
+@@ -222,18 +224,22 @@ function wireOaStack(
    const realBoundary = options?.realBoundary;
    const registerM4 =
      realBoundary !== undefined || isStudioCursorRealEnabled();
-   const agents = registerM4
+-  const agents = registerM4
 -    ? [
 -        fixtureAgent,
 -        createM4BoundedReadOnlyCursorAgentDescriptor(clock.nowIso()),
 -      ]
--    : [fixtureAgent];
-+    ? [fixtureAgent, w3aProductAgent, createM4BoundedReadOnlyCursorAgentDescriptor(clock.nowIso())]
-+    : [fixtureAgent, w3aProductAgent];
++  // Static agents: legacy F3 harvest + optional M4. W3-A product fixture is
++  // NOT co-hardcoded here — ContractShapedFixtureAgentRegistry synthesizes a
++  // TestExecutionAdapter-compatible descriptor FROM EC match criteria (B4).
++  const staticAgents = registerM4
++    ? [fixtureAgent, createM4BoundedReadOnlyCursorAgentDescriptor(clock.nowIso())]
+     : [fixtureAgent];
++  const registry = new ContractShapedFixtureAgentRegistry(
++    new MemoryAgentRegistry(staticAgents),
++    () => clock.nowIso(),
++  );
    const executionAttemptServices = productSqlite
      ? createSqliteExecutionAttemptServices({
          decisionServices,
+         executionContractServices,
+         productStore: productSqlite,
+-        agents,
++        registry,
+         adapter: fixtureAdapter,
+         clock,
+         authorityResolver,
+@@ -243,7 +249,7 @@ function wireOaStack(
+     : createInMemoryExecutionAttemptServices({
+         decisionServices,
+         executionContractServices,
+-        agents,
++        registry,
+         adapter: fixtureAdapter,
+         clock,
+         authorityResolver,
+```
+
+---
+
+## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/index.ts`
+
+```typescript
+diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+index 8d530d4f..0d3aaa22 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+@@ -247,7 +247,7 @@ export type CreateInMemoryExecutionAttemptServicesOptions = {
+   executionContractServices: ExecutionContractServices;
+   /** Closed descriptor set, or a pre-built immutable registry. */
+   agents?: readonly AgentDescriptor[];
+-  registry?: MemoryAgentRegistry;
++  registry?: AgentRegistryPort;
+   /** Only TestExecutionAdapter | NoOpExecutionAdapter. */
+   adapter?: InjectableExecutionAdapter;
+   clock?: ClockPort;
+```
+
+---
+
+## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts`
+
+```typescript
+diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
+index 703af5aa..fc8767b4 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
+@@ -55,7 +55,7 @@ export type CreateSqliteExecutionAttemptServicesOptions = {
+   executionContractServices: ExecutionContractServices;
+   productStore: ProductSqliteHandle;
+   agents?: readonly AgentDescriptor[];
+-  registry?: MemoryAgentRegistry;
++  registry?: AgentRegistryPort;
+   adapter?: InjectableExecutionAdapter;
+   clock?: ClockPort;
+   audit?: ExecutionAttemptAuditPort;
 ```
 
 ---
@@ -2531,15 +2626,76 @@ index baf0653b..59a117f1 100644
 
 ---
 
+## DIFF: `projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts`
+
+```typescript
+diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts b/projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
+index 1ab24855..1f719560 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
+@@ -116,8 +116,30 @@ export function evaluateAgentCapability(
+     "requiredCapabilities" | "action" | "target" | "scope"
+   >,
+ ): AgentCapabilitySufficiency {
++  const criteria = {
++    requiredCapabilities: [...contract.requiredCapabilities],
++    action: contract.action,
++    target: contract.target,
++    scope: contract.scope,
++  };
++  // Prefer findCandidates (deny-by-default port API) so contract-shaped
++  // fixture composition can adapt AFTER EC preparation (B4).
++  const candidates = registry.findCandidates(criteria);
++  const evaluatedAgentRefs = [
++    ...new Set([
++      ...registry.listAgents().map((agent) => agent.agentId),
++      ...candidates.map((c) => c.agentId),
++    ]),
++  ];
++  if (candidates.length > 0) {
++    return {
++      evaluatedAgentRefs,
++      sufficientAgentRef: candidates[0].agentId,
++      sufficient: true,
++      reason: "sufficient",
++    };
++  }
+   const agents = registry.listAgents();
+-  const evaluatedAgentRefs = agents.map((agent) => agent.agentId);
+   if (agents.length === 0) {
+     return {
+       evaluatedAgentRefs,
+@@ -125,15 +147,9 @@ export function evaluateAgentCapability(
+       reason: "no_agent_registered",
+     };
+   }
+-
+   let firstViolation: AgentCapabilitySufficiency["reason"] = "scope_not_allowed";
+   for (const agent of agents) {
+-    const violation = agentMatchViolation(agent, {
+-      requiredCapabilities: [...contract.requiredCapabilities],
+-      action: contract.action,
+-      target: contract.target,
+-      scope: contract.scope,
+-    });
++    const violation = agentMatchViolation(agent, criteria);
+     if (!violation) {
+       return {
+         evaluatedAgentRefs,
+```
+
+---
+
 ## DIFF: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
 
 ```typescript
 diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-index 6408b737..3eac1751 100644
+index 6408b737..1987205b 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-@@ -1,24 +1,25 @@
+@@ -1,24 +1,26 @@
  "use client";
 
  /**
@@ -2559,6 +2715,7 @@ index 6408b737..3eac1751 100644
 
  import { useCallback, useState } from "react";
 -import { projectAssistantPrepareM3Action } from "@/features/project-assistant/actions";
++import { flushSync } from "react-dom";
  import {
    w2AmendExecutionContractAction,
    w2AuthorizeExecutionContractAction,
@@ -2572,7 +2729,7 @@ index 6408b737..3eac1751 100644
    w2ProposeTrajectoryOptionsAction,
  } from "@/features/project-assistant/w2/actions";
  import type {
-@@ -26,6 +27,8 @@ import type {
+@@ -26,6 +28,8 @@ import type {
    ContractInspectionStateDto,
    DecidedTrajectoryDto,
    ExecutionAuthorizationOutcomeDto,
@@ -2581,7 +2738,7 @@ index 6408b737..3eac1751 100644
    TrajectoryDecisionRecordDto,
    TrajectoryOptionSetDto,
  } from "@/features/project-assistant/w2/types";
-@@ -61,7 +64,8 @@ type Busy =
+@@ -61,7 +65,8 @@ type Busy =
    | "inspection"
    | "confirmation"
    | "authorization"
@@ -2591,7 +2748,7 @@ index 6408b737..3eac1751 100644
 
  export function TrajectorySurface({
    projectId,
-@@ -87,6 +91,14 @@ export function TrajectorySurface({
+@@ -87,6 +92,14 @@ export function TrajectorySurface({
    const [amendmentDraft, setAmendmentDraft] = useState("");
    const [amendmentNotice, setAmendmentNotice] =
      useState<AmendmentNotice | null>(null);
@@ -2606,7 +2763,7 @@ index 6408b737..3eac1751 100644
 
    const proposeOptions = useCallback(async () => {
      setBusy("options");
-@@ -106,6 +118,9 @@ export function TrajectorySurface({
+@@ -106,6 +119,9 @@ export function TrajectorySurface({
      setAuthorization(null);
      setAmendmentDraft("");
      setAmendmentNotice(null);
@@ -2616,7 +2773,7 @@ index 6408b737..3eac1751 100644
      onDurableFactsChanged?.();
    }, [projectId, onDurableFactsChanged]);
 
-@@ -137,7 +152,7 @@ export function TrajectorySurface({
+@@ -137,7 +153,7 @@ export function TrajectorySurface({
      if (!decision) return;
      setBusy("contract");
      setError(null);
@@ -2625,7 +2782,7 @@ index 6408b737..3eac1751 100644
        projectId,
        decisionId: decision.decisionId,
      });
-@@ -146,26 +161,28 @@ export function TrajectorySurface({
+@@ -146,26 +162,28 @@ export function TrajectorySurface({
        setError(result.message);
        return;
      }
@@ -2668,7 +2825,7 @@ index 6408b737..3eac1751 100644
      onDurableFactsChanged?.();
    }, [decision, projectId, onDurableFactsChanged]);
 
-@@ -229,6 +246,9 @@ export function TrajectorySurface({
+@@ -229,6 +247,9 @@ export function TrajectorySurface({
      });
      setInspection(amended.successorInspection);
      setAuthorization(null);
@@ -2678,7 +2835,7 @@ index 6408b737..3eac1751 100644
      setAmendmentDraft("");
      setAmendmentNotice({
        priorExecutionContractId: amended.priorExecutionContractId,
-@@ -266,6 +286,9 @@ export function TrajectorySurface({
+@@ -266,6 +287,9 @@ export function TrajectorySurface({
      if (!contract) return;
      setBusy("authorization");
      setError(null);
@@ -2688,7 +2845,7 @@ index 6408b737..3eac1751 100644
      const result = await w2AuthorizeExecutionContractAction({
        projectId,
        executionContractId: contract.executionContractId,
-@@ -280,6 +303,71 @@ export function TrajectorySurface({
+@@ -280,6 +304,92 @@ export function TrajectorySurface({
      setInspection(outcome.inspection);
    }, [contract, projectId]);
 
@@ -2696,9 +2853,11 @@ index 6408b737..3eac1751 100644
 +    if (!contract || authorization?.outcome !== "AUTHORIZED") return;
 +    setBusy("execute");
 +    setError(null);
-+    setAttempt(null);
-+    setAttemptPhase(null);
-+    setAttemptStatusLabel(null);
++    flushSync(() => {
++      setAttempt(null);
++      setAttemptPhase(null);
++      setAttemptStatusLabel(null);
++    });
 +
 +    const selected = await w2GovernedExecuteSelectAction({
 +      projectId,
@@ -2708,19 +2867,26 @@ index 6408b737..3eac1751 100644
 +      setBusy(null);
 +      setError(selected.message);
 +      if (selected.attempt) {
-+        setAttempt(selected.attempt);
-+        setAttemptPhase("accepted");
++        flushSync(() => {
++          setAttempt(selected.attempt!);
++          setAttemptPhase("accepted");
++        });
 +      }
 +      return;
 +    }
-+    setAttempt(selected.attempt);
-+    setAttemptPhase(selected.phase);
-+    setAttemptStatusLabel(selected.statusLabel);
++    // Force a committed render of accepted before start (R06/R09 observability).
++    flushSync(() => {
++      setAttempt(selected.attempt);
++      setAttemptPhase(selected.phase);
++      setAttemptStatusLabel(selected.statusLabel);
++    });
 +
 +    if (selected.phase === "terminal") {
 +      setBusy(null);
-+      setAttemptPhase("terminal");
-+      setAttemptStatusLabel(selected.statusLabel);
++      flushSync(() => {
++        setAttemptPhase("terminal");
++        setAttemptStatusLabel(selected.statusLabel);
++      });
 +      onDurableFactsChanged?.();
 +      return;
 +    }
@@ -2733,12 +2899,18 @@ index 6408b737..3eac1751 100644
 +    if (!started.ok) {
 +      setBusy(null);
 +      setError(started.message);
-+      if (started.attempt) setAttempt(started.attempt);
++      if (started.attempt) {
++        flushSync(() => {
++          setAttempt(started.attempt!);
++        });
++      }
 +      return;
 +    }
-+    setAttempt(started.attempt);
-+    setAttemptPhase(started.phase);
-+    setAttemptStatusLabel(started.statusLabel);
++    flushSync(() => {
++      setAttempt(started.attempt);
++      setAttemptPhase(started.phase);
++      setAttemptStatusLabel(started.statusLabel);
++    });
 +
 +    const completed = await w2GovernedExecuteCompleteAction({
 +      projectId,
@@ -2748,19 +2920,25 @@ index 6408b737..3eac1751 100644
 +    setBusy(null);
 +    if (!completed.ok) {
 +      setError(completed.message);
-+      if (completed.attempt) setAttempt(completed.attempt);
++      if (completed.attempt) {
++        flushSync(() => {
++          setAttempt(completed.attempt!);
++        });
++      }
 +      return;
 +    }
-+    setAttempt(completed.attempt);
-+    setAttemptPhase(completed.phase);
-+    setAttemptStatusLabel(completed.statusLabel);
++    flushSync(() => {
++      setAttempt(completed.attempt);
++      setAttemptPhase(completed.phase);
++      setAttemptStatusLabel(completed.statusLabel);
++    });
 +    onDurableFactsChanged?.();
 +  }, [contract, authorization, projectId, onDurableFactsChanged]);
 +
    return (
      <section
        className={styles.root}
-@@ -294,7 +382,8 @@ export function TrajectorySurface({
+@@ -294,7 +404,8 @@ export function TrajectorySurface({
          <p className={styles.note}>
            Nora instruit des options et recommande. La décision vous appartient :
            une recommandation ne décide jamais et ne rend jamais une trajectoire
@@ -2770,7 +2948,7 @@ index 6408b737..3eac1751 100644
          </p>
        </header>
 
-@@ -673,8 +762,74 @@ export function TrajectorySurface({
+@@ -673,8 +784,74 @@ export function TrajectorySurface({
                </dd>
              </div>
            </dl>
@@ -2881,67 +3059,12 @@ index 2c6e756f..6b063a75 100644
 
 ---
 
-## DIFF: `projects/sfia-studio/app/features/project-assistant/actions.ts`
-
-```typescript
-diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
-index efd0e91b..728e6ca8 100644
---- a/projects/sfia-studio/app/features/project-assistant/actions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
-@@ -477,6 +477,14 @@ export async function projectAssistantPrepareResolvedM3Action(input: {
-   }
-
-   const f3 = prepared.payload;
-+  const successorLoaded =
-+    await runtime.oa.executionContractServices.getExecutionContract.execute({
-+      executionContractId: f3.successor.executionContractId,
-+    });
-+  const semanticFingerprint = successorLoaded.ok
-+    ? (successorLoaded.contract.semanticFingerprint ?? "")
-+    : "";
-+
-   return {
-     ok: true,
-     status: "ok",
-@@ -493,6 +501,7 @@ export async function projectAssistantPrepareResolvedM3Action(input: {
-     ephemeralNotice:
-       "Contrat durable résolu (HumanDecision + DecisionBasis). Confirmation process-local. Cursor REAL bloqué.",
-     f3,
-+    successorSemanticFingerprint: semanticFingerprint,
-   };
- }
-```
-
----
-
-## DIFF: `projects/sfia-studio/app/features/project-assistant/types.ts`
-
-```typescript
-diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/types.ts b/projects/sfia-studio/app/features/project-assistant/types.ts
-index 5991bf00..748efc4a 100644
---- a/projects/sfia-studio/app/features/project-assistant/types.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/types.ts
-@@ -202,6 +202,8 @@ export type ProjectAssistantPrepareResolvedM3Success = {
-   project: ProjectAssistantContextDto;
-   ephemeralNotice: string;
-   f3: import("./f3/prepareAndResolveM3ProductPath").F3M3ResolvedPayload;
-+  /** Loaded from Product SQLite after resolve — successor view omits fingerprint. */
-+  successorSemanticFingerprint: string;
- };
-
- export type ProjectAssistantPrepareResolvedM3Failure = {
-```
-
----
-
 ## DIFF: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx`
 
 ```typescript
 diff
 diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-index 681c6621..d614f9b1 100644
+index 681c6621..caea8670 100644
 --- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
 +++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
 @@ -9,12 +9,20 @@ const {
@@ -3035,14 +3158,14 @@ index 681c6621..d614f9b1 100644
 +        executionContractId: "xct:w2-ui",
 +        version: 1,
 +        status: "confirmation_required",
-+        action: "product:governed-execution",
-+        target: "sfia-studio/product-completion",
-+        scope: "w3:governed-execute:studio-canonical",
++        action: "product:trajectory-governed-execution",
++        target: "sfia-studio/product-completion/project:prj:w2-ui",
++        scope: "Instruire, décider explicitement, préparer, inspecter puis statuer, avec un gate à chaque frontière d'autorité.",
 +        requiredAuthority: "N2",
 +        constraints: ["PRODUCT_GOVERNED"],
-+        stopConditions: ["STOP AVANT EXECUTE"],
-+        requiredCapabilities: ["cap:product-governed-execution"],
-+        reversibility: "reversible",
++        stopConditions: ["REVERSIBILITY_UNRESOLVED"],
++        requiredCapabilities: ["cap:product-trajectory-governed-execution"],
++        reversibility: "irreversible",
 +        semanticFingerprint: "abc123def456",
        },
 -    } as never);
@@ -3052,11 +3175,11 @@ index 681c6621..d614f9b1 100644
      expect(await screen.findByTestId("w2-contract")).toBeVisible();
      expect(screen.getByTestId("w2-contract-action")).toHaveTextContent(
 -      "w2:inspect-only",
-+      "product:governed-execution",
++      "product:trajectory-governed-execution",
      );
      expect(screen.getByTestId("w2-contract-capabilities")).toHaveTextContent(
 -      "cap:f3-fixture-docs",
-+      "cap:product-governed-execution",
++      "cap:product-trajectory-governed-execution",
      );
      // E3 — Confirmation affordance requires sufficient inspection, not mere presence.
      expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
@@ -3077,27 +3200,17 @@ index 681c6621..d614f9b1 100644
 ```typescript
 diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringAmend.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringAmend.test.ts
-index 378f617a..bff7348a 100644
+index 378f617a..dd9a215d 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringAmend.test.ts
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringAmend.test.ts
-@@ -22,6 +22,7 @@ import {
-   F3_SCOPE,
-   F3_TARGET,
- } from "@/features/project-assistant/f3/constants";
-+import { W3A_RUNTIME_AGENT_ID } from "@/lib/vertical-slice-runtime/w3aProductFixtureWiring";
- import {
-   createProposalId,
-   F2_PROCESS_LOCAL_NOTICE,
-@@ -252,9 +253,9 @@ describe("Cycle 8 — Pre-M6 REAL product wiring amend", () => {
+@@ -252,9 +252,7 @@ describe("Cycle 8 — Pre-M6 REAL product wiring amend", () => {
        runtime.oa!.executionAttemptServices.grantRealExecutionGate,
      ).toBeUndefined();
      const agents = runtime.oa!.executionAttemptServices.registry.listAgents();
 -    expect(
 -      agents.map((a) => a.agentId),
 -    ).toEqual(["agt:f3-fixture"]);
-+    expect(agents.map((a) => a.agentId).sort()).toEqual(
-+      ["agt:f3-fixture", W3A_RUNTIME_AGENT_ID].sort(),
-+    );
++    expect(agents.map((a) => a.agentId)).toEqual(["agt:f3-fixture"]);
      expect(runtime.oa!.fixtureAdapter.adapterId).toBe(F3_ADAPTER_ID);
 
      const seeded = await seedGo(runtime, "t1");
@@ -3173,7 +3286,7 @@ index 5363c98a..6d462a38 100644
 ```markdown
 diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 39f8cda8..c32e9c7c 100644
+index 39f8cda8..c37519a9 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 @@ -6,8 +6,9 @@
@@ -3183,7 +3296,7 @@ index 39f8cda8..c32e9c7c 100644
 -| **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; ce document **≠** embed permanent `origin/main` HEAD)* · **Référence de maintenance / entrée W2 POST-CLOSURE TRUTH SYNC** = `origin/main` @ `1e4b0dbb8de291f1a02e084f03231d62d04dfb0b` (merge PR **#405** Product Correction) · reviewed head `330b36258f5a5fcb117fb562b12ff173b3675d94` · candidate→merge content delta **0 files** · push/main CI **`32654262020` SUCCESS / Required Gate PASS** · W2 Final Closure Requalification **ACCEPTED BY MORRIS** · **W2 CLOSED BY MORRIS** · W2-CL-R01…R03 **CLOSED** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · PR **#403** Phase B · PR **#400** W2-G3 · PR **#398** W2 readiness · PR **#395** W1 · **NEXT CAPACITY** = **NEXT-CAPABILITY REQUALIFICATION** *(distinct · NOT STARTED · **≠** W3)* · W3 **NOT STARTED / NOT AUTHORIZED** · FinOps/T7 **FREEZE** · C6 **CLOSED** · Execute **OUT** · REAL **OUT / NOT CONSUMED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE / NON TERMINÉE** · **≠** W3 authorized · **≠** REAL BOUNDARY PROVEN · **≠** FinOps PASS · **≠** runtime v3 ADOPTED |
 -| **Timestamp maintenance courant** | 2026-08-23 20:37:16 CEST (+0200) — **W2 POST-CLOSURE TRUTH SYNC** — `origin/main` @ `1e4b0dbb8de291f1a02e084f03231d62d04dfb0b` · PR **#405 MERGED** · W2 Final Closure Requalification **ACCEPTED BY MORRIS** · **W2 CLOSED BY MORRIS** · doc10 final requalification **INTEGRATION CANDIDATE** · disclosures `w2Cognition=CLOSED_BY_MORRIS` · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · **NEXT CAPACITY** = **NEXT-CAPABILITY REQUALIFICATION** *(distinct · NOT STARTED)* · W3 **NOT STARTED / NOT AUTHORIZED** · FinOps/T7 **FREEZE** · C6 **CLOSED** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **≠** W3 GO · **≠** REAL · **≠** FinOps PASS |
 +| **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; ce document **≠** embed permanent `origin/main` HEAD)* · **Référence de maintenance / entrée W3 DELIVERY** = `origin/main` @ `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed` (merge PR **#406** W2 post-closure truth sync) · prior Product Correction merge `1e4b0dbb…` (PR **#405**) · **W2 CLOSED BY MORRIS** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · **NEXT-CAPABILITY REQUALIFICATION** = **SATISFIED / CONSUMED** by W3 qualification · **W3 DELIVERY** = **AUTHORIZED BY MORRIS / IN PROGRESS** · **current delivery slice** = **W3-A Governed Execute** (US-P1-04 / FC-10) · W3 **NOT CLOSED** · FinOps/T7 **FREEZE** · C6 **CLOSED** · REAL **OUT / NOT CONSUMED** · W4 **NOT STARTED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE / NON TERMINÉE** · **≠** W3 CLOSED · **≠** READY FOR REAL · **≠** REAL BOUNDARY PROVEN · **≠** FinOps PASS · **≠** runtime v3 ADOPTED |
-+| **Timestamp maintenance courant** | 2026-08-24 04:56 CEST (+0200) — **W3-A FC-08 CORRECTION** — Morris Option 4 R01 **ADOPTED** · GO Morris W3 Delivery **CONSUMED** · native EC preparation **LOCAL CANDIDATE** · F3 semantic overwrite **REMOVED** from canonical `/studio` · W3-A **NOT CLOSED** · R11/R12 **OPEN** · FinOps/T7 **FREEZE** · REAL **OUT** · W4 **NOT STARTED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · W3 **NOT CLOSED** |
++| **Timestamp maintenance courant** | 2026-08-24 05:40 CEST (+0200) — **W3-A OPTION 4 TARGETED SEMANTIC CORRECTION** — B1/B3/B4/B5/B7 **LOCAL** · B2 **AUTHORITY_POLICY_UNRESOLVED → STOP MORRIS** · R09 Playwright Execute **BLOCKED BY B2** · W3-A **NOT READY** · W3 **NOT CLOSED** · FinOps/T7 **FREEZE** · REAL **OUT** · W4 **NOT STARTED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** |
 +| **Timestamp maintenance historique W2 POST-CLOSURE TRUTH SYNC** | 2026-08-23 20:37:16 CEST (+0200) — **W2 POST-CLOSURE TRUTH SYNC** — *(historique · superseded by W3 DELIVERY START)* — `origin/main` @ `1e4b0dbb…` then PR **#406** → `3a3b1cf…` · **W2 CLOSED BY MORRIS** · **NEXT CAPACITY** was **NEXT-CAPABILITY REQUALIFICATION** *(later SATISFIED / CONSUMED)* · W3 was **NOT STARTED / NOT AUTHORIZED** *(true then · later AUTHORIZED)* · FinOps/T7 **FREEZE** · C6 **CLOSED** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** |
  | **Timestamp maintenance historique W2 Phase B post-merge truth sync** | 2026-08-23 16:48 CEST (+0200) — **W2 TRACK D / BOUNDED CKC PHASE B POST-MERGE TRUTH SYNC** — `origin/main` HEAD **RESOLVE FROM REPOSITORY** · PR **#403 MERGED** · Phase B head `1cdf4b41270cffe31be28e02e3effe17a1b15477` · merge `e4a93fea77c7edd01c4e6fc2d47455db14e102e8` · PR-head CI **`32645232920` SUCCESS / Required Gate PASS** · head→merge **0-file content delta** · push/main CI **`32646038871` SUCCESS / Required Gate PASS** · **bounded Phase B INTEGRATED ON MAIN** · **DETERMINISTIC PROVEN** · Phase B GO / R1 GO / Git integration GO **CONSUMED historically** · W2 **NOT FINALLY CLOSED** · **NEXT CAPACITY** = **W2 FINAL CLOSURE QUALIFICATION** *(distinct cycle · NOT STARTED)* · W3 **NOT STARTED / NOT AUTHORIZED** · full CKC track **DOWNSTREAM W3** · PB-RES-REAL-01 **OPEN** · FinOps/T7 **FREEZE** · T7-C04 **DEFERRED** · C6 **CLOSED** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · Product Completion **NON TERMINÉE** · **≠** W2 closed · **≠** W3 GO · **≠** REAL · **≠** FinOps PASS  *(historique · superseded by W2 POST-CLOSURE TRUTH SYNC / Morris W2 CLOSED)* |
  | **Timestamp maintenance historique W2-G3 post-merge truth sync** | 2026-08-23 12:25 CEST (+0200) — **W2-G3 POST-MERGE TRUTH SYNC** — *(historique · superseded by Phase B post-merge truth sync)* — `origin/main` HEAD **RESOLVE FROM REPOSITORY** · PR **#400 MERGED** · delivery head `a276f170…` · merge `dd852243…` · PR-head CI **`32632461315` SUCCESS** · push/main CI **`32633308148` SUCCESS** · **W2-G3 E+A+B+C INTEGRATED ON MAIN** · governed H→N trajectory through authority boundary · **STOP BEFORE EXECUTE** · D-W2-CI-FINOPS-FREEZE-01 **ADOPTED** · FinOps/T7 **FREEZE** · T7-C04 **DEFERRED** · W2 **NOT FINALLY CLOSED** · **NEXT CAPACITY** *(true at that timestamp)* = Track D / bounded CKC Phase B qualification · **NEXT DECISION GATE** *(true at that timestamp)* = distinct Morris GO Phase B · GO Phase B **NOT CONSUMED** *(true at that timestamp · later CONSUMED · Phase B INTEGRATED via PR #403)* · C6 **CLOSED** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · **≠** FinOps fixed/PASS · **≠** Phase B started *(true then)* · **≠** W2 closed · **≠** Product Completion terminée |
@@ -3219,9 +3332,9 @@ index 39f8cda8..c32e9c7c 100644
 -| CURRENT REPOSITORY TRANSITION | W2 Product Correction **INTEGRATED** (PR **#405** / merge `1e4b0dbb…` / push CI **`32654262020` SUCCESS**) · W2 Final Closure Requalification **ACCEPTED BY MORRIS** · **W2 CLOSED BY MORRIS** · W2 Post-Closure Truth Sync **IN PROGRESS / INTEGRATION CANDIDATE** · FinOps/T7 **FREEZE** · W3 **NOT STARTED / NOT AUTHORIZED** · REAL **OUT** · Product Completion **INCOMPLETE** · **≠** W3 GO · **≠** FinOps PASS |
 -| NEXT ORDERED STEP | Complete **W2 POST-CLOSURE TRUTH SYNC** (doc10 + Roadmap + disclosures) Git integration + post-merge proof → **NEXT-CAPABILITY REQUALIFICATION** *(distinct cycle · NOT STARTED)* · **≠** W3 GO · **≠** REAL GO |
 -| NEXT PRODUCT CAPABILITY | **NEXT-CAPABILITY REQUALIFICATION** — after truth-sync post-merge proof · re-evaluate next Product Completion capacity under distinct Morris GO · **≠** silent W3 open · W3 **NOT AUTHORIZED** · REAL **OUTSIDE** · runtime v3 **NON ADOPTED** |
-+| CURRENT REPOSITORY TRANSITION | W3-A FC-08 correction **LOCAL CANDIDATE** (Morris Option 4 R01) · native EC prep · no F3 overwrite · **NOT CLOSED** · **no project commit/push/PR yet** · FinOps/T7 **FREEZE** · REAL **OUT** · W4 **NOT STARTED** · Product Completion **INCOMPLETE** · **≠** W3 CLOSED |
-+| NEXT ORDERED STEP | ChatGPT review of W3-A implementation candidate → distinct Morris Git integration GO (commit/PR) **if** review PASS · then continue W3 slices · **≠** W3 closure · **≠** REAL GO |
-+| NEXT PRODUCT CAPABILITY | **W3-A Governed Execute** (in progress) → next W3 slice **W3-B** terminal semantics + Evidence after W3-A closure · W3 macro **NOT CLOSED** · REAL **OUT** · runtime v3 **NON ADOPTED** |
++| CURRENT REPOSITORY TRANSITION | W3-A Option 4 targeted semantic correction **LOCAL** · B2 **STOP — MORRIS DECISION REQUIRED** (ActionPolicy runtime absent) · **no project commit/push/PR** · FinOps/T7 **FREEZE** · REAL **OUT** · W4 **NOT STARTED** · Product Completion **INCOMPLETE** · **≠** W3 CLOSED |
++| NEXT ORDERED STEP | ChatGPT review of STOP handoff → Morris décide AuthorityPolicy runtime harvest **ou** autre règle adoptée · **≠** W3 closure · **≠** REAL GO |
++| NEXT PRODUCT CAPABILITY | **W3-A Governed Execute** blocked on B2 until Morris authority decision · then resume Execute proof · W3 macro **NOT CLOSED** · REAL **OUT** · runtime v3 **NON ADOPTED** |
  | M6 / M7 | **HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** · traces conservées · hors forward critical path |
 
  ### Candidat local non-main (dirty `delivery/sfia-studio-f3-real-prerequisites`) — historique / harvest
@@ -3256,69 +3369,25 @@ index 39f8cda8..c32e9c7c 100644
 
 ---
 
-# PART 3 — MAPPING R01→R13
-
-| ID | Treatment | Evidence file |
-|---|---|---|
-| R01 | FC-08 native prepare · no F3 overwrite | prepareExecutionContractFromW2Decision.ts, w3aProductExecutionSemantics.ts |
-| R02 | Cycle profile from EC.cycleInstanceId | governedExecuteAuthorizedContract.ts loadContract |
-| R03 | LOCAL_PILOTE_ACTOR writes | prepareExecutionContractFromW2Decision.ts, governedExecuteAuthorizedContract.ts |
-| R04 | No auto-grant · Critical AGENT_CONFIRMATION_REQUIRED | governedExecuteAuthorizedContract.ts L329-336 |
-| R05 | No F3_AGENT_ID · registry selects W3A agent | w3aProductFixtureWiring.ts, w3aGovernedExecute.test.ts A |
-| R06 | Phased select/start/record | governedExecuteAuthorizedContract.ts, TrajectorySurface.tsx |
-| R07 | Terminal technical label only | governedExecuteAuthorizedContract.ts buildTerminalSuccess |
-| R08 | Attempt preserved on downstream error | governedExecuteStart/RecordResult error paths |
-| R09 | Vitest integration PASS · Playwright NOT RUN | w3aGovernedExecute.test.ts — reserve |
-| R10 | doc11/roadmap updated | 11-product-completion-wave-3-delivery-readiness.md |
-| R11 | Critical genericity OPEN | macro debt |
-| R12 | Recovery OPEN | W3-C debt |
-| R13 | Hostile UI payloads removed | TrajectorySurface.tsx governedExecute call |
-
-# PART 4 — PROOF MATRIX A→R
-
-| Line | Result | Test / proof |
-|---|---|---|
-| A | PASS | w3aGovernedExecute A + prepare asserts |
-| B | PASS | w3a Critical binding + cycleInstanceId on contract |
-| C | PASS | w3a C stale amend |
-| D | PASS | w3a D skip confirm |
-| E | PASS | w3a E insufficient executor |
-| F | PASS | w3a I Fake/Real |
-| G | PASS | w3a R06 accepted |
-| H | PASS | w3a R06 running |
-| I | PASS | w3a R06 terminal + label |
-| J | PASS | w3a F replay |
-| K | PASS | w3a B blocked |
-| L | PASS | w3a G no cycle close |
-| M | PASS | w3a A no STOP semantics |
-| N | PASS | start/record error attempt projection |
-| O | PASS | w3a I externalEffects false |
-| P | PASS | no new aggregate |
-| Q | PASS | w2Eabc + w2TrackD regressions |
-| R | PASS | OA aggregate kept |
-
-# PART 5 — TESTS EXECUTED
+# PART 3 — TESTS
 
 ```
 npm run typecheck — PASS
 npm run lint — PASS
 npm run build — PASS
-vitest full suite — 212 files / 2010 tests PASS · 131 skipped
-Playwright /studio W3-A Execute — NOT RUN (reserve R09)
+vitest w3aGovernedExecute — 10/10 PASS (incl. AUTHORITY_POLICY_UNRESOLVED + B1/B3/B4/B5 units)
+vitest w2EabcDelivery — 39/39 PASS
+vitest targeted EC + UI + importBoundaries + preM6 — PASS
+Playwright /studio W3-A Execute — NOT RUN (blocked by B2 prepare fail-closed)
 ```
 
-# PART 6 — DEBTS / RESERVES
+# PART 4 — VERDICT
 
-- **R09**: Playwright canonical `/studio` Execute happy path not captured
-- **R11**: Critical canonical execute end-to-end blocked at confirm path — macro W3
-- **R12**: Recovery/retry — W3-C
+**STOP — MORRIS DECISION REQUIRED**
 
-# PART 7 — VERDICT
-
-**W3-A CORRECTION CANDIDATE — PASS WITH RESERVES — READY FOR CHATGPT REVIEW**
-
-W3 NOT CLOSED · REAL OUT · C6 CLOSED · no project Git remote mutation.
+W3-A NOT READY · W3 NOT CLOSED · REAL OUT · C6 CLOSED · Option 4 CONFIRMED · no project Git mutation.
 
 ## Next gate
 
-ChatGPT must review THIS handoff immuable using Part 1 complete sources and Part 2 diffs.
+ChatGPT must review this FULL pack (esp. B2 STOP evidence + B1/B3/B4/B5 code).
+Morris must decide runtime AuthorityPolicy harvest/adoption before W3-A Execute happy path can close.
