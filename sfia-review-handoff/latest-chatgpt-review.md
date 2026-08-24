@@ -1,166 +1,146 @@
-# SFIA Review Pack — LIGHT COMPLETE — Task Manager PR Publication — Push + PR #407
+# SFIA Review Pack — LIGHT COMPLETE — R-DOC-05 Correction on PR #407
 
-**Timestamp (Europe/Paris):** 2026-08-24 02:44:09 CEST
+**Timestamp (Europe/Paris):** 2026-08-24 02:57:53 CEST
 
-**Operation:** Task Manager qualified branch push + PR creation
+**Operation:** R-DOC-05 Figma Design Brief validation-state correction on PR #407
+
+**Type:** DOC / targeted PR correction / repository execution
 
 **Profile:** Standard
-
-**Typologie:** DOC / REPOSITORY EXECUTION / PR PUBLICATION
 
 **Nouveau cycle produit:** NO
 
 ## Exact Morris GO
 
-GO MORRIS — PUSH TASK MANAGER QUALIFIED BRANCH AT 23aea996 AND CREATE PR AGAINST CURRENT MAIN 3a3b1cf8 — USE FINAL PR-READINESS TITLE/BODY — NO MERGE / NO BRANCH DELETION / NO BACKLOG / DELIVERY
+GO MORRIS — FIX R-DOC-05 FIGMA DESIGN BRIEF VALIDATION-STATE AMBIGUITY ON PR #407 — ONE TARGETED DOC COMMIT — PRESERVE CYCLE 4 VALIDATED DESIGN REFERENCE AND OPEN TOKENS/ACCESSIBILITY/BRANDING/FQ02-FQ05 — PUSH SAME PR BRANCH — NO MERGE / NO BRANCH DELETION / NO BACKLOG / DELIVERY
 
-## Local Git Truth before action
+## Local Git Truth before
 
 | Item | Value |
 |------|-------|
 | Branch | `project/sfia-task-manager-cycle-4-ux-ui` |
-| Local HEAD | `23aea996e11d354bece42d6c09822abc2010d1e0` |
-| origin/main before push | `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed` |
-| Remote branch before | **ABSENT** |
+| Local HEAD before | `23aea996e11d354bece42d6c09822abc2010d1e0` |
+| Remote branch SHA before | `23aea996e11d354bece42d6c09822abc2010d1e0` |
+| origin/main | `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed` |
+| PR #407 state before | **OPEN** |
+| PR head before | `23aea996e11d354bece42d6c09822abc2010d1e0` |
 | Working tree | **CLEAN** (temporaries only) |
-| Staged | **NONE** |
-| Final readiness handoff | `019bf7c065b70dbb09d0fdc60f0441bd7b9ab2b2` |
 
-## Pre-push revalidation
+## R-DOC-05 problem
 
-| Check | Result |
-|-------|--------|
-| History (5 commits) | **PASS** |
-| Scope (5 expected files) | **PASS** |
-| Diff check | **PASS** |
-| Mergeability (`git merge-tree --write-tree`) | **PASS** (tree `b1b7f2c3885d13f6c247f2772416f0e3672ec55d`) |
-| Existing PR for head | **NONE** |
+Two legacy candidate-state wordings in Figma Design Brief contradicted Cycle 4 Morris validation already stated elsewhere in the document.
 
-### Pre-push history
-
-```
-92922648c92474e27b461dda0d93346644f9c928 docs(sfia-task-manager): record validated Cycle 4 UX/UI reference
-eb78241e84306e28dc99c318ce0e55465b9b4775 docs(sfia-task-manager): record validated Cycle 5 technical architecture reference
-c1a859e4e1d14e7dc03cbb8e1d8a811db3ce66c8 docs(sfia-task-manager): clarify Cycle 4 maturity snapshot
-5c9725ce087b810bfbc26ccbf51fd39eab86722f docs(sfia-task-manager): refresh PR readiness tracking truth
-23aea996e11d354bece42d6c09822abc2010d1e0 docs(sfia-task-manager): stabilize post-readiness next-step truth
-```
-
-### Pre-push scope
-
-```
-A	projects/sfia-task-manager/03-design/2026-08-20-figma-design-brief.md
-A	projects/sfia-task-manager/03-design/2026-08-20-figma-review-checklist.md
-A	projects/sfia-task-manager/03-design/2026-08-20-m1-ux-ui-contract.md
-A	projects/sfia-task-manager/04-technical-architecture/2026-08-22-m1-technical-architecture.md
-M	projects/sfia-task-manager/README.md
-```
-
-## Project push
-
-Command: `git push --set-upstream origin project/sfia-task-manager-cycle-4-ux-ui`
-
-Result: **YES** — new remote branch created
-
-Remote branch SHA after push: `23aea996e11d354bece42d6c09822abc2010d1e0`
-
-## Base recheck after push / before PR
-
-| Item | Value |
-|------|-------|
-| origin/main | `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed` (unchanged) |
-| Local HEAD | `23aea996e11d354bece42d6c09822abc2010d1e0` |
-| origin/project/... | `23aea996e11d354bece42d6c09822abc2010d1e0` |
-
-## PR creation
-
-| Item | Value |
-|------|-------|
-| PR creation | **YES** |
-| PR number | **407** |
-| PR URL | https://github.com/mcleland147/sfia-workspace/pull/407 |
-| PR state | **OPEN** |
-| isDraft | **false** |
-| baseRefName | `main` |
-| baseRefOid | `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed` |
-| headRefName | `project/sfia-task-manager-cycle-4-ux-ui` |
-| headRefOid | `23aea996e11d354bece42d6c09822abc2010d1e0` |
-
-### PR title exact
-
-```
-docs(sfia-task-manager): integrate validated M1 design and technical architecture references
-```
-
-### PR body COMPLETE
+## Forbidden interpretations BEFORE (complete)
 
 ```markdown
-## Summary
+## Forbidden interpretations
 
-- Cycle 4 UX/UI design reference validated by Morris
-- Cycle 5 technical architecture candidate reference validated by Morris
-- R-DOC-03 historical maturity clarification
-- R-DOC-02 tracking closure
-- R-DOC-04 stable post-readiness governance wording
-
-## Scope
-
-- `projects/sfia-task-manager/README.md`
-- `projects/sfia-task-manager/03-design/2026-08-20-m1-ux-ui-contract.md`
-- `projects/sfia-task-manager/03-design/2026-08-20-figma-design-brief.md`
-- `projects/sfia-task-manager/03-design/2026-08-20-figma-review-checklist.md`
-- `projects/sfia-task-manager/04-technical-architecture/2026-08-22-m1-technical-architecture.md`
-
-## Governance
-
-- TD-01→TD-12 OPEN
-- Technical architecture NOT adopted for implementation
-- M1 NOT READY
-- AC demonstrated 0/16
-- FQ02–FQ05 OPEN
-- Design tokens / accessibility OPEN
-- No backlog execution
-- No delivery
-- No implementation
-
-## Evidence
-
-- Cycle 4/5 regularization: `50cbb44c71115fa0ebe31a46b3b33806bf55030b`
-- R-DOC-03: `b3330bfb43f9a491bf89d286a22d0bbfef8d5cd5`
-- FULL initial PR readiness: `8821db38467f2ae2d73ec237ea31d5de6550f920`
-- README R-DOC-02 correction: `ef67f4a1026e378c879cd4ae65b3992f4c68350d`
-- Delta readiness: `bb892ed731eb980ac6faf6681608ab283a1e1c8e`
-- R-DOC-04: `ca39147b01fea5e99a4506550758daf858f01003`
-- Final PR readiness confirmation: `019bf7c065b70dbb09d0fdc60f0441bd7b9ab2b2`
-
-## Validation
-
-- 5 qualified commits
-- Exact 5-file scope
-- Final delta R-DOC-04 README-only
-- R-DOC-02/03/04 CLOSED
-- Main Task Manager drift NONE
-- Diff check PASS
-- Mergeability PASS
-- Guardrails PASS
-- Governance truth PASS
-- Single-PR coherence PASS
-
-## Explicit non-claims
-
-- Not M1 READY
-- Not implementation ready
-- No technical stack adopted
-- No backlog authorization
-- No delivery authorization
-- Not merged
+No tech arch · no stack · no backlog · no delivery · no 6th business surface · no Blocked lifecycle column · no silent disabled · no AI-central UI · no design validation claim
 ```
 
-### PR body verification
+## Forbidden interpretations AFTER (complete)
 
-**PASS** — remote body matches authorized body
+```markdown
+## Forbidden interpretations
 
-### PR changed files exact
+No tech arch · no stack · no backlog · no delivery · no 6th business surface · no Blocked lifecycle column · no silent disabled · no AI-central UI · no claim that tokens, branding, accessibility, or runtime are validated
+```
+
+## Open Morris decisions BEFORE (complete)
+
+```markdown
+## Open Morris decisions
+
+Accessibility target · design tokens final · branding · FQ02–FQ05 · visual validation of this candidate
+```
+
+## Open Morris decisions AFTER (complete)
+
+```markdown
+## Open Morris decisions
+
+Accessibility target · design tokens final · branding · FQ02–FQ05
+```
+
+## Current status line (unchanged)
+
+```markdown
+- **Current status :** VALIDATED BY MORRIS AS CYCLE 4 DESIGN REFERENCE — tokens/branding/WCAG/runtime remain NOT VALIDATED.
+```
+
+## Diff (complete / useful)
+
+```diff
+ ## Forbidden interpretations
+
+-No tech arch · no stack · no backlog · no delivery · no 6th business surface · no Blocked lifecycle column · no silent disabled · no AI-central UI · no design validation claim
++No tech arch · no stack · no backlog · no delivery · no 6th business surface · no Blocked lifecycle column · no silent disabled · no AI-central UI · no claim that tokens, branding, accessibility, or runtime are validated
+
+ ## Open Morris decisions
+
+-Accessibility target · design tokens final · branding · FQ02–FQ05 · visual validation of this candidate
++Accessibility target · design tokens final · branding · FQ02–FQ05
+```
+
+## Legacy wording search
+
+| Search | Result |
+|--------|--------|
+| `no design validation claim` | no matches |
+| `visual validation of this candidate` | no matches |
+
+**Result:** PASS
+
+## Cycle 4 validated reference preserved
+
+**YES** — `VALIDATED BY MORRIS AS CYCLE 4 DESIGN REFERENCE` occurrences unchanged (header, validation Morris, source-of-truth, current status).
+
+## OPEN / NOT VALIDATED preserved
+
+| Item | Status |
+|------|--------|
+| Candidate tokens (NOT VALIDATED) | present |
+| Target contractuel OPEN | present |
+| Accessibility target · design tokens final · branding · FQ02–FQ05 | present |
+| tokens/branding/WCAG/runtime remain NOT VALIDATED | present |
+| Tokens final | **OPEN** |
+| Accessibility target | **OPEN** |
+| Branding | **OPEN** |
+| FQ02–FQ05 | **OPEN** |
+| Runtime validation | **NOT VALIDATED** |
+
+## Commit
+
+| Item | Value |
+|------|-------|
+| File modified | `projects/sfia-task-manager/03-design/2026-08-20-figma-design-brief.md` |
+| Sections modified | Forbidden interpretations · Open Morris decisions only |
+| Other sections/files | **NONE** |
+| SHA | `139f45fd019aa0561bfb5c6b7a7bd1c748f570b4` |
+| Message | `docs(sfia-task-manager): align Cycle 4 design validation state` |
+| Files in commit | **1** |
+
+## Push + PR #407 after push
+
+| Item | Value |
+|------|-------|
+| Project push | **YES** |
+| Remote branch SHA after | `139f45fd019aa0561bfb5c6b7a7bd1c748f570b4` |
+| PR #407 | https://github.com/mcleland147/sfia-workspace/pull/407 |
+| PR state | **OPEN** |
+| PR draft | **false** |
+| PR head after | `139f45fd019aa0561bfb5c6b7a7bd1c748f570b4` |
+| PR commits | **6** (was 5) |
+| PR changed files | **5** |
+| Unexpected files | **NONE** |
+| PR title modified | **NO** |
+| PR body modified | **NO** |
+
+PR metadata body was not modified because Morris GO authorized R-DOC-05 document correction + same-branch push, not PR metadata editing.
+
+PR body dynamic commit-count consistency: **TO BE REVIEWED BY CHATGPT AFTER PUSH**
+
+## PR changed files (exact)
 
 ```
 projects/sfia-task-manager/03-design/2026-08-20-figma-design-brief.md
@@ -170,52 +150,41 @@ projects/sfia-task-manager/04-technical-architecture/2026-08-22-m1-technical-arc
 projects/sfia-task-manager/README.md
 ```
 
-Unexpected PR files: **NONE**
-
-### Initial PR checks
+## Checks after push
 
 | Check | State |
 |-------|-------|
-| Detect SFIA Studio changes | pending |
+| Detect SFIA Studio changes | **pending** |
 
-Pending checks do **not** authorize merge.
+Pending does not authorize merge.
 
-## Project mutation this cycle
-
-| Item | Value |
-|------|-------|
-| Project files modified | **ZERO** |
-| Project commits | **ZERO** |
-| Merge | **NO** |
-| Branch deletion | **NO** |
-| Backlog / delivery / implementation | **NO** |
-
-## Governance truth (unchanged by PR creation)
+## Governance
 
 | Item | Status |
 |------|--------|
-| Cycle 4 | VALIDATED BY MORRIS AS DESIGN REFERENCE |
-| Cycle 5 | CANDIDATE REFERENCE VALIDATED BY MORRIS |
-| Architecture adopted for implementation | **NO** |
+| R-DOC-02 | **CLOSED** |
+| R-DOC-03 | **CLOSED** |
+| R-DOC-04 | **CLOSED** |
+| R-DOC-05 | **CLOSED** |
+| Cycle 4 design reference | VALIDATED BY MORRIS (unchanged) |
+| Cycle 5 candidate reference | unchanged |
 | TD-01→TD-12 | **OPEN** |
-| R-DOC-02 / 03 / 04 | **CLOSED** |
 | M1 | **NOT READY** |
 | AC | **0/16** |
-| FQ02–FQ05 | **OPEN** |
-| Design tokens / accessibility | **OPEN** |
 | Backlog | **NOT AUTHORIZED / NOT EXECUTED** |
 | Delivery | **NOT AUTHORIZED / NOT EXECUTED** |
 | Implementation | **NOT EXECUTED** |
-| PR created ≠ merged | **YES** |
+| Merge | **NO** |
+| Branch deletion | **NO** |
 
 ## Verdict
 
-**TASK MANAGER QUALIFIED BRANCH PUSHED — PR CREATED AND REMOTE VERIFIED — READY FOR CHATGPT PR REVIEW — NO MERGE / NO BRANCH DELETION**
+**R-DOC-05 CLOSED — CYCLE 4 DESIGN VALIDATION STATE ALIGNED — ONE TARGETED DOC COMMIT PUSHED TO PR #407 — READY FOR CHATGPT PR DELTA REVIEW — NO MERGE / NO BRANCH DELETION**
 
-Not concluded: MERGED · INTEGRATED ON MAIN · M1 READY · IMPLEMENTATION READY · ARCHITECTURE ADOPTED · BACKLOG AUTHORIZED · DELIVERY AUTHORIZED
+Not concluded: READY TO MERGE · MERGED · INTEGRATED ON MAIN · M1 READY · IMPLEMENTATION READY · TOKENS VALIDATED · ACCESSIBILITY VALIDATED · BRANDING VALIDATED · BACKLOG AUTHORIZED · DELIVERY AUTHORIZED
 
 ## Next gate
 
-**CHATGPT PR REVIEW → MORRIS MERGE DECISION**
+**CHATGPT PR DELTA REVIEW → MORRIS MERGE DECISION IF PR REMOTE STATE IS FULLY CONSISTENT**
 
-Instruction ChatGPT: Lire le handoff immuable de cette exécution avant toute décision de merge. Vérifier ensuite la PR GitHub distante — metadata, diff, checks et éventuels commentaires — avant de proposer un GO merge. La création de la PR n’autorise jamais son merge ni la suppression de la branche.
+Instruction ChatGPT: Lire le handoff immuable puis revoir PR #407 sur GitHub : head actuel, delta R-DOC-05, changed files, CI/checks, commentaires et cohérence du body PR avec le nouvel historique à 6 commits. Ne pas proposer GO merge avant cette revue distante.
