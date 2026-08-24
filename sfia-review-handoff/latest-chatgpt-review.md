@@ -169,7 +169,16 @@ index 1f7b04fd..92a10160 100644
 
 ## 11. CI
 
-(Pending — to be filled after workflow run completes)
+| Item | Value |
+| --- | --- |
+| Workflow | SFIA Studio CI |
+| Run | https://github.com/mcleland147/sfia-workspace/actions/runs/32764582915 |
+| headSha | cbad09d54518c56d9fd894a788e55b53d2b6b5a5 |
+| Detect SFIA Studio changes | SUCCESS |
+| Build and validate SFIA Studio | SUCCESS |
+| Trailing whitespace check | SUCCESS |
+| SFIA Studio Required Gate | SUCCESS |
+| Overall conclusion | SUCCESS |
 
 ## 12. Review Pack verdict
 
