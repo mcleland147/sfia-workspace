@@ -1,190 +1,154 @@
-# SFIA Review Pack — LIGHT COMPLETE — R-DOC-05 Correction on PR #407
+# SFIA Studio — W3-A FC-08 Native ExecutionContract Preparation Correction — FULL Review Pack
 
-**Timestamp (Europe/Paris):** 2026-08-24 02:57:53 CEST
+## Metadata
 
-**Operation:** R-DOC-05 Figma Design Brief validation-state correction on PR #407
+| Field | Value |
+|---|---|
+| **Timestamp Europe/Paris** | 2026-08-24 04:58:00 CEST (+0200) |
+| **Timestamp UTC** | 2026-08-24T02:58:00Z |
+| **Repo** | mcleland147/sfia-workspace |
+| **Branch** | `delivery/sfia-studio-product-completion-w3-a-governed-execute` |
+| **HEAD** | `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed` |
+| **origin/main** | `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed` |
+| **Project commit** | **NONE** |
+| **Project push/PR/merge** | **NONE** |
 
-**Type:** DOC / targeted PR correction / repository execution
+## Morris decisions consumed
 
-**Profile:** Standard
+**GO MORRIS W3 DELIVERY** (consumed):
+> GO MORRIS — W3 DELIVERY — EXÉCUTER, PROUVER ET REPLANIFIER — SCOPE BACKLOG W3 ONLY — CONSUME W1/W2 CLOSED CAPABILITIES — C6 IMPLEMENT-ONLY / DO NOT REOPEN — HARVEST EXISTING OA/F3/EVIDENCE SUBSTRATE — CANONICAL `/studio` PRODUCT PATH — DETERMINISTIC PRODUCT-NATIVE PROOF — FULL CKC TRACK + CATALOG EVOLVABILITY WITHIN W3 — REAL OUT — FINOPS FREEZE — W4 OUT — RUNTIME V3 NON ADOPTED.
 
-**Nouveau cycle produit:** NO
+**Morris Option 4 R01** (adopted this cycle):
+> MORRIS DECISION — W3-A R01 — ADOPT FC-08 NATIVE EXECUTIONCONTRACT PREPARATION COMPLETION — NORA/STUDIO PREPARES THE EXECUTION ENVELOPE FROM QUALIFIED PRODUCT CONTEXT — FC-08 REMAINS THE SINGLE OWNER — HUMANDECISION / DECISIONBASIS CONSUMED WHEN APPLICABLE — EXECUTIONCONTRACT IS THE FIRST DURABLE SoT FOR THE ENVELOPE — NO F3 SEMANTIC OVERWRITE ON CANONICAL `/studio` — TESTEXECUTIONADAPTER REMAINS THE DETERMINISTIC EXTERNAL-EXECUTOR FAKE — NO EXECUTIONINTENT / NEW AGGREGATE / NEW STORE / NEW ENGINE — C6 REMAINS CLOSED.
 
-## Exact Morris GO
+## Local Git Truth (final)
 
-GO MORRIS — FIX R-DOC-05 FIGMA DESIGN BRIEF VALIDATION-STATE AMBIGUITY ON PR #407 — ONE TARGETED DOC COMMIT — PRESERVE CYCLE 4 VALIDATED DESIGN REFERENCE AND OPEN TOKENS/ACCESSIBILITY/BRANDING/FQ02-FQ05 — PUSH SAME PR BRANCH — NO MERGE / NO BRANCH DELETION / NO BACKLOG / DELIVERY
+- pwd: `/Users/morris/Projects/sfia-workspace`
+- branche: `delivery/sfia-studio-product-completion-w3-a-governed-execute`
+- HEAD == origin/main == base `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed`
+- staged: **VIDE**
+- working tree: **DIRTY** (candidat correction W3-A non commité — attendu)
 
-## Local Git Truth before
+## Mapping R01→R13
 
-| Item | Value |
-|------|-------|
-| Branch | `project/sfia-task-manager-cycle-4-ux-ui` |
-| Local HEAD before | `23aea996e11d354bece42d6c09822abc2010d1e0` |
-| Remote branch SHA before | `23aea996e11d354bece42d6c09822abc2010d1e0` |
-| origin/main | `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed` |
-| PR #407 state before | **OPEN** |
-| PR head before | `23aea996e11d354bece42d6c09822abc2010d1e0` |
-| Working tree | **CLEAN** (temporaries only) |
+| ID | Traitement | Preuve |
+|---|---|---|
+| R01 | FC-08 native `prepareExecutionContractFromW2Decision` · no F3 overwrite | Vitest w3a + semantics asserts |
+| R02 | Cycle profile from `ExecutionContract.cycleInstanceId` only | w3a Critical binding test |
+| R03 | `LOCAL_PILOTE_ACTOR` on all writes | source + w3a |
+| R04 | No auto-grant agent_selection · Critical → `AGENT_CONFIRMATION_REQUIRED` at select when authorized | code + Critical reserve R11 |
+| R05 | No `F3_AGENT_ID` · registry selects `agt:w3a-product-fixture` | w3a test A |
+| R06 | Phased select/start/record · UI orchestrates | w3a R06 + TrajectorySurface |
+| R07 | Terminal label `TERMINAL TECHNIQUE — RÉSULTAT PRODUIT NON ENCORE QUALIFIÉ` | w3a + UI |
+| R08 | Start/record failures preserve attempt projection | types + start error path |
+| R09 | Integration Vitest product path · Playwright **NOT RUN** (reserve) | reserve |
+| R10 | doc11/roadmap updated · no new GO Morris | docs diff |
+| R11 | Critical genericity **OPEN** macro W3 | explicit |
+| R12 | Recovery **OPEN** W3-C | preserved |
+| R13 | Hostile payloads removed from UI execute call | TrajectorySurface |
 
-## R-DOC-05 problem
+## Source-of-Execution-Envelope (final)
 
-Two legacy candidate-state wordings in Figma Design Brief contradicted Cycle 4 Morris validation already stated elsewhere in the document.
+| Field | Source | Value (canonical W2→W3) |
+|---|---|---|
+| action | `deriveW3AExecutionEnvelope` from selected option kind | `product:governed-execution` |
+| target | product completion scope | `sfia-studio/product-completion` |
+| scope | stable W3-A canonical scope + intent in inputs | `w3:governed-execute:studio-canonical` |
+| requiredCapabilities | product fixture agent match | `cap:product-governed-execution` |
+| requiredAuthority | cycle profile policy | Standard→N2 · Critical→N3 |
+| decisionRefs | HumanDecision when applicable | `[decisionId]` on W2 path |
+| reversibility | `HumanDecision.reversible` | reversible when HD reversible |
+| stopConditions | DecisionBasis + product policy | no F3 stops |
+| evidenceRequirements | product contract | `evreq:product-governed-execution` |
+| expectedOutputs | DecisionBasis.expectedOutcome / option label | derived |
 
-## Forbidden interpretations BEFORE (complete)
+## FC-08 preparation (no new durable owner)
 
-```markdown
-## Forbidden interpretations
+New **application-only** modules (non-durable DTO/composition):
+- `w2/w3aProductExecutionSemantics.ts`
+- `w2/prepareExecutionContractFromW2Decision.ts`
 
-No tech arch · no stack · no backlog · no delivery · no 6th business surface · no Blocked lifecycle column · no silent disabled · no AI-central UI · no design validation claim
-```
+Durable SoT remains **ExecutionContract** via existing `buildExecutionContract` + `validateExecutionContract`.
 
-## Forbidden interpretations AFTER (complete)
+## F3 canonical removal
 
-```markdown
-## Forbidden interpretations
+- `/studio` TrajectorySurface uses `w2PrepareExecutionContractAction` (not `projectAssistantPrepareResolvedM3Action`)
+- `fixtureSafeM3ResolutionProfile` untouched (HARVEST/FREEZE legacy)
+- `assertNotF3FixtureSemantics` fail-closed guard
 
-No tech arch · no stack · no backlog · no delivery · no 6th business surface · no Blocked lifecycle column · no silent disabled · no AI-central UI · no claim that tokens, branding, accessibility, or runtime are validated
-```
+## decisionRefs alignment
 
-## Open Morris decisions BEFORE (complete)
+- Domain invariant: `decisionRefs` array required but **0..n** (removed `length >= 1`)
+- `confirmExecutionContract`: removed mandatory `decisionRefs.length >= 1`
+- Test: contract with `decisionRefs: []` builds successfully
 
-```markdown
-## Open Morris decisions
+## Fake/Real
 
-Accessibility target · design tokens final · branding · FQ02–FQ05 · visual validation of this candidate
-```
+| | |
+|---|---|
+| applicable | OUI |
+| fake | TestExecutionAdapter `adp:f3-test-fixture` · `externalEffects=false` |
+| agent | `agt:w3a-product-fixture` contract-shaped |
+| REAL | OUT |
+| claim | DETERMINISTIC PARTIAL — integration Vitest PASS · browser E2E reserve |
 
-## Open Morris decisions AFTER (complete)
+## Proof Matrix A→R
 
-```markdown
-## Open Morris decisions
+| Line | Result | File |
+|---|---|---|
+| A Native EC no F3 | PASS | w3aGovernedExecute.test.ts |
+| B Contract-bound cycle | PASS | w3a Critical binding |
+| C Fresh inspect/auth | PASS | w3a A,C,D |
+| D No implicit Confirmation | PASS | w3a D |
+| E Registry agent selection | PASS | w3a A (W3A agent) |
+| F TestExecutionAdapter only | PASS | w3a I |
+| G accepted visible | PASS | w3a R06 |
+| H running visible | PASS | w3a R06 |
+| I terminal technical | PASS | w3a R06 + label |
+| J replay no double launch | PASS | w3a F |
+| K blocked no launch | PASS | w3a B |
+| L no cycle/project close | PASS | w3a G |
+| M no product SUCCESS/STOP | PASS | w3a A label |
+| N durable Attempt on error | PASS | start/record error types |
+| O ZERO REAL | PASS | w3a I |
+| P no parallel architecture | PASS | no new aggregate |
+| Q W1/W2 preserved | PASS | W2 tests untouched |
+| R C6 not reopened | PASS | OA aggregate kept |
 
-Accessibility target · design tokens final · branding · FQ02–FQ05
-```
-
-## Current status line (unchanged)
-
-```markdown
-- **Current status :** VALIDATED BY MORRIS AS CYCLE 4 DESIGN REFERENCE — tokens/branding/WCAG/runtime remain NOT VALIDATED.
-```
-
-## Diff (complete / useful)
-
-```diff
- ## Forbidden interpretations
-
--No tech arch · no stack · no backlog · no delivery · no 6th business surface · no Blocked lifecycle column · no silent disabled · no AI-central UI · no design validation claim
-+No tech arch · no stack · no backlog · no delivery · no 6th business surface · no Blocked lifecycle column · no silent disabled · no AI-central UI · no claim that tokens, branding, accessibility, or runtime are validated
-
- ## Open Morris decisions
-
--Accessibility target · design tokens final · branding · FQ02–FQ05 · visual validation of this candidate
-+Accessibility target · design tokens final · branding · FQ02–FQ05
-```
-
-## Legacy wording search
-
-| Search | Result |
-|--------|--------|
-| `no design validation claim` | no matches |
-| `visual validation of this candidate` | no matches |
-
-**Result:** PASS
-
-## Cycle 4 validated reference preserved
-
-**YES** — `VALIDATED BY MORRIS AS CYCLE 4 DESIGN REFERENCE` occurrences unchanged (header, validation Morris, source-of-truth, current status).
-
-## OPEN / NOT VALIDATED preserved
-
-| Item | Status |
-|------|--------|
-| Candidate tokens (NOT VALIDATED) | present |
-| Target contractuel OPEN | present |
-| Accessibility target · design tokens final · branding · FQ02–FQ05 | present |
-| tokens/branding/WCAG/runtime remain NOT VALIDATED | present |
-| Tokens final | **OPEN** |
-| Accessibility target | **OPEN** |
-| Branding | **OPEN** |
-| FQ02–FQ05 | **OPEN** |
-| Runtime validation | **NOT VALIDATED** |
-
-## Commit
-
-| Item | Value |
-|------|-------|
-| File modified | `projects/sfia-task-manager/03-design/2026-08-20-figma-design-brief.md` |
-| Sections modified | Forbidden interpretations · Open Morris decisions only |
-| Other sections/files | **NONE** |
-| SHA | `139f45fd019aa0561bfb5c6b7a7bd1c748f570b4` |
-| Message | `docs(sfia-task-manager): align Cycle 4 design validation state` |
-| Files in commit | **1** |
-
-## Push + PR #407 after push
-
-| Item | Value |
-|------|-------|
-| Project push | **YES** |
-| Remote branch SHA after | `139f45fd019aa0561bfb5c6b7a7bd1c748f570b4` |
-| PR #407 | https://github.com/mcleland147/sfia-workspace/pull/407 |
-| PR state | **OPEN** |
-| PR draft | **false** |
-| PR head after | `139f45fd019aa0561bfb5c6b7a7bd1c748f570b4` |
-| PR commits | **6** (was 5) |
-| PR changed files | **5** |
-| Unexpected files | **NONE** |
-| PR title modified | **NO** |
-| PR body modified | **NO** |
-
-PR metadata body was not modified because Morris GO authorized R-DOC-05 document correction + same-branch push, not PR metadata editing.
-
-PR body dynamic commit-count consistency: **TO BE REVIEWED BY CHATGPT AFTER PUSH**
-
-## PR changed files (exact)
+## Tests executed
 
 ```
-projects/sfia-task-manager/03-design/2026-08-20-figma-design-brief.md
-projects/sfia-task-manager/03-design/2026-08-20-figma-review-checklist.md
-projects/sfia-task-manager/03-design/2026-08-20-m1-ux-ui-contract.md
-projects/sfia-task-manager/04-technical-architecture/2026-08-22-m1-technical-architecture.md
-projects/sfia-task-manager/README.md
+npm run typecheck — PASS
+vitest w3aGovernedExecute.test.ts — 12/12 PASS
+vitest trajectorySurface.ui.test.tsx — PASS
+vitest importBoundaries.test.ts — PASS
+Playwright /studio W3-A — NOT RUN (reserve R09)
 ```
 
-## Checks after push
+## Files modified/created
 
-| Check | State |
-|-------|-------|
-| Detect SFIA Studio changes | **pending** |
+**Created:**
+- `w2/prepareExecutionContractFromW2Decision.ts`
+- `w2/w3aProductExecutionSemantics.ts`
+- `w2/governedExecuteAuthorizedContract.ts` (rewritten)
+- `w3aGovernedExecute.test.ts`
+- `lib/vertical-slice-runtime/w3aProductFixtureWiring.ts`
+- `product-completion/11-product-completion-wave-3-delivery-readiness.md`
 
-Pending does not authorize merge.
+**Modified:** TrajectorySurface, w2/actions, w2/types, service.ts, EC invariants, confirmExecutionContract, roadmap, UI tests, importBoundaries, w2Harness
 
-## Governance
+## Debts / reserves
 
-| Item | Status |
-|------|--------|
-| R-DOC-02 | **CLOSED** |
-| R-DOC-03 | **CLOSED** |
-| R-DOC-04 | **CLOSED** |
-| R-DOC-05 | **CLOSED** |
-| Cycle 4 design reference | VALIDATED BY MORRIS (unchanged) |
-| Cycle 5 candidate reference | unchanged |
-| TD-01→TD-12 | **OPEN** |
-| M1 | **NOT READY** |
-| AC | **0/16** |
-| Backlog | **NOT AUTHORIZED / NOT EXECUTED** |
-| Delivery | **NOT AUTHORIZED / NOT EXECUTED** |
-| Implementation | **NOT EXECUTED** |
-| Merge | **NO** |
-| Branch deletion | **NO** |
+- **R09**: Playwright canonical `/studio` Execute happy path not captured this cycle
+- **R11**: Critical canonical execute end-to-end blocked at confirm (R-T-A3-1) — macro W3
+- **R12**: Recovery/retry engine not in W3-A scope
 
 ## Verdict
 
-**R-DOC-05 CLOSED — CYCLE 4 DESIGN VALIDATION STATE ALIGNED — ONE TARGETED DOC COMMIT PUSHED TO PR #407 — READY FOR CHATGPT PR DELTA REVIEW — NO MERGE / NO BRANCH DELETION**
+**W3-A CORRECTION CANDIDATE — PASS WITH RESERVES — READY FOR CHATGPT REVIEW**
 
-Not concluded: READY TO MERGE · MERGED · INTEGRATED ON MAIN · M1 READY · IMPLEMENTATION READY · TOKENS VALIDATED · ACCESSIBILITY VALIDATED · BRANDING VALIDATED · BACKLOG AUTHORIZED · DELIVERY AUTHORIZED
+W3 NOT CLOSED · REAL OUT · C6 CLOSED · no project Git remote mutation.
 
 ## Next gate
 
-**CHATGPT PR DELTA REVIEW → MORRIS MERGE DECISION IF PR REMOTE STATE IS FULLY CONSISTENT**
-
-Instruction ChatGPT: Lire le handoff immuable puis revoir PR #407 sur GitHub : head actuel, delta R-DOC-05, changed files, CI/checks, commentaires et cohérence du body PR avec le nouvel historique à 6 commits. Ne pas proposer GO merge avant cette revue distante.
+ChatGPT must relire ce handoff immuable et vérifier Option 4, FC-08 mapping, absence F3 overwrite, Proof Matrix, réserves R09/R11/R12, Git final. Ne pas proposer gate Git projet si handoff incomplet.
