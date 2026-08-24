@@ -11,7 +11,10 @@ import type {
   AuthorityResolverPort,
   VerifyAuthorityResult,
 } from "@/lib/oa/decision";
-import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import {
+  isExecutionReadyStatus,
+  type ExecutionContract,
+} from "@/lib/oa/execution-contract";
 import type { ActorReference, AuthorityClass, ProvenanceRecord } from "../domain/types";
 
 export function newCorrelationId(): string {
@@ -91,6 +94,9 @@ export function contractGateDetail(
   | null {
   if (contract.status === "cancelled") return "EXECUTION_CONTRACT_CANCELLED";
   if (contract.status === "superseded") return "EXECUTION_CONTRACT_SUPERSEDED";
-  if (contract.status !== "confirmed") return "EXECUTION_CONTRACT_NOT_CONFIRMED";
+  // N1 validated is Execute-ready only with CONFIRMATION_EVALUATED:NOT_REQUIRED (R16).
+  if (!isExecutionReadyStatus(contract)) {
+    return "EXECUTION_CONTRACT_NOT_CONFIRMED";
+  }
   return null;
 }

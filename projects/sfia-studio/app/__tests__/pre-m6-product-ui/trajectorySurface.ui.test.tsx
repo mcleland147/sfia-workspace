@@ -9,12 +9,20 @@ const {
   inspectMock,
   authorizeMock,
   amendMock,
+  prepareContractMock,
+  executeSelectMock,
+  executeStartMock,
+  executeCompleteMock,
 } = vi.hoisted(() => ({
   proposeMock: vi.fn(),
   decideMock: vi.fn(),
   inspectMock: vi.fn(),
   authorizeMock: vi.fn(),
   amendMock: vi.fn(),
+  prepareContractMock: vi.fn(),
+  executeSelectMock: vi.fn(),
+  executeStartMock: vi.fn(),
+  executeCompleteMock: vi.fn(),
 }));
 
 vi.mock("@/features/project-assistant/w2/actions", () => ({
@@ -25,15 +33,19 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
   w2AuthorizeExecutionContractAction: (...args: unknown[]) =>
     authorizeMock(...args),
   w2AmendExecutionContractAction: (...args: unknown[]) => amendMock(...args),
+  w2PrepareExecutionContractAction: (...args: unknown[]) =>
+    prepareContractMock(...args),
+  w2GovernedExecuteSelectAction: (...args: unknown[]) =>
+    executeSelectMock(...args),
+  w2GovernedExecuteStartAction: (...args: unknown[]) =>
+    executeStartMock(...args),
+  w2GovernedExecuteCompleteAction: (...args: unknown[]) =>
+    executeCompleteMock(...args),
   w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
     ok: false,
     code: "UNUSED",
     message: "unused",
   }),
-}));
-
-vi.mock("@/features/project-assistant/actions", () => ({
-  projectAssistantPrepareM3Action: vi.fn(),
 }));
 
 afterEach(() => {
@@ -46,6 +58,10 @@ beforeEach(() => {
   inspectMock.mockReset();
   authorizeMock.mockReset();
   amendMock.mockReset();
+  prepareContractMock.mockReset();
+  executeSelectMock.mockReset();
+  executeStartMock.mockReset();
+  executeCompleteMock.mockReset();
 });
 
 describe("W2 TrajectorySurface", () => {
@@ -192,36 +208,48 @@ describe("W2 TrajectorySurface", () => {
       }),
     );
 
-    const { projectAssistantPrepareM3Action } = await import(
-      "@/features/project-assistant/actions"
-    );
-    vi.mocked(projectAssistantPrepareM3Action).mockResolvedValue({
+    prepareContractMock.mockResolvedValue({
       ok: true,
-      f3: {
-        contract: {
-          executionContractId: "xct:w2-ui",
-          version: 1,
-          status: "confirmation_required",
-          action: "w2:inspect-only",
-          target: "studio",
-          scope: "w2-ui",
-          requiredAuthority: "MORRIS",
-          constraints: ["AUCUNE EXÉCUTION"],
-          stopConditions: ["STOP AVANT EXECUTE"],
-          requiredCapabilities: ["cap:f3-fixture-docs"],
-          reversibility: "reversible",
-          semanticFingerprint: "abc123def456",
-        },
+      decisionId: "dec:w2-ui",
+      f3SemanticOverwrite: false,
+      executionPerformed: false,
+      attemptCreated: false,
+      contract: {
+        executionContractId: "xct:w2-ui",
+        version: 1,
+        status: "confirmation_required",
+        action: "product:generate-temporary-artifact",
+        target: "product:project-workspace",
+        scope: "product:temporary-local-artifact",
+        requiredAuthority: "N1",
+        constraints: [
+          "PRODUCT_GOVERNED",
+          "EFFECT_CLASS:generate-temporary-artifact",
+          "EFFECT_CONFIRMATION_REQUIRED:N1",
+        ],
+        stopConditions: ["EFFECTS_UNRESOLVED"],
+        requiredCapabilities: ["cap:product-temp-artifact"],
+        reversibility: "reversible",
+        semanticFingerprint: "abc123def456",
+        effectClass: "generate-temporary-artifact",
+        effectConfirmationRequired: true,
+        effectConfirmationLevel: "N1",
       },
-    } as never);
+    });
 
+    fireEvent.change(screen.getByTestId("w3a-operation-kind"), {
+      target: { value: "generate-temporary-artifact" },
+    });
     fireEvent.click(screen.getByTestId("w2-prepare-contract"));
     expect(await screen.findByTestId("w2-contract")).toBeVisible();
     expect(screen.getByTestId("w2-contract-action")).toHaveTextContent(
-      "w2:inspect-only",
+      "product:generate-temporary-artifact",
+    );
+    expect(screen.getByTestId("w2-contract-scope")).toHaveTextContent(
+      "product:temporary-local-artifact",
     );
     expect(screen.getByTestId("w2-contract-capabilities")).toHaveTextContent(
-      "cap:f3-fixture-docs",
+      "cap:product-temp-artifact",
     );
     // E3 — Confirmation affordance requires sufficient inspection, not mere presence.
     expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
@@ -456,5 +484,7 @@ describe("W2 TrajectorySurface", () => {
     expect(screen.getByTestId("w2-confirmation-state")).toHaveTextContent(
       "CONFIRMATION REQUISE — MANQUANTE",
     );
+    // W3-A: BLOCKED must not expose Execute CTA.
+    expect(screen.queryByTestId("w3a-governed-execute")).toBeNull();
   });
 });

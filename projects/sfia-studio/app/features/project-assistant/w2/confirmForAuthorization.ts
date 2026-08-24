@@ -1,13 +1,14 @@
 /**
- * W2 Track C — scoped Confirmation captured for authorization, never for
+ * W2 Track C / W3-A — scoped Confirmation captured for authorization, never for
  * execution.
  *
- * Product order enforced: a Confirmation can only be captured after a
- * sufficient inspection of the exact contract version, and only when the
- * contract's required authority actually demands one. A contract whose lifecycle status is `validated` (N1 path) is
- * refused here rather than being made to carry a gratuitous Confirmation.
- * Status is the primary owner; `requiredAuthority === "N1"` remains a
- * secondary fail-closed check.
+ * Product order: Confirmation only after sufficient inspection of the exact
+ * contract version, and only when Validate left status `confirmation_required`
+ * (authority class OR effect-driven Confirmation via EFFECT_CONFIRMATION_REQUIRED).
+ *
+ * Status is the primary owner. `validated` refuses Confirmation (nothing to
+ * confirm). N1 + confirmation_required is allowed when effects require N1
+ * Confirmation independently of requiredAuthority.
  *
  * Nothing in this module executes: it stops at contract status `confirmed`.
  */
@@ -58,17 +59,8 @@ export async function confirmExecutionContractForAuthorization(
     };
   }
 
-  // Status-first: validated is the N1 path — refuse gratuitous confirmation.
+  // Status-first: validated means Validate established Confirmation not required.
   if (contract.status === "validated") {
-    return {
-      ok: false,
-      code: "CONFIRMATION_NOT_REQUIRED",
-      message:
-        "Aucune confirmation n'est requise pour ce contrat — rien à confirmer.",
-    };
-  }
-  // Secondary fail-closed when status is available but authority class is N1.
-  if (contract.requiredAuthority === "N1") {
     return {
       ok: false,
       code: "CONFIRMATION_NOT_REQUIRED",
@@ -88,6 +80,7 @@ export async function confirmExecutionContractForAuthorization(
     };
   }
   // Allow confirm only from confirmation_required (ValidateExecutionContract owner).
+  // Includes N1 + effect-driven Confirmation (C2 §10).
   if (contract.status !== "confirmation_required") {
     return {
       ok: false,
@@ -138,11 +131,25 @@ export async function confirmExecutionContractForAuthorization(
   }
 
   const confirmationId = `cfm:w2:${contract.executionContractId}:v${contract.version}`;
-  const level = contract.requiredAuthority === "N2" ? "N2" : "N3";
+  const level =
+    contract.requiredAuthority === "N1"
+      ? "N1"
+      : contract.requiredAuthority === "N2"
+        ? "N2"
+        : "N3";
+  // Effect-driven Confirmation may request N1 while requiredAuthority is also N1.
+  const effectLevelConstraint = contract.constraints.find((c) =>
+    c.startsWith("EFFECT_CONFIRMATION_REQUIRED:"),
+  );
+  const effectLevel = effectLevelConstraint?.split(":")[1];
+  const confirmationLevel =
+    effectLevel === "N1" || effectLevel === "N2" || effectLevel === "N3"
+      ? effectLevel
+      : level;
 
   const requested = await oa.decisionServices.requestConfirmation.execute({
     confirmationId,
-    level,
+    level: confirmationLevel,
     actionRef: w2ConfirmationActionRef({
       executionContractId: contract.executionContractId,
       contractVersion: contract.version,

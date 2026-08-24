@@ -18,7 +18,10 @@ import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
-import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import {
+  assertUserAmendableExecutionConstraint,
+  type ExecutionContract,
+} from "@/lib/oa/execution-contract";
 import { readContractInspectionState } from "./inspectExecutionContract";
 import type {
   AmendExecutionContractResult,
@@ -43,9 +46,8 @@ function fail(code: string, message: string): W2Failure {
 }
 
 function normalizeConstraint(raw: string): string | null {
-  const trimmed = raw.replace(/\u0000/g, "").trim();
-  if (!trimmed) return null;
-  return trimmed.replace(/\s+/g, " ");
+  const checked = assertUserAmendableExecutionConstraint(raw);
+  return checked.ok ? checked.normalized : null;
 }
 
 function amendmentDigest(
@@ -439,13 +441,18 @@ async function recoverExistingSuccessor(input: {
 export async function amendExecutionContractWithConstraint(
   input: AmendExecutionContractInput,
 ): Promise<AmendExecutionContractResult> {
-  const normalized = normalizeConstraint(input.additionalConstraint);
-  if (!normalized) {
+  const amendable = assertUserAmendableExecutionConstraint(
+    input.additionalConstraint,
+  );
+  if (!amendable.ok) {
     return fail(
-      "CONSTRAINT_EMPTY",
-      "La contrainte d'exécution supplémentaire est vide — amendement refusé.",
+      amendable.message.includes("réservé")
+        ? "CONSTRAINT_SYSTEM_RESERVED"
+        : "CONSTRAINT_EMPTY",
+      amendable.message,
     );
   }
+  const normalized = amendable.normalized;
 
   const priorLoad = await loadContract(input.oa, input.executionContractId);
   if (!priorLoad.ok) return fail(priorLoad.code, priorLoad.message);

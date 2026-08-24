@@ -270,6 +270,17 @@
   background: var(--pm6-warn-tint);
 }
 
+.attempt {
+  border-color: var(--pm6-border-soft);
+  background: var(--pm6-surface);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-2);
+  padding: var(--pm6-space-4);
+  border: 1px solid var(--pm6-border-soft);
+  border-radius: var(--pm6-radius-md, 8px);
+}
+
 .stopNotice {
   margin: 0;
   font-size: 0.78rem;

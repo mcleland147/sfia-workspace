@@ -247,7 +247,7 @@ export type CreateInMemoryExecutionAttemptServicesOptions = {
   executionContractServices: ExecutionContractServices;
   /** Closed descriptor set, or a pre-built immutable registry. */
   agents?: readonly AgentDescriptor[];
-  registry?: MemoryAgentRegistry;
+  registry?: AgentRegistryPort;
   /** Only TestExecutionAdapter | NoOpExecutionAdapter. */
   adapter?: InjectableExecutionAdapter;
   clock?: ClockPort;

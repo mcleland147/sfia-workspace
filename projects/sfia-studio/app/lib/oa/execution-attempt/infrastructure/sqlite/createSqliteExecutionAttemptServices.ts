@@ -55,7 +55,7 @@ export type CreateSqliteExecutionAttemptServicesOptions = {
   executionContractServices: ExecutionContractServices;
   productStore: ProductSqliteHandle;
   agents?: readonly AgentDescriptor[];
-  registry?: MemoryAgentRegistry;
+  registry?: AgentRegistryPort;
   adapter?: InjectableExecutionAdapter;
   clock?: ClockPort;
   audit?: ExecutionAttemptAuditPort;

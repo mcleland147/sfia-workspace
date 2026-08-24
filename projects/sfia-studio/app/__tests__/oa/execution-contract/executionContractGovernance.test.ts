@@ -4,6 +4,11 @@
  */
 import { describe, expect, it } from "vitest";
 import {
+  EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+  hasConfirmationConstraintContradiction,
+  isExecutionReadyStatus,
+} from "@/lib/oa/execution-contract";
+import {
   baseBuildRequest,
   buildStack,
   buildValidatedContract,
@@ -384,6 +389,135 @@ describe("T-A4 ConfirmExecutionContract", () => {
     expect(bad.ok).toBe(false);
     if (bad.ok) return;
     expect(bad.error.detailCode).toBe("VERSION_CONFLICT");
+  });
+});
+
+describe("T-A4 R16 reserved Confirmation semantics", () => {
+  it("isExecutionReadyStatus rejects confirmed when contradictory markers present", () => {
+    expect(
+      isExecutionReadyStatus({
+        status: "confirmed",
+        requiredAuthority: "N1",
+        constraints: [
+          EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+          "EFFECT_CONFIRMATION_REQUIRED:N1",
+        ],
+      }),
+    ).toBe(false);
+    expect(
+      hasConfirmationConstraintContradiction([
+        EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+        "EFFECT_CONFIRMATION_REQUIRED:N1",
+      ]),
+    ).toBe(true);
+  });
+
+  it("ValidateExecutionContract rejects contradictory Confirmation constraints", async () => {
+    const stack = buildStack();
+    await seedProject(stack.projects);
+    registerN1(stack.decisions.authority);
+    await seedAcceptedDecision(stack);
+
+    const built = await stack.execution.buildExecutionContract.execute(
+      baseBuildRequest({
+        requiredAuthority: "N1",
+        actor: N1_ACTOR,
+        authorityEvidenceId: "evd:n1",
+        constraints: ["test-only-contradiction-setup"],
+      }),
+    );
+    expect(built.ok).toBe(true);
+    if (!built.ok) return;
+    await stack.execution.contracts.save({
+      ...built.contract,
+      constraints: [
+        EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+        "EFFECT_CONFIRMATION_REQUIRED:N1",
+      ],
+    });
+
+    const validated = await stack.execution.validateExecutionContract.execute({
+      executionContractId: built.contract.executionContractId,
+      expectedVersion: built.contract.version,
+      actor: N1_ACTOR,
+    });
+    expect(validated.ok).toBe(false);
+    if (validated.ok) return;
+    expect(validated.error.detailCode).toBe("CONTRACT_INVALID");
+  });
+
+  it("ConfirmExecutionContract rejects contradictory Confirmation constraints", async () => {
+    const stack = buildStack();
+    await seedProject(stack.projects);
+    registerMorris(stack.decisions.authority);
+    await seedAcceptedDecision(stack);
+    await seedStandardCycle(stack);
+
+    const built = await stack.execution.buildExecutionContract.execute(
+      baseBuildRequest({
+        constraints: ["test-only-contradiction-setup"],
+      }),
+    );
+    expect(built.ok).toBe(true);
+    if (!built.ok) return;
+    await stack.execution.contracts.save({
+      ...built.contract,
+      status: "confirmation_required",
+      constraints: [
+        EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+        "EFFECT_CONFIRMATION_REQUIRED:N3",
+      ],
+    });
+
+    const cfmId = await grantConfirmation(stack);
+    const confirmed = await stack.execution.confirmExecutionContract.execute({
+      executionContractId: built.contract.executionContractId,
+      confirmationId: cfmId,
+      expectedVersion: built.contract.version,
+      actor: MORRIS_ACTOR,
+      authorityEvidenceId: "evd:morris-n3",
+    });
+    expect(confirmed.ok).toBe(false);
+    if (confirmed.ok) return;
+    expect(confirmed.error.detailCode).toBe("CONTRACT_INVALID");
+  });
+
+  it("CheckExecutionAuthorization blocks contradictory Confirmation constraints", async () => {
+    const stack = buildStack();
+    await seedProject(stack.projects);
+    registerMorris(stack.decisions.authority);
+    await seedAcceptedDecision(stack);
+    await seedStandardCycle(stack);
+
+    const built = await stack.execution.buildExecutionContract.execute(
+      baseBuildRequest({
+        constraints: ["test-only-contradiction-setup"],
+      }),
+    );
+    expect(built.ok).toBe(true);
+    if (!built.ok) return;
+    await stack.execution.contracts.save({
+      ...built.contract,
+      status: "confirmed",
+      version: built.contract.version + 1,
+      constraints: [
+        EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+        "EFFECT_CONFIRMATION_REQUIRED:N3",
+      ],
+    });
+
+    const authz = await stack.execution.checkExecutionAuthorization.execute({
+      executionContractId: built.contract.executionContractId,
+      action: built.contract.action,
+      target: built.contract.target,
+      scope: built.contract.scope,
+      actor: MORRIS_ACTOR,
+      authorityEvidenceId: "evd:morris-n3",
+    });
+    expect(authz.ok).toBe(false);
+    if (authz.ok) return;
+    expect(authz.authorized).toBe(false);
+    expect(authz.error.detailCode).toBe("CONTRACT_INVALID");
   });
 });
 
