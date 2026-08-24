@@ -7,11 +7,11 @@
 | **Profile** | DOC / CRITICAL |
 | **Milestone** | W3-B STRUCTURAL ARCHITECTURE ADDENDUM |
 | **Base Git** | `origin/main` = `ba7aa2db408b7fd00faf9638da060ce0833b794b` |
-| **Status** | **CANDIDATE** — not ADOPTED · not DECIDED BY MORRIS |
-| **Correction pass** | ARCH-R01…ARCH-R06 documentary correction (ChatGPT CHANGES REQUIRED) |
+| **Status** | **VALIDATED BY MORRIS** — TD-W3B-01…04 ADOPTED — 2026-08-24 |
+| **Correction pass** | ARCH-R01…ARCH-R06 corrected · ChatGPT architecture re-review PASS · REVIEW-CLEAN |
 | **Scope** | **W3B-D01** Contract Result Satisfaction · **W3B-D02** System-governed terminal STOP **only** |
 | **Authority** | Morris = construction/architecture · ChatGPT = review · Cursor = repo-first analysis |
-| **Implementation** | **FORBIDDEN** until Morris validates this addendum |
+| **Implementation** | Architecture **ADOPTED** · Delivery **NOT** restarted automatically · consumption only after DOC12 merge + post-merge truth + separate Delivery requalification |
 
 ---
 
@@ -201,9 +201,9 @@ Unchanged posture: credible but higher parallel-architecture risk. Not preferred
 | Parallel risk | Low | Medium-high | **STOP** |
 | Reversibility | DEV rollback may drop M8; **not** runtime Memory fallback | Harder | Harder |
 
-### 4.5 D01 recommendation (CANDIDATE / RECOMMENDED — not ADOPTED)
+### 4.5 D01 recommendation (VALIDATED / ADOPTED BY MORRIS — Option A · TD-W3B-01)
 
-**Recommend Option A** with ARCH-R01/R02/R06 contracts below.
+**Adopted: Option A** with ARCH-R01/R02/R06 contracts below.
 
 ---
 
@@ -587,9 +587,9 @@ Insufficient alone. **Harvest as guard/reconciliation source feeding S2.**
 
 Unchanged ranking: **S2 best** · S1 possible · S3 alone incomplete. Material correction: S2 must enforce post-running/proven frontier + durable provenance + adapter ACK safety.
 
-### 7.5 D02 recommendation (CANDIDATE / RECOMMENDED — not ADOPTED)
+### 7.5 D02 recommendation (VALIDATED / ADOPTED BY MORRIS — Option S2 · TD-W3B-03/04)
 
-**Recommend Option S2** + **harvest S3** as guard/reconciliation source.
+**Adopted: Option S2** + **harvest S3** as guard/reconciliation source.
 
 | Kind | Representation |
 | --- | --- |
@@ -787,20 +787,28 @@ No invented latency/SLA targets.
 
 ### Backlog note (no mutation this cycle)
 
-Future truth sync (post Morris validation): annotate US-P1-05 / US-P1-06 with enablers W3B-D01 / W3B-D02. **No backlog rewrite now.**
+Future controlled backlog / Roadmap truth sync in a separate authorized cycle: annotate US-P1-05 / US-P1-06 with enablers W3B-D01 / W3B-D02. **No backlog rewrite now.**
 
 ---
 
-## 12. Candidate technical decision register
+## 12. Adopted technical decisions
 
 | ID | Decision | Status |
 | --- | --- | --- |
-| **TD-W3B-01** | Contract-result assessment = adapted ClaimEvaluation + explicit **contract-result subject/mode** + structured EO/ER assessments + **`ClaimEvaluation.status` canonical durable verdict** + **`contractResultVerdict` server-derived projection only** + **explicit mode-specific confirmation authority (no automatic legacy structural→Morris in Contract Result mode)** + Product SQLite durability; generic ClaimEvaluation unchanged outside Contract Result mode (Option A) | **CANDIDATE / RECOMMENDED** |
-| **TD-W3B-02** | EO/ER identity = deterministic immutable EC-version item identity `(semanticFingerprint, kind∈{EO,ER}, ordinal)` + explicit EC/Attempt/RB/Evidence bindings · **no** cross-version semantic matching · no auto-migrate | **CANDIDATE / RECOMMENDED** |
-| **TD-W3B-03** | SYSTEM_GOVERNED_STOP = separate FC-10 use case on same Attempt lifecycle for **post-running / proven execution-frontier** runtime guards · human Cancel distinct · pre-running block ≠ terminal STOP · adapter cancel ACK safety reused | **CANDIDATE / RECOMMENDED** |
-| **TD-W3B-04** | Runtime guard STOP provenance = **mandatory durable server-owned** stop provenance on Attempt substrate · U2/U2b harvest as reconciliation/guard source · **no** Guard aggregate · **no** Stop Engine | **CANDIDATE / RECOMMENDED** |
+| **TD-W3B-01** | Contract-result assessment = adapted ClaimEvaluation + explicit **contract-result subject/mode** + structured EO/ER assessments + **`ClaimEvaluation.status` canonical durable verdict** + **`contractResultVerdict` server-derived projection only** + **explicit mode-specific confirmation authority (no automatic legacy structural→Morris in Contract Result mode)** + Product SQLite durability; generic ClaimEvaluation unchanged outside Contract Result mode (Option A) | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
+| **TD-W3B-02** | EO/ER identity = deterministic immutable EC-version item identity `(semanticFingerprint, kind∈{EO,ER}, ordinal)` + explicit EC/Attempt/RB/Evidence bindings · **no** cross-version semantic matching · no auto-migrate | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
+| **TD-W3B-03** | SYSTEM_GOVERNED_STOP = separate FC-10 use case on same Attempt lifecycle for **post-running / proven execution-frontier** runtime guards · human Cancel distinct · pre-running block ≠ terminal STOP · adapter cancel ACK safety reused | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
+| **TD-W3B-04** | Runtime guard STOP provenance = **mandatory durable server-owned** stop provenance on Attempt substrate · U2/U2b harvest as reconciliation/guard source · **no** Guard aggregate · **no** Stop Engine | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
 
-Never ADOPTED / VALIDATED / DECIDED BY MORRIS in this document.
+### 12.1 Morris decision trace
+
+| Field | Value |
+| --- | --- |
+| **Date** | 2026-08-24 |
+| **Authority** | Morris — SFIA Studio construction / architecture governance |
+| **Decision** | TD-W3B-01…04 **VALIDATED / ADOPTED** for W3-B |
+| **Basis** | ARCH-R01…ARCH-R06 closed for architecture review · ChatGPT architecture re-review PASS · Option A REVIEW-CLEAN · Option S2 REVIEW-CLEAN · C6 remains CLOSED · no parallel Claim Engine · no Stop Engine · Product SQLite KEEP · generic ClaimEvaluation semantics outside Contract Result mode KEEP |
+| **Anti-effects** | Adoption architecture ≠ merge PR #410 · ≠ Delivery restart · ≠ W3-B completion · ≠ W3 completion · ≠ Product Completion completion · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED |
 
 ---
 
@@ -880,12 +888,13 @@ Never ADOPTED / VALIDATED / DECIDED BY MORRIS in this document.
 
 ---
 
-## 16. Morris decisions required
+## 16. Morris decisions / remaining gates
 
-1. Validate or reject **TD-W3B-01…04** (remain CANDIDATE until then).
-2. Confirm Product SQLite M8 ClaimEvaluation durability vs Option B (if still contested).
-3. Confirm Contract Result review policy reference shape at Delivery time (minimal server-owned policy — not broad authority DSL).
-4. Authorize later **Git integration** of this addendum · then W3-B Delivery requalification · **no automatic Delivery restart**.
+1. **TD-W3B-01…04** — **CLOSED** — VALIDATED / ADOPTED BY MORRIS on 2026-08-24.
+2. **Product SQLite / Option A** — resolved by TD-W3B-01 (adapted ClaimEvaluation durable on Product SQLite). Option B not reopened.
+3. **Contract Result review policy reference shape** — remains a bounded Delivery detail to confirm/implement within the adopted architecture (minimal server-owned policy — not broad authority DSL).
+4. **Git integration** — DOC12 currently in Draft PR #410. Merge remains subject to a **distinct Morris GO** (not authorized in this cycle).
+5. **Delivery** — no automatic restart. Post-merge truth + Delivery requalification required before resumption.
 
 ~~Prior open question on accepted→cancelled system STOP as Product STOP~~ — **resolved by ARCH-R03**. No C2/FA rewrite.
 
@@ -893,6 +902,6 @@ Never ADOPTED / VALIDATED / DECIDED BY MORRIS in this document.
 
 ## 17. Final architecture verdict (this document)
 
-**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R06 CORRECTED CANDIDATE READY FOR CHATGPT ARCHITECTURE RE-REVIEW**
+**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R01…ARCH-R06 REVIEW-CLEAN — TD-W3B-01…04 VALIDATED / ADOPTED BY MORRIS**
 
-Not validated · not adopted · TD-W3B-01…04 remain CANDIDATE · W3-B remains STRUCTURALLY BLOCKED until ChatGPT re-review + Morris TD validation and Delivery is separately requalified.
+TD-W3B-01…04 adopted by Morris on 2026-08-24 · C6 remains CLOSED · W3-B Delivery remains blocked pending DOC12 merge, post-merge truth verification and separate Delivery requalification/authorization · no automatic Delivery restart.
