@@ -122,10 +122,18 @@ export function executionContractSemanticMaterial(
   return material;
 }
 
+/** Primitive: fingerprint an already-built semantic material payload. */
+export function computeExecutionContractSemanticMaterialFingerprint(
+  material: ExecutionContractSemanticMaterial,
+): string {
+  const canonical = canonicalizeJson(material);
+  return createHash("sha256").update(canonical, "utf8").digest("hex");
+}
+
 export function computeExecutionContractSemanticFingerprint(
   contract: Parameters<typeof executionContractSemanticMaterial>[0],
 ): string {
-  const material = executionContractSemanticMaterial(contract);
-  const canonical = canonicalizeJson(material);
-  return createHash("sha256").update(canonical, "utf8").digest("hex");
+  return computeExecutionContractSemanticMaterialFingerprint(
+    executionContractSemanticMaterial(contract),
+  );
 }

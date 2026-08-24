@@ -158,7 +158,7 @@ export function projectW3bProductTerminal(input: {
       stopOrigin: input.attempt.stopOrigin ?? null,
       stopCode: input.attempt.stopCode ?? null,
       executionContractId: input.contract.executionContractId,
-      executionContractVersion: input.contract.version,
+      executionContractVersion: input.attempt.executionContractVersion,
     },
     reservations: [...PRODUCT_RESERVATIONS],
     antiClaims: ANTI,
@@ -212,13 +212,14 @@ export function projectW3bProductTerminal(input: {
     ce.contractResultBindings &&
     !contractResultBindingsMatchCurrentFacts({
       bindings: ce.contractResultBindings,
-      contract: input.contract,
       attempt: input.attempt,
       reviewBundle: {
         reviewBundleId: input.reviewBundle.reviewBundleId,
         frozenVersion: input.reviewBundle.frozenVersion,
       },
       evidenceIds: [input.evidence.evidenceId],
+      projectId: input.contract.projectId,
+      cycleInstanceId: input.contract.cycleInstanceId ?? null,
     })
   ) {
     return {
@@ -235,12 +236,19 @@ export function projectW3bProductTerminal(input: {
     ce.status === "pass" &&
     verdict === "PASS"
   ) {
-    const expectedSummary = (input.contract.expectedOutputs ?? []).join(" · ");
+    const boundOutputs =
+      input.attempt.boundExecutionContract?.semanticMaterial.expectedOutputs;
+    const expectedSummary = (boundOutputs ?? input.contract.expectedOutputs ?? []).join(
+      " · ",
+    );
+    const scope =
+      input.attempt.boundExecutionContract?.semanticMaterial.scope ??
+      input.contract.scope;
     return {
       ...base,
       outcome: "SUCCESS",
       businessHeadline: "Succès",
-      businessReason: `Résultat attendu obtenu dans le périmètre « ${input.contract.scope} » : ${expectedSummary}.`,
+      businessReason: `Résultat attendu obtenu dans le périmètre « ${scope} » : ${expectedSummary}.`,
       claimAllowed: true,
       governedBoundary: null,
       evidenceSummary: evidenceSummaryFor("SUCCESS", input.attempt.status),

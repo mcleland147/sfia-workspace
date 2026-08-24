@@ -22,6 +22,9 @@ import {
 } from "@/lib/oa/evidence-review/domain/contractResultTypes";
 import { projectContractResultVerdict } from "@/lib/oa/evidence-review/application/contractResultVerdictProjection";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import { executionContractSemanticMaterial, computeExecutionContractSemanticMaterialFingerprint } from "@/lib/oa/execution-contract";
+import { captureBoundExecutionContractSnapshot } from "@/lib/oa/execution-attempt/domain/boundExecutionContract";
+import { isAttemptBoundSnapshotValid } from "@/lib/oa/evidence-review/domain/contractResultTypes";
 import type { Evidence } from "@/lib/oa/evidence-review";
 
 const contract: ExecutionContract = {
@@ -43,6 +46,15 @@ const contract: ExecutionContract = {
   reversibility: "reversible",
   idempotencyKey: "idem:ec:w3b",
   correlationId: "cor:ec:w3b:test",
+};
+
+const semanticMaterial = executionContractSemanticMaterial(contract);
+const boundFingerprint = computeExecutionContractSemanticMaterialFingerprint(semanticMaterial);
+// Align contract fingerprint with material for capture helpers in Option B tests.
+;(contract as { semanticFingerprint?: string }).semanticFingerprint = boundFingerprint;
+const assessmentBase = {
+  semanticMaterial,
+  semanticFingerprint: boundFingerprint,
 };
 
 const frozenSnapshot = {
@@ -90,7 +102,7 @@ const evidence: Evidence = {
 describe("Contract Result evaluation", () => {
   it("recognized operation + applicable facts → EO PASS + ER SATISFIED + status pass", () => {
     const eo = assessExpectedOutputs({
-      contract,
+      ...assessmentBase,
       attempt: {
         attemptId: "xat:w3b:1",
         executionContractId: contract.executionContractId,
@@ -104,7 +116,7 @@ describe("Contract Result evaluation", () => {
       frozenEvidenceSnapshot: frozenSnapshot,
     });
     const er = assessEvidenceRequirements({
-      contract,
+      ...assessmentBase,
       attempt: {
         attemptId: "xat:w3b:1",
         executionContractId: contract.executionContractId,
@@ -131,15 +143,16 @@ describe("Contract Result evaluation", () => {
 
   it("technical succeeded + resultRef + Evidence available + unknown EO text → NOT_PROVEN", () => {
     const eo = assessExpectedOutputs({
-      contract: {
-        ...contract,
+      semanticMaterial: {
+        ...semanticMaterial,
         expectedOutputs: ["Temporary artifact produced"],
       },
+      semanticFingerprint: boundFingerprint,
       attempt: {
         attemptId: "xat:w3b:1",
         executionContractId: contract.executionContractId,
         executionContractVersion: 1,
-        executionContractSemanticFingerprint: contract.semanticFingerprint,
+        executionContractSemanticFingerprint: boundFingerprint,
         status: "succeeded",
         resultRef: "res:w3a:abc123",
       },
@@ -151,7 +164,7 @@ describe("Contract Result evaluation", () => {
 
   it("resultRef match alone without server-owned res:w3a shape → NOT_PROVEN", () => {
     const eo = assessExpectedOutputs({
-      contract,
+      ...assessmentBase,
       attempt: {
         attemptId: "xat:w3b:1",
         executionContractId: contract.executionContractId,
@@ -168,7 +181,7 @@ describe("Contract Result evaluation", () => {
 
   it("Evidence available alone without frozen snapshot → ER NOT_PROVEN", () => {
     const er = assessEvidenceRequirements({
-      contract,
+      ...assessmentBase,
       attempt: {
         attemptId: "xat:w3b:1",
         executionContractId: contract.executionContractId,
@@ -183,30 +196,39 @@ describe("Contract Result evaluation", () => {
     expect(er[0]?.result).toBe("NOT_PROVEN");
   });
 
-  it("immutable binding accepts lifecycle version drift when fingerprint matches", () => {
+  it("bound snapshot validates without consulting latest EC version", () => {
+    const snap = captureBoundExecutionContractSnapshot({
+      ...contract,
+      version: 3,
+      semanticFingerprint: boundFingerprint,
+    });
+    const attempt = {
+      executionContractId: contract.executionContractId,
+      executionContractVersion: 3,
+      executionContractSemanticFingerprint: boundFingerprint,
+      boundExecutionContract: snap,
+    };
+    expect(isAttemptBoundSnapshotValid(attempt)).toBe(true);
     expect(
-      isAttemptContractImmutablyBound({
-        contract: {
-          executionContractId: contract.executionContractId,
-          semanticFingerprint: contract.semanticFingerprint,
-        },
-        attempt: {
-          executionContractId: contract.executionContractId,
-          executionContractVersion: 3,
-          executionContractSemanticFingerprint: contract.semanticFingerprint,
+      isAttemptBoundSnapshotValid({
+        ...attempt,
+        boundExecutionContract: {
+          ...snap,
+          semanticFingerprint: "deadbeef",
         },
       }),
-    ).toBe(true);
+    ).toBe(false);
     expect(
       isAttemptContractImmutablyBound({
         contract: {
           executionContractId: contract.executionContractId,
-          semanticFingerprint: "fp:other",
+          semanticFingerprint: boundFingerprint,
         },
         attempt: {
           executionContractId: contract.executionContractId,
           executionContractVersion: 3,
-          executionContractSemanticFingerprint: contract.semanticFingerprint,
+          executionContractSemanticFingerprint: boundFingerprint,
+          // missing snapshot → not immutably bound for Contract Result
         },
       }),
     ).toBe(false);
@@ -214,7 +236,7 @@ describe("Contract Result evaluation", () => {
 
   it("failed attempt → fail / NOT_PROVEN verdict projection", () => {
     const eo = assessExpectedOutputs({
-      contract,
+      ...assessmentBase,
       attempt: {
         attemptId: "xat:w3b:1",
         executionContractId: contract.executionContractId,

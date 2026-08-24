@@ -22,6 +22,8 @@ import {
 } from "@/lib/oa/evidence-review/application/contractResultSemanticEvaluator";
 import { CLAIM_EVALUATION_SCHEMA_VERSION } from "@/lib/oa/evidence-review/domain/claimEvaluationTypes";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import { executionContractSemanticMaterial, computeExecutionContractSemanticMaterialFingerprint } from "@/lib/oa/execution-contract";
+import { captureBoundExecutionContractSnapshot } from "@/lib/oa/execution-attempt/domain/boundExecutionContract";
 import type { Evidence } from "@/lib/oa/evidence-review";
 
 const baseContract: ExecutionContract = {
@@ -44,6 +46,10 @@ const baseContract: ExecutionContract = {
   idempotencyKey: "idem:ec:pass2",
   correlationId: "cor:ec:pass2",
 };
+
+const semanticMaterial = executionContractSemanticMaterial(baseContract);
+const boundFingerprint = computeExecutionContractSemanticMaterialFingerprint(semanticMaterial);
+;(baseContract as { semanticFingerprint?: string }).semanticFingerprint = boundFingerprint;
 
 const goodEvidence: Evidence = {
   schemaVersion: "0.2.0-oa",
@@ -76,6 +82,30 @@ const goodEvidence: Evidence = {
   technicalResultRef: "res:w3a:abc1234567890ab",
 };
 
+function makeAttempt(overrides: Record<string, unknown> = {}) {
+  const snap = captureBoundExecutionContractSnapshot({
+    ...baseContract,
+    version: Number(overrides.executionContractVersion ?? 3),
+    semanticFingerprint: boundFingerprint,
+  });
+  const bound =
+    overrides.boundExecutionContract === null
+      ? undefined
+      : ((overrides.boundExecutionContract as typeof snap | undefined) ?? snap);
+  const { boundExecutionContract: _ignored, ...rest } = overrides;
+  return {
+    attemptId: "xat:w3b:1",
+    executionContractId: baseContract.executionContractId,
+    executionContractVersion: 3,
+    executionContractSemanticFingerprint: boundFingerprint,
+    status: "succeeded",
+    resultRef: "res:w3a:abc1234567890ab",
+    ...rest,
+    boundExecutionContract: bound,
+  };
+}
+
+
 describe("W3-B correction pass 2", () => {
   it("C09 — stale Evidence cannot satisfy ER", () => {
     expect(
@@ -90,15 +120,9 @@ describe("W3-B correction pass 2", () => {
       }),
     ).toBe(false);
     const er = assessEvidenceRequirements({
-      contract: baseContract,
-      attempt: {
-        attemptId: "xat:w3b:1",
-        executionContractId: baseContract.executionContractId,
-        executionContractVersion: 3,
-        executionContractSemanticFingerprint: baseContract.semanticFingerprint,
-        status: "succeeded",
-        resultRef: "res:w3a:abc1234567890ab",
-      },
+      semanticMaterial,
+      semanticFingerprint: boundFingerprint,
+      attempt: makeAttempt(),
       evidence: { ...goodEvidence, status: "stale", freshness: "stale" },
       evaluatedAt: "2026-08-24T00:00:00.000Z",
       frozenEvidenceSnapshot: {
@@ -128,14 +152,26 @@ describe("W3-B correction pass 2", () => {
       idempotencyKey: "idem:ce:unknown",
       actor: { actorId: "actor:a", role: "project_owner" },
       contract: { ...baseContract, action: "product:unknown-action" },
-      attempt: {
-        attemptId: "xat:w3b:1",
-        executionContractId: baseContract.executionContractId,
-        executionContractVersion: 3,
-        executionContractSemanticFingerprint: baseContract.semanticFingerprint,
-        status: "succeeded",
-        resultRef: "res:w3a:abc1234567890ab",
-      },
+      attempt: makeAttempt({
+        boundExecutionContract: captureBoundExecutionContractSnapshot({
+          ...baseContract,
+          version: 3,
+          action: "product:unknown-action",
+          semanticFingerprint: computeExecutionContractSemanticMaterialFingerprint(
+            executionContractSemanticMaterial({
+              ...baseContract,
+              action: "product:unknown-action",
+            }),
+          ),
+        }),
+        executionContractSemanticFingerprint:
+          computeExecutionContractSemanticMaterialFingerprint(
+            executionContractSemanticMaterial({
+              ...baseContract,
+              action: "product:unknown-action",
+            }),
+          ),
+      }),
       evidence: goodEvidence,
       reviewBundle: {
         schemaVersion: "0.2.0-oa",
@@ -205,10 +241,20 @@ describe("W3-B correction pass 2", () => {
           version: 1,
           subjectKind: CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
           contractResultReviewPolicyRef: W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
+          contractResultBindings: {
+            projectId: "prj:w3b",
+            executionContractId: baseContract.executionContractId,
+            executionContractVersion: 3,
+            executionContractSemanticFingerprint: boundFingerprint,
+            executionAttemptId: "xat:w3b:1",
+            reviewBundleId: "rb:1",
+            reviewBundleVersion: 2,
+            evidenceRefs: ["ev:w3b:pass2"],
+          },
           expectedOutputAssessments: [
             {
               itemId: buildContractResultItemId({
-                semanticFingerprint: baseContract.semanticFingerprint!,
+                semanticFingerprint: boundFingerprint,
                 itemKind: "EO",
                 ordinal: 0,
               }),
@@ -224,7 +270,7 @@ describe("W3-B correction pass 2", () => {
           evidenceRequirementAssessments: [
             {
               itemId: buildContractResultItemId({
-                semanticFingerprint: baseContract.semanticFingerprint!,
+                semanticFingerprint: boundFingerprint,
                 itemKind: "ER",
                 ordinal: 0,
               }),
@@ -282,6 +328,26 @@ describe("W3-B correction pass 2", () => {
       { nowIso: () => "2026-08-24T00:00:00.000Z" },
       { append: () => {} },
       { newCorrelationId: () => "cor:1", newProvenanceId: () => "prv:2" },
+      {
+        findById: async () =>
+          ({
+            ...makeAttempt(),
+            schemaVersion: "0.2.0-oa",
+            selectedAgentRef: "agt:1",
+            idempotencyKey: "idem:x",
+            correlationId: "cor:x",
+            version: 1,
+            createdAt: "2026-08-24T00:00:00.000Z",
+            provenance: {
+              schemaVersion: "0.1.0-oa",
+              provenanceRecordId: "prv:x",
+              actor: { actorId: "actor:a", role: "project_owner" },
+              source: "execution_adapter",
+              timestamp: "2026-08-24T00:00:00.000Z",
+              correlationId: "cor:x",
+            },
+          }) as never,
+      },
     );
     const result = await confirm.execute({
       claimEvaluationId: "clm:cr:assisted",

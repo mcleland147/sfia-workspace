@@ -2,7 +2,6 @@
  * W3-B ARCH-R02 — bounded server-owned Contract Result semantic evaluator.
  * No NLP, no resultRef-alone PASS, no Evidence-available-alone ER satisfaction.
  */
-import type { ExecutionContract } from "@/lib/oa/execution-contract";
 import type { Evidence, EvidenceStatus, ExecutionAttemptSnapshot } from "../domain/types";
 import type { ReviewBundleEvidenceSnapshot } from "../domain/reviewBundleTypes";
 
@@ -27,17 +26,23 @@ const W3B_USABLE_EVIDENCE_STATUSES = new Set<EvidenceStatus>([
   "verified",
 ]);
 
+/** Positive allowlist — undefined/unknown/stale/aging cannot satisfy ER. */
+const W3B_USABLE_EVIDENCE_FRESHNESS = new Set(["fresh"]);
+
 export type ApplicableContractResultRule =
   | { readonly applicable: true; readonly ruleRef: typeof W3B_TEMP_ARTIFACT_RULE_REF }
   | { readonly applicable: false; readonly ruleRef: null };
 
 export function resolveApplicableContractResultRule(
-  contract: Pick<ExecutionContract, "action" | "requiredCapabilities">,
+  material: Pick<
+    { action: string; requiredCapabilities?: string[] },
+    "action" | "requiredCapabilities"
+  >,
 ): ApplicableContractResultRule {
-  if (contract.action !== W3B_TEMP_ARTIFACT_OPERATION_KEY) {
+  if (material.action !== W3B_TEMP_ARTIFACT_OPERATION_KEY) {
     return { applicable: false, ruleRef: null };
   }
-  if (!contract.requiredCapabilities?.includes(W3B_TEMP_ARTIFACT_CAPABILITY)) {
+  if (!material.requiredCapabilities?.includes(W3B_TEMP_ARTIFACT_CAPABILITY)) {
     return { applicable: false, ruleRef: null };
   }
   return { applicable: true, ruleRef: W3B_TEMP_ARTIFACT_RULE_REF };
@@ -68,7 +73,10 @@ export function isW3bContractResultEvidenceUsable(input: {
   }
   if (evidence.availability !== "available") return false;
   if (!W3B_USABLE_EVIDENCE_STATUSES.has(evidence.status)) return false;
-  if (evidence.freshness === "stale" || evidence.freshness === "unknown") {
+  if (
+    !evidence.freshness ||
+    !W3B_USABLE_EVIDENCE_FRESHNESS.has(evidence.freshness)
+  ) {
     return false;
   }
   return true;

@@ -22,7 +22,7 @@ import { CLAIM_EVALUATION_SCHEMA_VERSION } from "../domain/claimEvaluationTypes"
 import {
   CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
   W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
-  isAttemptContractImmutablyBound,
+  isAttemptBoundSnapshotValid,
 } from "../domain/contractResultTypes";
 import type { ExecutionAttemptSnapshot } from "../domain/types";
 import type { Evidence } from "../domain/types";
@@ -37,6 +37,7 @@ import {
   deriveCanonicalContractResultStatus,
 } from "./contractResultAssessment";
 import { resolveApplicableContractResultRule } from "./contractResultSemanticEvaluator";
+import type { ExecutionContractSemanticMaterial } from "@/lib/oa/execution-contract";
 import {
   assertIdempotencyKey,
   buildProvenance,
@@ -124,20 +125,17 @@ export class EvaluateContractResult {
       if (contract.executionContractId !== attempt.executionContractId) {
         return fail("CLAIM_EVALUATION_INVALID", "contract_attempt_mismatch");
       }
-      if (
-        !isAttemptContractImmutablyBound({
-          contract: {
-            executionContractId: contract.executionContractId,
-            semanticFingerprint: contract.semanticFingerprint,
-          },
-          attempt,
-        })
-      ) {
+
+      const snap = attempt.boundExecutionContract;
+      // Historical Attempt without snapshot → durable NOT_PROVEN (not error).
+      // Corrupt/tampered snapshot → application error.
+      if (snap && !isAttemptBoundSnapshotValid(attempt)) {
         return fail(
           "CLAIM_EVALUATION_INVALID",
-          "contract_attempt_immutable_binding_mismatch",
+          "bound_snapshot_corrupt_or_inconsistent",
         );
       }
+
       if (evidence.bindings.executionAttemptId !== attempt.attemptId) {
         return fail("CLAIM_EVALUATION_INVALID", "evidence_attempt_mismatch");
       }
@@ -164,7 +162,7 @@ export class EvaluateContractResult {
       }
 
       const frozenSnapshot = (reviewBundle.frozenEvidenceSnapshots ?? []).find(
-        (snap) => snap.evidenceId === evidence.evidenceId,
+        (s) => s.evidenceId === evidence.evidenceId,
       );
       if (!frozenSnapshot) {
         return fail(
@@ -179,7 +177,30 @@ export class EvaluateContractResult {
         );
       }
 
-      const applicableRule = resolveApplicableContractResultRule(contract);
+      const missingSnapshot = !snap;
+      // Historical missing snapshot: do NOT reconstruct EO/ER from latest EC.
+      // Use empty assessment lists + durable not_proven.
+      const semanticMaterial = (snap?.semanticMaterial ?? {
+        executionContractId: attempt.executionContractId,
+        projectId:
+          evidence.bindings.projectId ??
+          contract.projectId,
+        action: "",
+        target: "",
+        scope: "",
+        requiredCapabilities: [],
+        requiredAuthority: "N1",
+        constraints: [],
+        stopConditions: [],
+        evidenceRequirements: [],
+        expectedOutputs: [],
+        reversibility: "reversible",
+        idempotencyKey: "",
+      }) as ExecutionContractSemanticMaterial;
+      const boundFingerprint = snap?.semanticFingerprint ?? "";
+      const applicableRule = missingSnapshot
+        ? ({ applicable: false, ruleRef: null } as const)
+        : resolveApplicableContractResultRule(semanticMaterial);
 
       const fingerprint = fingerprintCommand(
         registerFingerprintBody({
@@ -187,11 +208,9 @@ export class EvaluateContractResult {
           idempotencyKey: request.idempotencyKey,
           reviewBundleId: reviewBundle.reviewBundleId,
           executionAttemptId: attempt.attemptId,
-          executionContractId: contract.executionContractId,
+          executionContractId: attempt.executionContractId,
           contractVersion: attempt.executionContractVersion,
-          semanticFingerprint:
-            attempt.executionContractSemanticFingerprint ??
-            contract.semanticFingerprint,
+          semanticFingerprint: boundFingerprint,
           actor: request.actor,
         }),
       );
@@ -216,36 +235,73 @@ export class EvaluateContractResult {
       }
 
       const assessmentInput = {
-        contract: {
-          ...contract,
-          semanticFingerprint: contract.semanticFingerprint ?? "",
-        },
+        semanticMaterial,
+        semanticFingerprint: boundFingerprint || "missing-bound-snapshot",
         attempt,
         evidence,
         evaluatedAt: timestamp,
         frozenEvidenceSnapshot: frozenSnapshot,
       };
-      const expectedOutputAssessments = assessExpectedOutputs(assessmentInput);
-      const evidenceRequirementAssessments =
-        assessEvidenceRequirements(assessmentInput);
-      const status = deriveCanonicalContractResultStatus({
-        attemptStatus: attempt.status,
-        expectedOutputAssessments,
-        evidenceRequirementAssessments,
-      });
+      const expectedOutputAssessments = missingSnapshot
+        ? (semanticMaterial.expectedOutputs ?? []).map((expectation, ordinal) => ({
+            itemId: {
+              semanticFingerprint: "missing-bound-snapshot",
+              itemKind: "EO" as const,
+              ordinal,
+            },
+            expectation,
+            result: "NOT_PROVEN" as const,
+            method: "deterministic" as const,
+            provenance: {
+              evaluatorRef: "w3b-contract-result-assessor",
+              evaluatedAt: timestamp,
+            },
+          }))
+        : assessExpectedOutputs(assessmentInput);
+      const evidenceRequirementAssessments = missingSnapshot
+        ? (semanticMaterial.evidenceRequirements ?? []).map(
+            (requirement, ordinal) => ({
+              itemId: {
+                semanticFingerprint: "missing-bound-snapshot",
+                itemKind: "ER" as const,
+                ordinal,
+              },
+              requirement,
+              result: "NOT_PROVEN" as const,
+              method: "deterministic" as const,
+              provenance: {
+                evaluatorRef: "w3b-contract-result-assessor",
+                evaluatedAt: timestamp,
+              },
+            }),
+          )
+        : assessEvidenceRequirements(assessmentInput);
+
+      // Missing snapshot with empty EO/ER lists: still emit durable not_proven CE.
+      const status = missingSnapshot
+        ? "not_proven"
+        : deriveCanonicalContractResultStatus({
+            attemptStatus: attempt.status,
+            expectedOutputAssessments,
+            evidenceRequirementAssessments,
+          });
 
       const claimEvaluation: ClaimEvaluation = {
         schemaVersion: CLAIM_EVALUATION_SCHEMA_VERSION,
         claimEvaluationId: request.claimEvaluationId,
         claimType: "conformite",
         claimStatement: buildContractResultClaimStatement({
-          contract,
+          executionContractId: attempt.executionContractId,
           attemptStatus: attempt.status,
           status,
           boundContractVersion: attempt.executionContractVersion,
-          notApplicableReason: applicableRule.applicable
-            ? undefined
-            : "no_applicable_contract_result_rule",
+          expectedOutputCount: expectedOutputAssessments.length,
+          evidenceRequirementCount: evidenceRequirementAssessments.length,
+          notApplicableReason: missingSnapshot
+            ? "historical_attempt_missing_bound_snapshot"
+            : applicableRule.applicable
+              ? undefined
+              : "no_applicable_contract_result_rule",
         }),
         criticality: "non_critical",
         evaluationMethod: "deterministic",
@@ -265,21 +321,23 @@ export class EvaluateContractResult {
           source: "review",
           timestamp,
           correlationId,
-          projectId: contract.projectId,
-          cycleInstanceId: contract.cycleInstanceId,
+          projectId: semanticMaterial.projectId || contract.projectId,
+          cycleInstanceId:
+            semanticMaterial.cycleInstanceId ?? contract.cycleInstanceId,
         }),
         version: 1,
         idempotencyKey: request.idempotencyKey,
         subjectKind: CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
         contractResultBindings: {
-          projectId: contract.projectId,
-          cycleInstanceId: contract.cycleInstanceId ?? null,
-          executionContractId: contract.executionContractId,
+          projectId: semanticMaterial.projectId || contract.projectId,
+          cycleInstanceId:
+            (semanticMaterial.cycleInstanceId ??
+              evidence.bindings.cycleInstanceId ??
+              contract.cycleInstanceId) ?? null,
+          executionContractId: attempt.executionContractId,
           executionContractVersion: attempt.executionContractVersion,
           executionContractSemanticFingerprint:
-            attempt.executionContractSemanticFingerprint ??
-            contract.semanticFingerprint ??
-            "",
+            boundFingerprint || "historical-missing-bound-snapshot",
           executionAttemptId: attempt.attemptId,
           reviewBundleId: reviewBundle.reviewBundleId,
           reviewBundleVersion: reviewBundle.frozenVersion,

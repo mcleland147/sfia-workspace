@@ -387,6 +387,7 @@ export function createInMemoryEvidenceReviewServices(
       clock,
       audit,
       ids,
+      attemptReader,
     ),
     rejectClaimEvaluation: new RejectClaimEvaluation(
       claimEvaluationRepository,

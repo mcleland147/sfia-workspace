@@ -1,17 +1,15 @@
 /**
- * TD-W3B-02 + ARCH-R02 — deterministic EO/ER assessment for contract-result mode.
- * Identity: (semanticFingerprint, kind, ordinal). Semantic pass requires known applicable rule.
+ * TD-W3B-02 Option B + ARCH-R02 — deterministic EO/ER assessment for contract-result mode.
+ * Identity: (bound semanticFingerprint, kind, ordinal). Material from Attempt snapshot only.
  */
-import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import type { ExecutionContractSemanticMaterial } from "@/lib/oa/execution-contract";
 import type { Evidence, ExecutionAttemptSnapshot } from "../domain/types";
 import type {
   ContractResultAssessmentProvenance,
   ExpectedOutputAssessment,
   EvidenceRequirementAssessment,
 } from "../domain/contractResultTypes";
-import {
-  buildContractResultItemId,
-} from "../domain/contractResultTypes";
+import { buildContractResultItemId } from "../domain/contractResultTypes";
 import {
   assessTempArtifactEvidenceRequirement,
   assessTempArtifactExpectedOutput,
@@ -19,7 +17,9 @@ import {
 } from "./contractResultSemanticEvaluator";
 
 export type ContractResultAssessmentInput = {
-  readonly contract: ExecutionContract;
+  /** Bound semantic material from Attempt.boundExecutionContract — not latest EC. */
+  readonly semanticMaterial: ExecutionContractSemanticMaterial;
+  readonly semanticFingerprint: string;
   readonly attempt: ExecutionAttemptSnapshot;
   readonly evidence: Evidence;
   readonly evaluatedAt: string;
@@ -46,9 +46,9 @@ function provenance(
 export function assessExpectedOutputs(
   input: ContractResultAssessmentInput,
 ): ExpectedOutputAssessment[] {
-  const fp = input.contract.semanticFingerprint ?? "";
-  const outputs = input.contract.expectedOutputs ?? [];
-  const rule = resolveApplicableContractResultRule(input.contract);
+  const fp = input.semanticFingerprint;
+  const outputs = input.semanticMaterial.expectedOutputs ?? [];
+  const rule = resolveApplicableContractResultRule(input.semanticMaterial);
   const ruleRef = rule.applicable ? rule.ruleRef : undefined;
   const prov = provenance(input, ruleRef);
 
@@ -77,8 +77,8 @@ export function assessExpectedOutputs(
       }),
       expectation,
       result,
-      method: "deterministic",
-      ruleRef,
+      method: "deterministic" as const,
+      ...(ruleRef ? { ruleRef } : {}),
       provenance: prov,
     };
   });
@@ -87,9 +87,9 @@ export function assessExpectedOutputs(
 export function assessEvidenceRequirements(
   input: ContractResultAssessmentInput,
 ): EvidenceRequirementAssessment[] {
-  const fp = input.contract.semanticFingerprint ?? "";
-  const requirements = input.contract.evidenceRequirements ?? [];
-  const rule = resolveApplicableContractResultRule(input.contract);
+  const fp = input.semanticFingerprint;
+  const requirements = input.semanticMaterial.evidenceRequirements ?? [];
+  const rule = resolveApplicableContractResultRule(input.semanticMaterial);
   const ruleRef = rule.applicable ? rule.ruleRef : undefined;
   const prov = provenance(input, ruleRef);
 
@@ -117,8 +117,8 @@ export function assessEvidenceRequirements(
       }),
       requirement,
       result,
-      method: "deterministic",
-      ruleRef,
+      method: "deterministic" as const,
+      ...(ruleRef ? { ruleRef } : {}),
       provenance: prov,
     };
   });
@@ -129,11 +129,15 @@ export function deriveCanonicalContractResultStatus(input: {
   expectedOutputAssessments: readonly ExpectedOutputAssessment[];
   evidenceRequirementAssessments: readonly EvidenceRequirementAssessment[];
 }): "pass" | "fail" | "not_proven" {
-  const allEoPass = input.expectedOutputAssessments.every((a) => a.result === "PASS");
+  const allEoPass = input.expectedOutputAssessments.every(
+    (a) => a.result === "PASS",
+  );
   const allErSatisfied = input.evidenceRequirementAssessments.every(
     (a) => a.result === "SATISFIED",
   );
-  const anyEoFail = input.expectedOutputAssessments.some((a) => a.result === "FAIL");
+  const anyEoFail = input.expectedOutputAssessments.some(
+    (a) => a.result === "FAIL",
+  );
   const anyErNotSatisfied = input.evidenceRequirementAssessments.some(
     (a) => a.result === "NOT_SATISFIED",
   );
@@ -152,21 +156,22 @@ export function deriveCanonicalContractResultStatus(input: {
 }
 
 export function buildContractResultClaimStatement(input: {
-  contract: ExecutionContract;
+  executionContractId: string;
   attemptStatus: string;
   status: "pass" | "fail" | "not_proven";
-  boundContractVersion?: number;
+  boundContractVersion: number;
+  expectedOutputCount?: number;
+  evidenceRequirementCount?: number;
   notApplicableReason?: string;
 }): string {
-  const eoCount = input.contract.expectedOutputs?.length ?? 0;
-  const erCount = input.contract.evidenceRequirements?.length ?? 0;
-  const version = input.boundContractVersion ?? input.contract.version;
+  const eoCount = input.expectedOutputCount ?? 0;
+  const erCount = input.evidenceRequirementCount ?? 0;
   const suffix = input.notApplicableReason
     ? ` — ${input.notApplicableReason}`
     : "";
   return (
-    `Contract result assessment (${input.status}) for EC ${input.contract.executionContractId}` +
-    `@v${version} — attempt ${input.attemptStatus} — EO:${eoCount} ER:${erCount}${suffix}`
+    `Contract result assessment (${input.status}) for EC ${input.executionContractId}` +
+    `@v${input.boundContractVersion} — attempt ${input.attemptStatus} — EO:${eoCount} ER:${erCount}${suffix}`
   );
 }
 

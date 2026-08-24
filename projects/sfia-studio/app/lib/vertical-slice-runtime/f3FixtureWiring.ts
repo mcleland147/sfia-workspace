@@ -90,6 +90,9 @@ export function createAttemptReaderBridge(
         stopObservedAt: attempt.stopObservedAt,
         completedAt: attempt.completedAt,
         selectedAgentRef: attempt.selectedAgentRef,
+        executionContractSemanticFingerprint:
+          attempt.executionContractSemanticFingerprint,
+        boundExecutionContract: attempt.boundExecutionContract,
       };
     },
   };

@@ -22,12 +22,14 @@ import type {
 import {
   CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
   W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
+  isAttemptBoundSnapshotValid,
 } from "../domain/contractResultTypes";
 import { containsForbiddenSecret } from "../domain/invariants";
 import type { EvidenceAuditPort } from "../ports/evidenceAudit";
 import type { ClaimAuthorityPort } from "../ports/claimAuthorityPort";
 import type { ClaimEvaluationRepositoryPort } from "../ports/claimEvaluationRepository";
 import type { EvidenceReaderPort } from "../ports/evidenceReader";
+import type { ExecutionAttemptReaderPort } from "../ports/executionAttemptReader";
 import type { IdGeneratorPort } from "../ports/idGenerator";
 import type { ReviewBundleReaderPort } from "../ports/reviewBundleReader";
 import {
@@ -55,6 +57,7 @@ export class ConfirmClaimEvaluation {
     private readonly clock: ClockPort,
     private readonly audit: EvidenceAuditPort,
     private readonly ids: IdGeneratorPort,
+    private readonly attempts?: ExecutionAttemptReaderPort,
   ) {}
 
   async execute(
@@ -347,18 +350,56 @@ export class ConfirmClaimEvaluation {
             { claimEvaluation: current },
           );
         }
-        const attemptStatus = inferAttemptStatusFromContractResultAssessments(
-          current.expectedOutputAssessments,
-        );
-        const derivedStatus = deriveCanonicalContractResultStatus({
-          attemptStatus,
-          expectedOutputAssessments: current.expectedOutputAssessments,
-          evidenceRequirementAssessments: current.evidenceRequirementAssessments,
-        });
-        if (derivedStatus !== "pass") {
+
+        const bindings = current.contractResultBindings;
+        if (!bindings?.executionAttemptId) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "contract_result_confirm_missing_attempt_binding",
+            { claimEvaluation: current },
+          );
+        }
+        if (!this.attempts) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "contract_result_confirm_attempt_reader_unavailable",
+            { claimEvaluation: current },
+          );
+        }
+        const attempt = await this.attempts.findById(bindings.executionAttemptId);
+        if (!attempt) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "contract_result_confirm_attempt_not_found",
+            { claimEvaluation: current },
+          );
+        }
+        if (!attempt.boundExecutionContract) {
           return fail(
             "CLAIM_EVALUATION_INVALID_STATE",
-            "contract_result_confirm_derived_not_pass",
+            "contract_result_confirm_missing_bound_snapshot",
+            { claimEvaluation: current },
+          );
+        }
+        if (!isAttemptBoundSnapshotValid(attempt)) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "contract_result_confirm_corrupt_bound_snapshot",
+            { claimEvaluation: current },
+          );
+        }
+        if (
+          bindings.executionContractId !== attempt.executionContractId ||
+          bindings.executionContractVersion !==
+            attempt.executionContractVersion ||
+          bindings.executionContractSemanticFingerprint !==
+            attempt.boundExecutionContract.semanticFingerprint ||
+          bindings.reviewBundleId !== current.reviewBundleId ||
+          bindings.reviewBundleVersion !== current.reviewBundleVersion
+        ) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "contract_result_confirm_binding_mismatch",
             { claimEvaluation: current },
           );
         }
@@ -371,9 +412,56 @@ export class ConfirmClaimEvaluation {
             ? ("morris" as const)
             : ("authorized_human" as const);
 
+      const stampedExpectedOutputs = isContractResult
+        ? current.expectedOutputAssessments?.map((assessment) =>
+            assessment.result === "PASS"
+              ? {
+                  ...assessment,
+                  reviewConfirmation: {
+                    confirmedBy: { ...request.actor },
+                    confirmedAt: timestamp,
+                  },
+                }
+              : assessment,
+          )
+        : undefined;
+      const stampedEvidenceRequirements = isContractResult
+        ? current.evidenceRequirementAssessments?.map((assessment) =>
+            assessment.result === "SATISFIED"
+              ? {
+                  ...assessment,
+                  reviewConfirmation: {
+                    confirmedBy: { ...request.actor },
+                    confirmedAt: timestamp,
+                  },
+                }
+              : assessment,
+          )
+        : undefined;
+
+      let contractResultStatus: ClaimEvaluation["status"] = "pass";
+      if (isContractResult) {
+        const attemptStatus = inferAttemptStatusFromContractResultAssessments(
+          stampedExpectedOutputs ?? [],
+        );
+        const derivedStatus = deriveCanonicalContractResultStatus({
+          attemptStatus,
+          expectedOutputAssessments: stampedExpectedOutputs ?? [],
+          evidenceRequirementAssessments: stampedEvidenceRequirements ?? [],
+        });
+        if (derivedStatus !== "pass") {
+          return fail(
+            "CLAIM_EVALUATION_INVALID_STATE",
+            "contract_result_confirm_derived_not_pass",
+            { claimEvaluation: current },
+          );
+        }
+        contractResultStatus = derivedStatus;
+      }
+
       const updated: ClaimEvaluation = {
         ...current,
-        status: "pass",
+        status: isContractResult ? contractResultStatus : "pass",
         providedEvidenceRefs: assessed.provided,
         evidenceAssessments: structuredClone(assessed.assessments),
         confirmedBy: { ...request.actor },
@@ -384,23 +472,8 @@ export class ConfirmClaimEvaluation {
         idempotencyKey: request.idempotencyKey,
         ...(isContractResult
           ? {
-              expectedOutputAssessments: current.expectedOutputAssessments?.map(
-                (assessment) => ({
-                  ...assessment,
-                  reviewConfirmation: {
-                    confirmedBy: { ...request.actor },
-                    confirmedAt: timestamp,
-                  },
-                }),
-              ),
-              evidenceRequirementAssessments:
-                current.evidenceRequirementAssessments?.map((assessment) => ({
-                  ...assessment,
-                  reviewConfirmation: {
-                    confirmedBy: { ...request.actor },
-                    confirmedAt: timestamp,
-                  },
-                })),
+              expectedOutputAssessments: stampedExpectedOutputs,
+              evidenceRequirementAssessments: stampedEvidenceRequirements,
             }
           : {}),
       };

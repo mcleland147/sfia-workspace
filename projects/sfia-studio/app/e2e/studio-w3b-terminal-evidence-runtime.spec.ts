@@ -15,7 +15,7 @@ import {
 
 const CAPTURE_ROOT = path.resolve(
   process.cwd(),
-  "../../../.tmp-sfia-review/runtime-captures/w3-b-correction-2",
+  "../../../.tmp-sfia-review/runtime-captures/w3-b-option-b",
 );
 const MANIFEST = path.join(CAPTURE_ROOT, "manifest.jsonl");
 
@@ -212,7 +212,7 @@ test.describe("W3-B /studio Terminal + Evidence (corrected)", () => {
     fs.writeFileSync(MANIFEST, "");
 
     await openThroughAuthorized(page, "W3-B SUCCESS Evidence");
-    await capture(page, "01-execution-before-claim", {
+    await capture(page, "01-pre-execute", {
       scenario: "SUCCESS",
       productOutcome: null,
       state: "authorized_before_execute",
@@ -261,7 +261,7 @@ test.describe("W3-B /studio Terminal + Evidence (corrected)", () => {
     await expect(page.getByTestId("w3b-technical-status")).toHaveText(
       "succeeded",
     );
-    await capture(page, "03-success-evidence-details", {
+    await capture(page, "03-success-technical-detail", {
       scenario: "SUCCESS",
       ...meta,
       state: "technical_secondary",
@@ -299,7 +299,7 @@ test.describe("W3-B /studio Terminal + Evidence (corrected)", () => {
       // Remount lost client Attempt — re-assert durable IDs via in-session capture.
       await expect(page.getByTestId("project-principal")).toBeVisible();
     }
-    await capture(page, "06-reload-durable-outcome", {
+    await capture(page, "06-reload-success", {
       scenario: "SUCCESS_RELOAD",
       evidenceId: meta.evidenceId,
       reviewBundleId: meta.reviewBundleId,
@@ -327,7 +327,7 @@ test.describe("W3-B /studio Terminal + Evidence (corrected)", () => {
       "EXECUTOR_INSUFFICIENT",
     );
     const meta = await readOutcomeMeta(page);
-    await capture(page, "04-governed-stop-business-first", {
+    await capture(page, "04-system-governed-stop", {
       scenario: "GOVERNED_STOP",
       ...meta,
       adapterBehavior: "governed_stop:EXECUTOR_INSUFFICIENT",
@@ -353,7 +353,7 @@ test.describe("W3-B /studio Terminal + Evidence (corrected)", () => {
       "failed",
     );
     const meta = await readOutcomeMeta(page);
-    await capture(page, "05-adapter-fail-business-first", {
+    await capture(page, "05-adapter-fail", {
       scenario: "ADAPTER_FAIL",
       ...meta,
       adapterBehavior: "adapter_fail",

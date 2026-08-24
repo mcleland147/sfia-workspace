@@ -244,6 +244,24 @@ export type ExecutionAttemptSnapshot = {
   stopObservedAt?: string;
   completedAt?: string;
   selectedAgentRef?: string;
-  /** Immutable EC semantic material bound at Attempt acceptance (TD-W3B-02). */
+  /** Immutable EC semantic fingerprint bound at Attempt acceptance (TD-W3B-02). */
   executionContractSemanticFingerprint?: string;
+  /** TD-W3B-02 Option B — optional historically; required for new Contract Result PASS. */
+  boundExecutionContract?: {
+    executionContractSchemaVersion: string;
+    executionContractVersion: number;
+    semanticFingerprint: string;
+    semanticMaterial: {
+      executionContractId: string;
+      projectId: string;
+      cycleInstanceId?: string;
+      action: string;
+      target: string;
+      scope: string;
+      expectedOutputs?: string[];
+      evidenceRequirements: string[];
+      requiredCapabilities: string[];
+      [key: string]: unknown;
+    };
+  };
 };

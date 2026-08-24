@@ -224,6 +224,8 @@ describe("W3-B contract result correction proofs", () => {
     expect(product.outcome).toBe("UNCLAIMED");
     expect(
       contractResultBindingsMatchCurrentFacts({
+        projectId: "prj:w3b",
+        cycleInstanceId: null,
         bindings: product.claimEvaluationId
           ? {
               projectId: "prj:w3b",
@@ -236,7 +238,6 @@ describe("W3-B contract result correction proofs", () => {
               evidenceRefs: ["ev:1"],
             }
           : ({} as never),
-        contract,
         attempt,
         reviewBundle: { reviewBundleId: "rb:1", frozenVersion: 2 },
         evidenceIds: ["ev:1"],

@@ -218,6 +218,7 @@ export async function materializeW3bProductTerminal(input: {
       executionContractVersion: attempt.executionContractVersion,
       executionContractSemanticFingerprint:
         attempt.executionContractSemanticFingerprint,
+      boundExecutionContract: attempt.boundExecutionContract,
       status: attempt.status,
       resultRef: attempt.resultRef,
       errorRef: attempt.errorRef,

@@ -16,6 +16,10 @@ import {
 } from "@/lib/oa/evidence-review/application/contractResultSemanticEvaluator";
 import { CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT } from "@/lib/oa/evidence-review/domain/contractResultTypes";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import {
+  computeExecutionContractSemanticFingerprint,
+} from "@/lib/oa/execution-contract";
+import { captureBoundExecutionContractSnapshot } from "@/lib/oa/execution-attempt/domain/boundExecutionContract";
 
 const tempDirs: string[] = [];
 
@@ -38,26 +42,35 @@ function tempDb(): string {
   return path.join(dir, "product.sqlite");
 }
 
-const contract: ExecutionContract = {
-  schemaVersion: "0.2.0-oa",
-  executionContractId: "xct:w3b:sqlite",
-  projectId: "prj:w3b:sqlite",
-  version: 2,
-  status: "confirmed",
-  semanticFingerprint: "fp:w3b:sqlite",
-  action: "product:generate-temporary-artifact",
-  target: "product:project-workspace",
-  scope: "product:temporary-local-artifact",
-  requiredAuthority: "N3",
-  constraints: [],
-  stopConditions: [],
-  evidenceRequirements: [W3B_TEMP_ARTIFACT_ER_KEY],
-  expectedOutputs: [W3B_TEMP_ARTIFACT_EO_TEMPLATE],
-  requiredCapabilities: ["cap:product-temp-artifact"],
-  reversibility: "reversible",
-  idempotencyKey: "idem:ec:sqlite",
-  correlationId: "cor:ec:w3b:sqlite",
-};
+function makeContract(): ExecutionContract {
+  const base: ExecutionContract = {
+    schemaVersion: "0.2.0-oa",
+    executionContractId: "xct:w3b:sqlite",
+    projectId: "prj:w3b:sqlite",
+    version: 2,
+    status: "confirmed",
+    semanticFingerprint: "",
+    action: "product:generate-temporary-artifact",
+    target: "product:project-workspace",
+    scope: "product:temporary-local-artifact",
+    requiredAuthority: "N3",
+    constraints: [],
+    stopConditions: [],
+    evidenceRequirements: [W3B_TEMP_ARTIFACT_ER_KEY],
+    expectedOutputs: [W3B_TEMP_ARTIFACT_EO_TEMPLATE],
+    requiredCapabilities: ["cap:product-temp-artifact"],
+    reversibility: "reversible",
+    idempotencyKey: "idem:ec:sqlite",
+    correlationId: "cor:ec:w3b:sqlite",
+  };
+  return {
+    ...base,
+    semanticFingerprint: computeExecutionContractSemanticFingerprint(base),
+  };
+}
+
+const contract = makeContract();
+const boundSnap = captureBoundExecutionContractSnapshot(contract);
 
 describe("Contract Result SQLite durability (M8)", () => {
   it("persists contract-result ClaimEvaluation after create+freeze RB and restores on new store handle", async () => {
@@ -139,6 +152,7 @@ describe("Contract Result SQLite durability (M8)", () => {
         executionContractId: contract.executionContractId,
         executionContractVersion: contract.version,
         executionContractSemanticFingerprint: contract.semanticFingerprint,
+        boundExecutionContract: boundSnap,
         status: "succeeded",
         resultRef: "res:w3a:abc1234567890ab",
       },
@@ -236,6 +250,7 @@ describe("Contract Result SQLite durability (M8)", () => {
         executionContractId: contract.executionContractId,
         executionContractVersion: contract.version,
         executionContractSemanticFingerprint: contract.semanticFingerprint,
+        boundExecutionContract: boundSnap,
         status: "succeeded",
         resultRef: "res:w3a:deadbeef12345678",
       },
