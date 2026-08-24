@@ -1,16 +1,15 @@
-# SFIA Studio — W3-A Targeted Correction — FULL Review Pack
+# SFIA Studio — W3-A Targeted Correction R13/R14/R15/R16 + R09-R — FULL Review Pack
 
 ## 1–12. Identity / Git / Handoff
-
-- **timestamp Europe/Paris**: 2026-08-24T06:58:06.435743+02:00
-- **timestamp UTC**: 2026-08-24T04:58:06Z
-- **repo / workspace**: /Users/morris/Projects/sfia-workspace (remote expected: mcleland147/sfia-workspace)
+- **timestamp Europe/Paris**: 2026-08-24T07:43:16.052097+02:00
+- **timestamp UTC**: 2026-08-24T05:43:16Z
+- **repo / workspace**: /Users/morris/Projects/sfia-workspace
 - **branche**: `delivery/sfia-studio-product-completion-w3-a-governed-execute`
 - **HEAD**: `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed`
 - **origin/main**: `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed`
 - **merge-base**: `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed`
 
-### git status --short (final assembly)
+### git status --short
 ```
  M projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
  M projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringAmend.test.ts
@@ -46,228 +45,102 @@
 ?? projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md
 ```
 
-- **staged initial/final (project)**:
-```
-(empty)
-```
-
-- **input handoff commit**: `1c9c73c7cb20804db9596bcf7a3be544f784f0ee`
-- **input handoff blob**: `e2a9bfc606dab8b9d7e087d34f9b4d5026341885`
-- **preuve vérification input handoff**: expected `e2a9bfc606dab8b9d7e087d34f9b4d5026341885` · actual `e2a9bfc606dab8b9d7e087d34f9b4d5026341885` · **MATCH**
+- **staged**: `(empty)`
+- **input handoff commit**: `c083147add0efbe677e929700564a77ba0f0d023`
+- **input handoff blob**: `581cf91213b905f48f912657cd83cc79dc060d1b`
+- **MATCH**: YES (expected 581cf91213b905f48f912657cd83cc79dc060d1b)
 
 ## 13. Décisions Morris consommées
 
-1. GO MORRIS — W3 DELIVERY — … (scope backlog W3 only · C6 implement-only · REAL OUT · FinOps FREEZE · W4 OUT · runtime v3 NON ADOPTED)
-2. MORRIS DECISION — W3-A R01 — Option 4 / FC-08 Native ExecutionContract Preparation Completion
-3. MORRIS DECISION — W3-A B2/B3 EXECUTION EFFECT GOVERNANCE
+1. GO MORRIS — W3-A TARGETED CORRECTION — CLOSE CHATGPT REVIEW BLOCKERS R13/R14/R15/R16 + REMOVE FIXED R09 PROOF SLEEP — REMAIN WITHIN OPTION 4 + B2/B3 — NO NEW DURABLE STATE / STORE / ENGINE / C6 REOPEN — W3-B DO NOT START — REAL OUT — NO PROJECT GIT MUTATION.
+2. GO MORRIS — W3 DELIVERY (prior)
+3. MORRIS DECISION — W3-A R01 Option 4 (prior)
+4. MORRIS DECISION — W3-A B2/B3 EXECUTION EFFECT GOVERNANCE (prior)
 
-Ces décisions autorisent la correction locale. Elles n’autorisent PAS: commit/push/PR/merge projet · REAL · W3-A CLOSED · W3 CLOSED · W3-B · W4 · FinOps · runtime v3 ADOPTED.
+## 14–16. Sources / Convergence
 
-## 14–15. Sources lues / hiérarchie
-
-**Primary**: C1/C2/UX-UI/FA/C6/backlog Product Completion · W1/W2 closed · décisions W3 · doc11 candidat
-**Complementary**: framing 30–37 (destination) — never overwrite Product Completion
-**Process**: v2.6 / cycle template / routing / operating model
-
-Sources runtime: trajectoryOptions · decideTrajectory · w3aActualExecutionWork · w3aQualifiedExecutionEffects · w3aProductExecutionSemantics · prepareExecutionContractFromW2Decision · governedExecuteAuthorizedContract · w3aProductFixtureWiring · authorize/inspect/confirm · TrajectorySurface · EC/Confirmation/Attempt OA · AgentRegistry · service.ts · tests W2/W3-A/OA/Playwright
-
-## 16. Convergence pre-check
+Primary: Product Completion C1/C2/FA/C6/backlog · W1/W2 closed · doc11 · décisions W3
+Complementary: framing 34/37
+Process: cycle template / routing
 
 | Item | Value |
 |---|---|
 | Capability | V3-F05 + V3-F11 + V3-F12 / US-P1-04 |
-| Milestone | W3-A Governed Execute |
-| W1/W2/C6 | CLOSED / CLOSED / CLOSED implement-only |
-| W3 | Delivery authorized / in progress · W3-A local candidate · NOT CLOSED |
+| Milestone | W3-A Governed Execute — targeted semantic correction |
+| W1/W2/C6 | CLOSED |
+| W3 | IN PROGRESS · W3-A local candidate · NOT CLOSED |
 | REAL / runtime v3 | OUT / NON ADOPTED |
-| KEEP | OA backbone · Product SQLite · EC · Confirmation · authority · AgentRegistry · Attempt · TestExecutionAdapter · /studio |
-| COMPLETE/ADAPT | actual work qualification · FC-08 action/target/scope · FC-09 effect Confirmation · truthful agent matching · R09 observability |
-| FREEZE | C6 · F3 alternate · REAL · FinOps · W4 |
-| Critical path | actual work → QualifiedExecutionEffects → EC → inspect → effect Confirmation → authority → AgentRegistry → accepted → running → terminal |
-| Exit proof | deterministic product-native governed Execute only · NO business SUCCESS · NO W3 closure |
-| Next | W3-B DO NOT START |
+| Next | ChatGPT re-review · W3-B DO NOT START |
 
-## 17. État candidat avant correction
+## 21. Matrice blockers avant/après
 
-Avant ce cycle: W2 decision → qualifyDefaultW3ATemporaryArtifactEffects (fallback universel) → EC.scope depuis selectedOption.intent · validated+N1 = Execute-ready sans Confirmation effets · Playwright assert terminal seulement.
+| ID | Avant | Après |
+|---|---|---|
+| R13 | scopeOut universel (GIT_PUSH…) même pour push | scopeOut cohérent read/sim/temp · jamais interdit scopeIn |
+| R14 | protected → N2 early return (downgrade N3) | max(intrinsic, floor N2) · protected push=N3 |
+| R15 | push via operationKind → EC | high-risk reject PREPARATION_BLOCKED · SC-CAP via read |
+| R16 | validated+N1 universel Execute-ready | needs EXECUTION_CONFIRMATION_EVALUATED:NOT_REQUIRED |
+| R09-R | setTimeout(120) | double rAF only · MutationObserver snaps |
 
-## 18. Fichiers créés / modifiés
+## R13 Scope IN/OUT
+Canonical kinds only. Temp scopeOut includes DURABLE_PROJECT_WRITE/GIT_*/REAL, not TEMP_ARTIFACT. Read forbids mutations, not read itself.
 
-### Created
-- `projects/sfia-studio/app/features/project-assistant/w2/w3aActualExecutionWork.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/w3aQualifiedExecutionEffects.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts`
-- `projects/sfia-studio/app/lib/vertical-slice-runtime/w3aProductFixtureWiring.ts`
-- `projects/sfia-studio/app/__tests__/project-assistant/w3aGovernedExecute.test.ts`
-- `projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts`
-- `projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md`
+## R14 Confirmation matrix
+| Effect | Unprotected | Protected |
+|---|---|---|
+| read | none | N2 |
+| simulate | N1 | N2 |
+| temp weak | N1 | N2 |
+| local-write/commit | N2 | N2 |
+| push/PR/merge/critical-delete/doctrine/baseline | N3 | N3 (no downgrade) |
+| doctrine/baseline authority | N3 + morrisConstructionGateRequired | preserved |
 
-### Modified
-- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx`
-- `projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringAmend.test.ts`
-- `projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts`
-- `projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts`
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.module.css`
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
-- `projects/sfia-studio/app/features/project-assistant/w2/actions.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/types.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/application/attemptSupport.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/application/executionContractStatusWriter.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/index.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts`
-- `projects/sfia-studio/app/lib/oa/execution-contract/application/checkExecutionAuthorization.ts`
-- `projects/sfia-studio/app/lib/oa/execution-contract/application/confirmExecutionContract.ts`
-- `projects/sfia-studio/app/lib/oa/execution-contract/application/validateExecutionContract.ts`
-- `projects/sfia-studio/app/lib/oa/execution-contract/domain/invariants.ts`
-- `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+## R15 High-risk fail-closed
+prepare rejects push/write/commit/PR/merge/delete/doctrine/baseline before EC. Executor insufficiency proven with read EC (fixture lacks cap:product-read).
 
-## 62–67. Validations (executed this cycle)
+## R16 Legacy readiness
+Marker `EXECUTION_CONFIRMATION_EVALUATED:NOT_REQUIRED` (OA domain). isExecutionReadyStatus requires it for validated+N1. StatusWriter uses same helper. Call sites: attemptSupport.contractGateDetail, checkExecutionAuthorization, executionContractStatusWriter.
 
+## R09 no fixed sleep
+TrajectorySurface yieldBrowserPaint = double rAF only (no setTimeout). Playwright MutationObserver snaps: accepted@accepted, running@accepted|running, terminal@accepted|running|terminal.
+
+## Validations
 | Command | Result |
 |---|---|
-| `npx tsc --noEmit` | PASS exit 0 |
-| `npm run lint` | PASS exit 0 · No ESLint warnings or errors |
-| `npm run build` | PASS exit 0 · Next.js 15.5.20 compiled |
-| Vitest targeted (w3a + trajectory UI + preM6 + importBoundaries) | PASS 34 tests |
-| `npx vitest run` (full) | PASS 2014 · skipped 131 (FinOps postgres) · files 212 passed / 13 skipped |
-| Playwright `e2e/studio-w3a-governed-execute-runtime.spec.ts` | PASS 2/2 · positive + blocked · ~8.8s |
+| npx tsc --noEmit | PASS exit 0 |
+| npm run lint | PASS exit 0 |
+| npm run build | PASS exit 0 |
+| npx vitest run (full) | PASS 2019 / skip 131 |
+| Playwright w3a-governed-execute | PASS 2/2 |
 
-## 21. Matrice des quatre blockers avant/après
-
-| Blocker | Avant | Après |
-|---|---|---|
-| 1 Actual work | W2 decision → default temp artifact | explicit `qualifiedOperationKind` → ActualExecutionWork → effects; W2 alone → EFFECTS_UNRESOLVED |
-| 2 Target/scope | EC.scope = W2 option intent | EC.target/scope = product tokens from ActualExecutionWork; intent ≠ scope |
-| 3 Confirmation | N1 ⇒ no Confirmation | effect constraint → confirmation_required even at N1; Pilot confirms; no auto-grant |
-| 4 R09 | assert terminal only | phase-history accepted\|running\|terminal + screenshots 07/08/09 + blocked path |
-
-## 22–27. BLOCKER 1 — Actual execution work
-
-**Source produit exacte**: Pilot selects `qualifiedOperationKind` on TrajectorySurface (`w3a-operation-kind`); server action `w2PrepareExecutionContractAction` passes allowlisted kind to `prepareExecutionContractFromW2Decision` → `buildActualExecutionWork`.
-
-**Où qualifié**: `w3aActualExecutionWork.ts` (application DTO non durable) puis `buildQualifiedExecutionEffects` / `w3aProductExecutionSemantics.ts`.
-
-**Pourquoi non durable**: DTO application-level sous FC-04/Nora; disparaît comme autorité une fois EC matérialisé; pas d’aggregate/table/store.
-
-**Chemin**: product UI kind → ActualExecutionWork → QualifiedExecutionEffects → FC-08 EC durable.
-
-**Preuve W2 alone**: tests w3aGovernedExecute — GOVERNED/BOUNDED without kind → EFFECTS_UNRESOLVED; `qualifyDefaultW3ATemporaryArtifactEffects` fail-closed.
-
-## 28–35. BLOCKER 2 — Actual target/scope
-
-| Field | Value (temp artifact happy path) | Provenance |
-|---|---|---|
-| action | `product:generate-temporary-artifact` | ActualExecutionWork |
-| target | `product:project-workspace` | ActualExecutionWork (project binding also on EC.projectId) |
-| scope IN | `product:temporary-local-artifact` | ActualExecutionWork |
-| scope OUT | documented in work DTO (non-artifact / non-git-write) | ActualExecutionWork |
-| protected | weak local temp boundary | effects envelope |
-
-**selectedOption.intent ≠ EC.scope**: tested; fixture uses same product tokens independently — does not shape prepare.
-
-## 36–44. BLOCKER 3 — Confirmation ≠ requiredAuthority
-
-### effects → requiredAuthority (projection product completion)
-| Effect class | Authority |
-|---|---|
-| read | N1 |
-| simulate | N1 |
-| temporary local artifact (weak) | N1 |
-| local durable write / commit | N2 |
-| push/PR/merge/critical delete/irreversible | N3 |
-| unknown | fail-closed |
-
-### effects → Confirmation requirement
-| Effect | Confirmation |
-|---|---|
-| read | none |
-| simulate | light per policy (projection) |
-| temp artifact weak | **N1 Confirmation required** |
-| commit | N2 Confirmation |
-| push/PR/merge | N3 + gates |
-
-**Mécanique FC-09**: constraint token `EFFECT_CONFIRMATION_REQUIRED:{level}` on EC → `validateExecutionContract` sets status `confirmation_required` even when requiredAuthority=N1 → Pilot `confirmForAuthorization` → then AUTHORIZED path. **No auto-grant**.
-
-**Distinction**: EC/effect Confirmation (A) ≠ Critical agent_selection Confirmation (B / T-A5). A corrected this cycle; B preserved as separate debt/rule.
-
-## 45–56. BLOCKER 4 — R09
-
-- Backend: Select→accepted, Start→running, Record→terminal (w3aGovernedExecute + OA Attempt services)
-- Browser: single CTA Execute; UI paintAttemptPhase + yieldBrowserPaint (2×rAF + 120ms task boundary); `w3a-attempt-phase-history` = `accepted|running|terminal`
-- Screenshots: 07-attempt-accepted · 08-attempt-running · 09-attempt-terminal under runtime captures / Playwright CAPTURE_ROOT
-- BLOCKED: no operation kind → prepare disabled → no Execute → no Attempt
-
-E2E CAPTURE_ROOT declaration: `CAPTURE_ROOT = path.resolve(`
-
-### R09 runtime captures + manifest (authoritative)
-
-Capture root: `.tmp-sfia-review/runtime-captures/w3a-governed-execute-r09/`
-
+## R09 manifest
 ```jsonl
-{"id":"01-studio-home","file":"01-studio-home.png","screen":"TrajectorySurface","state":"after_w2_decision","route":"http://127.0.0.1:3020/studio/projects/prj%3A411fea11-c220-4f45-a957-ec6ed5d095bf","timestamp":"2026-08-24T04:55:08.921Z","sha256":"0427aa0e213873f75693401712473b9bbf09d6b9703558b8ea5f45f11fda259b","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
-{"id":"02-actual-work-qualified","file":"02-actual-work-qualified.png","screen":"TrajectorySurface","state":"actual_work_temp_artifact","route":"http://127.0.0.1:3020/studio/projects/prj%3A411fea11-c220-4f45-a957-ec6ed5d095bf","timestamp":"2026-08-24T04:55:09.051Z","sha256":"3c0b1f9952843c1e10ba3ae1665cb5bb6277f04c9a2fe8b87b100b935755b0b3","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
-{"id":"03-execution-contract-n1-confirm-required","file":"03-execution-contract-n1-confirm-required.png","screen":"TrajectorySurface","state":"ec_prepared_temp_artifact_n1_confirmation_required","route":"http://127.0.0.1:3020/studio/projects/prj%3A411fea11-c220-4f45-a957-ec6ed5d095bf","timestamp":"2026-08-24T04:55:09.325Z","sha256":"555c793c3dbea98de980b2e9386095fed9ba4c6464e7a931a2488517d2ac1c92","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
-{"id":"04-inspected","file":"04-inspected.png","screen":"TrajectorySurface","state":"inspected_confirmation_required","route":"http://127.0.0.1:3020/studio/projects/prj%3A411fea11-c220-4f45-a957-ec6ed5d095bf","timestamp":"2026-08-24T04:55:09.537Z","sha256":"413f00c8149a9adb893e8e893e9c7bb3b2e8f13bd8a4122fee180c248a7a79a4","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
-{"id":"05-confirmed","file":"05-confirmed.png","screen":"TrajectorySurface","state":"effect_confirmation_n1_granted","route":"http://127.0.0.1:3020/studio/projects/prj%3A411fea11-c220-4f45-a957-ec6ed5d095bf","timestamp":"2026-08-24T04:55:09.732Z","sha256":"69a942363446e8ecfd79a6086a66c6ddd6c24b989f87cf3d345b5d8a3e9b51f2","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
-{"id":"06-authorized","file":"06-authorized.png","screen":"TrajectorySurface","state":"authorized_stop_before_execute","route":"http://127.0.0.1:3020/studio/projects/prj%3A411fea11-c220-4f45-a957-ec6ed5d095bf","timestamp":"2026-08-24T04:55:09.944Z","sha256":"616275f462f3e7aa21ff339d065350345bf0e0141b27be4f2803c8c7794d68bc","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
-{"id":"07-attempt-accepted","file":"07-attempt-accepted.png","screen":"TrajectorySurface","state":"accepted","phaseHistory":"accepted","lifecycleAtCapture":"accepted","route":"http://127.0.0.1:3020/studio/projects/prj%3A411fea11-c220-4f45-a957-ec6ed5d095bf","timestamp":"2026-08-24T04:55:10.182Z","sha256":"988b5584b9f8870b594410e686850b0d97a22f591df498d81c0f6de282c6988f","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
-{"id":"08-attempt-running","file":"08-attempt-running.png","screen":"TrajectorySurface","state":"running","phaseHistory":"accepted|running","lifecycleAtCapture":"running","route":"http://127.0.0.1:3020/studio/projects/prj%3A411fea11-c220-4f45-a957-ec6ed5d095bf","timestamp":"2026-08-24T04:55:10.328Z","sha256":"3ef59a710ac73f12fb9411bbdb8723b8450aaf6635c9a7039df310ede5aabb42","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
-{"id":"09-attempt-terminal","file":"09-attempt-terminal.png","screen":"TrajectorySurface","state":"terminal","phaseHistory":"accepted|running|terminal","route":"http://127.0.0.1:3020/studio/projects/prj%3A411fea11-c220-4f45-a957-ec6ed5d095bf","timestamp":"2026-08-24T04:55:10.510Z","sha256":"e3e47f35f7582bde77f8f33cbc0bafda89941a85a2d735759d4a31a1a9af034f","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
-{"id":"10-blocked-no-actual-work","file":"10-blocked-no-actual-work.png","screen":"TrajectorySurface","state":"blocked_no_actual_work_no_execute","route":"http://127.0.0.1:3020/studio/projects/prj%3A901afc40-e8f6-4597-9eb5-c005fd10bab0","timestamp":"2026-08-24T04:55:11.796Z","sha256":"192a0cc042a3a724ea3946b0f75f41336b8755418f01082a761b8a2953ac3100","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
+{"id":"01-studio-home","file":"01-studio-home.png","screen":"TrajectorySurface","state":"after_w2_decision","route":"http://127.0.0.1:3020/studio/projects/prj%3Af997dfd9-885e-4a90-9f50-ea3e270a6194","timestamp":"2026-08-24T05:40:09.311Z","sha256":"f0826da0ed967a61aec8ab64592291f37a70283e462ccfa6a16351e2e6dfc77d","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
+{"id":"02-actual-work-qualified","file":"02-actual-work-qualified.png","screen":"TrajectorySurface","state":"actual_work_temp_artifact","route":"http://127.0.0.1:3020/studio/projects/prj%3Af997dfd9-885e-4a90-9f50-ea3e270a6194","timestamp":"2026-08-24T05:40:09.440Z","sha256":"bc603780636a71cc432a8243ab05ed4d428475b43ecc8b69ec3d3e22129fd475","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
+{"id":"03-execution-contract-n1-confirm-required","file":"03-execution-contract-n1-confirm-required.png","screen":"TrajectorySurface","state":"ec_prepared_temp_artifact_n1_confirmation_required","route":"http://127.0.0.1:3020/studio/projects/prj%3Af997dfd9-885e-4a90-9f50-ea3e270a6194","timestamp":"2026-08-24T05:40:09.665Z","sha256":"806f778adfd6e24a2a056535a822ee1a49435b890d341901b6222dce4872a525","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
+{"id":"04-inspected","file":"04-inspected.png","screen":"TrajectorySurface","state":"inspected_confirmation_required","route":"http://127.0.0.1:3020/studio/projects/prj%3Af997dfd9-885e-4a90-9f50-ea3e270a6194","timestamp":"2026-08-24T05:40:09.858Z","sha256":"70820d748983c56966631b28f9a504418b33d0e68bd0576704a099f29f49b6cd","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
+{"id":"05-confirmed","file":"05-confirmed.png","screen":"TrajectorySurface","state":"effect_confirmation_n1_granted","route":"http://127.0.0.1:3020/studio/projects/prj%3Af997dfd9-885e-4a90-9f50-ea3e270a6194","timestamp":"2026-08-24T05:40:10.059Z","sha256":"36492043b5795348b21cb1148b6903e307f15d56746ceb3b3fd6654a85531bd4","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
+{"id":"06-authorized","file":"06-authorized.png","screen":"TrajectorySurface","state":"authorized_stop_before_execute","route":"http://127.0.0.1:3020/studio/projects/prj%3Af997dfd9-885e-4a90-9f50-ea3e270a6194","timestamp":"2026-08-24T05:40:10.264Z","sha256":"cbeea3ebb421d71959b7466579c11de9f41f1402258aef8585bcc14ea75318fa","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
+{"id":"07-attempt-accepted","file":"07-attempt-accepted.png","screen":"TrajectorySurface","state":"accepted","phaseHistory":"accepted","lifecycleAtCapture":"accepted","route":"http://127.0.0.1:3020/studio/projects/prj%3Af997dfd9-885e-4a90-9f50-ea3e270a6194","timestamp":"2026-08-24T05:40:10.505Z","sha256":"6ab2cae5439ff64f51b825c6ab1718f4a04748c671eb522c1151ee2cf4e16e63","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
+{"id":"08-attempt-running","file":"08-attempt-running.png","screen":"TrajectorySurface","state":"running","phaseHistory":"accepted|running|terminal","lifecycleAtCapture":"terminal","route":"http://127.0.0.1:3020/studio/projects/prj%3Af997dfd9-885e-4a90-9f50-ea3e270a6194","timestamp":"2026-08-24T05:40:10.653Z","sha256":"f83db99875e025196a398fce847bc02b6c24f6f48ed3c8ba1f99470a0e4b17a4","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
+{"id":"09-attempt-terminal","file":"09-attempt-terminal.png","screen":"TrajectorySurface","state":"terminal","phaseHistory":"accepted|running|terminal","phaseSnapsObserved":["accepted@accepted","running@accepted|running","terminal@accepted|running|terminal"],"route":"http://127.0.0.1:3020/studio/projects/prj%3Af997dfd9-885e-4a90-9f50-ea3e270a6194","timestamp":"2026-08-24T05:40:10.804Z","sha256":"2616693c34fff5941a1d3e9bff985f98d567e90e485e256b6830d0158dc2b91f","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
+{"id":"10-blocked-no-actual-work","file":"10-blocked-no-actual-work.png","screen":"TrajectorySurface","state":"blocked_no_actual_work_no_execute","route":"http://127.0.0.1:3020/studio/projects/prj%3Acaf73555-bb10-4e63-9522-9c58d3e69ce5","timestamp":"2026-08-24T05:40:12.049Z","sha256":"a6a998b2159cb77aa256c99e812ded93b1ce18ab99253f7a1422c1cd3dfb2872","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
 ```
 
-Note: `07-attempt-accepted` lifecycleAtCapture=`accepted`; `08-attempt-running` lifecycleAtCapture=`running`; `09` phaseHistory=`accepted|running|terminal`.
+## Fake/Real
+TestExecutionAdapter only · REAL=false · DETERMINISTIC PRODUCT-NATIVE PROVEN CANDIDATE · never READY FOR REAL
 
-## 57. Fake/Real qualification
+## Dettes
+W3-B Evidence/SUCCESS · Critical agent_selection Confirmation · PNG capture 08 may race to terminal lifecycle while MutationObserver proves running@accepted|running
 
-- Fake cognition: OPS1 fake if used by deterministic path
-- Fake external executor: TestExecutionAdapter only · externalEffects=false · real=false
-- Product path: canonical `/studio`
-- Max claim: DETERMINISTIC PRODUCT-NATIVE PROVEN candidate
-- Never: REAL PROVEN · READY FOR REAL · runtime v3 ADOPTED
+## Verdict
+**W3-A TARGETED CORRECTION CANDIDATE — READY FOR CHATGPT RE-REVIEW**
 
-## 58–61. Cycle / decisionRefs / terminal honesty / W1-W2
-
-- CycleInstance required on contract · no missing-cycle Standard fallback
-- decisionRefs 0..n preserved · W2 HD consumed when applicable
-- Terminal technique ≠ Cycle closed ≠ Project archived ≠ Product SUCCESS
-- W1/W2 regressions: preM6 + W2 harness PASS; C6 closed implement-only
-
-## 68. Docs diffs
-
-Updated after proof: `11-product-completion-wave-3-delivery-readiness.md` · `sfia-studio-convergence-roadmap.md` (living local candidate / awaiting ChatGPT review).
-
-## 69. Dettes / réserves
-
-- W3A-D01 terminal ≠ Product SUCCESS → W3-B
-- W3A-D02 Evidence/Review → W3-B+
-- W3A-D03 Critical ack / agent_selection Confirmation distinct — OPEN macro
-- R11 Critical genericity OPEN
-- Phase-history + 120ms paint yield = UI observability for sync adapter (not business latency)
-
-## 70–72. Final Git Truth
-
-- branch `delivery/sfia-studio-product-completion-w3-a-governed-execute` · HEAD `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed` · origin/main `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed` · merge-base `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed`
-- project staged: empty
-- no project commit / push / PR / merge in this cycle
-- L3 handoff publish = sole remote mutation authorized (follows this pack)
-
-## 73. Verdict final
-
-**W3-A TARGETED CORRECTION CANDIDATE — READY FOR CHATGPT REVIEW**
-
-## 74. Next gate
-
+## Next gate
 ChatGPT re-review · W3-B DO NOT START · NO PROJECT GIT MUTATION
 
 ---
-
-# COMPLETE SOURCES — NEW FILES
+# COMPLETE SOURCES — NEW / UNTRACKED PRODUCT FILES
 
 ## COMPLETE SOURCE — `projects/sfia-studio/app/features/project-assistant/w2/w3aActualExecutionWork.ts`
 
@@ -280,8 +153,16 @@ ChatGPT re-review · W3-B DO NOT START · NO PROJECT GIT MUTATION
  *
  * W2 trajectory option = governance context / provenance ONLY.
  * It never selects action, effects, target, scope, or authority.
+ *
+ * Canonical /studio product path (R13/R15): only read / simulate /
+ * generate-temporary-artifact may become ActualExecutionWork.
+ * High-risk kinds remain effect-policy taxonomy only until facts are
+ * product-qualified (no durable ActualExecutionWork SoT).
  */
 
+import {
+  EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+} from "@/lib/oa/execution-contract";
 import type {
   ExecutionEffectClass,
   QualifiedExecutionEffects,
@@ -308,13 +189,22 @@ export const W3A_PRODUCT_SCOPE = {
 export const W3A_PRODUCT_TARGET_WORKSPACE = "product:project-workspace" as const;
 
 /**
- * Explicit Pilot/Nora-qualified operation kinds allowed on the product path.
- * Not a global ActionCatalog — bounded W3-A Product Completion taxonomy only.
+ * Canonical W3-A actual work kinds — facts are product-qualifiable today.
+ * Not a global ActionCatalog.
  */
-export type ActualExecutionOperationKind =
+export type W3ACanonicalActualOperationKind =
   | "read"
   | "simulate"
-  | "generate-temporary-artifact"
+  | "generate-temporary-artifact";
+
+/** @deprecated Use W3ACanonicalActualOperationKind — alias for prepare path. */
+export type ActualExecutionOperationKind = W3ACanonicalActualOperationKind;
+
+/**
+ * Effect-policy taxonomy kinds (authority/Confirmation/reversibility projection).
+ * NOT executable ActualExecutionWork from operationKind alone on /studio.
+ */
+export type EffectPolicyOnlyOperationKind =
   | "local-write"
   | "commit"
   | "push"
@@ -325,8 +215,19 @@ export type ActualExecutionOperationKind =
   | "baseline-promotion";
 
 export type ActualExecutionWork = {
-  readonly operationKind: ActualExecutionOperationKind;
-  readonly effectClass: Exclude<ExecutionEffectClass, "unknown">;
+  readonly operationKind: W3ACanonicalActualOperationKind;
+  readonly effectClass: Exclude<
+    ExecutionEffectClass,
+    | "unknown"
+    | "local-write"
+    | "commit"
+    | "push"
+    | "pull-request"
+    | "merge"
+    | "critical-delete"
+    | "doctrine-change"
+    | "baseline-promotion"
+  >;
   readonly target: string;
   readonly scopeIn: string;
   readonly scopeOut: readonly string[];
@@ -353,40 +254,68 @@ export type ConfirmationRequirementFromEffects =
       readonly reason: string;
     };
 
-const KIND_TO_SCOPE: Record<ActualExecutionOperationKind, string> = {
-  read: W3A_PRODUCT_SCOPE.READ,
-  simulate: W3A_PRODUCT_SCOPE.SIMULATE,
-  "generate-temporary-artifact": W3A_PRODUCT_SCOPE.TEMP_ARTIFACT,
-  "local-write": W3A_PRODUCT_SCOPE.LOCAL_WRITE,
-  commit: W3A_PRODUCT_SCOPE.COMMIT,
-  push: W3A_PRODUCT_SCOPE.PUSH,
-  "pull-request": W3A_PRODUCT_SCOPE.PULL_REQUEST,
-  merge: W3A_PRODUCT_SCOPE.MERGE,
-  "critical-delete": W3A_PRODUCT_SCOPE.CRITICAL_DELETE,
-  "doctrine-change": W3A_PRODUCT_SCOPE.DOCTRINE,
-  "baseline-promotion": W3A_PRODUCT_SCOPE.BASELINE,
-};
+const CANONICAL_KIND_TO_SCOPE: Record<W3ACanonicalActualOperationKind, string> =
+  {
+    read: W3A_PRODUCT_SCOPE.READ,
+    simulate: W3A_PRODUCT_SCOPE.SIMULATE,
+    "generate-temporary-artifact": W3A_PRODUCT_SCOPE.TEMP_ARTIFACT,
+  };
 
-const ALLOWED_KINDS = new Set<string>(Object.keys(KIND_TO_SCOPE));
+const CANONICAL_KINDS = new Set<string>(Object.keys(CANONICAL_KIND_TO_SCOPE));
 
+const HIGH_RISK_POLICY_ONLY_KINDS = new Set<string>([
+  "local-write",
+  "commit",
+  "push",
+  "pull-request",
+  "merge",
+  "critical-delete",
+  "doctrine-change",
+  "baseline-promotion",
+]);
+
+export function isCanonicalW3AActualOperationKind(
+  value: unknown,
+): value is W3ACanonicalActualOperationKind {
+  return typeof value === "string" && CANONICAL_KINDS.has(value);
+}
+
+/** Alias — product prepare path accepts canonical kinds only. */
 export function isActualExecutionOperationKind(
   value: unknown,
-): value is ActualExecutionOperationKind {
-  return typeof value === "string" && ALLOWED_KINDS.has(value);
+): value is W3ACanonicalActualOperationKind {
+  return isCanonicalW3AActualOperationKind(value);
+}
+
+export function isHighRiskPolicyOnlyOperationKind(value: unknown): boolean {
+  return typeof value === "string" && HIGH_RISK_POLICY_ONLY_KINDS.has(value);
+}
+
+type ConfirmationLevel = "N1" | "N2" | "N3";
+
+function confirmationRank(level: ConfirmationLevel | null): number {
+  if (level === null) return 0;
+  if (level === "N1") return 1;
+  if (level === "N2") return 2;
+  return 3;
+}
+
+function maxConfirmationLevel(
+  a: ConfirmationLevel | null,
+  b: ConfirmationLevel | null,
+): ConfirmationLevel | null {
+  return confirmationRank(a) >= confirmationRank(b) ? a : b;
 }
 
 /**
- * C2 §10 — Confirmation derived from effects / protections / reversibility.
- * Independent of requiredAuthority and of cycle profile.
+ * Intrinsic Confirmation from effect class (C2 §10) — before protected floor.
  */
-export function projectConfirmationRequirementFromEffects(input: {
+function intrinsicConfirmationFromEffects(input: {
   readonly effectClass: ExecutionEffectClass;
-  readonly protectedBoundaries: readonly string[];
   readonly rollbackAvailable: boolean;
   readonly weakBoundary: boolean;
 }): ConfirmationRequirementFromEffects | EffectQualificationFailure {
-  const { effectClass, protectedBoundaries, rollbackAvailable, weakBoundary } =
-    input;
+  const { effectClass, rollbackAvailable, weakBoundary } = input;
 
   if (effectClass === "unknown") {
     return {
@@ -402,14 +331,6 @@ export function projectConfirmationRequirementFromEffects(input: {
       required: false,
       level: null,
       reason: "C2 §10.1 lecture seule — aucune Confirmation",
-    };
-  }
-
-  if (protectedBoundaries.length > 0) {
-    return {
-      required: true,
-      level: "N2",
-      reason: "C2 §10.2 protected path — Confirmation N2–N3 (min N2)",
     };
   }
 
@@ -472,11 +393,103 @@ export function projectConfirmationRequirementFromEffects(input: {
 }
 
 /**
- * Build ActualExecutionWork from an explicit Pilot/Nora operation kind +
- * project-bound product facts. Never from W2 trajectory option alone.
+ * C2 §10 — Confirmation from effects / protections / reversibility.
+ * Independent of requiredAuthority and of cycle profile.
+ *
+ * R14: effectiveLevel = max(intrinsicEffectLevel, protectedBoundaryFloor).
+ * Protected boundary is a floor/aggravator (min N2) — never a downgrade.
+ */
+export function projectConfirmationRequirementFromEffects(input: {
+  readonly effectClass: ExecutionEffectClass;
+  readonly protectedBoundaries: readonly string[];
+  readonly rollbackAvailable: boolean;
+  readonly weakBoundary: boolean;
+}): ConfirmationRequirementFromEffects | EffectQualificationFailure {
+  const intrinsic = intrinsicConfirmationFromEffects(input);
+  if ("ok" in intrinsic && intrinsic.ok === false) {
+    return intrinsic;
+  }
+  const base = intrinsic as ConfirmationRequirementFromEffects;
+
+  const protectedFloor: ConfirmationLevel | null =
+    input.protectedBoundaries.length > 0 ? "N2" : null;
+
+  if (!protectedFloor) {
+    return base;
+  }
+
+  const effective = maxConfirmationLevel(
+    base.required ? base.level : null,
+    protectedFloor,
+  );
+  if (!effective) {
+    return base;
+  }
+
+  return {
+    required: true,
+    level: effective,
+    reason:
+      base.required && confirmationRank(base.level) >= confirmationRank(protectedFloor)
+        ? `${base.reason} · protected floor does not downgrade`
+        : `C2 §10.2 protected path floor N2 · effective Confirmation ${effective} (max(intrinsic, floor))`,
+  };
+}
+
+/**
+ * Coherent scope OUT for a canonical operation — never forbids the current
+ * scope IN / action effect (R13).
+ */
+function scopeOutForCanonicalKind(
+  kind: W3ACanonicalActualOperationKind,
+): readonly string[] {
+  const common = ["REAL", "CURSOR_REAL"] as const;
+  switch (kind) {
+    case "read":
+      return [
+        ...common,
+        "DURABLE_PROJECT_WRITE",
+        "LOCAL_WRITE",
+        "TEMPORARY_ARTIFACT_WRITE",
+        "COMMIT",
+        "GIT_PUSH",
+        "GIT_PR",
+        "GIT_MERGE",
+        "DOCTRINE_MUTATION",
+        "BASELINE_PROMOTION",
+      ];
+    case "simulate":
+      return [
+        ...common,
+        "DURABLE_PROJECT_WRITE",
+        "COMMIT",
+        "GIT_PUSH",
+        "GIT_PR",
+        "GIT_MERGE",
+        "DOCTRINE_MUTATION",
+        "BASELINE_PROMOTION",
+      ];
+    case "generate-temporary-artifact":
+      return [
+        ...common,
+        "DURABLE_PROJECT_WRITE",
+        "COMMIT",
+        "GIT_PUSH",
+        "GIT_PR",
+        "GIT_MERGE",
+        "DOCTRINE_MUTATION",
+        "BASELINE_PROMOTION",
+      ];
+  }
+}
+
+/**
+ * Build ActualExecutionWork from an explicit Pilot/Nora canonical operation
+ * kind + project-bound product facts. Never from W2 trajectory alone.
+ * High-risk kinds must not call this — reject at prepare (R15).
  */
 export function buildActualExecutionWork(input: {
-  readonly operationKind: ActualExecutionOperationKind;
+  readonly operationKind: W3ACanonicalActualOperationKind;
   readonly projectId: string;
   readonly projectTitle?: string | null;
   readonly objective?: string | null;
@@ -491,8 +504,27 @@ export function buildActualExecutionWork(input: {
     };
   }
 
+  if (!isCanonicalW3AActualOperationKind(input.operationKind)) {
+    return {
+      ok: false,
+      code: "PREPARATION_BLOCKED",
+      message:
+        "operationKind hors chemin canonique W3-A (read/simulate/temp-artifact).",
+    };
+  }
+
+  if (isHighRiskPolicyOnlyOperationKind(input.operationKind)) {
+    return {
+      ok: false,
+      code: "PREPARATION_BLOCKED",
+      message:
+        "Opération à risque non qualifiable depuis operationKind seul — facts produit requis.",
+    };
+  }
+
   const kind = input.operationKind;
-  const scopeIn = KIND_TO_SCOPE[kind];
+  const scopeIn = CANONICAL_KIND_TO_SCOPE[kind];
+  const scopeOut = scopeOutForCanonicalKind(kind);
   const protectedBoundaries = [...(input.protectedBoundaries ?? [])];
   const weakBoundary =
     protectedBoundaries.length === 0 &&
@@ -500,36 +532,13 @@ export function buildActualExecutionWork(input: {
       kind === "simulate" ||
       kind === "read");
 
-  const rollbackAvailable =
-    kind === "read" ||
-    kind === "simulate" ||
-    kind === "generate-temporary-artifact" ||
-    kind === "local-write" ||
-    kind === "commit" ||
-    kind === "pull-request";
-
+  const rollbackAvailable = true;
   const rollbackDescription =
     kind === "generate-temporary-artifact"
       ? "Cleanup/delete of the temporary local artifact after Attempt terminal."
       : kind === "simulate"
         ? "Discard simulation sandbox state."
-        : kind === "read"
-          ? null
-          : rollbackAvailable
-            ? "Bounded local rollback/revert if applicable."
-            : null;
-
-  const scopeOut = [
-    "REAL",
-    "CURSOR_REAL",
-    "GIT_PUSH",
-    "GIT_PR",
-    "GIT_MERGE",
-    "DOCTRINE_MUTATION",
-    ...(kind === "generate-temporary-artifact"
-      ? ["DURABLE_PROJECT_WRITE", "COMMIT"]
-      : []),
-  ];
+        : null;
 
   return {
     operationKind: kind,
@@ -548,6 +557,7 @@ export function buildActualExecutionWork(input: {
       input.objective ? `objective=${input.objective}` : null,
       "W2 trajectory option is NOT the execution action/scope/target",
       "EC.projectId remains the project binding",
+      `canonicalW3AActualWork=${kind}`,
     ].filter((n): n is string => n !== null),
   };
 }
@@ -560,9 +570,9 @@ export function qualifyEffectsFromActualExecutionWork(input: {
   | { readonly ok: true; readonly effects: QualifiedExecutionEffects }
   | EffectQualificationFailure {
   const { work } = input;
-  const built = buildQualifiedExecutionEffects({
+  return buildQualifiedExecutionEffects({
     effectClass: work.effectClass,
-    projectId: "bound-on-ec", // unused for target — overridden below
+    projectId: "bound-on-ec",
     scopeIn: work.scopeIn,
     scopeOut: work.scopeOut,
     protectedBoundaries: work.protectedBoundaries,
@@ -573,12 +583,12 @@ export function qualifyEffectsFromActualExecutionWork(input: {
     notes: work.notes,
     target: work.target,
   });
-  return built;
 }
 
 /**
  * Constraint token persisted on EC so Validate/FC-09 can reconstruct
  * effect-driven Confirmation without a parallel SoT.
+ * Prefix owned as string convention shared with OA Validate / readiness.
  */
 export const EFFECT_CONFIRMATION_REQUIRED_CONSTRAINT =
   "EFFECT_CONFIRMATION_REQUIRED" as const;
@@ -588,6 +598,10 @@ export function effectConfirmationConstraint(
 ): string {
   return `${EFFECT_CONFIRMATION_REQUIRED_CONSTRAINT}:${level}`;
 }
+
+/** Durable marker when FC-08 evaluated Confirmation and concluded NOT REQUIRED (R16). */
+export const CONFIRMATION_EVALUATED_NOT_REQUIRED_CONSTRAINT =
+  EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED;
 
 export function parseEffectConfirmationConstraint(
   constraints: readonly string[],
@@ -1028,6 +1042,7 @@ export function qualifyDefaultW3ATemporaryArtifactEffects(_input: {
 
 import type { DecisionBasis } from "@/lib/oa/decision";
 import type { AuthorityClass, Reversibility } from "@/lib/oa/execution-contract";
+import { EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED } from "@/lib/oa/execution-contract";
 import {
   BOUNDED_OPTION_REF,
   CLARIFY_OPTION_REF,
@@ -1090,7 +1105,9 @@ function productConstraints(
     "NO_ATTEMPT_AT_PREPARE",
     `IMPLEMENTATION_MARKER:${W3A_IMPLEMENTATION_MARKER}`,
     `EFFECT_CLASS:${effects.effectClass}`,
-    ...(confirmationConstraint ? [confirmationConstraint] : []),
+    ...(confirmationConstraint
+      ? [confirmationConstraint]
+      : [EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED]),
     ...(effects.morrisConstructionGateRequired
       ? ["MORRIS_CONSTRUCTION_GATE_REQUIRED"]
       : []),
@@ -1408,6 +1425,7 @@ import {
 import {
   buildActualExecutionWork,
   isActualExecutionOperationKind,
+  isHighRiskPolicyOnlyOperationKind,
   type ActualExecutionWork,
 } from "./w3aActualExecutionWork";
 import type { QualifiedExecutionEffects } from "./w3aQualifiedExecutionEffects";
@@ -1650,12 +1668,21 @@ export async function prepareExecutionContractFromW2Decision(input: {
 
   let actualWork = undefined;
   if (!input.explicitEffects && !input.forceEffectsUnresolved) {
+    // R15 — high-risk kinds are policy taxonomy only; reject before EC.
+    if (isHighRiskPolicyOnlyOperationKind(input.qualifiedOperationKind)) {
+      return {
+        ok: false,
+        code: "PREPARATION_BLOCKED",
+        message:
+          "Opération à risque non qualifiable depuis operationKind seul — ActualExecutionWork refuse push/write/commit/PR/merge/delete/doctrine/baseline sans facts produit.",
+      };
+    }
     if (!isActualExecutionOperationKind(input.qualifiedOperationKind)) {
       return {
         ok: false,
         code: "EFFECTS_UNRESOLVED",
         message:
-          "Aucun travail d'exécution qualifié (operationKind) — W2 trajectory seule ne sélectionne pas l'action.",
+          "Aucun travail d'exécution qualifié (operationKind) — W2 trajectory seule ne sélectionne pas l'action. Chemin canonique: read | simulate | generate-temporary-artifact.",
       };
     }
     const builtWork = buildActualExecutionWork({
@@ -2514,6 +2541,7 @@ import {
 } from "@/features/project-assistant/w2/w3aProductExecutionSemantics";
 import {
   buildActualExecutionWork,
+  isHighRiskPolicyOnlyOperationKind,
   projectConfirmationRequirementFromEffects,
   W3A_PRODUCT_SCOPE,
   W3A_PRODUCT_TARGET_WORKSPACE,
@@ -2524,6 +2552,10 @@ import {
   projectRequiredAuthorityFromEffects,
   qualifyDefaultW3ATemporaryArtifactEffects,
 } from "@/features/project-assistant/w2/w3aQualifiedExecutionEffects";
+import {
+  EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+  isExecutionReadyStatus,
+} from "@/lib/oa/execution-contract";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
@@ -2646,7 +2678,7 @@ describe("W3-A actual work provenance", () => {
     expect(q.code).toBe("EFFECTS_UNRESOLVED");
   });
 
-  it("actual TEMP_ARTIFACT work → product:generate-temporary-artifact + product scopes", () => {
+  it("actual TEMP_ARTIFACT work → product:generate-temporary-artifact + coherent scope IN/OUT", () => {
     const work = buildActualExecutionWork({
       operationKind: "generate-temporary-artifact",
       projectId: "prj:x",
@@ -2657,6 +2689,12 @@ describe("W3-A actual work provenance", () => {
     const actual = asWork(work);
     expect(actual.scopeIn).toBe(W3A_PRODUCT_SCOPE.TEMP_ARTIFACT);
     expect(actual.target).toBe(W3A_PRODUCT_TARGET_WORKSPACE);
+    expect(actual.scopeOut).toContain("DURABLE_PROJECT_WRITE");
+    expect(actual.scopeOut).toContain("GIT_PUSH");
+    expect(actual.scopeOut).toContain("REAL");
+    // R13 — scopeOut must not forbid the current action/scopeIn effect.
+    expect(actual.scopeOut).not.toContain("TEMPORARY_ARTIFACT");
+    expect(actual.scopeOut).not.toContain(W3A_PRODUCT_SCOPE.TEMP_ARTIFACT);
     const env = deriveW3AExecutionEnvelope({
       projectId: "prj:x",
       decisionId: "dec:x",
@@ -2679,6 +2717,32 @@ describe("W3-A actual work provenance", () => {
     expect(env.envelope.requiredAuthority).toBe("N1");
     expect(env.envelope.effectConfirmationRequired).toBe(true);
     expect(env.envelope.effectConfirmationLevel).toBe("N1");
+    expect(env.envelope.constraints).toContain(
+      "EFFECT_CONFIRMATION_REQUIRED:N1",
+    );
+    expect(env.envelope.constraints).not.toContain(
+      EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+    );
+  });
+
+  it("read scopeOut forbids mutations; never forbids read itself (R13)", () => {
+    const read = asWork(
+      buildActualExecutionWork({
+        operationKind: "read",
+        projectId: "prj:x",
+        qualificationSource: "test",
+      }),
+    );
+    expect(read.scopeIn).toBe(W3A_PRODUCT_SCOPE.READ);
+    expect(read.scopeOut).toContain("GIT_PUSH");
+    expect(read.scopeOut).toContain("DURABLE_PROJECT_WRITE");
+    expect(read.scopeOut).not.toContain("READ");
+    expect(read.scopeOut).not.toContain(W3A_PRODUCT_SCOPE.READ);
+  });
+
+  it("high-risk operationKind is policy-only — not ActualExecutionWork (R15)", () => {
+    expect(isHighRiskPolicyOnlyOperationKind("push")).toBe(true);
+    expect(isHighRiskPolicyOnlyOperationKind("read")).toBe(false);
   });
 
   it("distinct actual operations change action/scope without changing W2 option", () => {
@@ -2783,6 +2847,98 @@ describe("W3-A effects → authority / Confirmation", () => {
         weakBoundary: false,
       }),
     ).toMatchObject({ required: true, level: "N2" });
+  });
+
+  it("R14: protected floor never downgrades N3; protected raises to min N2", () => {
+    for (const effectClass of [
+      "push",
+      "pull-request",
+      "merge",
+      "critical-delete",
+      "doctrine-change",
+      "baseline-promotion",
+    ] as const) {
+      expect(
+        projectConfirmationRequirementFromEffects({
+          effectClass,
+          protectedBoundaries: ["protected:path"],
+          rollbackAvailable: false,
+          weakBoundary: false,
+        }),
+      ).toMatchObject({ required: true, level: "N3" });
+    }
+    expect(
+      projectConfirmationRequirementFromEffects({
+        effectClass: "local-write",
+        protectedBoundaries: ["protected:path"],
+        rollbackAvailable: true,
+        weakBoundary: false,
+      }),
+    ).toMatchObject({ required: true, level: "N2" });
+    expect(
+      projectConfirmationRequirementFromEffects({
+        effectClass: "generate-temporary-artifact",
+        protectedBoundaries: ["protected:path"],
+        rollbackAvailable: true,
+        weakBoundary: true,
+      }),
+    ).toMatchObject({ required: true, level: "N2" });
+    expect(
+      projectConfirmationRequirementFromEffects({
+        effectClass: "read",
+        protectedBoundaries: ["protected:path"],
+        rollbackAvailable: true,
+        weakBoundary: true,
+      }),
+    ).toMatchObject({ required: true, level: "N2" });
+  });
+
+  it("R16 readiness: confirmed true; marked validated/N1 true; legacy unmarked false", () => {
+    expect(
+      isExecutionReadyStatus({
+        status: "confirmed",
+        requiredAuthority: "N1",
+        constraints: [],
+      }),
+    ).toBe(true);
+    expect(
+      isExecutionReadyStatus({
+        status: "validated",
+        requiredAuthority: "N1",
+        constraints: [EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED],
+      }),
+    ).toBe(true);
+    expect(
+      isExecutionReadyStatus({
+        status: "validated",
+        requiredAuthority: "N1",
+        constraints: [],
+      }),
+    ).toBe(false);
+    expect(
+      isExecutionReadyStatus({
+        status: "validated",
+        requiredAuthority: "N2",
+        constraints: [EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED],
+      }),
+    ).toBe(false);
+    expect(
+      isExecutionReadyStatus({
+        status: "validated",
+        requiredAuthority: "N1",
+        constraints: [
+          EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+          "EFFECT_CONFIRMATION_REQUIRED:N1",
+        ],
+      }),
+    ).toBe(false);
+    expect(
+      isExecutionReadyStatus({
+        status: "confirmation_required",
+        requiredAuthority: "N1",
+        constraints: ["EFFECT_CONFIRMATION_REQUIRED:N1"],
+      }),
+    ).toBe(false);
   });
 
   it("HumanDecision.reversible is not an input to execution reversibility", () => {
@@ -2968,7 +3124,7 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
     expect(terminal.realExecution).toBe(false);
   });
 
-  it("read → N1 · Confirmation non requise · status validated", async () => {
+  it("read → N1 · Confirmation NOT_REQUIRED marker · validated · SC-CAP (R15/R16)", async () => {
     const ctx = await decideGoverned("read");
     const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
     const prepared = await prepareExecutionContractFromW2Decision({
@@ -2984,39 +3140,24 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
     expect(prepared.contract.requiredAuthority).toBe("N1");
     expect(prepared.contract.status).toBe("validated");
     expect(prepared.contract.effectConfirmationRequired).toBe(false);
-    // Fixture does not support read → authorize may BLOCK on capability — that is truthful.
+    expect(prepared.contract.constraints).toContain(
+      EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+    );
+    expect(
+      isExecutionReadyStatus({
+        status: prepared.contract.status,
+        requiredAuthority: prepared.contract.requiredAuthority,
+        constraints: prepared.contract.constraints,
+      }),
+    ).toBe(true);
     expect(prepared.contract.action).toBe("product:read");
     expect(prepared.contract.scope).toBe(W3A_PRODUCT_SCOPE.READ);
-  });
-
-  it("unsupported PUSH → N3 · fixture SC-CAP · no Attempt", async () => {
-    const ctx = await decideGoverned("push");
-    const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
-    const prepared = await prepareExecutionContractFromW2Decision({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      decisionId: ctx.decided.decision.decisionId,
-      currentContext: context,
-      forceLocalAuthority: true,
-      qualifiedOperationKind: "push",
-    });
-    expect(prepared.ok).toBe(true);
-    if (!prepared.ok) return;
-    expect(prepared.contract.requiredAuthority).toBe("N3");
-    expect(prepared.contract.action).toBe("product:push");
-    expect(prepared.contract.scope).toBe(W3A_PRODUCT_SCOPE.PUSH);
 
     const executionContractId = prepared.contract.executionContractId;
     await inspectExecutionContract({
       oa: ctx.oa,
       projectId: ctx.seeded.projectId,
       executionContractId,
-    });
-    await confirmExecutionContractForAuthorization({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId,
-      forceLocalAuthority: true,
     });
     const authorized = await evaluateExecutionAuthorization({
       oa: ctx.oa,
@@ -3026,10 +3167,9 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
     });
     expect(authorized.ok).toBe(true);
     if (!authorized.ok) return;
+    // Fixture does not support read — truthful SC-CAP / executor insufficiency.
     expect(authorized.outcome).toBe("BLOCKED");
-    expect(authorized.reasonCode).toMatch(
-      /executor_capability_insufficient|confirmation_required|authority/,
-    );
+    expect(authorized.reasonCode).toMatch(/executor|capability|insufficient/i);
     const launchBefore = ctx.oa.fixtureAdapter.launchCallCount;
     const selected = await governedExecuteSelectAgent({
       oa: ctx.oa,
@@ -3039,6 +3179,73 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
     });
     expect(selected.ok).toBe(false);
     expect(ctx.oa.fixtureAdapter.launchCallCount).toBe(launchBefore);
+  });
+
+  it("high-risk push operationKind rejected before EC (R15)", async () => {
+    const ctx = await decideGoverned("push-reject");
+    const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
+    const prepared = await prepareExecutionContractFromW2Decision({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      decisionId: ctx.decided.decision.decisionId,
+      currentContext: context,
+      forceLocalAuthority: true,
+      qualifiedOperationKind: "push" as never,
+    });
+    expect(prepared.ok).toBe(false);
+    if (prepared.ok) return;
+    expect(prepared.code).toBe("PREPARATION_BLOCKED");
+  });
+
+  it("legacy validated/N1 without evaluation marker is not Execute-ready (R16)", async () => {
+    const ctx = await decideGoverned("legacy");
+    const oa = ctx.oa;
+    const scope = W3A_PRODUCT_SCOPE.READ;
+    const auth = registerLocalPiloteAuthority({
+      authorityResolver: oa.authorityResolver,
+      scope,
+      issuedAt: oa.clock.nowIso(),
+      forceEnable: true,
+    });
+    expect(auth.ok).toBe(true);
+    if (!auth.ok) return;
+    const built = await oa.executionContractServices.buildExecutionContract.execute({
+      executionContractId: "xct:w3a:legacy-n1",
+      projectId: ctx.seeded.projectId,
+      cycleInstanceId: ctx.seeded.cycleInstanceId,
+      decisionRefs: [],
+      action: "product:read",
+      target: W3A_PRODUCT_TARGET_WORKSPACE,
+      scope,
+      requiredCapabilities: ["cap:product-read"],
+      requiredAuthority: "N1",
+      constraints: ["LEGACY_NO_EVAL_MARKER"],
+      stopConditions: ["AUTHORITY_DENIED"],
+      evidenceRequirements: ["evreq:read"],
+      reversibility: "reversible",
+      idempotencyKey: "idem:w3a:legacy-n1",
+      correlationId: "cor:w3a:legacy-n1",
+      actor: LOCAL_PILOTE_ACTOR,
+      authorityEvidenceId: auth.evidenceId,
+    });
+    expect(built.ok).toBe(true);
+    if (!built.ok) return;
+    const validated =
+      await oa.executionContractServices.validateExecutionContract.execute({
+        executionContractId: built.contract.executionContractId,
+        expectedVersion: built.contract.version,
+        actor: LOCAL_PILOTE_ACTOR,
+      });
+    expect(validated.ok).toBe(true);
+    if (!validated.ok) return;
+    expect(validated.contract.status).toBe("validated");
+    expect(
+      isExecutionReadyStatus({
+        status: validated.contract.status,
+        requiredAuthority: validated.contract.requiredAuthority,
+        constraints: validated.contract.constraints,
+      }),
+    ).toBe(false);
   });
 
   it("envelope rejects trajectory-as-action leakage", () => {
@@ -3321,23 +3528,80 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
       state: "authorized_stop_before_execute",
     });
 
-    // Observe phases in order via append-only phase history (sync adapter paint trail).
+    // Pre-arm observers BEFORE click so raf/mutation polling cannot miss phases
+    // between sync-adapter paints (no fixed-duration sleep — R09-R).
+    await page.evaluate(() => {
+      const w = window as unknown as {
+        __w3aPhaseSnaps?: Array<{
+          history: string;
+          lifecycle: string;
+          t: number;
+        }>;
+        __w3aPhaseObs?: MutationObserver;
+      };
+      w.__w3aPhaseSnaps = [];
+      w.__w3aPhaseObs?.disconnect();
+      const record = () => {
+        const history =
+          document.querySelector('[data-testid="w3a-attempt-phase-history"]')
+            ?.textContent ?? "";
+        const lifecycle =
+          document.querySelector('[data-testid="w3a-attempt-lifecycle"]')
+            ?.textContent ?? "";
+        if (!history) return;
+        const snaps = w.__w3aPhaseSnaps!;
+        const last = snaps[snaps.length - 1];
+        if (last && last.history === history && last.lifecycle === lifecycle) {
+          return;
+        }
+        snaps.push({ history, lifecycle, t: performance.now() });
+      };
+      const obs = new MutationObserver(record);
+      obs.observe(document.body, {
+        subtree: true,
+        childList: true,
+        characterData: true,
+      });
+      w.__w3aPhaseObs = obs;
+      record();
+    });
+
+    const acceptedSeen = page.waitForFunction(
+      () => {
+        const text =
+          document.querySelector('[data-testid="w3a-attempt-phase-history"]')
+            ?.textContent ?? "";
+        return text === "accepted" || text.startsWith("accepted|");
+      },
+      undefined,
+      { timeout: 30_000, polling: "raf" },
+    );
+    const runningSeen = page.waitForFunction(
+      () => {
+        const text =
+          document.querySelector('[data-testid="w3a-attempt-phase-history"]')
+            ?.textContent ?? "";
+        return (
+          text === "accepted|running" || text.startsWith("accepted|running")
+        );
+      },
+      undefined,
+      { timeout: 30_000, polling: "raf" },
+    );
+    const terminalSeen = page.waitForFunction(
+      () =>
+        (document.querySelector('[data-testid="w3a-attempt-phase-history"]')
+          ?.textContent ?? "") === "accepted|running|terminal",
+      undefined,
+      { timeout: 60_000, polling: "raf" },
+    );
+
     const executeClick = page.getByTestId("w3a-governed-execute").click();
     await expect(page.getByTestId("w3a-attempt")).toBeVisible({
       timeout: 60_000,
     });
 
-    await page.waitForFunction(
-      () => {
-        const el = document.querySelector(
-          '[data-testid="w3a-attempt-phase-history"]',
-        );
-        const text = el?.textContent ?? "";
-        return text === "accepted" || text.startsWith("accepted|");
-      },
-      undefined,
-      { timeout: 30_000 },
-    );
+    await acceptedSeen;
     await capture(page, "07-attempt-accepted", {
       screen: "TrajectorySurface",
       state: "accepted",
@@ -3351,19 +3615,7 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
       (await page.getByTestId("w3a-attempt-id").textContent()) ?? "";
     expect(attemptIdAccepted.length).toBeGreaterThan(0);
 
-    await page.waitForFunction(
-      () => {
-        const el = document.querySelector(
-          '[data-testid="w3a-attempt-phase-history"]',
-        );
-        const text = el?.textContent ?? "";
-        return (
-          text === "accepted|running" || text.startsWith("accepted|running|")
-        );
-      },
-      undefined,
-      { timeout: 30_000 },
-    );
+    await runningSeen;
     await capture(page, "08-attempt-running", {
       screen: "TrajectorySurface",
       state: "running",
@@ -3377,14 +3629,49 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
       attemptIdAccepted,
     );
 
-    await expect(page.getByTestId("w3a-attempt-phase-history")).toHaveText(
-      "accepted|running|terminal",
-      { timeout: 60_000 },
-    );
+    await terminalSeen;
     await expect(page.getByTestId("w3a-attempt-lifecycle")).toHaveText(
       "terminal",
     );
     await executeClick;
+
+    const phaseSnaps = await page.evaluate(() => {
+      const w = window as unknown as {
+        __w3aPhaseSnaps?: Array<{
+          history: string;
+          lifecycle: string;
+          t: number;
+        }>;
+        __w3aPhaseObs?: MutationObserver;
+      };
+      w.__w3aPhaseObs?.disconnect();
+      return w.__w3aPhaseSnaps ?? [];
+    });
+    // Honest observation without dwell: MutationObserver saw accepted then running
+    // with matching lifecycle at paint time (sync adapter may advance before PNG I/O).
+    expect(
+      phaseSnaps.some(
+        (s) =>
+          (s.history === "accepted" || s.history.startsWith("accepted|")) &&
+          s.lifecycle === "accepted",
+      ),
+    ).toBe(true);
+    expect(
+      phaseSnaps.some(
+        (s) =>
+          (s.history === "accepted|running" ||
+            s.history.startsWith("accepted|running")) &&
+          s.lifecycle === "running",
+      ),
+    ).toBe(true);
+    expect(
+      phaseSnaps.some(
+        (s) =>
+          s.history === "accepted|running|terminal" &&
+          s.lifecycle === "terminal",
+      ),
+    ).toBe(true);
+
     await expect(page.getByTestId("w3a-attempt-technical-status")).toHaveText(
       "succeeded",
     );
@@ -3400,6 +3687,7 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
       screen: "TrajectorySurface",
       state: "terminal",
       phaseHistory: "accepted|running|terminal",
+      phaseSnapsObserved: phaseSnaps.map((s) => `${s.lifecycle}@${s.history}`),
     });
 
     const body = (await page.locator("body").textContent()) ?? "";
@@ -3417,15 +3705,11 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
     ).toBe(true);
   });
 
-  test("blocked: unsupported push — no Execute / no Attempt", async ({
+  test("blocked: missing actual work — no Prepare / no Execute / no Attempt", async ({
     page,
   }) => {
-    await openQualifiedStudioProject(page, "W3-A R09 Blocked Push");
-    await page.getByTestId("w3a-operation-kind").selectOption("generate-temporary-artifact");
-    // Use a kind supported by UI select then we need push — UI only offers read/sim/temp.
-    // For blocked path: prepare temp, then we can't select push from UI.
-    // Instead: prepare is fine; we assert that without AUTHORIZED, Execute is absent.
-    // Stronger blocked path: omit operation kind → prepare disabled.
+    await openQualifiedStudioProject(page, "W3-A R09 Blocked No Work");
+    // Empty operation kind → Prepare disabled → no Execute → no Attempt.
     await page.getByTestId("w3a-operation-kind").selectOption("");
     await expect(page.getByTestId("w2-prepare-contract")).toBeDisabled();
     await expect(page.getByTestId("w3a-governed-execute")).toHaveCount(0);
@@ -3509,33 +3793,28 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
 
 > **MORRIS DECISION — W3-A R01 — ADOPT FC-08 NATIVE EXECUTIONCONTRACT PREPARATION COMPLETION — NORA/STUDIO PREPARES THE EXECUTION ENVELOPE FROM QUALIFIED PRODUCT CONTEXT — FC-08 REMAINS THE SINGLE OWNER — HUMANDECISION / DECISIONBASIS CONSUMED WHEN APPLICABLE — EXECUTIONCONTRACT IS THE FIRST DURABLE SoT FOR THE ENVELOPE — NO F3 SEMANTIC OVERWRITE ON CANONICAL `/studio` — TESTEXECUTIONADAPTER REMAINS THE DETERMINISTIC EXTERNAL-EXECUTOR FAKE — NO EXECUTIONINTENT / NEW AGGREGATE / NEW STORE / NEW ENGINE — C6 REMAINS CLOSED.**
 
-### Correction ciblée post-revue ChatGPT (handoff `82e0bfdc…` puis correction Actual Work / Scope / Confirmation / R09)
+### Correction ciblée post-revue ChatGPT (handoff `c083147a…` / R13–R16 + R09-R)
 
 | Élément | État |
 |---|---|
-| B1 Actual execution work | **CORRECTED** — `qualifiedOperationKind` Pilot/Nora → `ActualExecutionWork` (non durable) → `QualifiedExecutionEffects` · **W2 trajectory seule ≠ action** · absence → `EFFECTS_UNRESOLVED` |
-| B2 EC.target / EC.scope | **CORRECTED** — target/scope = tokens produit (`product:project-workspace` / `product:temporary-local-artifact` …) · **≠** `selectedOption.intent` W2 · **≠** marqueur fixture |
-| B3 Confirmation ≠ requiredAuthority | **CORRECTED** — contrainte `EFFECT_CONFIRMATION_REQUIRED:{level}` · Validate → `confirmation_required` même si N1 · temp artifact weak boundary = **N1 + Confirmation N1** · read = N1 sans Confirmation · **pas d’auto-grant** |
-| B4 fixture / EC | **PRESERVED / CONTRACT-FIRST** — fixture scopes/targets = tokens produit · matching **après** EC · **pas** de synthèse universelle |
-| B5 Cycle binding | **PRESERVED** — CycleInstance requis · pas de fallback Standard silencieux |
-| R09 Playwright `/studio` | **PASS** — historique `accepted\|running\|terminal` observé · captures `07/08/09` · blocked sans Execute |
-| N1 + Confirmation | **ALIGNED C2** — validated+N1 Execute-ready **uniquement** si Confirmation non requise par effets |
-| R11 Critical genericity | **OPEN** — macro W3 · agent_selection Confirmation **distincte** de Confirmation EC/effets |
-| R12 Recovery | **OPEN** — W3-C |
-| W3-A | **TARGETED CORRECTION CANDIDATE — READY FOR CHATGPT REVIEW** · **≠** W3-A CLOSED · **≠** W3 CLOSED |
+| R13 Scope IN/OUT | **CORRECTED** — scopeOut cohérent par opération canonique · jamais interdit l’effet scopeIn courant |
+| R14 Confirmation floor | **CORRECTED** — `max(intrinsic, protectedFloor N2)` · protected push/PR/merge/… restent **N3** · jamais downgrade |
+| R15 Actual work borné | **CORRECTED** — chemin produit allowlist `read \| simulate \| generate-temporary-artifact` · high-risk operationKind → PREPARATION_BLOCKED avant EC · SC-CAP via **read** |
+| R16 Legacy validated/N1 | **CORRECTED** — marqueur durable `EXECUTION_CONFIRMATION_EVALUATED:NOT_REQUIRED` · readiness fail-closed sans marqueur |
+| R09-R fixed sleep | **CORRECTED** — `setTimeout(120)` **supprimé** · double rAF only · observation MutationObserver + phase-history |
+| W3-A | **TARGETED CORRECTION CANDIDATE — READY FOR CHATGPT RE-REVIEW** · **≠** W3-A CLOSED · **≠** W3 CLOSED |
 | REAL | **OUT** |
 
-### Provenance Actual Work (B1)
+### Provenance Actual Work (canonical)
 
 ```
-Pilot/Nora UI: qualifiedOperationKind (allowlisted)
-  → prepareExecutionContractFromW2Decision (server)
-  → buildActualExecutionWork (non-durable DTO)
-  → buildQualifiedExecutionEffects
-  → FC-08 materialize ExecutionContract (durable SoT)
+Pilot/Nora UI: qualifiedOperationKind ∈ {read, simulate, generate-temporary-artifact}
+  → prepareExecutionContractFromW2Decision (reject high-risk kinds)
+  → buildActualExecutionWork (non-durable)
+  → QualifiedExecutionEffects
+  → FC-08 ExecutionContract (+ CONFIRMATION_EVALUATED:NOT_REQUIRED | EFFECT_CONFIRMATION_REQUIRED:*)
 ```
 
-W2 GOVERNED/BOUNDED = gouvernance/provenance uniquement — **ne choisit pas** action / effects / authority / target / scope.
 
 ## 1ter. Morris B2/B3 — Execution Effect Governance (consommée)
 
@@ -3631,8 +3910,7 @@ W3 macro reste **ouvert** jusqu’à fermeture des slices backlog W3 (dont US-P1
 ```
 
 ---
-
-# UNIFIED DIFFS — MODIFIED FILES
+# UNIFIED DIFFS — MODIFIED TRACKED FILES
 
 ## DIFF — `projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx`
 
@@ -3890,7 +4168,7 @@ index 2c6e756f..6b063a75 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-index 6408b737..54b48aa1 100644
+index 6408b737..9cdc3fd3 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
 @@ -1,24 +1,26 @@
@@ -3968,13 +4246,13 @@ index 6408b737..54b48aa1 100644
 +
 +/**
 + * Yield so React can commit and the browser can paint each Attempt phase.
-+ * Not business latency — only UI observability for a sync TestExecutionAdapter.
++ * Double rAF only — no fixed-duration sleep / business latency (R09-R).
 + */
 +function yieldBrowserPaint(): Promise<void> {
 +  return new Promise((resolve) => {
 +    requestAnimationFrame(() => {
 +      requestAnimationFrame(() => {
-+        setTimeout(resolve, 120);
++        resolve();
 +      });
 +    });
 +  });
@@ -4888,7 +5166,7 @@ index baf0653b..a4aad88d 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/attemptSupport.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/attemptSupport.ts
-index 6aef93ac..ca1a2e4e 100644
+index 6aef93ac..a73fa13e 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/attemptSupport.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/attemptSupport.ts
 @@ -11,7 +11,10 @@ import type {
@@ -4908,7 +5186,7 @@ index 6aef93ac..ca1a2e4e 100644
    if (contract.status === "cancelled") return "EXECUTION_CONTRACT_CANCELLED";
    if (contract.status === "superseded") return "EXECUTION_CONTRACT_SUPERSEDED";
 -  if (contract.status !== "confirmed") return "EXECUTION_CONTRACT_NOT_CONFIRMED";
-+  // N1 validated is Execute-ready (Validate: Confirmation not required).
++  // N1 validated is Execute-ready only with CONFIRMATION_EVALUATED:NOT_REQUIRED (R16).
 +  if (!isExecutionReadyStatus(contract)) {
 +    return "EXECUTION_CONTRACT_NOT_CONFIRMED";
 +  }
@@ -4920,15 +5198,31 @@ index 6aef93ac..ca1a2e4e 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/executionContractStatusWriter.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/executionContractStatusWriter.ts
-index ad155eb4..f9c3faa5 100644
+index ad155eb4..397d211e 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/executionContractStatusWriter.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/executionContractStatusWriter.ts
-@@ -24,10 +24,11 @@ export type Ta5ContractStatus =
+@@ -9,10 +9,11 @@
+  *   ExecutionContract.executing ⇒ a matching Attempt is ALREADY running
+  *   in the Attempt repository — caller-claimed status alone is NOT trusted.
+  */
+-import type {
+-  ExecutionContract,
+-  ExecutionContractRepositoryPort,
+-  ExecutionContractPersistenceUnitOfWorkPort,
++import {
++  isExecutionReadyStatus,
++  type ExecutionContract,
++  type ExecutionContractRepositoryPort,
++  type ExecutionContractPersistenceUnitOfWorkPort,
+ } from "@/lib/oa/execution-contract";
+ import type { AttemptDetailCode, ExecutionAttemptStatus } from "../domain/types";
+ import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
+@@ -24,10 +25,11 @@ export type Ta5ContractStatus =
    | "cancelled";
 
  const ALLOWED_SOURCES: Record<Ta5ContractStatus, readonly string[]> = {
 -  executing: ["confirmed"],
-+  // N1 validated is Execute-ready (aligned with isExecutionReadyStatus).
++  // validated is Execute-ready only via isExecutionReadyStatus (R16 marker).
 +  executing: ["confirmed", "validated"],
    completed: ["executing"],
 -  failed: ["confirmed", "executing"],
@@ -4938,7 +5232,7 @@ index ad155eb4..f9c3faa5 100644
  };
 
  export type ContractStatusWriteRequest = {
-@@ -119,7 +120,11 @@ export class ExecutionContractStatusWriter {
+@@ -119,7 +121,11 @@ export class ExecutionContractStatusWriter {
          };
          throw new Error("contract_occ_mismatch");
        }
@@ -4946,7 +5240,7 @@ index ad155eb4..f9c3faa5 100644
 +      const allowed = ALLOWED_SOURCES[request.nextStatus];
 +      const sourceAllowed =
 +        allowed.includes(current.status) &&
-+        (current.status !== "validated" || current.requiredAuthority === "N1");
++        (current.status !== "validated" || isExecutionReadyStatus(current));
 +      if (!sourceAllowed) {
          failure = {
            ok: false,
@@ -4993,7 +5287,7 @@ index 703af5aa..fc8767b4 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-contract/application/checkExecutionAuthorization.ts b/projects/sfia-studio/app/lib/oa/execution-contract/application/checkExecutionAuthorization.ts
-index 98cf3745..72653a4d 100644
+index 98cf3745..8a05e661 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-contract/application/checkExecutionAuthorization.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-contract/application/checkExecutionAuthorization.ts
 @@ -6,7 +6,11 @@ import type {
@@ -5009,19 +5303,20 @@ index 98cf3745..72653a4d 100644
  import type {
    ActorReference,
    CheckAuthorizationResult,
-@@ -34,8 +38,9 @@ type CheckSnapshot = {
+@@ -34,8 +38,10 @@ type CheckSnapshot = {
   * CheckExecutionAuthorization — gate for T-A5 StartExecution.
   * NEVER mutates. NEVER executes. Deny-by-default on action/target/scope.
   *
 - * Requires: status=confirmed, not cancelled/superseded, not T-A5 status,
 - * decisions still accepted+current, Critical ack if applicable, authority OK.
-+ * Requires: execute-ready status (confirmed, or validated when N1),
++ * Requires: execute-ready status (confirmed, or validated+N1 with
++ * EXECUTION_CONFIRMATION_EVALUATED:NOT_REQUIRED and no EFFECT_CONFIRMATION_REQUIRED),
 + * not cancelled/superseded, not T-A5 status, decisions still accepted+current,
 + * Critical ack if applicable, authority OK.
   */
  export class CheckExecutionAuthorization {
    constructor(
-@@ -112,7 +117,7 @@ export class CheckExecutionAuthorization {
+@@ -112,7 +118,7 @@ export class CheckExecutionAuthorization {
            projectId: contract.projectId,
          });
        }
@@ -5096,38 +5391,77 @@ index 4956ecbb..09c1a5d6 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-contract/domain/invariants.ts b/projects/sfia-studio/app/lib/oa/execution-contract/domain/invariants.ts
-index 53b01f1a..caf8eaf8 100644
+index 53b01f1a..24839371 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-contract/domain/invariants.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-contract/domain/invariants.ts
-@@ -98,6 +98,27 @@ export function assertPrefixedId(
+@@ -98,6 +98,66 @@ export function assertPrefixedId(
    return null;
  }
 
 +/**
++ * Durable constraint: FC-08 evaluated Confirmation and concluded NOT REQUIRED.
++ * Generic EC-domain token — not a W3-A feature import. Reconstructible from
++ * persisted constraints (R16). Legacy validated/N1 without this marker is
++ * NOT Execute-ready.
++ */
++export const EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED =
++  "EXECUTION_CONFIRMATION_EVALUATED:NOT_REQUIRED" as const;
++
++/** Prefix for effect-driven Confirmation requirement constraints. */
++export const EFFECT_CONFIRMATION_REQUIRED_PREFIX =
++  "EFFECT_CONFIRMATION_REQUIRED" as const;
++
++export function contractHasEffectConfirmationRequired(
++  constraints: readonly string[] | null | undefined,
++): boolean {
++  if (!constraints) return false;
++  return constraints.some(
++    (c) =>
++      c === EFFECT_CONFIRMATION_REQUIRED_PREFIX ||
++      c.startsWith(`${EFFECT_CONFIRMATION_REQUIRED_PREFIX}:`),
++  );
++}
++
++export function contractHasConfirmationEvaluatedNotRequired(
++  constraints: readonly string[] | null | undefined,
++): boolean {
++  if (!constraints) return false;
++  return constraints.includes(EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED);
++}
++
++/**
 + * Execute-ready lifecycle status for FC-09 / FC-10 gates.
 + *
-+ * ValidateExecutionContract:
-+ * - N1 without effect-driven Confirmation → `validated` (Execute-ready)
-+ * - N1 with EFFECT_CONFIRMATION_REQUIRED → `confirmation_required`
-+ * - N2|N3|MORRIS → `confirmation_required` → Pilot Confirm → `confirmed`
++ * - `confirmed` → ready
++ * - `validated` + N1 + CONFIRMATION_EVALUATED:NOT_REQUIRED
++ *   + no EFFECT_CONFIRMATION_REQUIRED* → ready
++ * - `validated` + N1 without explicit evaluation marker → NOT ready (legacy)
++ * - contradictory REQUIRED + NOT_REQUIRED markers → NOT ready
++ * - N2/N3/MORRIS validated → NOT ready
++ * - `confirmation_required` → NOT ready
 + *
-+ * `validated` is Execute-ready only when Validate established Confirmation
-+ * is not required (effect projection). Never a universal N1 bypass.
++ * Never a universal validated+N1 bypass.
 + */
 +export function isExecutionReadyStatus(contract: {
 +  status: ExecutionContractStatus | string;
 +  requiredAuthority: AuthorityClass | string;
++  constraints?: readonly string[] | null;
 +}): boolean {
 +  if (contract.status === "confirmed") return true;
-+  return (
-+    contract.status === "validated" && contract.requiredAuthority === "N1"
-+  );
++  if (contract.status !== "validated") return false;
++  if (contract.requiredAuthority !== "N1") return false;
++  const constraints = contract.constraints ?? [];
++  const required = contractHasEffectConfirmationRequired(constraints);
++  const notRequired = contractHasConfirmationEvaluatedNotRequired(constraints);
++  if (required && notRequired) return false;
++  if (required) return false;
++  return notRequired;
 +}
 +
  export function isTa5Status(status: ExecutionContractStatus): boolean {
    return TA5_STATUSES.has(status as Ta5ExecutionContractStatus);
  }
-@@ -363,8 +384,8 @@ export function validateBuildFields(input: {
+@@ -363,8 +423,8 @@ export function validateBuildFields(input: {
    if (input.status !== "draft" && input.status !== "proposed") {
      return { detailCode: "CONTRACT_INVALID", reason: "build_status_invalid" };
    }
@@ -5199,7 +5533,7 @@ index cf70f5e8..024c52e9 100644
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 39f8cda8..04c10684 100644
+index 39f8cda8..c54f194c 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 @@ -6,8 +6,9 @@
@@ -5209,7 +5543,7 @@ index 39f8cda8..04c10684 100644
 -| **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; ce document **≠** embed permanent `origin/main` HEAD)* · **Référence de maintenance / entrée W2 POST-CLOSURE TRUTH SYNC** = `origin/main` @ `1e4b0dbb8de291f1a02e084f03231d62d04dfb0b` (merge PR **#405** Product Correction) · reviewed head `330b36258f5a5fcb117fb562b12ff173b3675d94` · candidate→merge content delta **0 files** · push/main CI **`32654262020` SUCCESS / Required Gate PASS** · W2 Final Closure Requalification **ACCEPTED BY MORRIS** · **W2 CLOSED BY MORRIS** · W2-CL-R01…R03 **CLOSED** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · PR **#403** Phase B · PR **#400** W2-G3 · PR **#398** W2 readiness · PR **#395** W1 · **NEXT CAPACITY** = **NEXT-CAPABILITY REQUALIFICATION** *(distinct · NOT STARTED · **≠** W3)* · W3 **NOT STARTED / NOT AUTHORIZED** · FinOps/T7 **FREEZE** · C6 **CLOSED** · Execute **OUT** · REAL **OUT / NOT CONSUMED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE / NON TERMINÉE** · **≠** W3 authorized · **≠** REAL BOUNDARY PROVEN · **≠** FinOps PASS · **≠** runtime v3 ADOPTED |
 -| **Timestamp maintenance courant** | 2026-08-23 20:37:16 CEST (+0200) — **W2 POST-CLOSURE TRUTH SYNC** — `origin/main` @ `1e4b0dbb8de291f1a02e084f03231d62d04dfb0b` · PR **#405 MERGED** · W2 Final Closure Requalification **ACCEPTED BY MORRIS** · **W2 CLOSED BY MORRIS** · doc10 final requalification **INTEGRATION CANDIDATE** · disclosures `w2Cognition=CLOSED_BY_MORRIS` · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · **NEXT CAPACITY** = **NEXT-CAPABILITY REQUALIFICATION** *(distinct · NOT STARTED)* · W3 **NOT STARTED / NOT AUTHORIZED** · FinOps/T7 **FREEZE** · C6 **CLOSED** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **≠** W3 GO · **≠** REAL · **≠** FinOps PASS |
 +| **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; ce document **≠** embed permanent `origin/main` HEAD)* · **Référence de maintenance / entrée W3 DELIVERY** = `origin/main` @ `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed` (merge PR **#406** W2 post-closure truth sync) · prior Product Correction merge `1e4b0dbb…` (PR **#405**) · **W2 CLOSED BY MORRIS** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · **NEXT-CAPABILITY REQUALIFICATION** = **SATISFIED / CONSUMED** by W3 qualification · **W3 DELIVERY** = **AUTHORIZED BY MORRIS / IN PROGRESS** · **current delivery slice** = **W3-A Governed Execute** (US-P1-04 / FC-10) · W3 **NOT CLOSED** · FinOps/T7 **FREEZE** · C6 **CLOSED** · REAL **OUT / NOT CONSUMED** · W4 **NOT STARTED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE / NON TERMINÉE** · **≠** W3 CLOSED · **≠** READY FOR REAL · **≠** REAL BOUNDARY PROVEN · **≠** FinOps PASS · **≠** runtime v3 ADOPTED |
-+| **Timestamp maintenance courant** | 2026-08-24 06:56 CEST (+0200) — **W3-A TARGETED CORRECTION — Actual Work / Scope / Confirmation / R09** — **LOCAL CANDIDATE** on `delivery/sfia-studio-product-completion-w3-a-governed-execute` · awaiting ChatGPT re-review · **≠** on main · ActualExecutionWork → QualifiedExecutionEffects · honest EC target/scope · effect-driven Confirmation (N1+CFM) · R09 phase-history accepted\|running\|terminal **PASS** · W3-A **READY FOR CHATGPT REVIEW** · W3 **NOT CLOSED** · FinOps/T7 **FREEZE** · REAL **OUT** · W4 **NOT STARTED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** |
++| **Timestamp maintenance courant** | 2026-08-24 07:37 CEST (+0200) — **W3-A TARGETED CORRECTION R13/R14/R15/R16 + R09-R** — **LOCAL CANDIDATE** · scope IN/OUT coherent · Confirmation max(intrinsic, protected floor) · canonical actual-work read/sim/temp · high-risk reject before EC · legacy validated/N1 fail-closed via `EXECUTION_CONFIRMATION_EVALUATED:NOT_REQUIRED` · R09 no fixed sleep (double rAF + MutationObserver) · awaiting ChatGPT re-review · W3 **NOT CLOSED** · REAL **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** |
 +| **Timestamp maintenance historique W2 POST-CLOSURE TRUTH SYNC** | 2026-08-23 20:37:16 CEST (+0200) — **W2 POST-CLOSURE TRUTH SYNC** — *(historique · superseded by W3 DELIVERY START)* — `origin/main` @ `1e4b0dbb…` then PR **#406** → `3a3b1cf…` · **W2 CLOSED BY MORRIS** · **NEXT CAPACITY** was **NEXT-CAPABILITY REQUALIFICATION** *(later SATISFIED / CONSUMED)* · W3 was **NOT STARTED / NOT AUTHORIZED** *(true then · later AUTHORIZED)* · FinOps/T7 **FREEZE** · C6 **CLOSED** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** |
  | **Timestamp maintenance historique W2 Phase B post-merge truth sync** | 2026-08-23 16:48 CEST (+0200) — **W2 TRACK D / BOUNDED CKC PHASE B POST-MERGE TRUTH SYNC** — `origin/main` HEAD **RESOLVE FROM REPOSITORY** · PR **#403 MERGED** · Phase B head `1cdf4b41270cffe31be28e02e3effe17a1b15477` · merge `e4a93fea77c7edd01c4e6fc2d47455db14e102e8` · PR-head CI **`32645232920` SUCCESS / Required Gate PASS** · head→merge **0-file content delta** · push/main CI **`32646038871` SUCCESS / Required Gate PASS** · **bounded Phase B INTEGRATED ON MAIN** · **DETERMINISTIC PROVEN** · Phase B GO / R1 GO / Git integration GO **CONSUMED historically** · W2 **NOT FINALLY CLOSED** · **NEXT CAPACITY** = **W2 FINAL CLOSURE QUALIFICATION** *(distinct cycle · NOT STARTED)* · W3 **NOT STARTED / NOT AUTHORIZED** · full CKC track **DOWNSTREAM W3** · PB-RES-REAL-01 **OPEN** · FinOps/T7 **FREEZE** · T7-C04 **DEFERRED** · C6 **CLOSED** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · Product Completion **NON TERMINÉE** · **≠** W2 closed · **≠** W3 GO · **≠** REAL · **≠** FinOps PASS  *(historique · superseded by W2 POST-CLOSURE TRUTH SYNC / Morris W2 CLOSED)* |
  | **Timestamp maintenance historique W2-G3 post-merge truth sync** | 2026-08-23 12:25 CEST (+0200) — **W2-G3 POST-MERGE TRUTH SYNC** — *(historique · superseded by Phase B post-merge truth sync)* — `origin/main` HEAD **RESOLVE FROM REPOSITORY** · PR **#400 MERGED** · delivery head `a276f170…` · merge `dd852243…` · PR-head CI **`32632461315` SUCCESS** · push/main CI **`32633308148` SUCCESS** · **W2-G3 E+A+B+C INTEGRATED ON MAIN** · governed H→N trajectory through authority boundary · **STOP BEFORE EXECUTE** · D-W2-CI-FINOPS-FREEZE-01 **ADOPTED** · FinOps/T7 **FREEZE** · T7-C04 **DEFERRED** · W2 **NOT FINALLY CLOSED** · **NEXT CAPACITY** *(true at that timestamp)* = Track D / bounded CKC Phase B qualification · **NEXT DECISION GATE** *(true at that timestamp)* = distinct Morris GO Phase B · GO Phase B **NOT CONSUMED** *(true at that timestamp · later CONSUMED · Phase B INTEGRATED via PR #403)* · C6 **CLOSED** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · **≠** FinOps fixed/PASS · **≠** Phase B started *(true then)* · **≠** W2 closed · **≠** Product Completion terminée |
@@ -5245,9 +5579,9 @@ index 39f8cda8..04c10684 100644
 -| CURRENT REPOSITORY TRANSITION | W2 Product Correction **INTEGRATED** (PR **#405** / merge `1e4b0dbb…` / push CI **`32654262020` SUCCESS**) · W2 Final Closure Requalification **ACCEPTED BY MORRIS** · **W2 CLOSED BY MORRIS** · W2 Post-Closure Truth Sync **IN PROGRESS / INTEGRATION CANDIDATE** · FinOps/T7 **FREEZE** · W3 **NOT STARTED / NOT AUTHORIZED** · REAL **OUT** · Product Completion **INCOMPLETE** · **≠** W3 GO · **≠** FinOps PASS |
 -| NEXT ORDERED STEP | Complete **W2 POST-CLOSURE TRUTH SYNC** (doc10 + Roadmap + disclosures) Git integration + post-merge proof → **NEXT-CAPABILITY REQUALIFICATION** *(distinct cycle · NOT STARTED)* · **≠** W3 GO · **≠** REAL GO |
 -| NEXT PRODUCT CAPABILITY | **NEXT-CAPABILITY REQUALIFICATION** — after truth-sync post-merge proof · re-evaluate next Product Completion capacity under distinct Morris GO · **≠** silent W3 open · W3 **NOT AUTHORIZED** · REAL **OUTSIDE** · runtime v3 **NON ADOPTED** |
-+| CURRENT REPOSITORY TRANSITION | W3-A Actual Work / Scope / Confirmation / R09 targeted correction **LOCAL CANDIDATE** (dirty working tree · **no project commit/push/PR**) · awaiting ChatGPT re-review · FinOps/T7 **FREEZE** · REAL **OUT** · W4 **NOT STARTED** · Product Completion **INCOMPLETE** · **≠** W3 CLOSED · **≠** on main |
++| CURRENT REPOSITORY TRANSITION | W3-A R13–R16 + R09-R targeted correction **LOCAL CANDIDATE** (dirty · **no project commit/push/PR**) · awaiting ChatGPT re-review · FinOps/T7 **FREEZE** · REAL **OUT** · W4 **NOT STARTED** · Product Completion **INCOMPLETE** · **≠** W3 CLOSED · **≠** on main |
 +| NEXT ORDERED STEP | ChatGPT re-review of FULL Review Pack → Morris Git integration GO (if PASS) · **≠** W3 closure · **≠** REAL GO · **W3-B DO NOT START** |
-+| NEXT PRODUCT CAPABILITY | **W3-A Governed Execute** — local targeted-correction candidate · ChatGPT re-review gate · then Morris project Git GO if PASS · W3-B **DO NOT START** · W3 macro **NOT CLOSED** · REAL **OUT** · runtime v3 **NON ADOPTED** |
++| NEXT PRODUCT CAPABILITY | **W3-A Governed Execute** — local R13–R16/R09-R candidate · ChatGPT re-review gate · W3-B **DO NOT START** · W3 macro **NOT CLOSED** · REAL **OUT** · runtime v3 **NON ADOPTED** |
  | M6 / M7 | **HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** · traces conservées · hors forward critical path |
 
  ### Candidat local non-main (dirty `delivery/sfia-studio-f3-real-prerequisites`) — historique / harvest
@@ -5259,7 +5593,7 @@ index 39f8cda8..04c10684 100644
 +| **Next convergence capability (current)** | **W3-A Governed Execute** — **W3 DELIVERY AUTHORIZED BY MORRIS / IN PROGRESS** · **NEXT-CAPABILITY REQUALIFICATION SATISFIED / CONSUMED** · **W2 CLOSED BY MORRIS** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · FinOps/T7 **FREEZE** · W3 **NOT CLOSED** · REAL **OUT** · W4 **NOT STARTED** · runtime v3 **NON ADOPTED** |
  | **Next immediate gate (repo)** | Roadmap Phase B post-merge truth-sync Git integration = **DISTINCT MORRIS GO AFTER CHATGPT REVIEW** · aucun autre write projet automatique · **NO AUTOMATIC PROJECT WRITE** |
 -| **Next product gate** | **NEXT-CAPABILITY REQUALIFICATION** → distinct cycle · **≠** W3 authorized · **≠** REAL |
-+| **Next product gate** | W3-A ChatGPT re-review → Morris Git integration GO (if PASS) · W3-B **DO NOT START** until distinct gate · **≠** W3 CLOSED · **≠** REAL |
++| **Next product gate** | W3-A ChatGPT re-review → Morris Git integration GO (if PASS) · W3-B **DO NOT START** · **≠** W3 CLOSED · **≠** REAL |
  | **M6 / M7 disposition** | Historical milestones **SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** |
 
 
