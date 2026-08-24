@@ -297,7 +297,7 @@ FC-11 Product SUCCESS requires **`status=pass`** on a contract-result ClaimEvalu
 `ClaimEvaluation.status = pass` may be written **server-side only** when **ALL** hold:
 
 1. Attempt technical state is compatible for SUCCESS evaluation (technical succeeded / terminal success path — architecture does not weaken C2).
-2. EC id / version / semanticFingerprint match **exactly** the Attempt’s bound contract material.
+2. EC id / version / semanticFingerprint match **exactly** the Attempt’s bound contract material (**bound semantic snapshot per TD-W3B-02 Option B — §4.10.2**).
 3. Bound ReviewBundle is the **expected frozen** version.
 4. All required Evidence are valid per FC-12 rules applicable to this assessment.
 5. **Every mandatory** expected-output assessment is **PASS**.
@@ -399,6 +399,150 @@ or an equivalent tuple/hash of the same material.
 | Old assessment + new EC version | **STALE / NOT_PROVEN** for Product SUCCESS |
 
 No large EO/ER DSL. EC expectation **strings** remain the expectation source for this delta; identity is positional/version-bound, not NLP.
+
+---
+
+## 4.10.1 TD-W3B-02 — Current-model contradiction (Delivery-evidenced)
+
+W3-B Delivery Pass 2 review (`756cda50` local candidate above reviewed checkpoint `0b1e50a5`) exposed a **structural contradiction** between TD-W3B-02 and the current ExecutionContract version model. This section records the contradiction faithfully. **Do not weaken it.**
+
+### Repository facts (read-only evidence on current main)
+
+| Fact | Source |
+| --- | --- |
+| `ExecutionContract.version` increments on lifecycle/OCC transitions (validate, confirm, cancel, terminal record paths) | T-A5 execution-contract application layer |
+| `ExecutionContract.semanticFingerprint` is computed from execution-significant material via `executionContractSemanticMaterial()` and **excludes** `status` and `version` | `semanticFingerprint.ts` |
+| `ExecutionAttempt` binds `executionContractVersion` at accept/select | W3-A select/accept seam |
+| Repository exposes **current** EC lookup only — **no** `findByIdAndVersion` / EC history store | execution-contract repository ports |
+| Attempt durable persistence is Product SQLite `oa_execution_attempts.payload_json` | `sqliteExecutionAttemptRepository.ts` |
+
+### Contradiction
+
+1. Attempt binds EC `@vN` at acceptance.
+2. After acceptance, lifecycle operations may advance **current** `ExecutionContract.version` to `@vN+k` **without** changing `semanticFingerprint`.
+3. TD-W3B-02 requires Contract Result assessment against the **exact bound EC-version material**, not merely “same fingerprint on latest row”.
+4. Therefore: **Attempt bound to EC@vN + latest EC@vN+k with same fingerprint DOES NOT satisfy TD-W3B-02** if assessment reads latest EC payload as substitute material.
+5. **Forbidden workaround:** latest-EC cross-version matching, fingerprint-gated substitution, sync-forward of Attempt version, or tolerance of lifecycle drift for semantic material resolution.
+
+Pass 2 Delivery temporarily used fingerprint-gated latest-EC reads. Architecture review classifies that as **forbidden cross-version matching** under TD-W3B-02. **Morris Option B** closes the blocker without reopening C6 or inventing EC history.
+
+---
+
+## 4.10.2 TD-W3B-02 — Morris Option B: Bound ExecutionContract Semantic Snapshot
+
+**Status:** **ADOPTED BY MORRIS — 2026-08-24 — targeted clarification (Cycle 6 DOC)**
+
+**Morris decision (exact):** At Attempt binding/acceptance, capture an **immutable canonical snapshot** of bound ExecutionContract semantic material using the **existing** `executionContractSemanticMaterial()` representation, plus bound EC version and semantic fingerprint, persisted in the **existing** Attempt Product SQLite payload only. ExecutionContract remains the single **current** lifecycle SoT. The snapshot is historical binding evidence — **not** a second EC. **No** latest-EC cross-version matching. **No** auto-migration. **No** EC history repository. **No** semantic-version redesign.
+
+### Options considered (binding-material resolution)
+
+| Option | Summary | Decision |
+| --- | --- | --- |
+| **A** | Separate OCC revision from semantic contract version globally | **Not selected now** — broader EC model change; impacts W2 inspection/version semantics; wider migration blast radius; unnecessary on current W3 critical path. **Not permanently rejected** — possible future refactor if broader EC-version requirement appears. |
+| **B** | Attempt-bound immutable canonical semantic snapshot at accept | **ADOPTED** — local FC-10 ownership; no second EC lifecycle; reuses existing helper + Product SQLite Attempt payload; no new store/table/repository; supports exact restart/recovery; W1/W2/W3-A transparent; W4 transparent. |
+| **C** | Historical ExecutionContract repository / `findByIdAndVersion` | **Not selected** — new persistence/history capability; new repository breadth; larger C6/architecture impact; solves more than W3 needs. |
+
+### Canonical snapshot contract (conceptual shape)
+
+```text
+ExecutionAttempt.boundExecutionContract:
+  executionContractSchemaVersion   # schema of semanticMaterial payload
+  executionContractVersion         # exact version at acceptance
+  semanticFingerprint              # exact fingerprint at acceptance
+  semanticMaterial                 # executionContractSemanticMaterial(contract) at acceptance
+```
+
+**Rules:**
+
+| Rule | Requirement |
+| --- | --- |
+| Material producer | **MUST** use existing `executionContractSemanticMaterial(contract)` — **not** a W3-B-specific subset |
+| Canonical representation | `ExecutionContractSemanticMaterial` is the execution-significant representation; excludes lifecycle (`status`, current OCC `version`, volatile provenance) while retaining execution-significant fields |
+| Capture point | Once at Attempt acceptance/binding (existing W3-A Select/accepted seam) |
+| Mutability | **Never** edited after capture; lifecycle writes **MUST NOT** mutate snapshot |
+| Second aggregate | Snapshot is **not** a second ExecutionContract; **not** promoted to current EC; **not** a repository/catalog |
+
+### Ownership / SoT matrix
+
+| Aggregate | Role |
+| --- | --- |
+| **ExecutionContract** | Sole mutable/current lifecycle SoT before and through execution lifecycle |
+| **Bound snapshot on Attempt** | Immutable historical binding evidence; exact material for Contract Result assessment |
+| **ClaimEvaluation** | Consumes bound snapshot (+ frozen RB + Evidence) for Contract Result assessment |
+| **FC-11** | Consumes CE + Attempt/Evidence truth; **never** evaluates latest EC heuristically |
+| **FC-12** | Does **not** own EC lifecycle |
+
+### Binding / cross-version semantics (TD-W3B-02 unchanged core + Option B material source)
+
+For an Attempt:
+
+| Binding element | Rule |
+| --- | --- |
+| `executionContractVersion` | Exact version at acceptance — **immutable** |
+| `semanticFingerprint` | Exact fingerprint at acceptance — **immutable** |
+| EO/ER item identity | `(bound semanticFingerprint, kind ∈ {EO, ER}, ordinal)` |
+| Assessment material source | **Bound snapshot only** — not latest EC row |
+| Latest EC substitution | **Forbidden** |
+| Version drift tolerance | **Forbidden** |
+| Cross-version semantic recognition | **Forbidden** |
+| Auto-migration | **Forbidden** |
+
+**Lifecycle OCC bump vs bound material:** A later lifecycle/OCC version bump on the **current** ExecutionContract **does not** mutate or migrate the Attempt's binding or snapshot.
+
+**Prior Attempt vs successor/amended EC:** A materially amended or superseding EC has its own material/fingerprint. It **does not** invalidate the historical truth of a completed prior Attempt. Prior CE remains valid **only** for its prior Attempt/bound snapshot. Prior CE **MUST NOT** satisfy a successor EC or a new Attempt.
+
+### Self-consistency / corruption rules (future Delivery)
+
+Future Delivery **MUST** fail-closed when snapshot integrity cannot be verified. Minimum checks:
+
+1. Snapshot EC id matches Attempt `executionContractId`.
+2. Snapshot bound version matches Attempt `executionContractVersion`.
+3. Recomputed fingerprint from snapshot `semanticMaterial` equals stored bound `semanticFingerprint`.
+4. Required identity/project/cycle relationships are coherent.
+
+**Forbidden on corruption/missing snapshot:** reconstruction from latest EC; fake historical EC object; auto-migration.
+
+### Historical Attempts (no backfill)
+
+| Case | Rule |
+| --- | --- |
+| Attempt **without** bound semantic snapshot | Remains readable; **MUST NOT** obtain Product SUCCESS via latest-EC reconstruction |
+| Contract Result for such Attempts | NOT_PROVEN / UNCLAIMED fail-closed per existing FC-11 contract |
+| Backfill / fake snapshot | **Forbidden** in this architecture cycle |
+| Migration redesign | **Out of scope** |
+
+### Persistence direction
+
+| Decision | Detail |
+| --- | --- |
+| Store | Existing ExecutionAttempt Product SQLite persistence (`payload_json`) |
+| Change class | Domain/payload **additive field** on Attempt aggregate |
+| Forbidden | New database technology; new aggregate repository; EC history table; new persistence engine |
+| SQL schema migration | Future Delivery detail if payload validation/versioning requires it — **no new table** in this architecture cycle |
+| C6 | **CLOSED — not reopened** |
+
+### Architecture parallelism check (Option B creates none of)
+
+- second ExecutionContract aggregate
+- EC-history repository
+- semantic-version subsystem
+- ProductOutcome aggregate
+- second Attempt lifecycle
+- second Claim Engine
+- Stop Engine
+- Evidence pipeline
+- W3-B-specific product route
+- per-cycle snapshot engine
+
+Snapshot is **one immutable value object** inside the existing Attempt aggregate.
+
+### Bounded reserves (R-TD02)
+
+| ID | Reserve | Exit |
+| --- | --- | --- |
+| **R-TD02-01** | Historical Attempts lack bound snapshot | Remain fail-closed; no backfill required for W3-B |
+| **R-TD02-02** | Snapshot duplicates canonical EC semantic material into Attempt payload | Accepted architectural duplication for historical binding; **not** a second mutable SoT |
+| **R-TD02-03** | Future change to `ExecutionContractSemanticMaterial` schema | Versioning responsibility for interpretability — **not** a W3-B blocker; no generalized migration framework now |
 
 ---
 
@@ -779,12 +923,17 @@ No invented latency/SLA targets.
 
 ## 11. Downstream impact
 
-| Wave | Impact |
+| Wave / domain | Impact |
 | --- | --- |
-| **W3-C** | Consume **same** Evidence/RB + durable **contract-result** assessment · no second Nora path · restart-safe · fail-closed if assessment store down |
-| **W3-D** | Assessment generic · **no** cycleType switch engine |
-| **W3-E** | Same canonical path |
-| **W4** | Presentation only · no UX work here |
+| **W1** | **No reopen.** Continuity/restart truth strengthened by Attempt-bound immutable contract material. |
+| **W2** | **No reopen.** HumanDecision, Trajectory, EC inspection, Confirmation, authority unchanged. Snapshot captured **only after** existing W2 authorization boundary. |
+| **W3-A** | **CLOSED / no reopen.** Capture at existing Select/accepted seam. No new execution engine. |
+| **W3-B** | **Direct TD-W3B-02 blocker closed at architecture level.** Future Delivery must: persist bound snapshot; evaluate Contract Result **only** from it; revalidate Confirm path against it; close remaining Evidence freshness reserves; rerun X-W3B-01…12. **≠ W3-B closed.** |
+| **W3-C/D/E** | No scope moved into W3-B. Snapshot provides stable historical contract context for Evidence→Nora/replan/recovery. Catalog evolvability remains downstream W3. |
+| **CKC** | No authority impact. `doctrinePackageRef` inside existing semantic material preserves provenance only. |
+| **W4** | No new Product concept/surface. Internal snapshot supports S7 History / S8 Recovery / S9 Evidence / S10 EC / S12 Attempt honesty. W4 remains Product Experience closure only. |
+| **REAL** | No gate impact. Same snapshot must serve deterministic and future REAL execution. REAL remains OUT. |
+| **runtime v3** | No promotion. NON ADOPTED. |
 
 ### Backlog note (no mutation this cycle)
 
@@ -797,7 +946,7 @@ Post-merge DOC12 + Roadmap truth state is represented in this Cycle 14 documenta
 | ID | Decision | Status |
 | --- | --- | --- |
 | **TD-W3B-01** | Contract-result assessment = adapted ClaimEvaluation + explicit **contract-result subject/mode** + structured EO/ER assessments + **`ClaimEvaluation.status` canonical durable verdict** + **`contractResultVerdict` server-derived projection only** + **explicit mode-specific confirmation authority (no automatic legacy structural→Morris in Contract Result mode)** + Product SQLite durability; generic ClaimEvaluation unchanged outside Contract Result mode (Option A) | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
-| **TD-W3B-02** | EO/ER identity = deterministic immutable EC-version item identity `(semanticFingerprint, kind∈{EO,ER}, ordinal)` + explicit EC/Attempt/RB/Evidence bindings · **no** cross-version semantic matching · no auto-migrate | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
+| **TD-W3B-02** | EO/ER identity = deterministic immutable EC-version item identity `(semanticFingerprint, kind∈{EO,ER}, ordinal)` + explicit EC/Attempt/RB/Evidence bindings · **no** cross-version semantic matching · no auto-migrate · **bound semantic material = Attempt snapshot via Morris Option B** (`executionContractSemanticMaterial()` + version + fingerprint at accept · existing Attempt Product SQLite payload) | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24 · Option B clarification ADOPTED — 2026-08-24** |
 | **TD-W3B-03** | SYSTEM_GOVERNED_STOP = separate FC-10 use case on same Attempt lifecycle for **post-running / proven execution-frontier** runtime guards · human Cancel distinct · pre-running block ≠ terminal STOP · adapter cancel ACK safety reused | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
 | **TD-W3B-04** | Runtime guard STOP provenance = **mandatory durable server-owned** stop provenance on Attempt substrate · U2/U2b harvest as reconciliation/guard source · **no** Guard aggregate · **no** Stop Engine | **VALIDATED / ADOPTED BY MORRIS — 2026-08-24** |
 
@@ -807,19 +956,22 @@ Post-merge DOC12 + Roadmap truth state is represented in this Cycle 14 documenta
 | --- | --- |
 | **Date** | 2026-08-24 |
 | **Authority** | Morris — SFIA Studio construction / architecture governance |
-| **Decision** | TD-W3B-01…04 **VALIDATED / ADOPTED** for W3-B |
-| **Basis** | ARCH-R01…ARCH-R06 closed for architecture review · ChatGPT architecture re-review PASS · Option A REVIEW-CLEAN · Option S2 REVIEW-CLEAN · C6 remains CLOSED · no parallel Claim Engine · no Stop Engine · Product SQLite KEEP · generic ClaimEvaluation semantics outside Contract Result mode KEEP |
-| **Anti-effects** | Adoption architecture ≠ merge PR #410 · ≠ Delivery restart · ≠ W3-B completion · ≠ W3 completion · ≠ Product Completion completion · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED |
+| **Decision** | TD-W3B-01…04 **VALIDATED / ADOPTED** for W3-B · **TD-W3B-02 Option B (bound snapshot) ADOPTED — 2026-08-24** |
+| **Basis** | ARCH-R01…ARCH-R06 closed for architecture review · ChatGPT architecture re-review PASS · Option A REVIEW-CLEAN · Option S2 REVIEW-CLEAN · C6 remains CLOSED · no parallel Claim Engine · no Stop Engine · Product SQLite KEEP · generic ClaimEvaluation semantics outside Contract Result mode KEEP · W3-B Delivery Pass 2 exposed TD-W3B-02 current-model contradiction · vertical C1→W4 review |
+| **Option B trace** | Attempt captures immutable `boundExecutionContract` at accept using existing `executionContractSemanticMaterial()` · no EC history repo · no latest-EC substitution |
+| **Anti-effects** | Adoption architecture ≠ merge PR #410 · ≠ Delivery implementation in DOC cycle · ≠ W3-B completion · ≠ W3 completion · ≠ Product Completion completion · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED |
 
 ---
 
 ## 13. Migration / backfill (candidate only)
 
 - New DBs: **NONE**
+- New EC history tables: **NONE** (Option B — Attempt payload only)
 - Historical ClaimEvaluations: may be **irrecoverable**
 - Historical Attempts without assessment: **NOT_PROVEN**
+- Historical Attempts **without bound semantic snapshot**: readable · Contract Result fail-closed · **no** latest-EC reconstruction · **no** fake snapshot · **no backfill** (R-TD02-01)
 - Historical cancelled without trustworthy system provenance: **do not** reclassify as SYSTEM_GOVERNED_STOP
-- Forward writes only after later Delivery GO
+- Forward snapshot capture only after later Delivery GO + architecture clarification review-clean
 - **No migration executed** in this architecture cycle
 
 ---
@@ -894,9 +1046,10 @@ Post-merge DOC12 + Roadmap truth state is represented in this Cycle 14 documenta
 1. **TD-W3B-01…04** — **CLOSED** — VALIDATED / ADOPTED BY MORRIS on 2026-08-24.
 2. **Product SQLite / Option A** — **CLOSED** at architecture decision level (TD-W3B-01). Option B not reopened.
 3. **Contract Result review policy reference shape** — remains a bounded Delivery detail to confirm/implement within the adopted architecture (minimal server-owned policy — not broad authority DSL).
-4. **Git integration** — **CLOSED** — PR **#410 MERGED** — `bcc39fba04664edc09fca782e61e5f5e70a45d35`.
+4. **Base W3-B architecture Git integration** — **CLOSED** — PR **#410 MERGED** — `bcc39fba04664edc09fca782e61e5f5e70a45d35` · integrates ARCH-R01…ARCH-R06 / TD-W3B-01…04 **base** architecture · **≠** Option B clarification transport.
 5. **Post-merge documentary truth** — represented in merge-stable form in this document and the living Roadmap · repository transport/integration status **RESOLVE FROM GIT / PR EVIDENCE** · no product/Delivery authority follows from transport status alone.
-6. **Delivery** — **NOT** restarted · remains subject to W3-B Delivery requalification against current main · restart requires distinct Morris authorization if qualification passes · integration of this documentation alone never authorizes restart.
+6. **Delivery** — W3-B Delivery **restarted under Morris** and produced reviewed local candidate `756cda50` (Pass 2 above `0b1e50a5`) · review exposed TD-W3B-02 structural blocker · **Morris Option B now ADOPTED** in §4.10.2 · continuation of same W3-B Delivery correction remains conditioned on: **ChatGPT clarification review-clean** → **distinct Morris Git integration decision** → **governed repository integration / post-integration truth verification** · this DOC cycle **does not** implement snapshot · **does not** integrate Option B · **does not** close W3-B.
+7. **TD-W3B-02 architecture blocker** — **CLOSED at architecture-decision level** via Option B · Option B clarification repository integration status **RESOLVE FROM GIT / PR EVIDENCE** · **implementation + X-W3B-01…12 re-proof still required** in Delivery after that future transport.
 
 ~~Prior open question on accepted→cancelled system STOP as Product STOP~~ — **resolved by ARCH-R03**. No C2/FA rewrite.
 
@@ -904,6 +1057,6 @@ Post-merge DOC12 + Roadmap truth state is represented in this Cycle 14 documenta
 
 ## 17. Final architecture verdict (this document)
 
-**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R01…ARCH-R06 REVIEW-CLEAN — TD-W3B-01…04 VALIDATED / ADOPTED BY MORRIS — INTEGRATED ON MAIN via PR #410 / `bcc39fba04664edc09fca782e61e5f5e70a45d35`**
+**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — BASE ARCHITECTURE ARCH-R01…ARCH-R06 / TD-W3B-01…04 VALIDATED / ADOPTED BY MORRIS / INTEGRATED ON MAIN VIA PR #410 / `bcc39fba04664edc09fca782e61e5f5e70a45d35` — TD-W3B-02 OPTION B CLARIFICATION ADOPTED BY MORRIS — CLARIFICATION REPOSITORY INTEGRATION STATUS RESOLVE FROM GIT / PR EVIDENCE — W3-B NOT CLOSED**
 
-Architecture adopted and integrated on main · post-merge documentary truth represented in merge-stable form · repository integration status resolved from Git/PR evidence · W3-B Delivery not restarted · W3-B remains incomplete pending implementation/proof · C6 remains CLOSED · runtime v3 NON ADOPTED.
+Base W3-B targeted architecture remains integrated on main via PR #410 · TD-W3B-02 bound-material contradiction closed by Morris Option B at **architecture-decision / documentation** level · Option B clarification is **ADOPTED BY MORRIS** and exists in the local documentary candidate · its Git transport/integration is **not** attributed to PR #410 and must be resolved from future Git/PR evidence after a distinct Morris Git integration decision · W3-B **NOT CLOSED** · Delivery implementation/re-proof pending after clarification review-clean + governed repository integration + post-integration truth verification · C6 remains CLOSED · REAL OUT · runtime v3 NON ADOPTED.
