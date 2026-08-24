@@ -788,7 +788,7 @@ No invented latency/SLA targets.
 
 ### Backlog note (no mutation this cycle)
 
-Post-merge DOC12 + Roadmap truth sync executed in Cycle 14 (local candidate). US-P1-05 / US-P1-06 backlog annotation remains future separate controlled backlog sync if needed. **No backlog rewrite now.**
+Post-merge DOC12 + Roadmap truth state is represented in this Cycle 14 documentation in merge-stable form. Repository transport/integration status is resolved from Git/PR evidence. US-P1-05 / US-P1-06 backlog annotation remains future separate controlled backlog sync if needed. **No backlog rewrite now.**
 
 ---
 
@@ -895,8 +895,8 @@ Post-merge DOC12 + Roadmap truth sync executed in Cycle 14 (local candidate). US
 2. **Product SQLite / Option A** — **CLOSED** at architecture decision level (TD-W3B-01). Option B not reopened.
 3. **Contract Result review policy reference shape** — remains a bounded Delivery detail to confirm/implement within the adopted architecture (minimal server-owned policy — not broad authority DSL).
 4. **Git integration** — **CLOSED** — PR **#410 MERGED** — `bcc39fba04664edc09fca782e61e5f5e70a45d35`.
-5. **Post-merge truth sync** — **CURRENT LOCAL CANDIDATE** — awaiting ChatGPT review.
-6. **Delivery** — **NOT** restarted. Requires post-merge truth integration then W3-B Delivery requalification. Restart requires distinct Morris authorization after qualification.
+5. **Post-merge documentary truth** — represented in merge-stable form in this document and the living Roadmap · repository transport/integration status **RESOLVE FROM GIT / PR EVIDENCE** · no product/Delivery authority follows from transport status alone.
+6. **Delivery** — **NOT** restarted · remains subject to W3-B Delivery requalification against current main · restart requires distinct Morris authorization if qualification passes · integration of this documentation alone never authorizes restart.
 
 ~~Prior open question on accepted→cancelled system STOP as Product STOP~~ — **resolved by ARCH-R03**. No C2/FA rewrite.
 
@@ -906,4 +906,4 @@ Post-merge DOC12 + Roadmap truth sync executed in Cycle 14 (local candidate). US
 
 **W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R01…ARCH-R06 REVIEW-CLEAN — TD-W3B-01…04 VALIDATED / ADOPTED BY MORRIS — INTEGRATED ON MAIN via PR #410 / `bcc39fba04664edc09fca782e61e5f5e70a45d35`**
 
-Architecture adopted and integrated on main · post-merge documentary truth sync pending Git integration · W3-B Delivery not restarted · W3-B remains incomplete pending implementation/proof · C6 remains CLOSED · runtime v3 NON ADOPTED.
+Architecture adopted and integrated on main · post-merge documentary truth represented in merge-stable form · repository integration status resolved from Git/PR evidence · W3-B Delivery not restarted · W3-B remains incomplete pending implementation/proof · C6 remains CLOSED · runtime v3 NON ADOPTED.
