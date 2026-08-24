@@ -1046,10 +1046,10 @@ Post-merge DOC12 + Roadmap truth state is represented in this Cycle 14 documenta
 1. **TD-W3B-01…04** — **CLOSED** — VALIDATED / ADOPTED BY MORRIS on 2026-08-24.
 2. **Product SQLite / Option A** — **CLOSED** at architecture decision level (TD-W3B-01). Option B not reopened.
 3. **Contract Result review policy reference shape** — remains a bounded Delivery detail to confirm/implement within the adopted architecture (minimal server-owned policy — not broad authority DSL).
-4. **Git integration** — **CLOSED** — PR **#410 MERGED** — `bcc39fba04664edc09fca782e61e5f5e70a45d35`.
+4. **Base W3-B architecture Git integration** — **CLOSED** — PR **#410 MERGED** — `bcc39fba04664edc09fca782e61e5f5e70a45d35` · integrates ARCH-R01…ARCH-R06 / TD-W3B-01…04 **base** architecture · **≠** Option B clarification transport.
 5. **Post-merge documentary truth** — represented in merge-stable form in this document and the living Roadmap · repository transport/integration status **RESOLVE FROM GIT / PR EVIDENCE** · no product/Delivery authority follows from transport status alone.
-6. **Delivery** — W3-B Delivery **restarted under Morris** and produced reviewed local candidate `756cda50` (Pass 2 above `0b1e50a5`) · review exposed TD-W3B-02 structural blocker · **Morris Option B now ADOPTED** in §4.10.2 · **architecture clarification must be review-clean before continuing same W3-B Delivery candidate correction** · this DOC cycle **does not** implement snapshot · **does not** close W3-B.
-7. **TD-W3B-02 architecture blocker** — **CLOSED at architecture-decision level** via Option B · **implementation + X-W3B-01…12 re-proof still required** in Delivery.
+6. **Delivery** — W3-B Delivery **restarted under Morris** and produced reviewed local candidate `756cda50` (Pass 2 above `0b1e50a5`) · review exposed TD-W3B-02 structural blocker · **Morris Option B now ADOPTED** in §4.10.2 · continuation of same W3-B Delivery correction remains conditioned on: **ChatGPT clarification review-clean** → **distinct Morris Git integration decision** → **governed repository integration / post-integration truth verification** · this DOC cycle **does not** implement snapshot · **does not** integrate Option B · **does not** close W3-B.
+7. **TD-W3B-02 architecture blocker** — **CLOSED at architecture-decision level** via Option B · Option B clarification repository integration status **RESOLVE FROM GIT / PR EVIDENCE** · **implementation + X-W3B-01…12 re-proof still required** in Delivery after that future transport.
 
 ~~Prior open question on accepted→cancelled system STOP as Product STOP~~ — **resolved by ARCH-R03**. No C2/FA rewrite.
 
@@ -1057,6 +1057,6 @@ Post-merge DOC12 + Roadmap truth state is represented in this Cycle 14 documenta
 
 ## 17. Final architecture verdict (this document)
 
-**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — ARCH-R01…ARCH-R06 REVIEW-CLEAN — TD-W3B-01…04 VALIDATED / ADOPTED BY MORRIS — TD-W3B-02 OPTION B CLARIFICATION ADOPTED — INTEGRATED ON MAIN via PR #410 / `bcc39fba04664edc09fca782e61e5f5e70a45d35`**
+**W3-B TARGETED TECHNICAL ARCHITECTURE ADDENDUM — BASE ARCHITECTURE ARCH-R01…ARCH-R06 / TD-W3B-01…04 VALIDATED / ADOPTED BY MORRIS / INTEGRATED ON MAIN VIA PR #410 / `bcc39fba04664edc09fca782e61e5f5e70a45d35` — TD-W3B-02 OPTION B CLARIFICATION ADOPTED BY MORRIS — CLARIFICATION REPOSITORY INTEGRATION STATUS RESOLVE FROM GIT / PR EVIDENCE — W3-B NOT CLOSED**
 
-Architecture adopted on main · TD-W3B-02 bound-material contradiction closed by Morris Option B at documentation level · W3-B **NOT CLOSED** · Delivery implementation/re-proof pending after clarification review · C6 remains CLOSED · REAL OUT · runtime v3 NON ADOPTED.
+Base W3-B targeted architecture remains integrated on main via PR #410 · TD-W3B-02 bound-material contradiction closed by Morris Option B at **architecture-decision / documentation** level · Option B clarification is **ADOPTED BY MORRIS** and exists in the local documentary candidate · its Git transport/integration is **not** attributed to PR #410 and must be resolved from future Git/PR evidence after a distinct Morris Git integration decision · W3-B **NOT CLOSED** · Delivery implementation/re-proof pending after clarification review-clean + governed repository integration + post-integration truth verification · C6 remains CLOSED · REAL OUT · runtime v3 NON ADOPTED.
