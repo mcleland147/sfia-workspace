@@ -2,7 +2,10 @@ import { randomBytes } from "node:crypto";
 import type { ClockPort } from "@/lib/oa/doctrine";
 import type { AuthorityResolverPort } from "@/lib/oa/decision";
 import { createExecutionError } from "../domain/errors";
-import { isTa5Status } from "../domain/invariants";
+import {
+  hasConfirmationConstraintContradiction,
+  isTa5Status,
+} from "../domain/invariants";
 import type {
   ActorReference,
   ExecutionContract,
@@ -31,7 +34,11 @@ type ValidateSnapshot = {
  * Does NOT consume Confirmation.
  * Does NOT produce confirmed or T-A5 statuses.
  *
- * N1 → validated; N2|N3|MORRIS → confirmation_required.
+ * Status derivation:
+ * - EFFECT_CONFIRMATION_REQUIRED constraint → confirmation_required
+ *   (effect-driven Confirmation, independent of requiredAuthority)
+ * - else N1 → validated
+ * - else N2|N3|MORRIS → confirmation_required
  */
 export class ValidateExecutionContract {
   constructor(
@@ -117,6 +124,13 @@ export class ValidateExecutionContract {
           currentVersion: existing.version,
         });
       }
+      if (hasConfirmationConstraintContradiction(existing.constraints)) {
+        return fail(
+          "CONTRACT_INVALID",
+          "confirmation_constraint_contradiction",
+          { projectId: existing.projectId },
+        );
+      }
 
       const verification = verifyRequiredAuthority(this.authority, {
         requiredAuthority: existing.requiredAuthority,
@@ -153,9 +167,13 @@ export class ValidateExecutionContract {
       }
 
       const nextStatus =
-        existing.requiredAuthority === "N1"
-          ? "validated"
-          : "confirmation_required";
+        existing.constraints.some((c) =>
+          c.startsWith("EFFECT_CONFIRMATION_REQUIRED"),
+        )
+          ? "confirmation_required"
+          : existing.requiredAuthority === "N1"
+            ? "validated"
+            : "confirmation_required";
 
       let contract: ExecutionContract | undefined;
 

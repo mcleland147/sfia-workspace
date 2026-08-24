@@ -98,6 +98,127 @@ export function assertPrefixedId(
   return null;
 }
 
+/**
+ * Durable constraint: FC-08 evaluated Confirmation and concluded NOT REQUIRED.
+ * Generic EC-domain token — not a W3-A feature import. Reconstructible from
+ * persisted constraints (R16). Legacy validated/N1 without this marker is
+ * NOT Execute-ready.
+ */
+export const EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED =
+  "EXECUTION_CONFIRMATION_EVALUATED:NOT_REQUIRED" as const;
+
+/** Prefix for effect-driven Confirmation requirement constraints. */
+export const EFFECT_CONFIRMATION_REQUIRED_PREFIX =
+  "EFFECT_CONFIRMATION_REQUIRED" as const;
+
+/** Prefix for FC-08 system-owned Confirmation evaluation markers. */
+export const EXECUTION_CONFIRMATION_EVALUATED_PREFIX =
+  "EXECUTION_CONFIRMATION_EVALUATED" as const;
+
+/** Normalize constraint text the same way as W2 amendment ingress. */
+export function normalizeExecutionConstraintText(raw: string): string | null {
+  const trimmed = raw.replace(/\u0000/g, "").trim();
+  if (!trimmed) return null;
+  return trimmed.replace(/\s+/g, " ");
+}
+
+export function contractHasEffectConfirmationRequired(
+  constraints: readonly string[] | null | undefined,
+): boolean {
+  if (!constraints) return false;
+  return constraints.some(
+    (c) =>
+      c === EFFECT_CONFIRMATION_REQUIRED_PREFIX ||
+      c.startsWith(`${EFFECT_CONFIRMATION_REQUIRED_PREFIX}:`),
+  );
+}
+
+export function contractHasConfirmationEvaluatedNotRequired(
+  constraints: readonly string[] | null | undefined,
+): boolean {
+  if (!constraints) return false;
+  return constraints.includes(EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED);
+}
+
+/** Both REQUIRED and NOT_REQUIRED markers present — always fail-closed. */
+export function hasConfirmationConstraintContradiction(
+  constraints: readonly string[] | null | undefined,
+): boolean {
+  return (
+    contractHasEffectConfirmationRequired(constraints) &&
+    contractHasConfirmationEvaluatedNotRequired(constraints)
+  );
+}
+
+/**
+ * System-owned Confirmation constraint namespaces — not user/Pilote amendable.
+ * Uses the same normalization as amendment ingress.
+ */
+export function isSystemOwnedExecutionConstraint(raw: string): boolean {
+  const normalized = normalizeExecutionConstraintText(raw);
+  if (!normalized) return false;
+  if (normalized === EFFECT_CONFIRMATION_REQUIRED_PREFIX) return true;
+  if (normalized.startsWith(`${EFFECT_CONFIRMATION_REQUIRED_PREFIX}:`)) {
+    return true;
+  }
+  if (normalized === EXECUTION_CONFIRMATION_EVALUATED_PREFIX) return true;
+  if (normalized.startsWith(`${EXECUTION_CONFIRMATION_EVALUATED_PREFIX}:`)) {
+    return true;
+  }
+  return false;
+}
+
+export function assertUserAmendableExecutionConstraint(
+  raw: string,
+): { ok: true; normalized: string } | { ok: false; message: string } {
+  const normalized = normalizeExecutionConstraintText(raw);
+  if (!normalized) {
+    return {
+      ok: false,
+      message:
+        "La contrainte d'exécution supplémentaire est vide — amendement refusé.",
+    };
+  }
+  if (isSystemOwnedExecutionConstraint(normalized)) {
+    return {
+      ok: false,
+      message:
+        "Marqueur système réservé (EXECUTION_CONFIRMATION_EVALUATED / EFFECT_CONFIRMATION_REQUIRED) — amendement Pilote refusé.",
+    };
+  }
+  return { ok: true, normalized };
+}
+
+/**
+ * Execute-ready lifecycle status for FC-09 / FC-10 gates.
+ *
+ * Order: contradiction check FIRST (including confirmed).
+ * - contradictory REQUIRED + NOT_REQUIRED → NOT ready (any status)
+ * - `confirmed` → ready
+ * - `validated` + N1 + CONFIRMATION_EVALUATED:NOT_REQUIRED
+ *   + no EFFECT_CONFIRMATION_REQUIRED* → ready
+ * - `validated` + N1 without explicit evaluation marker → NOT ready (legacy)
+ * - N2/N3/MORRIS validated → NOT ready
+ * - `confirmation_required` → NOT ready
+ *
+ * Never a universal validated+N1 bypass.
+ */
+export function isExecutionReadyStatus(contract: {
+  status: ExecutionContractStatus | string;
+  requiredAuthority: AuthorityClass | string;
+  constraints?: readonly string[] | null;
+}): boolean {
+  const constraints = contract.constraints ?? [];
+  if (hasConfirmationConstraintContradiction(constraints)) return false;
+  if (contract.status === "confirmed") return true;
+  if (contract.status !== "validated") return false;
+  if (contract.requiredAuthority !== "N1") return false;
+  const required = contractHasEffectConfirmationRequired(constraints);
+  const notRequired = contractHasConfirmationEvaluatedNotRequired(constraints);
+  if (required) return false;
+  return notRequired;
+}
+
 export function isTa5Status(status: ExecutionContractStatus): boolean {
   return TA5_STATUSES.has(status as Ta5ExecutionContractStatus);
 }
@@ -363,8 +484,8 @@ export function validateBuildFields(input: {
   if (input.status !== "draft" && input.status !== "proposed") {
     return { detailCode: "CONTRACT_INVALID", reason: "build_status_invalid" };
   }
-  if (!Array.isArray(input.decisionRefs) || input.decisionRefs.length < 1) {
-    return { detailCode: "DECISION_REQUIRED", reason: "decision_refs_required" };
+  if (!Array.isArray(input.decisionRefs)) {
+    return { detailCode: "CONTRACT_INVALID", reason: "decision_refs_invalid" };
   }
   for (const d of input.decisionRefs) {
     if (!isOaIdentifier(d) || !d.startsWith("dec:")) {

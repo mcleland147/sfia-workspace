@@ -252,9 +252,9 @@ describe("Cycle 8 — Pre-M6 REAL product wiring amend", () => {
       runtime.oa!.executionAttemptServices.grantRealExecutionGate,
     ).toBeUndefined();
     const agents = runtime.oa!.executionAttemptServices.registry.listAgents();
-    expect(
-      agents.map((a) => a.agentId),
-    ).toEqual(["agt:f3-fixture"]);
+    expect(agents.map((a) => a.agentId).sort()).toEqual(
+      ["agt:f3-fixture", "agt:w3a-bounded-fixture"].sort(),
+    );
     expect(runtime.oa!.fixtureAdapter.adapterId).toBe(F3_ADAPTER_ID);
 
     const seeded = await seedGo(runtime, "t1");

@@ -6,7 +6,12 @@ import type {
   DecisionServices,
 } from "@/lib/oa/decision";
 import { createExecutionError } from "../domain/errors";
-import { denyByDefaultMatch, isTa5Status } from "../domain/invariants";
+import {
+  denyByDefaultMatch,
+  hasConfirmationConstraintContradiction,
+  isExecutionReadyStatus,
+  isTa5Status,
+} from "../domain/invariants";
 import type {
   ActorReference,
   CheckAuthorizationResult,
@@ -34,8 +39,10 @@ type CheckSnapshot = {
  * CheckExecutionAuthorization — gate for T-A5 StartExecution.
  * NEVER mutates. NEVER executes. Deny-by-default on action/target/scope.
  *
- * Requires: status=confirmed, not cancelled/superseded, not T-A5 status,
- * decisions still accepted+current, Critical ack if applicable, authority OK.
+ * Requires: execute-ready status (confirmed, or validated+N1 with
+ * EXECUTION_CONFIRMATION_EVALUATED:NOT_REQUIRED and no EFFECT_CONFIRMATION_REQUIRED),
+ * not cancelled/superseded, not T-A5 status, decisions still accepted+current,
+ * Critical ack if applicable, authority OK.
  */
 export class CheckExecutionAuthorization {
   constructor(
@@ -112,7 +119,14 @@ export class CheckExecutionAuthorization {
           projectId: contract.projectId,
         });
       }
-      if (contract.status !== "confirmed") {
+      if (hasConfirmationConstraintContradiction(contract.constraints)) {
+        return fail(
+          "CONTRACT_INVALID",
+          "confirmation_constraint_contradiction",
+          { projectId: contract.projectId },
+        );
+      }
+      if (!isExecutionReadyStatus(contract)) {
         return fail("STATE_CONFLICT", `not_confirmed_${contract.status}`, {
           projectId: contract.projectId,
         });

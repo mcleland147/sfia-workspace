@@ -261,3 +261,97 @@ export type AmendExecutionContractSuccess = {
 export type AmendExecutionContractResult =
   | AmendExecutionContractSuccess
   | W2Failure;
+
+/* -------------------------------------------------------------------------- */
+/* W3-A — FC-08 native prepare + Governed Execute (after W2 AUTHORIZED)      */
+/* -------------------------------------------------------------------------- */
+
+export type PreparedExecutionContractResult =
+  | {
+      readonly ok: true;
+      readonly contract: {
+        readonly executionContractId: string;
+        readonly version: number;
+        readonly status: string;
+        readonly action: string;
+        readonly target: string;
+        readonly scope: string;
+        readonly requiredAuthority: string;
+        readonly constraints: readonly string[];
+        readonly stopConditions: readonly string[];
+        readonly requiredCapabilities: readonly string[];
+        readonly reversibility: string;
+        readonly semanticFingerprint: string;
+        readonly effectClass?: string;
+        readonly effectConfirmationRequired?: boolean;
+        readonly effectConfirmationLevel?: string | null;
+      };
+      readonly decisionId: string;
+      readonly f3SemanticOverwrite: false;
+      readonly executionPerformed: false;
+      readonly attemptCreated: false;
+    }
+  | W2Failure;
+
+export type GovernedExecuteAttemptProjection = {
+  readonly attemptId: string;
+  readonly attemptStatus: string;
+  readonly selectedAgentRef: string;
+  readonly adapterId: string;
+};
+
+export type GovernedExecutePhase =
+  | "accepted"
+  | "running"
+  | "terminal";
+
+export type GovernedExecutePhaseSuccess = {
+  readonly ok: true;
+  readonly phase: GovernedExecutePhase;
+  readonly executionContractId: string;
+  readonly contractVersion: number;
+  readonly attemptId: string;
+  readonly attemptStatus: string;
+  readonly selectedAgentRef: string;
+  readonly adapterId: string;
+  readonly selectionProfile: string;
+  readonly realExecution: false;
+  readonly externalEffects: false;
+  readonly authorityReceiptUsedAsPermission: false;
+  readonly statusLabel: string;
+  readonly technicalTerminal: boolean;
+  readonly productSuccessSemantics: false;
+  readonly attempt: GovernedExecuteAttemptProjection;
+  readonly reusedExistingAttempt?: boolean;
+  readonly launchCount?: number;
+  readonly launchDelta?: number;
+  readonly executionPerformed?: true;
+  readonly attemptCreated?: boolean;
+  readonly gitWritePerformed?: false;
+  readonly cycleInstanceClosed?: boolean;
+  readonly projectArchived?: boolean;
+};
+
+export type GovernedExecutePhaseFailure = W2Failure & {
+  readonly attempt?: GovernedExecuteAttemptProjection;
+};
+
+export type GovernedExecutePhaseResult =
+  | GovernedExecutePhaseSuccess
+  | GovernedExecutePhaseFailure;
+
+export type GovernedExecuteAuthorizedContractSuccess = GovernedExecutePhaseSuccess & {
+  readonly phase: "terminal";
+  readonly reusedExistingAttempt: boolean;
+  readonly launchCount: number;
+  readonly launchDelta: number;
+  readonly executionPerformed: true;
+  readonly attemptCreated: boolean;
+  readonly gitWritePerformed: false;
+  readonly cycleInstanceClosed: false | boolean;
+  readonly projectArchived: false | boolean;
+};
+
+export type GovernedExecuteAuthorizedContractResult =
+  | GovernedExecuteAuthorizedContractSuccess
+  | GovernedExecutePhaseFailure;

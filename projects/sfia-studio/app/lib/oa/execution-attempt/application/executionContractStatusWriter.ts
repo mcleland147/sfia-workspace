@@ -9,10 +9,11 @@
  *   ExecutionContract.executing ⇒ a matching Attempt is ALREADY running
  *   in the Attempt repository — caller-claimed status alone is NOT trusted.
  */
-import type {
-  ExecutionContract,
-  ExecutionContractRepositoryPort,
-  ExecutionContractPersistenceUnitOfWorkPort,
+import {
+  isExecutionReadyStatus,
+  type ExecutionContract,
+  type ExecutionContractRepositoryPort,
+  type ExecutionContractPersistenceUnitOfWorkPort,
 } from "@/lib/oa/execution-contract";
 import type { AttemptDetailCode, ExecutionAttemptStatus } from "../domain/types";
 import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
@@ -24,10 +25,11 @@ export type Ta5ContractStatus =
   | "cancelled";
 
 const ALLOWED_SOURCES: Record<Ta5ContractStatus, readonly string[]> = {
-  executing: ["confirmed"],
+  // validated is Execute-ready only via isExecutionReadyStatus (R16 marker).
+  executing: ["confirmed", "validated"],
   completed: ["executing"],
-  failed: ["confirmed", "executing"],
-  cancelled: ["confirmed", "executing"],
+  failed: ["confirmed", "validated", "executing"],
+  cancelled: ["confirmed", "validated", "executing"],
 };
 
 export type ContractStatusWriteRequest = {
@@ -119,7 +121,11 @@ export class ExecutionContractStatusWriter {
         };
         throw new Error("contract_occ_mismatch");
       }
-      if (!ALLOWED_SOURCES[request.nextStatus].includes(current.status)) {
+      const allowed = ALLOWED_SOURCES[request.nextStatus];
+      const sourceAllowed =
+        allowed.includes(current.status) &&
+        (current.status !== "validated" || isExecutionReadyStatus(current));
+      if (!sourceAllowed) {
         failure = {
           ok: false,
           detailCode: "EXECUTION_CONTRACT_UPDATE_FAILED",

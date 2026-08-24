@@ -42,10 +42,12 @@ import type {
 /**
  * Confirmation requirement from the canonical ExecutionContract lifecycle.
  *
- * PASS_WITH_KNOWN_SIMPLIFICATION — full C2 multi-factor formula not claimed;
- * lifecycle owner is ValidateExecutionContract (N1 → validated without confirm;
- * N2|N3|MORRIS → confirmation_required). Status is the primary owner here;
- * `requiredAuthority !== "N1"` is intentionally not the primary rule.
+ * Status is the primary owner (ValidateExecutionContract):
+ * - validated ⇒ Confirmation not required (effect projection said so)
+ * - confirmation_required ⇒ Confirmation required (authority class OR effects)
+ * - confirmed ⇒ Confirmation obtained
+ *
+ * requiredAuthority alone does NOT decide Confirmation (C2 §10).
  */
 export function resolveConfirmationRequirement(
   contract: Pick<ExecutionContract, "requiredAuthority" | "confirmationRef" | "status">,
@@ -54,7 +56,7 @@ export function resolveConfirmationRequirement(
 
   switch (contract.status) {
     case "validated":
-      // ValidateExecutionContract wrote validated ⇒ confirmation not required (N1).
+      // Validate wrote validated ⇒ effect Confirmation not required.
       return {
         required: false,
         satisfied: true,
@@ -116,8 +118,30 @@ export function evaluateAgentCapability(
     "requiredCapabilities" | "action" | "target" | "scope"
   >,
 ): AgentCapabilitySufficiency {
+  const criteria = {
+    requiredCapabilities: [...contract.requiredCapabilities],
+    action: contract.action,
+    target: contract.target,
+    scope: contract.scope,
+  };
+  // Prefer findCandidates (deny-by-default port API) so contract-shaped
+  // fixture composition can adapt AFTER EC preparation (B4).
+  const candidates = registry.findCandidates(criteria);
+  const evaluatedAgentRefs = [
+    ...new Set([
+      ...registry.listAgents().map((agent) => agent.agentId),
+      ...candidates.map((c) => c.agentId),
+    ]),
+  ];
+  if (candidates.length > 0) {
+    return {
+      evaluatedAgentRefs,
+      sufficientAgentRef: candidates[0].agentId,
+      sufficient: true,
+      reason: "sufficient",
+    };
+  }
   const agents = registry.listAgents();
-  const evaluatedAgentRefs = agents.map((agent) => agent.agentId);
   if (agents.length === 0) {
     return {
       evaluatedAgentRefs,
@@ -125,15 +149,9 @@ export function evaluateAgentCapability(
       reason: "no_agent_registered",
     };
   }
-
   let firstViolation: AgentCapabilitySufficiency["reason"] = "scope_not_allowed";
   for (const agent of agents) {
-    const violation = agentMatchViolation(agent, {
-      requiredCapabilities: [...contract.requiredCapabilities],
-      action: contract.action,
-      target: contract.target,
-      scope: contract.scope,
-    });
+    const violation = agentMatchViolation(agent, criteria);
     if (!violation) {
       return {
         evaluatedAgentRefs,

@@ -57,6 +57,8 @@ import {
   createF3FixtureAgentDescriptor,
   createF3TestExecutionAdapter,
 } from "./f3FixtureWiring";
+import { createW3ABoundedFixtureAgentDescriptor } from "./w3aProductFixtureWiring";
+import { MemoryAgentRegistry } from "@/lib/oa/execution-attempt";
 import {
   toCreateLocalProjectCommand,
   toCreateProjectRuntimeFailure,
@@ -219,21 +221,25 @@ function wireOaStack(
   // This composition does not instantiate StudioCursorRealLaunchGateway.
   const fixtureAdapter = createF3TestExecutionAdapter();
   const fixtureAgent = createF3FixtureAgentDescriptor(clock.nowIso());
+  const w3aBoundedAgent = createW3ABoundedFixtureAgentDescriptor(clock.nowIso());
   const realBoundary = options?.realBoundary;
   const registerM4 =
     realBoundary !== undefined || isStudioCursorRealEnabled();
+  // Bounded W3-A fixture: explicit supported actions/caps ONLY (no universal synthesis).
   const agents = registerM4
     ? [
         fixtureAgent,
+        w3aBoundedAgent,
         createM4BoundedReadOnlyCursorAgentDescriptor(clock.nowIso()),
       ]
-    : [fixtureAgent];
+    : [fixtureAgent, w3aBoundedAgent];
+  const registry = new MemoryAgentRegistry(agents);
   const executionAttemptServices = productSqlite
     ? createSqliteExecutionAttemptServices({
         decisionServices,
         executionContractServices,
         productStore: productSqlite,
-        agents,
+        registry,
         adapter: fixtureAdapter,
         clock,
         authorityResolver,
@@ -243,7 +249,7 @@ function wireOaStack(
     : createInMemoryExecutionAttemptServices({
         decisionServices,
         executionContractServices,
-        agents,
+        registry,
         adapter: fixtureAdapter,
         clock,
         authorityResolver,

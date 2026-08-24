@@ -1,24 +1,26 @@
 "use client";
 
 /**
- * W2 product surface — Options, Recommendation, HumanDecision, decided
- * trajectory, contract inspection and effective authority.
+ * W2 / W3-A product surface — Options, Recommendation, HumanDecision, decided
+ * trajectory, contract inspection, effective authority, and (W3-A) fixture
+ * governed Execute after AUTHORIZED.
  *
  * The surface never derives truth: every state shown here comes from a server
- * action over the product application path. Distinctions the Pilote must see
- * are carried by explicit labels — an Option is labelled OPTION, a
- * Recommendation states it is not a decision, and the authority verdict states
- * that nothing is executed.
+ * action over the product application path.
  */
 
 import { useCallback, useState } from "react";
-import { projectAssistantPrepareM3Action } from "@/features/project-assistant/actions";
+import { flushSync } from "react-dom";
 import {
   w2AmendExecutionContractAction,
   w2AuthorizeExecutionContractAction,
   w2ConfirmExecutionContractAction,
   w2DecideTrajectoryAction,
+  w2GovernedExecuteCompleteAction,
+  w2GovernedExecuteSelectAction,
+  w2GovernedExecuteStartAction,
   w2InspectExecutionContractAction,
+  w2PrepareExecutionContractAction,
   w2ProposeTrajectoryOptionsAction,
 } from "@/features/project-assistant/w2/actions";
 import type {
@@ -26,10 +28,15 @@ import type {
   ContractInspectionStateDto,
   DecidedTrajectoryDto,
   ExecutionAuthorizationOutcomeDto,
+  GovernedExecuteAttemptProjection,
+  GovernedExecutePhaseSuccess,
   TrajectoryDecisionRecordDto,
   TrajectoryOptionSetDto,
 } from "@/features/project-assistant/w2/types";
 import styles from "./TrajectorySurface.module.css";
+
+/** Explicit Pilot-qualified operation — never inferred from W2 trajectory alone. */
+type QualifiedOperationKind = "generate-temporary-artifact" | "simulate" | "read";
 
 type PreparedContract = {
   readonly executionContractId: string;
@@ -44,6 +51,8 @@ type PreparedContract = {
   readonly requiredCapabilities: readonly string[];
   readonly reversibility: string;
   readonly semanticFingerprint: string;
+  readonly effectConfirmationRequired?: boolean;
+  readonly effectConfirmationLevel?: string | null;
 };
 
 type AmendmentNotice = {
@@ -57,11 +66,27 @@ type Busy =
   | null
   | "options"
   | "decision"
+  | "qualify"
   | "contract"
   | "inspection"
   | "confirmation"
   | "authorization"
-  | "amendment";
+  | "amendment"
+  | "execute";
+
+/**
+ * Yield so React can commit and the browser can paint each Attempt phase.
+ * Double rAF only — no fixed-duration sleep / business latency (R09-R).
+ */
+function yieldBrowserPaint(): Promise<void> {
+  return new Promise((resolve) => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        resolve();
+      });
+    });
+  });
+}
 
 export function TrajectorySurface({
   projectId,
@@ -87,6 +112,33 @@ export function TrajectorySurface({
   const [amendmentDraft, setAmendmentDraft] = useState("");
   const [amendmentNotice, setAmendmentNotice] =
     useState<AmendmentNotice | null>(null);
+  const [attempt, setAttempt] =
+    useState<GovernedExecuteAttemptProjection | null>(null);
+  const [attemptPhase, setAttemptPhase] = useState<
+    GovernedExecutePhaseSuccess["phase"] | null
+  >(null);
+  /** Append-only paint trail — proves R09 sequence even with a sync adapter. */
+  const [attemptPhaseHistory, setAttemptPhaseHistory] = useState<string[]>([]);
+  const [attemptStatusLabel, setAttemptStatusLabel] = useState<string | null>(
+    null,
+  );
+  const [qualifiedOperationKind, setQualifiedOperationKind] =
+    useState<QualifiedOperationKind | null>(null);
+
+  function paintAttemptPhase(
+    phase: GovernedExecutePhaseSuccess["phase"],
+    nextAttempt: GovernedExecuteAttemptProjection | null,
+    statusLabel: string | null,
+  ): void {
+    flushSync(() => {
+      if (nextAttempt) setAttempt(nextAttempt);
+      setAttemptPhase(phase);
+      if (statusLabel !== null) setAttemptStatusLabel(statusLabel);
+      setAttemptPhaseHistory((prev) =>
+        prev[prev.length - 1] === phase ? prev : [...prev, phase],
+      );
+    });
+  }
 
   const proposeOptions = useCallback(async () => {
     setBusy("options");
@@ -106,6 +158,9 @@ export function TrajectorySurface({
     setAuthorization(null);
     setAmendmentDraft("");
     setAmendmentNotice(null);
+    setAttempt(null);
+    setAttemptPhase(null);
+    setAttemptStatusLabel(null);
     onDurableFactsChanged?.();
   }, [projectId, onDurableFactsChanged]);
 
@@ -134,40 +189,45 @@ export function TrajectorySurface({
   );
 
   const prepareContract = useCallback(async () => {
-    if (!decision) return;
+    if (!decision || !qualifiedOperationKind) return;
     setBusy("contract");
     setError(null);
-    const result = await projectAssistantPrepareM3Action({
+    const result = await w2PrepareExecutionContractAction({
       projectId,
       decisionId: decision.decisionId,
+      qualifiedOperationKind,
     });
     setBusy(null);
     if (!result.ok) {
       setError(result.message);
       return;
     }
+    const prepared = result.contract;
     setContract({
-      executionContractId: result.f3.contract.executionContractId,
-      version: result.f3.contract.version,
-      status: result.f3.contract.status,
-      action: result.f3.contract.action,
-      target: result.f3.contract.target,
-      scope: result.f3.contract.scope,
-      requiredAuthority: result.f3.contract.requiredAuthority,
-      constraints: [...(result.f3.contract.constraints ?? [])],
-      stopConditions: [...(result.f3.contract.stopConditions ?? [])],
-      requiredCapabilities: [
-        ...(result.f3.contract.requiredCapabilities ?? []),
-      ],
-      reversibility: result.f3.contract.reversibility ?? "non précisée",
-      semanticFingerprint: result.f3.contract.semanticFingerprint,
+      executionContractId: prepared.executionContractId,
+      version: prepared.version,
+      status: prepared.status,
+      action: prepared.action,
+      target: prepared.target,
+      scope: prepared.scope,
+      requiredAuthority: prepared.requiredAuthority,
+      constraints: [...prepared.constraints],
+      stopConditions: [...prepared.stopConditions],
+      requiredCapabilities: [...prepared.requiredCapabilities],
+      reversibility: prepared.reversibility,
+      semanticFingerprint: prepared.semanticFingerprint,
+      effectConfirmationRequired: prepared.effectConfirmationRequired,
+      effectConfirmationLevel: prepared.effectConfirmationLevel ?? null,
     });
     setInspection(null);
     setAuthorization(null);
     setAmendmentDraft("");
     setAmendmentNotice(null);
+    setAttempt(null);
+    setAttemptPhase(null);
+    setAttemptStatusLabel(null);
     onDurableFactsChanged?.();
-  }, [decision, projectId, onDurableFactsChanged]);
+  }, [decision, projectId, qualifiedOperationKind, onDurableFactsChanged]);
 
   const inspect = useCallback(async () => {
     if (!contract) return;
@@ -229,6 +289,9 @@ export function TrajectorySurface({
     });
     setInspection(amended.successorInspection);
     setAuthorization(null);
+    setAttempt(null);
+    setAttemptPhase(null);
+    setAttemptStatusLabel(null);
     setAmendmentDraft("");
     setAmendmentNotice({
       priorExecutionContractId: amended.priorExecutionContractId,
@@ -266,6 +329,10 @@ export function TrajectorySurface({
     if (!contract) return;
     setBusy("authorization");
     setError(null);
+    setAttempt(null);
+    setAttemptPhase(null);
+    setAttemptPhaseHistory([]);
+    setAttemptStatusLabel(null);
     const result = await w2AuthorizeExecutionContractAction({
       projectId,
       executionContractId: contract.executionContractId,
@@ -279,6 +346,77 @@ export function TrajectorySurface({
     setAuthorization(outcome);
     setInspection(outcome.inspection);
   }, [contract, projectId]);
+
+  const governedExecute = useCallback(async () => {
+    if (!contract || authorization?.outcome !== "AUTHORIZED") return;
+    setBusy("execute");
+    setError(null);
+    flushSync(() => {
+      setAttempt(null);
+      setAttemptPhase(null);
+      setAttemptPhaseHistory([]);
+      setAttemptStatusLabel(null);
+    });
+
+    const selected = await w2GovernedExecuteSelectAction({
+      projectId,
+      executionContractId: contract.executionContractId,
+    });
+    if (!selected.ok) {
+      setBusy(null);
+      setError(selected.message);
+      if (selected.attempt) {
+        paintAttemptPhase("accepted", selected.attempt, null);
+      }
+      return;
+    }
+    // Paint accepted before start (R09 observability — yield to browser).
+    paintAttemptPhase(selected.phase, selected.attempt, selected.statusLabel);
+    await yieldBrowserPaint();
+
+    if (selected.phase === "terminal") {
+      setBusy(null);
+      paintAttemptPhase("terminal", selected.attempt, selected.statusLabel);
+      onDurableFactsChanged?.();
+      return;
+    }
+
+    const started = await w2GovernedExecuteStartAction({
+      projectId,
+      executionContractId: contract.executionContractId,
+      attemptId: selected.attemptId,
+    });
+    if (!started.ok) {
+      setBusy(null);
+      setError(started.message);
+      if (started.attempt) {
+        flushSync(() => {
+          setAttempt(started.attempt!);
+        });
+      }
+      return;
+    }
+    paintAttemptPhase(started.phase, started.attempt, started.statusLabel);
+    await yieldBrowserPaint();
+
+    const completed = await w2GovernedExecuteCompleteAction({
+      projectId,
+      executionContractId: contract.executionContractId,
+      attemptId: started.attemptId,
+    });
+    setBusy(null);
+    if (!completed.ok) {
+      setError(completed.message);
+      if (completed.attempt) {
+        flushSync(() => {
+          setAttempt(completed.attempt!);
+        });
+      }
+      return;
+    }
+    paintAttemptPhase(completed.phase, completed.attempt, completed.statusLabel);
+    onDurableFactsChanged?.();
+  }, [contract, authorization, projectId, onDurableFactsChanged]);
 
   return (
     <section
@@ -294,7 +432,8 @@ export function TrajectorySurface({
         <p className={styles.note}>
           Nora instruit des options et recommande. La décision vous appartient :
           une recommandation ne décide jamais et ne rend jamais une trajectoire
-          courante. Rien n&apos;est exécuté ici.
+          courante. L&apos;exécution (W3-A) n&apos;est possible qu&apos;après un
+          verdict AUTHORIZED, via une action Exécuter explicite (fixture).
         </p>
       </header>
 
@@ -431,13 +570,59 @@ export function TrajectorySurface({
               </dd>
             </div>
           </dl>
-          <div className={styles.actions}>
+          <div
+            className={styles.actions}
+            data-testid="w3a-qualify-execution-work"
+          >
+            <p className={styles.blockNote}>
+              Qualifier le travail d&apos;exécution réel (indépendant de
+              l&apos;option de trajectoire W2).
+            </p>
+            <label className={styles.amendmentLabel} htmlFor="w3a-operation-kind">
+              Opération d&apos;exécution
+            </label>
+            <select
+              id="w3a-operation-kind"
+              className={styles.amendmentInput}
+              data-testid="w3a-operation-kind"
+              value={qualifiedOperationKind ?? ""}
+              disabled={busy !== null}
+              onChange={(event) => {
+                const value = event.target.value;
+                if (
+                  value === "generate-temporary-artifact" ||
+                  value === "simulate" ||
+                  value === "read"
+                ) {
+                  setQualifiedOperationKind(value);
+                  setContract(null);
+                  setInspection(null);
+                  setAuthorization(null);
+                  setAttempt(null);
+                  setAttemptPhase(null);
+                } else {
+                  setQualifiedOperationKind(null);
+                }
+              }}
+            >
+              <option value="">— Choisir —</option>
+              <option value="generate-temporary-artifact">
+                Générer un artefact temporaire local (réversible)
+              </option>
+              <option value="simulate">Simuler (sandbox)</option>
+              <option value="read">Lecture seule</option>
+            </select>
             <button
               type="button"
               className={styles.primaryAction}
               data-testid="w2-prepare-contract"
               onClick={() => void prepareContract()}
-              disabled={busy !== null}
+              disabled={busy !== null || qualifiedOperationKind === null}
+              title={
+                qualifiedOperationKind === null
+                  ? "Qualifier d'abord le travail d'exécution"
+                  : undefined
+              }
             >
               {contract
                 ? "Repréparer le contrat d'exécution"
@@ -479,7 +664,9 @@ export function TrajectorySurface({
             </div>
             <div>
               <dt>Autorité requise</dt>
-              <dd>{contract.requiredAuthority}</dd>
+              <dd data-testid="w2-contract-authority">
+                {contract.requiredAuthority}
+              </dd>
             </div>
             <div>
               <dt>Capacités</dt>
@@ -597,7 +784,7 @@ export function TrajectorySurface({
                     : undefined
                 }
               >
-                Confirmer (autorité requise)
+                Confirmer (effets / autorité)
               </button>
             ) : null}
             <button
@@ -673,8 +860,82 @@ export function TrajectorySurface({
               </dd>
             </div>
           </dl>
-          <p className={styles.stopNotice} data-testid="w2-stop-before-execute">
-            Aucune exécution n&apos;a été lancée : arrêt avant exécution.
+          {authorization.outcome === "AUTHORIZED" && !attempt ? (
+            <>
+              <p
+                className={styles.stopNotice}
+                data-testid="w2-stop-before-execute"
+              >
+                Autorisation évaluée — aucune tentative lancée tant que vous
+                n&apos;exécutez pas explicitement (W3-A fixture).
+              </p>
+              <button
+                type="button"
+                className={styles.primaryAction}
+                data-testid="w3a-governed-execute"
+                onClick={() => void governedExecute()}
+                disabled={busy !== null}
+              >
+                Exécuter (fixture gouvernée)
+              </button>
+            </>
+          ) : null}
+          {authorization.outcome === "BLOCKED" ? (
+            <p className={styles.stopNotice} data-testid="w2-stop-before-execute">
+              Aucune exécution n&apos;a été lancée : arrêt avant exécution.
+            </p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {attempt || attemptPhaseHistory.length > 0 ? (
+        <section
+          className={styles.attempt}
+          aria-labelledby="w3a-attempt-title"
+          data-testid="w3a-attempt"
+          role="status"
+        >
+          <h3 id="w3a-attempt-title" className={styles.blockTitle}>
+            Tentative d&apos;exécution (W3-A)
+          </h3>
+          <p className={styles.blockBody} data-testid="w3a-attempt-status">
+            {attemptStatusLabel ?? "Tentative en cours"} · phase{" "}
+            <span data-testid="w3a-attempt-lifecycle">
+              {attemptPhase ?? "—"}
+            </span>{" "}
+            · historique{" "}
+            <code data-testid="w3a-attempt-phase-history">
+              {attemptPhaseHistory.join("|")}
+            </code>{" "}
+            · statut technique{" "}
+            <span data-testid="w3a-attempt-technical-status">
+              {attempt?.attemptStatus ?? "—"}
+            </span>
+          </p>
+          <dl className={styles.facts}>
+            <div>
+              <dt>Attempt</dt>
+              <dd className={styles.code} data-testid="w3a-attempt-id">
+                {attempt?.attemptId ?? "—"}
+              </dd>
+            </div>
+            <div>
+              <dt>Adapter</dt>
+              <dd data-testid="w3a-attempt-adapter">
+                {attempt?.adapterId ?? "—"}
+              </dd>
+            </div>
+            <div>
+              <dt>REAL</dt>
+              <dd data-testid="w3a-attempt-real">non — fixture boundary</dd>
+            </div>
+            <div>
+              <dt>Cycle auto-fermé</dt>
+              <dd data-testid="w3a-cycle-closed">non</dd>
+            </div>
+          </dl>
+          <p className={styles.blockNote} data-testid="w3a-terminal-honesty">
+            Terminal technique — résultat produit non encore qualifié (W3-B).
           </p>
         </section>
       ) : null}

@@ -8,6 +8,7 @@ import type {
 import { createExecutionError } from "../domain/errors";
 import {
   assertConfirmationBinding,
+  hasConfirmationConstraintContradiction,
   isTa5Status,
 } from "../domain/invariants";
 import type {
@@ -142,6 +143,13 @@ export class ConfirmExecutionContract {
           currentVersion: existing.version,
         });
       }
+      if (hasConfirmationConstraintContradiction(existing.constraints)) {
+        return fail(
+          "CONTRACT_INVALID",
+          "confirmation_constraint_contradiction",
+          { projectId: existing.projectId },
+        );
+      }
 
       // Critical fail-closed — R-T-A3-1: no public ack API on Cycle.
       if (existing.cycleInstanceId) {
@@ -175,11 +183,6 @@ export class ConfirmExecutionContract {
 
       // Decision freshness: accepted + same project + not superseded.
       const decisionRefs = existing.decisionRefs ?? [];
-      if (decisionRefs.length < 1) {
-        return fail("DECISION_REQUIRED", "decision_refs_required", {
-          projectId: existing.projectId,
-        });
-      }
       for (const decisionId of decisionRefs) {
         const decisionResult =
           await this.decisionServices.getHumanDecision.execute({

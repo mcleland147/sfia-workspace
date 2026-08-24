@@ -209,7 +209,7 @@ export async function proposeW2OptionsForProject(
   });
 }
 
-/** F2 context snapshot expected by the F3 prepare/resolve product path. */
+/** F2 context snapshot expected by the W3-A FC-08 prepare path. */
 export async function currentF2Context(
   runtime: RuntimeApplicationService,
   projectId: string,
@@ -219,6 +219,7 @@ export async function currentF2Context(
   lpsVersion: number;
   doctrineDigest: string;
   activeCycleInstanceId: string | null;
+  ckcResolutionRef?: string;
 }> {
   const overview = await runtime.getProject(projectId);
   if (!overview.ok) throw new Error("context: getProject failed");
@@ -228,5 +229,6 @@ export async function currentF2Context(
     lpsVersion: overview.livingState.version,
     doctrineDigest: overview.doctrine.digest,
     activeCycleInstanceId: overview.livingState.activeCycleInstanceId ?? null,
+    ckcResolutionRef: "ckcres:w2-harness",
   };
 }
