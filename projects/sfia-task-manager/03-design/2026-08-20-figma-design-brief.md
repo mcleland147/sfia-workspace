@@ -140,11 +140,11 @@ Target contractuel OPEN. Apply: non color-only critical info, readable contrast,
 
 ## Forbidden interpretations
 
-No tech arch · no stack · no backlog · no delivery · no 6th business surface · no Blocked lifecycle column · no silent disabled · no AI-central UI · no design validation claim
+No tech arch · no stack · no backlog · no delivery · no 6th business surface · no Blocked lifecycle column · no silent disabled · no AI-central UI · no claim that tokens, branding, accessibility, or runtime are validated
 
 ## Open Morris decisions
 
-Accessibility target · design tokens final · branding · FQ02–FQ05 · visual validation of this candidate
+Accessibility target · design tokens final · branding · FQ02–FQ05
 
 ## Production registry (post targeted refinement — 2026-08-22)
 
