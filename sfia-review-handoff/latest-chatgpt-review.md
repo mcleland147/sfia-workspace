@@ -1,21 +1,21 @@
-# SFIA Studio — W3-B Option B Micro-Correction Post-Review — Review Pack FULL
+# SFIA Studio — W3-B Git Integration / PR Readiness — Review Pack FULL
 
 ## Meta
 
 | Field | Value |
 |---|---|
-| Cycle | 8 — Delivery / correction |
+| Cycle | 13 — PR readiness / intégration Git |
 | Profil | CRITICAL |
-| Typologie | RUN borné sur INC W3-B |
-| Scope US | US-P1-05 / US-P1-06 UNIQUEMENT |
-| Timestamps | 2026-08-25 00:51:34 CEST / 2026-08-24 22:51:34 UTC |
+| Timestamps | 2026-08-25 01:13:59 CEST / 2026-08-24 23:13:59 UTC |
 | Worktree | `/Users/morris/Projects/sfia-workspace-w3b-bound-snapshot` |
 | Branch | `delivery/sfia-studio-product-completion-w3-b-bound-snapshot` |
-| Starting HEAD (reviewed candidate) | `66427eaf3ea74388b61c73e738f4b4df7b9a983a` |
-| Correction HEAD | `8c1f9b863a36391131b01ffd81a673d0105c1122` |
-| Parent | `66427eaf3ea74388b61c73e738f4b4df7b9a983a` |
+| Local HEAD | `8c1f9b863a36391131b01ffd81a673d0105c1122` |
+| Remote HEAD | `8c1f9b863a36391131b01ffd81a673d0105c1122` |
+| Local/remote equality | YES |
 | origin/main | `8520f546f3613ec66c0b98aa7390163cb1350efe` |
-| Incoming handoff | `7f8e65421f8d3897a121c28b90add9e705d6add6` (candidate=66427eaf) |
+| merge-base | `8520f546f3613ec66c0b98aa7390163cb1350efe` |
+| Incoming handoff | `5ec1125eeb3e6fd3da810c6589a869c15868e437` |
+| PR | [#413](https://github.com/mcleland147/sfia-workspace/pull/413) |
 | C6 | CLOSED |
 | W3 | IN PROGRESS |
 | W3-B | **NOT CLOSED** |
@@ -24,968 +24,235 @@
 | FinOps | FREEZE |
 | W4 | OUT |
 | Runtime v3 | NON ADOPTED |
-| Handoff note | ChatGPT re-review: code `8c1f9b86` REVIEW-CLEAN; this republication remaps X-W3B-01…12 to canonical exit IDs only (no project commit) |
+| Auto-merge | DISABLED / null |
+| Merge performed | **NO** |
 
 ## Morris GO consumed
 
-GO MORRIS — W3-B OPTION B MICRO-CORRECTIF POST-REVIEW — SAME US-P1-05/06 — START EXACTLY FROM 66427EAF — FIX ONLY SNAPSHOT CANONICAL VALIDATION + REAL ATTEMPT STATUS AT CONTRACT RESULT CONFIRM + W3-B FRESHNESS FAIL-CLOSED AT CONFIRM — PRESERVE OPTION B / NOT_PROVEN / FROZEN RB / SYSTEM STOP / CANCEL / SQLITE / CANONICAL /studio — NO ARCHITECTURE REOPEN — NO DOC MUTATION — NO PROJECT PUSH/PR/MERGE — C6 CLOSED — W3-B NOT CLOSED — W3-C/D/E NOT STARTED — REAL OUT — FINOPS FREEZE — W4 OUT — RUNTIME V3 NON ADOPTED.
+GO MORRIS — W3-B GIT INTEGRATION — EXACT CANDIDATE 8c1f9b863a36391131b01ffd81a673d0105c1122 — PUSH delivery/sfia-studio-product-completion-w3-b-bound-snapshot — CREATE PR TO MAIN — VERIFY EXACT DIFF + CI + PR READINESS — PRESERVE REVIEW-CLEAN CONTENT — NO NEW PROJECT COMMIT — NO MERGE — NO AUTO-MERGE — PRESERVE SOURCE BRANCH — NO W3-B CLOSURE — NO W3-C/D/E — REAL OUT — FINOPS FREEZE — W4 OUT — RUNTIME V3 NON ADOPTED.
 
-## Local Git Truth (pre-commit)
+## Incoming handoff confirmation (`5ec1125e`)
+
+- Project candidate = `8c1f9b86…`
+- OB01 / OB02 / OB03 = PASS
+- X-W3B-01…12 canonical IDs = 12/12 PASS
+- W3-B NOT CLOSED
+- handoff stated no project push/PR/merge **at that time** (this Cycle 13 now performs push+PR only; still no merge)
+
+## Local Git Truth
 
 ```
-pwd: /Users/morris/Projects/sfia-workspace-w3b-bound-snapshot
-toplevel: /Users/morris/Projects/sfia-workspace-w3b-bound-snapshot
-branch: delivery/sfia-studio-product-completion-w3-b-bound-snapshot
-HEAD: 66427eaf3ea74388b61c73e738f4b4df7b9a983a
-origin/main: 8520f546f3613ec66c0b98aa7390163cb1350efe
-dirty (pre-commit): 5 project files OB01–OB03 + .tmp-sfia-review review-only
+pwd=/Users/morris/Projects/sfia-workspace-w3b-bound-snapshot
+branch=delivery/sfia-studio-product-completion-w3-b-bound-snapshot
+HEAD=8c1f9b863a36391131b01ffd81a673d0105c1122
+HEAD^=66427eaf3ea74388b61c73e738f4b4df7b9a983a
+origin/main=8520f546f3613ec66c0b98aa7390163cb1350efe
+merge-base=8520f546 (current-main rebuild base)
+status: only ?? .tmp-sfia-review/ (review-only; not in PR)
+diff --check origin/main...HEAD: clean
 ```
 
-No silent reset/stash. No main merge/rebase.
+## Branch history (origin/main..HEAD)
 
-## Sources loaded (read-only; not mutated)
-
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- `projects/sfia-studio/product-completion/01..03,05,06,11,12` (DOC12 Option B)
-- Applicable v3 framing 30–37 (read-only)
-- Process: `prompts/templates/sfia-cycle-execution-template.md`, `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- Incoming Review Handoff `7f8e6542` — candidate HEAD `66427eaf` confirmed
-
-## ChatGPT review blockers (exactly 3)
-
-| ID | Defect |
-|---|---|
-| **R-W3B-OB01** | Contract Result used weaker `isAttemptBoundSnapshotValid` than canonical `validateBoundExecutionContractSnapshot` (schema / Project / Cycle gaps). |
-| **R-W3B-OB02** | Confirm loaded real Attempt but still inferred `attemptStatus` from EO assessments via `inferAttemptStatusFromContractResultAssessments`. |
-| **R-W3B-OB03** | Evaluate used W3-B fresh-only Evidence; Confirm reused permissive generic `assessRequiredEvidence`. |
-
-Architecture Option B accepted. No architecture reopen in this cycle.
-
----
-
-## OB01 — Canonical full snapshot validation
-
-### Prior defect
-
-`isAttemptBoundSnapshotValid` checked EC id / version / fingerprint recompute but **not**:
-- `executionContractSchemaVersion` support
-- Project coherence vs expected durable context
-- Cycle coherence vs expected durable context
-
-Evaluate / Confirm / FC-11 could treat unsupported-schema or Project/Cycle-incoherent snapshots as valid.
-
-### After
-
-**Single canonical primitive:** `validateBoundExecutionContractSnapshot` in
-`lib/oa/execution-attempt/domain/boundExecutionContract.ts`
-
-`isAttemptBoundSnapshotValid` is now a **strict thin wrapper** delegating to that primitive with `requirePresent: true` + optional project/cycle expectations.
-
-Fingerprint rule tightened: when snapshot present, empty/missing Attempt fingerprint → `bound_snapshot_attempt_fingerprint_mismatch` (fail-closed).
-
-### Validation matrix (PASS requires all)
-
-| Check | Reason on fail | Evaluate | Confirm | FC-11 |
-|---|---|---|---|---|
-| Snapshot present | `bound_snapshot_missing` | historical missing → NOT_PROVEN path (no snap) | refuse | no SUCCESS |
-| Schema supported (`0.1.0-oa`) | `bound_snapshot_schema_unsupported` | refuse / no PASS | refuse | no SUCCESS |
-| EC id match | `bound_snapshot_ec_id_mismatch` | refuse | refuse | no SUCCESS |
-| Version match | `bound_snapshot_version_mismatch` | refuse | refuse | no SUCCESS |
-| Attempt FP == snap FP | `bound_snapshot_attempt_fingerprint_mismatch` | refuse | refuse | no SUCCESS |
-| Recomputed FP == snap FP | `bound_snapshot_fingerprint_corrupt` | refuse | refuse | no SUCCESS |
-| Project expected | `bound_snapshot_project_mismatch` | vs `contract.projectId` | vs bindings.projectId | vs bindings/projectId |
-| Cycle expected | `bound_snapshot_cycle_mismatch` | vs `contract.cycleInstanceId` | vs bindings.cycleInstanceId | vs bindings/cycle |
-
-No latest-EC consultation. No third validator. No duplicated logic.
-
-### Evaluate / Confirm / FC-11 behavior
-
-- **Evaluate:** if snap present → canonical validate with contract Project/Cycle; fail with validator reason; historical missing snap still durable NOT_PROVEN.
-- **Confirm:** canonical validate with bindings Project/Cycle; fail with validator reason.
-- **FC-11 `contractResultBindingsMatchCurrentFacts`:** calls wrapper with Project/Cycle expectations; schema/project/cycle mismatch → false (no SUCCESS).
-
-### OB01 tests
-
-- A schema unsupported → Evaluate refuses
-- B projectId mismatch → Evaluate refuses
-- C cycleInstanceId mismatch → Evaluate refuses
-- D–F Confirm refuses schema/project/cycle snapshot incoherence
-- G–I FC-11 schema/project/cycle mismatch → no SUCCESS
-- Preserved: historical missing snapshot → NOT_PROVEN; corrupt → fail-closed
-
----
-
-## OB02 — Real `attempt.status` at Confirm
-
-### Prior defect
-
-Confirm loaded durable Attempt then used `inferAttemptStatusFromContractResultAssessments(stampedEOs)` which could mint `"succeeded"` from all-EO-PASS — forbidden for Contract Result PASS (FC-10 technical status is independent of EO).
-
-### After
-
-```ts
-deriveCanonicalContractResultStatus({
-  attemptStatus: contractResultAttempt.status, // real Attempt
-  expectedOutputAssessments: stampedExpectedOutputs,
-  evidenceRequirementAssessments: stampedEvidenceRequirements,
-})
+```
+8c1f9b86 fix(sfia-studio): close W3-B Option B review gaps
+66427eaf fix(sfia-studio): bind W3-B results to immutable contract snapshot
+080b6f86 fix(sfia-studio): close W3-B result proof gaps
+97caaa74 fix(sfia-studio): align W3-B contract result invariants
+7374b213 feat(sfia-studio): implement W3-B terminal semantics and evidence
 ```
 
-`inferAttemptStatusFromContractResultAssessments` removed from Confirm import/usage (helper file may still export it unused — no out-of-scope cleanup).
+Expected reconstruction: `main@8520f546` → import reviewed W3-B (`7374b213`…`080b6f86`) → `66427eaf` Option B → `8c1f9b86` OB01–OB03. History not rewritten. No rebase.
 
-### Status matrix at Confirm (assisted + EO PASS + ER SATISFIED + otherwise valid)
+## Push
 
-| attempt.status | Confirm PASS? |
+- Cas A entry: no remote branch, no PR
+- `git push -u origin delivery/sfia-studio-product-completion-w3-b-bound-snapshot`
+- Force push: NO
+- Remote SHA verified: `8c1f9b863a36391131b01ffd81a673d0105c1122`
+
+## PR
+
+| Field | Value |
 |---|---|
-| failed | NO |
-| cancelled | NO |
-| timeout | NO |
-| running | NO |
-| accepted | NO |
-| succeeded | YES (may pass when all other gates hold) |
+| Number | 413 |
+| Title | feat(sfia-studio): complete W3-B terminal result and evidence semantics |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/413 |
+| State | OPEN |
+| Draft | false |
+| Base | main |
+| Head | delivery/sfia-studio-product-completion-w3-b-bound-snapshot |
+| headRefOid | `8c1f9b863a36391131b01ffd81a673d0105c1122` |
+| mergedAt | null |
+| autoMergeRequest | null |
+| mergeable | MERGEABLE |
+| mergeStateStatus | CLEAN |
+| Reviews | [] (no blocker) |
+| Issue/PR comments | 0 / 0 |
 
-### OB02 tests
+## Exact files (57) — local == GitHub PR name-only
 
-- EO PASS cannot mint pass when attempt.status ∈ {failed,cancelled,timeout,running,accepted}
-- succeeded + EO PASS + ER SATISFIED + valid bindings → may pass
+All under `projects/sfia-studio/app/**`. No product-completion / convergence / framing / method / prompts / `.tmp-sfia-review`.
 
----
+```
+projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts
+projects/sfia-studio/app/__tests__/oa/evidence-review/adversarialValidation.test.ts
+projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultCorrection.test.ts
+projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultCorrectionPass2.test.ts
+projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultEvaluation.test.ts
+projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultSqliteDurability.test.ts
+projects/sfia-studio/app/__tests__/oa/evidence-review/ingestExecutionAttemptEvidence.test.ts
+projects/sfia-studio/app/__tests__/oa/evidence-review/optionBBoundSnapshot.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-attempt/systemGovernedStop.test.ts
+projects/sfia-studio/app/__tests__/oa/project/m5ProductSchemaMigration.test.ts
+projects/sfia-studio/app/__tests__/oa/project/m6ProductSchemaMigration.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/w3bProductTerminal.test.ts
+projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+projects/sfia-studio/app/app/api/e2e/w3b-boundary/route.ts
+projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
+projects/sfia-studio/app/e2e/support/w3bBoundaryControl.ts
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.module.css
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+projects/sfia-studio/app/features/project-assistant/w2/actions.ts
+projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
+projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
+projects/sfia-studio/app/features/project-assistant/w2/types.ts
+projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts
+projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
+projects/sfia-studio/app/lib/oa/evidence-review/application/confirmClaimEvaluation.ts
+projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultAssessment.ts
+projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultReviewPolicy.ts
+projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultSemanticEvaluator.ts
+projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultVerdictProjection.ts
+projects/sfia-studio/app/lib/oa/evidence-review/application/evaluateContractResult.ts
+projects/sfia-studio/app/lib/oa/evidence-review/application/ingestExecutionAttemptEvidence.ts
+projects/sfia-studio/app/lib/oa/evidence-review/domain/claimEvaluationInvariants.ts
+projects/sfia-studio/app/lib/oa/evidence-review/domain/claimEvaluationTypes.ts
+projects/sfia-studio/app/lib/oa/evidence-review/domain/contractResultTypes.ts
+projects/sfia-studio/app/lib/oa/evidence-review/domain/types.ts
+projects/sfia-studio/app/lib/oa/evidence-review/index.ts
+projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/createSqliteEvidenceReviewServices.ts
+projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteClaimEvaluationRepository.ts
+projects/sfia-studio/app/lib/oa/evidence-review/ports/claimEvaluationRepository.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/application/cancelExecutionAttempt.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/application/systemGovernedStop.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/boundExecutionContract.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/ports/executionAttemptAudit.ts
+projects/sfia-studio/app/lib/oa/execution-contract/application/confirmExecutionContract.ts
+projects/sfia-studio/app/lib/oa/execution-contract/domain/semanticFingerprint.ts
+projects/sfia-studio/app/lib/oa/execution-contract/index.ts
+projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
+projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/productSqliteHandle.ts
+projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
+projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+projects/sfia-studio/app/lib/vertical-slice-runtime/w3bE2eBoundaryControl.ts
+projects/sfia-studio/app/playwright.config.ts
+```
 
-## OB03 — W3-B freshness fail-closed at Confirm
+## Diff stat (origin/main...HEAD)
 
-### Prior defect
+```
+ .../oa/decision/m3ProductSchemaMigration.test.ts   |    2 +-
+ .../evidence-review/adversarialValidation.test.ts  |    4 +-
+ .../contractResultCorrection.test.ts               |  400 +++++
+ .../contractResultCorrectionPass2.test.ts          |  402 +++++
+ .../contractResultEvaluation.test.ts               |  288 +++
+ .../contractResultSqliteDurability.test.ts         |  265 +++
+ .../ingestExecutionAttemptEvidence.test.ts         |   62 +-
+ .../evidence-review/optionBBoundSnapshot.test.ts   | 1857 ++++++++++++++++++++
+ .../execution-attempt/systemGovernedStop.test.ts   |   55 +
+ .../oa/project/m5ProductSchemaMigration.test.ts    |    4 +-
+ .../oa/project/m6ProductSchemaMigration.test.ts    |    6 +-
+ .../project-assistant/w3bProductTerminal.test.ts   |  404 +++++
+ .../importBoundaries.test.ts                       |    3 +
+ .../app/app/api/e2e/w3b-boundary/route.ts          |   96 +
+ .../studio-w3b-terminal-evidence-runtime.spec.ts   |  363 ++++
+ .../app/e2e/support/w3bBoundaryControl.ts          |   36 +
+ .../surfaces/TrajectorySurface.module.css          |   29 +
+ .../surfaces/TrajectorySurface.tsx                 |  311 +++-
+ .../app/features/project-assistant/w2/actions.ts   |  107 ++
+ .../w2/governedExecuteAuthorizedContract.ts        |  237 ++-
+ .../w2/materializeW3bProductTerminal.ts            |  403 +++++
+ .../app/features/project-assistant/w2/types.ts     |   55 +
+ .../w2/w3aProductExecutionSemantics.ts             |   10 +-
+ .../w2/w3bProductTerminalProjection.ts             |  336 ++++
+ .../application/confirmClaimEvaluation.ts          |  226 ++-
+ .../application/contractResultAssessment.ts        |  192 ++
+ .../application/contractResultReviewPolicy.ts      |   28 +
+ .../application/contractResultSemanticEvaluator.ts |  121 ++
+ .../application/contractResultVerdictProjection.ts |   21 +
+ .../application/evaluateContractResult.ts          |  402 +++++
+ .../application/ingestExecutionAttemptEvidence.ts  |   94 +-
+ .../domain/claimEvaluationInvariants.ts            |   53 +
+ .../evidence-review/domain/claimEvaluationTypes.ts |   12 +
+ .../evidence-review/domain/contractResultTypes.ts  |  228 +++
+ .../app/lib/oa/evidence-review/domain/types.ts     |   29 +-
+ .../app/lib/oa/evidence-review/index.ts            |   17 +-
+ .../sqlite/createSqliteEvidenceReviewServices.ts   |   23 +-
+ .../sqlite/sqliteClaimEvaluationRepository.ts      |  230 +++
+ .../ports/claimEvaluationRepository.ts             |    6 +-
+ .../application/cancelExecutionAttempt.ts          |    1 +
+ .../application/selectExecutionAgent.ts            |   20 +-
+ .../application/startExecution.ts                  |    7 +-
+ .../application/systemGovernedStop.ts              |  244 +++
+ .../domain/boundExecutionContract.ts               |  134 ++
+ .../app/lib/oa/execution-attempt/domain/types.ts   |   19 +
+ .../app/lib/oa/execution-attempt/index.ts          |   14 +
+ .../sqlite/createSqliteExecutionAttemptServices.ts |   12 +
+ .../ports/executionAttemptAudit.ts                 |    1 +
+ .../application/confirmExecutionContract.ts        |    5 +
+ .../domain/semanticFingerprint.ts                  |   14 +-
+ .../app/lib/oa/execution-contract/index.ts         |    2 +
+ .../app/lib/oa/project/infrastructure/sqlite/db.ts |   42 +-
+ .../infrastructure/sqlite/productSqliteHandle.ts   |    1 +
+ .../lib/vertical-slice-runtime/f3FixtureWiring.ts  |   12 +-
+ .../app/lib/vertical-slice-runtime/service.ts      |    3 +-
+ .../w3bE2eBoundaryControl.ts                       |   79 +
+ projects/sfia-studio/app/playwright.config.ts      |    1 +
+ 57 files changed, 7936 insertions(+), 92 deletions(-)
+```
 
-Evaluate: `isW3bContractResultEvidenceUsable` fresh-only allowlist.
-Confirm: generic `assessRequiredEvidence` could accept verified+available Evidence with freshness ≠ fresh (e.g. aging).
+Local file list vs `gh pr diff 413 --name-only`: **IDENTICAL** (57/57).
 
-### After
+## Option B + OB01/02/03 invariants (spot-checked in candidate)
 
-For `subjectKind === execution_contract_result`, after generic bundle/evidence checks, Confirm **additionally** revalidates each required Evidence with:
+- `BoundExecutionContract` + `captureBoundExecutionContractSnapshot` at Select/accept (`selectExecutionAgent.ts`)
+- `validateBoundExecutionContractSnapshot` used by Evaluate + Confirm; `isAttemptBoundSnapshotValid` thin wrapper
+- Confirm derives from `contractResultAttempt.status` (real FC-10), not EO-inferred status
+- Confirm reuses `isW3bContractResultEvidenceUsable` (fresh-only) against frozen RB snapshots
+- No latest-EC semantic substitution / no EC-history repository
+- `SYSTEM_GOVERNED_STOP` distinct path present
+- Canonical `/studio` Playwright e2e present
+- Generic Claim Morris gate unchanged (prior review)
 
-`isW3bContractResultEvidenceUsable({ evidence: live, snapshot: frozenSnap })`
+### Tip commit OB micro-correction (`8c1f9b86`)
 
-Fail-closed before any PASS write (`contract_result_confirm_evidence_not_w3b_usable`).
+```
+8c1f9b86 fix(sfia-studio): close W3-B Option B review gaps
+ .../evidence-review/optionBBoundSnapshot.test.ts   | 729 ++++++++++++++++++++-
+ .../application/confirmClaimEvaluation.ts          |  61 +-
+ .../application/evaluateContractResult.ts          |  22 +-
+ .../evidence-review/domain/contractResultTypes.ts  |  65 +-
+ .../domain/boundExecutionContract.ts               |  19 +-
+ 5 files changed, 842 insertions(+), 54 deletions(-)
+```
 
-Generic ClaimEvaluation / `assessRequiredEvidence` / `evidenceSupportsPass` **unchanged**.
-
-### Freshness matrix at Confirm (Contract Result)
-
-| freshness | Confirm |
-|---|---|
-| undefined | refused |
-| unknown | refused |
-| aging | refused |
-| stale | refused |
-| fresh (+ status/availability/version/snapshot OK) | may pass |
-| live fresh + frozen snapshot incompatible | refused |
-
-### OB03 tests
-
-- undefined / unknown / aging / stale → refused
-- fresh + valid → may pass
-- live fresh but frozen snapshot incompatible → refused
-
----
-
-## Integrated pass bar (adversarial)
-
-Contract Result assisted PASS at Confirm only if ALL of:
-- real Attempt.status == succeeded
-- bound snapshot canonically valid (schema + EC + version + FP + project + cycle)
-- frozen ReviewBundle exact
-- Evidence version exact + usable status + available + freshness fresh
-- all EO PASS + all ER SATISFIED
-- FC-12 confirmation authorized
-- reviewConfirmation stamped
-- final re-derivation == pass
-
-Each family broken in OB01/OB02/OB03 suites → no PASS written.
-
----
-
-## Exact files changed
-
-1. `projects/sfia-studio/app/lib/oa/execution-attempt/domain/boundExecutionContract.ts`
-2. `projects/sfia-studio/app/lib/oa/evidence-review/domain/contractResultTypes.ts`
-3. `projects/sfia-studio/app/lib/oa/evidence-review/application/evaluateContractResult.ts`
-4. `projects/sfia-studio/app/lib/oa/evidence-review/application/confirmClaimEvaluation.ts`
-5. `projects/sfia-studio/app/__tests__/oa/evidence-review/optionBBoundSnapshot.test.ts`
-
-No DOC / convergence / product-completion / method / prompts mutations.
-No package/dependency changes. No new persistence / endpoints / engines.
-Four primary zones sufficient — no extra app files required.
-
----
-
-## Full useful diff (66427eaf → working tree / NEW_HEAD)
+### Tip useful diff (OB01–OB03 core files)
 
 ```diff
-diff --git a/projects/sfia-studio/app/__tests__/oa/evidence-review/optionBBoundSnapshot.test.ts b/projects/sfia-studio/app/__tests__/oa/evidence-review/optionBBoundSnapshot.test.ts
-index 703b915e..60c09d54 100644
---- a/projects/sfia-studio/app/__tests__/oa/evidence-review/optionBBoundSnapshot.test.ts
-+++ b/projects/sfia-studio/app/__tests__/oa/evidence-review/optionBBoundSnapshot.test.ts
-@@ -395,7 +395,7 @@ describe("Option B — Contract Result snapshot-only + freshness", () => {
-     expect(evaluated.ok).toBe(false);
-     if (evaluated.ok) return;
-     expect(evaluated.error.internalCauseRef).toBe(
--      "bound_snapshot_corrupt_or_inconsistent",
-+      "bound_snapshot_attempt_fingerprint_mismatch",
-     );
-   });
+commit 8c1f9b863a36391131b01ffd81a673d0105c1122
+Author: Morris Cleland <morris@macbook-air1.home>
+Date:   Tue Aug 25 00:51:43 2026 +0200
 
-@@ -525,6 +525,7 @@ describe("Option B — Confirm exact binding", () => {
-           status: "evaluating",
-           proposedBy: { actorId: "actor:a", role: "project_owner" },
-           proposedAt: "2026-08-24T00:00:00.000Z",
-+          evaluatedAt: "2026-08-24T00:00:00.000Z",
-           provenance: {
-             schemaVersion: "0.1.0-oa",
-             provenanceRecordId: "prv:1",
-@@ -682,6 +683,7 @@ describe("Option B — Confirm exact binding", () => {
-           status: "evaluating",
-           proposedBy: { actorId: "actor:a", role: "project_owner" },
-           proposedAt: "2026-08-24T00:00:00.000Z",
-+          evaluatedAt: "2026-08-24T00:00:00.000Z",
-           provenance: {
-             schemaVersion: "0.1.0-oa",
-             provenanceRecordId: "prv:1",
-@@ -839,6 +841,7 @@ describe("Option B — Confirm exact binding", () => {
-           status: "evaluating",
-           proposedBy: { actorId: "actor:a", role: "project_owner" },
-           proposedAt: "2026-08-24T00:00:00.000Z",
-+          evaluatedAt: "2026-08-24T00:00:00.000Z",
-           provenance: {
-             schemaVersion: "0.1.0-oa",
-             provenanceRecordId: "prv:1",
-@@ -1128,3 +1131,727 @@ describe("Option B — lifecycle immutability of snapshot on spread updates", ()
-     }
-   });
- });
-+
-+describe("Option B micro-correction OB01 — canonical snapshot validation", () => {
-+  const evidence = makeEvidence();
-+  const reviewBundleBase = {
-+    schemaVersion: "0.2.0-oa" as const,
-+    reviewBundleId: "rb:w3b:1",
-+    projectId: contract.projectId,
-+    version: 2,
-+    frozenAt: "2026-08-24T00:00:00.000Z",
-+    frozenVersion: 2,
-+    evidenceRefs: [evidence.evidenceId],
-+    claimEvaluationRefs: [] as string[],
-+    completeness: "complete" as const,
-+    status: "ready_for_review" as const,
-+    createdAt: "2026-08-24T00:00:00.000Z",
-+    synthesisOnly: false,
-+    provenance: {
-+      schemaVersion: "0.1.0-oa" as const,
-+      provenanceRecordId: "prv:rb",
-+      actor: LOCAL_PILOTE_ACTOR,
-+      source: "review" as const,
-+      timestamp: "2026-08-24T00:00:00.000Z",
-+      correlationId: "cor:rb",
-+    },
-+    frozenEvidenceSnapshots: [frozenSnapshot],
-+  };
-+
-+  async function evaluateWithSnap(
-+    snapOverrides: Record<string, unknown>,
-+    contractOverrides: Partial<ExecutionContract> = {},
-+  ) {
-+    const snap = captureBoundExecutionContractSnapshot(contract);
-+    return new EvaluateContractResult(
-+      {
-+        findById: async () => null,
-+        findByIdempotencyKey: async () => null,
-+        exists: async () => false,
-+        create: async () => {},
-+        update: async () => {},
-+      },
-+      { nowIso: () => "2026-08-24T00:00:00.000Z" },
-+      { append: () => {} },
-+      { newCorrelationId: () => "cor:1", newProvenanceId: () => "prv:1" },
-+    ).execute({
-+      claimEvaluationId: "clm:w3b:ob01",
-+      idempotencyKey: `idem:ce:ob01:${JSON.stringify(snapOverrides).slice(0, 40)}`,
-+      actor: LOCAL_PILOTE_ACTOR,
-+      contract: { ...contract, ...contractOverrides },
-+      attempt: makeAttempt({
-+        boundExecutionContract: { ...snap, ...snapOverrides },
-+      }),
-+      evidence,
-+      reviewBundle: reviewBundleBase,
-+    });
-+  }
-+
-+  it("A schema unsupported → Evaluate refuses", async () => {
-+    const evaluated = await evaluateWithSnap({
-+      executionContractSchemaVersion: "9.9.9-bad",
-+    });
-+    expect(evaluated.ok).toBe(false);
-+    if (evaluated.ok) return;
-+    expect(evaluated.error.internalCauseRef).toBe(
-+      "bound_snapshot_schema_unsupported",
-+    );
-+  });
-+
-+  it("B projectId mismatch → Evaluate refuses", async () => {
-+    const snap = captureBoundExecutionContractSnapshot(contract);
-+    const evaluated = await new EvaluateContractResult(
-+      {
-+        findById: async () => null,
-+        findByIdempotencyKey: async () => null,
-+        exists: async () => false,
-+        create: async () => {},
-+        update: async () => {},
-+      },
-+      { nowIso: () => "2026-08-24T00:00:00.000Z" },
-+      { append: () => {} },
-+      { newCorrelationId: () => "cor:1", newProvenanceId: () => "prv:1" },
-+    ).execute({
-+      claimEvaluationId: "clm:w3b:ob01-proj",
-+      idempotencyKey: "idem:ce:ob01-proj",
-+      actor: LOCAL_PILOTE_ACTOR,
-+      contract: { ...contract, projectId: "prj:other" },
-+      attempt: makeAttempt({
-+        boundExecutionContract: {
-+          ...snap,
-+          semanticMaterial: { ...snap.semanticMaterial, projectId: contract.projectId },
-+        },
-+      }),
-+      evidence,
-+      reviewBundle: reviewBundleBase,
-+    });
-+    expect(evaluated.ok).toBe(false);
-+    if (evaluated.ok) return;
-+    expect(evaluated.error.internalCauseRef).toBe(
-+      "bound_snapshot_project_mismatch",
-+    );
-+  });
-+
-+  it("C cycleInstanceId mismatch → Evaluate refuses", async () => {
-+    const withCycle = makeContract({ cycleInstanceId: "cyc:a" });
-+    const snap = captureBoundExecutionContractSnapshot(withCycle);
-+    const evaluated = await new EvaluateContractResult(
-+      {
-+        findById: async () => null,
-+        findByIdempotencyKey: async () => null,
-+        exists: async () => false,
-+        create: async () => {},
-+        update: async () => {},
-+      },
-+      { nowIso: () => "2026-08-24T00:00:00.000Z" },
-+      { append: () => {} },
-+      { newCorrelationId: () => "cor:1", newProvenanceId: () => "prv:1" },
-+    ).execute({
-+      claimEvaluationId: "clm:w3b:ob01-cycle",
-+      idempotencyKey: "idem:ce:ob01-cycle",
-+      actor: LOCAL_PILOTE_ACTOR,
-+      contract: { ...withCycle, cycleInstanceId: "cyc:b" },
-+      attempt: makeAttempt({
-+        executionContractSemanticFingerprint: snap.semanticFingerprint,
-+        boundExecutionContract: snap,
-+      }),
-+      evidence: makeEvidence({
-+        bindings: {
-+          projectId: withCycle.projectId,
-+          executionContractId: withCycle.executionContractId,
-+          executionAttemptId: "xat:w3b:optb",
-+        },
-+      }),
-+      reviewBundle: { ...reviewBundleBase, projectId: withCycle.projectId },
-+    });
-+    expect(evaluated.ok).toBe(false);
-+    if (evaluated.ok) return;
-+    expect(evaluated.error.internalCauseRef).toBe(
-+      "bound_snapshot_cycle_mismatch",
-+    );
-+  });
-+
-+  it("G–I FC-11 schema/project/cycle mismatch → no SUCCESS", () => {
-+    const snap = captureBoundExecutionContractSnapshot(contract);
-+    const attempt = makeAttempt({ boundExecutionContract: snap });
-+    const bindings = {
-+      projectId: contract.projectId,
-+      executionContractId: contract.executionContractId,
-+      executionContractVersion: contract.version,
-+      executionContractSemanticFingerprint: fingerprint,
-+      executionAttemptId: attempt.attemptId,
-+      reviewBundleId: "rb:1",
-+      reviewBundleVersion: 2,
-+      evidenceRefs: [evidence.evidenceId],
-+    };
-+    expect(
-+      contractResultBindingsMatchCurrentFacts({
-+        bindings,
-+        attempt: makeAttempt({
-+          boundExecutionContract: {
-+            ...snap,
-+            executionContractSchemaVersion: "bad",
-+          },
-+        }),
-+        reviewBundle: { reviewBundleId: "rb:1", frozenVersion: 2 },
-+        evidenceIds: [evidence.evidenceId],
-+      }),
-+    ).toBe(false);
-+    expect(
-+      contractResultBindingsMatchCurrentFacts({
-+        bindings,
-+        attempt: makeAttempt({
-+          boundExecutionContract: {
-+            ...snap,
-+            semanticMaterial: {
-+              ...snap.semanticMaterial,
-+              projectId: "prj:tampered",
-+            },
-+          },
-+        }),
-+        reviewBundle: { reviewBundleId: "rb:1", frozenVersion: 2 },
-+        evidenceIds: [evidence.evidenceId],
-+        projectId: contract.projectId,
-+      }),
-+    ).toBe(false);
-+    expect(
-+      contractResultBindingsMatchCurrentFacts({
-+        bindings: { ...bindings, cycleInstanceId: "cyc:expected" },
-+        attempt: makeAttempt({
-+          boundExecutionContract: {
-+            ...snap,
-+            semanticMaterial: {
-+              ...snap.semanticMaterial,
-+              cycleInstanceId: "cyc:other",
-+            },
-+          },
-+        }),
-+        reviewBundle: { reviewBundleId: "rb:1", frozenVersion: 2 },
-+        evidenceIds: [evidence.evidenceId],
-+        cycleInstanceId: "cyc:expected",
-+      }),
-+    ).toBe(false);
-+  });
-+});
-+
-+
-+  it("D–F Confirm refuses schema/project/cycle snapshot incoherence", async () => {
-+    async function confirmWithSnap(snapPatch: Record<string, unknown>, bindingProjectId = contract.projectId, bindingCycle: string | null = null) {
-+      const snap = captureBoundExecutionContractSnapshot(contract);
-+      return new ConfirmClaimEvaluation(
-+        {
-+          findById: async () => ({
-+            schemaVersion: CLAIM_EVALUATION_SCHEMA_VERSION,
-+            claimEvaluationId: "clm:cr:ob01-confirm",
-+            claimType: "conformite",
-+            claimStatement: "x",
-+            criticality: "non_critical",
-+            evaluationMethod: "assisted",
-+            requiredEvidenceRefs: ["ev:1"],
-+            providedEvidenceRefs: ["ev:1"],
-+            reviewBundleId: "rb:1",
-+            reviewBundleVersion: 2,
-+            status: "evaluating",
-+            proposedBy: { actorId: "actor:a", role: "project_owner" },
-+            proposedAt: "2026-08-24T00:00:00.000Z",
-+            evaluatedAt: "2026-08-24T00:00:00.000Z",
-+            provenance: {
-+              schemaVersion: "0.1.0-oa",
-+              provenanceRecordId: "prv:1",
-+              actor: { actorId: "actor:a", role: "project_owner" },
-+              source: "review",
-+              timestamp: "2026-08-24T00:00:00.000Z",
-+              correlationId: "cor:1",
-+            },
-+            version: 1,
-+            subjectKind: CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
-+            contractResultReviewPolicyRef: W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
-+            contractResultBindings: {
-+              projectId: bindingProjectId,
-+              cycleInstanceId: bindingCycle,
-+              executionContractId: contract.executionContractId,
-+              executionContractVersion: contract.version,
-+              executionContractSemanticFingerprint: fingerprint,
-+              executionAttemptId: "xat:w3b:optb",
-+              reviewBundleId: "rb:1",
-+              reviewBundleVersion: 2,
-+              evidenceRefs: ["ev:1"],
-+            },
-+            expectedOutputAssessments: [
-+              {
-+                itemId: { semanticFingerprint: fingerprint, itemKind: "EO", ordinal: 0 },
-+                expectation: W3B_TEMP_ARTIFACT_EO_TEMPLATE,
-+                result: "PASS",
-+                method: "assisted",
-+                provenance: { evaluatorRef: "w3b", evaluatedAt: "2026-08-24T00:00:00.000Z" },
-+              },
-+            ],
-+            evidenceRequirementAssessments: [
-+              {
-+                itemId: { semanticFingerprint: fingerprint, itemKind: "ER", ordinal: 0 },
-+                requirement: W3B_TEMP_ARTIFACT_ER_KEY,
-+                result: "SATISFIED",
-+                method: "assisted",
-+                provenance: { evaluatorRef: "w3b", evaluatedAt: "2026-08-24T00:00:00.000Z" },
-+              },
-+            ],
-+          }),
-+          findByIdempotencyKey: async () => null,
-+          exists: async () => true,
-+          create: async () => {},
-+          update: async () => {},
-+        },
-+        {
-+          findById: async () => ({
-+            schemaVersion: "0.2.0-oa",
-+            reviewBundleId: "rb:1",
-+            projectId: contract.projectId,
-+            version: 2,
-+            frozenVersion: 2,
-+            frozenAt: "2026-08-24T00:00:00.000Z",
-+            evidenceRefs: ["ev:1"],
-+            claimEvaluationRefs: [],
-+            completeness: "complete",
-+            status: "ready_for_review",
-+            createdAt: "2026-08-24T00:00:00.000Z",
-+            synthesisOnly: false,
-+            provenance: {
-+              schemaVersion: "0.1.0-oa",
-+              provenanceRecordId: "prv:rb",
-+              actor: LOCAL_PILOTE_ACTOR,
-+              source: "review",
-+              timestamp: "2026-08-24T00:00:00.000Z",
-+              correlationId: "cor:rb",
-+            },
-+            frozenEvidenceSnapshots: [
-+              { evidenceId: "ev:1", evidenceVersion: 1, status: "verified", availability: "available" },
-+            ],
-+          }),
-+        },
-+        { findById: async () => makeEvidence({ evidenceId: "ev:1", status: "verified" }) },
-+        { verify: () => ({ ok: true, reason: "ok", resolvedLevel: "N3", authorityEvidenceId: "auth:1" }) },
-+        { nowIso: () => "2026-08-24T00:00:00.000Z" },
-+        { append: () => {} },
-+        { newCorrelationId: () => "cor:1", newProvenanceId: () => "prv:2" },
-+        {
-+          findById: async () =>
-+            ({
-+              ...makeAttempt({
-+                boundExecutionContract: { ...snap, ...snapPatch },
-+              }),
-+              schemaVersion: "0.2.0-oa",
-+              selectedAgentRef: "agt:1",
-+              idempotencyKey: "idem:x",
-+              correlationId: "cor:x",
-+              version: 1,
-+              createdAt: "2026-08-24T00:00:00.000Z",
-+              provenance: {
-+                schemaVersion: "0.1.0-oa",
-+                provenanceRecordId: "prv:x",
-+                actor: LOCAL_PILOTE_ACTOR,
-+                source: "execution_adapter",
-+                timestamp: "2026-08-24T00:00:00.000Z",
-+                correlationId: "cor:x",
-+              },
-+            }) as never,
-+        },
-+      ).execute({
-+        claimEvaluationId: "clm:cr:ob01-confirm",
-+        expectedVersion: 1,
-+        idempotencyKey: `idem:confirm:ob01:${JSON.stringify(snapPatch).slice(0, 24)}`,
-+        actor: { actorId: "actor:b", role: "project_owner" },
-+        authorityEvidenceId: "auth:1",
-+      });
-+    }
-+
-+    const schema = await confirmWithSnap({ executionContractSchemaVersion: "bad" });
-+    expect(schema.ok).toBe(false);
-+    if (!schema.ok) {
-+      expect(schema.error.internalCauseRef).toBe("bound_snapshot_schema_unsupported");
-+    }
-+
-+    const project = await confirmWithSnap({}, "prj:other");
-+    expect(project.ok).toBe(false);
-+    if (!project.ok) {
-+      expect(project.error.internalCauseRef).toBe("bound_snapshot_project_mismatch");
-+    }
-+
-+    const cycle = await confirmWithSnap({}, contract.projectId, "cyc:expected");
-+    expect(cycle.ok).toBe(false);
-+    if (!cycle.ok) {
-+      expect(cycle.error.internalCauseRef).toBe("bound_snapshot_cycle_mismatch");
-+    }
-+  });
-+
-+describe("Option B micro-correction OB02 — real attempt.status at Confirm", () => {
-+  function passAssessments() {
-+    return {
-+      expectedOutputAssessments: [
-+        {
-+          itemId: {
-+            semanticFingerprint: fingerprint,
-+            itemKind: "EO" as const,
-+            ordinal: 0,
-+          },
-+          expectation: W3B_TEMP_ARTIFACT_EO_TEMPLATE,
-+          result: "PASS" as const,
-+          method: "assisted" as const,
-+          provenance: {
-+            evaluatorRef: "w3b",
-+            evaluatedAt: "2026-08-24T00:00:00.000Z",
-+          },
-+        },
-+      ],
-+      evidenceRequirementAssessments: [
-+        {
-+          itemId: {
-+            semanticFingerprint: fingerprint,
-+            itemKind: "ER" as const,
-+            ordinal: 0,
-+          },
-+          requirement: W3B_TEMP_ARTIFACT_ER_KEY,
-+          result: "SATISFIED" as const,
-+          method: "assisted" as const,
-+          provenance: {
-+            evaluatorRef: "w3b",
-+            evaluatedAt: "2026-08-24T00:00:00.000Z",
-+          },
-+        },
-+      ],
-+    };
-+  }
-+
-+  async function confirmWithAttemptStatus(status: string) {
-+    const assessments = passAssessments();
-+    return new ConfirmClaimEvaluation(
-+      {
-+        findById: async () => ({
-+          schemaVersion: CLAIM_EVALUATION_SCHEMA_VERSION,
-+          claimEvaluationId: "clm:cr:ob02",
-+          claimType: "conformite",
-+          claimStatement: "x",
-+          criticality: "non_critical",
-+          evaluationMethod: "assisted",
-+          requiredEvidenceRefs: ["ev:1"],
-+          providedEvidenceRefs: ["ev:1"],
-+          reviewBundleId: "rb:1",
-+          reviewBundleVersion: 2,
-+          status: "evaluating",
-+          proposedBy: { actorId: "actor:a", role: "project_owner" },
-+          proposedAt: "2026-08-24T00:00:00.000Z",
-+          evaluatedAt: "2026-08-24T00:00:00.000Z",
-+          provenance: {
-+            schemaVersion: "0.1.0-oa",
-+            provenanceRecordId: "prv:1",
-+            actor: { actorId: "actor:a", role: "project_owner" },
-+            source: "review",
-+            timestamp: "2026-08-24T00:00:00.000Z",
-+            correlationId: "cor:1",
-+          },
-+          version: 1,
-+          subjectKind: CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
-+          contractResultReviewPolicyRef: W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
-+          contractResultBindings: {
-+            projectId: contract.projectId,
-+            executionContractId: contract.executionContractId,
-+            executionContractVersion: contract.version,
-+            executionContractSemanticFingerprint: fingerprint,
-+            executionAttemptId: "xat:w3b:optb",
-+            reviewBundleId: "rb:1",
-+            reviewBundleVersion: 2,
-+            evidenceRefs: ["ev:1"],
-+          },
-+          ...assessments,
-+        }),
-+        findByIdempotencyKey: async () => null,
-+        exists: async () => true,
-+        create: async () => {},
-+        update: async () => {},
-+      },
-+      {
-+        findById: async () => ({
-+          schemaVersion: "0.2.0-oa",
-+          reviewBundleId: "rb:1",
-+          projectId: contract.projectId,
-+          version: 2,
-+          frozenVersion: 2,
-+          frozenAt: "2026-08-24T00:00:00.000Z",
-+          evidenceRefs: ["ev:1"],
-+          claimEvaluationRefs: [],
-+          completeness: "complete",
-+          status: "ready_for_review",
-+          createdAt: "2026-08-24T00:00:00.000Z",
-+          synthesisOnly: false,
-+          provenance: {
-+            schemaVersion: "0.1.0-oa",
-+            provenanceRecordId: "prv:rb",
-+            actor: LOCAL_PILOTE_ACTOR,
-+            source: "review",
-+            timestamp: "2026-08-24T00:00:00.000Z",
-+            correlationId: "cor:rb",
-+          },
-+          frozenEvidenceSnapshots: [
-+            {
-+              evidenceId: "ev:1",
-+              evidenceVersion: 1,
-+              status: "verified",
-+              availability: "available",
-+            },
-+          ],
-+        }),
-+      },
-+      {
-+        findById: async () =>
-+          makeEvidence({ evidenceId: "ev:1", status: "verified" }),
-+      },
-+      {
-+        verify: () => ({
-+          ok: true,
-+          reason: "ok",
-+          resolvedLevel: "N3",
-+          authorityEvidenceId: "auth:1",
-+        }),
-+      },
-+      { nowIso: () => "2026-08-24T00:00:00.000Z" },
-+      { append: () => {} },
-+      { newCorrelationId: () => "cor:1", newProvenanceId: () => "prv:2" },
-+      {
-+        findById: async () =>
-+          ({
-+            ...makeAttempt({ status }),
-+            schemaVersion: "0.2.0-oa",
-+            selectedAgentRef: "agt:1",
-+            idempotencyKey: "idem:x",
-+            correlationId: "cor:x",
-+            version: 1,
-+            createdAt: "2026-08-24T00:00:00.000Z",
-+            provenance: {
-+              schemaVersion: "0.1.0-oa",
-+              provenanceRecordId: "prv:x",
-+              actor: LOCAL_PILOTE_ACTOR,
-+              source: "execution_adapter",
-+              timestamp: "2026-08-24T00:00:00.000Z",
-+              correlationId: "cor:x",
-+            },
-+          }) as never,
-+      },
-+    ).execute({
-+      claimEvaluationId: "clm:cr:ob02",
-+      expectedVersion: 1,
-+      idempotencyKey: `idem:confirm:ob02:${status}`,
-+      actor: { actorId: "actor:b", role: "project_owner" },
-+      authorityEvidenceId: "auth:1",
-+    });
-+  }
-+
-+  for (const status of [
-+    "failed",
-+    "cancelled",
-+    "timeout",
-+    "running",
-+    "accepted",
-+  ] as const) {
-+    it(`EO PASS cannot mint pass when attempt.status=${status}`, async () => {
-+      const result = await confirmWithAttemptStatus(status);
-+      expect(result.ok).toBe(false);
-+      if (result.ok) return;
-+      expect(result.error.internalCauseRef).toBe(
-+        "contract_result_confirm_derived_not_pass",
-+      );
-+    });
-+  }
-+
-+  it("succeeded + EO PASS + ER SATISFIED + valid bindings → may pass", async () => {
-+    const result = await confirmWithAttemptStatus("succeeded");
-+    expect(result.ok).toBe(true);
-+    if (!result.ok) return;
-+    expect(result.claimEvaluation.status).toBe("pass");
-+  });
-+});
-+
-+describe("Option B micro-correction OB03 — W3-B freshness at Confirm", () => {
-+  async function confirmWithFreshness(
-+    freshness: string | undefined,
-+    snapshotStatus = "verified",
-+  ) {
-+    return new ConfirmClaimEvaluation(
-+      {
-+        findById: async () => ({
-+          schemaVersion: CLAIM_EVALUATION_SCHEMA_VERSION,
-+          claimEvaluationId: "clm:cr:ob03",
-+          claimType: "conformite",
-+          claimStatement: "x",
-+          criticality: "non_critical",
-+          evaluationMethod: "assisted",
-+          requiredEvidenceRefs: ["ev:1"],
-+          providedEvidenceRefs: ["ev:1"],
-+          reviewBundleId: "rb:1",
-+          reviewBundleVersion: 2,
-+          status: "evaluating",
-+          proposedBy: { actorId: "actor:a", role: "project_owner" },
-+          proposedAt: "2026-08-24T00:00:00.000Z",
-+          evaluatedAt: "2026-08-24T00:00:00.000Z",
-+          provenance: {
-+            schemaVersion: "0.1.0-oa",
-+            provenanceRecordId: "prv:1",
-+            actor: { actorId: "actor:a", role: "project_owner" },
-+            source: "review",
-+            timestamp: "2026-08-24T00:00:00.000Z",
-+            correlationId: "cor:1",
-+          },
-+          version: 1,
-+          subjectKind: CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
-+          contractResultReviewPolicyRef: W3B_CONTRACT_RESULT_REVIEW_POLICY_REF,
-+          contractResultBindings: {
-+            projectId: contract.projectId,
-+            executionContractId: contract.executionContractId,
-+            executionContractVersion: contract.version,
-+            executionContractSemanticFingerprint: fingerprint,
-+            executionAttemptId: "xat:w3b:optb",
-+            reviewBundleId: "rb:1",
-+            reviewBundleVersion: 2,
-+            evidenceRefs: ["ev:1"],
-+          },
-+          expectedOutputAssessments: [
-+            {
-+              itemId: {
-+                semanticFingerprint: fingerprint,
-+                itemKind: "EO",
-+                ordinal: 0,
-+              },
-+              expectation: W3B_TEMP_ARTIFACT_EO_TEMPLATE,
-+              result: "PASS",
-+              method: "assisted",
-+              provenance: {
-+                evaluatorRef: "w3b",
-+                evaluatedAt: "2026-08-24T00:00:00.000Z",
-+              },
-+            },
-+          ],
-+          evidenceRequirementAssessments: [
-+            {
-+              itemId: {
-+                semanticFingerprint: fingerprint,
-+                itemKind: "ER",
-+                ordinal: 0,
-+              },
-+              requirement: W3B_TEMP_ARTIFACT_ER_KEY,
-+              result: "SATISFIED",
-+              method: "assisted",
-+              provenance: {
-+                evaluatorRef: "w3b",
-+                evaluatedAt: "2026-08-24T00:00:00.000Z",
-+              },
-+            },
-+          ],
-+        }),
-+        findByIdempotencyKey: async () => null,
-+        exists: async () => true,
-+        create: async () => {},
-+        update: async () => {},
-+      },
-+      {
-+        findById: async () => ({
-+          schemaVersion: "0.2.0-oa",
-+          reviewBundleId: "rb:1",
-+          projectId: contract.projectId,
-+          version: 2,
-+          frozenVersion: 2,
-+          frozenAt: "2026-08-24T00:00:00.000Z",
-+          evidenceRefs: ["ev:1"],
-+          claimEvaluationRefs: [],
-+          completeness: "complete",
-+          status: "ready_for_review",
-+          createdAt: "2026-08-24T00:00:00.000Z",
-+          synthesisOnly: false,
-+          provenance: {
-+            schemaVersion: "0.1.0-oa",
-+            provenanceRecordId: "prv:rb",
-+            actor: LOCAL_PILOTE_ACTOR,
-+            source: "review",
-+            timestamp: "2026-08-24T00:00:00.000Z",
-+            correlationId: "cor:rb",
-+          },
-+          frozenEvidenceSnapshots: [
-+            {
-+              evidenceId: "ev:1",
-+              evidenceVersion: 1,
-+              status: snapshotStatus,
-+              availability: "available",
-+            },
-+          ],
-+        }),
-+      },
-+      {
-+        findById: async () =>
-+          makeEvidence({
-+            evidenceId: "ev:1",
-+            status: "verified",
-+            freshness: freshness as never,
-+          }),
-+      },
-+      {
-+        verify: () => ({
-+          ok: true,
-+          reason: "ok",
-+          resolvedLevel: "N3",
-+          authorityEvidenceId: "auth:1",
-+        }),
-+      },
-+      { nowIso: () => "2026-08-24T00:00:00.000Z" },
-+      { append: () => {} },
-+      { newCorrelationId: () => "cor:1", newProvenanceId: () => "prv:2" },
-+      {
-+        findById: async () =>
-+          ({
-+            ...makeAttempt({ status: "succeeded" }),
-+            schemaVersion: "0.2.0-oa",
-+            selectedAgentRef: "agt:1",
-+            idempotencyKey: "idem:x",
-+            correlationId: "cor:x",
-+            version: 1,
-+            createdAt: "2026-08-24T00:00:00.000Z",
-+            provenance: {
-+              schemaVersion: "0.1.0-oa",
-+              provenanceRecordId: "prv:x",
-+              actor: LOCAL_PILOTE_ACTOR,
-+              source: "execution_adapter",
-+              timestamp: "2026-08-24T00:00:00.000Z",
-+              correlationId: "cor:x",
-+            },
-+          }) as never,
-+      },
-+    ).execute({
-+      claimEvaluationId: "clm:cr:ob03",
-+      expectedVersion: 1,
-+      idempotencyKey: `idem:confirm:ob03:${freshness ?? "undef"}`,
-+      actor: { actorId: "actor:b", role: "project_owner" },
-+      authorityEvidenceId: "auth:1",
-+    });
-+  }
-+
-+  for (const freshness of [undefined, "unknown", "aging", "stale"] as const) {
-+    it(`freshness=${String(freshness)} → Confirm refused`, async () => {
-+      const result = await confirmWithFreshness(freshness);
-+      expect(result.ok).toBe(false);
-+      if (result.ok) return;
-+      const cause = result.error.internalCauseRef ?? "";
-+      expect(
-+        cause === "contract_result_confirm_evidence_not_w3b_usable" ||
-+          cause.startsWith("confirm_evidence_"),
-+      ).toBe(true);
-+    });
-+  }
-+
-+  it("fresh + valid snapshot → Confirm may pass", async () => {
-+    const result = await confirmWithFreshness("fresh");
-+    expect(result.ok).toBe(true);
-+    if (!result.ok) return;
-+    expect(result.claimEvaluation.status).toBe("pass");
-+  });
-+
-+  it("live fresh but frozen snapshot incompatible → refused", async () => {
-+    const result = await confirmWithFreshness("fresh", "stale");
-+    expect(result.ok).toBe(false);
-+  });
-+});
+    fix(sfia-studio): close W3-B Option B review gaps
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/confirmClaimEvaluation.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/confirmClaimEvaluation.ts
 index 1a5d3a63..eff0ce5b 100644
 --- a/projects/sfia-studio/app/lib/oa/evidence-review/application/confirmClaimEvaluation.ts
@@ -1288,96 +555,65 @@ index e64cfb2a..21157399 100644
    if (recomputed !== snap.semanticFingerprint) {
      return { ok: false, reason: "bound_snapshot_fingerprint_corrupt" };
    }
-
 ```
 
----
+Full PR application delta is the 57-file `origin/main...8c1f9b86` set above (also on GitHub PR #413). No product mutation in this cycle.
 
-## Validation evidence
+## Local validation (historical review-clean at `8c1f9b86`)
 
-| Gate | Result |
-|---|---|
-| OB01/OB02/OB03 targeted (optionBBoundSnapshot) | 35/35 PASS |
-| Contract Result evaluation / correction / SQLite / adversarial | PASS |
-| W3-B product terminal | PASS |
-| SYSTEM_GOVERNED_STOP | PASS |
-| W3-A governed execute | PASS |
-| Import boundaries | PASS |
-| Full Vitest | **2090 passed** / 131 skipped (219 files + 13 skipped) |
-| `tsc --noEmit` | PASS |
-| `next lint` | PASS (0 warnings/errors) |
-| `npm run build` | PASS |
-| Playwright `/studio` W3-B (SUCCESS / SYSTEM_GOVERNED_STOP / ADAPTER_FAIL) | **3/3 PASS** |
+- Option B suite PASS
+- Full Vitest: 2090 passed
+- typecheck / lint / build PASS
+- Playwright `/studio`: SUCCESS / SYSTEM_GOVERNED_STOP / ADAPTER_FAIL = 3/3
 
-Captures: existing Option B / W3-B captures remain valid (behavior of product terminal surface unchanged by OB01–OB03; gates are Confirm/Evaluate internals). No new product knob.
+## CI (PR #413)
 
----
-
-## X-W3B requalification
-
-Canonical exit IDs (stable across W3-B reviews). Prior published handoff `dd791f4a` mis-indexed X-02/X-04/X-05/X-06/X-07 labels; **proofs remapped only — no code change to `8c1f9b86`.**
-
-| ID | Exit canonique | Verdict | Proof (existing; remapped) |
+| Check | Status | Duration | URL |
 |---|---|---|---|
-| X-W3B-01 | Honest semantic SUCCESS | PASS | W3-B product terminal + Playwright SUCCESS + Confirm uses real `attempt.status==succeeded` only (OB02) |
-| X-W3B-02 | NOT_PROVEN fail-closed | PASS (NR) | Historical missing snapshot → durable NOT_PROVEN; no evaluator → NOT_PROVEN; corrupt snapshot → fail-closed (optionBBoundSnapshot) |
-| X-W3B-03 | FAIL distinct | PASS (NR) | Playwright ADAPTER_FAIL + w3bProductTerminal adapter FAIL path |
-| X-W3B-04 | SYSTEM_GOVERNED_STOP | PASS (NR) | `systemGovernedStop` suite + Playwright GOVERNED STOP |
-| X-W3B-05 | Cancel / pre-running block distinctions | PASS (NR) | USER_CANCEL distinct from STOP; cancel suites + W3-A NR; Confirm refuses `cancelled` technical status (OB02) |
-| X-W3B-06 | Evidence before claim / frozen RB | PASS (NR) | Frozen ReviewBundle exact binding at Confirm; OB03 frozen-snapshot incompatibility refuse; Evidence before claim C09 path |
-| X-W3B-07 | Business-first UX | PASS (NR) | W3-B product terminal business-first projection + Playwright `/studio` SUCCESS/STOP/FAIL surfaces |
-| X-W3B-08 | Restart honesty | PASS (NR) | Option B SQLite Attempt snapshot reload + product terminal TRUE RESTART rehydrate |
-| X-W3B-09 | Exact EC identity | PASS | OB01 canonical schema/EC/version/fingerprint/project/cycle at Evaluate/Confirm/FC-11 |
-| X-W3B-10 | Server ownership / review | PASS | Confirm real Attempt.status + W3-B fresh-only Evidence (OB02/OB03) + FC-12 authority unchanged |
-| X-W3B-11 | Canonical `/studio` | PASS (NR) | Playwright `/studio` 3/3 (SUCCESS / SYSTEM_GOVERNED_STOP / ADAPTER_FAIL) |
-| X-W3B-12 | No parallel architecture | PASS | Single validator reuse; no EC history repo; no latest-EC; Option B preserved |
+| Detect SFIA Studio changes | pass | 8s | https://github.com/mcleland147/sfia-workspace/actions/runs/32788141345/job/97624173294 |
+| Build and validate SFIA Studio | pass | 2m14s | https://github.com/mcleland147/sfia-workspace/actions/runs/32788141345/job/97624211019 |
+| SFIA Studio Required Gate | pass | 4s | https://github.com/mcleland147/sfia-workspace/actions/runs/32788141345/job/97624728437 |
 
-Even with X-01…12 PASS: **W3-B remains NOT CLOSED**.
+Required gate observed and PASS. Workflow run: https://github.com/mcleland147/sfia-workspace/actions/runs/32788141345
 
----
+## X-W3B-01…12 (canonical IDs — from handoff `5ec1125e`, unchanged)
 
-## Architecture parallelism proof
+| ID | Exit canonique | Verdict |
+|---|---|---|
+| X-W3B-01 | Honest semantic SUCCESS | PASS |
+| X-W3B-02 | NOT_PROVEN fail-closed | PASS |
+| X-W3B-03 | FAIL distinct | PASS |
+| X-W3B-04 | SYSTEM_GOVERNED_STOP | PASS |
+| X-W3B-05 | Cancel / pre-running block distinctions | PASS |
+| X-W3B-06 | Evidence before claim / frozen RB | PASS |
+| X-W3B-07 | Business-first UX | PASS |
+| X-W3B-08 | Restart honesty | PASS |
+| X-W3B-09 | Exact EC identity | PASS |
+| X-W3B-10 | Server ownership / review | PASS |
+| X-W3B-11 | Canonical `/studio` | PASS |
+| X-W3B-12 | No parallel architecture | PASS |
 
-- One snapshot validator ownership: `boundExecutionContract.validateBoundExecutionContractSnapshot`
-- Wrapper only: `isAttemptBoundSnapshotValid`
-- No EC history repository
-- No latest-EC semantic matching / auto-migrate / cross-version substitution
-- No new Claim/Evidence/Stop/Guard architecture
-- Generic structural ClaimEvaluation Morris gate unchanged (test 20)
+**12/12 PASS. W3-B remains NOT CLOSED.**
 
-## Fake / Real
+## Governance proofs
 
-- Fake/fixture adapters for governed execute + Playwright boundary knobs only
-- REAL OUT — no real external execution adoption this cycle
-
-## Debt / reserves
-
-- `inferAttemptStatusFromContractResultAssessments` still exported unused (out-of-scope cleanup deferred)
-- W3-B NOT CLOSED pending ChatGPT re-review of handoff X-matrix remap + distinct Morris Git integration decision
-- W3-C/D/E NOT STARTED; REAL OUT; FinOps FREEZE; W4 OUT; runtime v3 NON ADOPTED
-
-## Git state / publish constraints
-
-- Project candidate frozen at `8c1f9b86` (REVIEW-CLEAN per ChatGPT; **no new project commit**)
-- This republication is **handoff / Review Pack only** (X-matrix identity remap)
-- **No project push / PR / merge**
-- Review Handoff via `scripts/sfia/publish-review-handoff.sh` only
+- No new project commit this cycle (HEAD still `8c1f9b86`)
+- No amend / rebase / force push / merge main into branch
+- No PR merge; auto-merge null
+- Source branch preserved on remote
+- No W3-B closure; no W3-C/D/E; REAL OUT; FinOps FREEZE; W4 OUT; runtime v3 NON ADOPTED
 
 ## Verdict
 
-**READY FOR REVIEW** — code `8c1f9b86` REVIEW-CLEAN (OB01–OB03 PASS); handoff X-W3B-01…12 remapped to canonical exit IDs; awaiting ChatGPT re-review limitée à la matrice X puis Morris Git integration decision.
+**READY FOR MORRIS MERGE DECISION**
 
-Next gate: ChatGPT re-review ciblée de la matrice X-W3B (handoff only) → Morris Git integration decision.
+This is **not** a merge authorization. Next gate: ChatGPT PR readiness review → if PASS → distinct Morris merge GO.
 
+## Final project verification (post-handoff target)
 
-## Post-commit Git
-
-| Field | Value |
-|---|---|
-| Correction HEAD | `8c1f9b863a36391131b01ffd81a673d0105c1122` |
-| Parent | `66427eaf3ea74388b61c73e738f4b4df7b9a983a` |
-| Message | `fix(sfia-studio): close W3-B Option B review gaps` |
-| Files | 5 (exact staging) |
-| Project push | NO |
-| Project PR | NO |
-| Project merge | NO |
+```
+branch=delivery/sfia-studio-product-completion-w3-b-bound-snapshot
+local HEAD=8c1f9b863a36391131b01ffd81a673d0105c1122
+remote HEAD=8c1f9b863a36391131b01ffd81a673d0105c1122
+status: ?? .tmp-sfia-review/ only
+```
