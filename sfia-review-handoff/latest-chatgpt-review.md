@@ -1,136 +1,279 @@
-# SFIA Review Handoff — PR #411 Merge-Stability Correction (Cycle 13)
+# SFIA Review Handoff — W3-B Delivery Requalification (Cycle 8)
 
 ## 1. Cycle summary
 
-- Cycle: 13 — PR readiness correction
-- Profile: STANDARD · Typology: DOC
-- Timestamp CEST: 2026-08-24 21:31 CEST
-- Timestamp UTC: 2026-08-24 19:31 UTC
-- Morris GO: GO MORRIS — PR #411 MERGE-STABILITY CORRECTION — SAME TWO PROJECT FILES — SAME BRANCH — SAME DRAFT PR — NO READY — NO MERGE — NO DELIVERY RESTART
+- Cycle: 8 — Delivery / implémentation — READINESS / REQUALIFICATION ONLY
+- Profile: CRITICAL · Typology: DOC
+- Timestamp CEST: 2026-08-24 21:46 CEST
+- Timestamp UTC: 2026-08-24 19:46 UTC
+- Morris GO: W3-B Delivery requalification — reconstruct from C1/C2/UX/FA/C6/backlog + W1/W2/W3-A + DOC12 — NO Delivery mutation — NO implementation
+- **This GO does NOT authorize Delivery restart**
 
 ## 2. Git evidence
 
 | Item | Value |
 | --- | --- |
-| Worktree | /Users/morris/Projects/sfia-workspace-w3b-architecture-addendum |
-| origin/main | `bcc39fba04664edc09fca782e61e5f5e70a45d35` |
-| Branch | docs/sfia-studio-w3-b-post-merge-truth-sync |
-| Previous head | `40dbf86ba6b4e2cb8d6f6cc82b31890f473b6c33` |
-| Correction commit | `e3f59b17c195b3be9557b1b35e9dcc2264ba0715` |
-| Commit message | docs(sfia-studio): make W3-B truth sync merge-stable |
-| Push | SUCCESS · local == remote |
+| Repository | mcleland147/sfia-workspace |
+| origin/main | `a71d9413e0435a8252ab4c695163b67354d193aa` |
+| PR #410 | MERGED — W3-B Targeted Technical Architecture |
+| PR #411 | MERGED — W3-B post-merge truth sync |
+| Delivery branch | `delivery/sfia-studio-product-completion-w3-b-terminal-evidence` |
+| Delivery HEAD | `ba7aa2db408b7fd00faf9638da060ce0833b794b` |
+| Dirty status | 14 modified + 9 untracked sfia-studio files (+ unrelated untracked projects) |
+| Staged | none |
+| Delivery mutation this cycle | NONE |
 
-## 3. PR #411
+## 3. Requalification verdict
 
-| Item | Value |
+**QUALIFIED WITH BLOCKING CORRECTIONS BEFORE RESTART**
+
+W3-B remains the correct current capability serving C1 O-07/O-08 via C2 Q/R/S→T. DOC12 TD-W3B-01…04 on current main provides sufficient adopted architecture. The local dirty Delivery candidate contains useful partial work (Evidence multi-terminal ingest, business-first UI patterns, test harness, honest UNCLAIMED anti-claims) but its core FC-11/STOP implementation **conflicts with adopted TD** and must be **REWORKED**, not restarted as-is.
+
+## 4. C1 target outcomes (W3-B relevant)
+
+| Outcome | Requirement |
 | --- | --- |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/411 |
-| State | OPEN / Draft / MERGEABLE |
-| Base | main @ `bcc39fba04664edc09fca782e61e5f5e70a45d35` |
-| Head | `e3f59b17c195b3be9557b1b35e9dcc2264ba0715` |
-| Changed files | DOC12 + Roadmap (2 files only) |
-| PR diff | prior reviewed truth sync + merge-stability correction only |
-| Ready transition | NOT performed |
-| Merge | NOT authorized |
+| O-07 | SUCCESS/STOP/FAIL without silent success |
+| O-08 | Evidence business-first, technical secondary |
+| O-10 | Replan from decisions/evidence — **downstream (US-P1-07)** |
+| O-11 | Catalog evolvability — **downstream (US-P1-09)** |
+| O-12 | Evidence→Nora→LPS — **downstream (US-P1-07)** |
 
-## 4. Modified project files (exactly 2)
+Pilote runtime actor · ProjectTrajectory MUST · semantic continuity MUST · native ExecutionContract · CKC cognitive/no authority · runtime v3 NON ADOPTED.
 
-1. `projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md`
-2. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+## 5. C2 terminal path
 
-## 5. Correction purpose
+```
+O→P Attempt accepted→running→terminal
+Q SUCCESS ─┐
+R STOP governed ─┤ terminal branches
+S FAIL technical ─┘
+T Evidence/ReviewBundle (EVERY terminal)
+U Nora → V replan → W recovery
+```
 
-Remove self-invalidating transport/current-cycle state from durable DOC12 and living Roadmap truth. Git/PR/Review Handoff carry transient transport; versioned documents carry merge-stable product/convergence state correct both before and after PR #411 merge.
+Hard rules: technical success ≠ Product SUCCESS · Attempt terminal ≠ Cycle closed · Evidence before claim · Recommendation ≠ HumanDecision.
 
-## 6. Transient-state inventory (corrected)
+## 6. Backlog W3 map
 
-| Location | Before (transient) | After (merge-stable) |
+| US | W3-B scope? | Dependency status |
 | --- | --- | --- |
-| DOC12 Backlog note | Cycle 14 (local candidate) | merge-stable form · RESOLVE FROM GIT/PR EVIDENCE |
-| DOC12 §16.5 | CURRENT LOCAL CANDIDATE · awaiting ChatGPT review | Post-merge documentary truth merge-stable · RESOLVE FROM GIT/PR EVIDENCE |
-| DOC12 §16.6 | Requires post-merge truth integration | Requalification against current main · no doc-only restart |
-| DOC12 §17 | pending Git integration | merge-stable form · resolved from Git/PR evidence |
-| Roadmap Timestamp courant | LOCAL CANDIDATE | merge-stable form · RESOLVE FROM GIT/PR EVIDENCE |
-| Roadmap Gates courants | ChatGPT review · Morris Git integration GO | Durable product gates · RESOLVE FROM GIT/PR EVIDENCE |
-| Roadmap CURRENT TRANSITION | branch name · no push/PR/merge | merge-stable · RESOLVE FROM GIT/PR EVIDENCE |
-| Roadmap NEXT ORDERED STEP | linear transport sequence | conditional IF/ONCE merge-stable sequence |
+| US-P1-05 | **YES — DIRECT** | US-P1-04 satisfied (W3-A CLOSED) |
+| US-P1-06 | **YES — DIRECT** | Depends on 05 |
+| US-P1-07 | **NO — DOWNSTREAM** | Requires 06; Nora post-Evidence loop |
+| US-P1-09 | **NO — DOWNSTREAM** | Full CKC/catalog evolvability — W3 macro |
+| US-P1-14 | **NO — DOWNSTREAM** | W3 macro residual |
 
-Historical rows with transient wording preserved (explicit historique).
+No direct blocker from code requires pulling 07/09 into W3-B.
 
-## 7. Full correction diff (40dbf86b..e3f59b17)
+## 7. Historical capability ledger
 
-```
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 1a91116c..364ec831 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -7,7 +7,7 @@
--| **Timestamp maintenance courant** | 2026-08-24 21:07 CEST (+0200) — **W3-B POST-MERGE TRUTH SYNC** — PR **#410 MERGED** · merge `bcc39fba04664edc09fca782e61e5f5e70a45d35` · head `cbad09d54518c56d9fd894a788e55b53d2b6b5a5` · PR-head CI **`32764582915` SUCCESS** · push/main CI **`32765431464` SUCCESS** · TD-W3B-01…04 **ADOPTED / INTEGRATED ON MAIN** · post-merge DOC12 + Roadmap truth sync **LOCAL CANDIDATE** · W3-B Delivery **NOT RESTARTED** · W3 **IN PROGRESS / NOT CLOSED** · REAL **OUT** · FinOps/T7 **FREEZE** · W4 **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **≠** W3 CLOSED · **≠** W3-B complete · **≠** READY FOR REAL |
-+| **Timestamp maintenance courant** | 2026-08-24 21:07 CEST (+0200) — **W3-B POST-MERGE TRUTH SYNC** — PR **#410 MERGED** · merge `bcc39fba04664edc09fca782e61e5f5e70a45d35` · head `cbad09d54518c56d9fd894a788e55b53d2b6b5a5` · PR-head CI **`32764582915` SUCCESS** · push/main CI **`32765431464` SUCCESS** · TD-W3B-01…04 **ADOPTED / INTEGRATED ON MAIN** · post-merge DOC12 + Roadmap truth **represented in merge-stable form** · repository transport/integration state **RESOLVE FROM GIT / PR EVIDENCE** · W3-B Delivery **NOT RESTARTED** · W3 **IN PROGRESS / NOT CLOSED** · REAL **OUT** · FinOps/T7 **FREEZE** · W4 **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **≠** W3 CLOSED · **≠** W3-B complete · **≠** READY FOR REAL |
-@@ -74,7 +74,7 @@
--| **Gates courants** | C1…C6 **INTEGRATED / C6 CLOSED** · W1 **CLOSED** · **W2 CLOSED BY MORRIS** · **W3-A CLOSED BY MORRIS** · **W3-B architecture ADOPTED / INTEGRATED ON MAIN** (PR **#410** / `bcc39fba…`) · **W3 IN PROGRESS / NOT CLOSED** · **W3-B CURRENT CAPABILITY / NOT CLOSED** · post-merge truth sync **LOCAL CANDIDATE** · next gate = **ChatGPT review** · later gate = Morris Git integration GO · later = **W3-B Delivery requalification** · restart Delivery requires Morris decision · W3-C/D/E **NOT STARTED** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · FinOps/T7 **FREEZE** · REAL **NOT CONSUMED** · W4 **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **NO REAL WITHOUT DISTINCT MORRIS GO** |
-+| **Gates courants** | C1…C6 **INTEGRATED / C6 CLOSED** · W1 **CLOSED** · **W2 CLOSED BY MORRIS** · **W3-A CLOSED BY MORRIS** · **W3-B architecture ADOPTED / INTEGRATED ON MAIN** (PR **#410** / `bcc39fba…`) · **W3 IN PROGRESS / NOT CLOSED** · **W3-B CURRENT CAPABILITY / NOT CLOSED** · **W3-B Delivery NOT RESTARTED / REQUALIFICATION REQUIRED** · W3-B Delivery restart requires distinct Morris decision after qualification · W3-C/D/E **NOT STARTED** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · FinOps/T7 **FREEZE** · REAL **NOT CONSUMED** · W4 **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · repository transport state **RESOLVE FROM GIT / PR EVIDENCE** · **NO REAL WITHOUT DISTINCT MORRIS GO** |
-@@ -135,8 +135,8 @@
--| CURRENT REPOSITORY TRANSITION | **W3-B targeted architecture INTEGRATED ON MAIN** via PR **#410** (`bcc39fba…`) · post-merge DOC12 + Roadmap truth sync **LOCAL CANDIDATE** on branch `docs/sfia-studio-w3-b-post-merge-truth-sync` · **no project push/PR/merge in this cycle** · **no Delivery restart** · FinOps/T7 **FREEZE** · REAL **OUT** · W4 **OUT** · Product Completion **INCOMPLETE** · W3 **IN PROGRESS / NOT CLOSED** |
--| NEXT ORDERED STEP | ChatGPT review of this local post-merge truth sync → Morris Git integration GO (if PASS) → truth-sync PR/merge/post-integration verification → **W3-B Delivery requalification** → distinct Morris restart decision if qualified · **≠** W3-B Delivery automatic · **≠** W3 closure · **≠** REAL GO |
-+| CURRENT REPOSITORY TRANSITION | **W3-B targeted architecture INTEGRATED ON MAIN** via PR **#410** (`bcc39fba…`) · post-merge DOC12 + Roadmap truth **represented in merge-stable form** · repository integration status **RESOLVE FROM GIT / PR EVIDENCE** · **no Delivery restart** · FinOps/T7 **FREEZE** · REAL **OUT** · W4 **OUT** · Product Completion **INCOMPLETE** · W3 **IN PROGRESS / NOT CLOSED** |
-+| NEXT ORDERED STEP | Resolve current main / Git evidence · **IF** this post-merge truth state is not yet integrated on current main: complete its governed repository integration under the applicable Morris gate · **ONCE** this truth state is present on current main: perform **W3-B Delivery requalification** → distinct Morris Delivery restart decision if qualified · **≠** W3-B Delivery automatic · **≠** W3 closure · **≠** W3-C start · **≠** REAL GO · **≠** runtime v3 ADOPTED |
+### W1 — CLOSED / reusable (KEEP/HARVEST)
 
-diff --git a/projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md b/projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
-index 086c44ab..380e4175 100644
---- a/projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
-+++ b/projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md
-@@ -788,7 +788,7 @@
--Post-merge DOC12 + Roadmap truth sync executed in Cycle 14 (local candidate). US-P1-05 / US-P1-06 backlog annotation remains future separate controlled backlog sync if needed. **No backlog rewrite now.**
-+Post-merge DOC12 + Roadmap truth state is represented in this Cycle 14 documentation in merge-stable form. Repository transport/integration status is resolved from Git/PR evidence. US-P1-05 / US-P1-06 backlog annotation remains future separate controlled backlog sync if needed. **No backlog rewrite now.**
-@@ -895,8 +895,8 @@
--5. **Post-merge truth sync** — **CURRENT LOCAL CANDIDATE** — awaiting ChatGPT review.
--6. **Delivery** — **NOT** restarted. Requires post-merge truth integration then W3-B Delivery requalification. Restart requires distinct Morris authorization after qualification.
-+5. **Post-merge documentary truth** — represented in merge-stable form in this document and the living Roadmap · repository transport/integration status **RESOLVE FROM GIT / PR EVIDENCE** · no product/Delivery authority follows from transport status alone.
-+6. **Delivery** — **NOT** restarted · remains subject to W3-B Delivery requalification against current main · restart requires distinct Morris authorization if qualification passes · integration of this documentation alone never authorizes restart.
-@@ -906,4 +906,4 @@
--Architecture adopted and integrated on main · post-merge documentary truth sync pending Git integration · W3-B Delivery not restarted · W3-B remains incomplete pending implementation/proof · C6 remains CLOSED · runtime v3 NON ADOPTED.
-+Architecture adopted and integrated on main · post-merge documentary truth represented in merge-stable form · repository integration status resolved from Git/PR evidence · W3-B Delivery not restarted · W3-B remains incomplete pending implementation/proof · C6 remains CLOSED · runtime v3 NON ADOPTED.
-```
+- Product SQLite durability (Attempt, EC, Evidence, RB)
+- DoctrinePackage / CKC Phase A bounded seam
+- `/studio` canonical path
+- C6 durability ports KEEP
 
-## 8. Merge-stability proof
+### W2 — CLOSED / reusable (KEEP)
 
-**STATE A (PR Draft/unmerged):** All durable current-state claims true. No claim requires PR to remain local/Draft/pending. PASS.
+- Options/Recommendation/HumanDecision/ProjectTrajectory
+- EC prepare/inspect/amend/reinspect
+- Confirmation, effective authority, AUTHORIZED/BLOCKED
+- Bounded CKC Phase B proof
 
-**STATE B (content on main):** All durable current-state claims remain true. Conditional NEXT ORDERED STEP handles both states via Git evidence. PASS.
+### W3-A — CLOSED / reusable (KEEP)
 
-## 9. Architecture semantics
+- US-P1-04 / FC-10 governed execute
+- authorized→accepted→running→technical terminal
+- fresh authority, fail-closed, idempotence
+- TestExecutionAdapter fake external boundary
 
-TD-W3B-01…04 · ARCH-R01…ARCH-R06 · Option A · Option S2 · ClaimEvaluation.status · contractResultVerdict projection · SYSTEM_GOVERNED_STOP · Product SQLite KEEP — **UNCHANGED**. PASS — NO ARCHITECTURE SEMANTIC DRIFT.
+### W3-A residuals (carry into W3-B)
 
-## 10. CI
+- **W3A-D01:** technical `succeeded` ≠ Product SUCCESS/STOP/FAIL — **W3-B must close**
+- **W3A-D02:** Evidence/Review post-Evidence loop — **partially W3-B (06), Nora loop = 07**
 
-| Item | Value |
+## 8. DOC12 adopted architecture (main)
+
+| TD | Decision | Implementation on main |
+| --- | --- | --- |
+| TD-W3B-01 | Contract Result = adapted ClaimEvaluation · `status` canonical · `contractResultVerdict` projection · Product SQLite | **NOT IMPLEMENTED** |
+| TD-W3B-02 | EO/ER identity `(fingerprint, kind, ordinal)` + assessments | **NOT IMPLEMENTED** |
+| TD-W3B-03 | SYSTEM_GOVERNED_STOP FC-10 use case · post-running frontier · Option S2 | **NOT IMPLEMENTED** |
+| TD-W3B-04 | Durable server-owned stop provenance on Attempt · U2/U2b harvest | **NOT IMPLEMENTED** |
+
+C6 CLOSED · Product SQLite KEEP · no parallel Claim/Stop Engine · no C6 reopen.
+
+## 9. Local dirty candidate inventory
+
+### Modified (14)
+
+1. `governedExecuteAuthorizedContract.ts` — technical terminal all statuses; test STOP/FAIL arms
+2. `actions.ts` — materialize/rehydrate product outcome actions
+3. `types.ts` — W3BProductOutcomeDto
+4. `ingestExecutionAttemptEvidence.ts` — terminal kinds succeeded/failed/cancelled
+5. `evidence-review/domain/types.ts` — technicalResultRef
+6. `TrajectorySurface.tsx/.css` — business-first outcome UI
+7. `w3bProductOutcomeSemantics.ts` (untracked) — **heuristic FC-11 bypass**
+8. `w3bMaterializeProductOutcome.ts` (untracked) — FC-12 without ClaimEvaluation
+9. Tests: w3bProductOutcomeSemantics, w3bTerminalEvidence, adversarial, ingest
+10. E2E: w3b-boundary route, boundary control, runtime spec
+11. `playwright.config.ts`, `f3FixtureWiring.ts`, `importBoundaries.test.ts`
+12. `convergence-roadmap.md`, `11-wave-3-delivery-readiness.md` — stale STOP status
+
+### Critical divergence
+
+- Local worktree **missing** `12-product-completion-w3-b-targeted-technical-architecture-addendum.md` (exists on main @ a71d9413)
+- Branch base `ba7aa2db` is **5 commits behind** main (docs only on main side for W3-B truth)
+
+## 10. Three-way hunk classification matrix
+
+| File / concern | HEAD | Dirty | Main | Class | Reason |
+| --- | --- | --- | --- | --- | --- |
+| `w3bProductOutcomeSemantics.ts` | absent | heuristic FC-11 | absent | **REWORK** | Bypasses TD-W3B-01 ClaimEvaluation.status SoT |
+| `w3bMaterializeProductOutcome.ts` | absent | ingest+RB+qualify | absent | **ADAPT** | FC-12 pipeline useful; must call Contract Result CE |
+| `governedExecuteAuthorizedContract.ts` | W3-A terminal | +test arms, multi-status | W3-A | **ADAPT** | Technical terminal honesty KEEP; test STOP arm DROP for product |
+| `ingestExecutionAttemptEvidence.ts` | succeeded only | all terminals | succeeded only | **KEEP/ADAPT** | Aligns with FC-12 all-terminal requirement |
+| `TrajectorySurface.tsx` | no outcome panel | business-first UI | no outcome panel | **ADAPT** | UX patterns reusable; bind to durable CE not heuristic |
+| `w3bE2eBoundaryControl.ts` | absent | test-only arms | absent | **ADAPT** | E2E harness only; not product STOP path |
+| `doc12 addendum` | absent | deleted locally | **ADOPTED** | **DROP local deletion** | Must sync from main |
+| ClaimEvaluation contract-result mode | generic only | not touched | generic only | **NEW REQUIRED** | TD-W3B-01 |
+| SystemGovernedStop use case | absent | Cancel injection | absent | **NEW REQUIRED** | TD-W3B-03 |
+| stopOrigin/provenance fields | absent | absent | absent | **NEW REQUIRED** | TD-W3B-04 |
+| EO/ER per-item assessments | absent | string proxy | absent | **NEW REQUIRED** | TD-W3B-02 |
+
+## 11. Recommended W3-B IN scope
+
+**Core:** US-P1-05 + US-P1-06 only.
+
+**Implementation sequence (post-rebase on a71d9413):**
+
+1. TD-W3B-01 — Contract Result ClaimEvaluation mode + Product SQLite persistence
+2. TD-W3B-02 — EO/ER assessments bound to EC version/fingerprint
+3. TD-W3B-03 — SystemGovernedStop FC-10 use case (Option S2)
+4. TD-W3B-04 — Durable stop provenance on Attempt substrate
+5. Wire FC-11 to consume durable `ClaimEvaluation.status` (remove heuristic bypass)
+6. FC-12 Evidence/RB for all terminals (harvest dirty ingest extensions)
+7. /studio business-first terminal + Evidence presentation (harvest TrajectorySurface patterns)
+8. Exit proof matrix (below) — deterministic product-native /studio
+
+**Necessary enablers only:** bounded Contract Result review policy ref shape (minimal server-owned, not authority DSL).
+
+## 12. W3-B OUT scope
+
+- US-P1-07 Nora post-Evidence / replan / LPS update
+- US-P1-09 catalog evolvability / full CKC track
+- US-P1-14 W3 macro residual
+- REAL / FinOps / W4 / runtime v3
+- C6 reopen / new DB / parallel engines
+- Heuristic `qualifyProductOutcome` as durable SoT
+- Test-only synthetic STOP as production path
+
+## 13. Proposed W3-B exit proof matrix (not Morris-adopted)
+
+| ID | Requirement | Current coverage | Gap | Blocking |
+| --- | --- | --- | --- | --- |
+| X-01 | SUCCESS independent of technical succeeded alone | Heuristic partial | Need CE `status=pass` + EO assessments | YES |
+| X-02 | NOT_PROVEN blocks SUCCESS | UNCLAIMED path exists | Need canonical CE not_proven | YES |
+| X-03 | FAIL distinct from STOP/SUCCESS | Partial | Wire through CE + Attempt failed | YES |
+| X-04 | SYSTEM_GOVERNED_STOP same Attempt + provenance | Test Cancel only | TD-W3B-03/04 | YES |
+| X-05 | USER_CANCEL / pre-block / system STOP distinct | Partial UNCLAIMED | TD-W3B-03/04 | YES |
+| X-06 | Evidence/RB all terminals before claim | Dirty ingest extended | Formal gate on CE path | YES |
+| X-07 | Evidence business-first UX | TrajectorySurface dirty | Bind to durable facts | NO |
+| X-08 | Restart preserves CE + provenance + Evidence | Rehydrate dirty | After TD persistence | YES |
+| X-09 | EC-version EO/ER identity; stale blocked | None | TD-W3B-02 | YES |
+| X-10 | Server owns assessment; hostile client blocked | Partial binding checks | CE authority model | YES |
+| X-11 | /studio path accepted→running→terminal→Evidence | W3-A + dirty partial | TD-conformant closure | YES |
+| X-12 | No second Claim/Stop Engine | Architecture adopted | Dirty bypass risk | YES |
+
+## 14. Architecture parallelism check
+
+| Risk | Answer | Evidence |
+| --- | --- | --- |
+| Second Claim engine | NO | Reuses EvaluateClaim path (when implemented) |
+| Second terminal verdict SoT | **YES (dirty candidate)** | `qualifyProductOutcome` parallel to ClaimEvaluation.status |
+| Second Attempt lifecycle | NO | Same Attempt substrate |
+| Stop Engine | NO | Must not create; dirty uses Cancel injection |
+| Guard aggregate | NO | Forbidden by DOC12 |
+| Second Evidence pipeline | NO | Reuses ingest/create RB |
+| W3-B-specific execution engine | NO | W3-A spine reused |
+| cycleType switch engine | NO | Out of scope |
+| Alternate non-/studio path | NO | /studio only |
+
+**Dirty candidate parallel SoT = blocking correction** — not adopted architecture basis.
+
+## 15. Test / proof inventory
+
+| Area | Reuse | Adapt | New required |
+| --- | --- | --- | --- |
+| W3-A governed execute tests | KEEP | — | — |
+| Attempt durability tests | KEEP | — | — |
+| Evidence/RB lifecycle | KEEP | ADAPT terminal ingest | — |
+| w3bProductOutcomeSemantics.test | — | REWORK to CE-based | Contract Result CE tests |
+| w3bTerminalEvidence.test | — | ADAPT post-TD | — |
+| E2E w3b runtime spec | — | ADAPT | Post-TD captures |
+| DOC12 D01/D02 scenarios | — | — | NEW REQUIRED |
+
+Proof ceiling: **DETERMINISTIC PRODUCT-NATIVE PROVEN**. REAL OUT.
+
+## 16. Debt / exit ledger
+
+| Debt | Owner | Impact | Exit | W3 routing |
+| --- | --- | --- | --- | --- |
+| Contract Result review policy exact shape | Delivery | Confirmation authority in Contract Result mode | Implement minimal server policy | W3-B bounded detail |
+| External executor fake | W3-A carry | TestExecutionAdapter only | REAL separate gate | OUT of W3-B |
+| Heuristic FC-11 bypass | Dirty candidate | False SUCCESS risk | REWORK to TD-W3B-01 | W3-B blocking |
+| Synthetic STOP via Cancel | Dirty candidate | Not runtime-detected STOP | REWORK to TD-W3B-03 | W3-B blocking |
+| Nora post-Evidence loop | W3A-D02 | No replan after Evidence | US-P1-07 Delivery | W3-B+ |
+| Full CKC/catalog evolvability | W3 macro | No new cycle types | US-P1-09 | W3-C/D |
+| doc12 local deletion | Worktree drift | Architecture record mismatch | Rebase from main | Pre-restart |
+| UI evidence framing reserves | UX | Non-blocking presentation | Post-W3-B polish | Carry |
+
+## 17. Critical-path answers
+
+1. W3-B still correct capability? **YES**
+2. Serves C1 O-07/O-08? **YES**
+3. Preserves C2 Q/R/S→T? **YES** (when TD-implemented)
+4. Consumes W1/W2/W3-A? **YES** — no reopen
+5. DOC12 sufficient for implementation? **YES**
+6. New structural architecture decision required? **NO**
+7. Dirty work salvageable under TD-W3B? **PARTIAL** — ADAPT UI/ingest/tests; REWORK FC-11/STOP core
+8. Scope still US-P1-05/06 + enablers? **YES**
+9. Downstream W3 work? **07 (Nora/replan), 09 (catalog), 14 (CKC macro)**
+10. Proof closes W3-B? **Exit matrix X-01…X-12 on /studio deterministic**
+11. Next gate? **ChatGPT re-review → distinct Morris Delivery restart GO if PASS corrections plan**
+
+## 18. Blocking corrections (smallest path)
+
+1. **Rebase/sync** delivery branch onto `a71d9413` — restore DOC12, discard doc divergence
+2. **Implement TD-W3B-01…04 in order** on current main architecture
+3. **REWORK** `w3bProductOutcomeSemantics` → FC-11 consumes ClaimEvaluation.status (delete parallel SoT)
+4. **REWORK** STOP path → SystemGovernedStop use case + provenance (drop synthetic Cancel-as-STOP for product)
+5. **ADAPT** Evidence multi-terminal ingest, TrajectorySurface business-first UI, E2E harness
+6. **UPDATE** doc11/roadmap only in authorized doc cycle after implementation proof
+
+## 19. Proposed Morris restart GO (after corrections + ChatGPT PASS)
+
+> GO MORRIS — W3-B DELIVERY RESTART — US-P1-05/06 ONLY — IMPLEMENT TD-W3B-01…04 ON CURRENT MAIN @ a71d9413 — REBASE DELIVERY BRANCH — HARVEST ADAPTED UI/INGEST/TESTS — NO US-P1-07/09 — NO REAL — FINOPS FREEZE — W4 OUT — RUNTIME V3 NON ADOPTED
+
+## 20. Convergence state
+
+| Dimension | State |
 | --- | --- |
-| Run | https://github.com/mcleland147/sfia-workspace/actions/runs/32768325462 |
-| headSha | `e3f59b17c195b3be9557b1b35e9dcc2264ba0715` |
-| Detect / Build / Required Gate | pass |
-| Overall | SUCCESS |
+| C6 | CLOSED |
+| W3 | IN PROGRESS / NOT CLOSED |
+| W3-B | CURRENT CAPABILITY / NOT CLOSED |
+| W3-B Delivery | NOT RESTARTED — requalification complete; **blocking corrections identified** |
+| W3-C/D/E | NOT STARTED |
+| Product Completion | INCOMPLETE |
+| REAL | OUT |
+| FinOps/T7 | FREEZE |
+| W4 | OUT |
+| runtime v3 | NON ADOPTED |
 
-## 11. Delivery worktree
+## 21. Verdict
 
-- /Users/morris/Projects/sfia-workspace @ ba7aa2db · 25 dirty lines · no mutation
+**QUALIFIED WITH BLOCKING CORRECTIONS BEFORE RESTART**
 
-## 12. Convergence truth
-
-W3 IN PROGRESS · W3-B CURRENT / NOT CLOSED · W3-B architecture INTEGRATED ON MAIN · W3-B Delivery NOT RESTARTED / REQUALIFICATION REQUIRED · W3-C/D/E NOT STARTED · C6 CLOSED · Product Completion INCOMPLETE · REAL OUT · FinOps/T7 FREEZE · W4 OUT · runtime v3 NON ADOPTED.
-
-## 13. Anti-claims
-
-Architecture integrated ≠ Delivery restart · merge-stable docs ≠ Delivery authorization · merge ≠ READY FOR REAL · merge ≠ runtime v3 ADOPTED · Draft PR ≠ merge authorization.
-
-## 14. Next gate
-
-1. ChatGPT PR re-review (current)
-2. Distinct GO Morris merge if PASS
-3. Post-integration truth verification
-4. W3-B Delivery requalification
-
-## 15. Verdict
-
-READY FOR REVIEW — PR #411 MERGE-STABILITY CORRECTION — DOC12 + ROADMAP ONLY — TRANSIENT GIT TRANSPORT STATE REMOVED FROM DURABLE CURRENT TRUTH — W3-B TRAJECTORY / TD-W3B-01…04 PRESERVED — SAME DRAFT PR — CI GREEN — NO DELIVERY RESTART — NO READY TRANSITION — NO MERGE — AWAITING CHATGPT PR RE-REVIEW.
+W3-B DELIVERY REQUALIFICATION — READ-ONLY — C1/C2/UX/FA/C6/BACKLOG + W1/W2/W3-A + DOC12 RECONCILED — LOCAL DIRTY DELIVERY CANDIDATE INSPECTED — NO DELIVERY MUTATION — AWAITING CHATGPT RE-REVIEW — DISTINCT MORRIS GO REQUIRED FOR RESTART.
