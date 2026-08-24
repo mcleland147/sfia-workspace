@@ -1,33 +1,66 @@
 # SFIA Studio — W3-A R16 Reserved Confirmation + R09 Visual Lifecycle — FULL Review Pack
 
-## Identity
-- timestamp Europe/Paris: 2026-08-24T08:45:14+0200
-- timestamp UTC: 2026-08-24T06:45:14Z
-- repo: /Users/morris/Projects/sfia-workspace
-- branch: delivery/sfia-studio-product-completion-w3-a-governed-execute
-- HEAD: 3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed
-- origin/main: 3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed
-- merge-base: 3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed
+## Regularization note
+This pack supersedes handoff `42ed7be078c8f59f787528fe1870262182feebe1` / blob `237d5c370db67281b4e0f4ee76aadb0f0e7b3df4`.
+Reason: previous pack omitted COMPLETE SOURCE of untracked W3-A files (Playwright spec, w3aGovernedExecute.test.ts, doc11, and remaining W3-A untracked sources).
+No product-code change in this regularization pass. Untracked sources below are the current working-tree files.
 
-## Input handoff
-- commit: 71cc05f064cf62138ab070c8b28d3ce029ae6ad3
-- expected blob: 449d217fff6e5812302373a61b08f6544520df1c
-- MATCH: 449d217fff6e5812302373a61b08f6544520df1c
+## 1. Identity / Git
+- timestamp Europe/Paris: 2026-08-24T08:58:48+0200
+- timestamp UTC: 2026-08-24T06:58:48Z
+- repo / workspace: /Users/morris/Projects/sfia-workspace
+- branch: `delivery/sfia-studio-product-completion-w3-a-governed-execute`
+- HEAD: `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed`
+- origin/main: `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed`
+- merge-base: `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed`
+- staged: empty
+- project commit/push/PR: none
 
-## Morris decisions consumed
-- GO MORRIS — W3-A TARGETED CORRECTION — CLOSE REMAINING CHATGPT BLOCKERS R16 + R09
-- Prior W3 delivery / R01 / B2-B3 / R13-R16+R09-R decisions (not reopened)
+### git status --short
+```
+ M projects/sfia-studio/app/__tests__/oa/execution-contract/executionContractGovernance.test.ts
+ M projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
+ M projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringAmend.test.ts
+ M projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
+ M projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.module.css
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+ M projects/sfia-studio/app/features/project-assistant/w2/actions.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/amendExecutionContract.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/types.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/application/attemptSupport.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/application/executionContractStatusWriter.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/application/checkExecutionAuthorization.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/application/confirmExecutionContract.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/application/validateExecutionContract.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/domain/invariants.ts
+ M projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+ M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+?? .tmp-sfia-review/
+?? projects/eventops-poc/
+?? projects/flex-office-demo/
+?? projects/sfia-studio/app/__tests__/project-assistant/w3aGovernedExecute.test.ts
+?? projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/w3aActualExecutionWork.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/w3aQualifiedExecutionEffects.ts
+?? projects/sfia-studio/app/lib/vertical-slice-runtime/w3aProductFixtureWiring.ts
+?? projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md
+```
 
-## W3/W4 Boundary Check
-- US-P1-10 Product Experience global: NOT TOUCHED
-- US-P1-13 Accessibility baseline: NOT TOUCHED
-- S1→S12 global closure: NOT TOUCHED
-- Global UAT: NOT STARTED
-- Design/Figma/Penpot: NOT TOUCHED
-- Responsive/polish sweep: NOT PERFORMED
-- UI product change: Playwright harness only (no TrajectorySurface semantic change this cycle)
+### git diff --cached --name-status
+```
+(empty)
+```
 
-## Files modified
+### git diff --name-status
+```
 M	projects/sfia-studio/app/__tests__/oa/execution-contract/executionContractGovernance.test.ts
 M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
 M	projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringAmend.test.ts
@@ -50,8 +83,10 @@ M	projects/sfia-studio/app/lib/oa/execution-contract/application/validateExecuti
 M	projects/sfia-studio/app/lib/oa/execution-contract/domain/invariants.ts
 M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+```
 
-## Diff stat
+### git diff --stat
+```
  .../executionContractGovernance.test.ts            | 134 +++++++++
  .../trajectorySurface.ui.test.tsx                  |  82 ++++--
  .../preM6.realProductWiringAmend.test.ts           |   6 +-
@@ -75,24 +110,103 @@ M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
  .../app/lib/vertical-slice-runtime/service.ts      |  12 +-
  .../convergence/sfia-studio-convergence-roadmap.md |  27 +-
  22 files changed, 1074 insertions(+), 147 deletions(-)
+```
 
-## R16-A — isExecutionReadyStatus order
-1. hasConfirmationConstraintContradiction => false
-2. confirmed (coherent) => true
-3. validated+N1+NOT_REQUIRED marker => true
-4. else false
+## 2. Input handoff (prior published pack that ChatGPT marked INCOMPLETE)
+- commit: `42ed7be078c8f59f787528fe1870262182feebe1`
+- blob: `237d5c370db67281b4e0f4ee76aadb0f0e7b3df4`
+- MATCH: YES
+- SHA recopy error in prior Cursor report (`42ed7be064cf…`) is acknowledged and corrected here.
 
-## R16-B — reserved namespaces
-- EXECUTION_CONFIRMATION_EVALUATED:*
-- EFFECT_CONFIRMATION_REQUIRED*
-- Guard at amendExecutionContractWithConstraint via assertUserAmendableExecutionConstraint
+## 3. Morris decisions consumed
+1. GO MORRIS — W3-A TARGETED CORRECTION — CLOSE REMAINING CHATGPT BLOCKERS R16 RESERVED CONFIRMATION SEMANTICS + R09 ACCEPTED/RUNNING VISUAL PROOF
+2. Prior: GO W3 DELIVERY; W3-A R01; W3-A B2/B3; R13/R14/R15/R16/R09-R
+This regularization does not consume a new construction GO.
 
-## R09 harness
-- Playwright route latch on Next-Action POSTs after Execute
-- POST #1 Select passes; POST #2 Start held until accepted screenshot; POST #3 Complete held until running screenshot
-- No product setTimeout/sleep; no forged DOM/state
+## 4. Convergence / W3-W4
+| Item | Value |
+|---|---|
+| Capability | V3-F05 + V3-F11 + V3-F12 / US-P1-04 |
+| Milestone | W3-A Governed Execute |
+| W1/W2/C6 | CLOSED |
+| W3 | IN PROGRESS · candidate awaiting re-review |
+| W3-B | DO NOT START |
+| W4 | OUT / NOT TOUCHED |
+| REAL | OUT |
+| runtime v3 | NON ADOPTED |
+
+### W4 Boundary Check
+- US-P1-10 / Product Experience global: NOT TOUCHED
+- US-P1-13 / Accessibility baseline: NOT TOUCHED
+- S1→S12 global closure: NOT TOUCHED
+- Global UAT: NOT STARTED
+- Design/Figma/Penpot: NOT TOUCHED
+- Responsive/polish sweep: NOT PERFORMED
+- Product UI semantic change this regularization: NONE
+
+## 5. Files created/modified
+### Tracked (22) — unified diffs in section 7
+M	projects/sfia-studio/app/__tests__/oa/execution-contract/executionContractGovernance.test.ts
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringAmend.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
+M	projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.module.css
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+M	projects/sfia-studio/app/features/project-assistant/w2/actions.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/amendExecutionContract.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/types.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/application/attemptSupport.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/application/executionContractStatusWriter.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
+M	projects/sfia-studio/app/lib/oa/execution-contract/application/checkExecutionAuthorization.ts
+M	projects/sfia-studio/app/lib/oa/execution-contract/application/confirmExecutionContract.ts
+M	projects/sfia-studio/app/lib/oa/execution-contract/application/validateExecutionContract.ts
+M	projects/sfia-studio/app/lib/oa/execution-contract/domain/invariants.ts
+M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+
+### Untracked W3-A candidate files — COMPLETE SOURCE in section 8
+- `projects/sfia-studio/app/__tests__/project-assistant/w3aGovernedExecute.test.ts` (965 lines)
+- `projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts` (413 lines)
+- `projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md` (181 lines)
+- `projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts` (597 lines)
+- `projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts` (427 lines)
+- `projects/sfia-studio/app/features/project-assistant/w2/w3aActualExecutionWork.ts` (474 lines)
+- `projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts` (370 lines)
+- `projects/sfia-studio/app/features/project-assistant/w2/w3aQualifiedExecutionEffects.ts` (394 lines)
+- `projects/sfia-studio/app/lib/vertical-slice-runtime/w3aProductFixtureWiring.ts` (86 lines)
+
+## 6. R16 / R09 factual matrix (unchanged vs prior correction; this pack only transports missing sources)
+| ID | Status |
+|---|---|
+| R16-A contradiction fail-closed including confirmed | CORRECTED in candidate |
+| R16-B system-owned namespaces at amendment boundary | CORRECTED in candidate |
+| R16 exploit regression (legacy validated/N1 forge NOT_REQUIRED) | present in w3aGovernedExecute.test.ts COMPLETE SOURCE below |
+| R09 visual accepted/running/terminal | PNG 07/08/09 + manifest |
+| R09 harness retain/release Server Actions | COMPLETE SOURCE of Playwright spec below |
+
+### isExecutionReadyStatus order
+1. analyze constraints
+2. if contradiction REQUIRED && NOT_REQUIRED => false
+3. confirmed (coherent) => true
+4. validated + N1 + NOT_REQUIRED marker + no REQUIRED => true
+5. else false
+
+### R09 harness (from current spec, transported below)
+- Playwright `page.route('**/*')` TEST-ONLY
+- Continues non-POST and POSTs without `next-action`
+- Execute Next-Action POST #1 (Select) continues immediately
+- POST #2 (Start) waits until UI shows accepted/accepted, then awaits explicit `releaseStartForCapture` after screenshot 07
+- POST #3 (Complete) waits until UI shows accepted|running / running, then awaits `releaseCompleteForCapture` after screenshot 08
+- Does not rewrite payloads, substitute responses, mutate DOM, or call Start/Complete outside the product Execute path
+- No product setTimeout / sleep
 
 ## R09 manifest
+```
 {"id":"01-studio-home","file":"01-studio-home.png","screen":"TrajectorySurface","state":"after_w2_decision","route":"http://127.0.0.1:3020/studio/projects/prj%3A4dfaa774-9f57-4038-842f-887be7f3b7cb","timestamp":"2026-08-24T06:44:19.208Z","sha256":"d8a2efd7639000942ebb01f30f5abe5a789ebf186c046fbc85c79ecaec45aca5","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
 {"id":"02-actual-work-qualified","file":"02-actual-work-qualified.png","screen":"TrajectorySurface","state":"actual_work_temp_artifact","route":"http://127.0.0.1:3020/studio/projects/prj%3A4dfaa774-9f57-4038-842f-887be7f3b7cb","timestamp":"2026-08-24T06:44:19.336Z","sha256":"023c536459ce4784682aadd0a97e0464cfdbc9acc61e4ef30f3a3f5ecff35608","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
 {"id":"03-execution-contract-n1-confirm-required","file":"03-execution-contract-n1-confirm-required.png","screen":"TrajectorySurface","state":"ec_prepared_temp_artifact_n1_confirmation_required","route":"http://127.0.0.1:3020/studio/projects/prj%3A4dfaa774-9f57-4038-842f-887be7f3b7cb","timestamp":"2026-08-24T06:44:19.556Z","sha256":"2e2a80565b47c69c449cbeb118068be0714243a2580c42583da43a58b0396f58","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
@@ -103,29 +217,10 @@ M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 {"id":"08-attempt-running","file":"08-attempt-running.png","screen":"TrajectorySurface","state":"running","phaseHistory":"accepted|running","lifecycleAtCapture":"running","route":"http://127.0.0.1:3020/studio/projects/prj%3A4dfaa774-9f57-4038-842f-887be7f3b7cb","timestamp":"2026-08-24T06:44:20.562Z","sha256":"fd48a3be06075220ab860a4493a6faa1f52851963c14a6b0fc5f961cf43a2e01","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
 {"id":"09-attempt-terminal","file":"09-attempt-terminal.png","screen":"TrajectorySurface","state":"terminal","phaseHistory":"accepted|running|terminal","lifecycleAtCapture":"terminal","route":"http://127.0.0.1:3020/studio/projects/prj%3A4dfaa774-9f57-4038-842f-887be7f3b7cb","timestamp":"2026-08-24T06:44:20.748Z","sha256":"ad74c479f8c1f60f6cbf24376cab9265a53d44d3f7788c8214c48ee0f36aee80","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
 {"id":"10-blocked-no-actual-work","file":"10-blocked-no-actual-work.png","screen":"TrajectorySurface","state":"blocked_no_actual_work_no_execute","route":"http://127.0.0.1:3020/studio/projects/prj%3Abd193a5a-2d8c-4cab-8918-7292ddd48500","timestamp":"2026-08-24T06:44:21.919Z","sha256":"27874093cf2f25475bc8bf3c0d3fe42c245c6d2e838f50468e7cf4978b5198c5","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF"}
+```
 
-## R09 visual descriptions
-- 07 accepted: lifecycle=accepted, phaseHistory=accepted, bar ACCEPTÉE active
-- 08 running: lifecycle=running, phaseHistory=accepted|running, bar EN COURS active
-- 09 terminal: lifecycle=terminal, phaseHistory=accepted|running|terminal, bar TERMINÉE active
-
-## Validations
-- tsc: PASS
-- lint: PASS
-- build: PASS
-- vitest: 2026 passed / 131 skipped (225 files)
-- w3aGovernedExecute: 24 passed
-- Playwright W3-A: 2/2 passed
-
-## Fake/Real
-- TestExecutionAdapter only fake boundary
-- DETERMINISTIC PRODUCT-NATIVE PROVEN CANDIDATE
-- REAL OUT
-
-## Verdict
-W3-A R16/R09 CORRECTION CANDIDATE — READY FOR CHATGPT RE-REVIEW
-
-## Unified diffs
+## 7. Unified diffs of tracked files
+```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-contract/executionContractGovernance.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-contract/executionContractGovernance.test.ts
 index e1c2abca..88fb442f 100644
 --- a/projects/sfia-studio/app/__tests__/oa/execution-contract/executionContractGovernance.test.ts
@@ -2048,3 +2143,3972 @@ index 39f8cda8..46971bda 100644
  | **Cycle 2 objective** | Conception fonctionnelle **VALIDATED + INTEGRATED** · **next-capability execution NOT AUTHORIZED** until distinct Morris GO |
 
  #### Product Completion target domains (D-PC-01 adopted)
+```
+
+## 8. COMPLETE SOURCE — untracked W3-A files
+These files are untracked in the dirty candidate (not in origin/main). Source below is the current working-tree content.
+
+### COMPLETE SOURCE: `projects/sfia-studio/app/__tests__/project-assistant/w3aGovernedExecute.test.ts`
+```ts
+// @vitest-environment node
+/**
+ * W3-A targeted correction — actual work / scope / Confirmation / lifecycle.
+ */
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
+import {
+  assertNotF3FixtureSemantics,
+  deriveW3AExecutionEnvelope,
+} from "@/features/project-assistant/w2/w3aProductExecutionSemantics";
+import {
+  buildActualExecutionWork,
+  isHighRiskPolicyOnlyOperationKind,
+  projectConfirmationRequirementFromEffects,
+  W3A_PRODUCT_SCOPE,
+  W3A_PRODUCT_TARGET_WORKSPACE,
+} from "@/features/project-assistant/w2/w3aActualExecutionWork";
+import {
+  buildQualifiedExecutionEffects,
+  deriveReversibilityFromEffects,
+  projectRequiredAuthorityFromEffects,
+  qualifyDefaultW3ATemporaryArtifactEffects,
+} from "@/features/project-assistant/w2/w3aQualifiedExecutionEffects";
+import {
+  EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+  assertUserAmendableExecutionConstraint,
+  hasConfirmationConstraintContradiction,
+  isExecutionReadyStatus,
+  isSystemOwnedExecutionConstraint,
+} from "@/lib/oa/execution-contract";
+import { amendExecutionContractWithConstraint } from "@/features/project-assistant/w2/amendExecutionContract";
+import {
+  LOCAL_PILOTE_ACTOR,
+  registerLocalPiloteAuthority,
+  type DecisionBasis,
+} from "@/lib/oa/decision";
+import { setConversationProviderForTests } from "@/lib/platform/ai";
+import { evaluateExecutionAuthorization } from "@/features/project-assistant/w2/authorizeExecutionContract";
+import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
+import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
+import {
+  governedExecuteRecordResult,
+  governedExecuteSelectAgent,
+  governedExecuteStart,
+} from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
+import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
+import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
+import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
+import {
+  BOUNDED_OPTION_REF,
+  GOVERNED_OPTION_REF,
+} from "@/features/project-assistant/w2/trajectoryOptions";
+import {
+  W3A_BOUNDED_FIXTURE_AGENT_ID,
+  W3A_FIXTURE_ALLOWED_SCOPES,
+} from "@/lib/vertical-slice-runtime/w3aProductFixtureWiring";
+import {
+  bootW2Runtime,
+  cleanupW2TempDirs,
+  currentF2Context,
+  seedQualifiedProject,
+  tempProductDbPath,
+} from "./w2Harness";
+
+beforeEach(() => {
+  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+  setConversationProviderForTests(null);
+});
+
+afterEach(() => {
+  cleanupW2TempDirs();
+});
+
+function asWork(
+  value: ReturnType<typeof buildActualExecutionWork>,
+): import("@/features/project-assistant/w2/w3aActualExecutionWork").ActualExecutionWork {
+  if ("ok" in value && value.ok === false) {
+    throw new Error(value.message);
+  }
+  return value as import("@/features/project-assistant/w2/w3aActualExecutionWork").ActualExecutionWork;
+}
+
+function sampleBasis(scope?: string): DecisionBasis {
+  return {
+    sourceType: "trajectory_option",
+    sourceRef: "optset:test",
+    sourceDigest: "a".repeat(64),
+    projectId: "prj:test",
+    proposalContext: { lpsId: "lps:test", lpsVersion: 1 },
+    trajectoryContext: {
+      trajectoryId: "trj:test",
+      candidateVersion: 1,
+      optionRefs: [GOVERNED_OPTION_REF],
+      selectedOptionRef: GOVERNED_OPTION_REF,
+      recommendedOptionRef: GOVERNED_OPTION_REF,
+    },
+    executionBasis: {
+      objective: "obj",
+      scope,
+      expectedOutcome: "outcome",
+      stopConditions: ["STOP"],
+    },
+  };
+}
+
+describe("W3-A actual work provenance", () => {
+  it("W2 GOVERNED alone does not select temp-artifact", () => {
+    const env = deriveW3AExecutionEnvelope({
+      projectId: "prj:x",
+      decisionId: "dec:x",
+      basis: sampleBasis(
+        "Instruire, décider explicitement, préparer, inspecter puis statuer, avec un gate à chaque frontière d'autorité.",
+      ),
+      selectedOptionRef: GOVERNED_OPTION_REF,
+      selectedOptionIntent:
+        "Instruire, décider explicitement, préparer, inspecter puis statuer, avec un gate à chaque frontière d'autorité.",
+      selectedOptionLabel: "Governed",
+      projectObjective: "obj",
+    });
+    expect(env.ok).toBe(false);
+    if (env.ok) return;
+    expect(env.code).toBe("EFFECTS_UNRESOLVED");
+  });
+
+  it("W2 BOUNDED alone does not select temp-artifact", () => {
+    const env = deriveW3AExecutionEnvelope({
+      projectId: "prj:x",
+      decisionId: "dec:x",
+      basis: sampleBasis(
+        "Cadrer un périmètre réversible et resserré, décider, préparer puis inspecter avant de statuer.",
+      ),
+      selectedOptionRef: BOUNDED_OPTION_REF,
+      selectedOptionIntent:
+        "Cadrer un périmètre réversible et resserré, décider, préparer puis inspecter avant de statuer.",
+      selectedOptionLabel: "Bounded",
+      projectObjective: "obj",
+    });
+    expect(env.ok).toBe(false);
+    if (env.ok) return;
+    expect(env.code).toBe("EFFECTS_UNRESOLVED");
+  });
+
+  it("qualifyDefaultW3ATemporaryArtifactEffects is fail-closed (no W2 fallback)", () => {
+    const q = qualifyDefaultW3ATemporaryArtifactEffects({
+      projectId: "prj:x",
+      scopeIn: "anything",
+      trajectoryOptionRef: GOVERNED_OPTION_REF,
+    });
+    expect(q.ok).toBe(false);
+    if (q.ok) return;
+    expect(q.code).toBe("EFFECTS_UNRESOLVED");
+  });
+
+  it("actual TEMP_ARTIFACT work → product:generate-temporary-artifact + coherent scope IN/OUT", () => {
+    const work = buildActualExecutionWork({
+      operationKind: "generate-temporary-artifact",
+      projectId: "prj:x",
+      projectTitle: "Demo",
+      objective: "obj",
+      qualificationSource: "test",
+    });
+    const actual = asWork(work);
+    expect(actual.scopeIn).toBe(W3A_PRODUCT_SCOPE.TEMP_ARTIFACT);
+    expect(actual.target).toBe(W3A_PRODUCT_TARGET_WORKSPACE);
+    expect(actual.scopeOut).toContain("DURABLE_PROJECT_WRITE");
+    expect(actual.scopeOut).toContain("GIT_PUSH");
+    expect(actual.scopeOut).toContain("REAL");
+    // R13 — scopeOut must not forbid the current action/scopeIn effect.
+    expect(actual.scopeOut).not.toContain("TEMPORARY_ARTIFACT");
+    expect(actual.scopeOut).not.toContain(W3A_PRODUCT_SCOPE.TEMP_ARTIFACT);
+    const env = deriveW3AExecutionEnvelope({
+      projectId: "prj:x",
+      decisionId: "dec:x",
+      basis: sampleBasis(
+        "Instruire, décider explicitement, préparer, inspecter puis statuer, avec un gate à chaque frontière d'autorité.",
+      ),
+      selectedOptionRef: GOVERNED_OPTION_REF,
+      selectedOptionIntent:
+        "Instruire, décider explicitement, préparer, inspecter puis statuer, avec un gate à chaque frontière d'autorité.",
+      selectedOptionLabel: "Governed",
+      projectObjective: "obj",
+      actualWork: actual,
+    });
+    expect(env.ok).toBe(true);
+    if (!env.ok) return;
+    expect(env.envelope.action).toBe("product:generate-temporary-artifact");
+    expect(env.envelope.scope).toBe(W3A_PRODUCT_SCOPE.TEMP_ARTIFACT);
+    expect(env.envelope.scope).not.toContain("décider");
+    expect(env.envelope.target).toBe(W3A_PRODUCT_TARGET_WORKSPACE);
+    expect(env.envelope.requiredAuthority).toBe("N1");
+    expect(env.envelope.effectConfirmationRequired).toBe(true);
+    expect(env.envelope.effectConfirmationLevel).toBe("N1");
+    expect(env.envelope.constraints).toContain(
+      "EFFECT_CONFIRMATION_REQUIRED:N1",
+    );
+    expect(env.envelope.constraints).not.toContain(
+      EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+    );
+  });
+
+  it("read scopeOut forbids mutations; never forbids read itself (R13)", () => {
+    const read = asWork(
+      buildActualExecutionWork({
+        operationKind: "read",
+        projectId: "prj:x",
+        qualificationSource: "test",
+      }),
+    );
+    expect(read.scopeIn).toBe(W3A_PRODUCT_SCOPE.READ);
+    expect(read.scopeOut).toContain("GIT_PUSH");
+    expect(read.scopeOut).toContain("DURABLE_PROJECT_WRITE");
+    expect(read.scopeOut).not.toContain("READ");
+    expect(read.scopeOut).not.toContain(W3A_PRODUCT_SCOPE.READ);
+  });
+
+  it("high-risk operationKind is policy-only — not ActualExecutionWork (R15)", () => {
+    expect(isHighRiskPolicyOnlyOperationKind("push")).toBe(true);
+    expect(isHighRiskPolicyOnlyOperationKind("read")).toBe(false);
+  });
+
+  it("distinct actual operations change action/scope without changing W2 option", () => {
+    const intent =
+      "Instruire, décider explicitement, préparer, inspecter puis statuer, avec un gate à chaque frontière d'autorité.";
+    const sim = buildActualExecutionWork({
+      operationKind: "simulate",
+      projectId: "prj:x",
+      qualificationSource: "test",
+    });
+    const read = buildActualExecutionWork({
+      operationKind: "read",
+      projectId: "prj:x",
+      qualificationSource: "test",
+    });
+    const simWork = asWork(sim);
+    const readWork = asWork(read);
+    const envSim = deriveW3AExecutionEnvelope({
+      projectId: "prj:x",
+      decisionId: "dec:x",
+      basis: sampleBasis(intent),
+      selectedOptionRef: GOVERNED_OPTION_REF,
+      selectedOptionIntent: intent,
+      selectedOptionLabel: "Governed",
+      projectObjective: "obj",
+      actualWork: simWork,
+    });
+    const envRead = deriveW3AExecutionEnvelope({
+      projectId: "prj:x",
+      decisionId: "dec:x",
+      basis: sampleBasis(intent),
+      selectedOptionRef: GOVERNED_OPTION_REF,
+      selectedOptionIntent: intent,
+      selectedOptionLabel: "Governed",
+      projectObjective: "obj",
+      actualWork: readWork,
+    });
+    expect(envSim.ok && envRead.ok).toBe(true);
+    if (!envSim.ok || !envRead.ok) return;
+    expect(envSim.envelope.action).toBe("product:simulate");
+    expect(envRead.envelope.action).toBe("product:read");
+    expect(envSim.envelope.scope).toBe(W3A_PRODUCT_SCOPE.SIMULATE);
+    expect(envRead.envelope.scope).toBe(W3A_PRODUCT_SCOPE.READ);
+    expect(envSim.envelope.scope).not.toBe(envRead.envelope.scope);
+  });
+});
+
+describe("W3-A effects → authority / Confirmation", () => {
+  it("READ/SIMULATE/TEMP → N1; WRITE/COMMIT → N2; PUSH → N3", () => {
+    expect(
+      projectRequiredAuthorityFromEffects({
+        effectClass: "read",
+        rollbackAvailable: true,
+        protectedBoundaries: [],
+      }),
+    ).toMatchObject({ ok: true, requiredAuthority: "N1" });
+    expect(
+      projectRequiredAuthorityFromEffects({
+        effectClass: "generate-temporary-artifact",
+        rollbackAvailable: true,
+        protectedBoundaries: [],
+      }),
+    ).toMatchObject({ ok: true, requiredAuthority: "N1" });
+    expect(
+      projectRequiredAuthorityFromEffects({
+        effectClass: "local-write",
+        rollbackAvailable: true,
+        protectedBoundaries: [],
+      }),
+    ).toMatchObject({ ok: true, requiredAuthority: "N2" });
+    expect(
+      projectRequiredAuthorityFromEffects({
+        effectClass: "push",
+        rollbackAvailable: false,
+        protectedBoundaries: [],
+      }),
+    ).toMatchObject({ ok: true, requiredAuthority: "N3" });
+  });
+
+  it("read → no Confirmation; temp weak → N1 Confirmation; commit → N2 Confirmation", () => {
+    expect(
+      projectConfirmationRequirementFromEffects({
+        effectClass: "read",
+        protectedBoundaries: [],
+        rollbackAvailable: true,
+        weakBoundary: true,
+      }),
+    ).toMatchObject({ required: false });
+    expect(
+      projectConfirmationRequirementFromEffects({
+        effectClass: "generate-temporary-artifact",
+        protectedBoundaries: [],
+        rollbackAvailable: true,
+        weakBoundary: true,
+      }),
+    ).toMatchObject({ required: true, level: "N1" });
+    expect(
+      projectConfirmationRequirementFromEffects({
+        effectClass: "commit",
+        protectedBoundaries: [],
+        rollbackAvailable: true,
+        weakBoundary: false,
+      }),
+    ).toMatchObject({ required: true, level: "N2" });
+  });
+
+  it("R14: protected floor never downgrades N3; protected raises to min N2", () => {
+    for (const effectClass of [
+      "push",
+      "pull-request",
+      "merge",
+      "critical-delete",
+      "doctrine-change",
+      "baseline-promotion",
+    ] as const) {
+      expect(
+        projectConfirmationRequirementFromEffects({
+          effectClass,
+          protectedBoundaries: ["protected:path"],
+          rollbackAvailable: false,
+          weakBoundary: false,
+        }),
+      ).toMatchObject({ required: true, level: "N3" });
+    }
+    expect(
+      projectConfirmationRequirementFromEffects({
+        effectClass: "local-write",
+        protectedBoundaries: ["protected:path"],
+        rollbackAvailable: true,
+        weakBoundary: false,
+      }),
+    ).toMatchObject({ required: true, level: "N2" });
+    expect(
+      projectConfirmationRequirementFromEffects({
+        effectClass: "generate-temporary-artifact",
+        protectedBoundaries: ["protected:path"],
+        rollbackAvailable: true,
+        weakBoundary: true,
+      }),
+    ).toMatchObject({ required: true, level: "N2" });
+    expect(
+      projectConfirmationRequirementFromEffects({
+        effectClass: "read",
+        protectedBoundaries: ["protected:path"],
+        rollbackAvailable: true,
+        weakBoundary: true,
+      }),
+    ).toMatchObject({ required: true, level: "N2" });
+  });
+
+  it("R16 readiness: confirmed true; marked validated/N1 true; legacy unmarked false", () => {
+    expect(
+      isExecutionReadyStatus({
+        status: "confirmed",
+        requiredAuthority: "N1",
+        constraints: [],
+      }),
+    ).toBe(true);
+    expect(
+      isExecutionReadyStatus({
+        status: "validated",
+        requiredAuthority: "N1",
+        constraints: [EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED],
+      }),
+    ).toBe(true);
+    expect(
+      isExecutionReadyStatus({
+        status: "validated",
+        requiredAuthority: "N1",
+        constraints: [],
+      }),
+    ).toBe(false);
+    expect(
+      isExecutionReadyStatus({
+        status: "validated",
+        requiredAuthority: "N2",
+        constraints: [EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED],
+      }),
+    ).toBe(false);
+    expect(
+      isExecutionReadyStatus({
+        status: "validated",
+        requiredAuthority: "N1",
+        constraints: [
+          EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+          "EFFECT_CONFIRMATION_REQUIRED:N1",
+        ],
+      }),
+    ).toBe(false);
+    expect(
+      isExecutionReadyStatus({
+        status: "confirmation_required",
+        requiredAuthority: "N1",
+        constraints: ["EFFECT_CONFIRMATION_REQUIRED:N1"],
+      }),
+    ).toBe(false);
+    expect(
+      isExecutionReadyStatus({
+        status: "confirmed",
+        requiredAuthority: "N1",
+        constraints: [
+          EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+          "EFFECT_CONFIRMATION_REQUIRED:N1",
+        ],
+      }),
+    ).toBe(false);
+    expect(
+      hasConfirmationConstraintContradiction([
+        EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+        "EFFECT_CONFIRMATION_REQUIRED:N1",
+      ]),
+    ).toBe(true);
+  });
+
+  it("R16 reserved namespaces reject user amendment forgery", () => {
+    expect(
+      isSystemOwnedExecutionConstraint(EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED),
+    ).toBe(true);
+    expect(
+      isSystemOwnedExecutionConstraint("EXECUTION_CONFIRMATION_EVALUATED:FORGED"),
+    ).toBe(true);
+    expect(isSystemOwnedExecutionConstraint("EFFECT_CONFIRMATION_REQUIRED")).toBe(
+      true,
+    );
+    expect(isSystemOwnedExecutionConstraint("EFFECT_CONFIRMATION_REQUIRED:N1")).toBe(
+      true,
+    );
+    expect(
+      assertUserAmendableExecutionConstraint(
+        "  EXECUTION_CONFIRMATION_EVALUATED:NOT_REQUIRED  ",
+      ).ok,
+    ).toBe(false);
+    expect(
+      assertUserAmendableExecutionConstraint("EFFECT_CONFIRMATION_REQUIRED:N2").ok,
+    ).toBe(false);
+    expect(
+      assertUserAmendableExecutionConstraint("BORN_STRICTLY_TO_SELECTED_SLICE").ok,
+    ).toBe(true);
+  });
+
+  it("HumanDecision.reversible is not an input to execution reversibility", () => {
+    expect(
+      deriveReversibilityFromEffects({
+        effectClass: "generate-temporary-artifact",
+        rollbackAvailable: true,
+      }),
+    ).toMatchObject({ ok: true, reversibility: "reversible" });
+    expect(
+      deriveReversibilityFromEffects({
+        effectClass: "generate-temporary-artifact",
+        rollbackAvailable: false,
+      }),
+    ).toMatchObject({ ok: false, code: "REVERSIBILITY_UNRESOLVED" });
+  });
+
+  it("fixture allowed scopes are product scopes, not W2 intents", () => {
+    expect([...W3A_FIXTURE_ALLOWED_SCOPES]).toEqual([
+      W3A_PRODUCT_SCOPE.TEMP_ARTIFACT,
+      W3A_PRODUCT_SCOPE.SIMULATE,
+    ]);
+    expect(W3A_FIXTURE_ALLOWED_SCOPES[0]).not.toContain("décider");
+  });
+});
+
+describe("W3-A product seam — actual work prepare + Confirmation + Attempt", () => {
+  async function decideGoverned(suffix: string) {
+    const db = tempProductDbPath(`w3a-fx-${suffix}.sqlite`);
+    const runtime = bootW2Runtime({
+      productDbPath: db,
+      idPrefix: `w3afx${suffix}`,
+    });
+    const seeded = await seedQualifiedProject(runtime, { suffix });
+    const oa = runtime.oa!;
+    const qualification = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(qualification.ok).toBe(true);
+    if (!qualification.ok) throw new Error("qual");
+    const proposed = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
+    });
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) throw new Error("propose");
+    const decided = await decideTrajectory({
+      oa,
+      projectId: seeded.projectId,
+      optionSetRef: proposed.optionSetRef,
+      options: proposed.options,
+      recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
+      selectedOptionRef: GOVERNED_OPTION_REF,
+      trajectoryId: proposed.proposedTrajectory.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory.version,
+      forceLocalAuthority: true,
+    });
+    expect(decided.ok).toBe(true);
+    if (!decided.ok) throw new Error("decide");
+    return { runtime, oa, seeded, decided };
+  }
+
+  it("prepare without operationKind → EFFECTS_UNRESOLVED · no EC", async () => {
+    const ctx = await decideGoverned("nowork");
+    const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
+    const prepared = await prepareExecutionContractFromW2Decision({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      decisionId: ctx.decided.decision.decisionId,
+      currentContext: context,
+      forceLocalAuthority: true,
+    });
+    expect(prepared.ok).toBe(false);
+    if (prepared.ok) return;
+    expect(prepared.code).toBe("EFFECTS_UNRESOLVED");
+  });
+
+  it("temp artifact N1 + Confirmation N1 → AUTHORIZED → accepted→running→terminal", async () => {
+    const ctx = await decideGoverned("pos");
+    const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
+    const prepared = await prepareExecutionContractFromW2Decision({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      decisionId: ctx.decided.decision.decisionId,
+      currentContext: context,
+      forceLocalAuthority: true,
+      qualifiedOperationKind: "generate-temporary-artifact",
+    });
+    expect(prepared.ok).toBe(true);
+    if (!prepared.ok) throw new Error(`prepare ${prepared.code}`);
+    expect(prepared.contract.action).toBe("product:generate-temporary-artifact");
+    expect(prepared.contract.action).not.toContain("trajectory");
+    expect(prepared.contract.scope).toBe(W3A_PRODUCT_SCOPE.TEMP_ARTIFACT);
+    expect(prepared.contract.scope).not.toContain("décider");
+    expect(prepared.contract.target).toBe(W3A_PRODUCT_TARGET_WORKSPACE);
+    expect(prepared.contract.requiredAuthority).toBe("N1");
+    expect(prepared.contract.status).toBe("confirmation_required");
+    expect(prepared.contract.effectConfirmationRequired).toBe(true);
+    expect(prepared.contract.effectConfirmationLevel).toBe("N1");
+    expect(prepared.contract.constraints.some((c) =>
+      c.startsWith("EFFECT_CONFIRMATION_REQUIRED"),
+    )).toBe(true);
+
+    const executionContractId = prepared.contract.executionContractId;
+    const inspected = await inspectExecutionContract({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId,
+    });
+    expect(inspected.ok).toBe(true);
+
+    const blockedWithoutCfm = await evaluateExecutionAuthorization({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(blockedWithoutCfm.ok).toBe(true);
+    if (!blockedWithoutCfm.ok) return;
+    expect(blockedWithoutCfm.outcome).toBe("BLOCKED");
+    expect(blockedWithoutCfm.reasonCode).toBe("confirmation_required");
+
+    const confirmed = await confirmExecutionContractForAuthorization({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(confirmed.ok).toBe(true);
+    if (!confirmed.ok) throw new Error(`confirm ${confirmed.code}`);
+
+    const authorized = await evaluateExecutionAuthorization({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(authorized.ok).toBe(true);
+    if (!authorized.ok) throw new Error("auth");
+    expect(authorized.outcome).toBe("AUTHORIZED");
+    expect(ctx.oa.executionAttemptServices.registry.getAgent(W3A_BOUNDED_FIXTURE_AGENT_ID)).toBeTruthy();
+
+    const selected = await governedExecuteSelectAgent({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(selected.ok).toBe(true);
+    if (!selected.ok) return;
+    expect(selected.phase).toBe("accepted");
+    expect(selected.selectedAgentRef).toBe(W3A_BOUNDED_FIXTURE_AGENT_ID);
+
+    const started = await governedExecuteStart({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId,
+      attemptId: selected.attemptId,
+      forceLocalAuthority: true,
+    });
+    expect(started.ok).toBe(true);
+    if (!started.ok) return;
+    expect(started.phase).toBe("running");
+    expect(started.attemptId).toBe(selected.attemptId);
+
+    const terminal = await governedExecuteRecordResult({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId,
+      attemptId: started.attemptId,
+      forceLocalAuthority: true,
+    });
+    expect(terminal.ok).toBe(true);
+    if (!terminal.ok) return;
+    expect(terminal.phase).toBe("terminal");
+    expect(terminal.attemptId).toBe(selected.attemptId);
+    expect(terminal.cycleInstanceClosed).toBe(false);
+    expect(terminal.realExecution).toBe(false);
+  });
+
+  it("read → N1 · Confirmation NOT_REQUIRED marker · validated · SC-CAP (R15/R16)", async () => {
+    const ctx = await decideGoverned("read");
+    const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
+    const prepared = await prepareExecutionContractFromW2Decision({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      decisionId: ctx.decided.decision.decisionId,
+      currentContext: context,
+      forceLocalAuthority: true,
+      qualifiedOperationKind: "read",
+    });
+    expect(prepared.ok).toBe(true);
+    if (!prepared.ok) return;
+    expect(prepared.contract.requiredAuthority).toBe("N1");
+    expect(prepared.contract.status).toBe("validated");
+    expect(prepared.contract.effectConfirmationRequired).toBe(false);
+    expect(prepared.contract.constraints).toContain(
+      EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+    );
+    expect(
+      isExecutionReadyStatus({
+        status: prepared.contract.status,
+        requiredAuthority: prepared.contract.requiredAuthority,
+        constraints: prepared.contract.constraints,
+      }),
+    ).toBe(true);
+    expect(prepared.contract.action).toBe("product:read");
+    expect(prepared.contract.scope).toBe(W3A_PRODUCT_SCOPE.READ);
+
+    const executionContractId = prepared.contract.executionContractId;
+    await inspectExecutionContract({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId,
+    });
+    const authorized = await evaluateExecutionAuthorization({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(authorized.ok).toBe(true);
+    if (!authorized.ok) return;
+    // Fixture does not support read — truthful SC-CAP / executor insufficiency.
+    expect(authorized.outcome).toBe("BLOCKED");
+    expect(authorized.reasonCode).toMatch(/executor|capability|insufficient/i);
+    const launchBefore = ctx.oa.fixtureAdapter.launchCallCount;
+    const selected = await governedExecuteSelectAgent({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(selected.ok).toBe(false);
+    expect(ctx.oa.fixtureAdapter.launchCallCount).toBe(launchBefore);
+  });
+
+  it("high-risk push operationKind rejected before EC (R15)", async () => {
+    const ctx = await decideGoverned("push-reject");
+    const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
+    const prepared = await prepareExecutionContractFromW2Decision({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      decisionId: ctx.decided.decision.decisionId,
+      currentContext: context,
+      forceLocalAuthority: true,
+      qualifiedOperationKind: "push" as never,
+    });
+    expect(prepared.ok).toBe(false);
+    if (prepared.ok) return;
+    expect(prepared.code).toBe("PREPARATION_BLOCKED");
+  });
+
+  it("legacy validated/N1 without evaluation marker is not Execute-ready (R16)", async () => {
+    const ctx = await decideGoverned("legacy");
+    const oa = ctx.oa;
+    const scope = W3A_PRODUCT_SCOPE.READ;
+    const auth = registerLocalPiloteAuthority({
+      authorityResolver: oa.authorityResolver,
+      scope,
+      issuedAt: oa.clock.nowIso(),
+      forceEnable: true,
+    });
+    expect(auth.ok).toBe(true);
+    if (!auth.ok) return;
+    const built = await oa.executionContractServices.buildExecutionContract.execute({
+      executionContractId: "xct:w3a:legacy-n1",
+      projectId: ctx.seeded.projectId,
+      cycleInstanceId: ctx.seeded.cycleInstanceId,
+      decisionRefs: [],
+      action: "product:read",
+      target: W3A_PRODUCT_TARGET_WORKSPACE,
+      scope,
+      requiredCapabilities: ["cap:product-read"],
+      requiredAuthority: "N1",
+      constraints: ["LEGACY_NO_EVAL_MARKER"],
+      stopConditions: ["AUTHORITY_DENIED"],
+      evidenceRequirements: ["evreq:read"],
+      reversibility: "reversible",
+      idempotencyKey: "idem:w3a:legacy-n1",
+      correlationId: "cor:w3a:legacy-n1",
+      actor: LOCAL_PILOTE_ACTOR,
+      authorityEvidenceId: auth.evidenceId,
+    });
+    expect(built.ok).toBe(true);
+    if (!built.ok) return;
+    const validated =
+      await oa.executionContractServices.validateExecutionContract.execute({
+        executionContractId: built.contract.executionContractId,
+        expectedVersion: built.contract.version,
+        actor: LOCAL_PILOTE_ACTOR,
+      });
+    expect(validated.ok).toBe(true);
+    if (!validated.ok) return;
+    expect(validated.contract.status).toBe("validated");
+    expect(
+      isExecutionReadyStatus({
+        status: validated.contract.status,
+        requiredAuthority: validated.contract.requiredAuthority,
+        constraints: validated.contract.constraints,
+      }),
+    ).toBe(false);
+  });
+
+  it("legacy validated/N1 cannot become Execute-ready via forged NOT_REQUIRED amendment (R16-B)", async () => {
+    const ctx = await decideGoverned("legacy-forge");
+    const oa = ctx.oa;
+    const scope = W3A_PRODUCT_SCOPE.READ;
+    const auth = registerLocalPiloteAuthority({
+      authorityResolver: oa.authorityResolver,
+      scope,
+      issuedAt: oa.clock.nowIso(),
+      forceEnable: true,
+    });
+    expect(auth.ok).toBe(true);
+    if (!auth.ok) return;
+    const built = await oa.executionContractServices.buildExecutionContract.execute({
+      executionContractId: "xct:w3a:legacy-forge",
+      projectId: ctx.seeded.projectId,
+      cycleInstanceId: ctx.seeded.cycleInstanceId,
+      decisionRefs: [],
+      action: "product:read",
+      target: W3A_PRODUCT_TARGET_WORKSPACE,
+      scope,
+      requiredCapabilities: ["cap:product-read"],
+      requiredAuthority: "N1",
+      constraints: ["LEGACY_NO_EVAL_MARKER"],
+      stopConditions: ["AUTHORITY_DENIED"],
+      evidenceRequirements: ["evreq:read"],
+      reversibility: "reversible",
+      idempotencyKey: "idem:w3a:legacy-forge",
+      correlationId: "cor:w3a:legacy-forge",
+      actor: LOCAL_PILOTE_ACTOR,
+      authorityEvidenceId: auth.evidenceId,
+    });
+    expect(built.ok).toBe(true);
+    if (!built.ok) return;
+    const validated =
+      await oa.executionContractServices.validateExecutionContract.execute({
+        executionContractId: built.contract.executionContractId,
+        expectedVersion: built.contract.version,
+        actor: LOCAL_PILOTE_ACTOR,
+      });
+    expect(validated.ok).toBe(true);
+    if (!validated.ok) return;
+    await inspectExecutionContract({
+      oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId: validated.contract.executionContractId,
+    });
+    const forged = await amendExecutionContractWithConstraint({
+      oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId: validated.contract.executionContractId,
+      additionalConstraint: EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+      forceLocalAuthority: true,
+    });
+    expect(forged.ok).toBe(false);
+    if (forged.ok) return;
+    expect(forged.code).toBe("CONSTRAINT_SYSTEM_RESERVED");
+    expect(
+      isExecutionReadyStatus({
+        status: validated.contract.status,
+        requiredAuthority: validated.contract.requiredAuthority,
+        constraints: validated.contract.constraints,
+      }),
+    ).toBe(false);
+  });
+
+  it("Validate/Confirm/Authorization fail-closed on contradictory Confirmation markers (R16-A)", async () => {
+    const ctx = await decideGoverned("contradiction");
+    const oa = ctx.oa;
+    const scope = W3A_PRODUCT_SCOPE.TEMP_ARTIFACT;
+    const auth = registerLocalPiloteAuthority({
+      authorityResolver: oa.authorityResolver,
+      scope,
+      issuedAt: oa.clock.nowIso(),
+      forceEnable: true,
+    });
+    expect(auth.ok).toBe(true);
+    if (!auth.ok) return;
+    const built = await oa.executionContractServices.buildExecutionContract.execute({
+      executionContractId: "xct:w3a:contradiction",
+      projectId: ctx.seeded.projectId,
+      cycleInstanceId: ctx.seeded.cycleInstanceId,
+      decisionRefs: [],
+      action: "product:generate-temporary-artifact",
+      target: W3A_PRODUCT_TARGET_WORKSPACE,
+      scope,
+      requiredCapabilities: ["cap:product-temp-artifact"],
+      requiredAuthority: "N1",
+      constraints: ["test-only-contradiction-setup"],
+      stopConditions: ["AUTHORITY_DENIED"],
+      evidenceRequirements: ["evreq:temp"],
+      reversibility: "reversible",
+      idempotencyKey: "idem:w3a:contradiction",
+      correlationId: "cor:w3a:contradiction",
+      actor: LOCAL_PILOTE_ACTOR,
+      authorityEvidenceId: auth.evidenceId,
+    });
+    expect(built.ok).toBe(true);
+    if (!built.ok) return;
+    await oa.executionContractServices.contracts.save({
+      ...built.contract,
+      constraints: [
+        EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+        "EFFECT_CONFIRMATION_REQUIRED:N1",
+      ],
+    });
+    const validated =
+      await oa.executionContractServices.validateExecutionContract.execute({
+        executionContractId: built.contract.executionContractId,
+        expectedVersion: built.contract.version,
+        actor: LOCAL_PILOTE_ACTOR,
+      });
+    expect(validated.ok).toBe(false);
+    if (validated.ok) return;
+    expect(validated.error.detailCode).toBe("CONTRACT_INVALID");
+  });
+
+  it("envelope rejects trajectory-as-action leakage", () => {
+    const work = buildActualExecutionWork({
+      operationKind: "generate-temporary-artifact",
+      projectId: "prj:x",
+      qualificationSource: "test",
+    });
+    const env = deriveW3AExecutionEnvelope({
+      projectId: "prj:x",
+      decisionId: "dec:x",
+      basis: sampleBasis(
+        "Instruire, décider explicitement, préparer, inspecter puis statuer, avec un gate à chaque frontière d'autorité.",
+      ),
+      selectedOptionRef: GOVERNED_OPTION_REF,
+      selectedOptionIntent:
+        "Instruire, décider explicitement, préparer, inspecter puis statuer, avec un gate à chaque frontière d'autorité.",
+      selectedOptionLabel: "Governed",
+      projectObjective: "obj",
+      actualWork: asWork(work),
+    });
+    expect(env.ok).toBe(true);
+    if (!env.ok) return;
+    expect(
+      assertNotF3FixtureSemantics({
+        action: env.envelope.action,
+        target: env.envelope.target,
+        scope: env.envelope.scope,
+        requiredCapabilities: env.envelope.requiredCapabilities,
+      }),
+    ).toBeNull();
+  });
+
+  it("decisionRefs 0..n still valid", async () => {
+    const db = tempProductDbPath("w3a-zeroref4.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "w3az4" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "z4" });
+    const oa = runtime.oa!;
+    const scope = W3A_PRODUCT_SCOPE.TEMP_ARTIFACT;
+    const auth2 = registerLocalPiloteAuthority({
+      authorityResolver: oa.authorityResolver,
+      scope,
+      issuedAt: oa.clock.nowIso(),
+      forceEnable: true,
+    });
+    expect(auth2.ok).toBe(true);
+    if (!auth2.ok) return;
+    const built = await oa.executionContractServices.buildExecutionContract.execute({
+      executionContractId: "xct:w3a:zero-ref-4",
+      projectId: seeded.projectId,
+      cycleInstanceId: seeded.cycleInstanceId,
+      decisionRefs: [],
+      action: "product:generate-temporary-artifact",
+      target: W3A_PRODUCT_TARGET_WORKSPACE,
+      scope,
+      requiredCapabilities: ["cap:product-temp-artifact"],
+      requiredAuthority: "N1",
+      constraints: ["NO_HD"],
+      stopConditions: ["AUTHORITY_DENIED"],
+      evidenceRequirements: ["evreq:generate-temporary-artifact"],
+      reversibility: "reversible",
+      idempotencyKey: "idem:w3a:zero-ref-4",
+      correlationId: "cor:w3a:zero-ref-4",
+      actor: LOCAL_PILOTE_ACTOR,
+      authorityEvidenceId: auth2.evidenceId,
+    });
+    expect(built.ok).toBe(true);
+    if (!built.ok) return;
+    expect(built.contract.decisionRefs).toEqual([]);
+  });
+
+  it("explicitEffects with wrong target/scope still contract-first", async () => {
+    const effects = buildQualifiedExecutionEffects({
+      effectClass: "generate-temporary-artifact",
+      projectId: "prj:x",
+      scopeIn: W3A_PRODUCT_SCOPE.TEMP_ARTIFACT,
+      rollbackAvailable: true,
+      rollbackDescription: "cleanup",
+      qualificationSource: "test",
+      target: W3A_PRODUCT_TARGET_WORKSPACE,
+    });
+    expect(effects.ok).toBe(true);
+    if (!effects.ok) return;
+    expect(effects.effects.target).toBe(W3A_PRODUCT_TARGET_WORKSPACE);
+  });
+});
+```
+
+### COMPLETE SOURCE: `projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts`
+```ts
+/**
+ * W3-A R09 — canonical /studio Governed Execute product proof (deterministic).
+ *
+ * Positive: actual work qualified → EC (temp artifact, real target/scope) →
+ * inspect → Confirmation N1 → AUTHORIZED → Execute →
+ * accepted visible → running visible → terminal visible.
+ *
+ * Blocked: missing actual work — no Prepare / no Execute / no Attempt.
+ *
+ * R09 harness: Playwright retains then releases real Server Action transports
+ * (Select → Start → Complete) to capture honest visual lifecycle states.
+ * No product sleep · no forged DOM · no fake responses.
+ */
+import { test, expect, type Page, type Route } from "@playwright/test";
+import fs from "node:fs";
+import path from "node:path";
+import crypto from "node:crypto";
+
+const CAPTURE_ROOT = path.resolve(
+  process.cwd(),
+  "../../../.tmp-sfia-review/runtime-captures/w3a-governed-execute-r09",
+);
+const MANIFEST = path.join(CAPTURE_ROOT, "manifest.jsonl");
+
+async function capture(
+  page: Page,
+  id: string,
+  meta: { screen: string; state: string },
+) {
+  fs.mkdirSync(CAPTURE_ROOT, { recursive: true });
+  const file = path.join(CAPTURE_ROOT, `${id}.png`);
+  await page.screenshot({ path: file, fullPage: true });
+  const sha256 = crypto
+    .createHash("sha256")
+    .update(fs.readFileSync(file))
+    .digest("hex");
+  fs.appendFileSync(
+    MANIFEST,
+    `${JSON.stringify({
+      id,
+      file: path.basename(file),
+      ...meta,
+      route: page.url(),
+      timestamp: new Date().toISOString(),
+      sha256,
+      provenance:
+        "CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W3-A R09 /STUDIO GOVERNED EXECUTE PROOF",
+    })}\n`,
+    "utf8",
+  );
+}
+
+/** TEST-ONLY latch: retain Start/Complete Server Actions until screenshots taken. */
+function installExecuteVisualCaptureLatch(page: Page) {
+  let active = false;
+  let executePostIndex = 0;
+  let releaseStart: (() => void) | null = null;
+  let releaseComplete: (() => void) | null = null;
+  let startHeld: Promise<void> | null = null;
+  let completeHeld: Promise<void> | null = null;
+
+  const handler = async (route: Route) => {
+    const request = route.request();
+    if (!active || request.method() !== "POST") {
+      await route.continue();
+      return;
+    }
+    if (!request.headers()["next-action"]) {
+      await route.continue();
+      return;
+    }
+
+    executePostIndex += 1;
+    if (executePostIndex === 1) {
+      await route.continue();
+      return;
+    }
+    if (executePostIndex === 2) {
+      await page.waitForFunction(
+        () => {
+          const history =
+            document.querySelector('[data-testid="w3a-attempt-phase-history"]')
+              ?.textContent ?? "";
+          const lifecycle =
+            document.querySelector('[data-testid="w3a-attempt-lifecycle"]')
+              ?.textContent ?? "";
+          return history === "accepted" && lifecycle === "accepted";
+        },
+        undefined,
+        { timeout: 30_000, polling: "raf" },
+      );
+      if (startHeld) await startHeld;
+      await route.continue();
+      return;
+    }
+    if (executePostIndex === 3) {
+      await page.waitForFunction(
+        () => {
+          const history =
+            document.querySelector('[data-testid="w3a-attempt-phase-history"]')
+              ?.textContent ?? "";
+          const lifecycle =
+            document.querySelector('[data-testid="w3a-attempt-lifecycle"]')
+              ?.textContent ?? "";
+          return history === "accepted|running" && lifecycle === "running";
+        },
+        undefined,
+        { timeout: 30_000, polling: "raf" },
+      );
+      if (completeHeld) await completeHeld;
+      await route.continue();
+      return;
+    }
+    await route.continue();
+  };
+
+  return {
+    async arm() {
+      executePostIndex = 0;
+      active = true;
+      startHeld = new Promise<void>((resolve) => {
+        releaseStart = resolve;
+      });
+      completeHeld = new Promise<void>((resolve) => {
+        releaseComplete = resolve;
+      });
+      await page.route("**/*", handler);
+    },
+    releaseStartForCapture() {
+      releaseStart?.();
+    },
+    releaseCompleteForCapture() {
+      releaseComplete?.();
+    },
+    async disarm() {
+      active = false;
+      releaseStart?.();
+      releaseComplete?.();
+      await page.unroute("**/*", handler);
+    },
+  };
+}
+
+async function openQualifiedStudioProject(page: Page, name: string) {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/studio");
+  await expect(page.getByTestId("studio-projects-home")).toBeVisible({
+    timeout: 30_000,
+  });
+  await page.goto("/studio/projects/new");
+  await expect(page.getByTestId("create-project-form")).toBeVisible();
+  await page.locator("#project-name").fill(name);
+  await page
+    .locator("#project-objective")
+    .fill(
+      "Prouver actual work → EC → Confirmation → Attempt accepted/running/terminal.",
+    );
+  await page.getByTestId("create-project-submit").click();
+  await expect(page.getByTestId("open-project-workspace")).toBeVisible({
+    timeout: 30_000,
+  });
+  await page.getByTestId("open-project-workspace").click();
+  await expect(page.getByTestId("project-principal")).toBeVisible({
+    timeout: 30_000,
+  });
+
+  const input = page.getByTestId("project-assistant-input");
+  await expect(input).toBeEnabled({ timeout: 15_000 });
+  await input.fill("Préparer une livraison gated __F2_GATED_STANDARD__");
+  await page.getByTestId("project-assistant-send").click();
+  await expect(page.getByTestId("project-assistant-gate")).toBeVisible({
+    timeout: 60_000,
+  });
+
+  const trajectory = page.getByTestId("w2-trajectory-panel");
+  await expect(trajectory).toBeVisible({ timeout: 15_000 });
+  await trajectory.scrollIntoViewIfNeeded();
+
+  await page.getByTestId("w2-propose-options").click();
+  const optionsOrError = page
+    .getByTestId("w2-options")
+    .or(page.getByTestId("w2-error"));
+  await expect(optionsOrError).toBeVisible({ timeout: 60_000 });
+  if (await page.getByTestId("w2-error").isVisible()) {
+    const err = await page.getByTestId("w2-error").textContent();
+    throw new Error(`w2 propose failed: ${err}`);
+  }
+
+  const decideButtons = page.locator("[data-testid^='w2-decide-']");
+  await expect(decideButtons.first()).toBeVisible();
+  await decideButtons.first().click();
+  await expect(page.getByTestId("w2-decision")).toBeVisible({
+    timeout: 45_000,
+  });
+}
+
+test.describe("W3-A R09 /studio governed execute product proof", () => {
+  test.describe.configure({ timeout: 300_000 });
+
+  test("positive: accepted → running → terminal with actual work + N1 Confirmation", async ({
+    page,
+  }) => {
+    fs.mkdirSync(CAPTURE_ROOT, { recursive: true });
+    fs.writeFileSync(MANIFEST, "");
+
+    await openQualifiedStudioProject(page, "W3-A R09 Positive Actual Work");
+    await capture(page, "01-studio-home", {
+      screen: "TrajectorySurface",
+      state: "after_w2_decision",
+    });
+
+    // Actual work qualification — not W2 trajectory alone.
+    await expect(page.getByTestId("w3a-qualify-execution-work")).toBeVisible();
+    await page
+      .getByTestId("w3a-operation-kind")
+      .selectOption("generate-temporary-artifact");
+    await capture(page, "02-actual-work-qualified", {
+      screen: "TrajectorySurface",
+      state: "actual_work_temp_artifact",
+    });
+
+    await page.getByTestId("w2-prepare-contract").click();
+    await expect(page.getByTestId("w2-contract")).toBeVisible({
+      timeout: 45_000,
+    });
+
+    const actionText =
+      (await page.getByTestId("w2-contract-action").textContent()) ?? "";
+    expect(actionText).toContain("product:generate-temporary-artifact");
+    expect(actionText).not.toMatch(/trajectory-governed|trajectory-bounded/);
+    await expect(page.getByTestId("w2-contract-authority")).toHaveText("N1");
+    await expect(page.getByTestId("w2-contract-scope")).toHaveText(
+      "product:temporary-local-artifact",
+    );
+    await expect(page.getByTestId("w2-contract-target")).toHaveText(
+      "product:project-workspace",
+    );
+    await expect(page.getByTestId("w2-contract-status")).toHaveText(
+      "confirmation_required",
+    );
+    await expect(page.getByTestId("w2-contract-reversibility")).toContainText(
+      "reversible",
+    );
+    await capture(page, "03-execution-contract-n1-confirm-required", {
+      screen: "TrajectorySurface",
+      state: "ec_prepared_temp_artifact_n1_confirmation_required",
+    });
+
+    await page.getByTestId("w2-inspect-contract").click();
+    await expect(page.getByTestId("w2-inspection-state")).toContainText(
+      "INSPECTÉ",
+      { timeout: 30_000 },
+    );
+    await expect(page.getByTestId("w2-confirm-contract")).toBeEnabled();
+    await capture(page, "04-inspected", {
+      screen: "TrajectorySurface",
+      state: "inspected_confirmation_required",
+    });
+
+    await page.getByTestId("w2-confirm-contract").click();
+    await expect(page.getByTestId("w2-contract-status")).toHaveText(
+      "confirmed",
+      { timeout: 30_000 },
+    );
+    await capture(page, "05-confirmed", {
+      screen: "TrajectorySurface",
+      state: "effect_confirmation_n1_granted",
+    });
+
+    await page.getByTestId("w2-authorize-contract").click();
+    await expect(page.getByTestId("w2-authorization")).toBeVisible({
+      timeout: 30_000,
+    });
+    await expect(page.getByTestId("w2-authorization-outcome")).toContainText(
+      "AUTORISÉ",
+    );
+    await expect(page.getByTestId("w3a-governed-execute")).toBeVisible();
+    await capture(page, "06-authorized", {
+      screen: "TrajectorySurface",
+      state: "authorized_stop_before_execute",
+    });
+
+    const latch = installExecuteVisualCaptureLatch(page);
+    await latch.arm();
+
+    const executeClick = page.getByTestId("w3a-governed-execute").click();
+    await expect(page.getByTestId("w3a-attempt")).toBeVisible({
+      timeout: 60_000,
+    });
+
+    await page.waitForFunction(
+      () => {
+        const history =
+          document.querySelector('[data-testid="w3a-attempt-phase-history"]')
+            ?.textContent ?? "";
+        const lifecycle =
+          document.querySelector('[data-testid="w3a-attempt-lifecycle"]')
+            ?.textContent ?? "";
+        return history === "accepted" && lifecycle === "accepted";
+      },
+      undefined,
+      { timeout: 30_000, polling: "raf" },
+    );
+    await expect(page.getByTestId("w3a-attempt-lifecycle")).toHaveText("accepted");
+    await expect(page.getByTestId("w3a-attempt-phase-history")).toHaveText(
+      "accepted",
+    );
+    await capture(page, "07-attempt-accepted", {
+      screen: "TrajectorySurface",
+      state: "accepted",
+      phaseHistory: "accepted",
+      lifecycleAtCapture: "accepted",
+    });
+    latch.releaseStartForCapture();
+
+    const attemptIdAccepted =
+      (await page.getByTestId("w3a-attempt-id").textContent()) ?? "";
+    expect(attemptIdAccepted.length).toBeGreaterThan(0);
+
+    await page.waitForFunction(
+      () => {
+        const history =
+          document.querySelector('[data-testid="w3a-attempt-phase-history"]')
+            ?.textContent ?? "";
+        const lifecycle =
+          document.querySelector('[data-testid="w3a-attempt-lifecycle"]')
+            ?.textContent ?? "";
+        return history === "accepted|running" && lifecycle === "running";
+      },
+      undefined,
+      { timeout: 30_000, polling: "raf" },
+    );
+    await expect(page.getByTestId("w3a-attempt-lifecycle")).toHaveText("running");
+    await expect(page.getByTestId("w3a-attempt-phase-history")).toHaveText(
+      "accepted|running",
+    );
+    await capture(page, "08-attempt-running", {
+      screen: "TrajectorySurface",
+      state: "running",
+      phaseHistory: "accepted|running",
+      lifecycleAtCapture: "running",
+    });
+    latch.releaseCompleteForCapture();
+    expect(await page.getByTestId("w3a-attempt-id").textContent()).toBe(
+      attemptIdAccepted,
+    );
+
+    await page.waitForFunction(
+      () =>
+        (document.querySelector('[data-testid="w3a-attempt-phase-history"]')
+          ?.textContent ?? "") === "accepted|running|terminal" &&
+        (document.querySelector('[data-testid="w3a-attempt-lifecycle"]')
+          ?.textContent ?? "") === "terminal",
+      undefined,
+      { timeout: 60_000, polling: "raf" },
+    );
+    await executeClick;
+    await latch.disarm();
+
+    await expect(page.getByTestId("w3a-attempt-lifecycle")).toHaveText(
+      "terminal",
+    );
+    await expect(page.getByTestId("w3a-attempt-phase-history")).toHaveText(
+      "accepted|running|terminal",
+    );
+    await expect(page.getByTestId("w3a-attempt-technical-status")).toHaveText(
+      "succeeded",
+    );
+    await expect(page.getByTestId("w3a-attempt-real")).toContainText("non");
+    await expect(page.getByTestId("w3a-cycle-closed")).toHaveText("non");
+    await expect(page.getByTestId("w3a-terminal-honesty")).toContainText(
+      "W3-B",
+    );
+    expect(await page.getByTestId("w3a-attempt-id").textContent()).toBe(
+      attemptIdAccepted,
+    );
+    await capture(page, "09-attempt-terminal", {
+      screen: "TrajectorySurface",
+      state: "terminal",
+      phaseHistory: "accepted|running|terminal",
+      lifecycleAtCapture: "terminal",
+    });
+
+    const body = (await page.locator("body").textContent()) ?? "";
+    expect(body.toLowerCase()).not.toMatch(/runtime v3 adopted/);
+    expect(body.toLowerCase()).not.toMatch(/ready for real/);
+
+    expect(
+      fs.existsSync(path.join(CAPTURE_ROOT, "07-attempt-accepted.png")),
+    ).toBe(true);
+    expect(
+      fs.existsSync(path.join(CAPTURE_ROOT, "08-attempt-running.png")),
+    ).toBe(true);
+    expect(
+      fs.existsSync(path.join(CAPTURE_ROOT, "09-attempt-terminal.png")),
+    ).toBe(true);
+  });
+
+  test("blocked: missing actual work — no Prepare / no Execute / no Attempt", async ({
+    page,
+  }) => {
+    await openQualifiedStudioProject(page, "W3-A R09 Blocked No Work");
+    // Empty operation kind → Prepare disabled → no Execute → no Attempt.
+    await page.getByTestId("w3a-operation-kind").selectOption("");
+    await expect(page.getByTestId("w2-prepare-contract")).toBeDisabled();
+    await expect(page.getByTestId("w3a-governed-execute")).toHaveCount(0);
+    await expect(page.getByTestId("w3a-attempt")).toHaveCount(0);
+    await capture(page, "10-blocked-no-actual-work", {
+      screen: "TrajectorySurface",
+      state: "blocked_no_actual_work_no_execute",
+    });
+  });
+});
+```
+
+### COMPLETE SOURCE: `projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md`
+```markdown
+# SFIA Studio — Product Completion — Wave 3 — Delivery Readiness
+
+| Champ | Valeur |
+|---|---|
+| **Projet** | SFIA Studio — Product Completion |
+| **Cycle** | 8 — Delivery / implémentation |
+| **Profil SFIA** | CRITICAL |
+| **Typologie** | INC — incrément fonctionnel borné dans W3 |
+| **Vague** | **W3 — Exécution gouvernée + Evidence loop (backlog existant)** |
+| **Slice courant** | **W3-A — Governed Execute** (premier slice dépendant · **≠** capacité roadmap indépendante) |
+| **Capacité servie** | **US-P1-04** — Exécution générique sous contrat · **FC-10** Governed Execution |
+| **Base Git (entrée W3)** | `origin/main` @ `3a3b1cf87ac5f6cfa17a1330bc6558559a9628ed` — Merge PR **#406** — docs(sfia-studio): sync W2 post-closure repository truth |
+| **Branche projet** | `delivery/sfia-studio-product-completion-w3-a-governed-execute` |
+| **Statut readiness W3** | **QUALIFIED** — GO Morris W3 Delivery **CONSUMED** · Delivery **IN PROGRESS** · W3 **NOT CLOSED** |
+| **W1** | **CLOSED** |
+| **W2** | **CLOSED BY MORRIS** |
+| **C6** | **CLOSED** / implement-only · **DO NOT REOPEN** |
+| **REAL** | **OUT / NOT CONSUMED** |
+| **FinOps/T7** | **FREEZE** |
+| **W4** | **OUT / NOT STARTED** |
+| **runtime v3** | **NON ADOPTED** |
+| **Product Completion** | **INCOMPLETE** |
+| **Chemin produit** | Canonique **`/studio`** |
+
+## Anti-affirmations
+
+- W3 readiness / GO Delivery **≠** W3 CLOSED.
+- W3-A **≠** W3 fully implemented · **≠** US-P1-05/06/07 closed.
+- AUTHORIZED (W2) **≠** Execute · Execute W3-A **≠** Product SUCCESS semantics.
+- Attempt terminal **≠** CycleInstance closed · **≠** Project archived.
+- AuthorityVerificationReceipt **≠** reusable permission.
+- DETERMINISTIC PRODUCT-NATIVE PROVEN **≠** READY FOR REAL · **≠** REAL BOUNDARY PROVEN.
+- C6 CLOSED — ne pas rouvrir l’architecture.
+- REAL OUT · FinOps FREEZE · W4 OUT · runtime v3 NON ADOPTED.
+- Product Completion **INCOMPLETE**.
+- Ce document **≠** Build Doctrine mutation · **≠** backlog rewrite.
+
+---
+
+## 1. Décision Morris W3 consommée (texte exact)
+
+> **GO MORRIS — W3 DELIVERY — EXÉCUTER, PROUVER ET REPLANIFIER — SCOPE BACKLOG W3 ONLY — CONSUME W1/W2 CLOSED CAPABILITIES — C6 IMPLEMENT-ONLY / DO NOT REOPEN — HARVEST EXISTING OA/F3/EVIDENCE SUBSTRATE — CANONICAL `/studio` PRODUCT PATH — DETERMINISTIC PRODUCT-NATIVE PROOF — FULL CKC TRACK + CATALOG EVOLVABILITY WITHIN W3 — REAL OUT — FINOPS FREEZE — W4 OUT — RUNTIME V3 NON ADOPTED.**
+
+### Ce que ce GO autorise
+
+- Construction W3 dans le **scope backlog W3 existant**.
+- Consommation des capacités **W1/W2 CLOSED**.
+- Harvest OA / F3 / Evidence substrate **existants**.
+- Preuve **deterministic product-native** sur le chemin **`/studio`**.
+- Première tranche d’implémentation **W3-A Governed Execute** (US-P1-04 / FC-10).
+
+### Ce que ce GO n’autorise pas
+
+- Fermeture W3 dans ce cycle.
+- GO REAL / Gate D / Cursor REAL.
+- Défreeze FinOps/T7.
+- W4 Product Experience Closure.
+- runtime v3 ADOPTED.
+- Réouverture C6 / C1 / C2 / FA / Backlog.
+- Push branche projet / PR / merge (hors handoff review L3 borné).
+
+---
+
+## 1bis. Morris Option 4 — R01 FC-08 Native EC Preparation (adoptée)
+
+> **MORRIS DECISION — W3-A R01 — ADOPT FC-08 NATIVE EXECUTIONCONTRACT PREPARATION COMPLETION — NORA/STUDIO PREPARES THE EXECUTION ENVELOPE FROM QUALIFIED PRODUCT CONTEXT — FC-08 REMAINS THE SINGLE OWNER — HUMANDECISION / DECISIONBASIS CONSUMED WHEN APPLICABLE — EXECUTIONCONTRACT IS THE FIRST DURABLE SoT FOR THE ENVELOPE — NO F3 SEMANTIC OVERWRITE ON CANONICAL `/studio` — TESTEXECUTIONADAPTER REMAINS THE DETERMINISTIC EXTERNAL-EXECUTOR FAKE — NO EXECUTIONINTENT / NEW AGGREGATE / NEW STORE / NEW ENGINE — C6 REMAINS CLOSED.**
+
+### Correction ciblée post-revue ChatGPT (handoff `c083147a…` / R13–R16 + R09-R)
+
+| Élément | État |
+|---|---|
+| R13 Scope IN/OUT | **CORRECTED** — scopeOut cohérent par opération canonique · jamais interdit l’effet scopeIn courant |
+| R14 Confirmation floor | **CORRECTED** — `max(intrinsic, protectedFloor N2)` · protected push/PR/merge/… restent **N3** · jamais downgrade |
+| R15 Actual work borné | **CORRECTED** — chemin produit allowlist `read \| simulate \| generate-temporary-artifact` · high-risk operationKind → PREPARATION_BLOCKED avant EC · SC-CAP via **read** |
+| R16 Legacy validated/N1 | **CORRECTED** — marqueur durable `EXECUTION_CONFIRMATION_EVALUATED:NOT_REQUIRED` · readiness fail-closed sans marqueur · contradiction REQUIRED+NOT_REQUIRED fail-closed (y compris `confirmed`) · amendement Pilote ne peut pas forger les namespaces réservés |
+| R09-R fixed sleep | **CORRECTED** — aucun `setTimeout` produit · double rAF only |
+| R09 visual lifecycle | **CORRECTED** — captures 07/08/09 montrent visuellement accepted / running / terminal · même AttemptId · harness Playwright test-only (retain/release Server Actions) |
+| W3-A | **TARGETED CORRECTION CANDIDATE — READY FOR CHATGPT RE-REVIEW** · **≠** W3-A CLOSED · **≠** W3 CLOSED · **W4 untouched** |
+| REAL | **OUT** |
+
+### Provenance Actual Work (canonical)
+
+```
+Pilot/Nora UI: qualifiedOperationKind ∈ {read, simulate, generate-temporary-artifact}
+  → prepareExecutionContractFromW2Decision (reject high-risk kinds)
+  → buildActualExecutionWork (non-durable)
+  → QualifiedExecutionEffects
+  → FC-08 ExecutionContract (+ CONFIRMATION_EVALUATED:NOT_REQUIRED | EFFECT_CONFIRMATION_REQUIRED:*)
+```
+
+
+## 1ter. Morris B2/B3 — Execution Effect Governance (consommée)
+
+> **MORRIS DECISION — W3-A B2/B3 EXECUTION EFFECT GOVERNANCE — ADOPT BOUNDED PRODUCT COMPLETION EFFECT QUALIFICATION AND C2 AUTHORITY PROJECTION — NORA/STUDIO MUST IDENTIFY THE ACTUAL QUALIFIED EXECUTION ACTION AND EFFECTS BEFORE FC-08 MATERIALIZATION — W2 TRAJECTORY OPTION GOVERNED/BOUNDED IS GOVERNANCE CONTEXT, NOT THE EXECUTION ACTION OR AUTHORITY SOURCE — … — FIXTURE EXECUTOR SUPPORT MUST BE EXPLICITLY BOUNDED AND MUST NOT SYNTHESIZE UNIVERSAL EXECUTOR SUFFICIENCY — … — NO EXECUTIONINTENT AGGREGATE, NO AUTHORITYCATALOG, NO NEW STORE, NO NEW ENGINE, NO C6 REOPEN — W1/W2 REMAIN CLOSED — REAL OUT — RUNTIME V3 NON ADOPTED.**
+
+Cette décision est une décision de **CONSTRUCTION W3-A**. Elle n’autorise **pas** : commit projet · push branche projet · PR · merge · REAL · W3 closure · W4 · FinOps · Product Completion complete · runtime v3 ADOPTED.
+
+---
+
+## 2. Positionnement W3 / W3-A
+
+| Élément | État |
+|---|---|
+| W3 scope | Backlog Product Completion existant (Waves / US) — **pas de nouveau backlog** |
+| W3 Delivery | **AUTHORIZED BY MORRIS / IN PROGRESS** |
+| W3-A | Premier slice dépendant · seam **W2 AUTHORIZED → Attempt fixture gouverné** |
+| W3-A ferme W3 ? | **NON** |
+| NEXT-CAPABILITY REQUALIFICATION | **SATISFIED / CONSUMED** par la qualification W3 + GO Delivery |
+| Frontière W2 reprise | EC inspecté → Confirmation si requise → effective authority → **AUTHORIZED/BLOCKED** → **STOP BEFORE EXECUTE** (W2) · W3-A démarre **exactement** après AUTHORIZED |
+
+---
+
+## 3. Exit contracts
+
+### 3.1 Exit W3-A (ce cycle)
+
+| ID | Contrat | Critère |
+|---|---|---|
+| X-W3A-01 | Seam canonique | `/studio` après AUTHORIZED peut Select → accepted → Start → running → terminal technique fixture |
+| X-W3A-02 | Autorité fraîche | AVR jamais permission · re-verify via primitives OA avant Select/Start |
+| X-W3A-03 | Fail-closed | BLOCKED / stale / Confirmation manquante / executor insuffisant → aucun launch |
+| X-W3A-04 | No double launch | Replay idempotent · adapter appelé une fois |
+| X-W3A-05 | Lifecycle honesty | Terminal technique ≠ CycleInstance closed ≠ Project archived |
+| X-W3A-06 | Fake/Real | Fixture only · `externalEffects=false` · `realExecution=false` · Gate D non consommée |
+| X-W3A-07 | Actor | Runtime actor = **Pilote** · pas de persona runtime Morris sur le chemin canonique |
+| X-W3A-08 | Scope honesty | Pas de claim SUCCESS/STOP/FAIL Product · Evidence · CKC full · W3 CLOSED |
+
+### 3.2 Exit W3 macro (hors fermeture ce cycle)
+
+W3 macro reste **ouvert** jusqu’à fermeture des slices backlog W3 (dont US-P1-05/06/07, recovery E2E, catalog evolvability, full CKC track restant) sous GOs distincts. **W3-A ne satisfait pas l’exit W3 macro.**
+
+---
+
+## 4. Classification des actifs (W3-A)
+
+| Classe | Actifs |
+|---|---|
+| **KEEP** | OA Native Backbone · Product SQLite · ExecutionContract · W2 inspection/confirmation/authority · ExecutionAttempt domain/ports/repos/services · agent registry / AgentCapability · Project/Cycle persistent backbone |
+| **HARVEST / ADAPT** | Guards adapter · Select/Start/Record · idempotence · `prepareAndResolveM3ProductPath` / fixture-safe profile (**legacy · hors chemin canonique**) · **`prepareExecutionContractFromW2Decision` (FC-08 natif W3-A)** · **`ActualExecutionWork` / `QualifiedExecutionEffects` (non durable)** · effect→Confirmation projection |
+| **READ-ONLY / DOWNSTREAM** | Evidence business-first · ReviewBundle completion · Nora post-Evidence · recovery/replan · full CKC track / Catalog Evolvability closure |
+| **FREEZE / NE PAS PROMOUVOIR** | `execution-run` historique comme second chemin · Cursor REAL / Gate D · FinOps/T7 · W4 UX · routes legacy non canoniques · F3 comme second produit · ExecutionIntent/Work aggregate · AuthorityCatalog · ConfirmationPolicyEngine |
+
+---
+
+## 5. Dette / exit temporaire
+
+| ID | Dette | Owner | Exit |
+|---|---|---|---|
+| W3A-D01 | Terminal technique `succeeded` **≠** sémantique Product SUCCESS/STOP/FAIL | W3-B | Fermeture US-P1-05 mapping métier |
+| W3A-D02 | Evidence / Review / Nora post-Evidence **non fermés** | W3-B+ | US-P1-06 / US-P1-07 |
+| W3A-D03 | Critical CycleInstance `proposed` sans API publique d’ack — EC cycle-linked confirm fail-closed (R-T-A3-1) | backlog / OA | Ne pas inventer AcknowledgeCriticalCycle ; path produit Standard primaire ; Critical agent_selection Confirmation harvestée pour Select |
+| W3A-D04 | Preuve `/studio` Playwright R09 accepted→running→terminal | **CLOSED locally** — PASS · phase-history + paint yield · captures 07/08/09 | Re-run on CI if integrated |
+| W2-CL-R04 | OPEN_NON_BLOCKING (carry) | Roadmap | Non bloquant W3-A |
+| PB-RES-REAL-01 | OPEN / TRACE ONLY | Roadmap | REAL hors scope |
+
+---
+
+## 6. Gates restants (après ce cycle)
+
+| Gate | État |
+|---|---|
+| GO MORRIS W3 DELIVERY | **CONSUMED** |
+| Commit projet / push branche projet / PR / merge | **NON CONSOMMÉS** |
+| GO REAL | **NON CONSOMMÉ** |
+| FinOps/T7 | **FREEZE** |
+| W3 closure | **NON** |
+| W4 | **OUT** |
+| Product Completion complete | **NON** |
+| runtime v3 ADOPTED | **NON** |
+
+---
+
+## 7. Capacité suivante
+
+**W3-B** — terminal semantics Product (SUCCESS/STOP/FAIL) + Evidence business-first seam (US-P1-05 / US-P1-06) — sous découpage W3 ultérieur · **≠** autorisé par la seule fermeture W3-A.
+
+---
+
+## 8. Verdict readiness
+
+**W3 DELIVERY READINESS = QUALIFIED** · GO Morris W3 **CONSUMED** · slice courant **W3-A Governed Execute** · Product Completion **INCOMPLETE** · W3 **NOT CLOSED**.
+```
+
+### COMPLETE SOURCE: `projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts`
+```ts
+/**
+ * W3-A — Governed Execute seam on the canonical `/studio` W2 product path.
+ *
+ * Phase 1 (select): fresh AUTHORIZED evaluation → accepted
+ * Phase 2 (start): continue durable Attempt → running (no re-authorize on executing EC)
+ * Phase 3 (record): continue running Attempt → technical terminal
+ */
+
+import { createHash } from "node:crypto";
+import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import {
+  LOCAL_PILOTE_ACTOR,
+  registerLocalPiloteAuthority,
+} from "@/lib/oa/decision";
+import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import type {
+  ExecutionAttempt,
+  SelectionProfile,
+  SelectionStrategy,
+} from "@/lib/oa/execution-attempt";
+import { resolveSelectionStrategy } from "@/lib/oa/execution-attempt";
+import type { CycleProfile } from "@/lib/oa/cycle";
+import { F3_ADAPTER_ID } from "@/features/project-assistant/f3/constants";
+import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";
+import type {
+  GovernedExecuteAuthorizedContractResult,
+  GovernedExecuteAttemptProjection,
+  GovernedExecutePhaseResult,
+} from "./types";
+
+function mapCycleProfileToSelectionProfile(
+  profile: CycleProfile | string | null | undefined,
+): SelectionProfile {
+  if (profile === "Critical") return "critical";
+  if (profile === "Light") return "light";
+  return "standard";
+}
+
+function attemptIdentities(executionContractId: string, version: number) {
+  const digest = createHash("sha256")
+    .update(`${executionContractId}@${version}`)
+    .digest("hex")
+    .slice(0, 16);
+  return {
+    attemptId: `xat:w3a:${digest}`,
+    attemptIdempotencyKey: `idem:w3a:${digest}`,
+    resultRef: `res:w3a:${digest}`,
+  };
+}
+
+export type GovernedExecuteAuthorizedContractInput = {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly executionContractId: string;
+  readonly claimedAuthorityLevel?: unknown;
+  readonly canActAsMorris?: unknown;
+  readonly authorityReceiptRef?: unknown;
+  readonly real?: unknown;
+  readonly adapterRef?: unknown;
+  readonly forceLocalAuthority?: boolean;
+};
+
+type Failure = GovernedExecuteAuthorizedContractResult;
+
+function fixtureBoundaryFailure(oa: RuntimeOaStack): Failure | null {
+  if (!oa.fixtureAdapter || !oa.executionAttemptServices) {
+    return {
+      ok: false,
+      code: "ATTEMPT_STACK_UNAVAILABLE",
+      message:
+        "Services ExecutionAttempt / fixture indisponibles — aucune exécution.",
+    };
+  }
+  if (oa.fixtureAdapter.adapterId !== F3_ADAPTER_ID) {
+    return {
+      ok: false,
+      code: "ADAPTER_IDENTITY_MISMATCH",
+      message: "Adapter fixture identity mismatch — REAL/NoOp interdit.",
+    };
+  }
+  if (oa.fixtureAdapter.externalEffects !== false) {
+    return {
+      ok: false,
+      code: "EXTERNAL_EFFECTS_FORBIDDEN",
+      message: "externalEffects doit rester false (FIXTURE only).",
+    };
+  }
+  return null;
+}
+
+async function loadContract(
+  oa: RuntimeOaStack,
+  input: GovernedExecuteAuthorizedContractInput,
+): Promise<
+  | { ok: false; result: Failure }
+  | { ok: true; contract: ExecutionContract; selectionProfile: SelectionProfile }
+> {
+  const contractResult =
+    await oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: input.executionContractId,
+    });
+  if (!contractResult.ok) {
+    return {
+      ok: false,
+      result: {
+        ok: false,
+        code: contractResult.error.detailCode,
+        message: "Contrat d'exécution introuvable — exécution refusée.",
+      },
+    };
+  }
+  const contract = contractResult.contract;
+  if (contract.projectId !== input.projectId) {
+    return {
+      ok: false,
+      result: {
+        ok: false,
+        code: "PROJECT_MISMATCH",
+        message: "Le contrat n'appartient pas au projet demandé.",
+      },
+    };
+  }
+
+  const project = await oa.projectServices.getProject.execute({
+    projectId: input.projectId,
+  });
+  if (project.ok && project.project.status === "archived") {
+    return {
+      ok: false,
+      result: {
+        ok: false,
+        code: "PROJECT_ARCHIVED",
+        message: "Projet archivé — aucune exécution.",
+      },
+    };
+  }
+
+  let selectionProfile: SelectionProfile | null = null;
+  if (!contract.cycleInstanceId) {
+    return {
+      ok: false,
+      result: {
+        ok: false,
+        code: "CYCLE_BINDING_REQUIRED",
+        message:
+          "ExecutionContract sans cycleInstanceId — Execute W3-A refusé (pas de fallback Standard).",
+      },
+    };
+  }
+  {
+    const cycle = await oa.cycleServices.getCycle.execute({
+      cycleInstanceId: contract.cycleInstanceId,
+    });
+    if (!cycle.ok) {
+      return {
+        ok: false,
+        result: {
+          ok: false,
+          code: "CYCLE_NOT_FOUND",
+          message: "CycleInstance lié au contrat introuvable — exécution refusée.",
+        },
+      };
+    }
+    if (cycle.cycle.projectId !== input.projectId) {
+      return {
+        ok: false,
+        result: {
+          ok: false,
+          code: "CYCLE_PROJECT_MISMATCH",
+          message: "CycleInstance / projet incohérents — exécution refusée.",
+        },
+      };
+    }
+    if (
+      cycle.cycle.status === "completed" ||
+      cycle.cycle.status === "cancelled" ||
+      cycle.cycle.status === "superseded"
+    ) {
+      return {
+        ok: false,
+        result: {
+          ok: false,
+          code: "CYCLE_NOT_ACTIVE",
+          message: `CycleInstance ${cycle.cycle.status} — aucune exécution.`,
+        },
+      };
+    }
+    selectionProfile = mapCycleProfileToSelectionProfile(cycle.cycle.profile);
+  }
+
+  return { ok: true, contract, selectionProfile };
+}
+
+function projectAttempt(attempt: ExecutionAttempt): GovernedExecuteAttemptProjection {
+  return {
+    attemptId: attempt.attemptId,
+    attemptStatus: attempt.status,
+    selectedAgentRef: attempt.selectedAgentRef,
+    adapterId: F3_ADAPTER_ID,
+  };
+}
+
+function buildTerminalSuccess(input: {
+  contract: ExecutionContract;
+  attempt: ExecutionAttempt;
+  selectionProfile: SelectionProfile;
+  oa: RuntimeOaStack;
+  reusedExistingAttempt: boolean;
+  launchCountBefore: number;
+}): GovernedExecuteAuthorizedContractResult {
+  const launchCount = input.oa.fixtureAdapter!.launchCallCount;
+  return {
+    ok: true,
+    phase: "terminal",
+    executionContractId: input.contract.executionContractId,
+    contractVersion: input.contract.version,
+    attemptId: input.attempt.attemptId,
+    attemptStatus: input.attempt.status,
+    selectedAgentRef: input.attempt.selectedAgentRef,
+    adapterId: F3_ADAPTER_ID,
+    selectionProfile: input.selectionProfile,
+    reusedExistingAttempt: input.reusedExistingAttempt,
+    launchCount,
+    launchDelta: launchCount - input.launchCountBefore,
+    executionPerformed: true,
+    attemptCreated: !input.reusedExistingAttempt,
+    realExecution: false,
+    externalEffects: false,
+    gitWritePerformed: false,
+    cycleInstanceClosed: false,
+    projectArchived: false,
+    authorityReceiptUsedAsPermission: false,
+    statusLabel:
+      "TERMINAL TECHNIQUE — RÉSULTAT PRODUIT NON ENCORE QUALIFIÉ (W3-A)",
+    technicalTerminal: input.attempt.status === "succeeded",
+    productSuccessSemantics: false,
+    attempt: projectAttempt(input.attempt),
+  };
+}
+
+async function findSucceededAttempt(
+  oa: RuntimeOaStack,
+  executionContractId: string,
+): Promise<ExecutionAttempt | null> {
+  const listed =
+    await oa.executionAttemptServices!.listExecutionAttempts.execute({
+      executionContractId,
+    });
+  if (!listed.ok) return null;
+  return listed.attempts.find((a) => a.status === "succeeded") ?? null;
+}
+
+function registerPiloteAuthority(
+  oa: RuntimeOaStack,
+  scope: string,
+  forceLocalAuthority?: boolean,
+) {
+  return registerLocalPiloteAuthority({
+    authorityResolver: oa.authorityResolver,
+    scope,
+    issuedAt: oa.clock.nowIso(),
+    forceEnable: forceLocalAuthority === true,
+  });
+}
+
+/** Phase 1 — SelectExecutionAgent → accepted (fresh AUTHORIZED required). */
+export async function governedExecuteSelectAgent(
+  input: GovernedExecuteAuthorizedContractInput,
+): Promise<GovernedExecutePhaseResult> {
+  void input.claimedAuthorityLevel;
+  void input.canActAsMorris;
+  void input.authorityReceiptRef;
+  void input.real;
+  void input.adapterRef;
+
+  const boundary = fixtureBoundaryFailure(input.oa);
+  if (boundary) return boundary;
+
+  const loaded = await loadContract(input.oa, input);
+  if (!loaded.ok) {
+    if (loaded.result.ok && loaded.result.phase === "terminal") return loaded.result;
+    return loaded.result;
+  }
+  const { contract, selectionProfile } = loaded;
+
+  const succeeded = await findSucceededAttempt(
+    input.oa,
+    contract.executionContractId,
+  );
+  if (succeeded) {
+    return buildTerminalSuccess({
+      contract,
+      attempt: succeeded,
+      selectionProfile,
+      oa: input.oa,
+      reusedExistingAttempt: true,
+      launchCountBefore: input.oa.fixtureAdapter!.launchCallCount,
+    });
+  }
+
+  const authorized = await evaluateExecutionAuthorization({
+    oa: input.oa,
+    projectId: input.projectId,
+    executionContractId: input.executionContractId,
+    forceLocalAuthority: input.forceLocalAuthority,
+  });
+  if (!authorized.ok) {
+    return {
+      ok: false,
+      code: authorized.code,
+      message: authorized.message,
+    };
+  }
+  if (authorized.outcome !== "AUTHORIZED") {
+    return {
+      ok: false,
+      code: "NOT_AUTHORIZED",
+      message:
+        "Exécution refusée : le verdict courant n'est pas AUTHORIZED (aucune tentative).",
+    };
+  }
+
+  const authority = registerPiloteAuthority(
+    input.oa,
+    contract.scope,
+    input.forceLocalAuthority,
+  );
+  if (!authority.ok) {
+    return { ok: false, code: authority.code, message: authority.message };
+  }
+
+  const strategyResolved = resolveSelectionStrategy(selectionProfile);
+  if ("detailCode" in strategyResolved) {
+    return {
+      ok: false,
+      code: strategyResolved.detailCode,
+      message: strategyResolved.reason,
+    };
+  }
+  if (strategyResolved.strategy === "human_confirmed_proposal") {
+    return {
+      ok: false,
+      code: "AGENT_CONFIRMATION_REQUIRED",
+      message:
+        "Profil Critical — confirmation agent_selection Pilote requise avant sélection (aucune simulation).",
+    };
+  }
+
+  const identities = attemptIdentities(
+    contract.executionContractId,
+    contract.version,
+  );
+
+  const selected =
+    await input.oa.executionAttemptServices!.selectExecutionAgent.execute({
+      attemptId: identities.attemptId,
+      executionContractId: contract.executionContractId,
+      idempotencyKey: identities.attemptIdempotencyKey,
+      actor: LOCAL_PILOTE_ACTOR,
+      authorityEvidenceId: authority.evidenceId,
+      expectedContractVersion: contract.version,
+      selectionProfile,
+      selectionStrategy: strategyResolved.strategy,
+      systemInitiated: false,
+    });
+  if (!selected.ok) {
+    return {
+      ok: false,
+      code: selected.error.detailCode,
+      message: selected.error.message,
+    };
+  }
+
+  return {
+    ok: true,
+    phase: "accepted",
+    executionContractId: contract.executionContractId,
+    contractVersion: contract.version,
+    attemptId: selected.attempt.attemptId,
+    attemptStatus: selected.attempt.status,
+    selectedAgentRef: selected.attempt.selectedAgentRef,
+    adapterId: F3_ADAPTER_ID,
+    selectionProfile,
+    realExecution: false,
+    externalEffects: false,
+    authorityReceiptUsedAsPermission: false,
+    statusLabel: "TENTATIVE ACCEPTÉE — EN ATTENTE DE DÉMARRAGE",
+    technicalTerminal: false,
+    productSuccessSemantics: false,
+    attempt: projectAttempt(selected.attempt),
+  };
+}
+
+/** Phase 2 — StartExecution → running (continues accepted Attempt). */
+export async function governedExecuteStart(
+  input: GovernedExecuteAuthorizedContractInput & { readonly attemptId: string },
+): Promise<GovernedExecutePhaseResult> {
+  const boundary = fixtureBoundaryFailure(input.oa);
+  if (boundary) return boundary;
+
+  const loaded = await loadContract(input.oa, input);
+  if (!loaded.ok) return loaded.result;
+  const { contract, selectionProfile } = loaded;
+
+  const succeeded = await findSucceededAttempt(
+    input.oa,
+    contract.executionContractId,
+  );
+  if (succeeded) {
+    return buildTerminalSuccess({
+      contract,
+      attempt: succeeded,
+      selectionProfile,
+      oa: input.oa,
+      reusedExistingAttempt: true,
+      launchCountBefore: input.oa.fixtureAdapter!.launchCallCount,
+    });
+  }
+
+  const authority = registerPiloteAuthority(
+    input.oa,
+    contract.scope,
+    input.forceLocalAuthority,
+  );
+  if (!authority.ok) {
+    return { ok: false, code: authority.code, message: authority.message };
+  }
+
+  const started = await input.oa.executionAttemptServices!.startExecution.execute({
+    attemptId: input.attemptId,
+    actor: LOCAL_PILOTE_ACTOR,
+    authorityEvidenceId: authority.evidenceId,
+  });
+  if (!started.ok) {
+    const existing = await input.oa.executionAttemptServices!.getExecutionAttempt.execute(
+      { attemptId: input.attemptId },
+    );
+    return {
+      ok: false,
+      code: started.error.detailCode,
+      message: started.error.message,
+      attempt:
+        existing.ok && existing.attempt
+          ? projectAttempt(existing.attempt)
+          : undefined,
+    };
+  }
+
+  return {
+    ok: true,
+    phase: "running",
+    executionContractId: contract.executionContractId,
+    contractVersion: contract.version,
+    attemptId: started.attempt.attemptId,
+    attemptStatus: started.attempt.status,
+    selectedAgentRef: started.attempt.selectedAgentRef,
+    adapterId: F3_ADAPTER_ID,
+    selectionProfile,
+    realExecution: false,
+    externalEffects: false,
+    authorityReceiptUsedAsPermission: false,
+    statusLabel: "EXÉCUTION EN COURS — FIXTURE GOUVERNÉE",
+    technicalTerminal: false,
+    productSuccessSemantics: false,
+    attempt: projectAttempt(started.attempt),
+  };
+}
+
+/** Phase 3 — RecordExecutionResult → technical terminal. */
+export async function governedExecuteRecordResult(
+  input: GovernedExecuteAuthorizedContractInput & { readonly attemptId: string },
+): Promise<GovernedExecuteAuthorizedContractResult> {
+  const boundary = fixtureBoundaryFailure(input.oa);
+  if (boundary) return boundary;
+
+  const loaded = await loadContract(input.oa, input);
+  if (!loaded.ok) return loaded.result;
+  const { contract, selectionProfile } = loaded;
+  const launchCountBefore = input.oa.fixtureAdapter!.launchCallCount;
+
+  const succeeded = await findSucceededAttempt(
+    input.oa,
+    contract.executionContractId,
+  );
+  if (succeeded) {
+    return buildTerminalSuccess({
+      contract,
+      attempt: succeeded,
+      selectionProfile,
+      oa: input.oa,
+      reusedExistingAttempt: true,
+      launchCountBefore,
+    });
+  }
+
+  const identities = attemptIdentities(
+    contract.executionContractId,
+    contract.version,
+  );
+
+  const recorded =
+    await input.oa.executionAttemptServices!.recordExecutionResult.execute({
+      attemptId: input.attemptId,
+      adapterId: F3_ADAPTER_ID,
+      resultRef: identities.resultRef,
+      technicalExitCode: 0,
+    });
+  if (!recorded.ok) {
+    const existing = await input.oa.executionAttemptServices!.getExecutionAttempt.execute(
+      { attemptId: input.attemptId },
+    );
+    return {
+      ok: false,
+      code: recorded.error.detailCode,
+      message: recorded.error.message,
+      attempt:
+        existing.ok && existing.attempt
+          ? projectAttempt(existing.attempt)
+          : undefined,
+    };
+  }
+
+  let cycleInstanceClosed = false;
+  let projectArchived = false;
+  const project = await input.oa.projectServices.getProject.execute({
+    projectId: input.projectId,
+  });
+  if (project.ok) {
+    projectArchived = project.project.status === "archived";
+    if (contract.cycleInstanceId) {
+      const cycleAfter = await input.oa.cycleServices.getCycle.execute({
+        cycleInstanceId: contract.cycleInstanceId,
+      });
+      if (cycleAfter.ok) {
+        cycleInstanceClosed =
+          cycleAfter.cycle.status === "completed" ||
+          cycleAfter.cycle.status === "cancelled";
+      }
+    }
+  }
+
+  const launchCount = input.oa.fixtureAdapter!.launchCallCount;
+  return {
+    ok: true,
+    phase: "terminal",
+    executionContractId: contract.executionContractId,
+    contractVersion: contract.version,
+    attemptId: recorded.attempt.attemptId,
+    attemptStatus: recorded.attempt.status,
+    selectedAgentRef: recorded.attempt.selectedAgentRef,
+    adapterId: F3_ADAPTER_ID,
+    selectionProfile,
+    reusedExistingAttempt: false,
+    launchCount,
+    launchDelta: launchCount - launchCountBefore,
+    executionPerformed: true,
+    attemptCreated: true,
+    realExecution: false,
+    externalEffects: false,
+    gitWritePerformed: false,
+    cycleInstanceClosed,
+    projectArchived,
+    authorityReceiptUsedAsPermission: false,
+    statusLabel:
+      "TERMINAL TECHNIQUE — RÉSULTAT PRODUIT NON ENCORE QUALIFIÉ (W3-A)",
+    technicalTerminal: recorded.attempt.status === "succeeded",
+    productSuccessSemantics: false,
+    attempt: projectAttempt(recorded.attempt),
+  };
+}
+
+export async function governedExecuteAuthorizedContract(
+  input: GovernedExecuteAuthorizedContractInput,
+): Promise<GovernedExecuteAuthorizedContractResult> {
+  const launchCountBefore = input.oa.fixtureAdapter?.launchCallCount ?? 0;
+  const selected = await governedExecuteSelectAgent(input);
+  if (!selected.ok) return selected;
+  if (selected.phase === "terminal") {
+    return selected as GovernedExecuteAuthorizedContractResult;
+  }
+
+  const started = await governedExecuteStart({
+    ...input,
+    attemptId: selected.attemptId,
+  });
+  if (!started.ok) return started;
+
+  const terminal = await governedExecuteRecordResult({
+    ...input,
+    attemptId: started.attemptId,
+  });
+  if (!terminal.ok) return terminal;
+  return {
+    ...terminal,
+    launchDelta: terminal.launchCount - launchCountBefore,
+  };
+}
+```
+
+### COMPLETE SOURCE: `projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts`
+```ts
+/**
+ * W3-A / FC-08 — native ExecutionContract preparation from qualified W2 context.
+ *
+ * Nora/Studio composes complete FC-08 build inputs from durable truths.
+ * ExecutionContract is the first durable SoT for the execution envelope.
+ *
+ * NO fixtureSafeM3ResolutionProfile · NO F3 semantic overwrite · NO Morris runtime persona.
+ * NO cycle-profile → requiredAuthority · NO HumanDecision.reversible → EC.reversibility.
+ */
+
+import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import {
+  LOCAL_PILOTE_ACTOR,
+  registerLocalPiloteAuthority,
+} from "@/lib/oa/decision";
+import type { F2ContextSnapshot } from "../f2/types";
+import { loadPresentedOptionSet } from "./presentedOptionSet";
+import {
+  assertNotF3FixtureSemantics,
+  deriveW3AExecutionEnvelope,
+} from "./w3aProductExecutionSemantics";
+import {
+  buildActualExecutionWork,
+  isActualExecutionOperationKind,
+  isHighRiskPolicyOnlyOperationKind,
+  type ActualExecutionWork,
+} from "./w3aActualExecutionWork";
+import type { QualifiedExecutionEffects } from "./w3aQualifiedExecutionEffects";
+
+export type PreparedExecutionContractDto = {
+  readonly executionContractId: string;
+  readonly version: number;
+  readonly status: string;
+  readonly action: string;
+  readonly target: string;
+  readonly scope: string;
+  readonly requiredAuthority: string;
+  readonly constraints: readonly string[];
+  readonly stopConditions: readonly string[];
+  readonly requiredCapabilities: readonly string[];
+  readonly reversibility: string;
+  readonly semanticFingerprint: string;
+  readonly decisionRefs: readonly string[];
+  readonly cycleInstanceId: string;
+  readonly effectClass: string;
+  readonly effectConfirmationRequired: boolean;
+  readonly effectConfirmationLevel: string | null;
+};
+
+export type PrepareExecutionContractFromW2DecisionResult =
+  | {
+      readonly ok: true;
+      readonly contract: PreparedExecutionContractDto;
+      readonly decisionId: string;
+      readonly executionPerformed: false;
+      readonly attemptCreated: false;
+      readonly f3SemanticOverwrite: false;
+    }
+  | { readonly ok: false; readonly code: string; readonly message: string };
+
+function safeIdSegment(value: string): string {
+  return value.replace(/[^a-zA-Z0-9:_-]/g, "").slice(0, 48);
+}
+
+/**
+ * W3-A cycle binding: Decision / DecisionBasis cycle is required.
+ * activeCycleInstanceId may only confirm coherence — never invent a binding.
+ */
+async function resolveW3ACycleBinding(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly decisionCycleInstanceId: string | null | undefined;
+  readonly basisCycleInstanceId: string | null | undefined;
+  readonly activeCycleInstanceId: string | null | undefined;
+}): Promise<
+  | { readonly ok: true; readonly cycleInstanceId: string; readonly cycleProfile: string }
+  | { readonly ok: false; readonly code: string; readonly message: string }
+> {
+  const primary =
+    input.decisionCycleInstanceId?.trim() ||
+    input.basisCycleInstanceId?.trim() ||
+    "";
+  if (!primary) {
+    return {
+      ok: false,
+      code: "CYCLE_BINDING_REQUIRED",
+      message:
+        "W3-A exige un CycleInstance durable lié à la HumanDecision/DecisionBasis — préparation refusée.",
+    };
+  }
+
+  const cycle = await input.oa.cycleServices.getCycle.execute({
+    cycleInstanceId: primary,
+  });
+  if (!cycle.ok) {
+    return {
+      ok: false,
+      code: "CYCLE_NOT_FOUND",
+      message: "CycleInstance lié introuvable — préparation bloquée.",
+    };
+  }
+  if (cycle.cycle.projectId !== input.projectId) {
+    return {
+      ok: false,
+      code: "CYCLE_PROJECT_MISMATCH",
+      message: "CycleInstance / projet incohérents.",
+    };
+  }
+
+  const active = input.activeCycleInstanceId?.trim() || "";
+  if (active && active !== primary) {
+    // Coherence signal only — do not rebind. Warn via fail-closed when
+    // DecisionBasis and active diverge for the W3-A path.
+    return {
+      ok: false,
+      code: "CYCLE_ACTIVE_MISMATCH",
+      message:
+        "CycleInstance décisionnel ≠ activeCycleInstanceId — cohérence W3-A refusée (pas de fallback silencieux).",
+    };
+  }
+
+  return {
+    ok: true,
+    cycleInstanceId: primary,
+    cycleProfile: cycle.cycle.profile,
+  };
+}
+
+export async function prepareExecutionContractFromW2Decision(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly decisionId: string;
+  readonly currentContext: F2ContextSnapshot;
+  readonly forceLocalAuthority?: boolean;
+  /**
+   * Explicit Pilot/Nora operation kind — REQUIRED for product path.
+   * W2 trajectory alone never selects the execution action.
+   * Hostile clients cannot invent kinds outside the allowlist.
+   */
+  readonly qualifiedOperationKind?: unknown;
+  /** Same product path — optional Nora/test-injected qualified effects. */
+  readonly explicitEffects?: QualifiedExecutionEffects;
+  readonly forceEffectsUnresolved?: boolean;
+}): Promise<PrepareExecutionContractFromW2DecisionResult> {
+  const { oa } = input;
+
+  const loaded = await oa.decisionServices.getHumanDecision.execute({
+    decisionId: input.decisionId,
+  });
+  if (!loaded.ok) {
+    return {
+      ok: false,
+      code: loaded.error.detailCode,
+      message: loaded.error.message,
+    };
+  }
+
+  const decision = loaded.decision;
+  if (decision.projectId !== input.projectId) {
+    return {
+      ok: false,
+      code: "PROJECT_MISMATCH",
+      message: "La décision n'appartient pas à ce projet.",
+    };
+  }
+  if (decision.status !== "accepted") {
+    return {
+      ok: false,
+      code: "DECISION_NOT_CURRENT",
+      message: `Décision ${decision.status} — préparation refusée.`,
+    };
+  }
+
+  const basis = decision.decisionBasis;
+  if (!basis) {
+    return {
+      ok: false,
+      code: "DECISION_BASIS_REQUIRED",
+      message: "DecisionBasis manquante — préparation refusée.",
+    };
+  }
+
+  const ctx = basis.proposalContext;
+  if (
+    ctx.doctrineDigest !== undefined &&
+    ctx.doctrineDigest !== input.currentContext.doctrineDigest
+  ) {
+    return {
+      ok: false,
+      code: "CONTEXT_STALE",
+      message:
+        "DecisionBasis doctrine digest périmé — re-décider avant préparation.",
+    };
+  }
+  if (ctx.lpsVersion > input.currentContext.lpsVersion) {
+    return {
+      ok: false,
+      code: "CONTEXT_STALE",
+      message: "DecisionBasis LPS en avance — état incohérent.",
+    };
+  }
+
+  const traj = basis.trajectoryContext;
+  if (!traj) {
+    return {
+      ok: false,
+      code: "TRAJECTORY_CONTEXT_REQUIRED",
+      message:
+        "DecisionBasis.trajectoryContext requis pour la préparation W2→W3.",
+    };
+  }
+
+  const presented = await loadPresentedOptionSet(
+    oa,
+    input.projectId,
+    basis.sourceRef,
+  );
+  if (!presented.ok) {
+    return {
+      ok: false,
+      code: presented.code,
+      message: presented.message,
+    };
+  }
+
+  const selected = presented.presented.options.find(
+    (o) => o.optionRef === traj.selectedOptionRef,
+  );
+  if (!selected) {
+    return {
+      ok: false,
+      code: "OPTION_NOT_IN_PRESENTED_SET",
+      message: "Option sélectionnée absente du OptionSet présenté.",
+    };
+  }
+
+  const cycleBinding = await resolveW3ACycleBinding({
+    oa,
+    projectId: input.projectId,
+    decisionCycleInstanceId: decision.cycleInstanceId,
+    basisCycleInstanceId: basis.cycleInstanceId,
+    activeCycleInstanceId: input.currentContext.activeCycleInstanceId,
+  });
+  if (!cycleBinding.ok) {
+    return cycleBinding;
+  }
+
+  const project = await oa.projectServices.getProject.execute({
+    projectId: input.projectId,
+  });
+  let projectObjective: string | null = null;
+  let projectTitle: string | null = null;
+  if (project.ok) {
+    projectTitle = project.project.title ?? null;
+    const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: input.projectId,
+    });
+    if (lps.ok) {
+      projectObjective = lps.livingProjectState.objective;
+    }
+  }
+
+  // Note: cycleProfile is loaded for scrutiny/context only — NEVER for requiredAuthority.
+  void cycleBinding.cycleProfile;
+
+  let actualWork = undefined;
+  if (!input.explicitEffects && !input.forceEffectsUnresolved) {
+    // R15 — high-risk kinds are policy taxonomy only; reject before EC.
+    if (isHighRiskPolicyOnlyOperationKind(input.qualifiedOperationKind)) {
+      return {
+        ok: false,
+        code: "PREPARATION_BLOCKED",
+        message:
+          "Opération à risque non qualifiable depuis operationKind seul — ActualExecutionWork refuse push/write/commit/PR/merge/delete/doctrine/baseline sans facts produit.",
+      };
+    }
+    if (!isActualExecutionOperationKind(input.qualifiedOperationKind)) {
+      return {
+        ok: false,
+        code: "EFFECTS_UNRESOLVED",
+        message:
+          "Aucun travail d'exécution qualifié (operationKind) — W2 trajectory seule ne sélectionne pas l'action. Chemin canonique: read | simulate | generate-temporary-artifact.",
+      };
+    }
+    const builtWork = buildActualExecutionWork({
+      operationKind: input.qualifiedOperationKind,
+      projectId: input.projectId,
+      projectTitle,
+      objective: projectObjective,
+      qualificationSource:
+        "studio.nora.actual-execution-work.from-explicit-operation-kind",
+    });
+    if ("ok" in builtWork && builtWork.ok === false) {
+      return builtWork;
+    }
+    actualWork = builtWork as ActualExecutionWork;
+  }
+
+  const envelopeResult = deriveW3AExecutionEnvelope({
+    projectId: input.projectId,
+    decisionId: decision.decisionId,
+    basis,
+    selectedOptionRef: traj.selectedOptionRef,
+    selectedOptionIntent: selected.intent,
+    selectedOptionLabel: selected.label,
+    projectObjective,
+    actualWork,
+    explicitEffects: input.explicitEffects,
+    forceEffectsUnresolved: input.forceEffectsUnresolved,
+  });
+  if (!envelopeResult.ok) {
+    return envelopeResult;
+  }
+  const envelope = envelopeResult.envelope;
+
+  const f3Guard = assertNotF3FixtureSemantics({
+    action: envelope.action,
+    target: envelope.target,
+    scope: envelope.scope,
+    requiredCapabilities: envelope.requiredCapabilities,
+  });
+  if (f3Guard) {
+    return f3Guard;
+  }
+
+  const issuedAt = oa.clock.nowIso();
+  const authority = registerLocalPiloteAuthority({
+    authorityResolver: oa.authorityResolver,
+    scope: envelope.scope,
+    issuedAt,
+    evidenceId: `evd:w3a-prep:${decision.decisionId}`,
+    forceEnable: input.forceLocalAuthority === true,
+  });
+  if (!authority.ok) {
+    return {
+      ok: false,
+      code: authority.code,
+      message: authority.message,
+    };
+  }
+
+  const safeId = safeIdSegment(decision.decisionId);
+  const executionContractId = `xct:w3a:${safeId}`;
+  const idempotencyKey = `idem:w3a-prep:${decision.decisionId}`;
+
+  const built =
+    await oa.executionContractServices.buildExecutionContract.execute({
+      executionContractId,
+      projectId: input.projectId,
+      cycleInstanceId: cycleBinding.cycleInstanceId,
+      decisionRefs: [decision.decisionId],
+      action: envelope.action,
+      target: envelope.target,
+      scope: envelope.scope,
+      inputs: envelope.inputs,
+      expectedOutputs: [...envelope.expectedOutputs],
+      requiredCapabilities: [...envelope.requiredCapabilities],
+      requiredAuthority: envelope.requiredAuthority,
+      constraints: [...envelope.constraints],
+      stopConditions: [...envelope.stopConditions],
+      evidenceRequirements: [...envelope.evidenceRequirements],
+      reversibility: envelope.reversibility,
+      idempotencyKey,
+      correlationId: `cor:w3a-prep:${decision.decisionId}`,
+      actor: LOCAL_PILOTE_ACTOR,
+      authorityEvidenceId: authority.evidenceId,
+    });
+
+  if (!built.ok) {
+    return {
+      ok: false,
+      code: built.error.detailCode,
+      message: built.error.message,
+    };
+  }
+
+  const validated =
+    await oa.executionContractServices.validateExecutionContract.execute({
+      executionContractId: built.contract.executionContractId,
+      actor: LOCAL_PILOTE_ACTOR,
+      authorityEvidenceId: authority.evidenceId,
+    });
+
+  if (!validated.ok) {
+    return {
+      ok: false,
+      code: validated.error.detailCode,
+      message: validated.error.message,
+    };
+  }
+
+  const contract = validated.contract;
+  if (!contract.cycleInstanceId) {
+    return {
+      ok: false,
+      code: "CYCLE_BINDING_REQUIRED",
+      message: "ExecutionContract matérialisé sans cycleInstanceId — refuse.",
+    };
+  }
+
+  return {
+    ok: true,
+    contract: {
+      executionContractId: contract.executionContractId,
+      version: contract.version,
+      status: contract.status,
+      action: contract.action,
+      target: contract.target,
+      scope: contract.scope,
+      requiredAuthority: contract.requiredAuthority,
+      constraints: [...contract.constraints],
+      stopConditions: [...contract.stopConditions],
+      requiredCapabilities: [...contract.requiredCapabilities],
+      reversibility: contract.reversibility,
+      semanticFingerprint: contract.semanticFingerprint ?? "",
+      decisionRefs: [...(contract.decisionRefs ?? [])],
+      cycleInstanceId: contract.cycleInstanceId,
+      effectClass: envelope.effects.effectClass,
+      effectConfirmationRequired: envelope.effectConfirmationRequired,
+      effectConfirmationLevel: envelope.effectConfirmationLevel,
+    },
+    decisionId: decision.decisionId,
+    executionPerformed: false,
+    attemptCreated: false,
+    f3SemanticOverwrite: false,
+  };
+}
+```
+
+### COMPLETE SOURCE: `projects/sfia-studio/app/features/project-assistant/w2/w3aActualExecutionWork.ts`
+```ts
+/**
+ * W3-A — non-durable Actual Execution Work qualification (FC-04 / Nora-Studio).
+ *
+ * Application DTO ONLY. Not an aggregate, store, repository, or durable SoT.
+ * Feeds QualifiedExecutionEffects → FC-08 materializes ExecutionContract.
+ *
+ * W2 trajectory option = governance context / provenance ONLY.
+ * It never selects action, effects, target, scope, or authority.
+ *
+ * Canonical /studio product path (R13/R15): only read / simulate /
+ * generate-temporary-artifact may become ActualExecutionWork.
+ * High-risk kinds remain effect-policy taxonomy only until facts are
+ * product-qualified (no durable ActualExecutionWork SoT).
+ */
+
+import {
+  EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+} from "@/lib/oa/execution-contract";
+import type {
+  ExecutionEffectClass,
+  QualifiedExecutionEffects,
+  EffectQualificationFailure,
+} from "./w3aQualifiedExecutionEffects";
+import { buildQualifiedExecutionEffects } from "./w3aQualifiedExecutionEffects";
+
+/** Product-stable execution scopes — authority-bearing, NOT W2 option intents. */
+export const W3A_PRODUCT_SCOPE = {
+  READ: "product:read-only",
+  SIMULATE: "product:simulate-sandbox",
+  TEMP_ARTIFACT: "product:temporary-local-artifact",
+  LOCAL_WRITE: "product:local-durable-write",
+  COMMIT: "product:local-commit",
+  PUSH: "product:git-push",
+  PULL_REQUEST: "product:pull-request",
+  MERGE: "product:merge",
+  CRITICAL_DELETE: "product:critical-delete",
+  DOCTRINE: "product:doctrine-mutation",
+  BASELINE: "product:baseline-promotion",
+} as const;
+
+/** Product-stable execution target — project binding stays on EC.projectId. */
+export const W3A_PRODUCT_TARGET_WORKSPACE = "product:project-workspace" as const;
+
+/**
+ * Canonical W3-A actual work kinds — facts are product-qualifiable today.
+ * Not a global ActionCatalog.
+ */
+export type W3ACanonicalActualOperationKind =
+  | "read"
+  | "simulate"
+  | "generate-temporary-artifact";
+
+/** @deprecated Use W3ACanonicalActualOperationKind — alias for prepare path. */
+export type ActualExecutionOperationKind = W3ACanonicalActualOperationKind;
+
+/**
+ * Effect-policy taxonomy kinds (authority/Confirmation/reversibility projection).
+ * NOT executable ActualExecutionWork from operationKind alone on /studio.
+ */
+export type EffectPolicyOnlyOperationKind =
+  | "local-write"
+  | "commit"
+  | "push"
+  | "pull-request"
+  | "merge"
+  | "critical-delete"
+  | "doctrine-change"
+  | "baseline-promotion";
+
+export type ActualExecutionWork = {
+  readonly operationKind: W3ACanonicalActualOperationKind;
+  readonly effectClass: Exclude<
+    ExecutionEffectClass,
+    | "unknown"
+    | "local-write"
+    | "commit"
+    | "push"
+    | "pull-request"
+    | "merge"
+    | "critical-delete"
+    | "doctrine-change"
+    | "baseline-promotion"
+  >;
+  readonly target: string;
+  readonly scopeIn: string;
+  readonly scopeOut: readonly string[];
+  readonly protectedBoundaries: readonly string[];
+  readonly rollbackAvailable: boolean;
+  readonly rollbackDescription: string | null;
+  /** Weak vs protected frontier — drives Confirmation independently of N-level. */
+  readonly weakBoundary: boolean;
+  readonly qualificationSource: string;
+  readonly notes: readonly string[];
+};
+
+export type ConfirmationRequirementFromEffects =
+  | {
+      readonly ok?: undefined;
+      readonly required: false;
+      readonly level: null;
+      readonly reason: string;
+    }
+  | {
+      readonly ok?: undefined;
+      readonly required: true;
+      readonly level: "N1" | "N2" | "N3";
+      readonly reason: string;
+    };
+
+const CANONICAL_KIND_TO_SCOPE: Record<W3ACanonicalActualOperationKind, string> =
+  {
+    read: W3A_PRODUCT_SCOPE.READ,
+    simulate: W3A_PRODUCT_SCOPE.SIMULATE,
+    "generate-temporary-artifact": W3A_PRODUCT_SCOPE.TEMP_ARTIFACT,
+  };
+
+const CANONICAL_KINDS = new Set<string>(Object.keys(CANONICAL_KIND_TO_SCOPE));
+
+const HIGH_RISK_POLICY_ONLY_KINDS = new Set<string>([
+  "local-write",
+  "commit",
+  "push",
+  "pull-request",
+  "merge",
+  "critical-delete",
+  "doctrine-change",
+  "baseline-promotion",
+]);
+
+export function isCanonicalW3AActualOperationKind(
+  value: unknown,
+): value is W3ACanonicalActualOperationKind {
+  return typeof value === "string" && CANONICAL_KINDS.has(value);
+}
+
+/** Alias — product prepare path accepts canonical kinds only. */
+export function isActualExecutionOperationKind(
+  value: unknown,
+): value is W3ACanonicalActualOperationKind {
+  return isCanonicalW3AActualOperationKind(value);
+}
+
+export function isHighRiskPolicyOnlyOperationKind(value: unknown): boolean {
+  return typeof value === "string" && HIGH_RISK_POLICY_ONLY_KINDS.has(value);
+}
+
+type ConfirmationLevel = "N1" | "N2" | "N3";
+
+function confirmationRank(level: ConfirmationLevel | null): number {
+  if (level === null) return 0;
+  if (level === "N1") return 1;
+  if (level === "N2") return 2;
+  return 3;
+}
+
+function maxConfirmationLevel(
+  a: ConfirmationLevel | null,
+  b: ConfirmationLevel | null,
+): ConfirmationLevel | null {
+  return confirmationRank(a) >= confirmationRank(b) ? a : b;
+}
+
+/**
+ * Intrinsic Confirmation from effect class (C2 §10) — before protected floor.
+ */
+function intrinsicConfirmationFromEffects(input: {
+  readonly effectClass: ExecutionEffectClass;
+  readonly rollbackAvailable: boolean;
+  readonly weakBoundary: boolean;
+}): ConfirmationRequirementFromEffects | EffectQualificationFailure {
+  const { effectClass, rollbackAvailable, weakBoundary } = input;
+
+  if (effectClass === "unknown") {
+    return {
+      ok: false,
+      code: "PREPARATION_BLOCKED",
+      message:
+        "Effets non qualifiés — besoin de Confirmation fail-closed.",
+    };
+  }
+
+  if (effectClass === "read") {
+    return {
+      required: false,
+      level: null,
+      reason: "C2 §10.1 lecture seule — aucune Confirmation",
+    };
+  }
+
+  if (
+    effectClass === "push" ||
+    effectClass === "pull-request" ||
+    effectClass === "merge" ||
+    effectClass === "critical-delete" ||
+    effectClass === "doctrine-change" ||
+    effectClass === "baseline-promotion" ||
+    (!rollbackAvailable &&
+      effectClass !== "simulate" &&
+      effectClass !== "generate-temporary-artifact")
+  ) {
+    return {
+      required: true,
+      level: "N3",
+      reason: "C2 §10.2 effet N3 / irréversible — Confirmation N3",
+    };
+  }
+
+  if (effectClass === "commit" || effectClass === "local-write") {
+    return {
+      required: true,
+      level: "N2",
+      reason: "C2 §10.2 écriture/commit — Confirmation N2",
+    };
+  }
+
+  if (effectClass === "simulate") {
+    return {
+      required: true,
+      level: "N1",
+      reason: "C2 §10.1 simulation — Confirmation légère N1 selon policy",
+    };
+  }
+
+  if (effectClass === "generate-temporary-artifact") {
+    if (weakBoundary) {
+      return {
+        required: true,
+        level: "N1",
+        reason:
+          "C2 §10.2 artefact temporaire local · frontière faible — Confirmation N1 légère",
+      };
+    }
+    return {
+      required: true,
+      level: "N2",
+      reason:
+        "C2 §10.2 artefact temporaire hors frontière faible — Confirmation N2",
+    };
+  }
+
+  return {
+    ok: false,
+    code: "PREPARATION_BLOCKED",
+    message: `Confirmation non dérivable pour ${effectClass}`,
+  };
+}
+
+/**
+ * C2 §10 — Confirmation from effects / protections / reversibility.
+ * Independent of requiredAuthority and of cycle profile.
+ *
+ * R14: effectiveLevel = max(intrinsicEffectLevel, protectedBoundaryFloor).
+ * Protected boundary is a floor/aggravator (min N2) — never a downgrade.
+ */
+export function projectConfirmationRequirementFromEffects(input: {
+  readonly effectClass: ExecutionEffectClass;
+  readonly protectedBoundaries: readonly string[];
+  readonly rollbackAvailable: boolean;
+  readonly weakBoundary: boolean;
+}): ConfirmationRequirementFromEffects | EffectQualificationFailure {
+  const intrinsic = intrinsicConfirmationFromEffects(input);
+  if ("ok" in intrinsic && intrinsic.ok === false) {
+    return intrinsic;
+  }
+  const base = intrinsic as ConfirmationRequirementFromEffects;
+
+  const protectedFloor: ConfirmationLevel | null =
+    input.protectedBoundaries.length > 0 ? "N2" : null;
+
+  if (!protectedFloor) {
+    return base;
+  }
+
+  const effective = maxConfirmationLevel(
+    base.required ? base.level : null,
+    protectedFloor,
+  );
+  if (!effective) {
+    return base;
+  }
+
+  return {
+    required: true,
+    level: effective,
+    reason:
+      base.required && confirmationRank(base.level) >= confirmationRank(protectedFloor)
+        ? `${base.reason} · protected floor does not downgrade`
+        : `C2 §10.2 protected path floor N2 · effective Confirmation ${effective} (max(intrinsic, floor))`,
+  };
+}
+
+/**
+ * Coherent scope OUT for a canonical operation — never forbids the current
+ * scope IN / action effect (R13).
+ */
+function scopeOutForCanonicalKind(
+  kind: W3ACanonicalActualOperationKind,
+): readonly string[] {
+  const common = ["REAL", "CURSOR_REAL"] as const;
+  switch (kind) {
+    case "read":
+      return [
+        ...common,
+        "DURABLE_PROJECT_WRITE",
+        "LOCAL_WRITE",
+        "TEMPORARY_ARTIFACT_WRITE",
+        "COMMIT",
+        "GIT_PUSH",
+        "GIT_PR",
+        "GIT_MERGE",
+        "DOCTRINE_MUTATION",
+        "BASELINE_PROMOTION",
+      ];
+    case "simulate":
+      return [
+        ...common,
+        "DURABLE_PROJECT_WRITE",
+        "COMMIT",
+        "GIT_PUSH",
+        "GIT_PR",
+        "GIT_MERGE",
+        "DOCTRINE_MUTATION",
+        "BASELINE_PROMOTION",
+      ];
+    case "generate-temporary-artifact":
+      return [
+        ...common,
+        "DURABLE_PROJECT_WRITE",
+        "COMMIT",
+        "GIT_PUSH",
+        "GIT_PR",
+        "GIT_MERGE",
+        "DOCTRINE_MUTATION",
+        "BASELINE_PROMOTION",
+      ];
+  }
+}
+
+/**
+ * Build ActualExecutionWork from an explicit Pilot/Nora canonical operation
+ * kind + project-bound product facts. Never from W2 trajectory alone.
+ * High-risk kinds must not call this — reject at prepare (R15).
+ */
+export function buildActualExecutionWork(input: {
+  readonly operationKind: W3ACanonicalActualOperationKind;
+  readonly projectId: string;
+  readonly projectTitle?: string | null;
+  readonly objective?: string | null;
+  readonly protectedBoundaries?: readonly string[];
+  readonly qualificationSource: string;
+}): ActualExecutionWork | EffectQualificationFailure {
+  if (!input.projectId.trim()) {
+    return {
+      ok: false,
+      code: "PREPARATION_BLOCKED",
+      message: "projectId requis pour qualifier le travail d'exécution.",
+    };
+  }
+
+  if (!isCanonicalW3AActualOperationKind(input.operationKind)) {
+    return {
+      ok: false,
+      code: "PREPARATION_BLOCKED",
+      message:
+        "operationKind hors chemin canonique W3-A (read/simulate/temp-artifact).",
+    };
+  }
+
+  if (isHighRiskPolicyOnlyOperationKind(input.operationKind)) {
+    return {
+      ok: false,
+      code: "PREPARATION_BLOCKED",
+      message:
+        "Opération à risque non qualifiable depuis operationKind seul — facts produit requis.",
+    };
+  }
+
+  const kind = input.operationKind;
+  const scopeIn = CANONICAL_KIND_TO_SCOPE[kind];
+  const scopeOut = scopeOutForCanonicalKind(kind);
+  const protectedBoundaries = [...(input.protectedBoundaries ?? [])];
+  const weakBoundary =
+    protectedBoundaries.length === 0 &&
+    (kind === "generate-temporary-artifact" ||
+      kind === "simulate" ||
+      kind === "read");
+
+  const rollbackAvailable = true;
+  const rollbackDescription =
+    kind === "generate-temporary-artifact"
+      ? "Cleanup/delete of the temporary local artifact after Attempt terminal."
+      : kind === "simulate"
+        ? "Discard simulation sandbox state."
+        : null;
+
+  return {
+    operationKind: kind,
+    effectClass: kind,
+    target: W3A_PRODUCT_TARGET_WORKSPACE,
+    scopeIn,
+    scopeOut,
+    protectedBoundaries,
+    rollbackAvailable,
+    rollbackDescription,
+    weakBoundary,
+    qualificationSource: input.qualificationSource,
+    notes: [
+      `projectId=${input.projectId}`,
+      input.projectTitle ? `projectTitle=${input.projectTitle}` : null,
+      input.objective ? `objective=${input.objective}` : null,
+      "W2 trajectory option is NOT the execution action/scope/target",
+      "EC.projectId remains the project binding",
+      `canonicalW3AActualWork=${kind}`,
+    ].filter((n): n is string => n !== null),
+  };
+}
+
+/** Map ActualExecutionWork → QualifiedExecutionEffects (still non-durable). */
+export function qualifyEffectsFromActualExecutionWork(input: {
+  readonly work: ActualExecutionWork;
+  readonly trajectoryOptionRef?: string | null;
+}):
+  | { readonly ok: true; readonly effects: QualifiedExecutionEffects }
+  | EffectQualificationFailure {
+  const { work } = input;
+  return buildQualifiedExecutionEffects({
+    effectClass: work.effectClass,
+    projectId: "bound-on-ec",
+    scopeIn: work.scopeIn,
+    scopeOut: work.scopeOut,
+    protectedBoundaries: work.protectedBoundaries,
+    rollbackAvailable: work.rollbackAvailable,
+    rollbackDescription: work.rollbackDescription,
+    trajectoryOptionRef: input.trajectoryOptionRef ?? null,
+    qualificationSource: work.qualificationSource,
+    notes: work.notes,
+    target: work.target,
+  });
+}
+
+/**
+ * Constraint token persisted on EC so Validate/FC-09 can reconstruct
+ * effect-driven Confirmation without a parallel SoT.
+ * Prefix owned as string convention shared with OA Validate / readiness.
+ */
+export const EFFECT_CONFIRMATION_REQUIRED_CONSTRAINT =
+  "EFFECT_CONFIRMATION_REQUIRED" as const;
+
+export function effectConfirmationConstraint(
+  level: "N1" | "N2" | "N3",
+): string {
+  return `${EFFECT_CONFIRMATION_REQUIRED_CONSTRAINT}:${level}`;
+}
+
+/** Durable marker when FC-08 evaluated Confirmation and concluded NOT REQUIRED (R16). */
+export const CONFIRMATION_EVALUATED_NOT_REQUIRED_CONSTRAINT =
+  EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED;
+
+export function parseEffectConfirmationConstraint(
+  constraints: readonly string[],
+): { required: true; level: "N1" | "N2" | "N3" } | { required: false } {
+  for (const c of constraints) {
+    if (c.startsWith(`${EFFECT_CONFIRMATION_REQUIRED_CONSTRAINT}:`)) {
+      const level = c.slice(EFFECT_CONFIRMATION_REQUIRED_CONSTRAINT.length + 1);
+      if (level === "N1" || level === "N2" || level === "N3") {
+        return { required: true, level };
+      }
+    }
+    if (c === EFFECT_CONFIRMATION_REQUIRED_CONSTRAINT) {
+      return { required: true, level: "N1" };
+    }
+  }
+  return { required: false };
+}
+```
+
+### COMPLETE SOURCE: `projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts`
+```ts
+/**
+ * W3-A — product-native FC-08 envelope from ActualExecutionWork → Effects.
+ *
+ * Order:
+ *   explicit ActualExecutionWork (Nora/Studio / Pilot)
+ *   → QualifiedExecutionEffects (non-durable)
+ *   → authority/reversibility/capabilities/Confirmation from effects
+ *   → FC-08 Build/Validate → ExecutionContract (first durable SoT)
+ *   → AgentRegistry selection AFTER contract
+ *
+ * Trajectory governed/bounded = provenance only — NEVER action / scope / target / authority.
+ * HumanDecision.reversible = NEVER ExecutionContract.reversibility.
+ * Cycle profile / CKC = NEVER alone determine requiredAuthority or Confirmation.
+ */
+
+import type { DecisionBasis } from "@/lib/oa/decision";
+import type { AuthorityClass, Reversibility } from "@/lib/oa/execution-contract";
+import { EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED } from "@/lib/oa/execution-contract";
+import {
+  BOUNDED_OPTION_REF,
+  CLARIFY_OPTION_REF,
+  GOVERNED_OPTION_REF,
+} from "./trajectoryOptions";
+import {
+  type ActualExecutionWork,
+  effectConfirmationConstraint,
+  projectConfirmationRequirementFromEffects,
+  qualifyEffectsFromActualExecutionWork,
+} from "./w3aActualExecutionWork";
+import {
+  type EffectQualificationFailure,
+  type QualifiedExecutionEffects,
+  projectRequiredAuthorityFromEffects,
+  deriveReversibilityFromEffects,
+} from "./w3aQualifiedExecutionEffects";
+
+/** Implementation / provenance marker — NOT authority-bearing scope. */
+export const W3A_IMPLEMENTATION_MARKER =
+  "w3:governed-execute:studio-canonical" as const;
+
+export type W3AExecutionEnvelope = {
+  readonly action: string;
+  readonly scope: string;
+  readonly target: string;
+  readonly requiredCapabilities: readonly string[];
+  readonly requiredAuthority: AuthorityClass;
+  readonly constraints: readonly string[];
+  readonly stopConditions: readonly string[];
+  readonly evidenceRequirements: readonly string[];
+  readonly reversibility: Reversibility;
+  readonly expectedOutputs: readonly string[];
+  readonly inputs: Record<string, unknown>;
+  readonly effects: QualifiedExecutionEffects;
+  /** Effect-driven Confirmation — independent of requiredAuthority. */
+  readonly effectConfirmationRequired: boolean;
+  readonly effectConfirmationLevel: "N1" | "N2" | "N3" | null;
+};
+
+export type EnvelopePrepareFailure =
+  | EffectQualificationFailure
+  | {
+      readonly ok: false;
+      readonly code: string;
+      readonly message: string;
+    };
+
+function productConstraints(
+  basis: DecisionBasis,
+  effects: QualifiedExecutionEffects,
+  confirmationConstraint: string | null,
+): string[] {
+  const eb = basis.executionBasis;
+  return [
+    "PRODUCT_GOVERNED",
+    "FIXTURE_EXECUTOR_BOUNDARY_ONLY",
+    "NO_REAL",
+    "NO_CURSOR_REAL",
+    "NO_ATTEMPT_AT_PREPARE",
+    `IMPLEMENTATION_MARKER:${W3A_IMPLEMENTATION_MARKER}`,
+    `EFFECT_CLASS:${effects.effectClass}`,
+    ...(confirmationConstraint
+      ? [confirmationConstraint]
+      : [EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED]),
+    ...(effects.morrisConstructionGateRequired
+      ? ["MORRIS_CONSTRUCTION_GATE_REQUIRED"]
+      : []),
+    ...(effects.protectedBoundaries.map((b) => `PROTECTED:${b}`)),
+    ...(eb.outOfScope ?? []).map((s) => `OUT_OF_SCOPE:${s}`),
+    ...(eb.risks ?? []).map((s) => `RISK:${s}`),
+    ...(eb.reservations ?? []).map((s) => `RESERVATION:${s}`),
+    ...(effects.scopeOut.map((s) => `SCOPE_OUT:${s}`)),
+  ];
+}
+
+function productStopConditions(basis: DecisionBasis): string[] {
+  const eb = basis.executionBasis;
+  const stops = new Set<string>([
+    ...(eb.stopConditions ?? []),
+    "AUTHORITY_DENIED",
+    "CONTEXT_STALE",
+    "DECISION_NOT_CURRENT",
+    "EFFECTS_UNRESOLVED",
+    "EXECUTOR_INSUFFICIENT",
+    "CONFIRMATION_REQUIRED",
+  ]);
+  return [...stops];
+}
+
+/**
+ * Qualify effects then derive FC-08 envelope fields.
+ *
+ * Requires ActualExecutionWork OR explicitEffects.
+ * W2 trajectory alone NEVER selects the execution action.
+ */
+export function deriveW3AExecutionEnvelope(input: {
+  readonly projectId: string;
+  readonly decisionId: string;
+  readonly basis: DecisionBasis;
+  readonly selectedOptionRef: string;
+  readonly selectedOptionIntent: string;
+  readonly selectedOptionLabel: string;
+  readonly projectObjective: string | null;
+  /** Required product path — Nora/Studio qualified work. */
+  readonly actualWork?: ActualExecutionWork;
+  /** Optional pre-qualified effects (same application path / tests). */
+  readonly explicitEffects?: QualifiedExecutionEffects;
+  /** Force unknown-effects fail-closed for negative proof. */
+  readonly forceEffectsUnresolved?: boolean;
+}):
+  | { readonly ok: true; readonly envelope: W3AExecutionEnvelope }
+  | EnvelopePrepareFailure {
+  if (
+    input.selectedOptionRef !== GOVERNED_OPTION_REF &&
+    input.selectedOptionRef !== BOUNDED_OPTION_REF
+  ) {
+    if (input.selectedOptionRef === CLARIFY_OPTION_REF) {
+      return {
+        ok: false,
+        code: "TRAJECTORY_NOT_EXECUTABLE",
+        message:
+          "Trajectoire « clarifier d'abord » — aucune préparation d'exécution autorisée.",
+      };
+    }
+    return {
+      ok: false,
+      code: "TRAJECTORY_NOT_EXECUTABLE",
+      message: `Option ${input.selectedOptionRef} — enveloppe d'exécution non préparable.`,
+    };
+  }
+
+  if (input.forceEffectsUnresolved === true) {
+    return {
+      ok: false,
+      code: "EFFECTS_UNRESOLVED",
+      message:
+        "Effets d'exécution non qualifiés — préparation fail-closed.",
+    };
+  }
+
+  let effects: QualifiedExecutionEffects;
+  let weakBoundary = true;
+
+  if (input.explicitEffects) {
+    effects = input.explicitEffects;
+    weakBoundary = effects.protectedBoundaries.length === 0;
+  } else if (input.actualWork) {
+    weakBoundary = input.actualWork.weakBoundary;
+    const qualified = qualifyEffectsFromActualExecutionWork({
+      work: input.actualWork,
+      trajectoryOptionRef: input.selectedOptionRef,
+    });
+    if (!qualified.ok) return qualified;
+    effects = qualified.effects;
+  } else {
+    return {
+      ok: false,
+      code: "EFFECTS_UNRESOLVED",
+      message:
+        "Aucun ActualExecutionWork qualifié — W2 trajectory seule ne sélectionne pas l'action d'exécution.",
+    };
+  }
+
+  // Trajectory markers must never leak as executable action.
+  if (
+    effects.action.includes("trajectory-governed") ||
+    effects.action.includes("trajectory-bounded") ||
+    effects.action.startsWith("w2:decide-trajectory")
+  ) {
+    return {
+      ok: false,
+      code: "PREPARATION_BLOCKED",
+      message:
+        "Action d'exécution ne peut pas être une option de trajectoire W2.",
+    };
+  }
+
+  // W2 option intent must never become EC.scope.
+  if (
+    effects.scopeIn === input.selectedOptionIntent ||
+    effects.scopeIn === (input.basis.executionBasis.scope?.trim() ?? "")
+  ) {
+    // Only fail when basis/intent look like trajectory prose (long governance text).
+    const looksLikeTrajectoryIntent =
+      input.selectedOptionIntent.length > 40 &&
+      (input.selectedOptionIntent.includes("décider") ||
+        input.selectedOptionIntent.includes("Inspecter") ||
+        input.selectedOptionIntent.includes("inspecter") ||
+        input.selectedOptionIntent.includes("périmètre réversible"));
+    if (looksLikeTrajectoryIntent && effects.scopeIn === input.selectedOptionIntent) {
+      return {
+        ok: false,
+        code: "PREPARATION_BLOCKED",
+        message:
+          "EC.scope ne peut pas être selectedOption.intent (intention de trajectoire W2).",
+      };
+    }
+  }
+
+  if (effects.scopeIn === W3A_IMPLEMENTATION_MARKER) {
+    return {
+      ok: false,
+      code: "PREPARATION_BLOCKED",
+      message:
+        "Le marqueur d'implémentation W3-A ne peut pas servir de scope authority-bearing.",
+    };
+  }
+
+  const authority = projectRequiredAuthorityFromEffects({
+    effectClass: effects.effectClass,
+    rollbackAvailable: effects.rollbackAvailable,
+    protectedBoundaries: effects.protectedBoundaries,
+  });
+  if (!authority.ok) return authority;
+
+  const reversibility = deriveReversibilityFromEffects({
+    effectClass: effects.effectClass,
+    rollbackAvailable: effects.rollbackAvailable,
+  });
+  if (!reversibility.ok) return reversibility;
+
+  const confirmation = projectConfirmationRequirementFromEffects({
+    effectClass: effects.effectClass,
+    protectedBoundaries: effects.protectedBoundaries,
+    rollbackAvailable: effects.rollbackAvailable,
+    weakBoundary,
+  });
+  if ("ok" in confirmation && confirmation.ok === false) {
+    return confirmation;
+  }
+  const confirmationOk = confirmation as Exclude<
+    typeof confirmation,
+    EffectQualificationFailure
+  >;
+
+  const confirmationConstraint =
+    confirmationOk.required && confirmationOk.level
+      ? effectConfirmationConstraint(confirmationOk.level)
+      : null;
+
+  const eb = input.basis.executionBasis;
+  const expectedOutputs = eb.expectedOutcome
+    ? [eb.expectedOutcome]
+    : [`Résultat d'exécution — ${effects.effectClass}`];
+
+  return {
+    ok: true,
+    envelope: {
+      action: effects.action,
+      target: effects.target,
+      scope: effects.scopeIn,
+      requiredCapabilities: [...effects.requiredCapabilities],
+      requiredAuthority: authority.requiredAuthority,
+      constraints: productConstraints(
+        input.basis,
+        effects,
+        confirmationConstraint,
+      ),
+      stopConditions: productStopConditions(input.basis),
+      evidenceRequirements: [...effects.evidenceRequirements],
+      reversibility: reversibility.reversibility,
+      expectedOutputs,
+      effects,
+      effectConfirmationRequired: confirmationOk.required,
+      effectConfirmationLevel: confirmationOk.required
+        ? confirmationOk.level
+        : null,
+      inputs: {
+        projectId: input.projectId,
+        decisionId: input.decisionId,
+        selectedOptionRef: input.selectedOptionRef,
+        selectedOptionLabel: input.selectedOptionLabel,
+        // Provenance only — NOT EC.scope
+        trajectoryOptionIntent: input.selectedOptionIntent,
+        trajectoryOptionIsNotAction: true,
+        trajectoryOptionIsNotScope: true,
+        executionScope: effects.scopeIn,
+        effectClass: effects.effectClass,
+        rollbackAvailable: effects.rollbackAvailable,
+        rollbackDescription: effects.rollbackDescription,
+        weakBoundary,
+        effectConfirmationRequired: confirmationOk.required,
+        effectConfirmationLevel: confirmationOk.required
+          ? confirmationOk.level
+          : null,
+        implementationMarker: W3A_IMPLEMENTATION_MARKER,
+        objective: eb.objective ?? input.projectObjective,
+        cycleTypeId: eb.cycleTypeId,
+        recommendedProfile: eb.recommendedProfile,
+        sourceRef: input.basis.sourceRef,
+        sourceDigest: input.basis.sourceDigest,
+        authoritySource: "EFFECTS_PROJECTION_PRODUCT_COMPLETION",
+        confirmationSource: "EFFECTS_C2_SECTION_10",
+        reversibilitySource: "EFFECTS_PLUS_ROLLBACK_FACTS",
+        morrisConstructionGateRequired: effects.morrisConstructionGateRequired,
+        qualificationSource: effects.provenance.qualificationSource,
+      },
+    },
+  };
+}
+
+/** Guard against accidental F3 / trajectory-as-action leakage. */
+export function assertNotF3FixtureSemantics(fields: {
+  action: string;
+  target: string;
+  scope: string;
+  requiredCapabilities: readonly string[];
+}): EnvelopePrepareFailure | null {
+  if (
+    fields.action.includes("fixture") ||
+    fields.action === "fixture-docs-prepare"
+  ) {
+    return {
+      ok: false,
+      code: "PREPARATION_BLOCKED",
+      message: "Action fixture interdite sur le chemin canonique /studio.",
+    };
+  }
+  if (fields.target.includes("f3-fixture")) {
+    return {
+      ok: false,
+      code: "PREPARATION_BLOCKED",
+      message: "Cible fixture interdite sur le chemin canonique /studio.",
+    };
+  }
+  if (fields.requiredCapabilities.some((c) => c.includes("f3-fixture"))) {
+    return {
+      ok: false,
+      code: "PREPARATION_BLOCKED",
+      message: "Capability fixture interdite sur le chemin canonique /studio.",
+    };
+  }
+  if (
+    fields.action.includes("trajectory-governed") ||
+    fields.action.includes("trajectory-bounded")
+  ) {
+    return {
+      ok: false,
+      code: "PREPARATION_BLOCKED",
+      message: "Action trajectoire W2 interdite comme action d'exécution.",
+    };
+  }
+  if (fields.scope === W3A_IMPLEMENTATION_MARKER) {
+    return {
+      ok: false,
+      code: "PREPARATION_BLOCKED",
+      message: "Scope authority-bearing ne peut pas être le marqueur W3-A.",
+    };
+  }
+  return null;
+}
+```
+
+### COMPLETE SOURCE: `projects/sfia-studio/app/features/project-assistant/w2/w3aQualifiedExecutionEffects.ts`
+```ts
+/**
+ * W3-A — non-durable Qualified Execution Effects (Morris B2/B3).
+ *
+ * Application-level envelope ONLY. Not an aggregate, store, repository, or SoT.
+ * FC-08 materializes ExecutionContract as the first durable SoT.
+ *
+ * Trajectory option governed/bounded = governance context / provenance only.
+ * Cycle profile / CKC never alone determine authority.
+ */
+
+import type { AuthorityClass, Reversibility } from "@/lib/oa/execution-contract";
+
+/** Bounded Product Completion effect taxonomy (governance, not a product catalog). */
+export type ExecutionEffectClass =
+  | "read"
+  | "simulate"
+  | "generate-temporary-artifact"
+  | "local-write"
+  | "commit"
+  | "push"
+  | "pull-request"
+  | "merge"
+  | "critical-delete"
+  | "doctrine-change"
+  | "baseline-promotion"
+  | "unknown";
+
+/** Executable action strings derived from effect class — never trajectory-governed/bounded. */
+export type ProductExecutionAction =
+  | "product:read"
+  | "product:simulate"
+  | "product:generate-temporary-artifact"
+  | "product:local-write"
+  | "product:commit"
+  | "product:push"
+  | "product:pull-request"
+  | "product:merge"
+  | "product:critical-delete"
+  | "product:doctrine-change"
+  | "product:baseline-promotion";
+
+export type ProductExecutionCapability =
+  | "cap:product-read"
+  | "cap:product-simulate"
+  | "cap:product-temp-artifact"
+  | "cap:product-local-write"
+  | "cap:product-commit"
+  | "cap:product-git-push"
+  | "cap:product-pull-request"
+  | "cap:product-merge"
+  | "cap:product-critical-delete"
+  | "cap:product-doctrine-change"
+  | "cap:product-baseline-promotion";
+
+export type QualifiedExecutionEffects = {
+  readonly effectClass: ExecutionEffectClass;
+  readonly action: ProductExecutionAction;
+  readonly target: string;
+  readonly scopeIn: string;
+  readonly scopeOut: readonly string[];
+  readonly protectedBoundaries: readonly string[];
+  /** True when a credible rollback/cleanup path exists for the effects. */
+  readonly rollbackAvailable: boolean;
+  readonly rollbackDescription: string | null;
+  readonly requiredCapabilities: readonly ProductExecutionCapability[];
+  readonly evidenceRequirements: readonly string[];
+  readonly morrisConstructionGateRequired: boolean;
+  readonly provenance: {
+    readonly trajectoryOptionRef: string | null;
+    readonly qualificationSource: string;
+    readonly notes: readonly string[];
+  };
+};
+
+export type EffectQualificationFailure = {
+  readonly ok: false;
+  readonly code:
+    | "EFFECTS_UNRESOLVED"
+    | "REVERSIBILITY_UNRESOLVED"
+    | "AUTHORITY_UNRESOLVED"
+    | "PREPARATION_BLOCKED"
+    | "SCOPE_UNRESOLVED"
+    | "TRAJECTORY_NOT_EXECUTABLE";
+  readonly message: string;
+};
+
+const EFFECT_TO_ACTION: Record<
+  Exclude<ExecutionEffectClass, "unknown">,
+  ProductExecutionAction
+> = {
+  read: "product:read",
+  simulate: "product:simulate",
+  "generate-temporary-artifact": "product:generate-temporary-artifact",
+  "local-write": "product:local-write",
+  commit: "product:commit",
+  push: "product:push",
+  "pull-request": "product:pull-request",
+  merge: "product:merge",
+  "critical-delete": "product:critical-delete",
+  "doctrine-change": "product:doctrine-change",
+  "baseline-promotion": "product:baseline-promotion",
+};
+
+const EFFECT_TO_CAPABILITY: Record<
+  Exclude<ExecutionEffectClass, "unknown">,
+  ProductExecutionCapability
+> = {
+  read: "cap:product-read",
+  simulate: "cap:product-simulate",
+  "generate-temporary-artifact": "cap:product-temp-artifact",
+  "local-write": "cap:product-local-write",
+  commit: "cap:product-commit",
+  push: "cap:product-git-push",
+  "pull-request": "cap:product-pull-request",
+  merge: "cap:product-merge",
+  "critical-delete": "cap:product-critical-delete",
+  "doctrine-change": "cap:product-doctrine-change",
+  "baseline-promotion": "cap:product-baseline-promotion",
+};
+
+/**
+ * Morris Product Completion runtime projection: effects → requiredAuthority.
+ * Pure function — not an AuthorityCatalog, not framing-34 global engine.
+ */
+export function projectRequiredAuthorityFromEffects(input: {
+  readonly effectClass: ExecutionEffectClass;
+  readonly rollbackAvailable: boolean;
+  readonly protectedBoundaries: readonly string[];
+}):
+  | {
+      readonly ok: true;
+      readonly requiredAuthority: AuthorityClass;
+      readonly morrisConstructionGateRequired: boolean;
+    }
+  | EffectQualificationFailure {
+  const { effectClass, rollbackAvailable, protectedBoundaries } = input;
+
+  if (effectClass === "unknown") {
+    return {
+      ok: false,
+      code: "AUTHORITY_UNRESOLVED",
+      message:
+        "Effets d'exécution non qualifiés — requiredAuthority fail-closed.",
+    };
+  }
+
+  if (
+    effectClass === "doctrine-change" ||
+    effectClass === "baseline-promotion"
+  ) {
+    return {
+      ok: true,
+      requiredAuthority: "N3",
+      morrisConstructionGateRequired: true,
+    };
+  }
+
+  if (
+    effectClass === "push" ||
+    effectClass === "pull-request" ||
+    effectClass === "merge" ||
+    effectClass === "critical-delete"
+  ) {
+    return {
+      ok: true,
+      requiredAuthority: "N3",
+      morrisConstructionGateRequired: false,
+    };
+  }
+
+  if (!rollbackAvailable && effectClass !== "read" && effectClass !== "simulate") {
+    return {
+      ok: true,
+      requiredAuthority: "N3",
+      morrisConstructionGateRequired: false,
+    };
+  }
+
+  if (effectClass === "local-write" || effectClass === "commit") {
+    const protectedHit = protectedBoundaries.length > 0;
+    return {
+      ok: true,
+      requiredAuthority: protectedHit ? "N2" : "N2",
+      morrisConstructionGateRequired: false,
+    };
+  }
+
+  if (
+    effectClass === "read" ||
+    effectClass === "simulate" ||
+    effectClass === "generate-temporary-artifact"
+  ) {
+    if (protectedBoundaries.length > 0) {
+      return {
+        ok: true,
+        requiredAuthority: "N2",
+        morrisConstructionGateRequired: false,
+      };
+    }
+    return {
+      ok: true,
+      requiredAuthority: "N1",
+      morrisConstructionGateRequired: false,
+    };
+  }
+
+  return {
+    ok: false,
+    code: "AUTHORITY_UNRESOLVED",
+    message: `Classe d'effet non projetable: ${effectClass}`,
+  };
+}
+
+/**
+ * Reversibility from effects + rollback facts — NEVER HumanDecision.reversible.
+ */
+export function deriveReversibilityFromEffects(input: {
+  readonly effectClass: ExecutionEffectClass;
+  readonly rollbackAvailable: boolean;
+}):
+  | { readonly ok: true; readonly reversibility: Reversibility }
+  | EffectQualificationFailure {
+  const { effectClass, rollbackAvailable } = input;
+
+  if (effectClass === "unknown") {
+    return {
+      ok: false,
+      code: "REVERSIBILITY_UNRESOLVED",
+      message:
+        "Réversibilité d'exécution non établie — préparation bloquée.",
+    };
+  }
+
+  if (effectClass === "read") {
+    // No mutation — model as reversible (no durable side-effect).
+    return { ok: true, reversibility: "reversible" };
+  }
+
+  if (effectClass === "simulate") {
+    return { ok: true, reversibility: "reversible" };
+  }
+
+  if (effectClass === "generate-temporary-artifact") {
+    if (!rollbackAvailable) {
+      return {
+        ok: false,
+        code: "REVERSIBILITY_UNRESOLVED",
+        message:
+          "Artefact temporaire sans rollback/cleanup crédible — préparation bloquée.",
+      };
+    }
+    return { ok: true, reversibility: "reversible" };
+  }
+
+  if (
+    effectClass === "push" ||
+    effectClass === "merge" ||
+    effectClass === "critical-delete" ||
+    effectClass === "doctrine-change" ||
+    effectClass === "baseline-promotion"
+  ) {
+    if (!rollbackAvailable) {
+      return { ok: true, reversibility: "irreversible" };
+    }
+    return { ok: true, reversibility: "partially_reversible" };
+  }
+
+  if (effectClass === "local-write" || effectClass === "commit" || effectClass === "pull-request") {
+    if (!rollbackAvailable) {
+      return {
+        ok: false,
+        code: "REVERSIBILITY_UNRESOLVED",
+        message:
+          "Écriture/commit sans fait de rollback crédible — préparation bloquée.",
+      };
+    }
+    return {
+      ok: true,
+      reversibility:
+        effectClass === "commit" ? "partially_reversible" : "reversible",
+    };
+  }
+
+  return {
+    ok: false,
+    code: "REVERSIBILITY_UNRESOLVED",
+    message: `Réversibilité non dérivable pour ${effectClass}`,
+  };
+}
+
+export function actionForEffectClass(
+  effectClass: Exclude<ExecutionEffectClass, "unknown">,
+): ProductExecutionAction {
+  return EFFECT_TO_ACTION[effectClass];
+}
+
+export function capabilityForEffectClass(
+  effectClass: Exclude<ExecutionEffectClass, "unknown">,
+): ProductExecutionCapability {
+  return EFFECT_TO_CAPABILITY[effectClass];
+}
+
+export function buildQualifiedExecutionEffects(input: {
+  readonly effectClass: Exclude<ExecutionEffectClass, "unknown">;
+  readonly projectId: string;
+  readonly scopeIn: string;
+  readonly scopeOut?: readonly string[];
+  readonly protectedBoundaries?: readonly string[];
+  readonly rollbackAvailable: boolean;
+  readonly rollbackDescription?: string | null;
+  readonly trajectoryOptionRef?: string | null;
+  readonly qualificationSource: string;
+  readonly notes?: readonly string[];
+  /** Actual execution target — never fixture-shaped. */
+  readonly target?: string;
+}):
+  | { readonly ok: true; readonly effects: QualifiedExecutionEffects }
+  | EffectQualificationFailure {
+  if (!input.scopeIn.trim()) {
+    return {
+      ok: false,
+      code: "SCOPE_UNRESOLVED",
+      message: "Scope IN manquant — effets non qualifiables.",
+    };
+  }
+
+  const target = (input.target ?? "").trim();
+  if (!target) {
+    return {
+      ok: false,
+      code: "PREPARATION_BLOCKED",
+      message: "Target d'exécution manquant — effets non qualifiables.",
+    };
+  }
+
+  const protectedBoundaries = [...(input.protectedBoundaries ?? [])];
+  const authority = projectRequiredAuthorityFromEffects({
+    effectClass: input.effectClass,
+    rollbackAvailable: input.rollbackAvailable,
+    protectedBoundaries,
+  });
+  if (!authority.ok) return authority;
+
+  const reversibility = deriveReversibilityFromEffects({
+    effectClass: input.effectClass,
+    rollbackAvailable: input.rollbackAvailable,
+  });
+  if (!reversibility.ok) return reversibility;
+
+  const action = actionForEffectClass(input.effectClass);
+  const capability = capabilityForEffectClass(input.effectClass);
+
+  return {
+    ok: true,
+    effects: {
+      effectClass: input.effectClass,
+      action,
+      target,
+      scopeIn: input.scopeIn.trim(),
+      scopeOut: [...(input.scopeOut ?? [])],
+      protectedBoundaries,
+      rollbackAvailable: input.rollbackAvailable,
+      rollbackDescription: input.rollbackDescription ?? null,
+      requiredCapabilities: [capability],
+      evidenceRequirements: [`evreq:${input.effectClass}`],
+      morrisConstructionGateRequired: authority.morrisConstructionGateRequired,
+      provenance: {
+        trajectoryOptionRef: input.trajectoryOptionRef ?? null,
+        qualificationSource: input.qualificationSource,
+        notes: [...(input.notes ?? [])],
+      },
+    },
+  };
+}
+
+/**
+ * @deprecated Do not call as W2-decide fallback.
+ * Temporary-artifact work must come from ActualExecutionWork qualification.
+ * Kept only for explicit negative/migration tests that assert its removal
+ * from the product prepare path.
+ */
+export function qualifyDefaultW3ATemporaryArtifactEffects(_input: {
+  readonly projectId: string;
+  readonly scopeIn: string;
+  readonly trajectoryOptionRef: string;
+  readonly scopeOut?: readonly string[];
+}): EffectQualificationFailure {
+  return {
+    ok: false,
+    code: "EFFECTS_UNRESOLVED",
+    message:
+      "Fallback W2-decide→temporary-artifact interdit — qualifier ActualExecutionWork explicitement.",
+  };
+}
+```
+
+### COMPLETE SOURCE: `projects/sfia-studio/app/lib/vertical-slice-runtime/w3aProductFixtureWiring.ts`
+```ts
+/**
+ * W3-A — BOUNDED deterministic fixture agent (Morris B2/B3 / B4).
+ *
+ * Fixture capabilities are DECLARED UP FRONT and independent of the contract.
+ * They must NOT be synthesized from EC criteria (that made sufficiency tautological).
+ * They must NOT shape EC action/target/scope.
+ *
+ * SUPPORTED (deterministic W3-A proof):
+ * - product:generate-temporary-artifact / cap:product-temp-artifact
+ * - product:simulate / cap:product-simulate
+ * - scopes: product:temporary-local-artifact, product:simulate-sandbox
+ * - target: product:project-workspace
+ *
+ * UNSUPPORTED (must yield SC-CAP / no Attempt):
+ * - local-write, commit, push, PR, merge, critical-delete, doctrine/baseline
+ * - any REAL / Cursor path
+ * - W2 trajectory option intent strings as scopes
+ *
+ * TestExecutionAdapter remains the external-executor substitute only.
+ */
+
+import type { ProvenanceRecord } from "@/lib/oa/doctrine";
+import type { AgentDescriptor } from "@/lib/oa/execution-attempt";
+import { F3_RUNTIME_ADAPTER_ID } from "./f3FixtureWiring";
+
+export const W3A_BOUNDED_FIXTURE_AGENT_ID = "agt:w3a-bounded-fixture" as const;
+
+/** Explicit fixture support — independent of requested EC capabilities. */
+export const W3A_FIXTURE_SUPPORTED_ACTIONS = [
+  "product:generate-temporary-artifact",
+  "product:simulate",
+] as const;
+
+export const W3A_FIXTURE_SUPPORTED_CAPABILITIES = [
+  "cap:product-temp-artifact",
+  "cap:product-simulate",
+] as const;
+
+/** Must match W3A_PRODUCT_TARGET_WORKSPACE — duplicated to avoid @/features import. */
+export const W3A_FIXTURE_STABLE_TARGET = "product:project-workspace" as const;
+
+/** Must match W3A_PRODUCT_SCOPE TEMP_ARTIFACT / SIMULATE — no @/features import. */
+export const W3A_FIXTURE_ALLOWED_SCOPES = [
+  "product:temporary-local-artifact",
+  "product:simulate-sandbox",
+] as const;
+
+function fixtureProvenance(nowIso: string): ProvenanceRecord {
+  return {
+    schemaVersion: "0.1.0-oa",
+    provenanceRecordId: "prv:w3a-bounded-fixture-agent",
+    actor: {
+      actorId: "actor:system",
+      role: "system",
+      authorityLevel: "N1",
+    },
+    source: "system",
+    timestamp: nowIso,
+    correlationId: "cor:w3a-bounded-fixture-agent",
+  };
+}
+
+/**
+ * Bounded fixture AgentDescriptor — support declared independently of EC.
+ */
+export function createW3ABoundedFixtureAgentDescriptor(
+  nowIso = "2026-08-11T00:00:00.000Z",
+): AgentDescriptor {
+  return Object.freeze({
+    schemaVersion: "0.1.0-oa",
+    agentId: W3A_BOUNDED_FIXTURE_AGENT_ID,
+    agentType: "product_bounded_fixture",
+    adapterRef: F3_RUNTIME_ADAPTER_ID,
+    supportedCapabilities: [...W3A_FIXTURE_SUPPORTED_CAPABILITIES],
+    allowedActions: [...W3A_FIXTURE_SUPPORTED_ACTIONS],
+    allowedTargets: [W3A_FIXTURE_STABLE_TARGET],
+    allowedScopes: [...W3A_FIXTURE_ALLOWED_SCOPES],
+    trustLevel: "fixture",
+    executionMode: "adapter_sync_fixture",
+    healthStatus: "healthy",
+    version: 1,
+    enabled: true,
+    createdAt: nowIso,
+    provenance: fixtureProvenance(nowIso),
+  });
+}
+```
+
+## 9. Validations (from prior correction pass; not re-run in this regularization)
+- tsc: PASS
+- lint: PASS
+- build: PASS
+- vitest: 2026 passed / 131 skipped
+- w3aGovernedExecute.test.ts: 24/24 PASS
+- Playwright e2e/studio-w3a-governed-execute-runtime.spec.ts: 2/2 PASS
+
+## 10. Fake / Real
+- TestExecutionAdapter = only external fake
+- DETERMINISTIC PRODUCT-NATIVE PROVEN CANDIDATE
+- REAL OUT
+
+## 11. Verdict
+W3-A R16/R09 CORRECTION CANDIDATE — READY FOR CHATGPT RE-REVIEW
+This pack exists to close REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING.
+≠ W3-A CLOSED · ≠ W3 CLOSED · ≠ project commit · ≠ REAL · ≠ W4 STARTED
+
+## 12. Next gate
+ChatGPT re-review of this FULL immutable handoff.
+W3-B DO NOT START · W4 OUT · NO PROJECT GIT MUTATION · REAL OUT · C6 CLOSED · RUNTIME V3 NON ADOPTED
