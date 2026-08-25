@@ -166,9 +166,15 @@ test.describe("W3-C /studio Post-Evidence replan", () => {
     );
     await assertW3cPostEvidence(page, "recover");
     await expect(page.getByTestId("w3c-requires-human-decision")).toHaveText(
-      "oui",
+      "non",
     );
     await expect(page.getByTestId("w3c-propose-trajectory")).toBeVisible();
+    // R01 — recovery CTA consumable → w2-options without automatic HD.
+    await page.getByTestId("w3c-propose-trajectory").click();
+    await expect(page.getByTestId("w2-options")).toBeVisible({
+      timeout: 60_000,
+    });
+    await expect(page.getByTestId("w2-decision")).toHaveCount(0);
     await capture(page, "02-stop-recover", {
       scenario: "STOP",
       recommendationKind: "recover",
@@ -253,12 +259,21 @@ test.describe("W3-C /studio Post-Evidence replan", () => {
     await expect(page.getByTestId("project-principal")).toBeVisible({
       timeout: 60_000,
     });
+    // W3C-R07 — no silent pass: durable postEvidence OR recovery surface required.
     const rehydrateBtn = page.getByTestId("w3b-rehydrate-product");
     if ((await rehydrateBtn.count()) > 0) {
       await rehydrateBtn.first().click();
-      await expect(page.getByTestId("w3c-post-evidence")).toBeVisible({
-        timeout: 30_000,
-      });
+    }
+    const postEvidence = page.getByTestId("w3c-post-evidence");
+    const recoveryBanner = page.getByTestId("project-recovery-banner");
+    const recoveryRequalify = page.getByTestId("recovery-requalify");
+    const hasPostEvidence = (await postEvidence.count()) > 0;
+    const hasRecovery =
+      (await recoveryBanner.count()) > 0 ||
+      (await recoveryRequalify.count()) > 0;
+    expect(hasPostEvidence || hasRecovery).toBe(true);
+    if (hasPostEvidence) {
+      await expect(postEvidence).toBeVisible({ timeout: 30_000 });
       await expect(page.getByTestId("w3c-recommendation-kind")).toHaveText(
         "continue",
       );
@@ -267,6 +282,7 @@ test.describe("W3-C /studio Post-Evidence replan", () => {
       scenario: "RELOAD",
       evidenceId: evidenceId ?? null,
       lpsVersion: lpsVersion ?? null,
+      durablePath: hasPostEvidence ? "postEvidence" : "recovery",
     });
   });
 });

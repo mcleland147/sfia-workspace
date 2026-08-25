@@ -9,7 +9,7 @@
  * action over the product application path.
  */
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 import {
   w2AmendExecutionContractAction,
@@ -38,6 +38,7 @@ import type {
   W3BProductOutcomeDto,
   W3cPostEvidenceLoopDto,
 } from "@/features/project-assistant/w2/types";
+import { filterProductReservationsForDisplay } from "@/features/project-assistant/w2/w3cProductPresentation";
 import styles from "./TrajectorySurface.module.css";
 
 /** Explicit Pilot-qualified operation — never inferred from W2 trajectory alone. */
@@ -96,9 +97,12 @@ function yieldBrowserPaint(): Promise<void> {
 export function TrajectorySurface({
   projectId,
   onDurableFactsChanged,
+  recoveryProposeSignal = 0,
 }: {
   projectId: string;
   onDurableFactsChanged?: () => void;
+  /** B1 — increment from RecoverySurface requalify to reuse proposeOptions(). */
+  recoveryProposeSignal?: number;
 }) {
   const [busy, setBusy] = useState<Busy>(null);
   const [error, setError] = useState<string | null>(null);
@@ -175,6 +179,12 @@ export function TrajectorySurface({
     setPostEvidence(null);
     onDurableFactsChanged?.();
   }, [projectId, onDurableFactsChanged]);
+
+  useEffect(() => {
+    if (recoveryProposeSignal > 0) {
+      void proposeOptions();
+    }
+  }, [recoveryProposeSignal, proposeOptions]);
 
   const decide = useCallback(
     async (selectedOptionRef: string) => {
@@ -1283,13 +1293,20 @@ export function TrajectorySurface({
               </div>
             </dl>
           </details>
-          {productOutcome.reservations.length > 0 ? (
-            <ul data-testid="w3b-reservations" className={styles.blockNote}>
-              {productOutcome.reservations.map((r) => (
-                <li key={r}>{r}</li>
-              ))}
-            </ul>
-          ) : null}
+          {(() => {
+            const visibleReservations = filterProductReservationsForDisplay(
+              productOutcome.reservations,
+              Boolean(postEvidence && postEvidence.ok),
+            );
+            if (visibleReservations.length === 0) return null;
+            return (
+              <ul data-testid="w3b-reservations" className={styles.blockNote}>
+                {visibleReservations.map((r) => (
+                  <li key={r}>{r}</li>
+                ))}
+              </ul>
+            );
+          })()}
           <button
             type="button"
             className={styles.secondaryAction}

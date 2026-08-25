@@ -118,19 +118,93 @@ export async function analyzePostEvidenceWithProvider(
   }
 }
 
+/** Evidence-scoped LPS marker — binds Nora text to a specific W3-B evidenceId. */
+export function w3cEvidenceLpsMarker(evidenceId: string): string {
+  return `[[W3C_EVIDENCE:${evidenceId}]]`;
+}
+
 export function formatPostEvidenceAnalysisForLps(input: {
   analysisText?: string | null;
   unavailableReason?: string | null;
+  /** When set, scopes the LPS sentinel block to this evidenceId (W3-C). */
+  evidenceId?: string | null;
 }): string | undefined {
+  const evidenceLine =
+    input.evidenceId && input.evidenceId.trim()
+      ? `${w3cEvidenceLpsMarker(input.evidenceId.trim())}\n`
+      : "";
   if (input.analysisText && input.analysisText.trim()) {
-    return `${POST_EVIDENCE_NORA_SENTINEL}\n${input.analysisText.trim()}`;
+    return `${POST_EVIDENCE_NORA_SENTINEL}\n${evidenceLine}${input.analysisText.trim()}`;
   }
   if (input.unavailableReason) {
-    return `${POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL}\n${input.unavailableReason}`;
+    return `${POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL}\n${evidenceLine}${input.unavailableReason}`;
   }
   return undefined;
 }
 
+/**
+ * Last matching post-Evidence Nora block for a specific evidenceId.
+ * Never returns another evidence's analysis (STALE binding guard at call site).
+ */
+export function extractW3cPostEvidenceAnalysisForEvidence(
+  context: string | undefined,
+  evidenceId: string,
+): {
+  analysisText: string | null;
+  analysisUnavailableReason: string | null;
+  matchedEvidenceId: string | null;
+} {
+  if (!context || !evidenceId) {
+    return {
+      analysisText: null,
+      analysisUnavailableReason: null,
+      matchedEvidenceId: null,
+    };
+  }
+  const marker = w3cEvidenceLpsMarker(evidenceId);
+  const availableNeedle = `${POST_EVIDENCE_NORA_SENTINEL}\n${marker}`;
+  const unavailableNeedle = `${POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL}\n${marker}`;
+  const availableIdx = context.lastIndexOf(availableNeedle);
+  const unavailableIdx = context.lastIndexOf(unavailableNeedle);
+
+  const sliceAfter = (idx: number, needle: string): string => {
+    const start = idx + needle.length;
+    const rest = context.slice(start);
+    // Truncate at next sibling sentinel if present.
+    const nextAvail = rest.indexOf(`\n${POST_EVIDENCE_NORA_SENTINEL}`);
+    const nextUnavail = rest.indexOf(
+      `\n${POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL}`,
+    );
+    let end = rest.length;
+    if (nextAvail >= 0) end = Math.min(end, nextAvail);
+    if (nextUnavail >= 0) end = Math.min(end, nextUnavail);
+    return rest.slice(0, end).trim();
+  };
+
+  if (availableIdx >= 0 && availableIdx > unavailableIdx) {
+    const text = sliceAfter(availableIdx, availableNeedle);
+    return {
+      analysisText: text.length > 0 ? text : null,
+      analysisUnavailableReason: null,
+      matchedEvidenceId: evidenceId,
+    };
+  }
+  if (unavailableIdx >= 0) {
+    const text = sliceAfter(unavailableIdx, unavailableNeedle);
+    return {
+      analysisText: null,
+      analysisUnavailableReason: text.length > 0 ? text : "unavailable",
+      matchedEvidenceId: evidenceId,
+    };
+  }
+  return {
+    analysisText: null,
+    analysisUnavailableReason: null,
+    matchedEvidenceId: null,
+  };
+}
+
+/** Last Nora block in LPS context (any evidence) — legacy / unscoped. */
 export function extractPostEvidenceAnalysisFromLpsContext(
   context: string | undefined,
 ): {
@@ -148,8 +222,10 @@ export function extractPostEvidenceAnalysisFromLpsContext(
     const text = context
       .slice(availableIdx + POST_EVIDENCE_NORA_SENTINEL.length)
       .trim();
+    // Strip leading evidence marker if present.
+    const cleaned = text.replace(/^\[\[W3C_EVIDENCE:[^\]]+\]\]\s*/u, "").trim();
     return {
-      analysisText: text.length > 0 ? text : null,
+      analysisText: cleaned.length > 0 ? cleaned : null,
       analysisUnavailableReason: null,
     };
   }
@@ -157,10 +233,25 @@ export function extractPostEvidenceAnalysisFromLpsContext(
     const text = context
       .slice(unavailableIdx + POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL.length)
       .trim();
+    const cleaned = text.replace(/^\[\[W3C_EVIDENCE:[^\]]+\]\]\s*/u, "").trim();
     return {
       analysisText: null,
-      analysisUnavailableReason: text.length > 0 ? text : "unavailable",
+      analysisUnavailableReason: cleaned.length > 0 ? cleaned : "unavailable",
     };
   }
   return { analysisText: null, analysisUnavailableReason: null };
+}
+
+/** Detect which evidenceId owns the last LPS Nora block (if marked). */
+export function lastW3cEvidenceIdInLpsContext(
+  context: string | undefined,
+): string | null {
+  if (!context) return null;
+  const re = /\[\[W3C_EVIDENCE:([^\]]+)\]\]/g;
+  let last: string | null = null;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(context)) !== null) {
+    last = m[1] ?? null;
+  }
+  return last;
 }

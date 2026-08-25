@@ -14,6 +14,7 @@ import {
   type W3BProductTerminalProjection,
 } from "./w3bProductTerminalProjection";
 import {
+  findExistingW3cPostEvidence,
   rehydrateW3cPostEvidenceFromLps,
   runW3cPostEvidenceLoop,
   type W3cPostEvidenceLoopResult,
@@ -192,19 +193,34 @@ export async function materializeW3bProductTerminal(input: {
     };
   }
 
-  const frozen = await services.freezeReviewBundle.execute({
-    reviewBundleId: ids.reviewBundleId,
-    expectedVersion: bundle.reviewBundle.version,
-    idempotencyKey: `idem:w3b-rb-freeze:${attempt.attemptId}`,
-    actor: LOCAL_PILOTE_ACTOR,
-  });
+  // Idempotent rematerialize: create may return the already-frozen RB.
+  // Calling freeze again with a bumped expectedVersion fingerprints differently
+  // and hits IDEMPOTENCY_CONFLICT — skip freeze when already frozen.
+  let frozenReviewBundle = bundle.reviewBundle;
+  let freezeReusedFromIdempotencyKey = Boolean(bundle.reusedFromIdempotencyKey);
+  if (
+    !bundle.reviewBundle.frozenAt &&
+    bundle.reviewBundle.status === "draft"
+  ) {
+    const frozen = await services.freezeReviewBundle.execute({
+      reviewBundleId: ids.reviewBundleId,
+      expectedVersion: bundle.reviewBundle.version,
+      idempotencyKey: `idem:w3b-rb-freeze:${attempt.attemptId}`,
+      actor: LOCAL_PILOTE_ACTOR,
+    });
 
-  if (!frozen.ok) {
-    return {
-      ok: false,
-      code: frozen.error.detailCode,
-      message: frozen.error.message,
-    };
+    if (!frozen.ok) {
+      return {
+        ok: false,
+        code: frozen.error.detailCode,
+        message: frozen.error.message,
+      };
+    }
+    frozenReviewBundle = frozen.reviewBundle;
+    freezeReusedFromIdempotencyKey = Boolean(frozen.reusedFromIdempotencyKey);
+  } else {
+    // Already frozen from a prior materialize — treat as idempotent reuse.
+    freezeReusedFromIdempotencyKey = true;
   }
 
   if (!services.evaluateContractResult) {
@@ -242,7 +258,7 @@ export async function materializeW3bProductTerminal(input: {
       selectedAgentRef: attempt.selectedAgentRef,
     },
     evidence: ingested.evidence,
-    reviewBundle: frozen.reviewBundle,
+    reviewBundle: frozenReviewBundle,
   });
 
     if (!evaluated.ok) {
@@ -256,7 +272,7 @@ export async function materializeW3bProductTerminal(input: {
         attempt,
         contract,
         evidence: ingested.evidence,
-        reviewBundle: frozen.reviewBundle,
+        reviewBundle: frozenReviewBundle,
         claimEvaluation: evaluated.claimEvaluation ?? null,
       }),
     };
@@ -266,9 +282,49 @@ export async function materializeW3bProductTerminal(input: {
     attempt,
     contract,
     evidence: ingested.evidence,
-    reviewBundle: frozen.reviewBundle,
+    reviewBundle: frozenReviewBundle,
     claimEvaluation: evaluated.claimEvaluation,
   });
+
+  const reusedFromIdempotency = Boolean(
+    ingested.reusedFromIdempotencyKey ||
+      bundle.reusedFromIdempotencyKey ||
+      freezeReusedFromIdempotencyKey ||
+      evaluated.reusedFromIdempotencyKey,
+  );
+
+  // B2 — prefer existing Epistemic / rehydrate before Nora + LPS append.
+  if (product.evidenceId) {
+    const existing = await findExistingW3cPostEvidence({
+      oa: input.oa,
+      projectId: input.projectId,
+      evidenceId: product.evidenceId,
+      attemptId: attempt.attemptId,
+    });
+    if (existing) {
+      return {
+        ok: true,
+        reusedFromIdempotency,
+        product,
+        postEvidence: existing,
+      };
+    }
+    if (reusedFromIdempotency) {
+      const rehydrated = await rehydrateW3cPostEvidenceFromLps({
+        oa: input.oa,
+        projectId: input.projectId,
+        product,
+      });
+      if (rehydrated.ok) {
+        return {
+          ok: true,
+          reusedFromIdempotency,
+          product,
+          postEvidence: rehydrated,
+        };
+      }
+    }
+  }
 
   const postEvidence = await runW3cPostEvidenceLoop({
     oa: input.oa,
@@ -279,12 +335,7 @@ export async function materializeW3bProductTerminal(input: {
 
   return {
     ok: true,
-    reusedFromIdempotency: Boolean(
-      ingested.reusedFromIdempotencyKey ||
-        bundle.reusedFromIdempotencyKey ||
-        frozen.reusedFromIdempotencyKey ||
-        evaluated.reusedFromIdempotencyKey,
-    ),
+    reusedFromIdempotency,
     product,
     postEvidence,
   };

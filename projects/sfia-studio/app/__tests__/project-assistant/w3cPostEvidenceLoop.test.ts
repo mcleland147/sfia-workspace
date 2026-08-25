@@ -384,7 +384,7 @@ describe("W3C-P08 STOP → recover", () => {
       "recovery_requalify",
     );
     expect(materialized.postEvidence.recommendation.requiresHumanDecision).toBe(
-      true,
+      false,
     );
   });
 });
