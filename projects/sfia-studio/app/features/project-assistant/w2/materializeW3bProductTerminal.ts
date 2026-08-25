@@ -309,20 +309,19 @@ export async function materializeW3bProductTerminal(input: {
         postEvidence: existing,
       };
     }
-    if (reusedFromIdempotency) {
-      const rehydrated = await rehydrateW3cPostEvidenceFromLps({
-        oa: input.oa,
-        projectId: input.projectId,
+    // Prefer LPS exact / Epistemic rehydrate before Nora+LPS (covers partial-write).
+    const rehydrated = await rehydrateW3cPostEvidenceFromLps({
+      oa: input.oa,
+      projectId: input.projectId,
+      product,
+    });
+    if (rehydrated.ok) {
+      return {
+        ok: true,
+        reusedFromIdempotency,
         product,
-      });
-      if (rehydrated.ok) {
-        return {
-          ok: true,
-          reusedFromIdempotency,
-          product,
-          postEvidence: rehydrated,
-        };
-      }
+        postEvidence: rehydrated,
+      };
     }
   }
 

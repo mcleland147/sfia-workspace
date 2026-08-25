@@ -10,6 +10,9 @@ export const POST_EVIDENCE_NORA_SENTINEL =
   "[[SFIA_POST_EVIDENCE_NORA_ANALYSIS]]" as const;
 export const POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL =
   "[[SFIA_POST_EVIDENCE_NORA_UNAVAILABLE]]" as const;
+/** Exact post-Evidence Recommendation payload — durable in existing LPS context. */
+export const W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL =
+  "[[W3C_POST_EVIDENCE_RECOMMENDATION_V1]]" as const;
 
 export type PostEvidenceAnalysisFacts = {
   projectId: string;
@@ -175,9 +178,13 @@ export function extractW3cPostEvidenceAnalysisForEvidence(
     const nextUnavail = rest.indexOf(
       `\n${POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL}`,
     );
+    const nextReco = rest.indexOf(
+      `\n${W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL}`,
+    );
     let end = rest.length;
     if (nextAvail >= 0) end = Math.min(end, nextAvail);
     if (nextUnavail >= 0) end = Math.min(end, nextUnavail);
+    if (nextReco >= 0) end = Math.min(end, nextReco);
     return rest.slice(0, end).trim();
   };
 
@@ -254,4 +261,43 @@ export function lastW3cEvidenceIdInLpsContext(
     last = m[1] ?? null;
   }
   return last;
+}
+
+/**
+ * Durable exact Recommendation JSON in existing LPS context (no new table).
+ * Bound to evidenceId so restart cannot reuse another terminal's semantics.
+ */
+export function formatW3cRecommendationPayloadForLps(input: {
+  evidenceId: string;
+  payloadJson: string;
+}): string {
+  const evidenceId = input.evidenceId.trim();
+  const json = input.payloadJson.trim();
+  return `${W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL}\n${w3cEvidenceLpsMarker(evidenceId)}\n${json}`;
+}
+
+/**
+ * Extract exact Recommendation payload JSON for a specific evidenceId from LPS.
+ * Returns null when absent (legacy LPS without V1 block).
+ */
+export function extractW3cRecommendationPayloadJsonForEvidence(
+  context: string | undefined,
+  evidenceId: string,
+): string | null {
+  if (!context || !evidenceId) return null;
+  const marker = w3cEvidenceLpsMarker(evidenceId);
+  const needle = `${W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL}\n${marker}\n`;
+  const idx = context.lastIndexOf(needle);
+  if (idx < 0) return null;
+  const rest = context.slice(idx + needle.length);
+  const nextSentinelCandidates = [
+    rest.indexOf(`\n${POST_EVIDENCE_NORA_SENTINEL}`),
+    rest.indexOf(`\n${POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL}`),
+    rest.indexOf(`\n${W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL}`),
+  ].filter((i) => i >= 0);
+  const end = nextSentinelCandidates.length
+    ? Math.min(...nextSentinelCandidates)
+    : rest.length;
+  const json = rest.slice(0, end).trim();
+  return json.length > 0 ? json : null;
 }

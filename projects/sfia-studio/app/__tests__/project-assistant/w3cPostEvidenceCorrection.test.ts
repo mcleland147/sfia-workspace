@@ -25,6 +25,8 @@ import {
   rehydrateProductOutcomeFromAttempt,
 } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
 import {
+  armW3cEpistemicMaterializeFailOnceForTests,
+  clearW3cEpistemicMaterializeFailForTests,
   findExistingW3cPostEvidence,
   rehydrateW3cPostEvidenceFromLps,
   w3cRecommendationEpistemicId,
@@ -51,6 +53,7 @@ beforeEach(() => {
 
 afterEach(() => {
   clearW3bBoundaryArm();
+  clearW3cEpistemicMaterializeFailForTests();
   cleanupW2TempDirs();
   setConversationProviderForTests(null);
   vi.restoreAllMocks();
@@ -636,5 +639,246 @@ describe("W3C-R07 rehydrate binding sanity", () => {
       attemptId,
     });
     expect(again.ok && again.postEvidence?.ok).toBe(true);
+  });
+});
+
+
+describe("W3C-R14 partial-write recovery", () => {
+  it("R14: LPS success + Epistemic fail → retry exact structural Recommendation, no Nora/LPS duplicate", async () => {
+    const ctx = await authorizeTempArtifact("r14");
+    const fake = new FakeConversationProvider({
+      scripted: Array(64).fill(
+        "NORA_STRUCTURAL_R14_ANALYSIS — replan structurel recommandé.",
+      ),
+    });
+    setConversationProviderForTests(fake);
+
+    const services = ctx.oa.evidenceReviewServices!;
+    const originalExecute = services.recommendNextGate.execute.bind(
+      services.recommendNextGate,
+    );
+    services.recommendNextGate.execute = (async (req: never) => {
+      const result = await originalExecute(req);
+      if (!result.ok) return result;
+      return {
+        ...result,
+        coordination: {
+          ...result.coordination,
+          nextAction: {
+            actionCode: "replan_trajectory" as never,
+            reasons: ["W3C-R14 structural fault-injection stub"],
+            authorityRequired: "human" as const,
+          },
+        },
+      };
+    }) as typeof services.recommendNextGate.execute;
+
+    const trajBefore =
+      await ctx.oa.cycleServices!.getTrajectoryVersion.execute({
+        projectId: ctx.seeded.projectId,
+        version: ctx.decidedTrajectoryVersion,
+      });
+    expect(trajBefore.ok).toBe(true);
+    if (!trajBefore.ok) throw new Error("traj");
+
+    armW3cEpistemicMaterializeFailOnceForTests();
+    const { attemptId, materialized: first } = await materializeSuccess(ctx);
+
+    expect(first.postEvidence?.ok).toBe(false);
+    if (!first.postEvidence || first.postEvidence.ok) {
+      throw new Error("expected Epistemic fault-injected fail-closed");
+    }
+    expect(first.postEvidence.code).toBe("W3C_EPISTEMIC_FAULT_INJECTED");
+    expect(first.product.evidenceId).toBeTruthy();
+    const evidenceId = first.product.evidenceId!;
+    const reviewBundleId = first.product.reviewBundleId!;
+    const noraCallsAfterFail = fake.getCallCountForTests();
+    expect(noraCallsAfterFail).toBeGreaterThan(0);
+
+    const lpsAfterFail =
+      await ctx.oa.projectServices!.getCurrentLivingProjectState.execute({
+        projectId: ctx.seeded.projectId,
+      });
+    expect(lpsAfterFail.ok).toBe(true);
+    if (!lpsAfterFail.ok) throw new Error("lps");
+    const lpsVersionAfterFail = lpsAfterFail.livingProjectState.version;
+    expect(lpsAfterFail.livingProjectState.evidenceIds ?? []).toContain(
+      evidenceId,
+    );
+    expect(lpsAfterFail.livingProjectState.context ?? "").toContain(
+      "[[W3C_POST_EVIDENCE_RECOMMENDATION_V1]]",
+    );
+    expect(lpsAfterFail.livingProjectState.nextStep).toBe(
+      "structural_replan_propose",
+    );
+
+    const epiAfterFail = await ctx.oa.cycleServices!.getEpistemicState.execute({
+      projectId: ctx.seeded.projectId,
+    });
+    expect(epiAfterFail.ok).toBe(true);
+    if (!epiAfterFail.ok) throw new Error("epi");
+    const epiId = w3cRecommendationEpistemicId(evidenceId);
+    expect(
+      epiAfterFail.state.items.find(
+        (i) => i.epistemicItemId === epiId && i.status === "active",
+      ),
+    ).toBeUndefined();
+
+    // Retry same terminal (same Product SQLite / same attempt).
+    const retry = await materializeProductOutcomeFromAttempt({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      attemptId,
+    });
+    expect(retry.ok).toBe(true);
+    if (!retry.ok) throw new Error(retry.code);
+    expect(retry.postEvidence?.ok).toBe(true);
+    if (!retry.postEvidence || !retry.postEvidence.ok) {
+      throw new Error("retry postEvidence expected ok");
+    }
+
+    expect(fake.getCallCountForTests()).toBe(noraCallsAfterFail);
+    expect(retry.product.evidenceId).toBe(evidenceId);
+    expect(retry.product.reviewBundleId).toBe(reviewBundleId);
+    expect(retry.postEvidence.evidenceId).toBe(evidenceId);
+    expect(retry.postEvidence.lpsVersion).toBe(lpsVersionAfterFail);
+    expect(retry.postEvidence.recommendation.kind).toBe("replan");
+    expect(retry.postEvidence.recommendation.requiresHumanDecision).toBe(true);
+    expect(retry.postEvidence.recommendation.nextStep).toBe(
+      "structural_replan_propose",
+    );
+    expect(retry.postEvidence.recommendation.nextActionCode).toBe(
+      "replan_trajectory",
+    );
+    expect(retry.postEvidence.recommendation.authority).toBe("none");
+    expect(retry.postEvidence.recommendation.gateConsumed).toBe(false);
+    expect(retry.postEvidence.recommendation.decisionCreated).toBe(false);
+    expect(
+      retry.postEvidence.recommendation.attemptAutoLaunchNextCycle,
+    ).toBe(false);
+    expect(retry.postEvidence.analysisText).toContain("NORA_STRUCTURAL_R14");
+    expect(retry.postEvidence.noraInvoked).toBe(true);
+    expect(retry.postEvidence.replanInvoked).toBe(false);
+
+    const lpsAfterRetry =
+      await ctx.oa.projectServices!.getCurrentLivingProjectState.execute({
+        projectId: ctx.seeded.projectId,
+      });
+    expect(lpsAfterRetry.ok).toBe(true);
+    if (!lpsAfterRetry.ok) throw new Error("lps2");
+    expect(lpsAfterRetry.livingProjectState.version).toBe(lpsVersionAfterFail);
+    const recoMarkers = (
+      lpsAfterRetry.livingProjectState.context?.match(
+        /\[\[W3C_POST_EVIDENCE_RECOMMENDATION_V1\]\]/g,
+      ) ?? []
+    ).length;
+    expect(recoMarkers).toBe(1);
+
+    const epiAfterRetry = await ctx.oa.cycleServices!.getEpistemicState.execute({
+      projectId: ctx.seeded.projectId,
+    });
+    expect(epiAfterRetry.ok).toBe(true);
+    if (!epiAfterRetry.ok) throw new Error("epi2");
+    const activeReco = epiAfterRetry.state.items.find(
+      (i) => i.epistemicItemId === epiId && i.status === "active",
+    );
+    expect(activeReco).toBeTruthy();
+    expect(activeReco!.type).toBe("Recommendation");
+
+    // Second retry idempotent — still no Nora / no LPS bump / no HD.
+    const retry2 = await materializeProductOutcomeFromAttempt({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      attemptId,
+    });
+    expect(retry2.ok && retry2.postEvidence?.ok).toBe(true);
+    if (!retry2.ok || !retry2.postEvidence || !retry2.postEvidence.ok) return;
+    expect(fake.getCallCountForTests()).toBe(noraCallsAfterFail);
+    expect(retry2.postEvidence.lpsVersion).toBe(lpsVersionAfterFail);
+    expect(retry2.postEvidence.recommendation.kind).toBe("replan");
+    expect(retry2.postEvidence.recommendation.requiresHumanDecision).toBe(true);
+    expect(retry2.postEvidence.recommendation.nextActionCode).toBe(
+      "replan_trajectory",
+    );
+
+    const trajAfter =
+      await ctx.oa.cycleServices!.getTrajectoryVersion.execute({
+        projectId: ctx.seeded.projectId,
+        version: ctx.decidedTrajectoryVersion,
+      });
+    expect(trajAfter.ok).toBe(true);
+    if (!trajAfter.ok) return;
+    expect(trajAfter.trajectory.version).toBe(trajBefore.trajectory.version);
+    expect(trajAfter.trajectory.status).toBe(trajBefore.trajectory.status);
+
+    // Restart path (rehydrate) preserves exact semantics.
+    const restarted = await rehydrateProductOutcomeFromAttempt({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      attemptId,
+    });
+    expect(restarted.ok && restarted.postEvidence?.ok).toBe(true);
+    if (!restarted.ok || !restarted.postEvidence || !restarted.postEvidence.ok)
+      return;
+    expect(restarted.postEvidence.recommendation.kind).toBe("replan");
+    expect(restarted.postEvidence.recommendation.requiresHumanDecision).toBe(
+      true,
+    );
+    expect(restarted.postEvidence.recommendation.nextActionCode).toBe(
+      "replan_trajectory",
+    );
+    expect(fake.getCallCountForTests()).toBe(noraCallsAfterFail);
+  });
+
+  it("R14b: STOP non-structural partial-write keeps recover / requiresHumanDecision false", async () => {
+    const ctx = await authorizeTempArtifact("r14b");
+    const fake = new FakeConversationProvider({
+      scripted: Array(32).fill("NORA_STOP_R14B_RECOVER"),
+    });
+    setConversationProviderForTests(fake);
+    armW3bBoundary({
+      kind: "governed_stop",
+      stopCondition: "EXECUTOR_INSUFFICIENT",
+    });
+    armW3cEpistemicMaterializeFailOnceForTests();
+
+    const selected = await governedExecuteSelectAgent({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId: ctx.executionContractId,
+      forceLocalAuthority: true,
+    });
+    if (!selected.ok) throw new Error(selected.code);
+    const started = await governedExecuteStart({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId: ctx.executionContractId,
+      attemptId: selected.attemptId,
+      forceLocalAuthority: true,
+    });
+    if (!started.ok) throw new Error(started.code);
+
+    const first = await materializeProductOutcomeFromAttempt({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      attemptId: started.attemptId,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) throw new Error(first.code);
+    expect(first.postEvidence?.ok).toBe(false);
+    const noraCalls = fake.getCallCountForTests();
+
+    const retry = await materializeProductOutcomeFromAttempt({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      attemptId: started.attemptId,
+    });
+    expect(retry.ok && retry.postEvidence?.ok).toBe(true);
+    if (!retry.ok || !retry.postEvidence || !retry.postEvidence.ok) return;
+    expect(fake.getCallCountForTests()).toBe(noraCalls);
+    expect(retry.postEvidence.recommendation.kind).toBe("recover");
+    expect(retry.postEvidence.recommendation.requiresHumanDecision).toBe(false);
+    expect(retry.postEvidence.recommendation.decisionCreated).toBe(false);
+    expect(retry.postEvidence.recommendation.authority).toBe("none");
   });
 });

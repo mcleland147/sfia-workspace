@@ -17,7 +17,9 @@ import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveA
 import {
   analyzePostEvidenceWithProvider,
   extractW3cPostEvidenceAnalysisForEvidence,
+  extractW3cRecommendationPayloadJsonForEvidence,
   formatPostEvidenceAnalysisForLps,
+  formatW3cRecommendationPayloadForLps,
   lastW3cEvidenceIdInLpsContext,
 } from "@/features/project-assistant/f3/postEvidenceNoraAnalysis";
 import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
@@ -96,6 +98,27 @@ const ANTI_AUTHORITY = {
 const NORA_RATIONALE_BOUND = 1200;
 const W3C_SOURCE_PREFIX = "w3c-post-evidence:";
 const W3C_EPI_ID_PREFIX = "epi:w3c-rec:";
+
+/** Test-only: fail Epistemic materialize once AFTER LPS success (W3C-R14). */
+let __w3cEpistemicMaterializeFailArmed = false;
+
+export function armW3cEpistemicMaterializeFailOnceForTests(): void {
+  if (process.env.VITEST !== "true" && process.env.NODE_ENV !== "test") {
+    return;
+  }
+  __w3cEpistemicMaterializeFailArmed = true;
+}
+
+export function clearW3cEpistemicMaterializeFailForTests(): void {
+  __w3cEpistemicMaterializeFailArmed = false;
+}
+
+function consumeW3cEpistemicMaterializeFailArmed(): boolean {
+  if (!__w3cEpistemicMaterializeFailArmed) return false;
+  __w3cEpistemicMaterializeFailArmed = false;
+  return true;
+}
+
 
 /** Deterministic Epistemic Recommendation id for a W3-B evidenceId. */
 export function w3cRecommendationEpistemicId(evidenceId: string): string {
@@ -483,12 +506,82 @@ export async function findExistingW3cPostEvidence(input: {
   return successFromPayload(payload);
 }
 
+/**
+ * Option A+B — exact Recommendation from durable LPS V1 payload.
+ * No Nora re-run, no LPS re-append. Caller may repair Epistemic via existing service.
+ */
+export async function recoverExactRecommendationFromLps(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly attemptId: string;
+  readonly product: W3BProductTerminalProjection;
+}): Promise<W3cPostEvidenceLoopSuccess | null> {
+  const { oa, projectId, attemptId, product } = input;
+  if (!product.evidenceId || !product.reviewBundleId) return null;
+  if (
+    product.outcome !== "SUCCESS" &&
+    product.outcome !== "STOP" &&
+    product.outcome !== "FAIL"
+  ) {
+    return null;
+  }
+  if (!oa.projectServices) return null;
+
+  const current = await oa.projectServices.getCurrentLivingProjectState.execute({
+    projectId,
+  });
+  if (!current.ok) return null;
+  const lps = current.livingProjectState;
+  const evidenceIds = lps.evidenceIds ?? [];
+  if (!evidenceIds.includes(product.evidenceId)) return null;
+
+  const json = extractW3cRecommendationPayloadJsonForEvidence(
+    lps.context,
+    product.evidenceId,
+  );
+  if (!json) return null;
+
+  const payload = parseW3cRecommendationPayload(json);
+  if (!payload) return null;
+  if (payload.evidenceId !== product.evidenceId) return null;
+  if (payload.attemptId !== attemptId) return null;
+  if (payload.reviewBundleId !== product.reviewBundleId) return null;
+  if (payload.productOutcome !== product.outcome) return null;
+
+  return successFromPayload({
+    ...payload,
+    // Prefer live LPS version after partial write (payload may store null).
+    lpsVersion: payload.lpsVersion ?? lps.version,
+  });
+}
+
+async function repairEpistemicFromRecoveredSuccess(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly attemptId: string;
+  readonly success: W3cPostEvidenceLoopSuccess;
+}): Promise<W3cPostEvidenceLoopSuccess> {
+  const epi = await materializeW3cRecommendationEpistemic(input);
+  // Exact LPS semantics already durable — Epistemic repair is best-effort on retry.
+  // Do not fail-closed again and trap the operator after honest first-write failure.
+  void epi;
+  return input.success;
+}
+
 async function materializeW3cRecommendationEpistemic(input: {
   readonly oa: RuntimeOaStack;
   readonly projectId: string;
   readonly attemptId: string;
   readonly success: W3cPostEvidenceLoopSuccess;
 }): Promise<{ ok: true } | { ok: false; code: string; message: string }> {
+  if (consumeW3cEpistemicMaterializeFailArmed()) {
+    return {
+      ok: false,
+      code: "W3C_EPISTEMIC_FAULT_INJECTED",
+      message:
+        "Fault injection — Epistemic materialization failed after LPS write (W3C-R14).",
+    };
+  }
   if (!input.oa.cycleServices) {
     return {
       ok: false,
@@ -668,6 +761,23 @@ export async function runW3cPostEvidenceLoop(input: {
   });
   if (existing) {
     return existing;
+  }
+
+  // Partial-write recovery: LPS exact payload present, Epistemic missing.
+  // Reconstruct exact Recommendation — no Nora re-run, no LPS re-append.
+  const recovered = await recoverExactRecommendationFromLps({
+    oa,
+    projectId,
+    attemptId,
+    product,
+  });
+  if (recovered) {
+    return repairEpistemicFromRecoveredSuccess({
+      oa,
+      projectId,
+      attemptId,
+      success: recovered,
+    });
   }
 
   const services = oa.evidenceReviewServices;
@@ -854,12 +964,35 @@ export async function runW3cPostEvidenceLoop(input: {
     message: analysis.ok ? undefined : analysis.message,
   });
 
-  const analysisNote = formatPostEvidenceAnalysisForLps({
+  // Provisional success (lpsVersion filled after durable LPS append).
+  const successDraft: W3cPostEvidenceLoopSuccess = {
+    ok: true,
+    noraInvoked,
+    replanInvoked: false,
+    analysisText,
+    analysisUnavailableReason,
+    analysisProviderId,
+    recommendation,
+    lpsVersion: null,
+    evidenceId: product.evidenceId,
+    reviewBundleId: product.reviewBundleId,
+    claimEvaluationId: product.claimEvaluationId,
+    productOutcome: product.outcome,
+  };
+
+  // Exact Recommendation payload in existing LPS context (Option A).
+  const payloadForLps = buildPayloadFromSuccess(successDraft, attemptId);
+  const noraNote = formatPostEvidenceAnalysisForLps({
     ...(analysis.ok
       ? { analysisText: analysis.text }
       : { unavailableReason: analysis.message }),
     evidenceId: product.evidenceId,
   });
+  const recoNote = formatW3cRecommendationPayloadForLps({
+    evidenceId: product.evidenceId,
+    payloadJson: serializePayload(payloadForLps),
+  });
+  const analysisNote = [noraNote, recoNote].filter(Boolean).join("\n\n");
 
   let lpsVersion: number | null = null;
   if (oa.projectServices) {
@@ -878,18 +1011,8 @@ export async function runW3cPostEvidenceLoop(input: {
   }
 
   const success: W3cPostEvidenceLoopSuccess = {
-    ok: true,
-    noraInvoked,
-    replanInvoked: false,
-    analysisText,
-    analysisUnavailableReason,
-    analysisProviderId,
-    recommendation,
+    ...successDraft,
     lpsVersion,
-    evidenceId: product.evidenceId,
-    reviewBundleId: product.reviewBundleId,
-    claimEvaluationId: product.claimEvaluationId,
-    productOutcome: product.outcome,
   };
 
   const epi = await materializeW3cRecommendationEpistemic({
@@ -899,6 +1022,7 @@ export async function runW3cPostEvidenceLoop(input: {
     success,
   });
   if (!epi.ok) {
+    // Honest first-write fail-closed after durable LPS — retry reconstructs from LPS V1.
     return failClosed(epi.code, epi.message);
   }
 
@@ -936,7 +1060,24 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
     return successFromPayload(payload);
   }
 
-  // Fallback: evidence-scoped LPS extract — never return B's analysis for A.
+  // Exact LPS V1 payload (partial-write recovery) before any lossy rebuild.
+  const exact = await recoverExactRecommendationFromLps({
+    oa,
+    projectId,
+    attemptId: product.technicalDetail.attemptId,
+    product,
+  });
+  if (exact) {
+    return repairEpistemicFromRecoveredSuccess({
+      oa,
+      projectId,
+      attemptId: product.technicalDetail.attemptId,
+      success: exact,
+    });
+  }
+
+  // Legacy fallback: evidence-scoped LPS Nora extract — never return B's analysis for A.
+  // Lossy on gate fields — only when V1 payload absent (pre-correction LPS).
   if (!oa.projectServices) {
     return failClosed(
       "PROJECT_SERVICES_UNAVAILABLE",
