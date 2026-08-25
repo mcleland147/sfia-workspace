@@ -1,188 +1,197 @@
-# SFIA Studio — ChatGPT Review Pack — W3-C CORRECTION (PARTIAL-WRITE RECOVERY)
+# SFIA Studio — ChatGPT Review Pack — W3-C CORRECTION (REAL D5 CONTRACT FIDELITY)
 
 ## Metadata
 
 | Field | Value |
 |-------|-------|
-| Timestamp | 2026-08-25 17:58:19 CEST / 2026-08-25 15:58:19 UTC |
-| Repo | sfia-workspace (GitHub mcleland147/sfia-workspace) |
+| Timestamp | 2026-08-25 18:32:38 CEST / 2026-08-25 16:32:38 UTC |
+| Repo | sfia-workspace |
 | Worktree | `/Users/morris/Projects/sfia-workspace-w3c-post-evidence-replan` |
 | Branch | `delivery/sfia-studio-product-completion-w3-c-post-evidence-replan` |
 | origin/main | `ee3e95de234d6f36f6c037b7a8a7277e8a4a1c9e` |
-| Candidat de départ | `84395e4065601088c8fe60bcda937004364db9a1` |
-| Candidat corrigé | `a9e09ed6c475e17ba751e0ba717acc149b4e98c9` |
-| Parent corrigé | `84395e4065601088c8fe60bcda937004364db9a1` |
+| Candidat initial | `a9e09ed6c475e17ba751e0ba717acc149b4e98c9` |
+| Candidat corrigé | `43ecc3351d0dcde1cadc98a9d734f8fa3c3dba0a` |
+| Parent | `a9e09ed6c475e17ba751e0ba717acc149b4e98c9` |
 | Cycle | 8 — Critical — INC |
-| GO Morris | W3-C CORRECTION — PARTIAL-WRITE RECOVERY SEMANTICS ONLY |
-| Verdict attendu Cursor | READY FOR RE-REVIEW |
+| GO Morris | W3-C CORRECTION — REMOVE IMPOSSIBLE STRUCTURAL SIGNAL / REAL D5 CONTRACT FIDELITY |
+| Verdict Cursor | READY FOR RE-REVIEW |
+| Issue retenue | **ISSUE B** |
 | W3-C CLOSED | NO |
 | W3 CLOSED | NO |
 | REAL | OUT |
-| FinOps / T7 | FREEZE |
+| FinOps | FREEZE |
 | W4 | OUT |
-| Runtime v3 | NON ADOPTED |
-| Project push / PR / merge | NONE |
-| W3-B | CONSUMED / NOT REOPENED |
-| C6 | CONSUMED / NOT REOPENED |
+| runtime v3 | NON ADOPTED |
+| Project push/PR/merge | NONE |
+| W3-B / C6 | CONSUMED / NOT REOPENED |
 
-## Convergence mapping
+## Sources relues (routing)
 
-- Capacités v3 : V3-F02 / V3-F04 / V3-F06 / V3-F09 (continuité post-Evidence, replan gouverné)
-- Milestone : Product Completion W3-C
-- Capacité utilisateur : reprendre honnêtement après Evidence, y compris après partial write, sans perdre la sémantique Recommendation
-- LPS : KEEP / COMPLETE (surface context existante — payload V1 parsable)
-- Epistemic : KEEP / COMPLETE (`updateEpistemicState` existant — réparation retry)
-- W2 propose/decide : KEEP / CONSUME
-- W3-B Evidence/RB/CE/terminal : KEEP / CONSUME
-- Gap fermé : recovery sémantique après LPS durable réussi + Epistemic write échoué
-- Dette structurante créée : aucune
-- REAL / FinOps / W4 / runtime v3 : OUT / FREEZE / OUT / NON ADOPTED
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- convergence Build Doctrine / Roadmap (snapshot W3-C superseded by Morris GO — Roadmap not modified)
+- product-completion 01/02/03/06/11/12
+- v3 framing 32–35
+- runtime: `coordinationTypes.ts`, `recommendNextGate.ts`, `w3cPostEvidenceLoop.ts`
 
-## Blocker traité
+## Pourquoi `replan_trajectory` était invalide
 
-Séquence failante avant correction :
+`NextActionCode` D5 est une **union fermée** sans `replan` / `trajectory` :
 
-1. Recommendation originale calculée (éventuellement structurelle)
-2. append LPS réussit (durable)
-3. matérialisation Epistemic échoue
-4. retour fail-closed
-5. retry/restart
-6. fallback LPS reconstruitait Recommendation depuis outcome avec `recommendNextGateStatus=null` / `nextActionCode=null` + nextStep seul
-7. perte possible de structuralité (`kind`, `requiresHumanDecision`, `nextActionCode`)
+```
+complete_evidence | verify_evidence_integrity | freeze_review_bundle | complete_review |
+evaluate_claim | confirm_claim_evaluation | resolve_dispute | propose_maturity |
+confirm_maturity | downgrade_maturity | solicit_morris_arbitration | solicit_morris_go
+```
 
-## Design exact de correction (Option A + B bornée)
+Le test R14 injectait `actionCode: "replan_trajectory" as never` et le mapping produit utilisait
+`actionCode.includes("replan") || includes("trajectory")` — vocabulaire **absent** du contrat.
+Cela prouvait une conservation sémantique sur une fiction, pas une fidélité D5.
 
-### A — Durable exact payload in existing LPS context
+## Matrice CoordinationResult atteignables depuis W3-C actuel
 
-- Nouveau sentinel LPS (pas de nouvelle table/schéma) : `[[W3C_POST_EVIDENCE_RECOMMENDATION_V1]]`
-- Bindé `[[W3C_EVIDENCE:<evidenceId>]]` + JSON exact `serializePayload(...)` (mêmes champs que Epistemic statement)
-- Écrit **dans le même** `analysisNote` que Nora lors de `appendEvidenceOutcomeToLps`
-- Helpers : `formatW3cRecommendationPayloadForLps` / `extractW3cRecommendationPayloadJsonForEvidence` dans `postEvidenceNoraAnalysis.ts`
+Appel W3-C (`runW3cPostEvidenceLoop` → `recommendNextGate.execute`) :
 
-### B — Repair Epistemic from durable LPS on retry
+| Input | Valeur |
+|-------|--------|
+| projectId | projet courant |
+| subjectRef | executionContractId |
+| evidenceRefs | Evidence W3-B |
+| reviewBundleRefs | RB W3-B |
+| claimEvaluationRefs | CE si présent |
+| maturityAssessmentId | **non fourni** |
+| openHardReservationRefs | **non fourni** |
+| attemptAutoLaunchNextCycle | false |
 
-- `recoverExactRecommendationFromLps` parse le payload V1 (evidenceId + attemptId + reviewBundleId + productOutcome)
-- Appelé depuis `runW3cPostEvidenceLoop` (avant Nora) et `rehydrateW3cPostEvidenceFromLps` (avant fallback lossy)
-- `repairEpistemicFromRecoveredSuccess` rappelle `materializeW3cRecommendationEpistemic` existant
-- Aucun Nora re-run, aucun nouvel append LPS
+Conséquences D5 observées :
 
-### Fault injection (tests)
+| Cas | status | nextAction typique | Classe W3-C | Structural traj replan? |
+|-----|--------|--------------------|-------------|-------------------------|
+| SUCCESS product path (evidence `available`) | not_recommended | `verify_evidence_integrity` | non_structural_progress | **NON** |
+| STOP/FAIL product path | not_recommended / blockers | real union codes | recover + class | **NON** |
+| confirm_maturity | requires_maturity proposed | needs maturityAssessmentId | human_confirmation | **NON** (≠ traj HD) |
+| solicit_morris_arbitration | blocked + hard_reservation | needs maturity branch | morris_arbitration | **NON** (≠ traj HD) |
+| solicit_morris_go | gate_candidate | needs confirmed maturity | next_cycle_gate | **NON** (≠ traj HD) |
+| ProjectTrajectory structural replan | — | **aucun NextActionCode** | — | **NOT CLAIMED FROM D5** |
 
-- `armW3cEpistemicMaterializeFailOnceForTests` — échoue **après** LPS success, à la frontière Epistemic réelle
-- Code `W3C_EPISTEMIC_FAULT_INJECTED`
+**STRUCTURAL TRAJECTORY REPLAN DETECTION — NOT CLAIMED FROM D5 CURRENT INPUT**
 
-## Ordre d’écriture résultant
+Le vrai replan ProjectTrajectory reste gouverné par **W2 propose + decide** explicites.
+W3-C ne fabrique aucune HumanDecision / mutation de trajectoire.
 
-1. Validate Evidence / RB / CE
-2. RecommendNextGate
-3. Nora (`analyzePostEvidenceWithProvider`)
-4. Build Recommendation (Nora-informed)
-5. **LPS append** (Nora note + **exact Recommendation V1 payload** + nextStep)
-6. **Epistemic materialize** (`updateEpistemicState`)
+## Mapping retenu (ISSUE B)
 
-Si (5) OK et (6) KO → fail-closed honnête.
-Retry/restart → Epistemic existant **ou** recover V1 LPS → repair Epistemic → **pas** Nora, **pas** nouvel LPS.
+Remplacement de la logique substring par `Record<NextActionCode, W3cD5ActionClass>` fermé :
 
-## Preuves d’invariants
+1. **non_structural_progress** — complete_evidence, verify_evidence_integrity, freeze_review_bundle, complete_review, evaluate_claim, resolve_dispute, propose_maturity, downgrade_maturity
+2. **human_confirmation** — confirm_claim_evaluation, confirm_maturity (≠ traj replan / ≠ HD)
+3. **morris_arbitration** — solicit_morris_arbitration (Recommendation only, authority none)
+4. **next_cycle_gate** — solicit_morris_go (gateConsumed/decisionCreated false)
+5. **none** — null / unknown non-union string
 
-| Invariant | Preuve |
-|-----------|--------|
-| Absence Nora rerun | W3C-R14 : `fake.getCallCountForTests()` stable après fail → retry → retry2 → rehydrate |
-| Absence duplicate LPS | W3C-R14 : `lps.version` stable ; 1 seul marker `[[W3C_POST_EVIDENCE_RECOMMENDATION_V1]]` |
-| Structural replan human-gated | kind=replan, requiresHumanDecision=true, nextStep=structural_replan_propose ; trajectory version/status inchangés |
-| Aucune auto HumanDecision | decisionCreated=false ; replanInvoked=false |
-| Aucune auto trajectory mutation | getTrajectoryVersion inchangé |
-| Exact semantic recovery | nextActionCode, recommendNextGateStatus, rationale/analysisText, authority=none, gateConsumed=false, attemptAutoLaunchNextCycle=false |
+Projection produit :
 
-## W3C-R14 — PARTIAL-WRITE RECOVERY
+- SUCCESS → `kind: continue`, `requiresHumanDecision: false`
+- STOP/FAIL → `kind: recover`, `requiresHumanDecision: false`
+- **jamais** `kind: replan` depuis D5
+- **jamais** `nextStep: structural_replan_propose` depuis D5
+- authority / gateConsumed / decisionCreated / attemptAutoLaunchNextCycle inchangés (ANTI_AUTHORITY)
 
-**PASS** (vitest)
+## Différences conceptuelles (préservées)
 
-- Structural stub RecommendNextGate `nextAction.actionCode = replan_trajectory`
-- LPS write success + Epistemic fault inject → fail-closed `W3C_EPISTEMIC_FAULT_INJECTED`
-- Retry same attempt → exact Recommendation ; Nora count unchanged ; LPS version unchanged
-- Epistemic Recommendation active après repair
-- Second retry idempotent
-- Restart `rehydrateProductOutcomeFromAttempt` conserve sémantique
-- R14b STOP non-structurel : kind=recover, requiresHumanDecision=false
+| Concept | ≠ |
+|---------|---|
+| confirmation D5 | ProjectTrajectory replan / HumanDecision runtime |
+| Morris arbitration | auto decision / auto execution |
+| gate_candidate / solicit_morris_go | HumanDecision Pilote / gate consumed |
+| Recommendation | HumanDecision |
+| STOP/FAIL recover | structural replan |
 
-## Revalidation W3C-R01…R13 / W3C-P01…P12
+## R14 — partial-write (PRESERVED, adapted)
 
-- `w3cPostEvidenceCorrection.test.ts` : **12/12 PASS** (R01–R13 + R14/R14b)
-- `w3cPostEvidenceLoop.test.ts` : **P01–P12 PASS** (inclus dans 24 targeted)
+- Plus de stub `replan_trajectory as never`
+- Fault injection Epistemic après LPS OK
+- Recovery exacte depuis `[[W3C_POST_EVIDENCE_RECOMMENDATION_V1]]`
+- No Nora rerun / no LPS duplicate
+- Semantics = real D5 durable payload (`kind≠replan`, `requiresHumanDecision=false`)
+- **PASS**
 
-## Résultats tests réellement exécutés (ce cycle)
+## R15 — REAL D5 CONTRACT FIDELITY — PASS
+
+- R15A closed unions + all NextActionCode → never replan/HD
+- R15B confirm_* → human_confirmation, continue, no HD
+- R15C solicit_morris_arbitration typed → Recommendation only
+- R15D product-path real code (observed `verify_evidence_integrity`) non-structural
+- R15E solicit_morris_go / gate_candidate ≠ auto decision
+
+## Grep QA (candidat app touché)
+
+```
+replan_trajectory → 0 (w3cPostEvidenceLoop + correction tests)
+as never → 0 (same files)
+includes("replan") → 0
+```
+
+## Revalidation
 
 | Gate | Résultat |
 |------|----------|
-| Vitest ciblé W3-C (+R14) | 24 passed |
-| Full Vitest | **2114 passed** / 131 skipped (221 files passed / 13 skipped) |
-| Typecheck `tsc --noEmit` | PASS (exit 0) |
-| Lint `next lint` | PASS — No ESLint warnings or errors |
-| Build `next build` | PASS — compiled; client-safe |
-| Import boundaries | 5/5 PASS |
-| Playwright W3-B | **3/3 PASS** |
-| Playwright W3-C | **5/5 PASS** |
-| Combined Playwright | **8/8 PASS** (21.4s) |
+| W3C-R01…R13 | PASS (correction suite) |
+| W3C-R14 / R14b | PASS |
+| W3C-R15 A–E | PASS |
+| W3C-P01…P12 | PASS (loop suite) |
+| Targeted W3-C | 29 passed |
+| recommendNextGate D5 | 11 passed |
+| Full Vitest | **2119 passed** / 131 skipped |
+| tsc | PASS |
+| lint | PASS |
+| build | PASS client-safe |
+| import boundaries | 5/5 |
+| Playwright W3-B | 3/3 |
+| Playwright W3-C | 5/5 |
+| Combined PW | 8/8 |
 
-## Fake / Real qualification
+## Fake/Real
 
-- DETERMINISTIC PRODUCT-NATIVE PROVEN candidate
-- TestExecutionAdapter / frontière fake contrôlée
-- Même orchestration produit
-- **REAL OUT** — non invoqué
-- FinOps FREEZE / W4 OUT / runtime v3 NON ADOPTED
+DETERMINISTIC PRODUCT-NATIVE PROVEN candidate · REAL OUT · FinOps FREEZE · W4 OUT · runtime v3 NON ADOPTED
 
-## Fichiers exacts modifiés (correction only vs `84395e4065601088c8fe60bcda937004364db9a1`)
+## Fichiers exacts (correction vs parent)
 
 ```
 M	projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts
-M	projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
 M	projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
-M	projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
 
 ```
 
 ```
- .../w3cPostEvidenceCorrection.test.ts              | 244 +++++++++++++++++++++
- .../f3/postEvidenceNoraAnalysis.ts                 |  46 ++++
- .../w2/materializeW3bProductTerminal.ts            |  25 +--
- .../project-assistant/w2/w3cPostEvidenceLoop.ts    | 167 ++++++++++++--
- .../app/lib/platform/ai/fakeProvider.ts            |   5 +
- 5 files changed, 461 insertions(+), 26 deletions(-)
+ .../w3cPostEvidenceCorrection.test.ts              | 250 +++++++++++++++++----
+ .../project-assistant/w2/w3cPostEvidenceLoop.ts    | 130 +++++++----
+ 2 files changed, 300 insertions(+), 80 deletions(-)
 
 ```
 
 ## Réserves
 
-- Aucune nouvelle persistence structurante.
-- Fallback LPS lossy (pre-V1) conservé uniquement pour LPS legacy sans payload V1.
-- `NextActionCode` structurel stubbé en test via `replan_trajectory` (hors union D5 stricte) pour forcer le chemin structurel product-native ; recovery lit le payload exact durable, pas le stub.
-- W3-C **NOT CLOSED** ; W3 **NOT CLOSED**.
-- US-P1-09 / US-P1-14 / W3-D/E non touchés.
-
-## W3-B workspace control (anti cross-worktree)
-
-Workspace visuel W3-B (`/Users/morris/Projects/sfia-workspace`) :
-- branch : `delivery/sfia-studio-product-completion-w3-b-terminal-evidence`
-- HEAD : `ba7aa2db408b7fd00faf9638da060ce0833b794b`
-- Non muté par cette correction (pas de checkout/switch/stash/commit/discard)
+- ISSUE B : pas de signal D5 ProjectTrajectory structural replan — non inventé.
+- Arbitration/confirm product-path native requires maturityAssessmentId (hors scope W3-C input actuel) — mapping typé prouvé sans expansion D5/W3-C.
+- R14 mécanique partial-write conservée.
+- US-P1-09/14 / W3-D/E / C6 / W3-B / W4 untouched.
+- W3-C / W3 NOT CLOSED.
 
 ## Banner
 
-W3-C CORRECTION — PARTIAL-WRITE RECOVERY SEMANTICS — W3C-R14 PASS — W3C-R01…R13 REVALIDATED — W3C-P01…P12 REVALIDATED — EXACT RECOMMENDATION SEMANTICS PRESERVED ACROSS LPS-SUCCEEDED / EPISTEMIC-FAILED RETRY/RESTART — NO NORA RE-RUN — NO DUPLICATE LPS VERSION — STRUCTURAL REPLAN HUMAN-GATED — NO AUTO HUMANDECISION — NO AUTO TRAJECTORY MUTATION — NO PARALLEL ARCHITECTURE — W3-B CONSUMED / NOT REOPENED — C6 CONSUMED / NOT REOPENED — REAL OUT — FINOPS FREEZE — W4 OUT — W3-C NOT CLOSED — W3 NOT CLOSED — RUNTIME V3 NON ADOPTED — LOCAL PROJECT COMMIT ONLY — NO PROJECT PUSH / PR / MERGE — REVIEW HANDOFF REMOTE VERIFIED — AWAITING CHATGPT RE-REVIEW.
+W3-C CORRECTION — REAL D5 CONTRACT FIDELITY — ISSUE B — IMPOSSIBLE replan_trajectory REMOVED — TYPED NextActionCode MAPPING — NO as never — NO D5 EXPANSION — R15 PASS — R14 REVALIDATED — R01…R13 REVALIDATED — P01…P12 REVALIDATED — STRUCTURAL TRAJECTORY REPLAN NOT CLAIMED FROM D5 — W2 PROPOSE/DECIDE REMAINS HUMAN GATE — NO AUTO HD — NO AUTO TRAJECTORY — W3-B/C6 CONSUMED — REAL OUT — FINOPS FREEZE — W4 OUT — W3-C NOT CLOSED — W3 NOT CLOSED — RUNTIME V3 NON ADOPTED — LOCAL COMMIT ONLY — NO PROJECT PUSH/PR/MERGE — AWAITING CHATGPT RE-REVIEW.
 
 ---
 
-## Correction-only diff complet (`84395e4065601088c8fe60bcda937004364db9a1`..`a9e09ed6c475e17ba751e0ba717acc149b4e98c9`, -U80)
+## Correction-only diff (`a9e09ed6c475e17ba751e0ba717acc149b4e98c9`..`43ecc3351d0dcde1cadc98a9d734f8fa3c3dba0a`, app/**, -U80)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts
-index 170f8abe..cb6bcd82 100644
+index cb6bcd82..aa52da53 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts
-@@ -1,133 +1,136 @@
+@@ -1,110 +1,117 @@
  /**
   * W3-C convergence corrections B1–B6 — named R01–R13 coverage.
   * @vitest-environment node
@@ -209,10 +218,17 @@ index 170f8abe..cb6bcd82 100644
    materializeProductOutcomeFromAttempt,
    rehydrateProductOutcomeFromAttempt,
  } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
++import type {
++  CoordinationStatus,
++  NextActionCode,
++  AuthorityRequirementLevel,
++} from "@/lib/oa/evidence-review/domain/coordinationTypes";
  import {
-+  armW3cEpistemicMaterializeFailOnceForTests,
-+  clearW3cEpistemicMaterializeFailForTests,
+   armW3cEpistemicMaterializeFailOnceForTests,
++  classifyW3cD5NextAction,
+   clearW3cEpistemicMaterializeFailForTests,
    findExistingW3cPostEvidence,
++  recommendationFromOutcome,
    rehydrateW3cPostEvidenceFromLps,
    w3cRecommendationEpistemicId,
  } from "@/features/project-assistant/w2/w3cPostEvidenceLoop";
@@ -228,22 +244,22 @@ index 170f8abe..cb6bcd82 100644
    seedQualifiedProject,
    tempProductDbPath,
  } from "./w2Harness";
- 
+
  beforeEach(() => {
    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
    process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL = "1";
    setConversationProviderForTests(null);
    clearW3bBoundaryArm();
  });
- 
+
  afterEach(() => {
    clearW3bBoundaryArm();
-+  clearW3cEpistemicMaterializeFailForTests();
+   clearW3cEpistemicMaterializeFailForTests();
    cleanupW2TempDirs();
    setConversationProviderForTests(null);
    vi.restoreAllMocks();
  });
- 
+
  async function authorizeTempArtifact(suffix: string, dbPath?: string) {
    const db = dbPath ?? tempProductDbPath(`w3c-corr-${suffix}.sqlite`);
    const runtime = bootW2Runtime({
@@ -293,41 +309,12 @@ index 170f8abe..cb6bcd82 100644
    expect(prepared.ok).toBe(true);
    if (!prepared.ok) throw new Error(prepared.code);
    const executionContractId = prepared.contract.executionContractId;
-   await inspectExecutionContract({
-     oa,
-     projectId: seeded.projectId,
-     executionContractId,
-   });
-   const confirmed = await confirmExecutionContractForAuthorization({
-     oa,
-     projectId: seeded.projectId,
-     executionContractId,
-     forceLocalAuthority: true,
-   });
-   expect(confirmed.ok).toBe(true);
-   if (!confirmed.ok) throw new Error(confirmed.code);
-   const authorized = await evaluateExecutionAuthorization({
-     oa,
-     projectId: seeded.projectId,
-     executionContractId,
-     forceLocalAuthority: true,
-   });
-   expect(authorized.ok && authorized.outcome === "AUTHORIZED").toBe(true);
-   return {
-     oa,
-     seeded,
-     executionContractId,
-     db,
-     runtime,
-@@ -561,80 +564,321 @@ describe("W3C-R12 Nora-informed rationale", () => {
-       new FakeConversationProvider({
-         scripted: Array(32).fill("SCRIPT_NORA_VARIANT_ONE_ZZZ"),
-       }),
+@@ -567,318 +574,483 @@ describe("W3C-R12 Nora-informed rationale", () => {
      );
      const { materialized: matA } = await materializeSuccess(ctxA);
      expect(matA.postEvidence?.ok).toBe(true);
      if (!matA.postEvidence || !matA.postEvidence.ok) return;
- 
+
      const ctxB = await authorizeTempArtifact("r12b");
      setConversationProviderForTests(
        new FakeConversationProvider({
@@ -337,7 +324,7 @@ index 170f8abe..cb6bcd82 100644
      const { materialized: matB } = await materializeSuccess(ctxB);
      expect(matB.postEvidence?.ok).toBe(true);
      if (!matB.postEvidence || !matB.postEvidence.ok) return;
- 
+
      expect(matA.product.outcome).toBe("SUCCESS");
      expect(matB.product.outcome).toBe("SUCCESS");
      expect(matA.postEvidence.recommendation.rationale).toContain(
@@ -354,7 +341,7 @@ index 170f8abe..cb6bcd82 100644
      );
    });
  });
- 
+
  describe("W3C-R13 reservation presentation filter", () => {
    it("R13: filters historical W3-B reservation when postEvidence ok", () => {
      const reservations = [
@@ -369,14 +356,14 @@ index 170f8abe..cb6bcd82 100644
      expect(unfiltered).toContain("Apprentissage / replan non démarrés");
    });
  });
- 
+
  describe("W3C-R07 rehydrate binding sanity", () => {
    it("R07: rehydrate after materialize restores Epistemic-backed recommendation", async () => {
      const ctx = await authorizeTempArtifact("r07");
      const { attemptId, materialized } = await materializeSuccess(ctx);
      expect(materialized.postEvidence?.ok).toBe(true);
      if (!materialized.postEvidence || !materialized.postEvidence.ok) return;
- 
+
      const rehydrated = await rehydrateW3cPostEvidenceFromLps({
        oa: ctx.oa,
        projectId: ctx.seeded.projectId,
@@ -391,7 +378,7 @@ index 170f8abe..cb6bcd82 100644
      expect(rehydrated.recommendation.rationale).toBe(
        materialized.postEvidence.recommendation.rationale,
      );
- 
+
      const again = await rehydrateProductOutcomeFromAttempt({
        oa: ctx.oa,
        projectId: ctx.seeded.projectId,
@@ -400,757 +387,469 @@ index 170f8abe..cb6bcd82 100644
      expect(again.ok && again.postEvidence?.ok).toBe(true);
    });
  });
-+
-+
-+describe("W3C-R14 partial-write recovery", () => {
-+  it("R14: LPS success + Epistemic fail → retry exact structural Recommendation, no Nora/LPS duplicate", async () => {
-+    const ctx = await authorizeTempArtifact("r14");
-+    const fake = new FakeConversationProvider({
-+      scripted: Array(64).fill(
-+        "NORA_STRUCTURAL_R14_ANALYSIS — replan structurel recommandé.",
-+      ),
-+    });
-+    setConversationProviderForTests(fake);
-+
-+    const services = ctx.oa.evidenceReviewServices!;
-+    const originalExecute = services.recommendNextGate.execute.bind(
-+      services.recommendNextGate,
-+    );
-+    services.recommendNextGate.execute = (async (req: never) => {
-+      const result = await originalExecute(req);
-+      if (!result.ok) return result;
-+      return {
-+        ...result,
-+        coordination: {
-+          ...result.coordination,
-+          nextAction: {
-+            actionCode: "replan_trajectory" as never,
-+            reasons: ["W3C-R14 structural fault-injection stub"],
-+            authorityRequired: "human" as const,
-+          },
-+        },
-+      };
-+    }) as typeof services.recommendNextGate.execute;
-+
-+    const trajBefore =
-+      await ctx.oa.cycleServices!.getTrajectoryVersion.execute({
-+        projectId: ctx.seeded.projectId,
-+        version: ctx.decidedTrajectoryVersion,
-+      });
-+    expect(trajBefore.ok).toBe(true);
-+    if (!trajBefore.ok) throw new Error("traj");
-+
-+    armW3cEpistemicMaterializeFailOnceForTests();
-+    const { attemptId, materialized: first } = await materializeSuccess(ctx);
-+
-+    expect(first.postEvidence?.ok).toBe(false);
-+    if (!first.postEvidence || first.postEvidence.ok) {
-+      throw new Error("expected Epistemic fault-injected fail-closed");
+
+
+ describe("W3C-R14 partial-write recovery", () => {
+-  it("R14: LPS success + Epistemic fail → retry exact structural Recommendation, no Nora/LPS duplicate", async () => {
++  it("R14: LPS success + Epistemic fail → retry exact Recommendation (real D5), no Nora/LPS duplicate", async () => {
+     const ctx = await authorizeTempArtifact("r14");
+     const fake = new FakeConversationProvider({
+       scripted: Array(64).fill(
+-        "NORA_STRUCTURAL_R14_ANALYSIS — replan structurel recommandé.",
++        "NORA_R14_ANALYSIS — continuity after durable Evidence.",
+       ),
+     });
+     setConversationProviderForTests(fake);
+
+-    const services = ctx.oa.evidenceReviewServices!;
+-    const originalExecute = services.recommendNextGate.execute.bind(
+-      services.recommendNextGate,
+-    );
+-    services.recommendNextGate.execute = (async (req: never) => {
+-      const result = await originalExecute(req);
+-      if (!result.ok) return result;
+-      return {
+-        ...result,
+-        coordination: {
+-          ...result.coordination,
+-          nextAction: {
+-            actionCode: "replan_trajectory" as never,
+-            reasons: ["W3C-R14 structural fault-injection stub"],
+-            authorityRequired: "human" as const,
+-          },
+-        },
+-      };
+-    }) as typeof services.recommendNextGate.execute;
+-
+     const trajBefore =
+       await ctx.oa.cycleServices!.getTrajectoryVersion.execute({
+         projectId: ctx.seeded.projectId,
+         version: ctx.decidedTrajectoryVersion,
+       });
+     expect(trajBefore.ok).toBe(true);
+     if (!trajBefore.ok) throw new Error("traj");
+
+     armW3cEpistemicMaterializeFailOnceForTests();
+     const { attemptId, materialized: first } = await materializeSuccess(ctx);
+
+     expect(first.postEvidence?.ok).toBe(false);
+     if (!first.postEvidence || first.postEvidence.ok) {
+       throw new Error("expected Epistemic fault-injected fail-closed");
+     }
+     expect(first.postEvidence.code).toBe("W3C_EPISTEMIC_FAULT_INJECTED");
+     expect(first.product.evidenceId).toBeTruthy();
+     const evidenceId = first.product.evidenceId!;
+     const reviewBundleId = first.product.reviewBundleId!;
+     const noraCallsAfterFail = fake.getCallCountForTests();
+     expect(noraCallsAfterFail).toBeGreaterThan(0);
+
+     const lpsAfterFail =
+       await ctx.oa.projectServices!.getCurrentLivingProjectState.execute({
+         projectId: ctx.seeded.projectId,
+       });
+     expect(lpsAfterFail.ok).toBe(true);
+     if (!lpsAfterFail.ok) throw new Error("lps");
+     const lpsVersionAfterFail = lpsAfterFail.livingProjectState.version;
+     expect(lpsAfterFail.livingProjectState.evidenceIds ?? []).toContain(
+       evidenceId,
+     );
+     expect(lpsAfterFail.livingProjectState.context ?? "").toContain(
+       "[[W3C_POST_EVIDENCE_RECOMMENDATION_V1]]",
+     );
+-    expect(lpsAfterFail.livingProjectState.nextStep).toBe(
+-      "structural_replan_propose",
++    // Capture exact semantics from durable LPS V1 payload (real D5 — no invented codes).
++    const ctxJson = lpsAfterFail.livingProjectState.context ?? "";
++    const payloadMatch = ctxJson.match(
++      /\[\[W3C_POST_EVIDENCE_RECOMMENDATION_V1\]\]\n\[\[W3C_EVIDENCE:[^\]]+\]\]\n(\{[\s\S]*?\})(?:\n\[\[|$)/,
+     );
++    expect(payloadMatch).toBeTruthy();
++    const durablePayload = JSON.parse(payloadMatch![1]!) as {
++      recommendationKind: string;
++      requiresHumanDecision: boolean;
++      nextStep: string;
++      nextActionCode: string | null;
++      recommendNextGateStatus: string | null;
++      rationale: string;
++    };
++    expect(durablePayload.recommendationKind).not.toBe("replan");
++    expect(durablePayload.requiresHumanDecision).toBe(false);
++    expect(durablePayload.nextStep).not.toBe("structural_replan_propose");
++    if (durablePayload.nextActionCode) {
++      const allowed: NextActionCode[] = [
++        "complete_evidence",
++        "verify_evidence_integrity",
++        "freeze_review_bundle",
++        "complete_review",
++        "evaluate_claim",
++        "confirm_claim_evaluation",
++        "resolve_dispute",
++        "propose_maturity",
++        "confirm_maturity",
++        "downgrade_maturity",
++        "solicit_morris_arbitration",
++        "solicit_morris_go",
++      ];
++      expect(allowed).toContain(durablePayload.nextActionCode as NextActionCode);
 +    }
-+    expect(first.postEvidence.code).toBe("W3C_EPISTEMIC_FAULT_INJECTED");
-+    expect(first.product.evidenceId).toBeTruthy();
-+    const evidenceId = first.product.evidenceId!;
-+    const reviewBundleId = first.product.reviewBundleId!;
-+    const noraCallsAfterFail = fake.getCallCountForTests();
-+    expect(noraCallsAfterFail).toBeGreaterThan(0);
-+
-+    const lpsAfterFail =
-+      await ctx.oa.projectServices!.getCurrentLivingProjectState.execute({
-+        projectId: ctx.seeded.projectId,
-+      });
-+    expect(lpsAfterFail.ok).toBe(true);
-+    if (!lpsAfterFail.ok) throw new Error("lps");
-+    const lpsVersionAfterFail = lpsAfterFail.livingProjectState.version;
-+    expect(lpsAfterFail.livingProjectState.evidenceIds ?? []).toContain(
-+      evidenceId,
+
+     const epiAfterFail = await ctx.oa.cycleServices!.getEpistemicState.execute({
+       projectId: ctx.seeded.projectId,
+     });
+     expect(epiAfterFail.ok).toBe(true);
+     if (!epiAfterFail.ok) throw new Error("epi");
+     const epiId = w3cRecommendationEpistemicId(evidenceId);
+     expect(
+       epiAfterFail.state.items.find(
+         (i) => i.epistemicItemId === epiId && i.status === "active",
+       ),
+     ).toBeUndefined();
+
+-    // Retry same terminal (same Product SQLite / same attempt).
+     const retry = await materializeProductOutcomeFromAttempt({
+       oa: ctx.oa,
+       projectId: ctx.seeded.projectId,
+       attemptId,
+     });
+     expect(retry.ok).toBe(true);
+     if (!retry.ok) throw new Error(retry.code);
+     expect(retry.postEvidence?.ok).toBe(true);
+     if (!retry.postEvidence || !retry.postEvidence.ok) {
+       throw new Error("retry postEvidence expected ok");
+     }
+
+     expect(fake.getCallCountForTests()).toBe(noraCallsAfterFail);
+     expect(retry.product.evidenceId).toBe(evidenceId);
+     expect(retry.product.reviewBundleId).toBe(reviewBundleId);
+     expect(retry.postEvidence.evidenceId).toBe(evidenceId);
+     expect(retry.postEvidence.lpsVersion).toBe(lpsVersionAfterFail);
+-    expect(retry.postEvidence.recommendation.kind).toBe("replan");
+-    expect(retry.postEvidence.recommendation.requiresHumanDecision).toBe(true);
++    expect(retry.postEvidence.recommendation.kind).toBe(
++      durablePayload.recommendationKind,
 +    );
-+    expect(lpsAfterFail.livingProjectState.context ?? "").toContain(
-+      "[[W3C_POST_EVIDENCE_RECOMMENDATION_V1]]",
++    expect(retry.postEvidence.recommendation.requiresHumanDecision).toBe(
++      durablePayload.requiresHumanDecision,
 +    );
-+    expect(lpsAfterFail.livingProjectState.nextStep).toBe(
-+      "structural_replan_propose",
+     expect(retry.postEvidence.recommendation.nextStep).toBe(
+-      "structural_replan_propose",
++      durablePayload.nextStep,
+     );
+     expect(retry.postEvidence.recommendation.nextActionCode).toBe(
+-      "replan_trajectory",
++      durablePayload.nextActionCode,
 +    );
++    expect(retry.postEvidence.recommendation.recommendNextGateStatus).toBe(
++      durablePayload.recommendNextGateStatus,
+     );
+     expect(retry.postEvidence.recommendation.authority).toBe("none");
+     expect(retry.postEvidence.recommendation.gateConsumed).toBe(false);
+     expect(retry.postEvidence.recommendation.decisionCreated).toBe(false);
+     expect(
+       retry.postEvidence.recommendation.attemptAutoLaunchNextCycle,
+     ).toBe(false);
+-    expect(retry.postEvidence.analysisText).toContain("NORA_STRUCTURAL_R14");
++    expect(retry.postEvidence.analysisText).toContain("NORA_R14_ANALYSIS");
+     expect(retry.postEvidence.noraInvoked).toBe(true);
+     expect(retry.postEvidence.replanInvoked).toBe(false);
+
+     const lpsAfterRetry =
+       await ctx.oa.projectServices!.getCurrentLivingProjectState.execute({
+         projectId: ctx.seeded.projectId,
+       });
+     expect(lpsAfterRetry.ok).toBe(true);
+     if (!lpsAfterRetry.ok) throw new Error("lps2");
+     expect(lpsAfterRetry.livingProjectState.version).toBe(lpsVersionAfterFail);
+     const recoMarkers = (
+       lpsAfterRetry.livingProjectState.context?.match(
+         /\[\[W3C_POST_EVIDENCE_RECOMMENDATION_V1\]\]/g,
+       ) ?? []
+     ).length;
+     expect(recoMarkers).toBe(1);
+
+     const epiAfterRetry = await ctx.oa.cycleServices!.getEpistemicState.execute({
+       projectId: ctx.seeded.projectId,
+     });
+     expect(epiAfterRetry.ok).toBe(true);
+     if (!epiAfterRetry.ok) throw new Error("epi2");
+     const activeReco = epiAfterRetry.state.items.find(
+       (i) => i.epistemicItemId === epiId && i.status === "active",
+     );
+     expect(activeReco).toBeTruthy();
+     expect(activeReco!.type).toBe("Recommendation");
+
+-    // Second retry idempotent — still no Nora / no LPS bump / no HD.
+     const retry2 = await materializeProductOutcomeFromAttempt({
+       oa: ctx.oa,
+       projectId: ctx.seeded.projectId,
+       attemptId,
+     });
+     expect(retry2.ok && retry2.postEvidence?.ok).toBe(true);
+     if (!retry2.ok || !retry2.postEvidence || !retry2.postEvidence.ok) return;
+     expect(fake.getCallCountForTests()).toBe(noraCallsAfterFail);
+     expect(retry2.postEvidence.lpsVersion).toBe(lpsVersionAfterFail);
+-    expect(retry2.postEvidence.recommendation.kind).toBe("replan");
+-    expect(retry2.postEvidence.recommendation.requiresHumanDecision).toBe(true);
++    expect(retry2.postEvidence.recommendation.kind).toBe(
++      durablePayload.recommendationKind,
++    );
+     expect(retry2.postEvidence.recommendation.nextActionCode).toBe(
+-      "replan_trajectory",
++      durablePayload.nextActionCode,
+     );
+
+     const trajAfter =
+       await ctx.oa.cycleServices!.getTrajectoryVersion.execute({
+         projectId: ctx.seeded.projectId,
+         version: ctx.decidedTrajectoryVersion,
+       });
+     expect(trajAfter.ok).toBe(true);
+     if (!trajAfter.ok) return;
+     expect(trajAfter.trajectory.version).toBe(trajBefore.trajectory.version);
+     expect(trajAfter.trajectory.status).toBe(trajBefore.trajectory.status);
+
+-    // Restart path (rehydrate) preserves exact semantics.
+     const restarted = await rehydrateProductOutcomeFromAttempt({
+       oa: ctx.oa,
+       projectId: ctx.seeded.projectId,
+       attemptId,
+     });
+     expect(restarted.ok && restarted.postEvidence?.ok).toBe(true);
+     if (!restarted.ok || !restarted.postEvidence || !restarted.postEvidence.ok)
+       return;
+-    expect(restarted.postEvidence.recommendation.kind).toBe("replan");
+-    expect(restarted.postEvidence.recommendation.requiresHumanDecision).toBe(
+-      true,
++    expect(restarted.postEvidence.recommendation.kind).toBe(
++      durablePayload.recommendationKind,
+     );
+     expect(restarted.postEvidence.recommendation.nextActionCode).toBe(
+-      "replan_trajectory",
++      durablePayload.nextActionCode,
+     );
+     expect(fake.getCallCountForTests()).toBe(noraCallsAfterFail);
+   });
+
+   it("R14b: STOP non-structural partial-write keeps recover / requiresHumanDecision false", async () => {
+     const ctx = await authorizeTempArtifact("r14b");
+     const fake = new FakeConversationProvider({
+       scripted: Array(32).fill("NORA_STOP_R14B_RECOVER"),
+     });
+     setConversationProviderForTests(fake);
+     armW3bBoundary({
+       kind: "governed_stop",
+       stopCondition: "EXECUTOR_INSUFFICIENT",
+     });
+     armW3cEpistemicMaterializeFailOnceForTests();
+
+     const selected = await governedExecuteSelectAgent({
+       oa: ctx.oa,
+       projectId: ctx.seeded.projectId,
+       executionContractId: ctx.executionContractId,
+       forceLocalAuthority: true,
+     });
+     if (!selected.ok) throw new Error(selected.code);
+     const started = await governedExecuteStart({
+       oa: ctx.oa,
+       projectId: ctx.seeded.projectId,
+       executionContractId: ctx.executionContractId,
+       attemptId: selected.attemptId,
+       forceLocalAuthority: true,
+     });
+     if (!started.ok) throw new Error(started.code);
+
+     const first = await materializeProductOutcomeFromAttempt({
+       oa: ctx.oa,
+       projectId: ctx.seeded.projectId,
+       attemptId: started.attemptId,
+     });
+     expect(first.ok).toBe(true);
+     if (!first.ok) throw new Error(first.code);
+     expect(first.postEvidence?.ok).toBe(false);
+     const noraCalls = fake.getCallCountForTests();
+
+     const retry = await materializeProductOutcomeFromAttempt({
+       oa: ctx.oa,
+       projectId: ctx.seeded.projectId,
+       attemptId: started.attemptId,
+     });
+     expect(retry.ok && retry.postEvidence?.ok).toBe(true);
+     if (!retry.ok || !retry.postEvidence || !retry.postEvidence.ok) return;
+     expect(fake.getCallCountForTests()).toBe(noraCalls);
+     expect(retry.postEvidence.recommendation.kind).toBe("recover");
+     expect(retry.postEvidence.recommendation.requiresHumanDecision).toBe(false);
+     expect(retry.postEvidence.recommendation.decisionCreated).toBe(false);
+     expect(retry.postEvidence.recommendation.authority).toBe("none");
+   });
+ });
 +
-+    const epiAfterFail = await ctx.oa.cycleServices!.getEpistemicState.execute({
-+      projectId: ctx.seeded.projectId,
-+    });
-+    expect(epiAfterFail.ok).toBe(true);
-+    if (!epiAfterFail.ok) throw new Error("epi");
-+    const epiId = w3cRecommendationEpistemicId(evidenceId);
-+    expect(
-+      epiAfterFail.state.items.find(
-+        (i) => i.epistemicItemId === epiId && i.status === "active",
-+      ),
-+    ).toBeUndefined();
++describe("W3C-R15 real D5 contract fidelity", () => {
++  const ALL_NEXT_ACTIONS: readonly NextActionCode[] = [
++    "complete_evidence",
++    "verify_evidence_integrity",
++    "freeze_review_bundle",
++    "complete_review",
++    "evaluate_claim",
++    "confirm_claim_evaluation",
++    "resolve_dispute",
++    "propose_maturity",
++    "confirm_maturity",
++    "downgrade_maturity",
++    "solicit_morris_arbitration",
++    "solicit_morris_go",
++  ] as const;
 +
-+    // Retry same terminal (same Product SQLite / same attempt).
-+    const retry = await materializeProductOutcomeFromAttempt({
-+      oa: ctx.oa,
-+      projectId: ctx.seeded.projectId,
-+      attemptId,
-+    });
-+    expect(retry.ok).toBe(true);
-+    if (!retry.ok) throw new Error(retry.code);
-+    expect(retry.postEvidence?.ok).toBe(true);
-+    if (!retry.postEvidence || !retry.postEvidence.ok) {
-+      throw new Error("retry postEvidence expected ok");
++  const ALL_STATUSES: readonly CoordinationStatus[] = [
++    "blocked",
++    "not_recommended",
++    "requires_human_decision",
++    "gate_candidate",
++  ] as const;
++
++  const ALL_AUTH: readonly AuthorityRequirementLevel[] = [
++    "none",
++    "human",
++    "n2",
++    "n3",
++    "morris",
++  ] as const;
++
++  it("R15A: closed D5 unions — mapping never invents kind=replan / requiresHumanDecision", () => {
++    expect(ALL_STATUSES.length).toBe(4);
++    expect(ALL_AUTH.length).toBe(5);
++    for (const code of ALL_NEXT_ACTIONS) {
++      const cls = classifyW3cD5NextAction(code);
++      expect(cls).not.toBe("none");
++      for (const outcome of ["SUCCESS", "STOP", "FAIL"] as const) {
++        const rec = recommendationFromOutcome({
++          outcome,
++          recommendNextGateStatus: "requires_human_decision",
++          nextActionCode: code,
++        });
++        expect(rec.kind).not.toBe("replan");
++        expect(rec.requiresHumanDecision).toBe(false);
++        expect(rec.authority).toBe("none");
++        expect(rec.gateConsumed).toBe(false);
++        expect(rec.decisionCreated).toBe(false);
++        expect(rec.attemptAutoLaunchNextCycle).toBe(false);
++        expect(rec.nextStep).not.toBe("structural_replan_propose");
++        expect(rec.nextActionCode).toBe(code);
++      }
 +    }
-+
-+    expect(fake.getCallCountForTests()).toBe(noraCallsAfterFail);
-+    expect(retry.product.evidenceId).toBe(evidenceId);
-+    expect(retry.product.reviewBundleId).toBe(reviewBundleId);
-+    expect(retry.postEvidence.evidenceId).toBe(evidenceId);
-+    expect(retry.postEvidence.lpsVersion).toBe(lpsVersionAfterFail);
-+    expect(retry.postEvidence.recommendation.kind).toBe("replan");
-+    expect(retry.postEvidence.recommendation.requiresHumanDecision).toBe(true);
-+    expect(retry.postEvidence.recommendation.nextStep).toBe(
-+      "structural_replan_propose",
-+    );
-+    expect(retry.postEvidence.recommendation.nextActionCode).toBe(
-+      "replan_trajectory",
-+    );
-+    expect(retry.postEvidence.recommendation.authority).toBe("none");
-+    expect(retry.postEvidence.recommendation.gateConsumed).toBe(false);
-+    expect(retry.postEvidence.recommendation.decisionCreated).toBe(false);
-+    expect(
-+      retry.postEvidence.recommendation.attemptAutoLaunchNextCycle,
-+    ).toBe(false);
-+    expect(retry.postEvidence.analysisText).toContain("NORA_STRUCTURAL_R14");
-+    expect(retry.postEvidence.noraInvoked).toBe(true);
-+    expect(retry.postEvidence.replanInvoked).toBe(false);
-+
-+    const lpsAfterRetry =
-+      await ctx.oa.projectServices!.getCurrentLivingProjectState.execute({
-+        projectId: ctx.seeded.projectId,
-+      });
-+    expect(lpsAfterRetry.ok).toBe(true);
-+    if (!lpsAfterRetry.ok) throw new Error("lps2");
-+    expect(lpsAfterRetry.livingProjectState.version).toBe(lpsVersionAfterFail);
-+    const recoMarkers = (
-+      lpsAfterRetry.livingProjectState.context?.match(
-+        /\[\[W3C_POST_EVIDENCE_RECOMMENDATION_V1\]\]/g,
-+      ) ?? []
-+    ).length;
-+    expect(recoMarkers).toBe(1);
-+
-+    const epiAfterRetry = await ctx.oa.cycleServices!.getEpistemicState.execute({
-+      projectId: ctx.seeded.projectId,
-+    });
-+    expect(epiAfterRetry.ok).toBe(true);
-+    if (!epiAfterRetry.ok) throw new Error("epi2");
-+    const activeReco = epiAfterRetry.state.items.find(
-+      (i) => i.epistemicItemId === epiId && i.status === "active",
-+    );
-+    expect(activeReco).toBeTruthy();
-+    expect(activeReco!.type).toBe("Recommendation");
-+
-+    // Second retry idempotent — still no Nora / no LPS bump / no HD.
-+    const retry2 = await materializeProductOutcomeFromAttempt({
-+      oa: ctx.oa,
-+      projectId: ctx.seeded.projectId,
-+      attemptId,
-+    });
-+    expect(retry2.ok && retry2.postEvidence?.ok).toBe(true);
-+    if (!retry2.ok || !retry2.postEvidence || !retry2.postEvidence.ok) return;
-+    expect(fake.getCallCountForTests()).toBe(noraCallsAfterFail);
-+    expect(retry2.postEvidence.lpsVersion).toBe(lpsVersionAfterFail);
-+    expect(retry2.postEvidence.recommendation.kind).toBe("replan");
-+    expect(retry2.postEvidence.recommendation.requiresHumanDecision).toBe(true);
-+    expect(retry2.postEvidence.recommendation.nextActionCode).toBe(
-+      "replan_trajectory",
-+    );
-+
-+    const trajAfter =
-+      await ctx.oa.cycleServices!.getTrajectoryVersion.execute({
-+        projectId: ctx.seeded.projectId,
-+        version: ctx.decidedTrajectoryVersion,
-+      });
-+    expect(trajAfter.ok).toBe(true);
-+    if (!trajAfter.ok) return;
-+    expect(trajAfter.trajectory.version).toBe(trajBefore.trajectory.version);
-+    expect(trajAfter.trajectory.status).toBe(trajBefore.trajectory.status);
-+
-+    // Restart path (rehydrate) preserves exact semantics.
-+    const restarted = await rehydrateProductOutcomeFromAttempt({
-+      oa: ctx.oa,
-+      projectId: ctx.seeded.projectId,
-+      attemptId,
-+    });
-+    expect(restarted.ok && restarted.postEvidence?.ok).toBe(true);
-+    if (!restarted.ok || !restarted.postEvidence || !restarted.postEvidence.ok)
-+      return;
-+    expect(restarted.postEvidence.recommendation.kind).toBe("replan");
-+    expect(restarted.postEvidence.recommendation.requiresHumanDecision).toBe(
-+      true,
-+    );
-+    expect(restarted.postEvidence.recommendation.nextActionCode).toBe(
-+      "replan_trajectory",
-+    );
-+    expect(fake.getCallCountForTests()).toBe(noraCallsAfterFail);
++    // Non-union strings must not invent a D5 class (closed Record lookup).
++    expect(classifyW3cD5NextAction("not_a_d5_next_action_code")).toBe("none");
++    expect(classifyW3cD5NextAction("")).toBe("none");
 +  });
 +
-+  it("R14b: STOP non-structural partial-write keeps recover / requiresHumanDecision false", async () => {
-+    const ctx = await authorizeTempArtifact("r14b");
-+    const fake = new FakeConversationProvider({
-+      scripted: Array(32).fill("NORA_STOP_R14B_RECOVER"),
-+    });
-+    setConversationProviderForTests(fake);
-+    armW3bBoundary({
-+      kind: "governed_stop",
-+      stopCondition: "EXECUTOR_INSUFFICIENT",
-+    });
-+    armW3cEpistemicMaterializeFailOnceForTests();
++  it("R15B: confirm_maturity / confirm_claim_evaluation ≠ trajectory replan / HD", () => {
++    for (const code of [
++      "confirm_maturity",
++      "confirm_claim_evaluation",
++    ] as const satisfies readonly NextActionCode[]) {
++      expect(classifyW3cD5NextAction(code)).toBe("human_confirmation");
++      const rec = recommendationFromOutcome({
++        outcome: "SUCCESS",
++        recommendNextGateStatus: "requires_human_decision" satisfies CoordinationStatus,
++        nextActionCode: code,
++      });
++      expect(rec.kind).toBe("continue");
++      expect(rec.requiresHumanDecision).toBe(false);
++      expect(rec.nextStep).toBe("coordinate_human_confirmation");
++    }
++  });
 +
-+    const selected = await governedExecuteSelectAgent({
-+      oa: ctx.oa,
-+      projectId: ctx.seeded.projectId,
-+      executionContractId: ctx.executionContractId,
-+      forceLocalAuthority: true,
-+    });
-+    if (!selected.ok) throw new Error(selected.code);
-+    const started = await governedExecuteStart({
-+      oa: ctx.oa,
-+      projectId: ctx.seeded.projectId,
-+      executionContractId: ctx.executionContractId,
-+      attemptId: selected.attemptId,
-+      forceLocalAuthority: true,
-+    });
-+    if (!started.ok) throw new Error(started.code);
++  it("R15C: solicit_morris_arbitration (real D5 code) → Recommendation only, no traj HD", async () => {
++    // Native W3-C recommendNextGate inputs do not include maturityAssessmentId;
++    // openHardReservationRefs is only applied inside maturityAssessment branch in D5.
++    // Arbitration is therefore proven via typed real NextActionCode projection —
++    // not via inventing a non-union actionCode.
++    const auth: AuthorityRequirementLevel = "morris";
++    expect(auth).toBe("morris");
++    expect(classifyW3cD5NextAction("solicit_morris_arbitration")).toBe(
++      "morris_arbitration",
++    );
++    for (const outcome of ["SUCCESS", "STOP", "FAIL"] as const) {
++      const rec = recommendationFromOutcome({
++        outcome,
++        recommendNextGateStatus: "blocked" satisfies CoordinationStatus,
++        nextActionCode: "solicit_morris_arbitration" satisfies NextActionCode,
++      });
++      expect(rec.kind).not.toBe("replan");
++      expect(rec.requiresHumanDecision).toBe(false);
++      expect(rec.authority).toBe("none");
++      expect(rec.gateConsumed).toBe(false);
++      expect(rec.decisionCreated).toBe(false);
++      expect(rec.attemptAutoLaunchNextCycle).toBe(false);
++      expect(rec.nextActionCode).toBe("solicit_morris_arbitration");
++      if (outcome === "SUCCESS") {
++        expect(rec.kind).toBe("continue");
++        expect(rec.nextStep).toBe("coordinate_morris_arbitration");
++      } else {
++        expect(rec.kind).toBe("recover");
++      }
++    }
++  });
 +
-+    const first = await materializeProductOutcomeFromAttempt({
-+      oa: ctx.oa,
-+      projectId: ctx.seeded.projectId,
-+      attemptId: started.attemptId,
-+    });
-+    expect(first.ok).toBe(true);
-+    if (!first.ok) throw new Error(first.code);
-+    expect(first.postEvidence?.ok).toBe(false);
-+    const noraCalls = fake.getCallCountForTests();
++  it("R15D: product-path D5 nextAction stays non-structural (real union code)", async () => {
++    const ctx = await authorizeTempArtifact("r15d");
++    setConversationProviderForTests(
++      new FakeConversationProvider({
++        scripted: Array(32).fill("NORA_R15D_NON_STRUCTURAL"),
++      }),
++    );
++    const { materialized } = await materializeSuccess(ctx);
++    expect(materialized.postEvidence?.ok).toBe(true);
++    if (!materialized.postEvidence || !materialized.postEvidence.ok) return;
++    const code = materialized.postEvidence.recommendation.nextActionCode;
++    expect(code).toBeTruthy();
++    expect(ALL_NEXT_ACTIONS).toContain(code as NextActionCode);
++    // Observed reachable under current W3-C inputs: often verify_evidence_integrity
++    // (evidence available/not verified) — never a fictional trajectory replan code.
++    expect(classifyW3cD5NextAction(code)).toBe("non_structural_progress");
++    expect(materialized.postEvidence.recommendation.kind).toBe("continue");
++    expect(materialized.postEvidence.recommendation.requiresHumanDecision).toBe(
++      false,
++    );
++    expect(materialized.postEvidence.recommendation.authority).toBe("none");
++    expect(materialized.postEvidence.recommendation.decisionCreated).toBe(false);
++    expect(materialized.postEvidence.recommendation.nextStep).not.toBe(
++      "structural_replan_propose",
++    );
++  });
 +
-+    const retry = await materializeProductOutcomeFromAttempt({
-+      oa: ctx.oa,
-+      projectId: ctx.seeded.projectId,
-+      attemptId: started.attemptId,
++  it("R15E: solicit_morris_go / gate_candidate mapping ≠ auto decision", () => {
++    const rec = recommendationFromOutcome({
++      outcome: "SUCCESS",
++      recommendNextGateStatus: "gate_candidate" satisfies CoordinationStatus,
++      nextActionCode: "solicit_morris_go" satisfies NextActionCode,
 +    });
-+    expect(retry.ok && retry.postEvidence?.ok).toBe(true);
-+    if (!retry.ok || !retry.postEvidence || !retry.postEvidence.ok) return;
-+    expect(fake.getCallCountForTests()).toBe(noraCalls);
-+    expect(retry.postEvidence.recommendation.kind).toBe("recover");
-+    expect(retry.postEvidence.recommendation.requiresHumanDecision).toBe(false);
-+    expect(retry.postEvidence.recommendation.decisionCreated).toBe(false);
-+    expect(retry.postEvidence.recommendation.authority).toBe("none");
++    expect(classifyW3cD5NextAction("solicit_morris_go")).toBe("next_cycle_gate");
++    expect(rec.kind).toBe("continue");
++    expect(rec.requiresHumanDecision).toBe(false);
++    expect(rec.gateConsumed).toBe(false);
++    expect(rec.decisionCreated).toBe(false);
++    expect(rec.authority).toBe("none");
++    expect(rec.nextStep).toBe("coordinate_solicit_morris_go");
 +  });
 +});
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
-index 649297a4..3d12c519 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
-@@ -1,92 +1,95 @@
- /**
-  * GAP-4 — bounded post-Evidence Nora/provider analysis.
-  * Uses resolveConversationProvider() only. Never instantiates OpenAI here.
-  * Result is a Recommendation, never a HumanDecision / GO / new contract.
-  */
- 
- import { resolveConversationProvider } from "@/lib/platform/ai";
- 
- export const POST_EVIDENCE_NORA_SENTINEL =
-   "[[SFIA_POST_EVIDENCE_NORA_ANALYSIS]]" as const;
- export const POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL =
-   "[[SFIA_POST_EVIDENCE_NORA_UNAVAILABLE]]" as const;
-+/** Exact post-Evidence Recommendation payload — durable in existing LPS context. */
-+export const W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL =
-+  "[[W3C_POST_EVIDENCE_RECOMMENDATION_V1]]" as const;
- 
- export type PostEvidenceAnalysisFacts = {
-   projectId: string;
-   executionContractId: string;
-   executionContractStatus: string;
-   executionContractAction: string;
-   attemptId: string;
-   attemptStatus: string;
-   selectedAgentRef: string;
-   adapterRef: string;
-   executionMode: string;
-   realProcessInvoked: boolean;
-   evidenceId: string;
-   reviewBundleId: string;
-   technicalResultRef: string | null;
-   reservations: readonly string[];
-   processRef?: string;
-   exitCode?: number | null;
-   timedOut?: boolean;
-   durationMs?: number;
-   stdout?: string;
-   stderr?: string;
- };
- 
- export type PostEvidenceAnalysisResult =
-   | {
-       ok: true;
-       text: string;
-       providerId: string;
-     }
-   | {
-       ok: false;
-       code: "POST_EVIDENCE_ANALYSIS_UNAVAILABLE";
-       message: string;
-       providerId: string | null;
-     };
- 
- const ANALYSIS_SYSTEM = `Tu es Nora, analyste post-exécution SFIA Studio.
- Tu produis UNIQUEMENT une recommandation non autoritaire à partir des faits durables fournis.
- Interdit:
- - créer une HumanDecision;
- - transformer la recommandation en GO Morris;
- - lancer un ExecutionContract / Attempt;
- - demander des secrets;
- - inventer une preuve REAL.
- Réponds en français, court, factuel.`;
- 
- function boundedFactsJson(facts: PostEvidenceAnalysisFacts): string {
-   return JSON.stringify({
-     projectId: facts.projectId,
-     executionContractId: facts.executionContractId,
-     executionContractStatus: facts.executionContractStatus,
-     executionContractAction: facts.executionContractAction,
-     attemptId: facts.attemptId,
-     attemptStatus: facts.attemptStatus,
-     selectedAgentRef: facts.selectedAgentRef,
-     adapterRef: facts.adapterRef,
-     executionMode: facts.executionMode,
-     realProcessInvoked: facts.realProcessInvoked,
-     evidenceId: facts.evidenceId,
-     reviewBundleId: facts.reviewBundleId,
-     technicalResultRef: facts.technicalResultRef,
-     reservations: [...facts.reservations],
-     processRef: facts.processRef,
-     exitCode: facts.exitCode,
-     timedOut: facts.timedOut,
-     durationMs: facts.durationMs,
-     stdout: facts.stdout,
-     stderr: facts.stderr,
-   });
- }
- 
- export async function analyzePostEvidenceWithProvider(
-   facts: PostEvidenceAnalysisFacts,
- ): Promise<PostEvidenceAnalysisResult> {
-   let providerId: string | null = null;
-   try {
-     const provider = resolveConversationProvider();
-     providerId = provider.providerId;
-     const completion = await provider.complete([
-@@ -98,160 +101,203 @@ export async function analyzePostEvidenceWithProvider(
-     ]);
-     const text = completion.text.trim();
-     if (!text) {
-       return {
-         ok: false,
-         code: "POST_EVIDENCE_ANALYSIS_UNAVAILABLE",
-         message: "Provider post-Evidence a renvoyé un texte vide.",
-         providerId,
-       };
-     }
-     return { ok: true, text: text.slice(0, 4000), providerId };
-   } catch (err) {
-     const message =
-       err instanceof Error ? err.message : "provider_post_evidence_failed";
-     return {
-       ok: false,
-       code: "POST_EVIDENCE_ANALYSIS_UNAVAILABLE",
-       message,
-       providerId,
-     };
-   }
- }
- 
- /** Evidence-scoped LPS marker — binds Nora text to a specific W3-B evidenceId. */
- export function w3cEvidenceLpsMarker(evidenceId: string): string {
-   return `[[W3C_EVIDENCE:${evidenceId}]]`;
- }
- 
- export function formatPostEvidenceAnalysisForLps(input: {
-   analysisText?: string | null;
-   unavailableReason?: string | null;
-   /** When set, scopes the LPS sentinel block to this evidenceId (W3-C). */
-   evidenceId?: string | null;
- }): string | undefined {
-   const evidenceLine =
-     input.evidenceId && input.evidenceId.trim()
-       ? `${w3cEvidenceLpsMarker(input.evidenceId.trim())}\n`
-       : "";
-   if (input.analysisText && input.analysisText.trim()) {
-     return `${POST_EVIDENCE_NORA_SENTINEL}\n${evidenceLine}${input.analysisText.trim()}`;
-   }
-   if (input.unavailableReason) {
-     return `${POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL}\n${evidenceLine}${input.unavailableReason}`;
-   }
-   return undefined;
- }
- 
- /**
-  * Last matching post-Evidence Nora block for a specific evidenceId.
-  * Never returns another evidence's analysis (STALE binding guard at call site).
-  */
- export function extractW3cPostEvidenceAnalysisForEvidence(
-   context: string | undefined,
-   evidenceId: string,
- ): {
-   analysisText: string | null;
-   analysisUnavailableReason: string | null;
-   matchedEvidenceId: string | null;
- } {
-   if (!context || !evidenceId) {
-     return {
-       analysisText: null,
-       analysisUnavailableReason: null,
-       matchedEvidenceId: null,
-     };
-   }
-   const marker = w3cEvidenceLpsMarker(evidenceId);
-   const availableNeedle = `${POST_EVIDENCE_NORA_SENTINEL}\n${marker}`;
-   const unavailableNeedle = `${POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL}\n${marker}`;
-   const availableIdx = context.lastIndexOf(availableNeedle);
-   const unavailableIdx = context.lastIndexOf(unavailableNeedle);
- 
-   const sliceAfter = (idx: number, needle: string): string => {
-     const start = idx + needle.length;
-     const rest = context.slice(start);
-     // Truncate at next sibling sentinel if present.
-     const nextAvail = rest.indexOf(`\n${POST_EVIDENCE_NORA_SENTINEL}`);
-     const nextUnavail = rest.indexOf(
-       `\n${POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL}`,
-     );
-+    const nextReco = rest.indexOf(
-+      `\n${W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL}`,
-+    );
-     let end = rest.length;
-     if (nextAvail >= 0) end = Math.min(end, nextAvail);
-     if (nextUnavail >= 0) end = Math.min(end, nextUnavail);
-+    if (nextReco >= 0) end = Math.min(end, nextReco);
-     return rest.slice(0, end).trim();
-   };
- 
-   if (availableIdx >= 0 && availableIdx > unavailableIdx) {
-     const text = sliceAfter(availableIdx, availableNeedle);
-     return {
-       analysisText: text.length > 0 ? text : null,
-       analysisUnavailableReason: null,
-       matchedEvidenceId: evidenceId,
-     };
-   }
-   if (unavailableIdx >= 0) {
-     const text = sliceAfter(unavailableIdx, unavailableNeedle);
-     return {
-       analysisText: null,
-       analysisUnavailableReason: text.length > 0 ? text : "unavailable",
-       matchedEvidenceId: evidenceId,
-     };
-   }
-   return {
-     analysisText: null,
-     analysisUnavailableReason: null,
-     matchedEvidenceId: null,
-   };
- }
- 
- /** Last Nora block in LPS context (any evidence) — legacy / unscoped. */
- export function extractPostEvidenceAnalysisFromLpsContext(
-   context: string | undefined,
- ): {
-   analysisText: string | null;
-   analysisUnavailableReason: string | null;
- } {
-   if (!context) {
-     return { analysisText: null, analysisUnavailableReason: null };
-   }
-   const unavailableIdx = context.lastIndexOf(
-     POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL,
-   );
-   const availableIdx = context.lastIndexOf(POST_EVIDENCE_NORA_SENTINEL);
-   if (availableIdx >= 0 && availableIdx > unavailableIdx) {
-     const text = context
-       .slice(availableIdx + POST_EVIDENCE_NORA_SENTINEL.length)
-       .trim();
-     // Strip leading evidence marker if present.
-     const cleaned = text.replace(/^\[\[W3C_EVIDENCE:[^\]]+\]\]\s*/u, "").trim();
-     return {
-       analysisText: cleaned.length > 0 ? cleaned : null,
-       analysisUnavailableReason: null,
-     };
-   }
-   if (unavailableIdx >= 0) {
-     const text = context
-       .slice(unavailableIdx + POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL.length)
-       .trim();
-     const cleaned = text.replace(/^\[\[W3C_EVIDENCE:[^\]]+\]\]\s*/u, "").trim();
-     return {
-       analysisText: null,
-       analysisUnavailableReason: cleaned.length > 0 ? cleaned : "unavailable",
-     };
-   }
-   return { analysisText: null, analysisUnavailableReason: null };
- }
- 
- /** Detect which evidenceId owns the last LPS Nora block (if marked). */
- export function lastW3cEvidenceIdInLpsContext(
-   context: string | undefined,
- ): string | null {
-   if (!context) return null;
-   const re = /\[\[W3C_EVIDENCE:([^\]]+)\]\]/g;
-   let last: string | null = null;
-   let m: RegExpExecArray | null;
-   while ((m = re.exec(context)) !== null) {
-     last = m[1] ?? null;
-   }
-   return last;
- }
-+
-+/**
-+ * Durable exact Recommendation JSON in existing LPS context (no new table).
-+ * Bound to evidenceId so restart cannot reuse another terminal's semantics.
-+ */
-+export function formatW3cRecommendationPayloadForLps(input: {
-+  evidenceId: string;
-+  payloadJson: string;
-+}): string {
-+  const evidenceId = input.evidenceId.trim();
-+  const json = input.payloadJson.trim();
-+  return `${W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL}\n${w3cEvidenceLpsMarker(evidenceId)}\n${json}`;
-+}
-+
-+/**
-+ * Extract exact Recommendation payload JSON for a specific evidenceId from LPS.
-+ * Returns null when absent (legacy LPS without V1 block).
-+ */
-+export function extractW3cRecommendationPayloadJsonForEvidence(
-+  context: string | undefined,
-+  evidenceId: string,
-+): string | null {
-+  if (!context || !evidenceId) return null;
-+  const marker = w3cEvidenceLpsMarker(evidenceId);
-+  const needle = `${W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL}\n${marker}\n`;
-+  const idx = context.lastIndexOf(needle);
-+  if (idx < 0) return null;
-+  const rest = context.slice(idx + needle.length);
-+  const nextSentinelCandidates = [
-+    rest.indexOf(`\n${POST_EVIDENCE_NORA_SENTINEL}`),
-+    rest.indexOf(`\n${POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL}`),
-+    rest.indexOf(`\n${W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL}`),
-+  ].filter((i) => i >= 0);
-+  const end = nextSentinelCandidates.length
-+    ? Math.min(...nextSentinelCandidates)
-+    : rest.length;
-+  const json = rest.slice(0, end).trim();
-+  return json.length > 0 ? json : null;
-+}
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-index f7ee909a..8ec81e9e 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-@@ -232,174 +232,173 @@ export async function materializeW3bProductTerminal(input: {
-   }
- 
-   const evaluated = await services.evaluateContractResult.execute({
-     claimEvaluationId: ids.claimEvaluationId,
-     idempotencyKey: ids.claimEvaluationIdempotencyKey,
-     actor: LOCAL_PILOTE_ACTOR,
-     contract,
-     attempt: {
-       attemptId: attempt.attemptId,
-       executionContractId: attempt.executionContractId,
-       executionContractVersion: attempt.executionContractVersion,
-       executionContractSemanticFingerprint:
-         attempt.executionContractSemanticFingerprint,
-       boundExecutionContract: attempt.boundExecutionContract,
-       status: attempt.status,
-       resultRef: attempt.resultRef,
-       errorRef: attempt.errorRef,
-       stopReason: attempt.stopReason,
-       cancelledAt: attempt.cancelledAt,
-       failedAt: attempt.failedAt,
-       timedOutAt: attempt.timedOutAt,
-       stopOrigin: attempt.stopOrigin,
-       stopCode: attempt.stopCode,
-       stopSourceRef: attempt.stopSourceRef,
-       stopObservedAt: attempt.stopObservedAt,
-       completedAt: attempt.completedAt,
-       selectedAgentRef: attempt.selectedAgentRef,
-     },
-     evidence: ingested.evidence,
-     reviewBundle: frozenReviewBundle,
-   });
- 
-     if (!evaluated.ok) {
-       // Surface shape reason in test/dev failures.
-       const detail = evaluated.error.internalCauseRef ?? evaluated.error.message;
-       return {
-         ok: false,
-         code: evaluated.error.detailCode,
-         message: detail,
-       product: projectFromFacts({
-         attempt,
-         contract,
-         evidence: ingested.evidence,
-         reviewBundle: frozenReviewBundle,
-         claimEvaluation: evaluated.claimEvaluation ?? null,
-       }),
-     };
-   }
- 
-   const product = projectFromFacts({
-     attempt,
-     contract,
-     evidence: ingested.evidence,
-     reviewBundle: frozenReviewBundle,
-     claimEvaluation: evaluated.claimEvaluation,
-   });
- 
-   const reusedFromIdempotency = Boolean(
-     ingested.reusedFromIdempotencyKey ||
-       bundle.reusedFromIdempotencyKey ||
-       freezeReusedFromIdempotencyKey ||
-       evaluated.reusedFromIdempotencyKey,
-   );
- 
-   // B2 — prefer existing Epistemic / rehydrate before Nora + LPS append.
-   if (product.evidenceId) {
-     const existing = await findExistingW3cPostEvidence({
-       oa: input.oa,
-       projectId: input.projectId,
-       evidenceId: product.evidenceId,
-       attemptId: attempt.attemptId,
-     });
-     if (existing) {
-       return {
-         ok: true,
-         reusedFromIdempotency,
-         product,
-         postEvidence: existing,
-       };
-     }
--    if (reusedFromIdempotency) {
--      const rehydrated = await rehydrateW3cPostEvidenceFromLps({
--        oa: input.oa,
--        projectId: input.projectId,
-+    // Prefer LPS exact / Epistemic rehydrate before Nora+LPS (covers partial-write).
-+    const rehydrated = await rehydrateW3cPostEvidenceFromLps({
-+      oa: input.oa,
-+      projectId: input.projectId,
-+      product,
-+    });
-+    if (rehydrated.ok) {
-+      return {
-+        ok: true,
-+        reusedFromIdempotency,
-         product,
--      });
--      if (rehydrated.ok) {
--        return {
--          ok: true,
--          reusedFromIdempotency,
--          product,
--          postEvidence: rehydrated,
--        };
--      }
-+        postEvidence: rehydrated,
-+      };
-     }
-   }
- 
-   const postEvidence = await runW3cPostEvidenceLoop({
-     oa: input.oa,
-     projectId: input.projectId,
-     attemptId: attempt.attemptId,
-     product,
-   });
- 
-   return {
-     ok: true,
-     reusedFromIdempotency,
-     product,
-     postEvidence,
-   };
- }
- 
- export async function rehydrateW3bProductTerminal(input: {
-   readonly oa: RuntimeOaStack;
-   readonly projectId: string;
-   readonly attemptId: string;
- }): Promise<MaterializeW3bProductTerminalResult> {
-   const loaded = await loadAttemptAndContract(input);
-   if (!loaded.ok) return loaded;
-   const { attempt, contract } = loaded;
-   const ids = w3bEvidenceIdentity(attempt.attemptId);
-   const services = input.oa.evidenceReviewServices!;
- 
-   const evidence = await services.evidenceReader.findById(ids.evidenceId);
-   const reviewBundle = await services.reviewBundleReader.findById(
-     ids.reviewBundleId,
-   );
-   const claimEvaluation = await services.claimEvaluationReader.findById(
-     ids.claimEvaluationId,
-   );
- 
-   if (!evidence || !reviewBundle || !claimEvaluation) {
-     return {
-       ok: false,
-       code: "PRODUCT_TERMINAL_NOT_DURABLE",
-       message:
-         "Evidence / ReviewBundle / Contract Result CE absents — aucun claim reconstruit.",
-     };
-   }
- 
-   if (evidence.bindings.projectId && evidence.bindings.projectId !== input.projectId) {
-     return {
-       ok: false,
-       code: "PROJECT_MISMATCH",
-       message: "Evidence liée à un autre projet.",
-     };
-   }
-   if (evidence.bindings.executionAttemptId !== input.attemptId) {
-     return {
-       ok: false,
-       code: "ATTEMPT_BINDING_MISMATCH",
-       message: "Evidence liée à un autre Attempt.",
-     };
-   }
- 
-   const product = projectFromFacts({
-     attempt,
-     contract,
-     evidence,
-     reviewBundle,
-     claimEvaluation,
-   });
- 
-   const postEvidence = await rehydrateW3cPostEvidenceFromLps({
-     oa: input.oa,
-     projectId: input.projectId,
-     product,
-   });
- 
-   return {
-     ok: true,
-     reusedFromIdempotency: true,
-     product,
-     postEvidence,
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
-index cb176946..4d37e556 100644
+index 4d37e556..dc9b67b0 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
-@@ -1,179 +1,202 @@
+@@ -1,289 +1,337 @@
  /**
   * W3-C — Post-Evidence loop after W3-B terminal materialize.
   * Consumes durable Evidence / RB / CE (no re-ingest). Recommendation only —
   * never HumanDecision, never auto trajectory mutation, never auto new cycle.
   *
-  * Structural HumanDecision only via explicit W2 propose + decide — Recovery
-  * CTA ≠ automatic HD (requiresHumanDecision false on STOP/FAIL/fail_closed
-  * unless coordination nextAction clearly indicates structural replan).
+- * Structural HumanDecision only via explicit W2 propose + decide — Recovery
+- * CTA ≠ automatic HD (requiresHumanDecision false on STOP/FAIL/fail_closed
+- * unless coordination nextAction clearly indicates structural replan).
++ * HumanDecision of trajectory only via explicit W2 propose + decide — Recovery
++ * CTA ≠ automatic HD. D5 NextActionCode has no ProjectTrajectory replan signal;
++ * W3-C never invents kind:"replan" / requiresHumanDecision from D5 alone.
   */
- 
+
  import { createHash } from "node:crypto";
  import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
  import type { EpistemicItem } from "@/lib/oa/cycle";
@@ -1160,19 +859,20 @@ index cb176946..4d37e556 100644
  import {
    analyzePostEvidenceWithProvider,
    extractW3cPostEvidenceAnalysisForEvidence,
-+  extractW3cRecommendationPayloadJsonForEvidence,
+   extractW3cRecommendationPayloadJsonForEvidence,
    formatPostEvidenceAnalysisForLps,
-+  formatW3cRecommendationPayloadForLps,
+   formatW3cRecommendationPayloadForLps,
    lastW3cEvidenceIdInLpsContext,
  } from "@/features/project-assistant/f3/postEvidenceNoraAnalysis";
++import type { NextActionCode } from "@/lib/oa/evidence-review/domain/coordinationTypes";
  import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
- 
+
  export type W3cRecommendationKind =
    | "continue"
    | "recover"
    | "replan"
    | "fail_closed";
- 
+
  export type W3cPostEvidenceRecommendation = {
    kind: W3cRecommendationKind;
    headline: string;
@@ -1187,7 +887,7 @@ index cb176946..4d37e556 100644
    recommendNextGateStatus: string | null;
    nextActionCode: string | null;
  };
- 
+
  export type W3cPostEvidenceLoopSuccess = {
    ok: true;
    noraInvoked: boolean;
@@ -1202,11 +902,11 @@ index cb176946..4d37e556 100644
    claimEvaluationId: string | null;
    productOutcome: "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED";
  };
- 
+
  export type W3cPostEvidenceLoopResult =
    | W3cPostEvidenceLoopSuccess
    | { ok: false; code: string; message: string; failClosed: true };
- 
+
  export type W3cRecommendationPayload = {
    kind: W3cRecommendationKind;
    headline: string;
@@ -1230,39 +930,39 @@ index cb176946..4d37e556 100644
    noraInvoked: boolean;
    lpsVersion: number | null;
  };
- 
+
  const ANTI_AUTHORITY = {
    authority: "none" as const,
    gateConsumed: false as const,
    decisionCreated: false as const,
    attemptAutoLaunchNextCycle: false as const,
  };
- 
+
  const NORA_RATIONALE_BOUND = 1200;
  const W3C_SOURCE_PREFIX = "w3c-post-evidence:";
  const W3C_EPI_ID_PREFIX = "epi:w3c-rec:";
- 
-+/** Test-only: fail Epistemic materialize once AFTER LPS success (W3C-R14). */
-+let __w3cEpistemicMaterializeFailArmed = false;
-+
-+export function armW3cEpistemicMaterializeFailOnceForTests(): void {
-+  if (process.env.VITEST !== "true" && process.env.NODE_ENV !== "test") {
-+    return;
-+  }
-+  __w3cEpistemicMaterializeFailArmed = true;
-+}
-+
-+export function clearW3cEpistemicMaterializeFailForTests(): void {
-+  __w3cEpistemicMaterializeFailArmed = false;
-+}
-+
-+function consumeW3cEpistemicMaterializeFailArmed(): boolean {
-+  if (!__w3cEpistemicMaterializeFailArmed) return false;
-+  __w3cEpistemicMaterializeFailArmed = false;
-+  return true;
-+}
-+
-+
+
+ /** Test-only: fail Epistemic materialize once AFTER LPS success (W3C-R14). */
+ let __w3cEpistemicMaterializeFailArmed = false;
+
+ export function armW3cEpistemicMaterializeFailOnceForTests(): void {
+   if (process.env.VITEST !== "true" && process.env.NODE_ENV !== "test") {
+     return;
+   }
+   __w3cEpistemicMaterializeFailArmed = true;
+ }
+
+ export function clearW3cEpistemicMaterializeFailForTests(): void {
+   __w3cEpistemicMaterializeFailArmed = false;
+ }
+
+ function consumeW3cEpistemicMaterializeFailArmed(): boolean {
+   if (!__w3cEpistemicMaterializeFailArmed) return false;
+   __w3cEpistemicMaterializeFailArmed = false;
+   return true;
+ }
+
+
  /** Deterministic Epistemic Recommendation id for a W3-B evidenceId. */
  export function w3cRecommendationEpistemicId(evidenceId: string): string {
    const digest = createHash("sha256")
@@ -1271,932 +971,264 @@ index cb176946..4d37e556 100644
      .slice(0, 16);
    return `${W3C_EPI_ID_PREFIX}${digest}`;
  }
- 
+
  function failClosed(
    code: string,
    message: string,
  ): Extract<W3cPostEvidenceLoopResult, { ok: false }> {
    return { ok: false, code, message, failClosed: true };
  }
- 
+
  /**
-  * Structural replan signal from RecommendNextGate coordination — only then
-  * kind:"replan" + requiresHumanDecision:true. Default recovery stays HD-free;
-  * structural HD only via explicit W2 propose + decide.
+- * Structural replan signal from RecommendNextGate coordination — only then
+- * kind:"replan" + requiresHumanDecision:true. Default recovery stays HD-free;
+- * structural HD only via explicit W2 propose + decide.
++ * Closed D5 NextActionCode → W3-C action class.
++ * ISSUE B — no D5 code means ProjectTrajectory structural replan.
++ * Trajectory replan remains W2 propose + explicit HumanDecision only.
   */
- function isStructuralReplanNextAction(actionCode: string | null): boolean {
-   if (!actionCode) return false;
-   const lower = actionCode.toLowerCase();
-   return lower.includes("replan") || lower.includes("trajectory");
+-function isStructuralReplanNextAction(actionCode: string | null): boolean {
+-  if (!actionCode) return false;
+-  const lower = actionCode.toLowerCase();
+-  return lower.includes("replan") || lower.includes("trajectory");
++export type W3cD5ActionClass =
++  | "non_structural_progress"
++  | "human_confirmation"
++  | "morris_arbitration"
++  | "next_cycle_gate"
++  | "none";
++
++const W3C_D5_NEXT_ACTION_CLASS: Record<NextActionCode, W3cD5ActionClass> = {
++  complete_evidence: "non_structural_progress",
++  verify_evidence_integrity: "non_structural_progress",
++  freeze_review_bundle: "non_structural_progress",
++  complete_review: "non_structural_progress",
++  evaluate_claim: "non_structural_progress",
++  resolve_dispute: "non_structural_progress",
++  propose_maturity: "non_structural_progress",
++  downgrade_maturity: "non_structural_progress",
++  confirm_claim_evaluation: "human_confirmation",
++  confirm_maturity: "human_confirmation",
++  solicit_morris_arbitration: "morris_arbitration",
++  solicit_morris_go: "next_cycle_gate",
++};
++
++export function classifyW3cD5NextAction(
++  actionCode: string | null,
++): W3cD5ActionClass {
++  if (!actionCode) return "none";
++  if (Object.prototype.hasOwnProperty.call(W3C_D5_NEXT_ACTION_CLASS, actionCode)) {
++    return W3C_D5_NEXT_ACTION_CLASS[actionCode as NextActionCode];
++  }
++  // Unknown / non-D5 code — never invent structural trajectory replan.
++  return "none";
++}
++
++function nextStepForOutcomeAndClass(
++  outcome: "SUCCESS" | "STOP" | "FAIL",
++  actionClass: W3cD5ActionClass,
++): string {
++  if (actionClass === "human_confirmation") {
++    return outcome === "SUCCESS"
++      ? "coordinate_human_confirmation"
++      : "recovery_coordinate_human_confirmation";
++  }
++  if (actionClass === "morris_arbitration") {
++    return outcome === "SUCCESS"
++      ? "coordinate_morris_arbitration"
++      : "recovery_coordinate_morris_arbitration";
++  }
++  if (actionClass === "next_cycle_gate") {
++    return "coordinate_solicit_morris_go";
++  }
++  if (outcome === "SUCCESS") return "continue_with_recommendation";
++  if (outcome === "STOP") return "recovery_requalify";
++  return "recovery_diagnose_or_replan";
  }
- 
- function recommendationFromOutcome(input: {
+
+-function recommendationFromOutcome(input: {
++/**
++ * Project durable product outcome + real D5 coordination onto a Recommendation.
++ * Never invents kind:"replan" from D5 (no trajectory replan code in NextActionCode).
++ * requiresHumanDecision stays false — D5 confirmation/arbitration/gate ≠ W2 HD.
++ */
++export function recommendationFromOutcome(input: {
    outcome: "SUCCESS" | "STOP" | "FAIL";
    recommendNextGateStatus: string | null;
    nextActionCode: string | null;
  }): W3cPostEvidenceRecommendation {
-   const structural = isStructuralReplanNextAction(input.nextActionCode);
- 
+-  const structural = isStructuralReplanNextAction(input.nextActionCode);
++  const actionClass = classifyW3cD5NextAction(input.nextActionCode);
++  const nextStep = nextStepForOutcomeAndClass(input.outcome, actionClass);
+
    if (input.outcome === "SUCCESS") {
++    const headline =
++      actionClass === "human_confirmation"
++        ? "Confirmation humaine de coordination recommandée"
++        : actionClass === "morris_arbitration"
++          ? "Arbitrage Morris de coordination recommandé"
++          : actionClass === "next_cycle_gate"
++            ? "Gate Morris next-cycle recommandé (non consommé)"
++            : "Continuer avec la recommandation";
      return {
-       kind: structural ? "replan" : "continue",
-       headline: structural
-         ? "Replan structurel recommandé (après coordination)"
-         : "Continuer avec la recommandation",
+-      kind: structural ? "replan" : "continue",
+-      headline: structural
+-        ? "Replan structurel recommandé (après coordination)"
+-        : "Continuer avec la recommandation",
+-      rationale:
+-        "Succès produit durable — recommandation non autoritaire ; replan structurel uniquement via propose + decide explicites.",
+-      nextStep: structural
+-        ? "structural_replan_propose"
+-        : "continue_with_recommendation",
+-      // SUCCESS default false; structural path needs explicit W2 HD after propose.
+-      requiresHumanDecision: structural,
+-      ...ANTI_AUTHORITY,
+-      recommendNextGateStatus: input.recommendNextGateStatus,
+-      nextActionCode: input.nextActionCode,
+-    };
+-  }
+-
+-  if (structural) {
+-    return {
+-      kind: "replan",
+-      headline: "Replan structurel après terminal",
++      kind: "continue",
++      headline,
        rationale:
-         "Succès produit durable — recommandation non autoritaire ; replan structurel uniquement via propose + decide explicites.",
-       nextStep: structural
-         ? "structural_replan_propose"
-         : "continue_with_recommendation",
-       // SUCCESS default false; structural path needs explicit W2 HD after propose.
-       requiresHumanDecision: structural,
+-        "Coordination indique un replan structurel — HumanDecision uniquement via propose + decide W2 explicites.",
+-      nextStep: "structural_replan_propose",
+-      requiresHumanDecision: true,
++        "Succès produit durable — Recommendation non autoritaire. " +
++        "D5 confirmation/arbitration/gate ≠ HumanDecision de trajectoire ; " +
++        "replan ProjectTrajectory uniquement via W2 propose + decide explicites.",
++      nextStep,
++      requiresHumanDecision: false,
        ...ANTI_AUTHORITY,
        recommendNextGateStatus: input.recommendNextGateStatus,
        nextActionCode: input.nextActionCode,
      };
    }
- 
-   if (structural) {
-     return {
-       kind: "replan",
-       headline: "Replan structurel après terminal",
-       rationale:
-         "Coordination indique un replan structurel — HumanDecision uniquement via propose + decide W2 explicites.",
-       nextStep: "structural_replan_propose",
-       requiresHumanDecision: true,
-       ...ANTI_AUTHORITY,
-       recommendNextGateStatus: input.recommendNextGateStatus,
-       nextActionCode: input.nextActionCode,
-     };
-   }
- 
+
    if (input.outcome === "STOP") {
      return {
        kind: "recover",
        headline: "Requalification après arrêt gouverné",
        rationale:
-         "Arrêt gouverné durable — Recovery ≠ HumanDecision automatique ; propose + decide explicites pour replan structurel.",
-       nextStep: "recovery_requalify",
-       // Recovery CTA is consumable without automatic HD.
+-        "Arrêt gouverné durable — Recovery ≠ HumanDecision automatique ; propose + decide explicites pour replan structurel.",
+-      nextStep: "recovery_requalify",
+-      // Recovery CTA is consumable without automatic HD.
++        "Arrêt gouverné durable — Recovery ≠ HumanDecision automatique ; " +
++        "D5 ne prouve pas un replan ProjectTrajectory ; propose + decide W2 explicites pour toute adoption de trajectoire.",
++      nextStep,
        requiresHumanDecision: false,
        ...ANTI_AUTHORITY,
        recommendNextGateStatus: input.recommendNextGateStatus,
        nextActionCode: input.nextActionCode,
      };
-@@ -406,166 +429,236 @@ function successFromPayload(
-       rationale: payload.rationale,
-       nextStep: payload.nextStep,
-       requiresHumanDecision: payload.requiresHumanDecision,
-       ...ANTI_AUTHORITY,
-       recommendNextGateStatus: payload.recommendNextGateStatus,
-       nextActionCode: payload.nextActionCode,
-     },
-     lpsVersion: payload.lpsVersion,
-     evidenceId: payload.evidenceId,
-     reviewBundleId: payload.reviewBundleId,
-     claimEvaluationId: payload.claimEvaluationId,
-     productOutcome: payload.productOutcome,
-   };
- }
- 
- function itemBindsEvidenceAndAttempt(
-   item: EpistemicItem,
-   evidenceId: string,
-   attemptId: string,
- ): boolean {
-   const related = item.relatedObjects ?? [];
-   const hasEvidence = related.includes(evidenceId);
-   const hasAttempt =
-     related.includes(attemptId) || related.includes(`attempt:${attemptId}`);
-   if (hasEvidence && hasAttempt) return true;
-   const parsed = parseW3cRecommendationPayload(item.statement);
-   return (
-     parsed !== null &&
-     parsed.evidenceId === evidenceId &&
-     parsed.attemptId === attemptId
-   );
- }
- 
- /**
-  * Look up an active Epistemic W3-C recommendation bound to evidenceId+attemptId.
-  */
- export async function findExistingW3cPostEvidence(input: {
-   readonly oa: RuntimeOaStack;
-   readonly projectId: string;
-   readonly evidenceId: string;
-   readonly attemptId: string;
- }): Promise<W3cPostEvidenceLoopSuccess | null> {
-   if (!input.oa.cycleServices) return null;
-   const epistemic = await input.oa.cycleServices.getEpistemicState.execute({
-     projectId: input.projectId,
-   });
-   if (!epistemic.ok) return null;
- 
-   const deterministicId = w3cRecommendationEpistemicId(input.evidenceId);
-   const byId = epistemic.state.items.find(
-     (i) =>
-       i.epistemicItemId === deterministicId &&
-       i.status === "active" &&
-       isW3cPostEvidenceItem(i),
-   );
-   const candidate =
-     byId ??
-     epistemic.state.items.find(
-       (i) =>
-         i.status === "active" &&
-         isW3cPostEvidenceItem(i) &&
-         itemBindsEvidenceAndAttempt(i, input.evidenceId, input.attemptId),
-     );
-   if (!candidate) return null;
-   if (
-     !itemBindsEvidenceAndAttempt(candidate, input.evidenceId, input.attemptId)
-   ) {
-     return null;
    }
-   const payload = parseW3cRecommendationPayload(candidate.statement);
-   if (!payload) return null;
-   if (
-     payload.evidenceId !== input.evidenceId ||
-     payload.attemptId !== input.attemptId
-   ) {
-     return null;
-   }
-   return successFromPayload(payload);
- }
- 
-+/**
-+ * Option A+B — exact Recommendation from durable LPS V1 payload.
-+ * No Nora re-run, no LPS re-append. Caller may repair Epistemic via existing service.
-+ */
-+export async function recoverExactRecommendationFromLps(input: {
-+  readonly oa: RuntimeOaStack;
-+  readonly projectId: string;
-+  readonly attemptId: string;
-+  readonly product: W3BProductTerminalProjection;
-+}): Promise<W3cPostEvidenceLoopSuccess | null> {
-+  const { oa, projectId, attemptId, product } = input;
-+  if (!product.evidenceId || !product.reviewBundleId) return null;
-+  if (
-+    product.outcome !== "SUCCESS" &&
-+    product.outcome !== "STOP" &&
-+    product.outcome !== "FAIL"
-+  ) {
-+    return null;
-+  }
-+  if (!oa.projectServices) return null;
-+
-+  const current = await oa.projectServices.getCurrentLivingProjectState.execute({
-+    projectId,
-+  });
-+  if (!current.ok) return null;
-+  const lps = current.livingProjectState;
-+  const evidenceIds = lps.evidenceIds ?? [];
-+  if (!evidenceIds.includes(product.evidenceId)) return null;
-+
-+  const json = extractW3cRecommendationPayloadJsonForEvidence(
-+    lps.context,
-+    product.evidenceId,
-+  );
-+  if (!json) return null;
-+
-+  const payload = parseW3cRecommendationPayload(json);
-+  if (!payload) return null;
-+  if (payload.evidenceId !== product.evidenceId) return null;
-+  if (payload.attemptId !== attemptId) return null;
-+  if (payload.reviewBundleId !== product.reviewBundleId) return null;
-+  if (payload.productOutcome !== product.outcome) return null;
-+
-+  return successFromPayload({
-+    ...payload,
-+    // Prefer live LPS version after partial write (payload may store null).
-+    lpsVersion: payload.lpsVersion ?? lps.version,
-+  });
-+}
-+
-+async function repairEpistemicFromRecoveredSuccess(input: {
-+  readonly oa: RuntimeOaStack;
-+  readonly projectId: string;
-+  readonly attemptId: string;
-+  readonly success: W3cPostEvidenceLoopSuccess;
-+}): Promise<W3cPostEvidenceLoopSuccess> {
-+  const epi = await materializeW3cRecommendationEpistemic(input);
-+  // Exact LPS semantics already durable — Epistemic repair is best-effort on retry.
-+  // Do not fail-closed again and trap the operator after honest first-write failure.
-+  void epi;
-+  return input.success;
-+}
-+
- async function materializeW3cRecommendationEpistemic(input: {
-   readonly oa: RuntimeOaStack;
-   readonly projectId: string;
-   readonly attemptId: string;
-   readonly success: W3cPostEvidenceLoopSuccess;
- }): Promise<{ ok: true } | { ok: false; code: string; message: string }> {
-+  if (consumeW3cEpistemicMaterializeFailArmed()) {
-+    return {
-+      ok: false,
-+      code: "W3C_EPISTEMIC_FAULT_INJECTED",
-+      message:
-+        "Fault injection — Epistemic materialization failed after LPS write (W3C-R14).",
-+    };
-+  }
-   if (!input.oa.cycleServices) {
-     return {
-       ok: false,
-       code: "CYCLE_SERVICES_UNAVAILABLE",
-       message: "CycleServices indisponibles pour Epistemic W3-C.",
-     };
-   }
-   const evidenceId = input.success.evidenceId;
-   const epistemicId = w3cRecommendationEpistemicId(evidenceId);
-   const epistemic = await input.oa.cycleServices.getEpistemicState.execute({
-     projectId: input.projectId,
-   });
-   if (!epistemic.ok) {
-     return {
-       ok: false,
-       code: epistemic.error.detailCode,
-       message: epistemic.error.message,
-     };
-   }
- 
-   // B4 W3C-R09: supersede ALL other active w3c-post-evidence recommendations
-   // for this project when a new terminal becomes current.
-   const priorActives = epistemic.state.items.filter(
-     (i) =>
-       i.status === "active" &&
-       isW3cPostEvidenceItem(i) &&
-       i.epistemicItemId !== epistemicId,
-   );
-   const sameEvidencePrior = epistemic.state.items.find(
-     (i) =>
-       i.status === "active" &&
-       i.epistemicItemId === epistemicId &&
-       isW3cPostEvidenceItem(i),
-   );
- 
-   const payload = buildPayloadFromSuccess(input.success, input.attemptId);
-   const relatedObjects = [
-     input.projectId,
-     input.attemptId,
-     `attempt:${input.attemptId}`,
-     evidenceId,
-     input.success.reviewBundleId,
-     ...(input.success.claimEvaluationId
-       ? [input.success.claimEvaluationId]
-       : []),
-   ];
- 
-   const primarySupersedes =
-     sameEvidencePrior && sameEvidencePrior.epistemicItemId !== epistemicId
-       ? sameEvidencePrior.epistemicItemId
-       : priorActives[0]?.epistemicItemId;
- 
-   const items: Array<{
-     epistemicItemId: string;
-     type: "Recommendation" | "Observation";
-     statement: string;
-     status: "active";
-     source: string;
-     relatedObjects: string[];
-     supersedes?: string;
-   }> = [
-     {
-       epistemicItemId: epistemicId,
-       type: "Recommendation",
-       statement: serializePayload(payload),
-       status: "active",
-       source: `${W3C_SOURCE_PREFIX}${evidenceId}`,
-       relatedObjects,
-       ...(primarySupersedes ? { supersedes: primarySupersedes } : {}),
-     },
-   ];
- 
-   // Additional priors (beyond the one linked via primary supersedes).
-   const remaining = priorActives.filter(
-     (p) => p.epistemicItemId !== primarySupersedes,
-   );
-   for (const prior of remaining) {
-     const retireDigest = createHash("sha256")
-       .update(`${prior.epistemicItemId}:${evidenceId}`)
-       .digest("hex")
-@@ -593,160 +686,177 @@ async function materializeW3cRecommendationEpistemic(input: {
-   });
-   if (!updated.ok) {
-     return {
-       ok: false,
-       code: updated.error.detailCode,
-       message: updated.error.message,
-     };
-   }
-   return { ok: true };
- }
- 
- /**
-  * Reconstruct success from Epistemic (any status) bound to this product.
-  */
- async function loadEpistemicPayloadForProduct(input: {
-   readonly oa: RuntimeOaStack;
-   readonly projectId: string;
-   readonly product: W3BProductTerminalProjection;
-   readonly attemptId?: string;
- }): Promise<W3cRecommendationPayload | null> {
-   if (!input.oa.cycleServices || !input.product.evidenceId) return null;
-   const epistemic = await input.oa.cycleServices.getEpistemicState.execute({
-     projectId: input.projectId,
-   });
-   if (!epistemic.ok) return null;
- 
-   const deterministicId = w3cRecommendationEpistemicId(
-     input.product.evidenceId,
-   );
-   const byId = epistemic.state.items.find(
-     (i) => i.epistemicItemId === deterministicId && isW3cPostEvidenceItem(i),
-   );
-   const attemptId =
-     input.attemptId ?? input.product.technicalDetail.attemptId;
-   const byRelated = epistemic.state.items.find(
-     (i) =>
-       isW3cPostEvidenceItem(i) &&
-       itemBindsEvidenceAndAttempt(i, input.product.evidenceId!, attemptId),
-   );
-   const item = byId ?? byRelated;
-   if (!item) return null;
-   const payload = parseW3cRecommendationPayload(item.statement);
-   if (!payload) return null;
-   if (payload.evidenceId !== input.product.evidenceId) return null;
-   if (attemptId && payload.attemptId !== attemptId) return null;
-   return payload;
- }
- 
- export async function runW3cPostEvidenceLoop(input: {
-   readonly oa: RuntimeOaStack;
-   readonly projectId: string;
-   readonly attemptId: string;
-   readonly product: W3BProductTerminalProjection;
- }): Promise<W3cPostEvidenceLoopResult> {
-   const { oa, projectId, attemptId, product } = input;
- 
-   if (product.outcome === "UNCLAIMED") {
-     return failClosed(
-       "PRODUCT_UNCLAIMED",
-       "Résultat produit non claimable — boucle post-Evidence refusée.",
-     );
-   }
-   if (!product.evidenceId || !product.reviewBundleId) {
-     return failClosed(
-       "EVIDENCE_REFS_MISSING",
-       "Evidence / ReviewBundle absents sur le produit W3-B — fail-closed.",
-     );
-   }
- 
-   // B2 defense in depth — existing Epistemic → reconstruct, no Nora / LPS append.
-   const existing = await findExistingW3cPostEvidence({
-     oa,
-     projectId,
-     evidenceId: product.evidenceId,
-     attemptId,
-   });
-   if (existing) {
-     return existing;
-   }
- 
-+  // Partial-write recovery: LPS exact payload present, Epistemic missing.
-+  // Reconstruct exact Recommendation — no Nora re-run, no LPS re-append.
-+  const recovered = await recoverExactRecommendationFromLps({
-+    oa,
-+    projectId,
-+    attemptId,
-+    product,
-+  });
-+  if (recovered) {
-+    return repairEpistemicFromRecoveredSuccess({
-+      oa,
-+      projectId,
-+      attemptId,
-+      success: recovered,
-+    });
-+  }
-+
-   const services = oa.evidenceReviewServices;
-   if (!services) {
-     return failClosed(
-       "EVIDENCE_STACK_UNAVAILABLE",
-       "Services Evidence indisponibles.",
-     );
-   }
- 
-   // 1. Validate Evidence / RB / CE
-   const evidence = await services.evidenceReader.findById(product.evidenceId);
-   const reviewBundle = await services.reviewBundleReader.findById(
-     product.reviewBundleId,
-   );
-   if (!evidence || !reviewBundle) {
-     return failClosed(
-       "EVIDENCE_OR_RB_MISSING",
-       "Evidence ou ReviewBundle W3-B introuvable — fail-closed.",
-     );
-   }
-   if (
-     evidence.bindings.projectId &&
-     evidence.bindings.projectId !== projectId
-   ) {
-     return failClosed(
-       "EVIDENCE_PROJECT_MISMATCH",
-       "Evidence liée à un autre projet.",
-     );
-   }
-   if (reviewBundle.projectId !== projectId) {
-     return failClosed(
-       "REVIEW_BUNDLE_PROJECT_MISMATCH",
-       "ReviewBundle liée à un autre projet.",
-     );
-   }
-   if (
-     reviewBundle.status !== "ready_for_review" &&
-     !reviewBundle.frozenAt
-   ) {
-     return failClosed(
-       "REVIEW_BUNDLE_NOT_FROZEN",
-       "ReviewBundle non figée — fail-closed.",
-     );
-   }
- 
-   let claimEvaluation = null;
-   if (product.claimEvaluationId) {
-     claimEvaluation = await services.claimEvaluationReader.findById(
-       product.claimEvaluationId,
-     );
-   }
- 
-   if (product.outcome === "SUCCESS") {
-     if (!claimEvaluation) {
-       return failClosed(
-         "CLAIM_EVALUATION_MISSING",
-         "SUCCESS exige une ClaimEvaluation durable.",
-       );
-     }
-     if (claimEvaluation.status !== "pass" || !product.claimAllowed) {
-       return failClosed(
-         "CLAIM_NOT_PASSED",
-         "SUCCESS sans claim pass / claimAllowed — fail-closed.",
-       );
-     }
-   }
- 
-   const claimEvaluationRefs = claimEvaluation
-     ? [{ id: claimEvaluation.claimEvaluationId, version: claimEvaluation.version }]
-     : undefined;
- 
-   // 2. RecommendNextGate
-   const recommended = await services.recommendNextGate.execute({
-     projectId,
-     subjectRef:
-       evidence.bindings.executionContractId ??
-       product.technicalDetail.executionContractId,
-     evidenceRefs: [{ id: evidence.evidenceId, version: evidence.version }],
-     reviewBundleRefs: [
-       { id: reviewBundle.reviewBundleId, version: reviewBundle.version },
-     ],
-@@ -777,243 +887,274 @@ export async function runW3cPostEvidenceLoop(input: {
-     });
-   }
- 
-   // 3. Nora analyzePostEvidenceWithProvider
-   let analysisText: string | null = null;
-   let analysisUnavailableReason: string | null = null;
-   let analysisProviderId: string | null = null;
-   let noraInvoked = false;
- 
-   let contractStatus = "unknown";
-   let contractAction = "unknown";
-   let attemptStatus = product.technicalDetail.attemptStatus;
-   let selectedAgentRef = "unknown";
-   let adapterRef = "adp:unknown";
-   let executionMode = "unknown";
-   let realProcessInvoked = false;
- 
-   if (oa.executionAttemptServices) {
-     const loaded = await oa.executionAttemptServices.getExecutionAttempt.execute({
-       attemptId,
-     });
-     if (loaded.ok) {
-       attemptStatus = loaded.attempt.status;
-       selectedAgentRef = loaded.attempt.selectedAgentRef;
-       const agent = oa.executionAttemptServices.registry.getAgent(
-         loaded.attempt.selectedAgentRef,
-       );
-       const provenance = deriveAttemptProvenance({
-         attempt: loaded.attempt,
-         agent,
-       });
-       adapterRef = provenance.adapterRef;
-       executionMode = provenance.executionMode;
-       realProcessInvoked = provenance.realProcessInvoked;
-     }
-   }
-   if (oa.executionContractServices) {
-     const loaded =
-       await oa.executionContractServices.getExecutionContract.execute({
-         executionContractId: product.technicalDetail.executionContractId,
-       });
-     if (loaded.ok) {
-       contractStatus = loaded.contract.status;
-       contractAction = loaded.contract.action;
-     }
-   }
- 
-   noraInvoked = true;
-   const analysis = await analyzePostEvidenceWithProvider({
-     projectId,
-     executionContractId: product.technicalDetail.executionContractId,
-     executionContractStatus: contractStatus,
-     executionContractAction: contractAction,
-     attemptId,
-     attemptStatus,
-     selectedAgentRef,
-     adapterRef,
-     executionMode,
-     realProcessInvoked,
-     evidenceId: product.evidenceId,
-     reviewBundleId: product.reviewBundleId,
-     technicalResultRef: product.technicalDetail.resultRef,
-     reservations: product.reservations,
-   });
-   if (analysis.ok) {
-     analysisText = analysis.text;
-     analysisProviderId = analysis.providerId;
-   } else {
-     // Never invent Nora analysis when unavailable.
-     analysisUnavailableReason = analysis.message;
-     analysisProviderId = analysis.providerId;
-   }
- 
-   // 4. Build recommendation from outcome + coordination + Nora
-   const recommendation = enrichRecommendationWithNora(baseRecommendation, {
-     ok: analysis.ok,
-     text: analysis.ok ? analysis.text : undefined,
-     message: analysis.ok ? undefined : analysis.message,
-   });
- 
--  const analysisNote = formatPostEvidenceAnalysisForLps({
-+  // Provisional success (lpsVersion filled after durable LPS append).
-+  const successDraft: W3cPostEvidenceLoopSuccess = {
-+    ok: true,
-+    noraInvoked,
-+    replanInvoked: false,
-+    analysisText,
-+    analysisUnavailableReason,
-+    analysisProviderId,
-+    recommendation,
-+    lpsVersion: null,
-+    evidenceId: product.evidenceId,
-+    reviewBundleId: product.reviewBundleId,
-+    claimEvaluationId: product.claimEvaluationId,
-+    productOutcome: product.outcome,
-+  };
-+
-+  // Exact Recommendation payload in existing LPS context (Option A).
-+  const payloadForLps = buildPayloadFromSuccess(successDraft, attemptId);
-+  const noraNote = formatPostEvidenceAnalysisForLps({
-     ...(analysis.ok
-       ? { analysisText: analysis.text }
-       : { unavailableReason: analysis.message }),
-     evidenceId: product.evidenceId,
-   });
-+  const recoNote = formatW3cRecommendationPayloadForLps({
-+    evidenceId: product.evidenceId,
-+    payloadJson: serializePayload(payloadForLps),
-+  });
-+  const analysisNote = [noraNote, recoNote].filter(Boolean).join("\n\n");
- 
-   let lpsVersion: number | null = null;
-   if (oa.projectServices) {
-     const linked = await appendEvidenceOutcomeToLps({
-       projectId,
-       evidenceId: product.evidenceId,
-       reviewBundleId: product.reviewBundleId,
-       projectServices: oa.projectServices,
-       analysisNote,
-       nextStep: recommendation.nextStep,
-     });
-     if (!linked.ok) {
-       return failClosed(linked.code, linked.message);
-     }
-     lpsVersion = linked.lpsVersion;
-   }
- 
-   const success: W3cPostEvidenceLoopSuccess = {
--    ok: true,
--    noraInvoked,
--    replanInvoked: false,
--    analysisText,
--    analysisUnavailableReason,
--    analysisProviderId,
--    recommendation,
-+    ...successDraft,
-     lpsVersion,
--    evidenceId: product.evidenceId,
--    reviewBundleId: product.reviewBundleId,
--    claimEvaluationId: product.claimEvaluationId,
--    productOutcome: product.outcome,
-   };
- 
-   const epi = await materializeW3cRecommendationEpistemic({
-     oa,
-     projectId,
-     attemptId,
-     success,
-   });
-   if (!epi.ok) {
-+    // Honest first-write fail-closed after durable LPS — retry reconstructs from LPS V1.
-     return failClosed(epi.code, epi.message);
-   }
- 
-   return success;
- }
- 
- export async function rehydrateW3cPostEvidenceFromLps(input: {
-   readonly oa: RuntimeOaStack;
-   readonly projectId: string;
-   readonly product: W3BProductTerminalProjection;
- }): Promise<W3cPostEvidenceLoopResult> {
-   const { oa, projectId, product } = input;
- 
-   if (!product.evidenceId || !product.reviewBundleId) {
-     return failClosed(
-       "EVIDENCE_REFS_MISSING",
-       "Produit sans refs Evidence/RB — rehydrate post-Evidence refuse.",
-     );
-   }
-   if (product.outcome === "UNCLAIMED") {
-     return failClosed(
-       "PRODUCT_UNCLAIMED",
-       "UNCLAIMED — pas de boucle post-Evidence à rehydrater.",
-     );
-   }
- 
-   // PRIMARY: Epistemic Recommendation (even superseded) bound to this evidence.
-   const payload = await loadEpistemicPayloadForProduct({
-     oa,
-     projectId,
-     product,
-     attemptId: product.technicalDetail.attemptId,
-   });
-   if (payload) {
-     return successFromPayload(payload);
-   }
- 
--  // Fallback: evidence-scoped LPS extract — never return B's analysis for A.
-+  // Exact LPS V1 payload (partial-write recovery) before any lossy rebuild.
-+  const exact = await recoverExactRecommendationFromLps({
-+    oa,
-+    projectId,
-+    attemptId: product.technicalDetail.attemptId,
-+    product,
-+  });
-+  if (exact) {
-+    return repairEpistemicFromRecoveredSuccess({
-+      oa,
-+      projectId,
-+      attemptId: product.technicalDetail.attemptId,
-+      success: exact,
-+    });
-+  }
-+
-+  // Legacy fallback: evidence-scoped LPS Nora extract — never return B's analysis for A.
-+  // Lossy on gate fields — only when V1 payload absent (pre-correction LPS).
-   if (!oa.projectServices) {
-     return failClosed(
-       "PROJECT_SERVICES_UNAVAILABLE",
-       "ProjectServices indisponibles pour rehydrate LPS.",
-     );
-   }
- 
-   const current = await oa.projectServices.getCurrentLivingProjectState.execute({
-     projectId,
-   });
-   if (!current.ok) {
-     return failClosed(current.error.detailCode, current.error.message);
-   }
- 
-   const lps = current.livingProjectState;
-   const evidenceIds = lps.evidenceIds ?? [];
-   if (!evidenceIds.includes(product.evidenceId)) {
-     return failClosed(
-       "LPS_EVIDENCE_REF_MISSING",
-       "LPS sans evidenceId W3-B pour ce produit — fail-closed.",
-     );
-   }
- 
-   const lastEvidence = lastW3cEvidenceIdInLpsContext(lps.context);
-   if (lastEvidence && lastEvidence !== product.evidenceId) {
-     return failClosed(
-       "STALE_POST_EVIDENCE_BINDING",
-       "LPS post-Evidence lié à une autre Evidence — fail-closed (pas de réemploi d'analyse).",
-     );
-   }
- 
-   const scoped = extractW3cPostEvidenceAnalysisForEvidence(
-     lps.context,
-     product.evidenceId,
-   );
-   if (!scoped.matchedEvidenceId) {
-     // Unscoped legacy LPS: only accept if last marker absent or matches.
-     if (lastEvidence && lastEvidence !== product.evidenceId) {
-       return failClosed(
-         "STALE_POST_EVIDENCE_BINDING",
-         "Analyse LPS non scopée à cette Evidence — fail-closed.",
-       );
-     }
-   }
- 
-   if (
-     product.outcome !== "SUCCESS" &&
-     product.outcome !== "STOP" &&
-     product.outcome !== "FAIL"
-   ) {
-     return failClosed(
-       "RECOMMENDATION_UNRECONSTRUCTIBLE",
-       "Impossible de reconstruire la recommandation depuis le produit / LPS.",
-     );
-   }
- 
-   const built = recommendationFromOutcome({
-     outcome: product.outcome,
-     recommendNextGateStatus: null,
-     nextActionCode: null,
-   });
-   const recommendation =
-     lps.nextStep && lps.nextStep.trim()
-       ? { ...built, nextStep: lps.nextStep.trim() }
-       : built;
- 
    return {
-     ok: true,
-     // Fidelity: never invent Nora — only from scoped extract.
-     noraInvoked: Boolean(scoped.analysisText),
-     replanInvoked: false,
-     analysisText: scoped.analysisText,
-     analysisUnavailableReason: scoped.analysisUnavailableReason,
-     analysisProviderId: null,
-     recommendation,
-     lpsVersion: lps.version,
-     evidenceId: product.evidenceId,
-     reviewBundleId: product.reviewBundleId,
-     claimEvaluationId: product.claimEvaluationId,
-     productOutcome: product.outcome,
-diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-index c9e5894a..793c550e 100644
---- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-+++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-@@ -1,127 +1,132 @@
- import type { ToolDefinition } from "../tools/types";
- import type {
-   ConversationProvider,
-   ProviderChatMessage,
-   ProviderCompletionResult,
-   ProviderInputItem,
-   ProviderRoundResult,
-   ProviderToolCall,
- } from "./types";
- 
- export type FakeToolScriptRound =
-   | { kind: "message"; text: string }
-   | { kind: "tool_calls"; toolCalls: ProviderToolCall[] };
- 
- /**
-  * Deterministic fake provider for unit/E2E non-live tests.
-  * Never presented as live GPT; replies are tagged TEST/FAKE.
-  */
- export class FakeConversationProvider implements ConversationProvider {
-   readonly providerId = "fake-test";
-   private callCount = 0;
-   private roundCount = 0;
-   private readonly scripted?: string[];
-   private readonly failOnCall?: number;
-   private readonly toolScript?: FakeToolScriptRound[];
- 
-   constructor(options?: {
-     scripted?: string[];
-     failOnCall?: number;
-     toolScript?: FakeToolScriptRound[];
-   }) {
-     this.scripted = options?.scripted;
-     this.failOnCall = options?.failOnCall;
-     this.toolScript = options?.toolScript;
+     kind: "recover",
+     headline: "Diagnostiquer ou replanifier après échec",
+     rationale:
+-      "Échec technique durable — Recovery ≠ HumanDecision automatique ; replan structurel uniquement via propose + decide.",
+-    nextStep: "recovery_diagnose_or_replan",
++      "Échec technique durable — Recovery ≠ HumanDecision automatique ; " +
++      "replan ProjectTrajectory uniquement via propose + decide W2.",
++    nextStep,
+     requiresHumanDecision: false,
+     ...ANTI_AUTHORITY,
+     recommendNextGateStatus: input.recommendNextGateStatus,
+     nextActionCode: input.nextActionCode,
+   };
+ }
+
+ function failClosedRecommendation(input: {
+   recommendNextGateStatus: string | null;
+   nextActionCode: string | null;
+   rationale: string;
+ }): W3cPostEvidenceRecommendation {
+   return {
+     kind: "fail_closed",
+     headline: "Coordination post-Evidence refusée",
+     rationale: input.rationale,
+     nextStep: "fail_closed",
+     // fail_closed is not automatic HD — Recovery ≠ HumanDecision.
+     requiresHumanDecision: false,
+     ...ANTI_AUTHORITY,
+     recommendNextGateStatus: input.recommendNextGateStatus,
+     nextActionCode: input.nextActionCode,
+   };
+ }
+
+ function enrichRecommendationWithNora(
+   base: W3cPostEvidenceRecommendation,
+   analysis: {
+     ok: boolean;
+     text?: string;
+     message?: string;
+   },
+ ): W3cPostEvidenceRecommendation {
+   if (!analysis.ok || !analysis.text?.trim()) {
+     return base;
    }
- 
-   async completeStructured(input: {
-     messages: ProviderChatMessage[];
-     schemaName: string;
-     jsonSchema: Record<string, unknown>;
-   }): Promise<ProviderCompletionResult> {
-     void input.schemaName;
-     void input.jsonSchema;
-     // Reuse F2 marker / analysis scripted JSON from complete().
-     return this.complete(input.messages);
-   }
- 
-+  /** Test helper — Nora/provider invocation counter. */
-+  getCallCountForTests(): number {
-+    return this.callCount;
-+  }
-+
-   async complete(
-     messages: ProviderChatMessage[],
-   ): Promise<ProviderCompletionResult> {
-     this.callCount += 1;
-     const lastUser = [...messages].reverse().find((m) => m.role === "user");
+   const bounded = analysis.text.trim().slice(0, NORA_RATIONALE_BOUND);
+   const headline = base.headline.includes("après analyse Nora")
+     ? base.headline
+     : `${base.headline} (après analyse Nora)`;
+   return {
+     ...base,
+     headline,
+     rationale: `${base.rationale}\n\nAnalyse Nora: ${bounded}`,
+   };
+ }
+
+ function isW3cPostEvidenceItem(item: EpistemicItem): boolean {
+   const source = item.source ?? "";
+   return (
+     item.type === "Recommendation" &&
+     (source.startsWith(W3C_SOURCE_PREFIX) ||
+       item.epistemicItemId.startsWith(W3C_EPI_ID_PREFIX))
+   );
+ }
+
+ function isRecommendationKind(value: unknown): value is W3cRecommendationKind {
+   return (
+     value === "continue" ||
+     value === "recover" ||
+     value === "replan" ||
+     value === "fail_closed"
+   );
+ }
+
+ export function parseW3cRecommendationPayload(
+   statement: string,
+ ): W3cRecommendationPayload | null {
+   try {
+     const raw = JSON.parse(statement) as Record<string, unknown>;
+     if (raw.kind !== "w3c_post_evidence_recommendation") return null;
      if (
-       this.failOnCall !== undefined && this.callCount === this.failOnCall
+       typeof raw.evidenceId !== "string" ||
+       typeof raw.attemptId !== "string" ||
+       typeof raw.reviewBundleId !== "string" ||
+       typeof raw.headline !== "string" ||
+       typeof raw.rationale !== "string" ||
+       typeof raw.nextStep !== "string"
      ) {
-       throw new Error("FAKE_PROVIDER_ERROR");
-     }
-     if (lastUser?.content.includes("__OPS1_FORCE_PROVIDER_ERROR__")) {
-       throw new Error("FAKE_PROVIDER_ERROR");
-     }
- 
-     if (
-       messages.some((m) =>
-         m.role === "system" &&
-         m.content.includes("SFIA Studio CKC COGNITIVE REASONING"),
-       )
-     ) {
-       // Specialized Fake CKC cognition keys off CONTENT markers only.
-       // CKC IDs (ckc:studio:*) must never trigger specialized behavior (R1-01).
-       const joined = messages.map((m) => m.content).join("\n").toLowerCase();
-       const hasSecurity =
-         joined.includes("risque résiduel") ||
-         joined.includes("risque residuel") ||
-         joined.includes("adversarial") ||
-         joined.includes("secret en repo");
-       const hasDelivery =
-         joined.includes("anti scope creep") ||
-         joined.includes("scope creep") ||
-         joined.includes("implémentation bornée") ||
-         joined.includes("implementation bornee");
-       if (hasSecurity) {
-         return {
-           text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — posture adversarial : risque résiduel majeures → HumanDecision explicite ; secret en repo → STOP. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
-           usage: {
-             inputTokens: 10 * this.callCount,
-             outputTokens: 5 * this.callCount,
-             totalTokens: 15 * this.callCount,
-             model: "fake-test-model",
-             providerResponseId: `fake-resp-${this.callCount}`,
-           },
-         };
-       }
-       if (hasDelivery) {
-         return {
-           text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — anti scope creep : borner le slice avant toute extension ; pas de silent REAL ; Evidence/done honnête. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
-           usage: {
-             inputTokens: 10 * this.callCount,
-             outputTokens: 5 * this.callCount,
-             totalTokens: 15 * this.callCount,
-             model: "fake-test-model",
-             providerResponseId: `fake-resp-${this.callCount}`,
-           },
-         };
-       }
-       return {
-         text: "[TEST/FAKE · NON LIVE] RECOMMANDATION générique sans guidance CKC package résolu.",
-         usage: {
-           inputTokens: 10 * this.callCount,
-           outputTokens: 5 * this.callCount,
-           totalTokens: 15 * this.callCount,
-           model: "fake-test-model",
-           providerResponseId: `fake-resp-${this.callCount}`,
-         },
-       };
-     }
- 
-     // F2 deterministic structured intent JSON (TEST/FAKE only)
-     if (lastUser?.content.includes("__F2_INFORMATIVE__")) {
-       return {
-         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-           intentClass: "informative",
-           candidateCycleTypeId: null,
-           signals: null,
-           objective: "Résumer le projet",
-           scope: null,
-           rephrasedRequest: "Résumer l'objectif du projet",
-           outOfScope: [],
+       return null;
 
 ```
 
 ---
 
-## Final candidate vs origin/main diff complet (`ee3e95de234d6f36f6c037b7a8a7277e8a4a1c9e`..`a9e09ed6c475e17ba751e0ba717acc149b4e98c9`, -U80)
+## Final vs origin/main (`ee3e95de234d6f36f6c037b7a8a7277e8a4a1c9e`..`43ecc3351d0dcde1cadc98a9d734f8fa3c3dba0a`, app/**, -U80)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts
 new file mode 100644
-index 00000000..cb6bcd82
+index 00000000..aa52da53
 --- /dev/null
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts
-@@ -0,0 +1,884 @@
+@@ -0,0 +1,1056 @@
 +/**
 + * W3-C convergence corrections B1–B6 — named R01–R13 coverage.
 + * @vitest-environment node
@@ -2223,10 +1255,17 @@ index 00000000..cb6bcd82
 +  materializeProductOutcomeFromAttempt,
 +  rehydrateProductOutcomeFromAttempt,
 +} from "@/features/project-assistant/w2/materializeW3bProductTerminal";
++import type {
++  CoordinationStatus,
++  NextActionCode,
++  AuthorityRequirementLevel,
++} from "@/lib/oa/evidence-review/domain/coordinationTypes";
 +import {
 +  armW3cEpistemicMaterializeFailOnceForTests,
++  classifyW3cD5NextAction,
 +  clearW3cEpistemicMaterializeFailForTests,
 +  findExistingW3cPostEvidence,
++  recommendationFromOutcome,
 +  rehydrateW3cPostEvidenceFromLps,
 +  w3cRecommendationEpistemicId,
 +} from "@/features/project-assistant/w2/w3cPostEvidenceLoop";
@@ -2843,34 +1882,14 @@ index 00000000..cb6bcd82
 +
 +
 +describe("W3C-R14 partial-write recovery", () => {
-+  it("R14: LPS success + Epistemic fail → retry exact structural Recommendation, no Nora/LPS duplicate", async () => {
++  it("R14: LPS success + Epistemic fail → retry exact Recommendation (real D5), no Nora/LPS duplicate", async () => {
 +    const ctx = await authorizeTempArtifact("r14");
 +    const fake = new FakeConversationProvider({
 +      scripted: Array(64).fill(
-+        "NORA_STRUCTURAL_R14_ANALYSIS — replan structurel recommandé.",
++        "NORA_R14_ANALYSIS — continuity after durable Evidence.",
 +      ),
 +    });
 +    setConversationProviderForTests(fake);
-+
-+    const services = ctx.oa.evidenceReviewServices!;
-+    const originalExecute = services.recommendNextGate.execute.bind(
-+      services.recommendNextGate,
-+    );
-+    services.recommendNextGate.execute = (async (req: never) => {
-+      const result = await originalExecute(req);
-+      if (!result.ok) return result;
-+      return {
-+        ...result,
-+        coordination: {
-+          ...result.coordination,
-+          nextAction: {
-+            actionCode: "replan_trajectory" as never,
-+            reasons: ["W3C-R14 structural fault-injection stub"],
-+            authorityRequired: "human" as const,
-+          },
-+        },
-+      };
-+    }) as typeof services.recommendNextGate.execute;
 +
 +    const trajBefore =
 +      await ctx.oa.cycleServices!.getTrajectoryVersion.execute({
@@ -2907,9 +1926,40 @@ index 00000000..cb6bcd82
 +    expect(lpsAfterFail.livingProjectState.context ?? "").toContain(
 +      "[[W3C_POST_EVIDENCE_RECOMMENDATION_V1]]",
 +    );
-+    expect(lpsAfterFail.livingProjectState.nextStep).toBe(
-+      "structural_replan_propose",
++    // Capture exact semantics from durable LPS V1 payload (real D5 — no invented codes).
++    const ctxJson = lpsAfterFail.livingProjectState.context ?? "";
++    const payloadMatch = ctxJson.match(
++      /\[\[W3C_POST_EVIDENCE_RECOMMENDATION_V1\]\]\n\[\[W3C_EVIDENCE:[^\]]+\]\]\n(\{[\s\S]*?\})(?:\n\[\[|$)/,
 +    );
++    expect(payloadMatch).toBeTruthy();
++    const durablePayload = JSON.parse(payloadMatch![1]!) as {
++      recommendationKind: string;
++      requiresHumanDecision: boolean;
++      nextStep: string;
++      nextActionCode: string | null;
++      recommendNextGateStatus: string | null;
++      rationale: string;
++    };
++    expect(durablePayload.recommendationKind).not.toBe("replan");
++    expect(durablePayload.requiresHumanDecision).toBe(false);
++    expect(durablePayload.nextStep).not.toBe("structural_replan_propose");
++    if (durablePayload.nextActionCode) {
++      const allowed: NextActionCode[] = [
++        "complete_evidence",
++        "verify_evidence_integrity",
++        "freeze_review_bundle",
++        "complete_review",
++        "evaluate_claim",
++        "confirm_claim_evaluation",
++        "resolve_dispute",
++        "propose_maturity",
++        "confirm_maturity",
++        "downgrade_maturity",
++        "solicit_morris_arbitration",
++        "solicit_morris_go",
++      ];
++      expect(allowed).toContain(durablePayload.nextActionCode as NextActionCode);
++    }
 +
 +    const epiAfterFail = await ctx.oa.cycleServices!.getEpistemicState.execute({
 +      projectId: ctx.seeded.projectId,
@@ -2923,7 +1973,6 @@ index 00000000..cb6bcd82
 +      ),
 +    ).toBeUndefined();
 +
-+    // Retry same terminal (same Product SQLite / same attempt).
 +    const retry = await materializeProductOutcomeFromAttempt({
 +      oa: ctx.oa,
 +      projectId: ctx.seeded.projectId,
@@ -2941,13 +1990,20 @@ index 00000000..cb6bcd82
 +    expect(retry.product.reviewBundleId).toBe(reviewBundleId);
 +    expect(retry.postEvidence.evidenceId).toBe(evidenceId);
 +    expect(retry.postEvidence.lpsVersion).toBe(lpsVersionAfterFail);
-+    expect(retry.postEvidence.recommendation.kind).toBe("replan");
-+    expect(retry.postEvidence.recommendation.requiresHumanDecision).toBe(true);
++    expect(retry.postEvidence.recommendation.kind).toBe(
++      durablePayload.recommendationKind,
++    );
++    expect(retry.postEvidence.recommendation.requiresHumanDecision).toBe(
++      durablePayload.requiresHumanDecision,
++    );
 +    expect(retry.postEvidence.recommendation.nextStep).toBe(
-+      "structural_replan_propose",
++      durablePayload.nextStep,
 +    );
 +    expect(retry.postEvidence.recommendation.nextActionCode).toBe(
-+      "replan_trajectory",
++      durablePayload.nextActionCode,
++    );
++    expect(retry.postEvidence.recommendation.recommendNextGateStatus).toBe(
++      durablePayload.recommendNextGateStatus,
 +    );
 +    expect(retry.postEvidence.recommendation.authority).toBe("none");
 +    expect(retry.postEvidence.recommendation.gateConsumed).toBe(false);
@@ -2955,7 +2011,7 @@ index 00000000..cb6bcd82
 +    expect(
 +      retry.postEvidence.recommendation.attemptAutoLaunchNextCycle,
 +    ).toBe(false);
-+    expect(retry.postEvidence.analysisText).toContain("NORA_STRUCTURAL_R14");
++    expect(retry.postEvidence.analysisText).toContain("NORA_R14_ANALYSIS");
 +    expect(retry.postEvidence.noraInvoked).toBe(true);
 +    expect(retry.postEvidence.replanInvoked).toBe(false);
 +
@@ -2984,7 +2040,6 @@ index 00000000..cb6bcd82
 +    expect(activeReco).toBeTruthy();
 +    expect(activeReco!.type).toBe("Recommendation");
 +
-+    // Second retry idempotent — still no Nora / no LPS bump / no HD.
 +    const retry2 = await materializeProductOutcomeFromAttempt({
 +      oa: ctx.oa,
 +      projectId: ctx.seeded.projectId,
@@ -2994,10 +2049,11 @@ index 00000000..cb6bcd82
 +    if (!retry2.ok || !retry2.postEvidence || !retry2.postEvidence.ok) return;
 +    expect(fake.getCallCountForTests()).toBe(noraCallsAfterFail);
 +    expect(retry2.postEvidence.lpsVersion).toBe(lpsVersionAfterFail);
-+    expect(retry2.postEvidence.recommendation.kind).toBe("replan");
-+    expect(retry2.postEvidence.recommendation.requiresHumanDecision).toBe(true);
++    expect(retry2.postEvidence.recommendation.kind).toBe(
++      durablePayload.recommendationKind,
++    );
 +    expect(retry2.postEvidence.recommendation.nextActionCode).toBe(
-+      "replan_trajectory",
++      durablePayload.nextActionCode,
 +    );
 +
 +    const trajAfter =
@@ -3010,7 +2066,6 @@ index 00000000..cb6bcd82
 +    expect(trajAfter.trajectory.version).toBe(trajBefore.trajectory.version);
 +    expect(trajAfter.trajectory.status).toBe(trajBefore.trajectory.status);
 +
-+    // Restart path (rehydrate) preserves exact semantics.
 +    const restarted = await rehydrateProductOutcomeFromAttempt({
 +      oa: ctx.oa,
 +      projectId: ctx.seeded.projectId,
@@ -3019,12 +2074,11 @@ index 00000000..cb6bcd82
 +    expect(restarted.ok && restarted.postEvidence?.ok).toBe(true);
 +    if (!restarted.ok || !restarted.postEvidence || !restarted.postEvidence.ok)
 +      return;
-+    expect(restarted.postEvidence.recommendation.kind).toBe("replan");
-+    expect(restarted.postEvidence.recommendation.requiresHumanDecision).toBe(
-+      true,
++    expect(restarted.postEvidence.recommendation.kind).toBe(
++      durablePayload.recommendationKind,
 +    );
 +    expect(restarted.postEvidence.recommendation.nextActionCode).toBe(
-+      "replan_trajectory",
++      durablePayload.nextActionCode,
 +    );
 +    expect(fake.getCallCountForTests()).toBe(noraCallsAfterFail);
 +  });
@@ -3079,6 +2133,156 @@ index 00000000..cb6bcd82
 +    expect(retry.postEvidence.recommendation.requiresHumanDecision).toBe(false);
 +    expect(retry.postEvidence.recommendation.decisionCreated).toBe(false);
 +    expect(retry.postEvidence.recommendation.authority).toBe("none");
++  });
++});
++
++describe("W3C-R15 real D5 contract fidelity", () => {
++  const ALL_NEXT_ACTIONS: readonly NextActionCode[] = [
++    "complete_evidence",
++    "verify_evidence_integrity",
++    "freeze_review_bundle",
++    "complete_review",
++    "evaluate_claim",
++    "confirm_claim_evaluation",
++    "resolve_dispute",
++    "propose_maturity",
++    "confirm_maturity",
++    "downgrade_maturity",
++    "solicit_morris_arbitration",
++    "solicit_morris_go",
++  ] as const;
++
++  const ALL_STATUSES: readonly CoordinationStatus[] = [
++    "blocked",
++    "not_recommended",
++    "requires_human_decision",
++    "gate_candidate",
++  ] as const;
++
++  const ALL_AUTH: readonly AuthorityRequirementLevel[] = [
++    "none",
++    "human",
++    "n2",
++    "n3",
++    "morris",
++  ] as const;
++
++  it("R15A: closed D5 unions — mapping never invents kind=replan / requiresHumanDecision", () => {
++    expect(ALL_STATUSES.length).toBe(4);
++    expect(ALL_AUTH.length).toBe(5);
++    for (const code of ALL_NEXT_ACTIONS) {
++      const cls = classifyW3cD5NextAction(code);
++      expect(cls).not.toBe("none");
++      for (const outcome of ["SUCCESS", "STOP", "FAIL"] as const) {
++        const rec = recommendationFromOutcome({
++          outcome,
++          recommendNextGateStatus: "requires_human_decision",
++          nextActionCode: code,
++        });
++        expect(rec.kind).not.toBe("replan");
++        expect(rec.requiresHumanDecision).toBe(false);
++        expect(rec.authority).toBe("none");
++        expect(rec.gateConsumed).toBe(false);
++        expect(rec.decisionCreated).toBe(false);
++        expect(rec.attemptAutoLaunchNextCycle).toBe(false);
++        expect(rec.nextStep).not.toBe("structural_replan_propose");
++        expect(rec.nextActionCode).toBe(code);
++      }
++    }
++    // Non-union strings must not invent a D5 class (closed Record lookup).
++    expect(classifyW3cD5NextAction("not_a_d5_next_action_code")).toBe("none");
++    expect(classifyW3cD5NextAction("")).toBe("none");
++  });
++
++  it("R15B: confirm_maturity / confirm_claim_evaluation ≠ trajectory replan / HD", () => {
++    for (const code of [
++      "confirm_maturity",
++      "confirm_claim_evaluation",
++    ] as const satisfies readonly NextActionCode[]) {
++      expect(classifyW3cD5NextAction(code)).toBe("human_confirmation");
++      const rec = recommendationFromOutcome({
++        outcome: "SUCCESS",
++        recommendNextGateStatus: "requires_human_decision" satisfies CoordinationStatus,
++        nextActionCode: code,
++      });
++      expect(rec.kind).toBe("continue");
++      expect(rec.requiresHumanDecision).toBe(false);
++      expect(rec.nextStep).toBe("coordinate_human_confirmation");
++    }
++  });
++
++  it("R15C: solicit_morris_arbitration (real D5 code) → Recommendation only, no traj HD", async () => {
++    // Native W3-C recommendNextGate inputs do not include maturityAssessmentId;
++    // openHardReservationRefs is only applied inside maturityAssessment branch in D5.
++    // Arbitration is therefore proven via typed real NextActionCode projection —
++    // not via inventing a non-union actionCode.
++    const auth: AuthorityRequirementLevel = "morris";
++    expect(auth).toBe("morris");
++    expect(classifyW3cD5NextAction("solicit_morris_arbitration")).toBe(
++      "morris_arbitration",
++    );
++    for (const outcome of ["SUCCESS", "STOP", "FAIL"] as const) {
++      const rec = recommendationFromOutcome({
++        outcome,
++        recommendNextGateStatus: "blocked" satisfies CoordinationStatus,
++        nextActionCode: "solicit_morris_arbitration" satisfies NextActionCode,
++      });
++      expect(rec.kind).not.toBe("replan");
++      expect(rec.requiresHumanDecision).toBe(false);
++      expect(rec.authority).toBe("none");
++      expect(rec.gateConsumed).toBe(false);
++      expect(rec.decisionCreated).toBe(false);
++      expect(rec.attemptAutoLaunchNextCycle).toBe(false);
++      expect(rec.nextActionCode).toBe("solicit_morris_arbitration");
++      if (outcome === "SUCCESS") {
++        expect(rec.kind).toBe("continue");
++        expect(rec.nextStep).toBe("coordinate_morris_arbitration");
++      } else {
++        expect(rec.kind).toBe("recover");
++      }
++    }
++  });
++
++  it("R15D: product-path D5 nextAction stays non-structural (real union code)", async () => {
++    const ctx = await authorizeTempArtifact("r15d");
++    setConversationProviderForTests(
++      new FakeConversationProvider({
++        scripted: Array(32).fill("NORA_R15D_NON_STRUCTURAL"),
++      }),
++    );
++    const { materialized } = await materializeSuccess(ctx);
++    expect(materialized.postEvidence?.ok).toBe(true);
++    if (!materialized.postEvidence || !materialized.postEvidence.ok) return;
++    const code = materialized.postEvidence.recommendation.nextActionCode;
++    expect(code).toBeTruthy();
++    expect(ALL_NEXT_ACTIONS).toContain(code as NextActionCode);
++    // Observed reachable under current W3-C inputs: often verify_evidence_integrity
++    // (evidence available/not verified) — never a fictional trajectory replan code.
++    expect(classifyW3cD5NextAction(code)).toBe("non_structural_progress");
++    expect(materialized.postEvidence.recommendation.kind).toBe("continue");
++    expect(materialized.postEvidence.recommendation.requiresHumanDecision).toBe(
++      false,
++    );
++    expect(materialized.postEvidence.recommendation.authority).toBe("none");
++    expect(materialized.postEvidence.recommendation.decisionCreated).toBe(false);
++    expect(materialized.postEvidence.recommendation.nextStep).not.toBe(
++      "structural_replan_propose",
++    );
++  });
++
++  it("R15E: solicit_morris_go / gate_candidate mapping ≠ auto decision", () => {
++    const rec = recommendationFromOutcome({
++      outcome: "SUCCESS",
++      recommendNextGateStatus: "gate_candidate" satisfies CoordinationStatus,
++      nextActionCode: "solicit_morris_go" satisfies NextActionCode,
++    });
++    expect(classifyW3cD5NextAction("solicit_morris_go")).toBe("next_cycle_gate");
++    expect(rec.kind).toBe("continue");
++    expect(rec.requiresHumanDecision).toBe(false);
++    expect(rec.gateConsumed).toBe(false);
++    expect(rec.decisionCreated).toBe(false);
++    expect(rec.authority).toBe("none");
++    expect(rec.nextStep).toBe("coordinate_solicit_morris_go");
 +  });
 +});
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceLoop.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceLoop.test.ts
@@ -3608,7 +2812,7 @@ index e10cdc34..d5435988 100644
 @@ -16,154 +16,155 @@ function listSourceFiles(root: string): string[] {
    return files;
  }
- 
+
  describe("V2-A1 vertical-slice-runtime import boundaries", () => {
    it("keeps the runtime free of UI, fixtures, client storage, and agent imports", () => {
      const forbidden =
@@ -3626,7 +2830,7 @@ index e10cdc34..d5435988 100644
      );
      expect(violations).toEqual([]);
    });
- 
+
    it("does not import product-persistence stores as business state", () => {
      // Audit may reference BoundedAtomicAuditStore types; forbidding db.ts and
      // treating SQLite as product persistence rehydration.
@@ -3645,7 +2849,7 @@ index e10cdc34..d5435988 100644
      );
      expect(violations).toEqual([]);
    });
- 
+
    it("allows only the bounded V2 UI runtime entrypoints", () => {
      const uiRoots = [
        path.join(APP_ROOT, "app"),
@@ -3665,7 +2869,7 @@ index e10cdc34..d5435988 100644
            .filter((entry) => /@\/lib\/vertical-slice-runtime/.test(entry.text)),
        ),
      );
- 
+
      const allowed = new Set([
        "app/api/e2e/option-a-qa-scenario/route.ts:@/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl",
        "features/project-assistant/actions.ts:@/lib/vertical-slice-runtime",
@@ -3713,10 +2917,10 @@ index e10cdc34..d5435988 100644
        )?.[0];
        return `${entry.file}:${modulePath}`;
      });
- 
+
      expect(new Set(normalized)).toEqual(allowed);
    });
- 
+
    it("keeps V2-A2/V2-A3 UI free of core, internal runtime, D1, fixtures, storage, network, and agents", () => {
      const roots = [
        path.join(APP_ROOT, "app/studio"),
@@ -3742,7 +2946,7 @@ index e10cdc34..d5435988 100644
      );
      expect(violations).toEqual([]);
    });
- 
+
    it("keeps V1 core free of runtime dependency (one-way reuse)", () => {
      const coreRoot = path.join(APP_ROOT, "lib/vertical-slice-core");
      const violations = listSourceFiles(coreRoot).flatMap((file) =>
@@ -3769,18 +2973,18 @@ index ec103665..16adf051 100644
    await expect(page.getByTestId("project-assistant-gate")).toBeVisible({
      timeout: 60_000,
    });
- 
+
    const trajectory = page.getByTestId("w2-trajectory-panel");
    await expect(trajectory).toBeVisible({ timeout: 15_000 });
    await trajectory.scrollIntoViewIfNeeded();
- 
+
    await page.getByTestId("w2-propose-options").click();
    await expect(page.getByTestId("w2-options")).toBeVisible({ timeout: 60_000 });
    await page.locator("[data-testid^='w2-decide-']").first().click();
    await expect(page.getByTestId("w2-decision")).toBeVisible({
      timeout: 45_000,
    });
- 
+
    await page
      .getByTestId("w3a-operation-kind")
      .selectOption("generate-temporary-artifact");
@@ -3802,14 +3006,14 @@ index ec103665..16adf051 100644
      "AUTORISÉ",
      { timeout: 30_000 },
    );
- 
+
    // No outcome chooser buttons on the product surface.
    await expect(page.getByTestId("w3a-governed-execute")).toBeVisible();
    await expect(page.getByTestId("w3a-governed-execute")).toHaveText("Exécuter");
    await expect(page.getByTestId("w3b-governed-stop")).toHaveCount(0);
    await expect(page.getByTestId("w3b-governed-fail")).toHaveCount(0);
  }
- 
+
  async function readOutcomeMeta(page: Page) {
    const attemptId =
      (await page.getByTestId("w3a-attempt-id").textContent())?.trim() ?? "";
@@ -3842,10 +3046,10 @@ index ec103665..16adf051 100644
      governedBoundary,
    };
  }
- 
+
  test.describe("W3-B /studio Terminal + Evidence (corrected)", () => {
    test.describe.configure({ timeout: 360_000 });
- 
+
 +  test.beforeEach(async ({ request }) => {
 +    await clearW3bBoundary(request);
 +  });
@@ -3858,17 +3062,17 @@ index ec103665..16adf051 100644
    }) => {
      fs.mkdirSync(CAPTURE_ROOT, { recursive: true });
      fs.writeFileSync(MANIFEST, "");
- 
+
      await openThroughAuthorized(page, "W3-B SUCCESS Evidence");
      await capture(page, "01-pre-execute", {
        scenario: "SUCCESS",
        productOutcome: null,
        state: "authorized_before_execute",
      });
- 
+
      const latch = installMaterializeLatch(page);
      await latch.arm();
- 
+
      const click = page.getByTestId("w3a-governed-execute").click();
      await expect(page.getByTestId("w3a-attempt")).toBeVisible({
        timeout: 60_000,
@@ -3886,7 +3090,7 @@ index ec103665..16adf051 100644
      latch.release();
      await click;
      await latch.disarm();
- 
+
      await expect(page.getByTestId("w3b-product-outcome")).toBeVisible({
        timeout: 60_000,
      });
@@ -3904,7 +3108,7 @@ index ec103665..16adf051 100644
        ...meta,
        adapterBehavior: null,
      });
- 
+
      await page.getByTestId("w3b-technical-details-toggle").click();
      await expect(page.getByTestId("w3b-technical-status")).toHaveText(
        "succeeded",
@@ -3914,7 +3118,7 @@ index ec103665..16adf051 100644
        ...meta,
        state: "technical_secondary",
      });
- 
+
      await page.getByTestId("w3b-rehydrate-product").click();
      await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
        "SUCCESS",
@@ -3926,7 +3130,7 @@ index ec103665..16adf051 100644
      expect(
        (await page.getByTestId("w3b-review-bundle-id").textContent())?.trim(),
      ).toBe(meta.reviewBundleId);
- 
+
      const urlBefore = page.url();
      await page.reload();
      await expect(page.getByTestId("project-principal")).toBeVisible({
@@ -4233,7 +3437,7 @@ index e733d001..86565b47 100644
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
 @@ -1,169 +1,181 @@
  "use client";
- 
+
  import { useCallback, useEffect, useRef, useState } from "react";
  import Link from "next/link";
  import { shouldShowProjectRecovery, w1RestartHonestyMessage } from "@/features/project-assistant/presentationLabels";
@@ -4247,7 +3451,7 @@ index e733d001..86565b47 100644
  import { TrajectorySurface } from "./surfaces/TrajectorySurface";
  import type { GetProjectResult, GetProjectSuccess } from "./types";
  import styles from "./ProjectWorkspacePage.module.css";
- 
+
  /** F2/F3 product workspace: conversation dominant, project state alongside. */
  export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
    const [result, setResult] = useState<GetProjectResult | null>(null);
@@ -4257,7 +3461,7 @@ index e733d001..86565b47 100644
 +  const [recoveryProposeSignal, setRecoveryProposeSignal] = useState(0);
    const conversationRef = useRef<HTMLDivElement | null>(null);
    const refreshInFlight = useRef(false);
- 
+
    const loadProject = useCallback(async () => {
      if (refreshInFlight.current) return;
      refreshInFlight.current = true;
@@ -4268,7 +3472,7 @@ index e733d001..86565b47 100644
        refreshInFlight.current = false;
      }
    }, [projectId]);
- 
+
    useEffect(() => {
      let cancelled = false;
      void getProjectRuntimeAction(projectId).then((next) => {
@@ -4278,7 +3482,7 @@ index e733d001..86565b47 100644
        cancelled = true;
      };
    }, [projectId]);
- 
+
    const focusConversation = useCallback(() => {
      conversationRef.current?.scrollIntoView({
        behavior: "smooth",
@@ -4289,7 +3493,7 @@ index e733d001..86565b47 100644
      );
      if (input instanceof HTMLTextAreaElement) input.focus();
    }, []);
- 
+
 +  const onRequalify = useCallback(async () => {
 +    // B1 — bump signal so TrajectorySurface runs its own proposeOptions()
 +    // (shared code path that materializes w2-options).
@@ -4305,7 +3509,7 @@ index e733d001..86565b47 100644
      },
      onDurableEvidenceOutcomeChange: setDurableOutcome,
    });
- 
+
    if (!result) {
      return (
        <p className={styles.loading} data-testid="project-workspace-loading">
@@ -4313,7 +3517,7 @@ index e733d001..86565b47 100644
        </p>
      );
    }
- 
+
    if (!result.ok) {
      return (
        <div className={styles.errorPage} role="alert">
@@ -4333,15 +3537,15 @@ index e733d001..86565b47 100644
        </div>
      );
    }
- 
+
    const success: GetProjectSuccess = result;
- 
+
    const showRecovery = shouldShowProjectRecovery({
      hasDurableEvidenceOutcome: Boolean(durableOutcome),
      livingStateVersion: success.livingState.version,
      activeCycleInstanceId: success.livingState.activeCycleInstanceId,
    });
- 
+
    return (
      <div className={styles.root} data-testid="project-principal">
        <header className={styles.projectHeader}>
@@ -4359,7 +3563,7 @@ index e733d001..86565b47 100644
            {lpsOpen ? "Masquer l'état du projet" : "État du projet"}
          </button>
        </header>
- 
+
        {showRecovery ? (
          <RecoverySurface
            onResumeDurable={() => {
@@ -4376,7 +3580,7 @@ index e733d001..86565b47 100644
            {w1RestartHonestyMessage()}
          </p>
        )}
- 
+
        <div className={styles.layout}>
          <div className={styles.main} ref={conversationRef}>
            <div className={styles.conversation} data-testid="project-conversation-main">
@@ -4391,7 +3595,7 @@ index e733d001..86565b47 100644
            />
            <HistorySurface result={success} durableOutcome={durableOutcome} />
          </div>
- 
+
          <div
            className={[styles.lpsColumn, lpsOpen ? styles.lpsOpen : styles.lpsClosed].join(
              " ",
@@ -4420,19 +3624,19 @@ index eb8fa848..99fbcb4c 100644
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.module.css
 @@ -221,108 +221,117 @@
  }
- 
+
  .code {
    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
    font-size: 0.78rem;
    color: var(--pm6-muted-strong);
  }
- 
+
  .inspection {
    margin: 0;
    font-size: 0.84rem;
    color: var(--pm6-ink);
  }
- 
+
  .amendmentNotice,
  .amendmentForm {
    display: flex;
@@ -4443,13 +3647,13 @@ index eb8fa848..99fbcb4c 100644
    border-radius: var(--pm6-radius-md, 8px);
    background: var(--pm6-surface-soft, transparent);
  }
- 
+
  .amendmentLabel {
    font-size: 0.78rem;
    font-weight: 600;
    color: var(--pm6-muted-strong);
  }
- 
+
  .amendmentInput {
    width: 100%;
    box-sizing: border-box;
@@ -4460,17 +3664,17 @@ index eb8fa848..99fbcb4c 100644
    color: var(--pm6-ink);
    background: var(--pm6-surface);
  }
- 
+
  .authorized {
    border-color: var(--pm6-ok);
    background: var(--pm6-ok-tint);
  }
- 
+
  .blocked {
    border-color: var(--pm6-warn);
    background: var(--pm6-warn-tint);
  }
- 
+
  .attempt {
    border-color: var(--pm6-border-soft);
    background: var(--pm6-surface);
@@ -4481,14 +3685,14 @@ index eb8fa848..99fbcb4c 100644
    border: 1px solid var(--pm6-border-soft);
    border-radius: var(--pm6-radius-md, 8px);
  }
- 
+
  .stopNotice {
    margin: 0;
    font-size: 0.78rem;
    font-weight: 600;
    color: var(--pm6-muted-strong);
  }
- 
+
  .productOutcome {
    border: 1px solid var(--pm6-border-soft);
    border-radius: var(--pm6-radius-md, 8px);
@@ -4498,7 +3702,7 @@ index eb8fa848..99fbcb4c 100644
    gap: var(--pm6-space-2);
    padding: var(--pm6-space-4);
  }
- 
+
 +.postEvidence {
 +  margin-top: var(--pm6-space-2);
 +  padding-top: var(--pm6-space-3);
@@ -4515,23 +3719,23 @@ index eb8fa848..99fbcb4c 100644
    line-height: 1.45;
    color: var(--pm6-ink);
  }
- 
+
  .technicalDetails {
    margin: 0;
    font-size: 0.82rem;
    color: var(--pm6-muted-strong);
  }
- 
+
  .technicalDetails summary {
    cursor: pointer;
    font-weight: 600;
  }
- 
+
  @media (max-width: 767px) {
    .root {
      padding: var(--pm6-space-4);
    }
- 
+
    .facts {
      grid-template-columns: minmax(0, 1fr);
    }
@@ -4542,7 +3746,7 @@ index c33f463e..96c54184 100644
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
 @@ -1,253 +1,268 @@
  "use client";
- 
+
  /**
   * W2 / W3-A product surface — Options, Recommendation, HumanDecision, decided
   * trajectory, contract inspection, effective authority, and (W3-A) fixture
@@ -4551,7 +3755,7 @@ index c33f463e..96c54184 100644
   * The surface never derives truth: every state shown here comes from a server
   * action over the product application path.
   */
- 
+
 -import { useCallback, useState } from "react";
 +import { useCallback, useEffect, useState } from "react";
  import { flushSync } from "react-dom";
@@ -4584,10 +3788,10 @@ index c33f463e..96c54184 100644
  } from "@/features/project-assistant/w2/types";
 +import { filterProductReservationsForDisplay } from "@/features/project-assistant/w2/w3cProductPresentation";
  import styles from "./TrajectorySurface.module.css";
- 
+
  /** Explicit Pilot-qualified operation — never inferred from W2 trajectory alone. */
  type QualifiedOperationKind = "generate-temporary-artifact" | "simulate" | "read";
- 
+
  type PreparedContract = {
    readonly executionContractId: string;
    readonly version: number;
@@ -4604,14 +3808,14 @@ index c33f463e..96c54184 100644
    readonly effectConfirmationRequired?: boolean;
    readonly effectConfirmationLevel?: string | null;
  };
- 
+
  type AmendmentNotice = {
    readonly priorExecutionContractId: string;
    readonly additionalConstraint: string;
    readonly statusLabel: string;
    readonly priorInspectionDoesNotCoverSuccessor: true;
  };
- 
+
  type Busy =
    | null
    | "options"
@@ -4623,7 +3827,7 @@ index c33f463e..96c54184 100644
    | "authorization"
    | "amendment"
    | "execute";
- 
+
  /**
   * Yield so React can commit and the browser can paint each Attempt phase.
   * Double rAF only — no fixed-duration sleep / business latency (R09-R).
@@ -4637,7 +3841,7 @@ index c33f463e..96c54184 100644
      });
    });
  }
- 
+
  export function TrajectorySurface({
    projectId,
    onDurableFactsChanged,
@@ -4682,7 +3886,7 @@ index c33f463e..96c54184 100644
    const [productEvidencePending, setProductEvidencePending] = useState(false);
    const [qualifiedOperationKind, setQualifiedOperationKind] =
      useState<QualifiedOperationKind | null>(null);
- 
+
    function paintAttemptPhase(
      phase: GovernedExecutePhaseSuccess["phase"],
      nextAttempt: GovernedExecuteAttemptProjection | null,
@@ -4697,7 +3901,7 @@ index c33f463e..96c54184 100644
        );
      });
    }
- 
+
    const proposeOptions = useCallback(async () => {
      setBusy("options");
      setError(null);
@@ -4723,7 +3927,7 @@ index c33f463e..96c54184 100644
 +    setPostEvidence(null);
      onDurableFactsChanged?.();
    }, [projectId, onDurableFactsChanged]);
- 
+
 +  useEffect(() => {
 +    if (recoveryProposeSignal > 0) {
 +      void proposeOptions();
@@ -4753,7 +3957,7 @@ index c33f463e..96c54184 100644
      },
      [optionSet, projectId, onDurableFactsChanged],
    );
- 
+
    const prepareContract = useCallback(async () => {
      if (!decision || !qualifiedOperationKind) return;
      setBusy("contract");
@@ -4794,7 +3998,7 @@ index c33f463e..96c54184 100644
      setAttemptStatusLabel(null);
      onDurableFactsChanged?.();
    }, [decision, projectId, qualifiedOperationKind, onDurableFactsChanged]);
- 
+
    const inspect = useCallback(async () => {
      if (!contract) return;
      setBusy("inspection");
@@ -4824,7 +4028,7 @@ index c33f463e..96c54184 100644
      setAuthorization(outcome);
      setInspection(outcome.inspection);
    }, [contract, projectId]);
- 
+
    const governedExecute = useCallback(async () => {
      if (!contract || authorization?.outcome !== "AUTHORIZED") return;
      setBusy("execute");
@@ -4837,7 +4041,7 @@ index c33f463e..96c54184 100644
        setProductOutcome(null);
        setProductEvidencePending(false);
      });
- 
+
      const selected = await w2GovernedExecuteSelectAction({
        projectId,
        executionContractId: contract.executionContractId,
@@ -4852,14 +4056,14 @@ index c33f463e..96c54184 100644
      }
      paintAttemptPhase(selected.phase, selected.attempt, selected.statusLabel);
      await yieldBrowserPaint();
- 
+
      if (selected.phase === "terminal") {
        setBusy(null);
        paintAttemptPhase("terminal", selected.attempt, selected.statusLabel);
        onDurableFactsChanged?.();
        return;
      }
- 
+
      const started = await w2GovernedExecuteStartAction({
        projectId,
        executionContractId: contract.executionContractId,
@@ -4875,7 +4079,7 @@ index c33f463e..96c54184 100644
        }
        return;
      }
- 
+
      // Adapter FAIL / governed STOP may terminate at Start — materialize without Complete.
      if (started.phase === "terminal") {
        paintAttemptPhase(started.phase, started.attempt, started.statusLabel);
@@ -4903,10 +4107,10 @@ index c33f463e..96c54184 100644
        onDurableFactsChanged?.();
        return;
      }
- 
+
      paintAttemptPhase(started.phase, started.attempt, started.statusLabel);
      await yieldBrowserPaint();
- 
+
      const completed = await w2GovernedExecuteCompleteAction({
        projectId,
        executionContractId: contract.executionContractId,
@@ -4927,7 +4131,7 @@ index c33f463e..96c54184 100644
        setProductEvidencePending(true);
      });
      await yieldBrowserPaint();
- 
+
      const materialized = await w2MaterializeProductOutcomeAction({
        projectId,
        attemptId: completed.attemptId,
@@ -4946,7 +4150,7 @@ index c33f463e..96c54184 100644
      });
      onDurableFactsChanged?.();
    }, [contract, authorization, projectId, onDurableFactsChanged]);
- 
+
    const stopRunningExecution = useCallback(async () => {
      if (!contract || !attempt?.attemptId || attemptPhase !== "running") return;
      setBusy("execute");
@@ -4990,7 +4194,7 @@ index c33f463e..96c54184 100644
      projectId,
      onDurableFactsChanged,
    ]);
- 
+
    const rehydrateProduct = useCallback(async () => {
      if (!attempt?.attemptId) return;
      setBusy("execute");
@@ -5008,7 +4212,7 @@ index c33f463e..96c54184 100644
 +    setPostEvidence(result.postEvidence ?? null);
      setProductEvidencePending(false);
    }, [attempt, projectId]);
- 
+
    return (
      <section
        className={styles.root}
@@ -5027,13 +4231,13 @@ index c33f463e..96c54184 100644
            verdict AUTHORIZED, via une action Exécuter explicite (fixture).
          </p>
        </header>
- 
+
        {error ? (
          <p className={styles.error} role="alert" data-testid="w2-error">
            {error}
          </p>
        ) : null}
- 
+
        <div className={styles.actions}>
          <button
            type="button"
@@ -5050,7 +4254,7 @@ index c33f463e..96c54184 100644
            </span>
          ) : null}
        </div>
- 
+
        {optionSet ? (
          <>
            <section
@@ -5106,7 +4310,7 @@ index c33f463e..96c54184 100644
            ) : null}
          </section>
        ) : null}
- 
+
        {productOutcome ? (
          <section
            className={styles.productOutcome}
@@ -5333,14 +4537,14 @@ index f6609f55..53689b92 100644
   * successful Evidence ingest + ReviewBundle create.
   * Recommendation remains Recommendation (not Decision / not gate consume).
   */
- 
+
  import type { ProjectServices } from "@/lib/oa/project";
  import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "./systemFactualWriter";
- 
+
  export type AppendEvidenceOutcomeToLpsResult =
    | { ok: true; lpsVersion: number }
    | { ok: false; code: string; message: string };
- 
+
  export async function appendEvidenceOutcomeToLps(input: {
    projectId: string;
    evidenceId: string;
@@ -5365,7 +4569,7 @@ index f6609f55..53689b92 100644
        message: current.error.message,
      };
    }
- 
+
    const lps = current.livingProjectState;
    const evidenceIds = [
      ...new Set([...(lps.evidenceIds ?? []), input.evidenceId]),
@@ -5378,7 +4582,7 @@ index f6609f55..53689b92 100644
      analysisNote && analysisNote.length > 0
        ? [lps.context, analysisNote].filter(Boolean).join("\n\n")
        : lps.context;
- 
+
    const appended =
      await input.projectServices.appendLivingProjectStateVersion.execute({
        projectId: input.projectId,
@@ -5392,7 +4596,7 @@ index f6609f55..53689b92 100644
        reviewBundleIds,
 +      ...(input.nextStep !== undefined ? { nextStep: input.nextStep } : {}),
      });
- 
+
    if (!appended.ok) {
      return {
        ok: false,
@@ -5400,7 +4604,7 @@ index f6609f55..53689b92 100644
        message: appended.error.message,
      };
    }
- 
+
    return { ok: true, lpsVersion: appended.livingProjectState.version };
  }
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
@@ -5413,9 +4617,9 @@ index 1f76612e..3d12c519 100644
   * Uses resolveConversationProvider() only. Never instantiates OpenAI here.
   * Result is a Recommendation, never a HumanDecision / GO / new contract.
   */
- 
+
  import { resolveConversationProvider } from "@/lib/platform/ai";
- 
+
  export const POST_EVIDENCE_NORA_SENTINEL =
    "[[SFIA_POST_EVIDENCE_NORA_ANALYSIS]]" as const;
  export const POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL =
@@ -5423,7 +4627,7 @@ index 1f76612e..3d12c519 100644
 +/** Exact post-Evidence Recommendation payload — durable in existing LPS context. */
 +export const W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL =
 +  "[[W3C_POST_EVIDENCE_RECOMMENDATION_V1]]" as const;
- 
+
  export type PostEvidenceAnalysisFacts = {
    projectId: string;
    executionContractId: string;
@@ -5446,7 +4650,7 @@ index 1f76612e..3d12c519 100644
    stdout?: string;
    stderr?: string;
  };
- 
+
  export type PostEvidenceAnalysisResult =
    | {
        ok: true;
@@ -5459,7 +4663,7 @@ index 1f76612e..3d12c519 100644
        message: string;
        providerId: string | null;
      };
- 
+
  const ANALYSIS_SYSTEM = `Tu es Nora, analyste post-exécution SFIA Studio.
  Tu produis UNIQUEMENT une recommandation non autoritaire à partir des faits durables fournis.
  Interdit:
@@ -5469,7 +4673,7 @@ index 1f76612e..3d12c519 100644
  - demander des secrets;
  - inventer une preuve REAL.
  Réponds en français, court, factuel.`;
- 
+
  function boundedFactsJson(facts: PostEvidenceAnalysisFacts): string {
    return JSON.stringify({
      projectId: facts.projectId,
@@ -5494,7 +4698,7 @@ index 1f76612e..3d12c519 100644
      stderr: facts.stderr,
    });
  }
- 
+
  export async function analyzePostEvidenceWithProvider(
    facts: PostEvidenceAnalysisFacts,
  ): Promise<PostEvidenceAnalysisResult> {
@@ -5530,7 +4734,7 @@ index 1f76612e..3d12c519 100644
      };
    }
  }
- 
+
 +/** Evidence-scoped LPS marker — binds Nora text to a specific W3-B evidenceId. */
 +export function w3cEvidenceLpsMarker(evidenceId: string): string {
 +  return `[[W3C_EVIDENCE:${evidenceId}]]`;
@@ -5556,7 +4760,7 @@ index 1f76612e..3d12c519 100644
    }
    return undefined;
  }
- 
+
 +/**
 + * Last matching post-Evidence Nora block for a specific evidenceId.
 + * Never returns another evidence's analysis (STALE binding guard at call site).
@@ -5742,7 +4946,7 @@ index bc684e22..f67e98dc 100644
      real: input.real,
    });
  }
- 
+
  /**
   * W3-B — FC-12 Evidence + RB + Contract Result CE then FC-11 projection.
   */
@@ -5770,7 +4974,7 @@ index bc684e22..f67e98dc 100644
      ckcId: input.ckcId,
    });
  }
- 
+
  export async function w2RehydrateProductOutcomeAction(input: {
    projectId: string;
    attemptId: string;
@@ -5789,7 +4993,7 @@ index bc684e22..f67e98dc 100644
      attemptId: input.attemptId,
    });
  }
- 
+
  export async function w2RehydrateLatestProductOutcomeAction(input: {
    projectId: string;
    executionContractId: string;
@@ -5818,7 +5022,7 @@ index bc684e22..f67e98dc 100644
      executionContractId: input.executionContractId,
    });
  }
- 
+
  /**
   * W3-A — Governed Execute after W2 AUTHORIZED.
   * Fresh authority evaluation; Pilote actor; fixture Attempt only; no REAL.
@@ -5836,7 +5040,7 @@ index bc684e22..f67e98dc 100644
  }): Promise<GovernedExecuteAuthorizedContractResult> {
    const runtime = getRuntimeApplicationService();
    if (!runtime.oa) return OA_UNAVAILABLE;
- 
+
    return governedExecuteAuthorizedContract({
      oa: runtime.oa,
      projectId: input.projectId,
@@ -5848,13 +5052,13 @@ index bc684e22..f67e98dc 100644
      adapterRef: input.adapterRef,
    });
  }
- 
+
  export async function w2ReadProjectHistoryAction(input: {
    projectId: string;
  }): Promise<ReadW2ProjectHistoryResult> {
    const runtime = getRuntimeApplicationService();
    if (!runtime.oa) return OA_UNAVAILABLE;
- 
+
    return readW2ProjectHistory({
      oa: runtime.oa,
      projectId: input.projectId,
@@ -5886,9 +5090,9 @@ index e3f07d16..8ec81e9e 100644
 +  runW3cPostEvidenceLoop,
 +  type W3cPostEvidenceLoopResult,
 +} from "./w3cPostEvidenceLoop";
- 
+
  export type { W3BProductTerminalProjection as W3BProductOutcomeProjection };
- 
+
  export type MaterializeW3bProductTerminalResult =
    | {
        readonly ok: true;
@@ -5903,14 +5107,14 @@ index e3f07d16..8ec81e9e 100644
        readonly product?: W3BProductTerminalProjection;
 +      readonly postEvidence?: W3cPostEvidenceLoopResult;
      };
- 
+
  const PRODUCT_RESERVATIONS = [
    "Evidence requise avant claim produit",
    "Apprentissage / replan non démarrés",
    "Exécuteur de substitution — pas d'effet externe réel",
    "Aucun READY",
  ] as const;
- 
+
  export function w3bEvidenceIdentity(attemptId: string): {
    evidenceId: string;
    reviewBundleId: string;
@@ -5929,7 +5133,7 @@ index e3f07d16..8ec81e9e 100644
      claimEvaluationIdempotencyKey: `idem:w3b-ce:${attemptId}`,
    };
  }
- 
+
  async function loadAttemptAndContract(input: {
    oa: RuntimeOaStack;
    projectId: string;
@@ -5980,7 +5184,7 @@ index e3f07d16..8ec81e9e 100644
      contract: contractResult.contract,
    };
  }
- 
+
  function projectFromFacts(input: {
    attempt: ExecutionAttempt;
    contract: ExecutionContract;
@@ -5990,7 +5194,7 @@ index e3f07d16..8ec81e9e 100644
  }): W3BProductTerminalProjection {
    return projectW3bProductTerminal(input);
  }
- 
+
  /** Write path — ingest Evidence + RB + Contract Result CE + project. */
  export async function materializeW3bProductTerminal(input: {
    readonly oa: RuntimeOaStack;
@@ -6003,13 +5207,13 @@ index e3f07d16..8ec81e9e 100644
    void input.claimedProductOutcome;
    void input.cycleProfile;
    void input.ckcId;
- 
+
    const loaded = await loadAttemptAndContract(input);
    if (!loaded.ok) return loaded;
    const { attempt, contract } = loaded;
    const ids = w3bEvidenceIdentity(attempt.attemptId);
    const services = input.oa.evidenceReviewServices!;
- 
+
    const ingested = await services.ingestExecutionAttemptEvidence.execute({
      evidenceId: ids.evidenceId,
      executionAttemptId: attempt.attemptId,
@@ -6025,7 +5229,7 @@ index e3f07d16..8ec81e9e 100644
          : {}),
      },
    });
- 
+
    if (!ingested.ok) {
      return {
        ok: false,
@@ -6040,7 +5244,7 @@ index e3f07d16..8ec81e9e 100644
        }),
      };
    }
- 
+
    const bundle = await services.createReviewBundle.execute({
      reviewBundleId: ids.reviewBundleId,
      idempotencyKey: ids.reviewBundleIdempotencyKey,
@@ -6051,7 +5255,7 @@ index e3f07d16..8ec81e9e 100644
      evidenceIds: [ingested.evidence.evidenceId],
      reservations: [...PRODUCT_RESERVATIONS],
    });
- 
+
    if (!bundle.ok) {
      return {
        ok: false,
@@ -6059,7 +5263,7 @@ index e3f07d16..8ec81e9e 100644
        message: bundle.error.message,
      };
    }
- 
+
 -  const frozen = await services.freezeReviewBundle.execute({
 -    reviewBundleId: ids.reviewBundleId,
 -    expectedVersion: bundle.reviewBundle.version,
@@ -6081,7 +5285,7 @@ index e3f07d16..8ec81e9e 100644
 +      idempotencyKey: `idem:w3b-rb-freeze:${attempt.attemptId}`,
 +      actor: LOCAL_PILOTE_ACTOR,
 +    });
- 
+
 -  if (!frozen.ok) {
 -    return {
 -      ok: false,
@@ -6101,7 +5305,7 @@ index e3f07d16..8ec81e9e 100644
 +    // Already frozen from a prior materialize — treat as idempotent reuse.
 +    freezeReusedFromIdempotencyKey = true;
    }
- 
+
    if (!services.evaluateContractResult) {
      return {
        ok: false,
@@ -6109,7 +5313,7 @@ index e3f07d16..8ec81e9e 100644
        message: "EvaluateContractResult indisponible — fail-closed.",
      };
    }
- 
+
    const evaluated = await services.evaluateContractResult.execute({
      claimEvaluationId: ids.claimEvaluationId,
      idempotencyKey: ids.claimEvaluationIdempotencyKey,
@@ -6140,7 +5344,7 @@ index e3f07d16..8ec81e9e 100644
 -    reviewBundle: frozen.reviewBundle,
 +    reviewBundle: frozenReviewBundle,
    });
- 
+
      if (!evaluated.ok) {
        // Surface shape reason in test/dev failures.
        const detail = evaluated.error.internalCauseRef ?? evaluated.error.message;
@@ -6158,7 +5362,7 @@ index e3f07d16..8ec81e9e 100644
        }),
      };
    }
- 
+
 +  const product = projectFromFacts({
 +    attempt,
 +    contract,
@@ -6233,7 +5437,7 @@ index e3f07d16..8ec81e9e 100644
 +    postEvidence,
    };
  }
- 
+
  export async function rehydrateW3bProductTerminal(input: {
    readonly oa: RuntimeOaStack;
    readonly projectId: string;
@@ -6244,7 +5448,7 @@ index e3f07d16..8ec81e9e 100644
    const { attempt, contract } = loaded;
    const ids = w3bEvidenceIdentity(attempt.attemptId);
    const services = input.oa.evidenceReviewServices!;
- 
+
    const evidence = await services.evidenceReader.findById(ids.evidenceId);
    const reviewBundle = await services.reviewBundleReader.findById(
      ids.reviewBundleId,
@@ -6252,7 +5456,7 @@ index e3f07d16..8ec81e9e 100644
    const claimEvaluation = await services.claimEvaluationReader.findById(
      ids.claimEvaluationId,
    );
- 
+
    if (!evidence || !reviewBundle || !claimEvaluation) {
      return {
        ok: false,
@@ -6261,7 +5465,7 @@ index e3f07d16..8ec81e9e 100644
          "Evidence / ReviewBundle / Contract Result CE absents — aucun claim reconstruit.",
      };
    }
- 
+
    if (evidence.bindings.projectId && evidence.bindings.projectId !== input.projectId) {
      return {
        ok: false,
@@ -6276,7 +5480,7 @@ index e3f07d16..8ec81e9e 100644
        message: "Evidence liée à un autre Attempt.",
      };
    }
- 
+
 +  const product = projectFromFacts({
 +    attempt,
 +    contract,
@@ -6305,14 +5509,14 @@ index e3f07d16..8ec81e9e 100644
 +    postEvidence,
    };
  }
- 
+
  const TERMINAL_STATUSES = new Set([
    "succeeded",
    "failed",
    "timeout",
    "cancelled",
  ]);
- 
+
  export async function rehydrateLatestW3bProductTerminalForContract(input: {
    readonly oa: RuntimeOaStack;
    readonly projectId: string;
@@ -6377,7 +5581,7 @@ index e3f07d16..8ec81e9e 100644
 +      : {}),
    };
  }
- 
+
  /** @deprecated alias for actions/tests migrating from heuristic materialize name */
  export const materializeProductOutcomeFromAttempt = materializeW3bProductTerminal;
  export const rehydrateProductOutcomeFromAttempt = rehydrateW3bProductTerminal;
@@ -6401,15 +5605,15 @@ index 0e07fe84..fc23a695 100644
    readonly cycleInstanceClosed?: boolean;
    readonly projectArchived?: boolean;
  };
- 
+
  export type GovernedExecutePhaseFailure = W2Failure & {
    readonly attempt?: GovernedExecuteAttemptProjection;
  };
- 
+
  export type GovernedExecutePhaseResult =
    | GovernedExecutePhaseSuccess
    | GovernedExecutePhaseFailure;
- 
+
  export type GovernedExecuteAuthorizedContractSuccess = GovernedExecutePhaseSuccess & {
    readonly phase: "terminal";
    readonly reusedExistingAttempt: boolean;
@@ -6421,11 +5625,11 @@ index 0e07fe84..fc23a695 100644
    readonly cycleInstanceClosed: false | boolean;
    readonly projectArchived: false | boolean;
  };
- 
+
  export type GovernedExecuteAuthorizedContractResult =
    | GovernedExecuteAuthorizedContractSuccess
    | GovernedExecutePhaseFailure;
- 
+
  export type W3BProductOutcomeDto = {
    readonly outcome: "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED";
    readonly businessHeadline: string;
@@ -6467,7 +5671,7 @@ index 0e07fe84..fc23a695 100644
    readonly replanInvoked: false;
    readonly realExecution: false;
  };
- 
+
 +/** Serializable W3-C post-Evidence loop DTO (Recommendation ≠ HumanDecision). */
 +export type W3cPostEvidenceLoopDto =
 +  | {
@@ -6519,18 +5723,18 @@ index 0e07fe84..fc23a695 100644
      };
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
 new file mode 100644
-index 00000000..4d37e556
+index 00000000..dc9b67b0
 --- /dev/null
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
-@@ -0,0 +1,1162 @@
+@@ -0,0 +1,1210 @@
 +/**
 + * W3-C — Post-Evidence loop after W3-B terminal materialize.
 + * Consumes durable Evidence / RB / CE (no re-ingest). Recommendation only —
 + * never HumanDecision, never auto trajectory mutation, never auto new cycle.
 + *
-+ * Structural HumanDecision only via explicit W2 propose + decide — Recovery
-+ * CTA ≠ automatic HD (requiresHumanDecision false on STOP/FAIL/fail_closed
-+ * unless coordination nextAction clearly indicates structural replan).
++ * HumanDecision of trajectory only via explicit W2 propose + decide — Recovery
++ * CTA ≠ automatic HD. D5 NextActionCode has no ProjectTrajectory replan signal;
++ * W3-C never invents kind:"replan" / requiresHumanDecision from D5 alone.
 + */
 +
 +import { createHash } from "node:crypto";
@@ -6547,6 +5751,7 @@ index 00000000..4d37e556
 +  formatW3cRecommendationPayloadForLps,
 +  lastW3cEvidenceIdInLpsContext,
 +} from "@/features/project-assistant/f3/postEvidenceNoraAnalysis";
++import type { NextActionCode } from "@/lib/oa/evidence-review/domain/coordinationTypes";
 +import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
 +
 +export type W3cRecommendationKind =
@@ -6662,50 +5867,96 @@ index 00000000..4d37e556
 +}
 +
 +/**
-+ * Structural replan signal from RecommendNextGate coordination — only then
-+ * kind:"replan" + requiresHumanDecision:true. Default recovery stays HD-free;
-+ * structural HD only via explicit W2 propose + decide.
++ * Closed D5 NextActionCode → W3-C action class.
++ * ISSUE B — no D5 code means ProjectTrajectory structural replan.
++ * Trajectory replan remains W2 propose + explicit HumanDecision only.
 + */
-+function isStructuralReplanNextAction(actionCode: string | null): boolean {
-+  if (!actionCode) return false;
-+  const lower = actionCode.toLowerCase();
-+  return lower.includes("replan") || lower.includes("trajectory");
++export type W3cD5ActionClass =
++  | "non_structural_progress"
++  | "human_confirmation"
++  | "morris_arbitration"
++  | "next_cycle_gate"
++  | "none";
++
++const W3C_D5_NEXT_ACTION_CLASS: Record<NextActionCode, W3cD5ActionClass> = {
++  complete_evidence: "non_structural_progress",
++  verify_evidence_integrity: "non_structural_progress",
++  freeze_review_bundle: "non_structural_progress",
++  complete_review: "non_structural_progress",
++  evaluate_claim: "non_structural_progress",
++  resolve_dispute: "non_structural_progress",
++  propose_maturity: "non_structural_progress",
++  downgrade_maturity: "non_structural_progress",
++  confirm_claim_evaluation: "human_confirmation",
++  confirm_maturity: "human_confirmation",
++  solicit_morris_arbitration: "morris_arbitration",
++  solicit_morris_go: "next_cycle_gate",
++};
++
++export function classifyW3cD5NextAction(
++  actionCode: string | null,
++): W3cD5ActionClass {
++  if (!actionCode) return "none";
++  if (Object.prototype.hasOwnProperty.call(W3C_D5_NEXT_ACTION_CLASS, actionCode)) {
++    return W3C_D5_NEXT_ACTION_CLASS[actionCode as NextActionCode];
++  }
++  // Unknown / non-D5 code — never invent structural trajectory replan.
++  return "none";
 +}
 +
-+function recommendationFromOutcome(input: {
++function nextStepForOutcomeAndClass(
++  outcome: "SUCCESS" | "STOP" | "FAIL",
++  actionClass: W3cD5ActionClass,
++): string {
++  if (actionClass === "human_confirmation") {
++    return outcome === "SUCCESS"
++      ? "coordinate_human_confirmation"
++      : "recovery_coordinate_human_confirmation";
++  }
++  if (actionClass === "morris_arbitration") {
++    return outcome === "SUCCESS"
++      ? "coordinate_morris_arbitration"
++      : "recovery_coordinate_morris_arbitration";
++  }
++  if (actionClass === "next_cycle_gate") {
++    return "coordinate_solicit_morris_go";
++  }
++  if (outcome === "SUCCESS") return "continue_with_recommendation";
++  if (outcome === "STOP") return "recovery_requalify";
++  return "recovery_diagnose_or_replan";
++}
++
++/**
++ * Project durable product outcome + real D5 coordination onto a Recommendation.
++ * Never invents kind:"replan" from D5 (no trajectory replan code in NextActionCode).
++ * requiresHumanDecision stays false — D5 confirmation/arbitration/gate ≠ W2 HD.
++ */
++export function recommendationFromOutcome(input: {
 +  outcome: "SUCCESS" | "STOP" | "FAIL";
 +  recommendNextGateStatus: string | null;
 +  nextActionCode: string | null;
 +}): W3cPostEvidenceRecommendation {
-+  const structural = isStructuralReplanNextAction(input.nextActionCode);
++  const actionClass = classifyW3cD5NextAction(input.nextActionCode);
++  const nextStep = nextStepForOutcomeAndClass(input.outcome, actionClass);
 +
 +  if (input.outcome === "SUCCESS") {
++    const headline =
++      actionClass === "human_confirmation"
++        ? "Confirmation humaine de coordination recommandée"
++        : actionClass === "morris_arbitration"
++          ? "Arbitrage Morris de coordination recommandé"
++          : actionClass === "next_cycle_gate"
++            ? "Gate Morris next-cycle recommandé (non consommé)"
++            : "Continuer avec la recommandation";
 +    return {
-+      kind: structural ? "replan" : "continue",
-+      headline: structural
-+        ? "Replan structurel recommandé (après coordination)"
-+        : "Continuer avec la recommandation",
++      kind: "continue",
++      headline,
 +      rationale:
-+        "Succès produit durable — recommandation non autoritaire ; replan structurel uniquement via propose + decide explicites.",
-+      nextStep: structural
-+        ? "structural_replan_propose"
-+        : "continue_with_recommendation",
-+      // SUCCESS default false; structural path needs explicit W2 HD after propose.
-+      requiresHumanDecision: structural,
-+      ...ANTI_AUTHORITY,
-+      recommendNextGateStatus: input.recommendNextGateStatus,
-+      nextActionCode: input.nextActionCode,
-+    };
-+  }
-+
-+  if (structural) {
-+    return {
-+      kind: "replan",
-+      headline: "Replan structurel après terminal",
-+      rationale:
-+        "Coordination indique un replan structurel — HumanDecision uniquement via propose + decide W2 explicites.",
-+      nextStep: "structural_replan_propose",
-+      requiresHumanDecision: true,
++        "Succès produit durable — Recommendation non autoritaire. " +
++        "D5 confirmation/arbitration/gate ≠ HumanDecision de trajectoire ; " +
++        "replan ProjectTrajectory uniquement via W2 propose + decide explicites.",
++      nextStep,
++      requiresHumanDecision: false,
 +      ...ANTI_AUTHORITY,
 +      recommendNextGateStatus: input.recommendNextGateStatus,
 +      nextActionCode: input.nextActionCode,
@@ -6717,9 +5968,9 @@ index 00000000..4d37e556
 +      kind: "recover",
 +      headline: "Requalification après arrêt gouverné",
 +      rationale:
-+        "Arrêt gouverné durable — Recovery ≠ HumanDecision automatique ; propose + decide explicites pour replan structurel.",
-+      nextStep: "recovery_requalify",
-+      // Recovery CTA is consumable without automatic HD.
++        "Arrêt gouverné durable — Recovery ≠ HumanDecision automatique ; " +
++        "D5 ne prouve pas un replan ProjectTrajectory ; propose + decide W2 explicites pour toute adoption de trajectoire.",
++      nextStep,
 +      requiresHumanDecision: false,
 +      ...ANTI_AUTHORITY,
 +      recommendNextGateStatus: input.recommendNextGateStatus,
@@ -6730,8 +5981,9 @@ index 00000000..4d37e556
 +    kind: "recover",
 +    headline: "Diagnostiquer ou replanifier après échec",
 +    rationale:
-+      "Échec technique durable — Recovery ≠ HumanDecision automatique ; replan structurel uniquement via propose + decide.",
-+    nextStep: "recovery_diagnose_or_replan",
++      "Échec technique durable — Recovery ≠ HumanDecision automatique ; " +
++      "replan ProjectTrajectory uniquement via propose + decide W2.",
++    nextStep,
 +    requiresHumanDecision: false,
 +    ...ANTI_AUTHORITY,
 +    recommendNextGateStatus: input.recommendNextGateStatus,
@@ -7728,18 +6980,18 @@ index c5a3ddf5..aa603f17 100644
    LaunchRequest,
    LaunchResult,
  } from "../ports/executionAdapter";
- 
+
  export type ScriptedLaunchOutcome =
    | { outcome: "ack" }
    | { outcome: "reject"; reason: string }
    | { outcome: "fail"; reason: string }
    | { outcome: "throw"; reason: string };
- 
+
  export type ScriptedCancelOutcome =
    | { outcome: "ack" }
    | { outcome: "fail"; reason: string; irreversibleEffectsPossible?: boolean }
    | { outcome: "throw"; reason: string };
- 
+
  export type TestExecutionAdapterOptions = {
    adapterId?: string;
    /** Per-attempt scripted outcomes; falls back to the default outcome. */
@@ -7754,12 +7006,12 @@ index c5a3ddf5..aa603f17 100644
     */
    spoofAdapterIdOnAck?: string;
  };
- 
+
  export class TestExecutionAdapter implements ExecutionAdapterPort {
    readonly adapterId: string;
    readonly externalEffects = false as const;
    readonly calls: AdapterCall[] = [];
- 
+
    private readonly launchFixtures: Record<string, ScriptedLaunchOutcome>;
    private readonly cancelFixtures: Record<string, ScriptedCancelOutcome>;
    private defaultLaunch: ScriptedLaunchOutcome;
@@ -7768,7 +7020,7 @@ index c5a3ddf5..aa603f17 100644
    private readonly spoofAdapterIdOnAck: string | undefined;
    private readonly launched = new Map<string, LaunchResult>();
    private readonly cancelled = new Map<string, CancelResult>();
- 
+
    constructor(options: TestExecutionAdapterOptions = {}) {
      this.adapterId = options.adapterId ?? "adp:test-fixture";
      this.launchFixtures = { ...(options.launchFixtures ?? {}) };
@@ -7778,15 +7030,15 @@ index c5a3ddf5..aa603f17 100644
 +    this.oneShotLaunch = undefined;
      this.spoofAdapterIdOnAck = options.spoofAdapterIdOnAck;
    }
- 
+
    get launchCallCount(): number {
      return this.calls.filter((call) => call.kind === "launch").length;
    }
- 
+
    get cancelCallCount(): number {
      return this.calls.filter((call) => call.kind === "cancel").length;
    }
- 
+
    /**
     * E2E/QA scripting only — mutate default launch outcome for subsequent attempts.
     * Does not change adapter identity or externalEffects.
@@ -7794,7 +7046,7 @@ index c5a3ddf5..aa603f17 100644
    queueDefaultLaunch(outcome: ScriptedLaunchOutcome): void {
      this.defaultLaunch = outcome;
    }
- 
+
 +  /**
 +   * E2E/QA — next launch only; then reverts to defaultLaunch.
 +   * Prevents adapter_fail arm from poisoning subsequent SUCCESS attempts.
@@ -7813,7 +7065,7 @@ index c5a3ddf5..aa603f17 100644
    queueDefaultCancel(outcome: ScriptedCancelOutcome): void {
      this.defaultCancel = outcome;
    }
- 
+
    async launch(request: LaunchRequest): Promise<LaunchResult> {
      const memoized = this.launched.get(request.attemptId);
      if (memoized) {
@@ -7860,7 +7112,7 @@ index c5a3ddf5..aa603f17 100644
      this.launched.set(request.attemptId, result);
      return structuredClone(result);
    }
- 
+
    async cancel(request: CancelRequest): Promise<CancelResult> {
      const memoized = this.cancelled.get(request.attemptId);
      if (memoized) {
@@ -7909,17 +7161,17 @@ index 8b019b71..39e945e1 100644
        if (!preflightCurrent) {
          return fail("LPS_NOT_FOUND", "missing_current_lps");
        }
- 
+
        const lpsVersionId = request.lpsVersionId ?? newId("lps");
        if (await this.lps.findById(lpsVersionId)) {
          return fail("LPS_INVALID", "lps_version_id_taken");
        }
- 
+
        let livingProjectState: LivingProjectState | undefined;
        let updatedProject: Project | undefined;
        let previousLpsVersionId: string | undefined;
        let nextVersion = 0;
- 
+
        const persist = async () => {
          // Re-read under the transaction/mutex — concurrent double-append must conflict.
          const current = await this.lps.findCurrentByProjectId(request.projectId);
@@ -7932,14 +7184,14 @@ index 8b019b71..39e945e1 100644
              current.lpsVersionId,
            );
          }
- 
+
          nextVersion = current.version + 1;
          if (nextVersion <= current.version) {
            throw new Error("non_monotonic_version");
          }
- 
+
          previousLpsVersionId = current.lpsVersionId;
- 
+
          const provenance = appendProvenance({
            timestamp,
            correlationId,
@@ -7948,7 +7200,7 @@ index 8b019b71..39e945e1 100644
            doctrinePackageRef: `${doctrinePackageRef.doctrinePackageId}@${doctrinePackageRef.version}`,
            supersedes: current.provenance?.provenanceRecordId,
          });
- 
+
          const pickLink = <T>(
            next: T | null | undefined,
            prior: T | undefined,
@@ -7957,7 +7209,7 @@ index 8b019b71..39e945e1 100644
            if (next !== undefined) return next;
            return prior;
          };
- 
+
          const nextLps: LivingProjectState = {
            schemaVersion: "0.1.0-oa",
            lpsVersionId,
@@ -8015,7 +7267,7 @@ index 8b019b71..39e945e1 100644
            provenance,
            uiOwnership: false,
          };
- 
+
          const nextProject: Project = {
            ...structuredClone(project),
            currentLpsVersionId: lpsVersionId,
@@ -8025,15 +7277,15 @@ index 8b019b71..39e945e1 100644
            ),
            updatedAt: timestamp,
          };
- 
+
          await this.lps.markSuperseded(current.lpsVersionId);
          await this.lps.save(nextLps);
          await this.projects.save(nextProject);
- 
+
          livingProjectState = nextLps;
          updatedProject = nextProject;
        };
- 
+
        try {
          if (this.store) {
            await this.store.runInTransaction(persist);
@@ -8050,11 +7302,11 @@ index 8b019b71..39e945e1 100644
          }
          return fail("PERSISTENCE_FAILURE", "atomic_append_failed");
        }
- 
+
        if (!livingProjectState || !updatedProject || !previousLpsVersionId) {
          return fail("PERSISTENCE_FAILURE", "atomic_append_incomplete");
        }
- 
+
        const durationMs = Date.now() - started;
        this.audit.append({
          event: "oa.lps.version_appended",
@@ -8097,7 +7349,7 @@ index a3fccaa7..1d881208 100644
    provenance?: ProvenanceRecord;
    uiOwnership?: false;
  };
- 
+
  export type CreateProjectRequest = {
    projectId: string;
    title: string;
@@ -8111,7 +7363,7 @@ index a3fccaa7..1d881208 100644
    context?: string;
    scope?: string;
  };
- 
+
  export type AppendLivingProjectStateRequest = {
    projectId: string;
    expectedVersion: number;
@@ -8156,12 +7408,12 @@ index a3fccaa7..1d881208 100644
 +   */
 +  nextStep?: string | null;
  };
- 
+
  /** Modeled ErrorRecord codes applicable to Project/LPS (M-OA). */
  export type ProjectModeledErrorCode =
    | "DOCTRINE_UNRESOLVED"
    | "STATE_CONFLICT";
- 
+
  /**
   * T-A1 detail codes — finer than modeled ErrorRecord enum.
   * Mapped onto ProjectModeledErrorCode for ErrorRecord-compatible emission (T-A1-D08).
@@ -8175,7 +7427,7 @@ index a3fccaa7..1d881208 100644
    | "LPS_INVALID"
    | "DOCTRINE_UNRESOLVED"
    | "PERSISTENCE_FAILURE";
- 
+
  export type ProjectStructuredError = {
    code: ProjectModeledErrorCode;
    detailCode: ProjectDetailCode;
@@ -8197,7 +7449,7 @@ index a3fccaa7..1d881208 100644
    /** Opaque internal cause — never exposed to clients. */
    internalCauseRef?: string;
  };
- 
+
  export type CreateProjectSuccess = {
    ok: true;
    project: Project;
@@ -8205,32 +7457,32 @@ index a3fccaa7..1d881208 100644
    reusedFromIdempotencyKey?: boolean;
    durationMs: number;
  };
- 
+
  export type CreateProjectFailure = {
    ok: false;
    error: ProjectStructuredError;
    durationMs: number;
  };
- 
+
  export type CreateProjectResult = CreateProjectSuccess | CreateProjectFailure;
- 
+
  export type GetProjectSuccess = {
    ok: true;
    project: Project;
  };
- 
+
  export type GetProjectFailure = {
    ok: false;
    error: ProjectStructuredError;
  };
- 
+
  export type GetProjectResult = GetProjectSuccess | GetProjectFailure;
- 
+
  export type ListProjectsSuccess = {
    ok: true;
    projects: Project[];
  };
- 
+
  export type ListProjectsFailure = {
    ok: false;
    error: ProjectStructuredError;
@@ -8249,11 +7501,11 @@ index c9e5894a..793c550e 100644
    ProviderRoundResult,
    ProviderToolCall,
  } from "./types";
- 
+
  export type FakeToolScriptRound =
    | { kind: "message"; text: string }
    | { kind: "tool_calls"; toolCalls: ProviderToolCall[] };
- 
+
  /**
   * Deterministic fake provider for unit/E2E non-live tests.
   * Never presented as live GPT; replies are tagged TEST/FAKE.
@@ -8265,7 +7517,7 @@ index c9e5894a..793c550e 100644
    private readonly scripted?: string[];
    private readonly failOnCall?: number;
    private readonly toolScript?: FakeToolScriptRound[];
- 
+
    constructor(options?: {
      scripted?: string[];
      failOnCall?: number;
@@ -8275,7 +7527,7 @@ index c9e5894a..793c550e 100644
      this.failOnCall = options?.failOnCall;
      this.toolScript = options?.toolScript;
    }
- 
+
    async completeStructured(input: {
      messages: ProviderChatMessage[];
      schemaName: string;
@@ -8286,7 +7538,7 @@ index c9e5894a..793c550e 100644
      // Reuse F2 marker / analysis scripted JSON from complete().
      return this.complete(input.messages);
    }
- 
+
 +  /** Test helper — Nora/provider invocation counter. */
 +  getCallCountForTests(): number {
 +    return this.callCount;
@@ -8305,7 +7557,7 @@ index c9e5894a..793c550e 100644
      if (lastUser?.content.includes("__OPS1_FORCE_PROVIDER_ERROR__")) {
        throw new Error("FAKE_PROVIDER_ERROR");
      }
- 
+
      if (
        messages.some((m) =>
          m.role === "system" &&
@@ -8360,7 +7612,7 @@ index c9e5894a..793c550e 100644
          },
        };
      }
- 
+
      // F2 deterministic structured intent JSON (TEST/FAKE only)
      if (lastUser?.content.includes("__F2_INFORMATIVE__")) {
        return {
@@ -8456,9 +7708,9 @@ index c2cc4853..df653d59 100644
    GetProjectRuntimeResult,
    ListProjectsRuntimeResult,
  } from "./types";
- 
+
  export type RuntimeAuditMode = "noop" | "memory" | "sqlite";
- 
+
  export interface RuntimeApplicationServiceOptions {
    readonly registryRoot?: string;
    readonly schemasRoot?: string;
@@ -8496,7 +7748,7 @@ index c2cc4853..df653d59 100644
     */
    readonly realBoundaryComposition?: ComposeStudioProductRealBoundaryInput;
  }
- 
+
  export type RuntimeOaStack = {
    readonly projectServices: ProjectServices;
    readonly clock: ClockPort;
@@ -8515,7 +7767,7 @@ index c2cc4853..df653d59 100644
     */
    readonly productDurablePath: boolean;
  };
- 
+
  function resolveAudit(
    mode: RuntimeAuditMode,
    sqliteAuditStore: BoundedAtomicAuditStore | undefined,
@@ -8533,7 +7785,7 @@ index c2cc4853..df653d59 100644
    }
    return new NoOpLocalProjectCreationAudit();
  }
- 
+
  function wireOaStack(
    projectServices: ProjectServices,
    clock: ClockPort,
@@ -8563,7 +7815,7 @@ index c2cc4853..df653d59 100644
    const authorityResolver = new MemoryAuthorityResolver();
    // M3 authority is fail-closed unless env enabled; registration happens per-scope in F2/F3.
    void isM3LocalAuthorityEnabled;
- 
+
    const decisionServices = productSqlite
      ? createSqliteDecisionServices({
          projectServices,
@@ -8578,7 +7830,7 @@ index c2cc4853..df653d59 100644
          clock,
          authorityResolver,
        });
- 
+
    const executionContractServices = productSqlite
      ? createSqliteExecutionContractServices({
          projectServices,
@@ -8595,7 +7847,7 @@ index c2cc4853..df653d59 100644
          clock,
          authorityResolver,
        });
- 
+
    // EXPLICIT TestExecutionAdapter — never omit (factory default is NoOp).
    // GAP-3: realBoundary is optional and OFF by default. M4 descriptor is
    // registered only on the governed path (injected boundary or REAL flag).
@@ -8638,7 +7890,7 @@ index c2cc4853..df653d59 100644
          policy: { defaultMaxRetriesBudget: 0 },
          realBoundary,
        });
- 
+
    const evidenceReviewServices = productSqlite
      ? createSqliteEvidenceReviewServices({
          productStore: productSqlite,
@@ -8653,7 +7905,7 @@ index c2cc4853..df653d59 100644
            executionAttemptServices.attempts,
          ),
        });
- 
+
    return Object.freeze({
      projectServices,
      clock,
@@ -8668,7 +7920,7 @@ index c2cc4853..df653d59 100644
      productDurablePath: productSqlite !== null,
    });
  }
- 
+
  /**
   * Application runtime service over V1 LocalProjectFacade.
   * Does not duplicate T-A0/T-A1 rules; maps serializable DTOs only.
@@ -8679,7 +7931,7 @@ index c2cc4853..df653d59 100644
    readonly architecture: LocalVerticalSliceServices["architecture"];
    readonly oa: RuntimeOaStack | null;
    private readonly disposeProduct?: () => void;
- 
+
    constructor(
      facade: LocalProjectFacade,
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/w3bE2eBoundaryControl.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/w3bE2eBoundaryControl.ts
@@ -8692,9 +7944,9 @@ index 5a297bb6..1bb8752e 100644
   * Arms TestExecutionAdapter fail OR a post-start governed stop code.
   * Never creates Product Outcome directly. Disabled outside E2E gates.
   */
- 
+
  import type { TestExecutionAdapter } from "@/lib/oa/execution-attempt";
- 
+
  export type W3bBoundaryArm =
    | {
        readonly kind: "adapter_fail";
@@ -8705,9 +7957,9 @@ index 5a297bb6..1bb8752e 100644
        /** Must match an EC stopCondition or PROTECTED:* constraint. */
        readonly stopCondition: string;
      };
- 
+
  const ARM_KEY = "__SFIA_E2E_W3B_BOUNDARY_ARM__" as const;
- 
+
  function armSlot(): { current: W3bBoundaryArm | null } {
    const g = globalThis as typeof globalThis & {
      [ARM_KEY]?: { current: W3bBoundaryArm | null };
@@ -8715,7 +7967,7 @@ index 5a297bb6..1bb8752e 100644
    if (!g[ARM_KEY]) g[ARM_KEY] = { current: null };
    return g[ARM_KEY];
  }
- 
+
  export function isW3bBoundaryControlEnabled(): boolean {
    if (process.env.NODE_ENV === "production") return false;
    if (process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL !== "1") return false;
@@ -8731,25 +7983,25 @@ index 5a297bb6..1bb8752e 100644
    }
    return true;
  }
- 
+
  export function armW3bBoundary(arm: W3bBoundaryArm): void {
    if (!isW3bBoundaryControlEnabled()) {
      throw new Error("W3B_BOUNDARY_CONTROL_DISABLED");
    }
    armSlot().current = arm;
  }
- 
+
  export function peekW3bBoundaryArm(): W3bBoundaryArm | null {
    return armSlot().current;
  }
- 
+
  export function consumeW3bBoundaryArm(): W3bBoundaryArm | null {
    const slot = armSlot();
    const current = slot.current;
    slot.current = null;
    return current;
  }
- 
+
 +const FIXTURE_RESET_KEY = "__SFIA_E2E_W3B_FIXTURE_ADAPTER__" as const;
 +
 +export function registerW3bFixtureAdapterForE2eReset(
@@ -8769,7 +8021,7 @@ index 5a297bb6..1bb8752e 100644
 +  const adapter = g[FIXTURE_RESET_KEY];
 +  if (adapter) adapter.resetScriptedLaunchDefaults();
  }
- 
+
  export function applyW3bAdapterFailArmIfPresent(
    fixtureAdapter: TestExecutionAdapter | null | undefined,
  ): boolean {
@@ -8788,7 +8040,7 @@ index 5a297bb6..1bb8752e 100644
 
 ---
 
-## Final vs main — name-status / stat
+## Final name-status / stat
 
 ```
 A	projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts
@@ -8816,7 +8068,7 @@ M	projects/sfia-studio/app/lib/vertical-slice-runtime/w3bE2eBoundaryControl.ts
 ```
 
 ```
- .../w3cPostEvidenceCorrection.test.ts              |  884 +++++++++++++++
+ .../w3cPostEvidenceCorrection.test.ts              | 1056 +++++++++++++++++
  .../project-assistant/w3cPostEvidenceLoop.test.ts  |  514 +++++++++
  .../importBoundaries.test.ts                       |    1 +
  .../studio-w3b-terminal-evidence-runtime.spec.ts   |    7 +
@@ -8829,7 +8081,7 @@ M	projects/sfia-studio/app/lib/vertical-slice-runtime/w3bE2eBoundaryControl.ts
  .../app/features/project-assistant/w2/actions.ts   |    1 +
  .../w2/materializeW3bProductTerminal.ts            |  149 ++-
  .../app/features/project-assistant/w2/types.ts     |   37 +
- .../project-assistant/w2/w3cPostEvidenceLoop.ts    | 1162 ++++++++++++++++++++
+ .../project-assistant/w2/w3cPostEvidenceLoop.ts    | 1210 ++++++++++++++++++++
  .../project-assistant/w2/w3cProductPresentation.ts |   17 +
  .../infrastructure/testExecutionAdapter.ts         |   26 +-
  .../application/appendLivingProjectStateVersion.ts |    1 +
@@ -8837,6 +8089,6 @@ M	projects/sfia-studio/app/lib/vertical-slice-runtime/w3bE2eBoundaryControl.ts
  .../app/lib/platform/ai/fakeProvider.ts            |    5 +
  .../app/lib/vertical-slice-runtime/service.ts      |    2 +
  .../w3bE2eBoundaryControl.ts                       |   18 +-
- 21 files changed, 3356 insertions(+), 50 deletions(-)
+ 21 files changed, 3576 insertions(+), 50 deletions(-)
 
 ```
