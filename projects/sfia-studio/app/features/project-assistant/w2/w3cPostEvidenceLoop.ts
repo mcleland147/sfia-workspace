@@ -3,9 +3,9 @@
  * Consumes durable Evidence / RB / CE (no re-ingest). Recommendation only —
  * never HumanDecision, never auto trajectory mutation, never auto new cycle.
  *
- * Structural HumanDecision only via explicit W2 propose + decide — Recovery
- * CTA ≠ automatic HD (requiresHumanDecision false on STOP/FAIL/fail_closed
- * unless coordination nextAction clearly indicates structural replan).
+ * HumanDecision of trajectory only via explicit W2 propose + decide — Recovery
+ * CTA ≠ automatic HD. D5 NextActionCode has no ProjectTrajectory replan signal;
+ * W3-C never invents kind:"replan" / requiresHumanDecision from D5 alone.
  */
 
 import { createHash } from "node:crypto";
@@ -22,6 +22,7 @@ import {
   formatW3cRecommendationPayloadForLps,
   lastW3cEvidenceIdInLpsContext,
 } from "@/features/project-assistant/f3/postEvidenceNoraAnalysis";
+import type { NextActionCode } from "@/lib/oa/evidence-review/domain/coordinationTypes";
 import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
 
 export type W3cRecommendationKind =
@@ -137,50 +138,96 @@ function failClosed(
 }
 
 /**
- * Structural replan signal from RecommendNextGate coordination — only then
- * kind:"replan" + requiresHumanDecision:true. Default recovery stays HD-free;
- * structural HD only via explicit W2 propose + decide.
+ * Closed D5 NextActionCode → W3-C action class.
+ * ISSUE B — no D5 code means ProjectTrajectory structural replan.
+ * Trajectory replan remains W2 propose + explicit HumanDecision only.
  */
-function isStructuralReplanNextAction(actionCode: string | null): boolean {
-  if (!actionCode) return false;
-  const lower = actionCode.toLowerCase();
-  return lower.includes("replan") || lower.includes("trajectory");
+export type W3cD5ActionClass =
+  | "non_structural_progress"
+  | "human_confirmation"
+  | "morris_arbitration"
+  | "next_cycle_gate"
+  | "none";
+
+const W3C_D5_NEXT_ACTION_CLASS: Record<NextActionCode, W3cD5ActionClass> = {
+  complete_evidence: "non_structural_progress",
+  verify_evidence_integrity: "non_structural_progress",
+  freeze_review_bundle: "non_structural_progress",
+  complete_review: "non_structural_progress",
+  evaluate_claim: "non_structural_progress",
+  resolve_dispute: "non_structural_progress",
+  propose_maturity: "non_structural_progress",
+  downgrade_maturity: "non_structural_progress",
+  confirm_claim_evaluation: "human_confirmation",
+  confirm_maturity: "human_confirmation",
+  solicit_morris_arbitration: "morris_arbitration",
+  solicit_morris_go: "next_cycle_gate",
+};
+
+export function classifyW3cD5NextAction(
+  actionCode: string | null,
+): W3cD5ActionClass {
+  if (!actionCode) return "none";
+  if (Object.prototype.hasOwnProperty.call(W3C_D5_NEXT_ACTION_CLASS, actionCode)) {
+    return W3C_D5_NEXT_ACTION_CLASS[actionCode as NextActionCode];
+  }
+  // Unknown / non-D5 code — never invent structural trajectory replan.
+  return "none";
 }
 
-function recommendationFromOutcome(input: {
+function nextStepForOutcomeAndClass(
+  outcome: "SUCCESS" | "STOP" | "FAIL",
+  actionClass: W3cD5ActionClass,
+): string {
+  if (actionClass === "human_confirmation") {
+    return outcome === "SUCCESS"
+      ? "coordinate_human_confirmation"
+      : "recovery_coordinate_human_confirmation";
+  }
+  if (actionClass === "morris_arbitration") {
+    return outcome === "SUCCESS"
+      ? "coordinate_morris_arbitration"
+      : "recovery_coordinate_morris_arbitration";
+  }
+  if (actionClass === "next_cycle_gate") {
+    return "coordinate_solicit_morris_go";
+  }
+  if (outcome === "SUCCESS") return "continue_with_recommendation";
+  if (outcome === "STOP") return "recovery_requalify";
+  return "recovery_diagnose_or_replan";
+}
+
+/**
+ * Project durable product outcome + real D5 coordination onto a Recommendation.
+ * Never invents kind:"replan" from D5 (no trajectory replan code in NextActionCode).
+ * requiresHumanDecision stays false — D5 confirmation/arbitration/gate ≠ W2 HD.
+ */
+export function recommendationFromOutcome(input: {
   outcome: "SUCCESS" | "STOP" | "FAIL";
   recommendNextGateStatus: string | null;
   nextActionCode: string | null;
 }): W3cPostEvidenceRecommendation {
-  const structural = isStructuralReplanNextAction(input.nextActionCode);
+  const actionClass = classifyW3cD5NextAction(input.nextActionCode);
+  const nextStep = nextStepForOutcomeAndClass(input.outcome, actionClass);
 
   if (input.outcome === "SUCCESS") {
+    const headline =
+      actionClass === "human_confirmation"
+        ? "Confirmation humaine de coordination recommandée"
+        : actionClass === "morris_arbitration"
+          ? "Arbitrage Morris de coordination recommandé"
+          : actionClass === "next_cycle_gate"
+            ? "Gate Morris next-cycle recommandé (non consommé)"
+            : "Continuer avec la recommandation";
     return {
-      kind: structural ? "replan" : "continue",
-      headline: structural
-        ? "Replan structurel recommandé (après coordination)"
-        : "Continuer avec la recommandation",
+      kind: "continue",
+      headline,
       rationale:
-        "Succès produit durable — recommandation non autoritaire ; replan structurel uniquement via propose + decide explicites.",
-      nextStep: structural
-        ? "structural_replan_propose"
-        : "continue_with_recommendation",
-      // SUCCESS default false; structural path needs explicit W2 HD after propose.
-      requiresHumanDecision: structural,
-      ...ANTI_AUTHORITY,
-      recommendNextGateStatus: input.recommendNextGateStatus,
-      nextActionCode: input.nextActionCode,
-    };
-  }
-
-  if (structural) {
-    return {
-      kind: "replan",
-      headline: "Replan structurel après terminal",
-      rationale:
-        "Coordination indique un replan structurel — HumanDecision uniquement via propose + decide W2 explicites.",
-      nextStep: "structural_replan_propose",
-      requiresHumanDecision: true,
+        "Succès produit durable — Recommendation non autoritaire. " +
+        "D5 confirmation/arbitration/gate ≠ HumanDecision de trajectoire ; " +
+        "replan ProjectTrajectory uniquement via W2 propose + decide explicites.",
+      nextStep,
+      requiresHumanDecision: false,
       ...ANTI_AUTHORITY,
       recommendNextGateStatus: input.recommendNextGateStatus,
       nextActionCode: input.nextActionCode,
@@ -192,9 +239,9 @@ function recommendationFromOutcome(input: {
       kind: "recover",
       headline: "Requalification après arrêt gouverné",
       rationale:
-        "Arrêt gouverné durable — Recovery ≠ HumanDecision automatique ; propose + decide explicites pour replan structurel.",
-      nextStep: "recovery_requalify",
-      // Recovery CTA is consumable without automatic HD.
+        "Arrêt gouverné durable — Recovery ≠ HumanDecision automatique ; " +
+        "D5 ne prouve pas un replan ProjectTrajectory ; propose + decide W2 explicites pour toute adoption de trajectoire.",
+      nextStep,
       requiresHumanDecision: false,
       ...ANTI_AUTHORITY,
       recommendNextGateStatus: input.recommendNextGateStatus,
@@ -205,8 +252,9 @@ function recommendationFromOutcome(input: {
     kind: "recover",
     headline: "Diagnostiquer ou replanifier après échec",
     rationale:
-      "Échec technique durable — Recovery ≠ HumanDecision automatique ; replan structurel uniquement via propose + decide.",
-    nextStep: "recovery_diagnose_or_replan",
+      "Échec technique durable — Recovery ≠ HumanDecision automatique ; " +
+      "replan ProjectTrajectory uniquement via propose + decide W2.",
+    nextStep,
     requiresHumanDecision: false,
     ...ANTI_AUTHORITY,
     recommendNextGateStatus: input.recommendNextGateStatus,

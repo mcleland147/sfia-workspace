@@ -24,10 +24,17 @@ import {
   materializeProductOutcomeFromAttempt,
   rehydrateProductOutcomeFromAttempt,
 } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
+import type {
+  CoordinationStatus,
+  NextActionCode,
+  AuthorityRequirementLevel,
+} from "@/lib/oa/evidence-review/domain/coordinationTypes";
 import {
   armW3cEpistemicMaterializeFailOnceForTests,
+  classifyW3cD5NextAction,
   clearW3cEpistemicMaterializeFailForTests,
   findExistingW3cPostEvidence,
+  recommendationFromOutcome,
   rehydrateW3cPostEvidenceFromLps,
   w3cRecommendationEpistemicId,
 } from "@/features/project-assistant/w2/w3cPostEvidenceLoop";
@@ -644,34 +651,14 @@ describe("W3C-R07 rehydrate binding sanity", () => {
 
 
 describe("W3C-R14 partial-write recovery", () => {
-  it("R14: LPS success + Epistemic fail → retry exact structural Recommendation, no Nora/LPS duplicate", async () => {
+  it("R14: LPS success + Epistemic fail → retry exact Recommendation (real D5), no Nora/LPS duplicate", async () => {
     const ctx = await authorizeTempArtifact("r14");
     const fake = new FakeConversationProvider({
       scripted: Array(64).fill(
-        "NORA_STRUCTURAL_R14_ANALYSIS — replan structurel recommandé.",
+        "NORA_R14_ANALYSIS — continuity after durable Evidence.",
       ),
     });
     setConversationProviderForTests(fake);
-
-    const services = ctx.oa.evidenceReviewServices!;
-    const originalExecute = services.recommendNextGate.execute.bind(
-      services.recommendNextGate,
-    );
-    services.recommendNextGate.execute = (async (req: never) => {
-      const result = await originalExecute(req);
-      if (!result.ok) return result;
-      return {
-        ...result,
-        coordination: {
-          ...result.coordination,
-          nextAction: {
-            actionCode: "replan_trajectory" as never,
-            reasons: ["W3C-R14 structural fault-injection stub"],
-            authorityRequired: "human" as const,
-          },
-        },
-      };
-    }) as typeof services.recommendNextGate.execute;
 
     const trajBefore =
       await ctx.oa.cycleServices!.getTrajectoryVersion.execute({
@@ -708,9 +695,40 @@ describe("W3C-R14 partial-write recovery", () => {
     expect(lpsAfterFail.livingProjectState.context ?? "").toContain(
       "[[W3C_POST_EVIDENCE_RECOMMENDATION_V1]]",
     );
-    expect(lpsAfterFail.livingProjectState.nextStep).toBe(
-      "structural_replan_propose",
+    // Capture exact semantics from durable LPS V1 payload (real D5 — no invented codes).
+    const ctxJson = lpsAfterFail.livingProjectState.context ?? "";
+    const payloadMatch = ctxJson.match(
+      /\[\[W3C_POST_EVIDENCE_RECOMMENDATION_V1\]\]\n\[\[W3C_EVIDENCE:[^\]]+\]\]\n(\{[\s\S]*?\})(?:\n\[\[|$)/,
     );
+    expect(payloadMatch).toBeTruthy();
+    const durablePayload = JSON.parse(payloadMatch![1]!) as {
+      recommendationKind: string;
+      requiresHumanDecision: boolean;
+      nextStep: string;
+      nextActionCode: string | null;
+      recommendNextGateStatus: string | null;
+      rationale: string;
+    };
+    expect(durablePayload.recommendationKind).not.toBe("replan");
+    expect(durablePayload.requiresHumanDecision).toBe(false);
+    expect(durablePayload.nextStep).not.toBe("structural_replan_propose");
+    if (durablePayload.nextActionCode) {
+      const allowed: NextActionCode[] = [
+        "complete_evidence",
+        "verify_evidence_integrity",
+        "freeze_review_bundle",
+        "complete_review",
+        "evaluate_claim",
+        "confirm_claim_evaluation",
+        "resolve_dispute",
+        "propose_maturity",
+        "confirm_maturity",
+        "downgrade_maturity",
+        "solicit_morris_arbitration",
+        "solicit_morris_go",
+      ];
+      expect(allowed).toContain(durablePayload.nextActionCode as NextActionCode);
+    }
 
     const epiAfterFail = await ctx.oa.cycleServices!.getEpistemicState.execute({
       projectId: ctx.seeded.projectId,
@@ -724,7 +742,6 @@ describe("W3C-R14 partial-write recovery", () => {
       ),
     ).toBeUndefined();
 
-    // Retry same terminal (same Product SQLite / same attempt).
     const retry = await materializeProductOutcomeFromAttempt({
       oa: ctx.oa,
       projectId: ctx.seeded.projectId,
@@ -742,13 +759,20 @@ describe("W3C-R14 partial-write recovery", () => {
     expect(retry.product.reviewBundleId).toBe(reviewBundleId);
     expect(retry.postEvidence.evidenceId).toBe(evidenceId);
     expect(retry.postEvidence.lpsVersion).toBe(lpsVersionAfterFail);
-    expect(retry.postEvidence.recommendation.kind).toBe("replan");
-    expect(retry.postEvidence.recommendation.requiresHumanDecision).toBe(true);
+    expect(retry.postEvidence.recommendation.kind).toBe(
+      durablePayload.recommendationKind,
+    );
+    expect(retry.postEvidence.recommendation.requiresHumanDecision).toBe(
+      durablePayload.requiresHumanDecision,
+    );
     expect(retry.postEvidence.recommendation.nextStep).toBe(
-      "structural_replan_propose",
+      durablePayload.nextStep,
     );
     expect(retry.postEvidence.recommendation.nextActionCode).toBe(
-      "replan_trajectory",
+      durablePayload.nextActionCode,
+    );
+    expect(retry.postEvidence.recommendation.recommendNextGateStatus).toBe(
+      durablePayload.recommendNextGateStatus,
     );
     expect(retry.postEvidence.recommendation.authority).toBe("none");
     expect(retry.postEvidence.recommendation.gateConsumed).toBe(false);
@@ -756,7 +780,7 @@ describe("W3C-R14 partial-write recovery", () => {
     expect(
       retry.postEvidence.recommendation.attemptAutoLaunchNextCycle,
     ).toBe(false);
-    expect(retry.postEvidence.analysisText).toContain("NORA_STRUCTURAL_R14");
+    expect(retry.postEvidence.analysisText).toContain("NORA_R14_ANALYSIS");
     expect(retry.postEvidence.noraInvoked).toBe(true);
     expect(retry.postEvidence.replanInvoked).toBe(false);
 
@@ -785,7 +809,6 @@ describe("W3C-R14 partial-write recovery", () => {
     expect(activeReco).toBeTruthy();
     expect(activeReco!.type).toBe("Recommendation");
 
-    // Second retry idempotent — still no Nora / no LPS bump / no HD.
     const retry2 = await materializeProductOutcomeFromAttempt({
       oa: ctx.oa,
       projectId: ctx.seeded.projectId,
@@ -795,10 +818,11 @@ describe("W3C-R14 partial-write recovery", () => {
     if (!retry2.ok || !retry2.postEvidence || !retry2.postEvidence.ok) return;
     expect(fake.getCallCountForTests()).toBe(noraCallsAfterFail);
     expect(retry2.postEvidence.lpsVersion).toBe(lpsVersionAfterFail);
-    expect(retry2.postEvidence.recommendation.kind).toBe("replan");
-    expect(retry2.postEvidence.recommendation.requiresHumanDecision).toBe(true);
+    expect(retry2.postEvidence.recommendation.kind).toBe(
+      durablePayload.recommendationKind,
+    );
     expect(retry2.postEvidence.recommendation.nextActionCode).toBe(
-      "replan_trajectory",
+      durablePayload.nextActionCode,
     );
 
     const trajAfter =
@@ -811,7 +835,6 @@ describe("W3C-R14 partial-write recovery", () => {
     expect(trajAfter.trajectory.version).toBe(trajBefore.trajectory.version);
     expect(trajAfter.trajectory.status).toBe(trajBefore.trajectory.status);
 
-    // Restart path (rehydrate) preserves exact semantics.
     const restarted = await rehydrateProductOutcomeFromAttempt({
       oa: ctx.oa,
       projectId: ctx.seeded.projectId,
@@ -820,12 +843,11 @@ describe("W3C-R14 partial-write recovery", () => {
     expect(restarted.ok && restarted.postEvidence?.ok).toBe(true);
     if (!restarted.ok || !restarted.postEvidence || !restarted.postEvidence.ok)
       return;
-    expect(restarted.postEvidence.recommendation.kind).toBe("replan");
-    expect(restarted.postEvidence.recommendation.requiresHumanDecision).toBe(
-      true,
+    expect(restarted.postEvidence.recommendation.kind).toBe(
+      durablePayload.recommendationKind,
     );
     expect(restarted.postEvidence.recommendation.nextActionCode).toBe(
-      "replan_trajectory",
+      durablePayload.nextActionCode,
     );
     expect(fake.getCallCountForTests()).toBe(noraCallsAfterFail);
   });
@@ -880,5 +902,155 @@ describe("W3C-R14 partial-write recovery", () => {
     expect(retry.postEvidence.recommendation.requiresHumanDecision).toBe(false);
     expect(retry.postEvidence.recommendation.decisionCreated).toBe(false);
     expect(retry.postEvidence.recommendation.authority).toBe("none");
+  });
+});
+
+describe("W3C-R15 real D5 contract fidelity", () => {
+  const ALL_NEXT_ACTIONS: readonly NextActionCode[] = [
+    "complete_evidence",
+    "verify_evidence_integrity",
+    "freeze_review_bundle",
+    "complete_review",
+    "evaluate_claim",
+    "confirm_claim_evaluation",
+    "resolve_dispute",
+    "propose_maturity",
+    "confirm_maturity",
+    "downgrade_maturity",
+    "solicit_morris_arbitration",
+    "solicit_morris_go",
+  ] as const;
+
+  const ALL_STATUSES: readonly CoordinationStatus[] = [
+    "blocked",
+    "not_recommended",
+    "requires_human_decision",
+    "gate_candidate",
+  ] as const;
+
+  const ALL_AUTH: readonly AuthorityRequirementLevel[] = [
+    "none",
+    "human",
+    "n2",
+    "n3",
+    "morris",
+  ] as const;
+
+  it("R15A: closed D5 unions — mapping never invents kind=replan / requiresHumanDecision", () => {
+    expect(ALL_STATUSES.length).toBe(4);
+    expect(ALL_AUTH.length).toBe(5);
+    for (const code of ALL_NEXT_ACTIONS) {
+      const cls = classifyW3cD5NextAction(code);
+      expect(cls).not.toBe("none");
+      for (const outcome of ["SUCCESS", "STOP", "FAIL"] as const) {
+        const rec = recommendationFromOutcome({
+          outcome,
+          recommendNextGateStatus: "requires_human_decision",
+          nextActionCode: code,
+        });
+        expect(rec.kind).not.toBe("replan");
+        expect(rec.requiresHumanDecision).toBe(false);
+        expect(rec.authority).toBe("none");
+        expect(rec.gateConsumed).toBe(false);
+        expect(rec.decisionCreated).toBe(false);
+        expect(rec.attemptAutoLaunchNextCycle).toBe(false);
+        expect(rec.nextStep).not.toBe("structural_replan_propose");
+        expect(rec.nextActionCode).toBe(code);
+      }
+    }
+    // Non-union strings must not invent a D5 class (closed Record lookup).
+    expect(classifyW3cD5NextAction("not_a_d5_next_action_code")).toBe("none");
+    expect(classifyW3cD5NextAction("")).toBe("none");
+  });
+
+  it("R15B: confirm_maturity / confirm_claim_evaluation ≠ trajectory replan / HD", () => {
+    for (const code of [
+      "confirm_maturity",
+      "confirm_claim_evaluation",
+    ] as const satisfies readonly NextActionCode[]) {
+      expect(classifyW3cD5NextAction(code)).toBe("human_confirmation");
+      const rec = recommendationFromOutcome({
+        outcome: "SUCCESS",
+        recommendNextGateStatus: "requires_human_decision" satisfies CoordinationStatus,
+        nextActionCode: code,
+      });
+      expect(rec.kind).toBe("continue");
+      expect(rec.requiresHumanDecision).toBe(false);
+      expect(rec.nextStep).toBe("coordinate_human_confirmation");
+    }
+  });
+
+  it("R15C: solicit_morris_arbitration (real D5 code) → Recommendation only, no traj HD", async () => {
+    // Native W3-C recommendNextGate inputs do not include maturityAssessmentId;
+    // openHardReservationRefs is only applied inside maturityAssessment branch in D5.
+    // Arbitration is therefore proven via typed real NextActionCode projection —
+    // not via inventing a non-union actionCode.
+    const auth: AuthorityRequirementLevel = "morris";
+    expect(auth).toBe("morris");
+    expect(classifyW3cD5NextAction("solicit_morris_arbitration")).toBe(
+      "morris_arbitration",
+    );
+    for (const outcome of ["SUCCESS", "STOP", "FAIL"] as const) {
+      const rec = recommendationFromOutcome({
+        outcome,
+        recommendNextGateStatus: "blocked" satisfies CoordinationStatus,
+        nextActionCode: "solicit_morris_arbitration" satisfies NextActionCode,
+      });
+      expect(rec.kind).not.toBe("replan");
+      expect(rec.requiresHumanDecision).toBe(false);
+      expect(rec.authority).toBe("none");
+      expect(rec.gateConsumed).toBe(false);
+      expect(rec.decisionCreated).toBe(false);
+      expect(rec.attemptAutoLaunchNextCycle).toBe(false);
+      expect(rec.nextActionCode).toBe("solicit_morris_arbitration");
+      if (outcome === "SUCCESS") {
+        expect(rec.kind).toBe("continue");
+        expect(rec.nextStep).toBe("coordinate_morris_arbitration");
+      } else {
+        expect(rec.kind).toBe("recover");
+      }
+    }
+  });
+
+  it("R15D: product-path D5 nextAction stays non-structural (real union code)", async () => {
+    const ctx = await authorizeTempArtifact("r15d");
+    setConversationProviderForTests(
+      new FakeConversationProvider({
+        scripted: Array(32).fill("NORA_R15D_NON_STRUCTURAL"),
+      }),
+    );
+    const { materialized } = await materializeSuccess(ctx);
+    expect(materialized.postEvidence?.ok).toBe(true);
+    if (!materialized.postEvidence || !materialized.postEvidence.ok) return;
+    const code = materialized.postEvidence.recommendation.nextActionCode;
+    expect(code).toBeTruthy();
+    expect(ALL_NEXT_ACTIONS).toContain(code as NextActionCode);
+    // Observed reachable under current W3-C inputs: often verify_evidence_integrity
+    // (evidence available/not verified) — never a fictional trajectory replan code.
+    expect(classifyW3cD5NextAction(code)).toBe("non_structural_progress");
+    expect(materialized.postEvidence.recommendation.kind).toBe("continue");
+    expect(materialized.postEvidence.recommendation.requiresHumanDecision).toBe(
+      false,
+    );
+    expect(materialized.postEvidence.recommendation.authority).toBe("none");
+    expect(materialized.postEvidence.recommendation.decisionCreated).toBe(false);
+    expect(materialized.postEvidence.recommendation.nextStep).not.toBe(
+      "structural_replan_propose",
+    );
+  });
+
+  it("R15E: solicit_morris_go / gate_candidate mapping ≠ auto decision", () => {
+    const rec = recommendationFromOutcome({
+      outcome: "SUCCESS",
+      recommendNextGateStatus: "gate_candidate" satisfies CoordinationStatus,
+      nextActionCode: "solicit_morris_go" satisfies NextActionCode,
+    });
+    expect(classifyW3cD5NextAction("solicit_morris_go")).toBe("next_cycle_gate");
+    expect(rec.kind).toBe("continue");
+    expect(rec.requiresHumanDecision).toBe(false);
+    expect(rec.gateConsumed).toBe(false);
+    expect(rec.decisionCreated).toBe(false);
+    expect(rec.authority).toBe("none");
+    expect(rec.nextStep).toBe("coordinate_solicit_morris_go");
   });
 });
