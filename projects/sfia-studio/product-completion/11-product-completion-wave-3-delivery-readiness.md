@@ -3,14 +3,15 @@
 | Champ | Valeur |
 |---|---|
 | **Projet** | SFIA Studio — Product Completion |
-| **Cycle** | Post-merge / Roadmap — W3-C post-closure truth sync + next-capability requalification |
-| **Profil SFIA** | CRITICAL |
+| **Cycle** | Post-merge — W3-C post-merge documentary coherence |
+| **Profil SFIA** | Standard |
 | **Typologie** | DOC — vérité vivante W3 (≠ Delivery) |
 | **Vague** | **W3 — Exécuter, prouver et replanifier (backlog existant)** |
 | **Slice historique W3-A** | **W3-A — Governed Execute** — **CLOSED BY MORRIS** · US-P1-04 / FC-10 · PR **#408** |
 | **Slice historique W3-B** | **W3-B — Terminal semantics + Evidence business-first** — **CLOSED BY MORRIS** · US-P1-05 / US-P1-06 · PR **#413** |
 | **Slice fermé W3-C** | **W3-C — Post-Evidence recovery / replan loop** — **CLOSED BY MORRIS** · US-P1-07 + W3 closure slice US-P0-07 · PR **#415** |
-| **Intégration W3-C** | PR **#415 MERGED** · head `43ecc3351d0dcde1cadc98a9d734f8fa3c3dba0a` · merge `775454084bf45d15f8f1700bd74dba443890cb11` · post-merge CI **#331 / `32887992452` SUCCESS** · proof **DETERMINISTIC PRODUCT-NATIVE PROVEN** |
+| **Intégration W3-C** *(functional closure)* | PR **#415 MERGED** · head `43ecc3351d0dcde1cadc98a9d734f8fa3c3dba0a` · merge `775454084bf45d15f8f1700bd74dba443890cb11` · post-merge CI **#331 / `32887992452` SUCCESS** · proof **DETERMINISTIC PRODUCT-NATIVE PROVEN** · **≠** PR #416 |
+| **Intégration post-closure truth-sync** | PR **#416 MERGED** · head `30b2f68b9ce131028ce44853b93b678cc095ca08` · merge `aa57c27438b5214982350362226f39998a0533a2` · post-merge CI **#333 / `32894252109` SUCCESS** · documentary Roadmap+DOC11 sync only · **≠** W3-C functional closure |
 | **Intégration historique W3-B** | PR **#413 MERGED** · head `8c1f9b863a36391131b01ffd81a673d0105c1122` · merge `84bec89d85e8986dd156b60e3351ba221e635ea4` · *(historique · superseded as current tip by PR #415)* |
 | **Statut W3-A** | **CLOSED BY MORRIS / INTEGRATED ON MAIN** |
 | **Statut W3-B** | **CLOSED BY MORRIS / INTEGRATED ON MAIN** · X-W3B-01…12 **12/12 PASS** · TD-W3B-02 Option B **IMPLEMENTED AND PROVEN** |
@@ -163,7 +164,7 @@ W3 macro reste **ouvert** jusqu’à fermeture des obligations backlog W3 réell
 
 ---
 
-## 6. Gates (après fermeture W3-C)
+## 6. Gates (après intégration post-closure truth-sync PR #416)
 
 | Gate | État |
 |---|---|
@@ -172,7 +173,7 @@ W3 macro reste **ouvert** jusqu’à fermeture des obligations backlog W3 réell
 | W3-B Closure | **CONSUMED** |
 | Morris W3-C Closure Decision | **CONSUMED** |
 | W3-C Delivery / PR #415 / merge / post-merge CI | **CONSUMED** |
-| Post-closure Roadmap/DOC11 truth-sync | **CURRENT LOCAL CANDIDATE / AWAITING CHATGPT REVIEW** |
+| Post-closure Roadmap/DOC11 truth-sync | **INTEGRATED ON MAIN** · PR **#416 MERGED** · merge `aa57c27438b5214982350362226f39998a0533a2` · post-merge CI **#333 / `32894252109` SUCCESS** |
 | Next capability Delivery GO | **NOT CONSUMED** |
 | W3 closure | **NOT CONSUMED** |
 | GO REAL | **NOT CONSUMED** |
