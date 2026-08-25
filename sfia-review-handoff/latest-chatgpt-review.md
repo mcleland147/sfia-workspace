@@ -1,53 +1,54 @@
-# SFIA Studio — W3-B Post-Closure Truth Sync + Next-Capability Requalification — Review Pack FULL
+# SFIA Studio — W3-B Post-Closure Truth Sync Git Integration — Review Pack FULL
 
 ## Meta
 
 | Field | Value |
 |---|---|
-| Cycle | Post-merge / Roadmap projet |
+| Cycle | PR readiness / intégration Git documentaire |
 | Profil | CRITICAL |
 | Typologie | DOC |
-| Timestamps | 2026-08-25 01:48:36 CEST / 2026-08-24 23:48:36 UTC |
+| Timestamps | 2026-08-25 04:00:54 CEST / 2026-08-25 02:00:54 UTC |
 | Worktree | `/Users/morris/Projects/sfia-workspace-w3b-post-closure-sync` |
 | Branch | `docs/sfia-studio-w3-b-post-closure-truth-sync` |
-| Base main | `84bec89d85e8986dd156b60e3351ba221e635ea4` |
-| Local commit | `d53afba2c688985b78f917c40853c9d26161274b` |
-| Parent | `84bec89d85e8986dd156b60e3351ba221e635ea4` |
-| Incoming PR readiness handoff | `aac2911c5f020ae4dc93550db37de1c5770d4eb1` |
-| Project push / PR / merge | **NO** |
-| W3-C Delivery | **NOT STARTED / NOT AUTHORIZED** |
+| Local HEAD | `d53afba2c688985b78f917c40853c9d26161274b` |
+| Remote HEAD | `d53afba2c688985b78f917c40853c9d26161274b` |
+| Equality | YES |
+| origin/main | `84bec89d85e8986dd156b60e3351ba221e635ea4` |
+| Incoming handoff | `3f9a41e994028c2b6a3c4d4250168a12f4428b89` |
+| PR | [#414](https://github.com/mcleland147/sfia-workspace/pull/414) |
+| Auto-merge | null |
+| Merge performed | **NO** |
+| W3-C Delivery | **NOT AUTHORIZED / NOT STARTED** |
 
-## Morris closure decision (consumed — verbatim)
+## Morris GO consumed
 
-> GO MORRIS — W3-B CLOSED — US-P1-05 / US-P1-06 EXIT SATISFIED — X-W3B-01…12 12/12 PASS — PR #413 MERGED — MAIN 84bec89d85e8986dd156b60e3351ba221e635ea4 — POST-MERGE CI 32789273684 SUCCESS / REQUIRED GATE PASS — TD-W3B-02 OPTION B IMPLEMENTED AND PROVEN — C6 REMAINS CLOSED — W3 REMAINS IN PROGRESS — THEN POST-CLOSURE ROADMAP TRUTH SYNC + NEXT-CAPABILITY REQUALIFICATION — DO NOT START W3-C YET — REAL OUT — FINOPS FREEZE — W4 OUT — RUNTIME V3 NON ADOPTED.
+GO MORRIS — W3-B POST-CLOSURE TRUTH SYNC GIT INTEGRATION — EXACT CANDIDATE d53afba2c688985b78f917c40853c9d26161274b — PUSH docs/sfia-studio-w3-b-post-closure-truth-sync — CREATE PR TO MAIN — ROADMAP + DOC11 ONLY — VERIFY EXACT DIFF + CI + PR READINESS — NO NEW PROJECT COMMIT — NO MERGE — NO AUTO-MERGE — PRESERVE SOURCE BRANCH — W3-B REMAINS CLOSED — W3 REMAINS IN PROGRESS — W3-C REMAINS CANDIDATE / NOT AUTHORIZED / NOT STARTED — W3-D/E NOT STARTED / NOT ASSIGNED — REAL OUT — FINOPS FREEZE — W4 OUT — RUNTIME V3 NON ADOPTED.
 
-## Git / PR / CI truth
+## Push / PR
 
 | Item | Value |
 |---|---|
-| origin/main | `84bec89d85e8986dd156b60e3351ba221e635ea4` |
-| PR #413 | MERGED |
-| head | `8c1f9b863a36391131b01ffd81a673d0105c1122` |
-| merge | `84bec89d85e8986dd156b60e3351ba221e635ea4` |
-| PR-head CI | `32788141345` SUCCESS |
-| Post-merge CI | `32789273684` completed / success |
-| Required Gate | SUCCESS |
-| TD-W3B-02 Option B | IMPLEMENTED AND PROVEN |
+| Push | new remote branch at exact `d53afba2` (no force) |
+| PR number | 414 |
+| Title | docs(sfia-studio): close W3-B and requalify next W3 capability |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/414 |
+| State | OPEN |
+| Draft | false |
+| Base | main |
+| Head | docs/sfia-studio-w3-b-post-closure-truth-sync |
+| headRefOid | `d53afba2c688985b78f917c40853c9d26161274b` |
+| mergeable | MERGEABLE |
+| mergeStateStatus | CLEAN |
+| mergedAt | null |
+| autoMergeRequest | null |
+| Reviews / comments | 0 / 0 |
 
-## Sources loaded (read-only)
+## Exact 2-file scope (local == GitHub)
 
-- Cycle template + routing guide (process only)
-- Convergence Build Doctrine + Roadmap
-- Product Completion 01 / 02 / 03 / 05 / 06 / 11 / 12
-- Framing v3 30–37 (applicable)
-- Review Handoff PR #413 readiness (`aac2911c`)
-
-No DOC12 / C1/C2/FA/C6/Backlog / framing / Build Doctrine / method mutations.
-
-## Exact files modified
-
-1. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-2. `projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md`
+```
+projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md
+```
 
 ```
 commit d53afba2c688985b78f917c40853c9d26161274b
@@ -63,104 +64,31 @@ Date:   Tue Aug 25 01:38:08 2026 +0200
  2 files changed, 169 insertions(+), 131 deletions(-)
 ```
 
-## Roadmap — prior → new living truth
+No app/code files. No DOC12 / C1/C2/FA/C6/Backlog mutation.
 
-### Prior (superseded)
+## Content invariants verified in PR diff
 
-- W3-B CURRENT / NOT CLOSED
-- candidate `756cda50`
-- implementation pending / resume Delivery after clarification integration
-- next capability = W3-B
-- CURRENT TRANSITION = Option B architecture clarification
+- W3-B CLOSED BY MORRIS
+- US-P1-05/06 SATISFIED
+- X-W3B-01…12 12/12 PASS
+- PR #413 / merge `84bec89d` / CI `32789273684` / Required Gate
+- W3A-D01 CLOSED BY W3-B
+- W3A-D02 PARTIAL (Evidence/RB/CR closed; Nora/LPS/Trajectory/replan OPEN)
+- W3 macro IN PROGRESS / NOT CLOSED
+- W3-C CANDIDATE ONLY · NOT AUTHORIZED / NOT STARTED
+- US-P1-09 + US-P1-14 DOWNSTREAM
+- W3-D/E NOT STARTED / NOT ASSIGNED
+- C6 CLOSED · REAL OUT · FinOps FREEZE · W4 OUT · runtime v3 NON ADOPTED
 
-### New
+## CI (PR #414)
 
-- **W3-B CLOSED BY MORRIS**
-- US-P1-05/06 SATISFIED · X-W3B-01…12 12/12 PASS
-- PR #413 / main `84bec89d` / CI `32789273684` / Required Gate PASS
-- TD-W3B-02 Option B IMPLEMENTED AND PROVEN
-- Gates: W1/W2/W3-A/W3-B CLOSED · W3 macro IN PROGRESS · W3-C NOT AUTHORIZED/NOT STARTED · W3-D/E NOT STARTED/NOT ASSIGNED
-- CURRENT TRANSITION = W3-B POST-CLOSURE TRUTH SYNC / NEXT-CAPABILITY REQUALIFICATION
-- NEXT ORDERED STEP = ChatGPT review of this sync → distinct Morris Git integration GO → only later distinct Morris GO may authorize W3-C Delivery
-- NEXT PRODUCT CAPABILITY = **W3-C CANDIDATE** (US-P1-07 + W3 closure US-P0-07)
+| Check | Status | Duration | URL |
+|---|---|---|---|
+| Detect SFIA Studio changes | pass | 7s | https://github.com/mcleland147/sfia-workspace/actions/runs/32795283818/job/97645182588 |
+| Build and validate SFIA Studio | pass | 2m25s | https://github.com/mcleland147/sfia-workspace/actions/runs/32795283818/job/97645213475 |
+| SFIA Studio Required Gate | pass | 4s | https://github.com/mcleland147/sfia-workspace/actions/runs/32795283818/job/97645674662 |
 
-Historical Option B clarification timestamp retained as superseded history.
-
-## DOC11 — prior → new
-
-### Prior
-
-- Next capability = W3-B REQUALIFICATION / NOT AUTHORIZED
-- Anti-claim W3-B = NOT AUTHORIZED / NOT STARTED
-- W3A-D01 OPEN (owner W3-B)
-- W3A-D02 OPEN (Evidence/Review/Nora)
-
-### New
-
-- W3-A CLOSED · W3-B CLOSED · W3 IN PROGRESS
-- Verbatim Morris W3-B closure decision recorded
-- Next = W3-C CANDIDATE NOT AUTHORIZED / NOT STARTED
-- W3A-D01 **CLOSED BY W3-B** (US-P1-05 + X-W3B)
-- W3A-D02 **PARTIAL**: Evidence/RB/Contract Result CLOSED BY W3-B · Nora/LPS/Trajectory/replan E2E REMAINS OPEN → owner W3-C
-- Asset matrix + exit proof candidate documented
-- US-P1-09 / US-P1-14 preserved downstream · W3-D/E NOT ASSIGNED
-
-## W3-B closure truth
-
-| Item | State |
-|---|---|
-| W3-B | CLOSED BY MORRIS |
-| US-P1-05 | exit satisfied |
-| US-P1-06 | exit satisfied |
-| X-W3B-01…12 | 12/12 PASS |
-| Option B | IMPLEMENTED AND PROVEN |
-| W3 macro | IN PROGRESS / NOT CLOSED |
-| Product Completion | INCOMPLETE |
-| REAL / FinOps / W4 / runtime v3 | OUT / FREEZE / OUT / NON ADOPTED |
-
-## W3-C candidate qualification
-
-**W3-C CANDIDATE — QUALIFIED AS NEXT CAPABILITY CANDIDATE — NOT AUTHORIZED / NOT STARTED.**
-
-Scope: POST-EVIDENCE NORA → LPS / PROJECTTRAJECTORY + RECOVERY / REQUALIFICATION / REPLAN E2E
-Mapping: US-P1-07 + W3 closure of US-P0-07
-≠ new backlog · ≠ Morris Delivery GO · ≠ W3-D/E assignment
-
-### Dependency-first justification
-
-A. W3-B closed US-P1-06 → durable business-first Evidence
-B. US-P1-07 depends on Evidence / US-P1-06 / US-P0-03 / US-P0-07
-C. US-P0-07 = W1 foundation + W3 E2E closure after Attempt/Evidence/terminals
-D. W3 macro exit needs Evidence→Nora/LPS/Trajectory + requalify/replan E2E
-E. Build Doctrine: E2E loop > non-blocking hardening
-
-### Assets inspected (read-only) + classification
-
-| Actif | Class | Gap |
-|---|---|---|
-| Evidence / RB / Contract Result | KEEP (CLOSED BY W3-B) | consume as input |
-| ClaimEvaluation SoT | KEEP | honest read |
-| ingestEvidenceAndRecommend / F3 Nora | HARVEST/ADAPT | product-native post-Evidence analysis |
-| LPS | KEEP/ADAPT | honest post-Evidence state |
-| ProjectTrajectory / options | KEEP/ADAPT | replan without silent mutation |
-| Recommendation | KEEP | remains Recommendation |
-| HumanDecision / DecisionBasis | KEEP | structural replan requires Pilote |
-| Recovery UI | COMPLETE/ADAPT | E2E requalify/reprise |
-| `/studio` TrajectorySurface | ADAPT | wire post-Evidence loop |
-| REAL/FinOps/W4 | FREEZE | out of scope |
-
-Trajectory link: partial Evidence→Nora/F3→LPS→Trajectory chain **identifiable** · **≠** W3-C proven · no new orchestrator invented.
-
-### Exit proof candidate
-
-**EXIT PROOF CANDIDATE / NOT YET PROVEN** — 12-point readiness bar recorded in DOC11 §7.5 (no X-W3C contracts adopted).
-
-## Downstream W3 obligations (not absorbed into W3-C)
-
-- US-P1-09 Catalog Evolvability — DOWNSTREAM
-- US-P1-14 full CKC Phase B / semantic consumption — DOWNSTREAM
-- full CKC track / catalog evolvability — DOWNSTREAM
-- **W3-D/E remain NOT STARTED; exact downstream slicing requires later requalification.**
+Workflow: https://github.com/mcleland147/sfia-workspace/actions/runs/32795283818
 
 ## Full useful diff (`84bec89d..d53afba2`)
 
@@ -635,17 +563,15 @@ index 9458b8d9..00d4c5b0 100644
 +**W3 DELIVERY READINESS = QUALIFIED** · GO Morris W3 **CONSUMED** · **W3-A CLOSED BY MORRIS** · **W3-B CLOSED BY MORRIS / INTEGRATED ON MAIN** · Product Completion **INCOMPLETE** · W3 **IN PROGRESS / NOT CLOSED** · next = **W3-C CANDIDATE** · **W3-C NOT AUTHORIZED / NOT STARTED** · W3-D/E **NOT STARTED / NOT ASSIGNED** · REAL **OUT** · FinOps **FREEZE** · W4 **OUT** · runtime v3 **NON ADOPTED**.
 ```
 
-## Git state
+## Git final state
 
-- Local branch clean at `d53afba2`
-- Parent exact `84bec89d`
-- No amend / rebase
-- Exact two-file staging used
-- **No project push / PR / merge**
-- Source delivery branch preserved historically on remote (not deleted)
+- Local HEAD unchanged `d53afba2` (no new project commit)
+- Remote branch preserved at same SHA
+- No merge · no auto-merge · no branch delete
+- W3-C still NOT AUTHORIZED
 
 ## Verdict
 
-**READY FOR REVIEW**
+**READY FOR MORRIS MERGE DECISION**
 
-Next gate: ChatGPT review of truth sync + next-capability requalification → if PASS → distinct Morris Git integration decision for this documentary branch → after integration, separate Morris GO may authorize W3-C Delivery.
+Next gate: ChatGPT PR readiness review → if PASS → distinct Morris merge GO.
