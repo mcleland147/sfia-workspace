@@ -9,7 +9,7 @@
  * action over the product application path.
  */
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 import {
   w2AmendExecutionContractAction,
@@ -36,7 +36,9 @@ import type {
   TrajectoryDecisionRecordDto,
   TrajectoryOptionSetDto,
   W3BProductOutcomeDto,
+  W3cPostEvidenceLoopDto,
 } from "@/features/project-assistant/w2/types";
+import { filterProductReservationsForDisplay } from "@/features/project-assistant/w2/w3cProductPresentation";
 import styles from "./TrajectorySurface.module.css";
 
 /** Explicit Pilot-qualified operation — never inferred from W2 trajectory alone. */
@@ -95,9 +97,12 @@ function yieldBrowserPaint(): Promise<void> {
 export function TrajectorySurface({
   projectId,
   onDurableFactsChanged,
+  recoveryProposeSignal = 0,
 }: {
   projectId: string;
   onDurableFactsChanged?: () => void;
+  /** B1 — increment from RecoverySurface requalify to reuse proposeOptions(). */
+  recoveryProposeSignal?: number;
 }) {
   const [busy, setBusy] = useState<Busy>(null);
   const [error, setError] = useState<string | null>(null);
@@ -128,6 +133,8 @@ export function TrajectorySurface({
   );
   const [productOutcome, setProductOutcome] =
     useState<W3BProductOutcomeDto | null>(null);
+  const [postEvidence, setPostEvidence] =
+    useState<W3cPostEvidenceLoopDto | null>(null);
   const [productEvidencePending, setProductEvidencePending] = useState(false);
   const [qualifiedOperationKind, setQualifiedOperationKind] =
     useState<QualifiedOperationKind | null>(null);
@@ -168,8 +175,16 @@ export function TrajectorySurface({
     setAttempt(null);
     setAttemptPhase(null);
     setAttemptStatusLabel(null);
+    setProductOutcome(null);
+    setPostEvidence(null);
     onDurableFactsChanged?.();
   }, [projectId, onDurableFactsChanged]);
+
+  useEffect(() => {
+    if (recoveryProposeSignal > 0) {
+      void proposeOptions();
+    }
+  }, [recoveryProposeSignal, proposeOptions]);
 
   const decide = useCallback(
     async (selectedOptionRef: string) => {
@@ -420,11 +435,14 @@ export function TrajectorySurface({
       if (!materializedEarly.ok) {
         setError(materializedEarly.message);
         if (materializedEarly.product) setProductOutcome(materializedEarly.product);
+        if (materializedEarly.postEvidence)
+          setPostEvidence(materializedEarly.postEvidence);
         return;
       }
       flushSync(() => {
         setProductEvidencePending(false);
         setProductOutcome(materializedEarly.product);
+        setPostEvidence(materializedEarly.postEvidence ?? null);
       });
       onDurableFactsChanged?.();
       return;
@@ -462,11 +480,13 @@ export function TrajectorySurface({
     if (!materialized.ok) {
       setError(materialized.message);
       if (materialized.product) setProductOutcome(materialized.product);
+      if (materialized.postEvidence) setPostEvidence(materialized.postEvidence);
       return;
     }
     flushSync(() => {
       setProductEvidencePending(false);
       setProductOutcome(materialized.product);
+      setPostEvidence(materialized.postEvidence ?? null);
     });
     onDurableFactsChanged?.();
   }, [contract, authorization, projectId, onDurableFactsChanged]);
@@ -498,11 +518,13 @@ export function TrajectorySurface({
     if (!materialized.ok) {
       setError(materialized.message);
       if (materialized.product) setProductOutcome(materialized.product);
+      if (materialized.postEvidence) setPostEvidence(materialized.postEvidence);
       return;
     }
     flushSync(() => {
       setProductEvidencePending(false);
       setProductOutcome(materialized.product);
+      setPostEvidence(materialized.postEvidence ?? null);
     });
     onDurableFactsChanged?.();
   }, [
@@ -527,6 +549,7 @@ export function TrajectorySurface({
       return;
     }
     setProductOutcome(result.product);
+    setPostEvidence(result.postEvidence ?? null);
     setProductEvidencePending(false);
   }, [attempt, projectId]);
 
@@ -1150,7 +1173,13 @@ export function TrajectorySurface({
             </div>
             <div>
               <dt>Apprentissage / replan</dt>
-              <dd data-testid="w3b-nora-replan">non</dd>
+              <dd data-testid="w3b-nora-replan">
+                {`analyse: ${
+                  postEvidence && postEvidence.ok && postEvidence.noraInvoked
+                    ? "oui"
+                    : "non"
+                } · replan auto: non`}
+              </dd>
             </div>
             <div>
               <dt>Cycle auto-fermé</dt>
@@ -1161,6 +1190,70 @@ export function TrajectorySurface({
               <dd data-testid="w3b-ready">non</dd>
             </div>
           </dl>
+          {postEvidence && postEvidence.ok ? (
+            <section
+              className={styles.postEvidence}
+              data-testid="w3c-post-evidence"
+              aria-label="Recommandation post-Evidence"
+            >
+              <h4 className={styles.blockTitle}>Recommandation post-Evidence</h4>
+              <dl className={styles.facts}>
+                <div>
+                  <dt>Kind</dt>
+                  <dd data-testid="w3c-recommendation-kind">
+                    {postEvidence.recommendation.kind}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Headline</dt>
+                  <dd data-testid="w3c-recommendation-headline">
+                    {postEvidence.recommendation.headline}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Authority</dt>
+                  <dd data-testid="w3c-recommendation-authority">
+                    none — Recommendation ≠ HumanDecision
+                  </dd>
+                </div>
+                <div>
+                  <dt>Analyse Nora</dt>
+                  <dd data-testid="w3c-nora-analysis">
+                    {postEvidence.analysisText ??
+                      postEvidence.analysisUnavailableReason ??
+                      "indisponible"}
+                  </dd>
+                </div>
+                <div>
+                  <dt>LPS version</dt>
+                  <dd data-testid="w3c-lps-version">
+                    {postEvidence.lpsVersion ?? "—"}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Décision humaine requise</dt>
+                  <dd data-testid="w3c-requires-human-decision">
+                    {postEvidence.recommendation.requiresHumanDecision
+                      ? "oui"
+                      : "non"}
+                  </dd>
+                </div>
+              </dl>
+              {postEvidence.recommendation.kind === "recover" ||
+              postEvidence.recommendation.kind === "replan" ||
+              postEvidence.recommendation.requiresHumanDecision ? (
+                <button
+                  type="button"
+                  className={styles.secondaryAction}
+                  data-testid="w3c-propose-trajectory"
+                  onClick={() => void proposeOptions()}
+                  disabled={busy !== null}
+                >
+                  Proposer des options de trajectoire
+                </button>
+              ) : null}
+            </section>
+          ) : null}
           <details className={styles.technicalDetails}>
             <summary data-testid="w3b-technical-details-toggle">
               Détail technique (secondaire)
@@ -1200,13 +1293,20 @@ export function TrajectorySurface({
               </div>
             </dl>
           </details>
-          {productOutcome.reservations.length > 0 ? (
-            <ul data-testid="w3b-reservations" className={styles.blockNote}>
-              {productOutcome.reservations.map((r) => (
-                <li key={r}>{r}</li>
-              ))}
-            </ul>
-          ) : null}
+          {(() => {
+            const visibleReservations = filterProductReservationsForDisplay(
+              productOutcome.reservations,
+              Boolean(postEvidence && postEvidence.ok),
+            );
+            if (visibleReservations.length === 0) return null;
+            return (
+              <ul data-testid="w3b-reservations" className={styles.blockNote}>
+                {visibleReservations.map((r) => (
+                  <li key={r}>{r}</li>
+                ))}
+              </ul>
+            );
+          })()}
           <button
             type="button"
             className={styles.secondaryAction}

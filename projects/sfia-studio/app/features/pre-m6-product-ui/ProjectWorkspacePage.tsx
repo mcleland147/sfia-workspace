@@ -20,6 +20,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
   const [durableOutcome, setDurableOutcome] =
     useState<ProjectAssistantRehydrateEvidenceOutcomeSuccess | null>(null);
   const [lpsOpen, setLpsOpen] = useState(false);
+  const [recoveryProposeSignal, setRecoveryProposeSignal] = useState(0);
   const conversationRef = useRef<HTMLDivElement | null>(null);
   const refreshInFlight = useRef(false);
 
@@ -54,6 +55,14 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
     );
     if (input instanceof HTMLTextAreaElement) input.focus();
   }, []);
+
+  const onRequalify = useCallback(async () => {
+    // B1 — bump signal so TrajectorySurface runs its own proposeOptions()
+    // (shared code path that materializes w2-options).
+    setRecoveryProposeSignal((n) => n + 1);
+    focusConversation();
+    void loadProject();
+  }, [focusConversation, loadProject]);
 
   const controller = useProductConversation({
     projectId,
@@ -123,7 +132,9 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
             setLpsOpen(true);
             focusConversation();
           }}
-          onRequalify={focusConversation}
+          onRequalify={() => {
+            void onRequalify();
+          }}
         />
       ) : (
         <p className={styles.durabilityHint} data-testid="project-durability-hint">
@@ -138,6 +149,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
           </div>
           <TrajectorySurface
             projectId={projectId}
+            recoveryProposeSignal={recoveryProposeSignal}
             onDurableFactsChanged={() => {
               void loadProject();
             }}

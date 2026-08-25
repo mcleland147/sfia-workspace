@@ -45,6 +45,11 @@ export class FakeConversationProvider implements ConversationProvider {
     return this.complete(input.messages);
   }
 
+  /** Test helper — Nora/provider invocation counter. */
+  getCallCountForTests(): number {
+    return this.callCount;
+  }
+
   async complete(
     messages: ProviderChatMessage[],
   ): Promise<ProviderCompletionResult> {

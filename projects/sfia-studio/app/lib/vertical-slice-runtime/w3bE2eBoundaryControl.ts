@@ -61,8 +61,24 @@ export function consumeW3bBoundaryArm(): W3bBoundaryArm | null {
   return current;
 }
 
+const FIXTURE_RESET_KEY = "__SFIA_E2E_W3B_FIXTURE_ADAPTER__" as const;
+
+export function registerW3bFixtureAdapterForE2eReset(
+  adapter: TestExecutionAdapter | null | undefined,
+): void {
+  const g = globalThis as typeof globalThis & {
+    [FIXTURE_RESET_KEY]?: TestExecutionAdapter | null;
+  };
+  g[FIXTURE_RESET_KEY] = adapter ?? null;
+}
+
 export function clearW3bBoundaryArm(): void {
   armSlot().current = null;
+  const g = globalThis as typeof globalThis & {
+    [FIXTURE_RESET_KEY]?: TestExecutionAdapter | null;
+  };
+  const adapter = g[FIXTURE_RESET_KEY];
+  if (adapter) adapter.resetScriptedLaunchDefaults();
 }
 
 export function applyW3bAdapterFailArmIfPresent(
@@ -71,7 +87,7 @@ export function applyW3bAdapterFailArmIfPresent(
   const arm = peekW3bBoundaryArm();
   if (!arm || arm.kind !== "adapter_fail" || !fixtureAdapter) return false;
   consumeW3bBoundaryArm();
-  fixtureAdapter.queueDefaultLaunch({
+  fixtureAdapter.queueOneShotLaunch({
     outcome: "fail",
     reason: arm.reason,
   });

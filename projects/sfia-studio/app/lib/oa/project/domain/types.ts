@@ -135,6 +135,11 @@ export type AppendLivingProjectStateRequest = {
    * forward from the current LPS snapshot.
    */
   reviewBundleIds?: string[];
+  /**
+   * Optional next-step linkage (W3-C post-Evidence recommendation).
+   * When omitted, carried forward. Explicit `null` clears the field.
+   */
+  nextStep?: string | null;
 };
 
 /** Modeled ErrorRecord codes applicable to Project/LPS (M-OA). */

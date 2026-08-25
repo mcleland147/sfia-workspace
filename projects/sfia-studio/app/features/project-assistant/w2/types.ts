@@ -398,15 +398,52 @@ export type W3BProductOutcomeDto = {
   readonly realExecution: false;
 };
 
+/** Serializable W3-C post-Evidence loop DTO (Recommendation ≠ HumanDecision). */
+export type W3cPostEvidenceLoopDto =
+  | {
+      readonly ok: true;
+      readonly noraInvoked: boolean;
+      readonly replanInvoked: false;
+      readonly analysisText: string | null;
+      readonly analysisUnavailableReason: string | null;
+      readonly analysisProviderId: string | null;
+      readonly recommendation: {
+        readonly kind: "continue" | "recover" | "replan" | "fail_closed";
+        readonly headline: string;
+        readonly rationale: string;
+        readonly nextStep: string;
+        readonly requiresHumanDecision: boolean;
+        readonly authority: "none";
+        readonly gateConsumed: false;
+        readonly decisionCreated: false;
+        readonly attemptAutoLaunchNextCycle: false;
+        readonly recommendNextGateStatus: string | null;
+        readonly nextActionCode: string | null;
+      };
+      readonly lpsVersion: number | null;
+      readonly evidenceId: string;
+      readonly reviewBundleId: string;
+      readonly claimEvaluationId: string | null;
+      readonly productOutcome: "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED";
+    }
+  | {
+      readonly ok: false;
+      readonly code: string;
+      readonly message: string;
+      readonly failClosed: true;
+    };
+
 export type MaterializeProductOutcomeActionResult =
   | {
       readonly ok: true;
       readonly product: W3BProductOutcomeDto;
       readonly reusedFromIdempotency: boolean;
+      readonly postEvidence?: W3cPostEvidenceLoopDto;
     }
   | {
       readonly ok: false;
       readonly code: string;
       readonly message: string;
       readonly product?: W3BProductOutcomeDto;
+      readonly postEvidence?: W3cPostEvidenceLoopDto;
     };

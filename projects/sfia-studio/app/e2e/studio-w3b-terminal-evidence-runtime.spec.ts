@@ -205,6 +205,13 @@ async function readOutcomeMeta(page: Page) {
 test.describe("W3-B /studio Terminal + Evidence (corrected)", () => {
   test.describe.configure({ timeout: 360_000 });
 
+  test.beforeEach(async ({ request }) => {
+    await clearW3bBoundary(request);
+  });
+  test.afterEach(async ({ request }) => {
+    await clearW3bBoundary(request);
+  });
+
   test("A SUCCESS + evidence-pending + reload durability", async ({
     page,
   }) => {

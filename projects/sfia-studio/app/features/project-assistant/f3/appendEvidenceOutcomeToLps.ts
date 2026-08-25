@@ -21,6 +21,8 @@ export async function appendEvidenceOutcomeToLps(input: {
   >;
   /** Optional factual Nora analysis note — existing LPS.context field, no schema change. */
   analysisNote?: string;
+  /** Optional W3-C recommendation nextStep — existing LPS.nextStep field. */
+  nextStep?: string;
 }): Promise<AppendEvidenceOutcomeToLpsResult> {
   const current =
     await input.projectServices.getCurrentLivingProjectState.execute({
@@ -58,6 +60,7 @@ export async function appendEvidenceOutcomeToLps(input: {
       createdBy: SFIA_STUDIO_SYSTEM_FACTUAL_WRITER,
       evidenceIds,
       reviewBundleIds,
+      ...(input.nextStep !== undefined ? { nextStep: input.nextStep } : {}),
     });
 
   if (!appended.ok) {

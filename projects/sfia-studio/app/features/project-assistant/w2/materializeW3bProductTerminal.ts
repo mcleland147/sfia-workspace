@@ -1,6 +1,7 @@
 /**
  * W3-B FC-12 — Materialize + rehydrate Product Terminal from durable facts.
  * Ingest all terminals → ReviewBundle → EvaluateContractResult → FC-11 projection.
+ * W3-C: after successful projection, consume Evidence via post-Evidence loop (no re-ingest).
  */
 import { createHash } from "node:crypto";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
@@ -12,6 +13,12 @@ import {
   projectW3bProductTerminal,
   type W3BProductTerminalProjection,
 } from "./w3bProductTerminalProjection";
+import {
+  findExistingW3cPostEvidence,
+  rehydrateW3cPostEvidenceFromLps,
+  runW3cPostEvidenceLoop,
+  type W3cPostEvidenceLoopResult,
+} from "./w3cPostEvidenceLoop";
 
 export type { W3BProductTerminalProjection as W3BProductOutcomeProjection };
 
@@ -20,12 +27,14 @@ export type MaterializeW3bProductTerminalResult =
       readonly ok: true;
       readonly product: W3BProductTerminalProjection;
       readonly reusedFromIdempotency: boolean;
+      readonly postEvidence?: W3cPostEvidenceLoopResult;
     }
   | {
       readonly ok: false;
       readonly code: string;
       readonly message: string;
       readonly product?: W3BProductTerminalProjection;
+      readonly postEvidence?: W3cPostEvidenceLoopResult;
     };
 
 const PRODUCT_RESERVATIONS = [
@@ -184,19 +193,34 @@ export async function materializeW3bProductTerminal(input: {
     };
   }
 
-  const frozen = await services.freezeReviewBundle.execute({
-    reviewBundleId: ids.reviewBundleId,
-    expectedVersion: bundle.reviewBundle.version,
-    idempotencyKey: `idem:w3b-rb-freeze:${attempt.attemptId}`,
-    actor: LOCAL_PILOTE_ACTOR,
-  });
+  // Idempotent rematerialize: create may return the already-frozen RB.
+  // Calling freeze again with a bumped expectedVersion fingerprints differently
+  // and hits IDEMPOTENCY_CONFLICT — skip freeze when already frozen.
+  let frozenReviewBundle = bundle.reviewBundle;
+  let freezeReusedFromIdempotencyKey = Boolean(bundle.reusedFromIdempotencyKey);
+  if (
+    !bundle.reviewBundle.frozenAt &&
+    bundle.reviewBundle.status === "draft"
+  ) {
+    const frozen = await services.freezeReviewBundle.execute({
+      reviewBundleId: ids.reviewBundleId,
+      expectedVersion: bundle.reviewBundle.version,
+      idempotencyKey: `idem:w3b-rb-freeze:${attempt.attemptId}`,
+      actor: LOCAL_PILOTE_ACTOR,
+    });
 
-  if (!frozen.ok) {
-    return {
-      ok: false,
-      code: frozen.error.detailCode,
-      message: frozen.error.message,
-    };
+    if (!frozen.ok) {
+      return {
+        ok: false,
+        code: frozen.error.detailCode,
+        message: frozen.error.message,
+      };
+    }
+    frozenReviewBundle = frozen.reviewBundle;
+    freezeReusedFromIdempotencyKey = Boolean(frozen.reusedFromIdempotencyKey);
+  } else {
+    // Already frozen from a prior materialize — treat as idempotent reuse.
+    freezeReusedFromIdempotencyKey = true;
   }
 
   if (!services.evaluateContractResult) {
@@ -234,7 +258,7 @@ export async function materializeW3bProductTerminal(input: {
       selectedAgentRef: attempt.selectedAgentRef,
     },
     evidence: ingested.evidence,
-    reviewBundle: frozen.reviewBundle,
+    reviewBundle: frozenReviewBundle,
   });
 
     if (!evaluated.ok) {
@@ -248,27 +272,71 @@ export async function materializeW3bProductTerminal(input: {
         attempt,
         contract,
         evidence: ingested.evidence,
-        reviewBundle: frozen.reviewBundle,
+        reviewBundle: frozenReviewBundle,
         claimEvaluation: evaluated.claimEvaluation ?? null,
       }),
     };
   }
 
+  const product = projectFromFacts({
+    attempt,
+    contract,
+    evidence: ingested.evidence,
+    reviewBundle: frozenReviewBundle,
+    claimEvaluation: evaluated.claimEvaluation,
+  });
+
+  const reusedFromIdempotency = Boolean(
+    ingested.reusedFromIdempotencyKey ||
+      bundle.reusedFromIdempotencyKey ||
+      freezeReusedFromIdempotencyKey ||
+      evaluated.reusedFromIdempotencyKey,
+  );
+
+  // B2 — prefer existing Epistemic / rehydrate before Nora + LPS append.
+  if (product.evidenceId) {
+    const existing = await findExistingW3cPostEvidence({
+      oa: input.oa,
+      projectId: input.projectId,
+      evidenceId: product.evidenceId,
+      attemptId: attempt.attemptId,
+    });
+    if (existing) {
+      return {
+        ok: true,
+        reusedFromIdempotency,
+        product,
+        postEvidence: existing,
+      };
+    }
+    // Prefer LPS exact / Epistemic rehydrate before Nora+LPS (covers partial-write).
+    const rehydrated = await rehydrateW3cPostEvidenceFromLps({
+      oa: input.oa,
+      projectId: input.projectId,
+      product,
+    });
+    if (rehydrated.ok) {
+      return {
+        ok: true,
+        reusedFromIdempotency,
+        product,
+        postEvidence: rehydrated,
+      };
+    }
+  }
+
+  const postEvidence = await runW3cPostEvidenceLoop({
+    oa: input.oa,
+    projectId: input.projectId,
+    attemptId: attempt.attemptId,
+    product,
+  });
+
   return {
     ok: true,
-    reusedFromIdempotency: Boolean(
-      ingested.reusedFromIdempotencyKey ||
-        bundle.reusedFromIdempotencyKey ||
-        frozen.reusedFromIdempotencyKey ||
-        evaluated.reusedFromIdempotencyKey,
-    ),
-    product: projectFromFacts({
-      attempt,
-      contract,
-      evidence: ingested.evidence,
-      reviewBundle: frozen.reviewBundle,
-      claimEvaluation: evaluated.claimEvaluation,
-    }),
+    reusedFromIdempotency,
+    product,
+    postEvidence,
   };
 }
 
@@ -315,16 +383,25 @@ export async function rehydrateW3bProductTerminal(input: {
     };
   }
 
+  const product = projectFromFacts({
+    attempt,
+    contract,
+    evidence,
+    reviewBundle,
+    claimEvaluation,
+  });
+
+  const postEvidence = await rehydrateW3cPostEvidenceFromLps({
+    oa: input.oa,
+    projectId: input.projectId,
+    product,
+  });
+
   return {
     ok: true,
     reusedFromIdempotency: true,
-    product: projectFromFacts({
-      attempt,
-      contract,
-      evidence,
-      reviewBundle,
-      claimEvaluation,
-    }),
+    product,
+    postEvidence,
   };
 }
 
@@ -346,6 +423,7 @@ export async function rehydrateLatestW3bProductTerminalForContract(input: {
       readonly attemptId: string;
       readonly attemptStatus: string;
       readonly reusedFromIdempotency: true;
+      readonly postEvidence?: W3cPostEvidenceLoopResult;
     }
   | { readonly ok: false; readonly code: string; readonly message: string }
 > {
@@ -393,6 +471,9 @@ export async function rehydrateLatestW3bProductTerminalForContract(input: {
     attemptId: terminal.attemptId,
     attemptStatus: terminal.status,
     reusedFromIdempotency: true,
+    ...(rehydrated.postEvidence
+      ? { postEvidence: rehydrated.postEvidence }
+      : {}),
   };
 }
 
