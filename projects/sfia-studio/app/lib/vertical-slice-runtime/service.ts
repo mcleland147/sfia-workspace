@@ -70,6 +70,7 @@ import {
   toListProjectsRuntimeSuccess,
 } from "./mapping";
 import { resolveDefaultVerticalSliceRoots } from "./paths";
+import { registerW3bFixtureAdapterForE2eReset } from "./w3bE2eBoundaryControl";
 import type {
   CreateProjectRuntimeInput,
   CreateProjectRuntimeResult,
@@ -221,6 +222,7 @@ function wireOaStack(
   // registered only on the governed path (injected boundary or REAL flag).
   // This composition does not instantiate StudioCursorRealLaunchGateway.
   const fixtureAdapter = createF3TestExecutionAdapter();
+  registerW3bFixtureAdapterForE2eReset(fixtureAdapter);
   const fixtureAgent = createF3FixtureAgentDescriptor(clock.nowIso());
   const w3aBoundedAgent = createW3ABoundedFixtureAgentDescriptor(clock.nowIso());
   const realBoundary = options?.realBoundary;

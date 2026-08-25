@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { shouldShowProjectRecovery, w1RestartHonestyMessage } from "@/features/project-assistant/presentationLabels";
 import type { ProjectAssistantRehydrateEvidenceOutcomeSuccess } from "@/features/project-assistant/types";
+import { w2ProposeTrajectoryOptionsAction } from "@/features/project-assistant/w2/actions";
 import { getProjectRuntimeAction } from "@/lib/vertical-slice-runtime/actions";
 import { useProductConversation } from "./hooks/useProductConversation";
 import { ConversationSurface } from "./surfaces/ConversationSurface";
@@ -54,6 +55,12 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
     );
     if (input instanceof HTMLTextAreaElement) input.focus();
   }, []);
+
+  const onRequalify = useCallback(async () => {
+    await w2ProposeTrajectoryOptionsAction({ projectId });
+    focusConversation();
+    void loadProject();
+  }, [projectId, focusConversation, loadProject]);
 
   const controller = useProductConversation({
     projectId,
@@ -123,7 +130,9 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
             setLpsOpen(true);
             focusConversation();
           }}
-          onRequalify={focusConversation}
+          onRequalify={() => {
+            void onRequalify();
+          }}
         />
       ) : (
         <p className={styles.durabilityHint} data-testid="project-durability-hint">

@@ -254,6 +254,7 @@ export class AppendLivingProjectStateVersion {
             request.trajectoryVersion,
             current.trajectoryVersion,
           ),
+          nextStep: pickLink(request.nextStep, current.nextStep),
           epistemicItemIds:
             request.epistemicItemIds !== undefined
               ? [...request.epistemicItemIds]

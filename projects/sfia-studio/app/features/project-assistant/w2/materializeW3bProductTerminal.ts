@@ -1,6 +1,7 @@
 /**
  * W3-B FC-12 — Materialize + rehydrate Product Terminal from durable facts.
  * Ingest all terminals → ReviewBundle → EvaluateContractResult → FC-11 projection.
+ * W3-C: after successful projection, consume Evidence via post-Evidence loop (no re-ingest).
  */
 import { createHash } from "node:crypto";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
@@ -12,6 +13,11 @@ import {
   projectW3bProductTerminal,
   type W3BProductTerminalProjection,
 } from "./w3bProductTerminalProjection";
+import {
+  rehydrateW3cPostEvidenceFromLps,
+  runW3cPostEvidenceLoop,
+  type W3cPostEvidenceLoopResult,
+} from "./w3cPostEvidenceLoop";
 
 export type { W3BProductTerminalProjection as W3BProductOutcomeProjection };
 
@@ -20,12 +26,14 @@ export type MaterializeW3bProductTerminalResult =
       readonly ok: true;
       readonly product: W3BProductTerminalProjection;
       readonly reusedFromIdempotency: boolean;
+      readonly postEvidence?: W3cPostEvidenceLoopResult;
     }
   | {
       readonly ok: false;
       readonly code: string;
       readonly message: string;
       readonly product?: W3BProductTerminalProjection;
+      readonly postEvidence?: W3cPostEvidenceLoopResult;
     };
 
 const PRODUCT_RESERVATIONS = [
@@ -254,6 +262,21 @@ export async function materializeW3bProductTerminal(input: {
     };
   }
 
+  const product = projectFromFacts({
+    attempt,
+    contract,
+    evidence: ingested.evidence,
+    reviewBundle: frozen.reviewBundle,
+    claimEvaluation: evaluated.claimEvaluation,
+  });
+
+  const postEvidence = await runW3cPostEvidenceLoop({
+    oa: input.oa,
+    projectId: input.projectId,
+    attemptId: attempt.attemptId,
+    product,
+  });
+
   return {
     ok: true,
     reusedFromIdempotency: Boolean(
@@ -262,13 +285,8 @@ export async function materializeW3bProductTerminal(input: {
         frozen.reusedFromIdempotencyKey ||
         evaluated.reusedFromIdempotencyKey,
     ),
-    product: projectFromFacts({
-      attempt,
-      contract,
-      evidence: ingested.evidence,
-      reviewBundle: frozen.reviewBundle,
-      claimEvaluation: evaluated.claimEvaluation,
-    }),
+    product,
+    postEvidence,
   };
 }
 
@@ -315,16 +333,25 @@ export async function rehydrateW3bProductTerminal(input: {
     };
   }
 
+  const product = projectFromFacts({
+    attempt,
+    contract,
+    evidence,
+    reviewBundle,
+    claimEvaluation,
+  });
+
+  const postEvidence = await rehydrateW3cPostEvidenceFromLps({
+    oa: input.oa,
+    projectId: input.projectId,
+    product,
+  });
+
   return {
     ok: true,
     reusedFromIdempotency: true,
-    product: projectFromFacts({
-      attempt,
-      contract,
-      evidence,
-      reviewBundle,
-      claimEvaluation,
-    }),
+    product,
+    postEvidence,
   };
 }
 
@@ -346,6 +373,7 @@ export async function rehydrateLatestW3bProductTerminalForContract(input: {
       readonly attemptId: string;
       readonly attemptStatus: string;
       readonly reusedFromIdempotency: true;
+      readonly postEvidence?: W3cPostEvidenceLoopResult;
     }
   | { readonly ok: false; readonly code: string; readonly message: string }
 > {
@@ -393,6 +421,9 @@ export async function rehydrateLatestW3bProductTerminalForContract(input: {
     attemptId: terminal.attemptId,
     attemptStatus: terminal.status,
     reusedFromIdempotency: true,
+    ...(rehydrated.postEvidence
+      ? { postEvidence: rehydrated.postEvidence }
+      : {}),
   };
 }
 

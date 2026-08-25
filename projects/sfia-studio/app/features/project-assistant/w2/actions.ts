@@ -427,6 +427,7 @@ export async function w2RehydrateLatestProductOutcomeAction(input: {
       readonly attemptId: string;
       readonly attemptStatus: string;
       readonly reusedFromIdempotency: true;
+      readonly postEvidence?: import("./types").W3cPostEvidenceLoopDto;
     }
   | { readonly ok: false; readonly code: string; readonly message: string }
 > {

@@ -49,6 +49,7 @@ export class TestExecutionAdapter implements ExecutionAdapterPort {
   private readonly cancelFixtures: Record<string, ScriptedCancelOutcome>;
   private defaultLaunch: ScriptedLaunchOutcome;
   private defaultCancel: ScriptedCancelOutcome;
+  private oneShotLaunch: ScriptedLaunchOutcome | undefined;
   private readonly spoofAdapterIdOnAck: string | undefined;
   private readonly launched = new Map<string, LaunchResult>();
   private readonly cancelled = new Map<string, CancelResult>();
@@ -59,6 +60,7 @@ export class TestExecutionAdapter implements ExecutionAdapterPort {
     this.cancelFixtures = { ...(options.cancelFixtures ?? {}) };
     this.defaultLaunch = options.defaultLaunch ?? { outcome: "ack" };
     this.defaultCancel = options.defaultCancel ?? { outcome: "ack" };
+    this.oneShotLaunch = undefined;
     this.spoofAdapterIdOnAck = options.spoofAdapterIdOnAck;
   }
 
@@ -76,6 +78,20 @@ export class TestExecutionAdapter implements ExecutionAdapterPort {
    */
   queueDefaultLaunch(outcome: ScriptedLaunchOutcome): void {
     this.defaultLaunch = outcome;
+  }
+
+  /**
+   * E2E/QA — next launch only; then reverts to defaultLaunch.
+   * Prevents adapter_fail arm from poisoning subsequent SUCCESS attempts.
+   */
+  queueOneShotLaunch(outcome: ScriptedLaunchOutcome): void {
+    this.oneShotLaunch = outcome;
+  }
+
+  /** E2E/QA — clear residual one-shot / restore ack default. */
+  resetScriptedLaunchDefaults(): void {
+    this.oneShotLaunch = undefined;
+    this.defaultLaunch = { outcome: "ack" };
   }
 
   /** E2E/QA scripting only — mutate default cancel outcome. */
@@ -99,7 +115,15 @@ export class TestExecutionAdapter implements ExecutionAdapterPort {
       replayed: false,
     });
     const scripted =
-      this.launchFixtures[request.attemptId] ?? this.defaultLaunch;
+      this.launchFixtures[request.attemptId] ??
+      (() => {
+        if (this.oneShotLaunch) {
+          const once = this.oneShotLaunch;
+          this.oneShotLaunch = undefined;
+          return once;
+        }
+        return this.defaultLaunch;
+      })();
     if (scripted.outcome === "throw") {
       throw new Error(`test_adapter_launch_threw:${scripted.reason}`);
     }
