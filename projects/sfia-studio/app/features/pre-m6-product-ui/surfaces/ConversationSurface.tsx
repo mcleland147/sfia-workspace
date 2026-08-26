@@ -453,7 +453,7 @@ export function ConversationSurface({
             <p className={styles.cardNote}>
               La qualification est enregistrée. La décision de trajectoire, le
               contrat, la confirmation et l&apos;exécution se font dans la
-              section « Trajectoire et décision » — un seul chemin d&apos;autorité.
+              section « Trajectoire et décision ».
             </p>
           </header>
         </section>

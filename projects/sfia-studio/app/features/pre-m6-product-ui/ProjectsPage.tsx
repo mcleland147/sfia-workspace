@@ -136,8 +136,8 @@ export function ProjectsPage() {
         <div className={styles.empty} data-testid="studio-projects-empty">
           <p className={styles.emptyTitle}>Aucun projet.</p>
           <p className={styles.emptyBody}>
-            Une seule action primaire pour démarrer. Nora qualifie ensuite ;
-            vous décidez.
+            Créez un projet pour commencer avec Nora. Vous pourrez ensuite
+            préciser votre besoin et décider de la suite.
           </p>
           <Link
             href="/studio/projects/new"

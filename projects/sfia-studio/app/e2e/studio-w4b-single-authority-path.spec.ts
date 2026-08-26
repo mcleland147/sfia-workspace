@@ -158,6 +158,12 @@ test.describe("W4-B single authority path /studio", () => {
       { timeout: 60_000 },
     );
     await expect(page.getByTestId("product-authority-path-guidance")).toBeVisible();
+    await expect(page.getByTestId("product-authority-path-guidance")).toContainText(
+      "La qualification est enregistrée",
+    );
+    await expect(page.getByTestId("product-authority-path-guidance")).not.toContainText(
+      "un seul chemin d'autorité",
+    );
     await assertNoSecondAuthorityPath(page);
     await capture(page, "SC-03-qualified-single-path-1440", {
       sc: "SC-03",

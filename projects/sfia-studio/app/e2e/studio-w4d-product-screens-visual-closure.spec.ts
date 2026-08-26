@@ -103,6 +103,15 @@ test.describe("W4-D product screens visual closure", () => {
     await expect(page.getByTestId("studio-projects-create")).toHaveText(
       /Créer un projet/,
     );
+    // Empty state is deterministic on temp SQLite — assert Pilote-facing copy.
+    const empty = page.getByTestId("studio-projects-empty");
+    if (await empty.count()) {
+      await expect(empty).toContainText(
+        "Créez un projet pour commencer avec Nora",
+      );
+      await expect(empty).not.toContainText("Une seule action primaire");
+      await expect(empty.getByTestId("studio-projects-create")).toHaveCount(1);
+    }
     await capture(page, "SC-01-entry-1440", {
       sc: "SC-01",
       state: "projects entry",
