@@ -1,189 +1,254 @@
-# SFIA Studio — W3-D BOUNDED REGRESSION REMEDIATION — Review Pack FULL
+# SFIA Studio — W3-D GIT INTEGRATION / PR READINESS — Review Pack FULL
 
-**Date/heure:** 2026-08-26 08:30:56 CEST / 2026-08-26T06:30:56Z
-**Cycle:** W3-D PRE-INTEGRATION BOUNDED REGRESSION REMEDIATION
-**Profil:** CRITICAL · Typologie: EVOL · Type: **8 — Delivery / implémentation**
+**Date/heure:** 2026-08-26 08:45:00 CEST / 2026-08-26T06:45:00Z
+**Cycle:** 13 — PR readiness · **Profil:** CRITICAL · **Typologie:** EVOL
 **Capacité:** FULL CKC TRACK + CATALOG EVOLVABILITY (US-P1-09 + US-P1-14)
+**Milestone:** W3-D — GIT INTEGRATION / PR READINESS
 **Branche:** `delivery/sfia-studio-product-completion-w3-d-full-ckc-catalog`
 **Workspace:** `/Users/morris/Projects/sfia-workspace-w3d-full-ckc-catalog`
 
 ---
 
-## 1. Décision Morris / limites
+## 1. Décision Morris consommée (limites exactes)
 
-Remediation bornée du candidat W3-D existant suite au FAIL cross-wave.
-**Pas** : nouvelle slice W3 · W3-E · réouverture W2/W3-A/B · C6 · refonte · REAL · W4 · FinOps.
+**GO MORRIS — W3-D GIT INTEGRATION — PRE-INTEGRATION REVIEW PASS —**
+FULL CKC TRACK + CATALOG EVOLVABILITY CANDIDATE PROVEN DETERMINISTIC PRODUCT-NATIVE —
+BOUNDED REMEDIATION F1/F2/F3 CLOSED —
+FULL CROSS-WAVE REGRESSION PASS —
+**AUTHORIZE PROJECT COMMIT + PUSH + PR FOR W3-D ONLY —**
+BASE MAIN `8e1d548f1adabc173f08bb5a70ae8ed751350a26` —
+**NO MERGE YET —**
+C6 REMAINS CLOSED — REAL OUT — FINOPS/T7 FREEZE — W4 OUT —
+RUNTIME V3 NON ADOPTED — W3 REMAINS OPEN —
+AFTER PR/CI AND DISTINCT MERGE GATE:
+POST-MERGE PROOF THEN W3 FINAL CLOSURE QUALIFICATION.
 
-Project commit/push/PR/merge : **NON**.
+Aucune interprétation supplémentaire. **MERGE NON CONSOMMÉ.**
 
 ---
 
-## 2. Local Git Truth Check (initial)
+## 2. Local Git Truth initial
 
 | Champ | Valeur |
 |---|---|
+| `pwd` | `/Users/morris/Projects/sfia-workspace-w3d-full-ckc-catalog` |
 | Branche | `delivery/sfia-studio-product-completion-w3-d-full-ckc-catalog` |
-| HEAD | `8e1d548f1adabc173f08bb5a70ae8ed751350a26` |
-| origin/main | `8e1d548f1adabc173f08bb5a70ae8ed751350a26` ✓ |
-| Staged | **0** |
-| Candidat | dirty W3-D (13 M + 2 untracked projet) — aligné handoff FAIL |
+| HEAD (avant commit) | `8e1d548f1adabc173f08bb5a70ae8ed751350a26` |
+| `origin/main` | `8e1d548f1adabc173f08bb5a70ae8ed751350a26` ✓ |
+| Staged initial | **0** |
+| Remote W3-D branch | **absente** avant push |
+| Handoff entrant | `5513de99b940baa15c03ca45e4debcde2210a440` |
+| Blob entrant | `403894fdb0655ffe433db6f9796f53bd2fc5d827` ✓ |
+| Handoff titre | W3-D BOUNDED REGRESSION REMEDIATION — PASS |
 
-**Handoff entrant :** `c5a0c849e354ed208cdfa59aa36595a5fc5d2cf1`
-Contenu vérifié : FAIL cross-wave F1 import `/paths` · F2 W2 prepare disabled · F3 W3-A stale `"W3-B"`.
+### Fichiers candidat avant staging (15 M + 2 untracked projet)
 
----
-
-## 3. Qualification causalité (ChatGPT → preuve Git)
-
-### F1 — TRUE W3-D REGRESSION
-- **Cause :** ADAPT W3-D dans `w3cPostEvidenceLoop.ts` importait `@/lib/vertical-slice-runtime/paths`.
-- **Preuve :** diff candidat + FAIL `vertical-slice-runtime/importBoundaries` (+`.../paths` hors allowlist).
-- **Fix :** import via barrel public déjà exporté (`index.ts` → `resolveProductDoctrineRegistryRoot`).
-- **Non fait :** pas d’extension allowlist · pas de modif `paths.ts` / `index.ts` · pas de wrapper.
-
-### F2 — STALE W2 REGRESSION ORACLE (post-W3-A)
-- **Cause :** W2 E2E cliquait Prepare sans qualifier `w3a-operation-kind` → bouton disabled (`qualifiedOperationKind === null`).
-- **Preuve Git produit :** TrajectorySurface disable Prepare sans opération ; W3-A E2E utilise déjà `generate-temporary-artifact`.
-- **Fix (même fichier E2E uniquement) :**
-  1. setup : `selectOption("generate-temporary-artifact")` + assert Prepare enabled ;
-  2. après auth réussie (AUTHORIZED), oracle stop-notice : `"aucune tentative lancée"` (copy AUTHORIZED) au lieu de `"arrêt avant exécution"` (copy BLOCKED only) ; assert Execute visible, Attempt absent, outcome AUTORISÉ.
-- **Produit non modifié.** W2 non réimplémenté.
-
-### F3 — STALE W3-A REGRESSION ORACLE (post-W3-B)
-- **Cause :** E2E attendait placeholder historique `"W3-B"` ; Product honesty post-W3-B = `"…résultat produit qualifié…"`.
-- **Fix :** `toContainText("résultat produit qualifié")`.
-- **Produit / TrajectorySurface non modifié.**
-
----
-
-## 4. Diffs utiles (3 fichiers autorisés uniquement)
-
-### F1 — `w3cPostEvidenceLoop.ts`
-```diff
--import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
--import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
-+import {
-+  resolveProductDoctrineRegistryRoot,
-+  type RuntimeOaStack,
-+} from "@/lib/vertical-slice-runtime";
 ```
-Runtime inchangé (même symbole via barrel).
-
-### F2 — `studio-w2-g3-correction-runtime.spec.ts`
-- + qualification `w3a-operation-kind` avant Prepare
-- stop-before-execute → `"aucune tentative lancée"` + AUTORISÉ + no Attempt
-
-### F3 — `studio-w3a-governed-execute-runtime.spec.ts`
-```diff
--      "W3-B",
-+      "résultat produit qualifié",
+ M .../catalogProjection.qa.test.ts
+ M .../cycleTypeCatalog.test.ts
+ M .../productCkcIndex.test.ts
+ M .../w3cPostEvidenceLoop.test.ts
+ M .../e2e/studio-w2-g3-correction-runtime.spec.ts
+ M .../e2e/studio-w3a-governed-execute-runtime.spec.ts
+ M .../e2e/studio-w3c-post-evidence-replan-runtime.spec.ts
+ M .../f3/postEvidenceNoraAnalysis.ts
+ M .../w2/w3cPostEvidenceLoop.ts
+ M .../qualifyCycleWithCkc.ts
+ M .../catalogFingerprint.ts
+ M .../catalogProjection.ts
+ M .../cycleTypeCatalog.ts
+ M .../cycle/index.ts
+ M .../fakeProvider.ts
+?? .../w3dFullCkcCatalog.test.ts
+?? .../bindCatalogAuthority.ts
+?? .tmp-sfia-review/   ← NON commité
 ```
 
-**Allowlist / importBoundaries.test.ts / TrajectorySurface : NON touchés.**
+`git diff --stat` (unstaged) : **15 files, +463 / −163**
+`git diff --check` : PASS
+
+Scope aligné handoff 5513de99 (W3-D + F1/F2/F3). Pas de STOP.
 
 ---
 
-## 5. Pourquoi le produit n’a pas été modifié pour F2/F3
+## 3. Validations pré-commit (exécutées ce cycle)
 
-F2/F3 = oracles E2E en retard sur contrats produit déjà CLOSED BY MORRIS (W3-A actual-work qualification ; W3-B Product terminal honesty). Modifier TrajectorySurface aurait **régressé** la vérité produit pour faire passer des specs stale — interdit.
-
----
-
-## 6. Validations — commandes & résultats
-
-### PHASE 0
-`git diff --check` PASS. Ce pass n’a touché que les 3 fichiers autorisés (vs candidat pré-remediation).
-
-### PHASE 1 — blockers
-| Commande | Résultat |
+| Contrôle | Résultat |
 |---|---|
-| `npm test -- --run __tests__/vertical-slice-runtime/importBoundaries.test.ts` | **5/5 PASS** |
-| W2 E2E (après F2 complet) | **1 PASS (6.8s)** STOP BEFORE EXECUTE |
-| W3-A E2E | **2 PASS (8.5s)** |
+| `git diff --check` | PASS |
+| `npm run typecheck` | PASS |
+| `npm run lint` | PASS |
 
-### PHASE 2 — targeted
-9 files / **133 PASS** (incl. V2-A1 + project-assistant importBoundaries + W3-D + W1/W2/W3-C/EC/Evidence).
+**Non rejoués ce cycle** (preuve de référence handoff remediation) :
+Full Vitest 222/2137 · W2 1 · W3-A 2 · W3-B 3 · W3-C/D 5 · build PASS · importBoundaries 5/5.
 
-### PHASE 3 — FULL VITEST
+Aucune correction produit dans ce cycle.
+
+---
+
+## 4. Staging
+
+Méthode : `git add -- <paths explicites>` uniquement (pas `add .` / `-A`).
+
+### Staged name-status (17)
+
 ```
-Test Files  222 passed | 13 skipped (235)
-     Tests  2137 passed | 131 skipped (2268)
-  Duration  14.14s
+M  catalogProjection.qa.test.ts
+M  cycleTypeCatalog.test.ts
+M  productCkcIndex.test.ts
+M  w3cPostEvidenceLoop.test.ts
+A  w3dFullCkcCatalog.test.ts
+M  studio-w2-g3-correction-runtime.spec.ts
+M  studio-w3a-governed-execute-runtime.spec.ts
+M  studio-w3c-post-evidence-replan-runtime.spec.ts
+M  postEvidenceNoraAnalysis.ts
+M  w3cPostEvidenceLoop.ts
+A  bindCatalogAuthority.ts
+M  qualifyCycleWithCkc.ts
+M  catalogFingerprint.ts
+M  catalogProjection.ts
+M  cycleTypeCatalog.ts
+M  cycle/index.ts
+M  fakeProvider.ts
 ```
-**ZERO FAIL.**
 
-Écart vs run FAIL précédent (`221 passed | 1 failed`) : le fichier V2-A1 passe désormais → **222 passed** ; +1 test net vs 2136 (F1 fermé). Skips FinOps postgres inchangés (131).
-
-### PHASE 4 — /studio E2E séquentiel (fake)
-| Spec | Résultat |
-|---|---|
-| W2 `studio-w2-g3-correction-runtime` | **1 PASS (6.9s)** |
-| W3-A `studio-w3a-governed-execute-runtime` | **2 PASS (8.4s)** |
-| W3-B `studio-w3b-terminal-evidence-runtime` | **3 PASS (10.4s)** |
-| W3-C/D `studio-w3c-post-evidence-replan-runtime` | **5 PASS (13.8s)** |
-
-### PHASE 5 — static
-typecheck PASS · lint PASS · build PASS · `git diff --check` PASS
+`git diff --cached --stat` : **17 files, +1301 / −163**
+`git diff --cached --check` : PASS
+`.tmp-sfia-review` : **absent** du staged
+Secret scan : tokens Fake / libellés CKC « secret » uniquement — **pas de secret réel**
 
 ---
 
-## 7. Matrice W1 → W3-D
+## 5. Commit projet
 
-| Wave | Verdict | Note |
-|---|---|---|
-| W1 | **REGRESSION PASS** | seam CKC / targeted + full Vitest |
-| W2 | **REGRESSION PASS** | stale setup oracle aligned to W3-A current invariant — **W2 non réimplémenté** |
-| W3-A | **REGRESSION PASS** | historical `"W3-B"` placeholder removed from oracle — **W3-A non rouverte** |
-| W3-B | **REGRESSION PASS** | 3/3 /studio |
-| W3-C | **REGRESSION PASS** | 5/5 /studio |
-| W3-D | **PASS** | self-proof + cross-wave restored |
-| Architecture V2-A1 | **PASS** | **no allowlist expansion** · barrel only · no new architecture |
+**Message :**
+```
+feat(sfia-studio): complete W3-D full CKC and catalog evolvability
+```
 
----
+**PROJECT_COMMIT_SHA :** `a42c488c7616fab1cfb76f00de55c31f8b9050bc`
 
-## 8. Fake / Real
+`git show --name-status` : 17 files (15 M + 2 A) — cohérent staged.
 
-- FakeConversationProvider + TestExecutionAdapter + E2E déterministes
-- **REAL OUT** — non exécuté
-- Niveau : **DETERMINISTIC PRODUCT-NATIVE CROSS-WAVE REGRESSION PROVEN**
-- Interdit : READY FOR REAL · W3 CLOSED · Product Completion COMPLETE
+### Commit vs base `8e1d548…..HEAD`
+Identique au staged : 17 files, +1301/−163 · `git diff --check` range PASS.
+
+Working tree après commit : uniquement `?? .tmp-sfia-review/`
 
 ---
 
-## 9. Working tree final
+## 6. Push projet
+
+Re-check avant push : `origin/main` toujours `8e1d548…` ✓
+
+```
+git push -u origin delivery/sfia-studio-product-completion-w3-d-full-ckc-catalog
+```
+
+**Remote branch SHA :** `a42c488c7616fab1cfb76f00de55c31f8b9050bc`
+= PROJECT_COMMIT_SHA ✓
+
+---
+
+## 7. Pull Request
 
 | Champ | Valeur |
 |---|---|
-| HEAD / origin/main | `8e1d548…` inchangé |
-| Staged | **0** |
-| Projet M | 15 (13 W3-D + 2 E2E W2/W3-A remédiés) |
-| Untracked projet | `w3dFullCkcCatalog.test.ts` · `bindCatalogAuthority.ts` |
-| Review | `.tmp-sfia-review/` |
+| Number | **#418** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/418 |
+| Title | feat(sfia-studio): complete W3-D full CKC and catalog evolvability |
+| State | OPEN |
+| **isDraft** | **true** |
+| base | `main` |
+| head | `delivery/sfia-studio-product-completion-w3-d-full-ckc-catalog` |
+| headRefOid | `a42c488c7616fab1cfb76f00de55c31f8b9050bc` ✓ |
+| mergeable | MERGEABLE |
+| mergeStateStatus | CLEAN (après CI) |
 
-Aucun commit projet.
+**MERGE NON EFFECTUÉ.** Aucun `gh pr merge`.
 
 ---
 
-## 10. Réserves
+## 8. CI / checks (terminaux observés)
+
+| Check | Résultat | Durée |
+|---|---|---|
+| Detect SFIA Studio changes | **pass** | 6s |
+| Build and validate SFIA Studio | **pass** | 2m27s |
+| **SFIA Studio Required Gate** | **pass** | 3s |
+
+Workflow : https://github.com/mcleland147/sfia-workspace/actions/runs/32939282066
+
+**CI PR-HEAD SUCCESS / REQUIRED GATE PASS** — observé.
+
+---
+
+## 9. Contenu transporté (rappel, sans re-implémentation)
+
+- Catalog 15 = baseline non structurelle
+- HASH-A / Authority / bind / verify / N+1 qualification
+- CKC_UNAVAILABLE + forged fingerprint STALE
+- Full Product CKC + Nora semantic + post-Evidence CKC-informed
+- Fake causal markers
+- F1 barrel import · F2 W2 oracle · F3 W3-A oracle
+- Pas de TrajectorySurface remediation · pas d’allowlist expansion · pas de nouveau moteur
+
+---
+
+## 10. Fake / Real Qualification
+
+| Champ | Valeur |
+|---|---|
+| Niveau transporté | DETERMINISTIC PRODUCT-NATIVE CROSS-WAVE REGRESSION PROVEN |
+| Ce cycle Git | aucune frontière REAL exécutée |
+| REAL | OUT |
+| Interdit | READY FOR REAL · REAL BOUNDARY PROVEN · END-TO-END REAL PROVEN |
+
+---
+
+## 11. Working tree final
+
+| Champ | Valeur |
+|---|---|
+| Branche | `delivery/...-w3-d-full-ckc-catalog` @ `a42c488c…` |
+| origin/main | `8e1d548…` |
+| Status | `?? .tmp-sfia-review/` uniquement |
+| Staged | 0 |
+| Merge | **NON** |
+
+---
+
+## 12. Réserves
 
 **BLOCKING :** NONE
 
-**NON_BLOCKING :** NONE substantiel (E2E WebServer ECONNRESET non bloquant historique)
+**NON_BLOCKING :** NONE
 
 ---
 
-## 11. Claims autorisés / interdits
+## 13. Claims autorisés / interdits
 
-**Autorisés :** F1/F2/F3 fermés · full cross-wave PASS · prêt review ChatGPT pré-intégration · W3 OPEN
+**Autorisés :**
+- Project commit + remote branch verified
+- Draft PR #418 créée
+- CI required gate PASS
+- READY FOR CHATGPT PR REVIEW / MORRIS MERGE GATE QUALIFICATION
+- W3 REMAINS OPEN
 
-**Interdits :** W3 CLOSED · READY FOR REAL · runtime v3 ADOPTED · W4 · intégration Git auto
+**Interdits :**
+- W3 CLOSED · PRODUCT COMPLETION COMPLETE · READY FOR REAL
+- MERGED · runtime v3 ADOPTED · W4 AUTHORIZED
 
 ---
 
-## 12. Verdict EXACT
+## 14. Confirmation MERGE
 
-**PASS — W3-D BOUNDED REGRESSION REMEDIATION COMPLETE — F1 IMPORT BOUNDARY CLOSED — F2 W2 STALE ORACLE ALIGNED TO W3-A CURRENT PRODUCT CONTRACT — F3 W3-A STALE ORACLE ALIGNED TO W3-B CURRENT PRODUCT CONTRACT — FULL CROSS-WAVE REGRESSION PASS — DETERMINISTIC PRODUCT-NATIVE PROVEN — READY FOR CHATGPT FINAL PRE-INTEGRATION REVIEW — W3 REMAINS OPEN.**
+**MERGE = NON.** Gate merge **NON CONSOMMÉ.** Draft matérialise PR ≠ merge.
 
-### NEXT (après ChatGPT PASS)
-Morris Git Integration Gate W3-D.
-**Pas** W3 Final Closure Qualification avant intégration + post-merge.
+Après review ChatGPT PASS + **GO MORRIS MERGE distinct** seulement → merge → post-merge → W3 Final Closure Qualification.
+
+---
+
+## 15. Verdict EXACT
+
+**PASS — W3-D GIT INTEGRATION COMPLETE — PROJECT COMMIT CREATED — REMOTE BRANCH VERIFIED — DRAFT PR CREATED — PR-HEAD CI SUCCESS / REQUIRED GATE PASS — NO MERGE — READY FOR CHATGPT PR REVIEW / MORRIS MERGE GATE QUALIFICATION — W3 REMAINS OPEN.**
