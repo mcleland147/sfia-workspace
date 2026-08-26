@@ -1,27 +1,40 @@
-# SFIA Studio — W3-D R-W3D-03 HASH-A AUTHORITY VERIFICATION — Review Pack FULL
+# SFIA Studio — W3-D PRE-INTEGRATION CROSS-WAVE REGRESSION VALIDATION — Review Pack FULL
 
-**Date/heure:** 2026-08-26 06:24:00 CEST / 2026-08-26T04:24:00Z
-**Cycle:** SFIA Studio Product Completion W3-D — FINAL HASH-A INTEGRITY PASS
-**Profil:** CRITICAL · Typologie: EVOL · Type: 8 Delivery
-**Branche:** `delivery/sfia-studio-product-completion-w3-d-full-ckc-catalog`
-**Review ChatGPT entrante:** réserve unique R-W3D-03 (HASH-A authority verification)
-**Handoff précédent:** `bc5b65e2fb3b5eae030e280fa369de9e930afd85`
-**Ne pas rouvrir:** R-W3D-01 (X-W3D-03 actual qualification) · R-W3D-02 (X-W3D-13 /studio E2E)
+**Date/heure:** 2026-08-26 08:03:09 CEST / 2026-08-26T06:03:09Z
+**Cycle:** W3-D PRE-INTEGRATION CROSS-WAVE REGRESSION VALIDATION ONLY
+**Profil:** CRITICAL · Typologie: EVOL · Type projet: **9 — QA / validation**
+**Branche projet:** `delivery/sfia-studio-product-completion-w3-d-full-ckc-catalog`
+**Workspace:** `/Users/morris/Projects/sfia-workspace-w3d-full-ckc-catalog`
 
 ---
 
-## 1. Local Git Truth Check
+## 1. Décision Morris consommée (limites exactes)
+
+**GO MORRIS — W3-D PRE-INTEGRATION CROSS-WAVE REGRESSION VALIDATION ONLY —**
+RUN THE EXISTING CANONICAL TEST/BUILD PROOFS ON THE EXACT LOCAL W3-D CANDIDATE —
+**NO NEW IMPLEMENTATION — NO PROJECT COMMIT — NO PROJECT PUSH — NO PR — NO MERGE —**
+REAL OUT — C6 CLOSED / DO NOT REOPEN — W4 OUT — FINOPS FREEZE —
+RUNTIME V3 NON ADOPTED.
+
+Ce cycle = **VALIDATION uniquement**. Aucune correction de test rouge. Aucune mutation projet.
+
+Gates **NON consommés** : commit/push/PR/merge projet · W3 closure · REAL · FinOps unfreeze · W4 · runtime v3 ADOPTED.
+
+---
+
+## 2. Local Git Truth Check (avant campagne)
 
 | Champ | Valeur |
 |---|---|
-| Workspace | `/Users/morris/Projects/sfia-workspace-w3d-full-ckc-catalog` |
+| `pwd` | `/Users/morris/Projects/sfia-workspace-w3d-full-ckc-catalog` |
 | Branche | `delivery/sfia-studio-product-completion-w3-d-full-ckc-catalog` |
 | HEAD | `8e1d548f1adabc173f08bb5a70ae8ed751350a26` |
-| origin/main | `8e1d548f1adabc173f08bb5a70ae8ed751350a26` ✓ MATCH |
-| Status | dirty — W3-D local only (pass + R-W3D-01/02 + R-W3D-03) |
-| Staged | none |
-| Project commit/push/PR/merge | **NON** (interdit ce cycle) |
-| Scope étranger | **NON** — fichiers W3-D catalog/CKC/Nora/fakeProvider/tests/e2e asserts uniquement |
+| `origin/main` | `8e1d548f1adabc173f08bb5a70ae8ed751350a26` ✓ MATCH |
+| Staged | **aucun** |
+| Commit projet W3-D | **aucun** |
+| Alignement handoff R-W3D-03 (`972b536d`) | **OUI** — même HEAD/base + mêmes 13 M + 2 untracked projet |
+
+### Status initial (identique handoff R-W3D-03)
 
 ```
  M projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts
@@ -42,227 +55,279 @@
 ?? projects/sfia-studio/app/lib/oa/cycle/application/bindCatalogAuthority.ts
 ```
 
----
+`git diff --stat` initial : **13 files, +443 / −156**. Scope = candidat W3-D uniquement. **Pas de STOP** sur truth check.
 
-## 2. Réserve R-W3D-03 — problème exact
-
-`CycleTypeCatalogAuthority` pouvait être construit manuellement avec :
-
-1. catalog étendu valide ;
-2. `fingerprintSerialization` honnête (= `serializeCatalogFingerprint(catalog)`) ;
-3. `fingerprint` arbitraire au format `sha256:…` ≠ HASH-A réel ;
-4. `context.catalogHash` = ce même fingerprint arbitraire.
-
-`projectSelectableCycleType` acceptait ce cas : le special-case « published HASH-A sur contenu non canonique » ne couvre pas un hash arbitraire quelconque.
-
-**Conséquence :** `bindCycleTypeCatalogAuthority()` était une convention d'appel, pas un invariant du chemin `QualifyCycleWithCkc`.
-
-**Exigence W3-D :** HASH-A non décoratif / fail-closed / aucun catalogue arbitrairement déclaré authoritative.
+Handoff entrant vérifié : `origin/sfia/review-handoff` @ `972b536dd3d7237b89b7a34dda3a53b72614554b` — titre R-W3D-03 HASH-A AUTHORITY VERIFICATION.
 
 ---
 
-## 3. Correction (ADAPT application-layer — pas de nouvelle architecture)
+## 3. Sources réellement lues (READ ONLY)
 
-### Choix
-Petit ADAPT application (crypto légitime via `node:crypto`) + option factory `catalogSnapshot`.
+Processus :
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md`
 
-Pas de nouveau store / registry / resolver / moteur / SoT. Domaine de projection reste sans crypto.
+Convergence / Product Completion :
+- `convergence/sfia-studio-convergence-build-doctrine.md`
+- `convergence/sfia-studio-convergence-roadmap.md`
+- `product-completion/01` … `03`, `05`, `06`, `07`, `09`, `10`, `11`
+- doctrine `30-knowledge-context-human-decision-doctrine.md` (contradiction-check utile)
 
-### Invariant HASH-A — AVANT
+Review entrant :
+- `sfia-review-handoff/latest-chatgpt-review.md` (R-W3D-03 HASH-A)
 
-Sur QualifyCycleWithCkc :
-- projection vérifie serialization live ↔ bound serialization ;
-- special-case published fingerprint ≠ non-canonical content ;
-- **aucune** preuve `fingerprint === SHA-256(serialization)`.
+C6 = CLOSED / non rouvert. Aucune écriture doctrine/roadmap/DOC11.
 
-→ forged arbitrary + honest serialization + matching catalogHash → projection OK → CKC resolve possible → SUCCESS possible.
+---
 
-### Invariant HASH-A — APRÈS
+## 4. Trajectoire rappelée
 
-Avant projection / resolve / mutation :
-
-```
-serializeCatalogFingerprint(authority.catalog) === authority.fingerprintSerialization
-AND
-computeCatalogFingerprintHash(authority.catalog) === authority.fingerprint
-```
-
-Sinon → `CATALOG_FINGERPRINT_STALE` (fail-closed).
-
-### Fichiers touchés (R-W3D-03)
-
-| Fichier | Rôle |
+| Élément | Statut |
 |---|---|
-| `application/bindCatalogAuthority.ts` | `verifyCycleTypeCatalogAuthority()` — crypto SHA-256 |
-| `application/qualifyCycleWithCkc.ts` | vérifie authority **avant** `projectSelectableCycleType` |
-| `cycle/index.ts` | `catalogSnapshot` option ; factory résout authority ; DI conservée |
-| `w3dFullCkcCatalog.test.ts` | test bloquant arbitrary forged fingerprint |
+| W1 CLOSED | garder |
+| W2 CLOSED | garder |
+| W3-A CLOSED | garder |
+| W3-B CLOSED | garder |
+| W3-C CLOSED | garder |
+| W3-D | **candidat local non intégré** |
+| W3 macro | **OPEN** |
+| C6 | CLOSED |
+| REAL | OUT |
+| FinOps | FREEZE |
+| W4 | OUT |
+| runtime v3 | NON ADOPTED |
 
-### Diff utile — `verifyCycleTypeCatalogAuthority`
-
-```ts
-export function verifyCycleTypeCatalogAuthority(
-  authority: CycleTypeCatalogAuthority,
-): boolean {
-  try {
-    const liveSerialization = serializeCatalogFingerprint(authority.catalog);
-    if (liveSerialization !== authority.fingerprintSerialization) {
-      return false;
-    }
-    if (computeCatalogFingerprintHash(authority.catalog) !== authority.fingerprint) {
-      return false;
-    }
-    return true;
-  } catch {
-    return false;
-  }
-}
-```
-
-### Diff utile — QualifyCycleWithCkc gate
-
-```ts
-// R-W3D-03: HASH-A is an enforced invariant on the actual qualification
-// path — not a bindCycleTypeCatalogAuthority call convention. Fail closed
-// before projection / CKC resolve / mutation when fingerprint ≠ SHA-256.
-if (!verifyCycleTypeCatalogAuthority(this.catalogAuthority)) {
-  return this.fail(request, {
-    code: "CATALOG_FINGERPRINT_STALE",
-    message: "The catalog fingerprint is stale.",
-    blocking: true,
-    retryable: true,
-    recoverable: true,
-    correlationId: request.correlationId,
-    cycleTypeId: request.cycleTypeId,
-  });
-}
-```
-
-### Diff utile — factory
-
-- `catalogSnapshot?` → `bindCycleTypeCatalogAuthority(snapshot)` (caller ne fournit jamais fingerprint) ;
-- `catalogAuthority?` → passé tel quel ; QualifyCycleWithCkc vérifie crypto (forged → STALE) ;
-- défaut production → `DEFAULT_CYCLE_TYPE_CATALOG_AUTHORITY` (singleton publié).
-
-### Non-solutions explicitement refusées
-
-- commentaire « test-only » ;
-- type TypeScript seul ;
-- `Object.freeze` ;
-- `isCycleTypeCatalogAuthority` structurel ;
-- comparaison `context.catalogHash` seule ;
-- comparaison au hash publié seulement.
+Capacité candidate : FULL CKC TRACK + CATALOG EVOLVABILITY (US-P1-09 + US-P1-14).
 
 ---
 
-## 4. Test bloquant R-W3D-03 (ajouté)
+## 5. Diff W3-D observé (sans réécriture d’historique)
 
-**Cas :**
-1. extended catalog valide ;
-2. `fingerprintSerialization` honnête ;
-3. `fingerprint = sha256:` + `"ab".repeat(32)` (format OK, ≠ HASH-A) ;
-4. `catalogHash` = ce fingerprint arbitraire ;
-5. ACTUAL QUALIFICATION via `createCkcQualificationServices` + Product CKC covered (sinon SUCCESS serait possible).
+Candidat local inchangé depuis R-W3D-03. ADAPT déjà contenu :
+- CycleTypeCatalog / fingerprint / `bindCatalogAuthority` / HASH-A verify sur QualifyCycleWithCkc
+- post-Evidence Nora CKC cognition (`w3cPostEvidenceLoop` + `postEvidenceNoraAnalysis`)
+- FakeConversationProvider causal markers
+- tests W3-D + asserts E2E W3-C
 
-**Attendu / observé :**
-- `qualified.state === "failure"`
-- `qualified.code === "CATALOG_FINGERPRINT_STALE"`
-- `resolveCalls === 0` (resolver CKC non consommé)
-- pas de `proof` / pas de SUCCESS / pas de décision Morris
-
-**Preuve d'exécution (stdout) :**
+**Import nouveau causant FAIL architecture** (dans le diff candidat) :
+```diff
++import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
 ```
-✓ R-W3D-03: arbitrary forged fingerprint + honest serialization fails closed on QualifyCycleWithCkc
-{"event":"oa.ckc.request_failed",...,"detailCode":"CATALOG_FINGERPRINT_STALE"}
-```
-
-### Preuves existantes conservées
-
-| Cas | Résultat |
-|---|---|
-| published singleton | PASS (défaut factory) |
-| extended + `bindCycleTypeCatalogAuthority` + Product CKC covered | SUCCESS product-studio-native |
-| extended uncovered | CKC_UNAVAILABLE |
-| published hash sur contenu étendu | CATALOG_FINGERPRINT_STALE (projection) |
-| **arbitrary forged hash** | **CATALOG_FINGERPRINT_STALE (QualifyCycleWithCkc)** ← NEW |
+dans `features/project-assistant/w2/w3cPostEvidenceLoop.ts` — **hors allowlist** V2-A1.
 
 ---
 
-## 5. Validations
+## 6. Commandes exécutées + résultats exacts
 
-| Check | Résultat |
-|---|---|
-| `w3dFullCkcCatalog.test.ts` | 16 PASS |
-| `catalogProjection.qa` + `cycleTypeCatalog` | 84 PASS |
-| `productCkcIndex` + `w3cPostEvidenceLoop` | 17 PASS |
-| `w2TrackDPhaseB` + `qualifyCycleWithCkc.qa` | 36 PASS |
-| typecheck (`tsc --noEmit`) | PASS |
-| lint (`next lint`) | PASS — 0 warnings/errors |
-| build (Next.js 15.5.20) | PASS |
-| `git diff --check` | PASS (exit 0) |
-| Playwright `/studio` R-W3D-02 | **NON REJOUÉ** — runtime `/studio` non touché par R-W3D-03 ; preuve acquise 5/5 conservée |
+Working directory : `projects/sfia-studio/app`
 
-### E2E R-W3D-02 (conservée)
+### PHASE 1 — targeted cross-wave (tous fichiers EXISTENT)
 
+```bash
+npm test -- --run \
+  __tests__/project-assistant/w1CkcSemanticSeam.test.ts \
+  __tests__/project-assistant/w2EabcDelivery.test.ts \
+  __tests__/project-assistant/w2TrackDPhaseB.test.ts \
+  __tests__/project-assistant/w3cPostEvidenceLoop.test.ts \
+  __tests__/project-assistant/w3dFullCkcCatalog.test.ts \
+  __tests__/project-assistant/importBoundaries.test.ts \
+  __tests__/oa/execution-contract/executionContractGovernance.test.ts \
+  __tests__/oa/evidence-review/contractResultCorrection.test.ts
 ```
+
+**Résultat :** Test Files **8 passed** · Tests **128 passed** · Duration **9.92s** · PASS
+
+Note : `project-assistant/importBoundaries.test.ts` ≠ `vertical-slice-runtime/importBoundaries.test.ts` (gate V2-A1 plus stricte).
+
+### PHASE 2 — FULL VITEST
+
+```bash
+npm test -- --run
+```
+
+**Résultat :**
+```
+Test Files  1 failed | 221 passed | 13 skipped (235)
+     Tests  1 failed | 2136 passed | 131 skipped (2268)
+  Duration  81.36s
+```
+
+**FAIL unique :**
+`__tests__/vertical-slice-runtime/importBoundaries.test.ts`
+> V2-A1 … allows only the bounded V2 UI runtime entrypoints
+
+Diff reçu :
+```
++ "features/project-assistant/w2/w3cPostEvidenceLoop.ts:@/lib/vertical-slice-runtime/paths"
+```
+(Set 40 vs allowlist 39)
+
+**Rerun diagnostique unique** (même commande fichier) :
+```
+Test Files  1 failed (1)
+     Tests  1 failed | 4 passed (5)
+```
+→ **reproductible** — **NON flaky**. Aucune correction appliquée.
+
+### PHASE 3 — E2E /studio (séquentiel, Fake only)
+
+#### 3.1 W2
+```bash
+OPS1_CONVERSATION_PROVIDER=fake npm run test:e2e -- e2e/studio-w2-g3-correction-runtime.spec.ts
+```
+**1 failed** (~4.0m) — timeout 240s sur `getByTestId('w2-prepare-contract')` :
+bouton présent mais **disabled** (`title="Qualifier d'abord le travail d'exécution"`).
+
+**Rerun diagnostique :** même échec (~4.0m) — **reproductible**.
+
+#### 3.2 W3-A
+```bash
+OPS1_CONVERSATION_PROVIDER=fake npm run test:e2e -- e2e/studio-w3a-governed-execute-runtime.spec.ts
+```
+**1 failed | 1 passed (53.2s)**
+Positive path : `w3a-terminal-honesty` attend substring `"W3-B"` ; reçu
+`"Terminal technique consommé — résultat produit qualifié ci-dessous."`
+Blocked path : **PASS**.
+
+**Rerun diagnostique :** **1 failed | 1 passed (53.0s)** — même assertion — **reproductible**.
+
+Note factuelle : le candidat W3-D **ne modifie pas** `studio-w3a-governed-execute-runtime.spec.ts` ni (d’après le name-status) le composant honesty W3-A. L’échec peut être une dérive assertion/UI déjà présente sur la base — **mais** sur le candidat exact il est **FAIL reproductible** → **BLOCKING** pour ce gate pré-intégration.
+
+#### 3.3 W3-B
+```bash
+OPS1_CONVERSATION_PROVIDER=fake npm run test:e2e -- e2e/studio-w3b-terminal-evidence-runtime.spec.ts
+```
+**3 passed (59.0s)** — SUCCESS / STOP / FAIL — PASS
+
+#### 3.4 W3-C + W3-D asserts
+```bash
 OPS1_CONVERSATION_PROVIDER=fake npm run test:e2e -- e2e/studio-w3c-post-evidence-replan-runtime.spec.ts
-→ 5 passed (16.2s) — CLOSED prior pass
 ```
+**5 passed (1.1m)** — continue / recover STOP / recover FAIL / propose+decide / reload — PASS
 
-R-W3D-03 ne modifie que `QualifyCycleWithCkc` / bind / factory / tests unitaires — pas le chemin Playwright `/studio`.
+Fake : `OPS1_CONVERSATION_PROVIDER=fake` + adapters test existants. **REAL non exécuté.**
 
----
+### PHASE 4 — static / build
 
-## 6. Matrice X-W3D recalculée
-
-| ID | Critère | Statut |
-|---|---|---|
-| X-W3D-01 | Catalog non figé structurellement à 15 | PASS |
-| X-W3D-02 | HASH-A / fingerprint évolutif via bind | PASS |
-| X-W3D-03 | Actual QualifyCycleWithCkc path N+1 | PASS (R-W3D-01) |
-| X-W3D-03b | HASH-A crypto verify on qualification path | **PASS (R-W3D-03)** |
-| X-W3D-04/05 | Full Product CKC coverage active catalog | PASS |
-| X-W3D-06/08/11 | Semantic consumption + causality Fake | PASS |
-| X-W3D-09 | Fail-closed uncovered / forged | PASS (incl. arbitrary forged) |
-| X-W3D-13 | /studio product-native E2E | PASS (R-W3D-02, 5/5) |
-| X-W3D-14 | Deterministic product-native ≠ REAL | PASS |
-| US-P1-09 | Catalog evolvability | PASS |
-| US-P1-14 | Full CKC track Post-Evidence | PASS |
-
----
-
-## 7. Réserves restantes
-
-| Réserve | Statut |
+| Gate | Résultat |
 |---|---|
-| R-W3D-01 actual qualification | **CLOSED** |
-| R-W3D-02 /studio E2E | **CLOSED** |
-| R-W3D-03 HASH-A authority verification | **CLOSED** (ce pack) |
-| Réserves W3-D techniques ouvertes | **aucune** |
-
-Hors scope (inchangé) : W3-E · W3 Final Closure · W4 · REAL · FinOps · C6 reopen · project Git integration.
+| `npm run typecheck` | **PASS** (tsc --noEmit) |
+| `npm run lint` | **PASS** (0 warnings/errors) |
+| `npm run build` | **PASS** (Next.js 15.5.20) |
+| `git diff --check` | **PASS** (exit 0) |
 
 ---
 
-## 8. Verdict
+## 7. Matrice de validation W1 → W3-D
 
-**PASS — W3-D HASH-A AUTHORITY VERIFICATION COMPLETE — ARBITRARY FORGED FINGERPRINT FAIL-CLOSED — W3-D EXIT PROOF CANDIDATE COMPLETE — DETERMINISTIC PRODUCT-NATIVE PROVEN — READY FOR CHATGPT FINAL RE-REVIEW — W3 REMAINS OPEN.**
+| Wave | Preuves | Verdict |
+|---|---|---|
+| **W1** | `w1CkcSemanticSeam` PASS (Phase 1) · DoctrinePackage/CKC seam inchangé fonctionnellement dans smoke · full Vitest hors 1 boundary fail | **REGRESSION PASS** (unit/smoke) — **architecture boundary FAIL transverse** voir Architecture |
+| **W2** | Phase B Vitest PASS · W2 Eabc PASS · **/studio W2 E2E FAIL reproductible** (`w2-prepare-contract` disabled) | **REGRESSION FAIL** (E2E product-native) |
+| **W3-A** | executionContractGovernance PASS · **/studio W3-A positive FAIL** (honesty `"W3-B"`) · blocked PASS | **REGRESSION FAIL** (E2E positive path) |
+| **W3-B** | contractResultCorrection PASS · **/studio W3-B 3/3 PASS** | **REGRESSION PASS** |
+| **W3-C** | `w3cPostEvidenceLoop` Vitest PASS · **/studio 5/5 PASS** | **REGRESSION PASS** |
+| **W3-D** | `w3dFullCkcCatalog` 16 PASS (incl. R-W3D-03 forged hash) · /studio W3-C/D 5/5 PASS · HASH-A verify présent | **PASS** (propre preuve W3-D) — **ne sauve pas** le cross-wave FAIL |
+| **Architecture** | V2-A1 `vertical-slice-runtime/importBoundaries` **FAIL** — import `/paths` non allowlisté depuis `w3cPostEvidenceLoop.ts` · C6 non rouvert · pas de nouveau moteur/store observé hors ADAPT W3-D | **FAIL** |
 
-### NEXT (après final re-review PASS ChatGPT)
+### Gouvernance revalidée (observation, sans mutation)
 
-1. Gate Morris d'intégration Git W3-D (commit/push/PR/merge projet — **pas encore**).
-2. **Pas encore** W3 FINAL CLOSURE QUALIFICATION avant intégration/post-merge W3-D.
+- Recommendation ≠ HumanDecision : conservé dans suites W2/W3-C qui passent.
+- CKC / Nora sans autorité : assertions W3-D/W3-C PASS.
+- Pas de replan auto structurant : W3-C E2E PASS.
+- REAL OUT / FinOps FREEZE / W4 OUT / runtime v3 NON ADOPTED / W3 OPEN : respectés.
+- **Mais** : frontière d’import V2-A1 et E2E W2/W3-A **non verts** → intégration Git **bloquée**.
 
-### Ce pack prouve
+---
 
-- HASH-A = invariant crypto sur le chemin ACTUAL QUALIFICATION ;
-- fingerprint arbitraire + serialization honnête + catalogHash matching → STALE avant CKC ;
-- production singleton inchangé ;
-- bind honnête N+1 toujours SUCCESS si Product CKC couvert ;
-- aucune nouvelle architecture / SoT / moteur.
+## 8. Fake / Real Qualification
 
-### Ce pack ne prouve PAS
+| Champ | Valeur |
+|---|---|
+| Applicable | OUI |
+| Fake used | FakeConversationProvider · TestExecutionAdapter · E2E déterministes |
+| REAL | **NON exécuté** |
+| Niveau | **DETERMINISTIC PRODUCT-NATIVE** (où PASS) |
+| Claims interdits | READY FOR REAL · END-TO-END REAL PROVEN · W3 CLOSED |
 
-- W3 CLOSED ;
-- READY FOR REAL ;
-- intégration Git projet effectuée.
+**DETERMINISTIC PROVEN ≠ READY FOR REAL.**
+
+---
+
+## 9. Failures / flaky / tooling
+
+| ID | Preuve | Nature | Qualif |
+|---|---|---|---|
+| F1 | `vertical-slice-runtime/importBoundaries` | import `/paths` ajouté par ADAPT W3-D | **FAIL reproductible — BLOCKING** |
+| F2 | W2 E2E `w2-prepare-contract` disabled | timeout 240s ×2 | **FAIL reproductible — BLOCKING** |
+| F3 | W3-A E2E honesty `"W3-B"` | assertion ×2 ; UI sans "W3-B" | **FAIL reproductible — BLOCKING** |
+
+Aucun FLAKY PASS. Aucun TOOLING GAP empêchant la preuve (commandes ont produit des résultats).
+
+Politique respectée : **aucune correction** de code/test.
+
+---
+
+## 10. Working tree avant / après
+
+| | Avant | Après |
+|---|---|---|
+| Branche / HEAD / origin/main | inchangés | inchangés `8e1d548…` |
+| Fichiers projet M/?? | 13 M + 2 untracked W3-D | **identique** |
+| Staged | vide | **vide** |
+| `.tmp-sfia-review/` | review + captures W3-C | + captures W2/W3-A/W3-B runtime (toléré) |
+
+**Aucune mutation projet introduite par CE cycle de validation.**
+Aucune action `git checkout` / `reset` / `clean`.
+
+---
+
+## 11. Réserves
+
+### BLOCKING
+1. **CROSS-WAVE IMPORT BOUNDARY** — `w3cPostEvidenceLoop.ts` → `@/lib/vertical-slice-runtime/paths` hors allowlist V2-A1.
+2. **W2 /studio E2E** — prepare-contract reste disabled (qualification gate).
+3. **W3-A /studio E2E positive** — honesty text n’inclut plus `"W3-B"`.
+
+### NON_BLOCKING
+- Warnings WebServer `ECONNRESET` pendant E2E (tests W3-B/C ont quand même passé).
+- Phase 1 smoke ne couvre pas la gate `vertical-slice-runtime/importBoundaries` (fichier distinct).
+
+### NONE (hors les blocking ci-dessus)
+—
+
+---
+
+## 12. Claims autorisés / interdits
+
+**Autorisés :**
+- Cross-wave regression **détectée** sur candidat local W3-D.
+- W3-D self-proofs unit + W3-C/D E2E restent verts.
+- typecheck/lint/build/diff-check PASS.
+- Aucune mutation projet par validation.
+- Intégration Git **bloquée** jusqu’à qualification delivery corrective.
+
+**Interdits :**
+- READY FOR REAL
+- W3 CLOSED
+- PASS pré-intégration
+- autorisation automatique de commit/push/PR/merge
+
+---
+
+## 13. Verdict EXACT
+
+**PRE-INTEGRATION PRODUCT REGRESSION FAIL — CROSS-WAVE REGRESSION DETECTED — PROJECT GIT INTEGRATION BLOCKED — RETURN TO DELIVERY QUALIFICATION.**
+
+---
+
+## 14. NEXT (hors ce cycle — pour Morris / ChatGPT seulement)
+
+Après analyse ChatGPT :
+- **ne pas** intégrer Git W3-D ;
+- retour **Delivery qualification** pour fermer F1/F2/F3 (cycle Delivery distinct, GO Morris distinct) ;
+- **pas** W3 Final Closure ;
+- **pas** commit/push/PR/merge tant que FAIL.
