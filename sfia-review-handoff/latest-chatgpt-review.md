@@ -1,27 +1,27 @@
-# SFIA Studio — W4-UXR Review Pack FULL — Product Experience Reconciliation
+# SFIA Studio — W4-BR Review Pack FULL — Reconciled Presentation Adaptation
 
 | Field | Value |
 | --- | --- |
-| **Timestamp** | 2026-08-26 13:15:00 CEST |
-| **Cycle** | W4-UXR — PRODUCT EXPERIENCE RECONCILIATION |
-| **Type** | 4 — UX/UI |
+| **Timestamp** | 2026-08-26 13:45:00 CEST |
+| **Cycle** | W4-BR — RECONCILED PRESENTATION ADAPTATION |
+| **Type** | 8 — Delivery / implémentation |
 | **Profile** | CRITICAL |
-| **Nature** | DESIGN / UX RECONCILIATION · PENPOT DESIGN-ONLY · NO PRODUCT CODE |
-| **Product files modified** | **NONE** |
-| **Tests / docs / CI modified** | **NONE** |
-| **Penpot historical pages 00–05 modified** | **NO** |
-| **Penpot page 06 modified** | **YES** (created + filled) |
-| **Verdict candidate** | W4-UXR DESIGN CANDIDATE PASS WITH DECISIONS — RECONCILED PRODUCT EXPERIENCE READY — MORRIS H-01/H-XX DECISION REQUIRED |
+| **Typology** | INC — incrément borné sur candidate W4-B |
+| **Domain / persistence modified** | **NONE** |
+| **Penpot modified** | **NO** |
+| **Project commit / push / PR / merge** | **NONE** |
+| **Verdict candidate** | W4-BR DELIVERY PASS WITH NON-BLOCKING CARRIES — CORE RECONCILIATION PROVEN — H-02/H-03/H-04 REMAIN CARRY — READY FOR CHATGPT REVIEW / MORRIS GIT INTEGRATION GATE |
 
 ---
 
 ## 1. Timestamp
 
-- Pack: `2026-08-26 13:15:00 CEST`
-- Runtime captures: `2026-08-26T11:09:16Z` … `2026-08-26T11:09:22Z`
-- Penpot page 06 creation / boards: same session ~13:04–13:12 CEST
+- Pack: `2026-08-26 13:45:00 CEST`
+- Pre-code Penpot read: ~13:28 CEST (session)
+- Runtime E2E / captures: ~13:33 CEST
+- Post-code Penpot re-read: **504 Gateway Timeout** (2 retries) — comparison uses pre-code direct inventory + runtime captures
 
-## 2. Repo / branch / HEAD / origin/main
+## 2–4. Repo / branch / HEAD / origin/main
 
 | Item | Value |
 | --- | --- |
@@ -30,350 +30,255 @@
 | Branch | `delivery/sfia-studio-w4-b-single-authority-path` |
 | HEAD | `1e17367d01cab95a4853a8857ed39867ea396ed3` |
 | origin/main | `1e17367d01cab95a4853a8857ed39867ea396ed3` |
-| Alignment | **PASS** |
+| Local Git Truth Check | **PASS** |
 
-## 3. Initial W4-B preservation proof
+## 5. Initial W4-B baseline
 
 | Item | Value |
 | --- | --- |
-| diff --binary SHA-256 | `c280d9f977f8c712bb57472e3d9775c8e468b818b58ea1afd6cc6099c4665918` |
-| Untracked project file | `projects/sfia-studio/app/e2e/studio-w4b-single-authority-path.spec.ts` |
-| Untracked SHA-256 | `f9321e2e19b726332b6315889cb3583141a6c7205d44de23bcc85806713114d5` |
-| Match vs W4-A2 expected | **YES** |
+| tracked diff SHA-256 | `c280d9f977f8c712bb57472e3d9775c8e468b818b58ea1afd6cc6099c4665918` |
+| untracked E2E | `projects/sfia-studio/app/e2e/studio-w4b-single-authority-path.spec.ts` |
+| untracked SHA-256 | `f9321e2e19b726332b6315889cb3583141a6c7205d44de23bcc85806713114d5` |
+| staged | **NONE** |
+| Snapshot dir | `.tmp-sfia-review/w4-br-baseline/` |
 
-Snapshot dir: `.tmp-sfia-review/w4-uxr-preservation/`
+## 6. Sources read
 
-## 4. Sources read
+Process templates + routing + OM + guardrails; Convergence doctrine + roadmap (lag RO); PC 01/02/03/05/06; UX PE 01–03; framing 30/32–35/37; handoffs W4-B `71ded584`, W4-A2 `f4ea6ef5`, W4-UXR `cf573005`; pre-m6 presentation surfaces (mutation scope).
 
-Process templates + routing + OM + guardrails; Convergence doctrine + roadmap (lag acknowledged, **not modified**); Product Completion 01/02/03/05/06; UX PE 01–03; framings 30/32–35/37; W4-A2 handoff `f4ea6ef5…`; W4-B handoff `71ded584…` (candidate inventory only); W4-B working-tree surfaces (read for comparison, **not edited**).
+## 7. CKC
 
-## 5. GO Morris consumed
+Delivery CKC: **ABSENT** (no invent). Fallback: routing + Delivery method + template + C1/C2 + EA + Screens + W4-UXR + runtime.
 
-```
-GO MORRIS — W4-UXR PRODUCT EXPERIENCE RECONCILIATION —
-CRITICAL UX/UI —
-RECONCILE C1/C2 TARGET + VALIDATED PENPOT + W1/W2/W3 DELIVERED CAPABILITIES + W4-B CANDIDATE —
-PENPOT DESIGN WORK AUTHORIZED ON NEW RECONCILIATION PAGE ONLY —
-HISTORICAL VALIDATED PENPOT PAGES READ ONLY —
-NO PRODUCT CODE —
-NO C6 / DOMAIN / PERSISTENCE CHANGE —
-W4-B INTEGRATION FROZEN PENDING UX RECONCILIATION REVIEW —
-W4-C NOT STARTED —
-H-01 REMAINS MORRIS STRUCTURAL GATE —
-NO PROJECT COMMIT / PUSH / PR / MERGE —
-RUNTIME V3 NON ADOPTED —
-REAL OUT.
-```
+## 8. GO Morris consumed
 
-## 6. Convergence Pre-check
+W4-BR Delivery GO + W4-UXR validated + **H-01 OPTION A ADOPTED** + H-02/03/04 CARRY + W4-C NOT STARTED + REAL OUT + runtime v3 NON ADOPTED + no project Git integration this cycle.
+
+## 9. Convergence Pre-check
 
 | Field | Value |
 | --- | --- |
 | Capability | Product Experience Closure |
-| Milestone | W4 |
-| Backlog | US-P1-10 · US-P1-13 · UAT/PE exit · H-01…H-04 |
-| Upstream | W1/W2/W3 CLOSED · W4-A/A2 evidence · W4-B candidate PASS / NOT integrated |
-| C6 | CLOSED / DO NOT REOPEN |
-| REAL | OUT |
-| runtime v3 | NON ADOPTED |
-| Gap closed by W4-UXR | Missing reconciled UX target integrating delivered capabilities since historical Penpot validation |
-| Exit | Candidate Penpot page 06 + delivery delta + H-01 decision pack |
+| Slice | W4-BR presentation adaptation |
+| Upstream | W1–W3 CLOSED · W4-B candidate · W4-UXR validated · H-01 A adopted |
+| Gap | Composition LPS/Trajectory · S2 · labels · EC disclosure |
+| Parallel architecture | FORBIDDEN |
+| Verdict | **GO for presentation-only delivery** |
 
-CKC UX dedicated: **ABSENT** — fallback process + C1/C2 + EA + Wireframes/Screens + W4-A2 used. CKC grants no execution authority.
-
-## 7. Penpot MCP inventory
+## 10–12. Penpot MCP / page 06 / boards
 
 | Item | Value |
 | --- | --- |
-| Namespace | `user-penpot` — **ready** |
-| Tools used | `high_level_overview`, `penpot_api_info`, `execute_code`, `export_shape` |
-| Figma | **NOT USED** |
-| 504 during late export retry | one `export_shape` 504 (retryable); inventories already complete |
+| MCP | `user-penpot` — available at pre-code |
+| File | `63bdc57a-636a-81ba-8008-82d2a50d5233` |
+| Page 06 | `2feb04ff-8811-8084-8008-8ab3837c737e` |
+| Direct read before code | **YES** — 12 boards inventoried |
+| Boards read (render/structure) | UXR-00,01,02,03,04,05,08,R01,H01 (+ META inventory) |
+| UXR-06/07 | boundary-only — not implemented |
+| UXR-META stale “NOT VALIDATED” | ignored — Morris validation supersedes |
+| Penpot mutation | **NONE** |
+| Pages 00–05 | **UNTOUCHED** (pre-code counts: 7/8/12/17/0/9) |
 
-## 8. Historical page inventory (READ ONLY — verified untouched)
+## 13. Pre-code visual contract
 
-| Page | id | frames |
+Path: `.tmp-sfia-review/penpot-exports/w4-br/pre-code-visual-contract.md` — **COMPLETE**
+
+## 14. Baseline W4-B observations (pre-mutation)
+
+- Single authority path already product-visible (W4-B candidate)
+- TrajectorySurface lived under conversation column (H-01 gap)
+- S2: “Votre intention” / “Précisions” / no Annuler
+- EC: dense primary facts dump
+- CycleInstance id primary in LPS
+
+## 15. Files modified (W4-BR delta)
+
+| File | Why |
+| --- | --- |
+| `ProjectWorkspacePage.tsx` | H-01 Option A composition wrapper; embed Trajectory in LPS region |
+| `ProjectWorkspacePage.module.css` | Unified region styles; responsive stack (no hide trajectory) |
+| `product-tokens.css` | Widen LPS column for embedded trajectory (presentation) |
+| `LpsSurface.tsx` | Cycle id → technical details; softer next-action wording |
+| `TrajectorySurface.tsx` | `composition="lps-embedded"`; EC progressive disclosure; confirm wording |
+| `TrajectorySurface.module.css` | `.embedded` + `.contractLevel2` |
+| `NewProjectIntentionPage.tsx` | UXR-01 labels + Annuler |
+| `e2e/studio-w4b-single-authority-path.spec.ts` (untracked extended) | H-01 + S2 assertions; captures → `w4-br/` |
+
+W4-B prior files still dirty (ConversationSurface + legacy e2e skips/tests) — preserved, not reverted.
+
+**Domain / persistence / W2–W3 actions / C6 / doctrine: NONE**
+
+## 16. H-01 implementation explanation
+
+- **Composition UX only**: `project-state-trajectory-region` wraps `LpsSurface` + `TrajectorySurface` inside `project-lps-column`.
+- `TrajectorySurface` receives `data-composition="lps-embedded"`.
+- Heading: “État actuel et trajectoire” — explicit note that state and trajectory remain distinct.
+- Desktop: side column (widened 420/480). ≤1024: stacked in-flow (not drawer-hidden) so trajectory remains operable.
+- **No** LPS/Trajectory model merge, store, repository, resolver, persistence, or authority change.
+
+## 17. Domain separation proof
+
+- `LpsSurface` still reads `GetProjectSuccess.livingState` / project projection only.
+- `TrajectorySurface` still calls existing W2/W3 presentation actions only.
+- No shared domain type introduced.
+- **PASS** — LPS domain object unchanged · ProjectTrajectory domain object unchanged.
+
+## 18. Single authority invariant review
+
+| Invariant | Result |
+| --- | --- |
+| Nora qualification kept | PASS |
+| F2 HD product-visible | **NO** (count 0) |
+| F3 confirm+execute product-visible | **NO** |
+| W2 HD structural | PASS |
+| Option ≠ Rec ≠ HD | PASS |
+| Inspect before Confirm | PASS |
+| Confirm ≠ Execute | PASS |
+| Authority before Execute | PASS |
+| Blocked textual | PASS (“Exécution bloquée”) |
+
+## 19–21. S2 / business-first / EC disclosure
+
+- **S2**: Intention du projet · Contexte optionnel · Créer + Annuler → **PASS** (e2e labels)
+- **Business-first**: authority strings kept; cycle id demoted; EC primary cleaned → **PASS with residual fixture stamps in conversation (non-blocking)**
+- **EC progressive disclosure**: Niveau1 summary + métier details + technical details → **PASS**
+
+## 22. A11Y-PC applicable
+
+| ID | Status |
+| --- | --- |
+| 01 textual statuses | PASS |
+| 02 effectful identifiable | PASS |
+| 03 STOP/FAIL (non-regression) | PASS (W3-B) |
+| 04 hierarchy | PASS / PARTIAL density |
+| 05 Confirmation explicit | PASS (“Confirmer mon consentement”) |
+| 06 Evidence | non-regression only — **H-03 CARRY / W4-C** |
+
+No WCAG/AA claim.
+
+## 23. Tests executed
+
+| Suite | Result |
+| --- | --- |
+| Unit UI trajectory / UAT / runningAttempt | **15/15 PASS** |
+| W4-B/BR E2E (`studio-w4b-single-authority-path`) | **2/2 PASS** |
+| W2-G3 | **1/1 PASS** |
+| W3-A | **2/2 PASS** |
+| W3-B | **3/3 PASS** |
+| W3-C | **5/5 PASS** |
+
+## 24. Runtime setup
+
+- Port 3032 (W4-BR E2E) / 3033 (W2/W3)
+- Temp SQLite · `OPS1_CONVERSATION_PROVIDER=fake` · REAL=0 · QA controls
+- Captures: `.tmp-sfia-review/runtime-captures/w4-br/` — **13 PNG** + manifest
+
+## 25. Penpot vs Runtime matrix
+
+| Board | Status | Notes |
 | --- | --- | --- |
-| 00 — Foundations | `63bdc57a-…d9d35` | 7 |
-| 01 — User Flows | `5de0e468-…65e069f` | 8 |
-| 02 — Wireframes | `5de0e468-…6c1ab48` | 12 |
-| 03 — Screens | `5de0e468-…6f7e116` | 17 |
-| 04 — Components | `5de0e468-…737061e` | 0 |
-| 05 — States & Evidence | `5de0e468-…26931fc0` | 9 |
+| UXR-01 | **CONFORME** | Labels + Annuler |
+| UXR-02 / H-01 | **CONFORME** | LPS+Trajectory unified region (capture SC-03) |
+| UXR-03 | **CONFORME** | Single W2 chain in region |
+| UXR-04 | **CONFORME / PARTIEL** | Progressive disclosure improved; not pixel Penpot mock |
+| UXR-05 | **CONFORME** | Business authority + Execute separate |
+| UXR-08 | **PARTIEL** | Baseline a11y; not full state board rebuild |
+| UXR-R01 | **PARTIEL** | 1440/1024/390 captures; H-02 CARRY |
+| UXR-06/07 | **NOT OBSERVED / OUT** | W4-C |
 
-**Historical pages untouched: YES**
+Pixel-perfect: **NOT CLAIMED**
+Post-code Penpot live re-read: blocked by 504 — non-blocking given pre-code direct read + no Penpot mutation.
 
-## 9. Runtime W4-B candidate captures
-
-Path: `.tmp-sfia-review/runtime-captures/w4-uxr/`
-Port **3031** · temp SQLite · fake provider · REAL=0 · **working tree W4-B (not pre-W4-B baseline)**
-
-**Count: 18 PNG**
-
-Key proofs:
-- `productGuidanceVisible: true`
-- `f3ConfirmExecuteVisible: false`
-- W2 options/HD/EC/inspect/authorize path exercised
-- Authority labels business-first path present
-- Viewports 1440 / 1024 / 390
-
-## 10. Page 06 creation evidence
-
-| Item | Value |
-| --- | --- |
-| Created | **YES** (was absent; no duplicate) |
-| Name | `06 — W4 Product Experience Reconciliation` |
-| id | `2feb04ff-8811-8084-8008-8ab3837c737e` |
-| Status | **CANDIDATE · NOT VALIDATED · NOT GIT SOT · NOT RUNTIME ADOPTED** |
-| Visual language | Reused historical palette `#F4F2EE` / white cards / `#D6D3D1` strokes / teal accents; Inter font attempts; no new component library |
-
-## 11. All page06 board IDs / names / dimensions
-
-| Board | id | dims (live) |
-| --- | --- | --- |
-| UXR-META — Reconciliation Contract | `…8ab3b1a7bd3f` | 1440×583 |
-| UXR-00 — Reconciled E2E Journey / Product Truth Map | `…8ab3b2c1b5ed` | 1440×535 |
-| UXR-01 — Project Entry / Create / Resume | `…8ab3e41d23e1` | 1440×449 |
-| UXR-02 — Workspace / Nora / Qualification / LPS | `…8ab3e51c2988` | 1440×433 |
-| UXR-03 — Trajectory / Options / Recommendation / HumanDecision | `…8ab3e62104c9` | 1440×433 |
-| UXR-04 — ExecutionContract / Inspection / Confirmation | `…8ab47b3bd3f7` | 1440×433 |
-| UXR-05 — Authority / Execute / Running | `…8ab47c2caa5f` | 1440×411 |
-| UXR-06 — SUCCESS / STOP / FAIL / Evidence | `…8ab47d3c9fea` | 1440×411 |
-| UXR-07 — Nora Analysis / Replan / Recovery / Resume | `…8ab4979a65d3` | 1440×411 |
-| UXR-08 — States / Accessibility / Primary Actions | `…8ab498e4f5f5` | 1440×335 |
-| UXR-R01 — Responsive Reconciliation | `…8ab499bed9f0` | 2200×335 |
-| UXR-H01 — Workspace Composition Decision | `…8ab4b7d4579c` | 1600×752 |
-
-**Board count: 12**
-
-## 12. Renders
-
-- MCP `export_shape` visual success: **UXR-META**, **UXR-03** (agent vision)
-- UXR-H01: structure confirmed (5 sections / Option A+B+Rec); full-board export intermittent / blank once; late 504 on child export
-- Disk PNG: **none** — proof mode = MCP visual + structure inventory
-- Manifest: `.tmp-sfia-review/penpot-exports/w4-uxr/manifest.md`
-
-## 13. UXR-00 journey mapping
-
-Canonical loop represented (Pilote→…→resume). Maps:
-- A→W / UF-01→07 / S1→S12
-- KEEP W1–W3 capabilities
-- W4-B candidate single authority
-- W4-C Evidence/Recovery/Replan as **design target only**
-- H-01…04 CARRY
-
-## 14. UXR-01→08 evidence
-
-| Board | Intent | Runtime compare (W4-B tree) | Class |
-| --- | --- | --- | --- |
-| UXR-01 | Create OR Resume; SC-01/02 | Entry/create functional; S2 form delta remains | ADAPT |
-| UXR-02 | Nora + LPS; no F2 decide | Guidance shown; legacy decide hidden | KEEP W4-B / ADAPT labels |
-| UXR-03 | Single Option/Rec/HD | W2 path only for structural HD | KEEP W4-B |
-| UXR-04 | Inspect → Confirm ≠ Execute | Separated controls observed | KEEP W4-B / ADAPT density |
-| UXR-05 | Authority business-first + Execute | Labels candidate-aligned | KEEP W4-B |
-| UXR-06 | Terminals + Evidence hierarchy | Design target; runtime polish later | COMPLETE / W4-C target |
-| UXR-07 | Replan / Recovery honesty | Honesty present; copy ADAPT | W4-C target |
-| UXR-08 | States + A11Y baseline | Principles represented | ADAPT ongoing |
-
-## 15. UXR-R01 responsive evidence
-
-Design board + runtime captures at 1440/1024/390 for entry/create/authority/workspace. **H-02 remains CARRY.**
-
-## 16. UXR-H01 decision pack
-
-| Element | Content |
-| --- | --- |
-| OPTION A | Trajectory integrated in LPS region (Penpot historical preference) |
-| OPTION B | Trajectory separate region, hierarchically fused (closer to current runtime) |
-| Cursor recommendation | Prefer **A** as design target if Morris accepts layout cost; else **B** interim with explicit follow-up — **non-binding** |
-| Third variant | **None** (not justified) |
-| Verdict | **MORRIS DECISION REQUIRED** |
-
-## 17. C1/C2 alignment
-
-**PASS** — reconciled journey preserves C1 loop and C2 authority/confirmation/execute separations; no new architecture / orchestration.
-
-## 18. S1→S12 mapping
-
-All surfaces mapped to UXR boards. No surface invented. Dual F2/F3 product authority **RETIRE LATER** in design target (matches W4-B candidate).
-
-**Verdict: PASS (mapping) / ADAPT (presentation deltas)**
-
-## 19. UF01→07 mapping
-
-UF-01…07 represented across UXR-01…07. UF-06/07 as design targets where delivery polish is W4-C.
-
-**Verdict: PASS (mapping)**
-
-## 20. SC historical → UXR mapping
-
-| Historical SC | UXR board |
-| --- | --- |
-| SC-01/02 | UXR-01 |
-| SC-03 | UXR-02 (+ H-01) |
-| SC-04 | UXR-03 |
-| SC-05/06 | UXR-04 |
-| SC-07/08 | UXR-05 |
-| SC-09/10/11 | UXR-06 |
-| SC-12/13 | UXR-07 |
-| SC-14 + A11Y | UXR-08 |
-| SC-R01…R03 | UXR-R01 |
-
-Historical screens **HARVEST / READ ONLY** — not rewritten.
-
-## 21. Runtime capabilities consumed
-
-W1/W2/W3 capabilities listed in UXR-00 as **KEEP** — not redesigned. Confirmed against W4-B tree behavior for authority chain.
-
-## 22. W4-B candidate mapping
-
-| W4-B candidate element | Design representation |
-| --- | --- |
-| Nora qualification kept | UXR-02 |
-| F2 HD / F3 confirm+execute off product path | UXR-02/03/04 + runtime `f3ConfirmExecuteVisible=false` |
-| W2/W3 single authority | UXR-03/04/05 |
-| Business-first labels | UXR-05/08 |
-| Confirmation ≠ Execute | UXR-04 |
-
-Qualified explicitly: **W4-B CANDIDATE / NOT INTEGRATED**
-
-## 23. Business-first review
-
-**PASS with reserves** — design target forbids primary W2/W3/F2/F3/AUTHORIZED jargon; runtime W4-B improved authority strings; conversation fixtures still emit some method/test stamps (ADAPT residual, not architecture).
-
-## 24. Progressive disclosure review
-
-**PASS (design)** — Niveau 1/2/3 stated on UXR-04/06. Runtime EC still denser than Penpot Pilote-first summary → **ADAPT**.
-
-## 25. A11Y-PC-01→06 review
-
-Represented on UXR-08. Runtime partial. **No WCAG/AA claim.**
-
-| ID | Design | Runtime |
-| --- | --- | --- |
-| 01–06 | PASS (intent) | PARTIAL |
-
-## 26. H-01→04 dispositions
-
-| H | Disposition |
-| --- | --- |
-| H-01 | **CARRY** — decision pack complete; Morris pending |
-| H-02 | **CARRY** — responsive target represented |
-| H-03 | **CARRY** — Evidence in-workspace target on UXR-06 |
-| H-04 | **CARRY** — empty-state CTA target on UXR-01/08 |
-
-## 27. KEEP / ADAPT / COMPLETE / RETIRE matrix (delivery)
-
-| Item | Class | Implication |
-| --- | --- | --- |
-| C1/C2 / EA | KEEP RO | none |
-| Historical Penpot 00–05 | KEEP/HARVEST RO | none |
-| W1–W3 capabilities | KEEP | none |
-| W4-B single authority presentation | KEEP candidate | freeze integration pending Morris UX review |
-| F2/F3 product authority UI | RETIRE LATER | harness-only |
-| S2 form Annuler / label parity | ADAPT | micro presentation |
-| EC density / Evidence hierarchy | ADAPT / COMPLETE | mostly post-H-01 / W4-C |
-| H-01 composition | COMPLETE decision first | **do not code until Morris** |
-| Recovery/Replan polish | W4-C design target | no W4-C start |
-
-## 28. W4-B delivery delta classification
-
-**Primary: B — MICRO-ADAPTATION RECOMMENDED BEFORE INTEGRATION** (presentation-only: residual jargon/density/S2 form parity)
-
-**Plus gate C for H-01:** if Morris chooses Option A structural embed, **DO NOT MODIFY W4-B for layout until that decision** — authority-path candidate can still be judged separately.
-
-**Authority-path core: A-compatible** with reconciled target (single chain, Confirm≠Execute, business-first authority strings).
-
-**Not D** — no unresolved C1/C2 contradiction requiring STOP.
-
-**No W4-B code correction during this cycle.**
-
-## 29. W4-C target-only delta
-
-UXR-06/07 define Evidence / Recovery / Replan design targets. **W4-C NOT STARTED.** No tests/code.
-
-## 30. X-W4UXR-01→18
+## 26. X-W4BR-01→30
 
 | ID | Result |
 | --- | --- |
-| X-W4UXR-01 | **PASS** |
-| X-W4UXR-02 | **PASS** |
-| X-W4UXR-03 | **PASS** |
-| X-W4UXR-04 | **PASS** |
-| X-W4UXR-05 | **PASS** |
-| X-W4UXR-06 | **PASS** |
-| X-W4UXR-07 | **PASS** |
-| X-W4UXR-08 | **PASS** (design) |
-| X-W4UXR-09 | **PASS** (design target) |
-| X-W4UXR-10 | **PASS** |
-| X-W4UXR-11 | **PASS with reserves** (runtime residual stamps) |
-| X-W4UXR-12 | **PASS — DECISION PACK COMPLETE / MORRIS DECISION PENDING** |
-| X-W4UXR-13 | **PASS** (CARRY retained) |
-| X-W4UXR-14 | **PASS** |
-| X-W4UXR-15 | **PASS** |
-| X-W4UXR-16 | **PASS** (verified at close) |
-| X-W4UXR-17 | **PASS** |
-| X-W4UXR-18 | **PASS** |
+| 01 | PASS |
+| 02 | PASS |
+| 03 | PASS |
+| 04 | PASS |
+| 05 | PASS |
+| 06 | PASS |
+| 07 | PASS |
+| 08 | PASS |
+| 09 | PASS |
+| 10 | PASS |
+| 11 | PASS |
+| 12 | PASS |
+| 13 | PASS |
+| 14 | PASS |
+| 15 | PASS |
+| 16 | PASS with residual conversation fixture stamps |
+| 17 | PASS |
+| 18 | PASS (no WCAG) |
+| 19 | PASS |
+| 20 | **CARRY** (H-02) |
+| 21 | **CARRY** (H-03) |
+| 22 | **CARRY** (H-04) |
+| 23 | PASS (W4-C not started) |
+| 24 | PASS |
+| 25 | PASS |
+| 26 | PASS (no Penpot write; post-read 504) |
+| 27 | PASS |
+| 28 | PASS |
+| 29 | PASS |
+| 30 | PASS after handoff publish |
 
-## 31. Blockers
+## 27. Fake / Real
 
-None for design-candidate Morris review.
-Non-blocking: MCP disk PNG absent; one 504 on late export; H01 full-board export flaky; boards are reconciliation docs (not full pixel mock rebuild of every SC).
+DETERMINISTIC PRODUCT-NATIVE UI/INTERACTION PROVEN for W4-BR. REAL OUT. No READY FOR REAL / v3 ADOPTED.
 
-## 32. Reserves
+## 28. Blockers
 
-- H-01…04 CARRY
-- Pixel-perfect not claimed
-- Conversation fixture stamps still method-leaning
-- Attempt mid-state thin in this capture set
+None for ChatGPT / Morris Git integration gate review.
 
-## 33. Morris decisions required
+## 29. Non-blocking reserves
 
-1. **H-01** Option A vs B (structural)
-2. Accept/reject page 06 as reconciled PE design candidate
-3. Whether W4-B integrates as-is (authority A-compatible) vs micro-adapt B first
-4. H-02/03/04 remain CARRY unless Morris explicitly adopts
+- H-02/03/04 CARRY
+- Conversation fake fixture still shows method stamps
+- Penpot post-code MCP 504
+- Not pixel-perfect vs Penpot high-fi screens
+- LPS column wider — visual density on 1024 stacked
 
-## 34. Claims / anti-claims
+## 30. H-02/03/04 disposition
+
+All remain **CARRY**. Not closed.
+
+## 31. W4-C boundary proof
+
+No Evidence/Recovery/Replan material delivery. UXR-06/07 not implemented. W3-C tests = non-regression only.
+
+## 32. Final git (project)
+
+Dirty tree = W4-B prior + W4-BR presentation files + extended untracked E2E.
+No staged. No project commit.
+
+### Post-BR presentation diff --stat
+
+```
+ NewProjectIntentionPage.tsx     |  22 ++-
+ ProjectWorkspacePage.module.css |  76 +++++++--
+ ProjectWorkspacePage.tsx        |  51 ++++--
+ product-tokens.css              |   4 +-
+ LpsSurface.tsx                  |  11 +-
+ TrajectorySurface.module.css    |  20 +++
+ TrajectorySurface.tsx           | 182 ++++++++++++++-------
+ 7 files changed, 267 insertions(+), 99 deletions(-)
+```
+
+Plus extended untracked: `studio-w4b-single-authority-path.spec.ts`
+
+## 33. Claims / anti-claims
 
 ### Claims
-- DESIGN RECONCILIATION CANDIDATE on Penpot page 06
-- DIRECT PENPOT DESIGN EVIDENCE (page 06 + historical RO)
-- DETERMINISTIC RUNTIME COMPARISON on W4-B working tree
-- W4-B WORKING TREE PRESERVED EXACTLY (at close)
+- H-01 Option A implemented as UX composition
+- Deterministic runtime conformance for W4-BR delta
+- Visual/interaction conformance vs validated Penpot page 06 targets (composition/contract level)
+- W4-B single authority non-regressed
 
-### Anti-claims (NOT declared)
-- W4-UXR CLOSED BY MORRIS · H-01/02/03/04 adopted · W4-B CLOSED/integrated · W4 CLOSED · W4-C started · Product Completion COMPLETE · WCAG · pixel-perfect · REAL · READY FOR REAL · runtime v3 ADOPTED
+### Anti-claims
+- W4-B/W4-BR CLOSED BY MORRIS · W4 integrated/CLOSED · H-02/03/04 adopted · W4-C started · Product Completion COMPLETE · pixel-perfect · WCAG · REAL · READY FOR REAL · runtime v3 ADOPTED
 
-## 35. Final Penpot state
+## 34. Verdict
 
-7 pages: 00–05 historical unchanged + **06 W4-UXR candidate** with 12 boards.
-
-## 36. Final Git state
-
-No project commit/push/PR. Only `.tmp-sfia-review/**` local artifacts + handoff branch publication.
-
-## 37. W4-B preservation after
-
-Must equal initial hashes (verified in close-out commands).
-
-## 38. Verdict
-
-**W4-UXR DESIGN CANDIDATE PASS WITH DECISIONS — RECONCILED PRODUCT EXPERIENCE READY — MORRIS H-01/H-XX DECISION REQUIRED**
-
----
-
-## Appendix — Runtime ↔ target matrix (rollup)
-
-| Board | Runtime current | Target UX | KEEP/ADAPT/COMPLETE/RETIRE | Gap | Delivery | Morris gate |
-| --- | --- | --- | --- | --- | --- | --- |
-| UXR-01 | create/entry works | SC-aligned entry | ADAPT | Annuler/labels | micro | no |
-| UXR-02 | guidance; no F2 decide | Nora+LPS | KEEP W4-B | H-01 layout | freeze layout | **H-01** |
-| UXR-03 | W2 single HD path | Option/Rec/HD | KEEP W4-B | residual titles | micro labels | no |
-| UXR-04 | confirm≠execute | Pilote-first EC | KEEP/ADAPT | density | micro | no |
-| UXR-05 | business authority strings | auth→execute | KEEP W4-B | thin running mid | optional | no |
-| UXR-06 | terminals exist | business Evidence | COMPLETE | hierarchy | W4-C | H-03 |
-| UXR-07 | honesty banner | replan/recovery | ADAPT | jargon | W4-C | no |
-| UXR-08 | partial states | textual states | ADAPT | empty CTA | micro | H-04 |
-| UXR-R01 | trio renders | responsive target | ADAPT | fidelity | ongoing | H-02 |
-| UXR-H01 | dual spatial reality | A or B | DECISION | structural | **blocked on Morris** | **YES** |
+**W4-BR DELIVERY PASS WITH NON-BLOCKING CARRIES — CORE RECONCILIATION PROVEN — H-02/H-03/H-04 REMAIN CARRY — READY FOR CHATGPT REVIEW / MORRIS GIT INTEGRATION GATE**
