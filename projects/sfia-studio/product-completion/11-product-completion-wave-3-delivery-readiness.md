@@ -3,11 +3,11 @@
 | Champ | Valeur |
 |---|---|
 | **Projet** | SFIA Studio — Product Completion |
-| **Cycle** | W3 POST-CLOSURE DOCUMENTARY TRUTH SYNC + NEXT-CAPABILITY REQUALIFICATION |
+| **Cycle** | W4 POST-MERGE TRUTH SYNC / CAPITALISATION (DOC11 living truth) |
 | **Profil SFIA** | STANDARD |
-| **Typologie** | DOC — vérité vivante W3 (≠ Delivery · ≠ W4 authorization) |
+| **Typologie** | DOC — vérité vivante W3 history + W4 presentation post-merge (≠ W4 global closure · ≠ Delivery code) |
 | **Vague** | **W3 — Exécuter, prouver et replanifier (backlog existant)** |
-| **MAIN FUNCTIONAL TRUTH** | `origin/main` @ `73de0616a127b230eea068267e44c6cf3150006f` |
+| **MAIN FUNCTIONAL TRUTH** | `origin/main` @ `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` |
 | **Slice historique W3-A** | **W3-A — Governed Execute** — **CLOSED BY MORRIS** · US-P1-04 / FC-10 · PR **#408** |
 | **Slice historique W3-B** | **W3-B — Terminal semantics + Evidence business-first** — **CLOSED BY MORRIS** · US-P1-05 / US-P1-06 · PR **#413** |
 | **Slice historique W3-C** | **W3-C — Post-Evidence recovery / replan loop** — **CLOSED BY MORRIS** · US-P1-07 + W3 closure slice US-P0-07 · PR **#415** |
@@ -28,22 +28,31 @@
 | **C6** | **CLOSED** / implement-only · **DO NOT REOPEN** |
 | **REAL** | **OUT / NOT CONSUMED** |
 | **FinOps/T7** | **FREEZE** |
-| **W4** | **NOT AUTHORIZED / NOT STARTED** |
+| **W4 presentation** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** — PR **#420** · head `bd9b678568c00c9457c3ea27f301fad44f0989e9` · merge `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` · CI final-head `32971532560` · post-merge `32977398509` |
+| **H-01** | **KEEP / ADOPTED UX COMPOSITION** (Option A) |
+| **H-02** | **CLOSURE CANDIDATE** — evidence available — Morris decision pending |
+| **H-03** | **CARRY / W4-C** |
+| **H-04** | **CLOSURE CANDIDATE** — evidence available — Morris decision pending |
+| **W4-C** | **NOT STARTED** |
+| **W4 global closure** | **NOT CLAIMED** |
 | **runtime v3** | **NON ADOPTED** |
 | **Product Completion** | **INCOMPLETE** |
-| **Next capability candidate** | **W4 — PRODUCT EXPERIENCE CLOSURE** — US-P1-10 + US-P1-13 + UAT/Product Experience exit · H-01…H-04 **CARRY** · **QUALIFIED NEXT CAPABILITY CANDIDATE — NOT AUTHORIZED / NOT STARTED** |
+| **Next capability** | **W4-C — Evidence / Recovery / Replan Product Experience** — **NOT STARTED** (after Morris H-02/H-04 disposition) |
 | **Chemin produit** | Canonique **`/studio`** |
 
 ## Anti-affirmations
 
 - **W3 CLOSED ≠ Product Completion COMPLETE**.
-- **W3 CLOSED ≠ W4 AUTHORIZED** · **≠** W4 STARTED · **≠** GO W4 · **≠** READY FOR W4 DELIVERY.
-- DETERMINISTIC PRODUCT-NATIVE PROVEN **≠** READY FOR REAL · **≠** REAL BOUNDARY PROVEN · **≠** END-TO-END REAL PROVEN.
+- **W3 CLOSED ≠ W4 AUTHORIZED** *(historical meaning of the W3 CLOSED decision)* — W4 presentation later integrated via distinct PR **#420**.
+- **W4 presentation INTEGRATED ≠ W4 global CLOSED** · **≠** Product Experience Closure COMPLETE · **≠** Product Completion COMPLETE.
+- **H-02 / H-04 CLOSURE CANDIDATE ≠ CLOSED**.
+- **H-03 CARRY / W4-C ≠ W4-C STARTED**.
+- DETERMINISTIC PRODUCT-NATIVE / E2E PROVEN **≠** READY FOR REAL · **≠** REAL BOUNDARY PROVEN.
 - TestExecutionAdapter = fake external executor boundary only (héritée).
 - C6 CLOSED — ne pas rouvrir l’architecture.
 - REAL OUT · FinOps FREEZE · runtime v3 NON ADOPTED.
-- UX contracts 01–03 **INPUTS / TARGET CONTRACTS** **≠** preuve runtime W4.
-- W3A-D03 / W2-CL-R04 / PB-RES-REAL-01 **≠** CLOSED · **≠** imported automatically into W4.
+- UX contracts 01–03 remain **INPUTS / TARGET CONTRACTS** for remaining PE work (W4-C) **≠** claim all PE exit proven.
+- W3A-D03 / W2-CL-R04 / PB-RES-REAL-01 **≠** CLOSED.
 - Ce document **≠** Build Doctrine mutation · **≠** backlog rewrite · **≠** DOC12 mutation · **≠** code change.
 
 ---
@@ -135,7 +144,8 @@ Les décisions R01 / B2-B3 / W3-A Closure restent **consommées** et **historiqu
 | W3-D | **INTEGRATED AND PROVEN ON MAIN** · EXIT CONSUMED BY W3 FINAL CLOSURE QUALIFICATION AND MORRIS W3 CLOSED DECISION (PR **#418**) |
 | W3-E | **NOT REQUIRED** |
 | W3 macro fermée ? | **OUI — via Morris W3 CLOSED Decision** (W3-A/B/C **CLOSED BY MORRIS** · W3-D **INTEGRATED AND PROVEN** · après Final Closure Qualification) |
-| Next capability candidate | **W4 — PRODUCT EXPERIENCE CLOSURE** — **QUALIFIED NEXT CAPABILITY CANDIDATE — NOT AUTHORIZED / NOT STARTED** |
+| W4 presentation | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#420**) |
+| Next capability | **W4-C — Evidence / Recovery / Replan Product Experience** — **NOT STARTED** |
 
 ---
 
@@ -223,88 +233,90 @@ X-W3B-01…12 **12/12 PASS** — provenance PR **#413** / CI **`32789273684`**.
 | W3-D Delivery + Git + Merge + post-merge CI | **CONSUMED** |
 | W3 Final Closure Qualification | **CONSUMED** |
 | W3 CLOSED Decision | **CONSUMED** |
-| Post-closure Roadmap/DOC11 truth-sync | **LOCAL CANDIDATE** — awaiting ChatGPT review + distinct Morris Git integration |
+| Post-closure Roadmap/DOC11 truth-sync (W3) | **INTEGRATED** via PR **#419** / merge `1e17367d01cab95a4853a8857ed39867ea396ed3` |
+| W4 presentation Git integration | **CONSUMED** — PR **#420 MERGED** · merge `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` · post-merge CI `32977398509` SUCCESS |
+| W4 post-merge Roadmap/DOC11 truth-sync | **LOCAL CANDIDATE** — awaiting ChatGPT review + distinct Morris Git integration |
 | GO REAL | **NOT CONSUMED** |
-| W4 | **NOT AUTHORIZED** |
+| H-02 / H-04 disposition | **PENDING** (CLOSURE CANDIDATES) |
+| W4-C | **NOT STARTED** |
 | FinOps/T7 | **FREEZE** |
 | Product Completion complete | **NON** |
 | runtime v3 ADOPTED | **NON** |
 
 ---
 
-## 7. Next-capability requalification — W4 PRODUCT EXPERIENCE CLOSURE
+## 7. W4 Product Experience presentation — post-merge truth
 
-### 7.1 Verdict de requalification (Option A)
+### 7.1 Status (current)
 
-**W4 — PRODUCT EXPERIENCE CLOSURE — QUALIFIED NEXT CAPABILITY CANDIDATE — NOT AUTHORIZED / NOT STARTED.**
+**W4 — PRODUCT EXPERIENCE CLOSURE — PRESENTATION INCREMENT INTEGRATED ON MAIN — POST-MERGE VERIFIED.**
 
-Hypothèse de travail **PROUVÉE** par relecture repository-first (backlog W4 slot + UX contracts + remaining MUST PE/A11Y + UAT exit).
-**≠** autorisation Morris · **≠** Delivery started.
+- PR **#420 MERGED**
+- Candidate head `bd9b678568c00c9457c3ea27f301fad44f0989e9`
+- Merge commit `c14733c05e82bbbbe11873426fa0b6c64ff07b7b`
+- Prior main parent `1e17367d01cab95a4853a8857ed39867ea396ed3` (W3 post-closure docs)
+- Final PR file set: **28**
+- Pre-merge Unit/UI **15/15** · consolidated E2E **14/14**
+- Final-head CI `32971532560` **PASS**
+- Post-merge CI `32977398509` **PASS** (Detect / Build and validate / Required Gate)
 
-### 7.2 Scope fonctionnel candidat
+**≠** W4 global CLOSED · **≠** Product Completion COMPLETE · **≠** REAL · **≠** runtime v3 ADOPTED.
 
-| Élément | Contenu |
+### 7.2 Chronology (integrated)
+
+1. **W4-A / W4-A2** — runtime / Penpot evidence baseline
+2. **W4-UXR** — reconciled Product Experience target
+3. **Morris H-01 Option A** — LPS-embedded Trajectory UX composition **ADOPTED / KEEP**
+4. **W4-B** — single product authority path
+5. **W4-BR** — reconciled presentation adaptation
+6. **CORR-01** — business-first copy / EC status presentation
+7. **W4-D** — Product Screens Visual Closure
+8. **W4 Git integration** (consolidated candidate) → final **W4-PR-COPY-01** (two Pilote-facing copy residues)
+9. **PR #420** → merge `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` → post-merge CI `32977398509` PASS
+
+### 7.3 Invariants preserved
+
+- Option ≠ Recommendation ≠ HumanDecision
+- Inspection before Confirmation
+- Confirmation ≠ Execute
+- Effective authority before Execute
+- Single product authority path
+- LPS ≠ ProjectTrajectory
+- H-01 = UX composition only (not domain mutation)
+
+### 7.4 Hypothesis dispositions
+
+| ID | Disposition |
 |---|---|
-| Titre | **W4 — PRODUCT EXPERIENCE CLOSURE** |
-| Mapping | **US-P1-10** Surfaces S1→S12 cohérentes Completion · **US-P1-13** Accessibilité baseline MUST · **UAT / Product Experience full** (exit Vague 4) · représentation finale des capacités W1–W3 derrière les surfaces |
-| Capacité v3 | Product Experience / FC-14 · absorption méthode CA-PC-35 · A11Y-PC-01…06 |
-| Current assets | Experience Architecture · E2E Wireframes · Product Screens / Visual State Contract = **KEEP as INPUTS / TARGET CONTRACTS** · Pre-M6/`/studio` runtime = **KEEP backbone / ADAPT·COMPLETE PE fidelity** · Penpot reference workspace = **KEEP tooling decision** (no redesign this cycle) |
-| Hors scope | REAL · FinOps unfreeze · runtime v3 adoption · C6 reopen · W3 reopen · auto-import W3A-D03 / W2-CL-R04 / PB-RES-REAL-01 without source |
+| H-01 | **KEEP / ADOPTED UX COMPOSITION** (Option A) |
+| H-02 | **CLOSURE CANDIDATE** — evidence available — Morris decision pending |
+| H-03 | **CARRY / W4-C** |
+| H-04 | **CLOSURE CANDIDATE** — evidence available — Morris decision pending |
+| W4-C | **NOT STARTED** |
 
-### 7.3 Remaining Product Completion obligations after W1/W2/W3
+### 7.5 Remaining Product Experience trajectory
 
-| ID | Niveau | Owner | Wave | État actuel | Preuve existante | Gap réel | Dépendances | Owner trajectoire | Exit proof |
-|---|---|---|---|---|---|---|---|---|---|
-| US-P1-10 | P1 | EPIC-E / FC-14 | **W4** | **OPEN** | UX 01–03 VALIDATED (contracts) · runtime `/studio` delivers W1–W3 capabilities but PE contract fidelity not exit-proven | Alignement SC/UF S1→S12 · harvest legacy · honest blocked states when backend missing | W1–W3 CLOSED capabilities | Product Experience | Checklist SC-01…SC-14 · UF-01…07 · PE UAT |
-| US-P1-13 | P1 MUST | EPIC-E / FC-14 | **W4** | **OPEN** | Terminaux/Evidence/Confirmation textuels partiels via W2/W3 · **≠** A11Y baseline exit | A11Y-PC-01…06 on product path · ≠ WCAG certification claim | US-P1-03/05/06 semantics | Product Experience | Functional A11Y checklist + SC review |
-| UAT / PE full | Exit Vague | EPIC-E | **W4** | **OPEN** | Deterministic product-native proofs per slice · **≠** Product Experience exit UAT | Boucle MUST utilisable / gouvernée / restart-safe / prouvée côté expérience | US-P1-10/13 | Product Experience | W4 exit UAT pack |
-| H-01…H-04 | CARRY UX | PE | **W4 representation** | **CARRY** | Explicit CARRY in UX 02/03 · **≠ CLOSED** | Representation honesty in PE closure | UX contracts | Product Experience | Dispose or keep as non-blocking under W4 GO |
-| SC-02 evidence-framing | NON-BLOCKING | PE | historical | **NON-BLOCKING RESERVE** | Documented · **do not elevate** | Evidence framing crop reserve | Screens contract | PE | Optional clarification · not auto-blocking |
-| US-P1-11 | P1 | EPIC-A / FC-02 | W1–W2 | **SATISFIED / DISPOSED** (capability) | W1 DoctrinePackage materialization · W2 E2E-03 package+CKC · F2 provenance surfaces | No distinct remaining capability wave ; residual PE presentation fidelity absorbed by US-P1-10 if any SC-02 gap | US-P0-06 | — | No separate next-capability |
-| US-P1-16 | P1 | FC-15 / EPIC-E | W2 | **SATISFIED** | W2 X06 AVR + blocked-state presentation | None as open P1 wave | — | — | Closed with W2 |
-| US-P0-01…08 / US-P1-01…09 / US-P1-14/15 | P0/P1 | various | W1–W3 | **SATISFIED / DISPOSED** | W1/W2/W3 closures + Final Closure Qualification | None remaining for next capability | — | — | — |
-| W3A-D03 | carry | OA | n/a | **OPEN_CARRY_NON_BLOCKING** | Final Closure analysis | Not a W4 MUST unless source elevates | — | OA / future GO | Distinct GO if Critical public ack required |
-| W2-CL-R04 | carry | E2E | n/a | **OPEN_CARRY_NON_BLOCKING** | doc10 | Optional Confirmation enrichment | — | Product E2E | Distinct GO if desired |
-| PB-RES-REAL-01 | TRACE | REAL | n/a | **TRACE_ONLY** | REAL OUT | Distinct REAL gate · not PE exit | — | REAL | Distinct Morris GO REAL |
-| FinOps/T7 | FREEZE | FinOps | n/a | **FREEZE** | D-W2-CI-FINOPS-FREEZE-01 | Not imported without source | — | FinOps | Distinct unfreeze GO |
-| SHOULD-01…06 | P2 | various | Post-W4 | **OUT of next capability** | Backlog P2 | Post-Completion | — | Post-W4 | — |
-
-### 7.4 Assets KEEP / ADAPT / COMPLETE / HARVEST
-
-| Classe | Contenu |
+| Élément | État |
 |---|---|
-| **KEEP** | OA/`/studio` backbone · W1–W3 closed capabilities · UX 01–03 validated contracts · Penpot as Studio product design reference workspace |
-| **ADAPT** | Pre-M6 / current product UI presentation toward SC/UF contracts · progressive disclosure fidelity · blocked/error/recovery honesty |
-| **COMPLETE** | S1→S12 coherence gaps · A11Y baseline MUST · W4 UAT/PE exit proof · representation of newly available W3 capabilities |
-| **HARVEST** | Legacy parallel routes / shells only where needed for PE coherence · no promotion as second product path |
+| W4 presentation | **INTEGRATED / POST-MERGE VERIFIED** |
+| H-02 / H-04 | **CLOSURE CANDIDATES only** — no closure claimed here |
+| W4-C — Evidence / Recovery / Replan Product Experience | **NOT STARTED** — next identified capability slice after H-02/H-04 disposition |
+| US-P1-10 / US-P1-13 / UAT PE full | Remaining PE obligations may continue under W4-C / later PE exit — **not** closed by presentation integration alone |
+| REAL | **OUT** |
+| runtime v3 | **NON ADOPTED** |
 
-### 7.5 Gaps / dependencies / critical path
+### 7.6 Historical requalification note
 
-**Gaps (source-locked):** US-P1-10 · US-P1-13 · UAT/PE exit · H-01…H-04 representation CARRY · optional future visual-contract re-read before W4 code (not this cycle).
+Section 7 previously recorded W4 as **QUALIFIED NEXT CAPABILITY CANDIDATE — NOT AUTHORIZED / NOT STARTED** after W3 CLOSED (PR **#419** era). That forward statement is **superseded** by PR **#420** integration truth above. The W3 CLOSED decision text (§1septies) remains historically accurate: it did **not** itself authorize W4.
 
-**Dependencies:** W3 CLOSED substrate · UX contracts VALIDATED · C6 CLOSED implement-only · REAL OUT · FinOps FREEZE.
+### 7.7 Gate suivant
 
-**Critical path:** ChatGPT review of this truth-sync → Morris Git integration of Roadmap+DOC11 → distinct Morris GO W4 readiness/Delivery (if still appropriate) → W4 Delivery → W4 exit proof → Product Completion closure qualification *(future · not authorized)*.
+1. ChatGPT review of this W4 post-merge truth-sync
+2. Distinct Morris Git integration GO (Roadmap + DOC11 only)
+3. Distinct Morris disposition H-02 / H-04
+4. Distinct W4-C qualification / GO — **only then** W4-C execution if authorized
 
-### 7.6 Exit proof candidat (NOT YET PROVEN)
-
-1. UF-01…07 couverts sur surfaces S1→S12 sans orchestration méthode Pilote (CA-PC-35).
-2. A11Y-PC-01…06 satisfaits sur chemin produit (textuels · Confirmation accessible · Evidence primaire lisible) — **≠** claim WCAG certification.
-3. UAT Product Experience full pass under W4 exit criteria.
-4. Capacités W1–W3 réellement représentées derrière les surfaces (pas de polish masquant absence).
-5. H-01…H-04 disposed or explicitly retained non-blocking under Morris.
-6. Recommendation ≠ HumanDecision · no unauthorized REAL · runtime v3 remains NON ADOPTED.
-
-### 7.7 Debt / exits
-
-- Aucune dette volontaire créée par ce truth-sync.
-- Carry-overs W3A-D03 / W2-CL-R04 / PB-RES-REAL-01 **preserved honestly** · **not** auto-scoped into W4.
-- SC-02 evidence-framing remains **NON-BLOCKING** · not elevated.
-
-### 7.8 Gate suivant
-
-**GO MORRIS distinct** requis avant toute Delivery W4.
-Ce cycle **n’autorise pas** W4.
+This cycle **does not** close W4 globally · **does not** start W4-C · **does not** close H-02/H-04.
 
 ---
 
@@ -328,4 +340,4 @@ Aucune obligation W3 supplémentaire inventée dans ce cycle.
 
 ## 9. Verdict readiness / closure
 
-**W3 DELIVERY READINESS = QUALIFIED (historique)** · GO Morris W3 **CONSUMED** · W3 Final Closure Qualification **CONSUMED** · **W3 CLOSED BY MORRIS** · W3-A/B/C/D **INTEGRATED AND PROVEN** · W3-E **NOT REQUIRED** · Product Completion **INCOMPLETE** · next = **W4 — PRODUCT EXPERIENCE CLOSURE — QUALIFIED NEXT CAPABILITY CANDIDATE — NOT AUTHORIZED / NOT STARTED** · REAL **OUT** · FinOps **FREEZE** · runtime v3 **NON ADOPTED**.
+**W3 DELIVERY READINESS = QUALIFIED (historique)** · GO Morris W3 **CONSUMED** · W3 Final Closure Qualification **CONSUMED** · **W3 CLOSED BY MORRIS** · W3-A/B/C/D **INTEGRATED AND PROVEN** · W3-E **NOT REQUIRED** · **W4 PRESENTATION INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#420** / `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` / CI `32977398509`) · H-01 **KEEP / ADOPTED** · H-02/H-04 **CLOSURE CANDIDATES** · H-03 **CARRY / W4-C** · W4-C **NOT STARTED** · W4 global **NOT CLOSED** · Product Completion **INCOMPLETE** · next = **Morris H-02/H-04 disposition → W4-C qualification** · REAL **OUT** · FinOps **FREEZE** · runtime v3 **NON ADOPTED**.
