@@ -1,1160 +1,492 @@
-# SFIA Studio — W4-B Review Pack FULL — Single Authority Path & Business-First Labels
+# SFIA Studio — W4-A2 Review Pack FULL — Penpot Direct Visual Evidence Supplement
 
 | Field | Value |
 | --- | --- |
-| **Timestamp** | 2026-08-26 12:11:11 CEST |
-| **Cycle** | W4-B — SINGLE AUTHORITY PATH & BUSINESS-FIRST LABELS |
-| **Type** | 8 — Delivery / implémentation |
+| **Timestamp** | 2026-08-26 12:40:00 CEST |
+| **Cycle** | W4-A2 — PENPOT DIRECT VISUAL EVIDENCE SUPPLEMENT / W4-A VISUAL REVALIDATION |
+| **Type** | 4 — UX/UI |
 | **Profile** | CRITICAL |
-| **Branch** | `delivery/sfia-studio-w4-b-single-authority-path` |
-| **HEAD (base)** | `1e17367d01cab95a4853a8857ed39867ea396ed3` |
-| **origin/main** | `1e17367d01cab95a4853a8857ed39867ea396ed3` |
-| **Product commit** | **NONE** |
-| **Verdict** | W4-B DELIVERY PASS — SINGLE AUTHORITY PATH PROVEN — READY FOR CHATGPT REVIEW |
+| **Typology** | DOC / AUDIT READ-ONLY |
+| **Product files modified** | **NONE** |
+| **Penpot modified** | **NO** |
+| **Tests modified** | **NONE** |
+| **Git docs modified** | **NONE** |
+| **Verdict candidate** | W4-A DIRECT VISUAL SUPPLEMENT PASS WITH RESERVES — PENPOT DIRECT EVIDENCE ACQUIRED — VISUAL GAPS QUALIFIED — READY FOR CHATGPT REVIEW |
+
+---
 
 ## 1. Timestamp
-- `2026-08-26 12:11:11 CEST`
 
-## 2–3. Repo / branch / HEAD / origin/main
+- Local pack: `2026-08-26 12:40:00 CEST`
+- Runtime captures: `2026-08-26T10:28:50Z` … `2026-08-26T10:28:56Z` (UTC)
+- Penpot MCP inventory / visual renders: same session window 2026-08-26 ~12:25–12:40 CEST
+
+## 2. Repo / active working tree
+
+- `pwd` (primary): `/Users/morris/Projects/sfia-workspace-w3-post-closure-truth-sync`
 - Repo: `mcleland147/sfia-workspace`
-- Branch: `delivery/sfia-studio-w4-b-single-authority-path` (local only — **no project push**)
-- Initial HEAD = origin/main = `1e17367d01cab95a4853a8857ed39867ea396ed3` (expected `1e17367d…`)
-- Git status initial: only `?? .tmp-sfia-review/` before mutations
+- Active W4-B branch: `delivery/sfia-studio-w4-b-single-authority-path`
+- W4-B HEAD: `1e17367d01cab95a4853a8857ed39867ea396ed3` (+ uncommitted W4-B product diffs)
+- `origin/main`: `1e17367d01cab95a4853a8857ed39867ea396ed3` (expected — PASS)
 
-## 4. Git status initial
-Clean of versioned changes; `.tmp-sfia-review/` untracked preserved.
+## 3. W4-B preservation snapshot BEFORE
 
-## 5. W4 GO consumed
-GO MORRIS — W4 DELIVERY — PRODUCT EXPERIENCE CLOSURE — … FIRST BLOCK W4-A done — W4-B locked by ChatGPT.
+Captured under `.tmp-sfia-review/w4-a2-preservation/`:
 
-## 6. Verdict W4-A consumed
-`W4-A BASELINE ACCEPTED AS PARTIAL EVIDENCE — W4-B DELIVERY SLICE SUFFICIENTLY LOCKED.`
-Handoff SHA consumed: `669431c5d632d2ae2e190c71f6fe7dd5a97cc7b1`
+| Item | Value |
+| --- | --- |
+| status-before | see `status-before.txt` |
+| git diff --binary SHA-256 | `c280d9f977f8c712bb57472e3d9775c8e468b818b58ea1afd6cc6099c4665918` |
+| Untracked project file (excl. `.tmp-sfia-review`) | `projects/sfia-studio/app/e2e/studio-w4b-single-authority-path.spec.ts` |
+| Untracked SHA-256 | `f9321e2e19b726332b6315889cb3583141a6c7205d44de23bcc85806713114d5` |
 
-## 7. Sources read
-Process v2.6 templates/routing/OM/rules; Build Doctrine + Roadmap (RO); PC 01/02/03/05/06/11; UX 01–03; framings 30/32–35/37; W4-A handoff; ConversationSurface/TrajectorySurface/useProductConversation/presentationLabels/w2 actions (RO); tests/e2e concerned.
+**Rule:** no checkout / reset / stash / clean of W4-B tree during this cycle.
+
+## 4. Main / baseline commit
+
+- Baseline for Penpot ↔ runtime compare: **`1e17367d01cab95a4853a8857ed39867ea396ed3`**
+- This is pre-W4-B product truth on `origin/main` (W4-B changes remain uncommitted on delivery branch).
+
+## 5. Temporary worktree path / commit
+
+- Path: `/tmp/sfia-w4a2-baseline-nwpO9u`
+- Mode: `git worktree add --detach` @ `1e17367d…`
+- Status before use: clean (only symlink `node_modules` untracked)
+- Purpose: runtime baseline only; **no versioned mutations**
+
+## 6. Sources read
+
+### Process (at `1e17367d`)
+1. `prompts/templates/sfia-cycle-execution-template.md`
+2. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+3. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+4. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+
+### Convergence
+5. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
+6. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` — **documentary W4 lag acknowledged; NOT modified**; conversational Morris GO remains consumed authority.
+
+### Product Completion
+7–11. `01,02,03,05,06-product-completion-*.md`
+
+### UX / PE
+12–14. `ux-product-experience/01-experience-architecture.md`, `02-end-to-end-wireframes-interaction-model.md`, `03-product-screens-visual-state-contract.md`
+
+### Doctrine v3
+15–20. `sfia-v3-framing/30,32,33,34,35,37-*.md`
+
+### W4-A original (exact commit — NOT current latest)
+- `sfia/review-handoff` @ `669431c5d632d2ae2e190c71f6fe7dd5a97cc7b1`
+- file: `sfia-review-handoff/latest-chatgpt-review.md`
+
+### W4-B context ONLY (not re-audited)
+- Handoff `71ded5847226aeb072915faee9573b763b391a90` — chronology / tree protection only.
+
+## 7. Morris decision consumed
+
+```
+GO MORRIS — REVISIT W4-A WITH DIRECT PENPOT EVIDENCE —
+RETRY PENPOT MCP —
+RETRIEVE VALIDATED SCREENS / WIREFRAMES / USER FLOWS / STATES & EVIDENCE —
+COMPARE AGAINST PRE-W4-B RUNTIME BASELINE —
+READ ONLY —
+PRESERVE W4-B WORKING TREE EXACTLY —
+NO PRODUCT MUTATION —
+NO PENPOT MUTATION —
+NO W4-C —
+NO PROJECT COMMIT / PUSH / PR / MERGE.
+```
+
+Authorizes **this read-only supplement only**. Does **not** close W4 / W4-A / W4-B / authorize W4-C.
 
 ## 8. Convergence pre-check
-Capability: Product Experience Closure · Milestone W4 · Slice W4-B · US-P1-10 primary + US-P1-13 partial · UF-03/04/05 presentation · Surfaces S4/S6/S10/S11/S12 · SC-04…08 (+ labels SC-09/10/11) · NOT absorbing W4-C/H-01/S2/legacy routes · C6 CLOSED RO · REAL OUT.
 
-## 9. Precondition F2→W2 (COMPLETE)
-
-# W4-B PRECONDITION PROOF
-
-timestamp: 2026-08-26T10:04:05.680Z
-project: W4B-PRE-1787738643300
-url: http://127.0.0.1:3020/studio/projects/prj%3A42185172-1764-4c3c-935d-5316811ab964
-
-## QUESTION A
-After F2 qualification WITHOUT F2 HumanDecision, can W2 produce options?
-
-RESULT: YES — PASS
-w2-options: true
-w2-error: (none)
-f2-decide-GO was visible (not clicked): true
-project-assistant-decision count: 0
-cycle instance (from qualification UI): cyc:f2-fd39c494288a9e7a · acknowledged
-
-## QUESTION B
-Code: CycleInstance is created in orchestrateAssistantSend (F2 qualify), not in
-recordDecision (F2 HumanDecision). resolveW2QualificationInputs only requires
-activeCycleInstanceId. F2 decide is the legacy product gate for Proposal GO —
-not a W2 domain prerequisite.
-
-F2 HumanDecision object: Proposal gate (GO / reserves / amend / no-go) — process-local
-proposal advancement toward F3 prepare.
-W2 HumanDecision object: ProjectTrajectory option selection — durable trajectory decide.
-
-They are NOT the same decision object. For PE single authority path, structural
-trajectory decision is W2; F2 gate is product-legacy doublon for authority chain.
-
-CONCLUSION: PRECONDITION PASS — presentation-layer convergence authorized
-
-
-### Conclusion F2 HumanDecision vs W2 HumanDecision
-- **F2 HumanDecision**: Proposal gate (GO/reserves/amend/no-go) — advances legacy F3 prepare path; **not** required for `activeCycleInstanceId` / `resolveW2QualificationInputs`.
-- **W2 HumanDecision**: ProjectTrajectory option selection — durable structural trajectory decide.
-- **Classification**: F2 gate = **legacy product doublon** for authority chain · W2 = **canonical structural HD**.
-- **Precondition**: **PASS** — presentation-layer convergence authorized (no domain/C6/persistence change).
-
-## 10. Files modified
-
-```
-M projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
- M projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
- M projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx
- M projects/sfia-studio/app/e2e/studio-option-a-clean-slate-captures.spec.ts
- M projects/sfia-studio/app/e2e/studio-option-a-deterministic-cursor-boundary.spec.ts
- M projects/sfia-studio/app/e2e/studio-option-a-negative-states.spec.ts
- M projects/sfia-studio/app/e2e/studio-option-a-new-design-captures.spec.ts
- M projects/sfia-studio/app/e2e/studio-option-a-uat-semantic-reserves.spec.ts
- M projects/sfia-studio/app/e2e/studio-option-a.spec.ts
- M projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts
- M projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts
- M projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
- M projects/sfia-studio/app/e2e/studio-w3c-post-evidence-replan-runtime.spec.ts
- M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
- M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-?? .tmp-sfia-review/
-?? projects/sfia-studio/app/e2e/studio-w4b-single-authority-path.spec.ts
-```
-
-## 11–12. UNIFIED DIFF COMPLETE + change justification
-
-### Diff stat
-```
-.../runningAttemptRefresh.ui.test.tsx              |  8 ++-
- .../trajectorySurface.ui.test.tsx                  |  2 +-
- .../uatUxSemanticReserves.ui.test.tsx              |  6 ++-
- .../studio-option-a-clean-slate-captures.spec.ts   |  5 ++
- ...-option-a-deterministic-cursor-boundary.spec.ts |  5 ++
- .../e2e/studio-option-a-negative-states.spec.ts    |  5 ++
- .../studio-option-a-new-design-captures.spec.ts    |  5 ++
- .../studio-option-a-uat-semantic-reserves.spec.ts  |  5 ++
- .../sfia-studio/app/e2e/studio-option-a.spec.ts    |  5 ++
- .../e2e/studio-w2-g3-correction-runtime.spec.ts    | 10 ++--
- .../studio-w3a-governed-execute-runtime.spec.ts    |  8 ++-
- .../studio-w3b-terminal-evidence-runtime.spec.ts   |  8 ++-
- ...studio-w3c-post-evidence-replan-runtime.spec.ts |  8 ++-
- .../surfaces/ConversationSurface.tsx               | 54 +++++++++++++++----
- .../surfaces/TrajectorySurface.tsx                 | 61 ++++++++++++++++------
- 15 files changed, 155 insertions(+), 40 deletions(-)
-```
-
-### Full unified diff (tracked files)
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
-index 9b8af16b..5aa747b0 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
-@@ -327,7 +327,7 @@ const RESOLVED_M3 = {
-
- function Harness() {
-   const controller = useProductConversation({ projectId: PROJECT_ID });
--  return <ConversationSurface controller={controller} />;
-+  return <ConversationSurface exposeLegacyAuthorityPath controller={controller} />;
- }
-
- /** findByTestId is presence-only; GO/confirm stay disabled while startTransition keeps busy. */
-@@ -368,6 +368,7 @@ describe("Option A running Attempt refresh UI", () => {
-     const onRefresh = vi.fn();
-     render(
-       <ConversationSurface
-+        exposeLegacyAuthorityPath
-         controller={baseController({
-           f3M3Resolved: RESOLVED_M3,
-           f3Execute: runningExecute(),
-@@ -399,6 +400,7 @@ describe("Option A running Attempt refresh UI", () => {
-   it("keeps the refresh control when continuation stays running", () => {
-     render(
-       <ConversationSurface
-+        exposeLegacyAuthorityPath
-         controller={baseController({
-           f3M3Resolved: RESOLVED_M3,
-           f3Execute: runningExecute({ reusedExistingAttempt: true }),
-@@ -414,6 +416,7 @@ describe("Option A running Attempt refresh UI", () => {
-   it("shows Evidence/ReviewBundle and hides refresh after a terminal payload", () => {
-     render(
-       <ConversationSurface
-+        exposeLegacyAuthorityPath
-         controller={baseController({
-           f3M3Resolved: RESOLVED_M3,
-           f3Execute: succeededExecute(),
-@@ -433,6 +436,7 @@ describe("Option A running Attempt refresh UI", () => {
-   it("does not offer refresh on fixture terminal or before Confirmation", () => {
-     const { rerender } = render(
-       <ConversationSurface
-+        exposeLegacyAuthorityPath
-         controller={baseController({
-           f3Execute: fixtureExecute(),
-         })}
-@@ -443,6 +447,7 @@ describe("Option A running Attempt refresh UI", () => {
-
-     rerender(
-       <ConversationSurface
-+        exposeLegacyAuthorityPath
-         controller={baseController({
-           f3M3Resolved: RESOLVED_M3,
-           canConfirmResolvedM3: true,
-@@ -457,6 +462,7 @@ describe("Option A running Attempt refresh UI", () => {
-     const onRefresh = vi.fn();
-     render(
-       <ConversationSurface
-+        exposeLegacyAuthorityPath
-         controller={baseController({
-           f3M3Resolved: RESOLVED_M3,
-           f3Execute: runningExecute(),
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-index 77fac3c7..a0651205 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-@@ -476,7 +476,7 @@ describe("W2 TrajectorySurface", () => {
-     fireEvent.click(screen.getByTestId("w2-authorize-contract"));
-     expect(await screen.findByTestId("w2-authorization")).toBeVisible();
-     expect(screen.getByTestId("w2-authorization-outcome")).toHaveTextContent(
--      "BLOQUÉ — ACTION REQUISE",
-+      "Exécution bloquée",
-     );
-     expect(screen.getByTestId("w2-stop-before-execute")).toHaveTextContent(
-       "arrêt avant exécution",
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx
-index 7856093b..5bb947a6 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx
-@@ -244,6 +244,7 @@ describe("UAT-UX-03 confirmation surface", () => {
-   it("shows authoritative user summary and keeps IDs under technical details", () => {
-     render(
-       <ConversationSurface
-+      exposeLegacyAuthorityPath
-         controller={baseController({
-           f3M3Resolved: RESOLVED,
-           canConfirmResolvedM3: true,
-@@ -285,6 +286,7 @@ describe("UAT-UX-04/07 REAL result surface", () => {
-   it("T3/T10/T11/T12 — REAL success is not fixture and recommendation stays non-authority", () => {
-     render(
-       <ConversationSurface
-+      exposeLegacyAuthorityPath
-         controller={baseController({ f3Execute: succeededReal() })}
-       />,
-     );
-@@ -312,7 +314,7 @@ describe("UAT-UX-04/07 REAL result surface", () => {
-     const failed = succeededReal();
-     failed.attempt.status = "failed";
-     render(
--      <ConversationSurface controller={baseController({ f3Execute: failed })} />,
-+      <ConversationSurface exposeLegacyAuthorityPath controller={baseController({ f3Execute: failed })} />,
-     );
-     expect(screen.getByTestId("f3-result-user-summary")).toHaveTextContent(/échec/);
-     expect(screen.getByTestId("f3-result-user-summary")).not.toHaveTextContent(
-@@ -326,6 +328,7 @@ describe("UAT-UX-04/07 REAL result surface", () => {
-     running.contract.status = "executing";
-     render(
-       <ConversationSurface
-+      exposeLegacyAuthorityPath
-         controller={baseController({
-           f3Execute: running,
-           canRefreshResolvedM3Running: true,
-@@ -344,6 +347,7 @@ describe("UAT-UX-08 durable rehydrate", () => {
-     const confirm = vi.fn();
-     render(
-       <ConversationSurface
-+      exposeLegacyAuthorityPath
-         controller={baseController({
-           durableEvidenceOutcome: DURABLE_REAL,
-           confirmAndExecuteResolvedM3: confirm,
-diff --git a/projects/sfia-studio/app/e2e/studio-option-a-clean-slate-captures.spec.ts b/projects/sfia-studio/app/e2e/studio-option-a-clean-slate-captures.spec.ts
-index fa0e23c4..7c2cb33e 100644
---- a/projects/sfia-studio/app/e2e/studio-option-a-clean-slate-captures.spec.ts
-+++ b/projects/sfia-studio/app/e2e/studio-option-a-clean-slate-captures.spec.ts
-@@ -94,6 +94,11 @@ async function toContract(page: Page) {
- }
-
- test.describe("Pre-M6 clean-slate captures", () => {
-+
-+// W4-B: F3 confirm+execute / F2 decide are no longer product-visible on /studio.
-+// Historical Option A F3 proofs are RETIRE LATER (harness/unit with exposeLegacyAuthorityPath).
-+test.skip(true, "W4-B product path: F2/F3 authority affordances removed — RETIRE LATER");
-+
-   test.describe.configure({ timeout: 360_000 });
-
-   test.beforeEach(async ({ page }) => {
-diff --git a/projects/sfia-studio/app/e2e/studio-option-a-deterministic-cursor-boundary.spec.ts b/projects/sfia-studio/app/e2e/studio-option-a-deterministic-cursor-boundary.spec.ts
-index 6ac44381..22f1d132 100644
---- a/projects/sfia-studio/app/e2e/studio-option-a-deterministic-cursor-boundary.spec.ts
-+++ b/projects/sfia-studio/app/e2e/studio-option-a-deterministic-cursor-boundary.spec.ts
-@@ -88,6 +88,11 @@ async function sendGatedStandard(page: Page) {
- }
-
- test.describe("deterministic Cursor boundary browser tooling", () => {
-+
-+// W4-B: F3 confirm+execute / F2 decide are no longer product-visible on /studio.
-+// Historical Option A F3 proofs are RETIRE LATER (harness/unit with exposeLegacyAuthorityPath).
-+test.skip(true, "W4-B product path: F2/F3 authority affordances removed — RETIRE LATER");
-+
-   test.describe.configure({ timeout: 240_000 });
-
-   test("B1–B4 running → pending refresh → terminal → reload", async ({
-diff --git a/projects/sfia-studio/app/e2e/studio-option-a-negative-states.spec.ts b/projects/sfia-studio/app/e2e/studio-option-a-negative-states.spec.ts
-index 7eab4563..333361d8 100644
---- a/projects/sfia-studio/app/e2e/studio-option-a-negative-states.spec.ts
-+++ b/projects/sfia-studio/app/e2e/studio-option-a-negative-states.spec.ts
-@@ -73,6 +73,11 @@ async function goToResolvedContract(page: Page, suffix: string) {
- }
-
- test.describe("QA-PRE-M6-TEST-01 negative-state harness", () => {
-+
-+// W4-B: F3 confirm+execute / F2 decide are no longer product-visible on /studio.
-+// Historical Option A F3 proofs are RETIRE LATER (harness/unit with exposeLegacyAuthorityPath).
-+test.skip(true, "W4-B product path: F2/F3 authority affordances removed — RETIRE LATER");
-+
-   test.describe.configure({ timeout: 240_000 });
-
-   test.beforeEach(async ({ page }) => {
-diff --git a/projects/sfia-studio/app/e2e/studio-option-a-new-design-captures.spec.ts b/projects/sfia-studio/app/e2e/studio-option-a-new-design-captures.spec.ts
-index 8229f574..86fc2fbc 100644
---- a/projects/sfia-studio/app/e2e/studio-option-a-new-design-captures.spec.ts
-+++ b/projects/sfia-studio/app/e2e/studio-option-a-new-design-captures.spec.ts
-@@ -79,6 +79,11 @@ async function toContract(page: Page) {
- }
-
- test.describe("Pre-M6 new-design captures", () => {
-+
-+// W4-B: F3 confirm+execute / F2 decide are no longer product-visible on /studio.
-+// Historical Option A F3 proofs are RETIRE LATER (harness/unit with exposeLegacyAuthorityPath).
-+test.skip(true, "W4-B product path: F2/F3 authority affordances removed — RETIRE LATER");
-+
-   test.describe.configure({ timeout: 300_000 });
-
-   test.beforeEach(async ({ page }) => {
-diff --git a/projects/sfia-studio/app/e2e/studio-option-a-uat-semantic-reserves.spec.ts b/projects/sfia-studio/app/e2e/studio-option-a-uat-semantic-reserves.spec.ts
-index b94d4aaa..b379f1a3 100644
---- a/projects/sfia-studio/app/e2e/studio-option-a-uat-semantic-reserves.spec.ts
-+++ b/projects/sfia-studio/app/e2e/studio-option-a-uat-semantic-reserves.spec.ts
-@@ -46,6 +46,11 @@ async function capture(page: Page, id: string): Promise<string> {
- }
-
- test.describe("PRE-M6 UAT semantic reserves — deterministic browser", () => {
-+
-+// W4-B: F3 confirm+execute / F2 decide are no longer product-visible on /studio.
-+// Historical Option A F3 proofs are RETIRE LATER (harness/unit with exposeLegacyAuthorityPath).
-+test.skip(true, "W4-B product path: F2/F3 authority affordances removed — RETIRE LATER");
-+
-   test.describe.configure({ timeout: 240_000 });
-
-   test("A–D confirmation → running → succeeded → reload", async ({ page }) => {
-diff --git a/projects/sfia-studio/app/e2e/studio-option-a.spec.ts b/projects/sfia-studio/app/e2e/studio-option-a.spec.ts
-index ea63a1a2..7cce2e7d 100644
---- a/projects/sfia-studio/app/e2e/studio-option-a.spec.ts
-+++ b/projects/sfia-studio/app/e2e/studio-option-a.spec.ts
-@@ -104,6 +104,11 @@ async function sendGatedStandard(page: Page) {
- }
-
- test.describe("Cycle 9 — F1→F11 durable post-GO happy path", () => {
-+
-+// W4-B: F3 confirm+execute / F2 decide are no longer product-visible on /studio.
-+// Historical Option A F3 proofs are RETIRE LATER (harness/unit with exposeLegacyAuthorityPath).
-+test.skip(true, "W4-B product path: F2/F3 authority affordances removed — RETIRE LATER");
-+
-   test.describe.configure({ timeout: 240_000 });
-
-   test("F1→F11 happy path + History/Recovery + responsive captures", async ({
-diff --git a/projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts b/projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts
-index 378de28d..4b4a524b 100644
---- a/projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts
-+++ b/projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts
-@@ -94,12 +94,14 @@ test.describe("W2 final-closure /studio product correction proof", () => {
-     await expect(input).toBeEnabled({ timeout: 15_000 });
-     await input.fill("Préparer une livraison gated __F2_GATED_STANDARD__");
-     await page.getByTestId("project-assistant-send").click();
--    await expect(page.getByTestId("project-assistant-gate")).toBeVisible({
-+    await expect(page.getByTestId("project-assistant-qualification")).toBeVisible({
-       timeout: 60_000,
-     });
-+    await expect(page.getByTestId("product-authority-path-guidance")).toBeVisible();
-+    await expect(page.getByTestId("f2-decide-GO")).toHaveCount(0);
-     await capture(page, "02b-qualified-gate", {
-       screen: "ConversationSurface",
--      state: "f2_gate_qualified",
-+      state: "qualified_no_f2_decision_gate",
-     });
-
-     const trajectory = page.getByTestId("w2-trajectory-panel");
-@@ -232,7 +234,7 @@ test.describe("W2 final-closure /studio product correction proof", () => {
-       timeout: 30_000,
-     });
-     await expect(page.getByTestId("w2-authorization-outcome")).toContainText(
--      "BLOQUÉ",
-+      "Exécution bloquée",
-     );
-     const blockedReason =
-       (await page.getByTestId("w2-authorization-reason").textContent()) ?? "";
-@@ -272,7 +274,7 @@ test.describe("W2 final-closure /studio product correction proof", () => {
-     const outcome = page.getByTestId("w2-authorization-outcome");
-     await expect(outcome).toBeVisible();
-     const outcomeText = (await outcome.textContent()) ?? "";
--    expect(outcomeText.includes("AUTORISÉ")).toBe(true);
-+    expect(outcomeText.includes("Autorisation vérifiée")).toBe(true);
-     await expect(page.getByTestId("w2-authorization-reason")).not.toBeEmpty();
-     await expect(page.getByTestId("w2-authorization-next")).not.toBeEmpty();
-
-diff --git a/projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts b/projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts
-index 679c6b8e..fa5db061 100644
---- a/projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts
-+++ b/projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts
-@@ -168,9 +168,13 @@ async function openQualifiedStudioProject(page: Page, name: string) {
-   await expect(input).toBeEnabled({ timeout: 15_000 });
-   await input.fill("Préparer une livraison gated __F2_GATED_STANDARD__");
-   await page.getByTestId("project-assistant-send").click();
--  await expect(page.getByTestId("project-assistant-gate")).toBeVisible({
-+  await expect(page.getByTestId("project-assistant-qualification")).toBeVisible({
-     timeout: 60_000,
-   });
-+  await expect(page.getByTestId("product-authority-path-guidance")).toBeVisible();
-+  await expect(page.getByTestId("f2-decide-GO")).toHaveCount(0);
-+  await expect(page.getByTestId("f3-confirm-execute-button")).toHaveCount(0);
-+  await expect(page.getByTestId("f3-legacy-confirm-execute-button")).toHaveCount(0);
-
-   const trajectory = page.getByTestId("w2-trajectory-panel");
-   await expect(trajectory).toBeVisible({ timeout: 15_000 });
-@@ -272,7 +276,7 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
-       timeout: 30_000,
-     });
-     await expect(page.getByTestId("w2-authorization-outcome")).toContainText(
--      "AUTORISÉ",
-+      "Autorisation vérifiée",
-     );
-     await expect(page.getByTestId("w3a-governed-execute")).toBeVisible();
-     await capture(page, "06-authorized", {
-diff --git a/projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts b/projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
-index 16adf051..2dcf7e29 100644
---- a/projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
-+++ b/projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
-@@ -125,9 +125,13 @@ async function openThroughAuthorized(page: Page, name: string) {
-   await expect(input).toBeEnabled({ timeout: 15_000 });
-   await input.fill("Préparer une livraison gated __F2_GATED_STANDARD__");
-   await page.getByTestId("project-assistant-send").click();
--  await expect(page.getByTestId("project-assistant-gate")).toBeVisible({
-+  await expect(page.getByTestId("project-assistant-qualification")).toBeVisible({
-     timeout: 60_000,
-   });
-+  await expect(page.getByTestId("product-authority-path-guidance")).toBeVisible();
-+  await expect(page.getByTestId("f2-decide-GO")).toHaveCount(0);
-+  await expect(page.getByTestId("f3-confirm-execute-button")).toHaveCount(0);
-+  await expect(page.getByTestId("f3-legacy-confirm-execute-button")).toHaveCount(0);
-
-   const trajectory = page.getByTestId("w2-trajectory-panel");
-   await expect(trajectory).toBeVisible({ timeout: 15_000 });
-@@ -158,7 +162,7 @@ async function openThroughAuthorized(page: Page, name: string) {
-   });
-   await page.getByTestId("w2-authorize-contract").click();
-   await expect(page.getByTestId("w2-authorization-outcome")).toContainText(
--    "AUTORISÉ",
-+    "Autorisation vérifiée",
-     { timeout: 30_000 },
-   );
-
-diff --git a/projects/sfia-studio/app/e2e/studio-w3c-post-evidence-replan-runtime.spec.ts b/projects/sfia-studio/app/e2e/studio-w3c-post-evidence-replan-runtime.spec.ts
-index b4b8bc47..f36d4d7f 100644
---- a/projects/sfia-studio/app/e2e/studio-w3c-post-evidence-replan-runtime.spec.ts
-+++ b/projects/sfia-studio/app/e2e/studio-w3c-post-evidence-replan-runtime.spec.ts
-@@ -72,9 +72,13 @@ async function openThroughAuthorized(page: Page, name: string) {
-   await expect(input).toBeEnabled({ timeout: 15_000 });
-   await input.fill("Préparer une livraison gated __F2_GATED_STANDARD__");
-   await page.getByTestId("project-assistant-send").click();
--  await expect(page.getByTestId("project-assistant-gate")).toBeVisible({
-+  await expect(page.getByTestId("project-assistant-qualification")).toBeVisible({
-     timeout: 60_000,
-   });
-+  await expect(page.getByTestId("product-authority-path-guidance")).toBeVisible();
-+  await expect(page.getByTestId("f2-decide-GO")).toHaveCount(0);
-+  await expect(page.getByTestId("f3-confirm-execute-button")).toHaveCount(0);
-+  await expect(page.getByTestId("f3-legacy-confirm-execute-button")).toHaveCount(0);
-
-   const trajectory = page.getByTestId("w2-trajectory-panel");
-   await expect(trajectory).toBeVisible({ timeout: 15_000 });
-@@ -105,7 +109,7 @@ async function openThroughAuthorized(page: Page, name: string) {
-   });
-   await page.getByTestId("w2-authorize-contract").click();
-   await expect(page.getByTestId("w2-authorization-outcome")).toContainText(
--    "AUTORISÉ",
-+    "Autorisation vérifiée",
-     { timeout: 30_000 },
-   );
- }
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-index 2907fbf2..b382c576 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-@@ -48,14 +48,24 @@ function sourceStatusLabel(status: AssistantToolEventDto["status"]): string {
-
- export type ConversationSurfaceProps = {
-   controller: ProductConversationController;
-+  /**
-+   * TEST / HARVEST harness only. When true, restores historical F2 gate + F3
-+   * prepare/confirm-execute affordances. Product `/studio` path must leave this
-+   * unset/false so TrajectorySurface remains the sole authority/execute chain.
-+   */
-+  exposeLegacyAuthorityPath?: boolean;
- };
-
- /**
-- * F2–F8 product conversation surface.
-- * Recommendation, HumanDecision and Confirmation stay visually distinct;
-- * nothing here grants execution authority or claims durability.
-+ * Nora conversation + qualification surface.
-+ * Product authority path (HumanDecision / EC / Confirmation / Execute) lives on
-+ * TrajectorySurface (W2/W3). Legacy F2/F3 affordances stay behind
-+ * `exposeLegacyAuthorityPath` for harvest / RETIRE LATER proofs only.
-  */
--export function ConversationSurface({ controller }: ConversationSurfaceProps) {
-+export function ConversationSurface({
-+  controller,
-+  exposeLegacyAuthorityPath = false,
-+}: ConversationSurfaceProps) {
-   const fieldId = useId();
-   const liveRegionId = useId();
-   const {
-@@ -426,7 +436,30 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
-         </section>
-       ) : null}
-
--      {gateOpen ? (
-+      {gateOpen && !exposeLegacyAuthorityPath ? (
-+        <section
-+          className={styles.card}
-+          data-testid="product-authority-path-guidance"
-+          aria-labelledby={`${fieldId}-authority-guidance`}
-+        >
-+          <header className={styles.cardHead}>
-+            <p className={styles.cardEyebrow}>Suite du parcours</p>
-+            <h3
-+              id={`${fieldId}-authority-guidance`}
-+              className={styles.cardTitle}
-+            >
-+              Décidez la trajectoire ci-dessous
-+            </h3>
-+            <p className={styles.cardNote}>
-+              La qualification est enregistrée. La décision de trajectoire, le
-+              contrat, la confirmation et l&apos;exécution se font dans la
-+              section « Trajectoire et décision » — un seul chemin d&apos;autorité.
-+            </p>
-+          </header>
-+        </section>
-+      ) : null}
-+
-+      {gateOpen && exposeLegacyAuthorityPath ? (
-         <section
-           className={styles.decisionCard}
-           data-testid="project-assistant-gate"
-@@ -475,7 +508,7 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
-         </section>
-       ) : null}
-
--      {f2?.decision ? (
-+      {exposeLegacyAuthorityPath && f2?.decision ? (
-         <section
-           className={styles.cardOk}
-           data-testid="project-assistant-decision"
-@@ -525,7 +558,8 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
-         </section>
-       ) : null}
-
--      {canPrepareResolvedM3 || canPrepareLegacyFixture ? (
-+      {exposeLegacyAuthorityPath &&
-+      (canPrepareResolvedM3 || canPrepareLegacyFixture) ? (
-         <section className={styles.card} data-testid="project-assistant-f3-prepare">
-           <header className={styles.cardHead}>
-             <p className={styles.cardEyebrow}>Étape suivante</p>
-@@ -569,7 +603,7 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
-         </section>
-       ) : null}
-
--      {f3M3Resolved && !f3Execute ? (
-+      {exposeLegacyAuthorityPath && f3M3Resolved && !f3Execute ? (
-         <section
-           className={styles.contractCard}
-           data-testid="project-assistant-f3-contract"
-@@ -726,7 +760,7 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
-         </section>
-       ) : null}
-
--      {f3Prepare && !f3Execute ? (
-+      {exposeLegacyAuthorityPath && f3Prepare && !f3Execute ? (
-         <section
-           className={styles.card}
-           data-testid="project-assistant-f3-legacy-contract"
-@@ -784,7 +818,7 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
-         </section>
-       ) : null}
-
--      {f3Execute && attemptLabel ? (
-+      {exposeLegacyAuthorityPath && f3Execute && attemptLabel ? (
-         <section
-           className={styles.card}
-           data-testid="project-assistant-f3-execute"
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-index 96c54184..9a3a5e61 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-@@ -567,8 +567,8 @@ export function TrajectorySurface({
-         <p className={styles.note}>
-           Nora instruit des options et recommande. La décision vous appartient :
-           une recommandation ne décide jamais et ne rend jamais une trajectoire
--          courante. L&apos;exécution (W3-A) n&apos;est possible qu&apos;après un
--          verdict AUTHORIZED, via une action Exécuter explicite (fixture).
-+          courante. L&apos;exécution n&apos;est possible qu&apos;après une
-+          autorisation vérifiée, via une action Exécuter explicite et distincte.
-         </p>
-       </header>
-
-@@ -711,7 +711,7 @@ export function TrajectorySurface({
-           >
-             <p className={styles.blockNote}>
-               Qualifier le travail d&apos;exécution réel (indépendant de
--              l&apos;option de trajectoire W2).
-+              l&apos;option de trajectoire déjà décidée).
-             </p>
-             <label className={styles.amendmentLabel} htmlFor="w3a-operation-kind">
-               Opération d&apos;exécution
-@@ -833,13 +833,24 @@ export function TrajectorySurface({
-                   : "Aucune"}
-               </dd>
-             </div>
--            <div>
--              <dt>Empreinte sémantique</dt>
--              <dd className={styles.code}>
--                {contract.semanticFingerprint.slice(0, 12)}…
--              </dd>
--            </div>
-           </dl>
-+          <details className={styles.technicalDetails}>
-+            <summary>Détails techniques du contrat</summary>
-+            <dl className={styles.facts}>
-+              <div>
-+                <dt>Empreinte sémantique</dt>
-+                <dd className={styles.code} data-testid="w2-contract-fingerprint">
-+                  {contract.semanticFingerprint.slice(0, 12)}…
-+                </dd>
-+              </div>
-+              <div>
-+                <dt>Identifiant contrat</dt>
-+                <dd className={styles.code} data-testid="w2-contract-id-tech">
-+                  {contract.executionContractId}
-+                </dd>
-+              </div>
-+            </dl>
-+          </details>
-
-           {amendmentNotice ? (
-             <div
-@@ -961,8 +972,13 @@ export function TrajectorySurface({
-           role="status"
-         >
-           <h3 id="w2-authorization-title" className={styles.blockTitle}>
--            <span data-testid="w2-authorization-outcome">
--              {authorization.outcomeLabel}
-+            <span
-+              data-testid="w2-authorization-outcome"
-+              data-outcome={authorization.outcome}
-+            >
-+              {authorization.outcome === "AUTHORIZED"
-+                ? "Autorisation vérifiée — l'exécution peut être lancée"
-+                : "Exécution bloquée"}
-             </span>
-           </h3>
-           <p className={styles.blockBody} data-testid="w2-authorization-reason">
-@@ -988,13 +1004,24 @@ export function TrajectorySurface({
-               <dt>Inspection</dt>
-               <dd>{authorization.inspection.statusLabel}</dd>
-             </div>
--            <div>
--              <dt>Trace d&apos;autorité</dt>
--              <dd className={styles.code}>
--                {authorization.authorityReceiptRef}
--              </dd>
--            </div>
-           </dl>
-+          <details className={styles.technicalDetails}>
-+            <summary>Détails techniques d&apos;autorité</summary>
-+            <dl className={styles.facts}>
-+              <div>
-+                <dt>Verdict technique</dt>
-+                <dd data-testid="w2-authorization-outcome-tech">
-+                  {authorization.outcomeLabel}
-+                </dd>
-+              </div>
-+              <div>
-+                <dt>Trace d&apos;autorité</dt>
-+                <dd className={styles.code} data-testid="w2-authority-receipt">
-+                  {authorization.authorityReceiptRef}
-+                </dd>
-+              </div>
-+            </dl>
-+          </details>
-           {authorization.outcome === "AUTHORIZED" && !attempt ? (
-             <>
-               <p
-```
-
-### New file: `e2e/studio-w4b-single-authority-path.spec.ts` (untracked until future commit)
-```typescript
-/**
- * W4-B — Single authority path on canonical `/studio`.
- * Proves F2/F3 authority/execute affordances are not product-visible;
- * W2/W3 remains the sole decision → EC → confirm → authorize → execute chain.
- */
-import { test, expect, type Page } from "@playwright/test";
-import fs from "node:fs";
-import path from "node:path";
-import crypto from "node:crypto";
-
-const CAPTURE_ROOT = path.resolve(
-  process.cwd(),
-  "../../../.tmp-sfia-review/runtime-captures/w4-b",
-);
-const MANIFEST = path.join(CAPTURE_ROOT, "manifest.md");
-const MANIFEST_JSONL = path.join(CAPTURE_ROOT, "manifest.jsonl");
-
-async function capture(
-  page: Page,
-  id: string,
-  meta: {
-    sc: string;
-    state: string;
-    viewport: { width: number; height: number };
-    observation: string;
-  },
-) {
-  fs.mkdirSync(CAPTURE_ROOT, { recursive: true });
-  const file = path.join(CAPTURE_ROOT, `${id}.png`);
-  await page.screenshot({ path: file, fullPage: true });
-  const sha256 = crypto
-    .createHash("sha256")
-    .update(fs.readFileSync(file))
-    .digest("hex");
-  const timestamp = new Date().toISOString();
-  const row = {
-    id,
-    file: path.basename(file),
-    timestamp,
-    sha256,
-    route: page.url(),
-    ...meta,
-    provenance:
-      "CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W4-B SINGLE AUTHORITY PATH",
-  };
-  fs.appendFileSync(MANIFEST_JSONL, `${JSON.stringify(row)}\n`);
-  fs.appendFileSync(
-    MANIFEST,
-    `| ${row.file} | ${timestamp} | ${meta.viewport.width}×${meta.viewport.height} | ${page.url()} | ${meta.sc} | ${meta.state} | ${meta.observation} |\n`,
-  );
-}
-
-async function assertNoSecondAuthorityPath(page: Page) {
-  await expect(page.getByTestId("f2-decide-GO")).toHaveCount(0);
-  await expect(page.getByTestId("f2-decide-NO_GO")).toHaveCount(0);
-  await expect(page.getByTestId("f3-prepare-button")).toHaveCount(0);
-  await expect(page.getByTestId("f3-confirm-execute-button")).toHaveCount(0);
-  await expect(page.getByTestId("f3-legacy-confirm-execute-button")).toHaveCount(
-    0,
-  );
-  await expect(page.getByTestId("f3-legacy-fixture-prepare-button")).toHaveCount(
-    0,
-  );
-  await expect(page.getByTestId("project-assistant-gate")).toHaveCount(0);
-}
-
-test.describe("W4-B single authority path /studio", () => {
-  test.describe.configure({ timeout: 360_000 });
-
-  test.beforeEach(async ({ page }) => {
-    await page.addInitScript(() => {
-      (
-        window as unknown as { __SFIA_E2E_QA_CONTROL__?: boolean }
-      ).__SFIA_E2E_QA_CONTROL__ = true;
-    });
-  });
-
-  test("qualify → single W2 HD → EC → confirm → authorize → execute; no F3 path", async ({
-    page,
-  }) => {
-    fs.mkdirSync(CAPTURE_ROOT, { recursive: true });
-    fs.writeFileSync(MANIFEST_JSONL, "");
-    fs.writeFileSync(
-      MANIFEST,
-      [
-        "# W4-B runtime captures",
-        "",
-        "| file | timestamp | viewport | route | SC | state | observation |",
-        "| --- | --- | --- | --- | --- | --- | --- |",
-        "",
-      ].join("\n"),
-    );
-
-    await page.setViewportSize({ width: 1440, height: 900 });
-    const name = `W4-B SPA ${Date.now()}`;
-    await page.goto("/studio/projects/new");
-    await page.locator("#project-name").fill(name);
-    await page
-      .locator("#project-objective")
-      .fill("W4-B single authority path deterministic");
-    await page.locator("#project-context").fill("REAL=0");
-    await page.getByTestId("create-project-submit").click();
-    await expect(page.getByTestId("open-project-workspace")).toBeVisible({
-      timeout: 30_000,
-    });
-    await page.getByTestId("open-project-workspace").click();
-    await expect(page.getByTestId("project-principal")).toBeVisible({
-      timeout: 30_000,
-    });
-
-    const input = page.getByTestId("project-assistant-input");
-    await expect(input).toBeEnabled({ timeout: 15_000 });
-    await input.fill("Préparer une livraison gated __F2_GATED_STANDARD__");
-    await page.getByTestId("project-assistant-send").click();
-    await expect(page.getByTestId("project-assistant-qualification")).toBeVisible(
-      { timeout: 60_000 },
-    );
-    await expect(page.getByTestId("product-authority-path-guidance")).toBeVisible();
-    await assertNoSecondAuthorityPath(page);
-    await capture(page, "SC-03-qualified-single-path-1440", {
-      sc: "SC-03",
-      state: "qualified; guidance to trajectory; no F2/F3 authority",
-      viewport: { width: 1440, height: 900 },
-      observation: "Nora qualify kept; second authority path absent",
-    });
-
-    await page.getByTestId("w2-propose-options").click();
-    await expect(page.getByTestId("w2-options")).toBeVisible({ timeout: 60_000 });
-    await expect(page.getByTestId("w2-recommendation")).toBeVisible();
-    await capture(page, "SC-04-options-recommendation-1440", {
-      sc: "SC-04",
-      state: "options + recommendation",
-      viewport: { width: 1440, height: 900 },
-      observation: "Single W2 options path",
-    });
-
-    await page.locator("[data-testid^='w2-decide-']").first().click();
-    await expect(page.getByTestId("w2-decision")).toBeVisible({ timeout: 45_000 });
-    // Only one structural decide family: w2-decide-*, no f2-decide-*
-    await expect(page.locator("[data-testid^='f2-decide-']")).toHaveCount(0);
-    await capture(page, "SC-04-humandecision-1440", {
-      sc: "SC-04",
-      state: "W2 HumanDecision recorded",
-      viewport: { width: 1440, height: 900 },
-      observation: "Single structural HumanDecision",
-    });
-
-    await page
-      .getByTestId("w3a-operation-kind")
-      .selectOption("generate-temporary-artifact");
-    await page.getByTestId("w2-prepare-contract").click();
-    await expect(page.getByTestId("w2-contract")).toBeVisible({ timeout: 45_000 });
-    await capture(page, "SC-05-ec-summary-1440", {
-      sc: "SC-05",
-      state: "EC prepared",
-      viewport: { width: 1440, height: 900 },
-      observation: "EC summary on TrajectorySurface only",
-    });
-
-    await page.getByTestId("w2-inspect-contract").click();
-    await expect(page.getByTestId("w2-inspection-state")).toBeVisible({
-      timeout: 30_000,
-    });
-    await capture(page, "SC-06-ec-inspection-1440", {
-      sc: "SC-06",
-      state: "EC inspected",
-      viewport: { width: 1440, height: 900 },
-      observation: "Inspection before Confirmation",
-    });
-
-    const confirm = page.getByTestId("w2-confirm-contract");
-    if (await confirm.isVisible()) {
-      await expect(confirm).toBeEnabled();
-      await confirm.click();
-      await expect(page.getByTestId("w2-contract-status")).toHaveText(
-        /confirmed/i,
-        { timeout: 30_000 },
-      );
-      await capture(page, "SC-06-confirmation-1440", {
-        sc: "SC-06",
-        state: "Confirmation separate from Execute",
-        viewport: { width: 1440, height: 900 },
-        observation: "A11Y-PC-05: confirm ≠ execute",
-      });
-    }
-
-    await page.getByTestId("w2-authorize-contract").click();
-    await expect(page.getByTestId("w2-authorization-outcome")).toContainText(
-      "Autorisation vérifiée",
-      { timeout: 60_000 },
-    );
-    await expect(page.getByTestId("w3a-governed-execute")).toBeVisible();
-    await expect(page.getByTestId("w3a-governed-execute")).toHaveText("Exécuter");
-    await expect(page.getByTestId("f3-confirm-execute-button")).toHaveCount(0);
-    await capture(page, "SC-07-authorized-1440", {
-      sc: "SC-07",
-      state: "AUTHORIZED business label",
-      viewport: { width: 1440, height: 900 },
-      observation: "Business-first authorization; Execute separate",
-    });
-
-    for (const w of [1024, 390] as const) {
-      await page.setViewportSize({ width: w, height: 900 });
-      await capture(page, `SC-07-authorized-${w}`, {
-        sc: "SC-07 / H-02",
-        state: `authorized responsive ${w}`,
-        viewport: { width: w, height: 900 },
-        observation: "Responsive authority region",
-      });
-    }
-
-    await page.setViewportSize({ width: 1440, height: 900 });
-    await page.getByTestId("w3a-governed-execute").click();
-    await expect(page.getByTestId("w3a-attempt")).toBeVisible({ timeout: 90_000 });
-    await assertNoSecondAuthorityPath(page);
-    await capture(page, "SC-08-09-attempt-terminal-1440", {
-      sc: "SC-08/SC-09",
-      state: "attempt / terminal after governed execute",
-      viewport: { width: 1440, height: 900 },
-      observation: "Single execute path; no F3 confirm+execute",
-    });
-
-    await page.setViewportSize({ width: 1024, height: 900 });
-    await capture(page, "SC-04-or-05-responsive-1024", {
-      sc: "SC-04/05 / H-02",
-      state: "post-execute workspace 1024",
-      viewport: { width: 1024, height: 900 },
-      observation: "Responsive workspace after single path",
-    });
-    await page.setViewportSize({ width: 390, height: 900 });
-    await capture(page, "SC-04-or-05-responsive-390", {
-      sc: "SC-04/05 / H-02",
-      state: "post-execute workspace 390",
-      viewport: { width: 390, height: 900 },
-      observation: "Responsive workspace after single path",
-    });
-  });
-
-  test("negative: blocked authorization shows business label and no Attempt", async ({
-    page,
-  }) => {
-    await page.setViewportSize({ width: 1440, height: 900 });
-    const name = `W4-B BLOCK ${Date.now()}`;
-    await page.goto("/studio/projects/new");
-    await page.locator("#project-name").fill(name);
-    await page.locator("#project-objective").fill("W4-B blocked auth path");
-    await page.locator("#project-context").fill("REAL=0");
-    await page.getByTestId("create-project-submit").click();
-    await page.getByTestId("open-project-workspace").click();
-    await expect(page.getByTestId("project-principal")).toBeVisible({
-      timeout: 30_000,
-    });
-    const input = page.getByTestId("project-assistant-input");
-    await expect(input).toBeEnabled({ timeout: 15_000 });
-    await input.fill("Préparer une livraison gated __F2_GATED_STANDARD__");
-    await page.getByTestId("project-assistant-send").click();
-    await expect(page.getByTestId("project-assistant-qualification")).toBeVisible(
-      { timeout: 60_000 },
-    );
-    await page.getByTestId("w2-propose-options").click();
-    await expect(page.getByTestId("w2-options")).toBeVisible({ timeout: 60_000 });
-    await page.locator("[data-testid^='w2-decide-']").first().click();
-    await expect(page.getByTestId("w2-decision")).toBeVisible({ timeout: 45_000 });
-    await page
-      .getByTestId("w3a-operation-kind")
-      .selectOption("generate-temporary-artifact");
-    await page.getByTestId("w2-prepare-contract").click();
-    await expect(page.getByTestId("w2-contract")).toBeVisible({ timeout: 45_000 });
-    // Authorize WITHOUT inspect → blocked
-    await page.getByTestId("w2-authorize-contract").click();
-    await expect(page.getByTestId("w2-authorization-outcome")).toContainText(
-      "Exécution bloquée",
-      { timeout: 60_000 },
-    );
-    await expect(page.getByTestId("w3a-governed-execute")).toHaveCount(0);
-    await expect(page.getByTestId("w3a-attempt")).toHaveCount(0);
-    await assertNoSecondAuthorityPath(page);
-    await capture(page, "SC-07-blocked-1440", {
-      sc: "SC-07",
-      state: "authorization blocked; no attempt",
-      viewport: { width: 1440, height: 900 },
-      observation: "Blocked is textual; Execute absent",
-    });
-  });
-});
-
-```
-
-### Justification summary
-| File | Why |
+| Field | Value |
 | --- | --- |
-| ConversationSurface.tsx | Hide F2 decide + F3 prepare/confirm+execute on product path; guidance to Trajectory; legacy via `exposeLegacyAuthorityPath` |
-| TrajectorySurface.tsx | Business-first labels; fingerprint/receipt → technical details; AUTHORIZED/BLOCKED user wording |
-| W2/W3 e2e | Wait qualification+guidance; assert no F2/F3; new outcome strings |
-| Option A e2e | `test.skip` — F3 product path RETIRE LATER |
-| Unit UI tests | `exposeLegacyAuthorityPath` for F3 harness proofs; blocked label update |
-| studio-w4b-*.spec.ts | Single-path + negative blocked + captures |
+| Capability | Product Experience Closure |
+| Milestone | W4 — Product Experience Closure |
+| Backlog | US-P1-10 · US-P1-13 · UAT/PE exit · H-01…H-04 CARRY |
+| Cycle type | Supplement to W4-A visual evidence |
+| Next (not started) | ChatGPT/Morris validation → W4-B integration gate → only then possible W4-C requalification |
+| Parallel architecture | FORBIDDEN |
+| Assets | KEEP/ADAPT/COMPLETE/HARVEST; no REPLACE this cycle |
 
-## 13. Invariants W1/W2/W3 preserved
-- No edits to `w2/**`, `f2/**`, `f3/**`, OA, persistence, C6
-- W2 propose/decide/EC/confirm/authorize/execute semantics unchanged (UI labels only)
-- W3-A/B/C e2e PASS after path adaptation
+## 9. MCP inventory
 
-## 14. Single-path map before/after
-
-| Step | BEFORE (W4-A) | AFTER (W4-B) |
+| Namespace | Tools | Status |
 | --- | --- | --- |
-| Qualify | ConversationSurface | ConversationSurface KEEP |
-| Structural HD | F2 decide **and** W2 decide | **W2 only** (F2 decide hidden) |
-| EC | F3 prepare **and** W2 prepare | **W2 only** |
-| Confirmation | F3 confirm+execute bundle **and** W2 confirm | **W2 confirm only** |
-| Authority | W2 authorize (+ F3 implicit) | **W2 authorize only** |
-| Execute | F3 confirm+execute **and** W3 execute | **W3a governed execute only** |
+| `user-penpot` | `execute_code`, `export_shape`, `high_level_overview`, `penpot_api_info`, `mcp_auth` | **ready** |
+| `plugin-figma-figma` | present | **NOT USED** (Figma fallback forbidden) |
+| `cursor-ide-browser` | present | not required for Penpot |
 
-## 15. Business-label map before/after
-| Before | After |
+**Hard rule satisfied:** Penpot was **actually read** in this cycle via MCP.
+
+## 10. Penpot connection attempts
+
+1. Light metadata via `execute_code` → file id `63bdc57a-636a-81ba-8008-82d2a50d5233` — **SUCCESS**
+2. Page list via `penpot.currentFile.pages` — **SUCCESS** (6 pages)
+3. `openPage` requires **await** (async) — discovered; used successfully
+4. Root children inventories per page — **SUCCESS**
+5. `export_shape` PNG for priority screens/WF — **SUCCESS** (agent vision)
+6. Disk PNG persistence — **NOT AVAILABLE** via MCP
+
+## 11. Exact MCP errors / retries
+
+| Attempt | Result |
 | --- | --- |
-| exécution (W3-A) … AUTHORIZED … (fixture) | exécution … autorisation vérifiée … Exécuter explicite |
-| AUTORISÉ — STOP AVANT EXECUTE (primary) | Autorisation vérifiée — l'exécution peut être lancée |
-| BLOQUÉ — ACTION REQUISE (primary) | Exécution bloquée |
-| Empreinte sémantique primary | under Détails techniques |
-| Trace d'autorité / receipt primary | under Détails techniques |
-| option … trajectoire W2 | option … trajectoire déjà décidée |
-| Technical verdict strings | kept under details as `w2-authorization-outcome-tech` |
+| Prior W4-A historical | 504 Gateway Timeout (documented in `669431c5`) |
+| W4-A2 retry 1 | Connection live; Screens page current — SUCCESS |
+| Sync `openPage` without await | Stale page / empty children — corrected by awaiting promise |
+| SVG `export_shape` (prior session note) | empty / unusable — PNG mode used |
+| Bounded retries for 504 this session | **0 needed** (MCP healthy) |
 
-## 16. Confirmation before/after
-- Before: F3 `f3-confirm-execute-button` = confirm+execute product path
-- After: absent on product path; W2 `w2-confirm-contract` then separate `w3a-governed-execute`
-- A11Y-PC-05 W4-B slice: **SATISFIED** on product path
+**Retry count (504):** 0 this cycle. Historical W4-A 504 superseded by successful reconnect.
 
-## 17. F3 disposition
-**HARVEST / RETIRE LATER** — code + actions remain; product-visible path disabled; unit harness via `exposeLegacyAuthorityPath`; Option A e2e skipped pending harvest exit.
-Owner: W4 PE Closure. Exit: after W4-B/C proofs + tests no longer need second user path.
+## 12. Penpot file metadata
 
-## 18. Tests added/modified
-- Added: `e2e/studio-w4b-single-authority-path.spec.ts` (positive + blocked negative + captures)
-- Modified: W2/W3 e2e helpers; Option A skip; unit UI legacy prop / labels
-
-## 19. Test results
-| Suite | Result |
+| Field | Value |
 | --- | --- |
-| vitest trajectory + runningAttempt + uatUx | **15/15 PASS** |
-| e2e W4-B single path | **2/2 PASS** |
-| e2e W3-A | **2/2 PASS** |
-| e2e W2-G3 | **1/1 PASS** |
-| e2e W3-B | **3/3 PASS** |
-| e2e W3-C | **5/5 PASS** |
-| Precondition F2→W2 | **PASS** |
+| File id | `63bdc57a-636a-81ba-8008-82d2a50d5233` |
+| Live file name | `Nouveau fichier 1` |
+| Role | REFERENCE DESIGN WORKSPACE (Morris) |
+| Typography contractual | Inter |
+| Mutation this cycle | **NONE** |
 
-## 20–21. Captures + manifest
-- Dir: `.tmp-sfia-review/runtime-captures/w4-b/` · count **13**
-- Penpot direct: UNAVAILABLE (no pixel claim)
+## 13. All page inventory
 
-# W4-B runtime captures
+| Page | id | Top-level frames |
+| --- | --- | --- |
+| 00 — Foundations | `63bdc57a-636a-81ba-8008-82d2a50d9d35` | 7 (F00-01…07) |
+| 01 — User Flows | `5de0e468-4bc9-80ee-8008-82d2f65e069f` | 8 |
+| 02 — Wireframes | `5de0e468-4bc9-80ee-8008-82d2f6c1ab48` | 12 |
+| 03 — Screens | `5de0e468-4bc9-80ee-8008-82d2f6f7e116` | **17** |
+| 04 — Components | `5de0e468-4bc9-80ee-8008-82d2f737061e` | **0** |
+| 05 — States & Evidence | `5de0e468-4bc9-80ee-8008-82d326931fc0` | 9 |
 
-| file | timestamp | viewport | route | SC | state | observation |
-| --- | --- | --- | --- | --- | --- | --- |
-| SC-03-qualified-single-path-1440.png | 2026-08-26T10:10:08.292Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A95b675a2-835e-4bec-88fd-eae589706901 | SC-03 | qualified; guidance to trajectory; no F2/F3 authority | Nora qualify kept; second authority path absent |
-| SC-04-options-recommendation-1440.png | 2026-08-26T10:10:08.477Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A95b675a2-835e-4bec-88fd-eae589706901 | SC-04 | options + recommendation | Single W2 options path |
-| SC-04-humandecision-1440.png | 2026-08-26T10:10:08.666Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A95b675a2-835e-4bec-88fd-eae589706901 | SC-04 | W2 HumanDecision recorded | Single structural HumanDecision |
-| SC-05-ec-summary-1440.png | 2026-08-26T10:10:08.897Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A95b675a2-835e-4bec-88fd-eae589706901 | SC-05 | EC prepared | EC summary on TrajectorySurface only |
-| SC-06-ec-inspection-1440.png | 2026-08-26T10:10:09.104Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A95b675a2-835e-4bec-88fd-eae589706901 | SC-06 | EC inspected | Inspection before Confirmation |
-| SC-06-confirmation-1440.png | 2026-08-26T10:10:09.320Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A95b675a2-835e-4bec-88fd-eae589706901 | SC-06 | Confirmation separate from Execute | A11Y-PC-05: confirm ≠ execute |
-| SC-07-authorized-1440.png | 2026-08-26T10:10:09.540Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A95b675a2-835e-4bec-88fd-eae589706901 | SC-07 | AUTHORIZED business label | Business-first authorization; Execute separate |
-| SC-07-authorized-1024.png | 2026-08-26T10:10:09.669Z | 1024×900 | http://127.0.0.1:3020/studio/projects/prj%3A95b675a2-835e-4bec-88fd-eae589706901 | SC-07 / H-02 | authorized responsive 1024 | Responsive authority region |
-| SC-07-authorized-390.png | 2026-08-26T10:10:09.773Z | 390×900 | http://127.0.0.1:3020/studio/projects/prj%3A95b675a2-835e-4bec-88fd-eae589706901 | SC-07 / H-02 | authorized responsive 390 | Responsive authority region |
-| SC-08-09-attempt-terminal-1440.png | 2026-08-26T10:10:10.028Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A95b675a2-835e-4bec-88fd-eae589706901 | SC-08/SC-09 | attempt / terminal after governed execute | Single execute path; no F3 confirm+execute |
-| SC-04-or-05-responsive-1024.png | 2026-08-26T10:10:10.171Z | 1024×900 | http://127.0.0.1:3020/studio/projects/prj%3A95b675a2-835e-4bec-88fd-eae589706901 | SC-04/05 / H-02 | post-execute workspace 1024 | Responsive workspace after single path |
-| SC-04-or-05-responsive-390.png | 2026-08-26T10:10:10.294Z | 390×900 | http://127.0.0.1:3020/studio/projects/prj%3A95b675a2-835e-4bec-88fd-eae589706901 | SC-04/05 / H-02 | post-execute workspace 390 | Responsive workspace after single path |
-| SC-07-blocked-1440.png | 2026-08-26T10:10:11.499Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3Adcb7a462-0e7f-4e4b-938e-3435ec331f10 | SC-07 | authorization blocked; no attempt | Blocked is textual; Execute absent |
+JSON: `.tmp-sfia-review/penpot-exports/w4-a2-direct/inventories/`
 
+## 14. User Flows inventory
 
-## 22. A11Y smoke
-- Confirmation and Execute are separate labeled controls
-- Authorized / blocked textual (not color-only)
-- Guidance card announces next path
-- Claim: A11Y-PC-05 W4-B slice satisfied · **not** WCAG certified
+| id | name | w×h |
+| --- | --- | --- |
+| `c49c10a5-…9bfacc6c` | UF-01 — Project Entry | 700×352 |
+| `c49c10a5-…9c3fd500` | UF-02 — Understand & Qualify | 700×352 |
+| `c49c10a5-…9c85aa6c` | UF-03 — Trajectory & Decision | 700×352 |
+| `c49c10a5-…9cc49cd9` | UF-04 — Prepare & Authorize Execution | 700×352 |
+| `c49c10a5-…2f83c0e0e` | UF-05 — Execute & Understand Outcome | 700×368 |
+| `c49c10a5-…2f868ae7f` | UF-06 — Learn & Replan | 700×368 |
+| `c49c10a5-…2f8861b4c` | UF-07 — Resume Anywhere | 700×368 |
+| `c49c10a5-…2f8a4a7d1` | UF-NOTE — Non-wizard constraints | 700×254 |
 
-## 23. Fake/Real
-DETERMINISTIC PRODUCT-NATIVE W4-B PROOF · REAL OUT · no new fakes
+**Count:** 8 (7 flows + NOTE). Aligns with Git PE UF-01…07 + non-wizard note.
 
-## 24. Réserves
-- H-01 CARRY (no structural layout change)
-- F3 code still present (RETIRE LATER)
-- Option A e2e skipped (debt)
-- Evidence/Recovery/Replan PE fidelity deferred to W4-C
-- S2 / SC-12–14 / legacy routes out of scope
-- Penpot visual fidelity not proven
+## 15. 12 Wireframe inventory
 
-## 25. Dette + exit
-| Debt | Exit |
+All 12 expected IDs confirmed directly on page 02:
+
+| Board | id (suffix) | Confirmed |
+| --- | --- | --- |
+| WF-00 E2E Coverage / Navigation Map | `…83250baab017` | YES |
+| WF-01 Project Entry — Create OR Resume | `…83250b4fd067` | YES (+ visual export) |
+| WF-02 Workspace — Conversation + LPS + Qualification | `…8322d50b0dc3` | YES |
+| WF-03 Trajectory + Option + Recommendation + HumanDecision | `…8322f54f18d9` | YES |
+| WF-04 ExecutionContract — Summary → Detail | `…8322f5b59a17` | YES |
+| WF-05 Confirmation / Authority / Authorization Blocked | `…83250afe1905` | YES |
+| WF-06 Attempt Running / Guardrails | `…83231641cad4` | YES |
+| WF-07 SUCCESS / STOP / FAIL + Evidence | `…83231689a015` | YES |
+| WF-08 Nora Analysis + Replanning + Recovery | `…832316dc8683` | YES |
+| WF-09 Empty / Loading / Error / Blocked | `…83231709a107` | YES |
+| WF-R01 Workspace / Trajectory responsive | `…83233ae97e9c` | YES |
+| WF-R02 EC / Evidence / Recovery responsive | `…83233b51b13d` | YES |
+
+## 16. 17 Screen inventory
+
+Direct page 03 read — **17 boards** — names match Git `03-product-screens-visual-state-contract.md` historical set:
+
+| # | Exact name | id | w×h |
+| --- | --- | --- | --- |
+| 1 | SC-01 — Projects Entry / Resume | `f96faf07-…8342ef9ffbf6` | 1440×1020 |
+| 2 | SC-02 — Create Project | `…8342f00967d2` | 1440×920 |
+| 3 | SC-03 — Workspace / Qualification | `…8342f04b1b3b` | 1440×1024 |
+| 4 | SC-04 — Trajectory / Options / Recommendation / HumanDecision | `…8342f091da3d` | 1440×1024 |
+| 5 | SC-05 — ExecutionContract Summary | `…834317179cb3` | 1440×1100 |
+| 6 | SC-06 — ExecutionContract Detail / Confirmation Required | `…834317a7f741` | 1440×1120 |
+| 7 | SC-07 — Authorization Blocked / Executor Insufficient | `…83431809b949` | 1440×920 |
+| 8 | SC-08 — Attempt Running | `…8343184c4752` | 1440×920 |
+| 9 | SC-09 — SUCCESS / Evidence | `…834340bfc1fe` | 1440×920 |
+| 10 | SC-10 — STOP / Evidence / Next Action | `…8343411bf67a` | 1440×920 |
+| 11 | SC-11 — FAIL / Recovery Action | `…8343416932ea` | 1440×920 |
+| 12 | SC-12 — Nora Analysis / Replanning | `…834341afedfa` | 1440×920 |
+| 13 | SC-13 — Recovery / Resume | `…83435d4a9af6` | 1440×920 |
+| 14 | SC-14 — Empty / Loading / Error / Blocked | `…83435deabeb8` | 1440×980 |
+| 15 | SC-R01 — Workspace / Trajectory Responsive | `…83435e88a090` | 1480×2700 |
+| 16 | SC-R02 — EC / Confirmation Responsive | `…834375783f19` | 1080×1900 |
+| 17 | SC-R03 — Evidence / Recovery Responsive | `…83437671266c` | 1080×1900 |
+
+**Penpot vs Git screen count/names:** ALIGNED — no `PENPOT / GIT DESIGN CONTRADICTION` on inventory.
+
+## 17. Components page state
+
+- Direct: **0** top-level frames.
+- Observation matches historical expectation. Not a decision; not a contradiction.
+
+## 18. States & Evidence inventory
+
+SE-01…SE-09 confirmed (Recommendation vs HD · Trajectory states · EC disclosure · Confirmation boundary · Attempt lifecycle · SUCCESS/STOP/FAIL · Evidence hierarchy · Recovery · Empty/Loading/Error/Blocked).
+
+## 19. Penpot export manifest
+
+Path: `.tmp-sfia-review/penpot-exports/w4-a2-direct/manifest.md`
+
+| Metric | Value |
 | --- | --- |
-| F3 ConversationSurface affordances behind harness flag | Delete after harvest + test migration |
-| Option A e2e skip | Rewrite to W2/W3 or delete when retired |
-| presentationLabels residual jargon in other surfaces | W4-C if needed |
+| Direct visual renders (export_shape) | 11 (SC-01…09, SC-13, WF-01) |
+| Structure inventories | pages / UF / WF / SC / SE / Components JSON |
+| Disk PNG files from MCP | **0** (vision-only) |
+| Contact sheets | directory reserved; not generated (no durable PNG bytes) |
+| Proof mode | DIRECT MCP VISUAL RENDER |
+| Pixel-hash fidelity | **NOT CLAIMED** |
 
-## 26–28. Git final
-```
-M projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
- M projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
- M projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx
- M projects/sfia-studio/app/e2e/studio-option-a-clean-slate-captures.spec.ts
- M projects/sfia-studio/app/e2e/studio-option-a-deterministic-cursor-boundary.spec.ts
- M projects/sfia-studio/app/e2e/studio-option-a-negative-states.spec.ts
- M projects/sfia-studio/app/e2e/studio-option-a-new-design-captures.spec.ts
- M projects/sfia-studio/app/e2e/studio-option-a-uat-semantic-reserves.spec.ts
- M projects/sfia-studio/app/e2e/studio-option-a.spec.ts
- M projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts
- M projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts
- M projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
- M projects/sfia-studio/app/e2e/studio-w3c-post-evidence-replan-runtime.spec.ts
- M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
- M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-?? .tmp-sfia-review/
-?? projects/sfia-studio/app/e2e/studio-w4b-single-authority-path.spec.ts
-```
-Diff stat:
-```
-.../runningAttemptRefresh.ui.test.tsx              |  8 ++-
- .../trajectorySurface.ui.test.tsx                  |  2 +-
- .../uatUxSemanticReserves.ui.test.tsx              |  6 ++-
- .../studio-option-a-clean-slate-captures.spec.ts   |  5 ++
- ...-option-a-deterministic-cursor-boundary.spec.ts |  5 ++
- .../e2e/studio-option-a-negative-states.spec.ts    |  5 ++
- .../studio-option-a-new-design-captures.spec.ts    |  5 ++
- .../studio-option-a-uat-semantic-reserves.spec.ts  |  5 ++
- .../sfia-studio/app/e2e/studio-option-a.spec.ts    |  5 ++
- .../e2e/studio-w2-g3-correction-runtime.spec.ts    | 10 ++--
- .../studio-w3a-governed-execute-runtime.spec.ts    |  8 ++-
- .../studio-w3b-terminal-evidence-runtime.spec.ts   |  8 ++-
- ...studio-w3c-post-evidence-replan-runtime.spec.ts |  8 ++-
- .../surfaces/ConversationSurface.tsx               | 54 +++++++++++++++----
- .../surfaces/TrajectorySurface.tsx                 | 61 ++++++++++++++++------
- 15 files changed, 155 insertions(+), 40 deletions(-)
-```
-Staged:
-```
-(empty)
-```
-**No project commit. No project push. No staged files.**
+## 20. Runtime baseline setup
 
-## 29. X-W4B-01→15
-| ID | Result |
+| Item | Value |
 | --- | --- |
-| X-W4B-01 | **PASS** |
-| X-W4B-02 | **PASS** |
-| X-W4B-03 | **PASS** |
-| X-W4B-04 | **PASS** |
-| X-W4B-05 | **PASS** |
-| X-W4B-06 | **PASS** |
-| X-W4B-07 | **PASS** |
-| X-W4B-08 | **PASS** |
-| X-W4B-09 | **PASS** |
-| X-W4B-10 | **PASS** |
-| X-W4B-11 | **PASS** |
-| X-W4B-12 | **PASS** |
-| X-W4B-13 | **PASS** |
-| X-W4B-14 | **PASS** |
-| X-W4B-15 | **PASS** |
+| Worktree | `/tmp/sfia-w4a2-baseline-nwpO9u` @ `1e17367d` |
+| Port | 3030 |
+| DB | temp SQLite |
+| Provider | `OPS1_CONVERSATION_PROVIDER=fake` |
+| REAL | 0 |
+| Config | `.tmp-sfia-review/w4-a2-playwright.config.ts` |
+| Spec | `.tmp-sfia-review/w4-a2-baseline-capture.spec.ts` |
+| Result | **1 passed** (~13s) |
 
-## 30. Claims
-### Authorized
-- W4-B implementation candidate executed
-- Single authority path deterministic proof
-- F3 product-visible path disabled
-- Business-first primary labels improved
-- A11Y-PC-05 W4-B slice satisfied
-- deterministic product-native proof
+## 21. Runtime capture manifest
 
-### Forbidden (not claimed)
-- W4 CLOSED · PC COMPLETE · US-P1-10/13 globally SATISFIED · WCAG · F3 fully retired · H-01 decided · W4-C authorized · READY FOR REAL · runtime v3 · project integrated/PR/merge
+Path: `.tmp-sfia-review/runtime-captures/w4-a2-direct/` (+ `manifest.md`, `manifest-sha256.md`)
 
-## 31. Verdict
-**W4-B DELIVERY PASS — SINGLE AUTHORITY PATH PROVEN — READY FOR CHATGPT REVIEW**
+**Count:** 16 PNG
 
-## Instruction ChatGPT
-Lire handoff distant `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
-Vérifier branche W4-B, base main, diff, precondition, second path removed, Nora qualify kept, W2/W3 kept, Confirmation séparée, labels, tests, X-W4B, captures, A11Y, Fake/Real, dette F3, no C6/domain, no project commit/push, SHA.
-Décider: corrections W4-B / closure eligibility / next W4-C qualification.
-**Cursor ne démarre aucune suite.**
+Includes: SC-01/02 trio viewports; workspace; F2 gate; W2 options/decision; EC summary/inspect; authz trio; **DUAL-f3-contract** (pre-W4-B dual-path evidence).
+
+**Reserve:** `RT-SC-01-entry-1440.png` captured during loading (“Chargement…”) — list fidelity under-sampled at 1440; 1024/390 also entry.
+
+## 22. 17-screen direct comparison matrix
+
+Axes separated: **V** = Visual (Penpot↔runtime) · **I** = Interaction · **R** = Runtime proof.
+
+| Penpot id | Exact name | dims | SC | S | UF | Runtime route/state | Capture | V | I | R | Exact differences | Sev | W4 impact | Disp. |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `…ef9ffbf6` | SC-01 Projects Entry / Resume | 1440×1020 | SC-01 | S1 | UF-01 | `/studio` entry | RT-SC-01-* | PARTIAL | PARTIAL | PARTIAL | Penpot: status pills + Resume/Requalify/Evidence; runtime chrome simpler / loading capture | med | PE fidelity | ADAPT |
+| `…f00967d2` | SC-02 Create Project | 1440×920 | SC-02 | S2 | UF-01 | `/studio/projects/new` | RT-SC-02-* | PARTIAL | PARTIAL | PASS | Penpot: Nom+Intention+Contexte+Créer+Annuler; runtime: Nom+Intention+Précisions+Créer (no peer Annuler); label wording differs | med | S2 provisional debt | ADAPT/COMPLETE |
+| `…f04b1b3b` | SC-03 Workspace / Qualification | 1440×1024 | SC-03 | S3–S5 | UF-02 | workspace | RT-SC-03-workspace | PARTIAL | PARTIAL | PASS | Penpot H-01 Variant A: Trajectory **in LPS**; runtime: Conversation + **separate** TrajectorySurface + LPS | high | H-01 CARRY | KEEP layout pending Morris |
+| `…f091da3d` | SC-04 Trajectory / Options / Rec / HD | 1440×1024 | SC-04 | S6 | UF-03 | W2 options/HD + F2 gate | RT-SC-04-* · f2-gate | PARTIAL | **GAP** | PASS | Penpot single Option/Rec/HD triad in conversation; runtime **dual** F2 decide + W2 decide | **P0** | dual-path | COMPLETE / converge |
+| `…17179cb3` | SC-05 EC Summary | 1440×1100 | SC-05 | S10 | UF-04 | W2 EC summary | RT-SC-05 | PARTIAL | PARTIAL | PASS | Penpot Pilote-first 6 cards + Inspect primary; runtime denser / dual F3 presenter also present | med | EC density | ADAPT |
+| `…17a7f741` | SC-06 EC Detail / Confirmation | 1440×1120 | SC-06 | S10/S11 | UF-04 | inspect + confirm | RT-SC-06 | PARTIAL | PARTIAL | PASS | Penpot Confirmation ≠ Execute + explicit consent; F3 path bundles confirm+execute | high | Confirmation conflation | ADAPT |
+| `…1809b949` | SC-07 Authorization Blocked | 1440×920 | SC-07 | S11 | UF-04 | authz outcome | RT-SC-07-* | PARTIAL | PARTIAL | PARTIAL | Penpot blocked/insufficient designed; runtime capture AUTHORIZED-dominant; blocked variant thin | med | authority UX | ADAPT |
+| `…184c4752` | SC-08 Attempt Running | 1440×920 | SC-08 | S12 | UF-05 | mid-run | _(thin)_ | PARTIAL | PARTIAL | PARTIAL | Penpot RUNNING + guards + legitimate Stop; runtime mid-state not separately captured | med | lifecycle | COMPLETE proof later |
+| `…40bfc1fe` | SC-09 SUCCESS / Evidence | 1440×920 | SC-09 | S9/S12 | UF-05 | success evidence | _(W4-A hist / dual)_ | PARTIAL | PARTIAL | PARTIAL | Penpot business-first 1–4 + Voir Evidence; runtime IDs/fixture jargon still primary in places | high | Evidence hierarchy | ADAPT |
+| `…411bf67a` | SC-10 STOP / Evidence / Next | 1440×920 | SC-10 | S9/S12 | UF-05 | STOP-adjacent | NOT this run | NOT OBSERVABLE | PARTIAL | PARTIAL | Structure in Penpot; runtime STOP vs CANCELLED mapping remains | med | terminals | ADAPT |
+| `…416932ea` | SC-11 FAIL / Recovery Action | 1440×920 | SC-11 | S9/S8 | UF-05 | fail/timeout | NOT this run | NOT OBSERVABLE | PARTIAL | PARTIAL | Penpot FAIL+recovery CTA; runtime jargon in recovery copy | med | Recovery | ADAPT |
+| `…41afedfa` | SC-12 Nora Analysis / Replanning | 1440×920 | SC-12 | S4–S6 | UF-06 | replan | NOT driven | NOT OBSERVABLE | NOT OBSERVABLE | NOT OBSERVABLE | Design present; E2E not exercised | med | UF-06 | COMPLETE later |
+| `…5d4a9af6` | SC-13 Recovery / Resume | 1440×920 | SC-13 | S8 | UF-07 | recovery | _(honesty banner)_ | PARTIAL | PARTIAL | PASS | Penpot durable vs process-local split; runtime honesty banner present; copy still method-leaning | med | no false GO | ADAPT |
+| `…5deabeb8` | SC-14 Empty / Loading / Error / Blocked | 1440×980 | SC-14 | multi | multi | states | entry loading only | PARTIAL | PARTIAL | PARTIAL | Principles in Penpot; systematic state capture incomplete | low | H-04 | ADAPT |
+| `…5e88a090` | SC-R01 Workspace / Trajectory Responsive | 1480×2700 | SC-R01 | S3/S6 | — | 1440/1024/390 | RT responsive samples | PARTIAL | PARTIAL | PARTIAL | Boards exist; H-02 CARRY | med | H-02 | CARRY |
+| `…75783f19` | SC-R02 EC / Confirmation Responsive | 1080×1900 | SC-R02 | S10/S11 | — | authz trio | RT-SC-07-*-vp | PARTIAL | PARTIAL | PARTIAL | Renders; density/overflow risks remain | med | H-02 | CARRY |
+| `…7671266c` | SC-R03 Evidence / Recovery Responsive | 1080×1900 | SC-R03 | S9/S8 | — | limited | limited | PARTIAL | PARTIAL | PARTIAL | Under-sampled this run | low | H-02/H-03 | CARRY |
+
+**Visual matrix rollup:** PASS 0 · PARTIAL 14 · GAP 0 (visual) · NOT OBSERVABLE 3 (SC-10/11/12 visual this pass)
+
+**Interaction rollup (from matrix):** PASS 0 · PARTIAL 14 · **GAP 1 (SC-04 dual)** · NOT OBSERVABLE 1 (SC-12)
+
+**Runtime rollup:** PASS 5 · PARTIAL 10 · GAP 0 · NOT OBSERVABLE 2
+
+## 23. S1→S12 revalidation
+
+| S | Visual vs Penpot | Interaction | Runtime | Notes vs W4-A |
+| --- | --- | --- | --- | --- |
+| S1 | PARTIAL | PARTIAL | PARTIAL | CONFIRMED entry job; richer Penpot list chrome |
+| S2 | PARTIAL | PARTIAL | PASS | CONFIRMED S2 mismatch / provisional debt vs SC-02 |
+| S3 | PARTIAL | PARTIAL | PASS | Shell exists; H-01 layout divergence **now Penpot-proven** |
+| S4 | PARTIAL | PARTIAL | PASS | Conversation-first ≠ only; F2 jargon primary CONFIRMED |
+| S5 | PARTIAL | PARTIAL | PASS | LPS present; not identical to Penpot LPS+trajectory region |
+| S6 | PARTIAL | **GAP** | PASS | Dual F2/W2 CONFIRMED with Penpot single-path intent |
+| S7 | PARTIAL | PARTIAL | PASS | History present |
+| S8 | PARTIAL | PARTIAL | PASS | Honesty; Recovery jargon CONFIRMED |
+| S9 | PARTIAL | PARTIAL | PARTIAL | Evidence hierarchy CONFIRMED gap |
+| S10 | PARTIAL | PARTIAL | PASS | EC density / dual presenters CONFIRMED |
+| S11 | PARTIAL | PARTIAL | PASS | Confirmation conflation (F3) CONFIRMED vs Penpot split |
+| S12 | PARTIAL | PARTIAL | PARTIAL | Attempt lifecycle thinner than Penpot SC-08 |
+
+**S rollup:** PASS 0 · PARTIAL 11 · GAP 1 · NOT OBSERVABLE 0
+
+## 24. UF-01→07 revalidation
+
+| UF | Verdict | Evidence |
+| --- | --- | --- |
+| UF-01 | PARTIAL | Penpot WF-01 Create OR Resume; runtime create+entry |
+| UF-02 | PARTIAL | SC-03 / F2 gate |
+| UF-03 | **GAP** | Dual decision paths vs Penpot single Option/Rec/HD |
+| UF-04 | PARTIAL/GAP | Dual EC/confirm presenters; Penpot inspect→confirm≠execute |
+| UF-05 | PARTIAL | Terminals reachable; STOP/FAIL under-sampled |
+| UF-06 | NOT OBSERVABLE | SC-12 not driven |
+| UF-07 | PARTIAL | Recovery honesty; no false GO observed |
+
+**UF rollup:** PASS 0 · PARTIAL 4 · GAP 2 · NOT OBSERVABLE 1
+
+## 25. SC-01→14 revalidation
+
+See §22. **SC rollup:** PASS 0 · PARTIAL 11 · GAP 1 (SC-04) · NOT OBSERVABLE 2 (SC-12; SC-10/11 visual this pass) — consistent with W4-A, now **Penpot-backed** for visual axis on inspected screens.
+
+## 26. A11Y-PC-01→06 revalidation
+
+| ID | Design (Penpot) | Runtime | Verdict |
+| --- | --- | --- | --- |
+| A11Y-PC-01 textual statuses | Explicit pills SUCCESS/RUNNING/blocked | Textual gates present; some jargon | PARTIAL |
+| A11Y-PC-02 protected actions identifiable | SC-06 orange protected label | Confirm/execute controls labeled | PARTIAL |
+| A11Y-PC-03 STOP/FAIL without color | SE-06 / SC-10/11 textual | Terminals text+color; not color-only proven fail | PARTIAL |
+| A11Y-PC-04 headings hierarchy | Clear SC hierarchy | Headings present; density issues | PARTIAL |
+| A11Y-PC-05 Confirmation consent | Explicit checkbox SC-06 | W2 better; F3 bundles | PARTIAL / GAP on F3 path |
+| A11Y-PC-06 primary Evidence readable | SC-09 business-first 1–4 | Technical IDs still compete | PARTIAL |
+
+**No WCAG/AA claim.**
+
+**A11Y rollup:** PASS 0 · PARTIAL 6 · GAP 0 (global) with F3 consent reserve.
+
+## 27. H-01→04 evidence only (CARRY)
+
+| Hypothesis | Penpot direct | Runtime | Status |
+| --- | --- | --- | --- |
+| H-01 structural layout | SC-03/04 annotate **Variant A — Trajectory in LPS** | TrajectorySurface separate below conversation | **CARRY** — Morris gate; Penpot preference ≠ Git adoption |
+| H-02 viewport trio | SC-R01…R03 boards exist | 1440/1024/390 captures exist | **CARRY** |
+| H-03 Evidence in-workspace | SC-09 in product frame | Evidence often in cards / dual path | **CARRY** |
+| H-04 empty-state primary CTA | SC-01/14 principles | Entry CTA present; empty systematics thin | **CARRY** |
+
+Cursor recommendation (non-binding): treat Penpot Variant A as **strong design evidence** for H-01 discussion; do **not** auto-adopt.
+
+## 28. W4-A original findings — confirmed / changed
+
+| W4-A finding | W4-A2 disposition | Basis |
+| --- | --- | --- |
+| DIRECT PENPOT VISUAL SOURCE UNAVAILABLE | **SUPERSEDED** | MCP live + inventories + export_shape visuals |
+| VISUAL PIXEL-FIDELITY NOT PROVEN | **REFINED** → still not hash/pixel proven; **composition fidelity now PARTIAL-proven** | MCP vision ≠ disk pixel compare |
+| Dual-path F2/F3 ↔ W2/W3 | **CONFIRMED** | Penpot single authority path vs runtime dual captures |
+| S2 mismatch / provisional debt | **CONFIRMED** | SC-02 Penpot vs runtime form |
+| Jargon primary | **CONFIRMED** | Runtime AUTHORIZED / fixture / W2 labels vs Penpot business-first |
+| EC density | **CONFIRMED** | SC-05 Penpot Pilote-first vs denser runtime |
+| Confirmation conflation | **CONFIRMED** | SC-06 Penpot split vs F3 confirm+execute |
+| Evidence hierarchy | **CONFIRMED** | SC-09 / SE-07 vs runtime |
+| Recovery jargon | **CONFIRMED** | SC-13 design vs runtime copy |
+| Responsive state | **CONFIRMED as CARRY** | R boards + viewport captures |
+| H-01…04 | **CARRY** | Penpot clarifies H-01 preferred variant visually |
+
+## 29. Penpot / Git contradictions
+
+**None structural** on:
+- page set;
+- 17 screen names/count;
+- 12 wireframes IDs;
+- Components = 0;
+- UF-01…07 presence.
+
+**Non-contradiction / CARRY tension:** Penpot SC-03/04 show H-01 Variant A as designed preferred layout while Git still marks H-01 CARRY — report as **Morris review topic**, not silent SoT flip.
+
+## 30. Blockers / non-blockers
+
+### Blockers for strong “pixel-perfect PASS”
+- No durable Penpot PNG filesystem exports from MCP → cannot claim pixel-hash fidelity.
+
+### Non-blocking reserves
+- SC-01 loading capture
+- SC-10/11/12 visual export_shape not all done
+- Contact sheets absent
+- UF-06 not runtime-driven
+- H-01…04 CARRY
+
+### Not blockers for this supplement’s purpose
+- Dual-path gaps (already known; evidence enriched)
+- W4-B uncommitted (preserved; out of mutate scope)
+
+## 31. Precise W4 impact
+
+- May **lift** W4-A reserve: *Penpot direct source unavailable*.
+- Does **not** auto-close W4-A delivery; ChatGPT/Morris decide.
+- Visual gaps now **qualified against Penpot**, enabling better W4-B integration gate judgment.
+- Does **not** authorize W4-C.
+
+## 32. Implications for already-executed W4-B — OBSERVATION ONLY
+
+- W4-B (uncommitted) targets single authority path + business-first labels — **aligned in intent** with Penpot SC-04/WF-03 single Option/Rec/HD path and jargon reduction.
+- This cycle **does not re-review** W4-B implementation, tests, or claim W4-B CLOSED/integrated.
+- Post-W4-A2 ChatGPT may still require W4-B vs Penpot visual re-check **after** integration gate — out of scope here.
+
+## 33. No W4-B re-review claim
+
+**Explicit:** W4-B not re-audited. Tree preserved only.
+
+## 34. No W4-C authorization
+
+**Explicit:** W4-C not started / not authorized.
+
+## 35. W4-B preservation snapshot AFTER
+
+(Computed at pack finalization — must match BEFORE.)
+
+| Item | Expected = BEFORE |
+| --- | --- |
+| Branch | `delivery/sfia-studio-w4-b-single-authority-path` |
+| HEAD | `1e17367d…` |
+| origin/main | `1e17367d…` |
+| diff --binary SHA-256 | `c280d9f977f8c712bb57472e3d9775c8e468b818b58ea1afd6cc6099c4665918` |
+| Untracked project SHA | `f9321e2e19b726332b6315889cb3583141a6c7205d44de23bcc85806713114d5` |
+
+## 36. Final Git truth
+
+- Primary worktree remains W4-B dirty tree untouched by product/doc/test edits.
+- Only `.tmp-sfia-review/**` + Review Handoff branch publication allowed.
+- Baseline worktree to be removed after handoff without deleting branches.
+
+## 37. Claims / anti-claims
+
+### Claims allowed
+- Penpot MCP **read successfully** this cycle.
+- Inventories of pages / UF / WF / Screens / Components / SE **direct**.
+- Direct visual render of priority screens via `export_shape`.
+- Pre-W4-B runtime baseline captures @ `1e17367d`.
+- Comparison matrices produced on three axes.
+- W4-A Penpot-unavailable reserve **candidate to supersede** (ChatGPT decides).
+
+### Anti-claims (FORBIDDEN — not declared)
+- W4-A CLOSED · W4-B CLOSED/integrated · W4 CLOSED · Product Completion COMPLETE · W4-C authorized · H-01…04 decided · WCAG · pixel-perfect · REAL · READY FOR REAL · runtime v3 ADOPTED
+
+## 38. Verdict
+
+**W4-A DIRECT VISUAL SUPPLEMENT PASS WITH RESERVES — PENPOT DIRECT EVIDENCE ACQUIRED — VISUAL GAPS QUALIFIED — READY FOR CHATGPT REVIEW**
+
+Rationale:
+1. Penpot direct source **available and read**.
+2. Structure + substantial visual renders acquired.
+3. Gaps vs runtime **qualified** (dual-path, H-01 layout, S2, jargon, EC/Confirmation/Evidence).
+4. Pixel-hash / full 17-screen disk export **not** proven → reserves remain honest.
+5. No product/Penpot/Git mutation; W4-B tree preservation required to verify at close.
+
+---
+
+## Appendix A — Fake / Real
+
+| Level | Status |
+| --- | --- |
+| DETERMINISTIC PRODUCT-NATIVE PROVEN | entry consumed from W3 |
+| DIRECT PENPOT DESIGN EVIDENCE | **ACHIEVED** (this cycle) |
+| DETERMINISTIC RUNTIME VISUAL / INTERACTION BASELINE | **ACHIEVED** @ `1e17367d` |
+| REAL BOUNDARY / E2E REAL / READY FOR REAL | **OUT** |
+
+## Appendix B — Artifact index
+
+| Artifact | Path |
+| --- | --- |
+| Review Pack | `.tmp-sfia-review/chatgpt-review.md` |
+| Penpot manifest | `.tmp-sfia-review/penpot-exports/w4-a2-direct/manifest.md` |
+| Penpot inventories | `.tmp-sfia-review/penpot-exports/w4-a2-direct/inventories/` |
+| Runtime captures | `.tmp-sfia-review/runtime-captures/w4-a2-direct/` |
+| Preservation | `.tmp-sfia-review/w4-a2-preservation/` |
+| Baseline worktree | `/tmp/sfia-w4a2-baseline-nwpO9u` |
