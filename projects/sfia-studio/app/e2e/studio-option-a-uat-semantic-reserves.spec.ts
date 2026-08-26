@@ -46,6 +46,11 @@ async function capture(page: Page, id: string): Promise<string> {
 }
 
 test.describe("PRE-M6 UAT semantic reserves — deterministic browser", () => {
+
+// W4-B: F3 confirm+execute / F2 decide are no longer product-visible on /studio.
+// Historical Option A F3 proofs are RETIRE LATER (harness/unit with exposeLegacyAuthorityPath).
+test.skip(true, "W4-B product path: F2/F3 authority affordances removed — RETIRE LATER");
+
   test.describe.configure({ timeout: 240_000 });
 
   test("A–D confirmation → running → succeeded → reload", async ({ page }) => {

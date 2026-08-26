@@ -48,14 +48,24 @@ function sourceStatusLabel(status: AssistantToolEventDto["status"]): string {
 
 export type ConversationSurfaceProps = {
   controller: ProductConversationController;
+  /**
+   * TEST / HARVEST harness only. When true, restores historical F2 gate + F3
+   * prepare/confirm-execute affordances. Product `/studio` path must leave this
+   * unset/false so TrajectorySurface remains the sole authority/execute chain.
+   */
+  exposeLegacyAuthorityPath?: boolean;
 };
 
 /**
- * F2–F8 product conversation surface.
- * Recommendation, HumanDecision and Confirmation stay visually distinct;
- * nothing here grants execution authority or claims durability.
+ * Nora conversation + qualification surface.
+ * Product authority path (HumanDecision / EC / Confirmation / Execute) lives on
+ * TrajectorySurface (W2/W3). Legacy F2/F3 affordances stay behind
+ * `exposeLegacyAuthorityPath` for harvest / RETIRE LATER proofs only.
  */
-export function ConversationSurface({ controller }: ConversationSurfaceProps) {
+export function ConversationSurface({
+  controller,
+  exposeLegacyAuthorityPath = false,
+}: ConversationSurfaceProps) {
   const fieldId = useId();
   const liveRegionId = useId();
   const {
@@ -426,7 +436,30 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
         </section>
       ) : null}
 
-      {gateOpen ? (
+      {gateOpen && !exposeLegacyAuthorityPath ? (
+        <section
+          className={styles.card}
+          data-testid="product-authority-path-guidance"
+          aria-labelledby={`${fieldId}-authority-guidance`}
+        >
+          <header className={styles.cardHead}>
+            <p className={styles.cardEyebrow}>Suite du parcours</p>
+            <h3
+              id={`${fieldId}-authority-guidance`}
+              className={styles.cardTitle}
+            >
+              Décidez la trajectoire ci-dessous
+            </h3>
+            <p className={styles.cardNote}>
+              La qualification est enregistrée. La décision de trajectoire, le
+              contrat, la confirmation et l&apos;exécution se font dans la
+              section « Trajectoire et décision » — un seul chemin d&apos;autorité.
+            </p>
+          </header>
+        </section>
+      ) : null}
+
+      {gateOpen && exposeLegacyAuthorityPath ? (
         <section
           className={styles.decisionCard}
           data-testid="project-assistant-gate"
@@ -475,7 +508,7 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
         </section>
       ) : null}
 
-      {f2?.decision ? (
+      {exposeLegacyAuthorityPath && f2?.decision ? (
         <section
           className={styles.cardOk}
           data-testid="project-assistant-decision"
@@ -525,7 +558,8 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
         </section>
       ) : null}
 
-      {canPrepareResolvedM3 || canPrepareLegacyFixture ? (
+      {exposeLegacyAuthorityPath &&
+      (canPrepareResolvedM3 || canPrepareLegacyFixture) ? (
         <section className={styles.card} data-testid="project-assistant-f3-prepare">
           <header className={styles.cardHead}>
             <p className={styles.cardEyebrow}>Étape suivante</p>
@@ -569,7 +603,7 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
         </section>
       ) : null}
 
-      {f3M3Resolved && !f3Execute ? (
+      {exposeLegacyAuthorityPath && f3M3Resolved && !f3Execute ? (
         <section
           className={styles.contractCard}
           data-testid="project-assistant-f3-contract"
@@ -726,7 +760,7 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
         </section>
       ) : null}
 
-      {f3Prepare && !f3Execute ? (
+      {exposeLegacyAuthorityPath && f3Prepare && !f3Execute ? (
         <section
           className={styles.card}
           data-testid="project-assistant-f3-legacy-contract"
@@ -784,7 +818,7 @@ export function ConversationSurface({ controller }: ConversationSurfaceProps) {
         </section>
       ) : null}
 
-      {f3Execute && attemptLabel ? (
+      {exposeLegacyAuthorityPath && f3Execute && attemptLabel ? (
         <section
           className={styles.card}
           data-testid="project-assistant-f3-execute"

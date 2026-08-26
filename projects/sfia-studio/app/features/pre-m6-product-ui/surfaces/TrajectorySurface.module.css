@@ -9,6 +9,11 @@
   padding: var(--pm6-space-5);
 }
 
+.embedded {
+  box-shadow: none;
+  border-color: var(--pm6-border);
+}
+
 .head {
   display: flex;
   flex-direction: column;
@@ -111,7 +116,54 @@
   padding: var(--pm6-space-4);
   border-radius: var(--pm6-radius-md);
   border: 1px solid var(--pm6-border-soft);
+  background: var(--pm6-surface);
+  box-shadow: var(--pm6-shadow-card);
+}
+
+.recommendation {
+  border-color: color-mix(in srgb, var(--pm6-info) 28%, var(--pm6-border-soft));
+  background: var(--pm6-info-tint);
+}
+
+.decision {
+  border-color: color-mix(in srgb, var(--pm6-forest) 35%, var(--pm6-border-soft));
+  background: var(--pm6-forest-tint);
+}
+
+.blocked {
+  border-color: color-mix(in srgb, var(--pm6-danger) 35%, var(--pm6-border-soft));
+  background: var(--pm6-danger-tint);
+}
+
+.sectionKind {
+  display: inline-flex;
+  align-items: center;
+  margin-right: var(--pm6-space-2);
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--pm6-radius-pill);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.sectionKind[data-kind="option"] {
   background: var(--pm6-surface-sunken);
+  border: 1px solid var(--pm6-border);
+  color: var(--pm6-muted-strong);
+}
+
+.sectionKind[data-kind="recommendation"] {
+  background: var(--pm6-surface);
+  border: 1px solid var(--pm6-info);
+  color: var(--pm6-info);
+}
+
+.sectionKind[data-kind="decision"] {
+  background: var(--pm6-surface);
+  border: 1px solid var(--pm6-forest);
+  color: var(--pm6-forest);
 }
 
 .blockTitle {
@@ -119,14 +171,21 @@
   font-size: 0.92rem;
   font-weight: 600;
   color: var(--pm6-ink);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pm6-space-2);
 }
 
 .recoTitle {
   margin: 0;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--pm6-forest);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--pm6-ink);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pm6-space-2);
 }
 
 .optionList {
@@ -322,6 +381,21 @@
 }
 
 .technicalDetails summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.contractLevel2 {
+  margin: 0;
+  border-radius: var(--pm6-radius-md);
+  border: 1px solid var(--pm6-border-soft);
+  background: var(--pm6-canvas-raised);
+  padding: var(--pm6-space-3);
+  font-size: 0.82rem;
+  color: var(--pm6-muted-strong);
+}
+
+.contractLevel2 summary {
   cursor: pointer;
   font-weight: 600;
 }

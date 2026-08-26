@@ -109,6 +109,55 @@
   overflow-y: auto;
 }
 
+/* H-01 Option A — unified piloting region (LPS + Trajectory presentation) */
+.stateTrajectoryRegion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-4);
+  min-width: 0;
+  padding: var(--pm6-space-3);
+  background: var(--pm6-canvas-raised);
+  border: 1px solid var(--pm6-border);
+  border-radius: var(--pm6-radius-lg);
+}
+
+.stateTrajectoryHead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-1);
+  padding: 0;
+}
+
+.stateTrajectoryEyebrow {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pm6-forest);
+}
+
+.stateTrajectoryTitle {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--pm6-ink);
+}
+
+.stateTrajectoryNote {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--pm6-muted-strong);
+}
+
+.stateTrajectoryStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-4);
+  min-width: 0;
+}
+
 .lpsClose {
   display: none;
   align-self: flex-end;
@@ -128,7 +177,7 @@
   }
 }
 
-/* ---------- <=1024: project state becomes a drawer ---------- */
+/* ---------- <=1024: stack conversation then État/Trajectoire (H-01) ---------- */
 
 @media (max-width: 1024px) {
   .layout {
@@ -136,29 +185,28 @@
   }
 
   .lpsToggle {
-    display: inline-flex;
+    display: none;
   }
 
   .lpsClose {
-    display: inline-flex;
+    display: none;
   }
 
   .lpsColumn {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: min(420px, 92vw);
-    z-index: 60;
-    background: var(--pm6-canvas-raised);
-    border-left: 1px solid var(--pm6-border);
-    box-shadow: var(--pm6-shadow-raised);
-    padding: var(--pm6-space-4);
-    overflow-y: auto;
+    position: static;
+    top: auto;
+    width: auto;
+    z-index: auto;
+    background: transparent;
+    border-left: none;
+    box-shadow: none;
+    padding: 0;
+    overflow: visible;
   }
 
-  .lpsClosed {
-    display: none;
+  .lpsClosed,
+  .lpsOpen {
+    display: block;
   }
 
   .lpsSheet {

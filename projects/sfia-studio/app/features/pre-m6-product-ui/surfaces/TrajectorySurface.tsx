@@ -39,7 +39,33 @@ import type {
   W3cPostEvidenceLoopDto,
 } from "@/features/project-assistant/w2/types";
 import { filterProductReservationsForDisplay } from "@/features/project-assistant/w2/w3cProductPresentation";
+import type { ExecutionContractStatus } from "@/lib/oa/execution-contract/domain/types";
 import styles from "./TrajectorySurface.module.css";
+
+/**
+ * Presentation-only labels for ExecutionContractStatus.
+ * Exhaustive over the domain union; never surfaces the raw enum as primary copy.
+ */
+const EXECUTION_CONTRACT_STATUS_LABELS: Record<ExecutionContractStatus, string> =
+  {
+    draft: "Brouillon",
+    proposed: "Proposé",
+    validated: "Validé",
+    confirmation_required: "Confirmation requise",
+    confirmed: "Confirmation enregistrée",
+    executing: "Exécution en cours",
+    completed: "Exécution terminée",
+    failed: "Échec d'exécution",
+    cancelled: "Annulé",
+    superseded: "Remplacé",
+  };
+
+function executionContractStatusLabel(status: string): string {
+  if (Object.prototype.hasOwnProperty.call(EXECUTION_CONTRACT_STATUS_LABELS, status)) {
+    return EXECUTION_CONTRACT_STATUS_LABELS[status as ExecutionContractStatus];
+  }
+  return "État du contrat indisponible";
+}
 
 /** Explicit Pilot-qualified operation — never inferred from W2 trajectory alone. */
 type QualifiedOperationKind = "generate-temporary-artifact" | "simulate" | "read";
@@ -98,11 +124,17 @@ export function TrajectorySurface({
   projectId,
   onDurableFactsChanged,
   recoveryProposeSignal = 0,
+  composition = "standalone",
 }: {
   projectId: string;
   onDurableFactsChanged?: () => void;
   /** B1 — increment from RecoverySurface requalify to reuse proposeOptions(). */
   recoveryProposeSignal?: number;
+  /**
+   * H-01 Option A: embed visually in the LPS piloting region.
+   * Presentation-only — does not change ProjectTrajectory domain identity.
+   */
+  composition?: "standalone" | "lps-embedded";
 }) {
   const [busy, setBusy] = useState<Busy>(null);
   const [error, setError] = useState<string | null>(null);
@@ -555,20 +587,26 @@ export function TrajectorySurface({
 
   return (
     <section
-      className={styles.root}
+      className={[
+        styles.root,
+        composition === "lps-embedded" ? styles.embedded : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
       data-testid="w2-trajectory-panel"
+      data-composition={composition}
       aria-labelledby="w2-trajectory-title"
     >
       <header className={styles.head}>
-        <p className={styles.eyebrow}>Trajectoire et décision</p>
+        <p className={styles.eyebrow}>Trajectoire du projet</p>
         <h2 id="w2-trajectory-title" className={styles.title}>
           Options, recommandation, puis votre décision
         </h2>
         <p className={styles.note}>
           Nora instruit des options et recommande. La décision vous appartient :
           une recommandation ne décide jamais et ne rend jamais une trajectoire
-          courante. L&apos;exécution (W3-A) n&apos;est possible qu&apos;après un
-          verdict AUTHORIZED, via une action Exécuter explicite (fixture).
+          courante. L&apos;exécution n&apos;est possible qu&apos;après une
+          autorisation vérifiée, via une action Exécuter explicite et distincte.
         </p>
       </header>
 
@@ -603,6 +641,9 @@ export function TrajectorySurface({
             data-testid="w2-options"
           >
             <h3 id="w2-options-title" className={styles.blockTitle}>
+              <span className={styles.sectionKind} data-kind="option">
+                Option
+              </span>
               Options proposées
             </h3>
             <p className={styles.blockNote} data-testid="w2-proposed-trajectory">
@@ -657,6 +698,9 @@ export function TrajectorySurface({
             data-testid="w2-recommendation"
           >
             <h3 id="w2-reco-title" className={styles.recoTitle}>
+              <span className={styles.sectionKind} data-kind="recommendation">
+                Recommandation
+              </span>
               {optionSet.recommendation.label}
             </h3>
             <p className={styles.blockBody}>
@@ -679,6 +723,9 @@ export function TrajectorySurface({
           data-testid="w2-decision"
         >
           <h3 id="w2-decision-title" className={styles.blockTitle}>
+            <span className={styles.sectionKind} data-kind="decision">
+              Décision humaine
+            </span>
             Décision de trajectoire — {decision.statusLabel}
           </h3>
           <dl className={styles.facts}>
@@ -711,7 +758,7 @@ export function TrajectorySurface({
           >
             <p className={styles.blockNote}>
               Qualifier le travail d&apos;exécution réel (indépendant de
-              l&apos;option de trajectoire W2).
+              l&apos;option de trajectoire déjà décidée).
             </p>
             <label className={styles.amendmentLabel} htmlFor="w3a-operation-kind">
               Opération d&apos;exécution
@@ -774,23 +821,19 @@ export function TrajectorySurface({
           data-testid="w2-contract"
         >
           <h3 id="w2-contract-title" className={styles.blockTitle}>
-            Contrat d&apos;exécution préparé
+            Contrat d&apos;exécution — résumé
           </h3>
+          <p className={styles.blockNote}>
+            Relisez d&apos;abord ce qui sera tenté. Inspectez le détail avant
+            toute confirmation. Confirmer n&apos;exécute pas.
+          </p>
           <dl className={styles.facts} data-testid="w2-contract-facts">
             <div>
-              <dt>Version</dt>
-              <dd data-testid="w2-contract-version">v{contract.version}</dd>
-            </div>
-            <div>
-              <dt>Statut</dt>
-              <dd data-testid="w2-contract-status">{contract.status}</dd>
-            </div>
-            <div>
-              <dt>Action</dt>
+              <dt>Ce qui sera fait</dt>
               <dd data-testid="w2-contract-action">{contract.action}</dd>
             </div>
             <div>
-              <dt>Cible</dt>
+              <dt>Résultat / cible</dt>
               <dd data-testid="w2-contract-target">{contract.target}</dd>
             </div>
             <div>
@@ -798,48 +841,96 @@ export function TrajectorySurface({
               <dd data-testid="w2-contract-scope">{contract.scope}</dd>
             </div>
             <div>
-              <dt>Autorité requise</dt>
-              <dd data-testid="w2-contract-authority">
-                {contract.requiredAuthority}
+              <dt>État du contrat</dt>
+              <dd
+                data-testid="w2-contract-status"
+                data-status={contract.status}
+              >
+                {executionContractStatusLabel(contract.status)}
               </dd>
             </div>
             <div>
-              <dt>Capacités</dt>
-              <dd data-testid="w2-contract-capabilities">
-                {contract.requiredCapabilities.length
-                  ? contract.requiredCapabilities.join(", ")
-                  : "Aucune"}
-              </dd>
-            </div>
-            <div>
-              <dt>Réversibilité</dt>
-              <dd data-testid="w2-contract-reversibility">
-                {contract.reversibility}
-              </dd>
-            </div>
-            <div>
-              <dt>Contraintes</dt>
-              <dd data-testid="w2-contract-constraints">
-                {contract.constraints.length
-                  ? contract.constraints.join(" · ")
-                  : "Aucune"}
-              </dd>
-            </div>
-            <div>
-              <dt>Conditions d&apos;arrêt</dt>
-              <dd data-testid="w2-contract-stops">
-                {contract.stopConditions.length
-                  ? contract.stopConditions.join(" · ")
-                  : "Aucune"}
-              </dd>
-            </div>
-            <div>
-              <dt>Empreinte sémantique</dt>
-              <dd className={styles.code}>
-                {contract.semanticFingerprint.slice(0, 12)}…
+              <dt>Prochaine action utile</dt>
+              <dd>
+                {inspection?.inspectionSufficient
+                  ? contract.status === "confirmation_required"
+                    ? "Confirmer si requis, puis statuer sur l'autorisation"
+                    : "Statuer sur l'autorisation"
+                  : "Inspecter le détail du contrat"}
               </dd>
             </div>
           </dl>
+          <details className={styles.contractLevel2}>
+            <summary>Détails métier du contrat</summary>
+            <dl className={styles.facts}>
+              <div>
+                <dt>Version</dt>
+                <dd data-testid="w2-contract-version">v{contract.version}</dd>
+              </div>
+              <div>
+                <dt>Autorité requise</dt>
+                <dd data-testid="w2-contract-authority">
+                  {contract.requiredAuthority}
+                </dd>
+              </div>
+              <div>
+                <dt>Capacités</dt>
+                <dd data-testid="w2-contract-capabilities">
+                  {contract.requiredCapabilities.length
+                    ? contract.requiredCapabilities.join(", ")
+                    : "Aucune"}
+                </dd>
+              </div>
+              <div>
+                <dt>Réversibilité</dt>
+                <dd data-testid="w2-contract-reversibility">
+                  {contract.reversibility}
+                </dd>
+              </div>
+              <div>
+                <dt>Contraintes</dt>
+                <dd data-testid="w2-contract-constraints">
+                  {contract.constraints.length
+                    ? contract.constraints.join(" · ")
+                    : "Aucune"}
+                </dd>
+              </div>
+              <div>
+                <dt>Conditions d&apos;arrêt</dt>
+                <dd data-testid="w2-contract-stops">
+                  {contract.stopConditions.length
+                    ? contract.stopConditions.join(" · ")
+                    : "Aucune"}
+                </dd>
+              </div>
+            </dl>
+          </details>
+          <details className={styles.technicalDetails}>
+            <summary>Détails techniques du contrat</summary>
+            <dl className={styles.facts}>
+              <div>
+                <dt>Statut technique</dt>
+                <dd
+                  className={styles.code}
+                  data-testid="w2-contract-status-tech"
+                >
+                  {contract.status}
+                </dd>
+              </div>
+              <div>
+                <dt>Empreinte sémantique</dt>
+                <dd className={styles.code} data-testid="w2-contract-fingerprint">
+                  {contract.semanticFingerprint.slice(0, 12)}…
+                </dd>
+              </div>
+              <div>
+                <dt>Identifiant contrat</dt>
+                <dd className={styles.code} data-testid="w2-contract-id-tech">
+                  {contract.executionContractId}
+                </dd>
+              </div>
+            </dl>
+          </details>
 
           {amendmentNotice ? (
             <div
@@ -919,7 +1010,7 @@ export function TrajectorySurface({
                     : undefined
                 }
               >
-                Confirmer (effets / autorité)
+                Confirmer mon consentement
               </button>
             ) : null}
             <button
@@ -961,8 +1052,13 @@ export function TrajectorySurface({
           role="status"
         >
           <h3 id="w2-authorization-title" className={styles.blockTitle}>
-            <span data-testid="w2-authorization-outcome">
-              {authorization.outcomeLabel}
+            <span
+              data-testid="w2-authorization-outcome"
+              data-outcome={authorization.outcome}
+            >
+              {authorization.outcome === "AUTHORIZED"
+                ? "Autorisation vérifiée — l'exécution peut être lancée"
+                : "Exécution bloquée"}
             </span>
           </h3>
           <p className={styles.blockBody} data-testid="w2-authorization-reason">
@@ -988,13 +1084,24 @@ export function TrajectorySurface({
               <dt>Inspection</dt>
               <dd>{authorization.inspection.statusLabel}</dd>
             </div>
-            <div>
-              <dt>Trace d&apos;autorité</dt>
-              <dd className={styles.code}>
-                {authorization.authorityReceiptRef}
-              </dd>
-            </div>
           </dl>
+          <details className={styles.technicalDetails}>
+            <summary>Détails techniques d&apos;autorité</summary>
+            <dl className={styles.facts}>
+              <div>
+                <dt>Verdict technique</dt>
+                <dd data-testid="w2-authorization-outcome-tech">
+                  {authorization.outcomeLabel}
+                </dd>
+              </div>
+              <div>
+                <dt>Trace d&apos;autorité</dt>
+                <dd className={styles.code} data-testid="w2-authority-receipt">
+                  {authorization.authorityReceiptRef}
+                </dd>
+              </div>
+            </dl>
+          </details>
           {authorization.outcome === "AUTHORIZED" && !attempt ? (
             <>
               <p

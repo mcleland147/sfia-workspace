@@ -72,9 +72,13 @@ async function openThroughAuthorized(page: Page, name: string) {
   await expect(input).toBeEnabled({ timeout: 15_000 });
   await input.fill("Préparer une livraison gated __F2_GATED_STANDARD__");
   await page.getByTestId("project-assistant-send").click();
-  await expect(page.getByTestId("project-assistant-gate")).toBeVisible({
+  await expect(page.getByTestId("project-assistant-qualification")).toBeVisible({
     timeout: 60_000,
   });
+  await expect(page.getByTestId("product-authority-path-guidance")).toBeVisible();
+  await expect(page.getByTestId("f2-decide-GO")).toHaveCount(0);
+  await expect(page.getByTestId("f3-confirm-execute-button")).toHaveCount(0);
+  await expect(page.getByTestId("f3-legacy-confirm-execute-button")).toHaveCount(0);
 
   const trajectory = page.getByTestId("w2-trajectory-panel");
   await expect(trajectory).toBeVisible({ timeout: 15_000 });
@@ -100,12 +104,15 @@ async function openThroughAuthorized(page: Page, name: string) {
     { timeout: 30_000 },
   );
   await page.getByTestId("w2-confirm-contract").click();
-  await expect(page.getByTestId("w2-contract-status")).toHaveText("confirmed", {
-    timeout: 30_000,
-  });
+  await expect(page.getByTestId("w2-contract-status")).toHaveText(
+    "Confirmation enregistrée",
+    {
+      timeout: 30_000,
+    },
+  );
   await page.getByTestId("w2-authorize-contract").click();
   await expect(page.getByTestId("w2-authorization-outcome")).toContainText(
-    "AUTORISÉ",
+    "Autorisation vérifiée",
     { timeout: 30_000 },
   );
 }

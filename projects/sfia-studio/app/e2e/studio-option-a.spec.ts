@@ -104,6 +104,11 @@ async function sendGatedStandard(page: Page) {
 }
 
 test.describe("Cycle 9 — F1→F11 durable post-GO happy path", () => {
+
+// W4-B: F3 confirm+execute / F2 decide are no longer product-visible on /studio.
+// Historical Option A F3 proofs are RETIRE LATER (harness/unit with exposeLegacyAuthorityPath).
+test.skip(true, "W4-B product path: F2/F3 authority affordances removed — RETIRE LATER");
+
   test.describe.configure({ timeout: 240_000 });
 
   test("F1→F11 happy path + History/Recovery + responsive captures", async ({
