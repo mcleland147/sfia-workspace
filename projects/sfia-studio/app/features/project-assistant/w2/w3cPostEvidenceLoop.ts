@@ -9,7 +9,10 @@
  */
 
 import { createHash } from "node:crypto";
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import {
+  resolveProductDoctrineRegistryRoot,
+  type RuntimeOaStack,
+} from "@/lib/vertical-slice-runtime";
 import type { EpistemicItem } from "@/lib/oa/cycle";
 import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "@/features/project-assistant/f3/systemFactualWriter";
 import { appendEvidenceOutcomeToLps } from "@/features/project-assistant/f3/appendEvidenceOutcomeToLps";
@@ -22,8 +25,13 @@ import {
   formatW3cRecommendationPayloadForLps,
   lastW3cEvidenceIdInLpsContext,
 } from "@/features/project-assistant/f3/postEvidenceNoraAnalysis";
+import {
+  buildCkcCognitivePromptSection,
+  loadProductCkcCognitiveContent,
+} from "@/features/project-assistant/f2/ckcCognitiveContext";
 import type { NextActionCode } from "@/lib/oa/evidence-review/domain/coordinationTypes";
 import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
+import { resolveW2QualificationInputs } from "./qualificationInputs";
 
 export type W3cRecommendationKind =
   | "continue"
@@ -979,28 +987,56 @@ export async function runW3cPostEvidenceLoop(input: {
     }
   }
 
-  noraInvoked = true;
-  const analysis = await analyzePostEvidenceWithProvider({
-    projectId,
-    executionContractId: product.technicalDetail.executionContractId,
-    executionContractStatus: contractStatus,
-    executionContractAction: contractAction,
-    attemptId,
-    attemptStatus,
-    selectedAgentRef,
-    adapterRef,
-    executionMode,
-    realProcessInvoked,
-    evidenceId: product.evidenceId,
-    reviewBundleId: product.reviewBundleId,
-    technicalResultRef: product.technicalDetail.resultRef,
-    reservations: product.reservations,
+  // W3-D / US-P1-14 — full CKC Phase B on post-Evidence Nora path.
+  // Same product-native load + prompt seam as W2 Options (no parallel resolver).
+  const qualification = await resolveW2QualificationInputs({ oa, projectId });
+  if (!qualification.ok) {
+    return failClosed(
+      qualification.code,
+      `Qualification durable indisponible avant analyse post-Evidence — ${qualification.message}`,
+    );
+  }
+  const registryRoot = resolveProductDoctrineRegistryRoot();
+  const ckcContent = loadProductCkcCognitiveContent({
+    registryRoot,
+    cycleTypeId: qualification.qualification.inputs.cycleTypeId,
+    packagePin: qualification.qualification.packagePin,
   });
+  if (!ckcContent) {
+    return failClosed(
+      "CKC_UNAVAILABLE",
+      "CKC product-native introuvable ou incohérent pour le cycle actif — aucune mutation LPS/Epistemic post-Evidence.",
+    );
+  }
+  const ckcPromptSection = buildCkcCognitivePromptSection(ckcContent);
+
+  noraInvoked = true;
+  const analysis = await analyzePostEvidenceWithProvider(
+    {
+      projectId,
+      executionContractId: product.technicalDetail.executionContractId,
+      executionContractStatus: contractStatus,
+      executionContractAction: contractAction,
+      attemptId,
+      attemptStatus,
+      selectedAgentRef,
+      adapterRef,
+      executionMode,
+      realProcessInvoked,
+      evidenceId: product.evidenceId,
+      reviewBundleId: product.reviewBundleId,
+      technicalResultRef: product.technicalDetail.resultRef,
+      reservations: product.reservations,
+    },
+    { ckcPromptSection },
+  );
   if (analysis.ok) {
     analysisText = analysis.text;
     analysisProviderId = analysis.providerId;
   } else {
     // Never invent Nora analysis when unavailable.
+    // Provider failure after CKC resolve: still durable Recommendation base
+    // without fabricated cognitive text (W3-C honesty preserved).
     analysisUnavailableReason = analysis.message;
     analysisProviderId = analysis.providerId;
   }

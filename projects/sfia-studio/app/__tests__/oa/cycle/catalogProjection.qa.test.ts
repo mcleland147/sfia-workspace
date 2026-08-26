@@ -503,7 +503,7 @@ describe("V3.1-D2-A QA — public fingerprint/catalog binding (critical)", () =>
       "utf8",
     );
     expect(source).toMatch(
-      /export function projectSelectableCycleType\(\s*context: CatalogSelectionContext,\s*catalog: Pick<CycleTypeCatalog, "entries"> = CYCLE_TYPE_CATALOG,/,
+      /export function projectSelectableCycleType\(\s*context: CatalogSelectionContext,\s*catalogOrAuthority:\s*\|\s*Pick<CycleTypeCatalog, "entries">\s*\|\s*CycleTypeCatalogAuthority\s*=\s*CYCLE_TYPE_CATALOG,/,
     );
     const indexSource = readFileSync(
       path.resolve(__dirname, "../../../lib/oa/cycle/index.ts"),

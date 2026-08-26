@@ -368,8 +368,9 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
     );
     await expect(page.getByTestId("w3a-attempt-real")).toContainText("non");
     await expect(page.getByTestId("w3a-cycle-closed")).toHaveText("non");
+    // Current Product honesty after W3-B (claimAllowed) — not historical "W3-B" placeholder
     await expect(page.getByTestId("w3a-terminal-honesty")).toContainText(
-      "W3-B",
+      "résultat produit qualifié",
     );
     expect(await page.getByTestId("w3a-attempt-id").textContent()).toBe(
       attemptIdAccepted,

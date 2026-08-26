@@ -64,6 +64,25 @@ export class FakeConversationProvider implements ConversationProvider {
       throw new Error("FAKE_PROVIDER_ERROR");
     }
 
+    // Explicit scripted replies win over content-marker specialization (W3-C
+    // correction tests inject deterministic Nora strings).
+    if (this.scripted !== undefined) {
+      const historyLen = messages.length;
+      const text =
+        this.scripted[this.callCount - 1] ??
+        `[TEST/FAKE · NON LIVE] Réponse fake #${this.callCount} (historique=${historyLen}). Echo: « ${(lastUser?.content ?? "").slice(0, 80)} »`;
+      return {
+        text,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+
     if (
       messages.some((m) =>
         m.role === "system" &&
@@ -73,6 +92,17 @@ export class FakeConversationProvider implements ConversationProvider {
       // Specialized Fake CKC cognition keys off CONTENT markers only.
       // CKC IDs (ckc:studio:*) must never trigger specialized behavior (R1-01).
       const joined = messages.map((m) => m.content).join("\n").toLowerCase();
+      const hasFraming =
+        joined.includes("intention") &&
+        (joined.includes("périmètre") ||
+          joined.includes("perimetre") ||
+          joined.includes("besoin réel") ||
+          joined.includes("besoin reel"));
+      const hasQa =
+        joined.includes("verdict evidence-based") ||
+        joined.includes("claims interdits") ||
+        joined.includes("confirmation bias") ||
+        joined.includes("green ci");
       const hasSecurity =
         joined.includes("risque résiduel") ||
         joined.includes("risque residuel") ||
@@ -83,6 +113,19 @@ export class FakeConversationProvider implements ConversationProvider {
         joined.includes("scope creep") ||
         joined.includes("implémentation bornée") ||
         joined.includes("implementation bornee");
+      const hasExtensionProbe = joined.includes("w3d_extension_probe_marker");
+      if (hasExtensionProbe) {
+        return {
+          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — W3D_EXTENSION_PROBE_MARKER : type d'extension test-only via même chemin cognitif. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
+          usage: {
+            inputTokens: 10 * this.callCount,
+            outputTokens: 5 * this.callCount,
+            totalTokens: 15 * this.callCount,
+            model: "fake-test-model",
+            providerResponseId: `fake-resp-${this.callCount}`,
+          },
+        };
+      }
       if (hasSecurity) {
         return {
           text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — posture adversarial : risque résiduel majeures → HumanDecision explicite ; secret en repo → STOP. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
@@ -98,6 +141,30 @@ export class FakeConversationProvider implements ConversationProvider {
       if (hasDelivery) {
         return {
           text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — anti scope creep : borner le slice avant toute extension ; pas de silent REAL ; Evidence/done honnête. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
+          usage: {
+            inputTokens: 10 * this.callCount,
+            outputTokens: 5 * this.callCount,
+            totalTokens: 15 * this.callCount,
+            model: "fake-test-model",
+            providerResponseId: `fake-resp-${this.callCount}`,
+          },
+        };
+      }
+      if (hasQa) {
+        return {
+          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — verdict evidence-based : claims interdits sans preuve ; refuser confirmation bias / green CI = validé. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
+          usage: {
+            inputTokens: 10 * this.callCount,
+            outputTokens: 5 * this.callCount,
+            totalTokens: 15 * this.callCount,
+            model: "fake-test-model",
+            providerResponseId: `fake-resp-${this.callCount}`,
+          },
+        };
+      }
+      if (hasFraming) {
+        return {
+          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — cadrage : clarifier intention et périmètre utile avant conception ; séparer besoin réel et solution présumée. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
           usage: {
             inputTokens: 10 * this.callCount,
             outputTokens: 5 * this.callCount,

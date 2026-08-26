@@ -1,4 +1,8 @@
 import type { ClockPort } from "@/lib/oa/doctrine";
+import {
+  DEFAULT_CYCLE_TYPE_CATALOG_AUTHORITY,
+  type CycleTypeCatalogAuthority,
+} from "../domain/catalogFingerprint";
 import { projectSelectableCycleType } from "../domain/catalogProjection";
 import {
   createCkcQualificationFailure,
@@ -15,6 +19,7 @@ import type {
 } from "../domain/types";
 import type { CkcQualificationResolverPort } from "../ports/ckcQualificationResolver";
 import type { CycleAuditPort } from "../ports/cycleAudit";
+import { verifyCycleTypeCatalogAuthority } from "./bindCatalogAuthority";
 
 export type CkcQualificationSignals = {
   readonly structuralChange: boolean;
@@ -74,6 +79,12 @@ export class QualifyCycleWithCkc {
     private readonly qualifyCycle: QualifyCycleExecutor,
     private readonly clock: ClockPort,
     private readonly audit?: CycleAuditPort,
+    /**
+     * Bound catalog authority. Production uses the published singleton.
+     * Test-only future snapshots inject a HASH-A-bound authority — never an
+     * unbound caller catalog (W3-D / US-P1-09 evolvability proof).
+     */
+    private readonly catalogAuthority: CycleTypeCatalogAuthority = DEFAULT_CYCLE_TYPE_CATALOG_AUTHORITY,
   ) {}
 
   async execute(
@@ -93,12 +104,30 @@ export class QualifyCycleWithCkc {
   private async executeInternal(
     request: QualifyCycleWithCkcRequest,
   ): Promise<CkcQualificationResult> {
-    const projectionResult = projectSelectableCycleType({
-      cycleTypeId: request.cycleTypeId,
-      catalogVersion: request.catalogVersion,
-      catalogHash: request.catalogHash,
-      correlationId: request.correlationId,
-    });
+    // R-W3D-03: HASH-A is an enforced invariant on the actual qualification
+    // path — not a bindCycleTypeCatalogAuthority call convention. Fail closed
+    // before projection / CKC resolve / mutation when fingerprint ≠ SHA-256.
+    if (!verifyCycleTypeCatalogAuthority(this.catalogAuthority)) {
+      return this.fail(request, {
+        code: "CATALOG_FINGERPRINT_STALE",
+        message: "The catalog fingerprint is stale.",
+        blocking: true,
+        retryable: true,
+        recoverable: true,
+        correlationId: request.correlationId,
+        cycleTypeId: request.cycleTypeId,
+      });
+    }
+
+    const projectionResult = projectSelectableCycleType(
+      {
+        cycleTypeId: request.cycleTypeId,
+        catalogVersion: request.catalogVersion,
+        catalogHash: request.catalogHash,
+        correlationId: request.correlationId,
+      },
+      this.catalogAuthority,
+    );
     if (!projectionResult.ok) {
       return this.fail(request, projectionResult.error);
     }

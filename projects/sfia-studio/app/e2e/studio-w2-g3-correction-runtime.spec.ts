@@ -160,6 +160,14 @@ test.describe("W2 final-closure /studio product correction proof", () => {
       state: "decided",
     });
 
+    // --- W3-A current product invariant: qualify actual work before Prepare ---
+    // (stale W2 oracle remédiation — does not reopen W2; setup only)
+    await expect(page.getByTestId("w3a-operation-kind")).toBeVisible();
+    await page
+      .getByTestId("w3a-operation-kind")
+      .selectOption("generate-temporary-artifact");
+    await expect(page.getByTestId("w2-prepare-contract")).toBeEnabled();
+
     // --- R02: prepare → inspect → material amend → block → reinspect → auth ---
     await page.getByTestId("w2-prepare-contract").click();
     await expect(page.getByTestId("w2-contract")).toBeVisible({
@@ -254,21 +262,23 @@ test.describe("W2 final-closure /studio product correction proof", () => {
     await expect(page.getByTestId("w2-authorization")).toBeVisible({
       timeout: 30_000,
     });
+    // Post-W3-A with qualified actual work → AUTHORIZED; stop-before-execute
+    // copy is the authorized notice (not the historical BLOCKED-only phrasing).
     await expect(page.getByTestId("w2-stop-before-execute")).toContainText(
-      "arrêt avant exécution",
+      "aucune tentative lancée",
     );
+    await expect(page.getByTestId("w3a-governed-execute")).toBeVisible();
+    await expect(page.getByTestId("w3a-attempt-lifecycle")).toHaveCount(0);
     const outcome = page.getByTestId("w2-authorization-outcome");
     await expect(outcome).toBeVisible();
     const outcomeText = (await outcome.textContent()) ?? "";
-    expect(
-      outcomeText.includes("AUTORISÉ") || outcomeText.includes("BLOQUÉ"),
-    ).toBe(true);
+    expect(outcomeText.includes("AUTORISÉ")).toBe(true);
     await expect(page.getByTestId("w2-authorization-reason")).not.toBeEmpty();
     await expect(page.getByTestId("w2-authorization-next")).not.toBeEmpty();
 
     await capture(page, "09-final-authority-stop", {
       screen: "TrajectorySurface",
-      state: outcomeText.includes("AUTORISÉ") ? "authorized" : "blocked",
+      state: "authorized",
     });
 
     // Silence unused prior capture vars while keeping explicit E2E-R02-02 intent.

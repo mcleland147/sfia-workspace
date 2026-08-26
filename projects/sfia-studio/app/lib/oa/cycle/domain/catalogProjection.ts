@@ -8,7 +8,9 @@ import {
 } from "./cycleTypeCatalog";
 import {
   CYCLE_TYPE_CATALOG_FINGERPRINT,
+  isCycleTypeCatalogAuthority,
   serializeCatalogFingerprint,
+  type CycleTypeCatalogAuthority,
 } from "./catalogFingerprint";
 import type {
   CatalogProjectionError,
@@ -27,29 +29,9 @@ const SAFE_MESSAGES: Readonly<Record<CatalogProjectionErrorCode, string>> =
     CYCLE_TYPE_MAPPING_INVALID: "The cycle type mapping is invalid.",
   });
 
-/** Canonical HASH-A serialization of the authoritative D1 catalog. */
+/** Canonical HASH-A serialization of the authoritative published D1 catalog. */
 const CANONICAL_CATALOG_FINGERPRINT_SERIALIZATION =
   serializeCatalogFingerprint(CYCLE_TYPE_CATALOG);
-
-/**
- * Fail-closed binding: the catalog actually used must match HASH-A.
- * Identity with the singleton is sufficient; clones are compared by serialization.
- */
-function catalogMatchesCanonicalFingerprint(
-  catalog: Pick<CycleTypeCatalog, "entries">,
-): boolean {
-  if (catalog === CYCLE_TYPE_CATALOG) {
-    return true;
-  }
-  try {
-    return (
-      serializeCatalogFingerprint(catalog) ===
-      CANONICAL_CATALOG_FINGERPRINT_SERIALIZATION
-    );
-  } catch {
-    return false;
-  }
-}
 
 const ALLOWED_MAPPING_KEYS = new Set([
   "mandatory",
@@ -135,13 +117,35 @@ function freezeMapping(
   });
 }
 
+function catalogMatchesPublishedSerialization(
+  catalog: Pick<CycleTypeCatalog, "entries">,
+): boolean {
+  if (catalog === CYCLE_TYPE_CATALOG) {
+    return true;
+  }
+  try {
+    return (
+      serializeCatalogFingerprint(catalog) ===
+      CANONICAL_CATALOG_FINGERPRINT_SERIALIZATION
+    );
+  } catch {
+    return false;
+  }
+}
+
 /**
- * Pure, fail-closed D2-A selection from the authoritative D1 catalog.
- * The optional catalog is a pure test seam; production callers use the singleton.
+ * Pure, fail-closed D2-A selection from an authoritative catalog snapshot.
+ *
+ * Production callers use the published singleton (default).
+ * A {@link CycleTypeCatalogAuthority} may bind a future/test snapshot whose
+ * fingerprintSerialization + fingerprint were produced by
+ * bindCycleTypeCatalogAuthority — never an unbound caller catalog.
  */
 export function projectSelectableCycleType(
   context: CatalogSelectionContext,
-  catalog: Pick<CycleTypeCatalog, "entries"> = CYCLE_TYPE_CATALOG,
+  catalogOrAuthority:
+    | Pick<CycleTypeCatalog, "entries">
+    | CycleTypeCatalogAuthority = CYCLE_TYPE_CATALOG,
 ): CatalogProjectionResult {
   if (!context.correlationId.trim()) {
     return failure("CATALOG_CORRELATION_ID_REQUIRED", context);
@@ -151,7 +155,47 @@ export function projectSelectableCycleType(
       retryable: true,
     });
   }
-  if (context.catalogHash !== CYCLE_TYPE_CATALOG_FINGERPRINT) {
+
+  let catalog: Pick<CycleTypeCatalog, "entries">;
+  let boundFingerprint: string;
+  let requirePublishedContentBinding: boolean;
+
+  if (isCycleTypeCatalogAuthority(catalogOrAuthority)) {
+    let liveSerialization: string;
+    try {
+      liveSerialization = serializeCatalogFingerprint(
+        catalogOrAuthority.catalog,
+      );
+    } catch {
+      return failure("CATALOG_FINGERPRINT_STALE", context, {
+        retryable: true,
+      });
+    }
+    // Integrity without domain crypto: bound serialization must equal live
+    // catalog serialization; published HASH-A may only bind published content.
+    if (
+      catalogOrAuthority.fingerprintSerialization !== liveSerialization ||
+      (liveSerialization === CANONICAL_CATALOG_FINGERPRINT_SERIALIZATION &&
+        catalogOrAuthority.fingerprint !== CYCLE_TYPE_CATALOG_FINGERPRINT) ||
+      (liveSerialization !== CANONICAL_CATALOG_FINGERPRINT_SERIALIZATION &&
+        catalogOrAuthority.fingerprint === CYCLE_TYPE_CATALOG_FINGERPRINT)
+    ) {
+      return failure("CATALOG_FINGERPRINT_STALE", context, {
+        retryable: true,
+      });
+    }
+    catalog = catalogOrAuthority.catalog;
+    boundFingerprint = catalogOrAuthority.fingerprint;
+    requirePublishedContentBinding = false;
+  } else {
+    // Legacy seam: published HASH-A only; content must match published snapshot
+    // (checked after entry-level codes so precise failures keep precedence).
+    catalog = catalogOrAuthority;
+    boundFingerprint = CYCLE_TYPE_CATALOG_FINGERPRINT;
+    requirePublishedContentBinding = true;
+  }
+
+  if (context.catalogHash !== boundFingerprint) {
     return failure("CATALOG_FINGERPRINT_STALE", context, {
       retryable: true,
     });
@@ -175,8 +219,10 @@ export function projectSelectableCycleType(
     });
   }
 
-  // Binding after local entry checks so precise codes keep precedence.
-  if (!catalogMatchesCanonicalFingerprint(catalog)) {
+  if (
+    requirePublishedContentBinding &&
+    !catalogMatchesPublishedSerialization(catalog)
+  ) {
     return failure("CATALOG_FINGERPRINT_STALE", context, {
       retryable: true,
     });
@@ -191,7 +237,7 @@ export function projectSelectableCycleType(
       lifecycleStatus: entry.lifecycleStatus,
       ckc: freezeMapping(entry.ckc),
       catalogVersion: CYCLE_TYPE_CATALOG_VERSION,
-      catalogHash: CYCLE_TYPE_CATALOG_FINGERPRINT,
+      catalogHash: boundFingerprint,
       correlationId: context.correlationId,
     }),
   });

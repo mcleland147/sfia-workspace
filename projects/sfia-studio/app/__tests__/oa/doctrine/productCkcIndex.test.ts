@@ -16,7 +16,7 @@ const APP_ROOT = path.resolve(__dirname, "../../..");
 const PRODUCT_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/product");
 
 describe("Product CKC index", () => {
-  it("loads index with 15 cycleType mappings", () => {
+  it("loads index with current baseline of fifteen cycleType mappings", () => {
     const loaded = loadProductCkcIndexSync({ registryRoot: PRODUCT_ROOT });
     expect(loaded.ok).toBe(true);
     if (!loaded.ok) return;
