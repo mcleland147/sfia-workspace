@@ -1,36 +1,556 @@
-# SFIA Studio — W4-BR Review Pack FULL — Complete Diff Supplement (Handoff Correction)
+# SFIA Studio — W4-BR-CORR-01 Review Pack FULL — Business-First Copy & EC Status Presentation
 
 | Field | Value |
 | --- | --- |
-| **Timestamp** | 2026-08-26 13:47:18 CEST |
-| **Cycle** | W4-BR — RECONCILED PRESENTATION ADAPTATION (handoff completeness correction) |
+| **Timestamp** | 2026-08-26 14:04:33 CEST |
+| **Cycle** | W4-BR-CORR-01 — Business-First Copy & EC Status Presentation |
 | **Type** | 8 — Delivery / implementation |
-| **Nature of this publication** | Review Pack / Handoff correction ONLY — **no product file mutation** |
-| **Product files modified this pass** | **NONE** |
-| **Prior delivery verdict (unchanged)** | W4-BR DELIVERY PASS WITH NON-BLOCKING CARRIES — READY FOR CHATGPT REVIEW / MORRIS GIT INTEGRATION GATE |
+| **Profil** | CRITICAL |
+| **Typologie** | INC — correctif borné d'une candidate Delivery existante |
+| **GO Morris** | CONSUMED — PRESENTATION-ONLY — REMOVE INTERNAL / METHOD JARGON — REPLACE PRIMARY RAW EC STATUS WITH BUSINESS LABEL — KEEP RAW STATUS FOR AUDIT/TESTING — NO FUNCTIONAL SEMANTICS CHANGE — NO H-01 REOPEN — H-02/03/04 CARRY — W4-C NOT STARTED — NO DOMAIN/PERSISTENCE/C6 — NO PROJECT COMMIT/PUSH/PR/MERGE — REAL OUT — RUNTIME V3 NON ADOPTED |
+| **Prior handoff** | `7bed03de41b3116360c50ee441aedfd220cad812` (complete consolidated diff pack) |
+| **Nature** | Presentation-only correction on W4-B + W4-BR consolidated dirty tree |
+| **Project commit/push/PR/merge** | **NONE** |
 
 ---
 
-## 0. Purpose of this handoff correction
+## 0. Local Git Truth (start) — PASS
 
-Previous W4-BR handoff (`88ef1115`) summarized diffs but did not embed the **complete exploitable tracked diff** nor the **full untracked E2E source**.
-
-This republication adds those artifacts so ChatGPT can perform a real diff review.
-
-**No reset / stash / checkout / product edit** in this pass.
-
----
-
-## 1. Local Git Truth (re-read, current working tree)
-
-- `pwd`: `/Users/morris/Projects/sfia-workspace-w3-post-closure-truth-sync`
-- toplevel: same
+- repo: `mcleland147/sfia-workspace`
+- workspace: `/Users/morris/Projects/sfia-workspace-w3-post-closure-truth-sync`
 - branch: `delivery/sfia-studio-w4-b-single-authority-path`
 - HEAD: `1e17367d01cab95a4853a8857ed39867ea396ed3`
 - `origin/main`: `1e17367d01cab95a4853a8857ed39867ea396ed3`
-- staged: **empty**
+- staged: **NONE**
+- tracked modified: **21**
+- untracked product: `projects/sfia-studio/app/e2e/studio-w4b-single-authority-path.spec.ts`
+- initial consolidated `git diff --binary` SHA-256: `a8d1408777e53f3619475ad69ca45453d9f8a3526dcd5d6f20f39b827cc66d02`
+- initial untracked E2E SHA-256: `342845bbd43549b1239720f52ed39e3590310999bf5917ecabc1c3928c5875ac`
 
-### 1.1 `git status --short`
+Verdict: **LOCAL GIT TRUTH PASS**
+
+---
+
+## 1. Sources read / Convergence / CKC
+
+### Sources
+- Process: cycle-execution-template, routing-guide, chatgpt-cursor operating model, rules-and-guardrails
+- Convergence: build-doctrine, roadmap
+- Product Completion: cadrage, conception fonctionnelle
+- UX PE: experience-architecture, product-screens-visual-state-contract
+- Doctrine: living-project-state / dynamic-trajectory; agent capabilities / execution governance
+- Handoff source: `sfia/review-handoff` @ `7bed03de…` (full prior consolidated diffs)
+
+### CKC Delivery
+**ABSENT** at current Git — no invented CKC. Fallback: routing + template v2.6 + Build Doctrine + C1/C2 + Product Experience + W4-BR handoff.
+
+### Convergence Pre-check
+- Capability: Product Experience Closure — Milestone W4 — Slice W4-BR-CORR-01
+- Upstream: W1/W2/W3 CLOSED; W4-A/A2 validated; W4-UXR Morris-validated; H-01 Option A adopted
+- W4-B + W4-BR: FUNCTIONAL/ARCHITECTURAL REVIEW PASS; PRESENTATION MICRO-CORRECTION REQUIRED; NOT INTEGRATED
+- Gaps closed: (A) internal/method language primary Pilote-facing; (B) raw EC enum primary Pilote-facing
+- KEEP: W4-B single authority; H-01; S2 behavior; ProjectWorkspace composition; EC semantics
+- ADAPT: Copy; EC status presentation
+- KEEP/MOVE: raw status technical/audit secondary
+- CARRY: H-02, H-03, H-04
+- NOT STARTED: W4-C; REAL OUT; C6 DO NOT REOPEN
+
+### Penpot (READ ONLY)
+- File `63bdc57a-636a-81ba-8008-82d2a50d5233`
+- Page 06 `2feb04ff-8811-8084-8008-8ab3837c737e` — 12 boards
+- Coherence targets located: UXR-01, UXR-04, UXR-H01
+- **No Penpot mutation**; no layout redesign in CORR-01
+
+---
+
+## 2. Files modified by CORR-01
+
+### Product (authorized)
+1. `NewProjectIntentionPage.tsx` — S2 context placeholder + help (business-first)
+2. `ProjectWorkspacePage.tsx` — H-01 region note (Pilote-facing)
+3. `TrajectorySurface.tsx` — EC primary business status label + technical raw status
+
+### Tests (assertion adaptation for visible text)
+4. `trajectorySurface.ui.test.tsx` — business label + `data-status` + tech audit
+5. `studio-w4b-single-authority-path.spec.ts` — banned copy, business status, captures → `w4-br-corr-01`
+6. `studio-w3a-governed-execute-runtime.spec.ts` — status assertion text only
+7. `studio-w3b-terminal-evidence-runtime.spec.ts` — status assertion text only
+8. `studio-w3c-post-evidence-replan-runtime.spec.ts` — status assertion text only
+
+### Explicitly NOT modified by CORR-01
+- CSS (W4-BR CSS remains dirty from prior cycle; CORR-01 patch has no CSS file delta)
+- domain / repositories / persistence / W2-W3 actions / authority / Evidence / C6 / Penpot / package.json
+- `uatUxSemanticReserves.ui.test.tsx` (authorized but not needed)
+- ConversationSurface / LpsSurface / Option A e2e (pre-existing W4-B dirty only)
+
+**Note on W3 e2e:** not in the primary authorized product list, but required by exit X-W4BR-CORR-14 and “adapt assertions where visible text changes”. Changes are assertion-only (business label strings + audit attributes), no flow/semantics change.
+
+---
+
+## 3. Correction 1 — Pilote-facing copy (before → after)
+
+| Location | Before (banned / method) | After |
+| --- | --- | --- |
+| S2 placeholder | `Notes libres utiles au pilotage — pas un questionnaire méthode.` | `Ajoutez uniquement le contexte utile au projet.` |
+| S2 help | `…cela ne qualifie pas automatiquement le cycle et ne crée pas de décision humaine.` | `Sans contexte, votre intention suffit pour créer le projet. Vous pourrez préciser la suite avec Nora ensuite.` |
+| Workspace note | `…sans second chemin d'autorité.` | `L'état actuel et la trajectoire sont regroupés ici pour faciliter le pilotage.` |
+
+Proof: banned phrases absent from primary UX product files (grep PASS).
+
+---
+
+## 4. Correction 2 — EC primary status
+
+### Union observed (`ExecutionContractStatus` from domain types — read-only)
+`draft | proposed | validated | confirmation_required | confirmed | executing | completed | failed | cancelled | superseded`
+
+### Presentation-only mapping (local helper in TrajectorySurface.tsx)
+| Raw status | Business label |
+| --- | --- |
+| draft | Brouillon |
+| proposed | Proposé |
+| validated | Validé |
+| confirmation_required | Confirmation requise |
+| confirmed | Confirmation enregistrée |
+| executing | Exécution en cours |
+| completed | Exécution terminée |
+| failed | Échec d'exécution |
+| cancelled | Annulé |
+| superseded | Remplacé |
+| unknown (runtime string) | État du contrat indisponible *(never raw enum)* |
+
+### Markup
+- Primary: `data-testid="w2-contract-status"` + `data-status={raw}` → **business label text**
+- Technical details: `data-testid="w2-contract-status-tech"` → **raw enum**
+- Domain/runtime type & transitions: **unchanged**
+
+---
+
+## 5. CORRECTION-ONLY PATCH (complete)
+
+```diff
+--- .tmp-sfia-review/w4-br-corr-01/before/NewProjectIntentionPage.tsx	2026-08-26 13:59:53
++++ .tmp-sfia-review/w4-br-corr-01/after/NewProjectIntentionPage.tsx	2026-08-26 14:03:21
+@@ -272,14 +272,13 @@
+             className={styles.textarea}
+             rows={3}
+             value={precisions}
+-            placeholder="Notes libres utiles au pilotage — pas un questionnaire méthode."
++            placeholder="Ajoutez uniquement le contexte utile au projet."
+             aria-describedby="project-context-help"
+             onChange={(event) => setPrecisions(event.target.value)}
+           />
+           <p className={styles.help} id="project-context-help">
+-            Sans contexte, votre intention sert aussi de contexte. Créer ouvre le
+-            projet : cela ne qualifie pas automatiquement le cycle et ne crée
+-            pas de décision humaine.
++            Sans contexte, votre intention suffit pour créer le projet. Vous
++            pourrez préciser la suite avec Nora ensuite.
+           </p>
+         </div>
+
+--- .tmp-sfia-review/w4-br-corr-01/before/ProjectWorkspacePage.tsx	2026-08-26 13:59:53
++++ .tmp-sfia-review/w4-br-corr-01/after/ProjectWorkspacePage.tsx	2026-08-26 14:03:21
+@@ -184,9 +184,8 @@
+                   État actuel et trajectoire
+                 </h2>
+                 <p className={styles.stateTrajectoryNote}>
+-                  L&apos;état enregistré et la trajectoire restent distincts :
+-                  une même région de lecture pour décider, sans second chemin
+-                  d&apos;autorité.
++                  L&apos;état actuel et la trajectoire sont regroupés ici pour
++                  faciliter le pilotage.
+                 </p>
+               </header>
+               <div
+--- .tmp-sfia-review/w4-br-corr-01/before/TrajectorySurface.tsx	2026-08-26 13:59:53
++++ .tmp-sfia-review/w4-br-corr-01/after/TrajectorySurface.tsx	2026-08-26 14:03:21
+@@ -39,7 +39,33 @@
+   W3cPostEvidenceLoopDto,
+ } from "@/features/project-assistant/w2/types";
+ import { filterProductReservationsForDisplay } from "@/features/project-assistant/w2/w3cProductPresentation";
++import type { ExecutionContractStatus } from "@/lib/oa/execution-contract/domain/types";
+ import styles from "./TrajectorySurface.module.css";
++
++/**
++ * Presentation-only labels for ExecutionContractStatus.
++ * Exhaustive over the domain union; never surfaces the raw enum as primary copy.
++ */
++const EXECUTION_CONTRACT_STATUS_LABELS: Record<ExecutionContractStatus, string> =
++  {
++    draft: "Brouillon",
++    proposed: "Proposé",
++    validated: "Validé",
++    confirmation_required: "Confirmation requise",
++    confirmed: "Confirmation enregistrée",
++    executing: "Exécution en cours",
++    completed: "Exécution terminée",
++    failed: "Échec d'exécution",
++    cancelled: "Annulé",
++    superseded: "Remplacé",
++  };
++
++function executionContractStatusLabel(status: string): string {
++  if (Object.prototype.hasOwnProperty.call(EXECUTION_CONTRACT_STATUS_LABELS, status)) {
++    return EXECUTION_CONTRACT_STATUS_LABELS[status as ExecutionContractStatus];
++  }
++  return "État du contrat indisponible";
++}
+
+ /** Explicit Pilot-qualified operation — never inferred from W2 trajectory alone. */
+ type QualifiedOperationKind = "generate-temporary-artifact" | "simulate" | "read";
+@@ -807,7 +833,12 @@
+             </div>
+             <div>
+               <dt>État du contrat</dt>
+-              <dd data-testid="w2-contract-status">{contract.status}</dd>
++              <dd
++                data-testid="w2-contract-status"
++                data-status={contract.status}
++              >
++                {executionContractStatusLabel(contract.status)}
++              </dd>
+             </div>
+             <div>
+               <dt>Prochaine action utile</dt>
+@@ -869,6 +900,15 @@
+             <summary>Détails techniques du contrat</summary>
+             <dl className={styles.facts}>
+               <div>
++                <dt>Statut technique</dt>
++                <dd
++                  className={styles.code}
++                  data-testid="w2-contract-status-tech"
++                >
++                  {contract.status}
++                </dd>
++              </div>
++              <div>
+                 <dt>Empreinte sémantique</dt>
+                 <dd className={styles.code} data-testid="w2-contract-fingerprint">
+                   {contract.semanticFingerprint.slice(0, 12)}…
+--- .tmp-sfia-review/w4-br-corr-01/before/trajectorySurface.ui.test.tsx	2026-08-26 13:59:53
++++ .tmp-sfia-review/w4-br-corr-01/after/trajectorySurface.ui.test.tsx	2026-08-26 14:03:21
+@@ -250,7 +250,21 @@
+     );
+     expect(screen.getByTestId("w2-contract-capabilities")).toHaveTextContent(
+       "cap:product-temp-artifact",
++    );
++    // W4-BR-CORR-01 — primary status is business label; raw enum remains audit-only.
++    expect(screen.getByTestId("w2-contract-status")).toHaveTextContent(
++      "Confirmation requise",
++    );
++    expect(screen.getByTestId("w2-contract-status")).toHaveAttribute(
++      "data-status",
++      "confirmation_required",
+     );
++    expect(screen.getByTestId("w2-contract-status")).not.toHaveTextContent(
++      "confirmation_required",
++    );
++    expect(screen.getByTestId("w2-contract-status-tech")).toHaveTextContent(
++      "confirmation_required",
++    );
+     // E3 — Confirmation affordance requires sufficient inspection, not mere presence.
+     expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
+
+--- .tmp-sfia-review/w4-br-corr-01/before/studio-w4b-single-authority-path.spec.ts	2026-08-26 13:59:53
++++ .tmp-sfia-review/w4-br-corr-01/after/studio-w4b-single-authority-path.spec.ts	2026-08-26 14:03:21
+@@ -10,7 +10,7 @@
+
+ const CAPTURE_ROOT = path.resolve(
+   process.cwd(),
+-  "../../../.tmp-sfia-review/runtime-captures/w4-br",
++  "../../../.tmp-sfia-review/runtime-captures/w4-br-corr-01",
+ );
+ const MANIFEST = path.join(CAPTURE_ROOT, "manifest.md");
+ const MANIFEST_JSONL = path.join(CAPTURE_ROOT, "manifest.jsonl");
+@@ -41,7 +41,7 @@
+     route: page.url(),
+     ...meta,
+     provenance:
+-      "CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W4-B + W4-BR RECONCILED PRESENTATION",
++      "CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W4-BR-CORR-01 BUSINESS-FIRST COPY + EC STATUS",
+   };
+   fs.appendFileSync(MANIFEST_JSONL, `${JSON.stringify(row)}\n`);
+   fs.appendFileSync(
+@@ -83,7 +83,7 @@
+     fs.writeFileSync(
+       MANIFEST,
+       [
+-        "# W4-BR runtime captures (extended W4-B single authority + H-01 composition)",
++        "# W4-BR-CORR-01 runtime captures (business-first copy + EC status)",
+         "",
+         "| file | timestamp | viewport | route | SC | state | observation |",
+         "| --- | --- | --- | --- | --- | --- | --- |",
+@@ -98,6 +98,23 @@
+     await expect(page.getByLabel("Intention du projet")).toBeVisible();
+     await expect(page.getByLabel("Contexte optionnel")).toBeVisible();
+     await expect(page.getByTestId("create-project-cancel")).toBeVisible();
++    // W4-BR-CORR-01 — banned internal/method copy absent from Pilote-facing S2.
++    await expect(page.locator("body")).not.toContainText(
++      "pas un questionnaire méthode",
++    );
++    await expect(page.locator("body")).not.toContainText(
++      "cela ne qualifie pas automatiquement le cycle et ne crée pas de décision humaine",
++    );
++    await expect(page.locator("#project-context")).toHaveAttribute(
++      "placeholder",
++      "Ajoutez uniquement le contexte utile au projet.",
++    );
++    await capture(page, "A-S2-create-form-1440", {
++      sc: "S2",
++      state: "create form after CORR-01 copy",
++      viewport: { width: 1440, height: 900 },
++      observation: "Business-first context copy; no method jargon",
++    });
+     await page.locator("#project-name").fill(name);
+     await page
+       .locator("#project-objective")
+@@ -121,7 +138,18 @@
+     await expect(
+       page.getByTestId("project-lps-column").getByTestId("w2-trajectory-panel"),
+     ).toBeVisible();
+-
++    await expect(page.locator("body")).not.toContainText(
++      "sans second chemin d'autorité",
++    );
++    await expect(page.getByTestId("project-state-trajectory-region")).toContainText(
++      "L'état actuel et la trajectoire sont regroupés ici pour faciliter le pilotage.",
++    );
++    await capture(page, "B-workspace-state-trajectory-note-1440", {
++      sc: "H-01",
++      state: "État/Trajectoire note after CORR-01",
++      viewport: { width: 1440, height: 900 },
++      observation: "Pilote-facing note; no authority-path jargon",
++    });
+     const input = page.getByTestId("project-assistant-input");
+     await expect(input).toBeEnabled({ timeout: 15_000 });
+     await input.fill("Préparer une livraison gated __F2_GATED_STANDARD__");
+@@ -164,6 +192,32 @@
+       .selectOption("generate-temporary-artifact");
+     await page.getByTestId("w2-prepare-contract").click();
+     await expect(page.getByTestId("w2-contract")).toBeVisible({ timeout: 45_000 });
++    await expect(page.getByTestId("w2-contract-status")).toHaveText(
++      "Confirmation requise",
++    );
++    await expect(page.getByTestId("w2-contract-status")).toHaveAttribute(
++      "data-status",
++      "confirmation_required",
++    );
++    await expect(page.getByTestId("w2-contract-status")).not.toHaveText(
++      "confirmation_required",
++    );
++    await expect(page.getByTestId("w2-contract-status-tech")).toHaveText(
++      "confirmation_required",
++    );
++    await page.getByText("Détails techniques du contrat").click();
++    await capture(page, "C-EC-business-status-1440", {
++      sc: "SC-05",
++      state: "EC prepared; business status label primary",
++      viewport: { width: 1440, height: 900 },
++      observation: "w2-contract-status = Confirmation requise",
++    });
++    await capture(page, "D-EC-technical-status-audit-1440", {
++      sc: "SC-05",
++      state: "EC technical details; raw status auditable",
++      viewport: { width: 1440, height: 900 },
++      observation: "w2-contract-status-tech = confirmation_required",
++    });
+     await capture(page, "SC-05-ec-summary-1440", {
+       sc: "SC-05",
+       state: "EC prepared",
+@@ -187,9 +241,13 @@
+       await expect(confirm).toBeEnabled();
+       await confirm.click();
+       await expect(page.getByTestId("w2-contract-status")).toHaveText(
+-        /confirmed/i,
++        "Confirmation enregistrée",
+         { timeout: 30_000 },
+       );
++      await expect(page.getByTestId("w2-contract-status")).toHaveAttribute(
++        "data-status",
++        "confirmed",
++      );
+       await capture(page, "SC-06-confirmation-1440", {
+         sc: "SC-06",
+         state: "Confirmation separate from Execute",
+--- .tmp-sfia-review/w4-br-corr-01/before/studio-w3a-governed-execute-runtime.spec.ts	2026-08-26 14:00:44
++++ .tmp-sfia-review/w4-br-corr-01/after/studio-w3a-governed-execute-runtime.spec.ts	2026-08-26 14:03:21
+@@ -240,8 +240,15 @@
+       "product:project-workspace",
+     );
+     await expect(page.getByTestId("w2-contract-status")).toHaveText(
++      "Confirmation requise",
++    );
++    await expect(page.getByTestId("w2-contract-status")).toHaveAttribute(
++      "data-status",
+       "confirmation_required",
+     );
++    await expect(page.getByTestId("w2-contract-status-tech")).toHaveText(
++      "confirmation_required",
++    );
+     await expect(page.getByTestId("w2-contract-reversibility")).toContainText(
+       "reversible",
+     );
+@@ -263,9 +270,13 @@
+
+     await page.getByTestId("w2-confirm-contract").click();
+     await expect(page.getByTestId("w2-contract-status")).toHaveText(
+-      "confirmed",
++      "Confirmation enregistrée",
+       { timeout: 30_000 },
+     );
++    await expect(page.getByTestId("w2-contract-status")).toHaveAttribute(
++      "data-status",
++      "confirmed",
++    );
+     await capture(page, "05-confirmed", {
+       screen: "TrajectorySurface",
+       state: "effect_confirmation_n1_granted",
+--- .tmp-sfia-review/w4-br-corr-01/before/studio-w3b-terminal-evidence-runtime.spec.ts	2026-08-26 14:00:44
++++ .tmp-sfia-review/w4-br-corr-01/after/studio-w3b-terminal-evidence-runtime.spec.ts	2026-08-26 14:03:21
+@@ -157,9 +157,12 @@
+     { timeout: 30_000 },
+   );
+   await page.getByTestId("w2-confirm-contract").click();
+-  await expect(page.getByTestId("w2-contract-status")).toHaveText("confirmed", {
+-    timeout: 30_000,
+-  });
++  await expect(page.getByTestId("w2-contract-status")).toHaveText(
++    "Confirmation enregistrée",
++    {
++      timeout: 30_000,
++    },
++  );
+   await page.getByTestId("w2-authorize-contract").click();
+   await expect(page.getByTestId("w2-authorization-outcome")).toContainText(
+     "Autorisation vérifiée",
+--- .tmp-sfia-review/w4-br-corr-01/before/studio-w3c-post-evidence-replan-runtime.spec.ts	2026-08-26 14:00:44
++++ .tmp-sfia-review/w4-br-corr-01/after/studio-w3c-post-evidence-replan-runtime.spec.ts	2026-08-26 14:03:21
+@@ -104,9 +104,12 @@
+     { timeout: 30_000 },
+   );
+   await page.getByTestId("w2-confirm-contract").click();
+-  await expect(page.getByTestId("w2-contract-status")).toHaveText("confirmed", {
+-    timeout: 30_000,
+-  });
++  await expect(page.getByTestId("w2-contract-status")).toHaveText(
++    "Confirmation enregistrée",
++    {
++      timeout: 30_000,
++    },
++  );
+   await page.getByTestId("w2-authorize-contract").click();
+   await expect(page.getByTestId("w2-authorization-outcome")).toContainText(
+     "Autorisation vérifiée",
+```
+
+---
+
+## 6. Tests executed
+
+### Unit
+```
+
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-w3-post-closure-truth-sync/projects/sfia-studio/app
+
+ ✓ __tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx (2 tests) 112ms
+ ✓ __tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx (6 tests) 35ms
+
+ Test Files  2 passed (2)
+      Tests  8 passed (8)
+   Start at  14:02:26
+   Duration  686ms (transform 180ms, setup 90ms, collect 358ms, tests 146ms, environment 440ms, prepare 71ms)
+
+```
+
+### E2E (REAL=0, temp SQLite, fake provider, QA controls)
+```
+
+Running 13 tests using 1 worker
+
+(node:97067) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 e2e/studio-w2-g3-correction-runtime.spec.ts:55:7 › W2 final-closure /studio product correction proof › walks Options → Phase-B Reco → HD → EC amend/reinspect → STOP BEFORE EXECUTE (4.7s)
+  ✓   2 e2e/studio-w3a-governed-execute-runtime.spec.ts:204:7 › W3-A R09 /studio governed execute product proof › positive: accepted → running → terminal with actual work + N1 Confirmation (2.4s)
+  ✓   3 e2e/studio-w3a-governed-execute-runtime.spec.ts:415:7 › W3-A R09 /studio governed execute product proof › blocked: missing actual work — no Prepare / no Execute / no Attempt (1.2s)
+  ✓   4 e2e/studio-w3b-terminal-evidence-runtime.spec.ts:222:7 › W3-B /studio Terminal + Evidence (corrected) › A SUCCESS + evidence-pending + reload durability (2.9s)
+  ✓   5 e2e/studio-w3b-terminal-evidence-runtime.spec.ts:326:7 › W3-B /studio Terminal + Evidence (corrected) › B GOVERNED STOP via EC stopCondition (armed external) (1.7s)
+  ✓   6 e2e/studio-w3b-terminal-evidence-runtime.spec.ts:352:7 › W3-B /studio Terminal + Evidence (corrected) › C FAIL via TestExecutionAdapter (armed external) (1.7s)
+  ✓   7 e2e/studio-w3c-post-evidence-replan-runtime.spec.ts:152:7 › W3-C /studio Post-Evidence replan › A SUCCESS → continue recommendation (1.7s)
+  ✓   8 e2e/studio-w3c-post-evidence-replan-runtime.spec.ts:173:7 › W3-C /studio Post-Evidence replan › B STOP → recover + propose available (1.8s)
+  ✓   9 e2e/studio-w3c-post-evidence-replan-runtime.spec.ts:199:7 › W3-C /studio Post-Evidence replan › C FAIL → recover distinct (1.7s)
+  ✓  10 e2e/studio-w3c-post-evidence-replan-runtime.spec.ts:218:7 › W3-C /studio Post-Evidence replan › D propose without decide then decide (1.8s)
+  ✓  11 e2e/studio-w3c-post-evidence-replan-runtime.spec.ts:245:7 › W3-C /studio Post-Evidence replan › E reload restart postEvidence rehydrate (2.0s)
+  ✓  12 e2e/studio-w4b-single-authority-path.spec.ts:78:7 › W4-B single authority path /studio › qualify → single W2 HD → EC → confirm → authorize → execute; no F3 path (2.8s)
+  ✓  13 e2e/studio-w4b-single-authority-path.spec.ts:311:7 › W4-B single authority path /studio › negative: blocked authorization shows business label and no Attempt (1.1s)
+
+  13 passed (30.3s)
+```
+
+Results:
+- trajectorySurface + uatUxSemanticReserves: **8/8 PASS**
+- studio-w4b: **2/2 PASS**
+- studio-w2-g3: **1/1 PASS**
+- studio-w3a: **2/2 PASS**
+- studio-w3b: **3/3 PASS**
+- studio-w3c: **5/5 PASS**
+- Total required e2e this pass: **13/13 PASS**
+
+---
+
+## 7. Runtime captures (targeted)
+
+Path: `.tmp-sfia-review/runtime-captures/w4-br-corr-01/`
+Count: **17** screenshots (includes A–D CORR proof + flow non-regression)
+
+```
+# W4-BR-CORR-01 runtime captures (business-first copy + EC status)
+
+| file | timestamp | viewport | route | SC | state | observation |
+| --- | --- | --- | --- | --- | --- | --- |
+| A-S2-create-form-1440.png | 2026-08-26T12:02:59.862Z | 1440×900 | http://127.0.0.1:3020/studio/projects/new | S2 | create form after CORR-01 copy | Business-first context copy; no method jargon |
+| B-workspace-state-trajectory-note-1440.png | 2026-08-26T12:03:00.258Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A4f0c213c-e027-4bec-9003-c546212eb1b5 | H-01 | État/Trajectoire note after CORR-01 | Pilote-facing note; no authority-path jargon |
+| SC-03-qualified-single-path-1440.png | 2026-08-26T12:03:00.417Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A4f0c213c-e027-4bec-9003-c546212eb1b5 | SC-03 | qualified; guidance to trajectory; no F2/F3 authority | Nora qualify kept; H-01 LPS+Trajectory region; second authority path absent |
+| SC-04-options-recommendation-1440.png | 2026-08-26T12:03:00.571Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A4f0c213c-e027-4bec-9003-c546212eb1b5 | SC-04 | options + recommendation | Single W2 options path |
+| SC-04-humandecision-1440.png | 2026-08-26T12:03:00.726Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A4f0c213c-e027-4bec-9003-c546212eb1b5 | SC-04 | W2 HumanDecision recorded | Single structural HumanDecision |
+| C-EC-business-status-1440.png | 2026-08-26T12:03:00.925Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A4f0c213c-e027-4bec-9003-c546212eb1b5 | SC-05 | EC prepared; business status label primary | w2-contract-status = Confirmation requise |
+| D-EC-technical-status-audit-1440.png | 2026-08-26T12:03:01.024Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A4f0c213c-e027-4bec-9003-c546212eb1b5 | SC-05 | EC technical details; raw status auditable | w2-contract-status-tech = confirmation_required |
+| SC-05-ec-summary-1440.png | 2026-08-26T12:03:01.108Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A4f0c213c-e027-4bec-9003-c546212eb1b5 | SC-05 | EC prepared | EC summary on TrajectorySurface only |
+| SC-06-ec-inspection-1440.png | 2026-08-26T12:03:01.259Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A4f0c213c-e027-4bec-9003-c546212eb1b5 | SC-06 | EC inspected | Inspection before Confirmation |
+| SC-06-confirmation-1440.png | 2026-08-26T12:03:01.425Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A4f0c213c-e027-4bec-9003-c546212eb1b5 | SC-06 | Confirmation separate from Execute | A11Y-PC-05: confirm ≠ execute |
+| SC-07-authorized-1440.png | 2026-08-26T12:03:01.574Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A4f0c213c-e027-4bec-9003-c546212eb1b5 | SC-07 | AUTHORIZED business label | Business-first authorization; Execute separate |
+| SC-07-authorized-1024.png | 2026-08-26T12:03:01.704Z | 1024×900 | http://127.0.0.1:3020/studio/projects/prj%3A4f0c213c-e027-4bec-9003-c546212eb1b5 | SC-07 / H-02 | authorized responsive 1024 | Responsive authority region |
+| SC-07-authorized-390.png | 2026-08-26T12:03:01.803Z | 390×900 | http://127.0.0.1:3020/studio/projects/prj%3A4f0c213c-e027-4bec-9003-c546212eb1b5 | SC-07 / H-02 | authorized responsive 390 | Responsive authority region |
+| SC-08-09-attempt-terminal-1440.png | 2026-08-26T12:03:01.978Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A4f0c213c-e027-4bec-9003-c546212eb1b5 | SC-08/SC-09 | attempt / terminal after governed execute | Single execute path; no F3 confirm+execute |
+| SC-04-or-05-responsive-1024.png | 2026-08-26T12:03:02.175Z | 1024×900 | http://127.0.0.1:3020/studio/projects/prj%3A4f0c213c-e027-4bec-9003-c546212eb1b5 | SC-04/05 / H-02 | post-execute workspace 1024 | Responsive workspace after single path |
+| SC-04-or-05-responsive-390.png | 2026-08-26T12:03:02.302Z | 390×900 | http://127.0.0.1:3020/studio/projects/prj%3A4f0c213c-e027-4bec-9003-c546212eb1b5 | SC-04/05 / H-02 | post-execute workspace 390 | Responsive workspace after single path |
+| SC-07-blocked-1440.png | 2026-08-26T12:03:03.360Z | 1440×900 | http://127.0.0.1:3020/studio/projects/prj%3A3d4e7892-de89-42aa-8c56-acddabcc2fc1 | SC-07 | authorization blocked; no attempt | Blocked is textual; Execute absent |
+```
+
+No pixel-perfect claim.
+
+---
+
+## 8. Single authority / H-01 / invariants
+
+- Single authority path: **PASS** (F2/F3 product-path still absent)
+- H-01 composition: **UNCHANGED** (still `project-state-trajectory-region` / `lps-embedded`)
+- Inspect → Confirm: **PASS**
+- Confirm ≠ Execute: **PASS**
+- Authority → Execute: **PASS**
+- Domain files modified: **NONE**
+- Runtime/domain status semantics modified: **NO**
+- CSS modified by CORR-01: **NO**
+- H-02 / H-03 / H-04: **CARRY**
+- W4-C: **NOT STARTED**
+- REAL: **OUT**
+
+---
+
+## 9. Final Local Git Truth
+
+### 9.1 `git status --short`
 
 ```
  M projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
@@ -58,11 +578,11 @@ This republication adds those artifacts so ChatGPT can perform a real diff revie
 ?? projects/sfia-studio/app/e2e/studio-w4b-single-authority-path.spec.ts
 ```
 
-### 1.2 `git diff --stat`
+### 9.2 `git diff --stat`
 
 ```
  .../runningAttemptRefresh.ui.test.tsx              |   8 +-
- .../trajectorySurface.ui.test.tsx                  |   2 +-
+ .../trajectorySurface.ui.test.tsx                  |  16 +-
  .../uatUxSemanticReserves.ui.test.tsx              |   6 +-
  .../studio-option-a-clean-slate-captures.spec.ts   |   5 +
  ...-option-a-deterministic-cursor-boundary.spec.ts |   5 +
@@ -71,21 +591,21 @@ This republication adds those artifacts so ChatGPT can perform a real diff revie
  .../studio-option-a-uat-semantic-reserves.spec.ts  |   5 +
  .../sfia-studio/app/e2e/studio-option-a.spec.ts    |   5 +
  .../e2e/studio-w2-g3-correction-runtime.spec.ts    |  10 +-
- .../studio-w3a-governed-execute-runtime.spec.ts    |   8 +-
- .../studio-w3b-terminal-evidence-runtime.spec.ts   |   8 +-
- ...studio-w3c-post-evidence-replan-runtime.spec.ts |   8 +-
- .../pre-m6-product-ui/NewProjectIntentionPage.tsx  |  22 ++-
- .../ProjectWorkspacePage.module.css                |  76 +++++++--
- .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |  51 ++++--
+ .../studio-w3a-governed-execute-runtime.spec.ts    |  21 +-
+ .../studio-w3b-terminal-evidence-runtime.spec.ts   |  17 +-
+ ...studio-w3c-post-evidence-replan-runtime.spec.ts |  17 +-
+ .../pre-m6-product-ui/NewProjectIntentionPage.tsx  |  21 +-
+ .../ProjectWorkspacePage.module.css                |  76 +++++--
+ .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |  50 ++++-
  .../features/pre-m6-product-ui/product-tokens.css  |   4 +-
- .../surfaces/ConversationSurface.tsx               |  54 ++++--
+ .../surfaces/ConversationSurface.tsx               |  54 ++++-
  .../pre-m6-product-ui/surfaces/LpsSurface.tsx      |  11 +-
- .../surfaces/TrajectorySurface.module.css          |  20 +++
- .../surfaces/TrajectorySurface.tsx                 | 182 ++++++++++++++-------
- 21 files changed, 378 insertions(+), 122 deletions(-)
+ .../surfaces/TrajectorySurface.module.css          |  20 ++
+ .../surfaces/TrajectorySurface.tsx                 | 220 +++++++++++++++------
+ 21 files changed, 453 insertions(+), 128 deletions(-)
 ```
 
-### 1.3 `git diff --name-status`
+### 9.3 `git diff --name-status`
 
 ```
 M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
@@ -111,20 +631,20 @@ M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface
 M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
 ```
 
-### 1.4 Hashes
+### 9.4 Hashes
 
 | Item | SHA-256 |
 | --- | --- |
-| `git diff --binary` (all tracked dirty) | `a8d1408777e53f3619475ad69ca45453d9f8a3526dcd5d6f20f39b827cc66d02` |
-| Untracked E2E `studio-w4b-single-authority-path.spec.ts` | `342845bbd43549b1239720f52ed39e3590310999bf5917ecabc1c3928c5875ac` |
+| Final consolidated `git diff --binary` | `965fdf1e623335ad4699c9f9954aacab68ef274ba1776b9870d29fc429546dac` |
+| Final untracked E2E | `d0154023b4738b3da96f0702240a5844177d9095eea22ee0d90097595bfcdae9` |
+| Initial (pre-CORR) binary diff | `a8d1408777e53f3619475ad69ca45453d9f8a3526dcd5d6f20f39b827cc66d02` |
+| Initial (pre-CORR) E2E | `342845bbd43549b1239720f52ed39e3590310999bf5917ecabc1c3928c5875ac` |
 
-Note: `a8d1408777e53f3619475ad69ca45453d9f8a3526dcd5d6f20f39b827cc66d02` differs from pre-W4-BR baseline `c280d9f9…` because W4-BR presentation mutations were applied on top of W4-B. That is expected for the consolidated candidate.
-
-### 1.5 Per-file SHA-256 of tracked modified working-tree files
+### 9.5 Per-file SHA-256 (tracked dirty)
 
 ```
 c699c0b68bc30f517d95e231f11e28c26474a74addc49a7f5f0fd5eee8122bf9  projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
-d047d45366afd58d7251145e0db4caf0d8929883ce9b74606fbcc40970cad4a6  projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
+3877de082182027065709d48d77e80b127b4b3dfcc11b398b50eb16e86694bd1  projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
 c7ad038be782fc97704bac09f8084d050133675847bd26dd284ee052a007e3ed  projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx
 8819f32f6d5f828125b79967e27d75db048a5f93fe295c005d5f25ae1df0c680  projects/sfia-studio/app/e2e/studio-option-a-clean-slate-captures.spec.ts
 1ea713414ab98ea9cba1f2c56927e2313b4332cd1dad054b2c71494a833d1573  projects/sfia-studio/app/e2e/studio-option-a-deterministic-cursor-boundary.spec.ts
@@ -133,59 +653,87 @@ c7ad038be782fc97704bac09f8084d050133675847bd26dd284ee052a007e3ed  projects/sfia-
 08e32535ee9652a73d3edea8ed8a6e64e07471f702c4fc56db48e59e0cfe2b7e  projects/sfia-studio/app/e2e/studio-option-a-uat-semantic-reserves.spec.ts
 1150c277c489c9bbde1d3e99a8e5780c9d56275df3bc0ce202dac6ac8f7df57d  projects/sfia-studio/app/e2e/studio-option-a.spec.ts
 762e5f568c627ce371cf683c0c204cbd3761ece5aa4b0e180b0c4207b0c49142  projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts
-844c74e566b95d0bbd9b9e44061f2592e1072fe19e4a846bd77c6382fbbaf708  projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts
-e16ec39b046607f9d80caaaf4b7406792526d5dc2ec203a7cd8800cfda611790  projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
-0e56e59c3e5f10c023fd935677cdbe5f6bd26295b11aa5337d10bcaa3c4a0ed4  projects/sfia-studio/app/e2e/studio-w3c-post-evidence-replan-runtime.spec.ts
-4b1cbdc29ec61730a9c7a5fae78d2be85c249ea3d6c3585227005e2d856c0785  projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.tsx
+a2730997eb2794209fea9fccb1f6de690ae3d95b133bb15e6532f9982d4d55ac  projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts
+399251bbf30e1ab8c0dc38e7c07c39963054cb4dc3c8443e778e10779d650cd1  projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
+2415a76eb4da0352a362ca9672472ee3b6d5058418e71ee15c72cd76943186ae  projects/sfia-studio/app/e2e/studio-w3c-post-evidence-replan-runtime.spec.ts
+45151228f3c0297b6247f6d1ac93cbdeeccd5feae4daa49644b95a5ab0ea4fc8  projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.tsx
 107958d9ab81263feac47e6e60415f77b91efb636e8a0f6dc34756ab5a411c80  projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
-44023ef285796490649015bd66f99ada3036f88fff858d252860cc76627a012e  projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+aa1321b40b361e5eb01dc6a904dfcf85f5a08113088ed35d27fdeaa05a87373b  projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
 45926f42d92db838b0b6b967d5e93d6d26c6d304ddd0047488e92545169404b7  projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
 9e3b33c679d076f48974b00544255e762065f0c7fb50b1babfa1c0d221fd0e8a  projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
 bc1f2b96df7bd3e0f43842c1032f7ce9c4aae43aa4d62e12e4f51d807ab03950  projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LpsSurface.tsx
 0559c731c147d4b751b228a95ae4f0508f2965d38d23fba59803da7d50fcf53c  projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.module.css
-3a5e4b49952a7fe1c59a625772c0b3665a814826264414b98f060795a43826e6  projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+b043ca31f1845df58e41bb8f51eb7f40adc433e62942c94b8f6272fafc39ea77  projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
 ```
 
----
-
-## 2. Delivery summary (unchanged — context for diff readers)
-
-- H-01 Option A: Trajectory embedded in LPS piloting region (`project-state-trajectory-region` / `data-composition=lps-embedded`)
-- LPS ≠ ProjectTrajectory domain objects (presentation composition only)
-- W4-B single authority path preserved (F2/F3 not product-visible)
-- S2 labels + Annuler; EC progressive disclosure; business-first authority labels
-- H-02/H-03/H-04 remain **CARRY**
-- W4-C NOT STARTED; REAL OUT; no project commit/push/PR/merge
-- Tests previously reported: unit 15/15; W4-B/BR E2E 2/2; W2/W3 11/11 PASS
+HEAD still `1e17367d…`; origin/main still `1e17367d…`; staged empty; **no project commit**.
 
 ---
 
-## 3. File inventory — tracked modified (21)
+## 10. X-W4BR-CORR-01 → 20
 
-### W4-B candidate (authority path / harness) — primarily earlier dirty
-
-- `ConversationSurface.tsx`
-- unit UI tests (`runningAttemptRefresh`, `trajectorySurface`, `uatUxSemanticReserves`)
-- Option A e2e skips (`studio-option-a*.spec.ts`)
-- W2/W3 e2e adaptations (`studio-w2-g3`, `studio-w3a`, `studio-w3b`, `studio-w3c`)
-
-### W4-BR presentation delta — added on top
-
-- `ProjectWorkspacePage.tsx` / `.module.css`
-- `product-tokens.css`
-- `LpsSurface.tsx`
-- `TrajectorySurface.tsx` / `.module.css`
-- `NewProjectIntentionPage.tsx`
-
-### Untracked (must be reviewed as full source)
-
-- `projects/sfia-studio/app/e2e/studio-w4b-single-authority-path.spec.ts`
+| ID | Result |
+| --- | --- |
+| X-W4BR-CORR-01 Local truth at start | PASS |
+| X-W4BR-CORR-02 questionnaire méthode absent | PASS |
+| X-W4BR-CORR-03 auto-qualify / HD jargon absent | PASS |
+| X-W4BR-CORR-04 second chemin d'autorité absent | PASS |
+| X-W4BR-CORR-05 S2 functionally unchanged | PASS |
+| X-W4BR-CORR-06 H-01 composition unchanged | PASS |
+| X-W4BR-CORR-07 EC primary = business label | PASS |
+| X-W4BR-CORR-08 raw status technically auditable | PASS |
+| X-W4BR-CORR-09 no domain/runtime status semantics change | PASS |
+| X-W4BR-CORR-10 inspection before Confirmation | PASS |
+| X-W4BR-CORR-11 Confirmation ≠ Execute | PASS |
+| X-W4BR-CORR-12 Authority before Execute | PASS |
+| X-W4BR-CORR-13 single authority non-regressed | PASS |
+| X-W4BR-CORR-14 W2/W3 non-regression | PASS |
+| X-W4BR-CORR-15 H-02/03/04 CARRY | PASS |
+| X-W4BR-CORR-16 W4-C NOT STARTED | PASS |
+| X-W4BR-CORR-17 REAL OUT | PASS |
+| X-W4BR-CORR-18 no project commit/push/PR/merge | PASS |
+| X-W4BR-CORR-19 correction-only patch scoped | PASS |
+| X-W4BR-CORR-20 full consolidated diff in remote handoff | PASS (this publication) |
 
 ---
 
-## 4. COMPLETE tracked unified diff (`git diff`)
+## 11. Blockers / Reserves
 
-The following is the full `git diff` of all 21 tracked modified files (unified patch). This is the primary ChatGPT review artifact for code.
+### Blockers
+NONE
+
+### Reserves / CARRY
+- H-02 CARRY
+- H-03 CARRY
+- H-04 CARRY
+- Option A F2/F3 product-path suite skips remain RETIRE LATER (not CORR-01)
+
+---
+
+## 12. Claims / Anti-claims
+
+### Claims
+- Presentation micro-gaps A+B closed
+- W4-B + W4-BR + CORR-01 consolidated candidate ready for ChatGPT final diff review
+- Full tracked diff + full untracked E2E embedded below
+
+### Anti-claims
+- Not W4-B/W4-BR CLOSED BY MORRIS
+- Not integrated / not W4 CLOSED
+- Not H-02/03/04 closed
+- Not W4-C started
+- Not REAL / READY FOR REAL / runtime v3 ADOPTED
+- Not pixel-perfect / WCAG claim
+
+---
+
+## 13. Verdict
+
+**W4-BR CORRECTION PASS WITH NON-BLOCKING CARRIES — TARGETED PRESENTATION GAPS CLOSED — H-02/H-03/H-04 REMAIN CARRY — READY FOR CHATGPT FINAL REVIEW / MORRIS GIT INTEGRATION GATE**
+
+---
+
+## 14. FULL CONSOLIDATED TRACKED DIFF (`git diff` — all 21 dirty files)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
@@ -250,10 +798,31 @@ index 9b8af16b..5aa747b0 100644
            f3M3Resolved: RESOLVED_M3,
            f3Execute: runningExecute(),
 diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-index 77fac3c7..a0651205 100644
+index 77fac3c7..186481db 100644
 --- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
 +++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-@@ -476,7 +476,7 @@ describe("W2 TrajectorySurface", () => {
+@@ -251,6 +251,20 @@ describe("W2 TrajectorySurface", () => {
+     expect(screen.getByTestId("w2-contract-capabilities")).toHaveTextContent(
+       "cap:product-temp-artifact",
+     );
++    // W4-BR-CORR-01 — primary status is business label; raw enum remains audit-only.
++    expect(screen.getByTestId("w2-contract-status")).toHaveTextContent(
++      "Confirmation requise",
++    );
++    expect(screen.getByTestId("w2-contract-status")).toHaveAttribute(
++      "data-status",
++      "confirmation_required",
++    );
++    expect(screen.getByTestId("w2-contract-status")).not.toHaveTextContent(
++      "confirmation_required",
++    );
++    expect(screen.getByTestId("w2-contract-status-tech")).toHaveTextContent(
++      "confirmation_required",
++    );
+     // E3 — Confirmation affordance requires sufficient inspection, not mere presence.
+     expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
+
+@@ -476,7 +490,7 @@ describe("W2 TrajectorySurface", () => {
      fireEvent.click(screen.getByTestId("w2-authorize-contract"));
      expect(await screen.findByTestId("w2-authorization")).toBeVisible();
      expect(screen.getByTestId("w2-authorization-outcome")).toHaveTextContent(
@@ -443,7 +1012,7 @@ index 378de28d..4b4a524b 100644
      await expect(page.getByTestId("w2-authorization-next")).not.toBeEmpty();
 
 diff --git a/projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts b/projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts
-index 679c6b8e..fa5db061 100644
+index 679c6b8e..96b59738 100644
 --- a/projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts
 +++ b/projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts
 @@ -168,9 +168,13 @@ async function openQualifiedStudioProject(page: Page, name: string) {
@@ -461,7 +1030,36 @@ index 679c6b8e..fa5db061 100644
 
    const trajectory = page.getByTestId("w2-trajectory-panel");
    await expect(trajectory).toBeVisible({ timeout: 15_000 });
-@@ -272,7 +276,7 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
+@@ -236,6 +240,13 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
+       "product:project-workspace",
+     );
+     await expect(page.getByTestId("w2-contract-status")).toHaveText(
++      "Confirmation requise",
++    );
++    await expect(page.getByTestId("w2-contract-status")).toHaveAttribute(
++      "data-status",
++      "confirmation_required",
++    );
++    await expect(page.getByTestId("w2-contract-status-tech")).toHaveText(
+       "confirmation_required",
+     );
+     await expect(page.getByTestId("w2-contract-reversibility")).toContainText(
+@@ -259,9 +270,13 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
+
+     await page.getByTestId("w2-confirm-contract").click();
+     await expect(page.getByTestId("w2-contract-status")).toHaveText(
+-      "confirmed",
++      "Confirmation enregistrée",
+       { timeout: 30_000 },
+     );
++    await expect(page.getByTestId("w2-contract-status")).toHaveAttribute(
++      "data-status",
++      "confirmed",
++    );
+     await capture(page, "05-confirmed", {
+       screen: "TrajectorySurface",
+       state: "effect_confirmation_n1_granted",
+@@ -272,7 +287,7 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
        timeout: 30_000,
      });
      await expect(page.getByTestId("w2-authorization-outcome")).toContainText(
@@ -471,7 +1069,7 @@ index 679c6b8e..fa5db061 100644
      await expect(page.getByTestId("w3a-governed-execute")).toBeVisible();
      await capture(page, "06-authorized", {
 diff --git a/projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts b/projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
-index 16adf051..2dcf7e29 100644
+index 16adf051..d7fed5e5 100644
 --- a/projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
 +++ b/projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
 @@ -125,9 +125,13 @@ async function openThroughAuthorized(page: Page, name: string) {
@@ -489,8 +1087,19 @@ index 16adf051..2dcf7e29 100644
 
    const trajectory = page.getByTestId("w2-trajectory-panel");
    await expect(trajectory).toBeVisible({ timeout: 15_000 });
-@@ -158,7 +162,7 @@ async function openThroughAuthorized(page: Page, name: string) {
-   });
+@@ -153,12 +157,15 @@ async function openThroughAuthorized(page: Page, name: string) {
+     { timeout: 30_000 },
+   );
+   await page.getByTestId("w2-confirm-contract").click();
+-  await expect(page.getByTestId("w2-contract-status")).toHaveText("confirmed", {
+-    timeout: 30_000,
+-  });
++  await expect(page.getByTestId("w2-contract-status")).toHaveText(
++    "Confirmation enregistrée",
++    {
++      timeout: 30_000,
++    },
++  );
    await page.getByTestId("w2-authorize-contract").click();
    await expect(page.getByTestId("w2-authorization-outcome")).toContainText(
 -    "AUTORISÉ",
@@ -499,7 +1108,7 @@ index 16adf051..2dcf7e29 100644
    );
 
 diff --git a/projects/sfia-studio/app/e2e/studio-w3c-post-evidence-replan-runtime.spec.ts b/projects/sfia-studio/app/e2e/studio-w3c-post-evidence-replan-runtime.spec.ts
-index b4b8bc47..f36d4d7f 100644
+index b4b8bc47..7e4f54e7 100644
 --- a/projects/sfia-studio/app/e2e/studio-w3c-post-evidence-replan-runtime.spec.ts
 +++ b/projects/sfia-studio/app/e2e/studio-w3c-post-evidence-replan-runtime.spec.ts
 @@ -72,9 +72,13 @@ async function openThroughAuthorized(page: Page, name: string) {
@@ -517,8 +1126,19 @@ index b4b8bc47..f36d4d7f 100644
 
    const trajectory = page.getByTestId("w2-trajectory-panel");
    await expect(trajectory).toBeVisible({ timeout: 15_000 });
-@@ -105,7 +109,7 @@ async function openThroughAuthorized(page: Page, name: string) {
-   });
+@@ -100,12 +104,15 @@ async function openThroughAuthorized(page: Page, name: string) {
+     { timeout: 30_000 },
+   );
+   await page.getByTestId("w2-confirm-contract").click();
+-  await expect(page.getByTestId("w2-contract-status")).toHaveText("confirmed", {
+-    timeout: 30_000,
+-  });
++  await expect(page.getByTestId("w2-contract-status")).toHaveText(
++    "Confirmation enregistrée",
++    {
++      timeout: 30_000,
++    },
++  );
    await page.getByTestId("w2-authorize-contract").click();
    await expect(page.getByTestId("w2-authorization-outcome")).toContainText(
 -    "AUTORISÉ",
@@ -527,7 +1147,7 @@ index b4b8bc47..f36d4d7f 100644
    );
  }
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.tsx
-index 1a065d28..9f14c585 100644
+index 1a065d28..31321218 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.tsx
 @@ -19,9 +19,8 @@ function createIdempotencyKey(): string {
@@ -560,24 +1180,23 @@ index 1a065d28..9f14c585 100644
            </label>
            <textarea
              id="project-context"
-@@ -273,12 +272,14 @@ export function NewProjectIntentionPage() {
+@@ -273,12 +272,13 @@ export function NewProjectIntentionPage() {
              className={styles.textarea}
              rows={3}
              value={precisions}
 -            placeholder="Contexte, contraintes connues, ce qu'il faut éviter…"
-+            placeholder="Notes libres utiles au pilotage — pas un questionnaire méthode."
++            placeholder="Ajoutez uniquement le contexte utile au projet."
              aria-describedby="project-context-help"
              onChange={(event) => setPrecisions(event.target.value)}
            />
            <p className={styles.help} id="project-context-help">
 -            Sans précision, votre intention sert aussi de contexte.
-+            Sans contexte, votre intention sert aussi de contexte. Créer ouvre le
-+            projet : cela ne qualifie pas automatiquement le cycle et ne crée
-+            pas de décision humaine.
++            Sans contexte, votre intention suffit pour créer le projet. Vous
++            pourrez préciser la suite avec Nora ensuite.
            </p>
          </div>
 
-@@ -299,6 +300,13 @@ export function NewProjectIntentionPage() {
+@@ -299,6 +299,13 @@ export function NewProjectIntentionPage() {
            >
              {pending ? "Création…" : "Créer le projet"}
            </button>
@@ -701,7 +1320,7 @@ index 1f184474..0b74af4b 100644
 
    .lpsSheet {
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
-index 86565b47..4c4f8267 100644
+index 86565b47..4836a276 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
 @@ -14,7 +14,11 @@ import { TrajectorySurface } from "./surfaces/TrajectorySurface";
@@ -742,7 +1361,7 @@ index 86565b47..4c4f8267 100644
            <HistorySurface result={success} durableOutcome={durableOutcome} />
          </div>
 
-@@ -172,7 +171,39 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+@@ -172,7 +171,38 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
              >
                Fermer
              </button>
@@ -760,9 +1379,8 @@ index 86565b47..4c4f8267 100644
 +                  État actuel et trajectoire
 +                </h2>
 +                <p className={styles.stateTrajectoryNote}>
-+                  L&apos;état enregistré et la trajectoire restent distincts :
-+                  une même région de lecture pour décider, sans second chemin
-+                  d&apos;autorité.
++                  L&apos;état actuel et la trajectoire sont regroupés ici pour
++                  faciliter le pilotage.
 +                </p>
 +              </header>
 +              <div
@@ -983,10 +1601,45 @@ index 99fbcb4c..cf8a4615 100644
    .root {
      padding: var(--pm6-space-4);
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-index 96c54184..95d966d7 100644
+index 96c54184..30050c95 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-@@ -98,11 +98,17 @@ export function TrajectorySurface({
+@@ -39,8 +39,34 @@ import type {
+   W3cPostEvidenceLoopDto,
+ } from "@/features/project-assistant/w2/types";
+ import { filterProductReservationsForDisplay } from "@/features/project-assistant/w2/w3cProductPresentation";
++import type { ExecutionContractStatus } from "@/lib/oa/execution-contract/domain/types";
+ import styles from "./TrajectorySurface.module.css";
+
++/**
++ * Presentation-only labels for ExecutionContractStatus.
++ * Exhaustive over the domain union; never surfaces the raw enum as primary copy.
++ */
++const EXECUTION_CONTRACT_STATUS_LABELS: Record<ExecutionContractStatus, string> =
++  {
++    draft: "Brouillon",
++    proposed: "Proposé",
++    validated: "Validé",
++    confirmation_required: "Confirmation requise",
++    confirmed: "Confirmation enregistrée",
++    executing: "Exécution en cours",
++    completed: "Exécution terminée",
++    failed: "Échec d'exécution",
++    cancelled: "Annulé",
++    superseded: "Remplacé",
++  };
++
++function executionContractStatusLabel(status: string): string {
++  if (Object.prototype.hasOwnProperty.call(EXECUTION_CONTRACT_STATUS_LABELS, status)) {
++    return EXECUTION_CONTRACT_STATUS_LABELS[status as ExecutionContractStatus];
++  }
++  return "État du contrat indisponible";
++}
++
+ /** Explicit Pilot-qualified operation — never inferred from W2 trajectory alone. */
+ type QualifiedOperationKind = "generate-temporary-artifact" | "simulate" | "read";
+
+@@ -98,11 +124,17 @@ export function TrajectorySurface({
    projectId,
    onDurableFactsChanged,
    recoveryProposeSignal = 0,
@@ -1004,7 +1657,7 @@ index 96c54184..95d966d7 100644
  }) {
    const [busy, setBusy] = useState<Busy>(null);
    const [error, setError] = useState<string | null>(null);
-@@ -555,20 +561,26 @@ export function TrajectorySurface({
+@@ -555,20 +587,26 @@ export function TrajectorySurface({
 
    return (
      <section
@@ -1035,7 +1688,7 @@ index 96c54184..95d966d7 100644
          </p>
        </header>
 
-@@ -711,7 +723,7 @@ export function TrajectorySurface({
+@@ -711,7 +749,7 @@ export function TrajectorySurface({
            >
              <p className={styles.blockNote}>
                Qualifier le travail d&apos;exécution réel (indépendant de
@@ -1044,7 +1697,7 @@ index 96c54184..95d966d7 100644
              </p>
              <label className={styles.amendmentLabel} htmlFor="w3a-operation-kind">
                Opération d&apos;exécution
-@@ -774,23 +786,19 @@ export function TrajectorySurface({
+@@ -774,23 +812,19 @@ export function TrajectorySurface({
            data-testid="w2-contract"
          >
            <h3 id="w2-contract-title" className={styles.blockTitle}>
@@ -1075,7 +1728,7 @@ index 96c54184..95d966d7 100644
                <dd data-testid="w2-contract-target">{contract.target}</dd>
              </div>
              <div>
-@@ -798,48 +806,82 @@ export function TrajectorySurface({
+@@ -798,48 +832,96 @@ export function TrajectorySurface({
                <dd data-testid="w2-contract-scope">{contract.scope}</dd>
              </div>
              <div>
@@ -1112,9 +1765,13 @@ index 96c54184..95d966d7 100644
 -                {contract.stopConditions.length
 -                  ? contract.stopConditions.join(" · ")
 -                  : "Aucune"}
--              </dd>
 +              <dt>État du contrat</dt>
-+              <dd data-testid="w2-contract-status">{contract.status}</dd>
++              <dd
++                data-testid="w2-contract-status"
++                data-status={contract.status}
++              >
++                {executionContractStatusLabel(contract.status)}
+               </dd>
              </div>
              <div>
 -              <dt>Empreinte sémantique</dt>
@@ -1179,6 +1836,15 @@ index 96c54184..95d966d7 100644
 +            <summary>Détails techniques du contrat</summary>
 +            <dl className={styles.facts}>
 +              <div>
++                <dt>Statut technique</dt>
++                <dd
++                  className={styles.code}
++                  data-testid="w2-contract-status-tech"
++                >
++                  {contract.status}
++                </dd>
++              </div>
++              <div>
 +                <dt>Empreinte sémantique</dt>
 +                <dd className={styles.code} data-testid="w2-contract-fingerprint">
 +                  {contract.semanticFingerprint.slice(0, 12)}…
@@ -1195,7 +1861,7 @@ index 96c54184..95d966d7 100644
 
            {amendmentNotice ? (
              <div
-@@ -919,7 +961,7 @@ export function TrajectorySurface({
+@@ -919,7 +1001,7 @@ export function TrajectorySurface({
                      : undefined
                  }
                >
@@ -1204,7 +1870,7 @@ index 96c54184..95d966d7 100644
                </button>
              ) : null}
              <button
-@@ -961,8 +1003,13 @@ export function TrajectorySurface({
+@@ -961,8 +1043,13 @@ export function TrajectorySurface({
            role="status"
          >
            <h3 id="w2-authorization-title" className={styles.blockTitle}>
@@ -1220,7 +1886,7 @@ index 96c54184..95d966d7 100644
              </span>
            </h3>
            <p className={styles.blockBody} data-testid="w2-authorization-reason">
-@@ -988,13 +1035,24 @@ export function TrajectorySurface({
+@@ -988,13 +1075,24 @@ export function TrajectorySurface({
                <dt>Inspection</dt>
                <dd>{authorization.inspection.statusLabel}</dd>
              </div>
@@ -1255,10 +1921,10 @@ index 96c54184..95d966d7 100644
 
 ---
 
-## 5. COMPLETE untracked E2E source
+## 15. FULL UNTRACKED E2E SOURCE
 
 Path: `projects/sfia-studio/app/e2e/studio-w4b-single-authority-path.spec.ts`
-SHA-256: `342845bbd43549b1239720f52ed39e3590310999bf5917ecabc1c3928c5875ac`
+SHA-256: `d0154023b4738b3da96f0702240a5844177d9095eea22ee0d90097595bfcdae9`
 
 ```typescript
 /**
@@ -1273,7 +1939,7 @@ import crypto from "node:crypto";
 
 const CAPTURE_ROOT = path.resolve(
   process.cwd(),
-  "../../../.tmp-sfia-review/runtime-captures/w4-br",
+  "../../../.tmp-sfia-review/runtime-captures/w4-br-corr-01",
 );
 const MANIFEST = path.join(CAPTURE_ROOT, "manifest.md");
 const MANIFEST_JSONL = path.join(CAPTURE_ROOT, "manifest.jsonl");
@@ -1304,7 +1970,7 @@ async function capture(
     route: page.url(),
     ...meta,
     provenance:
-      "CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W4-B + W4-BR RECONCILED PRESENTATION",
+      "CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — W4-BR-CORR-01 BUSINESS-FIRST COPY + EC STATUS",
   };
   fs.appendFileSync(MANIFEST_JSONL, `${JSON.stringify(row)}\n`);
   fs.appendFileSync(
@@ -1346,7 +2012,7 @@ test.describe("W4-B single authority path /studio", () => {
     fs.writeFileSync(
       MANIFEST,
       [
-        "# W4-BR runtime captures (extended W4-B single authority + H-01 composition)",
+        "# W4-BR-CORR-01 runtime captures (business-first copy + EC status)",
         "",
         "| file | timestamp | viewport | route | SC | state | observation |",
         "| --- | --- | --- | --- | --- | --- | --- |",
@@ -1361,6 +2027,23 @@ test.describe("W4-B single authority path /studio", () => {
     await expect(page.getByLabel("Intention du projet")).toBeVisible();
     await expect(page.getByLabel("Contexte optionnel")).toBeVisible();
     await expect(page.getByTestId("create-project-cancel")).toBeVisible();
+    // W4-BR-CORR-01 — banned internal/method copy absent from Pilote-facing S2.
+    await expect(page.locator("body")).not.toContainText(
+      "pas un questionnaire méthode",
+    );
+    await expect(page.locator("body")).not.toContainText(
+      "cela ne qualifie pas automatiquement le cycle et ne crée pas de décision humaine",
+    );
+    await expect(page.locator("#project-context")).toHaveAttribute(
+      "placeholder",
+      "Ajoutez uniquement le contexte utile au projet.",
+    );
+    await capture(page, "A-S2-create-form-1440", {
+      sc: "S2",
+      state: "create form after CORR-01 copy",
+      viewport: { width: 1440, height: 900 },
+      observation: "Business-first context copy; no method jargon",
+    });
     await page.locator("#project-name").fill(name);
     await page
       .locator("#project-objective")
@@ -1384,7 +2067,18 @@ test.describe("W4-B single authority path /studio", () => {
     await expect(
       page.getByTestId("project-lps-column").getByTestId("w2-trajectory-panel"),
     ).toBeVisible();
-
+    await expect(page.locator("body")).not.toContainText(
+      "sans second chemin d'autorité",
+    );
+    await expect(page.getByTestId("project-state-trajectory-region")).toContainText(
+      "L'état actuel et la trajectoire sont regroupés ici pour faciliter le pilotage.",
+    );
+    await capture(page, "B-workspace-state-trajectory-note-1440", {
+      sc: "H-01",
+      state: "État/Trajectoire note after CORR-01",
+      viewport: { width: 1440, height: 900 },
+      observation: "Pilote-facing note; no authority-path jargon",
+    });
     const input = page.getByTestId("project-assistant-input");
     await expect(input).toBeEnabled({ timeout: 15_000 });
     await input.fill("Préparer une livraison gated __F2_GATED_STANDARD__");
@@ -1427,6 +2121,32 @@ test.describe("W4-B single authority path /studio", () => {
       .selectOption("generate-temporary-artifact");
     await page.getByTestId("w2-prepare-contract").click();
     await expect(page.getByTestId("w2-contract")).toBeVisible({ timeout: 45_000 });
+    await expect(page.getByTestId("w2-contract-status")).toHaveText(
+      "Confirmation requise",
+    );
+    await expect(page.getByTestId("w2-contract-status")).toHaveAttribute(
+      "data-status",
+      "confirmation_required",
+    );
+    await expect(page.getByTestId("w2-contract-status")).not.toHaveText(
+      "confirmation_required",
+    );
+    await expect(page.getByTestId("w2-contract-status-tech")).toHaveText(
+      "confirmation_required",
+    );
+    await page.getByText("Détails techniques du contrat").click();
+    await capture(page, "C-EC-business-status-1440", {
+      sc: "SC-05",
+      state: "EC prepared; business status label primary",
+      viewport: { width: 1440, height: 900 },
+      observation: "w2-contract-status = Confirmation requise",
+    });
+    await capture(page, "D-EC-technical-status-audit-1440", {
+      sc: "SC-05",
+      state: "EC technical details; raw status auditable",
+      viewport: { width: 1440, height: 900 },
+      observation: "w2-contract-status-tech = confirmation_required",
+    });
     await capture(page, "SC-05-ec-summary-1440", {
       sc: "SC-05",
       state: "EC prepared",
@@ -1450,8 +2170,12 @@ test.describe("W4-B single authority path /studio", () => {
       await expect(confirm).toBeEnabled();
       await confirm.click();
       await expect(page.getByTestId("w2-contract-status")).toHaveText(
-        /confirmed/i,
+        "Confirmation enregistrée",
         { timeout: 30_000 },
+      );
+      await expect(page.getByTestId("w2-contract-status")).toHaveAttribute(
+        "data-status",
+        "confirmed",
       );
       await capture(page, "SC-06-confirmation-1440", {
         sc: "SC-06",
@@ -1564,32 +2288,11 @@ test.describe("W4-B single authority path /studio", () => {
 
 ---
 
-## 6. Artifact index (local, non-versioned)
+## 16. Artifact index
 
 | Artifact | Path |
 | --- | --- |
-| Full tracked patch | `.tmp-sfia-review/w4-br-handoff-complete/diff-tracked-full.patch` |
-| Binary diff + SHA | `.tmp-sfia-review/w4-br-handoff-complete/diff-binary.bin` / `.sha256` |
-| E2E copy | `.tmp-sfia-review/w4-br-handoff-complete/studio-w4b-single-authority-path.spec.ts` |
+| Correction-only patch | `.tmp-sfia-review/w4-br-corr-01/correction-only.patch` |
+| Before/after snapshots | `.tmp-sfia-review/w4-br-corr-01/before/` / `after/` |
+| Captures | `.tmp-sfia-review/runtime-captures/w4-br-corr-01/` |
 | This Review Pack | `.tmp-sfia-review/chatgpt-review.md` |
-
----
-
-## 7. Claims / anti-claims for this correction pass
-
-### Claims
-- Review Pack now contains complete exploitable tracked diff + full untracked E2E
-- Product working tree not mutated by this handoff-correction pass
-- Handoff republication only on `sfia/review-handoff`
-
-### Anti-claims
-- Does not re-prove tests
-- Does not close W4-BR by Morris
-- Does not authorize project commit/push/PR/merge
-- Does not start W4-C / REAL / runtime v3
-
-## 8. Verdict (delivery status unchanged)
-
-**W4-BR DELIVERY PASS WITH NON-BLOCKING CARRIES — CORE RECONCILIATION PROVEN — H-02/H-03/H-04 REMAIN CARRY — READY FOR CHATGPT REVIEW / MORRIS GIT INTEGRATION GATE**
-
-Plus: **HANDOFF DIFF COMPLETENESS CORRECTED — READY FOR REAL DIFF REVIEW**
