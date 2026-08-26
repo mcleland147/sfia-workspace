@@ -79,8 +79,8 @@ describe("W2 Track E — disclosure honesty", () => {
     expect(joined).toMatch(/CLOSED BY MORRIS/);
     expect(joined).toMatch(/W3 NOT AUTHORIZED/);
     expect(joined).not.toMatch(/W2 NOT closed/);
-    expect(w1RestartHonestyMessage()).toMatch(/trajectoire effective\/décidée/i);
-    expect(w1RestartHonestyMessage()).toMatch(/confirmation demandée/i);
+    expect(w1RestartHonestyMessage()).toMatch(/trajectoire décidée/i);
+    expect(w1RestartHonestyMessage()).toMatch(/confirmation encore demandée/i);
   });
 });
 
