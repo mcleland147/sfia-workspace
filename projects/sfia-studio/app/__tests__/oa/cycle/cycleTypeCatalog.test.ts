@@ -14,7 +14,9 @@ import {
   CKC_PILOT_QA_VALIDATION_PATH,
   CKC_SYNTHETIC_MAP_PATH,
   CYCLE_TYPE_CATALOG,
+  CYCLE_TYPE_CATALOG_BASELINE_ENTRY_COUNT,
   CYCLE_TYPE_CATALOG_VERSION,
+  METHOD_CYCLES_DOC_PATH,
   getCycleTypeById,
   isKnownCycleTypeId,
   listCycleTypes,
@@ -64,10 +66,40 @@ function cloneCatalog(
 }
 
 describe("V3.1-D1 cycle type catalog", () => {
-  it("exposes catalog version and exactly fifteen entries", () => {
+  it("exposes catalog version and current baseline of fifteen content entries", () => {
     expect(CYCLE_TYPE_CATALOG.version).toBe("0.1.0-v3.1-d1");
-    expect(CYCLE_TYPE_CATALOG.entries).toHaveLength(15);
+    expect(CYCLE_TYPE_CATALOG.entries).toHaveLength(
+      CYCLE_TYPE_CATALOG_BASELINE_ENTRY_COUNT,
+    );
     expect(ADOPTED_CYCLE_TYPE_IDS).toEqual([...EXPECTED_IDS]);
+  });
+
+  it("W3-D: structural cardinality 15 is not a validator invariant", () => {
+    const extended = cloneCatalog((entries) => {
+      entries.push({
+        cycleTypeId: "cyc:w3d-extension-probe",
+        canonicalKey: "w3d-extension-probe",
+        label: "Extension probe",
+        shortDescription: "Test-only extension for catalog evolvability",
+        displayOrder: 16,
+        lifecycleStatus: "active",
+        methodCycleNumber: 16,
+        methodReference: `${METHOD_CYCLES_DOC_PATH} §probe`,
+        ckc: {
+          mandatory: true,
+          primaryLevel: "synthetic",
+          primaryReference: CKC_SYNTHETIC_MAP_PATH,
+          fallbackPolicy: "none",
+          executionAuthority: false,
+          doctrineStatus: "method-candidate",
+          unavailableBehavior: "fail-closed",
+        },
+        aliases: [],
+      });
+      return entries;
+    });
+    expect(extended.entries).toHaveLength(16);
+    expect(validateCycleTypeCatalog(extended)).toEqual([]);
   });
 
   it("lists exact adopted cycleTypeId set in order", () => {
@@ -270,7 +302,7 @@ describe("V3.1-D1 cycle type catalog negatives", () => {
     );
     expect(
       validateCycleTypeCatalog(catalog).some(
-        (i) => i.code === "CAPITALIZATION_MISSING" || i.code === "COUNT",
+        (i) => i.code === "CAPITALIZATION_MISSING",
       ),
     ).toBe(true);
   });
@@ -551,66 +583,40 @@ describe("V3.1-D1 QA reinforcement — validator negatives & edges", () => {
     ).toBe(true);
   });
 
-  it("detects methodCycleNumber unique but outside 1…15", () => {
+  it("W3-D: accepts methodCycleNumber beyond historical 1…15 when unique and positive", () => {
     const catalog = cloneCatalog((entries) => {
       entries[0] = { ...entries[0], methodCycleNumber: 16 };
       return entries;
     });
-    expect(
-      validateCycleTypeCatalog(catalog).some(
-        (i) =>
-          i.code === "METHOD_NUMBER_RANGE" ||
-          i.code === "METHOD_NUMBER_SET" ||
-          i.message.toLowerCase().includes("methodcyclenumber"),
-      ),
-    ).toBe(true);
+    expect(validateCycleTypeCatalog(catalog)).toEqual([]);
   });
 
-  it("detects displayOrder unique but outside 1…15", () => {
+  it("detects non-positive displayOrder", () => {
     const catalog = cloneCatalog((entries) => {
       entries[0] = { ...entries[0], displayOrder: 0 };
       return entries;
     });
     expect(
       validateCycleTypeCatalog(catalog).some(
-        (i) =>
-          i.code === "DISPLAY_ORDER_RANGE" ||
-          i.code === "DISPLAY_ORDER_SET" ||
-          i.message.toLowerCase().includes("displayorder"),
+        (i) => i.code === "DISPLAY_ORDER_RANGE",
       ),
     ).toBe(true);
   });
 
-  it("detects incomplete methodCycleNumber set (unique but not exact 1…15)", () => {
+  it("W3-D: accepts incomplete historical 1…15 methodCycleNumber set when unique positive ints", () => {
     const catalog = cloneCatalog((entries) => {
       entries[0] = { ...entries[0], methodCycleNumber: 16 };
       return entries;
     });
-    // Unique still holds for 2..15 + 16; exact set 1..15 must fail.
-    const issues = validateCycleTypeCatalog(catalog);
-    expect(
-      issues.some(
-        (i) =>
-          i.code === "METHOD_NUMBER_SET" ||
-          i.code === "METHOD_NUMBER_RANGE" ||
-          i.message.includes("1") && i.message.includes("15"),
-      ),
-    ).toBe(true);
+    expect(validateCycleTypeCatalog(catalog)).toEqual([]);
   });
 
-  it("detects incomplete displayOrder set (unique but not exact 1…15)", () => {
+  it("W3-D: accepts displayOrder outside historical 1…15 when unique and positive", () => {
     const catalog = cloneCatalog((entries) => {
       entries[14] = { ...entries[14], displayOrder: 99 };
       return entries;
     });
-    expect(
-      validateCycleTypeCatalog(catalog).some(
-        (i) =>
-          i.code === "DISPLAY_ORDER_SET" ||
-          i.code === "DISPLAY_ORDER_RANGE" ||
-          i.message.toLowerCase().includes("displayorder"),
-      ),
-    ).toBe(true);
+    expect(validateCycleTypeCatalog(catalog)).toEqual([]);
   });
 
   it("detects alias collision between two entries", () => {
@@ -672,11 +678,7 @@ describe("V3.1-D1 QA reinforcement — validator negatives & edges", () => {
     });
     expect(
       validateCycleTypeCatalog(catalog).some(
-        (i) =>
-          i.code === "CKC_PRIMARY_LEVEL" ||
-          i.code === "DETAILED_COUNT" ||
-          i.code === "SYNTHETIC_COUNT" ||
-          i.message.toLowerCase().includes("primary"),
+        (i) => i.code === "CKC_PRIMARY_LEVEL",
       ),
     ).toBe(true);
   });

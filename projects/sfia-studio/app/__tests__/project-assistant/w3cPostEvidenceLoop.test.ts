@@ -207,6 +207,23 @@ describe("W3C-P02 Nora analysis", () => {
     );
     expect(hasText || hasUnavailable).toBe(true);
   });
+
+  it("W3-D: post-Evidence Nora analysis is CKC-informed on delivery path", async () => {
+    const ctx = await authorizeTempArtifact("w3d-ckc");
+    const { materialized } = await materializeSuccess(ctx);
+    expect(materialized.postEvidence?.ok).toBe(true);
+    if (!materialized.postEvidence || !materialized.postEvidence.ok) return;
+    expect(materialized.postEvidence.analysisText).toBeTruthy();
+    expect(materialized.postEvidence.analysisText!.toLowerCase()).toMatch(
+      /anti scope creep/,
+    );
+    expect(materialized.postEvidence.analysisText).not.toMatch(/ckc:studio:/);
+    expect(materialized.postEvidence.recommendation.authority).toBe("none");
+    expect(materialized.postEvidence.recommendation.decisionCreated).toBe(
+      false,
+    );
+    expect(materialized.postEvidence.replanInvoked).toBe(false);
+  });
 });
 
 describe("W3C-P03 recommendation anti-authority", () => {

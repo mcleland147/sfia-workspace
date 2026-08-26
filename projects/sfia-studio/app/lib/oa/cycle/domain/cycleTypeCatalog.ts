@@ -1,10 +1,14 @@
 /**
  * V3.1-D1 — Cycle Type Catalog runtime contract (pure domain).
  *
- * Immutable projection of the fifteen Morris-adopted cycle types and their
+ * Immutable projection of the current Morris-adopted cycle types and their
  * mandatory CKC mapping metadata. No I/O, no resolver orchestration, no UI.
  *
- * Decisions: D-V3.1-CAT-01…08 (see framing doc 14).
+ * Content baseline (W3-D): fifteen entries remain the published product snapshot.
+ * Cardinality 15 / detailed=4 / synthetic=11 are NOT structural runtime invariants —
+ * catalog evolvability (US-P1-09) requires uniqueness + fail-closed rules only.
+ *
+ * Decisions: D-V3.1-CAT-01…08 (see framing doc 14) · W3-D ADAPT for US-P1-09.
  */
 
 import { isOaIdentifier } from "./invariants";
@@ -13,9 +17,15 @@ import { CAPITALIZATION_CYCLE_TYPE_ID } from "./types";
 /** Contract version of the static catalog snapshot. */
 export const CYCLE_TYPE_CATALOG_VERSION = "0.1.0-v3.1-d1" as const;
 
-/** Canonical Git path of the fifteen-cycles synthetic CKC map. */
+/**
+ * Canonical Git path of the historical synthetic CKC map (method provenance).
+ * Product runtime SoT remains the Product DoctrinePackage / Product CKC index.
+ */
 export const CKC_SYNTHETIC_MAP_PATH =
   "method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md" as const;
+
+/** Current published product catalog entry count (content baseline — not a validator invariant). */
+export const CYCLE_TYPE_CATALOG_BASELINE_ENTRY_COUNT = 15 as const;
 
 /** Method candidate document used for doctrinal provenance. */
 export const METHOD_CYCLES_DOC_PATH =
@@ -53,7 +63,7 @@ export type CycleTypeCkcMapping = {
   primaryReference: string;
   /**
    * Fallback policy:
-   * - synthetic_map: use fifteen-cycles synthetic map
+   * - synthetic_map: use historical synthetic map (method provenance)
    * - none: synthetic primary with no further fallback (fail-closed if invalid)
    */
   fallbackPolicy: "synthetic_map" | "none";
@@ -123,7 +133,8 @@ function methodRef(section: string): string {
 
 /**
  * Immutable catalog entries — Morris-adopted CAT-I1 IDs.
- * Order is displayOrder / methodCycleNumber 1…15.
+ * Current content baseline uses displayOrder / methodCycleNumber 1…15.
+ * Validator no longer treats that cardinality as a structural invariant (W3-D / US-P1-09).
  */
 const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
   Object.freeze({
@@ -356,30 +367,17 @@ const ALLOWED_PRIMARY_LEVELS: ReadonlySet<string> = new Set([
   "synthetic",
 ]);
 
-const CANONICAL_ONE_TO_FIFTEEN: readonly number[] = Object.freeze([
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-]);
-
-/** Exact membership of the closed set {1…15}. */
-function isExactOneToFifteen(values: ReadonlySet<number>): boolean {
-  if (values.size !== 15) {
-    return false;
-  }
-  for (const n of CANONICAL_ONE_TO_FIFTEEN) {
-    if (!values.has(n)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-function isIntegerInOneToFifteen(value: number): boolean {
-  return Number.isInteger(value) && value >= 1 && value <= 15;
+/** Positive integer used for methodCycleNumber / displayOrder (no closed upper bound). */
+function isPositiveInteger(value: number): boolean {
+  return Number.isInteger(value) && value >= 1;
 }
 
 /**
  * Pure validation of a catalog snapshot (used by tests / future governance).
  * Does not mutate production data. Returns issues — never throws on invalid entries.
+ *
+ * W3-D / US-P1-09: structural cardinality (15 / 4 detailed / 11 synthetic / exact 1…15)
+ * is intentionally NOT enforced. Uniqueness, lifecycle, and fail-closed CKC mapping rules remain.
  */
 export function validateCycleTypeCatalog(
   catalog: CycleTypeCatalog,
@@ -394,10 +392,10 @@ export function validateCycleTypeCatalog(
     });
   }
 
-  if (entries.length !== 15) {
+  if (entries.length < 1) {
     issues.push({
       code: "COUNT",
-      message: `expected 15 entries, got ${entries.length}`,
+      message: `expected at least 1 catalog entry, got ${entries.length}`,
     });
   }
 
@@ -411,8 +409,6 @@ export function validateCycleTypeCatalog(
   const keys = new Set<string>();
   const numbers = new Set<number>();
   const orders = new Set<number>();
-  let detailedCount = 0;
-  let syntheticCount = 0;
 
   for (const entry of entries) {
     if (!isOaIdentifier(entry.cycleTypeId)) {
@@ -450,10 +446,10 @@ export function validateCycleTypeCatalog(
       });
     }
     numbers.add(entry.methodCycleNumber);
-    if (!isIntegerInOneToFifteen(entry.methodCycleNumber)) {
+    if (!isPositiveInteger(entry.methodCycleNumber)) {
       issues.push({
         code: "METHOD_NUMBER_RANGE",
-        message: `methodCycleNumber out of range 1…15 for ${entry.cycleTypeId}: ${String(entry.methodCycleNumber)}`,
+        message: `methodCycleNumber must be a positive integer for ${entry.cycleTypeId}: ${String(entry.methodCycleNumber)}`,
       });
     }
 
@@ -464,10 +460,10 @@ export function validateCycleTypeCatalog(
       });
     }
     orders.add(entry.displayOrder);
-    if (!isIntegerInOneToFifteen(entry.displayOrder)) {
+    if (!isPositiveInteger(entry.displayOrder)) {
       issues.push({
         code: "DISPLAY_ORDER_RANGE",
-        message: `displayOrder out of range 1…15 for ${entry.cycleTypeId}: ${String(entry.displayOrder)}`,
+        message: `displayOrder must be a positive integer for ${entry.cycleTypeId}: ${String(entry.displayOrder)}`,
       });
     }
 
@@ -536,7 +532,6 @@ export function validateCycleTypeCatalog(
         message: `unknown primaryLevel for ${entry.cycleTypeId}: ${String(entry.ckc.primaryLevel)}`,
       });
     } else if (entry.ckc.primaryLevel === "detailed") {
-      detailedCount += 1;
       if (
         entry.ckc.fallbackPolicy !== "synthetic_map" ||
         entry.ckc.fallbackReference !== CKC_SYNTHETIC_MAP_PATH
@@ -547,7 +542,6 @@ export function validateCycleTypeCatalog(
         });
       }
     } else if (entry.ckc.primaryLevel === "synthetic") {
-      syntheticCount += 1;
       if (entry.ckc.primaryReference !== CKC_SYNTHETIC_MAP_PATH) {
         issues.push({
           code: "CKC_SYNTHETIC_REF",
@@ -586,19 +580,6 @@ export function validateCycleTypeCatalog(
     }
   }
 
-  if (!isExactOneToFifteen(numbers)) {
-    issues.push({
-      code: "METHOD_NUMBER_SET",
-      message: "methodCycleNumber set must be exactly 1…15",
-    });
-  }
-  if (!isExactOneToFifteen(orders)) {
-    issues.push({
-      code: "DISPLAY_ORDER_SET",
-      message: "displayOrder set must be exactly 1…15",
-    });
-  }
-
   if (!ids.has(CAPITALIZATION_CYCLE_TYPE_ID)) {
     issues.push({
       code: "CAPITALIZATION_MISSING",
@@ -608,19 +589,6 @@ export function validateCycleTypeCatalog(
     issues.push({
       code: "CAPITALIZATION_MODIFIED",
       message: "cyc:capitalization value changed",
-    });
-  }
-
-  if (detailedCount !== 4) {
-    issues.push({
-      code: "DETAILED_COUNT",
-      message: `expected 4 detailed CKC mappings, got ${detailedCount}`,
-    });
-  }
-  if (syntheticCount !== 11) {
-    issues.push({
-      code: "SYNTHETIC_COUNT",
-      message: `expected 11 synthetic CKC mappings, got ${syntheticCount}`,
     });
   }
 

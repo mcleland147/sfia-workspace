@@ -27,6 +27,7 @@ export * from "./ports/cycleAudit";
 
 export { QualifyCycle } from "./application/qualifyCycle";
 export * from "./application/qualifyCycleWithCkc";
+export * from "./application/bindCatalogAuthority";
 export { CreateCycle } from "./application/createCycle";
 export { GetCycle } from "./application/getCycle";
 export { CreateInitialTrajectory } from "./application/createInitialTrajectory";
@@ -85,8 +86,15 @@ import {
   QualifyCycleWithCkc,
   type QualifyCycleExecutor,
 } from "./application/qualifyCycleWithCkc";
+import {
+  bindCycleTypeCatalogAuthority,
+  verifyCycleTypeCatalogAuthority,
+} from "./application/bindCatalogAuthority";
 import { ResolveCycleKnowledgeContract } from "./application/resolveCycleKnowledgeContract";
 import { UpdateEpistemicState } from "./application/updateEpistemicState";
+import { DEFAULT_CYCLE_TYPE_CATALOG_AUTHORITY } from "./domain/catalogFingerprint";
+import type { CycleTypeCatalogAuthority } from "./domain/catalogFingerprint";
+import type { CycleTypeCatalog } from "./domain/cycleTypeCatalog";
 import { CkcQualificationResolver } from "./infrastructure/ckcQualificationResolver";
 import { MemoryCkcResolver } from "./infrastructure/memoryCkcResolver";
 import { MemoryCycleRepository } from "./infrastructure/memoryCycleRepository";
@@ -150,7 +158,37 @@ export type CreateCkcQualificationServicesOptions = {
     registryRoot: string,
   ) => CkcQualificationResolverPort;
   readonly qualifyCycle?: QualifyCycleExecutor;
+  /**
+   * Optional HASH-A-bound catalog authority (test-only future snapshots).
+   * Cryptographically verified before use; forged fingerprints fail closed
+   * on QualifyCycleWithCkc (R-W3D-03). Prefer {@link catalogSnapshot} when
+   * injecting N+1 content — factory binds HASH-A itself.
+   */
+  readonly catalogAuthority?: CycleTypeCatalogAuthority;
+  /**
+   * Optional raw catalog snapshot. Factory binds HASH-A via
+   * bindCycleTypeCatalogAuthority — callers cannot supply a forged fingerprint.
+   * Mutually preferred over an unverified catalogAuthority when both are set.
+   */
+  readonly catalogSnapshot?: Pick<CycleTypeCatalog, "entries">;
 };
+
+function resolveCkcQualificationCatalogAuthority(
+  options: CreateCkcQualificationServicesOptions,
+): CycleTypeCatalogAuthority {
+  if (options.catalogSnapshot) {
+    return bindCycleTypeCatalogAuthority(options.catalogSnapshot);
+  }
+  if (options.catalogAuthority) {
+    // Do not re-bind silently: QualifyCycleWithCkc verifies cryptographically
+    // and returns CATALOG_FINGERPRINT_STALE for forged authorities.
+    if (!verifyCycleTypeCatalogAuthority(options.catalogAuthority)) {
+      return options.catalogAuthority;
+    }
+    return options.catalogAuthority;
+  }
+  return DEFAULT_CYCLE_TYPE_CATALOG_AUTHORITY;
+}
 
 function usesProductDoctrinePin(pin?: DoctrinePackagePin): boolean {
   return pin?.doctrinePackageId === PRODUCT_DOCTRINE_PACKAGE_ID;
@@ -223,6 +261,7 @@ export function createCkcQualificationServices(
       qualifyCycle,
       clock,
       failureAwareAudit,
+      resolveCkcQualificationCatalogAuthority(options),
     ),
   });
 }

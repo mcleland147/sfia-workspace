@@ -2,9 +2,21 @@
  * GAP-4 — bounded post-Evidence Nora/provider analysis.
  * Uses resolveConversationProvider() only. Never instantiates OpenAI here.
  * Result is a Recommendation, never a HumanDecision / GO / new contract.
+ *
+ * W3-D / US-P1-14: when a resolved product-native CKC prompt section is supplied,
+ * it is injected into the same cognitive marker seam used by F2/W2 — no parallel
+ * resolver / orchestrator. Absence of CKC is handled by the caller (fail-closed).
+ *
+ * IMPORTANT: do not import `@/features/project-assistant/f2/ckcCognitiveContext`
+ * here — that module loads Node filesystem doctrine I/O and must stay off the
+ * client presentation graph (presentationLabels → postEvidenceNoraAnalysis).
  */
 
 import { resolveConversationProvider } from "@/lib/platform/ai";
+
+/** Same marker string as f2/ckcCognitiveContext — keep in sync (string only). */
+const CKC_COGNITIVE_REASONING_SYSTEM_MARKER =
+  "SFIA Studio CKC COGNITIVE REASONING" as const;
 
 export const POST_EVIDENCE_NORA_SENTINEL =
   "[[SFIA_POST_EVIDENCE_NORA_ANALYSIS]]" as const;
@@ -85,15 +97,41 @@ function boundedFactsJson(facts: PostEvidenceAnalysisFacts): string {
   });
 }
 
+export type AnalyzePostEvidenceOptions = {
+  /**
+   * Product-native CKC prompt section already built via
+   * `buildCkcCognitivePromptSection` — never raw package paths for Pilote.
+   */
+  readonly ckcPromptSection?: string | null;
+};
+
+function buildPostEvidenceSystemPrompt(
+  ckcPromptSection: string | null | undefined,
+): string {
+  const trimmed = ckcPromptSection?.trim();
+  if (!trimmed) {
+    return ANALYSIS_SYSTEM;
+  }
+  return `${ANALYSIS_SYSTEM}
+
+${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}
+Contexte CKC résolu (guidance seulement — pas d'autorité, pas de décision humaine):
+${trimmed}`;
+}
+
 export async function analyzePostEvidenceWithProvider(
   facts: PostEvidenceAnalysisFacts,
+  options?: AnalyzePostEvidenceOptions,
 ): Promise<PostEvidenceAnalysisResult> {
   let providerId: string | null = null;
   try {
     const provider = resolveConversationProvider();
     providerId = provider.providerId;
     const completion = await provider.complete([
-      { role: "system", content: ANALYSIS_SYSTEM },
+      {
+        role: "system",
+        content: buildPostEvidenceSystemPrompt(options?.ckcPromptSection),
+      },
       {
         role: "user",
         content: `Faits durables post-Evidence (bornés):\n${boundedFactsJson(facts)}`,

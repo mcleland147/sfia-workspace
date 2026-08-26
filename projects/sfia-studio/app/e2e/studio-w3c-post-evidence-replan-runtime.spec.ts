@@ -119,6 +119,13 @@ async function assertW3cPostEvidence(page: Page, kind: string) {
     "none — Recommendation ≠ HumanDecision",
   );
   await expect(page.getByTestId("w3c-nora-analysis")).toBeVisible();
+  // W3-D / US-P1-14 — post-Evidence Nora consumes product CKC (delivery default).
+  await expect(page.getByTestId("w3c-nora-analysis")).toContainText(
+    /anti scope creep/i,
+  );
+  await expect(page.getByTestId("w3c-nora-analysis")).not.toContainText(
+    /ckc:studio:/,
+  );
   await expect(page.getByTestId("w3c-lps-version")).not.toHaveText("—");
   await expect(page.getByTestId("w3b-nora-replan")).toContainText(
     "replan auto: non",
