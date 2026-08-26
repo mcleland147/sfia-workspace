@@ -184,8 +184,9 @@ async function readOutcomeMeta(page: Page) {
   const reviewBundleId =
     (await page.getByTestId("w3b-review-bundle-id").textContent())?.trim() ?? "";
   const productOutcome =
-    (await page.getByTestId("w3b-product-outcome-kind").textContent())?.trim() ??
-    "";
+    (await page
+      .getByTestId("w3b-product-outcome-kind")
+      .getAttribute("data-kind")) ?? "";
   const technicalStatus =
     (await page.getByTestId("w3a-attempt-technical-status").textContent())
       ?.trim() ?? "";
@@ -256,8 +257,12 @@ test.describe("W3-B /studio Terminal + Evidence (corrected)", () => {
     await expect(page.getByTestId("w3b-product-outcome")).toBeVisible({
       timeout: 60_000,
     });
-    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveAttribute(
+      "data-kind",
       "SUCCESS",
+    );
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+      "Succès",
     );
     await expect(page.getByTestId("w3b-claim-allowed")).toHaveText("oui");
     await expect(page.getByTestId("w3b-ready")).toHaveText("non");
@@ -282,9 +287,13 @@ test.describe("W3-B /studio Terminal + Evidence (corrected)", () => {
     });
 
     await page.getByTestId("w3b-rehydrate-product").click();
-    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveAttribute(
+      "data-kind",
       "SUCCESS",
       { timeout: 30_000 },
+    );
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+      "Succès",
     );
     expect(
       (await page.getByTestId("w3b-evidence-id").textContent())?.trim(),
@@ -305,9 +314,13 @@ test.describe("W3-B /studio Terminal + Evidence (corrected)", () => {
     const rehydrateBtn = page.getByTestId("w3b-rehydrate-product");
     if ((await rehydrateBtn.count()) > 0) {
       await rehydrateBtn.first().click();
-      await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+      await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveAttribute(
+        "data-kind",
         "SUCCESS",
         { timeout: 30_000 },
+      );
+      await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+        "Succès",
       );
     } else {
       // Remount lost client Attempt — re-assert durable IDs via in-session capture.
@@ -330,9 +343,13 @@ test.describe("W3-B /studio Terminal + Evidence (corrected)", () => {
     await openThroughAuthorized(page, "W3-B STOP Evidence");
     await armW3bGovernedStop(request, "EXECUTOR_INSUFFICIENT");
     await page.getByTestId("w3a-governed-execute").click();
-    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveAttribute(
+      "data-kind",
       "STOP",
       { timeout: 120_000 },
+    );
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+      "Arrêt",
     );
     await expect(page.getByTestId("w3a-attempt-technical-status")).toHaveText(
       "cancelled",
@@ -356,11 +373,16 @@ test.describe("W3-B /studio Terminal + Evidence (corrected)", () => {
     await openThroughAuthorized(page, "W3-B FAIL Evidence");
     await armW3bAdapterFail(request, "adapter_unavailable");
     await page.getByTestId("w3a-governed-execute").click();
-    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveAttribute(
+      "data-kind",
       "FAIL",
       { timeout: 120_000 },
     );
-    await expect(page.getByTestId("w3b-product-outcome-kind")).not.toHaveText(
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+      "Échec",
+    );
+    await expect(page.getByTestId("w3b-product-outcome-kind")).not.toHaveAttribute(
+      "data-kind",
       "SUCCESS",
     );
     await expect(page.getByTestId("w3a-attempt-technical-status")).toHaveText(

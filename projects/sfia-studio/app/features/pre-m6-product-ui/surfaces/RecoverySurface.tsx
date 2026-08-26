@@ -32,10 +32,11 @@ export function RecoverySurface({
           Reprenez où le projet en est réellement
         </h2>
         <p className={styles.text}>
-          Ce qui est durablement enregistré (projet, LPS, trajectoire effective,
-          consentements accordés/consommés, épistémique matérialisé) peut être
-          relu. La conversation, la confirmation demandée et les propositions
-          process-local peuvent être perdues au rechargement.
+          Studio relit seulement ce qui a été réellement enregistré. La
+          conversation, une confirmation encore demandée ou une proposition non
+          enregistrée ne sont pas inventées au rechargement — vous pouvez
+          reprendre l&apos;état enregistré ou repartir d&apos;une intention
+          claire.
         </p>
         <ul className={styles.disclosureList} data-testid="w1-recovery-disclosures">
           <li>{W1_DURABLE_DISCLOSURE}</li>

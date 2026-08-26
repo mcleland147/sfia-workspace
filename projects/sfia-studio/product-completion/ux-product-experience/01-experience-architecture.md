@@ -523,6 +523,19 @@ Après CORR-UX-01…12 : **aucun** besoin démontré de découpage modules/servi
 | R-04 | RECOMMENDATION | Penpot remains cycle-local · Figma standard untouched |
 | R-05 | RECOMMENDATION | Prefer user label « Recommandation » for Recommendation (CORR-UX-03) |
 
+### Current disposition (W4-C-GIT — 2026-08-26)
+
+Historical rows above remain the original hypothesis definitions.
+
+| ID | Current disposition | Note |
+| --- | --- | --- |
+| H-01 | **KEEP / ADOPTED UX COMPOSITION** | Trajectory integrated in LPS region; LPS ≠ ProjectTrajectory as domain objects |
+| H-02 | **CLOSED BY MORRIS** | Responsive reference set 1440 / 1024 / 390 accepted as sufficient W4 PE validation basis |
+| H-03 | **CLOSED BY MORRIS** | Evidence primarily in-workspace Product Experience proven functionally and against direct Penpot source |
+| H-04 | **CLOSED BY MORRIS** | Single-primary-CTA empty-state principle accepted and proven |
+
+W4-C = **CLOSED BY MORRIS** · W4 global **NOT CLOSED** · Product Completion **INCOMPLETE** · REAL **OUT** · runtime v3 **NON ADOPTED** · base main `e191a47e76c0a99f4102a5332bafd659f0e17f73` · next = **W4 FINAL CLOSURE QUALIFICATION** only after W4-C Git integration + post-merge verification.
+
 ---
 
 ## 24. Validation provenance (revue)

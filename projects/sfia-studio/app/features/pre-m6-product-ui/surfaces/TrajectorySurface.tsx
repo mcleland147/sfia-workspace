@@ -38,6 +38,11 @@ import type {
   W3BProductOutcomeDto,
   W3cPostEvidenceLoopDto,
 } from "@/features/project-assistant/w2/types";
+import {
+  W4C_NEXT_ACTION_LEAD,
+  W4C_POST_EVIDENCE_HEADING,
+  W4C_PRODUCT_OUTCOME_LABELS,
+} from "@/features/project-assistant/presentationLabels";
 import { filterProductReservationsForDisplay } from "@/features/project-assistant/w2/w3cProductPresentation";
 import type { ExecutionContractStatus } from "@/lib/oa/execution-contract/domain/types";
 import styles from "./TrajectorySurface.module.css";
@@ -1229,14 +1234,17 @@ export function TrajectorySurface({
           role="status"
         >
           <h3 id="w3b-product-title" className={styles.blockTitle}>
-            Résultat produit
+            Résultat
           </h3>
           <p
             className={styles.productHeadline}
             data-testid="w3b-product-headline"
           >
-            <span data-testid="w3b-product-outcome-kind">
-              {productOutcome.outcome}
+            <span
+              data-testid="w3b-product-outcome-kind"
+              data-kind={productOutcome.outcome}
+            >
+              {W4C_PRODUCT_OUTCOME_LABELS[productOutcome.outcome]}
             </span>
             {" — "}
             {productOutcome.businessHeadline}
@@ -1251,94 +1259,50 @@ export function TrajectorySurface({
           ) : null}
           <p className={styles.blockBody} data-testid="w3b-evidence-summary">
             {productOutcome.evidenceSummary ??
-              "Evidence absente — aucun claim produit."}
+              "Aucune preuve enregistrée — aucun résultat produit revendiqué."}
           </p>
           <dl className={styles.facts}>
             <div>
-              <dt>Evidence</dt>
-              <dd className={styles.code} data-testid="w3b-evidence-id">
-                {productOutcome.evidenceId ?? "—"}
-              </dd>
-            </div>
-            <div>
-              <dt>ReviewBundle</dt>
-              <dd className={styles.code} data-testid="w3b-review-bundle-id">
-                {productOutcome.reviewBundleId ?? "—"}
-              </dd>
-            </div>
-            <div>
-              <dt>Complétude revue</dt>
+              <dt>Preuve disponible</dt>
               <dd data-testid="w3b-review-bundle-completeness">
                 {productOutcome.reviewBundleCompleteness ?? "—"}
               </dd>
-            </div>
-            <div>
-              <dt>Claim autorisé</dt>
-              <dd data-testid="w3b-claim-allowed">
-                {productOutcome.claimAllowed ? "oui" : "non"}
-              </dd>
-            </div>
-            <div>
-              <dt>Apprentissage / replan</dt>
-              <dd data-testid="w3b-nora-replan">
-                {`analyse: ${
-                  postEvidence && postEvidence.ok && postEvidence.noraInvoked
-                    ? "oui"
-                    : "non"
-                } · replan auto: non`}
-              </dd>
-            </div>
-            <div>
-              <dt>Cycle auto-fermé</dt>
-              <dd data-testid="w3b-cycle-closed">non</dd>
-            </div>
-            <div>
-              <dt>READY</dt>
-              <dd data-testid="w3b-ready">non</dd>
             </div>
           </dl>
           {postEvidence && postEvidence.ok ? (
             <section
               className={styles.postEvidence}
               data-testid="w3c-post-evidence"
-              aria-label="Recommandation post-Evidence"
+              aria-label={W4C_POST_EVIDENCE_HEADING}
             >
-              <h4 className={styles.blockTitle}>Recommandation post-Evidence</h4>
+              <h4 className={styles.blockTitle}>{W4C_POST_EVIDENCE_HEADING}</h4>
+              <p
+                className={styles.productHeadline}
+                data-testid="w3c-recommendation-headline"
+              >
+                {postEvidence.recommendation.headline}
+              </p>
+              <p className={styles.blockBody} data-testid="w3c-recommendation-rationale">
+                {postEvidence.recommendation.rationale}
+              </p>
+              <p className={styles.blockBody} data-testid="w3c-next-step">
+                <strong>{W4C_NEXT_ACTION_LEAD} :</strong>{" "}
+                {postEvidence.recommendation.nextStep}
+              </p>
+              <p className={styles.blockBody} data-testid="w3c-nora-analysis">
+                {postEvidence.analysisText ??
+                  postEvidence.analysisUnavailableReason ??
+                  "Analyse indisponible"}
+              </p>
               <dl className={styles.facts}>
                 <div>
-                  <dt>Kind</dt>
+                  <dt>Orientation</dt>
                   <dd data-testid="w3c-recommendation-kind">
                     {postEvidence.recommendation.kind}
                   </dd>
                 </div>
                 <div>
-                  <dt>Headline</dt>
-                  <dd data-testid="w3c-recommendation-headline">
-                    {postEvidence.recommendation.headline}
-                  </dd>
-                </div>
-                <div>
-                  <dt>Authority</dt>
-                  <dd data-testid="w3c-recommendation-authority">
-                    none — Recommendation ≠ HumanDecision
-                  </dd>
-                </div>
-                <div>
-                  <dt>Analyse Nora</dt>
-                  <dd data-testid="w3c-nora-analysis">
-                    {postEvidence.analysisText ??
-                      postEvidence.analysisUnavailableReason ??
-                      "indisponible"}
-                  </dd>
-                </div>
-                <div>
-                  <dt>LPS version</dt>
-                  <dd data-testid="w3c-lps-version">
-                    {postEvidence.lpsVersion ?? "—"}
-                  </dd>
-                </div>
-                <div>
-                  <dt>Décision humaine requise</dt>
+                  <dt>Décision humaine</dt>
                   <dd data-testid="w3c-requires-human-decision">
                     {postEvidence.recommendation.requiresHumanDecision
                       ? "oui"
@@ -1346,6 +1310,23 @@ export function TrajectorySurface({
                   </dd>
                 </div>
               </dl>
+              <details className={styles.technicalDetails}>
+                <summary>Détail de recommandation (secondaire)</summary>
+                <dl className={styles.facts}>
+                  <div>
+                    <dt>Authority</dt>
+                    <dd data-testid="w3c-recommendation-authority">
+                      none — Recommendation ≠ HumanDecision
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>LPS version</dt>
+                    <dd data-testid="w3c-lps-version">
+                      {postEvidence.lpsVersion ?? "—"}
+                    </dd>
+                  </div>
+                </dl>
+              </details>
               {postEvidence.recommendation.kind === "recover" ||
               postEvidence.recommendation.kind === "replan" ||
               postEvidence.recommendation.requiresHumanDecision ? (
@@ -1366,6 +1347,42 @@ export function TrajectorySurface({
               Détail technique (secondaire)
             </summary>
             <dl className={styles.facts}>
+              <div>
+                <dt>Evidence ID</dt>
+                <dd className={styles.code} data-testid="w3b-evidence-id">
+                  {productOutcome.evidenceId ?? "—"}
+                </dd>
+              </div>
+              <div>
+                <dt>ReviewBundle ID</dt>
+                <dd className={styles.code} data-testid="w3b-review-bundle-id">
+                  {productOutcome.reviewBundleId ?? "—"}
+                </dd>
+              </div>
+              <div>
+                <dt>Claim autorisé</dt>
+                <dd data-testid="w3b-claim-allowed">
+                  {productOutcome.claimAllowed ? "oui" : "non"}
+                </dd>
+              </div>
+              <div>
+                <dt>Apprentissage / replan</dt>
+                <dd data-testid="w3b-nora-replan">
+                  {`analyse: ${
+                    postEvidence && postEvidence.ok && postEvidence.noraInvoked
+                      ? "oui"
+                      : "non"
+                  } · replan auto: non`}
+                </dd>
+              </div>
+              <div>
+                <dt>Cycle auto-fermé</dt>
+                <dd data-testid="w3b-cycle-closed">non</dd>
+              </div>
+              <div>
+                <dt>READY</dt>
+                <dd data-testid="w3b-ready">non</dd>
+              </div>
               <div>
                 <dt>Attempt</dt>
                 <dd

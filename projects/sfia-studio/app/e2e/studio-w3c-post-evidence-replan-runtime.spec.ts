@@ -122,9 +122,6 @@ async function assertW3cPostEvidence(page: Page, kind: string) {
     timeout: 60_000,
   });
   await expect(page.getByTestId("w3c-recommendation-kind")).toHaveText(kind);
-  await expect(page.getByTestId("w3c-recommendation-authority")).toContainText(
-    "none — Recommendation ≠ HumanDecision",
-  );
   await expect(page.getByTestId("w3c-nora-analysis")).toBeVisible();
   // W3-D / US-P1-14 — post-Evidence Nora consumes product CKC (delivery default).
   await expect(page.getByTestId("w3c-nora-analysis")).toContainText(
@@ -133,7 +130,23 @@ async function assertW3cPostEvidence(page: Page, kind: string) {
   await expect(page.getByTestId("w3c-nora-analysis")).not.toContainText(
     /ckc:studio:/,
   );
+  // Secondary disclosures remain inspectable (W4-C hierarchy).
+  const recDetails = page
+    .getByTestId("w3c-post-evidence")
+    .locator("details")
+    .filter({ has: page.getByTestId("w3c-recommendation-authority") });
+  if (!(await recDetails.evaluate((el) => (el as HTMLDetailsElement).open))) {
+    await recDetails.locator("summary").click();
+  }
+  await expect(page.getByTestId("w3c-recommendation-authority")).toContainText(
+    "none — Recommendation ≠ HumanDecision",
+  );
   await expect(page.getByTestId("w3c-lps-version")).not.toHaveText("—");
+  const tech = page.getByTestId("w3b-technical-details-toggle");
+  const techDetails = tech.locator("xpath=ancestor::details[1]");
+  if (!(await techDetails.evaluate((el) => (el as HTMLDetailsElement).open))) {
+    await tech.click();
+  }
   await expect(page.getByTestId("w3b-nora-replan")).toContainText(
     "replan auto: non",
   );
@@ -155,9 +168,13 @@ test.describe("W3-C /studio Post-Evidence replan", () => {
 
     await openThroughAuthorized(page, "W3-C SUCCESS PostEvidence");
     await page.getByTestId("w3a-governed-execute").click();
-    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveAttribute(
+      "data-kind",
       "SUCCESS",
       { timeout: 120_000 },
+    );
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+      "Succès",
     );
     await assertW3cPostEvidence(page, "continue");
     await expect(page.getByTestId("w3c-requires-human-decision")).toHaveText(
@@ -174,9 +191,13 @@ test.describe("W3-C /studio Post-Evidence replan", () => {
     await openThroughAuthorized(page, "W3-C STOP PostEvidence");
     await armW3bGovernedStop(request, "EXECUTOR_INSUFFICIENT");
     await page.getByTestId("w3a-governed-execute").click();
-    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveAttribute(
+      "data-kind",
       "STOP",
       { timeout: 120_000 },
+    );
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+      "Arrêt",
     );
     await assertW3cPostEvidence(page, "recover");
     await expect(page.getByTestId("w3c-requires-human-decision")).toHaveText(
@@ -200,9 +221,13 @@ test.describe("W3-C /studio Post-Evidence replan", () => {
     await openThroughAuthorized(page, "W3-C FAIL PostEvidence");
     await armW3bAdapterFail(request, "adapter_unavailable");
     await page.getByTestId("w3a-governed-execute").click();
-    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveAttribute(
+      "data-kind",
       "FAIL",
       { timeout: 120_000 },
+    );
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+      "Échec",
     );
     await assertW3cPostEvidence(page, "recover");
     await expect(page.getByTestId("w3c-recommendation-kind")).not.toHaveText(
@@ -218,9 +243,13 @@ test.describe("W3-C /studio Post-Evidence replan", () => {
   test("D propose without decide then decide", async ({ page }) => {
     await openThroughAuthorized(page, "W3-C Propose Then Decide");
     await page.getByTestId("w3a-governed-execute").click();
-    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveAttribute(
+      "data-kind",
       "SUCCESS",
       { timeout: 120_000 },
+    );
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+      "Succès",
     );
     await assertW3cPostEvidence(page, "continue");
 
@@ -245,9 +274,13 @@ test.describe("W3-C /studio Post-Evidence replan", () => {
   test("E reload restart postEvidence rehydrate", async ({ page }) => {
     await openThroughAuthorized(page, "W3-C Reload PostEvidence");
     await page.getByTestId("w3a-governed-execute").click();
-    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveAttribute(
+      "data-kind",
       "SUCCESS",
       { timeout: 120_000 },
+    );
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveText(
+      "Succès",
     );
     await assertW3cPostEvidence(page, "continue");
     const evidenceId = (
