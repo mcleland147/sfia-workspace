@@ -1,302 +1,174 @@
-# SFIA Studio — W4-PM-TRUTH — POST-MERGE TRUTH SYNC / CAPITALISATION
+# SFIA Studio — W4-PM-GIT — ROADMAP + DOC11 GIT INTEGRATION / PR READINESS
 Review Pack FULL
 
 | Field | Value |
 | --- | --- |
-| **Timestamp** | 2026-08-26 16:26:12 CEST / 2026-08-26T14:26:12Z |
-| **Cycle** | W4-PM-TRUTH — POST-MERGE TRUTH SYNC / CAPITALISATION |
-| **Nature** | Documentation / capitalisation post-merge |
+| **Timestamp** | 2026-08-26 16:48:52 CEST / 2026-08-26T14:48:52Z |
+| **Cycle** | W4-PM-GIT — ROADMAP + DOC11 GIT INTEGRATION / PR READINESS |
+| **Type** | 13 — PR readiness / Git integration documentaire |
 | **Profile** | STANDARD |
-| **Profile rationale** | Product integration already merged + verified; only two living truth docs to realign; no code/architecture/doctrine/promotion; capitalisation ≠ Critical automatique |
+| **Typology** | DOC |
+| **Capitalization intent** | ACTIVE — integrate already-reviewed post-merge capitalisation · ≠ method promotion · ≠ doctrine · ≠ baseline |
 | **Repo** | mcleland147/sfia-workspace |
 | **Branch** | `docs/sfia-studio-w4-post-merge-truth-sync` |
-| **HEAD** | `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` |
+| **Initial HEAD** | `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` |
 | **origin/main** | `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` |
-| **Project commit / push / PR / merge** | **NONE** (authorized: handoff L3 only) |
-| **Verdict** | **W4 POST-MERGE TRUTH SYNC PASS — ROADMAP + DOC11 ALIGNED TO main@c14733c05e82bbbbe11873426fa0b6c64ff07b7b — W4 PRESENTATION INTEGRATED / POST-MERGE VERIFIED — H-02/H-04 CLOSURE CANDIDATES — H-03 CARRY / W4-C NOT STARTED — READY FOR CHATGPT REVIEW / MORRIS GIT INTEGRATION GATE** |
+| **Project commit** | `b75a892448a25308ad27242de723fdca8e37c138` |
+| **Draft PR** | [#421](https://github.com/mcleland147/sfia-workspace/pull/421) |
+| **Merge** | **NONE** |
+| **Branch delete** | **NONE** |
+| **Verdict** | **W4-PM-GIT INTEGRATION PASS — ROADMAP + DOC11 COMMITTED AND PUSHED — DRAFT PR OPEN — EXACT 2-FILE DIFF VERIFIED — CI PASS — READY FOR CHATGPT PR REVIEW / MORRIS MERGE GATE** |
 
 ---
 
-## 1. Local Git Truth Check
+## 1. GO Morris consumed
 
-Executed before mutation:
+GO MORRIS — W4-PM-TRUTH GIT INTEGRATION — ROADMAP + DOC11 ONLY —
+REVIEW HANDOFF caf334d83b6856ef16b2fa68c09a5efad9cceaf6 ACCEPTED — COMMIT AUTHORIZED — PUSH DOC BRANCH AUTHORIZED —
+DRAFT PR TO MAIN AUTHORIZED — CI / PR READINESS AUTHORIZED — NO MERGE — NO THIRD PROJECT FILE —
+NO CONTENT EXPANSION — H-01 KEEP — H-02/H-04 REMAIN CLOSURE CANDIDATES — H-03 REMAINS CARRY / W4-C —
+W4-C NOT STARTED — W4 GLOBAL NOT CLOSED — REAL OUT — RUNTIME V3 NON ADOPTED.
+
+---
+
+## 2. Local Git Truth
 
 | Check | Result |
 | --- | --- |
-| pwd / toplevel | `/Users/morris/Projects/sfia-workspace-w3-post-closure-truth-sync` |
-| fetch | origin/main advanced `1e17367d` → `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` |
-| origin/main | `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` **EXACT** |
-| PR #420 | state **MERGED** · mergeCommit `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` · head `bd9b678568c00c9457c3ea27f301fad44f0989e9` · mergedAt 2026-08-26T13:58:11Z |
-| Post-merge CI | run **32977398509** · conclusion **success** · headSha `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` |
-| Working tree before docs branch | clean product tree · only `?? .tmp-sfia-review/` |
-| Docs branch | created from exact `origin/main` · `docs/sfia-studio-w4-post-merge-truth-sync` @ `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` |
+| branch | `docs/sfia-studio-w4-post-merge-truth-sync` |
+| HEAD before commit | `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` |
+| origin/main | `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` EXACT |
+| staged before | NONE |
+| dirty versioned | exactly 2 docs |
+| remote docs branch before push | absent |
+| git diff --check | PASS |
+| pre-stage stat | 2 files · 98 insertions · 84 deletions |
 
-**X-W4PM-01…03 PASS**
-
----
-
-## 2. GO Morris consumed
-
-GO MORRIS — W4 POST-MERGE TRUTH SYNC / CAPITALISATION —
-ALIGN ROADMAP + PRODUCT COMPLETION DELIVERY READINESS TO PR #420 MERGED TRUTH — MAIN c14733c05e82bbbbe11873426fa0b6c64ff07b7b —
-POST-MERGE VERIFICATION PASS — H-01 KEEP — H-02/H-04 REMAIN CLOSURE CANDIDATES — H-03 REMAINS W4-C —
-W4-C NOT STARTED — NO W4 GLOBAL CLOSURE — NO REAL — RUNTIME V3 NON ADOPTED —
-NO PROJECT COMMIT / PUSH / PR / MERGE IMPLIED.
+**X-W4PMGIT-01/02 PASS**
 
 ---
 
-## 3. Sources read
+## 3. Accepted handoff / sources
 
-**Process:**
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+| Accepted handoff commit | `caf334d83b6856ef16b2fa68c09a5efad9cceaf6` |
+| Canonical blob | `adcb3badd8a9c16eb3c36e6da5089e369101d790` |
+| Canonical file | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Project-cycle method | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md` |
+| CKC | ABSENT detailed (type 13 PR readiness) · synthetic-map fallback · candidate only · NO authority |
 
-**Resolved current project-cycle method path:**
-`method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`
-
-Status: Git-present operational reference for the 15 cycle types (template §4 / routing cartographie). Routing also cites a historical archive path form; **only this capitalization/sfia-v2 path resolves in current Git**.
-
-**CKC:**
-- Cycle family: post-merge documentation / capitalisation (types 14 / 15)
-- Detailed pilots: none for 14/15
-- Fallback: `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md` + `04-cycle-to-ckc-routing-matrix.md`
-- **CKC status: ABSENT (detailed) / synthetic-map fallback — candidate only — NO authority**
-
-**Studio convergence / Product Completion / Experience:**
-- Build Doctrine KEEP · Roadmap ADAPT DOC · C1/C2 KEEP · DOC11 ADAPT DOC · EA KEEP · Screens KEEP
-
-**Git evidence:** PR #420 · `bd9b678568c00c9457c3ea27f301fad44f0989e9` · merge `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` · CI `32971532560` final-head · CI `32977398509` post-merge
+Sources read: execution template · routing guide · operating model · rules/guardrails · Build Doctrine · Roadmap · C1 · DOC11 · accepted handoff.
 
 ---
 
 ## 4. Convergence Pre-check
 
-| Item | Value |
+Triggered YES · Capability Product Experience Closure · Milestone W4 post-merge documentary truth integration ·
+Build Doctrine KEEP · Roadmap/DOC11 reviewed ADAPT DOC · W4 product code KEEP/integrated ·
+H-01 KEEP/ADOPTED · H-02/H-04 CLOSURE CANDIDATES · H-03 CARRY/W4-C · W4-C NOT STARTED · W4 global NOT CLOSED ·
+Product Completion INCOMPLETE · REAL OUT · runtime v3 NON ADOPTED.
+
+---
+
+## 5. Candidate integrity
+
+```
+# Candidate integrity review
+
+handoff_files=['projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md', 'projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md']
+local_files=['projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md', 'projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md']
+files_equal=True
+diff_bytes_handoff=69841 local=69841
+diff_sha256_handoff=f60bbec4329411c3cee0186efa296fdaafec4f201568f80dda87fbb5e5a5b0a5
+diff_sha256_local=f60bbec4329411c3cee0186efa296fdaafec4f201568f80dda87fbb5e5a5b0a5
+diff_exact_equal=True
+checks:
+  main_sha=True
+  cand_sha=True
+  ci_final=True
+  ci_pm=True
+  h01=True
+  h02_candidate=True
+  h03_w4c=True
+  h04_candidate=True
+  w4c_not_started=True
+  real_out=True
+  runtime_non=True
+  validated_living=True
+  no_w4_closed_by_morris=True
+  pr420=True
+
+**VERDICT: PASS**
+```
+
+Local / commit / PR / accepted handoff Section 9 diffs are byte-identical (sha256 `f60bbec4329411c3…`).
+
+**X-W4PMGIT-03…07 PASS** — no content change after ChatGPT review.
+
+---
+
+## 6. Staging / commit / push / PR
+
+### Pre-stage
+
+```
+.../convergence/sfia-studio-convergence-roadmap.md |  28 ++--
+ ...product-completion-wave-3-delivery-readiness.md | 154 +++++++++++----------
+ 2 files changed, 98 insertions(+), 84 deletions(-)
+M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+M	projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md
+```
+
+| Step | Result |
 | --- | --- |
-| Triggered | YES |
-| Capability | Product Experience Closure |
-| Milestone | W4 — POST-MERGE TRUTH SYNCHRONIZATION |
-| Gap | docs still described W3 post-closure / W4 NOT AUTHORIZED while Git already contains merged W4 presentation |
-| Trajectory | sync Roadmap+DOC11 → Review Pack FULL → Handoff → ChatGPT → separate Morris Git integration → later H-02/H-04 → separate W4-C |
-| H-01 | KEEP / ADOPTED UX COMPOSITION |
-| H-02 / H-04 | CLOSURE CANDIDATE |
-| H-03 | CARRY / W4-C |
-| W4-C | NOT STARTED |
-| REAL / runtime v3 | OUT / NON ADOPTED |
-| Temporary debt | NONE |
-
-**X-W4PM-05 PASS**
+| staged | exact 2 docs only · no `.tmp` |
+| cached --check | PASS |
+| commit | `b75a892448a25308ad27242de723fdca8e37c138` |
+| message | `docs(sfia-studio): sync W4 post-merge product truth` |
+| commit files | exactly 2 docs |
+| push | normal · no force · `-u` |
+| remote branch SHA | `b75a892448a25308ad27242de723fdca8e37c138` |
+| Draft PR | #421 OPEN · Draft=true · base=main · head=`docs/sfia-studio-w4-post-merge-truth-sync` · headOid=`b75a892448a25308ad27242de723fdca8e37c138` |
+| PR changedFiles | 2 |
+| PR files | Roadmap · DOC11 |
+| PR diff vs accepted | EXACT MATCH |
 
 ---
 
-## 5. Exact project files modified
+## 7. CI
 
-1. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-2. `projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md`
+| Workflow | SFIA Studio CI |
+| Run ID | `32982054792` |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/32982054792 |
+| headSha | `b75a892448a25308ad27242de723fdca8e37c138` |
+| Conclusion | **success** |
+| Detect SFIA Studio changes | success |
+| Build and validate SFIA Studio | success |
+| SFIA Studio Required Gate | success |
+| Steps | Typecheck · Lint · Build · Unit · Modeled governance · Secret scan · Trailing whitespace — all success |
 
-No third project file. No staging.
-
----
-
-## 6. Roadmap — current milestone before/after
-
-### Before
-- MAIN FUNCTIONAL TRUTH referenced `73de0616…` / W3 CLOSED era
-- W4 = **NOT AUTHORIZED / NOT STARTED** / QUALIFIED NEXT CAPABILITY CANDIDATE
-
-### After
-Snapshot courant:
-```
-| **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; ce document **≠** embed permanent `origin/main` HEAD)* · **Référence de maintenance courante / MAIN FUNCTIONAL TRUTH** = `origin/main` @ `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` · **W1 CLOSED** · **W2 CLOSED BY MORRIS** · **W3 CLOSED BY MORRIS** · **W3-A/B/C CLOSED BY MORRIS** · **W3-D INTEGRATED AND PROVEN** · **W4 PRODUCT EXPERIENCE PRESENTATION INCREMENT INTEGRATED ON MAIN / POST-MERGE VERIFIED** · W4 sequence **W4-A/A2 → W4-UXR → H-01 Option A → W4-B → W4-BR → CORR-01 → W4-D → W4-PR-COPY-01** · PR **#420 MERGED** · candidate head `bd9b678568c00c9457c3ea27f301fad44f0989e9` · merge `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` · prior main parent `1e17367d01cab95a4853a8857ed39867ea396ed3` · final-head CI **`32971532560` SUCCESS** · post-merge CI **`32977398509` SUCCESS** · Required Gate **PASS** · 28 files · Unit/UI **15/15** · E2E **14/14** · **H-01 KEEP / ADOPTED UX COMPOSITION** · **H-02 CLOSURE CANDIDATE** · **H-03 CARRY / W4-C** · **H-04 CLOSURE CANDIDATE** · **W4-C NOT STARTED** · **W4 global closure NOT CLAIMED** · carry-over **W3A-D03 OPEN_CARRY_NON_BLOCKING** · **W2-CL-R04 OPEN_CARRY_NON_BLOCKING** · **PB-RES-REAL-01 TRACE_ONLY / NON_BLOCKING_W3** · C6 **CLOSED** · REAL **OUT / NOT CONSUMED** · FinOps/T7 **FREEZE** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · next = **Morris disposition H-02/H-04** then **qualify W4-C** · **≠** W4 CLOSED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED |
-```
-
-Timestamp courant:
-```
-| **Timestamp maintenance courant** | 2026-08-26 16:21 CEST (+0200) — **W4 POST-MERGE TRUTH SYNC / CAPITALISATION** — MAIN FUNCTIONAL TRUTH `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` · PR **#420 MERGED** · candidate head `bd9b678568c00c9457c3ea27f301fad44f0989e9` · merge `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` · post-merge CI **`32977398509` SUCCESS** · Required Gate **PASS** · **W4 presentation increment INTEGRATED / POST-MERGE VERIFIED** · H-01 **KEEP / ADOPTED** · H-02 **CLOSURE CANDIDATE** · H-03 **CARRY / W4-C** · H-04 **CLOSURE CANDIDATE** · W4-C **NOT STARTED** · W4 global **NOT CLOSED** · REAL **OUT** · FinOps/T7 **FREEZE** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · next = Morris H-02/H-04 disposition → W4-C qualification · **≠** W4 CLOSED · **≠** H-02/H-04 CLOSED · **≠** READY FOR REAL |
-```
-
-W4 row:
-```
-| **Product Completion W4 Product Experience Presentation** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · PR **#420 MERGED** · candidate head `bd9b678568c00c9457c3ea27f301fad44f0989e9` · merge `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` · final-head CI **`32971532560` SUCCESS** · post-merge CI **`32977398509` SUCCESS** · Required Gate **PASS** · 28 files · Unit/UI **15/15** · E2E **14/14** · sequence **W4-A/A2** (runtime/Penpot baseline) → **W4-UXR** → **H-01 Option A** → **W4-B** single authority → **W4-BR** reconciled presentation → **CORR-01** business-first/EC status → **W4-D** Product Screens Visual Closure → **W4-PR-COPY-01** final Pilote copy · **H-01 KEEP / ADOPTED UX COMPOSITION** · **H-02 CLOSURE CANDIDATE — evidence available — Morris decision pending** · **H-03 CARRY / W4-C** · **H-04 CLOSURE CANDIDATE — evidence available — Morris decision pending** · **W4-C NOT STARTED** · **W4 global closure NOT CLAIMED** · REAL **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **≠** W4 CLOSED · **≠** Product Completion COMPLETE · **≠** READY FOR REAL |
-```
-
-Gates courants:
-```
-| **Gates courants** | C1…C6 **INTEGRATED / C6 CLOSED** · W1 **CLOSED** · **W2 CLOSED BY MORRIS** · **W3 CLOSED BY MORRIS** · **W3-A/B/C CLOSED BY MORRIS** · **W3-D INTEGRATED AND PROVEN** · **W4 PRESENTATION INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#420** / `c14733c05e82bbbbe11873426fa0b6c64ff07b7b`) · W3 Final Closure Qualification **CONSUMED** · W3 CLOSED Decision **CONSUMED** · H-01 **KEEP / ADOPTED** · H-02 **CLOSURE CANDIDATE** · H-03 **CARRY / W4-C** · H-04 **CLOSURE CANDIDATE** · W4-C **NOT STARTED** · W4 global **NOT CLOSED** · W3A-D03 **OPEN_CARRY_NON_BLOCKING** · W2-CL-R04 **OPEN_CARRY_NON_BLOCKING** · PB-RES-REAL-01 **TRACE_ONLY / NON_BLOCKING_W3** · FinOps/T7 **FREEZE** · REAL **NOT CONSUMED** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **NO REAL WITHOUT DISTINCT MORRIS GO** · next = **Morris disposition H-02/H-04** → **W4-C qualification** · **≠** W4 CLOSED · **≠** READY FOR REAL |
-```
-
-Next convergence capability:
-```
-| **Next convergence capability (current)** | **W4 — PRODUCT EXPERIENCE CLOSURE** — **PRESENTATION INTEGRATED ON MAIN — POST-MERGE VERIFIED** · H-02/H-04 **CLOSURE CANDIDATES** · H-03 **CARRY / W4-C NOT STARTED** · **W3 CLOSED BY MORRIS** · W3-A/B/C/D **INTEGRATED AND PROVEN** · PR **#420** / `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` / CI **`32977398509`** · W3A-D03 **OPEN_CARRY_NON_BLOCKING** · W2-CL-R04 **OPEN_CARRY_NON_BLOCKING** · PB-RES-REAL-01 **TRACE_ONLY / NON_BLOCKING_W3** · FinOps/T7 **FREEZE** · REAL **OUT** · runtime v3 **NON ADOPTED** · Product Completion **INCOMPLETE** · **≠** W4 CLOSED |
-```
-
-Governance retained: **VALIDATED — ACTIVE LIVING ROADMAP**. Historical W3 post-closure timestamp demoted to historique.
+**X-W4PMGIT-21 PASS**
 
 ---
 
-## 7. DOC11 — status before/after
+## 8. Dispositions (unchanged)
 
-### Before
-- Cycle framed as W3 POST-CLOSURE + next-capability requalification
-- MAIN @ `73de0616…` · W4 **NOT AUTHORIZED / NOT STARTED**
-
-### After — header
-```markdown
-# SFIA Studio — Product Completion — Wave 3 — Delivery Readiness
-
-| Champ | Valeur |
-|---|---|
-| **Projet** | SFIA Studio — Product Completion |
-| **Cycle** | W4 POST-MERGE TRUTH SYNC / CAPITALISATION (DOC11 living truth) |
-| **Profil SFIA** | STANDARD |
-| **Typologie** | DOC — vérité vivante W3 history + W4 presentation post-merge (≠ W4 global closure · ≠ Delivery code) |
-| **Vague** | **W3 — Exécuter, prouver et replanifier (backlog existant)** |
-| **MAIN FUNCTIONAL TRUTH** | `origin/main` @ `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` |
-| **Slice historique W3-A** | **W3-A — Governed Execute** — **CLOSED BY MORRIS** · US-P1-04 / FC-10 · PR **#408** |
-| **Slice historique W3-B** | **W3-B — Terminal semantics + Evidence business-first** — **CLOSED BY MORRIS** · US-P1-05 / US-P1-06 · PR **#413** |
-| **Slice historique W3-C** | **W3-C — Post-Evidence recovery / replan loop** — **CLOSED BY MORRIS** · US-P1-07 + W3 closure slice US-P0-07 · PR **#415** |
-| **Slice W3-D** | **W3-D — Full CKC Track + Catalog Evolvability** — **INTEGRATED AND PROVEN ON MAIN** · EXIT CONSUMED BY W3 FINAL CLOSURE QUALIFICATION AND MORRIS W3 CLOSED DECISION · US-P1-09 + US-P1-14 · PR **#418** |
-| **Intégration W3-D** | PR **#418 MERGED** · head `a42c488c7616fab1cfb76f00de55c31f8b9050bc` · merge `73de0616a127b230eea068267e44c6cf3150006f` · post-merge CI **#337 / `32941007067` SUCCESS** · Required Gate **PASS** · proof **DETERMINISTIC PRODUCT-NATIVE PROVEN** |
-| **Intégration historique W3-C** *(functional closure)* | PR **#415 MERGED** · head `43ecc3351d0dcde1cadc98a9d734f8fa3c3dba0a` · merge `775454084bf45d15f8f1700bd74dba443890cb11` · post-merge CI **#331 / `32887992452` SUCCESS** · *(superseded as tip by PR #418)* |
-| **Intégration historique post-closure truth-sync W3-C** | PR **#416 MERGED** · head `30b2f68b9ce131028ce44853b93b678cc095ca08` · merge `aa57c27438b5214982350362226f39998a0533a2` · post-merge CI **#333 / `32894252109` SUCCESS** · documentary only · *(pré-W3-D / pré-W3 CLOSED)* |
-| **Intégration historique W3-B** | PR **#413 MERGED** · head `8c1f9b863a36391131b01ffd81a673d0105c1122` · merge `84bec89d85e8986dd156b60e3351ba221e635ea4` |
-| **Statut W3-A** | **CLOSED BY MORRIS / INTEGRATED ON MAIN** |
-| **Statut W3-B** | **CLOSED BY MORRIS / INTEGRATED ON MAIN** · X-W3B-01…12 **12/12 PASS** · TD-W3B-02 Option B **IMPLEMENTED AND PROVEN** |
-| **Statut W3-C** | **CLOSED BY MORRIS / INTEGRATED ON MAIN** · US-P1-07 **SATISFIED** · W3 closure slice US-P0-07 **SATISFIED** |
-| **Statut W3-D** | **INTEGRATED AND PROVEN ON MAIN** · EXIT CONSUMED BY W3 FINAL CLOSURE QUALIFICATION AND MORRIS W3 CLOSED DECISION · US-P1-09 **SATISFIED** · US-P1-14 **SATISFIED** · Full CKC Track **CLOSED FOR W3 DETERMINISTIC EXIT** · Catalog Evolvability **SATISFIED** |
-| **Statut W3-E** | **NOT REQUIRED** — Final Closure Qualification : **NO GENUINE W3 CAPABILITY REMAINED** |
-| **Statut readiness / Delivery W3** | **QUALIFIED** — GO Morris W3 Delivery **CONSUMED** · W3 Final Closure Qualification **CONSUMED** · **W3 CLOSED BY MORRIS** |
-| **W1** | **CLOSED** |
-| **W2** | **CLOSED BY MORRIS** |
-| **W3** | **CLOSED BY MORRIS** |
-| **C6** | **CLOSED** / implement-only · **DO NOT REOPEN** |
-| **REAL** | **OUT / NOT CONSUMED** |
-| **FinOps/T7** | **FREEZE** |
-| **W4 presentation** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** — PR **#420** · head `bd9b678568c00c9457c3ea27f301fad44f0989e9` · merge `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` · CI final-head `32971532560` · post-merge `32977398509` |
-| **H-01** | **KEEP / ADOPTED UX COMPOSITION** (Option A) |
-| **H-02** | **CLOSURE CANDIDATE** — evidence available — Morris decision pending |
-| **H-03** | **CARRY / W4-C** |
-| **H-04** | **CLOSURE CANDIDATE** — evidence available — Morris decision pending |
-| **W4-C** | **NOT STARTED** |
-| **W4 global closure** | **NOT CLAIMED** |
-| **runtime v3** | **NON ADOPTED** |
-| **Product Completion** | **INCOMPLETE** |
-| **Next capability** | **W4-C — Evidence / Recovery / Replan Product Experience** — **NOT STARTED** (after Morris H-02/H-04 disposition) |
-| **Chemin produit** | Canonique **`/studio`** |
-
-```
-
-### After — §7
-```markdown
-## 7. W4 Product Experience presentation — post-merge truth
-
-### 7.1 Status (current)
-
-**W4 — PRODUCT EXPERIENCE CLOSURE — PRESENTATION INCREMENT INTEGRATED ON MAIN — POST-MERGE VERIFIED.**
-
-- PR **#420 MERGED**
-- Candidate head `bd9b678568c00c9457c3ea27f301fad44f0989e9`
-- Merge commit `c14733c05e82bbbbe11873426fa0b6c64ff07b7b`
-- Prior main parent `1e17367d01cab95a4853a8857ed39867ea396ed3` (W3 post-closure docs)
-- Final PR file set: **28**
-- Pre-merge Unit/UI **15/15** · consolidated E2E **14/14**
-- Final-head CI `32971532560` **PASS**
-- Post-merge CI `32977398509` **PASS** (Detect / Build and validate / Required Gate)
-
-**≠** W4 global CLOSED · **≠** Product Completion COMPLETE · **≠** REAL · **≠** runtime v3 ADOPTED.
-
-### 7.2 Chronology (integrated)
-
-1. **W4-A / W4-A2** — runtime / Penpot evidence baseline
-2. **W4-UXR** — reconciled Product Experience target
-3. **Morris H-01 Option A** — LPS-embedded Trajectory UX composition **ADOPTED / KEEP**
-4. **W4-B** — single product authority path
-5. **W4-BR** — reconciled presentation adaptation
-6. **CORR-01** — business-first copy / EC status presentation
-7. **W4-D** — Product Screens Visual Closure
-8. **W4 Git integration** (consolidated candidate) → final **W4-PR-COPY-01** (two Pilote-facing copy residues)
-9. **PR #420** → merge `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` → post-merge CI `32977398509` PASS
-
-### 7.3 Invariants preserved
-
-- Option ≠ Recommendation ≠ HumanDecision
-- Inspection before Confirmation
-- Confirmation ≠ Execute
-- Effective authority before Execute
-- Single product authority path
-- LPS ≠ ProjectTrajectory
-- H-01 = UX composition only (not domain mutation)
-
-### 7.4 Hypothesis dispositions
-
-| ID | Disposition |
-|---|---|
-| H-01 | **KEEP / ADOPTED UX COMPOSITION** (Option A) |
-| H-02 | **CLOSURE CANDIDATE** — evidence available — Morris decision pending |
-| H-03 | **CARRY / W4-C** |
-| H-04 | **CLOSURE CANDIDATE** — evidence available — Morris decision pending |
-| W4-C | **NOT STARTED** |
-
-### 7.5 Remaining Product Experience trajectory
-
-| Élément | État |
-|---|---|
-| W4 presentation | **INTEGRATED / POST-MERGE VERIFIED** |
-| H-02 / H-04 | **CLOSURE CANDIDATES only** — no closure claimed here |
-| W4-C — Evidence / Recovery / Replan Product Experience | **NOT STARTED** — next identified capability slice after H-02/H-04 disposition |
-| US-P1-10 / US-P1-13 / UAT PE full | Remaining PE obligations may continue under W4-C / later PE exit — **not** closed by presentation integration alone |
-| REAL | **OUT** |
-| runtime v3 | **NON ADOPTED** |
-
-### 7.6 Historical requalification note
-
-Section 7 previously recorded W4 as **QUALIFIED NEXT CAPABILITY CANDIDATE — NOT AUTHORIZED / NOT STARTED** after W3 CLOSED (PR **#419** era). That forward statement is **superseded** by PR **#420** integration truth above. The W3 CLOSED decision text (§1septies) remains historically accurate: it did **not** itself authorize W4.
-
-### 7.7 Gate suivant
-
-1. ChatGPT review of this W4 post-merge truth-sync
-2. Distinct Morris Git integration GO (Roadmap + DOC11 only)
-3. Distinct Morris disposition H-02 / H-04
-4. Distinct W4-C qualification / GO — **only then** W4-C execution if authorized
-
-This cycle **does not** close W4 globally · **does not** start W4-C · **does not** close H-02/H-04.
-
----
-```
-
-### Verdict line
-```
-**W3 DELIVERY READINESS = QUALIFIED (historique)** · GO Morris W3 **CONSUMED** · W3 Final Closure Qualification **CONSUMED** · **W3 CLOSED BY MORRIS** · W3-A/B/C/D **INTEGRATED AND PROVEN** · W3-E **NOT REQUIRED** · **W4 PRESENTATION INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#420** / `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` / CI `32977398509`) · H-01 **KEEP / ADOPTED** · H-02/H-04 **CLOSURE CANDIDATES** · H-03 **CARRY / W4-C** · W4-C **NOT STARTED** · W4 global **NOT CLOSED** · Product Completion **INCOMPLETE** · next = **Morris H-02/H-04 disposition → W4-C qualification** · REAL **OUT** · FinOps **FREEZE** · runtime v3 **NON ADOPTED**.
-```
-
-W1/W2/W3 historical sections preserved.
-
----
-
-## 8. Evidence / dispositions
-
-| Item | Value |
+| Item | Status |
 | --- | --- |
-| PR #420 | MERGED |
-| Candidate head | `bd9b678568c00c9457c3ea27f301fad44f0989e9` |
-| Merge | `c14733c05e82bbbbe11873426fa0b6c64ff07b7b` |
-| Final-head CI | `32971532560` PASS |
-| Post-merge CI | `32977398509` PASS |
 | H-01 | KEEP / ADOPTED UX COMPOSITION |
-| H-02 | CLOSURE CANDIDATE — evidence available — Morris decision pending |
+| H-02 | CLOSURE CANDIDATE — not closed |
 | H-03 | CARRY / W4-C |
-| H-04 | CLOSURE CANDIDATE — evidence available — Morris decision pending |
+| H-04 | CLOSURE CANDIDATE — not closed |
 | W4-C | NOT STARTED |
-| W4 global | NOT CLAIMED |
+| W4 global | NOT CLOSED |
+| Product Completion | INCOMPLETE |
 | REAL | OUT |
 | runtime v3 | NON ADOPTED |
-| Next capability | W4-C after H-02/H-04 disposition |
+| project merge | NONE |
+| branch delete | NONE |
 
 ---
 
-## 9. Full project diff
+## 9. Exact committed two-file diff
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -615,104 +487,70 @@ index 708009b3..5045c404 100644
 
 ---
 
-## 10. Diff gate / git status
-
-```
-status:
-M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
- M projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md
-?? .tmp-sfia-review/
-
-diff --stat:
-.../convergence/sfia-studio-convergence-roadmap.md |  28 ++--
- ...product-completion-wave-3-delivery-readiness.md | 154 +++++++++++----------
- 2 files changed, 98 insertions(+), 84 deletions(-)
-
-diff --name-status:
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-M	projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md
-
-git diff --check:
-PASS (no output)
-
-cached:
-(empty)
-```
-
----
-
-## 11. Exit criteria X-W4PM-01→27
+## 10. Exit criteria X-W4PMGIT-01→33
 
 | ID | Result |
 | --- | --- |
-| X-W4PM-01 | PASS — origin/main exact |
-| X-W4PM-02 | PASS — PR #420 MERGED verified |
-| X-W4PM-03 | PASS — post-merge CI success |
-| X-W4PM-04 | PASS — project-cycle method resolved |
-| X-W4PM-05 | PASS — Convergence complete |
-| X-W4PM-06 | PASS — exactly 2 docs |
-| X-W4PM-07 | PASS — Roadmap milestone aligned |
-| X-W4PM-08 | PASS — VALIDATED/ACTIVE/LIVING retained |
-| X-W4PM-09 | PASS — W1/W2/W3 history preserved |
-| X-W4PM-10 | PASS — DOC11 records W4 presentation |
-| X-W4PM-11 | PASS — PR #420 evidence exact |
-| X-W4PM-12 | PASS — merge SHA exact |
-| X-W4PM-13 | PASS — post-merge CI exact |
-| X-W4PM-14 | PASS — H-01 KEEP/adopted |
-| X-W4PM-15 | PASS — H-02 candidate |
-| X-W4PM-16 | PASS — H-03 CARRY / W4-C |
-| X-W4PM-17 | PASS — H-04 candidate |
-| X-W4PM-18 | PASS — W4-C NOT STARTED |
-| X-W4PM-19 | PASS — W4 global closure NOT claimed |
-| X-W4PM-20 | PASS — REAL OUT |
-| X-W4PM-21 | PASS — runtime v3 NON ADOPTED |
-| X-W4PM-22 | PASS — next capability explicit |
-| X-W4PM-23 | PASS — no architecture/doctrine change |
-| X-W4PM-24 | PASS — git diff --check |
-| X-W4PM-25 | PASS — no project staging/commit/push/PR/merge |
-| X-W4PM-26 | PASS — Review Pack FULL |
-| X-W4PM-27 | PASS pending handoff publish — then verified |
+| X-W4PMGIT-01 | PASS — origin/main exact at entry |
+| X-W4PMGIT-02 | PASS — local branch exact |
+| X-W4PMGIT-03 | PASS — accepted handoff caf334d8 read |
+| X-W4PMGIT-04 | PASS — local matches accepted candidate |
+| X-W4PMGIT-05 | PASS — exactly 2 project files |
+| X-W4PMGIT-06 | PASS — no content modification after review |
+| X-W4PMGIT-07 | PASS — no third project file |
+| X-W4PMGIT-08 | PASS — git diff --check |
+| X-W4PMGIT-09 | PASS — exact two files staged |
+| X-W4PMGIT-10 | PASS — no tmp staged |
+| X-W4PMGIT-11 | PASS — cached --check |
+| X-W4PMGIT-12 | PASS — one project commit |
+| X-W4PMGIT-13 | PASS — commit exact 2 docs |
+| X-W4PMGIT-14 | PASS — normal push |
+| X-W4PMGIT-15 | PASS — no force push |
+| X-W4PMGIT-16 | PASS — remote SHA = local SHA |
+| X-W4PMGIT-17 | PASS — one Draft PR |
+| X-W4PMGIT-18 | PASS — base main |
+| X-W4PMGIT-19 | PASS — PR changed files exact 2 |
+| X-W4PMGIT-20 | PASS — PR patch matches accepted |
+| X-W4PMGIT-21 | PASS — CI SUCCESS |
+| X-W4PMGIT-22 | PASS — H-01 unchanged |
+| X-W4PMGIT-23 | PASS — H-02/H-04 candidates |
+| X-W4PMGIT-24 | PASS — H-03 W4-C carry |
+| X-W4PMGIT-25 | PASS — W4-C NOT STARTED |
+| X-W4PMGIT-26 | PASS — W4 global NOT CLOSED |
+| X-W4PMGIT-27 | PASS — Product Completion INCOMPLETE |
+| X-W4PMGIT-28 | PASS — REAL OUT |
+| X-W4PMGIT-29 | PASS — runtime v3 NON ADOPTED |
+| X-W4PMGIT-30 | PASS — no project merge |
+| X-W4PMGIT-31 | PASS — no branch deletion |
+| X-W4PMGIT-32 | PASS — Review Pack FULL |
+| X-W4PMGIT-33 | PASS pending handoff publish — then verified |
 
 ---
 
-## 12. Blockers
+## 11. Blockers
 
-**NONE** for ChatGPT review / Morris Git integration gate of this docs candidate.
-
----
-
-## 13. Reserves
-
-- H-02 / H-04 remain closure candidates only
-- Remaining PE obligations (US-P1-10/13 / UAT PE) may continue under W4-C / later PE exit
-- W3A-D03 / W2-CL-R04 / PB-RES-REAL-01 remain non-blocking carries
-- FinOps/T7 FREEZE unchanged
+**NONE** for ChatGPT PR review / Morris merge gate.
 
 ---
 
-## 14. Decisions Morris (required next)
+## 12. Reserves
 
-1. Review this handoff / approve or adjust docs candidate
-2. Distinct GO for project Git integration (commit/push/Draft PR of Roadmap+DOC11)
-3. Later distinct disposition H-02 / H-04
-4. Later distinct W4-C qualification/GO
-
----
-
-## 15. Claims
-
-- Documentary gap between Git (PR #420 merged) and living Roadmap/DOC11 is closed in this local candidate
-- W4 presentation integrated + post-merge verified facts are recorded exactly
-- H-02/H-04 remain candidates; H-03/W4-C remain carry/not started; W4 global closure not claimed
-
-## 16. Anti-claims
-
-Do **not** declare: W4 CLOSED · H-02/H-03/H-04 CLOSED · W4-C STARTED · Product Completion COMPLETE · REAL · READY FOR REAL · runtime v3 ADOPTED · new doctrine/baseline promoted · project Git integrated.
+- H-02/H-04 remain candidates pending Morris disposition
+- W4-C remains NOT STARTED
+- Remaining PE exit obligations may continue under later W4-C / PE exit
 
 ---
 
-## 17. Verdict
+## 13. Claims / Anti-claims
 
-**W4 POST-MERGE TRUTH SYNC PASS — ROADMAP + DOC11 ALIGNED TO main@c14733c05e82bbbbe11873426fa0b6c64ff07b7b — W4 PRESENTATION INTEGRATED / POST-MERGE VERIFIED — H-02/H-04 CLOSURE CANDIDATES — H-03 CARRY / W4-C NOT STARTED — READY FOR CHATGPT REVIEW / MORRIS GIT INTEGRATION GATE**
+**Claims:** reviewed W4-PM-TRUTH docs candidate versioned · Draft PR #421 open · exact 2-file diff verified · CI PASS.
 
-No project Git integration without a new explicit GO Morris.
+**Anti-claims:** do not declare W4 CLOSED · H-02/H-03/H-04 CLOSED · W4-C STARTED · Product Completion COMPLETE · REAL · READY FOR REAL · runtime v3 ADOPTED · new doctrine/baseline · PR merged · branch deleted.
+
+---
+
+## 14. Verdict
+
+**W4-PM-GIT INTEGRATION PASS — ROADMAP + DOC11 COMMITTED AND PUSHED — DRAFT PR OPEN — EXACT 2-FILE DIFF VERIFIED — CI PASS — READY FOR CHATGPT PR REVIEW / MORRIS MERGE GATE**
+
+No merge without a NEW explicit GO Morris.
