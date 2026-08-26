@@ -20,7 +20,7 @@ export function LpsSurface({ result }: { result: GetProjectSuccess }) {
   const nextAction =
     readiness.status === "NOT_READY"
       ? "Poursuivre la qualification avec Nora, puis décider."
-      : `Préparation ${readiness.status} — poursuivre avec Nora.`;
+      : "Poursuivre avec Nora — la préparation enregistrée reste à décider.";
 
   return (
     <aside
@@ -62,7 +62,6 @@ export function LpsSurface({ result }: { result: GetProjectSuccess }) {
         <section className={styles.block}>
           <h3 className={styles.blockTitle}>Cycle</h3>
           <p className={styles.blockBody}>Cycle rattaché au projet</p>
-          <p className={styles.blockCode}>{livingState.activeCycleInstanceId}</p>
         </section>
       ) : null}
 
@@ -80,6 +79,14 @@ export function LpsSurface({ result }: { result: GetProjectSuccess }) {
       <details className={styles.diagnostics} data-testid="lps-diagnostics">
         <summary>Détails techniques</summary>
         <dl className={styles.facts}>
+          {livingState.activeCycleInstanceId ? (
+            <div>
+              <dt>Identifiant de cycle</dt>
+              <dd className={styles.blockCode}>
+                {livingState.activeCycleInstanceId}
+              </dd>
+            </div>
+          ) : null}
           <div>
             <dt>Criticité perçue</dt>
             <dd>{project.criticality}</dd>

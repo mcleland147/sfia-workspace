@@ -94,12 +94,14 @@ test.describe("W2 final-closure /studio product correction proof", () => {
     await expect(input).toBeEnabled({ timeout: 15_000 });
     await input.fill("Préparer une livraison gated __F2_GATED_STANDARD__");
     await page.getByTestId("project-assistant-send").click();
-    await expect(page.getByTestId("project-assistant-gate")).toBeVisible({
+    await expect(page.getByTestId("project-assistant-qualification")).toBeVisible({
       timeout: 60_000,
     });
+    await expect(page.getByTestId("product-authority-path-guidance")).toBeVisible();
+    await expect(page.getByTestId("f2-decide-GO")).toHaveCount(0);
     await capture(page, "02b-qualified-gate", {
       screen: "ConversationSurface",
-      state: "f2_gate_qualified",
+      state: "qualified_no_f2_decision_gate",
     });
 
     const trajectory = page.getByTestId("w2-trajectory-panel");
@@ -232,7 +234,7 @@ test.describe("W2 final-closure /studio product correction proof", () => {
       timeout: 30_000,
     });
     await expect(page.getByTestId("w2-authorization-outcome")).toContainText(
-      "BLOQUÉ",
+      "Exécution bloquée",
     );
     const blockedReason =
       (await page.getByTestId("w2-authorization-reason").textContent()) ?? "";
@@ -272,7 +274,7 @@ test.describe("W2 final-closure /studio product correction proof", () => {
     const outcome = page.getByTestId("w2-authorization-outcome");
     await expect(outcome).toBeVisible();
     const outcomeText = (await outcome.textContent()) ?? "";
-    expect(outcomeText.includes("AUTORISÉ")).toBe(true);
+    expect(outcomeText.includes("Autorisation vérifiée")).toBe(true);
     await expect(page.getByTestId("w2-authorization-reason")).not.toBeEmpty();
     await expect(page.getByTestId("w2-authorization-next")).not.toBeEmpty();
 

@@ -1,12 +1,14 @@
 /**
  * Pre-M6 Option A product presentation tokens.
  *
- * Values transcribed from the manual Figma evidence set (MCP was rate-limited),
- * see .tmp-sfia-review/figma/manual-evidence/. Prefixed `--pm6-` so this layer
- * never collides with the legacy `--sfia-` token set.
+ * Visual reference: Penpot file 63bdc57a… pages 03 + 06 (W4-D).
+ * Prefixed `--pm6-` so this layer never collides with the legacy `--sfia-` set.
+ * Inter is the Penpot typography reference — system fallback only (no font files).
  */
 
 :root {
+  --pm6-font: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
   --pm6-canvas: #f3f1ec;
   --pm6-canvas-raised: #f7f5f0;
   --pm6-surface: #ffffff;
@@ -37,6 +39,8 @@
   --pm6-warn-tint: #fdf1de;
   --pm6-ok: #1f6b4f;
   --pm6-ok-tint: #e7f3ed;
+  --pm6-info: #1f4f6b;
+  --pm6-info-tint: #e7f1f6;
 
   --pm6-radius-sm: 8px;
   --pm6-radius-md: 12px;
@@ -48,6 +52,8 @@
   --pm6-shadow-raised: 0 2px 4px rgba(27, 35, 32, 0.06),
     0 16px 40px rgba(27, 35, 32, 0.08);
 
+  --pm6-focus-ring: 0 0 0 3px color-mix(in srgb, var(--pm6-forest) 35%, transparent);
+
   --pm6-space-1: 4px;
   --pm6-space-2: 8px;
   --pm6-space-3: 12px;
@@ -56,7 +62,7 @@
   --pm6-space-6: 32px;
   --pm6-space-7: 48px;
 
-  --pm6-lps-width: 320px;
-  --pm6-lps-width-wide: 380px;
+  --pm6-lps-width: 420px;
+  --pm6-lps-width-wide: 480px;
   --pm6-content-max: 1180px;
 }

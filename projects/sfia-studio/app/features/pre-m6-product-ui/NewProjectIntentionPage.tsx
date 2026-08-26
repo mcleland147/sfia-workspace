@@ -19,9 +19,8 @@ function createIdempotencyKey(): string {
 }
 
 /**
- * PROVISIONAL intention sheet — no dedicated Figma frame exists for creation.
- * See README.md in this folder. Two product fields drive the runtime input:
- * intention becomes the objective, precisions the bounded context.
+ * PROVISIONAL intention sheet — W4-BR aligns labels to UXR-01 (Nom / Intention /
+ * contexte optionnel / Créer + Annuler). Behavior Create/Resume unchanged.
  */
 export function NewProjectIntentionPage() {
   const [name, setName] = useState("");
@@ -190,6 +189,7 @@ export function NewProjectIntentionPage() {
   return (
     <div className={styles.page}>
       <header className={styles.hero}>
+        <p className={styles.heroEyebrow}>SFIA Studio</p>
         <h1 className={styles.heroTitle}>Nouveau projet</h1>
         <p className={styles.heroSubtitle}>
           Nommez le projet et décrivez votre intention. Nora qualifiera ensuite —
@@ -231,7 +231,7 @@ export function NewProjectIntentionPage() {
 
         <div className={styles.field}>
           <label className={styles.label} htmlFor="project-objective">
-            Votre intention
+            Intention du projet
           </label>
           <textarea
             ref={intentionRef}
@@ -265,7 +265,7 @@ export function NewProjectIntentionPage() {
 
         <div className={styles.field}>
           <label className={styles.label} htmlFor="project-context">
-            Précisions utiles <span className={styles.optional}>(optionnel)</span>
+            Contexte optionnel
           </label>
           <textarea
             id="project-context"
@@ -273,12 +273,13 @@ export function NewProjectIntentionPage() {
             className={styles.textarea}
             rows={3}
             value={precisions}
-            placeholder="Contexte, contraintes connues, ce qu'il faut éviter…"
+            placeholder="Ajoutez uniquement le contexte utile au projet."
             aria-describedby="project-context-help"
             onChange={(event) => setPrecisions(event.target.value)}
           />
           <p className={styles.help} id="project-context-help">
-            Sans précision, votre intention sert aussi de contexte.
+            Sans contexte, votre intention suffit pour créer le projet. Vous
+            pourrez préciser la suite avec Nora ensuite.
           </p>
         </div>
 
@@ -299,6 +300,13 @@ export function NewProjectIntentionPage() {
           >
             {pending ? "Création…" : "Créer le projet"}
           </button>
+          <Link
+            href="/studio"
+            className={styles.quietButton}
+            data-testid="create-project-cancel"
+          >
+            Annuler
+          </Link>
           <span className={styles.status} role="status" aria-live="polite">
             {pending ? "Création en cours…" : ""}
           </span>

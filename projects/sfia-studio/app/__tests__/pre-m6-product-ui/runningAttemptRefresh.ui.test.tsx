@@ -327,7 +327,7 @@ const RESOLVED_M3 = {
 
 function Harness() {
   const controller = useProductConversation({ projectId: PROJECT_ID });
-  return <ConversationSurface controller={controller} />;
+  return <ConversationSurface exposeLegacyAuthorityPath controller={controller} />;
 }
 
 /** findByTestId is presence-only; GO/confirm stay disabled while startTransition keeps busy. */
@@ -368,6 +368,7 @@ describe("Option A running Attempt refresh UI", () => {
     const onRefresh = vi.fn();
     render(
       <ConversationSurface
+        exposeLegacyAuthorityPath
         controller={baseController({
           f3M3Resolved: RESOLVED_M3,
           f3Execute: runningExecute(),
@@ -399,6 +400,7 @@ describe("Option A running Attempt refresh UI", () => {
   it("keeps the refresh control when continuation stays running", () => {
     render(
       <ConversationSurface
+        exposeLegacyAuthorityPath
         controller={baseController({
           f3M3Resolved: RESOLVED_M3,
           f3Execute: runningExecute({ reusedExistingAttempt: true }),
@@ -414,6 +416,7 @@ describe("Option A running Attempt refresh UI", () => {
   it("shows Evidence/ReviewBundle and hides refresh after a terminal payload", () => {
     render(
       <ConversationSurface
+        exposeLegacyAuthorityPath
         controller={baseController({
           f3M3Resolved: RESOLVED_M3,
           f3Execute: succeededExecute(),
@@ -433,6 +436,7 @@ describe("Option A running Attempt refresh UI", () => {
   it("does not offer refresh on fixture terminal or before Confirmation", () => {
     const { rerender } = render(
       <ConversationSurface
+        exposeLegacyAuthorityPath
         controller={baseController({
           f3Execute: fixtureExecute(),
         })}
@@ -443,6 +447,7 @@ describe("Option A running Attempt refresh UI", () => {
 
     rerender(
       <ConversationSurface
+        exposeLegacyAuthorityPath
         controller={baseController({
           f3M3Resolved: RESOLVED_M3,
           canConfirmResolvedM3: true,
@@ -457,6 +462,7 @@ describe("Option A running Attempt refresh UI", () => {
     const onRefresh = vi.fn();
     render(
       <ConversationSurface
+        exposeLegacyAuthorityPath
         controller={baseController({
           f3M3Resolved: RESOLVED_M3,
           f3Execute: runningExecute(),

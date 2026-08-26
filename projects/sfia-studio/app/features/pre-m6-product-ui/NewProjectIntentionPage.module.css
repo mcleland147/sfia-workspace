@@ -9,14 +9,26 @@
   display: flex;
   flex-direction: column;
   gap: var(--pm6-space-2);
+  padding: var(--pm6-space-5);
+  background: var(--pm6-surface);
+  border: 1px solid var(--pm6-border-soft);
+  border-radius: var(--pm6-radius-lg);
+  box-shadow: var(--pm6-shadow-card);
+}
+
+.heroEyebrow {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--pm6-forest);
 }
 
 .heroTitle {
   margin: 0;
   font-size: 1.8rem;
-  font-weight: 600;
+  font-weight: 650;
   letter-spacing: -0.01em;
-  color: var(--pm6-forest);
+  color: var(--pm6-ink);
 }
 
 .heroSubtitle {

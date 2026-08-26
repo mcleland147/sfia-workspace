@@ -251,6 +251,20 @@ describe("W2 TrajectorySurface", () => {
     expect(screen.getByTestId("w2-contract-capabilities")).toHaveTextContent(
       "cap:product-temp-artifact",
     );
+    // W4-BR-CORR-01 — primary status is business label; raw enum remains audit-only.
+    expect(screen.getByTestId("w2-contract-status")).toHaveTextContent(
+      "Confirmation requise",
+    );
+    expect(screen.getByTestId("w2-contract-status")).toHaveAttribute(
+      "data-status",
+      "confirmation_required",
+    );
+    expect(screen.getByTestId("w2-contract-status")).not.toHaveTextContent(
+      "confirmation_required",
+    );
+    expect(screen.getByTestId("w2-contract-status-tech")).toHaveTextContent(
+      "confirmation_required",
+    );
     // E3 — Confirmation affordance requires sufficient inspection, not mere presence.
     expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
 
@@ -476,7 +490,7 @@ describe("W2 TrajectorySurface", () => {
     fireEvent.click(screen.getByTestId("w2-authorize-contract"));
     expect(await screen.findByTestId("w2-authorization")).toBeVisible();
     expect(screen.getByTestId("w2-authorization-outcome")).toHaveTextContent(
-      "BLOQUÉ — ACTION REQUISE",
+      "Exécution bloquée",
     );
     expect(screen.getByTestId("w2-stop-before-execute")).toHaveTextContent(
       "arrêt avant exécution",

@@ -180,9 +180,8 @@ export function HistorySurface({
           Ce qui est réellement enregistré
         </h2>
         <p className={styles.note}>
-          Repères factuels du projet. La conversation, la proposition et la
-          confirmation demandée restent process-local et n&apos;apparaissent pas
-          ici.
+          Repères factuels du projet seulement. Les détails techniques restent
+          secondaires ; la conversation n&apos;est pas rejouée ici.
         </p>
       </header>
       <ol className={styles.timeline}>

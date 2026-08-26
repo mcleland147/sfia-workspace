@@ -79,6 +79,11 @@ async function toContract(page: Page) {
 }
 
 test.describe("Pre-M6 new-design captures", () => {
+
+// W4-B: F3 confirm+execute / F2 decide are no longer product-visible on /studio.
+// Historical Option A F3 proofs are RETIRE LATER (harness/unit with exposeLegacyAuthorityPath).
+test.skip(true, "W4-B product path: F2/F3 authority affordances removed — RETIRE LATER");
+
   test.describe.configure({ timeout: 300_000 });
 
   test.beforeEach(async ({ page }) => {

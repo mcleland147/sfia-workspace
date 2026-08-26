@@ -14,7 +14,11 @@ import { TrajectorySurface } from "./surfaces/TrajectorySurface";
 import type { GetProjectResult, GetProjectSuccess } from "./types";
 import styles from "./ProjectWorkspacePage.module.css";
 
-/** F2/F3 product workspace: conversation dominant, project state alongside. */
+/**
+ * Product workspace: conversation-first, not conversation-only.
+ * H-01 Option A — LPS + ProjectTrajectory share one visual piloting region
+ * (presentation composition only; domain objects remain distinct).
+ */
 export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
   const [result, setResult] = useState<GetProjectResult | null>(null);
   const [durableOutcome, setDurableOutcome] =
@@ -122,7 +126,9 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
           aria-expanded={lpsOpen}
           onClick={() => setLpsOpen((open) => !open)}
         >
-          {lpsOpen ? "Masquer l'état du projet" : "État du projet"}
+          {lpsOpen
+            ? "Masquer l'état et la trajectoire"
+            : "État du projet / Trajectoire"}
         </button>
       </header>
 
@@ -147,13 +153,6 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
           <div className={styles.conversation} data-testid="project-conversation-main">
             <ConversationSurface controller={controller} />
           </div>
-          <TrajectorySurface
-            projectId={projectId}
-            recoveryProposeSignal={recoveryProposeSignal}
-            onDurableFactsChanged={() => {
-              void loadProject();
-            }}
-          />
           <HistorySurface result={success} durableOutcome={durableOutcome} />
         </div>
 
@@ -172,7 +171,38 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
             >
               Fermer
             </button>
-            <LpsSurface result={success} />
+            <section
+              className={styles.stateTrajectoryRegion}
+              data-testid="project-state-trajectory-region"
+              aria-label="État du projet et trajectoire"
+            >
+              <header className={styles.stateTrajectoryHead}>
+                <p className={styles.stateTrajectoryEyebrow}>
+                  Pilotage du projet
+                </p>
+                <h2 className={styles.stateTrajectoryTitle}>
+                  État actuel et trajectoire
+                </h2>
+                <p className={styles.stateTrajectoryNote}>
+                  L&apos;état actuel et la trajectoire sont regroupés ici pour
+                  faciliter le pilotage.
+                </p>
+              </header>
+              <div
+                className={styles.stateTrajectoryStack}
+                data-testid="h01-lps-trajectory-composition"
+              >
+                <LpsSurface result={success} />
+                <TrajectorySurface
+                  projectId={projectId}
+                  composition="lps-embedded"
+                  recoveryProposeSignal={recoveryProposeSignal}
+                  onDurableFactsChanged={() => {
+                    void loadProject();
+                  }}
+                />
+              </div>
+            </section>
           </div>
         </div>
       </div>

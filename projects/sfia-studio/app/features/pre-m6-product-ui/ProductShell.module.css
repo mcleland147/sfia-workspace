@@ -4,6 +4,13 @@
   flex-direction: column;
   background: var(--pm6-canvas);
   color: var(--pm6-ink);
+  font-family: var(--pm6-font);
+  overflow-x: clip;
+}
+
+.shell :where(a, button, input, textarea, summary, select):focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
 }
 
 .header {

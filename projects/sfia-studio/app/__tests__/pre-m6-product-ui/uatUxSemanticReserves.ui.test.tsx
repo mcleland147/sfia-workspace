@@ -244,6 +244,7 @@ describe("UAT-UX-03 confirmation surface", () => {
   it("shows authoritative user summary and keeps IDs under technical details", () => {
     render(
       <ConversationSurface
+      exposeLegacyAuthorityPath
         controller={baseController({
           f3M3Resolved: RESOLVED,
           canConfirmResolvedM3: true,
@@ -285,6 +286,7 @@ describe("UAT-UX-04/07 REAL result surface", () => {
   it("T3/T10/T11/T12 — REAL success is not fixture and recommendation stays non-authority", () => {
     render(
       <ConversationSurface
+      exposeLegacyAuthorityPath
         controller={baseController({ f3Execute: succeededReal() })}
       />,
     );
@@ -312,7 +314,7 @@ describe("UAT-UX-04/07 REAL result surface", () => {
     const failed = succeededReal();
     failed.attempt.status = "failed";
     render(
-      <ConversationSurface controller={baseController({ f3Execute: failed })} />,
+      <ConversationSurface exposeLegacyAuthorityPath controller={baseController({ f3Execute: failed })} />,
     );
     expect(screen.getByTestId("f3-result-user-summary")).toHaveTextContent(/échec/);
     expect(screen.getByTestId("f3-result-user-summary")).not.toHaveTextContent(
@@ -326,6 +328,7 @@ describe("UAT-UX-04/07 REAL result surface", () => {
     running.contract.status = "executing";
     render(
       <ConversationSurface
+      exposeLegacyAuthorityPath
         controller={baseController({
           f3Execute: running,
           canRefreshResolvedM3Running: true,
@@ -344,6 +347,7 @@ describe("UAT-UX-08 durable rehydrate", () => {
     const confirm = vi.fn();
     render(
       <ConversationSurface
+      exposeLegacyAuthorityPath
         controller={baseController({
           durableEvidenceOutcome: DURABLE_REAL,
           confirmAndExecuteResolvedM3: confirm,
