@@ -545,7 +545,7 @@ GO : **ADOPT W2-G2 DECISION PACK** — D-W2-01…04 · TD-C6-03 included W2 by a
 | **Existing UI assets** | **UI ASSET AUDIT = COMPLETE / CLASSIFIED** — candidate classes KEEP / ADAPT / COMPLETE / HARVEST / REPLACE / FREEZE / RETIRE LATER identified · **AUDITED / CLASSIFIED** · individual dispositions remain **recommendations** until the relevant Morris / Delivery gate · **≠** all dispositions ADOPTED · **≠** legacy retirement authorized · **no** automatic deletion |
 | **État historique à la sortie Pre-M6** | *(HISTORICAL Pre-M6 exit snapshot · **≠** current W1 runtime state)* · Functional baseline **ADOPTED** · G-UX readiness **COMPLETE** · G-UX-15 CLOSED/MERGED · D-PRE-M6-UX-05 **ADOPTED ON MAIN** · Option A scope **ADOPTED** · Option A Delivery **EXECUTED AND INTEGRATED ON MAIN via PR #361** (`a53c323…` / head `3c4c478…` / post-merge CI `32122892559` SUCCESS) · vertical slice = **MVP FUNCTIONAL BASELINE** (Morris) · **at Pre-M6 exit:** Confirmation / Conversation / Proposal were **process-local KEEP** · **supersession later:** W1 (PR #395) extended Confirmation to selective durability (`requested` ephemeral / `granted+` durable) · Conversation / Proposal remain process-local / reconstructible per their contract · PRE-M6 EXIT = **ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT** · PRE-M6 **≠ COMPLETE WITHOUT RESERVES** |
 | **Completed** | User Journey Qualification · Functional IA · UI asset audit · G-UX readiness · Slice A (PR #354) · docs syncs PR #355/#356/#357/#358 · D-PRE-M6-UX-05 visual adoption · **OPTION A SCOPE ADOPTED** · **PR #361 PRODUCT VERTICAL SLICE MERGED** · post-merge CI SUCCESS · historical Delivery Execution Authorization **CONSUMED / SUPERSEDED** · **PRE-M6 EXIT ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT** |
-| **Remaining** | Product Completion MUST gaps + governed inherited debt **CARRIED OPEN** (UAT-UX-06, UAT-RECOVERY-03 E2E, V3-F10, conversation/proposal process-local, N7 harness) · UX EA / E2E Wireframes / Screens non-blocking reserves **CARRIED OPEN** (H-01…H-04 · SC-02 evidence-framing reserve) · Confirmation **runtime** + ProjectTrajectory durability **IMPLEMENTED AT W1 SCOPE** (PR #395) · W2-G3 E+A+B+C **INTEGRATED** (PR #400) · Track D / bounded Phase B **INTEGRATED** (PR #403) · remaining Recovery E2E + full CKC track → **W2 closure / W3** · **RESERVE-GOV-EC-ORDER CLOSED** · R-INT-UX-01 **CLOSED** · R-INT-UX-02 **ABSORBED / CLOSED** · C1…C6 / UX / backlog / W1 / W2-G3 / Phase B **INTEGRATED ON MAIN** · next capability = **W2 FINAL CLOSURE QUALIFICATION** · runtime v3 **NON ADOPTED** |
+| **Remaining** | Product Completion MUST gaps + governed inherited debt **CARRIED OPEN** (UAT-UX-06, UAT-RECOVERY-03 E2E, V3-F10, conversation/proposal process-local, N7 harness) · UX EA / E2E Wireframes / Screens non-blocking reserves **CARRIED OPEN** (H-01…H-04 · SC-02 evidence-framing reserve) · Confirmation **runtime** + ProjectTrajectory durability **IMPLEMENTED AT W1 SCOPE** (PR #395) · W2-G3 E+A+B+C **INTEGRATED** (PR #400) · Track D / bounded Phase B **INTEGRATED** (PR #403) · remaining Recovery E2E + full CKC track → **W2 closure / W3** *(historical W2/W3 construction phrasing)* · **RESERVE-GOV-EC-ORDER CLOSED** · R-INT-UX-01 **CLOSED** · R-INT-UX-02 **ABSORBED / CLOSED** · C1…C6 / UX / backlog / W1 / W2-G3 / Phase B **INTEGRATED ON MAIN** · *(HISTORICAL / CONSUMED tip)* next capability was **W2 FINAL CLOSURE QUALIFICATION** · **NOW** next = **NEXT-CAPABILITY REQUALIFICATION** · next capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** · runtime v3 **NON ADOPTED** |
 | **Future work sequence** | **HISTORICAL / SUPERSEDED** *(Pre-M6 exit sequencing)* — then was: 1. NEXT-CAPABILITY REQUALIFICATION · 2. Morris decision / GO distinct · 3. execution only after GO · 4. dynamic requalification · **no named next subcycle selected** at that time · **NOW superseded by:** W1 integrated → W2 readiness **INTEGRATED** (PR **#398**) → W2-G2 **DECIDED** → **W2-G3 E+A+B+C INTEGRATED** (PR **#400**) → **Track D / Phase B INTEGRATED** (PR **#403**) → **W2 FINAL CLOSURE QUALIFICATION** · PRE-M6 remains **historical harvest source**, not forward critical path |
 | **Figma** | **ADOPTED AS PRE-M6 VISUAL REFERENCE / HISTORICAL LEARNING SOURCE** · Freeze `uUdLBElF2B4dOefaAYt4QY` · **≠** contrat visuel Product Completion final · aucune mutation Figma dans ce sync |
 | **UI Delivery** | **HISTORICAL — EXECUTED via PR #361** · Option A Delivery Execution Authorization **CONSUMED / SUPERSEDED** · **≠** PRE-M6 EXIT ACCEPTED · **≠** product-grade UX complete |
@@ -727,6 +727,14 @@ Not classified as PRE-M6 debt: couverture cognitive du catalogue applicable · g
 
 ## B9. Matrice de couverture doctrine V3-F01…F15
 
+> **B9 CLASSIFICATION (PC-POST-CLOSURE-TRUTH-SYNC-01-CORR-02):**
+> This matrix is a **HISTORICAL / PRE-PRODUCT-COMPLETION-CLOSURE V3-F01→F15 COVERAGE SNAPSHOT**.
+> Row-level maturity / gap values are **construction provenance at that snapshot** — they are **NOT** authoritative current foundation coverage after Product Completion COMPLETE / CLOSED BY MORRIS.
+> Product Completion CLOSED does **not** automatically upgrade all foundations.
+> Current V3-F01→F15 coverage **MUST** be requalified from Git + v3 doctrine + current evidence in the dedicated **NEXT-CAPABILITY REQUALIFICATION** cycle (distinct Morris GO).
+> No V3-Fxx is selected as next here · runtime v3 remains **NON ADOPTED** · **≠** READY FOR REAL.
+> This cycle does **not** recompute foundation maturity.
+
 | Fondation | Capacité | État courant | Milestone(s) | Preuve attendue | Gap / décision |
 | --- | --- | --- | --- | --- | --- |
 | V3-F01 CKC | Qualification cognitive | **PARTIAL RUNTIME** — F2 qualify + CycleInstance/CKC binding **on main** (M2) · Product CKC Phase A package-bound **INTEGRATED ON MAIN** (PR #395) · Product pin fail-closed · bounded CKC→Nora seam **PROVEN (W1)** · bounded Phase B cognition **INTEGRATED** (PR #403 · DETERMINISTIC PROVEN) · proposal process-local · corpus Studio-native **INTEGRATED** · état catalogue baseline mesure `15` non structurel | M2, W1, W2, Product Completion | CKC lié cycle + Phase A/B cognitive-only · coverage catalogue applicable | **full CKC catalog/track → W3** · Proposal/Recommendation active reprenable · CKC Delivery **NOT NOW** |
@@ -805,9 +813,16 @@ CRITICAL PATH:
   → G2 DOCTRINEPACKAGE MATERIALIZATION DECISION — PR **#394 MERGED** (`b3e978fe…`) · `pkg:sfia-studio-doctrine-v3@1.0.0` · OPTION A root · KEEP resolver/repository · D02 Option B · fallback NONE
   → G3 W1 DELIVERY GO — **CONSUMED** · W1 Delivery PR **#395 MERGED** · head `7d302f24…` · merge `ddd39181…` · PR CI `32588888075` SUCCESS · push/main CI `32589270526` SUCCESS · **8/8 W1 EXIT CONTRACTS PASS** · Product DoctrinePackage + CKC Phase A **INTEGRATED** · source Delivery branch **PRESERVED**
   → PR #396 ROADMAP W1 TRUTH SYNC — **MERGED** · head `d5164cac…` · merge `fdcb57a4…` · PR CI `32591270493` SUCCESS · push/main CI **`32591909031` SUCCESS** · source branch `docs/sfia-studio-w1-post-merge-roadmap-truth-sync` **PRESERVED** · W1 ROADMAP POST-MERGE TRUTH = **SATISFIED**
-  → CURRENT — **Track D / bounded CKC Phase B INTEGRATED ON MAIN** (PR **#403** / head `1cdf4b41…` / merge `e4a93fea…` / PR-head CI `32645232920` SUCCESS / push/main CI `32646038871` SUCCESS) · prior W2-G3 E+A+B+C **INTEGRATED** (PR **#400**) · FinOps/T7 **FREEZE** · **W2 CLOSED BY MORRIS** · `origin/main` @ `1e4b0dbb…` (PR **#405**) · Requalification **ACCEPTED**
-  → NEXT — **W2 POST-CLOSURE TRUTH SYNC** integration/post-merge → **NEXT-CAPABILITY REQUALIFICATION** *(distinct)* · **≠** W3 GO · **≠** REAL authorized
-  → DYNAMIC PRODUCT TRAJECTORY — requalify after each capability
+  → HISTORICAL W2 STATE — Track D / bounded CKC Phase B **INTEGRATED ON MAIN** (PR **#403** / head `1cdf4b41…` / merge `e4a93fea…`) · prior W2-G3 E+A+B+C **INTEGRATED** (PR **#400**) · FinOps/T7 **FREEZE** · **W2 CLOSED BY MORRIS** · `origin/main` @ `1e4b0dbb…` (PR **#405**) · W2 Final Closure Requalification **ACCEPTED** *(true then · superseded as tip)*
+  → HISTORICAL W2 NEXT — W2 POST-CLOSURE TRUTH SYNC → NEXT-CAPABILITY REQUALIFICATION *(later consumed by W3 trajectory)* · **≠** then-current tip after W3/W4/PC
+  → W3-A / W3-B / W3-C / W3-D — **INTEGRATED AND PROVEN ON MAIN** · **W3 CLOSED BY MORRIS**
+  → W4 PRESENTATION + W4-C — **INTEGRATED / POST-MERGE VERIFIED** · **W4 CLOSED BY MORRIS** · W4 Final Closure Qualification **CONSUMED**
+  → PRE-QA IMPLEMENTATION CONFORMANCE — **ACCEPTED BY MORRIS / INTEGRATED** (DOC13 · PR **#425**)
+  → PRODUCT COMPLETION INTEGRATED QA — DOC14 + integrated QA spec · CORR-01/CORR-02 · PR **#426 MERGED** · head `57f46c7a…` · merge `19349d024b3dc10a180cda52b2300279af361bf2` · tree `00bc236a…` · post-merge CI **`33082002188` SUCCESS** · Required Gate **PASS**
+  → PRODUCT COMPLETION — **COMPLETE / CLOSED BY MORRIS** · Final Qualification **PASS WITH NON-BLOCKING RESERVES / CONSUMED** · proof **DETERMINISTIC PRODUCT COMPLETION INTEGRATED PROVEN**
+  → PC POST-CLOSURE ROADMAP/DOC11 TRUTH SYNC — **LOCAL CANDIDATE** (this branch) → ChatGPT review → distinct Morris Git-integration GO
+  → CURRENT STRUCTURAL STEP — **NEXT-CAPABILITY REQUALIFICATION** · next v3 capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** · requalification **≠** Delivery · **≠** capability selection · **≠** REAL · **≠** runtime v3 adoption
+  → DYNAMIC PRODUCT TRAJECTORY — requalify after each capability *(method invariant)*
   → OPTIONAL CKC lessons → v2.6 capitalization — DISTINCT METHOD GATE — NOT DECIDED
 
 M4 ARCHITECTURE GATE: CLOSED (D-M4-01→05)
@@ -843,9 +858,11 @@ G2: DECIDED + INTEGRATED (PR #394) · G3 W1 Delivery: CONSUMED / SATISFIED
 W1 ROADMAP REPOSITORY TRUTH: SATISFIED — PR #396 MERGED — PUSH/MAIN CI 32591909031 SUCCESS
 W2-G3 DELIVERY: INTEGRATED ON MAIN — PR #400 MERGED — head a276f170… — merge dd852243… — PR-head CI 32632461315 SUCCESS — push/main CI 32633308148 SUCCESS — STOP BEFORE EXECUTE
 FINOPS/T7: FREEZE — D-W2-CI-FINOPS-FREEZE-01 ADOPTED — T7-C04 DEFERRED — NOT REQUIRED ON STUDIO CORE CI — ≠ FinOps PASS
-NEXT REPO GATE: ROADMAP W2-G3 POST-MERGE TRUTH-SYNC GIT INTEGRATION — DISTINCT MORRIS GO AFTER CHATGPT REVIEW
-NEXT PRODUCT GATE: TRACK D / BOUNDED CKC PHASE B QUALIFICATION → DISTINCT MORRIS GO PHASE B
-NEXT CONVERGENCE CAPABILITY: W2 TRACK D / BOUNDED CKC PHASE B — W2-G3 INTEGRATED · W2 NOT FINALLY CLOSED · GO PHASE B NOT CONSUMED
+HISTORICAL / CONSUMED (W2-era tip): NEXT REPO GATE was ROADMAP W2-G3 POST-MERGE TRUTH-SYNC GIT INTEGRATION — later CONSUMED
+HISTORICAL / CONSUMED (W2-era tip): NEXT PRODUCT GATE was TRACK D / BOUNDED CKC PHASE B QUALIFICATION → GO PHASE B — later CONSUMED (PR #403) · W2 later CLOSED BY MORRIS
+HISTORICAL / CONSUMED (W2-era tip): NEXT CONVERGENCE CAPABILITY was W2 TRACK D / BOUNDED CKC PHASE B — GO PHASE B NOT CONSUMED *(true then)*
+CURRENT STRUCTURAL STEP: NEXT-CAPABILITY REQUALIFICATION — next capability NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED
+NEXT MORRIS GATE AFTER REQUALIFICATION: selection / authorization of a future Studio capability — NOT STARTED · ≠ Delivery · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED
 M6 / M7: HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION — traces conservées
 CKC COVERAGE: corpus Studio-native INTEGRATED · Phase A package-bound INTEGRATED via W1 · Phase B ≠ complete · `15` non structurel
 CKC→V2.6 CAPITALIZATION: FUTURE OPTION — DISTINCT METHOD GATE — NOT DECIDED — Studio doctrine remains v3-exclusive
@@ -860,9 +877,8 @@ UI DELIVERY QUALIFICATION: COMPLETE — handoff 2577776… / blob 9084a97… —
 OPTION A: ADOPTED BY MORRIS AS PRE-M6 UI DELIVERY SCOPE — SCOPE ADOPTED ≠ UI DELIVERY EXECUTION AUTHORIZED
 MAJOR GAP TREATMENT: ADOPTED AS OPTION A SCOPE (F1 entry · nav · workspace · assistant · G-UX-08/09/10/11 · Confirmation · History · Recovery · responsive · visual reserves · M5-C separate) — dispositions ≠ implementation proof ≠ gaps closed
 W1 ROADMAP REPOSITORY TRUTH: SATISFIED — PR #396 MERGED — PUSH/MAIN CI 32591909031 SUCCESS
-NEXT REPO GATE: ROADMAP W2-G3 POST-MERGE TRUTH-SYNC GIT INTEGRATION — DISTINCT MORRIS GO AFTER CHATGPT REVIEW
-NEXT PRODUCT GATE: TRACK D / BOUNDED CKC PHASE B QUALIFICATION → DISTINCT MORRIS GO PHASE B
-NEXT CONVERGENCE CAPABILITY: W2 TRACK D / BOUNDED CKC PHASE B — W2-G3 INTEGRATED · W2 NOT FINALLY CLOSED · GO PHASE B NOT CONSUMED
+HISTORICAL / CONSUMED (duplicate W2-era tip block): NEXT REPO GATE / NEXT PRODUCT GATE / NEXT CONVERGENCE CAPABILITY Track D Phase B — CONSUMED by PR #403 + W2 CLOSED + subsequent W3/W4/PC trajectory
+CURRENT STRUCTURAL STEP (repeat for local block coherence): NEXT-CAPABILITY REQUALIFICATION — capability NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED
 M6 / M7: HISTORICAL / SUPERSEDED / ABSORBED — not forward milestones
 CKC COVERAGE: catalogue applicable evolvable — Phase A integrated · Phase B downstream — current 15-type baseline is a measure, not a structural invariant
 CKC→V2.6 CAPITALIZATION: FUTURE OPTION — DISTINCT METHOD GATE — NOT DECIDED — Studio doctrine remains v3-exclusive
@@ -1008,9 +1024,10 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
 - PR #362 : Product Completion rebaseline · merge `e142f7bdb9ee29dbd258a68f016850269535f1e6`
 - PR #364 : C1 Product Completion · head `674d0870fffcb7310b04505c0f5a8149293b42f6` · merge `d83be84ab93650f23bfe54870790cc2e839be095` · **MERGED ON MAIN**
 - C1 canonique : `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` · D-PC-01 / D-PC-07 adoptées · D-PC-08 recommandation adoptée
-- NEXT REPOSITORY GATE : **POST-MERGE REPO COHERENCE**
-- NEXT PRODUCT GATE : **POST-MERGE REPO COHERENCE → MORRIS GATE FOR C2 EXECUTION**
-- NEXT CAPABILITY : **Cycle 2 — Conception fonctionnelle — RECOMMENDED / NOT AUTHORIZED**
+- HISTORICAL / CONSUMED (post-C1 tip): NEXT REPOSITORY GATE was **POST-MERGE REPO COHERENCE**
+- HISTORICAL / CONSUMED (post-C1 tip): NEXT PRODUCT GATE was **POST-MERGE REPO COHERENCE → MORRIS GATE FOR C2 EXECUTION** *(later CONSUMED by C2 PR #369)*
+- HISTORICAL / CONSUMED (post-C1 tip): NEXT CAPABILITY was **Cycle 2 — Conception fonctionnelle — RECOMMENDED / NOT AUTHORIZED** *(later VALIDATED / INTEGRATED)*
+- CURRENT STRUCTURAL STEP (living tip): **NEXT-CAPABILITY REQUALIFICATION** · next capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED**
 - D-PRE-M6-UX-05 : Freeze `uUdLBElF2B4dOefaAYt4QY` · handoff `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593ddbdc286cd244790f0ca1d2c421128202c5c` · **ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN**
 - CKC coverage : current **4/15** detailed pilots + **11/15** synthetic fallback · target = 100 % du catalogue applicable · `15` non structurel · optional later v2.6 capitalization under distinct method gate
 - Audit handoff historique : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
