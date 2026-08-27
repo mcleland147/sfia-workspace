@@ -1,134 +1,110 @@
 # SFIA Review Pack — FULL
-## PC-INTEGRATED-QA-01
+## PC-INTEGRATED-QA-01-CORR-01
 
 | Champ | Valeur |
 |---|---|
-| **Timestamp** | 2026-08-27 14:36:22 +0200 |
-| **Cycle** | PC-INTEGRATED-QA-01 |
+| **Timestamp** | 2026-08-27 15:25:29 +0200 |
+| **Cycle** | PC-INTEGRATED-QA-01-CORR-01 |
+| **Parent** | PC-INTEGRATED-QA-01 |
 | **Type** | 9 — QA / VALIDATION |
 | **Typologie** | EVOL — QA EVIDENCE / TEST-ONLY · NO PRODUCT RUNTIME MUTATION |
 | **Profil** | CRITICAL |
 | **Repo** | mcleland147/sfia-workspace |
-| **Baseline origin/main** | `718d54859215cc55719520d0fee1263092d0736d` |
-| **Tree** | `a355e5bdc49713136551d910592127fb01fd69d4` |
+| **origin/main** | `718d54859215cc55719520d0fee1263092d0736d` |
+| **main tree** | `a355e5bdc49713136551d910592127fb01fd69d4` |
 | **Branch** | `qa/sfia-studio-product-completion-integrated-proof` |
-| **Local commit** | `81eba2220b7ddda99f8c2dfd295f59c3af4a6f65` |
-| **Parent** | `718d54859215cc55719520d0fee1263092d0736d` |
-| **Tree candidat** | `fef6e5fef225ccdbacffed1e040b4c041e6c2688` |
-| **Project push / PR / merge** | NO / NO / NO |
+| **Entry SHA** | `81eba2220b7ddda99f8c2dfd295f59c3af4a6f65` |
+| **Corrective SHA** | `97cbbb10890247ed78c6a6a11faee988bf616857` |
+| **Corrective parent** | `81eba2220b7ddda99f8c2dfd295f59c3af4a6f65` |
+| **Corrective tree** | `a16876c9cda260b1061591c3f0c8521377b4055c` |
+| **Prior handoff** | `04961509714db2e2b7baca1bdf1f0e48f5f8decb` |
+| **Project push/PR/merge** | NO / NO / NO |
 | **Product Completion** | INCOMPLETE |
 | **runtime v3** | NON ADOPTED |
-| **Verdict candidat** | PASS WITH NON-BLOCKING RESERVES — READY FOR DISTINCT MORRIS PRODUCT COMPLETION DECISION |
+| **Verdict candidat** | PASS WITH NON-BLOCKING RESERVES — FULL-LOOP GENERICITY + CHECKPOINT A/B PROVEN |
 
 ---
 
-## 1. GO Morris consommé
+## 1. GO Morris CORR-01 (consommé)
 
-GO MORRIS — START PRODUCT COMPLETION INTEGRATED QA / FINAL COMPLETION QUALIFICATION —
-BASELINE main@718d5485… — CONSUME ACCEPTED PRE-QA BASELINE DOC13 —
-TEST PRODUCT COMPLETION END-TO-END —
-NO PRODUCT RUNTIME CHANGE — NO ARCHITECTURE REOPEN —
-REAL OUT — FINOPS/T7 FREEZE — RUNTIME V3 NON ADOPTED —
-NO PROJECT PUSH / PR / MERGE —
-FINAL PRODUCT COMPLETION DECISION RESERVED TO MORRIS.
-
----
-
-## 2. Sources / CKC / Convergence
-
-### Process
-cycle template · routing · operating model · guardrails · v2.5 cycles method
-
-### CKC
-`pilots/04-qa-validation.md` — candidate 0.1.0 — **aucune autorité d’exécution**
-
-### Convergence
-Build Doctrine · Roadmap · C1…C6 · backlog · W1–W4 · DOC13 · UX 01–03 · framing 30–37 (lecture)
-
-État : W1–W4 CLOSED · DOC13 ACCEPTÉE/MERGED · PC INCOMPLETE · C6 CLOSED · REAL OUT · FinOps FREEZE · runtime v3 NON ADOPTED
+CLOSE PCQA-BLK-01 GENERICITY PROOF GAP —
+PROVE ≥2 CONTRASTED CANONICAL CYCLES THROUGH FULL PRODUCT COMPLETION MECHANISM —
++ CHECKPOINT-A RESTART —
+DOC14 + INTEGRATED SPEC ONLY —
+NO PRODUCT/RUNTIME/SHARED FRAMEWORK/ARCH MUTATION —
+ONE CORRECTIVE LOCAL COMMIT —
+FULL PACK + HANDOFF —
+NO PUSH/PR/MERGE —
+PC INCOMPLETE · C6 CLOSED · REAL OUT · FINOPS FREEZE · RUNTIME V3 NON ADOPTED.
 
 ---
 
-## 3. Fake / Real
+## 2. PCQA-BLK-01 oracle
 
-Fake = TestExecutionAdapter + bras W3-B uniquement.
-Chemin produit natif traversé.
-REAL OUT. Preuve = DETERMINISTIC PRODUCT COMPLETION INTEGRATED PROVEN.
-
----
-
-## 4. Environnement
-
-Voir `.tmp-sfia-review/product-completion-integrated-qa/environment.md`
-Port E2E 3021 · FORCE_WEBSERVER · conversation fake · isolation Vitest temp DB
+W3-D catalogue/CKC ≠ full-loop EC→Attempt→Evidence for two contrasted cycles.
+C1 §N.4 + W.2 forbid single specialized case.
 
 ---
 
-## 5. Résultats QA-INT
+## 3. Cases
 
-| ID | Résultat |
-|---|---|
-| QA-INT-01 | PASS |
-| QA-INT-02 | PASS |
-| QA-INT-03 | PASS |
-| QA-INT-04 | PASS (composition intégrée + W2 e2e) |
-| QA-INT-05 | PASS |
-| QA-INT-06 | PASS |
-| QA-INT-07 | PASS |
-| QA-INT-08 | PASS |
-| QA-INT-09 | PASS |
+| | Case A | Case B |
+|---|---|---|
+| cycleTypeId | cyc:delivery | cyc:security |
+| CKC | ckc:studio:delivery | ckc:studio:security |
+| Path | browser /studio | same OA product services |
+| Full loop | PASS | PASS |
+| Contrast | anti scope creep | adversarial/secret/risque résiduel |
 
-Non-régression : typecheck/lint/build PASS · Vitest 2137 PASS · modeled 73 PASS · E2E intégré 4/4 · W2 amend PASS · W4-B/C/D PASS
+Cycle-specific engine = **NO**
 
 ---
 
-## 6. Matrices (résumé)
+## 4. Checkpoint A
 
-Completion bar PC-BAR-01…10 : **tous PASS**
-C2 A→W : INTEGRATED_PASS
-C1 MUST critiques : INTEGRATED_PASS (MUST-19/20 component-supported)
-Bloquants : **NONE**
+Test: QA-INT-05-A · PASS
+After HD before Execute · reload · recovery banner + history decided/HD · no Attempt
 
-Réserves : PREQA-R01/R02 · W3A-D03 · W2-CL-R04 · PB-RES-REAL-01 · SC-02 · Penpot 504 · **PCQA-R01**
+Checkpoint B: PASS (INT-01)
 
 ---
 
-## 7. Fichiers projet changés
+## 5. Results
 
-Exactement 2 :
-1. `projects/sfia-studio/product-completion/14-product-completion-integrated-proof-final-qualification.md`
-2. `projects/sfia-studio/app/e2e/studio-product-completion-integrated-proof.spec.ts`
-
-Mutation produit : **NO**
-Commit : `81eba2220b7ddda99f8c2dfd295f59c3af4a6f65`
-
----
-
-## 8. Artefacts
-
-`.tmp-sfia-review/product-completion-integrated-qa/` — commands · environment · scenario-results · screenshots · test-output
+Integrated E2E: **7 passed**
+typecheck/lint PASS · Vitest 2137 PASS
+PC-BAR-03 PASS · PC-BAR-05 PASS
+PCQA-BLK-01 CLOSED BY CORR-01 EVIDENCE
+PCQA-BLK-02 N/A
+PCQA-R01 NON_BLOCKING
 
 ---
 
-## 9. Spec E2E intégrée (contenu complet)
+## 6. Files
+
+Exactly 2 cumulative vs main:
+- DOC14
+- studio-product-completion-integrated-proof.spec.ts
+
+---
+
+## 7. Spec complète
 
 --- BEGIN SPEC ---
 /**
- * PC-INTEGRATED-QA-01 — Product Completion integrated proof on canonical /studio.
+ * PC-INTEGRATED-QA-01 (+ CORR-01) — Product Completion integrated proof.
  *
- * Thin orchestration of EXISTING product-native behavior.
- * Fake substitutes ONLY the external executor boundary (TestExecutionAdapter / W3-B arms).
+ * Fake substitutes ONLY the external executor boundary.
  * REAL OUT · OpenAI LIVE OUT · Cursor REAL OUT.
  *
- * Scenarios:
- *   QA-INT-01 nominal SUCCESS → Evidence → Nora post-Evidence → reload
- *   QA-INT-02 governed STOP (armed)
- *   QA-INT-03 FAIL → recovery / replan recommendation
- *   QA-INT-04 material EC amend invalidates stale inspection/authorization
- *   QA-INT-05 restart continuity (reload after SUCCESS — checkpoint B)
+ * CORR-01:
+ *   QA-INT-07 Case A — browser /studio cyc:delivery full loop
+ *   QA-INT-07 Case B — same production OA chain for cyc:security (application path)
+ *   QA-INT-05-A — checkpoint A restart (after HD, before Execute)
  */
 import { test, expect, type Page } from "@playwright/test";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import crypto from "node:crypto";
 import {
@@ -136,15 +112,47 @@ import {
   armW3bGovernedStop,
   clearW3bBoundary,
 } from "./support/w3bBoundaryControl";
+import { setConversationProviderForTests } from "../lib/platform/ai";
+import {
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "../lib/vertical-slice-runtime";
+import { evaluateExecutionAuthorization } from "../features/project-assistant/w2/authorizeExecutionContract";
+import { confirmExecutionContractForAuthorization } from "../features/project-assistant/w2/confirmForAuthorization";
+import { decideTrajectory } from "../features/project-assistant/w2/decideTrajectory";
+import {
+  governedExecuteRecordResult,
+  governedExecuteSelectAgent,
+  governedExecuteStart,
+} from "../features/project-assistant/w2/governedExecuteAuthorizedContract";
+import { inspectExecutionContract } from "../features/project-assistant/w2/inspectExecutionContract";
+import { prepareExecutionContractFromW2Decision } from "../features/project-assistant/w2/prepareExecutionContractFromW2Decision";
+import { proposeTrajectoryOptions } from "../features/project-assistant/w2/proposeTrajectoryOptions";
+import { resolveW2QualificationInputs } from "../features/project-assistant/w2/qualificationInputs";
+import { GOVERNED_OPTION_REF } from "../features/project-assistant/w2/trajectoryOptions";
+import { materializeProductOutcomeFromAttempt } from "../features/project-assistant/w2/materializeW3bProductTerminal";
 
 const CAPTURE_ROOT = path.resolve(
   process.cwd(),
   "../../../.tmp-sfia-review/product-completion-integrated-qa/screenshots",
 );
 const MANIFEST = path.join(CAPTURE_ROOT, "manifest.jsonl");
+const APP_ROOT = path.resolve(__dirname, "..");
 
 const AMENDMENT_CONSTRAINT =
   "W2_E2E_TIGHTEN: borner strictement le slice livré — aucune extension silencieuse";
+
+const GEN_CASE_A = {
+  cycleTypeId: "cyc:delivery",
+  ckcId: "ckc:studio:delivery",
+  marker: "__F2_GATED_STANDARD__",
+  label: /livraison|delivery/i,
+} as const;
+
+const GEN_CASE_B = {
+  cycleTypeId: "cyc:security",
+  ckcId: "ckc:studio:security",
+} as const;
 
 async function capture(
   page: Page,
@@ -183,7 +191,12 @@ async function assertNoSecondAuthorityPath(page: Page) {
   );
 }
 
-async function createAndQualify(page: Page, name: string, objective: string) {
+async function createAndQualify(
+  page: Page,
+  name: string,
+  objective: string,
+  qualifyText = `Préparer une livraison gated ${GEN_CASE_A.marker}`,
+) {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/studio");
   await expect(page.getByTestId("studio-projects-home")).toBeVisible({
@@ -204,7 +217,7 @@ async function createAndQualify(page: Page, name: string, objective: string) {
 
   const input = page.getByTestId("project-assistant-input");
   await expect(input).toBeEnabled({ timeout: 15_000 });
-  await input.fill("Préparer une livraison gated __F2_GATED_STANDARD__");
+  await input.fill(qualifyText);
   await page.getByTestId("project-assistant-send").click();
   await expect(page.getByTestId("project-assistant-qualification")).toBeVisible({
     timeout: 60_000,
@@ -213,7 +226,7 @@ async function createAndQualify(page: Page, name: string, objective: string) {
   await assertNoSecondAuthorityPath(page);
 }
 
-async function decideTrajectory(page: Page) {
+async function decideTrajectoryUi(page: Page) {
   const trajectory = page.getByTestId("w2-trajectory-panel");
   await expect(trajectory).toBeVisible({ timeout: 15_000 });
   await trajectory.scrollIntoViewIfNeeded();
@@ -258,7 +271,7 @@ async function openThroughAuthorized(
   objective: string,
 ) {
   await createAndQualify(page, name, objective);
-  await decideTrajectory(page);
+  await decideTrajectoryUi(page);
   await prepareInspectConfirmAuthorize(page);
 }
 
@@ -284,6 +297,244 @@ async function assertPostEvidence(page: Page, kind: string) {
   await expect(page.getByTestId("w3c-lps-version")).not.toHaveText("—");
 }
 
+/** Case B — production OA Product Completion chain (same services as /studio). */
+async function runProductNativeFullLoop(cycleTypeId: string, ckcId: string) {
+  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+  process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL = "1";
+  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+  process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+  setConversationProviderForTests(null);
+  resetRuntimeApplicationServiceForTests();
+
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "pcqa-gen-"));
+  const db = path.join(dir, "product.sqlite");
+  const runtime = getRuntimeApplicationService({
+    registryRoot: path.join(APP_ROOT, "lib/oa/doctrine/product"),
+    schemasRoot: path.resolve(
+      APP_ROOT,
+      "../sfia-v3-modeled/v3-native-option-a/schemas",
+    ),
+    nowIso: "2026-08-27T14:00:00.000Z",
+    auditMode: "noop",
+    productDbPath: db,
+  });
+  const created = await runtime.createProject({
+    name: `PCQA GEN ${cycleTypeId}`,
+    objective: `Full-loop genericity — ${cycleTypeId}`,
+    context: "PC-INTEGRATED-QA-01-CORR-01",
+    criticality: "STANDARD",
+    constraints: ["AUCUNE EXÉCUTION RÉELLE"],
+    shortReference: "PCQAGEN",
+    idempotencyKey: `pcqa-gen-${cycleTypeId}-${Date.now()}`,
+  });
+  expect(created.ok).toBe(true);
+  if (!created.ok) throw new Error("createProject failed");
+  const projectId = created.project.projectId;
+  const overview = await runtime.getProject(projectId);
+  expect(overview.ok).toBe(true);
+  if (!overview.ok) throw new Error("getProject failed");
+  const oa = runtime.oa!;
+  const cycle = await oa.cycleServices.createCycle.execute({
+    cycleInstanceId: `cyc:inst:pcqa-${cycleTypeId.replace(":", "-")}`,
+    cycleTypeId,
+    projectId,
+    signals: {},
+    objective: `Qualify ${cycleTypeId}`,
+    scope: "pcqa-genericity",
+    createdBy: {
+      actorId: "actor:pcqa-gen",
+      role: "project_owner",
+      displayName: "PCQA GEN",
+      authorityLevel: "N3",
+    },
+    linkAsActiveCycle: true,
+    expectedLpsVersion: overview.livingState.version,
+    ckcResolutionRef: `ckcres:pcqa-${cycleTypeId}`,
+  });
+  expect(cycle.ok).toBe(true);
+  if (!cycle.ok) throw new Error(`createCycle ${cycleTypeId}`);
+
+  const qualification = await resolveW2QualificationInputs({ oa, projectId });
+  expect(qualification.ok).toBe(true);
+  if (!qualification.ok) throw new Error("qualification");
+  expect(qualification.qualification.inputs.cycleTypeId).toBe(cycleTypeId);
+
+  const proposed = await proposeTrajectoryOptions({
+    oa,
+    projectId,
+    ...qualification.qualification.inputs,
+    packagePin: qualification.qualification.packagePin,
+    objective: qualification.qualification.objective,
+    projectTitle: qualification.qualification.projectTitle,
+  });
+  expect(proposed.ok).toBe(true);
+  if (!proposed.ok) throw new Error("propose");
+  expect(proposed.recommendation.ckcProvenance?.ckcId).toBe(ckcId);
+  if (cycleTypeId === "cyc:security") {
+    expect(proposed.recommendation.rationale.toLowerCase()).toMatch(
+      /adversarial|risque résiduel|secret/,
+    );
+  }
+  if (cycleTypeId === "cyc:delivery") {
+    expect(proposed.recommendation.rationale.toLowerCase()).toMatch(
+      /anti scope creep/,
+    );
+  }
+
+  const decided = await decideTrajectory({
+    oa,
+    projectId,
+    optionSetRef: proposed.optionSetRef,
+    options: proposed.options,
+    recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
+    selectedOptionRef: GOVERNED_OPTION_REF,
+    trajectoryId: proposed.proposedTrajectory.trajectoryId,
+    candidateVersion: proposed.proposedTrajectory.version,
+    forceLocalAuthority: true,
+  });
+  expect(decided.ok).toBe(true);
+  if (!decided.ok) throw new Error("decide");
+  expect(decided.decision.decisionId).toBeTruthy();
+  expect(["validated", "active", "decided"]).toContain(
+    decided.trajectory.status,
+  );
+
+  const afterDecide = await runtime.getProject(projectId);
+  expect(afterDecide.ok).toBe(true);
+  if (!afterDecide.ok) throw new Error("get after decide");
+  const context = {
+    projectId,
+    lpsId: afterDecide.livingState.id,
+    lpsVersion: afterDecide.livingState.version,
+    doctrineDigest: afterDecide.doctrine.digest,
+    activeCycleInstanceId:
+      afterDecide.livingState.activeCycleInstanceId ?? null,
+    ckcResolutionRef: `ckcres:pcqa-${cycleTypeId}`,
+  };
+
+  const prepared = await prepareExecutionContractFromW2Decision({
+    oa,
+    projectId,
+    decisionId: decided.decision.decisionId,
+    currentContext: context,
+    forceLocalAuthority: true,
+    qualifiedOperationKind: "generate-temporary-artifact",
+  });
+  expect(prepared.ok).toBe(true);
+  if (!prepared.ok) throw new Error(`prepare ${prepared.code}`);
+  const executionContractId = prepared.contract.executionContractId;
+
+  const inspected = await inspectExecutionContract({
+    oa,
+    projectId,
+    executionContractId,
+  });
+  expect(inspected.ok).toBe(true);
+
+  const confirmed = await confirmExecutionContractForAuthorization({
+    oa,
+    projectId,
+    executionContractId,
+    forceLocalAuthority: true,
+  });
+  expect(confirmed.ok).toBe(true);
+  if (!confirmed.ok) throw new Error(`confirm ${confirmed.code}`);
+
+  const authorized = await evaluateExecutionAuthorization({
+    oa,
+    projectId,
+    executionContractId,
+    forceLocalAuthority: true,
+  });
+  expect(authorized.ok).toBe(true);
+  if (!authorized.ok) throw new Error("authorize");
+  expect(authorized.outcome).toBe("AUTHORIZED");
+
+  const selected = await governedExecuteSelectAgent({
+    oa,
+    projectId,
+    executionContractId,
+    forceLocalAuthority: true,
+  });
+  expect(selected.ok).toBe(true);
+  if (!selected.ok) throw new Error(selected.code);
+
+  const started = await governedExecuteStart({
+    oa,
+    projectId,
+    executionContractId,
+    attemptId: selected.attemptId,
+    forceLocalAuthority: true,
+  });
+  expect(started.ok).toBe(true);
+  if (!started.ok) throw new Error(started.code);
+
+  await governedExecuteRecordResult({
+    oa,
+    projectId,
+    executionContractId,
+    attemptId: started.attemptId,
+    forceLocalAuthority: true,
+  });
+
+  const materialized = await materializeProductOutcomeFromAttempt({
+    oa,
+    projectId,
+    attemptId: started.attemptId,
+  });
+  expect(materialized.ok).toBe(true);
+  if (!materialized.ok) throw new Error(materialized.code);
+  expect(materialized.product.outcome).toBe("SUCCESS");
+  expect(materialized.product.evidenceId).toMatch(/^ev:/);
+  expect(materialized.product.reviewBundleId).toMatch(/^rb:/);
+  expect(materialized.postEvidence).toBeTruthy();
+  expect(materialized.postEvidence && "ok" in materialized.postEvidence).toBe(
+    true,
+  );
+  if (!materialized.postEvidence || !("ok" in materialized.postEvidence)) {
+    throw new Error("postEvidence missing");
+  }
+  expect(materialized.postEvidence.ok).toBe(true);
+  if (!materialized.postEvidence.ok) throw new Error("postEvidence not ok");
+  expect(materialized.postEvidence.recommendation.kind).toBeTruthy();
+  expect(materialized.postEvidence.recommendation.authority).toBe("none");
+  expect(materialized.postEvidence.lpsVersion ?? 0).toBeGreaterThan(0);
+  const recommendationKind = materialized.postEvidence.recommendation.kind;
+  const evidenceId = materialized.product.evidenceId;
+
+  // Restart-safe store: reopen same SQLite, re-resolve qualification cycle type.
+  resetRuntimeApplicationServiceForTests();
+  const runtime2 = getRuntimeApplicationService({
+    registryRoot: path.join(APP_ROOT, "lib/oa/doctrine/product"),
+    schemasRoot: path.resolve(
+      APP_ROOT,
+      "../sfia-v3-modeled/v3-native-option-a/schemas",
+    ),
+    nowIso: "2026-08-27T14:05:00.000Z",
+    auditMode: "noop",
+    productDbPath: db,
+  });
+  const requal = await resolveW2QualificationInputs({
+    oa: runtime2.oa!,
+    projectId,
+  });
+  expect(requal.ok).toBe(true);
+  if (!requal.ok) throw new Error("reopen qual");
+  expect(requal.qualification.inputs.cycleTypeId).toBe(cycleTypeId);
+
+  fs.rmSync(dir, { recursive: true, force: true });
+  return {
+    cycleTypeId,
+    ckcId: proposed.recommendation.ckcProvenance?.ckcId,
+    decisionId: decided.decision.decisionId,
+    executionContractId,
+    attemptId: started.attemptId,
+    evidenceId,
+    outcomeKind: materialized.product.outcome,
+    recommendationKind,
+  };
+}
+
 test.describe("PC Integrated Proof — Product Completion final QA", () => {
   test.describe.configure({ timeout: 420_000 });
 
@@ -294,7 +545,7 @@ test.describe("PC Integrated Proof — Product Completion final QA", () => {
     await clearW3bBoundary(request);
   });
 
-  test("QA-INT-01/05 nominal SUCCESS loop + Evidence→Nora + reload", async ({
+  test("QA-INT-01/05-B nominal SUCCESS loop + Evidence→Nora + reload", async ({
     page,
   }) => {
     fs.mkdirSync(CAPTURE_ROOT, { recursive: true });
@@ -305,9 +556,11 @@ test.describe("PC Integrated Proof — Product Completion final QA", () => {
       `PC-QA INT-01 ${Date.now()}`,
       "Preuve intégrée Product Completion — boucle nominale SUCCESS.",
     );
+    await expect(page.getByTestId("f2-cycle")).toContainText(GEN_CASE_A.label);
     await capture(page, "QA-INT-01-pre-execute", {
       scenario: "QA-INT-01",
       state: "authorized_before_execute",
+      cycleTypeId: GEN_CASE_A.cycleTypeId,
     });
 
     await page.getByTestId("w3a-governed-execute").click();
@@ -334,7 +587,6 @@ test.describe("PC Integrated Proof — Product Completion final QA", () => {
       postEvidence: "continue",
     });
 
-    // QA-INT-05 checkpoint B — reload after terminal + Evidence
     const urlBefore = page.url();
     const evidenceId = (
       await page.getByTestId("w3b-evidence-id").textContent()
@@ -360,7 +612,7 @@ test.describe("PC Integrated Proof — Product Completion final QA", () => {
       ).toBe(evidenceId);
     }
     await capture(page, "QA-INT-05-reload-after-success", {
-      scenario: "QA-INT-05",
+      scenario: "QA-INT-05-B",
       evidenceId: evidenceId ?? null,
       state: "reload_after_terminal_evidence",
     });
@@ -444,9 +696,8 @@ test.describe("PC Integrated Proof — Product Completion final QA", () => {
       `PC-QA INT-04 ${Date.now()}`,
       "Preuve intégrée — amendement EC matériel.",
     );
-    await decideTrajectory(page);
+    await decideTrajectoryUi(page);
 
-    // Mirror W2 G3: prepare → inspect → material amend (no confirm before amend).
     await page
       .getByTestId("w3a-operation-kind")
       .selectOption("generate-temporary-artifact");
@@ -477,7 +728,6 @@ test.describe("PC Integrated Proof — Product Completion final QA", () => {
       "NON INSPECTÉ",
     );
 
-    // Stale authorize must BLOCK without reinspection.
     await page.getByTestId("w2-authorize-contract").click();
     await expect(page.getByTestId("w2-authorization")).toBeVisible({
       timeout: 30_000,
@@ -493,14 +743,104 @@ test.describe("PC Integrated Proof — Product Completion final QA", () => {
       scenario: "QA-INT-04",
       state: "stale_authorization_blocked",
     });
-
-    // Stale path must not launch an Attempt.
     await expect(page.getByTestId("w3a-attempt-lifecycle")).toHaveCount(0);
+  });
 
-    // Full successor reinspect → confirm → authorize → STOP BEFORE EXECUTE is
-    // proven in this campaign by e2e/studio-w2-g3-correction-runtime.spec.ts
-    // (executed and PASS). This integrated case locks the critical negative:
-    // material amend invalidates inspection; stale authorize is blocked.
+  test("QA-INT-05-A checkpoint A — reload after HD before Execute", async ({
+    page,
+  }) => {
+    await createAndQualify(
+      page,
+      `PC-QA INT-05A ${Date.now()}`,
+      "Checkpoint A — HumanDecision durable avant exécution.",
+    );
+    await decideTrajectoryUi(page);
+    await expect(page.getByTestId("w2-decision")).toBeVisible();
+    const urlBefore = page.url();
+    const decisionText =
+      (await page.getByTestId("w2-decision").textContent()) ?? "";
+    expect(decisionText.length).toBeGreaterThan(0);
+
+    await capture(page, "QA-INT-05A-before-reload", {
+      scenario: "QA-INT-05-A",
+      state: "decided_before_execute",
+    });
+
+    await page.reload();
+    await expect(page.getByTestId("project-principal")).toBeVisible({
+      timeout: 60_000,
+    });
+    expect(page.url()).toBe(urlBefore);
+    // Honest recovery: conversation may need resume; durable HD/trajectory preserved.
+    await expect(page.getByTestId("project-recovery-banner")).toBeVisible({
+      timeout: 30_000,
+    });
+    await expect(page.getByTestId("w1-recovery-disclosures")).toContainText(
+      /trajectoire décidée|décidée/i,
+    );
+    await expect(page.getByTestId("project-history-panel")).toBeVisible();
+    await expect(page.getByTestId("project-history-panel")).toContainText(
+      /Décidée|décision dec:/i,
+    );
+    await expect(page.getByTestId("project-history-panel")).toContainText(
+      /Décision humaine|Option retenue/i,
+    );
+    await expect(page.getByTestId("recovery-resume-durable")).toBeVisible();
+    // No automatic execute / Attempt after reload.
+    await expect(page.getByTestId("w3a-attempt-lifecycle")).toHaveCount(0);
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveCount(0);
+    await assertNoSecondAuthorityPath(page);
+
+    await capture(page, "QA-INT-05A-after-reload", {
+      scenario: "QA-INT-05-A",
+      state: "reloaded_decision_preserved_no_execute",
+    });
+  });
+
+  test("QA-INT-07 Case A — browser delivery full loop genericity", async ({
+    page,
+  }) => {
+    await openThroughAuthorized(
+      page,
+      `PC-QA GEN-A ${Date.now()}`,
+      "Généricité Case A — cyc:delivery full loop /studio.",
+    );
+    await expect(page.getByTestId("f2-cycle")).toContainText(GEN_CASE_A.label);
+    // Distinct CKC binding visible when exposed.
+    const ckcRef = page.getByTestId("f2-ckc-ref");
+    if ((await ckcRef.count()) > 0) {
+      await expect(ckcRef).toContainText(/ckc:/i);
+    }
+    await page.getByTestId("w3a-governed-execute").click();
+    await expect(page.getByTestId("w3b-product-outcome-kind")).toHaveAttribute(
+      "data-kind",
+      "SUCCESS",
+      { timeout: 120_000 },
+    );
+    await assertPostEvidence(page, "continue");
+    await expect(page.getByTestId("w3c-nora-analysis")).toContainText(
+      /anti scope creep/i,
+    );
+    await capture(page, "QA-INT-07-case-a-delivery", {
+      scenario: "QA-INT-07-A",
+      cycleTypeId: GEN_CASE_A.cycleTypeId,
+      ckcId: GEN_CASE_A.ckcId,
+      productOutcome: "SUCCESS",
+    });
+  });
+
+  test("QA-INT-07 Case B — security full product OA loop (same mechanism)", async () => {
+    const result = await runProductNativeFullLoop(
+      GEN_CASE_B.cycleTypeId,
+      GEN_CASE_B.ckcId,
+    );
+    expect(result.cycleTypeId).toBe(GEN_CASE_B.cycleTypeId);
+    expect(result.ckcId).toBe(GEN_CASE_B.ckcId);
+    expect(result.outcomeKind).toBe("SUCCESS");
+    expect(result.evidenceId).toBeTruthy();
+    expect(result.attemptId).toBeTruthy();
+    // Contrast vs delivery CKC fingerprint is proven by distinct ckcId.
+    expect(result.ckcId).not.toBe(GEN_CASE_A.ckcId);
   });
 });
 
@@ -508,7 +848,7 @@ test.describe("PC Integrated Proof — Product Completion final QA", () => {
 
 ---
 
-## 10. DOC14 (contenu complet)
+## 8. DOC14 corrigé
 
 --- BEGIN DOC14 ---
 # SFIA Studio — Product Completion — Preuve intégrée / Qualification finale
@@ -532,6 +872,8 @@ test.describe("PC Integrated Proof — Product Completion final QA", () => {
 | **runtime v3** | NON ADOPTED |
 | **Niveau de preuve** | **DETERMINISTIC PRODUCT COMPLETION INTEGRATED PROVEN** |
 | **Verdict candidat** | **PASS WITH NON-BLOCKING RESERVES** — READY FOR DISTINCT MORRIS PRODUCT COMPLETION DECISION |
+| **Correction** | **PC-INTEGRATED-QA-01-CORR-01** — PCQA-BLK-01 fermé par preuve |
+| **Horodatage CORR-01** | 2026-08-27 15:24:45 +0200 |
 | **Horodatage audit** | 2026-08-27 14:35:45 +0200 |
 
 ---
@@ -546,7 +888,7 @@ créer / qualifier → Options / Recommendation → HumanDecision → EC prepare
 
 Preuves multi-couches : spec E2E intégrée nouvelle · e2e W2/W4 · Vitest (dont W3-D généricité) · typecheck/lint/build · gouvernance modeled.
 
-**Aucun PCQA-BLK bloquant** identifié.
+**Aucun PCQA-BLK bloquant** identifié *(PCQA-BLK-01 fermé par CORR-01)*.
 
 Réserves non bloquantes portées (PREQA-R01/R02, W3A-D03, W2-CL-R04, PB-RES-REAL-01 TRACE, SC-02, Penpot PNG 504) + réserve QA d’orchestration PCQA-R01 (composition INT-04).
 
@@ -710,9 +1052,11 @@ Oracle C1 : l’ensemble des MUST doit former une boucle **utilisable, gouverné
 
 | Champ | Valeur |
 |---|---|
-| Résultat | **PASS** |
-| Preuve | `w3dFullCkcCatalog.test.ts` — framing / delivery / security / qa-validation · même moteur · pas de 2e engine |
-| Anti-claim | « 15 » n’est pas invariant structurel |
+| Résultat | **PASS** (CORR-01) |
+| Case A | `cyc:delivery` · browser `/studio` · QA-INT-07 Case A |
+| Case B | `cyc:security` · chaîne OA produit complète · QA-INT-07 Case B |
+| Support | `w3dFullCkcCatalog` / Phase B (catalogue) — **complément**, pas substitut |
+| Anti-claim | « 15 » n’est pas invariant · Case B ≠ test-only cycle |
 
 ---
 
@@ -786,9 +1130,9 @@ Aucun MUST critique en BLOCKING_FAIL.
 |---|---|---|---|---|
 | PC-BAR-01 USABLE | Boucle utilisateur cohérente | **PASS** | INT-01 | — |
 | PC-BAR-02 GOVERNED | HD/Confirm/authority | **PASS** | INT-01/02/04 | — |
-| PC-BAR-03 RESTART-SAFE | Restart sans état inventé | **PASS** | INT-05 | — |
+| PC-BAR-03 RESTART-SAFE | Restart sans état inventé | **PASS** | INT-05-A + INT-05-B (CORR-01) | — |
 | PC-BAR-04 PROVEN | Evidence reproductible | **PASS** | INT-01 + captures | — |
-| PC-BAR-05 GENERIC | Situations contrastées | **PASS** | W3-D Vitest | — |
+| PC-BAR-05 GENERIC | Situations contrastées | **PASS** | QA-INT-07 A+B full-loop (CORR-01) | — |
 | PC-BAR-06 PRODUCT EXPERIENCE | Contrat UX intégré | **PASS** | W4 e2e | SC-02/Penpot non-block |
 | PC-BAR-07 MUST COVERAGE | Pas de MUST bloquant | **PASS** | §18 | — |
 | PC-BAR-08 AUTHORITY | Pas d’élargissement | **PASS** | INT-02/04 | — |
@@ -874,6 +1218,99 @@ CHATGPT FINAL QUALIFICATION REVIEW → **DÉCISION MORRIS PRODUCT COMPLETION DIS
 
 ---
 
+
+
+---
+
+## CORR-01 — Fermeture PCQA-BLK-01 (généricité full-loop)
+
+| Champ | Valeur |
+|---|---|
+| **Cycle** | PC-INTEGRATED-QA-01-CORR-01 |
+| **GO Morris** | CLOSE PCQA-BLK-01 — deux cycles canoniques contrastés · même mécanisme · + checkpoint A |
+| **Finding ChatGPT** | PCQA-BLK-01 — généricité intégrée non prouvée (W3-D catalogue/CKC ≠ full-loop EC→Attempt→Evidence) |
+| **Disposition** | **PCQA-BLK-01 = CLOSED BY CORR-01 EVIDENCE / NO LONGER BLOCKING** *(≠ CLOSED BY MORRIS)* |
+
+### Conception
+
+| Case | cycleTypeId | CKC | Qualification | Preuve |
+|---|---|---|---|---|
+| **GEN-CASE-A** | `cyc:delivery` | `ckc:studio:delivery` | `__F2_GATED_STANDARD__` navigateur `/studio` | QA-INT-07 Case A E2E |
+| **GEN-CASE-B** | `cyc:security` | `ckc:studio:security` | catalogue + `createCycle` OA (pas de marqueur Fake Standard pour security sans mutation produit) | QA-INT-07 Case B — **même chaîne OA produit** (propose→decide→EC→inspect→confirm→authorize→Attempt→Evidence→Nora) |
+
+**Contraste :** delivery (anti scope creep) vs security (adversarial / risque résiduel / secret) · CKC digests distincts · **pas de 2e moteur d’exécution**.
+
+**Limite honnête :** Case B n’est pas un second parcours browser `/studio` car `FakeConversationProvider` n’expose pas de marqueur Standard gated pour `cyc:security` sans mutation produit (interdite). Case B exerce pourtant la **même** chaîne applicative Product Completion (services W2/W3A/B/C) — pas un composant isolé.
+
+### Matrice GEN-01 (même mécanisme ?)
+
+| Dimension | Case A | Case B | Même mécanisme ? |
+|---|---|---|---|
+| cycle type canonique | cyc:delivery | cyc:security | — (contrasté) |
+| DoctrinePackage | pin produit v3 | pin produit v3 | OUI |
+| CKC | ckc:studio:delivery | ckc:studio:security | — (contrasté) |
+| Qualification | Fake F2 gated → qualify | OA createCycle + resolveW2QualificationInputs | même moteur catalogue/CKC |
+| Recommendation | proposeTrajectoryOptions | proposeTrajectoryOptions | OUI |
+| HumanDecision | decideTrajectory UI | decideTrajectory OA | OUI |
+| ProjectTrajectory | panel /studio | promote validated | OUI |
+| EC prepare/inspect/confirm | UI w2-* | prepare/inspect/confirm services | OUI |
+| Authority | evaluateExecutionAuthorization | idem | OUI |
+| Execute / Attempt | governedExecute UI | governedExecuteSelect/Start/Record | OUI |
+| Evidence / RB | materialize W3-B | materializeProductOutcomeFromAttempt | OUI |
+| Nora post-Evidence | w3c-post-evidence UI | runW3cPostEvidenceLoop | OUI |
+| LPS / replan | continue recommendation | postEvidence.lpsVersion | OUI |
+| Fake boundary | TestExecutionAdapter | adp:f3-test-fixture | OUI (externe only) |
+| Moteur produit | Native Backbone `/studio` | Native Backbone OA | **OUI — pas d’engine cycle-specific** |
+
+**Verdict GEN :** `NO CYCLE-SPECIFIC PRODUCT EXECUTION ENGINE REQUIRED`
+
+### Checkpoint A (CORR-01)
+
+| Champ | Valeur |
+|---|---|
+| Test | `QA-INT-05-A checkpoint A — reload after HD before Execute` |
+| Commande | `npx playwright test e2e/studio-product-completion-integrated-proof.spec.ts -g "QA-INT-05-A"` |
+| État | Après HumanDecision / trajectoire décidée · **avant** Execute |
+| Attendu | Project + LPS + trajectoire décidée + HD dans History · recovery honest · pas d’Attempt auto · pas de SUCCESS inventé |
+| Observé | **PASS** — `project-recovery-banner` · history « Décidée » + « Décision humaine » · `w3a-attempt-lifecycle` count 0 |
+| Artefacts | `QA-INT-05A-before-reload.png` · `QA-INT-05A-after-reload.png` |
+
+### Checkpoint B
+
+Inchangé — INT-01 reload après SUCCESS+Evidence · **PASS**.
+
+### PC-BAR mis à jour
+
+| Barre | Avant CORR-01 | Après CORR-01 |
+|---|---|---|
+| PC-BAR-03 | PASS (B only) | **PASS** (A+B) |
+| PC-BAR-05 | PASS (trop large / W3-D only) | **PASS** (full-loop A+B) |
+
+### Réserves
+
+| ID | Statut |
+|---|---|
+| PCQA-BLK-01 | **CLOSED BY CORR-01 EVIDENCE** |
+| PCQA-BLK-02 | **N/A** (checkpoint A PASS) |
+| PCQA-R01 | NON_BLOCKING (inchangé) |
+| PREQA-R01/R02 · W3A-D03 · W2-CL-R04 · PB-RES-REAL-01 · SC-02 · Penpot | inchangés |
+
+### Commandes CORR-01
+
+```bash
+cd projects/sfia-studio/app
+PLAYWRIGHT_PORT=3021 PLAYWRIGHT_FORCE_WEBSERVER=1 \
+  npx playwright test e2e/studio-product-completion-integrated-proof.spec.ts
+# → 7 passed
+```
+
+### Qualification finale (après CORR-01)
+
+**PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION PASS WITH NON-BLOCKING RESERVES — C1 COMPLETION BAR SATISFIED — FULL-LOOP GENERICITY PROVEN ACROSS AT LEAST TWO CONTRASTED CANONICAL CYCLE SITUATIONS — RESTART CHECKPOINT A + B PROVEN — NO BLOCKING PRODUCT COMPLETION GAP — DETERMINISTIC PRODUCT COMPLETION INTEGRATED PROVEN — READY FOR CHATGPT FINAL QUALIFICATION REVIEW / DISTINCT MORRIS PRODUCT COMPLETION DECISION.**
+
+Product Completion demeure **INCOMPLETE** jusqu’à décision Morris distincte.
+
+
 ## 26. Anti-claims
 
 Ce document **ne signifie pas** :
@@ -916,12 +1353,4 @@ Sous `.tmp-sfia-review/product-completion-integrated-qa/screenshots/` :
 
 ---
 
-## 11. Anti-claims / next
-
-≠ PC COMPLETE/CLOSED · ≠ REAL · ≠ runtime v3 ADOPTED · ≠ WCAG full
-
-Next : CHATGPT FINAL QUALIFICATION REVIEW → **DÉCISION MORRIS PRODUCT COMPLETION DISTINCTE**
-
----
-
-*End Review Pack FULL — PC-INTEGRATED-QA-01*
+*End Review Pack FULL — PC-INTEGRATED-QA-01-CORR-01*
