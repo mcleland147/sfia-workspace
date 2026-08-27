@@ -1,122 +1,148 @@
 # SFIA Review Pack — FULL
-## PC-POST-CLOSURE-TRUTH-SYNC-01
+## PC-POST-CLOSURE-TRUTH-SYNC-01-CORR-01
 
 | Champ | Valeur |
 |---|---|
-| **Timestamp** | 2026-08-27 16:56:04 +0200 |
-| **Cycle** | PC-POST-CLOSURE-TRUTH-SYNC-01 |
+| **Timestamp** | 2026-08-27 17:11:51 +0200 |
+| **Cycle** | PC-POST-CLOSURE-TRUTH-SYNC-01-CORR-01 |
+| **Parent** | PC-POST-CLOSURE-TRUTH-SYNC-01 |
 | **Type** | 14 — POST-MERGE |
-| **Typologie** | DOC — POST-CLOSURE LIVING TRUTH SYNC |
+| **Typologie** | DOC — POST-CLOSURE CURRENT-STATE COHERENCE CORRECTION |
 | **Profil** | CRITICAL |
 | **Repo** | mcleland147/sfia-workspace |
 | **origin/main** | `19349d024b3dc10a180cda52b2300279af361bf2` |
 | **main tree** | `00bc236ae3631b638746e34c221dbc19253bf8ab` |
 | **Branch** | `docs/sfia-studio-product-completion-post-closure-truth-sync` |
-| **Local commit** | `3d9f49ae055ed4820a0858de99b9738e1074fb84` |
-| **Parent** | `19349d024b3dc10a180cda52b2300279af361bf2` |
-| **Tree** | `e7b81ca69350b6ff684a9a229a3b46a8c3e3c93f` |
-| **Prior handoff** | `8bc0a3f5fa7b47fd6c6ee38bee3ee0a5971c9801` / blob `82271433…` *(PRE-MERGE historically; superseded by PR #426 merge + Morris PC CLOSED)* |
+| **Entry SHA** | `3d9f49ae055ed4820a0858de99b9738e1074fb84` |
+| **Entry tree** | `e7b81ca69350b6ff684a9a229a3b46a8c3e3c93f` |
+| **Corrective SHA** | `9b3cdb46f2804cf7662eb1e00dd395864c7141f5` |
+| **Corrective parent** | `3d9f49ae055ed4820a0858de99b9738e1074fb84` |
+| **Corrective tree** | `f92484fb1d628bdd9ffcca58bad165f5f9cd322d` |
+| **Prior handoff** | `ad2fb5f4069945e5b6dd245f95adfa13509848b6` / blob `cdcd162c…` |
 | **Project push/PR/merge** | NO / NO / NO |
-| **Verdict** | PASS — Product Completion CLOSED recorded in Roadmap + DOC11 |
+| **Verdict** | PASS — PC-CLOSE-D01/D02/D03/D04 CLOSED |
 
----
+## 1. GO Morris CORR-01
 
-## 1. Morris decisions consumed
+CLOSE PC-CLOSE-D01/D02/D03/D04 — Roadmap+DOC11 only — preserve Product Completion CLOSED — all current forward routing = NEXT-CAPABILITY REQUALIFICATION — capability NOT SELECTED — no DOC14/C1/v3/code — one local commit on 3d9f49ae… — FULL pack+handoff — no push/PR/merge.
 
-1. Product Completion closure: conversation **« ok on valide alors »** → semantics **PRODUCT COMPLETION = COMPLETE / CLOSED BY MORRIS**
-2. Truth-sync start: **« ok go »**
+## 2. Sources / CKC
 
-This cycle **records** the already-made closure decision. It does **not** decide Product Completion again.
+Cycle template · routing · operating model · guardrails · v2.5 · Cycle 14 synthetic CKC candidate · Build Doctrine READ ONLY · C1/DOC14/v3 READ ONLY.
 
----
+## 3. Findings
 
-## 2. Git / PR / CI proof
+### PC-CLOSE-D01
+BEFORE: NEXT ORDERED STEP = Integrated Proof → distinct PC decision
+AFTER: NEXT ORDERED STEP = NEXT-CAPABILITY REQUALIFICATION · NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED
+RESULT: CLOSED
 
-| Item | Value |
-|---|---|
-| PR | **#426 MERGED** |
-| Head | `57f46c7adbac7cbb1a65d2193d42153490743615` |
-| Merge / main | `19349d024b3dc10a180cda52b2300279af361bf2` |
-| Tree | `00bc236ae3631b638746e34c221dbc19253bf8ab` |
-| Scope | DOC14 + integrated QA spec |
-| Post-merge CI | **33082002188 SUCCESS** |
-| Required Gate | **PASS** (Detect / Build+validate / Gate all SUCCESS) |
-| Source branch | PRESERVED @ `57f46c7a…` |
-| PR CI history | attempt-1 `33079667982` Vitest timeout → attempt-2 SUCCESS *(transient)* |
+### PC-CLOSE-D02
+BEFORE: Next immediate/product gates = Integrated Proof → distinct PC decision
+AFTER: Next immediate gate = NEXT-CAPABILITY REQUALIFICATION · Next product gate = DISTINCT MORRIS SELECTION / AUTHORIZATION AFTER REQUALIFICATION · historical Integrated Proof marked CONSUMED
+RESULT: CLOSED
 
----
+### PC-CLOSE-D03
+BEFORE: Statut trajectory ACTIVE · globale INCOMPLETE/NON TERMINÉE · Next cycle = Integrated Proof
+AFTER: Statut COMPLETE/CLOSED BY MORRIS · globale COMPLETE/CLOSED · Next cycle = NEXT-CAPABILITY REQUALIFICATION · NOT SELECTED
+RESULT: CLOSED
 
-## 3. Sources / CKC / Convergence
+### PC-CLOSE-D04
+BEFORE: DOC11 Next capability = Integrated Proof (ambiguous)
+AFTER: historical CONSUMED row + current NEXT-CAPABILITY REQUALIFICATION row
+RESULT: CLOSED
 
-Process: cycle template · routing · operating model · guardrails · v2.5 · Cycle 14 synthetic CKC map (P2 · candidate · authority NONE).
+## 4. Coherence
 
-Convergence: Build Doctrine READ ONLY · Roadmap ADAPT · C1 historical KEEP · DOC14 historical KEEP · DOC11 ADAPT · v3 32/35 READ ONLY.
+Stale active Integrated Proof / distinct PC future routes remaining: **0**
 
-Capability: PRODUCT COMPLETION — POST-CLOSURE GOVERNANCE / LIVING TRUTH ALIGNMENT.
+Historical preserved: pre-PC-closure Roadmap timestamps · W3/W4 Morris decision quotes · DOC14 qualification-time INCOMPLETE · historical after-W4 next capability rows labelled CONSUMED.
 
-Next structural step: **NEXT-CAPABILITY REQUALIFICATION** · capability **NOT SELECTED**.
+## 5. Governance preserved
 
----
+PC CLOSED · Final Qualification CONSUMED · PCQA-BLK-01 CLOSED BY EVIDENCE · PCQA-R01+carries NON_BLOCKING · C6 CLOSED · REAL OUT · FinOps FREEZE · v3 NON ADOPTED · ≠ READY FOR REAL · next capability NOT SELECTED.
 
-## 4. Closure semantics recorded
+DOC14/C1/Build Doctrine/v3/code/tests UNCHANGED.
 
-Product Completion = **COMPLETE / CLOSED BY MORRIS**
+## 6. Diffs
 
-Basis: C1 bar SATISFIED · PC-BAR-01→10 PASS · USABLE/GOVERNED/RESTART-SAFE/PROVEN/GENERIC · delivery+security full-loop · A+B restart · SUCCESS/STOP/FAIL · authority · Evidence→Nora→LPS · PCQA-BLK-01 CLOSED BY EVIDENCE · PCQA-R01 NON_BLOCKING · DETERMINISTIC PRODUCT COMPLETION INTEGRATED PROVEN.
-
-Anti-claims preserved: ≠ READY FOR REAL · ≠ REAL PROVEN · ≠ runtime v3 ADOPTED · ≠ FinOps unfreeze · ≠ C6 reopen · ≠ production-ready · ≠ WCAG full · ≠ pixel-perfect · ≠ all reserves closed.
-
-C6 CLOSED · REAL OUT · FinOps FREEZE · runtime v3 NON ADOPTED.
-
----
-
-## 5. Fake/Real
-
-Fake: TestExecutionAdapter + deterministic conversation (QA evidence).
-REAL: OUT · GO REAL: NO · Product Completion CLOSED ≠ READY FOR REAL.
-
----
-
-## 6. Reserves / carries (not silently closed)
-
-PCQA-R01 NON_BLOCKING · PREQA-R01/R02 NON_BLOCKING · W3A-D03 OPEN_CARRY_NON_BLOCKING · W2-CL-R04 OPEN_CARRY_NON_BLOCKING · PB-RES-REAL-01 TRACE_ONLY · SC-02 NON_BLOCKING · Penpot PNG 504 NON_BLOCKING.
-
----
-
-## 7. Historical integrity
-
-- DOC14 unchanged (may still say INCOMPLETE = qualification-time truth)
-- C1 unchanged
-- Build Doctrine unchanged
-- v3 framing unchanged
-- Historical Roadmap timestamps with Product Completion INCOMPLETE preserved
-- ACTIVE Roadmap/DOC11 rows updated to CLOSED
-
----
-
-## 8. Diff
-
+Corrective:
 ```
-commit 3d9f49ae055ed4820a0858de99b9738e1074fb84
+commit 9b3cdb46f2804cf7662eb1e00dd395864c7141f5
 Author: Morris Cleland <morris@macbook-air1.home>
-Date:   Thu Aug 27 16:55:37 2026 +0200
+Date:   Thu Aug 27 17:10:35 2026 +0200
 
-    docs(sfia-studio): record Product Completion closure truth
+    docs(sfia-studio): reconcile Product Completion closure routing
 
     Co-authored-by: Cursor <cursoragent@cursor.com>
+---
+ .../sfia-studio/convergence/sfia-studio-convergence-roadmap.md | 10 +++++-----
+ .../11-product-completion-wave-3-delivery-readiness.md         |  3 ++-
+ 2 files changed, 7 insertions(+), 6 deletions(-)
 
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+index 3b2ebdd7..16fc42f7 100644
+--- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
++++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+@@ -156,7 +156,7 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
+ | Product Completion Functional Architecture (Cycle 3) | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md` · PR #378 / head `1018aa79…` / merge `18b89ec9…` · PR CI **#240 SUCCESS** · post-merge CI **#241 SUCCESS** · post-merge sync PR **#379** / head `0aa644d…` / merge `134f4105…` · PR CI **#242 SUCCESS** · post-merge CI **#243 SUCCESS** · final closure PR **#380** / head `53aeceea…` / merge `14329c60…` · post-merge CI **#245 SUCCESS** · **POST-MERGE COHERENCE COMPLETE** · PM-R01/PM-R02 **CLOSED** · FC-01…FC-15 APPROVED · OA Option A + thin C APPROVED · targeted durability delta QUALIFIED then **W1-realized for Confirmation + ProjectTrajectory** · FA-R01…FA-R12 CLOSED · **RESERVE-GOV-EC-ORDER CLOSED** · downstream HD/replan / Phase B / Recovery E2E remain · **≠** Product Completion terminée · **≠** Delivery W2+ |
+ | COMPLETED / INTEGRATED | **C1 CADRAGE** · **C2 FUNCTIONAL DESIGN** · **UX EXPERIENCE ARCHITECTURE** · **E2E WIREFRAMES & INTERACTION MODEL** · **PRODUCT SCREENS & VISUAL STATE CONTRACT** · **FUNCTIONAL ARCHITECTURE (Cycle 3)** · post-merge sync PR **#379** · final closure PR **#380** · PR #369 / `2406ccda…` · PR #370 post-merge sync **HISTORICAL / MERGED** · PR #372 / `fb311f2f…` · PR #373 / `6b67ada7…` · PR #374 / `404d2d3e…` · PR #375 post-merge sync · PR #376 / `7d2f9a61…` · PR #378 / `18b89ec9…` · PR #379 / `134f4105…` · PR #380 / `14329c60…` |
+ | CURRENT REPOSITORY TRANSITION | **Product Completion CLOSED state established** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified Product Completion integration anchor** = PR **#426 MERGED** · head `57f46c7adbac7cbb1a65d2193d42153490743615` · merge `19349d024b3dc10a180cda52b2300279af361bf2` · CI **`33082002188` SUCCESS** · Required Gate **PASS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · Final Qualification **CONSUMED** · **W1–W4 CLOSED** · FinOps/T7 **FREEZE** · REAL **OUT** · runtime v3 **NON ADOPTED** · PC post-closure Roadmap/DOC11 truth-sync = **LOCAL CANDIDATE** *(this cycle)* |
+-| NEXT ORDERED STEP | **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** → **distinct Morris Product Completion decision** · repository publication/integration status = **RESOLVE FROM GIT / PR evidence** *(not the product forward trajectory)* · **≠** Product Completion COMPLETE · **≠** REAL GO · **≠** runtime v3 ADOPTED |
++| NEXT ORDERED STEP | **NEXT-CAPABILITY REQUALIFICATION** · next v3 capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** · repository publication/integration status = **RESOLVE FROM GIT / PR evidence** *(not the product forward trajectory)* · requalification **≠** Delivery · **≠** capability selection · **≠** REAL · **≠** runtime v3 adoption · **≠** READY FOR REAL |
+ | NEXT PRODUCT CAPABILITY | **NEXT-CAPABILITY REQUALIFICATION** — next v3 capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · Final Qualification **PASS WITH NON-BLOCKING RESERVES / CONSUMED** · REAL **OUT** · runtime v3 **NON ADOPTED** · **≠** READY FOR REAL · **≠** automatic Delivery · **≠** capability preselected |
+ | M6 / M7 | **HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** · traces conservées · hors forward critical path |
+
+@@ -526,8 +526,8 @@ GO : **ADOPT W2-G2 DECISION PACK** — D-W2-01…04 · TD-C6-03 included W2 by a
+ | **Dépendances** | M4 — **SATISFIED / CLOSED** · Architecture — **CONSUMED** · Delivery — **CONSUMED / MERGED** · UI rehydrate — **CONSUMED / MERGED** · Capitalization Roadmap — **CONSUMED / MERGED** · Closure gate — **CONSUMED** |
+ | **Statut** | **M5 EXIT PROOF ACCEPTED BY MORRIS — CLOSED** |
+ | **Next convergence capability (current)** | **Product Completion = COMPLETE / CLOSED BY MORRIS** · Final Qualification **INTEGRATED** (PR **#426** / `19349d024…` / CI `33082002188`) · W1–W4 **CLOSED** · PCQA-BLK-01 **CLOSED BY EVIDENCE** · PCQA-R01 **NON_BLOCKING** · W3A-D03 **OPEN_CARRY_NON_BLOCKING** · W2-CL-R04 **OPEN_CARRY_NON_BLOCKING** · PB-RES-REAL-01 **TRACE_ONLY** · FinOps/T7 **FREEZE** · REAL **OUT** · runtime v3 **NON ADOPTED** · next = **NEXT-CAPABILITY REQUALIFICATION** · next capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED |
+-| **Next immediate gate (repo)** | Repository publication/integration status = **RESOLVE FROM GIT / PR evidence** · product forward gate = **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** · **≠** Product Completion COMPLETE · **≠** living Roadmap as repository lifecycle SoT |
+-| **Next product gate** | **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** → **distinct Morris Product Completion decision** · **≠** Product Completion COMPLETE automatic · **≠** REAL |
++| **Next immediate gate (repo)** | Repository publication/integration status = **RESOLVE FROM GIT / PR evidence** · product forward gate = **NEXT-CAPABILITY REQUALIFICATION** · next capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** · *(historical: PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION = **CONSUMED** by PR **#426** + Morris Product Completion CLOSED)* · **≠** living Roadmap as repository lifecycle SoT · **≠** READY FOR REAL |
++| **Next product gate** | **DISTINCT MORRIS SELECTION / AUTHORIZATION AFTER REQUALIFICATION** · next capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** · *(historical: distinct Morris Product Completion decision = **CONSUMED**)* · requalification **≠** Delivery · **≠** REAL · **≠** runtime v3 adoption |
+ | **M6 / M7 disposition** | Historical milestones **SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** |
+
+
+@@ -619,12 +619,12 @@ UAT-RECOVERY-03 Git test: prepared confirmation gate is process-local React stat
+ | Champ | Contenu |
+ | --- | --- |
+ | **ID** | PRODUCT-COMPLETION |
+-| **Statut** | trajectory **ACTIVE** · C1…C6 / UX / backlog / W1 / W2 / W3 **INTEGRATED** · **W2 CLOSED BY MORRIS** · **W3 CLOSED BY MORRIS** · **W3-A/B/C CLOSED BY MORRIS** · **W3-D INTEGRATED AND PROVEN** · W3-E **NOT REQUIRED** · **W4 CLOSED BY MORRIS** · **W4 PRESENTATION INTEGRATED** (PR **#420**) · **W4-C INTEGRATED** (PR **#422**) · H-01 **KEEP / ADOPTED** · H-02 **CLOSED BY MORRIS** · H-03 **CLOSED BY MORRIS** · H-04 **CLOSED BY MORRIS** · US-P1-10 **SATISFIED** · US-P1-13 **SATISFIED** · UAT / PE exit **SATISFIED** · **NO GENUINE W4 CAPABILITY REMAINS** · W3A-D03 **OPEN_CARRY_NON_BLOCKING** · W2-CL-R04 **OPEN_CARRY_NON_BLOCKING** · PB-RES-REAL-01 **TRACE_ONLY / POST_W4** · FinOps/T7 **FREEZE** · Product Completion globale **INCOMPLETE / NON TERMINÉE** · REAL **OUT** · runtime v3 **NON ADOPTED** |
++| **Statut** | **COMPLETE / CLOSED BY MORRIS** · C1…C6 / UX / backlog / W1 / W2 / W3 / W4 **INTEGRATED** · **W2 CLOSED BY MORRIS** · **W3 CLOSED BY MORRIS** · **W3-A/B/C CLOSED BY MORRIS** · **W3-D INTEGRATED AND PROVEN** · W3-E **NOT REQUIRED** · **W4 CLOSED BY MORRIS** · **W4 PRESENTATION INTEGRATED** (PR **#420**) · **W4-C INTEGRATED** (PR **#422**) · Final Qualification **PASS WITH NON-BLOCKING RESERVES / CONSUMED** (PR **#426**) · H-01 **KEEP / ADOPTED** · H-02 **CLOSED BY MORRIS** · H-03 **CLOSED BY MORRIS** · H-04 **CLOSED BY MORRIS** · US-P1-10 **SATISFIED** · US-P1-13 **SATISFIED** · UAT / PE exit **SATISFIED** · **NO GENUINE W4 CAPABILITY REMAINS** · W3A-D03 **OPEN_CARRY_NON_BLOCKING** · W2-CL-R04 **OPEN_CARRY_NON_BLOCKING** · PB-RES-REAL-01 **TRACE_ONLY / POST_W4** · FinOps/T7 **FREEZE** · Product Completion globale **COMPLETE / CLOSED BY MORRIS** · REAL **OUT** · runtime v3 **NON ADOPTED** |
+ | **Principe** | Do **not** restart M1→M5. Reuse the current main MVP as backbone. Relaunch a complete project lifecycle to build the target SFIA Studio product. |
+ | **Morris MVP wording** | **CURRENT SFIA STUDIO VERTICAL SLICE ON MAIN IS THE FUNCTIONAL MVP BASELINE FOR THE PRODUCT COMPLETION TRAJECTORY — REUSE EXISTING BACKBONE — DO NOT RESTART FROM ZERO — RUNTIME V3 REMAINS NON ADOPTED** |
+ | **MVP means** | exploitable proof of the fundamental product loop · technical/functional base to reuse · starting point of the new product lifecycle |
+ | **MVP does not mean** | PRE-M6 automatically closed · final product · runtime v3 ADOPTED · generic Cursor execution complete · CKC complete · final UX · production-ready |
+-| **Next cycle** | **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** · **W4 CLOSED BY MORRIS** · W4 Final Closure Qualification **CONSUMED** · H-02/H-03/H-04 **CLOSED BY MORRIS** · **NO REAL WITHOUT DISTINCT MORRIS GO** · **≠** Product Completion COMPLETE |
++| **Next cycle** | **NEXT-CAPABILITY REQUALIFICATION** · next v3 capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** · Final Product Completion Qualification **CONSUMED** · **W4 CLOSED BY MORRIS** · H-02/H-03/H-04 **CLOSED BY MORRIS** · **NO REAL WITHOUT DISTINCT MORRIS GO** · requalification **≠** Delivery · **≠** capability selection · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED |
+ | **Cycle 2 objective** | Conception fonctionnelle **VALIDATED + INTEGRATED** · **next-capability execution NOT AUTHORIZED** until distinct Morris GO |
+
+ #### Product Completion target domains (D-PC-01 adopted)
+diff --git a/projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md b/projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md
+index 53a2fea2..08e15e46 100644
+--- a/projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md
++++ b/projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md
+@@ -230,7 +230,8 @@ Les décisions R01 / B2-B3 / W3-A Closure restent **consommées** et **historiqu
+ | W4 presentation | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#420**) |
+ | W4 | **CLOSED BY MORRIS** |
+ | W4-C | **CLOSED BY MORRIS / INTEGRATED / POST-MERGE VERIFIED** (PR **#422**) |
+-| Next capability | **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** |
++| Next capability *(after W4 — HISTORICAL / CONSUMED)* | was **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** — **CONSUMED** by PR **#426** + Morris Product Completion CLOSED |
++| Next capability *(current)* | **NEXT-CAPABILITY REQUALIFICATION** — **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** |
+
+ ---
+```
+
+Cumulative:
+```
 M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 M	projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md
 ```
 
-git diff --check: PASS
-Changed files exactly 2:
-1. projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-2. projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md
+git diff --check PASS · exactly 2 files.
 
----
-
-## 9. Full modified DOC11
+## 7. Full DOC11
 
 --- BEGIN DOC11 ---
 # SFIA Studio — Product Completion — Wave 3 — Delivery Readiness
@@ -351,7 +377,8 @@ Les décisions R01 / B2-B3 / W3-A Closure restent **consommées** et **historiqu
 | W4 presentation | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#420**) |
 | W4 | **CLOSED BY MORRIS** |
 | W4-C | **CLOSED BY MORRIS / INTEGRATED / POST-MERGE VERIFIED** (PR **#422**) |
-| Next capability | **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** |
+| Next capability *(after W4 — HISTORICAL / CONSUMED)* | was **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** — **CONSUMED** by PR **#426** + Morris Product Completion CLOSED |
+| Next capability *(current)* | **NEXT-CAPABILITY REQUALIFICATION** — **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** |
 
 ---
 
@@ -568,9 +595,7 @@ Aucune obligation W3 supplémentaire inventée dans ce cycle.
 
 --- END DOC11 ---
 
----
-
-## 10. Full modified Roadmap
+## 8. Full Roadmap
 
 --- BEGIN ROADMAP ---
 # SFIA Studio Convergence Roadmap
@@ -731,7 +756,7 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
 | Product Completion Functional Architecture (Cycle 3) | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md` · PR #378 / head `1018aa79…` / merge `18b89ec9…` · PR CI **#240 SUCCESS** · post-merge CI **#241 SUCCESS** · post-merge sync PR **#379** / head `0aa644d…` / merge `134f4105…` · PR CI **#242 SUCCESS** · post-merge CI **#243 SUCCESS** · final closure PR **#380** / head `53aeceea…` / merge `14329c60…` · post-merge CI **#245 SUCCESS** · **POST-MERGE COHERENCE COMPLETE** · PM-R01/PM-R02 **CLOSED** · FC-01…FC-15 APPROVED · OA Option A + thin C APPROVED · targeted durability delta QUALIFIED then **W1-realized for Confirmation + ProjectTrajectory** · FA-R01…FA-R12 CLOSED · **RESERVE-GOV-EC-ORDER CLOSED** · downstream HD/replan / Phase B / Recovery E2E remain · **≠** Product Completion terminée · **≠** Delivery W2+ |
 | COMPLETED / INTEGRATED | **C1 CADRAGE** · **C2 FUNCTIONAL DESIGN** · **UX EXPERIENCE ARCHITECTURE** · **E2E WIREFRAMES & INTERACTION MODEL** · **PRODUCT SCREENS & VISUAL STATE CONTRACT** · **FUNCTIONAL ARCHITECTURE (Cycle 3)** · post-merge sync PR **#379** · final closure PR **#380** · PR #369 / `2406ccda…` · PR #370 post-merge sync **HISTORICAL / MERGED** · PR #372 / `fb311f2f…` · PR #373 / `6b67ada7…` · PR #374 / `404d2d3e…` · PR #375 post-merge sync · PR #376 / `7d2f9a61…` · PR #378 / `18b89ec9…` · PR #379 / `134f4105…` · PR #380 / `14329c60…` |
 | CURRENT REPOSITORY TRANSITION | **Product Completion CLOSED state established** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified Product Completion integration anchor** = PR **#426 MERGED** · head `57f46c7adbac7cbb1a65d2193d42153490743615` · merge `19349d024b3dc10a180cda52b2300279af361bf2` · CI **`33082002188` SUCCESS** · Required Gate **PASS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · Final Qualification **CONSUMED** · **W1–W4 CLOSED** · FinOps/T7 **FREEZE** · REAL **OUT** · runtime v3 **NON ADOPTED** · PC post-closure Roadmap/DOC11 truth-sync = **LOCAL CANDIDATE** *(this cycle)* |
-| NEXT ORDERED STEP | **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** → **distinct Morris Product Completion decision** · repository publication/integration status = **RESOLVE FROM GIT / PR evidence** *(not the product forward trajectory)* · **≠** Product Completion COMPLETE · **≠** REAL GO · **≠** runtime v3 ADOPTED |
+| NEXT ORDERED STEP | **NEXT-CAPABILITY REQUALIFICATION** · next v3 capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** · repository publication/integration status = **RESOLVE FROM GIT / PR evidence** *(not the product forward trajectory)* · requalification **≠** Delivery · **≠** capability selection · **≠** REAL · **≠** runtime v3 adoption · **≠** READY FOR REAL |
 | NEXT PRODUCT CAPABILITY | **NEXT-CAPABILITY REQUALIFICATION** — next v3 capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · Final Qualification **PASS WITH NON-BLOCKING RESERVES / CONSUMED** · REAL **OUT** · runtime v3 **NON ADOPTED** · **≠** READY FOR REAL · **≠** automatic Delivery · **≠** capability preselected |
 | M6 / M7 | **HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** · traces conservées · hors forward critical path |
 
@@ -1101,8 +1126,8 @@ GO : **ADOPT W2-G2 DECISION PACK** — D-W2-01…04 · TD-C6-03 included W2 by a
 | **Dépendances** | M4 — **SATISFIED / CLOSED** · Architecture — **CONSUMED** · Delivery — **CONSUMED / MERGED** · UI rehydrate — **CONSUMED / MERGED** · Capitalization Roadmap — **CONSUMED / MERGED** · Closure gate — **CONSUMED** |
 | **Statut** | **M5 EXIT PROOF ACCEPTED BY MORRIS — CLOSED** |
 | **Next convergence capability (current)** | **Product Completion = COMPLETE / CLOSED BY MORRIS** · Final Qualification **INTEGRATED** (PR **#426** / `19349d024…` / CI `33082002188`) · W1–W4 **CLOSED** · PCQA-BLK-01 **CLOSED BY EVIDENCE** · PCQA-R01 **NON_BLOCKING** · W3A-D03 **OPEN_CARRY_NON_BLOCKING** · W2-CL-R04 **OPEN_CARRY_NON_BLOCKING** · PB-RES-REAL-01 **TRACE_ONLY** · FinOps/T7 **FREEZE** · REAL **OUT** · runtime v3 **NON ADOPTED** · next = **NEXT-CAPABILITY REQUALIFICATION** · next capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED |
-| **Next immediate gate (repo)** | Repository publication/integration status = **RESOLVE FROM GIT / PR evidence** · product forward gate = **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** · **≠** Product Completion COMPLETE · **≠** living Roadmap as repository lifecycle SoT |
-| **Next product gate** | **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** → **distinct Morris Product Completion decision** · **≠** Product Completion COMPLETE automatic · **≠** REAL |
+| **Next immediate gate (repo)** | Repository publication/integration status = **RESOLVE FROM GIT / PR evidence** · product forward gate = **NEXT-CAPABILITY REQUALIFICATION** · next capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** · *(historical: PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION = **CONSUMED** by PR **#426** + Morris Product Completion CLOSED)* · **≠** living Roadmap as repository lifecycle SoT · **≠** READY FOR REAL |
+| **Next product gate** | **DISTINCT MORRIS SELECTION / AUTHORIZATION AFTER REQUALIFICATION** · next capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** · *(historical: distinct Morris Product Completion decision = **CONSUMED**)* · requalification **≠** Delivery · **≠** REAL · **≠** runtime v3 adoption |
 | **M6 / M7 disposition** | Historical milestones **SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** |
 
 
@@ -1194,12 +1219,12 @@ UAT-RECOVERY-03 Git test: prepared confirmation gate is process-local React stat
 | Champ | Contenu |
 | --- | --- |
 | **ID** | PRODUCT-COMPLETION |
-| **Statut** | trajectory **ACTIVE** · C1…C6 / UX / backlog / W1 / W2 / W3 **INTEGRATED** · **W2 CLOSED BY MORRIS** · **W3 CLOSED BY MORRIS** · **W3-A/B/C CLOSED BY MORRIS** · **W3-D INTEGRATED AND PROVEN** · W3-E **NOT REQUIRED** · **W4 CLOSED BY MORRIS** · **W4 PRESENTATION INTEGRATED** (PR **#420**) · **W4-C INTEGRATED** (PR **#422**) · H-01 **KEEP / ADOPTED** · H-02 **CLOSED BY MORRIS** · H-03 **CLOSED BY MORRIS** · H-04 **CLOSED BY MORRIS** · US-P1-10 **SATISFIED** · US-P1-13 **SATISFIED** · UAT / PE exit **SATISFIED** · **NO GENUINE W4 CAPABILITY REMAINS** · W3A-D03 **OPEN_CARRY_NON_BLOCKING** · W2-CL-R04 **OPEN_CARRY_NON_BLOCKING** · PB-RES-REAL-01 **TRACE_ONLY / POST_W4** · FinOps/T7 **FREEZE** · Product Completion globale **INCOMPLETE / NON TERMINÉE** · REAL **OUT** · runtime v3 **NON ADOPTED** |
+| **Statut** | **COMPLETE / CLOSED BY MORRIS** · C1…C6 / UX / backlog / W1 / W2 / W3 / W4 **INTEGRATED** · **W2 CLOSED BY MORRIS** · **W3 CLOSED BY MORRIS** · **W3-A/B/C CLOSED BY MORRIS** · **W3-D INTEGRATED AND PROVEN** · W3-E **NOT REQUIRED** · **W4 CLOSED BY MORRIS** · **W4 PRESENTATION INTEGRATED** (PR **#420**) · **W4-C INTEGRATED** (PR **#422**) · Final Qualification **PASS WITH NON-BLOCKING RESERVES / CONSUMED** (PR **#426**) · H-01 **KEEP / ADOPTED** · H-02 **CLOSED BY MORRIS** · H-03 **CLOSED BY MORRIS** · H-04 **CLOSED BY MORRIS** · US-P1-10 **SATISFIED** · US-P1-13 **SATISFIED** · UAT / PE exit **SATISFIED** · **NO GENUINE W4 CAPABILITY REMAINS** · W3A-D03 **OPEN_CARRY_NON_BLOCKING** · W2-CL-R04 **OPEN_CARRY_NON_BLOCKING** · PB-RES-REAL-01 **TRACE_ONLY / POST_W4** · FinOps/T7 **FREEZE** · Product Completion globale **COMPLETE / CLOSED BY MORRIS** · REAL **OUT** · runtime v3 **NON ADOPTED** |
 | **Principe** | Do **not** restart M1→M5. Reuse the current main MVP as backbone. Relaunch a complete project lifecycle to build the target SFIA Studio product. |
 | **Morris MVP wording** | **CURRENT SFIA STUDIO VERTICAL SLICE ON MAIN IS THE FUNCTIONAL MVP BASELINE FOR THE PRODUCT COMPLETION TRAJECTORY — REUSE EXISTING BACKBONE — DO NOT RESTART FROM ZERO — RUNTIME V3 REMAINS NON ADOPTED** |
 | **MVP means** | exploitable proof of the fundamental product loop · technical/functional base to reuse · starting point of the new product lifecycle |
 | **MVP does not mean** | PRE-M6 automatically closed · final product · runtime v3 ADOPTED · generic Cursor execution complete · CKC complete · final UX · production-ready |
-| **Next cycle** | **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** · **W4 CLOSED BY MORRIS** · W4 Final Closure Qualification **CONSUMED** · H-02/H-03/H-04 **CLOSED BY MORRIS** · **NO REAL WITHOUT DISTINCT MORRIS GO** · **≠** Product Completion COMPLETE |
+| **Next cycle** | **NEXT-CAPABILITY REQUALIFICATION** · next v3 capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** · Final Product Completion Qualification **CONSUMED** · **W4 CLOSED BY MORRIS** · H-02/H-03/H-04 **CLOSED BY MORRIS** · **NO REAL WITHOUT DISTINCT MORRIS GO** · requalification **≠** Delivery · **≠** capability selection · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED |
 | **Cycle 2 objective** | Conception fonctionnelle **VALIDATED + INTEGRATED** · **next-capability execution NOT AUTHORIZED** until distinct Morris GO |
 
 #### Product Completion target domains (D-PC-01 adopted)
@@ -1593,17 +1618,10 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
 
 --- END ROADMAP ---
 
----
+## 9. Next
 
-## 11. Next
+CHATGPT CORRECTION REVIEW → DISTINCT MORRIS GIT-INTEGRATION GO.
+After merge+post-merge → NEXT-CAPABILITY REQUALIFICATION under distinct Morris GO.
+NO PROJECT PUSH/PR/MERGE. Do not start requalification here.
 
-CHATGPT REVIEW → DISTINCT MORRIS GIT-INTEGRATION GO for this truth sync.
-
-After merge + post-merge verification → NEXT-CAPABILITY REQUALIFICATION under distinct Morris GO.
-
-**NO PROJECT PUSH / PR / MERGE in this cycle.**
-**Do NOT start next capability.**
-
----
-
-*End Review Pack FULL — PC-POST-CLOSURE-TRUTH-SYNC-01*
+*End Review Pack FULL — PC-POST-CLOSURE-TRUTH-SYNC-01-CORR-01*
