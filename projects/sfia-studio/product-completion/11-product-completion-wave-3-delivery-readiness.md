@@ -3,12 +3,13 @@
 | Champ | Valeur |
 |---|---|
 | **Projet** | SFIA Studio — Product Completion |
-| **Cycle** | W4 POST-CLOSURE TRUTH SYNC — current living truth (DOC11) |
+| **Cycle** | **PC-POST-CLOSURE-TRUTH-SYNC-01** — Product Completion post-closure living truth (DOC11) |
 | **Profil SFIA** | **CRITICAL** |
-| **Typologie** | DOC — W4 POST-CLOSURE TRUTH SYNC · **W4 CLOSED BY MORRIS** recorded · Product Completion **INCOMPLETE** |
-| **Vague** | **PRODUCT COMPLETION — POST-W4 CLOSURE / FINAL COMPLETION QUALIFICATION TRAJECTORY** |
+| **Typologie** | DOC — PRODUCT COMPLETION POST-CLOSURE TRUTH SYNC · **Product Completion COMPLETE / CLOSED BY MORRIS** recorded |
+| **Vague** | **PRODUCT COMPLETION — CLOSED · POST-CLOSURE GOVERNANCE ALIGNMENT** |
 | **MAIN FUNCTIONAL TRUTH** | **RESOLVE FROM REPOSITORY / `origin/main`** — Git SoT |
-| **Last verified W4 post-closure integration anchor** | PR **#423** · head `a4b15ebada92ecf4cc211109f8d3a25800f3e1d3` · merge `fa9c2074f62b3d9d5ec53eac26a82ed6b026e3ed` · tree `c641c8f06d527e58736fae14bab466630b70e08a` · CI **`33052951279` SUCCESS** · Required Gate **PASS** |
+| **Last verified Product Completion integration anchor** | PR **#426** · head `57f46c7adbac7cbb1a65d2193d42153490743615` · merge `19349d024b3dc10a180cda52b2300279af361bf2` · tree `00bc236ae3631b638746e34c221dbc19253bf8ab` · CI **`33082002188` SUCCESS** · Required Gate **PASS** · exact scope DOC14 + integrated QA spec |
+| **Last verified W4 post-closure integration anchor** *(historical tip before PC QA)* | PR **#423** · head `a4b15ebada92ecf4cc211109f8d3a25800f3e1d3` · merge `fa9c2074f62b3d9d5ec53eac26a82ed6b026e3ed` · tree `c641c8f06d527e58736fae14bab466630b70e08a` · CI **`33052951279` SUCCESS** · Required Gate **PASS** |
 | **Slice historique W3-A** | **W3-A — Governed Execute** — **CLOSED BY MORRIS** · US-P1-04 / FC-10 · PR **#408** |
 | **Slice historique W3-B** | **W3-B — Terminal semantics + Evidence business-first** — **CLOSED BY MORRIS** · US-P1-05 / US-P1-06 · PR **#413** |
 | **Slice historique W3-C** | **W3-C — Post-Evidence recovery / replan loop** — **CLOSED BY MORRIS** · US-P1-07 + W3 closure slice US-P0-07 · PR **#415** |
@@ -43,30 +44,78 @@
 | **NO GENUINE W4 CAPABILITY REMAINS** | **YES** |
 | **NO BLOCKING W4 RESERVE** | **YES** |
 | **runtime v3** | **NON ADOPTED** |
-| **Product Completion** | **INCOMPLETE** |
-| **Next capability** | **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** → distinct Morris Product Completion decision |
-| **W4 post-closure Roadmap/DOC11 truth sync** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** — PR **#423** · head `a4b15ebada92ecf4cc211109f8d3a25800f3e1d3` · merge `fa9c2074f62b3d9d5ec53eac26a82ed6b026e3ed` · tree `c641c8f06d527e58736fae14bab466630b70e08a` · post-merge CI **`33052951279` SUCCESS** · Required Gate **PASS** · source branch `docs/sfia-studio-w4-post-closure-truth-sync` **PRESERVED** |
+| **Product Completion** | **COMPLETE / CLOSED BY MORRIS** |
+| **Final Product Completion Qualification** | **PASS WITH NON-BLOCKING RESERVES / CONSUMED** · DOC14 integrated via PR **#426** |
+| **C1 completion bar** | **SATISFIED** · PC-BAR-01→10 **PASS** |
+| **Integrated E2E** | **7/7 PASS** |
+| **Genericity** | full-loop **cyc:delivery** + **cyc:security** **PROVEN** |
+| **Restart** | checkpoint A + B **PROVEN** |
+| **PCQA-BLK-01** | **CLOSED BY CORR-01 EVIDENCE / NO LONGER BLOCKING** |
+| **PCQA-R01** | **NON_BLOCKING** |
+| **Proof** | **DETERMINISTIC PRODUCT COMPLETION INTEGRATED PROVEN** |
+| **Blocking Product Completion gaps** | **NONE IDENTIFIED** |
+| **Next capability** | **NEXT-CAPABILITY REQUALIFICATION** — next v3 capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** |
+| **W4 post-closure Roadmap/DOC11 truth sync** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** — PR **#423** · *(historical living tip before PC QA)* |
+| **Product Completion QA Git integration** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** — PR **#426** · merge `19349d024…` · CI **`33082002188` SUCCESS** · source branch `qa/sfia-studio-product-completion-integrated-proof` **PRESERVED** |
 | **Repository integration state** | **RESOLVE FROM GIT / PR evidence** — living DOC11 does **not** embed its own branch / Draft PR / pending merge lifecycle |
-| **Next product capability (current)** | **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** → distinct Morris Product Completion decision |
+| **Next product capability (current)** | **NEXT-CAPABILITY REQUALIFICATION** — **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** |
 | **Chemin produit** | Canonique **`/studio`** |
 
 ## Anti-affirmations
 
-- **W3 CLOSED ≠ Product Completion COMPLETE**.
-- **W3 CLOSED ≠ W4 AUTHORIZED** *(historical meaning of the W3 CLOSED decision)* — W4 later closed via distinct Morris W4 CLOSED Decision after PR **#420** + PR **#422** + Final Closure Qualification.
-- **W4 CLOSED ≠ Product Completion COMPLETE**.
-- **W4 CLOSED ≠ READY FOR REAL** · **≠** REAL BOUNDARY PROVEN · **≠** END-TO-END REAL PROVEN.
-- **W4 CLOSED ≠ runtime v3 ADOPTED**.
-- **W4 CLOSED ≠ FinOps/T7 unfreeze**.
-- **W4 CLOSED ≠** automatic closure of W3A-D03 / W2-CL-R04 / PB-RES-REAL-01.
-- DETERMINISTIC PRODUCT-NATIVE PRODUCT EXPERIENCE PROVEN **≠** REAL · **≠** READY FOR REAL · **≠** REAL BOUNDARY PROVEN.
+- **W3 CLOSED ≠ Product Completion COMPLETE** *(historical meaning of the W3 CLOSED decision)* — Product Completion later closed via distinct Morris decision after PR **#426** + post-merge CI.
+- **W3 CLOSED ≠ W4 AUTHORIZED** *(historical)* — W4 later closed via distinct Morris W4 CLOSED Decision after PR **#420** + PR **#422** + Final Closure Qualification.
+- **W4 CLOSED ≠ Product Completion COMPLETE** *(historical meaning of the W4 CLOSED decision)*.
+- **Product Completion CLOSED ≠ READY FOR REAL** · **≠** REAL BOUNDARY PROVEN · **≠** END-TO-END REAL PROVEN · **≠** GO REAL.
+- **Product Completion CLOSED ≠ runtime v3 ADOPTED** · **≠** global v3 ADOPTION.
+- **Product Completion CLOSED ≠ FinOps/T7 unfreeze**.
+- **Product Completion CLOSED ≠ C6 reopen**.
+- **Product Completion CLOSED ≠** automatic closure of W3A-D03 / W2-CL-R04 / PB-RES-REAL-01 / PCQA-R01 / PREQA-R01/R02 / SC-02 / Penpot PNG 504.
+- **Product Completion CLOSED ≠** automatic selection of next Studio capability · **≠** Delivery.
+- DETERMINISTIC PRODUCT COMPLETION INTEGRATED PROVEN **≠** REAL · **≠** READY FOR REAL · **≠** REAL BOUNDARY PROVEN.
 - TestExecutionAdapter = fake external executor boundary only (héritée).
 - C6 CLOSED / DO NOT REOPEN — ne pas rouvrir l’architecture.
 - REAL OUT · FinOps FREEZE · runtime v3 NON ADOPTED.
-- No WCAG claim · no pixel-perfect claim.
+- No WCAG claim · no pixel-perfect claim · no production-ready claim.
+- DOC14 may still say Product Completion **INCOMPLETE** — that is **qualification-time historical truth** · living truth is this DOC11 + Roadmap.
 - **W4 POST-CLOSURE ROADMAP/DOC11 TRUTH SYNC** = **INTEGRATED ON MAIN** via PR **#423**.
+- **Product Completion Final QA** = **INTEGRATED ON MAIN** via PR **#426**.
 - A living Roadmap/DOC11 repository-state summary **≠** replacement for Git/PR as repository lifecycle SoT.
-- Ce document **≠** Build Doctrine mutation · **≠** backlog rewrite · **≠** DOC12 mutation · **≠** code change.
+- Ce document **≠** Build Doctrine mutation · **≠** backlog rewrite · **≠** DOC12/DOC14 rewrite · **≠** code change.
+
+---
+
+
+## 1nonies. Morris Product Completion CLOSED Decision (consommée — sémantique)
+
+**Decision source:** Morris explicit conversation decision **« ok on valide alors »**.
+
+**Context:** given after reviewing the QA macro synthesis, C1 completion-bar result, integrated Git proof (PR **#426**), post-merge CI **`33082002188` SUCCESS** / Required Gate **PASS**, and explanation of consequences.
+
+**Decision semantics consumed:**
+
+> **PRODUCT COMPLETION = COMPLETE / CLOSED BY MORRIS**
+
+*(Transparent record of conversation decision semantics — not a fabricated long-form GO quotation.)*
+
+### What this decision does
+- closes **Product Completion**;
+- consumes the Final Product Completion Qualification (**PASS WITH NON-BLOCKING RESERVES**);
+- accepts the C1 completion bar as **SATISFIED** (PC-BAR-01→10 **PASS**);
+- accepts non-blocking Product Completion reserves (PCQA-R01 · PREQA-R01/R02 · W3A-D03 · W2-CL-R04 · PB-RES-REAL-01 TRACE · SC-02 · Penpot PNG 504);
+- confirms **NO BLOCKING PRODUCT COMPLETION GAP** identified;
+- advances Studio construction governance to **post-closure truth sync** + **NEXT-CAPABILITY REQUALIFICATION**.
+
+### What this decision does NOT do
+- does **not** authorize REAL / READY FOR REAL / GO REAL;
+- does **not** prove REAL BOUNDARY or END-TO-END REAL;
+- does **not** unfreeze FinOps/T7;
+- does **not** adopt runtime v3 / global v3;
+- does **not** reopen C6;
+- does **not** close unrelated historical carries;
+- does **not** select or authorize the next Studio capability;
+- does **not** authorize Delivery;
+- does **not** authorize project push / PR / merge for this documentary sync.
 
 ---
 
@@ -276,13 +325,17 @@ X-W3B-01…12 **12/12 PASS** — provenance PR **#413** / CI **`32789273684`**.
 | W4-C Git integration + merge + post-merge CI | **CONSUMED** — PR **#422** / `1db8029c…` / CI **`33043361742` SUCCESS** |
 | W4 post-closure Roadmap/DOC11 truth-sync | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** — PR **#423** / `fa9c2074f62b3d9d5ec53eac26a82ed6b026e3ed` / CI **`33052951279` SUCCESS** |
 | POST-MERGE-DOC-TRUTH-01 | documentary normalization removing self-referential PR lifecycle · repository integration state = **RESOLVE FROM GIT / PR evidence** |
+| Product Completion Final QA Git integration | **CONSUMED** — PR **#426 MERGED** · head `57f46c7a…` · merge `19349d024…` · tree `00bc236a…` · post-merge CI **`33082002188` SUCCESS** · Required Gate **PASS** · PR CI attempt-1 `33079667982` timeout → attempt-2 SUCCESS *(transient)* |
+| Product Completion CLOSED Decision | **CONSUMED** — Morris **« ok on valide alors »** |
+| PC post-closure Roadmap/DOC11 truth-sync | **LOCAL CANDIDATE** (this cycle) → ChatGPT review → distinct Morris Git-integration GO |
 | GO REAL | **NOT CONSUMED** |
 | H-02 / H-03 / H-04 disposition | **CLOSED BY MORRIS** |
 | W4-C | **CLOSED BY MORRIS / INTEGRATED / POST-MERGE VERIFIED** |
 | W4 | **CLOSED BY MORRIS** |
 | FinOps/T7 | **FREEZE** |
-| Product Completion complete | **NON** |
+| Product Completion | **COMPLETE / CLOSED BY MORRIS** |
 | runtime v3 ADOPTED | **NON** |
+| Next capability selected | **NON** |
 
 ---
 
@@ -346,7 +399,8 @@ X-W3B-01…12 **12/12 PASS** — provenance PR **#413** / CI **`32789273684`**.
 | W4 Final Closure Qualification | **PASS WITH NON-BLOCKING RESERVES / CONSUMED** |
 | W4 | **CLOSED BY MORRIS** |
 | NO GENUINE W4 CAPABILITY REMAINS | **YES** |
-| Next product capability | **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** |
+| Next product capability *(after W4 · historical)* | was **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** — **now CONSUMED** via PR **#426** + Morris PC CLOSED |
+| Product Completion *(current)* | **COMPLETE / CLOSED BY MORRIS** |
 | REAL | **OUT** |
 | runtime v3 | **NON ADOPTED** |
 
@@ -354,15 +408,18 @@ X-W3B-01…12 **12/12 PASS** — provenance PR **#413** / CI **`32789273684`**.
 
 Section 7 previously recorded W4 as **QUALIFIED NEXT CAPABILITY CANDIDATE — NOT AUTHORIZED / NOT STARTED** after W3 CLOSED (PR **#419** era). That forward statement is **superseded** by PR **#420** integration truth above. The W3 CLOSED decision text (§1septies) remains historically accurate: it did **not** itself authorize W4.
 
+Forward statements that Product Completion remained **INCOMPLETE** after W4 CLOSED were **true then** and are **superseded** by Morris Product Completion CLOSED (§1nonies) after PR **#426** + post-merge CI **`33082002188`**.
+
 ### 7.7 Gate suivant (current)
 
-1. **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION**
-2. Distinct Morris Product Completion decision
+1. **NEXT-CAPABILITY REQUALIFICATION**
+2. Distinct Morris selection / authorization of the next Studio capability (**NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED**)
 
 Repository lifecycle (branch / Draft PR / merge / post-merge CI) = **RESOLVE EXTERNALLY FROM GIT / PR / Review Handoff** — not encoded as living DOC11 product trajectory.
 
 **W4 POST-CLOSURE ROADMAP/DOC11 TRUTH SYNC** remains **INTEGRATED ON MAIN** via PR **#423**.
-W4 remains **CLOSED BY MORRIS** · Product Completion remains **INCOMPLETE** · REAL **OUT** · runtime v3 **NON ADOPTED**.
+**Product Completion Final QA** remains **INTEGRATED ON MAIN** via PR **#426**.
+W4 remains **CLOSED BY MORRIS** · Product Completion = **COMPLETE / CLOSED BY MORRIS** · REAL **OUT** · runtime v3 **NON ADOPTED**.
 
 ---
 
@@ -386,4 +443,4 @@ Aucune obligation W3 supplémentaire inventée dans ce cycle.
 
 ## 9. Verdict readiness / closure
 
-**W3 DELIVERY READINESS = QUALIFIED (historique)** · GO Morris W3 **CONSUMED** · W3 Final Closure Qualification **CONSUMED** · **W3 CLOSED BY MORRIS** · W3-A/B/C/D **INTEGRATED AND PROVEN** · W3-E **NOT REQUIRED** · **W4 CLOSED BY MORRIS** · W4 Final Closure Qualification **PASS WITH NON-BLOCKING RESERVES / CONSUMED** · **W4 PRESENTATION INTEGRATED** (PR **#420**) · **W4-C INTEGRATED / POST-MERGE VERIFIED** (PR **#422** / `1db8029c…` / CI `33043361742`) · H-01 **KEEP / ADOPTED** · H-02 **CLOSED BY MORRIS** · H-03 **CLOSED BY MORRIS** · H-04 **CLOSED BY MORRIS** · US-P1-10 **SATISFIED** · US-P1-13 **SATISFIED** · UAT / PE exit **SATISFIED** · **NO GENUINE W4 CAPABILITY REMAINS** · Product Completion **INCOMPLETE** · **Last verified W4 post-closure integration anchor** = PR **#423** / merge `fa9c2074f62b3d9d5ec53eac26a82ed6b026e3ed` / CI `33052951279` · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main`** · **W4 POST-CLOSURE TRUTH SYNC INTEGRATED ON MAIN / POST-MERGE VERIFIED** · next = **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** → distinct Morris PC decision · repository integration state = **RESOLVE FROM GIT / PR evidence** · REAL **OUT** · FinOps **FREEZE** · runtime v3 **NON ADOPTED**.
+**W3 DELIVERY READINESS = QUALIFIED (historique)** · GO Morris W3 **CONSUMED** · W3 Final Closure Qualification **CONSUMED** · **W3 CLOSED BY MORRIS** · W3-A/B/C/D **INTEGRATED AND PROVEN** · W3-E **NOT REQUIRED** · **W4 CLOSED BY MORRIS** · W4 Final Closure Qualification **PASS WITH NON-BLOCKING RESERVES / CONSUMED** · **W4 PRESENTATION INTEGRATED** (PR **#420**) · **W4-C INTEGRATED / POST-MERGE VERIFIED** (PR **#422**) · H-01 **KEEP / ADOPTED** · H-02/H-03/H-04 **CLOSED BY MORRIS** · US-P1-10/13 **SATISFIED** · UAT / PE exit **SATISFIED** · **NO GENUINE W4 CAPABILITY REMAINS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · Final Qualification **PASS WITH NON-BLOCKING RESERVES / CONSUMED** · C1 completion bar **SATISFIED** · PC-BAR-01→10 **PASS** · Integrated E2E **7/7** · genericity delivery+security **PROVEN** · restart A+B **PROVEN** · PCQA-BLK-01 **CLOSED BY EVIDENCE** · PCQA-R01 **NON_BLOCKING** · proof **DETERMINISTIC PRODUCT COMPLETION INTEGRATED PROVEN** · **Last verified Product Completion integration anchor** = PR **#426** / merge `19349d024b3dc10a180cda52b2300279af361bf2` / CI **`33082002188` SUCCESS** · Required Gate **PASS** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main`** · next = **NEXT-CAPABILITY REQUALIFICATION** · next capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** · repository integration state = **RESOLVE FROM GIT / PR evidence** · REAL **OUT** · FinOps **FREEZE** · runtime v3 **NON ADOPTED** · **≠** READY FOR REAL.
