@@ -230,7 +230,8 @@ Les décisions R01 / B2-B3 / W3-A Closure restent **consommées** et **historiqu
 | W4 presentation | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#420**) |
 | W4 | **CLOSED BY MORRIS** |
 | W4-C | **CLOSED BY MORRIS / INTEGRATED / POST-MERGE VERIFIED** (PR **#422**) |
-| Next capability | **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** |
+| Next capability *(after W4 — HISTORICAL / CONSUMED)* | was **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** — **CONSUMED** by PR **#426** + Morris Product Completion CLOSED |
+| Next capability *(current)* | **NEXT-CAPABILITY REQUALIFICATION** — **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** |
 
 ---
 
