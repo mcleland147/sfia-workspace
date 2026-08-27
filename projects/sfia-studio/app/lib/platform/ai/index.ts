@@ -16,7 +16,11 @@ export {
   requireLiveConversationSecrets,
   isFakeConversationProviderForced,
 } from "./config";
-export type { LiveConfigStatus } from "./config";
+export type { LiveConfigStatus, OpenAiReasoningEffort } from "./config";
+export {
+  OPENAI_REASONING_EFFORT_VALUES,
+  parseOpenAiReasoningEffort,
+} from "./config";
 export { OpenAIConversationProvider } from "./openaiProvider";
 export { FakeConversationProvider } from "./fakeProvider";
 export type { FakeToolScriptRound } from "./fakeProvider";

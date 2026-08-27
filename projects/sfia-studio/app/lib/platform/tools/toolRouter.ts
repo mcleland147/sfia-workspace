@@ -41,6 +41,15 @@ const OPS1_TO_TECHNICAL: Record<string, TechnicalEventType> = {
   TOOL_CALL_FAILED: "TOOL_FAILED",
 };
 
+const LARGE_STRING_KEYS = new Set([
+  "content",
+  "diff",
+  "porcelain",
+  "text",
+  "snippet",
+  "summary",
+]);
+
 function emitToolEvent(
   sink: EventSink,
   correlationId: string,
@@ -68,6 +77,17 @@ function asInt(v: unknown, fallback: number): number {
   return fallback;
 }
 
+function asOptionalPositiveInt(v: unknown): number | undefined {
+  if (typeof v === "number" && Number.isFinite(v) && v >= 1) {
+    return Math.floor(v);
+  }
+  if (typeof v === "string" && /^\d+$/.test(v)) {
+    const n = parseInt(v, 10);
+    return n >= 1 ? n : undefined;
+  }
+  return undefined;
+}
+
 function failResult(
   toolCallId: string,
   name: string,
@@ -91,6 +111,190 @@ function failResult(
       bytes: 0,
     },
   };
+}
+
+/**
+ * Cap large string fields BEFORE JSON serialization so the payload is always
+ * valid JSON. Never mid-truncate a serialized JSON string then re-parse it.
+ */
+export function prepareToolDataForModel(
+  data: unknown,
+  maxChars = CT_MAX_TOOL_RESULT_CHARS,
+): { data: unknown; truncated: boolean; json: string } {
+  let truncated = false;
+
+  const shrinkString = (s: string, budget: number): string => {
+    const { text, truncated: t } = truncateText(s, Math.max(64, budget));
+    if (t) truncated = true;
+    return text;
+  };
+
+  const walk = (value: unknown, budget: number): unknown => {
+    if (typeof value === "string") {
+      return shrinkString(value, budget);
+    }
+    if (Array.isArray(value)) {
+      const out: unknown[] = [];
+      let remaining = budget;
+      for (const item of value) {
+        if (remaining < 32) {
+          truncated = true;
+          break;
+        }
+        const next = walk(item, remaining);
+        const cost = JSON.stringify(next).length + 1;
+        out.push(next);
+        remaining -= cost;
+      }
+      if (out.length < value.length) truncated = true;
+      return out;
+    }
+    if (value && typeof value === "object") {
+      const obj = value as Record<string, unknown>;
+      const keys = Object.keys(obj);
+      const prioritized = [
+        ...keys.filter((k) => LARGE_STRING_KEYS.has(k)),
+        ...keys.filter((k) => !LARGE_STRING_KEYS.has(k)),
+      ];
+      const out: Record<string, unknown> = {};
+      let remaining = budget;
+      for (const key of prioritized) {
+        if (remaining < 32) {
+          truncated = true;
+          break;
+        }
+        const next = walk(obj[key], remaining);
+        out[key] = next;
+        remaining -= JSON.stringify({ [key]: next }).length;
+      }
+      return out;
+    }
+    return value;
+  };
+
+  let current = walk(data, Math.max(256, maxChars - 128));
+  let json = redactSecrets(JSON.stringify(current));
+
+  // Hard shrink content-like fields if still over budget (still valid JSON).
+  let guard = 0;
+  while (json.length > maxChars && guard < 8) {
+    guard += 1;
+    truncated = true;
+    if (current && typeof current === "object" && !Array.isArray(current)) {
+      const obj = { ...(current as Record<string, unknown>) };
+      for (const key of LARGE_STRING_KEYS) {
+        if (typeof obj[key] === "string") {
+          const budget = Math.max(
+            64,
+            Math.floor((maxChars - 200) / 2),
+          );
+          obj[key] = shrinkString(obj[key] as string, budget);
+        }
+      }
+      current = obj;
+    } else if (typeof current === "string") {
+      current = shrinkString(current, Math.max(64, maxChars - 64));
+    } else {
+      current = {
+        note: "payload capped",
+        digest: digestText(json),
+      };
+    }
+    json = redactSecrets(JSON.stringify(current));
+  }
+
+  if (json.length > maxChars) {
+    // Last resort: replace with a tiny valid object (never invalid JSON).
+    truncated = true;
+    current = {
+      note: "RESULT_CAPPED",
+      digest: digestText(json),
+    };
+    json = JSON.stringify(current);
+  }
+
+  return { data: current, truncated, json };
+}
+
+export function resolveToolPathOrRef(
+  name: string,
+  args: Record<string, unknown>,
+  data: unknown,
+): string | null {
+  const dataObj =
+    data && typeof data === "object"
+      ? (data as Record<string, unknown>)
+      : null;
+
+  switch (name as ControlTowerToolName) {
+    case "git_local_read_file": {
+      const p = asString(dataObj?.path) ?? asString(args.path);
+      if (!p) return null;
+      const start = dataObj?.startLine;
+      const end = dataObj?.endLine;
+      if (typeof start === "number" && typeof end === "number") {
+        return `${p}#L${start}-${end}`;
+      }
+      return p;
+    }
+    case "git_local_search_files": {
+      const q = asString(args.query);
+      return q ? `path-search:${q}` : null;
+    }
+    case "git_local_search_content": {
+      const q = asString(args.query);
+      const scope = asString(args.path);
+      if (!q) return null;
+      return scope ? `content-search:${q}@${scope}` : `content-search:${q}`;
+    }
+    case "git_local_get_head": {
+      const sha = asString(dataObj?.sha);
+      const branch = asString(dataObj?.branch);
+      if (sha && branch) return `local:HEAD:${branch}@${sha}`;
+      return "local:HEAD";
+    }
+    case "git_local_get_status":
+      return "local:status";
+    case "git_local_get_diff": {
+      const p = asString(args.path);
+      return p ? `local:diff:${p}` : "local:diff";
+    }
+    case "git_local_list_worktrees":
+      return "local:worktrees";
+    case "git_local_get_log":
+      return "local:log";
+    case "github_get_repository": {
+      const full = asString(dataObj?.fullName);
+      return full ? `github:repo:${full}` : "github:repo";
+    }
+    case "github_get_branch": {
+      const branch = asString(dataObj?.name) ?? asString(args.name);
+      const sha = asString(dataObj?.sha);
+      if (branch && sha) return `github:branch:${branch}@${sha}`;
+      return branch ? `github:branch:${branch}` : "github:branch";
+    }
+    case "github_get_commit": {
+      const sha = asString(dataObj?.sha) ?? asString(args.sha);
+      return sha ? `github:commit:${sha}` : "github:commit";
+    }
+    case "github_get_pull_request": {
+      const number =
+        typeof dataObj?.number === "number"
+          ? dataObj.number
+          : asOptionalPositiveInt(args.number);
+      return number ? `github:pr:#${number}` : "github:pr";
+    }
+    case "github_list_checks": {
+      const ref = asString(args.ref);
+      return ref ? `github:checks:${ref}` : "github:checks";
+    }
+    case "github_list_pr_comments": {
+      const number = asOptionalPositiveInt(args.number);
+      return number ? `github:pr-comments:#${number}` : "github:pr-comments";
+    }
+    default:
+      return null;
+  }
 }
 
 export function listExposableTools(): ToolDefinition[] {
@@ -225,6 +429,29 @@ export async function routeToolCall(
         summary = r.summary;
         break;
       }
+      case "git_local_search_content": {
+        const q = asString(request.arguments.query);
+        if (!q) {
+          return failResult(
+            request.toolCallId,
+            name,
+            "INVALID_ARGUMENTS",
+            "query requis",
+            started,
+            transport,
+            "denied",
+          );
+        }
+        const r = git.searchContent(q, {
+          path: asString(request.arguments.path),
+          limit: asInt(request.arguments.limit, 20),
+          maxBytes: asInt(request.arguments.maxBytes, 32768),
+        });
+        data = { matches: r.matches, truncated: r.truncated };
+        summary = r.summary;
+        truncated = r.truncated;
+        break;
+      }
       case "git_local_read_file": {
         const p = asString(request.arguments.path);
         if (!p) {
@@ -238,14 +465,22 @@ export async function routeToolCall(
             "denied",
           );
         }
-        const r = git.readFile(p, asInt(request.arguments.maxBytes, 32768));
+        const startLine = asOptionalPositiveInt(request.arguments.startLine);
+        const endLine = asOptionalPositiveInt(request.arguments.endLine);
+        const r = git.readFile(p, asInt(request.arguments.maxBytes, 32768), {
+          startLine,
+          endLine,
+        });
         data = {
           path: r.path,
           content: r.content,
           truncated: r.truncated,
+          startLine: r.startLine,
+          endLine: r.endLine,
+          hasMore: r.hasMore,
         };
         summary = r.summary;
-        truncated = r.truncated;
+        truncated = r.truncated || r.hasMore;
         break;
       }
       case "git_local_get_diff": {
@@ -434,7 +669,7 @@ export async function routeToolCall(
               "denied",
             );
         }
-        // Cap JSON size
+        // Cap JSON size via structured summarize (still valid JSON)
         const serialized = summarizeGithubPayload(data);
         if (serialized.length >= CT_MAX_TOOL_RESULT_CHARS) {
           truncated = true;
@@ -443,10 +678,9 @@ export async function routeToolCall(
       }
     }
 
-    const json = redactSecrets(JSON.stringify(data));
-    const capped = truncateText(json, CT_MAX_TOOL_RESULT_CHARS);
-    if (capped.truncated) truncated = true;
-    if (json.length > CT_MAX_TOOL_RESULT_CHARS * 4) {
+    const prepared = prepareToolDataForModel(data, CT_MAX_TOOL_RESULT_CHARS);
+    if (prepared.truncated) truncated = true;
+    if (prepared.json.length > CT_MAX_TOOL_RESULT_CHARS * 4) {
       const result = failResult(
         request.toolCallId,
         name,
@@ -465,19 +699,23 @@ export async function routeToolCall(
       return result;
     }
 
-    const parsed = JSON.parse(capped.text) as unknown;
+    const pathOrRef = resolveToolPathOrRef(
+      name,
+      request.arguments,
+      prepared.data,
+    );
     const result: ToolCallResult = {
       ok: true,
       toolCallId: request.toolCallId,
       name,
       status: "succeeded",
-      data: parsed,
+      data: prepared.data,
       summary,
       usage: {
         durationMs: Date.now() - started,
         transport,
         truncated,
-        bytes: capped.text.length,
+        bytes: prepared.json.length,
       },
     };
     emitToolEvent(sink, request.sessionId, "TOOL_CALL_SUCCEEDED", {
@@ -490,7 +728,7 @@ export async function routeToolCall(
       source: {
         kind: String(name).startsWith("github_") ? "github" : "git_local",
         label: name,
-        pathOrRef: null,
+        pathOrRef,
       },
     });
     return result;
@@ -513,6 +751,10 @@ export async function routeToolCall(
       toolErrorCode === "INVALID_ARGUMENTS"
         ? "denied"
         : "failed";
+    const deniedPath =
+      asString(request.arguments.path) ??
+      asString(request.arguments.query) ??
+      null;
     const result = failResult(
       request.toolCallId,
       name,
@@ -533,6 +775,7 @@ export async function routeToolCall(
         errorCode: toolErrorCode,
         durationMs: result.usage.durationMs,
         summary: message,
+        pathOrRef: deniedPath,
       },
     );
     return result;
@@ -541,6 +784,7 @@ export async function routeToolCall(
 
 export function toolResultForModel(result: ToolCallResult): string {
   if (result.ok) {
+    // data already capped to valid JSON-safe structure
     return redactSecrets(
       JSON.stringify({
         ok: true,

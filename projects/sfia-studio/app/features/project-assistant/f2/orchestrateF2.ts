@@ -20,6 +20,7 @@ import type {
 } from "../types";
 import { orchestrateProjectAssistantTurn } from "../orchestrateTurn";
 import { analyzeIntent } from "./intentAnalysis";
+import { isPureRepositoryAnalysisIntent } from "./repositoryIntent";
 import { evaluateMorrisGateRequired } from "./gatePolicy";
 import {
   enrichQualificationWithCkcSemantics,
@@ -308,8 +309,17 @@ export async function orchestrateAssistantSend(input: {
 
   const { analysis, presentation, model } = analysisResult;
 
+  // Repository read/search/Git-truth without mutation → F1 (no Cycle/LPS mutation).
+  // Deterministic override when the classifier drifts to ambiguous/actionable for pure reads.
+  const forceRepoInformative =
+    isPureRepositoryAnalysisIntent(content) &&
+    analysis.intentClass !== "execution_request";
+
   // A — informative → existing F1 path (no Cycle/LPS mutation)
-  if (analysis.intentClass === "informative" && analysis.parseOk) {
+  if (
+    forceRepoInformative ||
+    (analysis.intentClass === "informative" && analysis.parseOk)
+  ) {
     const f1 = await orchestrateProjectAssistantTurn(input);
     if (!f1.ok) return f1;
     return {

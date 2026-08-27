@@ -47,8 +47,8 @@ export function collectToolTelemetry(events: TechnicalEvent[]): {
       | undefined;
     const pathOrRef =
       asString(source?.pathOrRef) ??
-      asString(detail.path) ??
-      asString(detail.pathOrRef);
+      asString(detail.pathOrRef) ??
+      asString(detail.path);
     const summary = asString(detail.summary) ?? asString(detail.message);
     const errorCode = asString(detail.errorCode);
 
