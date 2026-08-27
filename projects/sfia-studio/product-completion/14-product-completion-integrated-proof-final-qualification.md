@@ -19,6 +19,8 @@
 | **runtime v3** | NON ADOPTED |
 | **Niveau de preuve** | **DETERMINISTIC PRODUCT COMPLETION INTEGRATED PROVEN** |
 | **Verdict candidat** | **PASS WITH NON-BLOCKING RESERVES** — READY FOR DISTINCT MORRIS PRODUCT COMPLETION DECISION |
+| **Correction** | **PC-INTEGRATED-QA-01-CORR-01** — PCQA-BLK-01 fermé par preuve |
+| **Horodatage CORR-01** | 2026-08-27 15:24:45 +0200 |
 | **Horodatage audit** | 2026-08-27 14:35:45 +0200 |
 
 ---
@@ -33,7 +35,7 @@ créer / qualifier → Options / Recommendation → HumanDecision → EC prepare
 
 Preuves multi-couches : spec E2E intégrée nouvelle · e2e W2/W4 · Vitest (dont W3-D généricité) · typecheck/lint/build · gouvernance modeled.
 
-**Aucun PCQA-BLK bloquant** identifié.
+**Aucun PCQA-BLK bloquant** identifié *(PCQA-BLK-01 fermé par CORR-01)*.
 
 Réserves non bloquantes portées (PREQA-R01/R02, W3A-D03, W2-CL-R04, PB-RES-REAL-01 TRACE, SC-02, Penpot PNG 504) + réserve QA d’orchestration PCQA-R01 (composition INT-04).
 
@@ -197,9 +199,11 @@ Oracle C1 : l’ensemble des MUST doit former une boucle **utilisable, gouverné
 
 | Champ | Valeur |
 |---|---|
-| Résultat | **PASS** |
-| Preuve | `w3dFullCkcCatalog.test.ts` — framing / delivery / security / qa-validation · même moteur · pas de 2e engine |
-| Anti-claim | « 15 » n’est pas invariant structurel |
+| Résultat | **PASS** (CORR-01) |
+| Case A | `cyc:delivery` · browser `/studio` · QA-INT-07 Case A |
+| Case B | `cyc:security` · chaîne OA produit complète · QA-INT-07 Case B |
+| Support | `w3dFullCkcCatalog` / Phase B (catalogue) — **complément**, pas substitut |
+| Anti-claim | « 15 » n’est pas invariant · Case B ≠ test-only cycle |
 
 ---
 
@@ -273,9 +277,9 @@ Aucun MUST critique en BLOCKING_FAIL.
 |---|---|---|---|---|
 | PC-BAR-01 USABLE | Boucle utilisateur cohérente | **PASS** | INT-01 | — |
 | PC-BAR-02 GOVERNED | HD/Confirm/authority | **PASS** | INT-01/02/04 | — |
-| PC-BAR-03 RESTART-SAFE | Restart sans état inventé | **PASS** | INT-05 | — |
+| PC-BAR-03 RESTART-SAFE | Restart sans état inventé | **PASS** | INT-05-A + INT-05-B (CORR-01) | — |
 | PC-BAR-04 PROVEN | Evidence reproductible | **PASS** | INT-01 + captures | — |
-| PC-BAR-05 GENERIC | Situations contrastées | **PASS** | W3-D Vitest | — |
+| PC-BAR-05 GENERIC | Situations contrastées | **PASS** | QA-INT-07 A+B full-loop (CORR-01) | — |
 | PC-BAR-06 PRODUCT EXPERIENCE | Contrat UX intégré | **PASS** | W4 e2e | SC-02/Penpot non-block |
 | PC-BAR-07 MUST COVERAGE | Pas de MUST bloquant | **PASS** | §18 | — |
 | PC-BAR-08 AUTHORITY | Pas d’élargissement | **PASS** | INT-02/04 | — |
@@ -360,6 +364,99 @@ C6 CLOSED · REAL OUT · FinOps FREEZE · runtime v3 NON ADOPTED · DETERMINISTI
 CHATGPT FINAL QUALIFICATION REVIEW → **DÉCISION MORRIS PRODUCT COMPLETION DISTINCTE**.
 
 ---
+
+
+
+---
+
+## CORR-01 — Fermeture PCQA-BLK-01 (généricité full-loop)
+
+| Champ | Valeur |
+|---|---|
+| **Cycle** | PC-INTEGRATED-QA-01-CORR-01 |
+| **GO Morris** | CLOSE PCQA-BLK-01 — deux cycles canoniques contrastés · même mécanisme · + checkpoint A |
+| **Finding ChatGPT** | PCQA-BLK-01 — généricité intégrée non prouvée (W3-D catalogue/CKC ≠ full-loop EC→Attempt→Evidence) |
+| **Disposition** | **PCQA-BLK-01 = CLOSED BY CORR-01 EVIDENCE / NO LONGER BLOCKING** *(≠ CLOSED BY MORRIS)* |
+
+### Conception
+
+| Case | cycleTypeId | CKC | Qualification | Preuve |
+|---|---|---|---|---|
+| **GEN-CASE-A** | `cyc:delivery` | `ckc:studio:delivery` | `__F2_GATED_STANDARD__` navigateur `/studio` | QA-INT-07 Case A E2E |
+| **GEN-CASE-B** | `cyc:security` | `ckc:studio:security` | catalogue + `createCycle` OA (pas de marqueur Fake Standard pour security sans mutation produit) | QA-INT-07 Case B — **même chaîne OA produit** (propose→decide→EC→inspect→confirm→authorize→Attempt→Evidence→Nora) |
+
+**Contraste :** delivery (anti scope creep) vs security (adversarial / risque résiduel / secret) · CKC digests distincts · **pas de 2e moteur d’exécution**.
+
+**Limite honnête :** Case B n’est pas un second parcours browser `/studio` car `FakeConversationProvider` n’expose pas de marqueur Standard gated pour `cyc:security` sans mutation produit (interdite). Case B exerce pourtant la **même** chaîne applicative Product Completion (services W2/W3A/B/C) — pas un composant isolé.
+
+### Matrice GEN-01 (même mécanisme ?)
+
+| Dimension | Case A | Case B | Même mécanisme ? |
+|---|---|---|---|
+| cycle type canonique | cyc:delivery | cyc:security | — (contrasté) |
+| DoctrinePackage | pin produit v3 | pin produit v3 | OUI |
+| CKC | ckc:studio:delivery | ckc:studio:security | — (contrasté) |
+| Qualification | Fake F2 gated → qualify | OA createCycle + resolveW2QualificationInputs | même moteur catalogue/CKC |
+| Recommendation | proposeTrajectoryOptions | proposeTrajectoryOptions | OUI |
+| HumanDecision | decideTrajectory UI | decideTrajectory OA | OUI |
+| ProjectTrajectory | panel /studio | promote validated | OUI |
+| EC prepare/inspect/confirm | UI w2-* | prepare/inspect/confirm services | OUI |
+| Authority | evaluateExecutionAuthorization | idem | OUI |
+| Execute / Attempt | governedExecute UI | governedExecuteSelect/Start/Record | OUI |
+| Evidence / RB | materialize W3-B | materializeProductOutcomeFromAttempt | OUI |
+| Nora post-Evidence | w3c-post-evidence UI | runW3cPostEvidenceLoop | OUI |
+| LPS / replan | continue recommendation | postEvidence.lpsVersion | OUI |
+| Fake boundary | TestExecutionAdapter | adp:f3-test-fixture | OUI (externe only) |
+| Moteur produit | Native Backbone `/studio` | Native Backbone OA | **OUI — pas d’engine cycle-specific** |
+
+**Verdict GEN :** `NO CYCLE-SPECIFIC PRODUCT EXECUTION ENGINE REQUIRED`
+
+### Checkpoint A (CORR-01)
+
+| Champ | Valeur |
+|---|---|
+| Test | `QA-INT-05-A checkpoint A — reload after HD before Execute` |
+| Commande | `npx playwright test e2e/studio-product-completion-integrated-proof.spec.ts -g "QA-INT-05-A"` |
+| État | Après HumanDecision / trajectoire décidée · **avant** Execute |
+| Attendu | Project + LPS + trajectoire décidée + HD dans History · recovery honest · pas d’Attempt auto · pas de SUCCESS inventé |
+| Observé | **PASS** — `project-recovery-banner` · history « Décidée » + « Décision humaine » · `w3a-attempt-lifecycle` count 0 |
+| Artefacts | `QA-INT-05A-before-reload.png` · `QA-INT-05A-after-reload.png` |
+
+### Checkpoint B
+
+Inchangé — INT-01 reload après SUCCESS+Evidence · **PASS**.
+
+### PC-BAR mis à jour
+
+| Barre | Avant CORR-01 | Après CORR-01 |
+|---|---|---|
+| PC-BAR-03 | PASS (B only) | **PASS** (A+B) |
+| PC-BAR-05 | PASS (trop large / W3-D only) | **PASS** (full-loop A+B) |
+
+### Réserves
+
+| ID | Statut |
+|---|---|
+| PCQA-BLK-01 | **CLOSED BY CORR-01 EVIDENCE** |
+| PCQA-BLK-02 | **N/A** (checkpoint A PASS) |
+| PCQA-R01 | NON_BLOCKING (inchangé) |
+| PREQA-R01/R02 · W3A-D03 · W2-CL-R04 · PB-RES-REAL-01 · SC-02 · Penpot | inchangés |
+
+### Commandes CORR-01
+
+```bash
+cd projects/sfia-studio/app
+PLAYWRIGHT_PORT=3021 PLAYWRIGHT_FORCE_WEBSERVER=1 \
+  npx playwright test e2e/studio-product-completion-integrated-proof.spec.ts
+# → 7 passed
+```
+
+### Qualification finale (après CORR-01)
+
+**PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION PASS WITH NON-BLOCKING RESERVES — C1 COMPLETION BAR SATISFIED — FULL-LOOP GENERICITY PROVEN ACROSS AT LEAST TWO CONTRASTED CANONICAL CYCLE SITUATIONS — RESTART CHECKPOINT A + B PROVEN — NO BLOCKING PRODUCT COMPLETION GAP — DETERMINISTIC PRODUCT COMPLETION INTEGRATED PROVEN — READY FOR CHATGPT FINAL QUALIFICATION REVIEW / DISTINCT MORRIS PRODUCT COMPLETION DECISION.**
+
+Product Completion demeure **INCOMPLETE** jusqu’à décision Morris distincte.
+
 
 ## 26. Anti-claims
 
