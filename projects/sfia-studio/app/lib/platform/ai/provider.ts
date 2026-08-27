@@ -20,6 +20,6 @@ export function resolveConversationProvider(): ConversationProvider {
   if (isFakeConversationProviderForced()) {
     return new FakeConversationProvider();
   }
-  const { apiKey, model } = requireLiveConversationSecrets();
-  return new OpenAIConversationProvider(apiKey, model);
+  const { apiKey, model, reasoningEffort } = requireLiveConversationSecrets();
+  return new OpenAIConversationProvider(apiKey, model, reasoningEffort);
 }

@@ -46,6 +46,42 @@ export interface ToolLoopResult {
   limitReached: boolean;
 }
 
+type GroundingLedger = {
+  succeeded: string[];
+  failedOrDenied: string[];
+  truncated: string[];
+};
+
+function formatGroundingState(ledger: GroundingLedger): string {
+  const succeeded =
+    ledger.succeeded.length > 0
+      ? ledger.succeeded.join("\n- ")
+      : "(aucune source réussie dans ce tour)";
+  const failed =
+    ledger.failedOrDenied.length > 0
+      ? ledger.failedOrDenied.join("\n- ")
+      : "(aucun échec/deny dans ce tour)";
+  const truncated =
+    ledger.truncated.length > 0
+      ? ledger.truncated.join("\n- ")
+      : "(aucune troncature signalée)";
+  return [
+    "[GROUNDING STATE — authoritative tool outcomes for this turn]",
+    "Successful source refs:",
+    `- ${succeeded}`,
+    "Failed / denied / unresolved tools:",
+    `- ${failed}`,
+    "Truncated / incomplete reads:",
+    `- ${truncated}`,
+    "Rules:",
+    "- A repository FACT requires a successful source in Successful source refs.",
+    "- Never claim you read a document unless git_local_read_file succeeded for that path.",
+    "- Search hit ≠ file read. Failed/denied/unavailable ≠ verified information.",
+    "- Truncated/hasMore ≠ complete document. State the limit explicitly.",
+    "- Do not reconstruct supposed document content from model memory.",
+  ].join("\n");
+}
+
 export async function runToolCallingLoop(input: {
   /** Opaque correlation id (OPS1 sessionId, D1 runId, …). */
   correlationId: string;
@@ -83,6 +119,11 @@ export async function runToolCallingLoop(input: {
   let toolRounds = 0;
   let toolCalls = 0;
   let limitReached = false;
+  const grounding: GroundingLedger = {
+    succeeded: [],
+    failedOrDenied: [],
+    truncated: [],
+  };
 
   if (tools.length > 0) {
     sink.emit({
@@ -152,6 +193,24 @@ export async function runToolCallingLoop(input: {
         { sink, workspaceRoot: input.workspaceRoot },
       );
 
+      if (routed.ok) {
+        const ref =
+          typeof routed.data === "object" &&
+          routed.data &&
+          "path" in (routed.data as object) &&
+          typeof (routed.data as { path?: unknown }).path === "string"
+            ? `${routed.name}:${(routed.data as { path: string }).path}`
+            : `${routed.name}:${routed.summary}`;
+        grounding.succeeded.push(ref);
+        if (routed.usage.truncated) {
+          grounding.truncated.push(ref);
+        }
+      } else {
+        grounding.failedOrDenied.push(
+          `${routed.name}:${routed.errorCode}:${routed.message}`,
+        );
+      }
+
       items = [
         ...items,
         {
@@ -161,6 +220,16 @@ export async function runToolCallingLoop(input: {
         },
       ];
     }
+
+    // Expose authoritative grounding state before the next model turn.
+    items = [
+      ...items,
+      {
+        type: "message",
+        role: "system",
+        content: formatGroundingState(grounding),
+      },
+    ];
 
     if (round === CT_MAX_TOOL_ROUNDS - 1) {
       sink.emit({

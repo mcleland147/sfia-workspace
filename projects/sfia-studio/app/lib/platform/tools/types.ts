@@ -30,6 +30,7 @@ export type ControlTowerToolName =
   | "git_local_get_status"
   | "git_local_get_head"
   | "git_local_search_files"
+  | "git_local_search_content"
   | "git_local_read_file"
   | "git_local_get_diff"
   | "git_local_list_worktrees"
@@ -116,7 +117,8 @@ export const CT_GITHUB_REPO_ALLOWLIST = [
 export const CONTROL_TOWER_TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     name: "git_local_get_status",
-    description: "Read local git status (porcelain). Read-only.",
+    description:
+      "Read local git status (porcelain). Prefer this over asking the human to run git status. Read-only.",
     parameters: {
       type: "object",
       properties: {},
@@ -125,7 +127,8 @@ export const CONTROL_TOWER_TOOL_DEFINITIONS: ToolDefinition[] = [
   },
   {
     name: "git_local_get_head",
-    description: "Read local HEAD sha and current branch. Read-only.",
+    description:
+      "Read local HEAD sha and current branch. Prefer this for Git truth questions. Read-only.",
     parameters: {
       type: "object",
       properties: {},
@@ -134,7 +137,8 @@ export const CONTROL_TOWER_TOOL_DEFINITIONS: ToolDefinition[] = [
   },
   {
     name: "git_local_search_files",
-    description: "Search tracked files by substring. Read-only.",
+    description:
+      "Search tracked file PATHS by substring (filename/path only — not file contents). Read-only.",
     parameters: {
       type: "object",
       properties: {
@@ -146,14 +150,32 @@ export const CONTROL_TOWER_TOOL_DEFINITIONS: ToolDefinition[] = [
     },
   },
   {
+    name: "git_local_search_content",
+    description:
+      "Search file CONTENTS with fixed-string git grep (path + line + snippet). Use when the term may not appear in the filename. Search hit ≠ file read. Read-only.",
+    parameters: {
+      type: "object",
+      properties: {
+        query: { type: "string" },
+        path: { type: "string" },
+        limit: { type: "integer", minimum: 1, maximum: 50 },
+        maxBytes: { type: "integer", minimum: 1, maximum: 65536 },
+      },
+      required: ["query"],
+      additionalProperties: false,
+    },
+  },
+  {
     name: "git_local_read_file",
     description:
-      "Read a UTF-8 text file relative to repo root. Paths are validated server-side.",
+      "Read a UTF-8 text file relative to repo root. Optional startLine/endLine (1-based inclusive) for deep/ranged reads. truncated/hasMore mean the document was not fully obtained. Paths validated server-side. Read-only.",
     parameters: {
       type: "object",
       properties: {
         path: { type: "string" },
         maxBytes: { type: "integer", minimum: 1, maximum: 65536 },
+        startLine: { type: "integer", minimum: 1 },
+        endLine: { type: "integer", minimum: 1 },
       },
       required: ["path"],
       additionalProperties: false,
@@ -205,7 +227,8 @@ export const CONTROL_TOWER_TOOL_DEFINITIONS: ToolDefinition[] = [
   },
   {
     name: "github_get_branch",
-    description: "Read a remote branch tip. Read-only.",
+    description:
+      "Read a remote branch tip (use for comparing local HEAD to remote main when GitHub READ is available). Read-only.",
     parameters: {
       type: "object",
       properties: {

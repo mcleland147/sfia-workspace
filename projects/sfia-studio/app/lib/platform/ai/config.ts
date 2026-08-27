@@ -1,11 +1,48 @@
 import { TechnicalError } from "./errors";
 
+/** Values supported by openai@6.48 Responses `reasoning.effort`. */
+export const OPENAI_REASONING_EFFORT_VALUES = [
+  "none",
+  "minimal",
+  "low",
+  "medium",
+  "high",
+  "xhigh",
+  "max",
+] as const;
+
+export type OpenAiReasoningEffort =
+  (typeof OPENAI_REASONING_EFFORT_VALUES)[number];
+
 export type LiveConfigStatus =
   | { available: true; modelConfigured: true }
   | {
       available: false;
       missing: Array<"OPENAI_API_KEY" | "OPENAI_MODEL">;
     };
+
+/**
+ * Parse optional server-only OPENAI_REASONING_EFFORT.
+ * Unset → undefined (omit from API). Invalid → explicit CONFIG failure.
+ * Never accepts client-supplied values.
+ */
+export function parseOpenAiReasoningEffort(
+  raw: string | undefined | null,
+): OpenAiReasoningEffort | undefined {
+  if (raw == null) return undefined;
+  const trimmed = raw.trim();
+  if (!trimmed) return undefined;
+  const normalized = trimmed.toLowerCase();
+  if (
+    !(OPENAI_REASONING_EFFORT_VALUES as readonly string[]).includes(normalized)
+  ) {
+    throw new TechnicalError(
+      "CONFIG",
+      `OPENAI_REASONING_EFFORT invalide (« ${trimmed} »). Valeurs supportées : ${OPENAI_REASONING_EFFORT_VALUES.join(", ")}.`,
+    );
+  }
+  return normalized as OpenAiReasoningEffort;
+}
 
 /** Public availability probe — never returns secret values. */
 export function getLiveConversationAvailability(): LiveConfigStatus {
@@ -22,6 +59,7 @@ export function getLiveConversationAvailability(): LiveConfigStatus {
 export function requireLiveConversationSecrets(): {
   apiKey: string;
   model: string;
+  reasoningEffort?: OpenAiReasoningEffort;
 } {
   const availability = getLiveConversationAvailability();
   if (!availability.available) {
@@ -30,9 +68,13 @@ export function requireLiveConversationSecrets(): {
       `Configuration live indisponible (variables manquantes : ${availability.missing.join(", ")}).`,
     );
   }
+  const reasoningEffort = parseOpenAiReasoningEffort(
+    process.env.OPENAI_REASONING_EFFORT,
+  );
   return {
     apiKey: process.env.OPENAI_API_KEY!.trim(),
     model: process.env.OPENAI_MODEL!.trim(),
+    ...(reasoningEffort ? { reasoningEffort } : {}),
   };
 }
 

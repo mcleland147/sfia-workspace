@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import type { OpenAiReasoningEffort } from "./config";
 import { TechnicalError } from "./errors";
 import type { ToolDefinition } from "../tools/types";
 import type {
@@ -18,10 +19,23 @@ export class OpenAIConversationProvider implements ConversationProvider {
   readonly providerId = "openai";
   private readonly client: OpenAI;
   private readonly model: string;
+  private readonly reasoningEffort?: OpenAiReasoningEffort;
 
-  constructor(apiKey: string, model: string) {
+  constructor(
+    apiKey: string,
+    model: string,
+    reasoningEffort?: OpenAiReasoningEffort,
+  ) {
     this.client = new OpenAI({ apiKey });
     this.model = model;
+    this.reasoningEffort = reasoningEffort;
+  }
+
+  private reasoningParam():
+    | { reasoning: { effort: OpenAiReasoningEffort } }
+    | Record<string, never> {
+    if (!this.reasoningEffort) return {};
+    return { reasoning: { effort: this.reasoningEffort } };
   }
 
   async complete(
@@ -52,6 +66,7 @@ export class OpenAIConversationProvider implements ConversationProvider {
     try {
       const response = await this.client.responses.create({
         model: this.model,
+        ...this.reasoningParam(),
         input: input.messages.map((m) => ({
           role: m.role,
           content: m.content,
@@ -119,6 +134,7 @@ export class OpenAIConversationProvider implements ConversationProvider {
 
       const response = await this.client.responses.create({
         model: this.model,
+        ...this.reasoningParam(),
         input: input.items.map((item) => {
           if (item.type === "message") {
             return {

@@ -30,6 +30,48 @@ function git(
   });
 }
 
+/** git grep exits 1 when no matches — treat as empty, not failure. */
+function gitGrep(
+  workspaceRoot: string,
+  args: string[],
+  timeoutMs = CT_TOOL_TIMEOUT_MS,
+): string {
+  try {
+    return git(workspaceRoot, args, timeoutMs);
+  } catch (error) {
+    const status =
+      error &&
+      typeof error === "object" &&
+      "status" in error &&
+      typeof (error as { status: unknown }).status === "number"
+        ? (error as { status: number }).status
+        : null;
+    if (status === 1) return "";
+    throw error;
+  }
+}
+
+export type GitReadRange = {
+  startLine?: number;
+  endLine?: number;
+};
+
+export type GitReadFileResult = {
+  path: string;
+  content: string;
+  summary: string;
+  truncated: boolean;
+  startLine: number;
+  endLine: number;
+  hasMore: boolean;
+};
+
+export type GitContentMatch = {
+  path: string;
+  line: number;
+  text: string;
+};
+
 export class GitLocalReadAdapter {
   constructor(private readonly workspaceRoot: string) {}
 
@@ -94,10 +136,101 @@ export class GitLocalReadAdapter {
     };
   }
 
+  /**
+   * Fixed-string content search via `git grep` (read-only, no shell).
+   * Hits outside pathPolicy are filtered out.
+   */
+  searchContent(
+    query: string,
+    opts?: { path?: string; limit?: number; maxBytes?: number },
+  ): {
+    matches: GitContentMatch[];
+    summary: string;
+    truncated: boolean;
+  } {
+    const q = query.trim();
+    if (!q) {
+      throw Object.assign(new Error("query vide"), {
+        toolErrorCode: "INVALID_ARGUMENTS",
+      });
+    }
+    const limit = Math.min(50, Math.max(1, opts?.limit ?? 20));
+    const maxBytes = Math.min(
+      opts?.maxBytes ?? CT_DEFAULT_READ_MAX_BYTES,
+      CT_DEFAULT_READ_MAX_BYTES * 2,
+    );
+
+    const args = ["grep", "-n", "-I", "-F", "-e", q, "--"];
+    if (opts?.path?.trim()) {
+      const norm = normalizeRelativePath(opts.path.trim());
+      if (!norm.ok) {
+        throw Object.assign(new Error(norm.reason), {
+          toolErrorCode: norm.errorCode,
+        });
+      }
+      const policy = decideReadPath(norm.normalized);
+      if (!policy.allowed) {
+        throw Object.assign(new Error(policy.reason ?? "denied"), {
+          toolErrorCode: policy.errorCode ?? "PATH_NOT_ALLOWED",
+        });
+      }
+      args.push(norm.normalized);
+    } else {
+      args.push(".");
+    }
+
+    const raw = gitGrep(this.workspaceRoot, args);
+    const matches: GitContentMatch[] = [];
+    let truncated = false;
+    let bytes = 0;
+
+    for (const line of raw.split("\n")) {
+      if (!line.trim()) continue;
+      // path:line:text — path may contain colons rarely; split carefully
+      const firstColon = line.indexOf(":");
+      const secondColon =
+        firstColon >= 0 ? line.indexOf(":", firstColon + 1) : -1;
+      if (firstColon < 0 || secondColon < 0) continue;
+      const filePath = line.slice(0, firstColon);
+      const lineNo = Number.parseInt(line.slice(firstColon + 1, secondColon), 10);
+      const textRaw = line.slice(secondColon + 1);
+      if (!Number.isFinite(lineNo) || lineNo < 1) continue;
+
+      const norm = normalizeRelativePath(filePath);
+      if (!norm.ok) continue;
+      if (!decideReadPath(norm.normalized).allowed) continue;
+
+      const snippet = redactSecrets(textRaw).slice(0, 400);
+      const entry: GitContentMatch = {
+        path: norm.normalized,
+        line: lineNo,
+        text: snippet,
+      };
+      const entryBytes = Buffer.byteLength(JSON.stringify(entry), "utf8");
+      if (matches.length >= limit || bytes + entryBytes > maxBytes) {
+        truncated = true;
+        break;
+      }
+      matches.push(entry);
+      bytes += entryBytes;
+    }
+
+    if (raw.split("\n").filter((l) => l.trim()).length > matches.length) {
+      truncated = true;
+    }
+
+    return {
+      matches,
+      truncated,
+      summary: `content « ${digestText(q)} » → ${matches.length} hit(s)${truncated ? " (truncated)" : ""}`,
+    };
+  }
+
   readFile(
     rawPath: string,
     maxBytes = CT_DEFAULT_READ_MAX_BYTES,
-  ): { path: string; content: string; summary: string; truncated: boolean } {
+    range?: GitReadRange,
+  ): GitReadFileResult {
     const norm = normalizeRelativePath(rawPath);
     if (!norm.ok) {
       throw Object.assign(new Error(norm.reason), {
@@ -131,19 +264,56 @@ export class GitLocalReadAdapter {
         toolErrorCode: "POLICY_DENIED",
       });
     }
+
+    const fullText = buf.toString("utf8");
+    const lines = fullText.split("\n");
+    const totalLines = lines.length;
+
+    const startRequested =
+      typeof range?.startLine === "number" && range.startLine >= 1
+        ? Math.floor(range.startLine)
+        : 1;
+    const endRequested =
+      typeof range?.endLine === "number" && range.endLine >= 1
+        ? Math.floor(range.endLine)
+        : totalLines;
+
+    if (startRequested > totalLines) {
+      throw Object.assign(
+        new Error(
+          `startLine ${startRequested} hors document (${totalLines} lignes).`,
+        ),
+        { toolErrorCode: "INVALID_ARGUMENTS" },
+      );
+    }
+
+    const startLine = Math.min(startRequested, totalLines);
+    const endLine = Math.max(startLine, Math.min(endRequested, totalLines));
+    const ranged = lines.slice(startLine - 1, endLine).join("\n");
+    const hasMoreLines = endLine < totalLines;
+
     const cap = Math.min(maxBytes, CT_DEFAULT_READ_MAX_BYTES * 2);
-    const slice = buf.subarray(0, cap);
-    const raw = slice.toString("utf8");
-    const redacted = redactSecrets(raw);
-    const { text, truncated } = truncateText(
+    const byteSlice =
+      Buffer.byteLength(ranged, "utf8") > cap
+        ? Buffer.from(ranged, "utf8").subarray(0, cap).toString("utf8")
+        : ranged;
+    const byteTruncated = Buffer.byteLength(ranged, "utf8") > cap;
+    const redacted = redactSecrets(byteSlice);
+    const { text, truncated: charTruncated } = truncateText(
       redacted,
       CT_MAX_TOOL_RESULT_CHARS,
     );
+    const truncated = byteTruncated || charTruncated;
+    const hasMore = hasMoreLines || truncated;
+
     return {
       path: norm.normalized,
       content: text,
-      truncated: truncated || buf.length > cap,
-      summary: `read ${norm.normalized} (${text.length} chars)`,
+      truncated,
+      startLine,
+      endLine,
+      hasMore,
+      summary: `read ${norm.normalized} L${startLine}-${endLine}/${totalLines} (${text.length} chars)${hasMore ? " hasMore" : ""}`,
     };
   }
 

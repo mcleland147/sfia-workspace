@@ -239,7 +239,10 @@ expectedOutcome, criticalJustification, requestedOperation (strings ou null pour
 Règles strictes:
 - actionable et execution_request: candidateCycleTypeId DOIT être un id catalogue connu ET signals DOIT contenir exactement les 6 booléens (aucun défaut inventé).
 - informative et ambiguous: candidateCycleTypeId et signals PEUVENT être null.
-- Ne décide jamais un GO Morris; ne propose jamais d'exécution; n'invente jamais un cycle (ex. delivery) par défaut.`;
+- Ne décide jamais un GO Morris; ne propose jamais d'exécution; n'invente jamais un cycle (ex. delivery) par défaut.
+- Repository READ / analyse / résumé / recherche / vérité Git SANS mutation ni qualification de cycle = informative (PAS ambiguous, PAS actionable).
+  Exemples informative: « Lis ce document et résume-le. », « Retrouve le cadrage Product Completion. », « Vérifie le HEAD et le status Git. », « Cherche CURSOR_REAL_TIMEOUT_POLICY. », « Reconstitue l'historique Product Completion à partir des sources. ».
+- Demande de Delivery / décision / exécution / qualification de cycle = actionable ou execution_request selon le cas.`;
 
 export const ANALYSIS_SYSTEM = ANALYSIS_SYSTEM_BASE;
 
