@@ -7,7 +7,8 @@
 | **Profil SFIA** | **CRITICAL** |
 | **Typologie** | DOC — W4 POST-CLOSURE TRUTH SYNC · **W4 CLOSED BY MORRIS** recorded · Product Completion **INCOMPLETE** |
 | **Vague** | **PRODUCT COMPLETION — POST-W4 CLOSURE / FINAL COMPLETION QUALIFICATION TRAJECTORY** |
-| **MAIN FUNCTIONAL TRUTH** | `origin/main` @ `fa9c2074f62b3d9d5ec53eac26a82ed6b026e3ed` |
+| **MAIN FUNCTIONAL TRUTH** | **RESOLVE FROM REPOSITORY / `origin/main`** — Git SoT |
+| **Last verified W4 post-closure integration anchor** | PR **#423** · head `a4b15ebada92ecf4cc211109f8d3a25800f3e1d3` · merge `fa9c2074f62b3d9d5ec53eac26a82ed6b026e3ed` · tree `c641c8f06d527e58736fae14bab466630b70e08a` · CI **`33052951279` SUCCESS** · Required Gate **PASS** |
 | **Slice historique W3-A** | **W3-A — Governed Execute** — **CLOSED BY MORRIS** · US-P1-04 / FC-10 · PR **#408** |
 | **Slice historique W3-B** | **W3-B — Terminal semantics + Evidence business-first** — **CLOSED BY MORRIS** · US-P1-05 / US-P1-06 · PR **#413** |
 | **Slice historique W3-C** | **W3-C — Post-Evidence recovery / replan loop** — **CLOSED BY MORRIS** · US-P1-07 + W3 closure slice US-P0-07 · PR **#415** |
@@ -45,7 +46,8 @@
 | **Product Completion** | **INCOMPLETE** |
 | **Next capability** | **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** → distinct Morris Product Completion decision |
 | **W4 post-closure Roadmap/DOC11 truth sync** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** — PR **#423** · head `a4b15ebada92ecf4cc211109f8d3a25800f3e1d3` · merge `fa9c2074f62b3d9d5ec53eac26a82ed6b026e3ed` · tree `c641c8f06d527e58736fae14bab466630b70e08a` · post-merge CI **`33052951279` SUCCESS** · Required Gate **PASS** · source branch `docs/sfia-studio-w4-post-closure-truth-sync` **PRESERVED** |
-| **Current documentary gate** | **POST-MERGE-DOC-TRUTH-01** LOCAL correction candidate → ChatGPT review → future distinct Morris Git-integration GO (**≠** this correction integrated on main yet) |
+| **Repository integration state** | **RESOLVE FROM GIT / PR evidence** — living DOC11 does **not** embed its own branch / Draft PR / pending merge lifecycle |
+| **Next product capability (current)** | **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** → distinct Morris Product Completion decision |
 | **Chemin produit** | Canonique **`/studio`** |
 
 ## Anti-affirmations
@@ -63,7 +65,7 @@
 - REAL OUT · FinOps FREEZE · runtime v3 NON ADOPTED.
 - No WCAG claim · no pixel-perfect claim.
 - **W4 POST-CLOSURE ROADMAP/DOC11 TRUTH SYNC** = **INTEGRATED ON MAIN** via PR **#423**.
-- **POST-MERGE-DOC-TRUTH-01** correction candidate **≠** INTEGRATED ON MAIN until a future distinct Morris Git-integration GO + merge.
+- A living Roadmap/DOC11 repository-state summary **≠** replacement for Git/PR as repository lifecycle SoT.
 - Ce document **≠** Build Doctrine mutation · **≠** backlog rewrite · **≠** DOC12 mutation · **≠** code change.
 
 ---
@@ -273,7 +275,7 @@ X-W3B-01…12 **12/12 PASS** — provenance PR **#413** / CI **`32789273684`**.
 | W4 CLOSED Decision | **CONSUMED** |
 | W4-C Git integration + merge + post-merge CI | **CONSUMED** — PR **#422** / `1db8029c…` / CI **`33043361742` SUCCESS** |
 | W4 post-closure Roadmap/DOC11 truth-sync | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** — PR **#423** / `fa9c2074f62b3d9d5ec53eac26a82ed6b026e3ed` / CI **`33052951279` SUCCESS** |
-| POST-MERGE-DOC-TRUTH-01 | **LOCAL CANDIDATE** — awaiting ChatGPT review + distinct Morris Git integration |
+| POST-MERGE-DOC-TRUTH-01 | documentary normalization removing self-referential PR lifecycle · repository integration state = **RESOLVE FROM GIT / PR evidence** |
 | GO REAL | **NOT CONSUMED** |
 | H-02 / H-03 / H-04 disposition | **CLOSED BY MORRIS** |
 | W4-C | **CLOSED BY MORRIS / INTEGRATED / POST-MERGE VERIFIED** |
@@ -354,13 +356,13 @@ Section 7 previously recorded W4 as **QUALIFIED NEXT CAPABILITY CANDIDATE — NO
 
 ### 7.7 Gate suivant (current)
 
-1. ChatGPT review of this **POST-MERGE-DOC-TRUTH-01** local correction candidate
-2. Distinct Morris Git integration GO (Roadmap + DOC11 only) — then push / PR / merge / post-merge verification
-3. After this correction is integrated: **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION**
-4. Distinct Morris Product Completion decision
+1. **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION**
+2. Distinct Morris Product Completion decision
 
-**W4 POST-CLOSURE ROADMAP/DOC11 TRUTH SYNC** is already **INTEGRATED ON MAIN** via PR **#423**.
-This cycle **disposes** post-merge documentary lag · **does not** close Product Completion · **does not** authorize REAL · **does not** integrate itself on main.
+Repository lifecycle (branch / Draft PR / merge / post-merge CI) = **RESOLVE EXTERNALLY FROM GIT / PR / Review Handoff** — not encoded as living DOC11 product trajectory.
+
+**W4 POST-CLOSURE ROADMAP/DOC11 TRUTH SYNC** remains **INTEGRATED ON MAIN** via PR **#423**.
+W4 remains **CLOSED BY MORRIS** · Product Completion remains **INCOMPLETE** · REAL **OUT** · runtime v3 **NON ADOPTED**.
 
 ---
 
@@ -384,4 +386,4 @@ Aucune obligation W3 supplémentaire inventée dans ce cycle.
 
 ## 9. Verdict readiness / closure
 
-**W3 DELIVERY READINESS = QUALIFIED (historique)** · GO Morris W3 **CONSUMED** · W3 Final Closure Qualification **CONSUMED** · **W3 CLOSED BY MORRIS** · W3-A/B/C/D **INTEGRATED AND PROVEN** · W3-E **NOT REQUIRED** · **W4 CLOSED BY MORRIS** · W4 Final Closure Qualification **PASS WITH NON-BLOCKING RESERVES / CONSUMED** · **W4 PRESENTATION INTEGRATED** (PR **#420**) · **W4-C INTEGRATED / POST-MERGE VERIFIED** (PR **#422** / `1db8029c…` / CI `33043361742`) · H-01 **KEEP / ADOPTED** · H-02 **CLOSED BY MORRIS** · H-03 **CLOSED BY MORRIS** · H-04 **CLOSED BY MORRIS** · US-P1-10 **SATISFIED** · US-P1-13 **SATISFIED** · UAT / PE exit **SATISFIED** · **NO GENUINE W4 CAPABILITY REMAINS** · Product Completion **INCOMPLETE** · base main `fa9c2074f62b3d9d5ec53eac26a82ed6b026e3ed` · PR **#423 MERGED** / CI `33052951279` · **W4 POST-CLOSURE TRUTH SYNC INTEGRATED ON MAIN / POST-MERGE VERIFIED** · next = **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** → distinct Morris PC decision · documentary gate = LOCAL **POST-MERGE-DOC-TRUTH-01** correction candidate · REAL **OUT** · FinOps **FREEZE** · runtime v3 **NON ADOPTED**.
+**W3 DELIVERY READINESS = QUALIFIED (historique)** · GO Morris W3 **CONSUMED** · W3 Final Closure Qualification **CONSUMED** · **W3 CLOSED BY MORRIS** · W3-A/B/C/D **INTEGRATED AND PROVEN** · W3-E **NOT REQUIRED** · **W4 CLOSED BY MORRIS** · W4 Final Closure Qualification **PASS WITH NON-BLOCKING RESERVES / CONSUMED** · **W4 PRESENTATION INTEGRATED** (PR **#420**) · **W4-C INTEGRATED / POST-MERGE VERIFIED** (PR **#422** / `1db8029c…` / CI `33043361742`) · H-01 **KEEP / ADOPTED** · H-02 **CLOSED BY MORRIS** · H-03 **CLOSED BY MORRIS** · H-04 **CLOSED BY MORRIS** · US-P1-10 **SATISFIED** · US-P1-13 **SATISFIED** · UAT / PE exit **SATISFIED** · **NO GENUINE W4 CAPABILITY REMAINS** · Product Completion **INCOMPLETE** · **Last verified W4 post-closure integration anchor** = PR **#423** / merge `fa9c2074f62b3d9d5ec53eac26a82ed6b026e3ed` / CI `33052951279` · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main`** · **W4 POST-CLOSURE TRUTH SYNC INTEGRATED ON MAIN / POST-MERGE VERIFIED** · next = **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** → distinct Morris PC decision · repository integration state = **RESOLVE FROM GIT / PR evidence** · REAL **OUT** · FinOps **FREEZE** · runtime v3 **NON ADOPTED**.
