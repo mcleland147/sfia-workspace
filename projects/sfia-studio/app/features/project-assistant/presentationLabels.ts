@@ -117,29 +117,43 @@ export function shouldShowProjectRecovery(input: {
   return false;
 }
 
-/** W1 Track E — honest durable vs process-local disclosure strings. */
+/** W1 Track E — honest durable vs non-durable disclosure strings (Pilote-facing). */
 export const W1_DURABLE_DISCLOSURE =
-  "Durable : Project, LPS, trajectoire effective/décidée, confirmation accordée/consommée (consentement historique), épistémique matérialisé.";
+  "Conservé : projet, état vivant (LPS), trajectoire décidée, confirmations déjà accordées, preuves / résultats déjà enregistrés.";
 
 export const W1_NON_DURABLE_DISCLOSURE =
-  "Process-local / peut nécessiter reconstruction : conversation, confirmation demandée, proposition F2, propositions non matérialisées.";
+  "Peut devoir être repris : conversation en cours, confirmation encore demandée, propositions non encore enregistrées.";
 
 export const W1_PROPOSED_NOT_DECIDED_DISCLOSURE =
-  "Une trajectoire proposée (candidate/recommandation) n'est pas la trajectoire effective/décidée courante.";
+  "Une trajectoire proposée (recommandation) n'est pas encore la trajectoire décidée.";
 
 export const W1_RESTORED_GRANTED_NOT_CURRENT_AUTHORITY =
-  "Une confirmation accordée restaurée depuis l'état durable est un consentement historique scoped — pas l'autorité effective courante ; revalidation applicable requise avant exécution.";
+  "Une confirmation déjà accordée et relue n'est pas l'autorité effective courante — une revalidation peut être requise avant exécution.";
 
 export const W1_REQUALIFY_CTA =
   "Repartir d'une nouvelle intention (requalification contrôlée — pas de requalify silencieux)";
 
 export const W1_REQUALIFY_SHORT_CTA = "Requalifier (contrôlé)";
 
+/** W4-C — Pilote labels for terminal product outcomes (enum preserved via data-kind). */
+export const W4C_PRODUCT_OUTCOME_LABELS = {
+  SUCCESS: "Succès",
+  STOP: "Arrêt",
+  FAIL: "Échec",
+  UNCLAIMED: "Non qualifié",
+} as const;
+
+export const W4C_POST_EVIDENCE_HEADING =
+  "Ce que Nora recommande maintenant";
+
+export const W4C_NEXT_ACTION_LEAD = "Ce que vous pouvez faire ensuite";
+
 export function w1RecoveryDisclosures(): {
   durable: readonly string[];
   nonDurable: readonly string[];
   restoredGrantedNotice: string;
   requalifyCta: string;
+  proposedNotDecided: string;
 } {
   return Object.freeze({
     durable: Object.freeze([
@@ -147,12 +161,12 @@ export function w1RecoveryDisclosures(): {
       "LPS",
       "Trajectoire effective/décidée",
       "Confirmation accordée/consommée (consentement historique)",
-      "Épistémique matérialisé",
+      "Preuves / résultats enregistrés",
     ]),
     nonDurable: Object.freeze([
       "Conversation",
       "Confirmation demandée",
-      "Proposition F2 process-local",
+      "Proposition F2",
       "Propositions non matérialisées",
     ]),
     restoredGrantedNotice: W1_RESTORED_GRANTED_NOT_CURRENT_AUTHORITY,
