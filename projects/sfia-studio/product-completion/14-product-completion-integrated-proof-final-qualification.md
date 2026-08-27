@@ -18,8 +18,10 @@
 | **FinOps/T7** | FREEZE |
 | **runtime v3** | NON ADOPTED |
 | **Niveau de preuve** | **DETERMINISTIC PRODUCT COMPLETION INTEGRATED PROVEN** |
-| **Verdict candidat** | **PASS WITH NON-BLOCKING RESERVES** — READY FOR DISTINCT MORRIS PRODUCT COMPLETION DECISION |
-| **Correction** | **PC-INTEGRATED-QA-01-CORR-01** — PCQA-BLK-01 fermé par preuve |
+| **Verdict candidat** | **PASS WITH NON-BLOCKING RESERVES** — READY FOR CHATGPT DOCUMENTARY REVIEW / MORRIS GIT-INTEGRATION GATE |
+| **Correction technique** | **PC-INTEGRATED-QA-01-CORR-01** — PCQA-BLK-01 fermé par preuve |
+| **Correction documentaire** | **PC-INTEGRATED-QA-01-CORR-02** — cohérence DOC14 ↔ évidence CORR-01 |
+| **Horodatage CORR-02** | 2026-08-27 15:45:00 +0200 |
 | **Horodatage CORR-01** | 2026-08-27 15:24:45 +0200 |
 | **Horodatage audit** | 2026-08-27 14:35:45 +0200 |
 
@@ -33,15 +35,15 @@ Sur la baseline `718d5485…` / tree `a355e5bd…`, la campagne QA intégrée a 
 
 créer / qualifier → Options / Recommendation → HumanDecision → EC prepare/inspect/confirm/authorize → Execute gouverné → Attempt → SUCCESS/STOP/FAIL → Evidence → Nora post-Evidence → LPS / Trajectory → reload.
 
-Preuves multi-couches : spec E2E intégrée nouvelle · e2e W2/W4 · Vitest (dont W3-D généricité) · typecheck/lint/build · gouvernance modeled.
+Preuves multi-couches : spec E2E intégrée (**7/7**) · QA-INT-07 full-loop `cyc:delivery` + `cyc:security` · checkpoint A+B Playwright · e2e W2/W4 · Vitest non-régression (W3-D = **évidence support catalogue/CKC**, pas preuve full-loop primaire) · typecheck/lint/build · gouvernance modeled.
 
-**Aucun PCQA-BLK bloquant** identifié *(PCQA-BLK-01 fermé par CORR-01)*.
+**Aucun PCQA-BLK bloquant** identifié *(PCQA-BLK-01 fermé par CORR-01 EVIDENCE)*.
 
 Réserves non bloquantes portées (PREQA-R01/R02, W3A-D03, W2-CL-R04, PB-RES-REAL-01 TRACE, SC-02, Penpot PNG 504) + réserve QA d’orchestration PCQA-R01 (composition INT-04).
 
-Verdict candidat :
+Verdict candidat (état final CORR-01 + cohérence DOC14 CORR-02) :
 
-> **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION PASS WITH NON-BLOCKING RESERVES — C1 COMPLETION BAR SATISFIED — NO RESERVE BLOCKS PRODUCT COMPLETION DECISION — READY FOR DISTINCT MORRIS PRODUCT COMPLETION DECISION.**
+> **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION PASS WITH NON-BLOCKING RESERVES — C1 COMPLETION BAR SATISFIED — FULL-LOOP GENERICITY PROVEN ACROSS AT LEAST TWO CONTRASTED CANONICAL CYCLE SITUATIONS — RESTART CHECKPOINT A + B PROVEN — NO BLOCKING PRODUCT COMPLETION GAP — DETERMINISTIC PRODUCT COMPLETION INTEGRATED PROVEN — READY FOR CHATGPT DOCUMENTARY REVIEW / MORRIS GIT-INTEGRATION GATE.**
 
 ≠ Product Completion COMPLETE/CLOSED · ≠ REAL · ≠ runtime v3 ADOPTED.
 
@@ -120,9 +122,9 @@ Oracle C1 : l’ensemble des MUST doit former une boucle **utilisable, gouverné
 | QA-INT-02 | STOP gouverné | même spec + `armW3bGovernedStop` |
 | QA-INT-03 | FAIL + recovery | même spec + `armW3bAdapterFail` |
 | QA-INT-04 | Amend EC / autorité périmée | spec intégrée (négatif) + `studio-w2-g3-correction-runtime.spec.ts` (chemin complet) |
-| QA-INT-05 | Restart / continuité | reload dans INT-01 + Vitest restart |
+| QA-INT-05 | Restart / continuité | **Checkpoint A** = Playwright E2E `QA-INT-05-A` (après HD / avant Execute) · **Checkpoint B** = reload INT-01 (après SUCCESS+Evidence) · Vitest restart = **complément** non-régression |
 | QA-INT-06 | Idempotence | Vitest OA / W2 / Evidence |
-| QA-INT-07 | Généricité catalogue | `w3dFullCkcCatalog.test.ts` |
+| QA-INT-07 | Généricité full-loop | **Primaire :** QA-INT-07 Case A `cyc:delivery` + Case B `cyc:security` (même mécanisme) · **Support :** `w3dFullCkcCatalog.test.ts` (catalogue/CKC seulement) |
 | QA-INT-08 | Régression PE | e2e W4-B/C/D |
 | QA-INT-09 | Non-régression | typecheck · lint · build · vitest · modeled |
 
@@ -178,10 +180,11 @@ Oracle C1 : l’ensemble des MUST doit former une boucle **utilisable, gouverné
 
 | Champ | Valeur |
 |---|---|
-| Résultat | **PASS** |
-| Checkpoint B | Reload après SUCCESS+Evidence · Project durable · Trajectory visible · rehydrate IDs Evidence |
-| Complément | Vitest restart/rehydrate (W3-B/C, W2) dans suite non-régression |
-| Artefact | `QA-INT-05-reload-after-success.png` |
+| Résultat | **RESTART-SAFE PASS** (checkpoint A + B) |
+| Checkpoint A | **PASS** — Playwright E2E dédié `QA-INT-05-A checkpoint A — reload after HD before Execute` · après HumanDecision / trajectoire décidée · **avant** Execute · recovery banner · history « Décidée » / « Décision humaine » · aucun Attempt · aucun produit inventé |
+| Checkpoint B | **PASS** — reload après SUCCESS+Evidence (INT-01) · Project durable · Trajectory visible · rehydrate IDs Evidence |
+| Complément | Vitest restart/rehydrate (W3-B/C, W2) = **évidence support** non-régression · **pas** la preuve primaire du checkpoint A |
+| Artefacts | `QA-INT-05A-before-reload.png` · `QA-INT-05A-after-reload.png` · `QA-INT-05-reload-after-success.png` |
 
 ---
 
@@ -195,15 +198,17 @@ Oracle C1 : l’ensemble des MUST doit former une boucle **utilisable, gouverné
 
 ---
 
-## 14. QA-INT-07 — Généricité / catalogue
+## 14. QA-INT-07 — Généricité full-loop (primaire CORR-01)
 
 | Champ | Valeur |
 |---|---|
-| Résultat | **PASS** (CORR-01) |
-| Case A | `cyc:delivery` · browser `/studio` · QA-INT-07 Case A |
-| Case B | `cyc:security` · chaîne OA produit complète · QA-INT-07 Case B |
-| Support | `w3dFullCkcCatalog` / Phase B (catalogue) — **complément**, pas substitut |
-| Anti-claim | « 15 » n’est pas invariant · Case B ≠ test-only cycle |
+| Résultat | **PASS CORR-01** |
+| Case A | `cyc:delivery` · `ckc:studio:delivery` · **browser `/studio`** · full Product Completion loop · PASS |
+| Case B | `cyc:security` · `ckc:studio:security` · **chaîne applicative OA produit** (pas un 2ᵉ parcours browser `/studio`) · full Product Completion loop · PASS |
+| Mécanisme commun | qualification → Recommendation → HumanDecision → ProjectTrajectory → EC → inspect → Confirmation → authority → Attempt → Evidence/RB → Nora → LPS/Trajectory |
+| Moteur cycle-specific | **NON** |
+| W3-D / `w3dFullCkcCatalog` | **Évidence support** catalogue/CKC évolutivité + cognition · **pas** la preuve full-loop primaire |
+| Anti-claim | « 15 » n’est pas invariant · Case B ≠ test-only cycle · Case B ≠ second browser flow |
 
 ---
 
@@ -226,7 +231,7 @@ Oracle C1 : l’ensemble des MUST doit former une boucle **utilisable, gouverné
 | `npm run build` | PASS |
 | `npm test` (Vitest) | **2137 passed** / 131 skipped (FinOps PG) |
 | Modeled governance (3 fichiers) | **73 passed** |
-| E2E intégré | **4/4 PASS** |
+| E2E intégré | **7/7 PASS** |
 | E2E W2 amend | PASS |
 | E2E W4-B/C/D | PASS |
 
@@ -254,7 +259,7 @@ Invariants Recommendation≠HD · Confirmation post-inspect · authority avant e
 | MUST | Statut intégré |
 |---|---|
 | MUST-01…03 Project/LPS/Nora | INTEGRATED_PASS |
-| MUST-04…05 CKC/catalog | INTEGRATED_PASS (INT-01 + W3-D Vitest) |
+| MUST-04…05 CKC/catalog | INTEGRATED_PASS (INT-07 A+B full-loop · W3-D Vitest = support) |
 | MUST-06…08 Trajectory/HD/Confirmation | INTEGRATED_PASS |
 | MUST-09…14 EC/Authority/Attempt | INTEGRATED_PASS |
 | MUST-15…16 SUCCESS/STOP/FAIL · Evidence | INTEGRATED_PASS |
@@ -325,8 +330,8 @@ Aucun MUST critique en BLOCKING_FAIL.
 
 - E2E Playwright **hors** CI Studio (preuve locale).
 - E2E partage SQLite Product Store du webServer (projets nommés uniques).
-- Checkpoint A (après HD avant execute, restart process Vitest) supporté surtout par Vitest ; Checkpoint B prouvé E2E.
-- Généricité catalogue prouvée Vitest multi-types, pas multi-parcours browser complets.
+- Checkpoint A = Playwright E2E dédié **PASS** (`QA-INT-05-A`) · Checkpoint B = reload intégré **PASS** · couverture Vitest restart = **évidence support** seulement.
+- Généricité full-loop : **deux** situations canoniques contrastées prouvées (`cyc:delivery` + `cyc:security`) · seule Case A est browser `/studio` · Case B exerce la même chaîne OA applicative produit (pas un second parcours browser) · W3-D = support catalogue/CKC, pas multi-types « seul » comme preuve full-loop.
 - Pas de campaign REAL.
 
 ---
@@ -336,11 +341,11 @@ Aucun MUST critique en BLOCKING_FAIL.
 | Critère | Résultat |
 |---|---|
 | Completion bar C1 W.2 | **SATISFIED** |
-| Boucle USABLE / GOVERNED / RESTART-SAFE / PROVEN | **PASS** |
-| Généricité | **PASS** |
-| Bloquants | **NONE** |
+| Boucle USABLE / GOVERNED / RESTART-SAFE / PROVEN | **PASS** (A+B Playwright) |
+| Généricité full-loop | **PASS** (delivery + security · CORR-01) |
+| Bloquants | **NONE** (PCQA-BLK-01 CLOSED BY CORR-01 EVIDENCE) |
 | Niveau de preuve | DETERMINISTIC PRODUCT COMPLETION INTEGRATED PROVEN |
-| Product Completion | **INCOMPLETE** — décision Morris distincte |
+| Product Completion | **INCOMPLETE** — Git-integration gate puis décision Morris distincte |
 
 ---
 
@@ -348,9 +353,11 @@ Aucun MUST critique en BLOCKING_FAIL.
 
 ### Verdict candidat (Cursor — ≠ décision Morris)
 
-**PASS WITH NON-BLOCKING RESERVES — READY FOR DISTINCT MORRIS PRODUCT COMPLETION DECISION.**
+**PASS WITH NON-BLOCKING RESERVES — READY FOR CHATGPT DOCUMENTARY REVIEW / MORRIS GIT-INTEGRATION GATE.**
 
-### Options Morris
+*(La décision Product Completion COMPLETE/CLOSED reste une décision Morris distincte **après** intégration Git DOC14 + spec, hors scope CORR-02.)*
+
+### Options Morris (post Git-integration — hors CORR-02)
 | Option | Signification |
 |---|---|
 | A — Product Completion COMPLETE/CLOSED | Accepte la preuve intégrée + réserves non bloquantes |
@@ -360,8 +367,8 @@ Aucun MUST critique en BLOCKING_FAIL.
 ### État préservé après toute option
 C6 CLOSED · REAL OUT · FinOps FREEZE · runtime v3 NON ADOPTED · DETERMINISTIC ≠ REAL.
 
-### Next
-CHATGPT FINAL QUALIFICATION REVIEW → **DÉCISION MORRIS PRODUCT COMPLETION DISTINCTE**.
+### Next (immédiat après CORR-02)
+CHATGPT DOCUMENTARY REVIEW (CORR-02) → **GIT INTEGRATION OF DOC14 + INTEGRATED QA SPEC** → post-merge verification → décision Morris Product Completion distincte.
 
 ---
 
@@ -457,6 +464,44 @@ PLAYWRIGHT_PORT=3021 PLAYWRIGHT_FORCE_WEBSERVER=1 \
 
 Product Completion demeure **INCOMPLETE** jusqu’à décision Morris distincte.
 
+---
+
+## CORR-02 — Cohérence documentaire DOC14 (évidence finale CORR-01)
+
+| Champ | Valeur |
+|---|---|
+| **Cycle** | PC-INTEGRATED-QA-01-CORR-02 |
+| **Parent** | PC-INTEGRATED-QA-01-CORR-01 |
+| **Typologie** | DOC — DOCUMENTARY EVIDENCE COHERENCE |
+| **GO Morris** | Reconcile DOC14 only · preserve CORR-01 technical PASS · no spec/product/runtime change |
+| **Finding ChatGPT** | DOC14-D01 stale E2E 4/4 · DOC14-D02 stale checkpoint-A (Vitest-first) · DOC14-D03 stale QA-INT-07 primary = W3-D |
+| **Qualification technique CORR-01** | **PRÉSERVÉE** — PASS WITH NON-BLOCKING RESERVES |
+| **Spec intégrée** | **INCHANGÉE** (byte-for-byte vs `97cbbb10…`) |
+| **Re-run QA produit** | **NON** (documentary only) |
+
+### Réconciliations actives
+
+| Finding | Avant (actif stale) | Après (état final) |
+|---|---|---|
+| DOC14-D01 | E2E intégré **4/4 PASS** | E2E intégré **7/7 PASS** |
+| DOC14-D02 | Checkpoint A « surtout Vitest » / INT-05 = reload INT-01 + Vitest | Checkpoint A = Playwright E2E `QA-INT-05-A` **PASS** · B = reload INT-01 **PASS** · Vitest = support |
+| DOC14-D03 | QA-INT-07 primaire = `w3dFullCkcCatalog` | Primaire = QA-INT-07 Case A delivery + Case B security · W3-D = support |
+| Inventaire | Annex B sans 05A | + `QA-INT-05A-before-reload.png` · `QA-INT-05A-after-reload.png` · `QA-INT-07-case-a-delivery.png` |
+
+### Séquence préservée (ne pas réécrire l’histoire)
+
+1. Candidat QA initial (preuve partielle / W3-D trop large pour PC-BAR-05)
+2. ChatGPT → PCQA-BLK-01
+3. Morris → CORR-01 technique
+4. CORR-01 → full-loop A+B + checkpoint A Playwright
+5. ChatGPT → PASS technique + défauts de cohérence documentaire
+6. Morris → CORR-02 documentaire (ce cycle)
+
+### Next
+
+CHATGPT CORR-02 DOCUMENTARY REVIEW → GIT INTEGRATION OF DOC14 + INTEGRATED QA SPEC.
+
+---
 
 ## 26. Anti-claims
 
@@ -490,8 +535,11 @@ Sous `.tmp-sfia-review/product-completion-integrated-qa/screenshots/` :
 - QA-INT-03-fail-recovery.png
 - QA-INT-04-stale-auth-blocked.png
 - QA-INT-05-reload-after-success.png
+- QA-INT-05A-before-reload.png
+- QA-INT-05A-after-reload.png
+- QA-INT-07-case-a-delivery.png *(Case A browser only — pas de capture Case B : chemin OA applicatif, non browser)*
 - manifest.jsonl
 
 ---
 
-*Fin DOC14 — PC-INTEGRATED-QA-01.*
+*Fin DOC14 — PC-INTEGRATED-QA-01 (+ CORR-01 technique · CORR-02 cohérence documentaire).*
