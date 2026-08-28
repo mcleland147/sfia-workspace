@@ -1,22 +1,19 @@
 # ChatGPT Review Pack — FULL
-# NORA COGNITIVE COMPLETION — C1 POST-MERGE TRUTH SYNC
+# NORA COGNITIVE COMPLETION — C1 POST-MERGE TRUTH SYNC — CORR-01
 
-**Timestamp (Europe/Paris):** 2026-08-28 21:44:38 CEST
-**Cycle:** POST-MERGE / Capitalisation documentaire
+**Timestamp (Europe/Paris):** 2026-08-28 21:51:17 CEST
+**Cycle:** POST-MERGE / Capitalisation documentaire — CORR-01
 **Profil SFIA:** Standard · **Typologie:** DOC
-**Milestone:** NORA COGNITIVE COMPLETION — C1 POST-MERGE TRUTH SYNC
-**Verdict cible:** NORA COGNITIVE COMPLETION — C1 POST-MERGE TRUTH SYNC — LOCAL CANDIDATE — READY FOR CHATGPT REVIEW
+**GO Morris:** CORR-01 bounded governance correction — CONSUMED
+**Verdict cible:** NORA COGNITIVE COMPLETION — C1 POST-MERGE TRUTH SYNC — CORR-01 — LOCAL CANDIDATE — READY FOR CHATGPT RE-REVIEW
 **Synthesis only:** FORBIDDEN
 
 ---
 
-## 1. Morris GO consumed
+## 1. ChatGPT findings triggering CORR-01
 
-- C1 CONTENT VALIDATED BY MORRIS — CONSUMED
-- GO C1 GIT INTEGRATION — CONSUMED
-- GO MERGE PR #430 — CONSUMED
-- GO POST-MERGE VERIFICATION / TRUTH SYNC — CONSUMED (this cycle)
-- **NO** project commit · **NO** project push · **NO** PR · **NO** merge
+1. **Roadmap self-reference:** `LOCAL CANDIDATE` in `Timestamp maintenance NORA-C1-POST-MERGE-TRUTH-SYNC-01` would become stale if integrated on main.
+2. **C1 §1.3 gate fusion:** GO Git integration incorrectly included `merge` in scope, collapsing two distinct Morris authorities.
 
 ---
 
@@ -26,84 +23,70 @@
 | --- | --- |
 | Worktree | `/Users/morris/Projects/sfia-workspace-nora-cognitive-c1-post-merge-sync` |
 | Branch | `docs/sfia-studio-nora-cognitive-c1-post-merge-truth-sync` |
-| HEAD (base) | `cb0504cc5d1dc6bbd4aa3116dc07b8f3a9a5ab59` (= `origin/main`) |
-| origin/main | `cb0504cc5d1dc6bbd4aa3116dc07b8f3a9a5ab59` |
-| Merge commit | `cb0504cc5d1dc6bbd4aa3116dc07b8f3a9a5ab59` |
-| Tree | `603fc9f61b0996e5ad9c450eb75c8d62cac70124` |
-| Status | 2 modified project files (local candidate) · `.tmp-sfia-review/` untracked |
+| HEAD / origin/main | `cb0504cc5d1dc6bbd4aa3116dc07b8f3a9a5ab59` |
+| Project files modified | 2 (C1 + Roadmap) |
 | REAL-B | `fix/sfia-studio-real-b-blocker-02` @ `967f4c2b35948492caeba5347bb02c7c420de490` · **untouched** |
 
 ---
 
-## 3. Post-merge evidence (PR #430)
+## 3. Post-merge evidence (unchanged)
 
-| Field | Value |
+PR **#430 MERGED** · head `cdfd5aec…` · merge `cb0504cc…` · CI **33204654810 SUCCESS** · Required Gate **PASS**
+
+---
+
+## 4. Correction 1 — Roadmap lifecycle-safe
+
+| | Text |
 | --- | --- |
-| PR #430 | **MERGED** |
-| Head | `cdfd5aec570a106985002a1e443c0a348b746dc3` |
-| Merge | `cb0504cc5d1dc6bbd4aa3116dc07b8f3a9a5ab59` |
-| Post-merge CI | run **33204654810** · **SUCCESS** |
-| Detect SFIA Studio changes | SUCCESS |
-| Build and validate SFIA Studio | SUCCESS |
-| SFIA Studio Required Gate | **PASS** |
+| **Before** | `… POST-MERGE TRUTH SYNC** — **LOCAL CANDIDATE** · PR #430 …` |
+| **After** | `… POST-MERGE TRUTH SYNC** · PR #430 …` |
+
+**Justification:** Roadmap must not encode self-referential publication state of its own pending diff. Durable truths (Nora C1 INTEGRATED ON MAIN via PR #430, REAL-B next unchanged) preserved.
 
 ---
 
-## 4. Convergence pre-check
+## 5. Correction 2 — C1 §1.3 historical gates
 
-| State | Preserved |
+| | Text |
 | --- | --- |
-| Product Completion | COMPLETE / CLOSED BY MORRIS |
-| C1 Nora | CONTENT VALIDATED · INTEGRATED ON MAIN · POST-MERGE VERIFIED |
-| C6 | CLOSED / DO NOT REOPEN |
-| REAL-A | COMPLETE / CONSUMED |
-| REAL-B published Roadmap | **UNCHANGED** (next = REAL-B QUALIFIED CANDIDATE) |
-| C2 Nora | NOT AUTHORIZED |
-| runtime v3 | NON ADOPTED |
+| **Before** | `Intégration Git du C1 (commit · push · Draft PR · merge) → CONSUMED — COMPLETE (PR #430 MERGED)` |
+| **After** | `Intégration Git du C1 (commit · push · Draft PR) → CONSUMED — COMPLETE` |
+| **Unchanged** | `Merge vers main → CONSUMED — PR #430 MERGED (2026-08-28)` |
+
+**Justification:** GO Git integration authorized commit/push/Draft PR only. Merge was separate Morris GO after ChatGPT PR review.
 
 ---
 
-## 5. C1 truth sync — stale states corrected
+## 6. Bounded scan (project files)
 
-| Location | Before | After |
-| --- | --- | --- |
-| Metadata statut | CANDIDATE FOR GIT INTEGRATION | INTEGRATED ON MAIN · POST-MERGE VERIFIED |
-| État Git | CANDIDATE · ≠ integrated on main | INTEGRATED ON MAIN via PR #430 |
-| Anti-claim header | ≠ integrated on main | INTEGRATED ON MAIN · ≠ Cognitive Completion achieved |
-| §1.3 merge | NON AUTORISÉ | CONSUMED — PR #430 MERGED |
-| §2 état/gates | pre-merge lifecycle | INTEGRATED · POST-MERGE VERIFIED · gates CONSUMED |
-| §27 | VALIDATED CONTENT ≠ INTEGRATED ON MAIN · Git integration branch ≠ merge | MERGE CONSUMED ≠ C2 · INTEGRATED ≠ Cognitive Completion PROVEN |
-| Footer | CANDIDATE FOR GIT INTEGRATION | INTEGRATED ON MAIN via PR #430 · C2 NOT AUTHORIZED |
-
-**Functional content:** 26 NR · CE-01…08 · Memory A/B/C · Completion Bar — **UNCHANGED**
-
-**Bounded scan:** no remaining stale `CANDIDATE FOR GIT INTEGRATION` / `≠ integrated on main` / merge NOT AUTHORIZED
+| Check | Result |
+| --- | --- |
+| `LOCAL CANDIDATE` in Roadmap candidate | **ABSENT** |
+| `commit · push · Draft PR · merge` on Git integration GO | **ABSENT** |
+| `Merge vers main` separate CONSUMED | **YES** |
+| C2 AUTHORIZED / REAL-B CLOSED / runtime v3 ADOPTED as claims | **NO** (anti-claims only) |
 
 ---
 
-## 6. Roadmap truth sync
+## 7. Functional content unchanged
 
-**Added (minimal · no REAL-B promotion):**
-
-1. `Timestamp maintenance NORA-C1-POST-MERGE-TRUTH-SYNC-01` — Nora C1 integrated · next convergence capability unchanged = REAL-B
-2. Register row `Nora Cognitive Completion C1 (Cycle 1 Cadrage)` after Product Completion Closure Decision
-
-**Unchanged:** Snapshot Git courant REAL-A anchor · Timestamp maintenance courant REAL-A · REAL-B next trajectory · Gates courants REAL-B published state
+26 NR · CE-01…08 · Memory A/B/C · Completion Bar · REAL-B published trajectory — **UNCHANGED**
 
 ---
 
-## 7. Exact git diff
+## 8. Full final diff vs origin/main (C1 + Roadmap)
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 61bbe05c..d56f5d1f 100644
+index 61bbe05c..f596a57a 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 @@ -8,6 +8,7 @@
  | **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
  | **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; this living Roadmap **≠** embed permanent `origin/main` HEAD · repository publication/integration status = **RESOLVE FROM GIT / PR evidence**)* · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified REAL-A corrective integration anchor** = PR **#428** MERGED · title `feat(sfia-studio): harden REAL-A repository source grounding` · head `0ed085e4928409d047e63ee12557f35de1e02c15` · merge `e7339fa595ac36d6cd7b68647c10a565bc020548` · tree `c6295284c4be05d9a87a647fb1d52c2948e84afa` · post-merge CI **`33126011388` SUCCESS** · Required Gate **PASS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · **REAL-A = COMPLETE / CONSUMED** at **PASS WITH PARITY GAPS** · source integrity **REAL PROVEN** · fabricated source-backed claims **NO** · RA-06 multi-document completeness reserve **OPEN NON_BLOCKING** · RA-07 cross-turn provenance **OPEN PARITY GAP NON_BLOCKING** · **W1–W4 CLOSED** · C6 **CLOSED / DO NOT REOPEN** · FinOps/T7 **FREEZE** · runtime v3 **NON ADOPTED** · next capability = **REAL-B — QUALIFICATION & COGNITIVE REASONING** · **REAL-B = QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED** · future test-config model candidate **gpt-5.6-terra / reasoning high** *(no Sol in-campaign fallback if executed)* · next structural gate = **distinct Morris GO REAL-B EXECUTION** · **≠** REAL-B AUTHORIZED · **≠** REAL-B STARTED · **≠** REAL-B PASS · **≠** END-TO-END REAL PROVEN · **≠** runtime v3 ADOPTED · **≠** FinOps/T7 unfrozen · **≠** C6 reopened · *(living Roadmap repository-state summary **≠** replacement for Git/PR as repository lifecycle SoT · `e7339fa5…` is the verified REAL-A corrective merge anchor, **not** a permanent embedded `origin/main` HEAD)* |
  | **Timestamp maintenance courant** | 2026-08-28 02:20 CEST (+0200) — **V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-CORR-01** — **CURRENT FUNCTIONAL / GOVERNANCE TRUTH** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified REAL-A corrective integration anchor** = PR **#428** MERGED · title `feat(sfia-studio): harden REAL-A repository source grounding` · head `0ed085e4928409d047e63ee12557f35de1e02c15` · merge `e7339fa595ac36d6cd7b68647c10a565bc020548` · tree `c6295284c4be05d9a87a647fb1d52c2948e84afa` · post-merge CI **`33126011388` SUCCESS** · Required Gate **PASS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · **REAL-A = COMPLETE / CONSUMED** · **PASS WITH PARITY GAPS** · source integrity **REAL PROVEN** · fabricated claims **NO** · RA-06 completeness reserve **OPEN NON_BLOCKING** · RA-07 cross-turn provenance **OPEN PARITY GAP NON_BLOCKING** · C6 **CLOSED / DO NOT REOPEN** · FinOps/T7 **FREEZE** · runtime v3 **NON ADOPTED** · next = **REAL-B — QUALIFICATION & COGNITIVE REASONING** · **REAL-B = QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED** · future model candidate **gpt-5.6-terra / high** · next structural gate = **distinct Morris GO REAL-B EXECUTION** · **≠** REAL-B AUTHORIZED · **≠** REAL-B STARTED · **≠** runtime v3 ADOPTED · **≠** embed `e7339fa5…` as permanent `origin/main` HEAD |
-+| **Timestamp maintenance NORA-C1-POST-MERGE-TRUTH-SYNC-01** | 2026-08-28 21:45 CEST (+0200) — **NORA COGNITIVE COMPLETION C1 POST-MERGE TRUTH SYNC** — **LOCAL CANDIDATE** · PR **#430 MERGED** · head `cdfd5aec570a106985002a1e443c0a348b746dc3` · merge `cb0504cc5d1dc6bbd4aa3116dc07b8f3a9a5ab59` · tree `603fc9f61b0996e5ad9c450eb75c8d62cac70124` · post-merge CI **`33204654810` SUCCESS** · Required Gate **PASS** · **Nora C1 INTEGRATED ON MAIN** · **complementary cognitive framing milestone** serving Product Completion · **next convergence capability unchanged** = **REAL-B — QUALIFICATION & COGNITIVE REASONING** · **REAL-B = QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED** · **≠** REAL-B promoted from local worktree · **≠** REAL-B CLOSED · **≠** C2 Nora AUTHORIZED · **≠** Cognitive Completion PROVEN · **≠** architecture selected · **≠** Agents SDK adopted · **≠** Delivery · **≠** runtime v3 ADOPTED |
++| **Timestamp maintenance NORA-C1-POST-MERGE-TRUTH-SYNC-01** | 2026-08-28 21:45 CEST (+0200) — **NORA COGNITIVE COMPLETION C1 POST-MERGE TRUTH SYNC** · PR **#430 MERGED** · head `cdfd5aec570a106985002a1e443c0a348b746dc3` · merge `cb0504cc5d1dc6bbd4aa3116dc07b8f3a9a5ab59` · tree `603fc9f61b0996e5ad9c450eb75c8d62cac70124` · post-merge CI **`33204654810` SUCCESS** · Required Gate **PASS** · **Nora C1 INTEGRATED ON MAIN** · **complementary cognitive framing milestone** serving Product Completion · **next convergence capability unchanged** = **REAL-B — QUALIFICATION & COGNITIVE REASONING** · **REAL-B = QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED** · **≠** REAL-B promoted from local worktree · **≠** REAL-B CLOSED · **≠** C2 Nora AUTHORIZED · **≠** Cognitive Completion PROVEN · **≠** architecture selected · **≠** Agents SDK adopted · **≠** Delivery · **≠** runtime v3 ADOPTED |
  | **Timestamp maintenance historique V3-REAL-A-POST-MERGE-TRUTH-SYNC-01 (pre-CORR-01)** | *(historique · superseded by V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-CORR-01 semantic fixes)* — 2026-08-28 01:47 CEST (+0200) — **V3-REAL-A-POST-MERGE-TRUTH-SYNC-01** — **THEN-CURRENT FUNCTIONAL / GOVERNANCE TRUTH** · **CURRENT GIT TRUTH** = `origin/main` @ `e7339fa595ac36d6cd7b68647c10a565bc020548` · tree `c6295284c4be05d9a87a647fb1d52c2948e84afa` · PR **#428 MERGED** · head `0ed085e4928409d047e63ee12557f35de1e02c15` · merge `e7339fa595ac36d6cd7b68647c10a565bc020548` · post-merge CI **`33126011388` SUCCESS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · **REAL-A = COMPLETE / CONSUMED** · **PASS WITH PARITY GAPS** · source integrity **REAL PROVEN** · fabricated claims **NO** · RA-06 completeness reserve **OPEN NON_BLOCKING** · RA-07 cross-turn provenance **OPEN PARITY GAP NON_BLOCKING** · C6 **CLOSED / DO NOT REOPEN** · FinOps/T7 **FREEZE** · runtime v3 **NON ADOPTED** · next = **REAL-B — QUALIFICATION & COGNITIVE REASONING** · **REAL-B = QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED** · future model candidate **gpt-5.6-terra / high** · next structural gate = **distinct Morris GO REAL-B EXECUTION** · **≠** REAL-B AUTHORIZED · **≠** REAL-B STARTED · **≠** runtime v3 ADOPTED |
  | **Timestamp maintenance historique PC-POST-CLOSURE-TRUTH-SYNC-01 / PR #427 CORR-01 (pre-REAL-A on main)** | 2026-08-27 18:24 CEST (+0200) — *(historique · superseded by V3-REAL-A-POST-MERGE-TRUTH-SYNC-01 / PR #428 MERGED)* — **PC-POST-CLOSURE-TRUTH-SYNC-01 / PR #427 CORR-01** — **THEN-CURRENT FUNCTIONAL / GOVERNANCE TRUTH** · **Last verified Product Completion integration anchor** = PR **#426** · head `57f46c7adbac7cbb1a65d2193d42153490743615` · merge `19349d024b3dc10a180cda52b2300279af361bf2` · tree `00bc236ae3631b638746e34c221dbc19253bf8ab` · post-merge CI **`33082002188` SUCCESS** · Required Gate **PASS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · Final Qualification **PASS WITH NON-BLOCKING RESERVES / CONSUMED** · C1 completion bar **SATISFIED** · PC-BAR-01→10 **PASS** · Integrated E2E **7/7** · genericity delivery+security full-loop **PROVEN** · restart A+B **PROVEN** · PCQA-BLK-01 **CLOSED BY EVIDENCE** · PCQA-R01 **NON_BLOCKING** · proof **DETERMINISTIC PRODUCT COMPLETION INTEGRATED PROVEN** · **W1–W4 CLOSED** · C6 **CLOSED / DO NOT REOPEN** · REAL **OUT** · FinOps/T7 **FREEZE** · runtime v3 **NON ADOPTED** · repository publication/integration status = **RESOLVE FROM GIT / PR evidence** · next = **NEXT-CAPABILITY REQUALIFICATION** · next capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED |
  | **Timestamp maintenance historique POST-MERGE-DOC-TRUTH-01-CORR-01 (pre-PC CLOSED)** | 2026-08-27 11:12 CEST (+0200) — *(historique · superseded by PC-POST-CLOSURE-TRUTH-SYNC-01 / Morris Product Completion CLOSED)* — **POST-MERGE-DOC-TRUTH-01-CORR-01** — **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified W4 post-closure integration anchor** = PR **#423** · head `a4b15ebada92ecf4cc211109f8d3a25800f3e1d3` · merge `fa9c2074f62b3d9d5ec53eac26a82ed6b026e3ed` · tree `c641c8f06d527e58736fae14bab466630b70e08a` · CI **`33052951279` SUCCESS** · Required Gate **PASS** · **W4 CLOSED BY MORRIS** · **W4 POST-CLOSURE ROADMAP/DOC11 TRUTH SYNC INTEGRATED ON MAIN / POST-MERGE VERIFIED** · W4 Final Closure Qualification **CONSUMED** · US-P1-10/13 **SATISFIED** · UAT / PE exit **SATISFIED** · **NO GENUINE W4 CAPABILITY REMAINS** · H-01 **KEEP / ADOPTED** · H-02/H-03/H-04 **CLOSED BY MORRIS** · Product Completion **INCOMPLETE** · C6 **CLOSED / DO NOT REOPEN** · REAL **OUT** · FinOps/T7 **FREEZE** · runtime v3 **NON ADOPTED** · next product = **PRODUCT COMPLETION INTEGRATED PROOF / FINAL COMPLETION QUALIFICATION** → distinct Morris PC decision · repository publication/integration status = **RESOLVE FROM GIT / PR evidence** *(not embedded as self-referential active PR lifecycle)* · **≠** Product Completion COMPLETE · **≠** READY FOR REAL |
@@ -116,7 +99,7 @@ index 61bbe05c..d56f5d1f 100644
  | **Product Completion W2 Final Closure Product Correction** | **INTEGRATED ON MAIN** · PR **#405 MERGED** · head `330b36258f5a5fcb117fb562b12ff173b3675d94` · merge `1e4b0dbb8de291f1a02e084f03231d62d04dfb0b` · PR-head CI SUCCESS · push/main CI **`32654262020` SUCCESS** · R01 Phase B Product E2E cognition · R02 material EC amend/reinspect + R1 recovery-safe · C6 **CLOSED** · no `lib/oa` mutation · **≠** W3 · **≠** REAL · runtime v3 **NON ADOPTED** |
  | **Product Completion W2-G3 Delivery** | **INTEGRATED ON MAIN** · PR **#400 MERGED** · delivery head `a276f170faece84a2121f5fe5796c24ae443674d` · merge `dd852243a652e85cce455a68fae5ac7aa13d2bea` · PR-head CI **`32632461315` SUCCESS / Required Gate PASS** · push/main CI **`32633308148` SUCCESS** · E+A+B+C governed trajectory: Options / Recommendation / HumanDecision / EC inspect / conditional Confirmation / authority+executor sufficiency · **STOP BEFORE EXECUTE** · ProjectTrajectory SoT **KEEP** · C6 **CLOSED** · D-W2-CI-FINOPS-FREEZE-01 **ADOPTED** · FinOps/T7 **FREEZE** · T7-C04 **DEFERRED** · Phase B later **INTEGRATED** via PR **#403** · **≠** W2 finally closed · **≠** Execute · **≠** REAL · **≠** FinOps PASS · runtime v3 **NON ADOPTED** |
 diff --git a/projects/sfia-studio/nora-cognitive-completion/01-nora-cognitive-completion-cadrage.md b/projects/sfia-studio/nora-cognitive-completion/01-nora-cognitive-completion-cadrage.md
-index 2ac38ac9..c5ee68e2 100644
+index 2ac38ac9..da839eb9 100644
 --- a/projects/sfia-studio/nora-cognitive-completion/01-nora-cognitive-completion-cadrage.md
 +++ b/projects/sfia-studio/nora-cognitive-completion/01-nora-cognitive-completion-cadrage.md
 @@ -9,23 +9,24 @@
@@ -157,7 +140,7 @@ index 2ac38ac9..c5ee68e2 100644
  | Valider contenu C1 Revision 1 (post ChatGPT Review PASS) | **CONSUMED — VALIDATED BY MORRIS** (2026-08-28 · Europe/Paris) |
 -| Intégration Git du C1 (commit · push · Draft PR) | **CONSUMED — GO GIT INTEGRATION** (cycle 15 · en cours) |
 -| Merge vers main | **NON AUTORISÉ** — gate Morris distinct |
-+| Intégration Git du C1 (commit · push · Draft PR · merge) | **CONSUMED — COMPLETE** (PR **#430 MERGED**) |
++| Intégration Git du C1 (commit · push · Draft PR) | **CONSUMED — COMPLETE** |
 +| Merge vers main | **CONSUMED — PR #430 MERGED** (2026-08-28) |
  | C2 / Delivery / architecture / Agents SDK | **NON AUTORISÉS** |
 
@@ -206,38 +189,31 @@ index 2ac38ac9..c5ee68e2 100644
 +*Fin du C1 — CONTENT VALIDATED BY MORRIS (2026-08-28) · INTEGRATED ON MAIN via PR #430 · POST-MERGE VERIFIED · C2 NOT AUTHORIZED.*
 ```
 
-**Files:** 2 · C1 + Roadmap only · **no prohibited paths**
+**Stats:** 2 files · +18 / −15 vs `cb0504cc…`
 
 ---
 
-## 8. Project Git actions
+## 9. Project Git actions
 
 | Action | Status |
 | --- | --- |
-| Commit projet | **NO** |
-| Push branche projet | **NO** |
-| PR projet | **NO** |
-| Merge | **NO** |
-
-Local candidate awaits ChatGPT review → distinct Morris GO for Git integration of truth sync.
+| add / commit / push projet | **NO** |
+| PR / merge | **NO** |
 
 ---
 
-## 9. Anti-claims
+## 10. Gates preserved
 
-- GIT INTEGRATED TRUTH SYNC — **NO** (local candidate only)
-- Cognitive Completion PROVEN — **NO**
-- REAL-B CLOSED — **NO**
-- C2 AUTHORIZED — **NO**
-- architecture selected — **NO**
-- Agents SDK adopted — **NO**
-- Delivery — **NO**
-- runtime v3 ADOPTED — **NO**
+- C1 INTEGRATED ON MAIN / POST-MERGE VERIFIED
+- Cognitive Completion NOT PROVEN
+- C2 NOT AUTHORIZED
+- REAL-B next convergence unchanged
+- architecture NOT SELECTED · Agents SDK NOT ADOPTED · Delivery NOT AUTHORIZED · runtime v3 NON ADOPTED
 
 ---
 
-## 10. Verdict
+## 11. Verdict
 
-**NORA COGNITIVE COMPLETION — C1 POST-MERGE TRUTH SYNC — LOCAL CANDIDATE — READY FOR CHATGPT REVIEW**
+**NORA COGNITIVE COMPLETION — C1 POST-MERGE TRUTH SYNC — CORR-01 — LOCAL CANDIDATE — READY FOR CHATGPT RE-REVIEW**
 
-≠ GIT INTEGRATED TRUTH SYNC · ≠ C2 AUTHORIZED · ≠ merge of this candidate without Morris GO
+≠ GIT INTEGRATED TRUTH SYNC · ≠ C2 AUTHORIZED · ≠ Cognitive Completion PROVEN · ≠ REAL-B CLOSED
