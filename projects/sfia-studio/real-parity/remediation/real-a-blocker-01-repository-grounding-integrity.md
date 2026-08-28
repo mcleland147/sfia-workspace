@@ -225,3 +225,47 @@ Réserve non bloquante documentée : SMOKE-07 follow-up provenance declaration g
 2. Morris GO (ou STOP)
 3. Si GO : **EXACT REAL-A RA-00 → RA-08 RE-RUN** under `gpt-5.6-sol` / `OPENAI_REASONING_EFFORT=high`
 4. REAL-B remains BLOCKED until REAL-A PASS
+
+---
+
+## 16. POST-CORRECTIVE / POST-MERGE DISPOSITION — SUPERSEDING STATUS
+
+> **Superseding status only.** Sections above that say commit/push/rerun were then pending remain **HISTORICAL** as written at corrective time. Do not read them as current active status.
+
+| Champ | Valeur |
+|---|---|
+| **Cycle recording this disposition** | V3-REAL-A-POST-MERGE-TRUTH-SYNC-01 |
+| **Timestamp (Europe/Paris)** | 2026-08-28 01:47:03 +0200 |
+| **Corrective integrated** | YES — via PR **#428** |
+| **Project commit** | `0ed085e4928409d047e63ee12557f35de1e02c15` |
+| **Merge** | `e7339fa595ac36d6cd7b68647c10a565bc020548` |
+| **Tree** | `c6295284c4be05d9a87a647fb1d52c2948e84afa` |
+| **Post-merge CI** | `33126011388` **SUCCESS** |
+| **Exact REAL-A re-run** | **CONSUMED** — PASS WITH PARITY GAPS · REAL SOURCE INTEGRITY PROVEN · gpt-5.6-sol / high |
+
+### Supersessions
+
+| Historical active claim (above) | Superseding status |
+|---|---|
+| REAL-A re-run still required | **SUPERSEDED** — exact re-run executed and consumed |
+| Corrective not yet commit/push/PR | **SUPERSEDED** — integrated on `main` via PR #428 |
+| RA-06 fabrication blocker open | **CLOSED BY REAL PROOF** (exact re-run; no fabricated source-backed claims) |
+| Source grounding corrective candidate-only | **INTEGRATED ON MAIN** |
+
+### Still open (NON_BLOCKING)
+
+- **RA-07** cross-turn source provenance continuity — PARITY GAP NON_BLOCKING
+- Multi-document completeness ceilings — NON_BLOCKING with honesty requirement
+
+### Explicit non-claims
+
+- No new corrective development opened by this disposition
+- **REAL-B** = **QUALIFIED CANDIDATE** only · **NOT AUTHORIZED** · **NOT STARTED**
+- runtime v3 **NON ADOPTED**
+- FinOps/T7 **FREEZE**
+- C6 **CLOSED / DO NOT REOPEN**
+- This section is documentary truth sync — **not** a new LIVE proof
+
+**Superseding verdict:**
+
+V3-REAL-A-BLOCKER-01 — CORRECTIVE INTEGRATED ON MAIN (PR #428) — EXACT REAL-A RE-RUN CONSUMED — PASS WITH PARITY GAPS — RA-06 FABRICATION BLOCKER CLOSED BY REAL PROOF — RA-07 NON_BLOCKING — REAL-B CANDIDATE ONLY — runtime v3 NON ADOPTED

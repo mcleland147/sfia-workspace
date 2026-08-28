@@ -423,3 +423,56 @@ REAL-A EXACT RE-RUN — PASS WITH PARITY GAPS — REAL SOURCE INTEGRITY PROVEN �
 **REAL-B impact:** still **BLOCKED** until ChatGPT review + distinct Morris gate. Integrity precondition for REAL-B is now candidate-proven; authorization is not automatic.
 
 **Next recommended gate:** ChatGPT review of `.tmp-sfia-review/chatgpt-review.md` → Morris decides REAL-B GO/NO-GO (or further remediation for cross-turn provenance if required).
+
+---
+
+# POST-MERGE DISPOSITION — V3-REAL-A-POST-MERGE-TRUTH-SYNC-01
+
+> Documentary post-merge truth only. Does **not** constitute a new REAL campaign or a new REAL proof.
+> Preserves above: initial gpt-5-mini failed campaign · corrective context · EXACT RE-RUN section.
+
+## S. Métadonnées post-merge
+
+| Champ | Valeur |
+|---|---|
+| **Cycle** | V3-REAL-A-POST-MERGE-TRUTH-SYNC-01 |
+| **Morris GO** | GO REAL-A POST-MERGE TRUTH SYNC + REAL-B QUALIFICATION — NO REAL-B EXECUTION |
+| **Timestamp (Europe/Paris)** | 2026-08-28 01:47:03 +0200 |
+| **Project corrective commit** | `0ed085e4928409d047e63ee12557f35de1e02c15` |
+| **PR** | [#428](https://github.com/mcleland147/sfia-workspace/pull/428) **MERGED** |
+| **Merge commit** | `e7339fa595ac36d6cd7b68647c10a565bc020548` |
+| **Tree** | `c6295284c4be05d9a87a647fb1d52c2948e84afa` |
+| **PR-head CI** | ultimately **SUCCESS** (after Vitest timeout flake on unrelated W3C-P10; no REAL-A code change) |
+| **Post-merge CI** | run [`33126011388`](https://github.com/mcleland147/sfia-workspace/actions/runs/33126011388) **SUCCESS** (SFIA Studio CI) |
+
+## S.1 Final consumed verdict
+
+**REAL-A final consumed disposition:**
+
+PASS WITH PARITY GAPS — REAL SOURCE INTEGRITY PROVEN — GPT-5.6 SOL / HIGH
+
+- Fabricated source-backed claims: **NO**
+- No third REAL-A rerun required
+- This truth-sync is **not** a new REAL proof
+
+## S.2 Reserves (still visible / NON_BLOCKING)
+
+| Reserve | Status |
+|---|---|
+| **RA-06** multi-document completeness ceiling | **OPEN NON_BLOCKING** — honesty required when corpus incomplete |
+| **RA-07** cross-turn source provenance continuity | **OPEN PARITY GAP NON_BLOCKING** — not corrected in Git integration |
+
+## S.3 Downstream / governance
+
+| Item | Status |
+|---|---|
+| **REAL-B** | **QUALIFIED CANDIDATE** only · **NOT AUTHORIZED** · **NOT STARTED** · requires **distinct Morris GO REAL-B EXECUTION** |
+| Future REAL-B test config (if authorized later) | `gpt-5.6-terra` / reasoning `high` · no Sol in-campaign fallback |
+| runtime v3 | **NON ADOPTED** |
+| FinOps/T7 | **FREEZE** |
+| C6 | **CLOSED / DO NOT REOPEN** |
+| Product Completion | **COMPLETE / CLOSED BY MORRIS** (unchanged) |
+
+**Verdict line:**
+
+REAL-A POST-MERGE — COMPLETE / CONSUMED ON MAIN @ `e7339fa5…` — PASS WITH PARITY GAPS — REAL-B QUALIFIED CANDIDATE ONLY — NO REAL-B EXECUTION — runtime v3 NON ADOPTED
