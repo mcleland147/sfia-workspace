@@ -1,81 +1,93 @@
 # ChatGPT Review Pack — FULL
-# NORA COGNITIVE COMPLETION — C1 POST-MERGE TRUTH SYNC — CORR-01
+# NORA COGNITIVE COMPLETION — C1 POST-MERGE TRUTH SYNC — GIT INTEGRATION
 
-**Timestamp (Europe/Paris):** 2026-08-28 21:51:17 CEST
-**Cycle:** POST-MERGE / Capitalisation documentaire — CORR-01
+**Timestamp (Europe/Paris):** 2026-08-28 22:03:21 CEST
+**Cycle:** Capitalisation / Git integration post-merge truth sync
 **Profil SFIA:** Standard · **Typologie:** DOC
-**GO Morris:** CORR-01 bounded governance correction — CONSUMED
-**Verdict cible:** NORA COGNITIVE COMPLETION — C1 POST-MERGE TRUTH SYNC — CORR-01 — LOCAL CANDIDATE — READY FOR CHATGPT RE-REVIEW
+**GO Morris:** commit + push + Draft PR — CONSUMED
+**Verdict cible:** NORA COGNITIVE COMPLETION — C1 POST-MERGE TRUTH SYNC — DRAFT PR #431 — READY FOR CHATGPT REVIEW
 **Synthesis only:** FORBIDDEN
 
 ---
 
-## 1. ChatGPT findings triggering CORR-01
-
-1. **Roadmap self-reference:** `LOCAL CANDIDATE` in `Timestamp maintenance NORA-C1-POST-MERGE-TRUTH-SYNC-01` would become stale if integrated on main.
-2. **C1 §1.3 gate fusion:** GO Git integration incorrectly included `merge` in scope, collapsing two distinct Morris authorities.
-
----
-
-## 2. Local Git Truth
+## 1. Local Git Truth
 
 | Field | Value |
 | --- | --- |
+| Repo | `mcleland147/sfia-workspace` |
 | Worktree | `/Users/morris/Projects/sfia-workspace-nora-cognitive-c1-post-merge-sync` |
 | Branch | `docs/sfia-studio-nora-cognitive-c1-post-merge-truth-sync` |
-| HEAD / origin/main | `cb0504cc5d1dc6bbd4aa3116dc07b8f3a9a5ab59` |
-| Project files modified | 2 (C1 + Roadmap) |
+| Base (`main`) | `cb0504cc5d1dc6bbd4aa3116dc07b8f3a9a5ab59` |
+| HEAD | `79effb32b35544328eccb32ae119822953a86d1b` |
+| Tree | `10a0b3d67f2a1a04fbfdb71950d6c894fcb0ae58` |
+| origin/main (pre-merge) | `cb0504cc5d1dc6bbd4aa3116dc07b8f3a9a5ab59` |
+| Files committed | 2 (C1 + Roadmap) |
 | REAL-B | `fix/sfia-studio-real-b-blocker-02` @ `967f4c2b35948492caeba5347bb02c7c420de490` · **untouched** |
 
 ---
 
-## 3. Post-merge evidence (unchanged)
+## 2. Git integration evidence
 
-PR **#430 MERGED** · head `cdfd5aec…` · merge `cb0504cc…` · CI **33204654810 SUCCESS** · Required Gate **PASS**
-
----
-
-## 4. Correction 1 — Roadmap lifecycle-safe
-
-| | Text |
+| Field | Value |
 | --- | --- |
-| **Before** | `… POST-MERGE TRUTH SYNC** — **LOCAL CANDIDATE** · PR #430 …` |
-| **After** | `… POST-MERGE TRUTH SYNC** · PR #430 …` |
-
-**Justification:** Roadmap must not encode self-referential publication state of its own pending diff. Durable truths (Nora C1 INTEGRATED ON MAIN via PR #430, REAL-B next unchanged) preserved.
-
----
-
-## 5. Correction 2 — C1 §1.3 historical gates
-
-| | Text |
-| --- | --- |
-| **Before** | `Intégration Git du C1 (commit · push · Draft PR · merge) → CONSUMED — COMPLETE (PR #430 MERGED)` |
-| **After** | `Intégration Git du C1 (commit · push · Draft PR) → CONSUMED — COMPLETE` |
-| **Unchanged** | `Merge vers main → CONSUMED — PR #430 MERGED (2026-08-28)` |
-
-**Justification:** GO Git integration authorized commit/push/Draft PR only. Merge was separate Morris GO after ChatGPT PR review.
+| Commit | `79effb32b35544328eccb32ae119822953a86d1b` |
+| Message | `docs(sfia-studio): sync Nora C1 post-merge truth on main` |
+| Draft PR | **#431** |
+| PR URL | https://github.com/mcleland147/sfia-workspace/pull/431 |
+| Base | `main` @ `cb0504cc5d1dc6bbd4aa3116dc07b8f3a9a5ab59` |
+| CI run | **33206287382** |
+| Detect SFIA Studio changes | **PASS** |
+| Build and validate SFIA Studio | **PASS** |
+| SFIA Studio Required Gate | **PASS** |
+| Merge | **NOT AUTHORIZED** |
 
 ---
 
-## 6. Bounded scan (project files)
+## 3. Prior merge evidence (C1 content — unchanged reference)
+
+PR **#430 MERGED** · head `cdfd5aec570a106985002a1e443c0a348b746dc3` · merge `cb0504cc5d1dc6bbd4aa3116dc07b8f3a9a5ab59` · post-merge CI **33204654810 SUCCESS**
+
+---
+
+## 4. CORR-01 governance fixes (included in this integration)
+
+### 4.1 Roadmap lifecycle-safe
+
+Removed self-referential `LOCAL CANDIDATE` from `Timestamp maintenance NORA-C1-POST-MERGE-TRUTH-SYNC-01`.
+
+### 4.2 C1 §1.3 historical gates
+
+- `Intégration Git du C1 (commit · push · Draft PR) → CONSUMED — COMPLETE`
+- `Merge vers main → CONSUMED — PR #430 MERGED (2026-08-28)` — separate Morris authority
+
+---
+
+## 5. Bounded scan
 
 | Check | Result |
 | --- | --- |
-| `LOCAL CANDIDATE` in Roadmap candidate | **ABSENT** |
-| `commit · push · Draft PR · merge` on Git integration GO | **ABSENT** |
-| `Merge vers main` separate CONSUMED | **YES** |
-| C2 AUTHORIZED / REAL-B CLOSED / runtime v3 ADOPTED as claims | **NO** (anti-claims only) |
+| `LOCAL CANDIDATE` in Roadmap timestamp entry | **ABSENT** |
+| `commit · push · Draft PR · merge` on C1 Git integration GO | **ABSENT** |
+| C2 AUTHORIZED / REAL-B CLOSED / runtime v3 ADOPTED as positive claims | **NO** |
+| Functional C1 content (26 NR, CE, Memory, Completion Bar) | **UNCHANGED** |
+| REAL-B published next capability | **UNCHANGED** |
 
 ---
 
-## 7. Functional content unchanged
+## 6. Convergence invariants
 
-26 NR · CE-01…08 · Memory A/B/C · Completion Bar · REAL-B published trajectory — **UNCHANGED**
+- Product Completion = COMPLETE / CLOSED BY MORRIS
+- C6 = CLOSED / DO NOT REOPEN
+- REAL-A = COMPLETE / CONSUMED
+- REAL-B = QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED (next capability)
+- Nora C1 = INTEGRATED ON MAIN / POST-MERGE VERIFIED
+- C2 Nora = NOT AUTHORIZED
+- Cognitive Completion = NOT PROVEN
+- architecture = NOT SELECTED · Agents SDK = NOT ADOPTED · Delivery = NOT AUTHORIZED · runtime v3 = NON ADOPTED
 
 ---
 
-## 8. Full final diff vs origin/main (C1 + Roadmap)
+## 7. Full PR diff vs `main` (C1 + Roadmap)
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -189,31 +201,26 @@ index 2ac38ac9..da839eb9 100644
 +*Fin du C1 — CONTENT VALIDATED BY MORRIS (2026-08-28) · INTEGRATED ON MAIN via PR #430 · POST-MERGE VERIFIED · C2 NOT AUTHORIZED.*
 ```
 
-**Stats:** 2 files · +18 / −15 vs `cb0504cc…`
+**Stats:** 2 files · +18 / −15
 
 ---
 
-## 9. Project Git actions
+## 8. Project Git actions this cycle
 
 | Action | Status |
 | --- | --- |
-| add / commit / push projet | **NO** |
-| PR / merge | **NO** |
+| stage 2 files | **YES** |
+| commit | **YES** (`79effb32b35544328eccb32ae119822953a86d1b`) |
+| push (no force) | **YES** |
+| Draft PR #431 | **YES** |
+| merge | **NO** |
 
 ---
 
-## 10. Gates preserved
+## 9. Verdict
 
-- C1 INTEGRATED ON MAIN / POST-MERGE VERIFIED
-- Cognitive Completion NOT PROVEN
-- C2 NOT AUTHORIZED
-- REAL-B next convergence unchanged
-- architecture NOT SELECTED · Agents SDK NOT ADOPTED · Delivery NOT AUTHORIZED · runtime v3 NON ADOPTED
+**NORA COGNITIVE COMPLETION — C1 POST-MERGE TRUTH SYNC — DRAFT PR #431 — READY FOR CHATGPT REVIEW**
 
----
+≠ MERGED · ≠ C2 AUTHORIZED · ≠ Cognitive Completion PROVEN · ≠ REAL-B CLOSED · ≠ runtime v3 ADOPTED
 
-## 11. Verdict
-
-**NORA COGNITIVE COMPLETION — C1 POST-MERGE TRUTH SYNC — CORR-01 — LOCAL CANDIDATE — READY FOR CHATGPT RE-REVIEW**
-
-≠ GIT INTEGRATED TRUTH SYNC · ≠ C2 AUTHORIZED · ≠ Cognitive Completion PROVEN · ≠ REAL-B CLOSED
+Next gate after ChatGPT PASS: distinct Morris GO merge PR #431.
