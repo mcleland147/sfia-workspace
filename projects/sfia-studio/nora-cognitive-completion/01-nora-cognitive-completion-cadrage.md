@@ -89,7 +89,7 @@ Ce C1 **ne modifie pas** le worktree REAL-B · **n’entre pas** dans son diff �
 | **Actifs** | Backbone Product Completion (Project/LPS/HD/EC/Evidence/CKC/Nora F1–F2) · OpenAI Responses provider · custom tool loop · REAL-A grounding integrity · UX PE |
 | **Classification** | Extension cognitive **de** Product Completion · **≠** Product Completion 2 · **≠** réouverture C6 · **≠** chantier « intégration Agents SDK » |
 | **Gaps** | Autonomie cognitive insuffisante pour tenir pleinement le rôle Nora PC (tool/source strategy, mémoire conversationnelle, adaptive reasoning, narrative≠evidence, evals) |
-| **Dépendances** | PC CLOSED baseline · C6 constraints KEEP · REAL-A lessons · docs OpenAI candidates · Morris content decision |
+| **Dépendances** | PC CLOSED baseline · C6 constraints KEEP · REAL-A lessons · docs OpenAI candidates · Morris content validation — **CONSUMED** |
 | **Lien trajectoire** | **EXPLICITE** — faire évoluer la capacité cognitive de Nora pour **servir** la boucle fonctionnelle Product Completion déjà construite, sans second produit ni moteur parallèle · **pas** `STOP — TRAJECTORY LINK MISSING` |
 | **Exit proof (C1)** | Document C1 **content validated** · corpus PC obligatoire couvert (Source Coverage Matrix) · traçabilité 100 % NR démontrable · Completion Bar cognitive candidate · OD-01 consumed · anti-claims |
 | **Gates Morris** | ~~ChatGPT review → Morris C1 content decision~~ **CONSUMED** → Git integration (cycle 15) → ChatGPT PR review → merge decision Morris séparée → requalification C2 séparée |
@@ -302,7 +302,7 @@ Légende disposition : **KEEP** = conserver tel quel · **ADAPT** = enrichir cog
 
 ## 8. Définition cible — Nora Cognitive Completion
 
-**Candidate definition (non VALIDATED Morris) :**
+**Définition cible VALIDATED BY MORRIS — Cognitive Completion non encore démontrée :**
 
 > Nora Cognitive Completion est atteint lorsque Nora peut remplir de manière autonome, fiable et démontrée les responsabilités cognitives que Product Completion lui attribue sur la boucle produit complète, avec une qualité cognitive cible proche de l’expérience ChatGPT externe, tout en respectant intégralement les frontières d’autorité SFIA.
 
@@ -709,7 +709,7 @@ Ce C1 = **DOCUMENTARY / FRAMING EVIDENCE ONLY** · aucune nouvelle frontière RE
 ## 25. Trajectoire aval candidate (non autorisée)
 
 ```text
-C1 Cognitive Product Framing  ← (ce document, candidate)
+C1 Cognitive Product Framing  ← (ce document, CONTENT VALIDATED BY MORRIS)
 → C2 Cognitive Functional Design
 → Product Experience delta (si nécessaire)
 → Functional Architecture delta (si nécessaire)
