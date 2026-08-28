@@ -9,23 +9,24 @@
 | **Profil** | **CRITICAL** |
 | **Typologie v2.4 / v2.6 process** | **DOC** |
 | **Milestone** | NORA COGNITIVE COMPLETION — CYCLE 1 CADRAGE — **REVISION 1** |
-| **Statut du document** | **CONTENT VALIDATED BY MORRIS** (2026-08-28 · Europe/Paris) · **CANDIDATE FOR GIT INTEGRATION** |
+| **Statut du document** | **CONTENT VALIDATED BY MORRIS** (2026-08-28 · Europe/Paris) · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED** |
 | **Révision** | **REVISION 1** — correction bornée post-revue ChatGPT (complétude corpus PC · CE derivation · External Source Intelligence · lexique autonomie) · **≠** nouveau cycle |
 | **Validation Morris** | **CONTENT VALIDATED BY MORRIS** — 2026-08-28 · Europe/Paris · après ChatGPT Review PASS Revision 1 |
-| **État Git** | **CANDIDATE FOR GIT INTEGRATION** · branche `docs/sfia-studio-nora-cognitive-completion-c1-cadrage` · **≠ integrated on main** |
-| **GO Morris consommé** | Ouverture C1 · **Content validation Revision 1** (2026-08-28) · **GO Git integration** (cycle 15) |
+| **Intégration Git (preuve)** | PR **#430 MERGED** · head `cdfd5aec570a106985002a1e443c0a348b746dc3` · merge `cb0504cc5d1dc6bbd4aa3116dc07b8f3a9a5ab59` · post-merge CI **`33204654810` SUCCESS** · Required Gate **PASS** |
+| **État Git** | **INTEGRATED ON MAIN** via PR **#430** · merge `cb0504cc5d1dc6bbd4aa3116dc07b8f3a9a5ab59` · **POST-MERGE VERIFIED** |
+| **GO Morris consommé** | Ouverture C1 · **Content validation Revision 1** (2026-08-28) · **GO Git integration** (cycle 15) · **GO MERGE PR #430 — CONSUMED** |
 | **Baseline fonctionnelle** | Product Completion **COMPLETE / CLOSED BY MORRIS** |
 | **C6** | **CLOSED / DO NOT REOPEN** |
 | **Runtime v3** | **NON ADOPTED** |
 | **FinOps/T7** | **FREEZE** (Roadmap courante — non modifié) |
 | **Delivery** | **NOT AUTHORIZED** |
-| **Git worktree d’écriture** | `/Users/morris/Projects/sfia-workspace-nora-cognitive-c1` |
-| **Branche documentaire** | `docs/sfia-studio-nora-cognitive-completion-c1-cadrage` |
-| **HEAD d’entrée** | `967f4c2b35948492caeba5347bb02c7c420de490` (= `origin/main`) |
+| **Git worktree d’écriture (truth-sync)** | `/Users/morris/Projects/sfia-workspace-nora-cognitive-c1-post-merge-sync` |
+| **Branche source (préservée)** | `docs/sfia-studio-nora-cognitive-completion-c1-cadrage` · intégré via PR **#430** |
+| **HEAD main (post-merge)** | `cb0504cc5d1dc6bbd4aa3116dc07b8f3a9a5ab59` · tree `603fc9f61b0996e5ad9c450eb75c8d62cac70124` |
 | **Processus externe** | SFIA v2.6 ChatGPT ↔ Cursor · **jamais** doctrine runtime Studio |
 | **CKC** | `method/.../pilots/01-cadrage.md` · `0.1.0` · **candidate** · guidance cognitive · **aucune autorité d’exécution** |
 
-> **Anti-claim de statut :** contenu **VALIDATED BY MORRIS** (2026-08-28) · **≠ integrated on main** · **≠** C2 authorized · **≠** Agents SDK adopted · **≠** architecture selected · **≠** Delivery · **≠** runtime v3 ADOPTED · ne revendique **pas** de parité ChatGPT déjà prouvée.
+> **Anti-claim de statut :** contenu **VALIDATED BY MORRIS** (2026-08-28) · **INTEGRATED ON MAIN** (PR **#430**) · **≠** C2 authorized · **≠** Agents SDK adopted · **≠** architecture selected · **≠** Delivery · **≠** runtime v3 ADOPTED · **≠** Cognitive Completion achieved · ne revendique **pas** de parité ChatGPT déjà prouvée.
 
 ---
 
@@ -72,8 +73,8 @@ Ce C1 **ne modifie pas** le worktree REAL-B · **n’entre pas** dans son diff �
 | --- | --- |
 | Ouvrir C1 Nora Cognitive Completion (cadrage DOC Critical) | **CONSUMED** |
 | Valider contenu C1 Revision 1 (post ChatGPT Review PASS) | **CONSUMED — VALIDATED BY MORRIS** (2026-08-28 · Europe/Paris) |
-| Intégration Git du C1 (commit · push · Draft PR) | **CONSUMED — GO GIT INTEGRATION** (cycle 15 · en cours) |
-| Merge vers main | **NON AUTORISÉ** — gate Morris distinct |
+| Intégration Git du C1 (commit · push · Draft PR) | **CONSUMED — COMPLETE** |
+| Merge vers main | **CONSUMED — PR #430 MERGED** (2026-08-28) |
 | C2 / Delivery / architecture / Agents SDK | **NON AUTORISÉS** |
 
 ---
@@ -85,14 +86,14 @@ Ce C1 **ne modifie pas** le worktree REAL-B · **n’entre pas** dans son diff �
 | **Capacités v3 principales** | **V3-F01** (CKC/couche cognitive) · **V3-F05** (conversation → décision → exécution) · **V3-F07** (provenance / hiérarchie sources) · **V3-F11** (AgentCapability — enveloppe d’autorité **executor**, pas catalogue Nora) |
 | **Fondations de support** | V3-F02 LPS · V3-F04 épistémologie · V3-F06 ProjectTrajectory · V3-F08 contradictions · V3-F09 replanification · V3-F12 réversibilité · V3-F14 Artifact Completeness · V3-F15 maturité distribuée |
 | **Milestone** | NORA COGNITIVE COMPLETION — CYCLE 1 CADRAGE — **REVISION 1** |
-| **État** | Product Completion **COMPLETE / CLOSED** · C1 Nora **CONTENT VALIDATED BY MORRIS** · C6 **CLOSED** · runtime v3 **NON ADOPTED** · FinOps/T7 **FREEZE** · REAL-A **CONSUMED** · REAL-B **local BLOCKING** (autre worktree) |
+| **État** | Product Completion **COMPLETE / CLOSED** · C1 Nora **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED** · C6 **CLOSED** · runtime v3 **NON ADOPTED** · FinOps/T7 **FREEZE** · REAL-A **CONSUMED** · REAL-B **local BLOCKING** (autre worktree · **≠** published Roadmap truth) |
 | **Actifs** | Backbone Product Completion (Project/LPS/HD/EC/Evidence/CKC/Nora F1–F2) · OpenAI Responses provider · custom tool loop · REAL-A grounding integrity · UX PE |
 | **Classification** | Extension cognitive **de** Product Completion · **≠** Product Completion 2 · **≠** réouverture C6 · **≠** chantier « intégration Agents SDK » |
 | **Gaps** | Autonomie cognitive insuffisante pour tenir pleinement le rôle Nora PC (tool/source strategy, mémoire conversationnelle, adaptive reasoning, narrative≠evidence, evals) |
 | **Dépendances** | PC CLOSED baseline · C6 constraints KEEP · REAL-A lessons · docs OpenAI candidates · Morris content validation — **CONSUMED** |
 | **Lien trajectoire** | **EXPLICITE** — faire évoluer la capacité cognitive de Nora pour **servir** la boucle fonctionnelle Product Completion déjà construite, sans second produit ni moteur parallèle · **pas** `STOP — TRAJECTORY LINK MISSING` |
-| **Exit proof (C1)** | Document C1 **content validated** · corpus PC obligatoire couvert (Source Coverage Matrix) · traçabilité 100 % NR démontrable · Completion Bar cognitive candidate · OD-01 consumed · anti-claims |
-| **Gates Morris** | ~~ChatGPT review → Morris C1 content decision~~ **CONSUMED** → Git integration (cycle 15) → ChatGPT PR review → merge decision Morris séparée → requalification C2 séparée |
+| **Exit proof (C1)** | Document C1 **content validated** · **PR #430 MERGED** · post-merge CI **`33204654810` SUCCESS** · Required Gate **PASS** · corpus PC couvert · traçabilité 100 % NR · Completion Bar cognitive candidate · OD-01 consumed · anti-claims |
+| **Gates Morris** | C1 review / validation / Git integration / merge **CONSUMED** · **next** = C2 requalification / Morris GO séparé · **C2 NOT AUTHORIZED** |
 | **Capacité suivante candidate** | Cycle 2 — Conception fonctionnelle Nora Cognitive Completion (**recommandation seulement**) |
 
 ---
@@ -763,7 +764,6 @@ Cette trajectoire est **candidate** · **aucune autorisation aval**.
 - Runtime v3 **NON ADOPTED**
 - v3 hors Studio **non promue**
 - FinOps/T7 **reste FREEZE**
-- **VALIDATED CONTENT ≠ INTEGRATED ON MAIN**
 - **VALIDATED CONTENT ≠ C2 AUTHORIZED**
 - **VALIDATED CONTENT ≠ architecture selected**
 - **VALIDATED CONTENT ≠ Agents SDK adopted**
@@ -776,7 +776,8 @@ Cette trajectoire est **candidate** · **aucune autorisation aval**.
 - Session memory **≠** LPS
 - Hosted Web Search **≠** External Source Intelligence MUST
 - « sélection autonome de stratégie cognitive » **≠** HumanDecision / décision Morris
-- Git integration branch **≠** merge authorized
+- **MERGE CONSUMED ≠ C2 AUTHORIZED**
+- **INTEGRATED ON MAIN ≠ Cognitive Completion PROVEN**
 
 ---
 
@@ -826,4 +827,4 @@ Blocs désactivés : Delivery · DevOps · Release · PR readiness projet · imp
 
 ---
 
-*Fin du C1 — CONTENT VALIDATED BY MORRIS (2026-08-28) · CANDIDATE FOR GIT INTEGRATION · ≠ integrated on main.*
+*Fin du C1 — CONTENT VALIDATED BY MORRIS (2026-08-28) · INTEGRATED ON MAIN via PR #430 · POST-MERGE VERIFIED · C2 NOT AUTHORIZED.*
