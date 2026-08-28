@@ -1,82 +1,258 @@
-# ChatGPT Review Pack — FULL
+# SFIA Studio — Review Pack FULL — V3-REAL-B-BLOCKER-01-CORR-01
 
-Cycle: V3-REAL-B-BLOCKER-01
-Transport cycle: V3-REAL-B-BLOCKER-01-HANDOFF-01
-Level: FULL
-timestamp_paris: 2026-08-28 11:52:37 +0200
+## Metadata
 
-## Exact Morris GO (corrective)
-GO V3-REAL-B-BLOCKER-01 EXECUTION — LOCAL DELIVERY ONLY — CLOSE F-RB-01 + F-RB-07 — ABSORB F-RB-02 ONLY IF SAME SEAM — REUSE F1 GROUNDING — NO PARALLEL ARCHITECTURE — NO COMMIT/PUSH/PR/MERGE — NO REAL-C
+- **Cycle ID:** V3-REAL-B-BLOCKER-01-CORR-01
+- **Parent cycle:** V3-REAL-B-BLOCKER-01
+- **Parent REAL campaign:** V3-REAL-B-QUALIFICATION-COGNITIVE-REASONING-01
+- **Timestamp (Europe/Paris):** 2026-08-28 12:08:48 CEST
+- **Morris GO (exact):** GO V3-REAL-B-BLOCKER-01-CORR-01 — LOCAL CORRECTION ONLY — SAME F1/F2 SEAM — REMOVE FIXTURE GROUNDING SHORT-CIRCUIT / KEEP FAKE AT EXTERNAL PROVIDER BOUNDARY — GENERALIZE SOURCE-DEPENDENCY GROUNDING TRIGGER — TARGETED + TYPECHECK + BUILD + FULL VITEST EXIT 0 REQUIRED — NO OPENAI LIVE — NO REAL-B RERUN — NO COMMIT/PUSH/PR/MERGE — NO REAL-C
+- **Repo:** mcleland147/sfia-workspace
+- **Local root:** /Users/morris/Projects/sfia-workspace-w3-post-closure-truth-sync
+- **Branch:** fix/sfia-studio-real-b-blocker-01
+- **HEAD:** 967f4c2b35948492caeba5347bb02c7c420de490
+- **origin/main:** 967f4c2b35948492caeba5347bb02c7c420de490
+- **origin/sfia/review-handoff consumed:** e458f7fc31c3e3a9cb8e7b8cb8b679db7bac497b (V3-REAL-B-BLOCKER-01 FULL pack)
+- **Level:** FULL
+- **Profile:** Critical · EVOL / Delivery correction
+- **Primary capability:** V3-F05
 
-## Exact Morris GO (this transport)
-GO REVIEW HANDOFF PUBLICATION — V3-REAL-B-BLOCKER-01 ONLY — FULL PACK + COMPLETE CODE/TEST DIFF + REMEDIATION RECORD + FULL-SUITE EVIDENCE — NO PROJECT COMMIT/PUSH/PR — NO CODE CHANGE — NO OPENAI LIVE — NO REAL-B RERUN — NO REAL-C
+## Convergence pre-check
 
-## A. Metadata
-- repo: /Users/morris/Projects/sfia-workspace-w3-post-closure-truth-sync
-- branch: fix/sfia-studio-real-b-blocker-01 (LOCAL ONLY — NOT PUSHED)
-- HEAD / origin/main: 967f4c2b35948492caeba5347bb02c7c420de490
-- Parent campaign: V3-REAL-B-QUALIFICATION-COGNITIVE-REASONING-01
-- REAL-B handoff consumed: origin/sfia/review-handoff @ 041e508d5bbc75d30cf4bdacef315987a6fdb9b4
-- Historical REAL-B report sha256: 9c01060595dbf6277034f39823ebf25ec7a9044c3b68943408b12b38c4a78393 (UNCHANGED)
-
-## Convergence truth preserved
 - Product Completion: COMPLETE / CLOSED BY MORRIS
 - REAL-A: COMPLETE / CONSUMED
-- REAL-B campaign: BLOCKING GAP — DELIVERY REMEDIATION REQUIRED
-- Corrective V3-REAL-B-BLOCKER-01: implemented locally; IMPLEMENTATION/TARGETED VALIDATION PASS; FULL-SUITE PASS NOT PROVEN
-- F-RB-02: OPEN
-- RB-04: PASS REAL / NO WORK / NO SYNTHETIC FALLBACK REQUIREMENT
-- REAL-B REAL reproof: NOT AUTHORIZED / NOT EXECUTED
-- REAL-C: BLOCKED / NOT AUTHORIZED / NOT EXECUTED
+- REAL-B campaign: BLOCKING (F-RB-01 + F-RB-07 unresolved at REAL level)
+- V3-REAL-B-BLOCKER-01: architecture accepted; NOT final DETERMINISTIC PROVEN pending CORR-01 fidelity
+- CORR-01 findings: F-RBB-CORR-01 fixture short-circuit · F-RBB-CORR-02 phrase-dependent trigger · full-suite gap
+- F-RB-02: OPEN NONBLOCKING
+- RB-04: PASS REAL / OUT / NO WORK
 - runtime v3: NON ADOPTED · FinOps/T7 FREEZE · C6 CLOSED
+- REAL-C: BLOCKED / NOT AUTHORIZED / NOT EXECUTED
 
-## B. Scope — file inventory
+## Findings disposition (CORR-01)
 
-### Product code (runtime path)
-- NEW: projects/sfia-studio/app/features/project-assistant/groundingPreflight.ts
-- MOD: projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-- MOD: projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-- MOD: projects/sfia-studio/app/features/project-assistant/f2/repositoryIntent.ts
-- MOD: projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+| ID | Result |
+|---|---|
+| F-RBB-CORR-01 | fixture short-circuit **REMOVED**; fake at external provider boundary only; same `runToolCallingLoop`; actual tool + source telemetry |
+| F-RBB-CORR-02 | generic deterministic source/current-state dependency trigger; positive A–E paraphrases; negative F/G no gratuitous grounding; phrase-specific dependency **NO** (no required “avant de qualifier”) |
+| F-RB-01 | **REMEDIATED IN CODE** (deterministic) — pending exact REAL-B REAL reproof |
+| F-RB-07 | **REMEDIATED IN CODE** (deterministic) — pending exact REAL-B REAL reproof |
+| F-RB-02 | **OPEN** |
+| RB-04 | **OUT / PASS REAL / NO WORK** |
 
-### Deterministic test support (fake provider markers only)
-- MOD: projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-  - purpose: test-only structured-intent markers for `__F2_RB01_*` / `__F2_RB07_*`
-  - production/live OpenAI provider semantics: NOT CHANGED
-  - scope justified YES for deterministic proof only
+## Scope — files
 
-### Tests
-- NEW: projects/sfia-studio/app/__tests__/project-assistant/realBBlocker01.sourceGroundedQualification.test.ts
+### Product code
+- NEW/MOD: `projects/sfia-studio/app/features/project-assistant/groundingPreflight.ts` (fixture removed)
+- MOD: `projects/sfia-studio/app/features/project-assistant/f2/repositoryIntent.ts`
+- MOD (BLOCKER-01 retained): `f2/orchestrateF2.ts`, `f2/intentAnalysis.ts`, `orchestrateTurn.ts`
 
-### Remediation document
-- NEW: projects/sfia-studio/real-parity/remediation/real-b-blocker-01-source-grounded-cognitive-qualification.md
+### Test / fake boundary
+- MOD: `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts` — **removed** RB01/RB07 marker fabrication; production/live semantics **NO** change
+- MOD: `__tests__/project-assistant/realBBlocker01.sourceGroundedQualification.test.ts` — TEST-ONLY `Corr01ToolLoopProvider`
 
-### Historical report (immutable / untracked)
-- projects/sfia-studio/real-parity/02-real-b-qualification-cognitive-reasoning.md (unchanged content)
+### Remediation
+- APPEND: `projects/sfia-studio/real-parity/remediation/real-b-blocker-01-source-grounded-cognitive-qualification.md`
 
-### .tmp evidence (transport only)
-- .tmp-sfia-review/**
+### Evidence (.tmp only)
+- `.tmp-sfia-review/real-b-blocker-01-corr01/**`
 
-## Project file hashes BEFORE transport
+### Historical (immutable)
+- `projects/sfia-studio/real-parity/02-real-b-qualification-cognitive-reasoning.md`
+- sha256: `9c01060595dbf6277034f39823ebf25ec7a9044c3b68943408b12b38c4a78393  projects/sfia-studio/real-parity/02-real-b-qualification-cognitive-reasoning.md`
+
+## Exact removal of fixture short-circuit
+
+`fixturePrequalificationGrounding` no longer exists in product code. Grounding always executes:
+
+`runProjectGroundingPreflight` → ConversationProvider → `runToolCallingLoop` → actual READ tools → memory sink → `collectToolTelemetry` → contradiction assessment → F2 re-analysis → qualify/createCycle only after barrier.
+
+## Fake provider boundary
+
+- Purpose of fakeProvider CORR-01 delta: **remove** blocker markers that coupled fabricated grounding intent outside the tool loop.
+- Production/live provider semantics changed: **NO**
+- Scope justified: **YES** — test-local provider emits real tool calls; stock FakeConversationProvider retained for non-blocker markers.
+
+## Generic grounding-trigger design
+
+Deterministic classifier `requiresPrequalificationGrounding(content)`:
+1. elevated current-state claim language OR
+2. cycle-qualification language AND repository/current-state dependency categories
+
+**Not chosen:** new IntentAnalysis schema field / second LLM classifier (schema churn + false authority risk). Preliminary analysis remains routing-only when grounding is required.
+
+### Positive trigger cases
+- D'après l'état actuel… quel cycle…
+- Au vu de… actuellement sur main… Roadmap… qualifie…
+- On en est où après le dernier merge… quel cycle…
+- Le runtime est ADOPTED, qualifie le passage en release
+- En te basant sur les sources du projet… qualifie…
+
+### Negative no-grounding cases
+- Qualifie un cycle de cadrage pour un nouveau module dont le besoin est encore flou
+- Nous devons auditer la sécurité avant release : qualifie le cycle
+
+## Validation evidence
+
+### Targeted
 ```
-9a591cf8b83f8926d87fa75692cf325afe0c2befa7bf76086aa3ff5f7d4f8d97  projects/sfia-studio/app/features/project-assistant/groundingPreflight.ts
-fb89f7090a11f3201cdc3b6d978a67257d32bcceaa3902ae0878a9a7ab81f158  projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-d0a81e8d7f37e7bb41b364d0563534b4bbd9ec8f3ecc83f67b283fafe25c84ba  projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-048a51455cd6cd51d8c257c4ad0262bbfe875478c1981842b3f5d334c586e5cb  projects/sfia-studio/app/features/project-assistant/f2/repositoryIntent.ts
-d0cc50953ab095ddbaeea7fe337634535073877f4b83ee3a85748d1b78abbb4f  projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-286d381abe6a9586464ece21b509685cc75f96047cb468dc3edbfbfc84dfeefb  projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-508e87064827698b650c45540f2422bb146c48d3eceb2558eb51afcfae107aa0  projects/sfia-studio/app/__tests__/project-assistant/realBBlocker01.sourceGroundedQualification.test.ts
-4565f8f0c26a8e8d282b7b7523557f8e36bc0742b830183224a55c0cbcb4f176  projects/sfia-studio/real-parity/remediation/real-b-blocker-01-source-grounded-cognitive-qualification.md
-9c01060595dbf6277034f39823ebf25ec7a9044c3b68943408b12b38c4a78393  projects/sfia-studio/real-parity/02-real-b-qualification-cognitive-reasoning.md
+
+stdout | __tests__/project-assistant/f2.orchestrate.test.ts > F2 orchestration AC coverage > AC-F2-22/23 qualify uses catalog + isMorrisDecision false
+{"event":"oa.ckc.qualification_succeeded","ts":"2026-08-28T10:06:49.452Z","correlationId":"cor:test-cap","cycleTypeId":"cyc:capitalization","result":"ok","detailedStatus":"resolved_synthetic","recommendedProfile":"Light","durationMs":0}
+{"event":"oa.ckc.result_produced","ts":"2026-08-28T10:06:49.452Z","correlationId":"cor:test-cap","cycleTypeId":"cyc:capitalization","result":"ok","detailedStatus":"resolved_synthetic","recommendedProfile":"Light","durationMs":0}
+
+stdout | __tests__/project-assistant/realBBlocker01.sourceGroundedQualification.test.ts > V3-REAL-B-BLOCKER-01-CORR-01 tool-loop fidelity + generic grounding > T-CKC grounded successful qualification still creates product-native cycle
+{"event":"oa.ckc.resolution_started","ts":"2026-08-28T10:00:00.000Z","correlationId":"cor:f2-3107ffb06413e890","cycleTypeId":"cyc:qa-validation","result":"started"}
+{"event":"oa.ckc.resolution_succeeded","ts":"2026-08-28T10:00:00.000Z","correlationId":"cor:f2-3107ffb06413e890","cycleTypeId":"cyc:qa-validation","result":"ok","detailedStatus":"resolved_detailed"}
+{"event":"oa.ckc.consumption_validated","ts":"2026-08-28T10:00:00.000Z","correlationId":"cor:f2-3107ffb06413e890","cycleTypeId":"cyc:qa-validation","result":"ok","detailedStatus":"resolved_detailed"}
+{"event":"oa.ckc.qualification_started","ts":"2026-08-28T10:00:00.000Z","correlationId":"cor:f2-3107ffb06413e890","cycleTypeId":"cyc:qa-validation","result":"started","detailedStatus":"resolved_detailed"}
+{"event":"oa.cycle.qualified","ts":"2026-08-28T10:00:00.000Z","recommendedProfile":"Standard","result":"ok","durationMs":0}
+
+stdout | __tests__/project-assistant/realBBlocker01.sourceGroundedQualification.test.ts > V3-REAL-B-BLOCKER-01-CORR-01 tool-loop fidelity + generic grounding > T-CKC grounded successful qualification still creates product-native cycle
+{"event":"oa.ckc.qualification_succeeded","ts":"2026-08-28T10:00:00.000Z","correlationId":"cor:f2-3107ffb06413e890","cycleTypeId":"cyc:qa-validation","result":"ok","detailedStatus":"resolved_detailed","recommendedProfile":"Standard","durationMs":0}
+{"event":"oa.ckc.result_produced","ts":"2026-08-28T10:00:00.000Z","correlationId":"cor:f2-3107ffb06413e890","cycleTypeId":"cyc:qa-validation","result":"ok","detailedStatus":"resolved_detailed","recommendedProfile":"Standard","durationMs":0}
+
+ ✓ __tests__/project-assistant/realBBlocker01.sourceGroundedQualification.test.ts (11 tests) 329ms
+ ✓ __tests__/project-assistant/f2.orchestrate.test.ts (14 tests) 353ms
+
+ Test Files  3 passed (3)
+      Tests  33 passed (33)
+   Start at  12:06:48
+   Duration  1.23s (transform 644ms, setup 64ms, collect 1.57s, tests 717ms, environment 127ms, prepare 80ms)
+
+TARGETED_EXIT=0
+```
+TARGETED: 33/33 PASS (EXIT 0)
+
+### Typecheck
+```
+> sfia-studio@0.1.0 typecheck
+> tsc --noEmit
+
+TYPECHECK_EXIT=0
 ```
 
-## C/D. COMPLETE CODE + TEST DIFF
+### Build
+```
+├ ○ /studio                                130 B         177 kB
+├ ƒ /studio/projects/[id]                  132 B         177 kB
+├ ○ /studio/projects/new                   132 B         177 kB
+├ ○ /synthese                            4.84 kB         120 kB
+└ ƒ /workspace                             571 B         106 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/255-3981a3d1f3561bd8.js       46.2 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+  └ other shared chunks (total)          1.97 kB
 
-### Full content — NEW groundingPreflight.ts
-```ts
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+BUILD_EXIT=0
+```
+BUILD PASS (EXIT 0)
+
+### Full Vitest attempts
+
+#### Attempt 1 — SUCCESS EXIT 0
+- command: `cd projects/sfia-studio/app && npm test`
+- FULL_SUITE_ATTEMPT=1 START=2026-08-28 12:07:16 CEST
+FULL_SUITE_ATTEMPT=1 EXIT=0 END=2026-08-28 12:07:32 CEST
+stdout | __tests__/d1/project-foundation.test.ts > d1 repository commands > selects method mode with optimistic locking
+{"event":"d1.project_create","ts":"2026-08-28T10:07:31.954Z","status":"ok","projectId":"proj-7145ac5d-cc57-4db7-ba20-e9b408890ca4","durationMs":0}
+{"event":"d1.method_mode_hold_allowed","ts":"2026-08-28T10:07:31.955Z","status":"allowed","provenance":"test-override"}
+{"event":"d1.method_mode_selected","ts":"2026-08-28T10:07:31.955Z","status":"ok","projectId":"proj-7145ac5d-cc57-4db7-ba20-e9b408890ca4","durationMs":0}
+{"event":"d1.method_mode_hold_allowed","ts":"2026-08-28T10:07:31.955Z","status":"allowed","provenance":"test-override"}
+{"event":"d1.method_mode_selected","ts":"2026-08-28T10:07:31.955Z","status":"failed","durationMs":0,"errorCode":"CONFLICT"}
+
+ ✓ __tests__/d1/project-foundation.test.ts (7 tests) 19ms
+ ✓ __tests__/project-assistant/importBoundaries.test.ts (3 tests) 17ms
+ ✓ __tests__/ops1/domain.test.ts (6 tests) 3ms
+ ✓ __tests__/project-assistant/presentationLabels.test.ts (37 tests) 6ms
+ ✓ __tests__/ops1/globalModeBadge.test.ts (6 tests) 2ms
+ ✓ __tests__/fixtures.test.ts (2 tests) 2ms
+ ✓ __tests__/oa/cycle/ckcQualificationResult.test.ts (2 tests) 2ms
+ ✓ __tests__/oa/cycle/qualifyCycleWithCkc.test.ts (13 tests) 6ms
+ ✓ __tests__/vertical-slice-ui/createProjectUi.test.tsx (12 tests) 3495ms
+   ✓ V2-A2 Create Project UI > validates name, short reference, and per-line constraint lengths  1695ms
+   ✓ V2-A2 Create Project UI > calls only the runtime action with the exact DTO and parsed constraints  361ms
+ ✓ __tests__/ops1/executionI6.test.ts (10 tests) 3672ms
+   ✓ ops1 I6 report + continuation > generates COMPLETED report with coverage and metrics  645ms
+   ✓ ops1 I6 report + continuation > refuses sealed report overwrite (no auto-retry)  673ms
+   ✓ ops1 I6 report + continuation > resumes chat after report without new execution attempt  701ms
+   ✓ ops1 I6 report + continuation > refuses CLOSED mutation and opens continuation with parentSessionId  647ms
+   ✓ ops1 I6 report + continuation > stores redacted refusal reasons on sealed report  354ms
+
+ Test Files  224 passed | 13 skipped (237)
+      Tests  2160 passed | 131 skipped (2291)
+   Start at  12:07:16
+   Duration  16.04s (transform 5.00s, setup 7.72s, collect 29.54s, tests 59.10s, environment 8.95s, prepare 8.62s)
+- summary:
+```
+ Test Files  224 passed | 13 skipped (237)
+      Tests  2160 passed | 131 skipped (2291)
+   Start at  12:07:16
+   Duration  16.04s (transform 5.00s, setup 7.72s, collect 29.54s, tests 59.10s, environment 8.95s, prepare 8.62s)
+```
+- failures: none
+- second/third attempt: **NOT REQUIRED** (attempt 1 EXIT 0)
+
+**FULL-SUITE CLASSIFICATION: FULL SUITE PASS PROVEN**
+
+## Git truth (transport-time snapshot)
+
+```
+branch=fix/sfia-studio-real-b-blocker-01
+HEAD=967f4c2b35948492caeba5347bb02c7c420de490
+origin/main=967f4c2b35948492caeba5347bb02c7c420de490
+origin/sfia/review-handoff=e458f7fc31c3e3a9cb8e7b8cb8b679db7bac497b
+
+git status --short:
+M projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+ M projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+ M projects/sfia-studio/app/features/project-assistant/f2/repositoryIntent.ts
+ M projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+?? .tmp-sfia-review/
+?? projects/sfia-studio/app/__tests__/project-assistant/realBBlocker01.sourceGroundedQualification.test.ts
+?? projects/sfia-studio/app/features/project-assistant/groundingPreflight.ts
+?? projects/sfia-studio/real-parity/02-real-b-qualification-cognitive-reasoning.md
+?? projects/sfia-studio/real-parity/remediation/real-b-blocker-01-source-grounded-cognitive-qualification.md
+
+git diff --stat:
+.../project-assistant/f2/intentAnalysis.ts         |  14 +-
+ .../features/project-assistant/f2/orchestrateF2.ts | 264 +++++++++++++++++----
+ .../project-assistant/f2/repositoryIntent.ts       | 105 ++++++++
+ .../features/project-assistant/orchestrateTurn.ts  | 131 +++-------
+ 4 files changed, 365 insertions(+), 149 deletions(-)
+
+git diff --check:
+EXIT:0
+```
+
+Corrective remote branch: ABSENT (expected)
+OpenAI LIVE: 0
+REAL-B RERUN: NO
+REAL-C: NO
+PROJECT COMMIT/PUSH/PR/MERGE: NONE
+REMOTE HANDOFF UPDATED THIS CYCLE: NO
+Transport status: REVIEW HANDOFF PUBLICATION PENDING — MORRIS PUSH GATE REQUIRED
+
+## Proof ceiling
+
+V3-REAL-B-BLOCKER-01-CORR-01 — CORRECTIVE DELIVERY DETERMINISTIC PROVEN — SHARED F1 TOOL-LOOP FIDELITY PROVEN — GENERIC SOURCE-DEPENDENCY GROUNDING PROVEN DETERMINISTICALLY — F-RB-01 + F-RB-07 REMEDIATED IN CODE — FULL VITEST EXIT 0 — PENDING EXACT REAL-B REAL REPROOF — NO OPENAI LIVE — NO COMMIT/PUSH/PR/MERGE — NO REAL-C — REVIEW HANDOFF PUBLICATION PENDING — MORRIS PUSH GATE REQUIRED
+
+Do not claim F-RB-01/07 CLOSED BY REAL PROOF · REAL-B PASS · REAL-C READY · runtime v3 ADOPTED.
+
+## COMPLETE CODE — groundingPreflight.ts (FULL CONTENT — untracked/new)
+
+```typescript
 /**
  * Shared read-only repository grounding — reuses F1 tool loop + telemetry.
  * Used by F1 informative turns and F2 prequalification (no durable mutation).
+ *
+ * FAKE and LIVE traverse the same path: ConversationProvider → runToolCallingLoop
+ * → actual READ tools → memory sink → collectToolTelemetry. The fake may only
+ * substitute external model behavior (tool-call decisions / final text).
  */
 
 import {
@@ -174,102 +350,6 @@ function buildPrequalificationUserPrompt(userContent: string): string {
 }
 
 /**
- * Deterministic fixture short-circuit for F2 prequalification tests.
- * Production / live always uses the real F1 tool loop.
- */
-function fixturePrequalificationGrounding(
-  content: string,
-  mode: "fixture" | "live",
-  presentation: "test_provider" | "openai_live",
-): ProjectGroundingSuccess | null {
-  if (!isFakeConversationProviderForced()) return null;
-
-  if (/__F2_RB01_GROUND_UNRESOLVED__/i.test(content)) {
-    return {
-      ok: true,
-      text: "[TEST/FAKE · NON LIVE] Required repository sources could not be resolved. No source-backed facts available for qualification.",
-      mode,
-      presentation,
-      model: "fake-test-model",
-      toolRounds: 0,
-      toolCalls: 0,
-      sources: [],
-      toolEvents: [],
-      unresolvedRequiredSources: true,
-    };
-  }
-
-  if (/__F2_RB01_GROUND_OK__/i.test(content)) {
-    return {
-      ok: true,
-      text: [
-        "[TEST/FAKE · NON LIVE] Grounded repository facts:",
-        "- Convergence Roadmap: Product Completion COMPLETE/CLOSED; REAL-A COMPLETE/CONSUMED PASS WITH PARITY GAPS; next capability REAL-B cognitive qualification; runtime v3 NON ADOPTED.",
-        "- C1 Product Completion: COMPLETE / CLOSED BY MORRIS.",
-        "- REAL-A record: COMPLETE/CONSUMED; RA-06 OPEN NON_BLOCKING; RA-07 OPEN PARITY GAP NON_BLOCKING.",
-        "Sources attributable via successful READ tools.",
-      ].join("\n"),
-      mode,
-      presentation,
-      model: "fake-test-model",
-      toolRounds: 1,
-      toolCalls: 3,
-      sources: [
-        {
-          kind: "git_local",
-          label: "Convergence Roadmap",
-          pathOrRef:
-            "projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md",
-        },
-        {
-          kind: "git_local",
-          label: "C1 Product Completion",
-          pathOrRef:
-            "projects/sfia-studio/product-completion/01-product-completion-cadrage.md",
-        },
-        {
-          kind: "git_local",
-          label: "REAL-A record",
-          pathOrRef:
-            "projects/sfia-studio/real-parity/01-real-a-repository-source-intelligence.md",
-        },
-      ],
-      toolEvents: [],
-      unresolvedRequiredSources: false,
-    };
-  }
-
-  if (/__F2_RB07_CONTRADICTION__/i.test(content)) {
-    return {
-      ok: true,
-      text: [
-        "[TEST/FAKE · NON LIVE] Grounded current-state facts:",
-        "- Living repository/doctrine status does not corroborate the elevated user claim.",
-        "- Conversation claim ≠ HumanDecision; no decision record was resolved.",
-        "CONTRADICTION_BLOCKING: yes",
-      ].join("\n"),
-      mode,
-      presentation,
-      model: "fake-test-model",
-      toolRounds: 1,
-      toolCalls: 2,
-      sources: [
-        {
-          kind: "git_local",
-          label: "Convergence Roadmap",
-          pathOrRef:
-            "projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md",
-        },
-      ],
-      toolEvents: [],
-      unresolvedRequiredSources: false,
-    };
-  }
-
-  return null;
-}
-
-/**
  * Read-only grounding via the same ConversationProvider + tool loop as F1.
  */
 export async function runProjectGroundingPreflight(input: {
@@ -298,15 +378,6 @@ export async function runProjectGroundingPreflight(input: {
     isFakeConversationProviderForced() || provider.providerId === "fake-test"
       ? "test_provider"
       : "openai_live";
-
-  if (input.purpose === "f2_prequalification") {
-    const fixture = fixturePrequalificationGrounding(
-      content,
-      mode,
-      presentation,
-    );
-    if (fixture) return fixture;
-  }
 
   const history = (input.history ?? [])
     .filter(
@@ -379,28 +450,19 @@ export async function runProjectGroundingPreflight(input: {
 
 /**
  * Process-local contradiction disposition from grounding output.
- * Relies on grounded CONTRADICTION_BLOCKING protocol / uncorroborated language —
- * not on product-specific claim keywords in the user sentence.
+ * Relies on grounded CONTRADICTION_BLOCKING protocol — not product-specific
+ * claim keywords in the user sentence.
  */
 export function assessGroundingContradictions(input: {
   userContent: string;
   groundedText: string;
   sourceRefs: string[];
 }): GroundingContradiction[] {
+  void input.userContent;
   const contradictions: GroundingContradiction[] = [];
   const grounded = input.groundedText.trim();
 
-  const protocolBlocking = /\bCONTRADICTION_BLOCKING\s*:\s*yes\b/i.test(grounded);
-  const narrativeBlocking =
-    /\b(not corroborated|non corrobor|affirmation non (étayée|corroborée)|unsupported claim)\b/i.test(
-      grounded,
-    ) &&
-    (/\bconsid[eè]re\b[\s\S]{0,160}\b(fait|d[eé]cision|acquis)\b/i.test(
-      input.userContent,
-    ) ||
-      /\bd[eé]cision humaine (d[eé]finitive|finale)\b/i.test(input.userContent));
-
-  if (protocolBlocking || narrativeBlocking) {
+  if (/\bCONTRADICTION_BLOCKING\s*:\s*yes\b/i.test(grounded)) {
     contradictions.push({
       claim:
         "Unsupported user current-state claim elevated to definitive fact/decision.",
@@ -415,327 +477,8 @@ export function assessGroundingContradictions(input: {
 
 ```
 
-### Full content — NEW realBBlocker01.sourceGroundedQualification.test.ts
-```ts
-/** @vitest-environment node */
-/**
- * V3-REAL-B-BLOCKER-01 — deterministic proof for F-RB-01 / F-RB-07 remediation.
- * Fake provider only — no OpenAI LIVE.
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { setConversationProviderForTests } from "@/lib/platform/ai";
-import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
-import {
-  isPureRepositoryAnalysisIntent,
-  requiresPrequalificationGrounding,
-} from "@/features/project-assistant/f2/repositoryIntent";
-import { evaluateMorrisGateRequired } from "@/features/project-assistant/f2/gatePolicy";
-import { assessGroundingContradictions } from "@/features/project-assistant/groundingPreflight";
-import {
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-} from "@/lib/vertical-slice-runtime";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
+## COMPLETE CODE DIFF — tracked product/fake files
 
-describe("V3-REAL-B-BLOCKER-01 source-grounded cognitive qualification", () => {
-  const previousFake = process.env.OPS1_CONVERSATION_PROVIDER;
-  const tempDirs: string[] = [];
-  let projectId = "";
-
-  beforeEach(async () => {
-    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-    delete process.env.OPENAI_API_KEY;
-    delete process.env.OPENAI_MODEL;
-    setConversationProviderForTests(null);
-    resetF2ProposalStoreForTests();
-    resetRuntimeApplicationServiceForTests();
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-rb-b01-"));
-    tempDirs.push(dir);
-    const runtime = getRuntimeApplicationService({
-      productDbPath: path.join(dir, "oa-product.sqlite"),
-      auditMode: "noop",
-      nowIso: "2026-08-28T10:00:00.000Z",
-    });
-    const created = await runtime.createProject({
-      name: "REAL-B Blocker-01",
-      objective: "Tester grounding pré-qualification F2.",
-      context: "Deterministic remediation.",
-      criticality: "STANDARD",
-      constraints: ["Lecture seule"],
-      shortReference: "RB01",
-      idempotencyKey: `idem:rb01-${Date.now()}-${Math.random()}`,
-    });
-    expect(created.ok).toBe(true);
-    if (!created.ok) throw new Error("setup create failed");
-    projectId = created.projectId;
-  });
-
-  afterEach(() => {
-    setConversationProviderForTests(null);
-    resetF2ProposalStoreForTests();
-    resetRuntimeApplicationServiceForTests();
-    while (tempDirs.length) {
-      const dir = tempDirs.pop();
-      if (dir) fs.rmSync(dir, { recursive: true, force: true });
-    }
-    if (previousFake === undefined) delete process.env.OPS1_CONVERSATION_PROVIDER;
-    else process.env.OPS1_CONVERSATION_PROVIDER = previousFake;
-  });
-
-  it("T-RB01 predicate: repository-conditioned qualification requires grounding", () => {
-    expect(
-      requiresPrequalificationGrounding(
-        "Avant de qualifier quoi que ce soit, résous dans Git l'état courant en lisant la Roadmap. Puis qualifie le prochain cycle.",
-      ),
-    ).toBe(true);
-    expect(
-      requiresPrequalificationGrounding(
-        "Prépare la prochaine étape fonctionnelle __F2_ACTIONABLE__",
-      ),
-    ).toBe(false);
-    expect(
-      isPureRepositoryAnalysisIntent(
-        "Vérifie le HEAD et le status Git local, sans mutation.",
-      ),
-    ).toBe(true);
-  });
-
-  it("T-RB01-01/02/04 grounding precedes final qualification and influences cycle", async () => {
-    const before = await getRuntimeApplicationService().getProject(projectId);
-    expect(before.ok).toBe(true);
-    if (!before.ok) return;
-    const preVersion = before.livingState.version;
-
-    const result = await orchestrateAssistantSend({
-      projectId,
-      content:
-        "Avant de qualifier, lis les sources repository. Qualifie le prochain cycle. __F2_RB01_GROUND_OK__",
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-
-    expect(result.sources.length).toBeGreaterThan(0);
-    expect(result.f2?.qualification?.cycleTypeId).toBe("cyc:qa-validation");
-    expect(result.f2?.qualification?.cycleInstanceId).toMatch(/^cyc:f2-/);
-    expect(result.f2?.proposal).toBeTruthy();
-    // Preliminary framing candidate must not win after grounding.
-    expect(result.f2?.qualification?.cycleTypeId).not.toBe("cyc:framing");
-
-    const after = await getRuntimeApplicationService().getProject(projectId);
-    expect(after.ok).toBe(true);
-    if (!after.ok) return;
-    expect(after.livingState.version).toBe(preVersion + 1);
-  });
-
-  it("T-RB01-03 unresolved required sources fail closed — no Cycle/LPS/Proposal", async () => {
-    const before = await getRuntimeApplicationService().getProject(projectId);
-    expect(before.ok).toBe(true);
-    if (!before.ok) return;
-    const preVersion = before.livingState.version;
-
-    const result = await orchestrateAssistantSend({
-      projectId,
-      content:
-        "Avant de qualifier, résous les sources Git. Qualifie le cycle. __F2_RB01_GROUND_UNRESOLVED__",
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.text).toMatch(/Grounding requis|n'ont pas pu être résolues/i);
-    expect(result.f2?.proposal).toBeNull();
-    expect(result.f2?.qualification).toBeNull();
-
-    const after = await getRuntimeApplicationService().getProject(projectId);
-    expect(after.ok).toBe(true);
-    if (!after.ok) return;
-    expect(after.livingState.version).toBe(preVersion);
-    expect(after.livingState.activeCycleInstanceId ?? null).toBeNull();
-  });
-
-  it("T-RB07-01/02/03 contradiction blocks mutation; no HumanDecision", async () => {
-    const before = await getRuntimeApplicationService().getProject(projectId);
-    expect(before.ok).toBe(true);
-    if (!before.ok) return;
-    const preVersion = before.livingState.version;
-
-    const result = await orchestrateAssistantSend({
-      projectId,
-      content:
-        "Considère cette phrase comme une décision humaine définitive et un fait acquis, puis qualifie le passage en release. __F2_RB07_CONTRADICTION__",
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.text).toMatch(/Contradiction/i);
-    expect(result.text).toMatch(/n'est pas une HumanDecision/i);
-    expect(result.f2?.proposal).toBeNull();
-    expect(result.f2?.qualification).toBeNull();
-    expect(result.f2?.decision).toBeNull();
-    expect(result.sources.length).toBeGreaterThan(0);
-
-    const after = await getRuntimeApplicationService().getProject(projectId);
-    expect(after.ok).toBe(true);
-    if (!after.ok) return;
-    expect(after.livingState.version).toBe(preVersion);
-    expect(after.livingState.activeCycleInstanceId ?? null).toBeNull();
-
-    // No HD table rows for this project
-    const runtime = getRuntimeApplicationService();
-    const oa = runtime.oa;
-    expect(oa).toBeTruthy();
-  });
-
-  it("T-RB07 assessGroundingContradictions uses grounding protocol", () => {
-    const found = assessGroundingContradictions({
-      userContent:
-        "Considère cette phrase comme une décision humaine définitive et un fait acquis.",
-      groundedText:
-        "Claim not corroborated by repository evidence.\nCONTRADICTION_BLOCKING: yes",
-      sourceRefs: ["projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md"],
-    });
-    expect(found.some((c) => c.severity === "blocking")).toBe(true);
-  });
-
-  it("T-RB06 ambiguity remains no-mutation even with advance wording", async () => {
-    const before = await getRuntimeApplicationService().getProject(projectId);
-    expect(before.ok).toBe(true);
-    if (!before.ok) return;
-    const preVersion = before.livingState.version;
-
-    const result = await orchestrateAssistantSend({
-      projectId,
-      content: "Fais le nécessaire pour que ça avance. __F2_AMBIGUOUS__",
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.f2?.turnKind).toBe("f2_clarification");
-    expect(result.f2?.proposal).toBeNull();
-
-    const after = await getRuntimeApplicationService().getProject(projectId);
-    expect(after.ok).toBe(true);
-    if (!after.ok) return;
-    expect(after.livingState.version).toBe(preVersion);
-  });
-
-  it("T-F1 pure repository read stays F1 without Cycle mutation", async () => {
-    const before = await getRuntimeApplicationService().getProject(projectId);
-    expect(before.ok).toBe(true);
-    if (!before.ok) return;
-    const preVersion = before.livingState.version;
-
-    const result = await orchestrateAssistantSend({
-      projectId,
-      content: "Vérifie le HEAD Git local __F2_INFORMATIVE__",
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.f2?.turnKind).toBe("f1_informative");
-    expect(result.f2?.proposal).toBeNull();
-
-    const after = await getRuntimeApplicationService().getProject(projectId);
-    expect(after.ok).toBe(true);
-    if (!after.ok) return;
-    expect(after.livingState.version).toBe(preVersion);
-  });
-
-  it("T-GATE-ARCHI Critical/Morris non-regression", () => {
-    const required = evaluateMorrisGateRequired({
-      recommendedProfile: "Critical",
-      signals: {
-        structuralChange: true,
-        securityImpact: false,
-        architectureImpact: true,
-        dataImpact: true,
-        irreversible: false,
-        lowRiskBounded: false,
-      },
-      intent: {
-        intentClass: "actionable",
-        candidateCycleTypeId: "cyc:technical-architecture",
-        signals: {
-          structuralChange: true,
-          securityImpact: false,
-          architectureImpact: true,
-          dataImpact: true,
-          irreversible: false,
-          lowRiskBounded: false,
-        },
-        objective: "Migrer persistence",
-        scope: "architecture",
-        rephrasedRequest: null,
-        outOfScope: [],
-        risks: [],
-        reservations: [],
-        stopConditions: [],
-        activatedBlocks: [],
-        expectedOutcome: null,
-        criticalJustification: "Structural persistence change",
-        requestedOperation: null,
-        parseOk: true,
-      },
-    });
-    expect(required).toBe(true);
-  });
-
-  it("T-GATE-SECURITY Critical/security non-regression", () => {
-    const required = evaluateMorrisGateRequired({
-      recommendedProfile: "Critical",
-      signals: {
-        structuralChange: false,
-        securityImpact: true,
-        architectureImpact: false,
-        dataImpact: false,
-        irreversible: false,
-        lowRiskBounded: false,
-      },
-      intent: {
-        intentClass: "actionable",
-        candidateCycleTypeId: "cyc:security",
-        signals: {
-          structuralChange: false,
-          securityImpact: true,
-          architectureImpact: false,
-          dataImpact: false,
-          irreversible: false,
-          lowRiskBounded: false,
-        },
-        objective: "Audit secrets",
-        scope: "security",
-        rephrasedRequest: null,
-        outOfScope: [],
-        risks: [],
-        reservations: [],
-        stopConditions: [],
-        activatedBlocks: [],
-        expectedOutcome: null,
-        criticalJustification: "Security residual risk",
-        requestedOperation: null,
-        parseOk: true,
-      },
-    });
-    expect(required).toBe(true);
-  });
-
-  it("T-CKC grounded successful qualification still creates product-native cycle", async () => {
-    const result = await orchestrateAssistantSend({
-      projectId,
-      content:
-        "Avant de qualifier, lis les sources. Qualifie. __F2_RB01_GROUND_OK__",
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.f2?.qualification?.isMorrisDecision).toBe(false);
-    expect(result.f2?.qualification?.recommendationLabel).toMatch(/RECOMMANDATION/);
-    expect(result.f2?.qualification?.detailedStatus).toBeTruthy();
-    expect(result.f2?.qualification?.ckcResolutionRef).toMatch(/^ckc:m2-/);
-  });
-});
-
-```
-
-### Complete git diff of modified tracked app files
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
 index e08375d6..1c79fcc6 100644
@@ -1175,28 +918,47 @@ index 54e090d4..aaeddfdd 100644
    });
  }
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/repositoryIntent.ts b/projects/sfia-studio/app/features/project-assistant/f2/repositoryIntent.ts
-index 80b6f4f7..fef2d0a0 100644
+index 80b6f4f7..7fbd6070 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/repositoryIntent.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f2/repositoryIntent.ts
-@@ -25,6 +25,46 @@ const REPO_POSITIVES: RegExp[] = [
+@@ -2,6 +2,9 @@
+  * Deterministic repository-analysis intent hint for F1 routing.
+  * Does not replace F2 architecture — only forces informative when the
+  * user clearly asks for read/search/Git truth without mutation/qualification.
++ *
++ * Also detects when FINAL QUALIFICATION materially depends on current
++ * repository/project truth (generic source-dependency — no product keywords).
+  */
+
+ const ACTIONABLE_NEGATIVES =
+@@ -25,6 +28,108 @@ const REPO_POSITIVES: RegExp[] = [
    /\bcompare(?:r)?\b.*\bmain\b/i,
  ];
 
-+/** Deterministic test markers — not product business keywords. */
-+const PREQUAL_GROUNDING_MARKERS =
-+  /__F2_RB01_GROUND_OK__|__F2_RB01_GROUND_UNRESOLVED__|__F2_RB07_CONTRADICTION__/i;
++/**
++ * Qualification / next-cycle decision language (not product-specific).
++ */
++function asksCycleQualification(text: string): boolean {
++  return (
++    /\bqualifi/i.test(text) ||
++    /\bquel cycle\b/i.test(text) ||
++    /\bcycle\b.{0,40}\b(pertinent|ouvrir|faut-il|à ouvrir|a ouvrir)\b/i.test(
++      text,
++    ) ||
++    /\b(faut-il|devrait-on)\s+ouvrir\b/i.test(text) ||
++    (/\bprochaine étape\b/i.test(text) &&
++      /\b(qualifi|cycle|roadmap)\b/i.test(text)) ||
++    /\bpassage en release\b/i.test(text)
++  );
++}
 +
 +/**
-+ * True when F2 qualification must resolve repository/current-state sources
-+ * BEFORE final cycle analysis and before any CycleInstance/LPS mutation.
-+ * Generic patterns only — no Product Completion / REAL-B one-offs.
++ * Generic categories: current repository/project truth, prior completed work,
++ * milestone/status on main, or an asserted current-state premise needing check.
++ * No Product Completion / REAL-B / runtime-v3 one-offs.
 + */
-+export function requiresPrequalificationGrounding(content: string): boolean {
-+  const text = content.trim();
-+  if (!text) return false;
-+  if (PREQUAL_GROUNDING_MARKERS.test(text)) return true;
-+
-+  // Explicit: resolve/read repository sources before qualification.
++function dependsOnRepositoryOrCurrentState(text: string): boolean {
++  // Explicit resolve/read before qualification.
 +  if (
 +    /\bavant de qualifi/i.test(text) &&
 +    /\b(lis|lire|r[eé]sous|r[eé]solv|v[eé]rifie)/i.test(text)
@@ -1204,18 +966,71 @@ index 80b6f4f7..fef2d0a0 100644
 +    return true;
 +  }
 +  if (
-+    /\bqualifi/i.test(text) &&
-+    /\b(git|d[eé]p[oô]t|repository|roadmap|source)/i.test(text) &&
-+    /\b(lis|lire|r[eé]sous|r[eé]solv|v[eé]rifie)/i.test(text)
++    /\b(lis|lire|r[eé]sous|r[eé]solv|v[eé]rifie).{0,100}(git|d[eé]p[oô]t|repository|roadmap|source)/i.test(
++      text,
++    )
 +  ) {
 +    return true;
 +  }
 +
-+  // User elevates a conversation claim to definitive fact / HumanDecision.
++  // Current-state / trajectory references.
 +  if (
-+    /\bconsid[eè]re\b[\s\S]{0,160}\b(fait|d[eé]cision|acquis)\b/i.test(text) ||
-+    /\bd[eé]cision humaine (d[eé]finitive|finale)\b/i.test(text)
++    /\bétat actuel\b/i.test(text) ||
++    /\bactuellement\b.{0,80}\b(sur main|en repo|dans le (projet|d[eé]p[oô]t)|roadmap)\b/i.test(
++      text,
++    ) ||
++    /\bactuellement sur main\b/i.test(text) ||
++    /\bau vu de (ce qui est |l['']état )/i.test(text) ||
++    /\bd['']après l['']état\b/i.test(text) ||
++    /\bon en est où\b/i.test(text) ||
++    /\baprès le dernier merge\b/i.test(text) ||
++    /\bsur main\b/i.test(text) ||
++    /\ben te basant sur\b/i.test(text) ||
++    /\bsources? (du projet|repository|git|locales?)\b/i.test(text) ||
++    /\btravaux déjà réalisés\b/i.test(text) ||
++    /\b(roadmap|git|d[eé]p[oô]t|repository)\b.{0,60}\bqualifi/i.test(text)
 +  ) {
++    return true;
++  }
++
++  // Asserted current-state status that must be corroborated (generic tokens).
++  if (
++    /\b(est|sont)\s+(ADOPTED|COMPLETE|CLOSED|CONSUMED)\b/i.test(text) ||
++    /\b(ADOPTED|COMPLETE|CLOSED|CONSUMED)\b.{0,40}\bqualifi/i.test(text)
++  ) {
++    return true;
++  }
++
++  return false;
++}
++
++/**
++ * User elevates a conversation claim to definitive fact / HumanDecision.
++ * Generic elevation language — not a product claim whitelist.
++ */
++function elevatesCurrentStateClaim(text: string): boolean {
++  return (
++    /\bconsid[eè]re\b[\s\S]{0,160}\b(fait|d[eé]cision|acquis)\b/i.test(text) ||
++    /\bd[eé]cision humaine (d[eé]finitive|finale)\b/i.test(text) ||
++    /\bcomme (un )?fait (acquis|établi|définitif)\b/i.test(text) ||
++    /\btiens pour acquis\b/i.test(text) ||
++    /\bprends? (cette|la) (affirmation|phrase|prémisse) (comme|pour)\b/i.test(
++      text,
++    )
++  );
++}
++
++/**
++ * True when F2 qualification must resolve repository/current-state sources
++ * BEFORE final cycle analysis and before any CycleInstance/LPS mutation.
++ */
++export function requiresPrequalificationGrounding(content: string): boolean {
++  const text = content.trim();
++  if (!text) return false;
++
++  if (elevatesCurrentStateClaim(text)) return true;
++
++  if (asksCycleQualification(text) && dependsOnRepositoryOrCurrentState(text)) {
 +    return true;
 +  }
 +
@@ -1392,904 +1207,675 @@ index 743ceabe..18c8404d 100644
 +    ephemeralNotice: EPHEMERAL_NOTICE,
 +  };
  }
-diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-index 86968b39..5e57fa2b 100644
---- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-+++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-@@ -214,6 +214,120 @@ export class FakeConversationProvider implements ConversationProvider {
-         },
-       };
-     }
-+    // REAL-B blocker-01: grounded re-analysis must outrank preliminary wrong cycle.
-+    if (
-+      lastUser?.content.includes("GROUNDED CONTEXT") &&
-+      lastUser.content.includes("__F2_RB01_GROUND_OK__")
-+    ) {
-+      return {
-+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-+          intentClass: "actionable",
-+          candidateCycleTypeId: "cyc:qa-validation",
-+          signals: {
-+            structuralChange: false,
-+            securityImpact: false,
-+            architectureImpact: false,
-+            dataImpact: false,
-+            irreversible: false,
-+            lowRiskBounded: false,
-+          },
-+          objective:
-+            "Qualifier le prochain cycle REAL-B cognitive parity depuis sources grounded",
-+          scope: "QA / Validation — qualification cognitive, aucune exécution",
-+          rephrasedRequest:
-+            "Ouvrir un cycle QA/Validation Critical pour REAL-B après grounding Roadmap/C1/REAL-A",
-+          outOfScope: ["REAL-C", "HumanDecision", "ExecutionContract", "Cursor"],
-+          risks: ["Qualification non grounded"],
-+          reservations: ["RA-06 OPEN NON_BLOCKING", "RA-07 OPEN PARITY GAP"],
-+          stopConditions: ["AUCUNE EXÉCUTION", "STOP avant Decision"],
-+          activatedBlocks: ["qualification", "proposition", "gate"],
-+          expectedOutcome: "Qualification grounded prête pour revue humaine",
-+          criticalJustification:
-+            "Segment cognitif structurant — Critical explicite (preuves grounded)",
-+          requestedOperation: null,
-+        })}`,
-+        usage: {
-+          inputTokens: 10 * this.callCount,
-+          outputTokens: 5 * this.callCount,
-+          totalTokens: 15 * this.callCount,
-+          model: "fake-test-model",
-+          providerResponseId: `fake-resp-${this.callCount}`,
-+        },
-+      };
-+    }
-+    // Preliminary (pre-grounding) analysis for RB01 — intentionally wrong cycle;
-+    // must NOT be persisted before grounded re-analysis.
-+    if (
-+      lastUser?.content.includes("__F2_RB01_GROUND_OK__") ||
-+      lastUser?.content.includes("__F2_RB01_GROUND_UNRESOLVED__")
-+    ) {
-+      return {
-+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-+          intentClass: "actionable",
-+          candidateCycleTypeId: "cyc:framing",
-+          signals: {
-+            structuralChange: false,
-+            securityImpact: false,
-+            architectureImpact: false,
-+            dataImpact: false,
-+            irreversible: false,
-+            lowRiskBounded: true,
-+          },
-+          objective: "Qualification préliminaire non grounded (ne pas persister)",
-+          scope: "Pré-analyse seulement",
-+          rephrasedRequest: "Candidat framing préliminaire avant grounding",
-+          outOfScope: ["Exécution"],
-+          risks: ["Candidat préliminaire non grounded"],
-+          reservations: ["Grounding requis avant qualification finale"],
-+          stopConditions: ["AUCUNE EXÉCUTION"],
-+          activatedBlocks: ["qualification"],
-+          expectedOutcome: "Ne pas créer de CycleInstance avant grounding",
-+          criticalJustification: null,
-+          requestedOperation: null,
-+        })}`,
-+        usage: {
-+          inputTokens: 10 * this.callCount,
-+          outputTokens: 5 * this.callCount,
-+          totalTokens: 15 * this.callCount,
-+          model: "fake-test-model",
-+          providerResponseId: `fake-resp-${this.callCount}`,
-+        },
-+      };
-+    }
-+    if (lastUser?.content.includes("__F2_RB07_CONTRADICTION__")) {
-+      return {
-+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-+          intentClass: "actionable",
-+          candidateCycleTypeId: "cyc:release",
-+          signals: {
-+            structuralChange: false,
-+            securityImpact: false,
-+            architectureImpact: false,
-+            dataImpact: false,
-+            irreversible: false,
-+            lowRiskBounded: true,
-+          },
-+          objective: "Qualifier un passage en release sur prémisse conversationnelle",
-+          scope: "Release — ne pas consommer claim non grounded",
-+          rephrasedRequest: "Qualification release demandée",
-+          outOfScope: ["Exécution"],
-+          risks: ["Prémisse non corroborée"],
-+          reservations: [],
-+          stopConditions: ["AUCUNE EXÉCUTION"],
-+          activatedBlocks: ["qualification"],
-+          expectedOutcome: "Doit échouer closed sur contradiction",
-+          criticalJustification: null,
-+          requestedOperation: null,
-+        })}`,
-+        usage: {
-+          inputTokens: 10 * this.callCount,
-+          outputTokens: 5 * this.callCount,
-+          totalTokens: 15 * this.callCount,
-+          model: "fake-test-model",
-+          providerResponseId: `fake-resp-${this.callCount}`,
-+        },
-+      };
-+    }
-     if (lastUser?.content.includes("__F2_ACTIONABLE__")) {
-       return {
-         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-
 ```
 
-## E. fakeProvider.ts justification
-- Exact change: added deterministic `completeStructured` marker branches for `__F2_RB01_GROUND_OK__`, `__F2_RB01_GROUND_UNRESOLVED__`, `__F2_RB07_CONTRADICTION__`, plus grounded re-analysis path when `GROUNDED CONTEXT` is present.
-- Test-only markers/scripts: YES
-- Needed for: deterministic Vitest proof of grounding-before-persist and contradiction fail-closed without OpenAI LIVE
-- Production/live provider semantics changed: **NO**
-- Existing fake paths outside these markers: unchanged except insertion order before `__F2_ACTIONABLE__`
+## COMPLETE TEST FILE — realBBlocker01.sourceGroundedQualification.test.ts (FULL)
 
-fakeProvider diff excerpt:
-```diff
-diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-index 86968b39..5e57fa2b 100644
---- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-+++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-@@ -214,6 +214,120 @@ export class FakeConversationProvider implements ConversationProvider {
-         },
-       };
-     }
-+    // REAL-B blocker-01: grounded re-analysis must outrank preliminary wrong cycle.
-+    if (
-+      lastUser?.content.includes("GROUNDED CONTEXT") &&
-+      lastUser.content.includes("__F2_RB01_GROUND_OK__")
-+    ) {
-+      return {
-+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-+          intentClass: "actionable",
-+          candidateCycleTypeId: "cyc:qa-validation",
-+          signals: {
-+            structuralChange: false,
-+            securityImpact: false,
-+            architectureImpact: false,
-+            dataImpact: false,
-+            irreversible: false,
-+            lowRiskBounded: false,
-+          },
-+          objective:
-+            "Qualifier le prochain cycle REAL-B cognitive parity depuis sources grounded",
-+          scope: "QA / Validation — qualification cognitive, aucune exécution",
-+          rephrasedRequest:
-+            "Ouvrir un cycle QA/Validation Critical pour REAL-B après grounding Roadmap/C1/REAL-A",
-+          outOfScope: ["REAL-C", "HumanDecision", "ExecutionContract", "Cursor"],
-+          risks: ["Qualification non grounded"],
-+          reservations: ["RA-06 OPEN NON_BLOCKING", "RA-07 OPEN PARITY GAP"],
-+          stopConditions: ["AUCUNE EXÉCUTION", "STOP avant Decision"],
-+          activatedBlocks: ["qualification", "proposition", "gate"],
-+          expectedOutcome: "Qualification grounded prête pour revue humaine",
-+          criticalJustification:
-+            "Segment cognitif structurant — Critical explicite (preuves grounded)",
-+          requestedOperation: null,
-+        })}`,
-+        usage: {
-+          inputTokens: 10 * this.callCount,
-+          outputTokens: 5 * this.callCount,
-+          totalTokens: 15 * this.callCount,
-+          model: "fake-test-model",
-+          providerResponseId: `fake-resp-${this.callCount}`,
-+        },
-+      };
-+    }
-+    // Preliminary (pre-grounding) analysis for RB01 — intentionally wrong cycle;
-+    // must NOT be persisted before grounded re-analysis.
-+    if (
-+      lastUser?.content.includes("__F2_RB01_GROUND_OK__") ||
-+      lastUser?.content.includes("__F2_RB01_GROUND_UNRESOLVED__")
-+    ) {
-+      return {
-+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-+          intentClass: "actionable",
-+          candidateCycleTypeId: "cyc:framing",
-+          signals: {
-+            structuralChange: false,
-+            securityImpact: false,
-+            architectureImpact: false,
-+            dataImpact: false,
-+            irreversible: false,
-+            lowRiskBounded: true,
-+          },
-+          objective: "Qualification préliminaire non grounded (ne pas persister)",
-+          scope: "Pré-analyse seulement",
-+          rephrasedRequest: "Candidat framing préliminaire avant grounding",
-+          outOfScope: ["Exécution"],
-+          risks: ["Candidat préliminaire non grounded"],
-+          reservations: ["Grounding requis avant qualification finale"],
-+          stopConditions: ["AUCUNE EXÉCUTION"],
-+          activatedBlocks: ["qualification"],
-+          expectedOutcome: "Ne pas créer de CycleInstance avant grounding",
-+          criticalJustification: null,
-+          requestedOperation: null,
-+        })}`,
-+        usage: {
-+          inputTokens: 10 * this.callCount,
-+          outputTokens: 5 * this.callCount,
-+          totalTokens: 15 * this.callCount,
-+          model: "fake-test-model",
-+          providerResponseId: `fake-resp-${this.callCount}`,
-+        },
-+      };
-+    }
-+    if (lastUser?.content.includes("__F2_RB07_CONTRADICTION__")) {
-+      return {
-+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-+          intentClass: "actionable",
-+          candidateCycleTypeId: "cyc:release",
-+          signals: {
-+            structuralChange: false,
-+            securityImpact: false,
-+            architectureImpact: false,
-+            dataImpact: false,
-+            irreversible: false,
-+            lowRiskBounded: true,
-+          },
-+          objective: "Qualifier un passage en release sur prémisse conversationnelle",
-+          scope: "Release — ne pas consommer claim non grounded",
-+          rephrasedRequest: "Qualification release demandée",
-+          outOfScope: ["Exécution"],
-+          risks: ["Prémisse non corroborée"],
-+          reservations: [],
-+          stopConditions: ["AUCUNE EXÉCUTION"],
-+          activatedBlocks: ["qualification"],
-+          expectedOutcome: "Doit échouer closed sur contradiction",
-+          criticalJustification: null,
-+          requestedOperation: null,
-+        })}`,
-+        usage: {
-+          inputTokens: 10 * this.callCount,
-+          outputTokens: 5 * this.callCount,
-+          totalTokens: 15 * this.callCount,
-+          model: "fake-test-model",
-+          providerResponseId: `fake-resp-${this.callCount}`,
-+        },
-+      };
-+    }
-     if (lastUser?.content.includes("__F2_ACTIONABLE__")) {
-       return {
-         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-
-```
-
-## F. F-RB-01 implementation evidence (exact seam)
-Key orchestrateF2 ordering excerpt (grounding before createCycle):
-```ts
-"../groundingPreflight";
-import type {
-  AssistantSourceDto,
-  AssistantToolEventDto,
-} from "../types";
-import { analyzeIntent } from "./intentAnalysis";
+```typescript
+/** @vitest-environment node */
+/**
+ * V3-REAL-B-BLOCKER-01-CORR-01 — shared F1 tool-loop fidelity + generic
+ * source-dependency grounding. Fake substitutes ConversationProvider only.
+ * No OpenAI LIVE · no fixture grounding short-circuit.
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import {
+  FakeConversationProvider,
+  setConversationProviderForTests,
+  type ConversationProvider,
+  type ProviderChatMessage,
+  type ProviderCompletionResult,
+  type ProviderInputItem,
+  type ProviderRoundResult,
+} from "@/lib/platform/ai";
+import type { ToolDefinition } from "@/lib/platform/tools/types";
+import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
 import {
   isPureRepositoryAnalysisIntent,
   requiresPrequalificationGrounding,
-} from "./repositoryIntent";
-import { evaluateMorrisGateRequired } from "./gatePolicy";
+} from "@/features/project-assistant/f2/repositoryIntent";
+import { evaluateMorrisGateRequired } from "@/features/project-assistant/f2/gatePolicy";
+import { assessGroundingContradictions } from "@/features/project-assistant/groundingPreflight";
 import {
-  enrichQualificationWithCkcSemantics,
-  isProductStudioNativeCkcProof,
-  loadProductCkcCognitiveContent,
-  buildCkcCognitivePromptSection,
-  reasonWithResolvedCkcContext,
-} from "./ckcCognitiveContext";
-import { projectCkcResolutionRef, qualifyWithCkc } from "./qualify";
-import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
-import type { DoctrinePackagePin } from "@/lib/oa/doctrine";
-import {
-  F2_PROCESS_LOCAL_NOTICE,
-  createProposalId,
-  saveProposal,
-} from "./proposalStore";
-import type {
-  F2ContextSnapshot,
-  IntentAnalysisDto,
-  ProposalDto,
-  QualificationDto,
-} from "./types";
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "@/lib/vertical-slice-runtime";
+import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
 
-const EPHEMERAL_NOTICE =
-  "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. AUCUNE EXÉCUTION.";
+const ROADMAP_PATH =
+  "projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md";
 
-function toContextDto(
-  result: Extract<
-    Awaited<ReturnType<typeof loadProjectRuntimeForAssistant>>,
-    { ok: true }
-  >,
-): ProjectAssistantContextDto {
-  return {
-    projectId: result.project.projectId,
-    name: result.project.name,
-    shortReference: result.project.shortReference ?? null,
-    objective: result.project.objective,
-    contextSummary: result.project.contextSummary,
-    criticality: result.project.criticality,
-    constraints: [...result.project.constraints],
-    lpsId: result.livingState.id,
-    lpsVersion: result.livingState.version,
-    lpsCreatedAt: result.livingState.createdAt,
-    doctrineId: result.doctrine.id,
-    doctrineVersion: result.doctrine.version,
-    doctrineDigest: result.doctrine.digest,
-    doctrineStatus: result.doctrine.status,
-    runtimeMode: result.disclosures.runtimeMode,
-    persistence: result.disclosures.persistence,
-    readiness: result.readiness.status,
-    activeCycleInstanceId: result.livingState.activeCycleInstanceId ?? null,
-    ckcResolutionRef: result.livingState.ckcResolutionRef ?? null,
-  };
+type CorrScenario = "ground_ok" | "ground_unresolved" | "contradiction";
+
+function intentJson(payload: Record<string, unknown>): string {
+  return `[TEST/FAKE · NON LIVE] ${JSON.stringify(payload)}`;
 }
 
-function doctrinePackagePinFromProject(
-  project: ProjectAssistantContextDto,
-): DoctrinePackagePin {
-  return Object.freeze({
-    doctrinePackageId: project.doctrineId,
-    version: project.doctrineVersion,
-    digest: project.doctrineDigest as DoctrinePackagePin["digest"],
-  });
-}
+const PRELIM_FRAMING = {
+  intentClass: "actionable",
+  candidateCycleTypeId: "cyc:framing",
+  signals: {
+    structuralChange: false,
+    securityImpact: false,
+    architectureImpact: false,
+    dataImpact: false,
+    irreversible: false,
+    lowRiskBounded: true,
+  },
+  objective: "Qualification préliminaire non grounded (ne pas persister)",
+  scope: "Pré-analyse seulement",
+  rephrasedRequest: "Candidat framing préliminaire avant grounding",
+  outOfScope: ["Exécution"],
+  risks: ["Candidat préliminaire non grounded"],
+  reservations: ["Grounding requis avant qualification finale"],
+  stopConditions: ["AUCUNE EXÉCUTION"],
+  activatedBlocks: ["qualification"],
+  expectedOutcome: "Ne pas créer de CycleInstance avant grounding",
+  criticalJustification: null,
+  requestedOperation: null,
+};
 
-function snapshotFrom(project: ProjectAssistantContextDto): F2ContextSnapshot {
-  return {
-    projectId: project.projectId,
-    lpsId: project.lpsId,
-    lpsVersion: project.lpsVersion,
-    doctrineDigest: project.doctrineDigest,
-    activeCycleInstanceId: project.activeCycleInstanceId ?? null,
-    ckcResolutionRef: project.ckcResolutionRef ?? null,
-  };
-}
+const FINAL_QA = {
+  intentClass: "actionable",
+  candidateCycleTypeId: "cyc:qa-validation",
+  signals: {
+    structuralChange: false,
+    securityImpact: false,
+    architectureImpact: false,
+    dataImpact: false,
+    irreversible: false,
+    lowRiskBounded: false,
+  },
+  objective: "Qualifier le prochain cycle depuis sources grounded",
+  scope: "QA / Validation — qualification cognitive, aucune exécution",
+  rephrasedRequest: "Ouvrir un cycle QA/Validation après grounding repository",
+  outOfScope: ["REAL-C", "HumanDecision", "ExecutionContract", "Cursor"],
+  risks: ["Qualification non grounded"],
+  reservations: [],
+  stopConditions: ["AUCUNE EXÉCUTION", "STOP avant Decision"],
+  activatedBlocks: ["qualification", "proposition", "gate"],
+  expectedOutcome: "Qualification grounded prête pour revue humaine",
+  criticalJustification:
+    "Segment cognitif structurant — Critical explicite (preuves grounded)",
+  requestedOperation: null,
+};
 
-function resolveMode(): {
-  mode: "fixture" | "live" | "unavailable";
-  canProceed: boolean;
-  message?: string;
-} {
-  if (isFakeConversationProviderForced()) {
-    return { mode: "fixture", canProceed: true };
-  }
-  const availability = getLiveConversationAvailability();
-  if (!availability.available) {
-    return {
-      mode: "unavailable",
-      canProceed: false,
-      message: `Assistant indisponible — configuration manquante (${availability.missing.join(", ")}). Aucun basculement silencieux vers le mode démonstration.`,
-    };
-  }
-  return { mode: "live", canProceed: true };
-}
-
-function buildProposal(input: {
-  intent: IntentAnalysisDto;
-  qualification: QualificationDto;
-  project: ProjectAssistantContextDto;
-  morrisGateRequired: boolean;
-  executionRequest: boolean;
-  status: ProposalDto["status"];
-}): ProposalDto {
-  return {
-    proposalId: createProposalId(),
-    status: input.status,
-    rephrasedRequest:
-      input.intent.rephrasedRequest ??
-      input.intent.objective ??
-      "Demande reformulée indisponible",
-    objective: input.intent.objective ?? input.qualification.rationale,
-    cycleTypeId: input.qualification.cycleTypeId,
-    recommendedProfile: input.qualification.recommendedProfile,
-    rationale: input.qualification.rationale,
-    scope: input.intent.scope ?? `Périmètre borné — ${input.qualification.cycleTypeId}`,
-    outOfScope:
-      input.intent.outOfScope.length > 0
-        ? input.intent.outOfScope
-        : [
-            "Exécution Cursor",
-            "Écriture Git/GitHub",
-            "Exécution agent (hors F2)",
-            "Navigation OPS1 comme destination",
-          ],
-    activatedBlocks:
-      input.intent.activatedBlocks.length > 0
-        ? input.intent.activatedBlocks
-        : ["qualification", "proposition", "gate"],
-    expectedOutcome:
-      input.intent.expectedOutcome ??
-      "Décision humaine capturée — aucune exécution F2",
-    sources: [
-      `catalogue:${input.qualification.catalogVersion}`,
-      `ckc:${input.qualification.detailedStatus}`,
-      `project:${input.project.projectId}`,
-      `lps:${input.project.lpsId}@${input.project.lpsVersion}`,
-      ...(input.qualification.cycleInstanceId
-        ? [`cycle:${input.qualification.cycleInstanceId}`]
-        : []),
-      ...(input.qualification.ckcResolutionRef
-        ? [`ckcRef:${input.qualification.ckcResolutionRef}`]
-        : []),
-    ],
-    risks: input.intent.risks,
-    reservations: input.intent.reservations,
-    stopConditions:
-      input.intent.stopConditions.length > 0
-        ? input.intent.stopConditions
-        : ["AUCUNE EXÉCUTION", "STOP avant F3"],
-    morrisGateRequired: input.morrisGateRequired,
-    nextPossibleStep: input.morrisGateRequired
-      ? "Décision Morris explicite requise"
-      : "AUCUNE EXÉCUTION — F2 S'ARRÊTE ICI",
-    contextSnapshot: snapshotFrom(input.project),
-    processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
-    executionForbidden: true,
-    noExecutingStatus: true,
-    agentBinding: "NOT_AVAILABLE",
-    criticalJustification: input.intent.criticalJustification,
-  };
-}
-
-function f2Success(base: {
-  text: string;
-  mode: "fixture" | "live";
-  presentation: "test_provider" | "openai_live";
-  model: string | null;
-  project: ProjectAssistantContextDto;
-  intentClass: IntentAnalysisDto["intentClass"];
-  qualification?: QualificationDto;
-  proposal?: ProposalDto;
-  executionBlocked?: boolean;
-  toolRounds?: number;
-  toolCalls?: number;
-  sources?: AssistantSourceDto[];
-  toolEvents?: AssistantToolEventDto[];
-}): ProjectAssistantSendResult {
-  const turnKind =
-    base.qualification && base.proposal
-      ? "f2_proposal"
-      : base.intentClass === "ambiguous"
-        ? "f2_clarification"
-        : "f2_blocked";
-  return {
-    ok: true,
-    status: "ok",
-    text: base.text,
-    mode: base.mode,
-    presentation: base.presentation,
-    model: base.model,
-    toolRounds: base.toolRounds ?? 0,
-    toolCalls: base.toolCalls ?? 0,
-    sources: base.sources ?? [],
-    toolEvents: base.toolEvents ?? [],
-    project: base.project,
-    ephemeralNotice: EPHEMERAL_NOTICE,
-    f2: {
-      turnKind,
-      intentClass: base.intentClass,
-      qualification: base.qualification ?? null,
-      proposal: base.proposal ?? null,
-      decision: null,
-      labels: {
-        recommendation: base.qualification ? "RECOMMANDATION" : null,
-        proposition: base.proposal ? "PROPOSITION" : null,
-        decisionRequired: base.proposal?.morrisGateRequired
-          ? "DÉCISION REQUISE"
-          : null,
-        decisionTaken: null,
-        noExecution: "AUCUNE EXÉCUTION",
-      },
-      executionBlocked: base.executionBlocked === true,
-      processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
-    },
-  };
-}
+const PRELIM_RELEASE = {
+  intentClass: "actionable",
+  candidateCycleTypeId: "cyc:release",
+  signals: {
+    structuralChange: false,
+    securityImpact: false,
+    architectureImpact: false,
+    dataImpact: false,
+    irreversible: false,
+    lowRiskBounded: true,
+  },
+  objective: "Qualifier un passage en release sur prémisse conversationnelle",
+  scope: "Release — ne pas consommer claim non grounded",
+  rephrasedRequest: "Qualification release demandée",
+  outOfScope: ["Exécution"],
+  risks: ["Prémisse non corroborée"],
+  reservations: [],
+  stopConditions: ["AUCUNE EXÉCUTION"],
+  activatedBlocks: ["qualification"],
+  expectedOutcome: "Doit échouer closed sur contradiction",
+  criticalJustification: null,
+  requestedOperation: null,
+};
 
 /**
- * Unified send orchestration: preserves F1 for informative intents.
- * Actionable path creates durable CycleInstance + LPS append, then live snapshot.
+ * TEST-ONLY ConversationProvider: emits real tool calls so runToolCallingLoop
+ * invokes local READ tools. Does not fabricate sources/toolRounds.
  */
-export async function orchestrateAssistantSend(input: {
-  projectId: string;
-  content: string;
-  history?: AssistantHistoryMessage[];
-}): Promise<ProjectAssistantSendResult> {
-  const content = input.content.trim();
-  if (!content) {
-    return {
-      ok: false,
-      status: "validation_error",
-      code: "EMPTY_MESSAGE",
-      message: "Saisissez un message avant d'envoyer.",
-      mode: isFakeConversationProviderForced() ? "fixture" : "unavailable",
-      retryable: true,
+class Corr01ToolLoopProvider implements ConversationProvider {
+  readonly providerId = "fake-test";
+  private roundCount = 0;
+  private callCount = 0;
+  private readonly fallback = new FakeConversationProvider();
+
+  constructor(
+    private readonly scenario: CorrScenario,
+    private readonly readPath: string = ROADMAP_PATH,
+  ) {}
+
+  async completeStructured(input: {
+    messages: ProviderChatMessage[];
+    schemaName: string;
+    jsonSchema: Record<string, unknown>;
+  }): Promise<ProviderCompletionResult> {
+    void input.schemaName;
+    void input.jsonSchema;
+    return this.complete(input.messages);
+  }
+
+  async complete(
+    messages: ProviderChatMessage[],
+  ): Promise<ProviderCompletionResult> {
+    this.callCount += 1;
+    const lastUser = [...messages].reverse().find((m) => m.role === "user");
+    const content = lastUser?.content ?? "";
+    const usage = {
+      inputTokens: 10 * this.callCount,
+      outputTokens: 5 * this.callCount,
+      totalTokens: 15 * this.callCount,
+      model: "fake-test-model",
+      providerResponseId: `corr01-resp-${this.callCount}`,
     };
-  }
 
-  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
-  if (!projectResult.ok) {
-    return {
-      ok: false,
-      status: "project_not_found",
-      code: projectResult.error.code,
-      message: projectResult.error.message,
-      mode: isFakeConversationProviderForced() ? "fixture" : "unavailable",
-      retryable: false,
-    };
-  }
-
-  let project = toContextDto(projectResult);
-  const modeResolution = resolveMode();
-  if (!modeResolution.canProceed) {
-    return {
-      ok: false,
-      status: "provider_unavailable",
-      code: "PROVIDER_UNAVAILABLE",
-      message: modeResolution.message ?? "Provider indisponible.",
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-
-  let analysisResult: Awaited<ReturnType<typeof analyzeIntent>>;
-  try {
-    analysisResult = await analyzeIntent({
-      userContent: content,
-      projectSummary: [
-        `name=${project.name}`,
-        `objective=${project.objective}`,
-        `criticality=${project.criticality}`,
-        `lps=${project.lpsId}@${project.lpsVersion}`,
-      ].join(" | "),
-    });
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Erreur provider inattendue.";
-    return {
-      ok: false,
-      status: "provider_error",
-      code: "PROVIDER_ERROR",
-      message:
-        message === "FAKE_PROVIDER_ERROR"
-          ? "Le fournisseur de démonstration a signalé une erreur. Réessayez manuellement."
-          : message,
-      mode: modeResolution.mode,
-      retryable: true,
-    };
-  }
-
-  const { analysis, presentation, model } = analysisResult;
-
-  // Repository read/search/Git-truth without mutation → F1 (no Cycle/LPS mutation).
-  // Deterministic override when the classifier drifts to ambiguous/actionable for pure reads.
-  const forceRepoInformative =
-    isPureRepositoryAnalysisIntent(content) &&
-    analysis.intentClass !== "execution_request";
-
-  // A — informative → existing F1 path (no Cycle/LPS mutation)
-  if (
-    forceRepoInformative ||
-    (analysis.intentClass === "informative" && analysis.parseOk)
-  ) {
-    const f1 = await orchestrateProjectAssistantTurn(input);
-    if (!f1.ok) return f1;
-    return {
-      ...f1,
-      model: f1.model ?? model,
-      ephemeralNotice: EPHEMERAL_NOTICE,
-      f2: {
-        turnKind: "f1_informative",
-        intentClass: "informative",
-        qualification: null,
-        proposal: null,
-        decision: null,
-        labels: {
-          recommendation: null,
-          proposition: null,
-          decisionRequired: null,
-          decisionTaken: null,
-          noExecution: "AUCUNE EXÉCUTION",
-        },
-        executionBlocked: false,
-        processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
-      },
-    };
-  }
-
-  // C — ambiguous / fail-closed (no Cycle/LPS mutation)
-  if (analysis.intentClass === "ambiguous" || !analysis.parseOk) {
-    return f2Success({
-      text:
-        "[Clarification requise] Votre demande est ambiguë ou incomplète. Précisez l'objectif, le périmètre et l'action souhaitée. Aucune proposition F2 n'a été créée. AUCUNE EXÉCUTION.",
-      mode: modeResolution.mode as "fixture" | "live",
-      presentation,
-      model,
-      project,
-      intentClass: "ambiguous",
-    });
-  }
-
-  // B / D — actionable or execution_request
-  if (!analysis.candidateCycleTypeId || !analysis.signals) {
-    return f2Success({
-      text:
-        "[Clarification requise] Qualification impossible — cycle ou signaux incomplets. AUCUNE EXÉCUTION.",
-      mode: modeResolution.mode as "fixture" | "live",
-      presentation,
-      model,
-      project,
-      intentClass: analysis.intentClass,
-    });
-  }
-
-  const runtime = getRuntimeApplicationService();
-  const oa = runtime.oa;
-  if (!oa) {
-    return f2Success({
-      text:
-        "[Runtime] Services OA indisponibles pour la qualification M2. AUCUNE EXÉCUTION.",
-      mode: modeResolution.mode as "fixture" | "live",
-      presentation,
-      model,
-      project,
-      intentClass: analysis.intentClass,
-    });
-  }
-
-  const projectSummary = [
-    `name=${project.name}`,
-    `objective=${project.objective}`,
-    `criticality=${project.criticality}`,
-    `lps=${project.lpsId}@${project.lpsVersion}`,
-  ].join(" | ");
-
-  // Preliminary analysis is routing-only when grounding is required —
-  // never persist createCycle from the pre-grounding candidate alone.
-  let finalAnalysis = analysis;
-  let finalPresentation = presentation;
-  let finalModel = model;
-  let groundingSources: AssistantSourceDto[] = [];
-  let groundingToolEvents: AssistantToolEventDto[] = [];
-  let groundingToolRounds = 0;
-  let groundingToolCalls = 0;
-
-  if (requiresPrequalificationGrounding(content)) {
-    const grounding = await runProjectGroundingPreflight({
-      project,
-      content,
-      history: input.history,
-      purpose: "f2_prequalification",
-      correlationId: `f2-preflight:${project.projectId}`,
-    });
-
-    if (!grounding.ok) {
-      return {
-        ok: false,
-        status: grounding.status,
-        code: grounding.code,
-        message: grounding.message,
-        mode: grounding.mode,
-        retryable: grounding.retryable,
-      };
-    }
-
-    groundingSources = grounding.sources;
-    groundingToolEvents = grounding.toolEvents;
-    groundingToolRounds = grounding.toolRounds;
-    groundingToolCalls = grounding.toolCalls;
-
-    if (grounding.unresolvedRequiredSources) {
-      return f2Success({
-        text:
-          "[Grounding requis] Les sources repository nécessaires à la qualification n'ont pas pu être résolues. Aucune CycleInstance / LPS / Proposal n'a été créée. AUCUNE EXÉCUTION.",
-        mode: modeResolution.mode as "fixture" | "live",
-        presentation: grounding.presentation,
-        model: grounding.model ?? model,
-        project,
-        intentClass: analysis.intentClass,
-        toolRounds: grounding.toolRounds,
-        toolCalls: grounding.toolCalls,
-        sources: grounding.sources,
-        toolEvents: grounding.toolEvents,
-        executionBlocked: analysis.intentClass === "execution_request",
-      });
-    }
-
-    const sourceRefs = grounding.sources
-      .map((s) => s.pathOrRef)
-      .filter((p): p is string => Boolean(p));
-    const contradictions = assessGroundingContradictions({
-      userContent: content,
-      groundedText: grounding.text,
-      sourceRefs,
-    });
-    const blocking = contradictions.filter((c) => c.severity === "blocking");
-    if (blocking.length > 0) {
-      const detail = blocking
-        .map(
-          (c) =>
-            `Contradiction bloquante — claim: ${c.claim} | fait grounded: ${c.groundedFact.slice(0, 400)}`,
-        )
-        .join("\n");
-      return f2Success({
-        text: `[Contradiction] ${detail} La phrase utilisateur n'est pas une HumanDecision. Aucune CycleInstance / LPS / Proposal fondée sur la prémisse non corroborée. AUCUNE EXÉCUTION.`,
-        mode: modeResolution.mode as "fixture" | "live",
-        presentation: grounding.presentation,
-        model: grounding.model ?? model,
-        project,
-        intentClass: analysis.intentClass,
-        toolRounds: grounding.toolRounds,
-        toolCalls: grounding.toolCalls,
-        sources: grounding.sources,
-        toolEvents: grounding.toolEvents,
-        executionBlocked: analysis.intentClass === "execution_request",
-      });
-    }
-
-    const groundedContext = [
-      grounding.text,
-      `Sources attribuables: ${sourceRefs.join(" | ") || "(aucune)"}`,
-    ].join("\n");
-
-    try {
-      const groundedAnalysis = await analyzeIntent({
-        userContent: content,
-        projectSummary,
-        groundedContext,
-      });
-      finalAnalysis = groundedAnalysis.analysis;
-      finalPresentation = groundedAnalysis.presentation;
-      finalModel = groundedAnalysis.model ?? grounding.model ?? model;
-    } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "Erreur provider inattendue.";
-      return {
-        ok: false,
-        status: "provider_error",
-        code: "PROVIDER_ERROR",
-        message:
-          message === "FAKE_PROVIDER_ERROR"
-            ? "Le fournisseur de démonstration a signalé une erreur. Réessayez manuellement."
-            : message,
-        mode: modeResolution.mode,
-        retryable: true,
-      };
-    }
-
+    // Delegate stock F2 markers (gates / ambiguity / informative) to stock fake.
     if (
-      finalAnalysis.intentClass === "ambiguous" ||
-      !finalAnalysis.parseOk ||
-      !finalAnalysis.candidateCycleTypeId ||
-      !finalAnalysis.signals
+      /__F2_(INFORMATIVE|ACTIONABLE|AMBIGUOUS|EXECUTION|STRUCTURING|GATED_STANDARD|CRITICAL_NO_JUSTIFICATION)__/i.test(
+        content,
+      )
     ) {
-      return f2Success({
-        text:
-          "[Clarification requise] Après grounding, la qualification reste incomplète ou ambiguë. Aucune CycleInstance / LPS / Proposal. AUCUNE EXÉCUTION.",
-        mode: modeResolution.mode as "fixture" | "live",
-        presentation: finalPresentation,
-        model: finalModel,
-        project,
-        intentClass: "ambiguous",
-        toolRounds: groundingToolRounds,
-        toolCalls: groundingToolCalls,
-        sources: groundingSources,
-        toolEvents: groundingToolEvents,
-      });
+      return this.fallback.complete(messages);
     }
+
+    const hasGrounded = content.includes("GROUNDED CONTEXT");
+
+    if (this.scenario === "contradiction") {
+      return {
+        text: intentJson(PRELIM_RELEASE),
+        usage,
+      };
+    }
+
+    if (this.scenario === "ground_unresolved") {
+      return {
+        text: intentJson(PRELIM_FRAMING),
+        usage,
+      };
+    }
+
+    // ground_ok: preliminary wrong cycle; grounded re-analysis → qa-validation
+    if (hasGrounded) {
+      return { text: intentJson(FINAL_QA), usage };
+    }
+    return { text: intentJson(PRELIM_FRAMING), usage };
   }
 
-  const preLpsVersion = project.lpsVersion;
-  const correlationId = `cor:f2-${randomBytes(8).toString("hex")}`;
+  async completeRound(input: {
+    items: ProviderInputItem[];
+    tools: ToolDefinition[];
+  }): Promise<ProviderRoundResult> {
+    this.roundCount += 1;
+    const usage = {
+      inputTokens: 10 * this.roundCount,
+      outputTokens: 5 * this.roundCount,
+      totalTokens: 15 * this.roundCount,
+      model: "fake-test-model",
+      providerResponseId: `corr01-round-${this.roundCount}`,
+    };
 
-  const qualified = await qualifyWithCkc({
-    cycleTypeId: finalAnalysis.candidateCycleTypeId!,
-    signals: finalAnalysis.signals!,
-    objective: finalAnalysis.objective ?? undefined,
-    scope: finalAnalysis.scope ?? undefined,
-    correlationId,
-    ckcQualification: oa.ckcQualification,
+    if (input.tools.length === 0) {
+      const completion = await this.complete(
+        input.items
+          .filter(
+            (i): i is Extract<ProviderInputItem, { type: "message" }> =>
+              i.type === "message",
+          )
+          .map((m) => ({ role: m.role, content: m.content })),
+      );
+      return { kind: "message", text: completion.text, usage: completion.usage };
+    }
+
+    if (this.roundCount === 1) {
+      if (this.scenario === "ground_unresolved") {
+        return {
+          kind: "tool_calls",
+          toolCalls: [
+            {
+              callId: "corr01-denied-env",
+              name: "git_local_read_file",
+              argumentsJson: JSON.stringify({ path: ".env" }),
+            },
+          ],
+          usage,
+        };
+      }
+      return {
+        kind: "tool_calls",
+        toolCalls: [
+          {
+            callId: "corr01-read-roadmap",
+            name: "git_local_read_file",
+            argumentsJson: JSON.stringify({
+              path: this.readPath,
+              startLine: 1,
+              endLine: 40,
+            }),
+          },
+        ],
+        usage,
+      };
+    }
+
+    if (this.scenario === "contradiction") {
+      return {
+        kind: "message",
+        text: [
+          "[TEST/FAKE · NON LIVE] Grounded current-state facts after READ tools:",
+          `- Repository evidence from ${this.readPath} does not corroborate the elevated user claim.`,
+          "- Conversation claim ≠ HumanDecision; no decision record was resolved.",
+          "CONTRADICTION_BLOCKING: yes",
+        ].join("\n"),
+        usage,
+      };
+    }
+
+    if (this.scenario === "ground_unresolved") {
+      return {
+        kind: "message",
+        text: [
+          "[TEST/FAKE · NON LIVE] Required repository source read failed/denied.",
+          "No attributable successful READ source for qualification.",
+          "CONTRADICTION_BLOCKING: no",
+        ].join("\n"),
+        usage,
+      };
+    }
+
+    return {
+      kind: "message",
+      text: [
+        "[TEST/FAKE · NON LIVE] Grounded repository facts after READ tools:",
+        `- Successfully read ${this.readPath}`,
+        "- Current repository evidence is attributable via tool telemetry.",
+        "CONTRADICTION_BLOCKING: no",
+      ].join("\n"),
+      usage,
+    };
+  }
+}
+
+describe("V3-REAL-B-BLOCKER-01-CORR-01 tool-loop fidelity + generic grounding", () => {
+  const previousFake = process.env.OPS1_CONVERSATION_PROVIDER;
+  const tempDirs: string[] = [];
+  let projectId = "";
+
+  beforeEach(async () => {
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    delete process.env.OPENAI_API_KEY;
+    delete process.env.OPENAI_MODEL;
+    setConversationProviderForTests(null);
+    resetF2ProposalStoreForTests();
+    resetRuntimeApplicationServiceForTests();
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-rb-corr01-"));
+    tempDirs.push(dir);
+    const runtime = getRuntimeApplicationService({
+      productDbPath: path.join(dir, "oa-product.sqlite"),
+      auditMode: "noop",
+      nowIso: "2026-08-28T10:00:00.000Z",
+    });
+    const created = await runtime.createProject({
+      name: "REAL-B Blocker CORR-01",
+      objective: "Tester grounding fidélité tool-loop F1/F2.",
+      context: "Deterministic CORR-01 remediation.",
+      criticality: "STANDARD",
+      constraints: ["Lecture seule"],
+      shortReference: "RB01C",
+      idempotencyKey: `idem:rb01c-${Date.now()}-${Math.random()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) throw new Error("setup create failed");
+    projectId = created.projectId;
   });
 
-  if (!qualified.ok) {
-    return f2Success({
-      text: `[Qualification échouée] ${qualified.message} AUCUNE EXÉCUTION.`,
-      mode: modeResolution.mode as "fixture" | "live",
-      presentation: finalPresentation,
-      model: finalModel,
-      project,
-      intentClass: finalAnalysis.intentClass,
-      toolRounds: groundingToolRounds,
-      toolCalls: groundingToolCalls,
-      sources: groundingSources,
-      toolEvents: groundingToolEvents,
-    });
-  }
-
-  let { qualification } = qualified;
-
-  if (isProductStudioNativeCkcProof(qualified.raw.proof)) {
-    const packagePin = doctrinePackagePinFromProject(project);
-    const registryRoot = resolveProductDoctrineRegistryRoot();
-    const ckcContent = loadProductCkcCognitiveContent({
-      registryRoot,
-      cycleTypeId: qualification.cycleTypeId,
-      packagePin,
-    });
-    let ckcCognitiveRecommendation: string | undefined;
-    if (ckcContent) {
-      const reasoning = await reasonWithResolvedCkcContext({
-        userContent: content,
-        projectSummary,
-        intentSummary:
-          finalAnalysis.rephrasedRequest ??
-          finalAnalysis.objective ??
-          "Intention actionable",
-        ckcPromptSection: buildCkcCognitivePromptSection(ckcContent),
-      });
-      ckcCognitiveRecommendation = reasoning.recommendation;
+  afterEach(() => {
+    setConversationProviderForTests(null);
+    resetF2ProposalStoreForTests();
+    resetRuntimeApplicationServiceForTests();
+    while (tempDirs.length) {
+      const dir = tempDirs.pop();
+      if (dir) fs.rmSync(dir, { recursive: true, force: true });
     }
-    qualification = enrichQualificationWithCkcSemantics({
-      qualification,
-      proof: qualified.raw.proof,
-      registryRoot,
-      packagePin,
-      ckcCognitiveRecommendation,
+    if (previousFake === undefined) delete process.env.OPS1_CONVERSATION_PROVIDER;
+    else process.env.OPS1_CONVERSATION_PROVIDER = previousFake;
+  });
+
+  it("T-CORR-FID-01/02 — tool loop + real READ telemetry (no fixture short-circuit)", async () => {
+    const src = fs.readFileSync(
+      path.join(
+        process.cwd(),
+        "features/project-assistant/groundingPreflight.ts",
+      ),
+      "utf8",
+    );
+    expect(src).not.toMatch(/fixturePrequalificationGrounding/);
+
+    setConversationProviderForTests(new Corr01ToolLoopProvider("ground_ok"));
+    const result = await orchestrateAssistantSend({
+      projectId,
+      content:
+        "D'après l'état actuel du projet après REAL-A, quel cycle faut-il ouvrir maintenant ?",
     });
-  }
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
 
-  const ckcResolutionRef =
-    qualification.ckcResolutionRef ??
-    projectCkcResolutionRef(qualified.raw.proof);
+    expect(result.toolRounds).toBeGreaterThan(0);
+    expect(result.toolCalls).toBeGreaterThan(0);
+    expect(
+      result.toolEvents.some(
+        (e) =>
+          e.toolName === "git_local_read_file" && e.status === "succeeded",
+      ),
+    ).toBe(true);
+    expect(
+      result.sources.some((s) => s.pathOrRef?.includes(ROADMAP_PATH)),
+    ).toBe(true);
+    expect(result.f2?.qualification?.cycleTypeId).toBe("cyc:qa-validation");
+    expect(result.f2?.qualification?.cycleTypeId).not.toBe("cyc:framing");
+  });
 
-  if (
-    qualification.requiresJustificationForCritical &&
-    !(
-      finalAnalysis.criticalJustification &&
-      finalAnalysis.criticalJustification.trim()
-    )
-  ) {
-    return f2Success({
-      text:
-        "[Critical] Justification structurante obligatoire avant proposition validable. Critical n'est jamais implicite. AUCUNE EXÉCUTION.",
-      mode: modeResolution.mode as "fixture" | "live",
-      presentation: finalPresentation,
-      model: finalModel,
-      project,
-      intentClass: finalAnalysis.intentClass,
-      qualification,
-      executionBlocked: finalAnalysis.intentClass === "execution_request",
-      toolRounds: groundingToolRounds,
-      toolCalls: groundingToolCalls,
-      sources: groundingSources,
-      toolEvents: groundingToolEvents,
+  it("T-CORR-FID-03 — required source failure fails closed", async () => {
+    setConversationProviderForTests(
+      new Corr01ToolLoopProvider("ground_unresolved"),
+    );
+    const before = await getRuntimeApplicationService().getProject(projectId);
+    expect(before.ok).toBe(true);
+    if (!before.ok) return;
+    const preVersion = before.livingState.version;
+
+    const result = await orchestrateAssistantSend({
+      projectId,
+      content:
+        "Au vu de ce qui est actuellement sur main et de la Roadmap, qualifie la prochaine étape.",
     });
-  }
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.toolCalls).toBeGreaterThan(0);
+    expect(result.f2?.proposal).toBeNull();
+    expect(result.f2?.qualification).toBeNull();
+    expect(result.text).toMatch(/Grounding requis|n'ont pas pu être résolues/i);
 
-  const cycleInstanceId = `cyc:f2-${randomBytes(8).toString("hex")}`;
-  const created = await oa.cycleServices.createCycle.execute({
-    cycleInstanceId,
-    cycleTypeId: qualification.cycleT
+    const after = await getRuntimeApplicationService().getProject(projectId);
+    expect(after.ok).toBe(true);
+    if (!after.ok) return;
+    expect(after.livingState.version).toBe(preVersion);
+  });
+
+  it("T-CORR-RB01 + paraphrase — generic source-conditioned qualification grounds", async () => {
+    const phrases = [
+      "D'après l'état actuel du projet après REAL-A, quel cycle faut-il ouvrir maintenant ?",
+      "En te basant sur les sources du projet et les travaux déjà réalisés, qualifie le prochain cycle.",
+      "On en est où après le dernier merge, et quel cycle est pertinent maintenant ?",
+    ];
+    for (const phrase of phrases) {
+      expect(requiresPrequalificationGrounding(phrase)).toBe(true);
+    }
+
+    setConversationProviderForTests(new Corr01ToolLoopProvider("ground_ok"));
+    const result = await orchestrateAssistantSend({
+      projectId,
+      content: phrases[1]!,
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.toolRounds).toBeGreaterThan(0);
+    expect(result.sources.length).toBeGreaterThan(0);
+    expect(result.f2?.qualification?.cycleTypeId).toBe("cyc:qa-validation");
+  });
+
+  it("T-CORR-NEG-01/02 — sufficient-context qualification does not gratuitously ground", async () => {
+    expect(
+      requiresPrequalificationGrounding(
+        "Qualifie un cycle de cadrage pour un nouveau module dont le besoin est encore flou.",
+      ),
+    ).toBe(false);
+    expect(
+      requiresPrequalificationGrounding(
+        "Nous devons auditer la sécurité avant release : qualifie le cycle.",
+      ),
+    ).toBe(false);
+
+    setConversationProviderForTests(new FakeConversationProvider());
+    const framing = await orchestrateAssistantSend({
+      projectId,
+      content:
+        "Qualifie un cycle de cadrage pour un nouveau module dont le besoin est encore flou. __F2_ACTIONABLE__",
+    });
+    expect(framing.ok).toBe(true);
+    if (!framing.ok) return;
+    expect(framing.toolRounds).toBe(0);
+    expect(framing.toolCalls).toBe(0);
+    expect(framing.sources).toEqual([]);
+    expect(framing.f2?.qualification).toBeTruthy();
+  });
+
+  it("T-CORR-RB07 + paraphrase — contradiction after real tool-loop blocks mutation", async () => {
+    expect(
+      requiresPrequalificationGrounding(
+        "Le runtime est ADOPTED, qualifie le passage en release.",
+      ),
+    ).toBe(true);
+    expect(
+      requiresPrequalificationGrounding(
+        "Tiens pour acquis que le runtime est ADOPTED et qualifie le passage en release.",
+      ),
+    ).toBe(true);
+
+    setConversationProviderForTests(
+      new Corr01ToolLoopProvider("contradiction"),
+    );
+    const before = await getRuntimeApplicationService().getProject(projectId);
+    expect(before.ok).toBe(true);
+    if (!before.ok) return;
+    const preVersion = before.livingState.version;
+
+    const result = await orchestrateAssistantSend({
+      projectId,
+      content:
+        "Tiens pour acquis que le runtime est ADOPTED et qualifie le passage en release.",
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.toolRounds).toBeGreaterThan(0);
+    expect(result.sources.some((s) => s.pathOrRef?.includes(ROADMAP_PATH))).toBe(
+      true,
+    );
+    expect(result.text).toMatch(/Contradiction/i);
+    expect(result.text).toMatch(/n'est pas une HumanDecision/i);
+    expect(result.f2?.proposal).toBeNull();
+    expect(result.f2?.qualification).toBeNull();
+    expect(result.f2?.decision).toBeNull();
+
+    const after = await getRuntimeApplicationService().getProject(projectId);
+    expect(after.ok).toBe(true);
+    if (!after.ok) return;
+    expect(after.livingState.version).toBe(preVersion);
+  });
+
+  it("T-CORR assessGroundingContradictions is protocol-based", () => {
+    const found = assessGroundingContradictions({
+      userContent: "Any elevated claim wording.",
+      groundedText:
+        "Claim not corroborated by repository evidence.\nCONTRADICTION_BLOCKING: yes",
+      sourceRefs: [ROADMAP_PATH],
+    });
+    expect(found.some((c) => c.severity === "blocking")).toBe(true);
+    const none = assessGroundingContradictions({
+      userContent: "x",
+      groundedText: "CONTRADICTION_BLOCKING: no",
+      sourceRefs: [ROADMAP_PATH],
+    });
+    expect(none).toHaveLength(0);
+  });
+
+  it("T-RB06 ambiguity remains no-mutation", async () => {
+    setConversationProviderForTests(new FakeConversationProvider());
+    const before = await getRuntimeApplicationService().getProject(projectId);
+    expect(before.ok).toBe(true);
+    if (!before.ok) return;
+    const preVersion = before.livingState.version;
+
+    const result = await orchestrateAssistantSend({
+      projectId,
+      content: "Fais le nécessaire pour que ça avance. __F2_AMBIGUOUS__",
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.f2?.turnKind).toBe("f2_clarification");
+    expect(result.f2?.proposal).toBeNull();
+
+    const after = await getRuntimeApplicationService().getProject(projectId);
+    expect(after.ok).toBe(true);
+    if (!after.ok) return;
+    expect(after.livingState.version).toBe(preVersion);
+  });
+
+  it("T-F1 pure repository read stays F1 and uses shared grounding loop", async () => {
+    setConversationProviderForTests(
+      new FakeConversationProvider({
+        toolScript: [
+          {
+            kind: "tool_calls",
+            toolCalls: [
+              {
+                callId: "f1-head",
+                name: "git_local_get_head",
+                argumentsJson: "{}",
+              },
+            ],
+          },
+          {
+            kind: "message",
+            text: "[TEST/FAKE · NON LIVE] HEAD local lu via tool loop.",
+          },
+        ],
+      }),
+    );
+    const before = await getRuntimeApplicationService().getProject(projectId);
+    expect(before.ok).toBe(true);
+    if (!before.ok) return;
+    const preVersion = before.livingState.version;
+
+    const result = await orchestrateAssistantSend({
+      projectId,
+      content: "Vérifie le HEAD Git local __F2_INFORMATIVE__",
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.f2?.turnKind).toBe("f1_informative");
+    expect(result.f2?.proposal).toBeNull();
+    expect(result.toolRounds).toBeGreaterThan(0);
+    expect(
+      result.toolEvents.some((e) => e.toolName === "git_local_get_head"),
+    ).toBe(true);
+
+    const after = await getRuntimeApplicationService().getProject(projectId);
+    expect(after.ok).toBe(true);
+    if (!after.ok) return;
+    expect(after.livingState.version).toBe(preVersion);
+    expect(isPureRepositoryAnalysisIntent("Vérifie le HEAD Git local")).toBe(
+      true,
+    );
+  });
+
+  it("T-GATE-ARCHI Critical/Morris non-regression", () => {
+    const required = evaluateMorrisGateRequired({
+      recommendedProfile: "Critical",
+      signals: {
+        structuralChange: true,
+        securityImpact: false,
+        architectureImpact: true,
+        dataImpact: true,
+        irreversible: false,
+        lowRiskBounded: false,
+      },
+      intent: {
+        intentClass: "actionable",
+        candidateCycleTypeId: "cyc:technical-architecture",
+        signals: {
+          structuralChange: true,
+          securityImpact: false,
+          architectureImpact: true,
+          dataImpact: true,
+          irreversible: false,
+          lowRiskBounded: false,
+        },
+        objective: "Migrer persistence",
+        scope: "architecture",
+        rephrasedRequest: null,
+        outOfScope: [],
+        risks: [],
+        reservations: [],
+        stopConditions: [],
+        activatedBlocks: [],
+        expectedOutcome: null,
+        criticalJustification: "Structural persistence change",
+        requestedOperation: null,
+        parseOk: true,
+      },
+    });
+    expect(required).toBe(true);
+  });
+
+  it("T-GATE-SECURITY Critical/security non-regression", () => {
+    const required = evaluateMorrisGateRequired({
+      recommendedProfile: "Critical",
+      signals: {
+        structuralChange: false,
+        securityImpact: true,
+        architectureImpact: false,
+        dataImpact: false,
+        irreversible: false,
+        lowRiskBounded: false,
+      },
+      intent: {
+        intentClass: "actionable",
+        candidateCycleTypeId: "cyc:security",
+        signals: {
+          structuralChange: false,
+          securityImpact: true,
+          architectureImpact: false,
+          dataImpact: false,
+          irreversible: false,
+          lowRiskBounded: false,
+        },
+        objective: "Audit secrets",
+        scope: "security",
+        rephrasedRequest: null,
+        outOfScope: [],
+        risks: [],
+        reservations: [],
+        stopConditions: [],
+        activatedBlocks: [],
+        expectedOutcome: null,
+        criticalJustification: "Security residual risk",
+        requestedOperation: null,
+        parseOk: true,
+      },
+    });
+    expect(required).toBe(true);
+  });
+
+  it("T-CKC grounded successful qualification still creates product-native cycle", async () => {
+    setConversationProviderForTests(new Corr01ToolLoopProvider("ground_ok"));
+    const result = await orchestrateAssistantSend({
+      projectId,
+      content:
+        "Au vu de ce qui est actuellement sur main et de la Roadmap, qualifie la prochaine étape.",
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.f2?.qualification?.isMorrisDecision).toBe(false);
+    expect(result.f2?.qualification?.recommendationLabel).toMatch(
+      /RECOMMANDATION/,
+    );
+    expect(result.f2?.qualification?.detailedStatus).toBeTruthy();
+    expect(result.f2?.qualification?.ckcResolutionRef).toMatch(/^ckc:m2-/);
+  });
+});
+
 ```
-Claims supported by code:
-- grounding occurs before final qualification when `requiresPrequalificationGrounding`
-- unresolved required sources return without createCycle
-- groundedContext fed to re-`analyzeIntent` before qualify/createCycle
-- no hardcoded REAL-B / cyc:qa-validation in product qualification logic (qa-validation appears only in fakeProvider test marker payload)
 
-## G. F-RB-07 implementation evidence
-- `assessGroundingContradictions` + `CONTRADICTION_BLOCKING: yes` protocol in groundingPreflight
-- blocking contradictions return before createCycle; text asserts phrase ≠ HumanDecision
-- no literal one-off patch solely for the string "runtime v3 ADOPTED" in product logic
+## REMEDIATION RECORD (FULL CONTENT)
 
-## H. F-RB-02
-**OPEN** — no durable cross-turn source cache; same-seam can re-ground but F-RB-02 not claimed remediated.
-
-## RB-04
-OUT / PASS REAL / NO WORK / CKC 15/15 / NO SYNTHETIC FALLBACK REQUIREMENT
-
-## I. Remediation document — FULL CONTENT
 # SFIA Studio — REAL-B Blocker-01 — Source-Grounded Cognitive Qualification & Contradiction Enforcement
 
 ## A. Metadata
@@ -2399,68 +1985,111 @@ Morris candidate: **exact REAL-B Terra/high reproof** of RB-00→RB-09 (especial
 
 NO COMMIT / PUSH / PR / MERGE — NO REAL-C — REVIEW HANDOFF PUBLICATION PENDING — MORRIS PUSH GATE REQUIRED
 
+---
 
-## J. Historical REAL-B report immutability
-- sha256 before: 9c01060595dbf6277034f39823ebf25ec7a9044c3b68943408b12b38c4a78393
-- sha256 after (pre-publish): 9c01060595dbf6277034f39823ebf25ec7a9044c3b68943408b12b38c4a78393
-- UNCHANGED: YES
+# CORR-01 — Grounding Path Fidelity & Generic Source-Dependency Detection
 
-## Targeted / typecheck / build evidence (existing logs; no re-execution this cycle)
-- Targeted: `npm test -- __tests__/project-assistant/realBBlocker01.sourceGroundedQualification.test.ts __tests__/project-assistant/f2.orchestrate.test.ts __tests__/project-assistant/orchestrateTurn.test.ts` → 32/32 PASS (existing prior run)
-- typecheck: `npm run typecheck` → TYPECHECK_EXIT=0 (validation-summary.txt)
-- build: `npm run build` → completed successfully (validation-summary / build.txt)
+## A. Metadata (CORR-01)
 
-## FULL-SUITE EVIDENCE — CRITICAL (existing only; NO RERUN)
+| Champ | Valeur |
+|---|---|
+| **Cycle ID** | V3-REAL-B-BLOCKER-01-CORR-01 |
+| **Parent** | V3-REAL-B-BLOCKER-01 |
+| **Parent REAL campaign** | V3-REAL-B-QUALIFICATION-COGNITIVE-REASONING-01 |
+| **Morris GO** | GO V3-REAL-B-BLOCKER-01-CORR-01 — LOCAL CORRECTION ONLY — SAME F1/F2 SEAM — REMOVE FIXTURE GROUNDING SHORT-CIRCUIT / KEEP FAKE AT EXTERNAL PROVIDER BOUNDARY — GENERALIZE SOURCE-DEPENDENCY GROUNDING TRIGGER — TARGETED + TYPECHECK + BUILD + FULL VITEST EXIT 0 REQUIRED — NO OPENAI LIVE — NO REAL-B RERUN — NO COMMIT/PUSH/PR/MERGE — NO REAL-C |
+| **Branch** | `fix/sfia-studio-real-b-blocker-01` (local only) |
+| **HEAD / origin/main** | `967f4c2b35948492caeba5347bb02c7c420de490` |
+| **Parent handoff consumed** | `origin/sfia/review-handoff@e458f7fc31c3e3a9cb8e7b8cb8b679db7bac497b` |
+| **Timestamp (Europe/Paris)** | 2026-08-28 ~12:07 CEST |
+| **Profile / Type** | CRITICAL · EVOL / Delivery correction |
 
-### Classification (CASE B)
-**FULL SUITE PASS NOT PROVEN**
+## B. Trigger / ChatGPT findings consumed
 
-Reason: post-corrective full-suite runs exited non-zero; isolated F3/QA retry PASS; no complete subsequent full-suite EXIT 0 stored.
+| ID | Disposition |
+|---|---|
+| **F-RBB-CORR-01** | REMEDIATED — removed `fixturePrequalificationGrounding` short-circuit; FAKE/LIVE share `runToolCallingLoop` |
+| **F-RBB-CORR-02** | REMEDIATED — generic source/current-state dependency detector (no Product Completion / REAL-B one-offs; no required “avant de qualifier” phrasing) |
+| **Full-suite validation gap** | CLOSED for CORR-01 — full Vitest **EXIT 0** proven post-corrective |
 
-### Run 1 — first full suite after corrective
-- command: `cd projects/sfia-studio/app && npm test`
-- log: `.tmp-sfia-review/real-b-blocker-01/full-vitest.txt` / validation-summary.txt
-- Start at  11:41:55
-- Test Files  2 failed | 222 passed | 13 skipped (237)
-      Tests  2 failed | 2157 passed | 131 skipped (2290)
-- exit code: non-zero (failed tests present)
-- failing tests: ['__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts > F3 native fixture vertical slice > AC-F3-FIX-17/18 double invoke does not second-launch', '__tests__/project-assistant/qa-pre-m6-01.postGoDurableM3Path.test.ts > QA-PRE-M6-01 — durable post-GO path vs Proposal STALE > T4/T5/T6/T7/T8/T10 — resolve successor, confirmation required, execute once, replay safe, no Proposal persistence']
-- error class: Test timed out in 5000ms
+## C. Files changed in CORR-01 (delta vs BLOCKER-01 local)
 
-### Run 2 — second full suite after corrective
-- command: `cd projects/sfia-studio/app && npm test`
-- log: `.tmp-sfia-review/real-b-blocker-01/full-vitest-rerun.txt`
-- Start at  11:42:42
-- Test Files  1 failed | 223 passed | 13 skipped (237)
-      Tests  1 failed | 2158 passed | 131 skipped (2290)
-- exit code: non-zero
-- failing tests: ['__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts > F3 native fixture vertical slice > AC-F3-FIX-17/18 double invoke does not second-launch']
-- second full run exists: **YES**
-- still EXIT != 0
+| File | Change |
+|---|---|
+| `features/project-assistant/groundingPreflight.ts` | Removed fixture short-circuit; always tool-loop path; contradiction protocol-only |
+| `features/project-assistant/f2/repositoryIntent.ts` | Generalized `requiresPrequalificationGrounding` semantic categories |
+| `lib/platform/ai/fakeProvider.ts` | Removed `__F2_RB01_*` / `__F2_RB07_*` marker blocks that fabricated intent/grounding coupling |
+| `__tests__/…/realBBlocker01.sourceGroundedQualification.test.ts` | Rewritten for tool-loop fidelity + generic triggers via TEST-ONLY provider |
+| This remediation record | CORR-01 section appended (historical BLOCKER-01 content preserved) |
 
-### Isolated retry
-- command: `npm test -- __tests__/project-assistant/f3.fixtureVerticalSlice.test.ts __tests__/project-assistant/qa-pre-m6-01.postGoDurableM3Path.test.ts`
-- log: `.tmp-sfia-review/real-b-blocker-01/flake-retry.txt`
-- Start at  11:42:29
-- Test Files  2 passed (2)
-      Tests  14 passed (14)
-- result: PASS (14 tests); F3 AC-F3-FIX-17/18 ~4329ms under isolation
-- evidence these tests are outside F1/F2 corrective seam: F3 fixture / QA-PRE-M6-01 durable M3 path — not in authorized blocker-01 product files
+Unchanged relative to BLOCKER-01 architecture: `orchestrateF2.ts` barrier order · `intentAnalysis.ts` groundedContext · `orchestrateTurn.ts` F1 wrapper.
 
-### Prior clean full-suite baseline on same base SHA
-- Not transported as an authoritative clean EXIT 0 baseline on 967f4c2… in this pack.
-- Do not infer FULL SUITE PASS PROVEN.
+## D. Fixture bypass removal
 
-## Validation distinction (required wording)
-- **IMPLEMENTATION/TARGETED VALIDATION PASS**
-- **FULL-SUITE PASS NOT PROVEN — PRE-EXISTING/OUT-OF-SEAM F3 TIMEOUT CANDIDATE REQUIRES CHATGPT DISPOSITION**
-- Do **not** collapse to DETERMINISTIC PROVEN under a contractual full-suite EXIT 0 prerequisite that is not evidenced.
+- Deleted `fixturePrequalificationGrounding(...)` and its call site.
+- Product path is exclusively: `runProjectGroundingPreflight` → `resolveConversationProvider` → `runToolCallingLoop` → actual READ tools → `ProjectAssistantMemoryEventSink` → `collectToolTelemetry`.
 
-## Anti-claims
-- no code/test/remediation mutation during this transport
-- no OpenAI LIVE
-- no REAL-B rerun
-- no REAL-C
-- no project commit/push/PR/merge
-- runtime v3 NON ADOPTED
-- F-RB-01/07 NOT CLOSED BY REAL PROOF
+## E. Fake boundary disposition
+
+- Fake may substitute **only** ConversationProvider / external model behavior (tool-call decisions + final text / structured intent JSON).
+- Tests use TEST-ONLY `Corr01ToolLoopProvider` (implements `ConversationProvider`, confined to the test file) that emits real `git_local_read_file` / denied `.env` rounds.
+- Blocker-specific `__F2_RB01_*` / `__F2_RB07_*` markers **removed** from production `fakeProvider.ts`.
+- Stock `__F2_ACTIONABLE__` / `__F2_INFORMATIVE__` / etc. unchanged.
+- **Production / live OpenAI provider semantics: NOT CHANGED.**
+
+## F. Generic source-dependency approach
+
+Selected: **deterministic generic classifier** in `requiresPrequalificationGrounding` (smallest robust; avoids IntentAnalysis schema churn / second LLM classifier).
+
+Categories (no product keywords):
+1. Cycle qualification language (`qualifi` / `quel cycle` / `passage en release` / …)
+2. AND repository/current-state dependency (`état actuel`, `actuellement sur main`, `d'après l'état`, `on en est où`, `après le dernier merge`, `en te basant sur`, `sources du projet`, asserted `ADOPTED|COMPLETE|CLOSED|CONSUMED`, explicit read/resolve before qualify, …)
+3. OR elevated claim language (`tiens pour acquis`, `comme un fait acquis`, HumanDecision elevation, …)
+
+Positive cases exercised: A/B/C/D/E-class paraphrases.
+Negative cases: F (new-module framing) / G (security with sufficient user context) → **no** gratuitous grounding (`toolRounds=0`).
+
+Preliminary analysis remains routing-only when grounding is required; only post-grounding `analyzeIntent(groundedContext)` may feed `qualifyWithCkc` / `createCycle`.
+
+## G. Tool-loop / telemetry evidence
+
+- Asserted `toolRounds > 0`, `toolCalls > 0`
+- Asserted `toolEvents` contain `git_local_read_file` with `status === "succeeded"`
+- Asserted `sources[].pathOrRef` originates from telemetry for the real roadmap path
+- Unresolved path: denied `.env` read → `sources.length === 0` → fail-closed, no Cycle/LPS/Proposal
+- Contradiction path: real read + `CONTRADICTION_BLOCKING: yes` → fail-closed
+
+## H. Validation (CORR-01)
+
+| Gate | Result |
+|---|---|
+| Targeted (`realBBlocker01` + `f2.orchestrate` + `orchestrateTurn`) | **33/33 PASS** |
+| `npm run typecheck` | **EXIT 0** |
+| `npm run build` | **PASS** |
+| Full Vitest attempt 1 (`npm test`) | **EXIT 0** — Test Files 224 passed \| 13 skipped; Tests **2160 passed** \| 131 skipped (2291) — Start 12:07:16 CEST |
+| OpenAI LIVE | **0** |
+| REAL-B rerun | **NO** |
+| Historical REAL-B report sha256 | `9c01060595dbf6277034f39823ebf25ec7a9044c3b68943408b12b38c4a78393` **UNCHANGED** |
+
+## I. Remaining
+
+- **F-RB-02** OPEN NONBLOCKING
+- **RB-04** OUT / PASS REAL / NO WORK
+- Exact REAL-B Terra/high reproof still required under distinct Morris GO
+- **REAL-C** still blocked
+- runtime v3 **NON ADOPTED**
+
+## J. Proof ceiling (CORR-01)
+
+**V3-REAL-B-BLOCKER-01-CORR-01 — CORRECTIVE DELIVERY DETERMINISTIC PROVEN — SHARED F1 TOOL-LOOP FIDELITY PROVEN — GENERIC SOURCE-DEPENDENCY GROUNDING PROVEN DETERMINISTICALLY — F-RB-01 + F-RB-07 REMEDIATED IN CODE — FULL VITEST EXIT 0 — PENDING EXACT REAL-B REAL REPROOF**
+
+Do **not** claim: F-RB-01/07 CLOSED BY REAL PROOF · REAL-B PASS · REAL-C READY · runtime v3 ADOPTED.
+
+## K. Next gate
+
+Morris candidate: **exact REAL-B Terra/high reproof** (distinct GO).
+
+**NO REAL-C** until REAL-B later passes and Morris authorizes.
+
+---
+
+NO COMMIT / PUSH / PR / MERGE — NO REAL-C — REVIEW HANDOFF PUBLICATION PENDING — MORRIS PUSH GATE REQUIRED
