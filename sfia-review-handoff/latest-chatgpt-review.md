@@ -1,52 +1,70 @@
-# SFIA Studio — V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-CORR-01 Review Pack FULL
+# SFIA Studio — V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-GIT-INTEGRATION-01 Review Pack FULL
 
-**Timestamp:** 2026-08-28 02:26:33 +0200
-**Cycle:** V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-CORR-01
-**Type:** 14 — Post-merge · DOC · Standard
-**Morris GO (this step):** GO REVIEW HANDOFF PUBLICATION — V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-CORR-01 ONLY — NO PROJECT COMMIT/PUSH/PR — NO REAL-B EXECUTION
-**Prior Morris GO (correction):** GO TRUTH-SYNC DOCUMENTARY CORRECTION — ROADMAP ONLY — 2 SEMANTIC FIXES — NO REAL-B EXECUTION — NO PROJECT PUSH/PR
+**Timestamp:** 2026-08-28 02:41:06 +0200
+**Cycle:** V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-GIT-INTEGRATION-01
+**Type:** 13 — PR readiness · DOC · Standard
+**Morris GO:** GO REAL-A POST-MERGE TRUTH-SYNC GIT INTEGRATION — COMMIT + PUSH + REVIEW HANDOFF + DRAFT PR — NO MERGE — NO REAL-B EXECUTION
 
-## ChatGPT structural disposition (pre-handoff)
+## Prior documentary disposition consumed
 
-- **V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-CORR-01 — STRUCTURAL CORRECTION REVIEW PASS — 2 SEMANTIC FIXES CONSISTENT — REAL-A §S UNCHANGED — REMEDIATION §16 UNCHANGED**
-- Prior remote handoff was still pre-CORR (`669e8af334030c087e64410c26f331ab064e5e06`) → DOCUMENTARY CONTENT REVIEW blocked by missing transport
-- This publication transports CORR-01 Roadmap delta for documentary re-review only
+- V3-REAL-A-POST-MERGE-TRUTH-SYNC-01 — DOCUMENTARY CONTENT REVIEW with 2 Roadmap fixes
+- V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-CORR-01 — DOCUMENTARY CONTENT REVIEW PASS
+- Prior handoff CORR-01: `sfia/review-handoff` @ `e558195317713201aadc6c57a80dd21514ffa8e5`
 
-## Git truth
+## Local Git Truth Check
 
 | Item | Value |
 |------|-------|
 | Repo | /Users/morris/Projects/sfia-workspace-w3-post-closure-truth-sync |
-| Branch (local, unpushed) | docs/sfia-studio-real-a-post-merge-truth-sync |
-| HEAD / origin/main | e7339fa595ac36d6cd7b68647c10a565bc020548 |
-| Tree | c6295284c4be05d9a87a647fb1d52c2948e84afa |
-| Project commit/push/PR this step | NONE |
-| REAL-B execution | NO |
-| OpenAI LIVE | 0 |
+| Initial branch | docs/sfia-studio-real-a-post-merge-truth-sync |
+| Initial HEAD | e7339fa595ac36d6cd7b68647c10a565bc020548 |
+| origin/main | e7339fa595ac36d6cd7b68647c10a565bc020548 |
+| Initial status | 3 unstaged modified docs + `?? .tmp-sfia-review/` |
+| Remote project branch (pre-push) | ABSENT |
 
-## REAL-A / remediation freeze
+## Convergence pre-check
+
+- Build Doctrine: VALIDATED — ACTIVE ON MAIN
+- Product Completion: COMPLETE / CLOSED BY MORRIS
+- REAL-A: COMPLETE / CONSUMED · PASS WITH PARITY GAPS · REAL SOURCE INTEGRITY PROVEN · fabricated claims = NO
+- RA-06: OPEN NON_BLOCKING
+- RA-07: OPEN PARITY GAP NON_BLOCKING
+- REAL-B: QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED
+- C6: CLOSED / DO NOT REOPEN
+- FinOps/T7: FREEZE
+- runtime v3: NON ADOPTED
+
+## CKC
+
+- Cycle 13 — PR readiness — candidate synthetic map fallback — experimental cognitive guidance only
+
+## Freeze / hashes
 
 ```
+BEFORE:
+e4f7155ac7196e7edfc79c50b54968518a12ad66b3d1448ffa7d506964ffcb9e  projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 049a2be6921e8a15238dbf128dae5dd5973cc8a5636ad5417d858daa5241a195  projects/sfia-studio/real-parity/01-real-a-repository-source-intelligence.md
 7b78f7afb7420db45590deed24925b7cebb6589f1c9f9bbe134496655a360f99  projects/sfia-studio/real-parity/remediation/real-a-blocker-01-repository-grounding-integrity.md
 
-MATCH AFTER CORR-01 + this handoff prep: YES
+AFTER COMMIT:
+e4f7155ac7196e7edfc79c50b54968518a12ad66b3d1448ffa7d506964ffcb9e  projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+049a2be6921e8a15238dbf128dae5dd5973cc8a5636ad5417d858daa5241a195  projects/sfia-studio/real-parity/01-real-a-repository-source-intelligence.md
+7b78f7afb7420db45590deed24925b7cebb6589f1c9f9bbe134496655a360f99  projects/sfia-studio/real-parity/remediation/real-a-blocker-01-repository-grounding-integrity.md
+
+MATCH: YES
 ```
 
-## Semantic Fix 1 — PASS
+PROJECT CONTENT MUTATED DURING INTEGRATION: NO
 
-Living rows no longer embed `CURRENT GIT TRUTH = origin/main @ e7339fa5…` as permanent HEAD.
-They use `CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence` with PR #428 / merge `e7339fa5…` as **Last verified REAL-A corrective integration anchor**.
+## Project commit
 
-## Semantic Fix 2 — PASS
-
-DOC11 Roadmap row no longer attributes REAL-A COMPLETE / REAL-B QUALIFIED as DOC11 body content.
-DOC11 pre-REAL-A snapshot is explicit and **SUPERSEDED FOR FORWARD PATH** by Convergence Roadmap + REAL-A post-merge disposition.
-
-## Files
-
-Total project modified candidate files: 3
-CORR-01 touched: Roadmap only (REAL-A docs unchanged)
+| Field | Value |
+|-------|-------|
+| SHA | 5ca59211589436f4cee7f07acfbb768264283923 |
+| Tree | f4725c17707b65d4e95dc0259d46b66545595b69 |
+| Parent | e7339fa595ac36d6cd7b68647c10a565bc020548 |
+| Message | docs(sfia-studio): record REAL-A post-merge truth sync |
+| Files | exactly 3 |
 
 ```
 M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -63,42 +81,58 @@ M	projects/sfia-studio/real-parity/remediation/real-a-blocker-01-repository-grou
 
 ```
 
-`git diff --check` exit=0
+## Project push
 
-## Governance
+| Field | Value |
+|-------|-------|
+| Branch | origin/docs/sfia-studio-real-a-post-merge-truth-sync |
+| Remote SHA | 5ca59211589436f4cee7f07acfbb768264283923 |
+| Verified | YES |
 
-- REAL-A PASS WITH PARITY GAPS
-- RA-06 OPEN NON_BLOCKING · RA-07 OPEN PARITY GAP NON_BLOCKING
-- REAL-B QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED
-- runtime v3 NON ADOPTED · FinOps/T7 FREEZE · C6 CLOSED / DO NOT REOPEN
+## Draft PR
 
-## Verdict
+| Field | Value |
+|-------|-------|
+| Number | 429 |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/429 |
+| State | OPEN |
+| Draft | true |
+| Base | main |
+| Head | docs/sfia-studio-real-a-post-merge-truth-sync |
+| Head SHA | 5ca59211589436f4cee7f07acfbb768264283923 |
 
-V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-CORR-01 — HANDOFF PUBLISHED FOR DOCUMENTARY CONTENT RE-REVIEW — ROADMAP SEMANTICS FIXED — REAL-A §S UNCHANGED — REMEDIATION §16 UNCHANGED — NO PROJECT GIT MUTATION — NO REAL-B EXECUTION
-
----
-
-# CORR-01 DELTA ONLY — living Roadmap rows (vs handoff 669e8af3)
-
-```diff
---- handoff-669e8af3/pre-CORR living rows
-+++ local CORR-01 living rows
-@@ -1,4 +1,5 @@
--| **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; this living Roadmap **≠** embed permanent `origin/main` HEAD · repository publication/integration status = **RESOLVE FROM GIT / PR evidence**)* · **CURRENT GIT TRUTH** = `origin/main` @ `e7339fa595ac36d6cd7b68647c10a565bc020548` · tree `c6295284c4be05d9a87a647fb1d52c2948e84afa` · **Last verified REAL-A corrective integration anchor** = PR **#428** MERGED · title `feat(sfia-studio): harden REAL-A repository source grounding` · head `0ed085e4928409d047e63ee12557f35de1e02c15` · merge `e7339fa595ac36d6cd7b68647c10a565bc020548` · post-merge CI **`33126011388` SUCCESS** · Required Gate **PASS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · **REAL-A = COMPLETE / CONSUMED** at **PASS WITH PARITY GAPS** · source integrity **REAL PROVEN** · fabricated source-backed claims **NO** · RA-06 multi-document completeness reserve **OPEN NON_BLOCKING** · RA-07 cross-turn provenance **OPEN PARITY GAP NON_BLOCKING** · **W1–W4 CLOSED** · C6 **CLOSED / DO NOT REOPEN** · FinOps/T7 **FREEZE** · runtime v3 **NON ADOPTED** · next capability = **REAL-B — QUALIFICATION & COGNITIVE REASONING** · **REAL-B = QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED** · future test-config model candidate **gpt-5.6-terra / reasoning high** *(no Sol in-campaign fallback if executed)* · next structural gate = **distinct Morris GO REAL-B EXECUTION** · **≠** REAL-B AUTHORIZED · **≠** REAL-B STARTED · **≠** REAL-B PASS · **≠** END-TO-END REAL PROVEN · **≠** runtime v3 ADOPTED · **≠** FinOps/T7 unfrozen · **≠** C6 reopened · *(living Roadmap repository-state summary **≠** replacement for Git/PR as repository lifecycle SoT)* |
--| **Timestamp maintenance courant** | 2026-08-28 01:47 CEST (+0200) — **V3-REAL-A-POST-MERGE-TRUTH-SYNC-01** — **CURRENT FUNCTIONAL / GOVERNANCE TRUTH** · **CURRENT GIT TRUTH** = `origin/main` @ `e7339fa595ac36d6cd7b68647c10a565bc020548` · tree `c6295284c4be05d9a87a647fb1d52c2948e84afa` · PR **#428 MERGED** · head `0ed085e4928409d047e63ee12557f35de1e02c15` · merge `e7339fa595ac36d6cd7b68647c10a565bc020548` · post-merge CI **`33126011388` SUCCESS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · **REAL-A = COMPLETE / CONSUMED** · **PASS WITH PARITY GAPS** · source integrity **REAL PROVEN** · fabricated claims **NO** · RA-06 completeness reserve **OPEN NON_BLOCKING** · RA-07 cross-turn provenance **OPEN PARITY GAP NON_BLOCKING** · C6 **CLOSED / DO NOT REOPEN** · FinOps/T7 **FREEZE** · runtime v3 **NON ADOPTED** · next = **REAL-B — QUALIFICATION & COGNITIVE REASONING** · **REAL-B = QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED** · future model candidate **gpt-5.6-terra / high** · next structural gate = **distinct Morris GO REAL-B EXECUTION** · **≠** REAL-B AUTHORIZED · **≠** REAL-B STARTED · **≠** runtime v3 ADOPTED |
--| **Morris trajectory decision (post-C6 / CKC)** | **SUPERSEDED FOR FORWARD PATH** — CKC-first + G2 + W1 + W2 + W3-A/B/C/D + **W4** + **Product Completion COMPLETE / CLOSED BY MORRIS** + **REAL-A COMPLETE / CONSUMED (PR #428)** completed · **NOW:** **CURRENT GIT TRUTH** = `origin/main` @ `e7339fa595ac36d6cd7b68647c10a565bc020548` · tree `c6295284c4be05d9a87a647fb1d52c2948e84afa` · PR **#428 MERGED** · post-merge CI **`33126011388` SUCCESS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · **REAL-A = COMPLETE / CONSUMED** at **PASS WITH PARITY GAPS** · source integrity **REAL PROVEN** · fabricated claims **NO** · RA-06 **OPEN NON_BLOCKING** · RA-07 **OPEN PARITY GAP NON_BLOCKING** · C6 **CLOSED / DO NOT REOPEN** · FinOps/T7 **FREEZE** · runtime v3 **NON ADOPTED** · next = **REAL-B — QUALIFICATION & COGNITIVE REASONING** · **REAL-B = QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED** · future test-config model **gpt-5.6-terra / reasoning high** · next structural gate = **distinct Morris GO REAL-B EXECUTION** · **≠** REAL-B AUTHORIZED · **≠** REAL-B STARTED · **≠** READY FOR V3 ADOPTION · **≠** runtime v3 ADOPTED · **≠** FinOps PASS |
--| **Product Completion W3 Delivery Readiness** | **LIVING DOC11** · path `projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md` · historically qualified W3 then carried W4/PC trajectory · **NOW** also records **Product Completion = COMPLETE / CLOSED BY MORRIS** (PC-POST-CLOSURE-TRUTH-SYNC-01) · GO Morris W3 Delivery **CONSUMED** · W3/W4 CLOSED **CONSUMED** · Final PC Qualification **CONSUMED** · C6 **CLOSED** · REAL-A **COMPLETE / CONSUMED** · FinOps **FREEZE** · runtime v3 **NON ADOPTED** · next = **REAL-B QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED** · **≠** REAL-B AUTHORIZED · **≠** READY FOR V3 ADOPTION |
-+| **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; this living Roadmap **≠** embed permanent `origin/main` HEAD · repository publication/integration status = **RESOLVE FROM GIT / PR evidence**)* · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified REAL-A corrective integration anchor** = PR **#428** MERGED · title `feat(sfia-studio): harden REAL-A repository source grounding` · head `0ed085e4928409d047e63ee12557f35de1e02c15` · merge `e7339fa595ac36d6cd7b68647c10a565bc020548` · tree `c6295284c4be05d9a87a647fb1d52c2948e84afa` · post-merge CI **`33126011388` SUCCESS** · Required Gate **PASS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · **REAL-A = COMPLETE / CONSUMED** at **PASS WITH PARITY GAPS** · source integrity **REAL PROVEN** · fabricated source-backed claims **NO** · RA-06 multi-document completeness reserve **OPEN NON_BLOCKING** · RA-07 cross-turn provenance **OPEN PARITY GAP NON_BLOCKING** · **W1–W4 CLOSED** · C6 **CLOSED / DO NOT REOPEN** · FinOps/T7 **FREEZE** · runtime v3 **NON ADOPTED** · next capability = **REAL-B — QUALIFICATION & COGNITIVE REASONING** · **REAL-B = QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED** · future test-config model candidate **gpt-5.6-terra / reasoning high** *(no Sol in-campaign fallback if executed)* · next structural gate = **distinct Morris GO REAL-B EXECUTION** · **≠** REAL-B AUTHORIZED · **≠** REAL-B STARTED · **≠** REAL-B PASS · **≠** END-TO-END REAL PROVEN · **≠** runtime v3 ADOPTED · **≠** FinOps/T7 unfrozen · **≠** C6 reopened · *(living Roadmap repository-state summary **≠** replacement for Git/PR as repository lifecycle SoT · `e7339fa5…` is the verified REAL-A corrective merge anchor, **not** a permanent embedded `origin/main` HEAD)* |
-+| **Timestamp maintenance courant** | 2026-08-28 02:20 CEST (+0200) — **V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-CORR-01** — **CURRENT FUNCTIONAL / GOVERNANCE TRUTH** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified REAL-A corrective integration anchor** = PR **#428** MERGED · title `feat(sfia-studio): harden REAL-A repository source grounding` · head `0ed085e4928409d047e63ee12557f35de1e02c15` · merge `e7339fa595ac36d6cd7b68647c10a565bc020548` · tree `c6295284c4be05d9a87a647fb1d52c2948e84afa` · post-merge CI **`33126011388` SUCCESS** · Required Gate **PASS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · **REAL-A = COMPLETE / CONSUMED** · **PASS WITH PARITY GAPS** · source integrity **REAL PROVEN** · fabricated claims **NO** · RA-06 completeness reserve **OPEN NON_BLOCKING** · RA-07 cross-turn provenance **OPEN PARITY GAP NON_BLOCKING** · C6 **CLOSED / DO NOT REOPEN** · FinOps/T7 **FREEZE** · runtime v3 **NON ADOPTED** · next = **REAL-B — QUALIFICATION & COGNITIVE REASONING** · **REAL-B = QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED** · future model candidate **gpt-5.6-terra / high** · next structural gate = **distinct Morris GO REAL-B EXECUTION** · **≠** REAL-B AUTHORIZED · **≠** REAL-B STARTED · **≠** runtime v3 ADOPTED · **≠** embed `e7339fa5…` as permanent `origin/main` HEAD |
-+| **Timestamp maintenance historique V3-REAL-A-POST-MERGE-TRUTH-SYNC-01 (pre-CORR-01)** | *(historique · superseded by V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-CORR-01 semantic fixes)* — 2026-08-28 01:47 CEST (+0200) — **V3-REAL-A-POST-MERGE-TRUTH-SYNC-01** — **THEN-CURRENT FUNCTIONAL / GOVERNANCE TRUTH** · **CURRENT GIT TRUTH** = `origin/main` @ `e7339fa595ac36d6cd7b68647c10a565bc020548` · tree `c6295284c4be05d9a87a647fb1d52c2948e84afa` · PR **#428 MERGED** · head `0ed085e4928409d047e63ee12557f35de1e02c15` · merge `e7339fa595ac36d6cd7b68647c10a565bc020548` · post-merge CI **`33126011388` SUCCESS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · **REAL-A = COMPLETE / CONSUMED** · **PASS WITH PARITY GAPS** · source integrity **REAL PROVEN** · fabricated claims **NO** · RA-06 completeness reserve **OPEN NON_BLOCKING** · RA-07 cross-turn provenance **OPEN PARITY GAP NON_BLOCKING** · C6 **CLOSED / DO NOT REOPEN** · FinOps/T7 **FREEZE** · runtime v3 **NON ADOPTED** · next = **REAL-B — QUALIFICATION & COGNITIVE REASONING** · **REAL-B = QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED** · future model candidate **gpt-5.6-terra / high** · next structural gate = **distinct Morris GO REAL-B EXECUTION** · **≠** REAL-B AUTHORIZED · **≠** REAL-B STARTED · **≠** runtime v3 ADOPTED |
-+| **Morris trajectory decision (post-C6 / CKC)** | **SUPERSEDED FOR FORWARD PATH** — CKC-first + G2 + W1 + W2 + W3-A/B/C/D + **W4** + **Product Completion COMPLETE / CLOSED BY MORRIS** + **REAL-A COMPLETE / CONSUMED (PR #428)** completed · **NOW:** **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified REAL-A corrective integration anchor** = PR **#428** MERGED · title `feat(sfia-studio): harden REAL-A repository source grounding` · head `0ed085e4928409d047e63ee12557f35de1e02c15` · merge `e7339fa595ac36d6cd7b68647c10a565bc020548` · tree `c6295284c4be05d9a87a647fb1d52c2948e84afa` · post-merge CI **`33126011388` SUCCESS** · Required Gate **PASS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · **REAL-A = COMPLETE / CONSUMED** at **PASS WITH PARITY GAPS** · source integrity **REAL PROVEN** · fabricated claims **NO** · RA-06 **OPEN NON_BLOCKING** · RA-07 **OPEN PARITY GAP NON_BLOCKING** · C6 **CLOSED / DO NOT REOPEN** · FinOps/T7 **FREEZE** · runtime v3 **NON ADOPTED** · next = **REAL-B — QUALIFICATION & COGNITIVE REASONING** · **REAL-B = QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED** · future test-config model **gpt-5.6-terra / reasoning high** · next structural gate = **distinct Morris GO REAL-B EXECUTION** · **≠** REAL-B AUTHORIZED · **≠** REAL-B STARTED · **≠** READY FOR V3 ADOPTION · **≠** runtime v3 ADOPTED · **≠** FinOps PASS · **≠** `e7339fa5…` as permanent embedded `origin/main` HEAD |
-+| **Product Completion W3 Delivery Readiness** | **LIVING DOC11** · path `projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readiness.md` · **Product Completion closure record** · GO Morris W3 Delivery **CONSUMED** · W3/W4 CLOSED **CONSUMED** · Final PC Qualification **CONSUMED** · **Product Completion = COMPLETE / CLOSED BY MORRIS** unchanged · DOC11 **REAL / next-capability fields remain a pre-REAL-A snapshot** (`REAL = OUT / NOT CONSUMED` · next = **NEXT-CAPABILITY REQUALIFICATION** · next capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED**) and are **SUPERSEDED FOR FORWARD PATH** by the Convergence Roadmap + REAL-A post-merge disposition · **current forward trajectory** *(Roadmap / REAL-A disposition — **not** claimed as DOC11 body content)* = **REAL-A COMPLETE / CONSUMED** → **REAL-B QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED** · C6 **CLOSED** · FinOps **FREEZE** · runtime v3 **NON ADOPTED** · **≠** DOC11 itself contains REAL-A COMPLETE · **≠** DOC11 itself contains REAL-B QUALIFIED CANDIDATE · **≠** REAL-B AUTHORIZED · **≠** READY FOR V3 ADOPTION |
+```json
+{"baseRefName":"main","headRefName":"docs/sfia-studio-real-a-post-merge-truth-sync","headRefOid":"5ca59211589436f4cee7f07acfbb768264283923","isDraft":true,"number":429,"state":"OPEN","url":"https://github.com/mcleland147/sfia-workspace/pull/429"}
 
 ```
 
+### PR checks (read-only)
+
+```
+Build and validate SFIA Studio	pending	0	https://github.com/mcleland147/sfia-workspace/actions/runs/33130469094/job/98718564967
+Detect SFIA Studio changes	pass	7s	https://github.com/mcleland147/sfia-workspace/actions/runs/33130469094/job/98718539017
+
+```
+
+CI classification: PENDING
+
+## Governance
+
+- MERGE: NOT PERFORMED
+- BRANCH DELETION: NOT PERFORMED
+- REAL-B EXECUTED: NO
+- OpenAI LIVE: 0
+- runtime v3: NON ADOPTED
+- FinOps/T7: FREEZE
+- C6: CLOSED / DO NOT REOPEN
+
+## Verdict
+
+V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-GIT-INTEGRATION-01 — PROJECT COMMIT + PUSH + REVIEW HANDOFF + DRAFT PR COMPLETE — EXACT 3-DOC TRUTH-SYNC INTEGRATED ON PROJECT BRANCH — NO CONTENT DRIFT — NO MERGE — NO REAL-B EXECUTION — READY FOR CHATGPT PR REVIEW — CI PENDING
+
 ---
 
-# ROADMAP LIVING / CORR-01 ROWS (complete post-CORR)
+# ROADMAP — LIVING ROWS (complete)
 
 | **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; this living Roadmap **≠** embed permanent `origin/main` HEAD · repository publication/integration status = **RESOLVE FROM GIT / PR evidence**)* · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified REAL-A corrective integration anchor** = PR **#428** MERGED · title `feat(sfia-studio): harden REAL-A repository source grounding` · head `0ed085e4928409d047e63ee12557f35de1e02c15` · merge `e7339fa595ac36d6cd7b68647c10a565bc020548` · tree `c6295284c4be05d9a87a647fb1d52c2948e84afa` · post-merge CI **`33126011388` SUCCESS** · Required Gate **PASS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · **REAL-A = COMPLETE / CONSUMED** at **PASS WITH PARITY GAPS** · source integrity **REAL PROVEN** · fabricated source-backed claims **NO** · RA-06 multi-document completeness reserve **OPEN NON_BLOCKING** · RA-07 cross-turn provenance **OPEN PARITY GAP NON_BLOCKING** · **W1–W4 CLOSED** · C6 **CLOSED / DO NOT REOPEN** · FinOps/T7 **FREEZE** · runtime v3 **NON ADOPTED** · next capability = **REAL-B — QUALIFICATION & COGNITIVE REASONING** · **REAL-B = QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED** · future test-config model candidate **gpt-5.6-terra / reasoning high** *(no Sol in-campaign fallback if executed)* · next structural gate = **distinct Morris GO REAL-B EXECUTION** · **≠** REAL-B AUTHORIZED · **≠** REAL-B STARTED · **≠** REAL-B PASS · **≠** END-TO-END REAL PROVEN · **≠** runtime v3 ADOPTED · **≠** FinOps/T7 unfrozen · **≠** C6 reopened · *(living Roadmap repository-state summary **≠** replacement for Git/PR as repository lifecycle SoT · `e7339fa5…` is the verified REAL-A corrective merge anchor, **not** a permanent embedded `origin/main` HEAD)* |
 | **Timestamp maintenance courant** | 2026-08-28 02:20 CEST (+0200) — **V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-CORR-01** — **CURRENT FUNCTIONAL / GOVERNANCE TRUTH** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified REAL-A corrective integration anchor** = PR **#428** MERGED · title `feat(sfia-studio): harden REAL-A repository source grounding` · head `0ed085e4928409d047e63ee12557f35de1e02c15` · merge `e7339fa595ac36d6cd7b68647c10a565bc020548` · tree `c6295284c4be05d9a87a647fb1d52c2948e84afa` · post-merge CI **`33126011388` SUCCESS** · Required Gate **PASS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · **REAL-A = COMPLETE / CONSUMED** · **PASS WITH PARITY GAPS** · source integrity **REAL PROVEN** · fabricated claims **NO** · RA-06 completeness reserve **OPEN NON_BLOCKING** · RA-07 cross-turn provenance **OPEN PARITY GAP NON_BLOCKING** · C6 **CLOSED / DO NOT REOPEN** · FinOps/T7 **FREEZE** · runtime v3 **NON ADOPTED** · next = **REAL-B — QUALIFICATION & COGNITIVE REASONING** · **REAL-B = QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED** · future model candidate **gpt-5.6-terra / high** · next structural gate = **distinct Morris GO REAL-B EXECUTION** · **≠** REAL-B AUTHORIZED · **≠** REAL-B STARTED · **≠** runtime v3 ADOPTED · **≠** embed `e7339fa5…` as permanent `origin/main` HEAD |
@@ -108,7 +142,110 @@ V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-CORR-01 — HANDOFF PUBLISHED FOR DOCUMENTARY
 
 ---
 
-# FULL ROADMAP DIFF vs HEAD (truth-sync + CORR-01)
+# REAL-A — POST-MERGE DISPOSITION §S (complete)
+
+# POST-MERGE DISPOSITION — V3-REAL-A-POST-MERGE-TRUTH-SYNC-01
+
+> Documentary post-merge truth only. Does **not** constitute a new REAL campaign or a new REAL proof.
+> Preserves above: initial gpt-5-mini failed campaign · corrective context · EXACT RE-RUN section.
+
+## S. Métadonnées post-merge
+
+| Champ | Valeur |
+|---|---|
+| **Cycle** | V3-REAL-A-POST-MERGE-TRUTH-SYNC-01 |
+| **Morris GO** | GO REAL-A POST-MERGE TRUTH SYNC + REAL-B QUALIFICATION — NO REAL-B EXECUTION |
+| **Timestamp (Europe/Paris)** | 2026-08-28 01:47:03 +0200 |
+| **Project corrective commit** | `0ed085e4928409d047e63ee12557f35de1e02c15` |
+| **PR** | [#428](https://github.com/mcleland147/sfia-workspace/pull/428) **MERGED** |
+| **Merge commit** | `e7339fa595ac36d6cd7b68647c10a565bc020548` |
+| **Tree** | `c6295284c4be05d9a87a647fb1d52c2948e84afa` |
+| **PR-head CI** | ultimately **SUCCESS** (after Vitest timeout flake on unrelated W3C-P10; no REAL-A code change) |
+| **Post-merge CI** | run [`33126011388`](https://github.com/mcleland147/sfia-workspace/actions/runs/33126011388) **SUCCESS** (SFIA Studio CI) |
+
+## S.1 Final consumed verdict
+
+**REAL-A final consumed disposition:**
+
+PASS WITH PARITY GAPS — REAL SOURCE INTEGRITY PROVEN — GPT-5.6 SOL / HIGH
+
+- Fabricated source-backed claims: **NO**
+- No third REAL-A rerun required
+- This truth-sync is **not** a new REAL proof
+
+## S.2 Reserves (still visible / NON_BLOCKING)
+
+| Reserve | Status |
+|---|---|
+| **RA-06** multi-document completeness ceiling | **OPEN NON_BLOCKING** — honesty required when corpus incomplete |
+| **RA-07** cross-turn source provenance continuity | **OPEN PARITY GAP NON_BLOCKING** — not corrected in Git integration |
+
+## S.3 Downstream / governance
+
+| Item | Status |
+|---|---|
+| **REAL-B** | **QUALIFIED CANDIDATE** only · **NOT AUTHORIZED** · **NOT STARTED** · requires **distinct Morris GO REAL-B EXECUTION** |
+| Future REAL-B test config (if authorized later) | `gpt-5.6-terra` / reasoning `high` · no Sol in-campaign fallback |
+| runtime v3 | **NON ADOPTED** |
+| FinOps/T7 | **FREEZE** |
+| C6 | **CLOSED / DO NOT REOPEN** |
+| Product Completion | **COMPLETE / CLOSED BY MORRIS** (unchanged) |
+
+**Verdict line:**
+
+REAL-A POST-MERGE — COMPLETE / CONSUMED ON MAIN @ `e7339fa5…` — PASS WITH PARITY GAPS — REAL-B QUALIFIED CANDIDATE ONLY — NO REAL-B EXECUTION — runtime v3 NON ADOPTED
+
+
+---
+
+# REMEDIATION — §16 SUPERSEDING STATUS (complete)
+
+## 16. POST-CORRECTIVE / POST-MERGE DISPOSITION — SUPERSEDING STATUS
+
+> **Superseding status only.** Sections above that say commit/push/rerun were then pending remain **HISTORICAL** as written at corrective time. Do not read them as current active status.
+
+| Champ | Valeur |
+|---|---|
+| **Cycle recording this disposition** | V3-REAL-A-POST-MERGE-TRUTH-SYNC-01 |
+| **Timestamp (Europe/Paris)** | 2026-08-28 01:47:03 +0200 |
+| **Corrective integrated** | YES — via PR **#428** |
+| **Project commit** | `0ed085e4928409d047e63ee12557f35de1e02c15` |
+| **Merge** | `e7339fa595ac36d6cd7b68647c10a565bc020548` |
+| **Tree** | `c6295284c4be05d9a87a647fb1d52c2948e84afa` |
+| **Post-merge CI** | `33126011388` **SUCCESS** |
+| **Exact REAL-A re-run** | **CONSUMED** — PASS WITH PARITY GAPS · REAL SOURCE INTEGRITY PROVEN · gpt-5.6-sol / high |
+
+### Supersessions
+
+| Historical active claim (above) | Superseding status |
+|---|---|
+| REAL-A re-run still required | **SUPERSEDED** — exact re-run executed and consumed |
+| Corrective not yet commit/push/PR | **SUPERSEDED** — integrated on `main` via PR #428 |
+| RA-06 fabrication blocker open | **CLOSED BY REAL PROOF** (exact re-run; no fabricated source-backed claims) |
+| Source grounding corrective candidate-only | **INTEGRATED ON MAIN** |
+
+### Still open (NON_BLOCKING)
+
+- **RA-07** cross-turn source provenance continuity — PARITY GAP NON_BLOCKING
+- Multi-document completeness ceilings — NON_BLOCKING with honesty requirement
+
+### Explicit non-claims
+
+- No new corrective development opened by this disposition
+- **REAL-B** = **QUALIFIED CANDIDATE** only · **NOT AUTHORIZED** · **NOT STARTED**
+- runtime v3 **NON ADOPTED**
+- FinOps/T7 **FREEZE**
+- C6 **CLOSED / DO NOT REOPEN**
+- This section is documentary truth sync — **not** a new LIVE proof
+
+**Superseding verdict:**
+
+V3-REAL-A-BLOCKER-01 — CORRECTIVE INTEGRATED ON MAIN (PR #428) — EXACT REAL-A RE-RUN CONSUMED — PASS WITH PARITY GAPS — RA-06 FABRICATION BLOCKER CLOSED BY REAL PROOF — RA-07 NON_BLOCKING — REAL-B CANDIDATE ONLY — runtime v3 NON ADOPTED
+
+
+---
+
+# FULL PROJECT COMMIT DIFF
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -142,5 +279,118 @@ index efde1ba4..61bbe05c 100644
  | **Product Completion W3-A Governed Execute** | **CLOSED BY MORRIS / INTEGRATED ON MAIN** · PR **#408 MERGED** · candidate `a69e3ad1924b7e33407ff0f9d62dd2189300f785` · merge `686e545a4bb058b95c8c456a517322ceb3e0bcaa` · PR-head CI **`32702286010` SUCCESS** · push/main CI **`32703289053` SUCCESS** · head→merge **0-file / tree parity** · US-P1-04 / FC-10 · X-W3A-01…08 **PASS** · proof **DETERMINISTIC PRODUCT-NATIVE PROVEN** · TestExecutionAdapter remains external executor fake · post-merge evidence handoff `b3108f4f…` · source branch `delivery/sfia-studio-product-completion-w3-a-governed-execute` **PRESERVED** · **≠** W3 CLOSED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED |
  | **Product Completion W3-B Targeted Technical Architecture** | **VALIDATED / ADOPTED BY MORRIS — INTEGRATED ON MAIN** · path `projects/sfia-studio/product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md` · PR **#410 MERGED** · head `cbad09d54518c56d9fd894a788e55b53d2b6b5a5` · merge `bcc39fba04664edc09fca782e61e5f5e70a45d35` · PR-head CI **`32764582915` SUCCESS** · push/main CI **`32765431464` SUCCESS** · ARCH-R01…ARCH-R06 **REVIEW-CLEAN** · TD-W3B-01…04 **ADOPTED** · Option A ClaimEvaluation adaptation · Option S2 same-Attempt system-governed STOP · Product SQLite **KEEP** · C6 **CLOSED / not reopened** · no parallel Claim Engine · no Stop Engine · Delivery **NOT restarted** · **≠** W3-B complete · **≠** W3 closed · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED |
  | **Product Completion W3-B Terminal Result + Evidence** | **CLOSED BY MORRIS / INTEGRATED ON MAIN** · PR **#413 MERGED** · head `8c1f9b863a36391131b01ffd81a673d0105c1122` · merge `84bec89d85e8986dd156b60e3351ba221e635ea4` · PR-head CI **`32788141345` SUCCESS** · post-merge main CI **`32789273684` SUCCESS** · Required Gate **PASS** · US-P1-05 / US-P1-06 **SATISFIED** · X-W3B-01…12 **12/12 PASS** · TD-W3B-02 Option B **IMPLEMENTED AND PROVEN** · Attempt-bound immutable EC semantic snapshot · Contract Result ClaimEvaluation · Evidence + frozen ReviewBundle · SYSTEM_GOVERNED_STOP distinct · business-first `/studio` · source branch `delivery/sfia-studio-product-completion-w3-b-bound-snapshot` **PRESERVED** · **≠** W3 CLOSED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED |
+diff --git a/projects/sfia-studio/real-parity/01-real-a-repository-source-intelligence.md b/projects/sfia-studio/real-parity/01-real-a-repository-source-intelligence.md
+index a256916d..58464f23 100644
+--- a/projects/sfia-studio/real-parity/01-real-a-repository-source-intelligence.md
++++ b/projects/sfia-studio/real-parity/01-real-a-repository-source-intelligence.md
+@@ -423,3 +423,56 @@ REAL-A EXACT RE-RUN — PASS WITH PARITY GAPS — REAL SOURCE INTEGRITY PROVEN
+ **REAL-B impact:** still **BLOCKED** until ChatGPT review + distinct Morris gate. Integrity precondition for REAL-B is now candidate-proven; authorization is not automatic.
+
+ **Next recommended gate:** ChatGPT review of `.tmp-sfia-review/chatgpt-review.md` → Morris decides REAL-B GO/NO-GO (or further remediation for cross-turn provenance if required).
++
++---
++
++# POST-MERGE DISPOSITION — V3-REAL-A-POST-MERGE-TRUTH-SYNC-01
++
++> Documentary post-merge truth only. Does **not** constitute a new REAL campaign or a new REAL proof.
++> Preserves above: initial gpt-5-mini failed campaign · corrective context · EXACT RE-RUN section.
++
++## S. Métadonnées post-merge
++
++| Champ | Valeur |
++|---|---|
++| **Cycle** | V3-REAL-A-POST-MERGE-TRUTH-SYNC-01 |
++| **Morris GO** | GO REAL-A POST-MERGE TRUTH SYNC + REAL-B QUALIFICATION — NO REAL-B EXECUTION |
++| **Timestamp (Europe/Paris)** | 2026-08-28 01:47:03 +0200 |
++| **Project corrective commit** | `0ed085e4928409d047e63ee12557f35de1e02c15` |
++| **PR** | [#428](https://github.com/mcleland147/sfia-workspace/pull/428) **MERGED** |
++| **Merge commit** | `e7339fa595ac36d6cd7b68647c10a565bc020548` |
++| **Tree** | `c6295284c4be05d9a87a647fb1d52c2948e84afa` |
++| **PR-head CI** | ultimately **SUCCESS** (after Vitest timeout flake on unrelated W3C-P10; no REAL-A code change) |
++| **Post-merge CI** | run [`33126011388`](https://github.com/mcleland147/sfia-workspace/actions/runs/33126011388) **SUCCESS** (SFIA Studio CI) |
++
++## S.1 Final consumed verdict
++
++**REAL-A final consumed disposition:**
++
++PASS WITH PARITY GAPS — REAL SOURCE INTEGRITY PROVEN — GPT-5.6 SOL / HIGH
++
++- Fabricated source-backed claims: **NO**
++- No third REAL-A rerun required
++- This truth-sync is **not** a new REAL proof
++
++## S.2 Reserves (still visible / NON_BLOCKING)
++
++| Reserve | Status |
++|---|---|
++| **RA-06** multi-document completeness ceiling | **OPEN NON_BLOCKING** — honesty required when corpus incomplete |
++| **RA-07** cross-turn source provenance continuity | **OPEN PARITY GAP NON_BLOCKING** — not corrected in Git integration |
++
++## S.3 Downstream / governance
++
++| Item | Status |
++|---|---|
++| **REAL-B** | **QUALIFIED CANDIDATE** only · **NOT AUTHORIZED** · **NOT STARTED** · requires **distinct Morris GO REAL-B EXECUTION** |
++| Future REAL-B test config (if authorized later) | `gpt-5.6-terra` / reasoning `high` · no Sol in-campaign fallback |
++| runtime v3 | **NON ADOPTED** |
++| FinOps/T7 | **FREEZE** |
++| C6 | **CLOSED / DO NOT REOPEN** |
++| Product Completion | **COMPLETE / CLOSED BY MORRIS** (unchanged) |
++
++**Verdict line:**
++
++REAL-A POST-MERGE — COMPLETE / CONSUMED ON MAIN @ `e7339fa5…` — PASS WITH PARITY GAPS — REAL-B QUALIFIED CANDIDATE ONLY — NO REAL-B EXECUTION — runtime v3 NON ADOPTED
+diff --git a/projects/sfia-studio/real-parity/remediation/real-a-blocker-01-repository-grounding-integrity.md b/projects/sfia-studio/real-parity/remediation/real-a-blocker-01-repository-grounding-integrity.md
+index 1126f186..cae9239a 100644
+--- a/projects/sfia-studio/real-parity/remediation/real-a-blocker-01-repository-grounding-integrity.md
++++ b/projects/sfia-studio/real-parity/remediation/real-a-blocker-01-repository-grounding-integrity.md
+@@ -225,3 +225,47 @@ Réserve non bloquante documentée : SMOKE-07 follow-up provenance declaration g
+ 2. Morris GO (ou STOP)
+ 3. Si GO : **EXACT REAL-A RA-00 → RA-08 RE-RUN** under `gpt-5.6-sol` / `OPENAI_REASONING_EFFORT=high`
+ 4. REAL-B remains BLOCKED until REAL-A PASS
++
++---
++
++## 16. POST-CORRECTIVE / POST-MERGE DISPOSITION — SUPERSEDING STATUS
++
++> **Superseding status only.** Sections above that say commit/push/rerun were then pending remain **HISTORICAL** as written at corrective time. Do not read them as current active status.
++
++| Champ | Valeur |
++|---|---|
++| **Cycle recording this disposition** | V3-REAL-A-POST-MERGE-TRUTH-SYNC-01 |
++| **Timestamp (Europe/Paris)** | 2026-08-28 01:47:03 +0200 |
++| **Corrective integrated** | YES — via PR **#428** |
++| **Project commit** | `0ed085e4928409d047e63ee12557f35de1e02c15` |
++| **Merge** | `e7339fa595ac36d6cd7b68647c10a565bc020548` |
++| **Tree** | `c6295284c4be05d9a87a647fb1d52c2948e84afa` |
++| **Post-merge CI** | `33126011388` **SUCCESS** |
++| **Exact REAL-A re-run** | **CONSUMED** — PASS WITH PARITY GAPS · REAL SOURCE INTEGRITY PROVEN · gpt-5.6-sol / high |
++
++### Supersessions
++
++| Historical active claim (above) | Superseding status |
++|---|---|
++| REAL-A re-run still required | **SUPERSEDED** — exact re-run executed and consumed |
++| Corrective not yet commit/push/PR | **SUPERSEDED** — integrated on `main` via PR #428 |
++| RA-06 fabrication blocker open | **CLOSED BY REAL PROOF** (exact re-run; no fabricated source-backed claims) |
++| Source grounding corrective candidate-only | **INTEGRATED ON MAIN** |
++
++### Still open (NON_BLOCKING)
++
++- **RA-07** cross-turn source provenance continuity — PARITY GAP NON_BLOCKING
++- Multi-document completeness ceilings — NON_BLOCKING with honesty requirement
++
++### Explicit non-claims
++
++- No new corrective development opened by this disposition
++- **REAL-B** = **QUALIFIED CANDIDATE** only · **NOT AUTHORIZED** · **NOT STARTED**
++- runtime v3 **NON ADOPTED**
++- FinOps/T7 **FREEZE**
++- C6 **CLOSED / DO NOT REOPEN**
++- This section is documentary truth sync — **not** a new LIVE proof
++
++**Superseding verdict:**
++
++V3-REAL-A-BLOCKER-01 — CORRECTIVE INTEGRATED ON MAIN (PR #428) — EXACT REAL-A RE-RUN CONSUMED — PASS WITH PARITY GAPS — RA-06 FABRICATION BLOCKER CLOSED BY REAL PROOF — RA-07 NON_BLOCKING — REAL-B CANDIDATE ONLY — runtime v3 NON ADOPTED
 
 ```
