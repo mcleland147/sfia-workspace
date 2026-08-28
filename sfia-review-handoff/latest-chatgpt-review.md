@@ -1,63 +1,232 @@
-# SFIA Studio — FULL Review Pack — Nora Cognitive Completion C1
+# ChatGPT Review Pack — FULL
+# C1 NORA COGNITIVE COMPLETION — REVISION 1
 
-**Generated:** 2026-08-28 19:52:48 UTC+02:00
-**Cycle:** SFIA Studio — Nora Cognitive Completion — Cycle 1 Cadrage
-**Morris GO consumed:** Ouverture C1 uniquement (cadrage documentaire Critical DOC)
-**Level:** FULL
-**Document status:** CANDIDATE FOR CHATGPT REVIEW (not VALIDATED)
+**Timestamp (Europe/Paris):** 2026-08-28 20:30:10 CEST
+**Cycle:** 1 — Cadrage — CORRECTION BORNÉE (même cycle · ≠ nouveau cycle)
+**Revision:** REVISION 1
+**Profil SFIA:** Critical
+**Typologie:** DOC
+**Verdict cible maximum:** C1 NORA COGNITIVE COMPLETION — REVISION 1 — CANDIDATE FOR CHATGPT REVIEW
+**Authority:** C1 remains OPEN / NON VALIDATED · GO Morris « ouverture C1 » consumed · this pack = bounded revision only
+**Synthesis only:** FORBIDDEN — full C1 content included below
 
 ---
 
 ## 1. Local Git Truth
 
 | Field | Value |
-|---|---|
-| Repository | mcleland147/sfia-workspace |
-| Writing worktree | `/Users/morris/Projects/sfia-workspace-nora-cognitive-c1` |
-| Branch | `docs/sfia-studio-nora-cognitive-completion-c1-cadrage` |
+| --- | --- |
+| Repository root (C1 worktree) | `/Users/morris/Projects/sfia-workspace-nora-cognitive-c1` |
+| Repository identity | `mcleland147/sfia-workspace` (shared object DB · multi-worktree) |
+| Active branch (C1 WT) | `docs/sfia-studio-nora-cognitive-completion-c1-cadrage` |
 | HEAD | `967f4c2b35948492caeba5347bb02c7c420de490` |
 | origin/main | `967f4c2b35948492caeba5347bb02c7c420de490` |
-| Merge-base | same |
-| Staged | NONE |
-| Untracked project artifact | `projects/sfia-studio/nora-cognitive-completion/01-nora-cognitive-completion-cadrage.md` only |
-| REAL-B worktree | `/Users/morris/Projects/sfia-workspace-w3-post-closure-truth-sync` @ `fix/sfia-studio-real-b-blocker-02` — **PRESERVED / UNTOUCHED by C1 content** |
-| Project commit/push/PR | **NONE** |
+| merge-base(HEAD, origin/main) | `967f4c2b35948492caeba5347bb02c7c420de490` |
+| C1 status --short | `?? .tmp-sfia-review/` · `?? projects/sfia-studio/nora-cognitive-completion/` |
+| Staged | **NONE** |
+| Modified tracked (C1 WT) | **NONE** |
+| Untracked | C1 document + review pack only (in C1 WT) |
+| C1 file path | `projects/sfia-studio/nora-cognitive-completion/01-nora-cognitive-completion-cadrage.md` |
+| C1 SHA-256 | `3c94a06fb0f483955c0d3d8901a633fd2d0eb6d11bb80dcff78f945b7bf95975` |
+| C1 size | 821 lines · 55374 bytes |
+| Git integration C1 | **NOT AUTHORIZED** · file remains UNTRACKED · no commit · no push · no PR |
 
-**Note:** An isolation incident briefly pointed the docs worktree at the REAL-B branch; it was corrected before writing. REAL-B local files and branch were restored and verified present.
+### REAL-B isolation (preserved · not mutated)
 
----
-
-## 2. Cycle qualification
-
-- Cycle 1 — Cadrage · Critical · DOC
-- V3-F01 / F05 / F07 / F11 (+ support F02/F04/F06/F08/F09/F12/F14/F15)
-- Milestone: NORA COGNITIVE COMPLETION — CYCLE 1 CADRAGE
-- Product Completion baseline: COMPLETE / CLOSED BY MORRIS
-- Trajectory link: EXPLICITE (cognitive extension of PC loop — not second product)
-- CKC: `01-cadrage.md` candidate · authority NONE
-- Runtime v3 NON ADOPTED · FinOps/T7 FREEZE · C6 CLOSED · Delivery NOT AUTHORIZED
-
----
-
-## 3. Sources consulted
-
-Routing guide · cycle execution template v2.6 · CKC 01-cadrage · operating model/guardrails · Build Doctrine · Roadmap · v3 framing 30–37 · Product Completion 01–03/05–06/10/13–14 + UX 01–02 · REAL-A + remediation (main) · REAL-B local read-only (other WT) · runtime package.json/openaiProvider/toolLoop/orchestrateF2 · OpenAI developers docs / Agents SDK guide (2026-08-28)
+| Field | Value |
+| --- | --- |
+| REAL-B worktree | `/Users/morris/Projects/sfia-workspace-w3-post-closure-truth-sync` |
+| REAL-B branch | `fix/sfia-studio-real-b-blocker-02` |
+| REAL-B HEAD | `967f4c2b35948492caeba5347bb02c7c420de490` |
+| REAL-B local changes | Present (BLOCKER/CORR stack · uncommitted) — **untouched by this revision** |
+| Isolation rule | No stash / reset / checkout / clean / stage / commit / file edit in REAL-B |
 
 ---
 
-## 4. Product Completion → Nora coverage
+## 2. Correction scope
 
-- Responsibilities identified: **26** (NR-01…NR-26)
-- Covered with disposition: **26/26 (100%)**
-- Classes: KEEP / ADAPT / COMPLETE as per matrix §6 of C1
-- No PC Nora responsibility left without disposition
+- **Same C1** (not a new cycle)
+- **Reason:** ChatGPT review — « 100 % Product Completion → Nora coverage » not demonstrable because six obligatory PC sources were not declared as fully read
+- **Authorized actions only:** close documentary completeness reserve · confront NR matrix · CE derivation · External Source Intelligence coherence · lexicon autonomy · FULL pack · handoff
+- **Not authorized:** Morris validation · Git integration · C2 · architecture · Delivery · Agents SDK · REAL campaign · runtime v3 ADOPTED
 
 ---
 
-## 5. Created file — FULL CONTENT
+## 3. Sources read (Revision 1 — full)
 
-Path: `projects/sfia-studio/nora-cognitive-completion/01-nora-cognitive-completion-cadrage.md`
-Size: ~745 lines / ~44 KB
+| # | Source | Lines | Full read | Role |
+| --- | ---: | ---: | --- | --- |
+| 1 | `product-completion/07-product-completion-wave-1-delivery-readiness.md` | 656 | YES | W1 readiness / continuity / CKC→Nora |
+| 2 | `product-completion/08-product-completion-wave-2-delivery-readiness.md` | 662 | YES | W2 H→N / Rec≠HD / CKC before Options |
+| 3 | `product-completion/09-product-completion-wave-2-track-d-phase-b-qualification.md` | 528 | YES | Phase B CKC semantic contract |
+| 4 | `product-completion/11-product-completion-wave-3-delivery-readiness.md` | 447 | YES | Living PC truth note (historical states superseded) |
+| 5 | `product-completion/12-product-completion-w3-b-targeted-technical-architecture-addendum.md` | 1062 | YES | W3-B Claim/STOP executor addendum |
+| 6 | `product-completion/ux-product-experience/03-product-screens-visual-state-contract.md` | 227 | YES | PE screens SoT |
+
+Also re-confirmed: Build Doctrine · Convergence Roadmap · routing guide · CKC pilot 01-cadrage · prior C1 · PC corpus already consumed in initial pass.
+
+### Sections used (Nora-relevant)
+
+- **DOC07:** continuity inter-session · CKC Phase A/B seam · ProjectTrajectory · honest restart · Rec attributable
+- **DOC08:** cognition vs human decision · Proposal≠Traj · Rec≠HD · Phase B before Options/Rec · H→N · genericity ≥2
+- **DOC09:** semantic CKC consumption · recommendation remains recommendation · CKC≠execution authority · provenance
+- **DOC11:** Evidence→Nora→Recovery/Replan KEEP · full CKC Track · genericity · Project Completion final (historical « incomplete » superseded)
+- **DOC12:** SUCCESS/STOP/FAIL semantics · Evidence vs claim · FC-09/10/11/12 separation — **executor-heavy** · vocabulary hygiene only for Nora
+- **UX-03:** Pilote-facing Nora / qualification / LPS / Traj proposed≠decided / Options / Rec / HD / EC / Confirmation / Evidence / Recovery
+
+---
+
+## 4. Product Completion Source Coverage Matrix
+
+Embedded in corrected C1 §6.0 (see full C1 below). Summary:
+
+- **Initial-pass sources:** PC 01–03, 05–06, 10, 13–14 + UX 01–02
+- **Revision-1 sources:** PC 07, 08, 09, 11, 12 + UX 03
+- **Unresolved obligatory gaps:** **NONE**
+- **Hierarchy respected:** living truth / Morris current > historical Wave states
+
+---
+
+## 5. Six-source delta → NR impact
+
+| Source | Finding | NR | Enrich | New NR |
+| --- | --- | --- | --- | --- |
+| DOC07 | CKC→Nora · continuity · Rec attributable · Phase A≠B | 17/19/11/21/16 | sources | **no** |
+| DOC08 | CKC before Options/Rec · Rec≠HD · ≥2 types | 10/11/19/21/24/07 | sources | **no** |
+| DOC09 | Semantic CKC · provenance · no parallel engine | 19/10/11/21/24/25 | sources | **no** |
+| DOC11 | Evidence→Nora→Recovery · full CKC · genericity | 14/15/16/19/22/24 | sources | **no** |
+| DOC12 | Executor Claim/STOP · authority hygiene | 07/14/21/23 | light | **no** |
+| UX-03 | Full Pilote-facing Nora loop representation | 07/09–11/14–16/22 | sources | **no** |
+
+**NO ADDITIONAL NORA RESPONSIBILITY IDENTIFIED FROM REVISION-1 SOURCE COMPLETION**
+
+Justification: every Nora-relevant assertion instantiates, bounds, or proves an existing NR-01…NR-26. DOC12 Claim Engine / Stop Engine details are executor architecture — creating NR would be artificial inflation.
+
+---
+
+## 6. Nora Responsibility Matrix — before / after
+
+| Metric | Initial C1 | Revision 1 |
+| --- | ---: | ---: |
+| NR count | 26 | **26** (NR-27+ not created) |
+| With disposition | 26/26 | 26/26 |
+| With PC source | 26/26 | 26/26 (sources enriched) |
+| With expected proof/eval | 26/26 | 26/26 |
+| Coverage claim | 100% asserted | **100% demonstrable** via §6.0 A–D criteria |
+
+**100% claim criteria (now met):**
+- A. Obligatory PC corpus covered
+- B. No detected NR without disposition
+- C. Historical vs living truth differentiated
+- D. Claim reproducible from Source Coverage Matrix
+
+---
+
+## 7. Cognitive Enabler Derivation CE-01…CE-08
+
+See corrected C1 §9.B.1. All eight remain **MUST as product/cognitive needs** (not technologies). Tech candidates stay CANDIDATE/SHOULD/FUTURE.
+
+---
+
+## 8. External Source Intelligence / Web Search coherence
+
+| Layer | Status |
+| --- | --- |
+| Vendor-neutral External / fresh source resolution | **MUST capability** (§14 / §19 / §23) |
+| OpenAI Hosted Web Search | **CANDIDATE / SHOULD–FUTURE · ≠ MUST** (EX-01 · OD-05) |
+
+Aligned sections: §9.C EX-01 · §14 · §19 · §23 · OD-05 · anti-claims.
+
+---
+
+## 9. Lexical authority correction
+
+| Before | After |
+| --- | --- |
+| §10.1 « Nora MAY decide cognitively alone » | « Nora MAY autonomously select cognitive strategy under policy » |
+| Principle « choisit sa stratégie » | « sélectionne autonomement sa stratégie cognitive sous policy · ≠ HumanDecision · ≠ décision Morris » |
+
+Remaining « decided » usages refer only to **ProjectTrajectory decided** / Project Truth — correct SFIA authority vocabulary.
+Scan: no remaining « Nora decides cognitively » / « decision cognitively » ambiguity.
+
+---
+
+## 10. C1 sections modified (surgical · structure preserved)
+
+- Metadata milestone → REVISION 1
+- New §6.0 Source Coverage Matrix + delta
+- §6 coverage claim recalculated + NO ADDITIONAL NR declaration
+- NR PC-source enrichments (NR-10/11/19/22/24)
+- New §9.B.1 CE derivation matrix
+- §10.1 lexicon
+- §14 External Source Intelligence vs Hosted Web Search
+- §19 mapping rows
+- §23 MUST/SHOULD
+- OD-05 clarified
+- §30 sources + anti-claims
+- Structural orientation preserved: YES
+
+---
+
+## 11. Validations
+
+1. Six sources fully consumed — YES
+2. Source Coverage Matrix — YES
+3. Each NR has source/responsibility/capability/proof/dependency/gap/target/boundary/enabler/proof/disposition — YES (matrix columns preserved)
+4. New distinct NR — NONE required
+5. No artificial executor NR — YES
+6. 100% claim — YES (criteria A–D)
+7. CE-01…08 derivation — YES
+8. MUST ≠ technology — YES
+9. External Source Intelligence ≠ Hosted Web Search — YES
+10. Lexicon disambiguated — YES
+11. HumanDecision unique Pilote runtime decision semantic — YES
+12–17. PC / C6 / Roadmap / Build Doctrine / app / REAL-A/B unchanged — YES
+18–20. No staged · no project commit · no project push — YES
+
+### Anti-claims
+- C1 VALIDATED — NO
+- Git integration authorized — NO
+- C2 authorized — NO
+- Architecture selected — NO
+- Agents SDK adopted — NO
+- Delivery authorized — NO
+- runtime v3 ADOPTED — NO
+- Hosted Web Search MUST — NO
+- Session memory = LPS — NO
+- Recommendation = HumanDecision — NO
+
+---
+
+## 12. Decisions / gates (unchanged authority)
+
+- C1 still NON-VALIDATED
+- OD-01 remains Morris content decision after ChatGPT review
+- Git integration NOT authorized
+- C2 NOT authorized
+- Architecture NOT selected
+- Agents SDK NOT adopted
+- Delivery NOT authorized
+- runtime v3 NON ADOPTED
+- Product Completion COMPLETE / CLOSED
+- C6 CLOSED / DO NOT REOPEN
+- FinOps/T7 FREEZE
+
+---
+
+## 13. Git Review Index
+
+| Artifact | Path | Git state |
+| --- | --- | --- |
+| C1 Revision 1 | `projects/sfia-studio/nora-cognitive-completion/01-nora-cognitive-completion-cadrage.md` | UNTRACKED |
+| Review pack | `.tmp-sfia-review/chatgpt-review.md` | UNTRACKED / out of commit |
+| Handoff target | `sfia-review-handoff/latest-chatgpt-review.md` on `sfia/review-handoff` | L3 handoff only |
+
+---
+
+## 14. FULL CORRECTED C1 CONTENT
+
+> Contenu complet obligatoire. Si absent → REVIEW PACK INCOMPLETE.
 
 ```markdown
 # SFIA Studio — Nora Cognitive Completion — Cycle 1 Cadrage
@@ -70,8 +239,9 @@ Size: ~745 lines / ~44 KB
 | **Cycle** | 1 — Cadrage |
 | **Profil** | **CRITICAL** |
 | **Typologie v2.4 / v2.6 process** | **DOC** |
-| **Milestone** | NORA COGNITIVE COMPLETION — CYCLE 1 CADRAGE |
-| **Statut du document** | **CANDIDATE FOR CHATGPT REVIEW** |
+| **Milestone** | NORA COGNITIVE COMPLETION — CYCLE 1 CADRAGE — **REVISION 1** |
+| **Statut du document** | **REVISION 1 — CANDIDATE FOR CHATGPT REVIEW** |
+| **Révision** | **REVISION 1** — correction bornée post-revue ChatGPT (complétude corpus PC · CE derivation · External Source Intelligence · lexique autonomie) · **≠** nouveau cycle |
 | **GO Morris consommé** | Ouverture C1 uniquement — cadrage documentaire |
 | **Baseline fonctionnelle** | Product Completion **COMPLETE / CLOSED BY MORRIS** |
 | **C6** | **CLOSED / DO NOT REOPEN** |
@@ -142,14 +312,14 @@ Ce C1 **ne modifie pas** le worktree REAL-B · **n’entre pas** dans son diff �
 | --- | --- |
 | **Capacités v3 principales** | **V3-F01** (CKC/couche cognitive) · **V3-F05** (conversation → décision → exécution) · **V3-F07** (provenance / hiérarchie sources) · **V3-F11** (AgentCapability — enveloppe d’autorité **executor**, pas catalogue Nora) |
 | **Fondations de support** | V3-F02 LPS · V3-F04 épistémologie · V3-F06 ProjectTrajectory · V3-F08 contradictions · V3-F09 replanification · V3-F12 réversibilité · V3-F14 Artifact Completeness · V3-F15 maturité distribuée |
-| **Milestone** | NORA COGNITIVE COMPLETION — CYCLE 1 CADRAGE |
+| **Milestone** | NORA COGNITIVE COMPLETION — CYCLE 1 CADRAGE — **REVISION 1** |
 | **État** | Product Completion **COMPLETE / CLOSED** · C6 **CLOSED** · runtime v3 **NON ADOPTED** · FinOps/T7 **FREEZE** · REAL-A **CONSUMED** · REAL-B **local BLOCKING** (autre worktree) |
 | **Actifs** | Backbone Product Completion (Project/LPS/HD/EC/Evidence/CKC/Nora F1–F2) · OpenAI Responses provider · custom tool loop · REAL-A grounding integrity · UX PE |
 | **Classification** | Extension cognitive **de** Product Completion · **≠** Product Completion 2 · **≠** réouverture C6 · **≠** chantier « intégration Agents SDK » |
 | **Gaps** | Autonomie cognitive insuffisante pour tenir pleinement le rôle Nora PC (tool/source strategy, mémoire conversationnelle, adaptive reasoning, narrative≠evidence, evals) |
 | **Dépendances** | PC CLOSED baseline · C6 constraints KEEP · REAL-A lessons · docs OpenAI candidates · Morris content decision |
 | **Lien trajectoire** | **EXPLICITE** — faire évoluer la capacité cognitive de Nora pour **servir** la boucle fonctionnelle Product Completion déjà construite, sans second produit ni moteur parallèle · **pas** `STOP — TRAJECTORY LINK MISSING` |
-| **Exit proof (C1)** | Document C1 candidat · traçabilité 100 % responsabilités Nora PC · Completion Bar cognitive candidate · décisions Morris ouvertes isolées · anti-claims |
+| **Exit proof (C1)** | Document C1 candidat · corpus PC obligatoire couvert (Source Coverage Matrix) · traçabilité 100 % NR démontrable · Completion Bar cognitive candidate · décisions Morris ouvertes isolées · anti-claims |
 | **Gates Morris** | ChatGPT review → Morris C1 content decision → éventuel GO Git integration séparé → requalification next cycle |
 | **Capacité suivante candidate** | Cycle 2 — Conception fonctionnelle Nora Cognitive Completion (**recommandation seulement**) |
 
@@ -236,9 +406,51 @@ Cette question **prime** sur « quelles fonctionnalités OpenAI peut-on intégre
 
 ---
 
+## 6.0 Product Completion Source Coverage Matrix (REVISION 1)
+
+Corpus agrégé = sources **déjà consommées** en passe initiale **plus** les six sources obligatoires nouvellement lues.
+
+| Source | Rôle PC | Read pass | Statut source | Nora-relevant content | Existing NR impacted | New NR required | C1 section impacted | Observation / reserve |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `01-product-completion-cadrage.md` | C1 PC target / bar / Nora role | initial | validated current baseline | Rôle Nora · MUST · continuity · bar | NR-01…26 (core) | no | §5–§6 | KEEP |
+| `02-product-completion-conception-fonctionnelle.md` | C2 A→W behaviors | initial | validated | F/G/H/I/U/V Nora | NR-01…26 | no | §6 | KEEP |
+| `03-product-completion-architecture-fonctionnelle.md` | FA boundaries | initial | validated | FC-04 Nora propose-only | NR-21 / 07 / 12 | no | §5–§6 | KEEP |
+| `05-product-completion-backlog-user-stories.md` | Backlog US | initial | validated historical | US continuity / CKC | NR-17 / 19 | no | §6 | skim initial · living via later docs |
+| `06-product-completion-architecture-technique-delta.md` | C6 closed constraints | initial | **CLOSED / DO NOT REOPEN** | TD-C6 persist · no parallel engine | NR-20 / 21 | no | §5 / §20 | Preserve only |
+| `ux/.../01-experience-architecture.md` | PE architecture | initial | validated | Option/Rec/HD · absorb method | NR-07 / 18 | no | §6 / §16 | KEEP |
+| `ux/.../02-end-to-end-wireframes-interaction-model.md` | PE wireflows | initial | validated | Clarification · Evidence · Recovery UI | NR-05 / 14 / 16 | no | §6 | KEEP |
+| `10-product-completion-wave-2-final-closure-qualification.md` | W2 closure | initial | validated historical | Rec≠HD · Phase B tranche | NR-11 / 19 / 21 | no | §6 | Historical close |
+| `13-product-completion-pre-qa-implementation-conformance-review.md` | Pre-QA conformance | initial | validated historical | CKC Phase B / authority | NR-19 / 21 | no | §6 | Historical |
+| `14-product-completion-integrated-proof-final-qualification.md` | Integrated proof | initial | validated / CONSUMED | INT / PC-BAR · LIVE OUT conversation | NR-01…26 proofs | no | §5–§6 / §22 | Conversation LIVE OUT residual |
+| **`07-…-wave-1-delivery-readiness.md`** | W1 readiness | **revision 1** | validated historical | CKC→Nora seam · continuity · Rec attributable · Phase A≠B | NR-17 / 19 / 11 / 21 / 16 | **no** | §6 enrich | Full read 656 lines |
+| **`08-…-wave-2-delivery-readiness.md`** | W2 readiness H→N | **revision 1** | validated historical | CKC before Options/Rec · Rec≠HD · Proposal≠Traj · ≥2 types | NR-10 / 11 / 19 / 21 / 24 / 07 | **no** | §6 enrich | Full read 662 lines |
+| **`09-…-track-d-phase-b-qualification.md`** | Phase B contract | **revision 1** | validated historical | Semantic CKC · provenance · no parallel Nora engine | NR-19 / 10 / 11 / 21 / 24 / 25 | **no** | §6 enrich | Full read 528 lines |
+| **`11-…-wave-3-delivery-readiness.md`** | DOC11 living PC truth | **revision 1** | **living truth note** (PC CLOSED) | Evidence→Nora→Recovery KEEP · full CKC · genericity | NR-14 / 15 / 16 / 19 / 22 / 24 | **no** | §5–§6 | Full read 447 lines · historical « PC INCOMPLETE » superseded |
+| **`12-…-w3-b-targeted-technical-architecture-addendum.md`** | W3-B Claim/STOP architecture | **revision 1** | architecture addendum ADOPTED | Mostly executor · CKC≠authority · Evidence context for Nora | NR-07 / 14 / 21 / 23 | **no** | §6 enrich | Full read 1062 lines · **no artificial NR from Claim Engine** |
+| **`ux/.../03-product-screens-visual-state-contract.md`** | PE screens SoT | **revision 1** | UX contract validated | Full Pilote-facing Nora loop · Option/Rec/HD · Recovery | NR-07 / 09–11 / 14–16 / 22 | **no** | §6 / §16 | Full read 227 lines |
+
+**Unresolved source gaps (obligatory C1 corpus) :** **NONE** after Revision 1.
+
+**Delta analytique Revision 1 (six sources) :**
+
+| Source | Finding summary | NR correspondence | Enrich NR? | New NR? |
+| --- | --- | --- | --- | --- |
+| DOC07 W1 | CKC→Nora seam · continuity · Rec attributable · Phase A≠B | NR-17/19/11/21/16 | yes (sources) | **no** |
+| DOC08 W2 | CKC before Options/Rec · Rec≠HD · genericity ≥2 | NR-10/11/19/21/24/07 | yes | **no** |
+| DOC09 Phase B | Semantic consumption · provenance · no parallel engine | NR-19/10/11/21/24/25 | yes | **no** |
+| DOC11 living | Evidence→Nora→Recovery KEEP · full CKC · genericity proven | NR-14/15/16/19/22/24 | yes | **no** |
+| DOC12 W3-B | Executor/Claim architecture · vocabulary hygiene only | NR-07/14/21/23 | light | **no** |
+| UX-03 screens | PE representation of full Nora loop | NR-07/09–11/14–16/22 | yes | **no** |
+
+---
+
 ## 6. Product Completion → Nora Responsibility Traceability Matrix
 
-**Couverture :** 26 responsabilités Nora (NR-01…NR-26) dérivées de PC C1/C2/FA/UX/Doc14/C6 · **100 % des responsabilités inventoriées ci-dessous ont une disposition**.
+**Couverture (REVISION 1) :** 26 responsabilités Nora (NR-01…NR-26) dérivées du corpus Product Completion **agrégé** (passe initiale + six sources Revision 1) · **26/26 avec disposition · 26/26 avec source · 26/26 avec expected proof/eval**.
+
+**Claim 100 % :** autorisé **uniquement** parce que (A) le corpus PC obligatoire du contrat C1 est désormais couvert (§6.0) · (B) aucune NR détectée sans disposition · (C) historical vs living truth différenciés · (D) claim reproductible depuis Source Coverage Matrix.
+
+**REVISION 1 conclusion :** **NO ADDITIONAL NORA RESPONSIBILITY IDENTIFIED FROM REVISION-1 SOURCE COMPLETION** — les six sources omises **instancient / bornent / prouvent** NR existantes (surtout NR-07, 10–11, 14–17, 19, 21–24) · **aucune** NR-27+ créée (pas d’inflation artificielle).
 
 Légende disposition : **KEEP** = conserver tel quel · **ADAPT** = enrichir cognitivement sans changer l’autorité · **COMPLETE** = gap cognitif à combler · **FUTURE** = hors chemin critique immédiat · **OOS** = hors scope Cognitive Completion.
 
@@ -253,8 +465,8 @@ Légende disposition : **KEEP** = conserver tel quel · **ADAPT** = enrichir cog
 | NR-07 | C1 P ; EA §11 | Separate epistemic statuses | Prompt + structured outputs | Doc14 Rec≠HD PASS | Presentation / materialization | Narrative may blur levels | Always distinct Option/Rec/HD in cognition+UX | No Rec→HD promotion | Epistemology · UX | Epistemic separation audits | **KEEP** / **ADAPT** UX |
 | NR-08 | C2 G | Propose LPS updates | F2 LPS propose via Studio persist | Doc14 MUST-02/03 | Continuity | — | Continue propose-only | Studio persists | KEEP authority split | Existing PC bar | **KEEP** |
 | NR-09 | C2 H | Propose ProjectTrajectory | Proposed traj versions | Doc14 H–J | Trajectory reasoning | Depth of multi-step trajectory | Richer trajectory options with reserves | proposed ≠ decided | Trajectory reasoning | Trajectory quality rubric | **ADAPT** |
-| NR-10 | C2 I | Produce Options | Structured options | Doc14 PASS | Option generation | Quality/diversity | Better option sets under uncertainty | Option ≠ Rec ≠ HD | Recommendation quality | Option quality eval | **ADAPT** |
-| NR-11 | C2 I ; BR-PC-01 | Produce Recommendation | Structured Rec | Doc14 Rec≠HD | Judgment quality | ChatGPT-like rigor vs Studio constraints | High-quality Rec with provenance | Never auto-HD | Recommendation · Provenance | Rec quality + authority audits | **COMPLETE** |
+| NR-10 | C2 I ; W2 D-W2-02 ; DOC09 ; UX-03 | Produce Options | Structured options | Doc14 PASS | Option generation | Quality/diversity | Better option sets under uncertainty | Option ≠ Rec ≠ HD | Recommendation quality | Option quality eval | **ADAPT** |
+| NR-11 | C2 I ; BR-PC-01 ; W2 exit ; DOC09 P3–P6 | Produce Recommendation | Structured Rec | Doc14 Rec≠HD | Judgment quality | ChatGPT-like rigor vs Studio constraints | High-quality Rec with provenance | Never auto-HD | Recommendation · Provenance | Rec quality + authority audits | **COMPLETE** |
 | NR-12 | C2 K | Prepare EC without authority | EC prepare path | Doc14 K–N | Completeness / scope discipline | — | Complete EC prep · no widen | No authorize/launch | KEEP | Existing PC bar | **KEEP** |
 | NR-13 | C2 SC-* | Detect / signal STOP | Fail-closed Studio + Nora signal | INT-02 PASS | Stop recognition | False stops / missed stops | Precise STOP signaling | No silent success | Epistemology | STOP false-positive/negative suite | **ADAPT** |
 | NR-14 | C2 U | Post-Evidence analysis | Evidence → Nora path | PC-BAR-10 PASS | Evidence reasoning | Business-first depth | Stronger Evidence interpretation | Must not replace Evidence | Evidence reasoning | Evidence→Rec evals | **ADAPT** |
@@ -262,16 +474,16 @@ Légende disposition : **KEEP** = conserver tel quel · **ADAPT** = enrichir cog
 | NR-16 | C2 §15 | Recovery / FAIL recommend | Recovery Rec | INT-03 PASS | Honesty after FAIL | — | Honest recovery without invented GO | No invented HD | Recovery | FAIL recovery suite | **KEEP** |
 | NR-17 | C1 Q.3 | Inter-session semantic resume | Durable objects remount ; chat process-local | INT-05 PASS ; CONV-PL residual | Conversation memory ≠ LPS | Process-local chat loss ; false memory risk | Honest resume from durable truth + cognitive memory if present | No invented transcript | Memory model A/B/C | Restart-safe + false-memory tests | **COMPLETE** |
 | NR-18 | C1 P ; CA-PC-35 | Absorb method complexity | System prompt + CKC | Doc14 PASS | UX cognition | Method leakage | Hide mechanics unless useful | No raw CKC UI | UX cognition | Method-exposure audits | **ADAPT** |
-| NR-19 | US-P1-14 | CKC Phase B semantic use | Phase B path exists | Doc13 PASS ; Doc14 LIVE OUT | Semantic attribution | LIVE cognition not REAL-proven | Demonstrable CKC-informed Rec | CKC ≠ authority | CKC cognition · Evals | LIVE CKC semantic attribution | **COMPLETE** |
+| NR-19 | US-P1-14 ; W1 US-P0-08 ; W2 D-W2-02 ; DOC09 ; DOC11 KEEP | CKC Phase B semantic use | Phase B path exists | Doc13 PASS ; Doc14 LIVE OUT | Semantic attribution | LIVE cognition not REAL-proven | Demonstrable CKC-informed Rec | CKC ≠ authority | CKC cognition · Evals | LIVE CKC semantic attribution | **COMPLETE** |
 | NR-20 | FC-04 ; TD-C6-04 | Materialized epistemic items | Selective materialization | C6 KEEP | What to materialize | Draft vs materialized confusion | Clear materialization policy cognitively | Draft ≠ SoT | Memory / persistence boundary | Materialization honesty tests | **KEEP** (C6) |
 | NR-21 | BR-PC-06 | No authority / no execution | Hard stops F2 | Authority PASS | — | — | Preserve absolute | Absolute | Governance | Continuous authority audits | **KEEP** |
-| NR-22 | PC-BAR-10 | Closed Evidence→Nora→LPS/Traj/Rec | Implemented | PASS | Loop completeness | — | Preserve | — | KEEP | PC bar | **KEEP** |
+| NR-22 | PC-BAR-10 ; DOC11 W3-C KEEP ; UX-03 | Closed Evidence→Nora→LPS/Traj/Rec | Implemented | PASS | Loop completeness | — | Preserve | — | KEEP | PC bar | **KEEP** |
 | NR-23 | FC-03 | Assist qualification ; no fake CKC authority | qualifyWithCkc | PASS | — | — | Preserve | — | KEEP | — | **KEEP** |
-| NR-24 | C1 N ; INT-07 | Catalog-cognitive genericity | Shared F2 mechanism | INT-07 A+B PASS | Cross-cycle cognition | Depth across natures | Same cognitive mechanism ; richer strategies | No cycle-specific Nora engine | Genericity | Multi-cycle cognitive suite | **ADAPT** |
+| NR-24 | C1 N ; INT-07 ; DOC09 ≥2 types ; DOC11 genericity | Catalog-cognitive genericity | Shared F2 mechanism | INT-07 A+B PASS | Cross-cycle cognition | Depth across natures | Same cognitive mechanism ; richer strategies | No cycle-specific Nora engine | Genericity | Multi-cycle cognitive suite | **ADAPT** |
 | NR-25 | BR-PC-12 | Source absence → no extrapolation | Fail-closed after tool failure (REAL-A) | REAL-A fabrication CLOSED | Grounding integrity | Narrative still claims « no Git » sometimes | Zero fabricated source-backed claims + narrative coherence | Absolute | Grounding · Narrative parity | Anti-fabrication + narrative≠telemetry tests | **COMPLETE** |
 | NR-26 | C2 §4.2 | Escalation to Pilote | Clarification / STOP | Exercised | Escalation judgment | Over-escalation | Escalate only unresolved authority/ambiguity | Must not self-resolve authority | Clarification · Governance | Escalation precision evals | **ADAPT** |
 
-**Traceability statement :** 26/26 responsabilités inventoriées disposent d’une disposition KEEP/ADAPT/COMPLETE · aucune responsabilité PC Nora inventoriée omise · toute extension Experience (classe C, §9) devra justifier A (améliore une NR) ou B (valeur ChatGPT-like cohérente).
+**Traceability statement (REVISION 1) :** 26/26 responsabilités inventoriées disposent d’une disposition KEEP/ADAPT/COMPLETE · corpus PC obligatoire couvert (§6.0) · aucune responsabilité PC Nora inventoriée omise après lecture des six sources Revision 1 · toute extension Experience (classe C, §9) devra justifier A (améliore une NR) ou B (valeur ChatGPT-like cohérente).
 
 ---
 
@@ -334,6 +546,8 @@ Toutes les NR-01…NR-26 · KEEP/ADAPT/COMPLETE selon matrice §6.
 
 ### B — Cognitive Enablers (moyens pour servir A)
 
+Voir dérivation démontrée §9.B.1 (REVISION 1).
+
 | ID | Enabler | Sert quelles NR | Classe |
 | --- | --- | --- | --- |
 | CE-01 | Tool/source strategy autonomy | NR-03/04/25 | B |
@@ -345,11 +559,26 @@ Toutes les NR-01…NR-26 · KEEP/ADAPT/COMPLETE selon matrice §6.
 | CE-07 | Cognitive observability + eval harness | all COMPLETE | B |
 | CE-08 | Long-context / multi-doc reading strategy | NR-03/14/24 | B |
 
+### 9.B.1 Cognitive Enabler Derivation (REVISION 1)
+
+| Enabler | NR served | PC source(s) | REAL/runtime evidence | Why current insufficient | Why required | Vendor-neutral requirement | Tech candidate | MUST/SHOULD/FUTURE | Proof expected | Open decision |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| CE-01 Tool/source strategy autonomy | NR-03/04/25 | C1/C2 qualify · REAL-A tool-first · DOC09 provenance | REAL-A fabrication closed structurally · toolLoop 4×4 | Autonomy of search/tool selection still fragile without structural forcing | Serve source-grounded qualify + anti-fabrication | Nora selects authorized tools/sources under policy | Responses tools / Agents runner / adapters | **MUST** (capability) | Tool autonomy suite · integrity | OD-04 evaluate runner |
+| CE-02 Evidence-backed contradiction | NR-04/13 | C2 SC-CONTRA · epistemology F08 | REAL-B local F-RB-07 path (intermediate) | Model-only contradiction unsafe | Governing false premises must not become Rec | Contradiction requires attributable READ evidence | Grounding protocol (current) | **MUST** | Contradiction evals | — |
+| CE-03 Cognitive conversation memory | NR-17 | C1 Q.3 · W1 continuity · DOC11 restart | Process-local chat · history≤20 | Chat loss / false memory risk vs durable remount | Honest continuity without inventing transcript | Memory B ≠ LPS (Truth C) | Agents Sessions / homegrown B | **MUST** (need) · tech FUTURE/CANDIDATE | Restart-safe + false-memory | OD-03 |
+| CE-04 Context/compaction | NR-01/17/18 | C1 absorb method · continuity | Cap 20 messages | Truncation degrades intent/qualification | Long sessions need honest compaction | Compact with provenance / invalidation | Sessions compaction | **MUST** (need) | Compaction honesty tests | — |
+| CE-05 Workload Profile | NR-03/06/11 | C2 Critical challenge · profile rigor | Env-only model/reasoning | Under/over-qualification (local REAL-B Critical→Light signal) | Adaptive rigor under SFIA envelope | Policy envelope · no abaque figé | `reasoning.effort` / model settings | **MUST** (concept) | Workload eval matrix | OD-02 |
+| CE-06 Narrative↔evidence coherence | NR-25 | BR-PC-12 · REAL-A · UX honesty | RB01-NARRATIVE-PARITY local | Narrative can deny successful READs | Pilote trust + anti-fabrication | User text must not contradict tool evidence | Formatter / evidence injection | **MUST** | Narrative parity tests | — |
+| CE-07 Observability + evals | all COMPLETE | PC bar oracle · Doc14 | No versioned cognitive harness | Cannot measure ChatGPT-like progress | Completion Bar NCC measurable | Trace≠Evidence · versioned corpus | OpenAI Evals / custom | **MUST** (harness need) | Eval harness v0 | — |
+| CE-08 Long-context / multi-doc | NR-03/14/24 | REAL-A ranged reads · DOC11 genericity | Multi-doc ceilings · partial honesty | Incomplete corpus risk | Multi-source qualify/Evidence | Honest partiality · continuation reads | Ranged read tools | **MUST** | Multi-doc honesty suite | — |
+
+**Aucun CE maintenu comme MUST technologique.** MUST = besoin produit/cognitif démontré.
+
 ### C — Experience Extensions (ChatGPT-like ; justification requise)
 
 | ID | Extension | Justification A ou B | Disposition candidate |
 | --- | --- | --- | --- |
-| EX-01 | Web Search hosted (when repo insufficient) | A — NR-03/25 source strategy | SHOULD / FUTURE qualify |
+| EX-01 | Hosted Web Search (technology candidate for External Source Intelligence) | A — sert CE-01 / NR-03/25 **si** policy provenance OK | **CANDIDATE / SHOULD–FUTURE** · **≠ MUST** |
 | EX-02 | File / multimodal inputs (screenshots, uploads) | B — valeur Pilote pour evidence visuelle | SHOULD |
 | EX-03 | Voice / Realtime | B — non démontré court terme | FUTURE / OOS default |
 | EX-04 | Code Interpreter / sandbox analysis | A — Evidence analysis NR-14 | FUTURE qualify |
@@ -359,7 +588,7 @@ Toutes les NR-01…NR-26 · KEEP/ADAPT/COMPLETE selon matrice §6.
 
 ## 10. Cognitive autonomy vs governed authority
 
-### 10.1 Nora MAY decide cognitively alone (under policy envelope)
+### 10.1 Nora MAY autonomously select cognitive strategy under policy
 
 - Quelle stratégie de raisonnement (dans envelope autorisée)
 - Quels tools lire / chercher (read-only catalog)
@@ -451,7 +680,7 @@ ambiguity · reasoning_depth · source_breadth · tool_dependency · contradicti
 - Observability
 - Human gate **uniquement** si structurant (rare)
 
-**Principe candidat (ouvert Morris) :** Nora choisit sa stratégie cognitive · SFIA fixe l’enveloppe.
+**Principe candidat (ouvert Morris) :** Nora sélectionne autonomement sa stratégie cognitive sous policy · SFIA fixe l’enveloppe. **≠** HumanDecision · **≠** décision Morris.
 
 ---
 
@@ -472,8 +701,18 @@ Nora doit pouvoir, indépendamment du fournisseur :
 11. **Ne pas inventer après failure**
 12. Reconnaître incomplete evidence
 13. Clarifier seulement si nécessaire
+14. Reconnaître quand le contexte Git/local/Product Truth est insuffisant ou qu’une information externe/fraîche est nécessaire (**External / fresh source resolution** — capacité vendor-neutral)
+15. Sélectionner une stratégie de résolution externe **autorisée** (sous policy), rechercher, lire, comparer, vérifier freshness/authority, conserver provenance
+16. Ne pas confondre cette capacité avec une technologie hébergée particulière
 
-Mapping OpenAI éventuel : function tools · Web/File Search · MCP · Tool Search · Agents runner — **candidates only** (§19).
+**Distinction obligatoire :**
+
+| Couche | Statut C1 |
+| --- | --- |
+| **A — Capacité produit vendor-neutral** : External / fresh source resolution (points 14–15) | **MUST** (besoin cognitif dérivé de NR-03/25 + cible ChatGPT-like + anti-fabrication) |
+| **B — Technologie** : OpenAI Hosted Web Search | **CANDIDATE / SHOULD–FUTURE** selon policy provenance — **≠ MUST technologique** |
+
+Mapping OpenAI éventuel : function tools · Web/File Search · MCP · Tool Search · Agents runner — **candidates only** (§19). Hosted Web Search **n’entre pas** automatiquement sur le chemin critique parce qu’elle existe.
 
 ---
 
@@ -543,7 +782,8 @@ Sources docs : `https://developers.openai.com/api/docs` · Agents SDK guide (con
 | LLM + structured outputs | NR-01/03/11 | Responses API (current `openai@^6.48`) | Already in use | Verified in code | KEEP/ADAPT | — | Any Responses-compatible | Existing | **KEEP / ADAPT** |
 | Tool calling loop | CE-01 | Responses function tools / Agents runner | Autonomy | Docs+code | ADAPT current loop **or** evaluate Agents runner | No parallel métier engine | Custom loop | A/B | **EVALUATE — not adopted** |
 | Sessions/compaction | CE-03/04 | Agents Sessions | Continuity B | Docs | New memory layer | B≠C | Homegrown memory B | Honesty tests | **CANDIDATE** |
-| Web search | EX-01 | Web Search tool | External freshness | Docs | Hosted tool allowlist | Provenance | External search adapter | Integrity | **CANDIDATE** |
+| External/fresh source resolution (vendor-neutral) | CE-01 / NR-03/25 | — (capability, not product) | Fill incomplete local truth honestly | PC+REAL-A | Policy envelope | Provenance | Any authorized external resolver | Integrity + anti-fabrication | **MUST capability** |
+| Hosted Web Search (technology) | EX-01 | OpenAI Web Search tool | One possible implementation of external resolution | Docs | Hosted tool allowlist | Provenance · privacy | Non-OpenAI search adapter / none until policy | Integrity | **CANDIDATE / SHOULD–FUTURE · ≠ MUST** |
 | File search | EX-02 | File Search | Uploads | Docs | Store policy | Privacy | Repo tools first | — | **CANDIDATE** |
 | Code analysis | EX-04 | Code Interpreter | Evidence assist | Docs | Sandbox | No silent authority | Local analysis tools | — | **FUTURE** |
 | MCP | CE-01 | MCP | Extensibility | Docs | Connector governance | Tool≠capability | Explicit adapters | Security | **CANDIDATE** |
@@ -645,10 +885,11 @@ Ce C1 = **DOCUMENTARY / FRAMING EVIDENCE ONLY** · aucune nouvelle frontière RE
 
 ### MUST (capacités / invariants — pas technologies figées)
 
-- Préserver 100 % responsabilités Nora PC et frontiers d’autorité
-- Cognitive enablers CE-01…CE-08 comme besoins
+- Préserver 100 % responsabilités Nora PC et frontiers d’autorité (démontré via Source Coverage Matrix §6.0 + NR matrix)
+- Cognitive enablers CE-01…CE-08 comme **besoins dérivés** (preuve §9.B.1) — **≠** technologies figées
 - Memory model A/B/C avec B≠C
 - Cognitive Workload Profile **concept** (pas abaque)
+- External / fresh source resolution **vendor-neutral** (§14)
 - Anti-fabrication + narrative coherence
 - Eval harness versionnable
 - C6 / PC CLOSED / FinOps FREEZE / runtime v3 NON ADOPTED
@@ -656,7 +897,7 @@ Ce C1 = **DOCUMENTARY / FRAMING EVIDENCE ONLY** · aucune nouvelle frontière RE
 ### SHOULD
 
 - Multimodal images/captures
-- Hosted web/file search under provenance policy
+- Hosted Web Search **as technology candidate** under provenance policy (implements MUST capability, not a MUST itself)
 - Observability tracing complementary
 
 ### FUTURE
@@ -730,7 +971,7 @@ Cette trajectoire est **candidate** · **aucune autorisation aval**.
 | OD-02 | Adopter le principe « Nora choisit stratégie cognitive / SFIA fixe envelope » ? | Adopt / Amend / Defer | Lean Adopt as framing principle | Workload Profile | C1 content or C2 | Peut rester ouvert |
 | OD-03 | Memory B : construire vs différer ? | Build in C2 / Defer | Qualify in C2 | Continuity | C2 | NON |
 | OD-04 | Évaluer Agents SDK runner vs ADAPT toolLoop ? | Evaluate / Defer / Reject evaluate | Evaluate as candidate after C2 needs | Runtime shape | Post-C2 / tech delta | NON |
-| OD-05 | Hosted Web Search in critical path ? | Include / Future / OOS | Future until provenance policy | Source strategy | Later | NON |
+| OD-05 | Hosted Web Search as **technology** on critical path ? (capability External Source Intelligence already MUST) | Include tech / Future / OOS | Future until provenance policy | Source strategy | Later | NON |
 | OD-06 | Voice/Realtime priority ? | SHOULD / FUTURE / OOS | FUTURE default | Scope | Later | NON |
 | OD-07 | Lien avec clôture REAL-B ? | Parallel / Sequence after REAL-B | Cognitive C1 peut avancer en DOC **sans** attendre REAL-B close ; ne pas contaminer | Programme sequencing | Morris programme | NON |
 | OD-08 | Nom définitif du programme ? | Keep working name / Rename | Keep working name until validated | Branding | Optional | NON |
@@ -756,6 +997,9 @@ Cette trajectoire est **candidate** · **aucune autorisation aval**.
 - DETERMINISTIC PROVEN **≠** READY FOR REAL
 - SDK trace **≠** Evidence SFIA
 - Session memory **≠** LPS
+- Hosted Web Search **≠** External Source Intelligence MUST
+- « sélection autonome de stratégie cognitive » **≠** HumanDecision / décision Morris
+- REVISION 1 **≠** validation Morris · **≠** nouveau cycle
 
 ---
 
@@ -796,7 +1040,8 @@ Blocs désactivés : Delivery · DevOps · Release · PR readiness projet · imp
 | `sfia-chatgpt-cursor-operating-model.md` / guardrails | Process |
 | Convergence Build Doctrine + Roadmap | Convergence |
 | v3 framing 30–37 | Doctrine |
-| Product Completion 01–03, 05–06, 10, 13–14 + UX 01–02 | Baseline Nora |
+| Product Completion 01–03, 05–06, 10, 13–14 + UX 01–02 | Baseline Nora (passe initiale) |
+| Product Completion 07, 08, 09, 11, 12 + UX 03 | **REVISION 1** — corpus obligatoire complété |
 | REAL-A + remediation (main) | Empirical structural |
 | REAL-B local records (read-only other WT) | Intermediate observations |
 | Runtime `package.json`, openaiProvider, toolLoop, orchestrateF2/Turn, grounding on main | Current state |
@@ -810,60 +1055,33 @@ Blocs désactivés : Delivery · DevOps · Release · PR readiness projet · imp
 
 ---
 
-## 6. Asset classification (summary)
+## 15. Pack completeness check
 
-KEEP: PC runtime, OA backbone, Product SQLite, DoctrinePackage, LPS, Trajectory, HD, EC, Confirmation, AgentCapability, Attempt, Evidence/RB, Git/GitHub/Cursor adapters
-KEEP/ADAPT: OpenAIConversationProvider, custom toolLoop, grounding, F1/F2 prompts
-ADAPT/COMPLETE: process-local conversation → memory B design
-N/A not installed: `@openai/agents` (candidate only)
-
----
-
-## 7. OpenAI mapping posture
-
-Needs first · capabilities second · Agents SDK = candidate cognitive-runtime primitive **not adopted** · Responses API current KEEP/ADAPT · HITL SDK ≠ Confirmation · Trace ≠ Evidence
-
----
-
-## 8. REAL evidence
-
-- REAL-A: CONSUMED PASS WITH PARITY GAPS — structural anti-fabrication lessons usable
-- REAL-B local: intermediate · REMAINS BLOCKING · F-RB-07 restored locally then F-RB-01 profile regression observed · **not** published closure · not modified by this cycle
-
----
-
-## 9. Validations
-
-- Only new directory `nora-cognitive-completion/` created
-- Product Completion / convergence / v3 framing / app / REAL-A unchanged
-- REAL-B worktree preserved
-- `.tmp-sfia-review/` for pack only (handoff transport)
-- Anti-claims present in C1 §27
-- Statuses: CANDIDATE / NON ADOPTED / FREEZE / CLOSED C6 respected
-- No technology-only requirements without product need
-- Morris open decisions isolated §26
+| Check | Result |
+| --- | --- |
+| FULL (not synthesis-only) | YES |
+| Full C1 content included | YES |
+| Timestamp Europe/Paris | YES |
+| Revision 1 marked | YES |
+| Local Git Truth | YES |
+| REAL-B preserved stated | YES |
+| Source Coverage Matrix | YES (in pack + in C1) |
+| Six-source delta | YES |
+| NR before/after | YES |
+| NO ADDITIONAL NR declared | YES |
+| Coverage % recalculated | YES |
+| CE derivation | YES |
+| External Source / Web Search | YES |
+| Lexical corrections | YES |
+| Validations / anti-claims | YES |
+| Open Morris decisions | YES |
+| Verdict | below |
 
 ---
 
-## 10. Decisions / gates
+## 16. Verdict
 
-**Consumed:** GO open C1 only
-**Open:** OD-01…OD-08 (Morris)
-**Not authorized:** C2 · Git integration of C1 · Delivery · Agents SDK · architecture · REAL execution · runtime v3 ADOPTED
+**C1 NORA COGNITIVE COMPLETION — REVISION 1 — CANDIDATE FOR CHATGPT REVIEW**
 
----
-
-## 11. Recommended next (non-authorized)
-
-Cycle 2 — Conception fonctionnelle Nora Cognitive Completion — **if** Morris validates C1
-
----
-
-## 12. Verdict
-
-**C1 NORA COGNITIVE COMPLETION — CANDIDATE FOR CHATGPT REVIEW**
-
-Means only: document ready for ChatGPT review then Morris content decision.
-Does **not** mean: VALIDATED · C2 authorized · Agents SDK adopted · Delivery authorized · runtime v3 ADOPTED · ChatGPT parity proven.
-
-**Next gate:** CHATGPT REVIEW → MORRIS C1 CONTENT DECISION → (if validate) separate GO Git integration → post-integration coherence → separate GO for C2 if any.
+Meaning: bounded correction complete · C1 may return to ChatGPT review.
+Does **NOT** mean: VALIDATED · Git integration · C2 · architecture selected · Delivery · Agents SDK · runtime v3 ADOPTED.
