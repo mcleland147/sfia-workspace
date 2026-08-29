@@ -5,25 +5,27 @@
 | **Profil document** | **CRITICAL** |
 | **Typologie** | **DOC / DESIGN ARTIFACT** — Type **4 — UX/UI** |
 | **Milestone** | NORA COGNITIVE COMPLETION — CYCLE 3 — PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN |
-| **Statut** | **CONTENT VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT INTEGRATED ON MAIN** |
-| **Révision** | **C3-VALIDATED** — Product Experience delta over validated Product Completion PE |
+| **Statut** | **CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED** |
+| **Révision** | **C3-POST-MERGE** — Product Experience delta over validated Product Completion PE |
 | **GO Morris consommé** | **GO MORRIS — NORA COGNITIVE COMPLETION C3 — PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN — OPENING / QUALIFICATION — NO DELIVERY — NO ARCHITECTURE** |
 | **Décision Morris validation contenu** | **CONSUMED** — `GO MORRIS — VALIDATE NORA COGNITIVE COMPLETION C3 CONTENT — PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN — PASS — NO GIT INTEGRATION` |
 | **GO Morris Git integration** | **CONSUMED** — `GO MORRIS — NORA COGNITIVE COMPLETION C3 — GIT INTEGRATION — COMMIT + PUSH + DRAFT PR + CI + HANDOFF — NO MERGE` |
+| **Décision Morris merge** | **CONSUMED** — `GO MORRIS — MERGE PR #434` |
+| **Intégration Git C3** | PR **#434 MERGED** · head `d36619b16523f6f2e80a221aeb007754b2fa5b16` · merge `89265c71035c86dfd0f73ce2f81fb27f67b927ec` · tree `5fecd5aa40ae5bc829aa16c8df7339bca36cc663` · mergedAt `2026-08-29T08:06:01Z` · CI `33241939004` **SUCCESS** · Required Gate **PASS** · **POST-MERGE VERIFIED** |
 | **Baseline C1** | `01-nora-cognitive-completion-cadrage.md` — **CONTENT VALIDATED BY MORRIS** · INTEGRATED ON MAIN · POST-MERGE VERIFIED |
 | **Baseline C2** | `02-nora-cognitive-completion-conception-fonctionnelle.md` — **CONTENT VALIDATED BY MORRIS** · INTEGRATED ON MAIN · POST-MERGE VERIFIED · lifecycle clean (PR **#433**) |
 | **PE baseline (KEEP)** | Product Completion UX: EA · Wireframes · Screens — VALIDATED / INTEGRATED |
 | **Penpot file** | `63bdc57a-636a-81ba-8008-82d2a50d5233` |
 | **Penpot C3 page** | `07 — Nora C3 Cognitive Interaction Delta` · id `b0a45b0e-4767-80a8-8008-8e51e7fa7bb3` |
-| **Worktree** | `/Users/morris/Projects/sfia-workspace-nora-cognitive-c3` |
-| **Branche** | `design/sfia-studio-nora-cognitive-completion-c3-product-experience` |
-| **Base Git** | `origin/main` @ `b9458b2ff775927c3539e41c6739c36edec74e06` · tree `b7c18df4c748dacb0fd843e209f462b79dae162e` |
+| **Worktree C3 initial (historique)** | `/Users/morris/Projects/sfia-workspace-nora-cognitive-c3` |
+| **Branche C3 initiale (historique)** | `design/sfia-studio-nora-cognitive-completion-c3-product-experience` |
+| **Base Git C3 initiale (historique)** | `origin/main` @ `b9458b2ff775927c3539e41c6739c36edec74e06` · tree `b7c18df4c748dacb0fd843e209f462b79dae162e` |
 | **REAL** | **OUT** (ce cycle) · REAL-B track séparée / inchangée |
 | **Architecture** | **NOT SELECTED / NOT REOPENED** |
 | **Runtime v3** | **NON ADOPTED** |
 | **Delivery** | **NOT AUTHORIZED** |
 
-> **Anti-claim de statut :** **≠ INTEGRATED ON MAIN** · **≠ FUNCTIONAL ARCHITECTURE SELECTED** · **≠ TECHNICAL ARCHITECTURE SELECTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL EXECUTED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA** · **≠ NEXT CAPABILITY AUTHORIZED** · **≠ PARALLEL EXPERIENCE ARCHITECTURE**
+> **Anti-claim de statut :** **≠ FUNCTIONAL ARCHITECTURE SELECTED** · **≠ TECHNICAL ARCHITECTURE SELECTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL EXECUTED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA** · **≠ NEXT CAPABILITY AUTHORIZED** · **≠ PARALLEL EXPERIENCE ARCHITECTURE**
 
 ---
 
@@ -50,7 +52,7 @@ C3 est un **DELTA** d’interaction / d’état sur les surfaces PC existantes.
 | **Typologie** | DOC / DESIGN ARTIFACT |
 | **Capacités v3 principales** | V3-F01 · V3-F02 · V3-F04 · V3-F05 · V3-F06 · V3-F08 · V3-F09 |
 | **Support** | V3-F14 · V3-F15 |
-| **État Nora** | C1 + C2 = CONTENT VALIDATED · INTEGRATED ON MAIN · POST-MERGE VERIFIED · C2 lifecycle clean |
+| **État Nora** | C1 + C2 = CONTENT VALIDATED · INTEGRATED ON MAIN · POST-MERGE VERIFIED · C2 lifecycle clean · C3 = **CONTENT VALIDATED BY MORRIS · INTEGRATED ON MAIN · POST-MERGE VERIFIED** |
 | **Product Completion** | COMPLETE / CLOSED |
 | **C6** | CLOSED / DO NOT REOPEN |
 | **runtime v3** | NON ADOPTED |
@@ -519,7 +521,7 @@ Si un blocker apparaît plus tard : **ne pas le résoudre en C3** — enregistre
 | C3-OD-03 | **OBSERVATION** | PC Screens MD lags full SC catalog — Penpot page 03 remains visual SoT |
 | C3-OD-04 | **OPTION** | Si Morris exige wireframes Nora pixel-complete → Branch A (§22) as separate subcycle |
 | C3-OD-05 | **HYPOTHESIS** | Evidence layers 1–6 peuvent vivre en **NEW REGION within S9** sans nouvel écran |
-| C3-OD-06 | **MORRIS DECISION CONSUMED** | **CONTENT VALIDATED BY MORRIS** · separate Git integration gate **CONSUMED** for commit + push + Draft PR + CI + handoff · **≠ merge** |
+| C3-OD-06 | **MORRIS DECISIONS CONSUMED** | **CONTENT VALIDATED BY MORRIS** · Git integration gate **CONSUMED** · merge gate **CONSUMED** — `GO MORRIS — MERGE PR #434` · PR **#434 MERGED** · **INTEGRATED ON MAIN · POST-MERGE VERIFIED** |
 
 Aucun OD C2 n’est consommé par C3.
 
@@ -539,7 +541,6 @@ Aucun OD C2 n’est consommé par C3.
 
 ## 26. Anti-claims
 
-- **≠ INTEGRATED ON MAIN**
 - **≠ PARALLEL EXPERIENCE ARCHITECTURE**
 - **≠ FUNCTIONAL ARCHITECTURE SELECTED**
 - **≠ TECHNICAL ARCHITECTURE SELECTED**
@@ -570,6 +571,7 @@ Aucun OD C2 n’est consommé par C3.
 | OD C2 unchanged / not consumed | **YES** §24 |
 | No architecture / Delivery / REAL / runtime v3 | **YES** |
 | Content validation consumed before Git integration | **YES** — separate Morris validation and Git integration gates |
+| C3 integrated on main and post-merge verified | **YES** — PR **#434** · merge `89265c71035c86dfd0f73ce2f81fb27f67b927ec` · Git/ChatGPT post-merge proof verified |
 
 ---
 
@@ -596,4 +598,4 @@ SFIA v2.6 = process-only · **≠** Nora runtime doctrine.
 
 ---
 
-*Fin du C3-VALIDATED — CONTENT VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT INTEGRATED ON MAIN — Nora Cognitive Completion Product Experience / Cognitive Interaction Design — DELTA over Product Completion PE — NO PARALLEL EA — NO MORRIS RUNTIME PERSONA — OD-02…08 OPEN/NOT CONSUMED — NO DELIVERY — NO ARCHITECTURE — NO REAL — NO RUNTIME V3 ADOPTION.*
+*Fin du C3-POST-MERGE — CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED — Nora Cognitive Completion Product Experience / Cognitive Interaction Design — DELTA over Product Completion PE — NO PARALLEL EA — NO MORRIS RUNTIME PERSONA — OD-02…08 OPEN/NOT CONSUMED — NO DELIVERY — NO ARCHITECTURE — NO REAL — NO RUNTIME V3 ADOPTION.*
