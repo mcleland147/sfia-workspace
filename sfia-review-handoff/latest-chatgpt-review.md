@@ -1,43 +1,60 @@
-# SFIA Review Pack FULL — Nora MW0 Versioned Cognitive Eval Harness Readiness
+# SFIA Review Pack FULL — Nora MW0 Readiness CORR-MW0-01/02/03
 
 | Métadonnée | Valeur |
 | --- | --- |
 | **Pack** | **FULL** |
-| **Timestamp (Europe/Paris)** | 2026-08-29 21:30:35 CEST |
+| **Timestamp (Europe/Paris)** | 2026-08-29 22:06:00 CEST |
 | **Programme** | SFIA Studio — Nora Cognitive Completion |
 | **Capability** | MW0 — VERSIONED COGNITIVE EVAL HARNESS |
-| **Cycle** | 8 — Delivery/implementation · **READINESS ONLY** |
+| **Correction** | CORR-MW0-01 / CORR-MW0-02 / CORR-MW0-03 |
+| **Cycle** | 8 — READINESS ONLY — DOCUMENTARY CORRECTION |
 | **Typologie** | DOC / ANALYSIS |
 | **Profil** | CRITICAL |
-| **Repository** | mcleland147/sfia-workspace |
 | **Worktree** | `/Users/morris/Projects/sfia-workspace-nora-mw0-readiness` |
 | **Branch** | `docs/sfia-studio-nora-mw0-readiness` |
-| **HEAD / origin/main / merge-base** | `c8608c469d725c91b02b5167f5ac41faf865ccf1` |
-| **Main tree** | `4c2cca70c190868e4d18a31e25233302cee669ce` |
-| **PR #440** | MERGED · CI `33269568916` SUCCESS |
-| **Project commit / push / PR** | **NO** |
+| **HEAD / origin/main** | `c8608c469d725c91b02b5167f5ac41faf865ccf1` |
+| **Previous handoff** | `7a84ef57b971cce0edae4a8f276f95f619a2dd5e` |
+| **Previous pack blob** | `932ee8a3862b3921e97ade4d27a3abade96f57d4` |
+| **Morris correction GO** | « go correction » consumed for CORR-MW0-01/02/03 only |
+| **Prior ChatGPT verdict** | PASS WITH REQUIRED DOCUMENTARY CORRECTIONS — OPTION A CONFIRMED — CORR REQUIRED BEFORE MORRIS CONTENT VALIDATION |
+| **Project commit/push/PR** | **NO** |
 | **Staged** | **NONE** |
-| **REAL execution** | **NO** |
-| **MW0 Delivery** | **NOT AUTHORIZED** |
-| **Readiness verdict** | **MW0 READINESS — PASS — READY FOR MORRIS DELIVERY DECISION** |
-| **C5 S01 delta** | OPTION A — NO C5 BACKLOG DELTA REQUIRED |
-| **Architecture** | NO TA REQUIRED · technology NO |
+| **Delivery** | **NOT AUTHORIZED** · **NOT YET ELIGIBLE** |
+| **REAL** | **NO** |
+| **Architecture** | **NO TA REQUIRED** |
+| **Technology** | **NOT ADOPTED** |
+| **Current gate** | **MORRIS CONTENT VALIDATION** |
+| **Verdict form** | MW0 READINESS CONTENT — SUBSTANTIVE PASS — READY FOR MORRIS CONTENT VALIDATION — NOT YET READY FOR DELIVERY GO |
 
-## Morris REAL-first requirement
-CONSUMED · scope Nora MW0→MW6 · NOT global baseline · NO Delivery · NO paid/live API in this cycle.
+## CORR-MW0-01 BEFORE → AFTER
+- BEFORE: MW0 READINESS — PASS — READY FOR MORRIS DELIVERY DECISION
+- AFTER: SUBSTANTIVE PASS + CURRENT LIFECYCLE = READY FOR MORRIS CONTENT VALIDATION + DELIVERY GATE NOT YET ELIGIBLE
+- OPTION A: soft-confirm removed → CONFIRMED BY CHATGPT REVIEW · awaiting Morris consume/reject at content validation
+- MW1→MW6 lifecycle rule added to REAL-FIRST MACRO-WAVE READINESS CHECK item 19
 
-## Sources / Git / scope
-Process+method+CKC · Doctrine · Roadmap · PC C1 · Nora C1–C5 · v3 framing · runtime AI/EventSink/F1/F2/tools/security inspected.
-MW0-S01→S07 source-locked · backlog mutation NO · only project file = doc 06.
+## CORR-MW0-02 BEFORE → AFTER
+- BEFORE: code ∩ provider-accepted · vague ChatGPT observation · “dynamic” implications
+- AFTER: SDK/CODE vs MODEL vs CAMPAIGN EFFECTIVE sets · Official OpenAI API Models documentation · retrieval 2026-08-29 · `minimal` example · campaign capability manifest · no unsupported automatic discovery claim · revalidate each campaign
+
+## CORR-MW0-03 BEFORE → AFTER
+- BEFORE: OPENAI_MODEL / OPENAI_REASONING_EFFORT → campaign matrix driver
+- AFTER: env = secret + runtime defaults · per-cell server-side config · OpenAIConversationProvider instance seam · no process.env matrix mutation · client-supplied NO · NO TA REQUIRED
+
+## Active stale claims after
+**0**
+
+## Decisions required from Morris
+1. CONTENT VALIDATION OF DOCUMENT 06 including explicit OPTION A consume/reject
+2. Later separate Git integration / Delivery GOs
 
 ## Cursor verdict
-NORA COGNITIVE COMPLETION — MW0 VERSIONED COGNITIVE EVAL HARNESS READINESS QUALIFICATION COMPLETE — CYCLE 8 DELIVERY/IMPLEMENTATION / READINESS ONLY — DOC/ANALYSIS — CRITICAL — MW0-S01→S07 SOURCE-LOCKED — NORA REAL-FIRST MACRO-WAVE EVIDENCE CONTRACT FORMALIZED FOR MW0→MW6 — D0/R1/R2/R3 EVIDENCE BOUNDARIES QUALIFIED — MOCKS/FIXTURES RETAINED ONLY FOR EVIDENTIALLY APPROPRIATE DETERMINISTIC LAYERS — INTRINSIC COGNITIVE/API PRODUCT CLAIMS REQUIRE REAL EVIDENCE — OPENAI MODEL/REASONING EXPERIMENT CONTRACT QUALIFIED — PROVIDER CONFIGURATION RESOLVED DYNAMICALLY / NO PERMANENT MODEL SELECTION — REAL DATA/SOURCE POLICY QUALIFIED — REPEATABILITY + QUALITY + COST/LATENCY METRICS QUALIFIED — EXISTING ASSETS KEEP/ADAPT/COMPLETE CLASSIFIED — IMPLEMENTATION SURFACES QUALIFIED — C5 MW0-S01 DETERMINISTIC-vs-REAL DELTA DISPOSITION EXPLICIT (OPTION A) — ARCHITECTURE TRIGGER CHECK COMPLETE — NO ARCHITECTURE SELECTED — NO TECHNOLOGY ADOPTED — NO REAL EXECUTION — NO MW0 DELIVERY — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — ONE LOCAL READINESS DOCUMENT CREATED — NO PROJECT GIT INTEGRATION — REVIEW HANDOFF PUBLISHED — MW0 READINESS — PASS — READY FOR MORRIS DELIVERY DECISION — READY FOR CHATGPT MW0 READINESS CONTENT REVIEW
+NORA COGNITIVE COMPLETION — MW0 VERSIONED COGNITIVE EVAL HARNESS READINESS CORRECTION COMPLETE — CORR-MW0-01/02/03 APPLIED — CYCLE 8 READINESS ONLY — DOC/ANALYSIS — CRITICAL — MW0-S01→S07 UNCHANGED — OPTION A PRESERVED AND CONFIRMED BY CHATGPT REVIEW / AWAITING MORRIS CONTENT VALIDATION — REAL-FIRST MW0→MW6 PRESERVED — D0/R1/R2/R3 PRESERVED — READINESS SUBSTANTIVE PASS SEPARATED FROM DELIVERY LIFECYCLE — CURRENT GATE = MORRIS CONTENT VALIDATION — DELIVERY GO NOT YET ELIGIBLE — SDK/CODE CAPABILITY SET SEPARATED FROM MODEL CAPABILITY SET — CURRENT OPENAI PROVIDER SNAPSHOT TRACEABLE / TEMPORAL ONLY — CAMPAIGN CAPABILITY MANIFEST + REVALIDATION CONTRACT DEFINED — NO UNSUPPORTED AUTOMATIC DYNAMIC DISCOVERY CLAIM — SERVER-SIDE PER-RUN / PER-CELL MODEL + REASONING CONFIGURATION QUALIFIED — OPENAI_API_KEY REMAINS SECRET ENV — OPENAI_MODEL / OPENAI_REASONING_EFFORT REMAIN RUNTIME DEFAULT CONFIG — NO GLOBAL PROCESS.ENV MATRIX MUTATION — EXISTING OPENAI PROVIDER INSTANCE SEAM REUSED — NO TA REQUIRED — NO ARCHITECTURE SELECTED — NO TECHNOLOGY ADOPTED — NO REAL EXECUTION — NO MW0 DELIVERY — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — ONE PROJECT DOCUMENT ONLY — NO PROJECT GIT INTEGRATION — FULL REVIEW HANDOFF PUBLISHED — READY FOR CHATGPT MW0 CORRECTION CONTENT REVIEW
 
-STOP FOR CHATGPT MW0 READINESS CONTENT REVIEW.
+STOP FOR CHATGPT MW0 CORRECTION CONTENT REVIEW.
 
 ---
 
-## Complete created document
+## Complete corrected document 06
 
 Path: `projects/sfia-studio/nora-cognitive-completion/06-nora-mw0-versioned-cognitive-eval-harness-readiness.md`
 
@@ -52,13 +69,15 @@ Path: `projects/sfia-studio/nora-cognitive-completion/06-nora-mw0-versioned-cogn
 | **Cycle** | 8 — Delivery / implémentation · **READINESS / QUALIFICATION ONLY** · ≠ implementation |
 | **Typologie** | DOC / ANALYSIS |
 | **Profil** | CRITICAL |
-| **Statut** | **LOCAL DOCUMENTARY CANDIDATE** · Content = awaiting ChatGPT → Morris validation · Repository publication/integration = **RESOLVE FROM GIT / PR EVIDENCE** · ≠ Delivery · ≠ MW0 implementation · ≠ REAL execution |
-| **Timestamp (Europe/Paris)** | 2026-08-29 21:30:35 CEST |
+| **Statut** | **LOCAL DOCUMENTARY CANDIDATE** · **SUBSTANTIVE READINESS RESULT = PASS** · **CURRENT LIFECYCLE = READY FOR MORRIS CONTENT VALIDATION** · **DELIVERY GATE = NOT YET ELIGIBLE** · Repository publication/integration = **RESOLVE FROM GIT / PR EVIDENCE** · ≠ Delivery GO · ≠ MW0 implementation · ≠ REAL execution |
+| **Timestamp (Europe/Paris)** | 2026-08-29 22:05:00 CEST |
 | **Generation worktree (provenance)** | `/Users/morris/Projects/sfia-workspace-nora-mw0-readiness` · provenance only |
 | **Generation branch (provenance)** | `docs/sfia-studio-nora-mw0-readiness` · provenance only |
 | **CURRENT REPOSITORY TRUTH** | **RESOLVE FROM GIT / PR EVIDENCE** |
 | **Base / origin/main (qualification anchor)** | `c8608c469d725c91b02b5167f5ac41faf865ccf1` · tree `4c2cca70c190868e4d18a31e25233302cee669ce` · PR **#440 MERGED** · Type14 head `77bf2a5f…` · post-merge CI **`33269568916` SUCCESS** · Required Gate **PASS** · ≠ permanent future HEAD |
 | **GO Morris MW0 REAL-first evidence** | **CONSUMED FOR MW0 READINESS QUALIFICATION** — `MORRIS REQUIREMENT — NORA MW0→MW6 REAL-FIRST EVIDENCE — PRIORITIZE REAL STUDIO PATH + REAL OPENAI API + REAL SOURCES/DATA WHEN EVIDENTIALLY RELEVANT — USE MOCKS/FIXTURES ONLY WHEN REAL ADDS NO MEANINGFUL EVIDENCE OR WHEN THE DETERMINISTIC LAYER IS THE CORRECT OBJECT OF TEST — AN INTRINSICALLY COGNITIVE/API/RUNTIME-DEPENDENT CAPABILITY CANNOT BE PROVEN BY MOCK/DETERMINISTIC EVIDENCE ALONE — QUALIFY MODEL + REASONING CONFIGURATION EMPIRICALLY BY WORKLOAD — MAKE THIS CONTRACT REUSABLE FOR MW0→MW6 READINESS — NOT A GLOBAL SFIA METHODOLOGY BASELINE — NO DELIVERY BY THIS GO` · ≠ Delivery · ≠ paid/live API test in this cycle · ≠ global SFIA baseline · ≠ technology adoption |
+| **GO Morris MW0 readiness correction** | **CONSUMED FOR DOCUMENTARY CORRECTION ONLY** — Morris message « go correction » · scope **CORR-MW0-01 / CORR-MW0-02 / CORR-MW0-03** only · ≠ Morris content validation · ≠ project Git integration · ≠ Delivery · ≠ REAL execution |
+| **ChatGPT prior verdict (historical review input)** | *(historique)* PASS WITH REQUIRED DOCUMENTARY CORRECTIONS — OPTION A CONFIRMED BY CHATGPT REVIEW — CORR-MW0-01/02/03 REQUIRED BEFORE MORRIS CONTENT VALIDATION — SUPERSEDED AS CURRENT STATUS BY THIS CORRECTION |
 | **ACTIVE CONSTRUCTION PRIORITY** | **NORA COGNITIVE COMPLETION** |
 | **C5** | CONTENT VALIDATED / INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR **#439**) |
 | **TYPE14** | POST-MERGE VERIFIED (PR **#440**) |
@@ -67,7 +86,7 @@ Path: `projects/sfia-studio/nora-cognitive-completion/06-nora-mw0-versioned-cogn
 | **OD-02/03/04/05/06/08** | OPEN |
 | **Architecture** | **NOT SELECTED** |
 | **Technology** | **NOT ADOPTED** · OpenAI = current provider capabilities / candidate test parameters only |
-| **MW0 readiness** | **IN QUALIFICATION** (this document) |
+| **MW0 readiness** | **SUBSTANTIVE PASS AFTER CORR-MW0-01/02/03** · awaiting **Morris content validation** · ≠ Delivery eligible |
 | **MW0 implementation** | **NOT STARTED** |
 | **MW0 Delivery** | **NOT AUTHORIZED** |
 | **Cognitive Completion** | **NOT PROVEN** |
@@ -96,11 +115,23 @@ Morris has consumed a **REAL-first evidence requirement** scoped to Nora MW0→M
 - **no Delivery** by this GO ;
 - **no** paid/live API tests in this readiness cycle.
 
-**Readiness verdict (this document):**
+**Readiness results (this document · after CORR-MW0-01/02/03):**
 
-### MW0 READINESS — PASS — READY FOR MORRIS DELIVERY DECISION
+| Dimension | Result |
+| --- | --- |
+| **SUBSTANTIVE READINESS RESULT** | **PASS** |
+| **CURRENT LIFECYCLE** | **READY FOR MORRIS CONTENT VALIDATION** |
+| **DELIVERY GATE** | **NOT YET ELIGIBLE** |
 
-With explicit layered reading of C5 MW0-S01 (OPTION A — no C5 backlog delta required) and architecture trigger = **NO TA REQUIRED**.
+**Lifecycle-safe verdict form:**
+
+### MW0 READINESS CONTENT — SUBSTANTIVE PASS — READY FOR MORRIS CONTENT VALIDATION — NOT YET READY FOR DELIVERY GO
+
+With explicit layered reading of C5 MW0-S01 (**OPTION A** — no C5 backlog delta required · **CONFIRMED BY CHATGPT CONTENT REVIEW AS COHERENT WITH C5** · awaiting explicit Morris consumption with content validation) and architecture trigger = **NO TA REQUIRED**.
+
+**Required lifecycle (no step auto-consumes the next):**
+
+MW0 readiness candidate → ChatGPT content review → **Morris content validation** → separate Git integration gate → project Git integration → PR review → Morris merge → post-merge verification → only then **READY FOR DISTINCT MORRIS MW0 DELIVERY GO** → Delivery only if Morris explicitly authorizes it.
 
 ---
 
@@ -182,7 +213,11 @@ MW0 consists **exactly** of:
 
 **Morris decision required for C5 rewrite?** NO.
 
-**Soft confirmation recommended (non-blocking):** Morris acknowledges the layered S01 vs wave-exit reading so Delivery cannot claim PROVEN from fixture green alone.
+**OPTION A governance:**
+
+- **OPTION A = CONFIRMED BY CHATGPT CONTENT REVIEW AS COHERENT WITH C5.**
+- Morris **content-validation** decision for document 06 **MUST** explicitly consume or reject OPTION A.
+- Until that Morris content-validation GO: OPTION A is a **reviewed recommendation / readiness disposition** · **≠ OPTION A VALIDATED BY MORRIS**.
 
 If Morris later rejects this layered reading and interprets “REAL campaigns” Scope OUT as forbidding any MW0 REAL campaign, then escalate to **OPTION B** (smallest C5 proof-contract delta) — **not applied in this cycle**.
 
@@ -259,35 +294,57 @@ If Morris later rejects this layered reading and interprets “REAL campaigns”
 
 Empirical comparison to find **MINIMUM SUFFICIENT COGNITIVE CONFIGURATION BY WORKLOAD** — not MAX everywhere; not one global model.
 
-### Current external provider snapshot (INPUT ONLY · 2026-08-29 ChatGPT observation)
+### Capability set distinction (mandatory)
 
-GPT-5.6 family currently observed externally: Sol · Terra · Luna.
+| Set | Definition | Current fact |
+| --- | --- | --- |
+| **1. SDK/CODE CAPABILITY SET** | Values the installed OpenAI SDK and local types/configuration can represent | `config.ts` / openai@6.48-compatible enum: `none \| minimal \| low \| medium \| high \| xhigh \| max` |
+| **2. MODEL CAPABILITY SET** | Values documented/accepted for the **exact target model** | Must be revalidated per campaign from authoritative OpenAI provider evidence |
+| **3. CAMPAIGN EFFECTIVE CAPABILITY SET** | Intersection of (1) ∩ (2) ∩ optional campaign governance allowlist | Only cells in this set may be executed |
 
-Documented reasoning.effort values observed externally: none · low · medium · high · xhigh · max.
+**Hard distinction:** SDK-supported / code-accepted **≠** model-supported.
 
-**Status:** CURRENT PROVIDER SNAPSHOT · **NOT durable SFIA doctrine**.
+Example: `minimal` is in the **SDK/CODE** set but is **NOT** in the current documented GPT-5.6 Sol/Terra/Luna model capability set (2026-08-29).
 
-### Repository-resolved capability (actual Studio code)
+The application does **NOT** currently implement automatic dynamic capability discovery. Do not claim that it does.
 
-`projects/sfia-studio/app/lib/platform/ai/config.ts` currently supports reasoning effort enum including:
+### Current external provider snapshot (CURRENT PROVIDER SNAPSHOT ONLY)
 
-`none | minimal | low | medium | high | xhigh | max`
+| Field | Value |
+| --- | --- |
+| **Source** | Official OpenAI API Models documentation |
+| **Verification** | Provider snapshot verified by ChatGPT |
+| **Retrieval date** | 2026-08-29 |
+| **Models currently observed** | `gpt-5.6-sol` · `gpt-5.6-terra` · `gpt-5.6-luna` |
+| **Documented reasoning.effort for those models** | `none` · `low` · `medium` · `high` · `xhigh` · `max` |
+| **Status** | **CURRENT CAPABILITY INPUT ONLY** · **NOT durable SFIA doctrine** |
 
-configured via server-only `OPENAI_MODEL` + optional `OPENAI_REASONING_EFFORT` (never client-supplied).
+### Repository seams (actual Studio code)
 
-Provider: `OpenAIConversationProvider` (Responses API) — `projects/sfia-studio/app/lib/platform/ai/openaiProvider.ts`.
+- `projects/sfia-studio/app/lib/platform/ai/config.ts` — SDK/CODE CAPABILITY SET + live/default env resolution (`OPENAI_API_KEY` · `OPENAI_MODEL` · optional `OPENAI_REASONING_EFFORT`) · never client-supplied.
+- `projects/sfia-studio/app/lib/platform/ai/openaiProvider.ts` — `OpenAIConversationProvider` constructor receives **per-instance** `(apiKey, model, reasoningEffort?)`.
+- Fake provider for D0: `fakeProvider.ts`.
 
-Fake provider exists for D0: `fakeProvider.ts`.
+### Campaign capability revalidation contract (future Delivery · not implemented now)
 
-### Discovery / revalidation rule (Delivery must implement)
+Before a REAL campaign:
 
-1. At campaign start, resolve configured model from env/config.
-2. Resolve allowed reasoning efforts from **code-supported set ∩ provider-accepted set** (fail-closed on invalid).
-3. Do **not** hardcode the 2026-08-29 external list as eternal doctrine.
-4. Record provider SDK version + model string + effort in every run evidence.
-5. If provider rejects a value → record as CONFIG/PROVIDER_CAPABILITY failure · do not silently coerce to success.
+1. Resolve exact model ID.
+2. Resolve installed OpenAI SDK version.
+3. Obtain/revalidate the **MODEL CAPABILITY SET** from an authoritative OpenAI provider source available at campaign time.
+4. Persist source timestamp / version / reference in campaign evidence.
+5. Construct a **VERSIONED / TIMESTAMPED CAMPAIGN CAPABILITY MANIFEST** (evidence/configuration input · **≠** new persistence architecture).
+6. Compute **CAMPAIGN EFFECTIVE CAPABILITY SET** = SDK/CODE ∩ MODEL ∩ campaign allowlist (if any).
+7. Reject unsupported cells **before or at** execution (fail-closed).
+8. Record provider rejection as `CONFIG` / `PROVIDER_CAPABILITY` evidence · **never** silently coerce one reasoning effort into another.
+9. Do **not** use paid trial-and-error as the default capability-discovery mechanism.
 
-**Production selection = NO** in this readiness. **Technology adoption = NO.**
+If OpenAI provides a reliable machine-readable model-capability surface at Delivery time: it **MAY** be used after qualification.
+If none exists: use the campaign capability manifest sourced from official documentation/configuration evidence and revalidated at campaign start — **do not invent** automatic dynamic discovery.
+
+**Provider capabilities MUST BE REVALIDATED / RESOLVED FOR EACH CAMPAIGN FROM AUTHORITATIVE CURRENT PROVIDER EVIDENCE.**
+
+**Production selection = NO** · **Technology adoption = NO** · permanent doctrine from this snapshot = **NO**.
 
 ---
 
@@ -401,7 +458,7 @@ Numerical thresholds below are **PROPOSED · not DECIDED** unless already govern
 | Asset | Path | Class | MW0 use |
 | --- | --- | --- | --- |
 | Platform OpenAI Responses provider | `app/lib/platform/ai/openaiProvider.ts` | **KEEP** | R1/R2 provider |
-| AI config (model + reasoning effort) | `app/lib/platform/ai/config.ts` | **KEEP / ADAPT** | Experiment parameterization · discover supported efforts |
+| AI config (model + reasoning effort) | `app/lib/platform/ai/config.ts` | **KEEP / ADAPT** | KEEP as live/default configuration · ADAPT/REUSE validation types/seams for campaign cell config · ≠ global env matrix driver |
 | Provider resolve / live availability | `app/lib/platform/ai/provider.ts` · `index.ts` | **KEEP** | Live vs fake gate |
 | Fake conversation provider | `app/lib/platform/ai/fakeProvider.ts` | **KEEP** | D0 |
 | Platform EventSink | `app/lib/platform/observability/eventSink.ts` | **KEEP / ADAPT** | Emit run/eval events |
@@ -439,15 +496,29 @@ Numerical thresholds below are **PROPOSED · not DECIDED** unless already govern
 - EventSink usage → structured eval event types / export
 - F1/F2 entrypoints → harness-invocable under controlled scenario context
 - Existing tests → donor cases for D0 regressions
-- `OPENAI_MODEL` / `OPENAI_REASONING_EFFORT` → campaign matrix driver (server-only)
+- `config.ts` validation types / seams → reuse for **server-side per-cell campaign configuration**
+- `OPENAI_API_KEY` remains server-only secret source
+- `OPENAI_MODEL` / `OPENAI_REASONING_EFFORT` remain **runtime/default** configuration · **≠** campaign matrix driver via global `process.env` mutation
 
 ### COMPLETE (candidate new · challenge parallelism)
 
 Prefer under existing Studio tree, e.g.:
 
-- `app/lib/nora-eval/` or `app/features/nora-eval/` — scenario catalog · scorers · evidence schema · campaign runner
+- `app/lib/nora-eval/` or `app/features/nora-eval/` — scenario catalog · scorers · evidence schema · **thin campaign runner**
 - versioned scenario JSON/YAML fixtures
 - evidence pack writer (files) consuming EventSink recordings
+- campaign cell config objects (model · reasoningEffort · scenario · scenarioVersion · sourceSet · toolSet · metadata)
+
+**Campaign runner contract (CORR-MW0-03):**
+
+- For each campaign cell/run: resolve authorized API credential + validated campaign model + validated reasoning effort.
+- Instantiate/use existing `OpenAIConversationProvider` **per-instance** configuration.
+- Validate cell against campaign capability manifest before execution.
+- Record explicit model/reasoning provenance.
+- **DO NOT** design the matrix around repeated global mutation of `process.env.OPENAI_MODEL` / `process.env.OPENAI_REASONING_EFFORT` (isolation · concurrency · reproducibility · no cross-run bleed).
+- Campaign model/reasoning values remain **server-side controlled** · never client-supplied as execution authority.
+- No new provider architecture · no duplicate OpenAI client stack · no global mutable campaign state.
+- **NO TA REQUIRED** (constructor already exposes the seam).
 
 **Challenge:** Why not only extend Product Completion e2e? Answer: PC e2e proves product completion spine; MW0 needs **versioned cognitive scenario governance + NCC-BAR binding + experiment matrix** reusable for MW1→MW6 — still must reuse provider/EventSink/F1/F2, not a parallel runtime.
 
@@ -523,6 +594,9 @@ Each future MW readiness MUST answer:
 16. Does a TA trigger actually materialize?
 17. What Morris gate is required before Delivery?
 18. What REAL exit proof is required before wave closure?
+19. **Lifecycle eligibility:** Has readiness content been **Morris content-validated**, **Git-integrated on main**, and **post-merge verified** before any claim of Delivery eligibility?
+
+**Lifecycle rule (mandatory for MW1→MW6):** No macro-wave readiness may become **READY FOR DELIVERY GO** solely from a local/substantive readiness PASS. Before Delivery eligibility: readiness content validated by Morris → readiness integrated into Git main → readiness post-merge verified → then a **distinct** Morris Delivery GO.
 
 **This is a Nora trajectory contract · not global SFIA methodology baseline.**
 
@@ -552,16 +626,16 @@ No automatic truth-sync launched. Correction optional later if operators confuse
 | MW0-S07 | BAR-14 undefined | Metric targets · NOT_PROVEN | Define metrics | NO | COMPLETE defs | D0 | Delivery GO |
 | REAL-first policy | Morris GO consumed | Formalized here | Validation | NO | Candidate | DOC | Content validation |
 | D0/R1/R2/R3 | Undefined in C5 prose | Explicit tiers | — | NO | Defined §6 | DOC | — |
-| Model/reasoning matrix | Env single model | Experiment matrix | COMPLETE runner | NO | COMPLETE thin | R3 later | Delivery GO |
-| Provider discovery | Code enum + env | Dynamic revalidation | Documented | NO | KEEP+rule | — | — |
+| Model/reasoning matrix | Runtime defaults via env | Per-cell server-side config + provider instance | COMPLETE thin runner | NO | COMPLETE · no process.env matrix mutation | R3 later | Delivery GO |
+| Provider capability | SDK/CODE set vs MODEL set | Per-campaign revalidation + capability manifest | Documented CORR-02 | NO | KEEP seams + manifest rule | DOC | Content validation |
 | Real data policy | Ad hoc | Class A–F | — | NO | Defined §8 | — | — |
 | Repeatability | None | Proposed policy | Numbers PROPOSED | NO | Proposed | — | Delivery may decide numbers |
 | Metrics | Scattered | Metric set §14 | Scorers COMPLETE | NO | COMPLETE | — | — |
 | Cost/latency | Usage partial | Guardrails | Campaign caps PROPOSED | NO | Observe · FinOps FREEZE | — | Delivery GO for caps |
 | EventSink | Exists in-memory | Eval export | ADAPT | NO | ADAPT | D0 | — |
 | Architecture | NOT SELECTED | Unchanged | — | NO | NO TA REQUIRED | — | — |
-| C5 REAL delta | S01 deterministic | Layered OPTION A | Soft ack | NO | No C5 rewrite | DOC | Soft confirm optional |
-| Delivery scope | NOT AUTHORIZED | Candidate §23 | — | YES until GO | Candidate | — | **MW0 Delivery GO** |
+| C5 REAL delta | S01 deterministic | Layered OPTION A | ChatGPT-confirmed · Morris consume-at-validation | NO | No C5 rewrite | DOC | Content validation (consume/reject OPTION A) |
+| Delivery scope | NOT AUTHORIZED · NOT YET ELIGIBLE | Candidate §23 after content validation + Git + post-merge | Lifecycle gates | YES until Delivery GO | Candidate | — | Content validation first · Delivery GO later |
 | Exit proof | Unspecified | §23 | — | YES until GO | Candidate | D0+R1+R2+R3 | Delivery + exit QA |
 
 ---
@@ -642,26 +716,44 @@ No automatic truth-sync launched. Correction optional later if operators confuse
 | MW1→MW6 reuse check | YES |
 | No hidden tech selection | YES |
 | No Delivery / no REAL this cycle | YES |
+| Substantive readiness PASS separated from Delivery eligibility | YES · CORR-MW0-01 |
+| Provider SDK≠model capability distinction | YES · CORR-MW0-02 |
+| Per-cell campaign config · no process.env matrix mutation | YES · CORR-MW0-03 |
 
 ---
 
 ## 26. Decisions required from Morris
 
-1. Validate this readiness content (ChatGPT review → Morris).
-2. Soft-confirm OPTION A layered reading of MW0-S01 (optional · non-blocking).
-3. Distinct **MW0 Delivery GO** before any implementation/REAL campaign.
+**Next decision (after corrected ChatGPT review):**
+
+1. **MORRIS CONTENT VALIDATION OF DOCUMENT 06** — including **explicit consumption or rejection of OPTION A**.
+
+**Later separate gates (not authorized by content validation alone):**
+
+2. Distinct **project Git integration GO** for document 06 (if content validated).
+3. Distinct **MW0 Delivery GO** only after content validation + Git integration + post-merge verification.
 4. At Delivery GO: approve/revise PROPOSED trial counts and campaign budget caps.
+
+**Not next:** Delivery GO · project commit/push/PR by this correction cycle.
 
 ---
 
 ## 27. Final readiness verdict
 
-**MW0 READINESS — PASS — READY FOR MORRIS DELIVERY DECISION**
+| Dimension | Result |
+| --- | --- |
+| **SUBSTANTIVE READINESS RESULT** | **PASS** |
+| **CURRENT LIFECYCLE** | **READY FOR MORRIS CONTENT VALIDATION** |
+| **DELIVERY GATE** | **NOT YET ELIGIBLE** |
+| **Architecture trigger** | **NO TA REQUIRED** |
+| **OPTION A** | CONFIRMED BY CHATGPT REVIEW · awaiting Morris consumption with content validation |
+| **Technology** | **NOT ADOPTED** |
+| **REAL this cycle** | **NOT AUTHORIZED** |
 
-(= §26 option A)
+### MW0 READINESS CONTENT — SUBSTANTIVE PASS — READY FOR MORRIS CONTENT VALIDATION — NOT YET READY FOR DELIVERY GO
 
 ---
 
-*Fin du document — MW0 READINESS QUALIFICATION ONLY — REAL-FIRST CONTRACT FORMALIZED FOR NORA MW0→MW6 — NO DELIVERY — NO REAL EXECUTION — NO ARCHITECTURE SELECTED — NO TECHNOLOGY ADOPTED — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — FINOPS/T7 FREEZE — NO PROJECT GIT INTEGRATION.*
+*Fin du document — MW0 READINESS CORR-MW0-01/02/03 APPLIED — SUBSTANTIVE PASS — READY FOR MORRIS CONTENT VALIDATION — NOT YET READY FOR DELIVERY GO — REAL-FIRST MW0→MW6 PRESERVED — NO DELIVERY — NO REAL EXECUTION — NO ARCHITECTURE SELECTED — NO TECHNOLOGY ADOPTED — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — FINOPS/T7 FREEZE — NO PROJECT GIT INTEGRATION.*
 
 ```
