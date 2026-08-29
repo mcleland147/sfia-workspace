@@ -7,14 +7,16 @@
 | **Profil document** | **CRITICAL** |
 | **Typologie** | **DOC** — documentation-only · impact structurant aval |
 | **Milestone** | NORA COGNITIVE COMPLETION — CYCLE 2 — CONCEPTION FONCTIONNELLE |
-| **Statut** | **CONTENT VALIDATED BY MORRIS — GIT INTEGRATION IN PROGRESS — NOT INTEGRATED ON MAIN** |
-| **Révision** | **CORR-01** — Functional Governance Alignment · content validated for Git integration |
+| **Statut** | **CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED** |
+| **Révision** | **CORR-01** — Functional Governance Alignment · content validated · integrated via PR **#432** |
 | **GO Morris consommé (ouverture C2)** | **GO MORRIS — START NORA COGNITIVE COMPLETION C2 — CONCEPTION FONCTIONNELLE — DOC CRITICAL — NO DELIVERY** |
 | **GO Morris consommé (CORR-01)** | **GO MORRIS — NORA COGNITIVE COMPLETION C2 CORR-01 — FUNCTIONAL GOVERNANCE ALIGNMENT — LOCAL ONLY — NO GIT INTEGRATION** |
 | **Décision Morris validation contenu C2 CORR-01** | **CONTENT VALIDATED FOR GIT INTEGRATION** |
-| **GO Morris Git integration C2** | **CONSUMED** — commit · push · Draft PR authorized · **≠** merge · **≠** OD-02 adoption |
+| **GO Morris Git integration C2** | **CONSUMED** — commit · push · Draft PR authorized · **≠** merge · **≠** OD-02 adoption *(historique — scope exact de ce GO)* |
+| **GO Morris merge PR #432** | **CONSUMED** — PR **#432 MERGED** · head `d406db412ca03c37ea745632341845301f2ce3c0` · merge `362b972379be1ebf07087a2267e9296abf57e6ef` · 2026-08-29T05:21:57Z |
+| **Intégration Git C2** | PR **#432 MERGED** · head `d406db412ca03c37ea745632341845301f2ce3c0` · merge `362b972379be1ebf07087a2267e9296abf57e6ef` · **POST-MERGE VERIFIED** |
 | **Baseline C1** | `01-nora-cognitive-completion-cadrage.md` — **CONTENT VALIDATED BY MORRIS** · PR **#430 MERGED** · post-merge truth sync PR **#431 MERGED** |
-| **Base Git (construction)** | `origin/main` @ `63430673dc4288919fbca078e1a9fd22f9e0a173` · tree `10a0b3d67f2a1a04fbfdb71950d6c894fcb0ae58` |
+| **Base Git de construction (historique)** | `origin/main` @ `63430673dc4288919fbca078e1a9fd22f9e0a173` · tree `10a0b3d67f2a1a04fbfdb71950d6c894fcb0ae58` |
 | **Worktree construction** | `/Users/morris/Projects/sfia-workspace-nora-cognitive-c2` |
 | **Branche construction** | `docs/sfia-studio-nora-cognitive-completion-c2-functional-design` |
 | **CKC** | `method/.../pilots/02-conception-fonctionnelle.md` · `0.1.0` · **candidate** · guidance cognitive · **aucune autorité d'exécution** |
@@ -24,7 +26,7 @@
 | **REAL** | **ZERO REAL** (ce cycle) |
 | **Agents SDK / Sessions / Hosted Web Search** | **NOT ADOPTED** · technology candidates downstream only |
 
-> **Anti-claim de statut :** **CONTENT VALIDATED BY MORRIS** · **≠ GIT INTEGRATED ON MAIN** · **≠ ARCHITECTURE SELECTED** · **≠ AGENTS SDK ADOPTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL-B CLOSED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA**
+> **Anti-claim de statut :** **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED** · **≠ ARCHITECTURE SELECTED** · **≠ AGENTS SDK ADOPTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL-B CLOSED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA**
 
 ---
 
@@ -110,14 +112,14 @@ L’autorité se résout par **claim/domain → source applicable → authority 
 | **Capacités v3 principales** | V3-F01 · V3-F05 · V3-F07 · V3-F11 |
 | **Fondations support** | V3-F02 · V3-F04 · V3-F06 · V3-F08 · V3-F09 · V3-F12 · V3-F14 · V3-F15 |
 | **Milestone** | NORA COGNITIVE COMPLETION — CYCLE 2 — CONCEPTION FONCTIONNELLE · **CORR-01** |
-| **État** | PC **CLOSED** · C1 **VALIDATED + INTEGRATED + POST-MERGE VERIFIED** · C2 **CONTENT VALIDATED BY MORRIS · GIT INTEGRATION IN PROGRESS · NOT YET INTEGRATED ON MAIN** · C6 **CLOSED** · REAL-A **CONSUMED** · REAL-B published **next capability unchanged** · runtime v3 **NON ADOPTED** · FinOps/T7 **FREEZE = construction Roadmap state only** |
+| **État** | PC **CLOSED** · C1 **VALIDATED + INTEGRATED + POST-MERGE VERIFIED** · C2 **CONTENT VALIDATED BY MORRIS · INTEGRATED ON MAIN · POST-MERGE VERIFIED** · C6 **CLOSED** · REAL-A **CONSUMED** · REAL-B published **next capability unchanged** · runtime v3 **NON ADOPTED** · FinOps/T7 **FREEZE = construction Roadmap state only** |
 | **Actifs** | Backbone PC · Nora F1/F2 · Responses provider · custom toolLoop · REAL-A grounding |
 | **Classification** | Extension cognitive fonctionnelle · **≠** second produit · **≠** moteur parallèle · **≠** remplacement silencieux de REAL-B |
 | **Gaps adressés** | Comportements cognitifs testables + gouvernance fonctionnelle CORR-01 |
 | **Dépendances** | C1 NR/CE/BAR · PC C2 patterns · v3 doctrine · REAL-A lessons |
 | **Lien trajectoire** | Servir la boucle Product Completion · enrichir Nora sans réouvrir PC/C6 · complementary to Convergence next capability |
 | **Exit proof C2** | 26/26 NR · 8/8 CE · 14/14 NCC-BAR · B0 complet · authority domain-aware · no tech choice · OD ouvertes |
-| **Gates construction (externes au runtime)** | GO C2 ouverture **CONSUMED** · GO CORR-01 **CONSUMED** · validation contenu CORR-01 **CONSUMED** · GO Git integration **CONSUMED** (commit · push · Draft PR) · merge = **futur gate distinct** |
+| **Gates construction (externes au runtime)** | GO C2 ouverture **CONSUMED** · GO CORR-01 **CONSUMED** · validation contenu CORR-01 **CONSUMED** · GO Git integration **CONSUMED** (commit · push · Draft PR · **≠** merge) · GO MERGE PR **#432** **CONSUMED** |
 | **Capacité suivante** | **NEXT CAPABILITY REQUALIFICATION** après intégration Git / post-merge qualification · branches candidates §21 |
 
 ---
@@ -728,8 +730,7 @@ C2 VALIDATED
 
 ## 22. Anti-claims
 
-- **CONTENT VALIDATED BY MORRIS** · **≠ GIT INTEGRATED ON MAIN**
-- **≠ MERGED**
+- **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED**
 - **≠ ARCHITECTURE SELECTED**
 - **≠ AGENTS SDK ADOPTED**
 - **≠ SESSIONS ADOPTED**
@@ -744,10 +745,11 @@ C2 VALIDATED
 - **≠ MORRIS RUNTIME PERSONA**
 - ChatGPT parity **≠ proven** (NCC-BAR-14 = target only)
 - B0 observations **≠** automatic Nora requirements
-- OD-02 recommendation **≠** construction-consumed · Git integration GO **≠** OD-02 adoption
+- OD-02 recommendation **≠** construction-consumed · Git integration GO **≠** OD-02 adoption · merge GO **≠** OD-02 adoption
 - FinOps/T7 FREEZE **≠** product runtime invariant
 - SFIA Profile **≠** Cognitive Strategy Class
 - v2.6 prompts **≠** Nora runtime doctrine
+- NEXT CAPABILITY **≠** automatically authorized by C2 merge
 
 ---
 
@@ -790,4 +792,4 @@ C2 VALIDATED
 
 ---
 
-*Fin du C2 CORR-01 — CONTENT VALIDATED BY MORRIS — GIT INTEGRATION IN PROGRESS — NOT INTEGRATED ON MAIN — NO MORRIS RUNTIME PERSONA — OD-02 OPEN / NOT CONSUMED — C2 CONCEPTION FONCTIONNELLE ONLY — NO DELIVERY — NO ARCHITECTURE — NO AGENTS SDK.*
+*Fin du C2 CORR-01 — CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO MORRIS RUNTIME PERSONA — OD-02 OPEN / NOT CONSUMED — C2 CONCEPTION FONCTIONNELLE ONLY — NO DELIVERY — NO ARCHITECTURE — NO AGENTS SDK.*
