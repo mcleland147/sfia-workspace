@@ -48,7 +48,7 @@ Ce document transforme les **26 responsabilités Nora (NR-01…NR-26)**, les **8
 3. Définir modèles d'interaction, workload, mémoire, sourcing, compaction, épistémologie, narration/preuve, eval et genericité.
 4. Tracer chaque NR → comportement → CE → NCC-BAR avec critères observables.
 
-**Ce C2 ne décide pas** comment implémenter. Après validation éventuelle : **NEXT CAPABILITY REQUALIFICATION** (branches candidates conditionnelles — §21).
+**Ce C2 ne décide pas** comment implémenter. Après intégration sur main et requalification dédiée : **NEXT CAPABILITY REQUALIFICATION** (branches candidates conditionnelles — §21).
 
 ---
 
@@ -118,7 +118,7 @@ L’autorité se résout par **claim/domain → source applicable → authority 
 | **Lien trajectoire** | Servir la boucle Product Completion · enrichir Nora sans réouvrir PC/C6 · complementary to Convergence next capability |
 | **Exit proof C2** | 26/26 NR · 8/8 CE · 14/14 NCC-BAR · B0 complet · authority domain-aware · no tech choice · OD ouvertes |
 | **Gates construction (externes au runtime)** | GO C2 ouverture **CONSUMED** · GO CORR-01 **CONSUMED** · validation contenu CORR-01 **CONSUMED** · GO Git integration **CONSUMED** (commit · push · Draft PR) · merge = **futur gate distinct** |
-| **Capacité suivante** | **NEXT CAPABILITY REQUALIFICATION** après validation éventuelle · branches candidates §21 |
+| **Capacité suivante** | **NEXT CAPABILITY REQUALIFICATION** après intégration Git / post-merge qualification · branches candidates §21 |
 
 ---
 
@@ -701,7 +701,7 @@ Nora serves multiple cycle types via **contextual variation**, not separate engi
 
 ### 21.1 Adaptive next capability (CORR-01)
 
-**Not a waterfall.** After C2 validation (future gate):
+**Not a waterfall.** After C2 integration on main and dedicated next-capability requalification:
 
 ```text
 C2 VALIDATED
