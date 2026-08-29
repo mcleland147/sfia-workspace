@@ -1,103 +1,37 @@
 # ChatGPT Review Pack — FULL
-# NORA COGNITIVE COMPLETION — C2 POST-MERGE TRUTH-SYNC — GIT INTEGRATION
+# NORA COGNITIVE COMPLETION — C2 POST-MERGE TRUTH-SYNC — PR #433 MERGE
 
-**Timestamp (Europe/Paris):** 2026-08-29 07:55:49 CEST
-**Cycle:** C2 Post-Merge Truth-Sync · Git Integration · COMMIT + PUSH + DRAFT PR + CI + HANDOFF · **NO MERGE**
+**Timestamp (Europe/Paris):** 2026-08-29 08:04:05 CEST
+**Cycle:** C2 Post-Merge Truth-Sync · PR #433 Merge Execution · POST-REVIEW MERGE GATE
 **Typologie:** DOC · **Profil:** STANDARD
-**GO Morris Git Integration:** CONSUMED — commit · push · Draft PR · CI · handoff · **≠ merge**
-**Merge:** **NOT AUTHORIZED**
-**Baseline main:** `362b972379be1ebf07087a2267e9296abf57e6ef`
-**Baseline handoff (CORR-02 final review):** commit `776743245a3e565d76e44799fbbf548f22a876b3` · tree `913464b25a3d0e87ef9c9e6cc40f8d8dbfee0270` · blob `3e30ba35e210f99511acd6e11b46c7103e7dc7ef`
-**Source candidate:** final ChatGPT-reviewed CORR-02 local candidate · no further C2 edits in this cycle
-**Verdict cible:** NORA COGNITIVE COMPLETION — C2 POST-MERGE TRUTH-SYNC — GIT INTEGRATION COMPLETE — DRAFT PR OPEN — CI PASS — READY FOR CHATGPT PR REVIEW
+**GO Morris merge:** CONSUMED — MERGE PR #433 — C2 POST-MERGE TRUTH-SYNC
+**Baseline pre-merge main:** `362b972379be1ebf07087a2267e9296abf57e6ef`
+**Qualified head:** `1da8e306498a1ac1a49af34d6977861b5a03220c` · tree `b7c18df4c748dacb0fd843e209f462b79dae162e`
+**Prior handoff (Git Integration):** `f890f2228325ca7978dee95537fcb7907e7ab507`
+**CI run:** `33237138928` · SUCCESS · Required Gate PASS
+**Verdict cible:** NORA COGNITIVE COMPLETION — C2 POST-MERGE TRUTH-SYNC — PR #433 MERGED — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO FURTHER C2 TRUTH-SYNC REQUIRED
 **Synthesis only:** FORBIDDEN
 
 ---
 
-## 1. Local Git Truth (pre-commit / preserved context)
+## 1. Pre-merge truth
 
 | Field | Value |
 | --- | --- |
-| Repository | `mcleland147/sfia-workspace` |
 | Worktree | `/Users/morris/Projects/sfia-workspace-nora-cognitive-c2-post-merge-sync` |
 | Branch | `docs/sfia-studio-nora-cognitive-c2-post-merge-truth-sync` |
-| Pre-commit HEAD / origin/main / merge-base | `362b972379be1ebf07087a2267e9296abf57e6ef` |
-| Pre-commit status | `M` C2 only · `?? .tmp-sfia-review/` |
-| Diff contract | 1 file · +13 / −11 · lifecycle-only |
-| REAL-B | `fix/sfia-studio-real-b-blocker-02` @ `967f4c2b35948492caeba5347bb02c7c420de490` · untouched / READ-ONLY |
-
----
-
-## 2. Final self-reference scan (before stage)
-
-```
-447:| Local vs published | Worktree/local candidate ≠ main truth for published factual claims |
-```
-
-Classification: sole hit = **A durable** epistemic principle (`Worktree/local candidate ≠ main truth…`).
-**Current-cycle self-reference remaining = NONE.**
-
----
-
-## 3. Exact staged scope
-
-Command used: `git add -- projects/sfia-studio/nora-cognitive-completion/02-nora-cognitive-completion-conception-fonctionnelle.md`
-
-Staged files = **exactly 1**:
-`projects/sfia-studio/nora-cognitive-completion/02-nora-cognitive-completion-conception-fonctionnelle.md`
-
-`.tmp-sfia-review/` left untracked.
-
----
-
-## 4. Commit
-
-| Field | Value |
-| --- | --- |
-| SHA | `1da8e306498a1ac1a49af34d6977861b5a03220c` |
-| Tree | `b7c18df4c748dacb0fd843e209f462b79dae162e` |
-| Parent | `362b972379be1ebf07087a2267e9296abf57e6ef` |
-| Message | `docs(sfia-studio): sync Nora C2 post-merge lifecycle truth` |
-| Expected parent | `362b972379be1ebf07087a2267e9296abf57e6ef` |
-| Parent match | **YES** |
-
-```
-1da8e306 docs(sfia-studio): sync Nora C2 post-merge lifecycle truth
- ...ognitive-completion-conception-fonctionnelle.md | 24 ++++++++++++----------
- 1 file changed, 13 insertions(+), 11 deletions(-)
-```
-
----
-
-## 5. Remote equality
-
-| Field | Value |
-| --- | --- |
-| Local HEAD | `1da8e306498a1ac1a49af34d6977861b5a03220c` |
-| Remote branch tip | `1da8e306498a1ac1a49af34d6977861b5a03220c` |
-| Equality | **YES** |
-| origin/main (unchanged) | `362b972379be1ebf07087a2267e9296abf57e6ef` |
-
-Push: normal `-u` · **no** `--force` / `--force-with-lease`.
-
----
-
-## 6. Draft PR
-
-| Field | Value |
-| --- | --- |
-| Number | **#433** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/433 |
-| state | `OPEN` |
-| isDraft | `True` |
-| mergeable | `MERGEABLE` |
-| base | `main` |
-| head | `docs/sfia-studio-nora-cognitive-c2-post-merge-truth-sync` |
+| Local HEAD | `1da8e306498a1ac1a49af34d6977861b5a03220c` (= expected `1da8e306498a1ac1a49af34d6977861b5a03220c`) |
+| Pre-merge origin/main | `362b972379be1ebf07087a2267e9296abf57e6ef` |
+| merge-base | `362b972379be1ebf07087a2267e9296abf57e6ef` |
+| PR | #433 · OPEN · Draft→Ready · mergeable |
 | headRefOid | `1da8e306498a1ac1a49af34d6977861b5a03220c` |
-| files | 1 |
-| commits | 1 |
+| files / commits | 1 / 1 · +13/−11 |
+| CI | run `33237138928` SUCCESS |
+| Required Gate | PASS |
+| Remote branch tip | equal to local HEAD |
+| REAL-B | `fix/sfia-studio-real-b-blocker-02` @ `967f4c2b35948492caeba5347bb02c7c420de490` · untouched |
 
-PR JSON:
+PR JSON (post-merge):
 
 ```json
 {
@@ -133,49 +67,19 @@ PR JSON:
       "changeType": "MODIFIED"
     }
   ],
-  "headRefName": "docs/sfia-studio-nora-cognitive-c2-post-merge-truth-sync",
   "headRefOid": "1da8e306498a1ac1a49af34d6977861b5a03220c",
-  "isDraft": true,
-  "mergeable": "MERGEABLE",
+  "isDraft": false,
+  "mergeCommit": {
+    "oid": "b9458b2ff775927c3539e41c6739c36edec74e06"
+  },
+  "mergedAt": "2026-08-29T06:03:03Z",
   "number": 433,
-  "state": "OPEN",
+  "state": "MERGED",
   "url": "https://github.com/mcleland147/sfia-workspace/pull/433"
 }
 ```
 
-**gh pr ready / gh pr merge = NOT EXECUTED.**
-
----
-
-## 7. CI
-
-| Field | Value |
-| --- | --- |
-| Workflow run ID | `33237138928` |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/33237138928 |
-| head SHA | `1da8e306498a1ac1a49af34d6977861b5a03220c` |
-| status | `completed` |
-| conclusion | **SUCCESS** |
-| event | `pull_request` |
-
-### Jobs / key steps
-
-| Job / step | Status | Conclusion | ID |
-| --- | --- | --- |
-| Detect SFIA Studio changes | completed | success | `99059967274` |
-| ↳ Detect Studio scope | completed | success | — |
-| Build and validate SFIA Studio | completed | success | `99059982616` |
-| ↳ Typecheck | completed | success | — |
-| ↳ Lint | completed | success | — |
-| ↳ Build | completed | success | — |
-| ↳ Unit tests (Vitest) | completed | success | — |
-| ↳ Modeled governance tests | completed | success | — |
-| ↳ Secret pattern scan (targeted) | completed | success | — |
-| ↳ Trailing whitespace check | completed | success | — |
-| SFIA Studio Required Gate | completed | success | `99060239671` |
-| ↳ Aggregate required gate | completed | success | — |
-
-### `gh pr checks 433`
+Pre-merge checks (still recorded):
 
 ```
 Build and validate SFIA Studio	pass	2m37s	https://github.com/mcleland147/sfia-workspace/actions/runs/33237138928/job/99059982616
@@ -183,172 +87,194 @@ Detect SFIA Studio changes	pass	7s	https://github.com/mcleland147/sfia-workspace
 SFIA Studio Required Gate	pass	4s	https://github.com/mcleland147/sfia-workspace/actions/runs/33237138928/job/99060239671
 ```
 
-**Required Gate = PASS · overall CI = SUCCESS.**
+---
+
+## 2. Patch lock
+
+Lifecycle-only patch confirmed before Draft→Ready:
+- Status → CONTENT VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED
+- PR #432 merge proof + Intégration Git C2
+- Construction base historical
+- §3 État synced
+- Durable historical gates only (no current-cycle truth-sync segments)
+- Stale ≠ GIT INTEGRATED / ≠ MERGED removed
+- OD-02 OPEN / NOT CONSUMED retained
+- NEXT CAPABILITY ≠ automatically authorized by C2 merge
+- Footer synced
+- No current-cycle self-reference in durable body
+
+No functional C2 reopen.
 
 ---
 
-## 8. Full lifecycle diff (`origin/main...HEAD`)
+## 3. Draft → Ready
 
-```
-...ognitive-completion-conception-fonctionnelle.md | 24 ++++++++++++----------
- 1 file changed, 13 insertions(+), 11 deletions(-)
-```
+Command: `gh pr ready 433`
 
-Files:
-
-```
-projects/sfia-studio/nora-cognitive-completion/02-nora-cognitive-completion-conception-fonctionnelle.md
-```
-
-```diff
-diff --git a/projects/sfia-studio/nora-cognitive-completion/02-nora-cognitive-completion-conception-fonctionnelle.md b/projects/sfia-studio/nora-cognitive-completion/02-nora-cognitive-completion-conception-fonctionnelle.md
-index 036e5061..b77e5715 100644
---- a/projects/sfia-studio/nora-cognitive-completion/02-nora-cognitive-completion-conception-fonctionnelle.md
-+++ b/projects/sfia-studio/nora-cognitive-completion/02-nora-cognitive-completion-conception-fonctionnelle.md
-@@ -7,14 +7,16 @@
- | **Profil document** | **CRITICAL** |
- | **Typologie** | **DOC** — documentation-only · impact structurant aval |
- | **Milestone** | NORA COGNITIVE COMPLETION — CYCLE 2 — CONCEPTION FONCTIONNELLE |
--| **Statut** | **CONTENT VALIDATED BY MORRIS — GIT INTEGRATION IN PROGRESS — NOT INTEGRATED ON MAIN** |
--| **Révision** | **CORR-01** — Functional Governance Alignment · content validated for Git integration |
-+| **Statut** | **CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED** |
-+| **Révision** | **CORR-01** — Functional Governance Alignment · content validated · integrated via PR **#432** |
- | **GO Morris consommé (ouverture C2)** | **GO MORRIS — START NORA COGNITIVE COMPLETION C2 — CONCEPTION FONCTIONNELLE — DOC CRITICAL — NO DELIVERY** |
- | **GO Morris consommé (CORR-01)** | **GO MORRIS — NORA COGNITIVE COMPLETION C2 CORR-01 — FUNCTIONAL GOVERNANCE ALIGNMENT — LOCAL ONLY — NO GIT INTEGRATION** |
- | **Décision Morris validation contenu C2 CORR-01** | **CONTENT VALIDATED FOR GIT INTEGRATION** |
--| **GO Morris Git integration C2** | **CONSUMED** — commit · push · Draft PR authorized · **≠** merge · **≠** OD-02 adoption |
-+| **GO Morris Git integration C2** | **CONSUMED** — commit · push · Draft PR authorized · **≠** merge · **≠** OD-02 adoption *(historique — scope exact de ce GO)* |
-+| **GO Morris merge PR #432** | **CONSUMED** — PR **#432 MERGED** · head `d406db412ca03c37ea745632341845301f2ce3c0` · merge `362b972379be1ebf07087a2267e9296abf57e6ef` · 2026-08-29T05:21:57Z |
-+| **Intégration Git C2** | PR **#432 MERGED** · head `d406db412ca03c37ea745632341845301f2ce3c0` · merge `362b972379be1ebf07087a2267e9296abf57e6ef` · **POST-MERGE VERIFIED** |
- | **Baseline C1** | `01-nora-cognitive-completion-cadrage.md` — **CONTENT VALIDATED BY MORRIS** · PR **#430 MERGED** · post-merge truth sync PR **#431 MERGED** |
--| **Base Git (construction)** | `origin/main` @ `63430673dc4288919fbca078e1a9fd22f9e0a173` · tree `10a0b3d67f2a1a04fbfdb71950d6c894fcb0ae58` |
-+| **Base Git de construction (historique)** | `origin/main` @ `63430673dc4288919fbca078e1a9fd22f9e0a173` · tree `10a0b3d67f2a1a04fbfdb71950d6c894fcb0ae58` |
- | **Worktree construction** | `/Users/morris/Projects/sfia-workspace-nora-cognitive-c2` |
- | **Branche construction** | `docs/sfia-studio-nora-cognitive-completion-c2-functional-design` |
- | **CKC** | `method/.../pilots/02-conception-fonctionnelle.md` · `0.1.0` · **candidate** · guidance cognitive · **aucune autorité d'exécution** |
-@@ -24,7 +26,7 @@
- | **REAL** | **ZERO REAL** (ce cycle) |
- | **Agents SDK / Sessions / Hosted Web Search** | **NOT ADOPTED** · technology candidates downstream only |
-
--> **Anti-claim de statut :** **CONTENT VALIDATED BY MORRIS** · **≠ GIT INTEGRATED ON MAIN** · **≠ ARCHITECTURE SELECTED** · **≠ AGENTS SDK ADOPTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL-B CLOSED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA**
-+> **Anti-claim de statut :** **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED** · **≠ ARCHITECTURE SELECTED** · **≠ AGENTS SDK ADOPTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL-B CLOSED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA**
-
- ---
-
-@@ -110,14 +112,14 @@ L’autorité se résout par **claim/domain → source applicable → authority
- | **Capacités v3 principales** | V3-F01 · V3-F05 · V3-F07 · V3-F11 |
- | **Fondations support** | V3-F02 · V3-F04 · V3-F06 · V3-F08 · V3-F09 · V3-F12 · V3-F14 · V3-F15 |
- | **Milestone** | NORA COGNITIVE COMPLETION — CYCLE 2 — CONCEPTION FONCTIONNELLE · **CORR-01** |
--| **État** | PC **CLOSED** · C1 **VALIDATED + INTEGRATED + POST-MERGE VERIFIED** · C2 **CONTENT VALIDATED BY MORRIS · GIT INTEGRATION IN PROGRESS · NOT YET INTEGRATED ON MAIN** · C6 **CLOSED** · REAL-A **CONSUMED** · REAL-B published **next capability unchanged** · runtime v3 **NON ADOPTED** · FinOps/T7 **FREEZE = construction Roadmap state only** |
-+| **État** | PC **CLOSED** · C1 **VALIDATED + INTEGRATED + POST-MERGE VERIFIED** · C2 **CONTENT VALIDATED BY MORRIS · INTEGRATED ON MAIN · POST-MERGE VERIFIED** · C6 **CLOSED** · REAL-A **CONSUMED** · REAL-B published **next capability unchanged** · runtime v3 **NON ADOPTED** · FinOps/T7 **FREEZE = construction Roadmap state only** |
- | **Actifs** | Backbone PC · Nora F1/F2 · Responses provider · custom toolLoop · REAL-A grounding |
- | **Classification** | Extension cognitive fonctionnelle · **≠** second produit · **≠** moteur parallèle · **≠** remplacement silencieux de REAL-B |
- | **Gaps adressés** | Comportements cognitifs testables + gouvernance fonctionnelle CORR-01 |
- | **Dépendances** | C1 NR/CE/BAR · PC C2 patterns · v3 doctrine · REAL-A lessons |
- | **Lien trajectoire** | Servir la boucle Product Completion · enrichir Nora sans réouvrir PC/C6 · complementary to Convergence next capability |
- | **Exit proof C2** | 26/26 NR · 8/8 CE · 14/14 NCC-BAR · B0 complet · authority domain-aware · no tech choice · OD ouvertes |
--| **Gates construction (externes au runtime)** | GO C2 ouverture **CONSUMED** · GO CORR-01 **CONSUMED** · validation contenu CORR-01 **CONSUMED** · GO Git integration **CONSUMED** (commit · push · Draft PR) · merge = **futur gate distinct** |
-+| **Gates construction (externes au runtime)** | GO C2 ouverture **CONSUMED** · GO CORR-01 **CONSUMED** · validation contenu CORR-01 **CONSUMED** · GO Git integration **CONSUMED** (commit · push · Draft PR · **≠** merge) · GO MERGE PR **#432** **CONSUMED** |
- | **Capacité suivante** | **NEXT CAPABILITY REQUALIFICATION** après intégration Git / post-merge qualification · branches candidates §21 |
-
- ---
-@@ -728,8 +730,7 @@ C2 VALIDATED
-
- ## 22. Anti-claims
-
--- **CONTENT VALIDATED BY MORRIS** · **≠ GIT INTEGRATED ON MAIN**
--- **≠ MERGED**
-+- **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED**
- - **≠ ARCHITECTURE SELECTED**
- - **≠ AGENTS SDK ADOPTED**
- - **≠ SESSIONS ADOPTED**
-@@ -744,10 +745,11 @@ C2 VALIDATED
- - **≠ MORRIS RUNTIME PERSONA**
- - ChatGPT parity **≠ proven** (NCC-BAR-14 = target only)
- - B0 observations **≠** automatic Nora requirements
--- OD-02 recommendation **≠** construction-consumed · Git integration GO **≠** OD-02 adoption
-+- OD-02 recommendation **≠** construction-consumed · Git integration GO **≠** OD-02 adoption · merge GO **≠** OD-02 adoption
- - FinOps/T7 FREEZE **≠** product runtime invariant
- - SFIA Profile **≠** Cognitive Strategy Class
- - v2.6 prompts **≠** Nora runtime doctrine
-+- NEXT CAPABILITY **≠** automatically authorized by C2 merge
-
- ---
-
-@@ -790,4 +792,4 @@ C2 VALIDATED
-
- ---
-
--*Fin du C2 CORR-01 — CONTENT VALIDATED BY MORRIS — GIT INTEGRATION IN PROGRESS — NOT INTEGRATED ON MAIN — NO MORRIS RUNTIME PERSONA — OD-02 OPEN / NOT CONSUMED — C2 CONCEPTION FONCTIONNELLE ONLY — NO DELIVERY — NO ARCHITECTURE — NO AGENTS SDK.*
-+*Fin du C2 CORR-01 — CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO MORRIS RUNTIME PERSONA — OD-02 OPEN / NOT CONSUMED — C2 CONCEPTION FONCTIONNELLE ONLY — NO DELIVERY — NO ARCHITECTURE — NO AGENTS SDK.*
-```
-
-Lifecycle-only · no functional reopen of B0–B9 / NR / CE / BAR / OD / Pilote / trajectory logic.
+Result: SUCCESS · isDraft=false · state=OPEN · head unchanged `1da8e306498a1ac1a49af34d6977861b5a03220c` · mergeable=true
 
 ---
 
-## 9. Functional non-regression
+## 4. Final head lock + merge
+
+Pre-merge reconfirm:
+- MAIN_BEFORE = `362b972379be1ebf07087a2267e9296abf57e6ef`
+- PR_HEAD = `1da8e306498a1ac1a49af34d6977861b5a03220c`
+- CI / Required Gate still PASS
+
+Exact merge command:
+
+```bash
+gh pr merge 433 \
+  --merge \
+  --match-head-commit 1da8e306498a1ac1a49af34d6977861b5a03220c
+```
+
+| Field | Value |
+| --- | --- |
+| Merged | **YES** |
+| Strategy | merge commit (`--merge`) · **no** squash · **no** rebase |
+| Head lock | `--match-head-commit 1da8e306498a1ac1a49af34d6977861b5a03220c` |
+| Bypass | **NO** (`--admin` unused) |
+| --delete-branch | **NO** |
+| --auto | **NO** |
+| merge commit SHA | `b9458b2ff775927c3539e41c6739c36edec74e06` |
+| mergedAt | `2026-08-29T06:03:03Z` |
+| New origin/main | `b9458b2ff775927c3539e41c6739c36edec74e06` |
+| origin/main == merge commit | **YES** |
+| origin/main tree | `b7c18df4c748dacb0fd843e209f462b79dae162e` (= project head tree `b7c18df4c748dacb0fd843e209f462b79dae162e`) |
+
+---
+
+## 5. Main C2 existence + durable lifecycle proof
+
+Path on main:
+`projects/sfia-studio/nora-cognitive-completion/02-nora-cognitive-completion-conception-fonctionnelle.md`
+
+Stats: 795 lines · 8391 words
+
+### Grep proofs
+
+#### CONTENT VALIDATED BY MORRIS
+```
+10:| **Statut** | **CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED** |
+18:| **Baseline C1** | `01-nora-cognitive-completion-cadrage.md` — **CONTENT VALIDATED BY MORRIS** · PR **#430 MERGED** · post-merge truth sync PR **#431 MERGED** |
+29:> **Anti-claim de statut :** **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED** · **≠ ARCHITECTURE SELECTED** · **≠ AGENTS SDK ADOPTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL-B CLOSED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA**
+115:| **État** | PC **CLOSED** · C1 **VALIDATED + INTEGRATED + POST-MERGE VERIFIED** · C2 **CONTENT VALIDATED BY MORRIS · INTEGRATED ON MAIN · POST-MERGE VERIFIED** · C6 **CLOSED** · REAL-A **CONSUMED** · REAL-B published **next capability unchanged** · runtime v3 **NON ADOPTED** · FinOps/T7 **FREEZE = construction Roadmap state only** |
+733:- **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED**
+795:*Fin du C2 CORR-01 — CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO MORRIS RUNTIME PERSONA — OD-02 OPEN / NOT CONSUMED — C2 CONCEPTION FONCTIONNELLE ONLY — NO DELIVERY — NO ARCHITECTURE — NO AGENTS SDK.*
+```
+
+#### INTEGRATED ON MAIN
+```
+10:| **Statut** | **CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED** |
+29:> **Anti-claim de statut :** **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED** · **≠ ARCHITECTURE SELECTED** · **≠ AGENTS SDK ADOPTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL-B CLOSED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA**
+115:| **État** | PC **CLOSED** · C1 **VALIDATED + INTEGRATED + POST-MERGE VERIFIED** · C2 **CONTENT VALIDATED BY MORRIS · INTEGRATED ON MAIN · POST-MERGE VERIFIED** · C6 **CLOSED** · REAL-A **CONSUMED** · REAL-B published **next capability unchanged** · runtime v3 **NON ADOPTED** · FinOps/T7 **FREEZE = construction Roadmap state only** |
+733:- **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED**
+795:*Fin du C2 CORR-01 — CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO MORRIS RUNTIME PERSONA — OD-02 OPEN / NOT CONSUMED — C2 CONCEPTION FONCTIONNELLE ONLY — NO DELIVERY — NO ARCHITECTURE — NO AGENTS SDK.*
+```
+
+#### POST-MERGE VERIFIED
+```
+10:| **Statut** | **CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED** |
+17:| **Intégration Git C2** | PR **#432 MERGED** · head `d406db412ca03c37ea745632341845301f2ce3c0` · merge `362b972379be1ebf07087a2267e9296abf57e6ef` · **POST-MERGE VERIFIED** |
+29:> **Anti-claim de statut :** **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED** · **≠ ARCHITECTURE SELECTED** · **≠ AGENTS SDK ADOPTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL-B CLOSED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA**
+115:| **État** | PC **CLOSED** · C1 **VALIDATED + INTEGRATED + POST-MERGE VERIFIED** · C2 **CONTENT VALIDATED BY MORRIS · INTEGRATED ON MAIN · POST-MERGE VERIFIED** · C6 **CLOSED** · REAL-A **CONSUMED** · REAL-B published **next capability unchanged** · runtime v3 **NON ADOPTED** · FinOps/T7 **FREEZE = construction Roadmap state only** |
+733:- **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED**
+795:*Fin du C2 CORR-01 — CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO MORRIS RUNTIME PERSONA — OD-02 OPEN / NOT CONSUMED — C2 CONCEPTION FONCTIONNELLE ONLY — NO DELIVERY — NO ARCHITECTURE — NO AGENTS SDK.*
+```
+
+#### NO MORRIS RUNTIME PERSONA
+```
+41:2. **NO MORRIS RUNTIME PERSONA** — rôle humain produit = **Pilote**.
+795:*Fin du C2 CORR-01 — CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO MORRIS RUNTIME PERSONA — OD-02 OPEN / NOT CONSUMED — C2 CONCEPTION FONCTIONNELLE ONLY — NO DELIVERY — NO ARCHITECTURE — NO AGENTS SDK.*
+```
+
+#### OPEN / NOT CONSUMED
+```
+681:| OD-02 | Nora strategy / SFIA envelope | **RECOMMEND** · **OPEN / NOT CONSUMED** · functional spec in B2 · Git integration GO **≠** OD-02 adoption | NO |
+795:*Fin du C2 CORR-01 — CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO MORRIS RUNTIME PERSONA — OD-02 OPEN / NOT CONSUMED — C2 CONCEPTION FONCTIONNELLE ONLY — NO DELIVERY — NO ARCHITECTURE — NO AGENTS SDK.*
+```
+
+#### NEXT CAPABILITY
+```
+53:**Ce C2 ne décide pas** comment implémenter. Après intégration sur main et requalification dédiée : **NEXT CAPABILITY REQUALIFICATION** (branches candidates conditionnelles — §21).
+123:| **Capacité suivante** | **NEXT CAPABILITY REQUALIFICATION** après intégration Git / post-merge qualification · branches candidates §21 |
+710:→ NEXT CAPABILITY REQUALIFICATION
+752:- NEXT CAPABILITY **≠** automatically authorized by C2 merge
+```
+
+Durable C2 truth on main:
+**CONTENT VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED**
+
+---
+
+## 6. Post-merge self-reference scan
+
+```
+447:| Local vs published | Worktree/local candidate ≠ main truth for published factual claims |
+```
+
+Classification: sole hit = durable epistemic principle (class A).
+**Current-cycle lifecycle self-reference = NONE.**
+
+Therefore: **NO FURTHER C2 TRUTH-SYNC REQUIRED.**
+
+(PR #433 *is* the lifecycle truth-sync; temporary markers were cleaned in CORR-01/CORR-02 before Git integration.)
+
+---
+
+## 7. Functional non-regression
 
 | Area | Status |
 | --- | --- |
-| B0–B9 | **UNCHANGED** |
-| NR 26/26 | **UNCHANGED** |
-| CE 8/8 | **UNCHANGED** |
-| NCC-BAR 14/14 | **UNCHANGED** |
-| Pilote runtime | **RETAINED** |
-| NO MORRIS RUNTIME PERSONA | **RETAINED** |
-| OD-02 | **RECOMMEND · OPEN / NOT CONSUMED** |
-| OD-03…08 | **UNCHANGED** |
-| REAL-B published next | **UNCHANGED** |
-| runtime v3 | **NON ADOPTED** |
-| NEXT CAPABILITY | **NOT AUTHORIZED** |
-
-C2 durable truth remains: **CONTENT VALIDATED BY MORRIS · INTEGRATED ON MAIN · POST-MERGE VERIFIED** (via PR #432).
+| B0–B9 | UNCHANGED |
+| NR 26/26 | UNCHANGED |
+| CE 8/8 | UNCHANGED |
+| NCC-BAR 14/14 | UNCHANGED |
+| Pilote runtime | RETAINED |
+| NO MORRIS RUNTIME PERSONA | RETAINED |
+| OD-02 | RECOMMEND · OPEN / NOT CONSUMED |
+| OD-03…08 | UNCHANGED |
+| REAL-B published next | UNCHANGED |
+| runtime v3 | NON ADOPTED |
+| NEXT CAPABILITY | NOT AUTHORIZED |
+| Cognitive Completion | NOT PROVEN |
 
 ---
 
-## 10. Convergence invariants
+## 8. Convergence
 
 | Invariant | Status |
 | --- | --- |
 | Product Completion | CLOSED |
 | C6 | CLOSED / DO NOT REOPEN |
 | Nora C1 | VALIDATED + INTEGRATED + POST-MERGE VERIFIED |
-| Nora C2 (content) | CONTENT VALIDATED + INTEGRATED ON MAIN (PR #432) + POST-MERGE VERIFIED |
+| Nora C2 | CONTENT VALIDATED + INTEGRATED ON MAIN + POST-MERGE VERIFIED |
 | REAL-A | CONSUMED |
 | REAL-B | NOT AUTHORIZED / NOT CLOSED · next unchanged |
-| Cognitive Completion | NOT PROVEN |
 | Delivery | NOT AUTHORIZED |
-| Branch / worktree | **PRESERVED** |
+| Architecture | NOT SELECTED |
 
 ---
 
-## 11. Distinction — C2 vs truth-sync integration
+## 9. Cleanup
 
-| Layer | State after this cycle |
+| Item | Status |
 | --- | --- |
-| C2 functional design (PR #432) | MERGED on main · durable truth INTEGRATED |
-| Post-merge truth-sync (this PR #433) | COMMITTED + PUSHED + DRAFT PR OPEN + CI PASS · **≠ MERGED** · **≠ INTEGRATED ON MAIN** |
+| Branch `docs/sfia-studio-nora-cognitive-c2-post-merge-truth-sync` | **PRESERVED** · `1da8e306498a1ac1a49af34d6977861b5a03220c	refs/heads/docs/sfia-studio-nora-cognitive-c2-post-merge-truth-sync` |
+| Worktree `/Users/morris/Projects/sfia-workspace-nora-cognitive-c2-post-merge-sync` | **PRESERVED** |
+| Cleanup | **NO** (requires separate Morris GO) |
+
+Local status:
+
+```
+?? .tmp-sfia-review/
+```
 
 ---
 
-## 12. Project / cycle actions
-
-| Action | Status |
-| --- | --- |
-| Project commit | YES — `1da8e306498a1ac1a49af34d6977861b5a03220c` |
-| Project push | YES — remote equality |
-| Draft PR | YES — #433 |
-| CI | PASS |
-| Merge | **NO** |
-| Mark ready | **NO** |
-| Force push / rebase / squash | **NO** |
-| Branch / worktree delete | **NO** |
-| Review Handoff push | YES — L3 bounded |
-
----
-
-## 13. COMPLETE CURRENT C2 DOCUMENT (committed candidate)
+## 10. COMPLETE C2 DOCUMENT ON origin/main (post-merge)
 
 ```markdown
 # SFIA Studio — Nora Cognitive Completion — Cycle 2 Conception fonctionnelle
@@ -1148,22 +1074,10 @@ C2 VALIDATED
 *Fin du C2 CORR-01 — CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO MORRIS RUNTIME PERSONA — OD-02 OPEN / NOT CONSUMED — C2 CONCEPTION FONCTIONNELLE ONLY — NO DELIVERY — NO ARCHITECTURE — NO AGENTS SDK.*
 ```
 
-C2 stats: 795 lines · 8391 words.
-
 ---
 
-## 14. Current status snapshot
+## 11. Verdict
 
-```
-?? .tmp-sfia-review/
-```
+**NORA COGNITIVE COMPLETION — C2 POST-MERGE TRUTH-SYNC — PR #433 MERGED — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO FURTHER C2 TRUTH-SYNC REQUIRED**
 
-HEAD=`1da8e306498a1ac1a49af34d6977861b5a03220c` · origin/main=`362b972379be1ebf07087a2267e9296abf57e6ef`
-
----
-
-## 15. Verdict
-
-**NORA COGNITIVE COMPLETION — C2 POST-MERGE TRUTH-SYNC — GIT INTEGRATION COMPLETE — DRAFT PR OPEN — CI PASS — READY FOR CHATGPT PR REVIEW**
-
-≠ MERGED · ≠ TRUTH-SYNC INTEGRATED ON MAIN · ≠ OD-02 CONSUMED · ≠ NEXT CAPABILITY AUTHORIZED · ≠ ARCHITECTURE SELECTED · ≠ DELIVERY AUTHORIZED · ≠ REAL-B CLOSED · ≠ COGNITIVE COMPLETION PROVEN · ≠ RUNTIME V3 ADOPTED · ≠ MORRIS RUNTIME PERSONA
+≠ OD-02 CONSUMED · ≠ NEXT CAPABILITY AUTHORIZED · ≠ ARCHITECTURE SELECTED · ≠ DELIVERY AUTHORIZED · ≠ REAL-B CLOSED · ≠ COGNITIVE COMPLETION PROVEN · ≠ RUNTIME V3 ADOPTED · ≠ MORRIS RUNTIME PERSONA
