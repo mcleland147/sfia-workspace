@@ -1,11 +1,13 @@
 # ChatGPT Review Pack — FULL
-# NORA COGNITIVE COMPLETION — C3 PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN — CORR-01
+# NORA COGNITIVE COMPLETION — C3 PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN — GIT INTEGRATION
 
-**Timestamp (Europe/Paris):** 2026-08-29 09:23:40 CEST
-**Cycle:** C3 CORR-01 — NEXT-CAPABILITY LIFECYCLE SYNC · Type 4 UX/UI · DOC/DESIGN ARTIFACT · CRITICAL
-**GO Morris CORR-01:** CONSUMED — 1 EDIT ONLY — LOCAL ONLY — NO PROJECT GIT — NO PENPOT MUTATION
-**Baseline handoff (pre-CORR):** `17871e976cacb5d2f5e7be5e9d81a4ccb5850130` · tree `2e8468c38131513ca9fd129513d06fa7a157cb7f` · blob `3b9aa4908a0850bd3bf8665c3b82b6d1144712e2`
-**Verdict cible:** NORA COGNITIVE COMPLETION — C3 PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN — CORR-01 COMPLETE — LOCAL CANDIDATE — READY FOR CHATGPT FINAL REVIEW
+**Timestamp (Europe/Paris):** 2026-08-29 09:37:39 CEST
+**Cycle:** C3 Git Integration · Type 4 UX/UI · DOC/DESIGN ARTIFACT · CRITICAL
+**Content validation Morris gate:** CONSUMED — `GO MORRIS — VALIDATE NORA COGNITIVE COMPLETION C3 CONTENT — PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN — PASS — NO GIT INTEGRATION`
+**Git integration Morris gate:** CONSUMED — `GO MORRIS — NORA COGNITIVE COMPLETION C3 — GIT INTEGRATION — COMMIT + PUSH + DRAFT PR + CI + HANDOFF — NO MERGE`
+**Merge:** **NOT AUTHORIZED**
+**Baseline qualified Review Handoff:** `c11e0d7f48dced4f74b14a0d4f4b4bce61ff871e` · tree `04c7d812c40a2c568e91aa488beba78f05756586` · blob `d77d6e25be240a3b4afca972cf151594d771b317`
+**Verdict cible:** NORA COGNITIVE COMPLETION — C3 PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN — CONTENT VALIDATED BY MORRIS — GIT INTEGRATION IN PROGRESS — DRAFT PR OPEN — CI FAIL (TRAILING WHITESPACE) — STOP FOR CHATGPT REQUALIFICATION
 **Synthesis only:** FORBIDDEN
 
 ---
@@ -17,233 +19,267 @@
 | Repository | `mcleland147/sfia-workspace` |
 | Worktree | `/Users/morris/Projects/sfia-workspace-nora-cognitive-c3` |
 | Branch | `design/sfia-studio-nora-cognitive-completion-c3-product-experience` |
-| HEAD | `b9458b2ff775927c3539e41c6739c36edec74e06` |
-| origin/main | `b9458b2ff775927c3539e41c6739c36edec74e06` |
+| HEAD (project commit) | `d6ac7329fe60d2940143c572311d28bc9d86e5ba` |
+| Parent | `b9458b2ff775927c3539e41c6739c36edec74e06` (expected `b9458b2ff775927c3539e41c6739c36edec74e06`) |
+| Tree | `377b4a04dd8769b3170ca88c25be5ad1a96801dd` |
+| origin/main | `b9458b2ff775927c3539e41c6739c36edec74e06` (expected `b9458b2ff775927c3539e41c6739c36edec74e06`) |
 | merge-base | `b9458b2ff775927c3539e41c6739c36edec74e06` |
-| Expected HEAD/main | `b9458b2ff775927c3539e41c6739c36edec74e06` |
-| Tree | `b7c18df4c748dacb0fd843e209f462b79dae162e` (expected `b7c18df4c748dacb0fd843e209f462b79dae162e`) |
-| status | `?? .tmp-sfia-review/ · ?? projects/sfia-studio/nora-cognitive-completion/03-nora-cognitive-completion-product-experience.md` |
-| Project file | `?? projects/sfia-studio/nora-cognitive-completion/03-nora-cognitive-completion-product-experience.md` |
-| `.tmp-sfia-review` | untracked (allowed) |
+| status | `?? .tmp-sfia-review/` |
 | REAL-B | `fix/sfia-studio-real-b-blocker-02` @ `967f4c2b35948492caeba5347bb02c7c420de490` · READ-ONLY / untouched |
-| Project commit / push / PR / merge | **NO** |
+| Roadmap modified | **NO** |
 | Penpot mutation | **NO** |
+| Merge | **NO** |
 
 ---
 
-## 2. Prior ChatGPT disposition (baseline)
+## 2. Gates consumed (separate)
 
-Prior cycle: C3 local candidate · handoff `17871e976cacb5d2f5e7be5e9d81a4ccb5850130`.
+1. Content validation PASS — NO GIT INTEGRATION
+2. Git integration — COMMIT + PUSH + DRAFT PR + CI + HANDOFF — NO MERGE
 
-Functional/design content of C3 is **NOT reopened** by CORR-01.
+Content validation ≠ Git integration ≠ merge.
 
 ---
 
-## 3. Visual blocker disposition — CLOSED BY DIRECT VISUAL EVIDENCE
+## 3. Pre-integration lifecycle sync (zones 1–8)
 
-ChatGPT directly reviewed the following user-provided Penpot exports:
+Functional/design body **LOCKED**. Only lifecycle zones synchronized before staging.
 
-- **NCC3-00 — Meta · Delta Contract**
-- **NCC3-04 — Contradiction / Governed STOP**
-- **NCC3-05 — Option / Recommendation / HumanDecision**
+| Zone | Change |
+| --- | --- |
+| 1 Statut | LOCAL CANDIDATE… → **CONTENT VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT INTEGRATED ON MAIN** |
+| 2 Révision | C3-OPEN → **C3-VALIDATED** |
+| 3 Morris gates metadata | Added validation + Git integration CONSUMED rows (opening GO preserved) |
+| 4 Header anti-claim | Removed LOCAL CANDIDATE / ≠ CONTENT VALIDATED / replaced ≠ GIT INTEGRATED with **≠ INTEGRATED ON MAIN** |
+| 5 C3-OD-06 | MORRIS DECISION REQUIRED → **MORRIS DECISION CONSUMED** |
+| 6 §26 Anti-claims | Same lifecycle anti-claim sync |
+| 7 §27 Exit criteria | Local-candidate constraint → content validation consumed before Git integration |
+| 8 Footer | C3-OPEN LOCAL CANDIDATE → **C3-VALIDATED — CONTENT VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT INTEGRATED ON MAIN** |
 
-**ChatGPT disposition:**
+### Exact lifecycle diff (vs CORR-01 candidate)
+
+```diff
+--- /Users/morris/Projects/sfia-workspace-nora-cognitive-c3/.tmp-sfia-review/c3-pre-git-integration.md	2026-08-29 09:31:13
++++ /Users/morris/Projects/sfia-workspace-nora-cognitive-c3/projects/sfia-studio/nora-cognitive-completion/03-nora-cognitive-completion-product-experience.md	2026-08-29 09:31:30
+@@ -5,9 +5,11 @@
+ | **Profil document** | **CRITICAL** |
+ | **Typologie** | **DOC / DESIGN ARTIFACT** — Type **4 — UX/UI** |
+ | **Milestone** | NORA COGNITIVE COMPLETION — CYCLE 3 — PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN |
+-| **Statut** | **LOCAL CANDIDATE — NOT CONTENT-VALIDATED — NOT GIT-INTEGRATED** |
+-| **Révision** | **C3-OPEN** — Product Experience delta over validated Product Completion PE |
++| **Statut** | **CONTENT VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT INTEGRATED ON MAIN** |
++| **Révision** | **C3-VALIDATED** — Product Experience delta over validated Product Completion PE |
+ | **GO Morris consommé** | **GO MORRIS — NORA COGNITIVE COMPLETION C3 — PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN — OPENING / QUALIFICATION — NO DELIVERY — NO ARCHITECTURE** |
++| **Décision Morris validation contenu** | **CONSUMED** — `GO MORRIS — VALIDATE NORA COGNITIVE COMPLETION C3 CONTENT — PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN — PASS — NO GIT INTEGRATION` |
++| **GO Morris Git integration** | **CONSUMED** — `GO MORRIS — NORA COGNITIVE COMPLETION C3 — GIT INTEGRATION — COMMIT + PUSH + DRAFT PR + CI + HANDOFF — NO MERGE` |
+ | **Baseline C1** | `01-nora-cognitive-completion-cadrage.md` — **CONTENT VALIDATED BY MORRIS** · INTEGRATED ON MAIN · POST-MERGE VERIFIED |
+ | **Baseline C2** | `02-nora-cognitive-completion-conception-fonctionnelle.md` — **CONTENT VALIDATED BY MORRIS** · INTEGRATED ON MAIN · POST-MERGE VERIFIED · lifecycle clean (PR **#433**) |
+ | **PE baseline (KEEP)** | Product Completion UX: EA · Wireframes · Screens — VALIDATED / INTEGRATED |
+@@ -21,7 +23,7 @@
+ | **Runtime v3** | **NON ADOPTED** |
+ | **Delivery** | **NOT AUTHORIZED** |
+
+-> **Anti-claim de statut :** **LOCAL CANDIDATE** · **≠ CONTENT VALIDATED BY MORRIS** · **≠ GIT INTEGRATED** · **≠ FUNCTIONAL ARCHITECTURE SELECTED** · **≠ TECHNICAL ARCHITECTURE SELECTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL EXECUTED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA** · **≠ NEXT CAPABILITY AUTHORIZED** · **≠ PARALLEL EXPERIENCE ARCHITECTURE**
++> **Anti-claim de statut :** **≠ INTEGRATED ON MAIN** · **≠ FUNCTIONAL ARCHITECTURE SELECTED** · **≠ TECHNICAL ARCHITECTURE SELECTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL EXECUTED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA** · **≠ NEXT CAPABILITY AUTHORIZED** · **≠ PARALLEL EXPERIENCE ARCHITECTURE**
+
+ ---
+
+@@ -517,7 +519,7 @@
+ | C3-OD-03 | **OBSERVATION** | PC Screens MD lags full SC catalog — Penpot page 03 remains visual SoT |
+ | C3-OD-04 | **OPTION** | Si Morris exige wireframes Nora pixel-complete → Branch A (§22) as separate subcycle |
+ | C3-OD-05 | **HYPOTHESIS** | Evidence layers 1–6 peuvent vivre en **NEW REGION within S9** sans nouvel écran |
+-| C3-OD-06 | **MORRIS DECISION REQUIRED** | Validation contenu C3 (CONTENT VALIDATED) avant toute Git integration |
++| C3-OD-06 | **MORRIS DECISION CONSUMED** | **CONTENT VALIDATED BY MORRIS** · separate Git integration gate **CONSUMED** for commit + push + Draft PR + CI + handoff · **≠ merge** |
+
+ Aucun OD C2 n’est consommé par C3.
+
+@@ -537,8 +539,7 @@
+
+ ## 26. Anti-claims
+
+-- **≠ CONTENT VALIDATED BY MORRIS**
+-- **≠ GIT INTEGRATED**
++- **≠ INTEGRATED ON MAIN**
+ - **≠ PARALLEL EXPERIENCE ARCHITECTURE**
+ - **≠ FUNCTIONAL ARCHITECTURE SELECTED**
+ - **≠ TECHNICAL ARCHITECTURE SELECTED**
+@@ -568,7 +569,7 @@
+ | C3-PE-BAR defined | **YES** §23 · **≠ proven** |
+ | OD C2 unchanged / not consumed | **YES** §24 |
+ | No architecture / Delivery / REAL / runtime v3 | **YES** |
+-| Local candidate only (no project commit) | **YES** (cycle constraint) |
++| Content validation consumed before Git integration | **YES** — separate Morris validation and Git integration gates |
+
+ ---
+
+@@ -595,4 +596,4 @@
+
+ ---
+
+-*Fin du C3-OPEN — LOCAL CANDIDATE — Nora Cognitive Completion Product Experience / Cognitive Interaction Design — DELTA over Product Completion PE — NO PARALLEL EA — NO MORRIS RUNTIME PERSONA — OD-02…08 OPEN/NOT CONSUMED — NO DELIVERY — NO ARCHITECTURE — NO REAL — NO RUNTIME V3 ADOPTION.*
++*Fin du C3-VALIDATED — CONTENT VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT INTEGRATED ON MAIN — Nora Cognitive Completion Product Experience / Cognitive Interaction Design — DELTA over Product Completion PE — NO PARALLEL EA — NO MORRIS RUNTIME PERSONA — OD-02…08 OPEN/NOT CONSUMED — NO DELIVERY — NO ARCHITECTURE — NO REAL — NO RUNTIME V3 ADOPTION.*
+```
+
+### Stale lifecycle scan
+
+```text
+8:| **Statut** | **CONTENT VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT INTEGRATED ON MAIN** |
+13:| **Baseline C1** | `01-nora-cognitive-completion-cadrage.md` — **CONTENT VALIDATED BY MORRIS** · INTEGRATED ON MAIN · POST-MERGE VERIFIED |
+14:| **Baseline C2** | `02-nora-cognitive-completion-conception-fonctionnelle.md` — **CONTENT VALIDATED BY MORRIS** · INTEGRATED ON MAIN · POST-MERGE VERIFIED · lifecycle clean (PR **#433**) |
+26:> **Anti-claim de statut :** **≠ INTEGRATED ON MAIN** · **≠ FUNCTIONAL ARCHITECTURE SELECTED** · **≠ TECHNICAL ARCHITECTURE SELECTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL EXECUTED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA** · **≠ NEXT CAPABILITY AUTHORIZED** · **≠ PARALLEL EXPERIENCE ARCHITECTURE**
+53:| **État Nora** | C1 + C2 = CONTENT VALIDATED · INTEGRATED ON MAIN · POST-MERGE VERIFIED · C2 lifecycle clean |
+60:| **Capacité suivante** | **NEXT CAPABILITY REQUALIFICATION** après intégration C3 sur main et post-merge qualification · branches §22 |
+425:Si un blocker apparaît plus tard : **ne pas le résoudre en C3** — enregistrer et router vers requalification next capability.
+522:| C3-OD-06 | **MORRIS DECISION CONSUMED** | **CONTENT VALIDATED BY MORRIS** · separate Git integration gate **CONSUMED** for commit + push + Draft PR + CI + handoff · **≠ merge** |
+542:- **≠ INTEGRATED ON MAIN**
+552:- **≠ NEXT CAPABILITY AUTHORIZED**
+599:*Fin du C3-VALIDATED — CONTENT VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT INTEGRATED ON MAIN — Nora Cognitive Completion Product Experience / Cognitive Interaction Design — DELTA over Product Completion PE — NO PARALLEL EA — NO MORRIS RUNTIME PERSONA — OD-02…08 OPEN/NOT CONSUMED — NO DELIVERY — NO ARCHITECTURE — NO REAL — NO RUNTIME V3 ADOPTION.*
+```
+
+**Required:** no LOCAL CANDIDATE current-status · no NOT CONTENT-VALIDATED · no C3-OPEN · no C3-OD-06 MORRIS DECISION REQUIRED · CONTENT VALIDATED present · NOT INTEGRATED ON MAIN true · NEXT CAPABILITY NOT AUTHORIZED · requalification waits for main + post-merge — **PASS**
+
+CORR-01 next-capability wording retained: requalification after intégration C3 sur main et post-merge qualification.
+
+---
+
+## 4. Visual review disposition (locked)
+
+ChatGPT directly reviewed user-provided Penpot exports:
+
+- NCC3-00 — Meta · Delta Contract
+- NCC3-04 — Contradiction / Governed STOP
+- NCC3-05 — Option / Recommendation / HumanDecision
 
 **DIRECT VISUAL REVIEW — PASS FOR C3 SEMANTIC DELTA CONTRACT**
 
-### Observed
+Limit: ≠ full 10-board hi-fi · ≠ pixel-perfect · ≠ C3-PE-BAR proven
 
-**NCC3-00:**
-- KEEP PC Experience Architecture
-- NO parallel EA
-- C3 cognitive interaction delta only
-- anti-claims retained
-
-**NCC3-04:**
-- candidate contradiction ≠ Evidence-backed contradiction
-- attributable Evidence required for proven conflict
-- governed STOP includes reason / next action
-- STOP ≠ generic error
-
-**NCC3-05:**
-- Option ≠ Recommendation ≠ HumanDecision
-- HD actor = Pilote only
-- Recommendation not styled as already decided
-- no CTA implies Nora decided
-
-### Limit
-
-- **NOT** a full hi-fi review of all 10 boards
-- **NOT** pixel-perfect validation
-- **NOT** proof that C3-PE-BAR is satisfied
-- C3-PE-BAR remains **DEFINED ≠ PROVEN**
-
-**Penpot mutation in CORR-01:** **NO**
-
-Disk evidence (cycle-local, untracked):
-
-- `.tmp-sfia-review/penpot-exports/NCC3-00-meta-delta-contract.png`
-- `.tmp-sfia-review/penpot-exports/NCC3-04-contradiction-stop.png`
-- `.tmp-sfia-review/penpot-exports/NCC3-05-option-rec-hd.png`
+Penpot file `63bdc57a…` / page 07: **NO MUTATION** this cycle.
 
 ---
 
-## 4. CORR-01 exact edit (ONE authorized project edit)
-
-**File:** `projects/sfia-studio/nora-cognitive-completion/03-nora-cognitive-completion-product-experience.md`
-**Location:** §2 Convergence qualification · row **Capacité suivante**
-**Row label:** unchanged
-
-### BEFORE
-
-`**NEXT CAPABILITY REQUALIFICATION** après validation contenu C3 (branches §22)`
-
-### AFTER
-
-`**NEXT CAPABILITY REQUALIFICATION** après intégration C3 sur main et post-merge qualification · branches §22`
-
-### Reason (hard lifecycle distinction)
-
-CONTENT VALIDATION ≠ GIT INTEGRATION ≠ MAIN TRUTH ≠ POST-MERGE QUALIFICATION
-
-A locally or content-validated C3 must **not** automatically become the durable baseline for selection of the next Nora Cognitive Completion capability.
-
-Next-capability requalification becomes eligible only after:
-
-1. C3 content validation
-2. separate Git integration authorization
-3. integration on main
-4. post-merge qualification
-
-CORR-01 does **NOT**:
-
-- select the next capability
-- authorize a PE subcycle
-- authorize Functional / Technical Architecture
-- authorize Delivery / Eval / REAL
-- alter REAL-B
-
----
-
-## 5. One-edit delta proof
-
-```diff
---- /Users/morris/Projects/sfia-workspace-nora-cognitive-c3/.tmp-sfia-review/c3-pre-corr01.md	2026-08-29 09:22:11
-+++ /Users/morris/Projects/sfia-workspace-nora-cognitive-c3/projects/sfia-studio/nora-cognitive-completion/03-nora-cognitive-completion-product-experience.md	2026-08-29 09:22:17
-@@ -55,7 +55,7 @@
- | **Delivery** | NOT AUTHORIZED |
- | **REAL** | OUT |
- | **Architecture** | NOT SELECTED / NOT REOPENED |
--| **Capacité suivante** | **NEXT CAPABILITY REQUALIFICATION** après validation contenu C3 (branches §22) |
-+| **Capacité suivante** | **NEXT CAPABILITY REQUALIFICATION** après intégration C3 sur main et post-merge qualification · branches §22 |
-
- ---
-```
-
-**Expected / observed:** one hunk · one lifecycle cell · no second project change.
-
-Project edits = **exactly 1**.
-
----
-
-## 6. Lifecycle scan
-
-```text
-11:| **Baseline C1** | `01-nora-cognitive-completion-cadrage.md` — **CONTENT VALIDATED BY MORRIS** · INTEGRATED ON MAIN · POST-MERGE VERIFIED |
-12:| **Baseline C2** | `02-nora-cognitive-completion-conception-fonctionnelle.md` — **CONTENT VALIDATED BY MORRIS** · INTEGRATED ON MAIN · POST-MERGE VERIFIED · lifecycle clean (PR **#433**) |
-24:> **Anti-claim de statut :** **LOCAL CANDIDATE** · **≠ CONTENT VALIDATED BY MORRIS** · **≠ GIT INTEGRATED** · **≠ FUNCTIONAL ARCHITECTURE SELECTED** · **≠ TECHNICAL ARCHITECTURE SELECTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL EXECUTED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA** · **≠ NEXT CAPABILITY AUTHORIZED** · **≠ PARALLEL EXPERIENCE ARCHITECTURE**
-51:| **État Nora** | C1 + C2 = CONTENT VALIDATED · INTEGRATED ON MAIN · POST-MERGE VERIFIED · C2 lifecycle clean |
-58:| **Capacité suivante** | **NEXT CAPABILITY REQUALIFICATION** après intégration C3 sur main et post-merge qualification · branches §22 |
-423:Si un blocker apparaît plus tard : **ne pas le résoudre en C3** — enregistrer et router vers requalification next capability.
-520:| C3-OD-06 | **MORRIS DECISION REQUIRED** | Validation contenu C3 (CONTENT VALIDATED) avant toute Git integration |
-551:- **≠ NEXT CAPABILITY AUTHORIZED**
-```
-
-### Classification
-
-| Hit | Classification |
-| --- | --- |
-| L11–L12 C1/C2 POST-MERGE VERIFIED | Historical durable baselines · OK |
-| L24 / L551 `≠ NEXT CAPABILITY AUTHORIZED` | Anti-claim retained · OK |
-| L51 C1+C2 état | Historical · OK |
-| L58 corrected Capacité suivante row | **Durable CORR-01 wording** · OK |
-| L423 blocker → requalification next capability | Adaptive routing · does not authorize/select · OK |
-| L520 C3-OD-06 CONTENT VALIDATED before Git integration | Separates content validation from Git · does **not** claim content validation alone triggers next capability · OK |
-| §22 Adaptive downstream trajectory | Unchanged · conditional branches · no automatic selection · OK |
-
-**Required checks:**
-
-- corrected §2 lifecycle row is durable — **YES**
-- §22 remains adaptive and conditional — **YES**
-- no statement says content validation alone authorizes/triggers next capability — **YES**
-- no statement selects a next capability automatically — **YES**
-
-**Additional conflicting lifecycle statement requiring second edit:** **NONE**
-
----
-
-## 7. Non-regression (unchanged)
+## 5. C3 content lock / non-regression
 
 | Item | Status |
 | --- | --- |
+| C3 = PE / Cognitive Interaction Design DELTA | LOCKED |
 | PC Experience Architecture | **KEEP** |
-| Wireframes | **KEEP / ADAPT** |
-| Screens | **KEEP / ADAPT** |
-| GENUINE NEW SURFACE REQUIRED | **0** |
+| Wireframes / Screens | **KEEP / ADAPT** |
+| NO PARALLEL EA | retained |
+| Genuine new surface | **0** |
 | FA blockers | **0** |
-| NR | **26/26** retained |
-| CE | **8/8** retained |
-| NCC-BAR | **14/14** retained |
-| C3-PE-BAR | **15 defined ≠ proven** |
-| C2 OD-02…08 | **OPEN / NOT CONSUMED** as applicable |
-| C3-OD | unchanged |
-| Pilote | runtime HumanDecision actor |
+| NR / CE / NCC-BAR | 26/26 · 8/8 · 14/14 |
+| C3-PE-BAR | 15 DEFINED ≠ PROVEN |
+| Pilote = HD actor | retained |
 | NO MORRIS RUNTIME PERSONA | retained |
-| Product Completion | **CLOSED** |
-| C6 | **CLOSED / DO NOT REOPEN** |
-| Architecture | **NOT SELECTED** |
-| Delivery | **NOT AUTHORIZED** |
-| REAL | **OUT** |
-| REAL-B | separate / unchanged |
-| runtime v3 | **NON ADOPTED** |
+| OD-02…08 | NOT CONSUMED |
+| C3-OD-01…05 | unchanged |
+| Architecture / Delivery / REAL / REAL-B / runtime v3 | NO / NO / OUT / unchanged / NON ADOPTED |
 | NEXT CAPABILITY | **NOT AUTHORIZED** |
-| Functional/design C3 content | **NOT REOPENED** |
-| Penpot page/boards | **NO MUTATION** |
-| Surface delta matrix | unchanged |
-| CIS / contracts / accessibility / responsive | unchanged |
 
 ---
 
-## 8. Convergence lock
+## 6. Commit
 
-- PC CLOSED · C6 CLOSED
-- architecture **NO**
-- Delivery **NO**
-- REAL **OUT** · REAL-B unchanged
-- runtime v3 **NON ADOPTED**
-- next capability **NOT AUTHORIZED**
-
----
-
-## 9. Project Git actions
-
-| Action | Status |
+| Field | Value |
 | --- | --- |
-| `git add` project file | **FORBIDDEN / NOT DONE** |
-| project commit | **NO** |
-| project push | **NO** |
-| `gh pr create` / ready / merge | **NO** |
-| Candidate state | local · untracked · uncommitted |
+| SHA | `d6ac7329fe60d2940143c572311d28bc9d86e5ba` |
+| Tree | `377b4a04dd8769b3170ca88c25be5ad1a96801dd` |
+| Parent | `b9458b2ff775927c3539e41c6739c36edec74e06` |
+| Message | `docs(sfia-studio): integrate validated Nora Cognitive Completion C3 product experience` |
+| Staged scope | exactly 1 project file |
 
 ---
 
-## 10. Full usable C3 content (post-CORR-01)
+## 7. Push / remote equality
 
-Lines: **598** · Words: **4912**
-
-The single lifecycle cell change is shown in §4–§5 above. Full post-CORR candidate follows so the pack is reviewable without external fetch.
+Branch `design/sfia-studio-nora-cognitive-completion-c3-product-experience` remote SHA = local HEAD `d6ac7329fe60d2940143c572311d28bc9d86e5ba`.
 
 ---
+
+## 8. Draft PR
+
+| Field | Value |
+| --- | --- |
+| Number | **#434** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/434 |
+| state | OPEN |
+| isDraft | True |
+| mergeable | MERGEABLE |
+| base | main |
+| head | design/sfia-studio-nora-cognitive-completion-c3-product-experience |
+| head SHA | d6ac7329fe60d2940143c572311d28bc9d86e5ba |
+| files | 1 |
+| commits | 1 |
+
+`gh pr ready` / `gh pr merge`: **NOT DONE**.
+
+---
+
+## 9. CI
+
+| Field | Value |
+| --- | --- |
+| Run ID | `33241074321` |
+| Workflow | SFIA Studio CI |
+| Event | pull_request |
+| headSha | d6ac7329fe60d2940143c572311d28bc9d86e5ba |
+| status | completed |
+| conclusion | **failure** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/33241074321 |
+
+### Jobs
+
+- `Detect SFIA Studio changes` · completed · success
+- `Build and validate SFIA Studio` · completed · failure
+- `SFIA Studio Required Gate` · completed · failure
+
+### PR checks snapshot
+
+```text
+Build and validate SFIA Studio	fail	2m34s	https://github.com/mcleland147/sfia-workspace/actions/runs/33241074321/job/99070414907
+SFIA Studio Required Gate	fail	3s	https://github.com/mcleland147/sfia-workspace/actions/runs/33241074321/job/99070681730
+Detect SFIA Studio changes	pass	5s	https://github.com/mcleland147/sfia-workspace/actions/runs/33241074321/job/99070401371
+```
+
+Expected: SUCCESS / PASS including Detect / Build-validate / Typecheck / Lint / Build / Vitest / modeled governance / secret scan / whitespace / Required Gate where present.
+
+### Exact CI failure (STOP — no automatic repair)
+
+`git diff --check` trailing whitespace in the staged C3 file only:
+
+| Line | Content (trailing two spaces = markdown hard break) |
+| --- | --- |
+| 315 | `**CIS :** Resume / context restored · Resume / context incomplete  ` |
+| 348 | `Nora **may :** explain · identify blocker · Options · Recommendation · propose trajectory update  ` |
+| 349 | `Nora **must not :** invent HD · silently adopt structural replan · claim recovery executed  ` |
+
+All other CI steps in Build and validate: **PASS**. Required Gate failed as aggregate of whitespace failure.
+
+Mission constraint: exactly one project commit already created · automatic whitespace repair would require a second project commit → **REPORT ONLY / STOP** for ChatGPT requalification.
+
+---
+
+## 10. Diff vs main
+
+```text
+projects/sfia-studio/nora-cognitive-completion/03-nora-cognitive-completion-product-experience.md
+
+...nora-cognitive-completion-product-experience.md | 599 +++++++++++++++++++++
+ 1 file changed, 599 insertions(+)
+```
+
+---
+
+## 11. Convergence
+
+PC CLOSED · C6 CLOSED · architecture NO · Delivery NO · REAL OUT · REAL-B unchanged · runtime v3 NON ADOPTED · next capability NOT AUTHORIZED · Roadmap **not** modified this cycle.
+
+---
+
+## 12. Full usable project content (post-lifecycle sync)
+
+Lines: **599** · Words: **5000**
 
 ```markdown
 # SFIA Studio — Nora Cognitive Completion — Cycle 3 Product Experience / Cognitive Interaction Design
@@ -253,9 +289,11 @@ The single lifecycle cell change is shown in §4–§5 above. Full post-CORR can
 | **Profil document** | **CRITICAL** |
 | **Typologie** | **DOC / DESIGN ARTIFACT** — Type **4 — UX/UI** |
 | **Milestone** | NORA COGNITIVE COMPLETION — CYCLE 3 — PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN |
-| **Statut** | **LOCAL CANDIDATE — NOT CONTENT-VALIDATED — NOT GIT-INTEGRATED** |
-| **Révision** | **C3-OPEN** — Product Experience delta over validated Product Completion PE |
+| **Statut** | **CONTENT VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT INTEGRATED ON MAIN** |
+| **Révision** | **C3-VALIDATED** — Product Experience delta over validated Product Completion PE |
 | **GO Morris consommé** | **GO MORRIS — NORA COGNITIVE COMPLETION C3 — PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN — OPENING / QUALIFICATION — NO DELIVERY — NO ARCHITECTURE** |
+| **Décision Morris validation contenu** | **CONSUMED** — `GO MORRIS — VALIDATE NORA COGNITIVE COMPLETION C3 CONTENT — PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN — PASS — NO GIT INTEGRATION` |
+| **GO Morris Git integration** | **CONSUMED** — `GO MORRIS — NORA COGNITIVE COMPLETION C3 — GIT INTEGRATION — COMMIT + PUSH + DRAFT PR + CI + HANDOFF — NO MERGE` |
 | **Baseline C1** | `01-nora-cognitive-completion-cadrage.md` — **CONTENT VALIDATED BY MORRIS** · INTEGRATED ON MAIN · POST-MERGE VERIFIED |
 | **Baseline C2** | `02-nora-cognitive-completion-conception-fonctionnelle.md` — **CONTENT VALIDATED BY MORRIS** · INTEGRATED ON MAIN · POST-MERGE VERIFIED · lifecycle clean (PR **#433**) |
 | **PE baseline (KEEP)** | Product Completion UX: EA · Wireframes · Screens — VALIDATED / INTEGRATED |
@@ -269,7 +307,7 @@ The single lifecycle cell change is shown in §4–§5 above. Full post-CORR can
 | **Runtime v3** | **NON ADOPTED** |
 | **Delivery** | **NOT AUTHORIZED** |
 
-> **Anti-claim de statut :** **LOCAL CANDIDATE** · **≠ CONTENT VALIDATED BY MORRIS** · **≠ GIT INTEGRATED** · **≠ FUNCTIONAL ARCHITECTURE SELECTED** · **≠ TECHNICAL ARCHITECTURE SELECTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL EXECUTED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA** · **≠ NEXT CAPABILITY AUTHORIZED** · **≠ PARALLEL EXPERIENCE ARCHITECTURE**
+> **Anti-claim de statut :** **≠ INTEGRATED ON MAIN** · **≠ FUNCTIONAL ARCHITECTURE SELECTED** · **≠ TECHNICAL ARCHITECTURE SELECTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL EXECUTED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA** · **≠ NEXT CAPABILITY AUTHORIZED** · **≠ PARALLEL EXPERIENCE ARCHITECTURE**
 
 ---
 
@@ -765,7 +803,7 @@ Si un blocker apparaît plus tard : **ne pas le résoudre en C3** — enregistre
 | C3-OD-03 | **OBSERVATION** | PC Screens MD lags full SC catalog — Penpot page 03 remains visual SoT |
 | C3-OD-04 | **OPTION** | Si Morris exige wireframes Nora pixel-complete → Branch A (§22) as separate subcycle |
 | C3-OD-05 | **HYPOTHESIS** | Evidence layers 1–6 peuvent vivre en **NEW REGION within S9** sans nouvel écran |
-| C3-OD-06 | **MORRIS DECISION REQUIRED** | Validation contenu C3 (CONTENT VALIDATED) avant toute Git integration |
+| C3-OD-06 | **MORRIS DECISION CONSUMED** | **CONTENT VALIDATED BY MORRIS** · separate Git integration gate **CONSUMED** for commit + push + Draft PR + CI + handoff · **≠ merge** |
 
 Aucun OD C2 n’est consommé par C3.
 
@@ -785,8 +823,7 @@ Aucun OD C2 n’est consommé par C3.
 
 ## 26. Anti-claims
 
-- **≠ CONTENT VALIDATED BY MORRIS**
-- **≠ GIT INTEGRATED**
+- **≠ INTEGRATED ON MAIN**
 - **≠ PARALLEL EXPERIENCE ARCHITECTURE**
 - **≠ FUNCTIONAL ARCHITECTURE SELECTED**
 - **≠ TECHNICAL ARCHITECTURE SELECTED**
@@ -816,7 +853,7 @@ Aucun OD C2 n’est consommé par C3.
 | C3-PE-BAR defined | **YES** §23 · **≠ proven** |
 | OD C2 unchanged / not consumed | **YES** §24 |
 | No architecture / Delivery / REAL / runtime v3 | **YES** |
-| Local candidate only (no project commit) | **YES** (cycle constraint) |
+| Content validation consumed before Git integration | **YES** — separate Morris validation and Git integration gates |
 
 ---
 
@@ -843,35 +880,52 @@ SFIA v2.6 = process-only · **≠** Nora runtime doctrine.
 
 ---
 
-*Fin du C3-OPEN — LOCAL CANDIDATE — Nora Cognitive Completion Product Experience / Cognitive Interaction Design — DELTA over Product Completion PE — NO PARALLEL EA — NO MORRIS RUNTIME PERSONA — OD-02…08 OPEN/NOT CONSUMED — NO DELIVERY — NO ARCHITECTURE — NO REAL — NO RUNTIME V3 ADOPTION.*
+*Fin du C3-VALIDATED — CONTENT VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED — NOT INTEGRATED ON MAIN — Nora Cognitive Completion Product Experience / Cognitive Interaction Design — DELTA over Product Completion PE — NO PARALLEL EA — NO MORRIS RUNTIME PERSONA — OD-02…08 OPEN/NOT CONSUMED — NO DELIVERY — NO ARCHITECTURE — NO REAL — NO RUNTIME V3 ADOPTION.*
 
 ```
 
 ---
 
-## 11. Verdict
+## 13. Verdict
 
-**NORA COGNITIVE COMPLETION — C3 PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN — CORR-01 COMPLETE — LOCAL CANDIDATE — READY FOR CHATGPT FINAL REVIEW**
+**NORA COGNITIVE COMPLETION — C3 PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN — CONTENT VALIDATED BY MORRIS — GIT INTEGRATION IN PROGRESS — DRAFT PR OPEN — CI FAIL (TRAILING WHITESPACE) — STOP FOR CHATGPT REQUALIFICATION**
+
+### What completed
+
+- Lifecycle sync zones 1–8
+- Exactly 1 project file committed + pushed
+- Draft PR #434 OPEN · isDraft true · files=1 · commits=1
+- Review Pack FULL (this document)
+
+### What blocked completion
+
+Trailing whitespace CI check on lines 315 / 348 / 349 of the C3 markdown (pre-existing hard-break spaces in Memory/Recovery copy; not introduced by lifecycle sync zones).
+
+No automatic second project commit performed.
 
 ### Mandatory anti-claims
 
-- ≠ CONTENT VALIDATED BY MORRIS
-- ≠ GIT INTEGRATED
-- ≠ FUNCTIONAL ARCHITECTURE SELECTED
-- ≠ TECHNICAL ARCHITECTURE SELECTED
+- ≠ MERGED
+- ≠ INTEGRATED ON MAIN
+- ≠ POST-MERGE VERIFIED
+- ≠ NEXT CAPABILITY AUTHORIZED
+- ≠ ARCHITECTURE SELECTED
 - ≠ DELIVERY AUTHORIZED
 - ≠ REAL EXECUTED
 - ≠ COGNITIVE COMPLETION PROVEN
 - ≠ C3-PE-BAR PROVEN
 - ≠ RUNTIME V3 ADOPTED
 - ≠ MORRIS RUNTIME PERSONA
-- ≠ NEXT CAPABILITY AUTHORIZED
+- ≠ OD-02…08 CONSUMED
+- ≠ CI PASS (this cycle)
 
-### Reserves (carried)
+### Reserves
 
-- D1 Penpot boards = semantic delta · not full Nora hi-fi wireframes
+- D1 Penpot semantic delta ≠ full Nora hi-fi
 - D3 C3-PE-BAR defined ≠ proven
-- Visual PASS limited to NCC3-00 / 04 / 05 semantic contracts · not 10-board hi-fi
+- Visual PASS limited to NCC3-00/04/05
 - OD-02…08 still OPEN / NOT CONSUMED
+- Next-capability requalification blocked until main + post-merge
+- **CI trailing whitespace** — needs Morris/ChatGPT-authorized mechanical fix commit if approved
 
-**STOP FOR CHATGPT FINAL REVIEW.**
+**STOP FOR CHATGPT REQUALIFICATION. NO MERGE. NO AUTOMATIC REPAIR.**
