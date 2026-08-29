@@ -1,1083 +1,812 @@
 # ChatGPT Review Pack — FULL
-# NORA COGNITIVE COMPLETION — C2 POST-MERGE TRUTH-SYNC — PR #433 MERGE
+# NORA COGNITIVE COMPLETION — C3 PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN
 
-**Timestamp (Europe/Paris):** 2026-08-29 08:04:05 CEST
-**Cycle:** C2 Post-Merge Truth-Sync · PR #433 Merge Execution · POST-REVIEW MERGE GATE
-**Typologie:** DOC · **Profil:** STANDARD
-**GO Morris merge:** CONSUMED — MERGE PR #433 — C2 POST-MERGE TRUTH-SYNC
-**Baseline pre-merge main:** `362b972379be1ebf07087a2267e9296abf57e6ef`
-**Qualified head:** `1da8e306498a1ac1a49af34d6977861b5a03220c` · tree `b7c18df4c748dacb0fd843e209f462b79dae162e`
-**Prior handoff (Git Integration):** `f890f2228325ca7978dee95537fcb7907e7ab507`
-**CI run:** `33237138928` · SUCCESS · Required Gate PASS
-**Verdict cible:** NORA COGNITIVE COMPLETION — C2 POST-MERGE TRUTH-SYNC — PR #433 MERGED — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO FURTHER C2 TRUTH-SYNC REQUIRED
+**Timestamp (Europe/Paris):** 2026-08-29 08:37:14 CEST
+**Cycle:** C3 — Product Experience / Cognitive Interaction Design · Type 4 UX/UI · DOC/DESIGN · CRITICAL
+**GO Morris:** CONSUMED — OPENING / QUALIFICATION — NO DELIVERY — NO ARCHITECTURE
+**Verdict cible:** NORA COGNITIVE COMPLETION — C3 PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN — LOCAL CANDIDATE — READY FOR CHATGPT REVIEW
 **Synthesis only:** FORBIDDEN
 
 ---
 
-## 1. Pre-merge truth
+## 1. Local Git Truth
 
 | Field | Value |
 | --- | --- |
-| Worktree | `/Users/morris/Projects/sfia-workspace-nora-cognitive-c2-post-merge-sync` |
-| Branch | `docs/sfia-studio-nora-cognitive-c2-post-merge-truth-sync` |
-| Local HEAD | `1da8e306498a1ac1a49af34d6977861b5a03220c` (= expected `1da8e306498a1ac1a49af34d6977861b5a03220c`) |
-| Pre-merge origin/main | `362b972379be1ebf07087a2267e9296abf57e6ef` |
-| merge-base | `362b972379be1ebf07087a2267e9296abf57e6ef` |
-| PR | #433 · OPEN · Draft→Ready · mergeable |
-| headRefOid | `1da8e306498a1ac1a49af34d6977861b5a03220c` |
-| files / commits | 1 / 1 · +13/−11 |
-| CI | run `33237138928` SUCCESS |
-| Required Gate | PASS |
-| Remote branch tip | equal to local HEAD |
-| REAL-B | `fix/sfia-studio-real-b-blocker-02` @ `967f4c2b35948492caeba5347bb02c7c420de490` · untouched |
+| Repository | `mcleland147/sfia-workspace` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-nora-cognitive-c3` |
+| Branch | `design/sfia-studio-nora-cognitive-completion-c3-product-experience` |
+| HEAD | `b9458b2ff775927c3539e41c6739c36edec74e06` |
+| origin/main | `b9458b2ff775927c3539e41c6739c36edec74e06` |
+| merge-base | `b9458b2ff775927c3539e41c6739c36edec74e06` |
+| Expected | `b9458b2ff775927c3539e41c6739c36edec74e06` |
+| Tree | `b7c18df4c748dacb0fd843e209f462b79dae162e` (expected `b7c18df4c748dacb0fd843e209f462b79dae162e`) |
+| status | `?? .tmp-sfia-review/ · ?? projects/sfia-studio/nora-cognitive-completion/03-nora-cognitive-completion-product-experience.md` |
+| REAL-B | `fix/sfia-studio-real-b-blocker-02` @ `967f4c2b35948492caeba5347bb02c7c420de490` · READ-ONLY / untouched |
+| Project commit / push / PR / merge | **NO** |
 
-PR JSON (post-merge):
+---
+
+## 2. Convergence Pre-check
+
+Programme Nora Cognitive Completion · C3 PE/Cognitive Interaction · Type 4 · CRITICAL · DOC/DESIGN ARTIFACT
+Primary v3: V3-F01/F02/F04/F05/F06/F08/F09 · Support F14/F15
+C1+C2 VALIDATED+INTEGRATED+POST-MERGE VERIFIED · PC CLOSED · C6 CLOSED · runtime v3 NON ADOPTED · Delivery NOT AUTHORIZED · REAL OUT · Architecture NOT SELECTED
+
+---
+
+## 3. Sources consumed
+
+Build Doctrine · Roadmap · Nora C1 · Nora C2 · PC C1/C2 · PC UX EA/Wireframes/Screens · v3 docs 30/32/33/35/37 · process routing/template/operating-model · Penpot file `63bdc57a-636a-81ba-8008-82d2a50d5233`
+
+---
+
+## 4. C2 → C3 traceability
+
+C1 = WHY/WHAT responsibilities · C2 = WHAT testable behaviors · **C3 = HOW Pilote experiences those behaviors** as DELTA over PC PE.
+NR 26/26 · CE 8/8 · NCC-BAR 14/14 retained · not reopened.
+OD-02…08 carried unchanged · NOT CONSUMED.
+
+---
+
+## 5. PC UX reuse classification
+
+Experience Architecture **KEEP** · Wireframes **KEEP/ADAPT** · Screens **KEEP/ADAPT** · SE/UXR **KEEP/COMPLETE** · Conversation-dominant **KEEP** · LPS **KEEP** · Trajectory **KEEP/ADAPT** · Option/Rec/HD **KEEP/COMPLETE** · Evidence **KEEP/COMPLETE** · Recovery **KEEP/COMPLETE**
+**No REPLACE** · **No parallel EA**
+
+---
+
+## 6. Project file status
+
+Path: `projects/sfia-studio/nora-cognitive-completion/03-nora-cognitive-completion-product-experience.md`
+Status: **untracked local candidate** · 598 lines · 4907 words
+Sections: metadata · convergence · Build Doctrine challenge · authority · C1→C2→C3 · PC reuse · principles · CIS · clarification/challenge · qualification disclosure · STOP · Option/Rec/HD · Memory/Resume · Narrative/Evidence · Progress/Recovery · progressive disclosure · a11y · responsive · surface delta matrix · FA blocker register (0) · Penpot contract · trajectory · C3-PE-BAR · ODs · debt · anti-claims · exit criteria · sources
+
+---
+
+## 7. Penpot access + artifacts
+
+| Field | Value |
+| --- | --- |
+| Access | **CONFIRMED** (MCP `user-penpot`) |
+| File | `63bdc57a-636a-81ba-8008-82d2a50d5233` |
+| Page | `07 — Nora C3 Cognitive Interaction Delta` · `b0a45b0e-4767-80a8-8008-8e51e7fa7bb3` |
+| Pattern | DELTA boards · PC pages 00–06 untouched |
+| Boards | 10 · NCC3-00…09 · **568×460** |
+
+Board inventory:
 
 ```json
 {
-  "baseRefName": "main",
-  "commits": [
+  "fileId": "63bdc57a-636a-81ba-8008-82d2a50d5233",
+  "pageId": "b0a45b0e-4767-80a8-8008-8e51e7fa7bb3",
+  "pageName": "07 \u2014 Nora C3 Cognitive Interaction Delta",
+  "boards": [
     {
-      "authoredDate": "2026-08-29T05:51:38Z",
-      "authors": [
-        {
-          "email": "morris@macbook-air1.home",
-          "id": "",
-          "login": "",
-          "name": "Morris Cleland"
-        },
-        {
-          "email": "cursoragent@cursor.com",
-          "id": "U_kgDOC972lw",
-          "login": "cursoragent",
-          "name": "Cursor"
-        }
-      ],
-      "committedDate": "2026-08-29T05:51:38Z",
-      "messageBody": "Co-authored-by: Cursor <cursoragent@cursor.com>",
-      "messageHeadline": "docs(sfia-studio): sync Nora C2 post-merge lifecycle truth",
-      "oid": "1da8e306498a1ac1a49af34d6977861b5a03220c"
-    }
-  ],
-  "files": [
+      "id": "b0a45b0e-4767-80a8-8008-8e51f61892d4",
+      "name": "NCC3-00 \u2014 Meta \u00b7 Delta Contract",
+      "w": 568,
+      "h": 460
+    },
     {
-      "path": "projects/sfia-studio/nora-cognitive-completion/02-nora-cognitive-completion-conception-fonctionnelle.md",
-      "additions": 13,
-      "deletions": 11,
-      "changeType": "MODIFIED"
+      "id": "b0a45b0e-4767-80a8-8008-8e51f6fb9b9a",
+      "name": "NCC3-01 \u2014 Intent understood vs Clarification",
+      "w": 568,
+      "h": 460
+    },
+    {
+      "id": "b0a45b0e-4767-80a8-8008-8e51f77232a5",
+      "name": "NCC3-02 \u2014 Structural Challenge (\u2260 questionnaire)",
+      "w": 568,
+      "h": 460
+    },
+    {
+      "id": "b0a45b0e-4767-80a8-8008-8e520430d295",
+      "name": "NCC3-03 \u2014 Source / Verification Progress",
+      "w": 568,
+      "h": 460
+    },
+    {
+      "id": "b0a45b0e-4767-80a8-8008-8e52049f2140",
+      "name": "NCC3-04 \u2014 Contradiction / Governed STOP",
+      "w": 568,
+      "h": 460
+    },
+    {
+      "id": "b0a45b0e-4767-80a8-8008-8e5204fb89a0",
+      "name": "NCC3-05 \u2014 Option / Recommendation / HumanDecision",
+      "w": 568,
+      "h": 460
+    },
+    {
+      "id": "b0a45b0e-4767-80a8-8008-8e521f9ca50e",
+      "name": "NCC3-06 \u2014 Resume complete vs incomplete",
+      "w": 568,
+      "h": 460
+    },
+    {
+      "id": "b0a45b0e-4767-80a8-8008-8e521ffb8246",
+      "name": "NCC3-07 \u2014 Evidence analysis layers",
+      "w": 568,
+      "h": 460
+    },
+    {
+      "id": "b0a45b0e-4767-80a8-8008-8e522053c563",
+      "name": "NCC3-08 \u2014 Recovery / Replan governance",
+      "w": 568,
+      "h": 460
+    },
+    {
+      "id": "b0a45b0e-4767-80a8-8008-8e5220a92081",
+      "name": "NCC3-09 \u2014 Progress \u2260 Completion",
+      "w": 568,
+      "h": 460
     }
-  ],
-  "headRefOid": "1da8e306498a1ac1a49af34d6977861b5a03220c",
-  "isDraft": false,
-  "mergeCommit": {
-    "oid": "b9458b2ff775927c3539e41c6739c36edec74e06"
-  },
-  "mergedAt": "2026-08-29T06:03:03Z",
-  "number": 433,
-  "state": "MERGED",
-  "url": "https://github.com/mcleland147/sfia-workspace/pull/433"
+  ]
 }
 ```
 
-Pre-merge checks (still recorded):
-
-```
-Build and validate SFIA Studio	pass	2m37s	https://github.com/mcleland147/sfia-workspace/actions/runs/33237138928/job/99059982616
-Detect SFIA Studio changes	pass	7s	https://github.com/mcleland147/sfia-workspace/actions/runs/33237138928/job/99059967274
-SFIA Studio Required Gate	pass	4s	https://github.com/mcleland147/sfia-workspace/actions/runs/33237138928/job/99060239671
-```
+Visual evidence: PNG exports via `export_shape` for key boards (NCC3-00 Meta · NCC3-05 Option/Rec/HD · NCC3-04 STOP) — inspectable in cycle. Boards contain semantic contracts (not decorative polish).
 
 ---
 
-## 2. Patch lock
+## 8. Surface delta matrix (summary)
 
-Lifecycle-only patch confirmed before Draft→Ready:
-- Status → CONTENT VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED
-- PR #432 merge proof + Intégration Git C2
-- Construction base historical
-- §3 État synced
-- Durable historical gates only (no current-cycle truth-sync segments)
-- Stale ≠ GIT INTEGRATED / ≠ MERGED removed
-- OD-02 OPEN / NOT CONSUMED retained
-- NEXT CAPABILITY ≠ automatically authorized by C2 merge
-- Footer synced
-- No current-cycle self-reference in durable body
-
-No functional C2 reopen.
+Prefer STATE/INTERACTION/COPY on S3–S12.
+**GENUINE NEW SURFACE REQUIRED = 0.**
+Evidence layers may be NEW REGION within S9 only.
 
 ---
 
-## 3. Draft → Ready
+## 9. Functional Architecture blocker register
 
-Command: `gh pr ready 433`
-
-Result: SUCCESS · isDraft=false · state=OPEN · head unchanged `1da8e306498a1ac1a49af34d6977861b5a03220c` · mergeable=true
+**0 structural blockers demonstrated.**
 
 ---
 
-## 4. Final head lock + merge
+## 10. C3-PE-BAR
 
-Pre-merge reconfirm:
-- MAIN_BEFORE = `362b972379be1ebf07087a2267e9296abf57e6ef`
-- PR_HEAD = `1da8e306498a1ac1a49af34d6977861b5a03220c`
-- CI / Required Gate still PASS
-
-Exact merge command:
-
-```bash
-gh pr merge 433 \
-  --merge \
-  --match-head-commit 1da8e306498a1ac1a49af34d6977861b5a03220c
-```
-
-| Field | Value |
-| --- | --- |
-| Merged | **YES** |
-| Strategy | merge commit (`--merge`) · **no** squash · **no** rebase |
-| Head lock | `--match-head-commit 1da8e306498a1ac1a49af34d6977861b5a03220c` |
-| Bypass | **NO** (`--admin` unused) |
-| --delete-branch | **NO** |
-| --auto | **NO** |
-| merge commit SHA | `b9458b2ff775927c3539e41c6739c36edec74e06` |
-| mergedAt | `2026-08-29T06:03:03Z` |
-| New origin/main | `b9458b2ff775927c3539e41c6739c36edec74e06` |
-| origin/main == merge commit | **YES** |
-| origin/main tree | `b7c18df4c748dacb0fd843e209f462b79dae162e` (= project head tree `b7c18df4c748dacb0fd843e209f462b79dae162e`) |
+15 criteria defined (intent…no parallel EA). **Defined ≠ proven.**
 
 ---
 
-## 5. Main C2 existence + durable lifecycle proof
+## 11. Open decisions
 
-Path on main:
-`projects/sfia-studio/nora-cognitive-completion/02-nora-cognitive-completion-conception-fonctionnelle.md`
-
-Stats: 795 lines · 8391 words
-
-### Grep proofs
-
-#### CONTENT VALIDATED BY MORRIS
-```
-10:| **Statut** | **CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED** |
-18:| **Baseline C1** | `01-nora-cognitive-completion-cadrage.md` — **CONTENT VALIDATED BY MORRIS** · PR **#430 MERGED** · post-merge truth sync PR **#431 MERGED** |
-29:> **Anti-claim de statut :** **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED** · **≠ ARCHITECTURE SELECTED** · **≠ AGENTS SDK ADOPTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL-B CLOSED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA**
-115:| **État** | PC **CLOSED** · C1 **VALIDATED + INTEGRATED + POST-MERGE VERIFIED** · C2 **CONTENT VALIDATED BY MORRIS · INTEGRATED ON MAIN · POST-MERGE VERIFIED** · C6 **CLOSED** · REAL-A **CONSUMED** · REAL-B published **next capability unchanged** · runtime v3 **NON ADOPTED** · FinOps/T7 **FREEZE = construction Roadmap state only** |
-733:- **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED**
-795:*Fin du C2 CORR-01 — CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO MORRIS RUNTIME PERSONA — OD-02 OPEN / NOT CONSUMED — C2 CONCEPTION FONCTIONNELLE ONLY — NO DELIVERY — NO ARCHITECTURE — NO AGENTS SDK.*
-```
-
-#### INTEGRATED ON MAIN
-```
-10:| **Statut** | **CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED** |
-29:> **Anti-claim de statut :** **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED** · **≠ ARCHITECTURE SELECTED** · **≠ AGENTS SDK ADOPTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL-B CLOSED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA**
-115:| **État** | PC **CLOSED** · C1 **VALIDATED + INTEGRATED + POST-MERGE VERIFIED** · C2 **CONTENT VALIDATED BY MORRIS · INTEGRATED ON MAIN · POST-MERGE VERIFIED** · C6 **CLOSED** · REAL-A **CONSUMED** · REAL-B published **next capability unchanged** · runtime v3 **NON ADOPTED** · FinOps/T7 **FREEZE = construction Roadmap state only** |
-733:- **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED**
-795:*Fin du C2 CORR-01 — CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO MORRIS RUNTIME PERSONA — OD-02 OPEN / NOT CONSUMED — C2 CONCEPTION FONCTIONNELLE ONLY — NO DELIVERY — NO ARCHITECTURE — NO AGENTS SDK.*
-```
-
-#### POST-MERGE VERIFIED
-```
-10:| **Statut** | **CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED** |
-17:| **Intégration Git C2** | PR **#432 MERGED** · head `d406db412ca03c37ea745632341845301f2ce3c0` · merge `362b972379be1ebf07087a2267e9296abf57e6ef` · **POST-MERGE VERIFIED** |
-29:> **Anti-claim de statut :** **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED** · **≠ ARCHITECTURE SELECTED** · **≠ AGENTS SDK ADOPTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL-B CLOSED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA**
-115:| **État** | PC **CLOSED** · C1 **VALIDATED + INTEGRATED + POST-MERGE VERIFIED** · C2 **CONTENT VALIDATED BY MORRIS · INTEGRATED ON MAIN · POST-MERGE VERIFIED** · C6 **CLOSED** · REAL-A **CONSUMED** · REAL-B published **next capability unchanged** · runtime v3 **NON ADOPTED** · FinOps/T7 **FREEZE = construction Roadmap state only** |
-733:- **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED**
-795:*Fin du C2 CORR-01 — CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO MORRIS RUNTIME PERSONA — OD-02 OPEN / NOT CONSUMED — C2 CONCEPTION FONCTIONNELLE ONLY — NO DELIVERY — NO ARCHITECTURE — NO AGENTS SDK.*
-```
-
-#### NO MORRIS RUNTIME PERSONA
-```
-41:2. **NO MORRIS RUNTIME PERSONA** — rôle humain produit = **Pilote**.
-795:*Fin du C2 CORR-01 — CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO MORRIS RUNTIME PERSONA — OD-02 OPEN / NOT CONSUMED — C2 CONCEPTION FONCTIONNELLE ONLY — NO DELIVERY — NO ARCHITECTURE — NO AGENTS SDK.*
-```
-
-#### OPEN / NOT CONSUMED
-```
-681:| OD-02 | Nora strategy / SFIA envelope | **RECOMMEND** · **OPEN / NOT CONSUMED** · functional spec in B2 · Git integration GO **≠** OD-02 adoption | NO |
-795:*Fin du C2 CORR-01 — CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO MORRIS RUNTIME PERSONA — OD-02 OPEN / NOT CONSUMED — C2 CONCEPTION FONCTIONNELLE ONLY — NO DELIVERY — NO ARCHITECTURE — NO AGENTS SDK.*
-```
-
-#### NEXT CAPABILITY
-```
-53:**Ce C2 ne décide pas** comment implémenter. Après intégration sur main et requalification dédiée : **NEXT CAPABILITY REQUALIFICATION** (branches candidates conditionnelles — §21).
-123:| **Capacité suivante** | **NEXT CAPABILITY REQUALIFICATION** après intégration Git / post-merge qualification · branches candidates §21 |
-710:→ NEXT CAPABILITY REQUALIFICATION
-752:- NEXT CAPABILITY **≠** automatically authorized by C2 merge
-```
-
-Durable C2 truth on main:
-**CONTENT VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED**
+OD-02…08 unchanged OPEN/NOT CONSUMED.
+C3-OD-01…06 = RECOMMENDATION/OBSERVATION/OPTION/HYPOTHESIS + Morris validation gate for content.
 
 ---
 
-## 6. Post-merge self-reference scan
+## 12. Debt / reserves
 
-```
-447:| Local vs published | Worktree/local candidate ≠ main truth for published factual claims |
-```
-
-Classification: sole hit = durable epistemic principle (class A).
-**Current-cycle lifecycle self-reference = NONE.**
-
-Therefore: **NO FURTHER C2 TRUTH-SYNC REQUIRED.**
-
-(PR #433 *is* the lifecycle truth-sync; temporary markers were cleaned in CORR-01/CORR-02 before Git integration.)
+D1 semantic boards ≠ hi-fi wireframes · D2 Roadmap lag possible · D3 BAR unproven · D4 OD-02 presentation neutrality · D5 export tooling cycle-local
 
 ---
 
-## 7. Functional non-regression
+## 13. Next-capability conditions
 
-| Area | Status |
-| --- | --- |
-| B0–B9 | UNCHANGED |
-| NR 26/26 | UNCHANGED |
-| CE 8/8 | UNCHANGED |
-| NCC-BAR 14/14 | UNCHANGED |
-| Pilote runtime | RETAINED |
-| NO MORRIS RUNTIME PERSONA | RETAINED |
-| OD-02 | RECOMMEND · OPEN / NOT CONSUMED |
-| OD-03…08 | UNCHANGED |
-| REAL-B published next | UNCHANGED |
-| runtime v3 | NON ADOPTED |
-| NEXT CAPABILITY | NOT AUTHORIZED |
-| Cognitive Completion | NOT PROVEN |
+A PE visual subcycle IF detailed Nora wireframes needed
+B FA delta ONLY IF blocker register proves need
+C TA later IF structural tech decision
+D Delivery IF prerequisites sufficient
+E Eval IF measurement becomes critical gap
+REAL-B unchanged / separate
 
 ---
 
-## 8. Convergence
+## 14. Hard non-claims
 
-| Invariant | Status |
-| --- | --- |
-| Product Completion | CLOSED |
-| C6 | CLOSED / DO NOT REOPEN |
-| Nora C1 | VALIDATED + INTEGRATED + POST-MERGE VERIFIED |
-| Nora C2 | CONTENT VALIDATED + INTEGRATED ON MAIN + POST-MERGE VERIFIED |
-| REAL-A | CONSUMED |
-| REAL-B | NOT AUTHORIZED / NOT CLOSED · next unchanged |
-| Delivery | NOT AUTHORIZED |
-| Architecture | NOT SELECTED |
+≠ Architecture · ≠ Delivery · ≠ REAL · ≠ runtime v3 adoption · ≠ Morris runtime persona · ≠ project commit/push/PR/merge · ≠ content validated · ≠ next capability authorized
 
 ---
 
-## 9. Cleanup
-
-| Item | Status |
-| --- | --- |
-| Branch `docs/sfia-studio-nora-cognitive-c2-post-merge-truth-sync` | **PRESERVED** · `1da8e306498a1ac1a49af34d6977861b5a03220c	refs/heads/docs/sfia-studio-nora-cognitive-c2-post-merge-truth-sync` |
-| Worktree `/Users/morris/Projects/sfia-workspace-nora-cognitive-c2-post-merge-sync` | **PRESERVED** |
-| Cleanup | **NO** (requires separate Morris GO) |
-
-Local status:
-
-```
-?? .tmp-sfia-review/
-```
-
----
-
-## 10. COMPLETE C2 DOCUMENT ON origin/main (post-merge)
+## 15. COMPLETE USABLE C3 CANDIDATE CONTENT
 
 ```markdown
-# SFIA Studio — Nora Cognitive Completion — Cycle 2 Conception fonctionnelle
+# SFIA Studio — Nora Cognitive Completion — Cycle 3 Product Experience / Cognitive Interaction Design
 
-| Métadonnée | Valeur |
+| Champ | Valeur |
 | --- | --- |
-| **Projet** | SFIA Studio — Nora Cognitive Completion |
-| **Cycle** | 2 — Conception fonctionnelle |
 | **Profil document** | **CRITICAL** |
-| **Typologie** | **DOC** — documentation-only · impact structurant aval |
-| **Milestone** | NORA COGNITIVE COMPLETION — CYCLE 2 — CONCEPTION FONCTIONNELLE |
-| **Statut** | **CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED** |
-| **Révision** | **CORR-01** — Functional Governance Alignment · content validated · integrated via PR **#432** |
-| **GO Morris consommé (ouverture C2)** | **GO MORRIS — START NORA COGNITIVE COMPLETION C2 — CONCEPTION FONCTIONNELLE — DOC CRITICAL — NO DELIVERY** |
-| **GO Morris consommé (CORR-01)** | **GO MORRIS — NORA COGNITIVE COMPLETION C2 CORR-01 — FUNCTIONAL GOVERNANCE ALIGNMENT — LOCAL ONLY — NO GIT INTEGRATION** |
-| **Décision Morris validation contenu C2 CORR-01** | **CONTENT VALIDATED FOR GIT INTEGRATION** |
-| **GO Morris Git integration C2** | **CONSUMED** — commit · push · Draft PR authorized · **≠** merge · **≠** OD-02 adoption *(historique — scope exact de ce GO)* |
-| **GO Morris merge PR #432** | **CONSUMED** — PR **#432 MERGED** · head `d406db412ca03c37ea745632341845301f2ce3c0` · merge `362b972379be1ebf07087a2267e9296abf57e6ef` · 2026-08-29T05:21:57Z |
-| **Intégration Git C2** | PR **#432 MERGED** · head `d406db412ca03c37ea745632341845301f2ce3c0` · merge `362b972379be1ebf07087a2267e9296abf57e6ef` · **POST-MERGE VERIFIED** |
-| **Baseline C1** | `01-nora-cognitive-completion-cadrage.md` — **CONTENT VALIDATED BY MORRIS** · PR **#430 MERGED** · post-merge truth sync PR **#431 MERGED** |
-| **Base Git de construction (historique)** | `origin/main` @ `63430673dc4288919fbca078e1a9fd22f9e0a173` · tree `10a0b3d67f2a1a04fbfdb71950d6c894fcb0ae58` |
-| **Worktree construction** | `/Users/morris/Projects/sfia-workspace-nora-cognitive-c2` |
-| **Branche construction** | `docs/sfia-studio-nora-cognitive-completion-c2-functional-design` |
-| **CKC** | `method/.../pilots/02-conception-fonctionnelle.md` · `0.1.0` · **candidate** · guidance cognitive · **aucune autorité d'exécution** |
-| **Processus externe** | SFIA v2.6 ChatGPT ↔ Cursor · **process-only** · **≠** doctrine runtime Studio |
+| **Typologie** | **DOC / DESIGN ARTIFACT** — Type **4 — UX/UI** |
+| **Milestone** | NORA COGNITIVE COMPLETION — CYCLE 3 — PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN |
+| **Statut** | **LOCAL CANDIDATE — NOT CONTENT-VALIDATED — NOT GIT-INTEGRATED** |
+| **Révision** | **C3-OPEN** — Product Experience delta over validated Product Completion PE |
+| **GO Morris consommé** | **GO MORRIS — NORA COGNITIVE COMPLETION C3 — PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN — OPENING / QUALIFICATION — NO DELIVERY — NO ARCHITECTURE** |
+| **Baseline C1** | `01-nora-cognitive-completion-cadrage.md` — **CONTENT VALIDATED BY MORRIS** · INTEGRATED ON MAIN · POST-MERGE VERIFIED |
+| **Baseline C2** | `02-nora-cognitive-completion-conception-fonctionnelle.md` — **CONTENT VALIDATED BY MORRIS** · INTEGRATED ON MAIN · POST-MERGE VERIFIED · lifecycle clean (PR **#433**) |
+| **PE baseline (KEEP)** | Product Completion UX: EA · Wireframes · Screens — VALIDATED / INTEGRATED |
+| **Penpot file** | `63bdc57a-636a-81ba-8008-82d2a50d5233` |
+| **Penpot C3 page** | `07 — Nora C3 Cognitive Interaction Delta` · id `b0a45b0e-4767-80a8-8008-8e51e7fa7bb3` |
+| **Worktree** | `/Users/morris/Projects/sfia-workspace-nora-cognitive-c3` |
+| **Branche** | `design/sfia-studio-nora-cognitive-completion-c3-product-experience` |
+| **Base Git** | `origin/main` @ `b9458b2ff775927c3539e41c6739c36edec74e06` · tree `b7c18df4c748dacb0fd843e209f462b79dae162e` |
+| **REAL** | **OUT** (ce cycle) · REAL-B track séparée / inchangée |
+| **Architecture** | **NOT SELECTED / NOT REOPENED** |
 | **Runtime v3** | **NON ADOPTED** |
 | **Delivery** | **NOT AUTHORIZED** |
-| **REAL** | **ZERO REAL** (ce cycle) |
-| **Agents SDK / Sessions / Hosted Web Search** | **NOT ADOPTED** · technology candidates downstream only |
 
-> **Anti-claim de statut :** **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED** · **≠ ARCHITECTURE SELECTED** · **≠ AGENTS SDK ADOPTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL-B CLOSED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA**
+> **Anti-claim de statut :** **LOCAL CANDIDATE** · **≠ CONTENT VALIDATED BY MORRIS** · **≠ GIT INTEGRATED** · **≠ FUNCTIONAL ARCHITECTURE SELECTED** · **≠ TECHNICAL ARCHITECTURE SELECTED** · **≠ DELIVERY AUTHORIZED** · **≠ REAL EXECUTED** · **≠ COGNITIVE COMPLETION PROVEN** · **≠ RUNTIME V3 ADOPTED** · **≠ MORRIS RUNTIME PERSONA** · **≠ NEXT CAPABILITY AUTHORIZED** · **≠ PARALLEL EXPERIENCE ARCHITECTURE**
 
 ---
 
-## 1. Executive summary
+## 1. Purpose
 
-Ce document transforme les **26 responsabilités Nora (NR-01…NR-26)**, les **8 enablers cognitifs (CE-01…CE-08)** et la **Cognitive Completion Bar (NCC-BAR-01…14)** définis en C1 en **comportements fonctionnels testables** — sans sélectionner architecture technique, persistence, schema, API, Agents SDK, Sessions, Hosted Web Search, ni routing modèle définitif.
+C3 translate le modèle cognitif fonctionnel **C2** en **contrat d’expérience Pilote**, en réutilisant l’**Experience Architecture Product Completion** déjà validée.
 
-**Principe directeur :** C1 répond *quelles* capacités cognitives Nora doit posséder ; C2 répond *comment* Nora doit se comporter pour les exercer de façon naturelle, fiable, adaptative et gouvernée.
+**Question centrale :** comment le Pilote doit-il **vivre** les comportements cognitifs de Nora pour qu’ils paraissent naturels, gouvernés, honnêtes et non mécaniques ?
 
-**CORR-01 (gouvernance fonctionnelle) :**
-1. Autorité **par domaine** (pas de pyramide Pilote ↔ construction operator).
-2. **NO MORRIS RUNTIME PERSONA** — rôle humain produit = **Pilote**.
-3. Matérialisation Memory B→C **classée** (pas toujours HumanDecision).
-4. Source Intelligence **domain-aware**.
-5. Trajectoire aval **adaptative** (requalification, pas waterfall).
-6. Objets fonctionnels **classifiés** (runtime / transient / governed / design / eval).
+C3 est un **DELTA** d’interaction / d’état sur les surfaces PC existantes.
 
-**Méthode de conception :**
-1. Partir des responsabilités Product Completion et de la doctrine v3.
-2. Abstraire les comportements utiles du workflow externe construction (B0 — **OBSERVED BEHAVIOR INPUT**, pas doctrine).
-3. Définir modèles d'interaction, workload, mémoire, sourcing, compaction, épistémologie, narration/preuve, eval et genericité.
-4. Tracer chaque NR → comportement → CE → NCC-BAR avec critères observables.
-
-**Ce C2 ne décide pas** comment implémenter. Après intégration sur main et requalification dédiée : **NEXT CAPABILITY REQUALIFICATION** (branches candidates conditionnelles — §21).
+**Interdit :** redessiner SFIA Studio · créer une Experience Architecture parallèle · sélectionner architecture · Delivery · REAL · runtime v3 · persona Morris runtime.
 
 ---
 
-## 2. Autorité, sources et résolution par domaine
+## 2. Convergence qualification
 
-### 2.1 Authority model by domain (CORR-01)
+| Champ | Valeur |
+| --- | --- |
+| **Programme** | Nora Cognitive Completion |
+| **Cycle** | C3 — Product Experience / Cognitive Interaction Design |
+| **Type** | 4 — UX/UI |
+| **Profil** | CRITICAL |
+| **Typologie** | DOC / DESIGN ARTIFACT |
+| **Capacités v3 principales** | V3-F01 · V3-F02 · V3-F04 · V3-F05 · V3-F06 · V3-F08 · V3-F09 |
+| **Support** | V3-F14 · V3-F15 |
+| **État Nora** | C1 + C2 = CONTENT VALIDATED · INTEGRATED ON MAIN · POST-MERGE VERIFIED · C2 lifecycle clean |
+| **Product Completion** | COMPLETE / CLOSED |
+| **C6** | CLOSED / DO NOT REOPEN |
+| **runtime v3** | NON ADOPTED |
+| **Delivery** | NOT AUTHORIZED |
+| **REAL** | OUT |
+| **Architecture** | NOT SELECTED / NOT REOPENED |
+| **Capacité suivante** | **NEXT CAPABILITY REQUALIFICATION** après validation contenu C3 (branches §22) |
 
-**Interdit :** hiérarchie universelle `HumanDecision Pilote > construction governance` **ou** l’inverse.
+---
 
-L’autorité se résout par **claim/domain → source applicable → authority applicable → provenance → freshness → conflict handling**.
+## 3. Build Doctrine challenge (A5)
 
-| Domain | Authority | Typical sources |
+| # | Question | Réponse C3 |
 | --- | --- | --- |
-| **A. Factual / Evidence** | Git / runtime Evidence / proofs — vérité factuelle selon objet et fraîcheur | Evidence artifacts · READ outcomes · CI/PR · Git HEAD |
-| **B. SFIA Studio construction governance** | Construction operator (actuel : Morris) — doctrine Studio, architecture structurante repo, gates repository, promotion/adoption | Décisions construction enregistrées · Build Doctrine · Roadmap construction |
-| **C. SFIA Studio product runtime** | **Pilote** — HumanDecisions structurantes du Project | HumanDecision · Confirmation · LPS/Trajectory adoptés |
-| **D. Cognition** | **Nora** — analyse, qualification, challenge, Options, Recommendation, propositions, Evidence analysis · **aucune décision humaine** | Cognitive outputs (sans autorité) |
-| **E. Studio system** | **Studio** — governed state, persistence selon materialization basis, runtime gates, Confirmation/EC/Evidence lifecycle | Governed Project state |
+| 1 | Quelle capacité v3 C3 avance-t-il ? | Interaction humaine gouvernée + cognition produit (V3-F01/F02/F04/F05/F06/F08/F09) — représentation Pilote des comportements C2 |
+| 2 | Pourquoi maintenant après C2 ? | C2 a fixé **WHAT** Nora doit faire ; sans PE delta, Option/Rec/HD, STOP, Memory honesty et Progress≠Success restent sous-spécifiés côté expérience |
+| 3 | Quels actifs PE PC sont réutilisables ? | EA S1–S12 · Wireframes WF-* · Screens SC-* · States SE-* · UXR-* · conversation-dominant shell |
+| 4 | C3 duplique-t-il l’EA validée ? | **NON** — KEEP EA · delta états/interactions seulement |
+| 5 | Les gaps Nora se ferment-ils en delta cohérent ? | **OUI** — préférer STATE / INTERACTION / COPY delta sur S3–S12 |
+| 6 | Quelle preuve design observable ? | Document C3 + boards Penpot NCC3-00…09 + matrice surfaces + C3-PE-BAR |
+| 7 | Quelle capacité requalifier après C3 ? | Voir §22 — PE visual subcycle **ou** FA delta **seulement si** blocker structurel · sinon requalification ouverte |
+| 8 | Dette temporaire ? | Penpot C3 = delta boards (pas second set écrans) · OD C2 non consommées · éventuel wireframe Nora-specific si Morris le demande |
+| 9 | Recos vs décisions Morris existantes ? | Penpot = reference workspace (**Morris**) · PC PE KEEP (**Morris**) · C3 dispositions = **RECOMMENDATIONS** jusqu’à validation contenu |
+| 10 | Gate structurel Morris séparé ? | Seulement si §19 enregistre un blocker FA/TA — **défaut = 0** |
 
-### 2.2 Sources effectivement mobilisées
-
-| Source | Rôle dans ce C2 |
-| --- | --- |
-| `01-nora-cognitive-completion-cadrage.md` | NR/CE/BAR · gaps · OD · trajectoire |
-| `01-product-completion-cadrage.md` | Target · bar · rôle Nora |
-| `02-product-completion-conception-fonctionnelle.md` | Pattern C2 · modèles F/G/H/I · SC-CONTRA · Pilote ≠ construction persona |
-| `sfia-studio-convergence-build-doctrine.md` | Lois construction · read-only |
-| `sfia-studio-convergence-roadmap.md` | Trajectoire · REAL-B next · read-only |
-| v3 framing `30`–`37` | LPS/HD/EC/Evidence · épistémologie · DoctrinePackage · trajectoire dynamique |
-| REAL-A (main + consumed) | Grounding · tool-first · ranged reads · anti-fabrication |
-| REAL-B local (read-only WT) | Observations intermédiaires · narrative parity · profile oscillation |
-| CKC `02-conception-fonctionnelle.md` | Dimensions analyse · posture · maturité · **no authority** |
-| SFIA cycle template · routing · operating model · guardrails | **PROCESS-ONLY** externe ChatGPT↔Cursor · harvest logique · **≠** SoT runtime Nora |
-| PC sources tracées par C1 §6.0 | Instanciation NR (UX-03, DOC09, DOC11, W3-B, etc.) |
-
-### 2.3 Distinctions obligatoires
-
-| Distinction | Règle fonctionnelle |
-| --- | --- |
-| Observation ≠ Hypothesis ≠ Option ≠ Recommendation ≠ HumanDecision | Jamais promouvoir un niveau épistémique sans preuve/autorité |
-| Recommendation ≠ HumanDecision | Nora recommande · **Pilote** décide runtime · construction gates hors modèle utilisateur |
-| Cognition ≠ Authority | Nora raisonne · Studio gouverne l’état · Pilote décide runtime |
-| Pilote ≠ construction operator | Pilote = rôle utilisateur produit · construction governance = contexte externe (§6.1) |
-| Memory A ≠ B ≠ C | A = court terme · B = continuité conversationnelle · C = Project Truth durable |
-| Local worktree ≠ published Git | Pour claims factuels publiés : Git/PR Evidence applicable · local ≠ integrated |
-| Search hit ≠ read | Hit = candidat · READ réussi = preuve partielle/totale selon scope |
-| CKC ≠ authority | CKC informe qualification · ne décide pas |
-| SFIA Profile ≠ Cognitive Workload ≠ Cognitive Strategy Class | Profile = INPUT · CWP/strategy = sélection cognitive (§8) |
-| FinOps/T7 FREEZE | État **construction Roadmap** courant · **≠** invariant runtime produit |
-| OBSERVED BEHAVIOR INPUT ≠ Nora requirement | Chaque abstraction B0 justifie valeur + owner + disposition |
-| v2.6 prompts/templates | PROCESS-ONLY · harvestables · **≠** doctrine cognitive native Nora |
+**Hard requirement :** **NO PARALLEL PRODUCT EXPERIENCE ARCHITECTURE.**
 
 ---
 
-## 3. Convergence qualification (pre-check)
+## 4. Source authority (domain-aware)
 
-| Champ | Qualification |
+| Source | Rôle pour C3 |
 | --- | --- |
-| **Capacités v3 principales** | V3-F01 · V3-F05 · V3-F07 · V3-F11 |
-| **Fondations support** | V3-F02 · V3-F04 · V3-F06 · V3-F08 · V3-F09 · V3-F12 · V3-F14 · V3-F15 |
-| **Milestone** | NORA COGNITIVE COMPLETION — CYCLE 2 — CONCEPTION FONCTIONNELLE · **CORR-01** |
-| **État** | PC **CLOSED** · C1 **VALIDATED + INTEGRATED + POST-MERGE VERIFIED** · C2 **CONTENT VALIDATED BY MORRIS · INTEGRATED ON MAIN · POST-MERGE VERIFIED** · C6 **CLOSED** · REAL-A **CONSUMED** · REAL-B published **next capability unchanged** · runtime v3 **NON ADOPTED** · FinOps/T7 **FREEZE = construction Roadmap state only** |
-| **Actifs** | Backbone PC · Nora F1/F2 · Responses provider · custom toolLoop · REAL-A grounding |
-| **Classification** | Extension cognitive fonctionnelle · **≠** second produit · **≠** moteur parallèle · **≠** remplacement silencieux de REAL-B |
-| **Gaps adressés** | Comportements cognitifs testables + gouvernance fonctionnelle CORR-01 |
-| **Dépendances** | C1 NR/CE/BAR · PC C2 patterns · v3 doctrine · REAL-A lessons |
-| **Lien trajectoire** | Servir la boucle Product Completion · enrichir Nora sans réouvrir PC/C6 · complementary to Convergence next capability |
-| **Exit proof C2** | 26/26 NR · 8/8 CE · 14/14 NCC-BAR · B0 complet · authority domain-aware · no tech choice · OD ouvertes |
-| **Gates construction (externes au runtime)** | GO C2 ouverture **CONSUMED** · GO CORR-01 **CONSUMED** · validation contenu CORR-01 **CONSUMED** · GO Git integration **CONSUMED** (commit · push · Draft PR · **≠** merge) · GO MERGE PR **#432** **CONSUMED** |
-| **Capacité suivante** | **NEXT CAPABILITY REQUALIFICATION** après intégration Git / post-merge qualification · branches candidates §21 |
+| Nora C1 | Target cognitif / NR · CE · NCC-BAR |
+| Nora C2 | Contrat comportemental fonctionnel (**WHAT**) |
+| PC C1/C2 | Boucle produit baseline |
+| PC Experience Architecture | **KEEP** — EA à ne pas remplacer |
+| PC E2E Wireframes | **KEEP / ADAPT** — modèle d’interaction |
+| PC Product Screens | **KEEP / ADAPT** — contrat d’état visuel |
+| v3 doctrine (30/32/33/35/37) | Destination / invariants produit |
+| Build Doctrine | Loi de construction |
+| Roadmap | Contexte convergence global only |
+| Penpot | Workspace design de référence |
+| Git | SoT gouvernance / documentaire |
+| REAL-B | **Hors sujet C3** — track séparée |
 
 ---
 
-## 4. C1 → C2 traceability
+## 5. C1 → C2 → C3 traceability
 
-| C1 artefact | C2 transformation |
-| --- | --- |
-| NR-01…26 (disposition KEEP/ADAPT/COMPLETE) | Comportement nominal + triggers + limits + STOP + outputs observables |
-| CE-01…08 (MUST capability, not tech) | Contrats fonctionnels vendor-neutral + policy envelope · domain-aware |
-| NCC-BAR-01…14 | Scénarios · pass/fail · evidence required |
-| Memory A/B/C (C1 §16) | Spécification B3 + materialization classes CORR-01 |
-| Cognitive Workload Profile (C1 concept) | Dimensions + strategy classes distinctes du SFIA Profile |
-| External Source Intelligence MUST | B4 capability · Hosted Web Search = tech candidate |
-| Behavioral target ChatGPT-like | B0 abstractions · NCC-BAR-14 parity target |
-| OD-02…08 | Decision Register §20 — RECOMMEND/DEFER/ROUTE only |
-
----
-
-## 5. B0 — Behavioral Reference Model (ChatGPT ↔ SFIA ↔ Cursor)
-
-**Statut :** OBSERVED BEHAVIOR INPUT · empirique · process-only · **≠ Git SoT · ≠ HumanDecision · ≠ requirement automatique**.
-
-**Objectif :** Identifier comportements utiles, adaptations, frictions et répartition Nora / Studio / Pilote / executor / méthode.
-
-**Légende disposition Nora :** KEEP-LIKE · ADAPT · DO NOT REPRODUCE · NEED GOVERNED EQUIVALENT
-
-### 5.1 Observations analysées
-
-| # | Observed behavior | Value | Failure/risk | Functional abstraction | Target owner | Nora disposition |
-| --- | --- | --- | --- | --- | --- | --- |
-| 1 | Compréhension progressive intention (contexte, gates, trajectoire) | Moins de cycles ratés | Sur-interprétation sans preuve | **Contextual intent resolution** under Project Truth C | Nora | **KEEP-LIKE** + evidence when structural |
-| 2 | Chargement contextuel sélectif (Git, Doctrine, C1, docs ciblés) | Pertinence · coût maîtrisé | Omission source critique | **Dynamic domain-aware source need resolution** | Nora + Studio tools | **NEED GOVERNED EQUIVALENT** (CE-01/08) |
-| 3 | Profondeur cognitive adaptative (simple vs deep review vs high-assurance) | Qualité proportionnée | Sur/sous-qualification | **Cognitive Workload Profile** under SFIA envelope | Nora | **ADAPT** (CE-05) · CWP ≠ SFIA Profile |
-| 4 | Recommendation ≠ Decision | Gouvernance claire | Rec→HD implicite | **Epistemic separation + no auto-promotion** | Nora propose · **Pilote** decide runtime | **KEEP-LIKE** (NR-07/11/21) |
-| 5 | Gates distincts (local ≠ validate ≠ commit ≠ PR ≠ merge) | Auditabilité | Fusion rétroactive autorités | **Phase-aware authority envelope** | Studio runtime gates + **construction governance context** | **DO NOT REPRODUCE** confusion — **NEED GOVERNED EQUIVALENT** in Studio state |
-| 6 | Sélection dynamique outils/sources | Autonomie cognitive | Tool rigidity · shell fallback | **Tool/source strategy autonomy** | Nora | **NEED GOVERNED EQUIVALENT** (CE-01) |
-| 7 | Evidence-first contradiction | Intégrité | Narrative override | **Evidence-backed contradiction disposition** (domain/freshness qualified) | Nora + Evidence layer | **KEEP-LIKE** (CE-02) |
-| 8 | Continuité inter-session/projet | Efficacité Pilote | False memory · invented transcript | **Memory B + Truth C remount** | Nora read C · optional B | **ADAPT** (CE-03/04) |
-| 9 | Clarification proportionnée | UX fluide | Questionnaire méthode | **Structural ambiguity clarification only** | Nora | **KEEP-LIKE** (NR-02/05) |
-| 10 | Boucle critique proposition→Cursor→Evidence→review | Qualité livrable | Narrative≠preuve | **Narrative↔Evidence contract** | Nora + executor + Studio | **NEED GOVERNED EQUIVALENT** (CE-06) |
-| 11 | Requalification après preuve | Trajectoire vivante | Rejouer plan obsolète | **Post-evidence replan + trajectory refresh** | Nora propose · Pilote HD si structurant | **KEEP-LIKE** (NR-14/15/09) |
-| 12 | Progress updates travail long | Visibilité | Confusion avec completion | **Non-terminal progress signaling** | Nora | **ADAPT** — distinct from Evidence SUCCESS |
-| 13 | Propagation GO / décisions consommées | Moins de friction | Re-demander même décision | **Consumed-decision awareness from Truth C** | Nora reads recorded HD + construction decisions by domain | **NEED GOVERNED EQUIVALENT** |
-| 14 | Composition (model+context+Git+tools+governance) | Qualité globale | Attribuer tout à « Nora LLM » | **Distributed cognitive system** | Nora+Studio+executor+Git | **ADAPT** — Nora = orchestrator cognitif, not sole intelligence |
-
-### 5.2 Frictions → règles fonctionnelles
-
-| Friction observée | Règle fonctionnelle C2 |
-| --- | --- |
-| Dépendance historique conversationnelle longue | Memory B + compaction B5 · Truth C pour durable · pas de transcript exhaustif requis |
-| Répétition excessive | Clarification budget · consumed-decision check · re-read only on invalidation |
-| Relecture sources déjà prouvées | Source freshness policy · skip re-read if Evidence/READ still valid |
-| Confusion local Cursor / published Git | **Local ≠ published** · domain-aware factual resolution B4/B6 |
-| Surqualification tâche simple | Workload Strategy downshift (e.g. Routine) when signals low · **≠** SFIA Profile rename |
-| Transfert conversation ↔ objets Studio | Materialization classes NR-20 · Nora proposes need · Studio applies valid basis |
-| Décision déjà consommée non propagée | Nora consults Truth C before re-asking |
-| Conversation memory confondue avec LPS | **B ≠ C** hard rule B3 |
-| Narrative non exploitable comme state | Narrative = Pilote-facing · state = Studio objects + Evidence |
-| Multiples systèmes externes pour situation | Studio consolidates Truth C · Nora surfaces single coherent view |
-| Identité « Morris » dans workflow construction externe | **DO NOT REPRODUCE as runtime persona** — see §5.4 |
-
-### 5.3 Ce que Nora ne reproduit pas
-
-- Fusion implicite des gates construction (validation ≠ commit ≠ merge).
-- Promotion automatique Recommendation → HumanDecision.
-- Doctrine ChatGPT comme autorité runtime.
-- Liste rigide d'outils par cycle (abaque cycle→tool).
-- Confiance au recollection modèle sans READ/Evidence.
-- Persona utilisateur « Morris » dans le produit.
-
-### 5.4 CORR-01 consequence — external construction identity
-
-Observed external use of a named construction operator in the current ChatGPT↔Cursor workflow **must NOT become a runtime persona**.
-
-Functional abstraction:
-
-```text
-current construction operator identity
-→ external Construction Governance Context (§6.1)
-→ generic product human role remains Pilote
-```
-
-If the same human uses SFIA Studio as a Project user, that human acts as **Pilote**.
-
----
-
-## 6. Actors and responsibility boundaries (product runtime)
-
-| Owner | Responsabilités |
-| --- | --- |
-| **Pilote** | Human user of SFIA Studio · expresses intention · takes **runtime HumanDecisions** · Confirmation when required · inspects Evidence/EC |
-| **Nora** | Understand · qualify · challenge · source · reason · Options · Recommendation · Evidence analysis · propose LPS/Trajectory · STOP signal · escalate by domain · **no human authority** |
-| **Studio** | Governed product system · durable Project state · persist according to **valid materialization basis** · runtime gates · Confirmation/EC/Evidence lifecycle |
-| **Executor (Cursor/agent)** | Technical HOW under effective authority · reports · technical proofs |
-| **Git / Evidence sources** | Factual/auditable evidence where applicable · READ outcomes · CI/PR proof |
-
-**Anti-pattern :** Nora god-object (persist, merge, HD, launch EC) — **interdit** (NR-21).
-
-**Product runtime role model does NOT include a construction-operator persona.**
-
-### 6.1 Construction Governance Context (EXTERNAL — not a product persona)
-
-> Morris currently governs the **construction**, doctrine, repository gates, integration and promotion of SFIA Studio.
-> This construction authority is **external** to the runtime user-role model and **does not create a "Morris" persona**.
-> Construction-governance gates remain recorded decisions of the construction process.
-> Any person using SFIA Studio operates under the applicable product role — currently **Pilote** for human decisions.
-
----
-
-## 7. B1 — Cognitive Interaction Model
-
-### 7.1 End-to-end flow
-
-```text
-User intention
-→ contextual understanding (NR-01 + Truth C + Memory A/B)
-→ domain-aware source/context resolution (CE-01/08)
-→ qualification (cycle/SFIA profile/CKC/lenses — NR-03/23)
-→ ambiguity evaluation (NR-02/05)
-→ adaptive clarification OR challenge (NR-02/06)
-→ contradiction handling if structural (NR-04/13 — CE-02)
-→ analysis / reasoning
-→ LPS update proposal (NR-08 — propose only)
-→ ProjectTrajectory options (NR-09)
-→ Options (NR-10)
-→ Recommendation (NR-11)
-→ HumanDecision boundary → Pilote
-→ post-decision reasoning
-→ EC preparation boundary (NR-12 — no authority)
-→ Evidence analysis post-terminal (NR-14)
-→ Recovery/Replan (NR-15/16)
-```
-
-### 7.2 Decision table — when Nora may act
-
-| Situation | Nora action | Authority |
+| Couche | Livrable | Question |
 | --- | --- | --- |
-| Intention claire + sources suffisantes + no contradiction | Advance to qualify/recommend | Cognition only |
-| Ambiguïté structurelle (scope, authority, cycle) | Clarify/challenge (1–3 questions max policy) | Cognition |
-| Contradiction evidence-backed on governing premise | STOP or contradict with attributable evidence | Signal STOP · NR-13 |
-| Missing authorized source | SourceNeed → tool strategy · or STOP | CE-01 |
-| Recommendation ready · HD required | Present Rec · await **Pilote** HD | No auto-HD |
-| EC scope would widen | Refuse widen · prepare within envelope | NR-12 |
-| Evidence terminal FAIL | Honest recovery Rec · no invented GO | NR-16 |
-| Authority boundary (launch / HD / execute) | Escalate to **Pilote** · STOP | NR-21/26 |
-| Durable truth should update | Identify materialization need · propose | Studio evaluates **materialization basis** · Pilote HD **only if Class 3 structural** |
+| C1 | Cadrage | **WHY / WHAT** responsabilités Nora (NR/CE/BAR) |
+| C2 | Conception fonctionnelle | **WHAT** comportements testables (B0–B9) |
+| **C3** | Product Experience delta | **HOW** le Pilote **vit** ces comportements |
 
-### 7.3 Information durability rules
+| C2 block | Traduction C3 |
+| --- | --- |
+| B1 Cognitive Interaction Model | États CIS + flux S4 |
+| B2 Workload Profile | Disclosure qualification · CWP **INTERNAL** |
+| B3 Memory A/B/C | Resume honesty · labels Known/Not available |
+| B4 Source intelligence | Progress source · partiality |
+| B5 Compaction | Resume incomplete · loss signaling |
+| B6 Epistemology / Contradiction | Uncertainty / STOP contracts |
+| B7 Narrative ↔ Evidence | Couches Evidence 1–6 |
+| B8 Eval / BAR | C3-PE-BAR (design-observable) |
+| B9 Genericity | Même mécanisme PE multi-cycles |
 
-| Class | Durability | Materialization |
+**Coverage conservée (non rouverte) :** NR **26/26** · CE **8/8** · NCC-BAR **14/14**.
+
+---
+
+## 6. Product Completion UX reuse map
+
+| Asset | Disposition | Note |
 | --- | --- | --- |
-| Turn reasoning scratch | Memory A · ephemeral | Discard on compaction |
-| Conversation continuity | Memory B · session/inter-session | Never silent promote to C |
-| Project Truth | Memory C · durable | Studio selectively materializes per **class + valid basis** (§9.4) |
-| Tool READ outcomes | Evidence artifacts | Studio/Evidence under Class 1 policy when valid |
-| Progress update | Transient narrative | ≠ completion proof |
+| Experience Architecture (S1–S12) | **KEEP** | Composition conversation-dominant inchangée |
+| E2E Wireframes (WF-00…09, R01/R02) | **KEEP / ADAPT** | Deltas cognitifs Nora en overlays d’état |
+| Product Screens (SC-01…14, R01–R03) | **KEEP / ADAPT** | Pas de second set Screens |
+| States & Evidence (SE-01…09) | **KEEP / COMPLETE** | Étendre sémantique Nora (challenge, partial, CIS) |
+| UXR reconciliation (06) | **KEEP** | Référence composition W4 |
+| Conversation-dominant workspace | **KEEP** | S3/S4 |
+| Living project / LPS panel | **KEEP** | S5 |
+| ProjectTrajectory representation | **KEEP / ADAPT** | proposed = Rec · ≠ decided |
+| Option / Rec / HD patterns | **KEEP / COMPLETE** | États CIS + labels Nora |
+| Evidence hierarchy | **KEEP / COMPLETE** | Couches Nora analysis |
+| Recovery | **KEEP / COMPLETE** | Resume complete/incomplete |
 
-**Rule :** Project Truth is selectively materialized by Studio according to materialization class and valid basis. HumanDecision is required only when the durable change represents a **structural runtime decision**. Construction governance gates apply only to SFIA Studio construction, outside the generic runtime role model.
+**Aucun REPLACE** sans blocker démontré.
 
----
+### Surfaces S1–S12 (baseline KEEP)
 
-## 8. B2 — Cognitive Workload Profile
-
-### 8.1 Purpose
-
-Nora selects cognitive strategy within a **fixed SFIA policy envelope** — OD-02 candidate principle: *"Nora chooses cognitive strategy / SFIA fixes envelope"* — **RECOMMENDED**, not construction-consumed.
-
-### 8.2 Hard distinction (Reserve R1)
-
-| Concept | Meaning |
-| --- | --- |
-| **SFIA Profile** | Method/process profile (e.g. Standard / Critical) — **INPUT** to strategy |
-| **Cognitive Workload** | Signal envelope (ambiguity, depth, breadth, contradiction risk, …) |
-| **Cognitive Strategy Class** | Selected operating strategy — **≠** SFIA Profile rename |
-
-### 8.3 Input dimensions (functional)
-
-| Dimension | Description | Effect on behavior |
+| ID | Surface | Job |
 | --- | --- | --- |
-| Ambiguity | Structural uncertainty level | ↑ clarification · ↓ premature Rec |
-| Reasoning depth | Analysis complexity | ↑ verification · deeper source reads |
-| Source breadth | Count/nature of docs needed | Multi-doc strategy CE-08 |
-| Tool dependency | Need external/Git/web/files | CE-01 activation |
-| Contradiction risk | Premise conflicts detected | CE-02 precedence |
-| Context size | Working set volume | Compaction B5 |
-| Verification need | Claim strength required | Extra reads · STOP if insufficient |
-| Multimodality | Images/captures present | SHOULD path · honesty if unsupported |
-| Latency sensitivity | Pilote wait tolerance | Progress signaling |
-| Cost budget | Candidate product policy/cost envelope | Depth/cost trade-off · **≠ FinOps/T7 FREEZE as runtime invariant** |
-| Rigor / Criticality | Driven by **SFIA Profile** + claim risk | High-assurance challenge when Critical profile or structural risk |
-
-**Reserve R2 :** FinOps/T7 FREEZE = current **construction Roadmap** state. The product may later have a cost/policy envelope without importing that freeze as permanent runtime behavior.
-
-### 8.4 Dynamic classification
-
-1. Nora ingests intention + Truth C + prior turn state + **SFIA Profile**.
-2. Computes workload signals (not a fixed cycle→model table).
-3. Selects **Cognitive Strategy Class** (vocabulary candidate): **Routine · Focused · Deep · High-Assurance**.
-4. Requalifies mid-conversation when new contradiction/source gap appears.
-
-*(Names are candidates — principle matters more than labels.)*
-
-### 8.5 High-assurance behavior (NR-06)
-
-When SFIA Profile is Critical **or** High-Assurance strategy is selected: before Critical-class Recommendation or EC prep, Nora **must** explicit challenge of rigor assumptions · surface reserves · refuse under-qualification to Routine/Focused when signals demand High-Assurance.
-
-### 8.6 Anti-patterns
-
-- Fixed abaque `cycle 2 → model X`.
-- Confusing SFIA Profile rename with Cognitive Strategy Class.
-- Profile/strategy downgrade after partial reads without invalidation (REAL-B oscillation class).
-- Using model change as structural fix (REAL-A rule).
-- Importing FinOps/T7 FREEZE as product runtime law.
-
-### 8.7 Observability
-
-Strategy class · strategy shifts · clarification budget · verification rounds — logged for CE-07 · **trace ≠ Evidence**.
+| S1 | Entry / Projects | Lister · ouvrir · créer |
+| S2 | Create intention | Nom + intention (A only) |
+| S3 | Workspace shell | Conversation + état · Resume target |
+| S4 | Conversation | Dominant — cognition Nora |
+| S5 | LPS / project state | État business-first |
+| S6 | Trajectory | done / active / proposed / blocked |
+| S7 | History | Ancres durables minimales |
+| S8 | Recovery | Reprise honnête |
+| S9 | Evidence reader | Hiérarchie business-first |
+| S10 | EC disclosure | Summary → détail |
+| S11 | Confirmation | Si requis |
+| S12 | Attempt lifecycle | Progress + terminals |
 
 ---
 
-## 9. B3 — Memory A / B / C
+## 7. Nora Cognitive Experience Principles
 
-### 9.1 Definitions
+1. **CONVERSATION DOMINANT ≠ CHAT-ONLY**
+2. **BUSINESS-FIRST ≠ METHOD-FIRST**
+3. **CLARIFICATION ONLY WHEN STRUCTURAL**
+4. **CHALLENGE ≠ QUESTIONNAIRE**
+5. **PROGRESS ≠ SUCCESS**
+6. **PARTIAL READ ≠ COMPLETE KNOWLEDGE**
+7. **MODEL RECOLLECTION ≠ EVIDENCE**
+8. **OPTION ≠ RECOMMENDATION ≠ HUMANDECISION**
+9. **RECOMMENDATION → HUMANDECISION BOUNDARY → PILOTE**
+10. **NO MORRIS RUNTIME PERSONA**
+11. **UNCERTAINTY MUST BE EXPRESSIBLE**
+12. **CONTRADICTION MUST BE ATTRIBUTABLE WHEN EVIDENCE-BACKED**
+13. **STOP MUST BE COMPREHENSIBLE ≠ GENERIC ERROR**
+14. **MEMORY B ≠ PROJECT TRUTH C**
+15. **RESUME ≠ INVENTED MEMORY**
+16. **NARRATIVE ≠ EVIDENCE**
+17. **NORA INTERPRETS EVIDENCE ≠ REPLACES EVIDENCE**
+18. **STRUCTURAL REPLAN → PILOTE HUMANDECISION**
 
-| Tier | Scope | Content admissible | Lifetime |
-| --- | --- | --- | --- |
-| **Memory A** | Immediate reasoning context | Current turn · recent tool results · active hypotheses | Single turn / short window |
-| **Memory B** | Cognitive conversation continuity | Semantic thread · open clarifications · unresolved intents · **not** full transcript archive | Session + controlled inter-session |
-| **Memory C** | Project Truth | LPS · HumanDecision · ProjectTrajectory · EC · Evidence · governed Project state | Durable · Studio-owned |
+---
 
-### 9.2 Hard rules
+## 8. Cognitive Interaction State Model (CIS)
 
-- **A ≠ B ≠ C** — always.
-- **B never silently becomes C**.
-- B→C always requires an explicit **MaterializationBasis** (§9.4) — **not always a HumanDecision**.
-- Restart: Nora **remounts from C** · B if available · **must not invent** missing transcript (NR-17).
-- False-memory prevention: if B conflicts with C on durable Project Truth, **C wins** · B invalidated.
+Vocabulaire d’états **design** — **≠** schéma runtime · **≠** state machine d’implémentation.
 
-### 9.3 Memory B functional requirements (CE-03 MUST)
-
-- Semantic resume across sessions without claiming unread content was read.
-- Provenance on B items (origin turn/source).
-- Compaction with invalidation markers (links to B5).
-- Confidence decay on stale B items when C updated.
-
-### 9.4 Materialization classes (CORR-01 — NR-20)
-
-| Class | Examples | Who | HumanDecision? |
-| --- | --- | --- | --- |
-| **CLASS 1 — Fact / Evidence materialization** | verified Evidence · Git status · successful source resolution · referenced artifact · audit/event facts | Studio under policy when provenance/validity OK | **Not required by principle** |
-| **CLASS 2 — Non-structural Project state** | current cycle state · source pointers · accepted factual context · evidence references · minimal restart-safe semantic state | Studio per functional contract/policy | **Not automatic HD** |
-| **CLASS 3 — Runtime structural decision** | structural adoption/amendment of ProjectTrajectory · scope arbitration · structuring acceptance · métier decision | Studio after **Pilote HumanDecision** | **YES — Pilote** |
-| **CLASS 4 — SFIA Studio construction / governance** | doctrine · structuring Studio architecture · promotion · construction merge/gate | Construction process (external) | Construction governance decision — **outside product persona model** |
-
-**MaterializationBasis candidates (functional):**
-- verified fact/evidence ;
-- valid runtime state transition ;
-- Pilote HumanDecision ;
-- construction governance decision (external) ;
-- explicit accepted materialization policy.
-
-**No schema / API / persistence mechanism selected.**
-
-### 9.5 Promotion examples
-
-| Content | Typical class | Basis |
+| CIS | Signification Pilote | Surface primaire |
 | --- | --- | --- |
-| Successful READ / Evidence artifact | Class 1 | verified fact/evidence |
-| Source pointer / cycle state | Class 2 | valid runtime state transition / policy |
-| Structural Trajectory adoption | Class 3 | Pilote HumanDecision |
-| Conversation summary alone | Not automatic | Requires explicit durable decision or Class 2 policy — never silent B→C |
-| Studio doctrine promotion | Class 4 | Construction governance (external) |
-
-**Implementation timing/mechanism (Agents Sessions, SQLite, etc.) = downstream — OD-03 DEFER/ROUTE.**
-
----
-
-## 10. B4 — Tool / Source Intelligence (domain-aware)
-
-### 10.1 Capability statement (CE-01 MUST)
-
-Nora **autonomously selects** authorized sources/tools needed to answer correctly under policy — not a fixed tool list per cycle, and **not** a single global ranking.
-
-### 10.2 Claim-oriented resolution pipeline
-
-```text
-claim/question
-→ identify domain
-→ determine authoritative source classes
-→ resolve sources
-→ verify READ/Evidence
-→ evaluate freshness
-→ evaluate provenance
-→ resolve conflict
-→ claim / uncertainty / STOP
-```
-
-### 10.3 Domain → authoritative source classes
-
-| Claim domain | Authoritative source classes |
-| --- | --- |
-| Factual claims | Git/runtime Evidence according to object · freshness/scope required |
-| Studio construction governance | Recorded construction decisions · Build Doctrine · construction Roadmap |
-| Project runtime decisions | Recorded **Pilote** HumanDecisions |
-| Validated Project state | LPS / governed Studio state |
-| Studio doctrine | DoctrinePackage / pinned v3 doctrine |
-| Cognitive guidance | CKC — guidance only · **no decision authority** |
-| Conversation / Memory B | Context only · **no authority over C** |
-| Recommendation | No decision authority |
-| Model prior / recollection | **Not Evidence** |
-
-Doctrine F07 hierarchy is preserved **within domain**, not as a global mechanical ranking.
-
-### 10.4 Functional behaviors
-
-| Behavior | Rule |
-| --- | --- |
-| Source discovery | Identify missing authority for claim class |
-| Domain-aware resolution | Select source classes by claim domain |
-| Ranged reading | Partial reads allowed · honest partiality (CE-08) |
-| Continuation reading | Multi-round until cap · declare incomplete |
-| Provenance | Every source-backed claim links to READ/Evidence or recorded decision |
-| Freshness | Re-read on invalidation · stale source signaled · stale Evidence ≠ automatic win |
-| Local vs published | Worktree/local candidate ≠ main truth for published factual claims |
-| External/fresh need | External Source Intelligence MUST · Hosted Web Search = **tech candidate** |
-| Tool failure | Fail-closed · no fabricated claims (NR-25) |
-| Search hit ≠ read | Hit catalogues candidate only |
-
-### 10.5 Evidence precedence (qualified)
-
-**Hard rule:** source authority is domain-sensitive.
-
-Do **not** mechanically apply « Evidence wins » if Evidence is:
-- stale ;
-- partial ;
-- out of domain ;
-- non-attributable ;
-- conflicting with a **higher applicable authority in the same claim domain**.
-
-### 10.6 Minimum fail-closed rules
-
-- failed read ≠ verified
-- partial read ≠ complete
-- model recollection ≠ repository evidence
-- local diff ≠ integrated truth
+| Understanding | Intention en cours de résolution | S4 |
+| Clarification needed | Ambiguïté structurelle · 1–3 questions | S4 |
+| Challenging premise | Challenge de rigueur (Critical / High-Assurance) | S4 |
+| Resolving sources | Besoin / sélection de sources | S4 |
+| Reading / verifying | Lecture / vérification en cours | S4 |
+| Partial context | Connaissance partielle déclarée | S4 / S5 |
+| Qualification ready | Qualification utile prête à divulguer | S4 / S5 |
+| Reasoning | Raisonnement en cours (non terminal) | S4 |
+| Contradiction candidate | Conflit modèle-sensed · non prouvé | S4 |
+| Contradiction evidence-backed | Conflit Evidence-attribué | S4 / S9 |
+| STOP | Arrêt gouverné compréhensible | S4 / S9 / S12 |
+| Options ready | Options présentées | S4 / S6 |
+| Recommendation ready | Recommandation identifiable | S4 / S6 |
+| Awaiting Pilote HumanDecision | Attente décision structurante | S4 |
+| Post-decision reasoning | Suite après HD consommé | S4 |
+| ExecutionContract preparation boundary | Préparation EC · ≠ launch | S10 |
+| Execution progress | Attempt non terminal | S12 |
+| Evidence available | Evidence terminal disponible | S9 / S12 |
+| Evidence analysis | Nora explique Evidence | S4 / S9 |
+| Recovery recommendation | Reco de reprise | S8 / S4 |
+| Replan recommendation | Reco de replan | S4 / S6 |
+| Resume / context restored | Contexte durable OK | S3 / S8 |
+| Resume / context incomplete | Trous à reconfirmer | S8 / S4 |
 
 ---
 
-## 11. B5 — Context / Compaction
+## 9. Intent / clarification / challenge contract
 
-When context grows large, Nora must:
+### When Nora asks
+- Ambiguïté **structurelle** bloquant Rec/EC
+- Contradiction candidate nécessitant arbitrage
+- Critical / High-Assurance avant Rec/EC critiques (NR-06)
 
-1. **Retain** governing premises · active Pilote HD · open STOP · unresolved contradictions.
-2. **Compact** Memory A/B with semantic summaries + provenance pointers.
-3. **Preserve** provenance links to Evidence/READ IDs — not only prose summary.
-4. **Signal loss** when compaction drops unresolved structural item.
-5. **Invalidate** compacted items when Truth C changes.
-6. **Re-read** sources when summary confidence low or contradiction detected.
-7. **Refresh** from Truth C on long session resume.
+### When Nora proceeds without asking
+- Ambiguïté cosmétique
+- Fait déjà présent dans **Project Truth C**
+- HD déjà **consommé**
 
-**Transcript exhaustif = NOT REQUIRED.** **Semantic continuity = MUST.**
+### How Nora asks
+- 1–3 questions ciblées, conversationnelles
+- Dire **ce qui** est ambigu + **pourquoi** ça bloque
+- Jamais checklist CKC / questionnaire méthode
 
----
+### Prohibit
+- CKC questionnaire · dumps checklist
+- Re-demander un fait Truth C
+- Re-demander une HD consommée
+- Fausse certitude
 
-## 12. B6 — Epistemology / Contradiction Model
-
-### 12.1 Status ladder (strict)
-
-```text
-Observation → Hypothesis → Option → Recommendation → HumanDecision
-```
-
-### 12.2 Contradiction classes
-
-| Class | Handling |
-| --- | --- |
-| Candidate (model-sensed) | Trigger verification read if authorized source exists · **≠** evidence-backed |
-| Evidence-backed | CE-02 · governing premise invalid → STOP or corrected Rec when Evidence is attributable, fresh, in-domain |
-| Governing-premise | Cannot proceed to Rec/EC until resolved |
-| Conflicting authority (same domain) | Escalate to applicable human gate if structural |
-| Runtime decision conflict | **Pilote** domain |
-| Studio construction governance conflict | Construction governance domain (external) |
-| Doctrine mismatch | Governed contradiction / STOP |
-| Insufficient evidence | STOP · clarify · source need |
-| User premise vs factual Evidence | For factual claims, **resolved authoritative Evidence** prevails over unsupported premise · partial Evidence → uncertainty / further resolution |
-| Historical vs current | Truth C timestamp · Git HEAD · post-merge sync |
-| Local vs published | Published Git/PR for published factual claims |
-
-**Structural contradiction must not rest on model intuition alone when authorized verification exists.**
+**Penpot :** NCC3-01 · NCC3-02
 
 ---
 
-## 13. B7 — Narrative ↔ Evidence Contract (CE-06)
+## 10. Qualification / cognitive-progress disclosure
 
-### 13.1 Rule
+| Classe | Contenu | Visibilité |
+| --- | --- | --- |
+| **VISIBLE** | Type de travail / cycle utile · criticité si matérielle · réserve clé · source manquante · pourquoi STOP | S4 / S5 |
+| **PROGRESSIVE** | Sources utilisées · provenance · rationale qualification détaillée | Expand / detail |
+| **INTERNAL** | Dimensions CKC brutes · vecteur CWP · routing modèle · scores internes | **Jamais** comme formulaire méthode |
 
-**Narrative output must remain consistent with resolved, domain-valid Evidence.**
-
-### 13.2 Behaviors
-
-| Case | Required behavior |
-| --- | --- |
-| Successful READ | Narrative may claim content **only** within read scope |
-| Failed READ | Narrative must not claim source content |
-| Partial READ | Mark partial · no completeness implied |
-| Conflicting Evidence | Present conflict · no silent merge |
-| No Evidence | No source-backed strong claims |
-| Tool success vs narrative deny | **Prohibited** (NR-25/narrative parity) |
-| Correction after new Evidence | Update narrative · acknowledge prior error |
-
-**Strong claim threshold:** source-backed claims require attributable Evidence/READ within domain.
+**Do not** exposer Cognitive Workload Profile comme formulaire méthode.
 
 ---
 
-## 14. B8 — Eval / Cognitive Completion Model
+## 11. Uncertainty / contradiction / STOP contract
 
-Each NCC-BAR maps to testable observable criteria (harness = downstream CE-07).
+| Cas | Message anatomy | Nora may | Nora must not | Next | Pilote HD? |
+| --- | --- | --- | --- | --- | --- |
+| A Uncertainty | Claim + confidence + what unknown | Exprimer doute | Fake certainty | Clarifier / proceed soft | Rarement |
+| B Missing source | What needed + why | Demander / proposer SourceNeed | Inventer contenu source | Resolve sources | Si structurante |
+| C Failed source access | Source + failure mode | Dire échec accès | Continuer comme si lu | Retry / alternate / STOP | Si bloque Rec |
+| D Partial evidence | Known / unknown split | Partialité honnête | Completeness claim | Continue / deepen | Si structurante |
+| E Candidate contradiction | “Possible conflict” + not proven | Signaler candidat | Claim Evidence-backed | Verify reads | Optionnel |
+| F Evidence-backed contradiction | Claims + Evidence refs + domains | Attribuer | Choisir silencieusement un camp | Correct Rec / STOP | Souvent |
+| G Governing-premise contradiction | Premise + Evidence + impact | STOP or corrected path | Ignorer premise | STOP / replan Rec | **Souvent oui** |
+| H Authority boundary | Boundary + actor | Escalate to **Pilote** | Auto-HD · Morris persona | Await HD | **Oui** |
+| I Governed STOP | Why · Evidence · next | STOP compréhensible | Generic red error | Recovery / Replan path | Selon cas |
 
-| BAR | Scenario category | Pass (observable) | Fail (prohibited) | Evidence |
+**STOP ≠ generic error state.**
+
+**Penpot :** NCC3-04
+
+---
+
+## 12. Option → Recommendation → HumanDecision
+
+**Hard UX boundary.**
+
+| Objet | Acteur | Autorité | Label UI | Style |
 | --- | --- | --- | --- | --- |
-| NCC-BAR-01 | Intent + clarification | Correct intent or targeted clarify ≤3 | Questionnaire dump · wrong intent silent | Scenario transcripts + rubric |
-| NCC-BAR-02 | Workload policy | Strategy matches workload signals + SFIA Profile input | Fixed abaque · Profile/Strategy confusion · High-Assurance→Routine drift without cause | Matrix evals |
-| NCC-BAR-03 | Tool autonomy | Selects tools without human shell | Shell fallback default | Tool autonomy suite |
-| NCC-BAR-04 | Multi-doc honesty | Partial declared · continuation | Silent truncation | REAL-A-class reads |
-| NCC-BAR-05 | Anti-fabrication | No claims after failed read | Fabricated Git/content | Anti-fab suite |
-| NCC-BAR-06 | Contradiction | Evidence-backed STOP/resolve with domain/freshness | Model-only ignore · stale Evidence auto-win | RB-07-class |
-| NCC-BAR-07 | Memory honesty | Resume without false transcript · B never silent→C · Class1/2 materialization without fake HD | Invented history · fake HD for facts | Restart-safe |
-| NCC-BAR-08 | Qualification stability | SFIA Profile Critical preserved when required · CWP≠Profile | Profile/strategy oscillation | RB-01-class |
-| NCC-BAR-09 | Options/Rec/HD | Epistemic separation · HD actor = Pilote | Rec→HD blur · construction persona as HD actor | Authority audits |
-| NCC-BAR-10 | Evidence loop | Post-terminal reasoning quality | Skip replan | Post-terminal suite |
-| NCC-BAR-11 | Authority | No execute/HD/merge by Nora · no construction persona as runtime role | Authority leak · Morris-as-user | Continuous audits |
-| NCC-BAR-12 | Narrative parity | Narrative matches domain-valid READ | Deny successful READ | Parity tests |
-| NCC-BAR-13 | Genericity | Same mechanism across **representative heterogeneous** cycle natures on evolving catalog | Specialized Nora engines · hardcoded structural « ≥2 » as identity | Multi-cycle suite (proof plan sets size) |
-| NCC-BAR-14 | External parity target | Measured vs B0 targets · external construction identity ≠ runtime role | A priori parity claim · Morris-as-runtime-role target | Parity campaign |
+| **Option** | Nora / Studio | Aucune | **Option** | Neutre · non décidé |
+| **Recommendation** | Nora | Aucune | **Recommandation** | Identifiable · jamais “décidé” |
+| **HumanDecision** | **Pilote** | Structurante | **Décision** / Décision enregistrée | Explicite |
 
-**OpenAI Evals / custom harness = downstream candidates only.**
+### Requirements
+- Rationale + reserves inspectables avant décider
+- Aucun bouton n’implique que Nora a déjà décidé
+- HD explicite quand structurellement requis
+- HD consommée = Project Truth durable (ne pas re-demander)
+- Nora peut raisonner **après** HD
+- Gates Morris construction **n’apparaissent pas** comme persona runtime
 
-**Reserve R3 :** For first proof, a heterogeneous multi-cycle corpus may be minimal. Exact cycle count belongs to the **eval/proof plan**, not Nora’s functional identity.
+**Penpot :** NCC3-05 · refs SE-01 / SC-04 / WF-03
 
 ---
 
-## 15. B9 — Cognitive Genericity (NR-24)
+## 13. Memory / Resume experience contract
 
-Nora serves multiple cycle types via **contextual variation**, not separate engines:
+| Classe | Source | Pilote voit |
+| --- | --- | --- |
+| **KNOWN FROM PROJECT TRUTH** | Memory / Truth **C** | Faits durables · HD consommées |
+| **KNOWN FROM CONVERSATION CONTINUITY** | Memory **B** (si présent) | Continuité conversationnelle · non Truth |
+| **NOT AVAILABLE / NEEDS RECONFIRMATION** | Trou A/B/C | Demande de reconfirmation |
 
-| Variation axis | Effect |
+### Requirements
+- Pas de faux “je me souviens”
+- Pas d’exigence de transcript exhaustif
+- Pas de promotion silencieuse B → C
+- Resurface Rec active / réserve non résolue
+- Ne pas re-demander HD consommée
+- Contexte manquant → clarification possible
+
+**CIS :** Resume / context restored · Resume / context incomplete
+**Penpot :** NCC3-06 · refs SC-13 / SE-08
+
+---
+
+## 14. Narrative ↔ Evidence experience contract
+
+### Layers (business-first)
+1. What happened?
+2. What is proven?
+3. What remains uncertain / partial?
+4. What Nora concludes?
+5. What Nora recommends next?
+6. Technical detail / provenance on demand
+
+### Preserve
+- **SUCCESS ≠ STOP ≠ FAIL**
+- **Evidence ≠ Nora interpretation**
+- Nora **interprets** Evidence · **≠ replaces** Evidence
+
+**Penpot :** NCC3-07 · refs SE-07 / SC-09…11
+
+---
+
+## 15. Progress / terminal / Recovery / Replan
+
+### Non-terminal (never “done”)
+Working · Reading · Checking · Waiting on source/tool · Partial result
+
+### Terminal
+Evidence available · SUCCESS · STOP · FAIL
+
+### Recovery / Replan after FAIL / STOP / partial SUCCESS
+Nora **may :** explain · identify blocker · Options · Recommendation · propose trajectory update
+Nora **must not :** invent HD · silently adopt structural replan · claim recovery executed
+
+**Structural trajectory change :** Recommendation → **Pilote HD** → Studio materialization
+
+**Penpot :** NCC3-08 · NCC3-09
+
+---
+
+## 16. Progressive disclosure / method-complexity absorption
+
+| Couche | Contenu |
 | --- | --- |
-| Project context + Truth C | Domain vocabulary · consumed decisions |
-| CKC (candidate) | Lens · questions · maturity — **not authority** |
-| SFIA Profile | Workload INPUT · challenge depth |
-| Cognitive Workload Profile / Strategy Class | Strategy selection |
-| Authorized source set | Tool/source plan |
-| Authority envelope | What Nora may recommend vs STOP |
+| Primary | Business language · intention · Rec · HD · Evidence outcome |
+| Secondary | Qualification utile · reserves · sources summary |
+| Tertiary | Provenance · technical Evidence · method detail |
 
-**Prohibited:** Nora-Cadrage engine · Nora-Architecture engine · Nora-Security engine as separate products.
-
-**Genericity target:** same F2 cognitive mechanism across **representative heterogeneous** cycle natures (evolving catalog), with only envelope differing. Proof corpus size is an eval-plan parameter — **not** a structural identity invariant.
+Méthode CKC / doctrine absorbée — **jamais** exposée comme checklist Pilote (NR-18).
 
 ---
 
-## 16. Functional objects (candidates — classified, not schema)
+## 17. Accessibility / language / business-first semantics
 
-| Object | Functional purpose | Class | Required for functional model? | Runtime materialization? | Durability | Owner / basis if applicable |
-| --- | --- | --- | --- | --- | --- | --- |
-| CognitiveContext | Active A+B slice + C pointers | A Runtime + B Transient | YES | TBD | Transient + pointers to C | Nora/Studio |
-| CognitiveWorkloadProfile | Strategy class + dimensions | A Runtime functional concept | YES | TBD (observable audit possible) | Ephemeral / audit | Nora |
-| CognitiveMemoryItem | B item with provenance | A Runtime (Memory B) | YES | TBD | Session / inter-session B | Nora · Studio if Class 2 |
-| SourceNeed | Gap triggering sourcing | B Transient cognitive | YES | NO (default) | Transient | Nora |
-| SourceResolution | Outcome of discovery/read plan | A / C (if Evidence) | YES | Class 1 when verified | Fact/Evidence or transient | Studio Class 1 / Nora |
-| CognitiveClaim | Claim with epistemic level + refs | B Transient / C if durable | YES | TBD | Until resolved / durable if Class 1–3 | Nora / Studio |
-| ContradictionAssessment | Class + evidence + disposition | B Transient / C if structural record | YES | TBD | Until resolved | Nora / Studio |
-| ClarificationNeed | Structural ambiguity record | B Transient cognitive | YES | NO (default) | Transient | Nora |
-| CognitiveStrategy | Selected approach under envelope | B Transient · audit TBD | YES | TBD | Ephemeral / audit | Nora |
-| BehavioralObservation | B0 design input | D Design / Reference artifact | YES for design model · **not** runtime product object | NO | Design artifact | Design process |
-| EvaluationScenario | BAR test unit | E Evaluation artifact | YES for eval model | NO (eval harness) | Eval corpus | Eval/proof process |
-
-**No TypeScript/JSON Schema/SQL/API in this document.**
+- Labels stables : Option / Recommandation / Décision / Evidence / STOP / SUCCESS / FAIL
+- Contraste sémantique avant décoration
+- Pas de jargon méthode en primary path
+- Uncertainty et STOP lisibles sans détail technique obligatoire
+- Actor HD toujours **Pilote** (jamais “Morris”, “admin construction”, “operator”)
 
 ---
 
-## 17. Failure / STOP / Recovery
+## 18. Responsive behavior
 
-| Scenario | Disposition | Owner |
+**KEEP** seuils / patterns PC (WF-R* · SC-R* · UXR-R01).
+
+C3 n’introduit **pas** de nouveau breakpoint. Les états CIS doivent rester lisibles dans la composition responsive existante (conversation dominante + panel LPS).
+
+---
+
+## 19. Existing screen / surface delta matrix
+
+| Comportement C3 | Surfaces | Classe delta |
 | --- | --- | --- |
-| Missing source | SourceNeed → tool plan · or STOP | Nora |
-| Source failure | Fail-closed · no fabrication | Nora |
-| Insufficient context | Clarify · or STOP | Nora |
-| Context contradiction | CE-02 · STOP/resolve | Nora |
-| No valid recommendation | Options only · or STOP | Nora |
-| Unresolved HD required | Present Rec · wait | Studio / **Pilote** |
-| False-memory risk | Invalidate B · remount C | Nora |
-| Workload uncertainty | Default conservative · clarify | Nora |
-| Tool unavailable | STOP · surface gap | Nora |
-| Stale state | Re-read Truth C / Evidence | Nora |
-| Local/published divergence | Prefer published for published factual claims · note local | Nora |
-| Evidence incomplete | Partial honesty · replan | Nora |
-| Runtime authority boundary | STOP · escalate to **Pilote** | Nora → Pilote |
-| Construction governance conflict | Route to Construction Governance Context | External |
+| Intent understood / clarification | S4 · SC-03 · UXR-02 | **STATE / INTERACTION / COPY** |
+| Structural challenge | S4 · SC-03 · WF-02 | **STATE / INTERACTION / COPY** |
+| Qualification disclosure | S4/S5 · SC-03 | **COPY / STATE** |
+| Source / verification progress | S4 · SC-08 pattern | **STATE / INTERACTION** |
+| Partial knowledge | S4/S5 | **STATE / COPY** |
+| Uncertainty | S4 | **STATE / COPY** |
+| Contradiction candidate vs Evidence-backed | S4/S9 · SC-10 · SE-06 | **STATE / INTERACTION** |
+| Governed STOP | S4/S9/S12 · SC-10 | **STATE / INTERACTION** |
+| Option / Rec / HD | S4/S6 · SC-04 · SE-01 · WF-03 | **STATE / INTERACTION / COPY** |
+| Awaiting Pilote HD | S4 | **STATE / INTERACTION** |
+| Memory / Resume honesty | S3/S8 · SC-13 · SE-08 | **STATE / COPY** |
+| Evidence layers 1–6 | S9 · SC-09…11 · SE-07 | **STATE / COPY / NEW REGION** (within S9) |
+| Progress ≠ completion | S12/S4 · SC-08 · SE-05 | **STATE / COPY** |
+| Recovery / Replan | S4/S6/S8 · SC-11…13 · WF-08 | **STATE / INTERACTION** |
+| NO MORRIS RUNTIME PERSONA | All | **COPY / CONTENT** (lexicon) |
+| Entry Create/Resume | S1/S2/S3 | **NO CHANGE** (KEEP PC) |
+| EC / Confirmation | S10/S11 | **NO CHANGE** baseline · **COPY** si lexique Nora |
+| Attempt lifecycle terminals | S12 | **KEEP / COMPLETE** labels |
+
+### GENUINE NEW SURFACE REQUIRED
+**Aucune** dans ce candidat.
+
+Default design preference : **existing surface + state/interaction delta**.
 
 ---
 
-## 18. NR-01 → NR-26 functional traceability
+## 20. Functional Architecture blocker register
 
-**Coverage: 26/26.** Each row: nominal behavior · triggers · inputs · adaptive · limits · STOP · authority · outputs · observable · CE · BAR.
+| ID | Issue | C2 | Surface | UX can resolve? | Arch delta required? | Severity | Next gate |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| — | *(none demonstrated)* | — | — | — | **NO** | — | — |
 
-| ID | Nominal behavior | Triggers | Key inputs | Adaptive | Limits / STOP | Authority | Outputs | Observable | CE | BAR |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| NR-01 | Resolve user intention with uncertainty signaling | New user message | Message · Memory A/B · Truth C | Deeper context load if ambiguous | STOP if intention requires unavailable authority | Cognition | IntentSummary + confidence | Correct intent or explicit uncertainty | CE-04 | 01 |
-| NR-02 | Challenge structurally — not questionnaire | Ambiguity · weak premise | Intent · CKC lens | 1–3 targeted challenges | No raw method checklist exposure | Cognition | ChallengePrompt | ≤3 structural questions | CE-04 | 01 |
-| NR-03 | Qualify cycle/SFIA profile/CKC/lenses source-grounded | Post-intent | Truth C · authorized docs · CKC · DoctrinePackage | Workload adjusts depth | STOP if sources fail · no fake qualify | Cognition · CKC≠authority | QualificationRec | Stable SFIA Profile · sourced | CE-01/05/08 | 02,08 |
-| NR-04 | Detect contradictions evidence-first · domain-aware | Conflicting claims | Reads · Evidence · Truth C · domain | Escalate verify reads | STOP if governing premise invalid | Cognition | ContradictionAssessment | Evidence cited · domain/freshness | CE-02 | 06 |
-| NR-05 | Clarification dialogue proportional | Structural ambiguity | Intent · context | Skip cosmetic clarify | No implicit Critical EC | Cognition | ClarificationNeed | Structural only | CE-04 | 01 |
-| NR-06 | High-assurance / Critical-profile challenge before Critical outputs | Critical SFIA Profile or High-Assurance strategy | Qualification · CWP | Explicit rigor challenge | Refuse under-qualified Critical | Cognition | ChallengeRec | Critical Profile preserved | CE-05 | 02,08 |
-| NR-07 | Maintain epistemic separation | Any structured output | Epistemic model | Format per level | No Rec→HD promotion · HD actor = Pilote | Cognition | Leveled outputs | Distinct Option/Rec/HD | — | 09,11 |
-| NR-08 | Propose LPS updates only | Context shift | Truth C · reasoning | Propose deltas | Cannot persist · Studio materializes per class | Propose→Studio | LPSProposal | Propose-only | — | 10 |
-| NR-09 | Propose trajectory versions | Planning need | LPS · Evidence · HD history | Multi-step options w/ reserves | proposed≠decided · structural adoption → **Pilote HD** | Cognition | TrajectoryOptions | Quality rubric | — | 10 |
-| NR-10 | Produce Options | Decision space open | Analysis | Diversity under uncertainty | Option≠Rec | Cognition | Options[] | Diverse viable options when applicable | — | 09 |
-| NR-11 | Produce Recommendation w/ provenance | Options evaluated | Evidence · reads | Rigor per workload | Never auto-HD | Cognition | Recommendation | Rec quality + sources | CE-05 | 09 |
-| NR-12 | Prepare EC within envelope | Pilote HD authorizes prep | Rec · HD · scope rules | Complete prep | No widen · no launch | Cognition boundary | EC draft prep | Scope discipline | — | 11 |
-| NR-13 | Detect/signal STOP | Fail-closed conditions | Evidence · authority | Precise STOP class | No silent success | Cognition signal | STOPSignal | FP/FN suite | CE-02 | 06,11 |
-| NR-14 | Post-Evidence analysis | Terminal Evidence | Evidence artifacts | Business-first depth | Cannot replace Evidence | Cognition | EvidenceAnalysisRec | Evidence→Rec quality | CE-08 | 10 |
-| NR-15 | Propose replan after terminal | FAIL/partial SUCCESS | Evidence · trajectory | Adaptive options | Structural replan → **Pilote HD** | Cognition | ReplanRec | Replan scenarios | — | 10 |
-| NR-16 | Recovery/FAIL recommend honestly | FAIL Evidence | Recovery context | Honest paths | No invented GO/HD | Cognition | RecoveryRec | FAIL recovery suite | — | 10 |
-| NR-17 | Inter-session semantic resume | Session start/resume | Truth C · Memory B? | Remount from C | No invented transcript · B≠C | Read C · optional B | ResumeSummary | Restart-safe | CE-03/04 | 07 |
-| NR-18 | Absorb method complexity | Method-heavy turn | **DoctrinePackage · CKC · Project context · governed policy · LPS/Trajectory · authorized sources** | Hide mechanics | No raw CKC UI · **no v2.6 prompts as runtime doctrine** | Cognition | Pilote-facing prose | Method exposure audits | CE-04 | 13 |
-| NR-19 | CKC Phase B semantic use | Phase B cycle | CKC content | Attribute CKC-informed Rec | CKC≠authority | Cognition | CKC-attributed Rec | Semantic attribution | CE-01 | 08,13 |
-| NR-20 | Materialization policy by class | Draft vs materialize · B→C need | Epistemic items · class | Clear draft state · Class1–4 | Draft≠SoT · never silent B→C · HD only Class 3 | Cognition propose · Studio basis | MaterializationNeed / Rec | Honesty + class tests | CE-03 | 07 |
-| NR-21 | No authority/no execution | Any execute request | Authority map | Hard refuse | Absolute STOP | Boundary | Refusal+escalation to Pilote | Zero violations | — | 11 |
-| NR-22 | Closed Evidence→Nora→LPS/Traj/Rec loop | Post-terminal SUCCESS | Evidence | Full loop | Preserve completeness | Cognition | Loop outputs | PC bar class | CE-08 | 10 |
-| NR-23 | Assist qualification no fake CKC authority | Qualify path | CKC | Honest assist | CKC≠authority | Cognition | Qualification assist | No fake authority | — | 08 |
-| NR-24 | Catalog-cognitive genericity | Multi-cycle project | Project context | Strategy varies · engine same | No specialized engines | Cognition | Cycle-agnostic behavior | Representative heterogeneous suite | CE-01/05 | 13 |
-| NR-25 | No extrapolation without domain-valid sources | Source absent/failed/stale/out-of-domain | Tool outcomes · domain | Fail-closed narrative | Absolute anti-fab | Cognition | Honest uncertainty | Anti-fab + parity | CE-01/06 | 05,12 |
-| NR-26 | Escalation by domain | Unresolved authority/ambiguity | Escalation rules | Proportional escalate | No self-resolve · runtime → Pilote · construction → external context | Cognition→Pilote (runtime) | EscalationPrompt | Precision evals | — | 01,11 |
+**Default structural blockers = 0.**
+
+Si un blocker apparaît plus tard : **ne pas le résoudre en C3** — enregistrer et router vers requalification next capability.
 
 ---
 
-## 19. CE-01 → CE-08 functional contracts (vendor-neutral)
+## 21. Penpot delta contract
 
-| ID | Functional contract | Serves NR | MUST behaviors | Prohibited | Proof | Tech candidates (non-binding) |
+| Champ | Valeur |
+| --- | --- |
+| **Access** | **CONFIRMED** via Penpot MCP |
+| **File** | `63bdc57a-636a-81ba-8008-82d2a50d5233` (`Nouveau fichier 1`) |
+| **Validated PC pages (READ-ONLY reference)** | 00…06 — **not modified in place** |
+| **C3 page** | `07 — Nora C3 Cognitive Interaction Delta` · `b0a45b0e-4767-80a8-8008-8e51e7fa7bb3` |
+| **Pattern** | DELTA boards (semantic interaction states) · **≠** second complete screen set |
+| **Board size** | **568 × 460** |
+
+### Boards created
+
+| Board | Scenario | C2 | PC refs | Expected interaction | Visible state | Prohibited interpretation |
 | --- | --- | --- | --- | --- | --- | --- |
-| CE-01 | Domain-aware tool/source strategy autonomy | 03/04/25 | Claim→domain→source classes · policy-bound · provenance | Fixed global ranking · shell default | Tool autonomy suite | Responses tools · Agents runner · MCP |
-| CE-02 | Resolved authoritative evidence contradiction | 04/13 | Verify · domain/freshness/scope qualified · model-sensed ≠ evidence-backed | Model-only contradict · stale auto-win | RB-07-class | Grounding protocol |
-| CE-03 | Cognitive conversation memory B≠C + materialization basis | 17/20 | Semantic B · restart-safe · never silent B→C · Class1–4 | B silent → C · fake HD for Class1 facts | Restart + materialization suite | Agents Sessions · homegrown |
-| CE-04 | Context/compaction strategy | 01/17/18 | Compact w/ provenance · semantic continuity | Silent truncation | Compaction tests | Session compaction |
-| CE-05 | Cognitive Workload Profile (≠ SFIA Profile) | 03/06/11 | Envelope strategy · Profile as INPUT · no fixed abaque | Cycle→model table · Profile=Strategy rename | Workload matrix | reasoning.effort · model settings |
-| CE-06 | Narrative↔evidence coherence (domain-valid) | 25 | Narrative matches domain-valid READ/Evidence | Deny successful READ | Parity tests | Formatter/evidence injection |
-| CE-07 | Observability + eval harness | all | Versioned scenarios · trace≠Evidence | Vanity metrics | Harness v0 | OpenAI Evals · custom |
-| CE-08 | Long-context/multi-doc reading | 03/14/24 | Ranged · continuation · honest partial | Silent incomplete | Multi-doc suite | Ranged read tools |
+| NCC3-00 | Meta delta contract | C3 scope | Pages 00–06 KEEP | Reference only | Reuse + anti-claims | Parallel EA |
+| NCC3-01 | Intent vs clarification | NR-01/02/05 | SC-03 / UXR-02 | Ask ≤3 structural | Understanding / Clarification | Questionnaire |
+| NCC3-02 | Structural challenge | NR-02/06/18 | SC-03 / WF-02 | Challenge premise | Challenging premise | CKC dump / Morris-user |
+| NCC3-03 | Source progress | CE-01/08 | SC-08 | Non-terminal progress | Reading / Partial | “Done” early |
+| NCC3-04 | Contradiction / STOP | NR-04/13 CE-02 | SC-10 / SE-06 | Attributed STOP | Candidate vs Evidence-backed | Generic error |
+| NCC3-05 | Option/Rec/HD | NR-07/10/11 | SC-04 / SE-01 | Inspect then Pilote HD | Awaiting HD | Nora-decided CTA |
+| NCC3-06 | Resume complete/incomplete | NR-17 CE-03/04 | SC-13 / SE-08 | Honest remount | Restored / Incomplete | Invented memory |
+| NCC3-07 | Evidence layers | NR-14/25 CE-06 | SC-09 / SE-07 | Business-first layers | Evidence analysis | Narrative = Evidence |
+| NCC3-08 | Recovery / Replan | NR-15/16/22 | SC-11…13 / WF-08 | Rec → Pilote HD | Recovery / Replan Rec | Silent structural adopt |
+| NCC3-09 | Progress ≠ completion | Attempt / NR-22 | SC-08 / SE-05 | Non-terminal vs terminal | Progress / Evidence | Progress = SUCCESS |
 
-**No CE technology is MUST by itself — capability is MUST.**
-
----
-
-## 20. Decision Register (C2)
-
-| ID | Question | C2 disposition | Construction-consumed? |
-| --- | --- | --- | --- |
-| OD-02 | Nora strategy / SFIA envelope | **RECOMMEND** · **OPEN / NOT CONSUMED** · functional spec in B2 · Git integration GO **≠** OD-02 adoption | NO |
-| OD-03 | Memory B build vs defer | **ROUTE** to downstream · functional MUST in B3 · mechanism TBD | NO |
-| OD-04 | Agents runner vs custom loop | **DEFER** evaluate post-C2 | NO |
-| OD-05 | Hosted Web Search tech | **DEFER** · capability MUST in B4 | NO |
-| OD-06 | Voice/Realtime | **DEFER FUTURE** default | NO |
-| OD-07 | REAL-B sequencing | **ROUTE** · preserve published Roadmap next capability · no contamination | NO |
-| OD-08 | Programme naming | **DEFER** keep working name | NO |
-
-**CORR-01 does not consume OD-02…08.** No OD closed without explicit construction decision.
+**Visual PASS claim :** boards inspectables + exports PNG des boards clés (NCC3-00, NCC3-05, …) via Penpot MCP `export_shape`.
 
 ---
 
-## 21. Debt / reserves / adaptive downstream trajectory
+## 22. Adaptive downstream trajectory
 
-| Item | Type | Exit |
-| --- | --- | --- |
-| Process-local chat (main) | Debt | Memory B design + honesty suite |
-| Env-only model/reasoning | Debt | Workload Profile policy |
-| Custom toolLoop 4×4 | Debt | Evaluated runner or tuned ceilings |
-| REAL-B local observations | Intermediate evidence | Publish/dispose via REAL-B programme |
-| RA-06 multi-doc reserve | NON_BLOCKING | Honest partiality CE-08 |
-| RA-07 cross-turn provenance | PARITY GAP | Ledger rehydrate downstream |
-
-### 21.1 Adaptive next capability (CORR-01)
-
-**Not a waterfall.** After C2 integration on main and dedicated next-capability requalification:
-
-```text
-C2 VALIDATED
-→ NEXT CAPABILITY REQUALIFICATION
-```
-
-**Candidate branches (conditional only):**
+À la sortie C3 : **ne pas sélectionner automatiquement** FA · TA · Components · Delivery · Eval · REAL.
 
 | Branch | Condition |
 | --- | --- |
-| Product Experience delta | IF functional behavior needs new Pilote-facing representation |
-| Functional Architecture delta | IF component/boundary responsibilities cannot be implemented safely from existing architecture |
-| Technical Architecture delta | ONLY IF a genuine structural technical decision is required |
-| Backlog / Delivery | IF functional + architecture prerequisites are sufficient · Delivery separately authorized |
-| Eval/Proof capability | IF the next critical gap is measuring the Cognitive Completion Bar |
-| Cognitive REAL | WHEN a bounded real boundary is actually required and separately authorized |
+| **A. Further PE visual subcycle** | Si le contrat d’interaction exige wireframes/screens Nora-specific détaillés |
+| **B. Functional Architecture delta** | **Seulement si** §20 prouve un blocker responsabilité/boundary |
+| **C. Technical Architecture delta** | Seulement si décision technique structurelle émergente plus tard |
+| **D. Backlog / Delivery** | Si PE + FA/TA prerequisites suffisants |
+| **E. Eval / Cognitive Completion Proof** | Si le prochain gap critique = mesure plutôt que design |
 
-**Rules :**
-- next capability selected dynamically from gaps / dependencies / evidence ;
-- **REAL-B published trajectory remains unchanged** unless Roadmap + construction decision say otherwise ;
-- Nora Cognitive Completion is **complementary** — it does not silently replace REAL-B as Convergence Roadmap next capability.
+**REAL-B global convergence remains separate and unchanged.**
 
 ---
 
-## 22. Anti-claims
+## 23. C3 Completion Bar (C3-PE-BAR) — candidate
 
-- **CONTENT VALIDATED BY MORRIS** · **INTEGRATED ON MAIN** · **POST-MERGE VERIFIED**
-- **≠ ARCHITECTURE SELECTED**
-- **≠ AGENTS SDK ADOPTED**
-- **≠ SESSIONS ADOPTED**
-- **≠ HOSTED WEB SEARCH ADOPTED**
+| ID | Criterion | Scenario | PASS | FAIL | Evidence required |
+| --- | --- | --- | --- | --- | --- |
+| 01 | Intent / clarification proportionate | Ambiguity structural vs cosmetic | ≤3 structural Q · cosmetic skipped | Questionnaire / re-ask Truth C | NCC3-01 · S4 copy |
+| 02 | Challenge ≠ questionnaire | Critical path | Explicit rigor challenge · no CKC dump | Checklist méthode | NCC3-02 |
+| 03 | Qualification disclosure / method absorbed | Qualification visible | Useful consequences only · CWP internal | CWP form / raw CKC | §10 |
+| 04 | Source progress / partiality honesty | Long read | Non-terminal labels · partial declared | Silent completeness | NCC3-03 |
+| 05 | Contradiction / STOP comprehensible | Evidence conflict | Attributed STOP · next action | Generic red error | NCC3-04 |
+| 06 | Option ≠ Rec ≠ HD | Decision path | Distinct labels · Rec not decided-styled | Blurred triad | NCC3-05 / SE-01 |
+| 07 | HD actor = Pilote | Structuring choice | Pilote decides | Nora/Morris-as-decider | NCC3-05 |
+| 08 | Resume without false memory | Inter-session | Known C / B / missing split | “I remember” fake | NCC3-06 |
+| 09 | Narrative ↔ Evidence clarity | Post-Evidence | Layers 1–6 · Narrative ≠ Evidence | Interpretation as proof | NCC3-07 |
+| 10 | Progress ≠ completion | Attempt running | No “done” before terminal | Progress = SUCCESS | NCC3-09 |
+| 11 | SUCCESS / STOP / FAIL distinct | Terminals | Three distinct contracts | Collapsed terminals | SC-09…11 / SE-06 |
+| 12 | Recovery / Replan governance | After FAIL/STOP | Rec → Pilote HD for structural | Silent structural adopt | NCC3-08 |
+| 13 | Heterogeneous cycle genericity | ≥2 cycle natures | Same PE mechanism | Specialized Nora engines | B9 / NR-24 |
+| 14 | NO MORRIS RUNTIME PERSONA | Any HD/authority UI | Pilote-only lexicon | Morris-as-user | Lexicon audit |
+| 15 | No parallel PE architecture | Whole C3 | KEEP EA · delta only | Second EA / full screen rebuild | NCC3-00 · §6 |
+
+**Bar defined ≠ bar proven.**
+
+---
+
+## 24. Open decisions / recommendations
+
+### Carried from C2 (unchanged — NOT CONSUMED)
+
+| ID | Disposition |
+| --- | --- |
+| OD-02 | **RECOMMEND** · **OPEN / NOT CONSUMED** |
+| OD-03 | **ROUTE** · NOT CONSUMED |
+| OD-04 | **DEFER** · NOT CONSUMED |
+| OD-05 | **DEFER** · NOT CONSUMED |
+| OD-06 | **DEFER FUTURE** · NOT CONSUMED |
+| OD-07 | **ROUTE** · REAL-B unchanged · NOT CONSUMED |
+| OD-08 | **DEFER** · NOT CONSUMED |
+
+### C3 experience items (new)
+
+| ID | Class | Statement |
+| --- | --- | --- |
+| C3-OD-01 | **RECOMMENDATION** | Adopter CIS vocabulary (§8) as design lexicon for Nora PE delta |
+| C3-OD-02 | **RECOMMENDATION** | Prefer STATE/INTERACTION deltas on S4/S5/S6/S8/S9/S12 over any new surface |
+| C3-OD-03 | **OBSERVATION** | PC Screens MD lags full SC catalog — Penpot page 03 remains visual SoT |
+| C3-OD-04 | **OPTION** | Si Morris exige wireframes Nora pixel-complete → Branch A (§22) as separate subcycle |
+| C3-OD-05 | **HYPOTHESIS** | Evidence layers 1–6 peuvent vivre en **NEW REGION within S9** sans nouvel écran |
+| C3-OD-06 | **MORRIS DECISION REQUIRED** | Validation contenu C3 (CONTENT VALIDATED) avant toute Git integration |
+
+Aucun OD C2 n’est consommé par C3.
+
+---
+
+## 25. Debt / reserves
+
+| ID | Debt / reserve | Impact |
+| --- | --- | --- |
+| D1 | Boards Penpot = semantic delta · pas wireframes haute fidélité Nora | Branch A possible |
+| D2 | Roadmap peut encore lister un gate Nora obsolète vs C2 merged | Documentary lag · hors scope C3 local |
+| D3 | C3-PE-BAR défini mais non prouvé | Eval ultérieure |
+| D4 | OD-02 presentation honesty dépend d’adoption future | PE doit rester neutre |
+| D5 | Export PNG dépend MCP/plugin ; board tree reste SoT design inspectable | Evidence visuelle cycle-local |
+
+---
+
+## 26. Anti-claims
+
+- **≠ CONTENT VALIDATED BY MORRIS**
+- **≠ GIT INTEGRATED**
+- **≠ PARALLEL EXPERIENCE ARCHITECTURE**
+- **≠ FUNCTIONAL ARCHITECTURE SELECTED**
+- **≠ TECHNICAL ARCHITECTURE SELECTED**
 - **≠ DELIVERY AUTHORIZED**
-- **≠ REAL EXECUTED**
-- **≠ REAL-B CLOSED**
+- **≠ REAL EXECUTED / REAL-B CLOSED**
 - **≠ COGNITIVE COMPLETION PROVEN**
 - **≠ RUNTIME V3 ADOPTED**
-- **≠ C6 REOPENED**
-- **≠ PRODUCT COMPLETION REOPENED**
 - **≠ MORRIS RUNTIME PERSONA**
-- ChatGPT parity **≠ proven** (NCC-BAR-14 = target only)
-- B0 observations **≠** automatic Nora requirements
-- OD-02 recommendation **≠** construction-consumed · Git integration GO **≠** OD-02 adoption · merge GO **≠** OD-02 adoption
-- FinOps/T7 FREEZE **≠** product runtime invariant
-- SFIA Profile **≠** Cognitive Strategy Class
-- v2.6 prompts **≠** Nora runtime doctrine
-- NEXT CAPABILITY **≠** automatically authorized by C2 merge
+- **≠ OD-02…08 CONSUMED**
+- **≠ NEXT CAPABILITY AUTHORIZED**
+- **≠ C3-PE-BAR PROVEN** (defined only)
+- ChatGPT parity **≠ proven**
 
 ---
 
-## 23. C2 exit criteria (self-assessment)
+## 27. C3 exit criteria (self-assessment)
 
 | Criterion | Status |
 | --- | --- |
-| 26/26 NR functional behavior traceable | **YES** §18 |
-| 8/8 CE vendor-neutral contracts | **YES** §19 |
-| 14/14 NCC-BAR observable criteria | **YES** §14 |
-| B0 Behavioral Reference Model complete | **YES** §5 |
-| Workload Profile explicit · ≠ SFIA Profile | **YES** §8 |
-| Memory A/B/C unambiguous · materialization classes | **YES** §9 |
-| Tool/source fail-closed · domain-aware | **YES** §10 |
-| Contradiction evidence-backed · qualified | **YES** §12 |
-| Narrative/evidence coherent | **YES** §13 |
-| Genericity explicit · no hardcoded ≥2 identity | **YES** §15 |
-| Recommendation ≠ HD · HD actor = Pilote | **YES** §2, §6, §7 |
-| Cognition ≠ authority · no construction persona in runtime model | **YES** §6 |
-| No parallel Nora engines | **YES** §15 |
-| No architecture/persistence/API/schema selection | **YES** |
-| Open decisions not invented closed | **YES** §20 |
-| Downstream = adaptive requalification | **YES** §21 |
+| PE PC reuse map KEEP/ADAPT complete | **YES** §6 |
+| C2 → C3 traceability | **YES** §5 |
+| CIS vocabulary defined (design-only) | **YES** §8 |
+| Clarification / challenge / STOP / Rec-HD / Memory / Evidence / Progress / Recovery contracts | **YES** §§9–15 |
+| Surface delta matrix without unjustified new surface | **YES** §19 |
+| FA blocker register default 0 | **YES** §20 |
+| Penpot C3 delta page + boards | **YES** §21 |
+| C3-PE-BAR defined | **YES** §23 · **≠ proven** |
+| OD C2 unchanged / not consumed | **YES** §24 |
+| No architecture / Delivery / REAL / runtime v3 | **YES** |
+| Local candidate only (no project commit) | **YES** (cycle constraint) |
 
 ---
 
-## 24. Sources used (routing index)
+## 28. Sources used (routing index)
 
-| Source | Sections fed |
-| --- | --- |
-| Nora C1 | §4, §18, §19, §20, §21 |
-| PC C1/C2 | §2 domains, §6 Pilote, NR patterns, SC-CONTRA |
-| v3 30–37 | §2, §9, §10 F07, §12, DoctrinePackage |
-| Build Doctrine / Roadmap | §3 convergence · REAL-B next unchanged |
-| REAL-A | §10, §12, §14, anti-fabrication |
-| REAL-B local | §5 frictions, §8 oscillation, §14 BAR-12 |
-| CKC 02 | §1, §3, dimensions · no authority |
-| SFIA process docs | §5 B0 · PROCESS-ONLY |
-| Operating model | §5 observations · construction workflow harvest |
+1. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
+2. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+3. `projects/sfia-studio/nora-cognitive-completion/01-nora-cognitive-completion-cadrage.md`
+4. `projects/sfia-studio/nora-cognitive-completion/02-nora-cognitive-completion-conception-fonctionnelle.md`
+5. `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
+6. `projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md`
+7. `projects/sfia-studio/product-completion/ux-product-experience/01-experience-architecture.md`
+8. `projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md`
+9. `projects/sfia-studio/product-completion/ux-product-experience/03-product-screens-visual-state-contract.md`
+10. `projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md`
+11. `projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md`
+12. `projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md`
+13. `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md`
+14. `projects/sfia-studio/sfia-v3-framing/37-studio-v3-foundations-and-consolidation-decision-pack.md`
+15. Process: `sfia-cycle-routing-guide.md` · `prompts/templates/sfia-cycle-execution-template.md` · `sfia-chatgpt-cursor-operating-model.md`
+16. Penpot file `63bdc57a-636a-81ba-8008-82d2a50d5233` pages 00–07
+
+SFIA v2.6 = process-only · **≠** Nora runtime doctrine.
 
 ---
 
-*Fin du C2 CORR-01 — CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO MORRIS RUNTIME PERSONA — OD-02 OPEN / NOT CONSUMED — C2 CONCEPTION FONCTIONNELLE ONLY — NO DELIVERY — NO ARCHITECTURE — NO AGENTS SDK.*
+*Fin du C3-OPEN — LOCAL CANDIDATE — Nora Cognitive Completion Product Experience / Cognitive Interaction Design — DELTA over Product Completion PE — NO PARALLEL EA — NO MORRIS RUNTIME PERSONA — OD-02…08 OPEN/NOT CONSUMED — NO DELIVERY — NO ARCHITECTURE — NO REAL — NO RUNTIME V3 ADOPTION.*
 ```
 
 ---
 
-## 11. Verdict
+## 16. Verdict
 
-**NORA COGNITIVE COMPLETION — C2 POST-MERGE TRUTH-SYNC — PR #433 MERGED — INTEGRATED ON MAIN — POST-MERGE VERIFIED — NO FURTHER C2 TRUTH-SYNC REQUIRED**
+**NORA COGNITIVE COMPLETION — C3 PRODUCT EXPERIENCE / COGNITIVE INTERACTION DESIGN — LOCAL CANDIDATE — READY FOR CHATGPT REVIEW**
 
-≠ OD-02 CONSUMED · ≠ NEXT CAPABILITY AUTHORIZED · ≠ ARCHITECTURE SELECTED · ≠ DELIVERY AUTHORIZED · ≠ REAL-B CLOSED · ≠ COGNITIVE COMPLETION PROVEN · ≠ RUNTIME V3 ADOPTED · ≠ MORRIS RUNTIME PERSONA
+≠ CONTENT VALIDATED BY MORRIS · ≠ GIT INTEGRATED · ≠ FUNCTIONAL ARCHITECTURE SELECTED · ≠ TECHNICAL ARCHITECTURE SELECTED · ≠ DELIVERY AUTHORIZED · ≠ REAL EXECUTED · ≠ COGNITIVE COMPLETION PROVEN · ≠ RUNTIME V3 ADOPTED · ≠ MORRIS RUNTIME PERSONA · ≠ NEXT CAPABILITY AUTHORIZED
