@@ -285,7 +285,7 @@ Before a REAL campaign:
 8. Record provider rejection as `CONFIG` / `PROVIDER_CAPABILITY` evidence · **never** silently coerce one reasoning effort into another.
 9. Do **not** use paid trial-and-error as the default capability-discovery mechanism.
 
-If OpenAI provides a reliable machine-readable model-capability surface at Delivery time: it **MAY** be used after qualification.  
+If OpenAI provides a reliable machine-readable model-capability surface at Delivery time: it **MAY** be used after qualification.
 If none exists: use the campaign capability manifest sourced from official documentation/configuration evidence and revalidated at campaign start — **do not invent** automatic dynamic discovery.
 
 **Provider capabilities MUST BE REVALIDATED / RESOLVED FOR EACH CAMPAIGN FROM AUTHORITATIVE CURRENT PROVIDER EVIDENCE.**
@@ -480,7 +480,7 @@ Repository evidence: provider already parameterizes model + reasoning effort; Ev
 
 **Verdict: NO TA REQUIRED**
 
-Not: TA TRIGGER CANDIDATE (no demonstrated blocking primitive).  
+Not: TA TRIGGER CANDIDATE (no demonstrated blocking primitive).
 Not: TA REQUIRED.
 
 If Delivery later discovers need for durable experiment store beyond files/EventSink recordings → re-open trigger with evidence; **do not** pre-select DB/Agents SDK/Sessions/Hosted Search.
@@ -614,12 +614,12 @@ No automatic truth-sync launched. Correction optional later if operators confuse
 
 ### Candidate Delivery sequence
 
-1. D0 harness mechanics  
-2. R1 controlled provider proof  
-3. R2 SFIA Studio product-path proof  
-4. R3 repeated configuration/stability where needed  
-5. Evidence review  
-6. MW0 exit qualification  
+1. D0 harness mechanics
+2. R1 controlled provider proof
+3. R2 SFIA Studio product-path proof
+4. R3 repeated configuration/stability where needed
+5. Evidence review
+6. MW0 exit qualification
 
 **Stop conditions:** budget exceed · authority grant by Nora · secret leak · scope expansion · CI red · missing evidence class.
 
