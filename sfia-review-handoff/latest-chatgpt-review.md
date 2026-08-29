@@ -1,60 +1,69 @@
-# SFIA Review Pack FULL — Nora MW0 Readiness CORR-MW0-01/02/03
+# SFIA Review Pack FULL — Nora MW0 Readiness Document 06 Git Integration
 
 | Métadonnée | Valeur |
 | --- | --- |
 | **Pack** | **FULL** |
-| **Timestamp (Europe/Paris)** | 2026-08-29 22:06:00 CEST |
+| **Timestamp (Europe/Paris)** | 2026-08-29 22:27:00 CEST |
 | **Programme** | SFIA Studio — Nora Cognitive Completion |
 | **Capability** | MW0 — VERSIONED COGNITIVE EVAL HARNESS |
-| **Correction** | CORR-MW0-01 / CORR-MW0-02 / CORR-MW0-03 |
-| **Cycle** | 8 — READINESS ONLY — DOCUMENTARY CORRECTION |
-| **Typologie** | DOC / ANALYSIS |
+| **Objet** | GIT INTEGRATION OF VALIDATED READINESS DOCUMENT 06 |
+| **Cycle** | 13 — PR readiness / repository integration · DOCUMENTARY GIT INTEGRATION |
+| **Typologie** | DOC |
 | **Profil** | CRITICAL |
 | **Worktree** | `/Users/morris/Projects/sfia-workspace-nora-mw0-readiness` |
 | **Branch** | `docs/sfia-studio-nora-mw0-readiness` |
-| **HEAD / origin/main** | `c8608c469d725c91b02b5167f5ac41faf865ccf1` |
-| **Previous handoff** | `7a84ef57b971cce0edae4a8f276f95f619a2dd5e` |
-| **Previous pack blob** | `932ee8a3862b3921e97ade4d27a3abade96f57d4` |
-| **Morris correction GO** | « go correction » consumed for CORR-MW0-01/02/03 only |
-| **Prior ChatGPT verdict** | PASS WITH REQUIRED DOCUMENTARY CORRECTIONS — OPTION A CONFIRMED — CORR REQUIRED BEFORE MORRIS CONTENT VALIDATION |
-| **Project commit/push/PR** | **NO** |
-| **Staged** | **NONE** |
-| **Delivery** | **NOT AUTHORIZED** · **NOT YET ELIGIBLE** |
-| **REAL** | **NO** |
-| **Architecture** | **NO TA REQUIRED** |
+| **Base / origin/main** | `c8608c469d725c91b02b5167f5ac41faf865ccf1` · tree `4c2cca70c190868e4d18a31e25233302cee669ce` |
+| **Prior Review Handoff** | `9ca04d061360dc63736e5b0a5d41067483652c1e` |
+| **Prior corrected pack blob** | `86f3574dce934e5dd289e3346ad81261fbdf5271` |
+| **Morris content-validation GO** | CONSUMED — CONTENT VALIDATION — `GO MORRIS — VALIDATE NORA COGNITIVE COMPLETION MW0 READINESS CONTENT — DOCUMENT 06 — CHATGPT CORRECTION REVIEW PASS — CORR-MW0-01/02/03 CLOSED — MW0 READINESS SUBSTANTIVE PASS — CONSUME OPTION A: NO C5 BACKLOG DELTA REQUIRED / MW0-S01 D0 = HARNESS MECHANICS / COGNITIVE-API-PRODUCT CLAIMS + WAVE EXIT REQUIRE R1/R2/R3 AS APPLICABLE — VALIDATE NORA REAL-FIRST MACRO-WAVE EVIDENCE CONTRACT FOR MW0→MW6 — MOCK/FIXTURE ONLY WHEN EVIDENTIALLY APPROPRIATE — D0 ALONE CANNOT PROVE INTRINSIC COGNITIVE/API/RUNTIME BEHAVIOR — VALIDATE SDK/CODE ≠ MODEL ≠ CAMPAIGN EFFECTIVE CAPABILITY SET — PROVIDER CAPABILITIES REVALIDATED PER CAMPAIGN — VALIDATE SERVER-SIDE PER-CELL MODEL/REASONING EXPERIMENT CONFIG USING EXISTING PROVIDER INSTANCE SEAM — NO GLOBAL PROCESS.ENV MATRIX MUTATION — MINIMUM SUFFICIENT COGNITIVE CONFIGURATION BY WORKLOAD — NO TA REQUIRED — NO ARCHITECTURE SELECTION — NO TECHNOLOGY ADOPTION — NO REAL EXECUTION YET — NO MW0 DELIVERY — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — CONTENT VALIDATION ONLY — NO PROJECT GIT INTEGRATION` |
+| **Morris Git-integration GO** | CONSUMED — DOCUMENT 06 GIT INTEGRATION AUTHORIZATION — `GO MORRIS — NORA MW0 READINESS DOCUMENT 06 — GIT INTEGRATION — CONTENT VALIDATED BY MORRIS — OPTION A CONSUMED — REAL-FIRST MW0→MW6 VALIDATED — CORR-MW0-01/02/03 CLOSED — EXACT PROJECT SCOPE DOCUMENT 06 ONLY — COMMIT + PUSH + DRAFT PR + CI + REVIEW HANDOFF — BASE MAIN c8608c469d725c91b02b5167f5ac41faf865ccf1 — NO C5 CHANGE — NO ROADMAP CHANGE — NO RUNTIME CHANGE — NO ARCHITECTURE SELECTION — NO TECHNOLOGY ADOPTION — NO REAL EXECUTION — NO MW0 DELIVERY — NO MERGE — NO BRANCH DELETE` |
+| **Content status** | **CONTENT VALIDATED BY MORRIS** |
+| **OPTION A** | **CONSUMED / VALIDATED BY MORRIS** |
+| **REAL-first MW0→MW6** | **VALIDATED BY MORRIS** |
+| **CORR-MW0-01/02/03** | **CLOSED** |
+| **Substantive readiness** | **PASS** |
+| **Repository lifecycle** | **RESOLVE FROM GIT / PR EVIDENCE** |
+| **Delivery** | **NOT AUTHORIZED** |
+| **REAL** | **NOT AUTHORIZED** |
+| **Architecture** | **NO TA REQUIRED** / **NOT SELECTED** |
 | **Technology** | **NOT ADOPTED** |
-| **Current gate** | **MORRIS CONTENT VALIDATION** |
-| **Verdict form** | MW0 READINESS CONTENT — SUBSTANTIVE PASS — READY FOR MORRIS CONTENT VALIDATION — NOT YET READY FOR DELIVERY GO |
+| **PROJECT_COMMIT (head)** | `c556d2385781e08aaea7f2bc954438c3829a07de` |
+| **PROJECT_TREE** | `fdcc12b13189cd1efa60e73e58ae2f314599eb9c` |
+| **First integration commit** | `3c57f8febde2e6b624aa6434990337abeae3e335` (parent `c8608c469d725c91b02b5167f5ac41faf865ccf1`) |
+| **Whitespace fix commit** | `c556d2385781e08aaea7f2bc954438c3829a07de` (parent `3c57f8febde2e6b624aa6434990337abeae3e335`) · trailing whitespace only · no substantive redesign |
+| **Exact committed file** | `projects/sfia-studio/nora-cognitive-completion/06-nora-mw0-versioned-cognitive-eval-harness-readiness.md` |
+| **Remote branch** | `origin/docs/sfia-studio-nora-mw0-readiness` = head SHA · force **NO** |
+| **Draft PR** | **#441** · https://github.com/mcleland147/sfia-workspace/pull/441 · OPEN · DRAFT=true · MERGED=false |
+| **PR base SHA** | `c8608c469d725c91b02b5167f5ac41faf865ccf1` |
+| **PR head SHA** | `c556d2385781e08aaea7f2bc954438c3829a07de` |
+| **Commits on PR** | 2 (integration + trailing-whitespace CI fix) |
+| **Changed files** | 1 |
+| **CI** | SFIA Studio CI run **`33273357615`** · event `pull_request` · head exact · conclusion **SUCCESS** · Required Gate **PASS** |
+| **Prior CI failure** | run `33273083781` on `3c57f8fe…` · trailing whitespace · fixed in-scope |
+| **Merge** | **NO** |
+| **Branch delete** | **NO** |
+| **Active stale claims after** | **0** |
+| **ChatGPT review target** | PR content / readiness review of Draft PR #441 |
+| **Decisions still required from Morris** | PR review / merge gate · post-merge verification · later distinct MW0 Delivery GO |
 
-## CORR-MW0-01 BEFORE → AFTER
-- BEFORE: MW0 READINESS — PASS — READY FOR MORRIS DELIVERY DECISION
-- AFTER: SUBSTANTIVE PASS + CURRENT LIFECYCLE = READY FOR MORRIS CONTENT VALIDATION + DELIVERY GATE NOT YET ELIGIBLE
-- OPTION A: soft-confirm removed → CONFIRMED BY CHATGPT REVIEW · awaiting Morris consume/reject at content validation
-- MW1→MW6 lifecycle rule added to REAL-FIRST MACRO-WAVE READINESS CHECK item 19
+## Pre-commit normalization BEFORE → AFTER
+- BEFORE: READY FOR MORRIS CONTENT VALIDATION · OPTION A awaiting Morris · REAL-first candidate · next gate = content validation
+- AFTER: CONTENT VALIDATED BY MORRIS · OPTION A CONSUMED · REAL-first VALIDATED · GIT INTEGRATION AUTHORIZED / IN PROGRESS · repository = RESOLVE FROM GIT / PR EVIDENCE · NOT YET READY FOR DELIVERY GO · CORR CLOSED
 
-## CORR-MW0-02 BEFORE → AFTER
-- BEFORE: code ∩ provider-accepted · vague ChatGPT observation · “dynamic” implications
-- AFTER: SDK/CODE vs MODEL vs CAMPAIGN EFFECTIVE sets · Official OpenAI API Models documentation · retrieval 2026-08-29 · `minimal` example · campaign capability manifest · no unsupported automatic discovery claim · revalidate each campaign
+## Convergence pre-check
+- C5 unchanged · Roadmap unchanged · Build Doctrine unchanged · runtime unchanged · NO TA · NO technology adoption · FinOps/T7 FREEZE
 
-## CORR-MW0-03 BEFORE → AFTER
-- BEFORE: OPENAI_MODEL / OPENAI_REASONING_EFFORT → campaign matrix driver
-- AFTER: env = secret + runtime defaults · per-cell server-side config · OpenAIConversationProvider instance seam · no process.env matrix mutation · client-supplied NO · NO TA REQUIRED
-
-## Active stale claims after
-**0**
-
-## Decisions required from Morris
-1. CONTENT VALIDATION OF DOCUMENT 06 including explicit OPTION A consume/reject
-2. Later separate Git integration / Delivery GOs
+## Sources read
+- cycle execution template · routing guide · chatgpt-cursor operating model · rules/guardrails · v2.5 project cycles · fifteen-cycles map · Build Doctrine · Roadmap · Product Completion · Nora C1–C5 · document 06 · prior handoff · applicable v3 30–37 (framing only)
 
 ## Cursor verdict
-NORA COGNITIVE COMPLETION — MW0 VERSIONED COGNITIVE EVAL HARNESS READINESS CORRECTION COMPLETE — CORR-MW0-01/02/03 APPLIED — CYCLE 8 READINESS ONLY — DOC/ANALYSIS — CRITICAL — MW0-S01→S07 UNCHANGED — OPTION A PRESERVED AND CONFIRMED BY CHATGPT REVIEW / AWAITING MORRIS CONTENT VALIDATION — REAL-FIRST MW0→MW6 PRESERVED — D0/R1/R2/R3 PRESERVED — READINESS SUBSTANTIVE PASS SEPARATED FROM DELIVERY LIFECYCLE — CURRENT GATE = MORRIS CONTENT VALIDATION — DELIVERY GO NOT YET ELIGIBLE — SDK/CODE CAPABILITY SET SEPARATED FROM MODEL CAPABILITY SET — CURRENT OPENAI PROVIDER SNAPSHOT TRACEABLE / TEMPORAL ONLY — CAMPAIGN CAPABILITY MANIFEST + REVALIDATION CONTRACT DEFINED — NO UNSUPPORTED AUTOMATIC DYNAMIC DISCOVERY CLAIM — SERVER-SIDE PER-RUN / PER-CELL MODEL + REASONING CONFIGURATION QUALIFIED — OPENAI_API_KEY REMAINS SECRET ENV — OPENAI_MODEL / OPENAI_REASONING_EFFORT REMAIN RUNTIME DEFAULT CONFIG — NO GLOBAL PROCESS.ENV MATRIX MUTATION — EXISTING OPENAI PROVIDER INSTANCE SEAM REUSED — NO TA REQUIRED — NO ARCHITECTURE SELECTED — NO TECHNOLOGY ADOPTED — NO REAL EXECUTION — NO MW0 DELIVERY — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — ONE PROJECT DOCUMENT ONLY — NO PROJECT GIT INTEGRATION — FULL REVIEW HANDOFF PUBLISHED — READY FOR CHATGPT MW0 CORRECTION CONTENT REVIEW
+NORA COGNITIVE COMPLETION — MW0 READINESS DOCUMENT 06 GIT INTEGRATION COMPLETE — CONTENT VALIDATED BY MORRIS — OPTION A CONSUMED — REAL-FIRST MW0→MW6 VALIDATED — CORR-MW0-01/02/03 CLOSED — SUBSTANTIVE READINESS PASS — DOCUMENT LIFECYCLE NORMALIZED TO CONTENT VALIDATED / REPOSITORY INTEGRATION RESOLVE FROM GIT-PR EVIDENCE — EXACT ONE-FILE PROJECT SCOPE — PROJECT COMMIT CREATED FROM MAIN c8608c469d725c91b02b5167f5ac41faf865ccf1 — BRANCH PUSHED WITHOUT FORCE — DRAFT PR OPEN — CI SUCCESS — REQUIRED GATE PASS — FULL REVIEW HANDOFF PUBLISHED — NO C5 CHANGE — NO ROADMAP CHANGE — NO RUNTIME CHANGE — NO ARCHITECTURE SELECTED — NO TECHNOLOGY ADOPTED — NO REAL EXECUTION — NO MW0 DELIVERY — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — NO MERGE — NO BRANCH DELETE — READY FOR CHATGPT PR CONTENT / READINESS REVIEW
 
-STOP FOR CHATGPT MW0 CORRECTION CONTENT REVIEW.
+STOP FOR CHATGPT PR CONTENT / READINESS REVIEW.
 
 ---
 
-## Complete corrected document 06
+## Complete committed document 06
 
 Path: `projects/sfia-studio/nora-cognitive-completion/06-nora-mw0-versioned-cognitive-eval-harness-readiness.md`
 
@@ -69,15 +78,17 @@ Path: `projects/sfia-studio/nora-cognitive-completion/06-nora-mw0-versioned-cogn
 | **Cycle** | 8 — Delivery / implémentation · **READINESS / QUALIFICATION ONLY** · ≠ implementation |
 | **Typologie** | DOC / ANALYSIS |
 | **Profil** | CRITICAL |
-| **Statut** | **LOCAL DOCUMENTARY CANDIDATE** · **SUBSTANTIVE READINESS RESULT = PASS** · **CURRENT LIFECYCLE = READY FOR MORRIS CONTENT VALIDATION** · **DELIVERY GATE = NOT YET ELIGIBLE** · Repository publication/integration = **RESOLVE FROM GIT / PR EVIDENCE** · ≠ Delivery GO · ≠ MW0 implementation · ≠ REAL execution |
-| **Timestamp (Europe/Paris)** | 2026-08-29 22:05:00 CEST |
+| **Statut** | **CONTENT VALIDATED BY MORRIS** · **SUBSTANTIVE READINESS RESULT = PASS** · **CURRENT LIFECYCLE = CONTENT VALIDATED BY MORRIS · GIT INTEGRATION AUTHORIZED / IN PROGRESS BY CURRENT CYCLE** · **DELIVERY GATE = NOT YET ELIGIBLE** · Repository publication/integration = **RESOLVE FROM GIT / PR EVIDENCE** · ≠ integrated on main · ≠ merged · ≠ post-merge verified · ≠ Delivery GO · ≠ MW0 implementation · ≠ REAL execution |
+| **Timestamp (Europe/Paris)** | 2026-08-29 22:15:00 CEST |
 | **Generation worktree (provenance)** | `/Users/morris/Projects/sfia-workspace-nora-mw0-readiness` · provenance only |
 | **Generation branch (provenance)** | `docs/sfia-studio-nora-mw0-readiness` · provenance only |
 | **CURRENT REPOSITORY TRUTH** | **RESOLVE FROM GIT / PR EVIDENCE** |
 | **Base / origin/main (qualification anchor)** | `c8608c469d725c91b02b5167f5ac41faf865ccf1` · tree `4c2cca70c190868e4d18a31e25233302cee669ce` · PR **#440 MERGED** · Type14 head `77bf2a5f…` · post-merge CI **`33269568916` SUCCESS** · Required Gate **PASS** · ≠ permanent future HEAD |
 | **GO Morris MW0 REAL-first evidence** | **CONSUMED FOR MW0 READINESS QUALIFICATION** — `MORRIS REQUIREMENT — NORA MW0→MW6 REAL-FIRST EVIDENCE — PRIORITIZE REAL STUDIO PATH + REAL OPENAI API + REAL SOURCES/DATA WHEN EVIDENTIALLY RELEVANT — USE MOCKS/FIXTURES ONLY WHEN REAL ADDS NO MEANINGFUL EVIDENCE OR WHEN THE DETERMINISTIC LAYER IS THE CORRECT OBJECT OF TEST — AN INTRINSICALLY COGNITIVE/API/RUNTIME-DEPENDENT CAPABILITY CANNOT BE PROVEN BY MOCK/DETERMINISTIC EVIDENCE ALONE — QUALIFY MODEL + REASONING CONFIGURATION EMPIRICALLY BY WORKLOAD — MAKE THIS CONTRACT REUSABLE FOR MW0→MW6 READINESS — NOT A GLOBAL SFIA METHODOLOGY BASELINE — NO DELIVERY BY THIS GO` · ≠ Delivery · ≠ paid/live API test in this cycle · ≠ global SFIA baseline · ≠ technology adoption |
-| **GO Morris MW0 readiness correction** | **CONSUMED FOR DOCUMENTARY CORRECTION ONLY** — Morris message « go correction » · scope **CORR-MW0-01 / CORR-MW0-02 / CORR-MW0-03** only · ≠ Morris content validation · ≠ project Git integration · ≠ Delivery · ≠ REAL execution |
-| **ChatGPT prior verdict (historical review input)** | *(historique)* PASS WITH REQUIRED DOCUMENTARY CORRECTIONS — OPTION A CONFIRMED BY CHATGPT REVIEW — CORR-MW0-01/02/03 REQUIRED BEFORE MORRIS CONTENT VALIDATION — SUPERSEDED AS CURRENT STATUS BY THIS CORRECTION |
+| **GO Morris MW0 readiness correction** | **CONSUMED / CLOSED** — Morris message « go correction » · scope **CORR-MW0-01 / CORR-MW0-02 / CORR-MW0-03** · **CORR-MW0-01/02/03 = CLOSED** · ≠ Delivery · ≠ REAL execution |
+| **GO Morris MW0 content validation** | **CONSUMED — CONTENT VALIDATION** — `GO MORRIS — VALIDATE NORA COGNITIVE COMPLETION MW0 READINESS CONTENT — DOCUMENT 06 — CHATGPT CORRECTION REVIEW PASS — CORR-MW0-01/02/03 CLOSED — MW0 READINESS SUBSTANTIVE PASS — CONSUME OPTION A: NO C5 BACKLOG DELTA REQUIRED / MW0-S01 D0 = HARNESS MECHANICS / COGNITIVE-API-PRODUCT CLAIMS + WAVE EXIT REQUIRE R1/R2/R3 AS APPLICABLE — VALIDATE NORA REAL-FIRST MACRO-WAVE EVIDENCE CONTRACT FOR MW0→MW6 — MOCK/FIXTURE ONLY WHEN EVIDENTIALLY APPROPRIATE — D0 ALONE CANNOT PROVE INTRINSIC COGNITIVE/API/RUNTIME BEHAVIOR — VALIDATE SDK/CODE ≠ MODEL ≠ CAMPAIGN EFFECTIVE CAPABILITY SET — PROVIDER CAPABILITIES REVALIDATED PER CAMPAIGN — VALIDATE SERVER-SIDE PER-CELL MODEL/REASONING EXPERIMENT CONFIG USING EXISTING PROVIDER INSTANCE SEAM — NO GLOBAL PROCESS.ENV MATRIX MUTATION — MINIMUM SUFFICIENT COGNITIVE CONFIGURATION BY WORKLOAD — NO TA REQUIRED — NO ARCHITECTURE SELECTION — NO TECHNOLOGY ADOPTION — NO REAL EXECUTION YET — NO MW0 DELIVERY — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — CONTENT VALIDATION ONLY — NO PROJECT GIT INTEGRATION` · ≠ project Git integration authorization · ≠ merge · ≠ Delivery · ≠ REAL |
+| **GO Morris MW0 document 06 Git integration** | **CONSUMED — DOCUMENT 06 GIT INTEGRATION AUTHORIZATION** — `GO MORRIS — NORA MW0 READINESS DOCUMENT 06 — GIT INTEGRATION — CONTENT VALIDATED BY MORRIS — OPTION A CONSUMED — REAL-FIRST MW0→MW6 VALIDATED — CORR-MW0-01/02/03 CLOSED — EXACT PROJECT SCOPE DOCUMENT 06 ONLY — COMMIT + PUSH + DRAFT PR + CI + REVIEW HANDOFF — BASE MAIN c8608c469d725c91b02b5167f5ac41faf865ccf1 — NO C5 CHANGE — NO ROADMAP CHANGE — NO RUNTIME CHANGE — NO ARCHITECTURE SELECTION — NO TECHNOLOGY ADOPTION — NO REAL EXECUTION — NO MW0 DELIVERY — NO MERGE — NO BRANCH DELETE` · ≠ merge authorization · ≠ Delivery authorization · ≠ REAL authorization |
+| **ChatGPT prior verdict (historical review input)** | *(historique)* PASS WITH REQUIRED DOCUMENTARY CORRECTIONS — OPTION A CONFIRMED BY CHATGPT REVIEW — CORR-MW0-01/02/03 REQUIRED BEFORE MORRIS CONTENT VALIDATION — SUPERSEDED AS CURRENT STATUS BY MORRIS CONTENT VALIDATION + GIT INTEGRATION GOs |
 | **ACTIVE CONSTRUCTION PRIORITY** | **NORA COGNITIVE COMPLETION** |
 | **C5** | CONTENT VALIDATED / INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR **#439**) |
 | **TYPE14** | POST-MERGE VERIFIED (PR **#440**) |
@@ -86,7 +97,7 @@ Path: `projects/sfia-studio/nora-cognitive-completion/06-nora-mw0-versioned-cogn
 | **OD-02/03/04/05/06/08** | OPEN |
 | **Architecture** | **NOT SELECTED** |
 | **Technology** | **NOT ADOPTED** · OpenAI = current provider capabilities / candidate test parameters only |
-| **MW0 readiness** | **SUBSTANTIVE PASS AFTER CORR-MW0-01/02/03** · awaiting **Morris content validation** · ≠ Delivery eligible |
+| **MW0 readiness** | **CONTENT VALIDATED BY MORRIS** · **SUBSTANTIVE PASS** · **CORR-MW0-01/02/03 CLOSED** · repository publication/integration = **RESOLVE FROM GIT / PR EVIDENCE** · ≠ Delivery eligible · ≠ integrated on main · ≠ post-merge verified |
 | **MW0 implementation** | **NOT STARTED** |
 | **MW0 Delivery** | **NOT AUTHORIZED** |
 | **Cognitive Completion** | **NOT PROVEN** |
@@ -115,23 +126,25 @@ Morris has consumed a **REAL-first evidence requirement** scoped to Nora MW0→M
 - **no Delivery** by this GO ;
 - **no** paid/live API tests in this readiness cycle.
 
-**Readiness results (this document · after CORR-MW0-01/02/03):**
+**Readiness results (this document · after Morris content validation · CORR-MW0-01/02/03 CLOSED):**
 
 | Dimension | Result |
 | --- | --- |
 | **SUBSTANTIVE READINESS RESULT** | **PASS** |
-| **CURRENT LIFECYCLE** | **READY FOR MORRIS CONTENT VALIDATION** |
+| **CONTENT STATUS** | **CONTENT VALIDATED BY MORRIS** |
+| **CURRENT LIFECYCLE** | **CONTENT VALIDATED BY MORRIS** · **GIT INTEGRATION AUTHORIZED / IN PROGRESS BY CURRENT CYCLE** |
+| **REPOSITORY PUBLICATION / INTEGRATION** | **RESOLVE FROM GIT / PR EVIDENCE** |
 | **DELIVERY GATE** | **NOT YET ELIGIBLE** |
 
 **Lifecycle-safe verdict form:**
 
-### MW0 READINESS CONTENT — SUBSTANTIVE PASS — READY FOR MORRIS CONTENT VALIDATION — NOT YET READY FOR DELIVERY GO
+### MW0 READINESS CONTENT — VALIDATED BY MORRIS — SUBSTANTIVE PASS — GIT INTEGRATION AUTHORIZED — REPOSITORY INTEGRATION RESOLVE FROM GIT / PR EVIDENCE — NOT YET READY FOR DELIVERY GO
 
-With explicit layered reading of C5 MW0-S01 (**OPTION A** — no C5 backlog delta required · **CONFIRMED BY CHATGPT CONTENT REVIEW AS COHERENT WITH C5** · awaiting explicit Morris consumption with content validation) and architecture trigger = **NO TA REQUIRED**.
+With explicit layered reading of C5 MW0-S01 (**OPTION A — CONSUMED / VALIDATED BY MORRIS** — **NO C5 BACKLOG DELTA REQUIRED** · MW0-S01 D0 = harness mechanics · cognitive/API/product claims + wave exit require R1/R2/R3 as applicable) and architecture trigger = **NO TA REQUIRED**.
 
 **Required lifecycle (no step auto-consumes the next):**
 
-MW0 readiness candidate → ChatGPT content review → **Morris content validation** → separate Git integration gate → project Git integration → PR review → Morris merge → post-merge verification → only then **READY FOR DISTINCT MORRIS MW0 DELIVERY GO** → Delivery only if Morris explicitly authorizes it.
+MW0 readiness candidate → ChatGPT content review → **Morris content validation (CONSUMED)** → **Git integration gate (AUTHORIZED / IN PROGRESS BY CURRENT CYCLE)** → project Git integration → PR review → Morris merge → post-merge verification → only then **READY FOR DISTINCT MORRIS MW0 DELIVERY GO** → Delivery only if Morris explicitly authorizes it.
 
 ---
 
@@ -215,11 +228,14 @@ MW0 consists **exactly** of:
 
 **OPTION A governance:**
 
-- **OPTION A = CONFIRMED BY CHATGPT CONTENT REVIEW AS COHERENT WITH C5.**
-- Morris **content-validation** decision for document 06 **MUST** explicitly consume or reject OPTION A.
-- Until that Morris content-validation GO: OPTION A is a **reviewed recommendation / readiness disposition** · **≠ OPTION A VALIDATED BY MORRIS**.
+- **OPTION A — CONSUMED / VALIDATED BY MORRIS.**
+- Semantics fixed: **NO C5 BACKLOG DELTA REQUIRED**.
+- MW0-S01 D0 = **HARNESS MECHANICS PROOF**.
+- Cognitive/API/product claims and wave exit = **R1/R2/R3 as applicable**.
+- **No C5 modification.**
+- Prior ChatGPT confirmation remains historical coherence evidence; Morris consumption is the current decision SoT.
 
-If Morris later rejects this layered reading and interprets “REAL campaigns” Scope OUT as forbidding any MW0 REAL campaign, then escalate to **OPTION B** (smallest C5 proof-contract delta) — **not applied in this cycle**.
+If a later distinct Morris GO rejects this layered reading and interprets “REAL campaigns” Scope OUT as forbidding any MW0 REAL campaign, then escalate to **OPTION B** (smallest C5 proof-contract delta) — **not applied in this cycle**.
 
 ---
 
@@ -230,7 +246,7 @@ If Morris later rejects this layered reading and interprets “REAL campaigns”
 | **Name** | Nora Macro-Wave Evidence Policy — REAL-First Readiness Contract |
 | **Scope** | Nora Cognitive Completion **MW0→MW6 only** |
 | **Authority** | Morris construction/readiness requirement |
-| **Status** | Candidate formalization for Morris validation (based on explicit Morris GO) |
+| **Status** | **VALIDATED BY MORRIS** for Nora Cognitive Completion MW0→MW6 (based on explicit Morris content-validation GO) |
 | **NOT** | global SFIA baseline · v2.6 modification · Studio v3 adoption · technology selection |
 
 ### Evidence tiers
@@ -624,18 +640,18 @@ No automatic truth-sync launched. Correction optional later if operators confuse
 | MW0-S05 | BAR-11 PASS historically | Remain PASS under cognitive scenarios | Anti-scenarios | NO | KEEP | D0+R2 | Delivery GO |
 | MW0-S06 | F1/F2 exist · OPS1 freeze | Multi-cycle EVAL | Scenarios | NO | KEEP F1/F2 · FREEZE OPS1 | R2 | Delivery GO |
 | MW0-S07 | BAR-14 undefined | Metric targets · NOT_PROVEN | Define metrics | NO | COMPLETE defs | D0 | Delivery GO |
-| REAL-first policy | Morris GO consumed | Formalized here | Validation | NO | Candidate | DOC | Content validation |
+| REAL-first policy | Morris GO consumed | Formalized here | — | NO | **VALIDATED BY MORRIS** | DOC | Content validation CONSUMED |
 | D0/R1/R2/R3 | Undefined in C5 prose | Explicit tiers | — | NO | Defined §6 | DOC | — |
 | Model/reasoning matrix | Runtime defaults via env | Per-cell server-side config + provider instance | COMPLETE thin runner | NO | COMPLETE · no process.env matrix mutation | R3 later | Delivery GO |
-| Provider capability | SDK/CODE set vs MODEL set | Per-campaign revalidation + capability manifest | Documented CORR-02 | NO | KEEP seams + manifest rule | DOC | Content validation |
+| Provider capability | SDK/CODE set vs MODEL set | Per-campaign revalidation + capability manifest | Documented CORR-02 | NO | KEEP seams + manifest rule | DOC | Content validation CONSUMED |
 | Real data policy | Ad hoc | Class A–F | — | NO | Defined §8 | — | — |
 | Repeatability | None | Proposed policy | Numbers PROPOSED | NO | Proposed | — | Delivery may decide numbers |
 | Metrics | Scattered | Metric set §14 | Scorers COMPLETE | NO | COMPLETE | — | — |
 | Cost/latency | Usage partial | Guardrails | Campaign caps PROPOSED | NO | Observe · FinOps FREEZE | — | Delivery GO for caps |
 | EventSink | Exists in-memory | Eval export | ADAPT | NO | ADAPT | D0 | — |
 | Architecture | NOT SELECTED | Unchanged | — | NO | NO TA REQUIRED | — | — |
-| C5 REAL delta | S01 deterministic | Layered OPTION A | ChatGPT-confirmed · Morris consume-at-validation | NO | No C5 rewrite | DOC | Content validation (consume/reject OPTION A) |
-| Delivery scope | NOT AUTHORIZED · NOT YET ELIGIBLE | Candidate §23 after content validation + Git + post-merge | Lifecycle gates | YES until Delivery GO | Candidate | — | Content validation first · Delivery GO later |
+| C5 REAL delta | S01 deterministic | Layered OPTION A | **OPTION A CONSUMED / VALIDATED BY MORRIS** | NO | No C5 rewrite | DOC | Content validation CONSUMED |
+| Delivery scope | NOT AUTHORIZED · NOT YET ELIGIBLE | Candidate §23 after Git + merge + post-merge | Lifecycle gates | YES until Delivery GO | Candidate | — | Git/PR evidence · then Delivery GO later |
 | Exit proof | Unspecified | §23 | — | YES until GO | Candidate | D0+R1+R2+R3 | Delivery + exit QA |
 
 ---
@@ -700,7 +716,7 @@ No automatic truth-sync launched. Correction optional later if operators confuse
 | S01→S07 source-locked | YES |
 | Assets classified | YES |
 | Surfaces qualified | YES |
-| REAL-first formalized | YES |
+| REAL-first formalized | YES · **VALIDATED BY MORRIS** |
 | D0/R1/R2/R3 explicit | YES |
 | Model/reasoning experiment explicit | YES |
 | Provider revalidation rule | YES |
@@ -710,31 +726,36 @@ No automatic truth-sync launched. Correction optional later if operators confuse
 | Cost/latency guardrails | YES (FinOps FREEZE) |
 | Evidence schema target | YES (min viable) |
 | Architecture trigger checked | YES · NO TA REQUIRED |
-| C5 delta disposition | YES · OPTION A |
+| C5 delta disposition | YES · **OPTION A CONSUMED / VALIDATED BY MORRIS** |
 | Delivery boundary | YES · NOT AUTHORIZED |
 | Exit-proof | YES · candidate |
 | MW1→MW6 reuse check | YES |
 | No hidden tech selection | YES |
-| No Delivery / no REAL this cycle | YES |
+| No Delivery / no REAL this cycle | YES · content validation + Git integration only |
 | Substantive readiness PASS separated from Delivery eligibility | YES · CORR-MW0-01 |
 | Provider SDK≠model capability distinction | YES · CORR-MW0-02 |
 | Per-cell campaign config · no process.env matrix mutation | YES · CORR-MW0-03 |
+| Content validated by Morris | YES |
+| CORR-MW0-01/02/03 | CLOSED |
+| Repository publication/integration | RESOLVE FROM GIT / PR EVIDENCE |
 
 ---
 
 ## 26. Decisions required from Morris
 
-**Next decision (after corrected ChatGPT review):**
+**Consumed by this cycle (record only):**
 
-1. **MORRIS CONTENT VALIDATION OF DOCUMENT 06** — including **explicit consumption or rejection of OPTION A**.
+1. **MORRIS CONTENT VALIDATION OF DOCUMENT 06** — including **OPTION A CONSUMED / VALIDATED BY MORRIS** — **CONSUMED — CONTENT VALIDATION**.
+2. **PROJECT GIT INTEGRATION GO** for document 06 — **CONSUMED — DOCUMENT 06 GIT INTEGRATION AUTHORIZATION** · ≠ merge · ≠ Delivery · ≠ REAL.
 
-**Later separate gates (not authorized by content validation alone):**
+**Remaining forward gates (not authorized yet):**
 
-2. Distinct **project Git integration GO** for document 06 (if content validated).
-3. Distinct **MW0 Delivery GO** only after content validation + Git integration + post-merge verification.
-4. At Delivery GO: approve/revise PROPOSED trial counts and campaign budget caps.
+3. **PR review / Morris merge gate** after Draft PR + CI evidence.
+4. **Post-merge verification** after merge (only if Morris later authorizes merge).
+5. Distinct **MW0 Delivery GO** only after content validation + Git integration on main + post-merge verification.
+6. At Delivery GO: approve/revise PROPOSED trial counts and campaign budget caps.
 
-**Not next:** Delivery GO · project commit/push/PR by this correction cycle.
+**Not authorized by this Git-integration GO:** merge · Ready-for-review promotion · branch delete · Delivery GO · REAL execution.
 
 ---
 
@@ -743,17 +764,22 @@ No automatic truth-sync launched. Correction optional later if operators confuse
 | Dimension | Result |
 | --- | --- |
 | **SUBSTANTIVE READINESS RESULT** | **PASS** |
-| **CURRENT LIFECYCLE** | **READY FOR MORRIS CONTENT VALIDATION** |
+| **CONTENT STATUS** | **CONTENT VALIDATED BY MORRIS** |
+| **CURRENT LIFECYCLE** | **CONTENT VALIDATED BY MORRIS** · **GIT INTEGRATION AUTHORIZED / IN PROGRESS BY CURRENT CYCLE** |
+| **REPOSITORY PUBLICATION / INTEGRATION** | **RESOLVE FROM GIT / PR EVIDENCE** |
 | **DELIVERY GATE** | **NOT YET ELIGIBLE** |
 | **Architecture trigger** | **NO TA REQUIRED** |
-| **OPTION A** | CONFIRMED BY CHATGPT REVIEW · awaiting Morris consumption with content validation |
+| **OPTION A** | **CONSUMED / VALIDATED BY MORRIS** · **NO C5 BACKLOG DELTA REQUIRED** |
+| **REAL-first MW0→MW6** | **VALIDATED BY MORRIS** |
+| **CORR-MW0-01/02/03** | **CLOSED** |
 | **Technology** | **NOT ADOPTED** |
 | **REAL this cycle** | **NOT AUTHORIZED** |
+| **MW0 Delivery** | **NOT AUTHORIZED** |
 
-### MW0 READINESS CONTENT — SUBSTANTIVE PASS — READY FOR MORRIS CONTENT VALIDATION — NOT YET READY FOR DELIVERY GO
+### MW0 READINESS CONTENT — VALIDATED BY MORRIS — SUBSTANTIVE PASS — GIT INTEGRATION AUTHORIZED — REPOSITORY INTEGRATION RESOLVE FROM GIT / PR EVIDENCE — NOT YET READY FOR DELIVERY GO
 
 ---
 
-*Fin du document — MW0 READINESS CORR-MW0-01/02/03 APPLIED — SUBSTANTIVE PASS — READY FOR MORRIS CONTENT VALIDATION — NOT YET READY FOR DELIVERY GO — REAL-FIRST MW0→MW6 PRESERVED — NO DELIVERY — NO REAL EXECUTION — NO ARCHITECTURE SELECTED — NO TECHNOLOGY ADOPTED — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — FINOPS/T7 FREEZE — NO PROJECT GIT INTEGRATION.*
+*Fin du document — MW0 READINESS CONTENT VALIDATED BY MORRIS — OPTION A CONSUMED — REAL-FIRST MW0→MW6 VALIDATED — CORR-MW0-01/02/03 CLOSED — SUBSTANTIVE PASS — GIT INTEGRATION AUTHORIZED — REPOSITORY INTEGRATION RESOLVE FROM GIT / PR EVIDENCE — NOT YET READY FOR DELIVERY GO — NO DELIVERY — NO REAL EXECUTION — NO ARCHITECTURE SELECTED — NO TECHNOLOGY ADOPTED — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — FINOPS/T7 FREEZE — NO MERGE — NO BRANCH DELETE.*
 
 ```
