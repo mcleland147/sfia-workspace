@@ -8,16 +8,17 @@
 | **Cycle** | 8 — Delivery / implémentation · **READINESS / QUALIFICATION ONLY** · ≠ implementation |
 | **Typologie** | DOC / ANALYSIS |
 | **Profil** | CRITICAL |
-| **Statut** | **CONTENT VALIDATED BY MORRIS** · **SUBSTANTIVE READINESS RESULT = PASS** · **CURRENT LIFECYCLE = CONTENT VALIDATED BY MORRIS · GIT INTEGRATION AUTHORIZED / IN PROGRESS BY CURRENT CYCLE** · **DELIVERY GATE = NOT YET ELIGIBLE** · Repository publication/integration = **RESOLVE FROM GIT / PR EVIDENCE** · ≠ integrated on main · ≠ merged · ≠ post-merge verified · ≠ Delivery GO · ≠ MW0 implementation · ≠ REAL execution |
-| **Timestamp (Europe/Paris)** | 2026-08-29 22:15:00 CEST |
+| **Statut** | **CONTENT STATUS = CONTENT VALIDATED BY MORRIS** · **SUBSTANTIVE READINESS RESULT = PASS** · **REPOSITORY PUBLICATION / INTEGRATION = RESOLVE FROM CURRENT GIT / PR EVIDENCE** · **DELIVERY ELIGIBILITY = CONDITIONAL** — requires post-merge verified repository integration + distinct Morris Delivery GO · this document does not self-assert repository publication, merge or post-merge state · ≠ Delivery GO by this document · ≠ MW0 implementation · ≠ REAL execution |
+| **Timestamp (Europe/Paris)** | 2026-08-29 22:42:00 CEST |
 | **Generation worktree (provenance)** | `/Users/morris/Projects/sfia-workspace-nora-mw0-readiness` · provenance only |
 | **Generation branch (provenance)** | `docs/sfia-studio-nora-mw0-readiness` · provenance only |
-| **CURRENT REPOSITORY TRUTH** | **RESOLVE FROM GIT / PR EVIDENCE** |
+| **CURRENT REPOSITORY TRUTH** | **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · document does not self-assert publication/merge/post-merge state |
 | **Base / origin/main (qualification anchor)** | `c8608c469d725c91b02b5167f5ac41faf865ccf1` · tree `4c2cca70c190868e4d18a31e25233302cee669ce` · PR **#440 MERGED** · Type14 head `77bf2a5f…` · post-merge CI **`33269568916` SUCCESS** · Required Gate **PASS** · ≠ permanent future HEAD |
 | **GO Morris MW0 REAL-first evidence** | **CONSUMED FOR MW0 READINESS QUALIFICATION** — `MORRIS REQUIREMENT — NORA MW0→MW6 REAL-FIRST EVIDENCE — PRIORITIZE REAL STUDIO PATH + REAL OPENAI API + REAL SOURCES/DATA WHEN EVIDENTIALLY RELEVANT — USE MOCKS/FIXTURES ONLY WHEN REAL ADDS NO MEANINGFUL EVIDENCE OR WHEN THE DETERMINISTIC LAYER IS THE CORRECT OBJECT OF TEST — AN INTRINSICALLY COGNITIVE/API/RUNTIME-DEPENDENT CAPABILITY CANNOT BE PROVEN BY MOCK/DETERMINISTIC EVIDENCE ALONE — QUALIFY MODEL + REASONING CONFIGURATION EMPIRICALLY BY WORKLOAD — MAKE THIS CONTRACT REUSABLE FOR MW0→MW6 READINESS — NOT A GLOBAL SFIA METHODOLOGY BASELINE — NO DELIVERY BY THIS GO` · ≠ Delivery · ≠ paid/live API test in this cycle · ≠ global SFIA baseline · ≠ technology adoption |
 | **GO Morris MW0 readiness correction** | **CONSUMED / CLOSED** — Morris message « go correction » · scope **CORR-MW0-01 / CORR-MW0-02 / CORR-MW0-03** · **CORR-MW0-01/02/03 = CLOSED** · ≠ Delivery · ≠ REAL execution |
 | **GO Morris MW0 content validation** | **CONSUMED — CONTENT VALIDATION** — `GO MORRIS — VALIDATE NORA COGNITIVE COMPLETION MW0 READINESS CONTENT — DOCUMENT 06 — CHATGPT CORRECTION REVIEW PASS — CORR-MW0-01/02/03 CLOSED — MW0 READINESS SUBSTANTIVE PASS — CONSUME OPTION A: NO C5 BACKLOG DELTA REQUIRED / MW0-S01 D0 = HARNESS MECHANICS / COGNITIVE-API-PRODUCT CLAIMS + WAVE EXIT REQUIRE R1/R2/R3 AS APPLICABLE — VALIDATE NORA REAL-FIRST MACRO-WAVE EVIDENCE CONTRACT FOR MW0→MW6 — MOCK/FIXTURE ONLY WHEN EVIDENTIALLY APPROPRIATE — D0 ALONE CANNOT PROVE INTRINSIC COGNITIVE/API/RUNTIME BEHAVIOR — VALIDATE SDK/CODE ≠ MODEL ≠ CAMPAIGN EFFECTIVE CAPABILITY SET — PROVIDER CAPABILITIES REVALIDATED PER CAMPAIGN — VALIDATE SERVER-SIDE PER-CELL MODEL/REASONING EXPERIMENT CONFIG USING EXISTING PROVIDER INSTANCE SEAM — NO GLOBAL PROCESS.ENV MATRIX MUTATION — MINIMUM SUFFICIENT COGNITIVE CONFIGURATION BY WORKLOAD — NO TA REQUIRED — NO ARCHITECTURE SELECTION — NO TECHNOLOGY ADOPTION — NO REAL EXECUTION YET — NO MW0 DELIVERY — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — CONTENT VALIDATION ONLY — NO PROJECT GIT INTEGRATION` · ≠ project Git integration authorization · ≠ merge · ≠ Delivery · ≠ REAL |
-| **GO Morris MW0 document 06 Git integration** | **CONSUMED — DOCUMENT 06 GIT INTEGRATION AUTHORIZATION** — `GO MORRIS — NORA MW0 READINESS DOCUMENT 06 — GIT INTEGRATION — CONTENT VALIDATED BY MORRIS — OPTION A CONSUMED — REAL-FIRST MW0→MW6 VALIDATED — CORR-MW0-01/02/03 CLOSED — EXACT PROJECT SCOPE DOCUMENT 06 ONLY — COMMIT + PUSH + DRAFT PR + CI + REVIEW HANDOFF — BASE MAIN c8608c469d725c91b02b5167f5ac41faf865ccf1 — NO C5 CHANGE — NO ROADMAP CHANGE — NO RUNTIME CHANGE — NO ARCHITECTURE SELECTION — NO TECHNOLOGY ADOPTION — NO REAL EXECUTION — NO MW0 DELIVERY — NO MERGE — NO BRANCH DELETE` · ≠ merge authorization · ≠ Delivery authorization · ≠ REAL authorization |
+| **GO Morris MW0 document 06 Git integration** | **CONSUMED — DOCUMENT 06 GIT INTEGRATION AUTHORIZATION** *(historical authority record)* — `GO MORRIS — NORA MW0 READINESS DOCUMENT 06 — GIT INTEGRATION — CONTENT VALIDATED BY MORRIS — OPTION A CONSUMED — REAL-FIRST MW0→MW6 VALIDATED — CORR-MW0-01/02/03 CLOSED — EXACT PROJECT SCOPE DOCUMENT 06 ONLY — COMMIT + PUSH + DRAFT PR + CI + REVIEW HANDOFF — BASE MAIN c8608c469d725c91b02b5167f5ac41faf865ccf1 — NO C5 CHANGE — NO ROADMAP CHANGE — NO RUNTIME CHANGE — NO ARCHITECTURE SELECTION — NO TECHNOLOGY ADOPTION — NO REAL EXECUTION — NO MW0 DELIVERY — NO MERGE — NO BRANCH DELETE` · that GO did not authorize merge or Delivery · ≠ durable present-tense repository-state claim |
+| **CORR-MW0-04** | **REPOSITORY-LIFECYCLE SELF-STABILITY** · **CONSUMED** — `GO MORRIS — CORRECT PR #441 MW0 READINESS REPOSITORY-LIFECYCLE SEMANTICS BEFORE MERGE — CORR-MW0-04 — REMOVE ACTIVE IN-PROGRESS / NOT-MERGED / NOT-POST-MERGE CLAIMS THAT WOULD BECOME STALE AFTER MERGE — KEEP CONTENT VALIDATED BY MORRIS — KEEP OPTION A CONSUMED — KEEP REAL-FIRST MW0→MW6 VALIDATED — USE REPOSITORY PUBLICATION / INTEGRATION = RESOLVE FROM GIT / PR EVIDENCE AS STABLE LIFECYCLE CONTRACT — MAKE FORWARD GATES CONDITIONAL ON CURRENT GIT/PR STATE — NO SUBSTANTIVE READINESS CHANGE — EXACT DOCUMENT 06 ONLY — COMMIT + PUSH TO EXISTING PR #441 + CI + FULL REVIEW HANDOFF — NO C5 CHANGE — NO ROADMAP CHANGE — NO RUNTIME CHANGE — NO ARCHITECTURE SELECTION — NO TECHNOLOGY ADOPTION — NO REAL EXECUTION — NO MW0 DELIVERY — NO MERGE — NO BRANCH DELETE` · purpose: remove transient repository-state claims from durable readiness content · substantive readiness impact = **NONE** · execution-cycle authority ≠ permanent future repository state |
 | **ChatGPT prior verdict (historical review input)** | *(historique)* PASS WITH REQUIRED DOCUMENTARY CORRECTIONS — OPTION A CONFIRMED BY CHATGPT REVIEW — CORR-MW0-01/02/03 REQUIRED BEFORE MORRIS CONTENT VALIDATION — SUPERSEDED AS CURRENT STATUS BY MORRIS CONTENT VALIDATION + GIT INTEGRATION GOs |
 | **ACTIVE CONSTRUCTION PRIORITY** | **NORA COGNITIVE COMPLETION** |
 | **C5** | CONTENT VALIDATED / INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR **#439**) |
@@ -27,7 +28,7 @@
 | **OD-02/03/04/05/06/08** | OPEN |
 | **Architecture** | **NOT SELECTED** |
 | **Technology** | **NOT ADOPTED** · OpenAI = current provider capabilities / candidate test parameters only |
-| **MW0 readiness** | **CONTENT VALIDATED BY MORRIS** · **SUBSTANTIVE PASS** · **CORR-MW0-01/02/03 CLOSED** · repository publication/integration = **RESOLVE FROM GIT / PR EVIDENCE** · ≠ Delivery eligible · ≠ integrated on main · ≠ post-merge verified |
+| **MW0 readiness** | **CONTENT VALIDATED BY MORRIS** · **SUBSTANTIVE PASS** · **CORR-MW0-01/02/03 CLOSED** · **CORR-MW0-04 APPLIED** · repository publication/integration = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · Delivery eligibility = **CONDITIONAL** on post-merge verified integration + distinct Morris Delivery GO |
 | **MW0 implementation** | **NOT STARTED** |
 | **MW0 Delivery** | **NOT AUTHORIZED** |
 | **Cognitive Completion** | **NOT PROVEN** |
@@ -37,7 +38,7 @@
 | **FinOps/T7** | FREEZE |
 | **REAL execution this cycle** | **ZERO** / **NOT AUTHORIZED** |
 
-> **Anti-claims :** MW0 readiness ≠ MW0 Delivery · D0 green ≠ Cognitive PROVEN · R1 alone ≠ Studio product proof when claim is product-path · provider snapshot ≠ durable SFIA doctrine · model/reasoning experiment ≠ production routing selected · REAL-first ≠ uncontrolled spend · REAL-first ≠ FinOps/T7 unfreeze · this document ≠ architecture selection · ≠ Agents SDK / Sessions / Hosted Search · ≠ new persistence selected · ≠ C5 mutation · ≠ Roadmap mutation · ≠ global methodology baseline.
+> **Anti-claims :** MW0 readiness ≠ MW0 Delivery · D0 green ≠ Cognitive PROVEN · R1 alone ≠ Studio product proof when claim is product-path · provider snapshot ≠ durable SFIA doctrine · model/reasoning experiment ≠ production routing selected · REAL-first ≠ uncontrolled spend · REAL-first ≠ FinOps/T7 unfreeze · this document ≠ architecture selection · ≠ Agents SDK / Sessions / Hosted Search · ≠ new persistence selected · ≠ C5 mutation · ≠ Roadmap mutation · ≠ global methodology baseline · this document does **not** self-assert repository publication, merge or post-merge state (resolve from current Git / PR evidence) · historical GO scope bounds ≠ durable present-tense repository status.
 
 ---
 
@@ -56,25 +57,31 @@ Morris has consumed a **REAL-first evidence requirement** scoped to Nora MW0→M
 - **no Delivery** by this GO ;
 - **no** paid/live API tests in this readiness cycle.
 
-**Readiness results (this document · after Morris content validation · CORR-MW0-01/02/03 CLOSED):**
+**Readiness results (this document · after Morris content validation · CORR-MW0-01/02/03 CLOSED · CORR-MW0-04 repository-lifecycle self-stability):**
 
 | Dimension | Result |
 | --- | --- |
 | **SUBSTANTIVE READINESS RESULT** | **PASS** |
 | **CONTENT STATUS** | **CONTENT VALIDATED BY MORRIS** |
-| **CURRENT LIFECYCLE** | **CONTENT VALIDATED BY MORRIS** · **GIT INTEGRATION AUTHORIZED / IN PROGRESS BY CURRENT CYCLE** |
-| **REPOSITORY PUBLICATION / INTEGRATION** | **RESOLVE FROM GIT / PR EVIDENCE** |
-| **DELIVERY GATE** | **NOT YET ELIGIBLE** |
+| **REPOSITORY PUBLICATION / INTEGRATION** | **RESOLVE FROM CURRENT GIT / PR EVIDENCE** |
+| **DELIVERY ELIGIBILITY** | **CONDITIONAL** — requires post-merge verified repository integration + distinct Morris Delivery GO |
 
 **Lifecycle-safe verdict form:**
 
-### MW0 READINESS CONTENT — VALIDATED BY MORRIS — SUBSTANTIVE PASS — GIT INTEGRATION AUTHORIZED — REPOSITORY INTEGRATION RESOLVE FROM GIT / PR EVIDENCE — NOT YET READY FOR DELIVERY GO
+### MW0 READINESS CONTENT — VALIDATED BY MORRIS — SUBSTANTIVE PASS — REPOSITORY PUBLICATION / INTEGRATION RESOLVE FROM CURRENT GIT / PR EVIDENCE — DELIVERY REQUIRES POST-MERGE VERIFIED INTEGRATION + DISTINCT MORRIS DELIVERY GO
 
 With explicit layered reading of C5 MW0-S01 (**OPTION A — CONSUMED / VALIDATED BY MORRIS** — **NO C5 BACKLOG DELTA REQUIRED** · MW0-S01 D0 = harness mechanics · cognitive/API/product claims + wave exit require R1/R2/R3 as applicable) and architecture trigger = **NO TA REQUIRED**.
 
-**Required lifecycle (no step auto-consumes the next):**
+**Required lifecycle (stable rules · no step auto-consumes the next · no repository state self-declared by this document):**
 
-MW0 readiness candidate → ChatGPT content review → **Morris content validation (CONSUMED)** → **Git integration gate (AUTHORIZED / IN PROGRESS BY CURRENT CYCLE)** → project Git integration → PR review → Morris merge → post-merge verification → only then **READY FOR DISTINCT MORRIS MW0 DELIVERY GO** → Delivery only if Morris explicitly authorizes it.
+- Content validation is **CONSUMED**.
+- Git-integration authorization is **CONSUMED** as historical/authority record.
+- **Repository publication/integration** state is resolved from **current Git / PR evidence**.
+- If current PR is **not merged** → applicable next repository gate = **Morris merge decision**.
+- If **merged** but not post-merge verified → applicable next gate = **post-merge verification**.
+- If **integrated on main AND post-merge verified** → readiness becomes eligible for a **distinct Morris MW0 Delivery decision**.
+- Delivery itself requires an **explicit Morris Delivery GO**.
+- None of these repository states are self-declared by document 06.
 
 ---
 
@@ -667,25 +674,28 @@ No automatic truth-sync launched. Correction optional later if operators confuse
 | Per-cell campaign config · no process.env matrix mutation | YES · CORR-MW0-03 |
 | Content validated by Morris | YES |
 | CORR-MW0-01/02/03 | CLOSED |
-| Repository publication/integration | RESOLVE FROM GIT / PR EVIDENCE |
+| Repository publication/integration | RESOLVE FROM CURRENT GIT / PR EVIDENCE |
+| CORR-MW0-04 repository-lifecycle self-stability | YES |
 
 ---
 
 ## 26. Decisions required from Morris
 
-**Consumed by this cycle (record only):**
+**Consumed decisions (durable authority records):**
 
 1. **MORRIS CONTENT VALIDATION OF DOCUMENT 06** — including **OPTION A CONSUMED / VALIDATED BY MORRIS** — **CONSUMED — CONTENT VALIDATION**.
-2. **PROJECT GIT INTEGRATION GO** for document 06 — **CONSUMED — DOCUMENT 06 GIT INTEGRATION AUTHORIZATION** · ≠ merge · ≠ Delivery · ≠ REAL.
+2. **PROJECT GIT INTEGRATION GO** for document 06 — **CONSUMED — DOCUMENT 06 GIT INTEGRATION AUTHORIZATION** *(historical scope: that GO did not authorize merge, Delivery, or REAL)*.
+3. **REAL-FIRST MW0→MW6** — **VALIDATED BY MORRIS**.
+4. **CORR-MW0-04** — repository-lifecycle self-stability — **CONSUMED** · substantive readiness impact = **NONE**.
 
-**Remaining forward gates (not authorized yet):**
+**Conditional forward gates (resolve from current Git / PR evidence — not hardcoded as permanent present-tense document status):**
 
-3. **PR review / Morris merge gate** after Draft PR + CI evidence.
-4. **Post-merge verification** after merge (only if Morris later authorizes merge).
-5. Distinct **MW0 Delivery GO** only after content validation + Git integration on main + post-merge verification.
-6. At Delivery GO: approve/revise PROPOSED trial counts and campaign budget caps.
+- If PR is **open / unmerged** → applicable next repository gate = **Morris merge decision** (after ChatGPT PR re-review as applicable).
+- If **merged** → applicable next gate = **post-merge verification**.
+- If **post-merge verified** → readiness becomes eligible for a **distinct MW0 Delivery decision**.
+- At a future Delivery GO: approve/revise PROPOSED trial counts and campaign budget caps.
 
-**Not authorized by this Git-integration GO:** merge · Ready-for-review promotion · branch delete · Delivery GO · REAL execution.
+**Delivery** remains explicit Morris authority and is **not** authorized by content validation, Git-integration, or CORR-MW0-04 alone.
 
 ---
 
@@ -695,19 +705,19 @@ No automatic truth-sync launched. Correction optional later if operators confuse
 | --- | --- |
 | **SUBSTANTIVE READINESS RESULT** | **PASS** |
 | **CONTENT STATUS** | **CONTENT VALIDATED BY MORRIS** |
-| **CURRENT LIFECYCLE** | **CONTENT VALIDATED BY MORRIS** · **GIT INTEGRATION AUTHORIZED / IN PROGRESS BY CURRENT CYCLE** |
-| **REPOSITORY PUBLICATION / INTEGRATION** | **RESOLVE FROM GIT / PR EVIDENCE** |
-| **DELIVERY GATE** | **NOT YET ELIGIBLE** |
+| **REPOSITORY LIFECYCLE** | **RESOLVE FROM CURRENT GIT / PR EVIDENCE** |
+| **DELIVERY ELIGIBILITY** | **CONDITIONAL** on post-merge verified integration + distinct Morris Delivery GO |
 | **Architecture trigger** | **NO TA REQUIRED** |
 | **OPTION A** | **CONSUMED / VALIDATED BY MORRIS** · **NO C5 BACKLOG DELTA REQUIRED** |
 | **REAL-first MW0→MW6** | **VALIDATED BY MORRIS** |
 | **CORR-MW0-01/02/03** | **CLOSED** |
+| **CORR-MW0-04** | **APPLIED** · repository-lifecycle self-stability only · substantive impact **NONE** |
 | **Technology** | **NOT ADOPTED** |
-| **REAL this cycle** | **NOT AUTHORIZED** |
-| **MW0 Delivery** | **NOT AUTHORIZED** |
+| **REAL execution** | requires distinct authorized Delivery/evidence context · **not authorized by this document alone** |
+| **MW0 Delivery** | requires distinct Morris Delivery GO · **not authorized by this document alone** |
 
-### MW0 READINESS CONTENT — VALIDATED BY MORRIS — SUBSTANTIVE PASS — GIT INTEGRATION AUTHORIZED — REPOSITORY INTEGRATION RESOLVE FROM GIT / PR EVIDENCE — NOT YET READY FOR DELIVERY GO
+### MW0 READINESS CONTENT — VALIDATED BY MORRIS — SUBSTANTIVE PASS — REPOSITORY PUBLICATION / INTEGRATION RESOLVE FROM CURRENT GIT / PR EVIDENCE — DELIVERY REQUIRES POST-MERGE VERIFIED INTEGRATION + DISTINCT MORRIS DELIVERY GO
 
 ---
 
-*Fin du document — MW0 READINESS CONTENT VALIDATED BY MORRIS — OPTION A CONSUMED — REAL-FIRST MW0→MW6 VALIDATED — CORR-MW0-01/02/03 CLOSED — SUBSTANTIVE PASS — GIT INTEGRATION AUTHORIZED — REPOSITORY INTEGRATION RESOLVE FROM GIT / PR EVIDENCE — NOT YET READY FOR DELIVERY GO — NO DELIVERY — NO REAL EXECUTION — NO ARCHITECTURE SELECTED — NO TECHNOLOGY ADOPTED — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — FINOPS/T7 FREEZE — NO MERGE — NO BRANCH DELETE.*
+*Fin du document — MW0 READINESS CONTENT VALIDATED BY MORRIS — OPTION A CONSUMED — REAL-FIRST MW0→MW6 VALIDATED — CORR-MW0-01/02/03 CLOSED — CORR-MW0-04 APPLIED (REPOSITORY-LIFECYCLE SELF-STABILITY) — SUBSTANTIVE PASS — REPOSITORY PUBLICATION / INTEGRATION RESOLVE FROM CURRENT GIT / PR EVIDENCE — DELIVERY REQUIRES POST-MERGE VERIFIED INTEGRATION + DISTINCT MORRIS DELIVERY GO — NO ARCHITECTURE SELECTED — NO TECHNOLOGY ADOPTED — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — FINOPS/T7 FREEZE — THE RECORDED GIT-INTEGRATION GO DID NOT AUTHORIZE MERGE OR BRANCH DELETION — FUTURE MERGE/BRANCH ACTIONS REQUIRE THEIR OWN APPLICABLE AUTHORITY/EVIDENCE.*
