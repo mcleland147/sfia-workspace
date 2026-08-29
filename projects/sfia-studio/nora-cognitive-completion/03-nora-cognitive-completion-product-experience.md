@@ -312,7 +312,7 @@ Vocabulaire d’états **design** — **≠** schéma runtime · **≠** state m
 - Ne pas re-demander HD consommée
 - Contexte manquant → clarification possible
 
-**CIS :** Resume / context restored · Resume / context incomplete  
+**CIS :** Resume / context restored · Resume / context incomplete
 **Penpot :** NCC3-06 · refs SC-13 / SE-08
 
 ---
@@ -345,8 +345,8 @@ Working · Reading · Checking · Waiting on source/tool · Partial result
 Evidence available · SUCCESS · STOP · FAIL
 
 ### Recovery / Replan after FAIL / STOP / partial SUCCESS
-Nora **may :** explain · identify blocker · Options · Recommendation · propose trajectory update  
-Nora **must not :** invent HD · silently adopt structural replan · claim recovery executed  
+Nora **may :** explain · identify blocker · Options · Recommendation · propose trajectory update
+Nora **must not :** invent HD · silently adopt structural replan · claim recovery executed
 
 **Structural trajectory change :** Recommendation → **Pilote HD** → Studio materialization
 
