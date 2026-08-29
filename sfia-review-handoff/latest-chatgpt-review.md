@@ -1,10 +1,14 @@
 # ChatGPT Review Pack — FULL
-# NORA COGNITIVE COMPLETION — COGNITIVE RUNTIME GAP & IMPLEMENTATION READINESS
+# NORA C4 — CHATGPT REVIEW CORRECTIONS (CONTINUATION)
 
-**Timestamp (Europe/Paris):** 2026-08-29 11:40:46 CEST
-**Cycle:** C4 Cognitive Runtime Gap & Implementation Readiness · Type **8 — Delivery** · nature = **QUALIFICATION / READINESS ONLY** · DOC/ANALYSIS · CRITICAL
-**GO Morris:** CONSUMED — qualification/readiness only · NO implementation · NO project Git · NO architecture · NO Backlog validation · NO REAL/REAL-B · NO tech adoption
-**Verdict Cursor:** NORA COGNITIVE RUNTIME GAP & IMPLEMENTATION READINESS — QUALIFIED — NO STRUCTURAL ARCHITECTURE BLOCKER — SOURCE-LOCKED COGNITIVE BACKLOG RECOMMENDED — MORRIS DECISION REQUIRED
+**Timestamp (Europe/Paris):** 2026-08-29 11:54:10 CEST
+**Cycle:** C4 Cognitive Runtime Gap & Implementation Readiness — DOCUMENTARY REVIEW CORRECTION CONTINUATION
+**Type:** 8 Delivery · nature = QUALIFICATION / READINESS ONLY — correction only
+**Profile:** CRITICAL · Typology DOC/ANALYSIS
+**GO Morris:** CONSUMED — `GO CORRECTION C4 AVANT VALIDATION`
+**Prior Review Handoff:** `e949bb4c95e0f796c3fc7ea7a3924110cfa1a403`
+**Technical verdict baseline PRESERVED:** NORA COGNITIVE RUNTIME GAP & IMPLEMENTATION READINESS — QUALIFIED — NO STRUCTURAL ARCHITECTURE BLOCKER — SOURCE-LOCKED COGNITIVE BACKLOG RECOMMENDED — MORRIS DECISION REQUIRED
+**Cursor verdict:** NORA C4 CHATGPT REVIEW CORRECTIONS — APPLIED — ROADMAP LIFECYCLE TRUTH-SYNC REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION — TECHNICAL ARCHITECTURE GATE ORDER CORRECTED — READY FOR CHATGPT RE-REVIEW — NO NEXT CAPABILITY AUTHORIZED
 **Synthesis only:** FORBIDDEN
 
 ---
@@ -13,124 +17,347 @@
 
 | Field | Value |
 | --- | --- |
-| Repository | `mcleland147/sfia-workspace` |
 | Worktree | `/Users/morris/Projects/sfia-workspace-nora-cognitive-runtime-gap-readiness` |
-| Branch | `docs/sfia-studio-nora-cognitive-runtime-gap-readiness` · **local only · unpushed** |
+| Branch | `docs/sfia-studio-nora-cognitive-runtime-gap-readiness` · local only · unpushed |
 | HEAD | `5c08e741ae45c402f46c5e3f9021eb09fcada3b2` |
 | origin/main | `5c08e741ae45c402f46c5e3f9021eb09fcada3b2` |
-| Tree | `e4172c956cc3bfc8cc466bfb641dc296180a31ad` |
-| Generation anchor | `5c08e741…` · **MATCHES** |
-| status | `?? projects/sfia-studio/nora-cognitive-completion/04-nora-cognitive-runtime-gap-implementation-readiness.md` |
-| Prior handoff tip (pre-publish) | `4ecfd3a9bbef5e6143c1fed7d47406f35ff81dd4` · tree `3b6fa0b15c23450c35521c1421b622792ec64d37` · blob `bd060f603a14fd409a0568d95d1aa97ca5de7dff` |
+| status | `?? .tmp-sfia-review/ · ?? projects/sfia-studio/nora-cognitive-completion/04-nora-cognitive-runtime-gap-implementation-readiness.md` |
+| Anchor match | YES · `5c08e741…` |
 
 ---
 
-## 2. Cycle / profile
-
-| Field | Value |
-| --- | --- |
-| Type | 8 Delivery · **QUALIFICATION ONLY** |
-| Profile | CRITICAL (Morris-validated) · no structuring decision by Cursor |
-| CKC Type 8 | synthetic map · experimental · authority NONE |
-| Anti-patterns avoided | scope creep · qualification→implementation · fake PASS |
-
----
-
-## 3. Sources actually read
-
+## 2. Sources re-read
 
 - prompts/templates/sfia-cycle-execution-template.md
 - method/sfia-fast-track/core/sfia-cycle-routing-guide.md
 - method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
 - method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-- method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-- projects/sfia-studio/product-completion/01-product-completion-cadrage.md (+ trajectory docs inventory)
-- projects/sfia-studio/sfia-v3-framing/30…37
-- projects/sfia-studio/nora-cognitive-completion/01…03 (READ ONLY)
-- Runtime: project-assistant/**, platform/ai/**, platform/tools/**, oa/**, observability, /studio, tests
-
+- Build Doctrine · Roadmap (READ ONLY · unmodified)
+- Product Completion C1
+- Nora C1/C2/C3 (READ ONLY · unmodified)
+- v3 framing 30–37 (as applicable)
+- Prior handoff `e949bb4c…`
+- Local C4 candidate (modified)
 
 ---
 
-## 4. Convergence pre-check
+## 3. Two corrections applied
 
-| Item | Result |
+### Correction A — Roadmap Nora lifecycle truth-sync
+**BEFORE:** Roadmap sync described as optional / optionally authorize / optional separate DOC GO.
+**AFTER:** **REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION**
+Clarifications retained: ≠ changes global convergence next (REAL-B remains candidate) · ≠ authorizes Nora backlog · ≠ Roadmap edited in this cycle · ≠ C4 validation · living lag OK during C4 · must not remain open when Morris authorizes Nora next capability.
+NCC-R08 remains **OPEN** with REQUIRED disposition.
+
+### Correction B — Technical Architecture gate order
+**BEFORE:** TA_REQUIRED TBD / triggered if Morris selects Sessions/Agents/new store/search.
+**AFTER:** ADAPT-first → demonstrated need for structural technical primitive → **Targeted TA Delta** (options/trade-offs) → Morris decision → Delivery under distinct GO.
+Memory B / External Source Intelligence / Agents SDK / Sessions harmonized to this causality.
+**FA_REQUIRED = NO** · **NO MANDATORY TA DELTA CURRENTLY DEMONSTRATED** · SOURCE-LOCKED COGNITIVE BACKLOG still recommended · NEXT CAPABILITY **NOT AUTHORIZED**.
+
+---
+
+## 4. Sections modified
+
+- Metadata Revision/GO/Timestamp
+- §2 Roadmap authority role
+- §3 Lien Roadmap + Gates Morris
+- §4 Product Completion TA causality finding
+- §7 Memory B asset footnote
+- §9 CE-01 / CE-03 dispositions
+- §13 Memory central answer
+- §14–15 External knowledge / ESI
+- §18 NCC-R06 / NCC-R08
+- §19 Architecture blocker register + TA causality
+- §20 Temporary exits (R08)
+- §22 Downstream slice 8
+- §23 Next-capability justification + trajectory + Option B
+- §24 Morris gates
+- §25 Debt R08 exit
+- §27 Underlying truth enrichment
+- §28 Anti-claims + footer
+
+Coverage matrices PASS/PARTIAL/FAIL/NOT_MEASURABLE **unchanged** except CE-01/CE-03 disposition wording (governance). Runtime anchors unchanged. Technical conclusion NO STRUCTURAL ARCHITECTURE BLOCKER preserved.
+
+---
+
+## 5. Semantic diff (exact)
+
+```diff
+--- .tmp-sfia-review/c4-pre-chatgpt-review-corrections.md	2026-08-29 11:53:08
++++ projects/sfia-studio/nora-cognitive-completion/04-nora-cognitive-runtime-gap-implementation-readiness.md	2026-08-29 11:53:08
+@@ -8,15 +8,15 @@
+ | **Cycle type** | **8 — Delivery / implémentation** · nature exacte = **QUALIFICATION / READINESS ONLY** |
+ | **Typology** | DOC / ANALYSIS |
+ | **Profile** | **CRITICAL** |
+-| **Revision** | **C4-CANDIDATE** — local only · ≠ Git integrated |
+-| **Timestamp (Europe/Paris)** | 2026-08-29 11:40:13 CEST |
++| **Revision** | **C4-CANDIDATE — CHATGPT REVIEW CORRECTIONS APPLIED — LOCAL ONLY** · ≠ CONTENT VALIDATED · ≠ Git integrated |
++| **Timestamp (Europe/Paris)** | 2026-08-29 11:53:08 CEST |
+ | **Worktree** | `/Users/morris/Projects/sfia-workspace-nora-cognitive-runtime-gap-readiness` |
+ | **Branche** | `docs/sfia-studio-nora-cognitive-runtime-gap-readiness` |
+ | **HEAD** | `5c08e741ae45c402f46c5e3f9021eb09fcada3b2` |
+ | **origin/main** | `5c08e741ae45c402f46c5e3f9021eb09fcada3b2` |
+ | **Tree** | `e4172c956cc3bfc8cc466bfb641dc296180a31ad` |
+ | **Generation anchor** | `5c08e741ae45c402f46c5e3f9021eb09fcada3b2` — **MATCHES** current origin/main |
+-| **GO Morris** | **CONSUMED** — qualification/readiness only · **NO** runtime implementation · **NO** project commit/push/PR/merge · **NO** architecture adoption · **NO** Backlog validation · **NO** REAL/REAL-B · **NO** Agents SDK / Sessions / Hosted Web Search / new persistence adoption |
++| **GO Morris** | **CONSUMED** — (1) qualification/readiness · (2) **GO CORRECTION C4 AVANT VALIDATION** · **NO** C4 content validation · **NO** Roadmap mutation · **NO** runtime implementation · **NO** project commit/push/PR/merge · **NO** architecture adoption · **NO** Backlog validation · **NO** REAL/REAL-B · **NO** Agents SDK / Sessions / Hosted Web Search / new persistence adoption |
+ | **Runtime HumanDecision actor** | **Pilote** |
+ | **NO MORRIS RUNTIME PERSONA** | retained |
+ | **runtime v3** | **NON ADOPTED** |
+@@ -58,7 +58,7 @@
+ | Nora C1/C2/C3 | Normative cognitive contracts | READ ONLY |
+ | Product Completion | Closed product spine + adaptive pattern | Pattern / reuse · DO NOT REOPEN |
+ | Build Doctrine | How to build | Qualification rules |
+-| Roadmap | Where convergence is | Read; note Nora lag |
++| Roadmap | Where convergence is | Read; Nora lifecycle lag = **OPEN debt** · **REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION** (≠ this cycle) |
+ | v3 framing 30–37 | Product target doctrine | Guidance · runtime v3 NON ADOPTED |
+ | SFIA v2.6 | External ChatGPT↔Cursor process | PROCESS ONLY · ≠ Nora runtime doctrine |
+ | CKC Type 8 synthetic map | Experimental guidance | Authority = **NONE** |
+@@ -75,11 +75,11 @@
+ | **Actifs** | KEEP Product F1–F3/W2–W3 spine · ADAPT intent/tools/grounding/qualify · COMPLETE Memory B need / CWP / eval harness / cognitive STOP · REPLACE **not demonstrated** |
+ | **Gaps** | Memory B/compaction · CWP/strategy · eval harness · contradiction STOP · External Source Intelligence · CIS observability · Roadmap Nora lag |
+ | **Dépendances** | OD-02…08 OPEN · RA-06/07 OPEN NON_BLOCKING · REAL-B separate track |
+-| **Lien Roadmap** | Nora complementary · does **not** replace REAL-B · Roadmap still lists Nora next as C2 requalification (**STALE** vs C2/C3 on main) |
++| **Lien Roadmap** | Nora complementary · does **not** replace REAL-B · Roadmap still lists Nora next as C2 requalification (**STALE** vs C2/C3 on main) · **Roadmap Nora lifecycle truth-sync = REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION** · ≠ Roadmap edited in this cycle · global next remains REAL-B candidate |
+ | **Chemin critique** | Measure (eval) + Memory B continuity + strategy-under-envelope + contradiction/STOP honesty on existing F1/F2/OA spine |
+ | **Exit proof (this cycle)** | Repo-first matrices · gap/blocker registers · one next-capability recommendation · Review Pack FULL · Review Handoff |
+ | **Dette / exit** | See §19–§20 |
+-| **Gates Morris** | Validate C4 content · decide next capability · optionally authorize Roadmap Nora truth-sync DOC · OD decisions remain separate |
++| **Gates Morris** | Validate C4 content · decide next capability · **Roadmap Nora lifecycle truth-sync REQUIRED before or with next-capability authorization** · OD decisions remain separate · ≠ Roadmap GO in this cycle |
+ | **Capacité suivante candidate** | **SOURCE-LOCKED COGNITIVE BACKLOG** (primary) — RECOMMENDATION ONLY |
+
+ **Trajectory link:** Demonstrable — Nora C1–C3 closed cleanly on main; Product Completion adaptive pattern (architecture only on proven blockers) applies; this cycle qualifies implementation readiness without selecting architecture.
+@@ -92,7 +92,7 @@
+
+ **Rule applied here:** architecture **only** when responsibility/boundary/tech structural blocker is demonstrated — **not** because “FA is next.”
+
+-Finding: Product Completion already delivered the OA spine Nora reuses (Project/LPS/Trajectory/HD/Evidence/EC). Nora C3 FA blocker register = **0**. Therefore default path = **source-locked cognitive backlog** on KEEP/ADAPT assets, with TA only if Morris later selects a new persistence/runner/search stack.
++Finding: Product Completion already delivered the OA spine Nora reuses (Project/LPS/Trajectory/HD/Evidence/EC). Nora C3 FA blocker register = **0**. Therefore default path = **source-locked cognitive backlog** on KEEP/ADAPT assets. **TA gate order:** ADAPT-first → if backlog/evals demonstrate a structural technical primitive is necessary → **Targeted TA Delta** (options/trade-offs) → **Morris decision** → Delivery only under a distinct GO. Morris does **not** normally select a technology first then trigger TA.
+
+ ---
+
+@@ -156,7 +156,7 @@
+ | Agents SDK / Sessions / Hosted Web Search | **TBD option** | **NOT ADOPTED** · no REPLACE proof |
+ | New vector store / orchestration engine | **TBD** | Default reject parallel unless REPLACE proven |
+
+-\* Memory B **FA_REQUIRED = NO** if implemented as non-authoritative continuity respecting existing OA Truth C boundaries (already specified in C2). **TA_REQUIRED = TBD** only if Morris selects a new persistence/runtime primitive instead of ADAPT.
++\* Memory B **FA_REQUIRED = NO** if implemented as non-authoritative continuity respecting existing OA Truth C boundaries (already specified in C2). **TA_REQUIRED = NO currently** under ADAPT-first. **TA becomes REQUIRED** only if qualification/backlog proves existing persistence/runtime cannot honestly satisfy Memory B without debt or a second Truth C — then Targeted TA Delta → options → Morris decision. Sessions/local store/other = **options only**, never pre-selected.
+
+ ---
+
+@@ -197,9 +197,9 @@
+
+ | ID | Need | Implementation | Coverage | Gap | Root cause | Disposition | FA? | Delivery? |
+ | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+-| CE-01 | Domain-aware tool/source strategy | Git/GitHub tools + router; no External Source Intelligence beyond repos | PARTIAL | Hosted Web Search NOT ADOPTED; strategy autonomy limited to allowlisted READ | TOOLING | ADAPT tool strategy; tech Hosted Web Search = OPTION only | NO | YES |
++| CE-01 | Domain-aware tool/source strategy | Git/GitHub tools + router; no External Source Intelligence beyond repos | PARTIAL | Vendor-neutral External Source Intelligence incomplete; Hosted Web Search NOT ADOPTED | TOOLING | ADAPT-first capability; if new source infrastructure primitive proven necessary → Targeted TA Delta before any tech selection; Hosted Web Search = OPTION only | NO | YES |
+ | CE-02 | Evidence-backed contradiction disposition | Types + LPS ids; weak cognitive controller | PARTIAL | Controller/evals missing | POLICY + soft boundary | COMPLETE disposition path | NO | YES |
+-| CE-03 | Memory B ≠ C + restart-safe | No Memory B; remount-from-C honesty | FAIL | Memory B absent | MEMORY_CONTEXT | COMPLETE need; mechanism TBD (OD-03); no second Truth C | NO* | YES |
++| CE-03 | Memory B ≠ C + restart-safe | No Memory B; remount-from-C honesty | FAIL | Memory B absent | MEMORY_CONTEXT | COMPLETE need ADAPT-first (OD-03 OPEN); no second Truth C; TA only if ADAPT proven insufficient | NO* | YES |
+ | CE-04 | Context/compaction + provenance | History slice 20; no compaction provenance | FAIL | Compaction absent | MEMORY_CONTEXT | COMPLETE compaction contract | NO | YES |
+ | CE-05 | Cognitive Workload Profile under policy | OPENAI_REASONING_EFFORT static env | FAIL | ≠ demonstrated CWP/strategy classes | POLICY_OR_PROMPT | ADAPT strategy under envelope (OD-02 OPEN) | NO | YES |
+ | CE-06 | Narrative ↔ evidence coherence | Product terminals + grounding; narrative parity partial | PARTIAL | CE-06 LIVE/narrative audits missing | OBSERVABILITY_EVAL | ADAPT + eval | NO | YES |
+@@ -302,7 +302,7 @@
+ | Restart | Remount from C + honest chat loss | Correct honesty · insufficient continuity |
+ | Invalidation | Truth C updates exist; B invalidation N/A without B | — |
+
+-**Central answer:** Missing piece for honest Memory B/compaction is a **non-Truth continuity layer** with invalidation + provenance — **without** creating a second Project Truth. Existing OA boundaries already define C. Mechanism (Sessions vs local store vs remount-only+) remains **OPTION / OD-03** — **not selected here**.
++**Central answer:** Missing piece for honest Memory B/compaction is a **non-Truth continuity layer** with invalidation + provenance — **without** creating a second Project Truth. Existing OA boundaries already define C. **ADAPT-first** on existing runtime/persistence. If ADAPT cannot close the gap honestly, **Targeted TA Delta** analyzes options (Sessions / local store / remount-only+ / other) — OD-03 remains OPEN · **no technology selected here**.
+
+ ---
+
+@@ -319,7 +319,7 @@
+ | Grounding | KEEP + ADAPT durability | RA-07 |
+ | Partial reads / source failure | ADAPT | Honesty incomplete |
+ | Contradiction | COMPLETE controller | Types exist |
+-| External knowledge | ADAPT capability; Hosted Web Search = option only | OD-05 DEFER |
++| External knowledge | ADAPT capability first; Hosted Web Search = option only · TA if new source primitive proven necessary | OD-05 DEFER · no tech selection |
+
+ ---
+
+@@ -329,7 +329,7 @@
+ - Deny-by-default router: **KEEP**
+ - Per-turn grounding injection: **KEEP**
+ - Cross-turn provenance ledger: **ADAPT** (RA-07 OPEN)
+-- External Source Intelligence MUST (CE-01): **incomplete** · vendor-neutral capability · **≠** Hosted Web Search adoption
++- External Source Intelligence MUST (CE-01): **incomplete** · vendor-neutral capability · KEEP/ADAPT first · **≠** Hosted Web Search adoption · if new source infrastructure proven necessary → Targeted TA Delta before selection
+
+ ---
+
+@@ -373,9 +373,9 @@
+ | **NCC-R03** | reasoning.effort static ≠ CWP | **CONFIRMED** | `OPENAI_REASONING_EFFORT` env |
+ | **NCC-R04** | Tool loop bound 4×4 | **REFORMULATED** | Default **KEEP healthy constraint** · gap only if eval proves insufficient |
+ | **NCC-R05** | No versioned cognitive eval harness | **CONFIRMED** | EventSink ≠ harness |
+-| **NCC-R06** | Agents SDK / Sessions / Hosted Web Search candidates only | **CONFIRMED** | Not installed/adopted |
++| **NCC-R06** | Agents SDK / Sessions / Hosted Web Search candidates only | **CONFIRMED** · OPEN | Not installed/adopted · REPLACE not demonstrated · if runner/toolLoop later proven structurally insufficient → Targeted TA Delta → options → Morris |
+ | **NCC-R07** | C3-PE-BAR defined ≠ proven | **CONFIRMED** | C3 exit criteria |
+-| **NCC-R08** | Roadmap Nora lag vs C2/C3 on main | **CONFIRMED** | Roadmap still “≠ C2 AUTHORIZED” while C2/C3 integrated |
++| **NCC-R08** | Roadmap Nora lag vs C2/C3 on main | **CONFIRMED** · **OPEN** · **REQUIRED LIFECYCLE TRUTH-SYNC BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION** | Roadmap still “≠ C2 AUTHORIZED” while C2/C3 integrated · living lag OK during C4 · must not remain open when Morris authorizes Nora next capability · ≠ Roadmap edited now · ≠ replaces REAL-B |
+ | **NCC-R09** | Contradiction type without cognitive STOP controller | **NEW (SPLIT from NR-04/13)** | Epistemic types present; controller missing |
+ | **NCC-R10** | OPS1 parallel conversation stack risk | **NEW** | `app/lib/ops1/**` · FREEZE claims vs F1 |
+
+@@ -385,19 +385,21 @@
+
+ | Gap | Cause class | FA_REQUIRED | TA_REQUIRED | Notes |
+ | --- | --- | --- | --- | --- |
+-| Memory B continuity | MEMORY_CONTEXT | **NO** | **TBD** | Boundary already in C2 (B≠C). TA only if new persistence/runtime selected vs ADAPT |
++| Memory B continuity | MEMORY_CONTEXT | **NO** | **NO** (currently) | Boundary already in C2 (B≠C). ADAPT-first. TA **becomes REQUIRED** only if ADAPT of existing persistence/runtime cannot satisfy Memory B without debt/second Truth C → Targeted TA Delta → options → Morris |
+ | Compaction provenance | MEMORY_CONTEXT | **NO** | **NO** | Specifiable in backlog contracts |
+ | CWP / strategy | POLICY_OR_PROMPT | **NO** | **NO** | OD-02 OPEN · policy/eval first |
+ | Eval harness | OBSERVABILITY_EVAL | **NO** | **NO** | Design+Delivery enabler |
+ | Contradiction STOP | POLICY + soft boundary | **NO** | **NO** | Types exist; COMPLETE wiring |
+-| External sources | TOOLING | **NO** | **TBD** | Hosted Web Search option · OD-05 |
+-| Agents SDK runner | TECHNICAL_ARCHITECTURE candidate | **NO** | **TBD** | OD-04 · REPLACE not proven |
++| External sources | TOOLING | **NO** | **NO** (currently) | Vendor-neutral CE-01 · ADAPT-first · Hosted Web Search = OPTION · TA if new source infrastructure primitive proven necessary (OD-05) |
++| Agents SDK / runner | TECHNICAL_ARCHITECTURE candidate | **NO** | **NO** (currently) | REPLACE not demonstrated (OD-04) · TA if evals prove existing toolLoop/runner structurally insufficient → TA Delta → options (may include Agents SDK) → Morris |
+ | CIS as enum | PRODUCT_EXPERIENCE | **NO** | **NO** | C3: design vocabulary ≠ must schema |
+ | Authority/HD | — | **NO** | **NO** | Already PASS |
+ | Parallel PE architecture | — | **NO** | **NO** | C3 KEEP EA |
+
+ **No demonstrated Functional Architecture delta requirement.**
+-**No mandatory Technical Architecture delta** under KEEP/ADAPT default.
++**No mandatory Technical Architecture delta currently demonstrated** under ADAPT-first / KEEP-ADAPT default.
++
++**TA causality (normative for this document):** ADAPT-first → demonstrated need for a structural technical primitive → **Targeted TA Delta** (options / trade-offs / impact / migration / exit / anti-parallel) → **Morris decision** → revised backlog/readiness if needed → Delivery only under a **distinct** GO. Technology selection by Cursor is forbidden; Morris does not normally pick a primitive then “trigger TA.”
+
+ ---
+
+@@ -412,7 +414,7 @@
+ 7. **Avoid double work:** Nora backlog implements/designs measurable cognitive behaviors on Studio path; REAL-B remains published LIVE proof programme — do not silently replace REAL-B; share fixtures/scenarios where possible; no duplicate “second cognitive programme.”
+ 8. **Critical path capabilities:** (i) eval harness design, (ii) Memory B/compaction contracts on ADAPT path, (iii) CWP-under-envelope, (iv) contradiction/STOP honesty, (v) grounding durability.
+ 9. **Non-blocking debts:** RA-06/07, Penpot hi-fi (D1), C3-PE-BAR full proof, OD-06 voice, OD-08 naming, FinOps/T7 freeze as construction state.
+-10. **Temporary exits:** process-local chat → Memory B target; static effort → CWP target; EventSink-only → harness target; Roadmap lag → DOC sync target.
++10. **Temporary exits:** process-local chat → Memory B target; static effort → CWP target; EventSink-only → harness target; Roadmap Nora lag (NCC-R08) → **REQUIRED lifecycle truth-sync before or with next-capability authorization** (separate DOC cycle unless Morris groups).
+
+ ---
+
+@@ -436,7 +438,7 @@
+ 5. **Grounding durability / narrative coherence (NR-25, CE-06, RA-07)**
+ 6. **Critical challenge + clarification burden (NR-02/06)**
+ 7. **External Source Intelligence capability ADAPT** — search tech remains option
+-8. **Documentary:** Roadmap Nora C2/C3 truth-sync (NCC-R08) — separate DOC cycle
++8. **Documentary (governance):** Roadmap Nora lifecycle truth-sync (NCC-R08) — **REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION** · separate DOC cycle unless Morris GO groups · ≠ this cycle · ≠ replaces REAL-B
+
+ ---
+
+@@ -448,37 +450,45 @@
+
+ Justification:
+ - No FA blocker demonstrated (C3 register 0; OA boundaries exist)
+-- REPLACE/new engine not demonstrated
++- **No mandatory TA delta currently demonstrated** (ADAPT-first / REPLACE not demonstrated)
+ - Gaps are predominantly COMPLETE/ADAPT on existing F1/F2/OA/`/studio` spine
+ - Eval harness should be **first epic group** inside that backlog (enabler), not a reason to skip backlog qualification
+ - PE sufficient for implementation contracts (C3 closed); no PE delta required to unblock
++- **Roadmap Nora lifecycle truth-sync = REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION** (≠ backlog itself; ≠ this cycle)
+
+ ### Explicitly not selected as primary
+
+ | Option | Why not primary |
+ | --- | --- |
+-| B Targeted TA | Only if Morris rejects ADAPT-first and selects Sessions/Agents/new store/search |
++| B Targeted TA | **Conditional branch only:** if ADAPT-first later proves insufficient and a structural technical primitive is demonstrated necessary → Targeted TA Delta (options/trade-offs) → Morris decision — **not** “Morris selects Sessions/Agents/store then TA” |
+ | C Functional Architecture | No genuine ownership/boundary blocker beyond already-specified B≠C |
+ | D Product Experience delta | C3 PE contracts exist; PE-BAR proof is eval/UAT downstream |
+ | E Eval-only enabler cycle | Attractive but eval can be Slice-0 of backlog without blocking story locking from C1–C3 |
+
+ ### Decision class
+
+-**RECOMMENDATION ONLY — MORRIS DECISION REQUIRED.**
++**RECOMMENDATION ONLY — MORRIS DECISION REQUIRED.**
++**NEXT CAPABILITY = NOT AUTHORIZED.**
+
++### Recommended conceptual trajectory (≠ automatic authorization)
++
++Nora C1 CLOSED → C2 CLOSED → C3 CLOSED → C4 QUALIFIED → C4 ChatGPT review corrections applied → Morris C4 content validation → **Roadmap Nora lifecycle truth-sync REQUIRED before or with next-capability authorization** → Morris next-capability decision → if authorized: Source-Locked Cognitive Backlog (Slice-0 eval harness → Memory B/compaction → CWP → contradiction/STOP → grounding/narrative → Critical challenge → External Source Intelligence) → readiness per macro-wave → distinct Morris Delivery GO → Delivery + proof → Pre-QA Cognitive Conformance → Integrated Cognitive Completion QA → Morris final closure.
++
++Architecture remains conditional: FA only on demonstrated boundary blocker; TA only on demonstrated structural technical primitive need → TA Delta → Morris → Delivery separately.
++
+ ---
+
+ ## 24. Morris gates
+
+ | Gate | Status |
+ | --- | --- |
+-| Validate C4 readiness content | **REQUIRED** |
+-| Decide next capability (A recommended) | **REQUIRED** |
+-| Consume OD-02…08 | **NOT** in this cycle |
++| Validate C4 readiness content | **REQUIRED** (after ChatGPT re-review of corrections) |
++| Decide next capability (A recommended) | **REQUIRED** · **NOT AUTHORIZED** now |
++| Roadmap Nora lifecycle truth-sync | **REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION** · separate DOC cycle unless Morris groups · ≠ this cycle · ≠ replaces REAL-B |
++| Consume OD-02…08 | **NOT** in this cycle · OPEN · OD ≠ technology pre-selection · if structural tech primitive needed, Targeted TA precedes selection |
+ | Authorize Delivery | **NOT** |
+ | Authorize REAL-B execution | **NOT** (separate) |
+-| Adopt Agents SDK / Sessions / Hosted Web Search / new persistence | **NOT** |
+-| Roadmap Nora documentary sync | Optional separate DOC GO |
++| Adopt Agents SDK / Sessions / Hosted Web Search / new persistence | **NOT** · options only after TA when TA is required |
+ | runtime v3 adoption | **NOT** |
+
+ ---
+@@ -491,7 +501,7 @@
+ | Static effort (R03) | CWP under envelope | OD-02 decision + evals |
+ | No harness (R05) | Versioned cognitive harness | CE-07 Delivery epic |
+ | PE-BAR unproven (R07) | `/studio` PE proof | Eval + UAT |
+-| Roadmap lag (R08) | Roadmap truth-sync | Dedicated DOC cycle |
++| Roadmap lag (R08) | Nora lifecycle truth aligned to Git (C1–C3 closed · C4 qualified · next pending) | **REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION** · dedicated DOC cycle unless Morris groups |
+ | RA-06/07 | Completeness + cross-turn provenance | REAL/Nora shared remediation |
+ | OPS1 parallel risk (R10) | Single canonical path | FREEZE claims / retire later |
+
+@@ -521,7 +531,11 @@
+ - Nora C1+C2+C3 = CONTENT VALIDATED · INTEGRATED ON MAIN · POST-MERGE VERIFIED
+ - Runtime spine = KEEP/ADAPT capable
+ - Cognitive Completion = **NOT PROVEN**
++- FA_REQUIRED = **NO** · **NO MANDATORY TA DELTA CURRENTLY DEMONSTRATED**
++- SOURCE-LOCKED COGNITIVE BACKLOG remains the recommended next capability
+ - Next capability = **NOT AUTHORIZED** (recommendation only)
++- **Roadmap Nora lifecycle truth-sync = REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION**
++- TA branch remains conditional on demonstrated structural technical primitive need (ADAPT-first first)
+
+ ---
+
+@@ -539,8 +553,10 @@
+ - ≠ runtime v3 ADOPTED / FinOps/T7 unfreeze
+ - ≠ project commit/push/PR/merge
+ - ≠ NEXT CAPABILITY AUTHORIZED
++- ≠ Roadmap mutated / validated in this cycle
++- ≠ C4 CONTENT VALIDATED BY MORRIS
+ - ≠ MORRIS RUNTIME PERSONA
+
+ ---
+
+-*Fin du C4-CANDIDATE — QUALIFICATION / READINESS ONLY — LOCAL ONLY — SOURCE-LOCKED COGNITIVE BACKLOG RECOMMENDED — MORRIS DECISION REQUIRED — NO ARCHITECTURE SELECTED — NO DELIVERY — NO REAL — NO RUNTIME V3 ADOPTION — OD-02…08 OPEN — NO MORRIS RUNTIME PERSONA.*
++*Fin du C4-CANDIDATE — CHATGPT REVIEW CORRECTIONS APPLIED — LOCAL ONLY — QUALIFICATION / READINESS ONLY — SOURCE-LOCKED COGNITIVE BACKLOG RECOMMENDED — NEXT CAPABILITY NOT AUTHORIZED — ROADMAP NORA LIFECYCLE TRUTH-SYNC REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION — NO MANDATORY TA CURRENTLY DEMONSTRATED — NO ARCHITECTURE SELECTED — NO DELIVERY — NO REAL — NO RUNTIME V3 ADOPTION — OD-02…08 OPEN — NO MORRIS RUNTIME PERSONA.*
+```
+
+---
+
+## 6. Scope proof
+
+| Item | Status |
 | --- | --- |
-| Build Doctrine loaded | YES |
-| Roadmap loaded | YES · Nora lag CONFIRMED (still ≠ C2 AUTHORIZED while C2/C3 on main) |
-| PC C1 + CLOSED programme | YES · COMPLETE/CLOSED BY MORRIS · C6 CLOSED |
-| Nora C1/C2/C3 on main | YES · VALIDATED · INTEGRATED · POST-MERGE |
-| runtime v3 | NON ADOPTED |
-| REAL-B | QUALIFIED CANDIDATE · NOT AUTHORIZED · NOT STARTED |
-| Trajectory link | DEMONSTRABLE |
+| Project files modified | **only** C4 (untracked candidate) |
+| Roadmap | **UNMODIFIED** |
+| C1/C2/C3 / Doctrine / app / tests | **UNMODIFIED** |
+| Project commit/push/PR | **NO** |
+| C4 status | CANDIDATE · ≠ CONTENT VALIDATED BY MORRIS |
+| OD-02…08 | OPEN · not consumed |
 
 ---
 
-## 5. File created
+## 7. Morris decisions still required
 
-`projects/sfia-studio/nora-cognitive-completion/04-nora-cognitive-runtime-gap-implementation-readiness.md`
-
-Project Git: commit **NO** · push **NO** · PR **NO** · merge **NO**
-
-C1/C2/C3/Roadmap/Doctrine/app/** : **UNMODIFIED**
-
----
-
-## 6. Executive matrices (also in C4)
-
-### Anchor verdicts
-All 12 ChatGPT anchors **CONFIRMER** (F1 history CORRIGER note: T-A7 boundedHistory ≠ F1 chat).
-
-### Coverage headline
-| Corpus | Headline |
-| --- | --- |
-| NR-01…26 | Mix PASS (authority/Product spine) · PARTIAL · FAIL (Memory B, Critical challenge, CWP) |
-| CE-01…08 | CE-03/04/05/07 FAIL · others PARTIAL |
-| NCC-BAR baseline | Mostly PARTIAL/FAIL/NOT_MEASURABLE · BAR-11 PASS · **≠ final satisfied** |
-| B0…B9 | B2/B5/B8 FAIL · others PARTIAL |
-| CIS | Design-only; runtime representation partial/fail for contradiction/challenge |
-| C3-PE-BAR | Defined ≠ proven · NOT_MEASURABLE as final |
-
-### Architecture blockers
-FA_REQUIRED = **NO** for all demonstrated gaps under KEEP/ADAPT.
-TA_REQUIRED = **TBD** only if Morris selects new persistence/runner/search (OD-03/04/05).
-
-### Reserves
-NCC-R01…R08 CONFIRMED (R04 reformulated KEEP-unless-eval). New R09 contradiction controller · R10 OPS1 parallel risk.
-
-### Fake/Real
-Deterministic Product/Nora spine PROVEN · Memory B/CWP/CIS/NCC final NOT_PROVEN · no live OpenAI this cycle.
-
-### REAL-B overlap
-Thematic share · separate Morris GO · Nora ≠ replace REAL-B.
-
-### Next capability
-**SOURCE-LOCKED COGNITIVE BACKLOG** recommended · eval harness as Slice-0 · MORRIS DECISION REQUIRED.
+1. ChatGPT re-review of corrected C4
+2. Morris C4 content validation
+3. Roadmap Nora lifecycle truth-sync **before or with** next-capability authorization
+4. Next-capability decision (A recommended · NOT AUTHORIZED now)
+5. OD-02…08 remain OPEN
 
 ---
 
-## 7. Tests executed this cycle
+## 8. FULL corrected C4 content
 
-**NONE** (read-only inspection of existing tests sufficient for qualification).
-Existing deterministic suites cited in C4 (orchestrateTurn, f2.orchestrate, w1Ckc, w3c, realABlocker01, e2e studio-w4c) remain historical DETERMINISTIC_PROVEN evidence.
-
----
-
-## 8. Morris decisions still required
-
-1. Validate C4 content
-2. Decide next capability (A recommended)
-3. OD-02…08 remain OPEN
-4. Optional Roadmap Nora DOC sync
-5. No Delivery / REAL-B / tech adoption implied
-
----
-
-## 9. FULL usable C4 content
-
-Lines: **546** · Bytes: **36644**
+Lines: **562** · Bytes: **42010**
 
 ```markdown
 # Nora Cognitive Completion — Cognitive Runtime Gap & Implementation Readiness
@@ -143,15 +370,15 @@ Lines: **546** · Bytes: **36644**
 | **Cycle type** | **8 — Delivery / implémentation** · nature exacte = **QUALIFICATION / READINESS ONLY** |
 | **Typology** | DOC / ANALYSIS |
 | **Profile** | **CRITICAL** |
-| **Revision** | **C4-CANDIDATE** — local only · ≠ Git integrated |
-| **Timestamp (Europe/Paris)** | 2026-08-29 11:40:13 CEST |
+| **Revision** | **C4-CANDIDATE — CHATGPT REVIEW CORRECTIONS APPLIED — LOCAL ONLY** · ≠ CONTENT VALIDATED · ≠ Git integrated |
+| **Timestamp (Europe/Paris)** | 2026-08-29 11:53:08 CEST |
 | **Worktree** | `/Users/morris/Projects/sfia-workspace-nora-cognitive-runtime-gap-readiness` |
 | **Branche** | `docs/sfia-studio-nora-cognitive-runtime-gap-readiness` |
 | **HEAD** | `5c08e741ae45c402f46c5e3f9021eb09fcada3b2` |
 | **origin/main** | `5c08e741ae45c402f46c5e3f9021eb09fcada3b2` |
 | **Tree** | `e4172c956cc3bfc8cc466bfb641dc296180a31ad` |
 | **Generation anchor** | `5c08e741ae45c402f46c5e3f9021eb09fcada3b2` — **MATCHES** current origin/main |
-| **GO Morris** | **CONSUMED** — qualification/readiness only · **NO** runtime implementation · **NO** project commit/push/PR/merge · **NO** architecture adoption · **NO** Backlog validation · **NO** REAL/REAL-B · **NO** Agents SDK / Sessions / Hosted Web Search / new persistence adoption |
+| **GO Morris** | **CONSUMED** — (1) qualification/readiness · (2) **GO CORRECTION C4 AVANT VALIDATION** · **NO** C4 content validation · **NO** Roadmap mutation · **NO** runtime implementation · **NO** project commit/push/PR/merge · **NO** architecture adoption · **NO** Backlog validation · **NO** REAL/REAL-B · **NO** Agents SDK / Sessions / Hosted Web Search / new persistence adoption |
 | **Runtime HumanDecision actor** | **Pilote** |
 | **NO MORRIS RUNTIME PERSONA** | retained |
 | **runtime v3** | **NON ADOPTED** |
@@ -193,7 +420,7 @@ Determine, from **repository truth** and available proofs, how far the current N
 | Nora C1/C2/C3 | Normative cognitive contracts | READ ONLY |
 | Product Completion | Closed product spine + adaptive pattern | Pattern / reuse · DO NOT REOPEN |
 | Build Doctrine | How to build | Qualification rules |
-| Roadmap | Where convergence is | Read; note Nora lag |
+| Roadmap | Where convergence is | Read; Nora lifecycle lag = **OPEN debt** · **REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION** (≠ this cycle) |
 | v3 framing 30–37 | Product target doctrine | Guidance · runtime v3 NON ADOPTED |
 | SFIA v2.6 | External ChatGPT↔Cursor process | PROCESS ONLY · ≠ Nora runtime doctrine |
 | CKC Type 8 synthetic map | Experimental guidance | Authority = **NONE** |
@@ -210,11 +437,11 @@ Determine, from **repository truth** and available proofs, how far the current N
 | **Actifs** | KEEP Product F1–F3/W2–W3 spine · ADAPT intent/tools/grounding/qualify · COMPLETE Memory B need / CWP / eval harness / cognitive STOP · REPLACE **not demonstrated** |
 | **Gaps** | Memory B/compaction · CWP/strategy · eval harness · contradiction STOP · External Source Intelligence · CIS observability · Roadmap Nora lag |
 | **Dépendances** | OD-02…08 OPEN · RA-06/07 OPEN NON_BLOCKING · REAL-B separate track |
-| **Lien Roadmap** | Nora complementary · does **not** replace REAL-B · Roadmap still lists Nora next as C2 requalification (**STALE** vs C2/C3 on main) |
+| **Lien Roadmap** | Nora complementary · does **not** replace REAL-B · Roadmap still lists Nora next as C2 requalification (**STALE** vs C2/C3 on main) · **Roadmap Nora lifecycle truth-sync = REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION** · ≠ Roadmap edited in this cycle · global next remains REAL-B candidate |
 | **Chemin critique** | Measure (eval) + Memory B continuity + strategy-under-envelope + contradiction/STOP honesty on existing F1/F2/OA spine |
 | **Exit proof (this cycle)** | Repo-first matrices · gap/blocker registers · one next-capability recommendation · Review Pack FULL · Review Handoff |
 | **Dette / exit** | See §19–§20 |
-| **Gates Morris** | Validate C4 content · decide next capability · optionally authorize Roadmap Nora truth-sync DOC · OD decisions remain separate |
+| **Gates Morris** | Validate C4 content · decide next capability · **Roadmap Nora lifecycle truth-sync REQUIRED before or with next-capability authorization** · OD decisions remain separate · ≠ Roadmap GO in this cycle |
 | **Capacité suivante candidate** | **SOURCE-LOCKED COGNITIVE BACKLOG** (primary) — RECOMMENDATION ONLY |
 
 **Trajectory link:** Demonstrable — Nora C1–C3 closed cleanly on main; Product Completion adaptive pattern (architecture only on proven blockers) applies; this cycle qualifies implementation readiness without selecting architecture.
@@ -227,7 +454,7 @@ Observed PC pattern: C1 → C2 → PE → FA (when blockers) → TA delta (when 
 
 **Rule applied here:** architecture **only** when responsibility/boundary/tech structural blocker is demonstrated — **not** because “FA is next.”
 
-Finding: Product Completion already delivered the OA spine Nora reuses (Project/LPS/Trajectory/HD/Evidence/EC). Nora C3 FA blocker register = **0**. Therefore default path = **source-locked cognitive backlog** on KEEP/ADAPT assets, with TA only if Morris later selects a new persistence/runner/search stack.
+Finding: Product Completion already delivered the OA spine Nora reuses (Project/LPS/Trajectory/HD/Evidence/EC). Nora C3 FA blocker register = **0**. Therefore default path = **source-locked cognitive backlog** on KEEP/ADAPT assets. **TA gate order:** ADAPT-first → if backlog/evals demonstrate a structural technical primitive is necessary → **Targeted TA Delta** (options/trade-offs) → **Morris decision** → Delivery only under a distinct GO. Morris does **not** normally select a technology first then trigger TA.
 
 ---
 
@@ -291,7 +518,7 @@ Hard invariants retained: Pilote HD · Recommendation ≠ HD · B ≠ C · CKC �
 | Agents SDK / Sessions / Hosted Web Search | **TBD option** | **NOT ADOPTED** · no REPLACE proof |
 | New vector store / orchestration engine | **TBD** | Default reject parallel unless REPLACE proven |
 
-\* Memory B **FA_REQUIRED = NO** if implemented as non-authoritative continuity respecting existing OA Truth C boundaries (already specified in C2). **TA_REQUIRED = TBD** only if Morris selects a new persistence/runtime primitive instead of ADAPT.
+\* Memory B **FA_REQUIRED = NO** if implemented as non-authoritative continuity respecting existing OA Truth C boundaries (already specified in C2). **TA_REQUIRED = NO currently** under ADAPT-first. **TA becomes REQUIRED** only if qualification/backlog proves existing persistence/runtime cannot honestly satisfy Memory B without debt or a second Truth C — then Targeted TA Delta → options → Morris decision. Sessions/local store/other = **options only**, never pre-selected.
 
 ---
 
@@ -332,9 +559,9 @@ Hard invariants retained: Pilote HD · Recommendation ≠ HD · B ≠ C · CKC �
 
 | ID | Need | Implementation | Coverage | Gap | Root cause | Disposition | FA? | Delivery? |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| CE-01 | Domain-aware tool/source strategy | Git/GitHub tools + router; no External Source Intelligence beyond repos | PARTIAL | Hosted Web Search NOT ADOPTED; strategy autonomy limited to allowlisted READ | TOOLING | ADAPT tool strategy; tech Hosted Web Search = OPTION only | NO | YES |
+| CE-01 | Domain-aware tool/source strategy | Git/GitHub tools + router; no External Source Intelligence beyond repos | PARTIAL | Vendor-neutral External Source Intelligence incomplete; Hosted Web Search NOT ADOPTED | TOOLING | ADAPT-first capability; if new source infrastructure primitive proven necessary → Targeted TA Delta before any tech selection; Hosted Web Search = OPTION only | NO | YES |
 | CE-02 | Evidence-backed contradiction disposition | Types + LPS ids; weak cognitive controller | PARTIAL | Controller/evals missing | POLICY + soft boundary | COMPLETE disposition path | NO | YES |
-| CE-03 | Memory B ≠ C + restart-safe | No Memory B; remount-from-C honesty | FAIL | Memory B absent | MEMORY_CONTEXT | COMPLETE need; mechanism TBD (OD-03); no second Truth C | NO* | YES |
+| CE-03 | Memory B ≠ C + restart-safe | No Memory B; remount-from-C honesty | FAIL | Memory B absent | MEMORY_CONTEXT | COMPLETE need ADAPT-first (OD-03 OPEN); no second Truth C; TA only if ADAPT proven insufficient | NO* | YES |
 | CE-04 | Context/compaction + provenance | History slice 20; no compaction provenance | FAIL | Compaction absent | MEMORY_CONTEXT | COMPLETE compaction contract | NO | YES |
 | CE-05 | Cognitive Workload Profile under policy | OPENAI_REASONING_EFFORT static env | FAIL | ≠ demonstrated CWP/strategy classes | POLICY_OR_PROMPT | ADAPT strategy under envelope (OD-02 OPEN) | NO | YES |
 | CE-06 | Narrative ↔ evidence coherence | Product terminals + grounding; narrative parity partial | PARTIAL | CE-06 LIVE/narrative audits missing | OBSERVABILITY_EVAL | ADAPT + eval | NO | YES |
@@ -437,7 +664,7 @@ C3 states = design vocabulary · **≠** required runtime enum. Coverage asks wh
 | Restart | Remount from C + honest chat loss | Correct honesty · insufficient continuity |
 | Invalidation | Truth C updates exist; B invalidation N/A without B | — |
 
-**Central answer:** Missing piece for honest Memory B/compaction is a **non-Truth continuity layer** with invalidation + provenance — **without** creating a second Project Truth. Existing OA boundaries already define C. Mechanism (Sessions vs local store vs remount-only+) remains **OPTION / OD-03** — **not selected here**.
+**Central answer:** Missing piece for honest Memory B/compaction is a **non-Truth continuity layer** with invalidation + provenance — **without** creating a second Project Truth. Existing OA boundaries already define C. **ADAPT-first** on existing runtime/persistence. If ADAPT cannot close the gap honestly, **Targeted TA Delta** analyzes options (Sessions / local store / remount-only+ / other) — OD-03 remains OPEN · **no technology selected here**.
 
 ---
 
@@ -454,7 +681,7 @@ C3 states = design vocabulary · **≠** required runtime enum. Coverage asks wh
 | Grounding | KEEP + ADAPT durability | RA-07 |
 | Partial reads / source failure | ADAPT | Honesty incomplete |
 | Contradiction | COMPLETE controller | Types exist |
-| External knowledge | ADAPT capability; Hosted Web Search = option only | OD-05 DEFER |
+| External knowledge | ADAPT capability first; Hosted Web Search = option only · TA if new source primitive proven necessary | OD-05 DEFER · no tech selection |
 
 ---
 
@@ -464,7 +691,7 @@ C3 states = design vocabulary · **≠** required runtime enum. Coverage asks wh
 - Deny-by-default router: **KEEP**
 - Per-turn grounding injection: **KEEP**
 - Cross-turn provenance ledger: **ADAPT** (RA-07 OPEN)
-- External Source Intelligence MUST (CE-01): **incomplete** · vendor-neutral capability · **≠** Hosted Web Search adoption
+- External Source Intelligence MUST (CE-01): **incomplete** · vendor-neutral capability · KEEP/ADAPT first · **≠** Hosted Web Search adoption · if new source infrastructure proven necessary → Targeted TA Delta before selection
 
 ---
 
@@ -508,9 +735,9 @@ fake ≠ live · deterministic ≠ REAL · REAL-A ≠ Cognitive Completion · RE
 | **NCC-R03** | reasoning.effort static ≠ CWP | **CONFIRMED** | `OPENAI_REASONING_EFFORT` env |
 | **NCC-R04** | Tool loop bound 4×4 | **REFORMULATED** | Default **KEEP healthy constraint** · gap only if eval proves insufficient |
 | **NCC-R05** | No versioned cognitive eval harness | **CONFIRMED** | EventSink ≠ harness |
-| **NCC-R06** | Agents SDK / Sessions / Hosted Web Search candidates only | **CONFIRMED** | Not installed/adopted |
+| **NCC-R06** | Agents SDK / Sessions / Hosted Web Search candidates only | **CONFIRMED** · OPEN | Not installed/adopted · REPLACE not demonstrated · if runner/toolLoop later proven structurally insufficient → Targeted TA Delta → options → Morris |
 | **NCC-R07** | C3-PE-BAR defined ≠ proven | **CONFIRMED** | C3 exit criteria |
-| **NCC-R08** | Roadmap Nora lag vs C2/C3 on main | **CONFIRMED** | Roadmap still “≠ C2 AUTHORIZED” while C2/C3 integrated |
+| **NCC-R08** | Roadmap Nora lag vs C2/C3 on main | **CONFIRMED** · **OPEN** · **REQUIRED LIFECYCLE TRUTH-SYNC BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION** | Roadmap still “≠ C2 AUTHORIZED” while C2/C3 integrated · living lag OK during C4 · must not remain open when Morris authorizes Nora next capability · ≠ Roadmap edited now · ≠ replaces REAL-B |
 | **NCC-R09** | Contradiction type without cognitive STOP controller | **NEW (SPLIT from NR-04/13)** | Epistemic types present; controller missing |
 | **NCC-R10** | OPS1 parallel conversation stack risk | **NEW** | `app/lib/ops1/**` · FREEZE claims vs F1 |
 
@@ -520,19 +747,21 @@ fake ≠ live · deterministic ≠ REAL · REAL-A ≠ Cognitive Completion · RE
 
 | Gap | Cause class | FA_REQUIRED | TA_REQUIRED | Notes |
 | --- | --- | --- | --- | --- |
-| Memory B continuity | MEMORY_CONTEXT | **NO** | **TBD** | Boundary already in C2 (B≠C). TA only if new persistence/runtime selected vs ADAPT |
+| Memory B continuity | MEMORY_CONTEXT | **NO** | **NO** (currently) | Boundary already in C2 (B≠C). ADAPT-first. TA **becomes REQUIRED** only if ADAPT of existing persistence/runtime cannot satisfy Memory B without debt/second Truth C → Targeted TA Delta → options → Morris |
 | Compaction provenance | MEMORY_CONTEXT | **NO** | **NO** | Specifiable in backlog contracts |
 | CWP / strategy | POLICY_OR_PROMPT | **NO** | **NO** | OD-02 OPEN · policy/eval first |
 | Eval harness | OBSERVABILITY_EVAL | **NO** | **NO** | Design+Delivery enabler |
 | Contradiction STOP | POLICY + soft boundary | **NO** | **NO** | Types exist; COMPLETE wiring |
-| External sources | TOOLING | **NO** | **TBD** | Hosted Web Search option · OD-05 |
-| Agents SDK runner | TECHNICAL_ARCHITECTURE candidate | **NO** | **TBD** | OD-04 · REPLACE not proven |
+| External sources | TOOLING | **NO** | **NO** (currently) | Vendor-neutral CE-01 · ADAPT-first · Hosted Web Search = OPTION · TA if new source infrastructure primitive proven necessary (OD-05) |
+| Agents SDK / runner | TECHNICAL_ARCHITECTURE candidate | **NO** | **NO** (currently) | REPLACE not demonstrated (OD-04) · TA if evals prove existing toolLoop/runner structurally insufficient → TA Delta → options (may include Agents SDK) → Morris |
 | CIS as enum | PRODUCT_EXPERIENCE | **NO** | **NO** | C3: design vocabulary ≠ must schema |
 | Authority/HD | — | **NO** | **NO** | Already PASS |
 | Parallel PE architecture | — | **NO** | **NO** | C3 KEEP EA |
 
 **No demonstrated Functional Architecture delta requirement.**
-**No mandatory Technical Architecture delta** under KEEP/ADAPT default.
+**No mandatory Technical Architecture delta currently demonstrated** under ADAPT-first / KEEP-ADAPT default.
+
+**TA causality (normative for this document):** ADAPT-first → demonstrated need for a structural technical primitive → **Targeted TA Delta** (options / trade-offs / impact / migration / exit / anti-parallel) → **Morris decision** → revised backlog/readiness if needed → Delivery only under a **distinct** GO. Technology selection by Cursor is forbidden; Morris does not normally pick a primitive then “trigger TA.”
 
 ---
 
@@ -547,7 +776,7 @@ fake ≠ live · deterministic ≠ REAL · REAL-A ≠ Cognitive Completion · RE
 7. **Avoid double work:** Nora backlog implements/designs measurable cognitive behaviors on Studio path; REAL-B remains published LIVE proof programme — do not silently replace REAL-B; share fixtures/scenarios where possible; no duplicate “second cognitive programme.”
 8. **Critical path capabilities:** (i) eval harness design, (ii) Memory B/compaction contracts on ADAPT path, (iii) CWP-under-envelope, (iv) contradiction/STOP honesty, (v) grounding durability.
 9. **Non-blocking debts:** RA-06/07, Penpot hi-fi (D1), C3-PE-BAR full proof, OD-06 voice, OD-08 naming, FinOps/T7 freeze as construction state.
-10. **Temporary exits:** process-local chat → Memory B target; static effort → CWP target; EventSink-only → harness target; Roadmap lag → DOC sync target.
+10. **Temporary exits:** process-local chat → Memory B target; static effort → CWP target; EventSink-only → harness target; Roadmap Nora lag (NCC-R08) → **REQUIRED lifecycle truth-sync before or with next-capability authorization** (separate DOC cycle unless Morris groups).
 
 ---
 
@@ -571,7 +800,7 @@ fake ≠ live · deterministic ≠ REAL · REAL-A ≠ Cognitive Completion · RE
 5. **Grounding durability / narrative coherence (NR-25, CE-06, RA-07)**
 6. **Critical challenge + clarification burden (NR-02/06)**
 7. **External Source Intelligence capability ADAPT** — search tech remains option
-8. **Documentary:** Roadmap Nora C2/C3 truth-sync (NCC-R08) — separate DOC cycle
+8. **Documentary (governance):** Roadmap Nora lifecycle truth-sync (NCC-R08) — **REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION** · separate DOC cycle unless Morris GO groups · ≠ this cycle · ≠ replaces REAL-B
 
 ---
 
@@ -583,16 +812,17 @@ fake ≠ live · deterministic ≠ REAL · REAL-A ≠ Cognitive Completion · RE
 
 Justification:
 - No FA blocker demonstrated (C3 register 0; OA boundaries exist)
-- REPLACE/new engine not demonstrated
+- **No mandatory TA delta currently demonstrated** (ADAPT-first / REPLACE not demonstrated)
 - Gaps are predominantly COMPLETE/ADAPT on existing F1/F2/OA/`/studio` spine
 - Eval harness should be **first epic group** inside that backlog (enabler), not a reason to skip backlog qualification
 - PE sufficient for implementation contracts (C3 closed); no PE delta required to unblock
+- **Roadmap Nora lifecycle truth-sync = REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION** (≠ backlog itself; ≠ this cycle)
 
 ### Explicitly not selected as primary
 
 | Option | Why not primary |
 | --- | --- |
-| B Targeted TA | Only if Morris rejects ADAPT-first and selects Sessions/Agents/new store/search |
+| B Targeted TA | **Conditional branch only:** if ADAPT-first later proves insufficient and a structural technical primitive is demonstrated necessary → Targeted TA Delta (options/trade-offs) → Morris decision — **not** “Morris selects Sessions/Agents/store then TA” |
 | C Functional Architecture | No genuine ownership/boundary blocker beyond already-specified B≠C |
 | D Product Experience delta | C3 PE contracts exist; PE-BAR proof is eval/UAT downstream |
 | E Eval-only enabler cycle | Attractive but eval can be Slice-0 of backlog without blocking story locking from C1–C3 |
@@ -600,6 +830,13 @@ Justification:
 ### Decision class
 
 **RECOMMENDATION ONLY — MORRIS DECISION REQUIRED.**
+**NEXT CAPABILITY = NOT AUTHORIZED.**
+
+### Recommended conceptual trajectory (≠ automatic authorization)
+
+Nora C1 CLOSED → C2 CLOSED → C3 CLOSED → C4 QUALIFIED → C4 ChatGPT review corrections applied → Morris C4 content validation → **Roadmap Nora lifecycle truth-sync REQUIRED before or with next-capability authorization** → Morris next-capability decision → if authorized: Source-Locked Cognitive Backlog (Slice-0 eval harness → Memory B/compaction → CWP → contradiction/STOP → grounding/narrative → Critical challenge → External Source Intelligence) → readiness per macro-wave → distinct Morris Delivery GO → Delivery + proof → Pre-QA Cognitive Conformance → Integrated Cognitive Completion QA → Morris final closure.
+
+Architecture remains conditional: FA only on demonstrated boundary blocker; TA only on demonstrated structural technical primitive need → TA Delta → Morris → Delivery separately.
 
 ---
 
@@ -607,13 +844,13 @@ Justification:
 
 | Gate | Status |
 | --- | --- |
-| Validate C4 readiness content | **REQUIRED** |
-| Decide next capability (A recommended) | **REQUIRED** |
-| Consume OD-02…08 | **NOT** in this cycle |
+| Validate C4 readiness content | **REQUIRED** (after ChatGPT re-review of corrections) |
+| Decide next capability (A recommended) | **REQUIRED** · **NOT AUTHORIZED** now |
+| Roadmap Nora lifecycle truth-sync | **REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION** · separate DOC cycle unless Morris groups · ≠ this cycle · ≠ replaces REAL-B |
+| Consume OD-02…08 | **NOT** in this cycle · OPEN · OD ≠ technology pre-selection · if structural tech primitive needed, Targeted TA precedes selection |
 | Authorize Delivery | **NOT** |
 | Authorize REAL-B execution | **NOT** (separate) |
-| Adopt Agents SDK / Sessions / Hosted Web Search / new persistence | **NOT** |
-| Roadmap Nora documentary sync | Optional separate DOC GO |
+| Adopt Agents SDK / Sessions / Hosted Web Search / new persistence | **NOT** · options only after TA when TA is required |
 | runtime v3 adoption | **NOT** |
 
 ---
@@ -626,7 +863,7 @@ Justification:
 | Static effort (R03) | CWP under envelope | OD-02 decision + evals |
 | No harness (R05) | Versioned cognitive harness | CE-07 Delivery epic |
 | PE-BAR unproven (R07) | `/studio` PE proof | Eval + UAT |
-| Roadmap lag (R08) | Roadmap truth-sync | Dedicated DOC cycle |
+| Roadmap lag (R08) | Nora lifecycle truth aligned to Git (C1–C3 closed · C4 qualified · next pending) | **REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION** · dedicated DOC cycle unless Morris groups |
 | RA-06/07 | Completeness + cross-turn provenance | REAL/Nora shared remediation |
 | OPS1 parallel risk (R10) | Single canonical path | FREEZE claims / retire later |
 
@@ -656,7 +893,11 @@ Underlying truth:
 - Nora C1+C2+C3 = CONTENT VALIDATED · INTEGRATED ON MAIN · POST-MERGE VERIFIED
 - Runtime spine = KEEP/ADAPT capable
 - Cognitive Completion = **NOT PROVEN**
+- FA_REQUIRED = **NO** · **NO MANDATORY TA DELTA CURRENTLY DEMONSTRATED**
+- SOURCE-LOCKED COGNITIVE BACKLOG remains the recommended next capability
 - Next capability = **NOT AUTHORIZED** (recommendation only)
+- **Roadmap Nora lifecycle truth-sync = REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION**
+- TA branch remains conditional on demonstrated structural technical primitive need (ADAPT-first first)
 
 ---
 
@@ -674,21 +915,26 @@ Underlying truth:
 - ≠ runtime v3 ADOPTED / FinOps/T7 unfreeze
 - ≠ project commit/push/PR/merge
 - ≠ NEXT CAPABILITY AUTHORIZED
+- ≠ Roadmap mutated / validated in this cycle
+- ≠ C4 CONTENT VALIDATED BY MORRIS
 - ≠ MORRIS RUNTIME PERSONA
 
 ---
 
-*Fin du C4-CANDIDATE — QUALIFICATION / READINESS ONLY — LOCAL ONLY — SOURCE-LOCKED COGNITIVE BACKLOG RECOMMENDED — MORRIS DECISION REQUIRED — NO ARCHITECTURE SELECTED — NO DELIVERY — NO REAL — NO RUNTIME V3 ADOPTION — OD-02…08 OPEN — NO MORRIS RUNTIME PERSONA.*
+*Fin du C4-CANDIDATE — CHATGPT REVIEW CORRECTIONS APPLIED — LOCAL ONLY — QUALIFICATION / READINESS ONLY — SOURCE-LOCKED COGNITIVE BACKLOG RECOMMENDED — NEXT CAPABILITY NOT AUTHORIZED — ROADMAP NORA LIFECYCLE TRUTH-SYNC REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION — NO MANDATORY TA CURRENTLY DEMONSTRATED — NO ARCHITECTURE SELECTED — NO DELIVERY — NO REAL — NO RUNTIME V3 ADOPTION — OD-02…08 OPEN — NO MORRIS RUNTIME PERSONA.*
 
 ```
 
 ---
 
-## 10. Cursor verdict
+## 9. Anti-claims
 
-**NORA COGNITIVE RUNTIME GAP & IMPLEMENTATION READINESS — QUALIFIED — NO STRUCTURAL ARCHITECTURE BLOCKER — SOURCE-LOCKED COGNITIVE BACKLOG RECOMMENDED — MORRIS DECISION REQUIRED**
+≠ C4 CONTENT VALIDATED · ≠ NEXT CAPABILITY AUTHORIZED · ≠ Roadmap mutated · ≠ FA/TA selected · ≠ Backlog validated · ≠ Delivery · ≠ tech adoption · ≠ REAL-B · ≠ runtime v3 · ≠ MORRIS RUNTIME PERSONA
 
-### Mandatory anti-claims
-≠ Cognitive Completion · ≠ NCC/C3-PE-BAR final PASS · ≠ FA/TA auto-required · ≠ Backlog validated · ≠ Delivery · ≠ Agents SDK/Sessions/Hosted Web Search/new persistence · ≠ REAL-B · ≠ runtime v3 · ≠ project Git integration · ≠ NEXT CAPABILITY AUTHORIZED · ≠ MORRIS RUNTIME PERSONA
+---
 
-**STOP FOR CHATGPT REVIEW.**
+## 10. Verdict
+
+**NORA C4 CHATGPT REVIEW CORRECTIONS — APPLIED — ROADMAP LIFECYCLE TRUTH-SYNC REQUIRED BEFORE OR WITH NEXT-CAPABILITY AUTHORIZATION — TECHNICAL ARCHITECTURE GATE ORDER CORRECTED — READY FOR CHATGPT RE-REVIEW — NO NEXT CAPABILITY AUTHORIZED**
+
+**STOP FOR CHATGPT RE-REVIEW.**
