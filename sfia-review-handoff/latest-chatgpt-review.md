@@ -12,14 +12,15 @@
 ## Handoff status (governance)
 
 ```text
-REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED
+HANDOFF UPDATED — REMOTE VERIFIED
 ```
 
-- This GO **explicitly forbids** push of `sfia/review-handoff` and project push/PR/merge.
-- Canonical remote `sfia-review-handoff/latest-chatgpt-review.md` still holds the prior **OD-04 documentary** pack (`docs/sfia-studio-nora-od04-openai-runtime-decision` / `a741a1ef…`) — **not** this MW1 Option C implementation pack.
-- Local pack below is rebuilt as **FULL with complete modified content** so CRITICAL surface review is possible once Morris authorizes L3 handoff publish **or** attaches this file.
+- Morris authorized L3 handoff publish (`ok go`) after prior `REVIEW HANDOFF INCOMPLETE`.
+- Canonical remote: `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
+- Handoff tip: `2c6093a5c689f9ed63337dd7c591b3fe136c88d3` (supersedes OD-04 documentary pack on handoff branch)
+- Project branch still **unpushed**; implementation still **uncommitted**; **no project PR/merge**.
 
-**NO PUSH / NO PR / NO MERGE performed under this cycle.**
+**Project: NO PUSH / NO PR / NO MERGE. Handoff L3 only.**
 
 ---
 
@@ -2321,17 +2322,14 @@ REVIEW PACK CONTENT-COMPLETE — FOUR CRITICAL SURFACES INLINED
 
 ### Remote canonical handoff
 ```text
-REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED
+HANDOFF UPDATED — REMOTE VERIFIED
 ```
 
-Reason: this GO forbids `sfia/review-handoff` push. Remote still shows OD-04 documentary pack.
+Tip: `2c6093a5c689f9ed63337dd7c591b3fe136c88d3` · path `sfia-review-handoff/latest-chatgpt-review.md`
 
 ### Implementation cycle
 ```text
 PARTIAL — REVIEWABLE WITH EXPLICIT DEBT
 ```
 
-### Required Morris decision to unblock ChatGPT CRITICAL Git review
-Authorize **L3-only** publish of this pack to `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` (project branch still unpushed / uncommitted unless separately authorized).
-
-**NO PUSH / NO PR / NO MERGE performed under this cycle.**
+**Project: NO PUSH / NO PR / NO MERGE. Handoff L3 only (authorized).**
