@@ -17,7 +17,7 @@ HANDOFF UPDATED — REMOTE VERIFIED
 
 - Morris authorized L3 handoff publish (`ok go`) after prior `REVIEW HANDOFF INCOMPLETE`.
 - Canonical remote: `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
-- Handoff tip: `2c6093a5c689f9ed63337dd7c591b3fe136c88d3` (supersedes OD-04 documentary pack on handoff branch)
+- Handoff tip: `bf14b686045c38d33f388b1cd12f1bd7496ed564` (content-complete MW1 Option C pack; supersedes OD-04 documentary pack)
 - Project branch still **unpushed**; implementation still **uncommitted**; **no project PR/merge**.
 
 **Project: NO PUSH / NO PR / NO MERGE. Handoff L3 only.**
@@ -2325,7 +2325,7 @@ REVIEW PACK CONTENT-COMPLETE — FOUR CRITICAL SURFACES INLINED
 HANDOFF UPDATED — REMOTE VERIFIED
 ```
 
-Tip: `2c6093a5c689f9ed63337dd7c591b3fe136c88d3` · path `sfia-review-handoff/latest-chatgpt-review.md`
+Tip: `bf14b686045c38d33f388b1cd12f1bd7496ed564` · path `sfia-review-handoff/latest-chatgpt-review.md`
 
 ### Implementation cycle
 ```text
