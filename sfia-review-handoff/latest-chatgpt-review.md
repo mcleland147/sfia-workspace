@@ -1,58 +1,54 @@
-# NORA OD04-I01 — STUDIO↔NORA BOUNDARY TRUTH-SYNC — Review Pack FULL
+# NORA OD04-I01 — DOC-01 + DOC-02 DOCUMENTARY CORRECTIONS — Review Pack FULL
 
 | Field | Value |
 | --- | --- |
-| **Cycle** | OD04-I01 — Studio↔Nora architecture boundary documentary truth-sync |
+| **Cycle** | OD04-I01 documentary corrections — CORR-OD04-I01-DOC-01 + CORR-OD04-I01-DOC-02 |
 | **Typology** | DOC |
 | **Profile** | CRITICAL |
-| **Timestamp (Europe/Paris)** | 2026-08-30 20:37:26 CEST |
-| **Timestamp (UTC)** | 2026-08-30T18:37:26Z |
+| **Timestamp (Europe/Paris)** | 2026-08-30 20:51:24 CEST |
+| **Timestamp (UTC)** | 2026-08-30T18:51:24Z |
+| **Repo** | `mcleland147/sfia-workspace` |
 | **Worktree (CLEAN documentary)** | `/Users/morris/Projects/sfia-doc-od04-i01-truth` |
 | **Branch** | `docs/sfia-studio-nora-od04-i01-boundary-truth-sync` |
-| **HEAD** | `4f00a2ad5e58310392e2efb562174d32ad8240e8` (= `origin/main` / PR **#445** merge) |
-| **Scope** | LOCAL DOCUMENTARY ONLY · exact 3 project docs + local review pack |
-| **Verdict (proposed)** | **DOCUMENTARY TRUTH-SYNC COMPLETE — READY FOR CHATGPT REVIEW** |
+| **Committed HEAD** | `4f00a2ad5e58310392e2efb562174d32ad8240e8` |
+| **origin/main** | `4f00a2ad5e58310392e2efb562174d32ad8240e8` |
+| **Handoff predecessor tip** | `53ca12b4ccb6167043a2cb55311776a310d34239` (prior OD04-I01 FULL pack publish) |
+| **Scope** | LOCAL DOCUMENTARY CORRECTIONS ONLY · 3 project docs + local Review Pack · L3 handoff publish authorized |
+| **Verdict (proposed)** | **OD04-I01 DOCUMENTARY CORRECTIONS COMPLETE — READY FOR CHATGPT SECOND CRITICAL REVIEW** |
 
 ---
 
-## 0. Recovery Option A (executed)
+## 0. Consumed GO
 
-Preferred OD04 path and MW1 Option C path were contaminated with MW1 dirty trees. A prior `-clean` WT was also remapped/contaminated.
+`GO MORRIS — OD04-I01 DOCUMENTARY CORRECTIONS — APPLY CORR-OD04-I01-DOC-01 + CORR-OD04-I01-DOC-02 ONLY — PRESERVE OD-04 OPTION C / OD04-I01 / C5 SOURCE LOCK — NO CODE — NO PRODUCT COMPLETION MUTATION — NO BUILD DOCTRINE MUTATION — NO V3 FRAMING MUTATION — NO DOCUMENTARY PROJECT COMMIT / PUSH / PR / MERGE.`
 
-**Option A recovery:**
-
-- **USE THIS CLEAN SURFACE:** `/Users/morris/Projects/sfia-doc-od04-i01-truth` on `docs/sfia-studio-nora-od04-i01-boundary-truth-sync` @ `4f00a2ad…`
-- **LEFT INTACT (no reset/stash/discard/repair):**
-  - `/Users/morris/Projects/sfia-workspace-nora-od04-i01-boundary-truth-sync` (detached + MW1 dirty)
-  - `/Users/morris/Projects/sfia-workspace-nora-mw1-option-c-migration` (detached + MW1 dirty)
-  - contaminated `-clean` / `-docs` paths (also dirty; not repaired)
-
-**NO PROJECT COMMIT / NO PUSH / NO PR / NO MERGE performed under this cycle.**
-**NO** `sfia/review-handoff` publish.
+Handoff L3 transport is **authorized** by this GO (canonical v2.6 process).
 
 ---
 
-## 1. Mission / authorization consumed
+## 1. META-01 — Review Pack handoff provenance
 
-Morris GO OPTION A + OD04-I01 local documentary truth-sync:
+| State | Truth |
+| --- | --- |
+| At completion of initial OD04-I01 documentary truth-sync | Local pack existed; handoff **not yet** published at that instant |
+| Subsequent distinct L3 transport | FULL pack published + remotely verified at handoff tip `53ca12b4ccb6167043a2cb55311776a310d34239` |
+| This correction-cycle pack | Refreshed after DOC-01/DOC-02; to be published via canonical publisher after validation |
 
-1. Normalize OD-04 lifecycle: PR **#445** integrated on main ≠ MW1 implementation integrated
-2. Add **§ OD04-I01** Studio owns product/business/authority · Nora owns cognition · Pilote ≠ Morris persona · matrix · invariants · flow · CORR-OPT-C trajectory · legacy loop retirement **before** MW0 Option C parity
-3. C5: add **§5A cross-wave invariant** · preserve NR26 / CE8 / NCC-BAR14 / 10 epics / 23 stories / DAG · **no** MW1-S01/S02/S03 semantic change
-4. Roadmap: CURRENT tip + Snapshot/gates/Anti-claims Nora portion → OD04-I01 + MW1 correction next gate
-5. FULL local Review Pack only
+No project-document rewrite for META-01.
 
 ---
 
-## 2. Git truth (this clean WT)
+## 2. Git truth (clean documentary WT)
 
 ```text
-M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+## docs/sfia-studio-nora-od04-i01-boundary-truth-sync...origin/main
+ M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
  M projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
  M projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md
+?? .tmp-sfia-review/
 ```
 
-**Changed paths only:**
+**Changed PROJECT paths only:**
 
 ```text
 projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -60,59 +56,62 @@ projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-b
 projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md
 ```
 
----
-
-## 3. Validation evidence
-
-| Check | Result |
-| --- | --- |
-| Diff paths = 3 allowed docs only | **PASS** |
-| `git diff --check` | **PASS** (no errors) |
-| NR unique | **26** |
-| CE unique | **8** |
-| NCC-BAR unique | **14** |
-| Stories `#### MWx-Sy` | **23** unchanged |
-| MW1-S01/S02/S03 bodies vs HEAD | **EQUAL / UNCHANGED** |
-| OD04-I01 present in OD-04 / C5 / Roadmap | **PASS** |
-| CORR-OPT-C-01…05 documented | **PASS** (documentary trajectory only) |
-| Pilote ≠ Morris runtime persona | **PASS** |
-| Session/input = cognitive context integrity ≠ authority | **PASS** |
-| PR #445 ≠ MW1 integrated | **PASS** |
-| MW0 CLOSED preserved | **PASS** |
-| MW2 not started | **PASS** |
-| No code / package mutation on this WT | **PASS** |
-| Dirty MW1 WTs untouched | **PASS** |
-
----
-
-## 4. Exploitable corrected excerpts
-
-### 4.1 OD-04 header lifecycle + OD04-I01 pointer
-
-```markdown
-| **Document** | `07-nora-openai-cognitive-runtime-architecture-decision.md` |
-| **Programme** | SFIA Studio — Nora Cognitive Completion |
-| **Cycle** | Pilotage / décision projet |
-| **Typology** | DOC |
-| **Profile** | CRITICAL |
-| **Date (Europe/Paris)** | 2026-08-30 |
-| **Morris decision status** | **OD-04 = CONSUMED** |
-| **Decision** | **OPTION C — HYBRID OPENAI COGNITIVE RUNTIME = ADOPTED AS NORA TARGET ARCHITECTURE** |
-| **Git lifecycle (CURRENT)** | **Decision record INTEGRATED ON MAIN** via PR **#445** · merge commit `4f00a2ad5e58310392e2efb562174d32ad8240e8` · **Option C TARGET ADOPTED** · **implementation migration NOT YET INTEGRATED** |
-| **Git lifecycle (HISTORICAL at first local record)** | Was **LOCAL DOCUMENTARY CANDIDATE** until distinct project Git integration *(pre-PR #445 · preserved as provenance)* |
-| **OD04-I01** | **ACTIVE CROSS-WAVE ARCHITECTURE INVARIANT** under OD-04 · **NOT** a new architecture selection · see §4A |
-| **runtime v3** | **NON ADOPTED** |
-| **Cognitive Completion** | **NOT PROVEN** |
-| **Package / code migration** | **NOT AUTHORIZED by this documentary decision record alone** · local MW1 Option C candidate may exist elsewhere · **≠** integrated |
-| **Evidence basis** | Static OpenAI cognitive-runtime evaluation + targeted A/B proof (P1/P2 D0+REAL PASS) · OD-04 documentary integration PR **#445** · MW1 implementation CRITICAL review handoff tip `56948ddaef780b9f2a5ffa65d784afdcb9917caf` *(review evidence only · ≠ project integration)* |
-
-> **Anti-claims:** This record adopts a Nora **cognitive runtime target**. It does **not** adopt runtime v3 · does **not** by itself complete MW1 · does **not** prove Cognitive Completion · does **not** replace SFIA business semantics · does **not** authorize MW2 · does **not** map OpenAI HITL→HD/Confirmation · does **not** map Trace→Evidence · does **not** adopt Responses compaction · **OD04-I01 ≠ new architecture decision** · **PR #445 merged ≠ MW1 implementation integrated**.
-
----
-
+```text
+.../convergence/sfia-studio-convergence-roadmap.md |  16 ++-
+ .../05-nora-source-locked-cognitive-backlog.md     |  69 ++++++---
+ ...enai-cognitive-runtime-architecture-decision.md | 155 ++++++++++++++++++---
+ 3 files changed, 193 insertions(+), 47 deletions(-)
 ```
 
-### 4.2 OD-04 §4A (boundary)
+Committed HEAD remains `4f00a2ad5e58310392e2efb562174d32ad8240e8` (= origin/main). **No project commit.**
+
+---
+
+## 3. Sources read
+
+- `prompts/templates/sfia-cycle-execution-template.md` (process awareness)
+- Convergence Build Doctrine / Roadmap (read-only except allowed Roadmap CURRENT edits)
+- Product Completion C1/C2 + framing 30/32/33/34 (coherence read-only · **not mutated**)
+- Local OD04-I01 modified sources: `07-…architecture-decision.md`, `05-…backlog.md`, Roadmap
+- Canonical review basis: `origin/sfia/review-handoff` tip `53ca12b4ccb6167043a2cb55311776a310d34239`
+
+---
+
+## 4. ChatGPT CRITICAL findings corrected
+
+### CORR-OD04-I01-DOC-01 — HumanDecision / Confirmation ownership precision
+
+**Problem:** ACTIVE wording “Studio owns authority / HumanDecision / Confirmation” could be misread as “Studio makes the human decision.”
+
+**Correction:** Explicit normative split:
+
+- **Pilote** = decision actor / confirmation actor
+- **SFIA Studio** = durable HD/Confirmation product objects + governed lifecycle (qualification/materialization, persistence, scope, validity, enforcement) + authority **model**/policy/validation/enforcement
+- **Nora** = cognition / recommendation / explanation only · **no authority**
+- “Studio owns authority” = owns authority **model/state/policy/enforcement** · **≠** replaces human decision actor
+
+### CORR-OD04-I01-DOC-02 — Unify Option C migration trajectory order
+
+**Problem:** ACTIVE C5 gate ordered `corrections → project Git integration → legacy-loop retirement` while OD-04 intended `corrections → Runner/Fake convergence → retire legacy → Git integration → MW0 parity`.
+
+**Canonical ACTIVE forward sequence now:**
+
+1. MW1 Option C correction cycle (OD04-I01 / CORR-OPT-C-01…05)
+2. Runner/Fake convergence on ONE target path
+3. Fake/tests/comparator migrate as applicable
+4. RETIRE legacy `runToolCallingLoop`
+5. PROJECT Git integration (separate GO)
+6. MW0 REGRESSION / PARITY ON OPTION C (MW0 CLOSED historically)
+7. MW1-S01/S02/S03 final proof
+8. CORR-MW1-07/08 where required
+9. MW1 Exit Proof / closure
+10. MW2 only after MW1 closure
+
+---
+
+## 5. Exact corrected excerpts
+
+### 5.1 OD-04 §4A (DOC-01 ownership + DOC-02 sequence in §4A.6)
 
 ```markdown
 ## 4A. OD04-I01 — Studio ↔ Nora architecture boundary (ACTIVE)
@@ -125,10 +124,16 @@ This clarification does **not** select a new architecture, reopen Product Comple
 
 | Layer | Owns | Does not own |
 | --- | --- | --- |
-| **SFIA Studio** | product semantics · business objects · authority / HumanDecision / Confirmation · LPS / Truth C / ProjectTrajectory · materialization / Evidence · policy gates | Nora cognition internals |
-| **Nora** | cognition · reasoning · Session continuity · Runner loop / tool orchestration · recommendations / options analysis | business authorization · HD · Confirmation · Truth C mutation · effective authority |
-| **Pilote** | runtime human actor for HD / Confirmation where required | Morris construction/governance identity |
+| **SFIA Studio** | product semantics · business objects · **authority MODEL / policy / validation / enforcement** · durable **HumanDecision** and **Confirmation** product objects + governed lifecycle (qualification/materialization · persistence · scope · validity · enforcement) · LPS / Truth C / ProjectTrajectory · materialization / Evidence · policy gates | Nora cognition internals · **does not replace Pilote as decision/confirmation actor** |
+| **Nora** | cognition · reasoning · Session continuity · Runner loop / tool orchestration · recommendations / options analysis · may explain why Confirmation is required | business authorization · deciding/granting HD or Confirmation · Truth C mutation · effective authority |
+| **Pilote** | **runtime human decision actor** for HumanDecision · **runtime human confirmation actor** where Confirmation is required | Morris construction/governance identity |
 | **Morris** | construction · GO · governance · programme decisions | **runtime persona** · product Pilote substitute |
+
+**Meaning of “Studio owns authority” (normative):** Studio owns the product authority **model**, durable authority state, policy, validation and enforcement. It does **not** mean Studio is the human decision actor.
+
+**HumanDecision split:** decision actor = **Pilote** · durable governed product object + materialization/persistence/scope/provenance/enforcement = **SFIA Studio** · cognition/recommendation support = **Nora** · Nora = **no authority**.
+
+**Confirmation split:** confirmation actor = **Pilote** · durable governed boundary/object/state + requiredness/scope/context/validity/enforcement = **SFIA Studio** · explanation/clarification/request support = **Nora** · Nora = **no authority**.
 
 ### 4A.2 Responsibility matrix (summary)
 
@@ -136,7 +141,9 @@ This clarification does **not** select a new architecture, reopen Product Comple
 | --- | --- | --- | --- | --- |
 | Product / business truth | **OWNS** | consumes context | decides when required | governs programme |
 | Cognition / reasoning | supplies constraints | **OWNS** | receives recommendations | does not runtime-personify |
-| Authority / HD / Confirmation | **OWNS** materialization path | may recommend only | **acts** | authorizes construction GOs only |
+| Authority **model** / policy / enforcement | **OWNS** | no authority | — | construction GOs only |
+| HumanDecision | **OWNS** durable object + qualification/materialization / persistence / scope / provenance / enforcement | may recommend only · never decides/materializes HD | **decision actor** | construction GOs only |
+| Confirmation | **OWNS** durable boundary/object/state + requiredness / scope / context / validity / enforcement | may explain/ask · never grants Confirmation | **confirmation actor** | construction GOs only |
 | Session / model-input integrity | supplies authoritative context | **OWNS** filter/policy for cognition | — | — |
 | Evidence / ReviewBundle | **OWNS** | may propose cognitive observables | — | — |
 
@@ -144,9 +151,10 @@ This clarification does **not** select a new architecture, reopen Product Comple
 
 1. Studio supplies authoritative product/business context; Nora consumes it for cognition.
 2. Session / `callModelInputFilter` / model-input policy = **cognitive context integrity only** · **≠** keyword GO/HD redaction-as-authorization · **≠** Morris-GO runtime primitive.
-3. **Pilote = generic runtime actor** · **Morris = construction/governance ≠ runtime persona**.
+3. **Pilote = generic runtime human actor** (decides / confirms where required) · **Morris = construction/governance ≠ runtime persona**.
 4. OpenAI HITL **≠** HD/Confirmation · Trace **≠** Evidence · server-managed Truth C **FORBIDDEN**.
 5. No parallel Nora product/authority path · no second Truth C · no Morris runtime persona.
+6. Utterance (“go” / “I authorize” / “I choose B”) **≠** automatic durable authority — becomes HD/Confirmation only via Studio qualification/materialization path.
 
 ### 4A.4 Utterance / naming rules
 
@@ -165,12 +173,12 @@ Pilote utterance
   → analysis / options / recommendations
   → SFIA Studio
   → qualification / materialization / gate
-  → Pilote HumanDecision or Confirmation where required
-  → effective authority
+  → Pilote HumanDecision or Confirmation where required (Pilote = actor)
+  → SFIA Studio resolves effective authority from governed product state
   → executor
 ```
 
-Nora is **not** the owner of HD, Confirmation, LPS, ProjectTrajectory, ExecutionContract, effective authority, or Evidence.
+Nora is **not** the owner of HD, Confirmation, LPS, ProjectTrajectory, ExecutionContract, effective authority, or Evidence. Studio owns the durable HD/Confirmation **objects and lifecycle**; Pilote remains the **decision/confirmation actor**.
 
 ### 4A.6 Correction trajectory note (documentary only)
 
@@ -184,31 +192,42 @@ Local MW1 Option C migration work exists as **LOCAL / UNCOMMITTED** candidate an
 | **CORR-OPT-C-04** | REQUIRED / APPROACH REPLACED | Prefer Studio ToolDefinition schema → thin SDK adapter → `routeToolCall`; avoid unnecessary custom schema translation; exact SDK API check in later code cycle |
 | **CORR-OPT-C-05** | REQUIRED PROOF / REDEFINED | Authority proof must demonstrate Studio authorization/policy boundary — not a Nora-local fake authority engine |
 
-**Legacy Fake / comparator dual path:** TEMPORARY WITH EXIT. Target sequence:
+**Legacy Fake / comparator dual path:** TEMPORARY WITH EXIT. Canonical forward sequence (ACTIVE):
 
-Option C corrections → deterministic Runner/Fake convergence on **one** cognitive path → **retire Nora legacy generic loop** → **MW0 regression/parity on Option C**.
+1. MW1 Option C **correction cycle** aligned with OD04-I01 (CORR-OPT-C-01…05)
+2. deterministic Runner / Fake convergence on **ONE** target Runner cognitive path
+3. Fake / tests / comparator migrate to the same target cognitive path as applicable
+4. **RETIRE** legacy Nora generic `runToolCallingLoop` (must not remain a permanent second product path)
+5. corrected Option C **PROJECT Git integration** — separate Morris GO · **≠** integrated before this gate
+6. **MW0 REGRESSION / PARITY ON OPTION C** (MW0 remains historically **CLOSED** · parity ≠ reopen)
+7. MW1-S01 / S02 / S03 final proof
+8. CORR-MW1-07 / CORR-MW1-08 where required by S03/materialization closure
+9. MW1 Exit Proof / closure
+10. **MW2** only after MW1 closure
 
-This supersedes any active wording implying the legacy loop should survive **until after** the MW0 Option C regression/parity gate.
+This supersedes any active wording that places project Git integration **before** legacy-loop retirement, or that lets the legacy loop survive **until after** the MW0 Option C regression/parity gate.
 
 ---
 
 ```
 
-### 4.3 OD-04 §11–§12 exit / verdict
+### 5.2 OD-04 §11
 
 ```markdown
 ## 11. Exit / next gate
 
 This decision record **adopts the Option C target** (integrated on main via PR **#445**). It does **not** by itself authorize or complete MW1 implementation integration.
 
-**Next (CURRENT):**
+**Next (CURRENT) — canonical forward sequence:**
 
-1. **OD04-I01** documentary invariant consumed as cross-wave rule (this clarification)
+1. **OD04-I01** documentary invariant consumed as cross-wave rule (this clarification + DOC-01/DOC-02 precision)
 2. **MW1 Option C correction cycle** aligned with OD04-I01 (CORR-OPT-C-01…05) on the local candidate
-3. deterministic Runner / Fake convergence → **retire legacy generic loop**
-4. project Git integration of corrected Option C migration (separate GO)
-5. **MW0 REGRESSION / PARITY ON OPTION C** (nora-eval KEEP/ADAPT) before MW1 exit acceptance
-6. Delivery review / MW1 closure only after evidence
+3. deterministic Runner / Fake convergence on **ONE** target Runner cognitive path
+4. Fake / tests / comparator migrate to the same target cognitive path as applicable
+5. **RETIRE** legacy Nora generic `runToolCallingLoop`
+6. corrected Option C **PROJECT Git integration** (separate Morris GO) · **≠** claimed integrated before this gate
+7. **MW0 REGRESSION / PARITY ON OPTION C** (nora-eval KEEP/ADAPT) before MW1 exit acceptance
+8. MW1-S01 / S02 / S03 final proof · CORR-MW1-07/08 where required · MW1 Exit Proof / closure
 
 **MW2** only after MW1 closure.
 
@@ -216,40 +235,15 @@ This decision record **adopts the Option C target** (integrated on main via PR *
 
 ---
 
-## 12. Final documentary verdict
-
-**NORA OD-04 OPTION C ARCHITECTURE DECISION — INTEGRATED ON MAIN (PR #445) · TARGET ADOPTED**
-
-= OD-04 CONSUMED
-= OPTION C ADOPTED AS NORA TARGET ARCHITECTURE
-= OD04-I01 ACTIVE — STUDIO OWNS PRODUCT/BUSINESS/AUTHORITY · NORA OWNS COGNITION
-= PILOTE = GENERIC RUNTIME ACTOR · MORRIS = CONSTRUCTION/GOVERNANCE (NOT RUNTIME PERSONA)
-= AGENTS SDK RUNNER TARGET ADOPTED
-= CUSTOM PRODUCT SQLITE SESSION TARGET ADOPTED
-= SESSION / MODEL-INPUT POLICY = COGNITIVE CONTEXT INTEGRITY TARGET (≠ business authorization engine)
-= SFIA BUSINESS / AUTHORITY SPINE PRESERVED
-= RESPONSES COMPACTION NOT ADOPTED
-= MW1 BASELINE A / LOCAL CANDIDATE PRESERVED TEMPORARY WITH EXIT
-= MW1 NOT COMPLETE / NOT INTEGRATED
-= MW2 NOT STARTED
-= COGNITIVE COMPLETION NOT PROVEN
-= RUNTIME V3 NON ADOPTED
-= NO NEW ARCHITECTURE SELECTION BY OD04-I01
-= NO PRODUCT COMPLETION / BUILD DOCTRINE / V3 FRAMING MUTATION BY OD04-I01
 ```
 
-### 4.4 C5 tip + next gate
+### 5.3 C5 tip (DOC-01/02)
 
 ```markdown
-| **Timestamp maintenance NORA-C5-OD04-I01-BOUNDARY-INVARIANT-01** | 2026-08-30 20:45:00 CEST — **NORA C5 OD04-I01 STUDIO↔NORA BOUNDARY CROSS-WAVE INVARIANT** · Morris OD04-I01 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 epics · 23 stories · DAG · 18/5/0 **UNCHANGED** · **OD04-I01 = ACTIVE** under OD-04 · Studio owns product/business/authority · Nora owns cognition · Pilote = generic runtime actor · Morris = construction/governance ≠ runtime persona · **OD-04 decision UNCHANGED** · Option C TARGET **UNCHANGED** · local MW1 Option C candidate = **LOCAL / UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · next delivery work = **MW1 Option C correction cycle aligned with OD04-I01** · legacy loop retirement **before** MW0 Option C regression/parity once Runner/Fake convergence proven · MW0 **CLOSED** · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW1-S01/S02/S03 **not closed by this documentary work** · CORR-MW1-07/08 remain SFIA materialization · Responses compaction **CANDIDATE / NOT ADOPTED** · MW2 **NOT STARTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **≠** new architecture · **≠** Product Completion reopen · **≠** Build Doctrine / v3 framing mutation · **≠** code/package change |
-| **Timestamp maintenance historique NORA-C5-OD04-OPTION-C-DOWNSTREAM-TRUTH-01 (pre-OD04-I01)** | *(historique tip · superseded as tip by NORA-C5-OD04-I01-BOUNDARY-INVARIANT-01)* — 2026-08-30 16:38:36 CEST — **NORA C5 OD-04 OPTION C DOWNSTREAM TRUTH** · Morris OD-04 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR/CE/NCC-BAR / MW0→MW6 / 10 epics / 23 stories / DAG / 18/5/0 **UNCHANGED** · Decision record `07-nora-openai-cognitive-runtime-architecture-decision.md` · **OD-04 = CONSUMED** · **OPTION C = ADOPTED AS NORA TARGET ARCHITECTURE** · Agents SDK Runner **TARGET ADOPTED** · custom Product SQLite Session **TARGET ADOPTED** · Session/model-input filtering **TARGET BOUNDARY PATTERN** · Responses compaction **CANDIDATE / NOT ADOPTED** · **MW1 = DELIVERY AUTHORIZED EARLIER BY MORRIS** · **LOCAL DELIVERY WORK EXISTS** · **REQUALIFICATION REQUIRED AGAINST OPTION C BEFORE PROJECT INTEGRATION** · **MW1 NOT COMPLETE / NOT INTEGRATED** · Baseline A **PRESERVED / TEMPORARY / NOT TARGET ARCHITECTURE** · CORR-MW1-07/08 **remaining SFIA business corrections** · old CORR-MW1-09 **implementation approach superseded / requalify under Session/input boundary** · **next structural gate = MW1 OPTION C DELIVERY REQUALIFICATION / MIGRATION PLAN** · next capability after successful MW1 = **MW2** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **≠** package adoption · **≠** code migration by this cycle · **≠** Responses compaction adopted · **≠** HITL as HD · **≠** Trace as Evidence |
-| **ACTIVE CONSTRUCTION PRIORITY** | **NORA COGNITIVE COMPLETION** |
-
-| **NEXT NORA GATE / CURRENT STRUCTURAL GATE** | **MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · then project Git integration (separate GO) · then legacy-loop retirement before MW0 Option C regression/parity · **OD-04 = CONSUMED** · **OD04-I01 = ACTIVE** · **OPTION C TARGET ADOPTED** · **MW1 Delivery = AUTHORIZED EARLIER BY MORRIS** · **LOCAL MW1 CANDIDATE = UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · **MW1 NOT COMPLETE / NOT INTEGRATED** · **historical C5 closure next gate** = MW0 READINESS QUALIFICATION *(then-current · superseded)* · **historical post-OD-03 gate** = DISTINCT MORRIS GO — MW1 DELIVERY *(then-current · superseded for forward path)* · **historical post-OD-04 gate** = MW1 OPTION C DELIVERY REQUALIFICATION / MIGRATION PLAN *(then-current · superseded for forward path by OD04-I01 correction trajectory)* · **MW0 = CLOSED / INTEGRATED / POST-MERGE VERIFIED** |
-| **REAL-B** | **PRESERVED QUALIFIED CANDIDATE / DEFERRED / NOT AUTHORIZED / NOT STARTED** · DEFERRED ≠ CLOSED ≠ CANCELLED ≠ FAILED ≠ SUPERSEDED FUNCTIONALLY |
+| **Timestamp maintenance NORA-C5-OD04-I01-DOC-01-02-CORRECTION-01** | 2026-08-30 20:55:00 CEST — **NORA C5 OD04-I01 DOC-01 + DOC-02 CORRECTIONS** · Morris correction GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 epics · 23 stories · DAG · 18/5/0 **UNCHANGED** · **CORR-OD04-I01-DOC-01** = HD/Confirmation ownership precision (Pilote = decision/confirmation actor · Studio owns durable objects/lifecycle/authority model · Nora = no authority) · **CORR-OD04-I01-DOC-02** = unify Option C forward sequence (correction → Runner/Fake convergence → retire legacy loop → project Git integration → MW0 Option C parity → MW1 final proof/exit → MW2) · **OD-04 / OD04-I01 / Option C TARGET UNCHANGED** · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW0 **CLOSED** · MW2 **NOT STARTED** · Responses compaction **CANDIDATE / NOT ADOPTED** · **≠** new architecture · **≠** Product Completion reopen · **≠** Build Doctrine / v3 framing · **≠** code |
 ```
 
-### 4.5 C5 §5A cross-wave invariant
+### 5.4 C5 §5A
 
 ```markdown
 ## 5A. Cross-wave architecture invariant (OD04-I01)
@@ -260,19 +254,21 @@ Applies as a **cross-wave invariant** to every MW0→MW6 story construction, rea
 
 | Owner | Owns | Does not own |
 | --- | --- | --- |
-| **SFIA Studio** | product semantics · business objects · authority / HD / Confirmation · LPS / Truth C / ProjectTrajectory · materialization / Evidence · policy gates | Nora cognition internals |
-| **Nora** | cognition · reasoning · Session continuity · Runner loop / tool orchestration · recommendations / options analysis | business authorization · HD · Confirmation · Truth C mutation · effective authority |
-| **Pilote** | runtime human actor for HD / Confirmation where required | Morris construction/governance identity |
+| **SFIA Studio** | product semantics · business objects · **authority MODEL / policy / validation / enforcement** · durable **HumanDecision** / **Confirmation** objects + governed lifecycle · LPS / Truth C / ProjectTrajectory · materialization / Evidence · policy gates | Nora cognition internals · **does not replace Pilote as decision/confirmation actor** |
+| **Nora** | cognition · reasoning · Session continuity · Runner loop / tool orchestration · recommendations / options analysis · may explain Confirmation need | business authorization · deciding/granting HD or Confirmation · Truth C mutation · effective authority |
+| **Pilote** | **runtime human decision actor** · **runtime human confirmation actor** where required | Morris construction/governance identity |
 | **Morris** | construction · GO · governance · programme decisions | **runtime persona** · product Pilote substitute |
+
+**Meaning of “Studio owns authority”:** product authority **model**, durable authority state, policy, validation and enforcement — **≠** Studio replaces the human decision actor.
 
 **Hard rules (every wave):**
 
 1. Studio supplies authoritative product/business context; Nora consumes it for cognition.
 2. Session / `callModelInputFilter` / model-input policy = **cognitive context integrity** · **≠** business authorization engine · **≠** keyword GO/HD redaction-as-authorization · **≠** Morris-GO runtime primitive.
-3. **Pilote = generic runtime actor** · **Morris = construction/governance ≠ runtime persona**.
+3. **Pilote = generic runtime human actor** (decides / confirms) · **Morris = construction/governance ≠ runtime persona**.
 4. OpenAI HITL **≠** HD/Confirmation · Trace **≠** Evidence · server-managed Truth C **FORBIDDEN**.
 5. Option C Runner + Product SQLite Session remain **TARGET ADOPTED** · Responses compaction remains **CANDIDATE / NOT ADOPTED**.
-6. Local MW1 Option C candidate = **LOCAL / UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · next delivery work = **MW1 Option C correction cycle (CORR-OPT-C-01…05)** · legacy Nora generic loop retirement **before** MW0 Option C regression/parity once Runner/Fake convergence is proven.
+6. Local MW1 Option C candidate = **LOCAL / UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · canonical forward sequence = **correction cycle → Runner/Fake convergence → retire legacy `runToolCallingLoop` → project Git integration (separate GO) → MW0 Option C regression/parity → MW1-S01/S02/S03 final proof / exit → MW2**.
 7. MW0 remains **CLOSED** · MW1-S01/S02/S03 **source-locked semantics UNCHANGED** by OD04-I01 · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW2 **NOT STARTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED**.
 
 **Preservation:** This §5A adds an invariant only. It does **not** alter NR 26 / CE 8 / NCC-BAR 14 / MW0→MW6 / 10 epics / 23 stories / DAG / 18/5/0 · does **not** change MW1-S01/S02/S03 story bodies.
@@ -281,50 +277,106 @@ Applies as a **cross-wave invariant** to every MW0→MW6 story construction, rea
 
 ```
 
-### 4.6 Roadmap tip
+### 5.5 C5 NEXT NORA GATE
 
 ```markdown
-| **Timestamp maintenance NORA-OD04-I01-BOUNDARY-TRUTH-01** | 2026-08-30 20:45:00 CEST — **NORA OD04-I01 STUDIO↔NORA BOUNDARY TRUTH-SYNC** · Morris OD04-I01 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **OD-04 DECISION UNCHANGED** · **OPTION C TARGET ADOPTION PRESERVED** · **OD04-I01 = ACTIVE** · Studio owns product/business/authority · Nora owns cognition · Pilote = generic runtime actor · Morris = construction/governance ≠ runtime persona · Session/model-input = cognitive context integrity ≠ business authorization · local MW1 Option C candidate = **LOCAL / UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · **next structural gate = MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · legacy Nora generic loop retirement **before** MW0 Option C regression/parity once Runner/Fake convergence proven · MW0 remains **CLOSED** · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW1-S01/S02/S03 semantics **UNCHANGED** · Responses compaction **CANDIDATE / NOT ADOPTED** · MW2 **NOT STARTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **≠** new architecture · **≠** Product Completion reopen · **≠** Build Doctrine / v3 framing mutation · **≠** code/package · **≠** project commit |
-| **Timestamp maintenance historique NORA-OD04-CORR-OD04-DOC-01-ROADMAP-CURRENT-TRUTH-01 (pre-OD04-I01)** | *(historique tip · superseded as tip by NORA-OD04-I01-BOUNDARY-TRUTH-01)* — 2026-08-30 16:49:35 CEST — **NORA OD-04 CORR-OD04-DOC-01 — ROADMAP CURRENT-TRUTH COHERENCE** · Morris CORR-OD04-DOC-01 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **OD-04 DECISION UNCHANGED** · **OPTION C TARGET ADOPTION PRESERVED** · Roadmap CURRENT Snapshot / trajectory / gates / Anti-claims Nora portion corrected · TARGET ADOPTED **≠** product package/runtime implementation INTEGRATED · pre-OD04 active anti-claims removed from CURRENT surfaces · retained as **HISTORICAL PRE-OD04** · MW0 REGRESSION / PARITY ON OPTION C recorded in `07-…architecture-decision.md` · MW0 remains **CLOSED** · C4/C5 **UNCHANGED** this CORR · **≠** functional requalification · **≠** code · **≠** REAL · **≠** package mutation · **≠** Responses compaction adopted · **≠** MW2 · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · **≠** project commit |
+| **NEXT NORA GATE / CURRENT STRUCTURAL GATE** | **MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · then Runner/Fake convergence · then **retire legacy generic loop** · then project Git integration (separate GO) · then MW0 Option C regression/parity · then MW1 final proof/exit · **OD-04 = CONSUMED** · **OD04-I01 = ACTIVE** · **OPTION C TARGET ADOPTED** · **MW1 Delivery = AUTHORIZED EARLIER BY MORRIS** · **LOCAL MW1 CANDIDATE = UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · **MW1 NOT COMPLETE / NOT INTEGRATED** · **historical C5 closure next gate** = MW0 READINESS QUALIFICATION *(then-current · superseded)* · **historical post-OD-03 gate** = DISTINCT MORRIS GO — MW1 DELIVERY *(then-current · superseded for forward path)* · **historical post-OD-04 gate** = MW1 OPTION C DELIVERY REQUALIFICATION / MIGRATION PLAN *(then-current · superseded for forward path by OD04-I01 correction trajectory)* · **MW0 = CLOSED / INTEGRATED / POST-MERGE VERIFIED** |
 ```
 
-### 4.7 Roadmap CURRENT Nora / OD04-I01 anti-claims (row fragment)
+### 5.6 Roadmap tip + CURRENT Nora anti-claims
 
 ```markdown
-| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M5 Entry Qualification **COMPLETE** · M5 architecture trajectory **ADOPTED BY MORRIS** · M5 Delivery **IMPLEMENTED ON MAIN** (PR #350) · M5 UI rehydrate **IMPLEMENTED ON MAIN** (PR #351) · M5 technical/functional exit proof **SATISFIED ON MAIN** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · M5 CLOSED **≠** M6 AUTHORIZED · M5 CLOSED **≠** M6 STARTED · M5 CLOSED **≠** runtime v3 ADOPTED · M5 CLOSED **≠** global v3 baseline promoted · M5 CLOSED **≠** M5-C retired · M5 exit accepted **≠** global Cursor REAL authorization · M5 CLOSED future **≠** M6 automatically authorized · Pre-M6 trajectory decided **≠** Pre-M6 UX qualification executed · **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE ≠ UI Delivery authorized ≠ runtime implemented ≠ browser/product E2E proven ≠ Figma/runtime aligned ≠ WCAG compliant ≠ Pre-M6 complete ≠ historical UI retired** · Accepted M-03/M-04/provenance reserves ≠ reserves closed · new UX baseline **≠** runtime rewrite · existing UI not canonical **≠** existing UI automatically deleted · UI asset audit **COMPLETE/CLASSIFIED** **≠** individual dispositions ADOPTED · existing UI audit **≠** REPLACE/retirement authorized · M1→M5 runtime KEEP **≠** all runtime complete · Pre-M6 user proof **≠** runtime v3 ADOPTED · M6 after Pre-M6 **≠** M6 automatically authorized · Validated UX decisions in framing **30/37** (CC-D01) prevail over older candidate wording in framing **11** · M5-A OPTION B **IMPLEMENTED ON MAIN** · M5-B W1 **IMPLEMENTED ON MAIN** · M5-B W1 factual write-back **≠** Recommendation becomes Decision · Recommendation **≠** HumanDecision · Recommendation **≠** gate consumed · Recommendation **≠** ExecutionAuthority · LPS factual evidence link **≠** structural trajectory validation · readback **≠** execution · remount UI visibility **≠** automatic next-cycle launch · M5-C KEEP TEMPORARY WITH EXIT **≠** technical journal retired · durable Product Attempt **≠** technical M4 journal automatically obsolete · M5 implementation **≠** runtime v3 ADOPTED · M5 implementation **≠** global v3 baseline promoted · M5 ZERO REAL **≠** global Cursor REAL authorization · M5 architecture ADOPTED **≠** M6 started · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof app
+| **Timestamp maintenance NORA-OD04-I01-DOC-01-02-CORRECTION-01** | 2026-08-30 20:55:00 CEST — **NORA OD04-I01 DOC-01 + DOC-02 CORRECTIONS** · Morris correction GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **OD-04 DECISION UNCHANGED** · **OPTION C TARGET PRESERVED** · **OD04-I01 ACTIVE** · **DOC-01** Pilote = HD/Confirmation actor · Studio owns durable HD/Confirmation objects + authority model/enforcement · Nora = no authority · **DOC-02** canonical sequence = correction → Runner/Fake convergence → retire legacy loop → project Git integration → MW0 Option C parity → MW1 final proof/exit → MW2 · **next structural gate = MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW0 **CLOSED** · MW2 **NOT STARTED** · Responses compaction **CANDIDATE / NOT ADOPTED** · **≠** new architecture · **≠** Product Completion reopen · **≠** Build Doctrine / v3 framing · **≠** code · **≠** project commit |
+
+| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M5 Entry Qualification **COMPLETE** · M5 architecture trajectory **ADOPTED BY MORRIS** · M5 Delivery **IMPLEMENTED ON MAIN** (PR #350) · M5 UI rehydrate **IMPLEMENTED ON MAIN** (PR #351) · M5 technical/functional exit proof **SATISFIED ON MAIN** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · M5 CLOSED **≠** M6 AUTHORIZED · M5 CLOSED **≠** M6 STARTED · M5 CLOSED **≠** runtime v3 ADOPTED · M5 CLOSED **≠** global v3 baseline promoted · M5 CLOSED **≠** M5-C retired · M5 exit accepted **≠** global Cursor REAL authorization · M5 CLOSED future **≠** M6 automatically authorized · Pre-M6 trajectory decided **≠** Pre-M6 UX qualification executed · **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE ≠ UI Delivery authorized ≠ runtime implemented ≠ browser/product E2E proven ≠ Figma/runtime aligned ≠ WCAG compliant ≠ Pre-M6 complete ≠ historical UI retired** · Accepted M-03/M-04/provenance reserves ≠ reserves closed · new UX baseline **≠** runtime rewrite · existing UI not canonical **≠** existing UI automatically deleted · UI asset audit **COMPLETE/CLASSIFIED** **≠** individual dispositions ADOPTED · existing UI audit **≠** REPLACE/retirement authorized · M1→M5 runtime KEEP **≠** all runtime complete · Pre-M6 user proof **≠** runtime v3 ADOPTED · M6 after Pre-M6 **≠** M6 automatically authorized · Validated UX decisions in framing **30/37** (CC-D01) prevail over older candidate wording in framing **11** · M5-A OPTION B **IMPLEMENTED ON MAIN** · M5-B W1 **IMPLEMENTED ON MAIN** · M5-B W1 factual write-back **≠** Recommendation becomes Decision · Recommendation **≠** HumanDecision · Recommendation **≠** gate consumed · Recommendation **≠** ExecutionAuthority · LPS factual evidence link **≠** structural trajectory validation · readback **≠** execution · remount UI visibility **≠** automatic next-cycle launch · M5-C KEEP TEMPORARY WITH EXIT **≠** technical journal retired · durable Product Attempt **≠** technical M4 journal automatically obsolete · M5 implementation **≠** runtime v3 ADOPTED · M5 implementation **≠** global v3 baseline promoted · M5 ZERO REAL **≠** global Cursor REAL authorization · M5 architecture ADOPTED **≠** M6 started · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NO
 ```
 
 ---
 
-## 5. Honest anti-claims (this cycle)
+## 6. C5 source-lock evidence
 
-- OD04-I01 **≠** new architecture selection
-- OD04-I01 **≠** Product Completion reopen
-- OD04-I01 **≠** Build Doctrine / v3 framing mutation
-- PR **#445** decision on main **≠** MW1 Option C implementation integrated
-- Local MW1 candidate CRITICAL review **≠** MW1 COMPLETE / INTEGRATED
-- C5 §5A **≠** story semantic change / backlog reopen
-- Documentary CORR-OPT-C trajectory **≠** corrections executed
-- Legacy-loop retirement sequence **≠** already retired
-- This Review Pack **≠** handoff publish
-- This cycle **≠** commit / push / PR / merge
-
----
-
-## 6. Next gate (programme)
-
-**MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** (CORR-OPT-C-01…05) on the local MW1 candidate · separate GO for project Git integration · retire legacy generic loop before MW0 Option C regression/parity once Runner/Fake convergence proven.
+| Measure | Result |
+| --- | --- |
+| NR unique | **26** |
+| CE unique | **8** |
+| NCC-BAR unique | **14** |
+| Stories `#### MWx-Sy` | **23** |
+| MW1-S01 sha256[:16] | `0fc0d1216fda5bc1` |
+| MW1-S02 sha256[:16] | `72707ef9f37f0c73` |
+| MW1-S03 sha256[:16] | `d6462361e97585a1` |
+| MW1-S01/S02/S03 vs pre-correction local bodies | **EQUAL / UNCHANGED** |
 
 ---
 
-## 7. Full unified diff (content-complete)
+## 7. Consistency searches
+
+### DOC-01
+
+- ACTIVE §4A / §5A ownership tables no longer use ambiguous `authority / HD / Confirmation` shorthand
+- Explicit: Pilote = decision/confirmation actor; Studio owns durable objects/lifecycle/authority model; Nora = no authority
+- Flow: Pilote HD/Confirmation → Studio resolves effective authority → executor
+
+### DOC-02
+
+- ACTIVE surfaces no longer contain `project Git integration` **before** `legacy-loop retirement`
+- OD-04 §11: RETIRE before PROJECT Git integration
+- C5 NEXT GATE: Runner/Fake → retire legacy → project Git integration → MW0 parity → MW1 final proof
+
+---
+
+## 8. Anti-claims
+
+- OD04-I01 ≠ new architecture
+- OD04-I01 ≠ Product Completion reopen
+- OD04-I01 ≠ Build Doctrine / v3 framing mutation
+- Pilote ≠ Morris runtime persona
+- Studio owns authority **model** ≠ Studio is human decision actor
+- Nora ≠ product authority
+- Nora Recommendation ≠ HumanDecision
+- Session ≠ Truth C · Transcript ≠ authority
+- Responses Compaction NOT ADOPTED
+- MW0 NOT REOPENED
+- MW1 NOT COMPLETE / NOT INTEGRATED
+- MW2 NOT STARTED
+- Cognitive Completion NOT PROVEN
+- runtime v3 NON ADOPTED
+- CORR-OPT-C-01…05 trajectory preserved · **not executed**
+
+---
+
+## 9. Untouched surfaces
+
+| Surface | Evidence |
+| --- | --- |
+| MW1 Option C dirty WT | `## HEAD (no branch)` · HEAD `4f00a2ad5e58310392e2efb562174d32ad8240e8` · **not mutated** |
+| Preferred contaminated OD04 WT | `## HEAD (no branch)` · **not mutated** |
+| Product Completion / Build Doctrine / v3 framing / app code / packages | **not in diff** |
+
+---
+
+## 10. Project Git restrictions
+
+NO DOCUMENTARY PROJECT COMMIT / PUSH / PR / MERGE.
+Only bounded `sfia/review-handoff` L3 transport permitted after this pack.
+
+---
+
+## 11. Reservations
+
+- Local documentary corrections remain **uncommitted** on project branch until distinct Morris Git-integration GO
+- MW1 Option C implementation corrections (CORR-OPT-C-*) **not executed**
+- Dirty MW1 worktrees remain dirty by design (Option A)
+
+---
+
+## 12. Full unified diff (content-complete)
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 3e9157fd..82c50302 100644
+index 3e9157fd..61ad0544 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -6,9 +6,10 @@
+@@ -6,9 +6,11 @@
  | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
  | **Doctrine cible** | SFIA Studio v3 framing `30`–`37` (destination produit) |
  | **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
@@ -332,13 +384,14 @@ index 3e9157fd..82c50302 100644
 -| **Timestamp maintenance NORA-OD04-CORR-OD04-DOC-01-ROADMAP-CURRENT-TRUTH-01** | 2026-08-30 16:49:35 CEST — **NORA OD-04 CORR-OD04-DOC-01 — ROADMAP CURRENT-TRUTH COHERENCE** · Morris CORR-OD04-DOC-01 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **OD-04 DECISION UNCHANGED** · **OPTION C TARGET ADOPTION PRESERVED** · Roadmap CURRENT Snapshot / trajectory / gates / Anti-claims Nora portion corrected · TARGET ADOPTED **≠** product package/runtime implementation INTEGRATED · pre-OD04 active anti-claims removed from CURRENT surfaces · retained as **HISTORICAL PRE-OD04** · MW0 REGRESSION / PARITY ON OPTION C recorded in `07-…architecture-decision.md` · MW0 remains **CLOSED** · C4/C5 **UNCHANGED** this CORR · **≠** functional requalification · **≠** code · **≠** REAL · **≠** package mutation · **≠** Responses compaction adopted · **≠** MW2 · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · **≠** project commit |
 -| **Timestamp maintenance historique NORA-OD04-OPTION-C-ARCHITECTURE-DECISION-01 (pre-CORR-OD04-DOC-01)** | *(historique tip · superseded as tip by NORA-OD04-CORR-OD04-DOC-01-ROADMAP-CURRENT-TRUTH-01)* — 2026-08-30 16:39:09 CEST — **NORA OD-04 OPTION C ARCHITECTURE DECISION + MW1 TRAJECTORY TRUTH-SYNC** · Morris OD-04 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified Nora/MW0 integration anchor** = PR **#442 MERGED** · head `67a00238…` · merge `99ae9fe3…` · tree `5d7b386c…` · post-merge CI **`33292834920` SUCCESS** · Required Gate **PASS** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** · **NORA-FIRST PRESERVED** · **MW0 = CLOSED / INTEGRATED / POST-MERGE VERIFIED** · **MW0 EXIT = PROVEN WITH NON-BLOCKING RESERVES** · **OD-03 = BUILD / CONSUMED** · **OD-04 = CONSUMED** · **OPTION C HYBRID OPENAI COGNITIVE RUNTIME = ADOPTED AS NORA TARGET ARCHITECTURE** · decision record `projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md` · **Agents SDK Runner = TARGET ADOPTED** · **custom Product SQLite Session = TARGET ADOPTED** · **Session/model-input policy = TARGET BOUNDARY PATTERN** · **Responses compaction = CANDIDATE / NOT ADOPTED** · product @openai/agents / Zod dependency integration **NOT YET INTEGRATED** · runtime implementation migration **NOT YET INTEGRATED** · OpenAI HITL **≠** HD/Confirmation · Trace **≠** Evidence · server-managed Truth C **FORBIDDEN** · **MW1 = MEMORY B + COMPACTION** · **MW1 Readiness = PASS / VALIDATED BY MORRIS** · **MW1 Delivery = AUTHORIZED EARLIER BY MORRIS** · **LOCAL MW1 CANDIDATE EXISTS** · **MW1 NOT COMPLETE / NOT INTEGRATED** · **CURRENT IMPLEMENTATION REQUALIFICATION REQUIRED AGAINST OPTION C** · Baseline A **PRESERVED / TEMPORARY / NOT TARGET ARCHITECTURE** · CORR-MW1-07/08 **SFIA remaining** · old CORR-MW1-09 **requalify under Session/input boundary** · **REAL-B = QUALIFIED CANDIDATE / DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED** · OD-07 **CONSUMED** · OD-02/05/06/08 **OPEN** · FinOps/T7 **FREEZE** · C6 **CLOSED / DO NOT REOPEN** · Product Completion **COMPLETE / CLOSED BY MORRIS** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **next structural gate = MW1 OPTION C DELIVERY REQUALIFICATION / MIGRATION PLAN** · **next capability after successful MW1 = MW2 — COGNITIVE WORKLOAD PROFILE** · **≠** package adoption commit · **≠** code migration by this cycle · **≠** Responses compaction adopted · **≠** HITL as HD · **≠** Trace as Evidence · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · **≠** MW2 started · **≠** embed local candidate branch/HEAD as permanent repository truth |
 +| **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; this living Roadmap **≠** embed permanent `origin/main` HEAD · repository publication/integration status = **RESOLVE FROM GIT / PR evidence**)* · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified Nora/MW0 integration anchor** = PR **#442 MERGED** · head `67a0023892b7daac7e1e6f5d5f36c611b3275091` · merge `99ae9fe372e60d4263318df265d8f13fbf218de8` · tree `5d7b386cd9fc253ba682d0d55520556c3d737b05` · HEAD→MERGE tree parity **PROVEN** · mergedAt `2026-08-30T04:35:34Z` · post-merge CI **`33292834920` SUCCESS** · Required Gate **PASS** · source branch `feat/sfia-studio-nora-mw0-eval-harness` **PRESERVED** @ `67a00238…` · prior C5 Type14 anchor PR **#439** @ `70143b6d…` · **Product Completion = COMPLETE / CLOSED BY MORRIS** · **REAL-A = COMPLETE / CONSUMED** at **PASS WITH PARITY GAPS** · **NCC-R08 = CLOSED BY EVIDENCE** · Nora C1→C5 CONTENT VALIDATED / INTEGRATED / POST-MERGE VERIFIED · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** · **MW0 Readiness = PASS / CLOSED** · **MW0 Delivery = INTEGRATED ON MAIN / POST-MERGE VERIFIED** · **MW0 EXIT = PROVEN WITH NON-BLOCKING RESERVES** · **MW0-R01** BAR-09 Option↔Recommendation = **NOT_PROVEN / NON-BLOCKING** · **MW0-R02** ChatGPT↔Cursor parity = **NOT_PROVEN / NON-BLOCKING** · **CORR-MW0-05/06/07/08 = CLOSED** · no new REAL after bounded evidence · total MW0 usage-based estimated API cost **$0.0490246** *(≠ invoice spend)* · **REAL-B = QUALIFIED CANDIDATE / DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED** · OD-07 **CONSUMED** (NORA-FIRST) · **OD-03 = BUILD / CONSUMED** · OD-02/05/06/08 **OPEN** · **OD-04 = CONSUMED** · **OD04-I01 = ACTIVE** · Architecture **OPTION C TARGET ADOPTED (OD-04)** · **Agents SDK Runner = TARGET ADOPTED** · **custom Product SQLite Session = TARGET ADOPTED** · **Session/model-input policy = TARGET** · **Responses compaction = CANDIDATE / NOT ADOPTED** · product @openai/agents / Zod dependency integration **NOT YET INTEGRATED** · runtime implementation migration **NOT YET INTEGRATED** · Production model routing **NOT SELECTED** · FinOps/T7 **FREEZE** · C6 **CLOSED / DO NOT REOPEN** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **MW1 = MEMORY B + COMPACTION** · **MW1 Readiness = PASS / VALIDATED BY MORRIS** · **MW1 NOT COMPLETE / NOT INTEGRATED** · **MW1 Delivery = AUTHORIZED EARLIER** · **LOCAL CANDIDATE = UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · **CORRECTION CYCLE REQUIRED** · **MW1 architecture = ADAPT-FIRST / NO FA REQUIRED / NO TA CURRENTLY REQUIRED / TA TRIGGER CANDIDATE** · **next structural gate = MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · **next capability after MW1 = MW2 — COGNITIVE WORKLOAD PROFILE** · **≠** MW1 complete/integrated · **≠** package/runtime implementation integrated · **≠** package/runtime implementation integrated · **≠** Responses compaction adopted · **≠** HITL as HD · **≠** Trace as Evidence · **≠** TA REQUIRED · **≠** REAL-B AUTHORIZED · **≠** BAR-09 PROVEN · **≠** parity PROVEN · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · *(living Roadmap repository-state summary **≠** replacement for Git/PR as repository lifecycle SoT)* |
-+| **Timestamp maintenance NORA-OD04-I01-BOUNDARY-TRUTH-01** | 2026-08-30 20:45:00 CEST — **NORA OD04-I01 STUDIO↔NORA BOUNDARY TRUTH-SYNC** · Morris OD04-I01 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **OD-04 DECISION UNCHANGED** · **OPTION C TARGET ADOPTION PRESERVED** · **OD04-I01 = ACTIVE** · Studio owns product/business/authority · Nora owns cognition · Pilote = generic runtime actor · Morris = construction/governance ≠ runtime persona · Session/model-input = cognitive context integrity ≠ business authorization · local MW1 Option C candidate = **LOCAL / UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · **next structural gate = MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · legacy Nora generic loop retirement **before** MW0 Option C regression/parity once Runner/Fake convergence proven · MW0 remains **CLOSED** · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW1-S01/S02/S03 semantics **UNCHANGED** · Responses compaction **CANDIDATE / NOT ADOPTED** · MW2 **NOT STARTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **≠** new architecture · **≠** Product Completion reopen · **≠** Build Doctrine / v3 framing mutation · **≠** code/package · **≠** project commit |
++| **Timestamp maintenance NORA-OD04-I01-DOC-01-02-CORRECTION-01** | 2026-08-30 20:55:00 CEST — **NORA OD04-I01 DOC-01 + DOC-02 CORRECTIONS** · Morris correction GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **OD-04 DECISION UNCHANGED** · **OPTION C TARGET PRESERVED** · **OD04-I01 ACTIVE** · **DOC-01** Pilote = HD/Confirmation actor · Studio owns durable HD/Confirmation objects + authority model/enforcement · Nora = no authority · **DOC-02** canonical sequence = correction → Runner/Fake convergence → retire legacy loop → project Git integration → MW0 Option C parity → MW1 final proof/exit → MW2 · **next structural gate = MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW0 **CLOSED** · MW2 **NOT STARTED** · Responses compaction **CANDIDATE / NOT ADOPTED** · **≠** new architecture · **≠** Product Completion reopen · **≠** Build Doctrine / v3 framing · **≠** code · **≠** project commit |
++| **Timestamp maintenance historique NORA-OD04-I01-BOUNDARY-TRUTH-01 (pre-DOC-01/02)** | *(historique tip · superseded as tip by NORA-OD04-I01-DOC-01-02-CORRECTION-01)* — 2026-08-30 20:45:00 CEST — **NORA OD04-I01 STUDIO↔NORA BOUNDARY TRUTH-SYNC** · Morris OD04-I01 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **OD-04 DECISION UNCHANGED** · **OPTION C TARGET ADOPTION PRESERVED** · **OD04-I01 = ACTIVE** · Studio owns product/business/authority · Nora owns cognition · Pilote = generic runtime actor · Morris = construction/governance ≠ runtime persona · Session/model-input = cognitive context integrity ≠ business authorization · local MW1 Option C candidate = **LOCAL / UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · **next structural gate = MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · legacy Nora generic loop retirement **before** MW0 Option C regression/parity once Runner/Fake convergence proven · MW0 remains **CLOSED** · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW1-S01/S02/S03 semantics **UNCHANGED** · Responses compaction **CANDIDATE / NOT ADOPTED** · MW2 **NOT STARTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **≠** new architecture · **≠** Product Completion reopen · **≠** Build Doctrine / v3 framing mutation · **≠** code/package · **≠** project commit |
 +| **Timestamp maintenance historique NORA-OD04-CORR-OD04-DOC-01-ROADMAP-CURRENT-TRUTH-01 (pre-OD04-I01)** | *(historique tip · superseded as tip by NORA-OD04-I01-BOUNDARY-TRUTH-01)* — 2026-08-30 16:49:35 CEST — **NORA OD-04 CORR-OD04-DOC-01 — ROADMAP CURRENT-TRUTH COHERENCE** · Morris CORR-OD04-DOC-01 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **OD-04 DECISION UNCHANGED** · **OPTION C TARGET ADOPTION PRESERVED** · Roadmap CURRENT Snapshot / trajectory / gates / Anti-claims Nora portion corrected · TARGET ADOPTED **≠** product package/runtime implementation INTEGRATED · pre-OD04 active anti-claims removed from CURRENT surfaces · retained as **HISTORICAL PRE-OD04** · MW0 REGRESSION / PARITY ON OPTION C recorded in `07-…architecture-decision.md` · MW0 remains **CLOSED** · C4/C5 **UNCHANGED** this CORR · **≠** functional requalification · **≠** code · **≠** REAL · **≠** package mutation · **≠** Responses compaction adopted · **≠** MW2 · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · **≠** project commit |
 +| **Timestamp maintenance historique NORA-OD04-OPTION-C-ARCHITECTURE-DECISION-01 (pre-CORR-OD04-DOC-01)** | *(historique tip · superseded as tip by NORA-OD04-CORR-OD04-DOC-01-ROADMAP-CURRENT-TRUTH-01)* — 2026-08-30 16:39:09 CEST — **NORA OD-04 OPTION C ARCHITECTURE DECISION + MW1 TRAJECTORY TRUTH-SYNC** · Morris OD-04 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified Nora/MW0 integration anchor** = PR **#442 MERGED** · head `67a00238…` · merge `99ae9fe3…` · tree `5d7b386c…` · post-merge CI **`33292834920` SUCCESS** · Required Gate **PASS** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** · **NORA-FIRST PRESERVED** · **MW0 = CLOSED / INTEGRATED / POST-MERGE VERIFIED** · **MW0 EXIT = PROVEN WITH NON-BLOCKING RESERVES** · **OD-03 = BUILD / CONSUMED** · **OD-04 = CONSUMED** · **OPTION C HYBRID OPENAI COGNITIVE RUNTIME = ADOPTED AS NORA TARGET ARCHITECTURE** · decision record `projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md` · **Agents SDK Runner = TARGET ADOPTED** · **custom Product SQLite Session = TARGET ADOPTED** · **Session/model-input policy = TARGET BOUNDARY PATTERN** · **Responses compaction = CANDIDATE / NOT ADOPTED** · product @openai/agents / Zod dependency integration **NOT YET INTEGRATED** · runtime implementation migration **NOT YET INTEGRATED** · OpenAI HITL **≠** HD/Confirmation · Trace **≠** Evidence · server-managed Truth C **FORBIDDEN** · **MW1 = MEMORY B + COMPACTION** · **MW1 Readiness = PASS / VALIDATED BY MORRIS** · **MW1 Delivery = AUTHORIZED EARLIER BY MORRIS** · **LOCAL MW1 CANDIDATE EXISTS** · **MW1 NOT COMPLETE / NOT INTEGRATED** · **CURRENT IMPLEMENTATION REQUALIFICATION REQUIRED AGAINST OPTION C** · Baseline A **PRESERVED / TEMPORARY / NOT TARGET ARCHITECTURE** · CORR-MW1-07/08 **SFIA remaining** · old CORR-MW1-09 **requalify under Session/input boundary** · **REAL-B = QUALIFIED CANDIDATE / DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED** · OD-07 **CONSUMED** · OD-02/05/06/08 **OPEN** · FinOps/T7 **FREEZE** · C6 **CLOSED / DO NOT REOPEN** · Product Completion **COMPLETE / CLOSED BY MORRIS** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **next structural gate = MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · **next capability after successful MW1 = MW2 — COGNITIVE WORKLOAD PROFILE** · **≠** package adoption commit · **≠** code migration by this cycle · **≠** Responses compaction adopted · **≠** HITL as HD · **≠** Trace as Evidence · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · **≠** MW2 started · **≠** embed local candidate branch/HEAD as permanent repository truth |
  | **Timestamp maintenance historique NORA-MW1-READINESS-OD03-TRUTH-SYNC-01 (pre-OD-04 Option C)** | *(historique · superseded as tip by NORA-OD04-OPTION-C-ARCHITECTURE-DECISION-01)* — 2026-08-30 11:46:22 CEST — **NORA MW1 READINESS + OD-03 GOVERNANCE ROADMAP TRUTH-SYNC** · Morris truth-sync GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified Nora/MW0 integration anchor** = PR **#442 MERGED** · head `67a0023892b7daac7e1e6f5d5f36c611b3275091` · merge `99ae9fe372e60d4263318df265d8f13fbf218de8` · tree `5d7b386cd9fc253ba682d0d55520556c3d737b05` · post-merge CI **`33292834920` SUCCESS** · Required Gate **PASS** · prior Roadmap post-merge truth-sync PR **#443 MERGED** · merge `a537b8b564b9293155762881b3f41e4c6d4e3388` · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** · **NORA-FIRST PRESERVED** · **MW0 = CLOSED / INTEGRATED / POST-MERGE VERIFIED** · **MW0 EXIT = PROVEN WITH NON-BLOCKING RESERVES** · **MW0-R01 = NOT_PROVEN / NON-BLOCKING** · **MW0-R02 = NOT_PROVEN / NON-BLOCKING** · **CORR-MW0-05/06/07/08 = CLOSED** · **MW1 = MEMORY B + COMPACTION** · **MW1 Readiness = PASS / VALIDATED BY MORRIS** · **MW1 = READY FOR DISTINCT DELIVERY GATE** · **MW1 = NOT STARTED** · **MW1 Delivery = NOT AUTHORIZED** · MW1 functional source-lock **MW1-S01 / MW1-S02 / MW1-S03** · **OD-03 = BUILD / CONSUMED** · **MW1 architecture = ADAPT-FIRST** · **NO FA REQUIRED** · **NO TA CURRENTLY REQUIRED** · **TA TRIGGER CANDIDATE** · Architecture **NOT SELECTED** · Technology **NOT ADOPTED** · **Sessions = NOT SELECTED / NOT ADOPTED** · **Agents SDK = NOT SELECTED / NOT ADOPTED** · **New persistence / vector store / memory backbone = NOT SELECTED / NOT ADOPTED** · Production model routing **NOT SELECTED** · **REAL-B = QUALIFIED CANDIDATE / DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED** · OD-07 **CONSUMED** · OD-02/04/05/06/08 **OPEN** · FinOps/T7 **FREEZE** · C6 **CLOSED / DO NOT REOPEN** · Product Completion **COMPLETE / CLOSED BY MORRIS** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **next structural gate = DISTINCT MORRIS GO — MW1 DELIVERY** · **next capability after MW1 = MW2 — COGNITIVE WORKLOAD PROFILE** · **≠** MW1 Delivery authorized · **≠** MW1 started · **≠** MW1 BUILD started · **≠** Sessions selected · **≠** Agents SDK selected · **≠** persistence selected · **≠** TA REQUIRED · **≠** architecture selected · **≠** technology adopted · **≠** REAL-B AUTHORIZED · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · **≠** embed local candidate branch/HEAD as permanent repository truth |
  | **Timestamp maintenance historique NORA-MW0-POST-MERGE-TRUTH-SYNC-01 (pre-MW1 readiness OD-03 truth-sync)** | *(historique · superseded as tip by NORA-MW1-READINESS-OD03-TRUTH-SYNC-01)* —2026-08-30 09:50:59 CEST — **NORA MW0 POST-MERGE ROADMAP TRUTH-SYNC** · Morris Roadmap truth-sync GO **CONSUMED** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · PR **#442 MERGED** · head `67a0023892b7daac7e1e6f5d5f36c611b3275091` · merge `99ae9fe372e60d4263318df265d8f13fbf218de8` · tree `5d7b386cd9fc253ba682d0d55520556c3d737b05` · mergedAt `2026-08-30T04:35:34Z` · post-merge CI **`33292834920` SUCCESS** · Required Gate **PASS** · HEAD→MERGE tree parity **PROVEN** · source branch `feat/sfia-studio-nora-mw0-eval-harness` **PRESERVED** @ `67a00238…` · **MW0 Readiness = PASS / CLOSED** · **MW0 Delivery = INTEGRATED ON MAIN / POST-MERGE VERIFIED** · **MW0 EXIT = PROVEN WITH NON-BLOCKING RESERVES** · **MW0-R01** BAR-09 exact Option↔Recommendation runtime observable = **NOT_PROVEN / NON-BLOCKING** (runtime exposes Recommendation + Proposition; no exact Option object/label — Product Option implementation **not** required by MW0 closure) · **MW0-R02** ChatGPT↔Cursor workflow parity = **NOT_PROVEN / NON-BLOCKING** · **CORR-MW0-05/06/07/08 = CLOSED** · no new REAL · cumulative usage-based estimated API cost **$0.0490246** *(≠ invoice spend)* · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** · **NORA-FIRST PRESERVED** · **next capability = MW1 — MEMORY B + COMPACTION** · **next structural gate = MW1 READINESS QUALIFICATION** · **MW1 = IDENTIFIED / NEXT / NOT STARTED / DELIVERY NOT AUTHORIZED** · MW1 functional source-lock **MW1-S01/S02/S03** · **OD-03 = OPEN / NOT CONSUMED** · **NO FA REQUIRED** · **NO TA CURRENTLY REQUIRED** · **TA TRIGGER CANDIDATE** · **ADAPT-FIRST** · Architecture **NOT SELECTED** · Technology **NOT ADOPTED** · Production model routing **NOT SELECTED** · **REAL-B = QUALIFIED CANDIDATE / DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED** · OD-07 **CONSUMED** · OD-02/04/05/06/08 **OPEN** · FinOps/T7 **FREEZE** · C6 **CLOSED / DO NOT REOPEN** · Product Completion **COMPLETE / CLOSED BY MORRIS** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **≠** MW1 readiness executed · **≠** MW1 readiness PASS · **≠** MW1 Delivery · **≠** MW1 BUILD · **≠** OD-03 BUILD DECIDED · **≠** Sessions/Agents SDK/new persistence adopted · **≠** TA required/selected · **≠** BAR-09 PROVEN · **≠** parity PROVEN · **≠** REAL-B AUTHORIZED · **≠** runtime v3 ADOPTED |
  | **Timestamp maintenance historique V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-CORR-01 (pre-NORA-C5)** | *(historique · superseded as tip by NORA-C5-SEQUENCING-AND-BACKLOG-OPENING-01)* — 2026-08-28 02:20 CEST (+0200) — **V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-CORR-01** — **THEN-CURRENT FUNCTIONAL / GOVERNANCE TRUTH** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified REAL-A corrective integration anchor** = PR **#428** MERGED · title `feat(sfia-studio): harden REAL-A repository source grounding` · head `0ed085e4928409d047e63ee12557f35de1e02c15` · merge `e7339fa595ac36d6cd7b68647c10a565bc020548` · tree `c6295284c4be05d9a87a647fb1d52c2948e84afa` · post-merge CI **`33126011388` SUCCESS** · Required Gate **PASS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** · **REAL-A = COMPLETE / CONSUMED** · **PASS WITH PARITY GAPS** · source integrity **REAL PROVEN** · fabricated claims **NO** · RA-06 completeness reserve **OPEN NON_BLOCKING** · RA-07 cross-turn provenance **OPEN PARITY GAP NON_BLOCKING** · C6 **CLOSED / DO NOT REOPEN** · FinOps/T7 **FREEZE** · runtime v3 **NON ADOPTED** · next = **REAL-B — QUALIFICATION & COGNITIVE REASONING** · **REAL-B = QUALIFIED CANDIDATE / NOT AUTHORIZED / NOT STARTED** · future model candidate **gpt-5.6-terra / high** · next structural gate = **distinct Morris GO REAL-B EXECUTION** · **≠** REAL-B AUTHORIZED · **≠** REAL-B STARTED · **≠** runtime v3 ADOPTED · **≠** embed `e7339fa5…` as permanent `origin/main` HEAD |
-@@ -76,7 +77,7 @@
+@@ -76,7 +78,7 @@
  | **Product Completion Functional Architecture (Cycle 3)** | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · path : `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md` · PR **#378 MERGED** · head `1018aa79d1d8ebb8783d11ce25ff08036764e87e` · merge `18b89ec9d6f1a91f8ff49df9c895299b6676b572` · PR CI **#240 SUCCESS** · post-merge CI **#241 SUCCESS** · post-merge sync PR **#379 MERGED** · sync head `0aa644d935b5df1ba7f4c2278fd63320555b9f6a` · sync merge `134f4105fea09543a100749e74ca5e3be32bfda2` · PR CI **#242 SUCCESS** · post-merge CI **#243 SUCCESS** · final closure PR **#380 MERGED** · head `53aeceea…` · merge `14329c60…` · post-merge CI **#245 SUCCESS** · **POST-MERGE COHERENCE COMPLETE** · PM-R01 **CLOSED** · PM-R02 **CLOSED** · FC-01…FC-15 **APPROVED** · OA-aligned Option A + thin orchestration C **APPROVED** · no parallel architecture · targeted durability technical delta **QUALIFIED** then **partially realized via W1** · FA-R01…FA-R12 **CLOSED** · C1 §H/J.1 + C2 A→W preserved · H-01…H-04 **CARRY** · Confirmation **runtime** durability **IMPLEMENTED AT W1 SCOPE** (requested ephemeral / granted+ durable · PR #395) · ProjectTrajectory durability **IMPLEMENTED AT W1 SCOPE** (PR #395) · **downstream gaps remain** (HD/replan liaison complète · Recovery E2E · taxonomie épistémique complète → W2/W3) · UAT **OPEN** · SC-02 **NON-BLOCKING** · **RESERVE-GOV-EC-ORDER CLOSED** · Pre-M6 debt **CARRY** · source branch cleanup **NOT PERFORMED** · **≠** Architecture technique fully exhausted · **≠** Product Completion terminée · **≠** REAL |
  | **RESERVE-GOV-EC-ORDER** | **CLOSED ON MAIN** via PR **#381** — Build Doctrine execution order aligned with validated C2 / Functional Architecture : HumanDecision → EC Prepare → EC Inspect → Confirmation if required → effective authority → Execute · Confirmation **runtime** durability **IMPLEMENTED AT W1 SCOPE** (PR #395) · remaining continuity/authority gaps stay **DOWNSTREAM** · ≠ reserve reopen |
  | **Morris trajectory decision (post-FA requalification)** | **HISTORICAL** — Governance EC Order Sync → C6 → Next-Cycle Requalification *(superseded for forward path by CKC-first)* |
@@ -347,7 +400,7 @@ index 3e9157fd..82c50302 100644
  | **Product Completion W2 Track D / bounded CKC Phase B** | **INTEGRATED ON MAIN** · PR **#403 MERGED** · head `1cdf4b41270cffe31be28e02e3effe17a1b15477` · merge `e4a93fea77c7edd01c4e6fc2d47455db14e102e8` · PR-head CI **`32645232920` SUCCESS / Required Gate PASS** · head→merge **0-file content delta** · push/main CI **`32646038871` SUCCESS / Required Gate PASS** · D-W2-02 / US-P1-14 / REQ-24 · product-native CKC cognition before Options/Recommendation · delivery + security via **same generic product path** · Recommendation remains Recommendation · no automatic HumanDecision · no authority from CKC · **STOP BEFORE EXECUTE** · legacy OptionSet cutover fail-closed · business-first Pilote output · structured provenance retained · proof **DETERMINISTIC PROVEN** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · W2 later **CLOSED BY MORRIS** *(post-requalification)* · full CKC track later **SATISFIED VIA W3-D** · C6 **CLOSED** · FinOps/T7 **FREEZE** · Execute **OUT** · REAL **OUT** · runtime v3 **NON ADOPTED** · **≠** W2 incomplete at Phase B timestamp · **≠** full CKC completion · **≠** REAL BOUNDARY PROVEN · **≠** W3 authorized |
  | **Product Completion W2 Final Closure Requalification** | **ACCEPTED BY MORRIS** · Cycle 9 QA · typology DOC · evidence on `main@1e4b0dbb…` · X01…X08 **PROVEN** · H→N 18-step **PROVEN** · PASS WITH NON-BLOCKING RESERVES · W2-CL-R01…R03 **CLOSED** · W2-CL-R04 **OPEN_NON_BLOCKING** · PB-RES-REAL-01 **OPEN / TRACE ONLY** · proof ceiling **DETERMINISTIC PRODUCT E2E PROVEN** · path `projects/sfia-studio/product-completion/10-product-completion-wave-2-final-closure-qualification.md` · **≠** W3 authorized · **≠** REAL · runtime v3 **NON ADOPTED** |
  | **Product Completion W2 Closure Decision** | **W2 CLOSED BY MORRIS** · exit contracts X01…X08 + integrated H→N path **ACCEPTED AS SUFFICIENT W2 EXIT PROOF** · residuals retained · Product Completion **INCOMPLETE** · W3 later **AUTHORIZED** under distinct GO · **≠** W3 CLOSED · **≠** REAL · **≠** FinOps PASS · runtime v3 **NON ADOPTED** |
-@@ -93,7 +94,7 @@
+@@ -93,7 +95,7 @@
 
  | **Product Completion Integrated Proof / Final Completion Qualification** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · PR **#426 MERGED** · head `57f46c7adbac7cbb1a65d2193d42153490743615` · merge `19349d024b3dc10a180cda52b2300279af361bf2` · tree `00bc236ae3631b638746e34c221dbc19253bf8ab` · exact scope DOC14 + `studio-product-completion-integrated-proof.spec.ts` · PR CI attempt-1 `33079667982` Vitest timeout failure → unchanged attempt-2 SUCCESS *(transient CI timing)* · post-merge CI **`33082002188` SUCCESS** · Required Gate **PASS** · CORR-01 technical **PASS WITH NON-BLOCKING RESERVES** · CORR-02 documentary **PASS** · Integrated E2E **7/7** · PC-BAR-01→10 **PASS** · full-loop genericity **cyc:delivery + cyc:security** · restart checkpoint A+B **PROVEN** · PCQA-BLK-01 **CLOSED BY CORR-01 EVIDENCE** · PCQA-R01 **NON_BLOCKING** · proof **DETERMINISTIC PRODUCT COMPLETION INTEGRATED PROVEN** · source branch `qa/sfia-studio-product-completion-integrated-proof` **PRESERVED** · path DOC14 `projects/sfia-studio/product-completion/14-product-completion-integrated-proof-final-qualification.md` *(historical QA record — may still say INCOMPLETE as qualification-time truth)* · **≠** READY FOR REAL · **≠** REAL BOUNDARY PROVEN · **≠** runtime v3 ADOPTED |
  | **Product Completion Closure Decision** | **COMPLETE / CLOSED BY MORRIS** · decision source = Morris explicit conversation decision **« ok on valide alors »** (after reviewing QA synthesis + completion bar + Git proof + post-merge CI) · consumes Final Qualification · accepts C1 completion bar **SATISFIED** · accepts non-blocking reserves · **≠** READY FOR REAL · **≠** GO REAL · **≠** runtime v3 ADOPTED · **≠** FinOps/T7 unfreeze · **≠** C6 reopen · **≠** automatic next-capability selection · **≠** Delivery |
@@ -356,7 +409,7 @@ index 3e9157fd..82c50302 100644
  | **Product Completion W3 Delivery** | **CLOSED BY MORRIS** · slices **W3-A** + **W3-B** + **W3-C** + **W3-D** **INTEGRATED AND PROVEN** · W3-E **NOT REQUIRED** · canonical `/studio` · MAIN `73de0616a127b230eea068267e44c6cf3150006f` · **≠** W4 AUTHORIZED · **≠** READY FOR REAL · **≠** Product Completion COMPLETE |
  | **Product Completion W2 Final Closure Product Correction** | **INTEGRATED ON MAIN** · PR **#405 MERGED** · head `330b36258f5a5fcb117fb562b12ff173b3675d94` · merge `1e4b0dbb8de291f1a02e084f03231d62d04dfb0b` · PR-head CI SUCCESS · push/main CI **`32654262020` SUCCESS** · R01 Phase B Product E2E cognition · R02 material EC amend/reinspect + R1 recovery-safe · C6 **CLOSED** · no `lib/oa` mutation · **≠** W3 · **≠** REAL · runtime v3 **NON ADOPTED** |
  | **Product Completion W2-G3 Delivery** | **INTEGRATED ON MAIN** · PR **#400 MERGED** · delivery head `a276f170faece84a2121f5fe5796c24ae443674d` · merge `dd852243a652e85cce455a68fae5ac7aa13d2bea` · PR-head CI **`32632461315` SUCCESS / Required Gate PASS** · push/main CI **`32633308148` SUCCESS** · E+A+B+C governed trajectory: Options / Recommendation / HumanDecision / EC inspect / conditional Confirmation / authority+executor sufficiency · **STOP BEFORE EXECUTE** · ProjectTrajectory SoT **KEEP** · C6 **CLOSED** · D-W2-CI-FINOPS-FREEZE-01 **ADOPTED** · FinOps/T7 **FREEZE** · T7-C04 **DEFERRED** · Phase B later **INTEGRATED** via PR **#403** · **≠** W2 finally closed · **≠** Execute · **≠** REAL · **≠** FinOps PASS · runtime v3 **NON ADOPTED** |
-@@ -109,10 +110,10 @@
+@@ -109,10 +111,10 @@
  | **ROADMAP-POST-MERGE-CKC-388** | **CLOSED ON MAIN** via PR **#389** / merge `c4dc1c9ce78290f00354e58dde451dd09616f49e` · post-merge CI **`32527209975` SUCCESS** · Roadmap sync integrated on main · **≠** DoctrinePackage runtime binding · **≠** Nora proven |
  | **DoctrinePackage / runtime CKC architecture qualification** | **ARCHITECTURE DIRECTION ADOPTED BY MORRIS — INTEGRATED ON MAIN** via PR **#390 + PR #391** · **G2 materialization DECIDED + GIT-INTEGRATED** via PR **#394** (`b3e978fe…`) · **W1 runtime materialization INTEGRATED** via PR **#395** (`ddd39181…`) · `pkg:sfia-studio-doctrine-v3@1.0.0` · OPTION A root `projects/sfia-studio/app/lib/oa/doctrine/product/` · resolver/repository **KEEP** · D02 Option B **KEEP** · fallback **NONE** · fixture quarantine/test-only → retire later · Product pin **fail-closed** · Phase A package-bound **INTEGRATED** · Phase A **≠** Phase B complete · bounded CKC→Nora seam **PROVEN (W1)** · bounded Phase B / generic multi-cycle cognition **INTEGRATED** (PR **#403**) · full CKC catalog evolvability **SATISFIED VIA W3-D** · runtime v3 **NON ADOPTED** |
  | **SFIA Studio product design tooling** | **MORRIS DECISION — PENPOT IS THE REFERENCE DESIGN WORKSPACE FOR SFIA STUDIO PRODUCT DESIGN** · Studio product design only · Git remains SoT for governance/contracts/decisions · R-04 EA historical recommendation **SUPERSEDED FOR FUTURE SFIA STUDIO PRODUCT DESIGN** · **≠** global SFIA methodological baseline · **≠** v3 doctrine change · **≠** runtime v3 adoption · EA document **not** retroactively rewritten |
@@ -365,12 +418,12 @@ index 3e9157fd..82c50302 100644
  | **Intégration Git** | **C2 :** PR #369 / head `3c78c6763d0d090bdc38f3866ecd71ed6be219d0` / merge `2406ccda211842fc7f8da3699bb186a30f7dc105` · **Post-merge sync :** PR #370 (integration vehicle · Git evidence authoritative) · CI SFIA Studio **#222** SUCCESS (PR head) · post-merge CI **#223** SUCCESS · source branch `docs/sfia-studio-product-completion-c2-integration-clean` **PRESERVED** · historical unauthorized branch `docs/sfia-studio-product-completion-c2-functional-design` @ `780ab4c5` **PRESERVED FOR AUDIT** · Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration · **M4 post-pre-reproof Roadmap :** PR #347 / merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS · **M4 GOVERNED REAL COMPLETION PROOF** handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · **M4 closure Roadmap :** PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · **M5 Entry Qualification** handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · **M5 Delivery (Option B + W1) :** PR #350 / head `17461dad78f92a3d5e5e1d9bd36aa20d1e86ac11` / merge `8f753218e4fff7d68d78c1d57e9c3e8fb7e60943` · CI SFIA Studio **#184** SUCCESS · post-merge CI **#185** SUCCESS · **M5 UI/Nora durable rehydrate :** PR #351 / head `ced7b172969c27b5e2d6fda06e9caa8c84e1e0d7` / merge `d8961f1d85a98b5d4185f007f16ddac209e2e557` · CI SFIA Studio **#186** SUCCESS · post-merge CI **#187** SUCCESS · M5 exit re-evaluation handoff `54b0f5b43a50861c26226aa3ffc06460f8ffbafe` · blob `131c85172bbd6370a3edcd71347a64932c9303ab` · M5 EXIT PROOF **SATISFIED ON MAIN** · **M5 capitalization / Roadmap sync :** PR #352 / head `c26824c602ec041cb1d40e9078191c0f1cde4e95` / merge `3467ecdf74ac2010c45f34545fb8684563dea547` · CI SFIA Studio PR run **#31875337665** SUCCESS · post-merge CI run **#31875621317** SUCCESS · post-merge handoff `0121e184c936f8dc73ffe80e20d43027fec495d7` · blob `4c293ae07a0d516b16d6dd2d4087d3e25858e275` · GO Morris **ACCEPT M5 EXIT PROOF + CLOSE M5 — KEEP M5-C TECHNICAL JOURNAL — ZERO REAL — NO M6 EXECUTION — RUNTIME V3 NON ADOPTED — NO BRANCH DELETE** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · User wording **« ok go pour la modification »** · governed interpretation **ALIGN M5 CLOSURE ROADMAP WITH PRE-M6 USER JOURNEY / UX BASELINE TRAJECTORY — KEEP M5 CLOSED — KEEP M5-C — NO UX DESIGN EXECUTION YET — NO FIGMA ACTION YET — NO UI DELIVERY — NO M6 — ZERO REAL — NO PROJECT GIT WRITE** · **M5 closure / Pre-M6 sequencing Roadmap :** PR #353 / title `docs(sfia-studio): close M5 and sequence Pre-M6 UX baseline` / base `3467ecdf74ac2010c45f34545fb8684563dea547` / head `7a744c8cec889be547eebe231279620189819dd0` / merge `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` — records M5 closure + inserts Pre-M6 before M6 · **≠** Slice A candidate (Slice A is later local work) · PRE-M6 USER JOURNEY / UX BASELINE = **FUNCTIONAL BASELINE + GAP READINESS COMPLETE · G-UX-15 EXIT PROOF ACCEPTED / TECHNICAL BLOCKER CLOSED · LOCAL CANDIDATE NOT YET ON MAIN · FIGMA/UI DELIVERY NOT AUTHORIZED** · **G-UX-15 Slice A controlled integration :** PR #354 / title `feat(sfia-studio): close Pre-M6 G-UX-15 execution wiring gap` / base `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` / head `22ae8e5e4bddb0f997384a5e8ba87c9b35245693` / merge `a6df83a640afeb0911cb572d118d27a03c9923a7` · CI SFIA Studio **#192** SUCCESS · post-merge main CI **#193** SUCCESS · post-merge truth **PASS** (exact 5-file SHAs on main) · feature branch **PRESERVED** (no delete) · **Cycle 14 docs sync :** PR #355 / title `docs(sfia-studio): sync Pre-M6 G-UX-15 post-merge current state` / merge `dd284e9f20de89b2c8fc7782e4177d0d125c24d2` — **MERGED ON MAIN** · **historique :** OPEN / DRAFT avant merge · **Cycle 15 visual adoption docs integration :** PR #356 / title `docs(sfia-studio): record Pre-M6 visual contract adoption` / head `3a93d0e5cfd86e46bb795ce22c0f7dd79078ef2a` / merge `50f31994b0d9b5a3a3514e2fa9a063d688071c50` — **MERGED ON MAIN** · CI SFIA Studio **#198** SUCCESS on final PR head · post-merge main CI **#199** SUCCESS · post-merge truth **PASS** · source branch **PRESERVED** (NO BRANCH DELETE) · **historique :** OPEN / DRAFT avant merge · **D-PRE-M6-UX-05 :** ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN (Freeze `uUdLBElF2B4dOefaAYt4QY`) — UI Delivery still **NOT AUTHORIZED** · **Cycle 14 PR #356 post-merge current-state sync :** PR #357 / title `docs(sfia-studio): sync PR 356 post-merge current state` / head `70643624c494f16fb91e3bede772a80f4eece783` / merge `b834fdd40d3e7028e80cf7b388b93df2f31e18e4` — **MERGED ON MAIN** · CI SFIA Studio **#200** SUCCESS on PR head · post-merge CI **#201** SUCCESS · source branch **PRESERVED** · **historique :** OPEN / DRAFT avant merge · **PRE-M6 UI DELIVERY GATE / SCOPE QUALIFICATION :** **COMPLETE** — Review Handoff `2577776360c8a5a3492806b447d4bf88f0239898` / blob `9084a97b368472aaaa7ab61f85baf2efcb819e51` — verdict READY FOR MORRIS DELIVERY DECISION (**≠** UI Delivery authorized) — OPTION A = RECOMMENDATION AWAITING MORRIS DECISION *(historique qualification)* · **Cycle 15 Pre-M6 UI gap + CKC trajectory Roadmap :** PR #358 / title `docs(sfia-studio): record Pre-M6 UI gap and CKC trajectory` / head `c91ce1afd498ef9a5275e3b90509e7a045f240a0` / merge `0a80b92cb2c05f5b3f001438988b52c07c3bf0b6` — **MERGED ON MAIN** · CI SFIA Studio **#202** SUCCESS on PR head · post-merge CI **#203** SUCCESS · source branch **PRESERVED** · **historique :** OPEN / DRAFT avant merge · GO Morris **ADOPT PRE-M6 UI DELIVERY SCOPE OPTION A** (user « bon ok go option A ») — OPTION A = **ADOPTED BY MORRIS AS PRE-M6 UI DELIVERY SCOPE** · OPTION A SCOPE ADOPTED **≠** UI DELIVERY EXECUTION AUTHORIZED · NEXT PRODUCT GATE *(historique jusqu’à PR #361)* = **MORRIS PRE-M6 UI DELIVERY EXECUTION AUTHORIZATION — OPTION A** · **PR #359** Option A adoption sync **MERGED** (`0d33478…`) · **PR #360** fake-real progressive proof **MERGED** (`a3ac418…`) · **PRE-M6 PRODUCT VERTICAL SLICE :** PR #361 / title `feat(sfia-studio): consolidate Pre-M6 product vertical slice` / head `3c4c478d7664c6111f38e6c4f49e98042e3a8473` / merge `a53c323e47e5fae1d35671f3ae232609a59b0f3f` — **MERGED ON MAIN** · post-merge CI run **`32122892559` SUCCESS** · source branch `delivery/sfia-studio-pre-m6-ui-option-a` **PRESERVED** · GO Morris **PR #361 READY + MERGE — PRESERVE SOURCE BRANCH — THEN POST-MERGE VALIDATION** · **MORRIS DECISION — CURRENT SFIA STUDIO VERTICAL SLICE ON MAIN IS THE FUNCTIONAL MVP BASELINE FOR THE PRODUCT COMPLETION TRAJECTORY — REUSE EXISTING BACKBONE — DO NOT RESTART FROM ZERO — RUNTIME V3 REMAINS NON ADOPTED** · **MORRIS DECISION — ACCEPT PRE-M6 EXIT FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT — CURRENT MAIN VERTICAL SLICE IS THE SFIA STUDIO FUNCTIONAL MVP BASELINE FOR PRODUCT COMPLETION — CARRY UAT-UX-06 / UAT-RECOVERY-03 / V3-F10 / PROCESS-LOCAL DURABILITY / N7 AS GOVERNED DEBT — RUNTIME V3 REMAINS NON ADOPTED** · PRE-M6 EXIT = **ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT** · PRE-M6 **≠ COMPLETE WITHOUT RESERVES** · NEXT PRODUCT GATE = **GO MORRIS — CYCLE 1 CADRAGE — SFIA STUDIO PRODUCT COMPLETION FROM MVP** (consumable only after this documentation is integrated on main · **NOT AUTHORIZED now**) · NEXT REPOSITORY GATE = **MORRIS REVIEW — PRODUCT COMPLETION REBASELINE DRAFT PR — NO MERGE UNTIL EXPLICIT GO** |
  | **Sources** | Git `main` @ `a53c323e47e5fae1d35671f3ae232609a59b0f3f` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347/#348/#349/#350/#351/#352/#353/#354/#355/#356/#357/#358/#359/#360/#361 · CI #158/#162/#166/#172/#176/#178/#184/#185/#186/#187/#192/#193/#197/#198/#199/#200/#201/#202/#203 · Pre-M6 UI Delivery qualification handoff `2577776360c8a5a3492806b447d4bf88f0239898` / blob `9084a97b368472aaaa7ab61f85baf2efcb819e51` · GO Morris **ADOPT PRE-M6 UI DELIVERY SCOPE OPTION A** · PR #352 CI run #31875337665 / post-merge #31875621317 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · D-PRE-M6-UX-05 visual review handoff `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593ddbdc286cd244790f0ca1d2c421128202c5c` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · PR #348 / merge `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` · M5 Entry Qualification handoff `63f41e3f328868286c14312a58a7b79f850383c0` · GO Morris **ADOPT M5 ARCHITECTURE TRAJECTORY — M5-A OPTION B — M5-B W1 — M5-C KEEP TEMPORARY WITH EXIT — NO REAL — NO DELIVERY** · GO Morris **SYNC M5 ARCHITECTURE DECISION INTO CONVERGENCE ROADMAP — NO REAL — NO DELIVERY** · GO Morris **VALIDATE D-PRE-M6-UX-05 FIGMA VISUAL CONTRACT — ADOPT AS PRE-M6 VISUAL REFERENCE** · M4 Product path on main `projects/sfia-studio/app/**` |
 -| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M5 Entry Qualification **COMPLETE** · M5 architecture trajectory **ADOPTED BY MORRIS** · M5 Delivery **IMPLEMENTED ON MAIN** (PR #350) · M5 UI rehydrate **IMPLEMENTED ON MAIN** (PR #351) · M5 technical/functional exit proof **SATISFIED ON MAIN** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · M5 CLOSED **≠** M6 AUTHORIZED · M5 CLOSED **≠** M6 STARTED · M5 CLOSED **≠** runtime v3 ADOPTED · M5 CLOSED **≠** global v3 baseline promoted · M5 CLOSED **≠** M5-C retired · M5 exit accepted **≠** global Cursor REAL authorization · M5 CLOSED future **≠** M6 automatically authorized · Pre-M6 trajectory decided **≠** Pre-M6 UX qualification executed · **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE ≠ UI Delivery authorized ≠ runtime implemented ≠ browser/product E2E proven ≠ Figma/runtime aligned ≠ WCAG compliant ≠ Pre-M6 complete ≠ historical UI retired** · Accepted M-03/M-04/provenance reserves ≠ reserves closed · new UX baseline **≠** runtime rewrite · existing UI not canonical **≠** existing UI automatically deleted · UI asset audit **COMPLETE/CLASSIFIED** **≠** individual dispositions ADOPTED · existing UI audit **≠** REPLACE/retirement authorized · M1→M5 runtime KEEP **≠** all runtime complete · Pre-M6 user proof **≠** runtime v3 ADOPTED · M6 after Pre-M6 **≠** M6 automatically authorized · Validated UX decisions in framing **30/37** (CC-D01) prevail over older candidate wording in framing **11** · M5-A OPTION B **IMPLEMENTED ON MAIN** · M5-B W1 **IMPLEMENTED ON MAIN** · M5-B W1 factual write-back **≠** Recommendation becomes Decision · Recommendation **≠** HumanDecision · Recommendation **≠** gate consumed · Recommendation **≠** ExecutionAuthority · LPS factual evidence link **≠** structural trajectory validation · readback **≠** execution · remount UI visibility **≠** automatic next-cycle launch · M5-C KEEP TEMPORARY WITH EXIT **≠** technical journal retired · durable Product Attempt **≠** technical M4 journal automatically obsolete · M5 implementation **≠** runtime v3 ADOPTED · M5 implementation **≠** global v3 baseline promoted · M5 ZERO REAL **≠** global Cursor REAL authorization · M5 architecture ADOPTED **≠** M6 started · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **unchanged by M5 architecture decision** **≠** M4/M5 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · runtime v3 **NON ADOPTED** · ≠ full OA durable · G-UX-15 technical blocker **CLOSED BY MORRIS** ≠ Pre-M6 complete · G-UX-15 exit proof accepted ≠ browser/product E2E proven · fixture-safe proof accepted ≠ REAL proof · G-UX-15 Slice A **MERGED ON MAIN** (PR #354) ≠ Pre-M6 complete · merged on main ≠ product/browser E2E proven · merged on main ≠ UI Delivery/M6 authorized · Pre-M6 progress ≠ M6 authorized · Confirmation process-local = KEEP RESERVE *(HISTORICAL Pre-M6 / G-UX-15)* · **SUPERSEDED for Confirmation by W1 selective durability** · **≠** restart-safe Confirmation as full envelope · **PR #356 MERGED ≠ UI Delivery authorized** · CI #197/#198/#199 SUCCESS ≠ Pre-M6 complete ≠ UI Delivery authorized · post-merge truth PASS ≠ UI Delivery gate consumed · UI Delivery qualification COMPLETE ≠ UI Delivery authorized · **Option A SCOPE ADOPTED BY MORRIS ≠ UI Delivery execution authorized** · gap treatment adopted as scope ≠ gap closed · G-UX-08 deferred ≠ G-UX-08 closed · G-UX-09 accepted ≠ Conversation durable · Confirmation KEEP *(historical Pre-M6)* ≠ restart-safe · G-UX-11 planned ≠ browser E2E proven · M7 CKC 15/15 future ≠ CKC complete now ≠ CKC Delivery authorized · 4 pilots + 11 fallback ≠ CKC system complete · CKC→v2.6 capitalization option ≠ v2.6 modification decided · CKC validation future ≠ runtime v3 ADOPTED · PR #357 MERGED ≠ UI Delivery authorized · CI #201 SUCCESS ≠ Pre-M6 complete · PR #358 MERGED ≠ UI Delivery authorized · CI #202/#203 SUCCESS ≠ Pre-M6 complete ≠ Delivery authorized · Option A scope adopted ≠ Delivery GO consumed · Execution Authorization IS the Delivery GO ≠ second Delivery GO required · G-UX-11 E2E exit proof ≠ Delivery entry prerequisite · global v3 baseline **NOT PROMOTED** · **PR #361 MERGED ≠ PRE-M6 COMPLETE ≠ PRE-M6 EXIT ACCEPTED ≠ runtime v3 ADOPTED ≠ M6 AUTHORIZED ≠ M7 AUTHORIZED ≠ CKC 15/15 COMPLETE ≠ generic Cursor write/dev/commit/push/PR proven** · **MVP FUNCTIONAL BASELINE ≠ produit final ≠ UX finale ≠ production-ready ≠ generic ExecutionContract complete** · Product Completion trajectory recorded **≠** Cycle 1 Cadrage authorized **≠** Delivery authorized · PRE-M6 requalification **≠** PRE-M6 CLOSED · **PRE-M6 EXIT ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT ≠ PRE-M6 COMPLETE ≠ PRE-M6 all gaps closed ≠ runtime v3 ADOPTED ≠ M6 STARTED ≠ M6 AUTHORIZED ≠ Product Completion Delivery authorized ≠ Cycle 1 Cadrage authorized** | · **NORA-FIRST = VALIDATED sequencing** · **C5 = CONTENT VALIDATED BY MORRIS / INTEGRATED ON MAIN / POST-MERGE VERIFIED** · **MW0 = INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR #442)** · **HISTORICAL PRE-OD04 Nora anti-claims** (architecture/Agents SDK/Sessions not selected · MW1 Delivery not authorized · next gate = distinct MW1 Delivery GO · OD-04 OPEN) = **SUPERSEDED FOR FORWARD PATH** · retained only in historique timestamps / then-current GO strings · **CURRENT Nora / OD-04 anti-claims:** **OD-04 = CONSUMED** · **OPTION C HYBRID OPENAI COGNITIVE RUNTIME = TARGET ADOPTED** · Agents SDK Runner **TARGET ADOPTED** · custom Product SQLite Session **TARGET ADOPTED** · Session/model-input policy **TARGET ADOPTED** · Option C / Runner / Session TARGET ADOPTED **≠** product @openai/agents / Zod dependency integration complete · Option C TARGET ADOPTED **≠** runtime implementation migration integrated · Option C TARGET ADOPTED **≠** runtime v3 ADOPTED · Runner TARGET ADOPTED **≠** Cognitive Completion PROVEN · **Responses compaction = CANDIDATE / NOT ADOPTED** · OpenAI HITL **≠** HumanDecision / Confirmation · OpenAI Trace **≠** Evidence · **MW0 EXIT PROVEN WITH NON-BLOCKING RESERVES ≠ reserves closed** · **MW0 remains CLOSED** · Option C migration requires **MW0 REGRESSION / PARITY ON OPTION C** via nora-eval KEEP/ADAPT **≠** MW0 reopened · **MW0-R01 BAR-09 NOT_PROVEN / NON-BLOCKING ≠ BAR-09 PROVEN** · **MW0-R02 parity NOT_PROVEN / NON-BLOCKING ≠ parity PROVEN** · **MW1 Delivery AUTHORIZED EARLIER BY MORRIS ≠ MW1 COMPLETE ≠ MW1 INTEGRATED** · **LOCAL MW1 CANDIDATE EXISTS ≠ MW1 integrated on main** · **MW1 REQUALIFICATION REQUIRED AGAINST OPTION C** · **next structural gate = MW1 OPTION C DELIVERY REQUALIFICATION / MIGRATION PLAN** · **MW2 NOT AUTHORIZED / NOT STARTED** · **C5/MW0 merged ≠ Cognitive Completion PROVEN** · **REAL-B = QUALIFIED CANDIDATE / DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED** · DEFERRED ≠ CLOSED ≠ CANCELLED ≠ FAILED ≠ SUPERSEDED FUNCTIONALLY · **OD-07 CONSUMED ≠ OD-02/05/06/08 consumed** · **OD-03 BUILD / CONSUMED** remains · continuity target supersession via OD-04 Session · runtime v3 **NON ADOPTED** · **≠** embed local candidate branch/HEAD as permanent repository truth |
-+| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M5 Entry Qualification **COMPLETE** · M5 architecture trajectory **ADOPTED BY MORRIS** · M5 Delivery **IMPLEMENTED ON MAIN** (PR #350) · M5 UI rehydrate **IMPLEMENTED ON MAIN** (PR #351) · M5 technical/functional exit proof **SATISFIED ON MAIN** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · M5 CLOSED **≠** M6 AUTHORIZED · M5 CLOSED **≠** M6 STARTED · M5 CLOSED **≠** runtime v3 ADOPTED · M5 CLOSED **≠** global v3 baseline promoted · M5 CLOSED **≠** M5-C retired · M5 exit accepted **≠** global Cursor REAL authorization · M5 CLOSED future **≠** M6 automatically authorized · Pre-M6 trajectory decided **≠** Pre-M6 UX qualification executed · **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE ≠ UI Delivery authorized ≠ runtime implemented ≠ browser/product E2E proven ≠ Figma/runtime aligned ≠ WCAG compliant ≠ Pre-M6 complete ≠ historical UI retired** · Accepted M-03/M-04/provenance reserves ≠ reserves closed · new UX baseline **≠** runtime rewrite · existing UI not canonical **≠** existing UI automatically deleted · UI asset audit **COMPLETE/CLASSIFIED** **≠** individual dispositions ADOPTED · existing UI audit **≠** REPLACE/retirement authorized · M1→M5 runtime KEEP **≠** all runtime complete · Pre-M6 user proof **≠** runtime v3 ADOPTED · M6 after Pre-M6 **≠** M6 automatically authorized · Validated UX decisions in framing **30/37** (CC-D01) prevail over older candidate wording in framing **11** · M5-A OPTION B **IMPLEMENTED ON MAIN** · M5-B W1 **IMPLEMENTED ON MAIN** · M5-B W1 factual write-back **≠** Recommendation becomes Decision · Recommendation **≠** HumanDecision · Recommendation **≠** gate consumed · Recommendation **≠** ExecutionAuthority · LPS factual evidence link **≠** structural trajectory validation · readback **≠** execution · remount UI visibility **≠** automatic next-cycle launch · M5-C KEEP TEMPORARY WITH EXIT **≠** technical journal retired · durable Product Attempt **≠** technical M4 journal automatically obsolete · M5 implementation **≠** runtime v3 ADOPTED · M5 implementation **≠** global v3 baseline promoted · M5 ZERO REAL **≠** global Cursor REAL authorization · M5 architecture ADOPTED **≠** M6 started · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **unchanged by M5 architecture decision** **≠** M4/M5 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · runtime v3 **NON ADOPTED** · ≠ full OA durable · G-UX-15 technical blocker **CLOSED BY MORRIS** ≠ Pre-M6 complete · G-UX-15 exit proof accepted ≠ browser/product E2E proven · fixture-safe proof accepted ≠ REAL proof · G-UX-15 Slice A **MERGED ON MAIN** (PR #354) ≠ Pre-M6 complete · merged on main ≠ product/browser E2E proven · merged on main ≠ UI Delivery/M6 authorized · Pre-M6 progress ≠ M6 authorized · Confirmation process-local = KEEP RESERVE *(HISTORICAL Pre-M6 / G-UX-15)* · **SUPERSEDED for Confirmation by W1 selective durability** · **≠** restart-safe Confirmation as full envelope · **PR #356 MERGED ≠ UI Delivery authorized** · CI #197/#198/#199 SUCCESS ≠ Pre-M6 complete ≠ UI Delivery authorized · post-merge truth PASS ≠ UI Delivery gate consumed · UI Delivery qualification COMPLETE ≠ UI Delivery authorized · **Option A SCOPE ADOPTED BY MORRIS ≠ UI Delivery execution authorized** · gap treatment adopted as scope ≠ gap closed · G-UX-08 deferred ≠ G-UX-08 closed · G-UX-09 accepted ≠ Conversation durable · Confirmation KEEP *(historical Pre-M6)* ≠ restart-safe · G-UX-11 planned ≠ browser E2E proven · M7 CKC 15/15 future ≠ CKC complete now ≠ CKC Delivery authorized · 4 pilots + 11 fallback ≠ CKC system complete · CKC→v2.6 capitalization option ≠ v2.6 modification decided · CKC validation future ≠ runtime v3 ADOPTED · PR #357 MERGED ≠ UI Delivery authorized · CI #201 SUCCESS ≠ Pre-M6 complete · PR #358 MERGED ≠ UI Delivery authorized · CI #202/#203 SUCCESS ≠ Pre-M6 complete ≠ Delivery authorized · Option A scope adopted ≠ Delivery GO consumed · Execution Authorization IS the Delivery GO ≠ second Delivery GO required · G-UX-11 E2E exit proof ≠ Delivery entry prerequisite · global v3 baseline **NOT PROMOTED** · **PR #361 MERGED ≠ PRE-M6 COMPLETE ≠ PRE-M6 EXIT ACCEPTED ≠ runtime v3 ADOPTED ≠ M6 AUTHORIZED ≠ M7 AUTHORIZED ≠ CKC 15/15 COMPLETE ≠ generic Cursor write/dev/commit/push/PR proven** · **MVP FUNCTIONAL BASELINE ≠ produit final ≠ UX finale ≠ production-ready ≠ generic ExecutionContract complete** · Product Completion trajectory recorded **≠** Cycle 1 Cadrage authorized **≠** Delivery authorized · PRE-M6 requalification **≠** PRE-M6 CLOSED · **PRE-M6 EXIT ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT ≠ PRE-M6 COMPLETE ≠ PRE-M6 all gaps closed ≠ runtime v3 ADOPTED ≠ M6 STARTED ≠ M6 AUTHORIZED ≠ Product Completion Delivery authorized ≠ Cycle 1 Cadrage authorized** | · **NORA-FIRST = VALIDATED sequencing** · **C5 = CONTENT VALIDATED BY MORRIS / INTEGRATED ON MAIN / POST-MERGE VERIFIED** · **MW0 = INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR #442)** · **HISTORICAL PRE-OD04 Nora anti-claims** (architecture/Agents SDK/Sessions not selected · MW1 Delivery not authorized · next gate = distinct MW1 Delivery GO · OD-04 OPEN) = **SUPERSEDED FOR FORWARD PATH** · retained only in historique timestamps / then-current GO strings · **CURRENT Nora / OD-04 / OD04-I01 anti-claims:** **OD-04 = CONSUMED** · **OD04-I01 = ACTIVE** · Studio owns product/business/authority · Nora owns cognition · **Pilote = generic runtime actor** · **Morris = construction/governance ≠ runtime persona** · **OPTION C HYBRID OPENAI COGNITIVE RUNTIME = TARGET ADOPTED** · Agents SDK Runner **TARGET ADOPTED** · custom Product SQLite Session **TARGET ADOPTED** · Session/model-input policy = **cognitive context integrity ≠ business authorization engine** · Option C / Runner / Session TARGET ADOPTED **≠** product @openai/agents / Zod dependency integration complete · Option C TARGET ADOPTED **≠** runtime implementation migration integrated · Option C TARGET ADOPTED **≠** runtime v3 ADOPTED · **OD04-I01 ≠ new architecture decision ≠ Product Completion reopen ≠ Build Doctrine / v3 framing mutation** · Runner TARGET ADOPTED **≠** Cognitive Completion PROVEN · **Responses compaction = CANDIDATE / NOT ADOPTED** · OpenAI HITL **≠** HumanDecision / Confirmation · OpenAI Trace **≠** Evidence · **MW0 EXIT PROVEN WITH NON-BLOCKING RESERVES ≠ reserves closed** · **MW0 remains CLOSED** · Option C migration requires **MW0 REGRESSION / PARITY ON OPTION C** via nora-eval KEEP/ADAPT **≠** MW0 reopened · legacy loop retirement **before** that gate once Runner/Fake convergence proven · **MW0-R01 BAR-09 NOT_PROVEN / NON-BLOCKING ≠ BAR-09 PROVEN** · **MW0-R02 parity NOT_PROVEN / NON-BLOCKING ≠ parity PROVEN** · **MW1 Delivery AUTHORIZED EARLIER BY MORRIS ≠ MW1 COMPLETE ≠ MW1 INTEGRATED** · **LOCAL MW1 CANDIDATE = UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED ≠ MW1 integrated on main** · **MW1 CORRECTION CYCLE REQUIRED (OD04-I01 / CORR-OPT-C-01…05)** · **next structural gate = MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · **MW2 NOT AUTHORIZED / NOT STARTED** · **C5/MW0 merged ≠ Cognitive Completion PROVEN** · **REAL-B = QUALIFIED CANDIDATE / DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED** · DEFERRED ≠ CLOSED ≠ CANCELLED ≠ FAILED ≠ SUPERSEDED FUNCTIONALLY · **OD-07 CONSUMED ≠ OD-02/05/06/08 consumed** · **OD-03 BUILD / CONSUMED** remains · continuity target supersession via OD-04 Session · runtime v3 **NON ADOPTED** · **≠** embed local candidate branch/HEAD as permanent repository truth |
++| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M5 Entry Qualification **COMPLETE** · M5 architecture trajectory **ADOPTED BY MORRIS** · M5 Delivery **IMPLEMENTED ON MAIN** (PR #350) · M5 UI rehydrate **IMPLEMENTED ON MAIN** (PR #351) · M5 technical/functional exit proof **SATISFIED ON MAIN** · M5 EXIT PROOF **ACCEPTED BY MORRIS** · M5 **CLOSED** · M5 CLOSED **≠** M6 AUTHORIZED · M5 CLOSED **≠** M6 STARTED · M5 CLOSED **≠** runtime v3 ADOPTED · M5 CLOSED **≠** global v3 baseline promoted · M5 CLOSED **≠** M5-C retired · M5 exit accepted **≠** global Cursor REAL authorization · M5 CLOSED future **≠** M6 automatically authorized · Pre-M6 trajectory decided **≠** Pre-M6 UX qualification executed · **D-PRE-M6-UX-05 ADOPTED AS PRE-M6 VISUAL REFERENCE ≠ UI Delivery authorized ≠ runtime implemented ≠ browser/product E2E proven ≠ Figma/runtime aligned ≠ WCAG compliant ≠ Pre-M6 complete ≠ historical UI retired** · Accepted M-03/M-04/provenance reserves ≠ reserves closed · new UX baseline **≠** runtime rewrite · existing UI not canonical **≠** existing UI automatically deleted · UI asset audit **COMPLETE/CLASSIFIED** **≠** individual dispositions ADOPTED · existing UI audit **≠** REPLACE/retirement authorized · M1→M5 runtime KEEP **≠** all runtime complete · Pre-M6 user proof **≠** runtime v3 ADOPTED · M6 after Pre-M6 **≠** M6 automatically authorized · Validated UX decisions in framing **30/37** (CC-D01) prevail over older candidate wording in framing **11** · M5-A OPTION B **IMPLEMENTED ON MAIN** · M5-B W1 **IMPLEMENTED ON MAIN** · M5-B W1 factual write-back **≠** Recommendation becomes Decision · Recommendation **≠** HumanDecision · Recommendation **≠** gate consumed · Recommendation **≠** ExecutionAuthority · LPS factual evidence link **≠** structural trajectory validation · readback **≠** execution · remount UI visibility **≠** automatic next-cycle launch · M5-C KEEP TEMPORARY WITH EXIT **≠** technical journal retired · durable Product Attempt **≠** technical M4 journal automatically obsolete · M5 implementation **≠** runtime v3 ADOPTED · M5 implementation **≠** global v3 baseline promoted · M5 ZERO REAL **≠** global Cursor REAL authorization · M5 architecture ADOPTED **≠** M6 started · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **unchanged by M5 architecture decision** **≠** M4/M5 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · runtime v3 **NON ADOPTED** · ≠ full OA durable · G-UX-15 technical blocker **CLOSED BY MORRIS** ≠ Pre-M6 complete · G-UX-15 exit proof accepted ≠ browser/product E2E proven · fixture-safe proof accepted ≠ REAL proof · G-UX-15 Slice A **MERGED ON MAIN** (PR #354) ≠ Pre-M6 complete · merged on main ≠ product/browser E2E proven · merged on main ≠ UI Delivery/M6 authorized · Pre-M6 progress ≠ M6 authorized · Confirmation process-local = KEEP RESERVE *(HISTORICAL Pre-M6 / G-UX-15)* · **SUPERSEDED for Confirmation by W1 selective durability** · **≠** restart-safe Confirmation as full envelope · **PR #356 MERGED ≠ UI Delivery authorized** · CI #197/#198/#199 SUCCESS ≠ Pre-M6 complete ≠ UI Delivery authorized · post-merge truth PASS ≠ UI Delivery gate consumed · UI Delivery qualification COMPLETE ≠ UI Delivery authorized · **Option A SCOPE ADOPTED BY MORRIS ≠ UI Delivery execution authorized** · gap treatment adopted as scope ≠ gap closed · G-UX-08 deferred ≠ G-UX-08 closed · G-UX-09 accepted ≠ Conversation durable · Confirmation KEEP *(historical Pre-M6)* ≠ restart-safe · G-UX-11 planned ≠ browser E2E proven · M7 CKC 15/15 future ≠ CKC complete now ≠ CKC Delivery authorized · 4 pilots + 11 fallback ≠ CKC system complete · CKC→v2.6 capitalization option ≠ v2.6 modification decided · CKC validation future ≠ runtime v3 ADOPTED · PR #357 MERGED ≠ UI Delivery authorized · CI #201 SUCCESS ≠ Pre-M6 complete · PR #358 MERGED ≠ UI Delivery authorized · CI #202/#203 SUCCESS ≠ Pre-M6 complete ≠ Delivery authorized · Option A scope adopted ≠ Delivery GO consumed · Execution Authorization IS the Delivery GO ≠ second Delivery GO required · G-UX-11 E2E exit proof ≠ Delivery entry prerequisite · global v3 baseline **NOT PROMOTED** · **PR #361 MERGED ≠ PRE-M6 COMPLETE ≠ PRE-M6 EXIT ACCEPTED ≠ runtime v3 ADOPTED ≠ M6 AUTHORIZED ≠ M7 AUTHORIZED ≠ CKC 15/15 COMPLETE ≠ generic Cursor write/dev/commit/push/PR proven** · **MVP FUNCTIONAL BASELINE ≠ produit final ≠ UX finale ≠ production-ready ≠ generic ExecutionContract complete** · Product Completion trajectory recorded **≠** Cycle 1 Cadrage authorized **≠** Delivery authorized · PRE-M6 requalification **≠** PRE-M6 CLOSED · **PRE-M6 EXIT ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT ≠ PRE-M6 COMPLETE ≠ PRE-M6 all gaps closed ≠ runtime v3 ADOPTED ≠ M6 STARTED ≠ M6 AUTHORIZED ≠ Product Completion Delivery authorized ≠ Cycle 1 Cadrage authorized** | · **NORA-FIRST = VALIDATED sequencing** · **C5 = CONTENT VALIDATED BY MORRIS / INTEGRATED ON MAIN / POST-MERGE VERIFIED** · **MW0 = INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR #442)** · **HISTORICAL PRE-OD04 Nora anti-claims** (architecture/Agents SDK/Sessions not selected · MW1 Delivery not authorized · next gate = distinct MW1 Delivery GO · OD-04 OPEN) = **SUPERSEDED FOR FORWARD PATH** · retained only in historique timestamps / then-current GO strings · **CURRENT Nora / OD-04 / OD04-I01 anti-claims:** **OD-04 = CONSUMED** · **OD04-I01 = ACTIVE** · Studio owns product/business/**authority model** + durable HD/Confirmation objects/lifecycle · **Pilote = runtime human decision/confirmation actor** · Studio **≠** human decision actor · Nora owns cognition · **Morris = construction/governance ≠ runtime persona** · **OPTION C TARGET ADOPTED** · Agents SDK Runner **TARGET ADOPTED** · Product SQLite Session **TARGET ADOPTED** · Session/model-input = **cognitive context integrity ≠ business authorization** · **OD04-I01 ≠ new architecture ≠ Product Completion reopen ≠ Build Doctrine / v3 framing mutation** · **Responses compaction = CANDIDATE / NOT ADOPTED** · HITL **≠** HD/Confirmation · Trace **≠** Evidence · **MW0 remains CLOSED** · Option C migration requires **MW0 REGRESSION / PARITY ON OPTION C** **≠** MW0 reopen · canonical sequence = **correction → Runner/Fake convergence → retire legacy loop → project Git integration → MW0 Option C parity → MW1 final proof/exit → MW2** · **MW1 Delivery AUTHORIZED EARLIER ≠ MW1 COMPLETE ≠ MW1 INTEGRATED** · **LOCAL MW1 CANDIDATE = UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · **next structural gate = MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · **MW2 NOT AUTHORIZED / NOT STARTED** · **REAL-B DEFERRED / NOT AUTHORIZED / NOT STARTED** · **OD-07 CONSUMED ≠ OD-02/05/06/08 consumed** · runtime v3 **NON ADOPTED** · **≠** embed local candidate branch/HEAD as permanent repository truth |
 
  > **Lecture post-C1 :** le snapshot historique, la maintenance du 2026-08-18, l’ancienne ligne `Sources`, l’historique d’intégration et les anti-claims/gates enregistrés avant C1 sont **HISTORIQUES PRE-C1**. Les lignes marquées **courant**, l’intégration C1 et les gates courants les supersèdent pour la trajectoire active. Les preuves et anti-claims génériques restent conservés ; toute mention « C1 not authorized / next M6 / next M7 » dans ces lignes historiques est superseded.
 
 diff --git a/projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md b/projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
-index 88a771b0..74dab294 100644
+index 88a771b0..4c9cbf1c 100644
 --- a/projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
 +++ b/projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
 @@ -7,7 +7,7 @@
@@ -378,22 +431,23 @@ index 88a771b0..74dab294 100644
  | **Typologie** | DOC |
  | **Profil** | CRITICAL |
 -| **Statut** | **Content status** = **CONTENT VALIDATED BY MORRIS** · **Repository integration** = **INTEGRATED ON MAIN** · **Post-merge** = **POST-MERGE GIT VERIFIED** · **CURRENT DOWNSTREAM** = **MW0 CLOSED** · **MW1 Readiness PASS / VALIDATED BY MORRIS** · **OD-03 BUILD / CONSUMED** · **OD-04 CONSUMED** · **OPTION C HYBRID OPENAI COGNITIVE RUNTIME = ADOPTED AS NORA TARGET ARCHITECTURE** · **MW1 DELIVERY AUTHORIZED EARLIER BY MORRIS** · **LOCAL MW1 CANDIDATE EXISTS** · **MW1 REQUALIFICATION REQUIRED AGAINST OPTION C** · **MW1 NOT COMPLETE / NOT INTEGRATED** · Agents SDK Runner **TARGET ADOPTED** · custom Product SQLite Session **TARGET ADOPTED** · Session/model-input policy **TARGET ADOPTED** · Responses compaction **CANDIDATE / NOT ADOPTED** · ≠ package adoption commit · ≠ Cognitive Completion PROVEN · ≠ runtime v3 ADOPTED · ≠ MW2 started |
-+| **Statut** | **Content status** = **CONTENT VALIDATED BY MORRIS** · **Repository integration** = **INTEGRATED ON MAIN** · **Post-merge** = **POST-MERGE GIT VERIFIED** · **CURRENT DOWNSTREAM** = **MW0 CLOSED** · **MW1 Readiness PASS / VALIDATED BY MORRIS** · **OD-03 BUILD / CONSUMED** · **OD-04 CONSUMED** · **OD04-I01 ACTIVE** (Studio owns product/business/authority · Nora owns cognition · Pilote = generic runtime actor) · **OPTION C HYBRID OPENAI COGNITIVE RUNTIME = ADOPTED AS NORA TARGET ARCHITECTURE** · **MW1 DELIVERY AUTHORIZED EARLIER BY MORRIS** · **LOCAL MW1 OPTION C CANDIDATE EXISTS (UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED)** · **MW1 CORRECTION CYCLE REQUIRED BEFORE PROJECT GIT INTEGRATION** · **MW1 NOT COMPLETE / NOT INTEGRATED** · Agents SDK Runner **TARGET ADOPTED** · custom Product SQLite Session **TARGET ADOPTED** · Session/model-input policy **TARGET = COGNITIVE CONTEXT INTEGRITY** · Responses compaction **CANDIDATE / NOT ADOPTED** · ≠ package adoption as MW1 complete · ≠ Cognitive Completion PROVEN · ≠ runtime v3 ADOPTED · ≠ MW2 started |
++| **Statut** | **Content status** = **CONTENT VALIDATED BY MORRIS** · **Repository integration** = **INTEGRATED ON MAIN** · **Post-merge** = **POST-MERGE GIT VERIFIED** · **CURRENT DOWNSTREAM** = **MW0 CLOSED** · **MW1 Readiness PASS / VALIDATED BY MORRIS** · **OD-03 BUILD / CONSUMED** · **OD-04 CONSUMED** · **OD04-I01 ACTIVE** (Studio owns product/business/authority **model** + durable HD/Confirmation objects/lifecycle · Nora owns cognition · Pilote = runtime human decision/confirmation actor) · **OPTION C HYBRID OPENAI COGNITIVE RUNTIME = ADOPTED AS NORA TARGET ARCHITECTURE** · **MW1 DELIVERY AUTHORIZED EARLIER BY MORRIS** · **LOCAL MW1 OPTION C CANDIDATE EXISTS (UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED)** · **MW1 CORRECTION CYCLE REQUIRED BEFORE PROJECT GIT INTEGRATION** · **MW1 NOT COMPLETE / NOT INTEGRATED** · Agents SDK Runner **TARGET ADOPTED** · custom Product SQLite Session **TARGET ADOPTED** · Session/model-input policy **TARGET = COGNITIVE CONTEXT INTEGRITY** · Responses compaction **CANDIDATE / NOT ADOPTED** · ≠ package adoption as MW1 complete · ≠ Cognitive Completion PROVEN · ≠ runtime v3 ADOPTED · ≠ MW2 started |
  | **Timestamp (Europe/Paris)** | 2026-08-29 20:45:00 CEST |
  | **Generation worktree (provenance)** | `/Users/morris/Projects/sfia-workspace-nora-c5-type14-post-merge-truth-sync` · provenance only · ≠ repository lifecycle state |
  | **Generation branch (provenance)** | `docs/sfia-studio-nora-c5-type14-post-merge-truth-sync` · provenance only · ≠ repository lifecycle state |
-@@ -24,18 +24,19 @@
+@@ -24,18 +24,20 @@
  | **GO Morris CORR-01 C5 downstream truth sync (MW1 readiness / OD-03)** | **CONSUMED** — `GO MORRIS — CORR-01 C5 DOWNSTREAM TRUTH SYNC — ALIGN ACTIVE/CURRENT C5 DOWNSTREAM STATE WITH MW1 READINESS PASS AND OD-03 BUILD/CONSUMED — PRESERVE HISTORICAL C5 DECISIONS WHERE OD-03 WAS OPEN — NO SUBSTANTIVE BACKLOG CHANGE — MW1 DELIVERY REMAINS NOT AUTHORIZED / NOT STARTED — ADAPT-FIRST — NO FA REQUIRED — NO TA CURRENTLY REQUIRED — TA TRIGGER CANDIDATE PRESERVED — NO ARCHITECTURE SELECTION — NO TECHNOLOGY ADOPTION — SESSIONS / AGENTS SDK / NEW PERSISTENCE NOT SELECTED — REAL-B DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — NEXT STRUCTURAL GATE = DISTINCT MORRIS GO MW1 DELIVERY — NO COMMIT / PUSH / PR / MERGE / BRANCH DELETE` · documentary CURRENT downstream coherence only · ≠ substantive backlog change · ≠ MW1 Delivery · ≠ MW1 started · ≠ architecture · ≠ technology adoption |
  | **Timestamp maintenance historique NORA-C5-MW1-READINESS-OD03-DOWNSTREAM-TRUTH-CORR-01 (pre-OD-04)** | *(historique · superseded as tip by NORA-C5-OD04-OPTION-C-DOWNSTREAM-TRUTH-01)* — 2026-08-30 11:57:20 CEST — **NORA C5 MW1 READINESS / OD-03 DOWNSTREAM TRUTH CORR-01** · Morris CORR-01 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR/CE/NCC-BAR / MW0→MW6 / 10 epics / 23 stories / DAG / 18/5/0 **UNCHANGED** · **MW0 = CLOSED / INTEGRATED / POST-MERGE VERIFIED** · **MW0 EXIT = PROVEN WITH NON-BLOCKING RESERVES** · **MW1 Readiness = PASS / VALIDATED BY MORRIS** · **OD-03 = BUILD / CONSUMED** · **MW1 = READY FOR DISTINCT DELIVERY GATE** · **MW1 Delivery = NOT AUTHORIZED** · **MW1 = NOT STARTED** · **ADAPT-FIRST** · **NO FA REQUIRED** · **NO TA CURRENTLY REQUIRED** · **TA TRIGGER CANDIDATE PRESERVED** · Architecture **NOT SELECTED** · Technology **NOT ADOPTED** · Sessions / Agents SDK / new persistence **NOT SELECTED / NOT ADOPTED** · **REAL-B = QUALIFIED CANDIDATE / DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **next structural gate = DISTINCT MORRIS GO — MW1 DELIVERY** · **next capability after MW1 = MW2 — COGNITIVE WORKLOAD PROFILE** · historical C5 GOs / Type14 records **PRESERVED** · **≠** MW1 Delivery authorized · **≠** MW1 started · **≠** Sessions/Agents SDK/persistence selected · **≠** TA REQUIRED · **≠** architecture selected · **≠** REAL-B AUTHORIZED · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED |
  | **GO Morris OD-04 Option C architecture decision** | **CONSUMED** — `GO MORRIS — OD-04 — ADOPT OPTION C HYBRID OPENAI COGNITIVE RUNTIME AS NORA TARGET ARCHITECTURE — Agents SDK Runner TARGET ADOPTED — custom Product SQLite Session TARGET ADOPTED — callModelInputFilter / Session policy TARGET PATTERN — SFIA tools/routeToolCall/business authorization KEEP — Truth C/LPS/Trajectory/HD/Confirmation/EC/Evidence/ReviewBundle KEEP — Materialization Class 1→4 / MaterializationBasis KEEP — Responses compaction CANDIDATE / NOT ADOPTED — custom Nora tool loop / manual Memory B stitching REPLACE / RETIRE-LATER — MW1 Baseline A PRESERVED temporary — CORR-MW1-07/08 remain SFIA — old CORR-MW1-09 requalify against Session/input boundary — NO PRODUCT CODE MIGRATION — NO PACKAGE ADOPTION COMMIT — NO PROJECT COMMIT/PUSH/PR/MERGE — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED` · documentary architecture TARGET adoption · ≠ package integration · ≠ MW1 complete · ≠ MW2 · ≠ runtime v3 |
 -| **Timestamp maintenance NORA-C5-OD04-OPTION-C-DOWNSTREAM-TRUTH-01** | 2026-08-30 16:38:36 CEST — **NORA C5 OD-04 OPTION C DOWNSTREAM TRUTH** · Morris OD-04 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR/CE/NCC-BAR / MW0→MW6 / 10 epics / 23 stories / DAG / 18/5/0 **UNCHANGED** · Decision record `07-nora-openai-cognitive-runtime-architecture-decision.md` · **OD-04 = CONSUMED** · **OPTION C = ADOPTED AS NORA TARGET ARCHITECTURE** · Agents SDK Runner **TARGET ADOPTED** · custom Product SQLite Session **TARGET ADOPTED** · Session/model-input filtering **TARGET BOUNDARY PATTERN** · Responses compaction **CANDIDATE / NOT ADOPTED** · **MW1 = DELIVERY AUTHORIZED EARLIER BY MORRIS** · **LOCAL DELIVERY WORK EXISTS** · **REQUALIFICATION REQUIRED AGAINST OPTION C BEFORE PROJECT INTEGRATION** · **MW1 NOT COMPLETE / NOT INTEGRATED** · Baseline A **PRESERVED / TEMPORARY / NOT TARGET ARCHITECTURE** · CORR-MW1-07/08 **remaining SFIA business corrections** · old CORR-MW1-09 **implementation approach superseded / requalify under Session/input boundary** · **next structural gate = MW1 OPTION C DELIVERY REQUALIFICATION / MIGRATION PLAN** · next capability after successful MW1 = **MW2** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **≠** package adoption · **≠** code migration by this cycle · **≠** Responses compaction adopted · **≠** HITL as HD · **≠** Trace as Evidence |
-+| **Timestamp maintenance NORA-C5-OD04-I01-BOUNDARY-INVARIANT-01** | 2026-08-30 20:45:00 CEST — **NORA C5 OD04-I01 STUDIO↔NORA BOUNDARY CROSS-WAVE INVARIANT** · Morris OD04-I01 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 epics · 23 stories · DAG · 18/5/0 **UNCHANGED** · **OD04-I01 = ACTIVE** under OD-04 · Studio owns product/business/authority · Nora owns cognition · Pilote = generic runtime actor · Morris = construction/governance ≠ runtime persona · **OD-04 decision UNCHANGED** · Option C TARGET **UNCHANGED** · local MW1 Option C candidate = **LOCAL / UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · next delivery work = **MW1 Option C correction cycle aligned with OD04-I01** · legacy loop retirement **before** MW0 Option C regression/parity once Runner/Fake convergence proven · MW0 **CLOSED** · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW1-S01/S02/S03 **not closed by this documentary work** · CORR-MW1-07/08 remain SFIA materialization · Responses compaction **CANDIDATE / NOT ADOPTED** · MW2 **NOT STARTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **≠** new architecture · **≠** Product Completion reopen · **≠** Build Doctrine / v3 framing mutation · **≠** code/package change |
++| **Timestamp maintenance NORA-C5-OD04-I01-DOC-01-02-CORRECTION-01** | 2026-08-30 20:55:00 CEST — **NORA C5 OD04-I01 DOC-01 + DOC-02 CORRECTIONS** · Morris correction GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 epics · 23 stories · DAG · 18/5/0 **UNCHANGED** · **CORR-OD04-I01-DOC-01** = HD/Confirmation ownership precision (Pilote = decision/confirmation actor · Studio owns durable objects/lifecycle/authority model · Nora = no authority) · **CORR-OD04-I01-DOC-02** = unify Option C forward sequence (correction → Runner/Fake convergence → retire legacy loop → project Git integration → MW0 Option C parity → MW1 final proof/exit → MW2) · **OD-04 / OD04-I01 / Option C TARGET UNCHANGED** · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW0 **CLOSED** · MW2 **NOT STARTED** · Responses compaction **CANDIDATE / NOT ADOPTED** · **≠** new architecture · **≠** Product Completion reopen · **≠** Build Doctrine / v3 framing · **≠** code |
++| **Timestamp maintenance historique NORA-C5-OD04-I01-BOUNDARY-INVARIANT-01 (pre-DOC-01/02)** | *(historique tip · superseded as tip by NORA-C5-OD04-I01-DOC-01-02-CORRECTION-01)* — 2026-08-30 20:45:00 CEST — **NORA C5 OD04-I01 STUDIO↔NORA BOUNDARY CROSS-WAVE INVARIANT** · Morris OD04-I01 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 epics · 23 stories · DAG · 18/5/0 **UNCHANGED** · **OD04-I01 = ACTIVE** under OD-04 · Studio owns product/business/authority · Nora owns cognition · Pilote = generic runtime actor · Morris = construction/governance ≠ runtime persona · **OD-04 decision UNCHANGED** · Option C TARGET **UNCHANGED** · local MW1 Option C candidate = **LOCAL / UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · next delivery work = **MW1 Option C correction cycle aligned with OD04-I01** · legacy loop retirement **before** MW0 Option C regression/parity once Runner/Fake convergence proven · MW0 **CLOSED** · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW1-S01/S02/S03 **not closed by this documentary work** · CORR-MW1-07/08 remain SFIA materialization · Responses compaction **CANDIDATE / NOT ADOPTED** · MW2 **NOT STARTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **≠** new architecture · **≠** Product Completion reopen · **≠** Build Doctrine / v3 framing mutation · **≠** code/package change |
 +| **Timestamp maintenance historique NORA-C5-OD04-OPTION-C-DOWNSTREAM-TRUTH-01 (pre-OD04-I01)** | *(historique tip · superseded as tip by NORA-C5-OD04-I01-BOUNDARY-INVARIANT-01)* — 2026-08-30 16:38:36 CEST — **NORA C5 OD-04 OPTION C DOWNSTREAM TRUTH** · Morris OD-04 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR/CE/NCC-BAR / MW0→MW6 / 10 epics / 23 stories / DAG / 18/5/0 **UNCHANGED** · Decision record `07-nora-openai-cognitive-runtime-architecture-decision.md` · **OD-04 = CONSUMED** · **OPTION C = ADOPTED AS NORA TARGET ARCHITECTURE** · Agents SDK Runner **TARGET ADOPTED** · custom Product SQLite Session **TARGET ADOPTED** · Session/model-input filtering **TARGET BOUNDARY PATTERN** · Responses compaction **CANDIDATE / NOT ADOPTED** · **MW1 = DELIVERY AUTHORIZED EARLIER BY MORRIS** · **LOCAL DELIVERY WORK EXISTS** · **REQUALIFICATION REQUIRED AGAINST OPTION C BEFORE PROJECT INTEGRATION** · **MW1 NOT COMPLETE / NOT INTEGRATED** · Baseline A **PRESERVED / TEMPORARY / NOT TARGET ARCHITECTURE** · CORR-MW1-07/08 **remaining SFIA business corrections** · old CORR-MW1-09 **implementation approach superseded / requalify under Session/input boundary** · **next structural gate = MW1 OPTION C DELIVERY REQUALIFICATION / MIGRATION PLAN** · next capability after successful MW1 = **MW2** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **≠** package adoption · **≠** code migration by this cycle · **≠** Responses compaction adopted · **≠** HITL as HD · **≠** Trace as Evidence |
  | **ACTIVE CONSTRUCTION PRIORITY** | **NORA COGNITIVE COMPLETION** |
  | **C5 lifecycle state** | **CONTENT VALIDATED BY MORRIS** / **INTEGRATED ON MAIN** / **POST-MERGE GIT VERIFIED** |
  | **TYPE14 content status** | **VALIDATED BY MORRIS** · Type14 repository publication / integration = **RESOLVE FROM GIT / PR EVIDENCE** · ≠ Type14 maintenance claimed INTEGRATED ON MAIN by this record alone · ≠ MW0 Delivery |
 -| **NEXT NORA GATE / CURRENT STRUCTURAL GATE** | **MW1 OPTION C DELIVERY REQUALIFICATION / MIGRATION PLAN** · **OD-04 = CONSUMED** · **OPTION C TARGET ADOPTED** · **MW1 Delivery = AUTHORIZED EARLIER BY MORRIS** · **LOCAL MW1 CANDIDATE EXISTS** · **MW1 NOT COMPLETE / NOT INTEGRATED** · **REQUALIFICATION REQUIRED** · **historical C5 closure next gate** = MW0 READINESS QUALIFICATION *(then-current · superseded)* · **historical post-OD-03 gate** = DISTINCT MORRIS GO — MW1 DELIVERY *(then-current · superseded for forward path)* · **MW0 = CLOSED / INTEGRATED / POST-MERGE VERIFIED** |
-+| **NEXT NORA GATE / CURRENT STRUCTURAL GATE** | **MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · then project Git integration (separate GO) · then legacy-loop retirement before MW0 Option C regression/parity · **OD-04 = CONSUMED** · **OD04-I01 = ACTIVE** · **OPTION C TARGET ADOPTED** · **MW1 Delivery = AUTHORIZED EARLIER BY MORRIS** · **LOCAL MW1 CANDIDATE = UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · **MW1 NOT COMPLETE / NOT INTEGRATED** · **historical C5 closure next gate** = MW0 READINESS QUALIFICATION *(then-current · superseded)* · **historical post-OD-03 gate** = DISTINCT MORRIS GO — MW1 DELIVERY *(then-current · superseded for forward path)* · **historical post-OD-04 gate** = MW1 OPTION C DELIVERY REQUALIFICATION / MIGRATION PLAN *(then-current · superseded for forward path by OD04-I01 correction trajectory)* · **MW0 = CLOSED / INTEGRATED / POST-MERGE VERIFIED** |
++| **NEXT NORA GATE / CURRENT STRUCTURAL GATE** | **MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · then Runner/Fake convergence · then **retire legacy generic loop** · then project Git integration (separate GO) · then MW0 Option C regression/parity · then MW1 final proof/exit · **OD-04 = CONSUMED** · **OD04-I01 = ACTIVE** · **OPTION C TARGET ADOPTED** · **MW1 Delivery = AUTHORIZED EARLIER BY MORRIS** · **LOCAL MW1 CANDIDATE = UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · **MW1 NOT COMPLETE / NOT INTEGRATED** · **historical C5 closure next gate** = MW0 READINESS QUALIFICATION *(then-current · superseded)* · **historical post-OD-03 gate** = DISTINCT MORRIS GO — MW1 DELIVERY *(then-current · superseded for forward path)* · **historical post-OD-04 gate** = MW1 OPTION C DELIVERY REQUALIFICATION / MIGRATION PLAN *(then-current · superseded for forward path by OD04-I01 correction trajectory)* · **MW0 = CLOSED / INTEGRATED / POST-MERGE VERIFIED** |
  | **REAL-B** | **PRESERVED QUALIFIED CANDIDATE / DEFERRED / NOT AUTHORIZED / NOT STARTED** · DEFERRED ≠ CLOSED ≠ CANCELLED ≠ FAILED ≠ SUPERSEDED FUNCTIONALLY |
  | **OD-07** | **CONSUMED** — NORA-FIRST sequencing · REAL-B deferred/preserved |
  | **OD-03** | **BUILD / CONSUMED** · Memory B build decision consumed · **CURRENT mechanism target supersession via OD-04** = custom Product SQLite Session **TARGET ADOPTED** for conversational continuity · M9 Memory B schema **NOT AUTOMATICALLY ADOPTED** · Responses compaction **CANDIDATE / NOT ADOPTED** · historical OD-03-at-consumption notes (mechanism NOT SELECTED) **PRESERVED as historical** |
@@ -406,16 +460,16 @@ index 88a771b0..74dab294 100644
  | **Cognitive Completion** | **NOT PROVEN** |
  | **runtime v3** | **NON ADOPTED** |
  | **NCC-R08** | **CLOSED BY EVIDENCE** (PR **#437** · unchanged) |
-@@ -43,7 +44,7 @@
+@@ -43,7 +45,7 @@
  | **MANDATORY TA DELTA** | **NOT CURRENTLY DEMONSTRATED** (C4) · Targeted TA only if structural primitive need demonstrated |
  | **C5 maturity** | **DOCUMENTED BACKLOG ONLY** · ≠ IMPLEMENTED · ≠ PROVEN · ≠ DELIVERY READY globally |
 
 -> **Anti-claims (CURRENT downstream) :** C5 INTEGRATED ON MAIN ≠ MW1 complete · **OD-04 CONSUMED ≠ package adoption commit ≠ code migration ≠ MW1 integrated** · **OPTION C TARGET ADOPTED ≠ runtime v3 ADOPTED ≠ Responses compaction adopted ≠ HITL as HD ≠ Trace as Evidence** · Agents SDK Runner / Product SQLite Session = **TARGET ADOPTED** (architecture target) · ≠ product dependency committed by this cycle · Baseline A preserved ≠ target architecture · CORR-MW1-07/08 remain SFIA · old CORR-MW1-09 approach superseded · C5 POST-MERGE VERIFIED ≠ Cognitive Completion PROVEN · Nora-first ≠ REAL-B AUTHORIZED · OD-07 consumed ≠ OD-02/05/06/08 consumed · Source-lock story semantics unchanged · Recommendation ≠ HumanDecision · Autonomie cognitive ≠ autonomie d'autorité · NO MORRIS RUNTIME PERSONA · NO PARALLEL EXPERIENCE ARCHITECTURE · C6 CLOSED / DO NOT REOPEN · Product Completion CLOSED · FinOps/T7 FREEZE · **historical records where OD-04 was OPEN / architecture NOT SELECTED remain HISTORICAL**.
-+> **Anti-claims (CURRENT downstream) :** C5 INTEGRATED ON MAIN ≠ MW1 complete · **OD-04 CONSUMED ≠ MW1 integrated** · **OD04-I01 ACTIVE ≠ new architecture decision ≠ Product Completion reopen ≠ Build Doctrine / v3 framing mutation** · **OPTION C TARGET ADOPTED ≠ runtime v3 ADOPTED ≠ Responses compaction adopted ≠ HITL as HD ≠ Trace as Evidence** · Agents SDK Runner / Product SQLite Session = **TARGET ADOPTED** · Session/model-input = **cognitive context integrity** ≠ business authorization engine · **Pilote = generic runtime actor** · **Morris = construction/governance ≠ runtime persona** · Baseline A / local candidate preserved ≠ target-complete · CORR-MW1-07/08 remain SFIA · C5 POST-MERGE VERIFIED ≠ Cognitive Completion PROVEN · Nora-first ≠ REAL-B AUTHORIZED · OD-07 consumed ≠ OD-02/05/06/08 consumed · Source-lock story semantics unchanged · Recommendation ≠ HumanDecision · Autonomie cognitive ≠ autonomie d'autorité · **NO MORRIS RUNTIME PERSONA** · NO PARALLEL EXPERIENCE ARCHITECTURE · C6 CLOSED / DO NOT REOPEN · Product Completion CLOSED · FinOps/T7 FREEZE · **historical records where OD-04 was OPEN / architecture NOT SELECTED remain HISTORICAL**.
++> **Anti-claims (CURRENT downstream) :** C5 INTEGRATED ON MAIN ≠ MW1 complete · **OD-04 CONSUMED ≠ MW1 integrated** · **OD04-I01 ACTIVE ≠ new architecture decision ≠ Product Completion reopen ≠ Build Doctrine / v3 framing mutation** · **OPTION C TARGET ADOPTED ≠ runtime v3 ADOPTED ≠ Responses compaction adopted ≠ HITL as HD ≠ Trace as Evidence** · Agents SDK Runner / Product SQLite Session = **TARGET ADOPTED** · Session/model-input = **cognitive context integrity** ≠ business authorization engine · **Pilote = runtime human decision/confirmation actor** · Studio owns durable HD/Confirmation objects/lifecycle **≠** Studio is the human decision actor · **Morris = construction/governance ≠ runtime persona** · Baseline A / local candidate preserved ≠ target-complete · CORR-MW1-07/08 remain SFIA · C5 POST-MERGE VERIFIED ≠ Cognitive Completion PROVEN · Nora-first ≠ REAL-B AUTHORIZED · OD-07 consumed ≠ OD-02/05/06/08 consumed · Source-lock story semantics unchanged · Recommendation ≠ HumanDecision · Autonomie cognitive ≠ autonomie d'autorité · **NO MORRIS RUNTIME PERSONA** · NO PARALLEL EXPERIENCE ARCHITECTURE · C6 CLOSED / DO NOT REOPEN · Product Completion CLOSED · FinOps/T7 FREEZE · **historical records where OD-04 was OPEN / architecture NOT SELECTED remain HISTORICAL**.
 
  ---
 
-@@ -94,10 +95,10 @@ C2 OD register = **historical** at C2. This C5 OD register = **current downstrea
+@@ -94,10 +96,10 @@ C2 OD register = **historical** at C2. This C5 OD register = **current downstrea
  | NCC-R08 | CLOSED BY EVIDENCE |
  | Active construction priority | **NORA COGNITIVE COMPLETION** |
  | Historical C5 next gate (at Type14 closure) | **MW0 READINESS QUALIFICATION** *(then-current · superseded for forward path)* |
@@ -428,7 +482,7 @@ index 88a771b0..74dab294 100644
  | Architecture | OPTION C TARGET ADOPTED (OD-04 CONSUMED) |
  | runtime v3 | NON ADOPTED |
 
-@@ -143,6 +144,33 @@ C4 conclusions consumed:
+@@ -143,6 +145,35 @@ C4 conclusions consumed:
 
  ---
 
@@ -440,19 +494,21 @@ index 88a771b0..74dab294 100644
 +
 +| Owner | Owns | Does not own |
 +| --- | --- | --- |
-+| **SFIA Studio** | product semantics · business objects · authority / HD / Confirmation · LPS / Truth C / ProjectTrajectory · materialization / Evidence · policy gates | Nora cognition internals |
-+| **Nora** | cognition · reasoning · Session continuity · Runner loop / tool orchestration · recommendations / options analysis | business authorization · HD · Confirmation · Truth C mutation · effective authority |
-+| **Pilote** | runtime human actor for HD / Confirmation where required | Morris construction/governance identity |
++| **SFIA Studio** | product semantics · business objects · **authority MODEL / policy / validation / enforcement** · durable **HumanDecision** / **Confirmation** objects + governed lifecycle · LPS / Truth C / ProjectTrajectory · materialization / Evidence · policy gates | Nora cognition internals · **does not replace Pilote as decision/confirmation actor** |
++| **Nora** | cognition · reasoning · Session continuity · Runner loop / tool orchestration · recommendations / options analysis · may explain Confirmation need | business authorization · deciding/granting HD or Confirmation · Truth C mutation · effective authority |
++| **Pilote** | **runtime human decision actor** · **runtime human confirmation actor** where required | Morris construction/governance identity |
 +| **Morris** | construction · GO · governance · programme decisions | **runtime persona** · product Pilote substitute |
++
++**Meaning of “Studio owns authority”:** product authority **model**, durable authority state, policy, validation and enforcement — **≠** Studio replaces the human decision actor.
 +
 +**Hard rules (every wave):**
 +
 +1. Studio supplies authoritative product/business context; Nora consumes it for cognition.
 +2. Session / `callModelInputFilter` / model-input policy = **cognitive context integrity** · **≠** business authorization engine · **≠** keyword GO/HD redaction-as-authorization · **≠** Morris-GO runtime primitive.
-+3. **Pilote = generic runtime actor** · **Morris = construction/governance ≠ runtime persona**.
++3. **Pilote = generic runtime human actor** (decides / confirms) · **Morris = construction/governance ≠ runtime persona**.
 +4. OpenAI HITL **≠** HD/Confirmation · Trace **≠** Evidence · server-managed Truth C **FORBIDDEN**.
 +5. Option C Runner + Product SQLite Session remain **TARGET ADOPTED** · Responses compaction remains **CANDIDATE / NOT ADOPTED**.
-+6. Local MW1 Option C candidate = **LOCAL / UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · next delivery work = **MW1 Option C correction cycle (CORR-OPT-C-01…05)** · legacy Nora generic loop retirement **before** MW0 Option C regression/parity once Runner/Fake convergence is proven.
++6. Local MW1 Option C candidate = **LOCAL / UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · canonical forward sequence = **correction cycle → Runner/Fake convergence → retire legacy `runToolCallingLoop` → project Git integration (separate GO) → MW0 Option C regression/parity → MW1-S01/S02/S03 final proof / exit → MW2**.
 +7. MW0 remains **CLOSED** · MW1-S01/S02/S03 **source-locked semantics UNCHANGED** by OD04-I01 · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW2 **NOT STARTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED**.
 +
 +**Preservation:** This §5A adds an invariant only. It does **not** alter NR 26 / CE 8 / NCC-BAR 14 / MW0→MW6 / 10 epics / 23 stories / DAG / 18/5/0 · does **not** change MW1-S01/S02/S03 story bodies.
@@ -462,7 +518,7 @@ index 88a771b0..74dab294 100644
  ## 6. Coverage completeness matrix — NR-01…NR-26
 
  | NR | Purpose (C1) | Mapping status | Primary story(s) | Notes |
-@@ -987,7 +1015,7 @@ No macro-wave is **DELIVERY AUTHORIZED** in C5.
+@@ -987,7 +1018,7 @@ No macro-wave is **DELIVERY AUTHORIZED** in C5.
 
  ## 18. Technology candidate register — CURRENT + historical candidates
 
@@ -471,7 +527,7 @@ index 88a771b0..74dab294 100644
 
  Historical C5-at-authoring posture (“candidates only / none selected”) remains valid **as historical** for pre-OD-04 records.
 
-@@ -1015,7 +1043,7 @@ Historical C5-at-authoring posture (“candidates only / none selected”) remai
+@@ -1015,7 +1046,7 @@ Historical C5-at-authoring posture (“candidates only / none selected”) remai
  | --- | --- | --- | --- |
  | OD-02 | Nora strategy / SFIA envelope | **OPEN** | Informed by MW2; not consumed |
  | OD-03 | Memory B build/mechanism | **BUILD / CONSUMED** | MW1 BUILD decision **CONSUMED** · **CURRENT continuity target via OD-04** = Product SQLite Session · M9 schema **NOT AUTOMATICALLY ADOPTED** · Responses compaction **CANDIDATE / NOT ADOPTED** · historical “mechanism NOT SELECTED” notes remain historical |
@@ -480,16 +536,16 @@ index 88a771b0..74dab294 100644
  | OD-05 | External/Hosted Search technology | **OPEN** | MW6 TA trigger candidate |
  | OD-06 | Voice/Realtime | **OPEN / DEFER FUTURE** | Out of C5 waves |
  | OD-07 | REAL-B sequencing | **CONSUMED** | **NORA-FIRST** · REAL-B **DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED** |
-@@ -1056,7 +1084,7 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
+@@ -1056,7 +1087,7 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
  | Debt ID | Description | Introduced by | Exit |
  | --- | --- | --- | --- |
  | D-C5-01 | Harness may overfit fixtures | MW0 | Scenario governance + LIVE/REAL gates later |
 -| D-C5-02 | Memory B / Session target migration | MW1 / OD-03 BUILD + **OD-04 Option C target** | MW1 OPTION C requalification · Session adapter · retire prompt-stitch · M9 reassess · ≠ MW1 complete by OD-04 alone |
-+| D-C5-02 | Memory B / Session target migration | MW1 / OD-03 BUILD + **OD-04 Option C target** | MW1 Option C **correction cycle (OD04-I01)** · Session adapter · retire legacy loop before MW0 Option C parity · M9 reassess · ≠ MW1 complete by OD-04 alone |
++| D-C5-02 | Memory B / Session target migration | MW1 / OD-03 BUILD + **OD-04 Option C target** | MW1 Option C **correction → Runner/Fake convergence → retire legacy loop → Git integration → MW0 Option C parity** (OD04-I01 / DOC-02) · Session adapter · M9 reassess · ≠ MW1 complete by OD-04 alone |
  | D-C5-03 | CWP policy incomplete without OD-02 | MW2 | OD-02 Morris decision |
  | D-C5-04 | RA-06/RA-07 parity gaps carry | MW4 | Non-blocking until wave readiness says otherwise |
  | D-C5-05 | External source tech undecided | MW6 / OD-05 OPEN | OD-05 + TA if primitive needed |
-@@ -1076,13 +1104,13 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
+@@ -1076,13 +1107,13 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
  | Historical next gate (C5 Type14 closure) | **MW0 READINESS QUALIFICATION** *(then-current)* |
  | Historical MW0 readiness (C5 Type14 closure) | **NOT YET EXECUTED** *(then-current)* |
  | Historical MW0 Delivery (C5 Type14 closure) | **NOT AUTHORIZED** *(then-current; later MW0 Delivery INTEGRATED — see CURRENT row)* |
@@ -506,7 +562,7 @@ index 88a771b0..74dab294 100644
  | Targeted TA (if required) | OD-04 consumed · residual TA only if new structural trigger |
  | Morris architecture decision (OD-04) | **CONSUMED** |
  | Morris Delivery GO per wave | MW1 Delivery **AUTHORIZED EARLIER** · integration **NOT COMPLETE** · MW2 **NOT AUTHORIZED** |
-@@ -1117,11 +1145,11 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
+@@ -1117,11 +1148,11 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
  | TA triggers explicit | **YES** |
  | No architecture selected | **HISTORICAL C5-at-exit YES** · **CURRENT = Option C TARGET ADOPTED (OD-04)** |
  | No OpenAI technology adopted | **HISTORICAL C5-at-exit YES** · **CURRENT = Runner/Session TARGET ADOPTED · package commit NOT authorized by OD-04 docs cycle** |
@@ -520,7 +576,7 @@ index 88a771b0..74dab294 100644
  | **CURRENT next capability after MW1** | **MW2 — Cognitive Workload Profile / Strategy** |
  | C5 content integrated on main | **YES** (PR **#439**) |
  | Head→merge tree parity | **YES** (`b51cb83c…` PROVEN · 0-file content delta) |
-@@ -1131,7 +1159,7 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
+@@ -1131,7 +1162,7 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
  | Substantive backlog unchanged by Type14 | **YES** |
  | Review Pack FULL + Handoff | **PUBLISHED IN INTEGRATION / CORR / Type14 CYCLES** |
 
@@ -529,23 +585,23 @@ index 88a771b0..74dab294 100644
 
  ---
 
-@@ -1190,7 +1218,7 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
+@@ -1190,7 +1221,7 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
  2. **MW1 Readiness = PASS / VALIDATED BY MORRIS** · **OD-03 = BUILD / CONSUMED** · **OD-04 = CONSUMED**
  3. **OPTION C = ADOPTED AS NORA TARGET ARCHITECTURE** · Runner + Product SQLite Session + input policy **TARGET ADOPTED** · Responses compaction **CANDIDATE / NOT ADOPTED**
  4. **MW1 Delivery = AUTHORIZED EARLIER BY MORRIS** · **LOCAL CANDIDATE EXISTS** · **NOT COMPLETE / NOT INTEGRATED**
 -5. **Next structural gate = MW1 OPTION C DELIVERY REQUALIFICATION / MIGRATION PLAN**
-+5. **Next structural gate = MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · then project Git integration (separate GO) · legacy-loop retirement before MW0 Option C regression/parity
++5. **Next structural gate = MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · then Runner/Fake convergence · then retire legacy generic loop · then project Git integration (separate GO) · then MW0 Option C regression/parity · then MW1 final proof/exit
  6. After successful MW1 → **MW2 — Cognitive Workload Profile / Strategy**
 
  If MW1 Delivery reveals a **new** structural technical primitive need beyond OD-04: do **not** auto-open TA; classify and return to Morris/ChatGPT trajectory qualification.
-@@ -1220,4 +1248,4 @@ OD-04 TARGET ADOPTED ≠ package adoption commit ≠ MW1 integrated ≠ Cognitiv
+@@ -1220,4 +1251,4 @@ OD-04 TARGET ADOPTED ≠ package adoption commit ≠ MW1 integrated ≠ Cognitiv
 
  ---
 
 -*Fin du C5 — SOURCE-LOCKED COGNITIVE BACKLOG — CONTENT VALIDATED BY MORRIS / INTEGRATED ON MAIN / POST-MERGE GIT VERIFIED — PR #439 — HISTORICAL C5 CLOSURE NEXT GATE MW0 READINESS QUALIFICATION — CURRENT DOWNSTREAM: MW0 CLOSED · MW1 READINESS PASS · OD-03 BUILD / CONSUMED · OD-04 CONSUMED · OPTION C TARGET ADOPTED · AGENTS SDK RUNNER TARGET ADOPTED · PRODUCT SQLITE SESSION TARGET ADOPTED · RESPONSES COMPACTION CANDIDATE / NOT ADOPTED · MW1 DELIVERY AUTHORIZED EARLIER / LOCAL CANDIDATE / REQUALIFICATION REQUIRED / NOT INTEGRATED · NEXT STRUCTURAL GATE = MW1 OPTION C DELIVERY REQUALIFICATION / MIGRATION PLAN — NORA-FIRST SEQUENCING — REAL-B DEFERRED/PRESERVED — OD-07 CONSUMED — OD-02/05/06/08 OPEN — NCC-R08 CLOSED BY EVIDENCE — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — NO MORRIS RUNTIME PERSONA — NO PACKAGE ADOPTION COMMIT BY THIS DOCUMENTARY CYCLE.*
-+*Fin du C5 — SOURCE-LOCKED COGNITIVE BACKLOG — CONTENT VALIDATED BY MORRIS / INTEGRATED ON MAIN / POST-MERGE GIT VERIFIED — PR #439 — HISTORICAL C5 CLOSURE NEXT GATE MW0 READINESS QUALIFICATION — CURRENT DOWNSTREAM: MW0 CLOSED · MW1 READINESS PASS · OD-03 BUILD / CONSUMED · OD-04 CONSUMED · OD04-I01 ACTIVE · STUDIO OWNS PRODUCT/BUSINESS/AUTHORITY · NORA OWNS COGNITION · PILOTE = GENERIC RUNTIME ACTOR · MORRIS ≠ RUNTIME PERSONA · OPTION C TARGET ADOPTED · AGENTS SDK RUNNER TARGET ADOPTED · PRODUCT SQLITE SESSION TARGET ADOPTED · RESPONSES COMPACTION CANDIDATE / NOT ADOPTED · MW1 DELIVERY AUTHORIZED EARLIER / LOCAL CANDIDATE UNCOMMITTED CRITICAL-REVIEWED / CORRECTION CYCLE REQUIRED / NOT INTEGRATED · NEXT STRUCTURAL GATE = MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01 — NORA-FIRST SEQUENCING — REAL-B DEFERRED/PRESERVED — OD-07 CONSUMED — OD-02/05/06/08 OPEN — NCC-R08 CLOSED BY EVIDENCE — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — NO MORRIS RUNTIME PERSONA — NO PACKAGE ADOPTION AS MW1 COMPLETE BY THIS DOCUMENTARY CYCLE.*
++*Fin du C5 — SOURCE-LOCKED COGNITIVE BACKLOG — CONTENT VALIDATED BY MORRIS / INTEGRATED ON MAIN / POST-MERGE GIT VERIFIED — PR #439 — HISTORICAL C5 CLOSURE NEXT GATE MW0 READINESS QUALIFICATION — CURRENT DOWNSTREAM: MW0 CLOSED · MW1 READINESS PASS · OD-03 BUILD / CONSUMED · OD-04 CONSUMED · OD04-I01 ACTIVE · STUDIO OWNS PRODUCT/BUSINESS/AUTHORITY · NORA OWNS COGNITION · PILOTE = GENERIC RUNTIME ACTOR · MORRIS ≠ RUNTIME PERSONA · OPTION C TARGET ADOPTED · AGENTS SDK RUNNER TARGET ADOPTED · PRODUCT SQLITE SESSION TARGET ADOPTED · RESPONSES COMPACTION CANDIDATE / NOT ADOPTED · MW1 DELIVERY AUTHORIZED EARLIER / LOCAL CANDIDATE UNCOMMITTED CRITICAL-REVIEWED / CORRECTION CYCLE REQUIRED / NOT INTEGRATED · NEXT STRUCTURAL GATE = MW1 OPTION C CORRECTION → RUNNER/FAKE CONVERGENCE → RETIRE LEGACY LOOP → PROJECT GIT INTEGRATION → MW0 OPTION C PARITY → MW1 FINAL PROOF/EXIT — NORA-FIRST SEQUENCING — REAL-B DEFERRED/PRESERVED — OD-07 CONSUMED — OD-02/05/06/08 OPEN — NCC-R08 CLOSED BY EVIDENCE — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — NO MORRIS RUNTIME PERSONA — NO PACKAGE ADOPTION AS MW1 COMPLETE BY THIS DOCUMENTARY CYCLE.*
 diff --git a/projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md b/projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md
-index 9d59735d..2b6c859b 100644
+index 9d59735d..10311386 100644
 --- a/projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md
 +++ b/projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md
 @@ -10,13 +10,15 @@
@@ -568,7 +624,7 @@ index 9d59735d..2b6c859b 100644
 
  ---
 
-@@ -99,6 +101,96 @@ It is **NOT** “OpenAI first regardless of fit.”
+@@ -99,6 +101,114 @@ It is **NOT** “OpenAI first regardless of fit.”
 
  ---
 
@@ -595,10 +651,16 @@ index 9d59735d..2b6c859b 100644
 +
 +| Layer | Owns | Does not own |
 +| --- | --- | --- |
-+| **SFIA Studio** | product semantics · business objects · authority / HumanDecision / Confirmation · LPS / Truth C / ProjectTrajectory · materialization / Evidence · policy gates | Nora cognition internals |
-+| **Nora** | cognition · reasoning · Session continuity · Runner loop / tool orchestration · recommendations / options analysis | business authorization · HD · Confirmation · Truth C mutation · effective authority |
-+| **Pilote** | runtime human actor for HD / Confirmation where required | Morris construction/governance identity |
++| **SFIA Studio** | product semantics · business objects · **authority MODEL / policy / validation / enforcement** · durable **HumanDecision** and **Confirmation** product objects + governed lifecycle (qualification/materialization · persistence · scope · validity · enforcement) · LPS / Truth C / ProjectTrajectory · materialization / Evidence · policy gates | Nora cognition internals · **does not replace Pilote as decision/confirmation actor** |
++| **Nora** | cognition · reasoning · Session continuity · Runner loop / tool orchestration · recommendations / options analysis · may explain why Confirmation is required | business authorization · deciding/granting HD or Confirmation · Truth C mutation · effective authority |
++| **Pilote** | **runtime human decision actor** for HumanDecision · **runtime human confirmation actor** where Confirmation is required | Morris construction/governance identity |
 +| **Morris** | construction · GO · governance · programme decisions | **runtime persona** · product Pilote substitute |
++
++**Meaning of “Studio owns authority” (normative):** Studio owns the product authority **model**, durable authority state, policy, validation and enforcement. It does **not** mean Studio is the human decision actor.
++
++**HumanDecision split:** decision actor = **Pilote** · durable governed product object + materialization/persistence/scope/provenance/enforcement = **SFIA Studio** · cognition/recommendation support = **Nora** · Nora = **no authority**.
++
++**Confirmation split:** confirmation actor = **Pilote** · durable governed boundary/object/state + requiredness/scope/context/validity/enforcement = **SFIA Studio** · explanation/clarification/request support = **Nora** · Nora = **no authority**.
 +
 +### 4A.2 Responsibility matrix (summary)
 +
@@ -606,7 +668,9 @@ index 9d59735d..2b6c859b 100644
 +| --- | --- | --- | --- | --- |
 +| Product / business truth | **OWNS** | consumes context | decides when required | governs programme |
 +| Cognition / reasoning | supplies constraints | **OWNS** | receives recommendations | does not runtime-personify |
-+| Authority / HD / Confirmation | **OWNS** materialization path | may recommend only | **acts** | authorizes construction GOs only |
++| Authority **model** / policy / enforcement | **OWNS** | no authority | — | construction GOs only |
++| HumanDecision | **OWNS** durable object + qualification/materialization / persistence / scope / provenance / enforcement | may recommend only · never decides/materializes HD | **decision actor** | construction GOs only |
++| Confirmation | **OWNS** durable boundary/object/state + requiredness / scope / context / validity / enforcement | may explain/ask · never grants Confirmation | **confirmation actor** | construction GOs only |
 +| Session / model-input integrity | supplies authoritative context | **OWNS** filter/policy for cognition | — | — |
 +| Evidence / ReviewBundle | **OWNS** | may propose cognitive observables | — | — |
 +
@@ -614,9 +678,10 @@ index 9d59735d..2b6c859b 100644
 +
 +1. Studio supplies authoritative product/business context; Nora consumes it for cognition.
 +2. Session / `callModelInputFilter` / model-input policy = **cognitive context integrity only** · **≠** keyword GO/HD redaction-as-authorization · **≠** Morris-GO runtime primitive.
-+3. **Pilote = generic runtime actor** · **Morris = construction/governance ≠ runtime persona**.
++3. **Pilote = generic runtime human actor** (decides / confirms where required) · **Morris = construction/governance ≠ runtime persona**.
 +4. OpenAI HITL **≠** HD/Confirmation · Trace **≠** Evidence · server-managed Truth C **FORBIDDEN**.
 +5. No parallel Nora product/authority path · no second Truth C · no Morris runtime persona.
++6. Utterance (“go” / “I authorize” / “I choose B”) **≠** automatic durable authority — becomes HD/Confirmation only via Studio qualification/materialization path.
 +
 +### 4A.4 Utterance / naming rules
 +
@@ -635,12 +700,12 @@ index 9d59735d..2b6c859b 100644
 +  → analysis / options / recommendations
 +  → SFIA Studio
 +  → qualification / materialization / gate
-+  → Pilote HumanDecision or Confirmation where required
-+  → effective authority
++  → Pilote HumanDecision or Confirmation where required (Pilote = actor)
++  → SFIA Studio resolves effective authority from governed product state
 +  → executor
 +```
 +
-+Nora is **not** the owner of HD, Confirmation, LPS, ProjectTrajectory, ExecutionContract, effective authority, or Evidence.
++Nora is **not** the owner of HD, Confirmation, LPS, ProjectTrajectory, ExecutionContract, effective authority, or Evidence. Studio owns the durable HD/Confirmation **objects and lifecycle**; Pilote remains the **decision/confirmation actor**.
 +
 +### 4A.6 Correction trajectory note (documentary only)
 +
@@ -654,18 +719,27 @@ index 9d59735d..2b6c859b 100644
 +| **CORR-OPT-C-04** | REQUIRED / APPROACH REPLACED | Prefer Studio ToolDefinition schema → thin SDK adapter → `routeToolCall`; avoid unnecessary custom schema translation; exact SDK API check in later code cycle |
 +| **CORR-OPT-C-05** | REQUIRED PROOF / REDEFINED | Authority proof must demonstrate Studio authorization/policy boundary — not a Nora-local fake authority engine |
 +
-+**Legacy Fake / comparator dual path:** TEMPORARY WITH EXIT. Target sequence:
++**Legacy Fake / comparator dual path:** TEMPORARY WITH EXIT. Canonical forward sequence (ACTIVE):
 +
-+Option C corrections → deterministic Runner/Fake convergence on **one** cognitive path → **retire Nora legacy generic loop** → **MW0 regression/parity on Option C**.
++1. MW1 Option C **correction cycle** aligned with OD04-I01 (CORR-OPT-C-01…05)
++2. deterministic Runner / Fake convergence on **ONE** target Runner cognitive path
++3. Fake / tests / comparator migrate to the same target cognitive path as applicable
++4. **RETIRE** legacy Nora generic `runToolCallingLoop` (must not remain a permanent second product path)
++5. corrected Option C **PROJECT Git integration** — separate Morris GO · **≠** integrated before this gate
++6. **MW0 REGRESSION / PARITY ON OPTION C** (MW0 remains historically **CLOSED** · parity ≠ reopen)
++7. MW1-S01 / S02 / S03 final proof
++8. CORR-MW1-07 / CORR-MW1-08 where required by S03/materialization closure
++9. MW1 Exit Proof / closure
++10. **MW2** only after MW1 closure
 +
-+This supersedes any active wording implying the legacy loop should survive **until after** the MW0 Option C regression/parity gate.
++This supersedes any active wording that places project Git integration **before** legacy-loop retirement, or that lets the legacy loop survive **until after** the MW0 Option C regression/parity gate.
 +
 +---
 +
  ## 5. Adopted cognitive target (Option C)
 
  | Component | Disposition |
-@@ -157,7 +249,7 @@ Preserved as **temporary baseline / evidence source**, **not** target architectu
+@@ -157,7 +267,7 @@ Preserved as **temporary baseline / evidence source**, **not** target architectu
 
  ## 8. MW1 implications
 
@@ -674,12 +748,12 @@ index 9d59735d..2b6c859b 100644
 
  Do **not** continue homegrown hardening blindly.
 
-@@ -217,45 +309,46 @@ Do **NOT** alter source-locked story semantics by this decision alone.
+@@ -217,45 +327,48 @@ Do **NOT** alter source-locked story semantics by this decision alone.
  | Vendor coupling | reversible adapters; KEEP SFIA tools/authority |
  | Session schema lifecycle | Product SQLite Session design under MW1 requalification |
  | Compaction semantics | MW1-S02 dedicated proof before adoption |
 -| Dual-loop migration period | every temporary duality must have explicit exit |
-+| Dual-loop migration period | every temporary duality must have explicit exit · **retire legacy Nora generic loop before MW0 Option C regression/parity** once Runner/Fake convergence proven (OD04-I01) |
++| Dual-loop migration period | every temporary duality must have explicit exit · **Runner/Fake convergence → retire legacy loop → project Git integration → MW0 Option C regression/parity** (OD04-I01 / DOC-02) |
 
  ---
 
@@ -689,19 +763,22 @@ index 9d59735d..2b6c859b 100644
 +This decision record **adopts the Option C target** (integrated on main via PR **#445**). It does **not** by itself authorize or complete MW1 implementation integration.
 
 -**Next:**
-+**Next (CURRENT):**
++**Next (CURRENT) — canonical forward sequence:**
 
 -1. MW1 Delivery **REQUALIFICATION** against Option C
 -2. bounded migration / design
 -3. D0
 -4. REAL
-+1. **OD04-I01** documentary invariant consumed as cross-wave rule (this clarification)
-+2. **MW1 Option C correction cycle** aligned with OD04-I01 (CORR-OPT-C-01…05) on the local candidate
-+3. deterministic Runner / Fake convergence → **retire legacy generic loop**
-+4. project Git integration of corrected Option C migration (separate GO)
- 5. **MW0 REGRESSION / PARITY ON OPTION C** (nora-eval KEEP/ADAPT) before MW1 exit acceptance
+-5. **MW0 REGRESSION / PARITY ON OPTION C** (nora-eval KEEP/ADAPT) before MW1 exit acceptance
 -6. Delivery review
-+6. Delivery review / MW1 closure only after evidence
++1. **OD04-I01** documentary invariant consumed as cross-wave rule (this clarification + DOC-01/DOC-02 precision)
++2. **MW1 Option C correction cycle** aligned with OD04-I01 (CORR-OPT-C-01…05) on the local candidate
++3. deterministic Runner / Fake convergence on **ONE** target Runner cognitive path
++4. Fake / tests / comparator migrate to the same target cognitive path as applicable
++5. **RETIRE** legacy Nora generic `runToolCallingLoop`
++6. corrected Option C **PROJECT Git integration** (separate Morris GO) · **≠** claimed integrated before this gate
++7. **MW0 REGRESSION / PARITY ON OPTION C** (nora-eval KEEP/ADAPT) before MW1 exit acceptance
++8. MW1-S01 / S02 / S03 final proof · CORR-MW1-07/08 where required · MW1 Exit Proof / closure
 
  **MW2** only after MW1 closure.
 
@@ -718,8 +795,8 @@ index 9d59735d..2b6c859b 100644
 
  = OD-04 CONSUMED
  = OPTION C ADOPTED AS NORA TARGET ARCHITECTURE
-+= OD04-I01 ACTIVE — STUDIO OWNS PRODUCT/BUSINESS/AUTHORITY · NORA OWNS COGNITION
-+= PILOTE = GENERIC RUNTIME ACTOR · MORRIS = CONSTRUCTION/GOVERNANCE (NOT RUNTIME PERSONA)
++= OD04-I01 ACTIVE — STUDIO OWNS PRODUCT/BUSINESS/AUTHORITY MODEL · NORA OWNS COGNITION
++= PILOTE = RUNTIME HUMAN DECISION/CONFIRMATION ACTOR · STUDIO OWNS DURABLE HD/CONFIRMATION OBJECTS + LIFECYCLE · MORRIS = CONSTRUCTION/GOVERNANCE (NOT RUNTIME PERSONA)
  = AGENTS SDK RUNNER TARGET ADOPTED
  = CUSTOM PRODUCT SQLITE SESSION TARGET ADOPTED
 -= SESSION / MODEL-INPUT POLICY TARGET ADOPTED
@@ -736,24 +813,22 @@ index 9d59735d..2b6c859b 100644
 -= NO PACKAGE / CODE MIGRATION AUTHORIZED BY THIS RECORD
 += NO NEW ARCHITECTURE SELECTION BY OD04-I01
 += NO PRODUCT COMPLETION / BUILD DOCTRINE / V3 FRAMING MUTATION BY OD04-I01
-
 ```
 
 ---
 
-## 8. Final verdict
+## 13. Final verdict
 
-**DOCUMENTARY TRUTH-SYNC COMPLETE — READY FOR CHATGPT REVIEW**
+**OD04-I01 DOCUMENTARY CORRECTIONS COMPLETE — READY FOR CHATGPT SECOND CRITICAL REVIEW**
 
-= OD04-I01 ACTIVE ON CLEAN DOCUMENTARY SURFACE
-= OPTION A RECOVERY EXECUTED · DIRTY MW1 WTs LEFT INTACT
-= OD-04 / C5 / ROADMAP CURRENT TRUTH ALIGNED
-= C5 COUNTS PRESERVED (NR26 / CE8 / NCC-BAR14 / 23 STORIES)
-= MW1-S01/S02/S03 UNCHANGED
+= CORR-OD04-I01-DOC-01 APPLIED
+= CORR-OD04-I01-DOC-02 APPLIED
+= OD-04 OPTION C / OD04-I01 PRESERVED
+= C5 SOURCE LOCK PRESERVED
 = NO CODE
-= NO HANDOFF PUBLISH
-= NO PROJECT COMMIT / NO PUSH / NO PR / NO MERGE
+= NO PRODUCT COMPLETION / BUILD DOCTRINE / V3 FRAMING MUTATION
+= HANDOFF L3 TO FOLLOW VIA CANONICAL PUBLISHER
 
 ---
 
-*End of Review Pack FULL — OD04-I01 — local only.*
+*End of Review Pack FULL — OD04-I01 DOC-01/DOC-02 — local pack prior to L3 handoff publish.*
