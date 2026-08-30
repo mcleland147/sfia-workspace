@@ -10,13 +10,15 @@
 | **Date (Europe/Paris)** | 2026-08-30 |
 | **Morris decision status** | **OD-04 = CONSUMED** |
 | **Decision** | **OPTION C — HYBRID OPENAI COGNITIVE RUNTIME = ADOPTED AS NORA TARGET ARCHITECTURE** |
-| **Git lifecycle** | **LOCAL DOCUMENTARY CANDIDATE** until distinct project Git integration |
+| **Git lifecycle (CURRENT)** | **Decision record INTEGRATED ON MAIN** via PR **#445** · merge commit `4f00a2ad5e58310392e2efb562174d32ad8240e8` · **Option C TARGET ADOPTED** · **implementation migration NOT YET INTEGRATED** |
+| **Git lifecycle (HISTORICAL at first local record)** | Was **LOCAL DOCUMENTARY CANDIDATE** until distinct project Git integration *(pre-PR #445 · preserved as provenance)* |
+| **OD04-I01** | **ACTIVE CROSS-WAVE ARCHITECTURE INVARIANT** under OD-04 · **NOT** a new architecture selection · see §4A |
 | **runtime v3** | **NON ADOPTED** |
 | **Cognitive Completion** | **NOT PROVEN** |
-| **Package / code migration** | **NOT AUTHORIZED by this record** |
-| **Evidence basis** | Static OpenAI cognitive-runtime evaluation + targeted A/B proof (P1/P2 D0+REAL PASS) · review handoff tip `3e86fb202344eb8eb7277c610bfc4bdc585cdf80` |
+| **Package / code migration** | **NOT AUTHORIZED by this documentary decision record alone** · local MW1 Option C candidate may exist elsewhere · **≠** integrated |
+| **Evidence basis** | Static OpenAI cognitive-runtime evaluation + targeted A/B proof (P1/P2 D0+REAL PASS) · OD-04 documentary integration PR **#445** · MW1 implementation CRITICAL review handoff tip `56948ddaef780b9f2a5ffa65d784afdcb9917caf` *(review evidence only · ≠ project integration)* |
 
-> **Anti-claims:** This record adopts a Nora **cognitive runtime target**. It does **not** adopt runtime v3 · does **not** authorize package install/commit · does **not** complete MW1 · does **not** prove Cognitive Completion · does **not** replace SFIA business semantics · does **not** authorize MW2 · does **not** map OpenAI HITL→HD/Confirmation · does **not** map Trace→Evidence · does **not** adopt Responses compaction.
+> **Anti-claims:** This record adopts a Nora **cognitive runtime target**. It does **not** adopt runtime v3 · does **not** by itself complete MW1 · does **not** prove Cognitive Completion · does **not** replace SFIA business semantics · does **not** authorize MW2 · does **not** map OpenAI HITL→HD/Confirmation · does **not** map Trace→Evidence · does **not** adopt Responses compaction · **OD04-I01 ≠ new architecture decision** · **PR #445 merged ≠ MW1 implementation integrated**.
 
 ---
 
@@ -99,6 +101,114 @@ It is **NOT** “OpenAI first regardless of fit.”
 
 ---
 
+
+### Non-equivalences reinforced (OD04-I01)
+
+- Studio product/business/authority ownership **≠** Nora cognition ownership
+- Pilote (runtime human actor) **≠** Morris (construction / GO / governance)
+- Session / model-input policy **≠** business authorization engine
+- `callModelInputFilter` context integrity **≠** HD / Confirmation / effective authority
+- Agents SDK Runner **≠** SFIA `routeToolCall` / authority spine replacement
+- PR **#445** decision integration **≠** MW1 Option C implementation integration
+- Local MW1 candidate CRITICAL review **≠** MW1 COMPLETE / INTEGRATED
+
+---
+
+## 4A. OD04-I01 — Studio ↔ Nora architecture boundary (ACTIVE)
+
+**OD04-I01 = ACTIVE CROSS-WAVE ARCHITECTURE INVARIANT** under OD-04.
+
+This clarification does **not** select a new architecture, reopen Product Completion, mutate Build Doctrine, or adopt runtime v3 framing.
+
+### 4A.1 Ownership split
+
+| Layer | Owns | Does not own |
+| --- | --- | --- |
+| **SFIA Studio** | product semantics · business objects · **authority MODEL / policy / validation / enforcement** · durable **HumanDecision** and **Confirmation** product objects + governed lifecycle (qualification/materialization · persistence · scope · validity · enforcement) · LPS / Truth C / ProjectTrajectory · materialization / Evidence · policy gates | Nora cognition internals · **does not replace Pilote as decision/confirmation actor** |
+| **Nora** | cognition · reasoning · Session continuity · Runner loop / tool orchestration · recommendations / options analysis · may explain why Confirmation is required | business authorization · deciding/granting HD or Confirmation · Truth C mutation · effective authority |
+| **Pilote** | **runtime human decision actor** for HumanDecision · **runtime human confirmation actor** where Confirmation is required | Morris construction/governance identity |
+| **Morris** | construction · GO · governance · programme decisions | **runtime persona** · product Pilote substitute |
+
+**Meaning of “Studio owns authority” (normative):** Studio owns the product authority **model**, durable authority state, policy, validation and enforcement. It does **not** mean Studio is the human decision actor.
+
+**HumanDecision split:** decision actor = **Pilote** · durable governed product object + materialization/persistence/scope/provenance/enforcement = **SFIA Studio** · cognition/recommendation support = **Nora** · Nora = **no authority**.
+
+**Confirmation split:** confirmation actor = **Pilote** · durable governed boundary/object/state + requiredness/scope/context/validity/enforcement = **SFIA Studio** · explanation/clarification/request support = **Nora** · Nora = **no authority**.
+
+### 4A.2 Responsibility matrix (summary)
+
+| Concern | Studio | Nora | Pilote | Morris |
+| --- | --- | --- | --- | --- |
+| Product / business truth | **OWNS** | consumes context | decides when required | governs programme |
+| Cognition / reasoning | supplies constraints | **OWNS** | receives recommendations | does not runtime-personify |
+| Authority **model** / policy / enforcement | **OWNS** | no authority | — | construction GOs only |
+| HumanDecision | **OWNS** durable object + qualification/materialization / persistence / scope / provenance / enforcement | may recommend only · never decides/materializes HD | **decision actor** | construction GOs only |
+| Confirmation | **OWNS** durable boundary/object/state + requiredness / scope / context / validity / enforcement | may explain/ask · never grants Confirmation | **confirmation actor** | construction GOs only |
+| Session / model-input integrity | supplies authoritative context | **OWNS** filter/policy for cognition | — | — |
+| Evidence / ReviewBundle | **OWNS** | may propose cognitive observables | — | — |
+
+### 4A.3 Invariants
+
+1. Studio supplies authoritative product/business context; Nora consumes it for cognition.
+2. Session / `callModelInputFilter` / model-input policy = **cognitive context integrity only** · **≠** keyword GO/HD redaction-as-authorization · **≠** Morris-GO runtime primitive.
+3. **Pilote = generic runtime human actor** (decides / confirms where required) · **Morris = construction/governance ≠ runtime persona**.
+4. OpenAI HITL **≠** HD/Confirmation · Trace **≠** Evidence · server-managed Truth C **FORBIDDEN**.
+5. No parallel Nora product/authority path · no second Truth C · no Morris runtime persona.
+6. Utterance (“go” / “I authorize” / “I choose B”) **≠** automatic durable authority — becomes HD/Confirmation only via Studio qualification/materialization path.
+
+### 4A.4 Utterance / naming rules
+
+- Prefer **Pilote** for runtime human actor language.
+- Prefer **Morris** only for construction / GO / governance utterances.
+- Forbidden active claim: Nora runtime treats “Morris GO” as a product authorization primitive.
+
+### 4A.5 Canonical flow
+
+```text
+Pilote utterance
+  → SFIA Studio
+  → authoritative project / business context
+  → cognitive constraints + available tools
+  → Nora / Session / Runner / cognition
+  → analysis / options / recommendations
+  → SFIA Studio
+  → qualification / materialization / gate
+  → Pilote HumanDecision or Confirmation where required (Pilote = actor)
+  → SFIA Studio resolves effective authority from governed product state
+  → executor
+```
+
+Nora is **not** the owner of HD, Confirmation, LPS, ProjectTrajectory, ExecutionContract, effective authority, or Evidence. Studio owns the durable HD/Confirmation **objects and lifecycle**; Pilote remains the **decision/confirmation actor**.
+
+### 4A.6 Correction trajectory note (documentary only)
+
+Local MW1 Option C migration work exists as **LOCAL / UNCOMMITTED** candidate and has undergone **CRITICAL review**. It is **NOT INTEGRATED**. Required correction themes (trajectory capitalization only — **not executed by this record**):
+
+| ID | Class | Meaning |
+| --- | --- | --- |
+| **CORR-OPT-C-01** | BLOCKING / REDEFINED | Nora runtime business-authority agnostic; filter = context integrity only; no keyword GO/HD redaction-as-authorization; no Morris-GO runtime primitive; Studio supplies context and owns materialization |
+| **CORR-OPT-C-02** | BLOCKING / NARROWED | Runner owns generic loop/boundedness; correct observables/limits; no duplicate homegrown generic loop |
+| **CORR-OPT-C-03** | REQUIRED | Product SQLite Session batch writes atomic/recoverable (continuity integrity ≠ business authority) |
+| **CORR-OPT-C-04** | REQUIRED / APPROACH REPLACED | Prefer Studio ToolDefinition schema → thin SDK adapter → `routeToolCall`; avoid unnecessary custom schema translation; exact SDK API check in later code cycle |
+| **CORR-OPT-C-05** | REQUIRED PROOF / REDEFINED | Authority proof must demonstrate Studio authorization/policy boundary — not a Nora-local fake authority engine |
+
+**Legacy Fake / comparator dual path:** TEMPORARY WITH EXIT. Canonical forward sequence (ACTIVE):
+
+1. MW1 Option C **correction cycle** aligned with OD04-I01 (CORR-OPT-C-01…05)
+2. deterministic Runner / Fake convergence on **ONE** target Runner cognitive path
+3. Fake / tests / comparator migrate to the same target cognitive path as applicable
+4. **RETIRE** legacy Nora generic `runToolCallingLoop` (must not remain a permanent second product path)
+5. corrected Option C **PROJECT Git integration** — separate Morris GO · **≠** integrated before this gate
+6. **MW0 REGRESSION / PARITY ON OPTION C** (MW0 remains historically **CLOSED** · parity ≠ reopen)
+7. MW1-S01 / S02 / S03 final proof
+8. CORR-MW1-07 / CORR-MW1-08 where required by S03/materialization closure
+9. MW1 Exit Proof / closure
+10. **MW2** only after MW1 closure
+
+This supersedes any active wording that places project Git integration **before** legacy-loop retirement, or that lets the legacy loop survive **until after** the MW0 Option C regression/parity gate.
+
+---
+
 ## 5. Adopted cognitive target (Option C)
 
 | Component | Disposition |
@@ -157,7 +267,7 @@ Preserved as **temporary baseline / evidence source**, **not** target architectu
 
 ## 8. MW1 implications
 
-MW1 Delivery remains **active** but must be **REQUALIFIED against Option C**.
+MW1 Delivery remains **active**. Historical post-OD-04 gate was **REQUALIFICATION against Option C**; **CURRENT** forward gate under OD04-I01 = **Option C correction cycle** (CORR-OPT-C-01…05) before project integration.
 
 Do **not** continue homegrown hardening blindly.
 
@@ -217,45 +327,48 @@ Do **NOT** alter source-locked story semantics by this decision alone.
 | Vendor coupling | reversible adapters; KEEP SFIA tools/authority |
 | Session schema lifecycle | Product SQLite Session design under MW1 requalification |
 | Compaction semantics | MW1-S02 dedicated proof before adoption |
-| Dual-loop migration period | every temporary duality must have explicit exit |
+| Dual-loop migration period | every temporary duality must have explicit exit · **Runner/Fake convergence → retire legacy loop → project Git integration → MW0 Option C regression/parity** (OD04-I01 / DOC-02) |
 
 ---
 
 ## 11. Exit / next gate
 
-This decision record **does not authorize implementation**.
+This decision record **adopts the Option C target** (integrated on main via PR **#445**). It does **not** by itself authorize or complete MW1 implementation integration.
 
-**Next:**
+**Next (CURRENT) — canonical forward sequence:**
 
-1. MW1 Delivery **REQUALIFICATION** against Option C
-2. bounded migration / design
-3. D0
-4. REAL
-5. **MW0 REGRESSION / PARITY ON OPTION C** (nora-eval KEEP/ADAPT) before MW1 exit acceptance
-6. Delivery review
+1. **OD04-I01** documentary invariant consumed as cross-wave rule (this clarification + DOC-01/DOC-02 precision)
+2. **MW1 Option C correction cycle** aligned with OD04-I01 (CORR-OPT-C-01…05) on the local candidate
+3. deterministic Runner / Fake convergence on **ONE** target Runner cognitive path
+4. Fake / tests / comparator migrate to the same target cognitive path as applicable
+5. **RETIRE** legacy Nora generic `runToolCallingLoop`
+6. corrected Option C **PROJECT Git integration** (separate Morris GO) · **≠** claimed integrated before this gate
+7. **MW0 REGRESSION / PARITY ON OPTION C** (nora-eval KEEP/ADAPT) before MW1 exit acceptance
+8. MW1-S01 / S02 / S03 final proof · CORR-MW1-07/08 where required · MW1 Exit Proof / closure
 
 **MW2** only after MW1 closure.
 
 **MW0** remains **CLOSED** — regression/parity ≠ reopen.
 
-**STOP BEFORE PROJECT COMMIT** for this documentary cycle.
-
 ---
 
 ## 12. Final documentary verdict
 
-**NORA OD-04 OPTION C ARCHITECTURE DECISION — LOCAL DOCUMENTARY CANDIDATE**
+**NORA OD-04 OPTION C ARCHITECTURE DECISION — INTEGRATED ON MAIN (PR #445) · TARGET ADOPTED**
 
 = OD-04 CONSUMED
 = OPTION C ADOPTED AS NORA TARGET ARCHITECTURE
+= OD04-I01 ACTIVE — STUDIO OWNS PRODUCT/BUSINESS/AUTHORITY MODEL · NORA OWNS COGNITION
+= PILOTE = RUNTIME HUMAN DECISION/CONFIRMATION ACTOR · STUDIO OWNS DURABLE HD/CONFIRMATION OBJECTS + LIFECYCLE · MORRIS = CONSTRUCTION/GOVERNANCE (NOT RUNTIME PERSONA)
 = AGENTS SDK RUNNER TARGET ADOPTED
 = CUSTOM PRODUCT SQLITE SESSION TARGET ADOPTED
-= SESSION / MODEL-INPUT POLICY TARGET ADOPTED
+= SESSION / MODEL-INPUT POLICY = COGNITIVE CONTEXT INTEGRITY TARGET (≠ business authorization engine)
 = SFIA BUSINESS / AUTHORITY SPINE PRESERVED
 = RESPONSES COMPACTION NOT ADOPTED
-= MW1 BASELINE A PRESERVED / TEMPORARY WITH EXIT
-= MW1 DELIVERY REQUALIFICATION REQUIRED
+= MW1 BASELINE A / LOCAL CANDIDATE PRESERVED TEMPORARY WITH EXIT
+= MW1 NOT COMPLETE / NOT INTEGRATED
 = MW2 NOT STARTED
 = COGNITIVE COMPLETION NOT PROVEN
 = RUNTIME V3 NON ADOPTED
-= NO PACKAGE / CODE MIGRATION AUTHORIZED BY THIS RECORD
+= NO NEW ARCHITECTURE SELECTION BY OD04-I01
+= NO PRODUCT COMPLETION / BUILD DOCTRINE / V3 FRAMING MUTATION BY OD04-I01
