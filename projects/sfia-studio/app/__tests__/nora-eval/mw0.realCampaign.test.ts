@@ -26,15 +26,25 @@ import {
 
 const HISTORICAL_CAMPAIGN_ID = "mw0-1788039895203";
 
-function loadSecrets(): { apiKey: string; source: string } | null {
+type SecretSource = "process.env" | "env.local";
+
+/**
+ * CORR-MW0-08 — portable secret resolution only.
+ * Returns categorical source (never a physical file path).
+ */
+function loadSecrets(): { apiKey: string; source: SecretSource } | null {
   if (process.env.OPENAI_API_KEY?.trim()) {
     return { apiKey: process.env.OPENAI_API_KEY.trim(), source: "process.env" };
   }
+  // app/__tests__/nora-eval → ../../.env.local = app/.env.local
   const candidates = [
     path.resolve(process.cwd(), ".env.local"),
-    "/Users/morris/Projects/sfia-workspace/projects/sfia-studio/app/.env.local",
+    path.resolve(__dirname, "../../.env.local"),
   ];
+  const seen = new Set<string>();
   for (const file of candidates) {
+    if (seen.has(file)) continue;
+    seen.add(file);
     if (!fs.existsSync(file)) continue;
     const text = fs.readFileSync(file, "utf8");
     const m = text.match(/^OPENAI_API_KEY=(.+)$/m);
