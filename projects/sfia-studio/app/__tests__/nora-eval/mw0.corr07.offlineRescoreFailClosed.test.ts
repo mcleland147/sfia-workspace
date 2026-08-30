@@ -3,6 +3,7 @@
  * CORR-MW0-07 — offline rescore must not claim global MW0 EXIT from S04 alone.
  */
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
@@ -14,9 +15,10 @@ import {
 } from "@/lib/nora-eval";
 import type { RunEvidence } from "@/lib/nora-eval";
 
+/** Committed synthetic pack — CI must not depend on excluded `.tmp-nora-mw0-evidence`. */
 const SOURCE_PATH = path.resolve(
-  process.cwd(),
-  ".tmp-nora-mw0-evidence/mw0-corr05-1788046056895.json",
+  __dirname,
+  "fixtures/mw0-corr05-offline-rescore-source.pack.json",
 );
 
 function loadSourcePack(): Record<string, unknown> {
@@ -164,40 +166,48 @@ describe("CORR-MW0-07 offline rescore fail-closed ownership", () => {
 
   it("CASE F — source campaign immutable + prior CORR-06 artifact not overwritten", () => {
     const before = fs.readFileSync(SOURCE_PATH, "utf8");
-    const outDir = path.resolve(process.cwd(), ".tmp-nora-mw0-evidence");
+    const outDir = fs.mkdtempSync(
+      path.join(os.tmpdir(), "mw0-corr07-rescore-"),
+    );
+    const sourceInOut = path.join(
+      outDir,
+      "mw0-corr05-1788046056895.json",
+    );
+    fs.writeFileSync(sourceInOut, before);
     const priorCorr06 = path.join(
       outDir,
       "mw0-corr05-1788046056895-rescore-corr-mw0-06.json",
     );
-    const priorBefore = fs.existsSync(priorCorr06)
-      ? fs.readFileSync(priorCorr06, "utf8")
-      : null;
+    fs.writeFileSync(
+      priorCorr06,
+      `${JSON.stringify({ kind: "prior-corr06-stub", immutable: true }, null, 2)}\n`,
+    );
+    const priorBefore = fs.readFileSync(priorCorr06, "utf8");
 
     const { artifactPath } = writeOfflineRescoreArtifact({
-      sourcePackPath: SOURCE_PATH,
+      sourcePackPath: sourceInOut,
       outDir,
       sourceCampaignId: "mw0-corr05-1788046056895",
       priorRescoreArtifactId:
         "mw0-corr05-1788046056895-rescore-corr-mw0-06",
       rescoreArtifactId:
         "mw0-corr05-1788046056895-rescore-corr-mw0-07",
-      immutablePaths: priorBefore ? [priorCorr06] : [],
+      immutablePaths: [priorCorr06],
     });
 
+    expect(fs.readFileSync(sourceInOut, "utf8")).toBe(before);
     expect(fs.readFileSync(SOURCE_PATH, "utf8")).toBe(before);
-    if (priorBefore !== null) {
-      expect(fs.readFileSync(priorCorr06, "utf8")).toBe(priorBefore);
-    }
+    expect(fs.readFileSync(priorCorr06, "utf8")).toBe(priorBefore);
     expect(path.basename(artifactPath)).toBe(
       "mw0-corr05-1788046056895-rescore-corr-mw0-07.json",
     );
     expect(() =>
       writeOfflineRescoreArtifact({
-        sourcePackPath: SOURCE_PATH,
+        sourcePackPath: sourceInOut,
         outDir,
         sourceCampaignId: "mw0-corr05-1788046056895",
         rescoreArtifactId: "mw0-corr05-1788046056895",
-        immutablePaths: [SOURCE_PATH],
+        immutablePaths: [sourceInOut],
       }),
     ).toThrow(/immutable/);
   });

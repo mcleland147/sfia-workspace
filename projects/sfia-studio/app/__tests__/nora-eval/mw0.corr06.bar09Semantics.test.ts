@@ -3,6 +3,7 @@
  * CORR-MW0-06 — BAR-09 evidence semantics: PROPOSITION ≠ OPTION.
  */
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
@@ -338,15 +339,21 @@ describe("CORR-MW0-06 BAR-09 evidence semantics", () => {
 
   it("offline rescore of CORR-05 campaign — S04/BAR-09 only, NEW REAL CALLS 0", () => {
     const sourcePath = path.resolve(
-      process.cwd(),
-      ".tmp-nora-mw0-evidence/mw0-corr05-1788046056895.json",
+      __dirname,
+      "fixtures/mw0-corr05-offline-rescore-source.pack.json",
     );
     expect(fs.existsSync(sourcePath)).toBe(true);
     const before = fs.readFileSync(sourcePath, "utf8");
-    const outDir = path.resolve(process.cwd(), ".tmp-nora-mw0-evidence");
+    const outDir = fs.mkdtempSync(
+      path.join(os.tmpdir(), "mw0-corr06-rescore-"),
+    );
     const priorCorr06 = path.join(
       outDir,
       "mw0-corr05-1788046056895-rescore-corr-mw0-06.json",
+    );
+    fs.writeFileSync(
+      priorCorr06,
+      `${JSON.stringify({ kind: "prior-corr06-stub", immutable: true }, null, 2)}\n`,
     );
     const { artifactPath, result } = writeOfflineRescoreArtifact({
       sourcePackPath: sourcePath,
@@ -356,7 +363,7 @@ describe("CORR-MW0-06 BAR-09 evidence semantics", () => {
         "mw0-corr05-1788046056895-rescore-corr-mw0-06",
       rescoreArtifactId:
         "mw0-corr05-1788046056895-rescore-corr-mw0-07",
-      immutablePaths: fs.existsSync(priorCorr06) ? [priorCorr06] : [],
+      immutablePaths: [priorCorr06],
     });
     expect(result.newRealCalls).toBe(0);
     expect(result.additionalApiSpendUsd).toBe(0);
