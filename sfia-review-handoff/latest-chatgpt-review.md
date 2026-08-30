@@ -1,82 +1,124 @@
-# NORA OD-04 — CORR-OD04-DOC-01 FULL REVIEW PACK
+# NORA OD-04 — CORR-OD04-DOC-02 FULL REVIEW PACK
 
-**Timestamp (Europe/Paris):** 2026-08-30 16:50:58 CEST
+**Timestamp (Europe/Paris):** 2026-08-30 16:56:53 CEST
 **Repository:** mcleland147/sfia-workspace
 **Worktree:** `/Users/morris/Projects/sfia-workspace-nora-od04-openai-runtime-decision`
 **Branch:** `docs/sfia-studio-nora-od04-openai-runtime-decision`
 **HEAD / origin/main:** `f0bf7f0c8ef15e2e30e88283a1bd9d1447fef790` / `f0bf7f0c8ef15e2e30e88283a1bd9d1447fef790`
 **Ahead/behind:** 0	0
 **Typology:** DOC · **Profile:** CRITICAL · **Cycle:** Pilotage / décision projet
-**Prior handoff tip:** `0d04c8674b2372e78631da16997afbd85efea51b`
+**Prior handoff tip:** `821a2e22d7803065f94f2da5f5c5d3344bad802f`
 **STOP BEFORE PROJECT COMMIT**
 
 ---
 
-## 0. Morris CORR-OD04-DOC-01 GO consumed
+## 0. Morris CORR-OD04-DOC-02 GO consumed
 
-GO MORRIS — CORR-OD04-DOC-01 — CORRECT ACTIVE/CURRENT ROADMAP CONTRADICTIONS AFTER OD-04 OPTION C TARGET ADOPTION — PRESERVE THE OD-04 DECISION UNCHANGED — ADD MW0 REGRESSION/PARITY REQUIREMENT TO THE OPTION C MIGRATION TRAJECTORY — NO FUNCTIONAL REQUALIFICATION — NO OPENAI RESEARCH — NO CODE — NO REAL — NO PACKAGE MUTATION — NO C5/C4 EDIT UNLESS A NEW CURRENT CONTRADICTION IS DEMONSTRATED — NO PROJECT COMMIT / PUSH / PR / MERGE — STOP BEFORE PROJECT COMMIT.
+GO MORRIS — CORR-OD04-DOC-02 — C4 EOF WHITESPACE ONLY — ZERO SEMANTIC CHANGE — RE-RUN DIFF CHECK — REPUBLISH HANDOFF — STOP BEFORE PROJECT COMMIT.
 
-OD-04 decision **UNCHANGED**: Option C TARGET ADOPTED · Runner/Session/input policy TARGET ADOPTED · Responses compaction NOT ADOPTED · SFIA spine KEEP · runtime v3 NON ADOPTED · Cognitive Completion NOT PROVEN.
+Authorized mutation: `04-nora-cognitive-runtime-gap-implementation-readiness.md` EOF blank-line removal **only**.
+
+OD-04 / Option C / Roadmap / 07 / C5: **unchanged** this CORR.
 
 ---
 
 ## 1. LOCAL GIT TRUTH — PRE-CORR
 
-```
-worktree=/Users/morris/Projects/sfia-workspace-nora-od04-openai-runtime-decision
-branch=docs/sfia-studio-nora-od04-openai-runtime-decision
-HEAD=f0bf7f0c8ef15e2e30e88283a1bd9d1447fef790
-origin/main=f0bf7f0c8ef15e2e30e88283a1bd9d1447fef790
-ahead_behind=0\t0
-staged=(none)
-unstaged=
-  projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-  projects/sfia-studio/nora-cognitive-completion/04-nora-cognitive-runtime-gap-implementation-readiness.md
-  projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
-untracked=
-  .tmp-sfia-review/chatgpt-review.md
-  projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md
-
-```
-
-Index truth: **staged = none** · C4/C5/Roadmap were **unstaged** · 07 + review pack **untracked**. No reset/restore/stage/commit performed.
-
----
-
-## 2. Prior ChatGPT finding
-
-OD-04 DECISION CONTENT = PASS · OPTION C TARGET = PASS · C5 = PASS · C4 = PASS · **ROADMAP CURRENT TRUTH = FAIL** (active anti-claims coexisted with Option C TARGET ADOPTED).
-
----
-
-## 3. Semantic distinction applied
-
-| Layer | CURRENT wording |
+| Field | Value |
 |---|---|
-| Architecture / technology **target** | SELECTED / ADOPTED via OD-04 |
-| Product package / runtime implementation | **NOT YET INTEGRATED** |
-| MW1 Delivery | AUTHORIZED EARLIER BY MORRIS |
-| MW1 completion/integration | NOT COMPLETE / NOT INTEGRATED · REQUALIFICATION REQUIRED |
+| Worktree | `/Users/morris/Projects/sfia-workspace-nora-od04-openai-runtime-decision` |
+| Branch | `docs/sfia-studio-nora-od04-openai-runtime-decision` |
+| HEAD | `f0bf7f0c8ef15e2e30e88283a1bd9d1447fef790` |
+| origin/main | `f0bf7f0c8ef15e2e30e88283a1bd9d1447fef790` |
+| Ahead/behind | 0 / 0 |
+| **Staged** | **(none)** |
+| **Unstaged** | Roadmap · C4 · C5 |
+| **Untracked** | `.tmp-sfia-review/chatgpt-review.md` · `07-…architecture-decision.md` |
+| **diff --check** | FAIL — `04-…readiness.md:629: new blank line at EOF.` (exit 2) |
 
-Forbidden CURRENT generic: "Technology NOT ADOPTED" for the architecture target.
+No reset / restore / stage / commit performed.
 
 ---
 
-## 4. Roadmap corrections
+## 2. Routing
 
-Files touched this CORR: `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+Pilotage / décision projet · DOC · CRITICAL
 
-Surfaces corrected:
-- Snapshot Git courant
-- tip (CORR tip inserted; OD-04 tip demoted historique)
-- Morris trajectory decision
-- Nora Cognitive Completion programme register
-- Gates courants
-- Anti-claims Nora CURRENT portion (surgical rewrite; Product Completion / historical anti-claims preserved; pre-OD04 Nora claims labeled HISTORICAL PRE-OD04)
+---
 
-Replaced CURRENT contradictions with coherent Option C truth + NOT YET INTEGRATED package/runtime wording + MW1 requalification next gate.
+## 3. Prior ChatGPT requalification retained
 
-### Complete Roadmap diff (CORR delta on working tree vs HEAD for Roadmap file)
+CORR-OD04-DOC-01 content: PASS (OD-04 / Option C / Roadmap / 07 / MW0 parity / C4 semantics / C5 semantics).
+
+**C5 §24 = NO EDIT REQUIRED** — non-implication anti-claims do not assert architecture is currently unselected; OD-04 selected architecture later.
+
+Only remaining blocker was C4 EOF whitespace → this CORR.
+
+---
+
+## 4. C4 BEFORE — exact blocker
+
+```
+projects/sfia-studio/nora-cognitive-completion/04-nora-cognitive-runtime-gap-implementation-readiness.md:629: new blank line at EOF.
+```
+
+EOF inspection (pre-mutation): file ended with an extra blank line after the OD-04 supersession note (`…adoption.
+
+`).
+
+---
+
+## 5. C4 CORRECTION — whitespace only
+
+Mutation: remove **one** trailing blank newline so file ends with a single newline after last content line.
+
+- before size: 54027
+- after size: 54026
+- delta: **-1 byte**
+- proof: `before.rstrip(b'
+') == after.rstrip(b'
+')` → **ZERO SEMANTIC CHANGE**
+
+No prose / metadata / supersession-note wording / heading / table changes.
+
+### C4 diff vs HEAD (OD-04 supersession note retained + CORR-02 EOF whitespace fix)
+
+```diff
+diff --git a/projects/sfia-studio/nora-cognitive-completion/04-nora-cognitive-runtime-gap-implementation-readiness.md b/projects/sfia-studio/nora-cognitive-completion/04-nora-cognitive-runtime-gap-implementation-readiness.md
+index 51621f80..c69860db 100644
+--- a/projects/sfia-studio/nora-cognitive-completion/04-nora-cognitive-runtime-gap-implementation-readiness.md
++++ b/projects/sfia-studio/nora-cognitive-completion/04-nora-cognitive-runtime-gap-implementation-readiness.md
+@@ -614,3 +614,15 @@ Underlying truth:
+ ---
+
+ *Fin du C4-POST-MERGE — CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED — PR #437 MERGED / POST-MERGE VERIFIED — NCC-R08 CLOSED BY EVIDENCE — TYPE14 DOCUMENTARY RECORD — REPOSITORY PUBLICATION / INTEGRATION STATE RESOLVED FROM GIT / PR EVIDENCE — SOURCE-LOCKED COGNITIVE BACKLOG RECOMMENDED — NEXT CAPABILITY NOT AUTHORIZED — GLOBAL NEXT REAL-B UNCHANGED — NO MANDATORY TA CURRENTLY DEMONSTRATED — NO ARCHITECTURE SELECTED — NO DELIVERY — NO REAL — NO RUNTIME V3 ADOPTION — OD-02…08 OPEN — NO MORRIS RUNTIME PERSONA.*
++
++---
++
++## DOWNSTREAM SUPERSESSION NOTE (OD-04 — not a C4 rewrite)
++
++**HISTORICAL (C4 exit — KEEP):** Architecture = **NOT SELECTED** was correct **at C4**.
++
++**CURRENT DOWNSTREAM (after C5 + MW0/MW1 readiness + OpenAI evaluation + targeted A/B proof):** Morris **OD-04 CONSUMED** · **OPTION C — HYBRID OPENAI COGNITIVE RUNTIME = ADOPTED AS NORA TARGET ARCHITECTURE**.
++
++Canonical decision record: `07-nora-openai-cognitive-runtime-architecture-decision.md`.
++
++This note does **not** rewrite C4 analysis, coverage matrices, or then-current FA/TA conclusions. It only prevents an active contradiction between historical C4 “NOT SELECTED” and current OD-04 target adoption.
+```
+
+---
+
+## 6. C5
+
+**NO EDIT REQUIRED** · **NO MUTATION** during CORR-02 (sha256 unchanged).
+
+---
+
+## 7. Roadmap
+
+**UNCHANGED during CORR-02** (sha256 match). CURRENT Option C truth from CORR-01 preserved.
+
+### Roadmap diff vs HEAD (prior OD-04 / CORR-01 candidate — retained for exploitability)
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -130,18 +172,11 @@ index 55dc0642..3e9157fd 100644
 
 ---
 
-## 5. MW0 REGRESSION / PARITY addition
+## 8. Document 07
 
-File: `projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md`
+**UNCHANGED during CORR-02** (sha256 match). MW0 REGRESSION / PARITY ON OPTION C preserved.
 
-Section: after MW1 implications / before §9; also exit/next gate step 5.
-
-Meaning:
-- MW0 remains **CLOSED**
-- Option C migration must pass **MW0 REGRESSION / PARITY ON OPTION C** via nora-eval KEEP/ADAPT before MW1 exit
-- no second OpenAI eval framework; Trace ≠ Evidence; ≠ MW0 reopen
-
-### FULL current content of 07
+### FULL current 07 content
 
 ```markdown
 # Nora Cognitive Completion — OpenAI Cognitive Runtime Architecture Decision (OD-04)
@@ -410,67 +445,43 @@ This decision record **does not authorize implementation**.
 
 ---
 
-## 6. C4 / C5 during CORR
+## 9. FINAL git diff --check
 
-**C4 UNCHANGED** this CORR (byte-identical sha256 pre/post).
-**C5 UNCHANGED** this CORR (byte-identical sha256 pre/post).
-
-Pre/post sha256:
-```
-PRE:
-98ef658de99e238164df51e008c014668aa6cf4a8616791817a77024b691fb77  projects/sfia-studio/nora-cognitive-completion/04-nora-cognitive-runtime-gap-implementation-readiness.md
-df974dbbd9183b8258b1727db92fcb4541b33dc1540c09cf1309d15e3054500e  projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
-POST:
-98ef658de99e238164df51e008c014668aa6cf4a8616791817a77024b691fb77  projects/sfia-studio/nora-cognitive-completion/04-nora-cognitive-runtime-gap-implementation-readiness.md
-df974dbbd9183b8258b1727db92fcb4541b33dc1540c09cf1309d15e3054500e  projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
-```
-
-### C5 residual CURRENT anti-claims finding (NOT EDITED)
-
-Fresh audit after Roadmap CORR found **active CURRENT** contradictions in C5 §24 Anti-claims (examples):
-
-- `C5 POST-MERGE VERIFIED ≠ architecture selected`
-- `C5 CONTENT VALIDATED BY MORRIS ≠ architecture selected`
-- `OD-03 BUILD / CONSUMED ≠ Sessions selected ≠ Agents SDK selected ≠ … ≠ architecture selected`
-
-These coexist with C5 CURRENT statut already stating OD-04 CONSUMED / OPTION C TARGET ADOPTED.
-
-Per Morris GO: **NO C5/C4 EDIT UNLESS …** → do **not** silently expand scope.
-
-**CORR-OD04-DOC-01 SCOPE EXPANSION REQUIRED** (C5 §24 CURRENT anti-claims coherence) — **STOP before modifying C5**.
-
-Roadmap CURRENT CONTRADICTION = **NONE**.
-Whole-candidate CURRENT CONTRADICTION excluding authorized-scope C5 hold = residual in C5 only → documented for ChatGPT / next Morris GO.
-
----
-
-## 7. Contradiction audit
-
-### Roadmap CURRENT
-CURRENT CONTRADICTION = **NONE**
-
-### 07
-Coherent with OD-04 + MW0 regression/parity.
-
-### Historical matches
-Pre-OD04 timestamps, historique tips, consumed GO strings, C4 metadata Architecture NOT SELECTED + supersession note = **HISTORICAL — KEEP**
-
-### C5 §24
-CURRENT residual matches = **SCOPE EXPANSION REQUIRED** (not fixed this CORR)
-
----
-
-## 8. git diff --check
-
-Exit non-zero due to **pre-existing** C4 EOF blank line (C4 not edited this CORR):
+**PASS** · exit `0` · output:
 
 ```
-projects/sfia-studio/nora-cognitive-completion/04-nora-cognitive-runtime-gap-implementation-readiness.md:629: new blank line at EOF.
+(no output)
 ```
 
 ---
 
-## 9. FINAL GIT STATUS (post-CORR, no project commit)
+## 10. Documentary consistency (confirmed, no edits)
+
+- OD-04 = CONSUMED
+- OPTION C = TARGET ADOPTED
+- Agents SDK Runner = TARGET ADOPTED
+- custom Product SQLite Session = TARGET ADOPTED
+- Session/model-input policy = TARGET ADOPTED
+- product package/runtime integration = NOT YET INTEGRATED
+- Responses compaction = CANDIDATE / NOT ADOPTED
+- MW0 = CLOSED
+- MW0 REGRESSION / PARITY ON OPTION C = REQUIRED BEFORE MW1 EXIT
+- nora-eval = KEEP / ADAPT
+- MW1 = NOT COMPLETE / NOT INTEGRATED · Option C requalification = NEXT
+- MW2 = NOT STARTED
+- Cognitive Completion = NOT PROVEN
+- runtime v3 = NON ADOPTED
+
+---
+
+## 11. FILES MODIFIED DURING CORR-02
+
+1. `projects/sfia-studio/nora-cognitive-completion/04-nora-cognitive-runtime-gap-implementation-readiness.md` — EOF whitespace only
+2. `.tmp-sfia-review/chatgpt-review.md` — temporary FULL review pack update
+
+---
+
+## 12. FINAL GIT STATUS (no project commit)
 
 ```
 porcelain:
@@ -494,55 +505,47 @@ projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-
 
 diff --stat:
 .../convergence/sfia-studio-convergence-roadmap.md |  14 +--
- ...gnitive-runtime-gap-implementation-readiness.md |  13 +++
+ ...gnitive-runtime-gap-implementation-readiness.md |  12 +++
  .../05-nora-source-locked-cognitive-backlog.md     | 100 +++++++++++----------
- 3 files changed, 75 insertions(+), 52 deletions(-)
+ 3 files changed, 74 insertions(+), 52 deletions(-)
 ```
 
-**Files modified during CORR (content):**
-1. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-2. `projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md` (untracked; MW0 section added)
-
-C4/C5 content **unchanged** this CORR.
-
-No git add · no project commit · no project push.
+Staged state remains **empty** (unchanged from pre-CORR).
 
 ---
 
-## 10. Anti-claims
+## 13. Anti-claims
 
-- no code · no package · no migration · no REAL · no OpenAI research
-- Responses compaction NOT ADOPTED
-- MW2 NOT STARTED
-- Cognitive Completion NOT PROVEN
+- zero semantic change on C4
+- no C5 edit
+- no Roadmap/07 mutation this CORR
+- no code / package / migration / REAL / MW2
+- Responses compaction not adopted
+- Cognitive Completion not proven
 - runtime v3 NON ADOPTED
 - OD-04 decision unchanged
-- C5 not silently rewritten
-- TARGET ADOPTED ≠ product implementation integrated
+- no project commit / push / PR
 
 ---
 
-## 11. Final verdict
+## 14. Final verdict
 
-**NORA OD-04 OPTION C — CORR-OD04-DOC-01 COMPLETE (PRIMARY SCOPE) + C5 SCOPE EXPANSION REQUIRED (HOLD)**
+**NORA OD-04 OPTION C — CORR-OD04-DOC-02 COMPLETE**
 
+= C4 EOF WHITESPACE ONLY
+= ZERO SEMANTIC CHANGE
+= C5 NO EDIT REQUIRED
+= ROADMAP UNCHANGED DURING CORR-02
+= 07 UNCHANGED DURING CORR-02
+= git diff --check PASS
 = OD-04 DECISION UNCHANGED
 = OPTION C TARGET ADOPTION PRESERVED
-= ROADMAP CURRENT TRUTH COHERENT
-= TARGET ADOPTED != PRODUCT IMPLEMENTATION INTEGRATED
-= PRE-OD04 ROADMAP CLAIMS HISTORICAL ONLY
 = MW0 REMAINS CLOSED
-= MW0 OPTION C REGRESSION/PARITY GATE RECORDED
-= NORA-EVAL KEEP / ADAPT
-= C4 UNCHANGED
-= C5 UNCHANGED (content)
-= ROADMAP CURRENT CONTRADICTION NONE
-= C5 §24 CURRENT ANTI-CLAIMS = SCOPE EXPANSION REQUIRED / NOT EDITED
+= MW0 OPTION C REGRESSION/PARITY GATE PRESERVED
 = RESPONSES COMPACTION NOT ADOPTED
 = MW1 OPTION C REQUALIFICATION REMAINS NEXT
 = MW2 NOT STARTED
 = COGNITIVE COMPLETION NOT PROVEN
 = RUNTIME V3 NON ADOPTED
-= READY FOR CHATGPT FINAL DOCUMENTARY REVIEW
+= READY FOR CHATGPT FINAL DOCUMENTARY / GIT-INTEGRATION READINESS REVIEW
 = STOP BEFORE PROJECT COMMIT
-= STOP BEFORE C5 MODIFICATION PENDING SCOPE EXPANSION GO
