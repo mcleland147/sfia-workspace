@@ -7,7 +7,7 @@
 | **Cycle** | 5 — Backlog / User Stories |
 | **Typologie** | DOC |
 | **Profil** | CRITICAL |
-| **Statut** | **Content status** = **CONTENT VALIDATED BY MORRIS** · **Repository integration** = **INTEGRATED ON MAIN** · **Post-merge** = **POST-MERGE GIT VERIFIED** · ≠ Delivery · ≠ MW0 Delivery authorized · ≠ MW0 readiness completed · ≠ architecture selected · ≠ IMPLEMENTED · ≠ Cognitive Completion PROVEN · ≠ runtime v3 ADOPTED |
+| **Statut** | **Content status** = **CONTENT VALIDATED BY MORRIS** · **Repository integration** = **INTEGRATED ON MAIN** · **Post-merge** = **POST-MERGE GIT VERIFIED** · **CURRENT DOWNSTREAM** = **MW0 CLOSED** · **MW1 Readiness PASS / VALIDATED BY MORRIS** · **OD-03 BUILD / CONSUMED** · **MW1 READY FOR DISTINCT DELIVERY GATE** · ≠ MW1 Delivery authorized · ≠ MW1 started · ≠ architecture selected · ≠ Sessions/Agents SDK/new persistence selected · ≠ IMPLEMENTED · ≠ Cognitive Completion PROVEN · ≠ runtime v3 ADOPTED |
 | **Timestamp (Europe/Paris)** | 2026-08-29 20:45:00 CEST |
 | **Generation worktree (provenance)** | `/Users/morris/Projects/sfia-workspace-nora-c5-type14-post-merge-truth-sync` · provenance only · ≠ repository lifecycle state |
 | **Generation branch (provenance)** | `docs/sfia-studio-nora-c5-type14-post-merge-truth-sync` · provenance only · ≠ repository lifecycle state |
@@ -21,13 +21,16 @@
 | **GO Morris C5 Type14 post-merge truth-sync** | **CONSUMED** — `GO MORRIS — NORA C5 TYPE14 POST-MERGE TRUTH-SYNC — PR #439 MERGED — MERGE 70143b6d312bfa7511c71898daf7ac11a21bf74a — HEAD dba0d0a7fd0a17c538f98fc1a91d6b4d86a77bec — HEAD→MERGE TREE PARITY b51cb83cd1d69d100960cae723cb32bf2dadf5f3 PROVEN — POST-MERGE CI 33265306670 SUCCESS — REQUIRED GATE PASS — SOURCE BRANCH PRESERVED — SET C5 CONTENT VALIDATED / INTEGRATED ON MAIN / POST-MERGE VERIFIED — ALIGN ROADMAP + C5 NEXT GATE TO MW0 READINESS QUALIFICATION — KEEP NORA-FIRST — REAL-B DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED — OD-07 CONSUMED — OD-02/03/04/05/06/08 OPEN — NO BACKLOG CHANGE — NO ARCHITECTURE SELECTION — NO TECHNOLOGY ADOPTION — NO MW0 DELIVERY — NO BRANCH DELETE` · Type14 construction/content truth-sync GO · ≠ MW0 readiness execution · ≠ MW0 Delivery · ≠ backlog change · ≠ branch delete |
 | **GO Morris C5 Type14 content validation** | **CONSUMED** — `GO MORRIS — VALIDATE NORA C5 TYPE14 POST-MERGE TRUTH-SYNC CONTENT — REVIEW PASS — PR #439 MERGED / MAIN 70143b6d312bfa7511c71898daf7ac11a21bf74a / HEAD→MERGE TREE PARITY PROVEN / POST-MERGE CI 33265306670 SUCCESS / REQUIRED GATE PASS — C5 CONTENT VALIDATED / INTEGRATED ON MAIN / POST-MERGE VERIFIED — ROADMAP NEXT GATE = MW0 READINESS QUALIFICATION — BACKLOG UNCHANGED NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 EPICS · 23 STORIES · 18/5/0 — NORA-FIRST PRESERVED — REAL-B DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED — OD-07 CONSUMED — OD-02/03/04/05/06/08 OPEN — NO ARCHITECTURE SELECTION — NO TECHNOLOGY ADOPTION — MW0 READINESS NOT EXECUTED — NO MW0 DELIVERY — RUNTIME V3 NON ADOPTED — NO PROJECT GIT INTEGRATION` · Type14 content validation only · ≠ project Git integration · ≠ MW0 Delivery · ≠ merge |
 | **GO Morris C5 Type14 Git integration** | **CONSUMED** — `GO MORRIS — NORA C5 TYPE14 POST-MERGE TRUTH-SYNC — GIT INTEGRATION — CONTENT VALIDATED — EXACT SCOPE C5 + CONVERGENCE ROADMAP — COMMIT + PUSH + DRAFT PR + CI + REVIEW HANDOFF — BASE MAIN 70143b6d312bfa7511c71898daf7ac11a21bf74a — C5 CONTENT VALIDATED / INTEGRATED ON MAIN / POST-MERGE VERIFIED — ROADMAP NEXT GATE = MW0 READINESS QUALIFICATION — BACKLOG UNCHANGED NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 EPICS · 23 STORIES · DAG ACYCLIC · 18/5/0 — NORA-FIRST PRESERVED — REAL-B DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED — OD-07 CONSUMED — OD-02/03/04/05/06/08 OPEN — NO ARCHITECTURE SELECTION — NO TECHNOLOGY ADOPTION — MW0 READINESS NOT EXECUTED — NO MW0 DELIVERY — RUNTIME V3 NON ADOPTED — NO MERGE — NO BRANCH DELETE` · Type14 Git publication authorization · ≠ merge · ≠ Ready-for-review · ≠ MW0 readiness · ≠ MW0 Delivery · ≠ branch delete |
+| **GO Morris CORR-01 C5 downstream truth sync (MW1 readiness / OD-03)** | **CONSUMED** — `GO MORRIS — CORR-01 C5 DOWNSTREAM TRUTH SYNC — ALIGN ACTIVE/CURRENT C5 DOWNSTREAM STATE WITH MW1 READINESS PASS AND OD-03 BUILD/CONSUMED — PRESERVE HISTORICAL C5 DECISIONS WHERE OD-03 WAS OPEN — NO SUBSTANTIVE BACKLOG CHANGE — MW1 DELIVERY REMAINS NOT AUTHORIZED / NOT STARTED — ADAPT-FIRST — NO FA REQUIRED — NO TA CURRENTLY REQUIRED — TA TRIGGER CANDIDATE PRESERVED — NO ARCHITECTURE SELECTION — NO TECHNOLOGY ADOPTION — SESSIONS / AGENTS SDK / NEW PERSISTENCE NOT SELECTED — REAL-B DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — NEXT STRUCTURAL GATE = DISTINCT MORRIS GO MW1 DELIVERY — NO COMMIT / PUSH / PR / MERGE / BRANCH DELETE` · documentary CURRENT downstream coherence only · ≠ substantive backlog change · ≠ MW1 Delivery · ≠ MW1 started · ≠ architecture · ≠ technology adoption |
+| **Timestamp maintenance NORA-C5-MW1-READINESS-OD03-DOWNSTREAM-TRUTH-CORR-01** | 2026-08-30 11:57:20 CEST — **NORA C5 MW1 READINESS / OD-03 DOWNSTREAM TRUTH CORR-01** · Morris CORR-01 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR/CE/NCC-BAR / MW0→MW6 / 10 epics / 23 stories / DAG / 18/5/0 **UNCHANGED** · **MW0 = CLOSED / INTEGRATED / POST-MERGE VERIFIED** · **MW0 EXIT = PROVEN WITH NON-BLOCKING RESERVES** · **MW1 Readiness = PASS / VALIDATED BY MORRIS** · **OD-03 = BUILD / CONSUMED** · **MW1 = READY FOR DISTINCT DELIVERY GATE** · **MW1 Delivery = NOT AUTHORIZED** · **MW1 = NOT STARTED** · **ADAPT-FIRST** · **NO FA REQUIRED** · **NO TA CURRENTLY REQUIRED** · **TA TRIGGER CANDIDATE PRESERVED** · Architecture **NOT SELECTED** · Technology **NOT ADOPTED** · Sessions / Agents SDK / new persistence **NOT SELECTED / NOT ADOPTED** · **REAL-B = QUALIFIED CANDIDATE / DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **next structural gate = DISTINCT MORRIS GO — MW1 DELIVERY** · **next capability after MW1 = MW2 — COGNITIVE WORKLOAD PROFILE** · historical C5 GOs / Type14 records **PRESERVED** · **≠** MW1 Delivery authorized · **≠** MW1 started · **≠** Sessions/Agents SDK/persistence selected · **≠** TA REQUIRED · **≠** architecture selected · **≠** REAL-B AUTHORIZED · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED |
 | **ACTIVE CONSTRUCTION PRIORITY** | **NORA COGNITIVE COMPLETION** |
 | **C5 lifecycle state** | **CONTENT VALIDATED BY MORRIS** / **INTEGRATED ON MAIN** / **POST-MERGE GIT VERIFIED** |
 | **TYPE14 content status** | **VALIDATED BY MORRIS** · Type14 repository publication / integration = **RESOLVE FROM GIT / PR EVIDENCE** · ≠ Type14 maintenance claimed INTEGRATED ON MAIN by this record alone · ≠ MW0 Delivery |
-| **NEXT NORA GATE** | **MW0 — VERSIONED COGNITIVE EVAL HARNESS — READINESS QUALIFICATION** · readiness **NOT YET EXECUTED** · MW0 implementation **NOT STARTED** · MW0 Delivery **NOT AUTHORIZED** |
+| **NEXT NORA GATE / CURRENT STRUCTURAL GATE** | **DISTINCT MORRIS GO — MW1 DELIVERY** · **MW1 Readiness = PASS / VALIDATED BY MORRIS** · **OD-03 = BUILD / CONSUMED** · **MW1 = READY FOR DISTINCT DELIVERY GATE** · **MW1 Delivery = NOT AUTHORIZED** · **MW1 = NOT STARTED** · **historical C5 closure next gate** = MW0 READINESS QUALIFICATION *(then-current · superseded for forward path)* · **MW0 = CLOSED / INTEGRATED / POST-MERGE VERIFIED** |
 | **REAL-B** | **PRESERVED QUALIFIED CANDIDATE / DEFERRED / NOT AUTHORIZED / NOT STARTED** · DEFERRED ≠ CLOSED ≠ CANCELLED ≠ FAILED ≠ SUPERSEDED FUNCTIONALLY |
 | **OD-07** | **CONSUMED** — NORA-FIRST sequencing · REAL-B deferred/preserved |
-| **OD-02 / 03 / 04 / 05 / 06 / 08** | **OPEN** |
+| **OD-03** | **BUILD / CONSUMED** · Memory B build decision consumed · mechanism/technology **NOT SELECTED** · Sessions / Agents SDK / new persistence **NOT SELECTED / NOT ADOPTED** · TA TRIGGER CANDIDATE **PRESERVED** · Targeted TA only if structural trigger later materializes · Delivery GO remains **distinct** |
+| **OD-02 / 04 / 05 / 06 / 08** | **OPEN** |
 | **Architecture** | **NOT SELECTED** |
 | **Delivery** | **NOT AUTHORIZED** |
 | **Cognitive Completion** | **NOT PROVEN** |
@@ -37,7 +40,7 @@
 | **MANDATORY TA DELTA** | **NOT CURRENTLY DEMONSTRATED** (C4) · Targeted TA only if structural primitive need demonstrated |
 | **C5 maturity** | **DOCUMENTED BACKLOG ONLY** · ≠ IMPLEMENTED · ≠ PROVEN · ≠ DELIVERY READY globally |
 
-> **Anti-claims :** C5 INTEGRATED ON MAIN ≠ MW0 readiness completed · C5 POST-MERGE VERIFIED ≠ MW0 Delivery authorized · C5 POST-MERGE VERIFIED ≠ Cognitive Completion PROVEN · C5 POST-MERGE VERIFIED ≠ architecture selected · C5 POST-MERGE VERIFIED ≠ technology adopted · C5 POST-MERGE VERIFIED ≠ runtime v3 ADOPTED · Nora-first ≠ REAL-B completed/cancelled/failed · Nora-first ≠ Delivery Nora authorized · Nora-first ≠ Agents SDK / Sessions / Hosted Search selected · OD-07 consumed ≠ OD-02/03/04/05/06/08 consumed · Source-lock ≠ technology selection · Recommendation ≠ HumanDecision · Autonomie cognitive ≠ autonomie d'autorité · NO MORRIS RUNTIME PERSONA · NO PARALLEL EXPERIENCE ARCHITECTURE · C6 CLOSED / DO NOT REOPEN · Product Completion CLOSED · FinOps/T7 FREEZE.
+> **Anti-claims (CURRENT downstream) :** C5 INTEGRATED ON MAIN ≠ MW1 Delivery authorized · C5 POST-MERGE VERIFIED ≠ MW1 started · **MW1 Readiness PASS ≠ MW1 Delivery GO** · **OD-03 BUILD / CONSUMED ≠ Sessions selected ≠ Agents SDK selected ≠ persistence selected ≠ architecture selected** · C5 POST-MERGE VERIFIED ≠ Cognitive Completion PROVEN · C5 POST-MERGE VERIFIED ≠ technology adopted · C5 POST-MERGE VERIFIED ≠ runtime v3 ADOPTED · Nora-first ≠ REAL-B completed/cancelled/failed · Nora-first ≠ Delivery Nora/MW1 authorized · Nora-first ≠ Agents SDK / Sessions / Hosted Search selected · OD-07 consumed ≠ OD-02/04/05/06/08 consumed · OD-03 BUILD ≠ technology adoption · Source-lock ≠ technology selection · Recommendation ≠ HumanDecision · Autonomie cognitive ≠ autonomie d'autorité · NO MORRIS RUNTIME PERSONA · NO PARALLEL EXPERIENCE ARCHITECTURE · C6 CLOSED / DO NOT REOPEN · Product Completion CLOSED · FinOps/T7 FREEZE · **historical Type14 anti-claims about MW0 readiness incomplete remain historical evidence only**.
 
 ---
 
@@ -87,7 +90,8 @@ C2 OD register = **historical** at C2. This C5 OD register = **current downstrea
 | Nora C5 | **CONTENT VALIDATED BY MORRIS / INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
 | NCC-R08 | CLOSED BY EVIDENCE |
 | Active construction priority | **NORA COGNITIVE COMPLETION** |
-| Next Nora gate | **MW0 READINESS QUALIFICATION** · NOT YET EXECUTED · Delivery **NOT AUTHORIZED** |
+| Historical C5 next gate (at Type14 closure) | **MW0 READINESS QUALIFICATION** *(then-current · superseded for forward path)* |
+| Current downstream / structural gate | **DISTINCT MORRIS GO — MW1 DELIVERY** · **MW1 Readiness = PASS / VALIDATED BY MORRIS** · **OD-03 = BUILD / CONSUMED** · **MW1 = READY FOR DISTINCT DELIVERY GATE** · MW1 Delivery **NOT AUTHORIZED** · MW1 **NOT STARTED** · MW0 **CLOSED / INTEGRATED / POST-MERGE VERIFIED** |
 | REAL-B | QUALIFIED CANDIDATE / **DEFERRED** / NOT AUTHORIZED / NOT STARTED |
 | Global sequencing doctrine | **NORA-FIRST** (OD-07 CONSUMED) |
 | Delivery | NOT AUTHORIZED |
@@ -1004,7 +1008,7 @@ Appear **only** as options to evaluate **if** a TA trigger materializes. **None 
 | OD | Topic | C5 current state | Notes |
 | --- | --- | --- | --- |
 | OD-02 | Nora strategy / SFIA envelope | **OPEN** | Informed by MW2; not consumed |
-| OD-03 | Memory B build/mechanism | **OPEN** | MW1 TA trigger candidate |
+| OD-03 | Memory B build/mechanism | **BUILD / CONSUMED** | MW1 BUILD decision **CONSUMED** · mechanism/technology **NOT SELECTED** · Sessions / Agents SDK / new persistence **NOT SELECTED / NOT ADOPTED** · TA TRIGGER CANDIDATE **PRESERVED** · Targeted TA only if structural trigger later materializes · MW1 Delivery GO remains **distinct** / **NOT AUTHORIZED** / **NOT STARTED** |
 | OD-04 | Agents runner vs custom loop | **OPEN** | REPLACE not demonstrated |
 | OD-05 | External/Hosted Search technology | **OPEN** | MW6 TA trigger candidate |
 | OD-06 | Voice/Realtime | **OPEN / DEFER FUTURE** | Out of C5 waves |
@@ -1046,7 +1050,7 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
 | Debt ID | Description | Introduced by | Exit |
 | --- | --- | --- | --- |
 | D-C5-01 | Harness may overfit fixtures | MW0 | Scenario governance + LIVE/REAL gates later |
-| D-C5-02 | Memory B mechanism undecided | MW1 / OD-03 OPEN | OD-03 + ADAPT proof or Targeted TA + Morris |
+| D-C5-02 | Memory B mechanism undecided | MW1 / OD-03 **BUILD / CONSUMED** · mechanism **NOT SELECTED** | ADAPT-FIRST proof or Targeted TA + Morris if structural trigger materializes · ≠ Delivery authorized by OD-03 alone |
 | D-C5-03 | CWP policy incomplete without OD-02 | MW2 | OD-02 Morris decision |
 | D-C5-04 | RA-06/RA-07 parity gaps carry | MW4 | Non-blocking until wave readiness says otherwise |
 | D-C5-05 | External source tech undecided | MW6 / OD-05 OPEN | OD-05 + TA if primitive needed |
@@ -1063,9 +1067,14 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
 | C5 repository integration | **CONSUMED / INTEGRATED ON MAIN** |
 | C5 post-merge verification | **CONSUMED / PASS** |
 | Post-merge evidence | PR **#439 MERGED** · merge `70143b6d312bfa7511c71898daf7ac11a21bf74a` · head `dba0d0a7fd0a17c538f98fc1a91d6b4d86a77bec` · tree `b51cb83cd1d69d100960cae723cb32bf2dadf5f3` · HEAD→MERGE parity **PROVEN** · CI **`33265306670` SUCCESS** · Required Gate **PASS** · source branch **PRESERVED** |
-| Next gate | **MW0 READINESS QUALIFICATION** |
-| MW0 readiness | **NOT YET EXECUTED** |
-| MW0 Delivery | **NOT AUTHORIZED** |
+| Historical next gate (C5 Type14 closure) | **MW0 READINESS QUALIFICATION** *(then-current)* |
+| Historical MW0 readiness (C5 Type14 closure) | **NOT YET EXECUTED** *(then-current)* |
+| Historical MW0 Delivery (C5 Type14 closure) | **NOT AUTHORIZED** *(then-current; later MW0 Delivery INTEGRATED — see CURRENT row)* |
+| **CURRENT downstream structural gate** | **DISTINCT MORRIS GO — MW1 DELIVERY** |
+| **CURRENT MW0** | **CLOSED / INTEGRATED / POST-MERGE VERIFIED** · EXIT **PROVEN WITH NON-BLOCKING RESERVES** |
+| **CURRENT MW1 Readiness** | **PASS / VALIDATED BY MORRIS** |
+| **CURRENT OD-03** | **BUILD / CONSUMED** |
+| **CURRENT MW1** | **READY FOR DISTINCT DELIVERY GATE** · **NOT STARTED** · Delivery **NOT AUTHORIZED** |
 | Macro-wave readiness cycles | NOT STARTED |
 | Targeted TA (if required) | NOT STARTED · conditional |
 | Morris architecture decision | NOT STARTED · conditional |
@@ -1083,7 +1092,9 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
 | Roadmap Nora-first sequencing aligned | **YES** (this cycle) |
 | REAL-B preserved/deferred explicit | **YES** |
 | OD-07 consumed | **YES** |
-| OD-02/03/04/05/06/08 remain OPEN | **YES** |
+| OD-02/03/04/05/06/08 remain OPEN | **YES** *(C5-at-exit / Type14 historical checklist — OD-03 was OPEN at that timestamp)* |
+| **CURRENT DOWNSTREAM — OD-03 BUILD / CONSUMED** | **YES** *(supersedes OPEN for OD-03 only · mechanism/technology still NOT SELECTED)* |
+| **CURRENT DOWNSTREAM — OD-02/04/05/06/08 remain OPEN** | **YES** |
 | NR 26/26 mapped | **YES** |
 | CE 8/8 mapped | **YES** |
 | NCC-BAR 14/14 mapped | **YES** |
@@ -1101,7 +1112,9 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
 | No Delivery authorized | **YES** |
 | No runtime mutation | **YES** |
 | Debt/exit explicit | **YES** |
-| Next wave candidate identified | **MW0** |
+| Next wave candidate identified (C5-at-exit historical) | **MW0** *(then-current)* |
+| **CURRENT next structural gate** | **DISTINCT MORRIS GO — MW1 DELIVERY** |
+| **CURRENT next capability after MW1** | **MW2 — Cognitive Workload Profile / Strategy** |
 | C5 content integrated on main | **YES** (PR **#439**) |
 | Head→merge tree parity | **YES** (`b51cb83c…` PROVEN · 0-file content delta) |
 | Post-merge CI | **PASS** (`33265306670`) |
@@ -1110,20 +1123,22 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
 | Substantive backlog unchanged by Type14 | **YES** |
 | Review Pack FULL + Handoff | **PUBLISHED IN INTEGRATION / CORR / Type14 CYCLES** |
 
-**C5 status:** **CONTENT VALIDATED BY MORRIS / INTEGRATED ON MAIN / POST-MERGE GIT VERIFIED** · next gate = **MW0 READINESS QUALIFICATION** · ≠ MW0 readiness PASS · ≠ MW0 Delivery · ≠ Cognitive Completion PROVEN · ≠ architecture selected · ≠ technology adopted.
+**C5 status:** **CONTENT VALIDATED BY MORRIS / INTEGRATED ON MAIN / POST-MERGE GIT VERIFIED** · **historical C5 next gate at closure** = **MW0 READINESS QUALIFICATION** · **CURRENT downstream** = **MW0 CLOSED** · **MW1 Readiness PASS / VALIDATED BY MORRIS** · **OD-03 BUILD / CONSUMED** · **MW1 READY FOR DISTINCT DELIVERY GATE** · next structural gate = **DISTINCT MORRIS GO — MW1 DELIVERY** · ≠ MW1 Delivery authorized · ≠ MW1 started · ≠ Sessions/Agents SDK/persistence selected · ≠ Cognitive Completion PROVEN · ≠ architecture selected · ≠ technology adopted · ≠ runtime v3 ADOPTED.
 
 ---
 
 ## 24. Anti-claims
 
 - **C5 CONTENT VALIDATED BY MORRIS** ≠ Delivery authorized
-- **C5 INTEGRATED ON MAIN** ≠ MW0 readiness completed
+- **C5 INTEGRATED ON MAIN** ≠ MW1 Delivery authorized
+- **historical Type14:** C5 INTEGRATED ON MAIN ≠ MW0 readiness completed *(then-current anti-claim · MW0 later CLOSED)*
 - **C5 POST-MERGE VERIFIED** ≠ MW0 Delivery authorized
 - **C5 POST-MERGE VERIFIED** ≠ Cognitive Completion PROVEN
 - **C5 POST-MERGE VERIFIED** ≠ architecture selected
 - **C5 POST-MERGE VERIFIED** ≠ technology adopted
 - **C5 POST-MERGE VERIFIED** ≠ runtime v3 ADOPTED
-- **C5 CONTENT VALIDATED BY MORRIS** ≠ MW0 authorized
+- **C5 CONTENT VALIDATED BY MORRIS** ≠ MW1 Delivery authorized
+- **historical Type14:** C5 CONTENT VALIDATED BY MORRIS ≠ MW0 authorized *(then-current)*
 - **C5 CONTENT VALIDATED BY MORRIS** ≠ architecture selected
 - **C5 CONTENT VALIDATED BY MORRIS** ≠ technology adopted
 - **C5 CONTENT VALIDATED BY MORRIS** ≠ Cognitive Completion PROVEN
@@ -1135,6 +1150,8 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
 - Nora-first ≠ Agents SDK / Sessions / Hosted Search selected
 - Nora-first ≠ runtime v3 ADOPTED
 - OD-07 consumed ≠ other ODs consumed
+- **OD-03 BUILD / CONSUMED** ≠ Sessions selected ≠ Agents SDK selected ≠ persistence selected ≠ architecture selected ≠ technology adopted
+- **MW1 Readiness PASS / VALIDATED BY MORRIS** ≠ MW1 Delivery authorized ≠ MW1 started ≠ Memory B/compaction implemented
 - TA TRIGGER CANDIDATE ≠ TA REQUIRED automatically
 - Technology candidate ≠ selected
 - Recommendation ≠ HumanDecision
@@ -1152,20 +1169,28 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
 
 **Consumed / historical path (no longer forward):** C5 content validation → repository integration review → Morris merge → post-merge verification — **CONSUMED** (PR **#439**).
 
-**Current forward trajectory (≠ MW0 Delivery authorization by this record):**
+**Historical forward trajectory at Type14 C5 closure (then-current · preserved):**
 
-1. **MW0 READINESS QUALIFICATION** (next Nora gate · **NOT YET EXECUTED** in Type14)
-2. If readiness reveals no structural blocker and PASS → **distinct Morris MW0 Delivery GO**
+1. **MW0 READINESS QUALIFICATION** (then next Nora gate · **NOT YET EXECUTED** in Type14)
+2. If readiness PASS → **distinct Morris MW0 Delivery GO**
 3. If Delivery GO → MW0 Delivery / proof
 4. Then requalification of the next macro-wave
 
-If MW0 readiness identifies a structural technical primitive need: do **not** auto-open TA; classify and return to Morris/ChatGPT trajectory qualification.
+**CURRENT downstream forward trajectory (≠ MW1 Delivery authorization by this record):**
 
-**Conceptual path:** C5 CONTENT VALIDATED / INTEGRATED / POST-MERGE VERIFIED → MW0 READINESS QUALIFICATION → (if PASS) distinct Morris MW0 Delivery GO → MW0 Delivery / proof → next macro-wave requalification.
+1. **MW0 = CLOSED / INTEGRATED / POST-MERGE VERIFIED** · EXIT **PROVEN WITH NON-BLOCKING RESERVES**
+2. **MW1 Readiness = PASS / VALIDATED BY MORRIS** · **OD-03 = BUILD / CONSUMED**
+3. **MW1 = READY FOR DISTINCT DELIVERY GATE** · Delivery **NOT AUTHORIZED** · **NOT STARTED**
+4. **Next structural gate = DISTINCT MORRIS GO — MW1 DELIVERY**
+5. After successful MW1 → **MW2 — Cognitive Workload Profile / Strategy**
+
+If MW1 Delivery reveals a structural technical primitive need: do **not** auto-open TA; classify and return to Morris/ChatGPT trajectory qualification. **TA TRIGGER CANDIDATE** remains **PRESERVED** · **≠ TA REQUIRED**.
+
+**Conceptual path (CURRENT):** C5 CONTENT VALIDATED / INTEGRATED / POST-MERGE VERIFIED → MW0 CLOSED → MW1 Readiness PASS → OD-03 BUILD / CONSUMED → **distinct Morris MW1 Delivery GO** *(pending)* → (if authorized) MW1 Delivery / proof → MW2 CWP.
 
 REAL-B remains **deferred qualified candidate** until a future distinct Morris sequencing/execution decision.
-Delivery / architecture / technology adoption remain **NOT AUTHORIZED** by C5.
-MW0 readiness next ≠ MW0 Delivery authorized ≠ MW0 implementation started.
+Architecture / technology / Sessions / Agents SDK / new persistence remain **NOT SELECTED / NOT ADOPTED**.
+MW1 Readiness PASS ≠ MW1 Delivery authorized ≠ MW1 started ≠ Memory B/compaction implemented.
 
 ---
 
@@ -1187,4 +1212,4 @@ MW0 readiness next ≠ MW0 Delivery authorized ≠ MW0 implementation started.
 
 ---
 
-*Fin du C5 — SOURCE-LOCKED COGNITIVE BACKLOG — CONTENT VALIDATED BY MORRIS / INTEGRATED ON MAIN / POST-MERGE GIT VERIFIED — PR #439 — NEXT GATE MW0 READINESS QUALIFICATION — NORA-FIRST SEQUENCING — REAL-B DEFERRED/PRESERVED — OD-07 CONSUMED — OD-02/03/04/05/06/08 OPEN — NO ARCHITECTURE SELECTED — NO TECHNOLOGY ADOPTION — NO MW0 DELIVERY — NCC-R08 CLOSED BY EVIDENCE — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — NO MORRIS RUNTIME PERSONA.*
+*Fin du C5 — SOURCE-LOCKED COGNITIVE BACKLOG — CONTENT VALIDATED BY MORRIS / INTEGRATED ON MAIN / POST-MERGE GIT VERIFIED — PR #439 — HISTORICAL C5 CLOSURE NEXT GATE MW0 READINESS QUALIFICATION — CURRENT DOWNSTREAM: MW0 CLOSED · MW1 READINESS PASS / VALIDATED BY MORRIS · OD-03 BUILD / CONSUMED · MW1 READY FOR DISTINCT DELIVERY GATE · NEXT STRUCTURAL GATE = DISTINCT MORRIS GO — MW1 DELIVERY · MW1 DELIVERY NOT AUTHORIZED / NOT STARTED — NORA-FIRST SEQUENCING — REAL-B DEFERRED/PRESERVED — OD-07 CONSUMED — OD-02/04/05/06/08 OPEN — NO ARCHITECTURE SELECTED — NO TECHNOLOGY ADOPTION — SESSIONS / AGENTS SDK / NEW PERSISTENCE NOT SELECTED — NCC-R08 CLOSED BY EVIDENCE — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — NO MORRIS RUNTIME PERSONA — CORR-01 DOWNSTREAM TRUTH SYNC CONSUMED.*
