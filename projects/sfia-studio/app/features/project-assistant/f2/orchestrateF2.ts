@@ -5,8 +5,8 @@
 
 import { randomBytes, randomUUID } from "node:crypto";
 import {
-  getLiveConversationAvailability,
   isFakeConversationProviderForced,
+  type ConversationProvider,
 } from "@/lib/platform/ai";
 import {
   getRuntimeApplicationService,
@@ -19,6 +19,7 @@ import type {
   ProjectAssistantSendResult,
 } from "../types";
 import { orchestrateProjectAssistantTurn } from "../orchestrateTurn";
+import { resolveAssistantMode } from "../resolveAssistantMode";
 import { analyzeIntent } from "./intentAnalysis";
 import { isPureRepositoryAnalysisIntent } from "./repositoryIntent";
 import { evaluateMorrisGateRequired } from "./gatePolicy";
@@ -97,23 +98,13 @@ function snapshotFrom(project: ProjectAssistantContextDto): F2ContextSnapshot {
   };
 }
 
-function resolveMode(): {
+function resolveMode(explicitProvider?: ConversationProvider): {
   mode: "fixture" | "live" | "unavailable";
   canProceed: boolean;
   message?: string;
+  presentation: "test_provider" | "openai_live";
 } {
-  if (isFakeConversationProviderForced()) {
-    return { mode: "fixture", canProceed: true };
-  }
-  const availability = getLiveConversationAvailability();
-  if (!availability.available) {
-    return {
-      mode: "unavailable",
-      canProceed: false,
-      message: `Assistant indisponible — configuration manquante (${availability.missing.join(", ")}). Aucun basculement silencieux vers le mode démonstration.`,
-    };
-  }
-  return { mode: "live", canProceed: true };
+  return resolveAssistantMode(explicitProvider);
 }
 
 function buildProposal(input: {
@@ -242,6 +233,11 @@ export async function orchestrateAssistantSend(input: {
   projectId: string;
   content: string;
   history?: AssistantHistoryMessage[];
+  /**
+   * Optional server-side provider injection (eval / tests).
+   * Prefer per-instance OpenAIConversationProvider over process.env mutation.
+   */
+  provider?: ConversationProvider;
 }): Promise<ProjectAssistantSendResult> {
   const content = input.content.trim();
   if (!content) {
@@ -268,7 +264,7 @@ export async function orchestrateAssistantSend(input: {
   }
 
   let project = toContextDto(projectResult);
-  const modeResolution = resolveMode();
+  const modeResolution = resolveMode(input.provider);
   if (!modeResolution.canProceed) {
     return {
       ok: false,
@@ -290,6 +286,7 @@ export async function orchestrateAssistantSend(input: {
         `criticality=${project.criticality}`,
         `lps=${project.lpsId}@${project.lpsVersion}`,
       ].join(" | "),
+      provider: input.provider,
     });
   } catch (error) {
     const message =
@@ -307,7 +304,8 @@ export async function orchestrateAssistantSend(input: {
     };
   }
 
-  const { analysis, presentation, model } = analysisResult;
+  const { analysis, model } = analysisResult;
+  const presentation = modeResolution.presentation;
 
   // Repository read/search/Git-truth without mutation → F1 (no Cycle/LPS mutation).
   // Deterministic override when the classifier drifts to ambiguous/actionable for pure reads.
@@ -320,7 +318,10 @@ export async function orchestrateAssistantSend(input: {
     forceRepoInformative ||
     (analysis.intentClass === "informative" && analysis.parseOk)
   ) {
-    const f1 = await orchestrateProjectAssistantTurn(input);
+    const f1 = await orchestrateProjectAssistantTurn({
+      ...input,
+      provider: input.provider,
+    });
     if (!f1.ok) return f1;
     return {
       ...f1,
@@ -434,6 +435,7 @@ export async function orchestrateAssistantSend(input: {
           analysis.objective ??
           "Intention actionable",
         ckcPromptSection: buildCkcCognitivePromptSection(ckcContent),
+        provider: input.provider,
       });
       ckcCognitiveRecommendation = reasoning.recommendation;
     }

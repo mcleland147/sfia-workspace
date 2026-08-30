@@ -1,7 +1,7 @@
 import {
-  getLiveConversationAvailability,
   isFakeConversationProviderForced,
   resolveConversationProvider,
+  type ConversationProvider,
   type ProviderChatMessage,
 } from "@/lib/platform/ai";
 import { runToolCallingLoop } from "@/lib/platform/tools";
@@ -10,6 +10,7 @@ import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/Pro
 import { buildProjectSystemPrompt } from "./buildProjectSystemPrompt";
 import { collectToolTelemetry } from "./collectToolTelemetry";
 import { ProjectAssistantMemoryEventSink } from "./memoryEventSink";
+import { resolveAssistantMode } from "./resolveAssistantMode";
 import type {
   AssistantHistoryMessage,
   ProjectAssistantContextDto,
@@ -47,25 +48,6 @@ function toContextDto(
   };
 }
 
-function resolveMode(): {
-  mode: "fixture" | "live" | "unavailable";
-  canProceed: boolean;
-  message?: string;
-} {
-  if (isFakeConversationProviderForced()) {
-    return { mode: "fixture", canProceed: true };
-  }
-  const availability = getLiveConversationAvailability();
-  if (!availability.available) {
-    return {
-      mode: "unavailable",
-      canProceed: false,
-      message: `Assistant indisponible — configuration manquante (${availability.missing.join(", ")}). Aucun basculement silencieux vers le mode démonstration.`,
-    };
-  }
-  return { mode: "live", canProceed: true };
-}
-
 /**
  * Thin F1 orchestration — platform AI + tool loop only (no OPS1 session).
  */
@@ -73,6 +55,11 @@ export async function orchestrateProjectAssistantTurn(input: {
   projectId: string;
   content: string;
   history?: AssistantHistoryMessage[];
+  /**
+   * Optional server-side provider injection (eval / tests).
+   * Prefer per-instance OpenAIConversationProvider over process.env mutation.
+   */
+  provider?: ConversationProvider;
 }): Promise<ProjectAssistantSendResult> {
   const content = input.content.trim();
   if (!content) {
@@ -99,7 +86,7 @@ export async function orchestrateProjectAssistantTurn(input: {
   }
 
   const project = toContextDto(projectResult);
-  const modeResolution = resolveMode();
+  const modeResolution = resolveAssistantMode(input.provider);
   if (!modeResolution.canProceed) {
     return {
       ok: false,
@@ -128,11 +115,8 @@ export async function orchestrateProjectAssistantTurn(input: {
 
   const sink = new ProjectAssistantMemoryEventSink();
   const workspaceRoot = resolveWorkspaceRootFromAppCwd();
-  const provider = resolveConversationProvider();
-  const presentation =
-    isFakeConversationProviderForced() || provider.providerId === "fake-test"
-      ? "test_provider"
-      : "openai_live";
+  const provider = input.provider ?? resolveConversationProvider();
+  const presentation = modeResolution.presentation;
 
   try {
     const loop = await runToolCallingLoop({
