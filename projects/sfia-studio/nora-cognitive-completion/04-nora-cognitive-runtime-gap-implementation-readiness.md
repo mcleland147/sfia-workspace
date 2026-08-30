@@ -614,3 +614,15 @@ Underlying truth:
 ---
 
 *Fin du C4-POST-MERGE — CONTENT VALIDATED BY MORRIS — INTEGRATED ON MAIN — POST-MERGE VERIFIED — PR #437 MERGED / POST-MERGE VERIFIED — NCC-R08 CLOSED BY EVIDENCE — TYPE14 DOCUMENTARY RECORD — REPOSITORY PUBLICATION / INTEGRATION STATE RESOLVED FROM GIT / PR EVIDENCE — SOURCE-LOCKED COGNITIVE BACKLOG RECOMMENDED — NEXT CAPABILITY NOT AUTHORIZED — GLOBAL NEXT REAL-B UNCHANGED — NO MANDATORY TA CURRENTLY DEMONSTRATED — NO ARCHITECTURE SELECTED — NO DELIVERY — NO REAL — NO RUNTIME V3 ADOPTION — OD-02…08 OPEN — NO MORRIS RUNTIME PERSONA.*
+
+---
+
+## DOWNSTREAM SUPERSESSION NOTE (OD-04 — not a C4 rewrite)
+
+**HISTORICAL (C4 exit — KEEP):** Architecture = **NOT SELECTED** was correct **at C4**.
+
+**CURRENT DOWNSTREAM (after C5 + MW0/MW1 readiness + OpenAI evaluation + targeted A/B proof):** Morris **OD-04 CONSUMED** · **OPTION C — HYBRID OPENAI COGNITIVE RUNTIME = ADOPTED AS NORA TARGET ARCHITECTURE**.
+
+Canonical decision record: `07-nora-openai-cognitive-runtime-architecture-decision.md`.
+
+This note does **not** rewrite C4 analysis, coverage matrices, or then-current FA/TA conclusions. It only prevents an active contradiction between historical C4 “NOT SELECTED” and current OD-04 target adoption.
