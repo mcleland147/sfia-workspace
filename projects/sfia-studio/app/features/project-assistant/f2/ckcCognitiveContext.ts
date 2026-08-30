@@ -10,8 +10,8 @@
 
 import { createHash } from "node:crypto";
 import {
-  isFakeConversationProviderForced,
   resolveConversationProvider,
+  type ConversationProvider,
 } from "@/lib/platform/ai";
 import type { CkcQualificationSuccessResult } from "@/lib/oa/cycle";
 import type { DoctrinePackagePin } from "@/lib/oa/doctrine";
@@ -290,17 +290,17 @@ export async function reasonWithResolvedCkcContext(input: {
   projectSummary: string;
   intentSummary: string;
   ckcPromptSection: string | null;
+  /** Optional server-side provider injection (eval / tests). */
+  provider?: ConversationProvider;
 }): Promise<{
   recommendation: string;
   presentation: "test_provider" | "openai_live";
   model: string | null;
   rawText: string;
 }> {
-  const provider = resolveConversationProvider();
+  const provider = input.provider ?? resolveConversationProvider();
   const presentation =
-    isFakeConversationProviderForced() || provider.providerId === "fake-test"
-      ? "test_provider"
-      : "openai_live";
+    provider.providerId === "fake-test" ? "test_provider" : "openai_live";
 
   const systemContent = input.ckcPromptSection?.trim()
     ? `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nContexte CKC résolu (guidance seulement — pas d'autorité, pas de décision humaine):\n${input.ckcPromptSection.trim()}`

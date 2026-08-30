@@ -4,9 +4,9 @@
  */
 
 import {
-  isFakeConversationProviderForced,
   resolveConversationProvider,
   TechnicalError,
+  type ConversationProvider,
   type ProviderChatMessage,
 } from "@/lib/platform/ai";
 import { ADOPTED_CYCLE_TYPE_IDS, isKnownCycleTypeId } from "@/lib/oa/cycle";
@@ -251,17 +251,21 @@ export async function analyzeIntent(input: {
   projectSummary: string;
   /** Optional resolved CKC excerpt for future intent analysis enrichment. */
   ckcContext?: string | null;
+  /**
+   * Optional server-side provider injection (eval / tests).
+   * Never client-authoritative for model/reasoning selection.
+   */
+  provider?: ConversationProvider;
 }): Promise<{
   analysis: IntentAnalysisDto;
   presentation: "test_provider" | "openai_live";
   model: string | null;
   rawText: string;
 }> {
-  const provider = resolveConversationProvider();
+  const provider = input.provider ?? resolveConversationProvider();
+  // Presentation follows the provider instance actually used (explicit injection wins).
   const presentation =
-    isFakeConversationProviderForced() || provider.providerId === "fake-test"
-      ? "test_provider"
-      : "openai_live";
+    provider.providerId === "fake-test" ? "test_provider" : "openai_live";
 
   const messages: ProviderChatMessage[] = [
     { role: "system", content: buildAnalysisSystem(input.ckcContext) },
