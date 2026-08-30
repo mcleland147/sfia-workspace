@@ -110,6 +110,10 @@ export type ProjectAssistantSendSuccess = {
   toolEvents: AssistantToolEventDto[];
   project: ProjectAssistantContextDto;
   ephemeralNotice: string;
+  /** OD-04 Option C: always Agents Runner after Nora legacy retirement. */
+  cognitiveRuntime?: "agents";
+  /** Product SQLite Session id (Option C F1). */
+  sessionId?: string | null;
   f2?: F2TurnPayload;
 };
 

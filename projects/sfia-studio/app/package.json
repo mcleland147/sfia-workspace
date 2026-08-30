@@ -18,12 +18,14 @@
     "finops:t7:rollout": "tsx scripts/finops-t7-shadow-rollout.ts"
   },
   "dependencies": {
+    "@openai/agents": "^0.17.0",
     "ajv": "^6.15.0",
     "next": "^15.3.3",
     "openai": "^6.48.0",
     "pg": "~8.22.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "zod": "^4.5.4"
   },
   "devDependencies": {
     "@playwright/test": "^1.52.0",

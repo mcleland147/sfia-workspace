@@ -17,3 +17,7 @@ export {
   runR1ProviderSmoke,
   runR2ProductScenario,
 } from "./productPath";
+export {
+  optionCRuntimeObservables,
+  type NoraCognitiveRuntimeObservable,
+} from "./optionCObservables";

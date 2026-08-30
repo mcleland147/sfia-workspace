@@ -1,3 +1,6 @@
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   FakeConversationProvider,
@@ -70,12 +73,16 @@ const SUCCESS = {
 
 describe("F1 project assistant orchestration", () => {
   const previousFake = process.env.OPS1_CONVERSATION_PROVIDER;
+  let sessionDir: string;
+  let sessionDbPath: string;
 
   beforeEach(() => {
     process.env.OPS1_CONVERSATION_PROVIDER = "fake";
     getProjectRuntimeActionMock.mockReset();
     getProjectRuntimeActionMock.mockResolvedValue(SUCCESS);
     setConversationProviderForTests(null);
+    sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-f1-orch-"));
+    sessionDbPath = path.join(sessionDir, "session.sqlite");
   });
 
   afterEach(() => {
@@ -85,12 +92,14 @@ describe("F1 project assistant orchestration", () => {
     } else {
       process.env.OPS1_CONVERSATION_PROVIDER = previousFake;
     }
+    fs.rmSync(sessionDir, { recursive: true, force: true });
   });
 
   it("injects project context and returns a fake non-live reply", async () => {
     const result = await orchestrateProjectAssistantTurn({
       projectId: "prj:f1-demo",
       content: "Résume l'objectif du projet.",
+      sessionDbPath,
     });
 
     expect(result.ok).toBe(true);
@@ -100,21 +109,26 @@ describe("F1 project assistant orchestration", () => {
     expect(result.text).toMatch(/TEST\/FAKE · NON LIVE/);
     expect(result.project.projectId).toBe("prj:f1-demo");
     expect(result.project.objective).toContain("assistant contextualisé");
-    expect(result.ephemeralNotice).toMatch(/éphémère/i);
+    expect(result.ephemeralNotice).toMatch(/Session|Product SQLite/i);
+    expect(result.cognitiveRuntime).toBe("agents");
+    expect(result.sessionId).toBeTruthy();
     expect(getProjectRuntimeActionMock).toHaveBeenCalledWith("prj:f1-demo");
   });
 
-  it("supports multi-turn history", async () => {
+  it("supports multi-turn via Product SQLite Session (caller history not required)", async () => {
     const first = await orchestrateProjectAssistantTurn({
       projectId: "prj:f1-demo",
       content: "Premier tour",
+      sessionDbPath,
     });
     expect(first.ok).toBe(true);
     if (!first.ok) return;
+    expect(first.cognitiveRuntime).toBe("agents");
 
     const second = await orchestrateProjectAssistantTurn({
       projectId: "prj:f1-demo",
       content: "Deuxième tour",
+      sessionDbPath,
       history: [
         { role: "user", content: "Premier tour" },
         { role: "assistant", content: first.text },
@@ -122,13 +136,16 @@ describe("F1 project assistant orchestration", () => {
     });
     expect(second.ok).toBe(true);
     if (!second.ok) return;
-    expect(second.text).toMatch(/historique=/);
+    expect(second.cognitiveRuntime).toBe("agents");
+    expect(second.sessionId).toBe(first.sessionId);
+    expect(second.text).toMatch(/TEST\/FAKE · NON LIVE/);
   });
 
   it("invokes git read tools and surfaces tool events", async () => {
     const result = await orchestrateProjectAssistantTurn({
       projectId: "prj:f1-demo",
       content: "Besoin d'un statut git __CT_TOOL_GIT_STATUS__",
+      sessionDbPath,
     });
     expect(result.ok).toBe(true);
     if (!result.ok) return;
@@ -143,6 +160,7 @@ describe("F1 project assistant orchestration", () => {
     const result = await orchestrateProjectAssistantTurn({
       projectId: "prj:f1-demo",
       content: "Lis le secret __CT_TOOL_DENIED_PATH__",
+      sessionDbPath,
     });
     expect(result.ok).toBe(true);
     if (!result.ok) return;
@@ -155,6 +173,7 @@ describe("F1 project assistant orchestration", () => {
     const result = await orchestrateProjectAssistantTurn({
       projectId: "prj:f1-demo",
       content: "Force error __OPS1_FORCE_PROVIDER_ERROR__",
+      sessionDbPath,
     });
     expect(result.ok).toBe(false);
     if (result.ok) return;
@@ -167,6 +186,7 @@ describe("F1 project assistant orchestration", () => {
     const result = await orchestrateProjectAssistantTurn({
       projectId: "prj:f1-demo",
       content: "   ",
+      sessionDbPath,
     });
     expect(result.ok).toBe(false);
     if (result.ok) return;
@@ -182,6 +202,7 @@ describe("F1 project assistant orchestration", () => {
     const result = await orchestrateProjectAssistantTurn({
       projectId: "prj:f1-demo",
       content: "Hello",
+      sessionDbPath,
     });
     expect(result.ok).toBe(false);
     if (result.ok) return;
@@ -196,6 +217,7 @@ describe("F1 project assistant orchestration", () => {
     const result = await orchestrateProjectAssistantTurn({
       projectId: "prj:f1-demo",
       content: "Ping",
+      sessionDbPath,
     });
     expect(result.ok).toBe(true);
     expect(getProjectRuntimeActionMock).toHaveBeenCalled();

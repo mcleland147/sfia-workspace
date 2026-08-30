@@ -4,7 +4,7 @@ import {
   type ConversationProvider,
   type ProviderChatMessage,
 } from "@/lib/platform/ai";
-import { runToolCallingLoop } from "@/lib/platform/tools";
+import { runNoraCognitiveTurn } from "@/lib/nora-cognitive-runtime";
 import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
 import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
 import { buildProjectSystemPrompt } from "./buildProjectSystemPrompt";
@@ -18,8 +18,8 @@ import type {
 } from "./types";
 
 const MAX_HISTORY_MESSAGES = 20;
-const EPHEMERAL_NOTICE =
-  "Conversation éphémère (process-local) — un rechargement peut effacer l'historique. Project/LPS/Cycle linkage M2 reste dans Product SQLite. AUCUNE EXÉCUTION.";
+const SESSION_NOTICE_AGENTS =
+  "Continuité conversationnelle via Product SQLite Session (project-scoped) — Session ≠ Truth C / LPS / HumanDecision. Project/LPS restent Product SQLite Truth C. AUCUNE EXÉCUTION.";
 
 function toContextDto(
   result: Extract<
@@ -49,7 +49,8 @@ function toContextDto(
 }
 
 /**
- * Thin F1 orchestration — platform AI + tool loop only (no OPS1 session).
+ * Thin F1 orchestration — Option C single Agents Runner path (Fake + target).
+ * SFIA routeToolCall remains the tool authorization boundary.
  */
 export async function orchestrateProjectAssistantTurn(input: {
   projectId: string;
@@ -60,6 +61,8 @@ export async function orchestrateProjectAssistantTurn(input: {
    * Prefer per-instance OpenAIConversationProvider over process.env mutation.
    */
   provider?: ConversationProvider;
+  /** Test override for Product SQLite Session path. */
+  sessionDbPath?: string;
 }): Promise<ProjectAssistantSendResult> {
   const content = input.content.trim();
   if (!content) {
@@ -119,13 +122,15 @@ export async function orchestrateProjectAssistantTurn(input: {
   const presentation = modeResolution.presentation;
 
   try {
-    const loop = await runToolCallingLoop({
+    const turn = await runNoraCognitiveTurn({
       correlationId: `f1:${project.projectId}`,
+      projectId: project.projectId,
       messages,
       provider,
       enableTools: true,
       sink,
       workspaceRoot,
+      sessionDbPath: input.sessionDbPath,
     });
 
     const { toolEvents, sources } = collectToolTelemetry(sink.events);
@@ -133,16 +138,18 @@ export async function orchestrateProjectAssistantTurn(input: {
     return {
       ok: true,
       status: "ok",
-      text: loop.text,
+      text: turn.text,
       mode: modeResolution.mode,
       presentation,
-      model: loop.usage?.model ?? null,
-      toolRounds: loop.toolRounds,
-      toolCalls: loop.toolCalls,
+      model: turn.usage?.model ?? null,
+      toolRounds: turn.toolRounds,
+      toolCalls: turn.toolCalls,
       sources,
       toolEvents,
       project,
-      ephemeralNotice: EPHEMERAL_NOTICE,
+      ephemeralNotice: SESSION_NOTICE_AGENTS,
+      cognitiveRuntime: turn.cognitiveRuntime,
+      sessionId: turn.sessionId,
     };
   } catch (error) {
     const message =
