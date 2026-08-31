@@ -110,7 +110,7 @@ It is **NOT** “OpenAI first regardless of fit.”
 - `callModelInputFilter` context integrity **≠** HD / Confirmation / effective authority
 - Agents SDK Runner **≠** SFIA `routeToolCall` / authority spine replacement
 - PR **#445** decision/target integration **≠** by itself MW1 Option C implementation integration *(implementation later via PR **#447**)*
-- Option C implementation INTEGRATED (PR **#447**) **≠** MW1 COMPLETE · **≠** MW0 Option C parity proven · **≠** Cognitive Completion proven
+- Option C implementation INTEGRATED (PR **#447**) **≠** MW1 COMPLETE · **≠** Option C REAL parity PROVEN · **≠** ChatGPT↔Cursor parity PROVEN · **≠** READY FOR REAL from D0 alone · **≠** Cognitive Completion proven
 
 ---
 
@@ -201,11 +201,13 @@ Correction themes (provenance / closed as delivery trajectory capitalization —
 3. Fake / tests / comparator migrate to the same target cognitive path as applicable — **CLOSED** (as part of convergence)
 4. **RETIRE** legacy Nora generic `runToolCallingLoop` — **CLOSED**
 5. corrected Option C **PROJECT Git integration** — **CLOSED / POST-MERGE VERIFIED** (PR **#447**)
-6. **MW0 REGRESSION / PARITY ON OPTION C** — **NEXT** (MW0 remains historically **CLOSED** · parity ≠ reopen · **NOT RUN**)
-7. MW1-S01 / S02 / S03 final proof — **FUTURE**
-8. CORR-MW1-07 / CORR-MW1-08 where required by S03/materialization closure — **FUTURE** (only where still required by later proof)
-9. MW1 Exit Proof / closure — **FUTURE**
-10. **MW2** only after MW1 closure — **FUTURE**
+6. **MW0 REGRESSION / PARITY ON OPTION C** — **CLOSED AS CURRENT REGRESSION GATE / PASS WITH NON-BLOCKING RESERVES / DETERMINISTIC ONLY / ChatGPT CRITICAL REVIEW PASS** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · DETERMINISTIC ONLY · historical R1/R2/R3 RETAINED / NOT RE-RUN / NOT UPGRADED · MW0-R01/R02 remain NOT_PROVEN/NB · RESERVE-OPT-C-02/03 remain OPEN/NB · anti-claim: MW0 historical lifecycle remains **CLOSED** · this gate did **not** reopen or re-close MW0
+7. MW1-S01 Session-based honest inter-session continuity — **FUTURE** (source-locked C5 semantics · proof = deterministic E2E + boundary + eval · REAL later only if separately qualified/authorized · **not authorized by this document**)
+8. MW1-S02 Compaction with provenance and loss signaling — **FUTURE** · prove/select compaction mechanism separately · Responses Compaction **CANDIDATE / NOT ADOPTED** · proof = unit + modeled + eval
+9. MW1-S03 Never silent Memory B→Truth C — **FUTURE** · SFIA materialization authority · proof = deterministic E2E
+10. CORR-MW1-07 / CORR-MW1-08 where required by S03/materialization closure — **FUTURE** (only where still required by later proof)
+11. MW1 Exit Proof / closure — **FUTURE** · Morris gate
+12. **MW2** only after MW1 closure — **FUTURE**
 
 Historical note: this sequence supersedes any earlier active wording that placed project Git integration **before** legacy-loop retirement, or that let the legacy loop survive **until after** the MW0 Option C regression/parity gate.
 
@@ -269,7 +271,7 @@ Preserved as **temporary baseline / evidence source**, **not** target architectu
 
 ## 8. MW1 implications
 
-MW1 Delivery remains **active**. Historical post-OD-04 gate was **REQUALIFICATION against Option C**; historical OD04-I01 forward gate was **Option C correction cycle** (CORR-OPT-C-01…05) before project integration *(consumed)*. **CURRENT** next structural proof gate = **MW0 OPTION C REGRESSION / PARITY** *(MW0 remains historically CLOSED · parity ≠ reopen · NOT RUN)*. Option C implementation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#447**). MW1 **NOT COMPLETE**.
+MW1 Delivery remains **active**. Historical post-OD-04 gate was **REQUALIFICATION against Option C**; historical OD04-I01 forward gate was **Option C correction cycle** (CORR-OPT-C-01…05) before project integration *(consumed)*. **CURRENT** MW0 OPTION C REGRESSION / PARITY = **CLOSED AS CURRENT REGRESSION GATE / PASS WITH NON-BLOCKING RESERVES / DETERMINISTIC ONLY** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · DETERMINISTIC ONLY · ≠ MW0 reopen · next planned surface after future Git truth-sync = **MW1 final proof against source-locked C5 semantics** (S01→S02→S03 · **not authorized by this document**). Option C implementation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#447**). MW1 **NOT COMPLETE**.
 
 Do **not** continue homegrown hardening blindly.
 
@@ -291,7 +293,9 @@ MW1 source-locked story semantics (**MW1-S01/S02/S03**) remain unchanged.
 
 **MW0 remains CLOSED** historically. MW0 historical Evidence remains valid. This decision does **not** reopen MW0.
 
-Option C migration **MUST** pass an **MW0 REGRESSION / PARITY ON OPTION C** gate before MW1 exit can be accepted:
+**CURRENT gate status:** **CLOSED AS CURRENT REGRESSION GATE / PASS WITH NON-BLOCKING RESERVES / DETERMINISTIC ONLY / ChatGPT CRITICAL REVIEW PASS** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · applicable D0/offline claims + Option C single-Runner invariants preserved deterministically · historical R1/R2/R3 RETAINED / NOT RE-RUN / NOT UPGRADED · MW0-R01/R02 remain NOT_PROVEN/NB · RESERVE-OPT-C-02/03 remain OPEN/NB · anti-claim: this gate did **not** reopen or re-close MW0 · DETERMINISTIC PROVEN ≠ REAL BOUNDARY PROVEN ≠ END-TO-END REAL PROVEN · **≠** Option C REAL parity PROVEN · **≠** ChatGPT↔Cursor parity PROVEN · **≠** READY FOR REAL from D0 alone.
+
+Option C migration **MUST** pass an **MW0 REGRESSION / PARITY ON OPTION C** gate before MW1 exit can be accepted *(deterministic portion of this gate = PASS as of CURRENT status above; REAL / reserve closures remain out of scope of that PASS)*:
 
 - use the existing **nora-eval** spine as **KEEP / ADAPT** (SFIA eval semantics / NCC-BAR source-lock retained);
 - demonstrate non-regression of capabilities previously proven by MW0 against the Runner / Session target runtime;
@@ -329,7 +333,7 @@ Do **NOT** alter source-locked story semantics by this decision alone.
 | Vendor coupling | reversible adapters; KEEP SFIA tools/authority |
 | Session schema lifecycle | Product SQLite Session design under MW1 requalification |
 | Compaction semantics | MW1-S02 dedicated proof before adoption |
-| Dual-loop migration period | **CLOSED for Option C product path** · consumed exit = Runner/Fake convergence → retire legacy loop → project Git integration (PR **#447**) · **next** = MW0 Option C regression/parity *(≠ MW0 reopen)* (OD04-I01 / DOC-02) |
+| Dual-loop migration period | **CLOSED for Option C product path** · consumed exit = Runner/Fake convergence → retire legacy loop → project Git integration (PR **#447**) · MW0 Option C regression/parity = **PASS WITH NON-BLOCKING RESERVES / DETERMINISTIC ONLY** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · **next** = MW1 final proof against source-locked C5 semantics (S01→S02→S03 · future · OD04-I01 / DOC-02) |
 
 ---
 
@@ -345,8 +349,11 @@ This decision record **adopts the Option C target** (integrated on main via PR *
 4. Fake / tests / comparator migrate to target cognitive path — **CLOSED**
 5. **RETIRE** legacy Nora generic `runToolCallingLoop` — **CLOSED**
 6. Option C **PROJECT Git integration** — **CLOSED / POST-MERGE VERIFIED** (PR **#447**)
-7. **MW0 REGRESSION / PARITY ON OPTION C** — **NEXT** (nora-eval KEEP/ADAPT · MW0 remains historically **CLOSED** · parity ≠ reopen · **NOT RUN**)
-8. MW1-S01 / S02 / S03 final proof · CORR-MW1-07/08 where still required · MW1 Exit Proof / closure — **FUTURE**
+7. **MW0 REGRESSION / PARITY ON OPTION C** — **CLOSED AS CURRENT REGRESSION GATE / PASS WITH NON-BLOCKING RESERVES / DETERMINISTIC ONLY / ChatGPT CRITICAL REVIEW PASS** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · nora-eval KEEP/ADAPT · DETERMINISTIC ONLY · MW0 historical lifecycle remains **CLOSED** · this gate did **not** reopen or re-close MW0 · reserves MW0-R01/R02 + RESERVE-OPT-C-02/03 remain open/non-blocking
+8. MW1-S01 Session-based honest inter-session continuity — **FUTURE** (source-locked C5 semantics · proof = deterministic E2E + boundary + eval · REAL later only if separately qualified/authorized · **not authorized by this document**)
+9. MW1-S02 Compaction with provenance and loss signaling — **FUTURE** · prove/select compaction mechanism separately · Responses Compaction **CANDIDATE / NOT ADOPTED** · proof = unit + modeled + eval
+10. MW1-S03 Never silent Memory B→Truth C — **FUTURE** · SFIA materialization authority · proof = deterministic E2E
+11. CORR-MW1-07/08 where still required · MW1 Exit Proof / closure — **FUTURE** · Morris gate
 
 **MW2** only after MW1 closure.
 
@@ -370,7 +377,7 @@ This decision record **adopts the Option C target** (integrated on main via PR *
 = MW1 BASELINE A SUPERSEDED FOR PRODUCT PATH BY OPTION C IMPLEMENTATION (PR #447) — TEMPORARY WITH EXIT CONSUMED
 = OPTION C IMPLEMENTATION INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR #447)
 = MW1 NOT COMPLETE
-= MW0 OPTION C REGRESSION / PARITY = NEXT / NOT RUN (≠ MW0 reopen)
+= MW0 OPTION C REGRESSION / PARITY = CLOSED AS CURRENT REGRESSION GATE / PASS WITH NON-BLOCKING RESERVES / DETERMINISTIC ONLY (≠ MW0 reopen) · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c`
 = MW2 NOT STARTED
 = COGNITIVE COMPLETION NOT PROVEN
 = RUNTIME V3 NON ADOPTED
