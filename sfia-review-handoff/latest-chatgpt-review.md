@@ -1,311 +1,570 @@
-# Review Pack — MW1-S03 NEVER SILENT MEMORY B → TRUTH C
+# Review Pack — MW1-S03-CORR-01 BOUNDED MATERIALIZATION CORRECTION
 # FULL / CRITICAL / CONTENT-COMPLETE
 
 Status: **FULL** · **CRITICAL** · **CONTENT-COMPLETE**
 
 Candidate layers (explicit):
-- **A. S01 reviewed candidate** — Honest Memory B availability (preserved dirty local)
-- **B. S02 reviewed candidate** — Compaction + CORR-01/CORR-02 (preserved dirty local)
-- **C. THIS S03 delta** — governed materialization Class 1–4 + MaterializationBasis + E2E
-- **D. aggregate MW1 local candidate** — S01+S02+S03 uncommitted on Delivery branch
+- **A. S01 reviewed candidate** — Honest Memory B (preserved)
+- **B. S02 reviewed candidate** — Compaction + CORR-01/02 (preserved)
+- **C. Pre-correction S03** @ handoff `80c410bdc104b8d45e2dbcdcd13745a8ff716d35`
+- **D. CORR-S03-01 delta** — Class2 transition validation + Class3 HD bind/authority + RuntimeOaStack composition
+- **E. Aggregate MW1 local candidate** — S01+S02+S03+CORR uncommitted on Delivery
 
 ## 1. Timestamp Europe/Paris
-2026-09-01 00:13:21 CEST
+2026-09-01 00:31:54 CEST
 
 ## 2. Repository
 mcleland147/sfia-workspace
 
-## 3. Cycle / typology / profile / CKC
+## 3. Cycle 8 / INC / CRITICAL
 - Cycle: **8 — Delivery / implémentation**
 - Typology: **INC**
 - Profile: **CRITICAL**
-- Story: **MW1-S03 — Never silent Memory B → Truth C**
-- Epic: **MW1-E2 — Materialization honesty**
+- Sous-cycle: **MW1-S03-CORR-01**
 - CKC: Cycle 8 synthetic map · candidate · authority **NONE**
 
-## 4. Morris macro trajectory consumed
-MORRIS — AUTHORIZE MW1 COMPLETION DELIVERY LOT — KEEP S01 PROVEN LOCAL CANDIDATE — DELIVER + PROVE S02 THEN S03 SEQUENTIALLY ON SAME LOCAL CANDIDATE — FINAL MW1 DETERMINISTIC PROOF — SINGLE PROJECT GIT INTEGRATION FOR S01/S02/S03 ONLY AFTER ALL THREE PASS — NO REAL — RESPONSES COMPACTION NOT ADOPTED UNLESS SEPARATELY DECIDED — STOP ON STRUCTURAL ARCHITECTURE/PERSISTENCE DECISION
+## 4. Morris correction GO consumed
+GO MORRIS — MW1-S03 BOUNDED CORRECTION ONLY — CLOSE CLASS2 BASIS VALIDATION + CLASS3 HD TARGET/AUTHORITY BINDING + PRODUCT RUNTIME COMPOSITION PROOF — PRESERVE S01/S02 — NO FINAL MW1 PROOF — NO REAL — NO PROJECT GIT INTEGRATION.
 
-Consequence: MW1-S03 Delivery authorized without new Morris GO.
-Does NOT authorize: project commit/push/PR/merge/REAL/new architecture/Responses Compaction/MW1 closure/MW2.
+Consumed from "go correction" in the explicit context of Critical Review MW1-S03.
 
 ## 5. origin/main SHA/tree
 - SHA: `0f265149dc7e088ac62ff99c6f998274bec6c94f`
 - tree: `92fce49d245ffb4cbfc43b2b55e1004648b6a900`
 
-## 6. Local branch / HEAD / tree
+## 6. Local branch/HEAD/tree
 - branch: `delivery/sfia-studio-nora-mw1-s01-honest-memory-b`
 - HEAD: `0f265149dc7e088ac62ff99c6f998274bec6c94f`
 - tree: `92fce49d245ffb4cbfc43b2b55e1004648b6a900`
 - commits ahead: **0**
 
 ## 7. Input handoff
-`bc9581e75e1b3113961c62ee575f494278ac8ee3` (CORR-02; parent `e34937b208cfb5593a8625fc474001826060229d`)
+`80c410bdc104b8d45e2dbcdcd13745a8ff716d35` (parent `bc9581e75e1b3113961c62ee575f494278ac8ee3`)
 
-## 8. Pre-S03 fingerprints
+## 8. Pre-correction fingerprints
 ```
-PRE_S03_TRACKED_DIFF_SHA=d21b3f4696255b96863ad5f84f7befc63a7753ad7153d798af849dbf0a3bd1f1
-PRE_S03_STAGED_DIFF_SHA=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-PRE_S03_UNTRACKED_MANIFEST_SHA=cfca58878ff1a53a2523b721ba24071ac12f139190684f2c389979249cef780e
-PRE_S03_UNTRACKED_CONTENT_SHA=baaf74699438dc0873398362a841340588c404541f2631eaa8b863219d452ff6
-FPDIR=/tmp/mw1-s03-pres03-fp-jhhGQt
+PRE_CORR_TRACKED_DIFF_SHA=ef5aef114a7fe03c2bc2e85f211a24c9324fbeaaebe8284e321aa85ebab4589a
+PRE_CORR_STAGED_DIFF_SHA=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+PRE_CORR_UNTRACKED_MANIFEST_SHA=1d5cd4b762d04d3080450263f92898067bcb1810dfb60f09055a22daed4d8915
+PRE_CORR_UNTRACKED_CONTENT_SHA=551967896e3bf69bb7352a8c78ada8d6bf0485f1b76c0a277bf52d593afcf9f4
+FPDIR=/tmp/mw1-s03-corr01-fp-Epdqkp
 ```
-
-Post-S03 (excl. `.tmp-sfia-review/`):
-```
-POST_S03_TRACKED_DIFF_SHA=ef5aef114a7fe03c2bc2e85f211a24c9324fbeaaebe8284e321aa85ebab4589a
-POST_S03_STAGED_DIFF_SHA=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-POST_S03_UNTRACKED_MANIFEST_SHA=1d5cd4b762d04d3080450263f92898067bcb1810dfb60f09055a22daed4d8915
-POST_S03_UNTRACKED_CONTENT_SHA=551967896e3bf69bb7352a8c78ada8d6bf0485f1b76c0a277bf52d593afcf9f4
-```
-Tracked/untracked fingerprints changed as expected for S03 delivery (new materializer + E2E + audit event types + barrel exports).
 
 ## 9. Sources read
-PROCESS: cycle-execution-template, cycle-routing-guide, chatgpt-cursor-operating-model, rules-and-guardrails, v2.5 project-cycles, CKC 02-fifteen-cycles-synthetic-map.
-CONVERGENCE: build-doctrine, roadmap.
-PRODUCT: 01-cadrage.
-NORA: 02 conception, 05 backlog, 07 OD.
-V3: 30/32/33/35.
-HANDOFF: bc9581e7…
-Runtime discovery: ProductSqliteSession, memoryBAvailability/Compaction, appendLivingProjectStateVersion, Decision/Evidence services, ProjectAuditJournal, RuntimeOaStack.
+Process templates + routing + operating model + guardrails + v2.5 + CKC map.
+Convergence doctrine/roadmap. Product 01. NORA 02/05/07. V3 30/32/33/35.
+Input handoff 80c410bd. Runtime discovery DecisionBasis.executionBasis.scope, LOCAL_PILOTE_ACTOR docs, Evidence freshness/availability.
 
 ## 10. Convergence qualification
-Capability: governed selective materialization Memory B → Truth C.
-Milestone: MW1-S03 ACTIVE after S01/S02 PASS.
-KEEP: ProductSqliteSession, MemoryBAvailability/Compaction, OA Project/LPS, AppendLivingProjectStateVersion, DecisionServices, EvidenceReviewServices, SqliteProjectAuditJournal (event types EXTEND), RuntimeOaStack, Nora Runner, routeToolCall.
-FREEZE: Responses Compaction NOT ADOPTED.
-No parallel architecture.
+Capability: governed selective Memory B → Truth C materialization.
+Milestone: S03 bounded correction before Critical Re-review.
+KEEP existing S03 seam; COMPLETE Class2/Class3/Runtime composition. FREEZE Responses Compaction. No parallel architecture.
 
-## 11. Exact C5 S03 source-lock
-MW1-S03 — Never silent Memory B → Truth C
-- C1 NR-20 · CE-03 · BAR NCC-BAR-07 · C2 B3 · V3-F02/F04
-- Asset: OA materialization / HumanDecision structural path — COMPLETE with Memory B; KEEP existing C path
-- IN: Class 1–4 rules; MaterializationBasis; audit trail
-- OUT: automatic chat persistence into LPS/Truth C
-- AC: WHEN B would affect C THEN valid MaterializationBasis path AND fail-closed if absent/invalid
-- Negative: HumanDecision NOT universally required for every class
-- Proof: DETERMINISTIC E2E
+## 11. C5 S03 source-lock
+Never silent B→C; MaterializationBasis mandatory; Class1–4; HD not universal; DETERMINISTIC E2E.
 
-## 12. Exact C2 Class 1–4 rules
-- CLASS 1 Fact/Evidence → HD NOT required by principle; basis verified_fact_evidence
-- CLASS 2 Non-structural → HD NOT automatic; basis valid_runtime_state_transition | accepted_materialization_policy
-- CLASS 3 Runtime structural → Pilote HumanDecision REQUIRED; basis pilote_human_decision
-- CLASS 4 Construction/governance → EXTERNAL ONLY; basis construction_governance_external; NO Product mutation
-- Conversation summary alone NOT automatic basis
-- Memory A ≠ B ≠ C; never silent B→C
+## 12. C2 Class1–4 exact semantics
+CLASS1 Evidence (HD not by principle). CLASS2 non-structural Studio contract/policy (HD not automatic). CLASS3 Pilote HD required. CLASS4 external construction. Morris ≠ Pilote persona.
 
-## 13. Discovery inventory
-Memory B: productSqliteSession (session_items/seq/contentHash), memoryBCompaction (generation/sourceSeq/provenance/truthCRevision), loadSessionRows, contentHash, extractItemText.
-Truth C: appendLivingProjectStateVersion (evidenceIds/decisionIds/nextStep/scope + OCC expectedVersion), GetCurrentLivingProjectState, SqliteProductStore.
-HD: recordHumanDecision / getHumanDecision / listDecisionHistory.
-Evidence: registerEvidence / verifyEvidenceIntegrity / repository.findById.
-Audit: ProjectAuditJournalPort → oa_audit_events.payload_json (authorized event-type extension only).
-Composition: RuntimeOaStack wires project/decision/evidence; local composition uses MemoryProjectAuditJournal for LPS create/append — S03 materialization injects SqliteProjectAuditJournal on same store for durable materialization events.
+## 13. Three ChatGPT blockers
+1. **BLK-MW1-S03-CLASS2-BASIS-VALIDATION-01** — naked kind labels authorized Class2.
+2. **BLK-MW1-S03-CLASS3-HD-SCOPE-AUTHORITY-02** — HD not bound to structural target; morris conflated with Pilote.
+3. **BLK-MW1-S03-RUNTIME-COMPOSITION-PROOF-03** — E2E used attachMaterializer / manual SqliteProjectAuditJournal composition.
 
-## 14. Existing OA C paths
-appendLivingProjectStateVersion is the sole durable Project-state write used by S03.
-No direct SQL mutation of oa_* for materialization.
+## 14. Pre-correction materializer
+Accepted Class2 on `basis.kind` alone; Class3 accepted morris|delegated without target binding; tests composed materializer outside RuntimeOaStack.
 
-## 15. Architecture/persistence gate assessment
-**PASS — no STOP.** No new table/migration/second Truth C/Decision/Evidence store/general patch API/Nora write-to-C tool/Responses Compaction/REAL.
+## 15. Discovery Class2 policy/transition assets
+Searched policy / materialization policy / state transition / nextStep transition / LPS transition / accepted policy / policy registry.
+**Result:** no repo-native accepted materialization policy resolver or durable policy registry.
+Therefore `accepted_materialization_policy` → **MATERIALIZATION_POLICY_UNRESOLVED** fail-closed.
+Positive Class2 uses typed application-level `RuntimeStateTransition` (`set_next_step`) validated against current LPS — not a new persistence primitive.
 
-## 16. Selected materialization seam
-`MaterializeFromMemoryB` in `projects/sfia-studio/app/lib/oa/project/application/materializeFromMemoryB.ts`
-Factory: `createMaterializeFromMemoryB`.
-Orchestrates existing Memory B validation → basis/class/target matrix → Evidence/HD checks → appendLivingProjectStateVersion → audit.
+## 16. Selected Class2 correction
+`MaterializationBasis` for Class2 requires concrete `transition: RuntimeStateTransition` when kind=`valid_runtime_state_transition`.
+Checks: projectId, fromLpsVersion==current LPS==expectedLpsVersion, kind allowlist `set_next_step`, targetKind nextStep, nextStep equality, non-structural only.
 
-## 17–21. Contracts
-### MaterializationClass
-`1 | 2 | 3 | 4`
+## 17. Naked-basis fail-closed proof
+NEG-C2-01: `{ kind: "valid_runtime_state_transition" }` → MATERIALIZATION_BASIS_INCOMPATIBLE (E2E-RUNTIME-02).
 
-### MaterializationBasis
-`{ kind: verified_fact_evidence | valid_runtime_state_transition | accepted_materialization_policy | pilote_human_decision | construction_governance_external; referenceId?: string }`
-No implicit fallback; null basis → MATERIALIZATION_BASIS_REQUIRED (except Class4 external path after basis kind check).
+## 18. Policy unresolved behavior
+NEG-C2-02: `accepted_materialization_policy` → MATERIALIZATION_POLICY_UNRESOLVED.
 
-### Memory B source identity
-- raw: sessionKey + seq + contentHash (validated against ProductSqliteSession rows)
-- compacted_provenance: sessionKey + generation + sourceSeq + contentHash (must match current Truth C revision compaction provenance; stale → MEMORY_B_SOURCE_STALE)
+## 19. Valid runtime transition proof
+POS-C2-01: concrete `set_next_step` → nextStep accepted via LPS; no automatic HD; audit basisReferenceId=`set_next_step@lps:{v}:{step}`.
 
-### Target allowlist
-- Class1 → evidenceIds
-- Class2 → nextStep
-- Class3 → scope (UI-metadata JSON preserved for projection validity in proofs)
-- Class4 → no Product mutation
+## 20. Class3 authority correction
+Product Class3 accepts only `authority === "delegated"` + `actor.role === "decision_maker"`.
+Rejects: `morris` → HUMAN_DECISION_AUTHORITY_INVALID; `system_non_structuring` → same.
 
-### Compatibility matrix
-Enforced by `basisCompatible()`; incompatible → MATERIALIZATION_BASIS_INCOMPATIBLE.
+## 21. Pilote≠Morris proof
+E2E-RUNTIME-03 records accepted authority=morris HD with matching scope → still rejected for Product Class3.
+Doctrine: Morris = construction/governance; Pilote = runtime decision_maker.
 
-## 22–25. Class behaviors
-- **Class1**: load Evidence via repository; require same project + status===verified; append evidenceIds via LPS; no HD.
-- **Class2**: append nextStep; no automatic HD; structural scope target rejected.
-- **Class3**: require existing accepted morris|delegated HD same project; append scope + decisionIds; never call recordHumanDecision.
-- **Class4**: external_required / CLASS4_EXTERNAL_ONLY; no LPS/HD/Evidence/Git.
+## 22. Class3 HD target binding mechanism
+Canonical approved scope = `decisionBasis.executionBasis.scope` (preferred) else durable `hd.scope`.
+Exact string equality with `target.scope`. No subject/label/Nora matching.
 
-## 26–30. Validations
-Evidence: existing register+verify path in E2E; materializer reads status only — does not mint Evidence from B.
-HD: getHumanDecision only; Nora string reference IDs fail HUMAN_DECISION_INVALID.
-Cross-project: CROSS_PROJECT_BASIS.
-Stale B: MEMORY_B_SOURCE_STALE / MISMATCH / NOT_FOUND.
-OCC: expectedLpsVersion mismatch → LPS_VERSION_CONFLICT before mutation.
+## 23. Unrelated HD negative proof
+Same-project accepted delegated HD with different executionBasis.scope → HUMAN_DECISION_TARGET_MISMATCH; LPS unchanged.
 
-## 31–33. Audit
-Events:
-- `oa.memory.materialization.accepted`
-- `oa.memory.materialization.rejected`
-Serialized to existing `oa_audit_events.payload_json` via SqliteProjectAuditJournal.
-No new audit table / schema migration.
-No full B transcript in audit.
-No direct SQL for Truth C mutation.
+## 24. Valid matching HD positive proof
+Delegated decision_maker HD with executionBasis.scope === requested scope → accepted; decisionIds linked; durable remount.
 
-## 34. S03-only changed files
+## 25. RuntimeOaStack pre-state
+Exposed project/decision/evidence/… but **no** materializationServices; E2E used attachMaterializer + manual SqliteProjectAuditJournal.
+
+## 26. RuntimeOaStack post-state
+`materializationServices: { materializeFromMemoryB }` composed in `wireOaStack` after Decision+Evidence.
+
+## 27. Materializer composition
+Product SQLite → `SqliteProjectAuditJournal(productSqlite)` injected into materialization service only (same store / oa_audit_events). In-memory → projectServices.audit.
+
+## 28. Durable audit composition
+Accepted/rejected events written through composed journal; E2E reads via SqliteProjectAuditJournal listAll for inspection only (does not compose the capability under test).
+
+## 29. Proof no parallel path
+Decisive E2E uses `runtime.oa.materializationServices.materializeFromMemoryB` exclusively. Composition self-check asserts identity. No createMaterializeFromMemoryB / attachMaterializer in decisive path.
+
+## 30. S03 correction-only changed files
 - `projects/sfia-studio/app/lib/oa/project/application/materializeFromMemoryB.ts`
-- `projects/sfia-studio/app/lib/oa/project/ports/projectAuditJournalPort.ts`
-- `projects/sfia-studio/app/lib/oa/project/index.ts`
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
+- `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
+- `projects/sfia-studio/app/lib/oa/project/index.ts` (type exports)
 - `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s03.materialization.e2e.test.ts`
 
-## 35. FULL useful S03 delta
+## 31. FULL useful CORR-S03-01 diff / content
 
-### 35.A Tracked diff (barrel + audit port)
+### 31.A materializeFromMemoryB.ts — unified diff vs pre-correction
 ```diff
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-index 96423202..7a56e630 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-@@ -10,6 +10,56 @@ export type {
- } from "./types";
- export { ProductSqliteSession, userTextItem, assistantTextItem } from "./productSqliteSession";
- export type { ProductSqliteSessionOptions } from "./productSqliteSession";
-+export {
-+  probeMemoryBAvailability,
-+  appendMemoryBCognitiveDisclosure,
-+  memoryBPiloteNotice,
-+  MEMORY_B_COGNITIVE_DISCLOSURE,
-+  MEMORY_B_PILOTE_NOTICE,
-+} from "./memoryBAvailability";
-+export type {
-+  MemoryBAvailability,
-+  MemoryBProbeResult,
-+  ProbeMemoryBAvailabilityOptions,
-+} from "./memoryBAvailability";
-+export {
-+  COMPACTION_COGNITIVE_DISCLOSURE,
-+  COMPACTION_PILOTE_NOTICE,
-+  DEFAULT_COMPACTION_POLICY,
-+  MemoryBSessionView,
-+  STALE_PRIOR_INVALIDATED_COGNITIVE_ADDENDUM,
-+  STALE_PRIOR_INVALIDATED_PILOTE_ADDENDUM,
-+  applyCompactionIfNeeded,
-+  appendMemoryBCompactionDisclosure,
-+  buildCompactionRecord,
-+  buildInvalidatedPriorMeta,
-+  computeRawProvenanceCoverage,
-+  contentHash,
-+  createMemoryBSessionView,
-+  extractItemText,
-+  loadSessionRows,
-+  memoryBCompactionPiloteNotice,
-+  parseStoredCompactionRecord,
-+  partitionMemoryBForCompaction,
-+  prepareMemoryBForTurn,
-+  resolveReplayItems,
-+  shouldCompactItemCount,
-+  staleDisclosureMatchesReplaySemantics,
-+  truthCRevisionKey,
-+  truthCRevisionsMatch,
-+} from "./memoryBCompaction";
-+export type {
-+  CompactionPolicy,
-+  CompactionProvenanceEntry,
-+  InvalidatedPriorCompactionMeta,
-+  LoadedSessionRows,
-+  MemoryBCompactionDetails,
-+  MemoryBCompactionLoss,
-+  MemoryBCompactionRecord,
-+  MemoryBCompactionState,
-+  ProvenanceCoverageFacts,
-+  TruthCRevision,
-+} from "./memoryBCompaction";
- export { resolveNoraSessionSqlitePath } from "./sessionPaths";
- export {
-   sfiaBoundaryInstructions,
-diff --git a/projects/sfia-studio/app/lib/oa/project/index.ts b/projects/sfia-studio/app/lib/oa/project/index.ts
-index 9bc24cd7..22dbed1f 100644
---- a/projects/sfia-studio/app/lib/oa/project/index.ts
-+++ b/projects/sfia-studio/app/lib/oa/project/index.ts
-@@ -21,6 +21,21 @@ export { ListProjects } from "./application/listProjects";
- export { GetCurrentLivingProjectState } from "./application/getCurrentLivingProjectState";
- export { GetLivingProjectStateVersion } from "./application/getLivingProjectStateVersion";
- export { AppendLivingProjectStateVersion } from "./application/appendLivingProjectStateVersion";
-+export {
-+  MaterializeFromMemoryB,
-+  createMaterializeFromMemoryB,
-+} from "./application/materializeFromMemoryB";
-+export type {
-+  MaterializationBasis,
-+  MaterializationBasisKind,
-+  MaterializationClass,
-+  MaterializationDetailCode,
-+  MaterializationRequest,
-+  MaterializationResult,
-+  MaterializationTarget,
-+  MemoryBSourceReference,
-+  MaterializeFromMemoryBDeps,
-+} from "./application/materializeFromMemoryB";
+--- /tmp/mw1-s03-corr01-fp-Epdqkp/snapshot/materializeFromMemoryB.ts	2026-09-01 00:25:38
++++ projects/sfia-studio/app/lib/oa/project/application/materializeFromMemoryB.ts	2026-09-01 00:27:32
+@@ -1,8 +1,9 @@
+ /**
+- * MW1-S03 — Governed Memory B → Truth C materialization.
++ * MW1-S03 / CORR-01 — Governed Memory B → Truth C materialization.
+  * Never silent. Class 1–4 + explicit MaterializationBasis.
+- * Orchestrates existing ProductSqliteSession + OA LPS/Decision/Evidence paths.
+- * Memory B ≠ Truth C. Nora ≠ authority.
++ * CORR-01: Class2 mechanically-verifiable transition; Class3 Pilote≠Morris + HD target binding;
++ * RuntimeOaStack composition (see vertical-slice-runtime/service.ts).
++ * Memory B ≠ Truth C. Nora ≠ authority. Morris ≠ Pilote persona.
+  */
 
- export { MemoryProjectStore } from "./infrastructure/memoryProjectStore";
- export { MemoryProjectRepository } from "./infrastructure/memoryProjectRepository";
-diff --git a/projects/sfia-studio/app/lib/oa/project/ports/projectAuditJournalPort.ts b/projects/sfia-studio/app/lib/oa/project/ports/projectAuditJournalPort.ts
-index 3003eb88..25e394e5 100644
---- a/projects/sfia-studio/app/lib/oa/project/ports/projectAuditJournalPort.ts
-+++ b/projects/sfia-studio/app/lib/oa/project/ports/projectAuditJournalPort.ts
-@@ -59,6 +59,36 @@ export type ProjectAuditEvent =
-       result: "error";
-       detailCode?: string;
+ import type { ActorReference } from "@/lib/oa/doctrine";
+@@ -29,6 +30,16 @@
+   | "pilote_human_decision"
+   | "construction_governance_external";
+
++/** Allowlisted non-structural Class 2 transition — validated against current LPS. */
++export type RuntimeStateTransition = {
++  kind: "set_next_step";
++  projectId: string;
++  fromLpsVersion: number;
++  targetKind: "nextStep";
++  /** Exact nextStep value this transition authorizes. */
++  nextStep: string;
++};
++
+ export type MemoryBSourceReference =
+   | {
+       kind: "raw";
+@@ -49,15 +60,32 @@
+   | { kind: "nextStep"; nextStep: string }
+   | { kind: "scope"; scope: string };
+
+-export type MaterializationBasis = {
+-  kind: MaterializationBasisKind;
+-  /** Evidence ID / HumanDecision ID when applicable. */
+-  referenceId?: string;
+-};
++export type MaterializationBasis =
++  | {
++      kind: "verified_fact_evidence";
++      referenceId: string;
++    }
++  | {
++      kind: "valid_runtime_state_transition";
++      /** Required concrete transition — naked kind label alone is insufficient. */
++      transition?: RuntimeStateTransition;
++    }
++  | {
++      kind: "accepted_materialization_policy";
++      referenceId?: string;
++    }
++  | {
++      kind: "pilote_human_decision";
++      referenceId: string;
++    }
++  | {
++      kind: "construction_governance_external";
++    };
+
+ export type MaterializationDetailCode =
+   | "MATERIALIZATION_BASIS_REQUIRED"
+   | "MATERIALIZATION_BASIS_INCOMPATIBLE"
++  | "MATERIALIZATION_POLICY_UNRESOLVED"
+   | "MEMORY_B_SOURCE_NOT_FOUND"
+   | "MEMORY_B_SOURCE_MISMATCH"
+   | "MEMORY_B_SOURCE_STALE"
+@@ -65,6 +93,8 @@
+   | "EVIDENCE_INVALID"
+   | "HUMAN_DECISION_REQUIRED"
+   | "HUMAN_DECISION_INVALID"
++  | "HUMAN_DECISION_AUTHORITY_INVALID"
++  | "HUMAN_DECISION_TARGET_MISMATCH"
+   | "CROSS_PROJECT_BASIS"
+   | "LPS_VERSION_CONFLICT"
+   | "CLASS4_EXTERNAL_ONLY"
+@@ -105,24 +135,37 @@
        durationMs: number;
-+    }
-+  /** MW1-S03 — accepted Memory B → Truth C materialization (no full B transcript). */
-+  | {
-+      event: "oa.memory.materialization.accepted";
-+      ts: string;
-+      correlationId?: string;
-+      projectId: string;
-+      materializationClass: 1 | 2 | 3 | 4;
-+      basisKind?: string;
-+      basisReferenceId?: string;
-+      sourceKind?: string;
-+      sourceSeq?: number;
-+      sourceContentHash?: string;
-+      targetKind?: string;
-+      resultingLpsVersion?: number;
-+      result: "ok";
-+      durationMs: number;
-+    }
-+  /** MW1-S03 — rejected / external-required materialization (fail-closed). */
-+  | {
-+      event: "oa.memory.materialization.rejected";
-+      ts: string;
-+      correlationId?: string;
-+      projectId: string;
-+      materializationClass?: 1 | 2 | 3 | 4;
-+      basisKind?: string;
-+      targetKind?: string;
-+      result: "rejected" | "external_required";
-+      detailCode?: string;
-+      durationMs: number;
      };
 
- export interface ProjectAuditJournalPort {
++/** Minimal HD shape required for Class 3 binding (existing DecisionServices fields). */
++export type MaterializationHumanDecisionView = {
++  projectId: string;
++  status: string;
++  authority: string;
++  subject: string;
++  scope?: string;
++  actor: { actorId: string; role: string };
++  decisionBasis?: {
++    executionBasis?: { scope?: string };
++  };
++};
++
+ export type MaterializeFromMemoryBDeps = {
+   getProject: GetProject;
+   getCurrentLivingProjectState: GetCurrentLivingProjectState;
+   appendLivingProjectStateVersion: AppendLivingProjectStateVersion;
+   audit: ProjectAuditJournalPort;
+-  /** Existing DecisionServices.getHumanDecision */
+   getHumanDecision: {
+     execute: (req: {
+       decisionId: string;
+     }) => Promise<
+-      | { ok: true; decision: { projectId: string; status: string; authority: string; subject: string } }
++      | { ok: true; decision: MaterializationHumanDecisionView }
+       | { ok: false; error: { detailCode?: string; message?: string } }
+     >;
+   };
+-  /** Existing Evidence repository / reader */
+   getEvidenceById: (evidenceId: string) => Promise<{
+     evidenceId: string;
+     status: string;
++    availability?: string;
++    freshness?: string;
+     bindings: { projectId?: string };
+   } | null>;
+ };
+@@ -142,7 +185,7 @@
+   };
+ }
+
+-function basisCompatible(
++function classTargetCompatible(
+   cls: MaterializationClass,
+   basis: MaterializationBasis,
+   target: MaterializationTarget,
+@@ -160,14 +203,92 @@
+     );
+   }
+   if (cls === 3) {
+-    return (
+-      basis.kind === "pilote_human_decision" && target.kind === "scope"
+-    );
++    return basis.kind === "pilote_human_decision" && target.kind === "scope";
+   }
+   if (cls === 4) {
+     return basis.kind === "construction_governance_external";
+   }
+   return false;
++}
++
++/**
++ * Canonical approved structural scope from durable HD fields.
++ * Prefer decisionBasis.executionBasis.scope; fall back to hd.scope only when
++ * that durable field is the approved structural representation.
++ */
++function approvedStructuralScopeFromHd(
++  hd: MaterializationHumanDecisionView,
++): string | null {
++  const fromBasis = hd.decisionBasis?.executionBasis?.scope?.trim();
++  if (fromBasis) return fromBasis;
++  const fromHdScope = hd.scope?.trim();
++  if (fromHdScope) return fromHdScope;
++  return null;
++}
++
++function validateClass2Transition(input: {
++  projectId: string;
++  lpsVersion: number;
++  expectedLpsVersion: number;
++  basis: Extract<MaterializationBasis, { kind: "valid_runtime_state_transition" }>;
++  target: Extract<MaterializationTarget, { kind: "nextStep" }>;
++}): { ok: true; transition: RuntimeStateTransition } | {
++  ok: false;
++  detailCode: MaterializationDetailCode;
++  message: string;
++} {
++  const t = input.basis.transition;
++  if (!t) {
++    return {
++      ok: false,
++      detailCode: "MATERIALIZATION_BASIS_INCOMPATIBLE",
++      message:
++        "Class 2 valid_runtime_state_transition requires concrete transition data; naked kind label is insufficient",
++    };
++  }
++  if (t.kind !== "set_next_step") {
++    return {
++      ok: false,
++      detailCode: "MATERIALIZATION_BASIS_INCOMPATIBLE",
++      message: "Unsupported Class 2 transition kind",
++    };
++  }
++  if (t.targetKind !== "nextStep") {
++    return {
++      ok: false,
++      detailCode: "MATERIALIZATION_BASIS_INCOMPATIBLE",
++      message: "Class 2 transition targetKind must be nextStep",
++    };
++  }
++  if (t.projectId !== input.projectId) {
++    return {
++      ok: false,
++      detailCode: "CROSS_PROJECT_BASIS",
++      message: "Class 2 transition projectId does not match request project",
++    };
++  }
++  if (t.fromLpsVersion !== input.lpsVersion) {
++    return {
++      ok: false,
++      detailCode: "LPS_VERSION_CONFLICT",
++      message: "Class 2 transition fromLpsVersion does not match current LPS",
++    };
++  }
++  if (input.expectedLpsVersion !== input.lpsVersion) {
++    return {
++      ok: false,
++      detailCode: "LPS_VERSION_CONFLICT",
++      message: "expectedLpsVersion does not match current LPS",
++    };
++  }
++  if (t.nextStep !== input.target.nextStep) {
++    return {
++      ok: false,
++      detailCode: "MATERIALIZATION_BASIS_INCOMPATIBLE",
++      message: "Class 2 transition nextStep does not match requested target",
++    };
++  }
++  return { ok: true, transition: t };
+ }
+
+ async function resolveMemoryBSource(input: {
+@@ -218,7 +339,6 @@
+       };
+     }
+
+-    // compacted_provenance
+     if (!loaded.compaction) {
+       return {
+         ok: false,
+@@ -340,7 +460,6 @@
+       return auditReject(sourceResolved.detailCode, sourceResolved.message);
+     }
+
+-    // Class 4 — external construction only, no Product mutation.
+     if (request.materializationClass === 4) {
+       if (
+         !request.basis ||
+@@ -366,7 +485,7 @@
+     }
+
+     if (
+-      !basisCompatible(
++      !classTargetCompatible(
+         request.materializationClass,
+         request.basis,
+         request.target,
+@@ -383,7 +502,13 @@
+       if (request.target.kind !== "evidenceIds") {
+         return auditReject("TARGET_NOT_ALLOWED", "Class 1 target must be evidenceIds");
+       }
+-      const evidenceId = request.basis.referenceId ?? request.target.evidenceId;
++      if (request.basis.kind !== "verified_fact_evidence") {
++        return auditReject(
++          "MATERIALIZATION_BASIS_INCOMPATIBLE",
++          "Class 1 requires verified_fact_evidence",
++        );
++      }
++      const evidenceId = request.basis.referenceId;
+       if (!evidenceId || evidenceId !== request.target.evidenceId) {
+         return auditReject(
+           "EVIDENCE_INVALID",
+@@ -406,6 +531,19 @@
+           "Evidence is not verified; Memory B text is not Evidence",
+         );
+       }
++      // Reserve: verified alone is not enough if availability/freshness say otherwise.
++      if (evidence.availability !== undefined && evidence.availability !== "available") {
++        return auditReject(
++          "EVIDENCE_INVALID",
++          "Evidence is verified but not available",
++        );
++      }
++      if (evidence.freshness === "stale") {
++        return auditReject(
++          "EVIDENCE_INVALID",
++          "Evidence is verified but freshness is stale",
++        );
++      }
+
+       const nextEvidenceIds = Array.from(
+         new Set([...(lps.evidenceIds ?? []), evidenceId]),
+@@ -459,14 +597,39 @@
+       };
+     }
+
+-    // Class 2 — non-structural nextStep
++    // Class 2 — non-structural nextStep with mechanically verified transition
+     if (request.materializationClass === 2) {
+       if (request.target.kind !== "nextStep") {
+         return auditReject(
+           "TARGET_NOT_ALLOWED",
+           "Class 2 may only target non-structural nextStep",
+         );
++      }
++      if (request.basis.kind === "accepted_materialization_policy") {
++        // No repo-native accepted materialization policy resolver exists.
++        return auditReject(
++          "MATERIALIZATION_POLICY_UNRESOLVED",
++          "accepted_materialization_policy has no resolvable Product policy asset; fail closed",
++        );
++      }
++      if (request.basis.kind !== "valid_runtime_state_transition") {
++        return auditReject(
++          "MATERIALIZATION_BASIS_INCOMPATIBLE",
++          "Class 2 requires valid_runtime_state_transition or accepted_materialization_policy",
++        );
++      }
++      const transitionCheck = validateClass2Transition({
++        projectId: request.projectId,
++        lpsVersion: lps.version,
++        expectedLpsVersion: request.expectedLpsVersion,
++        basis: request.basis,
++        target: request.target,
++      });
++      if (!transitionCheck.ok) {
++        return auditReject(transitionCheck.detailCode, transitionCheck.message);
+       }
++      const transition = transitionCheck.transition;
++
+       const appended = await this.deps.appendLivingProjectStateVersion.execute({
+         projectId: request.projectId,
+         expectedVersion: request.expectedLpsVersion,
+@@ -493,6 +656,7 @@
+         projectId: request.projectId,
+         materializationClass: 2,
+         basisKind: request.basis.kind,
++        basisReferenceId: `set_next_step@lps:${transition.fromLpsVersion}:${transition.nextStep}`,
+         sourceKind: request.memoryBSource.kind,
+         sourceSeq: sourceResolved.seq,
+         sourceContentHash: sourceResolved.contentHash,
+@@ -515,7 +679,7 @@
+       };
+     }
+
+-    // Class 3 — structural scope requires existing Pilote HD
++    // Class 3 — structural scope requires existing runtime Pilote HD bound to target
+     if (request.materializationClass === 3) {
+       if (request.target.kind !== "scope") {
+         return auditReject(
+@@ -523,7 +687,7 @@
+           "Class 3 target must be structural scope",
+         );
+       }
+-      if (!request.basis.referenceId) {
++      if (request.basis.kind !== "pilote_human_decision" || !request.basis.referenceId) {
+         return auditReject(
+           "HUMAN_DECISION_REQUIRED",
+           "Class 3 requires existing Pilote HumanDecision reference",
+@@ -544,7 +708,11 @@
+           "HumanDecision belongs to a different Project",
+         );
+       }
+-      if (hd.decision.status === "superseded") {
++      if (
++        hd.decision.status === "superseded" ||
++        hd.decision.status === "revoked" ||
++        hd.decision.status === "refused"
++      ) {
+         return auditReject(
+           "HUMAN_DECISION_INVALID",
+           "HumanDecision is not current/accepted",
+@@ -556,16 +724,46 @@
+           "HumanDecision must be accepted",
+         );
+       }
+-      if (
+-        hd.decision.authority !== "morris" &&
+-        hd.decision.authority !== "delegated"
+-      ) {
++      // Morris construction authority ≠ Pilote runtime HD for Product Class 3.
++      if (hd.decision.authority === "morris") {
+         return auditReject(
+-          "HUMAN_DECISION_INVALID",
+-          "Class 3 requires Pilote HumanDecision authority (morris|delegated)",
++          "HUMAN_DECISION_AUTHORITY_INVALID",
++          "authority=morris is construction/governance — not a Product Class 3 Pilote basis",
+         );
+       }
++      if (hd.decision.authority === "system_non_structuring") {
++        return auditReject(
++          "HUMAN_DECISION_AUTHORITY_INVALID",
++          "system_non_structuring cannot authorize structural Class 3 mutation",
++        );
++      }
++      if (hd.decision.authority !== "delegated") {
++        return auditReject(
++          "HUMAN_DECISION_AUTHORITY_INVALID",
++          "Class 3 requires runtime-compatible delegated Pilote HumanDecision authority",
++        );
++      }
++      if (hd.decision.actor.role !== "decision_maker") {
++        return auditReject(
++          "HUMAN_DECISION_AUTHORITY_INVALID",
++          "Class 3 requires HumanDecision actor role decision_maker (Pilote runtime)",
++        );
++      }
+
++      const approvedScope = approvedStructuralScopeFromHd(hd.decision);
++      if (!approvedScope) {
++        return auditReject(
++          "HUMAN_DECISION_TARGET_MISMATCH",
++          "HumanDecision has no durable approved structural scope (decisionBasis.executionBasis.scope / scope)",
++        );
++      }
++      if (approvedScope !== request.target.scope) {
++        return auditReject(
++          "HUMAN_DECISION_TARGET_MISMATCH",
++          "HumanDecision durable approved scope does not match requested structural target",
++        );
++      }
++
+       const nextDecisionIds = Array.from(
+         new Set([...(lps.decisionIds ?? []), request.basis.referenceId]),
+       );
 
 ```
 
-### 35.B NEW — materializeFromMemoryB.ts (FULL)
+### 31.B materializeFromMemoryB.ts — FULL post-CORR file
 ```typescript
 /**
- * MW1-S03 — Governed Memory B → Truth C materialization.
+ * MW1-S03 / CORR-01 — Governed Memory B → Truth C materialization.
  * Never silent. Class 1–4 + explicit MaterializationBasis.
- * Orchestrates existing ProductSqliteSession + OA LPS/Decision/Evidence paths.
- * Memory B ≠ Truth C. Nora ≠ authority.
+ * CORR-01: Class2 mechanically-verifiable transition; Class3 Pilote≠Morris + HD target binding;
+ * RuntimeOaStack composition (see vertical-slice-runtime/service.ts).
+ * Memory B ≠ Truth C. Nora ≠ authority. Morris ≠ Pilote persona.
  */
 
 import type { ActorReference } from "@/lib/oa/doctrine";
@@ -332,6 +591,16 @@ export type MaterializationBasisKind =
   | "pilote_human_decision"
   | "construction_governance_external";
 
+/** Allowlisted non-structural Class 2 transition — validated against current LPS. */
+export type RuntimeStateTransition = {
+  kind: "set_next_step";
+  projectId: string;
+  fromLpsVersion: number;
+  targetKind: "nextStep";
+  /** Exact nextStep value this transition authorizes. */
+  nextStep: string;
+};
+
 export type MemoryBSourceReference =
   | {
       kind: "raw";
@@ -352,15 +621,32 @@ export type MaterializationTarget =
   | { kind: "nextStep"; nextStep: string }
   | { kind: "scope"; scope: string };
 
-export type MaterializationBasis = {
-  kind: MaterializationBasisKind;
-  /** Evidence ID / HumanDecision ID when applicable. */
-  referenceId?: string;
-};
+export type MaterializationBasis =
+  | {
+      kind: "verified_fact_evidence";
+      referenceId: string;
+    }
+  | {
+      kind: "valid_runtime_state_transition";
+      /** Required concrete transition — naked kind label alone is insufficient. */
+      transition?: RuntimeStateTransition;
+    }
+  | {
+      kind: "accepted_materialization_policy";
+      referenceId?: string;
+    }
+  | {
+      kind: "pilote_human_decision";
+      referenceId: string;
+    }
+  | {
+      kind: "construction_governance_external";
+    };
 
 export type MaterializationDetailCode =
   | "MATERIALIZATION_BASIS_REQUIRED"
   | "MATERIALIZATION_BASIS_INCOMPATIBLE"
+  | "MATERIALIZATION_POLICY_UNRESOLVED"
   | "MEMORY_B_SOURCE_NOT_FOUND"
   | "MEMORY_B_SOURCE_MISMATCH"
   | "MEMORY_B_SOURCE_STALE"
@@ -368,6 +654,8 @@ export type MaterializationDetailCode =
   | "EVIDENCE_INVALID"
   | "HUMAN_DECISION_REQUIRED"
   | "HUMAN_DECISION_INVALID"
+  | "HUMAN_DECISION_AUTHORITY_INVALID"
+  | "HUMAN_DECISION_TARGET_MISMATCH"
   | "CROSS_PROJECT_BASIS"
   | "LPS_VERSION_CONFLICT"
   | "CLASS4_EXTERNAL_ONLY"
@@ -408,24 +696,37 @@ export type MaterializationResult =
       durationMs: number;
     };
 
+/** Minimal HD shape required for Class 3 binding (existing DecisionServices fields). */
+export type MaterializationHumanDecisionView = {
+  projectId: string;
+  status: string;
+  authority: string;
+  subject: string;
+  scope?: string;
+  actor: { actorId: string; role: string };
+  decisionBasis?: {
+    executionBasis?: { scope?: string };
+  };
+};
+
 export type MaterializeFromMemoryBDeps = {
   getProject: GetProject;
   getCurrentLivingProjectState: GetCurrentLivingProjectState;
   appendLivingProjectStateVersion: AppendLivingProjectStateVersion;
   audit: ProjectAuditJournalPort;
-  /** Existing DecisionServices.getHumanDecision */
   getHumanDecision: {
     execute: (req: {
       decisionId: string;
     }) => Promise<
-      | { ok: true; decision: { projectId: string; status: string; authority: string; subject: string } }
+      | { ok: true; decision: MaterializationHumanDecisionView }
       | { ok: false; error: { detailCode?: string; message?: string } }
     >;
   };
-  /** Existing Evidence repository / reader */
   getEvidenceById: (evidenceId: string) => Promise<{
     evidenceId: string;
     status: string;
+    availability?: string;
+    freshness?: string;
     bindings: { projectId?: string };
   } | null>;
 };
@@ -445,7 +746,7 @@ function reject(
   };
 }
 
-function basisCompatible(
+function classTargetCompatible(
   cls: MaterializationClass,
   basis: MaterializationBasis,
   target: MaterializationTarget,
@@ -463,14 +764,92 @@ function basisCompatible(
     );
   }
   if (cls === 3) {
-    return (
-      basis.kind === "pilote_human_decision" && target.kind === "scope"
-    );
+    return basis.kind === "pilote_human_decision" && target.kind === "scope";
   }
   if (cls === 4) {
     return basis.kind === "construction_governance_external";
   }
   return false;
+}
+
+/**
+ * Canonical approved structural scope from durable HD fields.
+ * Prefer decisionBasis.executionBasis.scope; fall back to hd.scope only when
+ * that durable field is the approved structural representation.
+ */
+function approvedStructuralScopeFromHd(
+  hd: MaterializationHumanDecisionView,
+): string | null {
+  const fromBasis = hd.decisionBasis?.executionBasis?.scope?.trim();
+  if (fromBasis) return fromBasis;
+  const fromHdScope = hd.scope?.trim();
+  if (fromHdScope) return fromHdScope;
+  return null;
+}
+
+function validateClass2Transition(input: {
+  projectId: string;
+  lpsVersion: number;
+  expectedLpsVersion: number;
+  basis: Extract<MaterializationBasis, { kind: "valid_runtime_state_transition" }>;
+  target: Extract<MaterializationTarget, { kind: "nextStep" }>;
+}): { ok: true; transition: RuntimeStateTransition } | {
+  ok: false;
+  detailCode: MaterializationDetailCode;
+  message: string;
+} {
+  const t = input.basis.transition;
+  if (!t) {
+    return {
+      ok: false,
+      detailCode: "MATERIALIZATION_BASIS_INCOMPATIBLE",
+      message:
+        "Class 2 valid_runtime_state_transition requires concrete transition data; naked kind label is insufficient",
+    };
+  }
+  if (t.kind !== "set_next_step") {
+    return {
+      ok: false,
+      detailCode: "MATERIALIZATION_BASIS_INCOMPATIBLE",
+      message: "Unsupported Class 2 transition kind",
+    };
+  }
+  if (t.targetKind !== "nextStep") {
+    return {
+      ok: false,
+      detailCode: "MATERIALIZATION_BASIS_INCOMPATIBLE",
+      message: "Class 2 transition targetKind must be nextStep",
+    };
+  }
+  if (t.projectId !== input.projectId) {
+    return {
+      ok: false,
+      detailCode: "CROSS_PROJECT_BASIS",
+      message: "Class 2 transition projectId does not match request project",
+    };
+  }
+  if (t.fromLpsVersion !== input.lpsVersion) {
+    return {
+      ok: false,
+      detailCode: "LPS_VERSION_CONFLICT",
+      message: "Class 2 transition fromLpsVersion does not match current LPS",
+    };
+  }
+  if (input.expectedLpsVersion !== input.lpsVersion) {
+    return {
+      ok: false,
+      detailCode: "LPS_VERSION_CONFLICT",
+      message: "expectedLpsVersion does not match current LPS",
+    };
+  }
+  if (t.nextStep !== input.target.nextStep) {
+    return {
+      ok: false,
+      detailCode: "MATERIALIZATION_BASIS_INCOMPATIBLE",
+      message: "Class 2 transition nextStep does not match requested target",
+    };
+  }
+  return { ok: true, transition: t };
 }
 
 async function resolveMemoryBSource(input: {
@@ -521,7 +900,6 @@ async function resolveMemoryBSource(input: {
       };
     }
 
-    // compacted_provenance
     if (!loaded.compaction) {
       return {
         ok: false,
@@ -643,7 +1021,6 @@ export class MaterializeFromMemoryB {
       return auditReject(sourceResolved.detailCode, sourceResolved.message);
     }
 
-    // Class 4 — external construction only, no Product mutation.
     if (request.materializationClass === 4) {
       if (
         !request.basis ||
@@ -669,7 +1046,7 @@ export class MaterializeFromMemoryB {
     }
 
     if (
-      !basisCompatible(
+      !classTargetCompatible(
         request.materializationClass,
         request.basis,
         request.target,
@@ -686,7 +1063,13 @@ export class MaterializeFromMemoryB {
       if (request.target.kind !== "evidenceIds") {
         return auditReject("TARGET_NOT_ALLOWED", "Class 1 target must be evidenceIds");
       }
-      const evidenceId = request.basis.referenceId ?? request.target.evidenceId;
+      if (request.basis.kind !== "verified_fact_evidence") {
+        return auditReject(
+          "MATERIALIZATION_BASIS_INCOMPATIBLE",
+          "Class 1 requires verified_fact_evidence",
+        );
+      }
+      const evidenceId = request.basis.referenceId;
       if (!evidenceId || evidenceId !== request.target.evidenceId) {
         return auditReject(
           "EVIDENCE_INVALID",
@@ -707,6 +1090,19 @@ export class MaterializeFromMemoryB {
         return auditReject(
           "EVIDENCE_INVALID",
           "Evidence is not verified; Memory B text is not Evidence",
+        );
+      }
+      // Reserve: verified alone is not enough if availability/freshness say otherwise.
+      if (evidence.availability !== undefined && evidence.availability !== "available") {
+        return auditReject(
+          "EVIDENCE_INVALID",
+          "Evidence is verified but not available",
+        );
+      }
+      if (evidence.freshness === "stale") {
+        return auditReject(
+          "EVIDENCE_INVALID",
+          "Evidence is verified but freshness is stale",
         );
       }
 
@@ -762,7 +1158,7 @@ export class MaterializeFromMemoryB {
       };
     }
 
-    // Class 2 — non-structural nextStep
+    // Class 2 — non-structural nextStep with mechanically verified transition
     if (request.materializationClass === 2) {
       if (request.target.kind !== "nextStep") {
         return auditReject(
@@ -770,6 +1166,31 @@ export class MaterializeFromMemoryB {
           "Class 2 may only target non-structural nextStep",
         );
       }
+      if (request.basis.kind === "accepted_materialization_policy") {
+        // No repo-native accepted materialization policy resolver exists.
+        return auditReject(
+          "MATERIALIZATION_POLICY_UNRESOLVED",
+          "accepted_materialization_policy has no resolvable Product policy asset; fail closed",
+        );
+      }
+      if (request.basis.kind !== "valid_runtime_state_transition") {
+        return auditReject(
+          "MATERIALIZATION_BASIS_INCOMPATIBLE",
+          "Class 2 requires valid_runtime_state_transition or accepted_materialization_policy",
+        );
+      }
+      const transitionCheck = validateClass2Transition({
+        projectId: request.projectId,
+        lpsVersion: lps.version,
+        expectedLpsVersion: request.expectedLpsVersion,
+        basis: request.basis,
+        target: request.target,
+      });
+      if (!transitionCheck.ok) {
+        return auditReject(transitionCheck.detailCode, transitionCheck.message);
+      }
+      const transition = transitionCheck.transition;
+
       const appended = await this.deps.appendLivingProjectStateVersion.execute({
         projectId: request.projectId,
         expectedVersion: request.expectedLpsVersion,
@@ -796,6 +1217,7 @@ export class MaterializeFromMemoryB {
         projectId: request.projectId,
         materializationClass: 2,
         basisKind: request.basis.kind,
+        basisReferenceId: `set_next_step@lps:${transition.fromLpsVersion}:${transition.nextStep}`,
         sourceKind: request.memoryBSource.kind,
         sourceSeq: sourceResolved.seq,
         sourceContentHash: sourceResolved.contentHash,
@@ -818,7 +1240,7 @@ export class MaterializeFromMemoryB {
       };
     }
 
-    // Class 3 — structural scope requires existing Pilote HD
+    // Class 3 — structural scope requires existing runtime Pilote HD bound to target
     if (request.materializationClass === 3) {
       if (request.target.kind !== "scope") {
         return auditReject(
@@ -826,7 +1248,7 @@ export class MaterializeFromMemoryB {
           "Class 3 target must be structural scope",
         );
       }
-      if (!request.basis.referenceId) {
+      if (request.basis.kind !== "pilote_human_decision" || !request.basis.referenceId) {
         return auditReject(
           "HUMAN_DECISION_REQUIRED",
           "Class 3 requires existing Pilote HumanDecision reference",
@@ -847,7 +1269,11 @@ export class MaterializeFromMemoryB {
           "HumanDecision belongs to a different Project",
         );
       }
-      if (hd.decision.status === "superseded") {
+      if (
+        hd.decision.status === "superseded" ||
+        hd.decision.status === "revoked" ||
+        hd.decision.status === "refused"
+      ) {
         return auditReject(
           "HUMAN_DECISION_INVALID",
           "HumanDecision is not current/accepted",
@@ -859,13 +1285,43 @@ export class MaterializeFromMemoryB {
           "HumanDecision must be accepted",
         );
       }
-      if (
-        hd.decision.authority !== "morris" &&
-        hd.decision.authority !== "delegated"
-      ) {
+      // Morris construction authority ≠ Pilote runtime HD for Product Class 3.
+      if (hd.decision.authority === "morris") {
         return auditReject(
-          "HUMAN_DECISION_INVALID",
-          "Class 3 requires Pilote HumanDecision authority (morris|delegated)",
+          "HUMAN_DECISION_AUTHORITY_INVALID",
+          "authority=morris is construction/governance — not a Product Class 3 Pilote basis",
+        );
+      }
+      if (hd.decision.authority === "system_non_structuring") {
+        return auditReject(
+          "HUMAN_DECISION_AUTHORITY_INVALID",
+          "system_non_structuring cannot authorize structural Class 3 mutation",
+        );
+      }
+      if (hd.decision.authority !== "delegated") {
+        return auditReject(
+          "HUMAN_DECISION_AUTHORITY_INVALID",
+          "Class 3 requires runtime-compatible delegated Pilote HumanDecision authority",
+        );
+      }
+      if (hd.decision.actor.role !== "decision_maker") {
+        return auditReject(
+          "HUMAN_DECISION_AUTHORITY_INVALID",
+          "Class 3 requires HumanDecision actor role decision_maker (Pilote runtime)",
+        );
+      }
+
+      const approvedScope = approvedStructuralScopeFromHd(hd.decision);
+      if (!approvedScope) {
+        return auditReject(
+          "HUMAN_DECISION_TARGET_MISMATCH",
+          "HumanDecision has no durable approved structural scope (decisionBasis.executionBasis.scope / scope)",
+        );
+      }
+      if (approvedScope !== request.target.scope) {
+        return auditReject(
+          "HUMAN_DECISION_TARGET_MISMATCH",
+          "HumanDecision durable approved scope does not match requested structural target",
         );
       }
 
@@ -950,1026 +1406,576 @@ export function createMaterializeFromMemoryB(deps: {
 
 ```
 
-### 35.C NEW — mw1.s03.materialization.e2e.test.ts (FULL)
+### 31.C vertical-slice-runtime/service.ts — unified diff
+```diff
+--- /tmp/mw1-s03-corr01-fp-Epdqkp/snapshot/service.ts	2026-09-01 00:25:38
++++ projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts	2026-09-01 00:27:51
+@@ -52,6 +52,11 @@
+   type SqliteEvidenceReviewServices,
+ } from "@/lib/oa/evidence-review";
+ import type { ProjectServices } from "@/lib/oa/project";
++import {
++  createMaterializeFromMemoryB,
++  MaterializeFromMemoryB,
++  SqliteProjectAuditJournal,
++} from "@/lib/oa/project";
+ import { SqliteProductStore } from "@/lib/oa/project/infrastructure/sqlite/sqliteProductStore";
+ import {
+   createAttemptReaderBridge,
+@@ -118,6 +123,10 @@
+   readonly realBoundaryComposition?: ComposeStudioProductRealBoundaryInput;
+ }
+
++export type MaterializationServices = {
++  readonly materializeFromMemoryB: MaterializeFromMemoryB;
++};
++
+ export type RuntimeOaStack = {
+   readonly projectServices: ProjectServices;
+   readonly clock: ClockPort;
+@@ -128,6 +137,11 @@
+   readonly executionContractServices: ExecutionContractServices;
+   readonly executionAttemptServices: ExecutionAttemptServices;
+   readonly evidenceReviewServices: EvidenceReviewServices | SqliteEvidenceReviewServices;
++  /**
++   * MW1-S03 — Studio-owned governed Memory B → Truth C materialization.
++   * Composed after Decision + Evidence services. Not a Nora write tool.
++   */
++  readonly materializationServices: MaterializationServices;
+   /** Explicit TestExecutionAdapter — never silent NoOp. */
+   readonly fixtureAdapter: TestExecutionAdapter;
+   /**
+@@ -274,6 +288,41 @@
+           executionAttemptServices.attempts,
+         ),
+       });
++
++  // MW1-S03 / CORR-01 — compose materialization on normal RuntimeOaStack path.
++  // Product SQLite: durable materialization audit via SqliteProjectAuditJournal
++  // on the same Product store / oa_audit_events (no new table). LPS create/append
++  // may still use MemoryProjectAuditJournal from local composition.
++  const materializationAudit =
++    productSqlite !== null
++      ? new SqliteProjectAuditJournal(productSqlite)
++      : projectServices.audit;
++
++  const materializationServices: MaterializationServices = Object.freeze({
++    materializeFromMemoryB: createMaterializeFromMemoryB({
++      projectServices: {
++        getProject: projectServices.getProject,
++        getCurrentLivingProjectState:
++          projectServices.getCurrentLivingProjectState,
++        appendLivingProjectStateVersion:
++          projectServices.appendLivingProjectStateVersion,
++        audit: materializationAudit,
++      },
++      getHumanDecision: decisionServices.getHumanDecision,
++      getEvidenceById: async (evidenceId) => {
++        const ev =
++          await evidenceReviewServices.repository.findById(evidenceId);
++        if (!ev) return null;
++        return {
++          evidenceId: ev.evidenceId,
++          status: ev.status,
++          availability: ev.availability,
++          freshness: ev.freshness,
++          bindings: { projectId: ev.bindings.projectId },
++        };
++      },
++    }),
++  });
+
+   return Object.freeze({
+     projectServices,
+@@ -285,6 +334,7 @@
+     executionContractServices,
+     executionAttemptServices,
+     evidenceReviewServices,
++    materializationServices,
+     fixtureAdapter,
+     productDurablePath: productSqlite !== null,
+   });
+
+```
+
+### 31.D vertical-slice-runtime/service.ts — FULL post-CORR file
 ```typescript
-/** @vitest-environment node */
-/**
- * MW1-S03 — Deterministic E2E: never-silent Memory B → Truth C materialization.
- *
- * Uses actual Product SQLite + ProductSqliteSession Memory B + OA LPS /
- * Decision / Evidence services. No decisive SQL stubs. No REAL.
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { Digest } from "@/lib/oa/doctrine";
+import "./serverGuard";
+import {
+  BoundedSqliteLocalProjectCreationAudit,
+  LOCAL_VERTICAL_SLICE_ARCHITECTURE,
+  MemoryLocalProjectCreationAudit,
+  NoOpLocalProjectCreationAudit,
+  createLocalVerticalSliceServices,
+  resolveDoctrinePackagePinForRegistry,
+  type LocalProjectFacade,
+  type LocalProjectIdSource,
+  type LocalVerticalSliceCompositionOptions,
+  type LocalVerticalSliceServices,
+} from "@/lib/vertical-slice-core";
+import type { BoundedAtomicAuditStore } from "@/lib/d1/boundedAtomicAudit";
+import type { DoctrinePackagePin, ClockPort } from "@/lib/oa/doctrine";
+import {
+  createCkcQualificationServices,
+  createInMemoryCycleServices,
+  createSqliteCycleServices,
+  type CkcQualificationServices,
+  type CycleServices,
+} from "@/lib/oa/cycle";
+import {
+  MemoryAuthorityResolver,
+  createInMemoryDecisionServices,
+  createSqliteDecisionServices,
+  isM3LocalAuthorityEnabled,
+  type DecisionServices,
+} from "@/lib/oa/decision";
+import {
+  createInMemoryExecutionContractServices,
+  createSqliteExecutionContractServices,
+  type ExecutionContractServices,
+} from "@/lib/oa/execution-contract";
+import {
+  createInMemoryExecutionAttemptServices,
+  createSqliteExecutionAttemptServices,
+  createM4BoundedReadOnlyCursorAgentDescriptor,
+  isStudioCursorRealEnabled,
+  type ExecutionAttemptServices,
+  type RealBoundaryWiring,
+  type TestExecutionAdapter,
+} from "@/lib/oa/execution-attempt";
+import {
+  composeStudioProductRealBoundary,
+  type ComposeStudioProductRealBoundaryInput,
+} from "./composeStudioProductRealBoundary";
+import {
+  createInMemoryEvidenceReviewServices,
+  createSqliteEvidenceReviewServices,
+  type EvidenceReviewServices,
+  type SqliteEvidenceReviewServices,
+} from "@/lib/oa/evidence-review";
+import type { ProjectServices } from "@/lib/oa/project";
 import {
   createMaterializeFromMemoryB,
-  SqliteProductStore,
+  MaterializeFromMemoryB,
   SqliteProjectAuditJournal,
-  type MaterializationRequest,
 } from "@/lib/oa/project";
+import { SqliteProductStore } from "@/lib/oa/project/infrastructure/sqlite/sqliteProductStore";
 import {
-  ProductSqliteSession,
-  applyCompactionIfNeeded,
-  contentHash,
-  extractItemText,
-  loadSessionRows,
-  userTextItem,
-  assistantTextItem,
-} from "@/lib/nora-cognitive-runtime";
-import { FakeEvidencePayloadAdapter } from "@/lib/oa/evidence-review/infrastructure/fakeEvidencePayloadAdapter";
+  createAttemptReaderBridge,
+  createF3FixtureAgentDescriptor,
+  createF3TestExecutionAdapter,
+} from "./f3FixtureWiring";
+import { createW3ABoundedFixtureAgentDescriptor } from "./w3aProductFixtureWiring";
+import { MemoryAgentRegistry } from "@/lib/oa/execution-attempt";
 import {
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-  type RuntimeApplicationService,
-} from "@/lib/vertical-slice-runtime";
+  toCreateLocalProjectCommand,
+  toCreateProjectRuntimeFailure,
+  toCreateProjectRuntimeSuccess,
+  toGetProjectRuntimeFailure,
+  toGetProjectRuntimeSuccess,
+  toListProjectsRuntimeFailure,
+  toListProjectsRuntimeSuccess,
+} from "./mapping";
+import { resolveDefaultVerticalSliceRoots } from "./paths";
+import { registerW3bFixtureAdapterForE2eReset } from "./w3bE2eBoundaryControl";
+import type {
+  CreateProjectRuntimeInput,
+  CreateProjectRuntimeResult,
+  GetProjectRuntimeResult,
+  ListProjectsRuntimeResult,
+} from "./types";
 
-const DIGEST_A =
-  "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" as Digest;
+export type RuntimeAuditMode = "noop" | "memory" | "sqlite";
 
-const ACTOR = {
-  actorId: "actor:studio-system",
-  role: "system" as const,
-  authorityLevel: "none" as const,
+export interface RuntimeApplicationServiceOptions {
+  readonly registryRoot?: string;
+  readonly schemasRoot?: string;
+  readonly doctrinePackagePin?: DoctrinePackagePin;
+  readonly idSource?: LocalProjectIdSource;
+  readonly nowIso?: string;
+  /**
+   * D-V2-03: default noop. `sqlite` requires `sqliteAuditStore`.
+   * Audit never rehydrates business state.
+   */
+  readonly auditMode?: RuntimeAuditMode;
+  readonly sqliteAuditStore?: BoundedAtomicAuditStore;
+  /**
+   * OA Product SQLite path (M1). Isolated from D1/OPS1/FinOps.
+   */
+  readonly productDbPath?: string;
+  /**
+   * Escape hatch for tests: inject a fully built V1 facade.
+   * Production path builds via createLocalVerticalSliceServices.
+   */
+  readonly facade?: LocalProjectFacade;
+  /**
+   * Optional M4 REAL boundary. Explicit inject wins (tests).
+   * Otherwise composed OFF-by-default from SFIA_STUDIO_CURSOR_REAL.
+   */
+  readonly realBoundary?: RealBoundaryWiring;
+  /**
+   * Env snapshot for live-boundary composition only. Never used to spawn.
+   * Tests inject `{ SFIA_STUDIO_CURSOR_REAL: "1" }` with fake deps.
+   */
+  readonly realBoundaryEnv?: NodeJS.ProcessEnv;
+  /**
+   * Test/production overrides for composeStudioProductRealBoundary.
+   * Construction still launches nothing.
+   */
+  readonly realBoundaryComposition?: ComposeStudioProductRealBoundaryInput;
+}
+
+export type MaterializationServices = {
+  readonly materializeFromMemoryB: MaterializeFromMemoryB;
 };
 
-const PILOTE = {
-  actorId: "actor:pilote",
-  role: "decision_maker" as const,
-  displayName: "Pilote",
-  authorityLevel: "N2" as const,
+export type RuntimeOaStack = {
+  readonly projectServices: ProjectServices;
+  readonly clock: ClockPort;
+  readonly cycleServices: CycleServices;
+  readonly ckcQualification: CkcQualificationServices;
+  readonly decisionServices: DecisionServices;
+  readonly authorityResolver: MemoryAuthorityResolver;
+  readonly executionContractServices: ExecutionContractServices;
+  readonly executionAttemptServices: ExecutionAttemptServices;
+  readonly evidenceReviewServices: EvidenceReviewServices | SqliteEvidenceReviewServices;
+  /**
+   * MW1-S03 — Studio-owned governed Memory B → Truth C materialization.
+   * Composed after Decision + Evidence services. Not a Nora write tool.
+   */
+  readonly materializationServices: MaterializationServices;
+  /** Explicit TestExecutionAdapter — never silent NoOp. */
+  readonly fixtureAdapter: TestExecutionAdapter;
+  /**
+   * True when OA Attempt/Evidence/ReviewBundle/LPS path uses Product SQLite.
+   * Distinguishes persistence durability from fixture execution mode.
+   */
+  readonly productDurablePath: boolean;
 };
 
-const tempDirs: string[] = [];
-
-function tempDir(prefix: string): string {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), prefix));
-  tempDirs.push(dir);
-  return dir;
-}
-
-afterEach(() => {
-  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-  resetRuntimeApplicationServiceForTests();
-  while (tempDirs.length) {
-    const d = tempDirs.pop();
-    if (d) fs.rmSync(d, { recursive: true, force: true });
+function resolveAudit(
+  mode: RuntimeAuditMode,
+  sqliteAuditStore: BoundedAtomicAuditStore | undefined,
+): LocalVerticalSliceCompositionOptions["audit"] {
+  if (mode === "memory") {
+    return new MemoryLocalProjectCreationAudit();
   }
-});
-
-/** Structural Class 3 target keeps visible-slice UI metadata projection valid. */
-function structuralScopeTarget(currentScope: string, marker: string): string {
-  const parsed = JSON.parse(currentScope) as {
-    schemaVersion: string;
-    shortReference?: string;
-    perceivedCriticality: string;
-    constraints: string[];
-  };
-  return JSON.stringify({
-    ...parsed,
-    constraints: [...parsed.constraints, `STRUCTURAL:${marker}`],
-  });
-}
-
-async function bootProduct(dir: string, options?: { reset?: boolean }) {
-  const productDbPath = path.join(dir, "oa-product.sqlite");
-  const sessionDbPath = path.join(dir, "nora-session.sqlite");
-  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-  if (options?.reset !== false) {
-    resetRuntimeApplicationServiceForTests();
-  }
-  const runtime = getRuntimeApplicationService({
-    productDbPath,
-    auditMode: "noop",
-  });
-  expect(runtime.oa).not.toBeNull();
-  if (!runtime.oa) throw new Error("oa missing");
-  const created = await runtime.createProject({
-    name: "S03 Materialization E2E",
-    objective: "MW1-S03 never-silent B→C",
-    context: "Deterministic materialization proofs",
-    criticality: "STANDARD",
-    constraints: ["AUCUNE EXÉCUTION"],
-    shortReference: "S03E2E",
-    idempotencyKey: `s03-e2e-${Date.now()}-${Math.random()}`,
-  });
-  expect(created.ok).toBe(true);
-  if (!created.ok) throw new Error("createProject failed");
-  return attachMaterializer(runtime, productDbPath, sessionDbPath, created.project.projectId);
-}
-
-async function attachMaterializer(
-  runtime: RuntimeApplicationService,
-  productDbPath: string,
-  sessionDbPath: string,
-  projectId: string,
-) {
-  if (!runtime.oa) throw new Error("oa missing");
-  const currentLps =
-    await runtime.oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId,
-    });
-  expect(currentLps.ok).toBe(true);
-  if (!currentLps.ok) throw new Error("current LPS missing");
-
-  const store = runtime.oa.projectServices.store;
-  if (!(store instanceof SqliteProductStore)) {
-    throw new Error("expected SqliteProductStore for durable materialization audit");
-  }
-  // Composition uses MemoryProjectAuditJournal for LPS create/append; S03
-  // materialization writes durable oa_audit_events via SqliteProjectAuditJournal
-  // on the same Product store (no new table).
-  const durableAudit = new SqliteProjectAuditJournal(store);
-
-  const materializer = createMaterializeFromMemoryB({
-    projectServices: {
-      ...runtime.oa.projectServices,
-      audit: durableAudit,
-    },
-    getHumanDecision: runtime.oa.decisionServices.getHumanDecision,
-    getEvidenceById: async (evidenceId) => {
-      const ev =
-        await runtime.oa!.evidenceReviewServices.repository.findById(
-          evidenceId,
-        );
-      if (!ev) return null;
-      return {
-        evidenceId: ev.evidenceId,
-        status: ev.status,
-        bindings: { projectId: ev.bindings.projectId },
-      };
-    },
-  });
-
-  return {
-    runtime,
-    oa: runtime.oa,
-    productDbPath,
-    sessionDbPath,
-    projectId,
-    lpsId: currentLps.livingProjectState.lpsVersionId,
-    lpsVersion: currentLps.livingProjectState.version,
-    objective: currentLps.livingProjectState.objective,
-    scope: currentLps.livingProjectState.scope ?? "",
-    materializer,
-    audit: durableAudit,
-  };
-}
-
-async function seedRawMemoryB(input: {
-  projectId: string;
-  sessionDbPath: string;
-  text: string;
-  sessionKey?: string;
-}) {
-  const sessionKey = input.sessionKey ?? "f1-default";
-  const session = new ProductSqliteSession({
-    projectId: input.projectId,
-    dbPath: input.sessionDbPath,
-    sessionKey,
-  });
-  await session.addItems([userTextItem(input.text)]);
-  const loaded = await loadSessionRows(session);
-  const row = loaded.conversation[loaded.conversation.length - 1]!;
-  const hash = contentHash(extractItemText(row.item));
-  session.close();
-  return {
-    sessionKey,
-    seq: row.seq,
-    contentHash: hash,
-  };
-}
-
-function baseRequest(
-  ctx: Awaited<ReturnType<typeof bootProduct>>,
-  source: { sessionKey: string; seq: number; contentHash: string },
-  overrides: Partial<MaterializationRequest> &
-    Pick<
-      MaterializationRequest,
-      "materializationClass" | "basis" | "target"
-    >,
-): MaterializationRequest {
-  return {
-    projectId: ctx.projectId,
-    memoryBSource: {
-      kind: "raw",
-      sessionKey: source.sessionKey,
-      seq: source.seq,
-      contentHash: source.contentHash,
-    },
-    expectedLpsVersion: ctx.lpsVersion,
-    correlationId: `cor:s03-${Date.now()}`,
-    actor: ACTOR,
-    sessionDbPath: ctx.sessionDbPath,
-    ...overrides,
-  };
-}
-
-async function registerAndVerifyEvidence(
-  oa: NonNullable<Awaited<ReturnType<typeof bootProduct>>["oa"]>,
-  projectId: string,
-  evidenceId: string,
-) {
-  const reg = await oa.evidenceReviewServices.registerEvidence.execute({
-    evidenceId,
-    idempotencyKey: `idem:${evidenceId}`,
-    actor: ACTOR,
-    type: "artifact",
-    source: "s03-fixture",
-    sourceKind: "external",
-    bindings: { projectId },
-    classification: "internal",
-    storageMode: "internal_payload_ref",
-    location: `refs/evidence/${evidenceId}`,
-    digest: DIGEST_A,
-    verifiablePayload: true,
-  });
-  expect(reg.ok).toBe(true);
-  if (!reg.ok) throw new Error("registerEvidence failed");
-  const payload = oa.evidenceReviewServices.payload as FakeEvidencePayloadAdapter;
-  payload.setScript(evidenceId, {
-    availability: "available",
-    digest: DIGEST_A,
-  });
-  const verified = await oa.evidenceReviewServices.verifyEvidenceIntegrity.execute({
-    evidenceId,
-    actor: ACTOR,
-    expectedVersion: 1,
-  });
-  expect(verified.ok).toBe(true);
-  if (!verified.ok) throw new Error("verify failed");
-  expect(verified.evidence.status).toBe("verified");
-  return verified.evidence;
-}
-
-async function recordPiloteDecision(
-  oa: NonNullable<Awaited<ReturnType<typeof bootProduct>>["oa"]>,
-  projectId: string,
-  decisionId: string,
-  subject: string,
-) {
-  oa.authorityResolver.register({
-    evidenceId: `evd:auth-${decisionId}`,
-    actorId: PILOTE.actorId,
-    level: "N2",
-    scope: subject,
-    issuedAt: "2026-08-31T00:00:00.000Z",
-    source: "registry",
-  });
-  const recorded = await oa.decisionServices.recordHumanDecision.execute({
-    decisionId,
-    projectId,
-    subject,
-    options: [
-      { optionId: "opt:accept", label: "Accept scope change" },
-      { optionId: "opt:refuse", label: "Refuse" },
-    ],
-    selectedOptionId: "opt:accept",
-    actor: PILOTE,
-    authority: "delegated",
-    reversible: true,
-    authorityEvidenceId: `evd:auth-${decisionId}`,
-    scope: subject,
-  });
-  expect(recorded.ok).toBe(true);
-  if (!recorded.ok) throw new Error("recordHumanDecision failed");
-  return recorded.decision;
-}
-
-describe("MW1-S03 — Never silent Memory B → Truth C", () => {
-  beforeEach(() => {
-    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-  });
-
-  it("E2E-00 — no MaterializationBasis fails closed; Truth C unchanged", async () => {
-    const dir = tempDir("sfia-s03-e00-");
-    const ctx = await bootProduct(dir);
-    const source = await seedRawMemoryB({
-      projectId: ctx.projectId,
-      sessionDbPath: ctx.sessionDbPath,
-      text: "Promote this into durable project scope silently.",
-    });
-    const beforeLps = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId: ctx.projectId,
-    });
-    expect(beforeLps.ok).toBe(true);
-    if (!beforeLps.ok) return;
-
-    const result = await ctx.materializer.execute(
-      baseRequest(ctx, source, {
-        materializationClass: 2,
-        basis: null,
-        target: { kind: "nextStep", nextStep: "silent-hijack" },
-      }),
-    );
-    expect(result.ok).toBe(false);
-    if (result.ok) return;
-    expect(result.detailCode).toBe("MATERIALIZATION_BASIS_REQUIRED");
-    expect(result.status).toBe("rejected");
-
-    const afterLps = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId: ctx.projectId,
-    });
-    expect(afterLps.ok).toBe(true);
-    if (!afterLps.ok) return;
-    expect(afterLps.livingProjectState.version).toBe(
-      beforeLps.livingProjectState.version,
-    );
-    expect(afterLps.livingProjectState.nextStep).toBe(
-      beforeLps.livingProjectState.nextStep,
-    );
-    expect(afterLps.livingProjectState.lpsVersionId).toBe(
-      beforeLps.livingProjectState.lpsVersionId,
-    );
-    // Durable rejection audit is allowed; Truth C / LPS must not advance.
-    const rejected = ctx.audit
-      .listAll()
-      .filter((e) => e.event === "oa.memory.materialization.rejected");
-    expect(rejected.length).toBeGreaterThanOrEqual(1);
-  });
-
-  it("E2E-01 — Class 1 verified Evidence → LPS evidenceIds", async () => {
-    const dir = tempDir("sfia-s03-e01-");
-    const ctx = await bootProduct(dir);
-    const evidenceId = `ev:s03-c1-${Date.now()}`;
-    await registerAndVerifyEvidence(ctx.oa, ctx.projectId, evidenceId);
-    const source = await seedRawMemoryB({
-      projectId: ctx.projectId,
-      sessionDbPath: ctx.sessionDbPath,
-      text: `CI passed for ${evidenceId}`,
-    });
-
-    const accepted = await ctx.materializer.execute(
-      baseRequest(ctx, source, {
-        materializationClass: 1,
-        basis: {
-          kind: "verified_fact_evidence",
-          referenceId: evidenceId,
-        },
-        target: { kind: "evidenceIds", evidenceId },
-      }),
-    );
-    expect(accepted.ok).toBe(true);
-    if (!accepted.ok) return;
-    expect(accepted.resultingLpsVersion).toBe(ctx.lpsVersion + 1);
-
-    const after = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId: ctx.projectId,
-    });
-    expect(after.ok).toBe(true);
-    if (!after.ok) return;
-    expect(after.livingProjectState.evidenceIds).toContain(evidenceId);
-
-    // remount durability — read via OA LPS (overview DTO may omit evidenceIds)
-    resetRuntimeApplicationServiceForTests();
-    const remounted = getRuntimeApplicationService({
-      productDbPath: ctx.productDbPath,
-      auditMode: "noop",
-    });
-    expect(remounted.oa).not.toBeNull();
-    const remountedLps =
-      await remounted.oa!.projectServices.getCurrentLivingProjectState.execute({
-        projectId: ctx.projectId,
-      });
-    expect(remountedLps.ok).toBe(true);
-    if (!remountedLps.ok) return;
-    expect(remountedLps.livingProjectState.evidenceIds).toContain(evidenceId);
-
-    const acceptedAudit = new SqliteProjectAuditJournal(
-      remounted.oa!.projectServices.store as SqliteProductStore,
-    )
-      .listAll()
-      .filter((e) => e.event === "oa.memory.materialization.accepted");
-    expect(acceptedAudit.length).toBeGreaterThanOrEqual(1);
-
-    // NEG Class1 without verified Evidence
-    const dirNeg = tempDir("sfia-s03-e01-neg-");
-    const ctxNeg = await bootProduct(dirNeg);
-    const fakeId = "ev:never-registered";
-    const sourceNeg = await seedRawMemoryB({
-      projectId: ctxNeg.projectId,
-      sessionDbPath: ctxNeg.sessionDbPath,
-      text: "evidence verified (false claim)",
-    });
-    const beforeNegVersion = ctxNeg.lpsVersion;
-    const neg = await ctxNeg.materializer.execute(
-      baseRequest(ctxNeg, sourceNeg, {
-        materializationClass: 1,
-        basis: { kind: "verified_fact_evidence", referenceId: fakeId },
-        target: { kind: "evidenceIds", evidenceId: fakeId },
-      }),
-    );
-    expect(neg.ok).toBe(false);
-    if (neg.ok) return;
-    expect(neg.detailCode).toBe("EVIDENCE_INVALID");
-    const afterNeg =
-      await ctxNeg.oa.projectServices.getCurrentLivingProjectState.execute({
-        projectId: ctxNeg.projectId,
-      });
-    expect(afterNeg.ok).toBe(true);
-    if (!afterNeg.ok) return;
-    expect(afterNeg.livingProjectState.version).toBe(beforeNegVersion);
-  });
-
-  it("E2E-02 — Class 2 nextStep accepted without automatic HD; structural target rejected", async () => {
-    const dir = tempDir("sfia-s03-e02-");
-    const ctx = await bootProduct(dir);
-    const source = await seedRawMemoryB({
-      projectId: ctx.projectId,
-      sessionDbPath: ctx.sessionDbPath,
-      text: "Next: draft weekly status note",
-    });
-    const ok = await ctx.materializer.execute(
-      baseRequest(ctx, source, {
-        materializationClass: 2,
-        basis: { kind: "valid_runtime_state_transition" },
-        target: { kind: "nextStep", nextStep: "draft-weekly-status" },
-      }),
-    );
-    expect(ok.ok).toBe(true);
-    if (!ok.ok) return;
-    const after = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId: ctx.projectId,
-    });
-    expect(after.ok).toBe(true);
-    if (!after.ok) return;
-    expect(after.livingProjectState.nextStep).toBe("draft-weekly-status");
-    expect(after.livingProjectState.scope).toBe(ctx.scope);
-    expect(after.livingProjectState.decisionIds ?? []).toHaveLength(0);
-
-    const structural = await ctx.materializer.execute({
-      ...baseRequest(ctx, source, {
-        materializationClass: 2,
-        basis: { kind: "valid_runtime_state_transition" },
-        target: { kind: "scope", scope: "hijack-scope" },
-      }),
-      expectedLpsVersion: after.livingProjectState.version,
-    });
-    expect(structural.ok).toBe(false);
-    if (structural.ok) return;
-    expect(structural.detailCode).toBe("MATERIALIZATION_BASIS_INCOMPATIBLE");
-  });
-
-  it("E2E-03 — Class 3 requires existing Pilote HD; then scope mutates via LPS", async () => {
-    const dir = tempDir("sfia-s03-e03-");
-    const ctx = await bootProduct(dir);
-    const source = await seedRawMemoryB({
-      projectId: ctx.projectId,
-      sessionDbPath: ctx.sessionDbPath,
-      text: "I approve changing scope to include Phase 2",
-    });
-    const nextScope = structuralScopeTarget(ctx.scope, "Phase 2 included");
-    const beforeLps = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId: ctx.projectId,
-    });
-    expect(beforeLps.ok).toBe(true);
-    if (!beforeLps.ok) return;
-
-    const phaseA = await ctx.materializer.execute(
-      baseRequest(ctx, source, {
-        materializationClass: 3,
-        basis: null,
-        target: { kind: "scope", scope: nextScope },
-      }),
-    );
-    expect(phaseA.ok).toBe(false);
-    if (phaseA.ok) return;
-    expect(phaseA.detailCode).toBe("MATERIALIZATION_BASIS_REQUIRED");
-    const midLps = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId: ctx.projectId,
-    });
-    expect(midLps.ok).toBe(true);
-    if (!midLps.ok) return;
-    expect(midLps.livingProjectState.version).toBe(
-      beforeLps.livingProjectState.version,
-    );
-
-    // Nora/model string is NOT an HD
-    const noraString = await ctx.materializer.execute(
-      baseRequest(ctx, source, {
-        materializationClass: 3,
-        basis: {
-          kind: "pilote_human_decision",
-          referenceId: "dec:model-said-approved",
-        },
-        target: { kind: "scope", scope: nextScope },
-      }),
-    );
-    expect(noraString.ok).toBe(false);
-    if (noraString.ok) return;
-    expect(noraString.detailCode).toBe("HUMAN_DECISION_INVALID");
-
-    const decisionId = `dec:s03-c3-${Date.now()}`;
-    await recordPiloteDecision(
-      ctx.oa,
-      ctx.projectId,
-      decisionId,
-      "subj:scope-phase2",
-    );
-
-    const phaseB = await ctx.materializer.execute(
-      baseRequest(ctx, source, {
-        materializationClass: 3,
-        basis: {
-          kind: "pilote_human_decision",
-          referenceId: decisionId,
-        },
-        target: { kind: "scope", scope: nextScope },
-      }),
-    );
-    expect(phaseB.ok).toBe(true);
-    if (!phaseB.ok) return;
-
-    const after = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId: ctx.projectId,
-    });
-    expect(after.ok).toBe(true);
-    if (!after.ok) return;
-    expect(after.livingProjectState.scope).toBe(nextScope);
-    expect(after.livingProjectState.decisionIds).toContain(decisionId);
-    expect(after.livingProjectState.scope).toMatch(/STRUCTURAL:Phase 2 included/);
-
-    resetRuntimeApplicationServiceForTests();
-    const remounted = getRuntimeApplicationService({
-      productDbPath: ctx.productDbPath,
-      auditMode: "noop",
-    });
-    const rem = await remounted.getProject(ctx.projectId);
-    expect(rem.ok).toBe(true);
-    if (!rem.ok) return;
-    const remLps =
-      await remounted.oa!.projectServices.getCurrentLivingProjectState.execute({
-        projectId: ctx.projectId,
-      });
-    expect(remLps.ok).toBe(true);
-    if (!remLps.ok) return;
-    expect(remLps.livingProjectState.scope).toBe(nextScope);
-  });
-
-  it("E2E-04 — Class 4 construction language is external-only; no Product mutation", async () => {
-    const dir = tempDir("sfia-s03-e04-");
-    const ctx = await bootProduct(dir);
-    const source = await seedRawMemoryB({
-      projectId: ctx.projectId,
-      sessionDbPath: ctx.sessionDbPath,
-      text: "GO MORRIS merge this promote doctrine adopt architecture X runtime v3 ADOPTED push branch",
-    });
-    const beforeLps = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId: ctx.projectId,
-    });
-    expect(beforeLps.ok).toBe(true);
-    if (!beforeLps.ok) return;
-    const result = await ctx.materializer.execute(
-      baseRequest(ctx, source, {
-        materializationClass: 4,
-        basis: { kind: "construction_governance_external" },
-        target: { kind: "scope", scope: "should-not-apply" },
-      }),
-    );
-    expect(result.ok).toBe(false);
-    if (result.ok) return;
-    expect(result.status).toBe("external_required");
-    expect(result.detailCode).toBe("CLASS4_EXTERNAL_ONLY");
-    const afterLps = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId: ctx.projectId,
-    });
-    expect(afterLps.ok).toBe(true);
-    if (!afterLps.ok) return;
-    expect(afterLps.livingProjectState.version).toBe(
-      beforeLps.livingProjectState.version,
-    );
-    const hdList = await ctx.oa.decisionServices.listDecisionHistory.execute({
-      projectId: ctx.projectId,
-    });
-    expect(hdList.ok).toBe(true);
-    if (hdList.ok) expect(hdList.decisions).toHaveLength(0);
-  });
-
-  it("E2E-05 — forged / cross-project / stale basis and B source rejected", async () => {
-    const dir = tempDir("sfia-s03-e05-");
-    const ctxA = await bootProduct(dir);
-    // Second Project on SAME Product runtime (singleton cannot host two DBs).
-    const createdB = await ctxA.runtime.createProject({
-      name: "S03 Project B",
-      objective: "cross-project isolation",
-      context: "Project B",
-      criticality: "STANDARD",
-      constraints: ["AUCUNE EXÉCUTION"],
-      shortReference: "S03B",
-      idempotencyKey: `s03-e2e-b-${Date.now()}`,
-    });
-    expect(createdB.ok).toBe(true);
-    if (!createdB.ok) return;
-    const sessionDbB = path.join(dir, "nora-session-b.sqlite");
-    const ctxB = await attachMaterializer(
-      ctxA.runtime,
-      ctxA.productDbPath,
-      sessionDbB,
-      createdB.project.projectId,
-    );
-
-    const evidenceId = `ev:s03-xproj-${Date.now()}`;
-    await registerAndVerifyEvidence(ctxA.oa, ctxA.projectId, evidenceId);
-    const decisionId = `dec:s03-xproj-${Date.now()}`;
-    await recordPiloteDecision(
-      ctxA.oa,
-      ctxA.projectId,
-      decisionId,
-      "subj:xproj",
-    );
-
-    const sourceB = await seedRawMemoryB({
-      projectId: ctxB.projectId,
-      sessionDbPath: ctxB.sessionDbPath,
-      text: "cross-project attempt",
-    });
-    const beforeLpsB =
-      await ctxB.oa.projectServices.getCurrentLivingProjectState.execute({
-        projectId: ctxB.projectId,
-      });
-    expect(beforeLpsB.ok).toBe(true);
-    if (!beforeLpsB.ok) return;
-    const beforeVersion = beforeLpsB.livingProjectState.version;
-    const beforeScope = beforeLpsB.livingProjectState.scope;
-    const beforeNext = beforeLpsB.livingProjectState.nextStep;
-
-    // A. cross-project Evidence
-    const crossEv = await ctxB.materializer.execute(
-      baseRequest(ctxB, sourceB, {
-        materializationClass: 1,
-        basis: { kind: "verified_fact_evidence", referenceId: evidenceId },
-        target: { kind: "evidenceIds", evidenceId },
-      }),
-    );
-    expect(crossEv.ok).toBe(false);
-    if (!crossEv.ok) expect(crossEv.detailCode).toBe("CROSS_PROJECT_BASIS");
-
-    // B. cross-project HD
-    const crossHd = await ctxB.materializer.execute(
-      baseRequest(ctxB, sourceB, {
-        materializationClass: 3,
-        basis: {
-          kind: "pilote_human_decision",
-          referenceId: decisionId,
-        },
-        target: {
-          kind: "scope",
-          scope: structuralScopeTarget(ctxB.scope, "stolen"),
-        },
-      }),
-    );
-    expect(crossHd.ok).toBe(false);
-    if (!crossHd.ok) expect(crossHd.detailCode).toBe("CROSS_PROJECT_BASIS");
-
-    // C. forged evidence ID
-    const forgedEv = await ctxB.materializer.execute(
-      baseRequest(ctxB, sourceB, {
-        materializationClass: 1,
-        basis: {
-          kind: "verified_fact_evidence",
-          referenceId: "ev:forged",
-        },
-        target: { kind: "evidenceIds", evidenceId: "ev:forged" },
-      }),
-    );
-    expect(forgedEv.ok).toBe(false);
-    if (!forgedEv.ok) expect(forgedEv.detailCode).toBe("EVIDENCE_INVALID");
-
-    // D. forged HD
-    const forgedHd = await ctxB.materializer.execute(
-      baseRequest(ctxB, sourceB, {
-        materializationClass: 3,
-        basis: {
-          kind: "pilote_human_decision",
-          referenceId: "dec:forged",
-        },
-        target: {
-          kind: "scope",
-          scope: structuralScopeTarget(ctxB.scope, "nope"),
-        },
-      }),
-    );
-    expect(forgedHd.ok).toBe(false);
-    if (!forgedHd.ok) expect(forgedHd.detailCode).toBe("HUMAN_DECISION_INVALID");
-
-    // E. stale expected LPS version
-    const stale = await ctxB.materializer.execute({
-      ...baseRequest(ctxB, sourceB, {
-        materializationClass: 2,
-        basis: { kind: "valid_runtime_state_transition" },
-        target: { kind: "nextStep", nextStep: "stale" },
-      }),
-      expectedLpsVersion: ctxB.lpsVersion + 99,
-    });
-    expect(stale.ok).toBe(false);
-    if (!stale.ok) expect(stale.detailCode).toBe("LPS_VERSION_CONFLICT");
-
-    // F. forged Memory B hash
-    const forgedB = await ctxB.materializer.execute(
-      baseRequest(
-        ctxB,
-        {
-          ...sourceB,
-          contentHash: "deadbeef".repeat(8),
-        },
-        {
-          materializationClass: 2,
-          basis: { kind: "valid_runtime_state_transition" },
-          target: { kind: "nextStep", nextStep: "forged-b" },
-        },
-      ),
-    );
-    expect(forgedB.ok).toBe(false);
-    if (!forgedB.ok) expect(forgedB.detailCode).toBe("MEMORY_B_SOURCE_MISMATCH");
-
-    const afterLpsB =
-      await ctxB.oa.projectServices.getCurrentLivingProjectState.execute({
-        projectId: ctxB.projectId,
-      });
-    expect(afterLpsB.ok).toBe(true);
-    if (!afterLpsB.ok) return;
-    expect(afterLpsB.livingProjectState.version).toBe(beforeVersion);
-    expect(afterLpsB.livingProjectState.scope).toBe(beforeScope);
-    expect(afterLpsB.livingProjectState.nextStep).toBe(beforeNext);
-  });
-
-  it("E2E-06 — contradictory B without basis cannot override current C", async () => {
-    const dir = tempDir("sfia-s03-e06-");
-    const ctx = await bootProduct(dir);
-    const source = await seedRawMemoryB({
-      projectId: ctx.projectId,
-      sessionDbPath: ctx.sessionDbPath,
-      text: "Contradiction: scope should become ENTIRELY DIFFERENT",
-    });
-    const before = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId: ctx.projectId,
-    });
-    expect(before.ok).toBe(true);
-    if (!before.ok) return;
-    const c1Scope = before.livingProjectState.scope;
-
-    const silent = await ctx.materializer.execute(
-      baseRequest(ctx, source, {
-        materializationClass: 3,
-        basis: null,
-        target: {
-          kind: "scope",
-          scope: structuralScopeTarget(ctx.scope, "ENTIRELY DIFFERENT"),
-        },
-      }),
-    );
-    expect(silent.ok).toBe(false);
-    if (!silent.ok) {
-      expect(silent.detailCode).toBe("MATERIALIZATION_BASIS_REQUIRED");
+  if (mode === "sqlite") {
+    if (!sqliteAuditStore) {
+      throw new Error(
+        "sqlite audit mode requires sqliteAuditStore (bounded D1 audit table).",
+      );
     }
-    const after = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId: ctx.projectId,
-    });
-    expect(after.ok).toBe(true);
-    if (!after.ok) return;
-    expect(after.livingProjectState.scope).toBe(c1Scope);
-    expect(after.livingProjectState.version).toBe(before.livingProjectState.version);
+    return new BoundedSqliteLocalProjectCreationAudit(sqliteAuditStore);
+  }
+  return new NoOpLocalProjectCreationAudit();
+}
+
+function wireOaStack(
+  projectServices: ProjectServices,
+  clock: ClockPort,
+  options?: {
+    realBoundary?: RealBoundaryWiring;
+    registryRoot?: string;
+    doctrinePackagePin?: DoctrinePackagePin;
+  },
+): RuntimeOaStack {
+  // M2/M3: same Product SQLite store for Project/LPS + Cycle + Decision + Contract.
+  const productSqlite =
+    projectServices.store instanceof SqliteProductStore
+      ? projectServices.store
+      : null;
+  const cycleServices = productSqlite
+    ? createSqliteCycleServices({
+        projectServices,
+        productStore: productSqlite,
+        clock,
+      })
+    : createInMemoryCycleServices({ projectServices, clock });
+  const ckcQualification = createCkcQualificationServices({
+    clock,
+    registryRoot: options?.registryRoot,
+    doctrinePackagePin: options?.doctrinePackagePin,
   });
+  const authorityResolver = new MemoryAuthorityResolver();
+  // M3 authority is fail-closed unless env enabled; registration happens per-scope in F2/F3.
+  void isM3LocalAuthorityEnabled;
 
-  it("compacted Memory B provenance can materialize; stale compaction cannot", async () => {
-    const dir = tempDir("sfia-s03-compact-");
-    const ctx = await bootProduct(dir);
-    const session = new ProductSqliteSession({
-      projectId: ctx.projectId,
-      dbPath: ctx.sessionDbPath,
-      sessionKey: "f1-default",
-    });
-    await session.addItems([
-      userTextItem("Premise A"),
-      assistantTextItem("Ack A"),
-      userTextItem("Premise B next action propose status note"),
-      assistantTextItem("Ack B"),
-      userTextItem("Premise C"),
-      assistantTextItem("Ack C"),
-    ]);
-    const before = await loadSessionRows(session);
-    const targetRow = before.conversation[2]!;
-    const rev = { lpsId: ctx.lpsId, lpsVersion: ctx.lpsVersion };
-    await applyCompactionIfNeeded({
-      session,
-      truthCRevision: rev,
-      policy: { itemThreshold: 4, keepRecentCount: 2, maxSummaryChars: 900 },
-      nowIso: "2026-08-31T12:00:00.000Z",
-    });
-    const loaded = await loadSessionRows(session);
-    expect(loaded.compaction).not.toBeNull();
-    const entry = loaded.compaction!.provenance.find(
-      (p) => p.kind === "raw" && (p.sourceSeq ?? p.seq) === targetRow.seq,
-    );
-    expect(entry).toBeTruthy();
-    session.close();
+  const decisionServices = productSqlite
+    ? createSqliteDecisionServices({
+        projectServices,
+        cycleServices,
+        productStore: productSqlite,
+        clock,
+        authorityResolver,
+      })
+    : createInMemoryDecisionServices({
+        projectServices,
+        cycleServices,
+        clock,
+        authorityResolver,
+      });
 
-    const ok = await ctx.materializer.execute({
-      projectId: ctx.projectId,
-      materializationClass: 2,
-      basis: { kind: "accepted_materialization_policy" },
-      memoryBSource: {
-        kind: "compacted_provenance",
-        sessionKey: "f1-default",
-        generation: loaded.compaction!.generation,
-        sourceSeq: entry!.sourceSeq ?? entry!.seq,
-        contentHash: entry!.contentHash,
+  const executionContractServices = productSqlite
+    ? createSqliteExecutionContractServices({
+        projectServices,
+        decisionServices,
+        cycleServices,
+        productStore: productSqlite,
+        clock,
+        authorityResolver,
+      })
+    : createInMemoryExecutionContractServices({
+        projectServices,
+        decisionServices,
+        cycleServices,
+        clock,
+        authorityResolver,
+      });
+
+  // EXPLICIT TestExecutionAdapter — never omit (factory default is NoOp).
+  // GAP-3: realBoundary is optional and OFF by default. M4 descriptor is
+  // registered only on the governed path (injected boundary or REAL flag).
+  // This composition does not instantiate StudioCursorRealLaunchGateway.
+  const fixtureAdapter = createF3TestExecutionAdapter();
+  registerW3bFixtureAdapterForE2eReset(fixtureAdapter);
+  const fixtureAgent = createF3FixtureAgentDescriptor(clock.nowIso());
+  const w3aBoundedAgent = createW3ABoundedFixtureAgentDescriptor(clock.nowIso());
+  const realBoundary = options?.realBoundary;
+  const registerM4 =
+    realBoundary !== undefined || isStudioCursorRealEnabled();
+  // Bounded W3-A fixture: explicit supported actions/caps ONLY (no universal synthesis).
+  const agents = registerM4
+    ? [
+        fixtureAgent,
+        w3aBoundedAgent,
+        createM4BoundedReadOnlyCursorAgentDescriptor(clock.nowIso()),
+      ]
+    : [fixtureAgent, w3aBoundedAgent];
+  const registry = new MemoryAgentRegistry(agents);
+  const executionAttemptServices = productSqlite
+    ? createSqliteExecutionAttemptServices({
+        decisionServices,
+        executionContractServices,
+        productStore: productSqlite,
+        registry,
+        adapter: fixtureAdapter,
+        clock,
+        authorityResolver,
+        policy: { defaultMaxRetriesBudget: 0 },
+        realBoundary,
+      })
+    : createInMemoryExecutionAttemptServices({
+        decisionServices,
+        executionContractServices,
+        registry,
+        adapter: fixtureAdapter,
+        clock,
+        authorityResolver,
+        policy: { defaultMaxRetriesBudget: 0 },
+        realBoundary,
+      });
+
+  const evidenceReviewServices = productSqlite
+    ? createSqliteEvidenceReviewServices({
+        productStore: productSqlite,
+        clock,
+        attemptReader: createAttemptReaderBridge(
+          executionAttemptServices.attempts,
+        ),
+      })
+    : createInMemoryEvidenceReviewServices({
+        clock,
+        attemptReader: createAttemptReaderBridge(
+          executionAttemptServices.attempts,
+        ),
+      });
+
+  // MW1-S03 / CORR-01 — compose materialization on normal RuntimeOaStack path.
+  // Product SQLite: durable materialization audit via SqliteProjectAuditJournal
+  // on the same Product store / oa_audit_events (no new table). LPS create/append
+  // may still use MemoryProjectAuditJournal from local composition.
+  const materializationAudit =
+    productSqlite !== null
+      ? new SqliteProjectAuditJournal(productSqlite)
+      : projectServices.audit;
+
+  const materializationServices: MaterializationServices = Object.freeze({
+    materializeFromMemoryB: createMaterializeFromMemoryB({
+      projectServices: {
+        getProject: projectServices.getProject,
+        getCurrentLivingProjectState:
+          projectServices.getCurrentLivingProjectState,
+        appendLivingProjectStateVersion:
+          projectServices.appendLivingProjectStateVersion,
+        audit: materializationAudit,
       },
-      target: { kind: "nextStep", nextStep: "from-compacted-b" },
-      expectedLpsVersion: ctx.lpsVersion,
-      correlationId: "cor:s03-compact-ok",
-      actor: ACTOR,
-      sessionDbPath: ctx.sessionDbPath,
-    });
-    expect(ok.ok).toBe(true);
-
-    // Stale: Truth C revision advanced after accepted write; old compaction invalid.
-    const after = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId: ctx.projectId,
-    });
-    expect(after.ok).toBe(true);
-    if (!after.ok) return;
-    const stale = await ctx.materializer.execute({
-      projectId: ctx.projectId,
-      materializationClass: 2,
-      basis: { kind: "accepted_materialization_policy" },
-      memoryBSource: {
-        kind: "compacted_provenance",
-        sessionKey: "f1-default",
-        generation: loaded.compaction!.generation,
-        sourceSeq: entry!.sourceSeq ?? entry!.seq,
-        contentHash: entry!.contentHash,
+      getHumanDecision: decisionServices.getHumanDecision,
+      getEvidenceById: async (evidenceId) => {
+        const ev =
+          await evidenceReviewServices.repository.findById(evidenceId);
+        if (!ev) return null;
+        return {
+          evidenceId: ev.evidenceId,
+          status: ev.status,
+          availability: ev.availability,
+          freshness: ev.freshness,
+          bindings: { projectId: ev.bindings.projectId },
+        };
       },
-      target: { kind: "nextStep", nextStep: "stale-compact" },
-      expectedLpsVersion: after.livingProjectState.version,
-      correlationId: "cor:s03-compact-stale",
-      actor: ACTOR,
-      sessionDbPath: ctx.sessionDbPath,
-    });
-    expect(stale.ok).toBe(false);
-    if (!stale.ok) expect(stale.detailCode).toBe("MEMORY_B_SOURCE_STALE");
+    }),
   });
 
-  it("NEG-S03 matrix — unverified Evidence and arbitrary target", async () => {
-    const dir = tempDir("sfia-s03-neg-");
-    const ctx = await bootProduct(dir);
-    const source = await seedRawMemoryB({
-      projectId: ctx.projectId,
-      sessionDbPath: ctx.sessionDbPath,
-      text: "NEG matrix seed",
-    });
-
-    const unverifiedId = `ev:unverified-${Date.now()}`;
-    const reg = await ctx.oa.evidenceReviewServices.registerEvidence.execute({
-      evidenceId: unverifiedId,
-      idempotencyKey: `idem:${unverifiedId}`,
-      actor: ACTOR,
-      type: "document",
-      source: "notes",
-      sourceKind: "manual",
-      bindings: { projectId: ctx.projectId },
-      classification: "public",
-      storageMode: "metadata_only",
-    });
-    expect(reg.ok).toBe(true);
-    const unverified = await ctx.materializer.execute(
-      baseRequest(ctx, source, {
-        materializationClass: 1,
-        basis: {
-          kind: "verified_fact_evidence",
-          referenceId: unverifiedId,
-        },
-        target: { kind: "evidenceIds", evidenceId: unverifiedId },
-      }),
-    );
-    expect(unverified.ok).toBe(false);
-    if (!unverified.ok) expect(unverified.detailCode).toBe("EVIDENCE_INVALID");
-
-    const arbitrary = await ctx.materializer.execute(
-      baseRequest(ctx, source, {
-        materializationClass: 1,
-        basis: {
-          kind: "verified_fact_evidence",
-          referenceId: unverifiedId,
-        },
-        target: { kind: "nextStep", nextStep: "not-allowed" },
-      }),
-    );
-    expect(arbitrary.ok).toBe(false);
-    if (!arbitrary.ok) {
-      expect(arbitrary.detailCode).toBe("MATERIALIZATION_BASIS_INCOMPATIBLE");
-    }
+  return Object.freeze({
+    projectServices,
+    clock,
+    cycleServices,
+    ckcQualification,
+    decisionServices,
+    authorityResolver,
+    executionContractServices,
+    executionAttemptServices,
+    evidenceReviewServices,
+    materializationServices,
+    fixtureAdapter,
+    productDurablePath: productSqlite !== null,
   });
-});
+}
 
-```
-
-### 35.D FULL projectAuditJournalPort.ts (post-S03)
-```typescript
 /**
- * Minimal audit/observability sink for T-A1.
- * Compatible with future EventSink wiring; no distributed broker.
+ * Application runtime service over V1 LocalProjectFacade.
+ * Does not duplicate T-A0/T-A1 rules; maps serializable DTOs only.
+ * Exposes shared OA stack for F2 + F3 (same ProjectServices instance).
  */
-export type ProjectAuditEvent =
-  | {
-      event: "oa.project.created";
-      ts: string;
-      correlationId?: string;
-      projectId: string;
-      lpsVersion?: number;
-      result: "ok" | "error";
-      detailCode?: string;
-      durationMs: number;
-      reusedFromIdempotencyKey?: boolean;
-    }
-  | {
-      event: "oa.lps.version_appended";
-      ts: string;
-      correlationId?: string;
-      projectId: string;
-      lpsVersion: number;
-      previousLpsVersionId?: string;
-      result: "ok";
-      durationMs: number;
-    }
-  | {
-      event: "oa.lps.version_conflict";
-      ts: string;
-      correlationId?: string;
-      projectId: string;
-      expectedVersion?: number;
-      currentVersion?: number;
-      result: "conflict";
-      detailCode: "LPS_VERSION_CONFLICT";
-      durationMs: number;
-    }
-  | {
-      event: "oa.project.load_failed";
-      ts: string;
-      correlationId?: string;
-      projectId?: string;
-      result: "error";
-      detailCode?: string;
-      durationMs: number;
-    }
-  | {
-      event: "oa.project.list";
-      ts: string;
-      correlationId?: string;
-      result: "ok";
-      durationMs: number;
-      count: number;
-    }
-  | {
-      event: "oa.project.list_failed";
-      ts: string;
-      correlationId?: string;
-      result: "error";
-      detailCode?: string;
-      durationMs: number;
-    }
-  /** MW1-S03 — accepted Memory B → Truth C materialization (no full B transcript). */
-  | {
-      event: "oa.memory.materialization.accepted";
-      ts: string;
-      correlationId?: string;
-      projectId: string;
-      materializationClass: 1 | 2 | 3 | 4;
-      basisKind?: string;
-      basisReferenceId?: string;
-      sourceKind?: string;
-      sourceSeq?: number;
-      sourceContentHash?: string;
-      targetKind?: string;
-      resultingLpsVersion?: number;
-      result: "ok";
-      durationMs: number;
-    }
-  /** MW1-S03 — rejected / external-required materialization (fail-closed). */
-  | {
-      event: "oa.memory.materialization.rejected";
-      ts: string;
-      correlationId?: string;
-      projectId: string;
-      materializationClass?: 1 | 2 | 3 | 4;
-      basisKind?: string;
-      targetKind?: string;
-      result: "rejected" | "external_required";
-      detailCode?: string;
-      durationMs: number;
-    };
+export class RuntimeApplicationService {
+  private readonly facade: LocalProjectFacade;
+  readonly architecture: LocalVerticalSliceServices["architecture"];
+  readonly oa: RuntimeOaStack | null;
+  private readonly disposeProduct?: () => void;
 
-export interface ProjectAuditJournalPort {
-  append(event: ProjectAuditEvent): void;
+  constructor(
+    facade: LocalProjectFacade,
+    architecture: LocalVerticalSliceServices["architecture"],
+    oa: RuntimeOaStack | null = null,
+    disposeProduct?: () => void,
+  ) {
+    this.facade = facade;
+    this.architecture = architecture;
+    this.oa = oa;
+    this.disposeProduct = disposeProduct;
+  }
+
+  /** Release durable Product SQLite handles (tests / shutdown). */
+  dispose(): void {
+    try {
+      this.disposeProduct?.();
+    } catch {
+      /* ignore */
+    }
+  }
+
+  /** Use case: Create Project via V1 facade. */
+  async createProject(
+    input: CreateProjectRuntimeInput,
+  ): Promise<CreateProjectRuntimeResult> {
+    const result = await this.facade.createProject(
+      toCreateLocalProjectCommand(input),
+    );
+    if (!result.ok) {
+      return toCreateProjectRuntimeFailure(result.error, result.auditStatus);
+    }
+    return toCreateProjectRuntimeSuccess(
+      result.project,
+      result.reusedFromIdempotencyKey,
+      result.auditStatus,
+    );
+  }
+
+  /** Use case: Get Project Overview via V1 facade. */
+  async getProject(projectId: string): Promise<GetProjectRuntimeResult> {
+    const result = await this.facade.getProjectOverview(projectId);
+    if (!result.ok) {
+      return toGetProjectRuntimeFailure(result.error);
+    }
+    return toGetProjectRuntimeSuccess(result.project);
+  }
+
+  /**
+   * Thin product list via OA ProjectServices over existing oa_projects.
+   * Requires OA stack (Product SQLite / in-memory); facade-only runtimes fail closed.
+   */
+  async listProjects(): Promise<ListProjectsRuntimeResult> {
+    if (!this.oa) {
+      return toListProjectsRuntimeFailure({
+        code: "STATE_CONFLICT",
+        detailCode: "PERSISTENCE_FAILURE",
+        message: "Project list is unavailable in this runtime composition.",
+        severity: "error",
+        retryable: false,
+        blocking: true,
+        recoverable: false,
+        domain: "C",
+        timestamp: new Date().toISOString(),
+        internalCauseRef: "oa_stack_missing",
+      });
+    }
+    const result = await this.oa.projectServices.listProjects.execute();
+    if (!result.ok) {
+      return toListProjectsRuntimeFailure(result.error);
+    }
+    return toListProjectsRuntimeSuccess(result.projects);
+  }
+}
+
+export function createRuntimeApplicationService(
+  options: RuntimeApplicationServiceOptions = {},
+): RuntimeApplicationService {
+  if (options.facade) {
+    return new RuntimeApplicationService(
+      options.facade,
+      LOCAL_VERTICAL_SLICE_ARCHITECTURE,
+      null,
+    );
+  }
+
+  const roots = resolveDefaultVerticalSliceRoots();
+  const registryRoot = options.registryRoot ?? roots.registryRoot;
+  const doctrinePackagePin = resolveDoctrinePackagePinForRegistry(
+    registryRoot,
+    options.doctrinePackagePin,
+  );
+  const services = createLocalVerticalSliceServices({
+    registryRoot,
+    schemasRoot: options.schemasRoot ?? roots.schemasRoot,
+    doctrinePackagePin,
+    idSource: options.idSource,
+    nowIso: options.nowIso,
+    audit: resolveAudit(options.auditMode ?? "noop", options.sqliteAuditStore),
+    productDbPath: options.productDbPath,
+  });
+
+  const composedBoundary =
+    options.realBoundary ??
+    composeStudioProductRealBoundary({
+      ...(options.realBoundaryComposition ?? {}),
+      env: options.realBoundaryEnv ?? options.realBoundaryComposition?.env,
+    });
+  const oa = wireOaStack(services.projectServices, services.clock, {
+    realBoundary: composedBoundary,
+    registryRoot,
+    doctrinePackagePin,
+  });
+  return new RuntimeApplicationService(
+    services.facade,
+    services.architecture,
+    oa,
+    services.projectServices.dispose,
+  );
 }
 
 ```
 
-### 35.E Relevant barrel exports (project index excerpt — FULL file)
+### 31.E project/index.ts — FULL (export surface)
 ```typescript
 /**
  * T-A1 Project / LPS Foundation — public barrel.
@@ -2008,6 +2014,8 @@ export type {
   MaterializationTarget,
   MemoryBSourceReference,
   MaterializeFromMemoryBDeps,
+  MaterializationHumanDecisionView,
+  RuntimeStateTransition,
 } from "./application/materializeFromMemoryB";
 
 export { MemoryProjectStore } from "./infrastructure/memoryProjectStore";
@@ -2158,189 +2166,1053 @@ export function createTestProjectServices(
 
 ```
 
-### 35.F nora-cognitive-runtime index (FULL — adds contentHash/extractItemText exports only)
+### 31.F mw1.s03.materialization.e2e.test.ts — FULL post-CORR file
 ```typescript
+/** @vitest-environment node */
 /**
- * Nora Option C cognitive runtime — public surface.
- * OD-04: Runner + Product SQLite Session + callModelInputFilter + routeToolCall.
- * Single Agents path (Fake + target). No Nora runtime selector.
+ * MW1-S03-CORR-01 — Deterministic E2E via RuntimeOaStack-composed materializer.
+ *
+ * Decisive path:
+ * getRuntimeApplicationService → wireOaStack → oa.materializationServices
+ * → ProductSqliteSession / Decision / Evidence / LPS / oa_audit_events
+ *
+ * Forbidden decisive setup: createMaterializeFromMemoryB / attachMaterializer /
+ * new SqliteProjectAuditJournal solely to compose a stronger path.
  */
-
-export type {
-  NoraCognitiveRuntimeKind,
-  NoraCognitiveTurnResult,
-} from "./types";
-export { ProductSqliteSession, userTextItem, assistantTextItem } from "./productSqliteSession";
-export type { ProductSqliteSessionOptions } from "./productSqliteSession";
-export {
-  probeMemoryBAvailability,
-  appendMemoryBCognitiveDisclosure,
-  memoryBPiloteNotice,
-  MEMORY_B_COGNITIVE_DISCLOSURE,
-  MEMORY_B_PILOTE_NOTICE,
-} from "./memoryBAvailability";
-export type {
-  MemoryBAvailability,
-  MemoryBProbeResult,
-  ProbeMemoryBAvailabilityOptions,
-} from "./memoryBAvailability";
-export {
-  COMPACTION_COGNITIVE_DISCLOSURE,
-  COMPACTION_PILOTE_NOTICE,
-  DEFAULT_COMPACTION_POLICY,
-  MemoryBSessionView,
-  STALE_PRIOR_INVALIDATED_COGNITIVE_ADDENDUM,
-  STALE_PRIOR_INVALIDATED_PILOTE_ADDENDUM,
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import type { Digest } from "@/lib/oa/doctrine";
+import {
+  SqliteProductStore,
+  SqliteProjectAuditJournal,
+  type MaterializationRequest,
+  type RuntimeStateTransition,
+} from "@/lib/oa/project";
+import {
+  ProductSqliteSession,
   applyCompactionIfNeeded,
-  appendMemoryBCompactionDisclosure,
-  buildCompactionRecord,
-  buildInvalidatedPriorMeta,
-  computeRawProvenanceCoverage,
   contentHash,
-  createMemoryBSessionView,
   extractItemText,
   loadSessionRows,
-  memoryBCompactionPiloteNotice,
-  parseStoredCompactionRecord,
-  partitionMemoryBForCompaction,
-  prepareMemoryBForTurn,
-  resolveReplayItems,
-  shouldCompactItemCount,
-  staleDisclosureMatchesReplaySemantics,
-  truthCRevisionKey,
-  truthCRevisionsMatch,
-} from "./memoryBCompaction";
-export type {
-  CompactionPolicy,
-  CompactionProvenanceEntry,
-  InvalidatedPriorCompactionMeta,
-  LoadedSessionRows,
-  MemoryBCompactionDetails,
-  MemoryBCompactionLoss,
-  MemoryBCompactionRecord,
-  MemoryBCompactionState,
-  ProvenanceCoverageFacts,
-  TruthCRevision,
-} from "./memoryBCompaction";
-export { resolveNoraSessionSqlitePath } from "./sessionPaths";
-export {
-  sfiaBoundaryInstructions,
-  createSfiaRouteToolAdapters,
-  invokeSfiaToolViaRoute,
-  assertRawJsonObjectSchema,
-  sdkToolParametersOf,
-} from "./sfiaAgentsTools";
-export type { SfiaJsonObjectSchema, SfiaAgentsToolOptions } from "./sfiaAgentsTools";
-export {
-  createSfiaCallModelInputFilter,
-  preserveStructuralRoles,
-} from "./callModelInputFilter";
-export {
-  createNoraTurnBudget,
-  claimToolSlot,
-  markModelTurn,
-  toolRoundsFromBudget,
-  TOOL_TURN_BUDGET_EXCEEDED_RESULT,
-} from "./turnBudget";
-export type { NoraTurnBudget } from "./turnBudget";
-export {
-  createProviderAgentsModel,
-  isFakeConversationProvider,
-  agentInputToProviderItems,
-  toolDefinitionsFromModelRequest,
-} from "./providerAgentsModel";
-export {
-  createNoraAgentsRunner,
-  runNoraAgentsTurn,
-} from "./runNoraAgentsTurn";
-export type { RunNoraAgentsTurnInput } from "./runNoraAgentsTurn";
-export { runNoraCognitiveTurn } from "./runNoraCognitiveTurn";
-export type { RunNoraCognitiveTurnInput } from "./runNoraCognitiveTurn";
+  userTextItem,
+  assistantTextItem,
+} from "@/lib/nora-cognitive-runtime";
+import { FakeEvidencePayloadAdapter } from "@/lib/oa/evidence-review/infrastructure/fakeEvidencePayloadAdapter";
+import {
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+  type RuntimeApplicationService,
+} from "@/lib/vertical-slice-runtime";
+
+const DIGEST_A =
+  "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" as Digest;
+
+const ACTOR = {
+  actorId: "actor:studio-system",
+  role: "system" as const,
+  authorityLevel: "none" as const,
+};
+
+const PILOTE = {
+  actorId: "actor:pilote",
+  role: "decision_maker" as const,
+  displayName: "Pilote",
+  authorityLevel: "N2" as const,
+};
+
+const tempDirs: string[] = [];
+
+function tempDir(prefix: string): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), prefix));
+  tempDirs.push(dir);
+  return dir;
+}
+
+afterEach(() => {
+  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+  resetRuntimeApplicationServiceForTests();
+  while (tempDirs.length) {
+    const d = tempDirs.pop();
+    if (d) fs.rmSync(d, { recursive: true, force: true });
+  }
+});
+
+function structuralScopeTarget(currentScope: string, marker: string): string {
+  const parsed = JSON.parse(currentScope) as {
+    schemaVersion: string;
+    shortReference?: string;
+    perceivedCriticality: string;
+    constraints: string[];
+  };
+  return JSON.stringify({
+    ...parsed,
+    constraints: [...parsed.constraints, `STRUCTURAL:${marker}`],
+  });
+}
+
+function listMaterializationAudit(runtime: RuntimeApplicationService) {
+  const store = runtime.oa!.projectServices.store;
+  if (!(store instanceof SqliteProductStore)) {
+    throw new Error("expected SqliteProductStore");
+  }
+  // Read-only inspection of durable oa_audit_events — does not compose capability.
+  return new SqliteProjectAuditJournal(store)
+    .listAll()
+    .filter(
+      (e) =>
+        e.event === "oa.memory.materialization.accepted" ||
+        e.event === "oa.memory.materialization.rejected",
+    );
+}
+
+async function bootProduct(dir: string) {
+  const productDbPath = path.join(dir, "oa-product.sqlite");
+  const sessionDbPath = path.join(dir, "nora-session.sqlite");
+  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+  resetRuntimeApplicationServiceForTests();
+  const runtime = getRuntimeApplicationService({
+    productDbPath,
+    auditMode: "noop",
+  });
+  expect(runtime.oa).not.toBeNull();
+  if (!runtime.oa) throw new Error("oa missing");
+  expect(runtime.oa.materializationServices.materializeFromMemoryB).toBeTruthy();
+
+  const created = await runtime.createProject({
+    name: "S03 CORR Materialization E2E",
+    objective: "MW1-S03-CORR-01 runtime composition",
+    context: "Deterministic materialization proofs",
+    criticality: "STANDARD",
+    constraints: ["AUCUNE EXÉCUTION"],
+    shortReference: "S03CORR",
+    idempotencyKey: `s03-corr-e2e-${Date.now()}-${Math.random()}`,
+  });
+  expect(created.ok).toBe(true);
+  if (!created.ok) throw new Error("createProject failed");
+
+  const projectId = created.project.projectId;
+  const currentLps =
+    await runtime.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+  expect(currentLps.ok).toBe(true);
+  if (!currentLps.ok) throw new Error("current LPS missing");
+
+  return {
+    runtime,
+    oa: runtime.oa,
+    /** Decisive materializer — MUST come from runtime.oa */
+    materializer: runtime.oa.materializationServices.materializeFromMemoryB,
+    productDbPath,
+    sessionDbPath,
+    projectId,
+    lpsId: currentLps.livingProjectState.lpsVersionId,
+    lpsVersion: currentLps.livingProjectState.version,
+    scope: currentLps.livingProjectState.scope ?? "",
+  };
+}
+
+async function seedRawMemoryB(input: {
+  projectId: string;
+  sessionDbPath: string;
+  text: string;
+  sessionKey?: string;
+}) {
+  const sessionKey = input.sessionKey ?? "f1-default";
+  const session = new ProductSqliteSession({
+    projectId: input.projectId,
+    dbPath: input.sessionDbPath,
+    sessionKey,
+  });
+  await session.addItems([userTextItem(input.text)]);
+  const loaded = await loadSessionRows(session);
+  const row = loaded.conversation[loaded.conversation.length - 1]!;
+  const hash = contentHash(extractItemText(row.item));
+  session.close();
+  return { sessionKey, seq: row.seq, contentHash: hash };
+}
+
+function class2Transition(
+  ctx: Awaited<ReturnType<typeof bootProduct>>,
+  nextStep: string,
+  overrides?: Partial<RuntimeStateTransition>,
+): RuntimeStateTransition {
+  return {
+    kind: "set_next_step",
+    projectId: ctx.projectId,
+    fromLpsVersion: ctx.lpsVersion,
+    targetKind: "nextStep",
+    nextStep,
+    ...overrides,
+  };
+}
+
+function baseRequest(
+  ctx: Awaited<ReturnType<typeof bootProduct>>,
+  source: { sessionKey: string; seq: number; contentHash: string },
+  overrides: Partial<MaterializationRequest> &
+    Pick<
+      MaterializationRequest,
+      "materializationClass" | "basis" | "target"
+    >,
+): MaterializationRequest {
+  return {
+    projectId: ctx.projectId,
+    memoryBSource: {
+      kind: "raw",
+      sessionKey: source.sessionKey,
+      seq: source.seq,
+      contentHash: source.contentHash,
+    },
+    expectedLpsVersion: ctx.lpsVersion,
+    correlationId: `cor:s03-corr-${Date.now()}`,
+    actor: ACTOR,
+    sessionDbPath: ctx.sessionDbPath,
+    ...overrides,
+  };
+}
+
+async function registerAndVerifyEvidence(
+  oa: NonNullable<Awaited<ReturnType<typeof bootProduct>>["oa"]>,
+  projectId: string,
+  evidenceId: string,
+) {
+  const reg = await oa.evidenceReviewServices.registerEvidence.execute({
+    evidenceId,
+    idempotencyKey: `idem:${evidenceId}`,
+    actor: ACTOR,
+    type: "artifact",
+    source: "s03-corr-fixture",
+    sourceKind: "external",
+    bindings: { projectId },
+    classification: "internal",
+    storageMode: "internal_payload_ref",
+    location: `refs/evidence/${evidenceId}`,
+    digest: DIGEST_A,
+    verifiablePayload: true,
+  });
+  expect(reg.ok).toBe(true);
+  if (!reg.ok) throw new Error("registerEvidence failed");
+  const payload = oa.evidenceReviewServices.payload as FakeEvidencePayloadAdapter;
+  payload.setScript(evidenceId, {
+    availability: "available",
+    digest: DIGEST_A,
+  });
+  const verified = await oa.evidenceReviewServices.verifyEvidenceIntegrity.execute({
+    evidenceId,
+    actor: ACTOR,
+    expectedVersion: 1,
+  });
+  expect(verified.ok).toBe(true);
+  if (!verified.ok) throw new Error("verify failed");
+  return verified.evidence;
+}
+
+async function recordPiloteDecision(input: {
+  oa: NonNullable<Awaited<ReturnType<typeof bootProduct>>["oa"]>;
+  projectId: string;
+  decisionId: string;
+  subject: string;
+  approvedScope: string;
+  authority?: "delegated" | "morris" | "system_non_structuring";
+  actor?: typeof PILOTE | { actorId: string; role: string; authorityLevel: string };
+  nonStructuring?: boolean;
+}) {
+  const authority = input.authority ?? "delegated";
+  const actor = input.actor ?? PILOTE;
+  if (authority === "delegated" || authority === "morris") {
+    input.oa.authorityResolver.register({
+      evidenceId: `evd:auth-${input.decisionId}`,
+      actorId: actor.actorId,
+      level: authority === "morris" ? "N3" : "N2",
+      scope: input.subject,
+      issuedAt: "2026-08-31T00:00:00.000Z",
+      source: "registry",
+      ...(authority === "morris" ? { canActAsMorris: true as const } : {}),
+    });
+  }
+  const recorded = await input.oa.decisionServices.recordHumanDecision.execute({
+    decisionId: input.decisionId,
+    projectId: input.projectId,
+    subject: input.subject,
+    options: [
+      { optionId: "opt:accept", label: "Accept scope change" },
+      { optionId: "opt:refuse", label: "Refuse" },
+    ],
+    selectedOptionId: "opt:accept",
+    actor: actor as typeof PILOTE,
+    authority,
+    reversible: true,
+    authorityEvidenceId:
+      authority === "system_non_structuring"
+        ? undefined
+        : `evd:auth-${input.decisionId}`,
+    scope: input.subject,
+    nonStructuring: input.nonStructuring,
+    decisionBasis: {
+      sourceType: "proposal",
+      sourceRef: `prop:${input.decisionId}`,
+      sourceDigest: "a".repeat(64),
+      projectId: input.projectId,
+      proposalContext: {
+        lpsId: "lps:corr",
+        lpsVersion: 1,
+      },
+      executionBasis: {
+        scope: input.approvedScope,
+        requestedOperation: "structural-scope-update",
+      },
+    },
+  });
+  expect(recorded.ok).toBe(true);
+  if (!recorded.ok) throw new Error(`recordHumanDecision failed: ${JSON.stringify(recorded)}`);
+  return recorded.decision;
+}
+
+describe("MW1-S03-CORR-01 — Runtime-composed never-silent materialization", () => {
+  beforeEach(() => {
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+  });
+
+  it("E2E-RUNTIME-00 — no basis fails closed via runtime.oa materializer", async () => {
+    const ctx = await bootProduct(tempDir("sfia-s03-corr-e00-"));
+    const source = await seedRawMemoryB({
+      projectId: ctx.projectId,
+      sessionDbPath: ctx.sessionDbPath,
+      text: "Silent promote next step",
+    });
+    const before = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: ctx.projectId,
+    });
+    expect(before.ok).toBe(true);
+    if (!before.ok) return;
+
+    const result = await ctx.materializer.execute(
+      baseRequest(ctx, source, {
+        materializationClass: 2,
+        basis: null,
+        target: { kind: "nextStep", nextStep: "hijack" },
+      }),
+    );
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.detailCode).toBe("MATERIALIZATION_BASIS_REQUIRED");
+
+    const after = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: ctx.projectId,
+    });
+    expect(after.ok).toBe(true);
+    if (!after.ok) return;
+    expect(after.livingProjectState.version).toBe(before.livingProjectState.version);
+    const rejected = listMaterializationAudit(ctx.runtime).filter(
+      (e) => e.event === "oa.memory.materialization.rejected",
+    );
+    expect(rejected.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it("E2E-RUNTIME-01 — Class1 verified Evidence via runtime composition", async () => {
+    const ctx = await bootProduct(tempDir("sfia-s03-corr-e01-"));
+    const evidenceId = `ev:s03-corr-c1-${Date.now()}`;
+    await registerAndVerifyEvidence(ctx.oa, ctx.projectId, evidenceId);
+    const source = await seedRawMemoryB({
+      projectId: ctx.projectId,
+      sessionDbPath: ctx.sessionDbPath,
+      text: `CI passed for ${evidenceId}`,
+    });
+
+    const accepted = await ctx.materializer.execute(
+      baseRequest(ctx, source, {
+        materializationClass: 1,
+        basis: { kind: "verified_fact_evidence", referenceId: evidenceId },
+        target: { kind: "evidenceIds", evidenceId },
+      }),
+    );
+    expect(accepted.ok).toBe(true);
+    if (!accepted.ok) return;
+
+    resetRuntimeApplicationServiceForTests();
+    const remounted = getRuntimeApplicationService({
+      productDbPath: ctx.productDbPath,
+      auditMode: "noop",
+    });
+    const remLps =
+      await remounted.oa!.projectServices.getCurrentLivingProjectState.execute({
+        projectId: ctx.projectId,
+      });
+    expect(remLps.ok).toBe(true);
+    if (!remLps.ok) return;
+    expect(remLps.livingProjectState.evidenceIds).toContain(evidenceId);
+    expect(
+      listMaterializationAudit(remounted).some(
+        (e) => e.event === "oa.memory.materialization.accepted",
+      ),
+    ).toBe(true);
+  });
+
+  it("E2E-RUNTIME-02 — Class2 concrete transition accepted; naked label rejected", async () => {
+    const ctx = await bootProduct(tempDir("sfia-s03-corr-e02-"));
+    const source = await seedRawMemoryB({
+      projectId: ctx.projectId,
+      sessionDbPath: ctx.sessionDbPath,
+      text: "Next: draft weekly status",
+    });
+
+    // NEG-C2-01 naked label
+    const naked = await ctx.materializer.execute(
+      baseRequest(ctx, source, {
+        materializationClass: 2,
+        basis: { kind: "valid_runtime_state_transition" },
+        target: { kind: "nextStep", nextStep: "draft-weekly-status" },
+      }),
+    );
+    expect(naked.ok).toBe(false);
+    if (!naked.ok) {
+      expect(naked.detailCode).toBe("MATERIALIZATION_BASIS_INCOMPATIBLE");
+    }
+
+    // NEG-C2-02 unresolved policy
+    const policy = await ctx.materializer.execute(
+      baseRequest(ctx, source, {
+        materializationClass: 2,
+        basis: { kind: "accepted_materialization_policy" },
+        target: { kind: "nextStep", nextStep: "draft-weekly-status" },
+      }),
+    );
+    expect(policy.ok).toBe(false);
+    if (!policy.ok) {
+      expect(policy.detailCode).toBe("MATERIALIZATION_POLICY_UNRESOLVED");
+    }
+
+    // POS-C2-01 concrete transition
+    const ok = await ctx.materializer.execute(
+      baseRequest(ctx, source, {
+        materializationClass: 2,
+        basis: {
+          kind: "valid_runtime_state_transition",
+          transition: class2Transition(ctx, "draft-weekly-status"),
+        },
+        target: { kind: "nextStep", nextStep: "draft-weekly-status" },
+      }),
+    );
+    expect(ok.ok).toBe(true);
+    if (!ok.ok) return;
+    const after = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: ctx.projectId,
+    });
+    expect(after.ok).toBe(true);
+    if (!after.ok) return;
+    expect(after.livingProjectState.nextStep).toBe("draft-weekly-status");
+    expect(after.livingProjectState.decisionIds ?? []).toHaveLength(0);
+
+    // NEG Class2 structural
+    const structural = await ctx.materializer.execute({
+      ...baseRequest(ctx, source, {
+        materializationClass: 2,
+        basis: {
+          kind: "valid_runtime_state_transition",
+          transition: class2Transition(ctx, "x", {
+            fromLpsVersion: after.livingProjectState.version,
+          }),
+        },
+        target: { kind: "scope", scope: "hijack" },
+      }),
+      expectedLpsVersion: after.livingProjectState.version,
+    });
+    expect(structural.ok).toBe(false);
+    if (!structural.ok) {
+      expect(structural.detailCode).toBe("MATERIALIZATION_BASIS_INCOMPATIBLE");
+    }
+
+    // NEG-C2-03 wrong project
+    const wrongProj = await ctx.materializer.execute({
+      ...baseRequest(ctx, source, {
+        materializationClass: 2,
+        basis: {
+          kind: "valid_runtime_state_transition",
+          transition: class2Transition(ctx, "other", {
+            projectId: "prj:other",
+            fromLpsVersion: after.livingProjectState.version,
+          }),
+        },
+        target: { kind: "nextStep", nextStep: "other" },
+      }),
+      expectedLpsVersion: after.livingProjectState.version,
+    });
+    expect(wrongProj.ok).toBe(false);
+    if (!wrongProj.ok) expect(wrongProj.detailCode).toBe("CROSS_PROJECT_BASIS");
+
+    // NEG-C2-04 stale LPS in transition
+    const staleTrans = await ctx.materializer.execute({
+      ...baseRequest(ctx, source, {
+        materializationClass: 2,
+        basis: {
+          kind: "valid_runtime_state_transition",
+          transition: class2Transition(ctx, "stale-t", {
+            fromLpsVersion: 1,
+          }),
+        },
+        target: { kind: "nextStep", nextStep: "stale-t" },
+      }),
+      expectedLpsVersion: after.livingProjectState.version,
+    });
+    expect(staleTrans.ok).toBe(false);
+    if (!staleTrans.ok) expect(staleTrans.detailCode).toBe("LPS_VERSION_CONFLICT");
+
+    // NEG-C2-06 unsupported operation claim
+    const badOp = await ctx.materializer.execute({
+      ...baseRequest(ctx, source, {
+        materializationClass: 2,
+        basis: {
+          kind: "valid_runtime_state_transition",
+          transition: {
+            ...class2Transition(ctx, "bad", {
+              fromLpsVersion: after.livingProjectState.version,
+            }),
+            kind: "set_scope" as unknown as "set_next_step",
+          },
+        },
+        target: { kind: "nextStep", nextStep: "bad" },
+      }),
+      expectedLpsVersion: after.livingProjectState.version,
+    });
+    expect(badOp.ok).toBe(false);
+    if (!badOp.ok) {
+      expect(badOp.detailCode).toBe("MATERIALIZATION_BASIS_INCOMPATIBLE");
+    }
+  });
+
+  it("E2E-RUNTIME-03 — Class3 HD target binding + Pilote≠Morris", async () => {
+    const ctx = await bootProduct(tempDir("sfia-s03-corr-e03-"));
+    const source = await seedRawMemoryB({
+      projectId: ctx.projectId,
+      sessionDbPath: ctx.sessionDbPath,
+      text: "I approve Phase 2 scope",
+    });
+    const nextScope = structuralScopeTarget(ctx.scope, "Phase 2 included");
+    const unrelatedScope = structuralScopeTarget(ctx.scope, "UNRELATED");
+
+    // A no HD
+    const noHd = await ctx.materializer.execute(
+      baseRequest(ctx, source, {
+        materializationClass: 3,
+        basis: null,
+        target: { kind: "scope", scope: nextScope },
+      }),
+    );
+    expect(noHd.ok).toBe(false);
+    if (!noHd.ok) expect(noHd.detailCode).toBe("MATERIALIZATION_BASIS_REQUIRED");
+
+    // B forged
+    const forged = await ctx.materializer.execute(
+      baseRequest(ctx, source, {
+        materializationClass: 3,
+        basis: {
+          kind: "pilote_human_decision",
+          referenceId: "dec:model-said-approved",
+        },
+        target: { kind: "scope", scope: nextScope },
+      }),
+    );
+    expect(forged.ok).toBe(false);
+    if (!forged.ok) expect(forged.detailCode).toBe("HUMAN_DECISION_INVALID");
+
+    // C unrelated HD
+    const unrelatedId = `dec:unrelated-${Date.now()}`;
+    await recordPiloteDecision({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      decisionId: unrelatedId,
+      subject: "subj:unrelated",
+      approvedScope: unrelatedScope,
+    });
+    const unrelated = await ctx.materializer.execute(
+      baseRequest(ctx, source, {
+        materializationClass: 3,
+        basis: {
+          kind: "pilote_human_decision",
+          referenceId: unrelatedId,
+        },
+        target: { kind: "scope", scope: nextScope },
+      }),
+    );
+    expect(unrelated.ok).toBe(false);
+    if (!unrelated.ok) {
+      expect(unrelated.detailCode).toBe("HUMAN_DECISION_TARGET_MISMATCH");
+    }
+
+    // D authority=morris rejected
+    const morrisId = `dec:morris-${Date.now()}`;
+    await recordPiloteDecision({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      decisionId: morrisId,
+      subject: "subj:morris-gate",
+      approvedScope: nextScope,
+      authority: "morris",
+      actor: {
+        actorId: "actor:morris-operator",
+        role: "decision_maker",
+        authorityLevel: "N3",
+      },
+    });
+    const morris = await ctx.materializer.execute(
+      baseRequest(ctx, source, {
+        materializationClass: 3,
+        basis: {
+          kind: "pilote_human_decision",
+          referenceId: morrisId,
+        },
+        target: { kind: "scope", scope: nextScope },
+      }),
+    );
+    expect(morris.ok).toBe(false);
+    if (!morris.ok) {
+      expect(morris.detailCode).toBe("HUMAN_DECISION_AUTHORITY_INVALID");
+    }
+
+    // system_non_structuring rejected for structural Class 3
+    const sysId = `dec:sys-${Date.now()}`;
+    ctx.oa.authorityResolver.register({
+      evidenceId: `evd:auth-${sysId}`,
+      actorId: "actor:system",
+      level: "N1",
+      scope: "subj:sys-ns",
+      issuedAt: "2026-08-31T00:00:00.000Z",
+      source: "registry",
+    });
+    const sys = await ctx.oa.decisionServices.recordHumanDecision.execute({
+      decisionId: sysId,
+      projectId: ctx.projectId,
+      subject: "subj:sys-ns",
+      options: [
+        { optionId: "opt:a", label: "A" },
+        { optionId: "opt:b", label: "B" },
+      ],
+      selectedOptionId: "opt:a",
+      actor: {
+        actorId: "actor:system",
+        role: "system",
+        authorityLevel: "none",
+      },
+      authority: "system_non_structuring",
+      reversible: true,
+      nonStructuring: true,
+      authorityEvidenceId: `evd:auth-${sysId}`,
+      decisionBasis: {
+        sourceType: "proposal",
+        sourceRef: `prop:${sysId}`,
+        sourceDigest: "b".repeat(64),
+        projectId: ctx.projectId,
+        proposalContext: { lpsId: ctx.lpsId, lpsVersion: 1 },
+        executionBasis: { scope: nextScope },
+      },
+    });
+    expect(sys.ok).toBe(true);
+    const sysMat = await ctx.materializer.execute(
+      baseRequest(ctx, source, {
+        materializationClass: 3,
+        basis: { kind: "pilote_human_decision", referenceId: sysId },
+        target: { kind: "scope", scope: nextScope },
+      }),
+    );
+    expect(sysMat.ok).toBe(false);
+    if (!sysMat.ok) {
+      expect(sysMat.detailCode).toBe("HUMAN_DECISION_AUTHORITY_INVALID");
+    }
+
+    // E matching Pilote HD
+    const matchId = `dec:match-${Date.now()}`;
+    await recordPiloteDecision({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      decisionId: matchId,
+      subject: "subj:scope-phase2",
+      approvedScope: nextScope,
+    });
+    const accepted = await ctx.materializer.execute(
+      baseRequest(ctx, source, {
+        materializationClass: 3,
+        basis: {
+          kind: "pilote_human_decision",
+          referenceId: matchId,
+        },
+        target: { kind: "scope", scope: nextScope },
+      }),
+    );
+    expect(accepted.ok).toBe(true);
+    if (!accepted.ok) return;
+
+    resetRuntimeApplicationServiceForTests();
+    const remounted = getRuntimeApplicationService({
+      productDbPath: ctx.productDbPath,
+      auditMode: "noop",
+    });
+    const rem = await remounted.getProject(ctx.projectId);
+    expect(rem.ok).toBe(true);
+    const remLps =
+      await remounted.oa!.projectServices.getCurrentLivingProjectState.execute({
+        projectId: ctx.projectId,
+      });
+    expect(remLps.ok).toBe(true);
+    if (!remLps.ok) return;
+    expect(remLps.livingProjectState.scope).toBe(nextScope);
+    expect(remLps.livingProjectState.decisionIds).toContain(matchId);
+  });
+
+  it("E2E-RUNTIME-04 — Class4 external-only via runtime.oa", async () => {
+    const ctx = await bootProduct(tempDir("sfia-s03-corr-e04-"));
+    const source = await seedRawMemoryB({
+      projectId: ctx.projectId,
+      sessionDbPath: ctx.sessionDbPath,
+      text: "GO MORRIS merge promote doctrine adopt architecture runtime v3 ADOPTED push branch",
+    });
+    const before = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: ctx.projectId,
+    });
+    expect(before.ok).toBe(true);
+    if (!before.ok) return;
+    const result = await ctx.materializer.execute(
+      baseRequest(ctx, source, {
+        materializationClass: 4,
+        basis: { kind: "construction_governance_external" },
+        target: { kind: "scope", scope: "should-not-apply" },
+      }),
+    );
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.status).toBe("external_required");
+      expect(result.detailCode).toBe("CLASS4_EXTERNAL_ONLY");
+    }
+    const after = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: ctx.projectId,
+    });
+    expect(after.ok).toBe(true);
+    if (!after.ok) return;
+    expect(after.livingProjectState.version).toBe(before.livingProjectState.version);
+  });
+
+  it("E2E-RUNTIME-05 — forged / cross-project / stale / OCC", async () => {
+    const ctxA = await bootProduct(tempDir("sfia-s03-corr-e05-"));
+    const createdB = await ctxA.runtime.createProject({
+      name: "S03 Project B",
+      objective: "cross-project",
+      context: "B",
+      criticality: "STANDARD",
+      constraints: ["AUCUNE EXÉCUTION"],
+      shortReference: "S03B",
+      idempotencyKey: `s03-corr-b-${Date.now()}`,
+    });
+    expect(createdB.ok).toBe(true);
+    if (!createdB.ok) return;
+    const projectB = createdB.project.projectId;
+    const sessionDbB = path.join(path.dirname(ctxA.sessionDbPath), "nora-session-b.sqlite");
+    const lpsB =
+      await ctxA.oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId: projectB,
+      });
+    expect(lpsB.ok).toBe(true);
+    if (!lpsB.ok) return;
+
+    const evidenceId = `ev:xproj-${Date.now()}`;
+    await registerAndVerifyEvidence(ctxA.oa, ctxA.projectId, evidenceId);
+    const decisionId = `dec:xproj-${Date.now()}`;
+    const scopeA = structuralScopeTarget(ctxA.scope, "A-only");
+    await recordPiloteDecision({
+      oa: ctxA.oa,
+      projectId: ctxA.projectId,
+      decisionId,
+      subject: "subj:xproj",
+      approvedScope: scopeA,
+    });
+
+    const sourceB = await seedRawMemoryB({
+      projectId: projectB,
+      sessionDbPath: sessionDbB,
+      text: "cross-project attempt",
+    });
+    const mat = ctxA.oa.materializationServices.materializeFromMemoryB;
+    const reqBase = {
+      projectId: projectB,
+      memoryBSource: {
+        kind: "raw" as const,
+        sessionKey: sourceB.sessionKey,
+        seq: sourceB.seq,
+        contentHash: sourceB.contentHash,
+      },
+      expectedLpsVersion: lpsB.livingProjectState.version,
+      correlationId: `cor:x-${Date.now()}`,
+      actor: ACTOR,
+      sessionDbPath: sessionDbB,
+    };
+
+    const crossEv = await mat.execute({
+      ...reqBase,
+      materializationClass: 1,
+      basis: { kind: "verified_fact_evidence", referenceId: evidenceId },
+      target: { kind: "evidenceIds", evidenceId },
+    });
+    expect(crossEv.ok).toBe(false);
+    if (!crossEv.ok) expect(crossEv.detailCode).toBe("CROSS_PROJECT_BASIS");
+
+    const crossHd = await mat.execute({
+      ...reqBase,
+      materializationClass: 3,
+      basis: { kind: "pilote_human_decision", referenceId: decisionId },
+      target: {
+        kind: "scope",
+        scope: structuralScopeTarget(lpsB.livingProjectState.scope ?? "{}", "stolen"),
+      },
+    });
+    expect(crossHd.ok).toBe(false);
+    if (!crossHd.ok) expect(crossHd.detailCode).toBe("CROSS_PROJECT_BASIS");
+
+    const forgedB = await mat.execute({
+      ...reqBase,
+      memoryBSource: {
+        ...reqBase.memoryBSource,
+        contentHash: "deadbeef".repeat(8),
+      },
+      materializationClass: 2,
+      basis: {
+        kind: "valid_runtime_state_transition",
+        transition: {
+          kind: "set_next_step",
+          projectId: projectB,
+          fromLpsVersion: lpsB.livingProjectState.version,
+          targetKind: "nextStep",
+          nextStep: "x",
+        },
+      },
+      target: { kind: "nextStep", nextStep: "x" },
+    });
+    expect(forgedB.ok).toBe(false);
+    if (!forgedB.ok) expect(forgedB.detailCode).toBe("MEMORY_B_SOURCE_MISMATCH");
+
+    const occ = await mat.execute({
+      ...reqBase,
+      expectedLpsVersion: lpsB.livingProjectState.version + 99,
+      materializationClass: 2,
+      basis: {
+        kind: "valid_runtime_state_transition",
+        transition: {
+          kind: "set_next_step",
+          projectId: projectB,
+          fromLpsVersion: lpsB.livingProjectState.version + 99,
+          targetKind: "nextStep",
+          nextStep: "occ",
+        },
+      },
+      target: { kind: "nextStep", nextStep: "occ" },
+    });
+    expect(occ.ok).toBe(false);
+    if (!occ.ok) expect(occ.detailCode).toBe("LPS_VERSION_CONFLICT");
+
+    const after =
+      await ctxA.oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId: projectB,
+      });
+    expect(after.ok).toBe(true);
+    if (!after.ok) return;
+    expect(after.livingProjectState.version).toBe(lpsB.livingProjectState.version);
+  });
+
+  it("E2E-RUNTIME-06 — contradictory B without basis cannot override C", async () => {
+    const ctx = await bootProduct(tempDir("sfia-s03-corr-e06-"));
+    const source = await seedRawMemoryB({
+      projectId: ctx.projectId,
+      sessionDbPath: ctx.sessionDbPath,
+      text: "Contradiction ENTIRELY DIFFERENT",
+    });
+    const before = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: ctx.projectId,
+    });
+    expect(before.ok).toBe(true);
+    if (!before.ok) return;
+    const silent = await ctx.materializer.execute(
+      baseRequest(ctx, source, {
+        materializationClass: 3,
+        basis: null,
+        target: {
+          kind: "scope",
+          scope: structuralScopeTarget(ctx.scope, "ENTIRELY DIFFERENT"),
+        },
+      }),
+    );
+    expect(silent.ok).toBe(false);
+    const after = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: ctx.projectId,
+    });
+    expect(after.ok).toBe(true);
+    if (!after.ok) return;
+    expect(after.livingProjectState.scope).toBe(before.livingProjectState.scope);
+  });
+
+  it("compacted Memory B — current OK with Class2 transition; stale rejected", async () => {
+    const ctx = await bootProduct(tempDir("sfia-s03-corr-compact-"));
+    const session = new ProductSqliteSession({
+      projectId: ctx.projectId,
+      dbPath: ctx.sessionDbPath,
+      sessionKey: "f1-default",
+    });
+    await session.addItems([
+      userTextItem("Premise A"),
+      assistantTextItem("Ack A"),
+      userTextItem("Premise B next action propose status note"),
+      assistantTextItem("Ack B"),
+      userTextItem("Premise C"),
+      assistantTextItem("Ack C"),
+    ]);
+    const before = await loadSessionRows(session);
+    const targetRow = before.conversation[2]!;
+    await applyCompactionIfNeeded({
+      session,
+      truthCRevision: { lpsId: ctx.lpsId, lpsVersion: ctx.lpsVersion },
+      policy: { itemThreshold: 4, keepRecentCount: 2, maxSummaryChars: 900 },
+      nowIso: "2026-08-31T12:00:00.000Z",
+    });
+    const loaded = await loadSessionRows(session);
+    expect(loaded.compaction).not.toBeNull();
+    const entry = loaded.compaction!.provenance.find(
+      (p) => p.kind === "raw" && (p.sourceSeq ?? p.seq) === targetRow.seq,
+    );
+    expect(entry).toBeTruthy();
+    session.close();
+
+    const ok = await ctx.materializer.execute({
+      projectId: ctx.projectId,
+      materializationClass: 2,
+      basis: {
+        kind: "valid_runtime_state_transition",
+        transition: class2Transition(ctx, "from-compacted-b"),
+      },
+      memoryBSource: {
+        kind: "compacted_provenance",
+        sessionKey: "f1-default",
+        generation: loaded.compaction!.generation,
+        sourceSeq: entry!.sourceSeq ?? entry!.seq,
+        contentHash: entry!.contentHash,
+      },
+      target: { kind: "nextStep", nextStep: "from-compacted-b" },
+      expectedLpsVersion: ctx.lpsVersion,
+      correlationId: "cor:compact-ok",
+      actor: ACTOR,
+      sessionDbPath: ctx.sessionDbPath,
+    });
+    expect(ok.ok).toBe(true);
+
+    const after = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: ctx.projectId,
+    });
+    expect(after.ok).toBe(true);
+    if (!after.ok) return;
+    const stale = await ctx.materializer.execute({
+      projectId: ctx.projectId,
+      materializationClass: 2,
+      basis: {
+        kind: "valid_runtime_state_transition",
+        transition: {
+          kind: "set_next_step",
+          projectId: ctx.projectId,
+          fromLpsVersion: after.livingProjectState.version,
+          targetKind: "nextStep",
+          nextStep: "stale-compact",
+        },
+      },
+      memoryBSource: {
+        kind: "compacted_provenance",
+        sessionKey: "f1-default",
+        generation: loaded.compaction!.generation,
+        sourceSeq: entry!.sourceSeq ?? entry!.seq,
+        contentHash: entry!.contentHash,
+      },
+      target: { kind: "nextStep", nextStep: "stale-compact" },
+      expectedLpsVersion: after.livingProjectState.version,
+      correlationId: "cor:compact-stale",
+      actor: ACTOR,
+      sessionDbPath: ctx.sessionDbPath,
+    });
+    expect(stale.ok).toBe(false);
+    if (!stale.ok) expect(stale.detailCode).toBe("MEMORY_B_SOURCE_STALE");
+  });
+
+  it("runtime composition — no attachMaterializer; materializer from oa only", async () => {
+    const ctx = await bootProduct(tempDir("sfia-s03-corr-compose-"));
+    expect(ctx.materializer).toBe(
+      ctx.oa.materializationServices.materializeFromMemoryB,
+    );
+    expect(ctx.oa.productDurablePath).toBe(true);
+  });
+});
 
 ```
 
-## 36–42. E2E results
+## 32. E2E runtime matrix
 | Case | Result |
 |------|--------|
-| E2E-00 no basis | PASS — MATERIALIZATION_BASIS_REQUIRED; LPS unchanged; rejection audit |
-| E2E-01 Class1 verified Evidence | PASS — evidenceIds linked; remount durable; fake Evidence rejected |
-| E2E-02 Class2 nextStep | PASS — no HD; structural Class2 rejected |
-| E2E-03 Class3 HD gate | PASS — no-basis/Nora-string fail; valid Pilote HD accepts structural scope JSON; remount OK |
-| E2E-04 Class4 | PASS — external_required; no Product mutation; no HD |
-| E2E-05 forged/cross/stale | PASS — CROSS_PROJECT / EVIDENCE_INVALID / HUMAN_DECISION_INVALID / LPS_VERSION_CONFLICT / MEMORY_B_SOURCE_MISMATCH |
-| E2E-06 B vs C | PASS — current C wins without basis |
-| Compacted B | PASS — valid provenance materializes; post-Truth-C-change stale rejected |
+| E2E-RUNTIME-00 no basis | PASS |
+| E2E-RUNTIME-01 Class1 Evidence | PASS + remount + durable audit |
+| E2E-RUNTIME-02 Class2 transition / naked / policy / structural / wrong project / stale / bad op | PASS |
+| E2E-RUNTIME-03 Class3 bind + morris reject + system_ns reject + matching Pilote | PASS |
+| E2E-RUNTIME-04 Class4 | PASS |
+| E2E-RUNTIME-05 cross/forged/OCC | PASS |
+| E2E-RUNTIME-06 B vs C | PASS |
+| Compacted B current/stale | PASS |
+| Composition identity | PASS |
 
-## 43. Compacted-B
-Implemented without new persistence (S02 provenance + truthCRevision match).
+## 33. NEG-S03-01→17
+All covered in E2E-RUNTIME matrix (no basis; unverified Evidence preserved from prior; naked Class2; unresolved policy; Class2 structural; Class3 no/forged/unrelated/morris/system_ns; Class4; cross Ev/HD; forged B; stale compacted; OCC; arbitrary target). Rejected → Truth C unchanged.
 
-## 44. NEG-S03-01→12
-Covered across E2E-00..06 + NEG matrix: no basis; unverified Evidence; Class2 structural; Class3 without HD; Nora string≠HD; Class4; cross-project Ev/HD; forged B; stale compacted; OCC; arbitrary target.
+## 34. CORR-S03-01→26
+All **PASS** (Class2 mechanical validation; Class3 bind+authority; RuntimeOaStack composition; audits; LPS path; no new table; Class1 Evidence path; compacted B; S01/S02/CI; full suite).
 
-## 45. S03-01→26 matrix
-| ID | Verdict |
-|----|---------|
-| S03-01 real B source identity | PASS |
-| S03-02 missing basis fail-closed | PASS |
-| S03-03 no mutation on reject | PASS |
-| S03-04 Class1 verified Evidence | PASS |
-| S03-05 Class1 unverified/fake | PASS |
-| S03-06 Class2 no auto HD | PASS |
-| S03-07 Class2 structural reject | PASS |
-| S03-08 Class3 without HD | PASS |
-| S03-09 Class3 with Pilote HD | PASS |
-| S03-10 Nora cannot synthesize HD | PASS |
-| S03-11 Class4 external | PASS |
-| S03-12 Class4 no Product mutation | PASS |
-| S03-13 cross-project Evidence | PASS |
-| S03-14 cross-project HD | PASS |
-| S03-15 forged B source | PASS |
-| S03-16 stale B source | PASS |
-| S03-17 LPS OCC conflict | PASS |
-| S03-18 accepted uses existing LPS path | PASS |
-| S03-19 durable after restart | PASS |
-| S03-20 audit attributable | PASS |
-| S03-21 C wins over unsupported B | PASS |
-| S03-22 no second Truth C | PASS |
-| S03-23 S01 regression | PASS |
-| S03-24 S02 regression | PASS |
-| S03-25 CI-01→14 / Option C D0 | PASS |
-| S03-26 full validation | PASS |
+## 35. Class1 reserve analysis
+Evidence fields: status, availability, freshness.
+verifyEvidenceIntegrity sets status=verified, availability=available, freshness=current.freshness ?? "fresh".
+CORR extends Class1 checks: same project + verified + availability available (when present) + freshness !== stale.
+No Evidence redesign.
 
-## 46. nora-eval S03
-Not added as separate catalog scenario (bounded skip to avoid spine redesign). Decisive proof remains DETERMINISTIC E2E. Recorded for Final MW1 Proof optional spine extension.
+## 36. Compacted B proof
+Current Truth C revision provenance + Class2 concrete transition → accept.
+After LPS advance, same provenance → MEMORY_B_SOURCE_STALE. Compaction ≠ basis.
 
-## 47–49. Regressions
-- S01 (product Truth C E2E + D0 + eval): **PASS** (25 tests across 3 files)
-- S02 (unit + modeled + eval): **PASS** (41 tests across 3 files)
-- Option C D0 (authority/session/runner/fakeConvergence/sessionTruthC) + mw0.d0: **PASS** (47 tests)
+## 37–40. Regressions
+- S01: **PASS**
+- S02: **PASS**
+- Option C D0 / CI surfaces: **PASS** (authority/session/runner/fakeConvergence/sessionTruthC + mw0.d0)
+- D0: **PASS**
 
-## 50–54. Validation commands
-From `projects/sfia-studio/app`:
+## 41–44. Validation
 - typecheck: **PASS**
 - lint: **PASS**
 - build: **PASS**
-- npm test: **PASS** — 241 files passed | 14 skipped; **2323 tests passed** | 132 skipped
+- npm test: **PASS** — 241 files / **2323 tests** passed (132 skipped)
 
-## 55. Fake/Real qualification
-YES trigger (adapters/provider boundaries). Proof DETERMINISTIC only. FakeEvidencePayloadAdapter used only for Evidence integrity probe scripts. No OpenAI LIVE. No Cursor REAL.
+## 45. Fake/Real
+Trigger YES. Proof DETERMINISTIC only. FakeEvidencePayloadAdapter for integrity probe only. No LIVE/REAL.
 
-## 56. Proof ceiling
-**DETERMINISTIC PROVEN** ≠ READY FOR REAL.
+## 46. Proof ceiling
+DETERMINISTIC PROVEN CANDIDATE — PASS LOCALLY ≠ READY FOR REAL ≠ MW1 CLOSED ON MAIN ≠ Final MW1 Proof PASS.
 
-## 57. Responses Compaction
+## 47. Responses Compaction
 **NOT ADOPTED / FREEZE.**
 
-## 58. package/lock
-Unchanged (no package.json / lock diff).
+## 48. package/lock
+Unchanged.
 
-## 59. schema/table
-Unchanged — no Product SQLite schema/migration; audit event types only in typed union + JSON payload.
+## 49. schema/table
+Unchanged — no migration; audit event types reuse oa_audit_events.payload_json.
 
-## 60. Project Git
-**NONE** — no project commit/push/PR/merge.
+## 50. Final MW1 Proof
+**NOT RUN** (strictly out of this cycle).
 
-## 61. Final aggregate diff (stat)
+## 51. Project Git
+**NONE** — no commit/push/PR/merge.
+
+## 52. Final aggregate diff (stat)
 ```
 .../nora-eval/mw0.corr05.evidenceIntegrity.test.ts |   4 +-
  .../nora-eval/mw0.corr06.bar09Semantics.test.ts    |   4 +-
@@ -2362,9 +3234,10 @@ Unchanged — no Product SQLite schema/migration; audit event types only in type
  projects/sfia-studio/app/lib/nora-eval/index.ts    |  11 +
  projects/sfia-studio/app/lib/nora-eval/scorers.ts  | 283 ++++++++++++++++++++-
  projects/sfia-studio/app/lib/nora-eval/types.ts    |   9 +-
- projects/sfia-studio/app/lib/oa/project/index.ts   |  15 ++
+ projects/sfia-studio/app/lib/oa/project/index.ts   |  17 ++
  .../oa/project/ports/projectAuditJournalPort.ts    |  30 +++
- 22 files changed, 790 insertions(+), 71 deletions(-)
+ .../app/lib/vertical-slice-runtime/service.ts      |  50 ++++
+ 23 files changed, 842 insertions(+), 71 deletions(-)
 ```
 
 Name-status:
@@ -2391,6 +3264,7 @@ M	projects/sfia-studio/app/lib/nora-eval/scorers.ts
 M	projects/sfia-studio/app/lib/nora-eval/types.ts
 M	projects/sfia-studio/app/lib/oa/project/index.ts
 M	projects/sfia-studio/app/lib/oa/project/ports/projectAuditJournalPort.ts
+M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 ```
 
 Untracked (excl. review pack):
@@ -2409,7 +3283,7 @@ projects/sfia-studio/app/lib/nora-eval/mw1S02Observe.ts
 projects/sfia-studio/app/lib/oa/project/application/materializeFromMemoryB.ts
 ```
 
-## 62. Final git status
+## 53. Final status
 ```
 M projects/sfia-studio/app/__tests__/nora-eval/mw0.corr05.evidenceIntegrity.test.ts
  M projects/sfia-studio/app/__tests__/nora-eval/mw0.corr06.bar09Semantics.test.ts
@@ -2433,6 +3307,7 @@ M projects/sfia-studio/app/__tests__/nora-eval/mw0.corr05.evidenceIntegrity.test
  M projects/sfia-studio/app/lib/nora-eval/types.ts
  M projects/sfia-studio/app/lib/oa/project/index.ts
  M projects/sfia-studio/app/lib/oa/project/ports/projectAuditJournalPort.ts
+ M projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 ?? .tmp-sfia-review/
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.honestMemoryB.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.productTruthC.e2e.test.ts
@@ -2448,18 +3323,18 @@ M projects/sfia-studio/app/__tests__/nora-eval/mw0.corr05.evidenceIntegrity.test
 ?? projects/sfia-studio/app/lib/oa/project/application/materializeFromMemoryB.ts
 ```
 
-## 63. Blockers
-None for S03 Delivery + deterministic E2E.
+## 54. Blockers
+None remaining for CORR-01.
 
-## 64. Reserves
-- Optional nora-eval `mw1.s03.never-silent-materialization` deferred to Final MW1 Proof (E2E decisive).
-- Product composition still uses MemoryProjectAuditJournal for LPS create/append; S03 durable materialization audit proven via SqliteProjectAuditJournal on same Product store (oa_audit_events) — not a second audit architecture.
-- Class3 structural proof mutates UI-metadata `constraints` inside existing scope JSON to preserve LocalProjectFacade projection invariants.
+## 55. Reserves
+- Optional nora-eval S03 catalog scenario still deferred.
+- LPS create/append may still use MemoryProjectAuditJournal; materialization durable audit uses SqliteProjectAuditJournal on same Product store (composed).
+- Class3 structural proof continues to mutate UI-metadata JSON constraints to preserve LocalProjectFacade projection.
 
-## 65. Final verdict
-**MW1-S03 DELIVERY + DETERMINISTIC E2E — PASS — NEVER-SILENT MEMORY B→TRUTH C MATERIALIZATION GOVERNED BY CLASS 1–4 + EXPLICIT MATERIALIZATIONBASIS — MEMORY B SOURCE PROVENANCE VALIDATED — MISSING / INVALID / CROSS-PROJECT / STALE BASIS FAILS CLOSED — REJECTED MATERIALIZATION LEAVES TRUTH C UNCHANGED — CLASS 1 REUSES VERIFIED EVIDENCE PATH — CLASS 2 NON-STRUCTURAL MATERIALIZATION DOES NOT REQUIRE AUTOMATIC HUMANDECISION — CLASS 3 REQUIRES EXISTING VALID PILOTE HUMANDECISION — NORA / MODEL OUTPUT CANNOT SYNTHESIZE HUMANDECISION — CLASS 4 REMAINS EXTERNAL CONSTRUCTION GOVERNANCE / NO PRODUCT MUTATION — EXISTING LPS / TRUTH C PATH REUSED — MATERIALIZATION AUDIT ATTRIBUTABLE — NO SECOND TRUTH C — S01 REGRESSION PASS — S02 REGRESSION PASS — OPTION C CI-01→14 PASS — DETERMINISTIC E2E PASS — FULL REGRESSION PASS — DETERMINISTIC ONLY — RESPONSES COMPACTION NOT ADOPTED — NO REAL — NO PROJECT COMMIT/PUSH/PR — READY FOR CHATGPT CRITICAL REVIEW**
+## 56. Final verdict
+**MW1-S03 BOUNDED CORRECTION — PASS — BLK-MW1-S03-CLASS2-BASIS-VALIDATION-01 CLOSED — CLASS2 MATERIALIZATION REQUIRES MECHANICALLY VERIFIED CURRENT RUNTIME TRANSITION / RESOLVABLE POLICY AND NAKED BASIS LABELS FAIL CLOSED — BLK-MW1-S03-CLASS3-HD-SCOPE-AUTHORITY-02 CLOSED — CLASS3 REQUIRES EXISTING ACCEPTED RUNTIME PILOTE HUMANDECISION CAUSALLY BOUND TO REQUESTED STRUCTURAL MUTATION — UNRELATED HD REJECTED — MORRIS CONSTRUCTION AUTHORITY NOT TREATED AS PILOTE RUNTIME AUTHORITY — BLK-MW1-S03-RUNTIME-COMPOSITION-PROOF-03 CLOSED — MATERIALIZATION CAPABILITY COMPOSED IN NORMAL RUNTIMEOASTACK AND DECISIVE E2E USES RUNTIME-COMPOSED PATH — DURABLE ATTRIBUTABLE AUDIT PROVEN — EXISTING LPS / DECISION / EVIDENCE / MEMORY B PATHS REUSED — NO SECOND TRUTH C — S01 REGRESSION PASS — S02 REGRESSION PASS — OPTION C CI-01→14 PASS — DETERMINISTIC E2E PASS — FULL REGRESSION PASS — DETERMINISTIC ONLY — RESPONSES COMPACTION NOT ADOPTED — NO REAL — FINAL MW1 PROOF NOT RUN — NO PROJECT COMMIT/PUSH/PR — READY FOR CHATGPT CRITICAL RE-REVIEW**
 
-## 66. Next gate
-CHATGPT CRITICAL REVIEW MW1-S03.
-If PASS and no structural gate: Final MW1 Deterministic Proof already authorized under consumed macro trajectory.
-After Final MW1 Proof PASS: distinct Morris decision required before single S01+S02+S03 project Git integration.
+## 57. Next gate
+CHATGPT CRITICAL RE-REVIEW MW1-S03.
+Only if PASS and no new structural blocker: Final MW1 Deterministic Proof under already-consumed macro MW1 authorization.
+Project Git integration remains a distinct later Morris decision.
