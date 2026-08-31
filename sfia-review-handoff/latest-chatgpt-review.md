@@ -1,440 +1,343 @@
-# MW0 OPTION C POST-CRITICAL-REVIEW TRUTH-SYNC — Post-Merge Handoff Regularization Review Pack FULL / CRITICAL
+# MW1 FINAL DETERMINISTIC PROOF — Review Pack FULL / CRITICAL
 
-**Timestamp:** 2026-08-31 08:50:06 CEST
+**Timestamp:** 2026-08-31 09:21:32 CEST
 **Repository:** mcleland147/sfia-workspace
-**Cycle:** 14 — Post-merge
-**Typology:** DOC
+**Cycle:** 9 — QA / validation
+**Typology:** RUN
 **Profile:** CRITICAL
-**Morris decision consumed:** GO — POST-MERGE REVIEW HANDOFF REGULARIZATION
+**Morris GO consumed:** GO MORRIS — AUTHORIZE MW1 FINAL DETERMINISTIC PROOF — QA / VALIDATION ONLY
 
 ---
 
-## 1. Verdict (Cursor)
+## 1. Verdict
 
-**MW0 OPTION C POST-CRITICAL-REVIEW TRUTH-SYNC — POST-MERGE HANDOFF REGULARIZATION PASS — PR #449 MERGED ON MAIN — MAIN@0f265149 POST-MERGE VERIFIED — PR HEAD→MERGE TREE PARITY PROVEN — EXACT 3-DOC SCOPE — SOURCE BRANCH PRESERVED — POST-MERGE CI 33364556408 SUCCESS / REQUIRED GATE PASS — MW0 TRUTH-SYNC NOW MAIN TRUTH — MW0 REMAINS CLOSED — DETERMINISTIC PROOF CEILING UNCHANGED — MW0-R01/R02 + RESERVE-OPT-C-02/03 REMAIN OPEN/NON-BLOCKING — RESPONSES COMPACTION NOT ADOPTED — MW1 NOT COMPLETE / NOT EXECUTED — NO REAL — RUNTIME V3 NON ADOPTED — CANONICAL REVIEW HANDOFF UPDATED — READY FOR CHATGPT POST-MERGE CLOSURE REVIEW**
+**MW1 FINAL DETERMINISTIC PROOF — INCOMPLETE**
 
-No project files were modified in this cycle.
+| Story | Verdict | Primary gap type |
+|---|---|---|
+| MW1-S01 | **INCOMPLETE — TOOLING / PROOF GAP** | Partial Option C Session/authority D0 proofs exist; no story-level E2E+eval for full resume-from-Truth-C + honest B-unavailability + NCC-BAR-07 memory-honesty binding |
+| MW1-S02 | **INCOMPLETE — IMPLEMENTATION GAP** | No production-path compaction mechanism with provenance/loss signaling/Truth-C invalidation |
+| MW1-S03 | **INCOMPLETE — IMPLEMENTATION GAP** | No governed B→C materialization path (MaterializationBasis, Class 1–4) in product code |
 
----
-
-## 2. Date/time
-
-2026-08-31 08:50:06 CEST
-
----
-
-## 3. Repository
-
-mcleland147/sfia-workspace
+**Cross-invariants CI-01→CI-14:** PASS at Option C boundary layer (existing D0 tests + architecture)
+**Full non-regression:** PASS on main@0f265149 via CI workflow 33364556408 (234 test files, 2248 tests)
+**Local test execution:** NOT RUN (worktree lacks node_modules; npm install forbidden this cycle) — CI used as remote execution evidence
+**MW1 NOT COMPLETE** — this cycle does not claim MW1 COMPLETE or closure
 
 ---
 
-## 4. Cycle / typology / profile / CKC
+## 2. Git Truth
 
-| Field | Value |
+| Item | Value |
 |---|---|
-| Cycle | 14 — Post-merge |
-| Typology | DOC |
-| Profile | CRITICAL |
-| CKC | synthetic map (candidate) — guidance only, no execution authority |
+| origin/main | `0f265149dc7e088ac62ff99c6f998274bec6c94f` |
+| origin/main tree | `92fce49d245ffb4cbfc43b2b55e1004648b6a900` |
+| Local branch | `docs/sfia-studio-nora-mw0-option-c-regression-truth-sync` |
+| Local HEAD | `d9ab48322f34ffbe40ef1da92f9f00ab793dfd9c` |
+| Local HEAD tree | `92fce49d…` (= origin/main tree) |
+| Input handoff | `8993d37aaea0a247f28607da57b50c7e47e03890` |
+| Project mutation | **NONE** |
 
 ---
 
-## 5. Morris GO consumed
+## 3. Convergence Pre-check
 
-**GO — POST-MERGE REVIEW HANDOFF REGULARIZATION** — verify post-merge state, publish L3 handoff only. No project mutation.
+triggered: YES · Capability: Nora Cognitive Completion / honest continuity + governed memory · Milestone: MW1 FINAL DETERMINISTIC PROOF · MW0 CLOSED · Option C INTEGRATED · Responses Compaction NOT ADOPTED · MW1 NOT COMPLETE · no REAL · no parallel architecture
 
 ---
 
-## 6. Workspace / branch / local HEAD
+## 4. Memory A/B/C Model Applied
 
-| Field | Value |
+| Memory | Production implementation |
 |---|---|
-| Workspace | `/Users/morris/Projects/sfia-workspace-nora-mw0-option-c-regression-truth-sync` |
-| Branch | `docs/sfia-studio-nora-mw0-option-c-regression-truth-sync` |
-| Local HEAD | `d9ab48322f34ffbe40ef1da92f9f00ab793dfd9c` (PR head; behind origin/main — **NORMAL**) |
+| Memory A | Within-turn Runner working context (volatile) |
+| Memory B | `ProductSqliteSession` → `nora-session.sqlite` / `session_items` — conversational continuity only, NOT Truth C |
+| Truth C | `oa-product.sqlite` — LPS, HumanDecision, Evidence, ExecutionAttempt, etc. |
+
+Hard invariants verified at boundary layer: Session≠Truth C, B≠authority, filter≠authorization, trace≠evidence
 
 ---
 
-## 7. Local Git Truth
+## 5. Option C Runtime Path (current main)
 
 ```
-pwd: /Users/morris/Projects/sfia-workspace-nora-mw0-option-c-regression-truth-sync
-branch: docs/sfia-studio-nora-mw0-option-c-regression-truth-sync
-HEAD: d9ab48322f34ffbe40ef1da92f9f00ab793dfd9c
-origin/main: 0f265149dc7e088ac62ff99c6f998274bec6c94f
-working tree: clean (untracked .tmp-sfia-review/ only)
-project modified/staged: NONE
-project commit this cycle: NONE
+orchestrateProjectAssistantTurn (F1)
+  → loadProjectRuntimeForAssistant (Truth C from Product SQLite)
+  → runNoraCognitiveTurn (CORR-OPT-C-01: no caller history seed)
+    → ProductSqliteSession (Memory B)
+    → runNoraAgentsTurn (Agents SDK Runner)
+      → createSfiaCallModelInputFilter (context integrity)
+      → createSfiaRouteToolAdapters → routeToolCall (business authority)
 ```
 
----
-
-## 8. origin/main SHA
-
-`0f265149dc7e088ac62ff99c6f998274bec6c94f`
-
----
-
-## 9. main tree
-
-`92fce49d245ffb4cbfc43b2b55e1004648b6a900`
+Key files:
+- `app/lib/nora-cognitive-runtime/productSqliteSession.ts`
+- `app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts`
+- `app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
+- `app/lib/nora-cognitive-runtime/callModelInputFilter.ts`
+- `app/lib/nora-cognitive-runtime/sfiaAgentsTools.ts`
+- `app/lib/platform/tools/toolRouter.ts`
+- `app/features/project-assistant/orchestrateTurn.ts`
 
 ---
 
-## 10. pre-merge main
+## 6. Implementation Inventory
 
-`7a5f1af7d89c7e2bf3d9faf598119ccc5482f22f` (tree `0d8fb2ce926c7018cfca368c668f730062a33a75`)
-
----
-
-## 11. PR #449 state
-
-| Field | Value |
+| Component | Status on main |
 |---|---|
-| Number | 449 |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/449 |
-| Title | docs(sfia-studio): record MW0 Option C regression parity pass |
-| State | **MERGED** |
-| merged_at | 2026-08-31T06:31:38Z |
-| base (pre-merge) | `7a5f1af7d89c7e2bf3d9faf598119ccc5482f22f` |
+| ProductSqliteSession | **IMPLEMENTED** |
+| Session≠Truth C separation | **IMPLEMENTED + TESTED** |
+| runNoraCognitiveTurn no history import | **IMPLEMENTED + TESTED** |
+| callModelInputFilter | **IMPLEMENTED + TESTED** |
+| routeToolCall authority | **IMPLEMENTED + TESTED** |
+| Fake→Runner convergence | **IMPLEMENTED + TESTED** |
+| Legacy Nora loop retirement | **PROVEN** (fakeConvergence.d0.test.ts) |
+| Compaction with provenance/loss | **NOT IMPLEMENTED** |
+| MaterializationBasis / Class 1–4 B→C | **NOT IMPLEMENTED** |
+| OpenAIResponsesCompactionSession | **NOT ADOPTED** (`responsesCompactionAdopted: false`) |
+| nora-eval MW0 spine | **IMPLEMENTED** (MW0 scenarios only) |
+| nora-eval MW1-S01/S02/S03 scenarios | **NOT PRESENT** |
 
 ---
 
-## 12. PR head
+## 7. Existing Test/Eval Inventory
 
-`d9ab48322f34ffbe40ef1da92f9f00ab793dfd9c`
+**nora-cognitive-runtime/** (5 files, 38 tests — all PASS on CI):
+- `session.d0.test.ts` — isolation, 2-turn continuity, SQLite resume, retrieval≠empty, atomic batch, schema
+- `sessionTruthC.d0.test.ts` — Session never writes oa_*; compaction not adopted observable
+- `authority.d0.test.ts` — filter preserves/demotes roles; no HD reconstruction; no caller history seed
+- `runner.d0.test.ts` — tool rounds, deny paths, schema fidelity
+- `fakeConvergence.d0.test.ts` — Fake F1→Runner; legacy loop gone; Session resume
+
+**nora-eval/** (MW0-focused):
+- `mw0.d0.test.ts`, corr05–08, providerInjection — MW0 harness/bar bindings
+- `mw0.realCampaign.test.ts` — skipped (REAL, out of scope)
+
+**No dedicated tests for:** MW1-S02 compaction, MW1-S03 materialization, MW1-S01 full project-restart E2E
 
 ---
 
-## 13. merge commit
+## 8. Cross-Invariant Matrix CI-01→CI-14
 
-`0f265149dc7e088ac62ff99c6f998274bec6c94f`
+| ID | Claim | Result | Evidence |
+|---|---|---|---|
+| CI-01 | Session != LPS/Truth C | **PASS** | sessionTruthC.d0.test.ts; productSqliteSession doc |
+| CI-02 | Session cannot silently mutate Truth C | **PASS** | sessionTruthC.d0.test.ts (session_items only) |
+| CI-03 | Memory B replay ≠ business authority | **PASS** | authority.d0.test.ts A4; runNoraCognitiveTurn CORR-OPT-C-01 |
+| CI-04 | No false GO/HD from history | **PASS** | authority.d0.test.ts C1/C4 |
+| CI-05 | Agent output != HumanDecision | **PASS** | authority.d0.test.ts A1/A2 |
+| CI-06 | Runner availability != effective authority | **PASS** | runner.d0.test.ts deny paths; routeToolCall |
+| CI-07 | callModelInputFilter = context integrity only | **PASS** | authority.d0.test.ts C3/C5 |
+| CI-08 | routeToolCall authoritative for tools | **PASS** | sfiaAgentsTools.ts → toolRouter.ts |
+| CI-09 | Unknown/forbidden tools fail closed | **PASS** | runner.d0.test.ts |
+| CI-10 | Runner bounded by turn/budget | **PASS** | turnBudget.ts + runner tests |
+| CI-11 | Fake uses same Runner path | **PASS** | fakeConvergence.d0.test.ts P3/P5 |
+| CI-12 | No second Nora generic loop on F1 | **PASS** | fakeConvergence.d0.test.ts R1 (resolveRuntime gone) |
+| CI-13 | Trace != Evidence | **PASS** | architecture + existing OA Evidence pipeline separate |
+| CI-14 | No provider-backed REAL executed | **PASS** | mw0.realCampaign skipped; no API calls this cycle |
 
 ---
 
-## 14. merge parents
+## 9. MW1-S01 Criteria Matrix
 
-| Parent | SHA |
+| Criterion | Result | Evidence |
+|---|---|---|
+| S01-01 Session continuity survives restart | **PARTIAL PASS** | session.d0.test.ts S2 recreate Session from SQLite |
+| S01-02 Project isolation | **PASS** | session.d0.test.ts S1 |
+| S01-03 Session identity/isolation | **PASS** | sessionKey in resume test |
+| S01-04 Truth from Truth C not Session | **PASS** | orchestrateTurn loads Truth C; sessionTruthC boundary |
+| S01-05 Honest unavailable B signaling | **INCOMPLETE** | Retrieval error≠empty (S3) exists; no deterministic E2E proving project-resume honest disclosure of missing B vs available C per story AC |
+| S01-06 No invented transcript | **PASS** | runNoraCognitiveTurn uses last user only; no reconstruction |
+| S01-07 No HD from replay | **PASS** | authority.d0.test.ts A4/C6 |
+| S01-08 No legacy history import | **PASS** | runNoraCognitiveTurn.ts CORR-OPT-C-01; authority C6 |
+| S01-09 NCC-BAR-07/CE-03 eval coverage | **INCOMPLETE** | barBindings.ts binds NCC-BAR-07 to `obs.tool.boundary` not memory honesty; no nora-eval scenario for S01 AC |
+| S01-10 Truth C unchanged by Session ops | **PASS** | sessionTruthC.d0.test.ts |
+
+**MW1-S01 verdict: INCOMPLETE — TOOLING / PROOF GAP**
+
+Smallest corrective surfaces:
+- Add MW1-S01 deterministic E2E (project restart + Truth C rehydrate + honest B limitation)
+- Extend nora-eval BAR binding or add CE-03 observable for memory honesty (NCC-BAR-07 per C5 semantics)
+
+---
+
+## 10. MW1-S02 Mechanism Identification
+
+**Actual current mechanism:** NONE satisfying MW1-S02 semantics.
+
+Observed substitutes (NOT compaction):
+- `orchestrateTurn.ts` `MAX_HISTORY_MESSAGES = 20` + `.slice(-20)` — process-local UI history truncation, no provenance/loss signaling, no Truth-C invalidation
+- `ProductSqliteSession.getItems(limit?)` — tail slice only, no summarization
+
+**responsesCompactionAdopted:** `false` in `optionCObservables.ts` — Responses Compaction NOT ADOPTED
+
+---
+
+## 11. MW1-S02 Criteria Matrix
+
+| Criterion | Result |
 |---|---|
-| parent 1 (pre-merge main) | `7a5f1af7d89c7e2bf3d9faf598119ccc5482f22f` |
-| parent 2 (PR head) | `d9ab48322f34ffbe40ef1da92f9f00ab793dfd9c` |
+| S02-01..S02-15 (all) | **INCOMPLETE — IMPLEMENTATION GAP** |
 
-Verified via `git show --no-patch --pretty=raw 0f265149…`
+No production compaction policy exists. Cannot prove provenance retention, loss signaling, HD/STOP preservation, or stale-B invalidation on Truth C change.
 
----
+**MW1-S02 verdict: INCOMPLETE — IMPLEMENTATION GAP**
 
-## 15. merged_at
-
-2026-08-31T06:31:38Z
-
----
-
-## 16. PR head tree
-
-`92fce49d245ffb4cbfc43b2b55e1004648b6a900`
+Smallest corrective surface:
+- Implement governed compaction module (separate from Responses Compaction) with unit+modeled+eval proof per C5
+- Candidate files: new module under `app/lib/nora-cognitive-runtime/` + tests under `__tests__/nora-cognitive-runtime/`
 
 ---
 
-## 17. merge tree
+## 12. MW1-S03 Materialization Path Identification
 
-`92fce49d245ffb4cbfc43b2b55e1004648b6a900`
+**Actual current path:** NO governed Memory B→Truth C materialization in TypeScript.
 
----
+Existing OA writes (HumanDecision, Evidence, LPS) are direct product-domain persistence — NOT Class 1–4 + MaterializationBasis governed B→C promotion.
 
-## 18. HEAD→MERGE tree parity
-
-**PROVEN** — PR head tree == merge commit tree == `92fce49d…`
+Session explicitly forbidden from writing Truth C (productSqliteSession.ts, sessionTruthC.d0.test.ts).
 
 ---
 
-## 19. exact merge scope
+## 13. MW1-S03 Class 1–4 + MaterializationBasis Matrix
 
-```
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-M	projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
-M	projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md
-```
-
-Exactly 3 project documents. No code, tests, packages, CI files, or method files.
-
-PR head file content == origin/main file content for all 3: **MATCH**
-
----
-
-## 20. merge stat
-
-```
-3 files changed, 48 insertions(+), 38 deletions(-)
-```
-
----
-
-## 21. source branch preservation + SHA
-
-| Field | Value |
+| Criterion | Result |
 |---|---|
-| Branch | `docs/sfia-studio-nora-mw0-option-c-regression-truth-sync` |
-| Remote SHA | `d9ab48322f34ffbe40ef1da92f9f00ab793dfd9c` |
-| Status | **PRESERVED** (not deleted) |
+| S03-C1-01..C1-02 Class 1 | **INCOMPLETE — IMPLEMENTATION GAP** |
+| S03-C2-01..C2-03 Class 2 | **INCOMPLETE — IMPLEMENTATION GAP** |
+| S03-C3-01..C3-05 Class 3 | **PARTIAL** — HD pipeline exists (`recordHumanDecision.ts`) but NOT as governed B→C Class 3 materialization with MaterializationBasis |
+| S03-C4-01..C4-05 Class 4 | **PARTIAL** — Evidence pipeline exists (`registerEvidence.ts`, `ingestExecutionAttemptEvidence.ts`) but NOT as governed B→C Class 4 materialization |
+| S03-M-01..M-06 Common | **INCOMPLETE — IMPLEMENTATION GAP** — no MaterializationBasis type/function in codebase |
+
+**MW1-S03 verdict: INCOMPLETE — IMPLEMENTATION GAP**
 
 ---
 
-## 22. main content verification
+## 14. CORR-MW1-07 / CORR-MW1-08 Status
 
-### A. MW0 truth (on origin/main)
-
-- MW0 OPTION C REGRESSION/PARITY = **PASS WITH NON-BLOCKING RESERVES — DETERMINISTIC ONLY**
-- ChatGPT Critical Review **PASS**
-- evidence = `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c`
-- MW0 remains historically **CLOSED**
-- gate did not reopen/re-close MW0
-
-### B. Reservations
-
-- MW0-R01 = NOT_PROVEN / NON-BLOCKING ✓
-- MW0-R02 = NOT_PROVEN / NON-BLOCKING ✓
-- RESERVE-OPT-C-02 = OPEN / NON-BLOCKING ✓
-- RESERVE-OPT-C-03 = OPEN / NON-BLOCKING ✓
-
-### C. Source-lock MW1 forward trajectory (CURRENT)
-
-- MW1-S01 = Session-based honest inter-session continuity ✓
-- MW1-S02 = Compaction with provenance and loss signaling ✓
-- MW1-S03 = Never silent Memory B→Truth C / governed materialization ✓
-
-### D. Anti-claims (on main)
-
-- Responses Compaction = CANDIDATE / NOT ADOPTED ✓
-- ≠ Option C REAL parity PROVEN ✓
-- ≠ ChatGPT↔Cursor parity PROVEN ✓
-- MW1 NOT COMPLETE ✓
-- Cognitive Completion NOT PROVEN ✓
-- runtime v3 NON ADOPTED ✓
-
-### Key CURRENT excerpts (origin/main)
-
-**Roadmap tip (NORA-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01):**
-> MW0 OPTION C REGRESSION/PARITY = PASS WITH NON-BLOCKING RESERVES — DETERMINISTIC ONLY — CHATGPT CRITICAL REVIEW PASS · evidence Review Handoff L3 `35a2b1ae…` · proof ceiling = DETERMINISTIC ONLY
-
-**C5 Statut:**
-> MW0 OPTION C REGRESSION / PARITY = CLOSED AS CURRENT REGRESSION GATE / PASS WITH NON-BLOCKING RESERVES / DETERMINISTIC ONLY · evidence `35a2b1ae…`
-
-**OD-04 CURRENT gate status:**
-> CLOSED AS CURRENT REGRESSION GATE / PASS WITH NON-BLOCKING RESERVES / DETERMINISTIC ONLY / ChatGPT CRITICAL REVIEW PASS · MW0-R01/R02 remain NOT_PROVEN/NB · RESERVE-OPT-C-02/03 remain OPEN/NB · ≠ Option C REAL parity PROVEN · ≠ ChatGPT↔Cursor parity PROVEN
+| Correction | Still required? | Reason |
+|---|---|---|
+| CORR-MW1-07 (MaterializationBasis / Class matrix) | **YES** | Zero TypeScript implementation found |
+| CORR-MW1-08 (materializeToTruthC / Evidence path) | **YES** | No governed B→C materialization workflow; existing Evidence/HD paths are not MaterializationBasis-governed |
 
 ---
 
-## 23. C5 story-body S01/S02/S03 parity
+## 15. Test Execution Results
 
-Compared pre-merge main (`7a5f1af7`) vs post-merge main (`0f265149`):
+### Local execution (this cycle)
 
-| Story | Result |
+| Command | Result | Note |
+|---|---|---|
+| npm run typecheck | **NOT RUN locally** | node_modules absent; install forbidden |
+| npm run lint | **NOT RUN locally** | same |
+| npm run build | **NOT RUN locally** | same |
+| npm test | **NOT RUN locally** | same |
+
+### Remote CI evidence — workflow 33364556408 @ main `0f265149`
+
+| Step | Result |
 |---|---|
-| MW1-S01 | **MATCH** |
-| MW1-S02 | **MATCH** |
-| MW1-S03 | **MATCH** |
-
-C5 source-locked story bodies unchanged by merge.
-
----
-
-## 24. forbidden CURRENT mappings control
-
-Zero CURRENT occurrences of:
-- MW1-S01 deterministic architecture-guard final proof
-- MW1-S02 provider-backed REAL
-- MW1-S03 Responses Compaction study
-
-**PASS**
-
----
-
-## 25. MW0 preservation
-
-MW0 historically CLOSED · PASS DETERMINISTIC ONLY · R1/R2/R3 RETAINED/NOT RE-RUN · no proof upgrade · no REAL.
-
----
-
-## 26. reserve matrix
-
-| Reserve | Status |
-|---|---|
-| MW0-R01 | OPEN / NON-BLOCKING |
-| MW0-R02 | OPEN / NON-BLOCKING |
-| RESERVE-OPT-C-02 | OPEN / NON-BLOCKING |
-| RESERVE-OPT-C-03 | OPEN / NON-BLOCKING |
-
----
-
-## 27. proof ceiling
-
-- Entry: DETERMINISTIC PROVEN (MW0 applicable gate)
-- This cycle: POST-MERGE GIT / CONTENT / CI / HANDOFF CLOSURE only
-- NOT proven: REAL BOUNDARY, END-TO-END REAL, READY FOR REAL, MW1 proof, Cognitive Completion, runtime v3
-- DETERMINISTIC PROVEN ≠ READY FOR REAL
-
----
-
-## 28. Fake/Real N/A
-
-No REAL. No provider. Morris REAL gate not consumed.
-
----
-
-## 29. Responses Compaction status
-
-**CANDIDATE / NOT ADOPTED** — unchanged on main.
-
----
-
-## 30. MW1 status
-
-**NOT COMPLETE** — not executed. Next capability identified ≠ authorization.
-
----
-
-## 31. Cognitive Completion status
-
-**NOT PROVEN**
-
----
-
-## 32. runtime v3 status
-
-**NON ADOPTED**
-
----
-
-## 33. post-merge workflow
-
-| Field | Value |
-|---|---|
-| Run ID | 33364556408 |
-| Name | SFIA Studio CI |
-| Event | push |
-| head_branch | main |
-| head_sha | `0f265149dc7e088ac62ff99c6f998274bec6c94f` |
-| status | completed |
-| conclusion | **success** |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/33364556408 |
-
----
-
-## 34. post-merge CI jobs
-
-| Job | Conclusion |
-|---|---|
-| Detect SFIA Studio changes | **SUCCESS** |
-| Build and validate SFIA Studio | **SUCCESS** |
+| Typecheck | **SUCCESS** |
+| Lint | **SUCCESS** |
+| Build | **SUCCESS** |
+| Unit tests (Vitest) | **SUCCESS** — 234 files passed, 2248 tests passed, 132 skipped |
+| Modeled governance tests | **SUCCESS** |
+| Secret pattern scan | **SUCCESS** |
+| Trailing whitespace | **SUCCESS** |
 | SFIA Studio Required Gate | **SUCCESS** |
 
-Build and validate steps (all SUCCESS):
-- Typecheck
-- Lint
-- Build
-- Unit tests (Vitest)
-- Modeled governance tests
-- Secret pattern scan (targeted)
-- Trailing whitespace check
+**Targeted nora-cognitive-runtime (CI):** 38/38 PASS across 5 files
+**Targeted nora-eval (CI, excl REAL):** all PASS; mw0.realCampaign skipped
 
 ---
 
-## 35. project mutation proof
+## 16. Fake/Real Qualification
 
-**NONE** — no tracked project file modified, staged, committed, or pushed in this cycle.
-
----
-
-## 36. project commit/push/PR proof
-
-**NONE** — this cycle performs handoff regularization only.
+Applicable: N/A for REAL · No provider calls · No REAL subprocess · Morris REAL gate NOT consumed · Fake used only via existing deterministic paths
 
 ---
 
-## 37. Review Pack completeness
+## 17. Proof Ceiling
 
-FULL / CRITICAL / CONTENT-COMPLETE / mono-cycle. Contains merge facts, tree parity, scope, main content verification, CI evidence, reserve matrix. Not synthesis-only.
-
----
-
-## 38. stale input handoff SHA
-
-`0dadde8a16e9f2e0a97d745c04ea85bffc07d33b` — PRE-MERGE PR readiness (stale for post-merge closure).
+Entry: MW0 DETERMINISTIC PROVEN · This cycle maximum: DETERMINISTIC PROVEN (not achieved for MW1 stories)
+NOT proven: REAL BOUNDARY, E2E REAL, READY FOR REAL, MW1 closure, Cognitive Completion
+DETERMINISTIC PROVEN ≠ READY FOR REAL
 
 ---
 
-## 39. new Review Handoff SHA
+## 18. Responses Compaction Status
 
-*(Populated after L3 publish)*
-
----
-
-## 40. handoff parent
-
-Expected: `0dadde8a16e9f2e0a97d745c04ea85bffc07d33b`
+**CANDIDATE / NOT ADOPTED** — confirmed in code (`optionCObservables.ts`) and tests (`sessionTruthC.d0.test.ts`)
 
 ---
 
-## 41. handoff blob
+## 19. MW0 Inherited Reserves
 
-*(Populated after L3 publish)*
-
----
-
-## 42. handoff changed files
-
-Expected: `sfia-review-handoff/latest-chatgpt-review.md` only
+MW0-R01, MW0-R02, RESERVE-OPT-C-02, RESERVE-OPT-C-03 — OPEN / NON-BLOCKING (unchanged)
 
 ---
 
-## 43. remote handoff verification
+## 20. Implementation Gaps (blocking MW1 proof)
 
-*(Populated after L3 publish)*
-
----
-
-## 44. blocking findings
-
-**NONE**
+1. **GAP-S02-IMPL:** No compaction mechanism — `orchestrateTurn.ts` slice(-20) is not MW1-S02
+2. **GAP-S03-IMPL:** No MaterializationBasis / Class 1–4 B→C workflow in product code
+3. **GAP-CORR-07-08:** CORR-MW1-07/08 still required per OD-04
 
 ---
 
-## 45. reservations
+## 21. Tooling/Proof Gaps
 
-MW0-R01, MW0-R02, RESERVE-OPT-C-02, RESERVE-OPT-C-03 remain OPEN / NON-BLOCKING.
-
----
-
-## 46. next gate
-
-**CHATGPT POST-MERGE CLOSURE REVIEW**
-
-If PASS: post-merge closure accepted. MW1 final proof requires separate Morris qualification/authorization.
+1. **GAP-S01-PROOF:** No MW1-S01 story-level deterministic E2E (project restart + Truth C + honest B disclosure)
+2. **GAP-S01-EVAL:** NCC-BAR-07 bound to tool boundary in `barBindings.ts`, not memory honesty per C5 S01 AC; no CE-03 eval scenario
+3. **GAP-S02-PROOF:** No unit/modeled/eval tests for compaction (mechanism absent)
+4. **GAP-S03-PROOF:** No deterministic E2E for governed materialization (path absent)
+5. **GAP-LOCAL-EXEC:** Proof worktree lacks node_modules — local vitest not executable without install (CI used instead)
 
 ---
 
-## 47. Instruction ChatGPT
+## 22. Files Requiring Future Correction (reference only — NOT modified)
 
-Read remote canonical Review Handoff:
-
-- branch: `sfia/review-handoff`
-- file: `sfia-review-handoff/latest-chatgpt-review.md`
-- at: POST_MERGE_HANDOFF_SHA (published by this cycle)
-
-Verify: Cycle 14/DOC/CRITICAL, main `0f265149…`, merge tree `92fce49d…`, PR #449 merged, PR head `d9ab4832…`, merge parents, head→merge tree parity, exact 3-document scope, source branch preserved, workflow 33364556408 SUCCESS, MW0 deterministic truth, four reserves open/NB, MW1 source-lock preserved, MW1 NOT COMPLETE, RC NOT ADOPTED, no REAL, runtime v3 NON ADOPTED, no project mutation, Review Pack completeness, handoff commit/parent/blob/remote parity.
-
-If absent, inconsistent or synthesis-only: **REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING**
+| Area | Candidate paths |
+|---|---|
+| S02 compaction | new module + `orchestrateTurn.ts` integration |
+| S03 materialization | new `materializationBasis` / `materializeToTruthC` per OD-04 |
+| S01 E2E proof | `__tests__/nora-cognitive-runtime/` + nora-eval catalog extension |
+| BAR-07 binding | `app/lib/nora-eval/barBindings.ts` |
 
 ---
 
-## Appendix A — Merge diff stat (7a5f1af7 → 0f265149)
+## 23. Project Mutation Proof
+
+git status: clean (untracked `.tmp-sfia-review/` only) · No commit/push/PR/merge
+
+---
+
+## 24. Next Gate
+
+**CHATGPT GAP REVIEW → MORRIS DECISION ON SEPARATE BOUNDED CORRECTIVE CYCLE(S)**
+
+Do NOT mark MW1 COMPLETE. Do NOT start MW2.
+
+---
+
+## 25. Instruction ChatGPT
+
+Read `sfia-review-handoff/latest-chatgpt-review.md` at MW1_HANDOFF_SHA published by this cycle.
+
+Verify: Cycle 9/RUN/CRITICAL, main 0f265149, S01/S02/S03 results, gap classifications, cross-invariants, CI evidence, no REAL, RC NOT ADOPTED, no project mutation, Review Pack completeness.
+
+If S01/S02/S03 not proven: **MW1 FINAL DETERMINISTIC PROOF — INCOMPLETE**
+
+---
+
+## Appendix A — CI Targeted Test Log Excerpt (workflow 33364556408)
 
 ```
-3 files changed, 48 insertions(+), 38 deletions(-)
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-M	projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
-M	projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md
+✓ __tests__/nora-cognitive-runtime/fakeConvergence.d0.test.ts (11 tests)
+✓ __tests__/nora-cognitive-runtime/runner.d0.test.ts (11 tests)
+✓ __tests__/nora-cognitive-runtime/authority.d0.test.ts (7 tests)
+✓ __tests__/nora-cognitive-runtime/session.d0.test.ts (7 tests)
+✓ __tests__/nora-cognitive-runtime/sessionTruthC.d0.test.ts (2 tests)
+Test Files 234 passed | 14 skipped (248)
+Tests 2248 passed | 132 skipped (2380)
 ```
-
-No new project diff in this cycle — content already on main via PR #449.
