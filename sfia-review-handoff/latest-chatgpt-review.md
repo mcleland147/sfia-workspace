@@ -4,7 +4,7 @@
 
 | Field | Value |
 | --- | --- |
-| **Timestamp (Europe/Paris)** | 2026-08-31 02:40:10 CEST |
+| **Timestamp (Europe/Paris)** | 2026-08-31 02:42:09 CEST |
 | **Repository** | `mcleland147/sfia-workspace` |
 | **Cycle** | 14 — Post-merge / truth-sync documentaire post-validation |
 | **Typology** | DOC |
@@ -195,6 +195,10 @@ Git/PR historical anchors: #442 MW0 · #447 Option C · #448 post-merge truth-sy
 
 **Do not read as:** MW1 authorized / started / complete.
 
+## 12A. Residual correction (same cycle)
+
+After first L3 publish (`bf2621a3…`), demoted C5 tip `NORA-C5-MW1-OPTION-C-POST-MERGE-TRUTH-SYNC-01` had been over-patched to PASS. Restored then-current historical **NOT RUN** wording. Roadmap demoted tip already correct. Re-publish required so remote handoff matches local candidate.
+
 ## 13. Validations executed
 
 | Check | Result |
@@ -318,7 +322,7 @@ Review Pack content coverage: **COMPLETE** · modified sections extract YES · u
 ### L28
 
 ```
-| **Timestamp maintenance historique NORA-C5-MW1-OPTION-C-POST-MERGE-TRUTH-SYNC-01 (pre-MW0 Option C regression truth-sync)** | *(historique tip · superseded as tip by NORA-C5-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01)* —  2026-08-31 00:36:44 CEST — **NORA C5 MW1 OPTION C POST-MERGE DOWNSTREAM TRUTH-SYNC** · Morris GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 epics · 23 stories · DAG · 18/5/0 **UNCHANGED** · **Option C implementation = INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#447 MERGED** · head `0fdf06a518e2693f6d08fa16ddcc8fc821ce0f6b` · merge `127c6ecf5658e7f3954d94b2cef8269ab9eaf07e` · tree `cf88184cf8f036c671740cffffcc7ecdfb0953d1` · HEAD→MERGE tree parity **PROVEN** · post-merge CI **`33338927956` SUCCESS** · Required Gate **PASS** · source branch `delivery/sfia-studio-nora-mw1-option-c-migration` **PRESERVED** @ `0fdf06a5…` · CORR-OPT-C-01…05 **CLOSED** · Runner/Fake convergence **CLOSED** · Nora legacy generic runtime retirement **CLOSED** · project Git integration **CLOSED / POST-MERGE VERIFIED** · **OD-04 / OD04-I01 / Option C TARGET UNCHANGED** · **MW0 remains historically CLOSED** · **MW0 Option C regression/parity = PASS WITH NON-BLOCKING RESERVES — DETERMINISTIC ONLY — CHATGPT CRITICAL REVIEW PASS** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · proof ceiling **DETERMINISTIC ONLY** · historical R1/R2/R3 RETAINED / NOT RE-RUN / NOT UPGRADED · MW0-R01/R02 remain NOT_PROVEN/NB · RESERVE-OPT-C-02/03 remain OPEN/NB · MW0 remains historically CLOSED · **MW0 OPTION C REGRESSION / PARITY = CLOSED AS CURRENT REGRESSION GATE / PASS WITH NON-BLOCKING RESERVES / DETERMINISTIC ONLY** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · CURRENT downstream next = MW1 final proof sequence (future · not authorized here) · **MW1 NOT COMPLETE** · MW1-S01/S02/S03 **not finally closed** · Responses compaction **CANDIDATE / NOT ADOPTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · MW2 **NOT STARTED** · **≠** substantive backlog change · **≠** architecture change · **≠** MW0 execution · **≠** MW1 completion · **≠** Responses Compaction adoption · **≠** runtime v3 adoption · **≠** project Git integration by this local documentary cycle |
+| **Timestamp maintenance historique NORA-C5-MW1-OPTION-C-POST-MERGE-TRUTH-SYNC-01 (pre-MW0 Option C regression truth-sync)** | *(historique tip · superseded as tip by NORA-C5-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01)* — 2026-08-31 00:36:44 CEST — **NORA C5 MW1 OPTION C POST-MERGE DOWNSTREAM TRUTH-SYNC** · Morris GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 epics · 23 stories · DAG · 18/5/0 **UNCHANGED** · **Option C implementation = INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#447 MERGED** · head `0fdf06a518e2693f6d08fa16ddcc8fc821ce0f6b` · merge `127c6ecf5658e7f3954d94b2cef8269ab9eaf07e` · tree `cf88184cf8f036c671740cffffcc7ecdfb0953d1` · HEAD→MERGE tree parity **PROVEN** · post-merge CI **`33338927956` SUCCESS** · Required Gate **PASS** · source branch `delivery/sfia-studio-nora-mw1-option-c-migration` **PRESERVED** @ `0fdf06a5…` · CORR-OPT-C-01…05 **CLOSED** · Runner/Fake convergence **CLOSED** · Nora legacy generic runtime retirement **CLOSED** · project Git integration **CLOSED / POST-MERGE VERIFIED** · **OD-04 / OD04-I01 / Option C TARGET UNCHANGED** · **MW0 remains historically CLOSED** · **MW0 Option C regression/parity = NOT RUN** · **CURRENT DOWNSTREAM / next structural proof gate = MW0 OPTION C REGRESSION / PARITY** *(parity ≠ MW0 reopen)* · **MW1 NOT COMPLETE** · MW1-S01/S02/S03 **not finally closed** · Responses compaction **CANDIDATE / NOT ADOPTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · MW2 **NOT STARTED** · **≠** substantive backlog change · **≠** architecture change · **≠** MW0 execution · **≠** MW1 completion · **≠** Responses Compaction adoption · **≠** runtime v3 adoption · **≠** project Git integration by this local documentary cycle |
 ```
 
 ### L35
@@ -396,73 +400,6 @@ MW1 Delivery remains **active**. Historical post-OD-04 gate was **REQUALIFICATIO
 = MW0 OPTION C REGRESSION / PARITY = CLOSED AS CURRENT REGRESSION GATE / PASS WITH NON-BLOCKING RESERVES / DETERMINISTIC ONLY (≠ MW0 reopen) · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c`
 ```
 
-### OD-04 Lifecycle state block L197-215
-```
-**Lifecycle state (CURRENT factual trajectory):**
-
-1. MW1 Option C **correction cycle** aligned with OD04-I01 (CORR-OPT-C-01…05) — **CLOSED**
-2. deterministic Runner / Fake convergence on **ONE** target Runner cognitive path — **CLOSED**
-3. Fake / tests / comparator migrate to the same target cognitive path as applicable — **CLOSED** (as part of convergence)
-4. **RETIRE** legacy Nora generic `runToolCallingLoop` — **CLOSED**
-5. corrected Option C **PROJECT Git integration** — **CLOSED / POST-MERGE VERIFIED** (PR **#447**)
-6. **MW0 REGRESSION / PARITY ON OPTION C** — **CLOSED AS CURRENT REGRESSION GATE / PASS WITH NON-BLOCKING RESERVES / DETERMINISTIC ONLY / ChatGPT CRITICAL REVIEW PASS** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · DETERMINISTIC ONLY · historical R1/R2/R3 RETAINED / NOT RE-RUN / NOT UPGRADED · MW0-R01/R02 remain NOT_PROVEN/NB · RESERVE-OPT-C-02/03 remain OPEN/NB · anti-claim: MW0 historical lifecycle remains **CLOSED** · this gate did **not** reopen or re-close MW0
-7. MW1-S01 deterministic architecture-guard final proof — **FUTURE** (next planned surface after future project Git truth-sync · **not authorized by this document**)
-8. MW1-S02 provider-backed REAL — **FUTURE** · requires **fresh distinct Morris GO REAL**
-9. MW1-S03 Responses Compaction study — **FUTURE** · study only · adoption requires **distinct Morris decision** · Responses Compaction remains **CANDIDATE / NOT ADOPTED**
-10. CORR-MW1-07 / CORR-MW1-08 where required by S03/materialization closure — **FUTURE** (only where still required by later proof)
-11. MW1 Exit Proof / closure — **FUTURE** · requires Morris gate
-12. **MW2** only after MW1 closure — **FUTURE**
-
-Historical note: this sequence supersedes any earlier active wording that placed project Git integration **before** legacy-loop retirement, or that let the legacy loop survive **until after** the MW0 Option C regression/parity gate.
-
----
-
-```
-
-### OD-04 MW0 REGRESSION section L292-309
-```
-### MW0 REGRESSION / PARITY ON OPTION C
-
-**MW0 remains CLOSED** historically. MW0 historical Evidence remains valid. This decision does **not** reopen MW0.
-
-**CURRENT gate status:** **CLOSED AS CURRENT REGRESSION GATE / PASS WITH NON-BLOCKING RESERVES / DETERMINISTIC ONLY / ChatGPT CRITICAL REVIEW PASS** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · applicable D0/offline claims + Option C single-Runner invariants preserved deterministically · historical R1/R2/R3 RETAINED / NOT RE-RUN / NOT UPGRADED · MW0-R01/R02 remain NOT_PROVEN/NB · RESERVE-OPT-C-02/03 remain OPEN/NB · anti-claim: this gate did **not** reopen or re-close MW0 · DETERMINISTIC PROVEN ≠ REAL BOUNDARY PROVEN ≠ END-TO-END REAL PROVEN · **≠** Option C REAL parity PROVEN · **≠** ChatGPT↔Cursor parity PROVEN · **≠** READY FOR REAL from D0 alone.
-
-Option C migration **MUST** pass an **MW0 REGRESSION / PARITY ON OPTION C** gate before MW1 exit can be accepted *(deterministic portion of this gate = PASS as of CURRENT status above; REAL / reserve closures remain out of scope of that PASS)*:
-
-- use the existing **nora-eval** spine as **KEEP / ADAPT** (SFIA eval semantics / NCC-BAR source-lock retained);
-- demonstrate non-regression of capabilities previously proven by MW0 against the Runner / Session target runtime;
-- adapt runtime / provider / productPath observables as required by the new cognitive composition;
-- D0 / R1 / R2 / R3 policy remains proportional to the claims being re-proven;
-- **no** second OpenAI-specific eval framework;
-- OpenAI SDK test doubles / traces may **complement** nora-eval but do **not** replace its SFIA semantics;
-- Trace ≠ Evidence.
-
-This is a **trajectory requirement** for Option C MW1 exit — not a MW0 reopen and not a package-adoption authorization.
-
-```
-
-### OD-04 Exit Lifecycle L344-359
-```
-**Lifecycle (CURRENT):**
-
-1. **OD04-I01** documentary invariant — **CONSUMED / ACTIVE**
-2. **MW1 Option C correction cycle** (CORR-OPT-C-01…05) — **CLOSED**
-3. deterministic Runner / Fake convergence — **CLOSED**
-4. Fake / tests / comparator migrate to target cognitive path — **CLOSED**
-5. **RETIRE** legacy Nora generic `runToolCallingLoop` — **CLOSED**
-6. Option C **PROJECT Git integration** — **CLOSED / POST-MERGE VERIFIED** (PR **#447**)
-7. **MW0 REGRESSION / PARITY ON OPTION C** — **CLOSED AS CURRENT REGRESSION GATE / PASS WITH NON-BLOCKING RESERVES / DETERMINISTIC ONLY / ChatGPT CRITICAL REVIEW PASS** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · nora-eval KEEP/ADAPT · DETERMINISTIC ONLY · MW0 historical lifecycle remains **CLOSED** · this gate did **not** reopen or re-close MW0 · reserves MW0-R01/R02 + RESERVE-OPT-C-02/03 remain open/non-blocking
-8. MW1-S01 deterministic architecture-guard final proof — **FUTURE** (next planned after future Git truth-sync · **not authorized by this document**)
-9. MW1-S02 provider-backed REAL — **FUTURE** · **fresh distinct Morris GO REAL** required
-10. MW1-S03 Responses Compaction study — **FUTURE** · study only · adoption = distinct Morris decision · Responses Compaction remains **CANDIDATE / NOT ADOPTED**
-11. CORR-MW1-07/08 where still required · MW1 Exit Proof / closure — **FUTURE** · Morris gate
-
-**MW2** only after MW1 closure.
-
-```
-
-
-
 ---
 
 # APPENDIX B — Useful unified diff (complete)
@@ -518,7 +455,7 @@ index 0f9a1191..0cdcaa4d 100644
  > **Lecture post-C1 :** le snapshot historique, la maintenance du 2026-08-18, l’ancienne ligne `Sources`, l’historique d’intégration et les anti-claims/gates enregistrés avant C1 sont **HISTORIQUES PRE-C1**. Les lignes marquées **courant**, l’intégration C1 et les gates courants les supersèdent pour la trajectoire active. Les preuves et anti-claims génériques restent conservés ; toute mention « C1 not authorized / next M6 / next M7 » dans ces lignes historiques est superseded.
 
 diff --git a/projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md b/projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
-index 4f09f005..5dfa5a71 100644
+index 4f09f005..4052d838 100644
 --- a/projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
 +++ b/projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
 @@ -7,7 +7,7 @@
@@ -537,7 +474,7 @@ index 4f09f005..5dfa5a71 100644
 -| **Timestamp maintenance NORA-C5-MW1-OPTION-C-POST-MERGE-TRUTH-SYNC-01** | 2026-08-31 00:36:44 CEST — **NORA C5 MW1 OPTION C POST-MERGE DOWNSTREAM TRUTH-SYNC** · Morris GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 epics · 23 stories · DAG · 18/5/0 **UNCHANGED** · **Option C implementation = INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#447 MERGED** · head `0fdf06a518e2693f6d08fa16ddcc8fc821ce0f6b` · merge `127c6ecf5658e7f3954d94b2cef8269ab9eaf07e` · tree `cf88184cf8f036c671740cffffcc7ecdfb0953d1` · HEAD→MERGE tree parity **PROVEN** · post-merge CI **`33338927956` SUCCESS** · Required Gate **PASS** · source branch `delivery/sfia-studio-nora-mw1-option-c-migration` **PRESERVED** @ `0fdf06a5…` · CORR-OPT-C-01…05 **CLOSED** · Runner/Fake convergence **CLOSED** · Nora legacy generic runtime retirement **CLOSED** · project Git integration **CLOSED / POST-MERGE VERIFIED** · **OD-04 / OD04-I01 / Option C TARGET UNCHANGED** · **MW0 remains historically CLOSED** · **MW0 Option C regression/parity = NOT RUN** · **CURRENT DOWNSTREAM / next structural proof gate = MW0 OPTION C REGRESSION / PARITY** *(parity ≠ MW0 reopen)* · **MW1 NOT COMPLETE** · MW1-S01/S02/S03 **not finally closed** · Responses compaction **CANDIDATE / NOT ADOPTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · MW2 **NOT STARTED** · **≠** substantive backlog change · **≠** architecture change · **≠** MW0 execution · **≠** MW1 completion · **≠** Responses Compaction adoption · **≠** runtime v3 adoption · **≠** project Git integration by this local documentary cycle |
 -| **Timestamp maintenance historique NORA-C5-OD04-I01-DOC-01-02-CORRECTION-01 (pre-Option-C post-merge truth-sync)** | *(historique tip · superseded as tip by NORA-C5-MW1-OPTION-C-POST-MERGE-TRUTH-SYNC-01)* — 2026-08-30 20:55:00 CEST — **NORA C5 OD04-I01 DOC-01 + DOC-02 CORRECTIONS** · Morris correction GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 epics · 23 stories · DAG · 18/5/0 **UNCHANGED** · **CORR-OD04-I01-DOC-01** = HD/Confirmation ownership precision (Pilote = decision/confirmation actor · Studio owns durable objects/lifecycle/authority model · Nora = no authority) · **CORR-OD04-I01-DOC-02** = unify Option C forward sequence (correction → Runner/Fake convergence → retire legacy loop → project Git integration → MW0 Option C parity → MW1 final proof/exit → MW2) · **OD-04 / OD04-I01 / Option C TARGET UNCHANGED** · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW0 **CLOSED** · MW2 **NOT STARTED** · Responses compaction **CANDIDATE / NOT ADOPTED** · **≠** new architecture · **≠** Product Completion reopen · **≠** Build Doctrine / v3 framing · **≠** code |
 +| **Timestamp maintenance NORA-C5-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01** | 2026-08-31 02:36:47 CEST — **NORA C5 MW0 OPTION C REGRESSION/PARITY POST-CRITICAL-REVIEW DOWNSTREAM TRUTH-SYNC** · Morris local documentary truth-sync GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · Cycle **14** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 epics · 23 stories · DAG · 18/5/0 **UNCHANGED** · **MW0 remains historically CLOSED** · **MW0 OPTION C REGRESSION/PARITY = PASS WITH NON-BLOCKING RESERVES — DETERMINISTIC ONLY — CHATGPT CRITICAL REVIEW PASS** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · proof ceiling **DETERMINISTIC ONLY** · historical R1/R2/R3 RETAINED / NOT RE-RUN / NOT UPGRADED · MW0-R01/R02 remain **NOT_PROVEN / NON-BLOCKING** · RESERVE-OPT-C-02/03 remain **OPEN / NON-BLOCKING** · anti-claim: this gate did **not** reopen or re-close MW0 · **OD-04 / OD04-I01 / Option C TARGET UNCHANGED** · **MW1 NOT COMPLETE** · MW1 **not started by this DOC cycle** · Responses compaction **CANDIDATE / NOT ADOPTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · MW2 **NOT STARTED** · next = truth-sync review/integration gate then MW1 proof sequence under distinct Morris gates · **≠** substantive backlog change · **≠** architecture change · **≠** MW0-R01/R02 closed · **≠** RESERVE-OPT-C-02/03 closed · **≠** REAL parity PROVEN · **≠** MW1 execution by this DOC cycle · **≠** Responses Compaction adoption · **≠** runtime v3 adoption · **≠** project commit/push/PR/merge |
-+| **Timestamp maintenance historique NORA-C5-MW1-OPTION-C-POST-MERGE-TRUTH-SYNC-01 (pre-MW0 Option C regression truth-sync)** | *(historique tip · superseded as tip by NORA-C5-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01)* —  2026-08-31 00:36:44 CEST — **NORA C5 MW1 OPTION C POST-MERGE DOWNSTREAM TRUTH-SYNC** · Morris GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 epics · 23 stories · DAG · 18/5/0 **UNCHANGED** · **Option C implementation = INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#447 MERGED** · head `0fdf06a518e2693f6d08fa16ddcc8fc821ce0f6b` · merge `127c6ecf5658e7f3954d94b2cef8269ab9eaf07e` · tree `cf88184cf8f036c671740cffffcc7ecdfb0953d1` · HEAD→MERGE tree parity **PROVEN** · post-merge CI **`33338927956` SUCCESS** · Required Gate **PASS** · source branch `delivery/sfia-studio-nora-mw1-option-c-migration` **PRESERVED** @ `0fdf06a5…` · CORR-OPT-C-01…05 **CLOSED** · Runner/Fake convergence **CLOSED** · Nora legacy generic runtime retirement **CLOSED** · project Git integration **CLOSED / POST-MERGE VERIFIED** · **OD-04 / OD04-I01 / Option C TARGET UNCHANGED** · **MW0 remains historically CLOSED** · **MW0 Option C regression/parity = PASS WITH NON-BLOCKING RESERVES — DETERMINISTIC ONLY — CHATGPT CRITICAL REVIEW PASS** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · proof ceiling **DETERMINISTIC ONLY** · historical R1/R2/R3 RETAINED / NOT RE-RUN / NOT UPGRADED · MW0-R01/R02 remain NOT_PROVEN/NB · RESERVE-OPT-C-02/03 remain OPEN/NB · MW0 remains historically CLOSED · **MW0 OPTION C REGRESSION / PARITY = CLOSED AS CURRENT REGRESSION GATE / PASS WITH NON-BLOCKING RESERVES / DETERMINISTIC ONLY** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · CURRENT downstream next = MW1 final proof sequence (future · not authorized here) · **MW1 NOT COMPLETE** · MW1-S01/S02/S03 **not finally closed** · Responses compaction **CANDIDATE / NOT ADOPTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · MW2 **NOT STARTED** · **≠** substantive backlog change · **≠** architecture change · **≠** MW0 execution · **≠** MW1 completion · **≠** Responses Compaction adoption · **≠** runtime v3 adoption · **≠** project Git integration by this local documentary cycle |
++| **Timestamp maintenance historique NORA-C5-MW1-OPTION-C-POST-MERGE-TRUTH-SYNC-01 (pre-MW0 Option C regression truth-sync)** | *(historique tip · superseded as tip by NORA-C5-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01)* — 2026-08-31 00:36:44 CEST — **NORA C5 MW1 OPTION C POST-MERGE DOWNSTREAM TRUTH-SYNC** · Morris GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 epics · 23 stories · DAG · 18/5/0 **UNCHANGED** · **Option C implementation = INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#447 MERGED** · head `0fdf06a518e2693f6d08fa16ddcc8fc821ce0f6b` · merge `127c6ecf5658e7f3954d94b2cef8269ab9eaf07e` · tree `cf88184cf8f036c671740cffffcc7ecdfb0953d1` · HEAD→MERGE tree parity **PROVEN** · post-merge CI **`33338927956` SUCCESS** · Required Gate **PASS** · source branch `delivery/sfia-studio-nora-mw1-option-c-migration` **PRESERVED** @ `0fdf06a5…` · CORR-OPT-C-01…05 **CLOSED** · Runner/Fake convergence **CLOSED** · Nora legacy generic runtime retirement **CLOSED** · project Git integration **CLOSED / POST-MERGE VERIFIED** · **OD-04 / OD04-I01 / Option C TARGET UNCHANGED** · **MW0 remains historically CLOSED** · **MW0 Option C regression/parity = NOT RUN** · **CURRENT DOWNSTREAM / next structural proof gate = MW0 OPTION C REGRESSION / PARITY** *(parity ≠ MW0 reopen)* · **MW1 NOT COMPLETE** · MW1-S01/S02/S03 **not finally closed** · Responses compaction **CANDIDATE / NOT ADOPTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · MW2 **NOT STARTED** · **≠** substantive backlog change · **≠** architecture change · **≠** MW0 execution · **≠** MW1 completion · **≠** Responses Compaction adoption · **≠** runtime v3 adoption · **≠** project Git integration by this local documentary cycle |
 +| **Timestamp maintenance historique NORA-C5-OD04-I01-DOC-01-02-CORRECTION-01 (pre-Option-C post-merge truth-sync)** | *(historique tip · superseded as tip by NORA-C5-MW1-OPTION-C-POST-MERGE-TRUTH-SYNC-01 · later tip NORA-C5-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01)* — 2026-08-30 20:55:00 CEST — **NORA C5 OD04-I01 DOC-01 + DOC-02 CORRECTIONS** · Morris correction GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 epics · 23 stories · DAG · 18/5/0 **UNCHANGED** · **CORR-OD04-I01-DOC-01** = HD/Confirmation ownership precision (Pilote = decision/confirmation actor · Studio owns durable objects/lifecycle/authority model · Nora = no authority) · **CORR-OD04-I01-DOC-02** = unify Option C forward sequence (correction → Runner/Fake convergence → retire legacy loop → project Git integration → MW0 Option C parity → MW1 final proof/exit → MW2) · **OD-04 / OD04-I01 / Option C TARGET UNCHANGED** · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW0 **CLOSED** · MW2 **NOT STARTED** · Responses compaction **CANDIDATE / NOT ADOPTED** · **≠** new architecture · **≠** Product Completion reopen · **≠** Build Doctrine / v3 framing · **≠** code |
  | **Timestamp maintenance historique NORA-C5-OD04-I01-BOUNDARY-INVARIANT-01 (pre-DOC-01/02)** | *(historique tip · superseded as tip by NORA-C5-OD04-I01-DOC-01-02-CORRECTION-01)* — 2026-08-30 20:45:00 CEST — **NORA C5 OD04-I01 STUDIO↔NORA BOUNDARY CROSS-WAVE INVARIANT** · Morris OD04-I01 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 epics · 23 stories · DAG · 18/5/0 **UNCHANGED** · **OD04-I01 = ACTIVE** under OD-04 · Studio owns product/business/authority · Nora owns cognition · Pilote = generic runtime actor · Morris = construction/governance ≠ runtime persona · **OD-04 decision UNCHANGED** · Option C TARGET **UNCHANGED** · local MW1 Option C candidate = **LOCAL / UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · next delivery work = **MW1 Option C correction cycle aligned with OD04-I01** · legacy loop retirement **before** MW0 Option C regression/parity once Runner/Fake convergence proven · MW0 **CLOSED** · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW1-S01/S02/S03 **not closed by this documentary work** · CORR-MW1-07/08 remain SFIA materialization · Responses compaction **CANDIDATE / NOT ADOPTED** · MW2 **NOT STARTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **≠** new architecture · **≠** Product Completion reopen · **≠** Build Doctrine / v3 framing mutation · **≠** code/package change |
  | **Timestamp maintenance historique NORA-C5-OD04-OPTION-C-DOWNSTREAM-TRUTH-01 (pre-OD04-I01)** | *(historique tip · superseded as tip by NORA-C5-OD04-I01-BOUNDARY-INVARIANT-01)* — 2026-08-30 16:38:36 CEST — **NORA C5 OD-04 OPTION C DOWNSTREAM TRUTH** · Morris OD-04 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR/CE/NCC-BAR / MW0→MW6 / 10 epics / 23 stories / DAG / 18/5/0 **UNCHANGED** · Decision record `07-nora-openai-cognitive-runtime-architecture-decision.md` · **OD-04 = CONSUMED** · **OPTION C = ADOPTED AS NORA TARGET ARCHITECTURE** · Agents SDK Runner **TARGET ADOPTED** · custom Product SQLite Session **TARGET ADOPTED** · Session/model-input filtering **TARGET BOUNDARY PATTERN** · Responses compaction **CANDIDATE / NOT ADOPTED** · **MW1 = DELIVERY AUTHORIZED EARLIER BY MORRIS** · **LOCAL DELIVERY WORK EXISTS** · **REQUALIFICATION REQUIRED AGAINST OPTION C BEFORE PROJECT INTEGRATION** · **MW1 NOT COMPLETE / NOT INTEGRATED** · Baseline A **PRESERVED / TEMPORARY / NOT TARGET ARCHITECTURE** · CORR-MW1-07/08 **remaining SFIA business corrections** · old CORR-MW1-09 **implementation approach superseded / requalify under Session/input boundary** · **next structural gate = MW1 OPTION C DELIVERY REQUALIFICATION / MIGRATION PLAN** · next capability after successful MW1 = **MW2** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **≠** package adoption · **≠** code migration by this cycle · **≠** Responses compaction adopted · **≠** HITL as HD · **≠** Trace as Evidence |
@@ -735,7 +672,6 @@ index c19a93ad..2f98d2c1 100644
  = MW2 NOT STARTED
  = COGNITIVE COMPLETION NOT PROVEN
  = RUNTIME V3 NON ADOPTED
-
 ```
 
 ---
