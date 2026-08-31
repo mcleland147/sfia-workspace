@@ -1,178 +1,153 @@
-# MW0 OPTION C POST-CRITICAL-REVIEW TRUTH-SYNC CORRECTION — Review Pack FULL / CRITICAL
+# MW0 OPTION C POST-CRITICAL-REVIEW TRUTH-SYNC — PR Readiness Review Pack FULL / CRITICAL
 
-**Timestamp:** 2026-08-31 08:11:00 CEST
+**Timestamp:** 2026-08-31 08:23:14 CEST
 **Repository:** mcleland147/sfia-workspace
-**Cycle:** 14 — Post-merge
+**Cycle:** 13 — PR readiness
 **Typology:** DOC
 **Profile:** CRITICAL
-**Morris decision consumed:** GO CORRECTION
+**Morris decision consumed:** GO PROJECT GIT INTEGRATION
 
 ---
 
 ## 1. Verdict (Cursor)
 
-**MW0 OPTION C POST-CRITICAL-REVIEW TRUTH-SYNC CORRECTION — LOCAL DOCUMENTARY CANDIDATE READY FOR CHATGPT CRITICAL REVIEW — MW1 SOURCE-LOCK SEMANTICS RESTORED — MW0 TRUTH-SYNC PRESERVED — MW0 REMAINS CLOSED — DETERMINISTIC PROOF CEILING UNCHANGED — MW0-R01/R02 + RESERVE-OPT-C-02/03 REMAIN OPEN/NON-BLOCKING — RESPONSES COMPACTION NOT ADOPTED — MW1 NOT COMPLETE / NOT EXECUTED BY THIS CORRECTION — NO REAL — NO PROJECT COMMIT/PUSH/PR/MERGE**
+**MW0 OPTION C POST-CRITICAL-REVIEW TRUTH-SYNC — PROJECT COMMIT/PUSH/PR CREATED — REVIEWED CANDIDATE CONTENT PRESERVED — EXACT 3-DOC SCOPE — MW0 REMAINS CLOSED — DETERMINISTIC PROOF CEILING PRESERVED — MW0-R01/R02 + RESERVE-OPT-C-02/03 REMAIN OPEN/NON-BLOCKING — RESPONSES COMPACTION NOT ADOPTED — MW1 NOT COMPLETE — NO REAL — NO MERGE — READY FOR CHATGPT PR REVIEW / MORRIS MERGE DECISION**
 
-**Correction fixes trajectory labels only; C5 source-locked story semantics were not changed.**
+**CI PENDING — NOT YET READY FOR MERGE DECISION**
+
+Reviewed candidate content was frozen; no documentary rewrites in this cycle.
 
 ---
 
-## 2. Repository / origin/main / tree
+## 2. Date/heure
+
+2026-08-31 08:23:14 CEST
+
+---
+
+## 3. Repository
+
+mcleland147/sfia-workspace
+
+---
+
+## 4. origin/main + tree
 
 | Item | Value |
 |---|---|
-| Repository | mcleland147/sfia-workspace |
 | origin/main | `7a5f1af7d89c7e2bf3d9faf598119ccc5482f22f` |
 | tree origin/main | `0d8fb2ce926c7018cfca368c668f730062a33a75` |
 
 ---
 
-## 3. Workspace
+## 5. Workspace
 
 `/Users/morris/Projects/sfia-workspace-nora-mw0-option-c-regression-truth-sync`
 
 ---
 
-## 4. Branch
+## 6. Branch
 
 `docs/sfia-studio-nora-mw0-option-c-regression-truth-sync`
 
 ---
 
-## 5. HEAD/base
+## 7. Initial HEAD/base
 
-`7a5f1af7d89c7e2bf3d9faf598119ccc5482f22f` (= origin/main, 0 commits ahead)
-
----
-
-## 6. Local Git Truth (initial & final)
-
-```
-pwd: /Users/morris/Projects/sfia-workspace-nora-mw0-option-c-regression-truth-sync
-branch: docs/sfia-studio-nora-mw0-option-c-regression-truth-sync
-HEAD: 7a5f1af7d89c7e2bf3d9faf598119ccc5482f22f
-origin/main: 7a5f1af7d89c7e2bf3d9faf598119ccc5482f22f
-origin/main^{tree}: 0d8fb2ce926c7018cfca368c668f730062a33a75
-commits ahead of origin/main: 0
-staged project files: none
-modified project files: exactly 3 (authorized)
-untracked: .tmp-sfia-review/ (local review artifact)
-```
-
-**Incident note (PRE-EDIT / RESTORED):** Prior cycle briefly remapped worktree via `move_agent_to_root`; restored to docs branch before edits. Not replayed this cycle.
+`7a5f1af7d89c7e2bf3d9faf598119ccc5482f22f` (= origin/main, 0 commits ahead before commit)
 
 ---
 
-## 7. Morris GO consumed
+## 8. Morris GO consumed
 
-**GO CORRECTION** — bounded local documentary correction of MW0 Option C truth-sync candidate after ChatGPT CRITICAL DOCUMENT REVIEW finding BLK-DOC-MW1-STORY-SEMANTICS-01.
+**GO PROJECT GIT INTEGRATION** — bounded PR readiness: commit + push + PR only. No merge.
 
 ---
 
-## 8. Cycle / typology / profile / CKC
+## 9. Cycle / typology / profile / CKC
 
 | Field | Value |
 |---|---|
-| Cycle | 14 — Post-merge |
+| Cycle | 13 — PR readiness |
 | Typology | DOC |
 | Profile | CRITICAL |
-| CKC | candidate / synthetic map (02-fifteen-cycles-synthetic-map.md) — experimental guidance only, no execution authority |
+| CKC | synthetic map (candidate) — guidance only, no merge authority |
 
 ---
 
-## 9. Input handoff SHA
+## 10. Input review handoff SHA
 
-`24c5417d318983c6853474ff131953e05ce6bb97` @ `sfia/review-handoff` — `sfia-review-handoff/latest-chatgpt-review.md`
+`ead7043ee25e41bd2babaaff07607ffd94fbdbd7` @ `sfia/review-handoff`
 
-ChatGPT CRITICAL DOCUMENT REVIEW verdict consumed: **NOT READY — CORRECTION REQUIRED BEFORE PROJECT GIT INTEGRATION**
-
----
-
-## 10. Sources read
-
-1. prompts/templates/sfia-cycle-execution-template.md
-2. method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-3. method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md
-4. projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-5. projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-6. projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-7. projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md
-8. projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md
-9. projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
-10. projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md
-11. Review Handoff @ 24c5417d (latest-chatgpt-review.md)
+ChatGPT Critical Document Review verdict consumed: **PASS** — MW1 source-lock restored, MW0 truth-sync accepted, ready for project Git integration.
 
 ---
 
-## 11. Convergence qualification (Pre-check)
+## 11. Sources read
+
+Process: sfia-cycle-execution-template, sfia-cycle-routing-guide, CKC synthetic map, sfia-chatgpt-cursor-operating-model, sfia-rules-and-guardrails.
+
+Studio: Build Doctrine, Roadmap, Product Completion cadrage, v3 framing 30/32.
+
+Nora: C5 source-locked backlog, OD-04 architecture decision.
+
+Review evidence: Handoff @ ead7043e.
+
+---
+
+## 12. Convergence qualification
 
 | Field | Value |
 |---|---|
-| triggered | **OUI** |
-| capability v3 served | Nora Cognitive Completion / V3-F02 + V3-F05 |
-| milestone | POST-MW0 OPTION C REGRESSION/PARITY TRUTH-SYNC — CORRECTION |
-| MW0 state | historically CLOSED |
-| Option C | integrated/post-merge verified |
-| regression/parity | PASS WITH NON-BLOCKING RESERVES — DETERMINISTIC ONLY |
-| candidate | not yet integrated to main |
+| Capability | Nora Cognitive Completion / honest continuity + governed cognitive lifecycle |
+| Milestone | MW0 OPTION C POST-CRITICAL-REVIEW TRUTH-SYNC — GIT INTEGRATION |
+| MW0 | historically CLOSED · PASS DETERMINISTIC ONLY |
 | MW1 | NOT COMPLETE |
-| Build Doctrine | KEEP |
-| Roadmap | KEEP/ADAPT CURRENT lifecycle only |
-| C5 | KEEP / source-lock normative |
-| OD-04 | KEEP / architecture normative |
 | Responses Compaction | CANDIDATE / NOT ADOPTED |
-| gap closed | forward trajectory MW1 story semantics drift |
-| exit | correction → ChatGPT Critical Review → future Morris Git integration if PASS |
-| next capability | MW1 final proof under source-locked semantics |
-| no parallel architecture | yes |
-| no REAL this cycle | yes |
-| no project Git this cycle | yes |
+| runtime v3 | NON ADOPTED |
+| Gap closed by integration | main CURRENT still NOT RUN while accepted evidence says PASS |
+| Exit | PR opened with exactly reviewed 3-document candidate |
+| No MW1 execution | confirmed |
 
 ---
 
-## 12. Finding corrected
+## 13. Reviewed-candidate freeze verification
 
-### BLK-DOC-MW1-STORY-SEMANTICS-01 (BLOCKING — CORRECTED)
-
-**Cause:** Forward trajectory requalified MW1-S01/S02/S03 with wrong labels incompatible with C5 source-lock and OD-04.
-
-**BEFORE (wrong CURRENT labels):**
-| Story | Wrong label |
+| Check | Result |
 |---|---|
-| MW1-S01 | deterministic architecture-guard final proof |
-| MW1-S02 | provider-backed REAL |
-| MW1-S03 | Responses Compaction study |
+| Content modified after ChatGPT PASS | **NO** — only git operations |
+| diff stat matches reviewed candidate | **YES** — 3 files, 48 insertions, 38 deletions |
+| forbidden CURRENT labels | **ZERO** |
+| C5 story bodies unchanged | **YES** — parity with origin/main |
+| handoff content drift | **NONE detected** |
 
-**AFTER (source-locked CURRENT labels):**
-| Story | Correct label |
+---
+
+## 14. Pre-commit diff name/status/stat/check
+
+```
+M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+M	projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
+M	projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md
+
+3 files changed, 48 insertions(+), 38 deletions(-)
+
+git diff --check: PASS
+```
+
+---
+
+## 15. C5 story-body parity proof
+
+| Story | Result |
 |---|---|
-| MW1-S01 | Session-based honest inter-session continuity (proof = deterministic E2E + boundary + eval; REAL later only if separately qualified/authorized) |
-| MW1-S02 | Compaction with provenance and loss signaling (prove/select compaction mechanism separately; Responses Compaction CANDIDATE / NOT ADOPTED; proof = unit + modeled + eval) |
-| MW1-S03 | Never silent Memory B→Truth C / governed materialization (SFIA materialization authority; proof = deterministic E2E) |
-
-### R-DOC-ROADMAP-SEQUENCE-DUP-01 (RESERVE — CORRECTED)
-
-Removed duplicate trailing sequences `· then MW1-S01/S02/S03 final proof → CORR-MW1-07/08...` after already-detailed forward trajectory on Roadmap CURRENT surfaces (L84, L117) and C5 NEXT NORA GATE row.
+| MW1-S01 | MATCH (candidate == origin/main) |
+| MW1-S02 | MATCH |
+| MW1-S03 | MATCH |
 
 ---
 
-## 13. Occurrence matrix
-
-| Pattern | Roadmap | C5 | OD-04 | Action |
-|---|---|---|---|---|
-| architecture-guard | CURRENT (L10,84,101,117) | CURRENT (Statut, §5A, item 6, Conceptual path) | CURRENT (L205,353) | **CORRECTED** |
-| provider-backed REAL | CURRENT | CURRENT | CURRENT | **CORRECTED** |
-| Responses Compaction study | CURRENT | CURRENT | CURRENT | **CORRECTED** |
-| then MW1-S01/S02/S03 | CURRENT (L84,117) | CURRENT (NEXT NORA GATE) | — | **REMOVED (dup)** |
-| MW1-S01/S02/S03 story bodies | NORMATIVE | NORMATIVE | — | **IMMUTABLE — NOT TOUCHED** |
-| historique NORA-C5-MW1-OPTION-C-POST-MERGE-TRUTH-SYNC-01 | HISTORICAL | HISTORICAL | — | **PRESERVED (NOT RUN)** |
-| OD-04 §8 MW1 implications table | — | — | NORMATIVE (L283-285) | **PRESERVED** |
-
-Post-correction forbidden-phrase scan on CURRENT surfaces: **PASS (zero matches)**
-
----
-
-## 14. Exact modified files
+## 16. Exact staged files
 
 1. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 2. `projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md`
@@ -180,136 +155,24 @@ Post-correction forbidden-phrase scan on CURRENT surfaces: **PASS (zero matches)
 
 ---
 
-## 15. Roadmap correction
+## 17. Staged diff/check
 
-- Preserved: NORA-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01 tip, MW0 PASS DETERMINISTIC, evidence 35a2b1ae, MW0 CLOSED, R1/R2/R3 retained, reserves open, Responses Compaction NOT ADOPTED, MW1 NOT COMPLETE.
-- Corrected: `next structural sequence` on CURRENT surfaces (L9 tip row, L10 timestamp, L84 Morris trajectory, L101 C5 register, L117 Gates courants) — replaced wrong S01/S02/S03 labels with source-locked C5 semantics.
-- Removed: duplicate `then MW1-S01/S02/S03 final proof → CORR-MW1-07/08 → exit → MW2` on L84 and L117.
+Staged: exactly 3 files. `git diff --cached --check`: PASS.
 
 ---
 
-## 16. C5 correction
-
-- **PRINCIPE DUR:** C5 story bodies MW1-S01/S02/S03 **NOT MODIFIED**.
-- Corrected CURRENT/downstream only: Statut, NEXT NORA GATE, Delivery row, §5A rule 6, C5 status tip, forward trajectory item 6, Conceptual path.
-- Renamed generic `MW1 final proof sequence` → `MW1 final proof against source-locked C5 semantics`.
-- historique tip NORA-C5-MW1-OPTION-C-POST-MERGE-TRUTH-SYNC-01 retains `MW0 Option C regression/parity = NOT RUN`.
-
----
-
-## 17. OD-04 correction
-
-- Preserved: OD-04 CONSUMED, Option C TARGET ADOPTED, OD04-I01 ACTIVE, ownership split, §8 MW1 implications table (S01=Session-based continuity, S02=compaction separately, S03=SFIA materialization authority), architecture decisions, MW0 regression gate PASS.
-- Corrected: Lifecycle state CURRENT steps 7-12 (L205-210), Lifecycle CURRENT §11 steps 8-11 (L353-356), dual-loop risk table next (L336), MW1 Delivery CURRENT forward line (L274).
-
----
-
-## 18. C5 story-body exact parity check S01/S02/S03
-
-- **MW1-S01** story body: **MATCH** (candidate == origin/main, 1819 chars)
-- **MW1-S02** story body: **MATCH** (candidate == origin/main, 1461 chars)
-- **MW1-S03** story body: **MATCH** (candidate == origin/main, 1279 chars)
-
-Method: extract sections between `#### MW1-S0x —` headings; compare candidate working tree vs `git show origin/main:05-nora-source-locked-cognitive-backlog.md`.
-
-**Result: PASS — all three story bodies byte/text-equivalent to origin/main.**
-
----
-
-## 19. MW0 preservation matrix
-
-| Claim | Status |
-|---|---|
-| MW0 Option C regression/parity | PASS WITH NON-BLOCKING RESERVES — DETERMINISTIC ONLY |
-| ChatGPT CRITICAL REVIEW (prior truth-sync) | PASS |
-| evidence | 35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c |
-| MW0 remains CLOSED | yes |
-| R1/R2/R3 | RETAINED / NOT RE-RUN / NOT UPGRADED |
-| MW0-R01 | NOT_PROVEN / NON-BLOCKING |
-| MW0-R02 | NOT_PROVEN / NON-BLOCKING |
-| RESERVE-OPT-C-02 | OPEN / NON-BLOCKING |
-| RESERVE-OPT-C-03 | OPEN / NON-BLOCKING |
-| Option C REAL parity | NOT PROVEN |
-| ChatGPT↔Cursor parity | NOT PROVEN |
-| Responses Compaction | CANDIDATE / NOT ADOPTED |
-| MW1 | NOT COMPLETE |
-| Cognitive Completion | NOT PROVEN |
-| runtime v3 | NON ADOPTED |
-| main truth | 7a5f1af7 until future project Git integration |
-
----
-
-## 20. Reserve matrix
-
-| ID | Status |
-|---|---|
-| MW0-R01 | OPEN / NON-BLOCKING |
-| MW0-R02 | OPEN / NON-BLOCKING |
-| RESERVE-OPT-C-02 | OPEN / NON-BLOCKING |
-| RESERVE-OPT-C-03 | OPEN / NON-BLOCKING |
-| R-DOC-ROADMAP-SEQUENCE-DUP-01 | **CORRECTED this cycle** |
-
----
-
-## 21. Proof ceiling
-
-- Entry (MW0 truth-sync): **DETERMINISTIC PROVEN** for applicable D0/offline claims + Option C single-Runner invariants
-- This cycle: **DOCUMENTARY COHERENCE PROVEN** / source-lock restoration
-- Explicitly NOT promoted: REAL BOUNDARY PROVEN, END-TO-END REAL PROVEN, READY FOR REAL, MW1 proof, Cognitive Completion, runtime v3 adoption
-
----
-
-## 22. Fake/Real
+## 18. Project commit SHA/message
 
 | Field | Value |
 |---|---|
-| applicable | N/A (documentary cycle) |
-| REAL | **NONE** |
-| Morris REAL gate | NOT consumed |
+| SHA | `d9ab48322f34ffbe40ef1da92f9f00ab793dfd9c` |
+| Message | `docs(sfia-studio): sync MW0 Option C regression parity truth` |
+| Parent | `7a5f1af7d89c7e2bf3d9faf598119ccc5482f22f` |
+| Files | 3 |
 
 ---
 
-## 23. Forward trajectory finale (canonical — documented ≠ authorized)
-
-```
-future Morris project Git-integration GO
-→ MW1 final proof against source-locked C5 semantics:
-  MW1-S01 Session-based honest inter-session continuity
-  → MW1-S02 compaction with provenance/loss signaling, with compaction mechanism proof/selection separate and Responses Compaction still CANDIDATE / NOT ADOPTED
-  → MW1-S03 governed Memory B→Truth C materialization through class rules + MaterializationBasis
-→ CORR-MW1-07/08 only where still required
-→ MW1 Exit Proof / closure under Morris gate
-→ MW2 only after MW1 closure
-```
-
-Does NOT: impose REAL as MW1-S02; adopt Responses Compaction; declare S01/S02/S03 closed; close MW1; authorize MW1 execution.
-
----
-
-## 24. Duplicate-sequence control
-
-**PASS** — no CURRENT surface retains both detailed sequence AND redundant `then MW1-S01/S02/S03...` tail.
-
----
-
-## 25. Forbidden-phrase control
-
-**PASS** — zero CURRENT occurrences of:
-- `MW1-S01 deterministic architecture-guard final proof`
-- `MW1-S02 provider-backed REAL`
-- `MW1-S03 Responses Compaction study`
-
-Legitimate REAL / Responses Compaction mentions in normative/anti-claim contexts preserved.
-
----
-
-## 26. git diff --check
-
-**PASS** (no trailing whitespace / conflict markers)
-
----
-
-## 27. git diff --name-status
+## 19. Project commit exact file scope
 
 ```
 M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -317,14 +180,219 @@ M	projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive
 M	projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md
 ```
 
-Exactly 3 authorized project files. No app/**, tests, package/lock.
+Commits ahead of origin/main: **1**
 
 ---
 
-## 28. git diff --stat
+## 20. Remote branch SHA
+
+`origin/docs/sfia-studio-nora-mw0-option-c-regression-truth-sync` = `d9ab48322f34ffbe40ef1da92f9f00ab793dfd9c`
+
+---
+
+## 21. Push parity
+
+Local HEAD == remote branch SHA: **PASS**
+
+---
+
+## 22. PR number
+
+**449**
+
+---
+
+## 23. PR URL
+
+https://github.com/mcleland147/sfia-workspace/pull/449
+
+---
+
+## 24. PR title
+
+`docs(sfia-studio): record MW0 Option C regression parity pass`
+
+---
+
+## 25. PR base/head SHAs
+
+| Field | Value |
+|---|---|
+| base branch | `main` |
+| base SHA | `7a5f1af7d89c7e2bf3d9faf598119ccc5482f22f` |
+| head branch | `docs/sfia-studio-nora-mw0-option-c-regression-truth-sync` |
+| head SHA | `d9ab48322f34ffbe40ef1da92f9f00ab793dfd9c` |
+| state | OPEN |
+| draft | false |
+
+---
+
+## 26. PR changed files
+
+1. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` (+8/-7)
+2. `projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md` (+21/-19)
+3. `projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md` (+19/-12)
+
+Total: 3 files, +48/-38
+
+---
+
+## 27. PR diff parity
+
+Remote PR diff matches local commit `d9ab48322f34ffbe40ef1da92f9f00ab793dfd9c`: **PASS**
+
+---
+
+## 28. Mergeability
+
+GitHub mergeability: **MERGEABLE**
+
+Merge NOT performed. Mergeability ≠ merge authorization.
+
+---
+
+## 29. CI/check state
+
+| Check | State |
+|---|---|
+| Detect SFIA Studio changes | **PASS** (5s) |
+| Build and validate SFIA Studio | **PENDING** |
+| Workflow run | 33363761692 — in progress at pack generation |
+
+**CI PENDING — NOT YET READY FOR MERGE DECISION**
+
+---
+
+## 30. MW0 preservation
+
+| Claim | Status |
+|---|---|
+| MW0 Option C regression/parity | PASS WITH NON-BLOCKING RESERVES — DETERMINISTIC ONLY |
+| evidence | 35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c |
+| MW0 remains CLOSED | yes |
+| R1/R2/R3 | RETAINED / NOT RE-RUN / NOT UPGRADED |
+| MW0-R01/R02 | NOT_PROVEN / NON-BLOCKING |
+| RESERVE-OPT-C-02/03 | OPEN / NON-BLOCKING |
+| Responses Compaction | CANDIDATE / NOT ADOPTED |
+| MW1 | NOT COMPLETE |
+| Cognitive Completion | NOT PROVEN |
+| runtime v3 | NON ADOPTED |
+
+---
+
+## 31. Reserve matrix
+
+MW0-R01, MW0-R02, RESERVE-OPT-C-02, RESERVE-OPT-C-03 — all OPEN / NON-BLOCKING
+
+---
+
+## 32. Proof ceiling
+
+- Entry: DETERMINISTIC PROVEN (MW0 applicable gate)
+- This cycle: GIT INTEGRATION / PR TRACEABILITY ONLY
+- NOT promoted: REAL BOUNDARY PROVEN, END-TO-END REAL PROVEN, READY FOR REAL, MW1 proof, Cognitive Completion, runtime v3 adoption
+- DETERMINISTIC PROVEN ≠ READY FOR REAL
+
+---
+
+## 33. Fake/Real N/A
+
+No REAL. No provider. No fake/mock. Morris REAL gate not consumed.
+
+---
+
+## 34. MW1/RC/runtime anti-claims
+
+- MW1 NOT COMPLETE — not authorized by this PR
+- Responses Compaction NOT ADOPTED
+- runtime v3 NON ADOPTED
+- no REAL
+- no MW1 execution
+
+---
+
+## 35. No merge proof
+
+- PR merge: **NOT PERFORMED**
+- Branch delete: **NOT PERFORMED**
+- force push: **NOT PERFORMED**
+
+---
+
+## 36. Final Git status
 
 ```
-.../convergence/sfia-studio-convergence-roadmap.md | 15 ++++----
+branch: docs/sfia-studio-nora-mw0-option-c-regression-truth-sync
+HEAD: d9ab48322f34ffbe40ef1da92f9f00ab793dfd9c
+origin/main: 7a5f1af7d89c7e2bf3d9faf598119ccc5482f22f
+origin/project-branch: d9ab48322f34ffbe40ef1da92f9f00ab793dfd9c
+ahead origin/main: 1
+working tree: clean (except untracked .tmp-sfia-review/)
+staged: none
+```
+
+---
+
+## 37. Review Pack completeness
+
+FULL / CRITICAL / CONTENT-COMPLETE / mono-cycle. Includes commit diff, PR metadata, CI state, freeze verification.
+
+---
+
+## 38. Review Handoff publication
+
+*(Populated after L3 publish)*
+
+---
+
+## 39. Handoff remote verification
+
+*(Populated after L3 publish)*
+
+---
+
+## 40. Blocking findings
+
+**NONE** for PR creation scope. CI still PENDING — merge decision blocked until CI resolves.
+
+---
+
+## 41. Reservations
+
+MW0-R01, MW0-R02, RESERVE-OPT-C-02, RESERVE-OPT-C-03 remain OPEN / NON-BLOCKING.
+
+---
+
+## 42. Next gate
+
+1. **ChatGPT PR REVIEW** (read handoff @ new L3 SHA)
+2. CI completion verification
+3. **Morris merge decision** (separate cycle — not authorized here)
+
+---
+
+## 43. Instruction ChatGPT
+
+Lire le Review Handoff distant canonique: `sfia-review-handoff/latest-chatgpt-review.md` au nouveau SHA L3 publié par ce cycle.
+
+Vérifier: cycle, branche projet, initial/final HEAD, origin/main, commit projet, scope commit, push parity, PR #449, PR base/head, PR changed files (3), diff, CI state, mergeability, reserves, proof ceiling, no REAL, no MW1, no RC adoption, no merge, Review Pack completeness, remote handoff verification.
+
+Si absent, incohérent ou synthesis-only: **REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING**
+
+---
+
+## Appendix A — Commit stat
+
+```
+commit d9ab48322f34ffbe40ef1da92f9f00ab793dfd9c
+Author: Morris Cleland <morris@macbook-air1.home>
+Date:   Mon Aug 31 08:19:43 2026 +0200
+
+    docs(sfia-studio): sync MW0 Option C regression parity truth
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+ .../convergence/sfia-studio-convergence-roadmap.md | 15 ++++----
  .../05-nora-source-locked-cognitive-backlog.md     | 40 ++++++++++++----------
  ...enai-cognitive-runtime-architecture-decision.md | 31 ++++++++++-------
  3 files changed, 48 insertions(+), 38 deletions(-)
@@ -332,91 +400,17 @@ Exactly 3 authorized project files. No app/**, tests, package/lock.
 
 ---
 
-## 29. Final git status
-
-```
- M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
- M projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
- M projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md
-?? .tmp-sfia-review/
-HEAD = 7a5f1af7 (0 commits ahead)
-No staged project files.
-```
-
----
-
-## 30. No project commit/push/PR/merge proof
-
-- Project commits ahead of origin/main: **0**
-- Project push: **NOT PERFORMED**
-- Project PR: **NOT CREATED**
-- Project merge: **NOT PERFORMED**
-
----
-
-## 31. Review Pack completeness
-
-FULL / CRITICAL / CONTENT-COMPLETE / mono-cycle. Includes occurrence matrix, BEFORE/AFTER, story-body parity, MW0 matrix, reserves, proof ceiling, validations, unified diff below.
-
----
-
-## 32. Review Handoff publication
-
-*(Populated after L3 publish — see section 33)*
-
----
-
-## 33. Remote verification
-
-*(Populated after L3 publish)*
-
----
-
-## 34. Blocking findings remaining
-
-**NONE** (local correction complete; pending ChatGPT re-review)
-
----
-
-## 35. Reservations remaining
-
-MW0-R01, MW0-R02, RESERVE-OPT-C-02, RESERVE-OPT-C-03 — all OPEN / NON-BLOCKING
-
----
-
-## 36. Next gate
-
-**ChatGPT CRITICAL DOCUMENT REVIEW** on corrected local candidate via published Review Handoff L3.
-
-If PASS → future Morris **project Git-integration GO** (separate cycle).
-
----
-
-## 37. Instruction ChatGPT
-
-Lire le Review Handoff distant canonique: `sfia-review-handoff/latest-chatgpt-review.md` au nouveau SHA L3 publié par ce cycle.
-
-Vérifier:
-- cycle / branche / HEAD/base
-- exact modified files (3)
-- correction BLK-DOC-MW1-STORY-SEMANTICS-01
-- correction R-DOC-ROADMAP-SEQUENCE-DUP-01
-- C5 S01/S02/S03 source-lock parity
-- MW0 truth-sync preservation
-- reserves & proof ceiling
-- absence de REAL
-- absence de Responses Compaction adoption
-- forward trajectory source-locked
-- absence de project Git integration
-- modified content completeness (unified diff below)
-
-Si absent, incohérent ou synthesis-only: **REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING**
-
----
-
-## Appendix A — Unified diff (complete)
+## Appendix B — Commit unified diff (complete)
 
 ```diff
+commit d9ab48322f34ffbe40ef1da92f9f00ab793dfd9c
+Author: Morris Cleland <morris@macbook-air1.home>
+Date:   Mon Aug 31 08:19:43 2026 +0200
+
+    docs(sfia-studio): sync MW0 Option C regression parity truth
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 index 0f9a1191..f26ab0a6 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
