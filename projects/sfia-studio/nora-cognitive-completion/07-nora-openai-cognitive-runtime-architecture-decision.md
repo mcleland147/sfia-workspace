@@ -10,7 +10,7 @@
 | **Date (Europe/Paris)** | 2026-08-30 · **post-merge truth-sync 2026-09-01** |
 | **Morris decision status** | **OD-04 = CONSUMED** |
 | **Decision** | **OPTION C — HYBRID OPENAI COGNITIVE RUNTIME = ADOPTED AS NORA TARGET ARCHITECTURE** |
-| **Git lifecycle (CURRENT)** | **Decision record INTEGRATED ON MAIN** via PR **#445** · Option C implementation **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#447** · **MW1 Delivery INTEGRATED / POST-MERGE VERIFIED** via PR **#450** · **MW1 COMPLETE / CLOSED BY MORRIS** · MW1 closure docs **INTEGRATED / POST-MERGE VERIFIED** via PR **#451** · OpenAI-native-first transverse truth-sync **INTEGRATED / POST-MERGE VERIFIED** via PR **#453** · current forward product gate = **MW2 Readiness / Requalification** · MW2 **NOT AUTHORIZED / NOT STARTED** |
+| **Git lifecycle (CURRENT)** | **Decision record INTEGRATED ON MAIN** via PR **#445** · Option C implementation **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#447** · **MW1 Delivery INTEGRATED / POST-MERGE VERIFIED** via PR **#450** · **MW1 COMPLETE / CLOSED BY MORRIS** · MW1 closure docs **INTEGRATED / POST-MERGE VERIFIED** via PR **#451** · OpenAI-native-first transverse truth-sync **INTEGRATED / POST-MERGE VERIFIED** via PR **#453** · **MW2 Readiness VALIDATED BY MORRIS** · **OD-02 CONSUMED — OPTION B** (doc09) · next after integration/post-merge = **PRE-MW2-MODEL-BASELINE-01** · MW2 Delivery **NOT AUTHORIZED / NOT STARTED** |
 | **Git lifecycle (HISTORICAL at first local record)** | Was **LOCAL DOCUMENTARY CANDIDATE** until distinct project Git integration *(pre-PR #445 · preserved as provenance)* |
 | **OD04-I01** | **ACTIVE CROSS-WAVE ARCHITECTURE INVARIANT** under OD-04 · **NOT** a new architecture selection · see §4A |
 | **Cross-wave cognitive trajectory** | `08-nora-openai-native-first-cognitive-trajectory.md` = **VALIDATED — ACTIVE ON MAIN** via PR **#453** · OpenAI-native-first + GPT-5.6/model-reasoning trajectory · **does not reopen OD-04** |
@@ -218,7 +218,7 @@ Correction themes consumed/closed :
 10. MW1 closure — **COMPLETE / CLOSED BY MORRIS**
 11. MW1 closure documentary lifecycle — **INTEGRATED / POST-MERGE VERIFIED** (PR **#451**)
 12. OpenAI-native-first cross-wave truth-sync — **INTEGRATED / POST-MERGE VERIFIED** (PR **#453** · merge `d640b5ba7210b9da3593bea9eeae2100c6da6c09` · CI `33530815963` SUCCESS)
-13. current forward product gate — **MW2 Readiness / Requalification** · **MW2 NOT AUTHORIZED / NOT STARTED**
+13. current forward product gate — **MW2 Readiness VALIDATED BY MORRIS** · **OD-02 CONSUMED — OPTION B** (doc09) · **next after integration/post-merge = PRE-MW2-MODEL-BASELINE-01** · **MW2 Delivery NOT AUTHORIZED / NOT STARTED**
 
 Historical wording that presented MW1-S01/S02/S03, MW1 closure or the pre-MW2 truth-sync as FUTURE is superseded by this section for forward-path truth.
 
@@ -356,9 +356,10 @@ Pre-MW2 transverse documentary truth-sync is **COMPLETE / INTEGRATED / POST-MERG
 Current sequence is:
 
 ```text
-MW2 Readiness / Requalification
-  → Morris qualification validation
-  → distinct MW2 Delivery GO
+MW2 Readiness — VALIDATED BY MORRIS
+  → repository integration + post-merge verification
+  → PRE-MW2-MODEL-BASELINE-01
+  → distinct Morris MW2 Delivery GO
   → MW2 Delivery only if authorized
 ```
 
@@ -367,8 +368,9 @@ Cross-wave active trajectory:
 - OpenAI Capability Fit Check **mandatory MW2→MW6** ;
 - GPT-5.6/model/reasoning current truth lives in active doc08/MW0 evidence, not as OD-04 invariant ;
 - Production model routing **NOT SELECTED** ;
-- MW2 OD-02 remains **OPEN** ;
-- MW2 **NOT AUTHORIZED / NOT STARTED**.
+- MW2 OD-02 **CONSUMED — OPTION B** (doc09) ;
+- MW2 Readiness **VALIDATED BY MORRIS** ;
+- MW2 Delivery **NOT AUTHORIZED / NOT STARTED**.
 
 ---
 
@@ -391,8 +393,10 @@ Cross-wave active trajectory:
 = BUILD DOCTRINE R22 = VALIDATED / ACTIVE ON MAIN VIA PR #453
 = PRODUCTION MODEL ROUTING NOT SELECTED
 = PRE-MW2 TRANSVERSE DOCUMENTARY TRUTH-SYNC = COMPLETE / INTEGRATED / POST-MERGE VERIFIED
-= MW2 READINESS/REQUALIFICATION = NEXT PRODUCT CAPABILITY
-= MW2 NOT AUTHORIZED / NOT STARTED
+= MW2 READINESS/REQUALIFICATION = VALIDATED BY MORRIS
+= OD-02 = CONSUMED — OPTION B
+= NEXT AFTER INTEGRATION/POST-MERGE = PRE-MW2-MODEL-BASELINE-01
+= MW2 DELIVERY NOT AUTHORIZED / NOT STARTED
 = COGNITIVE COMPLETION NOT PROVEN
 = RUNTIME V3 NON ADOPTED
 = NO NEW ARCHITECTURE SELECTION BY THIS TRUTH-SYNC
