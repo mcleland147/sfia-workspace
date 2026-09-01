@@ -271,9 +271,9 @@ PASS (verified by script)
 Next gate after PASS: DISTINCT MORRIS GO — project Git integration of this post-merge truth-sync
 
 ## 48. Handoff publication
-- SHA: `(pending publish)`
+- SHA: `05e25097d52b66858e02be19ecd4a6213e7b0ce1`
 - parent: `87f493baa540a8026f0975d17415319ce462e782`
-- blob: `(pending publish)`
+- blob: `cc5f3e4067ebbd9c9285cb6c09da85c829f9bc09`
 
 ---
 
