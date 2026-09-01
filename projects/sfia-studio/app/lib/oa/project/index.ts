@@ -21,6 +21,23 @@ export { ListProjects } from "./application/listProjects";
 export { GetCurrentLivingProjectState } from "./application/getCurrentLivingProjectState";
 export { GetLivingProjectStateVersion } from "./application/getLivingProjectStateVersion";
 export { AppendLivingProjectStateVersion } from "./application/appendLivingProjectStateVersion";
+export {
+  MaterializeFromMemoryB,
+  createMaterializeFromMemoryB,
+} from "./application/materializeFromMemoryB";
+export type {
+  MaterializationBasis,
+  MaterializationBasisKind,
+  MaterializationClass,
+  MaterializationDetailCode,
+  MaterializationRequest,
+  MaterializationResult,
+  MaterializationTarget,
+  MemoryBSourceReference,
+  MaterializeFromMemoryBDeps,
+  MaterializationHumanDecisionView,
+  RuntimeStateTransition,
+} from "./application/materializeFromMemoryB";
 
 export { MemoryProjectStore } from "./infrastructure/memoryProjectStore";
 export { MemoryProjectRepository } from "./infrastructure/memoryProjectRepository";

@@ -24,6 +24,7 @@ export class ProductSqliteSession implements Session {
   private readonly dbPath: string;
   private db: DatabaseSync;
   private forceNextGetFail = false;
+  private forceNextReplaceFail = false;
 
   constructor(options: ProductSqliteSessionOptions) {
     this.projectId = options.projectId;
@@ -44,6 +45,11 @@ export class ProductSqliteSession implements Session {
   /** Test hook — next getItems throws (retrieval failure ≠ empty). */
   simulateNextRetrievalFailure(): void {
     this.forceNextGetFail = true;
+  }
+
+  /** Test hook — next replaceItemsAtomically fails after DELETE (rollback). */
+  simulateNextReplaceFailure(): void {
+    this.forceNextReplaceFail = true;
   }
 
   /** Test/inspection access for atomicity proofs (triggers, etc.). */
@@ -140,6 +146,61 @@ export class ProductSqliteSession implements Session {
         `DELETE FROM session_items WHERE project_id = ? AND session_key = ?`,
       )
       .run(this.projectId, this.sessionKey);
+  }
+
+  /** Inspection — ordered raw rows for compaction (MW1-S02). */
+  listItemRows(): Array<{ seq: number; item_json: string }> {
+    return this.db
+      .prepare(
+        `SELECT seq, item_json FROM session_items
+         WHERE project_id = ? AND session_key = ?
+         ORDER BY seq ASC`,
+      )
+      .all(this.projectId, this.sessionKey) as Array<{
+      seq: number;
+      item_json: string;
+    }>;
+  }
+
+  /**
+   * Atomic replace of all session items (MW1-S02 compaction).
+   * BEGIN IMMEDIATE → DELETE → INSERT → COMMIT; ROLLBACK on failure.
+   */
+  async replaceItemsAtomically(items: AgentInputItem[]): Promise<void> {
+    this.db.exec("BEGIN IMMEDIATE");
+    try {
+      this.db
+        .prepare(
+          `DELETE FROM session_items WHERE project_id = ? AND session_key = ?`,
+        )
+        .run(this.projectId, this.sessionKey);
+      const insert = this.db.prepare(
+        `INSERT INTO session_items(project_id, session_key, seq, item_json)
+         VALUES (?, ?, ?, ?)`,
+      );
+      let seq = 0;
+      for (const item of items) {
+        if (this.forceNextReplaceFail) {
+          this.forceNextReplaceFail = false;
+          throw new Error("SESSION_REPLACE_SIMULATED_FAILURE");
+        }
+        insert.run(
+          this.projectId,
+          this.sessionKey,
+          seq,
+          JSON.stringify(item),
+        );
+        seq += 1;
+      }
+      this.db.exec("COMMIT");
+    } catch (error) {
+      try {
+        this.db.exec("ROLLBACK");
+      } catch {
+        /* ignore */
+      }
+      throw error;
+    }
   }
 
   /** Inspection — tables must not be Truth C / oa_*. */

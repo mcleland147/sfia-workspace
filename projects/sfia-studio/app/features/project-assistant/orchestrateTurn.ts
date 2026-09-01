@@ -4,7 +4,11 @@ import {
   type ConversationProvider,
   type ProviderChatMessage,
 } from "@/lib/platform/ai";
-import { runNoraCognitiveTurn } from "@/lib/nora-cognitive-runtime";
+import {
+  memoryBPiloteNotice,
+  memoryBCompactionPiloteNotice,
+  runNoraCognitiveTurn,
+} from "@/lib/nora-cognitive-runtime";
 import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
 import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
 import { buildProjectSystemPrompt } from "./buildProjectSystemPrompt";
@@ -18,8 +22,26 @@ import type {
 } from "./types";
 
 const MAX_HISTORY_MESSAGES = 20;
-const SESSION_NOTICE_AGENTS =
-  "Continuité conversationnelle via Product SQLite Session (project-scoped) — Session ≠ Truth C / LPS / HumanDecision. Project/LPS restent Product SQLite Truth C. AUCUNE EXÉCUTION.";
+
+function buildEphemeralNotice(
+  memoryBAvailability:
+    | "available_with_history"
+    | "available_empty"
+    | "unavailable",
+  memoryBCompactionState:
+    | "none"
+    | "compacted_no_loss"
+    | "compacted_with_loss"
+    | "stale_invalidated",
+  stalePriorInvalidated?: boolean,
+): string {
+  const base = memoryBPiloteNotice(memoryBAvailability);
+  const compaction = memoryBCompactionPiloteNotice(memoryBCompactionState, {
+    stalePriorInvalidated,
+  });
+  if (!compaction) return base;
+  return `${compaction} ${base}`;
+}
 
 function toContextDto(
   result: Extract<
@@ -63,6 +85,11 @@ export async function orchestrateProjectAssistantTurn(input: {
   provider?: ConversationProvider;
   /** Test override for Product SQLite Session path. */
   sessionDbPath?: string;
+  /**
+   * Test injection — forces Memory B UNAVAILABLE (MW1-S01).
+   * Same product path; no second runtime.
+   */
+  simulateMemoryBUnavailable?: boolean;
 }): Promise<ProjectAssistantSendResult> {
   const content = input.content.trim();
   if (!content) {
@@ -131,6 +158,11 @@ export async function orchestrateProjectAssistantTurn(input: {
       sink,
       workspaceRoot,
       sessionDbPath: input.sessionDbPath,
+      simulateMemoryBUnavailable: input.simulateMemoryBUnavailable,
+      truthCRevision: {
+        lpsId: project.lpsId,
+        lpsVersion: project.lpsVersion,
+      },
     });
 
     const { toolEvents, sources } = collectToolTelemetry(sink.events);
@@ -147,9 +179,17 @@ export async function orchestrateProjectAssistantTurn(input: {
       sources,
       toolEvents,
       project,
-      ephemeralNotice: SESSION_NOTICE_AGENTS,
+      ephemeralNotice: buildEphemeralNotice(
+        turn.memoryBAvailability,
+        turn.memoryBCompactionState,
+        turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
+      ),
       cognitiveRuntime: turn.cognitiveRuntime,
       sessionId: turn.sessionId,
+      memoryBAvailability: turn.memoryBAvailability,
+      memoryBCompactionState: turn.memoryBCompactionState,
+      stalePriorInvalidated:
+        turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
     };
   } catch (error) {
     const message =

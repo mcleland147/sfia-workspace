@@ -1,5 +1,6 @@
 /**
- * D0 deterministic runner + observation builders for MW0 catalog.
+ * D0 deterministic runner + observation builders for MW0/MW1 catalog.
+ * MW1-S01 observation is produced by actual runtime execution (async).
  */
 
 import { getScenario, listScenarios, catalogSelfCheck, getCatalogVersion } from "./catalog";
@@ -11,14 +12,16 @@ import {
 } from "./scorers";
 import type { RunEvidence, PassFail } from "./types";
 import { NORA_EVAL_CATALOG_VERSION } from "./types";
+import { observeMw1S01FromRuntime } from "./mw1S01Observe";
+import { observeMw1S02FromRuntime } from "./mw1S02Observe";
 
 function nowIso(): string {
   return new Date().toISOString();
 }
 
-function observationForScenario(
+async function observationForScenario(
   scenarioId: string,
-): DeterministicObservation {
+): Promise<DeterministicObservation> {
   switch (scenarioId) {
     case "mw0.s01.catalog-mechanics":
       return { productPath: "none", observedObservableIds: ["obs.evidence.provenance"] };
@@ -96,12 +99,92 @@ function observationForScenario(
         productPath: "none",
         observedObservableIds: ["obs.parity.metric_target"],
       };
+    case "mw1.s01.honest-memory-b-availability":
+      return observeMw1S01FromRuntime();
+    case "mw1.s02.compaction-provenance-loss":
+      return observeMw1S02FromRuntime();
     default:
       return { productPath: "none" };
   }
 }
 
-export function runD0Scenario(scenarioId: string): RunEvidence {
+function toRunEvidence(
+  scenarioId: string,
+  startedAt: string,
+  obs: DeterministicObservation,
+  scored: ReturnType<typeof scoreScenarioD0>,
+  scenario: NonNullable<ReturnType<typeof getScenario>>,
+): RunEvidence {
+  return {
+    campaignId: "d0-local",
+    cell: {
+      model: "fixture",
+      reasoningEffort: "none",
+      scenarioId: scenario.scenarioId,
+      scenarioVersion: scenario.catalogVersion,
+      runIndex: 0,
+      campaignId: "d0-local",
+      tier: "D0",
+      sourceSet: "A",
+      toolSet: "none",
+    },
+    startedAt,
+    finishedAt: nowIso(),
+    passFail: scored.passFail,
+    failureClass: scored.passFail === "PASS" ? "NONE" : "MECHANICS",
+    scorers: scored.scorers,
+    epistemicLabelsObserved: obs.labels ?? [],
+    productPath: "none",
+    rawSummary: `D0 ${scenario.scenarioId} → ${scored.passFail}`,
+    usage: null,
+    cumulativeSpendUsd: 0,
+    redacted: true,
+    evidenceRefs: [`catalog:${getCatalogVersion()}`],
+    productObservation:
+      scenarioId === "mw1.s01.honest-memory-b-availability"
+        ? {
+            memoryBAvailabilityStates: obs.memoryBAvailabilityStates ?? [],
+            unavailableNeqEmpty: obs.unavailableNeqEmpty ?? false,
+            sessionNeqTruthC: obs.sessionNeqTruthC ?? false,
+            noInventedTranscript: obs.noInventedTranscript ?? false,
+            observedObservableIds: obs.observedObservableIds ?? [],
+          }
+        : scenarioId === "mw1.s02.compaction-provenance-loss"
+          ? {
+              compactionTriggered: obs.compactionTriggered ?? false,
+              replayFootprintReduced: obs.replayFootprintReduced ?? false,
+              compactionProvenancePresent:
+                obs.compactionProvenancePresent ?? false,
+              lossSignaledCorrectly: obs.lossSignaledCorrectly ?? false,
+              staleDetected: obs.staleDetected ?? false,
+              staleReplayPrevented: obs.staleReplayPrevented ?? false,
+              partitionComplete: obs.partitionComplete ?? false,
+              noOrphanedRemovedItems: obs.noOrphanedRemovedItems ?? false,
+              provenanceCoverageComplete:
+                obs.provenanceCoverageComplete ?? false,
+              recompactionLineagePreserved:
+                obs.recompactionLineagePreserved ?? false,
+              lossHonestForOmission: obs.lossHonestForOmission ?? false,
+              lossMonotonic: obs.lossMonotonic ?? false,
+              staleDisclosureMatchesReplay:
+                obs.staleDisclosureMatchesReplay ?? false,
+              staleSemanticLineageNotResurrected:
+                obs.staleSemanticLineageNotResurrected ?? false,
+              staleGoverningLineageNotResurrected:
+                obs.staleGoverningLineageNotResurrected ?? false,
+              crossRevisionRecompactionUsesCurrentTruthC:
+                obs.crossRevisionRecompactionUsesCurrentTruthC ?? false,
+              currentRawProvenanceCoverageIndependent:
+                obs.currentRawProvenanceCoverageIndependent ?? false,
+              stalePriorInvalidationSignaled:
+                obs.stalePriorInvalidationSignaled ?? false,
+              observedObservableIds: obs.observedObservableIds ?? [],
+            }
+          : undefined,
+  };
+}
+
+export async function runD0Scenario(scenarioId: string): Promise<RunEvidence> {
   const startedAt = nowIso();
   const scenario = getScenario(scenarioId);
   if (!scenario) {
@@ -133,46 +216,24 @@ export function runD0Scenario(scenarioId: string): RunEvidence {
     };
   }
 
-  const obs = observationForScenario(scenarioId);
+  const obs = await observationForScenario(scenarioId);
   const scored = scoreScenarioD0(scenario, obs);
-  return {
-    campaignId: "d0-local",
-    cell: {
-      model: "fixture",
-      reasoningEffort: "none",
-      scenarioId: scenario.scenarioId,
-      scenarioVersion: scenario.catalogVersion,
-      runIndex: 0,
-      campaignId: "d0-local",
-      tier: "D0",
-      sourceSet: "A",
-      toolSet: "none",
-    },
-    startedAt,
-    finishedAt: nowIso(),
-    passFail: scored.passFail,
-    failureClass: scored.passFail === "PASS" ? "NONE" : "MECHANICS",
-    scorers: scored.scorers,
-    epistemicLabelsObserved: obs.labels ?? [],
-    productPath: "none",
-    rawSummary: `D0 ${scenario.scenarioId} → ${scored.passFail}`,
-    usage: null,
-    cumulativeSpendUsd: 0,
-    redacted: true,
-    evidenceRefs: [`catalog:${getCatalogVersion()}`],
-  };
+  return toRunEvidence(scenarioId, startedAt, obs, scored, scenario);
 }
 
-export function runFullD0Suite(): {
+export async function runFullD0Suite(): Promise<{
   ok: boolean;
   catalogOk: boolean;
   barsOk: boolean;
   results: RunEvidence[];
   failed: string[];
-} {
+}> {
   const catalog = catalogSelfCheck();
   const bars = assertAllBarsBound();
-  const results = listScenarios().map((s) => runD0Scenario(s.scenarioId));
+  const results: RunEvidence[] = [];
+  for (const s of listScenarios()) {
+    results.push(await runD0Scenario(s.scenarioId));
+  }
   const failed = results
     .filter((r) => r.passFail !== "PASS")
     .map((r) => r.cell.scenarioId);

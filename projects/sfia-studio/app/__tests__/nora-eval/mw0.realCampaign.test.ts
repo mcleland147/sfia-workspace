@@ -69,7 +69,7 @@ describe.runIf(runReal)("MW0 CORR-05 bounded REAL campaign", () => {
       const historicalPath = path.join(outDir, `${HISTORICAL_CAMPAIGN_ID}.json`);
       expect(fs.existsSync(historicalPath)).toBe(true);
 
-      const d0 = runFullD0Suite();
+      const d0 = await runFullD0Suite();
       expect(d0.ok).toBe(true);
 
       const manifest = buildMw0CapabilityManifest(new Date().toISOString());

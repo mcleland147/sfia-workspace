@@ -15,7 +15,8 @@ export type ScenarioKind =
   | "epistemic_separation"
   | "authority_boundary"
   | "genericity"
-  | "parity_metric";
+  | "parity_metric"
+  | "memory_continuity";
 
 export type PassFail = "PASS" | "FAIL" | "INCONCLUSIVE" | "NOT_PROVEN";
 
@@ -68,6 +69,10 @@ export type Mw0StoryId =
   | "MW0-S06"
   | "MW0-S07";
 
+export type Mw1StoryId = "MW1-S01" | "MW1-S02" | "MW1-S03";
+
+export type CognitiveStoryId = Mw0StoryId | Mw1StoryId;
+
 export type CycleTypeFixtureId =
   | "delivery_implementation"
   | "pr_readiness_integration"
@@ -83,7 +88,7 @@ export interface BarObservableBinding {
 export interface ScenarioDefinition {
   scenarioId: string;
   catalogVersion: typeof NORA_EVAL_CATALOG_VERSION;
-  storyIds: Mw0StoryId[];
+  storyIds: CognitiveStoryId[];
   barIds: NccBarId[];
   kind: ScenarioKind;
   title: string;

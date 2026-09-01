@@ -9,6 +9,7 @@ import {
   MaxTurnsExceededError,
   Runner,
   type Model,
+  type Session,
 } from "@openai/agents";
 import type { ConversationProvider } from "@/lib/platform/ai";
 import type { EventSink } from "@/lib/platform/observability/eventSink";
@@ -20,7 +21,7 @@ import {
   isFakeConversationProvider,
 } from "./providerAgentsModel";
 import { createSfiaRouteToolAdapters } from "./sfiaAgentsTools";
-import type { ProductSqliteSession } from "./productSqliteSession";
+import type { MemoryBAvailability } from "./memoryBAvailability";
 import {
   createNoraTurnBudget,
   toolRoundsFromBudget,
@@ -33,7 +34,13 @@ export type RunNoraAgentsTurnInput = {
   projectId: string;
   systemInstructions: string;
   userContent: string;
-  session: ProductSqliteSession;
+  /**
+   * Agents SDK Session when Memory B is available (ProductSqliteSession or MemoryBSessionView).
+   * Omit when Memory B is UNAVAILABLE — same Runner path (SDK session optional).
+   */
+  session?: Session | null;
+  /** MW1-S01 availability classification for this turn. */
+  memoryBAvailability?: MemoryBAvailability;
   workspaceRoot?: string;
   sink?: EventSink;
   /** Injected model for D0 (ScriptedModel). Live uses OPENAI_MODEL. */
@@ -98,6 +105,10 @@ export async function runNoraAgentsTurn(
 
   const runner = createNoraAgentsRunner(input.systemInstructions, budget);
   const maxTurns = input.maxTurns ?? CT_MAX_TOOL_ROUNDS + 1;
+  const session = input.session ?? undefined;
+  const memoryBAvailability: MemoryBAvailability =
+    input.memoryBAvailability ??
+    (session ? "available_with_history" : "unavailable");
 
   let text = "";
   let lastResponseId: string | null = null;
@@ -109,7 +120,7 @@ export async function runNoraAgentsTurn(
 
   try {
     const result = await runner.run(agent, input.userContent, {
-      session: input.session,
+      ...(session ? { session } : {}),
       maxTurns,
       errorHandlers: {
         maxTurns: ({ runData }) => {
@@ -176,6 +187,9 @@ export async function runNoraAgentsTurn(
     toolCalls: budget.executedToolCalls,
     limitReached: budget.limitReached,
     cognitiveRuntime: "agents",
-    sessionId: await input.session.getSessionId(),
+    sessionId: session ? await session.getSessionId() : null,
+    memoryBAvailability,
+    memoryBCompactionState: "none",
+    memoryBCompactionDetails: null,
   };
 }

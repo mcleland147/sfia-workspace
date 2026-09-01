@@ -59,6 +59,36 @@ export type ProjectAuditEvent =
       result: "error";
       detailCode?: string;
       durationMs: number;
+    }
+  /** MW1-S03 — accepted Memory B → Truth C materialization (no full B transcript). */
+  | {
+      event: "oa.memory.materialization.accepted";
+      ts: string;
+      correlationId?: string;
+      projectId: string;
+      materializationClass: 1 | 2 | 3 | 4;
+      basisKind?: string;
+      basisReferenceId?: string;
+      sourceKind?: string;
+      sourceSeq?: number;
+      sourceContentHash?: string;
+      targetKind?: string;
+      resultingLpsVersion?: number;
+      result: "ok";
+      durationMs: number;
+    }
+  /** MW1-S03 — rejected / external-required materialization (fail-closed). */
+  | {
+      event: "oa.memory.materialization.rejected";
+      ts: string;
+      correlationId?: string;
+      projectId: string;
+      materializationClass?: 1 | 2 | 3 | 4;
+      basisKind?: string;
+      targetKind?: string;
+      result: "rejected" | "external_required";
+      detailCode?: string;
+      durationMs: number;
     };
 
 export interface ProjectAuditJournalPort {

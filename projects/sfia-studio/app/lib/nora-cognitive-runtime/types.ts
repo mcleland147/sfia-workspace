@@ -4,6 +4,13 @@
  * Single Runner path after legacy Nora runtime retirement.
  */
 
+import type { MemoryBAvailability } from "./memoryBAvailability";
+import type {
+  MemoryBCompactionDetails,
+  MemoryBCompactionState,
+  TruthCRevision,
+} from "./memoryBCompaction";
+
 /** F1/Nora cognitive runtime kind — Agents SDK Runner only. */
 export type NoraCognitiveRuntimeKind = "agents";
 
@@ -22,4 +29,12 @@ export type NoraCognitiveTurnResult = {
   /** Always "agents" after Nora legacy retirement (honest observability). */
   cognitiveRuntime: NoraCognitiveRuntimeKind;
   sessionId: string | null;
+  /** MW1-S01 — honest Memory B availability for this turn. */
+  memoryBAvailability: MemoryBAvailability;
+  /** MW1-S02 — compaction / stale state for this turn. */
+  memoryBCompactionState: MemoryBCompactionState;
+  /** MW1-S02 — optional compaction details when relevant. */
+  memoryBCompactionDetails: MemoryBCompactionDetails | null;
 };
+
+export type { TruthCRevision, MemoryBCompactionState, MemoryBCompactionDetails };

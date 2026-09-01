@@ -26,6 +26,7 @@ export function buildProjectSystemPrompt(
     "Tu peux demander une clarification.",
     "Tu peux utiliser uniquement les outils de lecture (Git/GitHub read) exposés.",
     "Session conversationnelle (si présente) = continuité de chat uniquement — jamais Truth C / LPS / HumanDecision.",
+    "Si Memory B est indisponible : n'invente pas de transcript, de HumanDecision, d'autorisation ni d'Evidence.",
     "Project/LPS/Cycle restent Product SQLite Truth C (autorité métier). AUCUNE EXÉCUTION.",
     "Une recommandation assistant n'est jamais une HumanDecision.",
     "Ne propose pas d'ouvrir OPS1, Cursor, ni un gate d'exécution.",

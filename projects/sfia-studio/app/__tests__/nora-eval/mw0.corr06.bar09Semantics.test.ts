@@ -333,8 +333,8 @@ describe("CORR-MW0-06 BAR-09 evidence semantics", () => {
     ).toBe("NCC-BAR-09");
   });
 
-  it("D0 suite remains green", () => {
-    expect(runFullD0Suite().ok).toBe(true);
+  it("D0 suite remains green", async () => {
+    expect((await runFullD0Suite()).ok).toBe(true);
   });
 
   it("offline rescore of CORR-05 campaign — S04/BAR-09 only, NEW REAL CALLS 0", () => {
