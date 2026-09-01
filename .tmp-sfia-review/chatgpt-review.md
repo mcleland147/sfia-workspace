@@ -1,489 +1,330 @@
-# ChatGPT Review Pack — Pre-MW2 OpenAI-Native-First Documentary Truth-Sync
+# ChatGPT Review Pack — Nora OpenAI-Native-First Post-Merge Truth-Sync
 
 | Field | Value |
 | --- | --- |
-| **Timestamp** | 2026-09-01 17:26:45 CEST (Europe/Paris) |
-| **Normalization update** | 2026-09-01 · post-CI whitespace correction |
-| **Cycle** | 14 — Documentation / Capitalisation |
+| **Timestamp** | 2026-09-01 18:20 CEST (Europe/Paris) |
+| **Cycle** | 14 — Post-merge / documentary truth-sync |
 | **Typology** | DOC |
 | **Profile** | CRITICAL |
 | **Repository** | `mcleland147/sfia-workspace` |
-| **Base main** | `5030b0e8c489754b43b9044f9e3f738e49a8bad5` |
-| **Branch** | `docs/sfia-studio-nora-openai-native-first-truth-sync` |
-| **Local working tree** | UNKNOWN — no local-state claim |
+| **Base main** | `d640b5ba7210b9da3593bea9eeae2100c6da6c09` |
+| **Branch** | `docs/sfia-studio-nora-openai-native-first-post-merge-truth-sync` |
+| **Input merge** | PR #453 · merge `d640b5ba7210b9da3593bea9eeae2100c6da6c09` · post-merge CI `33530815963` SUCCESS · Required Gate PASS |
+| **Input Review Handoff** | `sfia/review-handoff` @ `132a9d902f083cd4caa8592705fbbad204a7d1ff` · canonical blob `796a53dae9cf50900bf53b35aa8c5d6487b6a8d0` |
+| **Purpose** | Remove durable pre-merge candidate wording after PR #453 and align active Nora/OpenAI trajectory before MW2 requalification |
 | **Runtime/code Delivery** | ZERO |
 | **MW2** | NOT AUTHORIZED / NOT STARTED |
 | **Runtime v3** | NON ADOPTED |
-| **Review content mode** | Created doc08 = full source file; modified Build Doctrine / OD-04 / review artifact = complete useful sections or diff-useful content below |
 
 ---
 
-## 1. Purpose
+## 1. Sources
 
-Capitaliser avant MW2 les décisions et trajectoires transverses Nora MW2→MW6 :
+- Git `main` @ `d640b5ba7210b9da3593bea9eeae2100c6da6c09`
+- PR #453 post-merge evidence
+- Review Handoff `sfia-review-handoff/latest-chatgpt-review.md` @ `132a9d902f083cd4caa8592705fbbad204a7d1ff`
+- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+- `projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md`
+- `projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md`
 
-- `NORA OPENAI-NATIVE-FIRST`;
-- mandatory OpenAI Capability Fit Check;
-- Studio / Nora / OpenAI / Pilote boundary;
-- GPT-5.6 current REAL evidence family and revalidable provider snapshot;
-- pre-MW2 runtime model baseline prerequisite;
-- MW2 reasoning evaluation;
-- future Sol/Terra/Luna × reasoning evaluation trajectory;
-- Production model routing = NOT SELECTED.
+Morris GO consumed for this cycle: **perform the bounded post-merge documentary truth-sync directly**.
 
-This cycle is documentary only. It does not authorize MW2 Delivery or runtime changes.
-
----
-
-## 2. Sources consulted
-
-### Git / governance
-
-1. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` @ base `5030b0e8…`
-2. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` @ base `5030b0e8…`
-3. `projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md`
-4. `projects/sfia-studio/nora-cognitive-completion/06-nora-mw0-versioned-cognitive-eval-harness-readiness.md`
-5. `projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md`
-6. `projects/sfia-studio/app/lib/platform/ai/config.ts`
-7. branch/base comparison and PR #453 diff
-8. PR #453 CI/job logs
-
-### Current OpenAI provider sources used as dated capability input
-
-- `https://developers.openai.com/api/docs/guides/latest-model`
-- `https://developers.openai.com/api/docs/models/gpt`
-
-Provider facts are revalidable inputs, not permanent SFIA doctrine.
+Not consumed: PR creation, merge of this branch, branch deletion, MW2 Delivery, OD-02, production model selection/routing, Responses compaction, runtime v3 adoption.
 
 ---
 
-## 3. Morris decisions / authority consumed
-
-### Consumed
-
-- `ok go maj` — authorize documentary update on dedicated branch.
-- `ok go` — authorize Git integration lifecycle / PR preparation and verification.
-- documentary truth-sync before MW2 Readiness/Requalification.
-- after documentary integration: MW2 qualification, Morris review/validation, then distinct MW2 Delivery GO.
-- OpenAI-native-first principle for Nora cognitive construction.
-- preserve Studio/Nora/OpenAI/Pilote authority boundary.
-- GPT-5.6 prerequisite before MW2 Delivery if effective F1 runtime is not aligned.
-- future model/reasoning comparative evaluation with targeted early trigger when wave QA justifies it and global post-MW6 default.
-
-### Not consumed / not authorized
-
-- merge of PR #453;
-- branch deletion;
-- MW2 Readiness content validation;
-- OD-02 decision;
-- MW2 Delivery GO;
-- runtime/code changes;
-- production model/tier selection;
-- Sol/Terra/Luna production routing;
-- Responses compaction adoption;
-- runtime v3 adoption.
-
----
-
-## 4. Files
-
-### Created
-
-`projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md`
-
-This file is the complete created content and remains the authoritative source for the new cross-wave cognitive trajectory.
+## 2. Files modified
 
 ### Modified
 
-`projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
+1. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
+2. `projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md`
+3. `projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md`
+4. `.tmp-sfia-review/chatgpt-review.md`
 
-`projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md`
-
-### Review artifact
-
-`.tmp-sfia-review/chatgpt-review.md`
-
-### Intentionally unchanged
-
-`projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md`
-
-Reason: no story/AC/DAG mutation; no MW2-S03.
-
-`projects/sfia-studio/nora-cognitive-completion/06-nora-mw0-versioned-cognitive-eval-harness-readiness.md`
-
-Reason: preserve historical Morris-validated readiness semantics; its D0/R1/R2/R3 and model/reasoning contract is consumed by doc08.
+### Reviewed / no modification required
 
 `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 
-Reason: current Roadmap already states MW1 closed, MW2 next/not authorized, and Production model routing not selected. Doc08 is linked from Build Doctrine as the dedicated cross-wave cognitive trajectory.
+Reason: the Roadmap already carries the compatible forward truth — MW1 CLOSED, next product gate MW2 Readiness/Requalification, MW2 NOT AUTHORIZED / NOT STARTED, Production model routing NOT SELECTED — and the PR #453 post-merge scan found no PR453-specific stale candidate marker in this file. Adding duplicate lifecycle prose would increase living-roadmap noise without closing a contradiction.
+
+`RES-DOC-ROADMAP-01` is therefore treated as **CLOSED BY REVIEW / NO MUTATION REQUIRED** once Build Doctrine and doc08 are active/discoverable on main.
+
+### Explicitly unchanged
+
+- `projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md`
+- `projects/sfia-studio/nora-cognitive-completion/06-nora-mw0-versioned-cognitive-eval-harness-readiness.md`
+- runtime/application code
+- OpenAI runtime configuration
+- CI/workflows
+- persistence
 
 ---
 
-## 5. Created content contract — doc08
+## 3. Build Doctrine — modified content / useful diff
 
-The created source `08-nora-openai-native-first-cognitive-trajectory.md` contains the following complete normative sections:
+### Status
 
-1. **Décision de trajectoire consommée** — NORA OPENAI-NATIVE-FIRST.
-2. **Frontière structurante Studio / Nora / OpenAI**.
-3. **OpenAI Capability Fit Check** mandatory before internal cognitive equivalents.
-4. **Application MW2→MW6**.
-5. **Relation avec MW0 et MW1**.
-6. **GPT-5.6 — vérité vivante et baseline de preuve**.
-7. **PRE-MW2-MODEL-BASELINE-01**.
-8. **MW2 — reasoning evaluation obligatoire**.
-9. **Nora Model × Reasoning Evaluation — campagne transverse**.
-10. **Production model routing — non sélectionné**.
-11. **Séquence documentaire et gates Pre-MW2**.
-12. **Impact documentaire**.
-13. **Stop conditions**.
-14. **Anti-claims et état à la sortie documentaire**.
+Before:
 
-### Core normative text — OpenAI-native-first
+`R22 OpenAI-native-first amendment = DOCUMENTARY CANDIDATE ON BRANCH UNTIL GIT INTEGRATION`
 
-> **Pour tout besoin cognitif Nora, les capacités, fonctionnalités et services natifs OpenAI pertinents doivent être évalués avant de concevoir ou développer un équivalent interne. Lorsqu’une capacité OpenAI satisfait les exigences fonctionnelles, cognitives, de gouvernance, de preuve et d’exploitation applicables à SFIA Studio, son usage ou son adaptation doit être privilégié plutôt qu’une implémentation interne redondante.**
+After:
 
-### OpenAI Capability Fit Check disposition order
+`R22 OpenAI-native-first = VALIDATED — ACTIVE ON MAIN via PR #453`
 
-```text
-USE / KEEP native OpenAI
-  ↓ si adaptation nécessaire
-ADAPT / WRAP minimally
-  ↓ si couverture partielle
-COMBINE OpenAI + SFIA-specific delta
-  ↓ seulement si besoin non couvert
-COMPLETE / BUILD missing SFIA capability
-  ↓ si non pertinent / immature / incompatible
-DEFER / REJECT with reason
-```
+### Associated trajectory
 
-### Studio / Nora / OpenAI boundary
+Before:
 
-```text
-Pilote
-  ↓ décision / arbitrage / Confirmation applicable
-SFIA Studio
-  ↓ modèle métier · Truth C · DoctrinePackage/CKC · HD · EC · Evidence · gouvernance
-Nora
-  ↓ cognition · analyse · clarification · challenge · option · recommandation
-OpenAI
-  ↓ primitives cognitives / agentiques / modèles / reasoning / tools compatibles
-```
+`08-nora-openai-native-first-cognitive-trajectory.md ... candidate jusqu’à intégration Git`
 
-Hard non-equivalences retained:
+After:
 
-- OpenAI HITL ≠ SFIA HumanDecision / Confirmation;
-- OpenAI Trace ≠ SFIA Evidence;
-- OpenAI conversation/session state ≠ Truth C;
-- model/provider selection ≠ authority selection.
+`08-nora-openai-native-first-cognitive-trajectory.md ... VALIDATED — ACTIVE ON MAIN via PR #453`
 
-### GPT-5.6 / reasoning trajectory
+### Git integration evidence
 
-Current dated provider snapshot recorded in doc08:
+Added current evidence:
 
-- `gpt-5.6-sol`;
-- `gpt-5.6-terra`;
-- `gpt-5.6-luna`;
-- reasoning effort: `none · low · medium · high · xhigh · max`.
+- PR #453
+- merge `d640b5ba7210b9da3593bea9eeae2100c6da6c09`
+- post-merge CI `33530815963` SUCCESS
+- Required Gate PASS
 
-Evidence anchors retained:
+### R22 lifecycle
 
-- MW0 REAL CORR-05: `gpt-5.6-luna` + `reasoning.effort=none`, campaign `mw0-corr05-1788046056895`;
-- MW1 REAL boundary: `gpt-5.6-luna` + `reasoning.effort=none`, campaign `mw1-real-boundary-corr01-1788253662383`, SHA256 `de149e12621f2f003da5f935d6c467574ea8f70a7079ae8aea16c919054b0678`.
+Before:
 
-Interpretation:
+`cette rédaction Build Doctrine reste candidate tant qu’elle n’est pas intégrée sur main`
 
-- GPT-5.6 = current Nora REAL evidence family;
-- Luna + none = REAL-proven starting point;
-- not final production model selection;
-- not production model routing adoption.
+After:
 
-### PRE-MW2-MODEL-BASELINE-01
+`Lifecycle R22: ACTIVE ON MAIN` with PR #453 / merge / CI evidence.
 
-Before MW2 Delivery:
+### Source governance
 
-1. resolve actual F1 / Option C model configuration;
-2. verify GPT-5.6 family;
-3. if effective runtime is outside GPT-5.6, align Nora runtime before MW2;
-4. replay minimum required MW0/MW1 regression after alignment;
-5. keep server-side configuration; do not hardcode a tier only to satisfy the prerequisite.
+`Nora OpenAI-native-first trajectory` is now explicitly **ACTIVE ON MAIN** and consumed as the transverse MW2→MW6 capability-fit/model-reasoning policy.
 
-This is a Delivery prerequisite, not an architecture or production-routing decision.
-
-### MW2 reasoning evaluation
-
-MW2-S01 must not be proven only by parameter wiring. The target evidence form is:
-
-```text
-fixed GPT-5.6 baseline
-  × representative MW2 workloads
-  × selected supported reasoning efforts
-  → quality / grounding / authority / latency / token / cost / stability
-```
-
-Goal: minimum sufficient cognitive configuration by workload, not maximum effort everywhere.
-
-### Future model × reasoning campaign
-
-Default after MW6, or earlier targeted campaign if a wave QA demonstrates a plausible model/config limitation.
-
-```text
-GPT-5.6 Luna
-GPT-5.6 Terra
-GPT-5.6 Sol
-        ×
-reasoning efforts pertinents et supportés
-        ×
-workloads représentatifs Nora
-```
-
-Production model routing remains **NOT SELECTED** and requires separate evidence + Morris decision if ever needed.
+R22 substance itself is unchanged.
 
 ---
 
-## 6. Modified content — Build Doctrine useful diff
+## 4. doc08 — modified content / useful diff
 
-### Metadata/source binding
+### Documentary status
 
-```markdown
-| **Trajectoire cognitive Nora associée** | [`08-nora-openai-native-first-cognitive-trajectory.md`](../nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md) = **COMMENT qualifier les primitives cognitives OpenAI et la trajectoire model/reasoning MW2→MW6** · candidate jusqu’à intégration Git |
-```
+Before:
 
-### R22 — complete rule
+`DOCUMENTARY CANDIDATE ... NOT ACTIVE ON MAIN UNTIL GIT INTEGRATION`
 
-```markdown
-| **R22** | **Nora OpenAI-native-first.** Pour tout besoin cognitif Nora, qualifier d’abord les capacités OpenAI courantes pertinentes avant de développer un équivalent interne. Si une primitive OpenAI satisfait les exigences fonctionnelles/cognitives, la frontière Studio↔Nora↔Pilote, les contraintes de gouvernance/autorité, de preuve, sécurité/confidentialité, coût/latence et réversibilité applicables, **préférer son usage ou son adaptation minimale**. Si la couverture est partielle, combiner la primitive avec le **delta réellement spécifique à SFIA**. Construire une mécanique cognitive générique interne seulement si l’insuffisance/incompatibilité OpenAI est qualifiée. Une primitive OpenAI n’acquiert jamais l’autorité métier SFIA. Les capacités fournisseur doivent être revalidées quand le claim en dépend ; un snapshot OpenAI courant **≠ doctrine permanente**. |
-```
+After:
 
-Lifecycle marker:
+`VALIDATED — ACTIVE ON MAIN — Morris trajectory principle integrated via PR #453`
 
-```markdown
-> **Lifecycle R22 :** principe de trajectoire explicitement consommé par Morris le 2026-09-01 ; cette rédaction Build Doctrine reste **candidate** tant qu’elle n’est pas intégrée sur `main` via le lifecycle Git gouverné.
-```
+### Git truth
 
-### Mandatory cognitive construction challenge
+Pre-merge candidate base metadata is replaced by current integration evidence:
 
-```markdown
-13. **Si le chantier touche la cognition Nora : quelles capacités OpenAI courantes pertinentes ont été évaluées avant toute solution interne équivalente ? Quelle disposition USE/KEEP · ADAPT · COMBINE · COMPLETE/BUILD · DEFER/REJECT est retenue et pourquoi ?**
-```
+- PR #453
+- merge `d640b5ba7210b9da3593bea9eeae2100c6da6c09`
+- tree `080fb6a73cd465fe5188d1fd5aee614d011b35e2`
+- CI `33530815963` SUCCESS
+- Required Gate PASS
 
-### Pre-check flow
+### Sequence
 
-```text
-Repo-informed pre-check
-  → si Studio trigger : Convergence pre-check
-  → qualification cycle
-  → si Nora cognitive : OpenAI Capability Fit Check (R22)
-  → CKC/process guidance applicable (v2.6 process only)
-  → sources spécifiques
-  → instanciation prompt Cursor
-```
+Before:
 
-### Added anti-patterns
+1. Pre-MW2 truth-sync
+2. Git integration
+3. MW2 Readiness
 
-```markdown
-- **reconstruire une mécanique cognitive générique Nora alors qu’une capacité OpenAI pertinente existe, sans OpenAI Capability Fit Check ni justification de rejet/complément** ;
-- **traiter une primitive OpenAI comme HumanDecision, Evidence, Truth C ou autorité métier SFIA** ;
-- **figer un snapshot fournisseur/modèle courant comme doctrine permanente sans gate/preuve**.
-```
+After:
 
----
+1. Pre-MW2 truth-sync — COMPLETE / INTEGRATED
+2. Git integration + post-merge proof — VERIFIED (PR #453)
+3. MW2 Readiness / Requalification — NEXT PRODUCT GATE
 
-## 7. Modified content — OD-04 useful diff
+### Impact matrix
 
-### Current lifecycle truth
+- Build Doctrine: R22 ACTIVE ON MAIN
+- Roadmap: KEEP / already compatible
+- C5: KEEP source-lock
+- MW0: KEEP historical measurement contract
+- OD-04: KEEP architecture decision, lifecycle synced
+- MW2 Readiness / OD-02: next gate after this post-merge truth-sync
 
-```markdown
-| **Git lifecycle (CURRENT)** | **Decision record INTEGRATED ON MAIN** via PR **#445** · Option C implementation **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#447** · **MW1 Delivery INTEGRATED / POST-MERGE VERIFIED** via PR **#450** · **MW1 COMPLETE / CLOSED BY MORRIS** · MW1 closure docs **INTEGRATED / POST-MERGE VERIFIED** via PR **#451** · current forward product gate = **Pre-MW2 transverse documentary truth-sync → MW2 Readiness / Requalification** · MW2 **NOT AUTHORIZED / NOT STARTED** |
-```
+### Current anti-claims
 
-### Architecture preservation
+The document now says `VALIDATED — ACTIVE ON MAIN`, while preserving:
 
-```markdown
-The 2026-09-01 trajectory clarification generalizes this principle to **MW2→MW6** through a mandatory OpenAI Capability Fit Check before internal equivalents are designed. This clarification **preserves OD-04**; it does not select a new architecture.
-```
+- ≠ MW2 Readiness validated
+- ≠ OD-02 consumed
+- ≠ MW2 Delivery GO
+- ≠ production model selected/routing selected
+- ≠ Sol/Terra/Luna campaign executed
+- ≠ Responses compaction adopted
+- ≠ Cognitive Completion PROVEN
+- ≠ runtime v3 ADOPTED
 
-### Boundary invariant
+### Active verdict
 
-```markdown
-7. OpenAI-native-first changes **where generic cognition is sourced**, never **who owns business authority**.
-```
+- OPENAI-NATIVE-FIRST — VALIDATED / ACTIVE ON MAIN VIA PR #453
+- GPT-5.6 — current Nora REAL evidence family / provider snapshot revalidable
+- GPT-5.6 Luna + none — MW0/MW1 REAL-proven starting point, not routing decision
+- MW2→MW6 OpenAI Capability Fit Check — REQUIRED BY ACTIVE TRAJECTORY
+- Production model routing — NOT SELECTED
+- Next product capability — MW2 Readiness / Requalification
+- MW2 Delivery — NOT AUTHORIZED / NOT STARTED
+- Runtime v3 — NON ADOPTED
 
-### MW1 current truth replacing stale FUTURE wording
-
-```text
-1. MW1 Option C correction cycle — CLOSED
-2. deterministic Runner / Fake convergence — CLOSED
-3. Fake / tests / comparator migration to target path — CLOSED
-4. legacy Nora generic runToolCallingLoop retirement — CLOSED
-5. Option C project Git integration — CLOSED / POST-MERGE VERIFIED (PR #447)
-6. MW0 Option C regression/parity gate — PASS WITH NON-BLOCKING RESERVES / DETERMINISTIC ONLY
-7. MW1-S01/S02/S03 Delivery — INTEGRATED / POST-MERGE VERIFIED (PR #450)
-8. MW1 deterministic proof — PASS
-9. MW1 REAL boundary — PROVEN · campaign mw1-real-boundary-corr01-1788253662383
-10. MW1 closure — COMPLETE / CLOSED BY MORRIS
-11. MW1 closure documentary lifecycle — INTEGRATED / POST-MERGE VERIFIED (PR #451)
-12. current pre-MW2 gate — cross-wave documentary truth-sync, then MW2 Readiness/Requalification · MW2 NOT AUTHORIZED / NOT STARTED
-```
-
-### Forward application rule
-
-```text
-1. identify desired cognitive outcome and SFIA-specific boundary
-2. perform OpenAI Capability Fit Check
-3. map official/current OpenAI candidates
-4. compare with existing SFIA/Nora assets
-5. preserve Studio/Pilote business/authority ownership
-6. choose KEEP/USE · ADAPT · COMBINE · COMPLETE/BUILD · DEFER/REJECT
-7. prove claims through MW0 D0/R1/R2/R3 as applicable
-8. no homegrown generic equivalent by default when mature native primitive fits
-9. do not alter source-locked C5 semantics
-```
-
-### Current next gate
-
-```text
-Pre-MW2 transverse documentary truth-sync
-  → Git review / integration / post-merge proof
-  → MW2 Readiness / Requalification
-  → Morris qualification validation
-  → distinct MW2 Delivery GO
-  → MW2 Delivery only if authorized
-```
+No capability/model/reasoning policy substance was changed.
 
 ---
 
-## 8. CI correction evidence
+## 5. OD-04 / doc07 — modified content / useful diff
 
-Initial PR #453 run on commit `2c4e519b3f59ff817ed73208ec51a288ce07f6db`:
+### Current lifecycle
 
-- typecheck PASS;
-- lint PASS;
-- build PASS;
-- tests PASS;
-- SFIA governance tests PASS;
-- secret scan PASS;
-- trailing whitespace FAIL.
+Added:
 
-The only reported violations were seven Markdown hard-break lines in `doc08` and the same seven lines in the initial Review Pack copy.
+`OpenAI-native-first transverse truth-sync INTEGRATED / POST-MERGE VERIFIED via PR #453`
 
-Formatting-only correction:
+Current forward gate is now:
 
-```diff
-- **OPENAI-NATIVE-FIRST — MORRIS TRAJECTORY PRINCIPLE CONSUMED IN CONVERSATION**<two trailing spaces>
-+ **OPENAI-NATIVE-FIRST — MORRIS TRAJECTORY PRINCIPLE CONSUMED IN CONVERSATION**
+`MW2 Readiness / Requalification` with `MW2 NOT AUTHORIZED / NOT STARTED`.
 
-- **GPT-5.6 — CURRENT NORA REAL EVIDENCE FAMILY / LIVE PROVIDER SNAPSHOT REVALIDABLE**<two trailing spaces>
-+ **GPT-5.6 — CURRENT NORA REAL EVIDENCE FAMILY / LIVE PROVIDER SNAPSHOT REVALIDABLE**
+### Cross-wave trajectory
 
-- **GPT-5.6 LUNA + NONE — MW0/MW1 REAL-PROVEN STARTING POINT, NOT PRODUCTION ROUTING DECISION**<two trailing spaces>
-+ **GPT-5.6 LUNA + NONE — MW0/MW1 REAL-PROVEN STARTING POINT, NOT PRODUCTION ROUTING DECISION**
+Before:
 
-- **MW2→MW6 OPENAI CAPABILITY FIT CHECK — REQUIRED BY THIS CANDIDATE TRAJECTORY AFTER GIT INTEGRATION**<two trailing spaces>
-+ **MW2→MW6 OPENAI CAPABILITY FIT CHECK — REQUIRED BY THIS CANDIDATE TRAJECTORY AFTER GIT INTEGRATION**
+`doc08 = DOCUMENTARY CANDIDATE`
 
-- **PRODUCTION MODEL ROUTING — NOT SELECTED**<two trailing spaces>
-+ **PRODUCTION MODEL ROUTING — NOT SELECTED**
+After:
 
-- **NEXT PRODUCT CAPABILITY — MW2 READINESS / REQUALIFICATION AFTER DOCUMENTARY INTEGRATION**<two trailing spaces>
-+ **NEXT PRODUCT CAPABILITY — MW2 READINESS / REQUALIFICATION AFTER DOCUMENTARY INTEGRATION**
+`doc08 = VALIDATED — ACTIVE ON MAIN via PR #453`
 
-- **MW2 DELIVERY — NOT AUTHORIZED / NOT STARTED**<two trailing spaces>
-+ **MW2 DELIVERY — NOT AUTHORIZED / NOT STARTED**
-```
+### Metadata reference
 
-Substantive impact: **NONE**.
+The trajectory split now states doc08 is the active MW2→MW6 OpenAI capability-fit + model/reasoning trajectory.
+
+### Lifecycle list
+
+Added:
+
+- item 12 = OpenAI-native-first cross-wave truth-sync INTEGRATED / POST-MERGE VERIFIED (PR #453)
+- item 13 = current forward product gate MW2 Readiness / Requalification; MW2 NOT AUTHORIZED / NOT STARTED
+
+### Forward implications
+
+The architectural lesson is now explicitly generalized in active doc08 + active Build Doctrine R22.
+
+### MW0→MW6 application rule
+
+The OpenAI Capability Fit Check is consumed from **active doc08 / Build Doctrine R22**; no `once integrated` conditional remains.
+
+### Exit / next gate
+
+Pre-MW2 truth-sync is explicitly COMPLETE / INTEGRATED / POST-MERGE VERIFIED.
+
+Current sequence:
+
+`MW2 Readiness / Requalification → Morris qualification validation → distinct MW2 Delivery GO → MW2 Delivery only if authorized`
+
+### Final verdict
+
+- OpenAI-native-first MW2→MW6 trajectory = VALIDATED / ACTIVE ON MAIN VIA PR #453
+- Build Doctrine R22 = VALIDATED / ACTIVE ON MAIN VIA PR #453
+- Pre-MW2 transverse documentary truth-sync = COMPLETE / INTEGRATED / POST-MERGE VERIFIED
+- MW2 Readiness/Requalification = NEXT PRODUCT CAPABILITY
+- MW2 NOT AUTHORIZED / NOT STARTED
+- Cognitive Completion NOT PROVEN
+- runtime v3 NON ADOPTED
+
+OD-04 architecture selection is unchanged.
 
 ---
 
-## 9. Critical review
+## 6. Critical review
 
-### 9.1 Source-lock / scope
+### Scope integrity
 
-**PASS**
+PASS.
 
-- C5 source-locked backlog unchanged.
-- No MW2-S03.
-- No AC/DAG mutation.
-- No runtime/code/persistence/router/provider implementation.
+- Only stale lifecycle/status wording changed.
+- No C5 story/AC/DAG mutation.
+- No MW0 historical contract rewrite.
+- No code/runtime/config change.
+- No new architecture/provider/Runner/store/router.
 
-### 9.2 Architecture
+### Authority boundary
 
-**PASS**
+PASS.
 
-- OD-04 remains CONSUMED.
-- Option C preserved.
-- No new Runner/provider/store/router.
-- OpenAI-native-first is a fit/construction rule, not provider absolutism.
-
-### 9.3 Authority boundary
-
-**PASS**
-
-- Studio owns product/business/authority model.
+- Studio remains product/business/authority model owner.
 - Pilote remains runtime human decision/confirmation actor.
-- Nora owns cognition/recommendation, no authority.
-- OpenAI primitives do not become HD/Confirmation/Evidence/Truth C by equivalence.
+- Nora remains cognitive/recommendation layer.
+- OpenAI provides compatible cognitive primitives without business authority.
 
-### 9.4 Model/reasoning governance
+### OpenAI-native-first truth
 
-**PASS**
+PASS.
 
-- GPT-5.6 recorded as current REAL evidence family/current provider snapshot, not permanent doctrine.
-- Luna + none = MW0/MW1 proven starting point, not final production model selection.
-- effective F1 runtime configuration remains TO VERIFY through `PRE-MW2-MODEL-BASELINE-01`.
+R22 and doc08 are now active after PR #453. No change to the rule substance.
+
+### Model/reasoning governance
+
+PASS.
+
+- GPT-5.6 remains current REAL evidence family.
+- Luna + none remains a proven starting point, not final production model selection.
+- PRE-MW2-MODEL-BASELINE-01 remains a Delivery prerequisite.
 - Production model routing remains NOT SELECTED.
-- Sol/Terra/Luna comparative campaign is planned, not claimed executed.
+- Future model × reasoning campaign remains planned, not executed.
 
-### 9.5 Evidence doctrine
+### Roadmap
 
-**PASS**
+PASS / NO CHANGE REQUIRED.
 
-- MW0 historical readiness remains unmodified.
-- D0/R1/R2/R3 remains the eval spine.
-- MW2 reasoning quality cannot be closed by parameter wiring alone.
-- No mock-to-REAL overclaim.
-
-### 9.6 Documentary discoverability
-
-**PASS WITH NON-BLOCKING RESERVE**
-
-`RES-DOC-ROADMAP-01` — primary Convergence Roadmap is not directly modified. Its current facts remain compatible: MW1 CLOSED, MW2 next/not authorized, Production model routing NOT SELECTED. Doc08 is directly linked by Build Doctrine metadata/source governance/pre-check. A later compact Roadmap pointer may be added if useful.
-
-Classification: **NON-BLOCKING / DOCUMENTARY DISCOVERABILITY RESERVE**.
-
-### 9.7 Historical-document integrity
-
-**PASS**
-
-MW0 readiness doc06 is intentionally not rewritten with post-Delivery truth. Its reusable evidence/model-reasoning contract is consumed by doc08.
-
-### 9.8 CI whitespace correction integrity
-
-**PASS**
-
-Only CI-reported Markdown trailing spaces were removed. No substantive trajectory, architecture, authority, model, backlog, or gate semantics changed.
+The living Roadmap already exposes the correct next gate and anti-claims. No durable PR453 candidate contradiction was found. The prior discoverability reserve is closed by the active Build Doctrine→doc08 linkage plus current Roadmap gate truth.
 
 ---
 
-## 10. Final verdict
+## 7. Remaining gates
 
-**PRE-MW2 TRANSVERSE DOCUMENTARY TRUTH-SYNC — CHATGPT CRITICAL REVIEW PASS WITH ONE NON-BLOCKING DOCUMENTARY RESERVE**
+This branch does NOT authorize:
 
-- OPENAI-NATIVE-FIRST — captured.
-- OpenAI Capability Fit Check MW2→MW6 — captured.
-- Studio/Nora/Pilote/OpenAI boundary — captured.
-- GPT-5.6 current REAL evidence family — captured as revalidable truth, not doctrine.
-- Luna + none MW0/MW1 evidence starting point — captured, not routing decision.
-- PRE-MW2-MODEL-BASELINE-01 — captured.
-- MW2 reasoning evaluation — captured.
-- future model × reasoning campaign — captured.
-- Production model routing — NOT SELECTED.
-- C5 source-lock — unchanged.
-- MW0 historical readiness — unchanged.
-- OD-04 — preserved and truth-synced.
-- Build Doctrine — R22 amendment candidate.
-- runtime/code — zero change.
-- MW2 — NOT AUTHORIZED / NOT STARTED.
-- runtime v3 — NON ADOPTED.
+- PR creation / merge for this truth-sync without distinct Morris GO
+- MW2 qualification validation
+- OD-02 decision
+- MW2 Delivery GO
+- runtime/model changes
+- model routing
+- Responses compaction
+- runtime v3 adoption
 
-**Next gate after successful PR CI/review: distinct Morris merge decision. Not MW2 Delivery.**
+After Git integration/post-merge verification of this branch, the next product activity is **MW2 Readiness / Requalification**.
+
+---
+
+## 8. Verdict
+
+**POST-MERGE DOCUMENTARY TRUTH-SYNC — CHATGPT CRITICAL REVIEW PASS**
+
+**STALE CANDIDATE WORDING — CLOSED ON BRANCH**
+
+**BUILD DOCTRINE R22 — ACTIVE STATUS SYNCHRONIZED**
+
+**DOC08 OPENAI-NATIVE-FIRST TRAJECTORY — ACTIVE STATUS SYNCHRONIZED**
+
+**OD-04 — LIFECYCLE SYNCHRONIZED / ARCHITECTURE UNCHANGED**
+
+**ROADMAP — REVIEWED / NO MUTATION REQUIRED / RES-DOC-ROADMAP-01 CLOSED BY REVIEW**
+
+**MW2 — NOT AUTHORIZED / NOT STARTED**
+
+**NEXT REPOSITORY GATE — DISTINCT MORRIS GO FOR PR / INTEGRATION OF THIS TRUTH-SYNC**
+
+**NEXT PRODUCT GATE AFTER INTEGRATION — MW2 READINESS / REQUALIFICATION**
