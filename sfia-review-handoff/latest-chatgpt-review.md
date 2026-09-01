@@ -1,77 +1,139 @@
-# NORA MW1 CLOSURE PR451 POST-MERGE TRUTH-SYNC CORR-01 — REVIEW PACK
+# NORA MW1 CLOSURE PR451 POST-MERGE TRUTH-SYNC — PROJECT GIT INTEGRATION — REVIEW PACK
 
 ## 1. Timestamp (Europe/Paris)
-2026-09-01 13:55:04 CEST
+2026-09-01 14:04:30 CEST
 
 ## 2. Repository
 mcleland147/sfia-workspace
 
-## 3. Cycle / typology / profile / subcycle
-Cycle **14 Post-merge** · DOC · CRITICAL · **CORR-01**
+## 3. Cycle / typology / profile
+Cycle **13 PR readiness** · DOC · CRITICAL · subcycle NORA-MW1-CLOSURE-PR451-POST-MERGE-TRUTH-SYNC-GIT-INTEGRATION
 
-## 4. Morris GO
-`ok go correction`
+## 4. Morris integration GO
+`ok go`
 
-## 5. origin/main SHA / tree
+## 5. origin/main initial SHA/tree
 - SHA: `783f7619284f9cd2309d54e7efaa092093c3671e`
 - tree: `831c0fb66bd213afd47f701a8afe3f00da0ea351`
 
-## 6. PR #451 merge / post-merge evidence
-- MERGED · head `3785e271d897af5e34e1ce34cdddfc3782ec0e52` · merge `783f7619284f9cd2309d54e7efaa092093c3671e`
-- post-merge CI **`33499812659` SUCCESS** · Required Gate **PASS**
+## 6. PR #451 baseline
+MERGED · head `3785e271d897af5e34e1ce34cdddfc3782ec0e52` · merge `783f7619...` · CI `33499812659` SUCCESS
 
-## 7. Input handoff
-`737e373fa4fc22c8e7c840b116664d6214fe9103` (post-merge truth-sync candidate)
+## 7. Input Critical Review handoff
+`d1585cf0b127d401ff261d393b5530551e1a88a9` (CORR-01 PASS)
 
-## 8. Prior handoff chain
-87f493ba → 05e25097 → 1e72992d → 737e373f (linear)
+## 8. Local Git Truth pre-integration
+branch `docs/sfia-studio-nora-mw1-pr451-post-merge-truth-sync` · HEAD=main · Roadmap+C5 modified · no commits ahead pre-integration
 
-## 9. Local Git Truth
-branch `docs/sfia-studio-nora-mw1-pr451-post-merge-truth-sync` · HEAD `783f7619...` · no commits ahead · Roadmap+C5 modified · C5 frozen this cycle
+## 9–12. Sources / convergence / parity
+Reviewed Roadmap blob `346637b9a3ec2c60ad3b194af0a6abfb5fdb6b98` PASS · C5 blob `c5670e684db230e6a3cc3e6ca13c4f0efd9c3e28` PASS · historical provenance row restored (CORR-01) · global STALE-ACTIVE=0
 
-## 10–11. Sources / convergence
-Required sources verified · MW1 CLOSED · PR451 integrated · MW2 NOT AUTHORIZED
+## 13–25. Git integration record
+| Item | Value |
+|------|-------|
+| Commit SHA | `d0f6526c1dae66e8563520d7d46a2881bab2f4f0` |
+| Commit parent | `783f7619284f9cd2309d54e7efaa092093c3671e` |
+| Commit tree | `6c90a76411c8b6afa2320fc0e32eb13eed84f990` |
+| Committed Roadmap blob | `346637b9a3ec2c60ad3b194af0a6abfb5fdb6b98` |
+| Committed C5 blob | `c5670e684db230e6a3cc3e6ca13c4f0efd9c3e28` |
+| Remote branch pre-state | absent |
+| Remote branch SHA | `d0f6526c1dae66e8563520d7d46a2881bab2f4f0` |
+| PR number | **452** |
+| PR URL | https://github.com/mcleland147/sfia-workspace/pull/452 |
+| PR base SHA | `783f7619284f9cd2309d54e7efaa092093c3671e` |
+| PR head SHA | `d0f6526c1dae66e8563520d7d46a2881bab2f4f0` |
+| PR changed files | Roadmap + C5 only (2 files) |
 
-## 12. Prior ChatGPT verdict
-NOT PASS — ROADMAP HISTORICAL PROVENANCE REWRITTEN · false STALE-ACTIVE on Roadmap ~650
+## 26–29. PR title and COMPLETE body
+Title: `docs(sfia-studio): sync Nora MW1 post-merge truth`
 
-## 13. BLK-MW1-POSTMERGE-HISTORICAL-PROVENANCE-09 baseline
-Historical row `Timestamp maintenance historique NORA-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01 (pre-MW1 closure truth-sync)` rewritten with PR451 active truth
+## Purpose
 
-## 14. Historical row BEFORE (pre-CORR01 excerpt)
-`| **Timestamp maintenance historique NORA-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01 (pre-MW1 closure truth-sync)** | *(historique tip · superseded as tip by NORA-MW1-POST-MERGE-CLOSURE-TRUTH-SYNC-01)* —  2026-08-31 02:35:29 CEST — **NORA MW0 OPTION C REGRESSION/PARITY POST-CRITICAL-REVIEW DOCUMENTARY TRUTH-SYNC** · Morris local documentary truth-sync GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · Cycle **14** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / P...`
+Integrate the ChatGPT Critical-reviewed post-merge truth-sync following Nora MW1 closure PR #451.
 
-## 15. Historical row canonical from main@783f7619
-`| **Timestamp maintenance historique NORA-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01 (pre-MW1 closure truth-sync)** | *(historique tip · superseded as tip by NORA-MW1-POST-MERGE-CLOSURE-TRUTH-SYNC-01)* —  2026-08-31 02:35:29 CEST — **NORA MW0 OPTION C REGRESSION/PARITY POST-CRITICAL-REVIEW DOCUMENTARY TRUTH-SYNC** · Morris local documentary truth-sync GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · Cycle **14** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / P...`
+## Scope
 
-## 16. Historical row AFTER restoration
-Byte-identical to canonical.
+- Convergence Roadmap lifecycle truth
+- Nora C5 downstream lifecycle truth
+- historical Roadmap provenance preserved
+- no product/runtime code
+- no architecture/persistence change
 
-## 17. Byte equality proof
-- HISTORICAL_ROW_MAIN_SHA256 = `95e0656335bf704c56587b5d5db5d67554bd215c77d8c11ebc589d96586f7269`
-- HISTORICAL_ROW_CANDIDATE_SHA256 = `95e0656335bf704c56587b5d5db5d67554bd215c77d8c11ebc589d96586f7269`
-- **PASS**
+## Repository baseline
 
-## 18. No other historical row modified by CORR-01
-CORR-01 Roadmap delta touches **one line only** (historical row). Other post-merge active corrections and PR451 maintenance row preserved. Other historical rows unchanged vs pre-CORR01 candidate.
+- PR #451 MERGED
+- project head `3785e271d897af5e34e1ce34cdddfc3782ec0e52`
+- merge/main `783f7619284f9cd2309d54e7efaa092093c3671e`
+- tree `831c0fb66bd213afd47f701a8afe3f00da0ea351`
+- post-merge CI `33499812659` SUCCESS
+- Required Gate PASS
 
-## 19. Roadmap pre blob (CORR01)
-`28e0df591c3206caee8d98d574b39f98fa50af4f`
+## Current governed state
 
-## 20. Roadmap post blob (CORR01)
+- MW1 COMPLETE / CLOSED BY MORRIS
+- MW1-S01/S02/S03 CLOSED / REAL BOUNDARY PROVEN
+- MW1 closure documentary lifecycle INTEGRATED ON MAIN / POST-MERGE VERIFIED
+- global STALE-ACTIVE = 0
+- historical provenance restored and preserved
+
+## Next capability gate
+
+MW2 READINESS / REQUALIFICATION
+requires a DISTINCT MORRIS GO after this truth-sync is itself merged and post-merge verified.
+
+MW2 remains NOT AUTHORIZED / NOT STARTED.
+
+## Anti-claims
+
+- NOT END-TO-END REAL PROVEN
+- Cognitive Completion NOT PROVEN
+- runtime v3 NON ADOPTED
+- Responses Compaction NOT ADOPTED
+- production model routing NOT SELECTED
+- MW2 NOT AUTHORIZED / NOT STARTED
+- this PR does NOT authorize MW2
+
+## Review evidence
+
+Final Critical Review handoff:
+`d1585cf0b127d401ff261d393b5530551e1a88a9`
+
+Reviewed blobs:
+
+Roadmap:
 `346637b9a3ec2c60ad3b194af0a6abfb5fdb6b98`
 
-## 21. Exact CORR-01 Roadmap diff
-```diff
---- pre-CORR01
-+++ post-CORR01
-@@ -14 +14 @@
--| **Timestamp maintenance historique NORA-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01 (pre-MW1 closure truth-sync)** | *(historique tip · superseded as tip by NORA-MW1-POST-MERGE-CLOSURE-TRUTH-SYNC-01)* —  2026-08-31 02:35:29 CEST — **NORA MW0 OPTION C REGRESSION/PARITY POST-CRITICAL-REVIEW DOCUMENTARY TRUTH-SYNC** · Morris local documentary truth-sync GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · Cycle **14** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · main project truth remains `7a5f1af7d89c7e2bf3d9faf598119ccc5482f22f` / tree `0d8fb2ce926c7018cfca368c668f730062a33a75` until future project Git integration of this local candidate · **MW0 OPTION C REGRESSION/PARITY = PASS WITH NON-BLOCKING RESERVES — DETERMINISTIC ONLY — CHATGPT CRITICAL REVIEW PASS** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · proof ceiling = **DETERMINISTIC ONLY** for applicable D0/offline claims + Option C single-Runner invariants · DETERMINISTIC PROVEN ≠ REAL BOUNDARY PROVEN ≠ END-TO-END REAL PROVEN · historical R1/R2/R3 = RETAINED / NOT RE-RUN / NOT UPGRADED · MW0-R01 = NOT_PROVEN / NON-BLOCKING · MW0-R02 = NOT_PROVEN / NON-BLOCKING · RESERVE-OPT-C-02 = OPEN / NON-BLOCKING · RESERVE-OPT-C-03 = OPEN / NON-BLOCKING · MW0 remains historically CLOSED · this Option C regression gate did **not** reopen or re-close MW0 · no new REAL MW0 campaign · main project truth remains `7a5f1af7d89c7e2bf3d9faf598119ccc5482f22f` / tree `0d8fb2ce926c7018cfca368c668f730062a33a75` until future project Git integration of this documentary candidate · L3 evidence ≠ main mutation · **OD-04 = CONSUMED / UNCHANGED** · **OD04-I01 = ACTIVE / UNCHANGED** · Option C TARGET **ADOPTED** · **MW1 NOT COMPLETE** · MW1 **not started by this DOC cycle** · MW1-S01/S02/S03 **not finally closed** · Responses compaction **CANDIDATE / NOT ADOPTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · MW2 **NOT STARTED** · **MW1 CLOSURE DOCUMENTARY REPOSITORY LIFECYCLE = INTEGRATED ON MAIN / POST-MERGE VERIFIED — PR #451** · head `3785e271d897af5e34e1ce34cdddfc3782ec0e52` · merge `783f7619284f9cd2309d54e7efaa092093c3671e` · tree `831c0fb66bd213afd47f701a8afe3f00da0ea351` · post-merge CI **`33499812659` SUCCESS** · Required Gate **PASS** · **NEXT PRODUCT CAPABILITY GATE = MW2 READINESS / REQUALIFICATION — DISTINCT MORRIS GO REQUIRED** · **MW2 = NOT AUTHORIZED / NOT STARTED** · next capability after MW1 = **MW2 — COGNITIVE WORKLOAD PROFILE** · **≠** END-TO-END REAL PROVEN · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · **≠** MW2 AUTHORIZED · **≠** architecture change · **≠** OD04-I01 change · **≠** C5 substantive backlog change · **≠** MW0 reopen · **≠** MW0-R01/R02 closed · **≠** RESERVE-OPT-C-02/03 closed · **≠** REAL parity PROVEN · **≠** MW1 completion · **≠** Responses Compaction adoption · **≠** runtime v3 adoption · **≠** project commit/push/PR/merge by this cycle · historical MW0/#442/#447/#448 anchors **PRESERVED** |
-+| **Timestamp maintenance historique NORA-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01 (pre-MW1 closure truth-sync)** | *(historique tip · superseded as tip by NORA-MW1-POST-MERGE-CLOSURE-TRUTH-SYNC-01)* —  2026-08-31 02:35:29 CEST — **NORA MW0 OPTION C REGRESSION/PARITY POST-CRITICAL-REVIEW DOCUMENTARY TRUTH-SYNC** · Morris local documentary truth-sync GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · Cycle **14** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · main project truth remains `7a5f1af7d89c7e2bf3d9faf598119ccc5482f22f` / tree `0d8fb2ce926c7018cfca368c668f730062a33a75` until future project Git integration of this local candidate · **MW0 OPTION C REGRESSION/PARITY = PASS WITH NON-BLOCKING RESERVES — DETERMINISTIC ONLY — CHATGPT CRITICAL REVIEW PASS** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · proof ceiling = **DETERMINISTIC ONLY** for applicable D0/offline claims + Option C single-Runner invariants · DETERMINISTIC PROVEN ≠ REAL BOUNDARY PROVEN ≠ END-TO-END REAL PROVEN · historical R1/R2/R3 = RETAINED / NOT RE-RUN / NOT UPGRADED · MW0-R01 = NOT_PROVEN / NON-BLOCKING · MW0-R02 = NOT_PROVEN / NON-BLOCKING · RESERVE-OPT-C-02 = OPEN / NON-BLOCKING · RESERVE-OPT-C-03 = OPEN / NON-BLOCKING · MW0 remains historically CLOSED · this Option C regression gate did **not** reopen or re-close MW0 · no new REAL MW0 campaign · main project truth remains `7a5f1af7d89c7e2bf3d9faf598119ccc5482f22f` / tree `0d8fb2ce926c7018cfca368c668f730062a33a75` until future project Git integration of this documentary candidate · L3 evidence ≠ main mutation · **OD-04 = CONSUMED / UNCHANGED** · **OD04-I01 = ACTIVE / UNCHANGED** · Option C TARGET **ADOPTED** · **MW1 NOT COMPLETE** · MW1 **not started by this DOC cycle** · MW1-S01/S02/S03 **not finally closed** · Responses compaction **CANDIDATE / NOT ADOPTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · MW2 **NOT STARTED** · **closure-doc repository lifecycle = LOCAL / UNCOMMITTED / NOT INTEGRATED** · **CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE** · **NEXT REPOSITORY LIFECYCLE GATE (after ChatGPT PASS) = DISTINCT MORRIS GO — MW1 CLOSURE/TRUTH-SYNC PROJECT GIT INTEGRATION** · **NEXT PRODUCT CAPABILITY GATE (after closure-doc integration + post-merge verified) = MW2 READINESS / REQUALIFICATION** · **MW2 = NOT AUTHORIZED / NOT STARTED** · next capability after MW1 = **MW2 — COGNITIVE WORKLOAD PROFILE** · **≠** END-TO-END REAL PROVEN · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · **≠** MW2 AUTHORIZED · **≠** architecture change · **≠** OD04-I01 change · **≠** C5 substantive backlog change · **≠** MW0 reopen · **≠** MW0-R01/R02 closed · **≠** RESERVE-OPT-C-02/03 closed · **≠** REAL parity PROVEN · **≠** MW1 completion · **≠** Responses Compaction adoption · **≠** runtime v3 adoption · **≠** project commit/push/PR/merge by this cycle · historical MW0/#442/#447/#448 anchors **PRESERVED** |
+C5:
+`c5670e684db230e6a3cc3e6ca13c4f0efd9c3e28`
 
-```
+## Next repository gate
 
-## 22. Cumulative Roadmap diff vs main
+ChatGPT PR Critical Review
+→ DISTINCT MORRIS MERGE GO.
+
+No merge under this execution.
+
+## 30–38. Scope / secrets / CI
+- No secrets · no `.tmp-sfia-review` committed · documentary only
+- CI run `33505542750`: Detect SFIA Studio changes **PASS** · Build and validate SFIA Studio **PENDING** at pack generation time
+
+## 39–49. Governed state
+MW1 CLOSED · S01/S02/S03 CLOSED · PR451 integrated · MW2 READINESS next gate · MW2 NOT AUTHORIZED · Responses Compaction NOT ADOPTED · Cognitive Completion NOT PROVEN · runtime v3 NON ADOPTED
+
+## 50–57. Actions / verdict
+- Project Git: commit + push + PR open ONLY
+- merge = NONE · branch delete = NONE
+- PR readiness: **NOT READY — CHECKS PENDING** (if Build pending) or READY FOR CHATGPT PR CRITICAL REVIEW when PASS
+- Next gate: ChatGPT PR Critical Review → Morris merge GO
+
+## Handoff publication (pre-publication)
+- Expected parent: `d1585cf0b127d401ff261d393b5530551e1a88a9`
+- handoff SHA/blob: generated by single publication (recorded in Cursor report)
+
+---
+
+## FULL PR DIFF (origin/main...HEAD)
+
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 index 083d285f..346637b9 100644
@@ -117,178 +179,6 @@ index 083d285f..346637b9 100644
 
  > **Lecture post-C1 :** le snapshot historique, la maintenance du 2026-08-18, l’ancienne ligne `Sources`, l’historique d’intégration et les anti-claims/gates enregistrés avant C1 sont **HISTORIQUES PRE-C1**. Les lignes marquées **courant**, l’intégration C1 et les gates courants les supersèdent pour la trajectoire active. Les preuves et anti-claims génériques restent conservés ; toute mention « C1 not authorized / next M6 / next M7 » dans ces lignes historiques est superseded.
 
-
-```
-
-## 23–25. C5 blobs / parity
-- C5 pre: `c5670e684db230e6a3cc3e6ca13c4f0efd9c3e28`
-- C5 post: `c5670e684db230e6a3cc3e6ca13c4f0efd9c3e28`
-- **BYTE-IDENTICAL PASS**
-
-## 26. EVID-MW1-POSTMERGE-STALE-CLASSIFICATION-10 baseline
-Prior pack classified Roadmap ~650 `runtime v3 ADOPTED` as STALE-ACTIVE (wrong)
-
-## 27. Complete MVP does not mean row (Roadmap line 650)
-`| **MVP does not mean** | PRE-M6 automatically closed · final product · runtime v3 ADOPTED · generic Cursor execution complete · CKC complete · final UX · production-ready | |`
-
-## 28. Corrected classification
-**ANTI-CLAIM** — explicit prevention of runtime-v3 adoption overclaim in negative MVP definition. No Roadmap edit.
-
-## 29. Stale search terms
-CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE, CURRENT REVIEW GATE, NEXT REPOSITORY LIFECYCLE GATE, PROJECT GIT INTEGRATION, LOCAL / UNCOMMITTED / NOT INTEGRATED, local candidate, PR #451, 783f7619, 33499812659, MW1 NOT COMPLETE, MW1 NOT INTEGRATED, MW1 final proof, MW1 Exit Proof, next = MW1, next structural gate, MW2 READINESS, MW2 AUTHORIZED, MW2 STARTED, READY FOR MW2, REAL-B, END-TO-END REAL, Cognitive Completion PROVEN, runtime v3 ADOPTED, Responses Compaction ADOPTED
-
-## 30–31. Complete hit inventory + structural classification
-| file | line | term | classification | reason | excerpt |
-| --- | --- | --- | --- | --- | --- |
-| Roadmap | 9 | PROJECT GIT INTEGRATION | ANTI-CLAIM | Explicit overclaim prevention. | `| **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; this living Roadmap **≠** embed permanent `origin/main` HEAD · repository publication/integ` |
-| Roadmap | 10 | PROJECT GIT INTEGRATION | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance NORA-MW1-POST-MERGE-CLOSURE-TRUTH-SYNC-01** | 2026-09-01 11:26:59 CEST — **NORA MW1 POST-MERGE CLOSURE / TRUTH-SYNC** · Morris closure` |
-| Roadmap | 11 | CURRENT REVIEW GATE | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance NORA-MW1-CLOSURE-TRUTH-SYNC-CORR-01** | 2026-09-01 11:49:21 CEST — **NORA MW1 CLOSURE/TRUTH-SYNC CORR-01** · Morris correction GO **CO` |
-| Roadmap | 12 | CURRENT REVIEW GATE | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance NORA-MW1-CLOSURE-TRUTH-SYNC-CORR-02** | 2026-09-01 12:02:26 CEST — **NORA MW1 CLOSURE/TRUTH-SYNC CORR-02** · Morris correction GO **CO` |
-| Roadmap | 13 | NEXT REPOSITORY LIFECYCLE GATE | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance NORA-MW1-CLOSURE-TRUTH-SYNC-CORR-03** | 2026-09-01 12:18:49 CEST — **NORA MW1 CLOSURE/TRUTH-SYNC CORR-03** · Morris correction GO **CO` |
-| Roadmap | 14 | CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01 (pre-MW1 closure truth-sync)** | *(historique tip · superseded as tip by ` |
-| Roadmap | 15 | PROJECT GIT INTEGRATION | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-MW1-OPTION-C-POST-MERGE-TRUTH-SYNC-01 (pre-MW0 Option C regression truth-sync)** | *(historique tip · superseded as ti` |
-| Roadmap | 17 | PROJECT GIT INTEGRATION | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-OD04-I01-DOC-01-02-CORRECTION-01 (pre-DOC-02-R1)** | *(historique tip · superseded as tip by NORA-OD04-I01-DOC-02-R1-R` |
-| Roadmap | 18 | next structural gate | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-OD04-I01-BOUNDARY-TRUTH-01 (pre-DOC-01/02)** | *(historique tip · superseded as tip by NORA-OD04-I01-DOC-01-02-CORRECT` |
-| Roadmap | 19 | Cognitive Completion PROVEN | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-OD04-CORR-OD04-DOC-01-ROADMAP-CURRENT-TRUTH-01 (pre-OD04-I01)** | *(historique tip · superseded as tip by NORA-OD04-I0` |
-| Roadmap | 20 | local candidate | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-OD04-OPTION-C-ARCHITECTURE-DECISION-01 (pre-CORR-OD04-DOC-01)** | *(historique tip · superseded as tip by NORA-OD04-CO` |
-| Roadmap | 21 | local candidate | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-MW1-READINESS-OD03-TRUTH-SYNC-01 (pre-OD-04 Option C)** | *(historique · superseded as tip by NORA-OD04-OPTION-C-ARCHI` |
-| Roadmap | 22 | next structural gate | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-MW0-POST-MERGE-TRUTH-SYNC-01 (pre-MW1 readiness OD-03 truth-sync)** | *(historique · superseded as tip by NORA-MW1-REA` |
-| Roadmap | 23 | next structural gate | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-CORR-01 (pre-NORA-C5)** | *(historique · superseded as tip by NORA-C5-SEQUENCING-AND-BAC` |
-| Roadmap | 24 | next structural gate | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-C5-TYPE14-POST-MERGE-TRUTH-SYNC-01 (pre-MW0 post-merge)** | *(historique · superseded as tip by NORA-MW0-POST-MERGE-TR` |
-| Roadmap | 25 | REAL-B | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-C5-CORR-02-POST-VALIDATION-TRUTH-01 (pre-Type14)** | *(historique · superseded as tip by NORA-C5-TYPE14-POST-MERGE-TRU` |
-| Roadmap | 26 | next structural gate | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-C5-CONTENT-VALIDATED-GIT-INTEGRATION-01 (pre-CORR-02)** | *(historique · superseded as tip by NORA-C5-CORR-02-POST-VAL` |
-| Roadmap | 27 | PROJECT GIT INTEGRATION | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-C5-CORR-01-DEPENDENCY-V3-LIFECYCLE-01 (pre-content-validation)** | *(historique · superseded as tip by NORA-C5-CONTENT` |
-| Roadmap | 28 | PROJECT GIT INTEGRATION | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-C5-SEQUENCING-AND-BACKLOG-OPENING-01 (pre-CORR-01)** | *(historique · superseded as tip by NORA-C5-CORR-01-DEPENDENCY-` |
-| Roadmap | 29 | REAL-B | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-C4-TYPE14-POST-MERGE-TRUTH-SYNC-02 (pre-NORA-C5)** | *(historique · superseded by NORA-C5-SEQUENCING-AND-BACKLOG-OPENI` |
-| Roadmap | 30 | REAL-B | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-C4-POST-MERGE-LIFECYCLE-TRUTH-SYNC-01 (pre-TYPE14)** | 2026-08-29 12:19 CEST (+0200) — *(historique · superseded by NO` |
-| Roadmap | 31 | REAL-B | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-C1-POST-MERGE-TRUTH-SYNC-01 (pre-NORA-C5)** | *(historique)* — 2026-08-28 21:45 CEST (+0200) — **NORA COGNITIVE COMPLE` |
-| Roadmap | 32 | next structural gate | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique V3-REAL-A-POST-MERGE-TRUTH-SYNC-01 (pre-CORR-01)** | *(historique · superseded by V3-REAL-A-POST-MERGE-TRUTH-SYNC-01-CORR-0` |
-| Roadmap | 33 | runtime v3 ADOPTED | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique PC-POST-CLOSURE-TRUTH-SYNC-01 / PR #427 CORR-01 (pre-REAL-A on main)** | 2026-08-27 18:24 CEST (+0200) — *(historique · sup` |
-| Roadmap | 44 | runtime v3 ADOPTED | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique W3-A POST-CLOSURE TRUTH SYNC** | 2026-08-24 11:04 CEST (+0200) — **W3-A POST-CLOSURE TRUTH SYNC** — *(historique · supersed` |
-| Roadmap | 60 | local candidate | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique Cycle 6 final coherence LOCAL candidate (pre-PR #384)** | 2026-08-21 12:37 CEST (+0200) — CURRENT REPOSITORY GATE = **FINAL` |
-| Roadmap | 78 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `| **Timestamp maintenance** | 2026-08-18 12:42 CEST (+0200) — CYCLE 15 CAPITALISATION / PRODUCT REBASELINE INTEGRATION — main `a53c323e47e5fae1d35671f3ae232609a` |
-| Roadmap | 82 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `| **Product Completion UX Experience Architecture** | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · path : `projects/sfia-studio/product-completion/ux-product-` |
-| Roadmap | 88 | PROJECT GIT INTEGRATION | ANTI-CLAIM | Explicit overclaim prevention. | `| **Morris trajectory decision (post-C6 / CKC)** | **SUPERSEDED FOR FORWARD PATH** — CKC-first + G2 + W1 + W2 + W3-A/B/C/D + **W4** + **Product Completion COMPL` |
-| Roadmap | 92 | REAL-B | CURRENT-VALID | Consistent. | `| **Product Completion W3 Delivery Readiness** | **LIVING DOC11** · path `projects/sfia-studio/product-completion/11-product-completion-wave-3-delivery-readines` |
-| Roadmap | 93 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `| **Product Completion W3-A Governed Execute** | **CLOSED BY MORRIS / INTEGRATED ON MAIN** · PR **#408 MERGED** · candidate `a69e3ad1924b7e33407ff0f9d62dd218930` |
-| Roadmap | 94 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `| **Product Completion W3-B Targeted Technical Architecture** | **VALIDATED / ADOPTED BY MORRIS — INTEGRATED ON MAIN** · path `projects/sfia-studio/product-comp` |
-| Roadmap | 95 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `| **Product Completion W3-B Terminal Result + Evidence** | **CLOSED BY MORRIS / INTEGRATED ON MAIN** · PR **#413 MERGED** · head `8c1f9b863a36391131b01ffd81a673` |
-| Roadmap | 96 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `| **Product Completion W3-C Post-Evidence Recovery / Replan** | **CLOSED BY MORRIS / INTEGRATED ON MAIN** · PR **#415 MERGED** · head `43ecc3351d0dcde1cadc98a9d` |
-| Roadmap | 98 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `| **Product Completion W3-D Full CKC Track + Catalog Evolvability** | **INTEGRATED AND PROVEN ON MAIN** · EXIT CONSUMED BY W3 FINAL CLOSURE QUALIFICATION AND MO` |
-| Roadmap | 103 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `| **Product Completion Integrated Proof / Final Completion Qualification** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · PR **#426 MERGED** · head `57f46c7ad` |
-| Roadmap | 104 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `| **Product Completion Closure Decision** | **COMPLETE / CLOSED BY MORRIS** · decision source = Morris explicit conversation decision **« ok on valide alors »**` |
-| Roadmap | 105 | PROJECT GIT INTEGRATION | ANTI-CLAIM | Explicit overclaim prevention. | `| **Nora Cognitive Completion — C1→C5 programme register** | **ACTIVE Nora programme register** · **ACTIVE CONSTRUCTION PRIORITY** under NORA-FIRST sequencing ·` |
-| Roadmap | 111 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `| **Product Completion W1 Delivery** | **INTEGRATED ON MAIN / POST-MERGE PROVEN** · PR **#395 MERGED** · head `7d302f24a733a30f0d801b653fcd89b25058ce77` · merge` |
-| Roadmap | 121 | PROJECT GIT INTEGRATION | ANTI-CLAIM | Explicit overclaim prevention. | `| **Gates courants** | C1…C6 **INTEGRATED / C6 CLOSED** · W1 **CLOSED** · **W2 CLOSED BY MORRIS** · **W3 CLOSED BY MORRIS** · **W3-A/B/C CLOSED BY MORRIS** · **` |
-| Roadmap | 122 | local candidate | CURRENT-VALID | Consistent. | `| **Intégration Git** | **C2 :** PR #369 / head `3c78c6763d0d090bdc38f3866ecd71ed6be219d0` / merge `2406ccda211842fc7f8da3699bb186a30f7dc105` · **Post-merge syn` |
-| Roadmap | 124 | PROJECT GIT INTEGRATION | ANTI-CLAIM | Explicit overclaim prevention. | `| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M5 Entry Q` |
-| Roadmap | 174 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `| MVP functional baseline | **MORRIS-DECIDED** — current main vertical slice = **SFIA STUDIO MVP FUNCTIONAL BASELINE FOR PRODUCT COMPLETION** · reuse M1→M5 back` |
-| Roadmap | 367 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `**Anti-claims :** Decision adoption **≠** implementation · W2-G2 **≠** W2-G3 · D-W2-02 design **≠** W2 finally closed · W2-G2 **≠** Delivery · W2-G3 integrated ` |
-| Roadmap | 410 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `9. **MORRIS PRE-M6 UI DELIVERY EXECUTION AUTHORIZATION — OPTION A** — **CONSUMED / SUPERSEDED** by PR #361 Ready+Merge + post-merge CI SUCCESS · **≠** PRE-M6 EX` |
-| Roadmap | 412 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `11. **PRE-M6 EXIT** — **ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT** · **≠ COMPLETE WITHOUT RESERVES** · **≠** runtime v3 ADOPTED · **≠** M6 ST` |
-| Roadmap | 552 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `| **Next convergence capability (current)** | **Product Completion = COMPLETE / CLOSED BY MORRIS** · Final Qualification **INTEGRATED** (PR **#426** / `19349d02` |
-| Roadmap | 621 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `Historical Option A Delivery GO is **CONSUMED / SUPERSEDED** by PR #361. PRE-M6 EXIT is now **ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT**. PRE` |
-| Roadmap | 636 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `| **I. Décision Morris** | **MORRIS DECISION — ACCEPT PRE-M6 EXIT FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT — CURRENT MAIN VERTICAL SLICE IS THE SFIA S` |
-| Roadmap | 650 | runtime v3 ADOPTED | ANTI-CLAIM | Negative definition: MVP does not mean runtime v3 ADOPTED. | `| **MVP does not mean** | PRE-M6 automatically closed · final product · runtime v3 ADOPTED · generic Cursor execution complete · CKC complete · final UX · produ` |
-| Roadmap | 651 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `| **Next cycle** | **NEXT-CAPABILITY REQUALIFICATION** · next v3 capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED** · Final Product Completion Quali` |
-| Roadmap | 766 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `| V3-F03 DoctrinePackage | Package pin/digest | **PARTIAL→EXTENDED RUNTIME** — digest in live `F2ContextSnapshot` **on main** (M2) · Product DoctrinePackage `pk` |
-| Roadmap | 878 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `MVP BASELINE: CURRENT MAIN VERTICAL SLICE = FUNCTIONAL MVP FOR PRODUCT COMPLETION — ≠ PRE-M6 CLOSED ≠ produit final ≠ runtime v3 ADOPTED` |
-| Roadmap | 889 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `NEXT MORRIS GATE AFTER REQUALIFICATION: selection / authorization of a future Studio capability — NOT STARTED · ≠ Delivery · ≠ READY FOR REAL · ≠ runtime v3 ADO` |
-| Roadmap | 973 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `**Anti-claim :** traitement local ≠ dette clôturée sur `main` avant intégration Git · ≠ claim runtime v3 ADOPTED.` |
-| Roadmap | 1047 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `- PRE-M6 EXIT : **ACCEPTED FOR PRODUCT-TRAJECTORY PURPOSES WITH GOVERNED DEBT** · **≠ COMPLETE WITHOUT RESERVES** · **≠** runtime v3 ADOPTED · **≠** M6 STARTED ` |
-| C5 | 10 | PROJECT GIT INTEGRATION | ANTI-CLAIM | Explicit overclaim prevention. | `| **Statut** | **Content status** = **CONTENT VALIDATED BY MORRIS** · **Repository integration** = **INTEGRATED ON MAIN** · **Post-merge** = **POST-MERGE GIT VE` |
-| C5 | 11 | PROJECT GIT INTEGRATION | CURRENT-VALID | Consistent. | `| **Timestamp maintenance NORA-C5-MW1-POST-MERGE-CLOSURE-TRUTH-SYNC-01** | 2026-09-01 11:26:59 CEST — **NORA C5 MW1 POST-MERGE CLOSURE DOWNSTREAM TRUTH-SYNC** ·` |
-| C5 | 12 | CURRENT REVIEW GATE | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance NORA-C5-MW1-CLOSURE-TRUTH-SYNC-CORR-01** | 2026-09-01 11:49:21 CEST — **NORA C5 MW1 CLOSURE CORR-01 DOWNSTREAM GATE ORDERING** · Morri` |
-| C5 | 13 | NEXT REPOSITORY LIFECYCLE GATE | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance NORA-C5-MW1-CLOSURE-TRUTH-SYNC-CORR-04** | 2026-09-01 12:27:09 CEST — **NORA C5 MW1 CLOSURE/TRUTH-SYNC CORR-04** · Morris correction G` |
-| C5 | 14 | NEXT REPOSITORY LIFECYCLE GATE | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance NORA-C5-MW1-CLOSURE-TRUTH-SYNC-CORR-05** | 2026-09-01 12:38:03 CEST — **NORA C5 MW1 CLOSURE/TRUTH-SYNC CORR-05** · Morris correction G` |
-| C5 | 20 | PROJECT GIT INTEGRATION | HISTORICAL | Historical provenance row. | `| **GO Morris C5** | **CONSUMED** — `GO MORRIS — PRIORITIZE NORA COGNITIVE COMPLETION TRAJECTORY BEFORE REAL-B EXECUTION — AUTHORIZE NORA C5 SOURCE-LOCKED COGNI` |
-| C5 | 21 | PROJECT GIT INTEGRATION | HISTORICAL | Historical provenance row. | `| **GO Morris C5 CORR-01** | **CONSUMED** — `GO MORRIS — CORRECT NORA C5 BEFORE CONTENT VALIDATION — BREAK MW3↔MW4 AND MW4↔MW6 DEPENDENCY CYCLES — RESTORE ACYCL` |
-| C5 | 22 | PROJECT GIT INTEGRATION | HISTORICAL | Historical provenance row. | `| **GO Morris C5 content validation** | **CONSUMED** — `GO MORRIS — VALIDATE NORA C5 SOURCE-LOCKED COGNITIVE BACKLOG CONTENT — CORR-01 REVIEW PASS — NORA-FIRST ` |
-| C5 | 23 | REAL-B | HISTORICAL | Historical provenance row. | `| **GO Morris C5 Git integration** | **CONSUMED** — `GO MORRIS — NORA C5 SOURCE-LOCKED COGNITIVE BACKLOG — GIT INTEGRATION — CONTENT VALIDATED — COMMIT + PUSH +` |
-| C5 | 24 | REAL-B | HISTORICAL | Historical provenance row. | `| **GO Morris C5 PR CORR-02 post-validation documentary truth** | **CONSUMED** — `GO MORRIS — CORRECT PR #439 C5 POST-VALIDATION DOCUMENTARY TRUTH BEFORE MERGE ` |
-| C5 | 25 | REAL-B | HISTORICAL | Historical provenance row. | `| **GO Morris C5 Type14 post-merge truth-sync** | **CONSUMED** — `GO MORRIS — NORA C5 TYPE14 POST-MERGE TRUTH-SYNC — PR #439 MERGED — MERGE 70143b6d312bfa7511c7` |
-| C5 | 26 | PROJECT GIT INTEGRATION | HISTORICAL | Historical provenance row. | `| **GO Morris C5 Type14 content validation** | **CONSUMED** — `GO MORRIS — VALIDATE NORA C5 TYPE14 POST-MERGE TRUTH-SYNC CONTENT — REVIEW PASS — PR #439 MERGED ` |
-| C5 | 27 | REAL-B | HISTORICAL | Historical provenance row. | `| **GO Morris C5 Type14 Git integration** | **CONSUMED** — `GO MORRIS — NORA C5 TYPE14 POST-MERGE TRUTH-SYNC — GIT INTEGRATION — CONTENT VALIDATED — EXACT SCOPE` |
-| C5 | 28 | next structural gate | HISTORICAL | Historical provenance row. | `| **GO Morris CORR-01 C5 downstream truth sync (MW1 readiness / OD-03)** | **CONSUMED** — `GO MORRIS — CORR-01 C5 DOWNSTREAM TRUTH SYNC — ALIGN ACTIVE/CURRENT C` |
-| C5 | 29 | next structural gate | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-C5-MW1-READINESS-OD03-DOWNSTREAM-TRUTH-CORR-01 (pre-OD-04)** | *(historique · superseded as tip by NORA-C5-OD04-OPTION` |
-| C5 | 31 | MW1 NOT COMPLETE | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-C5-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01 (pre-MW1 closure truth-sync)** | *(historique tip · superseded as tip ` |
-| C5 | 32 | PROJECT GIT INTEGRATION | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-C5-MW1-OPTION-C-POST-MERGE-TRUTH-SYNC-01 (pre-MW0 Option C regression truth-sync)** | *(historique tip · superseded as` |
-| C5 | 33 | PROJECT GIT INTEGRATION | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-C5-OD04-I01-DOC-01-02-CORRECTION-01 (pre-Option-C post-merge truth-sync)** | *(historique tip · superseded as tip by N` |
-| C5 | 35 | MW1 NOT COMPLETE | HISTORICAL | Historical provenance row. | `| **Timestamp maintenance historique NORA-C5-OD04-OPTION-C-DOWNSTREAM-TRUTH-01 (pre-OD04-I01)** | *(historique tip · superseded as tip by NORA-C5-OD04-I01-BOUND` |
-| C5 | 39 | PROJECT GIT INTEGRATION | CURRENT-VALID | Consistent. | `| **NEXT NORA GATE / CURRENT STRUCTURAL GATE** | **MW1 = COMPLETE / CLOSED BY MORRIS** at proven MW1 scope · **MW1 Delivery = INTEGRATED ON MAIN / POST-MERGE VE` |
-| C5 | 40 | REAL-B | CURRENT-VALID | Consistent. | `| **REAL-B** | **PRESERVED QUALIFIED CANDIDATE / DEFERRED / NOT AUTHORIZED / NOT STARTED** · DEFERRED ≠ CLOSED ≠ CANCELLED ≠ FAILED ≠ SUPERSEDED FUNCTIONALLY |` |
-| C5 | 41 | REAL-B | CURRENT-VALID | Consistent. | `| **OD-07** | **CONSUMED** — NORA-FIRST sequencing · REAL-B deferred/preserved |` |
-| C5 | 45 | Cognitive Completion PROVEN | ANTI-CLAIM | Explicit overclaim prevention. | `| **Architecture** | **OPTION C HYBRID OPENAI COGNITIVE RUNTIME = TARGET ADOPTED (OD-04 CONSUMED)** · **OD04-I01 ACTIVE** · Option C implementation **INTEGRATED` |
-| C5 | 46 | PR #451 | ANTI-CLAIM | Explicit overclaim prevention. | `| **Delivery** | **MW1 = COMPLETE / CLOSED BY MORRIS** at proven MW1 scope · **MW1 Delivery = INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#450 MERGED** · h` |
-| C5 | 54 | REAL-B | ANTI-CLAIM | Explicit overclaim prevention. | `> **Anti-claims (CURRENT downstream) :** C5 INTEGRATED ON MAIN ≠ MW1 complete · **OD-04 CONSUMED ≠ MW1 complete** · **Option C implementation INTEGRATED via PR ` |
-| C5 | 64 | REAL-B | CURRENT-VALID | Consistent. | `Morris has consumed a **Nora-first sequencing decision**: active construction priority is **Nora Cognitive Completion**; **REAL-B** remains a **qualified candid` |
-| C5 | 77 | REAL-B | CURRENT-VALID | Consistent. | `| 2 | Convergence Roadmap (living) | Current construction priority / REAL-B deferred truth |` |
-| C5 | 105 | PR #451 | CURRENT-VALID | Post-merge evidence. | `| Current downstream / structural gate | **MW1 COMPLETE / CLOSED BY MORRIS** · PR **#450** · REAL BOUNDARY PROVEN · MW0 **CLOSED** · Option C **#447** · **MW1 C` |
-| C5 | 106 | REAL-B | CURRENT-VALID | Consistent. | `| REAL-B | QUALIFIED CANDIDATE / **DEFERRED** / NOT AUTHORIZED / NOT STARTED |` |
-| C5 | 108 | PR #451 | CURRENT-VALID | Post-merge evidence. | `| Delivery | MW1 COMPLETE / CLOSED BY MORRIS · PR #450 · deterministic + REAL boundary proven · **MW1 CLOSURE DOCUMENTARY REPOSITORY LIFECYCLE = INTEGRATED ON M` |
-| C5 | 176 | PR #451 | CURRENT-VALID | Post-merge evidence. | `6. Option C **#447** · MW1 delivery **#450** · MW1 **COMPLETE / CLOSED BY MORRIS** · deterministic + REAL boundary proven · REAL handoff `bcc607ae08bc419188505f` |
-| C5 | 272 | MW2 READINESS | CURRENT-VALID | Consistent. | `**Historical construction sequence at C5 authoring — SUPERSEDED / PROVENANCE ONLY:** C5 **CONTENT VALIDATED** → repository integration review → Morris merge gat` |
-| C5 | 303 | Cognitive Completion PROVEN | ANTI-CLAIM | Explicit overclaim prevention. | `| Negative AC / anti-claims | ≠ Cognitive Completion PROVEN · ≠ Delivery authorized · ≠ REAL required for harness design |` |
-| C5 | 1058 | REAL-B | CURRENT-VALID | Consistent. | `| OD-07 | REAL-B sequencing | **CONSUMED** | **NORA-FIRST** · REAL-B **DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED** |` |
-| C5 | 1116 | PR #451 | CURRENT-VALID | Post-merge evidence. | `| **CURRENT downstream structural gate** | **MW1 CLOSURE DOCUMENTARY REPOSITORY LIFECYCLE = INTEGRATED ON MAIN / POST-MERGE VERIFIED — PR #451** · head `3785e27` |
-| C5 | 1121 | END-TO-END REAL | ANTI-CLAIM | Explicit overclaim prevention. | `| **CURRENT MW1** | **COMPLETE / CLOSED BY MORRIS** · DETERMINISTIC PROVEN · INTEGRATED ON MAIN (PR **#450**) · POST-MERGE VERIFIED · REAL BOUNDARY PROVEN · S01` |
-| C5 | 1137 | REAL-B | CURRENT-VALID | Consistent. | `| REAL-B preserved/deferred explicit | **YES** |` |
-| C5 | 1157 | MW2 READINESS | CURRENT-VALID | Next gate with guard. | `| No Delivery authorized | **HISTORICAL C5-at-exit YES** · **CURRENT = MW1 COMPLETE / CLOSED BY MORRIS / PR #450 INTEGRATED / REAL BOUNDARY PROVEN** · **NEXT PR` |
-| C5 | 1161 | PR #451 | CURRENT-VALID | Post-merge evidence. | `| **CURRENT next structural gate** | **MW1 CLOSURE DOCUMENTARY REPOSITORY LIFECYCLE = INTEGRATED ON MAIN / POST-MERGE VERIFIED — PR #451** · head `3785e271d897a` |
-| C5 | 1171 | PR #451 | ANTI-CLAIM | Explicit overclaim prevention. | `**C5 status:** **CONTENT VALIDATED / INTEGRATED / POST-MERGE VERIFIED** · **CURRENT downstream** = **MW1 COMPLETE / CLOSED BY MORRIS** · PR **#450** · REAL hand` |
-| C5 | 1181 | Cognitive Completion PROVEN | ANTI-CLAIM | Explicit overclaim prevention. | `- **C5 POST-MERGE VERIFIED** ≠ Cognitive Completion PROVEN` |
-| C5 | 1184 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `- **C5 POST-MERGE VERIFIED** ≠ runtime v3 ADOPTED` |
-| C5 | 1189 | Cognitive Completion PROVEN | ANTI-CLAIM | Explicit overclaim prevention. | `- **C5 CONTENT VALIDATED BY MORRIS** ≠ Cognitive Completion PROVEN` |
-| C5 | 1190 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `- **C5 CONTENT VALIDATED BY MORRIS** ≠ runtime v3 ADOPTED` |
-| C5 | 1194 | REAL-B | CURRENT-VALID | Consistent. | `- Nora-first ≠ REAL-B completed / cancelled / failed / superseded functionally` |
-| C5 | 1196 | runtime v3 ADOPTED | ANTI-CLAIM | Explicit overclaim prevention. | `- Nora-first ≠ runtime v3 ADOPTED` |
-| C5 | 1232 | PR #451 | CURRENT-VALID | Post-merge evidence. | `7. **MW1 closure documentary lifecycle INTEGRATED ON MAIN / POST-MERGE VERIFIED — PR #451** · **NEXT PRODUCT CAPABILITY GATE = MW2 READINESS / REQUALIFICATION —` |
-| C5 | 1236 | PR #451 | CURRENT-VALID | Post-merge evidence. | `**Conceptual path (CURRENT):** C5 validated → MW0 CLOSED → Option C #447 → MW1 Delivery #450 → deterministic + REAL proven → **MW1 CLOSED BY MORRIS** → **MW1 cl` |
-| C5 | 1238 | REAL-B | CURRENT-VALID | Consistent. | `REAL-B remains **deferred qualified candidate** until a future distinct Morris sequencing/execution decision.` |
-| C5 | 1239 | Cognitive Completion PROVEN | ANTI-CLAIM | Explicit overclaim prevention. | `OD-04 TARGET ADOPTED ≠ MW1 complete · Option C implementation INTEGRATED (PR #447) ≠ MW1 complete ≠ Cognitive Completion PROVEN ≠ runtime v3 ADOPTED ≠ Responses` |
-| C5 | 1261 | PR #451 | CURRENT-VALID | Post-merge evidence. | `*Fin du C5 — MW1 COMPLETE / CLOSED BY MORRIS — PR #450 — REAL BOUNDARY PROVEN — MW1 closure documentary lifecycle INTEGRATED ON MAIN / POST-MERGE VERIFIED — PR ` |
-
-## 32. Global STALE-ACTIVE count
-**0**
-
-## 33. Active lifecycle audit
-ACTIVE surfaces retain PR451 integrated lifecycle · MW2 READINESS next gate · MW2 NOT AUTHORIZED · no active local-candidate review gate · no active future Git-integration gate.
-
-## 34. Blocker closure matrix
-| Blocker | Status |
-| --- | --- |
-| BLK-MW1-POSTMERGE-HISTORICAL-PROVENANCE-09 | **CLOSED** |
-| EVID-MW1-POSTMERGE-STALE-CLASSIFICATION-10 | **CLOSED** |
-| BLK-MW1-CLOSURE-POST-MERGE-LIFECYCLE-08 | **remains CLOSED** |
-
-## 35–44. State summary
-MW1 COMPLETE/CLOSED · S01/S02/S03 CLOSED · PR450+451 integrated · Responses Compaction NOT ADOPTED · Cognitive Completion NOT PROVEN · runtime v3 NON ADOPTED · MW2 NOT STARTED
-
-## 45–47. Modified files
-- Cumulative: Roadmap + C5
-- CORR-01 delta: **Roadmap only**
-
-## 48. git diff --check
-PASS
-
-## 49. Project Git actions
-**NONE**
-
-## 50–52. Blockers / reserves / proof ceiling
-All CORR-01 blockers closed · C5 frozen · proof ceiling preserved
-
-## 53. Final verdict
-**PASS LOCAL CANDIDATE — CORR-01** — ready for ChatGPT Final Critical Review
-
-## 54. Next gate
-ChatGPT Final Critical Review → Morris GO project Git integration of PR451 post-merge truth-sync
-
-## Handoff publication (pre-publication metadata)
-- Expected parent: `737e373fa4fc22c8e7c840b116664d6214fe9103`
-- handoff SHA / blob: generated by single publication (recorded in Cursor final report)
-
-## Cumulative C5 diff (unchanged this cycle — reference)
-```diff
 diff --git a/projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md b/projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
 index dfd01406..c5670e68 100644
 --- a/projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
