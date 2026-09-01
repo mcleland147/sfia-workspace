@@ -680,3 +680,68 @@ MW1 CLOSED ON MAIN · MW1 INTEGRATED · MW1 COMPLETE globally · Cognitive Compl
 
 ## 60. Next gate
 CHATGPT CRITICAL REVIEW of Final MW1 proof → then DISTINCT Morris decision on single project Git integration of S01+S02+S03
+---
+
+# MW1 FINAL PROOF EVIDENCE CORR-01 — Untracked Baseline Parity (bounded)
+
+## EVIDENCE-CORR-01 Timestamp
+2026-09-01 07:04:49 CEST
+
+## Morris GO consumed
+GO MORRIS — MW1 FINAL PROOF EVIDENCE CORR-01 BOUNDED ONLY — PROVE PRE/POST CONTENT PARITY FOR ALL PRE-EXISTING UNTRACKED MW1 CANDIDATE FILES EXCLUDING ONLY THE NEW QA-ONLY FINAL TEST + REVIEW PACK — NO PRODUCTION MODIFICATION
+
+## Exclusions from baseline set
+- `.tmp-sfia-review/`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.final.deterministic.e2e.test.ts` (FINAL_QA_ONLY_DELTA)
+
+## Aggregate fingerprint comparison
+
+| Fingerprint | Pre (Final Proof entry @ FPDIR `/tmp/mw1-final-fp-6399b4`) | Post (current local) | Parity |
+|-------------|--------------------------------------------------------------|----------------------|--------|
+| `PRE_FINAL_UNTRACKED_BASELINE_MANIFEST_SHA` | `1d5cd4b762d04d3080450263f92898067bcb1810dfb60f09055a22daed4d8915` | `1d5cd4b762d04d3080450263f92898067bcb1810dfb60f09055a22daed4d8915` | **EXACT** |
+| `PRE_FINAL_UNTRACKED_BASELINE_CONTENT_SHA` | `3ee27783280630a6bf449d78aadb7600225dd96043e293248e27ba76bb4d0ba8` | `3ee27783280630a6bf449d78aadb7600225dd96043e293248e27ba76bb4d0ba8` | **EXACT** |
+| `PRE_FINAL_TRACKED_DIFF_SHA` | `b508a77ec547ca45fce41e543dfce22616ad0ffd11712d84966e860e41674fea` | `b508a77ec547ca45fce41e543dfce22616ad0ffd11712d84966e860e41674fea` | **EXACT** |
+
+## Historical CORR-02-pre aggregate content (context only)
+`PRE_CORR02_UNTRACKED_CONTENT_SHA` = `5f34b3d958bf98f0c131b0cd08a05a37640b3fab29ffd7b0b3bb4ff223fd21f0` differs from current baseline content `3ee27783…` because **CORR-02** modified exactly **2** untracked files (already ChatGPT-reviewed PASS at handoff `aa5d5937`):
+1. `projects/sfia-studio/app/lib/oa/project/application/materializeFromMemoryB.ts`
+2. `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s03.materialization.e2e.test.ts`
+
+**No other untracked MW1 candidate file changed between CORR-02-pre and Final Proof entry.**
+
+## FINAL_QA_ONLY_DELTA (separate from baseline)
+| File | SHA-256 | Bytes |
+|------|---------|-------|
+| `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.final.deterministic.e2e.test.ts` | `514b24b2b7bd145fc4d67eea36c1ee370bb0b4753dcededaf5b8521839952321` | 16263 |
+
+## Per-file audit table (12 baseline untracked files — pre Final Proof entry vs post)
+
+# MW1 Untracked Baseline Parity Audit
+
+| Path | Pre SHA256 | Post SHA256 | Status |
+|------|------------|-------------|--------|
+| `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.honestMemoryB.d0.test.ts` | `10171255e8bf79c5b73b1a10fd103095a47c725e66a6f7b0916fd97919117b28` | `10171255e8bf79c5b73b1a10fd103095a47c725e66a6f7b0916fd97919117b28` | MATCH |
+| `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.productTruthC.e2e.test.ts` | `aa7a62088d14031370c07e2f527d7ddabbbc816a888765b4521d62149b477f3e` | `aa7a62088d14031370c07e2f527d7ddabbbc816a888765b4521d62149b477f3e` | MATCH |
+| `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s02.compaction.modeled.test.ts` | `bfd9b57f27786a57cecec6c4540d8c6d7b9dbbf1eac15cb83249bd41466ff4c0` | `bfd9b57f27786a57cecec6c4540d8c6d7b9dbbf1eac15cb83249bd41466ff4c0` | MATCH |
+| `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s02.compaction.unit.test.ts` | `7472f135eec467aac0d57fbfc935ec9c512ece2d4312955f1640e204f1830327` | `7472f135eec467aac0d57fbfc935ec9c512ece2d4312955f1640e204f1830327` | MATCH |
+| `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s03.materialization.e2e.test.ts` | `dfe9b984cbe8adbea1c45b527e3ade3bff28a9f65a657240500b5ec59e8d22c1` | `dfe9b984cbe8adbea1c45b527e3ade3bff28a9f65a657240500b5ec59e8d22c1` | MATCH |
+| `projects/sfia-studio/app/__tests__/nora-eval/mw1.s01.honestMemoryB.eval.test.ts` | `0b6b50e8e2e0b31ba4f92a6cad3a01a9f049247a1d2fe917d6317addc400dfd3` | `0b6b50e8e2e0b31ba4f92a6cad3a01a9f049247a1d2fe917d6317addc400dfd3` | MATCH |
+| `projects/sfia-studio/app/__tests__/nora-eval/mw1.s02.compaction.eval.test.ts` | `e9cadb3f1707c5a382a0275e0c894440a53895fdda7429939c88d33943cdaf67` | `e9cadb3f1707c5a382a0275e0c894440a53895fdda7429939c88d33943cdaf67` | MATCH |
+| `projects/sfia-studio/app/lib/nora-cognitive-runtime/memoryBAvailability.ts` | `8e38b468e7e0059c8b8a8739028053742134e10326a39dafbe805faf6be7f47e` | `8e38b468e7e0059c8b8a8739028053742134e10326a39dafbe805faf6be7f47e` | MATCH |
+| `projects/sfia-studio/app/lib/nora-cognitive-runtime/memoryBCompaction.ts` | `ca6d7e4b17e645cbc4ce4c79b3523c40e2d75450b0f36d9b5d560cc8b20ad6ca` | `ca6d7e4b17e645cbc4ce4c79b3523c40e2d75450b0f36d9b5d560cc8b20ad6ca` | MATCH |
+| `projects/sfia-studio/app/lib/nora-eval/mw1S01Observe.ts` | `824b33f178ddb13ff1470117268fb6d1120f522360f15759ef2f61693086e7f9` | `824b33f178ddb13ff1470117268fb6d1120f522360f15759ef2f61693086e7f9` | MATCH |
+| `projects/sfia-studio/app/lib/nora-eval/mw1S02Observe.ts` | `4f179947c572c0c9e4a33d7d205e542a4989bdc8d99b3fd890982627529ecd55` | `4f179947c572c0c9e4a33d7d205e542a4989bdc8d99b3fd890982627529ecd55` | MATCH |
+| `projects/sfia-studio/app/lib/oa/project/application/materializeFromMemoryB.ts` | `934fee005e3a535615a1ece82640a2d51aa5d901875e2c55355c338567e7c556` | `934fee005e3a535615a1ece82640a2d51aa5d901875e2c55355c338567e7c556` | MATCH |
+
+
+**Result:** 12/12 files **MATCH** · 0 content divergences · 0 removals · 0 unexpected additions in baseline set.
+
+## EVIDENCE-CORR-01 verdict
+**PASS** — Final Proof QA cycle did not mutate any pre-existing untracked MW1 candidate file. Only authorized `FINAL_QA_ONLY_DELTA` added. Tracked production candidate unchanged. **No S01/S02/S03 functional rework required.**
+
+## CORR-02-pre vs current (2-file delta — not Final QA)
+
+| Path | CORR-02-pre SHA | Current SHA | Changed by |
+|------|-----------------|-------------|------------|
+| `materializeFromMemoryB.ts` | `4db959cf0aed8cab42788d8933df1b0a93af31d3e8189d65430461ba4bc3f691` | `934fee005e3a535615a1ece82640a2d51aa5d901875e2c55355c338567e7c556` | CORR-02 (reviewed) |
+| `mw1.s03.materialization.e2e.test.ts` | `c9d9dff52dbe262a5115f8f64200a59f6e7170434bdb7accbac8c2f52ecdc6ab` | `dfe9b984cbe8adbea1c45b527e3ade3bff28a9f65a657240500b5ec59e8d22c1` | CORR-02 (reviewed) |
