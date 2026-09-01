@@ -3,7 +3,7 @@
 | Métadonnée | Valeur |
 | --- | --- |
 | **Rôle** | Doctrine de **construction / convergence** de SFIA Studio |
-| **Statut** | **VALIDATED — ACTIVE ON MAIN** — gouvernance de construction SFIA Studio validée par Morris |
+| **Statut** | **VALIDATED — ACTIVE ON MAIN** — gouvernance de construction SFIA Studio validée par Morris · **R22 OpenAI-native-first amendment = DOCUMENTARY CANDIDATE ON BRANCH UNTIL GIT INTEGRATION** |
 | **Portée** | Travaux de construction / évolution de **SFIA Studio uniquement** |
 | **Git SoT** | Repository `mcleland147/sfia-workspace` — Git courant prime |
 | **Doctrine produit associée** | SFIA Studio v3 framing `30`–`37` = **CE QUE** Studio doit être |
@@ -12,7 +12,7 @@
 | **Runtime v3** | **NON ADOPTED** tant que preuves/gates manquent |
 | **Snapshot création** | HEAD `4b1a058050ae81d56cb6d96b88e8a57380799a86` · 2026-08-12 21:52:01 CEST (+0200) *(historique)* |
 | **Validation Morris** | 2026-08-13 02:05 +0200 (Europe/Paris) — Build Doctrine + Convergence Roadmap officiellement validées comme gouvernance de construction SFIA Studio |
-| **Intégration Git** | PR #334 · merge commit `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
+| **Intégration Git** | PR #334 · merge commit `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **R22 amendment not active on main until its distinct Git integration** |
 | **Source Product Completion structurante** | C1 validé et intégré sur `main` via PR #364 · merge `d83be84ab93650f23bfe54870790cc2e839be095` · `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` |
 
 ## A1. Anti-claims (ouverts)
@@ -25,7 +25,8 @@ Ce document **n’est pas** :
 - une décision d’architecture technique **consommée hors de ce fichier** (G0-A **ADOPTED** — OA Native Backbone + Harvest OPS1 Cursor ; source : décision Morris + `sfia-studio-g0-architecture-persistence-decision-pack.md` / Roadmap) ;
 - une sélection Product persistence **consommée hors de ce fichier** (G0-B **ADOPTED** — `node:sqlite` Product Store OA ; même source) ;
 - une autorisation Cursor REAL / Gate D ;
-- le contenu des Instructions projet ChatGPT (couche 1 = **ACTIVE** — couche externe, hors contenu de ce fichier).
+- le contenu des Instructions projet ChatGPT (couche 1 = **ACTIVE** — couche externe, hors contenu de ce fichier) ;
+- une sélection permanente d’un modèle, tier, reasoning effort ou service OpenAI particulier.
 
 ## A2. Finalité
 
@@ -82,7 +83,7 @@ valid human authorization
 
 Fondations doctrine produit associées : **V3-F01…V3-F15** (VALIDATED doctrine ; runtime coverage progressive via Roadmap).
 
-## A4. Règles fondatrices de construction (R1–R21)
+## A4. Règles fondatrices de construction (R1–R22)
 
 | ID | Règle |
 | --- | --- |
@@ -107,6 +108,9 @@ Fondations doctrine produit associées : **V3-F01…V3-F15** (VALIDATED doctrine
 | **R19** | Aucun claim de maturité / READY / ADOPTED sans **preuve**. |
 | **R20** | Toute brique **temporaire** doit rendre visible sa **sortie**. |
 | **R21** | **Fidélité Fake/Real.** Un fake/fixture substitue une **frontière externe**, pas un second chemin produit. Preuve déterministe ≠ preuve REAL. REAL-shaped deterministic reste DETERMINISTIC PROVEN. Les realism gaps restent visibles. Une frontière REAL significative se prouve **progressivement** (déterministe → REAL borné → end-to-end REAL). Aucun claim supérieur à la preuve. Aucun REAL automatique. |
+| **R22** | **Nora OpenAI-native-first.** Pour tout besoin cognitif Nora, qualifier d’abord les capacités OpenAI courantes pertinentes avant de développer un équivalent interne. Si une primitive OpenAI satisfait les exigences fonctionnelles/cognitives, la frontière Studio↔Nora↔Pilote, les contraintes de gouvernance/autorité, de preuve, sécurité/confidentialité, coût/latence et réversibilité applicables, **préférer son usage ou son adaptation minimale**. Si la couverture est partielle, combiner la primitive avec le **delta réellement spécifique à SFIA**. Construire une mécanique cognitive générique interne seulement si l’insuffisance/incompatibilité OpenAI est qualifiée. Une primitive OpenAI n’acquiert jamais l’autorité métier SFIA. Les capacités fournisseur doivent être revalidées quand le claim en dépend ; un snapshot OpenAI courant **≠ doctrine permanente**. |
+
+> **Lifecycle R22 :** principe de trajectoire explicitement consommé par Morris le 2026-09-01 ; cette rédaction Build Doctrine reste **candidate** tant qu’elle n’est pas intégrée sur `main` via le lifecycle Git gouverné.
 
 ## A5. Challenge obligatoire avant tout chantier Studio
 
@@ -124,12 +128,15 @@ Avant cadrage / prompt Cursor / delivery Studio, répondre :
 10. Un **gate Morris** est-il nécessaire ?
 11. Y a-t-il une **frontière fake/mock/fixture** ? Substitue-t-elle la frontière externe, ou crée-t-elle un **chemin produit parallèle** ?
 12. Quel **niveau de preuve** ce chantier peut-il honnêtement atteindre (DETERMINISTIC / REAL BOUNDARY / END-TO-END REAL) ? Quels **realism gaps** restent ouverts ?
+13. **Si le chantier touche la cognition Nora : quelles capacités OpenAI courantes pertinentes ont été évaluées avant toute solution interne équivalente ? Quelle disposition USE/KEEP · ADAPT · COMBINE · COMPLETE/BUILD · DEFER/REJECT est retenue et pourquoi ?**
 
 Si **1** ou **7** n’a pas de réponse exploitable :
 
 ```text
 STOP — TRAJECTORY LINK MISSING
 ```
+
+Pour un chantier cognitif Nora, l’absence du point **13** empêche de qualifier honnêtement la solution de construction : effectuer l’OpenAI Capability Fit Check avant design interne équivalent.
 
 ## A6. Politique POC / prototype / fixture
 
@@ -192,6 +199,7 @@ Elle se termine lorsqu’une **capacité utilisateur** ou une **précondition st
 | **Build Doctrine (ce document)** | Lois de construction |
 | **Convergence Roadmap** | État + prochaine capacité |
 | **Product Completion C1 intégré** | Cible / scope / trajectoire adoptés explicitement par Morris |
+| **Nora OpenAI-native-first trajectory** | Trajectoire transverse cognitive MW2→MW6 · capability-fit/model-reasoning policy ; active only after its Git integration |
 | Sources cycle / repo | Preuves locales du chantier |
 | Mémoire conversationnelle | Non SoT |
 
@@ -209,6 +217,7 @@ Séquence attendue :
 Repo-informed pre-check
   → si Studio trigger : Convergence pre-check
   → qualification cycle
+  → si Nora cognitive : OpenAI Capability Fit Check (R22)
   → CKC/process guidance applicable (v2.6 process only)
   → sources spécifiques
   → instanciation prompt Cursor
@@ -228,7 +237,10 @@ Repo-informed pre-check
 - Build Doctrine transformée en doctrine runtime ;
 - fake/fixture présenté comme preuve REAL ;
 - chemin produit parallèle fixture non qualifié ;
-- DETERMINISTIC PROVEN promu READY FOR REAL.
+- DETERMINISTIC PROVEN promu READY FOR REAL ;
+- **reconstruire une mécanique cognitive générique Nora alors qu’une capacité OpenAI pertinente existe, sans OpenAI Capability Fit Check ni justification de rejet/complément** ;
+- **traiter une primitive OpenAI comme HumanDecision, Evidence, Truth C ou autorité métier SFIA** ;
+- **figer un snapshot fournisseur/modèle courant comme doctrine permanente sans gate/preuve**.
 
 ## A14. Stop markers
 
@@ -242,12 +254,14 @@ PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE
 
 - Document **stable** : modification uniquement via cycle explicite + impact analysé + décision Morris.
 - La **Roadmap** évolue plus souvent (après décisions, milestones, preuves, dépendances).
+- Les capacités/modèles OpenAI évoluent : leurs snapshots appartiennent aux sources de campagne/trajectoire vivante, **pas** aux invariants de cette doctrine.
 - Ne pas appliquer automatiquement A+B à des projets SFIA **sans rapport** avec la construction de SFIA Studio.
 
 ## Références
 
 - Roadmap : [`sfia-studio-convergence-roadmap.md`](./sfia-studio-convergence-roadmap.md)
 - Product Completion C1 : [`../product-completion/01-product-completion-cadrage.md`](../product-completion/01-product-completion-cadrage.md)
+- Nora OpenAI-native-first trajectory : [`../nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md`](../nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md)
 - Doctrine produit : `projects/sfia-studio/sfia-v3-framing/30`–`37`
 - Routing : `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
 - Knowledge Layer : `method/sfia-fast-track/core/sfia-knowledge-layer.md`
