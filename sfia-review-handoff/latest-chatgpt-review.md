@@ -1,223 +1,222 @@
-# ChatGPT Review Pack — CORR-MW2-INT-02
+# ChatGPT Review Pack — PRE-MW2-MODEL-BASELINE-01
 
 | Field | Value |
 | --- | --- |
-| **Timestamp (Europe/Paris)** | 2026-09-01 23:00:00 CEST |
-| **Cycle** | 8 — DOC — CRITICAL |
-| **Classification** | CORR-MW2-INT-02 — FINAL CURRENT-TRAJECTORY + OPTION-B SEMANTIC ALIGNMENT |
-| **Parent GO** | MW2 READINESS INTEGRATION PACKAGE (reused · no new Morris decision) |
+| **Timestamp (Europe/Paris)** | 2026-09-01 23:35:00 CEST |
+| **Cycle** | 9 — QA / validation |
+| **Typologie** | DOC / ANALYSIS |
+| **Profil** | CRITICAL |
+| **CKC** | candidate — `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md` · experimental guidance only · no execution authority |
 
-## ChatGPT findings (Final PR Review)
+## GO Morris consommé
 
-1. doc08 CURRENT pointers still presented MW2 Readiness as next gate.
-2. doc09 §11 could read as monotonic Strategy Class → reasoning effort progression.
-
-## Morris decisions
-
-None new. OD-02 Option B already consumed.
+**GO MORRIS — PRE-MW2-MODEL-BASELINE-01 — DIMENSIONS A+B — READ-ONLY BASELINE CHARACTERIZATION — NO RUNTIME/ENV/MODEL CHANGE — NO LIVE PROVIDER CALL — NO REAL — FULL REVIEW PACK + L3 REVIEW HANDOFF — MW2 DELIVERY NOT AUTHORIZED**
 
 ## Local Git Truth
 
 | Item | Value |
 | --- | --- |
-| **Branch** | `docs/sfia-studio-nora-mw2-readiness-requalification` |
-| **HEAD** | `ce719d7d59879c8c59485420d67e007bfeefca01` |
-| **Prior CORR-INT-01** | `6d99257bee989c3ac190a4ed65c2ab5dd7e99af7` |
-| **origin/main** | `b4fae68423bc0ab7cb0abcc49bedee8f7c44b405` |
-| **PR #455** | DRAFT · head `ce719d7d59879c8c59485420d67e007bfeefca01` |
+| **Analysis worktree** | `/Users/morris/Projects/sfia-workspace-nora-mw2-readiness-requalification` |
+| **Worktree HEAD** | `ce719d7d59879c8c59485420d67e007bfeefca01` (pre-merge branch tip) |
+| **origin/main anchor** | `b345f3b6c74d3eac0caca5bdd5525809dd80547a` (PR #455 merge) |
+| **Runtime source** | `git show origin/main:` paths — **no diff** vs `ce719d7d` for `config.ts` · `runNoraAgentsTurn.ts` · `openaiProvider.ts` · `package.json` |
+| **Project mutation** | **NONE** (read-only cycle) |
+| **PR #455** | MERGED @ `b345f3b6` |
 
-## Corrections applied
+## Convergence pre-check
 
-- doc08 §12 Roadmap disposition → consumed readiness + PRE-MW2 trajectory
-- doc08 §14 verdict → NEXT PRODUCT PREREQUISITE PRE-MW2 · NEXT EXECUTION GATE Delivery after PRE-MW2
-- doc09 §11 → STRATEGY CLASS ≠ REASONING EFFORT · workload-sensitive cells · illustrative/non-normatif
+- Build Doctrine R22 ACTIVE ON MAIN — preserved
+- Trajectory: MW2 Readiness VALIDATED · OD-02 Option B CONSUMED · PR #455 integrated · **PRE-MW2 this cycle** · Delivery not authorized
+- Option C / NO TA / production routing NOT SELECTED — unchanged
 
-## Read-only verification
+## Provider capability snapshot (ChatGPT input 2026-09-01)
 
-- **Roadmap:** Readiness VALIDATED · OD-02 CONSUMED · PRE-MW2 next · Delivery NOT AUTHORIZED — **UNCHANGED**
-- **C5:** substantive source-lock unchanged — **UNCHANGED**
-- **doc07:** Option C / OD04-I01 — **UNCHANGED**
+GPT-5.6 Sol/Terra/Luna + alias `gpt-5.6` · documented efforts: none/low/medium/high/xhigh/max · **dated input only**
 
-## Project commit
+## Current F1 seam (origin/main @ b345f3b6)
 
-SHA: `ce719d7d59879c8c59485420d67e007bfeefca01`
-Message: `docs(sfia-studio): finalize MW2 readiness current truth`
-
-## CI
-
-SUCCESS — run `33558335531` · Build and validate SFIA Studio pass · SFIA Studio Required Gate pass
-
-## Anti-claims
-
-- CORR ≠ new Morris decision · ≠ merge · ≠ PRE-MW2 · ≠ Delivery
-- Strategy Class ≠ fixed effort mapping
-- PR #455 ≠ merged
-
-## Verdict
-
-**MW2 READINESS INTEGRATION PACKAGE CORR-MW2-INT-02 — CURRENT TRAJECTORY ALIGNED — OPTION B SEMANTICS CONSISTENT — STRATEGY CLASS DECOUPLED FROM FIXED REASONING EFFORT — C5 SOURCE-LOCK PRESERVED — CI SUCCESS — run 33558335531 — PRE-MW2 OPEN — MW2 DELIVERY NOT AUTHORIZED — READY FOR CHATGPT FINAL PR PASS + MORRIS MERGE DECISION**
-
----
-
-## doc08 §12 modified (complete)
-
-## 12. Impact documentaire
-
-| Source | Disposition |
+| Seam | Finding |
 | --- | --- |
-| Build Doctrine | **R22 ACTIVE ON MAIN** via PR #453 ; pas de modèle spécifique figé dans la doctrine |
-| Convergence Roadmap | **KEEP** · **CURRENT trajectory:** MW2 Readiness **VALIDATED BY MORRIS** → OD-02 **OPTION B CONSUMED** → repository integration/post-merge verification (PR #455 · **≠ merged until Morris GO**) → **PRE-MW2-MODEL-BASELINE-01** → distinct Morris MW2 Delivery GO after PRE-MW2 satisfied · MW2 Delivery **NOT AUTHORIZED / NOT STARTED** · Production model routing **NOT SELECTED** · runtime v3 **NON ADOPTED** |
-| C5 source-locked backlog | **KEEP source-lock** · pas de nouvelle story / pas de changement AC dans ce truth-sync |
-| MW0 doc06 | **KEEP measurement contract** · historique validé non réécrit ; ce document consomme D0/R1/R2/R3 et le contrat model/reasoning |
-| OD-04 doc07 | **KEEP architecture decision** · Option C preserved · lifecycle synchronisé après PR #453 |
-| MW2 Readiness / OD-02 | **MW2 Readiness VALIDATED BY MORRIS** · **OD-02 OPTION B CONSUMED** (doc09) · **Delivery NOT AUTHORIZED** · next after post-merge = PRE-MW2 |
+| `config.ts` | `requireLiveConversationSecrets()` → `apiKey` · `model` · optional `reasoningEffort` from `OPENAI_REASONING_EFFORT` |
+| `runNoraAgentsTurn.ts` | `resolveModel()` → `secrets.model` only · `Agent({ model })` · **no `modelSettings`** · `reasoningEffort` **not read** in file |
+| `openaiProvider.ts` | `reasoning.effort` on **its** Responses calls only · **≠** F1 Agents path |
+
+**F1 seam unchanged** since doc08/doc09 qualification.
+
+## Runtime / config reference identification
+
+| Item | Value |
+| --- | --- |
+| **Reference app root** | `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/app` |
+| **Env mechanism** | Next.js `.env.local` (present) |
+| **Ambiguity check** | 4 worktrees with `.env.local` — **all** report `OPENAI_MODEL=gpt-5-mini` · no conflicting slug |
+| **Studio process on :3020** | none observed |
+| **node_modules** | **not installed** in reference app root — SDK inspected via `@openai/agents-core@0.17.0` npm pack + `package.json` declarations |
+
+### Non-secret env probe
+
+**Command:** `node` parse `.env.local` keys only · cwd `projects/sfia-studio/app`
+
+```json
+{
+  "OPENAI_MODEL": "gpt-5-mini",
+  "OPENAI_REASONING_EFFORT": null,
+  "OPENAI_API_KEY_PRESENT": true
+}
+```
+
+**Secrets hygiene:** API key value **not** printed · **not** in this pack.
 
 ---
 
+## Dimension A — EFFECTIVE F1 MODEL
 
+| Check | Result |
+| --- | --- |
+| Configured slug | `gpt-5-mini` |
+| Source | `.env.local` (consistent across checked worktrees) |
+| `requireLiveConversationSecrets().model` | would return `gpt-5-mini` when env loaded |
+| `resolveModel()` → `Agent.model` | same slug on live F1 path |
+| GPT-5.6 family | **FAIL** — `gpt-5-mini` is **not** `gpt-5.6` · not `gpt-5.6-sol/terra/luna` · not documented GPT-5.6 alias |
 
----
+### Dimension A verdict
 
-## doc08 §14 modified (complete)
+**BLOCKED**
 
-## 14. Anti-claims et état courant
+**PRE-MW2 MODEL ALIGNMENT REQUIRED — MORRIS DECISION BEFORE DELIVERY**
 
-Cette trajectoire **VALIDATED — ACTIVE ON MAIN** via PR **#453** :
-
-- La validation/intégration de cette trajectoire OpenAI-native-first par PR **#453 seule** **n’a pas** validé MW2 Readiness et **n’a pas** consommé OD-02.
-- Ces gates ont été consommées **séparément** ensuite :
-  - **MW2 Readiness VALIDATED BY MORRIS**
-  - **OD-02 CONSUMED — OPTION B**
-- Ce document **n’autorise pas** MW2 Delivery.
-- **≠ production model selected** ;
-- **≠ production model routing selected** ;
-- **≠ Sol/Terra/Luna campaign already executed** ;
-- **≠ Responses compaction adopted** ;
-- **≠ new architecture** ;
-- **≠ Cognitive Completion PROVEN** ;
-- **≠ runtime v3 ADOPTED** ;
-- OpenAI-native-first **≠** adoption automatique de chaque nouvelle capability fournisseur.
-
-### Verdict de trajectoire actif
-
-**OPENAI-NATIVE-FIRST — VALIDATED / ACTIVE ON MAIN VIA PR #453**
-**GPT-5.6 — CURRENT NORA REAL EVIDENCE FAMILY / LIVE PROVIDER SNAPSHOT REVALIDABLE**
-**GPT-5.6 LUNA + NONE — MW0/MW1 REAL-PROVEN STARTING POINT, NOT PRODUCTION ROUTING DECISION**
-**MW2 READINESS — VALIDATED BY MORRIS**
-**OD-02 — CONSUMED — OPTION B**
-**MW2→MW6 OPENAI CAPABILITY FIT CHECK — REQUIRED BY ACTIVE TRAJECTORY**
-**PRODUCTION MODEL ROUTING — NOT SELECTED**
-**NEXT PRODUCT PREREQUISITE — PRE-MW2-MODEL-BASELINE-01 AFTER PR #455 INTEGRATION / POST-MERGE VERIFICATION**
-**NEXT EXECUTION GATE — DISTINCT MORRIS GO — MW2 DELIVERY AFTER PRE-MW2 SATISFIED**
-**MW2 DELIVERY — NOT AUTHORIZED / NOT STARTED**
-**RUNTIME V3 — NON ADOPTED**
-
+Do **not** change `OPENAI_MODEL` or code in this cycle.
 
 ---
 
-## doc09 §11 modified (complete + invariants)
+## Dimension B — EFFECTIVE F1 REASONING CONFIGURATION
 
-## 11. Cognitive Strategy Class contract
+### Declared vs effective matrix
 
-Source-locked vocabulary: **Routine · Focused · Deep · High-Assurance**.
+| Layer | OPENAI_REASONING_EFFORT | Consumed by config parser | Consumed by `runNoraAgentsTurn` F1 | Explicit Agent `modelSettings` | Runner override |
+| --- | --- | --- | --- | --- | --- |
+| **Declared env** | unset | parsed as `undefined` | **no** | — | — |
+| **SFIA Agent construction** | — | — | — | **absent** in `runNoraAgentsTurn` | `createNoraAgentsRunner` — no `modelSettings` |
+| **SDK @ 0.17.0** | — | — | — | implicit defaults applied | see below |
 
-**Reading rule:** This table describes **typical cognitive posture** per Strategy Class — clarification · verification · source/tool posture · escalation · etc. It is **not** a normative mapping to reasoning effort levels.
+### Installed / declared package versions
 
-**Invariant (OD-02 Option B):**
+| Package | Version source |
+| --- | --- |
+| `openai` | `6.48.0` (package-lock) · `^6.48.0` package.json |
+| `@openai/agents` | `^0.17.0` package.json |
+| `@openai/agents-core` | `0.17.0` (inspected via npm pack — matches declared range) |
+
+### SDK default resolution (@openai/agents-core 0.17.0)
+
+**Source:** `dist/defaultModel.mjs` · `dist/agent.mjs` · `dist/run.mjs` (#prepareModelCall)
+
+**Probe (local, no network):**
 
 ```text
-STRATEGY CLASS ≠ REASONING EFFORT LEVEL.
+gpt-5-mini → getDefaultModelSettings → { text: { verbosity: 'low' } }  // no reasoning.effort
+gpt-5.6 / gpt-5.6-luna / gpt-5.6-sol → { reasoning: { effort: 'none' }, text: { verbosity: 'low' } }
 ```
 
-Reasoning effort is selected from **real workload signals** under the governed Option B envelope. A stable/routine task may require **elevated** reasoning when volume, context size, verification demand, source breadth, tool dependency, contradiction risk, criticality, cost/latency tradeoffs, or other applicable workload signals justify it. Criticality/assurance posture and reasoning effort are **related but distinct axes**.
+**F1 path for configured model `gpt-5-mini`:**
 
-| Class | Workload | Clarification | Verification | Tool posture | Source posture | Reasoning posture *(ILLUSTRATIVE / NON-NORMATIF)* | Escalation/STOP | Cost/latency (qualitative) | Evidence needs | MW5 link |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **Routine** | Low ambiguity · narrow scope · low contradiction | Minimal structural only | Light | As needed · low rounds | Single/narrow | Minimum-sufficient / workload-sensitive · **≠ obligatorily low** | Standard STOP rules | Low / fast | Basic adherence | — |
-| **Focused** | Moderate depth · bounded sources | Proportional | Moderate reads | Moderate | Few sources | Minimum-sufficient / workload-sensitive · **≠ obligatorily medium** | Escalate if authority gap | Medium | Grounding on cited sources | — |
-| **Deep** | High depth · multi-source · synthesis | As needed · no questionnaire | Strong verification | Higher tool rounds | Multi-doc | Typically deeper verification posture · effort remains **workload-sensitive** | STOP if sources insufficient | Higher / slower | Completeness · fabrication checks | — |
-| **High-Assurance** | Critical Profile and/or high rigor signals | Explicit challenge before Critical Rec | Maximum before Critical outputs | Conservative | Broad/trusted | High-assurance verification/challenge posture · **≠ automatic max effort** | Refuse under-qualification · arm MW5 challenge | Highest | Authority · epistemic separation | **Critical challenge gate armed** |
+1. `runNoraAgentsTurn` creates `Agent` with `model='gpt-5-mini'` · no `modelSettings` arg.
+2. Agent constructor: `_modelSettingsExplicitlyConfigured=false` · internal `modelSettings` from `getDefaultModelSettings('gpt-5-mini')` → **no `reasoning` key**.
+3. Runner `#prepareModelCall`: `hasExplicitAgentModelSettings=false` → `implicitModelSettings=getDefaultModelSettings('gpt-5-mini')` → merged modelSettings **omit `reasoning.effort`**.
+4. `reasoningEffortImplicit` flag in runner would be **false** (no implicit effort defined for gpt-5-mini pattern table).
 
-**Invariant:** No permanent production model tier per class. Class selects **settings envelope**, not vendor SKU. Illustrative effort tendencies in this table **≠** production bounds · **≠** fixed class→effort table.
+### Effective reasoning verdict (for current configured model)
+
+| Property | Value |
+| --- | --- |
+| **effective `reasoning.effort`** | **OMITTED** from resolved Agent/Runner `modelSettings` (not `none`/`low`/etc. — key absent) |
+| **effective `reasoning.mode`** | **not set** in SDK defaults for this model |
+| **effective `reasoning.context`** | **not set** in SDK defaults · SFIA explicit wiring **absent** · provider observable behavior **NON PROVEN** without REAL |
+| **OPENAI_REASONING_EFFORT** | **≠** effective F1 effort (unset · not passed to Agent) |
+
+### Dimension B verdict
+
+**CHARACTERIZED for current config** — effort **omitted** at modelSettings resolution for `gpt-5-mini`.
+
+**Reserve:** `reasoning.context` provider/runtime observable behavior **DEFER / NON PROVEN** without separate authorization.
+
+**Note:** If model were aligned to GPT-5.6 family, static SDK defaults would apply `reasoning.effort: 'none'` (+ `text.verbosity: 'low'`) unless explicit `modelSettings` override — **hypothetical** · not current effective baseline.
 
 ---
 
+## Fake / REAL qualification
 
+| Item | Value |
+| --- | --- |
+| **Applicable** | YES — provider boundary subject |
+| **REAL executed** | **NO** |
+| **Proof ceiling this cycle** | CONFIG + installed SDK static resolution |
+| **Historical MW0/MW1 REAL** | GPT-5.6 Luna + none — **≠** current F1 effective baseline |
+| **Morris REAL GO** | **NOT CONSUMED** |
 
 ---
 
-## CORR commit diff
+## Blockers / reserves
 
-```diff
-commit ce719d7d59879c8c59485420d67e007bfeefca01
-Author: Morris Cleland <morris@b0df88a9-1217-4c30-b0ab-357cdfea2c1f.home>
-Date:   Tue Sep 1 22:57:20 2026 +0200
+| ID | Class | Detail |
+| --- | --- | --- |
+| **BLK-PRE-MW2-A-GPT56** | **BLOCKING** | `OPENAI_MODEL=gpt-5-mini` ∉ GPT-5.6 family |
+| **RES-PRE-MW2-B-CONTEXT** | **NON-BLOCKING** | `reasoning.context` observable behavior not proven without REAL |
+| **GAP-MW2-F1-MODELSETTINGS-01** | **Delivery gap (known)** | SFIA does not pass explicit `modelSettings.reasoning` — remains for Delivery |
 
-    docs(sfia-studio): finalize MW2 readiness current truth
+---
 
-    CORR-MW2-INT-02: align doc08 current trajectory pointers to consumed readiness and PRE-MW2 gate; decouple doc09 §11 Strategy Class from fixed reasoning effort under Option B.
-    Co-authored-by: Cursor <cursoragent@cursor.com>
+## Claims authorized
 
-diff --git a/projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md b/projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md
-index b910c5d0..2f189cc6 100644
---- a/projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md
-+++ b/projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md
-@@ -441,7 +441,7 @@ Ce document **n’autorise pas** les étapes 6→12.
- | Source | Disposition |
- | --- | --- |
- | Build Doctrine | **R22 ACTIVE ON MAIN** via PR #453 ; pas de modèle spécifique figé dans la doctrine |
--| Convergence Roadmap | **KEEP** · état/gate courant déjà compatible : MW1 CLOSED → MW2 Readiness/Requalification ; MW2 NOT AUTHORIZED ; Production model routing NOT SELECTED |
-+| Convergence Roadmap | **KEEP** · **CURRENT trajectory:** MW2 Readiness **VALIDATED BY MORRIS** → OD-02 **OPTION B CONSUMED** → repository integration/post-merge verification (PR #455 · **≠ merged until Morris GO**) → **PRE-MW2-MODEL-BASELINE-01** → distinct Morris MW2 Delivery GO after PRE-MW2 satisfied · MW2 Delivery **NOT AUTHORIZED / NOT STARTED** · Production model routing **NOT SELECTED** · runtime v3 **NON ADOPTED** |
- | C5 source-locked backlog | **KEEP source-lock** · pas de nouvelle story / pas de changement AC dans ce truth-sync |
- | MW0 doc06 | **KEEP measurement contract** · historique validé non réécrit ; ce document consomme D0/R1/R2/R3 et le contrat model/reasoning |
- | OD-04 doc07 | **KEEP architecture decision** · Option C preserved · lifecycle synchronisé après PR #453 |
-@@ -488,8 +488,11 @@ Cette trajectoire **VALIDATED — ACTIVE ON MAIN** via PR **#453** :
- **OPENAI-NATIVE-FIRST — VALIDATED / ACTIVE ON MAIN VIA PR #453**
- **GPT-5.6 — CURRENT NORA REAL EVIDENCE FAMILY / LIVE PROVIDER SNAPSHOT REVALIDABLE**
- **GPT-5.6 LUNA + NONE — MW0/MW1 REAL-PROVEN STARTING POINT, NOT PRODUCTION ROUTING DECISION**
-+**MW2 READINESS — VALIDATED BY MORRIS**
-+**OD-02 — CONSUMED — OPTION B**
- **MW2→MW6 OPENAI CAPABILITY FIT CHECK — REQUIRED BY ACTIVE TRAJECTORY**
- **PRODUCTION MODEL ROUTING — NOT SELECTED**
--**NEXT PRODUCT CAPABILITY — MW2 READINESS / REQUALIFICATION**
-+**NEXT PRODUCT PREREQUISITE — PRE-MW2-MODEL-BASELINE-01 AFTER PR #455 INTEGRATION / POST-MERGE VERIFICATION**
-+**NEXT EXECUTION GATE — DISTINCT MORRIS GO — MW2 DELIVERY AFTER PRE-MW2 SATISFIED**
- **MW2 DELIVERY — NOT AUTHORIZED / NOT STARTED**
- **RUNTIME V3 — NON ADOPTED**
-diff --git a/projects/sfia-studio/nora-cognitive-completion/09-nora-mw2-cognitive-workload-profile-readiness.md b/projects/sfia-studio/nora-cognitive-completion/09-nora-mw2-cognitive-workload-profile-readiness.md
-index f3f89507..bbc250c6 100644
---- a/projects/sfia-studio/nora-cognitive-completion/09-nora-mw2-cognitive-workload-profile-readiness.md
-+++ b/projects/sfia-studio/nora-cognitive-completion/09-nora-mw2-cognitive-workload-profile-readiness.md
-@@ -353,14 +353,24 @@ Signals are **INTERNAL** (C3 §10 — CWP INTERNAL · qualification disclosure u
+- PRE-MW2 characterization executed read-only
+- Effective F1 model slug **determined**: `gpt-5-mini`
+- F1 code path reaches Agent with that slug
+- GPT-5.6 alignment **not** verified for reference runtime
+- OPENAI_REASONING_EFFORT unset · not consumed on F1
+- SDK 0.17.0 static defaults traced for `gpt-5-mini`: **no `reasoning.effort` in resolved settings**
+- No live OpenAI call · no secrets published
+- MW2 Delivery **not** authorized
 
- Source-locked vocabulary: **Routine · Focused · Deep · High-Assurance**.
+## Claims forbidden
 
--| Class | Workload | Clarification | Verification | Tool posture | Source posture | Reasoning posture | Escalation/STOP | Cost/latency (qualitative) | Evidence needs | MW5 link |
-+**Reading rule:** This table describes **typical cognitive posture** per Strategy Class — clarification · verification · source/tool posture · escalation · etc. It is **not** a normative mapping to reasoning effort levels.
-+
-+**Invariant (OD-02 Option B):**
-+
-+```text
-+STRATEGY CLASS ≠ REASONING EFFORT LEVEL.
-+```
-+
-+Reasoning effort is selected from **real workload signals** under the governed Option B envelope. A stable/routine task may require **elevated** reasoning when volume, context size, verification demand, source breadth, tool dependency, contradiction risk, criticality, cost/latency tradeoffs, or other applicable workload signals justify it. Criticality/assurance posture and reasoning effort are **related but distinct axes**.
-+
-+| Class | Workload | Clarification | Verification | Tool posture | Source posture | Reasoning posture *(ILLUSTRATIVE / NON-NORMATIF)* | Escalation/STOP | Cost/latency (qualitative) | Evidence needs | MW5 link |
- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
--| **Routine** | Low ambiguity · narrow scope · low contradiction | Minimal structural only | Light | As needed · low rounds | Single/narrow | Lower effort candidate | Standard STOP rules | Low / fast | Basic adherence | — |
--| **Focused** | Moderate depth · bounded sources | Proportional | Moderate reads | Moderate | Few sources | Medium effort candidate | Escalate if authority gap | Medium | Grounding on cited sources | — |
--| **Deep** | High depth · multi-source · synthesis | As needed · no questionnaire | Strong verification | Higher tool rounds | Multi-doc | Higher effort candidate | STOP if sources insufficient | Higher / slower | Completeness · fabrication checks | — |
--| **High-Assurance** | Critical Profile and/or high rigor signals | Explicit challenge before Critical Rec | Maximum before Critical outputs | Conservative | Broad/trusted | Highest **supported** effort envelope | Refuse under-qualification · arm MW5 challenge | Highest | Authority · epistemic separation | **Critical challenge gate armed** |
-+| **Routine** | Low ambiguity · narrow scope · low contradiction | Minimal structural only | Light | As needed · low rounds | Single/narrow | Minimum-sufficient / workload-sensitive · **≠ obligatorily low** | Standard STOP rules | Low / fast | Basic adherence | — |
-+| **Focused** | Moderate depth · bounded sources | Proportional | Moderate reads | Moderate | Few sources | Minimum-sufficient / workload-sensitive · **≠ obligatorily medium** | Escalate if authority gap | Medium | Grounding on cited sources | — |
-+| **Deep** | High depth · multi-source · synthesis | As needed · no questionnaire | Strong verification | Higher tool rounds | Multi-doc | Typically deeper verification posture · effort remains **workload-sensitive** | STOP if sources insufficient | Higher / slower | Completeness · fabrication checks | — |
-+| **High-Assurance** | Critical Profile and/or high rigor signals | Explicit challenge before Critical Rec | Maximum before Critical outputs | Conservative | Broad/trusted | High-assurance verification/challenge posture · **≠ automatic max effort** | Refuse under-qualification · arm MW5 challenge | Highest | Authority · epistemic separation | **Critical challenge gate armed** |
+- PRE-MW2 SATISFIED
+- GPT-5.6 baseline verified on reference runtime
+- production model/reasoning selected
+- OPENAI_REASONING_EFFORT = effective F1 reasoning
+- REAL boundary proven for current baseline
+- MW2 Delivery eligible
+- GAP-MW2-F1-MODELSETTINGS-01 closed
 
--**Invariant:** No permanent production model tier per class. Class selects **settings envelope**, not vendor SKU.
-+**Invariant:** No permanent production model tier per class. Class selects **settings envelope**, not vendor SKU. Illustrative effort tendencies in this table **≠** production bounds · **≠** fixed class→effort table.
+---
 
- ---
+## PRE-MW2 final verdict
 
+### PRE-MW2-MODEL-BASELINE-01 — NOT SATISFIED
 
-```
+**Primary blocker:** **BLK-PRE-MW2-A-GPT56** — reference `OPENAI_MODEL=gpt-5-mini` is outside required GPT-5.6 family.
+
+**DecisionRequest (report only):** Morris decision required on **model alignment to GPT-5.6** before MW2 Delivery eligibility.
+
+Dimension B is **characterized** for the actual configured model (reasoning effort **omitted** at SDK resolution) but does **not** overcome Dimension A failure.
+
+---
+
+## Delivery eligibility
+
+**MW2 Delivery — NOT ELIGIBLE**
+
+PRE-MW2 prerequisite **not satisfied**. Distinct Morris GO — MW2 Delivery **not** for consideration until alignment blocker resolved and PRE-MW2 re-run or Morris accepts alternate baseline policy.
+
+---
+
+## Actions NOT executed
+
+- Runtime/code/env mutation · model change · npm install · live API · REAL · D0/EVAL · Delivery · project commit/PR/merge
+
+---
+
+## Next gate
+
+1. Morris decision — **GPT-5.6 model alignment** for reference runtime (or explicit alternate baseline policy)
+2. Re-run PRE-MW2 after alignment (if Morris GO)
+3. Only if PRE-MW2 SATISFIED → ChatGPT Critical Baseline Review → Morris distinct GO — MW2 Delivery
