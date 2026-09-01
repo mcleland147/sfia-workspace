@@ -1,103 +1,76 @@
-# PR #453 POST-MERGE VERIFICATION — REVIEW PACK
+# POST-MERGE OPENAI-NATIVE-FIRST TRUTH-SYNC — PR READINESS REVIEW PACK
 
 ## Timestamp
-2026-09-01 18:20:14 CEST
+2026-09-01 18:41:24 CEST
 
-## Cycle / profile / typology
-Cycle 14 — Post-merge · DOC · CRITICAL
+## Cycle / typology / profile
+Cycle 14 PR Readiness · DOC · CRITICAL
+CKC: absent — fallback routing guide + v2.6
 
 ## Workspace
 - Repo: mcleland147/sfia-workspace
-- Worktree: /Users/morris/Projects/sfia-workspace-nora-openai-native-first-truth-sync
-- Branch: docs/sfia-studio-nora-openai-native-first-truth-sync
+- Worktree: /Users/morris/Projects/sfia-workspace-nora-openai-native-first-post-merge-truth-sync
+- Branch: docs/sfia-studio-nora-openai-native-first-post-merge-truth-sync
 
-## Local Git Truth Check (initial)
-- pwd: /Users/morris/Projects/sfia-workspace-nora-openai-native-first-truth-sync (worktree created for this cycle)
-- HEAD: 94edffe853280e0196e6afd49a2b57b93031bb30
-- working tree: clean (no staged/project changes)
+## Local Git Truth Check
+- HEAD: 5dfc63fffc837db32b92de63189209513bacf0bc
+- origin/main: d640b5ba7210b9da3593bea9eeae2100c6da6c09
+- origin/branch: 5dfc63fffc837db32b92de63189209513bacf0bc
+- working tree: clean (no project changes pre-PR creation)
+- commits ahead: 4 · behind: 0
 
-## origin/main initial (pre-merge)
-5030b0e8c489754b43b9044f9e3f738e49a8bad5
+## Diff scope (exact)
+1. .tmp-sfia-review/chatgpt-review.md
+2. projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+3. projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md
+4. projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md
+- git diff --check: PASS
+- Roadmap/C5/MW0/runtime: absent from diff
 
-## PR #453 pre-merge truth
-- URL: https://github.com/mcleland147/sfia-workspace/pull/453
-- state: OPEN (draft=true initially)
-- head: 94edffe853280e0196e6afd49a2b57b93031bb30
-- base: 5030b0e8c489754b43b9044f9e3f738e49a8bad5
-- mergeable: MERGEABLE / CLEAN
-- files: 4 (Build Doctrine, doc07, doc08, review pack)
-- pre-merge CI run 33527461029: SUCCESS (all checks + Required Gate)
+## Semantic review
+PASS — lifecycle-only correction:
+- Build Doctrine: R22 VALIDATED/ACTIVE ON MAIN via PR #453
+- doc08: VALIDATED/ACTIVE ON MAIN · Pre-MW2 truth-sync COMPLETE
+- doc07: doc08/R22 ACTIVE · PR #453 integrated · MW2 next gate NOT authorized
+- Roadmap: read-only · compatible (MW1 CLOSED · MW2 NOT AUTHORIZED)
 
-## Morris merge GO
-Consumed in prompt for Ready + merge #453 only.
+## Local validation
+- git diff --check: PASS
+- npm lint: not run (deps absent in worktree) — CI is authoritative
 
-## Ready-for-review
-`gh pr ready 453` → SUCCESS · isDraft=false · head/base unchanged
+## PR
+- Number: **454**
+- URL: https://github.com/mcleland147/sfia-workspace/pull/454
+- state: OPEN · isDraft: true
+- base: main @ d640b5ba7210b9da3593bea9eeae2100c6da6c09
+- head: docs/sfia-studio-nora-openai-native-first-post-merge-truth-sync @ 5dfc63fffc837db32b92de63189209513bacf0bc
+- changed files: 4
 
-## Merge result
-- Method: merge commit (`gh pr merge 453 --merge --match-head-commit 94edffe8...`)
-- PR state: MERGED @ 2026-09-01T16:16:28Z
-- MERGE_SHA: d640b5ba7210b9da3593bea9eeae2100c6da6c09
-
-## origin/main final
-d640b5ba7210b9da3593bea9eeae2100c6da6c09
-
-## Tree / ancestry / file parity
-- PR head tree: 080fb6a73cd465fe5188d1fd5aee614d011b35e2
-- MERGE_SHA tree: 080fb6a73cd465fe5188d1fd5aee614d011b35e2
-- tree parity: PASS
-- ancestor PR head → merge: PASS
-- ancestor merge → main: PASS
-- diff PR head vs MERGE_SHA: empty
-
-## Post-merge CI
-- Run: 33530815963
-- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/33530815963
-- head SHA: d640b5ba7210b9da3593bea9eeae2100c6da6c09
-- conclusion: success
-- Detect SFIA Studio changes: success
-- Build and validate SFIA Studio: success (3m8s)
-- SFIA Studio Required Gate: success
-
-## Files integrated on main
-1. projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md (R22 added)
-2. projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md
-3. projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md (new)
-4. .tmp-sfia-review/chatgpt-review.md (review pack from PR branch)
-
-## Documentary stale-status scan (READ-ONLY)
-Classification: **POST-MERGE DOCUMENTARY TRUTH-SYNC REQUIRED BEFORE MW2 QUALIFICATION**
-
-Stale pre-merge candidate wording still on origin/main after merge:
-- Build Doctrine L6: `R22 ... = DOCUMENTARY CANDIDATE ON BRANCH UNTIL GIT INTEGRATION`
-- Build Doctrine L114: `candidate tant qu'elle n'est pas intégrée sur main`
-- doc08 L6: `DOCUMENTARY CANDIDATE ... NOT ACTIVE ON MAIN UNTIL GIT INTEGRATION`
-- doc07 L16: doc08 = `DOCUMENTARY CANDIDATE in current Pre-MW2 truth-sync`
-- doc07 L389: `DOCUMENTARY CANDIDATE IN DOC08 / BUILD DOCTRINE R22 AMENDMENT`
-
-Roadmap: no PR453-specific stale markers found in grep pass.
-
-Git/PR evidence supersedes for merge proof, but durable ACTIVE surfaces remain contradictory for MW2 qualification.
+## CI (PR)
+- Run: 33532592844
+- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/33532592844
+- head SHA: 5dfc63fffc837db32b92de63189209513bacf0bc
+- Detect SFIA Studio changes: **SUCCESS**
+- Build and validate SFIA Studio: **FAILURE** (Vitest timeouts — preM6.realProductWiringAmend.test.ts, gux15.resolveM3ExecutionContract.test.ts, w2EabcDelivery.test.ts)
+- SFIA Studio Required Gate: **FAILURE** (aggregated)
 
 ## Réserves
-- Post-merge documentary truth-sync recommended/required before MW2 qualification
-- Production model routing NOT SELECTED
+- CI failure appears timing/flaky (5000ms test timeouts) — NOT corrected in this cycle per scope
+- Merge NOT authorized by this GO
 - MW2 NOT AUTHORIZED / NOT STARTED
-- Cognitive Completion NOT PROVEN
-- runtime v3 NON ADOPTED
-- Responses compaction CANDIDATE / NOT ADOPTED
-- C5 unchanged (as required)
+- Production model routing NOT SELECTED
 
 ## Actions NOT performed
-- No project file edits post-merge
-- No project commit/push
-- No branch delete
-- No MW2 start
-- No Roadmap update
-- No new PR
+- merge · gh pr ready · branch delete · project file edits · CI fix · MW2
 
 ## Verdict
-**PR #453 MERGED / POST-MERGE VERIFIED — POST-MERGE DOCUMENTARY TRUTH-SYNC REQUIRED BEFORE MW2 QUALIFICATION**
+**STOP — PR CI FAILED**
+
+PR #454 created in DRAFT — documentary scope and semantic review PASS — CI FAILED — NOT READY FOR MERGE GATE
+
+## Next gate
+- Investigate CI timeout failure (distinct cycle if Morris authorizes)
+- OR Morris merge GO only after CI green + ChatGPT Critical Review PASS
 
 ## Instruction ChatGPT
-Lire le Review Handoff canonique `sfia-review-handoff/latest-chatgpt-review.md` depuis la branche `sfia/review-handoff`, vérifier cycle, branche, PR #453, HEAD/base/merge SHA, CI post-merge, verdict, fichiers, réserves et contenu exploitable. Ne pas considérer MW2 autorisé par ce merge.
+Lire `sfia-review-handoff/latest-chatgpt-review.md` sur `sfia/review-handoff`, vérifier cycle, PR #454, base/head, changed files, CI failure details, verdict et réserves. Ne pas considérer MW2 autorisé. Merge nécessite GO Morris distinct après CI PASS.
