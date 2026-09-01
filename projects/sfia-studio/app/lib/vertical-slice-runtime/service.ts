@@ -52,6 +52,11 @@ import {
   type SqliteEvidenceReviewServices,
 } from "@/lib/oa/evidence-review";
 import type { ProjectServices } from "@/lib/oa/project";
+import {
+  createMaterializeFromMemoryB,
+  MaterializeFromMemoryB,
+  SqliteProjectAuditJournal,
+} from "@/lib/oa/project";
 import { SqliteProductStore } from "@/lib/oa/project/infrastructure/sqlite/sqliteProductStore";
 import {
   createAttemptReaderBridge,
@@ -118,6 +123,10 @@ export interface RuntimeApplicationServiceOptions {
   readonly realBoundaryComposition?: ComposeStudioProductRealBoundaryInput;
 }
 
+export type MaterializationServices = {
+  readonly materializeFromMemoryB: MaterializeFromMemoryB;
+};
+
 export type RuntimeOaStack = {
   readonly projectServices: ProjectServices;
   readonly clock: ClockPort;
@@ -128,6 +137,11 @@ export type RuntimeOaStack = {
   readonly executionContractServices: ExecutionContractServices;
   readonly executionAttemptServices: ExecutionAttemptServices;
   readonly evidenceReviewServices: EvidenceReviewServices | SqliteEvidenceReviewServices;
+  /**
+   * MW1-S03 — Studio-owned governed Memory B → Truth C materialization.
+   * Composed after Decision + Evidence services. Not a Nora write tool.
+   */
+  readonly materializationServices: MaterializationServices;
   /** Explicit TestExecutionAdapter — never silent NoOp. */
   readonly fixtureAdapter: TestExecutionAdapter;
   /**
@@ -275,6 +289,41 @@ function wireOaStack(
         ),
       });
 
+  // MW1-S03 / CORR-01 — compose materialization on normal RuntimeOaStack path.
+  // Product SQLite: durable materialization audit via SqliteProjectAuditJournal
+  // on the same Product store / oa_audit_events (no new table). LPS create/append
+  // may still use MemoryProjectAuditJournal from local composition.
+  const materializationAudit =
+    productSqlite !== null
+      ? new SqliteProjectAuditJournal(productSqlite)
+      : projectServices.audit;
+
+  const materializationServices: MaterializationServices = Object.freeze({
+    materializeFromMemoryB: createMaterializeFromMemoryB({
+      projectServices: {
+        getProject: projectServices.getProject,
+        getCurrentLivingProjectState:
+          projectServices.getCurrentLivingProjectState,
+        appendLivingProjectStateVersion:
+          projectServices.appendLivingProjectStateVersion,
+        audit: materializationAudit,
+      },
+      getHumanDecision: decisionServices.getHumanDecision,
+      getEvidenceById: async (evidenceId) => {
+        const ev =
+          await evidenceReviewServices.repository.findById(evidenceId);
+        if (!ev) return null;
+        return {
+          evidenceId: ev.evidenceId,
+          status: ev.status,
+          availability: ev.availability,
+          freshness: ev.freshness,
+          bindings: { projectId: ev.bindings.projectId },
+        };
+      },
+    }),
+  });
+
   return Object.freeze({
     projectServices,
     clock,
@@ -285,6 +334,7 @@ function wireOaStack(
     executionContractServices,
     executionAttemptServices,
     evidenceReviewServices,
+    materializationServices,
     fixtureAdapter,
     productDurablePath: productSqlite !== null,
   });

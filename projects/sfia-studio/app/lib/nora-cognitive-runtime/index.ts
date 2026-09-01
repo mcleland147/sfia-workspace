@@ -10,6 +10,56 @@ export type {
 } from "./types";
 export { ProductSqliteSession, userTextItem, assistantTextItem } from "./productSqliteSession";
 export type { ProductSqliteSessionOptions } from "./productSqliteSession";
+export {
+  probeMemoryBAvailability,
+  appendMemoryBCognitiveDisclosure,
+  memoryBPiloteNotice,
+  MEMORY_B_COGNITIVE_DISCLOSURE,
+  MEMORY_B_PILOTE_NOTICE,
+} from "./memoryBAvailability";
+export type {
+  MemoryBAvailability,
+  MemoryBProbeResult,
+  ProbeMemoryBAvailabilityOptions,
+} from "./memoryBAvailability";
+export {
+  COMPACTION_COGNITIVE_DISCLOSURE,
+  COMPACTION_PILOTE_NOTICE,
+  DEFAULT_COMPACTION_POLICY,
+  MemoryBSessionView,
+  STALE_PRIOR_INVALIDATED_COGNITIVE_ADDENDUM,
+  STALE_PRIOR_INVALIDATED_PILOTE_ADDENDUM,
+  applyCompactionIfNeeded,
+  appendMemoryBCompactionDisclosure,
+  buildCompactionRecord,
+  buildInvalidatedPriorMeta,
+  computeRawProvenanceCoverage,
+  contentHash,
+  createMemoryBSessionView,
+  extractItemText,
+  loadSessionRows,
+  memoryBCompactionPiloteNotice,
+  parseStoredCompactionRecord,
+  partitionMemoryBForCompaction,
+  prepareMemoryBForTurn,
+  resolveReplayItems,
+  shouldCompactItemCount,
+  staleDisclosureMatchesReplaySemantics,
+  truthCRevisionKey,
+  truthCRevisionsMatch,
+} from "./memoryBCompaction";
+export type {
+  CompactionPolicy,
+  CompactionProvenanceEntry,
+  InvalidatedPriorCompactionMeta,
+  LoadedSessionRows,
+  MemoryBCompactionDetails,
+  MemoryBCompactionLoss,
+  MemoryBCompactionRecord,
+  MemoryBCompactionState,
+  ProvenanceCoverageFacts,
+  TruthCRevision,
+} from "./memoryBCompaction";
 export { resolveNoraSessionSqlitePath } from "./sessionPaths";
 export {
   sfiaBoundaryInstructions,

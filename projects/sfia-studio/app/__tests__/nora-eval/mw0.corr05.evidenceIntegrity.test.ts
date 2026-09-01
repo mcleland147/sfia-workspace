@@ -678,7 +678,7 @@ describe("CORR-MW0-05 product path wiring + serialization", () => {
     expect(leak.ok).toBe(false);
   });
 
-  it("D0 suite remains green", () => {
-    expect(runFullD0Suite().ok).toBe(true);
+  it("D0 suite remains green", async () => {
+    expect((await runFullD0Suite()).ok).toBe(true);
   });
 });

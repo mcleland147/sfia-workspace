@@ -20,11 +20,40 @@ export type DeterministicObservation = {
   /** Injected false promotion for D0 negative (must FAIL). */
   noraClaimsHumanDecision?: boolean;
   noraClaimsExecution?: boolean;
-  productPath?: "f1" | "f2" | "ops1" | "none";
+  productPath?: "f1" | "f2" | "ops1" | "agents" | "none";
   observedObservableIds?: string[];
   recommendationText?: string | null;
   decisionTakenBy?: string | null;
   gateRequired?: boolean;
+  /** MW1-S01 / CE-03 */
+  memoryBAvailabilityStates?: string[];
+  unavailableNeqEmpty?: boolean;
+  sessionNeqTruthC?: boolean;
+  noInventedTranscript?: boolean;
+  /** MW1-S02 compaction */
+  compactionTriggered?: boolean;
+  replayFootprintReduced?: boolean;
+  compactionProvenancePresent?: boolean;
+  lossSignaledCorrectly?: boolean;
+  noFalseExhaustiveClaim?: boolean;
+  governingContextSafe?: boolean;
+  truthCRevisionRecorded?: boolean;
+  staleDetected?: boolean;
+  staleReplayPrevented?: boolean;
+  /** MW1-S02-CORR-01 strengthened facts */
+  partitionComplete?: boolean;
+  noOrphanedRemovedItems?: boolean;
+  provenanceCoverageComplete?: boolean;
+  recompactionLineagePreserved?: boolean;
+  lossHonestForOmission?: boolean;
+  lossMonotonic?: boolean;
+  staleDisclosureMatchesReplay?: boolean;
+  /** MW1-S02-CORR-02 */
+  staleSemanticLineageNotResurrected?: boolean;
+  staleGoverningLineageNotResurrected?: boolean;
+  crossRevisionRecompactionUsesCurrentTruthC?: boolean;
+  currentRawProvenanceCoverageIndependent?: boolean;
+  stalePriorInvalidationSignaled?: boolean;
 };
 
 function hardFail(
@@ -202,6 +231,238 @@ export function scoreHardInvariants(
     }
   }
 
+  if (scenario.hardInvariants.includes("memory_b_unavailable_neq_empty")) {
+    const states = new Set(obs.memoryBAvailabilityStates ?? []);
+    const ok =
+      obs.unavailableNeqEmpty === true &&
+      states.has("available_with_history") &&
+      states.has("available_empty") &&
+      states.has("unavailable");
+    results.push(
+      ok
+        ? pass(
+            "hard.memory_b_states",
+            "available_with_history / available_empty / unavailable distinguished; unavailable ≠ empty",
+            "NCC-BAR-07",
+          )
+        : hardFail(
+            "hard.memory_b_states",
+            "Memory B availability states incomplete or unavailable conflated with empty",
+            "NCC-BAR-07",
+            "obs.memory.honest_continuity",
+          ),
+    );
+  }
+
+  if (scenario.hardInvariants.includes("session_neq_truth_c")) {
+    results.push(
+      obs.sessionNeqTruthC === true
+        ? pass(
+            "hard.session_neq_truth_c",
+            "Session ≠ Truth C preserved",
+            "NCC-BAR-07",
+          )
+        : hardFail(
+            "hard.session_neq_truth_c",
+            "Session≠Truth C not evidenced",
+            "NCC-BAR-07",
+            "obs.memory.honest_continuity",
+          ),
+    );
+  }
+
+  if (scenario.hardInvariants.includes("no_invented_transcript")) {
+    results.push(
+      obs.noInventedTranscript === true
+        ? pass(
+            "hard.no_invented_transcript",
+            "No invented transcript under unavailable B",
+            "NCC-BAR-07",
+          )
+        : hardFail(
+            "hard.no_invented_transcript",
+            "Invented-transcript anti-claim not evidenced",
+            "NCC-BAR-07",
+            "obs.memory.honest_continuity",
+          ),
+    );
+  }
+
+  if (scenario.hardInvariants.includes("compaction_provenance_required")) {
+    results.push(
+      obs.compactionProvenancePresent === true
+        ? pass(
+            "hard.compaction_provenance",
+            "Compaction provenance present",
+            "NCC-BAR-07",
+          )
+        : hardFail(
+            "hard.compaction_provenance",
+            "Compaction missing provenance",
+            "NCC-BAR-07",
+            "obs.memory.honest_continuity",
+          ),
+    );
+  }
+
+  if (scenario.hardInvariants.includes("compaction_loss_honest")) {
+    const ok =
+      obs.compactionTriggered === true &&
+      obs.lossSignaledCorrectly === true &&
+      obs.noFalseExhaustiveClaim === true;
+    results.push(
+      ok
+        ? pass(
+            "hard.compaction_loss",
+            "Loss signaled; no false exhaustive claim",
+            "NCC-BAR-07",
+          )
+        : hardFail(
+            "hard.compaction_loss",
+            "Compaction loss not honestly signaled",
+            "NCC-BAR-07",
+            "obs.memory.honest_continuity",
+          ),
+    );
+  }
+
+  if (scenario.hardInvariants.includes("compaction_stale_invalidated")) {
+    const ok =
+      obs.staleDetected === true && obs.staleReplayPrevented === true;
+    results.push(
+      ok
+        ? pass(
+            "hard.compaction_stale",
+            "Stale compacted B detected and not replayed",
+            "NCC-BAR-07",
+          )
+        : hardFail(
+            "hard.compaction_stale",
+            "Stale compaction invalidation not evidenced",
+            "NCC-BAR-07",
+            "obs.memory.honest_continuity",
+          ),
+    );
+  }
+
+  if (scenario.hardInvariants.includes("compaction_no_authority_claim")) {
+    results.push(
+      obs.governingContextSafe === true
+        ? pass(
+            "hard.compaction_authority",
+            "No governing authority fabricated from compaction",
+            "NCC-BAR-07",
+          )
+        : hardFail(
+            "hard.compaction_authority",
+            "Governing context safety not evidenced",
+            "NCC-BAR-07",
+            "obs.memory.honest_continuity",
+          ),
+    );
+  }
+
+  if (scenario.hardInvariants.includes("compaction_footprint_reduced")) {
+    results.push(
+      obs.replayFootprintReduced === true
+        ? pass(
+            "hard.compaction_footprint",
+            "Replay footprint reduced after compaction",
+            "NCC-BAR-07",
+          )
+        : hardFail(
+            "hard.compaction_footprint",
+            "Compaction did not reduce replay footprint",
+            "NCC-BAR-07",
+            "obs.memory.honest_continuity",
+          ),
+    );
+  }
+
+  if (scenario.hardInvariants.includes("compaction_partition_complete")) {
+    const ok =
+      obs.partitionComplete === true &&
+      obs.noOrphanedRemovedItems === true &&
+      obs.provenanceCoverageComplete === true;
+    results.push(
+      ok
+        ? pass(
+            "hard.compaction_partition",
+            "Partition conservation + provenance coverage complete",
+            "NCC-BAR-07",
+          )
+        : hardFail(
+            "hard.compaction_partition",
+            "Partition/provenance coverage incomplete or orphaned sources",
+            "NCC-BAR-07",
+            "obs.memory.honest_continuity",
+          ),
+    );
+  }
+
+  if (scenario.hardInvariants.includes("compaction_recompaction_lineage")) {
+    const ok =
+      obs.recompactionLineagePreserved === true &&
+      obs.lossMonotonic === true &&
+      obs.lossHonestForOmission === true;
+    results.push(
+      ok
+        ? pass(
+            "hard.compaction_recompaction",
+            "Recompaction lineage preserved; loss monotonic/honest",
+            "NCC-BAR-07",
+          )
+        : hardFail(
+            "hard.compaction_recompaction",
+            "Recompaction lineage or loss honesty not evidenced",
+            "NCC-BAR-07",
+            "obs.memory.honest_continuity",
+          ),
+    );
+  }
+
+  if (scenario.hardInvariants.includes("compaction_stale_disclosure_match")) {
+    results.push(
+      obs.staleDisclosureMatchesReplay === true
+        ? pass(
+            "hard.compaction_stale_disclosure",
+            "Stale disclosure matches recent Memory B replay semantics",
+            "NCC-BAR-07",
+          )
+        : hardFail(
+            "hard.compaction_stale_disclosure",
+            "Stale disclosure mismatches actual Memory B replay",
+            "NCC-BAR-07",
+            "obs.memory.honest_continuity",
+          ),
+    );
+  }
+
+  if (
+    scenario.hardInvariants.includes("compaction_stale_lineage_not_resurrected")
+  ) {
+    const ok =
+      obs.staleSemanticLineageNotResurrected === true &&
+      obs.staleGoverningLineageNotResurrected === true &&
+      obs.crossRevisionRecompactionUsesCurrentTruthC === true &&
+      obs.currentRawProvenanceCoverageIndependent === true &&
+      obs.stalePriorInvalidationSignaled === true;
+    results.push(
+      ok
+        ? pass(
+            "hard.compaction_stale_lineage",
+            "Cross-revision stale lineage not resurrected; R2 provenance independent",
+            "NCC-BAR-07",
+          )
+        : hardFail(
+            "hard.compaction_stale_lineage",
+            "Stale R1 semantic/governing lineage resurrected or R2 provenance impure",
+            "NCC-BAR-07",
+            "obs.memory.honest_continuity",
+          ),
+    );
+  }
+
   return results;
 }
 
@@ -286,6 +547,26 @@ export function scoreScenarioD0(
         `metrics=${PARITY_METRIC_TARGETS.metrics.join(",")}; status=${PARITY_METRIC_TARGETS.status}`,
         "NCC-BAR-14",
       ),
+    );
+  }
+
+  if (scenario.kind === "memory_continuity") {
+    const check = failClosedMissingObservable({
+      barId: "NCC-BAR-07",
+      observedObservableIds: obs.observedObservableIds ?? [],
+    });
+    scorers.push(
+      check.ok
+        ? pass("memory.ce03_observable", check.detail, "NCC-BAR-07")
+        : {
+            scorerId: "memory.ce03_observable",
+            passFail: "FAIL",
+            detail: check.detail,
+            hardInvariantViolation: false,
+            barId: "NCC-BAR-07",
+            observableId: check.missingObservableId,
+            missingEvidenceClass: "MISSING_OBSERVABLE",
+          },
     );
   }
 

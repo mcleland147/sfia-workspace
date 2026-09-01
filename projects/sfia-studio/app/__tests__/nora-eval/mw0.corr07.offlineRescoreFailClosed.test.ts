@@ -225,8 +225,8 @@ describe("CORR-MW0-07 offline rescore fail-closed ownership", () => {
     );
   });
 
-  it("CASE H — D0 / CORR harness mechanics remain green", () => {
-    expect(runFullD0Suite().ok).toBe(true);
+  it("CASE H — D0 / CORR harness mechanics remain green", async () => {
+    expect((await runFullD0Suite()).ok).toBe(true);
   });
 
   it("synthetic S04-only pack still cannot claim global exit", () => {

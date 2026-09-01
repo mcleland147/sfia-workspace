@@ -44,8 +44,9 @@ const BINDINGS: BarObservableBinding[] = [
   },
   {
     barId: "NCC-BAR-07",
-    observableId: "obs.tool.boundary",
-    evidenceSemantics: "Tool calls remain non-executing for authority surface.",
+    observableId: "obs.memory.honest_continuity",
+    evidenceSemantics:
+      "Honest Memory B availability vs Truth C: available-with-history / available-empty / unavailable distinguished; unavailable ≠ empty; no invented transcript; Session ≠ Truth C (CE-03 / MW1-S01).",
     required: true,
   },
   {

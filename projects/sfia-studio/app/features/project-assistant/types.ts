@@ -114,6 +114,19 @@ export type ProjectAssistantSendSuccess = {
   cognitiveRuntime?: "agents";
   /** Product SQLite Session id (Option C F1). */
   sessionId?: string | null;
+  /** MW1-S01 — honest Memory B availability for this turn. */
+  memoryBAvailability?:
+    | "available_with_history"
+    | "available_empty"
+    | "unavailable";
+  /** MW1-S02 — compaction / stale state for this turn. */
+  memoryBCompactionState?:
+    | "none"
+    | "compacted_no_loss"
+    | "compacted_with_loss"
+    | "stale_invalidated";
+  /** MW1-S02-CORR-02 — prior compacted B invalidated by Truth C change. */
+  stalePriorInvalidated?: boolean;
   f2?: F2TurnPayload;
 };
 

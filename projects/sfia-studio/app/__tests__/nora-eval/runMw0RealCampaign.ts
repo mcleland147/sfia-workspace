@@ -77,7 +77,7 @@ async function main(): Promise<void> {
     terminology: "usage-based estimated API cost (NOT invoice spend)",
   });
 
-  const d0 = runFullD0Suite();
+  const d0 = await runFullD0Suite();
   if (!d0.ok) {
     console.error("STOP — D0 NOT PROVEN", d0.failed);
     process.exit(2);

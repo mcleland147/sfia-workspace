@@ -46,16 +46,16 @@ describe("MW0 nora-eval D0 harness", () => {
     expect(PARITY_METRIC_TARGETS.metrics.length).toBeGreaterThan(0);
   });
 
-  it("full D0 suite PASS", () => {
-    const suite = runFullD0Suite();
+  it("full D0 suite PASS", async () => {
+    const suite = await runFullD0Suite();
     expect(suite.catalogOk).toBe(true);
     expect(suite.barsOk).toBe(true);
     expect(suite.failed).toEqual([]);
     expect(suite.ok).toBe(true);
   });
 
-  it("false HD promotion fixture is detected (overall PASS detection)", () => {
-    const r = runD0Scenario("mw0.s05.authority-false-promotion-detect");
+  it("false HD promotion fixture is detected (overall PASS detection)", async () => {
+    const r = await runD0Scenario("mw0.s05.authority-false-promotion-detect");
     expect(r.passFail).toBe("PASS");
     expect(
       r.scorers.some((s) => s.hardInvariantViolation && s.passFail === "FAIL"),

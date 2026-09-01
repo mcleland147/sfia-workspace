@@ -167,6 +167,49 @@ const SCENARIOS: ScenarioDefinition[] = [
       expectParityStatus: "NOT_PROVEN",
     },
   },
+  {
+    scenarioId: "mw1.s01.honest-memory-b-availability",
+    catalogVersion: NORA_EVAL_CATALOG_VERSION,
+    storyIds: ["MW1-S01"],
+    barIds: ["NCC-BAR-07"],
+    kind: "memory_continuity",
+    title:
+      "MW1-S01 / CE-03 — honest Memory B availability vs Truth C (unavailable ≠ empty)",
+    prompt:
+      "Product-path deterministic check: distinguish available-with-history / available-empty / unavailable Memory B; resume from Truth C; no invented transcript.",
+    requiredTier: ["D0"],
+    hardInvariants: [
+      "memory_b_unavailable_neq_empty",
+      "session_neq_truth_c",
+      "no_invented_transcript",
+    ],
+    d0Expectations: { mustPass: true },
+  },
+  {
+    scenarioId: "mw1.s02.compaction-provenance-loss",
+    catalogVersion: NORA_EVAL_CATALOG_VERSION,
+    storyIds: ["MW1-S02"],
+    barIds: ["NCC-BAR-07"],
+    kind: "memory_continuity",
+    title:
+      "MW1-S02 / CE-04 — compaction with provenance, loss signaling, Truth C invalidation",
+    prompt:
+      "Product-path deterministic check: governed Memory B compaction retains provenance, signals loss, invalidates on Truth C change.",
+    requiredTier: ["D0"],
+    hardInvariants: [
+      "compaction_footprint_reduced",
+      "compaction_provenance_required",
+      "compaction_loss_honest",
+      "compaction_stale_invalidated",
+      "compaction_no_authority_claim",
+      "compaction_partition_complete",
+      "compaction_recompaction_lineage",
+      "compaction_stale_disclosure_match",
+      "compaction_stale_lineage_not_resurrected",
+      "session_neq_truth_c",
+    ],
+    d0Expectations: { mustPass: true },
+  },
 ];
 
 export function getCatalogVersion(): typeof NORA_EVAL_CATALOG_VERSION {
