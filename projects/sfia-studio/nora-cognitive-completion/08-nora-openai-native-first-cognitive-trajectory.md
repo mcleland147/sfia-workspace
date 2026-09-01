@@ -441,7 +441,7 @@ Ce document **n’autorise pas** les étapes 6→12.
 | Source | Disposition |
 | --- | --- |
 | Build Doctrine | **R22 ACTIVE ON MAIN** via PR #453 ; pas de modèle spécifique figé dans la doctrine |
-| Convergence Roadmap | **KEEP** · état/gate courant déjà compatible : MW1 CLOSED → MW2 Readiness/Requalification ; MW2 NOT AUTHORIZED ; Production model routing NOT SELECTED |
+| Convergence Roadmap | **KEEP** · **CURRENT trajectory:** MW2 Readiness **VALIDATED BY MORRIS** → OD-02 **OPTION B CONSUMED** → repository integration/post-merge verification (PR #455 · **≠ merged until Morris GO**) → **PRE-MW2-MODEL-BASELINE-01** → distinct Morris MW2 Delivery GO after PRE-MW2 satisfied · MW2 Delivery **NOT AUTHORIZED / NOT STARTED** · Production model routing **NOT SELECTED** · runtime v3 **NON ADOPTED** |
 | C5 source-locked backlog | **KEEP source-lock** · pas de nouvelle story / pas de changement AC dans ce truth-sync |
 | MW0 doc06 | **KEEP measurement contract** · historique validé non réécrit ; ce document consomme D0/R1/R2/R3 et le contrat model/reasoning |
 | OD-04 doc07 | **KEEP architecture decision** · Option C preserved · lifecycle synchronisé après PR #453 |
@@ -488,8 +488,11 @@ Cette trajectoire **VALIDATED — ACTIVE ON MAIN** via PR **#453** :
 **OPENAI-NATIVE-FIRST — VALIDATED / ACTIVE ON MAIN VIA PR #453**
 **GPT-5.6 — CURRENT NORA REAL EVIDENCE FAMILY / LIVE PROVIDER SNAPSHOT REVALIDABLE**
 **GPT-5.6 LUNA + NONE — MW0/MW1 REAL-PROVEN STARTING POINT, NOT PRODUCTION ROUTING DECISION**
+**MW2 READINESS — VALIDATED BY MORRIS**
+**OD-02 — CONSUMED — OPTION B**
 **MW2→MW6 OPENAI CAPABILITY FIT CHECK — REQUIRED BY ACTIVE TRAJECTORY**
 **PRODUCTION MODEL ROUTING — NOT SELECTED**
-**NEXT PRODUCT CAPABILITY — MW2 READINESS / REQUALIFICATION**
+**NEXT PRODUCT PREREQUISITE — PRE-MW2-MODEL-BASELINE-01 AFTER PR #455 INTEGRATION / POST-MERGE VERIFICATION**
+**NEXT EXECUTION GATE — DISTINCT MORRIS GO — MW2 DELIVERY AFTER PRE-MW2 SATISFIED**
 **MW2 DELIVERY — NOT AUTHORIZED / NOT STARTED**
 **RUNTIME V3 — NON ADOPTED**

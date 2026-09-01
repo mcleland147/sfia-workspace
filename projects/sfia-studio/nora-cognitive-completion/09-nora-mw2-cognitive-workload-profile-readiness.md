@@ -353,14 +353,24 @@ Signals are **INTERNAL** (C3 §10 — CWP INTERNAL · qualification disclosure u
 
 Source-locked vocabulary: **Routine · Focused · Deep · High-Assurance**.
 
-| Class | Workload | Clarification | Verification | Tool posture | Source posture | Reasoning posture | Escalation/STOP | Cost/latency (qualitative) | Evidence needs | MW5 link |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **Routine** | Low ambiguity · narrow scope · low contradiction | Minimal structural only | Light | As needed · low rounds | Single/narrow | Lower effort candidate | Standard STOP rules | Low / fast | Basic adherence | — |
-| **Focused** | Moderate depth · bounded sources | Proportional | Moderate reads | Moderate | Few sources | Medium effort candidate | Escalate if authority gap | Medium | Grounding on cited sources | — |
-| **Deep** | High depth · multi-source · synthesis | As needed · no questionnaire | Strong verification | Higher tool rounds | Multi-doc | Higher effort candidate | STOP if sources insufficient | Higher / slower | Completeness · fabrication checks | — |
-| **High-Assurance** | Critical Profile and/or high rigor signals | Explicit challenge before Critical Rec | Maximum before Critical outputs | Conservative | Broad/trusted | Highest **supported** effort envelope | Refuse under-qualification · arm MW5 challenge | Highest | Authority · epistemic separation | **Critical challenge gate armed** |
+**Reading rule:** This table describes **typical cognitive posture** per Strategy Class — clarification · verification · source/tool posture · escalation · etc. It is **not** a normative mapping to reasoning effort levels.
 
-**Invariant:** No permanent production model tier per class. Class selects **settings envelope**, not vendor SKU.
+**Invariant (OD-02 Option B):**
+
+```text
+STRATEGY CLASS ≠ REASONING EFFORT LEVEL.
+```
+
+Reasoning effort is selected from **real workload signals** under the governed Option B envelope. A stable/routine task may require **elevated** reasoning when volume, context size, verification demand, source breadth, tool dependency, contradiction risk, criticality, cost/latency tradeoffs, or other applicable workload signals justify it. Criticality/assurance posture and reasoning effort are **related but distinct axes**.
+
+| Class | Workload | Clarification | Verification | Tool posture | Source posture | Reasoning posture *(ILLUSTRATIVE / NON-NORMATIF)* | Escalation/STOP | Cost/latency (qualitative) | Evidence needs | MW5 link |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **Routine** | Low ambiguity · narrow scope · low contradiction | Minimal structural only | Light | As needed · low rounds | Single/narrow | Minimum-sufficient / workload-sensitive · **≠ obligatorily low** | Standard STOP rules | Low / fast | Basic adherence | — |
+| **Focused** | Moderate depth · bounded sources | Proportional | Moderate reads | Moderate | Few sources | Minimum-sufficient / workload-sensitive · **≠ obligatorily medium** | Escalate if authority gap | Medium | Grounding on cited sources | — |
+| **Deep** | High depth · multi-source · synthesis | As needed · no questionnaire | Strong verification | Higher tool rounds | Multi-doc | Typically deeper verification posture · effort remains **workload-sensitive** | STOP if sources insufficient | Higher / slower | Completeness · fabrication checks | — |
+| **High-Assurance** | Critical Profile and/or high rigor signals | Explicit challenge before Critical Rec | Maximum before Critical outputs | Conservative | Broad/trusted | High-assurance verification/challenge posture · **≠ automatic max effort** | Refuse under-qualification · arm MW5 challenge | Highest | Authority · epistemic separation | **Critical challenge gate armed** |
+
+**Invariant:** No permanent production model tier per class. Class selects **settings envelope**, not vendor SKU. Illustrative effort tendencies in this table **≠** production bounds · **≠** fixed class→effort table.
 
 ---
 
