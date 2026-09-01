@@ -7,17 +7,17 @@
 | **Cycle** | Pilotage / décision projet |
 | **Typology** | DOC |
 | **Profile** | CRITICAL |
-| **Date (Europe/Paris)** | 2026-08-30 · **truth-sync candidate 2026-09-01** |
+| **Date (Europe/Paris)** | 2026-08-30 · **post-merge truth-sync 2026-09-01** |
 | **Morris decision status** | **OD-04 = CONSUMED** |
 | **Decision** | **OPTION C — HYBRID OPENAI COGNITIVE RUNTIME = ADOPTED AS NORA TARGET ARCHITECTURE** |
-| **Git lifecycle (CURRENT)** | **Decision record INTEGRATED ON MAIN** via PR **#445** · Option C implementation **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#447** · **MW1 Delivery INTEGRATED / POST-MERGE VERIFIED** via PR **#450** · **MW1 COMPLETE / CLOSED BY MORRIS** · MW1 closure docs **INTEGRATED / POST-MERGE VERIFIED** via PR **#451** · current forward product gate = **Pre-MW2 transverse documentary truth-sync → MW2 Readiness / Requalification** · MW2 **NOT AUTHORIZED / NOT STARTED** |
+| **Git lifecycle (CURRENT)** | **Decision record INTEGRATED ON MAIN** via PR **#445** · Option C implementation **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#447** · **MW1 Delivery INTEGRATED / POST-MERGE VERIFIED** via PR **#450** · **MW1 COMPLETE / CLOSED BY MORRIS** · MW1 closure docs **INTEGRATED / POST-MERGE VERIFIED** via PR **#451** · OpenAI-native-first transverse truth-sync **INTEGRATED / POST-MERGE VERIFIED** via PR **#453** · current forward product gate = **MW2 Readiness / Requalification** · MW2 **NOT AUTHORIZED / NOT STARTED** |
 | **Git lifecycle (HISTORICAL at first local record)** | Was **LOCAL DOCUMENTARY CANDIDATE** until distinct project Git integration *(pre-PR #445 · preserved as provenance)* |
 | **OD04-I01** | **ACTIVE CROSS-WAVE ARCHITECTURE INVARIANT** under OD-04 · **NOT** a new architecture selection · see §4A |
-| **Cross-wave cognitive trajectory** | `08-nora-openai-native-first-cognitive-trajectory.md` = **DOCUMENTARY CANDIDATE** in current Pre-MW2 truth-sync · OpenAI-native-first + GPT-5.6/model-reasoning trajectory · **does not reopen OD-04** |
+| **Cross-wave cognitive trajectory** | `08-nora-openai-native-first-cognitive-trajectory.md` = **VALIDATED — ACTIVE ON MAIN** via PR **#453** · OpenAI-native-first + GPT-5.6/model-reasoning trajectory · **does not reopen OD-04** |
 | **runtime v3** | **NON ADOPTED** |
 | **Cognitive Completion** | **NOT PROVEN** |
 | **Package / code migration** | @openai/agents / Zod + Option C runtime **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#447** · MW1 scope later **COMPLETE / CLOSED BY MORRIS** · **≠** Cognitive Completion proven · **≠** Responses compaction adopted · **≠** runtime v3 adopted |
-| **Evidence basis** | Static OpenAI cognitive-runtime evaluation + targeted A/B proof (P1/P2 D0+REAL PASS) · OD-04 PR **#445** · Option C implementation PR **#447** · MW1 Delivery PR **#450** · MW1 REAL boundary campaign `mw1-real-boundary-corr01-1788253662383` / SHA256 `de149e12621f2f003da5f935d6c467574ea8f70a7079ae8aea16c919054b0678` · MW1 closure PR **#451** |
+| **Evidence basis** | Static OpenAI cognitive-runtime evaluation + targeted A/B proof (P1/P2 D0+REAL PASS) · OD-04 PR **#445** · Option C implementation PR **#447** · MW1 Delivery PR **#450** · MW1 REAL boundary campaign `mw1-real-boundary-corr01-1788253662383` / SHA256 `de149e12621f2f003da5f935d6c467574ea8f70a7079ae8aea16c919054b0678` · MW1 closure PR **#451** · OpenAI-native-first truth-sync PR **#453** / merge `d640b5ba7210b9da3593bea9eeae2100c6da6c09` / CI `33530815963` SUCCESS |
 
 > **Anti-claims:** This record adopts a Nora **cognitive runtime target**. It does **not** adopt runtime v3 · does **not** by itself prove Cognitive Completion · does **not** replace SFIA business semantics · does **not** authorize MW2 · does **not** map OpenAI HITL→HD/Confirmation · does **not** map Trace→Evidence · does **not** adopt Responses compaction · **OD04-I01 ≠ new architecture decision** · **MW1 closure ≠ MW2 authorization** · **OpenAI-native-first ≠ automatic adoption of every OpenAI capability**.
 
@@ -33,7 +33,7 @@ The cross-wave construction/evaluation trajectory that follows OD-04 is now sepa
 
 - this document = **architecture target + Studio/Nora/OpenAI boundary** ;
 - `06-nora-mw0-versioned-cognitive-eval-harness-readiness.md` = **measurement/eval spine** ;
-- `08-nora-openai-native-first-cognitive-trajectory.md` = **MW2→MW6 OpenAI capability-fit + model/reasoning trajectory** *(candidate until Git integration)*.
+- `08-nora-openai-native-first-cognitive-trajectory.md` = **MW2→MW6 OpenAI capability-fit + model/reasoning trajectory** · **VALIDATED — ACTIVE ON MAIN via PR #453**.
 
 ---
 
@@ -217,9 +217,10 @@ Correction themes consumed/closed :
 9. MW1 REAL boundary — **PROVEN** · campaign `mw1-real-boundary-corr01-1788253662383` · evidence SHA256 `de149e12621f2f003da5f935d6c467574ea8f70a7079ae8aea16c919054b0678`
 10. MW1 closure — **COMPLETE / CLOSED BY MORRIS**
 11. MW1 closure documentary lifecycle — **INTEGRATED / POST-MERGE VERIFIED** (PR **#451**)
-12. current pre-MW2 gate — **cross-wave documentary truth-sync**, then MW2 Readiness/Requalification · **MW2 NOT AUTHORIZED / NOT STARTED**
+12. OpenAI-native-first cross-wave truth-sync — **INTEGRATED / POST-MERGE VERIFIED** (PR **#453** · merge `d640b5ba7210b9da3593bea9eeae2100c6da6c09` · CI `33530815963` SUCCESS)
+13. current forward product gate — **MW2 Readiness / Requalification** · **MW2 NOT AUTHORIZED / NOT STARTED**
 
-Historical wording that presented MW1-S01/S02/S03 or MW1 closure as FUTURE is superseded by this section for forward-path truth.
+Historical wording that presented MW1-S01/S02/S03, MW1 closure or the pre-MW2 truth-sync as FUTURE is superseded by this section for forward-path truth.
 
 ---
 
@@ -290,7 +291,7 @@ The architectural lesson carried forward is:
 
 > **Use OpenAI for generic cognitive mechanics when fit is proven; preserve SFIA-specific business/authority semantics and build only the missing delta.**
 
-This lesson is now generalized for MW2→MW6 in doc08 candidate and in the Build Doctrine R22 amendment candidate.
+This lesson is now generalized for MW2→MW6 in **doc08 VALIDATED / ACTIVE ON MAIN** and in **Build Doctrine R22 ACTIVE ON MAIN**, both integrated via PR **#453**.
 
 ---
 
@@ -316,7 +317,7 @@ This regression gate is historical input to the now-closed MW1 trajectory. Futur
 For every future Nora macro-wave:
 
 1. identify the desired cognitive outcome and SFIA-specific boundary ;
-2. perform the **OpenAI Capability Fit Check** from doc08 / Build Doctrine R22 once integrated ;
+2. perform the **OpenAI Capability Fit Check** from active doc08 / Build Doctrine R22 ;
 3. map official/current OpenAI candidates ;
 4. compare with existing SFIA/Nora assets ;
 5. preserve Studio/Pilote business/authority ownership ;
@@ -350,21 +351,21 @@ OD-04 architecture target and implementation migration are **consumed/integrated
 
 MW1 is **COMPLETE / CLOSED BY MORRIS**.
 
+Pre-MW2 transverse documentary truth-sync is **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** via PR **#453**.
+
 Current sequence is:
 
 ```text
-Pre-MW2 transverse documentary truth-sync
-  → Git review / integration / post-merge proof
-  → MW2 Readiness / Requalification
+MW2 Readiness / Requalification
   → Morris qualification validation
   → distinct MW2 Delivery GO
   → MW2 Delivery only if authorized
 ```
 
-Cross-wave candidate trajectory:
+Cross-wave active trajectory:
 
-- OpenAI Capability Fit Check mandatory MW2→MW6 after Git integration ;
-- GPT-5.6/model/reasoning current truth lives in doc08/MW0 evidence, not as OD-04 invariant ;
+- OpenAI Capability Fit Check **mandatory MW2→MW6** ;
+- GPT-5.6/model/reasoning current truth lives in active doc08/MW0 evidence, not as OD-04 invariant ;
 - Production model routing **NOT SELECTED** ;
 - MW2 OD-02 remains **OPEN** ;
 - MW2 **NOT AUTHORIZED / NOT STARTED**.
@@ -386,9 +387,11 @@ Cross-wave candidate trajectory:
 = RESPONSES COMPACTION NOT ADOPTED
 = MW1 COMPLETE / CLOSED BY MORRIS
 = MW1 REAL BOUNDARY PROVEN
-= OPENAI-NATIVE-FIRST MW2→MW6 TRAJECTORY = DOCUMENTARY CANDIDATE IN DOC08 / BUILD DOCTRINE R22 AMENDMENT
+= OPENAI-NATIVE-FIRST MW2→MW6 TRAJECTORY = VALIDATED / ACTIVE ON MAIN VIA PR #453
+= BUILD DOCTRINE R22 = VALIDATED / ACTIVE ON MAIN VIA PR #453
 = PRODUCTION MODEL ROUTING NOT SELECTED
-= MW2 READINESS/REQUALIFICATION = NEXT PRODUCT CAPABILITY AFTER DOCUMENTARY INTEGRATION
+= PRE-MW2 TRANSVERSE DOCUMENTARY TRUTH-SYNC = COMPLETE / INTEGRATED / POST-MERGE VERIFIED
+= MW2 READINESS/REQUALIFICATION = NEXT PRODUCT CAPABILITY
 = MW2 NOT AUTHORIZED / NOT STARTED
 = COGNITIVE COMPLETION NOT PROVEN
 = RUNTIME V3 NON ADOPTED

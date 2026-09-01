@@ -3,12 +3,12 @@
 | Métadonnée | Valeur |
 | --- | --- |
 | **Rôle** | Trajectoire transverse de construction cognitive Nora pour MW2→MW6 |
-| **Statut documentaire** | **DOCUMENTARY CANDIDATE — MORRIS TRAJECTORY PRINCIPLE CONSUMED IN CONVERSATION — NOT ACTIVE ON MAIN UNTIL GIT INTEGRATION** |
+| **Statut documentaire** | **VALIDATED — ACTIVE ON MAIN** — Morris trajectory principle integrated via PR **#453** |
 | **Portée** | Nora Cognitive Completion · qualification/readiness MW2→MW6 · OpenAI capability fit · model/reasoning evaluation |
 | **Ne remplace pas** | Build Doctrine · Convergence Roadmap · C5 source-locked backlog · MW0 eval contract · OD-04 Option C |
 | **Git SoT** | Repository `mcleland147/sfia-workspace` · Git courant prime |
-| **Base de cette candidate** | `main` @ `5030b0e8c489754b43b9044f9e3f738e49a8bad5` |
-| **Cycle** | Cycle 14 · DOC · CRITICAL · Pre-MW2 transverse truth-sync |
+| **Intégration Git** | PR **#453** · merge `d640b5ba7210b9da3593bea9eeae2100c6da6c09` · tree `080fb6a73cd465fe5188d1fd5aee614d011b35e2` · post-merge CI `33530815963` **SUCCESS** · Required Gate **PASS** |
+| **Cycle d’origine** | Cycle 14 · DOC · CRITICAL · Pre-MW2 transverse truth-sync |
 | **Delivery** | **ZERO** · MW2 **NOT AUTHORIZED / NOT STARTED** |
 | **Architecture** | **NO NEW ARCHITECTURE** · OD-04 Option C unchanged |
 | **Runtime v3** | **NON ADOPTED** |
@@ -381,12 +381,12 @@ Pas d’adoption automatique.
 
 ## 11. Séquence documentaire et gates Pre-MW2
 
-Trajectoire consommée sur le principe :
+État après intégration PR #453 :
 
 ```text
-1. Pre-MW2 transverse documentary truth-sync
-2. Git integration + review / post-merge proof
-3. MW2 Readiness / Requalification
+1. Pre-MW2 transverse documentary truth-sync — COMPLETE / INTEGRATED
+2. Git integration + post-merge proof — VERIFIED (PR #453)
+3. MW2 Readiness / Requalification — NEXT PRODUCT GATE
 4. Morris validation of MW2 qualification
 5. Distinct Morris MW2 Delivery GO
 6. MW2 Delivery
@@ -404,12 +404,12 @@ Ce document **n’autorise pas** les étapes 3→9.
 
 | Source | Disposition |
 | --- | --- |
-| Build Doctrine | ajouter règle générique OpenAI-native-first pour travaux cognitifs Nora ; pas de modèle spécifique |
-| Convergence Roadmap | porter l’état vivant / prochaine capacité / trajectory reference |
+| Build Doctrine | **R22 ACTIVE ON MAIN** via PR #453 ; pas de modèle spécifique figé dans la doctrine |
+| Convergence Roadmap | **KEEP** · état/gate courant déjà compatible : MW1 CLOSED → MW2 Readiness/Requalification ; MW2 NOT AUTHORIZED ; Production model routing NOT SELECTED |
 | C5 source-locked backlog | **KEEP source-lock** · pas de nouvelle story / pas de changement AC dans ce truth-sync |
-| MW0 doc06 | **KEEP measurement contract** · pointer/clarifier consommation MW2→MW6 si nécessaire |
-| OD-04 doc07 | **KEEP architecture decision** · OpenAI-native-first compatible · no architecture reopen |
-| MW2 Readiness / OD-02 | à créer/requalifier **après** intégration du truth-sync |
+| MW0 doc06 | **KEEP measurement contract** · historique validé non réécrit ; ce document consomme D0/R1/R2/R3 et le contrat model/reasoning |
+| OD-04 doc07 | **KEEP architecture decision** · Option C preserved · lifecycle synchronisé après PR #453 |
+| MW2 Readiness / OD-02 | prochaine capacité/gate à requalifier **après clôture de ce post-merge truth-sync** |
 
 ---
 
@@ -429,9 +429,9 @@ STOP/requalifier si :
 
 ---
 
-## 14. Anti-claims et état à la sortie documentaire
+## 14. Anti-claims et état courant
 
-Cette candidate documentaire :
+Cette trajectoire **VALIDATED — ACTIVE ON MAIN** :
 
 - **≠ MW2 Readiness validée** ;
 - **≠ OD-02 consommée** ;
@@ -445,13 +445,13 @@ Cette candidate documentaire :
 - **≠ Cognitive Completion PROVEN** ;
 - **≠ runtime v3 ADOPTED**.
 
-### Verdict de trajectoire candidate
+### Verdict de trajectoire actif
 
-**OPENAI-NATIVE-FIRST — MORRIS TRAJECTORY PRINCIPLE CONSUMED IN CONVERSATION**
+**OPENAI-NATIVE-FIRST — VALIDATED / ACTIVE ON MAIN VIA PR #453**
 **GPT-5.6 — CURRENT NORA REAL EVIDENCE FAMILY / LIVE PROVIDER SNAPSHOT REVALIDABLE**
 **GPT-5.6 LUNA + NONE — MW0/MW1 REAL-PROVEN STARTING POINT, NOT PRODUCTION ROUTING DECISION**
-**MW2→MW6 OPENAI CAPABILITY FIT CHECK — REQUIRED BY THIS CANDIDATE TRAJECTORY AFTER GIT INTEGRATION**
+**MW2→MW6 OPENAI CAPABILITY FIT CHECK — REQUIRED BY ACTIVE TRAJECTORY**
 **PRODUCTION MODEL ROUTING — NOT SELECTED**
-**NEXT PRODUCT CAPABILITY — MW2 READINESS / REQUALIFICATION AFTER DOCUMENTARY INTEGRATION**
+**NEXT PRODUCT CAPABILITY — MW2 READINESS / REQUALIFICATION**
 **MW2 DELIVERY — NOT AUTHORIZED / NOT STARTED**
 **RUNTIME V3 — NON ADOPTED**
