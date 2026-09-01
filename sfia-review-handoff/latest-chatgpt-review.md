@@ -1,227 +1,472 @@
-# NORA MW1 — CLOSURE/TRUTH-SYNC — CORR-04 — Review Pack
+# NORA MW1 — CLOSURE/TRUTH-SYNC — CORR-05 — Review Pack
 
 ## Metadata
-- Timestamp: 2026-09-01 12:27:09 CEST
+- Timestamp: 2026-09-01 12:38:03 CEST
 - Repository: mcleland147/sfia-workspace
-- Cycle: 14 · DOC · CRITICAL · CORR-04
+- Cycle: 14 · DOC · CRITICAL · CORR-05
 - Morris GO: consumed ("go correction")
 - origin/main: d09e21485343ce04703fb7a013b7ad84e5ab392c / tree 2679810b4a8eaee6fcc9460dab43c123baecf327
-- Input handoff: 3eea89440e1ef9932549a2c87a06e12f4095f990
+- Input handoff: c7cb2c8e914c27966f8e253e0a92f7bcd0a30e39
 - Worktree: /Users/morris/Projects/sfia-workspace-nora-mw1-closure-truth-sync / branch docs/sfia-studio-nora-mw1-closure-truth-sync
 
 ## Prior ChatGPT verdict
-NOT PASS — C5 ACTIVE LIFECYCLE RESIDUALS REQUIRE REQUALIFICATION (BLK-MW1-CLOSURE-C5-CURRENT-GATE-05)
-
-## Blocker BLK-MW1-CLOSURE-C5-CURRENT-GATE-05
-**CLOSED (C5)** — all ACTIVE C5 current-gate pointers normalized to stable correction-independent wording.
+NOT PASS — 2 RÉSIDUELS C5 ACTIFS (BLK-06 Conceptual path CORR-01 · BLK-07 Future sequence normative)
 
 ## Roadmap byte parity
-- ROADMAP_CORR04_PRE_BLOB: `083d285f8f1ece53ae2712e5525482c2af245354`
-- ROADMAP_CORR04_POST_BLOB: `083d285f8f1ece53ae2712e5525482c2af245354`
-- Roadmap byte parity: **PASS**
+- ROADMAP_CORR05_PRE_BLOB: `083d285f8f1ece53ae2712e5525482c2af245354`
+- ROADMAP_CORR05_POST_BLOB: `083d285f8f1ece53ae2712e5525482c2af245354`
+- **PASS**
 
 ## C5 blobs
-- C5_CORR04_PRE_BLOB: `1058a1080d4b45333cf114944b719039521754f5`
-- C5_CORR04_POST_BLOB: `a41587b981c9a4c6d893a0248b3172f3159d4613`
+- C5_CORR05_PRE_BLOB: `a41587b981c9a4c6d893a0248b3172f3159d4613`
+- C5_CORR05_POST_BLOB: `dfd014069bb62bab23a81a446e54c36fc97f6572`
 
-## Stable canonical replacement
-`**CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE**`
+## Conceptual path CURRENT — before
+```
+**Conceptual path (CURRENT):** C5 validated → MW0 CLOSED → Option C #447 → MW1 Delivery #450 → deterministic + REAL proven → **MW1 CLOSED BY MORRIS** → **CORR-01 ChatGPT re-review** → **closure-doc Git integration** → **MW2 READINESS / REQUALIFICATION** (product gate only after doc integration/post-merge).
+```
 
-## Pre-correction C5 CURRENT REVIEW GATE inventory
-| file | line | surface | historical | corr_id | classification | exact |
-| --- | --- | --- | --- | --- | --- | --- |
-| Roadmap | 9 | Snapshot Git courant | True | False | HISTORICAL | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| Roadmap | 11 | **Timestamp maintenance NORA-MW1-CLOSURE-TRUTH-SYNC-CORR-01* | True | True | HISTORICAL | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF LOCAL MW1 CLOSURE/TRUTH-SYNC CORR-01` |
-| Roadmap | 12 | **Timestamp maintenance NORA-MW1-CLOSURE-TRUTH-SYNC-CORR-02* | True | True | HISTORICAL | `CURRENT REVIEW GATE = ChatGPT Critical Re-review CORR-02` |
-| Roadmap | 14 | **Timestamp maintenance historique NORA-MW0-OPTION-C-REGRESS | True | False | HISTORICAL | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| Roadmap | 88 | Morris trajectory decision | False | False | CURRENT-VALID | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| Roadmap | 105 | Nora C1→C5 programme register | False | False | CURRENT-VALID | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| Roadmap | 121 | Gates courants | False | False | CURRENT-VALID | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| Roadmap | 124 | Anti-claims | True | False | HISTORICAL | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| C5 | 10 | Statut | False | True | STALE-ACTIVE | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF LOCAL MW1 CLOSURE/TRUTH-SYNC CORR-01` |
-| C5 | 12 | **Timestamp maintenance NORA-C5-MW1-CLOSURE-TRUTH-SYNC-CORR-01** | True | True | HISTORICAL | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF LOCAL MW1 CLOSURE/TRUTH-SYNC CORR-01` |
-| C5 | 37 | NEXT NORA GATE | False | True | STALE-ACTIVE | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF LOCAL MW1 CLOSURE/TRUTH-SYNC CORR-01` |
-| C5 | 44 | Delivery (metadata table) | False | True | STALE-ACTIVE | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF LOCAL MW1 CLOSURE/TRUTH-SYNC CORR-01` |
-| C5 | 103 | Current downstream / structural gate | False | True | STALE-ACTIVE | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF LOCAL MW1 CLOSURE/TRUTH-SYNC CORR-01` |
-| C5 | 106 | Delivery (§ downstream) | False | True | STALE-ACTIVE | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF LOCAL MW1 CLOSURE/TRUTH-SYNC CORR-01` |
-| C5 | 174 | § downstream prose (step 6) | False | True | STALE-ACTIVE | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF LOCAL MW1 CLOSURE/TRUTH-SYNC CORR-01` |
-| C5 | 1114 | CURRENT downstream structural gate | False | True | STALE-ACTIVE | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF LOCAL MW1 CLOSURE/TRUTH-SYNC CORR-01` |
-| C5 | 1159 | CURRENT next structural gate | False | True | STALE-ACTIVE | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF LOCAL MW1 CLOSURE/TRUTH-SYNC CORR-01` |
-| C5 | 1169 | C5 status prose | False | True | STALE-ACTIVE | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF LOCAL MW1 CLOSURE/TRUTH-SYNC CORR-01` |
-| C5 | 1230 | § trajectory prose (step 7) | False | True | STALE-ACTIVE | `CURRENT REVIEW GATE = ChatGPT Critical Re-review CORR-01` |
-| C5 | 1259 | C5 footer | False | True | STALE-ACTIVE | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW CORR-01 — NEXT PRODUCT GATE (after doc integration/post-merge) = MW2 READINESS / REQUALIFICATION — LOCAL CORR-01 CANDIDATE — NO PROJECT GIT INTEGRATION BY THIS CYCLE.` |
+## Conceptual path CURRENT — after
+```
+**Conceptual path (CURRENT):** C5 validated → MW0 CLOSED → Option C #447 → MW1 Delivery #450 → deterministic + REAL proven → **MW1 CLOSED BY MORRIS** → **CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE** → **ChatGPT Critical Re-review** → **distinct Morris closure-doc Git integration GO** → **commit/push/PR/review** → **distinct Morris merge GO** → **merge/post-merge verification** → **MW2 READINESS / REQUALIFICATION** (product gate only after doc integration/post-merge) · MW2 **NOT AUTHORIZED / NOT STARTED**
+```
 
-## Active C5 stale-pointer count (pre)
-11 ACTIVE surfaces with correction-ID-dependent CURRENT REVIEW GATE
+## Future sequence normative — before
+```
+**Future sequence (normative):** C5 **CONTENT VALIDATED** → repository integration review → Morris merge gate → post-merge verification → MW0 readiness → Targeted TA if required → Morris architecture decision if required → readiness PASS → **distinct Morris Delivery GO** → Delivery → Evidence → requalification.
+```
 
-## Post-correction CURRENT REVIEW GATE inventory (C5 + Roadmap read-only)
-| file | line | surface | historical | corr_id | classification | exact |
-| --- | --- | --- | --- | --- | --- | --- |
-| Roadmap | 9 | Snapshot Git courant | True | False | HISTORICAL | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| Roadmap | 11 | **Timestamp maintenance NORA-MW1-CLOSURE-TRUTH-SYNC-CORR-01* | True | True | HISTORICAL | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF LOCAL MW1 CLOSURE/TRUTH-SYNC CORR-01` |
-| Roadmap | 12 | **Timestamp maintenance NORA-MW1-CLOSURE-TRUTH-SYNC-CORR-02* | True | True | HISTORICAL | `CURRENT REVIEW GATE = ChatGPT Critical Re-review CORR-02` |
-| Roadmap | 14 | **Timestamp maintenance historique NORA-MW0-OPTION-C-REGRESS | True | False | HISTORICAL | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| Roadmap | 88 | Morris trajectory decision | False | False | CURRENT-VALID | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| Roadmap | 105 | Nora C1→C5 programme register | False | False | CURRENT-VALID | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| Roadmap | 121 | Gates courants | False | False | CURRENT-VALID | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| Roadmap | 124 | Anti-claims | True | False | HISTORICAL | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| C5 | 10 | Statut | False | False | CURRENT-VALID | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| C5 | 12 | **Timestamp maintenance NORA-C5-MW1-CLOSURE-TRUTH-SYNC-CORR-01** | True | True | HISTORICAL | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF LOCAL MW1 CLOSURE/TRUTH-SYNC CORR-01` |
-| C5 | 38 | NEXT NORA GATE | False | False | CURRENT-VALID | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| C5 | 45 | Delivery (metadata table) | False | False | CURRENT-VALID | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| C5 | 104 | Current downstream / structural gate | False | False | CURRENT-VALID | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| C5 | 107 | Delivery (§ downstream) | False | False | CURRENT-VALID | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| C5 | 175 | § downstream prose (step 6) | False | False | CURRENT-VALID | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| C5 | 1115 | CURRENT downstream structural gate | False | False | CURRENT-VALID | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| C5 | 1160 | CURRENT next structural gate | False | False | CURRENT-VALID | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| C5 | 1170 | C5 status prose | False | False | CURRENT-VALID | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| C5 | 1231 | § trajectory prose (step 7) | False | False | CURRENT-VALID | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE` |
-| C5 | 1260 | C5 footer | False | False | CURRENT-VALID | `CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE — NEXT PRODUCT GATE (after doc integration/post-merge) = MW2 READINESS / REQUALIFICATION — LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE — NO P` |
+## Future sequence — after / classification
+```
+**Historical construction sequence at C5 authoring — SUPERSEDED / PROVENANCE ONLY:** C5 **CONTENT VALIDATED** → repository integration review → Morris merge gate → post-merge verification → MW0 readiness → Targeted TA if required → Morris architecture decision if required → readiness PASS → **distinct Morris Delivery GO** → Delivery → Evidence → requalification. *(This was the forward sequence at C5 authoring; C5→MW0→MW1 stages are **CONSUMED**; does not govern current next gate. Current forward lifecycle = CURRENT downstream / conceptual path surfaces. Next repository gate after ChatGPT PASS = distinct Morris closure-doc Git integration. Next product capability after integration/post-merge = MW2 Readiness/Requalification.)*
+```
+Classification: **HISTORICAL / SUPERSEDED / PROVENANCE ONLY**
 
-## Active correction-ID pointer audit
-- C5 ACTIVE with corr_id after fix: 0 (must be 0)
-- Roadmap ACTIVE with corr_id (read-only): 0 (must be 0)
-- GLOBAL ACTIVE corr_id count: 0 (must be 0)
+## Active lifecycle surface inventory (post)
+| line | heading | historical | corr_id | consumed_future | class |
+| --- | --- | --- | --- | --- | --- |
+| 10 | **Statut** | False | False | False | CURRENT-VALID |
+| 18 | **CURRENT REPOSITORY TRUTH** | False | False | False | CURRENT-VALID |
+| 19 | **Last verified C5 integration anchor** | False | False | False | CURRENT-VALID |
+| 38 | **TYPE14 content status** | False | False | False | CURRENT-VALID |
+| 39 | **NEXT NORA GATE / CURRENT STRUCTURAL GATE** | False | False | False | CURRENT-VALID |
+| 42 | **OD-03** | False | False | False | CURRENT-VALID |
+| 46 | **Delivery** | False | False | False | CURRENT-VALID |
+| 51 | **MANDATORY TA DELTA** | False | False | False | CURRENT-VALID |
+| 52 | **C5 maturity** | False | False | False | CURRENT-VALID |
+| 54 | > **Anti-claims (CURRENT downstream) :** C5 INTEGRATED ON MAIN ≠ MW1 complete ·  | False | False | False | CURRENT-VALID |
+| 60 | This C5 transforms Nora **C1→C4** (WHY/WHAT · functional behaviors · Product Exp | False | False | False | CURRENT-VALID |
+| 62 | **MACRO-WAVE → EPIC → STORY → ACCEPTANCE → PROOF → ARCHITECTURE DISPOSITION → DE | False | False | False | CURRENT-VALID |
+| 66 | C5 produces testable construction units for MW0–MW6. It does **not** implement r | False | False | False | CURRENT-VALID |
+| 77 | 2 | False | False | False | CURRENT-VALID |
+| 88 | C2 OD register = **historical** at C2. This C5 OD register = **current downstrea | False | False | False | CURRENT-VALID |
+| 99 | PR #439 | False | False | False | CURRENT-VALID |
+| 105 | Current downstream / structural gate | False | False | False | CURRENT-VALID |
+| 108 | Delivery | False | False | False | CURRENT-VALID |
+| 118 | 1. **Normative IDs** from C1 (NR/CE/NCC-BAR) | False | False | False | CURRENT-VALID |
+| 133 | - **FA_REQUIRED = NO** · **NO MANDATORY TA DELTA CURRENTLY DEMONSTRATED** | False | False | False | CURRENT-VALID |
+| 147 | 9. Macro-wave Delivery readiness starts at **BACKLOG QUALIFIED** only — never DE | False | False | False | CURRENT-VALID |
+| 158 | Applies as a **cross-wave invariant** to every MW0→MW6 story construction, readi | False | False | False | CURRENT-VALID |
+| 162 | **SFIA Studio** | False | False | False | CURRENT-VALID |
+| 176 | 6. Option C **#447** · MW1 delivery **#450** · MW1 **COMPLETE / CLOSED BY MORRIS | False | False | False | CURRENT-VALID |
+| 177 | 7. **MW0×MW1 single-path REAL integration proven on F1 path** (orchestrateProjec | False | False | False | CURRENT-VALID |
+| 185 | NR | False | False | False | CURRENT-VALID |
+| 195 | NR-09 | False | False | False | CURRENT-VALID |
+| 204 | NR-18 | False | False | False | CURRENT-VALID |
+| 220 | CE | False | False | False | CURRENT-VALID |
+| 237 | NCC-BAR | False | False | False | CURRENT-VALID |
+| 248 | 10 | False | False | False | CURRENT-VALID |
+| 260 | MW | False | False | False | CURRENT-VALID |
+| 270 | No macro-wave beyond closed MW1 is **DELIVERY AUTHORIZED** in C5. **MW2 = NOT AU | False | False | False | CURRENT-VALID |
+| 301 | Scope OUT | False | False | False | CURRENT-VALID |
+| 303 | Negative AC / anti-claims | False | False | False | CURRENT-VALID |
+| 307 | Debt exit | False | False | False | CURRENT-VALID |
+| 309 | Morris gate required | False | False | False | CURRENT-VALID |
+| 310 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 336 | Debt exit | False | False | False | CURRENT-VALID |
+| 338 | Morris gate required | False | False | False | CURRENT-VALID |
+| 339 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 368 | Debt exit | False | False | False | CURRENT-VALID |
+| 370 | Morris gate required | False | False | False | CURRENT-VALID |
+| 371 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 388 | Existing runtime asset | False | False | False | CURRENT-VALID |
+| 397 | Debt exit | False | False | False | CURRENT-VALID |
+| 399 | Morris gate required | False | False | False | CURRENT-VALID |
+| 400 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 426 | Debt exit | False | False | False | CURRENT-VALID |
+| 428 | Morris gate required | False | False | False | CURRENT-VALID |
+| 429 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 455 | Debt exit | False | False | False | CURRENT-VALID |
+| 457 | Morris gate required | False | False | False | CURRENT-VALID |
+| 458 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 479 | Acceptance criteria | False | False | False | CURRENT-VALID |
+| 484 | Debt exit | False | False | False | CURRENT-VALID |
+| 486 | Morris gate required | False | False | False | CURRENT-VALID |
+| 487 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 520 | Debt exit | False | False | False | CURRENT-VALID |
+| 522 | Morris gate required | False | False | False | CURRENT-VALID |
+| 523 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 549 | Debt exit | False | False | False | CURRENT-VALID |
+| 551 | Morris gate required | False | False | False | CURRENT-VALID |
+| 552 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 581 | Debt exit | False | False | False | CURRENT-VALID |
+| 583 | Morris gate required | False | False | False | CURRENT-VALID |
+| 584 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 612 | Acceptance criteria | False | False | False | CURRENT-VALID |
+| 617 | Debt exit | False | False | False | CURRENT-VALID |
+| 619 | Morris gate required | False | False | False | CURRENT-VALID |
+| 620 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 629 | User / system outcome | False | False | False | CURRENT-VALID |
+| 646 | Debt exit | False | False | False | CURRENT-VALID |
+| 648 | Morris gate required | False | False | False | CURRENT-VALID |
+| 649 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 682 | Debt exit | False | False | False | CURRENT-VALID |
+| 684 | Morris gate required | False | False | False | CURRENT-VALID |
+| 685 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 711 | Debt exit | False | False | False | CURRENT-VALID |
+| 713 | Morris gate required | False | False | False | CURRENT-VALID |
+| 714 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 747 | Debt exit | False | False | False | CURRENT-VALID |
+| 749 | Morris gate required | False | False | False | CURRENT-VALID |
+| 750 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 776 | Debt exit | False | False | False | CURRENT-VALID |
+| 778 | Morris gate required | False | False | False | CURRENT-VALID |
+| 779 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 808 | Debt exit | False | False | False | CURRENT-VALID |
+| 810 | Morris gate required | False | False | False | CURRENT-VALID |
+| 811 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 840 | Negative AC / anti-claims | False | False | False | CURRENT-VALID |
+| 844 | Debt exit | False | False | False | CURRENT-VALID |
+| 846 | Morris gate required | False | False | False | CURRENT-VALID |
+| 847 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 873 | Debt exit | False | False | False | CURRENT-VALID |
+| 875 | Morris gate required | False | False | False | CURRENT-VALID |
+| 876 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 885 | User / system outcome | False | False | False | CURRENT-VALID |
+| 894 | Asset disposition | False | False | False | CURRENT-VALID |
+| 895 | Scope IN | False | False | False | CURRENT-VALID |
+| 896 | Scope OUT | False | False | False | CURRENT-VALID |
+| 897 | Acceptance criteria | False | False | False | CURRENT-VALID |
+| 902 | Debt exit | False | False | False | CURRENT-VALID |
+| 904 | Morris gate required | False | False | False | CURRENT-VALID |
+| 905 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 931 | Debt exit | False | False | False | CURRENT-VALID |
+| 933 | Morris gate required | False | False | False | CURRENT-VALID |
+| 934 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 967 | Debt exit | False | False | False | CURRENT-VALID |
+| 969 | Morris gate required | False | False | False | CURRENT-VALID |
+| 970 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 996 | Debt exit | False | False | False | CURRENT-VALID |
+| 998 | Morris gate required | False | False | False | CURRENT-VALID |
+| 999 | Delivery readiness state | False | False | False | CURRENT-VALID |
+| 1007 | AT-01 | False | False | False | CURRENT-VALID |
+| 1009 | AT-03 | False | False | False | CURRENT-VALID |
+| 1019 | TA REQUIRED — BLOCK DELIVERY | False | False | False | CURRENT-VALID |
+| 1021 | **FA_REQUIRED = NO** · **MANDATORY TA DELTA = NOT CURRENTLY DEMONSTRATED**. | False | False | False | CURRENT-VALID |
+| 1025 | ## 18. Technology candidate register — CURRENT + historical candidates | False | False | False | CURRENT-VALID |
+| 1027 | **CURRENT (OD-04 CONSUMED · OD04-I01 ACTIVE):** Agents SDK Runner = **TARGET ADO | False | False | False | CURRENT-VALID |
+| 1031 | Candidate | False | False | False | CURRENT-VALID |
+| 1049 | ## 19. Current OD register (C5 downstream truth) | False | False | False | CURRENT-VALID |
+| 1051 | OD | False | False | False | CURRENT-VALID |
+| 1057 | OD-06 | False | False | False | CURRENT-VALID |
+| 1067 | Acyclic macro-wave DAG (prerequisites ≠ unconditional Delivery waterfall): | False | False | False | CURRENT-VALID |
+| 1077 | │     · uses CURRENT C4-qualified grounding baseline (not MW4 completion) | False | False | False | CURRENT-VALID |
+| 1091 | ## 21. Debt / exit | False | False | False | CURRENT-VALID |
+| 1093 | Debt ID | False | False | False | CURRENT-VALID |
+| 1095 | D-C5-01 | False | False | False | CURRENT-VALID |
+| 1096 | D-C5-02 | False | False | False | CURRENT-VALID |
+| 1098 | D-C5-04 | False | False | False | CURRENT-VALID |
+| 1100 | D-C5-06 | False | False | False | CURRENT-VALID |
+| 1105 | ## 22. Readiness / Delivery gates | False | False | False | CURRENT-VALID |
+| 1107 | Gate | False | False | False | CURRENT-VALID |
+| 1112 | Post-merge evidence | False | False | False | CURRENT-VALID |
+| 1116 | **CURRENT downstream structural gate** | False | False | False | CURRENT-VALID |
+| 1117 | **CURRENT MW0** | False | False | False | CURRENT-VALID |
+| 1118 | **CURRENT MW1 Readiness** | False | False | False | CURRENT-VALID |
+| 1119 | **CURRENT OD-03** | False | False | False | CURRENT-VALID |
+| 1121 | **CURRENT MW1** | False | False | False | CURRENT-VALID |
+| 1122 | Macro-wave readiness cycles | False | False | False | CURRENT-VALID |
+| 1125 | Morris Delivery GO per wave | False | False | False | CURRENT-VALID |
+| 1127 | Integrated Cognitive Completion QA | False | False | False | CURRENT-VALID |
+| 1128 | Morris final Cognitive Completion closure | False | False | False | CURRENT-VALID |
+| 1132 | ## 23. Exit proof / self-assessment | False | False | False | CURRENT-VALID |
+| 1134 | Criterion | False | False | False | CURRENT-VALID |
+| 1139 | OD-02/03/04/05/06/08 remain OPEN | False | False | False | CURRENT-VALID |
+| 1140 | **CURRENT DOWNSTREAM — OD-03 BUILD / CONSUMED** | False | False | False | CURRENT-VALID |
+| 1141 | **CURRENT DOWNSTREAM — OD-04 CONSUMED / OPTION C TARGET ADOPTED** | False | False | False | CURRENT-VALID |
+| 1142 | **CURRENT DOWNSTREAM — OD-02/05/06/08 remain OPEN** | False | False | False | CURRENT-VALID |
+| 1155 | No architecture selected | False | False | False | CURRENT-VALID |
+| 1156 | No OpenAI technology adopted | False | False | False | CURRENT-VALID |
+| 1157 | No Delivery authorized | False | False | False | CURRENT-VALID |
+| 1159 | Debt/exit explicit | False | False | False | CURRENT-VALID |
+| 1161 | **CURRENT next structural gate** | False | False | False | CURRENT-VALID |
+| 1162 | **CURRENT next capability after MW1** | False | False | False | CURRENT-VALID |
+| 1171 | **C5 status:** **CONTENT VALIDATED / INTEGRATED / POST-MERGE VERIFIED** · **CURR | False | False | False | CURRENT-VALID |
+| 1177 | - **C5 CONTENT VALIDATED BY MORRIS** ≠ Delivery authorized | False | False | False | CURRENT-VALID |
+| 1178 | - **C5 INTEGRATED ON MAIN** ≠ MW1 Delivery authorized | False | False | False | CURRENT-VALID |
+| 1180 | - **C5 POST-MERGE VERIFIED** ≠ MW0 Delivery authorized | False | False | False | CURRENT-VALID |
+| 1185 | - **C5 CONTENT VALIDATED BY MORRIS** ≠ MW1 Delivery authorized | False | False | False | CURRENT-VALID |
+| 1199 | - **MW1 Readiness PASS / VALIDATED BY MORRIS** ≠ MW1 Delivery authorized ≠ MW1 s | False | False | False | CURRENT-VALID |
+| 1213 | ## 25. Final recommendation / next gate | False | False | False | CURRENT-VALID |
+| 1219 | 1. **MW0 READINESS QUALIFICATION** (then next Nora gate · **NOT YET EXECUTED** i | False | False | False | CURRENT-VALID |
+| 1220 | 2. If readiness PASS → **distinct Morris MW0 Delivery GO** | False | False | False | CURRENT-VALID |
+| 1221 | 3. If Delivery GO → MW0 Delivery / proof | False | False | False | CURRENT-VALID |
+| 1222 | 4. Then requalification of the next macro-wave | False | False | False | CURRENT-VALID |
+| 1224 | **CURRENT downstream forward trajectory:** | False | False | False | CURRENT-VALID |
+| 1226 | 1. **MW0 = CLOSED / INTEGRATED / POST-MERGE VERIFIED** · EXIT **PROVEN WITH NON- | False | False | False | CURRENT-VALID |
+| 1227 | 2. **MW1 Readiness = PASS / VALIDATED BY MORRIS** · **OD-03 = BUILD / CONSUMED** | False | False | False | CURRENT-VALID |
+| 1232 | 7. **CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 C | False | False | False | CURRENT-VALID |
+| 1234 | If MW1 Delivery reveals a **new** structural technical primitive need beyond OD- | False | False | False | CURRENT-VALID |
+| 1236 | **Conceptual path (CURRENT):** C5 validated → MW0 CLOSED → Option C #447 → MW1 D | False | False | False | CURRENT-VALID |
+| 1238 | REAL-B remains **deferred qualified candidate** until a future distinct Morris s | False | False | False | CURRENT-VALID |
+| 1255 | TA REQUIRED — BLOCK DELIVERY stories | False | False | False | CURRENT-VALID |
+| 1257 | Delivery authorized | False | False | False | CURRENT-VALID |
+| 1261 | *Fin du C5 — MW1 COMPLETE / CLOSED BY MORRIS — PR #450 — REAL BOUNDARY PROVEN —  | False | False | False | CURRENT-VALID |
+
+## ACTIVE-LIFECYCLE corr-ID count
+0 (must be 0)
+
+## ACTIVE consumed-stage-as-future count
+0 (must be 0)
 
 ## STALE-ACTIVE count
 0
 
 ## Stale-hit inventory
-- **Roadmap:9** `CURRENT REVIEW GATE` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:10** `REAL-B` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:11** `CURRENT REVIEW GATE` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:12** `CURRENT REVIEW GATE` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:13** `CORR-03` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:14** `CURRENT REVIEW GATE` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:15** `MW1 NOT COMPLETE` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:17** `MW1 final proof` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:18** `next structural gate` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:19** `Cognitive Completion PROVEN` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:20** `MW1 NOT COMPLETE` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:21** `next structural gate` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:22** `next structural gate` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:23** `CORR-01` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:24** `next structural gate` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:25** `CORR-02` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:26** `CORR-02` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:27** `CORR-01` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:28** `CORR-01` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:29** `REAL-B` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:30** `REAL-B` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:31** `REAL-B` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:32** `CORR-01` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:33** `CORR-01` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:34** `CORR-01` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:35** `CORR-01` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:36** `READY FOR REAL` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:37** `READY FOR REAL` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:38** `READY FOR REAL` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:39** `READY FOR REAL` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:40** `READY FOR REAL` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:41** `READY FOR REAL` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:44** `READY FOR REAL` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:47** `not finally closed` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:48** `not finally closed` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:78** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:9** `CURRENT REVIEW GATE` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:10** `REAL-B` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:11** `CURRENT REVIEW GATE` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:12** `CURRENT REVIEW GATE` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:13** `CORR-03` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:14** `CURRENT REVIEW GATE` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:15** `MW1 NOT COMPLETE` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:16** `trajectory` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:17** `MW1 final proof` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:18** `next structural gate` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:19** `trajectory` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:20** `MW1 NOT COMPLETE` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:21** `next structural gate` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:22** `MW0 readiness` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:23** `CORR-01` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:24** `MW0 readiness` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:25** `CORR-02` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:26** `CORR-02` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:27** `CORR-01` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:28** `CORR-01` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:29** `REAL-B` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:30** `REAL-B` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:31** `REAL-B` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:32** `CORR-01` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:33** `CORR-01` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:34** `CORR-01` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:35** `CORR-01` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:36** `READY FOR REAL` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:37** `READY FOR REAL` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:38** `READY FOR REAL` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:39** `READY FOR REAL` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:40** `READY FOR REAL` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:41** `READY FOR REAL` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:44** `READY FOR REAL` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:47** `not finally closed` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:48** `not finally closed` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:59** `trajectory` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:78** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
 - **Roadmap:82** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **Roadmap:88** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent current review gate.
-- **Roadmap:89** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **Roadmap:92** `REAL-B` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
+- **Roadmap:85** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:86** `downstream` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:87** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:88** `CURRENT REVIEW GATE` **HISTORICAL** — REAL evidence provenance — not documentary lifecycle pointer.
+- **Roadmap:89** `REAL-B` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:92** `trajectory` **HISTORICAL** — Historical/superseded/provenance.
 - **Roadmap:93** `READY FOR REAL` **ANTI-CLAIM** — Deliberate overclaim prevention.
 - **Roadmap:94** `READY FOR REAL` **ANTI-CLAIM** — Deliberate overclaim prevention.
 - **Roadmap:95** `READY FOR REAL` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **Roadmap:96** `READY FOR REAL` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:96** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
 - **Roadmap:98** `READY FOR REAL` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **Roadmap:101** `CORR-01` **HISTORICAL** — Unrelated historical CORR reference (REAL/proof/W4 context).
+- **Roadmap:101** `CORR-01` **ANTI-CLAIM** — Deliberate overclaim prevention.
 - **Roadmap:103** `CORR-01` **ANTI-CLAIM** — Deliberate overclaim prevention.
 - **Roadmap:104** `READY FOR REAL` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **Roadmap:105** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent current review gate.
-- **Roadmap:106** `READY FOR REAL` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **Roadmap:111** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **Roadmap:121** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent current review gate.
-- **Roadmap:124** `CURRENT REVIEW GATE` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
+- **Roadmap:105** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent gate.
+- **Roadmap:106** `READY FOR REAL` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:108** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:111** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:112** `downstream` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:121** `CURRENT REVIEW GATE` **HISTORICAL** — REAL evidence provenance — not documentary lifecycle pointer.
+- **Roadmap:122** `trajectory` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:123** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:124** `CURRENT REVIEW GATE` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:135** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:157** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:167** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
 - **Roadmap:174** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **Roadmap:183** `READY FOR REAL` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **Roadmap:184** `READY FOR REAL` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:175** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:180** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:183** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:184** `READY FOR REAL` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:208** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:209** `downstream` **ANTI-CLAIM** — Deliberate overclaim prevention.
 - **Roadmap:212** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
 - **Roadmap:226** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:232** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
 - **Roadmap:246** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:262** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:297** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
 - **Roadmap:301** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:307** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:331** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:337** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:361** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:363** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
 - **Roadmap:367** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:369** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:372** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:374** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:396** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:397** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:407** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
 - **Roadmap:410** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **Roadmap:412** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:412** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:487** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:507** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
 - **Roadmap:518** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
 - **Roadmap:527** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:540** `next gate` **CURRENT-VALID** — Consistent with accepted closure truth.
 - **Roadmap:552** `READY FOR REAL` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **Roadmap:553** `READY FOR REAL` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **Roadmap:621** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:553** `READY FOR REAL` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:570** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:571** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:572** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:578** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:618** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:619** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:621** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:627** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
 - **Roadmap:628** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **Roadmap:636** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:632** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:635** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:636** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:648** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
 - **Roadmap:650** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **Roadmap:651** `READY FOR REAL` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
+- **Roadmap:651** `READY FOR REAL` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:664** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:671** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:677** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:686** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:687** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:738** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
 - **Roadmap:754** `CORR-02` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **Roadmap:759** `READY FOR REAL` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:759** `READY FOR REAL` **ANTI-CLAIM** — Deliberate overclaim prevention.
 - **Roadmap:766** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **Roadmap:845** `CORR-01` **HISTORICAL** — Unrelated historical CORR reference (REAL/proof/W4 context).
+- **Roadmap:768** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:769** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:797** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:813** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:818** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:820** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:835** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:841** `trajectory` **HISTORICAL** — Historical/superseded/provenance.
+- **Roadmap:845** `CORR-01` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:849** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
 - **Roadmap:878** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
 - **Roadmap:889** `READY FOR REAL` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **Roadmap:894** `downstream` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:895** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:904** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:907** `downstream` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:919** `downstream` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:924** `downstream` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:971** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
 - **Roadmap:973** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **Roadmap:1047** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **C5:10** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent current review gate.
-- **C5:11** `REAL-B` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:12** `CURRENT REVIEW GATE` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:13** `CORR-04` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:19** `REAL-B` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:20** `CORR-01` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:21** `CORR-01` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:22** `REAL-B` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:23** `CORR-02` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:24** `REAL-B` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:25** `REAL-B` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:26** `REAL-B` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:27** `CORR-01` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:28** `CORR-01` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:30** `MW1 NOT COMPLETE` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:31** `MW1 NOT COMPLETE` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:32** `MW1 final proof` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:34** `MW1 NOT COMPLETE` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:38** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent current review gate.
-- **C5:39** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **C5:40** `REAL-B` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:44** `Cognitive Completion PROVEN` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **C5:45** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent current review gate.
-- **C5:53** `REAL-B` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **C5:63** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **C5:76** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **C5:104** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent current review gate.
-- **C5:105** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **C5:107** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent current review gate.
-- **C5:175** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent current review gate.
-- **C5:262** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **C5:302** `Cognitive Completion PROVEN` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **C5:1057** `REAL-B` **HISTORICAL** — Historical/superseded timestamp or consumed GO row.
-- **C5:1095** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **C5:1115** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent current review gate.
-- **C5:1120** `REAL-B` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **C5:1136** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **C5:1156** `MW2 READINESS` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **C5:1160** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent current review gate.
-- **C5:1170** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent current review gate.
-- **C5:1180** `Cognitive Completion PROVEN` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **C5:1183** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **C5:1188** `Cognitive Completion PROVEN` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **C5:1189** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **C5:1192** `READY FOR REAL` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **C5:1193** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **C5:1195** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **C5:1228** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **C5:1231** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent current review gate.
-- **C5:1235** `CORR-01` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **C5:1237** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
-- **C5:1238** `Cognitive Completion PROVEN` **ANTI-CLAIM** — Deliberate overclaim prevention.
-- **C5:1260** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent current review gate.
+- **Roadmap:1010** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:1024** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:1040** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:1045** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:1046** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **Roadmap:1047** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **C5:10** `CURRENT REVIEW GATE` **HISTORICAL** — REAL evidence provenance — not documentary lifecycle pointer.
+- **C5:11** `downstream` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:12** `CURRENT REVIEW GATE` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:13** `CORR-04` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:14** `CORR-05` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:20** `trajectory` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:21** `CORR-01` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:22** `CORR-01` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:23** `MW0 readiness` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:24** `CORR-02` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:25** `MW0 readiness` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:26** `MW0 readiness` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:27** `MW0 readiness` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:28** `CORR-01` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:29** `CORR-01` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:30** `trajectory` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:31** `MW1 NOT COMPLETE` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:32** `MW1 NOT COMPLETE` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:33** `MW1 final proof` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:35** `MW1 NOT COMPLETE` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:39** `CURRENT REVIEW GATE` **HISTORICAL** — REAL evidence provenance — not documentary lifecycle pointer.
+- **C5:40** `REAL-B` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **C5:41** `REAL-B` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:45** `Cognitive Completion PROVEN` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **C5:46** `CURRENT REVIEW GATE` **HISTORICAL** — REAL evidence provenance — not documentary lifecycle pointer.
+- **C5:54** `downstream` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **C5:64** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:77** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:88** `downstream` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:104** `MW0 readiness` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:105** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent gate.
+- **C5:106** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:108** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent gate.
+- **C5:118** `normative` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:162** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:176** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent gate.
+- **C5:177** `downstream` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:195** `trajectory` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **C5:248** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:263** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:272** `MW0 readiness` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:303** `Cognitive Completion PROVEN` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **C5:309** `MW0 readiness` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:370** `MW0 readiness` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:388** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:1049** `downstream` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:1058** `REAL-B` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:1096** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:1113** `MW0 readiness` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:1114** `MW0 readiness` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:1116** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent gate.
+- **C5:1121** `REAL-B` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **C5:1127** `downstream` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:1128** `downstream` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:1137** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:1140** `downstream` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:1141** `downstream` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:1142** `downstream` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:1157** `MW2 READINESS` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:1161** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent gate.
+- **C5:1171** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent gate.
+- **C5:1179** `MW0 readiness` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:1181** `Cognitive Completion PROVEN` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **C5:1184** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **C5:1189** `Cognitive Completion PROVEN` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **C5:1190** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **C5:1193** `READY FOR REAL` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **C5:1194** `REAL-B` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **C5:1196** `runtime v3 ADOPTED` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **C5:1213** `next gate` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:1217** `trajectory` **HISTORICAL** — Historical/superseded/provenance.
+- **C5:1219** `MW0 readiness` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:1224** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:1229** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:1232** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent gate.
+- **C5:1234** `trajectory` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:1236** `Conceptual path` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:1238** `REAL-B` **CURRENT-VALID** — Consistent with accepted closure truth.
+- **C5:1239** `Cognitive Completion PROVEN` **ANTI-CLAIM** — Deliberate overclaim prevention.
+- **C5:1261** `CURRENT REVIEW GATE` **CURRENT-VALID** — Stable correction-independent gate.
 
 ## Blocker closure matrix
+- BLK-MW1-CLOSURE-C5-ACTIVE-CORR-ID-06: **CLOSED**
+- BLK-MW1-CLOSURE-C5-LEGACY-NORMATIVE-SEQUENCE-07: **CLOSED**
 - BLK-MW1-CLOSURE-C5-CURRENT-GATE-05: **CLOSED**
 - BLK-MW1-CLOSURE-CURRENT-REVIEW-GATE-04: **CLOSED**
 - BLK-MW1-CLOSURE-NEXT-GATE-ORDERING-01: **CLOSED**
@@ -229,18 +474,18 @@ NOT PASS — C5 ACTIVE LIFECYCLE RESIDUALS REQUIRE REQUALIFICATION (BLK-MW1-CLOS
 - EVID-MW1-CLOSURE-STALE-CLASSIFICATION-02: **CLOSED**
 
 ## Source-lock invariance
-C5 lifecycle-pointer metadata only · NR/CE/NCC-BAR / stories / AC / dependencies / MW semantics unchanged.
+Lifecycle/trajectory metadata only · NR/CE/NCC-BAR / stories / AC / deps unchanged.
 
 ## Verdict
-NORA MW1 CLOSURE/TRUTH-SYNC CORR-04 — PASS — READY FOR CHATGPT FINAL CRITICAL RE-REVIEW
+NORA MW1 CLOSURE/TRUTH-SYNC CORR-05 — PASS — READY FOR CHATGPT FINAL CRITICAL RE-REVIEW
 
-## CORR-04 C5 diff
+## CORR-05 C5 diff
 ```diff
 diff --git a/projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md b/projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
-index 497e91ec..a41587b9 100644
+index 497e91ec..dfd01406 100644
 --- a/projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
 +++ b/projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
-@@ -7,7 +7,10 @@
+@@ -7,7 +7,11 @@
  | **Cycle** | 5 — Backlog / User Stories |
  | **Typologie** | DOC |
  | **Profil** | CRITICAL |
@@ -249,10 +494,11 @@ index 497e91ec..a41587b9 100644
 +| **Timestamp maintenance NORA-C5-MW1-POST-MERGE-CLOSURE-TRUTH-SYNC-01** | 2026-09-01 11:26:59 CEST — **NORA C5 MW1 POST-MERGE CLOSURE DOWNSTREAM TRUTH-SYNC** · Morris closure GO **CONSUMED** · Cycle **14** · C5 substantive backlog UNCHANGED · MW1 **COMPLETE / CLOSED BY MORRIS** · S01/S02/S03 **CLOSED** · deterministic + REAL boundary proven · Responses compaction NOT ADOPTED · MW2 NOT AUTHORIZED · **≠ project Git integration by this cycle** |
 +| **Timestamp maintenance NORA-C5-MW1-CLOSURE-TRUTH-SYNC-CORR-01** | 2026-09-01 11:49:21 CEST — **NORA C5 MW1 CLOSURE CORR-01 DOWNSTREAM GATE ORDERING** · Morris correction GO **CONSUMED** · C5 substantive backlog UNCHANGED · MW1 closure substance UNCHANGED · gate ordering corrected · **CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF LOCAL MW1 CLOSURE/TRUTH-SYNC CORR-01** · **NEXT REPOSITORY LIFECYCLE GATE (after ChatGPT PASS) = DISTINCT MORRIS GO — MW1 CLOSURE/TRUTH-SYNC PROJECT GIT INTEGRATION** · **NEXT PRODUCT CAPABILITY GATE (after closure-doc integration + post-merge verified) = MW2 READINESS / REQUALIFICATION** · **MW2 = NOT AUTHORIZED / NOT STARTED** · **≠ project Git integration by this cycle** |
 +| **Timestamp maintenance NORA-C5-MW1-CLOSURE-TRUTH-SYNC-CORR-04** | 2026-09-01 12:27:09 CEST — **NORA C5 MW1 CLOSURE/TRUTH-SYNC CORR-04** · Morris correction GO **CONSUMED** · Cycle **14** · DOC · CRITICAL · BLK-MW1-CLOSURE-C5-CURRENT-GATE-05 **CLOSED** · ACTIVE C5 lifecycle pointers normalized to correction-independent wording · C5 source-lock substance unchanged · Roadmap unchanged · review gate for this CORR-04 execution = ChatGPT Final Critical Re-review · next repository lifecycle gate after PASS = Morris closure-doc Git integration GO · MW2 readiness only after integration/post-merge · MW2 NOT AUTHORIZED / NOT STARTED · **≠ project Git integration by this cycle** |
++| **Timestamp maintenance NORA-C5-MW1-CLOSURE-TRUTH-SYNC-CORR-05** | 2026-09-01 12:38:03 CEST — **NORA C5 MW1 CLOSURE/TRUTH-SYNC CORR-05** · Morris correction GO **CONSUMED** · Cycle **14** · DOC · CRITICAL · BLK-MW1-CLOSURE-C5-ACTIVE-CORR-ID-06 **CLOSED** · BLK-MW1-CLOSURE-C5-LEGACY-NORMATIVE-SEQUENCE-07 **CLOSED** · active conceptual path normalized · legacy Future sequence historicalized · C5 source-lock substance unchanged · Roadmap unchanged · review gate for this CORR-05 execution = ChatGPT Final Critical Re-review · next repository lifecycle gate after PASS = Morris closure-doc Git integration GO · MW2 readiness only after integration/post-merge · MW2 NOT AUTHORIZED / NOT STARTED · **≠ project Git integration by this cycle** |
  | **Timestamp (Europe/Paris)** | 2026-08-29 20:45:00 CEST |
  | **Generation worktree (provenance)** | `/Users/morris/Projects/sfia-workspace-nora-c5-type14-post-merge-truth-sync` · provenance only · ≠ repository lifecycle state |
  | **Generation branch (provenance)** | `docs/sfia-studio-nora-c5-type14-post-merge-truth-sync` · provenance only · ≠ repository lifecycle state |
-@@ -24,7 +27,7 @@
+@@ -24,7 +28,7 @@
  | **GO Morris CORR-01 C5 downstream truth sync (MW1 readiness / OD-03)** | **CONSUMED** — `GO MORRIS — CORR-01 C5 DOWNSTREAM TRUTH SYNC — ALIGN ACTIVE/CURRENT C5 DOWNSTREAM STATE WITH MW1 READINESS PASS AND OD-03 BUILD/CONSUMED — PRESERVE HISTORICAL C5 DECISIONS WHERE OD-03 WAS OPEN — NO SUBSTANTIVE BACKLOG CHANGE — MW1 DELIVERY REMAINS NOT AUTHORIZED / NOT STARTED — ADAPT-FIRST — NO FA REQUIRED — NO TA CURRENTLY REQUIRED — TA TRIGGER CANDIDATE PRESERVED — NO ARCHITECTURE SELECTION — NO TECHNOLOGY ADOPTION — SESSIONS / AGENTS SDK / NEW PERSISTENCE NOT SELECTED — REAL-B DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — NEXT STRUCTURAL GATE = DISTINCT MORRIS GO MW1 DELIVERY — NO COMMIT / PUSH / PR / MERGE / BRANCH DELETE` · documentary CURRENT downstream coherence only · ≠ substantive backlog change · ≠ MW1 Delivery · ≠ MW1 started · ≠ architecture · ≠ technology adoption |
  | **Timestamp maintenance historique NORA-C5-MW1-READINESS-OD03-DOWNSTREAM-TRUTH-CORR-01 (pre-OD-04)** | *(historique · superseded as tip by NORA-C5-OD04-OPTION-C-DOWNSTREAM-TRUTH-01)* — 2026-08-30 11:57:20 CEST — **NORA C5 MW1 READINESS / OD-03 DOWNSTREAM TRUTH CORR-01** · Morris CORR-01 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR/CE/NCC-BAR / MW0→MW6 / 10 epics / 23 stories / DAG / 18/5/0 **UNCHANGED** · **MW0 = CLOSED / INTEGRATED / POST-MERGE VERIFIED** · **MW0 EXIT = PROVEN WITH NON-BLOCKING RESERVES** · **MW1 Readiness = PASS / VALIDATED BY MORRIS** · **OD-03 = BUILD / CONSUMED** · **MW1 = READY FOR DISTINCT DELIVERY GATE** · **MW1 Delivery = NOT AUTHORIZED** · **MW1 = NOT STARTED** · **ADAPT-FIRST** · **NO FA REQUIRED** · **NO TA CURRENTLY REQUIRED** · **TA TRIGGER CANDIDATE PRESERVED** · Architecture **NOT SELECTED** · Technology **NOT ADOPTED** · Sessions / Agents SDK / new persistence **NOT SELECTED / NOT ADOPTED** · **REAL-B = QUALIFIED CANDIDATE / DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **next structural gate = DISTINCT MORRIS GO — MW1 DELIVERY** · **next capability after MW1 = MW2 — COGNITIVE WORKLOAD PROFILE** · historical C5 GOs / Type14 records **PRESERVED** · **≠** MW1 Delivery authorized · **≠** MW1 started · **≠** Sessions/Agents SDK/persistence selected · **≠** TA REQUIRED · **≠** architecture selected · **≠** REAL-B AUTHORIZED · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED |
  | **GO Morris OD-04 Option C architecture decision** | **CONSUMED** — `GO MORRIS — OD-04 — ADOPT OPTION C HYBRID OPENAI COGNITIVE RUNTIME AS NORA TARGET ARCHITECTURE — Agents SDK Runner TARGET ADOPTED — custom Product SQLite Session TARGET ADOPTED — callModelInputFilter / Session policy TARGET PATTERN — SFIA tools/routeToolCall/business authorization KEEP — Truth C/LPS/Trajectory/HD/Confirmation/EC/Evidence/ReviewBundle KEEP — Materialization Class 1→4 / MaterializationBasis KEEP — Responses compaction CANDIDATE / NOT ADOPTED — custom Nora tool loop / manual Memory B stitching REPLACE / RETIRE-LATER — MW1 Baseline A PRESERVED temporary — CORR-MW1-07/08 remain SFIA — old CORR-MW1-09 requalify against Session/input boundary — NO PRODUCT CODE MIGRATION — NO PACKAGE ADOPTION COMMIT — NO PROJECT COMMIT/PUSH/PR/MERGE — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED` · documentary architecture TARGET adoption · ≠ package integration · ≠ MW1 complete · ≠ MW2 · ≠ runtime v3 |
@@ -261,7 +507,7 @@ index 497e91ec..a41587b9 100644
  | **Timestamp maintenance historique NORA-C5-MW1-OPTION-C-POST-MERGE-TRUTH-SYNC-01 (pre-MW0 Option C regression truth-sync)** | *(historique tip · superseded as tip by NORA-C5-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01)* — 2026-08-31 00:36:44 CEST — **NORA C5 MW1 OPTION C POST-MERGE DOWNSTREAM TRUTH-SYNC** · Morris GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 epics · 23 stories · DAG · 18/5/0 **UNCHANGED** · **Option C implementation = INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#447 MERGED** · head `0fdf06a518e2693f6d08fa16ddcc8fc821ce0f6b` · merge `127c6ecf5658e7f3954d94b2cef8269ab9eaf07e` · tree `cf88184cf8f036c671740cffffcc7ecdfb0953d1` · HEAD→MERGE tree parity **PROVEN** · post-merge CI **`33338927956` SUCCESS** · Required Gate **PASS** · source branch `delivery/sfia-studio-nora-mw1-option-c-migration` **PRESERVED** @ `0fdf06a5…` · CORR-OPT-C-01…05 **CLOSED** · Runner/Fake convergence **CLOSED** · Nora legacy generic runtime retirement **CLOSED** · project Git integration **CLOSED / POST-MERGE VERIFIED** · **OD-04 / OD04-I01 / Option C TARGET UNCHANGED** · **MW0 remains historically CLOSED** · **MW0 Option C regression/parity = NOT RUN** · **CURRENT DOWNSTREAM / next structural proof gate = MW0 OPTION C REGRESSION / PARITY** *(parity ≠ MW0 reopen)* · **MW1 NOT COMPLETE** · MW1-S01/S02/S03 **not finally closed** · Responses compaction **CANDIDATE / NOT ADOPTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · MW2 **NOT STARTED** · **≠** substantive backlog change · **≠** architecture change · **≠** MW0 execution · **≠** MW1 completion · **≠** Responses Compaction adoption · **≠** runtime v3 adoption · **≠** project Git integration by this local documentary cycle |
  | **Timestamp maintenance historique NORA-C5-OD04-I01-DOC-01-02-CORRECTION-01 (pre-Option-C post-merge truth-sync)** | *(historique tip · superseded as tip by NORA-C5-MW1-OPTION-C-POST-MERGE-TRUTH-SYNC-01 · later tip NORA-C5-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01)* — 2026-08-30 20:55:00 CEST — **NORA C5 OD04-I01 DOC-01 + DOC-02 CORRECTIONS** · Morris correction GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 epics · 23 stories · DAG · 18/5/0 **UNCHANGED** · **CORR-OD04-I01-DOC-01** = HD/Confirmation ownership precision (Pilote = decision/confirmation actor · Studio owns durable objects/lifecycle/authority model · Nora = no authority) · **CORR-OD04-I01-DOC-02** = unify Option C forward sequence (correction → Runner/Fake convergence → retire legacy loop → project Git integration → MW0 Option C parity → MW1 final proof/exit → MW2) · **OD-04 / OD04-I01 / Option C TARGET UNCHANGED** · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW0 **CLOSED** · MW2 **NOT STARTED** · Responses compaction **CANDIDATE / NOT ADOPTED** · **≠** new architecture · **≠** Product Completion reopen · **≠** Build Doctrine / v3 framing · **≠** code |
  | **Timestamp maintenance historique NORA-C5-OD04-I01-BOUNDARY-INVARIANT-01 (pre-DOC-01/02)** | *(historique tip · superseded as tip by NORA-C5-OD04-I01-DOC-01-02-CORRECTION-01)* — 2026-08-30 20:45:00 CEST — **NORA C5 OD04-I01 STUDIO↔NORA BOUNDARY CROSS-WAVE INVARIANT** · Morris OD04-I01 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **C5 substantive backlog UNCHANGED** · MW1-S01/S02/S03 **UNCHANGED** · NR 26/26 · CE 8/8 · NCC-BAR 14/14 · MW0→MW6 · 10 epics · 23 stories · DAG · 18/5/0 **UNCHANGED** · **OD04-I01 = ACTIVE** under OD-04 · Studio owns product/business/authority · Nora owns cognition · Pilote = generic runtime actor · Morris = construction/governance ≠ runtime persona · **OD-04 decision UNCHANGED** · Option C TARGET **UNCHANGED** · local MW1 Option C candidate = **LOCAL / UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · next delivery work = **MW1 Option C correction cycle aligned with OD04-I01** · legacy loop retirement **before** MW0 Option C regression/parity once Runner/Fake convergence proven · MW0 **CLOSED** · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW1-S01/S02/S03 **not closed by this documentary work** · CORR-MW1-07/08 remain SFIA materialization · Responses compaction **CANDIDATE / NOT ADOPTED** · MW2 **NOT STARTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **≠** new architecture · **≠** Product Completion reopen · **≠** Build Doctrine / v3 framing mutation · **≠** code/package change |
-@@ -32,14 +35,14 @@
+@@ -32,14 +36,14 @@
  | **ACTIVE CONSTRUCTION PRIORITY** | **NORA COGNITIVE COMPLETION** |
  | **C5 lifecycle state** | **CONTENT VALIDATED BY MORRIS** / **INTEGRATED ON MAIN** / **POST-MERGE GIT VERIFIED** |
  | **TYPE14 content status** | **VALIDATED BY MORRIS** · Type14 repository publication / integration = **RESOLVE FROM GIT / PR EVIDENCE** · ≠ Type14 maintenance claimed INTEGRATED ON MAIN by this record alone · ≠ MW0 Delivery |
@@ -279,7 +525,7 @@ index 497e91ec..a41587b9 100644
  | **Cognitive Completion** | **NOT PROVEN** |
  | **runtime v3** | **NON ADOPTED** |
  | **NCC-R08** | **CLOSED BY EVIDENCE** (PR **#437** · unchanged) |
-@@ -98,10 +101,10 @@ C2 OD register = **historical** at C2. This C5 OD register = **current downstrea
+@@ -98,10 +102,10 @@ C2 OD register = **historical** at C2. This C5 OD register = **current downstrea
  | NCC-R08 | CLOSED BY EVIDENCE |
  | Active construction priority | **NORA COGNITIVE COMPLETION** |
  | Historical C5 next gate (at Type14 closure) | **MW0 READINESS QUALIFICATION** *(then-current · superseded for forward path)* |
@@ -292,7 +538,7 @@ index 497e91ec..a41587b9 100644
  | Architecture | OPTION C TARGET ADOPTED (OD-04 CONSUMED) |
  | runtime v3 | NON ADOPTED |
 
-@@ -169,8 +172,8 @@ Applies as a **cross-wave invariant** to every MW0→MW6 story construction, rea
+@@ -169,8 +173,8 @@ Applies as a **cross-wave invariant** to every MW0→MW6 story construction, rea
  3. **Pilote = generic runtime human actor** (decides / confirms) · **Morris = construction/governance ≠ runtime persona**.
  4. OpenAI HITL **≠** HD/Confirmation · Trace **≠** Evidence · server-managed Truth C **FORBIDDEN**.
  5. Option C Runner + Product SQLite Session remain **TARGET ADOPTED** · Responses compaction remains **CANDIDATE / NOT ADOPTED**.
@@ -303,7 +549,7 @@ index 497e91ec..a41587b9 100644
 
  **Preservation:** This §5A adds an invariant only. It does **not** alter NR 26 / CE 8 / NCC-BAR 14 / MW0→MW6 / 10 epics / 23 stories / DAG / 18/5/0 · does **not** change MW1-S01/S02/S03 story bodies.
 
-@@ -256,14 +259,14 @@ Applies as a **cross-wave invariant** to every MW0→MW6 story construction, rea
+@@ -256,16 +260,16 @@ Applies as a **cross-wave invariant** to every MW0→MW6 story construction, rea
  | MW | Title | Primary CE/NR | Delivery readiness (C5) | Architecture disposition summary |
  | --- | --- | --- | --- | --- |
  | **MW0** | Versioned Cognitive Eval Harness | CE-07 · NCC-BAR suite | **BACKLOG QUALIFIED** | NO TA REQUIRED |
@@ -318,9 +564,12 @@ index 497e91ec..a41587b9 100644
 -No macro-wave is **DELIVERY AUTHORIZED** in C5.
 +No macro-wave beyond closed MW1 is **DELIVERY AUTHORIZED** in C5. **MW2 = NOT AUTHORIZED / NOT STARTED**.
 
- **Future sequence (normative):** C5 **CONTENT VALIDATED** → repository integration review → Morris merge gate → post-merge verification → MW0 readiness → Targeted TA if required → Morris architecture decision if required → readiness PASS → **distinct Morris Delivery GO** → Delivery → Evidence → requalification.
+-**Future sequence (normative):** C5 **CONTENT VALIDATED** → repository integration review → Morris merge gate → post-merge verification → MW0 readiness → Targeted TA if required → Morris architecture decision if required → readiness PASS → **distinct Morris Delivery GO** → Delivery → Evidence → requalification.
++**Historical construction sequence at C5 authoring — SUPERSEDED / PROVENANCE ONLY:** C5 **CONTENT VALIDATED** → repository integration review → Morris merge gate → post-merge verification → MW0 readiness → Targeted TA if required → Morris architecture decision if required → readiness PASS → **distinct Morris Delivery GO** → Delivery → Evidence → requalification. *(This was the forward sequence at C5 authoring; C5→MW0→MW1 stages are **CONSUMED**; does not govern current next gate. Current forward lifecycle = CURRENT downstream / conceptual path surfaces. Next repository gate after ChatGPT PASS = distinct Morris closure-doc Git integration. Next product capability after integration/post-merge = MW2 Readiness/Requalification.)*
 
-@@ -1089,7 +1092,7 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
+ ---
+
+@@ -1089,7 +1093,7 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
  | Debt ID | Description | Introduced by | Exit |
  | --- | --- | --- | --- |
  | D-C5-01 | Harness may overfit fixtures | MW0 | Scenario governance + LIVE/REAL gates later |
@@ -329,7 +578,7 @@ index 497e91ec..a41587b9 100644
  | D-C5-03 | CWP policy incomplete without OD-02 | MW2 | OD-02 Morris decision |
  | D-C5-04 | RA-06/RA-07 parity gaps carry | MW4 | Non-blocking until wave readiness says otherwise |
  | D-C5-05 | External source tech undecided | MW6 / OD-05 OPEN | OD-05 + TA if primitive needed |
-@@ -1109,16 +1112,16 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
+@@ -1109,16 +1113,16 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
  | Historical next gate (C5 Type14 closure) | **MW0 READINESS QUALIFICATION** *(then-current)* |
  | Historical MW0 readiness (C5 Type14 closure) | **NOT YET EXECUTED** *(then-current)* |
  | Historical MW0 Delivery (C5 Type14 closure) | **NOT AUTHORIZED** *(then-current; later MW0 Delivery INTEGRATED — see CURRENT row)* |
@@ -349,7 +598,7 @@ index 497e91ec..a41587b9 100644
  | REAL | OUT / not authorized by C5 |
  | Integrated Cognitive Completion QA | DOWNSTREAM |
  | Morris final Cognitive Completion closure | DOWNSTREAM · NOT PROVEN |
-@@ -1150,11 +1153,11 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
+@@ -1150,11 +1154,11 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
  | TA triggers explicit | **YES** |
  | No architecture selected | **HISTORICAL C5-at-exit YES** · **CURRENT = Option C TARGET ADOPTED (OD-04)** |
  | No OpenAI technology adopted | **HISTORICAL C5-at-exit YES** · **CURRENT = Runner/Session TARGET ADOPTED · Option C package/runtime INTEGRATED ON MAIN via PR #447 · ≠ MW1 complete** |
@@ -363,7 +612,7 @@ index 497e91ec..a41587b9 100644
  | **CURRENT next capability after MW1** | **MW2 — Cognitive Workload Profile / Strategy** |
  | C5 content integrated on main | **YES** (PR **#439**) |
  | Head→merge tree parity | **YES** (`b51cb83c…` PROVEN · 0-file content delta) |
-@@ -1164,7 +1167,7 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
+@@ -1164,7 +1168,7 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
  | Substantive backlog unchanged by Type14 | **YES** |
  | Review Pack FULL + Handoff | **PUBLISHED IN INTEGRATION / CORR / Type14 CYCLES** |
 
@@ -372,7 +621,7 @@ index 497e91ec..a41587b9 100644
 
  ---
 
-@@ -1222,14 +1225,14 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
+@@ -1222,14 +1226,14 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
  1. **MW0 = CLOSED / INTEGRATED / POST-MERGE VERIFIED** · EXIT **PROVEN WITH NON-BLOCKING RESERVES**
  2. **MW1 Readiness = PASS / VALIDATED BY MORRIS** · **OD-03 = BUILD / CONSUMED** · **OD-04 = CONSUMED**
  3. **OPTION C = ADOPTED AS NORA TARGET ARCHITECTURE** · Runner + Product SQLite Session + input policy **TARGET ADOPTED** · Responses compaction **CANDIDATE / NOT ADOPTED**
@@ -388,11 +637,11 @@ index 497e91ec..a41587b9 100644
  If MW1 Delivery reveals a **new** structural technical primitive need beyond OD-04: do **not** auto-open TA; classify and return to Morris/ChatGPT trajectory qualification.
 
 -**Conceptual path (CURRENT):** C5 CONTENT VALIDATED / INTEGRATED / POST-MERGE VERIFIED → MW0 CLOSED → MW1 Readiness PASS → OD-03 BUILD / CONSUMED → **OD-04 Option C TARGET ADOPTED** → **Option C implementation INTEGRATED (PR #447)** → **MW0 OPTION C REGRESSION/PARITY PASS DETERMINISTIC ONLY (handoff `35a2b1ae…`)** → (future) project Git truth-sync integration → MW1 final proof against source-locked C5 semantics (S01→S02→S03) → MW1 Exit Proof / closure → (after MW1 closure) MW2 CWP.
-+**Conceptual path (CURRENT):** C5 validated → MW0 CLOSED → Option C #447 → MW1 Delivery #450 → deterministic + REAL proven → **MW1 CLOSED BY MORRIS** → **CORR-01 ChatGPT re-review** → **closure-doc Git integration** → **MW2 READINESS / REQUALIFICATION** (product gate only after doc integration/post-merge).
++**Conceptual path (CURRENT):** C5 validated → MW0 CLOSED → Option C #447 → MW1 Delivery #450 → deterministic + REAL proven → **MW1 CLOSED BY MORRIS** → **CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE** → **ChatGPT Critical Re-review** → **distinct Morris closure-doc Git integration GO** → **commit/push/PR/review** → **distinct Morris merge GO** → **merge/post-merge verification** → **MW2 READINESS / REQUALIFICATION** (product gate only after doc integration/post-merge) · MW2 **NOT AUTHORIZED / NOT STARTED**
 
  REAL-B remains **deferred qualified candidate** until a future distinct Morris sequencing/execution decision.
  OD-04 TARGET ADOPTED ≠ MW1 complete · Option C implementation INTEGRATED (PR #447) ≠ MW1 complete ≠ Cognitive Completion PROVEN ≠ runtime v3 ADOPTED ≠ Responses compaction adopted.
-@@ -1254,4 +1257,4 @@ OD-04 TARGET ADOPTED ≠ MW1 complete · Option C implementation INTEGRATED (PR
+@@ -1254,4 +1258,4 @@ OD-04 TARGET ADOPTED ≠ MW1 complete · Option C implementation INTEGRATED (PR
 
  ---
 
@@ -416,6 +665,7 @@ index 497e91ec..a41587b9 100644
 | **Timestamp maintenance NORA-C5-MW1-POST-MERGE-CLOSURE-TRUTH-SYNC-01** | 2026-09-01 11:26:59 CEST — **NORA C5 MW1 POST-MERGE CLOSURE DOWNSTREAM TRUTH-SYNC** · Morris closure GO **CONSUMED** · Cycle **14** · C5 substantive backlog UNCHANGED · MW1 **COMPLETE / CLOSED BY MORRIS** · S01/S02/S03 **CLOSED** · deterministic + REAL boundary proven · Responses compaction NOT ADOPTED · MW2 NOT AUTHORIZED · **≠ project Git integration by this cycle** |
 | **Timestamp maintenance NORA-C5-MW1-CLOSURE-TRUTH-SYNC-CORR-01** | 2026-09-01 11:49:21 CEST — **NORA C5 MW1 CLOSURE CORR-01 DOWNSTREAM GATE ORDERING** · Morris correction GO **CONSUMED** · C5 substantive backlog UNCHANGED · MW1 closure substance UNCHANGED · gate ordering corrected · **CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF LOCAL MW1 CLOSURE/TRUTH-SYNC CORR-01** · **NEXT REPOSITORY LIFECYCLE GATE (after ChatGPT PASS) = DISTINCT MORRIS GO — MW1 CLOSURE/TRUTH-SYNC PROJECT GIT INTEGRATION** · **NEXT PRODUCT CAPABILITY GATE (after closure-doc integration + post-merge verified) = MW2 READINESS / REQUALIFICATION** · **MW2 = NOT AUTHORIZED / NOT STARTED** · **≠ project Git integration by this cycle** |
 | **Timestamp maintenance NORA-C5-MW1-CLOSURE-TRUTH-SYNC-CORR-04** | 2026-09-01 12:27:09 CEST — **NORA C5 MW1 CLOSURE/TRUTH-SYNC CORR-04** · Morris correction GO **CONSUMED** · Cycle **14** · DOC · CRITICAL · BLK-MW1-CLOSURE-C5-CURRENT-GATE-05 **CLOSED** · ACTIVE C5 lifecycle pointers normalized to correction-independent wording · C5 source-lock substance unchanged · Roadmap unchanged · review gate for this CORR-04 execution = ChatGPT Final Critical Re-review · next repository lifecycle gate after PASS = Morris closure-doc Git integration GO · MW2 readiness only after integration/post-merge · MW2 NOT AUTHORIZED / NOT STARTED · **≠ project Git integration by this cycle** |
+| **Timestamp maintenance NORA-C5-MW1-CLOSURE-TRUTH-SYNC-CORR-05** | 2026-09-01 12:38:03 CEST — **NORA C5 MW1 CLOSURE/TRUTH-SYNC CORR-05** · Morris correction GO **CONSUMED** · Cycle **14** · DOC · CRITICAL · BLK-MW1-CLOSURE-C5-ACTIVE-CORR-ID-06 **CLOSED** · BLK-MW1-CLOSURE-C5-LEGACY-NORMATIVE-SEQUENCE-07 **CLOSED** · active conceptual path normalized · legacy Future sequence historicalized · C5 source-lock substance unchanged · Roadmap unchanged · review gate for this CORR-05 execution = ChatGPT Final Critical Re-review · next repository lifecycle gate after PASS = Morris closure-doc Git integration GO · MW2 readiness only after integration/post-merge · MW2 NOT AUTHORIZED / NOT STARTED · **≠ project Git integration by this cycle** |
 | **Timestamp (Europe/Paris)** | 2026-08-29 20:45:00 CEST |
 | **Generation worktree (provenance)** | `/Users/morris/Projects/sfia-workspace-nora-c5-type14-post-merge-truth-sync` · provenance only · ≠ repository lifecycle state |
 | **Generation branch (provenance)** | `docs/sfia-studio-nora-c5-type14-post-merge-truth-sync` · provenance only · ≠ repository lifecycle state |
@@ -673,7 +923,7 @@ Applies as a **cross-wave invariant** to every MW0→MW6 story construction, rea
 
 No macro-wave beyond closed MW1 is **DELIVERY AUTHORIZED** in C5. **MW2 = NOT AUTHORIZED / NOT STARTED**.
 
-**Future sequence (normative):** C5 **CONTENT VALIDATED** → repository integration review → Morris merge gate → post-merge verification → MW0 readiness → Targeted TA if required → Morris architecture decision if required → readiness PASS → **distinct Morris Delivery GO** → Delivery → Evidence → requalification.
+**Historical construction sequence at C5 authoring — SUPERSEDED / PROVENANCE ONLY:** C5 **CONTENT VALIDATED** → repository integration review → Morris merge gate → post-merge verification → MW0 readiness → Targeted TA if required → Morris architecture decision if required → readiness PASS → **distinct Morris Delivery GO** → Delivery → Evidence → requalification. *(This was the forward sequence at C5 authoring; C5→MW0→MW1 stages are **CONSUMED**; does not govern current next gate. Current forward lifecycle = CURRENT downstream / conceptual path surfaces. Next repository gate after ChatGPT PASS = distinct Morris closure-doc Git integration. Next product capability after integration/post-merge = MW2 Readiness/Requalification.)*
 
 ---
 
@@ -1637,7 +1887,7 @@ Product Completion OA spine (Truth C, HD, EC, Evidence) = **KEEP dependency** fo
 
 If MW1 Delivery reveals a **new** structural technical primitive need beyond OD-04: do **not** auto-open TA; classify and return to Morris/ChatGPT trajectory qualification.
 
-**Conceptual path (CURRENT):** C5 validated → MW0 CLOSED → Option C #447 → MW1 Delivery #450 → deterministic + REAL proven → **MW1 CLOSED BY MORRIS** → **CORR-01 ChatGPT re-review** → **closure-doc Git integration** → **MW2 READINESS / REQUALIFICATION** (product gate only after doc integration/post-merge).
+**Conceptual path (CURRENT):** C5 validated → MW0 CLOSED → Option C #447 → MW1 Delivery #450 → deterministic + REAL proven → **MW1 CLOSED BY MORRIS** → **CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE** → **ChatGPT Critical Re-review** → **distinct Morris closure-doc Git integration GO** → **commit/push/PR/review** → **distinct Morris merge GO** → **merge/post-merge verification** → **MW2 READINESS / REQUALIFICATION** (product gate only after doc integration/post-merge) · MW2 **NOT AUTHORIZED / NOT STARTED**
 
 REAL-B remains **deferred qualified candidate** until a future distinct Morris sequencing/execution decision.
 OD-04 TARGET ADOPTED ≠ MW1 complete · Option C implementation INTEGRATED (PR #447) ≠ MW1 complete ≠ Cognitive Completion PROVEN ≠ runtime v3 ADOPTED ≠ Responses compaction adopted.
