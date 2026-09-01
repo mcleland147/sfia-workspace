@@ -467,19 +467,21 @@ STOP/requalifier si :
 
 ## 14. Anti-claims et état courant
 
-Cette trajectoire **VALIDATED — ACTIVE ON MAIN** :
+Cette trajectoire **VALIDATED — ACTIVE ON MAIN** via PR **#453** :
 
-- **≠ MW2 Readiness validée** ;
-- **≠ OD-02 consommée** ;
-- **≠ MW2 Delivery GO** ;
-- **≠ MW2 started** ;
+- La validation/intégration de cette trajectoire OpenAI-native-first par PR **#453 seule** **n’a pas** validé MW2 Readiness et **n’a pas** consommé OD-02.
+- Ces gates ont été consommées **séparément** ensuite :
+  - **MW2 Readiness VALIDATED BY MORRIS**
+  - **OD-02 CONSUMED — OPTION B**
+- Ce document **n’autorise pas** MW2 Delivery.
 - **≠ production model selected** ;
 - **≠ production model routing selected** ;
 - **≠ Sol/Terra/Luna campaign already executed** ;
 - **≠ Responses compaction adopted** ;
 - **≠ new architecture** ;
 - **≠ Cognitive Completion PROVEN** ;
-- **≠ runtime v3 ADOPTED**.
+- **≠ runtime v3 ADOPTED** ;
+- OpenAI-native-first **≠** adoption automatique de chaque nouvelle capability fournisseur.
 
 ### Verdict de trajectoire actif
 

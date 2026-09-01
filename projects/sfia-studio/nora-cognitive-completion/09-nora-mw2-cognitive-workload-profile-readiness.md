@@ -63,7 +63,7 @@ This readiness requalifies **MW2-S01** (Adaptive reasoning depth via Cognitive W
 
 | Rank | Source | Role |
 | --- | --- | --- |
-| 1 | Morris GO (this cycle) | MW2 readiness scope only · ≠ Delivery · ≠ OD-02 consumption |
+| 1 | Morris GO lineage (this document) | **Historical scope:** initial readiness-only GO · CORR-MW2-RDY-01/02 (documentary corrections) · **Consumed:** MW2 readiness validation · OD-02 Option B · integration package · **Not consumed:** PRE-MW2 execution · Delivery GO · REAL |
 | 2 | C5 Source-Locked Cognitive Backlog | MW2-S01/S02 contracts — **SOURCE-LOCKED** |
 | 3 | Convergence Build Doctrine + Roadmap | Product gate ordering · MW1 CLOSED · MW2 NOT STARTED |
 | 4 | doc07 OD-04 Option C · doc08 OpenAI-native-first | Architecture TARGET · R22 · PRE-MW2-MODEL-BASELINE-01 |
@@ -79,13 +79,13 @@ Morris construction/governance decisions for **readiness validation** and **OD-0
 
 ## 3. Source-lock MW2 S01/S02
 
-C5 (`05-nora-source-locked-cognitive-backlog.md`) is **SOURCE-LOCKED**. This cycle **did not modify C5**.
+C5 (`05-nora-source-locked-cognitive-backlog.md`) is **SOURCE-LOCKED**. **C5 substantive source-lock was not modified.** This integration package updated **downstream/current-state lifecycle surfaces only**.
 
 ### MW2 scope exact (C5 §12)
 
 | Story | Title | Architecture | Dependencies |
 | --- | --- | --- | --- |
-| **MW2-S01** | Adaptive reasoning depth via CWP (≠ SFIA Profile) | **NO TA REQUIRED** | MW0 · **OD-02 OPEN** |
+| **MW2-S01** | Adaptive reasoning depth via CWP (≠ SFIA Profile) | **NO TA REQUIRED** | MW0 · **OD-02 OPEN** *(C5 SOURCE-LOCKED / HISTORICAL CONTRACT PROVENANCE)* |
 | **MW2-S02** | CKC semantic assistance without fake authority | **NO TA REQUIRED** | MW0 · MW2-S01 |
 
 **No MW2-S03 exists.** No backlog delta was created.
@@ -119,7 +119,7 @@ C5 (`05-nora-source-locked-cognitive-backlog.md`) is **SOURCE-LOCKED**. This cyc
 | MW2 | NOT AUTHORIZED / NOT STARTED |
 | Cognitive Completion | NOT PROVEN |
 | runtime v3 | NON ADOPTED |
-| OD-02 | OPEN |
+| OD-02 | **CONSUMED — OPTION B** |
 | Option C | INTEGRATED (PR #447) · TARGET ADOPTED |
 | OpenAI-native-first R22 | ACTIVE ON MAIN (PR #453) · lifecycle sync PR #454 |
 
@@ -192,11 +192,10 @@ Repository-verified behavior @ anchor `b4fae684…`:
 
 ```text
 MW1 CLOSED
-  → MW2 Readiness / Critical Review
-  → Morris validates MW2 Readiness
-  → Morris decides OD-02
-  → distinct Morris GO — Git integration doc09
-  → Git integration + post-merge verification
+  → MW2 Readiness / Critical Review — CONSUMED (VALIDATED BY MORRIS)
+  → OD-02 Option B — CONSUMED
+  → Git integration doc09 + Nora/Roadmap sync — CONSUMED (PR #455 DRAFT)
+  → Morris merge GO + post-merge verification — PENDING
   → PRE-MW2-MODEL-BASELINE-01
        · effective F1 model (dimension A)
        · effective F1 reasoning configuration (dimension B)
@@ -218,10 +217,10 @@ No step auto-consumes the next.
 
 | Gate / prerequisite | Requires | Authorizes | Does NOT authorize |
 | --- | --- | --- | --- |
-| **MW2 Critical PASS** | Readiness qualification complete | ChatGPT re-review continuation · Morris review | Morris validation · OD-02 · Git integration · PRE-MW2 · Delivery |
-| **Morris readiness validation** | Critical PASS (or accepted reserves) | Morris to proceed toward OD-02 · eventual Git integration GO consideration | OD-02 consumption · Git integration · PRE-MW2 · Delivery |
-| **OD-02 decision** | Morris readiness validation (recommended sequence) | Policy envelope for future Delivery design | Delivery · PRE-MW2 execution · Git integration by itself |
-| **Git integration GO (doc09)** | Morris readiness validation · distinct Morris GO | Project commit/push/PR of doc09 only | Merge by itself · PRE-MW2 · Delivery |
+| **MW2 Critical PASS** | Readiness qualification complete | **CONSUMED** — ChatGPT Final Critical PASS | — |
+| **Morris readiness validation** | Critical PASS | **CONSUMED — VALIDATED BY MORRIS** | Delivery · PRE-MW2 |
+| **OD-02 decision** | Morris readiness validation | **CONSUMED — OPTION B** | Delivery · PRE-MW2 execution by itself |
+| **Git integration GO (doc09)** | Morris readiness validation · integration package GO | **CONSUMED — PR #455 (DRAFT)** | Merge by itself · PRE-MW2 · Delivery |
 | **Post-merge verification** | doc09 integrated on main | Downstream prerequisite work to begin | PRE-MW2 satisfied · Delivery |
 | **PRE-MW2-MODEL-BASELINE-01** | Post-merge verified doc09 · deployment/config access | Characterization of effective F1 model + reasoning | Delivery · D0/EVAL/REAL |
 | **PRE-MW2 prerequisite satisfied** | PRE-MW2 dimensions A+B resolved per doc08/doc09 | Eligibility for Morris Delivery GO **consideration** | Automatic Delivery GO |
@@ -313,7 +312,7 @@ No additional gaps proven beyond repository inspection.
 
 ## 9. MW2-S01 functional/cognitive readiness
 
-**Readiness verdict MW2-S01:** **QUALIFIED FOR DELIVERY PLANNING** — contract defined · runtime gap acknowledged · OD-02 gate explicit · **NOT IMPLEMENTED**.
+**Readiness verdict MW2-S01:** **QUALIFIED FOR DELIVERY PLANNING** — contract defined · runtime gap acknowledged · OD-02 **CONSUMED — OPTION B** · envelope production bounds remain Delivery design/evidence work · **NOT IMPLEMENTED**.
 
 MW2-S01 requires:
 
@@ -414,9 +413,10 @@ CognitiveStrategyClass
 
 **Secondary seam (path-specific only):** `openaiProvider.ts` → `reasoning.effort` for Responses calls **it** owns — not a substitute for F1 wiring.
 
-**Policy target (pre-OD-02):**
+**OD-02 Option B target policy — decision consumed**
 
-- Strategy Class proposes **effort envelope** (e.g. Routine → `{none, low}` candidate; Deep → `{medium, high}` candidate).
+- Strategy Class proposes **effort envelope** — illustrative examples only (e.g. Routine → `{none, low}` candidate; Deep → `{medium, high}` candidate) — **ILLUSTRATIVE / NON-NORMATIF**.
+- **Hard rule:** Strategy Class **≠** fixed reasoning effort mapping.
 - Selector picks **minimum sufficient** effort within envelope given workload signals (aligns doc08 minimum-sufficient principle).
 - Validator intersects with **model-specific supported efforts** (reuse `capabilityBudget` pattern).
 - Unsupported combination → **fail-closed CONFIG/PROVIDER_CAPABILITY** — no silent coercion (MW0 caveat preserved).
@@ -712,13 +712,13 @@ Future MW2 Delivery likely touch points (repo-derived):
 
 ```text
 MW0 CLOSED
-  └─ MW2-S01 (OD-02 OPEN)
+  └─ MW2-S01 (OD-02 OPEN — C5 SOURCE-LOCKED HISTORICAL DEPENDENCY STATE)
        └─ MW2-S02
             └─ MW3+ (future)
 ```
 
 - MW2-S02 depends on MW2-S01 per C5 — bootstrap ordering must respect S01 policy before S02 semantic assist requalification.
-- OD-02 informs S01 envelope — **not consumed**.
+- **CURRENT:** OD-02 **CONSUMED — OPTION B** — informs S01 as a **consumed policy decision**; exact production envelope bounds remain evidence/design work for Delivery.
 - PRE-MW2-MODEL-BASELINE-01 is a **Delivery prerequisite** that must be **satisfied before** distinct Morris MW2 Delivery GO — **not parallel-after-Delivery** · **not aggregated with Delivery GO**.
 
 **DAG acyclic:** PASS.
@@ -729,7 +729,7 @@ MW0 CLOSED
 
 | Risk | Mitigation | Exit |
 | --- | --- | --- |
-| OD-02 delay blocks Delivery | Decision Pack §17 | Morris decision |
+| Option B production envelope bounds not yet qualified | Delivery design + D0/EVAL evidence | D0 envelope/selection mechanics · EVAL matrix |
 | F1 reasoning wiring gap | GAP-MW2-F1-MODELSETTINGS-01 | MW2 Delivery modelSettings adapter |
 | Effort/model mismatch | GAP-MW2-REASONING-CAPABILITY-01 | Validator + manifest |
 | Effective reasoning unknown | PRE-MW2 baseline dimension B | Baseline + bounded REAL |
@@ -737,7 +737,6 @@ MW0 CLOSED
 | CKC fake authority | Disclosures + D0 | EVAL + REAL |
 | Premature model routing | Explicit REJECT disposition | Evidence gate |
 | Provider snapshot drift | Revalidate per campaign (doc08) | dated manifests |
-| Policy debt | OD-02 | Morris + doc update |
 
 ---
 
@@ -766,7 +765,7 @@ This readiness cycle proves:
 - Runtime seams discovered and classified.
 - OpenAI fit qualified with dispositions.
 - Gaps registered with blocking semantics.
-- OD-02 Decision Pack produced · **not consumed**.
+- OD-02 Decision Pack produced during readiness qualification · **subsequently CONSUMED BY MORRIS — OPTION B** *(Decision Pack production at readiness time ≠ decision at that moment)*.
 - Evidence plan defined (D0/EVAL/REAL).
 - Delivery scope preview repo-derived.
 
