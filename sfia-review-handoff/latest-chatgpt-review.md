@@ -1,19 +1,21 @@
-# SFIA Studio — Nora Cognitive Completion — MW2 Readiness / Requalification — FULL CRITICAL Review Pack
+# SFIA Studio — Nora Cognitive Completion — MW2 Readiness CORR-MW2-RDY-01 — FULL CRITICAL Review Pack
 
 | Field | Value |
 | --- | --- |
-| **Timestamp (Europe/Paris)** | 2026-09-01 21:30:00 CEST |
+| **Timestamp (Europe/Paris)** | 2026-09-01 21:48:00 CEST |
 | **Cycle** | 8 — Delivery / implémentation |
-| **Sous-type** | MW2 READINESS / REQUALIFICATION ONLY · ≠ implementation |
-| **Typologie** | DOC / ANALYSIS |
+| **Sous-type** | MW2 READINESS / REQUALIFICATION — CORR-MW2-RDY-01 DOCUMENTARY CORRECTION |
+| **Typologie** | DOC |
 | **Profil** | CRITICAL |
-| **CKC applicable** | Absent — fallback routing guide + v2.6 |
+| **CKC** | Absent — fallback routing guide + v2.6 |
 | **Repository** | mcleland147/sfia-workspace |
 | **Worktree** | /Users/morris/Projects/sfia-workspace-nora-mw2-readiness-requalification |
 | **Branch** | docs/sfia-studio-nora-mw2-readiness-requalification |
-| **Base anchor** | b4fae68423bc0ab7cb0abcc49bedee8f7c44b405 (PR #454 MERGED) |
-| **GO Morris** | MW2 READINESS / REQUALIFICATION ONLY — CONSUMED |
-| **Fake/REAL this cycle** | NONE fake · ZERO REAL |
+| **HEAD** | b4fae68423bc0ab7cb0abcc49bedee8f7c44b405 |
+| **origin/main** | b4fae68423bc0ab7cb0abcc49bedee8f7c44b405 |
+| **Prior handoff (trigger)** | sfia/review-handoff @ db5b60c544305229f1a8d608201c1bf51d04383d · blob 8a9f49ef855bf5c4cf0bf2713b2eb09f51c9e0b9 |
+| **GO Morris** | CORR-MW2-RDY-01 — DOCUMENTARY CORRECTION ONLY — CONSUMED |
+| **REAL this cycle** | ZERO |
 
 ---
 
@@ -21,183 +23,127 @@
 
 ```
 pwd: /Users/morris/Projects/sfia-workspace-nora-mw2-readiness-requalification
-git rev-parse HEAD: b4fae68423bc0ab7cb0abcc49bedee8f7c44b405
-git branch --show-current: docs/sfia-studio-nora-mw2-readiness-requalification
+branch: docs/sfia-studio-nora-mw2-readiness-requalification
+HEAD: b4fae68423bc0ab7cb0abcc49bedee8f7c44b405
 origin/main: b4fae68423bc0ab7cb0abcc49bedee8f7c44b405 — MATCH
 ```
 
-Post-merge CI PR #454: 33547046842 SUCCESS · Required Gate PASS.
+---
+
+## Sources read
+
+Process + convergence + Nora docs 01–09 (corrected) · doc08 · C5 · runtime read-only:
+- config.ts · runNoraAgentsTurn.ts · openaiProvider.ts · capabilityBudget.ts · package.json
+- @openai/agents-core@0.17.0 types (ModelSettings.reasoning verified from published package)
+
+Prior review handoff @ db5b60c5… (Critical Review trigger).
 
 ---
 
-## Sources read (mandatory order)
+## Runtime truth revalidated (F1 Agents reasoning)
 
-1. prompts/templates/sfia-cycle-execution-template.md
-2. method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-3. method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-4. scripts/sfia/README.md
-5. projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-6. projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-7. projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-8. projects/sfia-studio/nora-cognitive-completion/01-nora-cognitive-completion-cadrage.md
-9. projects/sfia-studio/nora-cognitive-completion/02-nora-cognitive-completion-conception-fonctionnelle.md
-10. projects/sfia-studio/nora-cognitive-completion/04-nora-cognitive-runtime-gap-implementation-readiness.md
-11. projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
-12. projects/sfia-studio/nora-cognitive-completion/06-nora-mw0-versioned-cognitive-eval-harness-readiness.md
-13. projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md
-14. projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md
-15. projects/sfia-studio/sfia-v3-framing/02-sfia-v3-principles-and-human-governance.md
-16. projects/sfia-studio/app/lib/platform/ai/config.ts
-17. projects/sfia-studio/app/lib/platform/ai/openaiProvider.ts
-18. projects/sfia-studio/app/package.json
-19. Runtime seam discovery (rg): nora-cognitive-runtime · f2/ckcCognitiveContext · nora-eval/capabilityBudget · oa/cycle CKC services
+| Check | Result |
+| --- | --- |
+| `requireLiveConversationSecrets()` returns model + optional reasoningEffort | YES — config.ts |
+| F1 live uses `secrets.model` only in Agent constructor | YES — runNoraAgentsTurn.ts L79-104 |
+| `secrets.reasoningEffort` passed to Agent/Runner modelSettings | **NO** |
+| Explicit modelSettings on F1 Agent | **NO** |
+| openaiProvider applies reasoning on its Responses calls | YES — separate seam |
+| Agents SDK ModelSettings.reasoning surface | YES — effort/mode/context @0.17.0 |
 
-OpenAI provider revalidation: https://developers.openai.com/api/docs/models/gpt-5.6-luna (2026-09-01)
+**Key correction:** `OPENAI_REASONING_EFFORT` parsed ≠ F1 Agents effective reasoning until modelSettings wired.
 
 ---
 
-## C5 MW2 source-lock
+## CORR-MW2-RDY-01 corrections applied
 
-- **MW2-S01** — Adaptive reasoning depth via CWP (≠ SFIA Profile) · NO TA REQUIRED · OD-02 OPEN
-- **MW2-S02** — CKC semantic assistance without fake authority · NO TA REQUIRED · depends MW2-S01
-- **No MW2-S03** · C5 unchanged
+1. **F1/Option C truth** — distinguished config parse vs F1 effective reasoning; no conflation with openaiProvider.
+2. **OpenAI Capability Fit** — two-seam model: F1 Agents modelSettings (primary) vs openaiProvider Responses (secondary).
+3. **GAP-MW2-F1-MODELSETTINGS-01** — added to gap register (readiness non-blocker · Delivery blocker).
+4. **PRE-MW2-MODEL-BASELINE-01** — extended with effective F1 reasoning configuration dimension.
+5. **reasoning.context** — requalified: not wired ≠ inactive; effective behavior to qualify; Memory B ≠ Truth C.
 
----
-
-## Runtime seam discoveries (summary)
-
-| Seam | Path | MW2 relevance |
-| --- | --- | --- |
-| Static reasoning | config.ts · openaiProvider.ts | ADAPT — no CWP yet |
-| Option C Runner | runNoraAgentsTurn.ts | KEEP — policy hook point |
-| Capability manifest | nora-eval/capabilityBudget.ts | REUSE for GAP-MW2-REASONING-CAPABILITY-01 |
-| F2 qualify | f2/qualify.ts | KEEP — bootstrap Profile |
-| CKC cognitive | f2/ckcCognitiveContext.ts | KEEP/ADAPT — MW2-S02 |
-| No CognitiveStrategy types | — | GAP-MW2-CWP-01 |
+Preserved: OD-02 OPEN · Option B RECOMMENDED NOT DECIDED · CKC authority · anti-claims · NO TA REQUIRED · Delivery NOT AUTHORIZED.
 
 ---
 
-## OpenAI Capability Fit Check verdict
+## GAP-MW2-F1-MODELSETTINGS-01
 
-**COMPLETE / QUALIFIED.** Primary disposition: **USE/ADAPT `reasoning.effort`** under thin CWP policy + model-capability validation. **KEEP** Option C Runner/Responses/tools. **DEFER** reasoning.mode=pro · reasoning.context · compaction. **REJECT** model router / internal cognitive engine for MW2.
-
-Provider snapshot: GPT-5.6 Luna/Terra/Sol · efforts none/low/medium/high/xhigh/max · SDK enum includes extra `minimal`.
-
----
-
-## Asset classification (summary)
-
-KEEP: SFIA Profile · MW0 eval · Option C · routeToolCall · Session/filter · CKC seam
-ADAPT: reasoning effort knob · capability validation · F2 CKC enrichment · telemetry
-REJECT/DEFER: model router · internal engine · compaction adoption
+**Status:** OPEN · Delivery blocker · readiness non-blocker
+**Target closure:** MW2 Delivery — thin adapter Strategy → Agents modelSettings.reasoning
 
 ---
 
-## Gap register (summary)
+## PRE-MW2-MODEL-BASELINE-01
 
-| Gap | Blocking readiness? | Blocking Delivery? |
-| --- | --- | --- |
-| GAP-MW2-CWP-01 | No | Yes |
-| GAP-MW2-REASONING-CAPABILITY-01 | No | Yes |
-| GAP-MW2-EFFECTIVE-MODEL-01 | No | Yes |
-| GAP-MW2-CKC-SEMANTIC-01 | No | Partial |
-| GAP-MW2-OD02-POLICY-01 | No | Yes |
+**Status:** OPEN / DELIVERY PREREQUISITE
+**Dimensions:** A effective F1 model · B effective F1 reasoning on Agents path
+GPT-5.6 Luna + none = historical REAL-proven MW0/MW1 only — not production selection.
 
 ---
 
-## GAP-MW2-REASONING-CAPABILITY-01 verdict
+## OD-02
 
-SDK enum ≠ model-effective capabilities. **Recommend:** extend existing `capabilityBudget.ts` manifest pattern + fail-closed validator at policy→provider boundary. **Reject** new generic router framework.
-
----
-
-## PRE-MW2-MODEL-BASELINE-01 status
-
-**OPEN / DELIVERY PREREQUISITE.** Git cannot prove effective OPENAI_MODEL. Local shell unset. Historical REAL: GPT-5.6 Luna + none — not production selection.
+**OPEN — MORRIS DECISION REQUIRED**
+Option B (envelope + minimum-sufficient + validation → Agents modelSettings) **RECOMMENDED — NOT DECIDED**
 
 ---
 
-## OD-02 Decision Pack (summary)
+## reasoning.context
 
-- **Option A:** rigid StrategyClass → single effort
-- **Option B (RECOMMENDED):** envelope + minimum-sufficient selection + model validation
-- **Option C:** dynamic routing / cognitive engine — **REJECT for MW2**
-
-**Verdict: OD-02 — MORRIS DECISION REQUIRED**
+**EVALUATE / DEFER** — no SFIA wiring proven; effective behavior must be qualified in baseline/evidence; Agents Session + MW1 history in scope; Memory B ≠ Truth C invariant.
 
 ---
 
-## MW2 reasoning evaluation plan (summary)
+## Files modified
 
-D0: policy mechanics · Profile≠Strategy · fail-closed · no model routing
-EVAL: S1–S6 matrix (Routine/Focused/Deep/High-Assurance/same Profile different workload/unsupported capability)
-REAL: later · bounded GPT-5.6 reference · small effort subset · NO MODEL ROUTER BEFORE EVIDENCE
+1. projects/sfia-studio/nora-cognitive-completion/09-nora-mw2-cognitive-workload-profile-readiness.md
+2. .tmp-sfia-review/chatgpt-review.md (this file — full rewrite)
 
----
+## Files inspected unchanged
 
-## CKC authority contract (MW2-S02)
-
-Seam exists at f2/ckcCognitiveContext.ts. Recommendation-class only. Provenance retained. No HD/Confirmation/EC/execute. EVAL usefulness pending · REAL later.
+C5 · Roadmap · Build Doctrine · doc06/07/08 · all app/** · package.json · workflows · scripts
 
 ---
 
-## Architecture trigger
+## Controls
 
-**NO TA REQUIRED** — no structural blocker.
-
----
-
-## Readiness verdict candidate
-
-**MW2 READINESS / REQUALIFICATION — CANDIDATE PASS — SOURCE-LOCK PRESERVED — OPENAI CAPABILITY FIT QUALIFIED — NO TA REQUIRED — OD-02 MORRIS DECISION REQUIRED — DELIVERY NOT AUTHORIZED**
-
----
-
-## File created
-
-- projects/sfia-studio/nora-cognitive-completion/09-nora-mw2-cognitive-workload-profile-readiness.md
-
----
-
-## Files inspected but unchanged
-
-C5 · Roadmap · Build Doctrine · doc06 · doc07 · doc08 · all runtime TS · package.json · workflows
-
----
-
-## Stop conditions
-
-None encountered.
+- git diff --check: PASS (expected)
+- Only authorized project files modified
 
 ---
 
 ## Claims autorisés
 
-- MW2 readiness CANDIDATE PASS (pending ChatGPT + Morris)
-- Source-lock preserved
-- OpenAI fit qualified
-- NO TA REQUIRED at current scope
-- OD-02 Morris decision required
+- CORR-MW2-RDY-01 documentary correction applied locally
+- Ready for ChatGPT Critical re-review
+- OD-02 still open
 - Delivery NOT AUTHORIZED
 
 ## Claims interdits
 
-- MW2 READY/AUTHORIZED/STARTED
+- MW2 READY/AUTHORIZED/Delivery GO
+- OD-02 consumed
+- CORR-MW2-RDY-01 closed by Morris
 - Cognitive Completion PROVEN
 - runtime v3 ADOPTED
-- OD-02 consumed
-- Production model selected
-- GPT-5.6 Luna production model
+- OPENAI_REASONING_EFFORT = F1 effective reasoning
+
+---
+
+## Verdict
+
+**MW2 READINESS CORR-MW2-RDY-01 — DOCUMENTARY CORRECTION APPLIED — F1 AGENTS MODELSETTINGS GAP EXPLICIT — PRE-MW2 EFFECTIVE REASONING BASELINE QUALIFIED — OD-02 STILL OPEN — NO TA REQUIRED — DELIVERY NOT AUTHORIZED — READY FOR CHATGPT CRITICAL RE-REVIEW**
 
 ---
 
 ## Next gates
 
-ChatGPT Critical Review → Morris validation + OD-02 → distinct Git integration GO → PRE-MW2 baseline → distinct Delivery GO
+ChatGPT Critical re-review → Morris validation + OD-02 → distinct Git integration GO → PRE-MW2 baseline → distinct MW2 Delivery GO
 
 ---
 
-# CONTENU INTÉGRAL DOC09
+# CONTENU INTÉGRAL DOC09 (CORRIGÉ)
 
 # Nora Cognitive Completion — MW2 Cognitive Workload Profile Readiness / Requalification
 
@@ -210,11 +156,13 @@ ChatGPT Critical Review → Morris validation + OD-02 → distinct Git integrati
 | **Profil** | CRITICAL |
 | **Content status** | **CANDIDATE — AWAITING CHATGPT CRITICAL REVIEW + MORRIS VALIDATION** |
 | **Repository publication / integration** | **RESOLVE FROM CURRENT GIT / PR EVIDENCE** |
-| **Timestamp (Europe/Paris)** | 2026-09-01 21:30:00 CEST |
+| **Timestamp (Europe/Paris)** | 2026-09-01 21:48:00 CEST |
 | **Generation worktree (provenance)** | `/Users/morris/Projects/sfia-workspace-nora-mw2-readiness-requalification` · provenance only |
 | **Generation branch (provenance)** | `docs/sfia-studio-nora-mw2-readiness-requalification` · provenance only |
 | **Base / origin/main (qualification anchor)** | `b4fae68423bc0ab7cb0abcc49bedee8f7c44b405` · PR **#454 MERGED** · post-merge CI **`33547046842` SUCCESS** · Required Gate **PASS** · ≠ permanent future HEAD |
-| **GO Morris consommé** | **MW2 READINESS / REQUALIFICATION ONLY** · inspection read-only · doc09 + Review Pack + L3 handoff borné · ≠ Delivery · ≠ runtime change · ≠ OD-02 consumption · ≠ project commit/push/PR/merge |
+| **GO Morris consommé (initial readiness)** | **MW2 READINESS / REQUALIFICATION ONLY** · inspection read-only · doc09 candidat + Review Pack + L3 handoff · ≠ Delivery · ≠ OD-02 consumption |
+| **GO Morris consommé (CORR-MW2-RDY-01)** | **CORR-MW2-RDY-01 — DOCUMENTARY CORRECTION ONLY** · doc09 + FULL Review Pack + L3 handoff · ≠ runtime · ≠ OD-02 consumption · ≠ MW2 Delivery · ≠ project Git integration |
+| **Correction applied** | **CORR-MW2-RDY-01** — F1 Agents modelSettings gap · PRE-MW2 effective reasoning baseline · reasoning.context requalification · **≠ ChatGPT Critical re-review PASS** · **≠ Morris validation** |
 | **Delivery** | **NOT AUTHORIZED** |
 | **MW2 implementation** | **NOT STARTED** |
 | **Cognitive Completion** | **NOT PROVEN** |
@@ -224,7 +172,7 @@ ChatGPT Critical Review → Morris validation + OD-02 → distinct Git integrati
 | **Responses compaction** | **CANDIDATE / NOT ADOPTED** |
 | **REAL execution this cycle** | **ZERO / NOT AUTHORIZED** |
 
-> **Anti-claims :** MW2 readiness ≠ MW2 READY · ≠ MW2 AUTHORIZED · ≠ MW2 STARTED · ≠ MW2 DELIVERY AUTHORIZED · ≠ Cognitive Completion PROVEN · ≠ runtime v3 ADOPTED · ≠ OD-02 CONSUMED · ≠ production model selected · ≠ model routing selected · ≠ GPT-5.6 Luna production model · provider snapshot ≠ durable SFIA doctrine · D0 green ≠ cognitive PROVEN · REAL-first historical baseline ≠ production routing · this document does **not** self-assert repository publication/merge/post-merge state.
+> **Anti-claims :** MW2 readiness ≠ MW2 READY · ≠ MW2 AUTHORIZED · ≠ MW2 STARTED · ≠ MW2 DELIVERY AUTHORIZED · ≠ Cognitive Completion PROVEN · ≠ runtime v3 ADOPTED · ≠ OD-02 CONSUMED · ≠ production model selected · ≠ production reasoning selected · ≠ model routing selected · ≠ GPT-5.6 Luna production model · `OPENAI_REASONING_EFFORT` parsed ≠ F1 Agents effective reasoning until modelSettings wired · provider snapshot ≠ durable SFIA doctrine · D0 green ≠ cognitive PROVEN · CORR-MW2-RDY-01 applied locally ≠ ChatGPT Critical re-review PASS · CANDIDATE PASS ≠ MW2 Delivery GO · this document does **not** self-assert repository publication/merge/post-merge state.
 
 ---
 
@@ -240,6 +188,7 @@ This readiness requalifies **MW2-S01** (Adaptive reasoning depth via Cognitive W
 | OpenAI Capability Fit Check | **COMPLETE — QUALIFIED** |
 | Architecture trigger | **NO TA REQUIRED** |
 | GAP-MW2-CWP-01 | **OPEN — non-blocking for readiness** |
+| GAP-MW2-F1-MODELSETTINGS-01 | **OPEN — Delivery blocker · non-blocking for readiness** |
 | GAP-MW2-REASONING-CAPABILITY-01 | **OPEN — Delivery closure required** |
 | GAP-MW2-EFFECTIVE-MODEL-01 | **OPEN — Delivery prerequisite (PRE-MW2-MODEL-BASELINE-01)** |
 | GAP-MW2-CKC-SEMANTIC-01 | **PARTIALLY CLOSED — seam discovered; semantic usefulness EVAL pending** |
@@ -248,7 +197,7 @@ This readiness requalifies **MW2-S01** (Adaptive reasoning depth via Cognitive W
 
 **Readiness verdict candidate:**
 
-### MW2 READINESS / REQUALIFICATION — CANDIDATE PASS — SOURCE-LOCK PRESERVED — OPENAI CAPABILITY FIT QUALIFIED — NO TA REQUIRED — OD-02 MORRIS DECISION REQUIRED — DELIVERY NOT AUTHORIZED
+### MW2 READINESS / REQUALIFICATION — CANDIDATE PASS — CORR-MW2-RDY-01 APPLIED — F1 AGENTS MODELSETTINGS GAP EXPLICIT — PRE-MW2 EFFECTIVE REASONING BASELINE QUALIFIED — SOURCE-LOCK PRESERVED — OPENAI CAPABILITY FIT QUALIFIED — NO TA REQUIRED — OD-02 MORRIS DECISION REQUIRED — DELIVERY NOT AUTHORIZED — READY FOR CHATGPT CRITICAL RE-REVIEW
 
 ---
 
@@ -320,13 +269,14 @@ C5 (`05-nora-source-locked-cognitive-backlog.md`) is **SOURCE-LOCKED**. This cyc
 
 | Seam | Path | Current role |
 | --- | --- | --- |
-| F1 Option C Agents turn | `app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts` | Runner + Session + tools · model from `OPENAI_MODEL` |
+| F1 Option C Agents turn | `app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts` | Runner + Session + tools · live path uses `secrets.model` only · **no explicit `modelSettings`** |
 | Session / model-input filter | `app/lib/nora-cognitive-runtime/callModelInputFilter.ts` | Structural role integrity · **NOT** business authority |
 | Memory B / compaction | `app/lib/nora-cognitive-runtime/memoryBCompaction.ts` | MW1-S02 boundary · **NOT** MW2 CWP |
 | Product SQLite Session | `app/lib/nora-cognitive-runtime/productSqliteSession.ts` | Memory B persistence |
 | SFIA tool routing | `app/lib/platform/tools/toolRouter.ts` · `sfiaAgentsTools.ts` | Authority-preserving tool execution |
-| Responses provider | `app/lib/platform/ai/openaiProvider.ts` | `reasoning.effort` from constructor/env |
-| AI config | `app/lib/platform/ai/config.ts` | `OPENAI_MODEL` · `OPENAI_REASONING_EFFORT` parse |
+| Responses provider (non-F1-direct) | `app/lib/platform/ai/openaiProvider.ts` | `reasoning.effort` on **its own** Responses calls · **≠** F1 Agents path when Runner receives model slug only |
+| AI config | `app/lib/platform/ai/config.ts` | Parses `OPENAI_MODEL` + optional `OPENAI_REASONING_EFFORT` · returned by `requireLiveConversationSecrets()` |
+| Agents SDK `modelSettings` | `@openai/agents-core@0.17.0` · `ModelSettings.reasoning` | Native seam (`effort` · `mode` · `context`) · **Agent/Runner configurable** · **not wired in F1 today** |
 | F2 qualification | `app/features/project-assistant/f2/qualify.ts` · `orchestrateF2.ts` | SFIA Profile recommendation · CKC enrichment |
 | CKC cognitive context | `app/features/project-assistant/f2/ckcCognitiveContext.ts` | **Exists** — semantic CKC load + Recommendation enrichment |
 | CKC qualification services | `app/lib/oa/cycle/` · `vertical-slice-runtime/service.ts` | DoctrinePackage + CkcQualification resolver |
@@ -339,13 +289,34 @@ C5 (`05-nora-source-locked-cognitive-backlog.md`) is **SOURCE-LOCKED**. This cyc
 | --- | --- |
 | `CognitiveStrategy` / `CognitiveWorkloadProfile` types | **Absent** — no policy layer |
 | Strategy Class enum (Routine/Focused/Deep/High-Assurance) | **Absent** in runtime |
-| Dynamic reasoning effort selection | **Absent** — static env only |
+| CWP → F1 reasoning wiring | **Absent** — `OPENAI_REASONING_EFFORT` parsed in config but **not passed** to Agent/Runner `modelSettings` |
+| Per-turn Agents `modelSettings.reasoning` | **Absent** on F1 live path |
 | Cycle→model routing | **Absent** (correct) |
 | Internal cognitive engine duplicate | **Absent** (correct) |
 
 **Historical naming note:** C5 references `ckcCognitiveContext seam` — repository truth confirms path `features/project-assistant/f2/ckcCognitiveContext.ts` (not deprecated).
 
-**Packages (anchor):** `openai@^6.48.0` · `@openai/agents@^0.17.0`.
+**Packages (anchor):** `openai@^6.48.0` · `@openai/agents@^0.17.0` · `@openai/agents-core@0.17.0` (transitive — `ModelSettings.reasoning` surface verified from published types).
+
+### 4.1 F1 Option C — effective reasoning truth (CORR-MW2-RDY-01)
+
+Repository-verified behavior @ anchor `b4fae684…`:
+
+| Fact | Evidence |
+| --- | --- |
+| `requireLiveConversationSecrets()` resolves `apiKey` · `model` · optional `reasoningEffort` from `OPENAI_REASONING_EFFORT` | `config.ts` L59–78 |
+| Live F1 path calls `requireLiveConversationSecrets()` | `runNoraAgentsTurn.ts` L79–80 via `resolveModel()` |
+| Live F1 passes **only** `secrets.model` to `Agent` as `model` | `runNoraAgentsTurn.ts` L99–104 — **no `modelSettings`** |
+| `secrets.reasoningEffort` is **not read** anywhere in `runNoraAgentsTurn.ts` | Full file inspection |
+| `OpenAIConversationProvider` applies `reasoning.effort` on **its** Responses calls | `openaiProvider.ts` — separate seam |
+| Agents SDK supports `Agent({ modelSettings: { reasoning: { effort, mode, context, … } } })` | `@openai/agents-core@0.17.0` · `ModelSettings` / `ModelSettingsReasoning` types |
+
+**Governed reading:**
+
+- **`OPENAI_REASONING_EFFORT` ≠ effective F1 Agents reasoning today.** Parsing in `config.ts` does not, by itself, configure the F1 Agents request.
+- Until MW2 Delivery wires Strategy → `modelSettings`, the **effective reasoning configuration on the F1 Agents path** depends on Agents SDK / model defaults actually applied — **not proven from Git alone** and **not asserted here**.
+- This wiring absence is **GAP-MW2-F1-MODELSETTINGS-01** — a **Delivery gap**, **not** a readiness blocker.
+- Do **not** conflate `openaiProvider.ts` (Responses paths it owns) with the F1 Option C Agents Runner path that currently passes a model slug only.
 
 ---
 
@@ -384,23 +355,33 @@ No step auto-consumes the next.
 
 **GPT-5.6 `reasoning.effort` (provider docs):** `none` · `low` · `medium` · `high` · `xhigh` · `max`.
 
-**SDK/runtime generic enum (`OPENAI_REASONING_EFFORT_VALUES`):** `none` · `minimal` · `low` · `medium` · `high` · `xhigh` · `max`.
+**SDK/runtime generic enum (`OPENAI_REASONING_EFFORT_VALUES` / Agents `ModelSettingsReasoningEffort`):** `none` · `minimal` · `low` · `medium` · `high` · `xhigh` · `max`.
+
+### 6.1 Two-seam model for reasoning (CORR-MW2-RDY-01)
+
+| Seam | Path | MW2 target role |
+| --- | --- | --- |
+| **F1 Option C Agents** | `runNoraAgentsTurn.ts` → `Agent` / `Runner` | **Primary future MW2 seam:** CWP/Strategy → bounded settings adapter → model-capability validation → **`modelSettings.reasoning.effort`** (and optionally `mode`) → existing Agent/Runner path |
+| **Provider / Responses** | `openaiProvider.ts` | **KEEP / ADAPT MINIMALLY** only for code paths that actually use `OpenAIConversationProvider` · parity / non-F1 callers · **not** a substitute for F1 Agents wiring |
+
+**Target disposition:** Agents `modelSettings` = native primary seam for future F1 MW2 · no new provider engine · no model router · no second Nora loop.
 
 | Primitive | MW2 need served | OpenAI native | SDK/code support | Model effective | Option C compat | Authority boundary | Observability | Cost/latency | Security | Reversibility | Disposition |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `reasoning.effort` | Adaptive depth per strategy | Yes (Responses) | Yes — `openaiProvider.ts` | Per-model set differs from SDK enum | Yes — via provider constructor | Strategy ≠ authority | EventSink + eval metrics | Effort↑ → cost/latency↑ | Server-only env | Config/env reversible | **USE / ADAPT** |
+| **`modelSettings.reasoning.effort` (Agents F1)** | Adaptive depth on F1 REAL path | Yes | Yes — `@openai/agents-core@0.17.0` · **not wired in F1 today** | Per-model set differs from SDK enum | Yes — Agent/Runner native | Strategy ≠ authority | EventSink + eval metrics | Effort↑ → cost/latency↑ | Server-side policy | Reversible per turn | **USE / ADAPT — PRIMARY F1 TARGET** |
+| **`reasoning.effort` (Responses / openaiProvider)** | Non-F1 or provider-owned Responses calls | Yes (Responses) | Yes — `openaiProvider.ts` | Per-model set differs from SDK enum | Yes — separate seam | Strategy ≠ authority | Provider usage | Effort↑ → cost/latency↑ | Server-only | Config reversible | **KEEP / ADAPT — SECONDARY / PATH-SPECIFIC** |
 | Responses API | F1 cognitive turns | Yes | Yes @6.48 | Model-dependent | Yes — primary path | Preserved | Usage tokens in provider | Standard | API key server-only | KEEP | **KEEP** |
 | Agents SDK Runner | Generic agent loop | Yes | Yes @0.17 | N/A | Yes — `runNoraAgentsTurn.ts` | Tools via `routeToolCall` | Turn budget hooks | Turn-cap bounded | Same as API | KEEP | **KEEP** |
 | `callModelInputFilter` | Session integrity | Pattern in SDK | Yes | N/A | Yes | Structural only | D0 tests exist | Low | No elevation of roles | KEEP | **KEEP** |
 | Structured outputs | Qualification / eval | Yes | Yes | Model-dependent | Yes | No authority leak | Eval harness | Low | Schema-bound | KEEP | **KEEP** |
 | Tool calling | CE-01 / sourcing | Yes | Yes via SFIA router | Model-dependent | Yes | **KEEP** authority model | Tool round metrics | Variable | Scoped tools | KEEP | **KEEP** |
-| `reasoning.mode=pro` | High-Assurance depth? | Documented candidate | **Not wired** in codebase | Unknown per model | Could adapt provider | Needs eval | Future campaign | Higher cost | Server-only | Reversible | **EVALUATE / DEFER** until High-Assurance evidence need |
-| `reasoning.context` / persisted reasoning | Long reasoning chains | Documented candidate | **Not wired** | Model-dependent | Unknown benefit vs Memory B | Must not become Truth C | N/A | Cost | Privacy review | Reversible | **EVALUATE / DEFER** — no MW2-S01 blocker proven |
+| `reasoning.mode=pro` | High-Assurance depth? | Documented candidate | Agents `ModelSettingsReasoning.mode` exists · **not wired SFIA-side** | Unknown per model | Could adapt via `modelSettings` | Needs eval | Future campaign | Higher cost | Server-only | Reversible | **EVALUATE / DEFER** until High-Assurance evidence need |
+| `reasoning.context` (Agents `ModelSettingsReasoning.context`) | Persisted/rendered reasoning items | Documented candidate (`auto` · `current_turn` · `all_turns`) | Type exists @0.17.0 · **no explicit SFIA wiring proven** | Effective behavior **not proven** from Git | Must respect Memory B ≠ Truth C · consider Agents Session + MW1 history | Must not become Truth C | Qualify in baseline/evidence | Cost · persistence risk | Privacy review | Reversible | **EVALUATE / DEFER** — effective behavior to qualify in PRE-MW2 baseline / bounded eval · **do not** treat « not wired » as « inactive » |
 | Responses compaction | Context management | Candidate | MW1 boundary exists | N/A | Option C seam | Governed | MW1 proofs | Cost savings | Same | Not adopted | **DEFER / NOT ADOPTED** |
 | Model routing / tier selection | None for MW2 | N/A | N/A | N/A | Anti-pattern for MW2 | Violates R22 if premature | N/A | N/A | N/A | N/A | **REJECT FOR MW2** |
 | Internal cognitive engine | CWP policy | N/A | Not needed if thin policy | N/A | Option C | Risk fake authority | N/A | High debt | N/A | Hard | **REJECT** unless gap proven |
 
-**R22 verdict:** Prefer native `reasoning.effort` adaptation under a **thin SFIA CWP policy layer** with **model-capability validation**. Do not adopt all OpenAI features. Non-use of `reasoning.mode=pro` and `reasoning.context` is justified: **no High-Assurance eval evidence yet** · MW2-S01 can start with effort envelope · defer pro/context to bounded eval if High-Assurance gap appears.
+**R22 verdict:** Prefer native Agents **`modelSettings.reasoning`** on the F1 path under a **thin SFIA CWP policy layer** with **model-capability validation**. Keep `openaiProvider.ts` only where that seam is actually used. Do not adopt all OpenAI features. Non-use of `reasoning.mode=pro` and undecided `reasoning.context` is acceptable while **effective behavior is explicitly treated as to-be-qualified** — not while assuming defaults.
 
 **OpenAI Capability Fit Check:** **COMPLETE / QUALIFIED**.
 
@@ -413,10 +394,11 @@ No step auto-consumes the next.
 | SFIA Profile truth | F2 qualify · LPS | Method/process input | **KEEP** | Trusted input to CWP | None | — |
 | C5 MW2 stories | doc05 | Source-lock contract | **KEEP / SOURCE-LOCK** | Unchanged | None | — |
 | MW0 eval harness | `nora-eval/` | Measurement spine | **KEEP / REUSE** | MW2 D0/EVAL/REAL campaigns | Add MW2 scenarios | Exit: none |
-| Option C Agents Runner | `runNoraAgentsTurn.ts` | F1 loop | **KEEP** | Same + policy hook | Thin adapter call | Baseline A retire later |
-| Responses provider | `openaiProvider.ts` | API adapter | **KEEP / ADAPT MINIMALLY** | Accept per-turn effort from policy | Constructor or request override | — |
+| Option C Agents Runner | `runNoraAgentsTurn.ts` | F1 loop · model slug only | **KEEP** | Same + **`modelSettings` wiring** | Thin reasoning settings adapter | Baseline A retire later |
+| Agents SDK `modelSettings` | `@openai/agents-core` types | Native reasoning seam · unused on F1 live | **KEEP / ADAPT** | Primary F1 MW2 target | Wire Strategy → `modelSettings.reasoning` | — |
+| Responses provider | `openaiProvider.ts` | Responses adapter (non-F1-direct paths) | **KEEP / ADAPT MINIMALLY** | Path-specific parity only | Per-path effort if needed | Do not substitute for F1 wiring |
 | OPENAI_MODEL config | `config.ts` | Env model | **KEEP** | Effective model resolution | PRE-MW2 baseline check | PRE-MW2-MODEL-BASELINE-01 |
-| OPENAI_REASONING_EFFORT | `config.ts` | Static env knob | **ADAPT** | Fallback/default only; not sole CWP output | Policy layer supersedes per-turn | OD-02 policy |
+| OPENAI_REASONING_EFFORT | `config.ts` | Parsed optional env value | **ADAPT** | Optional default/fallback input to policy · **≠ proof of F1 effective reasoning** | Policy may consume as hint · must join `modelSettings` for F1 REAL | OD-02 policy |
 | capabilityBudget manifest | `capabilityBudget.ts` | MW0 campaign | **KEEP / ADAPT** | Model-effort validation reuse | Wire to runtime validator | Temporary until provider metadata API if any |
 | F2 qualification | `f2/qualify.ts` | Profile + CKC | **KEEP / ADAPT** | Bootstrap + requalification hook | CWP after Profile trusted | — |
 | ckcCognitiveContext | `f2/ckcCognitiveContext.ts` | Semantic assist | **KEEP / ADAPT** | MW2-S02 contract completion | Provenance/disclosure hardening | — |
@@ -432,7 +414,8 @@ No step auto-consumes the next.
 
 | Gap ID | Evidence | Impact | Blocking readiness? | Target closure | Dependency | Proof | Morris gate |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| **GAP-MW2-CWP-01** | No CWP/Strategy types or policy in runtime; static `OPENAI_REASONING_EFFORT` only (doc04 CE-05 FAIL) | MW2-S01 undeliverable without policy | **No** (readiness) · **Yes** (Delivery) | MW2 Delivery — thin policy module | OD-02 · MW2-S01 | D0 + EVAL | OD-02 + Delivery GO |
+| **GAP-MW2-CWP-01** | No CWP/Strategy types or policy in runtime (doc04 CE-05 FAIL) | MW2-S01 undeliverable without policy | **No** (readiness) · **Yes** (Delivery) | MW2 Delivery — thin policy module | OD-02 · MW2-S01 | D0 + EVAL | OD-02 + Delivery GO |
+| **GAP-MW2-F1-MODELSETTINGS-01** | CWP cannot drive F1 REAL Agents requests: `runNoraAgentsTurn` passes `secrets.model` only · no explicit `modelSettings.reasoning` · `secrets.reasoningEffort` unused on F1 path | MW2-S01 REAL F1 delivery blocked until Strategy → Agents SDK wiring | **No** (readiness) · **Yes** (Delivery) | MW2 Delivery — thin reasoning settings adapter → `Agent`/`Runner` `modelSettings` | OD-02 · PRE-MW2 baseline · capability validation | D0 wiring + fail-closed + EVAL + bounded REAL | — |
 | **GAP-MW2-REASONING-CAPABILITY-01** | SDK enum includes `minimal`; GPT-5.6 docs omit it; no runtime validator ties effort to effective model | Wrong effort → provider CONFIG fail or silent mismatch risk | **No** (readiness) · **Yes** (Delivery) | Capability validator fail-closed | PRE-MW2-MODEL-BASELINE-01 | D0 fail-closed tests | — |
 | **GAP-MW2-EFFECTIVE-MODEL-01** | `OPENAI_MODEL` env-driven; unset in local shell; Git cannot prove F1 effective model | Cannot prove GPT-5.6 alignment from Git alone | **No** (readiness) · **Yes** (Delivery) | PRE-MW2-MODEL-BASELINE-01 | Deployment config | Config probe + regression | Morris baseline GO |
 | **GAP-MW2-CKC-SEMANTIC-01** | Seam exists; deterministic proofs W1/W2; REAL usefulness not proven for MW2 | MW2-S02 partial | **No** (readiness) | EVAL semantic assist; REAL later | MW2-S01 bootstrap ordering | D0 authority + EVAL | Delivery GO |
@@ -451,7 +434,7 @@ MW2-S01 requires:
 1. CWP signal extraction/normalization from intention + Truth C + turn state + **trusted SFIA Profile input**.
 2. Cognitive Strategy Class selection under SFIA envelope.
 3. Mapping Strategy Class → **candidate native OpenAI settings envelope** (not production model).
-4. Model-capability validation → effective request config.
+4. Model-capability validation → effective **`modelSettings`** on F1 Agents path.
 5. Telemetry for strategy class / shifts (CE-07).
 6. High-Assurance elevation hooks (MW5 link — arm challenge gate, do not implement MW5 here).
 
@@ -539,8 +522,11 @@ intent + Truth C + available workload signals
 CognitiveStrategyClass
   → candidate cognitive settings envelope (reasoning.effort range/default)
   → model-capability validation (effective model from OPENAI_MODEL)
-  → effective OpenAI request configuration (provider/Runner)
+  → Agents SDK modelSettings.reasoning (primary F1 seam)
+  → existing Agent / Runner path
 ```
+
+**Secondary seam (path-specific only):** `openaiProvider.ts` → `reasoning.effort` for Responses calls **it** owns — not a substitute for F1 wiring.
 
 **Policy target (pre-OD-02):**
 
@@ -580,19 +566,30 @@ Global SDK enum (`minimal` present) ≠ GPT-5.6 documented efforts (`minimal` ab
 
 ## 16. PRE-MW2-MODEL-BASELINE-01
 
-Per doc08 §7 — **Delivery prerequisite**, not readiness blocker.
+Per doc08 §7 — **Delivery prerequisite**, not readiness blocker. **Not renamed · not consumed.**
 
-| Check | Readiness status |
+Before MW2 Delivery, baseline must resolve **both**:
+
+| Dimension | Requirement | Readiness status |
+| --- | --- | --- |
+| **A — Effective F1 model** | Which model slug reaches the F1 Agents path (`OPENAI_MODEL` / deployment truth) | **OPEN** — env not visible in Git; local shell `OPENAI_MODEL` unset |
+| **B — Effective F1 reasoning configuration** | Which reasoning settings actually reach the Agents SDK on the reference F1 path (`modelSettings` effective behavior · not env parse alone) | **OPEN** — GAP-MW2-F1-MODELSETTINGS-01 · effective settings not proven from Git |
+
+**Insufficient baseline claim:** proving `OPENAI_MODEL` ∈ GPT-5.6 family **alone** does **not** characterize the full F1 cognitive baseline.
+
+**Also required at Delivery:**
+
+| Check | Status |
 | --- | --- |
-| Resolve effective F1 model | **OPEN** — env not visible in Git; local shell `OPENAI_MODEL` unset |
-| Verify GPT-5.6 family | **OPEN** — pending effective model proof |
-| Align if non-GPT-5.6 | **N/A** until model resolved |
-| Rerun MW0/MW1 regression after change | **Planned** for Delivery |
-| Avoid Luna hardcode as production tier | **Confirmed** — historical REAL baseline only |
+| Verify GPT-5.6 family membership (model dimension) | **OPEN** |
+| Characterize effective Agents reasoning settings on F1 reference path | **OPEN** |
+| Align if non-GPT-5.6 model | **N/A** until model resolved |
+| Rerun MW0/MW1 regression after any alignment | **Planned** for Delivery |
+| Avoid Luna hardcode as production tier | **Confirmed** |
 
-**PRE-MW2-MODEL-BASELINE-01:** **OPEN / DELIVERY PREREQUISITE**.
+**PRE-MW2-MODEL-BASELINE-01:** **OPEN / DELIVERY PREREQUISITE** (model + effective reasoning).
 
-Historical REAL evidence: MW0/MW1 campaigns used **GPT-5.6 Luna + reasoning none** — **NOT production model selection**.
+**Historical REAL evidence (MW0/MW1 only):** campaigns used **GPT-5.6 Luna + reasoning none** as REAL-proven starting point — **NOT** production model selection · **NOT** production reasoning selection · **NOT** proof of current F1 effective settings without re-baseline.
 
 ---
 
@@ -618,12 +615,12 @@ How should Nora map **Cognitive Strategy Class** to **native OpenAI cognitive se
 | Option | Description | Advantages | Risks | Complexity | Reversibility |
 | --- | --- | --- | --- | --- | --- |
 | **A — Rigid deterministic map** | Each Strategy Class → exactly one `reasoning.effort` | Simplest D0 · predictable | Too rigid for workload nuance · over/under-qualification | Low | High |
-| **B — Class envelope + bounded selection** | Class → effort envelope; pick minimum sufficient using signals + model validation | Preserves thin policy · R22-aligned · uses MW0 manifest pattern | Policy design effort · OD-02 still needed for envelope bounds | Medium | High |
+| **B — Class envelope + bounded selection** | Class → effort envelope; pick minimum sufficient using signals + model validation; apply via **`modelSettings`** | Preserves thin policy · R22-aligned · uses MW0 manifest pattern · native F1 seam | Policy design effort · OD-02 still needed for envelope bounds | Medium | High |
 | **C — Dynamic model routing / cognitive engine** | Strategy drives model tier or internal engine | Maximum flexibility | Parallel architecture · fake authority risk · premature routing | High | Low |
 
 ### ChatGPT/Cursor recommendation
 
-**Recommend Option B** — Strategy Class → **bounded native settings envelope** → **model-capability validation** → effective request config. Reject Option C for MW2. Option A acceptable only as degenerate subset of B for initial D0 bootstrap **if** Morris explicitly chooses simplicity over nuance.
+**Recommend Option B** — Strategy Class → **bounded native settings envelope** → **minimum-sufficient selection** → **model-capability validation** → **Agents SDK `modelSettings.reasoning`** on F1. Reject Option C for MW2. Option A viable but **too rigid** as target; acceptable only as degenerate subset of B for initial D0 bootstrap **if** Morris explicitly chooses simplicity over nuance.
 
 ### Proof required post-decision
 
@@ -659,8 +656,12 @@ MW2 proof **cannot** be D0-only. Layered evidence (MW0 spine reuse):
 - Strategy classification policy tests.
 - Same SFIA Profile + different workloads → potentially different strategies.
 - High-Assurance trigger mechanics.
+- **Strategy/settings mechanics — verified configuration reaches Agents `modelSettings` seam (GAP-MW2-F1-MODELSETTINGS-01 closure).**
+- **F1 wiring test: selected policy output appears on Agent/Runner `modelSettings.reasoning` · not merely parsed in config.**
+- Model-capability validator fail-closed.
 - Unsupported model/effort → fail-closed.
 - No Cycle/Profile→model routing regression guards.
+- Profile ≠ CWP ≠ Strategy ≠ model invariants.
 
 ### D0 (MW2-S02)
 
@@ -680,12 +681,18 @@ MW2 proof **cannot** be D0-only. Layered evidence (MW0 spine reuse):
 | **S5 Same Profile · different workload** | Standard Profile · low vs high ambiguity turns | Same Profile · different strategies | D0 + EVAL separation |
 | **S6 Unsupported capability** | Strategy demands effort model rejects | Fail-closed CONFIG | D0 only |
 
-### REAL campaign (future · not this cycle)
+### EVAL (MW2-S01) — after D0 green
+
+- Verify selected configurations produce **expected cognitive effect** on representative workloads (not wiring alone).
+- Maintain authority / STOP / epistemic separation boundaries.
+
+### REAL campaign (future · not this cycle · GO applicable)
 
 - **Fixed GPT-5.6 reference model** (not production selection).
-- **Small effort subset** (e.g. none · low · medium · high — revalidated per PRE-MW2 baseline).
-- Representative workloads only.
-- Escalate to multi-model compare **only if EVAL proves need**.
+- **Small effort/settings subset** revalidated per PRE-MW2 baseline (model **and** effective reasoning).
+- Representative workloads only · **only after applicable GO**.
+- **No exhaustive Sol×Terra×Luna×all efforts matrix.**
+- **No premature model routing conclusion.**
 
 **NO MODEL ROUTER BEFORE EVIDENCE.**
 
@@ -748,7 +755,7 @@ C5 declares **NO TA REQUIRED** for MW2-S01/S02.
 
 - Adding types/policy/validator/metadata = in-band.
 - Connecting existing CKC context = in-band.
-- Adapting reasoning settings = in-band.
+- Adapting reasoning settings via Agents `modelSettings` = in-band.
 
 **Verdict:** **NO TA REQUIRED** — default stands.
 
@@ -765,8 +772,9 @@ Future MW2 Delivery likely touch points (repo-derived):
 | Area | Files (candidate) |
 | --- | --- |
 | CWP policy layer (new) | `app/lib/nora-cognitive-runtime/cognitiveWorkloadPolicy.ts` (candidate name) |
-| Strategy → settings adapter | extend `openaiProvider.ts` or `runNoraAgentsTurn.ts` input |
+| Strategy → Agents settings adapter | **`runNoraAgentsTurn.ts`** — wire `modelSettings.reasoning` on Agent/Runner |
 | Capability validator | extend `capabilityBudget.ts` or shared manifest |
+| `openaiProvider.ts` | **MAY** — only if a Delivery path still requires Responses parity |
 | D0 tests | `app/__tests__/nora-cognitive-runtime/mw2.*` |
 | Eval scenarios | `app/__tests__/nora-eval/mw2.*` |
 | F2 CKC hardening | `f2/ckcCognitiveContext.ts` · `f2/qualify.ts` |
@@ -815,7 +823,9 @@ MW0 CLOSED
 | Risk | Mitigation | Exit |
 | --- | --- | --- |
 | OD-02 delay blocks Delivery | Decision Pack §17 | Morris decision |
+| F1 reasoning wiring gap | GAP-MW2-F1-MODELSETTINGS-01 | MW2 Delivery modelSettings adapter |
 | Effort/model mismatch | GAP-MW2-REASONING-CAPABILITY-01 | Validator + manifest |
+| Effective reasoning unknown | PRE-MW2 baseline dimension B | Baseline + bounded REAL |
 | Profile/strategy confusion | D0 + PE neutrality | Eval regression |
 | CKC fake authority | Disclosures + D0 | EVAL + REAL |
 | Premature model routing | Explicit REJECT disposition | Evidence gate |
@@ -881,26 +891,31 @@ This document and its review pack must **never** be read as:
 - GPT-5.6 Luna = production model
 - Responses compaction ADOPTED
 - TA REQUIRED (for current qualified scope)
-- CANDIDATE PASS = Morris Delivery GO
+- CORR-MW2-RDY-01 applied locally ≠ ChatGPT Critical re-review PASS
+- CORR-MW2-RDY-01 applied locally ≠ Morris validation
+- CANDIDATE PASS ≠ MW2 Delivery GO
+- `OPENAI_REASONING_EFFORT` set ≠ F1 effective reasoning proven
 
 ---
 
 ## 30. Readiness verdict candidate
 
-### MW2 READINESS / REQUALIFICATION — CANDIDATE PASS — SOURCE-LOCK PRESERVED — OPENAI CAPABILITY FIT QUALIFIED — NO TA REQUIRED — OD-02 MORRIS DECISION REQUIRED — DELIVERY NOT AUTHORIZED
+### MW2 READINESS / REQUALIFICATION — CANDIDATE PASS — CORR-MW2-RDY-01 APPLIED — F1 AGENTS MODELSETTINGS GAP EXPLICIT — PRE-MW2 EFFECTIVE REASONING BASELINE QUALIFIED — SOURCE-LOCK PRESERVED — OPENAI CAPABILITY FIT QUALIFIED — NO TA REQUIRED — OD-02 MORRIS DECISION REQUIRED — DELIVERY NOT AUTHORIZED — READY FOR CHATGPT CRITICAL RE-REVIEW
 
 **Reserves (non-blocking for candidate pass):**
 
-- PRE-MW2-MODEL-BASELINE-01 OPEN.
+- PRE-MW2-MODEL-BASELINE-01 OPEN (model + effective reasoning).
+- GAP-MW2-F1-MODELSETTINGS-01 requires Delivery closure.
 - GAP-MW2-REASONING-CAPABILITY-01 requires Delivery closure.
 - MW2-S02 semantic usefulness EVAL not yet executed.
-- OD-02 envelope bounds undecided.
+- OD-02 envelope bounds undecided · Option B **RECOMMENDED — NOT DECIDED**.
+- `reasoning.context` effective behavior **to qualify** — not decided this cycle.
 
 ---
 
 ## 31. Next gates
 
-1. **ChatGPT Critical Review** — read Review Handoff canonical L3.
+1. **ChatGPT Critical re-review** — read Review Handoff canonical L3 (post CORR-MW2-RDY-01).
 2. Corrections if required.
 3. **Morris** — validate readiness content · **decide OD-02**.
 4. **Distinct GO** — Git integration of doc09 if validated.
@@ -913,4 +928,4 @@ No gate auto-consumes the next.
 
 ---
 
-*Fin du document 09 — MW2 READINESS / REQUALIFICATION CANDIDATE — AWAITING CHATGPT CRITICAL REVIEW + MORRIS VALIDATION — DELIVERY NOT AUTHORIZED — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED.*
+*Fin du document 09 — MW2 READINESS / REQUALIFICATION CANDIDATE — CORR-MW2-RDY-01 APPLIED — AWAITING CHATGPT CRITICAL RE-REVIEW + MORRIS VALIDATION — DELIVERY NOT AUTHORIZED — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED.*
