@@ -248,17 +248,50 @@ La Roadmap courante contient déjà l’ancre MW1 REAL boundary et son campaign/
 
 ## 7. PRE-MW2-MODEL-BASELINE-01
 
-Avant MW2 Delivery :
+**Status:** **OPEN / DELIVERY PREREQUISITE** — not executed this cycle.
 
-1. résoudre le modèle réellement configuré sur le chemin F1 / Option C ;
-2. vérifier qu’il appartient à la famille GPT-5.6 ;
-3. si le runtime effectif est hors GPT-5.6, aligner le runtime Nora sur GPT-5.6 avant MW2 ;
-4. après un éventuel alignement, rejouer la régression minimale MW0/MW1 nécessaire ;
-5. conserver le modèle comme configuration server-side ; **ne pas hardcoder un tier uniquement pour satisfaire ce prérequis**.
+Avant MW2 Delivery, PRE-MW2 doit résoudre **deux dimensions** :
 
-Le code courant résout le modèle depuis `OPENAI_MODEL` et le reasoning depuis `OPENAI_REASONING_EFFORT`. Git ne prouve donc pas, à lui seul, la valeur d’environnement réellement active sur chaque runtime.
+### Dimension A — effective F1 model
+
+- Modèle réellement utilisé par le chemin F1 / Agents / Option C.
+- Vérifier qu’il appartient à la famille GPT-5.6 (ou aligner avant MW2 si hors famille).
+- Conserver le modèle comme configuration server-side ; **ne pas hardcoder un tier uniquement pour satisfaire ce prérequis**.
+
+### Dimension B — effective F1 reasoning configuration
+
+- Configuration reasoning **réellement appliquée** au chemin Agents F1 — pas seulement parsée dans config.
+- Repository truth @ anchor `b4fae684…` :
+  - `requireLiveConversationSecrets()` retourne `model` + optional `reasoningEffort` (`config.ts`) ;
+  - `runNoraAgentsTurn.ts` passe **`secrets.model`** à `Agent` · **pas** `modelSettings.reasoning` explicite · `reasoningEffort` **non appliqué** sur F1 ;
+  - `openaiProvider.ts` applique `reasoning.effort` uniquement sur **ses propres** appels Responses.
+- **`OPENAI_REASONING_EFFORT` parsé ≠ F1 effective reasoning** tant que `modelSettings` n’est pas câblé sur F1.
+
+### reasoning.context
+
+**EVALUATE / DEFER** — absence de câblage SFIA explicite ≠ inactive · Memory B ≠ Truth C.
+
+### Règle
 
 **PRE-MW2-MODEL-BASELINE-01 est un prérequis Delivery, pas une architecture decision ni un production-routing decision.**
+
+---
+
+## 7.1 OD-02 — OPTION B (MW2 policy direction)
+
+**Status:** **CONSUMED BY MORRIS — OPTION B** (decision record in doc09 §17).
+
+| Element | Meaning |
+| --- | --- |
+| **Strategy Class** | Posture cognitive globale gouvernée — **≠** alias direct d’un effort reasoning |
+| **Envelope** | Enveloppe cognitive/settings gouvernée par Strategy Class |
+| **Selection** | Minimum suffisant selon signaux workload réels |
+| **Validation** | Capacités du modèle effectif |
+| **Application** | Primitives natives OpenAI · Agents `modelSettings.reasoning` · chemin Option C existant |
+
+**Hard rule:** Strategy Class **≠** mapping rigide 1:1 vers `none/low/medium/high/max`. Les ranges illustratifs (Routine→low, Deep→high, etc.) restent **non normatifs** jusqu’à qualification design/preuve.
+
+**Interdit par Option B:** model routing · Cycle/Profile→model · Strategy Class→modèle permanent · bornes définitives sans preuve · effort maximal par défaut · architecture cognitive parallèle.
 
 ---
 
@@ -384,19 +417,22 @@ Pas d’adoption automatique.
 État après intégration PR #453 :
 
 ```text
-1. Pre-MW2 transverse documentary truth-sync — COMPLETE / INTEGRATED
-2. Git integration + post-merge proof — VERIFIED (PR #453)
-3. MW2 Readiness / Requalification — NEXT PRODUCT GATE
-4. Morris validation of MW2 qualification
-5. Distinct Morris MW2 Delivery GO
-6. MW2 Delivery
-7. MW2 QA / REAL reasoning evidence
-8. MW3 → MW6 with OpenAI Capability Fit Check per readiness
-9. Global Model × Reasoning campaign after MW6 by default
-   OR earlier targeted campaign if a wave QA justifies it
+1. Pre-MW2 transverse documentary truth-sync — COMPLETE / INTEGRATED (PR #453)
+2. OpenAI-native-first post-merge truth-sync — COMPLETE / INTEGRATED (PR #454)
+3. MW2 Readiness / Requalification — VALIDATED BY MORRIS · OD-02 OPTION B CONSUMED
+4. MW2 readiness integration package — repository lifecycle / RESOLVE FROM GIT / PR evidence
+5. Git integration + post-merge verification — after ChatGPT Critical PR Review + Morris merge GO
+6. PRE-MW2-MODEL-BASELINE-01 — OPEN (dimensions A + B)
+7. PRE-MW2 satisfied
+8. Distinct Morris MW2 Delivery GO — NOT AUTHORIZED until steps 6–7
+9. MW2 Delivery — NOT STARTED
+10. MW2 QA / REAL reasoning evidence
+11. MW3 → MW6 with OpenAI Capability Fit Check per readiness
+12. Global Model × Reasoning campaign after MW6 by default
+    OR earlier targeted campaign if a wave QA justifies it
 ```
 
-Ce document **n’autorise pas** les étapes 3→9.
+Ce document **n’autorise pas** les étapes 6→12.
 
 ---
 
@@ -405,11 +441,11 @@ Ce document **n’autorise pas** les étapes 3→9.
 | Source | Disposition |
 | --- | --- |
 | Build Doctrine | **R22 ACTIVE ON MAIN** via PR #453 ; pas de modèle spécifique figé dans la doctrine |
-| Convergence Roadmap | **KEEP** · état/gate courant déjà compatible : MW1 CLOSED → MW2 Readiness/Requalification ; MW2 NOT AUTHORIZED ; Production model routing NOT SELECTED |
+| Convergence Roadmap | **KEEP** · **CURRENT trajectory:** MW2 Readiness **VALIDATED BY MORRIS** → OD-02 **OPTION B CONSUMED** → repository integration/post-merge verification (PR #455 · **≠ merged until Morris GO**) → **PRE-MW2-MODEL-BASELINE-01** → distinct Morris MW2 Delivery GO after PRE-MW2 satisfied · MW2 Delivery **NOT AUTHORIZED / NOT STARTED** · Production model routing **NOT SELECTED** · runtime v3 **NON ADOPTED** |
 | C5 source-locked backlog | **KEEP source-lock** · pas de nouvelle story / pas de changement AC dans ce truth-sync |
 | MW0 doc06 | **KEEP measurement contract** · historique validé non réécrit ; ce document consomme D0/R1/R2/R3 et le contrat model/reasoning |
 | OD-04 doc07 | **KEEP architecture decision** · Option C preserved · lifecycle synchronisé après PR #453 |
-| MW2 Readiness / OD-02 | prochaine capacité/gate à requalifier **après clôture de ce post-merge truth-sync** |
+| MW2 Readiness / OD-02 | **MW2 Readiness VALIDATED BY MORRIS** · **OD-02 OPTION B CONSUMED** (doc09) · **Delivery NOT AUTHORIZED** · next after post-merge = PRE-MW2 |
 
 ---
 
@@ -431,27 +467,32 @@ STOP/requalifier si :
 
 ## 14. Anti-claims et état courant
 
-Cette trajectoire **VALIDATED — ACTIVE ON MAIN** :
+Cette trajectoire **VALIDATED — ACTIVE ON MAIN** via PR **#453** :
 
-- **≠ MW2 Readiness validée** ;
-- **≠ OD-02 consommée** ;
-- **≠ MW2 Delivery GO** ;
-- **≠ MW2 started** ;
+- La validation/intégration de cette trajectoire OpenAI-native-first par PR **#453 seule** **n’a pas** validé MW2 Readiness et **n’a pas** consommé OD-02.
+- Ces gates ont été consommées **séparément** ensuite :
+  - **MW2 Readiness VALIDATED BY MORRIS**
+  - **OD-02 CONSUMED — OPTION B**
+- Ce document **n’autorise pas** MW2 Delivery.
 - **≠ production model selected** ;
 - **≠ production model routing selected** ;
 - **≠ Sol/Terra/Luna campaign already executed** ;
 - **≠ Responses compaction adopted** ;
 - **≠ new architecture** ;
 - **≠ Cognitive Completion PROVEN** ;
-- **≠ runtime v3 ADOPTED**.
+- **≠ runtime v3 ADOPTED** ;
+- OpenAI-native-first **≠** adoption automatique de chaque nouvelle capability fournisseur.
 
 ### Verdict de trajectoire actif
 
 **OPENAI-NATIVE-FIRST — VALIDATED / ACTIVE ON MAIN VIA PR #453**
 **GPT-5.6 — CURRENT NORA REAL EVIDENCE FAMILY / LIVE PROVIDER SNAPSHOT REVALIDABLE**
 **GPT-5.6 LUNA + NONE — MW0/MW1 REAL-PROVEN STARTING POINT, NOT PRODUCTION ROUTING DECISION**
+**MW2 READINESS — VALIDATED BY MORRIS**
+**OD-02 — CONSUMED — OPTION B**
 **MW2→MW6 OPENAI CAPABILITY FIT CHECK — REQUIRED BY ACTIVE TRAJECTORY**
 **PRODUCTION MODEL ROUTING — NOT SELECTED**
-**NEXT PRODUCT CAPABILITY — MW2 READINESS / REQUALIFICATION**
+**NEXT PRODUCT PREREQUISITE — PRE-MW2-MODEL-BASELINE-01 AFTER PR #455 INTEGRATION / POST-MERGE VERIFICATION**
+**NEXT EXECUTION GATE — DISTINCT MORRIS GO — MW2 DELIVERY AFTER PRE-MW2 SATISFIED**
 **MW2 DELIVERY — NOT AUTHORIZED / NOT STARTED**
 **RUNTIME V3 — NON ADOPTED**
