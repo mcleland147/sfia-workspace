@@ -8,6 +8,7 @@
 | **Git SoT** | Repository `mcleland147/sfia-workspace` — Git courant prime |
 | **Doctrine produit associée** | SFIA Studio v3 framing `30`–`37` = **CE QUE** Studio doit être |
 | **Roadmap associée** | [`sfia-studio-convergence-roadmap.md`](./sfia-studio-convergence-roadmap.md) = **OÙ** en est la construction |
+| **Trajectoire cognitive Nora associée** | [`08-nora-openai-native-first-cognitive-trajectory.md`](../nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md) = **COMMENT qualifier les primitives cognitives OpenAI et la trajectoire model/reasoning MW2→MW6** · candidate jusqu’à intégration Git |
 | **Processus opérationnel actuel** | SFIA **v2.6** = baseline ChatGPT ↔ Cursor externe |
 | **Runtime v3** | **NON ADOPTED** tant que preuves/gates manquent |
 | **Snapshot création** | HEAD `4b1a058050ae81d56cb6d96b88e8a57380799a86` · 2026-08-12 21:52:01 CEST (+0200) *(historique)* |
@@ -206,7 +207,7 @@ Elle se termine lorsqu’une **capacité utilisateur** ou une **précondition st
 ## A12. Trois couches de vérification
 
 | Couche | Rôle | Statut courant |
-| --- | --- | --- |
+| --- | --- |
 | **1. Instructions projet ChatGPT** | Déclenche la consultation | **ACTIVE** |
 | **2. Repo / Source Routing** | Indique quoi consulter et dans quel ordre | **VALIDATED — ACTIVE ON MAIN** (routing guide + Knowledge Layer) |
 | **3. Template Cursor canonique** | Empêche génération de prompt Studio sans contexte convergence | **VALIDATED — ACTIVE ON MAIN** |
