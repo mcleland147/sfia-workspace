@@ -3,17 +3,17 @@
 | Métadonnée | Valeur |
 | --- | --- |
 | **Rôle** | Doctrine de **construction / convergence** de SFIA Studio |
-| **Statut** | **VALIDATED — ACTIVE ON MAIN** — gouvernance de construction SFIA Studio validée par Morris · **R22 OpenAI-native-first amendment = DOCUMENTARY CANDIDATE ON BRANCH UNTIL GIT INTEGRATION** |
+| **Statut** | **VALIDATED — ACTIVE ON MAIN** — gouvernance de construction SFIA Studio validée par Morris · **R22 OpenAI-native-first = VALIDATED — ACTIVE ON MAIN** via PR **#453** |
 | **Portée** | Travaux de construction / évolution de **SFIA Studio uniquement** |
 | **Git SoT** | Repository `mcleland147/sfia-workspace` — Git courant prime |
 | **Doctrine produit associée** | SFIA Studio v3 framing `30`–`37` = **CE QUE** Studio doit être |
 | **Roadmap associée** | [`sfia-studio-convergence-roadmap.md`](./sfia-studio-convergence-roadmap.md) = **OÙ** en est la construction |
-| **Trajectoire cognitive Nora associée** | [`08-nora-openai-native-first-cognitive-trajectory.md`](../nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md) = **COMMENT qualifier les primitives cognitives OpenAI et la trajectoire model/reasoning MW2→MW6** · candidate jusqu’à intégration Git |
+| **Trajectoire cognitive Nora associée** | [`08-nora-openai-native-first-cognitive-trajectory.md`](../nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md) = **COMMENT qualifier les primitives cognitives OpenAI et la trajectoire model/reasoning MW2→MW6** · **VALIDATED — ACTIVE ON MAIN** via PR **#453** |
 | **Processus opérationnel actuel** | SFIA **v2.6** = baseline ChatGPT ↔ Cursor externe |
 | **Runtime v3** | **NON ADOPTED** tant que preuves/gates manquent |
 | **Snapshot création** | HEAD `4b1a058050ae81d56cb6d96b88e8a57380799a86` · 2026-08-12 21:52:01 CEST (+0200) *(historique)* |
 | **Validation Morris** | 2026-08-13 02:05 +0200 (Europe/Paris) — Build Doctrine + Convergence Roadmap officiellement validées comme gouvernance de construction SFIA Studio |
-| **Intégration Git** | PR #334 · merge commit `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **R22 amendment not active on main until its distinct Git integration** |
+| **Intégration Git** | PR #334 · merge commit `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **R22 + trajectoire Nora OpenAI-native-first intégrés via PR #453** · merge `d640b5ba7210b9da3593bea9eeae2100c6da6c09` · post-merge CI `33530815963` **SUCCESS** · Required Gate **PASS** |
 | **Source Product Completion structurante** | C1 validé et intégré sur `main` via PR #364 · merge `d83be84ab93650f23bfe54870790cc2e839be095` · `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` |
 
 ## A1. Anti-claims (ouverts)
@@ -111,7 +111,7 @@ Fondations doctrine produit associées : **V3-F01…V3-F15** (VALIDATED doctrine
 | **R21** | **Fidélité Fake/Real.** Un fake/fixture substitue une **frontière externe**, pas un second chemin produit. Preuve déterministe ≠ preuve REAL. REAL-shaped deterministic reste DETERMINISTIC PROVEN. Les realism gaps restent visibles. Une frontière REAL significative se prouve **progressivement** (déterministe → REAL borné → end-to-end REAL). Aucun claim supérieur à la preuve. Aucun REAL automatique. |
 | **R22** | **Nora OpenAI-native-first.** Pour tout besoin cognitif Nora, qualifier d’abord les capacités OpenAI courantes pertinentes avant de développer un équivalent interne. Si une primitive OpenAI satisfait les exigences fonctionnelles/cognitives, la frontière Studio↔Nora↔Pilote, les contraintes de gouvernance/autorité, de preuve, sécurité/confidentialité, coût/latence et réversibilité applicables, **préférer son usage ou son adaptation minimale**. Si la couverture est partielle, combiner la primitive avec le **delta réellement spécifique à SFIA**. Construire une mécanique cognitive générique interne seulement si l’insuffisance/incompatibilité OpenAI est qualifiée. Une primitive OpenAI n’acquiert jamais l’autorité métier SFIA. Les capacités fournisseur doivent être revalidées quand le claim en dépend ; un snapshot OpenAI courant **≠ doctrine permanente**. |
 
-> **Lifecycle R22 :** principe de trajectoire explicitement consommé par Morris le 2026-09-01 ; cette rédaction Build Doctrine reste **candidate** tant qu’elle n’est pas intégrée sur `main` via le lifecycle Git gouverné.
+> **Lifecycle R22 : ACTIVE ON MAIN.** Principe de trajectoire explicitement consommé par Morris le 2026-09-01, intégré via PR **#453**, merge `d640b5ba7210b9da3593bea9eeae2100c6da6c09`, post-merge CI `33530815963` **SUCCESS**, Required Gate **PASS**.
 
 ## A5. Challenge obligatoire avant tout chantier Studio
 
@@ -200,14 +200,14 @@ Elle se termine lorsqu’une **capacité utilisateur** ou une **précondition st
 | **Build Doctrine (ce document)** | Lois de construction |
 | **Convergence Roadmap** | État + prochaine capacité |
 | **Product Completion C1 intégré** | Cible / scope / trajectoire adoptés explicitement par Morris |
-| **Nora OpenAI-native-first trajectory** | Trajectoire transverse cognitive MW2→MW6 · capability-fit/model-reasoning policy ; active only after its Git integration |
+| **Nora OpenAI-native-first trajectory** | **ACTIVE ON MAIN** · trajectoire transverse cognitive MW2→MW6 · capability-fit/model-reasoning policy · intégrée via PR **#453** |
 | Sources cycle / repo | Preuves locales du chantier |
 | Mémoire conversationnelle | Non SoT |
 
 ## A12. Trois couches de vérification
 
 | Couche | Rôle | Statut courant |
-| --- | --- |
+| --- | --- | --- |
 | **1. Instructions projet ChatGPT** | Déclenche la consultation | **ACTIVE** |
 | **2. Repo / Source Routing** | Indique quoi consulter et dans quel ordre | **VALIDATED — ACTIVE ON MAIN** (routing guide + Knowledge Layer) |
 | **3. Template Cursor canonique** | Empêche génération de prompt Studio sans contexte convergence | **VALIDATED — ACTIVE ON MAIN** |
