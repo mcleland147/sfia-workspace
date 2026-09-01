@@ -1,28 +1,25 @@
-# SFIA Studio — Nora Cognitive Completion — MW2 Readiness CORR-MW2-RDY-01 — FULL CRITICAL Review Pack
+# SFIA Studio — Nora MW2 Readiness CORR-MW2-RDY-02 — FULL CRITICAL Review Pack
 
 | Field | Value |
 | --- | --- |
-| **Timestamp (Europe/Paris)** | 2026-09-01 21:48:00 CEST |
+| **Timestamp (Europe/Paris)** | 2026-09-01 21:55:00 CEST |
 | **Cycle** | 8 — Delivery / implémentation |
-| **Sous-type** | MW2 READINESS / REQUALIFICATION — CORR-MW2-RDY-01 DOCUMENTARY CORRECTION |
+| **Sous-type** | MW2 READINESS — CORR-MW2-RDY-02 GATE-ORDER CORRECTION |
 | **Typologie** | DOC |
 | **Profil** | CRITICAL |
 | **CKC** | Absent — fallback routing guide + v2.6 |
-| **Repository** | mcleland147/sfia-workspace |
 | **Worktree** | /Users/morris/Projects/sfia-workspace-nora-mw2-readiness-requalification |
 | **Branch** | docs/sfia-studio-nora-mw2-readiness-requalification |
-| **HEAD** | b4fae68423bc0ab7cb0abcc49bedee8f7c44b405 |
-| **origin/main** | b4fae68423bc0ab7cb0abcc49bedee8f7c44b405 |
-| **Prior handoff (trigger)** | sfia/review-handoff @ db5b60c544305229f1a8d608201c1bf51d04383d · blob 8a9f49ef855bf5c4cf0bf2713b2eb09f51c9e0b9 |
-| **GO Morris** | CORR-MW2-RDY-01 — DOCUMENTARY CORRECTION ONLY — CONSUMED |
-| **REAL this cycle** | ZERO |
+| **HEAD / origin/main** | b4fae68423bc0ab7cb0abcc49bedee8f7c44b405 |
+| **Prior handoff (CORR-01)** | e98856ed9aea7a77384ac4cf91350dd3b49d4cb6 |
+| **GO Morris** | CORR-MW2-RDY-02 — GATE-ORDER CORRECTION ONLY — CONSUMED |
+| **REAL** | ZERO |
 
 ---
 
-## Local Git Truth Check
+## Local Git Truth
 
 ```
-pwd: /Users/morris/Projects/sfia-workspace-nora-mw2-readiness-requalification
 branch: docs/sfia-studio-nora-mw2-readiness-requalification
 HEAD: b4fae68423bc0ab7cb0abcc49bedee8f7c44b405
 origin/main: b4fae68423bc0ab7cb0abcc49bedee8f7c44b405 — MATCH
@@ -30,120 +27,80 @@ origin/main: b4fae68423bc0ab7cb0abcc49bedee8f7c44b405 — MATCH
 
 ---
 
-## Sources read
+## Problem (gate ordering)
 
-Process + convergence + Nora docs 01–09 (corrected) · doc08 · C5 · runtime read-only:
-- config.ts · runNoraAgentsTurn.ts · openaiProvider.ts · capabilityBudget.ts · package.json
-- @openai/agents-core@0.17.0 types (ModelSettings.reasoning verified from published package)
-
-Prior review handoff @ db5b60c5… (Critical Review trigger).
-
----
-
-## Runtime truth revalidated (F1 Agents reasoning)
-
-| Check | Result |
-| --- | --- |
-| `requireLiveConversationSecrets()` returns model + optional reasoningEffort | YES — config.ts |
-| F1 live uses `secrets.model` only in Agent constructor | YES — runNoraAgentsTurn.ts L79-104 |
-| `secrets.reasoningEffort` passed to Agent/Runner modelSettings | **NO** |
-| Explicit modelSettings on F1 Agent | **NO** |
-| openaiProvider applies reasoning on its Responses calls | YES — separate seam |
-| Agents SDK ModelSettings.reasoning surface | YES — effort/mode/context @0.17.0 |
-
-**Key correction:** `OPENAI_REASONING_EFFORT` parsed ≠ F1 Agents effective reasoning until modelSettings wired.
+Prior doc09 surfaces allowed reading:
+- Git integration → MW2 Delivery GO → PRE-MW2 later
+- PRE-MW2 + Delivery GO as aggregated single GO
+- Morris validation + OD-02 as one combined step
 
 ---
 
-## CORR-MW2-RDY-01 corrections applied
+## CORR-MW2-RDY-02 corrections
 
-1. **F1/Option C truth** — distinguished config parse vs F1 effective reasoning; no conflation with openaiProvider.
-2. **OpenAI Capability Fit** — two-seam model: F1 Agents modelSettings (primary) vs openaiProvider Responses (secondary).
-3. **GAP-MW2-F1-MODELSETTINGS-01** — added to gap register (readiness non-blocker · Delivery blocker).
-4. **PRE-MW2-MODEL-BASELINE-01** — extended with effective F1 reasoning configuration dimension.
-5. **reasoning.context** — requalified: not wired ≠ inactive; effective behavior to qualify; Memory B ≠ Truth C.
+1. **§5 Critical path** — canonical sequence with PRE-MW2 before distinct Delivery GO
+2. **§5.1 Gate ordering matrix** — Requires / Authorizes / Does NOT authorize
+3. **§24 DAG note** — PRE-MW2 before Delivery GO, not parallel-after
+4. **§28 Morris decisions** — separated validation vs OD-02 vs Git vs PRE-MW2 vs Delivery with ordering
+5. **§29 Anti-claims** — gate-order anti-claims expanded
+6. **§31 Next gates** — steps A–N explicit, no aggregation
 
-Preserved: OD-02 OPEN · Option B RECOMMENDED NOT DECIDED · CKC authority · anti-claims · NO TA REQUIRED · Delivery NOT AUTHORIZED.
-
----
-
-## GAP-MW2-F1-MODELSETTINGS-01
-
-**Status:** OPEN · Delivery blocker · readiness non-blocker
-**Target closure:** MW2 Delivery — thin adapter Strategy → Agents modelSettings.reasoning
+**CORR-MW2-RDY-01 substance preserved:** F1 Agents truth · modelSettings gap · PRE-MW2 dimensions A+B · reasoning.context · OD-02 Option B recommended not decided.
 
 ---
 
-## PRE-MW2-MODEL-BASELINE-01
+## Gate ordering matrix (summary)
 
-**Status:** OPEN / DELIVERY PREREQUISITE
-**Dimensions:** A effective F1 model · B effective F1 reasoning on Agents path
-GPT-5.6 Luna + none = historical REAL-proven MW0/MW1 only — not production selection.
+| Gate | Requires | Authorizes | Does NOT authorize |
+| --- | --- | --- | --- |
+| MW2 Critical PASS | Readiness doc | Re-review | Morris validation · Delivery |
+| Morris readiness validation | Critical PASS | Proceed toward OD-02/Git GO | Delivery · PRE-MW2 auto |
+| OD-02 decision | Readiness validation (seq.) | Policy envelope | Delivery |
+| Git integration GO | Morris validation · distinct GO | doc09 Git work | Delivery |
+| Post-merge verification | Integration | Prerequisite work | Delivery |
+| PRE-MW2-MODEL-BASELINE-01 | Post-merge | F1 model + reasoning baseline | Delivery |
+| PRE-MW2 satisfied | A+B resolved | Delivery GO eligibility | Automatic Delivery |
+| Distinct MW2 Delivery GO | PRE-MW2 satisfied | MW2 Delivery | D0/EVAL/REAL auto-pass |
+| D0 / EVAL / REAL | Delivery GO + own gates | Layered proof | MW2 closure auto |
+
+**Confirmed:** PRE-MW2-MODEL-BASELINE-01 **<** distinct Morris MW2 Delivery GO.
 
 ---
 
 ## OD-02
 
-**OPEN — MORRIS DECISION REQUIRED**
-Option B (envelope + minimum-sufficient + validation → Agents modelSettings) **RECOMMENDED — NOT DECIDED**
-
----
-
-## reasoning.context
-
-**EVALUATE / DEFER** — no SFIA wiring proven; effective behavior must be qualified in baseline/evidence; Agents Session + MW1 history in scope; Memory B ≠ Truth C invariant.
+OPEN — MORRIS DECISION REQUIRED · Option B RECOMMENDED — NOT DECIDED
 
 ---
 
 ## Files modified
 
-1. projects/sfia-studio/nora-cognitive-completion/09-nora-mw2-cognitive-workload-profile-readiness.md
-2. .tmp-sfia-review/chatgpt-review.md (this file — full rewrite)
+- doc09 (gate order correction)
+- .tmp-sfia-review/chatgpt-review.md (this file — full rewrite)
 
-## Files inspected unchanged
+## Files unchanged
 
-C5 · Roadmap · Build Doctrine · doc06/07/08 · all app/** · package.json · workflows · scripts
-
----
-
-## Controls
-
-- git diff --check: PASS (expected)
-- Only authorized project files modified
+C5 · Roadmap · Build Doctrine · doc06/07/08 · app/** · runtime
 
 ---
 
 ## Claims autorisés
 
-- CORR-MW2-RDY-01 documentary correction applied locally
-- Ready for ChatGPT Critical re-review
-- OD-02 still open
-- Delivery NOT AUTHORIZED
+CORR-MW2-RDY-02 applied · gate order corrected · ready for ChatGPT Final Critical re-review
 
 ## Claims interdits
 
-- MW2 READY/AUTHORIZED/Delivery GO
-- OD-02 consumed
-- CORR-MW2-RDY-01 closed by Morris
-- Cognitive Completion PROVEN
-- runtime v3 ADOPTED
-- OPENAI_REASONING_EFFORT = F1 effective reasoning
+MW2 VALIDATED BY MORRIS · OD-02 CONSUMED · PRE-MW2 COMPLETE · MW2 DELIVERY AUTHORIZED · Critical PASS = Delivery GO
 
 ---
 
 ## Verdict
 
-**MW2 READINESS CORR-MW2-RDY-01 — DOCUMENTARY CORRECTION APPLIED — F1 AGENTS MODELSETTINGS GAP EXPLICIT — PRE-MW2 EFFECTIVE REASONING BASELINE QUALIFIED — OD-02 STILL OPEN — NO TA REQUIRED — DELIVERY NOT AUTHORIZED — READY FOR CHATGPT CRITICAL RE-REVIEW**
+**MW2 READINESS CORR-MW2-RDY-02 — GATE ORDER CORRECTED — PRE-MW2 BASELINE EXPLICITLY PRECEDES DISTINCT MW2 DELIVERY GO — CORR-MW2-RDY-01 SUBSTANCE PRESERVED — OD-02 STILL OPEN — NO TA REQUIRED — DELIVERY NOT AUTHORIZED — READY FOR CHATGPT FINAL CRITICAL RE-REVIEW**
 
 ---
 
-## Next gates
-
-ChatGPT Critical re-review → Morris validation + OD-02 → distinct Git integration GO → PRE-MW2 baseline → distinct MW2 Delivery GO
-
----
-
-# CONTENU INTÉGRAL DOC09 (CORRIGÉ)
+# CONTENU INTÉGRAL DOC09 (CORRIGÉ CORR-02)
 
 # Nora Cognitive Completion — MW2 Cognitive Workload Profile Readiness / Requalification
 
@@ -156,13 +113,14 @@ ChatGPT Critical re-review → Morris validation + OD-02 → distinct Git integr
 | **Profil** | CRITICAL |
 | **Content status** | **CANDIDATE — AWAITING CHATGPT CRITICAL REVIEW + MORRIS VALIDATION** |
 | **Repository publication / integration** | **RESOLVE FROM CURRENT GIT / PR EVIDENCE** |
-| **Timestamp (Europe/Paris)** | 2026-09-01 21:48:00 CEST |
+| **Timestamp (Europe/Paris)** | 2026-09-01 21:55:00 CEST |
 | **Generation worktree (provenance)** | `/Users/morris/Projects/sfia-workspace-nora-mw2-readiness-requalification` · provenance only |
 | **Generation branch (provenance)** | `docs/sfia-studio-nora-mw2-readiness-requalification` · provenance only |
 | **Base / origin/main (qualification anchor)** | `b4fae68423bc0ab7cb0abcc49bedee8f7c44b405` · PR **#454 MERGED** · post-merge CI **`33547046842` SUCCESS** · Required Gate **PASS** · ≠ permanent future HEAD |
 | **GO Morris consommé (initial readiness)** | **MW2 READINESS / REQUALIFICATION ONLY** · inspection read-only · doc09 candidat + Review Pack + L3 handoff · ≠ Delivery · ≠ OD-02 consumption |
-| **GO Morris consommé (CORR-MW2-RDY-01)** | **CORR-MW2-RDY-01 — DOCUMENTARY CORRECTION ONLY** · doc09 + FULL Review Pack + L3 handoff · ≠ runtime · ≠ OD-02 consumption · ≠ MW2 Delivery · ≠ project Git integration |
-| **Correction applied** | **CORR-MW2-RDY-01** — F1 Agents modelSettings gap · PRE-MW2 effective reasoning baseline · reasoning.context requalification · **≠ ChatGPT Critical re-review PASS** · **≠ Morris validation** |
+| **GO Morris consommé (CORR-MW2-RDY-01)** | **CORR-MW2-RDY-01 — DOCUMENTARY CORRECTION ONLY** · F1 Agents modelSettings gap · PRE-MW2 effective reasoning baseline · reasoning.context requalification · ≠ runtime · ≠ OD-02 consumption |
+| **GO Morris consommé (CORR-MW2-RDY-02)** | **CORR-MW2-RDY-02 — GATE-ORDER CORRECTION ONLY** · doc09 + FULL Review Pack + L3 handoff · preserve CORR-01 substance · ≠ readiness validation · ≠ PRE-MW2 execution · ≠ Delivery |
+| **Corrections applied** | **CORR-MW2-RDY-01** · **CORR-MW2-RDY-02** — gate ordering · **≠ ChatGPT Final Critical re-review PASS** · **≠ Morris validation** |
 | **Delivery** | **NOT AUTHORIZED** |
 | **MW2 implementation** | **NOT STARTED** |
 | **Cognitive Completion** | **NOT PROVEN** |
@@ -172,7 +130,7 @@ ChatGPT Critical re-review → Morris validation + OD-02 → distinct Git integr
 | **Responses compaction** | **CANDIDATE / NOT ADOPTED** |
 | **REAL execution this cycle** | **ZERO / NOT AUTHORIZED** |
 
-> **Anti-claims :** MW2 readiness ≠ MW2 READY · ≠ MW2 AUTHORIZED · ≠ MW2 STARTED · ≠ MW2 DELIVERY AUTHORIZED · ≠ Cognitive Completion PROVEN · ≠ runtime v3 ADOPTED · ≠ OD-02 CONSUMED · ≠ production model selected · ≠ production reasoning selected · ≠ model routing selected · ≠ GPT-5.6 Luna production model · `OPENAI_REASONING_EFFORT` parsed ≠ F1 Agents effective reasoning until modelSettings wired · provider snapshot ≠ durable SFIA doctrine · D0 green ≠ cognitive PROVEN · CORR-MW2-RDY-01 applied locally ≠ ChatGPT Critical re-review PASS · CANDIDATE PASS ≠ MW2 Delivery GO · this document does **not** self-assert repository publication/merge/post-merge state.
+> **Anti-claims :** MW2 readiness ≠ MW2 READY · ≠ MW2 AUTHORIZED · ≠ MW2 STARTED · ≠ MW2 DELIVERY AUTHORIZED · Critical Review PASS ≠ Morris validation · Morris readiness validation ≠ OD-02 decision unless Morris explicitly decides both · OD-02 recommendation ≠ decision · ≠ OD-02 CONSUMED · Git integration doc09 ≠ Delivery authorization · PRE-MW2 prerequisite satisfied ≠ MW2 Delivery GO · PRE-MW2 + Delivery GO ≠ single aggregated GO · Cognitive Completion NOT PROVEN · runtime v3 NON ADOPTED · production model routing NOT SELECTED · `OPENAI_REASONING_EFFORT` parsed ≠ F1 effective reasoning until modelSettings wired · D0 green ≠ EVAL proven · EVAL green ≠ REAL proven · REAL proof ≠ automatic MW2 closure · MW2 closure ≠ runtime v3 ADOPTED · CORR-MW2-RDY-01/02 applied locally ≠ Morris validation · CANDIDATE PASS ≠ MW2 Delivery GO · this document does **not** self-assert repository publication/merge/post-merge state.
 
 ---
 
@@ -197,7 +155,7 @@ This readiness requalifies **MW2-S01** (Adaptive reasoning depth via Cognitive W
 
 **Readiness verdict candidate:**
 
-### MW2 READINESS / REQUALIFICATION — CANDIDATE PASS — CORR-MW2-RDY-01 APPLIED — F1 AGENTS MODELSETTINGS GAP EXPLICIT — PRE-MW2 EFFECTIVE REASONING BASELINE QUALIFIED — SOURCE-LOCK PRESERVED — OPENAI CAPABILITY FIT QUALIFIED — NO TA REQUIRED — OD-02 MORRIS DECISION REQUIRED — DELIVERY NOT AUTHORIZED — READY FOR CHATGPT CRITICAL RE-REVIEW
+### MW2 READINESS / REQUALIFICATION — CANDIDATE PASS — CORR-MW2-RDY-01 APPLIED — CORR-MW2-RDY-02 GATE ORDER CORRECTED — PRE-MW2 EXPLICITLY PRECEDES DISTINCT MW2 DELIVERY GO — SOURCE-LOCK PRESERVED — OPENAI CAPABILITY FIT QUALIFIED — NO TA REQUIRED — OD-02 MORRIS DECISION REQUIRED — DELIVERY NOT AUTHORIZED — READY FOR CHATGPT FINAL CRITICAL RE-REVIEW
 
 ---
 
@@ -330,20 +288,48 @@ Repository-verified behavior @ anchor `b4fae684…`:
 | Architecture target | **Option C KEEP** — thin policy + OpenAI adapter |
 | Construction principle | **DO NOT INVENT A COGNITIVE ENGINE** |
 
-**Critical path:**
+**Critical path (gate ordering — CORR-MW2-RDY-02):**
 
 ```text
 MW1 CLOSED
-  → MW2 Readiness (this cycle)
-  → ChatGPT Critical Review + Morris validation + OD-02
-  → Git integration of readiness doc (distinct GO)
-  → Morris MW2 Delivery GO (distinct)
-  → MW2 Delivery + proofs
-  → MW2 closure
+  → MW2 Readiness / Critical Review
+  → Morris validates MW2 Readiness
+  → Morris decides OD-02
+  → distinct Morris GO — Git integration doc09
+  → Git integration + post-merge verification
+  → PRE-MW2-MODEL-BASELINE-01
+       · effective F1 model (dimension A)
+       · effective F1 reasoning configuration (dimension B)
+  → PRE-MW2 prerequisite satisfied
+  → distinct Morris GO — MW2 Delivery
+  → MW2 Delivery
+  → D0
+  → EVAL
+  → bounded REAL when applicable and separately authorized
+  → MW2 closure according to evidence
   → MW3
 ```
 
+**Ordering invariant:** PRE-MW2-MODEL-BASELINE-01 **precedes** distinct Morris MW2 Delivery GO. PRE-MW2 execution and Delivery authorization are **separate gates** — never aggregated.
+
 No step auto-consumes the next.
+
+### 5.1 Gate ordering matrix (CORR-MW2-RDY-02)
+
+| Gate / prerequisite | Requires | Authorizes | Does NOT authorize |
+| --- | --- | --- | --- |
+| **MW2 Critical PASS** | Readiness qualification complete | ChatGPT re-review continuation · Morris review | Morris validation · OD-02 · Git integration · PRE-MW2 · Delivery |
+| **Morris readiness validation** | Critical PASS (or accepted reserves) | Morris to proceed toward OD-02 · eventual Git integration GO consideration | OD-02 consumption · Git integration · PRE-MW2 · Delivery |
+| **OD-02 decision** | Morris readiness validation (recommended sequence) | Policy envelope for future Delivery design | Delivery · PRE-MW2 execution · Git integration by itself |
+| **Git integration GO (doc09)** | Morris readiness validation · distinct Morris GO | Project commit/push/PR of doc09 only | Merge by itself · PRE-MW2 · Delivery |
+| **Post-merge verification** | doc09 integrated on main | Downstream prerequisite work to begin | PRE-MW2 satisfied · Delivery |
+| **PRE-MW2-MODEL-BASELINE-01** | Post-merge verified doc09 · deployment/config access | Characterization of effective F1 model + reasoning | Delivery · D0/EVAL/REAL |
+| **PRE-MW2 prerequisite satisfied** | PRE-MW2 dimensions A+B resolved per doc08/doc09 | Eligibility for Morris Delivery GO **consideration** | Automatic Delivery GO |
+| **Distinct Morris MW2 Delivery GO** | PRE-MW2 satisfied · OD-02 decided · gaps understood | MW2 implementation/proof work to start | Automatic D0/EVAL/REAL pass · MW2 closure · runtime v3 |
+| **D0** | Delivery GO consumed | Policy mechanics proof | Cognitive PROVEN · REAL PROVEN |
+| **EVAL** | D0 green (as applicable) | Cognitive quality evidence | REAL PROVEN · MW2 closure |
+| **REAL (bounded)** | Separate authorization when claim requires | Provider-dependent evidence | Automatic MW2 closure |
+| **MW2 closure** | Evidence per C5 | MW3 readiness consideration | runtime v3 ADOPTED · Cognitive Completion PROVEN |
 
 ---
 
@@ -812,7 +798,7 @@ MW0 CLOSED
 
 - MW2-S02 depends on MW2-S01 per C5 — bootstrap ordering must respect S01 policy before S02 semantic assist requalification.
 - OD-02 informs S01 envelope — **not consumed**.
-- PRE-MW2-MODEL-BASELINE-01 parallel prerequisite for Delivery proof.
+- PRE-MW2-MODEL-BASELINE-01 is a **Delivery prerequisite** that must be **satisfied before** distinct Morris MW2 Delivery GO — **not parallel-after-Delivery** · **not aggregated with Delivery GO**.
 
 **DAG acyclic:** PASS.
 
@@ -869,13 +855,13 @@ This readiness cycle proves:
 
 ## 28. Morris decisions required
 
-| Decision | Status |
-| --- | --- |
-| **OD-02** — Strategy→native settings policy (A/B/C) | **REQUIRED** |
-| Readiness content validation | **PENDING** (after ChatGPT review) |
-| Readiness Git integration | **NOT REQUESTED** (distinct GO) |
-| MW2 Delivery GO | **NOT AUTHORIZED** |
-| PRE-MW2-MODEL-BASELINE-01 execution | **DELIVERY PREREQUISITE** |
+| Decision | Status | Ordering note |
+| --- | --- | --- |
+| **MW2 Readiness content validation** | **PENDING** (after ChatGPT Final Critical re-review) | After Critical PASS · **before** Git integration GO |
+| **OD-02** — Strategy→native settings policy (A/B/C) | **REQUIRED — NOT CONSUMED** | Separate Morris decision · recommended after readiness validation |
+| **Git integration GO (doc09)** | **NOT REQUESTED** | Distinct GO · after Morris readiness validation |
+| **PRE-MW2-MODEL-BASELINE-01 execution** | **DELIVERY PREREQUISITE — OPEN** | After post-merge verification · **before** Delivery GO |
+| **MW2 Delivery GO** | **NOT AUTHORIZED** | Distinct GO · **only after** PRE-MW2 prerequisite satisfied |
 
 ---
 
@@ -891,8 +877,14 @@ This document and its review pack must **never** be read as:
 - GPT-5.6 Luna = production model
 - Responses compaction ADOPTED
 - TA REQUIRED (for current qualified scope)
-- CORR-MW2-RDY-01 applied locally ≠ ChatGPT Critical re-review PASS
-- CORR-MW2-RDY-01 applied locally ≠ Morris validation
+- CORR-MW2-RDY-01/02 applied locally ≠ ChatGPT Final Critical re-review PASS
+- CORR-MW2-RDY-01/02 applied locally ≠ Morris validation
+- Critical Review PASS ≠ Morris validation
+- Morris readiness validation ≠ OD-02 decision (unless Morris explicitly decides both)
+- Git integration doc09 ≠ Delivery authorization
+- PRE-MW2 prerequisite satisfied ≠ MW2 Delivery GO
+- PRE-MW2 + Delivery under one GO — **forbidden reading**
+- D0 green ≠ EVAL proven · EVAL green ≠ REAL proven · REAL ≠ automatic MW2 closure
 - CANDIDATE PASS ≠ MW2 Delivery GO
 - `OPENAI_REASONING_EFFORT` set ≠ F1 effective reasoning proven
 
@@ -900,7 +892,7 @@ This document and its review pack must **never** be read as:
 
 ## 30. Readiness verdict candidate
 
-### MW2 READINESS / REQUALIFICATION — CANDIDATE PASS — CORR-MW2-RDY-01 APPLIED — F1 AGENTS MODELSETTINGS GAP EXPLICIT — PRE-MW2 EFFECTIVE REASONING BASELINE QUALIFIED — SOURCE-LOCK PRESERVED — OPENAI CAPABILITY FIT QUALIFIED — NO TA REQUIRED — OD-02 MORRIS DECISION REQUIRED — DELIVERY NOT AUTHORIZED — READY FOR CHATGPT CRITICAL RE-REVIEW
+### MW2 READINESS / REQUALIFICATION — CANDIDATE PASS — CORR-MW2-RDY-01 APPLIED — CORR-MW2-RDY-02 GATE ORDER CORRECTED — PRE-MW2 EXPLICITLY PRECEDES DISTINCT MW2 DELIVERY GO — SOURCE-LOCK PRESERVED — OPENAI CAPABILITY FIT QUALIFIED — NO TA REQUIRED — OD-02 MORRIS DECISION REQUIRED — DELIVERY NOT AUTHORIZED — READY FOR CHATGPT FINAL CRITICAL RE-REVIEW
 
 **Reserves (non-blocking for candidate pass):**
 
@@ -915,17 +907,27 @@ This document and its review pack must **never** be read as:
 
 ## 31. Next gates
 
-1. **ChatGPT Critical re-review** — read Review Handoff canonical L3 (post CORR-MW2-RDY-01).
-2. Corrections if required.
-3. **Morris** — validate readiness content · **decide OD-02**.
-4. **Distinct GO** — Git integration of doc09 if validated.
-5. Post-merge verification.
-6. **Distinct GO** — PRE-MW2-MODEL-BASELINE-01 + MW2 Delivery.
-7. MW2 Delivery execution + D0/EVAL/REAL proofs.
-8. MW2 closure → MW3 readiness.
+**Canonical sequence (CORR-MW2-RDY-02 — no aggregation · no auto-consumption):**
 
-No gate auto-consumes the next.
+| Step | Gate | Notes |
+| --- | --- | --- |
+| **A** | ChatGPT Final Critical re-review | Review Handoff canonical L3 post CORR-MW2-RDY-02 |
+| **B** | Morris validates MW2 Readiness content | **Distinct** from OD-02 · **≠** Delivery authorization |
+| **C** | Morris decides OD-02 | Option B **RECOMMENDED — NOT DECIDED** |
+| **D** | Distinct Morris GO — Git integration doc09 | **≠** Delivery GO |
+| **E** | Git integration + post-merge verification | Repository lifecycle only |
+| **F** | PRE-MW2-MODEL-BASELINE-01 | Dimension A: effective F1 model · Dimension B: effective F1 reasoning · **before Delivery GO** |
+| **G** | PRE-MW2 prerequisite satisfied | Eligibility for Delivery GO consideration · **≠** automatic Delivery GO |
+| **H** | Distinct Morris GO — MW2 Delivery | **Only after** step G |
+| **I** | MW2 Delivery execution | Implementation scope per doc09 §23 |
+| **J** | D0 | Policy mechanics · F1 modelSettings wiring |
+| **K** | EVAL | Cognitive quality per S1–S6 matrix |
+| **L** | Bounded REAL | Only when separately authorized/applicable |
+| **M** | MW2 closure according to evidence | Per C5 proof contract |
+| **N** | MW3 readiness | After MW2 closure |
+
+No step auto-consumes the next. **Forbidden formulations:** « PRE-MW2 + MW2 Delivery » under one GO · Delivery GO before PRE-MW2 satisfied · Git integration = Delivery authorization.
 
 ---
 
-*Fin du document 09 — MW2 READINESS / REQUALIFICATION CANDIDATE — CORR-MW2-RDY-01 APPLIED — AWAITING CHATGPT CRITICAL RE-REVIEW + MORRIS VALIDATION — DELIVERY NOT AUTHORIZED — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED.*
+*Fin du document 09 — MW2 READINESS CANDIDATE — CORR-MW2-RDY-01 APPLIED — CORR-MW2-RDY-02 GATE ORDER CORRECTED — AWAITING CHATGPT FINAL CRITICAL RE-REVIEW + MORRIS VALIDATION — DELIVERY NOT AUTHORIZED — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED.*
