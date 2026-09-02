@@ -72,6 +72,7 @@ async function observationForScenario(
         expectedOutcome: null,
         criticalJustification: "Critical",
         requestedOperation: "merge",
+        cognitiveWorkload: null,
         parseOk: true,
       };
       return {

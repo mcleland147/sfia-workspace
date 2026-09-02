@@ -8,6 +8,7 @@ import {
   memoryBPiloteNotice,
   memoryBCompactionPiloteNotice,
   runNoraCognitiveTurn,
+  type SemanticCognitiveWorkloadAssessment,
 } from "@/lib/nora-cognitive-runtime";
 import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
 import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
@@ -90,6 +91,16 @@ export async function orchestrateProjectAssistantTurn(input: {
    * Same product path; no second runtime.
    */
   simulateMemoryBUnavailable?: boolean;
+  /**
+   * CORR-MW2-REAL-01 — INTERNAL semantic CWP from analyzeIntent.
+   * Server-side only; never part of ProjectAssistantSendResult.
+   */
+  semanticCognitiveWorkload?: SemanticCognitiveWorkloadAssessment | null;
+  /**
+   * CORR-MW2-REAL-04 — INTERNAL full Truth C / LPS context for F1 system prompt.
+   * Server-side only; does not expand ProjectAssistantContextDto / client DTO.
+   */
+  truthCContext?: string | null;
 }): Promise<ProjectAssistantSendResult> {
   const content = input.content.trim();
   if (!content) {
@@ -138,7 +149,12 @@ export async function orchestrateProjectAssistantTurn(input: {
     .slice(-MAX_HISTORY_MESSAGES);
 
   const messages: ProviderChatMessage[] = [
-    { role: "system", content: buildProjectSystemPrompt(project) },
+    {
+      role: "system",
+      content: buildProjectSystemPrompt(project, {
+        truthCContext: input.truthCContext,
+      }),
+    },
     ...history.map((m) => ({ role: m.role, content: m.content.trim() })),
     { role: "user", content },
   ];
@@ -171,6 +187,7 @@ export async function orchestrateProjectAssistantTurn(input: {
         enableTools: true,
       },
       trustedSfiaProfile: null,
+      semanticCognitiveWorkload: input.semanticCognitiveWorkload ?? null,
     });
 
     const { toolEvents, sources } = collectToolTelemetry(sink.events);

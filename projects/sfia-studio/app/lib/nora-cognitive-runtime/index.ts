@@ -90,6 +90,9 @@ export {
 export {
   createNoraAgentsRunner,
   runNoraAgentsTurn,
+  resolveNoraAgentsF1Model,
+  shouldUseProviderAgentsModelAdapter,
+  isOpenAiLiveF1Provider,
 } from "./runNoraAgentsTurn";
 export type { RunNoraAgentsTurnInput } from "./runNoraAgentsTurn";
 export { runNoraCognitiveTurn } from "./runNoraCognitiveTurn";
@@ -98,15 +101,19 @@ export {
   decideCognitiveStrategy,
   normalizeCognitiveWorkloadSignals,
   buildSignalsFromTurnContext,
+  mergeCognitiveWorkloadSignals,
+  normalizeSemanticCognitiveWorkloadAssessment,
   isRoutineEligible,
   STRATEGY_REASONING_ENVELOPES,
   COGNITIVE_STRATEGY_CLASSES,
   ROUTINE_KNOWN_LOW_DIMENSIONS,
+  SEMANTIC_CWP_DIMENSIONS,
 } from "./cognitiveWorkloadPolicy";
 export type {
   CognitiveStrategyClass,
   CognitiveStrategyDecision,
   CognitiveWorkloadSignals,
+  SemanticCognitiveWorkloadAssessment,
   TurnWorkloadContext,
 } from "./cognitiveWorkloadPolicy";
 export { validateRuntimeReasoningCapability } from "./reasoningCapability";
