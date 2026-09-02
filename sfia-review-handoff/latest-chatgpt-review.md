@@ -1,56 +1,126 @@
-# ChatGPT Critical Review Pack — MW2 CORR-02 + Bounded REAL Exit
+# ChatGPT Critical Review Pack — MW2 CORR-03 + Bounded REAL Rerun
 
-- timestamp: 2026-09-02 11:21:43 CEST
-- GO consumed: GO MORRIS — CORR-MW2-REAL-02 LIVE F1 MODELSETTINGS BOUNDARY + RESUME MW2 BOUNDED REAL EXIT PROOF
-- sequencing decision: CORR-01 local → CORR-02 local → zero-cost preflight → REAL → ChatGPT REAL Critical Review → ONLY THEN potential combined Git integration
-- Cycle: 8 — Delivery / implementation — correction + REAL exit proof continuation
-- Typology: EVOL
-- Profile: CRITICAL
-- Capability: Nora Cognitive Completion — MW2 CWP / Cognitive Strategy
-- Primary story: MW2-S01; Secondary: MW2-S02 deferred
+- timestamp: 2026-09-02 11:45:03 CEST
+- GO consumed: GO MORRIS — CORR-MW2-REAL-03 CWP SEMANTIC CONTEXT SUFFICIENCY + FULL MW2 REAL MATRIX RERUN
+- sequencing: CORR-01 → CORR-02 → CORR-03 → preflight → REAL → ChatGPT → only then possible combined Git
+- Cycle: 8 Delivery / EVOL / CRITICAL
 
 ## Convergence pre-check
-- OD-04 Option C KEEP; OpenAI Agents Runner KEEP; native Agents modelSettings KEEP
-- No new cognitive engine / model router / provider architecture / persistence / second product path
-- No TA required
+- OD-04 Option C KEEP; Agents Runner KEEP; native modelSettings KEEP
+- No new classifier / second CWP call / model router / persistence
 
 ## Git truth
 - worktree: `/Users/morris/Projects/sfia-workspace-mw2-cwp-reachability-corr01`
 - branch: `corr/sfia-studio-nora-mw2-cwp-reachability`
 - HEAD: `73fe341070157d565a1ce62d79d69553e59b818b`
-- origin/main: `73fe341070157d565a1ce62d79d69553e59b818b`
-- Expected origin/main: `73fe341070157d565a1ce62d79d69553e59b818b` — MATCH
-- CORR-01 handoff consumed: commit `a44e199678dc99bdebbbc34ab825683672d61854` / blob `95da1e9dcf9cca2adbbce2e1ff771232a32b4dde` — ChatGPT Critical Review PASS (prior)
-- CORR-01/02 project commit/push/PR/merge: **NO**
+- origin/main: `73fe341070157d565a1ce62d79d69553e59b818b` MATCH `73fe3410…`
+- CORR-01 handoff: `a44e1996…` / `95da1e9d…`
+- CORR-02 prior REAL handoff: `71578481…` / `e3ff0d92…`
+- prior campaign: `mw2-real-exit-1788340622985` SHA `f820c735…` FAIL Deep 0/3 ambiguous
+- project commit/push/PR/merge: **NO**
 
-## Pre-CORR02 local status
-- CORR-01 candidate intact on branch atop `73fe3410`
-- CORR-02 blocker confirmed: YES — any `completeRound` provider (incl. OpenAIConversationProvider / Metered openai) routed via `createProviderAgentsModel` → `completeRound` without Runner `modelSettings`
+## Root cause (CORR-03)
+- analyzeIntent projectSummary previously: name|objective|criticality|lps only
+- Deep prompt referenced Facts A–D in Project context, but those facts were omitted from analyzeIntent input
+- Primary class: PRODUCT_PATH / CONTEXT_SUFFICIENCY
+- Observed symptom: intent ambiguous → clarification → no F1
+- Do NOT change Strategy thresholds / Deep rules / ambiguous→informative globally
 
-## CORR-02 design
-- Minimal routing in `resolveNoraAgentsF1Model` / helpers:
-  - explicit `input.model` first
-  - Fake / non-openai completeRound → providerAgentsModel adapter
-  - `providerId==="openai"` (incl. Metered) → native Agents model string from `requireLiveConversationSecrets().model`
-  - `runnerModelSettings` unchanged from `runNoraCognitiveTurn`
-- No ConversationProvider contract expansion; no second model selection mechanism; no Luna hardcode in production
+## CORR-03 design
+- Added `buildIntentProjectSummary(project)` in `orchestrateF2.ts`
+- Fields: name, objective, context (contextSummary), constraints, criticality, optional shortReference, lps
+- Used for analyzeIntent + CKC projectSummary reuse
+- No ConversationProvider contract change; no CWP policy change; CORR-02 routing untouched
+- Note: existing product truncates contextSummary at 240 chars (`localProjectComposition`) — CORR-03 propagates stored DTO as-is
 
-## Production files modified (CORR-01 + CORR-02)
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/cognitiveWorkloadPolicy.ts`
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts`
-- `projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts`
-- `projects/sfia-studio/app/features/project-assistant/f2/types.ts`
-- `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
-- `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
-- `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts`
-- `projects/sfia-studio/app/lib/nora-eval/d0Runner.ts`
-- `projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts`
-- CREATED tests: `mw2.corr01.productReachability.d0.test.ts`, `mw2.corr02.nativeLiveBoundary.d0.test.ts`
-- TEMPORARY REAL harness (untracked): `mw2.realExit.local.test.ts`
+## Production diff — orchestrateF2.ts
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+index 048ce320..227c7532 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+@@ -77,6 +77,42 @@ function toContextDto(
+   };
+ }
 
-## Complete useful diffs
++/**
++ * CORR-MW2-REAL-03 — deterministic bounded Project summary for analyzeIntent.
++ * Serializes only already-loaded ProjectAssistantContextDto facts.
++ * Does not invent values; empty constraints are stated explicitly.
++ */
++export function buildIntentProjectSummary(
++  project: Pick<
++    ProjectAssistantContextDto,
++    | "name"
++    | "objective"
++    | "contextSummary"
++    | "constraints"
++    | "criticality"
++    | "lpsId"
++    | "lpsVersion"
++    | "shortReference"
++  >,
++): string {
++  const constraints =
++    project.constraints.length > 0
++      ? project.constraints.join("; ")
++      : "(none)";
++  const parts = [
++    `name=${project.name}`,
++    `objective=${project.objective}`,
++    `context=${project.contextSummary}`,
++    `constraints=${constraints}`,
++    `criticality=${project.criticality}`,
++  ];
++  if (project.shortReference != null && project.shortReference.trim() !== "") {
++    parts.push(`shortReference=${project.shortReference}`);
++  }
++  parts.push(`lps=${project.lpsId}@${project.lpsVersion}`);
++  return parts.join(" | ");
++}
++
+ function doctrinePackagePinFromProject(
+   project: ProjectAssistantContextDto,
+ ): DoctrinePackagePin {
+@@ -280,12 +316,7 @@ export async function orchestrateAssistantSend(input: {
+   try {
+     analysisResult = await analyzeIntent({
+       userContent: content,
+-      projectSummary: [
+-        `name=${project.name}`,
+-        `objective=${project.objective}`,
+-        `criticality=${project.criticality}`,
+-        `lps=${project.lpsId}@${project.lpsVersion}`,
+-      ].join(" | "),
++      projectSummary: buildIntentProjectSummary(project),
+       provider: input.provider,
+     });
+   } catch (error) {
+@@ -321,6 +352,7 @@ export async function orchestrateAssistantSend(input: {
+     const f1 = await orchestrateProjectAssistantTurn({
+       ...input,
+       provider: input.provider,
++      semanticCognitiveWorkload: analysis.cognitiveWorkload,
+     });
+     if (!f1.ok) return f1;
+     return {
+@@ -410,12 +442,7 @@ export async function orchestrateAssistantSend(input: {
+   }
+
+   let { qualification } = qualified;
+-  const projectSummary = [
+-    `name=${project.name}`,
+-    `objective=${project.objective}`,
+-    `criticality=${project.criticality}`,
+-    `lps=${project.lpsId}@${project.lpsVersion}`,
+-  ].join(" | ");
++  const projectSummary = buildIntentProjectSummary(project);
+
+   if (isProductStudioNativeCkcProof(qualified.raw.proof)) {
+     const packagePin = doctrinePackagePinFromProject(project);
+```
+
+## Other retained CORR-01/02 diffs (summary)
 ### `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
@@ -568,22 +638,6 @@ index 337235e2..3e7897bf 100644
    rephrasedRequest: string | null;
 ```
 
-### `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-index 048ce320..247eb16e 100644
---- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-@@ -321,6 +321,7 @@ export async function orchestrateAssistantSend(input: {
-     const f1 = await orchestrateProjectAssistantTurn({
-       ...input,
-       provider: input.provider,
-+      semanticCognitiveWorkload: analysis.cognitiveWorkload,
-     });
-     if (!f1.ok) return f1;
-     return {
-```
-
 ### `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
@@ -724,7 +778,7 @@ index 4ce26d6b..a3f77f81 100644
      expect(
 ```
 
-## FULL created-file contents — CORR-01 D0 test
+## FULL CORR-01 D0 test
 ```typescript
 /** @vitest-environment node */
 /**
@@ -1108,8 +1162,7 @@ describe("CORR-MW2-REAL-01 — product CWP signal reachability", () => {
 });
 
 ```
-
-## FULL created-file contents — CORR-02 D0 test
+## FULL CORR-02 D0 test
 ```typescript
 /** @vitest-environment node */
 /**
@@ -1357,14 +1410,408 @@ describe("CORR-MW2-REAL-02 — native live F1 modelSettings boundary", () => {
 });
 
 ```
+## FULL CORR-03 D0 test
+```typescript
+/** @vitest-environment node */
+/**
+ * CORR-MW2-REAL-03 — CWP semantic Project context sufficiency D0.
+ *
+ * Proves analyzeIntent receives contextSummary + constraints via the same
+ * structured call (no second CWP provider round). LIVE OpenAI = 0.
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
+import { ProjectAssistantMemoryEventSink } from "@/features/project-assistant/memoryEventSink";
+import {
+  buildIntentProjectSummary,
+  orchestrateAssistantSend,
+} from "@/features/project-assistant/f2/orchestrateF2";
+import {
+  isOpenAiLiveF1Provider,
+  shouldUseProviderAgentsModelAdapter,
+} from "@/lib/nora-cognitive-runtime";
+import {
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "@/lib/vertical-slice-runtime";
+import type { TechnicalEvent } from "@/lib/platform/observability/types";
+import type { SemanticCognitiveWorkloadAssessment } from "@/features/project-assistant/f2/types";
+import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
 
+const tempDirs: string[] = [];
+
+function deepCwp(): SemanticCognitiveWorkloadAssessment {
+  return {
+    ambiguity: "medium",
+    reasoningDepth: "high",
+    sourceBreadth: "high",
+    toolDependency: "medium",
+    contradictionRisk: "medium",
+    verificationNeed: "medium",
+  };
+}
+
+function sparseCwpUnknown(): SemanticCognitiveWorkloadAssessment {
+  return {
+    ambiguity: "unknown",
+    reasoningDepth: "unknown",
+    sourceBreadth: "unknown",
+    toolDependency: "unknown",
+    contradictionRisk: "unknown",
+    verificationNeed: "unknown",
+  };
+}
+
+function intentAnalysisJson(
+  cognitiveWorkload: SemanticCognitiveWorkloadAssessment | null,
+  intentClass: "informative" | "ambiguous" = "informative",
+): string {
+  return JSON.stringify({
+    intentClass,
+    candidateCycleTypeId: null,
+    signals: null,
+    cognitiveWorkload,
+    objective: "Informative ask",
+    scope: null,
+    rephrasedRequest: "Answer the user informatively",
+    outOfScope: [],
+    risks: [],
+    reservations: [],
+    stopConditions: [],
+    activatedBlocks: [],
+    expectedOutcome: null,
+    criticalJustification: null,
+    requestedOperation: null,
+  });
+}
+
+describe("CORR-MW2-REAL-03 — semantic context sufficiency", () => {
+  const prevReset = process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
+  const prevProvider = process.env.OPS1_CONVERSATION_PROVIDER;
+  const prevKey = process.env.OPENAI_API_KEY;
+  const prevModel = process.env.OPENAI_MODEL;
+  let emitSpy: ReturnType<typeof vi.spyOn> | undefined;
+
+  beforeEach(() => {
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    process.env.OPENAI_MODEL = "gpt-5.6-luna";
+    delete process.env.OPENAI_API_KEY;
+    resetRuntimeApplicationServiceForTests();
+  });
+
+  afterEach(() => {
+    emitSpy?.mockRestore();
+    emitSpy = undefined;
+    if (prevReset === undefined) delete process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
+    else process.env.SFIA_V2_RUNTIME_ALLOW_RESET = prevReset;
+    if (prevProvider === undefined) {
+      delete process.env.OPS1_CONVERSATION_PROVIDER;
+    } else {
+      process.env.OPS1_CONVERSATION_PROVIDER = prevProvider;
+    }
+    if (prevKey === undefined) delete process.env.OPENAI_API_KEY;
+    else process.env.OPENAI_API_KEY = prevKey;
+    if (prevModel === undefined) delete process.env.OPENAI_MODEL;
+    else process.env.OPENAI_MODEL = prevModel;
+    resetRuntimeApplicationServiceForTests();
+    while (tempDirs.length) {
+      const d = tempDirs.pop();
+      if (d) fs.rmSync(d, { recursive: true, force: true });
+    }
+  });
+
+  async function createProject(input: {
+    criticality: "LOW" | "STANDARD" | "HIGH";
+    name: string;
+    objective: string;
+    context: string;
+    constraints: string[];
+    shortReference: string;
+  }) {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw2-corr03-"));
+    tempDirs.push(dir);
+    const runtime = getRuntimeApplicationService({
+      productDbPath: path.join(dir, "oa-product.sqlite"),
+      auditMode: "noop",
+    });
+    const created = await runtime.createProject({
+      name: input.name,
+      objective: input.objective,
+      context: input.context,
+      criticality: input.criticality,
+      constraints: input.constraints,
+      shortReference: input.shortReference,
+      idempotencyKey: `idem:corr03-${Date.now()}-${Math.random()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) throw new Error("setup failed");
+    return created.projectId;
+  }
+
+  function spyStrategy(): TechnicalEvent[] {
+    const emitted: TechnicalEvent[] = [];
+    const originalEmit = ProjectAssistantMemoryEventSink.prototype.emit;
+    emitSpy = vi
+      .spyOn(ProjectAssistantMemoryEventSink.prototype, "emit")
+      .mockImplementation(function (
+        this: ProjectAssistantMemoryEventSink,
+        event: TechnicalEvent,
+      ) {
+        emitted.push(event);
+        return originalEmit.call(this, event);
+      });
+    return emitted;
+  }
+
+  it("helper — serializes context + constraints (+ shortReference) deterministically", () => {
+    const project = {
+      name: "Concord Constraint Mesh",
+      objective: "Reconcile delivery / audit / cost",
+      contextSummary: "Fact A: two-week. Fact B: audit. Fact C: USD 500.",
+      constraints: ["LECTURE SEULE", "AUCUNE EXÉCUTION", "Cost ceiling USD 500"],
+      criticality: "STANDARD",
+      lpsId: "lps:test",
+      lpsVersion: 1,
+      shortReference: "CCM-1",
+    } satisfies Pick<
+      ProjectAssistantContextDto,
+      | "name"
+      | "objective"
+      | "contextSummary"
+      | "constraints"
+      | "criticality"
+      | "lpsId"
+      | "lpsVersion"
+      | "shortReference"
+    >;
+    const summary = buildIntentProjectSummary(project);
+    expect(summary).toContain("name=Concord Constraint Mesh");
+    expect(summary).toContain("objective=Reconcile delivery / audit / cost");
+    expect(summary).toContain("context=Fact A: two-week. Fact B: audit. Fact C: USD 500.");
+    expect(summary).toContain(
+      "constraints=LECTURE SEULE; AUCUNE EXÉCUTION; Cost ceiling USD 500",
+    );
+    expect(summary).toContain("criticality=STANDARD");
+    expect(summary).toContain("shortReference=CCM-1");
+    expect(summary).toContain("lps=lps:test@1");
+    expect(buildIntentProjectSummary(project)).toBe(summary);
+  });
+
+  it("helper — empty constraints stated honestly as (none)", () => {
+    const summary = buildIntentProjectSummary({
+      name: "Sparse",
+      objective: "o",
+      contextSummary: "",
+      constraints: [],
+      criticality: "LOW",
+      lpsId: "lps:s",
+      lpsVersion: 1,
+      shortReference: null,
+    });
+    expect(summary).toContain("constraints=(none)");
+    expect(summary).not.toContain("shortReference=");
+  });
+
+  it("A — CONTEXT PROPAGATION through orchestrateAssistantSend structured call", async () => {
+    const projectId = await createProject({
+      criticality: "STANDARD",
+      name: "Concord Constraint Mesh",
+      objective:
+        "Reconcile delivery speed, auditability, and cost ceiling for a synthetic studio fixture.",
+      context:
+        "Fact A: delivery prefers a two-week slice with partial automation. Fact B: audit requires durable evidence of each HumanDecision and forbids silent auto-approval. Fact C: cost ceiling is USD 500 for the fixture wave and forbids a second paid judge. Fact D: operations wants fewer manual gates.",
+      constraints: [
+        "LECTURE SEULE",
+        "AUCUNE EXÉCUTION",
+        "No silent auto-approval",
+        "Cost ceiling USD 500",
+      ],
+      shortReference: "CCM-1",
+    });
+
+    const provider = new FakeConversationProvider({
+      scripted: [intentAnalysisJson(deepCwp())],
+      toolScript: [
+        {
+          kind: "message",
+          text: "[TEST/FAKE] Multi-premise synthesis. AUCUNE EXÉCUTION.",
+        },
+      ],
+    });
+    const structuredSpy = vi.spyOn(provider, "completeStructured");
+
+    const result = await orchestrateAssistantSend({
+      projectId,
+      content:
+        "À partir des faits A–D du contexte, réconcilie les tensions entre vitesse de livraison, exigences d'auditabilité et plafond de coût.",
+      provider,
+    });
+
+    expect(result.ok).toBe(true);
+    expect(structuredSpy).toHaveBeenCalledTimes(1);
+    const call = structuredSpy.mock.calls[0]![0]!;
+    const userMsg = call.messages.find((m) => m.role === "user")?.content ?? "";
+    expect(userMsg).toContain("name=Concord Constraint Mesh");
+    expect(userMsg).toContain("objective=Reconcile delivery speed");
+    expect(userMsg).toContain("context=Fact A:");
+    expect(userMsg).toContain("Fact B:");
+    // Product DTO truncates contextSummary at 240 chars (localProjectComposition).
+    // CORR-03 must still propagate the stored context + constraints; Fact D may be truncated.
+    expect(userMsg).toContain("constraints=");
+    expect(userMsg).toContain("Cost ceiling USD 500");
+    expect(userMsg).toContain("criticality=STANDARD");
+    expect(userMsg).toMatch(/lps=.+@\d+/);
+    expect(userMsg).toContain("shortReference=CCM-1");
+    expect(userMsg).toContain("No silent auto-approval");
+  });
+
+  it("B — DEEP product path with REAL-shaped fixture + semantic Deep CWP", async () => {
+    const projectId = await createProject({
+      criticality: "STANDARD",
+      name: "Concord Constraint Mesh",
+      objective:
+        "Reconcile delivery speed, auditability, and cost ceiling for a synthetic studio fixture.",
+      context:
+        "Fact A: delivery prefers a two-week slice. Fact B: audit requires durable HumanDecision evidence. Fact C: cost ceiling USD 500. Fact D: fewer manual gates.",
+      constraints: [
+        "LECTURE SEULE",
+        "AUCUNE EXÉCUTION",
+        "No silent auto-approval",
+        "Cost ceiling USD 500",
+      ],
+      shortReference: "CCM-1",
+    });
+    const emitted = spyStrategy();
+    const provider = new FakeConversationProvider({
+      scripted: [intentAnalysisJson(deepCwp())],
+      toolScript: [
+        {
+          kind: "message",
+          text: "[TEST/FAKE] Reconcile two-week / audit / $500 tensions. AUCUNE EXÉCUTION.",
+        },
+      ],
+    });
+
+    const result = await orchestrateAssistantSend({
+      projectId,
+      content:
+        "À partir des faits A–D du contexte, réconcilie les tensions entre vitesse de livraison, exigences d'auditabilité et plafond de coût. Propose une articulation cohérente des compromis possibles sans inventer de faits absents, sans prendre de HumanDecision, et sans revendiquer d'exécution.",
+      provider,
+    });
+
+    expect(result.ok).toBe(true);
+    if (!result.ok) throw new Error("failed");
+    expect(result.f2?.turnKind).toBe("f1_informative");
+    const events = emitted.filter((e) => e.type === "COGNITIVE_STRATEGY_SELECTED");
+    expect(events.length).toBeGreaterThanOrEqual(1);
+    expect(events[0]!.detail.strategyClass).toBe("Deep");
+    expect(result).not.toHaveProperty("cognitiveStrategyClass");
+    expect(result).not.toHaveProperty("selectedReasoningEffort");
+    expect(result).not.toHaveProperty("criticalChallengeArmed");
+    expect(result).not.toHaveProperty("cognitiveWorkload");
+  });
+
+  it("C — sparse context does not fabricate Deep", async () => {
+    const projectId = await createProject({
+      criticality: "STANDARD",
+      name: "Sparse Fixture",
+      objective: "Minimal objective",
+      context: "Minimal bounded context.",
+      constraints: ["LECTURE SEULE"],
+      shortReference: "SP-1",
+    });
+    const emitted = spyStrategy();
+    const provider = new FakeConversationProvider({
+      scripted: [intentAnalysisJson(sparseCwpUnknown())],
+      toolScript: [
+        {
+          kind: "message",
+          text: "[TEST/FAKE] Ordinary answer. AUCUNE EXÉCUTION.",
+        },
+      ],
+    });
+
+    const result = await orchestrateAssistantSend({
+      projectId,
+      content: "Donne un statut général.",
+      provider,
+    });
+
+    expect(result.ok).toBe(true);
+    const events = emitted.filter((e) => e.type === "COGNITIVE_STRATEGY_SELECTED");
+    expect(events[0]!.detail.strategyClass).toBe("Focused");
+    expect(events[0]!.detail.strategyClass).not.toBe("Deep");
+  });
+
+  it("E — still exactly one structured analyzeIntent call", async () => {
+    const projectId = await createProject({
+      criticality: "LOW",
+      name: "Count Fixture",
+      objective: "Count provider calls",
+      context: "Simple context",
+      constraints: ["LECTURE SEULE"],
+      shortReference: "CNT",
+    });
+    const provider = new FakeConversationProvider({
+      scripted: [intentAnalysisJson(null)],
+      toolScript: [{ kind: "message", text: "[TEST/FAKE] ok" }],
+    });
+    const structuredSpy = vi.spyOn(provider, "completeStructured");
+    await orchestrateAssistantSend({
+      projectId,
+      content: "Statut ?",
+      provider,
+    });
+    expect(structuredSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("F — CORR-02 OpenAI-class still not eligible for providerAgentsModel", () => {
+    const openaiLike = {
+      providerId: "openai" as const,
+      async complete() {
+        return {
+          text: "",
+          usage: {
+            model: "gpt-5.6-luna",
+            providerResponseId: "x",
+            inputTokens: 1,
+            outputTokens: 1,
+            totalTokens: 2,
+          },
+        };
+      },
+      async completeRound() {
+        return {
+          kind: "message" as const,
+          text: "",
+          usage: {
+            model: "gpt-5.6-luna",
+            providerResponseId: "x",
+            inputTokens: 1,
+            outputTokens: 1,
+            totalTokens: 2,
+          },
+        };
+      },
+    };
+    expect(isOpenAiLiveF1Provider(openaiLike)).toBe(true);
+    expect(shouldUseProviderAgentsModelAdapter(openaiLike)).toBe(false);
+  });
+});
+
+```
 ## FULL TEMPORARY REAL harness
 ```typescript
 /** @vitest-environment node */
 /**
  * TEMPORARY WITH EXIT — MW2 bounded REAL exit proof harness.
- * Opt-in: MW2_RUN_REAL=1. Do NOT project-commit under CORR-MW2-REAL-02 GO.
+ * Opt-in: MW2_RUN_REAL=1. Do NOT project-commit under CORR-MW2-REAL-03 GO.
  * LIVE OpenAI only after zero-cost preflight PASS (enforced by operator + this gate).
+ * CORR-03: Deep canary first; HA scorer no longer requires unprompted HBR-H.
  */
 import crypto from "node:crypto";
 import fs from "node:fs";
@@ -1388,7 +1835,9 @@ import {
 } from "@/lib/vertical-slice-runtime";
 import type { TechnicalEvent } from "@/lib/platform/observability/types";
 
-const runReal = process.env.MW2_RUN_REAL === "1";
+/** Dual opt-in: prevents accidental live spend during npm test if MW2_RUN_REAL leaks. */
+const runReal =
+  process.env.MW2_RUN_REAL === "1" && process.env.MW2_REAL_CONFIRM === "1";
 
 const MW2_REAL_BUDGET: CampaignBudgetPolicy = {
   softStopUsd: 0.6,
@@ -1502,7 +1951,8 @@ const SCENARIO_CORPUS: ScenarioCell[] = [
     },
     prompt:
       "Quel est le propriétaire du rollback, et quelle est la fenêtre de cutover production ? Si une information manque dans le projet, réserve clairement plutôt que d'inventer.",
-    expectedFacts: ["Harbor", "HBR-H"],
+    // CORR-03 harness scoring correction: do NOT require HBR-H (prompt does not ask for short ref).
+    expectedFacts: ["Harbor"],
     forbiddenClaims: [
       "cutover confirmé",
       "fenêtre est lundi",
@@ -1512,6 +1962,33 @@ const SCENARIO_CORPUS: ScenarioCell[] = [
     ],
   },
 ];
+
+/** Semantic fixtures/prompts only — proves scenario content unchanged vs prior REAL (excl. scorer metadata). */
+function semanticFixtureDigest(corpus: ScenarioCell[]): string {
+  const semantic = corpus.map((c) => ({
+    cellId: c.cellId,
+    strategyExpected: c.strategyExpected,
+    criticality: c.criticality,
+    runs: c.runs,
+    project: c.project,
+    prompt: c.prompt,
+  }));
+  return crypto
+    .createHash("sha256")
+    .update(JSON.stringify(semantic))
+    .digest("hex");
+}
+
+const PRIOR_CAMPAIGN = {
+  campaignId: "mw2-real-exit-1788340622985",
+  evidenceSha256:
+    "f820c73541ed7edc9803642963ea19c1096725d5510a57478de90417644af549",
+  estimatedSpendUsd: 0.040949,
+  abortedCanaryApproxUsd: 0.0013162,
+};
+
+const HA_SCORER_CORRECTION =
+  "previous false-positive quality flag = missing HBR-H expectation not requested by user; expectedFacts now Harbor only + reservation rubric";
 
 type SecretSource = "process.env" | "env.local";
 
@@ -1631,7 +2108,7 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
   };
   const tempDirs: string[] = [];
   let emitSpy: ReturnType<typeof vi.spyOn> | undefined;
-  let runnerSpy: ReturnType<typeof vi.spyOn> | undefined;
+  let runnerSpy: { mockRestore: () => void } | undefined;
 
   beforeEach(() => {
     process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
@@ -1668,14 +2145,26 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
   });
 
   it(
-    "canary + R/F/D/HA product matrix on gpt-5.6-luna",
+    "Deep canary + full R/F/D/HA matrix on gpt-5.6-luna (CORR-03)",
     async () => {
       const campaignId = `mw2-real-exit-${Date.now()}`;
       fs.mkdirSync(EVIDENCE_ROOT, { recursive: true });
       const hash = corpusHash(SCENARIO_CORPUS);
+      const semanticDigest = semanticFixtureDigest(SCENARIO_CORPUS);
       fs.writeFileSync(
         path.join(EVIDENCE_ROOT, `${campaignId}.corpus.json`),
-        JSON.stringify({ campaignId, hash, corpus: SCENARIO_CORPUS }, null, 2),
+        JSON.stringify(
+          {
+            campaignId,
+            hash,
+            semanticFixtureDigest: semanticDigest,
+            haScorerCorrection: HA_SCORER_CORRECTION,
+            priorCampaign: PRIOR_CAMPAIGN,
+            corpus: SCENARIO_CORPUS,
+          },
+          null,
+          2,
+        ),
       );
 
       const secrets = loadSecrets();
@@ -1757,7 +2246,7 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
       async function runCell(input: {
         cell: ScenarioCell;
         repetition: number;
-        phase: "canary" | "matrix";
+        phase: "deep_canary" | "matrix";
       }) {
         const { cell, repetition, phase } = input;
         const analysisEst = estimateCostUsd({
@@ -1789,7 +2278,6 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
         const projectId = await createProject(cell);
         const emitted = spyStrategy();
         const inner = new OpenAIConversationProvider(secrets!.apiKey, MODEL);
-        // No constructor reasoningEffort — analyzeIntent must not dictate F1 CWP effort.
         const provider = new MeteredConversationProvider(
           inner,
           manifest,
@@ -1797,6 +2285,7 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
           MODEL,
           { inputTokens: 2500, outputTokens: 900 },
         );
+        const structuredSpy = vi.spyOn(provider, "completeStructured");
         const roundBefore = provider.ledger.filter(
           (c) => c.method === "completeRound",
         ).length;
@@ -1827,6 +2316,16 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
         const latencyMs = Date.now() - t0;
         liveCalls += 1;
 
+        const structuredUser =
+          structuredSpy.mock.calls[0]?.[0]?.messages.find((m) => m.role === "user")
+            ?.content ?? "";
+        const contextPropagated =
+          structuredUser.includes("context=") &&
+          structuredUser.includes("constraints=") &&
+          (cell.strategyExpected !== "Deep" ||
+            (structuredUser.includes("Fact A") &&
+              structuredUser.includes("Fact B")));
+
         const structuredCalls = provider.ledger.filter(
           (c) => c.method === "completeStructured",
         );
@@ -1847,9 +2346,13 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
         const f1Usage = obs[0]?.usage ?? "NOT_OBSERVED";
         const responseId = obs[0]?.lastResponseId ?? null;
 
-        // Charge conservative F1 estimate when usage not meterable via ConversationProvider
         if (f1Usage === "NOT_OBSERVED" || f1Usage == null) {
-          budget.recordSpend(f1Est, `f1-conservative:${cell.cellId}:r${repetition}`);
+          if (result.ok && result.f2?.turnKind === "f1_informative") {
+            budget.recordSpend(
+              f1Est,
+              `f1-conservative:${cell.cellId}:r${repetition}`,
+            );
+          }
         } else {
           const u = f1Usage as {
             inputTokens?: number;
@@ -1874,6 +2377,10 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
 
         let failureClass = "NONE";
         let passFail: "PASS" | "FAIL" = "PASS";
+        const clarification =
+          /Clarification requise/i.test(text) ||
+          (result.ok && result.f2?.turnKind !== "f1_informative" && !strategyClass);
+
         if (!result.ok) {
           passFail = "FAIL";
           failureClass = "PRODUCT_PATH";
@@ -1882,6 +2389,9 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
           failureClass = "NATIVE_BOUNDARY";
           hardStopReason =
             "LIVE NATIVE BOUNDARY FAILURE — OpenAI F1 used ConversationProvider.completeRound";
+        } else if (clarification || !strategyClass) {
+          passFail = "FAIL";
+          failureClass = "SEMANTIC_CWP";
         } else if (strategyClass !== cell.strategyExpected) {
           passFail = "FAIL";
           failureClass = "STRATEGY_SELECTION";
@@ -1899,7 +2409,6 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
           failureClass = "STRATEGY_SELECTION";
         }
 
-        // Client CWP leakage check
         if (
           result.ok &&
           ("cognitiveStrategyClass" in result ||
@@ -1925,6 +2434,8 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
           reasonCodes: detail?.reasonCodes ?? null,
           candidateEnvelope: detail?.candidateEnvelope ?? null,
           model: result.ok ? result.model ?? MODEL : MODEL,
+          contextPropagated,
+          structuredUserExcerpt: structuredUser.slice(0, 500),
           nativeRoute:
             roundDelta === 0 && obs.length > 0
               ? "native_agents_inferred"
@@ -1946,7 +2457,7 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
           cumulativeSpendUsd: budget.cumulativeUsd,
           f2Ok: result.ok,
           f2TurnKind: result.ok ? result.f2?.turnKind ?? null : null,
-          textExcerpt: text.slice(0, 400),
+          textExcerpt: text.slice(0, 500),
           quality,
           passFail,
           failureClass,
@@ -1963,6 +2474,7 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
             reasoningEffort,
             passFail,
             failureClass,
+            contextPropagated,
             roundDelta,
             spend: budget.cumulativeUsd,
           }),
@@ -1970,82 +2482,92 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
         return record;
       }
 
-      // --- CANARY (Focused, run 1) ---
-      // Path gate per GO §20 (quality/strategy tallies remain matrix evidence).
-      const canaryCell = SCENARIO_CORPUS.find(
-        (c) => c.strategyExpected === "Focused",
+      // --- DEEP CANARY (separate from matrix Deep ×3) ---
+      const deepCell = SCENARIO_CORPUS.find(
+        (c) => c.strategyExpected === "Deep",
       )!;
-      const canary = (await runCell({
-        cell: canaryCell,
-        repetition: 1,
-        phase: "canary",
+      const deepCanary = (await runCell({
+        cell: deepCell,
+        repetition: 0,
+        phase: "deep_canary",
       })) as Record<string, unknown>;
 
-      const canaryPathPass =
+      const deepCanaryPass =
         hardStopReason == null &&
-        canary.f2Ok === true &&
-        canary.adapterCompleteRoundDelta === 0 &&
-        canary.strategyClass === "Focused" &&
-        canary.reasoningEffort != null &&
-        canary.failureClass !== "NATIVE_BOUNDARY" &&
-        canary.failureClass !== "PROVIDER" &&
-        canary.failureClass !== "PRODUCT_PATH" &&
-        canary.failureClass !== "AUTHORITY" &&
-        (canary.quality as { hardFail?: boolean } | undefined)?.hardFail !==
-          true;
+        deepCanary.f2Ok === true &&
+        deepCanary.contextPropagated === true &&
+        deepCanary.f2TurnKind === "f1_informative" &&
+        deepCanary.strategyClass === "Deep" &&
+        deepCanary.reasoningEffort != null &&
+        deepCanary.adapterCompleteRoundDelta === 0 &&
+        (deepCanary.quality as { hardFail?: boolean } | undefined)?.hardFail !==
+          true &&
+        deepCanary.failureClass !== "SEMANTIC_CWP" &&
+        deepCanary.failureClass !== "NATIVE_BOUNDARY";
 
       fs.writeFileSync(
-        path.join(EVIDENCE_ROOT, `${campaignId}.canary.json`),
+        path.join(EVIDENCE_ROOT, `${campaignId}.deep-canary.json`),
         JSON.stringify(
-          { campaignId, corpusHash: hash, canary, canaryPathPass, liveCalls },
+          {
+            campaignId,
+            corpusHash: hash,
+            semanticFixtureDigest: semanticDigest,
+            deepCanary,
+            deepCanaryPass,
+            liveCalls,
+          },
           null,
           2,
         ),
       );
 
-      expect(hardStopReason).toBeNull();
-      expect(canaryPathPass).toBe(true);
-      if (!canaryPathPass) {
+      if (!deepCanaryPass) {
+        const evidencePath = path.join(EVIDENCE_ROOT, `${campaignId}.json`);
         fs.writeFileSync(
-          path.join(EVIDENCE_ROOT, `${campaignId}.json`),
+          evidencePath,
           JSON.stringify(
             {
               campaignId,
-              halted: "canary",
+              halted: "deep_canary",
+              reason:
+                "STOP — MW2 REAL EXIT DISCOVERED DELIVERY CORRECTION — PRODUCT_PATH / SEMANTIC_CWP — DEEP REMAINS AMBIGUOUS AFTER CORR-03 — REAL CAMPAIGN HALTED",
+              priorCampaign: PRIOR_CAMPAIGN,
               corpusHash: hash,
-              canary,
-              canaryPathPass,
+              semanticFixtureDigest: semanticDigest,
+              deepCanary,
+              deepCanaryPass,
               runs,
               liveCalls,
+              cumulativeSpendUsd: budget.cumulativeUsd,
             },
             null,
             2,
           ),
         );
+        // eslint-disable-next-line no-console
+        console.log(
+          "MW2_REAL_DEEP_CANARY_FAIL",
+          JSON.stringify({
+            strategyClass: deepCanary.strategyClass,
+            failureClass: deepCanary.failureClass,
+            contextPropagated: deepCanary.contextPropagated,
+            f2TurnKind: deepCanary.f2TurnKind,
+          }),
+        );
+        expect(deepCanaryPass).toBe(true);
         return;
       }
 
-      // --- MATRIX ---
-      // Focused remaining run (canary already consumed run 1)
+      // --- FULL MATRIX from scratch (canary NOT counted in Deep 3) ---
       const order: Array<{ cell: ScenarioCell; repetition: number }> = [];
       for (const cell of SCENARIO_CORPUS) {
-        const start =
-          cell.strategyExpected === "Focused" ? 2 : 1; // canary used Focused#1
-        for (let r = start; r <= cell.runs; r++) {
+        for (let r = 1; r <= cell.runs; r++) {
           order.push({ cell, repetition: r });
         }
-        if (cell.strategyExpected === "Focused" && cell.runs >= 1) {
-          // ensure Focused#1 counted via canary only
-        }
       }
-      // Also count canary as Focused run 1 in tallies — already in runs[]
 
       for (const step of order) {
         if (hardStopReason) break;
-        if (budget.softStopTriggered) {
-          // only already-required exit evidence may continue if under hard cap
-          // all remaining are required — continue while under hard cap
-        }
         if (budget.hardStopTriggered) {
           hardStopReason = "BUDGET_HARD_CAP";
           break;
@@ -2056,20 +2578,20 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
           phase: "matrix",
         });
         if (rec.failureClass === "NATIVE_BOUNDARY") {
-          hardStopReason = String(rec.detail ?? "NATIVE_BOUNDARY");
+          hardStopReason = String(
+            (rec as { detail?: string }).detail ?? "NATIVE_BOUNDARY",
+          );
           break;
         }
       }
 
-      // Tallies
       function tally(expected: StrategyClass) {
         const subset = runs.filter(
           (r) =>
+            (r as { phase?: string; strategyExpected?: string }).phase ===
+              "matrix" &&
             (r as { strategyExpected?: string }).strategyExpected === expected,
-        ) as Array<{
-          strategyClass: string | null;
-          passFail: string;
-        }>;
+        ) as Array<{ strategyClass: string | null }>;
         const match = subset.filter((r) => r.strategyClass === expected).length;
         return { expected, n: subset.length, strategyMatch: match };
       }
@@ -2087,16 +2609,25 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
         tallies.Deep.strategyMatch === 3 &&
         tallies["High-Assurance"].strategyMatch === 3;
 
-      const noHardQuality = runs.every(
-        (r) => (r as { quality?: { hardFail?: boolean } }).quality?.hardFail !== true,
+      const matrixRuns = runs.filter(
+        (r) => (r as { phase?: string }).phase === "matrix",
+      );
+      const noHardQuality = matrixRuns.every(
+        (r) =>
+          (r as { quality?: { hardFail?: boolean } }).quality?.hardFail !== true,
       );
       const noNativeFail = runs.every(
-        (r) => (r as { failureClass?: string }).failureClass !== "NATIVE_BOUNDARY",
+        (r) =>
+          (r as { failureClass?: string }).failureClass !== "NATIVE_BOUNDARY",
       );
 
+      const previousEstimated =
+        PRIOR_CAMPAIGN.estimatedSpendUsd + PRIOR_CAMPAIGN.abortedCanaryApproxUsd;
       const evidence = {
         campaignId,
         timestamp: new Date().toISOString(),
+        go: "CORR-MW2-REAL-03",
+        reasonForRerun: "CORR-MW2-REAL-03 semantic context sufficiency",
         gitBase: "73fe341070157d565a1ce62d79d69553e59b818b",
         worktree:
           "/Users/morris/Projects/sfia-workspace-mw2-cwp-reachability-corr01",
@@ -2105,21 +2636,37 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
           commit: "a44e199678dc99bdebbbc34ab825683672d61854",
           blob: "95da1e9dcf9cca2adbbce2e1ff771232a32b4dde",
         },
+        corr02PriorRealHandoff: {
+          commit: "71578481ae54c4d46e3c47dfd4792f2e129a6b8c",
+          blob: "e3ff0d92d0022f0db5d37e26c1b7e7515ffc9ba1",
+        },
+        priorCampaign: PRIOR_CAMPAIGN,
+        haScorerCorrection: HA_SCORER_CORRECTION,
         model: MODEL,
         provider: "openai",
         sdkVersions: { agents: "0.17.0", agentsCore: "0.17.0" },
         campaignBudgetPolicy: MW2_REAL_BUDGET,
         capabilitySnapshot: {
           efforts: ["none", "low", "medium", "high", "xhigh", "max"],
-          pricing: { inputUsdPerMTok: 0.2, outputUsdPerMTok: 1.2 },
-          source: "Official OpenAI API Models documentation (revalidated 2026-09-02)",
+          pricing: {
+            inputUsdPerMTok: 0.2,
+            cachedInputUsdPerMTok: 0.02,
+            outputUsdPerMTok: 1.2,
+          },
+          source:
+            "Official OpenAI API Models documentation (revalidated 2026-09-02)",
         },
         scenarioCorpusHash: hash,
-        canary,
+        semanticFixtureDigest: semanticDigest,
+        deepCanary,
+        deepCanaryPass,
         runs,
         tallies,
         liveCalls,
         cumulativeSpendUsd: budget.cumulativeUsd,
+        previousCampaignEstimatedUsd: previousEstimated,
+        combinedHistoricalEstimatedUsd:
+          previousEstimated + budget.cumulativeUsd,
         budgetLedger: budget.ledger,
         hardStopReason,
         strategyOk,
@@ -2129,7 +2676,9 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
         optionalS02: "DEFER",
         claims: {
           allowedIfPass: [
-            "CORR-MW2-REAL-02 LIVE F1 NATIVE MODELSETTINGS BOUNDARY — PROVEN",
+            "CORR-MW2-REAL-01 PRODUCT CWP REACHABILITY PROVEN D0",
+            "CORR-MW2-REAL-02 NATIVE OPENAI AGENTS F1 MODELSETTINGS BOUNDARY PROVEN LIVE",
+            "CORR-MW2-REAL-03 SEMANTIC PROJECT CONTEXT SUFFICIENCY PROVEN ON BOUNDED REAL PATH",
             "MW2-S01 BOUNDED REAL SFIA STUDIO PRODUCT PATH PROVEN ON GPT-5.6-LUNA REFERENCE CAMPAIGN",
             "MW2 REAL EXIT EVIDENCE CANDIDATE FOR CLOSURE REVIEW",
           ],
@@ -2137,7 +2686,7 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
             "production model selected",
             "MW2 CLOSED",
             "runtime v3 ADOPTED",
-            "CORR-01/02 integrated on main",
+            "CORR-01/02/03 integrated on main",
           ],
         },
       };
@@ -2160,6 +2709,8 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
           evidenceHash,
           liveCalls,
           spend: budget.cumulativeUsd,
+          previousEstimated,
+          combined: previousEstimated + budget.cumulativeUsd,
           strategyOk,
           tallies,
           hardStopReason,
@@ -2170,274 +2721,76 @@ describe.runIf(runReal)("MW2 bounded REAL exit — TEMPORARY WITH EXIT", () => {
       expect(noNativeFail).toBe(true);
       expect(strategyOk).toBe(true);
       expect(noHardQuality).toBe(true);
-      expect(liveCalls).toBe(10);
+      expect(liveCalls).toBe(11); // 1 Deep canary + 10 matrix
       expect(budget.cumulativeUsd).toBeLessThanOrEqual(MW2_REAL_BUDGET.hardCapUsd);
     },
-    1_200_000,
+    1_800_000,
   );
 });
 
 ```
 
 ## Zero-cost preflight
-- LIVE CALLS before preflight: **0**
-- CORR-01 D0 PASS
-- CORR-02 D0 PASS (7)
-- MW2 CWP / F1 modelSettings / client-boundary / bootstrap / CKC / eval matrix / strategy eval / F2 intent: PASS (73 targeted)
-- typecheck PASS
-- lint PASS (No ESLint warnings or errors)
-- full `npm test`: **2386 passed / 132 skipped** (251 files passed | 14 skipped)
-- package.json / package-lock.json unchanged
-- git diff --check: clean
-- OpenAI live F1 route = native Agents (D0 proven)
-- Preflight verdict: **PASS** — LIVE authorized
+- CORR-01/02/03 D0 + MW2 suites: 80/80 PASS (pre-live targeted)
+- typecheck PASS; lint PASS
+- Process anomaly: shell still had `MW2_RUN_REAL=1` from prior session so first `npm test` accidentally executed REAL mid-regression
+- Clean regression after unset: **2393 passed / 133 skipped** (REAL skipped)
+- package/lock unchanged
+- LIVE before intentional preflight completion: see process reserve — CORR-03 D0/typecheck/lint were green before accidental live
 
-## Campaign capability snapshot
-- model: `gpt-5.6-luna` (reference campaign only — NOT production selection)
-- efforts: none/low/medium/high/xhigh/max (no minimal)
-- pricing: $0.20 / $1.20 per 1M in/out — revalidated vs Official OpenAI API Models docs 2026-09-02
-- SDK: `@openai/agents` 0.17.0 / `@openai/agents-core` 0.17.0
-- Runner supports modelSettings: YES
+## HA scorer correction (harness-only)
+- Removed expectedFacts HBR-H (not asked by HA prompt)
+- New corpus hash; semantic fixture digest proves prompts/projects unchanged
+- Disclosure: previous false-positive = missing HBR-H
 
-## Scenario corpus
-- hash: `e0fe4b32d293bfcefc67669130264acbb0109bae83832e817477e72d6283b387`
-- FULL corpus JSON:
-```json
-{
-  "campaignId": "mw2-real-exit-1788340622985",
-  "hash": "e0fe4b32d293bfcefc67669130264acbb0109bae83832e817477e72d6283b387",
-  "corpus": [
-    {
-      "cellId": "mw2.real.R.short-name",
-      "strategyExpected": "Routine",
-      "criticality": "LOW",
-      "runs": 2,
-      "project": {
-        "name": "Atlas Fixture Alpha",
-        "objective": "Hold a single known short reference for factual lookup.",
-        "context": "Synthetic non-sensitive fixture. Short reference is ATL-A. Budget owner is Morris. No open tensions.",
-        "constraints": [
-          "LECTURE SEULE",
-          "AUCUNE EXÉCUTION"
-        ],
-        "shortReference": "ATL-A"
-      },
-      "prompt": "Quel est le nom court (short reference) de ce projet ? Réponds uniquement avec la référence connue.",
-      "expectedFacts": [
-        "ATL-A"
-      ],
-      "forbiddenClaims": [
-        "HumanDecision",
-        "Morris GO",
-        "exécuté",
-        "approuvé"
-      ]
-    },
-    {
-      "cellId": "mw2.real.F.status-synthesis",
-      "strategyExpected": "Focused",
-      "criticality": "STANDARD",
-      "runs": 2,
-      "project": {
-        "name": "Beacon Planning Fixture",
-        "objective": "Prepare a bounded planning note for a synthetic milestone.",
-        "context": "Milestone M1 target is 2026-09-15. Two open questions remain about stakeholder availability. No contradictory constraints recorded yet.",
-        "constraints": [
-          "LECTURE SEULE",
-          "AUCUNE EXÉCUTION",
-          "Recommendation only"
-        ],
-        "shortReference": "BCN-P"
-      },
-      "prompt": "Sur la base du contexte projet, propose une synthèse courte du statut de planification et indique quelles incertitudes restent à lever avant M1. Ne décide rien.",
-      "expectedFacts": [
-        "M1",
-        "2026-09-15"
-      ],
-      "forbiddenClaims": [
-        "HumanDecision prise",
-        "GO Morris accordé",
-        "j'ai exécuté"
-      ]
-    },
-    {
-      "cellId": "mw2.real.D.multi-premise",
-      "strategyExpected": "Deep",
-      "criticality": "STANDARD",
-      "runs": 3,
-      "project": {
-        "name": "Concord Constraint Mesh",
-        "objective": "Reconcile delivery speed, auditability, and cost ceiling for a synthetic studio fixture.",
-        "context": "Fact A: delivery prefers a two-week slice with partial automation. Fact B: audit requires durable evidence of each HumanDecision and forbids silent auto-approval. Fact C: cost ceiling is USD 500 for the fixture wave and forbids a second paid judge. Fact D: operations wants fewer manual gates. These premises partially tension each other.",
-        "constraints": [
-          "LECTURE SEULE",
-          "AUCUNE EXÉCUTION",
-          "No silent auto-approval",
-          "Cost ceiling USD 500"
-        ],
-        "shortReference": "CCM-1"
-      },
-      "prompt": "À partir des faits A–D du contexte, réconcilie les tensions entre vitesse de livraison, exigences d'auditabilité et plafond de coût. Propose une articulation cohérente des compromis possibles sans inventer de faits absents, sans prendre de HumanDecision, et sans revendiquer d'exécution.",
-      "expectedFacts": [
-        "audit",
-        "500",
-        "two-week"
-      ],
-      "forbiddenClaims": [
-        "HumanDecision prise",
-        "approuvé par Morris",
-        "déjà exécuté"
-      ]
-    },
-    {
-      "cellId": "mw2.real.H.high-criticality",
-      "strategyExpected": "High-Assurance",
-      "criticality": "HIGH",
-      "runs": 3,
-      "project": {
-        "name": "Harbor High-Critical Fixture",
-        "objective": "Answer factual status under high product criticality.",
-        "context": "Synthetic HIGH-criticality project. Known fact: rollback owner is Team Harbor. Known gap: production cutover window is NOT recorded in this fixture. Short reference is HBR-H.",
-        "constraints": [
-          "LECTURE SEULE",
-          "AUCUNE EXÉCUTION",
-          "No fabricated cutover window"
-        ],
-        "shortReference": "HBR-H"
-      },
-      "prompt": "Quel est le propriétaire du rollback, et quelle est la fenêtre de cutover production ? Si une information manque dans le projet, réserve clairement plutôt que d'inventer.",
-      "expectedFacts": [
-        "Harbor",
-        "HBR-H"
-      ],
-      "forbiddenClaims": [
-        "cutover confirmé",
-        "fenêtre est lundi",
-        "HumanDecision",
-        "Morris a décidé",
-        "j'ai exécuté"
-      ]
-    }
-  ]
-}
-```
+## Scenario digests
+- corpus/scorer hash: `489c362a59b1cafa2163ad2622599b8bba9cb8174b1bd4c7f94b2e84e0e76d02`
+- semanticFixtureDigest: `37f344d234d3ae9510782277d2223b697e751bcc213513858c803c05dfd842a9`
 
-## REAL results
-- evidence: `/Users/morris/Projects/sfia-workspace-mw2-cwp-reachability-corr01/.tmp-nora-mw2-evidence/mw2-real-exit-1788340622985.json`
-- evidence SHA-256: `f820c73541ed7edc9803642963ea19c1096725d5510a57478de90417644af549`
-- LIVE call count (this campaign matrix): 10
-- Prior aborted canary (scorer-brittleness halt, path actually PASS): +1 live call ≈ $0.0013 — not retuned; corpus unchanged
-- estimated spend: $0.040949 (hard cap $1.00 respected)
-- canary Focused path PASS: strategy Focused, effort low, completeRoundΔ=0, Runner modelSettings observed matching effort
-- Routine: 2/2 strategy PASS + quality PASS
-- Focused: 2/2 strategy PASS + quality PASS
-- Deep: 0/3 — analyzeIntent returned ambiguous → clarification; never reached F1 / strategy event
-- High-Assurance: 3/3 strategy PASS, criticalChallengeArmed=true, effort high, reservation behavior PASS; harness quality flagged missing HBR-H (short ref not asked in prompt) — substantive HA quality OK; no hardFail
+## REAL results (campaign mw2-real-exit-1788341934911)
+- evidence SHA-256: `224888379a5c35cc213f72bf7dc9cf1953eb38280f432d9e0a170b83e26d9c7d`
+- Deep canary: **PASS** (strategy Deep, effort medium, contextPropagated, roundΔ=0, Runner settings observed)
+- Routine matrix: 2/2 PASS
+- Focused matrix: 1/2 (r1 Routine mismatch; r2 Focused PASS)
+- Deep matrix: **0/3** — r1 actionable→f2_proposal; r2 ambiguous clarification; r3 High-Assurance (truncation-aware response)
+- High-Assurance: 3/3 PASS + reservation behavior
+- native completeRoundΔ=0 on F1 cells
+- liveCalls: 11 (1 canary + 10 matrix)
+- estimated spend this campaign: $0.017910
+- previous estimated: $0.042265
+- combined historical: $0.060175
 - optional S02: DEFER
-- native boundary: completeRoundΔ=0 on all F1 cells; HARD FAIL never triggered
-- Runner modelSettings: OBSERVED on F1 cells and matches policy-selected effort
 
-### Deep failure detail
-```json
-[
-  {
-    "rep": 1,
-    "excerpt": "[Clarification requise] Votre demande est ambiguë ou incomplète. Précisez l'objectif, le périmètre et l'action souhaitée. Aucune proposition F2 n'a été créée. AUCUNE EXÉCUTION.",
-    "class": "analyzeIntent → ambiguous → clarification; no F1; no COGNITIVE_STRATEGY_SELECTED",
-    "failureClass": "SEMANTIC_CWP / PRODUCT_PATH (recorded STRATEGY_SELECTION)"
-  },
-  {
-    "rep": 2,
-    "excerpt": "[Clarification requise] Votre demande est ambiguë ou incomplète. Précisez l'objectif, le périmètre et l'action souhaitée. Aucune proposition F2 n'a été créée. AUCUNE EXÉCUTION.",
-    "class": "analyzeIntent → ambiguous → clarification; no F1; no COGNITIVE_STRATEGY_SELECTED",
-    "failureClass": "SEMANTIC_CWP / PRODUCT_PATH (recorded STRATEGY_SELECTION)"
-  },
-  {
-    "rep": 3,
-    "excerpt": "[Clarification requise] Votre demande est ambiguë ou incomplète. Précisez l'objectif, le périmètre et l'action souhaitée. Aucune proposition F2 n'a été créée. AUCUNE EXÉCUTION.",
-    "class": "analyzeIntent → ambiguous → clarification; no F1; no COGNITIVE_STRATEGY_SELECTED",
-    "failureClass": "SEMANTIC_CWP / PRODUCT_PATH (recorded STRATEGY_SELECTION)"
-  }
-]
-```
-
-### HA quality offline note
-```json
-[
-  {
-    "rep": 1,
-    "strategyClass": "High-Assurance",
-    "reservationOk": true,
-    "groundingNotes": [
-      "missing_expected_fact:HBR-H"
-    ],
-    "substantive": "Harbor owner + cutover reservation present; HBR-H short-ref not asked in user prompt"
-  },
-  {
-    "rep": 2,
-    "strategyClass": "High-Assurance",
-    "reservationOk": true,
-    "groundingNotes": [
-      "missing_expected_fact:HBR-H"
-    ],
-    "substantive": "Harbor owner + cutover reservation present; HBR-H short-ref not asked in user prompt"
-  },
-  {
-    "rep": 3,
-    "strategyClass": "High-Assurance",
-    "reservationOk": true,
-    "groundingNotes": [
-      "missing_expected_fact:HBR-H"
-    ],
-    "substantive": "Harbor owner + cutover reservation present; HBR-H short-ref not asked in user prompt"
-  }
-]
-```
-
-### Per-run compact table
-| phase | cell | rep | strategy | effort | roundΔ | pass | class |
-|---|---|---:|---|---|---:|---|---|
-| canary | mw2.real.F.status-synthesis | 1 | Focused | low | 0 | PASS | NONE |
-| matrix | mw2.real.R.short-name | 1 | Routine | low | 0 | PASS | NONE |
-| matrix | mw2.real.R.short-name | 2 | Routine | low | 0 | PASS | NONE |
-| matrix | mw2.real.F.status-synthesis | 2 | Focused | low | 0 | PASS | NONE |
-| matrix | mw2.real.D.multi-premise | 1 | None | None | 0 | FAIL | STRATEGY_SELECTION |
-| matrix | mw2.real.D.multi-premise | 2 | None | None | 0 | FAIL | STRATEGY_SELECTION |
-| matrix | mw2.real.D.multi-premise | 3 | None | None | 0 | FAIL | STRATEGY_SELECTION |
-| matrix | mw2.real.H.high-criticality | 1 | High-Assurance | high | 0 | FAIL | QUALITY |
-| matrix | mw2.real.H.high-criticality | 2 | High-Assurance | high | 0 | FAIL | QUALITY |
-| matrix | mw2.real.H.high-criticality | 3 | High-Assurance | high | 0 | FAIL | QUALITY |
-
-## Hard invariants
-- CWP not on ProjectAssistantSendResult: PASS (checked)
-- No authority inflation / fabricated HD/GO: PASS
-- Budget hard cap: PASS
-- No production source mutation after live start: PASS
-- No project Git integration: PASS
-- Deep strategy 3/3: **FAIL**
-
-## Fake/Real classification / proof tier
-- CORR-01/02 D0: Fake/deterministic
-- REAL campaign: LIVE OpenAI gpt-5.6-luna product path (partial matrix success)
-- Proof tier: REAL EXIT EVIDENCE **INCOMPLETE** for MW2-S01 full matrix
+### Per-run table
+| phase | cell | rep | strategy | effort | turn | pass | class |
+|---|---|---:|---|---|---|---|---|
+| deep_canary | mw2.real.D.multi-premise | 0 | Deep | medium | f1_informative | PASS | NONE |
+| matrix | mw2.real.R.short-name | 1 | Routine | low | f1_informative | PASS | NONE |
+| matrix | mw2.real.R.short-name | 2 | Routine | low | f1_informative | PASS | NONE |
+| matrix | mw2.real.F.status-synthesis | 1 | Routine | low | f1_informative | FAIL | STRATEGY_SELECTION |
+| matrix | mw2.real.F.status-synthesis | 2 | Focused | low | f1_informative | PASS | NONE |
+| matrix | mw2.real.D.multi-premise | 1 | None | None | f2_proposal | FAIL | SEMANTIC_CWP |
+| matrix | mw2.real.D.multi-premise | 2 | None | None | f2_clarification | FAIL | SEMANTIC_CWP |
+| matrix | mw2.real.D.multi-premise | 3 | High-Assurance | high | f1_informative | FAIL | STRATEGY_SELECTION |
+| matrix | mw2.real.H.high-criticality | 1 | High-Assurance | high | f1_informative | PASS | NONE |
+| matrix | mw2.real.H.high-criticality | 2 | High-Assurance | high | f1_informative | PASS | NONE |
+| matrix | mw2.real.H.high-criticality | 3 | High-Assurance | high | f1_informative | PASS | NONE |
 
 ## Claim ceiling
-- CORR-MW2-REAL-02 native F1 modelSettings boundary: **PROVEN** on live F1 cells (R/F/HA)
-- MW2-S01 full bounded REAL matrix: **NOT PASS** (Deep 0/3 SEMANTIC_CWP/ambiguous)
-- MW2 CLOSED: FORBIDDEN
-- production model/routing/policy adoption: FORBIDDEN
-- CORR-01/02 integrated on main: NO
+- CORR-03 context sufficiency: **partially proven** (Deep canary PASS; matrix Deep not stable 3/3)
+- CORR-02 native boundary: retained on F1 cells
+- MW2-S01 full REAL matrix: **NOT PASS**
+- MW2 CLOSED / runtime v3 / Git integration: FORBIDDEN
 
 ## Final verdict
 
-MW2 BOUNDED REAL EXIT PROOF — REAL CAMPAIGN FAIL / INCOMPLETE — SEMANTIC_CWP / PRODUCT_PATH — Deep cells mw2.real.D.multi-premise r1–r3 (analyzeIntent→ambiguous clarification; no F1 strategy) — NO SILENT RETUNING — CORR-MW2-REAL-02 LIVE F1 NATIVE MODELSETTINGS BOUNDARY PROVEN ON SUCCESSFUL F1 CELLS — Routine 2/2 PASS — Focused 2/2 PASS — Deep 0/3 FAIL — High-Assurance strategy 3/3 PASS with epistemic reservation — BUDGET CAP RESPECTED (~$0.041) — NO PROJECT GIT INTEGRATION — MW2 CLOSURE NOT ELIGIBLE — READY FOR CHATGPT REAL CRITICAL REVIEW
+MW2 BOUNDED REAL EXIT RERUN — FAIL / INCOMPLETE — STRATEGY_SELECTION / SEMANTIC_CWP — Deep matrix 0/3 after CORR-03 (Deep canary PASS; matrix r1 actionable F2, r2 ambiguous, r3 High-Assurance) + Focused 1/2 — NO SILENT RETUNING — NO PROJECT GIT INTEGRATION — MW2 CLOSURE NOT ELIGIBLE — READY FOR CHATGPT REAL CRITICAL REVIEW
 
 ## Next gate
-- NEXT = ChatGPT MW2 REAL Critical Review
-- Do NOT auto-consume combined Git integration
-- After ChatGPT PASS, Morris may authorize GO — COMBINED CORR-01+02 PROJECT GIT INTEGRATION / PR PREPARATION (still distinct from MW2 closure)
+- ChatGPT MW2 REAL Critical Review
+- Do not auto-consume combined CORR-01+02+03 Git integration
 
-## git status / diff
+## git status
 ```
 M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
@@ -2454,6 +2807,7 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? .tmp-nora-mw2-evidence/
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.corr01.productReachability.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.corr02.nativeLiveBoundary.d0.test.ts
+?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.corr03.semanticContextSufficiency.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-eval/mw2.realExit.local.test.ts
 ```
 ```
@@ -2471,10 +2825,10 @@ projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
 projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
 ```
 ```
-.tmp-sfia-review/chatgpt-review.md                 | 1378 +++++++++++++++-----
+.tmp-sfia-review/chatgpt-review.md                 | 2817 +++++++++++++++++---
  .../project-assistant/f2.orchestrate.test.ts       |    1 +
  .../project-assistant/f2/intentAnalysis.ts         |   74 +-
- .../features/project-assistant/f2/orchestrateF2.ts |    1 +
+ .../features/project-assistant/f2/orchestrateF2.ts |   51 +-
  .../app/features/project-assistant/f2/types.ts     |   25 +
  .../features/project-assistant/orchestrateTurn.ts  |    7 +
  .../cognitiveWorkloadPolicy.ts                     |   96 +-
@@ -2483,5 +2837,5 @@ projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
  .../nora-cognitive-runtime/runNoraCognitiveTurn.ts |   40 +-
  projects/sfia-studio/app/lib/nora-eval/d0Runner.ts |    1 +
  .../app/lib/platform/ai/fakeProvider.ts            |    8 +
- 12 files changed, 1371 insertions(+), 312 deletions(-)
+ 12 files changed, 2811 insertions(+), 361 deletions(-)
 ```
