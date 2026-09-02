@@ -287,4 +287,3 @@ describe("MW3-S02 — Cognitive STOP honesty D0", () => {
     expect(stop.outcome).toBe("PROGRESS_WITH_CONTRADICTION");
   });
 });
-

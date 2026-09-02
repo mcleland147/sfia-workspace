@@ -173,4 +173,3 @@ describe("MW3-S02 — ProjectAssistantPanel Cognitive STOP UX", () => {
     expect(surface.textContent).toMatch(/Contradiction candidate/i);
   });
 });
-

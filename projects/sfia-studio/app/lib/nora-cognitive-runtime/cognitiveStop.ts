@@ -200,4 +200,3 @@ export function formatCognitiveStopPiloteNotice(
     .filter(Boolean)
     .join(" ");
 }
-

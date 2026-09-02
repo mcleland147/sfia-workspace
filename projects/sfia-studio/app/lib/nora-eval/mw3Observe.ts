@@ -191,4 +191,3 @@ export function observeMw3FromRuntime(): DeterministicObservation {
 
   return observationFromMw3Facts(facts);
 }
-

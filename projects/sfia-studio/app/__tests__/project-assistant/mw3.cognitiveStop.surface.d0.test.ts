@@ -333,4 +333,3 @@ describe("MW3-S02 — product/runtime Cognitive STOP surface D0", () => {
     expect(result.mw3?.progression).toBe("PROGRESS_WITH_CONTRADICTION");
   });
 });
-

@@ -41,4 +41,3 @@ describe("MW3 eval — disposition matrix scenario", () => {
     ).toBe(true);
   });
 });
-
