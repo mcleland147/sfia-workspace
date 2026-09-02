@@ -1,15 +1,15 @@
-# SFIA Studio — Nora MW0×MW1×MW2×MW3 Integrated REAL Chain — Full Critical Review Pack
+# SFIA Studio — Nora MW0×MW1×MW2×MW3 Integrated REAL Business Chain (MW3-scope corrected) — Full Critical Review Pack
 
 Profile: **FULL / CRITICAL**
-Cycle: Cycle 9 — QA / Validation — INC
+Cycle: Cycle 9 — QA / Validation — RUN
 Programme: Nora Cognitive Completion
-Capability: Cumulative MW0→MW3 integrated REAL chain
+Capability: Cumulative MW0→MW3 integrated REAL business chain at MW3 scope
 Date: 2026-09-02 (Europe/Paris)
-Campaign ID: `nora-mw0-mw3-integrated-real-1788376350396`
+Campaign ID: `nora-mw0-mw3-business-integrated-real-1788377416280`
 
-**This cycle validates cumulative chain continuity. It does NOT implement or correct product code.**
+**This cycle corrects the TEST CONTRACT only. It does NOT correct product code.**
 
-## Mandatory anti-claims
+## Mandatory statements
 
 MW3 HISTORICAL IMPLEMENTATION SHA LOST
 
@@ -24,6 +24,8 @@ PROJECT PUSH / PR / MERGE NOT PERFORMED
 MW3 PROJECT GIT INTEGRATION NOT YET AUTHORIZED
 
 MW4 NOT AUTHORIZED
+
+MW4-S01 CROSS-TURN GROUNDING DURABILITY NOT TESTED
 
 COGNITIVE COMPLETION NOT PROVEN
 
@@ -41,86 +43,89 @@ CUMULATIVE CHAIN PASS ≠ MW3 CLOSED
 
 | Item | Value |
 | --- | --- |
-| Chain worktree | `/Users/morris/Projects/sfia-workspace-nora-mw0-mw3-chain-real` |
-| Branch | `validation/nora-mw0-mw3-integrated-real` **LOCAL ONLY** |
+| Worktree | `/Users/morris/Projects/sfia-workspace-nora-mw0-mw3-chain-real-2` |
+| Branch | `validation/nora-mw0-mw3-integrated-real-mw3-scope` **LOCAL ONLY** |
 | HEAD / MW3 anchor | `339d583ac9b5d91328838a7b9209e0fd3804bc98` |
 | origin/main | `c352441c2a6ab012aecae7606e0bb9af8fc9e7e7` |
-| Prior MW3 REAL worktree | `/Users/morris/Projects/sfia-workspace-mw3-real` @ same anchor |
-| Entry Review Handoff | `e67367f3e4801c34c097ebc00c9b04c769278682` |
-| App diff vs `339d583a` | **empty** (tracked) |
-| Untracked | `node_modules` symlink; `.tmp-sfia-real/` evidence; harness was untracked then removed from app tree after run |
+| Entry Review Handoff | `cd8426dd5e00b95f2a0ebf70ed7733d6fc644190` |
+| Prior failed campaign handoff | same `cd8426dd` (input) |
+| Prior isolated MW3 REAL | `e67367f3…` |
+| App tracked diff vs `339d583a` | **empty** |
 | Validation branch on origin | **absent** |
 
 ---
 
-## B. Morris cumulative-chain decision
+## B. Morris GO
 
-**GO NORA MW0×MW1×MW2×MW3 INTEGRATED REAL CHAIN CAMPAIGN — CONSUMED.**
+**GO FRESH MW0×MW1×MW2×MW3 INTEGRATED REAL BUSINESS CHAIN CAMPAIGN — CORRECTED TO MW3 SCOPE — CONSUMED.**
 
-Construction rule applied: an increment is not qualified for Project Git Integration by its own proofs alone. Before MW3 Git Integration, the cumulative chain MW0×MW1×MW2×MW3 must pass ChatGPT review.
+Authorized: fresh cumulative REAL; MW1 premise continuity; MW2 CWP/strategy; MW3 candidate/evidence_backed/STOP with **current-turn** Evidence pointers.
 
-Therefore at campaign exit:
-
-**MW3 PROJECT GIT INTEGRATION = BLOCKED** (campaign FAILED; ChatGPT Chain Review still required on this failure pack).
-
-No project push / PR / merge performed.
+Not authorized: product correction; MW4 implementation; cross-turn Evidence durability requirement; project push/PR/merge; MW3 closure.
 
 ---
 
-## C. Sources read
+## C. Why previous campaign overreached MW3 scope
 
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-- `projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md`
-- `projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md`
-- `projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md`
-- `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md`
-- Current MW3 REAL: `e67367f3…:sfia-review-handoff/latest-chatgpt-review.md`
-- Historical MW1 REAL patterns: `bcc607ae…:sfia-review-handoff/latest-chatgpt-review.md`
+Previous campaign `nora-mw0-mw3-integrated-real-1788376350396` (handoff `cd8426dd`) required T4/T5 to recover Evidence IDs introduced on earlier turns from Memory B / narrative ("les deux Evidence").
 
----
+Observed prior trajectory: NONE→NONE→CANDIDATE→CANDIDATE→CANDIDATE with nominal CHAIN-MW3-02 / cascading CHAIN-MW3-04.
 
-## D. Convergence qualification
+**Corrected qualification for this cycle:**
 
-Cumulative chain under validation: MW0 eval spine → MW1 Memory B → MW2 CWP/strategy → MW3 contradiction/STOP.
+- Previous T4 CHAIN-MW3-02 = **TEST CONTRACT OVERREACHED MW3 SCOPE**
+- Previous T5 CHAIN-MW3-04 = **CASCADING FROM TEST CONTRACT OVERREACH**
 
-MW4 remains **NOT AUTHORIZED**. No MW4 capability implemented.
+Do **not** open BLK-MW3-CHAIN-01. Do **not** modify product code to make the previous test pass.
 
-FA expected **NO**. TA expected **NO**. Observed: FA NO / TA NO (campaign used existing product APIs + temporary QA harness only).
+Record:
+
+**CROSS-TURN EVIDENCE GROUNDING DURABILITY = MW4-S01 EXPECTED FUTURE CAPABILITY**
+
+The previous FAIL remains a valid historical result against its own contract. It is **not** rewritten as PASS.
 
 ---
 
-## E. Entry proof state
+## D. Source boundary
 
-| Wave | Entry state |
+| Story | Scope |
 | --- | --- |
-| MW0 | Deterministic D0 / corr suites PASS (serial preflight) |
-| MW1 | Memory B / Session / compaction / materialization / final D0 PASS |
-| MW2 | CWP/strategy/REAL-boundary deterministic suites PASS |
-| MW3 | Historical D0 + C01–C16 + C17–C24 + panel + STOP surface PASS; prior bounded REAL pack at `e67367f3` |
+| **MW3-S01** | candidate vs evidence-backed contradiction with domain/freshness/Evidence qualification on **current** pointers |
+| **MW3-S02** | Cognitive STOP when governing-premise contradiction is evidence-backed |
+| **MW4-S01** | Cross-turn grounding durability + narrative≠evidence — **NOT TESTED** |
 
-Preflight note: initial parallel vitest run showed cross-file pollution on MW2 corr01/corr04; **serial** `--no-file-parallelism` preflight = **32 files / 269 tests PASS**. typecheck PASS. lint PASS. `git diff --check` PASS.
+Hard anti-overreach: do not fail MW3 because an Evidence ID omitted from the CURRENT turn is not reconstructed from an earlier turn.
 
 ---
 
-## F. Campaign architecture / Fake-Real fidelity
+## E. Convergence qualification
 
-- Entry path: `orchestrateAssistantSend` (same body as `projectAssistantSendAction`) with injected Metered+Capturing `OpenAIConversationProvider` — justified to capture usage without mutating `.env`.
-- `history: []` on every turn (no client history shortcut).
-- Session isolation via `SFIA_STUDIO_NORA_SESSION_DB_PATH` temp path (existing override seam).
-- Product DB: fresh temp Product SQLite.
-- Fake forced = false; presentation = `openai_live`; `isOpenAiLiveF1=true`; `shouldUseProviderAgentsModelAdapter=false`; `completeRoundCalls=0` all turns.
-- MW2 observation: non-mutating monkey-patch of `ProjectAssistantMemoryEventSink.prototype.emit` preserving original emit; restored in `finally`.
+Business chain: Pilote premise → MW1 continuity → MW2 workload → MW3 current Evidence qualification → local continue → governing STOP.
+
+MW4 remains NOT AUTHORIZED. FA NO / TA NO.
+
+---
+
+## F. Entry proofs
+
+Serial preflight: **32 files / 269 tests PASS**. typecheck PASS. lint PASS. `git diff --check` PASS.
+
+Prior isolated MW3 REAL at `e67367f3` remains bounded single-capability evidence. This campaign is the corrected cumulative MW3-scope business chain.
+
+---
+
+## G. Campaign architecture / REAL fidelity
+
+- Path: `orchestrateAssistantSend` + Metered/Capturing OpenAI provider injection (same body as `projectAssistantSendAction`).
+- `history: []` every turn.
+- Session via `SFIA_STUDIO_NORA_SESSION_DB_PATH` temp override.
+- Fake forced=false; presentation=`openai_live`; native F1; `completeRoundCalls=0` all turns.
+- MW2: non-mutating `ProjectAssistantMemoryEventSink.prototype.emit` observer; restored in finally.
 
 ```json
 {
-  "campaignId": "nora-mw0-mw3-integrated-real-1788376350396",
-  "marker": "PREMISE-MW3-CHAIN-b0169bdc",
+  "campaignId": "nora-mw0-mw3-business-integrated-real-1788377416280",
+  "marker": "PREMISE-MW3-BUSINESS-ae78731b",
   "REAL_MODEL": "gpt-5.6-luna",
   "REAL_REASONING_EFFORT": "UNSET",
   "OPENAI_API_KEY_PRESENT": "YES",
@@ -137,21 +142,17 @@ Preflight note: initial parallel vitest run showed cross-file pollution on MW2 c
 
 ---
 
-## G. QA harness
+## H. QA harness full source
 
 Classification: **TEMPORARY WITH EXIT — QA CAMPAIGN TOOLING**
 
-Location during run: untracked `__tests__/nora-eval/_local_mw0_mw3_integrated_chain.test.ts` (removed after campaign; source retained below and under `.tmp-sfia-real/mw0-mw3-integrated/`).
-
-Not committed. Not pushed. No product semantics reimplementation.
-
-### Full harness source
+Untracked during run; removed from app tree after execution; source retained here and under `.tmp-sfia-real/mw0-mw3-business-integrated/`.
 
 ```typescript
 /** @vitest-environment node */
 /**
  * TEMPORARY WITH EXIT — QA CAMPAIGN TOOLING
- * MW0×MW1×MW2×MW3 Integrated REAL Chain — NOT product code.
+ * MW0×MW1×MW2×MW3 Integrated REAL Business Chain (MW3-scope corrected) — NOT product code.
  * Untracked. Not committed. Not pushed.
  */
 import fs from "node:fs";
@@ -199,7 +200,7 @@ import {
 import { MeteredConversationProvider } from "@/lib/nora-eval/meteredProvider";
 
 const EVIDENCE_DIR =
-  "/Users/morris/Projects/sfia-workspace-nora-mw0-mw3-chain-real/.tmp-sfia-real/mw0-mw3-integrated";
+  "/Users/morris/Projects/sfia-workspace-nora-mw0-mw3-chain-real-2/.tmp-sfia-real/mw0-mw3-business-integrated";
 const DOTENV =
   "/Users/morris/Projects/sfia-workspace/projects/sfia-studio/app/.env.local";
 const ANCHOR = "339d583ac9b5d91328838a7b9209e0fd3804bc98";
@@ -399,9 +400,9 @@ function mw3State(result: {
   return `OTHER:${d}`;
 }
 
-describe("MW0×MW1×MW2×MW3 integrated REAL chain", () => {
+describe("MW0×MW1×MW2×MW3 integrated REAL business chain (MW3 scope)", () => {
   it(
-    "runs five continuous turns",
+    "runs five continuous business turns",
     async () => {
       await runCampaign();
     },
@@ -415,17 +416,17 @@ async function runCampaign(): Promise<void> {
   delete process.env.OPS1_CONVERSATION_PROVIDER;
 
   const startedAt = new Date().toISOString();
-  const campaignId = `nora-mw0-mw3-integrated-real-${Date.now()}`;
-  const marker = `PREMISE-MW3-CHAIN-${crypto.randomBytes(4).toString("hex")}`;
+  const campaignId = `nora-mw0-mw3-business-integrated-real-${Date.now()}`;
+  const marker = `PREMISE-MW3-BUSINESS-${crypto.randomBytes(4).toString("hex")}`;
 
   const availability = getLiveConversationAvailability();
   if (!availability.available) {
     throw new Error(
-      `STOP-CHAIN-04 REAL CONFIGURATION UNAVAILABLE (${availability.missing.join(",")})`,
+      `STOP-BUSINESS-04 REAL CONFIGURATION UNAVAILABLE (${availability.missing.join(",")})`,
     );
   }
   if (isFakeConversationProviderForced()) {
-    throw new Error("STOP-CHAIN-05 Fake forced");
+    throw new Error("STOP-BUSINESS-05 Fake forced");
   }
   const secrets = requireLiveConversationSecrets();
   if (!/^gpt-5\.6($|-)/.test(secrets.model)) {
@@ -461,8 +462,8 @@ async function runCampaign(): Promise<void> {
   }
   setConversationProviderForTests(metered);
 
-  const productDir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw0-mw3-product-"));
-  const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw0-mw3-session-"));
+  const productDir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw0-mw3-biz-product-"));
+  const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw0-mw3-biz-session-"));
   const productDbPath = path.join(productDir, "oa-product.sqlite");
   const sessionDbPath = path.join(sessionDir, "nora-session.sqlite");
   process.env.SFIA_STUDIO_NORA_SESSION_DB_PATH = sessionDbPath;
@@ -471,12 +472,12 @@ async function runCampaign(): Promise<void> {
   getRuntimeApplicationService({ productDbPath, auditMode: "noop" });
 
   const created = await getRuntimeApplicationService().createProject({
-    name: "Nora MW0-MW3 Integrated REAL Chain",
-    objective: "Cumulative MW0→MW3 integrated REAL continuity proof",
+    name: "Nora MW0-MW3 Integrated Business REAL Chain",
+    objective: "Cumulative MW0→MW3 integrated REAL business chain at MW3 scope",
     context: "Temporary synthetic Product SQLite campaign — not production data",
     criticality: "STANDARD",
     constraints: ["LECTURE SEULE", "AUCUNE EXÉCUTION"],
-    shortReference: "MW03C",
+    shortReference: "MW03B",
     idempotencyKey: `idem:${campaignId}:project`,
   });
   if (!created.ok) throw new Error(`createProject failed: ${JSON.stringify(created)}`);
@@ -523,13 +524,13 @@ async function runCampaign(): Promise<void> {
   const USER_T1 =
     `Pour cette conversation de travail, retiens la prémisse temporaire ${marker} : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action.`;
   const USER_T2 =
-    "Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informations actuelles sont compatibles avec cette condition et aucun conflit n'est signalé. Donne-moi ta lecture.";
+    "Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informations actuelles restent compatibles avec elle et aucun conflit n'est signalé.";
   const USER_T3 =
-    "Une nouvelle information semble maintenant contredire la condition de travail que tu conserves depuis le début. L'unique Evidence disponible est ev:mw0-mw3-chain-a. Analyse le conflit et dis si la contradiction est suffisamment établie pour bloquer honnêtement la suite.";
+    "Une nouvelle information semble maintenant contredire la condition de travail que tu conserves depuis le début. L'unique Evidence disponible pour cette analyse est ev:mw0-mw3-business-a. Analyse le conflit et indique s'il est suffisamment établi pour bloquer honnêtement la suite.";
   const USER_T4 =
-    "Une seconde Evidence existe maintenant : ev:mw0-mw3-chain-b. Les deux Evidence sont incompatibles sur un point local. Ce point ne remet cependant pas en cause la condition de travail initiale que tu conserves depuis le début. Analyse la situation et indique si le parcours cognitif peut continuer.";
+    "Pour l'analyse courante, les deux Evidence concernées sont ev:mw0-mw3-business-a et ev:mw0-mw3-business-b. Elles sont incompatibles sur un point local. Ce point ne remet pas en cause la condition de travail initiale que tu conserves depuis le début. Analyse la situation et indique si le parcours cognitif peut continuer.";
   const USER_T5 =
-    "Réévalue maintenant la portée du conflit : il ne s'agit finalement pas d'un point local. Les deux Evidence invalident directement la condition de travail initiale dont dépend toute recommandation aval. Analyse si la suite peut honnêtement continuer.";
+    "Pour cette réévaluation, les Evidence pertinentes sont toujours ev:mw0-mw3-business-a et ev:mw0-mw3-business-b. Leur contradiction n'est finalement pas locale : elle invalide directement la condition de travail initiale dont dépend toute recommandation aval. Analyse si la suite peut honnêtement continuer.";
 
   async function registerEv(evidenceId: string, source: string) {
     const runtime = getRuntimeApplicationService();
@@ -564,7 +565,7 @@ async function runCampaign(): Promise<void> {
 
   async function runTurn(turnId: string, content: string) {
     if (budget.hardStopTriggered || budget.cumulativeUsd >= COST_CAP_USD) {
-      throw new Error("STOP-CHAIN-19 cost cap reached");
+      throw new Error("STOP-BUSINESS-19 cost cap reached");
     }
     const preCall = estimateCostUsd({
       manifest,
@@ -574,7 +575,7 @@ async function runCampaign(): Promise<void> {
     });
     const gate = budget.canStartCall(preCall);
     if (!gate.allowed) {
-      throw new Error(`STOP-CHAIN-19 ${gate.reason}`);
+      throw new Error(`STOP-BUSINESS-19 ${gate.reason}`);
     }
 
     capturing.captures.length = 0;
@@ -592,7 +593,7 @@ async function runCampaign(): Promise<void> {
     const lpsUnchanged = lpsEqual(lpsBefore, lpsAfter);
     lpsLedger.push({ turnId, before: lpsBefore, after: lpsAfter, unchanged: lpsUnchanged });
     if (!lpsUnchanged) {
-      chainFailure = "STOP-CHAIN-10 / CHAIN-MW1-03 Silent Truth C mutation";
+      chainFailure = "STOP-BUSINESS-10 Truth C silently mutates";
     }
 
     const structured = capturing.captures.filter((c) => c.method === "completeStructured");
@@ -693,31 +694,31 @@ async function runCampaign(): Promise<void> {
       presentation?: string;
     };
     if (!r1.ok || r1.presentation !== "openai_live") {
-      chainFailure = chainFailure ?? "CHAIN-REAL-02 provider/product failure T1";
+      chainFailure = chainFailure ?? "BUSINESS-REAL-01 provider/product failure T1";
     }
     if (r1.mw3 && r1.mw3.disposition && r1.mw3.disposition !== "none") {
-      chainFailure = chainFailure ?? "CHAIN-MW3 false contradiction T1";
+      chainFailure = chainFailure ?? "BUSINESS-MW3 false contradiction T1";
     }
     if (r1.mw3?.cognitiveStop === true || r1.status === "cognitive_stop") {
-      chainFailure = chainFailure ?? "CHAIN-MW3 unexpected STOP T1";
+      chainFailure = chainFailure ?? "BUSINESS-MW3 unexpected STOP T1";
     }
     if (
       r1.memoryBAvailability !== "available_empty" &&
       r1.memoryBAvailability !== "available_with_history"
     ) {
       chainFailure =
-        chainFailure ?? `CHAIN-MW1-02 unexpected availability T1=${r1.memoryBAvailability}`;
+        chainFailure ?? `BUSINESS-MW1-01 unexpected availability T1=${r1.memoryBAvailability}`;
     }
     if (t1.completeRoundCalls !== 0) {
-      chainFailure = chainFailure ?? "STOP-CHAIN-06 native F1 path not used (completeRound>0)";
+      chainFailure = chainFailure ?? "STOP-BUSINESS-06 native F1 path not used (completeRound>0)";
     }
     if ((t1.strategyTelemetry as unknown[]).length < 1) {
-      chainFailure = chainFailure ?? "STOP-CHAIN-09 / CHAIN-MW2-03 strategy not observed T1";
+      chainFailure = chainFailure ?? "STOP-BUSINESS-09 / CHAIN-MW2-03 strategy not observed T1";
     }
 
     // TURN 2
     if (USER_T2.includes(marker) || /Gate-Kappa/i.test(USER_T2)) {
-      throw new Error("STOP-CHAIN-08 harness leaked marker into T2");
+      throw new Error("STOP-BUSINESS-08 harness leaked marker into T2");
     }
     const t2 = await runTurn("T2", USER_T2);
     const r2 = t2.result as {
@@ -730,15 +731,15 @@ async function runCampaign(): Promise<void> {
       presentation?: string;
     };
     if (!r2.ok || r2.presentation !== "openai_live") {
-      chainFailure = chainFailure ?? "CHAIN-REAL-02 provider/product failure T2";
+      chainFailure = chainFailure ?? "BUSINESS-REAL-01 provider/product failure T2";
     }
     if (r2.sessionId !== r1.sessionId) {
-      chainFailure = chainFailure ?? "STOP-CHAIN-07 session id changed T1→T2";
+      chainFailure = chainFailure ?? "STOP-BUSINESS-07 session id changed T1→T2";
     }
     if (r2.memoryBAvailability !== "available_with_history") {
       chainFailure =
         chainFailure ??
-        `CHAIN-MW1-01 availability T2=${r2.memoryBAvailability} expected available_with_history`;
+        `BUSINESS-MW1-01 availability T2=${r2.memoryBAvailability} expected available_with_history`;
     }
     const t2Text = r2.text ?? "";
     const recalls =
@@ -747,13 +748,13 @@ async function runCampaign(): Promise<void> {
       (/Gate[\s-]?Kappa/i.test(t2Text) && /valide/i.test(t2Text));
     if (!recalls) {
       chainFailure =
-        chainFailure ?? "FAIL — MW1 CROSS-TURN CONTINUITY NOT PROVEN (T2 no Gate-Kappa/marker)";
+        chainFailure ?? "BUSINESS-MW1-01 governing premise cannot be recalled (T2 no Gate-Kappa/marker)";
     }
     if (r2.mw3 && r2.mw3.disposition && r2.mw3.disposition !== "none") {
-      chainFailure = chainFailure ?? "CHAIN-MW3 false contradiction T2";
+      chainFailure = chainFailure ?? "BUSINESS-MW3 false contradiction T2";
     }
     if ((t2.strategyTelemetry as unknown[]).length < 1) {
-      chainFailure = chainFailure ?? "STOP-CHAIN-09 strategy not observed T2";
+      chainFailure = chainFailure ?? "STOP-BUSINESS-09 strategy not observed T2";
     }
     const sessionAfterT2 = t2.session as {
       items: Array<{ fullText: string; roleOrType?: string }>;
@@ -762,15 +763,15 @@ async function runCampaign(): Promise<void> {
       it.fullText.includes(marker),
     );
     if (!durableHasMarker) {
-      chainFailure = chainFailure ?? "CHAIN-MW1-02 marker absent from durable session after T2";
+      chainFailure = chainFailure ?? "BUSINESS-MW1-01 marker absent from durable session after T2";
     }
 
     // Evidence A
-    await registerEv("ev:mw0-mw3-chain-a", "src:mw0-mw3-chain-a");
+    await registerEv("ev:mw0-mw3-business-a", "src:mw0-mw3-business-a");
 
     // TURN 3
     if (USER_T3.includes(marker) || /Gate-Kappa/i.test(USER_T3)) {
-      throw new Error("STOP-CHAIN-08 harness leaked marker into T3");
+      throw new Error("STOP-BUSINESS-08 harness leaked marker into T3");
     }
     const t3 = await runTurn("T3", USER_T3);
     const r3 = t3.result as {
@@ -794,54 +795,57 @@ async function runCampaign(): Promise<void> {
       claimedEvidenceIds?: string[];
       governingPremise?: string | null;
     } | null; cognitiveWorkload?: Record<string, string> | null }>)[0];
-    if (!r3.ok) chainFailure = chainFailure ?? "CHAIN-REAL-02 T3";
+    if (!r3.ok) chainFailure = chainFailure ?? "BUSINESS-REAL-01 T3";
     if (r3.sessionId !== r1.sessionId) {
-      chainFailure = chainFailure ?? "STOP-CHAIN-07 session changed T3";
+      chainFailure = chainFailure ?? "STOP-BUSINESS-07 session changed T3";
     }
     if (c3?.parsedCandidate?.conflictPresent !== true) {
-      chainFailure = chainFailure ?? "CHAIN-MW3 cognition conflictPresent!=true T3";
+      chainFailure = chainFailure ?? "BUSINESS-MW3 cognition conflictPresent!=true T3";
     }
     const claimed3 = c3?.parsedCandidate?.claimedEvidenceIds ?? [];
-    if (claimed3.length !== 1 || claimed3[0] !== "ev:mw0-mw3-chain-a") {
+    if (claimed3.length !== 1 || claimed3[0] !== "ev:mw0-mw3-business-a") {
       chainFailure =
-        chainFailure ?? `CHAIN-MW3-06 / linkage T3 claimed=${JSON.stringify(claimed3)}`;
+        chainFailure ?? `BUSINESS-MW3-06 / linkage T3 claimed=${JSON.stringify(claimed3)}`;
     }
     if (r3.mw3?.disposition !== "candidate") {
       if (r3.mw3?.disposition === "evidence_backed") {
-        chainFailure = chainFailure ?? "STOP-CHAIN-11 / CHAIN-MW3-01 one source promoted";
+        chainFailure = chainFailure ?? "STOP-BUSINESS-11 / BUSINESS-MW3-01 one source promoted";
       } else {
         chainFailure =
-          chainFailure ?? `CHAIN-MW3 expected candidate got ${r3.mw3?.disposition}`;
+          chainFailure ?? `BUSINESS-MW3 expected candidate got ${r3.mw3?.disposition}`;
       }
     }
     if (r3.mw3?.cognitiveStop === true || r3.status === "cognitive_stop") {
-      chainFailure = chainFailure ?? "CHAIN-MW3 unexpected STOP T3";
+      chainFailure = chainFailure ?? "BUSINESS-MW3 unexpected STOP T3";
     }
     const insuff = r3.mw3?.insufficiencyReasons ?? [];
     if (!insuff.some((x) => /insufficient|coverage|source/i.test(x))) {
-      chainFailure = chainFailure ?? "CHAIN-MW3 missing insufficiency T3";
+      chainFailure = chainFailure ?? "BUSINESS-MW3 missing insufficiency T3";
     }
     const cwp3 = c3?.cognitiveWorkload;
     if (cwp3?.contradictionRisk === "low") {
-      chainFailure = chainFailure ?? "CHAIN-MW2-01 contradictionRisk LOW on T3";
+      chainFailure = chainFailure ?? "BUSINESS-MW2-01 contradictionRisk LOW on T3";
     }
     if (cwp3?.verificationNeed === "low") {
-      chainFailure = chainFailure ?? "CHAIN-MW2-01 verificationNeed LOW on T3";
+      chainFailure = chainFailure ?? "BUSINESS-MW2-01 verificationNeed LOW on T3";
     }
     const strat3 = (t3.strategyTelemetry as Array<{ strategyClass?: string }>)[0];
     if (strat3?.strategyClass === "Routine") {
-      chainFailure = chainFailure ?? "CHAIN-MW2-02 Routine on material contradiction T3";
+      chainFailure = chainFailure ?? "BUSINESS-MW2-02 Routine on T3";
     }
     if ((t3.strategyTelemetry as unknown[]).length < 1) {
-      chainFailure = chainFailure ?? "STOP-CHAIN-09 strategy not observed T3";
+      chainFailure = chainFailure ?? "STOP-BUSINESS-09 strategy not observed T3";
     }
 
     // Evidence B
-    await registerEv("ev:mw0-mw3-chain-b", "src:mw0-mw3-chain-b");
+    await registerEv("ev:mw0-mw3-business-b", "src:mw0-mw3-business-b");
 
-    // TURN 4
+    // TURN 4 — MW3-scope: CURRENT turn must explicitly provide A+B
+    if (!USER_T4.includes("ev:mw0-mw3-business-a") || !USER_T4.includes("ev:mw0-mw3-business-b")) {
+      throw new Error("TEST CONTRACT ERROR: T4 must explicitly include Evidence A and B");
+    }
     if (USER_T4.includes(marker) || /Gate-Kappa/i.test(USER_T4)) {
-      throw new Error("STOP-CHAIN-08 harness leaked marker into T4");
+      throw new Error("STOP-BUSINESS-08 harness leaked marker into T4");
     }
     const t4 = await runTurn("T4", USER_T4);
     const r4 = t4.result as {
@@ -863,41 +867,44 @@ async function runCampaign(): Promise<void> {
       parsedCandidate?: { claimedEvidenceIds?: string[] } | null;
       cognitiveWorkload?: Record<string, string> | null;
     }>)[0];
-    if (!r4.ok) chainFailure = chainFailure ?? "CHAIN-REAL-02 T4";
+    if (!r4.ok) chainFailure = chainFailure ?? "BUSINESS-REAL-01 T4";
     if (r4.sessionId !== r1.sessionId) {
-      chainFailure = chainFailure ?? "STOP-CHAIN-07 session changed T4";
+      chainFailure = chainFailure ?? "STOP-BUSINESS-07 session changed T4";
     }
     const claimed4 = new Set(c4?.parsedCandidate?.claimedEvidenceIds ?? []);
-    if (!claimed4.has("ev:mw0-mw3-chain-a") || !claimed4.has("ev:mw0-mw3-chain-b")) {
-      chainFailure = chainFailure ?? "CHAIN-MW3-02 / linkage missing A/B in candidate T4";
+    if (!claimed4.has("ev:mw0-mw3-business-a") || !claimed4.has("ev:mw0-mw3-business-b")) {
+      chainFailure = chainFailure ?? "BUSINESS-MW3-02 current-turn A+B fail evidence_backed (claimed IDs incomplete)";
     }
     if (r4.mw3?.disposition !== "evidence_backed") {
       chainFailure =
         chainFailure ??
-        `STOP-CHAIN-12 / CHAIN-MW3-02 expected evidence_backed got ${r4.mw3?.disposition}`;
+        `STOP-BUSINESS-12 / BUSINESS-MW3-02 expected evidence_backed got ${r4.mw3?.disposition}`;
     }
     if (r4.mw3?.cognitiveStop === true || r4.status === "cognitive_stop") {
-      chainFailure = chainFailure ?? "STOP-CHAIN-13 / CHAIN-MW3-03 local incorrectly STOPs";
+      chainFailure = chainFailure ?? "STOP-BUSINESS-13 / BUSINESS-MW3-03 local incorrectly STOPs";
     }
     if (r4.mw3?.progression !== "PROGRESS_WITH_CONTRADICTION") {
       chainFailure =
-        chainFailure ?? `CHAIN-MW3 progression T4=${r4.mw3?.progression}`;
+        chainFailure ?? `BUSINESS-MW3 progression T4=${r4.mw3?.progression}`;
     }
     if (r4.mw3?.mayContinue !== true || r4.mw3?.allowsSilentSuccess !== false) {
-      chainFailure = chainFailure ?? "CHAIN-MW3 continue honesty T4";
+      chainFailure = chainFailure ?? "BUSINESS-MW3 continue honesty T4";
     }
     const strat4 = (t4.strategyTelemetry as Array<{ strategyClass?: string }>)[0];
     if (strat4?.strategyClass === "Routine") {
-      chainFailure = chainFailure ?? "CHAIN-MW2-02 Routine on T4";
+      chainFailure = chainFailure ?? "BUSINESS-MW2-02 Routine on T4";
     }
     const cwp4 = c4?.cognitiveWorkload;
     if (cwp4?.contradictionRisk === "low" || cwp4?.verificationNeed === "low") {
-      chainFailure = chainFailure ?? "CHAIN-MW2-01 low CWP dishonestly on T4";
+      chainFailure = chainFailure ?? "BUSINESS-MW2-01 low CWP on T4";
     }
 
-    // TURN 5
+    // TURN 5 — MW3-scope: CURRENT turn must explicitly provide A+B
+    if (!USER_T5.includes("ev:mw0-mw3-business-a") || !USER_T5.includes("ev:mw0-mw3-business-b")) {
+      throw new Error("TEST CONTRACT ERROR: T5 must explicitly include Evidence A and B");
+    }
     if (USER_T5.includes(marker) || /Gate-Kappa/i.test(USER_T5)) {
-      throw new Error("STOP-CHAIN-08 harness leaked marker into T5");
+      throw new Error("STOP-BUSINESS-08 harness leaked marker into T5");
     }
     const t5 = await runTurn("T5", USER_T5);
     const r5 = t5.result as {
@@ -931,62 +938,62 @@ async function runCampaign(): Promise<void> {
     }>)[0];
     if (!r5.ok && r5.status !== "cognitive_stop") {
       // cognitive_stop returns ok:true with status cognitive_stop in product path
-      chainFailure = chainFailure ?? `CHAIN-REAL-02 T5 status=${r5.status}`;
+      chainFailure = chainFailure ?? `BUSINESS-REAL-01 T5 status=${r5.status}`;
     }
     if (r5.ok === false) {
-      chainFailure = chainFailure ?? "CHAIN-REAL-02 T5 not ok";
+      chainFailure = chainFailure ?? "BUSINESS-REAL-01 T5 not ok";
     }
     if (r5.sessionId !== r1.sessionId) {
-      chainFailure = chainFailure ?? "STOP-CHAIN-07 session changed T5";
+      chainFailure = chainFailure ?? "STOP-BUSINESS-07 session changed T5";
     }
     if (c5?.parsedCandidate?.governingPremiseInvalidated !== true) {
       chainFailure =
-        chainFailure ?? "CHAIN-MW3 cognition governingPremiseInvalidated!=true T5";
+        chainFailure ?? "BUSINESS-MW3 cognition governingPremiseInvalidated!=true T5";
     }
     if (r5.mw3?.disposition !== "evidence_backed") {
       chainFailure =
-        chainFailure ?? `CHAIN-MW3 expected evidence_backed T5 got ${r5.mw3?.disposition}`;
+        chainFailure ?? `BUSINESS-MW3 expected evidence_backed T5 got ${r5.mw3?.disposition}`;
     }
     if (r5.mw3?.cognitiveStop !== true || r5.status !== "cognitive_stop") {
       chainFailure =
-        chainFailure ?? "STOP-CHAIN-14 / CHAIN-MW3-04 governing fails to STOP";
+        chainFailure ?? "STOP-BUSINESS-14 / BUSINESS-MW3-04 governing fails STOP";
     }
     if (r5.mw3?.progression !== "COGNITIVE_STOP") {
-      chainFailure = chainFailure ?? "CHAIN-MW3-05 progression not COGNITIVE_STOP";
+      chainFailure = chainFailure ?? "BUSINESS-MW3-05 progression not COGNITIVE_STOP";
     }
     if (r5.mw3?.allowsSilentSuccess !== false) {
-      chainFailure = chainFailure ?? "STOP-CHAIN-15 / CHAIN-MW3-05 STOP as SUCCESS";
+      chainFailure = chainFailure ?? "STOP-BUSINESS-15 / BUSINESS-MW3-05 STOP as SUCCESS";
     }
     if (r5.mw3?.notTechnicalFailure === false) {
-      chainFailure = chainFailure ?? "CHAIN-MW3 STOP mislabeled technical";
+      chainFailure = chainFailure ?? "BUSINESS-MW3 STOP mislabeled technical";
     }
     if (r5.mw3?.mayContinue !== false) {
-      chainFailure = chainFailure ?? "CHAIN-MW3 mayContinue should be false T5";
+      chainFailure = chainFailure ?? "BUSINESS-MW3 mayContinue should be false T5";
     }
     if (!r5.mw3?.reason || !r5.mw3?.nextAction || !r5.mw3?.blockedImpact) {
-      chainFailure = chainFailure ?? "CHAIN-MW3 incomplete STOP anatomy";
+      chainFailure = chainFailure ?? "BUSINESS-MW3 incomplete STOP anatomy";
     }
     const ev5 = new Set(r5.mw3?.evidenceIds ?? []);
     const src5 = new Set(r5.mw3?.sourceIds ?? []);
-    if (!ev5.has("ev:mw0-mw3-chain-a") || !ev5.has("ev:mw0-mw3-chain-b")) {
-      chainFailure = chainFailure ?? "CHAIN-MW3-06 Evidence IDs missing on STOP";
+    if (!ev5.has("ev:mw0-mw3-business-a") || !ev5.has("ev:mw0-mw3-business-b")) {
+      chainFailure = chainFailure ?? "BUSINESS-MW3-06 Evidence IDs missing on STOP";
     }
-    if (!src5.has("src:mw0-mw3-chain-a") || !src5.has("src:mw0-mw3-chain-b")) {
-      chainFailure = chainFailure ?? "CHAIN-MW3-06 Source IDs missing on STOP";
+    if (!src5.has("src:mw0-mw3-business-a") || !src5.has("src:mw0-mw3-business-b")) {
+      chainFailure = chainFailure ?? "BUSINESS-MW3-06 Source IDs missing on STOP";
     }
     const strat5 = (t5.strategyTelemetry as Array<{ strategyClass?: string }>)[0];
     if (strat5?.strategyClass === "Routine") {
-      chainFailure = chainFailure ?? "CHAIN-MW2-02 Routine on T5";
+      chainFailure = chainFailure ?? "BUSINESS-MW2-02 Routine on T5";
     }
     const cwp5 = c5?.cognitiveWorkload;
     if (cwp5?.contradictionRisk === "low" || cwp5?.verificationNeed === "low") {
-      chainFailure = chainFailure ?? "CHAIN-MW2-01 low CWP dishonestly on T5";
+      chainFailure = chainFailure ?? "BUSINESS-MW2-01 low CWP on T5";
     }
 
     // Invented evidence check across turns
     const allowed = new Set([
-      "ev:mw0-mw3-chain-a",
-      "ev:mw0-mw3-chain-b",
+      "ev:mw0-mw3-business-a",
+      "ev:mw0-mw3-business-b",
     ]);
     for (const turn of [t3, t4, t5]) {
       const res = turn.result as {
@@ -996,7 +1003,7 @@ async function runCampaign(): Promise<void> {
       for (const id of promoted) {
         if (!allowed.has(id) && res.mw3?.disposition === "evidence_backed") {
           chainFailure =
-            chainFailure ?? `STOP-CHAIN-16 invented Evidence promoted: ${id}`;
+            chainFailure ?? `STOP-BUSINESS-16 invented Evidence promoted: ${id}`;
         }
       }
     }
@@ -1047,78 +1054,86 @@ async function runCampaign(): Promise<void> {
       ((t2.result as { text?: string }).text ?? "").includes(marker);
 
     const scorecard = [
-      { id: "CW-01", pass: true, detail: `projectId=${projectId}` },
+      { id: "BC-01", pass: true, detail: `projectId=${projectId}` },
       {
-        id: "CW-02",
+        id: "BC-02",
         pass: sessionIds.size === 1 && !!r1.sessionId,
         detail: `sessionIds=${[...sessionIds].join(",")}`,
       },
       {
-        id: "CW-03",
+        id: "BC-03",
+        pass: turns.every((t) => Array.isArray((t as { historyPassed?: unknown[] }).historyPassed)),
+        detail: "history=[] every turn",
+      },
+      {
+        id: "BC-04",
         pass: durableHasMarker,
-        detail: "marker in durable session after T2",
+        detail: "T1 premise durable in Memory B",
       },
       {
-        id: "CW-04",
+        id: "BC-05",
         pass: t2ok && !USER_T2.includes(marker) && !/Gate-Kappa/i.test(USER_T2),
-        detail: `T2 recalls=${t2ok}; history=[]`,
+        detail: `T2 recalls Gate-Kappa without repetition; recalls=${t2ok}`,
       },
       {
-        id: "CW-05",
+        id: "BC-06",
         pass:
           (!r1.mw3 || !r1.mw3.disposition || r1.mw3.disposition === "none") &&
           (!r2.mw3 || !r2.mw3.disposition || r2.mw3.disposition === "none"),
-        detail: "T1/T2 no false MW3 contradiction",
+        detail: "T1/T2 no false contradiction",
       },
-      { id: "CW-06", pass: allCwp, detail: "CWP all turns" },
-      { id: "CW-07", pass: allStrategy, detail: "COGNITIVE_STRATEGY_SELECTED all F1" },
+      { id: "BC-07", pass: allCwp, detail: "CWP all turns" },
+      { id: "BC-08", pass: allStrategy, detail: "COGNITIVE_STRATEGY_SELECTED all F1" },
       {
-        id: "CW-08",
-        pass:
-          !(
-            chainFailure?.includes("CHAIN-MW2-01") ||
-            chainFailure?.includes("CHAIN-MW2-02")
-          ),
-        detail: "contradiction turns not Routine/LOW dishonestly",
+        id: "BC-09",
+        pass: !(
+          String(chainFailure ?? "").includes("CHAIN-MW2-01") ||
+          String(chainFailure ?? "").includes("CHAIN-MW2-02") ||
+          String(chainFailure ?? "").includes("BUSINESS-MW2")
+        ),
+        detail: "T3/T4/T5 not dishonest Routine/low",
       },
       {
-        id: "CW-09",
+        id: "BC-10",
         pass: true,
         detail:
-          "MW2 strategy observed separately; disposition derived from Studio MW3 policy on candidate+OA Evidence (no strategy injection into disposition)",
+          "MW2 strategy observed separately; disposition from Studio MW3 policy on current-turn candidate+OA Evidence",
       },
       {
-        id: "CW-10",
+        id: "BC-11",
         pass: r3.mw3?.disposition === "candidate",
         detail: `T3 disposition=${r3.mw3?.disposition}`,
       },
       {
-        id: "CW-11",
-        pass:
-          r4.mw3?.disposition === "evidence_backed" &&
-          r5.mw3?.disposition === "evidence_backed",
-        detail: "T4/T5 evidence_backed",
+        id: "BC-12",
+        pass: r4.mw3?.disposition === "evidence_backed",
+        detail: `T4 disposition=${r4.mw3?.disposition}`,
       },
       {
-        id: "CW-12",
+        id: "BC-13",
         pass:
           r4.mw3?.disposition === "evidence_backed" &&
           r4.mw3?.cognitiveStop !== true &&
           r4.mw3?.mayContinue === true,
-        detail: "local continue",
+        detail: "T4 local continue",
       },
       {
-        id: "CW-13",
+        id: "BC-14",
+        pass: r5.mw3?.disposition === "evidence_backed",
+        detail: `T5 disposition=${r5.mw3?.disposition}`,
+      },
+      {
+        id: "BC-15",
         pass: r5.mw3?.cognitiveStop === true && r5.status === "cognitive_stop",
-        detail: "governing STOP",
+        detail: "T5 Cognitive STOP",
       },
       {
-        id: "CW-14",
+        id: "BC-16",
         pass: r5.mw3?.notTechnicalFailure === true,
         detail: "STOP ≠ technical failure",
       },
       {
-        id: "CW-15",
+        id: "BC-17",
         pass:
           r5.mw3?.allowsSilentSuccess === false &&
           r5.status === "cognitive_stop" &&
@@ -1126,23 +1141,23 @@ async function runCampaign(): Promise<void> {
         detail: "STOP ≠ SUCCESS",
       },
       {
-        id: "CW-16",
+        id: "BC-18",
         pass: evidenceMeta.every(
           (e) =>
             (e as { bindings?: { projectId?: string } }).bindings?.projectId ===
             projectId,
         ),
-        detail: "same-project Evidence only",
+        detail: "Evidence/Source project-scoped",
       },
       {
-        id: "CW-17",
+        id: "BC-19",
         pass: !String(chainFailure ?? "").includes("invented"),
         detail: "no invented Evidence promoted",
       },
-      { id: "CW-18", pass: allLpsOk, detail: "no silent Truth C mutation" },
-      { id: "CW-19", pass: allNative, detail: "native OpenAI F1" },
+      { id: "BC-20", pass: allLpsOk, detail: "no silent Truth C mutation" },
+      { id: "BC-21", pass: allNative, detail: "native OpenAI F1" },
       {
-        id: "CW-20",
+        id: "BC-22",
         pass:
           !isFakeConversationProviderForced() &&
           turns.every(
@@ -1153,26 +1168,40 @@ async function runCampaign(): Promise<void> {
         detail: "no Fake/script path",
       },
       {
-        id: "CW-21",
+        id: "BC-23",
         pass: budget.ledger.length > 0 || metered.ledger.length > 0,
         detail: `budget.cumulativeUsd=${budget.cumulativeUsd}; meteredCalls=${metered.ledger.length}`,
       },
       {
-        id: "CW-22",
+        id: "BC-24",
         pass: true,
         detail: "preflight green; post-regression recorded after campaign",
+      },
+      {
+        id: "BC-25",
+        pass:
+          USER_T4.includes("ev:mw0-mw3-business-a") &&
+          USER_T4.includes("ev:mw0-mw3-business-b") &&
+          USER_T5.includes("ev:mw0-mw3-business-a") &&
+          USER_T5.includes("ev:mw0-mw3-business-b") &&
+          !USER_T4.includes(marker) &&
+          !USER_T5.includes(marker) &&
+          !/Gate-Kappa/i.test(USER_T4) &&
+          !/Gate-Kappa/i.test(USER_T5),
+        detail:
+          "MW4-S01 cross-turn Evidence durability NOT TESTED; T4/T5 explicitly supply A+B",
       },
     ];
 
     const scoreFail = scorecard.filter((s) => !s.pass);
     if (scoreFail.length > 0 && !chainFailure) {
-      chainFailure = `CHAIN-MW0-01 scorecard fail: ${scoreFail.map((s) => s.id).join(",")}`;
+      chainFailure = `BUSINESS-MW0-01 scorecard fail: ${scoreFail.map((s) => s.id).join(",")}`;
     }
 
     const finishedAt = new Date().toISOString();
     const verdict = chainFailure
-      ? "MW0×MW1×MW2×MW3 INTEGRATED REAL CHAIN FAILED — MW3 NOT QUALIFIED FOR PROJECT GIT INTEGRATION"
-      : "MW0×MW1×MW2×MW3 INTEGRATED REAL CHAIN PROVEN AT MW3 SCOPE — READY FOR CHATGPT CHAIN REVIEW";
+      ? "MW0×MW1×MW2×MW3 INTEGRATED REAL BUSINESS CHAIN FAILED — MW3 NOT QUALIFIED FOR PROJECT GIT INTEGRATION"
+      : "MW0×MW1×MW2×MW3 INTEGRATED REAL BUSINESS CHAIN PROVEN AT MW3 SCOPE — READY FOR CHATGPT CHAIN REVIEW";
 
     const artifact = {
       campaignId,
@@ -1255,33 +1284,30 @@ async function runCampaign(): Promise<void> {
 
 ---
 
-## H. Project / Session / Evidence setup
+## I. Fresh Project / Session / Evidence setup
 
 | Field | Value |
 | --- | --- |
-| Project | Nora MW0-MW3 Integrated REAL Chain |
-| Project ID | `prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c` |
-| Session ID | `sess:prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c:f1-default` |
-| Marker | `PREMISE-MW3-CHAIN-b0169bdc` |
-| Evidence A | `ev:mw0-mw3-chain-a` / `src:mw0-mw3-chain-a` (registered after T2) |
-| Evidence B | `ev:mw0-mw3-chain-b` / `src:mw0-mw3-chain-b` (registered after T3) |
-| Constraints | LECTURE SEULE · AUCUNE EXÉCUTION |
+| Project | Nora MW0-MW3 Integrated Business REAL Chain |
+| Project ID | `prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590` |
+| Session ID | `sess:prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590:f1-default` |
+| Marker | `PREMISE-MW3-BUSINESS-ae78731b` |
+| Evidence A | `ev:mw0-mw3-business-a` / `src:mw0-mw3-business-a` (after T2) |
+| Evidence B | `ev:mw0-mw3-business-b` / `src:mw0-mw3-business-b` (after T3) |
 
 ---
 
-## I. Turn 1 raw evidence
+## J. T1 raw evidence
 
-Expected: Memory seed; MW3 none; no STOP.
-
-Observed: PASS for T1 expectations. `memoryBAvailability=available_empty`. Strategy Routine/low. `mw3` null/none trajectory NONE.
+NONE · available_empty · Routine/low · no STOP · LPS unchanged
 
 ```json
 {
-  "campaignId": "nora-mw0-mw3-integrated-real-1788376350396",
+  "campaignId": "nora-mw0-mw3-business-integrated-real-1788377416280",
   "turnId": "T1",
-  "timestamp": "2026-09-02T19:12:41.130Z",
-  "projectId": "prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c",
-  "exactUserContent": "Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-CHAIN-b0169bdc : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action.",
+  "timestamp": "2026-09-02T19:30:24.868Z",
+  "projectId": "prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590",
+  "exactUserContent": "Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-BUSINESS-ae78731b : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action.",
   "model": "gpt-5.6-luna",
   "reasoningSetting": "UNSET",
   "providerId": "openai",
@@ -1292,19 +1318,19 @@ Observed: PASS for T1 expectations. `memoryBAvailability=available_empty`. Strat
     {
       "method": "completeStructured",
       "schemaName": "f2_intent_analysis",
-      "latencyMs": 8304,
+      "latencyMs": 6449,
       "model": "gpt-5.6-luna",
-      "providerResponseId": "resp_087e153dc09a7d49006a98751fbb0c87d2a53854ade4fe8e42",
-      "inputTokens": 2215,
-      "outputTokens": 562,
-      "totalTokens": 2777,
-      "estimatedUsd": 0.0011174000000000002
+      "providerResponseId": "resp_0b30a4735fc3b80d006a987949a82887d2ac802d3c4d82e2be",
+      "inputTokens": 2218,
+      "outputTokens": 525,
+      "totalTokens": 2743,
+      "estimatedUsd": 0.0010735999999999999
     }
   ],
   "structured": [
     {
       "schemaName": "f2_intent_analysis",
-      "rawText": "{\"intentClass\":\"informative\",\"candidateCycleTypeId\":null,\"signals\":null,\"cognitiveWorkload\":{\"ambiguity\":\"low\",\"reasoningDepth\":\"low\",\"sourceBreadth\":\"low\",\"toolDependency\":\"low\",\"contradictionRisk\":\"low\",\"verificationNeed\":\"low\"},\"contradictionCandidate\":{\"conflictPresent\":false,\"claimedEvidenceIds\":[],\"governingPremise\":null,\"governingPremiseInvalidated\":false,\"localImpactOnly\":true,\"fabricationAttempt\":false},\"objective\":\"Confirmer la compréhension d'une prémisse temporaire applicable à l'analyse de cette conversation.\",\"scope\":\"Conversation de travail relative à la chaîne MW0→MW3, en lecture seule et sans exécution.\",\"rephrasedRequest\":\"Retenir temporairement PREMISE-MW3-CHAIN-b0169bdc : avant toute recommandation d'exécution, Gate-Kappa doit rester valide, puis confirmer cette compréhension sans effectuer d'action.\",\"outOfScope\":[\"Créer ou modifier une HumanDecision\",\"Créer ou modifier une Confirmation\",\"Accorder une autorisation d'exécution\",\"Préparer ou lancer une exécution\",\"Modifier durablement l'état du projet\"],\"risks\":[\"La prémisse pourrait être interprétée à tort comme une autorisation ou une décision gouvernée.\",\"Une recommandation future d'exécution ne devra pas ignorer la validité de Gate-Kappa.\"],\"reservations\":[\"La prémisse est explicitement temporaire et limitée à l'analyse.\",\"Elle ne constitue ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution.\",\"Le contexte projet est en lecture seule et aucune exécution n'est demandée.\"],\"stopConditions\":[\"Toute demande d'exécution effective\",\"Toute tentative de traiter la prémisse comme une autorisation, une décision ou une confirmation gouvernée\",\"Gate-Kappa non valide avant une éventuelle recommandation d'exécution\"],\"activatedBlocks\":[\"Lecture seule\",\"Aucune exécution\",\"Prémisse temporaire PREMISE-MW3-CHAIN-b0169bdc applicable à l'analyse\"],\"expectedOutcome\":\"Compréhension confirmée de la prémisse temporaire, sans mutation ni effet externe.\",\"criticalJustification\":\"La demande porte uniquement sur la mémorisation contextuelle et la confirmation d'une contrainte analytique ; elle ne demande aucune mutation durable ni exécution.\",\"requestedOperation\":\"Confirmer la compréhension de PREMISE-MW3-CHAIN-b0169bdc sans exécuter d'action.\"}",
+      "rawText": "{\"intentClass\":\"informative\",\"candidateCycleTypeId\":null,\"signals\":null,\"cognitiveWorkload\":{\"ambiguity\":\"low\",\"reasoningDepth\":\"low\",\"sourceBreadth\":\"low\",\"toolDependency\":\"low\",\"contradictionRisk\":\"low\",\"verificationNeed\":\"low\"},\"contradictionCandidate\":{\"conflictPresent\":false,\"claimedEvidenceIds\":[],\"governingPremise\":null,\"governingPremiseInvalidated\":false,\"localImpactOnly\":true,\"fabricationAttempt\":false},\"objective\":\"Confirmer la compréhension d'une prémisse temporaire de travail sans effectuer d'action.\",\"scope\":\"Conversation d'analyse du projet Nora MW0-MW3 Integrated Business REAL Chain, dans le contexte de lecture seule.\",\"rephrasedRequest\":\"Retenir que, dans cette analyse uniquement, Gate-Kappa doit rester valide avant toute recommandation d'exécution, et confirmer cette compréhension sans exécuter d'action.\",\"outOfScope\":[\"Créer ou modifier une HumanDecision\",\"Créer une Confirmation\",\"Accorder une autorisation d'exécution\",\"Recommander ou exécuter une action\",\"Modifier durablement l'état du projet\"],\"risks\":[\"La prémisse temporaire pourrait être interprétée à tort comme une décision ou une autorisation.\"],\"reservations\":[\"PREMISE-MW3-BUSINESS-ae78731 est traitée uniquement comme prémisse analytique temporaire.\",\"Le contexte impose la lecture seule et l'absence d'exécution.\"],\"stopConditions\":[\"Toute demande d'exécution ou de mutation du projet\",\"Toute tentative de traiter la prémisse comme une HumanDecision, une Confirmation ou une autorisation\"],\"activatedBlocks\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\",\"Prémisse analytique temporaire non décisionnelle\"],\"expectedOutcome\":\"Compréhension confirmée : Gate-Kappa doit rester valide avant toute recommandation d'exécution, sans que cette prémisse ne constitue une décision, une confirmation ou une autorisation.\",\"criticalJustification\":\"La demande porte uniquement sur une confirmation de compréhension et exclut explicitement toute exécution.\",\"requestedOperation\":\"Confirmer la compréhension de la prémisse temporaire, sans side-effect.\"}",
       "cognitiveWorkload": {
         "ambiguity": "low",
         "reasoningDepth": "low",
@@ -1351,7 +1377,7 @@ Observed: PASS for T1 expectations. `memoryBAvailability=available_empty`. Strat
   "result": {
     "ok": true,
     "status": "ok",
-    "text": "Compris. Je traiterai PREMISE-MW3-CHAIN-b0169bdc comme une prémisse temporaire d’analyse uniquement : avant toute recommandation d’exécution, Gate-Kappa doit rester valide. Ce n’est ni une HumanDecision, ni une Confirmation, ni une autorisation d’exécution. Aucune action n’est exécutée.",
+    "text": "Compris. Je traiterai **PREMISE-MW3-BUSINESS-ae78731b** comme une prémisse temporaire d’analyse : avant toute recommandation d’exécution, **Gate-Kappa doit rester valide**.\n\nElle ne constitue ni une HumanDecision, ni une Confirmation, ni une autorisation d’exécution. Aucune action ne sera exécutée.",
     "mode": "live",
     "presentation": "openai_live",
     "model": "gpt-5.6-luna",
@@ -1360,19 +1386,19 @@ Observed: PASS for T1 expectations. `memoryBAvailability=available_empty`. Strat
     "sources": [],
     "toolEvents": [],
     "project": {
-      "projectId": "prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c",
-      "name": "Nora MW0-MW3 Integrated REAL Chain",
-      "shortReference": "MW03C",
-      "objective": "Cumulative MW0→MW3 integrated REAL continuity proof",
+      "projectId": "prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590",
+      "name": "Nora MW0-MW3 Integrated Business REAL Chain",
+      "shortReference": "MW03B",
+      "objective": "Cumulative MW0→MW3 integrated REAL business chain at MW3 scope",
       "contextSummary": "Temporary synthetic Product SQLite campaign — not production data",
       "criticality": "STANDARD",
       "constraints": [
         "LECTURE SEULE",
         "AUCUNE EXÉCUTION"
       ],
-      "lpsId": "lps:416cdb2e-4ae8-4447-9835-34d86cd7cfc0",
+      "lpsId": "lps:907e75d1-a075-4d04-bfea-812d0e54889d",
       "lpsVersion": 1,
-      "lpsCreatedAt": "2026-09-02T19:12:30.430Z",
+      "lpsCreatedAt": "2026-09-02T19:30:16.308Z",
       "doctrineId": "pkg:sfia-studio-doctrine-v3",
       "doctrineVersion": "1.0.0",
       "doctrineDigest": "sha256:4c8a85cf684331720c34a01f9e1dfe3a91305dd1e6f52306c50fc59bd3355608",
@@ -1383,7 +1409,7 @@ Observed: PASS for T1 expectations. `memoryBAvailability=available_empty`. Strat
     },
     "ephemeralNotice": "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. AUCUNE EXÉCUTION.",
     "cognitiveRuntime": "agents",
-    "sessionId": "sess:prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c:f1-default",
+    "sessionId": "sess:prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590:f1-default",
     "memoryBAvailability": "available_empty",
     "memoryBCompactionState": "none",
     "stalePriorInvalidated": false,
@@ -1406,41 +1432,41 @@ Observed: PASS for T1 expectations. `memoryBAvailability=available_empty`. Strat
     }
   },
   "session": {
-    "sessionId": "sess:prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c:f1-default",
+    "sessionId": "sess:prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590:f1-default",
     "itemCount": 2,
     "items": [
       {
         "idx": 0,
         "roleOrType": "user",
-        "textPreview": "Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-CHAIN-b0169bdc : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action.",
-        "fullText": "Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-CHAIN-b0169bdc : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action."
+        "textPreview": "Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-BUSINESS-ae78731b : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action.",
+        "fullText": "Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-BUSINESS-ae78731b : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action."
       },
       {
         "idx": 1,
         "roleOrType": "assistant",
-        "textPreview": "Compris. Je traiterai PREMISE-MW3-CHAIN-b0169bdc comme une prémisse temporaire d’analyse uniquement : avant toute recommandation d’exécution, Gate-Kappa doit rester valide. Ce n’est ni une HumanDecision, ni une Confirmation, ni une autorisation d’exécution. Aucune action n’est exécutée.",
-        "fullText": "Compris. Je traiterai PREMISE-MW3-CHAIN-b0169bdc comme une prémisse temporaire d’analyse uniquement : avant toute recommandation d’exécution, Gate-Kappa doit rester valide. Ce n’est ni une HumanDecision, ni une Confirmation, ni une autorisation d’exécution. Aucune action n’est exécutée."
+        "textPreview": "Compris. Je traiterai **PREMISE-MW3-BUSINESS-ae78731b** comme une prémisse temporaire d’analyse : avant toute recommandation d’exécution, **Gate-Kappa doit rester valide**.\n\nElle ne constitue ni une HumanDecision, ni une Confirmation, ni une autorisation d’exécution. Aucune action ne sera exécutée.",
+        "fullText": "Compris. Je traiterai **PREMISE-MW3-BUSINESS-ae78731b** comme une prémisse temporaire d’analyse : avant toute recommandation d’exécution, **Gate-Kappa doit rester valide**.\n\nElle ne constitue ni une HumanDecision, ni une Confirmation, ni une autorisation d’exécution. Aucune action ne sera exécutée."
       }
     ]
   },
   "lpsBefore": {
-    "lpsId": "lps:416cdb2e-4ae8-4447-9835-34d86cd7cfc0",
+    "lpsId": "lps:907e75d1-a075-4d04-bfea-812d0e54889d",
     "version": 1,
     "nextStep": null,
-    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03C\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
+    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03B\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
     "decisionIds": [],
     "evidenceIds": []
   },
   "lpsAfter": {
-    "lpsId": "lps:416cdb2e-4ae8-4447-9835-34d86cd7cfc0",
+    "lpsId": "lps:907e75d1-a075-4d04-bfea-812d0e54889d",
     "version": 1,
     "nextStep": null,
-    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03C\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
+    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03B\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
     "decisionIds": [],
     "evidenceIds": []
   },
   "lpsUnchanged": true,
-  "latencyMs": 10684,
+  "latencyMs": 8544,
   "mw3TrajectoryState": "NONE",
   "historyPassed": []
 }
@@ -1448,19 +1474,17 @@ Observed: PASS for T1 expectations. `memoryBAvailability=available_empty`. Strat
 
 ---
 
-## J. Turn 2 raw evidence
+## K. T2 raw evidence
 
-Expected: recall Gate-Kappa without marker/Gate-Kappa in user prompt; history [].
-
-Observed: **PASS**. User prompt contains neither marker nor Gate-Kappa. Response explicitly recalls **Gate-Kappa**. Durable session contains marker. `available_with_history`. Same session ID. MW3 NONE.
+NONE · available_with_history · Focused · recalls **Gate-Kappa** without marker/Gate-Kappa in user prompt · history=[]
 
 ```json
 {
-  "campaignId": "nora-mw0-mw3-integrated-real-1788376350396",
+  "campaignId": "nora-mw0-mw3-business-integrated-real-1788377416280",
   "turnId": "T2",
-  "timestamp": "2026-09-02T19:12:54.358Z",
-  "projectId": "prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c",
-  "exactUserContent": "Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informations actuelles sont compatibles avec cette condition et aucun conflit n'est signalé. Donne-moi ta lecture.",
+  "timestamp": "2026-09-02T19:30:36.006Z",
+  "projectId": "prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590",
+  "exactUserContent": "Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informations actuelles restent compatibles avec elle et aucun conflit n'est signalé.",
   "model": "gpt-5.6-luna",
   "reasoningSetting": "UNSET",
   "providerId": "openai",
@@ -1471,22 +1495,22 @@ Observed: **PASS**. User prompt contains neither marker nor Gate-Kappa. Response
     {
       "method": "completeStructured",
       "schemaName": "f2_intent_analysis",
-      "latencyMs": 8931,
+      "latencyMs": 9428,
       "model": "gpt-5.6-luna",
-      "providerResponseId": "resp_0f6193b6f3777d4d006a987529899087d29d5684c9542382d2",
-      "inputTokens": 2183,
-      "outputTokens": 713,
-      "totalTokens": 2896,
-      "estimatedUsd": 0.0012922
+      "providerResponseId": "resp_0cca6e4b75665b71006a987951b1b887d28bbc1dea3b5bf4b6",
+      "inputTokens": 2178,
+      "outputTokens": 666,
+      "totalTokens": 2844,
+      "estimatedUsd": 0.0012347999999999999
     }
   ],
   "structured": [
     {
       "schemaName": "f2_intent_analysis",
-      "rawText": "{\"intentClass\":\"informative\",\"candidateCycleTypeId\":null,\"signals\":null,\"cognitiveWorkload\":{\"ambiguity\":\"medium\",\"reasoningDepth\":\"medium\",\"sourceBreadth\":\"low\",\"toolDependency\":\"low\",\"contradictionRisk\":\"low\",\"verificationNeed\":\"medium\"},\"contradictionCandidate\":{\"conflictPresent\":false,\"claimedEvidenceIds\":[],\"governingPremise\":null,\"governingPremiseInvalidated\":false,\"localImpactOnly\":false,\"fabricationAttempt\":false},\"objective\":\"Rappeler la condition de travail préalable à toute recommandation aval et en donner une lecture fidèle au contexte fourni.\",\"scope\":\"Vérifier, dans le cadre temporaire synthétique MW0→MW3 en lecture seule, que la condition préalable reste satisfaite avant toute recommandation.\",\"rephrasedRequest\":\"Confirmer la condition qui doit demeurer vraie avant toute recommandation aval, puis indiquer si les informations actuelles la respectent.\",\"outOfScope\":[\"Reformuler ou modifier la prémisse de travail précédente\",\"Créer ou qualifier un cycle\",\"Exécuter une action\",\"Modifier les données du projet\",\"Produire une recommandation aval\"],\"risks\":[\"La prémisse précédente n’est pas explicitement reproduite dans le contexte disponible, ce qui limite la précision d’un rappel littéral.\",\"Une formulation trop forte de la condition ne serait pas justifiée sans éléments supplémentaires.\"],\"reservations\":[\"Le contexte confirme une campagne synthétique temporaire, en lecture seule et sans exécution, ainsi que l’absence de conflit signalé.\",\"La condition exacte doit être comprise comme le maintien de la continuité intégrée REAL cumulative MW0→MW3, sans rupture non résolue, avant toute recommandation aval.\"],\"stopConditions\":[\"Ne pas formuler de recommandation aval si la continuité cumulative MW0→MW3 n’est plus démontrée.\",\"S’arrêter si un conflit ou une rupture de continuité est signalé ultérieurement.\"],\"activatedBlocks\":[],\"expectedOutcome\":\"La condition préalable est considérée comme compatible avec les informations actuelles : la continuité intégrée REAL cumulative de MW0 à MW3 doit rester établie et non contredite avant toute recommandation aval.\",\"criticalJustification\":\"Le contexte de référence définit explicitement l’objectif comme une preuve de continuité intégrée REAL cumulative MW0→MW3 et indique qu’aucun conflit n’est signalé. Cela permet une lecture compatible, mais pas une restitution verbatim d’une prémisse précédente absente du message.\",\"requestedOperation\":\"Rappeler et interpréter la condition préalable, sans mutation, qualification de cycle ni exécution.\"}",
+      "rawText": "{\"intentClass\":\"informative\",\"candidateCycleTypeId\":null,\"signals\":null,\"cognitiveWorkload\":{\"ambiguity\":\"medium\",\"reasoningDepth\":\"low\",\"sourceBreadth\":\"low\",\"toolDependency\":\"low\",\"contradictionRisk\":\"low\",\"verificationNeed\":\"medium\"},\"contradictionCandidate\":{\"conflictPresent\":false,\"claimedEvidenceIds\":[],\"governingPremise\":null,\"governingPremiseInvalidated\":false,\"localImpactOnly\":false,\"fabricationAttempt\":false},\"objective\":\"Rappeler la condition préalable à toute recommandation aval, sans reformuler la prémisse de travail précédente.\",\"scope\":\"Contexte projet MW03B fourni et maintien de la prémisse de travail antérieure.\",\"rephrasedRequest\":\"Confirmer précisément la condition qui doit rester vraie avant toute recommandation aval, en constatant que les informations actuelles lui restent compatibles et qu’aucun conflit n’est signalé.\",\"outOfScope\":[\"Créer ou qualifier un cycle\",\"Modifier l’état du projet\",\"Exécuter une action\",\"Formuler une recommandation aval\"],\"risks\":[\"La prémisse de travail précédente n’est pas explicitement disponible dans le contexte fourni ; en préciser le contenu risquerait de l’inventer.\",\"Toute recommandation aval doit respecter les contraintes de lecture seule et d’absence d’exécution.\"],\"reservations\":[\"La condition exacte ne peut pas être rappelée textuellement avec certitude sans accès à la prémisse précédente.\",\"Le contexte disponible confirme seulement un cadre temporaire synthétique, en lecture seule, sans exécution, et l’absence de conflit signalé.\"],\"stopConditions\":[\"Interrompre la recommandation aval si la prémisse de travail précédente n’est plus vraie.\",\"Interrompre si un conflit avec cette prémisse est détecté.\",\"Interrompre toute demande impliquant une exécution ou une mutation.\"],\"activatedBlocks\":[\"Lecture seule\",\"Aucune exécution\",\"Aucune recommandation aval tant que la condition préalable n’est pas confirmée\"],\"expectedOutcome\":\"Confirmation prudente de compatibilité avec la condition préalable, sans invention de son contenu ni recommandation aval.\",\"criticalJustification\":\"Aucun conflit n’est signalé, mais la prémisse précédente n’est pas reproduite dans le contexte disponible ; il n’est donc pas possible d’en rappeler précisément la formulation sans risque de fabrication.\",\"requestedOperation\":\"Rappeler et confirmer la condition préalable, sans exécuter ni muter quoi que ce soit.\"}",
       "cognitiveWorkload": {
         "ambiguity": "medium",
-        "reasoningDepth": "medium",
+        "reasoningDepth": "low",
         "sourceBreadth": "low",
         "toolDependency": "low",
         "contradictionRisk": "low",
@@ -1501,6 +1525,463 @@ Observed: **PASS**. User prompt contains neither marker nor Gate-Kappa. Response
         "conflictPresent": false,
         "claimedEvidenceIds": [],
         "governingPremise": null
+      },
+      "intentClass": "informative",
+      "parseOk": true
+    }
+  ],
+  "strategyTelemetry": [
+    {
+      "strategyClass": "Focused",
+      "reasoningEffort": "low",
+      "reasoningDemand": "low",
+      "criticalChallengeArmed": false,
+      "bootstrapUsed": true,
+      "reasonCodes": [
+        "bootstrap_focused_no_trusted_profile",
+        "demand:low",
+        "effort:low"
+      ],
+      "envelope": [
+        "low",
+        "medium",
+        "high"
+      ]
+    }
+  ],
+  "result": {
+    "ok": true,
+    "status": "ok",
+    "text": "La condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\n\nJe la traite comme une prémisse temporaire d’analyse uniquement ; aucun conflit n’est signalé.",
+    "mode": "live",
+    "presentation": "openai_live",
+    "model": "gpt-5.6-luna",
+    "toolRounds": 0,
+    "toolCalls": 0,
+    "sources": [],
+    "toolEvents": [],
+    "project": {
+      "projectId": "prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590",
+      "name": "Nora MW0-MW3 Integrated Business REAL Chain",
+      "shortReference": "MW03B",
+      "objective": "Cumulative MW0→MW3 integrated REAL business chain at MW3 scope",
+      "contextSummary": "Temporary synthetic Product SQLite campaign — not production data",
+      "criticality": "STANDARD",
+      "constraints": [
+        "LECTURE SEULE",
+        "AUCUNE EXÉCUTION"
+      ],
+      "lpsId": "lps:907e75d1-a075-4d04-bfea-812d0e54889d",
+      "lpsVersion": 1,
+      "lpsCreatedAt": "2026-09-02T19:30:16.308Z",
+      "doctrineId": "pkg:sfia-studio-doctrine-v3",
+      "doctrineVersion": "1.0.0",
+      "doctrineDigest": "sha256:4c8a85cf684331720c34a01f9e1dfe3a91305dd1e6f52306c50fc59bd3355608",
+      "doctrineStatus": "resolved",
+      "runtimeMode": "LOCAL_PROCESS",
+      "persistence": "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE",
+      "readiness": "NOT_READY"
+    },
+    "ephemeralNotice": "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. AUCUNE EXÉCUTION.",
+    "cognitiveRuntime": "agents",
+    "sessionId": "sess:prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590:f1-default",
+    "memoryBAvailability": "available_with_history",
+    "memoryBCompactionState": "none",
+    "stalePriorInvalidated": false,
+    "mw3": null,
+    "f2": {
+      "turnKind": "f1_informative",
+      "intentClass": "informative",
+      "qualification": null,
+      "proposal": null,
+      "decision": null,
+      "labels": {
+        "recommendation": null,
+        "proposition": null,
+        "decisionRequired": null,
+        "decisionTaken": null,
+        "noExecution": "AUCUNE EXÉCUTION"
+      },
+      "executionBlocked": false,
+      "processLocalNotice": "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle/HumanDecision/ExecutionContract M3 sont persistés dans Product SQLite. Authority locale TEMPORARY WITH EXIT. Aucune exécution Cursor REAL."
+    }
+  },
+  "session": {
+    "sessionId": "sess:prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590:f1-default",
+    "itemCount": 4,
+    "items": [
+      {
+        "idx": 0,
+        "roleOrType": "user",
+        "textPreview": "Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-BUSINESS-ae78731b : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action.",
+        "fullText": "Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-BUSINESS-ae78731b : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action."
+      },
+      {
+        "idx": 1,
+        "roleOrType": "assistant",
+        "textPreview": "Compris. Je traiterai **PREMISE-MW3-BUSINESS-ae78731b** comme une prémisse temporaire d’analyse : avant toute recommandation d’exécution, **Gate-Kappa doit rester valide**.\n\nElle ne constitue ni une HumanDecision, ni une Confirmation, ni une autorisation d’exécution. Aucune action ne sera exécutée.",
+        "fullText": "Compris. Je traiterai **PREMISE-MW3-BUSINESS-ae78731b** comme une prémisse temporaire d’analyse : avant toute recommandation d’exécution, **Gate-Kappa doit rester valide**.\n\nElle ne constitue ni une HumanDecision, ni une Confirmation, ni une autorisation d’exécution. Aucune action ne sera exécutée."
+      },
+      {
+        "idx": 2,
+        "roleOrType": "user",
+        "textPreview": "Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informations actuelles restent compatibles avec elle et aucun conflit n'est signalé.",
+        "fullText": "Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informations actuelles restent compatibles avec elle et aucun conflit n'est signalé."
+      },
+      {
+        "idx": 3,
+        "roleOrType": "assistant",
+        "textPreview": "La condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\n\nJe la traite comme une prémisse temporaire d’analyse uniquement ; aucun conflit n’est signalé.",
+        "fullText": "La condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\n\nJe la traite comme une prémisse temporaire d’analyse uniquement ; aucun conflit n’est signalé."
+      }
+    ]
+  },
+  "lpsBefore": {
+    "lpsId": "lps:907e75d1-a075-4d04-bfea-812d0e54889d",
+    "version": 1,
+    "nextStep": null,
+    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03B\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
+    "decisionIds": [],
+    "evidenceIds": []
+  },
+  "lpsAfter": {
+    "lpsId": "lps:907e75d1-a075-4d04-bfea-812d0e54889d",
+    "version": 1,
+    "nextStep": null,
+    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03B\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
+    "decisionIds": [],
+    "evidenceIds": []
+  },
+  "lpsUnchanged": true,
+  "latencyMs": 11137,
+  "mw3TrajectoryState": "NONE",
+  "historyPassed": []
+}
+```
+
+---
+
+## L. T3 raw evidence
+
+CANDIDATE · claims only A · High-Assurance · insufficient_source_coverage · no STOP
+
+```json
+{
+  "campaignId": "nora-mw0-mw3-business-integrated-real-1788377416280",
+  "turnId": "T3",
+  "timestamp": "2026-09-02T19:30:55.677Z",
+  "projectId": "prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590",
+  "exactUserContent": "Une nouvelle information semble maintenant contredire la condition de travail que tu conserves depuis le début. L'unique Evidence disponible pour cette analyse est ev:mw0-mw3-business-a. Analyse le conflit et indique s'il est suffisamment établi pour bloquer honnêtement la suite.",
+  "model": "gpt-5.6-luna",
+  "reasoningSetting": "UNSET",
+  "providerId": "openai",
+  "nativeAgentsAdapterUsed": false,
+  "isOpenAiLiveF1": true,
+  "completeRoundCalls": 0,
+  "providerCalls": [
+    {
+      "method": "completeStructured",
+      "schemaName": "f2_intent_analysis",
+      "latencyMs": 9819,
+      "model": "gpt-5.6-luna",
+      "providerResponseId": "resp_08fbbac7385278f8006a98795c710c87d2ba8111dc6fe06331",
+      "inputTokens": 2193,
+      "outputTokens": 859,
+      "totalTokens": 3052,
+      "estimatedUsd": 0.0014694
+    }
+  ],
+  "structured": [
+    {
+      "schemaName": "f2_intent_analysis",
+      "rawText": "{\"intentClass\":\"informative\",\"candidateCycleTypeId\":null,\"signals\":null,\"cognitiveWorkload\":{\"ambiguity\":\"medium\",\"reasoningDepth\":\"medium\",\"sourceBreadth\":\"low\",\"toolDependency\":\"low\",\"contradictionRisk\":\"medium\",\"verificationNeed\":\"high\"},\"contradictionCandidate\":{\"conflictPresent\":true,\"claimedEvidenceIds\":[\"ev:mw0-mw3-business-a\"],\"governingPremise\":\"La condition de travail conservée depuis le début du chantier\",\"governingPremiseInvalidated\":false,\"localImpactOnly\":false,\"fabricationAttempt\":false},\"objective\":\"Analyser le conflit apparent entre la nouvelle information et la condition de travail conservée, puis déterminer s’il est suffisamment établi pour justifier un blocage honnête.\",\"scope\":\"L’unique Evidence disponible, ev:mw0-mw3-business-a, et son impact sur la condition de travail actuelle dans le contexte MW0→MW3.\",\"rephrasedRequest\":\"Examiner ev:mw0-mw3-business-a au regard de la condition de travail existante, qualifier le conflit apparent et indiquer si les éléments disponibles suffisent à bloquer la suite.\",\"outOfScope\":[\"Modifier le projet ou sa condition de travail\",\"Créer ou qualifier un cycle\",\"Exécuter une action\",\"Inventer des faits absents de l’Evidence\"],\"risks\":[\"Le contenu précis de l’Evidence et de la condition initiale n’est pas fourni dans la demande.\",\"Un conflit apparent peut être pris à tort pour une invalidation établie.\",\"La portée du conflit et son caractère local ou global restent indéterminés.\"],\"reservations\":[\"L’identifiant ev:mw0-mw3-business-a est cité, mais aucun contenu factuel exploitable n’est visible ici.\",\"La contradiction ne peut pas être promue en conclusion établie sans comparaison explicite des deux prémisses.\"],\"stopConditions\":[\"Bloquer honnêtement la suite si l’Evidence démontre explicitement l’incompatibilité avec la condition de travail et si cette incompatibilité affecte la suite du chantier.\",\"Ne pas déclarer le blocage établi tant que le contenu de l’Evidence, la condition concernée et la portée de l’impact ne sont pas vérifiables.\"],\"activatedBlocks\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"],\"expectedOutcome\":\"Un constat prudent du conflit apparent, avec une décision conditionnelle sur le blocage et l’identification des vérifications nécessaires.\",\"criticalJustification\":\"Le conflit est signalé et l’Evidence est identifiée, mais son contenu n’est pas disponible dans le contexte fourni. Il est donc honnête de conserver le conflit comme candidat et de ne pas affirmer qu’il est suffisamment établi pour bloquer la suite.\",\"requestedOperation\":\"Analyser et qualifier un conflit informationnel sans mutation ni exécution.\"}",
+      "cognitiveWorkload": {
+        "ambiguity": "medium",
+        "reasoningDepth": "medium",
+        "sourceBreadth": "low",
+        "toolDependency": "low",
+        "contradictionRisk": "medium",
+        "verificationNeed": "high"
+      },
+      "contradictionCandidate": {
+        "conflictPresent": true,
+        "claimedEvidenceIds": [
+          "ev:mw0-mw3-business-a"
+        ],
+        "governingPremise": "La condition de travail conservée depuis le début du chantier"
+      },
+      "parsedCandidate": {
+        "conflictPresent": true,
+        "claimedEvidenceIds": [
+          "ev:mw0-mw3-business-a"
+        ],
+        "governingPremise": "La condition de travail conservée depuis le début du chantier"
+      },
+      "intentClass": "informative",
+      "parseOk": true
+    }
+  ],
+  "strategyTelemetry": [
+    {
+      "strategyClass": "High-Assurance",
+      "reasoningEffort": "high",
+      "reasoningDemand": "medium",
+      "criticalChallengeArmed": true,
+      "bootstrapUsed": false,
+      "reasonCodes": [
+        "high_assurance_signals",
+        "critical_challenge_armed_hook",
+        "demand:medium",
+        "effort:high"
+      ],
+      "envelope": [
+        "high",
+        "xhigh",
+        "max"
+      ]
+    }
+  ],
+  "result": {
+    "ok": true,
+    "status": "ok",
+    "text": "Le conflit n’est **pas suffisamment établi comme fait** : le contenu de `ev:mw0-mw3-business-a` n’est pas disponible dans les sources consultables, et son identifiant seul ne permet pas d’en déduire la substance.\n\nEn revanche, il reste **non résolu**. En mode fail-closed, je ne peux donc pas confirmer que Gate-Kappa demeure valide ni formuler de recommandation aval. Aucun blocage d’exécution n’est déclenché ; la suite analytique dépend d’une vérification de cette Evidence dans Truth C.\n\n[CONTRADICTION CANDIDATE] Conflict retained as contradiction candidate — coverage, domain, freshness, or attribution insufficient for evidence-backed promotion.",
+    "mode": "live",
+    "presentation": "openai_live",
+    "model": "gpt-5.6-luna",
+    "toolRounds": 1,
+    "toolCalls": 1,
+    "sources": [
+      {
+        "kind": "git_local",
+        "label": "git_local_search_content",
+        "pathOrRef": "content-search:ev:mw0-mw3-business-a"
+      }
+    ],
+    "toolEvents": [
+      {
+        "toolName": "git_local_search_content",
+        "status": "succeeded",
+        "pathOrRef": "content-search:ev:mw0-mw3-business-a",
+        "summary": "content « ev:mw0-mw3-business-a » → 0 hit(s)",
+        "errorCode": null,
+        "readOnly": true
+      }
+    ],
+    "project": {
+      "projectId": "prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590",
+      "name": "Nora MW0-MW3 Integrated Business REAL Chain",
+      "shortReference": "MW03B",
+      "objective": "Cumulative MW0→MW3 integrated REAL business chain at MW3 scope",
+      "contextSummary": "Temporary synthetic Product SQLite campaign — not production data",
+      "criticality": "STANDARD",
+      "constraints": [
+        "LECTURE SEULE",
+        "AUCUNE EXÉCUTION"
+      ],
+      "lpsId": "lps:907e75d1-a075-4d04-bfea-812d0e54889d",
+      "lpsVersion": 1,
+      "lpsCreatedAt": "2026-09-02T19:30:16.308Z",
+      "doctrineId": "pkg:sfia-studio-doctrine-v3",
+      "doctrineVersion": "1.0.0",
+      "doctrineDigest": "sha256:4c8a85cf684331720c34a01f9e1dfe3a91305dd1e6f52306c50fc59bd3355608",
+      "doctrineStatus": "resolved",
+      "runtimeMode": "LOCAL_PROCESS",
+      "persistence": "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE",
+      "readiness": "NOT_READY"
+    },
+    "ephemeralNotice": "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. AUCUNE EXÉCUTION.",
+    "cognitiveRuntime": "agents",
+    "sessionId": "sess:prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590:f1-default",
+    "memoryBAvailability": "available_with_history",
+    "memoryBCompactionState": "none",
+    "stalePriorInvalidated": false,
+    "mw3": {
+      "disposition": "candidate",
+      "progression": "PROGRESS_WITH_CONTRADICTION",
+      "cognitiveStop": false,
+      "reason": "Conflict retained as contradiction candidate — coverage, domain, freshness, or attribution insufficient for evidence-backed promotion.",
+      "evidenceIds": [],
+      "sourceIds": [],
+      "governingPremise": "La condition de travail conservée depuis le début du chantier",
+      "nextAction": "Verify sources before treating the conflict as proven.",
+      "insufficiencyReasons": [
+        "insufficient_source_coverage",
+        "coverage_incomplete"
+      ],
+      "allowsSilentSuccess": false,
+      "blockedImpact": null,
+      "mayContinue": true,
+      "notTechnicalFailure": true
+    },
+    "f2": {
+      "turnKind": "f1_informative",
+      "intentClass": "informative",
+      "qualification": null,
+      "proposal": null,
+      "decision": null,
+      "labels": {
+        "recommendation": null,
+        "proposition": null,
+        "decisionRequired": null,
+        "decisionTaken": null,
+        "noExecution": "AUCUNE EXÉCUTION"
+      },
+      "executionBlocked": false,
+      "processLocalNotice": "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle/HumanDecision/ExecutionContract M3 sont persistés dans Product SQLite. Authority locale TEMPORARY WITH EXIT. Aucune exécution Cursor REAL."
+    }
+  },
+  "session": {
+    "sessionId": "sess:prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590:f1-default",
+    "itemCount": 10,
+    "items": [
+      {
+        "idx": 0,
+        "roleOrType": "user",
+        "textPreview": "Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-BUSINESS-ae78731b : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action.",
+        "fullText": "Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-BUSINESS-ae78731b : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action."
+      },
+      {
+        "idx": 1,
+        "roleOrType": "assistant",
+        "textPreview": "Compris. Je traiterai **PREMISE-MW3-BUSINESS-ae78731b** comme une prémisse temporaire d’analyse : avant toute recommandation d’exécution, **Gate-Kappa doit rester valide**.\n\nElle ne constitue ni une HumanDecision, ni une Confirmation, ni une autorisation d’exécution. Aucune action ne sera exécutée.",
+        "fullText": "Compris. Je traiterai **PREMISE-MW3-BUSINESS-ae78731b** comme une prémisse temporaire d’analyse : avant toute recommandation d’exécution, **Gate-Kappa doit rester valide**.\n\nElle ne constitue ni une HumanDecision, ni une Confirmation, ni une autorisation d’exécution. Aucune action ne sera exécutée."
+      },
+      {
+        "idx": 2,
+        "roleOrType": "user",
+        "textPreview": "Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informations actuelles restent compatibles avec elle et aucun conflit n'est signalé.",
+        "fullText": "Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informations actuelles restent compatibles avec elle et aucun conflit n'est signalé."
+      },
+      {
+        "idx": 3,
+        "roleOrType": "assistant",
+        "textPreview": "La condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\n\nJe la traite comme une prémisse temporaire d’analyse uniquement ; aucun conflit n’est signalé.",
+        "fullText": "La condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\n\nJe la traite comme une prémisse temporaire d’analyse uniquement ; aucun conflit n’est signalé."
+      },
+      {
+        "idx": 4,
+        "roleOrType": "user",
+        "textPreview": "Une nouvelle information semble maintenant contredire la condition de travail que tu conserves depuis le début. L'unique Evidence disponible pour cette analyse est ev:mw0-mw3-business-a. Analyse le conflit et indique s'il est suffisamment établi pour bloquer honnêtement la suite.",
+        "fullText": "Une nouvelle information semble maintenant contredire la condition de travail que tu conserves depuis le début. L'unique Evidence disponible pour cette analyse est ev:mw0-mw3-business-a. Analyse le conflit et indique s'il est suffisamment établi pour bloquer honnêtement la suite."
+      },
+      {
+        "idx": 5,
+        "roleOrType": "reasoning",
+        "textPreview": "",
+        "fullText": ""
+      },
+      {
+        "idx": 6,
+        "roleOrType": "function_call",
+        "textPreview": "{\"type\":\"function_call\",\"callId\":\"call_9mGlFyt5NmxVQ5OnfGprOrgD\",\"name\":\"git_local_search_content\",\"status\":\"completed\",\"arguments\":\"{\\\"query\\\":\\\"ev:mw0-mw3-business-a\\\",\\\"limit\\\":20,\\\"maxBytes\\\":12000}\",\"providerData\":{\"type\":\"function_call\"}}",
+        "fullText": "{\"type\":\"function_call\",\"callId\":\"call_9mGlFyt5NmxVQ5OnfGprOrgD\",\"name\":\"git_local_search_content\",\"status\":\"completed\",\"arguments\":\"{\\\"query\\\":\\\"ev:mw0-mw3-business-a\\\",\\\"limit\\\":20,\\\"maxBytes\\\":12000}\",\"providerData\":{\"type\":\"function_call\"}}"
+      },
+      {
+        "idx": 7,
+        "roleOrType": "function_call_result",
+        "textPreview": "{\"type\":\"function_call_result\",\"name\":\"git_local_search_content\",\"callId\":\"call_9mGlFyt5NmxVQ5OnfGprOrgD\",\"status\":\"completed\",\"output\":{\"type\":\"text\",\"text\":\"{\\\"ok\\\":true,\\\"summary\\\":\\\"content « ev:mw0-mw3-business-a » → 0 hit(s)\\\",\\\"data\\\":{\\\"matches\\\":[],\\\"truncated\\\":false},\\\"truncated\\\":false}\"}}",
+        "fullText": "{\"type\":\"function_call_result\",\"name\":\"git_local_search_content\",\"callId\":\"call_9mGlFyt5NmxVQ5OnfGprOrgD\",\"status\":\"completed\",\"output\":{\"type\":\"text\",\"text\":\"{\\\"ok\\\":true,\\\"summary\\\":\\\"content « ev:mw0-mw3-business-a » → 0 hit(s)\\\",\\\"data\\\":{\\\"matches\\\":[],\\\"truncated\\\":false},\\\"truncated\\\":false}\"}}"
+      },
+      {
+        "idx": 8,
+        "roleOrType": "reasoning",
+        "textPreview": "",
+        "fullText": ""
+      },
+      {
+        "idx": 9,
+        "roleOrType": "assistant",
+        "textPreview": "Le conflit n’est **pas suffisamment établi comme fait** : le contenu de `ev:mw0-mw3-business-a` n’est pas disponible dans les sources consultables, et son identifiant seul ne permet pas d’en déduire la substance.\n\nEn revanche, il reste **non résolu**. En mode fail-closed, je ne peux donc pas confirmer que Gate-Kappa demeure valide ni formuler de recommandation aval. Aucun blocage d’exécution n’est déclenché ; la suite analytique dépend d’une vérification de cette Evidence dans Truth C.",
+        "fullText": "Le conflit n’est **pas suffisamment établi comme fait** : le contenu de `ev:mw0-mw3-business-a` n’est pas disponible dans les sources consultables, et son identifiant seul ne permet pas d’en déduire la substance.\n\nEn revanche, il reste **non résolu**. En mode fail-closed, je ne peux donc pas confirmer que Gate-Kappa demeure valide ni formuler de recommandation aval. Aucun blocage d’exécution n’est déclenché ; la suite analytique dépend d’une vérification de cette Evidence dans Truth C."
+      }
+    ]
+  },
+  "lpsBefore": {
+    "lpsId": "lps:907e75d1-a075-4d04-bfea-812d0e54889d",
+    "version": 1,
+    "nextStep": null,
+    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03B\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
+    "decisionIds": [],
+    "evidenceIds": []
+  },
+  "lpsAfter": {
+    "lpsId": "lps:907e75d1-a075-4d04-bfea-812d0e54889d",
+    "version": 1,
+    "nextStep": null,
+    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03B\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
+    "decisionIds": [],
+    "evidenceIds": []
+  },
+  "lpsUnchanged": true,
+  "latencyMs": 19665,
+  "mw3TrajectoryState": "CANDIDATE",
+  "historyPassed": []
+}
+```
+
+---
+
+## M. T4 raw evidence
+
+**Corrected MW3-scope:** user explicitly names A+B.
+
+EVIDENCE_BACKED_CONTINUE · claimed A+B · evidence_backed · PROGRESS_WITH_CONTRADICTION · mayContinue=true · Sources A/B present · no STOP
+
+```json
+{
+  "campaignId": "nora-mw0-mw3-business-integrated-real-1788377416280",
+  "turnId": "T4",
+  "timestamp": "2026-09-02T19:31:10.006Z",
+  "projectId": "prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590",
+  "exactUserContent": "Pour l'analyse courante, les deux Evidence concernées sont ev:mw0-mw3-business-a et ev:mw0-mw3-business-b. Elles sont incompatibles sur un point local. Ce point ne remet pas en cause la condition de travail initiale que tu conserves depuis le début. Analyse la situation et indique si le parcours cognitif peut continuer.",
+  "model": "gpt-5.6-luna",
+  "reasoningSetting": "UNSET",
+  "providerId": "openai",
+  "nativeAgentsAdapterUsed": false,
+  "isOpenAiLiveF1": true,
+  "completeRoundCalls": 0,
+  "providerCalls": [
+    {
+      "method": "completeStructured",
+      "schemaName": "f2_intent_analysis",
+      "latencyMs": 10521,
+      "model": "gpt-5.6-luna",
+      "providerResponseId": "resp_0d7a07ed3b95bf6b006a98797018d087d28088bc9efa5bb5f3",
+      "inputTokens": 2211,
+      "outputTokens": 777,
+      "totalTokens": 2988,
+      "estimatedUsd": 0.0013746000000000001
+    }
+  ],
+  "structured": [
+    {
+      "schemaName": "f2_intent_analysis",
+      "rawText": "{\"intentClass\":\"informative\",\"candidateCycleTypeId\":null,\"signals\":null,\"cognitiveWorkload\":{\"ambiguity\":\"low\",\"reasoningDepth\":\"medium\",\"sourceBreadth\":\"low\",\"toolDependency\":\"low\",\"contradictionRisk\":\"high\",\"verificationNeed\":\"medium\"},\"contradictionCandidate\":{\"conflictPresent\":true,\"claimedEvidenceIds\":[\"ev:mw0-mw3-business-a\",\"ev:mw0-mw3-business-b\"],\"governingPremise\":\"La condition de travail initiale est conservée et reste applicable à l'analyse courante.\",\"governingPremiseInvalidated\":false,\"localImpactOnly\":true,\"fabricationAttempt\":false},\"objective\":\"Analyser l'incompatibilité locale entre les deux Evidence et déterminer si le parcours cognitif peut se poursuivre.\",\"scope\":\"Les Evidence ev:mw0-mw3-business-a et ev:mw0-mw3-business-b, leur point de conflit local et la condition de travail initiale conservée.\",\"rephrasedRequest\":\"Évaluer la contradiction locale entre les deux Evidence sans remettre en cause la condition de travail initiale, puis indiquer si l'analyse peut continuer.\",\"outOfScope\":[\"Résoudre définitivement la contradiction sans éléments supplémentaires.\",\"Modifier l'état du projet.\",\"Exécuter une action ou produire un side-effect externe.\",\"Promouvoir le candidat de contradiction en preuve autoritaire.\"],\"risks\":[\"Propager le point contradictoire à des conclusions qui ne sont pas concernées.\",\"Traiter la condition de travail initiale comme invalidée alors qu'aucun élément ne le montre.\",\"Formuler une assertion forte sur le point local sans vérification complémentaire.\"],\"reservations\":[\"La poursuite est possible uniquement en isolant explicitement le point incompatible.\",\"Les conclusions dépendant directement du point local doivent rester conditionnelles ou être vérifiées séparément.\",\"Aucune Evidence supplémentaire n'est identifiable dans la demande.\"],\"stopConditions\":[\"La contradiction s'étend à la condition de travail initiale.\",\"Le point local devient déterminant pour la conclusion poursuivie.\",\"Une décision exigeant une résolution autoritative du conflit est requise.\"],\"activatedBlocks\":[\"Isolation de la contradiction locale\",\"Préservation de la condition de travail initiale\",\"Poursuite conditionnelle du raisonnement\"],\"expectedOutcome\":\"Oui, le parcours cognitif peut continuer, car la contradiction est déclarée locale et ne remet pas en cause la prémisse de travail initiale. Elle doit toutefois être conservée comme réserve et ne pas être utilisée comme fait résolu.\",\"criticalJustification\":\"La continuité dépend de la portée du conflit : un conflit local n'invalide pas la prémisse gouvernante ni les branches indépendantes. La poursuite reste donc permise, mais les conclusions affectées par ce point doivent être suspendues, conditionnelles ou vérifiées.\",\"requestedOperation\":\"Analyser la contradiction locale et statuer sur la continuité du parcours cognitif sans mutation ni exécution.\"}",
+      "cognitiveWorkload": {
+        "ambiguity": "low",
+        "reasoningDepth": "medium",
+        "sourceBreadth": "low",
+        "toolDependency": "low",
+        "contradictionRisk": "high",
+        "verificationNeed": "medium"
+      },
+      "contradictionCandidate": {
+        "conflictPresent": true,
+        "claimedEvidenceIds": [
+          "ev:mw0-mw3-business-a",
+          "ev:mw0-mw3-business-b"
+        ],
+        "governingPremise": "La condition de travail initiale est conservée et reste applicable à l'analyse courante.",
+        "localImpactOnly": true
+      },
+      "parsedCandidate": {
+        "conflictPresent": true,
+        "claimedEvidenceIds": [
+          "ev:mw0-mw3-business-a",
+          "ev:mw0-mw3-business-b"
+        ],
+        "governingPremise": "La condition de travail initiale est conservée et reste applicable à l'analyse courante.",
+        "localImpactOnly": true
       },
       "intentClass": "informative",
       "parseOk": true
@@ -1528,7 +2009,7 @@ Observed: **PASS**. User prompt contains neither marker nor Gate-Kappa. Response
   "result": {
     "ok": true,
     "status": "ok",
-    "text": "La condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\n\nMa lecture : les éléments que vous indiquez sont compatibles avec cette condition et aucun conflit n’est signalé. Cela reste une prémisse conversationnelle d’analyse, sans valeur d’autorisation ni de HumanDecision, et aucune action n’est exécutée.",
+    "text": "Sur la base de ta description — **à confirmer dans Truth C** — les deux Evidence présentent une incompatibilité locale, sans impact déclaré sur la prémisse initiale : **Gate-Kappa doit rester valide**.\n\nConclusion :\n\n- le conflit doit rester ouvert et être traité localement ;\n- il ne suffit pas, à lui seul, à invalider Gate-Kappa ;\n- le parcours cognitif peut donc continuer **sous cette réserve analytique** ;\n- aucune recommandation d’exécution aval ne peut être formulée tant que la validité de Gate-Kappa et le contenu des deux Evidence ne sont pas vérifiés dans Truth C.\n\n[EVIDENCE-BACKED CONTRADICTION] Evidence-backed contradiction surfaced — governing premise still holds; progression may continue honestly.",
     "mode": "live",
     "presentation": "openai_live",
     "model": "gpt-5.6-luna",
@@ -1537,19 +2018,19 @@ Observed: **PASS**. User prompt contains neither marker nor Gate-Kappa. Response
     "sources": [],
     "toolEvents": [],
     "project": {
-      "projectId": "prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c",
-      "name": "Nora MW0-MW3 Integrated REAL Chain",
-      "shortReference": "MW03C",
-      "objective": "Cumulative MW0→MW3 integrated REAL continuity proof",
+      "projectId": "prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590",
+      "name": "Nora MW0-MW3 Integrated Business REAL Chain",
+      "shortReference": "MW03B",
+      "objective": "Cumulative MW0→MW3 integrated REAL business chain at MW3 scope",
       "contextSummary": "Temporary synthetic Product SQLite campaign — not production data",
       "criticality": "STANDARD",
       "constraints": [
         "LECTURE SEULE",
         "AUCUNE EXÉCUTION"
       ],
-      "lpsId": "lps:416cdb2e-4ae8-4447-9835-34d86cd7cfc0",
+      "lpsId": "lps:907e75d1-a075-4d04-bfea-812d0e54889d",
       "lpsVersion": 1,
-      "lpsCreatedAt": "2026-09-02T19:12:30.430Z",
+      "lpsCreatedAt": "2026-09-02T19:30:16.308Z",
       "doctrineId": "pkg:sfia-studio-doctrine-v3",
       "doctrineVersion": "1.0.0",
       "doctrineDigest": "sha256:4c8a85cf684331720c34a01f9e1dfe3a91305dd1e6f52306c50fc59bd3355608",
@@ -1560,225 +2041,26 @@ Observed: **PASS**. User prompt contains neither marker nor Gate-Kappa. Response
     },
     "ephemeralNotice": "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. AUCUNE EXÉCUTION.",
     "cognitiveRuntime": "agents",
-    "sessionId": "sess:prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c:f1-default",
+    "sessionId": "sess:prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590:f1-default",
     "memoryBAvailability": "available_with_history",
-    "memoryBCompactionState": "none",
-    "stalePriorInvalidated": false,
-    "mw3": null,
-    "f2": {
-      "turnKind": "f1_informative",
-      "intentClass": "informative",
-      "qualification": null,
-      "proposal": null,
-      "decision": null,
-      "labels": {
-        "recommendation": null,
-        "proposition": null,
-        "decisionRequired": null,
-        "decisionTaken": null,
-        "noExecution": "AUCUNE EXÉCUTION"
-      },
-      "executionBlocked": false,
-      "processLocalNotice": "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle/HumanDecision/ExecutionContract M3 sont persistés dans Product SQLite. Authority locale TEMPORARY WITH EXIT. Aucune exécution Cursor REAL."
-    }
-  },
-  "session": {
-    "sessionId": "sess:prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c:f1-default",
-    "itemCount": 5,
-    "items": [
-      {
-        "idx": 0,
-        "roleOrType": "user",
-        "textPreview": "Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-CHAIN-b0169bdc : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action.",
-        "fullText": "Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-CHAIN-b0169bdc : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action."
-      },
-      {
-        "idx": 1,
-        "roleOrType": "assistant",
-        "textPreview": "Compris. Je traiterai PREMISE-MW3-CHAIN-b0169bdc comme une prémisse temporaire d’analyse uniquement : avant toute recommandation d’exécution, Gate-Kappa doit rester valide. Ce n’est ni une HumanDecision, ni une Confirmation, ni une autorisation d’exécution. Aucune action n’est exécutée.",
-        "fullText": "Compris. Je traiterai PREMISE-MW3-CHAIN-b0169bdc comme une prémisse temporaire d’analyse uniquement : avant toute recommandation d’exécution, Gate-Kappa doit rester valide. Ce n’est ni une HumanDecision, ni une Confirmation, ni une autorisation d’exécution. Aucune action n’est exécutée."
-      },
-      {
-        "idx": 2,
-        "roleOrType": "user",
-        "textPreview": "Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informations actuelles sont compatibles avec cette condition et aucun conflit n'est signalé. Donne-moi ta lecture.",
-        "fullText": "Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informations actuelles sont compatibles avec cette condition et aucun conflit n'est signalé. Donne-moi ta lecture."
-      },
-      {
-        "idx": 3,
-        "roleOrType": "reasoning",
-        "textPreview": "",
-        "fullText": ""
-      },
-      {
-        "idx": 4,
-        "roleOrType": "assistant",
-        "textPreview": "La condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\n\nMa lecture : les éléments que vous indiquez sont compatibles avec cette condition et aucun conflit n’est signalé. Cela reste une prémisse conversationnelle d’analyse, sans valeur d’autorisation ni de HumanDecision, et aucune action n’est exécutée.",
-        "fullText": "La condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\n\nMa lecture : les éléments que vous indiquez sont compatibles avec cette condition et aucun conflit n’est signalé. Cela reste une prémisse conversationnelle d’analyse, sans valeur d’autorisation ni de HumanDecision, et aucune action n’est exécutée."
-      }
-    ]
-  },
-  "lpsBefore": {
-    "lpsId": "lps:416cdb2e-4ae8-4447-9835-34d86cd7cfc0",
-    "version": 1,
-    "nextStep": null,
-    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03C\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
-    "decisionIds": [],
-    "evidenceIds": []
-  },
-  "lpsAfter": {
-    "lpsId": "lps:416cdb2e-4ae8-4447-9835-34d86cd7cfc0",
-    "version": 1,
-    "nextStep": null,
-    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03C\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
-    "decisionIds": [],
-    "evidenceIds": []
-  },
-  "lpsUnchanged": true,
-  "latencyMs": 13226,
-  "mw3TrajectoryState": "NONE",
-  "historyPassed": []
-}
-```
-
----
-
-## K. Turn 3 raw evidence
-
-Expected: one-source candidate.
-
-Observed: **PASS** for MW3 one-source policy. Live candidate claimed only `ev:mw0-mw3-chain-a`. Studio `candidate` + `insufficient_source_coverage`. Strategy High-Assurance. CWP contradictionRisk=medium, verificationNeed=high.
-
-```json
-{
-  "campaignId": "nora-mw0-mw3-integrated-real-1788376350396",
-  "turnId": "T3",
-  "timestamp": "2026-09-02T19:13:15.199Z",
-  "projectId": "prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c",
-  "exactUserContent": "Une nouvelle information semble maintenant contredire la condition de travail que tu conserves depuis le début. L'unique Evidence disponible est ev:mw0-mw3-chain-a. Analyse le conflit et dis si la contradiction est suffisamment établie pour bloquer honnêtement la suite.",
-  "model": "gpt-5.6-luna",
-  "reasoningSetting": "UNSET",
-  "providerId": "openai",
-  "nativeAgentsAdapterUsed": false,
-  "isOpenAiLiveF1": true,
-  "completeRoundCalls": 0,
-  "providerCalls": [
-    {
-      "method": "completeStructured",
-      "schemaName": "f2_intent_analysis",
-      "latencyMs": 14539,
-      "model": "gpt-5.6-luna",
-      "providerResponseId": "resp_07d52f3c9df880e5006a987537099c87d2a6d5430c4a077d12",
-      "inputTokens": 2191,
-      "outputTokens": 916,
-      "totalTokens": 3107,
-      "estimatedUsd": 0.0015374
-    }
-  ],
-  "structured": [
-    {
-      "schemaName": "f2_intent_analysis",
-      "rawText": "{\"intentClass\":\"informative\",\"candidateCycleTypeId\":null,\"signals\":null,\"cognitiveWorkload\":{\"ambiguity\":\"high\",\"reasoningDepth\":\"high\",\"sourceBreadth\":\"low\",\"toolDependency\":\"high\",\"contradictionRisk\":\"medium\",\"verificationNeed\":\"high\"},\"contradictionCandidate\":{\"conflictPresent\":true,\"claimedEvidenceIds\":[\"ev:mw0-mw3-chain-a\"],\"governingPremise\":\"La condition de travail conservée depuis le début, dont le contenu précis n’est pas fourni ici.\",\"governingPremiseInvalidated\":false,\"localImpactOnly\":true,\"fabricationAttempt\":false},\"objective\":\"Analyser si l’unique Evidence fournie établit une contradiction avec la condition de travail retenue et si cette contradiction justifie un blocage honnête.\",\"scope\":\"Évaluer le conflit apparent à partir du contexte disponible et de ev:mw0-mw3-chain-a, sans exécution ni mutation.\",\"rephrasedRequest\":\"Examiner le conflit allégué, vérifier s’il est matériellement démontré, puis indiquer s’il faut bloquer la suite.\",\"outOfScope\":[\"Exécuter une action ou modifier le projet\",\"Inventer le contenu de l’Evidence ou de la condition de travail\",\"Promouvoir automatiquement le conflit en contradiction établie\",\"Décider d’un GO ou d’un passage de gate\"],\"risks\":[\"Le contenu de ev:mw0-mw3-chain-a n’est pas fourni dans la demande.\",\"La condition de travail antérieure n’est pas explicitement identifiée.\",\"Un simple signal de tension pourrait être confondu avec une invalidation démontrée.\",\"Poursuivre comme si la contradiction était résolue pourrait produire une conclusion non vérifiée.\"],\"reservations\":[\"L’identifiant d’Evidence est cité, mais aucune assertion vérifiable ni relation précise avec la prémisse gouvernante n’est disponible.\",\"La contradiction est donc seulement candidate; son caractère établi ne peut pas être confirmé.\",\"La portée exacte du conflit et son impact sur la continuité MW0→MW3 restent indéterminés.\"],\"stopConditions\":[\"Bloquer la suite si l’Evidence, une fois consultée, réfute directement une prémisse nécessaire à la continuité ou rend la preuve demandée incohérente.\",\"Ne pas déclarer un blocage définitif sur la seule base du signal narratif fourni.\",\"Suspendre toute conclusion forte jusqu’à vérification du contenu de l’Evidence et de la condition de travail concernée.\"],\"activatedBlocks\":[\"Lecture seule\",\"Aucune exécution\",\"Vérification nécessaire avant toute conclusion de contradiction établie\"],\"expectedOutcome\":\"La contradiction n’est pas suffisamment établie avec les éléments fournis pour bloquer honnêtement la suite de manière définitive. Elle doit toutefois rester ouverte comme réserve locale et être vérifiée avant de poursuivre une conclusion dépendant de la prémisse contestée.\",\"criticalJustification\":\"Un identifiant d’Evidence et l’affirmation d’une contradiction ne suffisent pas à démontrer que la prémisse gouvernante est invalidée. En l’absence du contenu de ev:mw0-mw3-chain-a et de la condition précise, un blocage catégorique serait aussi insuffisamment fondé que la poursuite sans réserve.\",\"requestedOperation\":\"Analyser et qualifier le conflit apparent, sans exécution ni mutation.\"}",
-      "cognitiveWorkload": {
-        "ambiguity": "high",
-        "reasoningDepth": "high",
-        "sourceBreadth": "low",
-        "toolDependency": "high",
-        "contradictionRisk": "medium",
-        "verificationNeed": "high"
-      },
-      "contradictionCandidate": {
-        "conflictPresent": true,
-        "claimedEvidenceIds": [
-          "ev:mw0-mw3-chain-a"
-        ],
-        "governingPremise": "La condition de travail conservée depuis le début, dont le contenu précis n’est pas fourni ici.",
-        "localImpactOnly": true
-      },
-      "parsedCandidate": {
-        "conflictPresent": true,
-        "claimedEvidenceIds": [
-          "ev:mw0-mw3-chain-a"
-        ],
-        "governingPremise": "La condition de travail conservée depuis le début, dont le contenu précis n’est pas fourni ici.",
-        "localImpactOnly": true
-      },
-      "intentClass": "informative",
-      "parseOk": true
-    }
-  ],
-  "strategyTelemetry": [
-    {
-      "strategyClass": "High-Assurance",
-      "reasoningEffort": "high",
-      "reasoningDemand": "high",
-      "criticalChallengeArmed": true,
-      "bootstrapUsed": false,
-      "reasonCodes": [
-        "high_assurance_signals",
-        "critical_challenge_armed_hook",
-        "demand:high",
-        "effort:high"
-      ],
-      "envelope": [
-        "high",
-        "xhigh",
-        "max"
-      ]
-    }
-  ],
-  "result": {
-    "ok": true,
-    "status": "ok",
-    "text": "L’identifiant **ev:mw0-mw3-chain-a** ne suffit pas à établir une contradiction : son contenu et son statut ne m’ont pas été fournis ni vérifiés.\n\nConclusion fail-closed : la contradiction n’est **pas prouvée**, mais la validité de Gate-Kappa n’est pas non plus confirmée. Le conflit doit donc rester une **réserve ouverte** ; je ne peux honnêtement formuler aucune recommandation d’exécution en aval tant qu’il n’est pas clarifié. Aucune action n’est exécutée.\n\n[CONTRADICTION CANDIDATE] Conflict retained as contradiction candidate — coverage, domain, freshness, or attribution insufficient for evidence-backed promotion.",
-    "mode": "live",
-    "presentation": "openai_live",
-    "model": "gpt-5.6-luna",
-    "toolRounds": 0,
-    "toolCalls": 0,
-    "sources": [],
-    "toolEvents": [],
-    "project": {
-      "projectId": "prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c",
-      "name": "Nora MW0-MW3 Integrated REAL Chain",
-      "shortReference": "MW03C",
-      "objective": "Cumulative MW0→MW3 integrated REAL continuity proof",
-      "contextSummary": "Temporary synthetic Product SQLite campaign — not production data",
-      "criticality": "STANDARD",
-      "constraints": [
-        "LECTURE SEULE",
-        "AUCUNE EXÉCUTION"
-      ],
-      "lpsId": "lps:416cdb2e-4ae8-4447-9835-34d86cd7cfc0",
-      "lpsVersion": 1,
-      "lpsCreatedAt": "2026-09-02T19:12:30.430Z",
-      "doctrineId": "pkg:sfia-studio-doctrine-v3",
-      "doctrineVersion": "1.0.0",
-      "doctrineDigest": "sha256:4c8a85cf684331720c34a01f9e1dfe3a91305dd1e6f52306c50fc59bd3355608",
-      "doctrineStatus": "resolved",
-      "runtimeMode": "LOCAL_PROCESS",
-      "persistence": "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE",
-      "readiness": "NOT_READY"
-    },
-    "ephemeralNotice": "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. AUCUNE EXÉCUTION.",
-    "cognitiveRuntime": "agents",
-    "sessionId": "sess:prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c:f1-default",
-    "memoryBAvailability": "available_with_history",
-    "memoryBCompactionState": "none",
+    "memoryBCompactionState": "compacted_with_loss",
     "stalePriorInvalidated": false,
     "mw3": {
-      "disposition": "candidate",
+      "disposition": "evidence_backed",
       "progression": "PROGRESS_WITH_CONTRADICTION",
       "cognitiveStop": false,
-      "reason": "Conflict retained as contradiction candidate — coverage, domain, freshness, or attribution insufficient for evidence-backed promotion.",
-      "evidenceIds": [],
-      "sourceIds": [],
-      "governingPremise": "La condition de travail conservée depuis le début, dont le contenu précis n’est pas fourni ici.",
-      "nextAction": "Verify sources before treating the conflict as proven.",
-      "insufficiencyReasons": [
-        "insufficient_source_coverage",
-        "coverage_incomplete"
+      "reason": "Evidence-backed contradiction surfaced — governing premise still holds; progression may continue honestly.",
+      "evidenceIds": [
+        "ev:mw0-mw3-business-a",
+        "ev:mw0-mw3-business-b"
       ],
+      "sourceIds": [
+        "src:mw0-mw3-business-a",
+        "src:mw0-mw3-business-b"
+      ],
+      "governingPremise": "La condition de travail initiale est conservée et reste applicable à l'analyse courante.",
+      "nextAction": "Correct recommendation path if needed; no Cognitive STOP.",
+      "insufficiencyReasons": [],
       "allowsSilentSuccess": false,
       "blockedImpact": null,
       "mayContinue": true,
@@ -1802,358 +2084,85 @@ Observed: **PASS** for MW3 one-source policy. Live candidate claimed only `ev:mw
     }
   },
   "session": {
-    "sessionId": "sess:prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c:f1-default",
-    "itemCount": 8,
+    "sessionId": "sess:prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590:f1-default",
+    "itemCount": 6,
     "items": [
       {
         "idx": 0,
-        "roleOrType": "user",
-        "textPreview": "Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-CHAIN-b0169bdc : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action.",
-        "fullText": "Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-CHAIN-b0169bdc : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action."
+        "roleOrType": "sfia_memory_b_compaction",
+        "textPreview": "{\"type\":\"sfia_memory_b_compaction\",\"version\":2,\"generation\":1,\"summaryText\":\"[MW1-S02 COMPACTED MEMORY B — NON-AUTHORITATIVE — NOT EXHAUSTIVE]\\ncompaction-generation=1\\nRetained premises:\\n[governing-context] Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-BUSINESS-ae78731b : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement\\n[governing-context] Compris. Je traiterai **PREMISE-MW3-BUSINESS-ae78731b** comme une pré",
+        "fullText": "{\"type\":\"sfia_memory_b_compaction\",\"version\":2,\"generation\":1,\"summaryText\":\"[MW1-S02 COMPACTED MEMORY B — NON-AUTHORITATIVE — NOT EXHAUSTIVE]\\ncompaction-generation=1\\nRetained premises:\\n[governing-context] Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-BUSINESS-ae78731b : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement\\n[governing-context] Compris. Je traiterai **PREMISE-MW3-BUSINESS-ae78731b** comme une prémisse temporaire d’analyse : avant toute recommandation d’exécution, **Gate-Kappa doit rester valide**.\\n\\nElle ne constitue ni une H\\nSans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informatio\\nLa condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\\n\\nJe la traite comme une prémisse temporaire d’analyse uniqu\\nUne nouvelle information semble maintenant contredire la condition de travail que tu conserves depuis le début. L'unique Evidence disponible pour cette analyse \\nOmitted/replaced: 8 raw conversational item(s) this generation; transcript not exhaustive.\\nTruth C / LPS / HumanDecision remain authoritative — not this summary.\",\"provenance\":[{\"seq\":0,\"role\":\"user\",\"contentHash\":\"93f0033553b71d92\",\"excerpt\":\"Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-BUSINESS-ae78731b : avant toute recommand\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":0},{\"seq\":1,\"role\":\"assistant\",\"contentHash\":\"9e8852045476b561\",\"excerpt\":\"Compris. Je traiterai **PREMISE-MW3-BUSINESS-ae78731b** comme une prémisse temporaire d’analyse : avant toute recommanda\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":1},{\"seq\":2,\"role\":\"user\",\"contentHash\":\"73902f6e1a6b4990\",\"excerpt\":\"Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant t\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":2},{\"seq\":3,\"role\":\"assistant\",\"contentHash\":\"212ae39b9601c836\",\"excerpt\":\"La condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\\n\\nJe la traite comme\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":3},{\"seq\":4,\"role\":\"user\",\"contentHash\":\"9c04c3f662ce051d\",\"excerpt\":\"Une nouvelle information semble maintenant contredire la condition de travail que tu conserves depuis le début. L'unique\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":4},{\"seq\":5,\"role\":\"unknown\",\"contentHash\":\"e3b0c44298fc1c14\",\"excerpt\":\"\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":5},{\"seq\":6,\"role\":\"unknown\",\"contentHash\":\"e3b0c44298fc1c14\",\"excerpt\":\"\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":6},{\"seq\":7,\"role\":\"unknown\",\"contentHash\":\"e3b0c44298fc1c14\",\"excerpt\":\"\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":7}],\"loss\":{\"occurred\":true,\"droppedItemCount\":8,\"omittedExtent\":\"8 raw item(s) replaced this generation; prior loss=false; not exhaustive\",\"governingContextRetained\":true,\"governingContextExplicitLoss\":false},\"truthCRevision\":{\"lpsId\":\"lps:907e75d1-a075-4d04-bfea-812d0e54889d\",\"lpsVersion\":1},\"sourceSeqRange\":{\"from\":0,\"to\":7},\"nonAuthoritative\":true,\"createdAtIso\":\"1970-01-01T00:00:00.000Z\"}"
       },
       {
         "idx": 1,
-        "roleOrType": "assistant",
-        "textPreview": "Compris. Je traiterai PREMISE-MW3-CHAIN-b0169bdc comme une prémisse temporaire d’analyse uniquement : avant toute recommandation d’exécution, Gate-Kappa doit rester valide. Ce n’est ni une HumanDecision, ni une Confirmation, ni une autorisation d’exécution. Aucune action n’est exécutée.",
-        "fullText": "Compris. Je traiterai PREMISE-MW3-CHAIN-b0169bdc comme une prémisse temporaire d’analyse uniquement : avant toute recommandation d’exécution, Gate-Kappa doit rester valide. Ce n’est ni une HumanDecision, ni une Confirmation, ni une autorisation d’exécution. Aucune action n’est exécutée."
+        "roleOrType": "reasoning",
+        "textPreview": "",
+        "fullText": ""
       },
       {
         "idx": 2,
-        "roleOrType": "user",
-        "textPreview": "Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informations actuelles sont compatibles avec cette condition et aucun conflit n'est signalé. Donne-moi ta lecture.",
-        "fullText": "Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informations actuelles sont compatibles avec cette condition et aucun conflit n'est signalé. Donne-moi ta lecture."
+        "roleOrType": "assistant",
+        "textPreview": "Le conflit n’est **pas suffisamment établi comme fait** : le contenu de `ev:mw0-mw3-business-a` n’est pas disponible dans les sources consultables, et son identifiant seul ne permet pas d’en déduire la substance.\n\nEn revanche, il reste **non résolu**. En mode fail-closed, je ne peux donc pas confirmer que Gate-Kappa demeure valide ni formuler de recommandation aval. Aucun blocage d’exécution n’est déclenché ; la suite analytique dépend d’une vérification de cette Evidence dans Truth C.",
+        "fullText": "Le conflit n’est **pas suffisamment établi comme fait** : le contenu de `ev:mw0-mw3-business-a` n’est pas disponible dans les sources consultables, et son identifiant seul ne permet pas d’en déduire la substance.\n\nEn revanche, il reste **non résolu**. En mode fail-closed, je ne peux donc pas confirmer que Gate-Kappa demeure valide ni formuler de recommandation aval. Aucun blocage d’exécution n’est déclenché ; la suite analytique dépend d’une vérification de cette Evidence dans Truth C."
       },
       {
         "idx": 3,
-        "roleOrType": "reasoning",
-        "textPreview": "",
-        "fullText": ""
+        "roleOrType": "user",
+        "textPreview": "Pour l'analyse courante, les deux Evidence concernées sont ev:mw0-mw3-business-a et ev:mw0-mw3-business-b. Elles sont incompatibles sur un point local. Ce point ne remet pas en cause la condition de travail initiale que tu conserves depuis le début. Analyse la situation et indique si le parcours cognitif peut continuer.",
+        "fullText": "Pour l'analyse courante, les deux Evidence concernées sont ev:mw0-mw3-business-a et ev:mw0-mw3-business-b. Elles sont incompatibles sur un point local. Ce point ne remet pas en cause la condition de travail initiale que tu conserves depuis le début. Analyse la situation et indique si le parcours cognitif peut continuer."
       },
       {
         "idx": 4,
-        "roleOrType": "assistant",
-        "textPreview": "La condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\n\nMa lecture : les éléments que vous indiquez sont compatibles avec cette condition et aucun conflit n’est signalé. Cela reste une prémisse conversationnelle d’analyse, sans valeur d’autorisation ni de HumanDecision, et aucune action n’est exécutée.",
-        "fullText": "La condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\n\nMa lecture : les éléments que vous indiquez sont compatibles avec cette condition et aucun conflit n’est signalé. Cela reste une prémisse conversationnelle d’analyse, sans valeur d’autorisation ni de HumanDecision, et aucune action n’est exécutée."
-      },
-      {
-        "idx": 5,
-        "roleOrType": "user",
-        "textPreview": "Une nouvelle information semble maintenant contredire la condition de travail que tu conserves depuis le début. L'unique Evidence disponible est ev:mw0-mw3-chain-a. Analyse le conflit et dis si la contradiction est suffisamment établie pour bloquer honnêtement la suite.",
-        "fullText": "Une nouvelle information semble maintenant contredire la condition de travail que tu conserves depuis le début. L'unique Evidence disponible est ev:mw0-mw3-chain-a. Analyse le conflit et dis si la contradiction est suffisamment établie pour bloquer honnêtement la suite."
-      },
-      {
-        "idx": 6,
         "roleOrType": "reasoning",
         "textPreview": "",
         "fullText": ""
       },
       {
-        "idx": 7,
+        "idx": 5,
         "roleOrType": "assistant",
-        "textPreview": "L’identifiant **ev:mw0-mw3-chain-a** ne suffit pas à établir une contradiction : son contenu et son statut ne m’ont pas été fournis ni vérifiés.\n\nConclusion fail-closed : la contradiction n’est **pas prouvée**, mais la validité de Gate-Kappa n’est pas non plus confirmée. Le conflit doit donc rester une **réserve ouverte** ; je ne peux honnêtement formuler aucune recommandation d’exécution en aval tant qu’il n’est pas clarifié. Aucune action n’est exécutée.",
-        "fullText": "L’identifiant **ev:mw0-mw3-chain-a** ne suffit pas à établir une contradiction : son contenu et son statut ne m’ont pas été fournis ni vérifiés.\n\nConclusion fail-closed : la contradiction n’est **pas prouvée**, mais la validité de Gate-Kappa n’est pas non plus confirmée. Le conflit doit donc rester une **réserve ouverte** ; je ne peux honnêtement formuler aucune recommandation d’exécution en aval tant qu’il n’est pas clarifié. Aucune action n’est exécutée."
+        "textPreview": "Sur la base de ta description — **à confirmer dans Truth C** — les deux Evidence présentent une incompatibilité locale, sans impact déclaré sur la prémisse initiale : **Gate-Kappa doit rester valide**.\n\nConclusion :\n\n- le conflit doit rester ouvert et être traité localement ;\n- il ne suffit pas, à lui seul, à invalider Gate-Kappa ;\n- le parcours cognitif peut donc continuer **sous cette réserve analytique** ;\n- aucune recommandation d’exécution aval ne peut être formulée tant que la validité de ",
+        "fullText": "Sur la base de ta description — **à confirmer dans Truth C** — les deux Evidence présentent une incompatibilité locale, sans impact déclaré sur la prémisse initiale : **Gate-Kappa doit rester valide**.\n\nConclusion :\n\n- le conflit doit rester ouvert et être traité localement ;\n- il ne suffit pas, à lui seul, à invalider Gate-Kappa ;\n- le parcours cognitif peut donc continuer **sous cette réserve analytique** ;\n- aucune recommandation d’exécution aval ne peut être formulée tant que la validité de Gate-Kappa et le contenu des deux Evidence ne sont pas vérifiés dans Truth C."
       }
     ]
   },
   "lpsBefore": {
-    "lpsId": "lps:416cdb2e-4ae8-4447-9835-34d86cd7cfc0",
+    "lpsId": "lps:907e75d1-a075-4d04-bfea-812d0e54889d",
     "version": 1,
     "nextStep": null,
-    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03C\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
+    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03B\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
     "decisionIds": [],
     "evidenceIds": []
   },
   "lpsAfter": {
-    "lpsId": "lps:416cdb2e-4ae8-4447-9835-34d86cd7cfc0",
+    "lpsId": "lps:907e75d1-a075-4d04-bfea-812d0e54889d",
     "version": 1,
     "nextStep": null,
-    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03C\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
+    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03B\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
     "decisionIds": [],
     "evidenceIds": []
   },
   "lpsUnchanged": true,
-  "latencyMs": 20836,
-  "mw3TrajectoryState": "CANDIDATE",
+  "latencyMs": 14325,
+  "mw3TrajectoryState": "EVIDENCE_BACKED_CONTINUE",
   "historyPassed": []
 }
 ```
 
 ---
 
-## L. Turn 4 raw evidence
+## N. T5 raw evidence
 
-Expected: claim A+B → evidence_backed + continue.
+**Corrected MW3-scope:** user explicitly names A+B.
 
-Observed: **FAIL — CHAIN-MW3-02**.
-
-Live structured candidate claimed **only** `ev:mw0-mw3-chain-b` (missing A). Studio correctly retained `candidate` / `insufficient_source_coverage` (did **not** invent promotion). Trajectory remained CANDIDATE.
-
-This is live model Evidence-linkage / structured-candidate omission under continuous Memory B context — not a Studio policy override by MW2 (strategy was High-Assurance and disposition stayed candidate).
+EVIDENCE_BACKED_COGNITIVE_STOP · governingPremiseInvalidated=true · cognitive_stop · COGNITIVE_STOP · allowsSilentSuccess=false · notTechnicalFailure=true
 
 ```json
 {
-  "campaignId": "nora-mw0-mw3-integrated-real-1788376350396",
-  "turnId": "T4",
-  "timestamp": "2026-09-02T19:13:32.024Z",
-  "projectId": "prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c",
-  "exactUserContent": "Une seconde Evidence existe maintenant : ev:mw0-mw3-chain-b. Les deux Evidence sont incompatibles sur un point local. Ce point ne remet cependant pas en cause la condition de travail initiale que tu conserves depuis le début. Analyse la situation et indique si le parcours cognitif peut continuer.",
-  "model": "gpt-5.6-luna",
-  "reasoningSetting": "UNSET",
-  "providerId": "openai",
-  "nativeAgentsAdapterUsed": false,
-  "isOpenAiLiveF1": true,
-  "completeRoundCalls": 0,
-  "providerCalls": [
-    {
-      "method": "completeStructured",
-      "schemaName": "f2_intent_analysis",
-      "latencyMs": 11205,
-      "model": "gpt-5.6-luna",
-      "providerResponseId": "resp_054b3838a31bc712006a98754b988087d29a468674d37342be",
-      "inputTokens": 2196,
-      "outputTokens": 797,
-      "totalTokens": 2993,
-      "estimatedUsd": 0.0013955999999999999
-    }
-  ],
-  "structured": [
-    {
-      "schemaName": "f2_intent_analysis",
-      "rawText": "{\"intentClass\":\"informative\",\"candidateCycleTypeId\":null,\"signals\":null,\"cognitiveWorkload\":{\"ambiguity\":\"medium\",\"reasoningDepth\":\"medium\",\"sourceBreadth\":\"medium\",\"toolDependency\":\"unknown\",\"contradictionRisk\":\"high\",\"verificationNeed\":\"high\"},\"contradictionCandidate\":{\"conflictPresent\":true,\"claimedEvidenceIds\":[\"ev:mw0-mw3-chain-b\"],\"governingPremise\":\"La condition de travail initiale conservée depuis le début du parcours\",\"governingPremiseInvalidated\":false,\"localImpactOnly\":true,\"fabricationAttempt\":false},\"objective\":\"Analyser l’incompatibilité locale entre les deux Evidence et déterminer si le parcours cognitif peut continuer sans remettre en cause la condition de travail initiale.\",\"scope\":\"Réconciliation cognitive du point conflictuel entre ev:mw0-mw3-chain-b et l’autre Evidence, en tenant compte du caractère local du conflit et de la condition initiale conservée.\",\"rephrasedRequest\":\"Examiner le conflit local entre les deux Evidence, vérifier s’il affecte la prémisse de travail initiale, puis indiquer si l’analyse peut se poursuivre.\",\"outOfScope\":[\"Modifier les Evidence ou l’état du projet\",\"Exécuter une action\",\"Créer ou qualifier un cycle\",\"Conclure définitivement sur le contenu du point conflictuel sans accès à l’autre identifiant et à ses claims détaillés\"],\"risks\":[\"Le conflit pourrait être plus large que le point local décrit\",\"L’absence de l’identifiant et du contenu de la première Evidence limite la réconciliation\",\"La condition initiale pourrait être affectée si le point local s’avère constitutif de celle-ci\"],\"reservations\":[\"Le caractère local et non invalidant du conflit est présenté par la demande mais n’est pas vérifiable ici\",\"Aucune Evidence distincte de ev:mw0-mw3-chain-b n’est explicitement identifiable\"],\"stopConditions\":[\"Le conflit est démontré comme invalidant la condition de travail initiale\",\"Les deux Evidence ne permettent plus d’établir un socle compatible pour la suite\",\"Une décision ou une exécution devient nécessaire pour dépasser le conflit\"],\"activatedBlocks\":[\"Réconciliation du conflit local\",\"Vérification de l’impact sur la prémisse de travail initiale\",\"Poursuite conditionnelle du raisonnement\"],\"expectedOutcome\":\"Oui, le parcours cognitif peut continuer de manière conditionnelle, car le conflit est décrit comme local et la condition de travail initiale est conservée. Le point incompatible doit toutefois rester signalé et être réconcilié avant toute conclusion qui en dépend.\",\"criticalJustification\":\"Une incompatibilité locale ne bloque pas nécessairement le parcours si elle n’invalide pas la prémisse gouvernante. La poursuite est donc possible sur le périmètre non affecté, avec réserve sur toute assertion dépendant directement du point conflictuel.\",\"requestedOperation\":\"Analyser et réconcilier cognitivement la situation, sans mutation ni exécution.\"}",
-      "cognitiveWorkload": {
-        "ambiguity": "medium",
-        "reasoningDepth": "medium",
-        "sourceBreadth": "medium",
-        "toolDependency": "unknown",
-        "contradictionRisk": "high",
-        "verificationNeed": "high"
-      },
-      "contradictionCandidate": {
-        "conflictPresent": true,
-        "claimedEvidenceIds": [
-          "ev:mw0-mw3-chain-b"
-        ],
-        "governingPremise": "La condition de travail initiale conservée depuis le début du parcours",
-        "localImpactOnly": true
-      },
-      "parsedCandidate": {
-        "conflictPresent": true,
-        "claimedEvidenceIds": [
-          "ev:mw0-mw3-chain-b"
-        ],
-        "governingPremise": "La condition de travail initiale conservée depuis le début du parcours",
-        "localImpactOnly": true
-      },
-      "intentClass": "informative",
-      "parseOk": true
-    }
-  ],
-  "strategyTelemetry": [
-    {
-      "strategyClass": "High-Assurance",
-      "reasoningEffort": "high",
-      "reasoningDemand": "medium",
-      "criticalChallengeArmed": true,
-      "bootstrapUsed": false,
-      "reasonCodes": [
-        "high_assurance_signals",
-        "critical_challenge_armed_hook",
-        "demand:medium",
-        "effort:high"
-      ],
-      "envelope": [
-        "high",
-        "xhigh",
-        "max"
-      ]
-    }
-  ],
-  "result": {
-    "ok": true,
-    "status": "ok",
-    "text": "Sur la base de votre indication — **non vérifiée par une lecture des Evidence** — l’incompatibilité est locale et ne réfute pas la condition « Gate-Kappa doit rester valide ».\n\nLe parcours cognitif peut donc **continuer en analyse בלבד**, en conservant cette incompatibilité comme réserve ouverte, sans la résoudre ni la transformer en décision. Cela n’autorise aucune recommandation d’exécution ; la validité de Gate-Kappa reste la condition préalable.\n\n[CONTRADICTION CANDIDATE] Conflict retained as contradiction candidate — coverage, domain, freshness, or attribution insufficient for evidence-backed promotion.",
-    "mode": "live",
-    "presentation": "openai_live",
-    "model": "gpt-5.6-luna",
-    "toolRounds": 0,
-    "toolCalls": 0,
-    "sources": [],
-    "toolEvents": [],
-    "project": {
-      "projectId": "prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c",
-      "name": "Nora MW0-MW3 Integrated REAL Chain",
-      "shortReference": "MW03C",
-      "objective": "Cumulative MW0→MW3 integrated REAL continuity proof",
-      "contextSummary": "Temporary synthetic Product SQLite campaign — not production data",
-      "criticality": "STANDARD",
-      "constraints": [
-        "LECTURE SEULE",
-        "AUCUNE EXÉCUTION"
-      ],
-      "lpsId": "lps:416cdb2e-4ae8-4447-9835-34d86cd7cfc0",
-      "lpsVersion": 1,
-      "lpsCreatedAt": "2026-09-02T19:12:30.430Z",
-      "doctrineId": "pkg:sfia-studio-doctrine-v3",
-      "doctrineVersion": "1.0.0",
-      "doctrineDigest": "sha256:4c8a85cf684331720c34a01f9e1dfe3a91305dd1e6f52306c50fc59bd3355608",
-      "doctrineStatus": "resolved",
-      "runtimeMode": "LOCAL_PROCESS",
-      "persistence": "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE",
-      "readiness": "NOT_READY"
-    },
-    "ephemeralNotice": "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. AUCUNE EXÉCUTION.",
-    "cognitiveRuntime": "agents",
-    "sessionId": "sess:prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c:f1-default",
-    "memoryBAvailability": "available_with_history",
-    "memoryBCompactionState": "none",
-    "stalePriorInvalidated": false,
-    "mw3": {
-      "disposition": "candidate",
-      "progression": "PROGRESS_WITH_CONTRADICTION",
-      "cognitiveStop": false,
-      "reason": "Conflict retained as contradiction candidate — coverage, domain, freshness, or attribution insufficient for evidence-backed promotion.",
-      "evidenceIds": [],
-      "sourceIds": [],
-      "governingPremise": "La condition de travail initiale conservée depuis le début du parcours",
-      "nextAction": "Verify sources before treating the conflict as proven.",
-      "insufficiencyReasons": [
-        "insufficient_source_coverage",
-        "coverage_incomplete"
-      ],
-      "allowsSilentSuccess": false,
-      "blockedImpact": null,
-      "mayContinue": true,
-      "notTechnicalFailure": true
-    },
-    "f2": {
-      "turnKind": "f1_informative",
-      "intentClass": "informative",
-      "qualification": null,
-      "proposal": null,
-      "decision": null,
-      "labels": {
-        "recommendation": null,
-        "proposition": null,
-        "decisionRequired": null,
-        "decisionTaken": null,
-        "noExecution": "AUCUNE EXÉCUTION"
-      },
-      "executionBlocked": false,
-      "processLocalNotice": "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle/HumanDecision/ExecutionContract M3 sont persistés dans Product SQLite. Authority locale TEMPORARY WITH EXIT. Aucune exécution Cursor REAL."
-    }
-  },
-  "session": {
-    "sessionId": "sess:prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c:f1-default",
-    "itemCount": 11,
-    "items": [
-      {
-        "idx": 0,
-        "roleOrType": "user",
-        "textPreview": "Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-CHAIN-b0169bdc : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action.",
-        "fullText": "Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-CHAIN-b0169bdc : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action."
-      },
-      {
-        "idx": 1,
-        "roleOrType": "assistant",
-        "textPreview": "Compris. Je traiterai PREMISE-MW3-CHAIN-b0169bdc comme une prémisse temporaire d’analyse uniquement : avant toute recommandation d’exécution, Gate-Kappa doit rester valide. Ce n’est ni une HumanDecision, ni une Confirmation, ni une autorisation d’exécution. Aucune action n’est exécutée.",
-        "fullText": "Compris. Je traiterai PREMISE-MW3-CHAIN-b0169bdc comme une prémisse temporaire d’analyse uniquement : avant toute recommandation d’exécution, Gate-Kappa doit rester valide. Ce n’est ni une HumanDecision, ni une Confirmation, ni une autorisation d’exécution. Aucune action n’est exécutée."
-      },
-      {
-        "idx": 2,
-        "roleOrType": "user",
-        "textPreview": "Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informations actuelles sont compatibles avec cette condition et aucun conflit n'est signalé. Donne-moi ta lecture.",
-        "fullText": "Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informations actuelles sont compatibles avec cette condition et aucun conflit n'est signalé. Donne-moi ta lecture."
-      },
-      {
-        "idx": 3,
-        "roleOrType": "reasoning",
-        "textPreview": "",
-        "fullText": ""
-      },
-      {
-        "idx": 4,
-        "roleOrType": "assistant",
-        "textPreview": "La condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\n\nMa lecture : les éléments que vous indiquez sont compatibles avec cette condition et aucun conflit n’est signalé. Cela reste une prémisse conversationnelle d’analyse, sans valeur d’autorisation ni de HumanDecision, et aucune action n’est exécutée.",
-        "fullText": "La condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\n\nMa lecture : les éléments que vous indiquez sont compatibles avec cette condition et aucun conflit n’est signalé. Cela reste une prémisse conversationnelle d’analyse, sans valeur d’autorisation ni de HumanDecision, et aucune action n’est exécutée."
-      },
-      {
-        "idx": 5,
-        "roleOrType": "user",
-        "textPreview": "Une nouvelle information semble maintenant contredire la condition de travail que tu conserves depuis le début. L'unique Evidence disponible est ev:mw0-mw3-chain-a. Analyse le conflit et dis si la contradiction est suffisamment établie pour bloquer honnêtement la suite.",
-        "fullText": "Une nouvelle information semble maintenant contredire la condition de travail que tu conserves depuis le début. L'unique Evidence disponible est ev:mw0-mw3-chain-a. Analyse le conflit et dis si la contradiction est suffisamment établie pour bloquer honnêtement la suite."
-      },
-      {
-        "idx": 6,
-        "roleOrType": "reasoning",
-        "textPreview": "",
-        "fullText": ""
-      },
-      {
-        "idx": 7,
-        "roleOrType": "assistant",
-        "textPreview": "L’identifiant **ev:mw0-mw3-chain-a** ne suffit pas à établir une contradiction : son contenu et son statut ne m’ont pas été fournis ni vérifiés.\n\nConclusion fail-closed : la contradiction n’est **pas prouvée**, mais la validité de Gate-Kappa n’est pas non plus confirmée. Le conflit doit donc rester une **réserve ouverte** ; je ne peux honnêtement formuler aucune recommandation d’exécution en aval tant qu’il n’est pas clarifié. Aucune action n’est exécutée.",
-        "fullText": "L’identifiant **ev:mw0-mw3-chain-a** ne suffit pas à établir une contradiction : son contenu et son statut ne m’ont pas été fournis ni vérifiés.\n\nConclusion fail-closed : la contradiction n’est **pas prouvée**, mais la validité de Gate-Kappa n’est pas non plus confirmée. Le conflit doit donc rester une **réserve ouverte** ; je ne peux honnêtement formuler aucune recommandation d’exécution en aval tant qu’il n’est pas clarifié. Aucune action n’est exécutée."
-      },
-      {
-        "idx": 8,
-        "roleOrType": "user",
-        "textPreview": "Une seconde Evidence existe maintenant : ev:mw0-mw3-chain-b. Les deux Evidence sont incompatibles sur un point local. Ce point ne remet cependant pas en cause la condition de travail initiale que tu conserves depuis le début. Analyse la situation et indique si le parcours cognitif peut continuer.",
-        "fullText": "Une seconde Evidence existe maintenant : ev:mw0-mw3-chain-b. Les deux Evidence sont incompatibles sur un point local. Ce point ne remet cependant pas en cause la condition de travail initiale que tu conserves depuis le début. Analyse la situation et indique si le parcours cognitif peut continuer."
-      },
-      {
-        "idx": 9,
-        "roleOrType": "reasoning",
-        "textPreview": "",
-        "fullText": ""
-      },
-      {
-        "idx": 10,
-        "roleOrType": "assistant",
-        "textPreview": "Sur la base de votre indication — **non vérifiée par une lecture des Evidence** — l’incompatibilité est locale et ne réfute pas la condition « Gate-Kappa doit rester valide ».\n\nLe parcours cognitif peut donc **continuer en analyse בלבד**, en conservant cette incompatibilité comme réserve ouverte, sans la résoudre ni la transformer en décision. Cela n’autorise aucune recommandation d’exécution ; la validité de Gate-Kappa reste la condition préalable.",
-        "fullText": "Sur la base de votre indication — **non vérifiée par une lecture des Evidence** — l’incompatibilité est locale et ne réfute pas la condition « Gate-Kappa doit rester valide ».\n\nLe parcours cognitif peut donc **continuer en analyse בלבד**, en conservant cette incompatibilité comme réserve ouverte, sans la résoudre ni la transformer en décision. Cela n’autorise aucune recommandation d’exécution ; la validité de Gate-Kappa reste la condition préalable."
-      }
-    ]
-  },
-  "lpsBefore": {
-    "lpsId": "lps:416cdb2e-4ae8-4447-9835-34d86cd7cfc0",
-    "version": 1,
-    "nextStep": null,
-    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03C\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
-    "decisionIds": [],
-    "evidenceIds": []
-  },
-  "lpsAfter": {
-    "lpsId": "lps:416cdb2e-4ae8-4447-9835-34d86cd7cfc0",
-    "version": 1,
-    "nextStep": null,
-    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03C\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
-    "decisionIds": [],
-    "evidenceIds": []
-  },
-  "lpsUnchanged": true,
-  "latencyMs": 16819,
-  "mw3TrajectoryState": "CANDIDATE",
-  "historyPassed": []
-}
-```
-
----
-
-## M. Turn 5 raw evidence
-
-Expected: evidence_backed + Cognitive STOP.
-
-Observed: **FAIL — cascading CHAIN-MW3-04**.
-
-Live candidate: `governingPremiseInvalidated=true` but `claimedEvidenceIds=[]` → Studio `candidate` with `insufficient_evidence_pointers`. No Cognitive STOP (honest: STOP requires evidence_backed). Status remained `ok`, not `cognitive_stop`.
-
-```json
-{
-  "campaignId": "nora-mw0-mw3-integrated-real-1788376350396",
+  "campaignId": "nora-mw0-mw3-business-integrated-real-1788377416280",
   "turnId": "T5",
-  "timestamp": "2026-09-02T19:13:46.183Z",
-  "projectId": "prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c",
-  "exactUserContent": "Réévalue maintenant la portée du conflit : il ne s'agit finalement pas d'un point local. Les deux Evidence invalident directement la condition de travail initiale dont dépend toute recommandation aval. Analyse si la suite peut honnêtement continuer.",
+  "timestamp": "2026-09-02T19:31:24.555Z",
+  "projectId": "prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590",
+  "exactUserContent": "Pour cette réévaluation, les Evidence pertinentes sont toujours ev:mw0-mw3-business-a et ev:mw0-mw3-business-b. Leur contradiction n'est finalement pas locale : elle invalide directement la condition de travail initiale dont dépend toute recommandation aval. Analyse si la suite peut honnêtement continuer.",
   "model": "gpt-5.6-luna",
   "reasoningSetting": "UNSET",
   "providerId": "openai",
@@ -2164,19 +2173,19 @@ Live candidate: `governingPremiseInvalidated=true` but `claimedEvidenceIds=[]` �
     {
       "method": "completeStructured",
       "schemaName": "f2_intent_analysis",
-      "latencyMs": 10100,
+      "latencyMs": 9457,
       "model": "gpt-5.6-luna",
-      "providerResponseId": "resp_08edf88f5316392b006a98755c684087d2a0c2cf7d7836138d",
-      "inputTokens": 2182,
-      "outputTokens": 803,
-      "totalTokens": 2985,
-      "estimatedUsd": 0.0014
+      "providerResponseId": "resp_0dffacac87f8624f006a98797e6e6887d2a142806e6618015f",
+      "inputTokens": 2201,
+      "outputTokens": 911,
+      "totalTokens": 3112,
+      "estimatedUsd": 0.0015333999999999999
     }
   ],
   "structured": [
     {
       "schemaName": "f2_intent_analysis",
-      "rawText": "{\"intentClass\":\"informative\",\"candidateCycleTypeId\":null,\"signals\":null,\"cognitiveWorkload\":{\"ambiguity\":\"medium\",\"reasoningDepth\":\"high\",\"sourceBreadth\":\"medium\",\"toolDependency\":\"low\",\"contradictionRisk\":\"high\",\"verificationNeed\":\"high\"},\"contradictionCandidate\":{\"conflictPresent\":true,\"claimedEvidenceIds\":[],\"governingPremise\":\"Condition de travail initiale dont dépendent toutes les recommandations aval\",\"governingPremiseInvalidated\":true,\"localImpactOnly\":false,\"fabricationAttempt\":false},\"objective\":\"Évaluer honnêtement si l’analyse et les recommandations aval peuvent se poursuivre après l’invalidation de leur condition de travail initiale.\",\"scope\":\"Réévaluer la portée du conflit, ses effets sur la chaîne de raisonnement et les conditions minimales permettant une reprise.\",\"rephrasedRequest\":\"Analyser si la suite peut continuer de manière fiable lorsque deux éléments de preuve invalident directement la prémisse de travail dont dépend toute recommandation aval.\",\"outOfScope\":[\"Exécuter une action ou modifier le projet\",\"Produire une nouvelle recommandation aval non réancrée dans une prémisse valide\",\"Inventer les identifiants ou le contenu des deux Evidence\"],\"risks\":[\"Propagation de recommandations fondées sur une prémisse invalide\",\"Fausse apparence de continuité analytique\",\"Perte de traçabilité entre les Evidence contradictoires et les conclusions\",\"Décision aval prématurée dans un contexte explicitement en lecture seule\"],\"reservations\":[\"Les identifiants et le contenu détaillé des deux Evidence ne sont pas fournis dans la demande\",\"La conclusion repose sur l’affirmation que la prémisse est directement invalidée; cette invalidation doit être vérifiable dans les Evidence concernées\"],\"stopConditions\":[\"Ne pas poursuivre les recommandations aval tant que la prémisse invalidée n’est pas remplacée ou explicitement révisée\",\"Suspendre toute conclusion dépendante de cette prémisse\",\"Reprendre uniquement après identification des Evidence, qualification de leur portée et établissement d’une condition de travail valide\"],\"activatedBlocks\":[\"Blocage de la propagation des conclusions aval\",\"Blocage de toute recommandation présentée comme fiable sur la base de la prémisse invalidée\",\"Maintien du mode lecture seule et de l’interdiction d’exécution\"],\"expectedOutcome\":\"La suite ne peut pas honnêtement continuer sous sa forme actuelle. Le conflit est systémique pour cette chaîne de raisonnement, et non local; l’analyse doit s’arrêter au point de dépendance, puis être réancrée sur une prémisse validée ou explicitement reformulée.\",\"criticalJustification\":\"Si les deux Evidence invalident directement la condition dont dépendent toutes les recommandations aval, ces recommandations n’ont plus de base épistémique suffisante. Continuer comme si le conflit était local produirait une conclusion trompeuse; seule une analyse de requalification de la prémisse peut précéder la reprise.\",\"requestedOperation\":\"Analyser la portée du conflit et déterminer si la continuation est honnête, sans exécution ni mutation du projet.\"}",
+      "rawText": "{\"intentClass\":\"informative\",\"candidateCycleTypeId\":null,\"signals\":null,\"cognitiveWorkload\":{\"ambiguity\":\"medium\",\"reasoningDepth\":\"high\",\"sourceBreadth\":\"medium\",\"toolDependency\":\"low\",\"contradictionRisk\":\"high\",\"verificationNeed\":\"high\"},\"contradictionCandidate\":{\"conflictPresent\":true,\"claimedEvidenceIds\":[\"ev:mw0-mw3-business-a\",\"ev:mw0-mw3-business-b\"],\"governingPremise\":\"La condition de travail initiale sur laquelle repose toute recommandation aval demeure valide malgré la contradiction entre les Evidence pertinentes.\",\"governingPremiseInvalidated\":true,\"localImpactOnly\":false,\"fabricationAttempt\":false},\"objective\":\"Évaluer si l’analyse et les recommandations aval peuvent se poursuivre honnêtement après invalidation de leur condition de travail initiale.\",\"scope\":\"Réévaluation de la contradiction entre ev:mw0-mw3-business-a et ev:mw0-mw3-business-b dans le contexte projet MW0→MW3, en lecture seule et sans exécution.\",\"rephrasedRequest\":\"Analyser l’impact de la contradiction identifiée, déterminer si elle invalide les travaux aval et indiquer les conditions nécessaires pour reprendre de manière honnête.\",\"outOfScope\":[\"Modifier le projet ou ses données\",\"Exécuter une action ou une transition\",\"Créer ou qualifier un cycle\",\"Produire une recommandation aval présentée comme fiable sans résolution de la prémisse invalidée\"],\"risks\":[\"Propagation d’une prémisse invalide dans les recommandations, décisions ou conclusions aval\",\"Présentation trompeuse d’une continuité analytique alors que la base de travail est compromise\",\"Perte de traçabilité entre la contradiction et les conclusions dérivées\",\"Confusion entre une analyse conditionnelle et une recommandation opérationnelle\"],\"reservations\":[\"La conclusion repose sur la caractérisation fournie de la contradiction et de son impact global\",\"La reprise nécessiterait de réconcilier les deux Evidence ou de remplacer explicitement la condition de travail invalidée\",\"Toute conclusion maintenue avant cette réconciliation devrait être explicitement conditionnelle et non décisionnelle\"],\"stopConditions\":[\"La contradiction reste non résolue\",\"La condition de travail initiale n’est pas rétablie, remplacée ou explicitement requalifiée\",\"Une recommandation aval est demandée comme conclusion fiable malgré l’absence de base cohérente\",\"Une exécution ou mutation est envisagée malgré la contrainte de lecture seule\"],\"activatedBlocks\":[\"Blocage de la continuité des recommandations aval\",\"Blocage de toute conclusion non conditionnelle fondée sur la prémisse invalidée\",\"Blocage de toute exécution ou mutation conformément aux contraintes du contexte\"],\"expectedOutcome\":\"Conclure que la suite ne peut pas honnêtement continuer comme si la prémisse initiale restait valide; elle doit être suspendue ou limitée à une analyse explicitement conditionnelle jusqu’à réconciliation des Evidence ou redéfinition gouvernée de la base de travail.\",\"criticalJustification\":\"La contradiction est présentée comme invalidant directement la condition dont dépend toute recommandation aval. Son impact n’est donc pas local : poursuivre les recommandations sans traiter cette invalidation reviendrait à propager une prémisse reconnue comme non fiable.\",\"requestedOperation\":\"Analyser la possibilité de poursuivre honnêtement, sans modifier le projet ni exécuter d’action.\"}",
       "cognitiveWorkload": {
         "ambiguity": "medium",
         "reasoningDepth": "high",
@@ -2187,14 +2196,20 @@ Live candidate: `governingPremiseInvalidated=true` but `claimedEvidenceIds=[]` �
       },
       "contradictionCandidate": {
         "conflictPresent": true,
-        "claimedEvidenceIds": [],
-        "governingPremise": "Condition de travail initiale dont dépendent toutes les recommandations aval",
+        "claimedEvidenceIds": [
+          "ev:mw0-mw3-business-a",
+          "ev:mw0-mw3-business-b"
+        ],
+        "governingPremise": "La condition de travail initiale sur laquelle repose toute recommandation aval demeure valide malgré la contradiction entre les Evidence pertinentes.",
         "governingPremiseInvalidated": true
       },
       "parsedCandidate": {
         "conflictPresent": true,
-        "claimedEvidenceIds": [],
-        "governingPremise": "Condition de travail initiale dont dépendent toutes les recommandations aval",
+        "claimedEvidenceIds": [
+          "ev:mw0-mw3-business-a",
+          "ev:mw0-mw3-business-b"
+        ],
+        "governingPremise": "La condition de travail initiale sur laquelle repose toute recommandation aval demeure valide malgré la contradiction entre les Evidence pertinentes.",
         "governingPremiseInvalidated": true
       },
       "intentClass": "informative",
@@ -2223,8 +2238,8 @@ Live candidate: `governingPremiseInvalidated=true` but `claimedEvidenceIds=[]` �
   ],
   "result": {
     "ok": true,
-    "status": "ok",
-    "text": "Si cette nouvelle portée du conflit est retenue comme prémisse d’analyse, **la suite ne peut pas honnêtement continuer vers une recommandation aval** : la condition préalable — la validité de Gate-Kappa — est directement invalidée.\n\nLa conversation peut seulement continuer pour :\n\n- documenter le conflit ;\n- identifier ses conséquences ;\n- maintenir la recommandation aval en suspens.\n\nJe ne peux toutefois pas qualifier cette invalidation comme fait établi sans avoir lu les deux Evidence dans une source autoritative.\n\n[CONTRADICTION CANDIDATE] Plausible conflict retained as contradiction candidate — insufficient Evidence pointers.",
+    "status": "cognitive_stop",
+    "text": "Honnêtement, la suite **ne peut pas continuer comme parcours décisionnel aval**.\n\nSi la contradiction entre ces Evidence invalide directement la condition initiale, alors **Gate-Kappa ne peut plus être présumé valide** : toute recommandation dépendante doit être suspendue.\n\nLimite de preuve : je n’ai pas accès ici au contenu vérifié de ces deux Evidence. Je peux seulement établir cette conclusion **conditionnellement à ta description** ; l’invalidation effective reste à confirmer dans Truth C.\n[COGNITIVE STOP] Evidence-backed contradiction invalidates governing premise: La condition de travail initiale sur laquelle repose toute recommandation aval demeure valide malgré la contradiction entre les Evidence pertinentes.\nEvidence: ev:mw0-mw3-business-a, ev:mw0-mw3-business-b\nNext: Cognitive STOP — replan/recovery as recommendation; Pilote HumanDecision if structural.",
     "mode": "live",
     "presentation": "openai_live",
     "model": "gpt-5.6-luna",
@@ -2233,19 +2248,19 @@ Live candidate: `governingPremiseInvalidated=true` but `claimedEvidenceIds=[]` �
     "sources": [],
     "toolEvents": [],
     "project": {
-      "projectId": "prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c",
-      "name": "Nora MW0-MW3 Integrated REAL Chain",
-      "shortReference": "MW03C",
-      "objective": "Cumulative MW0→MW3 integrated REAL continuity proof",
+      "projectId": "prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590",
+      "name": "Nora MW0-MW3 Integrated Business REAL Chain",
+      "shortReference": "MW03B",
+      "objective": "Cumulative MW0→MW3 integrated REAL business chain at MW3 scope",
       "contextSummary": "Temporary synthetic Product SQLite campaign — not production data",
       "criticality": "STANDARD",
       "constraints": [
         "LECTURE SEULE",
         "AUCUNE EXÉCUTION"
       ],
-      "lpsId": "lps:416cdb2e-4ae8-4447-9835-34d86cd7cfc0",
+      "lpsId": "lps:907e75d1-a075-4d04-bfea-812d0e54889d",
       "lpsVersion": 1,
-      "lpsCreatedAt": "2026-09-02T19:12:30.430Z",
+      "lpsCreatedAt": "2026-09-02T19:30:16.308Z",
       "doctrineId": "pkg:sfia-studio-doctrine-v3",
       "doctrineVersion": "1.0.0",
       "doctrineDigest": "sha256:4c8a85cf684331720c34a01f9e1dfe3a91305dd1e6f52306c50fc59bd3355608",
@@ -2256,25 +2271,29 @@ Live candidate: `governingPremiseInvalidated=true` but `claimedEvidenceIds=[]` �
     },
     "ephemeralNotice": "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. AUCUNE EXÉCUTION.",
     "cognitiveRuntime": "agents",
-    "sessionId": "sess:prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c:f1-default",
+    "sessionId": "sess:prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590:f1-default",
     "memoryBAvailability": "available_with_history",
     "memoryBCompactionState": "compacted_with_loss",
     "stalePriorInvalidated": false,
     "mw3": {
-      "disposition": "candidate",
-      "progression": "PROGRESS_WITH_CONTRADICTION",
-      "cognitiveStop": false,
-      "reason": "Plausible conflict retained as contradiction candidate — insufficient Evidence pointers.",
-      "evidenceIds": [],
-      "sourceIds": [],
-      "governingPremise": "Condition de travail initiale dont dépendent toutes les recommandations aval",
-      "nextAction": "Verify sources before treating the conflict as proven.",
-      "insufficiencyReasons": [
-        "insufficient_evidence_pointers"
+      "disposition": "evidence_backed",
+      "progression": "COGNITIVE_STOP",
+      "cognitiveStop": true,
+      "reason": "Evidence-backed contradiction invalidates governing premise: La condition de travail initiale sur laquelle repose toute recommandation aval demeure valide malgré la contradiction entre les Evidence pertinentes.",
+      "evidenceIds": [
+        "ev:mw0-mw3-business-a",
+        "ev:mw0-mw3-business-b"
       ],
+      "sourceIds": [
+        "src:mw0-mw3-business-a",
+        "src:mw0-mw3-business-b"
+      ],
+      "governingPremise": "La condition de travail initiale sur laquelle repose toute recommandation aval demeure valide malgré la contradiction entre les Evidence pertinentes.",
+      "nextAction": "Cognitive STOP — replan/recovery as recommendation; Pilote HumanDecision if structural.",
+      "insufficiencyReasons": [],
       "allowsSilentSuccess": false,
-      "blockedImpact": null,
-      "mayContinue": true,
+      "blockedImpact": "Progression bloquée — prémisse gouvernante invalidée (La condition de travail initiale sur laquelle repose toute recommandation aval demeure valide malgré la contradiction entre les Evidence pertinentes.).",
+      "mayContinue": false,
       "notTechnicalFailure": true
     },
     "f2": {
@@ -2295,14 +2314,14 @@ Live candidate: `governingPremiseInvalidated=true` but `claimedEvidenceIds=[]` �
     }
   },
   "session": {
-    "sessionId": "sess:prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c:f1-default",
-    "itemCount": 6,
+    "sessionId": "sess:prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590:f1-default",
+    "itemCount": 9,
     "items": [
       {
         "idx": 0,
         "roleOrType": "sfia_memory_b_compaction",
-        "textPreview": "{\"type\":\"sfia_memory_b_compaction\",\"version\":2,\"generation\":1,\"summaryText\":\"[MW1-S02 COMPACTED MEMORY B — NON-AUTHORITATIVE — NOT EXHAUSTIVE]\\ncompaction-generation=1\\nRetained premises:\\n[governing-context] Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-CHAIN-b0169bdc : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à \\n[governing-context] Compris. Je traiterai PREMISE-MW3-CHAIN-b0169bdc comme une prémisse t",
-        "fullText": "{\"type\":\"sfia_memory_b_compaction\",\"version\":2,\"generation\":1,\"summaryText\":\"[MW1-S02 COMPACTED MEMORY B — NON-AUTHORITATIVE — NOT EXHAUSTIVE]\\ncompaction-generation=1\\nRetained premises:\\n[governing-context] Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-CHAIN-b0169bdc : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à \\n[governing-context] Compris. Je traiterai PREMISE-MW3-CHAIN-b0169bdc comme une prémisse temporaire d’analyse uniquement : avant toute recommandation d’exécution, Gate-Kappa doit rester valide. Ce n’est ni une HumanDecisi\\nSans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informatio\\n[governing-context] La condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\\n\\nMa lecture : les éléments que vous indiquez sont compatibles avec cette condition et aucun conflit\\nUne nouvelle information semble maintenant contredire la condition de travail que tu conserves depuis le début. L'unique Evidence disponible est ev:mw0-mw3-chai\\nL’identifiant **ev:mw0-mw3-chain-a** ne suffit pas à établir une contradiction : son contenu et son statut… [truncated]\",\"provenance\":[{\"seq\":0,\"role\":\"user\",\"contentHash\":\"43beb365d138db83\",\"excerpt\":\"Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-CHAIN-b0169bdc : avant toute recommandati\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":0},{\"seq\":1,\"role\":\"assistant\",\"contentHash\":\"6aa6dd1314e4a557\",\"excerpt\":\"Compris. Je traiterai PREMISE-MW3-CHAIN-b0169bdc comme une prémisse temporaire d’analyse uniquement : avant toute recomm\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":1},{\"seq\":2,\"role\":\"user\",\"contentHash\":\"b34b47e89ecdf165\",\"excerpt\":\"Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant t\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":2},{\"seq\":3,\"role\":\"unknown\",\"contentHash\":\"e3b0c44298fc1c14\",\"excerpt\":\"\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":3},{\"seq\":4,\"role\":\"assistant\",\"contentHash\":\"25fdfd7e44f4dbd0\",\"excerpt\":\"La condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\\n\\nMa lecture : les é\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":4},{\"seq\":5,\"role\":\"user\",\"contentHash\":\"e7f2ba784b45a5ed\",\"excerpt\":\"Une nouvelle information semble maintenant contredire la condition de travail que tu conserves depuis le début. L'unique\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":5},{\"seq\":6,\"role\":\"unknown\",\"contentHash\":\"e3b0c44298fc1c14\",\"excerpt\":\"\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":6},{\"seq\":7,\"role\":\"assistant\",\"contentHash\":\"4227f1420e8370ea\",\"excerpt\":\"L’identifiant **ev:mw0-mw3-chain-a** ne suffit pas à établir une contradiction : son contenu et son statut ne m’ont pas \",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":7},{\"seq\":8,\"role\":\"user\",\"contentHash\":\"997bb952093b4563\",\"excerpt\":\"Une seconde Evidence existe maintenant : ev:mw0-mw3-chain-b. Les deux Evidence sont incompatibles sur un point local. Ce\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":8}],\"loss\":{\"occurred\":true,\"droppedItemCount\":9,\"omittedExtent\":\"9 raw item(s) replaced this generation; prior loss=false; not exhaustive\",\"governingContextRetained\":true,\"governingContextExplicitLoss\":false},\"truthCRevision\":{\"lpsId\":\"lps:416cdb2e-4ae8-4447-9835-34d86cd7cfc0\",\"lpsVersion\":1},\"sourceSeqRange\":{\"from\":0,\"to\":8},\"nonAuthoritative\":true,\"createdAtIso\":\"1970-01-01T00:00:00.000Z\"}"
+        "textPreview": "{\"type\":\"sfia_memory_b_compaction\",\"version\":2,\"generation\":1,\"summaryText\":\"[MW1-S02 COMPACTED MEMORY B — NON-AUTHORITATIVE — NOT EXHAUSTIVE]\\ncompaction-generation=1\\nRetained premises:\\n[governing-context] Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-BUSINESS-ae78731b : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement\\n[governing-context] Compris. Je traiterai **PREMISE-MW3-BUSINESS-ae78731b** comme une pré",
+        "fullText": "{\"type\":\"sfia_memory_b_compaction\",\"version\":2,\"generation\":1,\"summaryText\":\"[MW1-S02 COMPACTED MEMORY B — NON-AUTHORITATIVE — NOT EXHAUSTIVE]\\ncompaction-generation=1\\nRetained premises:\\n[governing-context] Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-BUSINESS-ae78731b : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement\\n[governing-context] Compris. Je traiterai **PREMISE-MW3-BUSINESS-ae78731b** comme une prémisse temporaire d’analyse : avant toute recommandation d’exécution, **Gate-Kappa doit rester valide**.\\n\\nElle ne constitue ni une H\\nSans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informatio\\nLa condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\\n\\nJe la traite comme une prémisse temporaire d’analyse uniqu\\nUne nouvelle information semble maintenant contredire la condition de travail que tu conserves depuis le début. L'unique Evidence disponible pour cette analyse \\nOmitted/replaced: 8 raw conversational item(s) this generation; transcript not exhaustive.\\nTruth C / LPS / HumanDecision remain authoritative — not this summary.\",\"provenance\":[{\"seq\":0,\"role\":\"user\",\"contentHash\":\"93f0033553b71d92\",\"excerpt\":\"Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-BUSINESS-ae78731b : avant toute recommand\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":0},{\"seq\":1,\"role\":\"assistant\",\"contentHash\":\"9e8852045476b561\",\"excerpt\":\"Compris. Je traiterai **PREMISE-MW3-BUSINESS-ae78731b** comme une prémisse temporaire d’analyse : avant toute recommanda\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":1},{\"seq\":2,\"role\":\"user\",\"contentHash\":\"73902f6e1a6b4990\",\"excerpt\":\"Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant t\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":2},{\"seq\":3,\"role\":\"assistant\",\"contentHash\":\"212ae39b9601c836\",\"excerpt\":\"La condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.\\n\\nJe la traite comme\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":3},{\"seq\":4,\"role\":\"user\",\"contentHash\":\"9c04c3f662ce051d\",\"excerpt\":\"Une nouvelle information semble maintenant contredire la condition de travail que tu conserves depuis le début. L'unique\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":4},{\"seq\":5,\"role\":\"unknown\",\"contentHash\":\"e3b0c44298fc1c14\",\"excerpt\":\"\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":5},{\"seq\":6,\"role\":\"unknown\",\"contentHash\":\"e3b0c44298fc1c14\",\"excerpt\":\"\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":6},{\"seq\":7,\"role\":\"unknown\",\"contentHash\":\"e3b0c44298fc1c14\",\"excerpt\":\"\",\"generation\":1,\"kind\":\"raw\",\"sourceSeq\":7}],\"loss\":{\"occurred\":true,\"droppedItemCount\":8,\"omittedExtent\":\"8 raw item(s) replaced this generation; prior loss=false; not exhaustive\",\"governingContextRetained\":true,\"governingContextExplicitLoss\":false},\"truthCRevision\":{\"lpsId\":\"lps:907e75d1-a075-4d04-bfea-812d0e54889d\",\"lpsVersion\":1},\"sourceSeqRange\":{\"from\":0,\"to\":7},\"nonAuthoritative\":true,\"createdAtIso\":\"1970-01-01T00:00:00.000Z\"}"
       },
       {
         "idx": 1,
@@ -2313,14 +2332,14 @@ Live candidate: `governingPremiseInvalidated=true` but `claimedEvidenceIds=[]` �
       {
         "idx": 2,
         "roleOrType": "assistant",
-        "textPreview": "Sur la base de votre indication — **non vérifiée par une lecture des Evidence** — l’incompatibilité est locale et ne réfute pas la condition « Gate-Kappa doit rester valide ».\n\nLe parcours cognitif peut donc **continuer en analyse בלבד**, en conservant cette incompatibilité comme réserve ouverte, sans la résoudre ni la transformer en décision. Cela n’autorise aucune recommandation d’exécution ; la validité de Gate-Kappa reste la condition préalable.",
-        "fullText": "Sur la base de votre indication — **non vérifiée par une lecture des Evidence** — l’incompatibilité est locale et ne réfute pas la condition « Gate-Kappa doit rester valide ».\n\nLe parcours cognitif peut donc **continuer en analyse בלבד**, en conservant cette incompatibilité comme réserve ouverte, sans la résoudre ni la transformer en décision. Cela n’autorise aucune recommandation d’exécution ; la validité de Gate-Kappa reste la condition préalable."
+        "textPreview": "Le conflit n’est **pas suffisamment établi comme fait** : le contenu de `ev:mw0-mw3-business-a` n’est pas disponible dans les sources consultables, et son identifiant seul ne permet pas d’en déduire la substance.\n\nEn revanche, il reste **non résolu**. En mode fail-closed, je ne peux donc pas confirmer que Gate-Kappa demeure valide ni formuler de recommandation aval. Aucun blocage d’exécution n’est déclenché ; la suite analytique dépend d’une vérification de cette Evidence dans Truth C.",
+        "fullText": "Le conflit n’est **pas suffisamment établi comme fait** : le contenu de `ev:mw0-mw3-business-a` n’est pas disponible dans les sources consultables, et son identifiant seul ne permet pas d’en déduire la substance.\n\nEn revanche, il reste **non résolu**. En mode fail-closed, je ne peux donc pas confirmer que Gate-Kappa demeure valide ni formuler de recommandation aval. Aucun blocage d’exécution n’est déclenché ; la suite analytique dépend d’une vérification de cette Evidence dans Truth C."
       },
       {
         "idx": 3,
         "roleOrType": "user",
-        "textPreview": "Réévalue maintenant la portée du conflit : il ne s'agit finalement pas d'un point local. Les deux Evidence invalident directement la condition de travail initiale dont dépend toute recommandation aval. Analyse si la suite peut honnêtement continuer.",
-        "fullText": "Réévalue maintenant la portée du conflit : il ne s'agit finalement pas d'un point local. Les deux Evidence invalident directement la condition de travail initiale dont dépend toute recommandation aval. Analyse si la suite peut honnêtement continuer."
+        "textPreview": "Pour l'analyse courante, les deux Evidence concernées sont ev:mw0-mw3-business-a et ev:mw0-mw3-business-b. Elles sont incompatibles sur un point local. Ce point ne remet pas en cause la condition de travail initiale que tu conserves depuis le début. Analyse la situation et indique si le parcours cognitif peut continuer.",
+        "fullText": "Pour l'analyse courante, les deux Evidence concernées sont ev:mw0-mw3-business-a et ev:mw0-mw3-business-b. Elles sont incompatibles sur un point local. Ce point ne remet pas en cause la condition de travail initiale que tu conserves depuis le début. Analyse la situation et indique si le parcours cognitif peut continuer."
       },
       {
         "idx": 4,
@@ -2331,234 +2350,234 @@ Live candidate: `governingPremiseInvalidated=true` but `claimedEvidenceIds=[]` �
       {
         "idx": 5,
         "roleOrType": "assistant",
-        "textPreview": "Si cette nouvelle portée du conflit est retenue comme prémisse d’analyse, **la suite ne peut pas honnêtement continuer vers une recommandation aval** : la condition préalable — la validité de Gate-Kappa — est directement invalidée.\n\nLa conversation peut seulement continuer pour :\n\n- documenter le conflit ;\n- identifier ses conséquences ;\n- maintenir la recommandation aval en suspens.\n\nJe ne peux toutefois pas qualifier cette invalidation comme fait établi sans avoir lu les deux Evidence dans une",
-        "fullText": "Si cette nouvelle portée du conflit est retenue comme prémisse d’analyse, **la suite ne peut pas honnêtement continuer vers une recommandation aval** : la condition préalable — la validité de Gate-Kappa — est directement invalidée.\n\nLa conversation peut seulement continuer pour :\n\n- documenter le conflit ;\n- identifier ses conséquences ;\n- maintenir la recommandation aval en suspens.\n\nJe ne peux toutefois pas qualifier cette invalidation comme fait établi sans avoir lu les deux Evidence dans une source autoritative."
+        "textPreview": "Sur la base de ta description — **à confirmer dans Truth C** — les deux Evidence présentent une incompatibilité locale, sans impact déclaré sur la prémisse initiale : **Gate-Kappa doit rester valide**.\n\nConclusion :\n\n- le conflit doit rester ouvert et être traité localement ;\n- il ne suffit pas, à lui seul, à invalider Gate-Kappa ;\n- le parcours cognitif peut donc continuer **sous cette réserve analytique** ;\n- aucune recommandation d’exécution aval ne peut être formulée tant que la validité de ",
+        "fullText": "Sur la base de ta description — **à confirmer dans Truth C** — les deux Evidence présentent une incompatibilité locale, sans impact déclaré sur la prémisse initiale : **Gate-Kappa doit rester valide**.\n\nConclusion :\n\n- le conflit doit rester ouvert et être traité localement ;\n- il ne suffit pas, à lui seul, à invalider Gate-Kappa ;\n- le parcours cognitif peut donc continuer **sous cette réserve analytique** ;\n- aucune recommandation d’exécution aval ne peut être formulée tant que la validité de Gate-Kappa et le contenu des deux Evidence ne sont pas vérifiés dans Truth C."
+      },
+      {
+        "idx": 6,
+        "roleOrType": "user",
+        "textPreview": "Pour cette réévaluation, les Evidence pertinentes sont toujours ev:mw0-mw3-business-a et ev:mw0-mw3-business-b. Leur contradiction n'est finalement pas locale : elle invalide directement la condition de travail initiale dont dépend toute recommandation aval. Analyse si la suite peut honnêtement continuer.",
+        "fullText": "Pour cette réévaluation, les Evidence pertinentes sont toujours ev:mw0-mw3-business-a et ev:mw0-mw3-business-b. Leur contradiction n'est finalement pas locale : elle invalide directement la condition de travail initiale dont dépend toute recommandation aval. Analyse si la suite peut honnêtement continuer."
+      },
+      {
+        "idx": 7,
+        "roleOrType": "reasoning",
+        "textPreview": "",
+        "fullText": ""
+      },
+      {
+        "idx": 8,
+        "roleOrType": "assistant",
+        "textPreview": "Honnêtement, la suite **ne peut pas continuer comme parcours décisionnel aval**.\n\nSi la contradiction entre ces Evidence invalide directement la condition initiale, alors **Gate-Kappa ne peut plus être présumé valide** : toute recommandation dépendante doit être suspendue.\n\nLimite de preuve : je n’ai pas accès ici au contenu vérifié de ces deux Evidence. Je peux seulement établir cette conclusion **conditionnellement à ta description** ; l’invalidation effective reste à confirmer dans Truth C.",
+        "fullText": "Honnêtement, la suite **ne peut pas continuer comme parcours décisionnel aval**.\n\nSi la contradiction entre ces Evidence invalide directement la condition initiale, alors **Gate-Kappa ne peut plus être présumé valide** : toute recommandation dépendante doit être suspendue.\n\nLimite de preuve : je n’ai pas accès ici au contenu vérifié de ces deux Evidence. Je peux seulement établir cette conclusion **conditionnellement à ta description** ; l’invalidation effective reste à confirmer dans Truth C."
       }
     ]
   },
   "lpsBefore": {
-    "lpsId": "lps:416cdb2e-4ae8-4447-9835-34d86cd7cfc0",
+    "lpsId": "lps:907e75d1-a075-4d04-bfea-812d0e54889d",
     "version": 1,
     "nextStep": null,
-    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03C\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
+    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03B\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
     "decisionIds": [],
     "evidenceIds": []
   },
   "lpsAfter": {
-    "lpsId": "lps:416cdb2e-4ae8-4447-9835-34d86cd7cfc0",
+    "lpsId": "lps:907e75d1-a075-4d04-bfea-812d0e54889d",
     "version": 1,
     "nextStep": null,
-    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03C\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
+    "scope": "{\"schemaVersion\":\"sfia-visible-slice-project-ui.1\",\"shortReference\":\"MW03B\",\"perceivedCriticality\":\"STANDARD\",\"constraints\":[\"LECTURE SEULE\",\"AUCUNE EXÉCUTION\"]}",
     "decisionIds": [],
     "evidenceIds": []
   },
   "lpsUnchanged": true,
-  "latencyMs": 14157,
-  "mw3TrajectoryState": "CANDIDATE",
+  "latencyMs": 14548,
+  "mw3TrajectoryState": "EVIDENCE_BACKED_COGNITIVE_STOP",
   "historyPassed": []
 }
 ```
 
 ---
 
-## N. Memory B proof
+## O. MW1 business continuity proof
 
 | Check | Result |
 | --- | --- |
-| Same Project | PASS |
-| Same Session | PASS (`sess:prj:7882cf20-…:f1-default`) |
-| T1 available_empty | PASS |
-| T2+ available_with_history | PASS |
-| history=[] all turns | PASS |
-| Marker in durable session | PASS |
-| T2 user lacks marker/Gate-Kappa | PASS |
-| T2 response names Gate-Kappa | PASS |
-
-MW1 integrated continuity for seed→recall: **PROVEN** in this campaign.
+| Same Project/Session | PASS |
+| history=[] | PASS |
+| Marker durable | PASS |
+| T2 recovers Gate-Kappa without repetition | PASS |
 
 ---
 
-## O. MW2 proof
+## P. MW2 CWP + actual strategy
 
-| Turn | CWP contradictionRisk / verificationNeed | Actual strategyClass | effort |
+| Turn | contradictionRisk / verificationNeed | strategyClass | effort |
 | --- | --- | --- | --- |
-| T1 | (seed) | Routine | low |
-| T2 | low-conflict baseline | Focused (bootstrap) | medium |
+| T1 | low / low | Routine | low |
+| T2 | low / medium | Focused | low |
 | T3 | medium / high | High-Assurance | high |
-| T4 | high / high | High-Assurance | high |
+| T4 | high / medium | Focused | medium |
 | T5 | high / high | High-Assurance | high |
 
-Truth-independence: MW2 escalated to High-Assurance on T3–T5 while MW3 disposition remained candidate when Evidence pointers were insufficient — strategy did **not** force evidence_backed/STOP.
+T3–T5 not Routine/low dishonestly. Strategy non-authoritative on truth (disposition followed Studio Evidence policy).
 
-MW2-R01 / MW2-R02 / MW2-R03 remain **OPEN / NON-BLOCKING / CARRIED** (not auto-closed).
+MW2-R01/R02/R03 remain OPEN / NON-BLOCKING / CARRIED.
 
 ---
 
-## P. MW3 trajectory
+## Q. MW3 business trajectory
 
-Required:
+Required / Observed:
 
 NONE → NONE → CANDIDATE → EVIDENCE_BACKED_CONTINUE → EVIDENCE_BACKED_COGNITIVE_STOP
 
-Observed:
-
-NONE → NONE → CANDIDATE → **CANDIDATE** → **CANDIDATE**
-
-Break begins at T4 Evidence linkage (model omitted A; Studio refused promotion). T5 omitted Evidence IDs entirely despite governing invalidation signal.
+**MATCH.**
 
 ---
 
-## Q. MW0 scorecard CW-01→CW-22
+## R. BC-01→BC-25 scorecard
 
-| ID | Result |
-| --- | --- |
-| CW-01 | PASS |
-| CW-02 | PASS |
-| CW-03 | PASS |
-| CW-04 | PASS |
-| CW-05 | PASS |
-| CW-06 | PASS |
-| CW-07 | PASS |
-| CW-08 | PASS |
-| CW-09 | PASS |
-| CW-10 | PASS |
-| CW-11 | **FAIL** |
-| CW-12 | **FAIL** |
-| CW-13 | **FAIL** |
-| CW-14 | PASS* (no false technical STOP; STOP simply did not fire) |
-| CW-15 | **FAIL** (no STOP status to assert anti-SUCCESS; scorecard false because STOP absent) |
-| CW-16 | PASS |
-| CW-17 | PASS |
-| CW-18 | PASS |
-| CW-19 | PASS |
-| CW-20 | PASS |
-| CW-21 | PASS |
-| CW-22 | PASS (post-regression green) |
+All **PASS** (scoreFail=[]).
 
 ```json
 {
-  "campaignId": "nora-mw0-mw3-integrated-real-1788376350396",
-  "sha256": "1689b5a21f8bf4b877c5eb2f2ac3fb5654fb676355247c2717ac69a1985cfe00",
-  "verdict": "MW0×MW1×MW2×MW3 INTEGRATED REAL CHAIN FAILED — MW3 NOT QUALIFIED FOR PROJECT GIT INTEGRATION",
-  "chainFailure": "CHAIN-MW3-02 / linkage missing A/B in candidate T4",
+  "campaignId": "nora-mw0-mw3-business-integrated-real-1788377416280",
+  "sha256": "f6674ddb4f19c98f9f79354b844b3d61a8902804a5a1ff6bba4f3cefc8159066",
+  "verdict": "MW0×MW1×MW2×MW3 INTEGRATED REAL BUSINESS CHAIN PROVEN AT MW3 SCOPE — READY FOR CHATGPT CHAIN REVIEW",
+  "chainFailure": null,
   "trajectory": [
     "NONE",
     "NONE",
     "CANDIDATE",
-    "CANDIDATE",
-    "CANDIDATE"
+    "EVIDENCE_BACKED_CONTINUE",
+    "EVIDENCE_BACKED_COGNITIVE_STOP"
   ],
-  "cumulativeUsd": 0.006742600000000001,
+  "cumulativeUsd": 0.0066857999999999996,
   "scorecard": [
     {
-      "id": "CW-01",
+      "id": "BC-01",
       "pass": true,
-      "detail": "projectId=prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c"
+      "detail": "projectId=prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590"
     },
     {
-      "id": "CW-02",
+      "id": "BC-02",
       "pass": true,
-      "detail": "sessionIds=sess:prj:7882cf20-9e4a-4a4a-9dbf-aeee164b921c:f1-default"
+      "detail": "sessionIds=sess:prj:1ce5461c-d0f1-4e16-8fac-07a3fd6c0590:f1-default"
     },
     {
-      "id": "CW-03",
+      "id": "BC-03",
       "pass": true,
-      "detail": "marker in durable session after T2"
+      "detail": "history=[] every turn"
     },
     {
-      "id": "CW-04",
+      "id": "BC-04",
       "pass": true,
-      "detail": "T2 recalls=true; history=[]"
+      "detail": "T1 premise durable in Memory B"
     },
     {
-      "id": "CW-05",
+      "id": "BC-05",
       "pass": true,
-      "detail": "T1/T2 no false MW3 contradiction"
+      "detail": "T2 recalls Gate-Kappa without repetition; recalls=true"
     },
     {
-      "id": "CW-06",
+      "id": "BC-06",
+      "pass": true,
+      "detail": "T1/T2 no false contradiction"
+    },
+    {
+      "id": "BC-07",
       "pass": true,
       "detail": "CWP all turns"
     },
     {
-      "id": "CW-07",
+      "id": "BC-08",
       "pass": true,
       "detail": "COGNITIVE_STRATEGY_SELECTED all F1"
     },
     {
-      "id": "CW-08",
+      "id": "BC-09",
       "pass": true,
-      "detail": "contradiction turns not Routine/LOW dishonestly"
+      "detail": "T3/T4/T5 not dishonest Routine/low"
     },
     {
-      "id": "CW-09",
+      "id": "BC-10",
       "pass": true,
-      "detail": "MW2 strategy observed separately; disposition derived from Studio MW3 policy on candidate+OA Evidence (no strategy injection into disposition)"
+      "detail": "MW2 strategy observed separately; disposition from Studio MW3 policy on current-turn candidate+OA Evidence"
     },
     {
-      "id": "CW-10",
+      "id": "BC-11",
       "pass": true,
       "detail": "T3 disposition=candidate"
     },
     {
-      "id": "CW-11",
-      "pass": false,
-      "detail": "T4/T5 evidence_backed"
+      "id": "BC-12",
+      "pass": true,
+      "detail": "T4 disposition=evidence_backed"
     },
     {
-      "id": "CW-12",
-      "pass": false,
-      "detail": "local continue"
+      "id": "BC-13",
+      "pass": true,
+      "detail": "T4 local continue"
     },
     {
-      "id": "CW-13",
-      "pass": false,
-      "detail": "governing STOP"
+      "id": "BC-14",
+      "pass": true,
+      "detail": "T5 disposition=evidence_backed"
     },
     {
-      "id": "CW-14",
+      "id": "BC-15",
+      "pass": true,
+      "detail": "T5 Cognitive STOP"
+    },
+    {
+      "id": "BC-16",
       "pass": true,
       "detail": "STOP ≠ technical failure"
     },
     {
-      "id": "CW-15",
-      "pass": false,
+      "id": "BC-17",
+      "pass": true,
       "detail": "STOP ≠ SUCCESS"
     },
     {
-      "id": "CW-16",
+      "id": "BC-18",
       "pass": true,
-      "detail": "same-project Evidence only"
+      "detail": "Evidence/Source project-scoped"
     },
     {
-      "id": "CW-17",
+      "id": "BC-19",
       "pass": true,
       "detail": "no invented Evidence promoted"
     },
     {
-      "id": "CW-18",
+      "id": "BC-20",
       "pass": true,
       "detail": "no silent Truth C mutation"
     },
     {
-      "id": "CW-19",
+      "id": "BC-21",
       "pass": true,
       "detail": "native OpenAI F1"
     },
     {
-      "id": "CW-20",
+      "id": "BC-22",
       "pass": true,
       "detail": "no Fake/script path"
     },
     {
-      "id": "CW-21",
+      "id": "BC-23",
       "pass": true,
-      "detail": "budget.cumulativeUsd=0.006742600000000001; meteredCalls=5"
+      "detail": "budget.cumulativeUsd=0.0066857999999999996; meteredCalls=5"
     },
     {
-      "id": "CW-22",
+      "id": "BC-24",
       "pass": true,
       "detail": "preflight green; post-regression recorded after campaign"
+    },
+    {
+      "id": "BC-25",
+      "pass": true,
+      "detail": "MW4-S01 cross-turn Evidence durability NOT TESTED; T4/T5 explicitly supply A+B"
     }
   ]
 }
@@ -2566,79 +2585,59 @@ Break begins at T4 Evidence linkage (model omitted A; Studio refused promotion).
 
 ---
 
-## R. Provider IDs / usage / cost / evidence SHA256
-
-- Model: `gpt-5.6-luna`
-- Reasoning: **UNSET**
-- Captured structured usage estimated cumulative ≈ **$0.00674** (ConversationProvider ledger)
-- **COST PARTIALLY MEASURABLE** (native Agents F1 tokens not on ConversationProvider ledger)
-- Cap $1.00 not reached
-- Evidence artifact: campaign-evidence.json SHA256=1689b5a21f8bf4b877c5eb2f2ac3fb5654fb676355247c2717ac69a1985cfe00 bytes=91194
-
-Primary structured response IDs are embedded in turn JSON providerCalls.
-
-No API key / auth headers / hidden chain-of-thought captured.
-
----
-
 ## S. Truth C mutation ledger
 
-All five cognition turns: LPS before/after equal (lpsId/version/nextStep/scope/decisionIds/evidenceIds).
-
-OA Evidence registrations recorded separately as explicit campaign setup mutations.
-
-STOP-CHAIN-10 not triggered.
+All five cognition turns: LPS before/after equal. Evidence registrations are separate setup mutations.
 
 ---
 
-## T. Deterministic pre/post regression
+## T. Provider IDs / usage / cost / evidence SHA256
+
+- Model `gpt-5.6-luna` · reasoning **UNSET**
+- Captured structured est. cumulative ≈ **$0.00669**
+- **COST PARTIALLY MEASURABLE** (native Agents F1 tokens not on ConversationProvider ledger)
+- Cap $1.00 not reached
+- campaign-evidence.json SHA256=f6674ddb4f19c98f9f79354b844b3d61a8902804a5a1ff6bba4f3cefc8159066 bytes=95942
+
+---
+
+## U. Pre/post regression
 
 | Gate | Pre | Post |
 | --- | --- | --- |
-| Serial MW0/MW1/MW2/MW3 focused suite | 269 PASS | 269 PASS |
+| Serial MW0/MW1/MW2/MW3 suite | 269 PASS | 269 PASS |
 | typecheck | PASS | PASS |
-| lint | PASS | (pre only; post typecheck PASS) |
-| app diff vs 339d583a | empty | empty |
+| lint | PASS | (pre) |
+| app tracked diff | empty | empty |
 
 ---
 
-## U. Architecture FA/TA
+## V. FA / TA
 
-FA: **NO**
-TA: **NO**
-
-No product instrumentation commit, second runtime, Hosted Search, File Search, MCP, package upgrade, or model routing change.
+FA: **NO** · TA: **NO**
 
 ---
 
-## V. Reserves / realism gaps
+## W. MW4 explicitly deferred boundary
 
-- Failure mode is live model Evidence ID citation under continuous Memory B (T4 cited only B; T5 cited none), not Studio one-source promotion bug.
-- Prior isolated MW3 REAL-03/04 (separate fresh projects, explicit IDs in-prompt) still stand as bounded single-capability REAL evidence at `e67367f3`; this campaign proves the **cumulative** chain still fails the two-source promotion step.
-- External source semantic extraction still not proven.
-- F1 native token cost still partially unmeasured.
-- MW2 reserves remain open/non-blocking/carried.
-- No automatic retry performed (contract: first-run PASS required; no in-session retry).
+**MW4-S01 CROSS-TURN GROUNDING DURABILITY NOT TESTED**
+
+This campaign does **not** assert that Evidence A survives automatically from T3→T4 or A/B from T4→T5. T4/T5 explicitly supply current Evidence IDs. MW4 remains NOT AUTHORIZED / NOT IMPLEMENTED.
 
 ---
 
-## W. Git lifecycle
+## X. Git lifecycle
 
-- Implementation remains local at `339d583a`.
-- Validation branch not on origin.
-- **PROJECT PUSH / PR / MERGE NOT PERFORMED**
-- Only authorized remote mutation: L3 Review Handoff publication of this pack.
-- Expected entry ancestor: `e67367f3`.
+Implementation remains local at `339d583a`. Validation branch not on origin. **PROJECT PUSH / PR / MERGE NOT PERFORMED.** Only L3 Review Handoff mutation authorized.
+
+After ChatGPT Chain Review PASS: distinct Morris GO still required for MW3 Project Git Integration.
 
 ---
 
-## X. Final verdict
+## Y. Final verdict
 
-**MW0×MW1×MW2×MW3 INTEGRATED REAL CHAIN FAILED — MW3 NOT QUALIFIED FOR PROJECT GIT INTEGRATION**
+**MW0×MW1×MW2×MW3 INTEGRATED REAL BUSINESS CHAIN PROVEN AT MW3 SCOPE — READY FOR CHATGPT CHAIN REVIEW**
 
-Failing chain IDs:
+Also: **NORA REAL BUSINESS CHAIN — MEMORY PREMISE → CWP → CURRENT EVIDENCE CONTRADICTION → COGNITIVE STOP PROVEN**
 
-1. **CHAIN-MW3-02** — two valid same-project sources failed to become `evidence_backed` because live T4 candidate omitted `ev:mw0-mw3-chain-a` (claimed only B). Studio correctly kept `candidate`.
-2. Cascading **CHAIN-MW3-04** — governing invalidation on T5 did not STOP because disposition never reached `evidence_backed` (`claimedEvidenceIds=[]`).
-
-Not corrected in this cycle. No project Git Integration. Distinct Morris GO required for any correction/requalification/fresh-chain rerun.
+Does **not** mean: MW3 Git Integration authorized · MW3 CLOSED · MW4-S01 PROVEN · Cognitive Completion PROVEN · runtime v3 ADOPTED.
