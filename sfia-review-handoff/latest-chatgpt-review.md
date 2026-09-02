@@ -49,9 +49,10 @@ status=clean; ahead 5 of origin/main; NO project push; NO project PR
 
 | Role | SHA | Content |
 | --- | --- | --- |
-| **Implementation anchor** | `806e814420bd4049297edc910920d93fb6fc8037` |
-| **Handoff pack correction commit** | `addd5e0003c4f20f9be1b6cea4803bafaa93748c` (docs-only; tip after pack tip-consistency fix) | MW3-S01/S02 runtime + tests + eval + initial review pack |
-| **Docs tip (handoff entry)** | `7bc1c8f579307cf7e9dbcac44247ac57bd44dc81` | same tree as implementation for product code; tip commits are **docs-only** review-pack SHA clarifications + D0 reconfirmation |
+| **Implementation anchor** | `806e814420bd4049297edc910920d93fb6fc8037` | MW3-S01/S02 runtime + tests + eval + initial review pack |
+| **Docs tip (handoff correction entry)** | `7bc1c8f579307cf7e9dbcac44247ac57bd44dc81` | same product tree as implementation; tip commits docs-only (pack SHA clarifications + D0 reconfirmation) |
+| **Handoff pack correction** | `addd5e0003c4f20f9be1b6cea4803bafaa93748c` | docs-only tip-consistency fix in review pack |
+| **Current project tip (pre-publish whitespace fix parent chain tip)** | see commits 5–7 below | docs-only; **no** runtime/test mutation |
 
 Commits after implementation (docs-only; no MW3 runtime/test mutation):
 
@@ -59,8 +60,11 @@ Commits after implementation (docs-only; no MW3 runtime/test mutation):
 2. `07f69d7a` — sync MW3 review pack final HEAD SHA
 3. `911a1cd9` — clarify MW3 review pack implementation SHA vs tip
 4. `7bc1c8f5` — MW3 D0 Delivery reconfirmation after duplicate cycle receipt
+5. `addd5e00` — correct MW3 review pack tip consistency for handoff
+6. `d72c2817` — record MW3 handoff pack correction commit SHA
+7. `9c29411e` — strip trailing whitespace from MW3 review pack for handoff publisher
 
-`git diff 806e814420bd4049297edc910920d93fb6fc8037..7bc1c8f579307cf7e9dbcac44247ac57bd44dc81 -- projects/sfia-studio/app` → **empty for implementation paths** (docs review pack only outside/adjacent).
+`git diff 806e8144..HEAD -- projects/sfia-studio/app` → **empty** (only `.tmp-sfia-review/chatgpt-review.md` changes after implementation).
 
 Baseline match: `origin/main` == expected `c352441c2a6ab012aecae7606e0bb9af8fc9e7e7` — **MATCH**.
 
@@ -2555,6 +2559,7 @@ Verdict unchanged: **DETERMINISTIC DELIVERY COMPLETE — READY FOR REAL QUALIFIC
 | **Pack completeness** | Full new file contents + modified diffs + D0 evidence present |
 | **Entry tip represented** | `7bc1c8f579307cf7e9dbcac44247ac57bd44dc81` |
 | **Tip after pack correction** | `addd5e0003c4f20f9be1b6cea4803bafaa93748c` |
+| **Current project tip at publication source** | `7ea84fc877de667f05a15348ac6292403987444b` (docs-only chain; implementation unchanged) |
 | **Implementation anchor** | `806e814420bd4049297edc910920d93fb6fc8037` |
 
 Purpose: make MW3 Delivery evidence remotely accessible for ChatGPT Critical Review.
