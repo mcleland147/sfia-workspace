@@ -1,36 +1,41 @@
-# SFIA STUDIO — CORR-MW3-PR1-CI-01 BOUNDED IMPORT-BOUNDARY ALLOWLIST CORRECTION
+# SFIA STUDIO — CORR-MW3-PR1-CI-02 BOUNDED EOF BLANK-LINE CLEANUP — PR #459
 
-**Timestamp (Europe/Paris):** 2026-09-02 22:13:08 CEST
-**Cycle:** Cycle 9 — Integration / Validation continuation — RUN correction
+**Timestamp (Europe/Paris):** 2026-09-02 22:29:56 CEST
+**Cycle:** Cycle 9 — Integration / Validation continuation
+**Typology:** RUN correction
 **Profile:** CRITICAL
-**Typology:** RUN correction inside existing MW3 integration lifecycle
 **Capability:** MW3 — Contradiction + Cognitive STOP
 **Stories:** MW3-S01 / MW3-S02
-**Gap:** MW3-INT-CI-01 / CORR-MW3-PR1-CI-01
+**Milestone:** MW3 project Git integration — PR1
+**Gap:** MW3-INT-CI-02
+**Correction ID:** CORR-MW3-PR1-CI-02
 
-**Final verdict:** STOP — MW3 PR1 CORRECTION CI FAILED
+**Final verdict:** PASS — MW3 PR1 CI GREEN — READY FOR CHATGPT RE-REVIEW / DISTINCT MORRIS MERGE GATE
 
 ---
 
 ## 1. Morris GO consumed
 
-GO MORRIS — CORR-MW3-PR1-CI-01 BOUNDED IMPORT-BOUNDARY ALLOWLIST CORRECTION
+GO MORRIS — CORR-MW3-PR1-CI-02 — BOUNDED EOF BLANK-LINE CLEANUP ON EXACT 8 MW3 PATHS — SAME PR #459 — ZERO REAL — NO PRODUCT SEMANTIC CHANGE
 
 Authorized and executed:
-- exact one-edge allowlist correction;
-- local validation;
-- one bounded project commit;
-- push to existing PR #459 branch;
-- CI observation;
-- Review Pack + canonical Review Handoff.
+- Local Git Truth Check
+- confirm/reproduce whitespace condition
+- remove ONLY extra blank line at EOF on exact 8 paths
+- local validation
+- one bounded project commit
+- push without force to existing PR #459 branch
+- observe GitHub CI / Required Gate
+- Full Review Pack + canonical Review Handoff
 
 Not authorized / not performed:
-- merge of PR #459;
-- MW3 closure/truth-sync;
-- MW4;
-- product/runtime change;
-- second code/test correction after CI fail;
-- force push; admin bypass; branch deletion.
+- merge PR #459
+- new PR / force push / rebase
+- modify ninth file / CI workflows / importBoundaries again
+- product/runtime semantic change / refactor / formatter pass
+- package upgrade / Roadmap / Doctrine / C1/C2/C5 / v3 framing
+- MW3 closure or COMPLETE claim / MW4 / production routing / REAL
+- second correction / branch deletion
 
 ---
 
@@ -41,260 +46,213 @@ Not authorized / not performed:
 | Repository | mcleland147/sfia-workspace |
 | Worktree | `/Users/morris/Projects/sfia-workspace-nora-mw3-integration` |
 | Branch | `delivery/sfia-studio-nora-mw3-contradiction-stop` |
-| PR | [#459](https://github.com/mcleland147/sfia-workspace/pull/459) — remains OPEN |
+| PR | [#459](https://github.com/mcleland147/sfia-workspace/pull/459) |
 
 ---
 
-## 3. Entry truth (pre-edit)
+## 3. Entry Git Truth Check
 
 | Field | Expected | Observed |
 |---|---|---|
+| Branch | delivery/sfia-studio-nora-mw3-contradiction-stop | MATCH |
+| Entry HEAD | `9f734333a2ccc26c6bece25f5e91bd4f395d3135` | MATCH |
 | origin/main | `c352441c2a6ab012aecae7606e0bb9af8fc9e7e7` | MATCH |
-| Entry HEAD | `05f9e026a8989fbcf66aafa901df60bfe6611da7` | MATCH |
-| Remote PR branch head | `05f9e026…` | MATCH |
-| PR #459 state | OPEN / head = branch | MATCH |
-| Entry Review Handoff | `7323e6f96fd27dbcdbd7dd037e82e30952a7419a` | MATCH |
-| Handoff content | STOP — MW3 PR1 CI FAILED + missing edge | MATCH |
+| Remote branch head | `9f734333…` | MATCH |
+| PR #459 | OPEN / NOT MERGED / head `9f734333…` | MATCH |
+| Review Handoff tip | `74cfeda9b767457c5e20351ba1f11a565f087769` | MATCH |
+| Handoff content | CORR-MW3-PR1-CI-01 STOP — trailing whitespace | MATCH |
 
-Local non-staged artifacts present (not staged, not normalized, not deleted):
-- `?? projects/sfia-studio/app/node_modules` (symlink)
-- prior `.tmp-sfia-review/chatgpt-review.md` was restored to HEAD before commit (tracked on main; local STOP pack rewrite must not enter project commit)
+Local artifacts observed (not staged/deleted/normalized):
+- `?? projects/sfia-studio/app/node_modules`
+- prior local `.tmp-sfia-review/chatgpt-review.md` restored to HEAD before project commit
 
-Entry truth: **PASS** — no STOP for divergence.
-
----
-
-## 4. Convergence sources read
-
-1. prompts/templates/sfia-cycle-execution-template.md
-2. method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-3. method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-4. method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-5. projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md (READ-ONLY)
-6. projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-7. projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-8. projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md
-9. projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md
-10. projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md
-11. projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md
-12. projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md
-13. projects/sfia-studio/app/features/project-assistant/mw3AvailableEvidence.ts
-14. projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-15. projects/sfia-studio/app/package.json
-
-Preserved qualification:
-- Build Doctrine VALIDATED — ACTIVE ON MAIN
-- Architecture: NO NEW ARCHITECTURE
-- MW4 NOT AUTHORIZED / NOT STARTED
-- ZERO REAL in this cycle
+Entry truth: **PASS**
 
 ---
 
-## 5. Root cause inherited from previous STOP
+## 4. Sources read
 
-Prior CI run `33675142064` failed Unit tests because:
-
-`features/project-assistant/mw3AvailableEvidence.ts:@/lib/vertical-slice-runtime`
-
-was absent from the explicit allowlist in `importBoundaries.test.ts`.
-That gap existed on reviewed product anchor `339d583a`.
+PROCESS: cycle template, routing guide, ChatGPT-Cursor operating model, rules/guardrails
+STUDIO: Build Doctrine, Roadmap
+PRODUCT: 01 cadrage
+NORA/MW3: backlog 05, trajectory 08, v3 framing 33 + 35
+REVIEW: handoff @ `74cfeda9…`
+CI workflow (READ ONLY): `.github/workflows/sfia-studio-ci.yml`
+- Typecheck / Lint / Build / Unit tests / FinOps freeze / Modeled governance / Secret scan / Trailing whitespace (`git diff --check BASE...HEAD`) / Required Gate
 
 ---
 
-## 6. Exact correction performed
+## 5. Convergence qualification preserved
 
-**File (only):**
-`projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts`
+- MW0/MW1/MW2 closed at proven scope (historical)
+- MW3 functional proofs reviewed; PR #459 OPEN; MW3 NOT merged / NOT CLOSED
+- Cognitive Completion NOT PROVEN
+- runtime v3 NON ADOPTED
+- Production model routing NOT SELECTED
+- MW4 NOT AUTHORIZED
+- Architecture: NO CHANGE / NO NEW ARCHITECTURE
+- This cycle: repository hygiene only (EOF blank lines)
 
-**Exact added allowlist edge:**
-`features/project-assistant/mw3AvailableEvidence.ts:@/lib/vertical-slice-runtime`
+---
 
-**Full useful diff (correction commit):**
+## 6. Prior STOP / root cause
+
+Prior CI run `33677571138` (CORR-MW3-PR1-CI-01 head `9f734333`):
+- Typecheck/Lint/Build/Unit/modeled/secret PASS
+- Trailing whitespace FAIL
+- Required Gate FAIL
+
+Pre-edit confirmation (`git diff --check origin/main...HEAD`) — **exactly 8** findings, exact paths:
+
+1. `…/mw3.s01.s02.dispositionStop.d0.test.ts:290` new blank line at EOF
+2. `…/mw3.turn.wiring.d0.test.ts:94` new blank line at EOF
+3. `…/mw3.disposition.eval.test.ts:44` new blank line at EOF
+4. `…/mw3.cognitiveStop.panel.ux.d0.test.tsx:176` new blank line at EOF
+5. `…/mw3.cognitiveStop.surface.d0.test.ts:336` new blank line at EOF
+6. `…/cognitiveStop.ts:203` new blank line at EOF
+7. `…/contradictionDisposition.ts:248` new blank line at EOF
+8. `…/mw3Observe.ts:194` new blank line at EOF
+
+No ninth finding. Entry condition: **PASS**
+
+---
+
+## 7. Exact 8-file allowlist + edit
+
+For each file: removed exactly one trailing `\n` where content ended with `\n\n` → `\n` (extra blank EOF line only).
+
+`importBoundaries.test.ts` **NOT modified**.
+
+---
+
+## 8–12. Diff / nonblank / whitespace proof
+
+**name-status vs `9f734333`:** exactly the 8 allowlisted paths (M).
+
+**stat:** `8 files changed, 8 deletions(-)` — 0 insertions.
+
+**nonblank invariant (`git diff -U0`):** every +/- content line empty — **PASS** (NO PRODUCT SEMANTIC CHANGE).
+
+**Useful patch shape (each file):**
 
 ```diff
-@@ -84,6 +84,7 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
-       "features/project-assistant/f3/selectProductM3ResolutionProfile.ts:@/lib/vertical-slice-runtime/deterministicExternalLaunchBoundary",
-       "features/project-assistant/f3/e2eOptionATerminalAttempt.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/f3/e2eOptionATerminalAttempt.ts:@/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl",
-+      "features/project-assistant/mw3AvailableEvidence.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/w2/actions.ts:@/lib/vertical-slice-runtime",
+@@ -N,2 +N,1 @@
+  <last content line>
+-
 ```
 
-No wildcard. No weakening of assertion. No product/runtime file change.
-`mw3AvailableEvidence.ts` unchanged.
+**pre-edit** `git diff --check origin/main...HEAD`: 8 EOF findings
+**post-commit** `git diff --check origin/main...HEAD`: **CLEAN** (exit 0)
+CI trailing command equivalent: **PASS**
 
 ---
 
-## 7. Proof: no product/runtime change in this correction
-
-```
-git diff --name-status 05f9e026..9f734333
-M  projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-```
-
-1 file / +1 line.
-
-Whole-app byte parity with `339d583a` is intentionally no longer required; product/runtime implementation parity vs `05f9e026`/`339d583a` remains unchanged with only the authorized test allowlist delta.
-
----
-
-## 8–15. Local validation (mandatory, all green before commit)
+## 13–15. Local validation (ZERO REAL)
 
 | Gate | Result |
 |---|---|
-| Targeted `importBoundaries.test.ts` | **PASS** — 5/5 |
-| Full `npm test` | **PASS** — Test Files 261 passed \| 14 skipped; Tests **2459 passed \| 132 skipped** (2591) — prior failing baseline was 1 failed \| 2458 passed \| 132 skipped |
+| Targeted MW3 + importBoundaries | **PASS** — 8 files / 56 tests |
+| Full `npm test` | **PASS** — 2459 passed \| 132 skipped (2591) |
 | `npm run typecheck` | **PASS** |
-| `npm run lint` | **PASS** (No ESLint warnings or errors) |
+| `npm run lint` | **PASS** |
 | `npm run build` | **PASS** |
-| Working-tree `git diff --check` (vs unstaged allowlist edit) | clean |
-| ZERO REAL / no OpenAI live | confirmed |
+| Modeled governance (`node --test` 3 files) | **PASS** — 73/73 |
+| Secret pattern scan | **PASS** |
+| Trailing whitespace / `git diff --check origin/main` | **PASS** |
+| OpenAI live / REAL campaign | **NONE** |
 
 ---
 
-## 16. Correction commit
+## 16–18. Commit / push / PR
 
 | Field | Value |
 |---|---|
-| Message | `test(sfia-studio): allow MW3 evidence runtime boundary` |
-| Commit SHA | `9f734333a2ccc26c6bece25f5e91bd4f395d3135` |
-| Tree SHA | `c34b3c3226c04d81637ede8f7f523d768de07cf4` |
-| Parent SHA | `05f9e026a8989fbcf66aafa901df60bfe6611da7` |
-| Changed paths | only `importBoundaries.test.ts` |
-| Diff stat | 1 file changed, 1 insertion(+) |
+| Message | `chore(sfia-studio): normalize MW3 EOF whitespace` |
+| Commit SHA | `f5b9d0839ce2d79faf16e813871a8d7850355bf2` |
+| Tree SHA | `6924f31827bc9fbc1dfcac38b416d7ed68dcb665` |
+| Parent SHA | `9f734333a2ccc26c6bece25f5e91bd4f395d3135` (MATCH) |
+| Changed paths | exactly 8 allowlisted files |
+| Push | `9f734333..f5b9d083` → origin branch (**no force**) |
+| Remote head | `f5b9d0839ce2d79faf16e813871a8d7850355bf2` |
+| PR #459 | **OPEN** / base `main` / head `f5b9d083…` / **NOT MERGED** |
 
 ---
 
-## 17–18. Push / PR #459 corrected head
+## 19–21. GitHub CI / Required Gate
 
 | Field | Value |
 |---|---|
-| Push | `05f9e026..9f734333` → `origin/delivery/sfia-studio-nora-mw3-contradiction-stop` (no force) |
-| Remote branch head | `9f734333a2ccc26c6bece25f5e91bd4f395d3135` |
-| PR #459 headRefOid | `9f734333a2ccc26c6bece25f5e91bd4f395d3135` |
-| PR state | **OPEN** (not merged) |
+| Run ID | **33679248231** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/33679248231 |
+| Head SHA | `f5b9d0839ce2d79faf16e813871a8d7850355bf2` |
+| Conclusion | **success** |
+
+| Job / Step | Result |
+|---|---|
+| Detect SFIA Studio changes | **pass** (100411537246) |
+| Build and validate SFIA Studio | **pass** (100411596733) |
+| → Typecheck | success |
+| → Lint | success |
+| → Build | success |
+| → Unit tests (Vitest) | success |
+| → FinOps/T7 freeze notice | success |
+| → Modeled governance tests | success |
+| → Secret pattern scan (targeted) | success |
+| → Trailing whitespace check | **success** |
+| SFIA Studio Required Gate | **pass** (100412662234) |
+
+**MW3-INT-CI-02:** CLOSED by Required Gate green on corrected head.
+**MW3-INT-CI-01:** allowlist edge remains on branch (prior commit); combined PR head now CI-green.
 
 ---
 
-## 19–20. GitHub CI / Required Gate (determines cycle readiness)
-
-| Field | Value |
-|---|---|
-| New workflow run | **33677571138** |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/33677571138 |
-| Head SHA | `9f734333a2ccc26c6bece25f5e91bd4f395d3135` |
-| Detect SFIA Studio changes | **pass** (job 100405994069) |
-| Build and validate SFIA Studio | **fail** (job 100406048378) |
-| SFIA Studio Required Gate | **fail** (job 100407038964) |
-
-### Per-step results inside Build and validate
-
-| Step | Conclusion |
-|---|---|
-| Install dependencies | success |
-| Typecheck | success |
-| Lint | success |
-| Build | success |
-| Unit tests (Vitest) | **success** ← allowlist correction objective achieved |
-| FinOps/T7 freeze notice | success |
-| Modeled governance tests | success |
-| Secret pattern scan (targeted) | success |
-| Trailing whitespace check | **failure** |
-
-### Exact trailing whitespace failure (`git diff --check c352441c...HEAD`)
-
-Inherited from original MW3 product commit `05f9e026` (present on reviewed tree / PR1 head before this correction). Correction commit `9f734333` itself introduces **no** whitespace issues (`git diff --check 05f9e026...9f734333` clean).
-
-```
-projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw3.s01.s02.dispositionStop.d0.test.ts:290: new blank line at EOF.
-projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw3.turn.wiring.d0.test.ts:94: new blank line at EOF.
-projects/sfia-studio/app/__tests__/nora-eval/mw3.disposition.eval.test.ts:44: new blank line at EOF.
-projects/sfia-studio/app/__tests__/project-assistant/mw3.cognitiveStop.panel.ux.d0.test.tsx:176: new blank line at EOF.
-projects/sfia-studio/app/__tests__/project-assistant/mw3.cognitiveStop.surface.d0.test.ts:336: new blank line at EOF.
-projects/sfia-studio/app/lib/nora-cognitive-runtime/cognitiveStop.ts:203: new blank line at EOF.
-projects/sfia-studio/app/lib/nora-cognitive-runtime/contradictionDisposition.ts:248: new blank line at EOF.
-projects/sfia-studio/app/lib/nora-eval/mw3Observe.ts:194: new blank line at EOF.
-```
-
-These are **new blank line at EOF** issues on eight MW3 product/test files from the integration commit — **outside** the authorized CORR-MW3-PR1-CI-01 one-file allowlist scope.
-
-Per GO: **Do not make another code/test correction.** Fail-closed STOP.
-
-Note: prior failed run `33675142064` never reached this step because Unit tests failed first. Full Vitest is now green; Required Gate still fails on trailing whitespace.
-
----
-
-## 21–24. Acceptance / REAL / architecture
+## 22–23. FA / TA / architecture
 
 | Gate | Result |
 |---|---|
 | FA | **NO** |
 | TA | **NO** |
-| ZERO REAL | **YES** — no OpenAI live; no REAL campaign |
-| Architecture | **unchanged / NO NEW ARCHITECTURE** |
+| ZERO REAL | **YES** |
+| Architecture | **NO CHANGE / NO NEW ARCHITECTURE** |
 
 ---
 
-## 25. Reservations retained
+## 24. Reservations
 
 - MW2-R01 / MW2-R02 / MW2-R03 CARRIED
 - MW3 HISTORICAL IMPLEMENTATION SHA LOST
 - HISTORICAL BYTE/CODE PARITY NOT PROVEN
 - MW4-S01 cross-turn grounding durability NOT PROVEN
 - REAL MODEL CANDIDATE COGNITION PROVEN ≠ EXTERNAL SOURCE SEMANTIC EXTRACTION PROVEN
+- F1 native token/cost accounting remains incomplete if still applicable
 - production model routing NOT SELECTED
 - Cognitive Completion NOT PROVEN
 - runtime v3 NON ADOPTED
 
-New residual for ChatGPT (outside this GO):
-- **MW3-INT-CI-02** — eight MW3 files on PR #459 range vs main fail `git diff --check` with new blank line at EOF (inherited from `05f9e026` / `339d583a` tree)
-
 ---
 
-## 26. Status of MW3-INT-CI-01
+## 25. Anti-claims
 
-Allowlist missing-edge objective:
-- local targeted + full Vitest: **green**
-- CI Unit tests: **green**
-
-**MW3-INT-CI-01 / CORR-MW3-PR1-CI-01 is NOT CLOSED** under contract rule requiring GitHub Required Gate green.
-Required Gate remains **fail** due to independent trailing-whitespace control (MW3-INT-CI-02).
-
----
-
-## 27. Explicit anti-claims
-
-- MW3 not yet merged by this execution
-- MW3 not yet CLOSED
-- MW3 not COMPLETE
-- PR #459 not merged
-- MW4 not authorized / not started
-- runtime v3 not adopted
-- production model routing not selected
+- MW3 NOT MERGED
+- MW3 NOT CLOSED
+- MW3 NOT COMPLETE
 - Cognitive Completion not proven
-- cross-turn grounding durability not proven
-- external source semantic extraction not proven
-- no new architecture adopted
+- runtime v3 not adopted
+- MW4 not authorized / not started
+- production routing not selected
+- no new REAL proof
+- architecture unchanged
+- historical byte parity not proven
+- CI green does NOT authorize merge
+- CI green does NOT close MW3
+- CI green does NOT authorize MW4
 
 ---
 
-## 28. Final verdict
+## 26. Final verdict
 
-# STOP — MW3 PR1 CORRECTION CI FAILED
+# PASS — MW3 PR1 CI GREEN — READY FOR CHATGPT RE-REVIEW / DISTINCT MORRIS MERGE GATE
 
-**What succeeded (in-scope CORR-MW3-PR1-CI-01):**
-- exact one-edge allowlist added;
-- local full Vitest / typecheck / lint / build green;
-- pushed to PR #459 as `9f734333`;
-- CI Unit tests / typecheck / lint / build / modeled / secret-scan green.
+**Next gate:** ChatGPT independent re-review of PR #459 (product + CORR-01 allowlist + CORR-02 EOF hygiene + CI run `33679248231`).
 
-**What blocked Required Gate:**
-- Trailing whitespace check on PR range vs main — eight inherited EOF blank lines from original MW3 integration files (not introduced by the allowlist correction commit).
-
-**Not done (correct under GO):**
-- no second correction;
-- no merge;
-- no closure/truth-sync;
-- no MW4.
-
-**Next:** separate Morris GO required for EOF/trailing-whitespace regularization on the inherited MW3 files (or equivalent ChatGPT-authorized scope), then re-observe CI. ChatGPT may still independently verify the allowlist correction commit/diff/CI unit-test recovery.
+**Merge remains a DISTINCT Morris GO.** Not performed in this execution.
