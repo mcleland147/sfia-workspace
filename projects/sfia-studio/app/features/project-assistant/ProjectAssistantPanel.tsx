@@ -15,6 +15,7 @@ import type {
   AssistantHistoryMessage,
   AssistantToolEventDto,
   F2TurnPayload,
+  Mw3CognitiveSurfaceDto,
   ProjectAssistantRehydrateEvidenceOutcomeSuccess,
 } from "./types";
 import type { F2DecisionKind, ProposalDto } from "./f2/types";
@@ -111,6 +112,9 @@ export function ProjectAssistantPanel({
     "Conversation, proposition et confirmation restent process-local (non durables). L’état projet enregistré peut être relu ; rien n’est inventé.",
   );
   const [f2, setF2] = useState<F2TurnPayload | null>(null);
+  const [mw3Surface, setMw3Surface] = useState<Mw3CognitiveSurfaceDto | null>(
+    null,
+  );
   const [activeProposal, setActiveProposal] = useState<ProposalDto | null>(null);
   const [reservesText, setReservesText] = useState("");
   const [f3Prepare, setF3Prepare] = useState<F3PreparePayload | null>(null);
@@ -290,6 +294,7 @@ export function ProjectAssistantPanel({
 
       setModeLabel(modeFromResult(result));
       setEphemeralNotice(result.ephemeralNotice);
+      setMw3Surface(result.mw3 ?? null);
       setToolEvents((prev) => [...prev, ...result.toolEvents]);
       if (result.toolEvents.length > 0) {
         setUiState("SOURCE_LOOKUP");
@@ -309,7 +314,9 @@ export function ProjectAssistantPanel({
         setF2(null);
         setActiveProposal(null);
       }
-      setUiState("ANSWERED");
+      setUiState(
+        result.status === "cognitive_stop" ? "ANSWERED" : "ANSWERED",
+      );
     });
   }
 
@@ -568,6 +575,72 @@ export function ProjectAssistantPanel({
       <p className={styles.ephemeral} data-testid="project-assistant-ephemeral">
         Morris pilote. Nora recommande — la décision vous appartient.
       </p>
+      {mw3Surface ? (
+        <div
+          className={styles.scope}
+          data-testid="project-assistant-mw3-surface"
+          data-mw3-disposition={mw3Surface.disposition}
+          data-mw3-progression={mw3Surface.progression}
+          data-mw3-cognitive-stop={mw3Surface.cognitiveStop ? "true" : "false"}
+          role="status"
+        >
+          {mw3Surface.cognitiveStop ? (
+            <StatusPill tone="orange">Arrêt cognitif</StatusPill>
+          ) : mw3Surface.disposition === "evidence_backed" ? (
+            <StatusPill tone="orange">Contradiction evidence-backed</StatusPill>
+          ) : mw3Surface.disposition === "candidate" ? (
+            <StatusPill tone="blueFlush">Contradiction candidate</StatusPill>
+          ) : (
+            <StatusPill tone="muted">Pas de contradiction</StatusPill>
+          )}
+          {mw3Surface.reason ? (
+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-reason">
+              {mw3Surface.reason}
+            </p>
+          ) : null}
+          {mw3Surface.governingPremise ? (
+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-premise">
+              Prémisse gouvernante : {mw3Surface.governingPremise}
+            </p>
+          ) : null}
+          {mw3Surface.evidenceIds.length > 0 ? (
+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-evidence">
+              Evidence : {mw3Surface.evidenceIds.join(", ")}
+            </p>
+          ) : null}
+          {mw3Surface.sourceIds.length > 0 ? (
+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-sources">
+              Sources : {mw3Surface.sourceIds.join(", ")}
+            </p>
+          ) : null}
+          {mw3Surface.blockedImpact ? (
+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-blocked">
+              Impact bloqué : {mw3Surface.blockedImpact}
+            </p>
+          ) : null}
+          {mw3Surface.disposition === "candidate" &&
+          mw3Surface.insufficiencyReasons.length > 0 ? (
+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-insufficiency">
+              Preuve insuffisante : {mw3Surface.insufficiencyReasons.join(", ")}. Non evidence-backed.
+            </p>
+          ) : null}
+          {mw3Surface.mayContinue && !mw3Surface.cognitiveStop ? (
+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-continue">
+              Progression possible : la contradiction est affichée ; le parcours peut continuer.
+            </p>
+          ) : null}
+          {mw3Surface.nextAction ? (
+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-next">
+              Suite gouvernée : {mw3Surface.nextAction}
+            </p>
+          ) : null}
+          {mw3Surface.cognitiveStop && mw3Surface.notTechnicalFailure !== false ? (
+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-not-technical">
+              Distinction : arrêt cognitif, pas une panne provider.
+            </p>
+          ) : null}
+        </div>
+      ) : null}
       <details className={styles.diagnosticsDetails}>
         <summary>Parcours et limites</summary>
         <p className={styles.scope} data-testid="project-assistant-scope">

@@ -21,6 +21,11 @@ import type {
 import { orchestrateProjectAssistantTurn } from "../orchestrateTurn";
 import { resolveAssistantMode } from "../resolveAssistantMode";
 import { analyzeIntent } from "./intentAnalysis";
+import { resolveAvailableContradictionPointers } from "../mw3AvailableEvidence";
+import {
+  deriveMw3ContradictionAssessment,
+  type Mw3ContradictionAssessmentInput,
+} from "@/lib/nora-cognitive-runtime";
 import { isPureRepositoryAnalysisIntent } from "./repositoryIntent";
 import { evaluateMorrisGateRequired } from "./gatePolicy";
 import {
@@ -47,6 +52,25 @@ import type {
 
 const EPHEMERAL_NOTICE =
   "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. AUCUNE EXÉCUTION.";
+
+async function deriveProductPathMw3Assessment(
+  analysis: IntentAnalysisDto,
+  projectId: string,
+): Promise<Mw3ContradictionAssessmentInput | null> {
+  const candidate = analysis.contradictionCandidate;
+  if (!candidate || candidate.conflictPresent !== true) return null;
+  const availablePointers = await resolveAvailableContradictionPointers({
+    projectId,
+    claimedEvidenceIds: candidate.claimedEvidenceIds,
+  });
+  return deriveMw3ContradictionAssessment({
+    candidate,
+    availablePointers,
+    projectId,
+    sourceBreadth: analysis.cognitiveWorkload?.sourceBreadth ?? null,
+    trustedSfiaProfile: null,
+  });
+}
 
 function toContextDto(
   result: Extract<
@@ -444,6 +468,10 @@ export async function orchestrateAssistantSend(input: {
 
   const { analysis, model } = analysisResult;
   const presentation = modeResolution.presentation;
+  const contradictionAssessment = await deriveProductPathMw3Assessment(
+    analysis,
+    project.projectId,
+  );
 
   // Repository read/search/Git-truth without mutation → F1 (no Cycle/LPS mutation).
   // Deterministic override when the classifier drifts to ambiguous/actionable for pure reads.
@@ -461,6 +489,7 @@ export async function orchestrateAssistantSend(input: {
       provider: input.provider,
       semanticCognitiveWorkload: analysis.cognitiveWorkload,
       truthCContext: truthCContextForF1,
+      contradictionAssessment,
     });
     if (!f1.ok) return f1;
     return {

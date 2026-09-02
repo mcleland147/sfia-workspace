@@ -6,6 +6,8 @@
 
 import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
 import type { CognitiveStrategyClass } from "./cognitiveWorkloadPolicy";
+import type { ContradictionDispositionResult } from "./contradictionDisposition";
+import type { CognitiveStopDecision } from "./cognitiveStop";
 import type { MemoryBAvailability } from "./memoryBAvailability";
 import type {
   MemoryBCompactionDetails,
@@ -41,6 +43,10 @@ export type NoraCognitiveTurnResult = {
   cognitiveStrategyClass?: CognitiveStrategyClass;
   selectedReasoningEffort?: OpenAiReasoningEffort;
   criticalChallengeArmed?: boolean;
+  /** MW3 — present only when contradictionAssessment was supplied. */
+  contradictionDisposition?: ContradictionDispositionResult;
+  /** MW3 — present only when contradictionAssessment was supplied. */
+  cognitiveStopDecision?: CognitiveStopDecision;
 };
 
 export type { TruthCRevision, MemoryBCompactionState, MemoryBCompactionDetails };

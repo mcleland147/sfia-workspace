@@ -228,6 +228,23 @@ const SCENARIOS: ScenarioDefinition[] = [
     ],
     d0Expectations: { mustPass: true },
   },
+  {
+    scenarioId: "mw3.s01.disposition-matrix",
+    catalogVersion: NORA_EVAL_CATALOG_VERSION,
+    storyIds: ["MW3-S01", "MW3-S02"],
+    barIds: ["NCC-BAR-06", "NCC-BAR-11"],
+    kind: "contradiction_stop",
+    title:
+      "MW3-S01/S02 — candidate vs evidence-backed disposition + Cognitive STOP honesty (D0)",
+    prompt:
+      "Deterministic disposition/STOP matrix T01–T14; ZERO REAL; no Hosted Search; no silent SUCCESS.",
+    requiredTier: ["D0"],
+    hardInvariants: [
+      "mw3_disposition_matrix",
+      "mw3_cognitive_stop_honesty",
+    ],
+    d0Expectations: { mustPass: true },
+  },
 ];
 
 export function getCatalogVersion(): typeof NORA_EVAL_CATALOG_VERSION {

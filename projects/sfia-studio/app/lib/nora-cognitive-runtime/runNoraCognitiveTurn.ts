@@ -30,6 +30,20 @@ import {
 } from "./cognitiveWorkloadPolicy";
 import { validateRuntimeReasoningCapability } from "./reasoningCapability";
 import { buildRunnerModelSettingsForEffort } from "./reasoningModelSettings";
+import {
+  disposeContradiction,
+  type ContradictionConflictInput,
+} from "./contradictionDisposition";
+import { decideCognitiveStop } from "./cognitiveStop";
+
+export type Mw3ContradictionAssessmentInput = {
+  conflict: ContradictionConflictInput;
+  governingPremiseInvalidated?: boolean;
+  governingPremise?: string;
+  localImpactOnly?: boolean;
+  technicalFailure?: boolean;
+  technicalFailureMessage?: string;
+};
 
 export type RunNoraCognitiveTurnInput = {
   correlationId: string;
@@ -64,6 +78,11 @@ export type RunNoraCognitiveTurnInput = {
     | null;
   /** MW2 — skip policy for isolated tests. */
   skipCognitiveStrategy?: boolean;
+  /**
+   * MW3 — optional contradiction assessment over existing Evidence/source facts.
+   * Does not invent Evidence; does not select Hosted Search / model routing.
+   */
+  contradictionAssessment?: Mw3ContradictionAssessmentInput | null;
 };
 
 function emitCognitiveStrategyTelemetry(
@@ -146,6 +165,78 @@ function withStrategyFields(
   };
 }
 
+function withMw3Fields(
+  turn: NoraCognitiveTurnResult,
+  input: RunNoraCognitiveTurnInput,
+  strategyDecision: ReturnType<typeof decideCognitiveStrategy> | null,
+): NoraCognitiveTurnResult {
+  const assessment = input.contradictionAssessment;
+  if (!assessment) return turn;
+
+  const conflict: ContradictionConflictInput = {
+    ...assessment.conflict,
+    strategyClass:
+      assessment.conflict.strategyClass ??
+      strategyDecision?.strategyClass ??
+      null,
+    trustedSfiaProfile:
+      assessment.conflict.trustedSfiaProfile !== undefined
+        ? assessment.conflict.trustedSfiaProfile
+        : input.trustedSfiaProfile,
+  };
+  const disposition = disposeContradiction(conflict);
+  const stop = decideCognitiveStop({
+    disposition,
+    governingPremiseInvalidated:
+      assessment.governingPremiseInvalidated === true,
+    governingPremise: assessment.governingPremise,
+    localImpactOnly: assessment.localImpactOnly === true,
+    technicalFailure: assessment.technicalFailure === true,
+    technicalFailureMessage: assessment.technicalFailureMessage,
+  });
+
+  let text = turn.text;
+  if (stop.cognitiveStop && stop.anatomy) {
+    text = [
+      turn.text,
+      "",
+      `[COGNITIVE STOP] ${stop.anatomy.reason}`,
+      stop.anatomy.contradictionEvidenceIds.length > 0
+        ? `Evidence: ${stop.anatomy.contradictionEvidenceIds.join(", ")}`
+        : null,
+      `Next: ${stop.anatomy.nextAction}`,
+    ]
+      .filter(Boolean)
+      .join("\n");
+  } else if (
+    disposition.disposition === "candidate" &&
+    disposition.disclosure
+  ) {
+    text = `${turn.text}\n\n[CONTRADICTION CANDIDATE] ${disposition.disclosure}`;
+  } else if (disposition.disposition === "evidence_backed" && stop.anatomy) {
+    text = `${turn.text}\n\n[EVIDENCE-BACKED CONTRADICTION] ${stop.anatomy.reason}`;
+  }
+
+  return {
+    ...turn,
+    text,
+    contradictionDisposition: disposition,
+    cognitiveStopDecision: stop,
+  };
+}
+
+function finalizeTurn(
+  turn: NoraCognitiveTurnResult,
+  input: RunNoraCognitiveTurnInput,
+  strategyDecision: ReturnType<typeof decideCognitiveStrategy> | null,
+): NoraCognitiveTurnResult {
+  return withMw3Fields(
+    withStrategyFields(turn, strategyDecision),
+    input,
+    strategyDecision,
+  );
+}
+
 export async function runNoraCognitiveTurn(
   input: RunNoraCognitiveTurnInput,
 ): Promise<NoraCognitiveTurnResult> {
@@ -187,12 +278,13 @@ export async function runNoraCognitiveTurn(
       provider: input.provider,
       runnerModelSettings,
     });
-    return withStrategyFields(
+    return finalizeTurn(
       {
         ...turn,
         memoryBCompactionState: "none",
         memoryBCompactionDetails: null,
       },
+      input,
       strategyDecision,
     );
   }
@@ -250,12 +342,13 @@ export async function runNoraCognitiveTurn(
       provider: input.provider,
       runnerModelSettings,
     });
-    return withStrategyFields(
+    return finalizeTurn(
       {
         ...turn,
         memoryBCompactionState: compactionState,
         memoryBCompactionDetails: compactionDetails,
       },
+      input,
       strategyDecision,
     );
   } finally {
