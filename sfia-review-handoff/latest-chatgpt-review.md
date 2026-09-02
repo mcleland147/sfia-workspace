@@ -1,124 +1,95 @@
-# Review Pack — MW2 Delivery Correction Candidate (CORR-MW2-DLV-01..04)
+# Review Pack — MW2 Delivery CORR-05 Internal Boundary Correction
 # FULL / CRITICAL / CONTENT-COMPLETE
 
 Status: **FULL** · **CRITICAL** · **CONTENT-COMPLETE**
 
 ## 1. Timestamp Europe/Paris
-2026-09-02 08:57:38 CEST
+2026-09-02 09:11:50 CEST
 
-## 2. Cycle / typology / profile / CKC
+## 2. Cycle / typology / profile
 - Cycle 8 — Delivery / implémentation
 - Typologie: EVOL
 - Profil: CRITICAL
-- CKC Delivery: ABSENT — fallback synthetic map + Delivery template v2.6 (experimental only)
 
 ## 3. Morris GO lineage
-- GO MORRIS — MW2 DELIVERY (already consumed)
-- Correction GO: CORR-MW2-DLV-01 / 02 / 03 / 04
+- GO MORRIS — MW2 DELIVERY (consumed)
+- CORR-MW2-DLV-01..04 (retained SATISFIED)
+- CORR-MW2-DLV-05 — KEEP CWP INTERNAL / remove client DTO serialization
 
 ## 4. Local Git Truth
 | Field | Value |
 |-------|-------|
-| Repository | mcleland147/sfia-workspace |
 | Worktree | `/Users/morris/Projects/sfia-workspace-pre-mw2-main-b345f3b6` |
-| Base HEAD | `b345f3b6c74d3eac0caca5bdd5525809dd80547a` |
-| Delivery branch | `delivery/sfia-studio-nora-mw2-cwp-strategy` |
+| Branch | `delivery/sfia-studio-nora-mw2-cwp-strategy` |
+| HEAD | `b345f3b6c74d3eac0caca5bdd5525809dd80547a` |
 | origin/main | `b345f3b6c74d3eac0caca5bdd5525809dd80547a` |
-| Prior handoff | `53ad2d117fb86bf5401caf9c77c0290e7c0e2f3f` |
-| Prior blob | `6b56d5814204209179dbd279743c21bfa4dae441` |
-| Project commit | **NO** |
-| Project push | **NO** |
-| PR / merge | **NO** |
+| Prior handoff | `d394c535c6612819bc36eb1122781346334d120b` |
+| Prior blob | `cc5441a7c5bb4ed4927938caffc769e834266cf5` |
+| Project commit / push / PR / merge | **NO** |
 
-## 5. CORR-MW2-REVIEW-PACK-01
-**SATISFIED** — this pack includes FULL new files + COMPLETE diffs for EVERY modified file.
+## 5. CORR-01..04 retained
+**SATISFIED** — UNKNOWN≠LOW, signal honesty, S1–S6 + CKC-E1..E5, D0-14 naming.
 
-## 6. Correction matrix
-| Correction | Result |
-|------------|--------|
-| CORR-MW2-DLV-01 UNKNOWN≠LOW + conservative Focused bootstrap | **SATISFIED** |
-| CORR-MW2-DLV-02 signal honesty (toolDependency / multimodality) | **SATISFIED** |
-| CORR-MW2-DLV-03 S1–S6 + CKC-E1..E5 deterministic EVAL | **SATISFIED** |
-| CORR-MW2-DLV-04 D0-14 proof/name alignment | **SATISFIED** |
+## 6. CORR-05 problem
+Previous candidate projected internal CWP fields into `ProjectAssistantSendSuccess`, which crosses server→client via `projectAssistantSendAction` → F2 → `ProjectAssistantPanel`.
 
-## 7. Corrected signal / bootstrap semantics
-- Routine requires `isRoutineEligible()`: discriminating dims must be **explicitly known-low** (ambiguity, sourceBreadth, verificationNeed, reasoningDepth, contradictionRisk); rigor known and not high.
-- UNKNOWN does not score as low.
-- No trusted Profile + insufficient known-low evidence → Focused bootstrap (`bootstrapUsed=true`).
-- Strong known Deep / High-Assurance signals still elevate without Profile.
-- `enableTools=true` does **not** set `toolDependency=medium` → remains `unknown`.
-- `multimodality` unavailable → `unknown` (not fabricated low).
-- `projectCriticality` may feed `rigorCriticality`; never invents `trustedSfiaProfile`.
+## 7. Client boundary before → after
+**BEFORE (removed):**
+- `cognitiveStrategyClass`
+- `selectedReasoningEffort`
+- `criticalChallengeArmed`
+on `ProjectAssistantSendSuccess` + projected from `orchestrateProjectAssistantTurn`.
 
-## 8. Candidate overlapping envelopes (unchanged design parameters)
-| Strategy | Envelope |
-|----------|----------|
-| Routine | none, low, medium |
-| Focused | low, medium, high |
-| Deep | medium, high, xhigh |
-| High-Assurance | high, xhigh, max |
+**AFTER:**
+- These fields absent from client DTO / F1 return / features/project-assistant search (0 hits).
+- Retained on internal `NoraCognitiveTurnResult` + `COGNITIVE_STRATEGY_SELECTED` EventSink.
 
-## 9. D0-14 disposition (CORR-04)
-- D0-12: minimal rejected for GPT-5.6 — TechnicalError, no coercion.
-- D0-14 renamed: **supported max effort remains accepted for Luna (boundary)**.
+## 8. Files changed by CORR-05 specifically
+- `features/project-assistant/types.ts` — reverted client fields (now matches HEAD; no net diff)
+- `features/project-assistant/orchestrateTurn.ts` — removed DTO projection (keeps turnWorkloadContext)
+- `__tests__/nora-cognitive-runtime/mw2.s01.bootstrap.product.d0.test.ts` — EventSink spy proof
+- `__tests__/nora-cognitive-runtime/mw2.s01.clientBoundary.d0.test.ts` — NEW boundary D0
 
-## 10. D0 verdict
-**PASS** — policy D0 + F1 modelSettings D0 + CKC authority D0 + product bootstrap CORR-D0-06 PASS
+## 9. ProjectAssistantPanel dependency check
+**NONE** — no references to the three fields. No UI change required.
 
-## 11. Deterministic EVAL methodology / taxonomy
-**EVAL is not a new EvidenceTier.** Existing harness tiers remain D0 / R1 / R2 / R3.
-Deterministic EVAL uses D0-tier harness mechanics + `mw2EvalMatrix.ts` assessment matrix.
-Claim ceiling: DETERMINISTIC / MODELED only — not provider cognitive quality / REAL.
+## 10. collectToolTelemetry non-leak
+Only processes `TOOL_SUCCEEDED|DENIED|FAILED`. CORR-D0-10 PASS.
 
-## 12. S1–S6 result matrix
-| Case | Story | Expected | Result |
-|------|-------|----------|--------|
-| S1 | MW2-S01 | Routine | PASS |
-| S2 | MW2-S01 | Focused bootstrap | PASS |
-| S3 | MW2-S01 | Deep | PASS |
-| S4 | MW2-S01 | High-Assurance, not max | PASS |
-| S5 | MW2-S01 | same Profile → different Strategy; same Strategy → different effort | PASS |
-| S6 | MW2-S01 | capability fail-closed | PASS |
+## 11. Product bootstrap proof mechanism
+Spy on `ProjectAssistantMemoryEventSink.prototype.emit` → assert `COGNITIVE_STRATEGY_SELECTED` detail (`strategyClass=Focused`, `bootstrapUsed=true`) + assert client result has no CWP properties.
 
-## 13. CKC-E1..E5 result matrix
-| Case | Story | Expected | Result |
-|------|-------|----------|--------|
-| CKC-E1 | MW2-S02 | product-native enrich + Recommendation | PASS |
-| CKC-E2 | MW2-S02 | semantic delta vs no-CKC | PASS |
-| CKC-E3 | MW2-S02 | fallback un-enriched | PASS |
-| CKC-E4 | MW2-S02 | business-first, no ID/digest leak | PASS |
-| CKC-E5 | MW2-S02 | no HD/Confirmation/EC shortcut | PASS |
+## 12. Field-search classification
+| Location | Classification |
+|----------|----------------|
+| `features/project-assistant/**` | **ZERO hits — PASS** |
+| `NoraCognitiveTurnResult` / policy / runNoraCognitiveTurn | ALLOWED internal |
+| EventSink COGNITIVE_STRATEGY_SELECTED | ALLOWED internal telemetry |
+| Tests / mw2EvalMatrix / mw2S01Observe | ALLOWED test/eval internals |
 
-## 14. Deterministic EVAL verdict
-**PASS** — MW2-S01 S1–S6 complete + MW2-S02 CKC-E1..E5 complete
+## 13. D0 verdict
+**PASS** — CORR-05 boundary + CORR-01/02/04 + F1 modelSettings + CKC authority + product bootstrap
+
+## 14. Deterministic EVAL
+**PASS** — S1–S6 + CKC-E1..E5
+Taxonomy: EVAL = assessment matrix; tiers remain D0/R1/R2/R3.
 
 ## 15. Regression
 - typecheck: PASS
-- npm test: **2370 passed**, 132 skipped, 0 failed
-- authority / fakeConvergence regressions: PASS
-- Live OpenAI calls: **ZERO**
+- npm test: **2372 passed**, 132 skipped, 0 failed
+- Live OpenAI: **ZERO**
 
 ## 16. Fake/Real
-- Applicable: YES
-- This cycle: DETERMINISTIC / MODELED
-- REAL: NOT EXECUTED / NOT AUTHORIZED
+DETERMINISTIC / MODELED only. REAL NOT EXECUTED.
 
-## 17. reasoning.context / reasoning.mode
-**EVALUATE / DEFER** — not wired
+## 17. reasoning.context / mode
+**DEFER**
 
-## 18. Gap candidate statuses
-| GAP | Status |
-|-----|--------|
-| GAP-MW2-CWP-01 | CLOSED CANDIDATE (D0) |
-| GAP-MW2-F1-MODELSETTINGS-01 | CLOSED CANDIDATE (D0) |
-| GAP-MW2-REASONING-CAPABILITY-01 | CLOSED CANDIDATE (D0) |
-| GAP-MW2-CKC-SEMANTIC-01 | PRESERVED + EVAL E1–E5 PASS |
+## 18. Final verdict
+**MW2 DELIVERY CORRECTION — CORR-MW2-DLV-05 SATISFIED — CWP / COGNITIVE STRATEGY REMAINS INTERNAL — ProjectAssistantSendResult CLIENT BOUNDARY CONTAINS NO STRATEGY CLASS / REASONING EFFORT / CHALLENGE HOOK — INTERNAL EventSink TELEMETRY PRESERVED — PRODUCT BOOTSTRAP PROVEN VIA INTERNAL TELEMETRY — CORR-MW2-DLV-01..04 REMAIN SATISFIED — F1 modelSettings WIRING PASS — MW2-S01 S1–S6 PASS — MW2-S02 CKC-E1..E5 PASS — D0 PASS — TYPECHECK PASS — FULL REGRESSION PASS — ZERO LIVE OPENAI — NO REAL — MW2 CLOSURE NOT CLAIMED — READY FOR CHATGPT FINAL CRITICAL DELIVERY REVIEW**
 
-## 19. MW2 Delivery candidate verdict
-**MW2 DELIVERY CORRECTION — CORR-MW2-DLV-01 SATISFIED — CORR-MW2-DLV-02 SATISFIED — CORR-MW2-DLV-03 SATISFIED — CORR-MW2-DLV-04 SATISFIED — UNKNOWN ≠ LOW — CONSERVATIVE FOCUSED BOOTSTRAP PROVEN — SIGNAL HONESTY PROVEN — STRATEGY ≠ EFFORT PRESERVED — F1 MODELSETTINGS WIRING PRESERVED — MW2-S01 DETERMINISTIC EVAL MATRIX S1-S6 PASS — MW2-S02 CKC SEMANTIC EVAL E1-E5 PASS — D0 PASS — TYPECHECK PASS — FULL REGRESSION PASS — ZERO LIVE OPENAI — NO REAL — MW2 CLOSURE NOT CLAIMED — READY FOR CHATGPT CRITICAL DELIVERY RE-REVIEW**
-
-## 20. Next gate
-ChatGPT CRITICAL DELIVERY RE-REVIEW. Only after PASS may ChatGPT surface Morris gate for project Git integration / PR preparation.
+## 19. Next gate
+ChatGPT FINAL CRITICAL DELIVERY REVIEW. Only on PASS may ChatGPT surface Morris gate for MW2 project Git integration / PR preparation.
 
 ---
 
@@ -1651,28 +1622,34 @@ describe("MW2-S02 — CKC authority D0", () => {
 ```typescript
 /** @vitest-environment node */
 /**
- * CORR-MW2-DLV-01 — product orchestration seam bootstrap proof.
- * Ordinary insufficiently-qualified workload must not become Routine
- * solely because missing signals scored as zero.
+ * CORR-MW2-DLV-01 + CORR-MW2-DLV-05 — product orchestration seam bootstrap
+ * and client-boundary proof.
+ *
+ * Strategy is observed via INTERNAL EventSink telemetry
+ * (COGNITIVE_STRATEGY_SELECTED), NOT via ProjectAssistantSendResult.
  */
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
+import { ProjectAssistantMemoryEventSink } from "@/features/project-assistant/memoryEventSink";
+import { collectToolTelemetry } from "@/features/project-assistant/collectToolTelemetry";
 import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
 import {
   getRuntimeApplicationService,
   resetRuntimeApplicationServiceForTests,
 } from "@/lib/vertical-slice-runtime";
+import type { TechnicalEvent } from "@/lib/platform/observability/types";
 
 const tempDirs: string[] = [];
 
-describe("CORR-MW2-DLV-01 — product path CWP bootstrap", () => {
+describe("CORR-MW2-DLV-01/05 — product path CWP bootstrap + client boundary", () => {
   const prevReset = process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
   const prevProvider = process.env.OPS1_CONVERSATION_PROVIDER;
   const prevKey = process.env.OPENAI_API_KEY;
   const prevModel = process.env.OPENAI_MODEL;
+  let emitSpy: ReturnType<typeof vi.spyOn> | undefined;
 
   beforeEach(() => {
     process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
@@ -1683,6 +1660,8 @@ describe("CORR-MW2-DLV-01 — product path CWP bootstrap", () => {
   });
 
   afterEach(() => {
+    emitSpy?.mockRestore();
+    emitSpy = undefined;
     if (prevReset === undefined) delete process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
     else process.env.SFIA_V2_RUNTIME_ALLOW_RESET = prevReset;
     if (prevProvider === undefined) {
@@ -1701,7 +1680,7 @@ describe("CORR-MW2-DLV-01 — product path CWP bootstrap", () => {
     }
   });
 
-  it("CORR-D0-06 — ordinary product turn without trusted Profile is Focused, not Routine", async () => {
+  it("CORR-D0-06 — ordinary product turn Focused via internal EventSink, not client DTO", async () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw2-boot-"));
     tempDirs.push(dir);
     const productDbPath = path.join(dir, "oa-product.sqlite");
@@ -1723,6 +1702,18 @@ describe("CORR-MW2-DLV-01 — product path CWP bootstrap", () => {
     expect(created.ok).toBe(true);
     if (!created.ok) throw new Error("setup failed");
 
+    const emitted: TechnicalEvent[] = [];
+    const originalEmit = ProjectAssistantMemoryEventSink.prototype.emit;
+    emitSpy = vi
+      .spyOn(ProjectAssistantMemoryEventSink.prototype, "emit")
+      .mockImplementation(function (
+        this: ProjectAssistantMemoryEventSink,
+        event: TechnicalEvent,
+      ) {
+        emitted.push(event);
+        return originalEmit.call(this, event);
+      });
+
     const provider = new FakeConversationProvider({
       toolScript: [
         {
@@ -1741,9 +1732,109 @@ describe("CORR-MW2-DLV-01 — product path CWP bootstrap", () => {
 
     expect(result.ok).toBe(true);
     if (!result.ok) throw new Error("turn failed");
-    expect(result.cognitiveStrategyClass).toBe("Focused");
-    expect(result.cognitiveStrategyClass).not.toBe("Routine");
-    expect(result.criticalChallengeArmed).not.toBe(true);
+
+    // CORR-D0-09 — internal EventSink observes strategy selection
+    const strategyEvents = emitted.filter(
+      (e) => e.type === "COGNITIVE_STRATEGY_SELECTED",
+    );
+    expect(strategyEvents.length).toBeGreaterThanOrEqual(1);
+    const detail = strategyEvents[0]!.detail;
+    expect(detail.strategyClass).toBe("Focused");
+    expect(detail.bootstrapUsed).toBe(true);
+    expect(detail.criticalChallengeArmed).not.toBe(true);
+
+    // CORR-D0-08 — client DTO must not serialize CWP internals
+    expect(result).not.toHaveProperty("cognitiveStrategyClass");
+    expect(result).not.toHaveProperty("selectedReasoningEffort");
+    expect(result).not.toHaveProperty("criticalChallengeArmed");
+
+    // CORR-D0-11 — expected user/business + MW1 fields remain
+    expect(result.text.length).toBeGreaterThan(0);
+    expect(result.cognitiveRuntime).toBe("agents");
+    expect(result.memoryBAvailability).toBeDefined();
+    expect(result.ephemeralNotice).toBeTruthy();
+    expect(result.project.projectId).toBe(created.projectId);
+
+    // CORR-D0-10 — strategy telemetry not converted to toolEvents/sources
+    const { toolEvents, sources } = collectToolTelemetry(emitted);
+    expect(JSON.stringify(toolEvents)).not.toContain("strategyClass");
+    expect(JSON.stringify(sources)).not.toContain("strategyClass");
+    expect(
+      toolEvents.some((t) => /COGNITIVE_STRATEGY/i.test(t.toolName)),
+    ).toBe(false);
+  });
+});
+```
+
+## FULL FILE: projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.clientBoundary.d0.test.ts
+```typescript
+/** @vitest-environment node */
+/**
+ * CORR-MW2-DLV-05 — internal runtime retains Strategy metadata;
+ * client DTO / tool telemetry do not leak it.
+ */
+import { describe, expect, it } from "vitest";
+import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
+import { collectToolTelemetry } from "@/features/project-assistant/collectToolTelemetry";
+import {
+  runNoraCognitiveTurn,
+  sfiaBoundaryInstructions,
+} from "@/lib/nora-cognitive-runtime";
+import type { TechnicalEvent } from "@/lib/platform/observability/types";
+
+describe("CORR-MW2-DLV-05 — internal Strategy vs client boundary", () => {
+  it("CORR-D0-07 — NoraCognitiveTurnResult retains internal Strategy metadata", async () => {
+    const provider = new FakeConversationProvider({
+      toolScript: [{ kind: "message", text: "[TEST/FAKE] internal." }],
+    });
+    const turn = await runNoraCognitiveTurn({
+      correlationId: "mw2-corr05-d0-07",
+      projectId: "prj:mw2-corr05",
+      messages: [
+        { role: "system", content: sfiaBoundaryInstructions() },
+        { role: "user", content: "probe" },
+      ],
+      provider,
+      enableTools: false,
+      cognitiveWorkloadSignals: {
+        rigorCriticality: "high",
+        verificationNeed: "high",
+      },
+      trustedSfiaProfile: "trusted-profile",
+    });
+    expect(turn.cognitiveStrategyClass).toBe("High-Assurance");
+    expect(turn.selectedReasoningEffort).toBeDefined();
+    expect(turn.criticalChallengeArmed).toBe(true);
+  });
+
+  it("CORR-D0-10 — collectToolTelemetry ignores COGNITIVE_STRATEGY_SELECTED", () => {
+    const events: TechnicalEvent[] = [
+      {
+        type: "COGNITIVE_STRATEGY_SELECTED",
+        correlationId: "c",
+        detail: {
+          strategyClass: "Focused",
+          reasoningEffort: "low",
+          criticalChallengeArmed: false,
+          bootstrapUsed: true,
+        },
+      },
+      {
+        type: "TOOL_SUCCEEDED",
+        correlationId: "c",
+        detail: {
+          toolName: "git_local_get_head",
+          status: "succeeded",
+          summary: "ok",
+        },
+      },
+    ];
+    const { toolEvents, sources } = collectToolTelemetry(events);
+    expect(toolEvents).toHaveLength(1);
+    expect(toolEvents[0]?.toolName).toBe("git_local_get_head");
+    expect(JSON.stringify({ toolEvents, sources })).not.toContain(
+      "strategyClass",
+    );
   });
 });
 ```
@@ -1854,12 +1945,12 @@ describe("MW2 deterministic EVAL matrix (CORR-MW2-DLV-03)", () => {
 
 ---
 
-# SECTION B — COMPLETE MODIFIED FILE DIFFS (12/12)
+# SECTION B — COMPLETE MODIFIED FILE DIFFS
 
 ## MODIFIED DIFF: projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-index 52d34b98..28efbaf5 100644
+index 52d34b98..dc80acdd 100644
 --- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
 @@ -163,6 +163,14 @@ export async function orchestrateProjectAssistantTurn(input: {
@@ -1877,41 +1968,6 @@ index 52d34b98..28efbaf5 100644
      });
 
      const { toolEvents, sources } = collectToolTelemetry(sink.events);
-@@ -190,6 +198,9 @@ export async function orchestrateProjectAssistantTurn(input: {
-       memoryBCompactionState: turn.memoryBCompactionState,
-       stalePriorInvalidated:
-         turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
-+      cognitiveStrategyClass: turn.cognitiveStrategyClass,
-+      selectedReasoningEffort: turn.selectedReasoningEffort,
-+      criticalChallengeArmed: turn.criticalChallengeArmed,
-     };
-   } catch (error) {
-     const message =
-```
-
-## MODIFIED DIFF: projects/sfia-studio/app/features/project-assistant/types.ts
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/types.ts b/projects/sfia-studio/app/features/project-assistant/types.ts
-index 7057734f..d2cac5e6 100644
---- a/projects/sfia-studio/app/features/project-assistant/types.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/types.ts
-@@ -127,6 +127,16 @@ export type ProjectAssistantSendSuccess = {
-     | "stale_invalidated";
-   /** MW1-S02-CORR-02 — prior compacted B invalidated by Truth C change. */
-   stalePriorInvalidated?: boolean;
-+  /** MW2-S01 — internal strategy class (not Pilote authority). */
-+  cognitiveStrategyClass?:
-+    | "Routine"
-+    | "Focused"
-+    | "Deep"
-+    | "High-Assurance";
-+  /** MW2-S01 — selected reasoning effort for this turn. */
-+  selectedReasoningEffort?: string;
-+  /** MW2-S01 — High-Assurance challenge hook only (not MW5). */
-+  criticalChallengeArmed?: boolean;
-   f2?: F2TurnPayload;
- };
-
 ```
 
 ## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
@@ -2474,10 +2530,12 @@ index 2ad41959..0530dfaa 100644
    type: TechnicalEventType;
 ```
 
+## CORR-05 NOTE: features/project-assistant/types.ts
+ProjectAssistantSendSuccess no longer declares cognitiveStrategyClass / selectedReasoningEffort / criticalChallengeArmed. Net git diff vs HEAD for this file: empty (fields added then removed).
+
 ## MODIFIED DIFF STAT
 ```
- .../features/project-assistant/orchestrateTurn.ts  |  11 ++
- .../app/features/project-assistant/types.ts        |  10 ++
+ .../features/project-assistant/orchestrateTurn.ts  |   8 ++
  .../app/lib/nora-cognitive-runtime/index.ts        |  20 ++++
  .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |  11 +-
  .../nora-cognitive-runtime/runNoraCognitiveTurn.ts | 124 +++++++++++++++++++--
@@ -2488,12 +2546,13 @@ index 2ad41959..0530dfaa 100644
  projects/sfia-studio/app/lib/nora-eval/scorers.ts  |  92 +++++++++++++++
  projects/sfia-studio/app/lib/nora-eval/types.ts    |   7 +-
  .../app/lib/platform/observability/types.ts        |   3 +-
- 12 files changed, 314 insertions(+), 15 deletions(-)
+ 11 files changed, 301 insertions(+), 15 deletions(-)
 ```
 
-## UNTRACKED NEW FILES LIST
+## UNTRACKED NEW FILES
 ```
 projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.bootstrap.product.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.clientBoundary.d0.test.ts
 projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.cwpPolicy.d0.test.ts
 projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.f1ModelSettings.d0.test.ts
 projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s02.ckcAuthority.d0.test.ts
