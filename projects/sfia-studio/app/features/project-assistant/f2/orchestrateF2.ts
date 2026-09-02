@@ -77,6 +77,133 @@ function toContextDto(
   };
 }
 
+/**
+ * CORR-MW2-REAL-03/04 — deterministic Project summary for analyzeIntent.
+ * Prefer Truth C / LPS full context (contextSource=TRUTH_C_LPS).
+ * UI contextSummary is a 240-char projection — not the cognitive authority.
+ */
+export type CognitiveIntentContextInput = {
+  name: string;
+  objective: string;
+  /** Full Truth C / LPS context when available; never invent. */
+  context: string;
+  constraints: readonly string[];
+  criticality: string;
+  lpsId: string;
+  lpsVersion: number;
+  shortReference?: string | null;
+  activeCycleInstanceId?: string | null;
+  ckcResolutionRef?: string | null;
+  /**
+   * Internal provenance for evidence/tests — NOT a client DTO field.
+   * TRUTH_C_LPS = readLiveProjectContext / lps.context
+   * TEST_FALLBACK_UI_SUMMARY = truncated UI projection only (not REAL evidence)
+   */
+  contextSource: "TRUTH_C_LPS" | "TEST_FALLBACK_UI_SUMMARY";
+};
+
+export function buildIntentProjectSummary(
+  input: CognitiveIntentContextInput,
+): string {
+  const constraints =
+    input.constraints.length > 0
+      ? input.constraints.join("; ")
+      : "(none)";
+  const parts = [
+    `name=${input.name}`,
+    `objective=${input.objective}`,
+    `context=${input.context}`,
+    `constraints=${constraints}`,
+    `criticality=${input.criticality}`,
+  ];
+  if (input.shortReference != null && input.shortReference.trim() !== "") {
+    parts.push(`shortReference=${input.shortReference}`);
+  }
+  parts.push(`lps=${input.lpsId}@${input.lpsVersion}`);
+  if (input.activeCycleInstanceId) {
+    parts.push(`activeCycle=${input.activeCycleInstanceId}`);
+  }
+  if (input.ckcResolutionRef) {
+    parts.push(`ckcRef=${input.ckcResolutionRef}`);
+  }
+  parts.push(`contextSource=${input.contextSource}`);
+  return parts.join(" | ");
+}
+
+/**
+ * Resolve analyzeIntent Project summary from Truth C (LPS) when OA is available.
+ * Fail-closed for product path: do not silently downgrade to UI 240 summary.
+ * Fake/test without OA may use TEST_FALLBACK_UI_SUMMARY only.
+ */
+export async function resolveCognitiveIntentProjectSummary(
+  project: ProjectAssistantContextDto,
+): Promise<
+  | { ok: true; projectSummary: string; contextSource: CognitiveIntentContextInput["contextSource"]; truthCContext: string }
+  | { ok: false; code: string; message: string }
+> {
+  const runtime = getRuntimeApplicationService();
+  const oa = runtime.oa;
+  if (!oa) {
+    if (isFakeConversationProviderForced()) {
+      const projectSummary = buildIntentProjectSummary({
+        name: project.name,
+        objective: project.objective,
+        context: project.contextSummary,
+        constraints: project.constraints,
+        criticality: project.criticality,
+        lpsId: project.lpsId,
+        lpsVersion: project.lpsVersion,
+        shortReference: project.shortReference,
+        activeCycleInstanceId: project.activeCycleInstanceId ?? null,
+        ckcResolutionRef: project.ckcResolutionRef ?? null,
+        contextSource: "TEST_FALLBACK_UI_SUMMARY",
+      });
+      return {
+        ok: true,
+        projectSummary,
+        contextSource: "TEST_FALLBACK_UI_SUMMARY",
+        truthCContext: project.contextSummary,
+      };
+    }
+    return {
+      ok: false,
+      code: "TRUTH_C_UNAVAILABLE",
+      message:
+        "Services OA indisponibles pour le contexte cognitif Truth C. AUCUNE EXÉCUTION.",
+    };
+  }
+
+  const live = await readLiveProjectContext(oa, project.projectId);
+  if (!live.ok) {
+    return {
+      ok: false,
+      code: live.code,
+      message: `Contexte Truth C / LPS illisible (${live.code}). AUCUNE EXÉCUTION.`,
+    };
+  }
+
+  const truthCContext = live.context.context ?? "";
+  const projectSummary = buildIntentProjectSummary({
+    name: project.name,
+    objective: live.context.objective || project.objective,
+    context: truthCContext,
+    constraints: project.constraints,
+    criticality: project.criticality,
+    lpsId: live.context.lpsId,
+    lpsVersion: live.context.lpsVersion,
+    shortReference: project.shortReference,
+    activeCycleInstanceId: live.context.activeCycleInstanceId,
+    ckcResolutionRef: live.context.ckcResolutionRef,
+    contextSource: "TRUTH_C_LPS",
+  });
+  return {
+    ok: true,
+    projectSummary,
+    contextSource: "TRUTH_C_LPS",
+    truthCContext,
+  };
+}
+
 function doctrinePackagePinFromProject(
   project: ProjectAssistantContextDto,
 ): DoctrinePackagePin {
@@ -277,15 +404,26 @@ export async function orchestrateAssistantSend(input: {
   }
 
   let analysisResult: Awaited<ReturnType<typeof analyzeIntent>>;
+  let truthCContextForF1: string | undefined;
   try {
+    const cognitive = await resolveCognitiveIntentProjectSummary(project);
+    if (!cognitive.ok) {
+      return {
+        ok: false,
+        status: "provider_error",
+        code: cognitive.code,
+        message: cognitive.message,
+        mode: modeResolution.mode,
+        retryable: true,
+      };
+    }
+    truthCContextForF1 =
+      cognitive.contextSource === "TRUTH_C_LPS"
+        ? cognitive.truthCContext
+        : undefined;
     analysisResult = await analyzeIntent({
       userContent: content,
-      projectSummary: [
-        `name=${project.name}`,
-        `objective=${project.objective}`,
-        `criticality=${project.criticality}`,
-        `lps=${project.lpsId}@${project.lpsVersion}`,
-      ].join(" | "),
+      projectSummary: cognitive.projectSummary,
       provider: input.provider,
     });
   } catch (error) {
@@ -321,6 +459,8 @@ export async function orchestrateAssistantSend(input: {
     const f1 = await orchestrateProjectAssistantTurn({
       ...input,
       provider: input.provider,
+      semanticCognitiveWorkload: analysis.cognitiveWorkload,
+      truthCContext: truthCContextForF1,
     });
     if (!f1.ok) return f1;
     return {
@@ -410,12 +550,20 @@ export async function orchestrateAssistantSend(input: {
   }
 
   let { qualification } = qualified;
-  const projectSummary = [
-    `name=${project.name}`,
-    `objective=${project.objective}`,
-    `criticality=${project.criticality}`,
-    `lps=${project.lpsId}@${project.lpsVersion}`,
-  ].join(" | ");
+  const cognitiveSummary = await resolveCognitiveIntentProjectSummary(project);
+  const projectSummary = cognitiveSummary.ok
+    ? cognitiveSummary.projectSummary
+    : buildIntentProjectSummary({
+        name: project.name,
+        objective: project.objective,
+        context: project.contextSummary,
+        constraints: project.constraints,
+        criticality: project.criticality,
+        lpsId: project.lpsId,
+        lpsVersion: project.lpsVersion,
+        shortReference: project.shortReference,
+        contextSource: "TEST_FALLBACK_UI_SUMMARY",
+      });
 
   if (isProductStudioNativeCkcProof(qualified.raw.proof)) {
     const packagePin = doctrinePackagePinFromProject(project);

@@ -21,10 +21,11 @@ import { resolveNoraSessionSqlitePath } from "./sessionPaths";
 import { runNoraAgentsTurn } from "./runNoraAgentsTurn";
 import type { NoraCognitiveTurnResult } from "./types";
 import {
-  buildSignalsFromTurnContext,
   decideCognitiveStrategy,
+  mergeCognitiveWorkloadSignals,
   normalizeCognitiveWorkloadSignals,
   type CognitiveWorkloadSignals,
+  type SemanticCognitiveWorkloadAssessment,
   type TurnWorkloadContext,
 } from "./cognitiveWorkloadPolicy";
 import { validateRuntimeReasoningCapability } from "./reasoningCapability";
@@ -45,12 +46,22 @@ export type RunNoraCognitiveTurnInput = {
   truthCRevision?: TruthCRevision;
   /** Test-only fixed timestamp for deterministic compaction. */
   compactionNowIso?: string;
-  /** MW2 — optional explicit workload signals (tests). */
+  /**
+   * MW2 — optional explicit workload signals (tests/eval only).
+   * Product path uses turnWorkloadContext + semanticCognitiveWorkload merge.
+   */
   cognitiveWorkloadSignals?: Partial<CognitiveWorkloadSignals>;
   /** MW2 — trusted SFIA Profile only when actually available; never invented. */
   trustedSfiaProfile?: string | null;
   /** MW2 — product turn facts for signal derivation. */
   turnWorkloadContext?: TurnWorkloadContext;
+  /**
+   * CORR-MW2-REAL-01 — INTERNAL semantic CWP from analyzeIntent (server-side).
+   * Merged with turnWorkloadContext; never a client DTO field.
+   */
+  semanticCognitiveWorkload?:
+    | Partial<SemanticCognitiveWorkloadAssessment>
+    | null;
   /** MW2 — skip policy for isolated tests. */
   skipCognitiveStrategy?: boolean;
 };
@@ -81,14 +92,27 @@ function resolveCognitiveStrategyForTurn(
 ): ReturnType<typeof decideCognitiveStrategy> | null {
   if (input.skipCognitiveStrategy) return null;
 
-  const signals = input.cognitiveWorkloadSignals
-    ? normalizeCognitiveWorkloadSignals(input.cognitiveWorkloadSignals)
-    : input.turnWorkloadContext
-      ? buildSignalsFromTurnContext(input.turnWorkloadContext)
-      : normalizeCognitiveWorkloadSignals({});
+  // Test/eval explicit override remains (not product R2 proof).
+  if (input.cognitiveWorkloadSignals) {
+    return decideCognitiveStrategy({
+      signals: normalizeCognitiveWorkloadSignals(input.cognitiveWorkloadSignals),
+      trustedSfiaProfile: input.trustedSfiaProfile,
+    });
+  }
+
+  // Product path: factual turn context + validated semantic assessment merge.
+  if (input.turnWorkloadContext) {
+    return decideCognitiveStrategy({
+      signals: mergeCognitiveWorkloadSignals({
+        turnContext: input.turnWorkloadContext,
+        semanticAssessment: input.semanticCognitiveWorkload,
+      }),
+      trustedSfiaProfile: input.trustedSfiaProfile,
+    });
+  }
 
   return decideCognitiveStrategy({
-    signals,
+    signals: normalizeCognitiveWorkloadSignals({}),
     trustedSfiaProfile: input.trustedSfiaProfile,
   });
 }

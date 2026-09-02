@@ -1,8 +1,12 @@
 /**
  * OpenAI Agents SDK Runner path for Nora F1 cognitive turns.
  * Generic loop mechanics owned by Runner; SFIA authority via routeToolCall.
- * completeRound-capable providers (incl. Fake) use createProviderAgentsModel;
- * otherwise live Agents model string from secrets. Same Runner orchestration.
+ *
+ * CORR-MW2-REAL-02 model resolution:
+ * - Fake / non-OpenAI completeRound providers → createProviderAgentsModel adapter
+ * - providerId=openai (incl. Metered wrapper) → native Agents model string
+ *   so Runner.modelSettings.reasoning is consumed by the native OpenAI Agents path
+ * - otherwise → live model string from secrets
  */
 import {
   Agent,
@@ -72,13 +76,36 @@ export function createNoraAgentsRunner(
   });
 }
 
-function resolveModel(input: RunNoraAgentsTurnInput): Model | string {
+/**
+ * CORR-MW2-REAL-02 — OpenAI live F1 must NOT use ConversationProvider.completeRound adapter.
+ * MeteredConversationProvider preserves providerId=openai and must also take native path.
+ */
+export function isOpenAiLiveF1Provider(
+  provider: ConversationProvider,
+): boolean {
+  return provider.providerId === "openai";
+}
+
+/**
+ * Whether F1 should wrap the provider via createProviderAgentsModel.
+ * False for OpenAI live (native Agents model string instead).
+ */
+export function shouldUseProviderAgentsModelAdapter(
+  provider: ConversationProvider,
+): boolean {
+  if (isOpenAiLiveF1Provider(provider)) return false;
+  if (isFakeConversationProvider(provider)) return true;
+  return typeof provider.completeRound === "function";
+}
+
+/**
+ * Resolve Agents F1 model — exported for CORR-02 D0 boundary proof (no live call).
+ */
+export function resolveNoraAgentsF1Model(
+  input: Pick<RunNoraAgentsTurnInput, "model" | "provider">,
+): Model | string {
   if (input.model !== undefined) return input.model;
-  if (input.provider && isFakeConversationProvider(input.provider)) {
-    return createProviderAgentsModel(input.provider);
-  }
-  if (input.provider && typeof input.provider.completeRound === "function") {
-    // Deterministic/test providers with completeRound also use the thin adapter.
+  if (input.provider && shouldUseProviderAgentsModelAdapter(input.provider)) {
     return createProviderAgentsModel(input.provider);
   }
   const secrets = requireLiveConversationSecrets();
@@ -88,7 +115,7 @@ function resolveModel(input: RunNoraAgentsTurnInput): Model | string {
 export async function runNoraAgentsTurn(
   input: RunNoraAgentsTurnInput,
 ): Promise<NoraCognitiveTurnResult> {
-  const model = resolveModel(input);
+  const model = resolveNoraAgentsF1Model(input);
 
   const budget = input.budget ?? createNoraTurnBudget();
   const enableTools = input.enableTools !== false;

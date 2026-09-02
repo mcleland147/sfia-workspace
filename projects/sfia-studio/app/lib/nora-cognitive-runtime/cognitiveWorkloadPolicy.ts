@@ -144,7 +144,9 @@ export function buildSignalsFromTurnContext(
 ): CognitiveWorkloadSignals {
   const crit = (ctx.projectCriticality ?? "").trim().toUpperCase();
   let rigorCriticality: SignalValue = "unknown";
-  if (crit === "CRITICAL") rigorCriticality = "high";
+  // Product PerceivedCriticality is LOW|STANDARD|HIGH.
+  // CRITICAL retained as synonym for tests / explicit turn context.
+  if (crit === "CRITICAL" || crit === "HIGH") rigorCriticality = "high";
   else if (crit === "STANDARD") rigorCriticality = "medium";
   else if (crit === "LOW") rigorCriticality = "low";
 
@@ -169,6 +171,98 @@ export function buildSignalsFromTurnContext(
     verificationNeed,
     multimodality,
   });
+}
+
+/** Dimensions the semantic analyzer may assess (CORR-MW2-REAL-01). */
+export const SEMANTIC_CWP_DIMENSIONS = [
+  "ambiguity",
+  "reasoningDepth",
+  "sourceBreadth",
+  "toolDependency",
+  "contradictionRisk",
+  "verificationNeed",
+] as const;
+
+export type SemanticCwpDimension = (typeof SEMANTIC_CWP_DIMENSIONS)[number];
+
+export type SemanticCognitiveWorkloadAssessment = {
+  [K in SemanticCwpDimension]: SignalValue;
+};
+
+function isSignalValue(value: unknown): value is SignalValue {
+  return (
+    value === "low" ||
+    value === "medium" ||
+    value === "high" ||
+    value === "unknown"
+  );
+}
+
+/**
+ * Normalize untrusted semantic assessment.
+ * Invalid/missing fields → unknown. Never unknown→low.
+ * Returns null when assessment absent.
+ */
+export function normalizeSemanticCognitiveWorkloadAssessment(
+  partial:
+    | Partial<SemanticCognitiveWorkloadAssessment>
+    | null
+    | undefined,
+): SemanticCognitiveWorkloadAssessment | null {
+  if (partial == null || typeof partial !== "object") return null;
+  const out = {} as SemanticCognitiveWorkloadAssessment;
+  for (const key of SEMANTIC_CWP_DIMENSIONS) {
+    const value = (partial as Record<string, unknown>)[key];
+    out[key] = isSignalValue(value) ? value : "unknown";
+  }
+  return out;
+}
+
+/**
+ * Governed merge: semantic assessment + factual turn context.
+ * CORR-MW2-REAL-01 precedence:
+ * - factual product signals win when known
+ * - semantic fills only authorized dimensions
+ * - CRITICAL rigor/verification cannot be downgraded
+ * - contextSize / rigorCriticality / multimodality stay factual
+ * - enableTools never invents toolDependency
+ * - UNKNOWN ≠ LOW
+ */
+export function mergeCognitiveWorkloadSignals(input: {
+  turnContext: TurnWorkloadContext;
+  semanticAssessment?:
+    | Partial<SemanticCognitiveWorkloadAssessment>
+    | null;
+}): CognitiveWorkloadSignals {
+  const factual = buildSignalsFromTurnContext(input.turnContext);
+  const semantic = normalizeSemanticCognitiveWorkloadAssessment(
+    input.semanticAssessment,
+  );
+
+  let merged = normalizeCognitiveWorkloadSignals({});
+
+  if (semantic) {
+    for (const key of SEMANTIC_CWP_DIMENSIONS) {
+      merged = { ...merged, [key]: semantic[key] };
+    }
+  }
+
+  // Authoritative factual overlays
+  merged = {
+    ...merged,
+    rigorCriticality: factual.rigorCriticality,
+    contextSize: factual.contextSize,
+    multimodality: factual.multimodality,
+    costBudget: factual.costBudget,
+    latencySensitivity: factual.latencySensitivity,
+  };
+
+  // Known factual verification (e.g. CRITICAL→high) wins over semantic
+  if (factual.verificationNeed !== "unknown") {
+    merged = { ...merged, verificationNeed: factual.verificationNeed };
+  }
+
+  return merged;
 }
 
 function computeReasoningDemand(

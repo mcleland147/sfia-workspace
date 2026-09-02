@@ -6,6 +6,14 @@ import type { ProjectAssistantContextDto } from "./types";
  */
 export function buildProjectSystemPrompt(
   project: ProjectAssistantContextDto,
+  options?: {
+    /**
+     * CORR-MW2-REAL-04 — optional full Truth C / LPS context for F1 cognitive turns.
+     * When set, replaces UI contextSummary in the Contexte line only.
+     * Does not mutate ProjectAssistantContextDto / client boundary.
+     */
+    truthCContext?: string | null;
+  },
 ): string {
   const constraints =
     project.constraints.length > 0
@@ -15,6 +23,11 @@ export function buildProjectSystemPrompt(
   const shortRef = project.shortReference
     ? `Référence courte : ${project.shortReference}`
     : "Référence courte : (absente)";
+
+  const contextLine =
+    options?.truthCContext != null && options.truthCContext !== ""
+      ? options.truthCContext
+      : project.contextSummary;
 
   return [
     "Tu es l'Assistant SFIA du Project Workspace (F1).",
@@ -52,7 +65,7 @@ export function buildProjectSystemPrompt(
     `Nom : ${project.name}`,
     shortRef,
     `Objectif : ${project.objective}`,
-    `Contexte : ${project.contextSummary}`,
+    `Contexte : ${contextLine}`,
     `Criticité : ${project.criticality}`,
     "Contraintes :",
     constraints,

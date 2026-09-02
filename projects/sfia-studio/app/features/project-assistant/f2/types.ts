@@ -118,10 +118,35 @@ export type DecisionDto = {
   executionPerformed: false;
 };
 
+/**
+ * INTERNAL semantic CWP assessment from analyzeIntent (CORR-MW2-REAL-01).
+ * Server-side only — not Truth C / Evidence / Profile / authority / client DTO.
+ * F2QualificationSignals ≠ this object.
+ */
+export type SemanticCognitiveWorkloadLevel =
+  | "low"
+  | "medium"
+  | "high"
+  | "unknown";
+
+export type SemanticCognitiveWorkloadAssessment = {
+  ambiguity: SemanticCognitiveWorkloadLevel;
+  reasoningDepth: SemanticCognitiveWorkloadLevel;
+  sourceBreadth: SemanticCognitiveWorkloadLevel;
+  toolDependency: SemanticCognitiveWorkloadLevel;
+  contradictionRisk: SemanticCognitiveWorkloadLevel;
+  verificationNeed: SemanticCognitiveWorkloadLevel;
+};
+
 export type IntentAnalysisDto = {
   intentClass: IntentClass;
   candidateCycleTypeId: string | null;
   signals: F2QualificationSignals | null;
+  /**
+   * INTERNAL CWP semantic assessment (or null).
+   * Never serialized on ProjectAssistantSendResult.
+   */
+  cognitiveWorkload: SemanticCognitiveWorkloadAssessment | null;
   objective: string | null;
   scope: string | null;
   rephrasedRequest: string | null;

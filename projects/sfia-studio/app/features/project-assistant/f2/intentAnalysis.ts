@@ -1,6 +1,7 @@
 /**
  * Structured intent analysis via existing ConversationProvider.
  * Provider output is untrusted until server-side validation (fail-closed).
+ * CORR-MW2-REAL-01: optional INTERNAL semantic CWP assessment on same call.
  */
 
 import {
@@ -14,6 +15,8 @@ import type {
   F2QualificationSignals,
   IntentAnalysisDto,
   IntentClass,
+  SemanticCognitiveWorkloadAssessment,
+  SemanticCognitiveWorkloadLevel,
 } from "./types";
 
 const INTENT_CLASSES: readonly IntentClass[] = [
@@ -30,6 +33,22 @@ const SIGNAL_KEYS = [
   "dataImpact",
   "irreversible",
   "lowRiskBounded",
+] as const;
+
+const CWP_LEVELS: readonly SemanticCognitiveWorkloadLevel[] = [
+  "low",
+  "medium",
+  "high",
+  "unknown",
+] as const;
+
+const CWP_DIMENSION_KEYS = [
+  "ambiguity",
+  "reasoningDepth",
+  "sourceBreadth",
+  "toolDependency",
+  "contradictionRisk",
+  "verificationNeed",
 ] as const;
 
 const MAX_STRING = 2000;
@@ -55,9 +74,28 @@ const SIGNALS_OBJECT_SCHEMA = {
   required: [...SIGNAL_KEYS],
 } as const;
 
+const CWP_LEVEL_SCHEMA = {
+  type: "string",
+  enum: [...CWP_LEVELS],
+} as const;
+
+const COGNITIVE_WORKLOAD_OBJECT_SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    ambiguity: CWP_LEVEL_SCHEMA,
+    reasoningDepth: CWP_LEVEL_SCHEMA,
+    sourceBreadth: CWP_LEVEL_SCHEMA,
+    toolDependency: CWP_LEVEL_SCHEMA,
+    contradictionRisk: CWP_LEVEL_SCHEMA,
+    verificationNeed: CWP_LEVEL_SCHEMA,
+  },
+  required: [...CWP_DIMENSION_KEYS],
+} as const;
+
 /**
  * OpenAI strict json_schema for F2 intent analysis.
- * Null cycle/signals: anyOf [enum|object, { type: "null" }] (not omitted, not invented).
+ * Null cycle/signals/CWP: anyOf [enum|object, { type: "null" }] (not omitted, not invented).
  */
 export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
   type: "object",
@@ -79,6 +117,9 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
     signals: {
       anyOf: [SIGNALS_OBJECT_SCHEMA, { type: "null" }],
     },
+    cognitiveWorkload: {
+      anyOf: [COGNITIVE_WORKLOAD_OBJECT_SCHEMA, { type: "null" }],
+    },
     objective: NULLABLE_STRING,
     scope: NULLABLE_STRING,
     rephrasedRequest: NULLABLE_STRING,
@@ -95,6 +136,7 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
     "intentClass",
     "candidateCycleTypeId",
     "signals",
+    "cognitiveWorkload",
     "objective",
     "scope",
     "rephrasedRequest",
@@ -133,6 +175,7 @@ function ambiguousFallback(partial?: Partial<IntentAnalysisDto>): IntentAnalysis
     intentClass: "ambiguous",
     candidateCycleTypeId: null,
     signals: null,
+    cognitiveWorkload: null,
     objective: partial?.objective ?? null,
     scope: partial?.scope ?? null,
     rephrasedRequest: partial?.rephrasedRequest ?? null,
@@ -157,6 +200,27 @@ function parseSignals(raw: unknown): F2QualificationSignals | null {
     out[key] = obj[key] as boolean;
   }
   return out as F2QualificationSignals;
+}
+
+/**
+ * Validate INTERNAL semantic CWP assessment.
+ * null / missing / non-object → null (no fabricated Routine).
+ * Invalid field values → unknown (never unknown→low).
+ */
+export function parseCognitiveWorkload(
+  raw: unknown,
+): SemanticCognitiveWorkloadAssessment | null {
+  if (raw == null) return null;
+  if (typeof raw !== "object" || Array.isArray(raw)) return null;
+  const obj = raw as Record<string, unknown>;
+  const out = {} as SemanticCognitiveWorkloadAssessment;
+  for (const key of CWP_DIMENSION_KEYS) {
+    const value = obj[key];
+    out[key] = CWP_LEVELS.includes(value as SemanticCognitiveWorkloadLevel)
+      ? (value as SemanticCognitiveWorkloadLevel)
+      : "unknown";
+  }
+  return out;
 }
 
 function extractJsonObject(text: string): unknown | null {
@@ -202,10 +266,14 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
     return ambiguousFallback();
   }
 
+  // Malformed CWP must not crash an otherwise-valid informative analysis.
+  const cognitiveWorkload = parseCognitiveWorkload(obj.cognitiveWorkload);
+
   return {
     intentClass: intentClass as IntentClass,
     candidateCycleTypeId,
     signals,
+    cognitiveWorkload,
     objective: clip(obj.objective),
     scope: clip(obj.scope),
     rephrasedRequest: clip(obj.rephrasedRequest),
@@ -234,15 +302,77 @@ Champs obligatoires:
 intentClass (informative|actionable|ambiguous|execution_request),
 candidateCycleTypeId (id catalogue cyc:… OU null),
 signals ({structuralChange,securityImpact,architectureImpact,dataImpact,irreversible,lowRiskBounded} tous booléens OU null),
+cognitiveWorkload ({ambiguity,reasoningDepth,sourceBreadth,toolDependency,contradictionRisk,verificationNeed} chacun low|medium|high|unknown OU null),
 objective, scope, rephrasedRequest, outOfScope[], risks[], reservations[], stopConditions[], activatedBlocks[],
 expectedOutcome, criticalJustification, requestedOperation (strings ou null pour les scalaires).
-Règles strictes:
+
+=== DISTINCTION FONDAMENTALE ===
+intentClass = EFFET demandé à Studio (quoi faire sur le produit).
+cognitiveWorkload = CHARGE COGNITIVE pour raisonner (combien travailler).
+Ces concepts NE DOIVENT PAS être fusionnés.
+L'incertitude analytique (cognitiveWorkload.ambiguity medium/high) N'IMPLIQUE PAS intentClass=ambiguous.
+Les verbes « proposer / recommander / comparer / réconcilier / analyser » N'IMPLIQUENT PAS à eux seuls actionable/F2.
+
+=== intentClass ===
+informative — travail cognitif où l'utilisateur demande de lire, expliquer, analyser, synthétiser, comparer, réconcilier des faits/tensions, challenger des hypothèses, identifier des risques, produire des options ou une Recommendation, évaluer une situation — SANS demander à Studio de muter l'état durable Project, de créer/qualifier un cycle/proposition gouvernée comme effet demandé, d'enregistrer une HumanDecision, de préparer/lancer une exécution gouvernée, ni d'effectuer des side-effects externes.
+Exemples informative:
+- « Analyse les tensions entre délai, coût et auditabilité. »
+- « Compare les options et recommande la plus cohérente, sans décider ni exécuter. »
+- « À partir des faits A–D, réconcilie les contraintes et propose les compromis possibles. »
+- « Challenge cette hypothèse et indique les réserves. »
+- « Donne-moi les risques avant que je décide. »
+- Repository READ / résumé / recherche / vérité Git SANS mutation ni qualification de cycle.
+
+actionable — l'effet demandé est une opération SFIA gouvernée (qualifier/créer/changer un CycleInstance ; créer une proposition F2 parce que l'utilisateur demande une transition de processus ; préparer un changement structurel Project nécessitant une transition d'état ; capturer/préparer un workflow de décision où une qualification de cycle est réellement requise) ET candidateCycleTypeId + signals sont supportables.
+Exemples actionable:
+- « Qualifie ce chantier en cycle Delivery et prépare la proposition. »
+- « Crée le cycle correspondant et prépare le passage au prochain gate. »
+- « Prépare l'ExecutionContract pour cette décision déjà enregistrée. »
+
+execution_request — uniquement si l'utilisateur demande explicitement une exécution / mutation / action externe franchissant la frontière d'exécution.
+Exemple: « Exécute ce contrat. »
+
+ambiguous — uniquement si l'EFFET demandé est structurellement flou ou insuffisamment spécifié.
+Ne PAS utiliser ambiguous seulement parce que le raisonnement est complexe, que plusieurs prémisses se confrontent, que sourceBreadth est élevé, que verificationNeed est élevé, ou que cognitiveWorkload.ambiguity est medium/high (incertitude analytique ≠ ambiguïté d'intention structurelle).
+
+=== cognitiveWorkload (interne) ===
+Évaluation COGNITIVE INTERNE du workload (pas Truth C, pas Evidence, pas Profile, pas décision, pas autorité).
+low seulement avec évidence affirmative ; si insuffisant → unknown (jamais unknown→low). UNKNOWN ≠ LOW.
+Ne décide PAS rigorCriticality, contextSize, costBudget, latencySensitivity, multimodality (faits produit hors schéma).
+
+ambiguity — incertitude du problème cognitif APRÈS compréhension de l'intention.
+low: tâche et faits à raisonner sont clairs.
+medium/high: incertitude analytique matérielle, interprétations multiples, prémisses incomplètes.
+IMPORTANT: high cognitive ambiguity ≠ intentClass ambiguous.
+
+reasoningDepth —
+low: lookup / transformation simple.
+medium: plusieurs étapes inférentielles / synthèse modérée.
+high: réconciliation multi-prémisses, trade-offs, synthèse profonde.
+
+sourceBreadth —
+low: un seul ensemble borné de faits/sources.
+medium: plusieurs faits / sections pertinents.
+high: plusieurs ensembles de faits/sources matériellement distincts à intégrer.
+Ne pas équivaloir longueur de caractères et sourceBreadth.
+
+toolDependency —
+low: réponse raisonnable depuis le contexte de confiance déjà disponible.
+medium/high: outils / retrieval supplémentaires matériellement requis.
+enableTools=true n'est PAS une preuve de dépendance.
+
+contradictionRisk —
+low: pas de tensions matérielles indiquées.
+medium/high: prémisses/contraintes en tension ou claims conflictuels à réconcilier.
+
+verificationNeed —
+low: réponse bornée déjà supportée par le contexte de confiance.
+medium/high: claims matériels nécessitent vérification / réconciliation / evidence avant assertion forte.
+
+=== AUTORITÉ ===
+- Ne décide jamais un GO Morris ; ne propose jamais d'exécution ; n'invente jamais un cycle (ex. delivery) par défaut.
 - actionable et execution_request: candidateCycleTypeId DOIT être un id catalogue connu ET signals DOIT contenir exactement les 6 booléens (aucun défaut inventé).
-- informative et ambiguous: candidateCycleTypeId et signals PEUVENT être null.
-- Ne décide jamais un GO Morris; ne propose jamais d'exécution; n'invente jamais un cycle (ex. delivery) par défaut.
-- Repository READ / analyse / résumé / recherche / vérité Git SANS mutation ni qualification de cycle = informative (PAS ambiguous, PAS actionable).
-  Exemples informative: « Lis ce document et résume-le. », « Retrouve le cadrage Product Completion. », « Vérifie le HEAD et le status Git. », « Cherche CURSOR_REAL_TIMEOUT_POLICY. », « Reconstitue l'historique Product Completion à partir des sources. ».
-- Demande de Delivery / décision / exécution / qualification de cycle = actionable ou execution_request selon le cas.`;
+- informative et ambiguous: candidateCycleTypeId et signals PEUVENT être null.`;
 
 export const ANALYSIS_SYSTEM = ANALYSIS_SYSTEM_BASE;
 
