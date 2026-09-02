@@ -388,9 +388,26 @@ Anti-claims (explicit):
 ## Files created / modified
 
 ### Created
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/contradictionDisposition.ts`- `projects/sfia-studio/app/lib/nora-cognitive-runtime/cognitiveStop.ts`- `projects/sfia-studio/app/lib/nora-eval/mw3Observe.ts`- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw3.s01.s02.dispositionStop.d0.test.ts`- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw3.turn.wiring.d0.test.ts`- `projects/sfia-studio/app/__tests__/nora-eval/mw3.disposition.eval.test.ts`- `projects/sfia-studio/app/__tests__/project-assistant/mw3.cognitiveStop.surface.d0.test.ts`- `projects/sfia-studio/app/__tests__/project-assistant/mw3.cognitiveStop.panel.ux.d0.test.tsx`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/contradictionDisposition.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/cognitiveStop.ts`
+- `projects/sfia-studio/app/lib/nora-eval/mw3Observe.ts`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw3.s01.s02.dispositionStop.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw3.turn.wiring.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/nora-eval/mw3.disposition.eval.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/mw3.cognitiveStop.surface.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/mw3.cognitiveStop.panel.ux.d0.test.tsx`
 ### Modified
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`- `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts`- `projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts`- `projects/sfia-studio/app/features/project-assistant/types.ts`- `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`- `projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx`- `projects/sfia-studio/app/lib/nora-eval/catalog.ts`- `projects/sfia-studio/app/lib/nora-eval/d0Runner.ts`- `projects/sfia-studio/app/lib/nora-eval/index.ts`- `projects/sfia-studio/app/lib/nora-eval/scorers.ts`- `projects/sfia-studio/app/lib/nora-eval/types.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts`
+- `projects/sfia-studio/app/features/project-assistant/types.ts`
+- `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
+- `projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx`
+- `projects/sfia-studio/app/lib/nora-eval/catalog.ts`
+- `projects/sfia-studio/app/lib/nora-eval/d0Runner.ts`
+- `projects/sfia-studio/app/lib/nora-eval/index.ts`
+- `projects/sfia-studio/app/lib/nora-eval/scorers.ts`
+- `projects/sfia-studio/app/lib/nora-eval/types.ts`
 ---
 
 ## Full new file contents
