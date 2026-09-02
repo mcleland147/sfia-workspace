@@ -1,1273 +1,630 @@
-# ChatGPT Review Pack — SFIA Studio MW3 Critical Correction after Recovery
+# ChatGPT Review Pack — SFIA Studio MW3 Epistemic Boundary Correction (CRIT-04 + CRIT-05)
 
 | Field | Value |
 | --- | --- |
-| **Timestamp (Europe/Paris)** | 2026-09-02 20:02:00 CEST |
-| **Timestamp (UTC)** | 2026-09-02T18:02:00Z |
-| **Cycle** | Delivery projet — Critical Review Correction |
+| **Timestamp (Europe/Paris)** | 2026-09-02 20:18:58 CEST |
+| **Timestamp (UTC)** | 2026-09-02T18:18:58Z |
+| **Cycle** | Critical Review bounded correction #2 |
 | **Type** | RUN |
-| **Profile** | CRITICAL |
+| **Profile** | FULL / CRITICAL |
+| **Capability** | MW3 — Evidence-backed contradiction disposition + Cognitive STOP honesty |
+| **Milestone** | Nora Cognitive Completion — MW3 |
 | **Repository** | `mcleland147/sfia-workspace` |
-| **Worktree** | `/Users/morris/Projects/sfia-workspace-mw3-correction` |
-| **Correction branch** | `cursor/mw3-cognitive-correction-post-recovery` · **LOCAL ONLY** |
-| **Entry substrate** | `c76ae54f2aba6d40d0082f6f93775e72cbaa2ff2` |
-| **MW3_CORRECTION_IMPLEMENTATION_ANCHOR** | `4e123fc5699232cc976faaf5e1a63057b09e4369` |
-| **Review Pack docs commit** | `d36a4f3a4bb6582971ea91f16b83a7b4e9b85e4e` |
-| **Final local tip at pack pin** | `d36a4f3a4bb6582971ea91f16b83a7b4e9b85e4e` (LOCAL GIT TRUTH WINS after pin) |
+| **Worktree** | `/Users/morris/Projects/sfia-workspace-mw3-correction-2` |
+| **Correction branch** | `cursor/mw3-epistemic-boundary-correction` · **LOCAL ONLY** · no upstream |
+| **Entry substrate** | `4e123fc5699232cc976faaf5e1a63057b09e4369` |
+| **MW3_EPISTEMIC_CORRECTION_ANCHOR** | `339d583ac9b5d91328838a7b9209e0fd3804bc98` |
 | **origin/main** | `c352441c2a6ab012aecae7606e0bb9af8fc9e7e7` |
+| **Previous Review Handoff entry** | `f4e04e9766781da436346b9e1e0ed1c63dd4d118` |
 | **Recovery Handoff** | `969585c6c55b1e9c991e00b1a89284e01ba25ce5` |
-| **Recovery Handoff blob** | `1ed1e881ce250dcbf08be320398c9e4bbe7779a4` |
 | **Historical implementation** | `806e814420bd4049297edc910920d93fb6fc8037` — **LOST / provenance-only** |
 | **source_handoff_commit (historical)** | `ab61c18a041b639cbaf1654980de3f7b87e060c8` |
 
+REAL NOT EXECUTED — MORRIS REAL GO REQUIRED
+
+MW3 NOT COMPLETE / NOT CLOSED
+
+COGNITIVE COMPLETION NOT PROVEN
+
+RUNTIME V3 NON ADOPTED
+
+MW4 NOT AUTHORIZED
+
+ROADMAP TRUTH-SYNC PENDING
+
+PROJECT PUSH / PR / MERGE NOT PERFORMED
+
+MW3 HISTORICAL IMPLEMENTATION SHA LOST
+
+HISTORICAL BYTE/CODE PARITY NOT PROVEN
+
+MW2-R01 / MW2-R02 / MW2-R03 CARRIED
+
 ---
 
-## A. Metadata
+## A. Git truth
 
 LOCAL GIT TRUTH WINS.
 
-Correction worktree created from exact substrate `c76ae54f` (recovery implementation anchor). Recovery branch `recovery/mw3-delivery-rematerialization-ab61c18a` remains at docs-only `db3a9b71` with empty app diff vs `c76ae54f`.
+| Item | Value |
+| --- | --- |
+| Worktree | `/Users/morris/Projects/sfia-workspace-mw3-correction-2` |
+| Branch | `cursor/mw3-epistemic-boundary-correction` **LOCAL ONLY** |
+| Entry | `4e123fc5699232cc976faaf5e1a63057b09e4369` |
+| Current origin/main | `c352441c2a6ab012aecae7606e0bb9af8fc9e7e7` |
+| Implementation anchor | `339d583ac9b5d91328838a7b9209e0fd3804bc98` |
+| Final tip at pack write | `339d583ac9b5d91328838a7b9209e0fd3804bc98` (docs pack commit may follow) |
 
-`move_agent_to_root` aborted (local-only branch). All edits used the persistent correction worktree path.
+Previous correction worktree `/Users/morris/Projects/sfia-workspace-mw3-correction` (`cursor/mw3-cognitive-correction-post-recovery`) was inspected: app tree `4e123fc5..HEAD` empty (docs-only after implementation). New worktree created from **exactly** `4e123fc5`. Status at creation: clean. `move_agent_to_root` is not used for this local-only branch.
+
+Untracked local `projects/sfia-studio/app/node_modules` symlink to recovery `node_modules` (lockfile match). **Not committed.**
+
+No reset. No rebase. No stash. No project push.
 
 ---
 
-## B. Authority
+## B. Morris authority
 
-**Recovery-1 GO:** rematerialize without inference — STOP.
-**Recovery-2 GO:** bounded inference of 5 glue files — FUNCTIONAL D0 rematerialization.
-**ChatGPT Recovery Review:** PASS on substrate `c76ae54f` / Recovery Handoff `969585c6`.
-**This GO consumed:** GO MW3 CRITICAL CORRECTION — correct BLK-MW3-CRIT-01, CORR-MW3-CRIT-02, CORR-MW3-CRIT-03.
+**GO consumed:** GO MW3 BOUNDED EPISTEMIC CORRECTION
 
-**NOT performed:** REAL OpenAI · MW3 closure · Cognitive Completion proof · runtime v3 · MW4 · Hosted Search · production routing · Responses compaction · package/SDK upgrade · new persistence · new provider · generic contradiction engine · Roadmap/C1/C5/doctrine · project push/PR/merge · force.
+Authorized: correct BLK-MW3-CRIT-04; correct BLK-MW3-CRIT-05; minimum types/schema/orchestration/Evidence-resolution; hostile deterministic tests; OA Evidence shape/path tests; preserve CRIT-02/03; local correction commit(s); Full Review Pack; canonical Review Handoff via bounded publisher.
+
+**NOT authorized / NOT performed:** REAL OpenAI · MW3 closure · READY FOR REAL · Cognitive Completion proof · runtime v3 adoption · MW4 · Hosted Search · File Search · MCP source engine · new source subsystem · package upgrade · production model routing · Responses compaction adoption · new persistence · new Evidence aggregate/schema · generic epistemic/reasoning engine · Roadmap truth-sync · Build Doctrine/C1/C5/v3 mutation · project branch push · PR · merge · branch deletion · force operation.
 
 ---
 
 ## C. Sources read
 
-Process: cycle execution template · routing guide (contract via GO) · operating model (contract via GO) · rules and guardrails.
+Process: `prompts/templates/sfia-cycle-execution-template.md` · `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` · `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` · `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`.
 
-Studio at substrate: Build Doctrine · Roadmap · Product Completion cadrage.
+Studio (validation only, **not mutated**): Build Doctrine · Roadmap · Product Completion cadrage/conception · C5 MW3-S01/S02 · doc08 trajectory · v3 33/34/35.
 
-MW3: C5 `05-nora-source-locked-cognitive-backlog.md` MW3-S01/S02 · doc08 trajectory.
+Review input: `f4e04e9766781da436346b9e1e0ed1c63dd4d118:sfia-review-handoff/latest-chatgpt-review.md`.
 
-v3 33/34/35 (validation only, not mutated).
-
-Correction entry: `969585c6:sfia-review-handoff/latest-chatgpt-review.md`.
-
-Code inspected: `package.json` openai `^6.48.0` / `@openai/agents` `^0.17.0`; `runNoraAgentsTurn.ts`; `providerAgentsModel.ts`; `runNoraCognitiveTurn.ts`; `intentAnalysis.ts`; `orchestrateF2.ts`; `orchestrateTurn.ts`; `actions.ts`; `collectToolTelemetry.ts`; OA Evidence types/reader; Fake provider; recovered `contradictionDisposition.ts` / `cognitiveStop.ts`.
+Code inspected before mutation: `deriveMw3Assessment.ts` · `contradictionDisposition.ts` · `mw3AvailableEvidence.ts` · `intentAnalysis.ts` · `orchestrateF2.ts` · OA Evidence types / `RegisterEvidence` / `validateBindings` · Fake provider · C01–C16 / C10–C12 tests.
 
 ---
 
 ## D. Convergence
 
-Capability remains MW3-S01 (candidate vs evidence-backed) and MW3-S02 (Cognitive STOP honesty).
+Target: **MW3-S01** candidate vs evidence-backed contradiction; **MW3-S02** Cognitive STOP honesty.
 
-Trajectory: MW0 → MW1 Option C / Memory B → MW2 CWP → **MW3 contradiction + STOP (this correction)** → MW4 later.
+Chain: MW0 eval spine → MW1 Option C / Memory B → MW2 CWP → **MW3 contradiction/STOP (this correction)** → MW4 later.
 
 **MW4 NOT AUTHORIZED.**
 
-KEEP: Option C / Agents SDK Runner; F1/F2 orchestration; source/tool loop; Evidence seams; MW0 harness; Memory B; CWP; recovered disposition/STOP controllers.
+KEEP: Option C; existing structured cognition call; `disposeContradiction`; `decideCognitiveStop`; public `projectAssistantSendAction`; OA Evidence repository; CRIT-02 precedence; CRIT-03 UI anatomy; MW0/MW2/MW3 deterministic spine.
 
-ADAPT: F2 structured intent schema (optional `contradictionCandidate`); Cognitive STOP precedence; existing MW3 UI surface.
+ADAPT: contradiction candidate contract (policy fields removed); Studio-owned promotion policy; project-scoped Evidence resolution; C17–C24 tests.
 
-COMPLETE: standard-path derivation; fail-closed governing STOP; visible anatomy; C01–C16 public-entry proof.
+REJECT: model-owned evidence promotion policy; cross-project Evidence acceptance; new Evidence architecture; new source engine; Hosted Search; parallel cognitive path.
 
-REJECT: second engine; Hosted Search; new persistence; new provider; MW4.
-
----
-
-## E. OpenAI Capability Fit
-
-Installed primitives: OpenAI SDK + Agents SDK already present. F2 already uses `completeStructured` + `F2_INTENT_JSON_SCHEMA`. F1 already uses `runNoraAgentsTurn` / Fake `completeRound`. OA Evidence already has `repository.findById`.
-
-**Chosen disposition:** COMBINE native candidate cognition (structured intent field) + SFIA evidence qualification (`disposeContradiction`) + existing STOP controller.
-
-Why no second engine: candidate is an extra JSON field on the existing F2 structured call; qualification reuses recovered controllers.
-
-Why no Hosted Search: C5 MW3 does not select it; claimed Evidence IDs are resolved against existing OA Evidence / Fake catalog only.
-
-Hard separations honored: model candidate ≠ evidence_backed; model confidence ≠ Evidence; tool trace ≠ Evidence automatically; OpenAI HITL ≠ Cognitive STOP; `trustedSfiaProfile` remains null on product path.
+**ROADMAP TRUTH-SYNC PENDING.** Versioned Roadmap still contains stale “MW3 not authorized/not started” wording. Morris GO supersedes that operational pointer for this local cycle. Roadmap file was **not** modified.
 
 ---
 
-## F. Pre-correction seam map
+## E. ChatGPT re-review findings
 
-| Seam | Rec | Role after correction |
+### BLK-MW3-CRIT-04 — UNTRUSTED CANDIDATE CONTROLS PROMOTION POLICY
+
+`Mw3ContradictionCandidateSignal` carried `requiredDomains`, `requiredSourceCount`, `freshnessMatters`. `deriveMw3ContradictionAssessment` forwarded those into `disposeContradiction`. The model could lower source count, disable freshness, or pick a convenient domain.
+
+### BLK-MW3-CRIT-05 — EVIDENCE PROJECT/CONTEXT ISOLATION NOT PROVEN
+
+`resolveAvailableContradictionPointers` accepted only `claimedEvidenceIds` and called `repository.findById` without current `projectId`. `mapOaEvidence` set `domain = "project"` when **any** `bindings.projectId` existed, without `=== current projectId`.
+
+---
+
+## F. Before/after ownership matrix
+
+| Field | BEFORE | AFTER |
 | --- | --- | --- |
-| `projectAssistantSendAction` | **KEEP** | Thin `{projectId,content,history}` — **no client epistemic fields** |
-| `orchestrateAssistantSend` | **COMPLETE** | Derives assessment from intent candidate + available Evidence |
-| `analyzeIntent` / schema | **ADAPT** | Optional untrusted `contradictionCandidate` |
-| `orchestrateProjectAssistantTurn` | **KEEP** | Still accepts assessment (historical injection + product derivation) |
-| `runNoraCognitiveTurn` / `withMw3Fields` | **KEEP** | Disposition + STOP after Agents turn |
-| `disposeContradiction` | **KEEP** | Unchanged fail-closed promotion |
-| `decideCognitiveStop` | **ADAPT** | Governing invalidation precedence (CRIT-02) |
-| `collectToolTelemetry` | **KEEP** | Not treated as Evidence |
-| `mw3AvailableEvidence` | **COMPLETE** | Resolve claimed IDs vs Fake catalog / OA `findById` |
-| `deriveMw3Assessment` | **COMPLETE** | Candidate + available pointers → assessment input (not final disposition) |
-| Panel | **ADAPT** | Visible anatomy (CRIT-03) |
-| Eval harness | **KEEP** | `d0Runner` type-only `contradictionCandidate: null` |
-
-**Candidate signal origin:** F2 `analyzeIntent` structured `contradictionCandidate` (untrusted).
-**Evidence qualification location:** `deriveMw3ContradictionAssessment` then `disposeContradiction` inside `withMw3Fields`.
-**STOP location:** `decideCognitiveStop` in `withMw3Fields`.
-**UI:** `toMw3Surface` → `ProjectAssistantPanel` `project-assistant-mw3-surface`.
+| conflict signal | MODEL/NORA | MODEL/NORA |
+| claimed Evidence IDs | MODEL/NORA | MODEL/NORA |
+| source-count requirement | MODEL/NORA (could set 1) | **STUDIO/SFIA** (`MW3_STUDIO_REQUIRED_SOURCE_COUNT = 2`) |
+| freshness requirement | MODEL/NORA (could set false) | **STUDIO/SFIA** (`MW3_STUDIO_FRESHNESS_MATTERS = true`) |
+| context/domain requirement | MODEL/NORA (`requiredDomains`) | **STUDIO/SFIA** (`requiredDomains = [current projectId]`) |
+| attribution | STUDIO/SFIA (`disposeContradiction`) | STUDIO/SFIA (unchanged) |
+| governing invalidation semantic signal | MODEL/NORA | MODEL/NORA (untrusted; cannot create `evidence_backed` or bypass policy) |
+| disposition | STUDIO/SFIA (`disposeContradiction`) | STUDIO/SFIA — now always under Studio policy on product path |
+| STOP | STUDIO/SFIA (`decideCognitiveStop`) | STUDIO/SFIA — STOP only after Studio `evidence_backed` (CRIT-02 retained) |
 
 ---
 
-## G. BLK-MW3-CRIT-01
+## G. CRIT-04 correction
 
-**Root cause:** public `projectAssistantSendAction` → `orchestrateAssistantSend` never derived/passed `contradictionAssessment`. MW3 ran only when tests injected it into `orchestrateProjectAssistantTurn`.
+**Old defect:** untrusted candidate fields were treated as authoritative promotion policy.
 
-**Correction:** On the informative F1 product path, `orchestrateAssistantSend` derives assessment from the untrusted intent candidate and resolved Evidence pointers, then passes it into the same `orchestrateProjectAssistantTurn` → `runNoraCognitiveTurn` → `disposeContradiction` / `decideCognitiveStop` chain.
+**Fix:**
 
-**Client cannot author epistemic truth:** `projectAssistantSendAction` signature unchanged.
+- Removed `requiredDomains` / `requiredSourceCount` / `freshnessMatters` from `Mw3ContradictionCandidateSignal`, F2 `CONTRADICTION_CANDIDATE_OBJECT_SCHEMA` (required list + properties), prompt, parser return object, and C01–C16 fixtures.
+- Parser **ignores** legacy policy fields if a Fake/legacy payload still contains them.
+- `deriveMw3ContradictionAssessment` now requires `projectId` and always injects Studio policy into `disposeContradiction` input.
+- Prompt states: candidate is never Evidence, never final disposition, never promotion policy, never HumanDecision, never authority. `governingPremiseInvalidated` is a semantic hypothesis, not proof and not STOP.
 
-**C01/C04 proof** starts at `projectAssistantSendAction` with Fake provider via `setConversationProviderForTests` (sendAction cannot take a provider argument; this is the real public server entry). Tests do **not** pass `contradictionAssessment`.
+Historical `disposeContradiction` unit tests that pass policy directly remain unchanged (controller still accepts explicit policy). Product path no longer lets the model supply that policy.
 
-Primary public-path proof does **not** manually inject final disposition, accepted Evidence IDs, or STOP decision.
+**Hostile proof:** C17 (source-count downgrade), C18 (freshness bypass), C19 (domain bypass), parser unit (legacy fields cannot change Studio bars).
 
----
-
-## H. CORR-MW3-CRIT-02
-
-**Old:** `localImpactOnly===true OR governingPremiseInvalidated!==true` → continue. Hostile pair continued.
-
-**Corrected:** if `governingPremiseInvalidated===true` → COGNITIVE_STOP even when `localImpactOnly===true`. Else continue (`F_*`).
-
-**Hostile proof C07:** unit + product path PASS (`cognitiveStop=true`, `outcome=COGNITIVE_STOP`, product SUCCESS impossible).
+Q1. Can a model-supplied field lower distinct source coverage below Studio policy? **NO**
+Q2. Can a model disable freshness enforcement? **NO**
+Q3. Can a model choose a convenient domain to get promotion? **NO**
 
 ---
 
-## I. CORR-MW3-CRIT-03
+## H. CRIT-05 correction
 
-**Old visible:** pill + reason + nextAction.
+**Old defect:** Evidence lookup was not project-scoped; mapping did not verify `evidence.bindings.projectId === current projectId`.
 
-**New visible anatomy (existing surface only):** reason; governing premise; Evidence IDs; Source IDs; blocked impact; next governed action; candidate insufficiency; may-continue; STOP ≠ provider failure. Meaning is textual, not color-only.
+**Fix:**
 
-DTO optionally extended with `blockedImpact` / `mayContinue` / `notTechnicalFailure` derived from `CognitiveStopDecision`.
+- Resolver contract: `resolveAvailableContradictionPointers({ projectId, claimedEvidenceIds })`.
+- Pure `mapOaEvidenceForProject(evidence, currentProjectId)`:
+  - null if project binding missing, blank, or mismatched;
+  - else pointer with `domain = currentProjectId`, honest `freshness`, `attributable` = non-empty source AND status `available|verified`.
+- Rejected Evidence contributes no accepted pointer (fail-closed, **no product throw**).
+- Test catalog: `setMw3AvailableEvidenceForTests({ projectId, evidence: Evidence[] } | null)`. Fake replaces storage only. Mapping/filter still runs.
+- Orchestration: `orchestrateAssistantSend` loads Project, then `deriveProductPathMw3Assessment(analysis, project.projectId)`.
+- `projectAssistantSendAction` remains `{ projectId, content, history }` only. No client epistemic fields.
 
----
-
-## J. Files created/modified
-
-Created:
-- `deriveMw3Assessment.ts`
-- `mw3AvailableEvidence.ts`
-- `mw3.correction.c01-c16.d0.test.ts`
-- `mw3.correction.panel.ux.d0.test.tsx`
-
-Modified: cognitiveStop, intentAnalysis, orchestrateF2, types (f2 + product), orchestrateTurn, Panel, runtime index, d0Runner (type-only null field), f2.orchestrate.test (type-only null field).
-
-Full contents of created files and complete unified diff vs `c76ae54f` are appended below.
+Q4. Can Evidence from another Project be promoted? **NO** (C20)
+Q5. Can unbound Evidence be promoted? **NO** (C21)
+Q6. Can same-project valid Evidence be promoted through normal product path? **YES** when Studio policy is satisfied (C22)
 
 ---
 
-## K. C01–C16
+## I. OA Evidence mapping
 
-| Case | Result | Proof level |
+Project binding rule: `evidence.bindings.projectId?.trim() === currentProjectId.trim()` else reject.
+
+| Check | Rule |
+| --- | --- |
+| status | `available` or `verified` required for `attributable` |
+| freshness | mapped honestly (`fresh` / `aging` / `stale` / `unknown`); Studio always enforces freshness (`stale`/`unknown` reject promotion) |
+| source attribution | non-empty `evidence.source` required for `attributable` |
+| coverage | ≥ 2 distinct attributable in-project source IDs |
+
+Same-project stale/unattributable Evidence **is still mapped** so `disposeContradiction` can record `stale_evidence` / `missing_attribution`. Cross-project / unbound Evidence is **omitted** (no pointer).
+
+C22 exercises `RegisterEvidence` on Product SQLite + `repository.findById` + `mapOaEvidenceForProject` + public `orchestrateAssistantSend`. Test catalog is **not** set for C20–C24.
+
+**Realism/grounding boundary:** MW3 deterministic proof validates governed Evidence eligibility and contradiction disposition. It does **not** extract semantic claims from Evidence payloads. MW4 later strengthens narrative/provenance durability. MW6 later strengthens external source intelligence. This does **not** weaken fail-closed behavior.
+
+---
+
+## J. Hostile C17–C24 proof
+
+| ID | Result | Observation |
 | --- | --- | --- |
-| C01 | PASS | `projectAssistantSendAction` — candidate, no injected assessment |
-| C02 | PASS | public path insufficient proof — candidate, no STOP |
-| C03 | PASS | Fake Evidence catalog — evidence_backed |
-| C04 | PASS | `projectAssistantSendAction` — STOP, progress ≠ SUCCESS |
-| C05 | PASS | evidence-backed non-governing continues |
-| C06 | PASS | Fake provider error → `provider_error` ≠ cognitive_stop |
-| C07 | PASS | hostile flags → STOP (unit + product) |
-| C08 | PASS | model candidate, no evidence → candidate |
-| C09 | PASS | fabricated/stale/wrong-domain stay candidate |
-| C10 | PASS | panel STOP anatomy |
-| C11 | PASS | panel candidate insufficient proof, no STOP pill |
-| C12 | PASS | panel may continue |
-| C13 | PASS | no candidate → `mw3` null, normal F1 |
-| C14 | PASS | `trustedSfiaProfile` null, not invented |
-| C15 | PASS | CWP/strategy variation same disposition |
-| C16 | PASS | low sourceBreadth cannot promote under required coverage |
+| parser | PASS | legacy `requiredSourceCount=1` / `freshnessMatters=false` / `requiredDomains` ignored; Studio bars remain 2 / true / `[projectId]`; schema no longer contains those fields |
+| mapOaEvidenceForProject | PASS | same-project maps; cross-project / unbound / blank binding → null |
+| C17 | PASS | one valid source + `requiredSourceCount=1` → `candidate`, no STOP, `insufficient_source_coverage` |
+| C18 | PASS | two stale/unknown sources + `freshnessMatters=false` → `candidate`, no STOP |
+| C19 | PASS | out-of-project Evidence + convenient `requiredDomains` → `candidate`, no STOP |
+| C20 | PASS | OA Evidence `bindings.projectId = prj:other-project-b` while current is A → `candidate`, no STOP |
+| C21 | PASS | OA Evidence bound only to `cycleInstanceId` (no `projectId`) → `candidate`, no STOP |
+| C22 | PASS | two fresh attributable OA Evidence records on current Project via repository → `evidence_backed` |
+| C23 | PASS | C22 eligibility + `governingPremiseInvalidated=true` → `COGNITIVE_STOP`, progress ≠ SUCCESS |
+| C24 | PASS | `governingPremiseInvalidated=true` with one source + stale + cross-project → `candidate`, **NO STOP** |
 
-Proof ceiling: **DETERMINISTIC PRODUCT WIRING**. ZERO REAL.
+Q7. Can `governingPremiseInvalidated=true` cause STOP with insufficient Evidence? **NO** (C24)
+Q8. Can `governingPremiseInvalidated=true` cause STOP after Studio-owned `evidence_backed` qualification? **YES** (C23)
 
 ---
 
-## L. Historical D0 / regressions
+## K. C01–C16 regression
 
-Historical MW3 D0: **5 files / 28 tests PASS** (unchanged files).
+C01–C16 file: **13 PASS** (catalog now project-scoped `Evidence[]`; candidate policy fields removed; C14 asserts Studio policy).
 
-Regression `nora-cognitive-runtime` + `mw2*` + `orchestrateTurn`: **25 files / 198 tests PASS**.
-
-MW0 D0: **9 PASS**.
-
-F2 orchestrate: **14 PASS**.
-
-`npm run typecheck` PASS.
-
-`npm run lint` PASS.
+C10–C12 panel anatomy: **3 PASS** (unchanged UX file).
 
 ---
 
-## M. MW2 carried reserves
+## L. Historical regression
 
-MW2-R01 / MW2-R02 / MW2-R03 remain **OPEN / NON-BLOCKING / CARRIED**.
+| Suite | Result |
+| --- | --- |
+| `mw3.s01.s02.dispositionStop.d0.test.ts` | 16 PASS |
+| `mw3.turn.wiring.d0.test.ts` | 2 PASS |
+| `mw3.disposition.eval.test.ts` | 3 PASS |
+| `mw3.cognitiveStop.surface.d0.test.ts` | 5 PASS |
+| `mw3.correction.c01-c16.d0.test.ts` | 13 PASS |
+| F2 `f2.orchestrate.test.ts` | 14 PASS |
+| `orchestrateTurn.test.ts` | 8 PASS |
+| `nora-cognitive-runtime` + MW2 eval | 199 PASS including MW0 D0 **9 PASS** and all MW2 D0 files |
+| `npm run typecheck` | PASS |
+| `npm run lint` | PASS |
+| `git diff --check` | PASS |
 
-C15/C16/C14 add regression evidence; they do **not** close the original MW2 reserve scope.
-
----
-
-## N. Architecture
-
-FA = NO
-TA = NO
-
-No second loop, no generic engine, no new persistence schema, no Hosted Search, no package upgrade, no client epistemic authority.
-
----
-
-## O. Fake/Real
-
-ZERO REAL
-REAL NOT EXECUTED — MORRIS REAL GO REQUIRED
-
-Fake substituted: OpenAI/model boundary; Evidence lookup catalog (test source boundary).
-
-Fake did **not** substitute: disposeContradiction, decideCognitiveStop, product orchestration, UI mapping.
-
-Realism gaps: live model variability; live source/Evidence variability.
+Recovery-era “5 files / 28 PASS” count predates C01–C16. Current historical MW3 controller + correction #1 product-path files remain green.
 
 ---
 
-## P. Recovery provenance
+## M. CRIT-02 / CRIT-03 non-regression
 
-MW3 HISTORICAL IMPLEMENTATION SHA LOST
-HISTORICAL BYTE/CODE PARITY NOT PROVEN
-Recovery substrate `c76ae54f` accepted by ChatGPT Recovery Review
+Q9. Did CRIT-02 remain closed? **YES** — C07 unit (`localImpactOnly=true` + governing invalidation → STOP) + C07 product path + C23.
+
+Q10. Did CRIT-03 remain closed? **YES** — C10–C12 panel anatomy unchanged and PASS.
+
+---
+
+## N. Fake/Real
+
+Proof level entering: DETERMINISTIC PRODUCT WIRING.
+Proof level expected/achieved: **DETERMINISTIC PRODUCT + OA EVIDENCE ELIGIBILITY**.
+
+Fake allowed: model/OpenAI response (`FakeConversationProvider`); test catalog **storage** of OA `Evidence` objects.
+
+Fake forbidden and **not** faked: final Evidence acceptance; project-scope decision (`mapOaEvidenceForProject`); source-count policy; freshness policy; disposition; Cognitive STOP.
+
+C20–C24 use actual `registerEvidence` + Product SQLite repository. ZERO REAL OpenAI.
+
+Proof level NOT claimed: REAL BOUNDARY PROVEN · END-TO-END REAL PROVEN.
+
+ZERO REAL.
+
+---
+
+## O. Architecture
+
+FA = **NO**
+TA = **NO**
+
+No new Evidence persistence field/schema. No new aggregate. No second model/agent loop. No Hosted Search / File Search / MCP / source engine. No generic verification engine. No claim graph. No parallel product path. No client epistemic authority. No new business-domain taxonomy — project context is the trusted domain boundary available today.
+
+OpenAI cognition: **KEEP / ADAPT** (same structured call; candidate fields reduced).
+SFIA evidence policy: **COMPLETE / HARDEN**.
+
+---
+
+## P. Files
+
+Scope vs `4e123fc5`:
+
+```
+M  projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.c01-c16.d0.test.ts
+A  projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.c17-c24.d0.test.ts
+M  projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+M  projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+M  projects/sfia-studio/app/features/project-assistant/mw3AvailableEvidence.ts
+M  projects/sfia-studio/app/lib/nora-cognitive-runtime/deriveMw3Assessment.ts
+M  projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+```
+
+7 files, +831 / −108.
+
+Protected files **not** modified: Build Doctrine, Roadmap, cadrage, conception, C5, doc08, `sfia-v3-framing/**`, `prompts/templates/**`, `method/**`, `package.json`, `package-lock.json`.
+
+Complete implementation diff of `339d583a` follows (new file included in full; modified files as complete useful diffs).
 
 ---
 
 ## Q. Git lifecycle
 
-Implementation commit `4e123fc5` on local-only `cursor/mw3-cognitive-correction-post-recovery`.
-Review Pack `d36a4f3a`. No project push / PR / merge.
+- Dedicated persistent worktree from exact `4e123fc5`.
+- Local implementation commit `339d583a` — **not pushed**.
+- Project branch has **no upstream**.
+- Review Handoff: publish-in-cycle via `scripts/sfia/publish-review-handoff.sh` only (this pack).
+- Expected remote entry before this publication: `f4e04e97`.
+- Ancestors that must remain readable: `f4e04e97`, `969585c6`, `ab61c18a`.
 
 ---
 
-## R. Reservations
+## R. Reserves
 
-ROADMAP TRUTH-SYNC PENDING
-MW2-R01 / MW2-R02 / MW2-R03 CARRIED
-Live OpenAI / live Evidence not executed
-F2 `contradictionCandidate` is a structured-schema ADAPT; live model must emit it for REAL (not this cycle)
-
----
-
-## S. Verdict
-
-**MW3 CORRECTION COMPLETE — READY FOR CHATGPT CRITICAL RE-REVIEW**
-
-Does NOT mean READY FOR REAL · MW3 COMPLETE/CLOSED · Cognitive Completion PROVEN · runtime v3 ADOPTED · MW4 authorized.
+1. ROADMAP TRUTH-SYNC PENDING — do not treat Roadmap wording as current MW3 operational truth.
+2. MW3 HISTORICAL IMPLEMENTATION SHA LOST — `806e8144` provenance-only.
+3. HISTORICAL BYTE/CODE PARITY NOT PROVEN.
+4. MW3 does not extract semantic claims from Evidence payloads.
+5. Current OA Evidence has no generic contradiction business-domain field; project binding is the trusted domain boundary today.
+6. ZERO REAL — READY FOR REAL is **not** claimed.
+7. Untracked `node_modules` symlink is local convenience only.
 
 ---
 
-## Mandatory statements
+## S. Final verdict
 
-REAL NOT EXECUTED — MORRIS REAL GO REQUIRED
-MW3 NOT COMPLETE / NOT CLOSED
-COGNITIVE COMPLETION NOT PROVEN
-RUNTIME V3 NON ADOPTED
-ROADMAP TRUTH-SYNC PENDING
-PROJECT PUSH / PR / MERGE NOT PERFORMED
-MW3 HISTORICAL IMPLEMENTATION SHA LOST
-HISTORICAL BYTE/CODE PARITY NOT PROVEN
-MW2-R01 / MW2-R02 / MW2-R03 CARRIED
+**BLK-MW3-CRIT-04 TREATED — READY FOR CHATGPT RE-REVIEW**
+
+**BLK-MW3-CRIT-05 TREATED — READY FOR CHATGPT RE-REVIEW**
+
+**MW3 EPISTEMIC BOUNDARY DETERMINISTIC PROOF PASS**
+
+**MW3 EPISTEMIC BOUNDARY CORRECTION COMPLETE — READY FOR CHATGPT CRITICAL RE-REVIEW**
+
+This does **NOT** mean: READY FOR REAL · MW3 COMPLETE · MW3 CLOSED · Cognitive Completion PROVEN · runtime v3 ADOPTED · MW4 authorized.
+
+FA NO · TA NO · ZERO REAL · project branch not pushed.
 
 ---
 
-## Created-file full contents
+## Implementation diff (`339d583a`)
 
-
-### `projects/sfia-studio/app/lib/nora-cognitive-runtime/deriveMw3Assessment.ts`
-
-```typescript
-/**
- * MW3 — derive contradictionAssessment from an untrusted cognitive candidate
- * plus actual available Evidence/source pointers.
- *
- * Model/candidate assertions NEVER self-promote to evidence_backed.
- * Promotion remains exclusive to disposeContradiction.
- */
-import type { ContradictionEvidencePointer } from "./contradictionDisposition";
-import type { Mw3ContradictionAssessmentInput } from "./runNoraCognitiveTurn";
-import type { CognitiveStrategyClass } from "./cognitiveWorkloadPolicy";
-
-/** Untrusted cognitive candidate — not Evidence, not Truth C, not a final STOP. */
-export type Mw3ContradictionCandidateSignal = {
-  conflictPresent: boolean;
-  claimedEvidenceIds: string[];
-  requiredDomains?: string[];
-  requiredSourceCount?: number;
-  freshnessMatters?: boolean;
-  governingPremise?: string | null;
-  governingPremiseInvalidated?: boolean;
-  localImpactOnly?: boolean;
-  fabricationAttempt?: boolean;
-};
-
-export function deriveMw3ContradictionAssessment(input: {
-  candidate: Mw3ContradictionCandidateSignal;
-  availablePointers: ContradictionEvidencePointer[];
-  sourceBreadth?: "low" | "medium" | "high" | "unknown" | null;
-  trustedSfiaProfile?: string | null;
-  strategyClass?: CognitiveStrategyClass | null;
-}): Mw3ContradictionAssessmentInput | null {
-  if (input.candidate.conflictPresent !== true) {
-    return null;
-  }
-
-  const availableById = new Map(
-    input.availablePointers.map((p) => [p.evidenceId, p]),
-  );
-  const claimed = uniqueStrings(input.candidate.claimedEvidenceIds);
-  const evidencePointers: ContradictionEvidencePointer[] = [];
-
-  if (input.candidate.fabricationAttempt === true) {
-    return {
-      conflict: {
-        conflictPresent: true,
-        evidencePointers: [],
-        requiredDomains: input.candidate.requiredDomains,
-        requiredSourceCount: input.candidate.requiredSourceCount,
-        freshnessMatters: input.candidate.freshnessMatters,
-        fabricationAttempt: true,
-        sourceBreadth: input.sourceBreadth ?? null,
-        trustedSfiaProfile: input.trustedSfiaProfile ?? null,
-        strategyClass: input.strategyClass ?? null,
-      },
-      governingPremiseInvalidated:
-        input.candidate.governingPremiseInvalidated === true,
-      governingPremise: input.candidate.governingPremise ?? undefined,
-      localImpactOnly: input.candidate.localImpactOnly === true,
-    };
-  }
-
-  for (const evidenceId of claimed) {
-    const found = availableById.get(evidenceId);
-    if (found) {
-      evidencePointers.push({ ...found });
-      continue;
-    }
-    evidencePointers.push({
-      evidenceId,
-      sourceId: "unresolved",
-      domain: "unknown",
-      freshness: "unknown",
-      attributable: false,
-      fabricated: true,
-    });
-  }
-
-  return {
-    conflict: {
-      conflictPresent: true,
-      evidencePointers,
-      requiredDomains: input.candidate.requiredDomains,
-      requiredSourceCount: input.candidate.requiredSourceCount,
-      freshnessMatters: input.candidate.freshnessMatters,
-      sourceBreadth: input.sourceBreadth ?? null,
-      trustedSfiaProfile: input.trustedSfiaProfile ?? null,
-      strategyClass: input.strategyClass ?? null,
-    },
-    governingPremiseInvalidated:
-      input.candidate.governingPremiseInvalidated === true,
-    governingPremise: input.candidate.governingPremise ?? undefined,
-    localImpactOnly: input.candidate.localImpactOnly === true,
-  };
-}
-
-function uniqueStrings(items: string[]): string[] {
-  const out: string[] = [];
-  const seen = new Set<string>();
-  for (const raw of items) {
-    const id = raw.trim();
-    if (!id || seen.has(id)) continue;
-    seen.add(id);
-    out.push(id);
-  }
-  return out;
-}
 ```
-
-
-### `projects/sfia-studio/app/features/project-assistant/mw3AvailableEvidence.ts`
-
-```typescript
-/**
- * MW3 — resolve claimed Evidence IDs against actual available metadata.
- *
- * Fake/tests may substitute the source/Evidence lookup boundary.
- * SFIA still qualifies via disposeContradiction — this module does not
- * decide candidate vs evidence_backed.
- */
-import type { ContradictionEvidencePointer } from "@/lib/nora-cognitive-runtime";
-import type { Evidence } from "@/lib/oa/evidence-review/domain/types";
-import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
-
-let testCatalog: ContradictionEvidencePointer[] | null = null;
-
-/** Test-only Fake source/Evidence boundary. Never a client DTO field. */
-export function setMw3AvailableEvidenceForTests(
-  pointers: ContradictionEvidencePointer[] | null,
-): void {
-  testCatalog = pointers;
-}
-
-export async function resolveAvailableContradictionPointers(input: {
-  claimedEvidenceIds: string[];
-}): Promise<ContradictionEvidencePointer[]> {
-  const claimed = input.claimedEvidenceIds
-    .map((id) => id.trim())
-    .filter(Boolean);
-  if (claimed.length === 0) return [];
-
-  const resolved: ContradictionEvidencePointer[] = [];
-  for (const evidenceId of claimed) {
-    const fromTest = testCatalog?.find((p) => p.evidenceId === evidenceId);
-    if (fromTest) {
-      resolved.push({ ...fromTest });
-      continue;
-    }
-    const fromOa = await lookupOaEvidence(evidenceId);
-    if (fromOa) resolved.push(fromOa);
-  }
-  return resolved;
-}
-
-async function lookupOaEvidence(
-  evidenceId: string,
-): Promise<ContradictionEvidencePointer | null> {
-  const oa = getRuntimeApplicationService().oa;
-    const repository = oa?.evidenceReviewServices?.repository;
-    if (!repository) return null;
-    try {
-      const evidence = await repository.findById(evidenceId);
-    if (!evidence) return null;
-    return mapOaEvidence(evidence);
-  } catch {
-    return null;
-  }
-}
-
-function mapOaEvidence(evidence: Evidence): ContradictionEvidencePointer {
-  const attributable =
-    Boolean(evidence.source?.trim()) &&
-    (evidence.status === "available" || evidence.status === "verified");
-  return {
-    evidenceId: evidence.evidenceId,
-    sourceId: evidence.source,
-    domain: evidence.bindings.projectId ? "project" : "unknown",
-    freshness: evidence.freshness ?? "unknown",
-    attributable,
-    fabricated: false,
-  };
-}
-```
-
-
-### `projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.c01-c16.d0.test.ts`
-
-```typescript
-/** @vitest-environment node */
-/**
- * MW3 Critical Correction — C01–C09 / C13–C16 deterministic product path.
- * Fake provider + Fake Evidence catalog only. ZERO REAL OpenAI.
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
-import {
-  setConversationProviderForTests,
-} from "@/lib/platform/ai";
-import { projectAssistantSendAction } from "@/features/project-assistant/actions";
-import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
-import { setMw3AvailableEvidenceForTests } from "@/features/project-assistant/mw3AvailableEvidence";
-import {
-  decideCognitiveStop,
-  disposeContradiction,
-  deriveMw3ContradictionAssessment,
-  type ContradictionEvidencePointer,
-} from "@/lib/nora-cognitive-runtime";
-import {
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-} from "@/lib/vertical-slice-runtime";
-import type { SemanticCognitiveWorkloadAssessment } from "@/features/project-assistant/f2/types";
-import type { Mw3ContradictionCandidateSignal } from "@/lib/nora-cognitive-runtime/deriveMw3Assessment";
-
-const tempDirs: string[] = [];
-
-function knownLowCwp(): SemanticCognitiveWorkloadAssessment {
-  return {
-    ambiguity: "low",
-    reasoningDepth: "low",
-    sourceBreadth: "low",
-    toolDependency: "low",
-    contradictionRisk: "low",
-    verificationNeed: "low",
-  };
-}
-
-function mediumCwp(
-  sourceBreadth: SemanticCognitiveWorkloadAssessment["sourceBreadth"] = "medium",
-): SemanticCognitiveWorkloadAssessment {
-  return {
-    ambiguity: "medium",
-    reasoningDepth: "high",
-    sourceBreadth,
-    toolDependency: "medium",
-    contradictionRisk: "high",
-    verificationNeed: "high",
-  };
-}
-
-function intentJson(input: {
-  cognitiveWorkload: SemanticCognitiveWorkloadAssessment | null;
-  contradictionCandidate?: Mw3ContradictionCandidateSignal | null;
-}): string {
-  return JSON.stringify({
-    intentClass: "informative",
-    candidateCycleTypeId: null,
-    signals: null,
-    cognitiveWorkload: input.cognitiveWorkload,
-    contradictionCandidate: input.contradictionCandidate ?? null,
-    objective: "Analyse contradiction",
-    scope: null,
-    rephrasedRequest: "Évaluer le conflit annoncé",
-    outOfScope: [],
-    risks: [],
-    reservations: [],
-    stopConditions: [],
-    activatedBlocks: [],
-    expectedOutcome: null,
-    criticalJustification: null,
-    requestedOperation: null,
-  });
-}
-
-function freshGovernancePointers(): ContradictionEvidencePointer[] {
-  return [
-    {
-      evidenceId: "ev:1",
-      sourceId: "src:a",
-      domain: "governance",
-      freshness: "fresh",
-      attributable: true,
-    },
-    {
-      evidenceId: "ev:2",
-      sourceId: "src:b",
-      domain: "governance",
-      freshness: "fresh",
-      attributable: true,
-    },
-  ];
-}
-
-function candidateConflict(
-  overrides: Partial<Mw3ContradictionCandidateSignal> = {},
-): Mw3ContradictionCandidateSignal {
-  return {
-    conflictPresent: true,
-    claimedEvidenceIds: [],
-    requiredDomains: ["governance"],
-    requiredSourceCount: 2,
-    freshnessMatters: true,
-    governingPremise: "FinOps freeze must hold",
-    governingPremiseInvalidated: false,
-    localImpactOnly: true,
-    fabricationAttempt: false,
-    ...overrides,
-  };
-}
-
-describe("MW3 correction — public product path C01–C16 (subset)", () => {
-  const prevReset = process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
-  const prevProvider = process.env.OPS1_CONVERSATION_PROVIDER;
-  const prevKey = process.env.OPENAI_API_KEY;
-  const prevModel = process.env.OPENAI_MODEL;
-
-  beforeEach(() => {
-    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-    process.env.OPENAI_MODEL = "gpt-5.6-luna";
-    delete process.env.OPENAI_API_KEY;
-    resetRuntimeApplicationServiceForTests();
-    setConversationProviderForTests(null);
-    setMw3AvailableEvidenceForTests(null);
-  });
-
-  afterEach(() => {
-    setConversationProviderForTests(null);
-    setMw3AvailableEvidenceForTests(null);
-    if (prevReset === undefined) delete process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
-    else process.env.SFIA_V2_RUNTIME_ALLOW_RESET = prevReset;
-    if (prevProvider === undefined) delete process.env.OPS1_CONVERSATION_PROVIDER;
-    else process.env.OPS1_CONVERSATION_PROVIDER = prevProvider;
-    if (prevKey === undefined) delete process.env.OPENAI_API_KEY;
-    else process.env.OPENAI_API_KEY = prevKey;
-    if (prevModel === undefined) delete process.env.OPENAI_MODEL;
-    else process.env.OPENAI_MODEL = prevModel;
-    resetRuntimeApplicationServiceForTests();
-    while (tempDirs.length) {
-      const d = tempDirs.pop();
-      if (d) fs.rmSync(d, { recursive: true, force: true });
-    }
-  });
-
-  async function createProject(): Promise<string> {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw3-corr-"));
-    tempDirs.push(dir);
-    const runtime = getRuntimeApplicationService({
-      productDbPath: path.join(dir, "oa-product.sqlite"),
-      auditMode: "noop",
-    });
-    const created = await runtime.createProject({
-      name: "MW3 correction",
-      objective: "Contradiction product path",
-      context: "Deterministic Fake only",
-      criticality: "STANDARD",
-      constraints: ["LECTURE SEULE"],
-      shortReference: "MW3C",
-      idempotencyKey: `idem:mw3c-${Date.now()}-${Math.random()}`,
-    });
-    expect(created.ok).toBe(true);
-    if (!created.ok) throw new Error("setup failed");
-    return created.projectId;
-  }
-
-  function fakeFor(candidate: Mw3ContradictionCandidateSignal | null, cwp = mediumCwp()) {
-    return new FakeConversationProvider({
-      scripted: [
-        intentJson({
-          cognitiveWorkload: cwp,
-          contradictionCandidate: candidate,
-        }),
-      ],
-      toolScript: [
-        {
-          kind: "message",
-          text: "[TEST/FAKE] Nora informative reply. AUCUNE EXÉCUTION.",
-        },
-      ],
-    });
-  }
-
-  it("C01 — projectAssistantSendAction derives candidate without injected contradictionAssessment", async () => {
-    const projectId = await createProject();
-    const provider = fakeFor(candidateConflict());
-    setConversationProviderForTests(provider);
-
-    const result = await projectAssistantSendAction({
-      projectId,
-      content: "Réconcilie le conflit annoncé entre les sources.",
-    });
-
-    expect(result.ok).toBe(true);
-    if (!result.ok) throw new Error("C01 failed");
-    expect(result.f2?.turnKind).toBe("f1_informative");
-    expect(result.mw3).toBeTruthy();
-    expect(result.mw3?.disposition).toBe("candidate");
-    expect(result.mw3?.cognitiveStop).toBe(false);
-    expect(result.status).toBe("ok");
-    expect(result.mw3?.insufficiencyReasons.length).toBeGreaterThan(0);
-  });
-
-  it("C02 — apparent conflict + insufficient proof stays candidate, no STOP", async () => {
-    const projectId = await createProject();
-    setConversationProviderForTests(fakeFor(candidateConflict()));
-    const result = await orchestrateAssistantSend({
-      projectId,
-      content: "Conflit possible sans preuve.",
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) throw new Error("C02 failed");
-    expect(result.mw3?.disposition).toBe("candidate");
-    expect(result.mw3?.cognitiveStop).toBe(false);
-    expect(result.status).not.toBe("cognitive_stop");
-  });
-
-  it("C03 — sufficient fresh attributable in-domain evidence → evidence_backed", async () => {
-    const projectId = await createProject();
-    setMw3AvailableEvidenceForTests(freshGovernancePointers());
-    setConversationProviderForTests(
-      fakeFor(
-        candidateConflict({
-          claimedEvidenceIds: ["ev:1", "ev:2"],
-        }),
-      ),
-    );
-    const result = await orchestrateAssistantSend({
-      projectId,
-      content: "Conflit evidence-backed non gouvernant.",
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) throw new Error("C03 failed");
-    expect(result.mw3?.disposition).toBe("evidence_backed");
-    expect(result.mw3?.cognitiveStop).toBe(false);
-    expect(result.mw3?.evidenceIds).toEqual(["ev:1", "ev:2"]);
-  });
-
-  it("C04 — public sendAction: evidence_backed + governing invalidation → COGNITIVE_STOP", async () => {
-    const projectId = await createProject();
-    setMw3AvailableEvidenceForTests(freshGovernancePointers());
-    setConversationProviderForTests(
-      fakeFor(
-        candidateConflict({
-          claimedEvidenceIds: ["ev:1", "ev:2"],
-          governingPremiseInvalidated: true,
-          localImpactOnly: false,
-        }),
-      ),
-    );
-    const result = await projectAssistantSendAction({
-      projectId,
-      content: "La prémisse gouvernante est invalidée.",
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) throw new Error("C04 failed");
-    expect(result.status).toBe("cognitive_stop");
-    expect(result.mw3?.disposition).toBe("evidence_backed");
-    expect(result.mw3?.cognitiveStop).toBe(true);
-    expect(result.mw3?.progression).toBe("COGNITIVE_STOP");
-    expect(result.mw3?.allowsSilentSuccess).toBe(false);
-  });
-
-  it("C05 — evidence-backed non-governing continues honestly", async () => {
-    const projectId = await createProject();
-    setMw3AvailableEvidenceForTests(freshGovernancePointers());
-    setConversationProviderForTests(
-      fakeFor(
-        candidateConflict({
-          claimedEvidenceIds: ["ev:1", "ev:2"],
-          governingPremiseInvalidated: false,
-          localImpactOnly: true,
-        }),
-      ),
-    );
-    const result = await orchestrateAssistantSend({
-      projectId,
-      content: "Contradiction locale evidence-backed.",
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) throw new Error("C05 failed");
-    expect(result.mw3?.disposition).toBe("evidence_backed");
-    expect(result.mw3?.cognitiveStop).toBe(false);
-    expect(result.mw3?.mayContinue).toBe(true);
-    expect(result.status).toBe("ok");
-  });
-
-  it("C06 — technical/provider failure ≠ Cognitive STOP", async () => {
-    const projectId = await createProject();
-    setConversationProviderForTests(
-      new FakeConversationProvider({ failOnCall: 1 }),
-    );
-    const result = await projectAssistantSendAction({
-      projectId,
-      content: "Déclenche une panne provider.",
-    });
-    expect(result.ok).toBe(false);
-    if (result.ok) throw new Error("C06 expected failure");
-    expect(result.status).toBe("provider_error");
-    expect(result.status).not.toBe("cognitive_stop");
-  });
-
-  it("C07 — hostile localImpactOnly + governing invalidation → STOP", async () => {
-    const disposition = disposeContradiction({
-      conflictPresent: true,
-      requiredSourceCount: 2,
-      requiredDomains: ["governance"],
-      evidencePointers: freshGovernancePointers(),
-    });
-    const stop = decideCognitiveStop({
-      disposition,
-      governingPremiseInvalidated: true,
-      localImpactOnly: true,
-      governingPremise: "FinOps freeze must hold",
-    });
-    expect(disposition.disposition).toBe("evidence_backed");
-    expect(stop.cognitiveStop).toBe(true);
-    expect(stop.outcome).toBe("COGNITIVE_STOP");
-
-    const projectId = await createProject();
-    setMw3AvailableEvidenceForTests(freshGovernancePointers());
-    setConversationProviderForTests(
-      fakeFor(
-        candidateConflict({
-          claimedEvidenceIds: ["ev:1", "ev:2"],
-          governingPremiseInvalidated: true,
-          localImpactOnly: true,
-        }),
-      ),
-    );
-    const result = await orchestrateAssistantSend({
-      projectId,
-      content: "Flags contradictoires hostile.",
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) throw new Error("C07 failed");
-    expect(result.mw3?.cognitiveStop).toBe(true);
-    expect(result.status).toBe("cognitive_stop");
-  });
-
-  it("C08 — model candidate with no valid evidence stays candidate", async () => {
-    const projectId = await createProject();
-    setMw3AvailableEvidenceForTests([]);
-    setConversationProviderForTests(
-      fakeFor(
-        candidateConflict({
-          claimedEvidenceIds: [],
-          governingPremiseInvalidated: true,
-        }),
-      ),
-    );
-    const result = await orchestrateAssistantSend({
-      projectId,
-      content: "Le modèle affirme un conflit.",
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) throw new Error("C08 failed");
-    expect(result.mw3?.disposition).toBe("candidate");
-    expect(result.mw3?.cognitiveStop).toBe(false);
-  });
-
-  it("C09 — fabricated / stale / wrong-domain cannot promote evidence-backed", async () => {
-    const projectId = await createProject();
-    setMw3AvailableEvidenceForTests([
-      {
-        evidenceId: "ev:stale",
-        sourceId: "src:a",
-        domain: "governance",
-        freshness: "stale",
-        attributable: true,
-      },
-      {
-        evidenceId: "ev:wrong",
-        sourceId: "src:b",
-        domain: "other",
-        freshness: "fresh",
-        attributable: true,
-      },
-    ]);
-    setConversationProviderForTests(
-      fakeFor(
-        candidateConflict({
-          claimedEvidenceIds: ["ev:invented", "ev:stale", "ev:wrong"],
-        }),
-      ),
-    );
-    const result = await orchestrateAssistantSend({
-      projectId,
-      content: "Pointeurs hostiles.",
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) throw new Error("C09 failed");
-    expect(result.mw3?.disposition).toBe("candidate");
-    expect(result.mw3?.cognitiveStop).toBe(false);
-  });
-
-  it("C13 — no contradiction preserves normal product behavior", async () => {
-    const projectId = await createProject();
-    setConversationProviderForTests(fakeFor(null, knownLowCwp()));
-    const result = await projectAssistantSendAction({
-      projectId,
-      content: "Quel est le nom du projet ?",
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) throw new Error("C13 failed");
-    expect(result.status).toBe("ok");
-    expect(result.mw3 ?? null).toBeNull();
-    expect(result.f2?.turnKind).toBe("f1_informative");
-  });
-
-  it("C14 — trustedSfiaProfile remains null / is not invented", async () => {
-    const derived = deriveMw3ContradictionAssessment({
-      candidate: candidateConflict(),
-      availablePointers: [],
-      trustedSfiaProfile: null,
-    });
-    expect(derived).toBeTruthy();
-    const disposition = disposeContradiction(derived!.conflict);
-    expect(disposition.trustedSfiaProfile).toBeNull();
-
-    const projectId = await createProject();
-    setConversationProviderForTests(fakeFor(candidateConflict()));
-    const result = await projectAssistantSendAction({
-      projectId,
-      content: "Conflit sans profil.",
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) throw new Error("C14 failed");
-    expect(result.mw3?.disposition).toBe("candidate");
-    expect(JSON.stringify(result)).not.toMatch(/"trustedSfiaProfile":\s*"[A-Za-z]/);
-  });
-
-  it("C15 — strategy/reasoning variation cannot change truth disposition", async () => {
-    const projectId = await createProject();
-    setMw3AvailableEvidenceForTests(freshGovernancePointers());
-    const candidate = candidateConflict({
-      claimedEvidenceIds: ["ev:1", "ev:2"],
-    });
-    setConversationProviderForTests(fakeFor(candidate, mediumCwp("high")));
-    const deep = await orchestrateAssistantSend({
-      projectId,
-      content: "Deep strategy conflict.",
-    });
-    setConversationProviderForTests(fakeFor(candidate, knownLowCwp()));
-    const focused = await orchestrateAssistantSend({
-      projectId,
-      content: "Focused strategy conflict.",
-    });
-    expect(deep.ok && focused.ok).toBe(true);
-    if (!deep.ok || !focused.ok) throw new Error("C15 failed");
-    expect(deep.mw3?.disposition).toBe(focused.mw3?.disposition);
-    expect(deep.mw3?.disposition).toBe("evidence_backed");
-    expect(deep.mw3?.cognitiveStop).toBe(focused.mw3?.cognitiveStop);
-  });
-
-  it("C16 — low sourceBreadth cannot promote evidence-backed under required coverage", async () => {
-    const projectId = await createProject();
-    setMw3AvailableEvidenceForTests([freshGovernancePointers()[0]!]);
-    setConversationProviderForTests(
-      fakeFor(
-        candidateConflict({
-          claimedEvidenceIds: ["ev:1"],
-          requiredSourceCount: 2,
-        }),
-        mediumCwp("low"),
-      ),
-    );
-    const result = await orchestrateAssistantSend({
-      projectId,
-      content: "Couverture source insuffisante.",
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) throw new Error("C16 failed");
-    expect(result.mw3?.disposition).toBe("candidate");
-    expect(result.mw3?.insufficiencyReasons).toContain(
-      "insufficient_source_coverage",
-    );
-  });
-});
-```
-
-
-### `projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.panel.ux.d0.test.tsx`
-
-```tsx
-/**
- * MW3 correction UX — C10–C12 visible STOP / candidate / continue anatomy.
- * Fake send action only — ZERO REAL OpenAI.
- * @vitest-environment jsdom
- */
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { ProjectAssistantPanel } from "@/features/project-assistant/ProjectAssistantPanel";
-
-const {
-  projectAssistantSendActionMock,
-  projectAssistantRehydrateEvidenceOutcomeActionMock,
-} = vi.hoisted(() => ({
-  projectAssistantSendActionMock: vi.fn(),
-  projectAssistantRehydrateEvidenceOutcomeActionMock: vi.fn(),
-}));
-
-vi.mock("@/features/project-assistant/actions", () => ({
-  projectAssistantSendAction: (...args: unknown[]) =>
-    projectAssistantSendActionMock(...args),
-  projectAssistantDecideAction: vi.fn(),
-  projectAssistantPrepareF3FixtureAction: vi.fn(),
-  projectAssistantConfirmAndExecuteF3FixtureAction: vi.fn(),
-  projectAssistantPrepareResolvedM3Action: vi.fn(),
-  projectAssistantConfirmAndExecuteResolvedM3Action: vi.fn(),
-  projectAssistantRehydrateEvidenceOutcomeAction: (...args: unknown[]) =>
-    projectAssistantRehydrateEvidenceOutcomeActionMock(...args),
-}));
-
-vi.mock("next/link", () => ({
-  default: ({
-    children,
-    href,
-    ...props
-  }: {
-    children: React.ReactNode;
-    href: string;
-  }) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  ),
-}));
-
-const PROJECT = {
-  projectId: "prj:mw3-corr-ui",
-  name: "Projet MW3 correction UI",
-  shortReference: "MW3CUI",
-  objective: "Surface anatomy",
-  contextSummary: "MW3 UX correction",
-  criticality: "STANDARD" as const,
-  constraints: [] as string[],
-  lpsId: "lps:mw3-corr-ui",
-  lpsVersion: 1,
-  lpsCreatedAt: "2026-09-02T12:00:00.000Z",
-  doctrineId: "pkg:studio-v3-oa",
-  doctrineVersion: "1.0.0",
-  doctrineDigest: "digest:mw3-corr-ui",
-  doctrineStatus: "RESOLVED",
-  runtimeMode: "LOCAL_PROCESS" as const,
-  persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE" as const,
-  readiness: "NOT_READY" as const,
-};
-
-describe("MW3 correction — panel anatomy C10–C12", () => {
-  beforeEach(() => {
-    projectAssistantSendActionMock.mockReset();
-    projectAssistantRehydrateEvidenceOutcomeActionMock.mockReset();
-    projectAssistantRehydrateEvidenceOutcomeActionMock.mockResolvedValue({
-      ok: false,
-      status: "error",
-      code: "NO_EVIDENCE_OUTCOME_REFS",
-      message: "none",
-      mode: "fixture",
-      retryable: false,
-    });
-  });
-
-  afterEach(() => {
-    cleanup();
-  });
-
-  it("C10 — STOP UX renders reason, premise, Evidence, Sources, blocked impact, next action", async () => {
-    projectAssistantSendActionMock.mockResolvedValue({
-      ok: true,
-      status: "cognitive_stop",
-      text: "[TEST/FAKE] blocked by Cognitive STOP.",
-      mode: "fixture",
-      presentation: "test_provider",
-      toolRounds: 0,
-      toolCalls: 0,
-      sources: [],
-      toolEvents: [],
-      project: PROJECT,
-      ephemeralNotice: "ARRÊT COGNITIF (≠ erreur technique).",
-      cognitiveRuntime: "agents",
-      sessionId: "sess:mw3-c10",
-      memoryBAvailability: "unavailable",
-      memoryBCompactionState: "none",
-      mw3: {
-        disposition: "evidence_backed",
-        progression: "COGNITIVE_STOP",
-        cognitiveStop: true,
-        reason:
-          "Evidence-backed contradiction invalidates governing premise: FinOps freeze",
-        evidenceIds: ["ev:1", "ev:2"],
-        sourceIds: ["src:a", "src:b"],
-        governingPremise: "FinOps freeze",
-        nextAction: "Cognitive STOP — replan/recovery as recommendation.",
-        insufficiencyReasons: [],
-        allowsSilentSuccess: false,
-        blockedImpact:
-          "Progression bloquée — prémisse gouvernante invalidée (FinOps freeze).",
-        mayContinue: false,
-        notTechnicalFailure: true,
-      },
-    });
-
-    render(<ProjectAssistantPanel projectId="prj:mw3-corr-ui" />);
-    fireEvent.change(screen.getByTestId("project-assistant-input"), {
-      target: { value: "Évalue la contradiction gouvernante." },
-    });
-    fireEvent.click(screen.getByTestId("project-assistant-send"));
-
-    await waitFor(() => {
-      expect(screen.getByTestId("project-assistant-mw3-surface")).toBeTruthy();
-    });
-    const surface = screen.getByTestId("project-assistant-mw3-surface");
-    expect(surface.textContent).toMatch(/Arrêt cognitif/i);
-    expect(screen.getByTestId("project-assistant-mw3-reason").textContent).toMatch(
-      /FinOps freeze/,
-    );
-    expect(screen.getByTestId("project-assistant-mw3-premise").textContent).toMatch(
-      /Prémisse gouvernante/,
-    );
-    expect(screen.getByTestId("project-assistant-mw3-evidence").textContent).toMatch(
-      /ev:1/,
-    );
-    expect(screen.getByTestId("project-assistant-mw3-sources").textContent).toMatch(
-      /src:a/,
-    );
-    expect(screen.getByTestId("project-assistant-mw3-blocked").textContent).toMatch(
-      /Impact bloqué/,
-    );
-    expect(screen.getByTestId("project-assistant-mw3-next").textContent).toMatch(
-      /Suite gouvernée/,
-    );
-    expect(
-      screen.getByTestId("project-assistant-mw3-not-technical").textContent,
-    ).toMatch(/pas une panne provider/i);
-  });
-
-  it("C11 — candidate UX shows insufficient proof and no STOP", async () => {
-    projectAssistantSendActionMock.mockResolvedValue({
-      ok: true,
-      status: "ok",
-      text: "[TEST/FAKE] candidate retained.",
-      mode: "fixture",
-      presentation: "test_provider",
-      toolRounds: 0,
-      toolCalls: 0,
-      sources: [],
-      toolEvents: [],
-      project: PROJECT,
-      ephemeralNotice: "Session Memory B unavailable.",
-      cognitiveRuntime: "agents",
-      sessionId: "sess:mw3-c11",
-      memoryBAvailability: "unavailable",
-      memoryBCompactionState: "none",
-      mw3: {
-        disposition: "candidate",
-        progression: "PROGRESS_WITH_CONTRADICTION",
-        cognitiveStop: false,
-        reason: "Possible conflict retained as candidate.",
-        evidenceIds: [],
-        sourceIds: [],
-        governingPremise: null,
-        nextAction: "Verify sources.",
-        insufficiencyReasons: ["insufficient_evidence_pointers"],
-        allowsSilentSuccess: false,
-        blockedImpact: null,
-        mayContinue: true,
-        notTechnicalFailure: true,
-      },
-    });
-
-    render(<ProjectAssistantPanel projectId="prj:mw3-corr-ui" />);
-    fireEvent.change(screen.getByTestId("project-assistant-input"), {
-      target: { value: "Conflit possible ?" },
-    });
-    fireEvent.click(screen.getByTestId("project-assistant-send"));
-
-    await waitFor(() => {
-      expect(screen.getByTestId("project-assistant-mw3-surface")).toBeTruthy();
-    });
-    const surface = screen.getByTestId("project-assistant-mw3-surface");
-    expect(surface.getAttribute("data-mw3-cognitive-stop")).toBe("false");
-    expect(surface.textContent).toMatch(/Contradiction candidate/i);
-    expect(screen.getByTestId("project-assistant-mw3-insufficiency").textContent).toMatch(
-      /Preuve insuffisante/,
-    );
-    expect(surface.textContent).not.toMatch(/Arrêt cognitif/i);
-    expect(screen.queryByTestId("project-assistant-mw3-blocked")).toBeNull();
-  });
-
-  it("C12 — evidence-backed non-governing UX shows progression may continue", async () => {
-    projectAssistantSendActionMock.mockResolvedValue({
-      ok: true,
-      status: "ok",
-      text: "[TEST/FAKE] evidence-backed continue.",
-      mode: "fixture",
-      presentation: "test_provider",
-      toolRounds: 0,
-      toolCalls: 0,
-      sources: [],
-      toolEvents: [],
-      project: PROJECT,
-      ephemeralNotice: "Session Memory B unavailable.",
-      cognitiveRuntime: "agents",
-      sessionId: "sess:mw3-c12",
-      memoryBAvailability: "unavailable",
-      memoryBCompactionState: "none",
-      mw3: {
-        disposition: "evidence_backed",
-        progression: "PROGRESS_WITH_CONTRADICTION",
-        cognitiveStop: false,
-        reason: "Evidence-backed contradiction surfaced.",
-        evidenceIds: ["ev:1", "ev:2"],
-        sourceIds: ["src:a", "src:b"],
-        governingPremise: "Local claim only",
-        nextAction: "Correct recommendation path if needed; no Cognitive STOP.",
-        insufficiencyReasons: [],
-        allowsSilentSuccess: false,
-        blockedImpact: null,
-        mayContinue: true,
-        notTechnicalFailure: true,
-      },
-    });
-
-    render(<ProjectAssistantPanel projectId="prj:mw3-corr-ui" />);
-    fireEvent.change(screen.getByTestId("project-assistant-input"), {
-      target: { value: "Contradiction locale." },
-    });
-    fireEvent.click(screen.getByTestId("project-assistant-send"));
-
-    await waitFor(() => {
-      expect(screen.getByTestId("project-assistant-mw3-surface")).toBeTruthy();
-    });
-    expect(screen.getByTestId("project-assistant-mw3-continue").textContent).toMatch(
-      /Progression possible/,
-    );
-    expect(
-      screen.getByTestId("project-assistant-mw3-surface").getAttribute(
-        "data-mw3-cognitive-stop",
-      ),
-    ).toBe("false");
-  });
-});
-```
-
-
----
-
-## Complete unified diff vs substrate `c76ae54f`
-
-```diff
-
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
-index a3f77f81..cc766c5f 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
-@@ -371,6 +371,7 @@ describe("F2 orchestration AC coverage", () => {
-       criticalJustification: null,
-       requestedOperation: null,
-       cognitiveWorkload: null,
-+      contradictionCandidate: null,
-       parseOk: true,
-     };
-     expect(
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.c01-c16.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.c01-c16.d0.test.ts
-new file mode 100644
-index 00000000..142b44a4
---- /dev/null
+index 142b44a4..1241b10b 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.c01-c16.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.c01-c16.d0.test.ts
-@@ -0,0 +1,483 @@
+@@ -18,6 +18,7 @@ import {
+   decideCognitiveStop,
+   disposeContradiction,
+   deriveMw3ContradictionAssessment,
++  MW3_STUDIO_REQUIRED_SOURCE_COUNT,
+   type ContradictionEvidencePointer,
+ } from "@/lib/nora-cognitive-runtime";
+ import {
+@@ -26,6 +27,9 @@ import {
+ } from "@/lib/vertical-slice-runtime";
+ import type { SemanticCognitiveWorkloadAssessment } from "@/features/project-assistant/f2/types";
+ import type { Mw3ContradictionCandidateSignal } from "@/lib/nora-cognitive-runtime/deriveMw3Assessment";
++import type { Evidence } from "@/lib/oa/evidence-review/domain/types";
++import { EVIDENCE_SCHEMA_VERSION } from "@/lib/oa/evidence-review/domain/types";
++import { OA_SCHEMA_VERSION } from "@/lib/oa/doctrine/domain/types";
+
+ const tempDirs: string[] = [];
+
+@@ -77,7 +81,81 @@ function intentJson(input: {
+   });
+ }
+
+-function freshGovernancePointers(): ContradictionEvidencePointer[] {
++function candidateConflict(
++  overrides: Partial<Mw3ContradictionCandidateSignal> = {},
++): Mw3ContradictionCandidateSignal {
++  return {
++    conflictPresent: true,
++    claimedEvidenceIds: [],
++    governingPremise: "FinOps freeze must hold",
++    governingPremiseInvalidated: false,
++    localImpactOnly: true,
++    fabricationAttempt: false,
++    ...overrides,
++  };
++}
++
++function catalogEvidence(input: {
++  evidenceId: string;
++  source: string;
++  projectId?: string | null;
++  freshness?: Evidence["freshness"];
++  status?: Evidence["status"];
++}): Evidence {
++  return {
++    schemaVersion: EVIDENCE_SCHEMA_VERSION,
++    evidenceId: input.evidenceId,
++    type: "artifact",
++    source: input.source,
++    sourceKind: "external",
++    producedAt: "2026-09-02T12:00:00.000Z",
++    freshness: input.freshness ?? "fresh",
++    status: input.status ?? "available",
++    classification: "internal",
++    storageMode: "metadata_only",
++    availability: "available",
++    bindings:
++      input.projectId === null
++        ? { cycleInstanceId: "cyc:unbound-mw3" }
++        : { projectId: input.projectId },
++    containsSecrets: false,
++    provenance: {
++      schemaVersion: OA_SCHEMA_VERSION,
++      provenanceRecordId: `prv:${input.evidenceId}`,
++      actor: {
++        actorId: "actor:morris",
++        role: "decision_maker",
++        authorityLevel: "N3",
++      },
++      source: "system",
++      timestamp: "2026-09-02T12:00:00.000Z",
++      correlationId: `cor:${input.evidenceId}`,
++    },
++    version: 1,
++    createdAt: "2026-09-02T12:00:00.000Z",
++  };
++}
++
++function seedCatalog(projectId: string, evidence: Evidence[]): void {
++  setMw3AvailableEvidenceForTests({ projectId, evidence });
++}
++
++function sameProjectEvidence(projectId: string): Evidence[] {
++  return [
++    catalogEvidence({
++      evidenceId: "ev:1",
++      source: "src:a",
++      projectId,
++    }),
++    catalogEvidence({
++      evidenceId: "ev:2",
++      source: "src:b",
++      projectId,
++    }),
++  ];
++}
++
++function controllerPointers(): ContradictionEvidencePointer[] {
+   return [
+     {
+       evidenceId: "ev:1",
+@@ -96,23 +174,6 @@ function freshGovernancePointers(): ContradictionEvidencePointer[] {
+   ];
+ }
+
+-function candidateConflict(
+-  overrides: Partial<Mw3ContradictionCandidateSignal> = {},
+-): Mw3ContradictionCandidateSignal {
+-  return {
+-    conflictPresent: true,
+-    claimedEvidenceIds: [],
+-    requiredDomains: ["governance"],
+-    requiredSourceCount: 2,
+-    freshnessMatters: true,
+-    governingPremise: "FinOps freeze must hold",
+-    governingPremiseInvalidated: false,
+-    localImpactOnly: true,
+-    fabricationAttempt: false,
+-    ...overrides,
+-  };
+-}
+-
+ describe("MW3 correction — public product path C01–C16 (subset)", () => {
+   const prevReset = process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
+   const prevProvider = process.env.OPS1_CONVERSATION_PROVIDER;
+@@ -221,7 +282,7 @@ describe("MW3 correction — public product path C01–C16 (subset)", () => {
+
+   it("C03 — sufficient fresh attributable in-domain evidence → evidence_backed", async () => {
+     const projectId = await createProject();
+-    setMw3AvailableEvidenceForTests(freshGovernancePointers());
++    seedCatalog(projectId, sameProjectEvidence(projectId));
+     setConversationProviderForTests(
+       fakeFor(
+         candidateConflict({
+@@ -242,7 +303,7 @@ describe("MW3 correction — public product path C01–C16 (subset)", () => {
+
+   it("C04 — public sendAction: evidence_backed + governing invalidation → COGNITIVE_STOP", async () => {
+     const projectId = await createProject();
+-    setMw3AvailableEvidenceForTests(freshGovernancePointers());
++    seedCatalog(projectId, sameProjectEvidence(projectId));
+     setConversationProviderForTests(
+       fakeFor(
+         candidateConflict({
+@@ -267,7 +328,7 @@ describe("MW3 correction — public product path C01–C16 (subset)", () => {
+
+   it("C05 — evidence-backed non-governing continues honestly", async () => {
+     const projectId = await createProject();
+-    setMw3AvailableEvidenceForTests(freshGovernancePointers());
++    seedCatalog(projectId, sameProjectEvidence(projectId));
+     setConversationProviderForTests(
+       fakeFor(
+         candidateConflict({
+@@ -309,7 +370,7 @@ describe("MW3 correction — public product path C01–C16 (subset)", () => {
+       conflictPresent: true,
+       requiredSourceCount: 2,
+       requiredDomains: ["governance"],
+-      evidencePointers: freshGovernancePointers(),
++      evidencePointers: controllerPointers(),
+     });
+     const stop = decideCognitiveStop({
+       disposition,
+@@ -322,7 +383,7 @@ describe("MW3 correction — public product path C01–C16 (subset)", () => {
+     expect(stop.outcome).toBe("COGNITIVE_STOP");
+
+     const projectId = await createProject();
+-    setMw3AvailableEvidenceForTests(freshGovernancePointers());
++    seedCatalog(projectId, sameProjectEvidence(projectId));
+     setConversationProviderForTests(
+       fakeFor(
+         candidateConflict({
+@@ -344,7 +405,7 @@ describe("MW3 correction — public product path C01–C16 (subset)", () => {
+
+   it("C08 — model candidate with no valid evidence stays candidate", async () => {
+     const projectId = await createProject();
+-    setMw3AvailableEvidenceForTests([]);
++    seedCatalog(projectId, []);
+     setConversationProviderForTests(
+       fakeFor(
+         candidateConflict({
+@@ -365,21 +426,18 @@ describe("MW3 correction — public product path C01–C16 (subset)", () => {
+
+   it("C09 — fabricated / stale / wrong-domain cannot promote evidence-backed", async () => {
+     const projectId = await createProject();
+-    setMw3AvailableEvidenceForTests([
+-      {
++    seedCatalog(projectId, [
++      catalogEvidence({
+         evidenceId: "ev:stale",
+-        sourceId: "src:a",
+-        domain: "governance",
++        source: "src:a",
++        projectId,
+         freshness: "stale",
+-        attributable: true,
+-      },
+-      {
++      }),
++      catalogEvidence({
+         evidenceId: "ev:wrong",
+-        sourceId: "src:b",
+-        domain: "other",
+-        freshness: "fresh",
+-        attributable: true,
+-      },
++        source: "src:b",
++        projectId: "prj:other-project",
++      }),
+     ]);
+     setConversationProviderForTests(
+       fakeFor(
+@@ -416,8 +474,14 @@ describe("MW3 correction — public product path C01–C16 (subset)", () => {
+     const derived = deriveMw3ContradictionAssessment({
+       candidate: candidateConflict(),
+       availablePointers: [],
++      projectId: "prj:mw3-corr-c14",
+       trustedSfiaProfile: null,
+     });
++    expect(derived?.conflict.requiredSourceCount).toBe(
++      MW3_STUDIO_REQUIRED_SOURCE_COUNT,
++    );
++    expect(derived?.conflict.freshnessMatters).toBe(true);
++    expect(derived?.conflict.requiredDomains).toEqual(["prj:mw3-corr-c14"]);
+     expect(derived).toBeTruthy();
+     const disposition = disposeContradiction(derived!.conflict);
+     expect(disposition.trustedSfiaProfile).toBeNull();
+@@ -436,7 +500,7 @@ describe("MW3 correction — public product path C01–C16 (subset)", () => {
+
+   it("C15 — strategy/reasoning variation cannot change truth disposition", async () => {
+     const projectId = await createProject();
+-    setMw3AvailableEvidenceForTests(freshGovernancePointers());
++    seedCatalog(projectId, sameProjectEvidence(projectId));
+     const candidate = candidateConflict({
+       claimedEvidenceIds: ["ev:1", "ev:2"],
+     });
+@@ -459,12 +523,11 @@ describe("MW3 correction — public product path C01–C16 (subset)", () => {
+
+   it("C16 — low sourceBreadth cannot promote evidence-backed under required coverage", async () => {
+     const projectId = await createProject();
+-    setMw3AvailableEvidenceForTests([freshGovernancePointers()[0]!]);
++    seedCatalog(projectId, [sameProjectEvidence(projectId)[0]!]);
+     setConversationProviderForTests(
+       fakeFor(
+         candidateConflict({
+           claimedEvidenceIds: ["ev:1"],
+-          requiredSourceCount: 2,
+         }),
+         mediumCwp("low"),
+       ),
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.c17-c24.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.c17-c24.d0.test.ts
+new file mode 100644
+index 00000000..ebad149b
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.c17-c24.d0.test.ts
+@@ -0,0 +1,621 @@
 +/** @vitest-environment node */
 +/**
-+ * MW3 Critical Correction — C01–C09 / C13–C16 deterministic product path.
-+ * Fake provider + Fake Evidence catalog only. ZERO REAL OpenAI.
++ * MW3 epistemic-boundary correction — C17–C24 hostile CRIT-04 / CRIT-05.
++ * Fake provider + OA Evidence eligibility. ZERO REAL OpenAI.
 + */
 +import fs from "node:fs";
 +import os from "node:os";
 +import path from "node:path";
 +import { afterEach, beforeEach, describe, expect, it } from "vitest";
 +import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
-+import {
-+  setConversationProviderForTests,
-+} from "@/lib/platform/ai";
-+import { projectAssistantSendAction } from "@/features/project-assistant/actions";
++import { setConversationProviderForTests } from "@/lib/platform/ai";
 +import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
-+import { setMw3AvailableEvidenceForTests } from "@/features/project-assistant/mw3AvailableEvidence";
 +import {
-+  decideCognitiveStop,
-+  disposeContradiction,
++  F2_INTENT_JSON_SCHEMA,
++  parseContradictionCandidate,
++  validateIntentAnalysisPayload,
++} from "@/features/project-assistant/f2/intentAnalysis";
++import {
++  mapOaEvidenceForProject,
++  resolveAvailableContradictionPointers,
++  setMw3AvailableEvidenceForTests,
++} from "@/features/project-assistant/mw3AvailableEvidence";
++import {
 +  deriveMw3ContradictionAssessment,
-+  type ContradictionEvidencePointer,
++  MW3_STUDIO_FRESHNESS_MATTERS,
++  MW3_STUDIO_REQUIRED_SOURCE_COUNT,
 +} from "@/lib/nora-cognitive-runtime";
 +import {
 +  getRuntimeApplicationService,
@@ -1275,43 +632,90 @@ index 00000000..142b44a4
 +} from "@/lib/vertical-slice-runtime";
 +import type { SemanticCognitiveWorkloadAssessment } from "@/features/project-assistant/f2/types";
 +import type { Mw3ContradictionCandidateSignal } from "@/lib/nora-cognitive-runtime/deriveMw3Assessment";
++import type { Evidence } from "@/lib/oa/evidence-review/domain/types";
++import { EVIDENCE_SCHEMA_VERSION } from "@/lib/oa/evidence-review/domain/types";
++import { OA_SCHEMA_VERSION } from "@/lib/oa/doctrine/domain/types";
 +
 +const tempDirs: string[] = [];
 +
-+function knownLowCwp(): SemanticCognitiveWorkloadAssessment {
-+  return {
-+    ambiguity: "low",
-+    reasoningDepth: "low",
-+    sourceBreadth: "low",
-+    toolDependency: "low",
-+    contradictionRisk: "low",
-+    verificationNeed: "low",
-+  };
-+}
++const ACTOR = {
++  actorId: "actor:morris",
++  role: "decision_maker" as const,
++  authorityLevel: "N3" as const,
++};
 +
-+function mediumCwp(
-+  sourceBreadth: SemanticCognitiveWorkloadAssessment["sourceBreadth"] = "medium",
-+): SemanticCognitiveWorkloadAssessment {
++function mediumCwp(): SemanticCognitiveWorkloadAssessment {
 +  return {
 +    ambiguity: "medium",
 +    reasoningDepth: "high",
-+    sourceBreadth,
++    sourceBreadth: "medium",
 +    toolDependency: "medium",
 +    contradictionRisk: "high",
 +    verificationNeed: "high",
 +  };
 +}
 +
-+function intentJson(input: {
-+  cognitiveWorkload: SemanticCognitiveWorkloadAssessment | null;
-+  contradictionCandidate?: Mw3ContradictionCandidateSignal | null;
-+}): string {
++function baseCandidate(
++  overrides: Partial<Mw3ContradictionCandidateSignal> = {},
++): Mw3ContradictionCandidateSignal {
++  return {
++    conflictPresent: true,
++    claimedEvidenceIds: [],
++    governingPremise: "FinOps freeze must hold",
++    governingPremiseInvalidated: false,
++    localImpactOnly: true,
++    fabricationAttempt: false,
++    ...overrides,
++  };
++}
++
++function catalogEvidence(input: {
++  evidenceId: string;
++  source: string;
++  projectId?: string | null;
++  freshness?: Evidence["freshness"];
++  status?: Evidence["status"];
++}): Evidence {
++  return {
++    schemaVersion: EVIDENCE_SCHEMA_VERSION,
++    evidenceId: input.evidenceId,
++    type: "artifact",
++    source: input.source,
++    sourceKind: "external",
++    producedAt: "2026-09-02T12:00:00.000Z",
++    freshness: input.freshness ?? "fresh",
++    status: input.status ?? "available",
++    classification: "internal",
++    storageMode: "metadata_only",
++    availability: "available",
++    bindings:
++      input.projectId === null
++        ? { cycleInstanceId: "cyc:unbound-mw3" }
++        : { projectId: input.projectId },
++    containsSecrets: false,
++    provenance: {
++      schemaVersion: OA_SCHEMA_VERSION,
++      provenanceRecordId: `prv:${input.evidenceId}`,
++      actor: ACTOR,
++      source: "system",
++      timestamp: "2026-09-02T12:00:00.000Z",
++      correlationId: `cor:${input.evidenceId}`,
++    },
++    version: 1,
++    createdAt: "2026-09-02T12:00:00.000Z",
++  };
++}
++
++function intentJson(
++  candidate: Record<string, unknown>,
++  cwp: SemanticCognitiveWorkloadAssessment = mediumCwp(),
++): string {
 +  return JSON.stringify({
 +    intentClass: "informative",
 +    candidateCycleTypeId: null,
 +    signals: null,
-+    cognitiveWorkload: input.cognitiveWorkload,
-+    contradictionCandidate: input.contradictionCandidate ?? null,
++    cognitiveWorkload: cwp,
++    contradictionCandidate: candidate,
 +    objective: "Analyse contradiction",
 +    scope: null,
 +    rephrasedRequest: "Évaluer le conflit annoncé",
@@ -1326,43 +730,19 @@ index 00000000..142b44a4
 +  });
 +}
 +
-+function freshGovernancePointers(): ContradictionEvidencePointer[] {
-+  return [
-+    {
-+      evidenceId: "ev:1",
-+      sourceId: "src:a",
-+      domain: "governance",
-+      freshness: "fresh",
-+      attributable: true,
-+    },
-+    {
-+      evidenceId: "ev:2",
-+      sourceId: "src:b",
-+      domain: "governance",
-+      freshness: "fresh",
-+      attributable: true,
-+    },
-+  ];
++function fakeFor(candidate: Record<string, unknown>) {
++  return new FakeConversationProvider({
++    scripted: [intentJson(candidate)],
++    toolScript: [
++      {
++        kind: "message",
++        text: "[TEST/FAKE] Nora informative reply. AUCUNE EXÉCUTION.",
++      },
++    ],
++  });
 +}
 +
-+function candidateConflict(
-+  overrides: Partial<Mw3ContradictionCandidateSignal> = {},
-+): Mw3ContradictionCandidateSignal {
-+  return {
-+    conflictPresent: true,
-+    claimedEvidenceIds: [],
-+    requiredDomains: ["governance"],
-+    requiredSourceCount: 2,
-+    freshnessMatters: true,
-+    governingPremise: "FinOps freeze must hold",
-+    governingPremiseInvalidated: false,
-+    localImpactOnly: true,
-+    fabricationAttempt: false,
-+    ...overrides,
-+  };
-+}
-+
-+describe("MW3 correction — public product path C01–C16 (subset)", () => {
++describe("MW3 epistemic boundary — C17–C24 / mapping", () => {
 +  const prevReset = process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
 +  const prevProvider = process.env.OPS1_CONVERSATION_PROVIDER;
 +  const prevKey = process.env.OPENAI_API_KEY;
@@ -1396,1221 +776,787 @@ index 00000000..142b44a4
 +    }
 +  });
 +
-+  async function createProject(): Promise<string> {
-+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw3-corr-"));
++  async function createProject(name = "MW3 epistemic"): Promise<string> {
++    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw3-epist-"));
 +    tempDirs.push(dir);
 +    const runtime = getRuntimeApplicationService({
 +      productDbPath: path.join(dir, "oa-product.sqlite"),
 +      auditMode: "noop",
 +    });
 +    const created = await runtime.createProject({
-+      name: "MW3 correction",
-+      objective: "Contradiction product path",
-+      context: "Deterministic Fake only",
++      name,
++      objective: "Epistemic boundary",
++      context: "Deterministic Fake + OA Evidence",
 +      criticality: "STANDARD",
 +      constraints: ["LECTURE SEULE"],
-+      shortReference: "MW3C",
-+      idempotencyKey: `idem:mw3c-${Date.now()}-${Math.random()}`,
++      shortReference: "MW3E",
++      idempotencyKey: `idem:mw3e-${Date.now()}-${Math.random()}`,
 +    });
 +    expect(created.ok).toBe(true);
 +    if (!created.ok) throw new Error("setup failed");
 +    return created.projectId;
 +  }
 +
-+  function fakeFor(candidate: Mw3ContradictionCandidateSignal | null, cwp = mediumCwp()) {
-+    return new FakeConversationProvider({
-+      scripted: [
-+        intentJson({
-+          cognitiveWorkload: cwp,
-+          contradictionCandidate: candidate,
-+        }),
-+      ],
-+      toolScript: [
-+        {
-+          kind: "message",
-+          text: "[TEST/FAKE] Nora informative reply. AUCUNE EXÉCUTION.",
-+        },
-+      ],
++  async function registerOaEvidence(input: {
++    evidenceId: string;
++    source: string;
++    bindings: Evidence["bindings"];
++    freshness?: Evidence["freshness"];
++  }): Promise<Evidence> {
++    const runtime = getRuntimeApplicationService();
++    const services = runtime.oa?.evidenceReviewServices;
++    if (!services) throw new Error("OA Evidence services required");
++    const result = await services.registerEvidence.execute({
++      evidenceId: input.evidenceId,
++      idempotencyKey: `idem:${input.evidenceId}`,
++      actor: ACTOR,
++      type: "artifact",
++      source: input.source,
++      sourceKind: "external",
++      bindings: input.bindings,
++      classification: "internal",
++      storageMode: "metadata_only",
++      freshness: input.freshness ?? "fresh",
 +    });
++    expect(result.ok).toBe(true);
++    if (!result.ok) throw new Error(`register ${input.evidenceId} failed`);
++    return result.evidence;
 +  }
 +
-+  it("C01 — projectAssistantSendAction derives candidate without injected contradictionAssessment", async () => {
-+    const projectId = await createProject();
-+    const provider = fakeFor(candidateConflict());
-+    setConversationProviderForTests(provider);
-+
-+    const result = await projectAssistantSendAction({
-+      projectId,
-+      content: "Réconcilie le conflit annoncé entre les sources.",
++  it("parser — legacy policy fields cannot influence Studio assessment", () => {
++    const parsed = parseContradictionCandidate({
++      conflictPresent: true,
++      claimedEvidenceIds: ["ev:1"],
++      requiredDomains: [],
++      requiredSourceCount: 1,
++      freshnessMatters: false,
++      governingPremise: "FinOps freeze must hold",
++      governingPremiseInvalidated: true,
++      localImpactOnly: true,
++      fabricationAttempt: false,
 +    });
++    expect(parsed).toMatchObject({
++      conflictPresent: true,
++      claimedEvidenceIds: ["ev:1"],
++      governingPremise: "FinOps freeze must hold",
++      governingPremiseInvalidated: true,
++      localImpactOnly: true,
++    });
++    expect(parsed).not.toHaveProperty("requiredSourceCount");
++    expect(parsed).not.toHaveProperty("freshnessMatters");
++    expect(parsed).not.toHaveProperty("requiredDomains");
++    expect(
++      Object.prototype.hasOwnProperty.call(parsed, "requiredSourceCount"),
++    ).toBe(false);
 +
-+    expect(result.ok).toBe(true);
-+    if (!result.ok) throw new Error("C01 failed");
-+    expect(result.f2?.turnKind).toBe("f1_informative");
-+    expect(result.mw3).toBeTruthy();
-+    expect(result.mw3?.disposition).toBe("candidate");
-+    expect(result.mw3?.cognitiveStop).toBe(false);
-+    expect(result.status).toBe("ok");
-+    expect(result.mw3?.insufficiencyReasons.length).toBeGreaterThan(0);
++    const schema = JSON.stringify(F2_INTENT_JSON_SCHEMA);
++    expect(schema).not.toContain("requiredSourceCount");
++    expect(schema).not.toContain("freshnessMatters");
++    expect(schema).not.toContain("requiredDomains");
++
++    const analysis = validateIntentAnalysisPayload(
++      JSON.parse(
++        intentJson({
++          conflictPresent: true,
++          claimedEvidenceIds: ["ev:1"],
++          requiredSourceCount: 1,
++          freshnessMatters: false,
++          requiredDomains: ["convenient"],
++          governingPremise: "x",
++          governingPremiseInvalidated: false,
++          localImpactOnly: true,
++          fabricationAttempt: false,
++        }),
++      ),
++    );
++    const derived = deriveMw3ContradictionAssessment({
++      candidate: analysis.contradictionCandidate!,
++      availablePointers: [
++        {
++          evidenceId: "ev:1",
++          sourceId: "src:a",
++          domain: "prj:current",
++          freshness: "fresh",
++          attributable: true,
++        },
++      ],
++      projectId: "prj:current",
++    });
++    expect(derived?.conflict.requiredSourceCount).toBe(
++      MW3_STUDIO_REQUIRED_SOURCE_COUNT,
++    );
++    expect(derived?.conflict.freshnessMatters).toBe(MW3_STUDIO_FRESHNESS_MATTERS);
++    expect(derived?.conflict.requiredDomains).toEqual(["prj:current"]);
 +  });
 +
-+  it("C02 — apparent conflict + insufficient proof stays candidate, no STOP", async () => {
++  it("mapOaEvidenceForProject — same-project maps; cross-project/unbound rejected", () => {
++    const current = "prj:alpha";
++    const ok = mapOaEvidenceForProject(
++      catalogEvidence({
++        evidenceId: "ev:ok",
++        source: "src:a",
++        projectId: current,
++      }),
++      current,
++    );
++    expect(ok).toMatchObject({
++      evidenceId: "ev:ok",
++      sourceId: "src:a",
++      domain: current,
++      freshness: "fresh",
++      attributable: true,
++    });
++
++    expect(
++      mapOaEvidenceForProject(
++        catalogEvidence({
++          evidenceId: "ev:other",
++          source: "src:a",
++          projectId: "prj:beta",
++        }),
++        current,
++      ),
++    ).toBeNull();
++
++    expect(
++      mapOaEvidenceForProject(
++        catalogEvidence({
++          evidenceId: "ev:unbound",
++          source: "src:a",
++          projectId: null,
++        }),
++        current,
++      ),
++    ).toBeNull();
++
++    const blank = catalogEvidence({
++      evidenceId: "ev:blank",
++      source: "src:a",
++      projectId: current,
++    });
++    blank.bindings.projectId = "   ";
++    expect(mapOaEvidenceForProject(blank, current)).toBeNull();
++  });
++
++  it("C17 — model source-count downgrade cannot promote one source", async () => {
 +    const projectId = await createProject();
-+    setConversationProviderForTests(fakeFor(candidateConflict()));
++    setMw3AvailableEvidenceForTests({
++      projectId,
++      evidence: [
++        catalogEvidence({
++          evidenceId: "ev:1",
++          source: "src:a",
++          projectId,
++        }),
++      ],
++    });
++    setConversationProviderForTests(
++      fakeFor({
++        ...baseCandidate({ claimedEvidenceIds: ["ev:1"] }),
++        requiredSourceCount: 1,
++      }),
++    );
 +    const result = await orchestrateAssistantSend({
 +      projectId,
-+      content: "Conflit possible sans preuve.",
++      content: "Downgrade source count.",
 +    });
 +    expect(result.ok).toBe(true);
-+    if (!result.ok) throw new Error("C02 failed");
++    if (!result.ok) throw new Error("C17 failed");
++    expect(result.mw3?.disposition).toBe("candidate");
++    expect(result.mw3?.cognitiveStop).toBe(false);
++    expect(result.status).not.toBe("cognitive_stop");
++    expect(result.mw3?.insufficiencyReasons).toContain(
++      "insufficient_source_coverage",
++    );
++  });
++
++  it("C18 — model cannot disable freshness; stale stays candidate", async () => {
++    const projectId = await createProject();
++    setMw3AvailableEvidenceForTests({
++      projectId,
++      evidence: [
++        catalogEvidence({
++          evidenceId: "ev:1",
++          source: "src:a",
++          projectId,
++          freshness: "stale",
++        }),
++        catalogEvidence({
++          evidenceId: "ev:2",
++          source: "src:b",
++          projectId,
++          freshness: "unknown",
++        }),
++      ],
++    });
++    setConversationProviderForTests(
++      fakeFor({
++        ...baseCandidate({ claimedEvidenceIds: ["ev:1", "ev:2"] }),
++        freshnessMatters: false,
++      }),
++    );
++    const result = await orchestrateAssistantSend({
++      projectId,
++      content: "Bypass freshness.",
++    });
++    expect(result.ok).toBe(true);
++    if (!result.ok) throw new Error("C18 failed");
 +    expect(result.mw3?.disposition).toBe("candidate");
 +    expect(result.mw3?.cognitiveStop).toBe(false);
 +    expect(result.status).not.toBe("cognitive_stop");
 +  });
 +
-+  it("C03 — sufficient fresh attributable in-domain evidence → evidence_backed", async () => {
++  it("C19 — model cannot choose a convenient domain for out-of-project Evidence", async () => {
 +    const projectId = await createProject();
-+    setMw3AvailableEvidenceForTests(freshGovernancePointers());
++    setMw3AvailableEvidenceForTests({
++      projectId,
++      evidence: [
++        catalogEvidence({
++          evidenceId: "ev:1",
++          source: "src:a",
++          projectId: "prj:other-context",
++        }),
++        catalogEvidence({
++          evidenceId: "ev:2",
++          source: "src:b",
++          projectId: "prj:other-context",
++        }),
++      ],
++    });
++    setConversationProviderForTests(
++      fakeFor({
++        ...baseCandidate({ claimedEvidenceIds: ["ev:1", "ev:2"] }),
++        requiredDomains: ["project", "governance"],
++      }),
++    );
++    const result = await orchestrateAssistantSend({
++      projectId,
++      content: "Convenient domain bypass.",
++    });
++    expect(result.ok).toBe(true);
++    if (!result.ok) throw new Error("C19 failed");
++    expect(result.mw3?.disposition).toBe("candidate");
++    expect(result.mw3?.cognitiveStop).toBe(false);
++    expect(result.status).not.toBe("cognitive_stop");
++  });
++
++  it("C20 — cross-project OA Evidence is rejected", async () => {
++    const projectA = await createProject("Project A");
++    await registerOaEvidence({
++      evidenceId: "ev:cross-1",
++      source: "src:a",
++      bindings: { projectId: "prj:other-project-b" },
++    });
++    await registerOaEvidence({
++      evidenceId: "ev:cross-2",
++      source: "src:b",
++      bindings: { projectId: "prj:other-project-b" },
++    });
++    const found = await getRuntimeApplicationService().oa!.evidenceReviewServices.repository.findById(
++      "ev:cross-1",
++    );
++    expect(found?.bindings.projectId).toBe("prj:other-project-b");
++
 +    setConversationProviderForTests(
 +      fakeFor(
-+        candidateConflict({
-+          claimedEvidenceIds: ["ev:1", "ev:2"],
++        baseCandidate({ claimedEvidenceIds: ["ev:cross-1", "ev:cross-2"] }),
++      ),
++    );
++    const result = await orchestrateAssistantSend({
++      projectId: projectA,
++      content: "Use other project Evidence.",
++    });
++    expect(result.ok).toBe(true);
++    if (!result.ok) throw new Error("C20 failed");
++    expect(result.mw3?.disposition).toBe("candidate");
++    expect(result.mw3?.cognitiveStop).toBe(false);
++    expect(result.status).not.toBe("cognitive_stop");
++  });
++
++  it("C21 — unbound OA Evidence is rejected", async () => {
++    const projectId = await createProject();
++    await registerOaEvidence({
++      evidenceId: "ev:unbound-1",
++      source: "src:a",
++      bindings: { cycleInstanceId: "cyc:unbound-mw3-c21" },
++    });
++    await registerOaEvidence({
++      evidenceId: "ev:unbound-2",
++      source: "src:b",
++      bindings: { cycleInstanceId: "cyc:unbound-mw3-c21" },
++    });
++    const found = await getRuntimeApplicationService().oa!.evidenceReviewServices.repository.findById(
++      "ev:unbound-1",
++    );
++    expect(found?.bindings.projectId).toBeUndefined();
++
++    setConversationProviderForTests(
++      fakeFor(
++        baseCandidate({
++          claimedEvidenceIds: ["ev:unbound-1", "ev:unbound-2"],
 +        }),
 +      ),
 +    );
 +    const result = await orchestrateAssistantSend({
 +      projectId,
-+      content: "Conflit evidence-backed non gouvernant.",
++      content: "Use unbound Evidence.",
 +    });
 +    expect(result.ok).toBe(true);
-+    if (!result.ok) throw new Error("C03 failed");
-+    expect(result.mw3?.disposition).toBe("evidence_backed");
++    if (!result.ok) throw new Error("C21 failed");
++    expect(result.mw3?.disposition).toBe("candidate");
 +    expect(result.mw3?.cognitiveStop).toBe(false);
-+    expect(result.mw3?.evidenceIds).toEqual(["ev:1", "ev:2"]);
 +  });
 +
-+  it("C04 — public sendAction: evidence_backed + governing invalidation → COGNITIVE_STOP", async () => {
++  it("C22 — same-project valid OA Evidence promotes through repository mapping", async () => {
 +    const projectId = await createProject();
-+    setMw3AvailableEvidenceForTests(freshGovernancePointers());
++    const ev1 = await registerOaEvidence({
++      evidenceId: "ev:same-1",
++      source: "src:alpha",
++      bindings: { projectId },
++      freshness: "fresh",
++    });
++    const ev2 = await registerOaEvidence({
++      evidenceId: "ev:same-2",
++      source: "src:beta",
++      bindings: { projectId },
++      freshness: "fresh",
++    });
++    expect(mapOaEvidenceForProject(ev1, projectId)?.sourceId).toBe("src:alpha");
++    expect(mapOaEvidenceForProject(ev2, projectId)?.sourceId).toBe("src:beta");
++
++    const pointers = await resolveAvailableContradictionPointers({
++      projectId,
++      claimedEvidenceIds: ["ev:same-1", "ev:same-2"],
++    });
++    expect(pointers).toHaveLength(2);
++    expect(pointers.map((p) => p.domain)).toEqual([projectId, projectId]);
++
 +    setConversationProviderForTests(
 +      fakeFor(
-+        candidateConflict({
-+          claimedEvidenceIds: ["ev:1", "ev:2"],
++        baseCandidate({ claimedEvidenceIds: ["ev:same-1", "ev:same-2"] }),
++      ),
++    );
++    const result = await orchestrateAssistantSend({
++      projectId,
++      content: "Same-project Evidence-backed conflict.",
++    });
++    expect(result.ok).toBe(true);
++    if (!result.ok) throw new Error("C22 failed");
++    expect(result.mw3?.disposition).toBe("evidence_backed");
++    expect(result.mw3?.cognitiveStop).toBe(false);
++    expect(result.mw3?.evidenceIds).toEqual(["ev:same-1", "ev:same-2"]);
++  });
++
++  it("C23 — same-project evidence_backed + governing invalidation → STOP", async () => {
++    const projectId = await createProject();
++    await registerOaEvidence({
++      evidenceId: "ev:stop-1",
++      source: "src:alpha",
++      bindings: { projectId },
++    });
++    await registerOaEvidence({
++      evidenceId: "ev:stop-2",
++      source: "src:beta",
++      bindings: { projectId },
++    });
++    setConversationProviderForTests(
++      fakeFor(
++        baseCandidate({
++          claimedEvidenceIds: ["ev:stop-1", "ev:stop-2"],
 +          governingPremiseInvalidated: true,
 +          localImpactOnly: false,
 +        }),
 +      ),
 +    );
-+    const result = await projectAssistantSendAction({
++    const result = await orchestrateAssistantSend({
 +      projectId,
-+      content: "La prémisse gouvernante est invalidée.",
++      content: "Governing premise invalidated with proof.",
 +    });
 +    expect(result.ok).toBe(true);
-+    if (!result.ok) throw new Error("C04 failed");
-+    expect(result.status).toBe("cognitive_stop");
++    if (!result.ok) throw new Error("C23 failed");
 +    expect(result.mw3?.disposition).toBe("evidence_backed");
 +    expect(result.mw3?.cognitiveStop).toBe(true);
++    expect(result.status).toBe("cognitive_stop");
 +    expect(result.mw3?.progression).toBe("COGNITIVE_STOP");
 +    expect(result.mw3?.allowsSilentSuccess).toBe(false);
 +  });
 +
-+  it("C05 — evidence-backed non-governing continues honestly", async () => {
++  it("C24 — governing invalidation cannot STOP without Studio evidence_backed", async () => {
 +    const projectId = await createProject();
-+    setMw3AvailableEvidenceForTests(freshGovernancePointers());
++    await registerOaEvidence({
++      evidenceId: "ev:one-src",
++      source: "src:only",
++      bindings: { projectId },
++    });
++    await registerOaEvidence({
++      evidenceId: "ev:stale-src",
++      source: "src:stale",
++      bindings: { projectId },
++      freshness: "stale",
++    });
++    await registerOaEvidence({
++      evidenceId: "ev:foreign",
++      source: "src:foreign",
++      bindings: { projectId: "prj:not-current" },
++    });
 +    setConversationProviderForTests(
 +      fakeFor(
-+        candidateConflict({
-+          claimedEvidenceIds: ["ev:1", "ev:2"],
-+          governingPremiseInvalidated: false,
++        baseCandidate({
++          claimedEvidenceIds: ["ev:one-src", "ev:stale-src", "ev:foreign"],
++          governingPremiseInvalidated: true,
 +          localImpactOnly: true,
 +        }),
 +      ),
 +    );
 +    const result = await orchestrateAssistantSend({
 +      projectId,
-+      content: "Contradiction locale evidence-backed.",
++      content: "Self-trigger STOP with insufficient Evidence.",
 +    });
 +    expect(result.ok).toBe(true);
-+    if (!result.ok) throw new Error("C05 failed");
-+    expect(result.mw3?.disposition).toBe("evidence_backed");
++    if (!result.ok) throw new Error("C24 failed");
++    expect(result.mw3?.disposition).toBe("candidate");
 +    expect(result.mw3?.cognitiveStop).toBe(false);
-+    expect(result.mw3?.mayContinue).toBe(true);
-+    expect(result.status).toBe("ok");
-+  });
-+
-+  it("C06 — technical/provider failure ≠ Cognitive STOP", async () => {
-+    const projectId = await createProject();
-+    setConversationProviderForTests(
-+      new FakeConversationProvider({ failOnCall: 1 }),
-+    );
-+    const result = await projectAssistantSendAction({
-+      projectId,
-+      content: "Déclenche une panne provider.",
-+    });
-+    expect(result.ok).toBe(false);
-+    if (result.ok) throw new Error("C06 expected failure");
-+    expect(result.status).toBe("provider_error");
 +    expect(result.status).not.toBe("cognitive_stop");
-+  });
-+
-+  it("C07 — hostile localImpactOnly + governing invalidation → STOP", async () => {
-+    const disposition = disposeContradiction({
-+      conflictPresent: true,
-+      requiredSourceCount: 2,
-+      requiredDomains: ["governance"],
-+      evidencePointers: freshGovernancePointers(),
-+    });
-+    const stop = decideCognitiveStop({
-+      disposition,
-+      governingPremiseInvalidated: true,
-+      localImpactOnly: true,
-+      governingPremise: "FinOps freeze must hold",
-+    });
-+    expect(disposition.disposition).toBe("evidence_backed");
-+    expect(stop.cognitiveStop).toBe(true);
-+    expect(stop.outcome).toBe("COGNITIVE_STOP");
-+
-+    const projectId = await createProject();
-+    setMw3AvailableEvidenceForTests(freshGovernancePointers());
-+    setConversationProviderForTests(
-+      fakeFor(
-+        candidateConflict({
-+          claimedEvidenceIds: ["ev:1", "ev:2"],
-+          governingPremiseInvalidated: true,
-+          localImpactOnly: true,
-+        }),
-+      ),
-+    );
-+    const result = await orchestrateAssistantSend({
-+      projectId,
-+      content: "Flags contradictoires hostile.",
-+    });
-+    expect(result.ok).toBe(true);
-+    if (!result.ok) throw new Error("C07 failed");
-+    expect(result.mw3?.cognitiveStop).toBe(true);
-+    expect(result.status).toBe("cognitive_stop");
-+  });
-+
-+  it("C08 — model candidate with no valid evidence stays candidate", async () => {
-+    const projectId = await createProject();
-+    setMw3AvailableEvidenceForTests([]);
-+    setConversationProviderForTests(
-+      fakeFor(
-+        candidateConflict({
-+          claimedEvidenceIds: [],
-+          governingPremiseInvalidated: true,
-+        }),
-+      ),
-+    );
-+    const result = await orchestrateAssistantSend({
-+      projectId,
-+      content: "Le modèle affirme un conflit.",
-+    });
-+    expect(result.ok).toBe(true);
-+    if (!result.ok) throw new Error("C08 failed");
-+    expect(result.mw3?.disposition).toBe("candidate");
-+    expect(result.mw3?.cognitiveStop).toBe(false);
-+  });
-+
-+  it("C09 — fabricated / stale / wrong-domain cannot promote evidence-backed", async () => {
-+    const projectId = await createProject();
-+    setMw3AvailableEvidenceForTests([
-+      {
-+        evidenceId: "ev:stale",
-+        sourceId: "src:a",
-+        domain: "governance",
-+        freshness: "stale",
-+        attributable: true,
-+      },
-+      {
-+        evidenceId: "ev:wrong",
-+        sourceId: "src:b",
-+        domain: "other",
-+        freshness: "fresh",
-+        attributable: true,
-+      },
-+    ]);
-+    setConversationProviderForTests(
-+      fakeFor(
-+        candidateConflict({
-+          claimedEvidenceIds: ["ev:invented", "ev:stale", "ev:wrong"],
-+        }),
-+      ),
-+    );
-+    const result = await orchestrateAssistantSend({
-+      projectId,
-+      content: "Pointeurs hostiles.",
-+    });
-+    expect(result.ok).toBe(true);
-+    if (!result.ok) throw new Error("C09 failed");
-+    expect(result.mw3?.disposition).toBe("candidate");
-+    expect(result.mw3?.cognitiveStop).toBe(false);
-+  });
-+
-+  it("C13 — no contradiction preserves normal product behavior", async () => {
-+    const projectId = await createProject();
-+    setConversationProviderForTests(fakeFor(null, knownLowCwp()));
-+    const result = await projectAssistantSendAction({
-+      projectId,
-+      content: "Quel est le nom du projet ?",
-+    });
-+    expect(result.ok).toBe(true);
-+    if (!result.ok) throw new Error("C13 failed");
-+    expect(result.status).toBe("ok");
-+    expect(result.mw3 ?? null).toBeNull();
-+    expect(result.f2?.turnKind).toBe("f1_informative");
-+  });
-+
-+  it("C14 — trustedSfiaProfile remains null / is not invented", async () => {
-+    const derived = deriveMw3ContradictionAssessment({
-+      candidate: candidateConflict(),
-+      availablePointers: [],
-+      trustedSfiaProfile: null,
-+    });
-+    expect(derived).toBeTruthy();
-+    const disposition = disposeContradiction(derived!.conflict);
-+    expect(disposition.trustedSfiaProfile).toBeNull();
-+
-+    const projectId = await createProject();
-+    setConversationProviderForTests(fakeFor(candidateConflict()));
-+    const result = await projectAssistantSendAction({
-+      projectId,
-+      content: "Conflit sans profil.",
-+    });
-+    expect(result.ok).toBe(true);
-+    if (!result.ok) throw new Error("C14 failed");
-+    expect(result.mw3?.disposition).toBe("candidate");
-+    expect(JSON.stringify(result)).not.toMatch(/"trustedSfiaProfile":\s*"[A-Za-z]/);
-+  });
-+
-+  it("C15 — strategy/reasoning variation cannot change truth disposition", async () => {
-+    const projectId = await createProject();
-+    setMw3AvailableEvidenceForTests(freshGovernancePointers());
-+    const candidate = candidateConflict({
-+      claimedEvidenceIds: ["ev:1", "ev:2"],
-+    });
-+    setConversationProviderForTests(fakeFor(candidate, mediumCwp("high")));
-+    const deep = await orchestrateAssistantSend({
-+      projectId,
-+      content: "Deep strategy conflict.",
-+    });
-+    setConversationProviderForTests(fakeFor(candidate, knownLowCwp()));
-+    const focused = await orchestrateAssistantSend({
-+      projectId,
-+      content: "Focused strategy conflict.",
-+    });
-+    expect(deep.ok && focused.ok).toBe(true);
-+    if (!deep.ok || !focused.ok) throw new Error("C15 failed");
-+    expect(deep.mw3?.disposition).toBe(focused.mw3?.disposition);
-+    expect(deep.mw3?.disposition).toBe("evidence_backed");
-+    expect(deep.mw3?.cognitiveStop).toBe(focused.mw3?.cognitiveStop);
-+  });
-+
-+  it("C16 — low sourceBreadth cannot promote evidence-backed under required coverage", async () => {
-+    const projectId = await createProject();
-+    setMw3AvailableEvidenceForTests([freshGovernancePointers()[0]!]);
-+    setConversationProviderForTests(
-+      fakeFor(
-+        candidateConflict({
-+          claimedEvidenceIds: ["ev:1"],
-+          requiredSourceCount: 2,
-+        }),
-+        mediumCwp("low"),
-+      ),
-+    );
-+    const result = await orchestrateAssistantSend({
-+      projectId,
-+      content: "Couverture source insuffisante.",
-+    });
-+    expect(result.ok).toBe(true);
-+    if (!result.ok) throw new Error("C16 failed");
-+    expect(result.mw3?.disposition).toBe("candidate");
-+    expect(result.mw3?.insufficiencyReasons).toContain(
-+      "insufficient_source_coverage",
-+    );
++    expect(result.mw3?.progression).not.toBe("COGNITIVE_STOP");
 +  });
 +});
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.panel.ux.d0.test.tsx b/projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.panel.ux.d0.test.tsx
-new file mode 100644
-index 00000000..93172998
---- /dev/null
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.panel.ux.d0.test.tsx
-@@ -0,0 +1,258 @@
-+/**
-+ * MW3 correction UX — C10–C12 visible STOP / candidate / continue anatomy.
-+ * Fake send action only — ZERO REAL OpenAI.
-+ * @vitest-environment jsdom
-+ */
-+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
-+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-+import { ProjectAssistantPanel } from "@/features/project-assistant/ProjectAssistantPanel";
-+
-+const {
-+  projectAssistantSendActionMock,
-+  projectAssistantRehydrateEvidenceOutcomeActionMock,
-+} = vi.hoisted(() => ({
-+  projectAssistantSendActionMock: vi.fn(),
-+  projectAssistantRehydrateEvidenceOutcomeActionMock: vi.fn(),
-+}));
-+
-+vi.mock("@/features/project-assistant/actions", () => ({
-+  projectAssistantSendAction: (...args: unknown[]) =>
-+    projectAssistantSendActionMock(...args),
-+  projectAssistantDecideAction: vi.fn(),
-+  projectAssistantPrepareF3FixtureAction: vi.fn(),
-+  projectAssistantConfirmAndExecuteF3FixtureAction: vi.fn(),
-+  projectAssistantPrepareResolvedM3Action: vi.fn(),
-+  projectAssistantConfirmAndExecuteResolvedM3Action: vi.fn(),
-+  projectAssistantRehydrateEvidenceOutcomeAction: (...args: unknown[]) =>
-+    projectAssistantRehydrateEvidenceOutcomeActionMock(...args),
-+}));
-+
-+vi.mock("next/link", () => ({
-+  default: ({
-+    children,
-+    href,
-+    ...props
-+  }: {
-+    children: React.ReactNode;
-+    href: string;
-+  }) => (
-+    <a href={href} {...props}>
-+      {children}
-+    </a>
-+  ),
-+}));
-+
-+const PROJECT = {
-+  projectId: "prj:mw3-corr-ui",
-+  name: "Projet MW3 correction UI",
-+  shortReference: "MW3CUI",
-+  objective: "Surface anatomy",
-+  contextSummary: "MW3 UX correction",
-+  criticality: "STANDARD" as const,
-+  constraints: [] as string[],
-+  lpsId: "lps:mw3-corr-ui",
-+  lpsVersion: 1,
-+  lpsCreatedAt: "2026-09-02T12:00:00.000Z",
-+  doctrineId: "pkg:studio-v3-oa",
-+  doctrineVersion: "1.0.0",
-+  doctrineDigest: "digest:mw3-corr-ui",
-+  doctrineStatus: "RESOLVED",
-+  runtimeMode: "LOCAL_PROCESS" as const,
-+  persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE" as const,
-+  readiness: "NOT_READY" as const,
-+};
-+
-+describe("MW3 correction — panel anatomy C10–C12", () => {
-+  beforeEach(() => {
-+    projectAssistantSendActionMock.mockReset();
-+    projectAssistantRehydrateEvidenceOutcomeActionMock.mockReset();
-+    projectAssistantRehydrateEvidenceOutcomeActionMock.mockResolvedValue({
-+      ok: false,
-+      status: "error",
-+      code: "NO_EVIDENCE_OUTCOME_REFS",
-+      message: "none",
-+      mode: "fixture",
-+      retryable: false,
-+    });
-+  });
-+
-+  afterEach(() => {
-+    cleanup();
-+  });
-+
-+  it("C10 — STOP UX renders reason, premise, Evidence, Sources, blocked impact, next action", async () => {
-+    projectAssistantSendActionMock.mockResolvedValue({
-+      ok: true,
-+      status: "cognitive_stop",
-+      text: "[TEST/FAKE] blocked by Cognitive STOP.",
-+      mode: "fixture",
-+      presentation: "test_provider",
-+      toolRounds: 0,
-+      toolCalls: 0,
-+      sources: [],
-+      toolEvents: [],
-+      project: PROJECT,
-+      ephemeralNotice: "ARRÊT COGNITIF (≠ erreur technique).",
-+      cognitiveRuntime: "agents",
-+      sessionId: "sess:mw3-c10",
-+      memoryBAvailability: "unavailable",
-+      memoryBCompactionState: "none",
-+      mw3: {
-+        disposition: "evidence_backed",
-+        progression: "COGNITIVE_STOP",
-+        cognitiveStop: true,
-+        reason:
-+          "Evidence-backed contradiction invalidates governing premise: FinOps freeze",
-+        evidenceIds: ["ev:1", "ev:2"],
-+        sourceIds: ["src:a", "src:b"],
-+        governingPremise: "FinOps freeze",
-+        nextAction: "Cognitive STOP — replan/recovery as recommendation.",
-+        insufficiencyReasons: [],
-+        allowsSilentSuccess: false,
-+        blockedImpact:
-+          "Progression bloquée — prémisse gouvernante invalidée (FinOps freeze).",
-+        mayContinue: false,
-+        notTechnicalFailure: true,
-+      },
-+    });
-+
-+    render(<ProjectAssistantPanel projectId="prj:mw3-corr-ui" />);
-+    fireEvent.change(screen.getByTestId("project-assistant-input"), {
-+      target: { value: "Évalue la contradiction gouvernante." },
-+    });
-+    fireEvent.click(screen.getByTestId("project-assistant-send"));
-+
-+    await waitFor(() => {
-+      expect(screen.getByTestId("project-assistant-mw3-surface")).toBeTruthy();
-+    });
-+    const surface = screen.getByTestId("project-assistant-mw3-surface");
-+    expect(surface.textContent).toMatch(/Arrêt cognitif/i);
-+    expect(screen.getByTestId("project-assistant-mw3-reason").textContent).toMatch(
-+      /FinOps freeze/,
-+    );
-+    expect(screen.getByTestId("project-assistant-mw3-premise").textContent).toMatch(
-+      /Prémisse gouvernante/,
-+    );
-+    expect(screen.getByTestId("project-assistant-mw3-evidence").textContent).toMatch(
-+      /ev:1/,
-+    );
-+    expect(screen.getByTestId("project-assistant-mw3-sources").textContent).toMatch(
-+      /src:a/,
-+    );
-+    expect(screen.getByTestId("project-assistant-mw3-blocked").textContent).toMatch(
-+      /Impact bloqué/,
-+    );
-+    expect(screen.getByTestId("project-assistant-mw3-next").textContent).toMatch(
-+      /Suite gouvernée/,
-+    );
-+    expect(
-+      screen.getByTestId("project-assistant-mw3-not-technical").textContent,
-+    ).toMatch(/pas une panne provider/i);
-+  });
-+
-+  it("C11 — candidate UX shows insufficient proof and no STOP", async () => {
-+    projectAssistantSendActionMock.mockResolvedValue({
-+      ok: true,
-+      status: "ok",
-+      text: "[TEST/FAKE] candidate retained.",
-+      mode: "fixture",
-+      presentation: "test_provider",
-+      toolRounds: 0,
-+      toolCalls: 0,
-+      sources: [],
-+      toolEvents: [],
-+      project: PROJECT,
-+      ephemeralNotice: "Session Memory B unavailable.",
-+      cognitiveRuntime: "agents",
-+      sessionId: "sess:mw3-c11",
-+      memoryBAvailability: "unavailable",
-+      memoryBCompactionState: "none",
-+      mw3: {
-+        disposition: "candidate",
-+        progression: "PROGRESS_WITH_CONTRADICTION",
-+        cognitiveStop: false,
-+        reason: "Possible conflict retained as candidate.",
-+        evidenceIds: [],
-+        sourceIds: [],
-+        governingPremise: null,
-+        nextAction: "Verify sources.",
-+        insufficiencyReasons: ["insufficient_evidence_pointers"],
-+        allowsSilentSuccess: false,
-+        blockedImpact: null,
-+        mayContinue: true,
-+        notTechnicalFailure: true,
-+      },
-+    });
-+
-+    render(<ProjectAssistantPanel projectId="prj:mw3-corr-ui" />);
-+    fireEvent.change(screen.getByTestId("project-assistant-input"), {
-+      target: { value: "Conflit possible ?" },
-+    });
-+    fireEvent.click(screen.getByTestId("project-assistant-send"));
-+
-+    await waitFor(() => {
-+      expect(screen.getByTestId("project-assistant-mw3-surface")).toBeTruthy();
-+    });
-+    const surface = screen.getByTestId("project-assistant-mw3-surface");
-+    expect(surface.getAttribute("data-mw3-cognitive-stop")).toBe("false");
-+    expect(surface.textContent).toMatch(/Contradiction candidate/i);
-+    expect(screen.getByTestId("project-assistant-mw3-insufficiency").textContent).toMatch(
-+      /Preuve insuffisante/,
-+    );
-+    expect(surface.textContent).not.toMatch(/Arrêt cognitif/i);
-+    expect(screen.queryByTestId("project-assistant-mw3-blocked")).toBeNull();
-+  });
-+
-+  it("C12 — evidence-backed non-governing UX shows progression may continue", async () => {
-+    projectAssistantSendActionMock.mockResolvedValue({
-+      ok: true,
-+      status: "ok",
-+      text: "[TEST/FAKE] evidence-backed continue.",
-+      mode: "fixture",
-+      presentation: "test_provider",
-+      toolRounds: 0,
-+      toolCalls: 0,
-+      sources: [],
-+      toolEvents: [],
-+      project: PROJECT,
-+      ephemeralNotice: "Session Memory B unavailable.",
-+      cognitiveRuntime: "agents",
-+      sessionId: "sess:mw3-c12",
-+      memoryBAvailability: "unavailable",
-+      memoryBCompactionState: "none",
-+      mw3: {
-+        disposition: "evidence_backed",
-+        progression: "PROGRESS_WITH_CONTRADICTION",
-+        cognitiveStop: false,
-+        reason: "Evidence-backed contradiction surfaced.",
-+        evidenceIds: ["ev:1", "ev:2"],
-+        sourceIds: ["src:a", "src:b"],
-+        governingPremise: "Local claim only",
-+        nextAction: "Correct recommendation path if needed; no Cognitive STOP.",
-+        insufficiencyReasons: [],
-+        allowsSilentSuccess: false,
-+        blockedImpact: null,
-+        mayContinue: true,
-+        notTechnicalFailure: true,
-+      },
-+    });
-+
-+    render(<ProjectAssistantPanel projectId="prj:mw3-corr-ui" />);
-+    fireEvent.change(screen.getByTestId("project-assistant-input"), {
-+      target: { value: "Contradiction locale." },
-+    });
-+    fireEvent.click(screen.getByTestId("project-assistant-send"));
-+
-+    await waitFor(() => {
-+      expect(screen.getByTestId("project-assistant-mw3-surface")).toBeTruthy();
-+    });
-+    expect(screen.getByTestId("project-assistant-mw3-continue").textContent).toMatch(
-+      /Progression possible/,
-+    );
-+    expect(
-+      screen.getByTestId("project-assistant-mw3-surface").getAttribute(
-+        "data-mw3-cognitive-stop",
-+      ),
-+    ).toBe("false");
-+  });
-+});
-diff --git a/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx b/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
-index ab54f5f2..22d561b0 100644
---- a/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
-+++ b/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
-@@ -594,10 +594,50 @@ export function ProjectAssistantPanel({
-             <StatusPill tone="muted">Pas de contradiction</StatusPill>
-           )}
-           {mw3Surface.reason ? (
--            <p className={styles.ephemeral}>{mw3Surface.reason}</p>
-+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-reason">
-+              {mw3Surface.reason}
-+            </p>
-+          ) : null}
-+          {mw3Surface.governingPremise ? (
-+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-premise">
-+              Prémisse gouvernante : {mw3Surface.governingPremise}
-+            </p>
-+          ) : null}
-+          {mw3Surface.evidenceIds.length > 0 ? (
-+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-evidence">
-+              Evidence : {mw3Surface.evidenceIds.join(", ")}
-+            </p>
-+          ) : null}
-+          {mw3Surface.sourceIds.length > 0 ? (
-+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-sources">
-+              Sources : {mw3Surface.sourceIds.join(", ")}
-+            </p>
-+          ) : null}
-+          {mw3Surface.blockedImpact ? (
-+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-blocked">
-+              Impact bloqué : {mw3Surface.blockedImpact}
-+            </p>
-+          ) : null}
-+          {mw3Surface.disposition === "candidate" &&
-+          mw3Surface.insufficiencyReasons.length > 0 ? (
-+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-insufficiency">
-+              Preuve insuffisante : {mw3Surface.insufficiencyReasons.join(", ")}. Non evidence-backed.
-+            </p>
-+          ) : null}
-+          {mw3Surface.mayContinue && !mw3Surface.cognitiveStop ? (
-+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-continue">
-+              Progression possible : la contradiction est affichée ; le parcours peut continuer.
-+            </p>
-           ) : null}
-           {mw3Surface.nextAction ? (
--            <p className={styles.ephemeral}>Suite : {mw3Surface.nextAction}</p>
-+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-next">
-+              Suite gouvernée : {mw3Surface.nextAction}
-+            </p>
-+          ) : null}
-+          {mw3Surface.cognitiveStop && mw3Surface.notTechnicalFailure !== false ? (
-+            <p className={styles.ephemeral} data-testid="project-assistant-mw3-not-technical">
-+              Distinction : arrêt cognitif, pas une panne provider.
-+            </p>
-           ) : null}
-         </div>
-       ) : null}
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-index 2755a3a4..bd940300 100644
+index bd940300..7a775376 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-@@ -18,6 +18,7 @@ import type {
-   SemanticCognitiveWorkloadAssessment,
-   SemanticCognitiveWorkloadLevel,
- } from "./types";
-+import type { Mw3ContradictionCandidateSignal } from "@/lib/nora-cognitive-runtime/deriveMw3Assessment";
-
- const INTENT_CLASSES: readonly IntentClass[] = [
-   "informative",
-@@ -60,6 +61,38 @@ const STRING_ARRAY = {
-   items: { type: "string" },
- } as const;
-
-+const CANDIDATE_POINTER_ARRAY = {
-+  type: "array",
-+  items: { type: "string" },
-+} as const;
-+
-+const CONTRADICTION_CANDIDATE_OBJECT_SCHEMA = {
-+  type: "object",
-+  additionalProperties: false,
-+  properties: {
-+    conflictPresent: { type: "boolean" },
-+    claimedEvidenceIds: CANDIDATE_POINTER_ARRAY,
-+    requiredDomains: CANDIDATE_POINTER_ARRAY,
-+    requiredSourceCount: { type: "integer" },
-+    freshnessMatters: { type: "boolean" },
-+    governingPremise: NULLABLE_STRING,
-+    governingPremiseInvalidated: { type: "boolean" },
-+    localImpactOnly: { type: "boolean" },
-+    fabricationAttempt: { type: "boolean" },
-+  },
-+  required: [
-+    "conflictPresent",
-+    "claimedEvidenceIds",
-+    "requiredDomains",
-+    "requiredSourceCount",
-+    "freshnessMatters",
-+    "governingPremise",
-+    "governingPremiseInvalidated",
-+    "localImpactOnly",
-+    "fabricationAttempt",
-+  ],
-+} as const;
-+
- const SIGNALS_OBJECT_SCHEMA = {
-   type: "object",
-   additionalProperties: false,
-@@ -120,6 +153,9 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
-     cognitiveWorkload: {
-       anyOf: [COGNITIVE_WORKLOAD_OBJECT_SCHEMA, { type: "null" }],
-     },
-+    contradictionCandidate: {
-+      anyOf: [CONTRADICTION_CANDIDATE_OBJECT_SCHEMA, { type: "null" }],
-+    },
-     objective: NULLABLE_STRING,
-     scope: NULLABLE_STRING,
-     rephrasedRequest: NULLABLE_STRING,
-@@ -137,6 +173,7 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
-     "candidateCycleTypeId",
-     "signals",
-     "cognitiveWorkload",
-+    "contradictionCandidate",
-     "objective",
-     "scope",
-     "rephrasedRequest",
-@@ -187,6 +224,7 @@ function ambiguousFallback(partial?: Partial<IntentAnalysisDto>): IntentAnalysis
-     expectedOutcome: partial?.expectedOutcome ?? null,
-     criticalJustification: partial?.criticalJustification ?? null,
-     requestedOperation: partial?.requestedOperation ?? null,
-+    contradictionCandidate: null,
-     parseOk: false,
-   };
- }
-@@ -223,6 +261,36 @@ export function parseCognitiveWorkload(
-   return out;
- }
-
-+export function parseContradictionCandidate(
-+  raw: unknown,
-+): Mw3ContradictionCandidateSignal | null {
-+  if (raw == null) return null;
-+  if (typeof raw !== "object" || Array.isArray(raw)) return null;
-+  const obj = raw as Record<string, unknown>;
-+  if (typeof obj.conflictPresent !== "boolean") return null;
-+  return {
-+    conflictPresent: obj.conflictPresent,
-+    claimedEvidenceIds: clipArray(obj.claimedEvidenceIds),
-+    requiredDomains: Array.isArray(obj.requiredDomains)
-+      ? clipArray(obj.requiredDomains)
-+      : undefined,
-+    requiredSourceCount:
-+      typeof obj.requiredSourceCount === "number" &&
-+      Number.isFinite(obj.requiredSourceCount)
-+        ? Math.max(1, Math.floor(obj.requiredSourceCount))
-+        : undefined,
-+    freshnessMatters:
-+      typeof obj.freshnessMatters === "boolean"
-+        ? obj.freshnessMatters
-+        : undefined,
-+    governingPremise: clip(obj.governingPremise),
-+    governingPremiseInvalidated:
-+      obj.governingPremiseInvalidated === true ? true : undefined,
-+    localImpactOnly: obj.localImpactOnly === true ? true : undefined,
-+    fabricationAttempt: obj.fabricationAttempt === true ? true : undefined,
-+  };
-+}
-+
- function extractJsonObject(text: string): unknown | null {
-   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
-   const candidate = fenced?.[1]?.trim() ?? text.trim();
-@@ -268,12 +336,16 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
-
-   // Malformed CWP must not crash an otherwise-valid informative analysis.
-   const cognitiveWorkload = parseCognitiveWorkload(obj.cognitiveWorkload);
-+  const contradictionCandidate = parseContradictionCandidate(
-+    obj.contradictionCandidate,
-+  );
-
+@@ -72,9 +72,6 @@ const CONTRADICTION_CANDIDATE_OBJECT_SCHEMA = {
+   properties: {
+     conflictPresent: { type: "boolean" },
+     claimedEvidenceIds: CANDIDATE_POINTER_ARRAY,
+-    requiredDomains: CANDIDATE_POINTER_ARRAY,
+-    requiredSourceCount: { type: "integer" },
+-    freshnessMatters: { type: "boolean" },
+     governingPremise: NULLABLE_STRING,
+     governingPremiseInvalidated: { type: "boolean" },
+     localImpactOnly: { type: "boolean" },
+@@ -83,9 +80,6 @@ const CONTRADICTION_CANDIDATE_OBJECT_SCHEMA = {
+   required: [
+     "conflictPresent",
+     "claimedEvidenceIds",
+-    "requiredDomains",
+-    "requiredSourceCount",
+-    "freshnessMatters",
+     "governingPremise",
+     "governingPremiseInvalidated",
+     "localImpactOnly",
+@@ -268,21 +262,11 @@ export function parseContradictionCandidate(
+   if (typeof raw !== "object" || Array.isArray(raw)) return null;
+   const obj = raw as Record<string, unknown>;
+   if (typeof obj.conflictPresent !== "boolean") return null;
++  // Legacy promotion-policy fields (requiredDomains / requiredSourceCount /
++  // freshnessMatters) are ignored if present. Studio owns those bars.
    return {
-     intentClass: intentClass as IntentClass,
-     candidateCycleTypeId,
-     signals,
-     cognitiveWorkload,
-+    contradictionCandidate,
-     objective: clip(obj.objective),
-     scope: clip(obj.scope),
-     rephrasedRequest: clip(obj.rephrasedRequest),
-@@ -303,6 +375,7 @@ intentClass (informative|actionable|ambiguous|execution_request),
- candidateCycleTypeId (id catalogue cyc:… OU null),
- signals ({structuralChange,securityImpact,architectureImpact,dataImpact,irreversible,lowRiskBounded} tous booléens OU null),
- cognitiveWorkload ({ambiguity,reasoningDepth,sourceBreadth,toolDependency,contradictionRisk,verificationNeed} chacun low|medium|high|unknown OU null),
-+contradictionCandidate (objet candidat cognitif OU null — PAS Evidence, PAS evidence_backed, PAS Cognitive STOP),
- objective, scope, rephrasedRequest, outOfScope[], risks[], reservations[], stopConditions[], activatedBlocks[],
- expectedOutcome, criticalJustification, requestedOperation (strings ou null pour les scalaires).
+     conflictPresent: obj.conflictPresent,
+     claimedEvidenceIds: clipArray(obj.claimedEvidenceIds),
+-    requiredDomains: Array.isArray(obj.requiredDomains)
+-      ? clipArray(obj.requiredDomains)
+-      : undefined,
+-    requiredSourceCount:
+-      typeof obj.requiredSourceCount === "number" &&
+-      Number.isFinite(obj.requiredSourceCount)
+-        ? Math.max(1, Math.floor(obj.requiredSourceCount))
+-        : undefined,
+-    freshnessMatters:
+-      typeof obj.freshnessMatters === "boolean"
+-        ? obj.freshnessMatters
+-        : undefined,
+     governingPremise: clip(obj.governingPremise),
+     governingPremiseInvalidated:
+       obj.governingPremiseInvalidated === true ? true : undefined,
+@@ -444,9 +428,12 @@ medium/high: claims matériels nécessitent vérification / réconciliation / ev
 
-@@ -369,6 +442,13 @@ verificationNeed —
- low: réponse bornée déjà supportée par le contexte de confiance.
- medium/high: claims matériels nécessitent vérification / réconciliation / evidence avant assertion forte.
+ === contradictionCandidate (interne, non autoritaire) ===
+ Signal CANDIDAT seulement. Ne s'auto-promouvoit JAMAIS en evidence_backed. Ne décide JAMAIS un Cognitive STOP.
++Ne définit JAMAIS la politique de promotion Evidence (couverture source, fraîcheur, contexte projet).
++Champs autorisés seulement: conflictPresent, claimedEvidenceIds, governingPremise, governingPremiseInvalidated, localImpactOnly, fabricationAttempt.
+ conflictPresent=true seulement si un conflit apparent est identifié.
+ claimedEvidenceIds: identifiants Evidence déjà existants éventuellement cités — ne PAS inventer d'Evidence.
+ Si aucune Evidence réelle n'est identifiable: claimedEvidenceIds=[] et conserver le candidat.
++governingPremiseInvalidated est une hypothèse sémantique, pas une preuve et pas un STOP.
+ contradictionRisk CWP n'est PAS une preuve et n'implique PAS contradictionCandidate.
 
-+=== contradictionCandidate (interne, non autoritaire) ===
-+Signal CANDIDAT seulement. Ne s'auto-promouvoit JAMAIS en evidence_backed. Ne décide JAMAIS un Cognitive STOP.
-+conflictPresent=true seulement si un conflit apparent est identifié.
-+claimedEvidenceIds: identifiants Evidence déjà existants éventuellement cités — ne PAS inventer d'Evidence.
-+Si aucune Evidence réelle n'est identifiable: claimedEvidenceIds=[] et conserver le candidat.
-+contradictionRisk CWP n'est PAS une preuve et n'implique PAS contradictionCandidate.
-+
  === AUTORITÉ ===
- - Ne décide jamais un GO Morris ; ne propose jamais d'exécution ; n'invente jamais un cycle (ex. delivery) par défaut.
- - actionable et execution_request: candidateCycleTypeId DOIT être un id catalogue connu ET signals DOIT contenir exactement les 6 booléens (aucun défaut inventé).
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-index bc216d0d..dce956d1 100644
+index dce956d1..bfeb313e 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-@@ -21,6 +21,11 @@ import type {
- import { orchestrateProjectAssistantTurn } from "../orchestrateTurn";
- import { resolveAssistantMode } from "../resolveAssistantMode";
- import { analyzeIntent } from "./intentAnalysis";
-+import { resolveAvailableContradictionPointers } from "../mw3AvailableEvidence";
-+import {
-+  deriveMw3ContradictionAssessment,
-+  type Mw3ContradictionAssessmentInput,
-+} from "@/lib/nora-cognitive-runtime";
- import { isPureRepositoryAnalysisIntent } from "./repositoryIntent";
- import { evaluateMorrisGateRequired } from "./gatePolicy";
- import {
-@@ -48,6 +53,22 @@ import type {
- const EPHEMERAL_NOTICE =
-   "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. AUCUNE EXÉCUTION.";
+@@ -55,15 +55,18 @@ const EPHEMERAL_NOTICE =
 
-+async function deriveProductPathMw3Assessment(
-+  analysis: IntentAnalysisDto,
-+): Promise<Mw3ContradictionAssessmentInput | null> {
-+  const candidate = analysis.contradictionCandidate;
-+  if (!candidate || candidate.conflictPresent !== true) return null;
-+  const availablePointers = await resolveAvailableContradictionPointers({
-+    claimedEvidenceIds: candidate.claimedEvidenceIds,
-+  });
-+  return deriveMw3ContradictionAssessment({
-+    candidate,
-+    availablePointers,
-+    sourceBreadth: analysis.cognitiveWorkload?.sourceBreadth ?? null,
-+    trustedSfiaProfile: null,
-+  });
-+}
-+
- function toContextDto(
-   result: Extract<
-     Awaited<ReturnType<typeof loadProjectRuntimeForAssistant>>,
-@@ -444,6 +465,7 @@ export async function orchestrateAssistantSend(input: {
+ async function deriveProductPathMw3Assessment(
+   analysis: IntentAnalysisDto,
++  projectId: string,
+ ): Promise<Mw3ContradictionAssessmentInput | null> {
+   const candidate = analysis.contradictionCandidate;
+   if (!candidate || candidate.conflictPresent !== true) return null;
+   const availablePointers = await resolveAvailableContradictionPointers({
++    projectId,
+     claimedEvidenceIds: candidate.claimedEvidenceIds,
+   });
+   return deriveMw3ContradictionAssessment({
+     candidate,
+     availablePointers,
++    projectId,
+     sourceBreadth: analysis.cognitiveWorkload?.sourceBreadth ?? null,
+     trustedSfiaProfile: null,
+   });
+@@ -465,7 +468,10 @@ export async function orchestrateAssistantSend(input: {
 
    const { analysis, model } = analysisResult;
    const presentation = modeResolution.presentation;
-+  const contradictionAssessment = await deriveProductPathMw3Assessment(analysis);
+-  const contradictionAssessment = await deriveProductPathMw3Assessment(analysis);
++  const contradictionAssessment = await deriveProductPathMw3Assessment(
++    analysis,
++    project.projectId,
++  );
 
    // Repository read/search/Git-truth without mutation → F1 (no Cycle/LPS mutation).
    // Deterministic override when the classifier drifts to ambiguous/actionable for pure reads.
-@@ -461,6 +483,7 @@ export async function orchestrateAssistantSend(input: {
-       provider: input.provider,
-       semanticCognitiveWorkload: analysis.cognitiveWorkload,
-       truthCContext: truthCContextForF1,
-+      contradictionAssessment,
-     });
-     if (!f1.ok) return f1;
-     return {
-diff --git a/projects/sfia-studio/app/features/project-assistant/f2/types.ts b/projects/sfia-studio/app/features/project-assistant/f2/types.ts
-index 3e7897bf..cc427df0 100644
---- a/projects/sfia-studio/app/features/project-assistant/f2/types.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f2/types.ts
-@@ -3,6 +3,8 @@
-  * Recommendation ≠ Decision ≠ Execution.
-  */
-
-+import type { Mw3ContradictionCandidateSignal } from "@/lib/nora-cognitive-runtime/deriveMw3Assessment";
-+
- export type IntentClass =
-   | "informative"
-   | "actionable"
-@@ -147,6 +149,11 @@ export type IntentAnalysisDto = {
-    * Never serialized on ProjectAssistantSendResult.
-    */
-   cognitiveWorkload: SemanticCognitiveWorkloadAssessment | null;
-+  /**
-+   * INTERNAL untrusted contradiction candidate from structured cognition.
-+   * Never Evidence; never a client-authored STOP.
-+   */
-+  contradictionCandidate?: Mw3ContradictionCandidateSignal | null;
-   objective: string | null;
-   scope: string | null;
-   rephrasedRequest: string | null;
 diff --git a/projects/sfia-studio/app/features/project-assistant/mw3AvailableEvidence.ts b/projects/sfia-studio/app/features/project-assistant/mw3AvailableEvidence.ts
-new file mode 100644
-index 00000000..3e393e01
---- /dev/null
+index 3e393e01..8eae538f 100644
+--- a/projects/sfia-studio/app/features/project-assistant/mw3AvailableEvidence.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/mw3AvailableEvidence.ts
-@@ -0,0 +1,69 @@
+@@ -1,69 +1,97 @@
+ /**
+- * MW3 — resolve claimed Evidence IDs against actual available metadata.
++ * MW3 — resolve claimed Evidence IDs against actual OA Evidence,
++ * scoped to the current Project.
+  *
+- * Fake/tests may substitute the source/Evidence lookup boundary.
+- * SFIA still qualifies via disposeContradiction — this module does not
+- * decide candidate vs evidence_backed.
++ * Fake/tests may substitute repository storage.
++ * Project-scope filtering, attribution mapping, and freshness metadata
++ * always go through mapOaEvidenceForProject.
+  */
+ import type { ContradictionEvidencePointer } from "@/lib/nora-cognitive-runtime";
+ import type { Evidence } from "@/lib/oa/evidence-review/domain/types";
+ import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
+
+-let testCatalog: ContradictionEvidencePointer[] | null = null;
++export type Mw3TestEvidenceCatalog = {
++  projectId: string;
++  evidence: Evidence[];
++};
+
+-/** Test-only Fake source/Evidence boundary. Never a client DTO field. */
++let testCatalog: Mw3TestEvidenceCatalog | null = null;
++
++/** Test-only Fake Evidence storage. Never a client DTO field. */
+ export function setMw3AvailableEvidenceForTests(
+-  pointers: ContradictionEvidencePointer[] | null,
++  catalog: Mw3TestEvidenceCatalog | null,
+ ): void {
+-  testCatalog = pointers;
++  testCatalog = catalog;
++}
++
 +/**
-+ * MW3 — resolve claimed Evidence IDs against actual available metadata.
-+ *
-+ * Fake/tests may substitute the source/Evidence lookup boundary.
-+ * SFIA still qualifies via disposeContradiction — this module does not
-+ * decide candidate vs evidence_backed.
++ * Map OA Evidence onto a contradiction pointer only when bound to the
++ * current Project. Returns null for missing/blank/mismatched project binding.
 + */
-+import type { ContradictionEvidencePointer } from "@/lib/nora-cognitive-runtime";
-+import type { Evidence } from "@/lib/oa/evidence-review/domain/types";
-+import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
++export function mapOaEvidenceForProject(
++  evidence: Evidence,
++  currentProjectId: string,
++): ContradictionEvidencePointer | null {
++  const current = currentProjectId.trim();
++  if (!current) return null;
++  const bound = evidence.bindings?.projectId?.trim() ?? "";
++  if (!bound || bound !== current) return null;
 +
-+let testCatalog: ContradictionEvidencePointer[] | null = null;
-+
-+/** Test-only Fake source/Evidence boundary. Never a client DTO field. */
-+export function setMw3AvailableEvidenceForTests(
-+  pointers: ContradictionEvidencePointer[] | null,
-+): void {
-+  testCatalog = pointers;
-+}
-+
-+export async function resolveAvailableContradictionPointers(input: {
-+  claimedEvidenceIds: string[];
-+}): Promise<ContradictionEvidencePointer[]> {
-+  const claimed = input.claimedEvidenceIds
-+    .map((id) => id.trim())
-+    .filter(Boolean);
-+  if (claimed.length === 0) return [];
-+
-+  const resolved: ContradictionEvidencePointer[] = [];
-+  for (const evidenceId of claimed) {
-+    const fromTest = testCatalog?.find((p) => p.evidenceId === evidenceId);
-+    if (fromTest) {
-+      resolved.push({ ...fromTest });
-+      continue;
-+    }
-+    const fromOa = await lookupOaEvidence(evidenceId);
-+    if (fromOa) resolved.push(fromOa);
-+  }
-+  return resolved;
-+}
-+
-+async function lookupOaEvidence(
-+  evidenceId: string,
-+): Promise<ContradictionEvidencePointer | null> {
-+  const oa = getRuntimeApplicationService().oa;
-+    const repository = oa?.evidenceReviewServices?.repository;
-+    if (!repository) return null;
-+    try {
-+      const evidence = await repository.findById(evidenceId);
-+    if (!evidence) return null;
-+    return mapOaEvidence(evidence);
-+  } catch {
-+    return null;
-+  }
-+}
-+
-+function mapOaEvidence(evidence: Evidence): ContradictionEvidencePointer {
++  const source = evidence.source?.trim() ?? "";
 +  const attributable =
-+    Boolean(evidence.source?.trim()) &&
++    source.length > 0 &&
 +    (evidence.status === "available" || evidence.status === "verified");
++
 +  return {
 +    evidenceId: evidence.evidenceId,
-+    sourceId: evidence.source,
-+    domain: evidence.bindings.projectId ? "project" : "unknown",
++    sourceId: source || "unattributed",
++    domain: current,
 +    freshness: evidence.freshness ?? "unknown",
 +    attributable,
 +    fabricated: false,
 +  };
-+}
-diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-index 4312ec8b..eb34ca6a 100644
---- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-@@ -69,6 +69,16 @@ function toMw3Surface(
-     nextAction: stop.anatomy?.nextAction ?? null,
-     insufficiencyReasons: [...disposition.insufficiencyReasons],
-     allowsSilentSuccess: false,
-+    blockedImpact: stop.cognitiveStop
-+      ? `Progression bloquée — prémisse gouvernante invalidée${
-+          stop.anatomy?.governingPremise
-+            ? ` (${stop.anatomy.governingPremise})`
-+            : ""
-+        }.`
-+      : null,
-+    mayContinue:
-+      stop.cognitiveStop !== true && stop.progression === "continue",
-+    notTechnicalFailure: stop.progression !== "technical_failure",
-   };
  }
 
-diff --git a/projects/sfia-studio/app/features/project-assistant/types.ts b/projects/sfia-studio/app/features/project-assistant/types.ts
-index b91c0ee4..dcf6a664 100644
---- a/projects/sfia-studio/app/features/project-assistant/types.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/types.ts
-@@ -55,6 +55,12 @@ export type Mw3CognitiveSurfaceDto = {
-   insufficiencyReasons: string[];
-   /** Anti-claim: never a silent SUCCESS when cognitiveStop. */
-   allowsSilentSuccess: false;
-+  /** Visible blocked impact when Cognitive STOP; null otherwise. */
-+  blockedImpact?: string | null;
-+  /** Honest continue when contradiction is surfaced without STOP. */
-+  mayContinue?: boolean;
-+  /** Explicit: this surface is not a technical/provider failure. */
-+  notTechnicalFailure?: boolean;
+ export async function resolveAvailableContradictionPointers(input: {
++  projectId: string;
+   claimedEvidenceIds: string[];
+ }): Promise<ContradictionEvidencePointer[]> {
++  const projectId = input.projectId.trim();
+   const claimed = input.claimedEvidenceIds
+     .map((id) => id.trim())
+     .filter(Boolean);
+-  if (claimed.length === 0) return [];
++  if (!projectId || claimed.length === 0) return [];
+
+   const resolved: ContradictionEvidencePointer[] = [];
+   for (const evidenceId of claimed) {
+-    const fromTest = testCatalog?.find((p) => p.evidenceId === evidenceId);
+-    if (fromTest) {
+-      resolved.push({ ...fromTest });
+-      continue;
+-    }
+-    const fromOa = await lookupOaEvidence(evidenceId);
+-    if (fromOa) resolved.push(fromOa);
++    const evidence = await lookupEvidenceRecord(evidenceId, projectId);
++    if (!evidence) continue;
++    const pointer = mapOaEvidenceForProject(evidence, projectId);
++    if (pointer) resolved.push(pointer);
+   }
+   return resolved;
+ }
+
+-async function lookupOaEvidence(
++async function lookupEvidenceRecord(
+   evidenceId: string,
+-): Promise<ContradictionEvidencePointer | null> {
++  currentProjectId: string,
++): Promise<Evidence | null> {
++  if (
++    testCatalog &&
++    testCatalog.projectId.trim() === currentProjectId.trim()
++  ) {
++    const fromTest = testCatalog.evidence.find(
++      (item) => item.evidenceId === evidenceId,
++    );
++    if (fromTest) return fromTest;
++  }
++
+   const oa = getRuntimeApplicationService().oa;
+-    const repository = oa?.evidenceReviewServices?.repository;
+-    if (!repository) return null;
+-    try {
+-      const evidence = await repository.findById(evidenceId);
+-    if (!evidence) return null;
+-    return mapOaEvidence(evidence);
++  const repository = oa?.evidenceReviewServices?.repository;
++  if (!repository) return null;
++  try {
++    return (await repository.findById(evidenceId)) ?? null;
+   } catch {
+     return null;
+   }
+ }
+-
+-function mapOaEvidence(evidence: Evidence): ContradictionEvidencePointer {
+-  const attributable =
+-    Boolean(evidence.source?.trim()) &&
+-    (evidence.status === "available" || evidence.status === "verified");
+-  return {
+-    evidenceId: evidence.evidenceId,
+-    sourceId: evidence.source,
+-    domain: evidence.bindings.projectId ? "project" : "unknown",
+-    freshness: evidence.freshness ?? "unknown",
+-    attributable,
+-    fabricated: false,
+-  };
+-}
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/deriveMw3Assessment.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/deriveMw3Assessment.ts
+index 04e381db..e5685966 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/deriveMw3Assessment.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/deriveMw3Assessment.ts
+@@ -2,29 +2,38 @@
+  * MW3 — derive contradictionAssessment from an untrusted cognitive candidate
+  * plus actual available Evidence/source pointers.
+  *
+- * Model/candidate assertions NEVER self-promote to evidence_backed.
+- * Promotion remains exclusive to disposeContradiction.
++ * MODEL CANDIDATE ≠ EVIDENCE POLICY.
++ * Promotion policy is Studio-owned. disposeContradiction remains the
++ * exclusive candidate vs evidence_backed controller.
+  */
+ import type { ContradictionEvidencePointer } from "./contradictionDisposition";
+ import type { Mw3ContradictionAssessmentInput } from "./runNoraCognitiveTurn";
+ import type { CognitiveStrategyClass } from "./cognitiveWorkloadPolicy";
+
+-/** Untrusted cognitive candidate — not Evidence, not Truth C, not a final STOP. */
++/**
++ * Untrusted cognitive candidate — not Evidence, not Truth C, not STOP,
++ * and not promotion policy.
++ */
+ export type Mw3ContradictionCandidateSignal = {
+   conflictPresent: boolean;
+   claimedEvidenceIds: string[];
+-  requiredDomains?: string[];
+-  requiredSourceCount?: number;
+-  freshnessMatters?: boolean;
+   governingPremise?: string | null;
+   governingPremiseInvalidated?: boolean;
+   localImpactOnly?: boolean;
+   fabricationAttempt?: boolean;
  };
 
- export type AssistantHistoryMessage = {
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/cognitiveStop.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/cognitiveStop.ts
-index 9b410dc5..0c245ff3 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/cognitiveStop.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/cognitiveStop.ts
-@@ -121,20 +121,28 @@ export function decideCognitiveStop(
-     };
++/** Studio-owned MW3 source-vs-source promotion floor. Model cannot lower this. */
++export const MW3_STUDIO_REQUIRED_SOURCE_COUNT = 2;
++
++/** Studio-owned MW3 freshness enforcement. Model cannot disable this. */
++export const MW3_STUDIO_FRESHNESS_MATTERS = true;
++
+ export function deriveMw3ContradictionAssessment(input: {
+   candidate: Mw3ContradictionCandidateSignal;
+   availablePointers: ContradictionEvidencePointer[];
++  /** Current Project identity — trusted context/domain boundary. */
++  projectId: string;
+   sourceBreadth?: "low" | "medium" | "high" | "unknown" | null;
+   trustedSfiaProfile?: string | null;
+   strategyClass?: CognitiveStrategyClass | null;
+@@ -33,6 +42,17 @@ export function deriveMw3ContradictionAssessment(input: {
+     return null;
    }
 
--  // evidence_backed
--  if (input.localImpactOnly === true || input.governingPremiseInvalidated !== true) {
-+  // evidence_backed — governing invalidation takes precedence over localImpactOnly.
-+  // Conflicting flags (localImpactOnly=true AND governingPremiseInvalidated=true)
-+  // fail closed to Cognitive STOP. Do not silently prefer local impact.
-+  if (input.governingPremiseInvalidated === true) {
-+    const premise =
-+      typeof input.governingPremise === "string" &&
-+      input.governingPremise.trim().length > 0
-+        ? input.governingPremise.trim()
-+        : "Indispensable governing premise";
-+
-     return {
--      progression: "continue",
--      outcome: "PROGRESS_WITH_CONTRADICTION",
--      cognitiveStop: false,
-+      progression: "cognitive_stop",
-+      outcome: "COGNITIVE_STOP",
-+      cognitiveStop: true,
-       anatomy: {
--        caseCode: "F_evidence_backed_contradiction",
--        reason:
--          "Evidence-backed contradiction surfaced — governing premise still holds; progression may continue honestly.",
-+        caseCode: "G_governing_premise_contradiction",
-+        reason: `Evidence-backed contradiction invalidates governing premise: ${premise}`,
-         contradictionEvidenceIds: [...input.disposition.acceptedEvidenceIds],
-         sourceIds: [...input.disposition.acceptedSourceIds],
--        governingPremise: input.governingPremise ?? "",
--        nextAction: "Correct recommendation path if needed; no Cognitive STOP.",
-+        governingPremise: premise,
-+        nextAction:
-+          "Cognitive STOP — replan/recovery as recommendation; Pilote HumanDecision if structural.",
-         notTechnicalError: true,
-         notHumanDecision: true,
-       },
-@@ -143,24 +151,18 @@ export function decideCognitiveStop(
-     };
-   }
-
--  const premise =
--    typeof input.governingPremise === "string" &&
--    input.governingPremise.trim().length > 0
--      ? input.governingPremise.trim()
--      : "Indispensable governing premise";
--
-   return {
--    progression: "cognitive_stop",
--    outcome: "COGNITIVE_STOP",
--    cognitiveStop: true,
-+    progression: "continue",
-+    outcome: "PROGRESS_WITH_CONTRADICTION",
-+    cognitiveStop: false,
-     anatomy: {
--      caseCode: "G_governing_premise_contradiction",
--      reason: `Evidence-backed contradiction invalidates governing premise: ${premise}`,
-+      caseCode: "F_evidence_backed_contradiction",
-+      reason:
-+        "Evidence-backed contradiction surfaced — governing premise still holds; progression may continue honestly.",
-       contradictionEvidenceIds: [...input.disposition.acceptedEvidenceIds],
-       sourceIds: [...input.disposition.acceptedSourceIds],
--      governingPremise: premise,
--      nextAction:
--        "Cognitive STOP — replan/recovery as recommendation; Pilote HumanDecision if structural.",
-+      governingPremise: input.governingPremise ?? "",
-+      nextAction: "Correct recommendation path if needed; no Cognitive STOP.",
-       notTechnicalError: true,
-       notHumanDecision: true,
-     },
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/deriveMw3Assessment.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/deriveMw3Assessment.ts
-new file mode 100644
-index 00000000..04e381db
---- /dev/null
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/deriveMw3Assessment.ts
-@@ -0,0 +1,106 @@
-+/**
-+ * MW3 — derive contradictionAssessment from an untrusted cognitive candidate
-+ * plus actual available Evidence/source pointers.
-+ *
-+ * Model/candidate assertions NEVER self-promote to evidence_backed.
-+ * Promotion remains exclusive to disposeContradiction.
-+ */
-+import type { ContradictionEvidencePointer } from "./contradictionDisposition";
-+import type { Mw3ContradictionAssessmentInput } from "./runNoraCognitiveTurn";
-+import type { CognitiveStrategyClass } from "./cognitiveWorkloadPolicy";
-+
-+/** Untrusted cognitive candidate — not Evidence, not Truth C, not a final STOP. */
-+export type Mw3ContradictionCandidateSignal = {
-+  conflictPresent: boolean;
-+  claimedEvidenceIds: string[];
-+  requiredDomains?: string[];
-+  requiredSourceCount?: number;
-+  freshnessMatters?: boolean;
-+  governingPremise?: string | null;
-+  governingPremiseInvalidated?: boolean;
-+  localImpactOnly?: boolean;
-+  fabricationAttempt?: boolean;
-+};
-+
-+export function deriveMw3ContradictionAssessment(input: {
-+  candidate: Mw3ContradictionCandidateSignal;
-+  availablePointers: ContradictionEvidencePointer[];
-+  sourceBreadth?: "low" | "medium" | "high" | "unknown" | null;
-+  trustedSfiaProfile?: string | null;
-+  strategyClass?: CognitiveStrategyClass | null;
-+}): Mw3ContradictionAssessmentInput | null {
-+  if (input.candidate.conflictPresent !== true) {
++  const projectId = input.projectId.trim();
++  if (!projectId) {
 +    return null;
 +  }
 +
-+  const availableById = new Map(
-+    input.availablePointers.map((p) => [p.evidenceId, p]),
-+  );
-+  const claimed = uniqueStrings(input.candidate.claimedEvidenceIds);
-+  const evidencePointers: ContradictionEvidencePointer[] = [];
-+
-+  if (input.candidate.fabricationAttempt === true) {
-+    return {
-+      conflict: {
-+        conflictPresent: true,
-+        evidencePointers: [],
-+        requiredDomains: input.candidate.requiredDomains,
-+        requiredSourceCount: input.candidate.requiredSourceCount,
-+        freshnessMatters: input.candidate.freshnessMatters,
-+        fabricationAttempt: true,
-+        sourceBreadth: input.sourceBreadth ?? null,
-+        trustedSfiaProfile: input.trustedSfiaProfile ?? null,
-+        strategyClass: input.strategyClass ?? null,
-+      },
-+      governingPremiseInvalidated:
-+        input.candidate.governingPremiseInvalidated === true,
-+      governingPremise: input.candidate.governingPremise ?? undefined,
-+      localImpactOnly: input.candidate.localImpactOnly === true,
-+    };
-+  }
-+
-+  for (const evidenceId of claimed) {
-+    const found = availableById.get(evidenceId);
-+    if (found) {
-+      evidencePointers.push({ ...found });
-+      continue;
-+    }
-+    evidencePointers.push({
-+      evidenceId,
-+      sourceId: "unresolved",
-+      domain: "unknown",
-+      freshness: "unknown",
-+      attributable: false,
-+      fabricated: true,
-+    });
-+  }
-+
-+  return {
-+    conflict: {
-+      conflictPresent: true,
-+      evidencePointers,
-+      requiredDomains: input.candidate.requiredDomains,
-+      requiredSourceCount: input.candidate.requiredSourceCount,
-+      freshnessMatters: input.candidate.freshnessMatters,
-+      sourceBreadth: input.sourceBreadth ?? null,
-+      trustedSfiaProfile: input.trustedSfiaProfile ?? null,
-+      strategyClass: input.strategyClass ?? null,
-+    },
-+    governingPremiseInvalidated:
-+      input.candidate.governingPremiseInvalidated === true,
-+    governingPremise: input.candidate.governingPremise ?? undefined,
-+    localImpactOnly: input.candidate.localImpactOnly === true,
++  const studioPolicy = {
++    requiredSourceCount: MW3_STUDIO_REQUIRED_SOURCE_COUNT,
++    freshnessMatters: MW3_STUDIO_FRESHNESS_MATTERS,
++    requiredDomains: [projectId],
 +  };
-+}
 +
-+function uniqueStrings(items: string[]): string[] {
-+  const out: string[] = [];
-+  const seen = new Set<string>();
-+  for (const raw of items) {
-+    const id = raw.trim();
-+    if (!id || seen.has(id)) continue;
-+    seen.add(id);
-+    out.push(id);
-+  }
-+  return out;
-+}
+   const availableById = new Map(
+     input.availablePointers.map((p) => [p.evidenceId, p]),
+   );
+@@ -44,9 +64,7 @@ export function deriveMw3ContradictionAssessment(input: {
+       conflict: {
+         conflictPresent: true,
+         evidencePointers: [],
+-        requiredDomains: input.candidate.requiredDomains,
+-        requiredSourceCount: input.candidate.requiredSourceCount,
+-        freshnessMatters: input.candidate.freshnessMatters,
++        ...studioPolicy,
+         fabricationAttempt: true,
+         sourceBreadth: input.sourceBreadth ?? null,
+         trustedSfiaProfile: input.trustedSfiaProfile ?? null,
+@@ -79,9 +97,7 @@ export function deriveMw3ContradictionAssessment(input: {
+     conflict: {
+       conflictPresent: true,
+       evidencePointers,
+-      requiredDomains: input.candidate.requiredDomains,
+-      requiredSourceCount: input.candidate.requiredSourceCount,
+-      freshnessMatters: input.candidate.freshnessMatters,
++      ...studioPolicy,
+       sourceBreadth: input.sourceBreadth ?? null,
+       trustedSfiaProfile: input.trustedSfiaProfile ?? null,
+       strategyClass: input.strategyClass ?? null,
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-index 8fa24cfb..1836bfd2 100644
+index 1836bfd2..9c932338 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-@@ -113,6 +113,10 @@ export {
-   cognitiveStopAllowsProductSuccess,
-   formatCognitiveStopPiloteNotice,
+@@ -115,6 +115,8 @@ export {
  } from "./cognitiveStop";
-+export {
-+  deriveMw3ContradictionAssessment,
-+  type Mw3ContradictionCandidateSignal,
-+} from "./deriveMw3Assessment";
  export {
-   decideCognitiveStrategy,
-   normalizeCognitiveWorkloadSignals,
-diff --git a/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts b/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
-index 03e41520..0e0c3bb0 100644
---- a/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
-+++ b/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
-@@ -74,6 +74,7 @@ async function observationForScenario(
-         criticalJustification: "Critical",
-         requestedOperation: "merge",
-         cognitiveWorkload: null,
-+        contradictionCandidate: null,
-         parseOk: true,
-       };
-       return {
+   deriveMw3ContradictionAssessment,
++  MW3_STUDIO_REQUIRED_SOURCE_COUNT,
++  MW3_STUDIO_FRESHNESS_MATTERS,
+   type Mw3ContradictionCandidateSignal,
+ } from "./deriveMw3Assessment";
+ export {
 
 ```
