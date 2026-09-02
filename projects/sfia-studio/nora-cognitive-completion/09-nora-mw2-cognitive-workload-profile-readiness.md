@@ -8,8 +8,8 @@
 | **Typologie** | DOC / ANALYSIS |
 | **Profil** | CRITICAL |
 | **Content status** | **VALIDATED BY MORRIS** |
-| **Repository publication / integration** | **RESOLVE FROM CURRENT GIT / PR EVIDENCE** — integration candidate on project branch · **≠ INTEGRATED ON MAIN** until merge proof |
-| **Timestamp (Europe/Paris)** | 2026-09-01 22:30:00 CEST |
+| **Repository publication / integration** | **RESOLVE FROM CURRENT GIT / PR EVIDENCE** — MW2 Delivery PR **#456 MERGED** · CORR-01..04 PR **#457 MERGED** · post-merge CI **`33621406965` SUCCESS** · Required Gate **PASS** · closure/truth-sync repository publication = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** |
+| **Timestamp (Europe/Paris)** | 2026-09-02 13:14:00 CEST |
 | **Generation worktree (provenance)** | `/Users/morris/Projects/sfia-workspace-nora-mw2-readiness-requalification` · provenance only |
 | **Generation branch (provenance)** | `docs/sfia-studio-nora-mw2-readiness-requalification` · provenance only |
 | **Base / origin/main (qualification anchor)** | `b4fae68423bc0ab7cb0abcc49bedee8f7c44b405` · PR **#454 MERGED** · post-merge CI **`33547046842` SUCCESS** · Required Gate **PASS** · ≠ permanent future HEAD |
@@ -18,11 +18,11 @@
 | **GO Morris consommé (CORR-MW2-RDY-02)** | **CORR-MW2-RDY-02 — GATE-ORDER CORRECTION ONLY** · doc09 + FULL Review Pack + L3 handoff · preserve CORR-01 substance · ≠ readiness validation · ≠ PRE-MW2 execution · ≠ Delivery |
 | **GO Morris consommé (readiness validation)** | **MW2 READINESS / REQUALIFICATION — VALIDATED BY MORRIS** · qualification/readiness content validated · **≠ GO Delivery** · **≠ GO PRE-MW2** · **≠ GO REAL** · **≠ runtime v3 adoption** |
 | **GO Morris consommé (OD-02)** | **OD-02 — DECIDED BY MORRIS — OPTION B** · governed cognitive envelope · workload-sensitive minimum-sufficient selection · model capability validation · Agents `modelSettings.reasoning` · Option C path · **Strategy Class ≠ rigid 1:1 reasoning effort mapping** |
-| **GO Morris consommé (integration package)** | **MW2 READINESS INTEGRATION PACKAGE — ONE COHERENT DOCUMENTARY LOT** · readiness validation + OD-02 Option B + active Nora/Roadmap truth sync · project commit + push + Draft PR + CI + FULL Review Pack + L3 handoff · **≠ merge** · **≠ PRE-MW2 execution** · **≠ MW2 Delivery** · **ZERO REAL** |
+| **GO Morris consommé (integration package)** | **MW2 READINESS INTEGRATION PACKAGE — CONSUMED / INTEGRATED** · PR **#455 MERGED** |
 | **ChatGPT Final Critical Review** | **PASS** |
 | **Corrections applied** | **CORR-MW2-RDY-01 SATISFIED** · **CORR-MW2-RDY-02 SATISFIED** |
-| **Delivery** | **NOT AUTHORIZED** |
-| **MW2 implementation** | **NOT STARTED** |
+| **Delivery** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** — PR **#456 MERGED** · merge `73fe3410…` |
+| **MW2 implementation** | **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** — S01 bounded REAL product path proven · S02 required deterministic + EVAL proof satisfied · CORR-01..04 post-merge verified (PR **#457**) |
 | **Cognitive Completion** | **NOT PROVEN** |
 | **runtime v3** | **NON ADOPTED** |
 | **OD-02** | **CONSUMED — OPTION B** |
@@ -116,7 +116,7 @@ C5 (`05-nora-source-locked-cognitive-backlog.md`) is **SOURCE-LOCKED**. **C5 sub
 | --- | --- |
 | MW0 | CLOSED |
 | MW1 | COMPLETE / CLOSED |
-| MW2 | NOT AUTHORIZED / NOT STARTED |
+| MW2 | COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE |
 | Cognitive Completion | NOT PROVEN |
 | runtime v3 | NON ADOPTED |
 | OD-02 | **CONSUMED — OPTION B** |
@@ -483,7 +483,7 @@ Before MW2 Delivery, baseline must resolve **both**:
 | Rerun MW0/MW1 regression after any alignment | **Planned** for Delivery |
 | Avoid Luna hardcode as production tier | **Confirmed** |
 
-**PRE-MW2-MODEL-BASELINE-01:** **OPEN / DELIVERY PREREQUISITE** (model + effective reasoning).
+**PRE-MW2-MODEL-BASELINE-01:** **SATISFIED WITH NON-BLOCKING RESERVE** (PR **#456** evidence · historical).
 
 **Historical REAL evidence (MW0/MW1 only):** campaigns used **GPT-5.6 Luna + reasoning none** as REAL-proven starting point — **NOT** production model selection · **NOT** production reasoning selection · **NOT** proof of current F1 effective settings without re-baseline.
 
@@ -789,9 +789,9 @@ This readiness cycle proves:
 | --- | --- | --- |
 | **MW2 Readiness content validation** | **CONSUMED — VALIDATED BY MORRIS** | After ChatGPT Final Critical PASS |
 | **OD-02** — Strategy→native settings policy | **CONSUMED — OPTION B** | Consumed with readiness integration package |
-| **Git integration GO (doc09 + Nora/Roadmap sync)** | **CONSUMED — THIS INTEGRATION PACKAGE** | Draft PR · **≠ merge** |
-| **PRE-MW2-MODEL-BASELINE-01 execution** | **DELIVERY PREREQUISITE — OPEN** | After post-merge verification · **before** Delivery GO |
-| **MW2 Delivery GO** | **NOT AUTHORIZED** | Distinct GO · **only after** PRE-MW2 satisfied |
+| **Git integration GO (doc09 + Nora/Roadmap sync)** | **CONSUMED — INTEGRATED** | PR **#455 MERGED** |
+| **PRE-MW2-MODEL-BASELINE-01 execution** | **SATISFIED WITH NON-BLOCKING RESERVE** | PR **#456** evidence · historical prerequisite · **≠** production routing decision |
+| **MW2 Delivery GO** | **CONSUMED — DELIVERY INTEGRATED** | PR **#456 MERGED** · CORR PR **#457 MERGED** |
 
 ---
 
@@ -820,7 +820,12 @@ This document and its review pack must **never** be read as:
 
 ---
 
+
 ## 30. Readiness verdict candidate
+
+> **HISTORICAL READINESS-TIME SNAPSHOT — SUPERSEDED FOR CURRENT LIFECYCLE BY §32 POST-MW2 CLOSURE / DOWNSTREAM LIFECYCLE TRUTH.**
+> Readiness-time claims below (Delivery NOT AUTHORIZED · PRE-MW2 OPEN · gaps pending) are **provenance only** · not ACTIVE current lifecycle truth.
+
 
 ### MW2 READINESS / REQUALIFICATION — VALIDATED BY MORRIS — CHATGPT FINAL CRITICAL REVIEW PASS — CORR-MW2-RDY-01/02 SATISFIED — OD-02 OPTION B CONSUMED — PRE-MW2 EXPLICITLY PRECEDES DISTINCT MW2 DELIVERY GO — SOURCE-LOCK PRESERVED — OPENAI CAPABILITY FIT QUALIFIED — NO TA REQUIRED — DELIVERY NOT AUTHORIZED — REPOSITORY INTEGRATION = RESOLVE FROM GIT / PR EVIDENCE
 
@@ -836,6 +841,10 @@ This document and its review pack must **never** be read as:
 ---
 
 ## 31. Next gates
+
+> **HISTORICAL READINESS-TIME GATE SEQUENCE — SUPERSEDED FOR CURRENT LIFECYCLE BY §32.**
+> Steps E–N as written below are the readiness-time canonical sequence (provenance). Consumed/post-closure outcomes are recorded in §32 · do **not** read historical “NOT AUTHORIZED / NOT STARTED / OPEN” rows below as ACTIVE present truth.
+
 
 **Canonical sequence (CORR-MW2-RDY-02 — no aggregation · no auto-consumption):**
 
@@ -860,4 +869,36 @@ No step auto-consumes the next. **Forbidden formulations:** « PRE-MW2 + MW2 Del
 
 ---
 
-*Fin du document 09 — MW2 READINESS VALIDATED BY MORRIS — CHATGPT FINAL CRITICAL REVIEW PASS — CORR-MW2-RDY-01/02 SATISFIED — OD-02 OPTION B CONSUMED — REPOSITORY INTEGRATION = RESOLVE FROM GIT / PR EVIDENCE — DELIVERY NOT AUTHORIZED — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED.*
+## 32. POST-MW2 CLOSURE / DOWNSTREAM LIFECYCLE TRUTH
+
+**Status:** **MW2 COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE**
+
+**Repository publication / integration state of this closure truth-sync:** **RESOLVE FROM CURRENT GIT / PR EVIDENCE**
+
+| Item | State |
+| --- | --- |
+| **MW2 macro-wave** | **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** |
+| **MW2-S01** | **CLOSED** — bounded REAL Studio product path proven |
+| **MW2-S02** | **CLOSED** — REQUIRED DETERMINISTIC + EVAL PROOF SATISFIED — REAL SEMANTIC USEFULNESS **NOT PROVEN / NOT REQUIRED FOR THIS SOURCE-LOCK CLOSURE** |
+| **MW2 Delivery** | PR **#456 MERGED** · merge `73fe341070157d565a1ce62d79d69553e59b818b` |
+| **CORR-01..04** | PR **#457 MERGED** · merge `7b12b377b76353f12e80df639d774a8dd6854ac6` · tree `6e065bbec410e0d30946a564f3040e6adb2020dc` · post-merge CI **`33621406965` SUCCESS** · Required Gate **PASS** |
+| **PRE-MW2-MODEL-BASELINE-01** | **SATISFIED WITH NON-BLOCKING RESERVE** — historical prerequisite · PR **#456** evidence |
+| **Reserves** | **MW2-R01 / MW2-R02 / MW2-R03** — **OPEN NON-BLOCKING CARRY FORWARD** |
+| **Next capability** | **MW3 READINESS / REQUALIFICATION** — **DISTINCT MORRIS GO REQUIRED — NOT AUTHORIZED / NOT STARTED** |
+
+**Evidence anchors (non-exhaustive):**
+
+- CORR-04 REAL evidence SHA256 `1c81902a89ffa99a34597bf89ff87f64885000bf0852e433f3b151fe5ddd53a7`
+- Focused calibration evidence SHA256 `0e61ee5fdadf6fb3080afcfc7c22a6e2d142660d0ceae5b3111c5a6bf29b42cc`
+- Handoff lineage: post-merge `9a05b806…`
+
+**Anti-claims preserved:**
+
+- Cognitive Completion **NOT PROVEN**
+- runtime v3 **NON ADOPTED**
+- production model/routing **NOT SELECTED**
+- MW3 **NOT AUTHORIZED / NOT STARTED**
+- MW2 closure **≠** global Cognitive Completion proven
+
+
+*Fin du document 09 — MW2 COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE — DELIVERY PR #456 MERGED — CORR PR #457 MERGED — POST-MERGE VERIFIED — NEXT = MW3 READINESS / REQUALIFICATION — NOT AUTHORIZED — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED.*

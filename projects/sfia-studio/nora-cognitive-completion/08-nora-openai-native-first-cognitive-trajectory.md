@@ -9,7 +9,7 @@
 | **Git SoT** | Repository `mcleland147/sfia-workspace` · Git courant prime |
 | **Intégration Git** | PR **#453** · merge `d640b5ba7210b9da3593bea9eeae2100c6da6c09` · tree `080fb6a73cd465fe5188d1fd5aee614d011b35e2` · post-merge CI `33530815963` **SUCCESS** · Required Gate **PASS** |
 | **Cycle d’origine** | Cycle 14 · DOC · CRITICAL · Pre-MW2 transverse truth-sync |
-| **Delivery** | **ZERO** · MW2 **NOT AUTHORIZED / NOT STARTED** |
+| **Delivery** | **MW2 COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** — PR **#456 MERGED** · CORR **#457 MERGED** · post-merge verified · **≠** Cognitive Completion proven |
 | **Architecture** | **NO NEW ARCHITECTURE** · OD-04 Option C unchanged |
 | **Runtime v3** | **NON ADOPTED** |
 
@@ -248,7 +248,7 @@ La Roadmap courante contient déjà l’ancre MW1 REAL boundary et son campaign/
 
 ## 7. PRE-MW2-MODEL-BASELINE-01
 
-**Status:** **OPEN / DELIVERY PREREQUISITE** — not executed this cycle.
+**Status:** **SATISFIED WITH NON-BLOCKING RESERVE** — PR **#456** evidence · historical delivery prerequisite · **≠** production routing decision.
 
 Avant MW2 Delivery, PRE-MW2 doit résoudre **deux dimensions** :
 
@@ -422,17 +422,19 @@ Pas d’adoption automatique.
 3. MW2 Readiness / Requalification — VALIDATED BY MORRIS · OD-02 OPTION B CONSUMED
 4. MW2 readiness integration package — repository lifecycle / RESOLVE FROM GIT / PR evidence
 5. Git integration + post-merge verification — after ChatGPT Critical PR Review + Morris merge GO
-6. PRE-MW2-MODEL-BASELINE-01 — OPEN (dimensions A + B)
-7. PRE-MW2 satisfied
-8. Distinct Morris MW2 Delivery GO — NOT AUTHORIZED until steps 6–7
-9. MW2 Delivery — NOT STARTED
-10. MW2 QA / REAL reasoning evidence
-11. MW3 → MW6 with OpenAI Capability Fit Check per readiness
-12. Global Model × Reasoning campaign after MW6 by default
+6. PRE-MW2-MODEL-BASELINE-01 — SATISFIED WITH NON-BLOCKING RESERVE (PR #456 evidence)
+7. PRE-MW2 satisfied — CONSUMED
+8. Distinct Morris MW2 Delivery GO — CONSUMED
+9. MW2 Delivery — COMPLETE / INTEGRATED (PR #456)
+10. MW2 CORR-01..04 — INTEGRATED / POST-MERGE VERIFIED (PR #457)
+11. MW2 closure — COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE
+12. MW3 readiness / requalification — NEXT — NOT AUTHORIZED / NOT STARTED
+13. MW3 → MW6 with OpenAI Capability Fit Check per readiness
+14. Global Model × Reasoning campaign after MW6 by default
     OR earlier targeted campaign if a wave QA justifies it
 ```
 
-Ce document **n’autorise pas** les étapes 6→12.
+Les étapes MW2 déjà consommées ci-dessus sont des faits de trajectoire enregistrés. Ce document **n’autorise** ni MW3 Readiness/Requalification, ni MW3 Delivery, ni les vagues aval MW4→MW6, ni la campagne globale Model × Reasoning ; chaque gate futur reste soumis à la décision Morris applicable.
 
 ---
 
@@ -441,11 +443,11 @@ Ce document **n’autorise pas** les étapes 6→12.
 | Source | Disposition |
 | --- | --- |
 | Build Doctrine | **R22 ACTIVE ON MAIN** via PR #453 ; pas de modèle spécifique figé dans la doctrine |
-| Convergence Roadmap | **KEEP** · **CURRENT trajectory:** MW2 Readiness **VALIDATED BY MORRIS** → OD-02 **OPTION B CONSUMED** → repository integration/post-merge verification (PR #455 · **≠ merged until Morris GO**) → **PRE-MW2-MODEL-BASELINE-01** → distinct Morris MW2 Delivery GO after PRE-MW2 satisfied · MW2 Delivery **NOT AUTHORIZED / NOT STARTED** · Production model routing **NOT SELECTED** · runtime v3 **NON ADOPTED** |
+| Convergence Roadmap | **KEEP** · **CURRENT trajectory:** MW2 **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** → CORR **#457 POST-MERGE VERIFIED** → **NEXT = MW3 READINESS / REQUALIFICATION — NOT AUTHORIZED** · Production model routing **NOT SELECTED** · runtime v3 **NON ADOPTED** |
 | C5 source-locked backlog | **KEEP source-lock** · pas de nouvelle story / pas de changement AC dans ce truth-sync |
 | MW0 doc06 | **KEEP measurement contract** · historique validé non réécrit ; ce document consomme D0/R1/R2/R3 et le contrat model/reasoning |
 | OD-04 doc07 | **KEEP architecture decision** · Option C preserved · lifecycle synchronisé après PR #453 |
-| MW2 Readiness / OD-02 | **MW2 Readiness VALIDATED BY MORRIS** · **OD-02 OPTION B CONSUMED** (doc09) · **Delivery NOT AUTHORIZED** · next after post-merge = PRE-MW2 |
+| MW2 Readiness / OD-02 / Closure | **MW2 COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** · Delivery PR **#456** · CORR **#457** · **NEXT = MW3 READINESS — NOT AUTHORIZED** |
 
 ---
 
@@ -473,7 +475,7 @@ Cette trajectoire **VALIDATED — ACTIVE ON MAIN** via PR **#453** :
 - Ces gates ont été consommées **séparément** ensuite :
   - **MW2 Readiness VALIDATED BY MORRIS**
   - **OD-02 CONSUMED — OPTION B**
-- Ce document **n’autorise pas** MW2 Delivery.
+- Ce document **n’autorise pas** MW3 execution · MW2 **CLOSED AT PROVEN SCOPE** (faits MW2 consommés ≠ autorisation MW3).
 - **≠ production model selected** ;
 - **≠ production model routing selected** ;
 - **≠ Sol/Terra/Luna campaign already executed** ;
@@ -492,7 +494,6 @@ Cette trajectoire **VALIDATED — ACTIVE ON MAIN** via PR **#453** :
 **OD-02 — CONSUMED — OPTION B**
 **MW2→MW6 OPENAI CAPABILITY FIT CHECK — REQUIRED BY ACTIVE TRAJECTORY**
 **PRODUCTION MODEL ROUTING — NOT SELECTED**
-**NEXT PRODUCT PREREQUISITE — PRE-MW2-MODEL-BASELINE-01 AFTER PR #455 INTEGRATION / POST-MERGE VERIFICATION**
-**NEXT EXECUTION GATE — DISTINCT MORRIS GO — MW2 DELIVERY AFTER PRE-MW2 SATISFIED**
-**MW2 DELIVERY — NOT AUTHORIZED / NOT STARTED**
+**MW2 — COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE — DELIVERY PR #456 — CORR PR #457 POST-MERGE VERIFIED**
+**NEXT PRODUCT CAPABILITY — MW3 READINESS / REQUALIFICATION — DISTINCT MORRIS GO REQUIRED — NOT AUTHORIZED / NOT STARTED**
 **RUNTIME V3 — NON ADOPTED**
