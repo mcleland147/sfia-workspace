@@ -1,101 +1,175 @@
-# Review Pack — MW2 Delivery CORR-05 Internal Boundary Correction
+# Review Pack — MW2 Project Git Integration / PR Preparation
 # FULL / CRITICAL / CONTENT-COMPLETE
 
 Status: **FULL** · **CRITICAL** · **CONTENT-COMPLETE**
+Timestamp (Europe/Paris): 2026-09-02 09:27:21 CEST
 
-## 1. Timestamp Europe/Paris
-2026-09-02 09:11:50 CEST
+## 1–8. Qualification / GO lineage
 
-## 2. Cycle / typology / profile
-- Cycle 8 — Delivery / implémentation
-- Typologie: EVOL
-- Profil: CRITICAL
+- Cycle: **13 — PR readiness / Git integration**
+- Origin product cycle: **8 — MW2 Delivery**
+- Typology: **EVOL**
+- Profile: **CRITICAL**
+- CKC détaillé Cycle 13: ABSENT — fallback synthetic map + méthode cycle 13 / processus v2.6 (experimental guidance only; authority NONE)
+- Exact Morris GO: **GO MORRIS — MW2 PROJECT GIT INTEGRATION / PR PREPARATION**
+- Source Delivery review: **MW2 CRITICAL DELIVERY REVIEW — PASS**
+- Input Review Handoff: `c79a6f0468686441a66098da9354c7c920c635a8`
+- Input Review Handoff blob: `7492a68eab96bcba1464c0cdc4a0ec43fcd37085`
+- CORR-MW2-DLV-01..05: **SATISFIED** (retained)
 
-## 3. Morris GO lineage
-- GO MORRIS — MW2 DELIVERY (consumed)
-- CORR-MW2-DLV-01..04 (retained SATISFIED)
-- CORR-MW2-DLV-05 — KEEP CWP INTERNAL / remove client DTO serialization
+## 9–13. Git truth before / during integration
 
-## 4. Local Git Truth
-| Field | Value |
-|-------|-------|
-| Worktree | `/Users/morris/Projects/sfia-workspace-pre-mw2-main-b345f3b6` |
-| Branch | `delivery/sfia-studio-nora-mw2-cwp-strategy` |
-| HEAD | `b345f3b6c74d3eac0caca5bdd5525809dd80547a` |
-| origin/main | `b345f3b6c74d3eac0caca5bdd5525809dd80547a` |
-| Prior handoff | `d394c535c6612819bc36eb1122781346334d120b` |
-| Prior blob | `cc5441a7c5bb4ed4927938caffc769e834266cf5` |
-| Project commit / push / PR / merge | **NO** |
+- Worktree: `/Users/morris/Projects/sfia-workspace-pre-mw2-main-b345f3b6`
+- Branch: `delivery/sfia-studio-nora-mw2-cwp-strategy`
+- Pre-commit HEAD: `b345f3b6c74d3eac0caca5bdd5525809dd80547a`
+- origin/main: `b345f3b6c74d3eac0caca5bdd5525809dd80547a`
+- Base SHA: `b345f3b6c74d3eac0caca5bdd5525809dd80547a`
+- Exact initial candidate: **23 files** (11 modified + 12 new)
+- `features/project-assistant/types.ts`: **no net diff** (CORR-05)
+- Forbidden paths verification: **NONE modified** (nora-cognitive-completion, convergence, product-completion, method, prompts, scripts, .github, package/lock, UI, C5, docs 07/08/09, Roadmap, Build Doctrine)
 
-## 5. CORR-01..04 retained
-**SATISFIED** — UNKNOWN≠LOW, signal honesty, S1–S6 + CKC-E1..E5, D0-14 naming.
+### Exact 23-file candidate
 
-## 6. CORR-05 problem
-Previous candidate projected internal CWP fields into `ProjectAssistantSendSuccess`, which crosses server→client via `projectAssistantSendAction` → F2 → `ProjectAssistantPanel`.
+Modified (11):
+- `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts`
+- `projects/sfia-studio/app/lib/nora-eval/catalog.ts`
+- `projects/sfia-studio/app/lib/nora-eval/d0Runner.ts`
+- `projects/sfia-studio/app/lib/nora-eval/index.ts`
+- `projects/sfia-studio/app/lib/nora-eval/scorers.ts`
+- `projects/sfia-studio/app/lib/nora-eval/types.ts`
+- `projects/sfia-studio/app/lib/platform/observability/types.ts`
 
-## 7. Client boundary before → after
-**BEFORE (removed):**
-- `cognitiveStrategyClass`
-- `selectedReasoningEffort`
-- `criticalChallengeArmed`
-on `ProjectAssistantSendSuccess` + projected from `orchestrateProjectAssistantTurn`.
+New (12):
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/cognitiveWorkloadPolicy.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningModelSettings.ts`
+- `projects/sfia-studio/app/lib/nora-eval/mw2EvalMatrix.ts`
+- `projects/sfia-studio/app/lib/nora-eval/mw2S01Observe.ts`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.bootstrap.product.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.clientBoundary.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.cwpPolicy.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.f1ModelSettings.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s02.ckcAuthority.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/nora-eval/mw2.eval.matrix.test.ts`
+- `projects/sfia-studio/app/__tests__/nora-eval/mw2.s01.strategy.eval.test.ts`
 
-**AFTER:**
-- These fields absent from client DTO / F1 return / features/project-assistant search (0 hits).
-- Retained on internal `NoraCognitiveTurnResult` + `COGNITIVE_STRATEGY_SELECTED` EventSink.
+## 14–17. Pre-commit validation
 
-## 8. Files changed by CORR-05 specifically
-- `features/project-assistant/types.ts` — reverted client fields (now matches HEAD; no net diff)
-- `features/project-assistant/orchestrateTurn.ts` — removed DTO projection (keeps turnWorkloadContext)
-- `__tests__/nora-cognitive-runtime/mw2.s01.bootstrap.product.d0.test.ts` — EventSink spy proof
-- `__tests__/nora-cognitive-runtime/mw2.s01.clientBoundary.d0.test.ts` — NEW boundary D0
+- `npm run typecheck`: **PASS**
+- `npm test`: **2372 passed / 132 skipped / 0 failed**
+- Fake/Real: DETERMINISTIC / MODELED only · REAL **NOT EXECUTED / NOT AUTHORIZED**
+- Live OpenAI calls: **ZERO**
+- Client CWP boundary search `features/project-assistant`: **ZERO HITS** for cognitiveStrategyClass|selectedReasoningEffort|criticalChallengeArmed
 
-## 9. ProjectAssistantPanel dependency check
-**NONE** — no references to the three fields. No UI change required.
+## 18–25. Staging / project commit
 
-## 10. collectToolTelemetry non-leak
-Only processes `TOOL_SUCCEEDED|DENIED|FAILED`. CORR-D0-10 PASS.
+- Staging method: explicit `git add -- <23 files>` (no `git add .` / `-A`)
+- Staged count: **23**
+- Staged scope check: **PASS** (no docs/package/env/review pack)
+- Project commit SHA: `ac26e9017020b1bb3ea411296ee56590cfe5a970`
+- Commit parent: `b345f3b6c74d3eac0caca5bdd5525809dd80547a` (**exact base**)
+- Commit message: `feat(sfia-studio): implement Nora MW2 cognitive strategy`
+- Commit changed files: **23**
+- Local post-commit status: only local `.tmp-sfia-review/chatgpt-review.md` (not in project commit)
 
-## 11. Product bootstrap proof mechanism
-Spy on `ProjectAssistantMemoryEventSink.prototype.emit` → assert `COGNITIVE_STRATEGY_SELECTED` detail (`strategyClass=Focused`, `bootstrapUsed=true`) + assert client result has no CWP properties.
+## 26–31. Push / remote parity
 
-## 12. Field-search classification
-| Location | Classification |
-|----------|----------------|
-| `features/project-assistant/**` | **ZERO hits — PASS** |
-| `NoraCognitiveTurnResult` / policy / runNoraCognitiveTurn | ALLOWED internal |
-| EventSink COGNITIVE_STRATEGY_SELECTED | ALLOWED internal telemetry |
-| Tests / mw2EvalMatrix / mw2S01Observe | ALLOWED test/eval internals |
+- Remote branch pre-existence: **absent** before push
+- Push: `git push -u origin delivery/sfia-studio-nora-mw2-cwp-strategy` — **SUCCESS** (no force)
+- Remote project branch SHA: `ac26e9017020b1bb3ea411296ee56590cfe5a970`
+- Local↔remote SHA parity: **PASS**
+- origin/main↔remote branch compare base: `b345f3b6...` head: `ac26e9017020b1bb3ea411296ee56590cfe5a970`
+- Exact remote changed-file list: **23** (parity with commit)
 
-## 13. D0 verdict
-**PASS** — CORR-05 boundary + CORR-01/02/04 + F1 modelSettings + CKC authority + product bootstrap
+## 32–38. Draft PR
 
-## 14. Deterministic EVAL
-**PASS** — S1–S6 + CKC-E1..E5
-Taxonomy: EVAL = assessment matrix; tiers remain D0/R1/R2/R3.
+- PR number: **456**
+- PR URL: https://github.com/mcleland147/sfia-workspace/pull/456
+- PR title: `feat(sfia-studio): implement Nora MW2 cognitive workload strategy`
+- base: `main` · head: `delivery/sfia-studio-nora-mw2-cwp-strategy`
+- draft: **true** (OPEN)
+- PR head SHA: `ac26e9017020b1bb3ea411296ee56590cfe5a970`
+- PR remote changed files: **23** — **REMOTE DIFF SCOPE PASS**
 
-## 15. Regression
-- typecheck: PASS
-- npm test: **2372 passed**, 132 skipped, 0 failed
-- Live OpenAI: **ZERO**
+## 39–41. CI
 
-## 16. Fake/Real
-DETERMINISTIC / MODELED only. REAL NOT EXECUTED.
+- Workflow: **SFIA Studio CI**
+- Run ID: `33603217868`
+- Run URL: https://github.com/mcleland147/sfia-workspace/actions/runs/33603217868
+- headSha: `ac26e9017020b1bb3ea411296ee56590cfe5a970`
+- Trigger: `pull_request` on Draft PR #456
+- Final conclusion: **success**
+- Final status: **completed**
 
-## 17. reasoning.context / mode
-**DEFER**
+### Jobs
 
-## 18. Final verdict
-**MW2 DELIVERY CORRECTION — CORR-MW2-DLV-05 SATISFIED — CWP / COGNITIVE STRATEGY REMAINS INTERNAL — ProjectAssistantSendResult CLIENT BOUNDARY CONTAINS NO STRATEGY CLASS / REASONING EFFORT / CHALLENGE HOOK — INTERNAL EventSink TELEMETRY PRESERVED — PRODUCT BOOTSTRAP PROVEN VIA INTERNAL TELEMETRY — CORR-MW2-DLV-01..04 REMAIN SATISFIED — F1 modelSettings WIRING PASS — MW2-S01 S1–S6 PASS — MW2-S02 CKC-E1..E5 PASS — D0 PASS — TYPECHECK PASS — FULL REGRESSION PASS — ZERO LIVE OPENAI — NO REAL — MW2 CLOSURE NOT CLAIMED — READY FOR CHATGPT FINAL CRITICAL DELIVERY REVIEW**
+| Job | ID | Conclusion | Duration / notes |
+|-----|-----|------------|------------------|
+| Detect SFIA Studio changes | 100161348591 | **success** | 5s |
+| Build and validate SFIA Studio | 100161393659 | **success** | 3m14s — Typecheck, Lint, Build, Unit tests (Vitest), FinOps/T7 freeze notice, Modeled governance tests, Secret pattern scan, Trailing whitespace check |
+| SFIA Studio Required Gate | 100162254271 | **success** | 3s — Aggregate required gate |
 
-## 19. Next gate
-ChatGPT FINAL CRITICAL DELIVERY REVIEW. Only on PASS may ChatGPT surface Morris gate for MW2 project Git integration / PR preparation.
+### CI final verdict
+
+**PR CI PASS** — all required standard PR checks success. No REAL/provider workflow triggered. No code change under this integration GO.
+
+## 42–55. Architecture / corrections / anti-claims
+
+### Source-lock MW2-S01 / MW2-S02
+- MW2-S01: Cognitive Workload Profile / Cognitive Strategy (Option B / OD-02) — overlapping envelopes, minimum-sufficient effort, fail-closed capability, F1 modelSettings.reasoning, internal EventSink telemetry
+- MW2-S02: CKC semantic assistance — Recommendation-only; no HD/Confirmation/EC/write/execute authority
+
+### CORR retained
+- CORR-MW2-DLV-01 UNKNOWN ≠ LOW — **SATISFIED**
+- CORR-MW2-DLV-02 signal honesty — **SATISFIED**
+- CORR-MW2-DLV-03 S1–S6 + CKC-E1..E5 matrix — **SATISFIED**
+- CORR-MW2-DLV-04 D0 evidence naming — **SATISFIED**
+- CORR-MW2-DLV-05 CWP internal / no client DTO leak — **SATISFIED**
+
+### Invariants
+- Strategy Class ≠ SFIA Profile ≠ effort ≠ model
+- same Strategy → potentially different effort
+- Routine may receive elevated effort; High-Assurance ≠ automatic max
+- unknown model fail-closed; minimal rejected for GPT-5.6
+- no Cycle/Profile/Strategy→model routing
+- CWP INTERNAL — not on ProjectAssistantSendResult
+- reasoning.context / reasoning.mode: **DEFER**
+- F1: CWP → validateRuntimeReasoningCapability → Runner modelSettings.reasoning.effort
+- CKC ≠ authority
+
+### Proof ceiling
+- DETERMINISTIC / MODELED only
+- ≠ REAL provider quality / latency / tokens / cost proven
+- ≠ MW2 COMPLETE / CLOSED
+- ≠ Cognitive Completion PROVEN
+- ≠ runtime v3 ADOPTED
+- ≠ production model routing selected
+
+### Unchanged
+- package.json / package-lock.json: **unchanged**
+- C5 / docs 07/08/09 / Roadmap / Build Doctrine / C1: **unchanged**
+
+## 56–59. Integration posture
+
+- merge: **NO**
+- branch delete: **NO**
+- MW2 closure: **NO**
+- project branch status: pushed, tracking origin, Draft PR open, awaiting Critical PR Review + Morris merge GO
+
+## 60. Recommendation for ChatGPT Critical PR Review
+
+Verify remote handoff, project commit parent/base, exact 23-file scope, Draft PR #456, CI terminal result, CORR-01..05, CWP client boundary, F1 modelSettings, CKC authority, ZERO live OpenAI. Render MW2 CRITICAL PR REVIEW PASS / PASS WITH RESERVES / CHANGES REQUIRED. Do NOT merge. Only on PASS surface: DECISION MORRIS REQUIRED — GO MERGE MW2 PR.
 
 ---
 
-# SECTION A — FULL NEW FILES
+# FULL NEW FILE CONTENTS (12)
 
-## FULL FILE: projects/sfia-studio/app/lib/nora-cognitive-runtime/cognitiveWorkloadPolicy.ts
+## FULL NEW — `projects/sfia-studio/app/lib/nora-cognitive-runtime/cognitiveWorkloadPolicy.ts`
+
 ```typescript
 /**
  * MW2-S01 — thin internal Cognitive Workload Profile / Strategy policy.
@@ -373,7 +447,8 @@ export function decideCognitiveStrategy(input: {
 }
 ```
 
-## FULL FILE: projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
+## FULL NEW — `projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts`
+
 ```typescript
 /**
  * MW2 runtime model capability validation — fail-closed, no campaign allowlist.
@@ -413,7 +488,8 @@ export function validateRuntimeReasoningCapability(
 }
 ```
 
-## FULL FILE: projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningModelSettings.ts
+## FULL NEW — `projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningModelSettings.ts`
+
 ```typescript
 /**
  * MW2-S01 — build Runner modelSettings preserving GPT-5.6 baseline text.verbosity.
@@ -436,158 +512,8 @@ export function buildRunnerModelSettingsForEffort(
 }
 ```
 
-## FULL FILE: projects/sfia-studio/app/lib/nora-eval/mw2S01Observe.ts
-```typescript
-/**
- * MW2-S01 — runtime-derived deterministic observations for nora-eval.
- */
-import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
-import {
-  decideCognitiveStrategy,
-  normalizeCognitiveWorkloadSignals,
-  runNoraCognitiveTurn,
-  validateRuntimeReasoningCapability,
-} from "@/lib/nora-cognitive-runtime";
-import { TechnicalError } from "@/lib/platform/ai/errors";
-import type { DeterministicObservation } from "./scorers";
+## FULL NEW — `projects/sfia-studio/app/lib/nora-eval/mw2EvalMatrix.ts`
 
-export type Mw2S01RuntimeFacts = {
-  strategyClassesObserved: string[];
-  effortsObserved: string[];
-  strategyDecoupledFromEffort: boolean;
-  routineElevatedEffort: boolean;
-  highAssuranceNotMax: boolean;
-  capabilityFailClosed: boolean;
-  noModelRouting: boolean;
-};
-
-export function observationFromMw2S01Facts(
-  facts: Mw2S01RuntimeFacts,
-): DeterministicObservation {
-  const ok =
-    facts.strategyClassesObserved.length >= 3 &&
-    facts.strategyDecoupledFromEffort &&
-    facts.routineElevatedEffort &&
-    facts.highAssuranceNotMax &&
-    facts.capabilityFailClosed &&
-    facts.noModelRouting;
-
-  return {
-    productPath: "agents",
-    strategyClassesObserved: facts.strategyClassesObserved,
-    effortsObserved: facts.effortsObserved,
-    strategyDecoupledFromEffort: facts.strategyDecoupledFromEffort,
-    routineElevatedEffort: facts.routineElevatedEffort,
-    highAssuranceNotMax: facts.highAssuranceNotMax,
-    capabilityFailClosed: facts.capabilityFailClosed,
-    observedObservableIds: ok ? ["obs.cwp.strategy_effort"] : [],
-  };
-}
-
-export async function observeMw2S01FromRuntime(): Promise<DeterministicObservation> {
-  const routineElevated = decideCognitiveStrategy({
-    signals: normalizeCognitiveWorkloadSignals({
-      ambiguity: "low",
-      sourceBreadth: "low",
-      verificationNeed: "low",
-      contextSize: "high",
-      toolDependency: "high",
-      rigorCriticality: "low",
-      reasoningDepth: "low",
-      contradictionRisk: "low",
-    }),
-    trustedSfiaProfile: "profile",
-  });
-
-  const highAssurance = decideCognitiveStrategy({
-    signals: normalizeCognitiveWorkloadSignals({
-      rigorCriticality: "high",
-      verificationNeed: "high",
-      contradictionRisk: "medium",
-      contextSize: "medium",
-    }),
-    trustedSfiaProfile: "profile",
-  });
-
-  const focusedLow = decideCognitiveStrategy({
-    signals: normalizeCognitiveWorkloadSignals({
-      ambiguity: "medium",
-      rigorCriticality: "medium",
-      contextSize: "low",
-    }),
-    trustedSfiaProfile: "profile",
-  });
-
-  const focusedHigh = decideCognitiveStrategy({
-    signals: normalizeCognitiveWorkloadSignals({
-      ambiguity: "medium",
-      rigorCriticality: "medium",
-      contextSize: "high",
-      toolDependency: "high",
-      verificationNeed: "medium",
-    }),
-    trustedSfiaProfile: "profile",
-  });
-
-  let capabilityFailClosed = false;
-  try {
-    validateRuntimeReasoningCapability("gpt-unknown", "low");
-  } catch (e) {
-    capabilityFailClosed = e instanceof TechnicalError;
-  }
-
-  const provider = new FakeConversationProvider({
-    toolScript: [{ kind: "message", text: "[TEST/FAKE] MW2 eval." }],
-  });
-  const turn = await runNoraCognitiveTurn({
-    correlationId: "mw2-eval-runtime",
-    projectId: "prj:mw2-eval",
-    messages: [
-      { role: "system", content: "SFIA boundary instructions." },
-      { role: "user", content: "eval probe" },
-    ],
-    provider,
-    enableTools: false,
-    cognitiveWorkloadSignals: {
-      rigorCriticality: "high",
-      verificationNeed: "high",
-    },
-    trustedSfiaProfile: "profile",
-  });
-
-  const facts: Mw2S01RuntimeFacts = {
-    strategyClassesObserved: [
-      routineElevated.strategyClass,
-      highAssurance.strategyClass,
-      focusedLow.strategyClass,
-      focusedHigh.strategyClass,
-      turn.cognitiveStrategyClass ?? "unknown",
-    ],
-    effortsObserved: [
-      routineElevated.reasoningEffort,
-      highAssurance.reasoningEffort,
-      focusedLow.reasoningEffort,
-      focusedHigh.reasoningEffort,
-      turn.selectedReasoningEffort ?? "unknown",
-    ],
-    strategyDecoupledFromEffort:
-      focusedLow.strategyClass === focusedHigh.strategyClass &&
-      focusedLow.reasoningEffort !== focusedHigh.reasoningEffort,
-    routineElevatedEffort:
-      routineElevated.strategyClass === "Routine" &&
-      routineElevated.reasoningEffort === "medium",
-    highAssuranceNotMax:
-      highAssurance.strategyClass === "High-Assurance" &&
-      highAssurance.reasoningEffort !== "max",
-    capabilityFailClosed,
-    noModelRouting: !("model" in routineElevated),
-  };
-
-  return observationFromMw2S01Facts(facts);
-}
-```
-
-## FULL FILE: projects/sfia-studio/app/lib/nora-eval/mw2EvalMatrix.ts
 ```typescript
 /**
  * MW2 deterministic EVAL matrix (CORR-MW2-DLV-03).
@@ -1039,7 +965,383 @@ export function summarizeMw2EvalMatrix(): {
 }
 ```
 
-## FULL FILE: projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.cwpPolicy.d0.test.ts
+## FULL NEW — `projects/sfia-studio/app/lib/nora-eval/mw2S01Observe.ts`
+
+```typescript
+/**
+ * MW2-S01 — runtime-derived deterministic observations for nora-eval.
+ */
+import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
+import {
+  decideCognitiveStrategy,
+  normalizeCognitiveWorkloadSignals,
+  runNoraCognitiveTurn,
+  validateRuntimeReasoningCapability,
+} from "@/lib/nora-cognitive-runtime";
+import { TechnicalError } from "@/lib/platform/ai/errors";
+import type { DeterministicObservation } from "./scorers";
+
+export type Mw2S01RuntimeFacts = {
+  strategyClassesObserved: string[];
+  effortsObserved: string[];
+  strategyDecoupledFromEffort: boolean;
+  routineElevatedEffort: boolean;
+  highAssuranceNotMax: boolean;
+  capabilityFailClosed: boolean;
+  noModelRouting: boolean;
+};
+
+export function observationFromMw2S01Facts(
+  facts: Mw2S01RuntimeFacts,
+): DeterministicObservation {
+  const ok =
+    facts.strategyClassesObserved.length >= 3 &&
+    facts.strategyDecoupledFromEffort &&
+    facts.routineElevatedEffort &&
+    facts.highAssuranceNotMax &&
+    facts.capabilityFailClosed &&
+    facts.noModelRouting;
+
+  return {
+    productPath: "agents",
+    strategyClassesObserved: facts.strategyClassesObserved,
+    effortsObserved: facts.effortsObserved,
+    strategyDecoupledFromEffort: facts.strategyDecoupledFromEffort,
+    routineElevatedEffort: facts.routineElevatedEffort,
+    highAssuranceNotMax: facts.highAssuranceNotMax,
+    capabilityFailClosed: facts.capabilityFailClosed,
+    observedObservableIds: ok ? ["obs.cwp.strategy_effort"] : [],
+  };
+}
+
+export async function observeMw2S01FromRuntime(): Promise<DeterministicObservation> {
+  const routineElevated = decideCognitiveStrategy({
+    signals: normalizeCognitiveWorkloadSignals({
+      ambiguity: "low",
+      sourceBreadth: "low",
+      verificationNeed: "low",
+      contextSize: "high",
+      toolDependency: "high",
+      rigorCriticality: "low",
+      reasoningDepth: "low",
+      contradictionRisk: "low",
+    }),
+    trustedSfiaProfile: "profile",
+  });
+
+  const highAssurance = decideCognitiveStrategy({
+    signals: normalizeCognitiveWorkloadSignals({
+      rigorCriticality: "high",
+      verificationNeed: "high",
+      contradictionRisk: "medium",
+      contextSize: "medium",
+    }),
+    trustedSfiaProfile: "profile",
+  });
+
+  const focusedLow = decideCognitiveStrategy({
+    signals: normalizeCognitiveWorkloadSignals({
+      ambiguity: "medium",
+      rigorCriticality: "medium",
+      contextSize: "low",
+    }),
+    trustedSfiaProfile: "profile",
+  });
+
+  const focusedHigh = decideCognitiveStrategy({
+    signals: normalizeCognitiveWorkloadSignals({
+      ambiguity: "medium",
+      rigorCriticality: "medium",
+      contextSize: "high",
+      toolDependency: "high",
+      verificationNeed: "medium",
+    }),
+    trustedSfiaProfile: "profile",
+  });
+
+  let capabilityFailClosed = false;
+  try {
+    validateRuntimeReasoningCapability("gpt-unknown", "low");
+  } catch (e) {
+    capabilityFailClosed = e instanceof TechnicalError;
+  }
+
+  const provider = new FakeConversationProvider({
+    toolScript: [{ kind: "message", text: "[TEST/FAKE] MW2 eval." }],
+  });
+  const turn = await runNoraCognitiveTurn({
+    correlationId: "mw2-eval-runtime",
+    projectId: "prj:mw2-eval",
+    messages: [
+      { role: "system", content: "SFIA boundary instructions." },
+      { role: "user", content: "eval probe" },
+    ],
+    provider,
+    enableTools: false,
+    cognitiveWorkloadSignals: {
+      rigorCriticality: "high",
+      verificationNeed: "high",
+    },
+    trustedSfiaProfile: "profile",
+  });
+
+  const facts: Mw2S01RuntimeFacts = {
+    strategyClassesObserved: [
+      routineElevated.strategyClass,
+      highAssurance.strategyClass,
+      focusedLow.strategyClass,
+      focusedHigh.strategyClass,
+      turn.cognitiveStrategyClass ?? "unknown",
+    ],
+    effortsObserved: [
+      routineElevated.reasoningEffort,
+      highAssurance.reasoningEffort,
+      focusedLow.reasoningEffort,
+      focusedHigh.reasoningEffort,
+      turn.selectedReasoningEffort ?? "unknown",
+    ],
+    strategyDecoupledFromEffort:
+      focusedLow.strategyClass === focusedHigh.strategyClass &&
+      focusedLow.reasoningEffort !== focusedHigh.reasoningEffort,
+    routineElevatedEffort:
+      routineElevated.strategyClass === "Routine" &&
+      routineElevated.reasoningEffort === "medium",
+    highAssuranceNotMax:
+      highAssurance.strategyClass === "High-Assurance" &&
+      highAssurance.reasoningEffort !== "max",
+    capabilityFailClosed,
+    noModelRouting: !("model" in routineElevated),
+  };
+
+  return observationFromMw2S01Facts(facts);
+}
+```
+
+## FULL NEW — `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.bootstrap.product.d0.test.ts`
+
+```typescript
+/** @vitest-environment node */
+/**
+ * CORR-MW2-DLV-01 + CORR-MW2-DLV-05 — product orchestration seam bootstrap
+ * and client-boundary proof.
+ *
+ * Strategy is observed via INTERNAL EventSink telemetry
+ * (COGNITIVE_STRATEGY_SELECTED), NOT via ProjectAssistantSendResult.
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
+import { ProjectAssistantMemoryEventSink } from "@/features/project-assistant/memoryEventSink";
+import { collectToolTelemetry } from "@/features/project-assistant/collectToolTelemetry";
+import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
+import {
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "@/lib/vertical-slice-runtime";
+import type { TechnicalEvent } from "@/lib/platform/observability/types";
+
+const tempDirs: string[] = [];
+
+describe("CORR-MW2-DLV-01/05 — product path CWP bootstrap + client boundary", () => {
+  const prevReset = process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
+  const prevProvider = process.env.OPS1_CONVERSATION_PROVIDER;
+  const prevKey = process.env.OPENAI_API_KEY;
+  const prevModel = process.env.OPENAI_MODEL;
+  let emitSpy: ReturnType<typeof vi.spyOn> | undefined;
+
+  beforeEach(() => {
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    process.env.OPENAI_MODEL = "gpt-5.6-luna";
+    delete process.env.OPENAI_API_KEY;
+    resetRuntimeApplicationServiceForTests();
+  });
+
+  afterEach(() => {
+    emitSpy?.mockRestore();
+    emitSpy = undefined;
+    if (prevReset === undefined) delete process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
+    else process.env.SFIA_V2_RUNTIME_ALLOW_RESET = prevReset;
+    if (prevProvider === undefined) {
+      delete process.env.OPS1_CONVERSATION_PROVIDER;
+    } else {
+      process.env.OPS1_CONVERSATION_PROVIDER = prevProvider;
+    }
+    if (prevKey === undefined) delete process.env.OPENAI_API_KEY;
+    else process.env.OPENAI_API_KEY = prevKey;
+    if (prevModel === undefined) delete process.env.OPENAI_MODEL;
+    else process.env.OPENAI_MODEL = prevModel;
+    resetRuntimeApplicationServiceForTests();
+    while (tempDirs.length) {
+      const d = tempDirs.pop();
+      if (d) fs.rmSync(d, { recursive: true, force: true });
+    }
+  });
+
+  it("CORR-D0-06 — ordinary product turn Focused via internal EventSink, not client DTO", async () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw2-boot-"));
+    tempDirs.push(dir);
+    const productDbPath = path.join(dir, "oa-product.sqlite");
+    const sessionDbPath = path.join(dir, "nora-session.sqlite");
+
+    const runtime = getRuntimeApplicationService({
+      productDbPath,
+      auditMode: "noop",
+    });
+    const created = await runtime.createProject({
+      name: "MW2 Bootstrap",
+      objective: "Ordinary informative ask",
+      context: "Insufficient CWP truth",
+      criticality: "STANDARD",
+      constraints: ["LECTURE SEULE"],
+      shortReference: "MW2B",
+      idempotencyKey: `idem:mw2-boot-${Date.now()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) throw new Error("setup failed");
+
+    const emitted: TechnicalEvent[] = [];
+    const originalEmit = ProjectAssistantMemoryEventSink.prototype.emit;
+    emitSpy = vi
+      .spyOn(ProjectAssistantMemoryEventSink.prototype, "emit")
+      .mockImplementation(function (
+        this: ProjectAssistantMemoryEventSink,
+        event: TechnicalEvent,
+      ) {
+        emitted.push(event);
+        return originalEmit.call(this, event);
+      });
+
+    const provider = new FakeConversationProvider({
+      toolScript: [
+        {
+          kind: "message",
+          text: "[TEST/FAKE] Ordinary informative answer. AUCUNE EXÉCUTION.",
+        },
+      ],
+    });
+
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: created.projectId,
+      content: "Quel est le statut du projet ?",
+      provider,
+      sessionDbPath,
+    });
+
+    expect(result.ok).toBe(true);
+    if (!result.ok) throw new Error("turn failed");
+
+    // CORR-D0-09 — internal EventSink observes strategy selection
+    const strategyEvents = emitted.filter(
+      (e) => e.type === "COGNITIVE_STRATEGY_SELECTED",
+    );
+    expect(strategyEvents.length).toBeGreaterThanOrEqual(1);
+    const detail = strategyEvents[0]!.detail;
+    expect(detail.strategyClass).toBe("Focused");
+    expect(detail.bootstrapUsed).toBe(true);
+    expect(detail.criticalChallengeArmed).not.toBe(true);
+
+    // CORR-D0-08 — client DTO must not serialize CWP internals
+    expect(result).not.toHaveProperty("cognitiveStrategyClass");
+    expect(result).not.toHaveProperty("selectedReasoningEffort");
+    expect(result).not.toHaveProperty("criticalChallengeArmed");
+
+    // CORR-D0-11 — expected user/business + MW1 fields remain
+    expect(result.text.length).toBeGreaterThan(0);
+    expect(result.cognitiveRuntime).toBe("agents");
+    expect(result.memoryBAvailability).toBeDefined();
+    expect(result.ephemeralNotice).toBeTruthy();
+    expect(result.project.projectId).toBe(created.projectId);
+
+    // CORR-D0-10 — strategy telemetry not converted to toolEvents/sources
+    const { toolEvents, sources } = collectToolTelemetry(emitted);
+    expect(JSON.stringify(toolEvents)).not.toContain("strategyClass");
+    expect(JSON.stringify(sources)).not.toContain("strategyClass");
+    expect(
+      toolEvents.some((t) => /COGNITIVE_STRATEGY/i.test(t.toolName)),
+    ).toBe(false);
+  });
+});
+```
+
+## FULL NEW — `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.clientBoundary.d0.test.ts`
+
+```typescript
+/** @vitest-environment node */
+/**
+ * CORR-MW2-DLV-05 — internal runtime retains Strategy metadata;
+ * client DTO / tool telemetry do not leak it.
+ */
+import { describe, expect, it } from "vitest";
+import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
+import { collectToolTelemetry } from "@/features/project-assistant/collectToolTelemetry";
+import {
+  runNoraCognitiveTurn,
+  sfiaBoundaryInstructions,
+} from "@/lib/nora-cognitive-runtime";
+import type { TechnicalEvent } from "@/lib/platform/observability/types";
+
+describe("CORR-MW2-DLV-05 — internal Strategy vs client boundary", () => {
+  it("CORR-D0-07 — NoraCognitiveTurnResult retains internal Strategy metadata", async () => {
+    const provider = new FakeConversationProvider({
+      toolScript: [{ kind: "message", text: "[TEST/FAKE] internal." }],
+    });
+    const turn = await runNoraCognitiveTurn({
+      correlationId: "mw2-corr05-d0-07",
+      projectId: "prj:mw2-corr05",
+      messages: [
+        { role: "system", content: sfiaBoundaryInstructions() },
+        { role: "user", content: "probe" },
+      ],
+      provider,
+      enableTools: false,
+      cognitiveWorkloadSignals: {
+        rigorCriticality: "high",
+        verificationNeed: "high",
+      },
+      trustedSfiaProfile: "trusted-profile",
+    });
+    expect(turn.cognitiveStrategyClass).toBe("High-Assurance");
+    expect(turn.selectedReasoningEffort).toBeDefined();
+    expect(turn.criticalChallengeArmed).toBe(true);
+  });
+
+  it("CORR-D0-10 — collectToolTelemetry ignores COGNITIVE_STRATEGY_SELECTED", () => {
+    const events: TechnicalEvent[] = [
+      {
+        type: "COGNITIVE_STRATEGY_SELECTED",
+        correlationId: "c",
+        detail: {
+          strategyClass: "Focused",
+          reasoningEffort: "low",
+          criticalChallengeArmed: false,
+          bootstrapUsed: true,
+        },
+      },
+      {
+        type: "TOOL_SUCCEEDED",
+        correlationId: "c",
+        detail: {
+          toolName: "git_local_get_head",
+          status: "succeeded",
+          summary: "ok",
+        },
+      },
+    ];
+    const { toolEvents, sources } = collectToolTelemetry(events);
+    expect(toolEvents).toHaveLength(1);
+    expect(toolEvents[0]?.toolName).toBe("git_local_get_head");
+    expect(JSON.stringify({ toolEvents, sources })).not.toContain(
+      "strategyClass",
+    );
+  });
+});
+```
+
+## FULL NEW — `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.cwpPolicy.d0.test.ts`
+
 ```typescript
 /** @vitest-environment node */
 /**
@@ -1358,7 +1660,8 @@ describe("MW2-S01 — cognitive workload policy D0", () => {
 });
 ```
 
-## FULL FILE: projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.f1ModelSettings.d0.test.ts
+## FULL NEW — `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.f1ModelSettings.d0.test.ts`
+
 ```typescript
 /** @vitest-environment node */
 /**
@@ -1459,7 +1762,8 @@ describe("MW2-S01 — F1 modelSettings D0", () => {
 });
 ```
 
-## FULL FILE: projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s02.ckcAuthority.d0.test.ts
+## FULL NEW — `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s02.ckcAuthority.d0.test.ts`
+
 ```typescript
 /** @vitest-environment node */
 /**
@@ -1618,264 +1922,8 @@ describe("MW2-S02 — CKC authority D0", () => {
 });
 ```
 
-## FULL FILE: projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.bootstrap.product.d0.test.ts
-```typescript
-/** @vitest-environment node */
-/**
- * CORR-MW2-DLV-01 + CORR-MW2-DLV-05 — product orchestration seam bootstrap
- * and client-boundary proof.
- *
- * Strategy is observed via INTERNAL EventSink telemetry
- * (COGNITIVE_STRATEGY_SELECTED), NOT via ProjectAssistantSendResult.
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
-import { ProjectAssistantMemoryEventSink } from "@/features/project-assistant/memoryEventSink";
-import { collectToolTelemetry } from "@/features/project-assistant/collectToolTelemetry";
-import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
-import {
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-} from "@/lib/vertical-slice-runtime";
-import type { TechnicalEvent } from "@/lib/platform/observability/types";
+## FULL NEW — `projects/sfia-studio/app/__tests__/nora-eval/mw2.eval.matrix.test.ts`
 
-const tempDirs: string[] = [];
-
-describe("CORR-MW2-DLV-01/05 — product path CWP bootstrap + client boundary", () => {
-  const prevReset = process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
-  const prevProvider = process.env.OPS1_CONVERSATION_PROVIDER;
-  const prevKey = process.env.OPENAI_API_KEY;
-  const prevModel = process.env.OPENAI_MODEL;
-  let emitSpy: ReturnType<typeof vi.spyOn> | undefined;
-
-  beforeEach(() => {
-    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-    process.env.OPENAI_MODEL = "gpt-5.6-luna";
-    delete process.env.OPENAI_API_KEY;
-    resetRuntimeApplicationServiceForTests();
-  });
-
-  afterEach(() => {
-    emitSpy?.mockRestore();
-    emitSpy = undefined;
-    if (prevReset === undefined) delete process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
-    else process.env.SFIA_V2_RUNTIME_ALLOW_RESET = prevReset;
-    if (prevProvider === undefined) {
-      delete process.env.OPS1_CONVERSATION_PROVIDER;
-    } else {
-      process.env.OPS1_CONVERSATION_PROVIDER = prevProvider;
-    }
-    if (prevKey === undefined) delete process.env.OPENAI_API_KEY;
-    else process.env.OPENAI_API_KEY = prevKey;
-    if (prevModel === undefined) delete process.env.OPENAI_MODEL;
-    else process.env.OPENAI_MODEL = prevModel;
-    resetRuntimeApplicationServiceForTests();
-    while (tempDirs.length) {
-      const d = tempDirs.pop();
-      if (d) fs.rmSync(d, { recursive: true, force: true });
-    }
-  });
-
-  it("CORR-D0-06 — ordinary product turn Focused via internal EventSink, not client DTO", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw2-boot-"));
-    tempDirs.push(dir);
-    const productDbPath = path.join(dir, "oa-product.sqlite");
-    const sessionDbPath = path.join(dir, "nora-session.sqlite");
-
-    const runtime = getRuntimeApplicationService({
-      productDbPath,
-      auditMode: "noop",
-    });
-    const created = await runtime.createProject({
-      name: "MW2 Bootstrap",
-      objective: "Ordinary informative ask",
-      context: "Insufficient CWP truth",
-      criticality: "STANDARD",
-      constraints: ["LECTURE SEULE"],
-      shortReference: "MW2B",
-      idempotencyKey: `idem:mw2-boot-${Date.now()}`,
-    });
-    expect(created.ok).toBe(true);
-    if (!created.ok) throw new Error("setup failed");
-
-    const emitted: TechnicalEvent[] = [];
-    const originalEmit = ProjectAssistantMemoryEventSink.prototype.emit;
-    emitSpy = vi
-      .spyOn(ProjectAssistantMemoryEventSink.prototype, "emit")
-      .mockImplementation(function (
-        this: ProjectAssistantMemoryEventSink,
-        event: TechnicalEvent,
-      ) {
-        emitted.push(event);
-        return originalEmit.call(this, event);
-      });
-
-    const provider = new FakeConversationProvider({
-      toolScript: [
-        {
-          kind: "message",
-          text: "[TEST/FAKE] Ordinary informative answer. AUCUNE EXÉCUTION.",
-        },
-      ],
-    });
-
-    const result = await orchestrateProjectAssistantTurn({
-      projectId: created.projectId,
-      content: "Quel est le statut du projet ?",
-      provider,
-      sessionDbPath,
-    });
-
-    expect(result.ok).toBe(true);
-    if (!result.ok) throw new Error("turn failed");
-
-    // CORR-D0-09 — internal EventSink observes strategy selection
-    const strategyEvents = emitted.filter(
-      (e) => e.type === "COGNITIVE_STRATEGY_SELECTED",
-    );
-    expect(strategyEvents.length).toBeGreaterThanOrEqual(1);
-    const detail = strategyEvents[0]!.detail;
-    expect(detail.strategyClass).toBe("Focused");
-    expect(detail.bootstrapUsed).toBe(true);
-    expect(detail.criticalChallengeArmed).not.toBe(true);
-
-    // CORR-D0-08 — client DTO must not serialize CWP internals
-    expect(result).not.toHaveProperty("cognitiveStrategyClass");
-    expect(result).not.toHaveProperty("selectedReasoningEffort");
-    expect(result).not.toHaveProperty("criticalChallengeArmed");
-
-    // CORR-D0-11 — expected user/business + MW1 fields remain
-    expect(result.text.length).toBeGreaterThan(0);
-    expect(result.cognitiveRuntime).toBe("agents");
-    expect(result.memoryBAvailability).toBeDefined();
-    expect(result.ephemeralNotice).toBeTruthy();
-    expect(result.project.projectId).toBe(created.projectId);
-
-    // CORR-D0-10 — strategy telemetry not converted to toolEvents/sources
-    const { toolEvents, sources } = collectToolTelemetry(emitted);
-    expect(JSON.stringify(toolEvents)).not.toContain("strategyClass");
-    expect(JSON.stringify(sources)).not.toContain("strategyClass");
-    expect(
-      toolEvents.some((t) => /COGNITIVE_STRATEGY/i.test(t.toolName)),
-    ).toBe(false);
-  });
-});
-```
-
-## FULL FILE: projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.clientBoundary.d0.test.ts
-```typescript
-/** @vitest-environment node */
-/**
- * CORR-MW2-DLV-05 — internal runtime retains Strategy metadata;
- * client DTO / tool telemetry do not leak it.
- */
-import { describe, expect, it } from "vitest";
-import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
-import { collectToolTelemetry } from "@/features/project-assistant/collectToolTelemetry";
-import {
-  runNoraCognitiveTurn,
-  sfiaBoundaryInstructions,
-} from "@/lib/nora-cognitive-runtime";
-import type { TechnicalEvent } from "@/lib/platform/observability/types";
-
-describe("CORR-MW2-DLV-05 — internal Strategy vs client boundary", () => {
-  it("CORR-D0-07 — NoraCognitiveTurnResult retains internal Strategy metadata", async () => {
-    const provider = new FakeConversationProvider({
-      toolScript: [{ kind: "message", text: "[TEST/FAKE] internal." }],
-    });
-    const turn = await runNoraCognitiveTurn({
-      correlationId: "mw2-corr05-d0-07",
-      projectId: "prj:mw2-corr05",
-      messages: [
-        { role: "system", content: sfiaBoundaryInstructions() },
-        { role: "user", content: "probe" },
-      ],
-      provider,
-      enableTools: false,
-      cognitiveWorkloadSignals: {
-        rigorCriticality: "high",
-        verificationNeed: "high",
-      },
-      trustedSfiaProfile: "trusted-profile",
-    });
-    expect(turn.cognitiveStrategyClass).toBe("High-Assurance");
-    expect(turn.selectedReasoningEffort).toBeDefined();
-    expect(turn.criticalChallengeArmed).toBe(true);
-  });
-
-  it("CORR-D0-10 — collectToolTelemetry ignores COGNITIVE_STRATEGY_SELECTED", () => {
-    const events: TechnicalEvent[] = [
-      {
-        type: "COGNITIVE_STRATEGY_SELECTED",
-        correlationId: "c",
-        detail: {
-          strategyClass: "Focused",
-          reasoningEffort: "low",
-          criticalChallengeArmed: false,
-          bootstrapUsed: true,
-        },
-      },
-      {
-        type: "TOOL_SUCCEEDED",
-        correlationId: "c",
-        detail: {
-          toolName: "git_local_get_head",
-          status: "succeeded",
-          summary: "ok",
-        },
-      },
-    ];
-    const { toolEvents, sources } = collectToolTelemetry(events);
-    expect(toolEvents).toHaveLength(1);
-    expect(toolEvents[0]?.toolName).toBe("git_local_get_head");
-    expect(JSON.stringify({ toolEvents, sources })).not.toContain(
-      "strategyClass",
-    );
-  });
-});
-```
-
-## FULL FILE: projects/sfia-studio/app/__tests__/nora-eval/mw2.s01.strategy.eval.test.ts
-```typescript
-/** @vitest-environment node */
-/**
- * MW2-S01 deterministic nora-eval binding.
- */
-import { describe, expect, it } from "vitest";
-import {
-  getScenario,
-  observeMw2S01FromRuntime,
-  runD0Scenario,
-} from "@/lib/nora-eval";
-
-describe("MW2-S01 nora-eval — strategy / effort decoupling", () => {
-  it("catalog includes mw2.s01.strategy-effort-decoupling", () => {
-    const s = getScenario("mw2.s01.strategy-effort-decoupling");
-    expect(s).toBeDefined();
-    expect(s?.storyIds).toContain("MW2-S01");
-  });
-
-  it("D0 scenario PASS via runtime-derived observation", async () => {
-    const r = await runD0Scenario("mw2.s01.strategy-effort-decoupling");
-    expect(r.passFail).toBe("PASS");
-    expect(r.productObservation?.strategyDecoupledFromEffort).toBe(true);
-    expect(r.productObservation?.routineElevatedEffort).toBe(true);
-    expect(r.productObservation?.highAssuranceNotMax).toBe(true);
-  });
-
-  it("observeMw2S01FromRuntime derives facts from execution", async () => {
-    const obs = await observeMw2S01FromRuntime();
-    expect(obs.strategyDecoupledFromEffort).toBe(true);
-    expect(obs.observedObservableIds).toContain("obs.cwp.strategy_effort");
-  });
-});
-```
-
-## FULL FILE: projects/sfia-studio/app/__tests__/nora-eval/mw2.eval.matrix.test.ts
 ```typescript
 /** @vitest-environment node */
 /**
@@ -1943,11 +1991,49 @@ describe("MW2 deterministic EVAL matrix (CORR-MW2-DLV-03)", () => {
 });
 ```
 
+## FULL NEW — `projects/sfia-studio/app/__tests__/nora-eval/mw2.s01.strategy.eval.test.ts`
+
+```typescript
+/** @vitest-environment node */
+/**
+ * MW2-S01 deterministic nora-eval binding.
+ */
+import { describe, expect, it } from "vitest";
+import {
+  getScenario,
+  observeMw2S01FromRuntime,
+  runD0Scenario,
+} from "@/lib/nora-eval";
+
+describe("MW2-S01 nora-eval — strategy / effort decoupling", () => {
+  it("catalog includes mw2.s01.strategy-effort-decoupling", () => {
+    const s = getScenario("mw2.s01.strategy-effort-decoupling");
+    expect(s).toBeDefined();
+    expect(s?.storyIds).toContain("MW2-S01");
+  });
+
+  it("D0 scenario PASS via runtime-derived observation", async () => {
+    const r = await runD0Scenario("mw2.s01.strategy-effort-decoupling");
+    expect(r.passFail).toBe("PASS");
+    expect(r.productObservation?.strategyDecoupledFromEffort).toBe(true);
+    expect(r.productObservation?.routineElevatedEffort).toBe(true);
+    expect(r.productObservation?.highAssuranceNotMax).toBe(true);
+  });
+
+  it("observeMw2S01FromRuntime derives facts from execution", async () => {
+    const obs = await observeMw2S01FromRuntime();
+    expect(obs.strategyDecoupledFromEffort).toBe(true);
+    expect(obs.observedObservableIds).toContain("obs.cwp.strategy_effort");
+  });
+});
+```
+
 ---
 
-# SECTION B — COMPLETE MODIFIED FILE DIFFS
+# COMPLETE USEFUL DIFFS vs origin/main (11 modified)
 
-## MODIFIED DIFF: projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+## DIFF — `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
 index 52d34b98..dc80acdd 100644
@@ -1970,7 +2056,8 @@ index 52d34b98..dc80acdd 100644
      const { toolEvents, sources } = collectToolTelemetry(sink.events);
 ```
 
-## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+## DIFF — `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
 index 7a56e630..832c4db3 100644
@@ -2002,7 +2089,8 @@ index 7a56e630..832c4db3 100644
 +} from "./reasoningModelSettings";
 ```
 
-## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+## DIFF — `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
 index dfacaced..0320ba05 100644
@@ -2054,7 +2142,8 @@ index dfacaced..0320ba05 100644
    const memoryBAvailability: MemoryBAvailability =
 ```
 
-## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+## DIFF — `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
 index 255339ee..d6746a3b 100644
@@ -2230,7 +2319,8 @@ index 255339ee..d6746a3b 100644
        probe.session.close();
 ```
 
-## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
+## DIFF — `projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
 index 68366a82..53ef6442 100644
@@ -2258,7 +2348,8 @@ index 68366a82..53ef6442 100644
  export type { TruthCRevision, MemoryBCompactionState, MemoryBCompactionDetails };
 ```
 
-## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-eval/catalog.ts
+## DIFF — `projects/sfia-studio/app/lib/nora-eval/catalog.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-eval/catalog.ts b/projects/sfia-studio/app/lib/nora-eval/catalog.ts
 index 365b4487..024326cb 100644
@@ -2291,7 +2382,8 @@ index 365b4487..024326cb 100644
  export function getCatalogVersion(): typeof NORA_EVAL_CATALOG_VERSION {
 ```
 
-## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
+## DIFF — `projects/sfia-studio/app/lib/nora-eval/d0Runner.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts b/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
 index 11960284..2018beb1 100644
@@ -2336,7 +2428,8 @@ index 11960284..2018beb1 100644
 
 ```
 
-## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-eval/index.ts
+## DIFF — `projects/sfia-studio/app/lib/nora-eval/index.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-eval/index.ts b/projects/sfia-studio/app/lib/nora-eval/index.ts
 index 9a1ae81c..ed3f1459 100644
@@ -2362,7 +2455,8 @@ index 9a1ae81c..ed3f1459 100644
  export * from "./offlineRescore";
 ```
 
-## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-eval/scorers.ts
+## DIFF — `projects/sfia-studio/app/lib/nora-eval/scorers.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-eval/scorers.ts b/projects/sfia-studio/app/lib/nora-eval/scorers.ts
 index 2933ceb3..497448aa 100644
@@ -2483,7 +2577,8 @@ index 2933ceb3..497448aa 100644
    const hardFailAny = scorers.some((s) => s.hardInvariantViolation && s.passFail === "FAIL");
 ```
 
-## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-eval/types.ts
+## DIFF — `projects/sfia-studio/app/lib/nora-eval/types.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-eval/types.ts b/projects/sfia-studio/app/lib/nora-eval/types.ts
 index 6de7182b..d2eab2b1 100644
@@ -2512,7 +2607,8 @@ index 6de7182b..d2eab2b1 100644
    | "delivery_implementation"
 ```
 
-## MODIFIED DIFF: projects/sfia-studio/app/lib/platform/observability/types.ts
+## DIFF — `projects/sfia-studio/app/lib/platform/observability/types.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/platform/observability/types.ts b/projects/sfia-studio/app/lib/platform/observability/types.ts
 index 2ad41959..0530dfaa 100644
@@ -2530,37 +2626,13 @@ index 2ad41959..0530dfaa 100644
    type: TechnicalEventType;
 ```
 
-## CORR-05 NOTE: features/project-assistant/types.ts
-ProjectAssistantSendSuccess no longer declares cognitiveStrategyClass / selectedReasoningEffort / criticalChallengeArmed. Net git diff vs HEAD for this file: empty (fields added then removed).
+---
 
-## MODIFIED DIFF STAT
-```
- .../features/project-assistant/orchestrateTurn.ts  |   8 ++
- .../app/lib/nora-cognitive-runtime/index.ts        |  20 ++++
- .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |  11 +-
- .../nora-cognitive-runtime/runNoraCognitiveTurn.ts | 124 +++++++++++++++++++--
- .../app/lib/nora-cognitive-runtime/types.ts        |   6 +
- projects/sfia-studio/app/lib/nora-eval/catalog.ts  |  18 +++
- projects/sfia-studio/app/lib/nora-eval/d0Runner.ts |  16 ++-
- projects/sfia-studio/app/lib/nora-eval/index.ts    |  11 ++
- projects/sfia-studio/app/lib/nora-eval/scorers.ts  |  92 +++++++++++++++
- projects/sfia-studio/app/lib/nora-eval/types.ts    |   7 +-
- .../app/lib/platform/observability/types.ts        |   3 +-
- 11 files changed, 301 insertions(+), 15 deletions(-)
-```
+# FINAL INTEGRATION VERDICT
 
-## UNTRACKED NEW FILES
-```
-projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.bootstrap.product.d0.test.ts
-projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.clientBoundary.d0.test.ts
-projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.cwpPolicy.d0.test.ts
-projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s01.f1ModelSettings.d0.test.ts
-projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw2.s02.ckcAuthority.d0.test.ts
-projects/sfia-studio/app/__tests__/nora-eval/mw2.eval.matrix.test.ts
-projects/sfia-studio/app/__tests__/nora-eval/mw2.s01.strategy.eval.test.ts
-projects/sfia-studio/app/lib/nora-cognitive-runtime/cognitiveWorkloadPolicy.ts
-projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
-projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningModelSettings.ts
-projects/sfia-studio/app/lib/nora-eval/mw2EvalMatrix.ts
-projects/sfia-studio/app/lib/nora-eval/mw2S01Observe.ts
-```
+**MW2 PROJECT GIT INTEGRATION / PR PREPARATION — PROJECT COMMIT CREATED — PROJECT BRANCH PUSHED — DRAFT PR OPEN — REMOTE DIFF PARITY PROVEN — EXACT MW2 23-FILE SCOPE PRESERVED — CHATGPT FINAL DELIVERY PASS CONSUMED — CORR-MW2-DLV-01..05 PRESERVED — D0 PASS — DETERMINISTIC EVAL PASS — TYPECHECK PASS — FULL REGRESSION PASS — PR CI PASS — ZERO LIVE OPENAI — NO REAL — NO MERGE — MW2 CLOSURE NOT CLAIMED — FULL REVIEW PACK PUBLISHED — READY FOR CHATGPT CRITICAL PR REVIEW + MORRIS MERGE DECISION IF REVIEW PASSES**
+
+- Project SHA: `ac26e9017020b1bb3ea411296ee56590cfe5a970`
+- Draft PR: https://github.com/mcleland147/sfia-workspace/pull/456
+- CI run: https://github.com/mcleland147/sfia-workspace/actions/runs/33603217868
+- Pack finalized (Europe/Paris): 2026-09-02 09:27:21 CEST
