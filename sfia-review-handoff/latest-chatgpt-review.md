@@ -1,135 +1,182 @@
-# FULL Review Pack — MW2 CLOSURE/TRUTH-SYNC PROJECT GIT INTEGRATION
+# FULL Review Pack — MW2 CLOSURE/TRUTH-SYNC PR #458 MERGE / POST-MERGE VERIFICATION
 
 ## Meta
 
-- **Timestamp (Europe/Paris):** 2026-09-02 15:44:23 CEST
-- **Cycle:** Cycle 13 — PR readiness / controlled repository integration
-- **Documentary content origin:** Cycle 14 — Post-merge / closure truth-sync (CORR-MW2-CLOSURE-03 reviewed candidate; zero new content delta in this integration cycle)
+- **Timestamp (Europe/Paris):** 2026-09-02 16:03:38 CEST
+- **Cycle:** Cycle 14 — Post-merge / closure truth-sync verification
 - **Typologie:** DOC
 - **Profil SFIA:** CRITICAL
-- **CKC Cycle 13:** absent en détaillé — fallback = carte synthétique + méthode · statut = candidate · usage = experimental cognitive guidance · autorité d'exécution = aucune
 
 ## GO Morris consommé
 
 ```
-GO MW2 CLOSURE/TRUTH-SYNC PROJECT GIT INTEGRATION
-— EXACT 5-FILE REVIEWED CANDIDATE
-— COMMIT + PUSH + DRAFT PR + CI + FULL REVIEW HANDOFF
-— NO MERGE
-— NO MW3 AUTHORIZATION
+GO MORRIS — MW2 CLOSURE/TRUTH-SYNC PR #458 MERGE
 ```
 
-Final Critical Review ChatGPT (CORR-03): **PASS — READY FOR MORRIS PROJECT GIT INTEGRATION GATE**
-
-Incoming Review Handoff:
-- commit `b3f2b72a68742e1b8fb6bf570ea56aabfcbf8bde`
-- blob `87a28a26d9ed0fae977ce55ab0e1a01a44b77cd2`
-- pack SHA-256 `431bb58b2877fd747900aef5a101feb314bce20c999df32b95e96c18439e5c94`
-
-Gate NON consommé: **MERGE**
-
-## Repo / worktree / branch
-
-- Repository: `mcleland147/sfia-workspace`
-- Worktree: `/tmp/sfia-mw2-closure-corr01`
-- Branch: `docs/sfia-studio-nora-mw2-closure-truth-sync`
-- origin/main (pre-commit / still current): `7b12b377b76353f12e80df639d774a8dd6854ac6`
-- Tree origin/main: `6e065bbec410e0d30946a564f3040e6adb2020dc`
+Authorized: final pre-merge verification · mark ready · SQUASH MERGE · post-merge verification · FULL Review Pack · L3 handoff publish.
+NOT authorized: content modification · branch deletion · MW3 · new REAL · runtime v3 · production routing.
 
 ## SFIA Studio Convergence Pre-check
 
-- Build Doctrine: **VALIDATED — ACTIVE ON MAIN** (KEEP; not modified)
-- Capacité v3 ciblée: Nora Cognitive Completion — MW2 Cognitive Workload Profile / Cognitive Strategy
-- Milestone: MW2 closure/truth-sync repository integration
+- Build Doctrine: VALIDATED — ACTIVE ON MAIN (unchanged)
+- Capability: Nora Cognitive Completion — MW2 Cognitive Workload Profile / Cognitive Strategy
+- Milestone: MW2 closure/truth-sync repository merge + post-merge verification
 - État capability: **MW2 COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE**
-- Actifs / classification:
-  - Build Doctrine: KEEP
-  - Roadmap: SYNC avec candidat déjà revu
-  - C5: SYNC lifecycle uniquement ; source-lock substantif KEEP
-  - doc07 / doc08 / doc09: reviewed candidate KEEP / NO NEW DELTA
-  - preuves PR #456 / #457: KEEP
-  - MW2-R01/R02/R03: CARRY
-- Gap fermé: publication Git du truth-sync documentaire MW2 déjà décidé et déjà Critical-reviewed
-- Dépendance: PR projet + CI + nouvelle Critical Review
-- Trajectoire: MW2 closure truth-sync → project Git integration → Draft PR + CI → ChatGPT Critical PR Review → décision Morris distincte de merge → post-merge verification → seulement ensuite éventuelle MW3 readiness sous GO distinct
-- Capacité suivante: MW3 — Contradiction + Cognitive STOP — **NOT AUTHORIZED / NOT STARTED**
-- Aucune architecture parallèle / développement / nouvelle primitive cognitive / OpenAI Capability Fit Check supplémentaire
+- Architecture: OD-02 Option B CONSUMED · OD-04 Option C KEEP · R22 OpenAI-native-first KEEP
+- Gap fermé: MW2 closure/truth-sync now INTEGRATED ON MAIN / POST-MERGE VERIFIED via PR #458
+- Next capability candidate: MW3 READINESS / REQUALIFICATION — **NOT AUTHORIZED / NOT STARTED**
 
-## Local Git Truth Check (pre-commit)
+## Pre-merge state
 
-| Check | Result |
-|-------|--------|
-| `pwd` | `/tmp/sfia-mw2-closure-corr01` |
-| `git rev-parse --show-toplevel` | `/tmp/sfia-mw2-closure-corr01` |
-| `git branch --show-current` | `docs/sfia-studio-nora-mw2-closure-truth-sync` |
-| HEAD avant commit | `7b12b377b76353f12e80df639d774a8dd6854ac6` |
-| `origin/main` | `7b12b377b76353f12e80df639d774a8dd6854ac6` |
-| Tree origin/main | `6e065bbec410e0d30946a564f3040e6adb2020dc` |
-| Staged pre-commit | **empty** |
-| Remote project branch avant push | **ABSENT** (acceptable) |
-| Project-only `git diff --name-only` | exact 5 authorized paths |
-| Non-project dirty | `.tmp-sfia-review/chatgpt-review.md` only (reset before pack; never staged) |
-| `git diff --check` | **PASS** (exit 0) |
+### origin/main (pre-merge)
 
-Verdict Local Git Truth Check: **PASS**
+- SHA: `7b12b377b76353f12e80df639d774a8dd6854ac6`
+- Tree: `6e065bbec410e0d30946a564f3040e6adb2020dc`
 
-## Exact 5 candidate hashes (CORR-03 parity HARD GATE)
+### PR #458 pre-merge
 
-| File | SHA-256 | Match |
-|------|---------|-------|
-| Roadmap `sfia-studio-convergence-roadmap.md` | `a8d677fa82ec2651ab1820648242b03545d4d11fd723d1c1ed62fda4bbf7dbfb` | PASS |
-| C5 `05-nora-source-locked-cognitive-backlog.md` | `4f03a71bec59cfcdfbff717179d112a413db3bdec8c15ba581aafae460ba885a` | PASS |
-| doc07 | `5447c8a63220710efab0f11731ba76ec9993ad97858a01fc4bc0a64268da7472` | PASS |
-| doc08 | `b47817b1e733b9e505740d6237ed38fada6f76b1af5025e30ba391e6bfc9bb15` | PASS |
-| doc09 | `395ae78372912f0306588202c9afb436d1dc3359bc82edfa6403f0280ff2f638` | PASS |
+- State: OPEN · Draft: true · Mergeable: MERGEABLE · mergeStateStatus: CLEAN
+- Base: `main` @ `7b12b377b76353f12e80df639d774a8dd6854ac6`
+- Head: `docs/sfia-studio-nora-mw2-closure-truth-sync` @ `eece47682c0deb90b81844e07a0a13bd7fe233f2`
+- Commits: 1
+- Changed files: 5 (exact scope)
+- Prior Critical Review: **MW2 CLOSURE/TRUTH-SYNC PR #458 CRITICAL REVIEW — PASS**
 
-Post-commit content hashes (from `git show HEAD:<path> | shasum -a 256`): **identical 5/5** — reviewed candidate preserved.
+### Head commit pre-merge
 
-## CORR-03 invariant / non-regression checks
+- SHA: `eece47682c0deb90b81844e07a0a13bd7fe233f2`
+- Parent: `7b12b377b76353f12e80df639d774a8dd6854ac6`
+- Tree: `44173471a709b7111c2c827e3513c072568101c9`
 
-1. MW2 = COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE — **PASS**
-2. MW3 = NOT AUTHORIZED / NOT STARTED — **PASS**
-3. Cognitive Completion = NOT PROVEN — **PASS**
-4. runtime v3 = NON ADOPTED — **PASS**
-5. Production model routing = NOT SELECTED — **PASS**
-6. MW2-R01 / MW2-R02 / MW2-R03 conserved — **PASS**
-7. BLK-01..08 remain closed per CORR-03 (no reopen; no new content fix) — **PASS**
-8. ACTIVE/CURRENT surfaces:
-   - no active lifecycle `CURRENT REPOSITORY LIFECYCLE = MW2 READINESS INTEGRATION PACKAGE` — **PASS** (ACTIVE uses `RESOLVE FROM CURRENT GIT / PR EVIDENCE`)
-   - no transient `Morris project Git-integration GO … → ChatGPT CRITICAL review` — **PASS**
-   - ACTIVE anti-claim uses `≠ MW3 AUTHORIZED` (not active `≠ MW2 AUTHORIZED`) — **PASS**
-   - Historical timestamped `MW2 READINESS INTEGRATION PACKAGE` / readiness anti-claims **preserved as provenance** — **PASS**
-9. `bcc607ae08bc419188505f91d6bbf7f947660671` qualified **MW1 REAL handoff** on both current C5 surfaces (lines ~178 and ~1173) — **PASS**
-10. C5 MW2-S01 / MW2-S02 substantive story bodies: C5 delta is lifecycle/status surfaces only; no story-body rewrite in staged/project diff hunks for MW2-S01/S02 narrative sections — **PASS** (source-lock KEEP)
-11. doc07/doc08/doc09 byte-identical to CORR-03 expected hashes (frozen vs CORR-02 lineage; no new delta this cycle) — **PASS**
-12. `git diff --check` clean — **PASS**
+### Pre-merge candidate hashes (5/5 exact)
 
-## Staging evidence
+| File | SHA-256 |
+|------|---------|
+| Roadmap | `a8d677fa82ec2651ab1820648242b03545d4d11fd723d1c1ed62fda4bbf7dbfb` |
+| C5 | `4f03a71bec59cfcdfbff717179d112a413db3bdec8c15ba581aafae460ba885a` |
+| doc07 | `5447c8a63220710efab0f11731ba76ec9993ad97858a01fc4bc0a64268da7472` |
+| doc08 | `b47817b1e733b9e505740d6237ed38fada6f76b1af5025e30ba391e6bfc9bb15` |
+| doc09 | `395ae78372912f0306588202c9afb436d1dc3359bc82edfa6403f0280ff2f638` |
 
-Staged file list (exact):
+### Incoming Review Handoff
+
+- commit: `89007bf2d491fb3a9ec7093c1631b46ca17b54fa`
+- blob: `5342602f128f2046c62089c5e59aaebd0b784423`
+- pack/canonical SHA-256: `1f5de118795875a59927b4aff657b0b3da3376960d6dbeff168aa013b50191b2`
+
+### Pre-merge CI
+
+- Run: `33636779107` — SUCCESS
+- Detect SFIA Studio changes — PASS
+- Build and validate SFIA Studio — PASS
+- SFIA Studio Required Gate — PASS
+
+## Merge execution
+
+### Ready-for-review transition
+
+- Action: `ManagePullRequest update_pr draft=false`
+- Result: PR #458 marked Ready for Review
+- Re-read: state OPEN · draft false · mergeable MERGEABLE · head unchanged `eece4768…` · base unchanged `7b12b377…`
+
+### Squash merge
+
+- Method: SQUASH MERGE (`gh pr merge 458 --squash`)
+- Title: `docs(sfia-studio): integrate Nora MW2 closure truth-sync (#458)`
+- No branch delete · no force · no rebase
+
+## Post-merge verification
+
+### MW2_CLOSURE_MERGE_SHA
+
+- **Merge SHA:** `c352441c2a6ab012aecae7606e0bb9af8fc9e7e7`
+- **Parent:** `7b12b377b76353f12e80df639d774a8dd6854ac6` (**MATCH**)
+- **Tree:** `44173471a709b7111c2c827e3513c072568101c9` (**MATCH reviewed head tree**)
+- **mergedAt:** `2026-09-02T13:58:52Z`
+
+### Head-tree / merge-tree parity
+
+- Head tree `44173471…` == Merge tree `44173471…` — **PASS**
+
+### head → merge content diff
+
+```
+(git diff eece4768… c352441c… --stat)
+(empty — ZERO diff)
+```
+
+**PASS — reviewed head content preserved by merge**
+
+### base → merge changed files (exact 5)
+
 1. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 2. `projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md`
 3. `projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md`
 4. `projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md`
 5. `projects/sfia-studio/nora-cognitive-completion/09-nora-mw2-cognitive-workload-profile-readiness.md`
 
-Staged / project diff stat:
-```
- .../convergence/sfia-studio-convergence-roadmap.md | 11 ++--
- .../05-nora-source-locked-cognitive-backlog.md     | 39 +++++++-------
- ...enai-cognitive-runtime-architecture-decision.md | 25 ++++-----
- ...ora-openai-native-first-cognitive-trajectory.md | 33 +++++++-----
- ...ora-mw2-cognitive-workload-profile-readiness.md | 63 ++++++++++++++++++----
- 5 files changed, 108 insertions(+), 63 deletions(-)
-```
+### Post-merge five SHA-256 (5/5 exact)
 
-- `git diff --cached --check`: **PASS** (exit 0)
-- **Authoritative staged/project binary diff SHA-256:** `662140bdb6052d683ee127e6526634ecdfa26b2088ace0d37d61893c6a4c42da`
-  - Capture: `git diff --binary 7b12b377b76353f12e80df639d774a8dd6854ac6 eece47682c0deb90b81844e07a0a13bd7fe233f2`
-  - Identical to pre-commit staged capture `/tmp/mw2-closure-staged.diff`
-- Embedded diff below: same 5-file hunks, **trailing whitespace stripped on 49 lines solely for handoff `git diff --check` hygiene** (publisher fail-closed). No semantic/hunk/path change. Exact binary delta remains the SHA above.
+| File | SHA-256 | Match |
+|------|---------|-------|
+| Roadmap | `a8d677fa82ec2651ab1820648242b03545d4d11fd723d1c1ed62fda4bbf7dbfb` | PASS |
+| C5 | `4f03a71bec59cfcdfbff717179d112a413db3bdec8c15ba581aafae460ba885a` | PASS |
+| doc07 | `5447c8a63220710efab0f11731ba76ec9993ad97858a01fc4bc0a64268da7472` | PASS |
+| doc08 | `b47817b1e733b9e505740d6237ed38fada6f76b1af5025e30ba391e6bfc9bb15` | PASS |
+| doc09 | `395ae78372912f0306588202c9afb436d1dc3359bc82edfa6403f0280ff2f638` | PASS |
 
-## DIFF STAGED / PROJECT COMPLET (exploitable)
+### origin/main alignment
+
+- `origin/main` = `c352441c2a6ab012aecae7606e0bb9af8fc9e7e7` == MW2_CLOSURE_MERGE_SHA — **PASS**
+
+### PR #458 final state
+
+- state: MERGED · closed: true · draft: false · mergedAt: `2026-09-02T13:58:52Z`
+- mergeCommit: `c352441c2a6ab012aecae7606e0bb9af8fc9e7e7`
+
+### Source branch preservation
+
+- Remote: `docs/sfia-studio-nora-mw2-closure-truth-sync` @ `eece47682c0deb90b81844e07a0a13bd7fe233f2`
+- **SOURCE BRANCH PRESERVED — YES**
+- No branch deletion executed
+
+## Post-merge CI
+
+- **POST_MERGE_CI_RUN_ID:** `33639090806`
+- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/33639090806
+- Event: push to main
+- headSha: `c352441c2a6ab012aecae7606e0bb9af8fc9e7e7`
+- Conclusion: **success**
+
+| Job | Conclusion | Job ID |
+|-----|------------|--------|
+| Detect SFIA Studio changes | success | 100277322753 |
+| Build and validate SFIA Studio | success | 100277378470 |
+| SFIA Studio Required Gate | success | 100278532758 |
+
+**Post-merge Required Gate: PASS**
+
+## Post-merge governance checks (origin/main)
+
+- MW2 = COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE — **PASS**
+- MW2-S01 = CLOSED — BOUNDED REAL STUDIO PRODUCT PATH PROVEN — preserved
+- MW2-S02 = CLOSED — DETERMINISTIC + EVAL PROOF SATISFIED — preserved
+- MW2-R01/R02/R03 = OPEN NON-BLOCKING CARRY FORWARD — **PASS** (C5 + doc09)
+- MW3 = NOT AUTHORIZED / NOT STARTED — **PASS**
+- Cognitive Completion = NOT PROVEN — **PASS**
+- runtime v3 = NON ADOPTED — **PASS**
+- Production model routing = NOT SELECTED — **PASS**
+- Responses compaction = CANDIDATE / NOT ADOPTED — preserved
+- C5 substantive source-lock (MW2-S01/S02 story bodies): lifecycle-only delta — **UNCHANGED**
+- OD-04 Option C: unchanged in substance — **PASS**
+- OpenAI-native-first (doc08): hash matches reviewed candidate — **UNCHANGED**
+- Historical provenance preserved — **PASS**
+- No sixth file — **PASS**
+- No runtime/code/package delta — **PASS**
+
+## Merge diff (base → merge, exploitable)
+
+Authoritative binary diff SHA-256: `662140bdb6052d683ee127e6526634ecdfa26b2088ace0d37d61893c6a4c42da`
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -594,123 +641,63 @@ index bbc250c6..2d44e5ec 100644
 +*Fin du document 09 — MW2 COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE — DELIVERY PR #456 MERGED — CORR PR #457 MERGED — POST-MERGE VERIFIED — NEXT = MW3 READINESS / REQUALIFICATION — NOT AUTHORIZED — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED.*
 ```
 
-## PROJECT COMMIT
+## Claims / anti-claims
 
-- PROJECT_COMMIT_SHA: `eece47682c0deb90b81844e07a0a13bd7fe233f2`
-- Parent: `7b12b377b76353f12e80df639d774a8dd6854ac6` (**MATCH**)
-- Tree: `44173471a709b7111c2c827e3513c072568101c9`
-- Subject: `docs(sfia-studio): integrate Nora MW2 closure truth-sync`
-- Files in commit: exact 5 (name-status M×5)
-- Zero new content delta vs CORR-03 reviewed candidate
+### Authorized claims
 
-## Remote project branch
+- MW2 COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE
+- MW2 closure/truth-sync INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR #458)
+- Post-merge CI SUCCESS · Required Gate PASS
+- Exact five-file candidate preserved on main
+- Source branch preserved
 
-- `git ls-remote --heads origin docs/sfia-studio-nora-mw2-closure-truth-sync`
-- Remote SHA: `eece47682c0deb90b81844e07a0a13bd7fe233f2` == PROJECT_COMMIT_SHA — **PASS**
-- Push: non-force (`git push -u origin docs/sfia-studio-nora-mw2-closure-truth-sync`)
-
-## Draft PR
-
-- PR_NUMBER: **458**
-- PR_URL: https://github.com/mcleland147/sfia-workspace/pull/458
-- Title: `docs(sfia-studio): integrate Nora MW2 closure truth-sync`
-- Base: `main` @ `7b12b377b76353f12e80df639d774a8dd6854ac6`
-- Head: `docs/sfia-studio-nora-mw2-closure-truth-sync` @ `eece47682c0deb90b81844e07a0a13bd7fe233f2`
-- isDraft: **true**
-- mergeable: MERGEABLE
-- mergeStateStatus: CLEAN (post-CI)
-- Exact changed files (5/5):
-  1. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-  2. `projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md`
-  3. `projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md`
-  4. `projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md`
-  5. `projects/sfia-studio/nora-cognitive-completion/09-nora-mw2-cognitive-workload-profile-readiness.md`
-- No sixth file — **PASS**
-- Remains DRAFT (no Ready conversion) — **PASS**
-- NO MERGE — **PASS**
-
-## CI / Required Gate
-
-- Workflow: **SFIA Studio CI**
-- Run ID: **33636779107**
-- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/33636779107
-- Event: `pull_request`
-- headSha: `eece47682c0deb90b81844e07a0a13bd7fe233f2`
-- Conclusion: **success**
-
-Jobs:
-| Job | Conclusion | Job ID |
-|-----|------------|--------|
-| Detect SFIA Studio changes | success | 100269507378 |
-| Build and validate SFIA Studio | success | 100269570929 |
-| SFIA Studio Required Gate | success | 100270758725 |
-
-Build and validate steps observed success: Checkout, Setup Node.js, Install dependencies, Typecheck, Lint, Build, Unit tests (Vitest), FinOps/T7 freeze notice, Modeled governance tests, Secret pattern scan (targeted), Trailing whitespace check.
-
-**Required Gate: PASS**
-
-LIVE OpenAI this cycle: **0**
-New REAL: **none**
-New content correction: **none**
-
-## Fake / Real Qualification
-
-- applicable: N/A (documentary Git integration)
-- frontiers executed: none
-- fake/mock/fixture: none
-- proof level this cycle: DOCUMENTARY / GIT INTEGRATION PROOF only
-
-## Reserves carried
-
-- **MW2-R01** — CARRIED FORWARD (non-blocking per existing classification)
-- **MW2-R02** — CARRIED FORWARD
-- **MW2-R03** — CARRIED FORWARD
-
-## Anti-claims (complete)
+### Anti-claims
 
 - MW2 CLOSED ≠ Cognitive Completion PROVEN
 - MW2 CLOSED ≠ runtime v3 ADOPTED
 - MW2 CLOSED ≠ MW3 AUTHORIZED / STARTED
-- Project commit ≠ INTEGRATED ON MAIN
-- Push branch ≠ INTEGRATED ON MAIN
-- Draft PR ≠ INTEGRATED ON MAIN
-- CI PASS ≠ merge
-- CI PASS ≠ MW3 authorization
-- Recommendation ≠ décision
-- Zero LIVE OpenAI
+- Merge ≠ MW3 readiness GO consumed
+- Post-merge CI PASS ≠ MW3 authorization
+- Zero LIVE OpenAI (0)
 - Zero new REAL
-- Production model routing NOT SELECTED
-- No claim that closure/truth-sync is INTEGRATED ON MAIN before merge proof
-- C5 substantive source-lock unchanged
-- Historical provenance preserved
-- doc07/08/09 frozen (no new delta this cycle)
+- Zero new project content mutation after merge
+- Production routing NOT SELECTED
 
-## Review Pack completeness
+## Reserves
 
-- Artifact Completeness: **FULL** — includes complete exploitable project/staged diff above (not synthesis-only)
-- Authoritative staged binary SHA-256 recorded
-- Embedded handoff copy is whitespace-hygiene normalized only (49 trailing-ws line ends) for publisher `git diff --check`
-- CI + Required Gate recorded
-- Exact hashes + PR scope recorded
+- MW2-R01 — OPEN / NON-BLOCKING / CARRIED FORWARD
+- MW2-R02 — OPEN / NON-BLOCKING / CARRIED FORWARD
+- MW2-R03 — OPEN / NON-BLOCKING / CARRIED FORWARD
 
-## Verdict (integration cycle)
+## Project content mutation
 
-**MW2 CLOSURE/TRUTH-SYNC PROJECT GIT INTEGRATION — PASS — EXACT 5-FILE CORR-03 REVIEWED CANDIDATE PRESERVED — PROJECT COMMIT CREATED — REMOTE PROJECT BRANCH VERIFIED — DRAFT PR CREATED — EXACT PR SCOPE VERIFIED — CI PASS — REQUIRED GATE PASS — FULL REVIEW PACK COMPLETE — ZERO NEW CONTENT DELTA — ZERO LIVE OPENAI — MW2 COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE — MW2-R01/R02/R03 CARRIED — MW3 NOT AUTHORIZED / NOT STARTED — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — PRODUCTION ROUTING NOT SELECTED — NO MERGE — READY FOR CHATGPT CRITICAL PR REVIEW**
+- Before merge: ZERO new project commits
+- Merge: squash of exact reviewed PR only
+- After merge: ZERO new project commits
+- Branch deletion: NO
 
-*(Handoff remote verification appended by publisher after L3 publish.)*
+## Verdict
+
+**MW2 CLOSURE/TRUTH-SYNC PR #458 MERGE / POST-MERGE — PASS — PR #458 SQUASH MERGED — REVIEWED HEAD `eece47682c0deb90b81844e07a0a13bd7fe233f2` PRESERVED BY MERGE TREE PARITY — MERGE TREE `44173471a709b7111c2c827e3513c072568101c9` — EXACT FIVE-FILE POST-MERGE PARITY PASS — ORIGIN/MAIN ALIGNED TO MERGE SHA — POST-MERGE SFIA STUDIO CI SUCCESS — REQUIRED GATE PASS — MW2 COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE — MW2 CLOSURE/TRUTH-SYNC REPOSITORY LIFECYCLE INTEGRATED / POST-MERGE VERIFIED — MW2-R01/R02/R03 CARRIED FORWARD — C5 SOURCE-LOCK UNCHANGED — OD-04 / OPENAI-NATIVE-FIRST UNCHANGED — SOURCE BRANCH PRESERVED — ZERO NEW PROJECT CONTENT DELTA — ZERO LIVE OPENAI — COGNITIVE COMPLETION NOT PROVEN — RUNTIME V3 NON ADOPTED — PRODUCTION ROUTING NOT SELECTED — MW3 NOT AUTHORIZED / NOT STARTED — REVIEW HANDOFF REMOTE VERIFIED — READY FOR CHATGPT POST-MERGE CRITICAL REVIEW**
+
+*(Handoff remote verification appended by publisher.)*
 
 ## Next gate
 
-**DECISION MORRIS REQUIRED — MW2 CLOSURE/TRUTH-SYNC PR MERGE** — only after ChatGPT Critical PR Review PASS; merge not authorized by this cycle.
+**ChatGPT MW2 CLOSURE/TRUTH-SYNC POST-MERGE CRITICAL REVIEW**
+
+If PASS: MW2 repository closure fully synchronized.
+Only then may Morris separately authorize MW3 READINESS / REQUALIFICATION.
+Do NOT execute MW3 in this cycle.
 
 ## Instruction ChatGPT
 
-- Lire obligatoirement le handoff canonique distant `sfia-review-handoff/latest-chatgpt-review.md`
-- Vérifier PROJECT_COMMIT_SHA / parent / tree
-- Vérifier la parité des cinq hashes
-- Vérifier Draft PR #458 et sa liste exacte de fichiers
-- Vérifier CI run `33636779107` / Required Gate PASS
-- Vérifier le contenu FULL du handoff (diff exploitable inclus)
-- Effectuer une **MW2 CLOSURE/TRUTH-SYNC PR CRITICAL REVIEW**
-- Ne pas autoriser implicitement le merge
-- Ne pas lancer MW3
+- Read canonical remote handoff `sfia-review-handoff/latest-chatgpt-review.md`
+- Verify MW2_CLOSURE_MERGE_SHA / parent / tree
+- Verify head→merge zero diff and post-merge 5/5 hashes
+- Verify PR #458 merged state
+- Verify post-merge CI run `33639090806` / Required Gate PASS
+- Verify source branch preserved
+- Perform POST-MERGE CRITICAL REVIEW
+- Do not authorize MW3
+- Do not delete source branch
