@@ -54,6 +54,13 @@ export type DeterministicObservation = {
   crossRevisionRecompactionUsesCurrentTruthC?: boolean;
   currentRawProvenanceCoverageIndependent?: boolean;
   stalePriorInvalidationSignaled?: boolean;
+  /** MW2-S01 strategy / effort */
+  strategyClassesObserved?: string[];
+  effortsObserved?: string[];
+  strategyDecoupledFromEffort?: boolean;
+  routineElevatedEffort?: boolean;
+  highAssuranceNotMax?: boolean;
+  capabilityFailClosed?: boolean;
 };
 
 function hardFail(
@@ -197,6 +204,82 @@ export function scoreHardInvariants(
     } else {
       results.push(
         pass("hard.questionnaire", `Clarification count ${n} ≤ 3`, "NCC-BAR-01"),
+      );
+    }
+  }
+
+  if (scenario.hardInvariants.includes("strategy_class_decoupled_from_effort")) {
+    if (obs.strategyDecoupledFromEffort) {
+      results.push(
+        pass(
+          "hard.strategy_effort_decoupled",
+          "Same strategy class with different efforts observed",
+          "NCC-BAR-01",
+        ),
+      );
+    } else {
+      results.push(
+        hardFail(
+          "hard.strategy_effort_decoupled",
+          "Strategy/effort coupling detected",
+          "NCC-BAR-01",
+        ),
+      );
+    }
+  }
+
+  if (scenario.hardInvariants.includes("routine_elevated_effort_possible")) {
+    if (obs.routineElevatedEffort) {
+      results.push(
+        pass(
+          "hard.routine_elevated",
+          "Routine class elevated effort under workload pressure",
+          "NCC-BAR-01",
+        ),
+      );
+    } else {
+      results.push(
+        hardFail(
+          "hard.routine_elevated",
+          "Routine elevated effort not demonstrated",
+          "NCC-BAR-01",
+        ),
+      );
+    }
+  }
+
+  if (scenario.hardInvariants.includes("high_assurance_not_auto_max")) {
+    if (obs.highAssuranceNotMax) {
+      results.push(
+        pass(
+          "hard.ha_not_max",
+          "High-Assurance did not auto-select max effort",
+          "NCC-BAR-01",
+        ),
+      );
+    } else {
+      results.push(
+        hardFail(
+          "hard.ha_not_max",
+          "High-Assurance auto-max or missing",
+          "NCC-BAR-01",
+        ),
+      );
+    }
+  }
+
+  if (scenario.hardInvariants.includes("capability_fail_closed")) {
+    if (obs.capabilityFailClosed) {
+      results.push(
+        pass("hard.capability_fail_closed", "Unknown model rejected", "NCC-BAR-01"),
+      );
+    } else {
+      results.push(
+        hardFail(
+          "hard.capability_fail_closed",
+          "Capability validator did not fail closed",
+          "NCC-BAR-01",
+        ),
       );
     }
   }
@@ -567,6 +650,15 @@ export function scoreScenarioD0(
             observableId: check.missingObservableId,
             missingEvidenceClass: "MISSING_OBSERVABLE",
           },
+    );
+  }
+
+  if (scenario.kind === "cognitive_strategy") {
+    scorers.push(
+      pass(
+        "cwp.strategy_kind",
+        `strategies=${(obs.strategyClassesObserved ?? []).join(",")}`,
+      ),
     );
   }
 

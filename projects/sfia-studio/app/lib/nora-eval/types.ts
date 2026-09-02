@@ -16,7 +16,8 @@ export type ScenarioKind =
   | "authority_boundary"
   | "genericity"
   | "parity_metric"
-  | "memory_continuity";
+  | "memory_continuity"
+  | "cognitive_strategy";
 
 export type PassFail = "PASS" | "FAIL" | "INCONCLUSIVE" | "NOT_PROVEN";
 
@@ -71,7 +72,9 @@ export type Mw0StoryId =
 
 export type Mw1StoryId = "MW1-S01" | "MW1-S02" | "MW1-S03";
 
-export type CognitiveStoryId = Mw0StoryId | Mw1StoryId;
+export type Mw2StoryId = "MW2-S01" | "MW2-S02";
+
+export type CognitiveStoryId = Mw0StoryId | Mw1StoryId | Mw2StoryId;
 
 export type CycleTypeFixtureId =
   | "delivery_implementation"

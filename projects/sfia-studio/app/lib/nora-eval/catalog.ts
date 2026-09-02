@@ -210,6 +210,24 @@ const SCENARIOS: ScenarioDefinition[] = [
     ],
     d0Expectations: { mustPass: true },
   },
+  {
+    scenarioId: "mw2.s01.strategy-effort-decoupling",
+    catalogVersion: NORA_EVAL_CATALOG_VERSION,
+    storyIds: ["MW2-S01"],
+    barIds: [],
+    kind: "cognitive_strategy",
+    title: "MW2-S01 — Strategy Class decoupled from reasoning effort",
+    prompt:
+      "Deterministic policy/runtime check: overlapping envelopes, minimum-sufficient effort, no model routing.",
+    requiredTier: ["D0"],
+    hardInvariants: [
+      "strategy_class_decoupled_from_effort",
+      "routine_elevated_effort_possible",
+      "high_assurance_not_auto_max",
+      "capability_fail_closed",
+    ],
+    d0Expectations: { mustPass: true },
+  },
 ];
 
 export function getCatalogVersion(): typeof NORA_EVAL_CATALOG_VERSION {
