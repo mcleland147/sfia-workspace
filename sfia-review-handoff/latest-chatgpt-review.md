@@ -1,10 +1,12 @@
-# Review Pack — MW2 Delivery Local Candidate
+# Review Pack — MW2 Delivery Local Candidate (CORR — complete modified diffs)
 # FULL / CRITICAL / CONTENT-COMPLETE
 
 Status: **FULL** · **CRITICAL** · **CONTENT-COMPLETE**
 
+Correction: **CORR-MW2-REVIEW-PACK-01** — all 11 modified production/eval files now include complete git diffs below (prior handoff omitted 9 modified-file diffs).
+
 ## 1. Timestamp Europe/Paris
-2026-09-02 07:17:47 CEST
+2026-09-02 07:50:22 CEST
 
 ## 2. Cycle / typology / profile / CKC
 - Cycle 8 — Delivery / implémentation
@@ -21,93 +23,47 @@ GO MORRIS — MW2 DELIVERY — MW2-S01 + MW2-S02 coherent lot — OD-02 Option B
 | Repository | mcleland147/sfia-workspace |
 | Worktree | `/Users/morris/Projects/sfia-workspace-pre-mw2-main-b345f3b6` |
 | Base HEAD | `b345f3b6c74d3eac0caca5bdd5525809dd80547a` |
-| Delivery branch | `delivery/sfia-studio-nora-mw2-cwp-strategy` |
 | origin/main | `b345f3b6c74d3eac0caca5bdd5525809dd80547a` |
+| Delivery branch | `delivery/sfia-studio-nora-mw2-cwp-strategy` |
 | Project commit | **NO** |
 | Project push | **NO** |
 
-## 5. PRE-MW2 baseline consumed
-- Installed SDK: `@openai/agents@0.17.0`, `@openai/agents-core@0.17.0`, `openai@6.48.0`
-- Reference model: `gpt-5.6-luna`
-- Implicit baseline: `reasoning.effort=none`, `text.verbosity=low`
+## 5. Modified files manifest (11 — all diffs included below)
+1. `features/project-assistant/orchestrateTurn.ts`
+2. `lib/nora-cognitive-runtime/index.ts`
+3. `lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
+4. `lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts`
+5. `lib/nora-cognitive-runtime/types.ts`
+6. `lib/nora-eval/catalog.ts`
+7. `lib/nora-eval/d0Runner.ts`
+8. `lib/nora-eval/index.ts`
+9. `lib/nora-eval/scorers.ts`
+10. `lib/nora-eval/types.ts`
+11. `lib/platform/observability/types.ts`
 
-## 6. Files created (8)
-- `lib/nora-cognitive-runtime/cognitiveWorkloadPolicy.ts`
-- `lib/nora-cognitive-runtime/reasoningCapability.ts`
-- `lib/nora-cognitive-runtime/reasoningModelSettings.ts`
-- `lib/nora-eval/mw2S01Observe.ts`
-- `__tests__/nora-cognitive-runtime/mw2.s01.cwpPolicy.d0.test.ts`
-- `__tests__/nora-cognitive-runtime/mw2.s01.f1ModelSettings.d0.test.ts`
-- `__tests__/nora-cognitive-runtime/mw2.s02.ckcAuthority.d0.test.ts`
-- `__tests__/nora-eval/mw2.s01.strategy.eval.test.ts`
+## 6. New files manifest (8 — full contents below)
+1. `lib/nora-cognitive-runtime/cognitiveWorkloadPolicy.ts`
+2. `lib/nora-cognitive-runtime/reasoningCapability.ts`
+3. `lib/nora-cognitive-runtime/reasoningModelSettings.ts`
+4. `lib/nora-eval/mw2S01Observe.ts`
+5. `__tests__/nora-cognitive-runtime/mw2.s01.cwpPolicy.d0.test.ts`
+6. `__tests__/nora-cognitive-runtime/mw2.s01.f1ModelSettings.d0.test.ts`
+7. `__tests__/nora-cognitive-runtime/mw2.s02.ckcAuthority.d0.test.ts`
+8. `__tests__/nora-eval/mw2.s01.strategy.eval.test.ts`
 
-## 7. Files modified (11 production + eval)
-- `runNoraCognitiveTurn.ts`, `runNoraAgentsTurn.ts`, `types.ts`, `index.ts`
-- `orchestrateTurn.ts`
-- `lib/platform/observability/types.ts` (COGNITIVE_STRATEGY_SELECTED event)
-- `lib/nora-eval/catalog.ts`, `d0Runner.ts`, `scorers.ts`, `types.ts`, `index.ts`
+## 7. D0 / EVAL / regression (unchanged from prior pack)
+- MW2 D0: 25 tests PASS
+- MW2 EVAL: 3 tests PASS
+- npm test: 2355 passed, 132 skipped
+- typecheck: PASS
+- Live OpenAI: 0
 
-## 8. Candidate overlapping envelope table (DELIVERY DESIGN — not Morris doctrine)
-| Strategy Class | Candidate envelope |
-|--------------|-------------------|
-| Routine | none, low, medium |
-| Focused | low, medium, high |
-| Deep | medium, high, xhigh |
-| High-Assurance | high, xhigh, max |
-
-## 9. Strategy ≠ effort evidence
-- D0-04/06/07 prove different strategies and same-class different efforts
-- Routine + high context/tool → strategy Routine, effort medium
-- High-Assurance + medium context → effort high (not max)
-
-## 10. F1 wiring seam
-`runNoraCognitiveTurn` → `decideCognitiveStrategy` → `validateRuntimeReasoningCapability` → `buildRunnerModelSettingsForEffort` → `runNoraAgentsTurn({ runnerModelSettings })` → `createNoraAgentsRunner(..., modelSettings)` → Runner `#prepareModelCall` merge
-
-## 11. Installed SDK precedence (@openai/agents-core@0.17.0)
-Runner `modelSettings` merged via `mergeModelSettings`: implicit defaults → Runner config → Agent explicit (none when SFIA uses Runner override). SFIA supplies full `{ reasoning: { effort }, text: { verbosity: 'low' } }` on Runner to preserve baseline verbosity.
-
-## 12. ModelRequest D0 proof
-`ScriptedModel.calls[0].request.modelSettings.reasoning.effort` equals selected policy effort (D0-15 PASS).
-
-## 13. D0 verdict
-**PASS** — 25 MW2 D0 tests + regressions (authority, fakeConvergence, mw1.s01) PASS
-
-## 14. EVAL verdict
-**PASS** — `mw2.s01.strategy-effort-decoupling` deterministic scenario PASS
-
-## 15. Regression
-- `npm run typecheck`: PASS
-- `npm test`: **2355 passed**, 132 skipped, 0 failed
-
-## 16. Live OpenAI calls
-**ZERO**
-
-## 17. Fake/Real
-- Applicable: YES
-- Proof this cycle: DETERMINISTIC / MODELED
-- REAL: NOT EXECUTED
-- Morris REAL GO: NOT CONSUMED
-- EVAL claim ceiling: policy/wiring/authority — NOT provider cognitive quality
-
-## 18. GAP statuses (D0 candidate closure)
-| GAP | Status |
-|-----|--------|
-| GAP-MW2-CWP-01 | **CLOSED CANDIDATE** (D0) |
-| GAP-MW2-F1-MODELSETTINGS-01 | **CLOSED CANDIDATE** (D0 ModelRequest proof) |
-| GAP-MW2-REASONING-CAPABILITY-01 | **CLOSED CANDIDATE** (runtime validator fail-closed) |
-| GAP-MW2-CKC-SEMANTIC-01 | **PRESERVED** (existing seam D0 PASS) |
-
-## 19. reasoning.context / reasoning.mode
-- **NOT WIRED** — EVALUATE/DEFER
-- Reserve: provider-observed reasoning.context NOT PROVEN (from PRE-MW2)
-
-## 20. MW2 Delivery verdict
-**MW2 DELIVERY — LOCAL CANDIDATE IMPLEMENTED — D0 PASS — DETERMINISTIC EVAL PASS — NO LIVE OPENAI — NO REAL — MW2 CLOSURE NOT CLAIMED — READY FOR CHATGPT CRITICAL DELIVERY REVIEW**
-
-## 21. Next gate
-Morris / ChatGPT Critical Delivery Review → distinct Morris GO for MW2 project Git integration / PR preparation. REAL provider proof remains separate gate.
+## 8. Delivery verdict
+**MW2 DELIVERY — LOCAL CANDIDATE IMPLEMENTED — READY FOR CHATGPT CRITICAL DELIVERY REVIEW**
 
 ---
+
+# SECTION A — FULL NEW FILES
 
 ## FULL FILE: projects/sfia-studio/app/lib/nora-cognitive-runtime/cognitiveWorkloadPolicy.ts
 ```typescript
@@ -1057,7 +1013,64 @@ describe("MW2-S01 nora-eval — strategy / effort decoupling", () => {
 });
 ```
 
-## MODIFIED DIFF: runNoraAgentsTurn.ts
+---
+
+# SECTION B — COMPLETE MODIFIED FILE DIFFS (11/11)
+
+## MODIFIED DIFF: projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+index 52d34b98..dc80acdd 100644
+--- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
++++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+@@ -163,6 +163,14 @@ export async function orchestrateProjectAssistantTurn(input: {
+         lpsId: project.lpsId,
+         lpsVersion: project.lpsVersion,
+       },
++      turnWorkloadContext: {
++        projectCriticality: project.criticality,
++        userContentLength: content.length,
++        historyMessageCount: history.length,
++        historyTotalChars: history.reduce((sum, m) => sum + m.content.length, 0),
++        enableTools: true,
++      },
++      trustedSfiaProfile: null,
+     });
+
+     const { toolEvents, sources } = collectToolTelemetry(sink.events);
+```
+
+## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+index 7a56e630..980a2410 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+@@ -94,3 +94,21 @@ export {
+ export type { RunNoraAgentsTurnInput } from "./runNoraAgentsTurn";
+ export { runNoraCognitiveTurn } from "./runNoraCognitiveTurn";
+ export type { RunNoraCognitiveTurnInput } from "./runNoraCognitiveTurn";
++export {
++  decideCognitiveStrategy,
++  normalizeCognitiveWorkloadSignals,
++  buildSignalsFromTurnContext,
++  STRATEGY_REASONING_ENVELOPES,
++  COGNITIVE_STRATEGY_CLASSES,
++} from "./cognitiveWorkloadPolicy";
++export type {
++  CognitiveStrategyClass,
++  CognitiveStrategyDecision,
++  CognitiveWorkloadSignals,
++  TurnWorkloadContext,
++} from "./cognitiveWorkloadPolicy";
++export { validateRuntimeReasoningCapability } from "./reasoningCapability";
++export {
++  buildRunnerModelSettingsForEffort,
++  type NoraRunnerModelSettings,
++} from "./reasoningModelSettings";
+```
+
+## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
 index dfacaced..0320ba05 100644
@@ -1108,7 +1121,8 @@ index dfacaced..0320ba05 100644
    const session = input.session ?? undefined;
    const memoryBAvailability: MemoryBAvailability =
 ```
-## MODIFIED DIFF: runNoraCognitiveTurn.ts
+
+## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
 index 255339ee..d6746a3b 100644
@@ -1282,4 +1296,314 @@ index 255339ee..d6746a3b 100644
    } finally {
      if (probe.session) {
        probe.session.close();
+```
+
+## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
+index 68366a82..53ef6442 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
+@@ -4,6 +4,8 @@
+  * Single Runner path after legacy Nora runtime retirement.
+  */
+
++import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
++import type { CognitiveStrategyClass } from "./cognitiveWorkloadPolicy";
+ import type { MemoryBAvailability } from "./memoryBAvailability";
+ import type {
+   MemoryBCompactionDetails,
+@@ -35,6 +37,10 @@ export type NoraCognitiveTurnResult = {
+   memoryBCompactionState: MemoryBCompactionState;
+   /** MW1-S02 — optional compaction details when relevant. */
+   memoryBCompactionDetails: MemoryBCompactionDetails | null;
++  /** MW2-S01 — internal strategy telemetry (not Pilote authority). */
++  cognitiveStrategyClass?: CognitiveStrategyClass;
++  selectedReasoningEffort?: OpenAiReasoningEffort;
++  criticalChallengeArmed?: boolean;
+ };
+
+ export type { TruthCRevision, MemoryBCompactionState, MemoryBCompactionDetails };
+```
+
+## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-eval/catalog.ts
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-eval/catalog.ts b/projects/sfia-studio/app/lib/nora-eval/catalog.ts
+index 365b4487..024326cb 100644
+--- a/projects/sfia-studio/app/lib/nora-eval/catalog.ts
++++ b/projects/sfia-studio/app/lib/nora-eval/catalog.ts
+@@ -210,6 +210,24 @@ const SCENARIOS: ScenarioDefinition[] = [
+     ],
+     d0Expectations: { mustPass: true },
+   },
++  {
++    scenarioId: "mw2.s01.strategy-effort-decoupling",
++    catalogVersion: NORA_EVAL_CATALOG_VERSION,
++    storyIds: ["MW2-S01"],
++    barIds: [],
++    kind: "cognitive_strategy",
++    title: "MW2-S01 — Strategy Class decoupled from reasoning effort",
++    prompt:
++      "Deterministic policy/runtime check: overlapping envelopes, minimum-sufficient effort, no model routing.",
++    requiredTier: ["D0"],
++    hardInvariants: [
++      "strategy_class_decoupled_from_effort",
++      "routine_elevated_effort_possible",
++      "high_assurance_not_auto_max",
++      "capability_fail_closed",
++    ],
++    d0Expectations: { mustPass: true },
++  },
+ ];
+
+ export function getCatalogVersion(): typeof NORA_EVAL_CATALOG_VERSION {
+```
+
+## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts b/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
+index 11960284..2018beb1 100644
+--- a/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
++++ b/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
+@@ -14,6 +14,7 @@ import type { RunEvidence, PassFail } from "./types";
+ import { NORA_EVAL_CATALOG_VERSION } from "./types";
+ import { observeMw1S01FromRuntime } from "./mw1S01Observe";
+ import { observeMw1S02FromRuntime } from "./mw1S02Observe";
++import { observeMw2S01FromRuntime } from "./mw2S01Observe";
+
+ function nowIso(): string {
+   return new Date().toISOString();
+@@ -103,6 +104,8 @@ async function observationForScenario(
+       return observeMw1S01FromRuntime();
+     case "mw1.s02.compaction-provenance-loss":
+       return observeMw1S02FromRuntime();
++    case "mw2.s01.strategy-effort-decoupling":
++      return observeMw2S01FromRuntime();
+     default:
+       return { productPath: "none" };
+   }
+@@ -180,7 +183,18 @@ function toRunEvidence(
+                 obs.stalePriorInvalidationSignaled ?? false,
+               observedObservableIds: obs.observedObservableIds ?? [],
+             }
+-          : undefined,
++          : scenarioId === "mw2.s01.strategy-effort-decoupling"
++            ? {
++                strategyClassesObserved: obs.strategyClassesObserved ?? [],
++                effortsObserved: obs.effortsObserved ?? [],
++                strategyDecoupledFromEffort:
++                  obs.strategyDecoupledFromEffort ?? false,
++                routineElevatedEffort: obs.routineElevatedEffort ?? false,
++                highAssuranceNotMax: obs.highAssuranceNotMax ?? false,
++                capabilityFailClosed: obs.capabilityFailClosed ?? false,
++                observedObservableIds: obs.observedObservableIds ?? [],
++              }
++            : undefined,
+   };
+ }
+
+```
+
+## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-eval/index.ts
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-eval/index.ts b/projects/sfia-studio/app/lib/nora-eval/index.ts
+index 9a1ae81c..40b60122 100644
+--- a/projects/sfia-studio/app/lib/nora-eval/index.ts
++++ b/projects/sfia-studio/app/lib/nora-eval/index.ts
+@@ -20,6 +20,11 @@ export {
+   observationFromMw1S02Facts,
+   type Mw1S02RuntimeFacts,
+ } from "./mw1S02Observe";
++export {
++  observeMw2S01FromRuntime,
++  observationFromMw2S01Facts,
++  type Mw2S01RuntimeFacts,
++} from "./mw2S01Observe";
+ export * from "./meteredProvider";
+ export * from "./r2Score";
+ export * from "./offlineRescore";
+```
+
+## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-eval/scorers.ts
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-eval/scorers.ts b/projects/sfia-studio/app/lib/nora-eval/scorers.ts
+index 2933ceb3..497448aa 100644
+--- a/projects/sfia-studio/app/lib/nora-eval/scorers.ts
++++ b/projects/sfia-studio/app/lib/nora-eval/scorers.ts
+@@ -54,6 +54,13 @@ export type DeterministicObservation = {
+   crossRevisionRecompactionUsesCurrentTruthC?: boolean;
+   currentRawProvenanceCoverageIndependent?: boolean;
+   stalePriorInvalidationSignaled?: boolean;
++  /** MW2-S01 strategy / effort */
++  strategyClassesObserved?: string[];
++  effortsObserved?: string[];
++  strategyDecoupledFromEffort?: boolean;
++  routineElevatedEffort?: boolean;
++  highAssuranceNotMax?: boolean;
++  capabilityFailClosed?: boolean;
+ };
+
+ function hardFail(
+@@ -201,6 +208,82 @@ export function scoreHardInvariants(
+     }
+   }
+
++  if (scenario.hardInvariants.includes("strategy_class_decoupled_from_effort")) {
++    if (obs.strategyDecoupledFromEffort) {
++      results.push(
++        pass(
++          "hard.strategy_effort_decoupled",
++          "Same strategy class with different efforts observed",
++          "NCC-BAR-01",
++        ),
++      );
++    } else {
++      results.push(
++        hardFail(
++          "hard.strategy_effort_decoupled",
++          "Strategy/effort coupling detected",
++          "NCC-BAR-01",
++        ),
++      );
++    }
++  }
++
++  if (scenario.hardInvariants.includes("routine_elevated_effort_possible")) {
++    if (obs.routineElevatedEffort) {
++      results.push(
++        pass(
++          "hard.routine_elevated",
++          "Routine class elevated effort under workload pressure",
++          "NCC-BAR-01",
++        ),
++      );
++    } else {
++      results.push(
++        hardFail(
++          "hard.routine_elevated",
++          "Routine elevated effort not demonstrated",
++          "NCC-BAR-01",
++        ),
++      );
++    }
++  }
++
++  if (scenario.hardInvariants.includes("high_assurance_not_auto_max")) {
++    if (obs.highAssuranceNotMax) {
++      results.push(
++        pass(
++          "hard.ha_not_max",
++          "High-Assurance did not auto-select max effort",
++          "NCC-BAR-01",
++        ),
++      );
++    } else {
++      results.push(
++        hardFail(
++          "hard.ha_not_max",
++          "High-Assurance auto-max or missing",
++          "NCC-BAR-01",
++        ),
++      );
++    }
++  }
++
++  if (scenario.hardInvariants.includes("capability_fail_closed")) {
++    if (obs.capabilityFailClosed) {
++      results.push(
++        pass("hard.capability_fail_closed", "Unknown model rejected", "NCC-BAR-01"),
++      );
++    } else {
++      results.push(
++        hardFail(
++          "hard.capability_fail_closed",
++          "Capability validator did not fail closed",
++          "NCC-BAR-01",
++        ),
++      );
++    }
++  }
++
+   if (scenario.hardInvariants.includes("uses_f2_not_ops1")) {
+     if (obs.productPath === "ops1") {
+       results.push(
+@@ -570,6 +653,15 @@ export function scoreScenarioD0(
+     );
+   }
+
++  if (scenario.kind === "cognitive_strategy") {
++    scorers.push(
++      pass(
++        "cwp.strategy_kind",
++        `strategies=${(obs.strategyClassesObserved ?? []).join(",")}`,
++      ),
++    );
++  }
++
+   scorers.push(...scoreHardInvariants(scenario, obs));
+
+   const hardFailAny = scorers.some((s) => s.hardInvariantViolation && s.passFail === "FAIL");
+```
+
+## MODIFIED DIFF: projects/sfia-studio/app/lib/nora-eval/types.ts
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-eval/types.ts b/projects/sfia-studio/app/lib/nora-eval/types.ts
+index 6de7182b..d2eab2b1 100644
+--- a/projects/sfia-studio/app/lib/nora-eval/types.ts
++++ b/projects/sfia-studio/app/lib/nora-eval/types.ts
+@@ -16,7 +16,8 @@ export type ScenarioKind =
+   | "authority_boundary"
+   | "genericity"
+   | "parity_metric"
+-  | "memory_continuity";
++  | "memory_continuity"
++  | "cognitive_strategy";
+
+ export type PassFail = "PASS" | "FAIL" | "INCONCLUSIVE" | "NOT_PROVEN";
+
+@@ -71,7 +72,9 @@ export type Mw0StoryId =
+
+ export type Mw1StoryId = "MW1-S01" | "MW1-S02" | "MW1-S03";
+
+-export type CognitiveStoryId = Mw0StoryId | Mw1StoryId;
++export type Mw2StoryId = "MW2-S01" | "MW2-S02";
++
++export type CognitiveStoryId = Mw0StoryId | Mw1StoryId | Mw2StoryId;
+
+ export type CycleTypeFixtureId =
+   | "delivery_implementation"
+```
+
+## MODIFIED DIFF: projects/sfia-studio/app/lib/platform/observability/types.ts
+```diff
+diff --git a/projects/sfia-studio/app/lib/platform/observability/types.ts b/projects/sfia-studio/app/lib/platform/observability/types.ts
+index 2ad41959..0530dfaa 100644
+--- a/projects/sfia-studio/app/lib/platform/observability/types.ts
++++ b/projects/sfia-studio/app/lib/platform/observability/types.ts
+@@ -14,7 +14,8 @@ export type TechnicalEventType =
+   | "STRUCTURED_OUTPUT_VALIDATED"
+   | "STRUCTURED_OUTPUT_REJECTED"
+   | "TOOL_LOOP_COMPLETED"
+-  | "TOOL_LOOP_LIMIT_REACHED";
++  | "TOOL_LOOP_LIMIT_REACHED"
++  | "COGNITIVE_STRATEGY_SELECTED";
+
+ export interface TechnicalEvent {
+   type: TechnicalEventType;
+```
+
+## MODIFIED DIFF STAT
+```
+ .../features/project-assistant/orchestrateTurn.ts  |   8 ++
+ .../app/lib/nora-cognitive-runtime/index.ts        |  18 +++
+ .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |  11 +-
+ .../nora-cognitive-runtime/runNoraCognitiveTurn.ts | 124 +++++++++++++++++++--
+ .../app/lib/nora-cognitive-runtime/types.ts        |   6 +
+ projects/sfia-studio/app/lib/nora-eval/catalog.ts  |  18 +++
+ projects/sfia-studio/app/lib/nora-eval/d0Runner.ts |  16 ++-
+ projects/sfia-studio/app/lib/nora-eval/index.ts    |   5 +
+ projects/sfia-studio/app/lib/nora-eval/scorers.ts  |  92 +++++++++++++++
+ projects/sfia-studio/app/lib/nora-eval/types.ts    |   7 +-
+ .../app/lib/platform/observability/types.ts        |   3 +-
+ 11 files changed, 293 insertions(+), 15 deletions(-)
 ```
