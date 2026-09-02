@@ -4,6 +4,8 @@
  * Single Runner path after legacy Nora runtime retirement.
  */
 
+import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
+import type { CognitiveStrategyClass } from "./cognitiveWorkloadPolicy";
 import type { MemoryBAvailability } from "./memoryBAvailability";
 import type {
   MemoryBCompactionDetails,
@@ -35,6 +37,10 @@ export type NoraCognitiveTurnResult = {
   memoryBCompactionState: MemoryBCompactionState;
   /** MW1-S02 — optional compaction details when relevant. */
   memoryBCompactionDetails: MemoryBCompactionDetails | null;
+  /** MW2-S01 — internal strategy telemetry (not Pilote authority). */
+  cognitiveStrategyClass?: CognitiveStrategyClass;
+  selectedReasoningEffort?: OpenAiReasoningEffort;
+  criticalChallengeArmed?: boolean;
 };
 
 export type { TruthCRevision, MemoryBCompactionState, MemoryBCompactionDetails };

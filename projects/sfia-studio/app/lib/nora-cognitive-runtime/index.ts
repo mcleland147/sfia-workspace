@@ -94,3 +94,23 @@ export {
 export type { RunNoraAgentsTurnInput } from "./runNoraAgentsTurn";
 export { runNoraCognitiveTurn } from "./runNoraCognitiveTurn";
 export type { RunNoraCognitiveTurnInput } from "./runNoraCognitiveTurn";
+export {
+  decideCognitiveStrategy,
+  normalizeCognitiveWorkloadSignals,
+  buildSignalsFromTurnContext,
+  isRoutineEligible,
+  STRATEGY_REASONING_ENVELOPES,
+  COGNITIVE_STRATEGY_CLASSES,
+  ROUTINE_KNOWN_LOW_DIMENSIONS,
+} from "./cognitiveWorkloadPolicy";
+export type {
+  CognitiveStrategyClass,
+  CognitiveStrategyDecision,
+  CognitiveWorkloadSignals,
+  TurnWorkloadContext,
+} from "./cognitiveWorkloadPolicy";
+export { validateRuntimeReasoningCapability } from "./reasoningCapability";
+export {
+  buildRunnerModelSettingsForEffort,
+  type NoraRunnerModelSettings,
+} from "./reasoningModelSettings";

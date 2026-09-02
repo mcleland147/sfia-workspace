@@ -163,6 +163,14 @@ export async function orchestrateProjectAssistantTurn(input: {
         lpsId: project.lpsId,
         lpsVersion: project.lpsVersion,
       },
+      turnWorkloadContext: {
+        projectCriticality: project.criticality,
+        userContentLength: content.length,
+        historyMessageCount: history.length,
+        historyTotalChars: history.reduce((sum, m) => sum + m.content.length, 0),
+        enableTools: true,
+      },
+      trustedSfiaProfile: null,
     });
 
     const { toolEvents, sources } = collectToolTelemetry(sink.events);

@@ -20,6 +20,17 @@ export {
   observationFromMw1S02Facts,
   type Mw1S02RuntimeFacts,
 } from "./mw1S02Observe";
+export {
+  observeMw2S01FromRuntime,
+  observationFromMw2S01Facts,
+  type Mw2S01RuntimeFacts,
+} from "./mw2S01Observe";
+export {
+  evaluateMw2S01Matrix,
+  evaluateMw2S02Matrix,
+  summarizeMw2EvalMatrix,
+  type Mw2EvalCaseResult,
+} from "./mw2EvalMatrix";
 export * from "./meteredProvider";
 export * from "./r2Score";
 export * from "./offlineRescore";

@@ -14,6 +14,7 @@ import type { RunEvidence, PassFail } from "./types";
 import { NORA_EVAL_CATALOG_VERSION } from "./types";
 import { observeMw1S01FromRuntime } from "./mw1S01Observe";
 import { observeMw1S02FromRuntime } from "./mw1S02Observe";
+import { observeMw2S01FromRuntime } from "./mw2S01Observe";
 
 function nowIso(): string {
   return new Date().toISOString();
@@ -103,6 +104,8 @@ async function observationForScenario(
       return observeMw1S01FromRuntime();
     case "mw1.s02.compaction-provenance-loss":
       return observeMw1S02FromRuntime();
+    case "mw2.s01.strategy-effort-decoupling":
+      return observeMw2S01FromRuntime();
     default:
       return { productPath: "none" };
   }
@@ -180,7 +183,18 @@ function toRunEvidence(
                 obs.stalePriorInvalidationSignaled ?? false,
               observedObservableIds: obs.observedObservableIds ?? [],
             }
-          : undefined,
+          : scenarioId === "mw2.s01.strategy-effort-decoupling"
+            ? {
+                strategyClassesObserved: obs.strategyClassesObserved ?? [],
+                effortsObserved: obs.effortsObserved ?? [],
+                strategyDecoupledFromEffort:
+                  obs.strategyDecoupledFromEffort ?? false,
+                routineElevatedEffort: obs.routineElevatedEffort ?? false,
+                highAssuranceNotMax: obs.highAssuranceNotMax ?? false,
+                capabilityFailClosed: obs.capabilityFailClosed ?? false,
+                observedObservableIds: obs.observedObservableIds ?? [],
+              }
+            : undefined,
   };
 }
 
