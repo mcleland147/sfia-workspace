@@ -1,36 +1,45 @@
-# ChatGPT Review Pack — CORR-MW4-PR-CI-02
-# VITEST NORA SESSION SQLITE PER-WORKER ISOLATION — LOCAL PROOF STOP
+# ChatGPT Review Pack — CORR-MW4-PR-CI-02 PROJECT GIT PUBLICATION
+# (pre-publication regularization → will be updated after push/CI)
 
 ## 1. Timestamp / identity
 
-- timestamp_utc: `2026-09-03T10:13:09Z`
-- timestamp_europe_paris: `2026-09-03T12:13:09+0200`
-- cycle: `CORR-MW4-PR-CI-02`
-- SFIA Cycle: **9** / Typology: **RUN** / Profile: **CRITICAL**
-- Morris GO: **CONSUMED**
-- FA = NO · TA = NO · REAL OpenAI = **ZERO**
+- timestamp_utc: `2026-09-03T11:19:51Z`
+- timestamp_europe_paris: `2026-09-03T13:19:51+0200`
+- cycle: `CORR-MW4-PR-CI-02` — **PROJECT GIT PUBLICATION**
+- SFIA Cycle: **7** (Intégration / DevOps) / Typology: **RUN** / Profile: **CRITICAL**
+- Morris GO PROJECT GIT PUBLICATION: **CONSUMED**
+- FA = NO · TA = NO · REAL OpenAI this cycle = **ZERO**
 
 ## 2. Sources read
 
-- `prompts/templates/sfia-cycle-execution-template.md` (v2.6)
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-- `projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md`
-- `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` (QA tip `c58c0bc3…` / blob `65a3b95b…`)
-- `projects/sfia-studio/app/__tests__/setup.ts`
-- `projects/sfia-studio/app/vitest.config.ts` (read-only; **not modified**)
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/sessionPaths.ts` (read-only; **not modified**)
-- mw2.corr04 D0 test + env-mutating session path tests (`session.d0`, `mw1.s01.honestMemoryB`)
-- `.github/workflows/sfia-studio-ci.yml` (Unit tests = `npm test`; **not modified**)
+1. `prompts/templates/sfia-cycle-execution-template.md`
+2. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+3. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+4. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+5. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
+6. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+7. `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
+8. `projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md`
+9. `projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md`
+10. `projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md`
+11. `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md`
+12. `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` (entry tip `83dfafee…` / blob `96aa49b6…`)
+13. `projects/sfia-studio/app/__tests__/setup.ts` (exact candidate verified)
+14. `projects/sfia-studio/app/vitest.config.ts` — read-only, unchanged
+15. `.github/workflows/sfia-studio-ci.yml` — read-only, unchanged
+16. `scripts/sfia/publish-review-handoff.sh`
 
 ## 3. Convergence qualification
 
-Harness-only isolation of Nora Session SQLite under Vitest fileParallelism. No new Nora capability. MW4 remains pre-merge / NOT CLOSED. Product default path KEEP; concurrent test sharing of that default is the defect class proven by QA-MW4-PR-CI-02.
+- Build Doctrine / Roadmap / Product Completion C1: validated on main (consumed as context).
+- Capability served: MW4 Grounding durability + Narrative/Evidence — **NOT CLOSED**.
+- Correction class: **TEST-HARNESS ONLY** (per-worker Nora Session SQLite isolation).
+- Architecture: ADAPT FIRST / Option C existing — **no parallel architecture**.
+- Product persistence/schema/API: **unchanged**.
+- Next capability MW5: **NOT AUTHORIZED**.
+- Cognitive Completion: **NOT PROVEN** · runtime v3: **NON ADOPTED** · production routing: **NOT SELECTED**.
 
-## 4. Entry Local Git Truth — PASS
+## 4. Local Git Truth Check — PASS
 
 | Field | Value |
 |---|---|
@@ -39,21 +48,38 @@ Harness-only isolation of Nora Session SQLite under Vitest fileParallelism. No n
 | entry HEAD | `01956bdc808d459a5def4a7018ab7a1b16530f42` |
 | origin/delivery | `01956bdc808d459a5def4a7018ab7a1b16530f42` |
 | origin/main | `deb34943dd85472644c221243cd7c0fd5369614e` |
-| PR #461 | OPEN / NOT MERGED / base main @ deb34943… / head @ 01956bdc… |
+| PR #461 | OPEN / NOT MERGED |
+| PR head | `01956bdc808d459a5def4a7018ab7a1b16530f42` |
+| PR base | main @ `deb34943dd85472644c221243cd7c0fd5369614e` |
+| staged | empty |
+| tracked modified (project) | **only** `projects/sfia-studio/app/__tests__/setup.ts` |
+| setup.ts exact candidate match | **TRUE** (byte-identical to source-locked candidate) |
 
-Acceptable dirty: `.tmp-sfia-review/**`, `node_modules` symlink. Not staged.
+Non-project dirty: `.tmp-sfia-review/**`, `node_modules` symlink — never staged into project commit.
 
-## 5. QA-MW4-PR-CI-02 causal lineage (not re-diagnosed)
+## 5. Entry handoff truth
 
-Proven root cause: shared default `nora-session.sqlite` under fileParallelism → `database is locked` → `PROVIDER_ERROR` → `result.ok=false`. Causal treatment with per-worker `SFIA_STUDIO_NORA_SESSION_DB_PATH`: 5/5 PASS, locks=0.
+| Field | Value |
+|---|---|
+| branch | `sfia/review-handoff` |
+| tip | `83dfafeedb7be5148e16c9d8b09f7356a502319c` |
+| blob | `96aa49b6aa82da9b1adf696900840cd6c5e7ffd0` |
+| prior verdict | `STOP — CORR-MW4-PR-CI-02 LOCAL CORRECTION PROOF FAILED` |
+| handoff worktree resolved | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
 
-## 6. Implemented correction (working tree only — NOT COMMITTED)
+## 6. ChatGPT requalification consumed
 
-### Intended tracked file (only)
+`PASS WITH RESERVE — CORR-MW4-PR-CI-02 CAUSAL CORRECTION REQUALIFIED FOR PROJECT GIT PUBLICATION GATE`
 
-`projects/sfia-studio/app/__tests__/setup.ts`
+Consumed conclusions:
 
-### FULL current content
+- Causal SQLite isolation proven (focused parallel 5/5; locks=0).
+- Local full `npm test` 5s timeouts are **pre-existing** (same titles with and without patch) → **not** a regression from the harness fix.
+- Local full `npm test` is **NOT** the publication acceptance gate for this cycle.
+- Integration-environment full-suite proof = **GitHub PR CI** after project push.
+- MW2 / MW4 deterministic / MW4 REAL / Integrated REAL: **KEEP ACCEPTED**.
+
+## 7. Exact setup.ts content (COMPLETE)
 
 ```ts
 import "@testing-library/jest-dom/vitest";
@@ -78,10 +104,9 @@ process.env.SFIA_STUDIO_NORA_SESSION_DB_PATH = path.join(
   sessionDir,
   "nora-session.sqlite",
 );
-
 ```
 
-### FULL diff vs entry HEAD
+## 8. Exact setup.ts diff vs entry HEAD `01956bdc…` (COMPLETE)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/setup.ts b/projects/sfia-studio/app/__tests__/setup.ts
@@ -111,135 +136,81 @@ index f149f27a..873a765e 100644
 +  sessionDir,
 +  "nora-session.sqlite",
 +);
-
 ```
 
-### Why harness isolation (not product hardening)
+## 9. Causal lineage (SQLite)
 
-Matches QA causal treatment; uses official env override; no `sessionPaths` / `ProductSqliteSession` / orchestrator / busy_timeout / workflow / vitest.config / package changes.
+QA-MW4-PR-CI-02 proved shared default `.sfia-exec/product/nora-session.sqlite` under Vitest `fileParallelism` → `database is locked` → `PROVIDER_ERROR` → `result.ok=false` (CI D0-10; local parallel other cases).
 
-### Product runtime unchanged
+CORR causal treatment (same 7-file parallel set, default parallelism, per-worker `SFIA_STUDIO_NORA_SESSION_DB_PATH`): **5/5 PASS**, locks=0.
 
-- `sessionPaths.ts`: untouched
-- `ProductSqliteSession`: untouched
-- orchestrators: untouched
-- `vitest.config.ts`: untouched
-- `.github/workflows/**`: untouched
-- `package.json` / lock: untouched
-- No `SFIA_STUDIO_PRODUCT_DB_PATH` introduced
+## 10. Failure class discrimination
 
-Env-mutating tests (`session.d0`, `mw1.s01.honestMemoryB`) only assert basename `nora-session.sqlite` after deleting env, then restore `prev` — compatible with worker baseline.
+### Class 1 — SQLite lock (CI-blocking defect)
 
-## 7. Local validation evidence
+**CAUSALLY FIXED BY HARNESS ISOLATION CANDIDATE**
 
-node=`v24.16.0` · npm=`11.13.0`
+Envelope: `provider_error` / `PROVIDER_ERROR` / `database is locked`.
 
-### A. Diff hygiene
+### Class 2 — local 5s timeouts
 
-Tracked delta before stop: **setup.ts only** (+21 lines). `git diff --check` clean on that file.
+**PRE-EXISTING TEST/HOST TIMING LIMITATION + CI/LOCAL ENVIRONMENT DIFFERENCE**
 
-### B. Causal focused parallel (same 7-file QA set; default parallelism; NO `--no-file-parallelism`)
+Observed with AND without patch on this host under default Vitest 5000ms timeout; same four titles (f3 / qa-pre-m6). Focused trio PASS. Prior GitHub full-suite red run failed only on D0/SQLite class, not these timeouts.
 
-| Iter | Result | database is locked |
-|---|---|---|
-| 1–5 | **PASS** 7/7 | **0** |
+## 11. Reserves
 
-**5/5 PASS · lock count = 0**
+- **R-MW4-PR-CI-02-LOCAL-TIMING** — **OPEN / PRESERVED / NON-BLOCKING FOR PROJECT-GIT PUBLICATION**
+- Local Git truth: **reverified PASS** at entry of this gate
+- CI integration proof: **PENDING** until post-push GitHub Actions on PROJECT_COMMIT_SHA
+- R-MW4-PR-CI-01: **KEEP CLOSED** (Build boundary; build remains green locally)
 
-### C. Focused MW2
+## 12. MW0→MW4 proof impact
 
-- D0-10: **PASS**
-- full mw2.corr04: **PASS**
-
-### D–F
-
-- typecheck: **PASS**
-- lint: **PASS**
-- build: **PASS** (R-MW4-PR-CI-01 local Build remains green)
-
-### G. FULL default-parallel `npm test` (acceptance gate)
-
-**Run 1 WITH correction:** FAIL
-
-```
-Test Files  3 failed | 269 passed | 14 skipped (286)
-Tests       4 failed | 2504 passed | 132 skipped (2640)
-database is locked = 0
-```
-
-Failures (all **Test timed out in 5000ms**, default Vitest timeout — NOT session-lock class):
-
-1. `f3.fixtureVerticalSlice` — AC-F3-FIX-17/18
-2. `qa-pre-m6-01.finalHardening` — H1
-3. `qa-pre-m6-01.finalHardening` — H2/H3/…
-4. `qa-pre-m6-01.postGoDurableM3Path` — T4/T5/…
-
-Failing trio alone under default parallelism: **PASS** (3/3 files).
-
-**Run 2:** **NOT RUN** — contract forbids rerunning until green after first full-suite failure; first failure was not the proven lock class, but acceptance still failed.
-
-### Baseline discrimination (diagnostic; HEAD setup restored temporarily then correction restored)
-
-**`npm test` WITHOUT isolation (entry HEAD setup.ts):**
-
-```
-ec=1 · 3 failed | 269 passed | 14 skipped
-database is locked = 0
-timeouts = 8
-same four FAIL titles as with correction
-```
-
-Conclusion: local full-suite 5s timeouts reproduce **with and without** the correction on this machine. They are **not** evidence that session isolation broke those tests, and they are **not** the QA-proven `database is locked` defect. They still block the cycle acceptance bar requiring green local default-parallel `npm test`.
-
-### H. Diff-check
-
-PASS on setup.ts. Correction remains unstaged/uncommitted in working tree.
-
-## 8. Project Git / push / PR CI
-
-| Action | Status |
+| Boundary | Status |
 |---|---|
-| Commit | **NOT PERFORMED** (acceptance bar failed) |
-| Push | **NOT PERFORMED** |
-| PR #461 head | remains `01956bdc808d459a5def4a7018ab7a1b16530f42` |
-| Remote CI on correction | **NOT TRIGGERED** |
-| Merge | **NO** |
+| MW0 | KEEP ACCEPTED |
+| MW1 | KEEP ACCEPTED |
+| MW2 | KEEP ACCEPTED |
+| MW3 | KEEP ACCEPTED |
+| MW4 deterministic/product-bound | KEEP ACCEPTED |
+| MW4 REAL | KEEP ACCEPTED |
+| MW0→MW4 Integrated REAL | KEEP ACCEPTED |
 
-## 9. Reserves / proof impact
+No new REAL this cycle. No proof upgrade beyond harness/CI integration scope after green CI.
 
-| Item | Posture |
-|---|---|
-| R-MW4-PR-CI-01 | **KEEP CLOSED** (local Build PASS; no product barrel change) |
-| R-MW4-PR-CI-02 | **OPEN** — causal harness fix prepared & causally validated on focused parallel set, but **local full default-parallel acceptance not met** |
-| R-QA-MW4-PR-CI-02-01 | PRESERVED (CI envelope precision) |
-| R-QA-MW4-PR-CI-02-02 | PRESERVED / observed handoff SHAs used |
-| MW2 / MW4 det / MW4 REAL / Integrated REAL | **KEEP ACCEPTED** |
-| New local finding | Full default-parallel `npm test` on this agent host hits **5s timeouts** on long f3/qa-pre-m6 cases even at entry HEAD — distinct from session-lock; may need separate requalification vs CI (where those cases previously passed under the red D0-10 run) |
+## 13. Anti-claims
 
-## 10. Governance anti-claims
+- PR #461 MERGE = **NOT AUTHORIZED**
+- MW4 = **NOT CLOSED**
+- MW5 = **NOT AUTHORIZED**
+- COGNITIVE COMPLETION = **NOT PROVEN**
+- RUNTIME V3 = **NON ADOPTED**
+- PRODUCTION MODEL ROUTING = **NOT SELECTED**
+- REAL this cycle = **ZERO**
+- Architecture/persistence/product runtime change = **NO**
+- Vitest config / CI workflow / timeout change = **NO**
 
-- PR #461 MERGE = NOT AUTHORIZED / NOT PERFORMED
-- MW4 = NOT CLOSED
-- MW5 = NOT AUTHORIZED
-- COGNITIVE COMPLETION = NOT PROVEN
-- RUNTIME V3 = NON ADOPTED
-- PRODUCTION MODEL ROUTING = NOT SELECTED
-- REAL this cycle = ZERO
-- Architecture/persistence change = NO
-- Product runtime modified = NO (uncommitted harness-only working tree)
+## 14. Authorized project Git actions (this gate)
 
-## 11. Final verdict
+1. Stage/commit **only** `projects/sfia-studio/app/__tests__/setup.ts`
+2. Fast-forward push `delivery/sfia-studio-nora-mw4-grounding-durability`
+3. Read-only observe PR #461 CI for PROJECT_COMMIT_SHA
+4. L3 handoff publications (pre + final)
 
-`STOP — CORR-MW4-PR-CI-02 LOCAL CORRECTION PROOF FAILED`
+## 15. Forbidden actions (confirmed)
 
-Reason: causal focused parallel proof **PASS 5/5 / locks=0**, but acceptance-required full default-parallel `npm test` **FAIL** (5s timeouts; lock count 0). Same timeouts occur at entry HEAD without isolation → not attributed to the session isolation patch, yet commit/push are forbidden until the local full-suite bar passes or Morris/ChatGPT requalifies the acceptance criteria vs CI-only full-suite proof.
+No merge; no PR metadata mutation; no force push; no amend/rebase; no product/runtime/config/CI/timeout changes; no REAL; no MW4 closure; no MW5.
 
-## 12. Next gate
+## 16. Pre-publication verdict
 
-ChatGPT CRITICAL requalification:
+`PASS WITH RESERVE — CORR-MW4-PR-CI-02 CAUSAL CORRECTION REQUALIFIED FOR PROJECT GIT PUBLICATION GATE`
 
-1. Accept focused causal 5/5 + typecheck/lint/build as sufficient to authorize commit/push and rely on PR CI full suite; **or**
-2. Authorize a bounded timeout/config approach (currently **forbidden** by this GO); **or**
-3. Require agent to obtain green local full `npm test` under default 5s (may be host-load constrained).
+## 17. Post-publication section (TO BE FILLED AFTER PUSH/CI)
 
-Working-tree correction left in place for inspection; **not committed**.
+- Regularization handoff tip/blob: _pending this publish_
+- Fresh typecheck/lint/build/focused: _pending_
+- PROJECT_COMMIT_SHA: _pending_
+- Remote parity / PR head: _pending_
+- GitHub Actions run / Unit tests / Required Gate: _pending_
+- Final verdict: _pending_
