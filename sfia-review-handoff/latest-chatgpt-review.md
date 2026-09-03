@@ -101,7 +101,7 @@ projects/sfia-studio/app/lib/nora-eval/mw5Observe.ts
    - candidate local uncommitted (Delivery + CORR)
    - no unexpected staged project files
 8. Previous handoff read before overwrite:
-   - tip: 74b755fd7750ab5c134381d83588bbc056c4f775
+   - tip: ddc541850e0fbe0ee909ffd1b37f9f915574ace1
    - blob: 1545723a2527da3dc0b0b01229d4c3bfda18dab6
    - title: # SFIA Review Pack — MW5 Delivery (local D0/EVAL candidate)
    - parity: OK vs expected tip/blob; local candidate coherent with Delivery handoff + CORR overlays
@@ -3543,8 +3543,8 @@ Lire le Review Handoff Git distant:
 - repository: mcleland147/sfia-workspace
 - branche: sfia/review-handoff
 - fichier: sfia-review-handoff/latest-chatgpt-review.md
-- tip: <REMOTE_TIP_VERIFIE — filled after publish>
-- blob: <REMOTE_BLOB_VERIFIE — filled after publish>
+- tip: ddc541850e0fbe0ee909ffd1b37f9f915574ace1
+- blob: c5b8d5431347dce739fe980adb8f3e977818aece
 - cycle: CORR-MW5-DLV-01 — MW5 Critical Challenge + Clarification correction candidate
 - preuve: D0/EVAL/UX déterministe uniquement
 - demande: ChatGPT Critical Re-Review
