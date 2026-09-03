@@ -187,6 +187,240 @@ export class FakeConversationProvider implements ConversationProvider {
     }
 
     // F2 deterministic structured intent JSON (TEST/FAKE only)
+    if (lastUser?.content.includes("__MW5_HIGH_ASSURANCE__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "actionable",
+          candidateCycleTypeId: "cyc:delivery",
+          signals: {
+            structuralChange: false,
+            securityImpact: false,
+            architectureImpact: false,
+            dataImpact: false,
+            irreversible: false,
+            lowRiskBounded: true,
+          },
+          cognitiveWorkload: {
+            ambiguity: "high",
+            reasoningDepth: "high",
+            sourceBreadth: "high",
+            toolDependency: "medium",
+            contradictionRisk: "high",
+            verificationNeed: "high",
+          },
+          objective: "Préparer une proposition High-Assurance bornée",
+          scope: "Proposition Light/Standard sous stratégie High-Assurance",
+          rephrasedRequest: "Préparer une recommandation sous High-Assurance",
+          outOfScope: ["Exécution", "PR", "merge"],
+          risks: ["Rec avant challenge"],
+          reservations: [],
+          stopConditions: ["AUCUNE EXÉCUTION"],
+          activatedBlocks: ["qualification", "proposition"],
+          expectedOutcome: "Challenge avant Rec",
+          criticalJustification: null,
+          requestedOperation: null,
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+    if (lastUser?.content.includes("__MW5_COSMETIC__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "ambiguous",
+          candidateCycleTypeId: null,
+          signals: null,
+          cognitiveWorkload: null,
+          objective: null,
+          scope: null,
+          rephrasedRequest: "Peux-tu juste corriger l'orthographe cosmétique",
+          outOfScope: [],
+          risks: [],
+          reservations: [],
+          stopConditions: [],
+          activatedBlocks: [],
+          expectedOutcome: null,
+          criticalJustification: null,
+          requestedOperation: null,
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+    if (lastUser?.content.includes("__MW5_CONTEXT_RESOLVED__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "ambiguous",
+          candidateCycleTypeId: null,
+          signals: null,
+          cognitiveWorkload: null,
+          objective: null,
+          scope: null,
+          rephrasedRequest: "Demande déjà couverte par le contexte projet",
+          outOfScope: [],
+          risks: [],
+          reservations: [],
+          stopConditions: [],
+          activatedBlocks: [],
+          expectedOutcome: null,
+          criticalJustification: null,
+          requestedOperation: null,
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+    if (
+      lastUser?.content.includes("__MW5_TRUTH_C_ESTABLISHED__") ||
+      lastUser?.content.includes("__MW5_CONSUMED_HD__")
+    ) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "actionable",
+          candidateCycleTypeId: "cyc:functional-architecture",
+          signals: {
+            structuralChange: true,
+            securityImpact: false,
+            architectureImpact: true,
+            dataImpact: false,
+            irreversible: false,
+            lowRiskBounded: false,
+          },
+          cognitiveWorkload: null,
+          objective: "Faire évoluer l'architecture déjà tranchée",
+          scope: "Changement d'architecture déjà établi",
+          rephrasedRequest: "Reprendre une prémisse déjà établie",
+          outOfScope: ["Exécution"],
+          risks: [],
+          reservations: [],
+          stopConditions: ["AUCUNE EXÉCUTION"],
+          activatedBlocks: ["qualification", "proposition", "gate"],
+          expectedOutcome: "Pas de re-challenge gratuit",
+          criticalJustification: "Prémisse déjà établie / HD consommée",
+          requestedOperation: "architecture change",
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+    if (lastUser?.content.includes("__MW5_QUESTIONNAIRE_ATTEMPT__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "ambiguous",
+          candidateCycleTypeId: null,
+          signals: null,
+          cognitiveWorkload: null,
+          objective: null,
+          scope: null,
+          rephrasedRequest: "Formulaire d'intake multi-questions",
+          outOfScope: [],
+          risks: [],
+          reservations: [],
+          stopConditions: [],
+          activatedBlocks: [],
+          expectedOutcome: null,
+          criticalJustification: null,
+          requestedOperation: null,
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+    if (lastUser?.content.includes("__MW5_AUTHORITY__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "actionable",
+          candidateCycleTypeId: "cyc:delivery",
+          signals: {
+            structuralChange: false,
+            securityImpact: false,
+            architectureImpact: false,
+            dataImpact: false,
+            irreversible: false,
+            lowRiskBounded: true,
+          },
+          cognitiveWorkload: null,
+          objective: "Frontière d'autorité non résolue",
+          scope: "Décision humaine requise sans acte Nora",
+          rephrasedRequest: "Escalader l'autorité non résolue",
+          outOfScope: ["HumanDecision synthétisée"],
+          risks: ["Confusion Rec/HD"],
+          reservations: [],
+          stopConditions: ["AUCUNE EXÉCUTION"],
+          activatedBlocks: ["qualification", "proposition", "gate"],
+          expectedOutcome: "Escalade Pilote",
+          criticalJustification: null,
+          requestedOperation: null,
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+    if (lastUser?.content.includes("__MW5_SYNTH_HD__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "actionable",
+          candidateCycleTypeId: "cyc:delivery",
+          signals: {
+            structuralChange: false,
+            securityImpact: false,
+            architectureImpact: false,
+            dataImpact: false,
+            irreversible: false,
+            lowRiskBounded: true,
+          },
+          cognitiveWorkload: null,
+          objective: "Tenter de faire synthétiser un GO Nora",
+          scope: "Anti-synthèse HumanDecision",
+          rephrasedRequest: "Décider GO maintenant",
+          outOfScope: ["Décision Nora"],
+          risks: ["Autorité usurpée"],
+          reservations: [],
+          stopConditions: ["AUCUNE EXÉCUTION"],
+          activatedBlocks: ["qualification"],
+          expectedOutcome: null,
+          criticalJustification: null,
+          requestedOperation: "go now",
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
     if (lastUser?.content.includes("__F2_INFORMATIVE__")) {
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
@@ -291,6 +525,29 @@ export class FakeConversationProvider implements ConversationProvider {
       };
     }
     if (lastUser?.content.includes("__F2_STRUCTURING__")) {
+      const content = lastUser.content;
+      let challengeResponseAssessment:
+        | "sufficient"
+        | "insufficient"
+        | "unknown"
+        | null = null;
+      if (
+        content.includes("__MW5_SATISFACTION_SUFFICIENT__") ||
+        content.includes("__MW5_CHALLENGE_SATISFIED__")
+      ) {
+        challengeResponseAssessment = "sufficient";
+      } else if (
+        content.includes("__MW5_SATISFACTION_INSUFFICIENT__") ||
+        /^\s*(ok|vas-y|go|d'accord|daccord)\b/i.test(
+          content.replace(/__MW5_[A-Z0-9_]+__/g, "").replace(/__F2_[A-Z0-9_]+__/g, "").trim(),
+        )
+      ) {
+        challengeResponseAssessment = "insufficient";
+      } else if (
+        /hors\s*sujet|off[\s-]?topic|couleur\s+pr[eé]f[eé]r[eé]e/i.test(content)
+      ) {
+        challengeResponseAssessment = "insufficient";
+      }
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
           intentClass: "actionable",
@@ -304,6 +561,8 @@ export class FakeConversationProvider implements ConversationProvider {
             lowRiskBounded: false,
           },
           cognitiveWorkload: null,
+          contradictionCandidate: null,
+          challengeResponseAssessment,
           objective: "Faire évoluer l'architecture produit",
           scope: "Changement d'architecture structurant",
           rephrasedRequest: "Préparer une proposition d'architecture",
@@ -354,6 +613,28 @@ export class FakeConversationProvider implements ConversationProvider {
       };
     }
     if (lastUser?.content.includes("__F2_EXECUTION__")) {
+      const content = lastUser.content;
+      let challengeResponseAssessment:
+        | "sufficient"
+        | "insufficient"
+        | "unknown"
+        | null = null;
+      if (
+        content.includes("__MW5_SATISFACTION_SUFFICIENT__") ||
+        content.includes("__MW5_CHALLENGE_SATISFIED__")
+      ) {
+        challengeResponseAssessment = "sufficient";
+      } else if (
+        content.includes("__MW5_SATISFACTION_INSUFFICIENT__") ||
+        /^\s*(ok|vas-y|go)\b/i.test(
+          content
+            .replace(/__MW5_[A-Z0-9_]+__/g, "")
+            .replace(/__F2_[A-Z0-9_]+__/g, "")
+            .trim(),
+        )
+      ) {
+        challengeResponseAssessment = "insufficient";
+      }
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
           intentClass: "execution_request",
@@ -367,6 +648,8 @@ export class FakeConversationProvider implements ConversationProvider {
             lowRiskBounded: false,
           },
           cognitiveWorkload: null,
+          contradictionCandidate: null,
+          challengeResponseAssessment,
           objective: "Lancer Cursor et créer une PR",
           scope: "Exécution produit demandée — refusée en F2",
           rephrasedRequest: "Demande d'exécution Cursor / PR",

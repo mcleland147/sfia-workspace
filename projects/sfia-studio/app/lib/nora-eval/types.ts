@@ -19,7 +19,8 @@ export type ScenarioKind =
   | "memory_continuity"
   | "cognitive_strategy"
   | "contradiction_stop"
-  | "grounding_durability";
+  | "grounding_durability"
+  | "challenge_clarification";
 
 export type PassFail = "PASS" | "FAIL" | "INCONCLUSIVE" | "NOT_PROVEN";
 
@@ -80,12 +81,15 @@ export type Mw3StoryId = "MW3-S01" | "MW3-S02";
 
 export type Mw4StoryId = "MW4-S01" | "MW4-S02" | "MW4-S03";
 
+export type Mw5StoryId = "MW5-S01" | "MW5-S02" | "MW5-S03" | "MW5-S04";
+
 export type CognitiveStoryId =
   | Mw0StoryId
   | Mw1StoryId
   | Mw2StoryId
   | Mw3StoryId
-  | Mw4StoryId;
+  | Mw4StoryId
+  | Mw5StoryId;
 
 export type CycleTypeFixtureId =
   | "delivery_implementation"
