@@ -706,7 +706,10 @@ Metadata staleness alone = **NON-BLOCKING** (Git/CI/handoff carry truth).
 - publisher: `scripts/sfia/publish-review-handoff.sh`
 - expected commit message: `review(sfia): publish MW4 PR finalization result`
 - handoff worktree: `/Users/morris/Projects/sfia-workspace/sfia-review-handoff`
-- HANDOFF_FINAL_TIP / HANDOFF_FINAL_BLOB: filled after remote verification
+- HANDOFF_FINAL_TIP: `d9019adcb87a4b86bd17be5ab6888c6a16e6840a`
+- HANDOFF_FINAL_BLOB: `2635389f5465799a5115432547f7b0be2a0bdd7c`
+- publisher verdict: HANDOFF UPDATED — REMOTE VERIFIED
+- section 21 Merge Readiness item 21: handoff final distant verified = YES
 
 ## 26. Final verdict
 
