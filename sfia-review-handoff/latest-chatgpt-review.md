@@ -9998,5 +9998,45 @@ index e3c166e7..19d9562d 100644
 ## APPENDIX B — Excluded
 .tmp-sfia-review/** · test-results/**
 
+
+## H2 UPDATE — after project commit / push / PR (2026-09-04 01:22:43 CEST)
+
+### 28. Staged file set
+38 KEEP paths (see inventory). EXCLUDE `.tmp-sfia-review/**` and `test-results/**`.
+
+### 29. Cached / committed diff
+38 files changed, 8897 insertions(+), 114 deletions(-)
+
+### 30. Project commit
+- commit SHA: `a2c0bc2eef8959667d2c00b2bc917639eda70e5d`
+- tree SHA: `fe946b51e054a3a9a6acfc4ca55c35157c07d0c9`
+- parent SHA: `9b45f0d7700a3127fa28c13f37ffae40432ae05c`
+- message: feat(sfia-studio): integrate Nora MW5 critical challenge and clarification
+
+### 31. Project push verification
+- remote branch: `origin/delivery/sfia-studio-nora-mw5-critical-challenge-clarification`
+- remote tip == local HEAD == `a2c0bc2eef8959667d2c00b2bc917639eda70e5d`
+- force push: NO
+
+### 32. PR
+- number: **463**
+- url: https://github.com/mcleland147/sfia-workspace/pull/463
+- title: feat(sfia-studio): integrate Nora MW5 critical challenge and clarification
+- base: main
+- head: delivery/sfia-studio-nora-mw5-critical-challenge-clarification
+
+### 33. PR body
+Full body posted on GitHub PR #463 (Summary / Product scope / Deterministic / Standalone REAL / Cumulative REAL / Governance H17 FAIL 141/100 + H18 INCONCLUSIVE + Morris acceptance / SHA / Fake-Real / Validation / Reserves / Anti-claims / Merge gate).
+
+### 34. PR head SHA
+`a2c0bc2eef8959667d2c00b2bc917639eda70e5d`
+
+### 35–40. CI
+*(pending observation — H3)*
+
+### Updated verdict (H2)
+**PROJECT GIT INTEGRATED TO PR — CI PENDING**
+Merge NOT performed.
+
 ## Checkpoint
-H1 — readiness before project commit
+H1 published · H2 after commit/push/PR · H3 pending CI
