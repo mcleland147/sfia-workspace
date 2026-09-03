@@ -1492,7 +1492,9 @@ async function runCampaign(): Promise<void> {
 ## 63. Final Git truth
 - HEAD/origin/main/merge-base unchanged: 9b45f0d7700a3127fa28c13f37ffae40432ae05c
 - project commit NONE; staged NONE
-- handoff tip at pack write (pre-publish): 2f180cf34a6577438ffe921f88a8030211866247
+- previous handoff tip (pre-publish): 2f180cf34a6577438ffe921f88a8030211866247
+- published handoff tip: e5f654cd1e5e536c4f882a78e3e4d3e491b27d37
+- published handoff blob: 21cd321479ed7054d852f12c01197dfe87518081
 
 ## 64. Project Git actions
 NONE
@@ -1524,8 +1526,8 @@ Lire le Review Handoff Git distant :
 repository = mcleland147/sfia-workspace
 branch = sfia/review-handoff
 file = sfia-review-handoff/latest-chatgpt-review.md
-tip = <REMOTE_TIP_VERIFIE après publish>
-blob = <REMOTE_BLOB_VERIFIE après publish>
+tip = e5f654cd1e5e536c4f882a78e3e4d3e491b27d37
+blob = 21cd321479ed7054d852f12c01197dfe87518081
 cycle = NORA-MW0-MW5-BUSINESS-INTEGRATED-REAL-01 — complete cumulative REAL candidate
 proof = single-Project cumulative MW0→MW5 integrated REAL business chain
 source baseline = authoritative prior MW0→MW4 integrated REAL chain
