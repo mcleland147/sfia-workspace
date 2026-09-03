@@ -13,6 +13,7 @@
  */
 
 import { resolveConversationProvider } from "@/lib/platform/ai";
+import { buildPostEvidenceNarrativePolicyDisclosure } from "@/lib/nora-cognitive-runtime/postEvidenceNarrativePolicy";
 
 /** Same marker string as f2/ckcCognitiveContext — keep in sync (string only). */
 const CKC_COGNITIVE_REASONING_SYSTEM_MARKER =
@@ -70,7 +71,9 @@ Interdit:
 - lancer un ExecutionContract / Attempt;
 - demander des secrets;
 - inventer une preuve REAL.
-Réponds en français, court, factuel.`;
+Réponds en français, court, factuel.
+
+${buildPostEvidenceNarrativePolicyDisclosure()}`;
 
 function boundedFactsJson(facts: PostEvidenceAnalysisFacts): string {
   return JSON.stringify({

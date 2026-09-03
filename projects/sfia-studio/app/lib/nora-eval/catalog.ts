@@ -245,6 +245,24 @@ const SCENARIOS: ScenarioDefinition[] = [
     ],
     d0Expectations: { mustPass: true },
   },
+  {
+    scenarioId: "mw4.s01.grounding-durability",
+    catalogVersion: NORA_EVAL_CATALOG_VERSION,
+    storyIds: ["MW4-S01", "MW4-S02", "MW4-S03"],
+    barIds: ["NCC-BAR-05", "NCC-BAR-12", "NCC-BAR-04", "NCC-BAR-10"],
+    kind: "grounding_durability",
+    title:
+      "MW4-S01/S02/S03 — grounding durability + narrative honesty + read partiality (D0)",
+    prompt:
+      "Deterministic MW4 grounding re-resolve / narrative≠Evidence / partiality; ZERO REAL.",
+    requiredTier: ["D0"],
+    hardInvariants: [
+      "mw4_grounding_durability",
+      "mw4_narrative_evidence_honesty",
+      "mw4_read_partiality",
+    ],
+    d0Expectations: { mustPass: true },
+  },
 ];
 
 export function getCatalogVersion(): typeof NORA_EVAL_CATALOG_VERSION {

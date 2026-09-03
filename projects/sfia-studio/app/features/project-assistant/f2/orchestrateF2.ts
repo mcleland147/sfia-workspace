@@ -389,6 +389,8 @@ export async function orchestrateAssistantSend(input: {
    * Prefer per-instance OpenAIConversationProvider over process.env mutation.
    */
   provider?: ConversationProvider;
+  /** Test override for Product SQLite Session path (MW1/MW4 durability). */
+  sessionDbPath?: string;
 }): Promise<ProjectAssistantSendResult> {
   const content = input.content.trim();
   if (!content) {

@@ -16,6 +16,7 @@ import { observeMw1S01FromRuntime } from "./mw1S01Observe";
 import { observeMw1S02FromRuntime } from "./mw1S02Observe";
 import { observeMw2S01FromRuntime } from "./mw2S01Observe";
 import { observeMw3FromRuntime } from "./mw3Observe";
+import { observeMw4FromProductPath } from "./mw4Observe";
 
 function nowIso(): string {
   return new Date().toISOString();
@@ -111,6 +112,8 @@ async function observationForScenario(
       return observeMw2S01FromRuntime();
     case "mw3.s01.disposition-matrix":
       return observeMw3FromRuntime();
+    case "mw4.s01.grounding-durability":
+      return observeMw4FromProductPath();
     default:
       return { productPath: "none" };
   }

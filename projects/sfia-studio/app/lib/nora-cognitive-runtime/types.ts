@@ -14,6 +14,7 @@ import type {
   MemoryBCompactionState,
   TruthCRevision,
 } from "./memoryBCompaction";
+import type { Mw4GroundingTurnSurface } from "./groundingDurability";
 
 /** F1/Nora cognitive runtime kind — Agents SDK Runner only. */
 export type NoraCognitiveRuntimeKind = "agents";
@@ -47,6 +48,8 @@ export type NoraCognitiveTurnResult = {
   contradictionDisposition?: ContradictionDispositionResult;
   /** MW3 — present only when contradictionAssessment was supplied. */
   cognitiveStopDecision?: CognitiveStopDecision;
+  /** MW4 — grounding durability surface when Session refs were assessed. */
+  mw4Grounding?: Mw4GroundingTurnSurface;
 };
 
 export type { TruthCRevision, MemoryBCompactionState, MemoryBCompactionDetails };
