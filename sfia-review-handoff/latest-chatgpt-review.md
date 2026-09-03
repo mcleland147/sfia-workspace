@@ -1,9 +1,9 @@
-# SFIA Review Pack — CORR-MW5-DLV-01 (local D0/EVAL/UX correction candidate)
+# SFIA Review Pack — CORR-MW5-DLV-02 (final local deterministic correction candidate)
 
-1. Timestamp: 2026-09-03T19:35:42+0200 / 2026-09-03 19:35 CEST (Europe/Paris)
-2. Cycle: CORR-MW5-DLV-01 — MW5 Critical Challenge + Clarification correction (INC)
+1. Timestamp: 2026-09-03T20:05:13+0200 / 2026-09-03 20:05 CEST (Europe/Paris)
+2. Cycle: CORR-MW5-DLV-02 — MW5 Critical Challenge + Clarification final deterministic correction (INC)
 3. Profile: CRITICAL
-4. Morris GO consumed: GO MORRIS — CORR-MW5-DLV-01 — CORRECTIONS LOCALES CONTRÔLÉES APRÈS CHATGPT CRITICAL REVIEW — D0/EVAL + PLAYWRIGHT APPLICABLE — REVIEW HANDOFF L3 PUBLISH-IN-CYCLE — NO REAL — NO PROJECT COMMIT/PUSH/PR/MERGE — NO ARCHITECTURE/PERSISTENCE EXPANSION.
+4. Morris GO consumed: GO MORRIS — CORR-MW5-DLV-02 — CORRECTIONS LOCALES CONTRÔLÉES DES DEUX BLOCAGES RESTANTS APRÈS CHATGPT CRITICAL RE-REVIEW — D0/EVAL/UX — REVIEW HANDOFF L3 PUBLISH-IN-CYCLE — NO REAL — NO PROJECT COMMIT/PUSH/PR/MERGE — NO PERSISTENCE/ARCHITECTURE EXPANSION.
 5. Repo / worktree / branch:
    - repository: mcleland147/sfia-workspace
    - worktree: /Users/morris/Projects/sfia-workspace-nora-mw5-critical-challenge-clarification
@@ -13,14 +13,13 @@
    - origin/main: 9b45f0d7700a3127fa28c13f37ffae40432ae05c
    - merge-base: 9b45f0d7700a3127fa28c13f37ffae40432ae05c
    - equality: HEAD == merge-base == origin/main == 9b45f0d7700a3127fa28c13f37ffae40432ae05c
-7. Local Git truth (start of CORR / reconfirmed):
+7. Initial local git truth (CORR-DLV-02 start):
 ```
-pwd = /Users/morris/Projects/sfia-workspace-nora-mw5-critical-challenge-clarification
-branch = delivery/sfia-studio-nora-mw5-critical-challenge-clarification
-HEAD = 9b45f0d7700a3127fa28c13f37ffae40432ae05c
-origin/main = 9b45f0d7700a3127fa28c13f37ffae40432ae05c
-merge-base = 9b45f0d7700a3127fa28c13f37ffae40432ae05c
-status --short (final candidate before pack write):
+branch=delivery/sfia-studio-nora-mw5-critical-challenge-clarification
+HEAD=9b45f0d7700a3127fa28c13f37ffae40432ae05c
+origin/main=9b45f0d7700a3127fa28c13f37ffae40432ae05c
+merge-base=9b45f0d7700a3127fa28c13f37ffae40432ae05c
+status (observed at pack write):
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
  M projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
@@ -37,33 +36,34 @@ status --short (final candidate before pack write):
  M projects/sfia-studio/app/lib/nora-eval/types.ts
  M projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
 ?? .tmp-sfia-review/corr-mw5-artifacts/
+?? .tmp-sfia-review/corr-mw5-dlv02-artifacts/
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw5.product-authority.facts.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw5.s01-s04.disposition.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-eval/mw5.challenge.eval.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/mw5.analyzeIntent.challenge-context.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/mw5.challenge.clarification.product.d0.test.ts
+?? projects/sfia-studio/app/features/project-assistant/f2/mw5ChallengeSessionStore.ts
 ?? projects/sfia-studio/app/features/project-assistant/f2/resolveMw5ProductAuthorityFromOa.ts
 ?? projects/sfia-studio/app/lib/nora-cognitive-runtime/criticalChallengeClarification.ts
 ?? projects/sfia-studio/app/lib/nora-cognitive-runtime/mw5ProductAuthorityFacts.ts
 ?? projects/sfia-studio/app/lib/nora-eval/mw5Observe.ts
-diff --stat:
- .tmp-sfia-review/chatgpt-review.md                 | 2722 ++++++++++++++++++--
- .../project-assistant/f2.orchestrate.test.ts       |   40 +-
- .../importBoundaries.test.ts                       |    1 +
- .../sfia-studio/app/e2e/studio-option-a.spec.ts    |   83 +-
- .../project-assistant/f2/intentAnalysis.ts         |   29 +
- .../features/project-assistant/f2/orchestrateF2.ts |  191 +-
- .../app/features/project-assistant/f2/types.ts     |   10 +
- .../app/features/project-assistant/types.ts        |   29 +
- .../app/lib/nora-cognitive-runtime/index.ts        |   37 +
- projects/sfia-studio/app/lib/nora-eval/catalog.ts  |   25 +
- projects/sfia-studio/app/lib/nora-eval/d0Runner.ts |    3 +
- projects/sfia-studio/app/lib/nora-eval/index.ts    |    6 +
- projects/sfia-studio/app/lib/nora-eval/scorers.ts  |   81 +
- projects/sfia-studio/app/lib/nora-eval/types.ts    |    8 +-
- .../app/lib/platform/ai/fakeProvider.ts            |  283 ++
- 15 files changed, 3256 insertions(+), 292 deletions(-)
-diff --name-status:
-M	.tmp-sfia-review/chatgpt-review.md
+diff --stat (app):
+ .../project-assistant/f2.orchestrate.test.ts       |  46 +++-
+ .../importBoundaries.test.ts                       |   1 +
+ .../sfia-studio/app/e2e/studio-option-a.spec.ts    |  83 +++++-
+ .../project-assistant/f2/intentAnalysis.ts         |  54 +++-
+ .../features/project-assistant/f2/orchestrateF2.ts | 228 ++++++++++++++++-
+ .../app/features/project-assistant/f2/types.ts     |  10 +
+ .../app/features/project-assistant/types.ts        |  29 +++
+ .../app/lib/nora-cognitive-runtime/index.ts        |  41 +++
+ projects/sfia-studio/app/lib/nora-eval/catalog.ts  |  25 ++
+ projects/sfia-studio/app/lib/nora-eval/d0Runner.ts |   3 +
+ projects/sfia-studio/app/lib/nora-eval/index.ts    |   6 +
+ projects/sfia-studio/app/lib/nora-eval/scorers.ts  |  81 ++++++
+ projects/sfia-studio/app/lib/nora-eval/types.ts    |   8 +-
+ .../app/lib/platform/ai/fakeProvider.ts            | 283 +++++++++++++++++++++
+ 14 files changed, 873 insertions(+), 25 deletions(-)
+name-status:
 M	projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
 M	projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
 M	projects/sfia-studio/app/e2e/studio-option-a.spec.ts
@@ -88,122 +88,486 @@ untracked:
 .tmp-sfia-review/corr-mw5-artifacts/mw5ProductAuthorityFacts.ts
 .tmp-sfia-review/corr-mw5-artifacts/resolveMw5ProductAuthorityFromOa.ts
 .tmp-sfia-review/corr-mw5-artifacts/tracked.diff
+.tmp-sfia-review/corr-mw5-dlv02-artifacts/tracked-corr02.diff
 projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw5.product-authority.facts.d0.test.ts
 projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw5.s01-s04.disposition.d0.test.ts
 projects/sfia-studio/app/__tests__/nora-eval/mw5.challenge.eval.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/mw5.analyzeIntent.challenge-context.d0.test.ts
 projects/sfia-studio/app/__tests__/project-assistant/mw5.challenge.clarification.product.d0.test.ts
+projects/sfia-studio/app/features/project-assistant/f2/mw5ChallengeSessionStore.ts
 projects/sfia-studio/app/features/project-assistant/f2/resolveMw5ProductAuthorityFromOa.ts
 projects/sfia-studio/app/lib/nora-cognitive-runtime/criticalChallengeClarification.ts
 projects/sfia-studio/app/lib/nora-cognitive-runtime/mw5ProductAuthorityFacts.ts
 projects/sfia-studio/app/lib/nora-eval/mw5Observe.ts
 ```
-   - no project MW5 commit
-   - candidate local uncommitted (Delivery + CORR)
-   - no unexpected staged project files
-8. Previous handoff read before overwrite:
-   - tip: ddc541850e0fbe0ee909ffd1b37f9f915574ace1
-   - blob: 1545723a2527da3dc0b0b01229d4c3bfda18dab6
-   - title: # SFIA Review Pack — MW5 Delivery (local D0/EVAL candidate)
-   - parity: OK vs expected tip/blob; local candidate coherent with Delivery handoff + CORR overlays
-9. Sources actually used (routing + product + runtime call graph):
-   - Nora Cognitive Completion C1–C9 (cadrage/conception/UX/gap/backlog/MW0–MW2 readiness) as prior Delivery context
-   - Doctrine v3 30/32/33/34/35/37 (authority / Truth C / Recommendation ≠ HumanDecision)
-   - Convergence Build Doctrine + Roadmap (KEEP Option C; ADAPT F2; COMPLETE MW5)
-   - Runtime: criticalChallengeClarification, orchestrateF2, intentAnalysis, fakeProvider, mw5Observe, scorers, catalog, e2e/studio-option-a.spec.ts
-   - OA read-side: readLiveProjectContext, listDecisionHistory
-   - origin/sfia/review-handoff previous pack (ChatGPT Critical Review findings CORR-MW5-01…04)
-   - CKC Cycle 8 Delivery detailed pilot: ABSENT (fallback routing/method v2.6) — none invented
-10. Convergence pre-check (reconfirmed):
-   - capacity v3 = V3-F05 (support F04/F06/F08/F11)
-   - milestone = MW5
-   - Product Completion = CLOSED
-   - C1→C5 = source-lock courant
-   - MW0→MW4 = fermés au scope prouvé
-   - Option C = KEEP
-   - Runner/Session/CWP/MW3/MW4 spine = KEEP
-   - F2 = ADAPT
-   - MW5 challenge/ordering = COMPLETE (correction)
-   - no FA / no TA / no new persistence / no second Runner / no new authority model / no parallel architecture
-   - Responses Compaction = NOT ADOPTED
-   - production model routing = NOT SELECTED
-   - Cognitive Completion = NOT PROVEN
-   - runtime v3 = NON ADOPTED
-   - next gate = ChatGPT Critical Re-Review
-   - REAL R2 = distinct later Morris gate
-   - R22 OpenAI-native-first: reuse existing analyzeIntent structured cognition — NO second model call / NO new OpenAI primitive
+   - no project commit; candidate local uncommitted; no unexpected staged project files
+8. Previous handoff:
+   - tip: cb0a7563d5244e5f7c9c4fd7893057a7a150529d
+   - blob: f3f814d48fa0d24113198a4ce120b6482f0532c2
+   - title: # SFIA Review Pack — CORR-MW5-DLV-01 (local D0/EVAL/UX correction candidate)
+   - parity: OK
+9. Sources read: v2.6 routing/templates/guardrails; Nora C1–C9; doctrine 30/32/33/34/35/37; convergence; OA LPS/decision types+recordHumanDecision+listDecisionHistory; liveProjectContext; F2 orchestrate/intentAnalysis; MW5 policy/facts; Fake; Playwright; previous handoff. CKC Cycle 8 detailed pilot ABSENT — none invented.
+10. Convergence pre-check: V3-F05; MW5; Product Completion CLOSED; MW0–MW4 closed at proven scope; Option C KEEP; F2 ADAPT; MW5 COMPLETE delta; no FA/TA; no new persistence; no second model call; no second Runner; Compaction NOT ADOPTED; production routing NOT SELECTED; Cognitive Completion NOT PROVEN; runtime v3 NON ADOPTED; next gate ChatGPT Critical Re-Review then distinct Morris GO for R2.
+11. Candidate inventory before CORR-DLV-02: Delivery+CORR-DLV-01 local files present (policy/eval/F2/Playwright/tests).
+12. ChatGPT blockers exact:
+    - CORR-MW5-02B challenge context completeness
+    - CORR-MW5-01B Truth C / consumed HD relevance fail-closed
 
-11. CORR-MW5-01 — Product-fact fidelity — PASS
-    Finding: user markers `__MW5_TRUTH_C_ESTABLISHED__` / `__MW5_CONSUMED_HD__` were runtime authority.
-    Design: pure `resolveMw5ProductAuthorityFacts` + F2 helper `resolveMw5ProductAuthorityFromOa` reading Truth C via `readLiveProjectContext` and HD via `listDecisionHistory`.
-    Product fact source: LPS `ESTABLISHED_CLAIM:<domain>` token in Truth C context; accepted/amended HD overlapping claim; contradiction signal blocks HD skip.
-    Markers remain TEST-ONLY Fake fixtures, not product authority.
-    Tests: mw5.product-authority.facts.d0; product D0 Truth C / HD positive; marker-alone remains CHALLENGE.
-    Verdict: PASS — no new store/persistence.
+13–16. Challenge history provenance + analyzeIntent call graph
+    Provenance finding: `projectAssistantSendAction` accepts client `history`; UI rebuilds from local messages — client CAN inject fake `[MW5 CHALLENGE]`.
+    Resolution (not silent): server-issued process-local `mw5ChallengeSessionStore` (same durability class as F2 proposalStore — NOT Product SQLite). Challenge presence/text for assessment and satisfaction come ONLY from this store.
+    Before: analyzeIntent(projectSummary, userContent) → assessment without challenge text.
+    After: getMw5ChallengeSession → challengeContext → analyzeIntent SAME call embeds MW5_CHALLENGE_CONTEXT → one completeStructured → force assessment=null if no challengePresent.
+    Provider messages contract: system + user containing projectSummary + MW5_CHALLENGE_CONTEXT (or challengePresent=false) + Demande courante.
+    Invocation count evidence: unit spy test proves completeStructured called exactly once per analyzeIntent.
 
-12. CORR-MW5-02 — Fail-closed challenge satisfaction — PASS
-    Finding: any non-empty non-cosmetic reply satisfied challenge.
-    Seam: INTERNAL `challengeResponseAssessment` on same `analyzeIntent` structured call (`sufficient|insufficient|unknown|null`).
-    Contract: prior challenge AND assessment===`sufficient` only; missing/unknown/insufficient ⇒ false.
-    Fake emits assessment for STRUCTURING/EXECUTION via `__MW5_SATISFACTION_SUFFICIENT__` / trivial `ok` / off-topic.
-    Tests: disposition derive facts; product ok/off-topic blocked; sufficient unlocks Rec.
-    Verdict: PASS — no second provider call.
+17. CORR-MW5-02B — PASS
+    Design: mw5ChallengeSessionStore remember on CHALLENGE; clear on satisfied Rec; analyzeIntent challengeContext; isMw5ChallengeSatisfied requires openChallengePresent.
+    Tests: mw5.analyzeIntent.challenge-context.d0; disposition/product path ok/off-topic/sufficient; Playwright green.
+    Verdict: PASS
 
-13. CORR-MW5-03 — Playwright / UX — PASS
-    Before: `sendStructuring` expected gate+proposal on first turn; happy-path describe skipped W4-B.
-    After: two-turn MW5 helper; dedicated non-skipped describe `MW5 — Critical Challenge structuring UX`.
-    Product UI (non-legacy): proposal + `f2-gate-required` + RECOMMANDATION; legacy `project-assistant-gate` not shown (`product-authority-path-guidance` instead) — no UI redesign.
-    Command: `npx playwright test e2e/studio-option-a.spec.ts -g "MW5 — Critical Challenge"`
-    Result: exit 0; 1 passed (8.7s); 0 failed; 0 new skips.
-    D-MW5-E2E-STRUCTURING: CLOSED.
-    Verdict: PASS.
+18–21. LPS fields / Truth C / ESTABLISHED_CLAIM
+    LPS fields used: objective, scope, context, decisionIds (via getCurrentLivingProjectState).
+    ESTABLISHED_CLAIM repo producer search: ONLY candidate/tests — NO canonical product producer on main → RETIRED from runtime.
+    Truth C match: substantive (≥12) exact normalized equality OR strong containment (shorter ≥24) on objective/scope only. Context/orphan tags never suffice.
 
-14. CORR-MW5-04 — Eval discrimination + BAR source-lock — PASS
-    Before: shared `mw5ChallengeOk` / `runtimeFactsFromObs` global ok; catalog BAR 01/06/10/11; hardcoded productPath true.
-    After: independent observables `mw5ChallengeBoundOk`, `mw5StructuralClarificationOk`, `mw5CriticalOrderingOk`, `mw5AuthorityBoundaryOk`, plus truthC/HD/failClosed/productPath flags.
-    Scorers read their own fields; isolation test proves one FAIL does not falsify others.
-    Catalog BAR: NCC-BAR-01, 02, 08, 09, 11 (C5 MW5 union). Dropped 06/10 as MW5 source-lock.
-    Verdict: PASS.
+22–26. Consumed HD
+    Definition: id ∈ current LPS.decisionIds AND status accepted|amended AND DecisionBasis present AND exact normalized equality on ≥1 of executionBasis.objective/scope/requestedOperation vs claim (substantive fields).
+    Empty claim → false; unlinked → false; no basis → false; unrelated basis → false; superseded/revoked/proposed/refused → false; contradiction signal → false.
 
-15. Architecture dispositions:
-    KEEP: Option C Runner, Product SQLite Session/Truth C, CWP/MW2, MW3, MW4, F2 spine, Fake provider boundary, eval harness.
-    ADAPT: F2 factual inputs → MW5; intentAssessment field; MW5 observe/scorers; Playwright structuring.
-    COMPLETE: authoritative Truth C/HD wiring; fail-closed satisfaction; UX/E2E proof; discriminating eval + C5 BAR.
-    REPLACE/NEW ARCHITECTURE: NONE.
+27. CORR-MW5-01B — PASS (Truth C + HD)
 
-16. Files created:
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/criticalChallengeClarification.ts`
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/mw5ProductAuthorityFacts.ts`
-- `projects/sfia-studio/app/lib/nora-eval/mw5Observe.ts`
+28. Files created:
+- `projects/sfia-studio/app/features/project-assistant/f2/mw5ChallengeSessionStore.ts`
 - `projects/sfia-studio/app/features/project-assistant/f2/resolveMw5ProductAuthorityFromOa.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/mw5ProductAuthorityFacts.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/criticalChallengeClarification.ts`
+- `projects/sfia-studio/app/lib/nora-eval/mw5Observe.ts`
 - `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw5.product-authority.facts.d0.test.ts`
 - `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw5.s01-s04.disposition.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/nora-eval/mw5.challenge.eval.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/mw5.analyzeIntent.challenge-context.d0.test.ts`
 - `projects/sfia-studio/app/__tests__/project-assistant/mw5.challenge.clarification.product.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/nora-eval/mw5.challenge.eval.test.ts`
 
-17. Files modified:
-- projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-- projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-- projects/sfia-studio/app/features/project-assistant/f2/types.ts
-- projects/sfia-studio/app/features/project-assistant/types.ts
-- projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-- projects/sfia-studio/app/lib/nora-eval/catalog.ts
-- projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
-- projects/sfia-studio/app/lib/nora-eval/index.ts
-- projects/sfia-studio/app/lib/nora-eval/scorers.ts
-- projects/sfia-studio/app/lib/nora-eval/types.ts
-- projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-- projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
-- projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-- projects/sfia-studio/app/e2e/studio-option-a.spec.ts
-- .tmp-sfia-review/chatgpt-review.md (this pack; mono-cycle reset)
+29. Files modified (primary + associated):
+- intentAnalysis.ts, orchestrateF2.ts, types.ts, index.ts (runtime+eval), catalog/scorers/types/d0Runner, fakeProvider, f2.orchestrate.test, e2e studio-option-a, importBoundaries (allowlist already for resolve helper)
 
-Out-of-primary-list modification (documented):
-- path: `__tests__/vertical-slice-runtime/importBoundaries.test.ts`
-- reason: allow new F2 helper import of `@/lib/vertical-slice-runtime` barrel
-- asset reused: existing import-boundary allowlist
-- why no parallel architecture / no persistence change
+30–31. CREATED FULL CONTENTS + MODIFIED DIFFS/SECTIONS
 
-18–19. CREATED FILE FULL CONTENTS + MODIFIED DIFFS
+### CREATED: `projects/sfia-studio/app/features/project-assistant/f2/mw5ChallengeSessionStore.ts`
+
+```typescript
+/**
+ * Process-local MW5 challenge session (CORR-MW5-02B provenance).
+ *
+ * Server-issued challenge state only — never trust client history for
+ * "prior challenge exists" or challenge text. Same durability class as
+ * F2 proposalStore (process-local, not Product SQLite persistence).
+ */
+
+const STORE_KEY = "__SFIA_F2_MW5_CHALLENGE_STORE__" as const;
+
+export type Mw5IssuedChallengeLatest = {
+  challenges: readonly string[];
+  challengeText: string;
+  structuralChallengeCount: number;
+};
+
+type Mw5ChallengeSession = {
+  projectId: string;
+  priorStructuralChallengeCount: number;
+  latest: Mw5IssuedChallengeLatest | null;
+};
+
+type StoreSlot = {
+  byProjectId: Map<string, Mw5ChallengeSession>;
+};
+
+function getSlot(): StoreSlot {
+  const g = globalThis as typeof globalThis & { [STORE_KEY]?: StoreSlot };
+  if (!g[STORE_KEY]) {
+    g[STORE_KEY] = { byProjectId: new Map() };
+  }
+  return g[STORE_KEY];
+}
+
+function emptySession(projectId: string): Mw5ChallengeSession {
+  return {
+    projectId,
+    priorStructuralChallengeCount: 0,
+    latest: null,
+  };
+}
+
+export function getMw5ChallengeSession(
+  projectId: string,
+): Mw5ChallengeSession {
+  return getSlot().byProjectId.get(projectId) ?? emptySession(projectId);
+}
+
+export function rememberMw5IssuedChallenge(input: {
+  projectId: string;
+  challenges: readonly string[];
+  challengeText: string;
+}): Mw5ChallengeSession {
+  const capped = input.challenges
+    .map((c) => c.trim())
+    .filter(Boolean)
+    .slice(0, 3);
+  const prev = getMw5ChallengeSession(input.projectId);
+  const next: Mw5ChallengeSession = {
+    projectId: input.projectId,
+    priorStructuralChallengeCount:
+      prev.priorStructuralChallengeCount + capped.length,
+    latest: {
+      challenges: Object.freeze([...capped]),
+      challengeText: input.challengeText.trim().slice(0, 2000),
+      structuralChallengeCount: capped.length,
+    },
+  };
+  getSlot().byProjectId.set(input.projectId, next);
+  return next;
+}
+
+export function clearMw5IssuedChallenge(projectId: string): void {
+  const prev = getMw5ChallengeSession(projectId);
+  getSlot().byProjectId.set(projectId, {
+    projectId,
+    priorStructuralChallengeCount: prev.priorStructuralChallengeCount,
+    latest: null,
+  });
+}
+
+/** Test-only reset. */
+export function resetMw5ChallengeStoreForTests(): void {
+  const allowed =
+    process.env.NODE_ENV === "test" ||
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET === "1";
+  if (!allowed) {
+    throw new Error("resetMw5ChallengeStoreForTests only allowed in tests.");
+  }
+  getSlot().byProjectId.clear();
+}
+
+```
+
+### CREATED: `projects/sfia-studio/app/features/project-assistant/f2/resolveMw5ProductAuthorityFromOa.ts`
+
+```typescript
+/**
+ * F2 read-side helper for MW5 product authority facts (CORR-MW5-01 / 01B).
+ * Reuses existing OA services only — no new persistence.
+ *
+ * Consumption = HumanDecision id present on current LPS.decisionIds
+ * AND status accepted|amended AND DecisionBasis structured match to claim.
+ */
+import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import {
+  resolveMw5ProductAuthorityFacts,
+  type Mw5ClaimProjection,
+  type Mw5ProductAuthorityFacts,
+} from "@/lib/nora-cognitive-runtime/mw5ProductAuthorityFacts";
+
+export async function resolveMw5ProductAuthorityFromOa(input: {
+  oa: RuntimeOaStack | null | undefined;
+  projectId: string;
+  claim: Mw5ClaimProjection;
+  newContradictionSignalPresent?: boolean;
+}): Promise<Mw5ProductAuthorityFacts> {
+  if (!input.oa) {
+    return resolveMw5ProductAuthorityFacts({
+      truthC: null,
+      consumedDecisions: [],
+      claim: input.claim,
+      newContradictionSignalPresent: input.newContradictionSignalPresent,
+    });
+  }
+
+  const lpsResult =
+    await input.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: input.projectId,
+    });
+  if (!lpsResult.ok) {
+    return resolveMw5ProductAuthorityFacts({
+      truthC: null,
+      consumedDecisions: [],
+      claim: input.claim,
+      newContradictionSignalPresent: input.newContradictionSignalPresent,
+    });
+  }
+
+  const lps = lpsResult.livingProjectState;
+  const linkedIds = new Set(lps.decisionIds ?? []);
+  const truthC = {
+    objective: lps.objective ?? "",
+    context: lps.context ?? "",
+    scope: lps.scope ?? "",
+    decisionIds: [...linkedIds],
+  };
+
+  const history = await input.oa.decisionServices.listDecisionHistory.execute({
+    projectId: input.projectId,
+  });
+  const consumedDecisions = history.ok
+    ? history.decisions.map((d) => ({
+        decisionId: d.decisionId,
+        status: d.status,
+        subject: d.subject,
+        scope: d.scope,
+        rationale: d.rationale,
+        linkedToCurrentLps: linkedIds.has(d.decisionId),
+        executionObjective: d.decisionBasis?.executionBasis?.objective,
+        executionScope: d.decisionBasis?.executionBasis?.scope,
+        requestedOperation: d.decisionBasis?.executionBasis?.requestedOperation,
+        hasDecisionBasis: d.decisionBasis != null,
+      }))
+    : [];
+
+  return resolveMw5ProductAuthorityFacts({
+    truthC,
+    consumedDecisions,
+    claim: input.claim,
+    newContradictionSignalPresent: input.newContradictionSignalPresent,
+  });
+}
+
+```
+
+### CREATED: `projects/sfia-studio/app/lib/nora-cognitive-runtime/mw5ProductAuthorityFacts.ts`
+
+```typescript
+/**
+ * MW5 product-authority fact projection (CORR-MW5-01 / CORR-MW5-01B).
+ *
+ * Read-only. Facts come from existing Truth C / LPS + HumanDecision history —
+ * never from user-message markers or orphan text tags as product authority.
+ * No new store / table / migration / HumanDecision schema.
+ */
+
+export type Mw5ClaimProjection = {
+  objective: string | null;
+  scope: string | null;
+  recommendedProfile: string | null;
+  requestedOperation: string | null;
+};
+
+export type Mw5TruthCProjection = {
+  objective: string;
+  context: string;
+  scope: string;
+  /** LPS-linked consumed decision ids (authoritative consumption). */
+  decisionIds: readonly string[];
+};
+
+export type Mw5ConsumedDecisionProjection = {
+  decisionId: string;
+  status: string;
+  subject: string;
+  scope?: string;
+  rationale?: string;
+  linkedToCurrentLps: boolean;
+  executionObjective?: string;
+  executionScope?: string;
+  requestedOperation?: string;
+  hasDecisionBasis: boolean;
+};
+
+export type Mw5ProductAuthorityFacts = {
+  truthCEstablishedForClaim: boolean;
+  consumedHumanDecisionWithoutNewContradiction: boolean;
+  truthCContextAvailable: boolean;
+  consumedDecisionIds: string[];
+  reasonCodes: string[];
+};
+
+export type ChallengeResponseAssessment =
+  | "sufficient"
+  | "insufficient"
+  | "unknown"
+  | null;
+
+/** INTERNAL challenge context passed to the same analyzeIntent call (CORR-MW5-02B). */
+export type Mw5ChallengeContextForAnalysis = {
+  challengePresent: true;
+  challenges: readonly string[];
+  challengedPremise: string;
+  structuralChallengeCount: number;
+};
+
+export type Mw5ChallengeContextInput =
+  | Mw5ChallengeContextForAnalysis
+  | { challengePresent: false }
+  | null
+  | undefined;
+
+const CONSUMED_HD_STATUSES = new Set(["accepted", "amended"]);
+const MIN_STRUCTURED_FIELD_LEN = 12;
+const MIN_STRONG_CONTAINMENT_LEN = 24;
+
+function normalize(text: string | null | undefined): string {
+  return (text ?? "").trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+function substantive(text: string | null | undefined): string | null {
+  const n = normalize(text);
+  return n.length >= MIN_STRUCTURED_FIELD_LEN ? n : null;
+}
+
+/**
+ * Fail-closed structured match on LPS objective/scope vs claim.
+ * Exact normalized equality, or strong containment (shorter ≥ 24 chars).
+ * Never uses orphan ESTABLISHED_CLAIM tags or single-token fuzzy overlap.
+ */
+export function truthCMatchesClaimStructured(
+  truthC: Mw5TruthCProjection,
+  claim: Mw5ClaimProjection,
+): boolean {
+  const claimObjective = substantive(claim.objective);
+  const claimScope = substantive(claim.scope);
+  if (!claimObjective && !claimScope) return false;
+
+  const lpsObjective = substantive(truthC.objective);
+  const lpsScope = substantive(truthC.scope);
+
+  const pairMatch = (a: string | null, b: string | null): boolean => {
+    if (!a || !b) return false;
+    if (a === b) return true;
+    const shorter = a.length <= b.length ? a : b;
+    const longer = a.length <= b.length ? b : a;
+    return (
+      shorter.length >= MIN_STRONG_CONTAINMENT_LEN && longer.includes(shorter)
+    );
+  };
+
+  return (
+    pairMatch(claimObjective, lpsObjective) || pairMatch(claimScope, lpsScope)
+  );
+}
+
+/**
+ * Fail-closed DecisionBasis relevance vs claim.
+ * Requires non-empty structured fields on both sides and exact normalized equality
+ * on at least one of objective / scope / requestedOperation.
+ */
+export function decisionBasisMatchesClaimStructured(
+  decision: Mw5ConsumedDecisionProjection,
+  claim: Mw5ClaimProjection,
+): boolean {
+  if (!decision.hasDecisionBasis) return false;
+  if (!decision.linkedToCurrentLps) return false;
+  if (!CONSUMED_HD_STATUSES.has(decision.status)) return false;
+
+  const pairs: Array<[string | null | undefined, string | null | undefined]> = [
+    [claim.objective, decision.executionObjective],
+    [claim.scope, decision.executionScope],
+    [claim.requestedOperation, decision.requestedOperation],
+  ];
+
+  let sawSubstantiveClaimField = false;
+  for (const [claimField, decisionField] of pairs) {
+    const c = substantive(claimField);
+    const d = substantive(decisionField);
+    if (c) sawSubstantiveClaimField = true;
+    if (c && d && c === d) return true;
+  }
+  // Empty / insufficient claim never match-all.
+  if (!sawSubstantiveClaimField) return false;
+  return false;
+}
+
+/**
+ * Pure projection: Truth C / consumed HD facts for MW5 gate.
+ * Caller supplies already-loaded OA read-side snapshots.
+ */
+export function resolveMw5ProductAuthorityFacts(input: {
+  truthC: Mw5TruthCProjection | null;
+  consumedDecisions: readonly Mw5ConsumedDecisionProjection[];
+  claim: Mw5ClaimProjection;
+  /** INTERNAL MW3 candidate only — presence blocks "no new contradiction". */
+  newContradictionSignalPresent?: boolean;
+}): Mw5ProductAuthorityFacts {
+  const reasons: string[] = [];
+  const truthC = input.truthC;
+  const truthCContextAvailable = Boolean(
+    truthC &&
+      (normalize(truthC.objective) ||
+        normalize(truthC.context) ||
+        normalize(truthC.scope)),
+  );
+  if (!truthCContextAvailable) reasons.push("truth_c_unavailable_or_empty");
+
+  const truthCEstablishedForClaim =
+    truthC != null && truthCMatchesClaimStructured(truthC, input.claim);
+  if (truthCEstablishedForClaim) {
+    reasons.push("truth_c_structured_objective_or_scope_match");
+  } else if (truthCContextAvailable) {
+    reasons.push("truth_c_no_structured_claim_match");
+  }
+
+  const linkedConsumed = input.consumedDecisions.filter(
+    (d) =>
+      d.linkedToCurrentLps &&
+      CONSUMED_HD_STATUSES.has(d.status) &&
+      d.hasDecisionBasis,
+  );
+  const relevant = linkedConsumed.filter((d) =>
+    decisionBasisMatchesClaimStructured(d, input.claim),
+  );
+  const contradictionBlocks =
+    input.newContradictionSignalPresent === true && relevant.length > 0;
+  if (contradictionBlocks) {
+    reasons.push("consumed_hd_blocked_by_contradiction_signal");
+  }
+
+  const consumedHumanDecisionWithoutNewContradiction =
+    relevant.length > 0 && !contradictionBlocks;
+  if (consumedHumanDecisionWithoutNewContradiction) {
+    reasons.push("consumed_hd_lps_linked_decision_basis_match");
+  } else if (relevant.length === 0 && linkedConsumed.length > 0) {
+    reasons.push("consumed_hd_no_decision_basis_claim_match");
+  } else if (linkedConsumed.length === 0) {
+    reasons.push("no_lps_linked_consumed_human_decision");
+  }
+
+  return {
+    truthCEstablishedForClaim,
+    consumedHumanDecisionWithoutNewContradiction,
+    truthCContextAvailable,
+    consumedDecisionIds: relevant.map((d) => d.decisionId),
+    reasonCodes: reasons,
+  };
+}
+
+export function parseChallengeResponseAssessment(
+  value: unknown,
+): ChallengeResponseAssessment {
+  if (value === null || value === undefined) return null;
+  if (typeof value !== "string") return null;
+  const normalized = value.trim().toLowerCase();
+  if (normalized === "sufficient") return "sufficient";
+  if (normalized === "insufficient") return "insufficient";
+  if (normalized === "unknown") return "unknown";
+  return null;
+}
+
+export function formatMw5ChallengeContextForProvider(
+  ctx: Mw5ChallengeContextForAnalysis,
+): string {
+  const lines = ctx.challenges
+    .slice(0, 3)
+    .map((q, i) => `${i + 1}. ${q}`)
+    .join("\n");
+  return [
+    "MW5_CHALLENGE_CONTEXT (server-issued, INTERNAL — not Truth C / Evidence / HumanDecision):",
+    `challengePresent: true`,
+    `structuralChallengeCount: ${ctx.structuralChallengeCount}`,
+    `challengedPremise: ${ctx.challengedPremise}`,
+    "challengeQuestions:",
+    lines || "(none)",
+  ].join("\n");
+}
+
+```
 
 ### CREATED: `projects/sfia-studio/app/lib/nora-cognitive-runtime/criticalChallengeClarification.ts`
 
@@ -709,30 +1073,21 @@ export function formatMw5AssistantText(result: Mw5PolicyResult): string {
   return result.disclosure;
 }
 
-function priorChallengeCount(
-  history: readonly { role: string; content: string }[] | undefined,
-): number {
-  let n = 0;
-  for (const m of history ?? []) {
-    if (m.role === "assistant") n += parseIssuedChallengeCount(m.content);
-  }
-  return n;
-}
-
 /**
- * Fail-closed (CORR-MW5-02): prior challenge + explicit sufficient assessment only.
+ * Fail-closed (CORR-MW5-02 / CORR-MW5-02B):
+ * server-issued open challenge + explicit sufficient assessment only.
+ * Client history alone never proves prior challenge.
  * missing / unknown / insufficient / any non-empty reply alone → false.
  */
 export function isMw5ChallengeSatisfied(input: {
-  history?: readonly { role: string; content: string }[];
+  openChallengePresent: boolean;
   challengeResponseAssessment?:
     | "sufficient"
     | "insufficient"
     | "unknown"
     | null;
 }): boolean {
-  const hadChallenge = priorChallengeCount(input.history) > 0;
-  if (!hadChallenge) return false;
+  if (!input.openChallengePresent) return false;
   return input.challengeResponseAssessment === "sufficient";
 }
 
@@ -759,6 +1114,13 @@ export type DeriveMw5FactsInput = {
     | "insufficient"
     | "unknown"
     | null;
+  /**
+   * Server-issued open MW5 challenge (CORR-MW5-02B provenance).
+   * Never derived from client-authored history alone.
+   */
+  openChallengePresent?: boolean;
+  /** Server-tracked prior structural challenge count (process-local). */
+  priorStructuralChallengeCount?: number;
 };
 
 export function deriveMw5FactsFromF2Turn(input: DeriveMw5FactsInput): Mw5PolicyInput {
@@ -806,9 +1168,12 @@ export function deriveMw5FactsFromF2Turn(input: DeriveMw5FactsInput): Mw5PolicyI
     truthCEstablishedForClaim: input.truthCEstablishedForClaim === true,
     consumedHumanDecisionWithoutNewContradiction:
       input.consumedHumanDecisionWithoutNewContradiction === true,
-    priorStructuralChallengeCount: priorChallengeCount(input.history),
+    priorStructuralChallengeCount: Math.max(
+      0,
+      input.priorStructuralChallengeCount ?? 0,
+    ),
     challengeSatisfied: isMw5ChallengeSatisfied({
-      history: input.history,
+      openChallengePresent: input.openChallengePresent === true,
       challengeResponseAssessment: input.challengeResponseAssessment ?? null,
     }),
     criticalChallengeArmed: input.criticalChallengeArmed,
@@ -830,192 +1195,6 @@ export function containsSynthesizedHumanAct(text: string): boolean {
 
 ```
 
-### CREATED: `projects/sfia-studio/app/lib/nora-cognitive-runtime/mw5ProductAuthorityFacts.ts`
-
-```typescript
-/**
- * MW5 product-authority fact projection (CORR-MW5-01).
- *
- * Read-only. Facts come from existing Truth C / LPS + HumanDecision history —
- * never from user-message markers as product authority.
- * No new store / table / migration / HumanDecision schema.
- */
-
-export const MW5_PRODUCT_ESTABLISHED_CLAIM_PREFIX = "ESTABLISHED_CLAIM:";
-
-export type Mw5ClaimProjection = {
-  objective: string | null;
-  scope: string | null;
-  recommendedProfile: string | null;
-  requestedOperation: string | null;
-};
-
-export type Mw5TruthCProjection = {
-  objective: string;
-  context: string;
-  scope: string;
-};
-
-export type Mw5ConsumedDecisionProjection = {
-  decisionId: string;
-  status: string;
-  subject: string;
-  scope?: string;
-  rationale?: string;
-  executionObjective?: string;
-  executionScope?: string;
-  requestedOperation?: string;
-};
-
-export type Mw5ProductAuthorityFacts = {
-  truthCEstablishedForClaim: boolean;
-  consumedHumanDecisionWithoutNewContradiction: boolean;
-  truthCContextAvailable: boolean;
-  consumedDecisionIds: string[];
-  reasonCodes: string[];
-};
-
-export type ChallengeResponseAssessment =
-  | "sufficient"
-  | "insufficient"
-  | "unknown"
-  | null;
-
-const CONSUMED_HD_STATUSES = new Set(["accepted", "amended"]);
-
-function normalize(text: string | null | undefined): string {
-  return (text ?? "").trim().toLowerCase();
-}
-
-function claimHaystack(claim: Mw5ClaimProjection): string {
-  return normalize(
-    [claim.objective, claim.scope, claim.requestedOperation, claim.recommendedProfile]
-      .filter(Boolean)
-      .join(" "),
-  );
-}
-
-function extractEstablishedClaimDomains(corpus: string): string[] {
-  const out: string[] = [];
-  const re = /established_claim:([a-z0-9_-]+)/gi;
-  let match: RegExpExecArray | null;
-  while ((match = re.exec(corpus)) !== null) {
-    out.push(match[1].toLowerCase());
-  }
-  return out;
-}
-
-function claimOverlapsDomain(claimText: string, domain: string): boolean {
-  if (!domain) return false;
-  if (claimText.includes(domain)) return true;
-  if (domain === "architecture" && /architect/.test(claimText)) return true;
-  return false;
-}
-
-function decisionOverlapsClaim(
-  decision: Mw5ConsumedDecisionProjection,
-  claimText: string,
-): boolean {
-  const decisionText = normalize(
-    [
-      decision.subject,
-      decision.scope,
-      decision.rationale,
-      decision.executionObjective,
-      decision.executionScope,
-      decision.requestedOperation,
-    ]
-      .filter(Boolean)
-      .join(" "),
-  );
-  if (!decisionText) return false;
-  if (!claimText) return true;
-  const tokens = claimText
-    .split(/[^a-z0-9àâäéèêëïîôùûüç_-]+/i)
-    .map((t) => t.trim().toLowerCase())
-    .filter((t) => t.length >= 5);
-  if (tokens.length === 0) {
-    return /architect|structure|livraison|delivery|scope|périmètre|perimetre/.test(
-      decisionText,
-    );
-  }
-  const hits = tokens.filter((t) => decisionText.includes(t));
-  return hits.length >= Math.min(1, tokens.length);
-}
-
-/**
- * Pure projection: Truth C / consumed HD facts for MW5 gate.
- * Caller supplies already-loaded OA read-side snapshots.
- */
-export function resolveMw5ProductAuthorityFacts(input: {
-  truthC: Mw5TruthCProjection | null;
-  consumedDecisions: readonly Mw5ConsumedDecisionProjection[];
-  claim: Mw5ClaimProjection;
-  /** INTERNAL MW3 candidate only — presence blocks "no new contradiction". */
-  newContradictionSignalPresent?: boolean;
-}): Mw5ProductAuthorityFacts {
-  const reasons: string[] = [];
-  const claimText = claimHaystack(input.claim);
-  const truthC = input.truthC;
-  const corpus = normalize(
-    truthC
-      ? [truthC.objective, truthC.context, truthC.scope].filter(Boolean).join(" ")
-      : "",
-  );
-  const truthCContextAvailable = corpus.length > 0;
-  if (!truthCContextAvailable) reasons.push("truth_c_unavailable_or_empty");
-
-  const domains = extractEstablishedClaimDomains(corpus);
-  const truthCEstablishedForClaim =
-    truthCContextAvailable &&
-    domains.some((domain) => claimOverlapsDomain(claimText, domain));
-  if (truthCEstablishedForClaim) {
-    reasons.push("truth_c_established_claim_domain_match");
-  } else if (truthCContextAvailable) {
-    reasons.push("truth_c_no_matching_established_claim");
-  }
-
-  const consumed = input.consumedDecisions.filter((d) =>
-    CONSUMED_HD_STATUSES.has(d.status),
-  );
-  const overlapping = consumed.filter((d) => decisionOverlapsClaim(d, claimText));
-  const contradictionBlocks =
-    input.newContradictionSignalPresent === true && overlapping.length > 0;
-  if (contradictionBlocks) reasons.push("consumed_hd_blocked_by_contradiction_signal");
-
-  const consumedHumanDecisionWithoutNewContradiction =
-    overlapping.length > 0 && !contradictionBlocks;
-  if (consumedHumanDecisionWithoutNewContradiction) {
-    reasons.push("consumed_hd_overlap_without_new_contradiction");
-  } else if (overlapping.length === 0 && consumed.length > 0) {
-    reasons.push("consumed_hd_no_claim_overlap");
-  } else if (consumed.length === 0) {
-    reasons.push("no_consumed_human_decision");
-  }
-
-  return {
-    truthCEstablishedForClaim,
-    consumedHumanDecisionWithoutNewContradiction,
-    truthCContextAvailable,
-    consumedDecisionIds: overlapping.map((d) => d.decisionId),
-    reasonCodes: reasons,
-  };
-}
-
-export function parseChallengeResponseAssessment(
-  value: unknown,
-): ChallengeResponseAssessment {
-  if (value === null || value === undefined) return null;
-  if (typeof value !== "string") return null;
-  const normalized = value.trim().toLowerCase();
-  if (normalized === "sufficient") return "sufficient";
-  if (normalized === "insufficient") return "insufficient";
-  if (normalized === "unknown") return "unknown";
-  return null;
-}
-
-```
-
 ### CREATED: `projects/sfia-studio/app/lib/nora-eval/mw5Observe.ts`
 
 ```typescript
@@ -1029,6 +1208,7 @@ import path from "node:path";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
 import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
 import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
+import { resetMw5ChallengeStoreForTests } from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
 import {
   getRuntimeApplicationService,
   resetRuntimeApplicationServiceForTests,
@@ -1239,6 +1419,7 @@ export async function observeMw5FromProductPath(): Promise<DeterministicObservat
     delete process.env.OPENAI_MODEL;
     setConversationProviderForTests(null);
     resetF2ProposalStoreForTests();
+    resetMw5ChallengeStoreForTests();
     resetRuntimeApplicationServiceForTests();
     const runtime = getRuntimeApplicationService({
       productDbPath: path.join(dir, "oa-product.sqlite"),
@@ -1332,6 +1513,7 @@ export async function observeMw5FromProductPath(): Promise<DeterministicObservat
   } finally {
     setConversationProviderForTests(null);
     resetF2ProposalStoreForTests();
+    resetMw5ChallengeStoreForTests();
     resetRuntimeApplicationServiceForTests();
     fs.rmSync(dir, { recursive: true, force: true });
     if (previousFake === undefined) delete process.env.OPS1_CONVERSATION_PROVIDER;
@@ -1341,85 +1523,21 @@ export async function observeMw5FromProductPath(): Promise<DeterministicObservat
 
 ```
 
-### CREATED: `projects/sfia-studio/app/features/project-assistant/f2/resolveMw5ProductAuthorityFromOa.ts`
-
-```typescript
-/**
- * F2 read-side helper for MW5 product authority facts (CORR-MW5-01).
- * Reuses existing OA services only — no new persistence.
- */
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
-import {
-  resolveMw5ProductAuthorityFacts,
-  type Mw5ClaimProjection,
-  type Mw5ProductAuthorityFacts,
-} from "@/lib/nora-cognitive-runtime/mw5ProductAuthorityFacts";
-
-export async function resolveMw5ProductAuthorityFromOa(input: {
-  oa: RuntimeOaStack | null | undefined;
-  projectId: string;
-  claim: Mw5ClaimProjection;
-  newContradictionSignalPresent?: boolean;
-}): Promise<Mw5ProductAuthorityFacts> {
-  if (!input.oa) {
-    return resolveMw5ProductAuthorityFacts({
-      truthC: null,
-      consumedDecisions: [],
-      claim: input.claim,
-      newContradictionSignalPresent: input.newContradictionSignalPresent,
-    });
-  }
-
-  const live = await readLiveProjectContext(input.oa, input.projectId);
-  const truthC = live.ok
-    ? {
-        objective: live.context.objective ?? "",
-        context: live.context.context ?? "",
-        scope: live.context.scope ?? "",
-      }
-    : null;
-
-  const history = await input.oa.decisionServices.listDecisionHistory.execute({
-    projectId: input.projectId,
-  });
-  const consumedDecisions = history.ok
-    ? history.decisions.map((d) => ({
-        decisionId: d.decisionId,
-        status: d.status,
-        subject: d.subject,
-        scope: d.scope,
-        rationale: d.rationale,
-        executionObjective: d.decisionBasis?.executionBasis?.objective,
-        executionScope: d.decisionBasis?.executionBasis?.scope,
-        requestedOperation: d.decisionBasis?.executionBasis?.requestedOperation,
-      }))
-    : [];
-
-  return resolveMw5ProductAuthorityFacts({
-    truthC,
-    consumedDecisions,
-    claim: input.claim,
-    newContradictionSignalPresent: input.newContradictionSignalPresent,
-  });
-}
-
-```
-
 ### CREATED: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw5.product-authority.facts.d0.test.ts`
 
 ```typescript
 /** @vitest-environment node */
 /**
- * CORR-MW5-01 — authoritative product-fact projection (no user-marker authority).
+ * CORR-MW5-01B — authoritative product-fact projection (fail-closed).
  */
 import { describe, expect, it } from "vitest";
 import {
-  MW5_PRODUCT_ESTABLISHED_CLAIM_PREFIX,
+  decisionBasisMatchesClaimStructured,
   resolveMw5ProductAuthorityFacts,
+  truthCMatchesClaimStructured,
 } from "@/lib/nora-cognitive-runtime";
 
-describe("resolveMw5ProductAuthorityFacts", () => {
+describe("resolveMw5ProductAuthorityFacts (CORR-MW5-01B)", () => {
   const architectureClaim = {
     objective: "Faire évoluer l'architecture produit",
     scope: "Changement d'architecture structurant",
@@ -1427,43 +1545,89 @@ describe("resolveMw5ProductAuthorityFacts", () => {
     requestedOperation: "architecture change",
   };
 
-  it("Truth C ESTABLISHED_CLAIM domain match → truthCEstablishedForClaim", () => {
+  it("structured LPS objective equality → truthCEstablishedForClaim", () => {
     const facts = resolveMw5ProductAuthorityFacts({
       truthC: {
-        objective: "Projet architecture",
-        context: `${MW5_PRODUCT_ESTABLISHED_CLAIM_PREFIX}architecture — cible déjà tranchée.`,
-        scope: "Architecture",
+        objective: "Faire évoluer l'architecture produit",
+        context: "Contexte générique sans tag orphelin.",
+        scope: "Périmètre projet",
+        decisionIds: [],
       },
       consumedDecisions: [],
       claim: architectureClaim,
     });
     expect(facts.truthCEstablishedForClaim).toBe(true);
-    expect(facts.consumedHumanDecisionWithoutNewContradiction).toBe(false);
+    expect(facts.reasonCodes).toContain(
+      "truth_c_structured_objective_or_scope_match",
+    );
   });
 
-  it("empty Truth C → gate facts remain false", () => {
+  it("ESTABLISHED_CLAIM orphan tag alone does NOT establish Truth C", () => {
     const facts = resolveMw5ProductAuthorityFacts({
-      truthC: null,
+      truthC: {
+        objective: "Projet générique",
+        context: "ESTABLISHED_CLAIM:architecture — tag orphelin",
+        scope: "Autre scope",
+        decisionIds: [],
+      },
       consumedDecisions: [],
       claim: architectureClaim,
     });
     expect(facts.truthCEstablishedForClaim).toBe(false);
-    expect(facts.truthCContextAvailable).toBe(false);
   });
 
-  it("accepted overlapping HD without contradiction → consumed fact true", () => {
+  it("one shared token / weak overlap → false", () => {
+    expect(
+      truthCMatchesClaimStructured(
+        {
+          objective: "Architecture legacy",
+          context: "",
+          scope: "Ops",
+          decisionIds: [],
+        },
+        architectureClaim,
+      ),
+    ).toBe(false);
+  });
+
+  it("empty claim never match-all for HD", () => {
+    expect(
+      decisionBasisMatchesClaimStructured(
+        {
+          decisionId: "dec:1",
+          status: "accepted",
+          subject: "Anything",
+          linkedToCurrentLps: true,
+          hasDecisionBasis: true,
+          executionObjective: "Faire évoluer l'architecture produit",
+        },
+        {
+          objective: null,
+          scope: null,
+          recommendedProfile: null,
+          requestedOperation: null,
+        },
+      ),
+    ).toBe(false);
+  });
+
+  it("accepted HD linked + DecisionBasis exact objective → consumed", () => {
     const facts = resolveMw5ProductAuthorityFacts({
       truthC: {
-        objective: "obj",
-        context: "contexte générique sans claim établi",
-        scope: "",
+        objective: "obj unrelated short",
+        context: "ctx",
+        scope: "scp unrelated",
+        decisionIds: ["dec:arch-1"],
       },
       consumedDecisions: [
         {
           decisionId: "dec:arch-1",
           status: "accepted",
           subject: "Architecture cible validée",
+          linkedToCurrentLps: true,
+          hasDecisionBasis: true,
           executionObjective: "Faire évoluer l'architecture produit",
+          executionScope: "Changement d'architecture structurant",
           requestedOperation: "architecture change",
         },
       ],
@@ -1473,19 +1637,118 @@ describe("resolveMw5ProductAuthorityFacts", () => {
     expect(facts.consumedDecisionIds).toEqual(["dec:arch-1"]);
   });
 
-  it("contradiction signal blocks consumed-HD skip", () => {
+  it("accepted HD NOT linked to LPS → false", () => {
     const facts = resolveMw5ProductAuthorityFacts({
       truthC: {
         objective: "obj",
-        context: "contexte",
-        scope: "",
+        context: "ctx",
+        scope: "scp",
+        decisionIds: [],
       },
       consumedDecisions: [
         {
           decisionId: "dec:arch-1",
           status: "accepted",
           subject: "Architecture",
-          executionObjective: "architecture",
+          linkedToCurrentLps: false,
+          hasDecisionBasis: true,
+          executionObjective: "Faire évoluer l'architecture produit",
+        },
+      ],
+      claim: architectureClaim,
+    });
+    expect(facts.consumedHumanDecisionWithoutNewContradiction).toBe(false);
+  });
+
+  it("linked HD without DecisionBasis → false", () => {
+    const facts = resolveMw5ProductAuthorityFacts({
+      truthC: {
+        objective: "obj",
+        context: "ctx",
+        scope: "scp",
+        decisionIds: ["dec:arch-1"],
+      },
+      consumedDecisions: [
+        {
+          decisionId: "dec:arch-1",
+          status: "accepted",
+          subject: "Faire évoluer l'architecture produit",
+          linkedToCurrentLps: true,
+          hasDecisionBasis: false,
+          executionObjective: "Faire évoluer l'architecture produit",
+        },
+      ],
+      claim: architectureClaim,
+    });
+    expect(facts.consumedHumanDecisionWithoutNewContradiction).toBe(false);
+  });
+
+  it("linked HD DecisionBasis unrelated → false", () => {
+    const facts = resolveMw5ProductAuthorityFacts({
+      truthC: {
+        objective: "obj",
+        context: "ctx",
+        scope: "scp",
+        decisionIds: ["dec:arch-1"],
+      },
+      consumedDecisions: [
+        {
+          decisionId: "dec:arch-1",
+          status: "accepted",
+          subject: "Delivery unrelated",
+          linkedToCurrentLps: true,
+          hasDecisionBasis: true,
+          executionObjective: "Livrer la documentation marketing",
+          executionScope: "Docs marketing",
+          requestedOperation: "docs publish",
+        },
+      ],
+      claim: architectureClaim,
+    });
+    expect(facts.consumedHumanDecisionWithoutNewContradiction).toBe(false);
+  });
+
+  it("superseded / revoked statuses → false", () => {
+    for (const status of ["superseded", "revoked", "proposed", "refused"]) {
+      const facts = resolveMw5ProductAuthorityFacts({
+        truthC: {
+          objective: "obj",
+          context: "ctx",
+          scope: "scp",
+          decisionIds: ["dec:arch-1"],
+        },
+        consumedDecisions: [
+          {
+            decisionId: "dec:arch-1",
+            status,
+            subject: "Architecture",
+            linkedToCurrentLps: true,
+            hasDecisionBasis: true,
+            executionObjective: "Faire évoluer l'architecture produit",
+          },
+        ],
+        claim: architectureClaim,
+      });
+      expect(facts.consumedHumanDecisionWithoutNewContradiction).toBe(false);
+    }
+  });
+
+  it("contradiction signal blocks consumed-HD skip", () => {
+    const facts = resolveMw5ProductAuthorityFacts({
+      truthC: {
+        objective: "obj",
+        context: "ctx",
+        scope: "scp",
+        decisionIds: ["dec:arch-1"],
+      },
+      consumedDecisions: [
+        {
+          decisionId: "dec:arch-1",
+          status: "accepted",
+          subject: "Architecture",
+          linkedToCurrentLps: true,
+          hasDecisionBasis: true,
+          executionObjective: "Faire évoluer l'architecture produit",
         },
       ],
       claim: architectureClaim,
@@ -1754,25 +2017,17 @@ describe("MW5-S04 — escalate only unresolved authority", () => {
   });
 });
 
-describe("MW5 derive facts — fail-closed challenge satisfaction (CORR-MW5-02)", () => {
-  const history = [
-    { role: "user", content: "Fais évoluer l'architecture" },
-    {
-      role: "assistant",
-      content: "[MW5 CHALLENGE count=2] 1. Prémisse ? 2. Périmètre ?",
-    },
-  ] as const;
-
-  it("non-empty reply alone does NOT satisfy", () => {
+describe("MW5 derive facts — fail-closed challenge satisfaction (CORR-MW5-02/02B)", () => {
+  it("non-empty reply alone does NOT satisfy without open challenge", () => {
     const facts = deriveMw5FactsFromF2Turn({
       userContent: "La prémisse d'architecture est explicitée. __F2_STRUCTURING__",
-      history: [...history],
       intentClass: "actionable",
       parseOk: true,
       recommendedProfile: "Critical",
       criticalChallengeArmed: false,
       recommendationWouldEmit: true,
-      challengeResponseAssessment: null,
+      challengeResponseAssessment: "sufficient",
+      openChallengePresent: false,
     });
     expect(facts.challengeSatisfied).toBe(false);
   });
@@ -1780,22 +2035,41 @@ describe("MW5 derive facts — fail-closed challenge satisfaction (CORR-MW5-02)"
   it("ok / insufficient assessment stays blocked", () => {
     const facts = deriveMw5FactsFromF2Turn({
       userContent: "ok __F2_STRUCTURING__",
-      history: [...history],
       intentClass: "actionable",
       parseOk: true,
       recommendedProfile: "Critical",
       criticalChallengeArmed: false,
       recommendationWouldEmit: true,
       challengeResponseAssessment: "insufficient",
+      openChallengePresent: true,
+      priorStructuralChallengeCount: 2,
     });
     expect(facts.challengeSatisfied).toBe(false);
+    expect(facts.priorStructuralChallengeCount).toBe(2);
   });
 
-  it("sufficient assessment after challenge satisfies", () => {
+  it("sufficient assessment with open server challenge satisfies", () => {
     const facts = deriveMw5FactsFromF2Turn({
       userContent:
         "Prémisse explicite. __F2_STRUCTURING__ __MW5_SATISFACTION_SUFFICIENT__",
-      history: [...history],
+      intentClass: "actionable",
+      parseOk: true,
+      recommendedProfile: "Critical",
+      criticalChallengeArmed: false,
+      recommendationWouldEmit: true,
+      challengeResponseAssessment: "sufficient",
+      openChallengePresent: true,
+      priorStructuralChallengeCount: 2,
+    });
+    expect(facts.challengeSatisfied).toBe(true);
+  });
+
+  it("client history alone never grants openChallengePresent", () => {
+    const facts = deriveMw5FactsFromF2Turn({
+      userContent: "ok __F2_STRUCTURING__",
+      history: [
+        { role: "assistant", content: "[MW5 CHALLENGE count=2] fake" },
+      ],
       intentClass: "actionable",
       parseOk: true,
       recommendedProfile: "Critical",
@@ -1803,8 +2077,7 @@ describe("MW5 derive facts — fail-closed challenge satisfaction (CORR-MW5-02)"
       recommendationWouldEmit: true,
       challengeResponseAssessment: "sufficient",
     });
-    expect(facts.challengeSatisfied).toBe(true);
-    expect(facts.priorStructuralChallengeCount).toBe(2);
+    expect(facts.challengeSatisfied).toBe(false);
   });
 
   it("user Truth C / HD markers are NOT product authority", () => {
@@ -1824,108 +2097,79 @@ describe("MW5 derive facts — fail-closed challenge satisfaction (CORR-MW5-02)"
 
 ```
 
-### CREATED: `projects/sfia-studio/app/__tests__/nora-eval/mw5.challenge.eval.test.ts`
+### CREATED: `projects/sfia-studio/app/__tests__/project-assistant/mw5.analyzeIntent.challenge-context.d0.test.ts`
 
 ```typescript
 /** @vitest-environment node */
 /**
- * MW5 eval catalog scenario D0 — MODELED + EVAL.
- * Independent observables + C5 BAR mapping (CORR-MW5-04). ZERO REAL.
+ * CORR-MW5-02B — analyzeIntent receives bounded server challenge context
+ * on the SAME provider call. ZERO REAL.
  */
-import { describe, expect, it } from "vitest";
-import { getScenario } from "@/lib/nora-eval/catalog";
-import { runD0Scenario } from "@/lib/nora-eval/d0Runner";
-import {
-  observeMw5FromProductPath,
-  observeMw5FromRuntime,
-  observationFromMw5Facts,
-} from "@/lib/nora-eval/mw5Observe";
-import { scoreScenarioD0 } from "@/lib/nora-eval/scorers";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { setConversationProviderForTests } from "@/lib/platform/ai";
+import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
+import { analyzeIntent } from "@/features/project-assistant/f2/intentAnalysis";
+import { resetMw5ChallengeStoreForTests } from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
 
-describe("MW5 eval — challenge / clarification scenario", () => {
-  it("catalog BAR mapping is C5 MW5 union (01/02/08/09/11)", () => {
-    const s = getScenario("mw5.s01.challenge-clarification");
-    expect(s).toBeDefined();
-    expect(s?.storyIds).toEqual(["MW5-S01", "MW5-S02", "MW5-S03", "MW5-S04"]);
-    expect(s?.barIds).toEqual([
-      "NCC-BAR-01",
-      "NCC-BAR-02",
-      "NCC-BAR-08",
-      "NCC-BAR-09",
-      "NCC-BAR-11",
-    ]);
-    expect(s?.barIds).not.toContain("NCC-BAR-06");
-    expect(s?.barIds).not.toContain("NCC-BAR-10");
-    expect(s?.hardInvariants).toContain("mw5_challenge_bound");
-    expect(s?.hardInvariants).toContain("mw5_critical_ordering");
-    expect(s?.hardInvariants).toContain("mw5_no_synth_authority");
+describe("analyzeIntent MW5 challenge context (CORR-MW5-02B)", () => {
+  afterEach(() => {
+    setConversationProviderForTests(null);
+    resetMw5ChallengeStoreForTests();
   });
 
-  it("observeMw5FromRuntime exposes independent observables", () => {
-    const obs = observeMw5FromRuntime();
-    expect(obs.mw5ChallengeBoundOk).toBe(true);
-    expect(obs.mw5StructuralClarificationOk).toBe(true);
-    expect(obs.mw5CriticalOrderingOk).toBe(true);
-    expect(obs.mw5AuthorityBoundaryOk).toBe(true);
-    expect(obs.mw5ChallengeSatisfactionFailClosedOk).toBe(true);
-    expect(obs.observedObservableIds).toContain("obs.intent.clarification_bounded");
-    expect(obs.observedObservableIds).toContain("obs.evidence.provenance");
-    expect(obs.observedObservableIds).toContain("obs.authority.absolute_boundary");
-  });
+  it("without challengeContext: provider input has challengePresent=false and assessment forced null", async () => {
+    const provider = new FakeConversationProvider();
+    const spy = vi.spyOn(provider, "completeStructured");
+    setConversationProviderForTests(provider);
 
-  it("scorer isolation — one invariant fail does not falsify others", () => {
-    const scenario = getScenario("mw5.s01.challenge-clarification");
-    expect(scenario).toBeDefined();
-    if (!scenario) return;
-
-    const obs = observationFromMw5Facts({
-      mw5ChallengeBoundOk: false,
-      mw5StructuralClarificationOk: true,
-      mw5CriticalOrderingOk: true,
-      mw5AuthorityBoundaryOk: true,
-      mw5TruthCNoReopenOk: true,
-      mw5ConsumedHdNoReopenOk: true,
-      mw5ChallengeSatisfactionFailClosedOk: true,
-      mw5ProductPathOrderingOk: true,
+    const result = await analyzeIntent({
+      userContent: "ok __F2_STRUCTURING__ __MW5_SATISFACTION_SUFFICIENT__",
+      projectSummary: "Projet test",
+      challengeContext: { challengePresent: false },
+      provider,
     });
-    const scored = scoreScenarioD0(scenario, obs);
-    const byId = Object.fromEntries(
-      scored.scorers.map((s) => [s.scorerId, s.passFail]),
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    const messages = spy.mock.calls[0]?.[0]?.messages ?? [];
+    const userMsg = messages.find((m) => m.role === "user")?.content ?? "";
+    expect(userMsg).toContain("challengePresent=false");
+    expect(userMsg).toContain("Demande courante");
+    expect(userMsg).not.toContain("challengeQuestions:");
+    expect(result.analysis.challengeResponseAssessment).toBeNull();
+  });
+
+  it("with challengeContext: same call includes real challenge questions; single completion", async () => {
+    const provider = new FakeConversationProvider();
+    const spy = vi.spyOn(provider, "completeStructured");
+    setConversationProviderForTests(provider);
+
+    const result = await analyzeIntent({
+      userContent:
+        "Prémisse d'architecture product explicitée. __F2_STRUCTURING__ __MW5_SATISFACTION_SUFFICIENT__",
+      projectSummary: "Projet test",
+      challengeContext: {
+        challengePresent: true,
+        challenges: [
+          "Quelle prémisse structurante n'est pas encore établie ?",
+          "Quel périmètre reste non fondé ?",
+        ],
+        challengedPremise: "[MW5 CHALLENGE] count=2 server-issued",
+        structuralChallengeCount: 2,
+      },
+      provider,
+    });
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    const messages = spy.mock.calls[0]?.[0]?.messages ?? [];
+    const userMsg = messages.find((m) => m.role === "user")?.content ?? "";
+    expect(userMsg).toContain("MW5_CHALLENGE_CONTEXT");
+    expect(userMsg).toContain("challengePresent: true");
+    expect(userMsg).toContain(
+      "Quelle prémisse structurante n'est pas encore établie ?",
     );
-    expect(byId["hard.mw5_challenge_bound"]).toBe("FAIL");
-    expect(byId["hard.mw5_structural_clarification"]).toBe("PASS");
-    expect(byId["hard.mw5_critical_ordering"]).toBe("PASS");
-    expect(byId["hard.mw5_no_synth_authority"]).toBe("PASS");
-  });
-
-  it("observeMw5FromProductPath passes ordering on F2 Fake path", async () => {
-    const obs = await observeMw5FromProductPath();
-    expect(obs.mw5ProductPathOrderingOk).toBe(true);
-    expect(obs.mw5ChallengeSatisfactionFailClosedOk).toBe(true);
-    expect(obs.productPath).toBe("f2");
-  });
-
-  it("D0 scenario run includes MW5 hard invariants PASS", async () => {
-    const result = await runD0Scenario("mw5.s01.challenge-clarification");
-    expect(result.passFail).toBe("PASS");
-    expect(
-      result.scorers.some(
-        (s) => s.scorerId === "hard.mw5_challenge_bound" && s.passFail === "PASS",
-      ),
-    ).toBe(true);
-    expect(
-      result.scorers.some(
-        (s) =>
-          s.scorerId === "hard.mw5_critical_ordering" &&
-          s.passFail === "PASS" &&
-          s.barId === "NCC-BAR-02",
-      ),
-    ).toBe(true);
-    expect(
-      result.scorers.some(
-        (s) => s.scorerId === "hard.mw5_no_synth_authority" && s.passFail === "PASS",
-      ),
-    ).toBe(true);
+    expect(userMsg).toContain("Demande courante (à évaluer):");
+    expect(userMsg).toContain("__MW5_SATISFACTION_SUFFICIENT__");
+    expect(result.analysis.challengeResponseAssessment).toBe("sufficient");
   });
 });
 
@@ -1947,6 +2191,7 @@ import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orches
 import {
   resetF2ProposalStoreForTests,
 } from "@/features/project-assistant/f2/proposalStore";
+import { resetMw5ChallengeStoreForTests } from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
 import {
   getRuntimeApplicationService,
   resetRuntimeApplicationServiceForTests,
@@ -1968,6 +2213,7 @@ describe("MW5 F2 product path D0", () => {
     delete process.env.OPENAI_MODEL;
     setConversationProviderForTests(null);
     resetF2ProposalStoreForTests();
+    resetMw5ChallengeStoreForTests();
     resetRuntimeApplicationServiceForTests();
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw5-f2-"));
     tempDirs.push(dir);
@@ -1993,6 +2239,7 @@ describe("MW5 F2 product path D0", () => {
   afterEach(() => {
     setConversationProviderForTests(null);
     resetF2ProposalStoreForTests();
+    resetMw5ChallengeStoreForTests();
     resetRuntimeApplicationServiceForTests();
     while (tempDirs.length) {
       const dir = tempDirs.pop();
@@ -2154,13 +2401,12 @@ describe("MW5 F2 product path D0", () => {
     expect(result.mw5?.recommendationAllowed).toBe(true);
   });
 
-  it("S03 — authoritative Truth C ESTABLISHED_CLAIM skips gratuitous re-challenge", async () => {
+  it("S03 — authoritative Truth C structured LPS objective skips gratuitous re-challenge", async () => {
     const runtime = getRuntimeApplicationService();
     const created = await runtime.createProject({
       name: "Projet MW5 TruthC",
-      objective: "Architecture déjà tranchée.",
-      context:
-        "ESTABLISHED_CLAIM:architecture — architecture cible déjà établie en Truth C.",
+      objective: "Faire évoluer l'architecture produit",
+      context: "Contexte Truth C sans tag orphelin.",
       criticality: "STANDARD",
       constraints: [],
       shortReference: "MW5T",
@@ -2191,7 +2437,7 @@ describe("MW5 F2 product path D0", () => {
     expect(result.f2?.proposal).toBeNull();
   });
 
-  it("S03 — consumed overlapping HumanDecision skips gratuitous re-challenge", async () => {
+  it("S03 — LPS-linked accepted HD with DecisionBasis match skips re-challenge", async () => {
     const { registerM3LocalMorrisAuthority, LOCAL_MORRIS_M3_ACTOR } =
       await import(
         "@/lib/oa/decision/infrastructure/localSingleUserAuthority"
@@ -2202,8 +2448,8 @@ describe("MW5 F2 product path D0", () => {
 
     const created = await runtime.createProject({
       name: "Projet MW5 HD",
-      objective: "Faire évoluer l'architecture produit",
-      context: "Contexte sans ESTABLISHED_CLAIM.",
+      objective: "Objectif projet générique MW5 HD",
+      context: "Contexte sans correspondance structurante claim.",
       criticality: "STANDARD",
       constraints: [],
       shortReference: "MW5H",
@@ -2211,6 +2457,12 @@ describe("MW5 F2 product path D0", () => {
     });
     expect(created.ok).toBe(true);
     if (!created.ok) return;
+
+    const lps = await runtime.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: created.projectId,
+    });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) return;
 
     const scope = `decision:mw5-arch-${created.projectId}`;
     const reg = registerM3LocalMorrisAuthority({
@@ -2234,7 +2486,24 @@ describe("MW5 F2 product path D0", () => {
       reversible: true,
       scope,
       authorityEvidenceId: reg.evidenceId,
-      rationale: "Faire évoluer l'architecture produit — architecture change",
+      linkToLivingProjectState: true,
+      expectedLpsVersion: lps.livingProjectState.version,
+      decisionBasis: {
+        sourceType: "proposal",
+        sourceRef: "prop:mw5-test",
+        sourceDigest: "a".repeat(64),
+        projectId: created.projectId,
+        proposalContext: {
+          lpsId: lps.livingProjectState.lpsVersionId,
+          lpsVersion: lps.livingProjectState.version,
+          doctrineDigest: lps.livingProjectState.doctrinePackageRef.digest,
+        },
+        executionBasis: {
+          objective: "Faire évoluer l'architecture produit",
+          scope: "Changement d'architecture structurant",
+          requestedOperation: "architecture change",
+        },
+      },
     });
     expect(recorded.ok).toBe(true);
     if (!recorded.ok) return;
@@ -2247,6 +2516,64 @@ describe("MW5 F2 product path D0", () => {
     if (!result.ok) return;
     expect(result.mw5?.disposition).toBe("CONTINUE");
     expect(result.f2?.proposal).toBeTruthy();
+  });
+
+  it("S03 — accepted HD without LPS link does NOT skip challenge", async () => {
+    const { registerM3LocalMorrisAuthority, LOCAL_MORRIS_M3_ACTOR } =
+      await import(
+        "@/lib/oa/decision/infrastructure/localSingleUserAuthority"
+      );
+    const runtime = getRuntimeApplicationService();
+    if (!runtime.oa) return;
+
+    const created = await runtime.createProject({
+      name: "Projet MW5 HD unlink",
+      objective: "Objectif générique",
+      context: "Contexte",
+      criticality: "STANDARD",
+      constraints: [],
+      shortReference: "MW5U",
+      idempotencyKey: `idem:mw5-hd-unlinked-${Date.now()}-${Math.random()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+
+    const scope = `decision:mw5-unlinked-${created.projectId}`;
+    const reg = registerM3LocalMorrisAuthority({
+      authorityResolver: runtime.oa.authorityResolver,
+      scope,
+      issuedAt: "2026-09-03T18:00:00.000Z",
+      forceEnable: true,
+      evidenceId: `evd:mw5-unlinked-${created.projectId}`,
+    });
+    expect(reg.ok).toBe(true);
+    if (!reg.ok) return;
+
+    const recorded = await runtime.oa.decisionServices.recordHumanDecision.execute({
+      decisionId: `dec:mw5-unlinked-${created.projectId}`,
+      projectId: created.projectId,
+      subject: "Architecture cible validée",
+      options: [{ optionId: "opt:go", label: "GO" }],
+      selectedOptionId: "opt:go",
+      actor: LOCAL_MORRIS_M3_ACTOR,
+      authority: "morris",
+      reversible: true,
+      scope,
+      authorityEvidenceId: reg.evidenceId,
+      linkToLivingProjectState: false,
+      rationale: "Faire évoluer l'architecture produit — architecture change",
+    });
+    expect(recorded.ok).toBe(true);
+    if (!recorded.ok) return;
+
+    const result = await orchestrateAssistantSend({
+      projectId: created.projectId,
+      content: "Fais évoluer l'architecture __F2_STRUCTURING__",
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.mw5?.disposition).toBe("CHALLENGE");
+    expect(result.f2?.proposal).toBeNull();
   });
 
   it("S04 — unresolved authority escalates without synthesizing HD/GO", async () => {
@@ -2280,15 +2607,698 @@ describe("MW5 F2 product path D0", () => {
 
 ```
 
+### CREATED: `projects/sfia-studio/app/__tests__/nora-eval/mw5.challenge.eval.test.ts`
 
-### MODIFIED CONTENT — git diff (projects/sfia-studio/app)
+```typescript
+/** @vitest-environment node */
+/**
+ * MW5 eval catalog scenario D0 — MODELED + EVAL.
+ * Independent observables + C5 BAR mapping (CORR-MW5-04). ZERO REAL.
+ */
+import { describe, expect, it } from "vitest";
+import { getScenario } from "@/lib/nora-eval/catalog";
+import { runD0Scenario } from "@/lib/nora-eval/d0Runner";
+import {
+  observeMw5FromProductPath,
+  observeMw5FromRuntime,
+  observationFromMw5Facts,
+} from "@/lib/nora-eval/mw5Observe";
+import { scoreScenarioD0 } from "@/lib/nora-eval/scorers";
+
+describe("MW5 eval — challenge / clarification scenario", () => {
+  it("catalog BAR mapping is C5 MW5 union (01/02/08/09/11)", () => {
+    const s = getScenario("mw5.s01.challenge-clarification");
+    expect(s).toBeDefined();
+    expect(s?.storyIds).toEqual(["MW5-S01", "MW5-S02", "MW5-S03", "MW5-S04"]);
+    expect(s?.barIds).toEqual([
+      "NCC-BAR-01",
+      "NCC-BAR-02",
+      "NCC-BAR-08",
+      "NCC-BAR-09",
+      "NCC-BAR-11",
+    ]);
+    expect(s?.barIds).not.toContain("NCC-BAR-06");
+    expect(s?.barIds).not.toContain("NCC-BAR-10");
+    expect(s?.hardInvariants).toContain("mw5_challenge_bound");
+    expect(s?.hardInvariants).toContain("mw5_critical_ordering");
+    expect(s?.hardInvariants).toContain("mw5_no_synth_authority");
+  });
+
+  it("observeMw5FromRuntime exposes independent observables", () => {
+    const obs = observeMw5FromRuntime();
+    expect(obs.mw5ChallengeBoundOk).toBe(true);
+    expect(obs.mw5StructuralClarificationOk).toBe(true);
+    expect(obs.mw5CriticalOrderingOk).toBe(true);
+    expect(obs.mw5AuthorityBoundaryOk).toBe(true);
+    expect(obs.mw5ChallengeSatisfactionFailClosedOk).toBe(true);
+    expect(obs.observedObservableIds).toContain("obs.intent.clarification_bounded");
+    expect(obs.observedObservableIds).toContain("obs.evidence.provenance");
+    expect(obs.observedObservableIds).toContain("obs.authority.absolute_boundary");
+  });
+
+  it("scorer isolation — one invariant fail does not falsify others", () => {
+    const scenario = getScenario("mw5.s01.challenge-clarification");
+    expect(scenario).toBeDefined();
+    if (!scenario) return;
+
+    const obs = observationFromMw5Facts({
+      mw5ChallengeBoundOk: false,
+      mw5StructuralClarificationOk: true,
+      mw5CriticalOrderingOk: true,
+      mw5AuthorityBoundaryOk: true,
+      mw5TruthCNoReopenOk: true,
+      mw5ConsumedHdNoReopenOk: true,
+      mw5ChallengeSatisfactionFailClosedOk: true,
+      mw5ProductPathOrderingOk: true,
+    });
+    const scored = scoreScenarioD0(scenario, obs);
+    const byId = Object.fromEntries(
+      scored.scorers.map((s) => [s.scorerId, s.passFail]),
+    );
+    expect(byId["hard.mw5_challenge_bound"]).toBe("FAIL");
+    expect(byId["hard.mw5_structural_clarification"]).toBe("PASS");
+    expect(byId["hard.mw5_critical_ordering"]).toBe("PASS");
+    expect(byId["hard.mw5_no_synth_authority"]).toBe("PASS");
+  });
+
+  it("observeMw5FromProductPath passes ordering on F2 Fake path", async () => {
+    const obs = await observeMw5FromProductPath();
+    expect(obs.mw5ProductPathOrderingOk).toBe(true);
+    expect(obs.mw5ChallengeSatisfactionFailClosedOk).toBe(true);
+    expect(obs.productPath).toBe("f2");
+  });
+
+  it("D0 scenario run includes MW5 hard invariants PASS", async () => {
+    const result = await runD0Scenario("mw5.s01.challenge-clarification");
+    expect(result.passFail).toBe("PASS");
+    expect(
+      result.scorers.some(
+        (s) => s.scorerId === "hard.mw5_challenge_bound" && s.passFail === "PASS",
+      ),
+    ).toBe(true);
+    expect(
+      result.scorers.some(
+        (s) =>
+          s.scorerId === "hard.mw5_critical_ordering" &&
+          s.passFail === "PASS" &&
+          s.barId === "NCC-BAR-02",
+      ),
+    ).toBe(true);
+    expect(
+      result.scorers.some(
+        (s) => s.scorerId === "hard.mw5_no_synth_authority" && s.passFail === "PASS",
+      ),
+    ).toBe(true);
+  });
+});
+
+```
+### MODIFIED FULL: `projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts`
+
+```typescript
+/**
+ * Structured intent analysis via existing ConversationProvider.
+ * Provider output is untrusted until server-side validation (fail-closed).
+ * CORR-MW2-REAL-01: optional INTERNAL semantic CWP assessment on same call.
+ */
+
+import {
+  resolveConversationProvider,
+  TechnicalError,
+  type ConversationProvider,
+  type ProviderChatMessage,
+} from "@/lib/platform/ai";
+import { ADOPTED_CYCLE_TYPE_IDS, isKnownCycleTypeId } from "@/lib/oa/cycle";
+import type {
+  F2QualificationSignals,
+  IntentAnalysisDto,
+  IntentClass,
+  SemanticCognitiveWorkloadAssessment,
+  SemanticCognitiveWorkloadLevel,
+} from "./types";
+import type { Mw3ContradictionCandidateSignal } from "@/lib/nora-cognitive-runtime/deriveMw3Assessment";
+import {
+  parseChallengeResponseAssessment,
+  formatMw5ChallengeContextForProvider,
+  type ChallengeResponseAssessment,
+  type Mw5ChallengeContextInput,
+} from "@/lib/nora-cognitive-runtime/mw5ProductAuthorityFacts";
+
+const INTENT_CLASSES: readonly IntentClass[] = [
+  "informative",
+  "actionable",
+  "ambiguous",
+  "execution_request",
+] as const;
+
+const SIGNAL_KEYS = [
+  "structuralChange",
+  "securityImpact",
+  "architectureImpact",
+  "dataImpact",
+  "irreversible",
+  "lowRiskBounded",
+] as const;
+
+const CWP_LEVELS: readonly SemanticCognitiveWorkloadLevel[] = [
+  "low",
+  "medium",
+  "high",
+  "unknown",
+] as const;
+
+const CWP_DIMENSION_KEYS = [
+  "ambiguity",
+  "reasoningDepth",
+  "sourceBreadth",
+  "toolDependency",
+  "contradictionRisk",
+  "verificationNeed",
+] as const;
+
+const MAX_STRING = 2000;
+const MAX_ARRAY = 12;
+
+const NULLABLE_STRING = { type: ["string", "null"] } as const;
+const STRING_ARRAY = {
+  type: "array",
+  items: { type: "string" },
+} as const;
+
+const CANDIDATE_POINTER_ARRAY = {
+  type: "array",
+  items: { type: "string" },
+} as const;
+
+const CONTRADICTION_CANDIDATE_OBJECT_SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    conflictPresent: { type: "boolean" },
+    claimedEvidenceIds: CANDIDATE_POINTER_ARRAY,
+    governingPremise: NULLABLE_STRING,
+    governingPremiseInvalidated: { type: "boolean" },
+    localImpactOnly: { type: "boolean" },
+    fabricationAttempt: { type: "boolean" },
+  },
+  required: [
+    "conflictPresent",
+    "claimedEvidenceIds",
+    "governingPremise",
+    "governingPremiseInvalidated",
+    "localImpactOnly",
+    "fabricationAttempt",
+  ],
+} as const;
+
+const SIGNALS_OBJECT_SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    structuralChange: { type: "boolean" },
+    securityImpact: { type: "boolean" },
+    architectureImpact: { type: "boolean" },
+    dataImpact: { type: "boolean" },
+    irreversible: { type: "boolean" },
+    lowRiskBounded: { type: "boolean" },
+  },
+  required: [...SIGNAL_KEYS],
+} as const;
+
+const CWP_LEVEL_SCHEMA = {
+  type: "string",
+  enum: [...CWP_LEVELS],
+} as const;
+
+const COGNITIVE_WORKLOAD_OBJECT_SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    ambiguity: CWP_LEVEL_SCHEMA,
+    reasoningDepth: CWP_LEVEL_SCHEMA,
+    sourceBreadth: CWP_LEVEL_SCHEMA,
+    toolDependency: CWP_LEVEL_SCHEMA,
+    contradictionRisk: CWP_LEVEL_SCHEMA,
+    verificationNeed: CWP_LEVEL_SCHEMA,
+  },
+  required: [...CWP_DIMENSION_KEYS],
+} as const;
+
+/**
+ * OpenAI strict json_schema for F2 intent analysis.
+ * Null cycle/signals/CWP: anyOf [enum|object, { type: "null" }] (not omitted, not invented).
+ */
+export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    intentClass: {
+      type: "string",
+      enum: [...INTENT_CLASSES],
+    },
+    candidateCycleTypeId: {
+      anyOf: [
+        {
+          type: "string",
+          enum: [...ADOPTED_CYCLE_TYPE_IDS],
+        },
+        { type: "null" },
+      ],
+    },
+    signals: {
+      anyOf: [SIGNALS_OBJECT_SCHEMA, { type: "null" }],
+    },
+    cognitiveWorkload: {
+      anyOf: [COGNITIVE_WORKLOAD_OBJECT_SCHEMA, { type: "null" }],
+    },
+    contradictionCandidate: {
+      anyOf: [CONTRADICTION_CANDIDATE_OBJECT_SCHEMA, { type: "null" }],
+    },
+    challengeResponseAssessment: {
+      anyOf: [
+        {
+          type: "string",
+          enum: ["sufficient", "insufficient", "unknown"],
+        },
+        { type: "null" },
+      ],
+    },
+    objective: NULLABLE_STRING,
+    scope: NULLABLE_STRING,
+    rephrasedRequest: NULLABLE_STRING,
+    outOfScope: STRING_ARRAY,
+    risks: STRING_ARRAY,
+    reservations: STRING_ARRAY,
+    stopConditions: STRING_ARRAY,
+    activatedBlocks: STRING_ARRAY,
+    expectedOutcome: NULLABLE_STRING,
+    criticalJustification: NULLABLE_STRING,
+    requestedOperation: NULLABLE_STRING,
+  },
+  required: [
+    "intentClass",
+    "candidateCycleTypeId",
+    "signals",
+    "cognitiveWorkload",
+    "contradictionCandidate",
+    "challengeResponseAssessment",
+    "objective",
+    "scope",
+    "rephrasedRequest",
+    "outOfScope",
+    "risks",
+    "reservations",
+    "stopConditions",
+    "activatedBlocks",
+    "expectedOutcome",
+    "criticalJustification",
+    "requestedOperation",
+  ],
+};
+
+export const F2_INTENT_SCHEMA_NAME = "f2_intent_analysis";
+
+function clip(value: unknown, max = MAX_STRING): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  return trimmed.length <= max ? trimmed : trimmed.slice(0, max);
+}
+
+function clipArray(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .filter((item): item is string => typeof item === "string")
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .slice(0, MAX_ARRAY)
+    .map((item) => (item.length <= 500 ? item : item.slice(0, 500)));
+}
+
+function ambiguousFallback(partial?: Partial<IntentAnalysisDto>): IntentAnalysisDto {
+  return {
+    intentClass: "ambiguous",
+    candidateCycleTypeId: null,
+    signals: null,
+    cognitiveWorkload: null,
+    objective: partial?.objective ?? null,
+    scope: partial?.scope ?? null,
+    rephrasedRequest: partial?.rephrasedRequest ?? null,
+    outOfScope: partial?.outOfScope ?? [],
+    risks: partial?.risks ?? [],
+    reservations: partial?.reservations ?? [],
+    stopConditions: partial?.stopConditions ?? [],
+    activatedBlocks: partial?.activatedBlocks ?? [],
+    expectedOutcome: partial?.expectedOutcome ?? null,
+    criticalJustification: partial?.criticalJustification ?? null,
+    requestedOperation: partial?.requestedOperation ?? null,
+    contradictionCandidate: null,
+    challengeResponseAssessment:
+      partial?.challengeResponseAssessment ?? null,
+    parseOk: false,
+  };
+}
+
+function parseSignals(raw: unknown): F2QualificationSignals | null {
+  if (!raw || typeof raw !== "object") return null;
+  const obj = raw as Record<string, unknown>;
+  const out: Partial<F2QualificationSignals> = {};
+  for (const key of SIGNAL_KEYS) {
+    if (typeof obj[key] !== "boolean") return null;
+    out[key] = obj[key] as boolean;
+  }
+  return out as F2QualificationSignals;
+}
+
+/**
+ * Validate INTERNAL semantic CWP assessment.
+ * null / missing / non-object → null (no fabricated Routine).
+ * Invalid field values → unknown (never unknown→low).
+ */
+export function parseCognitiveWorkload(
+  raw: unknown,
+): SemanticCognitiveWorkloadAssessment | null {
+  if (raw == null) return null;
+  if (typeof raw !== "object" || Array.isArray(raw)) return null;
+  const obj = raw as Record<string, unknown>;
+  const out = {} as SemanticCognitiveWorkloadAssessment;
+  for (const key of CWP_DIMENSION_KEYS) {
+    const value = obj[key];
+    out[key] = CWP_LEVELS.includes(value as SemanticCognitiveWorkloadLevel)
+      ? (value as SemanticCognitiveWorkloadLevel)
+      : "unknown";
+  }
+  return out;
+}
+
+export function parseContradictionCandidate(
+  raw: unknown,
+): Mw3ContradictionCandidateSignal | null {
+  if (raw == null) return null;
+  if (typeof raw !== "object" || Array.isArray(raw)) return null;
+  const obj = raw as Record<string, unknown>;
+  if (typeof obj.conflictPresent !== "boolean") return null;
+  // Legacy promotion-policy fields (requiredDomains / requiredSourceCount /
+  // freshnessMatters) are ignored if present. Studio owns those bars.
+  return {
+    conflictPresent: obj.conflictPresent,
+    claimedEvidenceIds: clipArray(obj.claimedEvidenceIds),
+    governingPremise: clip(obj.governingPremise),
+    governingPremiseInvalidated:
+      obj.governingPremiseInvalidated === true ? true : undefined,
+    localImpactOnly: obj.localImpactOnly === true ? true : undefined,
+    fabricationAttempt: obj.fabricationAttempt === true ? true : undefined,
+  };
+}
+
+function extractJsonObject(text: string): unknown | null {
+  const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
+  const candidate = fenced?.[1]?.trim() ?? text.trim();
+  const start = candidate.indexOf("{");
+  const end = candidate.lastIndexOf("}");
+  if (start < 0 || end <= start) return null;
+  try {
+    return JSON.parse(candidate.slice(start, end + 1));
+  } catch {
+    return null;
+  }
+}
+
+export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
+  if (!raw || typeof raw !== "object") return ambiguousFallback();
+  const obj = raw as Record<string, unknown>;
+  const intentClass = obj.intentClass;
+  if (
+    typeof intentClass !== "string" ||
+    !INTENT_CLASSES.includes(intentClass as IntentClass)
+  ) {
+    return ambiguousFallback();
+  }
+
+  let candidateCycleTypeId: string | null = null;
+  if (obj.candidateCycleTypeId != null) {
+    const id = clip(obj.candidateCycleTypeId, 120);
+    if (!id || !isKnownCycleTypeId(id)) {
+      return ambiguousFallback({
+        intentClass: intentClass as IntentClass,
+        parseOk: false,
+      } as Partial<IntentAnalysisDto>);
+    }
+    candidateCycleTypeId = id;
+  }
+
+  const signals = parseSignals(obj.signals);
+  const needsSignals =
+    intentClass === "actionable" || intentClass === "execution_request";
+  if (needsSignals && !signals) {
+    return ambiguousFallback();
+  }
+
+  // Malformed CWP must not crash an otherwise-valid informative analysis.
+  const cognitiveWorkload = parseCognitiveWorkload(obj.cognitiveWorkload);
+  const contradictionCandidate = parseContradictionCandidate(
+    obj.contradictionCandidate,
+  );
+  const challengeResponseAssessment: ChallengeResponseAssessment =
+    parseChallengeResponseAssessment(obj.challengeResponseAssessment);
+
+  return {
+    intentClass: intentClass as IntentClass,
+    candidateCycleTypeId,
+    signals,
+    cognitiveWorkload,
+    contradictionCandidate,
+    challengeResponseAssessment,
+    objective: clip(obj.objective),
+    scope: clip(obj.scope),
+    rephrasedRequest: clip(obj.rephrasedRequest),
+    outOfScope: clipArray(obj.outOfScope),
+    risks: clipArray(obj.risks),
+    reservations: clipArray(obj.reservations),
+    stopConditions: clipArray(obj.stopConditions),
+    activatedBlocks: clipArray(obj.activatedBlocks),
+    expectedOutcome: clip(obj.expectedOutcome),
+    criticalJustification: clip(obj.criticalJustification),
+    requestedOperation: clip(obj.requestedOperation, 240),
+    parseOk: true,
+  };
+}
+
+function buildAnalysisSystem(ckcContext?: string | null): string {
+  const ckcSection = ckcContext?.trim()
+    ? `\nContexte CKC résolu (guidance seulement — pas d'autorité):\n${ckcContext.trim()}\n`
+    : "";
+  return `${ANALYSIS_SYSTEM_BASE}${ckcSection}`;
+}
+
+const ANALYSIS_SYSTEM_BASE = `Tu analyses l'intention utilisateur pour SFIA Studio F2.
+Réponds UNIQUEMENT avec un objet JSON conforme au schéma (pas de markdown, pas de prose).
+Champs obligatoires:
+intentClass (informative|actionable|ambiguous|execution_request),
+candidateCycleTypeId (id catalogue cyc:… OU null),
+signals ({structuralChange,securityImpact,architectureImpact,dataImpact,irreversible,lowRiskBounded} tous booléens OU null),
+cognitiveWorkload ({ambiguity,reasoningDepth,sourceBreadth,toolDependency,contradictionRisk,verificationNeed} chacun low|medium|high|unknown OU null),
+contradictionCandidate (objet candidat cognitif OU null — PAS Evidence, PAS evidence_backed, PAS Cognitive STOP),
+challengeResponseAssessment (sufficient|insufficient|unknown|null — INTERNAL MW5 seulement ; PAS Truth C, PAS Evidence, PAS HumanDecision, PAS autorité ; missing/unknown/insufficient = fail-closed),
+objective, scope, rephrasedRequest, outOfScope[], risks[], reservations[], stopConditions[], activatedBlocks[],
+expectedOutcome, criticalJustification, requestedOperation (strings ou null pour les scalaires).
+
+=== DISTINCTION FONDAMENTALE ===
+intentClass = EFFET demandé à Studio (quoi faire sur le produit).
+cognitiveWorkload = CHARGE COGNITIVE pour raisonner (combien travailler).
+Ces concepts NE DOIVENT PAS être fusionnés.
+L'incertitude analytique (cognitiveWorkload.ambiguity medium/high) N'IMPLIQUE PAS intentClass=ambiguous.
+Les verbes « proposer / recommander / comparer / réconcilier / analyser » N'IMPLIQUENT PAS à eux seuls actionable/F2.
+
+=== intentClass ===
+informative — travail cognitif où l'utilisateur demande de lire, expliquer, analyser, synthétiser, comparer, réconcilier des faits/tensions, challenger des hypothèses, identifier des risques, produire des options ou une Recommendation, évaluer une situation — SANS demander à Studio de muter l'état durable Project, de créer/qualifier un cycle/proposition gouvernée comme effet demandé, d'enregistrer une HumanDecision, de préparer/lancer une exécution gouvernée, ni d'effectuer des side-effects externes.
+Exemples informative:
+- « Analyse les tensions entre délai, coût et auditabilité. »
+- « Compare les options et recommande la plus cohérente, sans décider ni exécuter. »
+- « À partir des faits A–D, réconcilie les contraintes et propose les compromis possibles. »
+- « Challenge cette hypothèse et indique les réserves. »
+- « Donne-moi les risques avant que je décide. »
+- Repository READ / résumé / recherche / vérité Git SANS mutation ni qualification de cycle.
+
+actionable — l'effet demandé est une opération SFIA gouvernée (qualifier/créer/changer un CycleInstance ; créer une proposition F2 parce que l'utilisateur demande une transition de processus ; préparer un changement structurel Project nécessitant une transition d'état ; capturer/préparer un workflow de décision où une qualification de cycle est réellement requise) ET candidateCycleTypeId + signals sont supportables.
+Exemples actionable:
+- « Qualifie ce chantier en cycle Delivery et prépare la proposition. »
+- « Crée le cycle correspondant et prépare le passage au prochain gate. »
+- « Prépare l'ExecutionContract pour cette décision déjà enregistrée. »
+
+execution_request — uniquement si l'utilisateur demande explicitement une exécution / mutation / action externe franchissant la frontière d'exécution.
+Exemple: « Exécute ce contrat. »
+
+ambiguous — uniquement si l'EFFET demandé est structurellement flou ou insuffisamment spécifié.
+Ne PAS utiliser ambiguous seulement parce que le raisonnement est complexe, que plusieurs prémisses se confrontent, que sourceBreadth est élevé, que verificationNeed est élevé, ou que cognitiveWorkload.ambiguity est medium/high (incertitude analytique ≠ ambiguïté d'intention structurelle).
+
+=== cognitiveWorkload (interne) ===
+Évaluation COGNITIVE INTERNE du workload (pas Truth C, pas Evidence, pas Profile, pas décision, pas autorité).
+low seulement avec évidence affirmative ; si insuffisant → unknown (jamais unknown→low). UNKNOWN ≠ LOW.
+Ne décide PAS rigorCriticality, contextSize, costBudget, latencySensitivity, multimodality (faits produit hors schéma).
+
+ambiguity — incertitude du problème cognitif APRÈS compréhension de l'intention.
+low: tâche et faits à raisonner sont clairs.
+medium/high: incertitude analytique matérielle, interprétations multiples, prémisses incomplètes.
+IMPORTANT: high cognitive ambiguity ≠ intentClass ambiguous.
+
+reasoningDepth —
+low: lookup / transformation simple.
+medium: plusieurs étapes inférentielles / synthèse modérée.
+high: réconciliation multi-prémisses, trade-offs, synthèse profonde.
+
+sourceBreadth —
+low: un seul ensemble borné de faits/sources.
+medium: plusieurs faits / sections pertinents.
+high: plusieurs ensembles de faits/sources matériellement distincts à intégrer.
+Ne pas équivaloir longueur de caractères et sourceBreadth.
+
+toolDependency —
+low: réponse raisonnable depuis le contexte de confiance déjà disponible.
+medium/high: outils / retrieval supplémentaires matériellement requis.
+enableTools=true n'est PAS une preuve de dépendance.
+
+contradictionRisk —
+low: pas de tensions matérielles indiquées.
+medium/high: prémisses/contraintes en tension ou claims conflictuels à réconcilier.
+
+verificationNeed —
+low: réponse bornée déjà supportée par le contexte de confiance.
+medium/high: claims matériels nécessitent vérification / réconciliation / evidence avant assertion forte.
+
+=== contradictionCandidate (interne, non autoritaire) ===
+Signal CANDIDAT seulement. Ne s'auto-promouvoit JAMAIS en evidence_backed. Ne décide JAMAIS un Cognitive STOP.
+Ne définit JAMAIS la politique de promotion Evidence (couverture source, fraîcheur, contexte projet).
+Champs autorisés seulement: conflictPresent, claimedEvidenceIds, governingPremise, governingPremiseInvalidated, localImpactOnly, fabricationAttempt.
+conflictPresent=true seulement si un conflit apparent est identifié.
+claimedEvidenceIds: identifiants Evidence déjà existants éventuellement cités — ne PAS inventer d'Evidence.
+Si aucune Evidence réelle n'est identifiable: claimedEvidenceIds=[] et conserver le candidat.
+governingPremiseInvalidated est une hypothèse sémantique, pas une preuve et pas un STOP.
+contradictionRisk CWP n'est PAS une preuve et n'implique PAS contradictionCandidate.
+
+=== challengeResponseAssessment (interne MW5, non autoritaire) ===
+Évalue UNIQUEMENT si le message utilisateur courant traite réellement la prémisse structurante demandée par un challenge MW5 antérieur FOURNI dans le message utilisateur sous MW5_CHALLENGE_CONTEXT.
+sufficient — la réponse traite explicitement les questions/prémisse du challengeContext de façon adéquate.
+insufficient — réponse triviale (« ok », « vas-y »), hors sujet, partielle ou cosmétique.
+unknown — impossible d'évaluer ; préférer unknown plutôt que sufficient.
+null — aucun MW5_CHALLENGE_CONTEXT pertinent, ou non applicable. Si challengePresent n'est pas fourni, DOIT être null.
+JAMAIS Truth C, Evidence, HumanDecision, GO, Confirmation ou autorité.
+missing/unknown/insufficient ⇒ le challenge n'est PAS satisfait (fail-closed).
+Ne PAS inventer un challenge absent du message.
+
+=== AUTORITÉ ===
+- Ne décide jamais un GO Morris ; ne propose jamais d'exécution ; n'invente jamais un cycle (ex. delivery) par défaut.
+- actionable et execution_request: candidateCycleTypeId DOIT être un id catalogue connu ET signals DOIT contenir exactement les 6 booléens (aucun défaut inventé).
+- informative et ambiguous: candidateCycleTypeId et signals PEUVENT être null.`;
+
+export const ANALYSIS_SYSTEM = ANALYSIS_SYSTEM_BASE;
+
+export async function analyzeIntent(input: {
+  userContent: string;
+  projectSummary: string;
+  /** Optional resolved CKC excerpt for future intent analysis enrichment. */
+  ckcContext?: string | null;
+  /**
+   * Server-issued MW5 challenge context for the SAME provider call (CORR-MW5-02B).
+   * Never client-authoritative; orchestrator supplies process-local issued challenge.
+   */
+  challengeContext?: Mw5ChallengeContextInput;
+  /**
+   * Optional server-side provider injection (eval / tests).
+   * Never client-authoritative for model/reasoning selection.
+   */
+  provider?: ConversationProvider;
+}): Promise<{
+  analysis: IntentAnalysisDto;
+  presentation: "test_provider" | "openai_live";
+  model: string | null;
+  rawText: string;
+}> {
+  const provider = input.provider ?? resolveConversationProvider();
+  // Presentation follows the provider instance actually used (explicit injection wins).
+  const presentation =
+    provider.providerId === "fake-test" ? "test_provider" : "openai_live";
+
+  const challengeBlock =
+    input.challengeContext &&
+    input.challengeContext.challengePresent === true
+      ? `\n\n${formatMw5ChallengeContextForProvider(input.challengeContext)}\n`
+      : "\n\nMW5_CHALLENGE_CONTEXT: challengePresent=false (assessment must be null).\n";
+
+  const messages: ProviderChatMessage[] = [
+    { role: "system", content: buildAnalysisSystem(input.ckcContext) },
+    {
+      role: "user",
+      content: `Contexte projet:\n${input.projectSummary}${challengeBlock}\nDemande courante (à évaluer):\n${input.userContent}`,
+    },
+  ];
+
+  if (typeof provider.completeStructured !== "function") {
+    throw new TechnicalError(
+      "PROVIDER",
+      "Structured Outputs requis pour l’analyse d’intention F2 (completeStructured manquant).",
+    );
+  }
+
+  const completion = await provider.completeStructured({
+    messages,
+    schemaName: F2_INTENT_SCHEMA_NAME,
+    jsonSchema: F2_INTENT_JSON_SCHEMA,
+  });
+  const parsed = extractJsonObject(completion.text);
+  const analysis = validateIntentAnalysisPayload(parsed);
+
+  // Fail-closed: without server challenge context, assessment cannot unlock Rec.
+  if (
+    !input.challengeContext ||
+    input.challengeContext.challengePresent !== true
+  ) {
+    analysis.challengeResponseAssessment = null;
+  }
+
+  return {
+    analysis,
+    presentation,
+    model: completion.usage?.model ?? null,
+    rawText: completion.text,
+  };
+}
+
+```
+
+
+### MODIFIED DIFF (intentAnalysis / orchestrateF2 / index / f2.orchestrate.test)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
-index cc766c5f..c8515c09 100644
+index cc766c5f..5b957d7d 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
-@@ -155,17 +155,38 @@ describe("F2 orchestration AC coverage", () => {
+@@ -18,6 +18,7 @@ import {
+   createProposalId,
+   F2_PROCESS_LOCAL_NOTICE,
+ } from "@/features/project-assistant/f2/proposalStore";
++import { resetMw5ChallengeStoreForTests } from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
+ import { validateIntentAnalysisPayload } from "@/features/project-assistant/f2/intentAnalysis";
+ import { qualifyWithCkc } from "@/features/project-assistant/f2/qualify";
+ import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
+@@ -38,6 +39,7 @@ describe("F2 orchestration AC coverage", () => {
+     delete process.env.OPENAI_MODEL;
+     setConversationProviderForTests(null);
+     resetF2ProposalStoreForTests();
++    resetMw5ChallengeStoreForTests();
+     resetRuntimeApplicationServiceForTests();
+     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-f2-"));
+     tempDirs.push(dir);
+@@ -63,6 +65,7 @@ describe("F2 orchestration AC coverage", () => {
+   afterEach(() => {
+     setConversationProviderForTests(null);
+     resetF2ProposalStoreForTests();
++    resetMw5ChallengeStoreForTests();
+     resetRuntimeApplicationServiceForTests();
+     while (tempDirs.length) {
+       const dir = tempDirs.pop();
+@@ -155,17 +158,38 @@ describe("F2 orchestration AC coverage", () => {
      expect(after.livingState.activeCycleInstanceId ?? null).toBeNull();
    });
 
@@ -2335,7 +3345,7 @@ index cc766c5f..c8515c09 100644
    });
 
    it("fail-closed on invalid JSON / unknown cycle / incomplete signals", () => {
-@@ -291,7 +312,8 @@ describe("F2 orchestration AC coverage", () => {
+@@ -291,7 +315,8 @@ describe("F2 orchestration AC coverage", () => {
      });
      expect(structuring.ok).toBe(true);
      if (!structuring.ok) return;
@@ -2345,146 +3355,48 @@ index cc766c5f..c8515c09 100644
      expect(structuring.f2?.qualification?.isMorrisDecision).toBe(false);
    });
 
-diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-index 0e5d35bb..39d6e0c7 100644
---- a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-+++ b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-@@ -78,6 +78,7 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
-       "features/project-assistant/actions.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/f2/orchestrateF2.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/f2/orchestrateF2.ts:@/lib/vertical-slice-runtime/paths",
-+      "features/project-assistant/f2/resolveMw5ProductAuthorityFromOa.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/f3/confirmAndExecuteResolvedM3.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/f3/confirmAndExecuteResolvedM3.ts:@/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl",
-       "features/project-assistant/f3/prepareAndResolveM3ProductPath.ts:@/lib/vertical-slice-runtime/resolveBoundedReadOnlyBaseHeadSha",
-diff --git a/projects/sfia-studio/app/e2e/studio-option-a.spec.ts b/projects/sfia-studio/app/e2e/studio-option-a.spec.ts
-index 7cce2e7d..580b1739 100644
---- a/projects/sfia-studio/app/e2e/studio-option-a.spec.ts
-+++ b/projects/sfia-studio/app/e2e/studio-option-a.spec.ts
-@@ -76,6 +76,13 @@ async function createUniqueProject(page: Page, suffix: string) {
-   return name;
- }
+@@ -403,6 +428,7 @@ describe("F2 decisions with shared OA stack", () => {
+     process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+     process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+     resetF2ProposalStoreForTests();
++    resetMw5ChallengeStoreForTests();
+     resetRuntimeApplicationServiceForTests();
+     const runtime = getRuntimeApplicationService({ auditMode: "noop" });
+     const created = await runtime.createProject({
+@@ -422,6 +448,7 @@ describe("F2 decisions with shared OA stack", () => {
 
-+/**
-+ * MW5 structuring contract (CORR-MW5-03):
-+ * turn 1 → CHALLENGE visible, no Recommendation-Proposal
-+ * turn 2 (sufficient) → proposal allowed (Rec ≠ HD)
-+ * Product path (non-legacy): gate affordances redirect to trajectory section —
-+ * assert proposal + recommendation labels, not legacy project-assistant-gate.
-+ */
- async function sendStructuring(page: Page) {
-   const input = page.getByTestId("project-assistant-input");
-   await expect(input).toBeEnabled({ timeout: 15_000 });
-@@ -83,12 +90,25 @@ async function sendStructuring(page: Page) {
-     "Préparer une proposition d'architecture __F2_STRUCTURING__",
-   );
-   await page.getByTestId("project-assistant-send").click();
--  await expect(page.getByTestId("project-assistant-gate")).toBeVisible({
-+  await expect(
-+    page.getByTestId("project-assistant-messages").getByText(/\[MW5 CHALLENGE/),
-+  ).toBeVisible({ timeout: 45_000 });
-+  await expect(page.getByTestId("project-assistant-proposal")).toHaveCount(0);
-+  await expect(page.getByTestId("project-assistant-decision")).toHaveCount(0);
-+
-+  await input.fill(
-+    "Prémisse d'architecture product explicitée. __F2_STRUCTURING__ __MW5_SATISFACTION_SUFFICIENT__",
-+  );
-+  await page.getByTestId("project-assistant-send").click();
-+  await expect(page.getByTestId("project-assistant-proposal")).toBeVisible({
-     timeout: 45_000,
+   afterEach(() => {
+     resetF2ProposalStoreForTests();
++    resetMw5ChallengeStoreForTests();
+     resetRuntimeApplicationServiceForTests();
    });
--  await expect(page.getByTestId("project-assistant-proposal")).toBeVisible();
-+  await expect(page.getByTestId("f2-gate-required")).toBeVisible();
-+  await expect(page.getByText(/RECOMMANDATION/i).first()).toBeVisible();
-+  await expect(page.getByTestId("project-assistant-decision")).toHaveCount(0);
- }
 
-+
- /** Standard/Light gated path — Confirmation reachable (Critical remains R-T-A3-1 fail-closed). */
- async function sendGatedStandard(page: Page) {
-   const input = page.getByTestId("project-assistant-input");
-@@ -423,6 +443,65 @@ test.describe("Option A — Negative authority reachable", () => {
+@@ -539,6 +566,7 @@ describe("F2 decisions with shared OA stack", () => {
+
+   it("AC-F2-26 missing proposal after reset has no durable authority claim", () => {
+     resetF2ProposalStoreForTests();
++    resetMw5ChallengeStoreForTests();
+     expect(getProposal("prop:missing")).toBeNull();
    });
  });
-
-+/**
-+ * CORR-MW5-03 — dedicated MW5 UX contract (not under W4-B skip).
-+ * Recommendation-Proposal only after challenge satisfied; Rec ≠ HumanDecision.
-+ */
-+test.describe("MW5 — Critical Challenge structuring UX (CORR-MW5-03)", () => {
-+  test.describe.configure({ timeout: 180_000 });
-+
-+  test("challenge first; insufficient blocked; sufficient unlocks proposal; Rec ≠ HD", async ({
-+    page,
-+  }) => {
-+    test.setTimeout(180_000);
-+    const suffix = runId();
-+    await page.setViewportSize({ width: 1440, height: 1024 });
-+    await createUniqueProject(page, `mw5-${suffix}`);
-+
-+    const input = page.getByTestId("project-assistant-input");
-+    await expect(input).toBeEnabled({ timeout: 15_000 });
-+    await input.fill(
-+      "Préparer une proposition d'architecture __F2_STRUCTURING__",
-+    );
-+    await page.getByTestId("project-assistant-send").click();
-+
-+    const messages = page.getByTestId("project-assistant-messages");
-+    await expect(messages.getByText(/\[MW5 CHALLENGE/)).toBeVisible({
-+      timeout: 45_000,
-+    });
-+    await expect(page.getByTestId("project-assistant-proposal")).toHaveCount(0);
-+    await expect(page.getByTestId("project-assistant-gate")).toHaveCount(0);
-+    await expect(page.getByTestId("project-assistant-decision")).toHaveCount(0);
-+
-+    const challengeText = await messages.innerText();
-+    const questionMarks = (challengeText.match(/\?/g) ?? []).length;
-+    expect(questionMarks).toBeLessThanOrEqual(3);
-+
-+    await input.fill("ok __F2_STRUCTURING__");
-+    await page.getByTestId("project-assistant-send").click();
-+    await expect(page.getByTestId("project-assistant-proposal")).toHaveCount(0, {
-+      timeout: 45_000,
-+    });
-+    await expect(page.getByTestId("project-assistant-gate")).toHaveCount(0);
-+
-+    await input.fill(
-+      "Prémisse d'architecture product explicitée. __F2_STRUCTURING__ __MW5_SATISFACTION_SUFFICIENT__",
-+    );
-+    await page.getByTestId("project-assistant-send").click();
-+    await expect(page.getByTestId("project-assistant-proposal")).toBeVisible({
-+      timeout: 45_000,
-+    });
-+    await expect(page.getByTestId("f2-gate-required")).toContainText(
-+      /Décision sur la proposition requise|DÉCISION REQUISE/i,
-+    );
-+    await expect(page.getByText(/RECOMMANDATION/i).first()).toBeVisible();
-+    await expect(page.getByTestId("project-assistant-decision")).toHaveCount(0);
-+    await expect(
-+      page.getByTestId("product-authority-path-guidance"),
-+    ).toBeVisible();
-+  });
-+});
-+
- test.describe("Option A — accessibility bounded smoke", () => {
-   test("F1 and Project principal expose structure", async ({ page }) => {
-     await page.setViewportSize({ width: 1440, height: 1024 });
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-index 7a775376..a87c5f86 100644
+index 7a775376..bb55cdb9 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-@@ -19,6 +19,10 @@ import type {
+@@ -19,6 +19,12 @@ import type {
    SemanticCognitiveWorkloadLevel,
  } from "./types";
  import type { Mw3ContradictionCandidateSignal } from "@/lib/nora-cognitive-runtime/deriveMw3Assessment";
 +import {
 +  parseChallengeResponseAssessment,
++  formatMw5ChallengeContextForProvider,
 +  type ChallengeResponseAssessment,
++  type Mw5ChallengeContextInput,
 +} from "@/lib/nora-cognitive-runtime/mw5ProductAuthorityFacts";
 
  const INTENT_CLASSES: readonly IntentClass[] = [
    "informative",
-@@ -150,6 +154,15 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
+@@ -150,6 +156,15 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
      contradictionCandidate: {
        anyOf: [CONTRADICTION_CANDIDATE_OBJECT_SCHEMA, { type: "null" }],
      },
@@ -2500,7 +3412,7 @@ index 7a775376..a87c5f86 100644
      objective: NULLABLE_STRING,
      scope: NULLABLE_STRING,
      rephrasedRequest: NULLABLE_STRING,
-@@ -168,6 +181,7 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
+@@ -168,6 +183,7 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
      "signals",
      "cognitiveWorkload",
      "contradictionCandidate",
@@ -2508,7 +3420,7 @@ index 7a775376..a87c5f86 100644
      "objective",
      "scope",
      "rephrasedRequest",
-@@ -219,6 +233,8 @@ function ambiguousFallback(partial?: Partial<IntentAnalysisDto>): IntentAnalysis
+@@ -219,6 +235,8 @@ function ambiguousFallback(partial?: Partial<IntentAnalysisDto>): IntentAnalysis
      criticalJustification: partial?.criticalJustification ?? null,
      requestedOperation: partial?.requestedOperation ?? null,
      contradictionCandidate: null,
@@ -2517,7 +3429,7 @@ index 7a775376..a87c5f86 100644
      parseOk: false,
    };
  }
-@@ -323,6 +339,8 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
+@@ -323,6 +341,8 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
    const contradictionCandidate = parseContradictionCandidate(
      obj.contradictionCandidate,
    );
@@ -2526,7 +3438,7 @@ index 7a775376..a87c5f86 100644
 
    return {
      intentClass: intentClass as IntentClass,
-@@ -330,6 +348,7 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
+@@ -330,6 +350,7 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
      signals,
      cognitiveWorkload,
      contradictionCandidate,
@@ -2534,7 +3446,7 @@ index 7a775376..a87c5f86 100644
      objective: clip(obj.objective),
      scope: clip(obj.scope),
      rephrasedRequest: clip(obj.rephrasedRequest),
-@@ -360,6 +379,7 @@ candidateCycleTypeId (id catalogue cyc:… OU null),
+@@ -360,6 +381,7 @@ candidateCycleTypeId (id catalogue cyc:… OU null),
  signals ({structuralChange,securityImpact,architectureImpact,dataImpact,irreversible,lowRiskBounded} tous booléens OU null),
  cognitiveWorkload ({ambiguity,reasoningDepth,sourceBreadth,toolDependency,contradictionRisk,verificationNeed} chacun low|medium|high|unknown OU null),
  contradictionCandidate (objet candidat cognitif OU null — PAS Evidence, PAS evidence_backed, PAS Cognitive STOP),
@@ -2542,24 +3454,72 @@ index 7a775376..a87c5f86 100644
  objective, scope, rephrasedRequest, outOfScope[], risks[], reservations[], stopConditions[], activatedBlocks[],
  expectedOutcome, criticalJustification, requestedOperation (strings ou null pour les scalaires).
 
-@@ -436,6 +456,15 @@ Si aucune Evidence réelle n'est identifiable: claimedEvidenceIds=[] et conserve
+@@ -436,6 +458,16 @@ Si aucune Evidence réelle n'est identifiable: claimedEvidenceIds=[] et conserve
  governingPremiseInvalidated est une hypothèse sémantique, pas une preuve et pas un STOP.
  contradictionRisk CWP n'est PAS une preuve et n'implique PAS contradictionCandidate.
 
 +=== challengeResponseAssessment (interne MW5, non autoritaire) ===
-+Évalue UNIQUEMENT si le message utilisateur courant traite réellement la prémisse structurante demandée par un challenge MW5 antérieur.
-+sufficient — la réponse traite explicitement la prémisse structurante demandée (objectif/périmètre/autorité/preuve) de façon adéquate.
++Évalue UNIQUEMENT si le message utilisateur courant traite réellement la prémisse structurante demandée par un challenge MW5 antérieur FOURNI dans le message utilisateur sous MW5_CHALLENGE_CONTEXT.
++sufficient — la réponse traite explicitement les questions/prémisse du challengeContext de façon adéquate.
 +insufficient — réponse triviale (« ok », « vas-y »), hors sujet, partielle ou cosmétique.
 +unknown — impossible d'évaluer ; préférer unknown plutôt que sufficient.
-+null — aucun challenge antérieur pertinent, ou non applicable.
++null — aucun MW5_CHALLENGE_CONTEXT pertinent, ou non applicable. Si challengePresent n'est pas fourni, DOIT être null.
 +JAMAIS Truth C, Evidence, HumanDecision, GO, Confirmation ou autorité.
 +missing/unknown/insufficient ⇒ le challenge n'est PAS satisfait (fail-closed).
++Ne PAS inventer un challenge absent du message.
 +
  === AUTORITÉ ===
  - Ne décide jamais un GO Morris ; ne propose jamais d'exécution ; n'invente jamais un cycle (ex. delivery) par défaut.
  - actionable et execution_request: candidateCycleTypeId DOIT être un id catalogue connu ET signals DOIT contenir exactement les 6 booléens (aucun défaut inventé).
+@@ -448,6 +480,11 @@ export async function analyzeIntent(input: {
+   projectSummary: string;
+   /** Optional resolved CKC excerpt for future intent analysis enrichment. */
+   ckcContext?: string | null;
++  /**
++   * Server-issued MW5 challenge context for the SAME provider call (CORR-MW5-02B).
++   * Never client-authoritative; orchestrator supplies process-local issued challenge.
++   */
++  challengeContext?: Mw5ChallengeContextInput;
+   /**
+    * Optional server-side provider injection (eval / tests).
+    * Never client-authoritative for model/reasoning selection.
+@@ -464,11 +501,17 @@ export async function analyzeIntent(input: {
+   const presentation =
+     provider.providerId === "fake-test" ? "test_provider" : "openai_live";
+
++  const challengeBlock =
++    input.challengeContext &&
++    input.challengeContext.challengePresent === true
++      ? `\n\n${formatMw5ChallengeContextForProvider(input.challengeContext)}\n`
++      : "\n\nMW5_CHALLENGE_CONTEXT: challengePresent=false (assessment must be null).\n";
++
+   const messages: ProviderChatMessage[] = [
+     { role: "system", content: buildAnalysisSystem(input.ckcContext) },
+     {
+       role: "user",
+-      content: `Contexte projet:\\n${input.projectSummary}\\n\\nDemande:\\n${input.userContent}`,
++      content: `Contexte projet:\n${input.projectSummary}${challengeBlock}\nDemande courante (à évaluer):\n${input.userContent}`,
+     },
+   ];
+
+@@ -486,6 +529,15 @@ export async function analyzeIntent(input: {
+   });
+   const parsed = extractJsonObject(completion.text);
+   const analysis = validateIntentAnalysisPayload(parsed);
++
++  // Fail-closed: without server challenge context, assessment cannot unlock Rec.
++  if (
++    !input.challengeContext ||
++    input.challengeContext.challengePresent !== true
++  ) {
++    analysis.challengeResponseAssessment = null;
++  }
++
+   return {
+     analysis,
+     presentation,
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-index 242252e6..0b9501eb 100644
+index 242252e6..e9b31554 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 @@ -11,6 +11,7 @@ import {
@@ -2570,7 +3530,7 @@ index 242252e6..0b9501eb 100644
  } from "@/lib/vertical-slice-runtime";
  import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
  import type {
-@@ -24,8 +25,17 @@ import { analyzeIntent } from "./intentAnalysis";
+@@ -24,8 +25,22 @@ import { analyzeIntent } from "./intentAnalysis";
  import { resolveAvailableContradictionPointers } from "../mw3AvailableEvidence";
  import {
    deriveMw3ContradictionAssessment,
@@ -2585,10 +3545,15 @@ index 242252e6..0b9501eb 100644
 +  type Mw5TurnSurface,
  } from "@/lib/nora-cognitive-runtime";
 +import { resolveMw5ProductAuthorityFromOa } from "./resolveMw5ProductAuthorityFromOa";
++import {
++  clearMw5IssuedChallenge,
++  getMw5ChallengeSession,
++  rememberMw5IssuedChallenge,
++} from "./mw5ChallengeSessionStore";
  import { isPureRepositoryAnalysisIntent } from "./repositoryIntent";
  import { evaluateMorrisGateRequired } from "./gatePolicy";
  import {
-@@ -249,6 +259,85 @@ function snapshotFrom(project: ProjectAssistantContextDto): F2ContextSnapshot {
+@@ -249,6 +264,102 @@ function snapshotFrom(project: ProjectAssistantContextDto): F2ContextSnapshot {
    };
  }
 
@@ -2642,6 +3607,7 @@ index 242252e6..0b9501eb 100644
 +      input.analysis.contradictionCandidate?.conflictPresent,
 +    ),
 +  });
++  const session = getMw5ChallengeSession(input.projectId);
 +  const decision = decideMw5Disposition(
 +    deriveMw5FactsFromF2Turn({
 +      userContent: input.content,
@@ -2656,12 +3622,28 @@ index 242252e6..0b9501eb 100644
 +        authority.consumedHumanDecisionWithoutNewContradiction,
 +      challengeResponseAssessment:
 +        input.analysis.challengeResponseAssessment ?? null,
++      openChallengePresent: session.latest != null,
++      priorStructuralChallengeCount: session.priorStructuralChallengeCount,
 +    }),
 +  );
++  const text = formatMw5AssistantText(decision);
++  if (decision.disposition === "CHALLENGE") {
++    rememberMw5IssuedChallenge({
++      projectId: input.projectId,
++      challenges: decision.challenges,
++      challengeText: text,
++    });
++  } else if (
++    decision.recommendationAllowed &&
++    decision.challengeSatisfied &&
++    session.latest != null
++  ) {
++    clearMw5IssuedChallenge(input.projectId);
++  }
 +  return {
 +    armed,
 +    surface: toMw5TurnSurface(decision, armed),
-+    text: formatMw5AssistantText(decision),
++    text,
 +  };
 +}
 +
@@ -2674,7 +3656,7 @@ index 242252e6..0b9501eb 100644
  function resolveMode(explicitProvider?: ConversationProvider): {
    mode: "fixture" | "live" | "unavailable";
    canProceed: boolean;
-@@ -335,13 +424,16 @@ function f2Success(base: {
+@@ -335,13 +446,16 @@ function f2Success(base: {
    qualification?: QualificationDto;
    proposal?: ProposalDto;
    executionBlocked?: boolean;
@@ -2694,7 +3676,7 @@ index 242252e6..0b9501eb 100644
    return {
      ok: true,
      status: "ok",
-@@ -355,6 +447,27 @@ function f2Success(base: {
+@@ -355,6 +469,27 @@ function f2Success(base: {
      toolEvents: [],
      project: base.project,
      ephemeralNotice: EPHEMERAL_NOTICE,
@@ -2722,7 +3704,7 @@ index 242252e6..0b9501eb 100644
      f2: {
        turnKind,
        intentClass: base.intentClass,
-@@ -362,7 +475,8 @@ function f2Success(base: {
+@@ -362,7 +497,8 @@ function f2Success(base: {
        proposal: base.proposal ?? null,
        decision: null,
        labels: {
@@ -2732,7 +3714,32 @@ index 242252e6..0b9501eb 100644
          proposition: base.proposal ? "PROPOSITION" : null,
          decisionRequired: base.proposal?.morrisGateRequired
            ? "DÉCISION REQUISE"
-@@ -519,14 +633,38 @@ export async function orchestrateAssistantSend(input: {
+@@ -447,9 +583,24 @@ export async function orchestrateAssistantSend(input: {
+       cognitive.contextSource === "TRUTH_C_LPS"
+         ? cognitive.truthCContext
+         : undefined;
++    const challengeSession = getMw5ChallengeSession(project.projectId);
++    const challengeContext =
++      challengeSession.latest != null
++        ? {
++            challengePresent: true as const,
++            challenges: challengeSession.latest.challenges,
++            challengedPremise: challengeSession.latest.challengeText.slice(
++              0,
++              500,
++            ),
++            structuralChallengeCount:
++              challengeSession.latest.structuralChallengeCount,
++          }
++        : { challengePresent: false as const };
+     analysisResult = await analyzeIntent({
+       userContent: content,
+       projectSummary: cognitive.projectSummary,
++      challengeContext,
+       provider: input.provider,
+     });
+   } catch (error) {
+@@ -519,14 +670,38 @@ export async function orchestrateAssistantSend(input: {
 
    // C — ambiguous / fail-closed (no Cycle/LPS mutation)
    if (analysis.intentClass === "ambiguous" || !analysis.parseOk) {
@@ -2773,7 +3780,7 @@ index 242252e6..0b9501eb 100644
      });
    }
 
-@@ -648,6 +786,31 @@ export async function orchestrateAssistantSend(input: {
+@@ -648,6 +823,31 @@ export async function orchestrateAssistantSend(input: {
      });
    }
 
@@ -2805,7 +3812,7 @@ index 242252e6..0b9501eb 100644
    const cycleInstanceId = `cyc:f2-${randomBytes(8).toString("hex")}`;
    const created = await oa.cycleServices.createCycle.execute({
      cycleInstanceId,
-@@ -723,11 +886,12 @@ export async function orchestrateAssistantSend(input: {
+@@ -723,11 +923,12 @@ export async function orchestrateAssistantSend(input: {
      recommendedProfile: created.cycle.profile,
    };
 
@@ -2823,7 +3830,7 @@ index 242252e6..0b9501eb 100644
 
    const status = morrisGateRequired ? "DECISION_REQUIRED" : "READY_NO_GATE";
    const proposal = saveProposal(
-@@ -759,6 +923,10 @@ export async function orchestrateAssistantSend(input: {
+@@ -759,6 +960,10 @@ export async function orchestrateAssistantSend(input: {
      executionBlocked
        ? "Demande d'exécution détectée — AUCUNE EXÉCUTION (Cursor/PR/merge indisponibles)."
        : "AUCUNE EXÉCUTION.",
@@ -2834,86 +3841,18 @@ index 242252e6..0b9501eb 100644
    ];
 
    return f2Success({
-@@ -771,5 +939,6 @@ export async function orchestrateAssistantSend(input: {
+@@ -771,5 +976,6 @@ export async function orchestrateAssistantSend(input: {
      qualification,
      proposal,
      executionBlocked,
 +    mw5: mw5.surface,
    });
  }
-diff --git a/projects/sfia-studio/app/features/project-assistant/f2/types.ts b/projects/sfia-studio/app/features/project-assistant/f2/types.ts
-index cc427df0..b5e06072 100644
---- a/projects/sfia-studio/app/features/project-assistant/f2/types.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f2/types.ts
-@@ -154,6 +154,16 @@ export type IntentAnalysisDto = {
-    * Never Evidence; never a client-authored STOP.
-    */
-   contradictionCandidate?: Mw3ContradictionCandidateSignal | null;
-+  /**
-+   * INTERNAL MW5 challenge-response assessment (CORR-MW5-02).
-+   * Never Truth C / Evidence / HumanDecision / authority.
-+   * missing|unknown|insufficient ⇒ challenge not satisfied (fail-closed).
-+   */
-+  challengeResponseAssessment?:
-+    | "sufficient"
-+    | "insufficient"
-+    | "unknown"
-+    | null;
-   objective: string | null;
-   scope: string | null;
-   rephrasedRequest: string | null;
-diff --git a/projects/sfia-studio/app/features/project-assistant/types.ts b/projects/sfia-studio/app/features/project-assistant/types.ts
-index f3fd92dd..eab48c2d 100644
---- a/projects/sfia-studio/app/features/project-assistant/types.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/types.ts
-@@ -63,6 +63,33 @@ export type Mw3CognitiveSurfaceDto = {
-   notTechnicalFailure?: boolean;
- };
-
-+/** MW5 challenge/clarification surface — process-local; ≠ HumanDecision. */
-+export type Mw5DispositionDto =
-+  | "CONTINUE"
-+  | "CHALLENGE"
-+  | "CLARIFY"
-+  | "ESCALATE";
-+
-+export type Mw5CognitiveSurfaceDto = {
-+  disposition: Mw5DispositionDto;
-+  structuralChallengeCount: number;
-+  questionnaireSuppressed: boolean;
-+  recommendationAllowed: boolean;
-+  challengeGateApplicable: boolean;
-+  challengeSatisfied: boolean;
-+  challengeEvidenceBeforeRecommendation: boolean;
-+  bypassAttempted: boolean;
-+  bypassBlocked: boolean;
-+  synthesizedHumanDecision: false;
-+  synthesizedGo: false;
-+  synthesizedConfirmation: false;
-+  disclosure: string;
-+  reasonCodes: string[];
-+  challenges: string[];
-+  /** MW2 High-Assurance hook only — not MW5-S03 proof. */
-+  criticalChallengeArmedHookOnly: boolean;
-+};
-+
- /** MW4 grounding durability surface — process-local; ≠ Evidence authority. */
- export type Mw4GroundingSurfaceDto = {
-   rememberedIds: string[];
-@@ -181,6 +208,8 @@ export type ProjectAssistantSendSuccess = {
-   mw3?: Mw3CognitiveSurfaceDto | null;
-   /** MW4 — grounding durability / partiality surface (when assessed). */
-   mw4?: Mw4GroundingSurfaceDto | null;
-+  /** MW5 — challenge / clarification / Critical ordering / escalation (when assessed). */
-+  mw5?: Mw5CognitiveSurfaceDto | null;
-   f2?: F2TurnPayload;
- };
-
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-index 455649d4..e107b909 100644
+index 455649d4..64e75ac3 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-@@ -113,6 +113,43 @@ export {
+@@ -113,6 +113,47 @@ export {
    cognitiveStopAllowsProductSuccess,
    formatCognitiveStopPiloteNotice,
  } from "./cognitiveStop";
@@ -2943,12 +3882,16 @@ index 455649d4..e107b909 100644
 +  Mw5UncertaintyClass,
 +} from "./criticalChallengeClarification";
 +export {
-+  MW5_PRODUCT_ESTABLISHED_CLAIM_PREFIX,
 +  parseChallengeResponseAssessment,
 +  resolveMw5ProductAuthorityFacts,
++  truthCMatchesClaimStructured,
++  decisionBasisMatchesClaimStructured,
++  formatMw5ChallengeContextForProvider,
 +} from "./mw5ProductAuthorityFacts";
 +export type {
 +  ChallengeResponseAssessment,
++  Mw5ChallengeContextForAnalysis,
++  Mw5ChallengeContextInput,
 +  Mw5ClaimProjection,
 +  Mw5ConsumedDecisionProjection,
 +  Mw5ProductAuthorityFacts,
@@ -2957,583 +3900,29 @@ index 455649d4..e107b909 100644
  export {
    deriveMw3ContradictionAssessment,
    MW3_STUDIO_REQUIRED_SOURCE_COUNT,
-diff --git a/projects/sfia-studio/app/lib/nora-eval/catalog.ts b/projects/sfia-studio/app/lib/nora-eval/catalog.ts
-index d2af7ab4..dab9a976 100644
---- a/projects/sfia-studio/app/lib/nora-eval/catalog.ts
-+++ b/projects/sfia-studio/app/lib/nora-eval/catalog.ts
-@@ -263,6 +263,31 @@ const SCENARIOS: ScenarioDefinition[] = [
-     ],
-     d0Expectations: { mustPass: true },
-   },
-+  {
-+    scenarioId: "mw5.s01.challenge-clarification",
-+    catalogVersion: NORA_EVAL_CATALOG_VERSION,
-+    storyIds: ["MW5-S01", "MW5-S02", "MW5-S03", "MW5-S04"],
-+    barIds: [
-+      "NCC-BAR-01",
-+      "NCC-BAR-02",
-+      "NCC-BAR-08",
-+      "NCC-BAR-09",
-+      "NCC-BAR-11",
-+    ],
-+    kind: "challenge_clarification",
-+    title:
-+      "MW5-S01/S02/S03/S04 — structural challenge ≤3 + clarification + Critical ordering + escalation (D0)",
-+    prompt:
-+      "Deterministic MW5 challenge/clarification/ordering/escalation; ZERO REAL; no synthesized HD/GO.",
-+    requiredTier: ["D0"],
-+    hardInvariants: [
-+      "mw5_challenge_bound",
-+      "mw5_structural_clarification",
-+      "mw5_critical_ordering",
-+      "mw5_no_synth_authority",
-+    ],
-+    d0Expectations: { mustPass: true },
-+  },
- ];
-
- export function getCatalogVersion(): typeof NORA_EVAL_CATALOG_VERSION {
-diff --git a/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts b/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
-index 95a44d13..619236fc 100644
---- a/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
-+++ b/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
-@@ -17,6 +17,7 @@ import { observeMw1S02FromRuntime } from "./mw1S02Observe";
- import { observeMw2S01FromRuntime } from "./mw2S01Observe";
- import { observeMw3FromRuntime } from "./mw3Observe";
- import { observeMw4FromProductPath } from "./mw4Observe";
-+import { observeMw5FromProductPath } from "./mw5Observe";
-
- function nowIso(): string {
-   return new Date().toISOString();
-@@ -114,6 +115,8 @@ async function observationForScenario(
-       return observeMw3FromRuntime();
-     case "mw4.s01.grounding-durability":
-       return observeMw4FromProductPath();
-+    case "mw5.s01.challenge-clarification":
-+      return observeMw5FromProductPath();
-     default:
-       return { productPath: "none" };
-   }
-diff --git a/projects/sfia-studio/app/lib/nora-eval/index.ts b/projects/sfia-studio/app/lib/nora-eval/index.ts
-index 2c277d89..a33ef4e9 100644
---- a/projects/sfia-studio/app/lib/nora-eval/index.ts
-+++ b/projects/sfia-studio/app/lib/nora-eval/index.ts
-@@ -36,6 +36,12 @@ export {
-   observationFromMw4Facts,
-   type Mw4RuntimeFacts,
- } from "./mw4Observe";
-+export {
-+  observeMw5FromRuntime,
-+  observeMw5FromProductPath,
-+  observationFromMw5Facts,
-+  type Mw5RuntimeFacts,
-+} from "./mw5Observe";
- export {
-   evaluateMw2S01Matrix,
-   evaluateMw2S02Matrix,
-diff --git a/projects/sfia-studio/app/lib/nora-eval/scorers.ts b/projects/sfia-studio/app/lib/nora-eval/scorers.ts
-index 51ee534c..75c0c16b 100644
---- a/projects/sfia-studio/app/lib/nora-eval/scorers.ts
-+++ b/projects/sfia-studio/app/lib/nora-eval/scorers.ts
-@@ -67,6 +67,17 @@ export type DeterministicObservation = {
-   mw3DispositionOk?: boolean;
-   /** MW4-S01/S02/S03 grounding durability + narrative + partiality */
-   mw4GroundingOk?: boolean;
-+  /** MW5-S01…S04 challenge / clarification / ordering / escalation */
-+  mw5ChallengeOk?: boolean;
-+  /** CORR-MW5-04 — independent MW5 observables (no shared global ok). */
-+  mw5ChallengeBoundOk?: boolean;
-+  mw5StructuralClarificationOk?: boolean;
-+  mw5CriticalOrderingOk?: boolean;
-+  mw5AuthorityBoundaryOk?: boolean;
-+  mw5TruthCNoReopenOk?: boolean;
-+  mw5ConsumedHdNoReopenOk?: boolean;
-+  mw5ChallengeSatisfactionFailClosedOk?: boolean;
-+  mw5ProductPathOrderingOk?: boolean;
- };
-
- function hardFail(
-@@ -380,6 +391,76 @@ export function scoreHardInvariants(
-     );
-   }
-
-+  if (scenario.hardInvariants.includes("mw5_challenge_bound")) {
-+    results.push(
-+      obs.mw5ChallengeBoundOk === true
-+        ? pass(
-+            "hard.mw5_challenge_bound",
-+            "MW5 structural challenge ≤3 / no questionnaire PASS (D0)",
-+            "NCC-BAR-01",
-+          )
-+        : hardFail(
-+            "hard.mw5_challenge_bound",
-+            "MW5 challenge bound not evidenced",
-+            "NCC-BAR-01",
-+            "obs.intent.clarification_bounded",
-+          ),
-+    );
-+  }
-+
-+  if (scenario.hardInvariants.includes("mw5_structural_clarification")) {
-+    results.push(
-+      obs.mw5StructuralClarificationOk === true
-+        ? pass(
-+            "hard.mw5_structural_clarification",
-+            "MW5 structural-only clarification PASS (D0)",
-+            "NCC-BAR-01",
-+          )
-+        : hardFail(
-+            "hard.mw5_structural_clarification",
-+            "MW5 structural clarification not evidenced",
-+            "NCC-BAR-01",
-+            "obs.grounding.source_class",
-+          ),
-+    );
-+  }
-+
-+  if (scenario.hardInvariants.includes("mw5_critical_ordering")) {
-+    results.push(
-+      obs.mw5CriticalOrderingOk === true &&
-+        obs.mw5ProductPathOrderingOk === true &&
-+        obs.mw5ChallengeSatisfactionFailClosedOk === true
-+        ? pass(
-+            "hard.mw5_critical_ordering",
-+            "MW5 Critical/HA Rec ordering + fail-closed satisfaction PASS (D0)",
-+            "NCC-BAR-02",
-+          )
-+        : hardFail(
-+            "hard.mw5_critical_ordering",
-+            "MW5 Critical ordering not evidenced",
-+            "NCC-BAR-02",
-+            "obs.evidence.provenance",
-+          ),
-+    );
-+  }
-+
-+  if (scenario.hardInvariants.includes("mw5_no_synth_authority")) {
-+    results.push(
-+      obs.mw5AuthorityBoundaryOk === true
-+        ? pass(
-+            "hard.mw5_no_synth_authority",
-+            "MW5 no synthesized HD/GO/Confirmation PASS (D0)",
-+            "NCC-BAR-11",
-+          )
-+        : hardFail(
-+            "hard.mw5_no_synth_authority",
-+            "MW5 authority anti-synthesis not evidenced",
-+            "NCC-BAR-11",
-+            "obs.authority.absolute_boundary",
-+          ),
-+    );
-+  }
-+
-   if (scenario.hardInvariants.includes("uses_f2_not_ops1")) {
-     if (obs.productPath === "ops1") {
-       results.push(
-diff --git a/projects/sfia-studio/app/lib/nora-eval/types.ts b/projects/sfia-studio/app/lib/nora-eval/types.ts
-index a5f9ea8c..c0e7e920 100644
---- a/projects/sfia-studio/app/lib/nora-eval/types.ts
-+++ b/projects/sfia-studio/app/lib/nora-eval/types.ts
-@@ -19,7 +19,8 @@ export type ScenarioKind =
-   | "memory_continuity"
-   | "cognitive_strategy"
-   | "contradiction_stop"
--  | "grounding_durability";
-+  | "grounding_durability"
-+  | "challenge_clarification";
-
- export type PassFail = "PASS" | "FAIL" | "INCONCLUSIVE" | "NOT_PROVEN";
-
-@@ -80,12 +81,15 @@ export type Mw3StoryId = "MW3-S01" | "MW3-S02";
-
- export type Mw4StoryId = "MW4-S01" | "MW4-S02" | "MW4-S03";
-
-+export type Mw5StoryId = "MW5-S01" | "MW5-S02" | "MW5-S03" | "MW5-S04";
-+
- export type CognitiveStoryId =
-   | Mw0StoryId
-   | Mw1StoryId
-   | Mw2StoryId
-   | Mw3StoryId
--  | Mw4StoryId;
-+  | Mw4StoryId
-+  | Mw5StoryId;
-
- export type CycleTypeFixtureId =
-   | "delivery_implementation"
-diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-index 0b4681db..e12f669f 100644
---- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-+++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-@@ -187,6 +187,240 @@ export class FakeConversationProvider implements ConversationProvider {
-     }
-
-     // F2 deterministic structured intent JSON (TEST/FAKE only)
-+    if (lastUser?.content.includes("__MW5_HIGH_ASSURANCE__")) {
-+      return {
-+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-+          intentClass: "actionable",
-+          candidateCycleTypeId: "cyc:delivery",
-+          signals: {
-+            structuralChange: false,
-+            securityImpact: false,
-+            architectureImpact: false,
-+            dataImpact: false,
-+            irreversible: false,
-+            lowRiskBounded: true,
-+          },
-+          cognitiveWorkload: {
-+            ambiguity: "high",
-+            reasoningDepth: "high",
-+            sourceBreadth: "high",
-+            toolDependency: "medium",
-+            contradictionRisk: "high",
-+            verificationNeed: "high",
-+          },
-+          objective: "Préparer une proposition High-Assurance bornée",
-+          scope: "Proposition Light/Standard sous stratégie High-Assurance",
-+          rephrasedRequest: "Préparer une recommandation sous High-Assurance",
-+          outOfScope: ["Exécution", "PR", "merge"],
-+          risks: ["Rec avant challenge"],
-+          reservations: [],
-+          stopConditions: ["AUCUNE EXÉCUTION"],
-+          activatedBlocks: ["qualification", "proposition"],
-+          expectedOutcome: "Challenge avant Rec",
-+          criticalJustification: null,
-+          requestedOperation: null,
-+        })}`,
-+        usage: {
-+          inputTokens: 10 * this.callCount,
-+          outputTokens: 5 * this.callCount,
-+          totalTokens: 15 * this.callCount,
-+          model: "fake-test-model",
-+          providerResponseId: `fake-resp-${this.callCount}`,
-+        },
-+      };
-+    }
-+    if (lastUser?.content.includes("__MW5_COSMETIC__")) {
-+      return {
-+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-+          intentClass: "ambiguous",
-+          candidateCycleTypeId: null,
-+          signals: null,
-+          cognitiveWorkload: null,
-+          objective: null,
-+          scope: null,
-+          rephrasedRequest: "Peux-tu juste corriger l'orthographe cosmétique",
-+          outOfScope: [],
-+          risks: [],
-+          reservations: [],
-+          stopConditions: [],
-+          activatedBlocks: [],
-+          expectedOutcome: null,
-+          criticalJustification: null,
-+          requestedOperation: null,
-+        })}`,
-+        usage: {
-+          inputTokens: 10 * this.callCount,
-+          outputTokens: 5 * this.callCount,
-+          totalTokens: 15 * this.callCount,
-+          model: "fake-test-model",
-+          providerResponseId: `fake-resp-${this.callCount}`,
-+        },
-+      };
-+    }
-+    if (lastUser?.content.includes("__MW5_CONTEXT_RESOLVED__")) {
-+      return {
-+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-+          intentClass: "ambiguous",
-+          candidateCycleTypeId: null,
-+          signals: null,
-+          cognitiveWorkload: null,
-+          objective: null,
-+          scope: null,
-+          rephrasedRequest: "Demande déjà couverte par le contexte projet",
-+          outOfScope: [],
-+          risks: [],
-+          reservations: [],
-+          stopConditions: [],
-+          activatedBlocks: [],
-+          expectedOutcome: null,
-+          criticalJustification: null,
-+          requestedOperation: null,
-+        })}`,
-+        usage: {
-+          inputTokens: 10 * this.callCount,
-+          outputTokens: 5 * this.callCount,
-+          totalTokens: 15 * this.callCount,
-+          model: "fake-test-model",
-+          providerResponseId: `fake-resp-${this.callCount}`,
-+        },
-+      };
-+    }
-+    if (
-+      lastUser?.content.includes("__MW5_TRUTH_C_ESTABLISHED__") ||
-+      lastUser?.content.includes("__MW5_CONSUMED_HD__")
-+    ) {
-+      return {
-+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-+          intentClass: "actionable",
-+          candidateCycleTypeId: "cyc:functional-architecture",
-+          signals: {
-+            structuralChange: true,
-+            securityImpact: false,
-+            architectureImpact: true,
-+            dataImpact: false,
-+            irreversible: false,
-+            lowRiskBounded: false,
-+          },
-+          cognitiveWorkload: null,
-+          objective: "Faire évoluer l'architecture déjà tranchée",
-+          scope: "Changement d'architecture déjà établi",
-+          rephrasedRequest: "Reprendre une prémisse déjà établie",
-+          outOfScope: ["Exécution"],
-+          risks: [],
-+          reservations: [],
-+          stopConditions: ["AUCUNE EXÉCUTION"],
-+          activatedBlocks: ["qualification", "proposition", "gate"],
-+          expectedOutcome: "Pas de re-challenge gratuit",
-+          criticalJustification: "Prémisse déjà établie / HD consommée",
-+          requestedOperation: "architecture change",
-+        })}`,
-+        usage: {
-+          inputTokens: 10 * this.callCount,
-+          outputTokens: 5 * this.callCount,
-+          totalTokens: 15 * this.callCount,
-+          model: "fake-test-model",
-+          providerResponseId: `fake-resp-${this.callCount}`,
-+        },
-+      };
-+    }
-+    if (lastUser?.content.includes("__MW5_QUESTIONNAIRE_ATTEMPT__")) {
-+      return {
-+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-+          intentClass: "ambiguous",
-+          candidateCycleTypeId: null,
-+          signals: null,
-+          cognitiveWorkload: null,
-+          objective: null,
-+          scope: null,
-+          rephrasedRequest: "Formulaire d'intake multi-questions",
-+          outOfScope: [],
-+          risks: [],
-+          reservations: [],
-+          stopConditions: [],
-+          activatedBlocks: [],
-+          expectedOutcome: null,
-+          criticalJustification: null,
-+          requestedOperation: null,
-+        })}`,
-+        usage: {
-+          inputTokens: 10 * this.callCount,
-+          outputTokens: 5 * this.callCount,
-+          totalTokens: 15 * this.callCount,
-+          model: "fake-test-model",
-+          providerResponseId: `fake-resp-${this.callCount}`,
-+        },
-+      };
-+    }
-+    if (lastUser?.content.includes("__MW5_AUTHORITY__")) {
-+      return {
-+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-+          intentClass: "actionable",
-+          candidateCycleTypeId: "cyc:delivery",
-+          signals: {
-+            structuralChange: false,
-+            securityImpact: false,
-+            architectureImpact: false,
-+            dataImpact: false,
-+            irreversible: false,
-+            lowRiskBounded: true,
-+          },
-+          cognitiveWorkload: null,
-+          objective: "Frontière d'autorité non résolue",
-+          scope: "Décision humaine requise sans acte Nora",
-+          rephrasedRequest: "Escalader l'autorité non résolue",
-+          outOfScope: ["HumanDecision synthétisée"],
-+          risks: ["Confusion Rec/HD"],
-+          reservations: [],
-+          stopConditions: ["AUCUNE EXÉCUTION"],
-+          activatedBlocks: ["qualification", "proposition", "gate"],
-+          expectedOutcome: "Escalade Pilote",
-+          criticalJustification: null,
-+          requestedOperation: null,
-+        })}`,
-+        usage: {
-+          inputTokens: 10 * this.callCount,
-+          outputTokens: 5 * this.callCount,
-+          totalTokens: 15 * this.callCount,
-+          model: "fake-test-model",
-+          providerResponseId: `fake-resp-${this.callCount}`,
-+        },
-+      };
-+    }
-+    if (lastUser?.content.includes("__MW5_SYNTH_HD__")) {
-+      return {
-+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-+          intentClass: "actionable",
-+          candidateCycleTypeId: "cyc:delivery",
-+          signals: {
-+            structuralChange: false,
-+            securityImpact: false,
-+            architectureImpact: false,
-+            dataImpact: false,
-+            irreversible: false,
-+            lowRiskBounded: true,
-+          },
-+          cognitiveWorkload: null,
-+          objective: "Tenter de faire synthétiser un GO Nora",
-+          scope: "Anti-synthèse HumanDecision",
-+          rephrasedRequest: "Décider GO maintenant",
-+          outOfScope: ["Décision Nora"],
-+          risks: ["Autorité usurpée"],
-+          reservations: [],
-+          stopConditions: ["AUCUNE EXÉCUTION"],
-+          activatedBlocks: ["qualification"],
-+          expectedOutcome: null,
-+          criticalJustification: null,
-+          requestedOperation: "go now",
-+        })}`,
-+        usage: {
-+          inputTokens: 10 * this.callCount,
-+          outputTokens: 5 * this.callCount,
-+          totalTokens: 15 * this.callCount,
-+          model: "fake-test-model",
-+          providerResponseId: `fake-resp-${this.callCount}`,
-+        },
-+      };
-+    }
-     if (lastUser?.content.includes("__F2_INFORMATIVE__")) {
-       return {
-         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-@@ -291,6 +525,29 @@ export class FakeConversationProvider implements ConversationProvider {
-       };
-     }
-     if (lastUser?.content.includes("__F2_STRUCTURING__")) {
-+      const content = lastUser.content;
-+      let challengeResponseAssessment:
-+        | "sufficient"
-+        | "insufficient"
-+        | "unknown"
-+        | null = null;
-+      if (
-+        content.includes("__MW5_SATISFACTION_SUFFICIENT__") ||
-+        content.includes("__MW5_CHALLENGE_SATISFIED__")
-+      ) {
-+        challengeResponseAssessment = "sufficient";
-+      } else if (
-+        content.includes("__MW5_SATISFACTION_INSUFFICIENT__") ||
-+        /^\s*(ok|vas-y|go|d'accord|daccord)\b/i.test(
-+          content.replace(/__MW5_[A-Z0-9_]+__/g, "").replace(/__F2_[A-Z0-9_]+__/g, "").trim(),
-+        )
-+      ) {
-+        challengeResponseAssessment = "insufficient";
-+      } else if (
-+        /hors\s*sujet|off[\s-]?topic|couleur\s+pr[eé]f[eé]r[eé]e/i.test(content)
-+      ) {
-+        challengeResponseAssessment = "insufficient";
-+      }
-       return {
-         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-           intentClass: "actionable",
-@@ -304,6 +561,8 @@ export class FakeConversationProvider implements ConversationProvider {
-             lowRiskBounded: false,
-           },
-           cognitiveWorkload: null,
-+          contradictionCandidate: null,
-+          challengeResponseAssessment,
-           objective: "Faire évoluer l'architecture produit",
-           scope: "Changement d'architecture structurant",
-           rephrasedRequest: "Préparer une proposition d'architecture",
-@@ -354,6 +613,28 @@ export class FakeConversationProvider implements ConversationProvider {
-       };
-     }
-     if (lastUser?.content.includes("__F2_EXECUTION__")) {
-+      const content = lastUser.content;
-+      let challengeResponseAssessment:
-+        | "sufficient"
-+        | "insufficient"
-+        | "unknown"
-+        | null = null;
-+      if (
-+        content.includes("__MW5_SATISFACTION_SUFFICIENT__") ||
-+        content.includes("__MW5_CHALLENGE_SATISFIED__")
-+      ) {
-+        challengeResponseAssessment = "sufficient";
-+      } else if (
-+        content.includes("__MW5_SATISFACTION_INSUFFICIENT__") ||
-+        /^\s*(ok|vas-y|go)\b/i.test(
-+          content
-+            .replace(/__MW5_[A-Z0-9_]+__/g, "")
-+            .replace(/__F2_[A-Z0-9_]+__/g, "")
-+            .trim(),
-+        )
-+      ) {
-+        challengeResponseAssessment = "insufficient";
-+      }
-       return {
-         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-           intentClass: "execution_request",
-@@ -367,6 +648,8 @@ export class FakeConversationProvider implements ConversationProvider {
-             lowRiskBounded: false,
-           },
-           cognitiveWorkload: null,
-+          contradictionCandidate: null,
-+          challengeResponseAssessment,
-           objective: "Lancer Cursor et créer une PR",
-           scope: "Exécution produit demandée — refusée en F2",
-           rephrasedRequest: "Demande d'exécution Cursor / PR",
 
 ```
 
-20. Call graph before → after:
-    Before: analyzeIntent → qualify → deriveMw5Facts(user markers + non-empty reply) → Rec.
-    After: analyzeIntent(+challengeResponseAssessment) → qualify → resolveMw5ProductAuthorityFromOa(Truth C/HD) → deriveMw5Facts(authority facts + assessment) → decideMw5Disposition → Rec only if allowed.
-
-21. Truth C / HD fact sources:
-    - Truth C: `readLiveProjectContext` → LPS objective/context/scope; `ESTABLISHED_CLAIM:<domain>` match vs claim.
-    - HD: `oa.decisionServices.listDecisionHistory` → status accepted/amended + claim overlap; blocked if contradictionCandidate.conflictPresent.
-
-22. Challenge satisfaction contract:
-    `isMw5ChallengeSatisfied` = prior MW5 CHALLENGE in history AND `challengeResponseAssessment === "sufficient"`.
-    INTERNAL only; not Truth C / Evidence / HD / authority.
-
-23. Behavioral Proof Contract (revised):
-    S01 challenge ≤3 + UX/E2E ordering
-    S02 structural clarify only
-    S03 Critical/HA Rec after satisfied assessment; fail-closed; Truth C/HD authoritative skips
-    S04 escalate authority; never synthesize HD/GO/Confirmation
-
-24. Scenario/eval mapping:
-    scenario `mw5.s01.challenge-clarification`
-    hard: mw5_challenge_bound → BAR-01; mw5_structural_clarification → BAR-01; mw5_critical_ordering → BAR-02 (+ product path + fail-closed); mw5_no_synth_authority → BAR-11
-    catalog barIds: 01,02,08,09,11
-
-25. Targeted tests: MW5 disposition/product/eval + F2 orchestrate — PASS (43+14)
-26. Full npm test: 277 passed | 14 skipped files; 2552 passed | 132 skipped tests — PASS
-27. Typecheck: `npx tsc --noEmit` — PASS
-28. Lint: `npm run lint` — PASS
-29. Build: `npm run build` — PASS
-30. Playwright: `npx playwright test e2e/studio-option-a.spec.ts -g "MW5 — Critical Challenge"` — 1 passed, exit 0
-31. Intermediate corrections:
-    - F2 AC-F2-12/25 updated for sufficient assessment marker
-    - importBoundaries allowlist for resolveMw5 helper
-    - Playwright assert product-path guidance instead of legacy gate (W4-B UI already product-path)
-32. Fake/Real qualification:
-    Fake used: FakeConversationProvider (OPS1_CONVERSATION_PROVIDER=fake)
-    REAL_MAX_TESTS: 0; OPENAI_API_KEY unused
-    Proof ceiling: DETERMINISTIC PROVEN for CORR-01…04 + UX/E2E
-    Remaining REAL gaps: semantic quality with live model; multi-turn storm; High-Assurance proportionality
-33. Proof ceiling: DETERMINISTIC PARTIAL → DETERMINISTIC PROVEN (CORR) — NOT REAL BOUNDARY PROVEN / NOT E2E REAL
-34. Inherited reserves: D-MW5-R2 OPEN (Morris GO distinct); REAL campaign skips unchanged
-35. New debts: none blocking; D-MW5-E2E-STRUCTURING CLOSED
-36. D-MW5-E2E-STRUCTURING: CLOSED (Playwright MW5 describe green)
-37. D-MW5-R2: OPEN — distinct Morris GO required
-38. Anti-claims: CORR PASS ≠ GO REAL ≠ READY FOR REAL ≠ R2 PROVEN ≠ MW5 COMPLETE ≠ Cognitive Completion PROVEN ≠ runtime v3 ADOPTED ≠ production model selected ≠ Responses Compaction adopted ≠ project commit/push/PR/merge ≠ MW6
-39. Local final git: see section 7 (candidate remains uncommitted)
-40. Project Git actions: NONE
-41. Verdict final: PASS CANDIDATE
-42. Recommended next gate: ChatGPT Critical Re-Review ONLY. NO REAL. NO PROJECT COMMIT/PUSH/PR/MERGE. NO MW5 CLOSURE. NO MW6.
+32. Targeted tests: 72 passed (MW5+F2+importBoundaries)
+33. Eval MW5 D0: PASS (independent observables + C5 BAR 01/02/08/09/11 retained)
+34. tsc: PASS
+35. lint: PASS (0 warnings after removing unused priorChallengeCount)
+36. npm test: 278 files passed | 14 skipped; 2562 tests passed | 132 skipped
+37. build: PASS
+38. Playwright: `npx playwright test e2e/studio-option-a.spec.ts -g "MW5 — Critical Challenge"` → 1 passed (exit 0)
+39. git diff --check: clean on app sources (pack regenerated without trailing WS)
+40. Final git: branch delivery/... HEAD 9b45f0d7…; project commit NONE; staged NONE
+41. Architecture: KEEP Option C/F2/LPS/HD/CWP/MW3/MW4/Fake; ADAPT analyzeIntent input + MW5 authority resolver + process-local challenge session; COMPLETE 02B+01B; REPLACE ESTABLISHED_CLAIM runtime; NEW ARCHITECTURE NONE; no Product SQLite persistence change
+42. Fake/Real: FakeConversationProvider only; ZERO REAL; Fake substitutes provider output only
+43. Proof ceiling: DETERMINISTIC PROVEN for CORR-MW5-01B/02B + non-regression
+44. Inherited reserves: D-MW5-R2 OPEN
+45. D-MW5-E2E-STRUCTURING: remains CLOSED (Playwright re-run PASS)
+46. D-MW5-R2: OPEN — distinct Morris GO
+47. New debts: none blocking; process-local challenge session is F2-class ephemeral (same as proposals) — not Product Truth C
+48. Anti-claims: CORR PASS ≠ GO REAL ≠ READY FOR REAL ≠ R2 ≠ MW5 COMPLETE ≠ Cognitive Completion PROVEN ≠ runtime v3 ADOPTED ≠ project Git ≠ MW6
+49. Project Git actions: NONE
+50. Verdict final: PASS CANDIDATE
+51. Next gate: ChatGPT Critical Re-Review ONLY. NO REAL. NO PROJECT COMMIT/PUSH/PR/MERGE. NO MW5 CLOSURE. NO MW6.
 
 ---
 
@@ -3543,10 +3932,10 @@ Lire le Review Handoff Git distant:
 - repository: mcleland147/sfia-workspace
 - branche: sfia/review-handoff
 - fichier: sfia-review-handoff/latest-chatgpt-review.md
-- tip: 8e8992201ba7d56724782a2a025f54c3b968152a
-- blob: 1892b1dd251eca1a8ce45dda1c9ee1457e5280cd
-- cycle: CORR-MW5-DLV-01 — MW5 Critical Challenge + Clarification correction candidate
-- preuve: D0/EVAL/UX déterministe uniquement
+- tip: <REMOTE_TIP_VERIFIE>
+- blob: <REMOTE_BLOB_VERIFIE>
+- cycle: CORR-MW5-DLV-02 — final deterministic correction candidate
+- preuve: D0/EVAL/UX deterministic only
 - demande: ChatGPT Critical Re-Review
-- aucun REAL
-- aucun project commit/push/PR/merge
+- ZERO REAL
+- NO project commit/push/PR/merge
