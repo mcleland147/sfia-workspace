@@ -10,7 +10,8 @@
 | **Date (Europe/Paris)** | 2026-08-30 · **post-merge truth-sync 2026-09-01** |
 | **Morris decision status** | **OD-04 = CONSUMED** |
 | **Decision** | **OPTION C — HYBRID OPENAI COGNITIVE RUNTIME = ADOPTED AS NORA TARGET ARCHITECTURE** |
-| **Git lifecycle (CURRENT)** | **Decision record INTEGRATED ON MAIN** via PR **#445** · Option C implementation **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#447** · **MW1 Delivery INTEGRATED / POST-MERGE VERIFIED** via PR **#450** · **MW1 COMPLETE / CLOSED BY MORRIS** · MW1 closure docs **INTEGRATED / POST-MERGE VERIFIED** via PR **#451** · OpenAI-native-first transverse truth-sync **INTEGRATED / POST-MERGE VERIFIED** via PR **#453** · **MW2 COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** · Delivery PR **#456** · CORR **#457 MERGED** · post-merge CI **`33621406965` SUCCESS** · **OD-02 CONSUMED — OPTION B** (doc09) · **NEXT = MW3 READINESS / REQUALIFICATION — NOT AUTHORIZED / NOT STARTED** |
+| **Git lifecycle (CURRENT)** | **Decision record INTEGRATED ON MAIN** via PR **#445** · Option C implementation **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#447** · **MW1 Delivery INTEGRATED / POST-MERGE VERIFIED** via PR **#450** · **MW1 COMPLETE / CLOSED BY MORRIS** · MW1 closure docs **INTEGRATED / POST-MERGE VERIFIED** via PR **#451** · OpenAI-native-first transverse truth-sync **INTEGRATED / POST-MERGE VERIFIED** via PR **#453** · **MW2 COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** · Delivery PR **#456** · CORR **#457 MERGED** · post-merge CI **`33621406965` SUCCESS** · **OD-02 CONSUMED — OPTION B** (doc09) · **MW3 = COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** · Delivery PR **#459 MERGED** · merge `0220253a2c65957dc802838d71075912402f3afd` · post-merge CI **`33710122738` SUCCESS** · **NEXT = MW4 READINESS / REQUALIFICATION — NOT AUTHORIZED / NOT STARTED** |
+| **Timestamp maintenance NORA-MW3-CLOSURE-TRUTH-SYNC-01** | 2026-09-03 05:11:05 CEST — **NORA MW3 CLOSURE / TRUTH-SYNC** · Morris closure GO **CONSUMED** · Cycle **14** · DOC · CRITICAL · MW3 **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** · Delivery PR **#459 MERGED** · head `f5b9d0839ce2d79faf16e813871a8d7850355bf2` · merge `0220253a2c65957dc802838d71075912402f3afd` · tree `6924f31827bc9fbc1dfcac38b416d7ed68dcb665` · post-merge CI **`33710122738` SUCCESS** · Required Gate **PASS** · CORR-MW3-PR1-CI-01/02 consumed on PR head · cumulative REAL business chain campaign `nora-mw0-mw3-business-integrated-real-1788377416280` · Evidence SHA256 `f6674ddb4f19c98f9f79354b844b3d61a8902804a5a1ff6bba4f3cefc8159066` · Review Handoff CI-green `8f2002513ff1b323c1635f861f05510a6bbad8c6` · business-chain `39c50895c7b6f1423198d034384e1c37fba8ea03` · MW0×MW1×MW2×MW3 INTEGRATED REAL BUSINESS CHAIN PROVEN AT MW3 SCOPE · prior over-scoped chain FAIL preserved (TEST CONTRACT OVERREACH / MW4-S01) · MW2-R01/R02/R03 **CARRIED** · MW4-S01 cross-turn grounding durability **NOT PROVEN** · **NEXT = MW4 READINESS / REQUALIFICATION — NOT AUTHORIZED / NOT STARTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · Production model routing **NOT SELECTED** · **ZERO REAL** in this DOC cycle |
 | **Git lifecycle (HISTORICAL at first local record)** | Was **LOCAL DOCUMENTARY CANDIDATE** until distinct project Git integration *(pre-PR #445 · preserved as provenance)* |
 | **OD04-I01** | **ACTIVE CROSS-WAVE ARCHITECTURE INVARIANT** under OD-04 · **NOT** a new architecture selection · see §4A |
 | **Cross-wave cognitive trajectory** | `08-nora-openai-native-first-cognitive-trajectory.md` = **VALIDATED — ACTIVE ON MAIN** via PR **#453** · OpenAI-native-first + GPT-5.6/model-reasoning trajectory · **does not reopen OD-04** |
@@ -218,7 +219,7 @@ Correction themes consumed/closed :
 10. MW1 closure — **COMPLETE / CLOSED BY MORRIS**
 11. MW1 closure documentary lifecycle — **INTEGRATED / POST-MERGE VERIFIED** (PR **#451**)
 12. OpenAI-native-first cross-wave truth-sync — **INTEGRATED / POST-MERGE VERIFIED** (PR **#453** · merge `d640b5ba7210b9da3593bea9eeae2100c6da6c09` · CI `33530815963` SUCCESS)
-13. current forward product gate — **MW2 COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** · Delivery PR **#456** · CORR **#457** · **NEXT = MW3 READINESS / REQUALIFICATION — NOT AUTHORIZED / NOT STARTED**
+13. current forward product gate — **MW2 COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** · Delivery PR **#456** · CORR **#457** · **MW3 = COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** · Delivery PR **#459 MERGED** · merge `0220253a2c65957dc802838d71075912402f3afd` · post-merge CI **`33710122738` SUCCESS** · **NEXT = MW4 READINESS / REQUALIFICATION — NOT AUTHORIZED / NOT STARTED**
 
 Historical wording that presented MW1-S01/S02/S03, MW1 closure or the pre-MW2 truth-sync as FUTURE is superseded by this section for forward-path truth.
 
@@ -285,7 +286,7 @@ MW1 is no longer an active Delivery surface.
 - REAL boundary PROVEN ;
 - closure docs PR #451 integrated/post-merge verified ;
 - Responses compaction remains **CANDIDATE / NOT ADOPTED** ;
-- MW2 **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** · MW3 **NOT AUTHORIZED / NOT STARTED**.
+- MW2 **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** · MW3 **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** (PR **#459** / CI `33710122738`) · MW4 **NOT AUTHORIZED / NOT STARTED**.
 
 The architectural lesson carried forward is:
 
@@ -370,7 +371,8 @@ Cross-wave active trajectory:
 - Production model routing **NOT SELECTED** ;
 - MW2 OD-02 **CONSUMED — OPTION B** (doc09) ;
 - MW2 **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** ;
-- MW3 readiness / requalification **NOT AUTHORIZED / NOT STARTED**.
+- MW3 **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** (PR **#459**).
+- MW4 readiness / requalification **NOT AUTHORIZED / NOT STARTED**.
 
 ---
 
@@ -397,7 +399,7 @@ Cross-wave active trajectory:
 = OD-02 = CONSUMED — OPTION B
 = MW2 COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE
 = MW2 DELIVERY INTEGRATED (PR #456) · CORR INTEGRATED (PR #457)
-= NEXT PRODUCT CAPABILITY = MW3 READINESS / REQUALIFICATION — NOT AUTHORIZED
+= NEXT PRODUCT CAPABILITY = MW4 READINESS / REQUALIFICATION — NOT AUTHORIZED
 = COGNITIVE COMPLETION NOT PROVEN
 = RUNTIME V3 NON ADOPTED
 = NO NEW ARCHITECTURE SELECTION BY THIS TRUTH-SYNC
