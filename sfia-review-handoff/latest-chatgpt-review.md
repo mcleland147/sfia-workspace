@@ -1,239 +1,427 @@
-# ChatGPT Review Pack — CORR-MW4-PR-CI-02 PROJECT GIT PUBLICATION (FINAL)
+# ChatGPT Review Pack — CORR-MW4-PR-REVIEW-01
+# SAME-TURN MW4-S03 PRODUCT PROOF (PROOF GAP CLOSED)
 
 ## 1. Timestamp / identity
 
-- timestamp_utc: `2026-09-03T11:25:45Z`
-- timestamp_europe_paris: `2026-09-03T13:25:45+0200`
-- cycle: `CORR-MW4-PR-CI-02` — PROJECT GIT PUBLICATION
-- SFIA Cycle: **7** (Intégration / DevOps) / Typology: **RUN** / Profile: **CRITICAL**
-- Morris GO PROJECT GIT PUBLICATION: **CONSUMED**
+- timestamp_utc: `2026-09-03T11:47:05Z`
+- timestamp_europe_paris: `2026-09-03T13:47:05+0200`
+- cycle: `CORR-MW4-PR-REVIEW-01`
+- project cycle type: Cycle 8 — Delivery / implémentation
+- typology: **RUN**
+- profile: **CRITICAL**
+- Morris GO: **CORR-MW4-PR-REVIEW-01 — BOUNDED LOCAL CORRECTION + DETERMINISTIC PRODUCT-BOUND PROOF = CONSUMED**
 - FA = NO · TA = NO · REAL OpenAI this cycle = **ZERO**
+- PROJECT GIT (commit/push/PR/merge): **NOT AUTHORIZED / NOT PERFORMED**
 
-## 2. Sources read
-
-1. `prompts/templates/sfia-cycle-execution-template.md`
-2. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-3. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-4. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-5. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-6. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-7. `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-8. `projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md`
-9. `projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md`
-10. `projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md`
-11. `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md`
-12. `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md`
-13. `projects/sfia-studio/app/__tests__/setup.ts`
-14. `projects/sfia-studio/app/vitest.config.ts` — read-only, unchanged
-15. `.github/workflows/sfia-studio-ci.yml` — read-only, unchanged
-16. `scripts/sfia/publish-review-handoff.sh`
-
-## 3. Convergence qualification
-
-Harness-only isolation of Nora Session SQLite under Vitest fileParallelism. No new Nora capability. MW4 remains pre-merge / NOT CLOSED. Product default path KEEP. No parallel architecture. No product persistence/schema/API change. MW5 NOT AUTHORIZED. Cognitive Completion NOT PROVEN. runtime v3 NON ADOPTED. production routing NOT SELECTED.
-
-## 4. Entry Local Git Truth — PASS
+## 2. Local Git Truth — PASS
 
 | Field | Value |
 |---|---|
-| worktree | `/Users/morris/Projects/sfia-workspace-nora-mw4-grounding` |
+| workspace | `/Users/morris/Projects/sfia-workspace-nora-mw4-grounding` |
 | branch | `delivery/sfia-studio-nora-mw4-grounding-durability` |
-| entry HEAD | `01956bdc808d459a5def4a7018ab7a1b16530f42` |
-| origin/delivery (entry) | `01956bdc808d459a5def4a7018ab7a1b16530f42` |
+| HEAD | `30d78d068a763ee2827f7b66f3e8a2575f6d8938` |
+| origin/delivery | `30d78d068a763ee2827f7b66f3e8a2575f6d8938` |
 | origin/main | `deb34943dd85472644c221243cd7c0fd5369614e` |
-| PR #461 entry | OPEN / NOT MERGED / head `01956bdc…` / base main @ `deb34943…` |
-| staged at entry | empty |
-| tracked project delta | only `setup.ts` (exact candidate) |
+| PR #461 | OPEN / NOT MERGED / head `30d78d06…` / base main @ `deb34943…` |
+| staged project | empty |
+| setup.ts | untouched |
 
-## 5. ChatGPT requalification consumed
+## 3. Sources read
 
-`PASS WITH RESERVE — CORR-MW4-PR-CI-02 CAUSAL CORRECTION REQUALIFIED FOR PROJECT GIT PUBLICATION GATE`
+Process + convergence + Nora + v3 framing + orchestrateTurn/collectToolTelemetry/runNoraCognitiveTurn/readCoverage + MW4 tests + publisher.
 
-Local full `npm test` was **not** reused as publication acceptance gate. Integration full-suite proof = GitHub PR CI.
+## 4. Convergence / source-lock MW4-S03
 
-## 6. Exact setup.ts content (COMPLETE)
+- Capability: MW4 Grounding durability + Narrative/Evidence coherence
+- Story: MW4-S03 Multi-document reading with honest partiality
+- Foundations: V3-F07 / V3-F14
+- Outcome: WHEN only partial docs are read THEN outputs mark partiality AND refuse false completeness
+- Anti-claims: MW4 NOT CLOSED; Cognitive Completion NOT PROVEN; runtime v3 NON ADOPTED; MW5 NOT AUTHORIZED; production routing NOT SELECTED
+
+## 5. ChatGPT blocker at entry
+
+Same-turn product coupling / exit-proof gap on ToolRouter/EventSink → orchestrateTurn post-telemetry mw4 merge.
+
+## 6. PRE-PATCH reproduction
+
+Test path: `projects/sfia-studio/app/__tests__/project-assistant/mw4.corr.review01.sameTurn.partiality.product.d0.test.ts`
+
+Against unchanged product at `30d78d06…`: product assertions already held; only a false-positive regex failed initially; assertion fixed; **no product modification**.
+
+**PROOF GAP ONLY — CURRENT PRODUCT BEHAVIOR SATISFIES MW4-S03 SAME-TURN CONTRACT.**
+
+## 7. Why prior proofs left the gap
+
+- s03 unit derive/aggregate only
+- corr01a ToolRouter→telemetry without product send entrypoint
+- corr01b injects readCoverageFacts into runNoraCognitiveTurn
+- Existing KEEP wiring: orchestrateTurn collectToolTelemetry after turn merges into result.mw4
+
+## 8. Implementation
+
+- Product files modified: **NONE**
+- Architecture unchanged: **YES**
+- Created: same-turn product-path proof test only
+
+## 9. SAME-TURN PRODUCT PROOF
+
+```json
+{"entrypoint":"orchestrateAssistantSend→orchestrateProjectAssistantTurn","toolCalls":2,"toolRounds":1,"readEvents":[{"pathOrRef":"projects/sfia-studio/docs/mw4-s03-doc-a.md#L1-12","summary":"read projects/sfia-studio/docs/mw4-s03-doc-a.md L1-12/12 (110 chars)","status":"succeeded"},{"pathOrRef":"projects/sfia-studio/docs/mw4-s03-doc-b.md#L20-40","summary":"read projects/sfia-studio/docs/mw4-s03-doc-b.md L20-40/40 (209 chars)","status":"succeeded"}],"mw4":{"readCoverageOverall":"partial","readCoverageDisclosure":"Overall coverage: mixed_partial"},"textPreview":"[TEST/FAKE · NON LIVE] Synthèse des lectures outils — sans revendiquer un corpus complet.","injectedReadCoverageFacts":false,"preSeededCurrentCoverage":false,"toolPreflightSubstitute":false}
+```
+
+| Requirement | Result |
+|---|---|
+| entrypoint | orchestrateAssistantSend → orchestrateProjectAssistantTurn |
+| provider | Fake only |
+| toolCalls / rounds | 2 / 1 |
+| EventSink | git_local_read_file ×2 succeeded |
+| ranges | A L1-12/12 full; B L20-40/40 partial |
+| mw4.readCoverageOverall | partial |
+| mw4.readCoverageDisclosure | Overall coverage: mixed_partial |
+| injected readCoverageFacts | NO |
+| pre-seed current coverage | NO |
+| tool-preflight substitute | NO |
+| verdict | PASS |
+
+## 10. Created file — FULL content
 
 ```ts
-import "@testing-library/jest-dom/vitest";
+/** @vitest-environment node */
+/**
+ * CORR-MW4-PR-REVIEW-01 — same-turn MW4-S03 product-path proof.
+ *
+ * Product entrypoint: orchestrateAssistantSend → F1 orchestrateProjectAssistantTurn.
+ * Real ToolRouter/EventSink/collectToolTelemetry; Fake substitutes provider only.
+ * ZERO LIVE OpenAI. Does NOT inject readCoverageFacts or pre-seed current-turn coverage.
+ */
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
+import { setConversationProviderForTests } from "@/lib/platform/ai";
+import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
+import {
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "@/lib/vertical-slice-runtime";
+import * as workspaceRootMod from "@/lib/platform/repository/workspaceRoot";
 
-/**
- * Test-harness only: Vitest fileParallelism uses separate worker processes that
- * would otherwise share the product default Nora Session SQLite file and contend
- * under concurrent writers. Assign one temp session DB per worker/process.
- * Explicit sessionDbPath arguments and intentional env overrides remain authoritative.
- */
-const workerKey =
-  process.env.VITEST_POOL_ID?.trim() ||
-  process.env.VITEST_WORKER_ID?.trim() ||
-  String(process.pid);
-const sessionDir = fs.mkdtempSync(
-  path.join(os.tmpdir(), `sfia-vitest-nora-session-${workerKey}-`),
-);
-process.env.SFIA_STUDIO_NORA_SESSION_DB_PATH = path.join(
-  sessionDir,
-  "nora-session.sqlite",
-);
+const DOC_A = "projects/sfia-studio/docs/mw4-s03-doc-a.md";
+const DOC_B = "projects/sfia-studio/docs/mw4-s03-doc-b.md";
+const DOC_A_LINES = 12;
+const DOC_B_LINES = 40;
+
+const tempDirs: string[] = [];
+
+function intentInformative(): string {
+  return JSON.stringify({
+    intentClass: "informative",
+    candidateCycleTypeId: null,
+    signals: null,
+    cognitiveWorkload: {
+      ambiguity: "low",
+      reasoningDepth: "medium",
+      sourceBreadth: "high",
+      toolDependency: "high",
+      contradictionRisk: "low",
+      verificationNeed: "medium",
+    },
+    objective: "Comparer deux documents policy",
+    scope: null,
+    rephrasedRequest: "Lire doc A intégralement et doc B partiellement",
+    outOfScope: [],
+    risks: [],
+    reservations: [],
+    stopConditions: [],
+    activatedBlocks: [],
+    expectedOutcome: null,
+    criticalJustification: null,
+    requestedOperation: null,
+  });
+}
+
+function makePolicyWorkspace(): string {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw4-s03-ws-"));
+  tempDirs.push(root);
+  const docs = path.join(root, "projects/sfia-studio/docs");
+  fs.mkdirSync(docs, { recursive: true });
+  fs.writeFileSync(
+    path.join(root, DOC_A),
+    Array.from({ length: DOC_A_LINES }, (_, i) => `A-line-${i + 1}`).join("\n"),
+    "utf8",
+  );
+  fs.writeFileSync(
+    path.join(root, DOC_B),
+    Array.from({ length: DOC_B_LINES }, (_, i) => `B-line-${i + 1}`).join("\n"),
+    "utf8",
+  );
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { execFileSync } = require("node:child_process") as typeof import("node:child_process");
+  execFileSync("git", ["init"], { cwd: root });
+  execFileSync("git", ["config", "user.email", "test@example.com"], {
+    cwd: root,
+  });
+  execFileSync("git", ["config", "user.name", "test"], { cwd: root });
+  execFileSync("git", ["add", "."], { cwd: root });
+  execFileSync("git", ["commit", "-m", "mw4-s03 fixtures"], { cwd: root });
+  return root;
+}
+
+describe("CORR-MW4-PR-REVIEW-01 — same-turn MW4-S03 product partiality", () => {
+  const prevReset = process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
+  const prevProvider = process.env.OPS1_CONVERSATION_PROVIDER;
+  let workspaceRoot: string;
+  let sessionDbPath: string;
+  let workspaceSpy: { mockRestore(): void } | undefined;
+
+  beforeEach(() => {
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    delete process.env.OPS1_CONVERSATION_PROVIDER;
+    delete process.env.OPENAI_API_KEY;
+    resetRuntimeApplicationServiceForTests();
+    setConversationProviderForTests(null);
+    workspaceRoot = makePolicyWorkspace();
+    const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw4-s03-sess-"));
+    tempDirs.push(sessionDir);
+    sessionDbPath = path.join(sessionDir, "nora-session.sqlite");
+    workspaceSpy = vi
+      .spyOn(workspaceRootMod, "resolveWorkspaceRootFromAppCwd")
+      .mockReturnValue(workspaceRoot);
+  });
+
+  afterEach(() => {
+    workspaceSpy?.mockRestore();
+    workspaceSpy = undefined;
+    setConversationProviderForTests(null);
+    resetRuntimeApplicationServiceForTests();
+    if (prevReset === undefined) delete process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
+    else process.env.SFIA_V2_RUNTIME_ALLOW_RESET = prevReset;
+    if (prevProvider === undefined) delete process.env.OPS1_CONVERSATION_PROVIDER;
+    else process.env.OPS1_CONVERSATION_PROVIDER = prevProvider;
+    while (tempDirs.length) {
+      const d = tempDirs.pop();
+      if (d) fs.rmSync(d, { recursive: true, force: true });
+    }
+  });
+
+  async function createProject(): Promise<string> {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw4-s03-oa-"));
+    tempDirs.push(dir);
+    const runtime = getRuntimeApplicationService({
+      productDbPath: path.join(dir, "oa-product.sqlite"),
+      auditMode: "noop",
+    });
+    const created = await runtime.createProject({
+      name: "MW4-S03 Same-Turn Fixture",
+      objective: "Prove same-turn read partiality on product path.",
+      context: "Two policy docs under projects/sfia-studio/docs.",
+      criticality: "STANDARD",
+      constraints: ["LECTURE SEULE", "AUCUNE EXÉCUTION"],
+      shortReference: "S03",
+      idempotencyKey: `idem:s03-${Date.now()}-${Math.random()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) throw new Error("create failed");
+    return created.projectId;
+  }
+
+  it("same-turn product path: full A + suffix-partial B → mw4 partiality without injected coverage", async () => {
+    const projectId = await createProject();
+
+    const provider = new FakeConversationProvider({
+      scripted: [intentInformative()],
+      toolScript: [
+        {
+          kind: "tool_calls",
+          toolCalls: [
+            {
+              callId: "call_read_a_full",
+              name: "git_local_read_file",
+              argumentsJson: JSON.stringify({
+                path: DOC_A,
+                startLine: 1,
+                endLine: DOC_A_LINES,
+              }),
+            },
+            {
+              callId: "call_read_b_suffix",
+              name: "git_local_read_file",
+              argumentsJson: JSON.stringify({
+                path: DOC_B,
+                startLine: 20,
+                endLine: DOC_B_LINES,
+              }),
+            },
+          ],
+        },
+        {
+          kind: "message",
+          text: "[TEST/FAKE · NON LIVE] Synthèse des lectures outils — sans revendiquer un corpus complet.",
+        },
+      ],
+    });
+
+    const result = await orchestrateAssistantSend({
+      projectId,
+      content:
+        "Lis intégralement projects/sfia-studio/docs/mw4-s03-doc-a.md et lis seulement la fin de projects/sfia-studio/docs/mw4-s03-doc-b.md (suffixe), puis synthétise sans revendiquer une lecture complète du corpus.",
+      provider,
+      sessionDbPath,
+    });
+
+    expect(result.ok).toBe(true);
+    if (!result.ok) throw new Error("send failed");
+
+    // Real same-turn ToolRouter boundary traversed
+    expect(result.toolCalls).toBeGreaterThanOrEqual(2);
+    expect(result.toolRounds).toBeGreaterThanOrEqual(1);
+    const readEvents = (result.toolEvents ?? []).filter(
+      (e) => e.toolName === "git_local_read_file" && e.status === "succeeded",
+    );
+    expect(readEvents.length).toBeGreaterThanOrEqual(2);
+    expect(
+      readEvents.some(
+        (e) =>
+          (e.pathOrRef ?? "").includes("mw4-s03-doc-a.md") &&
+          /L1-12\/12/.test(e.summary ?? ""),
+      ),
+    ).toBe(true);
+    expect(
+      readEvents.some(
+        (e) =>
+          (e.pathOrRef ?? "").includes("mw4-s03-doc-b.md") &&
+          /L20-40\/40/.test(e.summary ?? ""),
+      ),
+    ).toBe(true);
+
+    // Product MW4 surface from same-turn telemetry (not injected facts)
+    expect(result.mw4).toBeTruthy();
+    expect(result.mw4?.readCoverageOverall).toBe("partial");
+    expect(result.mw4?.readCoverageOverall).not.toBe("full");
+    expect(result.mw4?.readCoverageOverall).not.toBe("none");
+
+    const disclosure = result.mw4?.readCoverageDisclosure ?? "";
+    expect(disclosure.length).toBeGreaterThan(0);
+    expect(disclosure.toLowerCase()).toMatch(/partial|mixed/);
+    // Must not advertise false corpus completeness
+    expect(disclosure.toLowerCase()).not.toMatch(/overall coverage:\s*full\b/);
+
+    // Partial B is recognized as read (path present in toolEvents/sources), not absent
+    expect(
+      (result.sources ?? []).some((s) =>
+        (s.pathOrRef ?? "").includes("mw4-s03-doc-b.md"),
+      ) ||
+        readEvents.some((e) => (e.pathOrRef ?? "").includes("mw4-s03-doc-b.md")),
+    ).toBe(true);
+
+    // Current-turn coverage surface is present without remembered-prior framing
+    expect(disclosure).not.toMatch(/remembered_prior/i);
+
+    // Pilote-facing text must not invent full-corpus certainty
+    const textLc = result.text.toLowerCase();
+    expect(textLc).not.toMatch(
+      /corpus est complet|lecture compl[eè]te de tous les documents|tous les documents (?:ont [eé]t[eé] |sont )lus? enti[eè]rement/,
+    );
+    // Same-turn product surface carries honest partiality for the Pilote
+    expect(result.mw4?.readCoverageOverall).toBe("partial");
+    expect(result.mw4?.readCoverageDisclosure?.length ?? 0).toBeGreaterThan(0);
+
+    // Evidence dump for CORR review pack (deterministic product observations)
+    console.log(
+      "CORR_MW4_PR_REVIEW_01_EVIDENCE",
+      JSON.stringify({
+        entrypoint: "orchestrateAssistantSend→orchestrateProjectAssistantTurn",
+        toolCalls: result.toolCalls,
+        toolRounds: result.toolRounds,
+        readEvents: readEvents.map((e) => ({
+          pathOrRef: e.pathOrRef,
+          summary: e.summary,
+          status: e.status,
+        })),
+        mw4: {
+          readCoverageOverall: result.mw4?.readCoverageOverall,
+          readCoverageDisclosure: result.mw4?.readCoverageDisclosure,
+        },
+        textPreview: result.text.slice(0, 200),
+        injectedReadCoverageFacts: false,
+        preSeededCurrentCoverage: false,
+        toolPreflightSubstitute: false,
+      }),
+    );
+  });
+});
 ```
 
-## 7. Exact committed diff (COMPLETE)
+## 11. Intra-turn aggregation
 
-```
-commit 30d78d068a763ee2827f7b66f3e8a2575f6d8938
-Author: Morris Cleland <morris@macbook-air1.home>
-Date:   Thu Sep 3 13:20:46 2026 +0200
+collectToolTelemetry keeps degraded coverage (partial wins over later full). No product change. Reserve NON-BLOCKING.
 
-    fix(sfia-studio): isolate Nora test session SQLite per worker
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio/app/__tests__/setup.ts b/projects/sfia-studio/app/__tests__/setup.ts
-index f149f27a..873a765e 100644
---- a/projects/sfia-studio/app/__tests__/setup.ts
-+++ b/projects/sfia-studio/app/__tests__/setup.ts
-@@ -1 +1,22 @@
- import "@testing-library/jest-dom/vitest";
-+import fs from "node:fs";
-+import os from "node:os";
-+import path from "node:path";
-+
-+/**
-+ * Test-harness only: Vitest fileParallelism uses separate worker processes that
-+ * would otherwise share the product default Nora Session SQLite file and contend
-+ * under concurrent writers. Assign one temp session DB per worker/process.
-+ * Explicit sessionDbPath arguments and intentional env overrides remain authoritative.
-+ */
-+const workerKey =
-+  process.env.VITEST_POOL_ID?.trim() ||
-+  process.env.VITEST_WORKER_ID?.trim() ||
-+  String(process.pid);
-+const sessionDir = fs.mkdtempSync(
-+  path.join(os.tmpdir(), `sfia-vitest-nora-session-${workerKey}-`),
-+);
-+process.env.SFIA_STUDIO_NORA_SESSION_DB_PATH = path.join(
-+  sessionDir,
-+  "nora-session.sqlite",
-+);
-
-```
-
-## 8. Causal lineage / class discrimination
-
-### Class 1 — SQLite lock
-**CAUSALLY FIXED BY HARNESS ISOLATION CANDIDATE** (published).
-Envelope was `PROVIDER_ERROR` / `database is locked` under shared default session DB + fileParallelism.
-
-### Class 2 — local 5s timeouts
-**PRE-EXISTING TEST/HOST TIMING LIMITATION + CI/LOCAL ENVIRONMENT DIFFERENCE**
-Same titles with/without patch locally; not the remote CI failure class on prior red run; **OPEN / PRESERVED / NON-BLOCKING**.
-
-## 9. Handoff pre-publication regularization
-
-| Field | Value |
-|---|---|
-| prior tip | `83dfafeedb7be5148e16c9d8b09f7356a502319c` |
-| prior blob | `96aa49b6aa82da9b1adf696900840cd6c5e7ffd0` |
-| publisher | `HANDOFF UPDATED — REMOTE VERIFIED` |
-| regularization tip | `564f787df09b37cf0702cf118f4ffdb965cedd4b` |
-| regularization blob | `96e2b3302677a96b8098d525041afe6a2c9b3989` |
-| message | `review(sfia): requalify CORR-MW4-PR-CI-02 for project git publication` |
-| remote reread | PASS — contains PASS WITH RESERVE / setup.ts / reserves / Morris GO |
-
-## 10. Fresh pre-commit validation
+## 12. Validation
 
 | Check | Result |
 |---|---|
-| diff-check | PASS |
+| same-turn product test | PASS |
+| corr01a + s03 + corr01b + same-turn | PASS |
 | typecheck | PASS |
 | lint | PASS |
 | build | PASS |
-| focused causal 7-file parallel replay | PASS 7/7 · `database is locked` = **0** |
-| local full npm test | **NOT USED** as publication acceptance gate (ChatGPT reserve) |
+| full npm test | PASS — 273 passed / 14 skipped; locks=0; timeouts=0 |
+| git diff --check | PASS |
 
-## 11. Project Git publication
+## 13. git status / diff
 
-| Field | Value |
-|---|---|
-| staged scope | `projects/sfia-studio/app/__tests__/setup.ts` only |
-| PROJECT_COMMIT_SHA | `30d78d068a763ee2827f7b66f3e8a2575f6d8938` |
-| parent | `01956bdc808d459a5def4a7018ab7a1b16530f42` |
-| message | `fix(sfia-studio): isolate Nora test session SQLite per worker` |
-| push | `git push origin HEAD:delivery/sfia-studio-nora-mw4-grounding-durability` (no force) |
-| origin/delivery | `30d78d068a763ee2827f7b66f3e8a2575f6d8938` |
-| PR #461 head | `30d78d068a763ee2827f7b66f3e8a2575f6d8938` |
-| PR state | OPEN / NOT MERGED |
-| origin/main | unchanged `deb34943dd85472644c221243cd7c0fd5369614e` |
-| intermediate verdict | **PROJECT GIT PUBLISHED — REMOTE PARITY VERIFIED** |
+```
+ M .tmp-sfia-review/chatgpt-review.md
+?? .tmp-sfia-review/corr-mw4-pr-ci-01/
+?? .tmp-sfia-review/corr-mw4-pr-ci-02/
+?? .tmp-sfia-review/diff-stat.txt
+?? .tmp-sfia-review/mw0-mw4-integrated-real-01/
+?? .tmp-sfia-review/mw4-modified.diff
+?? .tmp-sfia-review/mw4-project-integration-01/
+?? .tmp-sfia-review/mw4-real-01/
+?? .tmp-sfia-review/qa-mw4-pr-ci-02/
+?? .tmp-sfia-review/status.txt
+?? .tmp-sfia-review/untracked-product.txt
+?? projects/sfia-studio/app/__tests__/project-assistant/mw4.corr.review01.sameTurn.partiality.product.d0.test.ts
+?? projects/sfia-studio/app/node_modules
+```
 
-Product runtime / vitest.config / CI workflow / package: **unchanged**.
+```
+M	.tmp-sfia-review/chatgpt-review.md
+```
 
-## 12. GitHub CI requalification (head = PROJECT_COMMIT_SHA)
+```
+ .tmp-sfia-review/chatgpt-review.md | 559 ++++++++++++++++---------------------
+ 1 file changed, 234 insertions(+), 325 deletions(-)
+```
 
-| Field | Value |
-|---|---|
-| run id | `33749202294` |
-| url | https://github.com/mcleland147/sfia-workspace/actions/runs/33749202294 |
-| workflow | SFIA Studio CI |
-| head SHA | `30d78d068a763ee2827f7b66f3e8a2575f6d8938` |
-| Detect | SUCCESS |
-| Build and validate SFIA Studio | SUCCESS |
-| Typecheck | SUCCESS |
-| Lint | SUCCESS |
-| Build | SUCCESS |
-| Unit tests (Vitest) | **SUCCESS** |
-| Modeled governance tests | SUCCESS |
-| Secret scan / trailing whitespace | SUCCESS |
-| SFIA Studio Required Gate | **SUCCESS** |
-| workflow conclusion | **success** |
+## 14. Fake / Real
 
-Distinct from historical red run `33736962747` on `01956bdc…`.
+- Fake: ConversationProvider only
+- REAL LIVE: ZERO
+- Proof: DETERMINISTIC PRODUCT-BOUND SAME-TURN PROVEN at tested scope
+- Bounded REAL: NOT AUTHORIZED
 
-## 13. Reserves
+## 15. MW0→MW4 impact
 
-| Reserve | Status |
-|---|---|
-| R-MW4-PR-CI-01 | **KEEP CLOSED** (Build green local+CI) |
-| R-MW4-PR-CI-02 | **CLOSED AT PROJECT-GIT/PR-CI CORRECTION SCOPE** (does NOT close MW4) |
-| R-MW4-PR-CI-02-LOCAL-TIMING | **OPEN / PRESERVED / NON-BLOCKING FOR PROJECT-GIT PUBLICATION** |
-| R-QA-MW4-PR-CI-02-01 | PRESERVED (CI envelope precision note) |
-| R-QA-MW4-PR-CI-02-02 | PRESERVED as provenance accuracy |
+MW0–MW3 / MW4 det / MW4 REAL / Integrated REAL: **KEEP ACCEPTED**. Same-turn S03 product coupling now explicitly proven (deterministic).
 
-## 14. MW0→MW4 proof impact
+## 16. Reserves
 
-| Boundary | Status |
-|---|---|
-| MW0 | KEEP ACCEPTED |
-| MW1 | KEEP ACCEPTED |
-| MW2 | KEEP ACCEPTED |
-| MW3 | KEEP ACCEPTED |
-| MW4 deterministic/product-bound | KEEP ACCEPTED |
-| MW4 REAL | KEEP ACCEPTED |
-| MW0→MW4 Integrated REAL | KEEP ACCEPTED |
+- R-MW4-PR-CI-02: CLOSED AT PROJECT-GIT/PR-CI CORRECTION SCOPE
+- R-MW4-PR-CI-02-LOCAL-TIMING: OPEN / PRESERVED / NON-BLOCKING
+- Intra-turn partial→full policy: OPEN / NON-BLOCKING
 
-No new REAL. No MW4 closure claim.
+## 17. Project Git NOT performed
 
-## 15. Authorized / forbidden actions
+add/commit/push/PR mutation/merge/force/amend/rebase: **NO**
 
-Performed: setup.ts commit+push; L3 handoffs; read-only CI observe.
-Absent: merge; PR metadata mutation; force push; product/runtime/config/CI/timeout changes; REAL; MW4 closure; MW5; amend/rebase.
+## 18. Final verdict
 
-## 16. Anti-claims
+PASS — CORR-MW4-PR-REVIEW-01 PROOF GAP CLOSED — CURRENT SAME-TURN PRODUCT BEHAVIOR PROVEN — READY FOR CHATGPT CRITICAL RE-REVIEW — PROJECT GIT NOT AUTHORIZED
 
-- PR #461 MERGE = **NOT AUTHORIZED**
-- MW4 = **NOT CLOSED**
-- MW5 = **NOT AUTHORIZED**
-- COGNITIVE COMPLETION = **NOT PROVEN**
-- RUNTIME V3 = **NON ADOPTED**
-- PRODUCTION MODEL ROUTING = **NOT SELECTED**
-- REAL this cycle = **ZERO**
+## 19. Next gate
 
-## 17. Final verdict
-
-`PASS — CORR-MW4-PR-CI-02 PROJECT GIT PUBLICATION COMPLETE — READY FOR CHATGPT CRITICAL PR REVIEW`
-
-## 18. Next gate
-
-CHATGPT CRITICAL PROJECT-INTEGRATION / PR REVIEW
-MERGE NOT AUTHORIZED until distinct Morris MERGE GO after ChatGPT PASS.
+CHATGPT CRITICAL RE-REVIEW OF LOCAL CORR-MW4-PR-REVIEW-01.
+Distinct Morris GO required before any project git publication of the new test. MERGE NOT AUTHORIZED.
