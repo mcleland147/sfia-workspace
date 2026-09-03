@@ -398,8 +398,8 @@ Lire le Review Handoff Git distant :
 repository = mcleland147/sfia-workspace
 branch = sfia/review-handoff
 file = sfia-review-handoff/latest-chatgpt-review.md
-tip = <REMOTE_TIP_VERIFIE>
-blob = <REMOTE_BLOB_VERIFIE>
+tip = f1d356f43d906c1585021beb822cecb732a53bed
+blob = b4b8c6225a7bb6026cc9f1ff0420f4cd2ac1d194
 cycle = CORR-MW5-DLV-04 — cosmetic qualification robustness candidate
 proof = deterministic D0/EVAL/product-path only
 source finding = MW5-R2-REAL-02 R2-B 2/3
