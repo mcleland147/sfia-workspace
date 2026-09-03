@@ -1,453 +1,340 @@
 # SFIA STUDIO — NORA COGNITIVE COMPLETION
-## MW0-MW4-INTEGRATED-REAL-01 — RE-GO-01
-### FULL Review Pack — Cycle 9 QA / Validation — CRITICAL
+## MW4-PROJECT-INTEGRATION-01
+### FULL Review Pack — Cycle 13 PR readiness / Project Git Integration Package — CRITICAL
 
-Generated: 2026-09-03T08:13:52Z (UTC)
-Campaign ID: `nora-mw0-mw4-integrated-real-rego01-1788422396786`
+Generated: 2026-09-03T08:41:39Z (UTC)
 Worktree: `/Users/morris/Projects/sfia-workspace-nora-mw4-grounding`
 Branch: `delivery/sfia-studio-nora-mw4-grounding-durability`
 
 ---
 
-## 0. Morris RE-GO — previous STOP superseded on budget only
-
-Previous STOP handoff commit: `697a9049896337b8f10202d0373ba010b46e5f1b`
-Previous STOP handoff blob: `291e6aa940fcf77e7e44db9a004462b9522bf8f5`
-Previous STOP reason: minimum technically required actual OpenAI invocations = 14; authorized maximum = 8
-Previous LIVE execution: **0**
-Previous candidate mutation: **NONE**
-
-Morris RE-GO-01 decision:
-- RAISE strict LIVE OpenAI invocation ceiling **8 → 14**
-- Nothing else in campaign contract widened
-- R-MW0-MW4-INT-BUDGET-01 disposition: **AUTHORIZED BUDGET CORRECTION**
-  - strict counting retained
-  - topology retained
-  - product path retained
-  - ceiling = 14
-  - no counting waiver / no topology waiver / no product modification
-
-This run: LIVE executed; final actual count **14 / 14**.
-
----
-
 ## 1. Final verdict (authoritative)
 
-**READY FOR CHATGPT CRITICAL MW0-MW4 INTEGRATED REAL REVIEW**
+**STOP — MW4 PR CI FAILED — CORRECTION/REQUALIFICATION REQUIRED**
 
-Semantic cumulative claim (tested scope only):
+Git integration package completed through commit / push / PR / remote-diff verification.
+Relevant GitHub CI on PROJECT_COMMIT_SHA **failed**.
 
-- MW0×MW1×MW2×MW3×MW4 INTEGRATED REAL COGNITIVE BUSINESS CHAIN = **PROVEN AT TESTED CURRENT MW4 CANDIDATE SCOPE**
-- MW4 CUMULATIVE NON-REGRESSION AGAINST PREVIOUSLY PROVEN MW0→MW3 BUSINESS CHAIN = **PASS AT TESTED SCOPE**
-
-Harness note (preserved, non-blocking): campaign runner threw `TRAJECTORY_MISMATCH` because T6 disposition=`candidate` while harness expected `NONE|OTHER`. Classified **FIXTURE_POLICY_FAILURE** — not product regression. All BC scorecard items passed; GO T6 criteria are partiality/grounding, not disposition NONE. See §7.
-
-### Anti-claims (explicit)
-- NOT production E2E proven
-- NOT Cognitive Completion proven
-- NOT MW4 closed
-- NOT MW5 authorized
-- NOT MW6 implemented
-- NOT runtime v3 adopted
-- NOT production routing selected
-- NOT project integrated
-- NOT a global product 14-call budget baseline (campaign authorization only)
+**No product correction performed in this cycle.**
+**No merge performed.**
 
 ---
 
-## 2. Local Git Truth
+## A. AUTHORITY
 
-| Check | Result |
-|---|---|
-| worktree | `/Users/morris/Projects/sfia-workspace-nora-mw4-grounding` |
-| remote | `https://github.com/mcleland147/sfia-workspace.git` |
-| branch | `delivery/sfia-studio-nora-mw4-grounding-durability` |
-| HEAD | `deb34943dd85472644c221243cd7c0fd5369614e` |
-| origin/main | `deb34943dd85472644c221243cd7c0fd5369614e` |
-| HEAD == deb34943… | **PASS** |
-| origin/main == deb34943… | **PASS** |
-| git diff --check | **PASS** |
-| tracked candidate diff SHA256 | `4122c95665df214ee647083ebe5f469bbf727c1d78060559a37dea3fb401804d` **PASS** |
-| candidate manifest SHA256 | `89b8c5b15b14a7f18900307b4f26981160df233d7b25216fd9285983c4bcc7e4` **PASS** |
-| entry == exit fingerprints | **PASS** |
-| candidate state | DIRTY / UNCOMMITTED / UNPUSHED (intentional) |
-| project commit / push / PR / merge | **NO** |
+Morris GO MW4-PROJECT-INTEGRATION-01 consumed for:
+- Local Git Truth
+- accepted-candidate verification
+- exact staging
+- project commit
+- push of delivery branch
+- PR open against main
+- remote PR diff verification
+- CI evidence collection
+- FULL Review Pack
+- L3 Review Handoff
 
-Provenance SHAs:
-- Current MW4 REAL accepted handoff: `ab89229b73dba5a4c6b1f92f1d523cc21cfcecb4`
-- Historical MW0→MW3 cumulative handoff: `39c50895c7b6f1423198d034384e1c37fba8ea03`
-- Accepted MW4 tracked diff: `4122c95665df214ee647083ebe5f469bbf727c1d78060559a37dea3fb401804d`
-- Accepted MW4 manifest: `89b8c5b15b14a7f18900307b4f26981160df233d7b25216fd9285983c4bcc7e4`
-
----
-
-## 3. Entry preflight (reused)
-
-Conditions held (HEAD/main/fingerprints unchanged; no product mutation):
-
-| Gate | Result |
-|---|---|
-| focused deterministic MW0→MW4 | 44 passed \| 1 skipped files; 321 passed \| 1 skipped tests |
-| typecheck | PASS |
-| lint | PASS |
-| git diff --check | PASS |
-| LIVE before RE-GO | 0 |
-
-Resumed entry minimum re-run: Local Git Truth + fingerprint + git diff --check → **PASS** (preflight suite not re-burned for ceremony).
+Explicitly NOT authorized / NOT performed:
+- merge / squash / rebase merge / auto-merge / merge queue
+- branch deletion
+- main write
+- MW4 closure / truth-sync
+- product correction during CI
+- architecture / persistence / dependency expansion
+- MW5
 
 ---
 
-## 4. LIVE configuration
-
-| Field | Value |
-|---|---|
-| provider | openai |
-| model | gpt-5.6-luna |
-| production routing selected | **NO** |
-| path | `orchestrateAssistantSend` (product) |
-| Fake provider | NO |
-| history | `[]` every turn (Session continuity) |
-| session | ProductSqliteSession |
-| Evidence | OA registerEvidence A/B |
-| enableTools on F1 | product default (no extra model rounds observed; toolRounds=0 all turns) |
-| retry policy | **NO RETRIES** (RE-GO override) |
-| strict LIVE max | **14** |
-| actual LIVE count | **14 / 14** |
-| ConversationProvider metered calls | **7** (`completeStructured` only) |
-| native Agents F1 calls | **7** (counted independently; absent from ConversationProvider ledger) |
-| other OpenAI model calls | **0** |
-| cumulative estimated USD (partial) | `0.009325799999999999` — native F1 tokens NOT on ConversationProvider ledger |
-
----
-
-## 5. Strict invocation ledger (14)
-
-| # | Turn | Layer | Operation | Timestamp | Provider | Model | Response ID | Latency ms | Success | Evidence source |
-|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | T1 | f2_intent_analysis | completeStructured | 2026-09-03T08:00:03.544Z | openai | gpt-5.6-luna | resp_0bdeaa8c8eb96869006a9928fe542c87d285f82545e248de69 | 6707 | True | capturing.completeStructured |
-| 2 | T1 | native_agents_f1 | native_f1_primary | 2026-09-03T08:00:06.408Z | openai | gpt-5.6-luna | n/a | 9572 | True | strategyTelemetry |
-| 3 | T2 | f2_intent_analysis | completeStructured | 2026-09-03T08:00:13.828Z | openai | gpt-5.6-luna | resp_0f8e6787552947ce006a992906d67c87d28fdedd399727678d | 7419 | True | capturing.completeStructured |
-| 4 | T2 | native_agents_f1 | native_f1_primary | 2026-09-03T08:00:18.028Z | openai | gpt-5.6-luna | n/a | 11619 | True | strategyTelemetry |
-| 5 | T3 | f2_intent_analysis | completeStructured | 2026-09-03T08:00:28.395Z | openai | gpt-5.6-luna | resp_01d7c13f20285813006a9929127ac487d29f3cc0623a1a6428 | 10362 | True | capturing.completeStructured |
-| 6 | T3 | native_agents_f1 | native_f1_primary | 2026-09-03T08:00:33.924Z | openai | gpt-5.6-luna | n/a | 15890 | True | strategyTelemetry |
-| 7 | T4 | f2_intent_analysis | completeStructured | 2026-09-03T08:00:43.141Z | openai | gpt-5.6-luna | resp_0e2b6999bd4bf05b006a992922551487d2bb146432eb26ff70 | 9213 | True | capturing.completeStructured |
-| 8 | T4 | native_agents_f1 | native_f1_primary | 2026-09-03T08:00:49.001Z | openai | gpt-5.6-luna | n/a | 15073 | True | strategyTelemetry |
-| 9 | T5 | f2_intent_analysis | completeStructured | 2026-09-03T08:00:58.197Z | openai | gpt-5.6-luna | resp_025b7499c1868f58006a9929316a3887d290765ea3c61eae06 | 9194 | True | capturing.completeStructured |
-| 10 | T5 | native_agents_f1 | native_f1_primary | 2026-09-03T08:01:05.098Z | openai | gpt-5.6-luna | n/a | 16095 | True | strategyTelemetry |
-| 11 | T6 | f2_intent_analysis | completeStructured | 2026-09-03T08:01:16.137Z | openai | gpt-5.6-luna | resp_03a83aa074f34db5006a9929417dec87d2ace89be406afa046 | 11028 | True | capturing.completeStructured |
-| 12 | T6 | native_agents_f1 | native_f1_primary | 2026-09-03T08:01:22.671Z | openai | gpt-5.6-luna | n/a | 17562 | True | strategyTelemetry |
-| 13 | T7 | f2_intent_analysis | completeStructured | 2026-09-03T08:01:39.270Z | openai | gpt-5.6-luna | resp_0a0eaa0c491a8c6b006a9929538d2487d2a34a5a5654b7719d | 16597 | True | capturing.completeStructured |
-| 14 | T7 | native_agents_f1 | native_f1_primary | 2026-09-03T08:02:01.629Z | openai | gpt-5.6-luna | n/a | 38957 | True | strategyTelemetry |
-
-Per-turn cumulative asserts held: T1=2 … T7=14.
-
----
-
-## 6. Turn evidence T1→T7
-
-
-### T1
-- timestamp: `2026-09-03T08:00:06.408Z`
-- exactUserContent:
-```
-Pour cette conversation de travail, retiens la prémisse temporaire PREMISE-MW3-BUSINESS-a9e2f8dc : avant toute recommandation d'exécution, Gate-Kappa doit rester valide. Cette prémisse sert uniquement à notre analyse : ce n'est ni une HumanDecision, ni une Confirmation, ni une autorisation d'exécution. Confirme ta compréhension sans exécuter d'action.
-```
-- provider/model: `openai` / `gpt-5.6-luna`
-- result.ok/status: `True` / `ok`
-- sessionId: `sess:prj:520d5b0b-a18e-41e1-b002-e30849889823:f1-default`
-- memoryBAvailability: `available_empty`
-- CWP (intent): `{"ambiguity": "low", "reasoningDepth": "low", "sourceBreadth": "low", "toolDependency": "low", "contradictionRisk": "low", "verificationNeed": "low"}`
-- strategy: `{"strategyClass": "Routine", "reasoningEffort": "low", "reasoningDemand": "low", "criticalChallengeArmed": false, "bootstrapUsed": false, "reasonCodes": ["routine_known_low_evidence", "demand:low", "effort:low"], "envelope": ["none", "low", "medium"]}`
-- mw3: `{}`
-- mw4.validIds: `None`
-- mw4.readCoverageOverall: `None`
-- raw model text:
-```
-Compris. Pour cette conversation, je traiterai PREMISE-MW3-BUSINESS-a9e2f8dc comme une prémisse temporaire d’analyse : toute recommandation d’exécution devra présupposer que Gate-Kappa reste valide.
-
-Elle ne constitue ni une HumanDecision, ni une Confirmation, ni une autorisation d’exécution. Aucune action ne sera exécutée.
-```
-
-### T2
-- timestamp: `2026-09-03T08:00:18.028Z`
-- exactUserContent:
-```
-Sans que je reformule la prémisse de travail précédente, rappelle précisément la condition qui doit rester vraie avant toute recommandation aval. Les informations actuelles restent compatibles avec elle et aucun conflit n'est signalé.
-```
-- provider/model: `openai` / `gpt-5.6-luna`
-- result.ok/status: `True` / `ok`
-- sessionId: `sess:prj:520d5b0b-a18e-41e1-b002-e30849889823:f1-default`
-- memoryBAvailability: `available_with_history`
-- CWP (intent): `{"ambiguity": "high", "reasoningDepth": "low", "sourceBreadth": "low", "toolDependency": "low", "contradictionRisk": "low", "verificationNeed": "high"}`
-- strategy: `{"strategyClass": "Focused", "reasoningEffort": "medium", "reasoningDemand": "medium", "criticalChallengeArmed": false, "bootstrapUsed": true, "reasonCodes": ["bootstrap_focused_no_trusted_profile", "demand:medium", "effort:medium"], "envelope": ["low", "medium", "high"]}`
-- mw3: `{}`
-- mw4.validIds: `None`
-- mw4.readCoverageOverall: `None`
-- raw model text:
-```
-La condition est : **Gate-Kappa doit rester valide avant toute recommandation d’exécution en aval**.
-
-Je la maintiens comme prémisse temporaire d’analyse uniquement. Selon votre indication, les informations actuelles lui restent compatibles et aucun conflit n’est signalé ; cela ne constitue ni une validation autoritative ni une autorisation d’exécution.
-```
-
-### T3
-- timestamp: `2026-09-03T08:00:33.924Z`
-- exactUserContent:
-```
-Une nouvelle information semble maintenant contredire la condition de travail que tu conserves depuis le début. L'unique Evidence disponible pour cette analyse est ev:mw0-mw3-business-a. Analyse le conflit et indique s'il est suffisamment établi pour bloquer honnêtement la suite.
-```
-- provider/model: `openai` / `gpt-5.6-luna`
-- result.ok/status: `True` / `ok`
-- sessionId: `sess:prj:520d5b0b-a18e-41e1-b002-e30849889823:f1-default`
-- memoryBAvailability: `available_with_history`
-- CWP (intent): `{"ambiguity": "medium", "reasoningDepth": "medium", "sourceBreadth": "low", "toolDependency": "low", "contradictionRisk": "high", "verificationNeed": "high"}`
-- strategy: `{"strategyClass": "High-Assurance", "reasoningEffort": "high", "reasoningDemand": "medium", "criticalChallengeArmed": true, "bootstrapUsed": false, "reasonCodes": ["high_assurance_signals", "critical_challenge_armed_hook", "demand:medium", "effort:high"], "envelope": ["high", "xhigh", "max"]}`
-- mw3: `{"disposition": "candidate", "progression": "PROGRESS_WITH_CONTRADICTION", "cognitiveStop": false, "reason": "Conflict retained as contradiction candidate — coverage, domain, freshness, or attribution insufficient for evidence-backed promotion.", "evidenceIds": [], "sourceIds": [], "governingPremise": "La condition de travail conservée depuis le début de l'analyse reste valide pour poursuivre la chaîne intégrée MW0→MW4.", "nextAction": "Verify sources before treating the conflict as proven.", "insufficiencyReasons": ["insufficient_source_coverage", "coverage_incomplete"], "allowsSilentSuccess": false, "blockedImpact": null, "mayContinue": true, "notTechnicalFailure": true}`
-- mw4.validIds: `None`
-- mw4.readCoverageOverall: `None`
-- raw model text:
-```
-Je ne peux pas analyser le contenu de **ev:mw0-mw3-business-a** : son identifiant seul ne constitue pas une Evidence obtenue ni vérifiable via les sources disponibles.
-
-Conclusion :
-
-- La contradiction avec la prémisse **n’est pas établie comme fait**.
-- Elle reste toutefois une **réserve ouverte non résolue**.
-- En conséquence, par prudence fail-closed, je ne peux pas formuler honnêtement de recommandation d’exécution en aval tant que la validité de Gate-Kappa n’est pas clarifiée.
-
-Cela ne constitue ni une HumanDecision ni une décision de cycle.
-
-[CONTRADICTION CANDIDATE] Conflict retained as contradiction candidate — coverage, domain, freshness, or attribution insufficient for evidence-backed promotion.
-```
-
-### T4
-- timestamp: `2026-09-03T08:00:49.001Z`
-- exactUserContent:
-```
-Pour l'analyse courante, les deux Evidence concernées sont ev:mw0-mw3-business-a et ev:mw0-mw3-business-b. Elles sont incompatibles sur un point local. Ce point ne remet pas en cause la condition de travail initiale que tu conserves depuis le début. Analyse la situation et indique si le parcours cognitif peut continuer.
-```
-- provider/model: `openai` / `gpt-5.6-luna`
-- result.ok/status: `True` / `ok`
-- sessionId: `sess:prj:520d5b0b-a18e-41e1-b002-e30849889823:f1-default`
-- memoryBAvailability: `available_with_history`
-- CWP (intent): `{"ambiguity": "medium", "reasoningDepth": "medium", "sourceBreadth": "low", "toolDependency": "unknown", "contradictionRisk": "high", "verificationNeed": "medium"}`
-- strategy: `{"strategyClass": "Focused", "reasoningEffort": "medium", "reasoningDemand": "medium", "criticalChallengeArmed": false, "bootstrapUsed": true, "reasonCodes": ["bootstrap_focused_no_trusted_profile", "demand:medium", "effort:medium"], "envelope": ["low", "medium", "high"]}`
-- mw3: `{"disposition": "evidence_backed", "progression": "PROGRESS_WITH_CONTRADICTION", "cognitiveStop": false, "reason": "Evidence-backed contradiction surfaced — governing premise still holds; progression may continue honestly.", "evidenceIds": ["ev:mw0-mw3-business-a", "ev:mw0-mw3-business-b"], "sourceIds": ["src:mw0-mw3-business-a", "src:mw0-mw3-business-b"], "governingPremise": "La condition de travail initiale conservée depuis le début du parcours", "nextAction": "Correct recommendation path if needed; no Cognitive STOP.", "insufficiencyReasons": [], "allowsSilentSuccess": false, "blockedImpact": null, "mayContinue": true, "notTechnicalFailure": true}`
-- mw4.validIds: `['ev:mw0-mw3-business-a']`
-- mw4.readCoverageOverall: `none`
-- raw model text:
-```
-Le conflit local et son absence d’impact sur la prémisse initiale ne sont pas vérifiables avec les éléments disponibles :
-
-- **ev:mw0-mw3-business-a** est actuellement attribuable ;
-- **ev:mw0-mw3-business-b** n’est pas ré-résolue ici ;
-- le lien précis entre chaque Evidence et les affirmations n’est pas établi.
-
-Le parcours cognitif peut donc continuer **uniquement comme analyse exploratoire sous réserve**, sans conclure que la prémisse reste validée et sans produire de recommandation d’exécution en aval. La compatibilité alléguée reste à confirmer par relecture structurée des deux Evidence.
-
-[EVIDENCE-BACKED CONTRADICTION] Evidence-backed contradiction surfaced — governing premise still holds; progression may continue honestly.
-```
-
-### T5
-- timestamp: `2026-09-03T08:01:05.098Z`
-- exactUserContent:
-```
-Reviens sur les Evidence évoquées aux tours précédents — les deux Evidence — sans que je te redonne leurs identifiants. Dis lesquelles sont actuellement attributable via la résolution Studio/OA courante, en distinguant Evidence gouvernée vs mémoire narrative. Contexte: claim X et claim Y ont été discutés sans binding structurel claim→Evidence. Quelle Evidence supportait précisément le claim X ? Ne devine pas; si unbound, dis-le et recommande reread/revalidation ou downgrade.
-```
-- provider/model: `openai` / `gpt-5.6-luna`
-- result.ok/status: `True` / `ok`
-- sessionId: `sess:prj:520d5b0b-a18e-41e1-b002-e30849889823:f1-default`
-- memoryBAvailability: `available_with_history`
-- CWP (intent): `{"ambiguity": "medium", "reasoningDepth": "high", "sourceBreadth": "medium", "toolDependency": "high", "contradictionRisk": "low", "verificationNeed": "high"}`
-- strategy: `{"strategyClass": "Deep", "reasoningEffort": "high", "reasoningDemand": "high", "criticalChallengeArmed": false, "bootstrapUsed": false, "reasonCodes": ["deep_synthesis_signals", "demand:high", "effort:high"], "envelope": ["medium", "high", "xhigh"]}`
-- mw3: `{}`
-- mw4.validIds: `['ev:mw0-mw3-business-a', 'ev:mw0-mw3-business-b']`
-- mw4.readCoverageOverall: `none`
-- raw model text:
-```
-Les deux Evidence actuellement **attribuables via la résolution Studio/OA courante** sont :
-
-- `ev:mw0-mw3-business-a`
-- `ev:mw0-mw3-business-b`
-
-Elles sont distinctes de la mémoire narrative compactée, qui n’a aucune autorité probante.
-
-Pour **claim X**, le binding claim→Evidence est **UNBOUND / non reconstructible**. Je ne peux donc pas dire précisément laquelle le supportait. Il faut procéder à une relecture/révalidation structurée, ou dégrader le claim en assertion non attribuée.
-```
-
-### T6
-- timestamp: `2026-09-03T08:01:22.671Z`
-- exactUserContent:
-```
-Tu as une disclosure MW4 de couverture de lecture (dont une lecture partielle). Conclus sur les documents projects/sfia-studio/sfia-v3-technical-architecture/v3-native-option-a/09-security-privacy-and-authority-architecture.md (lu intégralement) et projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md (lu partiellement, plage suffixe L100-fin). Marque la partialité, refuse une certitude de corpus complet, n'affirme pas qu'un document partiel n'a pas été lu, et ne traite pas une couverture mémorisée comme une revalidation courante complète.
-```
-- provider/model: `openai` / `gpt-5.6-luna`
-- result.ok/status: `True` / `ok`
-- sessionId: `sess:prj:520d5b0b-a18e-41e1-b002-e30849889823:f1-default`
-- memoryBAvailability: `available_with_history`
-- CWP (intent): `{"ambiguity": "medium", "reasoningDepth": "high", "sourceBreadth": "medium", "toolDependency": "high", "contradictionRisk": "medium", "verificationNeed": "high"}`
-- strategy: `{"strategyClass": "High-Assurance", "reasoningEffort": "high", "reasoningDemand": "high", "criticalChallengeArmed": true, "bootstrapUsed": false, "reasonCodes": ["high_assurance_signals", "critical_challenge_armed_hook", "demand:high", "effort:high"], "envelope": ["high", "xhigh", "max"]}`
-- mw3: `{"disposition": "candidate", "progression": "PROGRESS_WITH_CONTRADICTION", "cognitiveStop": false, "reason": "Plausible conflict retained as contradiction candidate — insufficient Evidence pointers.", "evidenceIds": [], "sourceIds": [], "governingPremise": "Une couverture de lecture mémorisée pourrait être interprétée comme une revalidation courante et complète du corpus.", "nextAction": "Verify sources before treating the conflict as proven.", "insufficiencyReasons": ["insufficient_evidence_pointers"], "allowsSilentSuccess": false, "blockedImpact": null, "mayContinue": true, "notTechnicalFailure": true}`
-- mw4.validIds: `['ev:mw0-mw3-business-a', 'ev:mw0-mw3-business-b']`
-- mw4.readCoverageOverall: `partial`
-- raw model text:
-```
-- `.../09-security-privacy-and-authority-architecture.md` : lecture mémorisée complète pour la plage `L1–26`, mais **pas revalidée au tour courant**. Cela ne permet pas d’affirmer que le document entier a été lu.
-- `.../05-nora-source-locked-cognitive-backlog.md` : couverture **partielle**, indiquée sur la plage `L100–fin`. Cela ne signifie pas que le reste n’a pas été lu ; simplement, cette couverture n’est pas établie ici.
-
-Conclusion : la couverture du corpus est **partielle et mixte**. Je refuse donc toute certitude de corpus complet et toute conclusion dépendant de sections non revalidées.
-
-[CONTRADICTION CANDIDATE] Plausible conflict retained as contradiction candidate — insufficient Evidence pointers.
-```
-
-### T7
-- timestamp: `2026-09-03T08:02:01.630Z`
-- exactUserContent:
-```
-Pour cette réévaluation, les Evidence pertinentes sont toujours ev:mw0-mw3-business-a et ev:mw0-mw3-business-b. Leur contradiction n'est finalement pas locale : elle invalide directement la condition de travail initiale dont dépend toute recommandation aval. Analyse si la suite peut honnêtement continuer.
-```
-- provider/model: `openai` / `gpt-5.6-luna`
-- result.ok/status: `True` / `cognitive_stop`
-- sessionId: `sess:prj:520d5b0b-a18e-41e1-b002-e30849889823:f1-default`
-- memoryBAvailability: `available_with_history`
-- CWP (intent): `{"ambiguity": "low", "reasoningDepth": "high", "sourceBreadth": "medium", "toolDependency": "low", "contradictionRisk": "high", "verificationNeed": "high"}`
-- strategy: `{"strategyClass": "High-Assurance", "reasoningEffort": "high", "reasoningDemand": "high", "criticalChallengeArmed": true, "bootstrapUsed": false, "reasonCodes": ["high_assurance_signals", "critical_challenge_armed_hook", "demand:high", "effort:high"], "envelope": ["high", "xhigh", "max"]}`
-- mw3: `{"disposition": "evidence_backed", "progression": "COGNITIVE_STOP", "cognitiveStop": true, "reason": "Evidence-backed contradiction invalidates governing premise: La condition de travail initiale sur laquelle reposent les recommandations aval est suffisamment valide pour poursuivre la chaîne d'analyse.", "evidenceIds": ["ev:mw0-mw3-business-a", "ev:mw0-mw3-business-b"], "sourceIds": ["src:mw0-mw3-business-a", "src:mw0-mw3-business-b"], "governingPremise": "La condition de travail initiale sur laquelle reposent les recommandations aval est suffisamment valide pour poursuivre la chaîne d'analyse.", "nextAction": "Cognitive STOP — replan/recovery as recommendation; Pilote HumanDecision if structural.", "insufficiencyReasons": [], "allowsSilentSuccess": false, "blockedImpact": "Progression bloquée — prémisse gouvernante invalidée (La condition de travail initiale sur laquelle reposent les recommandations aval est suffisamment valide pour poursuivre la chaîne d'analyse.).", "mayContinue": false, "notTechnicalFailure": true}`
-- mw4.validIds: `['ev:mw0-mw3-business-a', 'ev:mw0-mw3-business-b']`
-- mw4.readCoverageOverall: `partial`
-- raw model text:
-```
-La suite ne peut pas honnêtement continuer **comme si la condition initiale restait vraie**.
-
-Toutefois, je ne peux pas confirmer que la contradiction invalide effectivement cette condition : les deux Evidence sont attribuables, mais le binding précis entre leurs contenus et cette conclusion reste **UNBOUND**.
-
-Conclusion opérationnelle d’analyse :
-
-- **Recommandations aval : suspendues / non fondées** ;
-- **Gate-Kappa : statut non résolu**, et non présumé valide ;
-- la conversation peut continuer uniquement pour analyser le conflit et effectuer une relecture/révalidation structurée des deux Evidence.
-[COGNITIVE STOP] Evidence-backed contradiction invalidates governing premise: La condition de travail initiale sur laquelle reposent les recommandations aval est suffisamment valide pour poursuivre la chaîne d'analyse.
-Evidence: ev:mw0-mw3-business-a, ev:mw0-mw3-business-b
-Next: Cognitive STOP — replan/recovery as recommendation; Pilote HumanDecision if structural.
-```
-
-
-### T5 MW4 grounding score
-```json
-{
-  "pass": true,
-  "badIds": [],
-  "mw4SurfaceOk": true,
-  "unboundLang": true,
-  "certainClaimMapping": false,
-  "upgradesMemory": false,
-  "hasA": true,
-  "hasB": true
-}
-```
-claim-specific provenance: **HONESTLY UNBOUND / NOT RECONSTRUCTABLE**
-
-### T6 MW4 partiality score
-```json
-{
-  "pass": true,
-  "partialSurfaced": true,
-  "acknowledgesPartialRead": true,
-  "falseComplete": false,
-  "treatsSuffixFull": false,
-  "priorAsCurrent": false,
-  "overall": "partial",
-  "mentionsDocA": true
-}
-```
-ToolRouter preflight (0 OpenAI): DOC_A full; DOC_B partial suffix; hasMore=false does not imply full when startLine>1 — see `real-t6-tool-preflight.json`.
-
----
-
-## 7. Trajectory / harness vs GO semantics
-
-Harness expected trajectory:
-`NONE → NONE → CANDIDATE → EVIDENCE_BACKED_CONTINUE → NONE|OTHER → NONE|OTHER → EVIDENCE_BACKED_COGNITIVE_STOP`
-
-Actual:
-`NONE → NONE → CANDIDATE → EVIDENCE_BACKED_CONTINUE → NONE → CANDIDATE → EVIDENCE_BACKED_COGNITIVE_STOP`
-
-T6 details:
-- disposition=`candidate`
-- insufficiencyReasons=`[insufficient_evidence_pointers]`
-- cognitiveStop=`false`, mayContinue=`true`, allowsSilentSuccess=`false`
-- F2 conflictPresent without claimed Evidence IDs → honest MW3 candidate retention
-- Partiality semantics scored **PASS** (BC-15)
-
-Classification: **FIXTURE_POLICY_FAILURE** (campaign harness over-strict on T5/T6 disposition).
-**Not** PRODUCT_REGRESSION. No retry. Raw first result preserved (`campaign-summary.json` still records harness throw).
-
-Semantic assessment artifact: `semantic-assessment-rego01.json`
-
----
-
-## 8. Cross-wave acceptance matrix
-
-| Interaction | Result | Basis |
-|---|---|---|
-| MW0×MW1 | PASS | PASS — T1/T2 same session; Gate-Kappa recalled without restatement; Memory B available_with_history |
-| MW1×MW4 | PASS | PASS — T5 re-resolves A+B via Studio/OA; unbound claim X; Memory B non-authoritative |
-| MW2×MW4 | PASS | PASS — T6 High-Assurance + partial coverage; no false completeness |
-| MW3×MW4 | PASS | PASS — T7 evidence_backed STOP after MW4 turns; MW4 does not bypass STOP |
-| MW1×MW3×MW4 | PASS | PASS — narrative cannot defeat current Evidence; T5 unbound + T7 STOP on A+B |
-| MW2×MW3×MW4 | PASS | PASS — high-assurance does not promote partial/unbound as SUCCESS |
-| MW0×MW1×MW2×MW3×MW4 | PASS | PASS — cumulative chain observed end-to-end on actual product path |
-
----
-
-## 9. Historical comparison (MW0→MW3 harvest)
-
-Source handoff: `39c50895c7b6f1423198d034384e1c37fba8ea03`
-Evidence IDs preserved: `ev:mw0-mw3-business-a`, `ev:mw0-mw3-business-b`
-T1–T4 exact semantic contracts replayed; T7 = historical terminal STOP semantics after MW4 T5/T6.
-Pre-MW4 regression: **NOT DETECTED** (T3 candidate, T4 evidence_backed continue, T7 STOP).
-
----
-
-## 10. Scorer debt
-
-- **R-MW4-REAL-02** carried — lexical scorers may false-positive on French negations; raw text is primary.
-- T7 narrative includes unbound caution + appended `[COGNITIVE STOP]` banner; **product controller** wins: status=`cognitive_stop`, mayContinue=false, allowsSilentSuccess=false.
-- RecoveryRecommendation language present (`nextAction`); not HumanDecision / Confirmation / GO.
-
----
-
-## 11. Postflight
-
-| Gate | Result |
-|---|---|
-| focused deterministic (serial) | **PASS** — 44 passed \| 1 skipped files; 321 passed \| 1 skipped tests |
-| MW4 CORR focused | **PASS** — 5 files / 21 tests |
-| typecheck | **PASS** |
-| lint | **PASS** |
-| git diff --check | **PASS** |
-| full serial (default 5s timeout) | 3 files / 4 tests **timed out** at 5000ms on qa-pre-m6 / f3 fixture paths — ENVIRONMENT timeout, not assertion fail |
-| full serial (`--testTimeout=60000`, `--no-file-parallelism`) | **PASS** — **272 passed \| 14 skipped** files; **2508 passed \| 132 skipped** tests |
-| candidate entry/exit parity | **PASS** (exact accepted fingerprints) |
-
-Note: first parallel focused attempt hit `database is locked` + C18 flake; serial re-run matched preflight green. Documented as tooling contention, not product mutation.
-
----
-
-## 12. Architecture / FA / TA
+## B. PROCESS / ROUTING
 
 | Item | Result |
 |---|---|
-| architecture changed | **NO** |
-| persistence changed | **NO** |
-| FA | **NO** |
-| TA | **NO** |
-| runtime v3 | NON ADOPTED |
-| production model routing | NOT SELECTED |
+| Sources | `prompts/templates/sfia-cycle-execution-template.md` (Cycle 13 = PR readiness); `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` §5.9 |
+| Qualification | **Cycle 13 — PR readiness / Project Git Integration Package** |
+| Typology | **INC** |
+| Profile | **CRITICAL** |
+| Routing resolved | **PASS** with explicit Morris L0 override note |
+
+Routing note:
+Default §5.9 PR readiness forbids creating a PR inside that cycle alone.
+This GO intentionally groups PRE-COMMIT → COMMIT → PUSH → PR → CI into one Morris-authorized package.
+Not a silent cycle substitution: Morris GO defines the package and forbids merge.
+CKC: candidate only / not structural FA-TA.
+
+Convergence pre-check:
+- Capability MW4 Grounding durability + Narrative/Evidence coherence
+- Source-lock MW4-S01/S02/S03
+- Architecture KEEP/ADAPT Option C
+- NEW ARCHITECTURE/PERSISTENCE/FA/TA: NO
+- runtime v3 NON ADOPTED; production routing NOT SELECTED; Cognitive Completion NOT PROVEN
+- MW5 only after MW4 integration + later closure
 
 ---
 
-## 13. Reserves
+## C. ENTRY GIT
+
+| Field | Value |
+|---|---|
+| repo | mcleland147/sfia-workspace |
+| worktree | `/Users/morris/Projects/sfia-workspace-nora-mw4-grounding` |
+| branch | `delivery/sfia-studio-nora-mw4-grounding-durability` |
+| initial HEAD | `deb34943dd85472644c221243cd7c0fd5369614e` |
+| origin/main | `deb34943dd85472644c221243cd7c0fd5369614e` |
+| tracked candidate SHA256 | `4122c95665df214ee647083ebe5f469bbf727c1d78060559a37dea3fb401804d` **PASS** |
+| candidate manifest SHA256 | `89b8c5b15b14a7f18900307b4f26981160df233d7b25216fd9285983c4bcc7e4` **PASS** |
+| git diff --check | PASS |
+| candidate state before | DIRTY / UNCOMMITTED / UNPUSHED (intentional) |
+
+---
+
+## D. PROOF LINEAGE
+
+| Gate | Handoff / claim |
+|---|---|
+| CORR-MW4-01 | `104c858354efdf6e5b1c2301d2563a6cf9b9f2e1` — PASS at deterministic/product-bound scope |
+| MW4 REAL | `ab89229b73dba5a4c6b1f92f1d523cc21cfcecb4` / blob `c7103a1dc5fce7c3df31afe5076a152b849cc960` — PASS at tested scope |
+| Integrated REAL | `41d970f8566b7cd6e282a08aed5b3aeab0cc0897` / blob `acd992ddd55bc6b787d3b9c6a5f68b2718ffa7cf` — MW0×MW1×MW2×MW3×MW4 PASS; 14/14 LIVE; campaign `nora-mw0-mw4-integrated-real-rego01-1788422396786` |
+| Postflight provenance | focused 44\|1 files / 321\|1 tests; CORR 5/21; typecheck/lint/diff-check PASS; full serial 272\|14 files / 2508\|132 tests |
+| Architecture/persistence | NO / NO |
+
+---
+
+## E. FILE CLASSIFICATION
+
+Accepted candidate only (A product / B test-eval): **31 files**.
+Temporary review evidence (C): `.tmp-sfia-review/**`, `node_modules` symlink — **excluded**.
+Ambiguous (E): **NONE**.
+
+### Accepted staged set (exact)
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.corr01b.persistedCoverage.d0.test.ts` git=`A` class=`B` sha256=`012efe4ca196689c68bdb8bb3b176927567e9720bcb9c081ad1d065b30df49a7` match=`True`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.corr01d.claimProvenance.d0.test.ts` git=`A` class=`B` sha256=`3e3eff33d5c1bb0c5f89bed5a47147764f15c56c3974e3cbd7b06ef02eb85095` match=`True`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.corr01f.timestamp.d0.test.ts` git=`A` class=`B` sha256=`94b9c61a49c7ff910de0d3f8c76e7e65f69c7d76c5cb507336e1565f6b21d1b3` match=`True`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.cumulative.mw0-mw4.d0.test.ts` git=`A` class=`B` sha256=`62340d5e56f0c86b18ced7fad10892c1b5970b267b02ab4ad446974c1a971fd1` match=`True`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s01.grounding.durability.d0.test.ts` git=`A` class=`B` sha256=`8069d274395dd9724717de03598bb4fc1222f391aba59f5d6cf54a769c5479d1` match=`True`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s02.recovery.narrative.d0.test.ts` git=`A` class=`B` sha256=`8f57fcd1831ae42a9f6bcbca42e0466fb75359ce631e373b08e90291820ad991` match=`True`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s03.partiality.d0.test.ts` git=`A` class=`B` sha256=`cd00e7de7511adb8684fbcaea9b8a3fbf4ee93077bc8f24eb68adedf45ac3380` match=`True`
+- `projects/sfia-studio/app/__tests__/nora-eval/mw4.grounding.eval.test.ts` git=`A` class=`B` sha256=`aa9a2c1fd23ea76119e7e1d5053140388cf70a8fc0b300bc7ec660d45cab3c88` match=`True`
+- `projects/sfia-studio/app/__tests__/platform/mw4.corr01a.toolRouter.readCoverage.d0.test.ts` git=`A` class=`B` sha256=`ebb5766f23cf3def6faafdc53ca4feb3640d9e6d5ec78527ad6f4b036c4d0038` match=`True`
+- `projects/sfia-studio/app/__tests__/project-assistant/mw4.corr01e.resolutionFailure.d0.test.ts` git=`A` class=`B` sha256=`3859f2e4bfb7f13e99e2cb182d852881ec182b4624e8b05e0d928ff2eb587e89` match=`True`
+- `projects/sfia-studio/app/__tests__/project-assistant/mw4.s01.evidence.reresolve.product.d0.test.ts` git=`A` class=`B` sha256=`b6cae2679aef81f68deeaef799023be5df8c299815d2089dd75cafbcfed19124` match=`True`
+- `projects/sfia-studio/app/features/project-assistant/collectToolTelemetry.ts` git=`M` class=`A` sha256=`89b7de910280997a1941758a377cac6fec7148b61974fe7971b8757074d4fbc6` match=`True`
+- `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts` git=`M` class=`A` sha256=`4ba0fb307a06f2dfaac2a289c20eda40724dac69e568345939280c4d702aa262` match=`True`
+- `projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts` git=`M` class=`A` sha256=`9331c68e96450fb4db74f7577709b9e34b27547ed9f323dffd1e870688cbb860` match=`True`
+- `projects/sfia-studio/app/features/project-assistant/mw3AvailableEvidence.ts` git=`M` class=`A` sha256=`e53d60cd69e03cf79aef4ba292648aca813fce2b983032cd425a0c4d0b9bb724` match=`True`
+- `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts` git=`M` class=`A` sha256=`fc166974ae95b0a76c3bc2735cbe1a14ff75dd396448f65d2f568d93d81e432b` match=`True`
+- `projects/sfia-studio/app/features/project-assistant/presentationLabels.ts` git=`M` class=`A` sha256=`f0306cd3744568b65ca665f63974c1d42a195fa7b472f34dcd7c7974ff6e3cf3` match=`True`
+- `projects/sfia-studio/app/features/project-assistant/types.ts` git=`M` class=`A` sha256=`f709bd229fcba5e0abe86470455608be606e6a9793c434dad1f881121dea6c59` match=`True`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/groundingDurability.ts` git=`A` class=`A` sha256=`3747af5b95b5fe18042c0176d3003294b034129ae992b35582efc182b5802326` match=`True`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts` git=`M` class=`A` sha256=`765b517eb7f5dc3445d33f2bd986c21ee544fe2e5a0efbcc2a9c809d94b615a7` match=`True`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/memoryBCompaction.ts` git=`M` class=`A` sha256=`26ab87656d89e9f0ecd1bfafa910b2b618123996d163dd645f8a98000de28694` match=`True`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/postEvidenceNarrativePolicy.ts` git=`A` class=`A` sha256=`1a40a24a5d45504f04180deca81ed8ae86fa52cb362cf896200c0014ad3b7d96` match=`True`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/readCoverage.ts` git=`A` class=`A` sha256=`a9e5e691b432fcf24728c66f70d54f775d36a3b69563c67dcafd09efe101bead` match=`True`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts` git=`M` class=`A` sha256=`e11aa4c1fda8f4babc09708f9e415246e73688b5682e581f595161d750b53f75` match=`True`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts` git=`M` class=`A` sha256=`37ee0b39c8e66df684b84a9aed3631d584eaf7045d918135ec46236b0c1ee721` match=`True`
+- `projects/sfia-studio/app/lib/nora-eval/catalog.ts` git=`M` class=`B` sha256=`4532bbfe5f659cb810558581f7609b335710faaff54afcbf07125f3be43f9eb7` match=`True`
+- `projects/sfia-studio/app/lib/nora-eval/d0Runner.ts` git=`M` class=`B` sha256=`5bab9b142d2a9ecba594a7c94f8cd31f459c4c38afe83770c010181930c674f1` match=`True`
+- `projects/sfia-studio/app/lib/nora-eval/index.ts` git=`M` class=`B` sha256=`d11bd85b6ced6b327cd4179411969f6346d6582f7bd530c339ada64b2f3fad29` match=`True`
+- `projects/sfia-studio/app/lib/nora-eval/mw4Observe.ts` git=`A` class=`B` sha256=`9f7744bf6d5b53ca4f0ec551ad72f59097691067e56eafcb3babf62a3a394f9b` match=`True`
+- `projects/sfia-studio/app/lib/nora-eval/scorers.ts` git=`M` class=`B` sha256=`62af73c11c3f15f918701f98a2d7d6861d3c545c37a84eb49e66fc6f4d5d2571` match=`True`
+- `projects/sfia-studio/app/lib/nora-eval/types.ts` git=`M` class=`B` sha256=`6d36262feffe2109b5c0cc176be5809eb2922316979ce18886d82f73edc4e372` match=`True`
+
+
+Hard exclusions respected: no `.tmp-sfia-review`, no secrets, no Roadmap/C5, no handoff file, no `node_modules`.
+
+---
+
+## F. STAGED PROOF
+
+```
+ .../mw4.corr01b.persistedCoverage.d0.test.ts       | 258 +++++++++++
+ .../mw4.corr01d.claimProvenance.d0.test.ts         |  88 ++++
+ .../mw4.corr01f.timestamp.d0.test.ts               |  93 ++++
+ .../mw4.cumulative.mw0-mw4.d0.test.ts              | 169 +++++++
+ .../mw4.s01.grounding.durability.d0.test.ts        | 360 +++++++++++++++
+ .../mw4.s02.recovery.narrative.d0.test.ts          |  94 ++++
+ .../mw4.s03.partiality.d0.test.ts                  | 128 ++++++
+ .../__tests__/nora-eval/mw4.grounding.eval.test.ts |  78 ++++
+ .../mw4.corr01a.toolRouter.readCoverage.d0.test.ts | 190 ++++++++
+ .../mw4.corr01e.resolutionFailure.d0.test.ts       | 192 ++++++++
+ .../mw4.s01.evidence.reresolve.product.d0.test.ts  | 329 ++++++++++++++
+ .../project-assistant/collectToolTelemetry.ts      |  43 +-
+ .../features/project-assistant/f2/orchestrateF2.ts |   2 +
+ .../f3/postEvidenceNoraAnalysis.ts                 |   5 +-
+ .../project-assistant/mw3AvailableEvidence.ts      | 215 ++++++++-
+ .../features/project-assistant/orchestrateTurn.ts  |  79 +++-
+ .../project-assistant/presentationLabels.ts        |  16 +
+ .../app/features/project-assistant/types.ts        |  19 +
+ .../nora-cognitive-runtime/groundingDurability.ts  | 506 +++++++++++++++++++++
+ .../app/lib/nora-cognitive-runtime/index.ts        |  50 ++
+ .../nora-cognitive-runtime/memoryBCompaction.ts    |  23 +-
+ .../postEvidenceNarrativePolicy.ts                 |  77 ++++
+ .../app/lib/nora-cognitive-runtime/readCoverage.ts | 345 ++++++++++++++
+ .../nora-cognitive-runtime/runNoraCognitiveTurn.ts | 261 ++++++++++-
+ .../app/lib/nora-cognitive-runtime/types.ts        |   3 +
+ projects/sfia-studio/app/lib/nora-eval/catalog.ts  |  18 +
+ projects/sfia-studio/app/lib/nora-eval/d0Runner.ts |   3 +
+ projects/sfia-studio/app/lib/nora-eval/index.ts    |   6 +
+ .../sfia-studio/app/lib/nora-eval/mw4Observe.ts    | 412 +++++++++++++++++
+ projects/sfia-studio/app/lib/nora-eval/scorers.ts  |  57 +++
+ projects/sfia-studio/app/lib/nora-eval/types.ts    |  12 +-
+ 31 files changed, 4107 insertions(+), 24 deletions(-)
+
+```
+
+git diff --cached --check: **PASS**
+Staged count: 31 = manifest 31
+Staged candidate parity: **PASS**
+
+---
+
+## G. COMMIT
+
+| Field | Value |
+|---|---|
+| Project commit created | **YES** |
+| PROJECT_COMMIT_SHA | `b9ed3f0199ad7382ce8b4bc77b6f10bd49316dab` |
+| PROJECT_TREE_SHA | `2ecce7caefaa07b3f2313f093aec26bf3bf8bdbc` |
+| Message | `feat(sfia-studio): complete Nora MW4 grounding and evidence coherence` |
+| Commit parity vs accepted candidate | **PASS** |
+| git diff --check base...HEAD | **PASS** |
+
+### base→HEAD name-status
+```
+A	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.corr01b.persistedCoverage.d0.test.ts
+A	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.corr01d.claimProvenance.d0.test.ts
+A	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.corr01f.timestamp.d0.test.ts
+A	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.cumulative.mw0-mw4.d0.test.ts
+A	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s01.grounding.durability.d0.test.ts
+A	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s02.recovery.narrative.d0.test.ts
+A	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s03.partiality.d0.test.ts
+A	projects/sfia-studio/app/__tests__/nora-eval/mw4.grounding.eval.test.ts
+A	projects/sfia-studio/app/__tests__/platform/mw4.corr01a.toolRouter.readCoverage.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/mw4.corr01e.resolutionFailure.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/mw4.s01.evidence.reresolve.product.d0.test.ts
+M	projects/sfia-studio/app/features/project-assistant/collectToolTelemetry.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+M	projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
+M	projects/sfia-studio/app/features/project-assistant/mw3AvailableEvidence.ts
+M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+M	projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
+M	projects/sfia-studio/app/features/project-assistant/types.ts
+A	projects/sfia-studio/app/lib/nora-cognitive-runtime/groundingDurability.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/memoryBCompaction.ts
+A	projects/sfia-studio/app/lib/nora-cognitive-runtime/postEvidenceNarrativePolicy.ts
+A	projects/sfia-studio/app/lib/nora-cognitive-runtime/readCoverage.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
+M	projects/sfia-studio/app/lib/nora-eval/catalog.ts
+M	projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
+M	projects/sfia-studio/app/lib/nora-eval/index.ts
+A	projects/sfia-studio/app/lib/nora-eval/mw4Observe.ts
+M	projects/sfia-studio/app/lib/nora-eval/scorers.ts
+M	projects/sfia-studio/app/lib/nora-eval/types.ts
+
+```
+
+Committed files: 31; EXTRA=[]; MISSING=[]; content hashes match accepted manifest.
+
+---
+
+## H. PUSH
+
+| Field | Value |
+|---|---|
+| Project branch pushed | **YES** |
+| Remote branch | `origin/delivery/sfia-studio-nora-mw4-grounding-durability` |
+| REMOTE_PROJECT_BRANCH_SHA | `b9ed3f0199ad7382ce8b4bc77b6f10bd49316dab` |
+| Local/remote parity | **PASS** |
+| Force push | NO |
+| main push | NO |
+
+---
+
+## I. PR
+
+| Field | Value |
+|---|---|
+| PR opened | **YES** |
+| PR number | **461** |
+| PR URL | https://github.com/mcleland147/sfia-workspace/pull/461 |
+| Title | feat(sfia-studio): complete Nora MW4 grounding and evidence coherence |
+| PR base SHA | `deb34943dd85472644c221243cd7c0fd5369614e` |
+| PR head SHA | `b9ed3f0199ad7382ce8b4bc77b6f10bd49316dab` |
+| Remote changed files | **31** exact match to accepted candidate |
+| Unexpected files | **NONE** |
+| Auto-merge | **NO** (`autoMergeRequest=null`) |
+| mergeable (observable) | MERGEABLE |
+| mergeStateStatus | BLOCKED (required checks) |
+| Merge performed | **NO** |
+
+Remote PR diff exact: **PASS**
+
+---
+
+## J. CI
+
+| Field | Value |
+|---|---|
+| CI_STATE | **FAIL** |
+| Workflow | SFIA Studio CI |
+| Run URL | https://github.com/mcleland147/sfia-workspace/actions/runs/33734468200 |
+| Tested SHA | `b9ed3f0199ad7382ce8b4bc77b6f10bd49316dab` |
+| Detect SFIA Studio changes | SUCCESS |
+| Build and validate SFIA Studio | **FAILURE** (step: **Build**) |
+| SFIA Studio Required Gate | **FAILURE** (aggregate; validate_result=failure) |
+| Unit tests (Vitest) | not executed (skipped after Build fail) |
+
+### Failure classification
+- Likely class: **PRODUCT / CLIENT-BUNDLE BOUNDARY** (Next.js webpack `UnhandledSchemeError` on `node:*` imports)
+- Typecheck/Lint CI steps: SUCCESS before Build
+- Not declared ENVIRONMENT-only: failure is deterministic on PR HEAD build of Studio app
+
+### Import-trace evidence (concise)
+```
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4287821Z Failed to compile.
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4289542Z Module build failed: UnhandledSchemeError: Reading from "node:child_process" is not handled by plugins (Unhandled scheme).
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4305012Z Import trace for requested module:
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4306523Z ./lib/platform/tools/index.ts
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4308993Z ./lib/nora-cognitive-runtime/index.ts
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4310013Z ./features/project-assistant/presentationLabels.ts
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4311968Z Module build failed: UnhandledSchemeError: Reading from "node:crypto" is not handled by plugins (Unhandled scheme).
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4336449Z Import trace for requested module:
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4338134Z ./lib/nora-cognitive-runtime/index.ts
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4339607Z ./features/project-assistant/presentationLabels.ts
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4340886Z node:fs
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4341853Z Module build failed: UnhandledSchemeError: Reading from "node:fs" is not handled by plugins (Unhandled scheme).
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4366553Z Import trace for requested module:
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4366988Z node:fs
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4368011Z ./lib/nora-cognitive-runtime/index.ts
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4369456Z ./features/project-assistant/presentationLabels.ts
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4371931Z Module build failed: UnhandledSchemeError: Reading from "node:path" is not handled by plugins (Unhandled scheme).
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4396282Z Import trace for requested module:
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4397803Z ./lib/nora-cognitive-runtime/index.ts
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4399252Z ./features/project-assistant/presentationLabels.ts
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4400508Z node:sqlite
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4401454Z Module build failed: UnhandledSchemeError: Reading from "node:sqlite" is not handled by plugins (Unhandled scheme).
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4426035Z Import trace for requested module:
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4426479Z node:sqlite
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4427648Z ./lib/nora-cognitive-runtime/index.ts
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4429122Z ./features/project-assistant/presentationLabels.ts
+Build and validate SFIA Studio	Build	2026-09-03T08:40:05.4430668Z > Build failed because of webpack errors
+SFIA Studio Required Gate	Aggregate required gate	2026-09-03T08:40:10.8315489Z ^[[36;1m  echo "Required gate FAIL: detection did not succeed (result=${detect_result})." >&2^[[0m
+SFIA Studio Required Gate	Aggregate required gate	2026-09-03T08:40:10.8318245Z ^[[36;1m  echo "Required gate FAIL: unknown studio_changed value." >&2^[[0m
+SFIA Studio Required Gate	Aggregate required gate	2026-09-03T08:40:10.8323023Z ^[[36;1m  echo "Required gate FAIL: Studio validation required but result=${validate_result}." >&2^[[0m
+SFIA Studio Required Gate	Aggregate required gate	2026-09-03T08:40:11.7519238Z Required gate FAIL: Studio validation required but result=failure.
+```
+
+Critical chain observed in CI logs:
+`ProjectWorkspacePage.tsx` → `presentationLabels.ts` → `postEvidenceNoraAnalysis.ts` → `lib/nora-cognitive-runtime/index.ts` → server modules (`sessionPaths`/`productSqliteSession`/`sfiaAgentsTools`) pulling `node:fs` / `node:path` / `node:sqlite` / `node:crypto` / `node:child_process`.
+
+MW4 candidate expanded `nora-cognitive-runtime/index.ts` barrel exports; CI Build fails when that barrel is reachable from client UI imports.
+
+**No patch applied in this cycle** (GO forbids product correction inside integration lot).
+
+---
+
+## K. RESERVES
 
 | ID | Disposition |
 |---|---|
@@ -456,89 +343,121 @@ Note: first parallel focused attempt hit `database is locked` + C18 flake; seria
 | MW2-R01 | CARRY |
 | MW2-R02 | CARRY |
 | MW2-R03 | CARRY |
-| R-MW4-REAL-02 | CARRY (scorer lexical negation debt) |
-| R-MW0-MW4-INT-BUDGET-01 | **RESOLVED FOR THIS CAMPAIGN BY MORRIS RE-GO-01** (finished 14/14). Not a global product budget baseline. |
-
-New campaign harness note (non-blocking): T5/T6 disposition expectation `NONE|OTHER` over-strict vs honest MW3 candidate — record as campaign fixture debt for any future harvest; do not treat as product defect in this evidence set.
+| R-MW4-REAL-02 | CARRY |
+| NEW | R-MW4-PR-CI-01 — PR #461 Build fails on client webpack node: URI via cognitive-runtime barrel; requires ChatGPT/Morris-qualified correction cycle |
 
 ---
 
-## 14. Final report matrix
+## L. ANTI-CLAIMS
 
-GIT
-Local Git Truth: **PASS**
+- MW4 NOT CLOSED
+- MW4 NOT MERGED
+- Cognitive Completion NOT PROVEN
+- runtime v3 NON ADOPTED
+- production routing NOT SELECTED
+- MW5 NOT AUTHORIZED
+- merge NOT performed
+- no product edit during this integration cycle after fingerprint PASS
+
+---
+
+## M. FINAL ACCEPTANCE MATRIX
+
+ROUTING
+Cycle: 13 — PR readiness / Project Git Integration Package
+Typology: INC
+Profile: CRITICAL
+Routing resolved from current repo: **PASS**
+
+CONVERGENCE
+Build Doctrine: PASS
+Roadmap: PASS
+C1: PASS
+MW4 trajectory link: PASS
+
+GIT ENTRY
+Repository: PASS
+Branch: PASS
+Initial HEAD: `deb34943dd85472644c221243cd7c0fd5369614e`
 origin/main: `deb34943dd85472644c221243cd7c0fd5369614e`
-candidate fingerprint: **PASS**
-candidate entry/exit parity: **PASS**
+Candidate tracked fingerprint: PASS
+Candidate manifest: PASS
+Candidate exact accepted scope: PASS
 
-MW0: **PASS**
-MW1 continuity: **PASS**
-Memory B ≠ Truth C: **PASS**
-Memory B ≠ Evidence: **PASS**
-MW2 CWP: **PASS**
-strategy ≠ authority: **PASS**
-MW3 T3 candidate: **PASS**
-MW3 T4 evidence-backed continue: **PASS**
-MW4 T5 cross-turn grounding: **PASS**
-MW4 current Evidence re-resolution: **PASS**
-claim-specific provenance: **HONESTLY UNBOUND**
-MW4 T6 real read partiality: **PASS**
-partial READ acknowledged: **PASS**
-false completeness refused: **PASS**
-MW3 T7 positive Cognitive STOP after MW4: **PASS**
-allowsSilentSuccess=false: **PASS**
-Recovery ≠ HD/Confirmation/GO: **PASS**
+STAGING
+Accepted files only: PASS
+Temp evidence excluded: PASS
+Secrets excluded: PASS
+Staged diff check: PASS
+Staged candidate parity: PASS
 
-CROSS-WAVE:
-MW0×MW1: **PASS**
-MW1×MW4: **PASS**
-MW2×MW4: **PASS**
-MW3×MW4: **PASS**
-MW1×MW3×MW4: **PASS**
-MW2×MW3×MW4: **PASS**
-MW0×MW1×MW2×MW3×MW4: **PASS**
+COMMIT
+Project commit created: YES
+Commit SHA: `b9ed3f0199ad7382ce8b4bc77b6f10bd49316dab`
+Tree SHA: `2ecce7caefaa07b3f2313f093aec26bf3bf8bdbc`
+Commit parity with accepted candidate: PASS
 
-LIVE:
-actual invocation count: **14 / 14**
-ConversationProvider calls: **7**
-native Agents/model calls: **7**
-other actual OpenAI model calls: **0**
-provider: **openai**
-model: **gpt-5.6-luna**
-production routing selected: **NO**
+PUSH
+Project branch pushed: YES
+Remote branch SHA: `b9ed3f0199ad7382ce8b4bc77b6f10bd49316dab`
+Local/remote parity: PASS
 
-POST:
-focused deterministic: **PASS**
-typecheck: **PASS**
-lint: **PASS**
-git diff --check: **PASS**
-full serial: **PASS** (with testTimeout=60000; default 5s timed out slow fixture tests only)
-architecture changed: **NO**
-persistence changed: **NO**
-project commit: **NO**
-project push: **NO**
-project PR: **NO**
-merge: **NO**
-FA: **NO**
-TA: **NO**
+PR
+PR opened: YES
+PR number: 461
+PR URL: https://github.com/mcleland147/sfia-workspace/pull/461
+PR base: `deb34943dd85472644c221243cd7c0fd5369614e`
+PR head: `b9ed3f0199ad7382ce8b4bc77b6f10bd49316dab`
+Remote PR diff exact: PASS
+Unexpected files: NONE
+Auto-merge: NO
+
+CI
+CI state: **FAIL**
+CI tested SHA: `b9ed3f0199ad7382ce8b4bc77b6f10bd49316dab`
+Required/relevant checks: Detect SUCCESS; Build FAILURE; Required Gate FAILURE
+Failures: Build — webpack UnhandledSchemeError on node:* via nora-cognitive-runtime barrel
+
+PROJECT QUALITY PROVENANCE
+CORR-MW4-01: PASS
+MW4 REAL: PASS
+MW0→MW4 Integrated REAL: PASS
+Full serial provenance: 272 passed / 14 skipped files; 2508 passed / 132 skipped tests
+Pre-commit focused MW4/CORR: 11 files / 49 tests PASS
+Pre-commit typecheck/lint/diff-check: PASS
+
+ARCHITECTURE
+Architecture changed: NO
+Persistence changed: NO
+FA: NO
+TA: NO
+
+GOVERNANCE
+Project merge: NO
+main write: NO
+branch deletion: NO
+MW4 closed: NO
+Cognitive Completion: NOT PROVEN
+runtime v3: NON ADOPTED
+Production routing: NOT SELECTED
+MW5: NOT AUTHORIZED
+
+REVIEW
+FULL Review Pack: PASS (this document)
+L3 Review Handoff: (published after this write)
+Handoff tip/blob: (filled post-publish)
 
 ---
 
-## 15. Next gate
+## NEXT GATE
 
-STOP after handoff publication.
+STOP.
 
-Next:
-1. ChatGPT CRITICAL integrated REAL review
-2. if PASS → Morris separately decides MW4 project Git integration
-3. only then project commit / PR / CI / post-merge
-4. later distinct MW4 closure / truth-sync gate
-5. MW5 remains unauthorized until MW4 closure
+Required next sequence:
+1. ChatGPT CRITICAL reads this handoff
+2. Qualify a **correction / requalification** cycle for PR CI Build failure (R-MW4-PR-CI-01)
+3. Do **not** merge PR #461 on current HEAD
+4. After correction + CI green + ChatGPT PASS → Morris MERGE gate remains separate
+5. MW4 closure / MW5 remain unauthorized
 
----
-
-## 16. Evidence directory
-
-`.tmp-sfia-review/mw0-mw4-integrated-real-01/`
-
-Includes prior STOP provenance + RE-GO-01 LIVE artifacts (`t1.json`…`t7.json`, `campaign-evidence.json`, `live` logs, `semantic-assessment-rego01.json`, postflight logs). Prior STOP evidence preserved.
+ZERO product patch in this cycle.
