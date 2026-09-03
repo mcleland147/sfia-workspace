@@ -1493,8 +1493,8 @@ async function runCampaign(): Promise<void> {
 - HEAD/origin/main/merge-base unchanged: 9b45f0d7700a3127fa28c13f37ffae40432ae05c
 - project commit NONE; staged NONE
 - previous handoff tip (pre-publish): 2f180cf34a6577438ffe921f88a8030211866247
-- published handoff tip: e5f654cd1e5e536c4f882a78e3e4d3e491b27d37
-- published handoff blob: 21cd321479ed7054d852f12c01197dfe87518081
+- published handoff tip: d4071e96b933dfffdeabd4b420ad8b38cabf3d60
+- published handoff blob: 8fe08e42be7aa98cc7c52e15b121f6a7f1b39be9
 
 ## 64. Project Git actions
 NONE
@@ -1526,8 +1526,8 @@ Lire le Review Handoff Git distant :
 repository = mcleland147/sfia-workspace
 branch = sfia/review-handoff
 file = sfia-review-handoff/latest-chatgpt-review.md
-tip = e5f654cd1e5e536c4f882a78e3e4d3e491b27d37
-blob = 21cd321479ed7054d852f12c01197dfe87518081
+tip = d4071e96b933dfffdeabd4b420ad8b38cabf3d60
+blob = 8fe08e42be7aa98cc7c52e15b121f6a7f1b39be9
 cycle = NORA-MW0-MW5-BUSINESS-INTEGRATED-REAL-01 — complete cumulative REAL candidate
 proof = single-Project cumulative MW0→MW5 integrated REAL business chain
 source baseline = authoritative prior MW0→MW4 integrated REAL chain
