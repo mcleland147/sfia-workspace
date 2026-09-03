@@ -1,46 +1,60 @@
-# SFIA STUDIO — NORA MW4 DELIVERY CANDIDATE
-# Grounding durability + Narrative / Evidence coherence
+# SFIA STUDIO — NORA MW4 CORR-MW4-01 CORRECTED CANDIDATE
+# Grounding durability + Narrative / Evidence coherence — CRITICAL CORRECTION
 
-**Timestamp (Europe/Paris):** 2026-09-03 07:28:04 CEST
-**Timestamp (UTC):** 2026-09-03T05:28:04Z
-**Cycle:** Cycle 8 — Delivery / Implementation
+**Timestamp (Europe/Paris):** 2026-09-03 08:11:57 CEST
+**Timestamp (UTC):** 2026-09-03T06:11:57Z
+**Cycle:** CORR-MW4-01 — Delivery / Implementation — Correction
 **Typology:** INC
 **Profile:** CRITICAL
 **Capability:** MW4 — Grounding durability + Narrative/Evidence coherence
 **Stories:** MW4-S01 · MW4-S02 · MW4-S03
+**Correction GO:** CORR-MW4-01 LOCAL CORRECTION (Morris authorized after ChatGPT PARTIAL)
 
-**Final candidate verdict:** READY FOR CHATGPT CRITICAL MW4 DELIVERY REVIEW
+**Prior handoff (superseded tip for this publish):**
+- branch `sfia/review-handoff`
+- commit `b49786ee72a28261bbfecc45407dfe6f3db2c802`
+- blob `d670976a4928325dd7a858868bc393806d15daeb`
+- prior candidate verdict: READY FOR CHATGPT CRITICAL MW4 DELIVERY REVIEW
+- **ChatGPT prior verdict: PARTIAL — CORRECTION REQUIRED**
+
+**Final corrected candidate verdict:** READY FOR CHATGPT CRITICAL MW4 CORR-01 RE-REVIEW
 
 ---
 
 ## 1. Purpose
 
-Local MW4 Delivery candidate implementing ADAPT-first:
-- cross-turn grounding durability with Studio/OA Evidence re-resolution (S01);
-- post-Evidence / Recovery narrative honesty (S02);
-- multi-document read coverage with honest partiality (S03).
+Correct only the six ChatGPT CRITICAL findings inside the already-authorized MW4 Delivery candidate (ADAPT-first). No architecture pivot. No new persistence/table. No LIVE OpenAI. No project commit/push/PR/merge. No Roadmap/C5 truth-sync. No Cognitive Completion claim. No runtime v3 adoption.
 
-Authorized: local implementation + deterministic/EVAL/product-boundary tests + Review Pack + L3 handoff only.
-Not authorized: LIVE OpenAI REAL · project commit/push/PR/merge · Roadmap/C5 truth-sync · architecture pivot · Cognitive Completion claim · runtime v3 adoption · production routing.
+| ID | Finding | Correction |
+|---|---|---|
+| CORR-01A | S03 partiality from non-emitted fields | Derive from real EventSink: `toolName`/`status`/`summary`/`pathOrRef`; parse `read path Lstart-end/total … [hasMore]`; only `git_local_read_file`; L100-N/N = PARTIAL; search ≠ read |
+| CORR-01B | Persisted `readCoverage` unused next turn | Load `record.readCoverage`; CURRENT vs REMEMBERED PRIOR disclosures; persist after turn |
+| CORR-01C | EVAL self-constructed ideal facts | `observeMw4FromProductPath` via `runNoraCognitiveTurn` + Fake + Session; d0Runner wired to product path |
+| CORR-01D | Evidence ID set ≠ claim map | Explicit `UNBOUND / NOT RECONSTRUCTABLE`; no guess A/B |
+| CORR-01E | repo failure ≡ not-found/fabricated | Typed `FOUND` / `NOT_FOUND` / `RESOLUTION_FAILED`; fail closed; not fabricated |
+| CORR-01F | `rememberedAtIso` default Unix epoch | Production default `new Date().toISOString()`; tests inject `nowIso` |
+
+TEST CONTRACT CORRECTION — REAL PRODUCT EVENT SHAPE (invalid prior EventSink field assumptions removed from S03 tests).
 
 ---
 
-## 2. Local Git Truth Check
+## 2. Local Git Truth Check (CORR special dirty-worktree mode)
 
 | Field | Value |
 |---|---|
 | Repository | mcleland147/sfia-workspace |
 | Worktree | `/Users/morris/Projects/sfia-workspace-nora-mw4-grounding` |
 | Branch | `delivery/sfia-studio-nora-mw4-grounding-durability` |
-| Starting / ending HEAD (no project commit) | `deb34943dd85472644c221243cd7c0fd5369614e` |
-| origin/main | `deb34943dd85472644c221243cd7c0fd5369614e` (expected `deb34943dd85472644c221243cd7c0fd5369614e`) |
-| Entry | PASS — clean WT created from origin/main; prior chat WT dirty left untouched; no silent absorption of pre-existing MW4 |
+| HEAD start/end (no project commit) | `deb34943dd85472644c221243cd7c0fd5369614e` |
+| origin/main | `deb34943dd85472644c221243cd7c0fd5369614e` |
+| Dirty WT | **INTENTIONAL** — prior uncommitted MW4 candidate preserved; no reset/clean/stash |
+| Entry | PASS — HEAD/main/branch match; candidate scope = MW4 files only |
 | Project commit | **NO** |
 | Project push | **NO** |
 | Project PR | **NO** |
 | Merge | **NO** |
 
-### git status (product-relevant)
+### git status --short (product-relevant; excludes node_modules noise)
 
 ```
  M .tmp-sfia-review/chatgpt-review.md
@@ -63,11 +77,17 @@ Not authorized: LIVE OpenAI REAL · project commit/push/PR/merge · Roadmap/C5 t
 ?? .tmp-sfia-review/diff-stat.txt
 ?? .tmp-sfia-review/mw4-modified.diff
 ?? .tmp-sfia-review/status.txt
+?? .tmp-sfia-review/untracked-product.txt
+?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.corr01b.persistedCoverage.d0.test.ts
+?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.corr01d.claimProvenance.d0.test.ts
+?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.corr01f.timestamp.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.cumulative.mw0-mw4.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s01.grounding.durability.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s02.recovery.narrative.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s03.partiality.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-eval/mw4.grounding.eval.test.ts
+?? projects/sfia-studio/app/__tests__/platform/mw4.corr01a.toolRouter.readCoverage.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/mw4.corr01e.resolutionFailure.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/mw4.s01.evidence.reresolve.product.d0.test.ts
 ?? projects/sfia-studio/app/lib/nora-cognitive-runtime/groundingDurability.ts
 ?? projects/sfia-studio/app/lib/nora-cognitive-runtime/postEvidenceNarrativePolicy.ts
@@ -76,245 +96,232 @@ Not authorized: LIVE OpenAI REAL · project commit/push/PR/merge · Roadmap/C5 t
 
 ```
 
-### git diff --stat
+### git diff --stat (tracked product mods vs HEAD/main)
 
 ```
- .../project-assistant/collectToolTelemetry.ts      |  50 ++++-
+ .../project-assistant/collectToolTelemetry.ts      |  43 +++-
  .../features/project-assistant/f2/orchestrateF2.ts |   2 +
  .../f3/postEvidenceNoraAnalysis.ts                 |   5 +-
- .../project-assistant/mw3AvailableEvidence.ts      | 169 ++++++++++++++++-
- .../features/project-assistant/orchestrateTurn.ts  |  79 +++++++-
+ .../project-assistant/mw3AvailableEvidence.ts      | 215 +++++++++++++++--
+ .../features/project-assistant/orchestrateTurn.ts  |  79 ++++++-
  .../project-assistant/presentationLabels.ts        |  16 ++
  .../app/features/project-assistant/types.ts        |  19 ++
- .../app/lib/nora-cognitive-runtime/index.ts        |  44 +++++
- .../nora-cognitive-runtime/memoryBCompaction.ts    |  23 ++-
- .../nora-cognitive-runtime/runNoraCognitiveTurn.ts | 202 ++++++++++++++++++++-
+ .../app/lib/nora-cognitive-runtime/index.ts        |  50 ++++
+ .../nora-cognitive-runtime/memoryBCompaction.ts    |  23 +-
+ .../nora-cognitive-runtime/runNoraCognitiveTurn.ts | 261 ++++++++++++++++++++-
  .../app/lib/nora-cognitive-runtime/types.ts        |   3 +
  projects/sfia-studio/app/lib/nora-eval/catalog.ts  |  18 ++
  projects/sfia-studio/app/lib/nora-eval/d0Runner.ts |   3 +
- projects/sfia-studio/app/lib/nora-eval/index.ts    |   5 +
- projects/sfia-studio/app/lib/nora-eval/scorers.ts  |  57 ++++++
+ projects/sfia-studio/app/lib/nora-eval/index.ts    |   6 +
+ projects/sfia-studio/app/lib/nora-eval/scorers.ts  |  57 +++++
  projects/sfia-studio/app/lib/nora-eval/types.ts    |  12 +-
- 16 files changed, 688 insertions(+), 19 deletions(-)
+ 16 files changed, 788 insertions(+), 24 deletions(-)
 
 ```
 
+### Untracked product files (new in candidate)
+
+```
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.corr01b.persistedCoverage.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.corr01d.claimProvenance.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.corr01f.timestamp.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.cumulative.mw0-mw4.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s01.grounding.durability.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s02.recovery.narrative.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s03.partiality.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-eval/mw4.grounding.eval.test.ts
+projects/sfia-studio/app/__tests__/platform/mw4.corr01a.toolRouter.readCoverage.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/mw4.corr01e.resolutionFailure.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/mw4.s01.evidence.reresolve.product.d0.test.ts
+projects/sfia-studio/app/lib/nora-cognitive-runtime/groundingDurability.ts
+projects/sfia-studio/app/lib/nora-cognitive-runtime/postEvidenceNarrativePolicy.ts
+projects/sfia-studio/app/lib/nora-cognitive-runtime/readCoverage.ts
+projects/sfia-studio/app/lib/nora-eval/mw4Observe.ts
+
+```
+
+### git diff --check
+PASS (exit 0) on `projects/sfia-studio/app`.
+
 ---
 
-## 3. Git Review Index
+## 3. Six correction findings → results
 
-| Item | Value |
+### CORR-01A — PASS
+- `readCoverage.ts` rewritten against real summary/pathOrRef contract.
+- `collectToolTelemetry.ts` passes only real EventSink fields into derive.
+- ToolRouter / gitLocalReadAdapter **NOT modified** (parse existing summary sufficient).
+- Boundary test: `mw4.corr01a.toolRouter.readCoverage.d0.test.ts` — routeToolCall → EventSink → collectToolTelemetry → ReadCoverageFact (A–H incl. L2-N/N partial, search≠read, denied/failed).
+- Unit shapes: `mw4.s03.partiality.d0.test.ts` updated for real summaries; L100-N/N hard negative.
+
+### CORR-01B — PASS
+- `prepareMw4Grounding` loads persisted `record.readCoverage` as `remembered_prior`.
+- `mergeCurrentAndRememberedCoverage` keeps CURRENT vs REMEMBERED distinct.
+- Turn end persists via `rememberReadCoverage`.
+- Tests: `mw4.corr01b.persistedCoverage.d0.test.ts` (S03-PERSIST-01..04).
+
+### CORR-01C — PASS
+- `observeMw4FromProductPath` exercises ProductSqliteSession + FakeConversationProvider + `runNoraCognitiveTurn`.
+- `d0Runner` MW4 scenario uses product path (not helper alone).
+- Hard gate: L100-N/N must be partial or `mw4GroundingOk=false`.
+- Helper `observeMw4FromRuntime` retained for unit semantics only.
+
+### CORR-01D — PASS (HONESTLY UNBOUND)
+- No claim ledger/database.
+- `buildClaimSpecificProvenanceDisclosure` defaults UNBOUND / NOT RECONSTRUCTABLE.
+- Negative proof: `mw4.corr01d.claimProvenance.d0.test.ts` — must not guess A or B.
+
+### CORR-01E — PASS
+- `EvidenceLookupOutcome`: found | not_found | resolution_failed.
+- Repository throw → RESOLUTION_FAILED; null → NOT_FOUND; must not label fabricated on repo failure.
+- MW3 `resolveAvailableContradictionPointers` still returns only valid pointers.
+- Tests: `mw4.corr01e.resolutionFailure.d0.test.ts`.
+
+### CORR-01F — PASS
+- `rememberEvidenceIds` / `rememberReadCoverage` default `new Date().toISOString()`.
+- Tests inject `nowIso`; assert not epoch on default path: `mw4.corr01f.timestamp.d0.test.ts`.
+
+---
+
+## 4. Architecture disposition (unchanged ADAPT-first)
+
+KEEP: OD-04 Option C · Agents SDK Runner · Product SQLite Session · `session_items` · Memory B non-authoritative · Studio/OA Evidence sole governed Evidence · MW3 resolution seam · ToolRouter/EventSink · MW0 eval · S02 Post-Evidence policy.
+
+DO NOT CREATE (and were not created): GroundingLedger · second Evidence repo · new SQLite table · claim DB · vector store · Conversations/Compaction/Search/MCP · parallel eval runtime.
+
+| Gate | Value |
 |---|---|
-| Base | origin/main @ deb34943… (MW3 closure PR #460) |
-| Candidate branch | delivery/sfia-studio-nora-mw4-grounding-durability |
-| Candidate state | **LOCAL / UNCOMMITTED** |
-| Prior product | MW3 PR #459 MERGED · closure PR #460 MERGED |
+| New architecture | **NO** |
+| New persistence / table / schema | **NO** |
+| ToolRouter contract change | **NO** |
+| LIVE OpenAI | **0** |
+| Fake/Real | DETERMINISTIC + PRODUCT-BOUND EVAL + PRODUCT BOUNDARY (Fake OpenAI; real ToolRouter fixture path for CORR-01A) |
 
 ---
 
-## 4. Authoritative sources read
+## 5. Validation evidence
 
-PROCESS: cycle template / v2.6 routing-operating-guardrails (as applicable)
-STUDIO: Build Doctrine · Convergence Roadmap
-PRODUCT: 01 cadrage
-NORA: C1–C5 · MW0 readiness · OD-04 decision · trajectory 08 · MW2 readiness 09
-V3: 33 epistemology · 35 artifact/evidence
-IMPL seams: mw3AvailableEvidence · orchestrateTurn · orchestrateF2 · collectToolTelemetry · runNoraCognitiveTurn · runNoraAgentsTurn · productSqliteSession · memoryBCompaction · callModelInputFilter · types · nora-eval · oa/evidence-review (READ-ONLY)
-TESTS: existing MW0–MW3 D0/EVAL patterns
-
----
-
-## 5. Exact MW4 source-lock implemented
-
-### MW4-S01 — Cross-turn grounding durability + narrative ≠ evidence
-- Persist non-authoritative Evidence ID refs in existing `session_items` as `sfia_grounding_refs_v1` (no new table)
-- Filter from Runner replay like compaction
-- Re-resolve every turn via shared Studio/OA Evidence resolver (generalized from MW3)
-- Fail closed: missing / wrong project / unavailable / rejected / superseded / non-attributable / fabricated narrative IDs
-- Compaction honesty: marker survives; compacted narrative ≠ Evidence
-
-### MW4-S02 — Post-Evidence / Recovery narrative honesty
-- Typed `PostEvidenceNarrativePolicy` + Studio disclosure
-- Evidence Studio-owned; interpret ≠ replace; progress ≠ SUCCESS; Recovery ≠ HD/Confirmation/GO
-- MW3 Cognitive STOP intact
-
-### MW4-S03 — Multi-document honest partiality
-- Derive coverage from tool telemetry (full/partial/failed/denied/absent)
-- Mixed → overall partial; disclosure refuses false corpus completeness
-
----
-
-## 6. Architecture disposition (ADAPT-first preserved)
-
-| Decision | Disposition |
+| Check | Result |
 |---|---|
-| OD-04 Option C / Agents Runner / Product SQLite Session | KEEP |
-| Memory B | KEEP non-authoritative continuity |
-| Studio/OA Evidence | KEEP sole governed Evidence |
-| Evidence resolve | REUSE/GENERALIZE MW3 `mw3AvailableEvidence` (`resolveEvidencePointers` + `resolveRememberedEvidence`) |
-| Persistence | existing `session_items.item_json` typed marker only |
-| New table / vector / Conversations / Compaction / Trace-as-Evidence / File Search / Web Search / MCP | **NOT ADOPTED** |
-| Parallel grounding engine | **NOT CREATED** |
+| CORR focused (11 files / 49 tests) | PASS |
+| MW1+MW2+MW3 focused (27 files / 211 tests) | PASS |
+| Full serial vitest | **272 passed \| 14 skipped** (2508 passed \| 132 skipped) |
+| `npm run typecheck` | PASS |
+| `npm run lint` | PASS |
+| `git diff --check` | PASS |
+| LIVE OpenAI calls | **0** |
 
-Lazy dynamic import of `@/lib/vertical-slice-runtime` inside Evidence lookup preserves jsdom unit-test importability of `orchestrateTurn` (fix after MW4 static import regression).
-
----
-
-## 7. OpenAI fit disposition preserved
-
-KEEP: Agents SDK Runner · Product SQLite Session · current reasoning/model-settings path
-DEFER/NOT ADOPT: Responses Compaction · Conversations · Trace-as-Evidence · Hosted Web/File Search · MCP
-LIVE OpenAI call count this cycle: **0**
-package.json / package-lock: **UNCHANGED**
-
----
-
-## 8. Files created
-
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/groundingDurability.ts`
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/postEvidenceNarrativePolicy.ts`
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/readCoverage.ts`
-- `projects/sfia-studio/app/lib/nora-eval/mw4Observe.ts`
-- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s01.grounding.durability.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s02.recovery.narrative.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s03.partiality.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.cumulative.mw0-mw4.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/project-assistant/mw4.s01.evidence.reresolve.product.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/nora-eval/mw4.grounding.eval.test.ts`
-
-## 9. Files modified
-
-- `features/project-assistant/mw3AvailableEvidence.ts` (+ resolveEvidencePointers / resolveRememberedEvidence; lazy VSR import)
-- `features/project-assistant/orchestrateTurn.ts`
-- `features/project-assistant/f2/orchestrateF2.ts`
-- `features/project-assistant/collectToolTelemetry.ts`
-- `features/project-assistant/f3/postEvidenceNoraAnalysis.ts`
-- `features/project-assistant/presentationLabels.ts`
-- `features/project-assistant/types.ts`
-- `lib/nora-cognitive-runtime/memoryBCompaction.ts`
-- `lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts`
-- `lib/nora-cognitive-runtime/types.ts`
-- `lib/nora-cognitive-runtime/index.ts`
-- `lib/nora-eval/catalog.ts` · `d0Runner.ts` · `scorers.ts` · `types.ts` · `index.ts`
+Exact CORR-focused tests:
+- `__tests__/platform/mw4.corr01a.toolRouter.readCoverage.d0.test.ts`
+- `__tests__/nora-cognitive-runtime/mw4.s03.partiality.d0.test.ts`
+- `__tests__/nora-cognitive-runtime/mw4.corr01b.persistedCoverage.d0.test.ts`
+- `__tests__/nora-cognitive-runtime/mw4.corr01d.claimProvenance.d0.test.ts`
+- `__tests__/project-assistant/mw4.corr01e.resolutionFailure.d0.test.ts`
+- `__tests__/nora-cognitive-runtime/mw4.corr01f.timestamp.d0.test.ts`
+- `__tests__/nora-eval/mw4.grounding.eval.test.ts`
+- `__tests__/nora-cognitive-runtime/mw4.s01.grounding.durability.d0.test.ts`
+- `__tests__/nora-cognitive-runtime/mw4.s02.recovery.narrative.d0.test.ts`
+- `__tests__/nora-cognitive-runtime/mw4.cumulative.mw0-mw4.d0.test.ts`
+- `__tests__/project-assistant/mw4.s01.evidence.reresolve.product.d0.test.ts`
 
 ---
 
-## 10. Tests and exact results
+## 6. Revised MW4 exit matrix (CORR §22)
 
-| Gate | Result |
+### S01
+| Criterion | Result |
 |---|---|
-| MW4 targeted D0/EVAL/product (6 files + MW3 c01-c16 in combined run) | **PASS** (35 tests in MW4+c01 combined; MW4-only 22 earlier) |
-| MW1 compaction unit | **21/21 PASS** |
-| MW2 focused (cwp + corr04) | **PASS** |
-| MW3 focused (disposition/wiring/eval/c01–c24/surface) | **PASS** |
-| Cumulative MW0→MW4 D0 | **PASS** |
-| importBoundaries | **PASS** |
-| orchestrateTurn.test (jsdom) after lazy-import fix | **8/8 PASS** (was FAIL under static VSR import) |
-| typecheck | **PASS** |
-| lint | **PASS** |
-| git diff --check | **PASS** |
-| Full serial vitest (pre-fix) | 266 passed / 1 failed (orchestrateTurn server-only) / 14 skipped |
-| Full serial vitest (post-fix) | **PASS — 267 files / 2481 tests · 14 skipped (FinOps postgres) · 0 failed** |
+| Evidence ID continuity | PASS |
+| current OA/Studio re-resolution | PASS |
+| repository failure distinguished from not-found | PASS |
+| project isolation | PASS |
+| Memory B narrative ≠ Evidence | PASS |
+| compaction honesty | PASS |
+| claim-specific provenance | **HONESTLY UNBOUND** |
+| claim-specific unbound downgrade | PASS |
 
-Fake/Real: Fake OpenAI provider + test Evidence catalog on **same** product orchestration; OA repository path exercised in MW3 C20–C24 style mapping tests. No LIVE OpenAI.
-
----
-
-## 11. MW4 exit matrix
-
-### MW4-S01
-| Criterion | Status |
+### S02
+| Criterion | Result |
 |---|---|
-| cross-turn provenance | **PASS** |
-| current Evidence re-resolution | **PASS** |
-| missing/stale Evidence downgrade | **PASS** |
-| Memory B narrative ≠ Evidence | **PASS** |
-| compaction honesty | **PASS** |
-| project isolation | **PASS** |
+| Evidence interpreted ≠ replaced | PASS |
+| progress ≠ SUCCESS | PASS |
+| RecoveryRecommendation ≠ HD/Confirmation/GO | PASS |
+| MW3 Cognitive STOP regression | PASS |
 
-### MW4-S02
-| Criterion | Status |
+### S03
+| Criterion | Result |
 |---|---|
-| Evidence interpreted not replaced | **PASS** |
-| progress ≠ SUCCESS | **PASS** |
-| RecoveryRecommendation ≠ HumanDecision | **PASS** |
-| no invented GO/HD/Confirmation | **PASS** |
+| real ToolRouter/EventSink boundary | PASS |
+| full-read detection | PASS |
+| suffix range L2-N/N | PASS |
+| prefix partial | PASS |
+| middle range | PASS |
+| search ≠ read | PASS |
+| failed/denied fail-closed | PASS |
+| persisted partiality consumed next turn | PASS |
+| prior coverage distinguished from current revalidation | PASS |
+| no false corpus completeness | PASS |
 
-### MW4-S03
-| Criterion | Status |
+### EVAL
+| Criterion | Result |
 |---|---|
-| partial ranges recognized | **PASS** |
-| multi-doc mixed coverage | **PASS** |
-| failed read fail-closed | **PASS** |
-| no false corpus completeness | **PASS** |
+| helper/scorer semantics | PASS |
+| product-bound MW4 observation | PASS |
+| versioned eval scenario | PASS |
 
 ### CUMULATIVE
-MW0×MW1×MW2×MW3×MW4 deterministic integrated chain: **PASS**
+| Criterion | Result |
+|---|---|
+| MW0×MW1×MW2×MW3×MW4 deterministic integrated chain | PASS |
 
 ---
 
-## 12. Scope compliance
+## 7. RA / reserves / debt / realism
 
-- WRITE allowlist respected
-- No package.json / lock / migrations / CI / Roadmap / C5 / doctrine / OA ownership changes
-- No new SQLite CREATE TABLE
-- No parallel Evidence store
-
----
-
-## 13. Reserves / debt
-
-- MW2-R01 / MW2-R02 / MW2-R03 **CARRIED**
-- RA-06 **OPEN NON_BLOCKING** (MW4-S03 addresses honest partiality at proven D0/boundary scope; does not globally close RA-06)
-- RA-07 **OPEN parity** (MW4-S01 proves cross-turn re-resolve durability at candidate scope; does **not** globally close RA-07)
-- MW4 REAL OpenAI proof **NOT EXECUTED** — distinct later gate
-- Cognitive Completion **NOT PROVEN**
-- runtime v3 **NON ADOPTED**
-- Production model routing **NOT SELECTED**
-
-Temporary debt: none requiring new persistence. Exit = ChatGPT critical review → Morris next gate (possible bounded REAL requalification).
+| Item | State |
+|---|---|
+| RA-06 | OPEN / carry (unchanged by CORR) |
+| RA-07 | OPEN / carry (unchanged by CORR) |
+| MW2-R01/R02/R03 | CARRY |
+| Debt | Session-marker grounding continuity remains non-authoritative; claim-specific provenance unbound by design (no claim ledger); ToolRouter does not emit structured start/end/total fields (parsed from summary — accepted) |
+| Remaining realism gaps | LIVE OpenAI / REAL campaign not run; production model routing not proven; multi-doc corpus completeness still refuse-false; no claim↔Evidence structural binding product path yet |
+| Morris gates still required | ChatGPT CORR-01 re-review PASS → decide whether/how bounded MW4 REAL; then any project commit/PR/merge separately; MW4 closure not automatic |
 
 ---
 
-## 14. Decisions Morris still required
+## 8. Anti-claims
 
-1. ChatGPT CRITICAL MW4 Delivery review of this candidate
-2. Whether bounded MW4 REAL OpenAI proof is necessary/ready
-3. Distinct GO for project Git integration / PR (not this cycle)
-4. MW4 closure NOT authorized by this cycle
-5. MW5 NOT authorized
-
----
-
-## 15. Anti-claims
-
-- MW4 NOT COMPLETE / NOT CLOSED
+- NOT MW4 CLOSED
 - NOT READY FOR REAL automatically
-- Cognitive Completion NOT PROVEN
-- runtime v3 NOT ADOPTED
-- production routing NOT SELECTED
-- RA-06 / RA-07 NOT globally closed
-- no project commit/push/PR/merge performed
-- LIVE OpenAI calls = 0
-- Responses Compaction / Conversations / Trace-as-Evidence / hosted search / MCP NOT adopted
+- NOT Cognitive Completion PROVEN
+- NOT runtime v3 ADOPTED
+- NOT Roadmap/C5 truth-synced
+- NOT project committed / pushed / PR'd / merged
+- LIVE OpenAI = 0
 
 ---
 
-## 16. Explicit claims allowed
+## 9. Files changed specifically by CORR-MW4-01 (vs pre-CORR candidate semantics)
 
-- MW4 DETERMINISTIC / EVAL / PRODUCT-BOUNDARY **CANDIDATE PROVEN** at source-locked S01/S02/S03 scope
-- Local candidate ready for ChatGPT critical review
-- Architecture ADAPT-first preserved; no parallel persistence
+Primary correction surfaces (modified/rewritten on dirty candidate):
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/readCoverage.ts` (rewrite — real EventSink)
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/groundingDurability.ts` (01B/01D/01E/01F)
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts` (consume+persist coverage; claim unbound surface)
+- `projects/sfia-studio/app/features/project-assistant/mw3AvailableEvidence.ts` (typed lookup)
+- `projects/sfia-studio/app/features/project-assistant/collectToolTelemetry.ts` (real fields only)
+- `projects/sfia-studio/app/lib/nora-eval/mw4Observe.ts` (product-bound path)
+- `projects/sfia-studio/app/lib/nora-eval/d0Runner.ts` (wire product observe)
+- CORR tests: `mw4.corr01a|01b|01d|01e|01f.*`, rewritten `mw4.s03.partiality.d0.test.ts`, updated `mw4.grounding.eval.test.ts`
+
+Cumulative candidate still includes prior MW4 files (S01/S02/S03 baseline + postEvidenceNarrativePolicy + orchestrate wiring + scorers/catalog/types).
 
 ---
 
-## 17. Complete modified content
-
-### 17.a Modified-file unified diff
+## 10. Complete tracked product DIFF vs main (HEAD)
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/collectToolTelemetry.ts b/projects/sfia-studio/app/features/project-assistant/collectToolTelemetry.ts
-index 8fbfcefa..8915ffcd 100644
+index 8fbfcefa..c893c1c2 100644
 --- a/projects/sfia-studio/app/features/project-assistant/collectToolTelemetry.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/collectToolTelemetry.ts
 @@ -1,4 +1,10 @@
@@ -328,11 +335,12 @@ index 8fbfcefa..8915ffcd 100644
  import type { AssistantSourceDto, AssistantToolEventDto } from "./types";
 
  function asString(v: unknown): string | null {
-@@ -21,14 +27,17 @@ function mapStatus(
+@@ -21,14 +27,18 @@ function mapStatus(
 
  /**
   * Collect tool events + source refs from platform EventSink emissions.
-+ * MW4-S03 — also derives read coverage / partiality facts.
++ * MW4-S03 / CORR-01A — derives read coverage from REAL EventSink shape
++ * (toolName, status, summary, source.pathOrRef) only.
   */
  export function collectToolTelemetry(events: TechnicalEvent[]): {
    toolEvents: AssistantToolEventDto[];
@@ -346,7 +354,7 @@ index 8fbfcefa..8915ffcd 100644
 
    for (const event of events) {
      if (
-@@ -40,7 +49,8 @@ export function collectToolTelemetry(events: TechnicalEvent[]): {
+@@ -40,7 +50,8 @@ export function collectToolTelemetry(events: TechnicalEvent[]): {
      }
 
      const detail = event.detail;
@@ -356,36 +364,21 @@ index 8fbfcefa..8915ffcd 100644
      const status = mapStatus(detail.status, event.type);
      const source = detail.source as
        | { kind?: string; label?: string; pathOrRef?: string | null }
-@@ -51,6 +61,15 @@ export function collectToolTelemetry(events: TechnicalEvent[]): {
-       asString(detail.path);
-     const summary = asString(detail.summary) ?? asString(detail.message);
-     const errorCode = asString(detail.errorCode);
-+    const detailText = [
-+      summary,
-+      asString(detail.message),
-+      typeof detail.truncated === "boolean" && detail.truncated ? "truncated" : null,
-+      typeof detail.hasMore === "boolean" && detail.hasMore ? "hasMore" : null,
-+      typeof detail.offset === "number" ? `offset=${detail.offset}` : null,
-+    ]
-+      .filter(Boolean)
-+      .join(" ");
-
-     toolEvents.push({
-       toolName,
-@@ -61,6 +80,28 @@ export function collectToolTelemetry(events: TechnicalEvent[]): {
+@@ -61,6 +72,29 @@ export function collectToolTelemetry(events: TechnicalEvent[]): {
        readOnly: true,
      });
 
++    // CORR-01A — do not invent EventSink fields the product does not emit.
++    // Pass only the real contract into coverage derivation.
 +    const fact = deriveReadCoverageFromToolEvent({
 +      toolName,
 +      status,
 +      pathOrRef,
 +      summary,
-+      detailText,
 +    });
 +    if (fact) {
-+      // Prefer worst coverage when the same path appears multiple times.
-+      const prior = coverageByPath.get(fact.pathOrRef);
++      const key = (fact.documentPath ?? fact.pathOrRef).trim();
++      const prior = coverageByPath.get(key);
 +      const rank: Record<ReadCoverageFact["coverage"], number> = {
 +        full: 0,
 +        partial: 1,
@@ -394,14 +387,14 @@ index 8fbfcefa..8915ffcd 100644
 +        absent: 4,
 +      };
 +      if (!prior || rank[fact.coverage] >= rank[prior.coverage]) {
-+        coverageByPath.set(fact.pathOrRef, fact);
++        coverageByPath.set(key, fact);
 +      }
 +    }
 +
      if (
        event.type === "TOOL_SUCCEEDED" &&
        source &&
-@@ -79,5 +120,10 @@ export function collectToolTelemetry(events: TechnicalEvent[]): {
+@@ -79,5 +113,10 @@ export function collectToolTelemetry(events: TechnicalEvent[]): {
      }
    }
 
@@ -450,7 +443,7 @@ index dced1c77..f3bd655e 100644
  function boundedFactsJson(facts: PostEvidenceAnalysisFacts): string {
    return JSON.stringify({
 diff --git a/projects/sfia-studio/app/features/project-assistant/mw3AvailableEvidence.ts b/projects/sfia-studio/app/features/project-assistant/mw3AvailableEvidence.ts
-index 8eae538f..7ddeb53c 100644
+index 8eae538f..96fec3f5 100644
 --- a/projects/sfia-studio/app/features/project-assistant/mw3AvailableEvidence.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/mw3AvailableEvidence.ts
 @@ -5,10 +5,19 @@
@@ -474,17 +467,27 @@ index 8eae538f..7ddeb53c 100644
 
  export type Mw3TestEvidenceCatalog = {
    projectId: string;
-@@ -52,26 +61,165 @@ export function mapOaEvidenceForProject(
+@@ -52,30 +61,197 @@ export function mapOaEvidenceForProject(
    };
  }
 
 -export async function resolveAvailableContradictionPointers(input: {
++export type EvidenceLookupOutcome =
++  | { kind: "found"; evidence: Evidence }
++  | { kind: "not_found" }
++  | {
++      kind: "resolution_failed";
++      reason: "repository_unavailable" | "repository_error";
++    };
++
 +export type EvidencePointerLookupResult = {
 +  evidenceId: string;
 +  pointer: ContradictionEvidencePointer | null;
 +  /** Present when Evidence row existed but was not project-attributable. */
 +  rawStatus?: Evidence["status"];
 +  projectMismatch?: boolean;
++  /** CORR-01E — lookup outcome (found / not_found / resolution_failed). */
++  lookup: EvidenceLookupOutcome["kind"];
 +};
 +
 +/**
@@ -505,12 +508,22 @@ index 8eae538f..7ddeb53c 100644
 -  const resolved: ContradictionEvidencePointer[] = [];
 +  const out: EvidencePointerLookupResult[] = [];
    for (const evidenceId of claimed) {
-     const evidence = await lookupEvidenceRecord(evidenceId, projectId);
+-    const evidence = await lookupEvidenceRecord(evidenceId, projectId);
 -    if (!evidence) continue;
-+    if (!evidence) {
-+      out.push({ evidenceId, pointer: null });
++    const outcome = await lookupEvidenceRecord(evidenceId, projectId);
++    if (outcome.kind === "resolution_failed") {
++      out.push({
++        evidenceId,
++        pointer: null,
++        lookup: "resolution_failed",
++      });
 +      continue;
 +    }
++    if (outcome.kind === "not_found") {
++      out.push({ evidenceId, pointer: null, lookup: "not_found" });
++      continue;
++    }
++    const evidence = outcome.evidence;
 +    const bound = evidence.bindings?.projectId?.trim() ?? "";
 +    if (!bound || bound !== projectId) {
 +      out.push({
@@ -518,6 +531,7 @@ index 8eae538f..7ddeb53c 100644
 +        pointer: null,
 +        rawStatus: evidence.status,
 +        projectMismatch: true,
++        lookup: "found",
 +      });
 +      continue;
 +    }
@@ -528,6 +542,7 @@ index 8eae538f..7ddeb53c 100644
 +      pointer,
 +      rawStatus: evidence.status,
 +      projectMismatch: false,
++      lookup: "found",
 +    });
 +  }
 +  return out;
@@ -577,6 +592,13 @@ index 8eae538f..7ddeb53c 100644
 +  const downgradedExtra: RememberedEvidenceResolution["downgraded"] = [];
 +
 +  for (const row of lookups) {
++    if (row.lookup === "resolution_failed") {
++      missingExtra.push({
++        evidenceId: row.evidenceId,
++        reason: "resolution_failed",
++      });
++      continue;
++    }
 +    if (row.projectMismatch) {
 +      missingExtra.push({
 +        evidenceId: row.evidenceId,
@@ -645,23 +667,44 @@ index 8eae538f..7ddeb53c 100644
  async function lookupEvidenceRecord(
    evidenceId: string,
    currentProjectId: string,
-@@ -86,10 +234,13 @@ async function lookupEvidenceRecord(
-     if (fromTest) return fromTest;
+-): Promise<Evidence | null> {
++): Promise<EvidenceLookupOutcome> {
+   if (
+     testCatalog &&
+     testCatalog.projectId.trim() === currentProjectId.trim()
+@@ -83,15 +259,26 @@ async function lookupEvidenceRecord(
+     const fromTest = testCatalog.evidence.find(
+       (item) => item.evidenceId === evidenceId,
+     );
+-    if (fromTest) return fromTest;
++    if (fromTest) return { kind: "found", evidence: fromTest };
++    return { kind: "not_found" };
    }
 
 -  const oa = getRuntimeApplicationService().oa;
 -  const repository = oa?.evidenceReviewServices?.repository;
 -  if (!repository) return null;
    try {
+-    return (await repository.findById(evidenceId)) ?? null;
 +    const { getRuntimeApplicationService } = await import(
 +      "@/lib/vertical-slice-runtime"
 +    );
 +    const oa = getRuntimeApplicationService().oa;
 +    const repository = oa?.evidenceReviewServices?.repository;
-+    if (!repository) return null;
-     return (await repository.findById(evidenceId)) ?? null;
++    if (!repository) {
++      return {
++        kind: "resolution_failed",
++        reason: "repository_unavailable",
++      };
++    }
++    const evidence = (await repository.findById(evidenceId)) ?? null;
++    if (!evidence) return { kind: "not_found" };
++    return { kind: "found", evidence };
    } catch {
-     return null;
+-    return null;
++    return { kind: "resolution_failed", reason: "repository_error" };
+   }
+ }
 diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
 index eb34ca6a..ed7ecaff 100644
 --- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
@@ -858,10 +901,10 @@ index dcf6a664..f3fd92dd 100644
  };
 
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-index 9c932338..9a0b05a6 100644
+index 9c932338..455649d4 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-@@ -143,3 +143,47 @@ export {
+@@ -143,3 +143,53 @@ export {
    buildRunnerModelSettingsForEffort,
    type NoraRunnerModelSettings,
  } from "./reasoningModelSettings";
@@ -869,6 +912,7 @@ index 9c932338..9a0b05a6 100644
 +  GROUNDING_REFS_TYPE,
 +  acceptGroundingRefsForProject,
 +  appendGroundingCognitiveDisclosure,
++  buildClaimSpecificProvenanceDisclosure,
 +  buildGroundingCognitiveDisclosure,
 +  classifyRememberedEvidence,
 +  groundingRecordToStoredItem,
@@ -901,10 +945,15 @@ index 9c932338..9a0b05a6 100644
 +  aggregateReadCoverage,
 +  appendReadCoverageDisclosure,
 +  buildReadCoverageDisclosure,
++  classifyGitLocalReadCompleteness,
 +  deriveReadCoverageFromToolEvent,
++  mergeCurrentAndRememberedCoverage,
++  MW4_DOCUMENT_READ_TOOL,
 +  overallToGroundingCoverageKind,
++  parseGitLocalReadCoverageSignals,
 +} from "./readCoverage";
 +export type {
++  ParsedReadRange,
 +  ReadCoverageAggregate,
 +  ReadCoverageFact,
 +  ReadCoverageKind,
@@ -968,7 +1017,7 @@ index 1de25e87..af97c957 100644
    ]);
 
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
-index 0edae820..01509252 100644
+index 0edae820..2c350cce 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
 @@ -3,6 +3,7 @@
@@ -979,7 +1028,7 @@ index 0edae820..01509252 100644
   */
  import type { ConversationProvider, ProviderChatMessage } from "@/lib/platform/ai";
  import { requireLiveConversationSecrets } from "@/lib/platform/ai/config";
-@@ -35,6 +36,26 @@ import {
+@@ -35,6 +36,28 @@ import {
    type ContradictionConflictInput,
  } from "./contradictionDisposition";
  import { decideCognitiveStop } from "./cognitiveStop";
@@ -988,6 +1037,7 @@ index 0edae820..01509252 100644
 +  appendGroundingCognitiveDisclosure,
 +  loadGroundingRefsFromSession,
 +  rememberEvidenceIds,
++  rememberReadCoverage,
 +  toMw4GroundingTurnSurface,
 +  type Mw4GroundingTurnSurface,
 +  type RememberedEvidenceResolution,
@@ -999,6 +1049,7 @@ index 0edae820..01509252 100644
 +  appendReadCoverageDisclosure,
 +  aggregateReadCoverage,
 +  buildReadCoverageDisclosure,
++  mergeCurrentAndRememberedCoverage,
 +  overallToGroundingCoverageKind,
 +  type ReadCoverageFact,
 +} from "./readCoverage";
@@ -1006,7 +1057,7 @@ index 0edae820..01509252 100644
 
  export type Mw3ContradictionAssessmentInput = {
    conflict: ContradictionConflictInput;
-@@ -83,6 +104,20 @@ export type RunNoraCognitiveTurnInput = {
+@@ -83,6 +106,20 @@ export type RunNoraCognitiveTurnInput = {
     * Does not invent Evidence; does not select Hosted Search / model routing.
     */
    contradictionAssessment?: Mw3ContradictionAssessmentInput | null;
@@ -1027,7 +1078,7 @@ index 0edae820..01509252 100644
  };
 
  function emitCognitiveStrategyTelemetry(
-@@ -229,12 +264,111 @@ function finalizeTurn(
+@@ -229,12 +266,155 @@ function finalizeTurn(
    turn: NoraCognitiveTurnResult,
    input: RunNoraCognitiveTurnInput,
    strategyDecision: ReturnType<typeof decideCognitiveStrategy> | null,
@@ -1082,7 +1133,32 @@ index 0edae820..01509252 100644
 +    disclosure: "",
 +    readCoverageDisclosure: "",
 +  };
-+  if (!input.session) return empty;
++  if (!input.session) {
++    const currentOnly = mergeCurrentAndRememberedCoverage({
++      current: input.readCoverageFacts ?? [],
++      remembered: [],
++    });
++    return {
++      ...empty,
++      readCoverageDisclosure: currentOnly.combinedDisclosure,
++      surface:
++        currentOnly.currentAggregate.facts.length > 0
++          ? {
++              rememberedIds: [],
++              validIds: [],
++              downgradedIds: [],
++              missingIds: [],
++              disclosure: "",
++              readCoverageOverall: overallToGroundingCoverageKind(
++                currentOnly.currentAggregate.overall,
++              ),
++              readCoverageDisclosure: currentOnly.combinedDisclosure || null,
++              claimSpecificProvenance: "unbound",
++              claimSpecificDisclosure: null,
++            }
++          : null,
++    };
++  }
 +
 +  const raw = await loadGroundingRefsFromSession(input.session);
 +  const record = acceptGroundingRefsForProject(raw, input.projectId);
@@ -1108,26 +1184,45 @@ index 0edae820..01509252 100644
 +    };
 +  }
 +
-+  const coverageAggregate = aggregateReadCoverage(input.readCoverageFacts ?? []);
-+  const readCoverageDisclosure = buildReadCoverageDisclosure(coverageAggregate);
++  // CORR-01B — consume persisted prior read coverage distinctly from current turn.
++  const rememberedCoverageFacts: ReadCoverageFact[] = (
++    record?.readCoverage ?? []
++  ).map((ref) => ({
++    pathOrRef: ref.pathOrRef,
++    documentPath: ref.pathOrRef.replace(/#L\d+-\d+$/, ""),
++    coverage: ref.coverage,
++    signals: ["remembered_prior"],
++    origin: "remembered_prior" as const,
++  }));
++  const merged = mergeCurrentAndRememberedCoverage({
++    current: (input.readCoverageFacts ?? []).map((f) => ({
++      ...f,
++      origin: f.origin ?? "current_turn",
++    })),
++    remembered: rememberedCoverageFacts,
++  });
++  const readCoverageDisclosure = merged.combinedDisclosure;
++  const overallForSurface =
++    merged.currentAggregate.facts.length > 0
++      ? merged.currentAggregate.overall
++      : merged.rememberedAggregate.overall;
++
 +  const surface = resolution
 +    ? toMw4GroundingTurnSurface(resolution, {
-+        readCoverageOverall: overallToGroundingCoverageKind(
-+          coverageAggregate.overall,
-+        ),
++        readCoverageOverall: overallToGroundingCoverageKind(overallForSurface),
 +        readCoverageDisclosure: readCoverageDisclosure || null,
 +      })
-+    : coverageAggregate.facts.length > 0
++    : readCoverageDisclosure
 +      ? {
 +          rememberedIds: [],
 +          validIds: [],
 +          downgradedIds: [],
 +          missingIds: [],
 +          disclosure: "",
-+          readCoverageOverall: overallToGroundingCoverageKind(
-+            coverageAggregate.overall,
-+          ),
++          readCoverageOverall: overallToGroundingCoverageKind(overallForSurface),
 +          readCoverageDisclosure: readCoverageDisclosure || null,
++          claimSpecificProvenance: "unbound" as const,
++          claimSpecificDisclosure: null,
 +        }
 +      : null;
 +
@@ -1140,7 +1235,7 @@ index 0edae820..01509252 100644
  }
 
  export async function runNoraCognitiveTurn(
-@@ -261,10 +395,22 @@ export async function runNoraCognitiveTurn(
+@@ -261,10 +441,22 @@ export async function runNoraCognitiveTurn(
    try {
      dbPath = resolveNoraSessionSqlitePath(input.sessionDbPath);
    } catch {
@@ -1164,7 +1259,7 @@ index 0edae820..01509252 100644
      const turn = await runNoraAgentsTurn({
        correlationId: input.correlationId,
        projectId: input.projectId,
-@@ -278,6 +424,20 @@ export async function runNoraCognitiveTurn(
+@@ -278,6 +470,20 @@ export async function runNoraCognitiveTurn(
        provider: input.provider,
        runnerModelSettings,
      });
@@ -1185,7 +1280,7 @@ index 0edae820..01509252 100644
      return finalizeTurn(
        {
          ...turn,
-@@ -286,6 +446,7 @@ export async function runNoraCognitiveTurn(
+@@ -286,6 +492,7 @@ export async function runNoraCognitiveTurn(
        },
        input,
        strategyDecision,
@@ -1193,7 +1288,7 @@ index 0edae820..01509252 100644
      );
    }
 
-@@ -328,6 +489,25 @@ export async function runNoraCognitiveTurn(
+@@ -328,6 +535,25 @@ export async function runNoraCognitiveTurn(
      );
    }
 
@@ -1219,7 +1314,7 @@ index 0edae820..01509252 100644
    try {
      const turn = await runNoraAgentsTurn({
        correlationId: input.correlationId,
-@@ -342,7 +522,7 @@ export async function runNoraCognitiveTurn(
+@@ -342,7 +568,7 @@ export async function runNoraCognitiveTurn(
        provider: input.provider,
        runnerModelSettings,
      });
@@ -1228,7 +1323,7 @@ index 0edae820..01509252 100644
        {
          ...turn,
          memoryBCompactionState: compactionState,
-@@ -350,7 +530,23 @@ export async function runNoraCognitiveTurn(
+@@ -350,7 +576,36 @@ export async function runNoraCognitiveTurn(
        },
        input,
        strategyDecision,
@@ -1243,6 +1338,19 @@ index 0edae820..01509252 100644
 +          probe.session,
 +          input.projectId,
 +          toRemember,
++          input.groundingNowIso,
++        );
++      }
++      // CORR-01B — also persist current-turn read coverage for next-turn honesty.
++      const coverageFacts = input.readCoverageFacts ?? [];
++      if (coverageFacts.length > 0) {
++        await rememberReadCoverage(
++          probe.session,
++          input.projectId,
++          coverageFacts.map((f) => ({
++            pathOrRef: f.documentPath ?? f.pathOrRef,
++            coverage: f.coverage,
++          })),
 +          input.groundingNowIso,
 +        );
 +      }
@@ -1303,14 +1411,14 @@ index 25aad114..d2af7ab4 100644
 
  export function getCatalogVersion(): typeof NORA_EVAL_CATALOG_VERSION {
 diff --git a/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts b/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
-index 0e0c3bb0..6e282e2f 100644
+index 0e0c3bb0..95a44d13 100644
 --- a/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
 +++ b/projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
 @@ -16,6 +16,7 @@ import { observeMw1S01FromRuntime } from "./mw1S01Observe";
  import { observeMw1S02FromRuntime } from "./mw1S02Observe";
  import { observeMw2S01FromRuntime } from "./mw2S01Observe";
  import { observeMw3FromRuntime } from "./mw3Observe";
-+import { observeMw4FromRuntime } from "./mw4Observe";
++import { observeMw4FromProductPath } from "./mw4Observe";
 
  function nowIso(): string {
    return new Date().toISOString();
@@ -1319,20 +1427,21 @@ index 0e0c3bb0..6e282e2f 100644
      case "mw3.s01.disposition-matrix":
        return observeMw3FromRuntime();
 +    case "mw4.s01.grounding-durability":
-+      return observeMw4FromRuntime();
++      return observeMw4FromProductPath();
      default:
        return { productPath: "none" };
    }
 diff --git a/projects/sfia-studio/app/lib/nora-eval/index.ts b/projects/sfia-studio/app/lib/nora-eval/index.ts
-index 3a7b27f9..e0100298 100644
+index 3a7b27f9..2c277d89 100644
 --- a/projects/sfia-studio/app/lib/nora-eval/index.ts
 +++ b/projects/sfia-studio/app/lib/nora-eval/index.ts
-@@ -30,6 +30,11 @@ export {
+@@ -30,6 +30,12 @@ export {
    observationFromMw3Facts,
    type Mw3RuntimeFacts,
  } from "./mw3Observe";
 +export {
 +  observeMw4FromRuntime,
++  observeMw4FromProductPath,
 +  observationFromMw4Facts,
 +  type Mw4RuntimeFacts,
 +} from "./mw4Observe";
@@ -1444,12 +1553,13 @@ index 3c9ba979..a5f9ea8c 100644
 
  export type CycleTypeFixtureId =
    | "delivery_implementation"
-
 ```
 
-### 17.b New files (complete)
+---
 
-### NEW FILE: `projects/sfia-studio/app/lib/nora-cognitive-runtime/groundingDurability.ts`
+## 11. Complete content — newly created production files
+
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/groundingDurability.ts`
 
 ```typescript
 /**
@@ -1508,7 +1618,9 @@ export type RememberedEvidenceMissingReason =
   | "not_found"
   | "blank_id"
   | "project_isolation_reject"
-  | "fabricated_without_resolver_hit";
+  | "fabricated_without_resolver_hit"
+  /** CORR-01E — repository/lookup failure ≠ fabricated / not found. */
+  | "resolution_failed";
 
 export type RememberedEvidenceResolution = {
   rememberedIds: string[];
@@ -1522,6 +1634,11 @@ export type RememberedEvidenceResolution = {
     evidenceId: string;
     reason: RememberedEvidenceMissingReason;
   }>;
+  /**
+   * CORR-01D — optional structural claim→Evidence bindings.
+   * Absence means claim-specific provenance is UNBOUND (Evidence set ≠ claim map).
+   */
+  claimSourceBindings?: Array<{ claimId: string; evidenceId: string }>;
 };
 
 export type Mw4GroundingTurnSurface = {
@@ -1532,6 +1649,9 @@ export type Mw4GroundingTurnSurface = {
   disclosure: string;
   readCoverageOverall?: "full" | "partial" | "failed" | "denied" | "absent" | "none";
   readCoverageDisclosure?: string | null;
+  /** CORR-01D — claim-specific provenance state. */
+  claimSpecificProvenance?: "bound" | "unbound";
+  claimSpecificDisclosure?: string | null;
 };
 
 export function isGroundingRefsRecord(
@@ -1687,7 +1807,8 @@ export async function rememberEvidenceIds(
   if (!project) {
     throw new Error("MW4_GROUNDING_REQUIRES_PROJECT_ID");
   }
-  const iso = nowIso ?? new Date(0).toISOString();
+  // CORR-01F — production default is wall-clock ISO; tests inject nowIso.
+  const iso = nowIso ?? new Date().toISOString();
   const prior = acceptGroundingRefsForProject(
     await loadGroundingRefsFromSession(session),
     project,
@@ -1728,7 +1849,8 @@ export async function rememberReadCoverage(
   if (!project) {
     throw new Error("MW4_GROUNDING_REQUIRES_PROJECT_ID");
   }
-  const iso = nowIso ?? new Date(0).toISOString();
+  // CORR-01F — production default is wall-clock ISO; tests inject nowIso.
+  const iso = nowIso ?? new Date().toISOString();
   const prior = acceptGroundingRefsForProject(
     await loadGroundingRefsFromSession(session),
     project,
@@ -1856,7 +1978,15 @@ export function buildGroundingCognitiveDisclosure(
     lines.push(
       `Missing / not re-resolvable (do not cite as Evidence): ${detail}`,
     );
+    if (resolution.missing.some((m) => m.reason === "resolution_failed")) {
+      lines.push(
+        "RESOLUTION_FAILED: repository/lookup unverifiable this turn — fail closed; do NOT label as fabricated merely because resolution failed.",
+      );
+    }
   }
+
+  // CORR-01D — Evidence ID set continuity ≠ claim-specific provenance.
+  lines.push(buildClaimSpecificProvenanceDisclosure(resolution.claimSourceBindings));
 
   if (
     resolution.rememberedIds.length === 0 &&
@@ -1867,6 +1997,43 @@ export function buildGroundingCognitiveDisclosure(
     return "";
   }
 
+  return lines.join("\n");
+}
+
+/**
+ * CORR-01D — claim↔source honesty.
+ * Without structural bindings, Evidence set continuity must not masquerade
+ * as claim-specific provenance.
+ */
+export function buildClaimSpecificProvenanceDisclosure(
+  bindings?: Array<{ claimId: string; evidenceId: string }> | null,
+): string {
+  const lines = [
+    "=== CLAIM-SPECIFIC PROVENANCE (MW4-S01 / CORR-01D) ===",
+    "Remembered Evidence ID set continuity ≠ claim→source mapping.",
+  ];
+  const clean = (bindings ?? [])
+    .map((b) => ({
+      claimId: b.claimId.trim(),
+      evidenceId: b.evidenceId.trim(),
+    }))
+    .filter((b) => b.claimId && b.evidenceId);
+  if (clean.length === 0) {
+    lines.push(
+      "Claim-specific provenance: UNBOUND / NOT RECONSTRUCTABLE.",
+    );
+    lines.push(
+      "Do not infer which Evidence supported which claim from narrative order, model recollection, or Evidence set membership alone.",
+    );
+    lines.push(
+      "Downgrade claim-specific assertions or request revalidation/reread until a structural binding is established and re-resolved.",
+    );
+  } else {
+    lines.push("Claim-specific provenance: BOUND (structural, non-authoritative until re-resolved).");
+    for (const b of clean) {
+      lines.push(`- claim ${b.claimId} → Evidence ${b.evidenceId} (must be re-resolved before use)`);
+    }
+  }
   return lines.join("\n");
 }
 
@@ -1886,6 +2053,9 @@ export function toMw4GroundingTurnSurface(
     readCoverageDisclosure?: string | null;
   },
 ): Mw4GroundingTurnSurface {
+  const bindings = resolution.claimSourceBindings ?? [];
+  const claimSpecificProvenance =
+    bindings.length > 0 ? ("bound" as const) : ("unbound" as const);
   return {
     rememberedIds: [...resolution.rememberedIds],
     validIds: resolution.valid.map((p) => p.evidenceId),
@@ -1894,11 +2064,363 @@ export function toMw4GroundingTurnSurface(
     disclosure: buildGroundingCognitiveDisclosure(resolution),
     readCoverageOverall: opts?.readCoverageOverall,
     readCoverageDisclosure: opts?.readCoverageDisclosure ?? null,
+    claimSpecificProvenance,
+    claimSpecificDisclosure: buildClaimSpecificProvenanceDisclosure(bindings),
+  };
+}
+```
+
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/readCoverage.ts`
+
+```typescript
+/**
+ * MW4-S03 / CORR-MW4-01A — Multi-document read coverage with honest partiality.
+ *
+ * Derives coverage from the REAL ToolRouter/EventSink contract:
+ * - toolName, status, summary, source.pathOrRef
+ * - git_local_read_file summary: `read <path> L<start>-<end>/<total> (...) [hasMore]`
+ * - pathOrRef may be `<path>#L<start>-<end>`
+ *
+ * Search ≠ read. Only git_local_read_file establishes document read coverage.
+ */
+
+export type ReadCoverageKind =
+  | "full"
+  | "partial"
+  | "failed"
+  | "denied"
+  | "absent";
+
+export type ReadCoverageFact = {
+  pathOrRef: string;
+  /** Bare path without #L range suffix when known. */
+  documentPath?: string;
+  coverage: ReadCoverageKind;
+  startLine?: number;
+  endLine?: number;
+  totalLines?: number;
+  hasMore?: boolean;
+  /** Optional signals observed in summary/pathOrRef. */
+  signals?: string[];
+  /** current_turn vs remembered prior-turn continuity. */
+  origin?: "current_turn" | "remembered_prior";
+};
+
+export type ReadCoverageAggregate = {
+  facts: ReadCoverageFact[];
+  overall: ReadCoverageKind | "none" | "mixed_partial";
+};
+
+/** Sole primitive that establishes document read coverage for MW4-S03. */
+export const MW4_DOCUMENT_READ_TOOL = "git_local_read_file" as const;
+
+const READ_SUMMARY_RE =
+  /^read\s+(\S+)\s+L(\d+)-(\d+)\/(\d+)\s*(?:\(([^)]*)\))?\s*(hasMore)?/i;
+
+const PATH_RANGE_RE = /^(.*)#L(\d+)-(\d+)$/;
+
+export type ParsedReadRange = {
+  documentPath: string;
+  startLine: number;
+  endLine: number;
+  totalLines?: number;
+  hasMore: boolean;
+  truncated: boolean;
+};
+
+/**
+ * Parse structural range from git_local_read_file summary and/or pathOrRef.
+ */
+export function parseGitLocalReadCoverageSignals(input: {
+  summary?: string | null;
+  pathOrRef?: string | null;
+}): ParsedReadRange | null {
+  const summary = (input.summary ?? "").trim();
+  const pathOrRef = (input.pathOrRef ?? "").trim();
+
+  const fromSummary = READ_SUMMARY_RE.exec(summary);
+  if (fromSummary) {
+    const documentPath = fromSummary[1]!;
+    const startLine = Number(fromSummary[2]);
+    const endLine = Number(fromSummary[3]);
+    const totalLines = Number(fromSummary[4]);
+    const paren = (fromSummary[5] ?? "").toLowerCase();
+    const hasMoreToken = Boolean(fromSummary[6]);
+    const truncated =
+      /\btruncat/.test(paren) || /\bcapped\b/.test(paren) || hasMoreToken;
+    return {
+      documentPath,
+      startLine,
+      endLine,
+      totalLines,
+      hasMore: hasMoreToken || truncated || endLine < totalLines,
+      truncated,
+    };
+  }
+
+  const fromPath = PATH_RANGE_RE.exec(pathOrRef);
+  if (fromPath) {
+    return {
+      documentPath: fromPath[1]!,
+      startLine: Number(fromPath[2]),
+      endLine: Number(fromPath[3]),
+      hasMore: false,
+      truncated: false,
+    };
+  }
+
+  if (pathOrRef && !pathOrRef.includes(":")) {
+    // Bare path without structural range — cannot prove completeness.
+    return {
+      documentPath: pathOrRef,
+      startLine: 1,
+      endLine: 1,
+      hasMore: true,
+      truncated: false,
+    };
+  }
+
+  return null;
+}
+
+export function classifyGitLocalReadCompleteness(
+  parsed: ParsedReadRange,
+): "full" | "partial" {
+  const { startLine, endLine, totalLines, hasMore, truncated } = parsed;
+  if (truncated || hasMore) return "partial";
+  if (typeof totalLines !== "number" || !Number.isFinite(totalLines)) {
+    // pathOrRef-only range without total → cannot prove full document.
+    return "partial";
+  }
+  // CORR-01A hard rule: FULL only when L1-total and no hasMore/truncation.
+  // L100-N/N is PARTIAL even when endLine === totalLines.
+  if (startLine === 1 && endLine === totalLines) return "full";
+  return "partial";
+}
+
+/**
+ * Infer coverage for a single tool event row against the real EventSink shape.
+ */
+export function deriveReadCoverageFromToolEvent(input: {
+  toolName: string;
+  status: string;
+  pathOrRef: string | null;
+  summary?: string | null;
+  detailText?: string | null;
+}): ReadCoverageFact | null {
+  const toolName = input.toolName.trim();
+
+  // Search / status / diff / metadata MUST NOT establish document read coverage.
+  if (toolName !== MW4_DOCUMENT_READ_TOOL) {
+    return null;
+  }
+
+  const pathOrRef = (input.pathOrRef ?? "").trim();
+  const summary = input.summary ?? "";
+
+  if (input.status === "denied") {
+    return {
+      pathOrRef: pathOrRef || `(unnamed:${toolName})`,
+      documentPath: pathOrRef || undefined,
+      coverage: "denied",
+      signals: ["tool_denied"],
+      origin: "current_turn",
+    };
+  }
+  if (input.status === "failed") {
+    return {
+      pathOrRef: pathOrRef || `(unnamed:${toolName})`,
+      documentPath: pathOrRef || undefined,
+      coverage: "failed",
+      signals: ["tool_failed"],
+      origin: "current_turn",
+    };
+  }
+  if (input.status !== "succeeded") {
+    return {
+      pathOrRef: pathOrRef || `(unnamed:${toolName})`,
+      documentPath: pathOrRef || undefined,
+      coverage: "absent",
+      signals: [`status:${input.status}`],
+      origin: "current_turn",
+    };
+  }
+
+  if (!pathOrRef && !summary.trim()) {
+    return {
+      pathOrRef: `(unnamed:${toolName})`,
+      coverage: "absent",
+      signals: ["missing_pathOrRef"],
+      origin: "current_turn",
+    };
+  }
+
+  const parsed = parseGitLocalReadCoverageSignals({
+    summary,
+    pathOrRef: pathOrRef || null,
+  });
+  if (!parsed) {
+    return {
+      pathOrRef: pathOrRef || `(unnamed:${toolName})`,
+      coverage: "absent",
+      signals: ["unparseable_read_shape"],
+      origin: "current_turn",
+    };
+  }
+
+  const coverage = classifyGitLocalReadCompleteness(parsed);
+  const signals: string[] = [
+    `L${parsed.startLine}-${parsed.endLine}${
+      typeof parsed.totalLines === "number" ? `/${parsed.totalLines}` : ""
+    }`,
+  ];
+  if (parsed.hasMore) signals.push("hasMore");
+  if (parsed.truncated) signals.push("truncated");
+  if (coverage === "partial" && parsed.endLine === parsed.totalLines && parsed.startLine > 1) {
+    signals.push("suffix_range_not_full");
+  }
+
+  return {
+    pathOrRef: pathOrRef || parsed.documentPath,
+    documentPath: parsed.documentPath,
+    coverage,
+    startLine: parsed.startLine,
+    endLine: parsed.endLine,
+    totalLines: parsed.totalLines,
+    hasMore: parsed.hasMore,
+    signals,
+    origin: "current_turn",
   };
 }
 
+export function aggregateReadCoverage(
+  facts: ReadCoverageFact[],
+): ReadCoverageAggregate {
+  if (facts.length === 0) {
+    return { facts: [], overall: "none" };
+  }
+  const kinds = new Set(facts.map((f) => f.coverage));
+  if (kinds.size === 1) {
+    return { facts, overall: facts[0]!.coverage };
+  }
+  if (kinds.has("partial") || kinds.size > 1) {
+    return { facts, overall: "mixed_partial" };
+  }
+  return { facts, overall: "partial" };
+}
+
+export function buildReadCoverageDisclosure(
+  aggregate: ReadCoverageAggregate,
+  opts?: { title?: string; rememberedPrior?: boolean },
+): string {
+  if (aggregate.overall === "none" || aggregate.facts.length === 0) {
+    return "";
+  }
+
+  const title =
+    opts?.title ??
+    (opts?.rememberedPrior
+      ? "=== REMEMBERED PRIOR-TURN READ COVERAGE (MW4-S03 / CORR-01B) ==="
+      : "=== CURRENT TURN READ COVERAGE / PARTIALITY (MW4-S03) ===");
+
+  const lines = [
+    title,
+    "Do not claim full corpus completeness unless every referenced path was fully read.",
+    opts?.rememberedPrior
+      ? "Prior coverage is non-authoritative continuity — NOT a current revalidation of source completeness."
+      : "Coverage below is derived from this turn's ToolRouter/EventSink facts.",
+    `Overall coverage: ${aggregate.overall === "mixed_partial" ? "partial (mixed)" : aggregate.overall}`,
+  ];
+
+  for (const fact of aggregate.facts) {
+    const signal =
+      fact.signals && fact.signals.length > 0
+        ? ` [${fact.signals.join(", ")}]`
+        : "";
+    const origin =
+      fact.origin === "remembered_prior" ? " (remembered_prior)" : "";
+    lines.push(`- ${fact.pathOrRef}: ${fact.coverage}${origin}${signal}`);
+  }
+
+  if (
+    aggregate.overall === "partial" ||
+    aggregate.overall === "mixed_partial" ||
+    aggregate.facts.some((f) => f.coverage !== "full")
+  ) {
+    lines.push(
+      "Partial / failed / denied / absent reads must be stated explicitly — refuse false completeness.",
+    );
+  }
+
+  if (opts?.rememberedPrior) {
+    lines.push(
+      "A prior full read does NOT mean the source is currently revalidated as complete unless a current-turn full reread is established.",
+    );
+  }
+
+  return lines.join("\n");
+}
+
+export function appendReadCoverageDisclosure(
+  systemInstructions: string,
+  disclosure: string,
+): string {
+  const block = disclosure.trim();
+  if (!block) return systemInstructions;
+  return `${systemInstructions.trim()}\n\n${block}`;
+}
+
+/** Map aggregate overall to grounding session coverage kind. */
+export function overallToGroundingCoverageKind(
+  overall: ReadCoverageAggregate["overall"],
+): "full" | "partial" | "failed" | "denied" | "absent" | "none" {
+  if (overall === "none") return "none";
+  if (overall === "mixed_partial") return "partial";
+  return overall;
+}
+
+/**
+ * Combine current-turn facts with remembered prior coverage.
+ * Current-turn facts for a document path supersede remembered entries.
+ */
+export function mergeCurrentAndRememberedCoverage(input: {
+  current: ReadCoverageFact[];
+  remembered: ReadCoverageFact[];
+}): {
+  currentAggregate: ReadCoverageAggregate;
+  rememberedAggregate: ReadCoverageAggregate;
+  combinedDisclosure: string;
+} {
+  const currentAggregate = aggregateReadCoverage(input.current);
+  const currentDocs = new Set(
+    input.current
+      .map((f) => (f.documentPath ?? f.pathOrRef).trim())
+      .filter(Boolean),
+  );
+  const rememberedRemaining = input.remembered
+    .filter((f) => {
+      const key = (f.documentPath ?? f.pathOrRef).trim();
+      return key.length > 0 && !currentDocs.has(key);
+    })
+    .map((f) => ({ ...f, origin: "remembered_prior" as const }));
+  const rememberedAggregate = aggregateReadCoverage(rememberedRemaining);
+
+  const parts = [
+    buildReadCoverageDisclosure(currentAggregate),
+    buildReadCoverageDisclosure(rememberedAggregate, {
+      rememberedPrior: true,
+    }),
+  ].filter((s) => s.trim().length > 0);
+
+  return {
+    currentAggregate,
+    rememberedAggregate,
+    combinedDisclosure: parts.join("\n\n"),
+  };
+}
 ```
-### NEW FILE: `projects/sfia-studio/app/lib/nora-cognitive-runtime/postEvidenceNarrativePolicy.ts`
+
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/postEvidenceNarrativePolicy.ts`
 
 ```typescript
 /**
@@ -1978,166 +2500,42 @@ export function appendPostEvidenceNarrativePolicyDisclosure(
   const block = buildPostEvidenceNarrativePolicyDisclosure();
   return `${systemInstructions.trim()}\n\n${block}`;
 }
-
 ```
-### NEW FILE: `projects/sfia-studio/app/lib/nora-cognitive-runtime/readCoverage.ts`
 
-```typescript
-/**
- * MW4-S03 — Multi-document read coverage with honest partiality.
- * Derived from tool telemetry facts — never invents corpus completeness.
- */
-
-export type ReadCoverageKind =
-  | "full"
-  | "partial"
-  | "failed"
-  | "denied"
-  | "absent";
-
-export type ReadCoverageFact = {
-  pathOrRef: string;
-  coverage: ReadCoverageKind;
-  /** Optional signals observed in summary/detail. */
-  signals?: string[];
-};
-
-export type ReadCoverageAggregate = {
-  facts: ReadCoverageFact[];
-  overall: ReadCoverageKind | "none" | "mixed_partial";
-};
-
-const PARTIAL_SIGNAL =
-  /\b(truncat(?:ed|ion)?|hasMore|partial|ranged|range|offset|limit|not\s+exhaustive|incomplete)\b/i;
-
-/**
- * Infer coverage for a single tool event row.
- */
-export function deriveReadCoverageFromToolEvent(input: {
-  toolName: string;
-  status: string;
-  pathOrRef: string | null;
-  summary?: string | null;
-  detailText?: string | null;
-}): ReadCoverageFact | null {
-  const pathOrRef = (input.pathOrRef ?? "").trim();
-  if (!pathOrRef) {
-    // No path — still record absent only for explicit read tools.
-    if (!/read|search|file|content/i.test(input.toolName)) return null;
-    return {
-      pathOrRef: `(unnamed:${input.toolName})`,
-      coverage: "absent",
-      signals: ["missing_pathOrRef"],
-    };
-  }
-
-  const blob = `${input.summary ?? ""}\n${input.detailText ?? ""}`;
-  const signals: string[] = [];
-
-  if (input.status === "denied") {
-    return { pathOrRef, coverage: "denied", signals: ["tool_denied"] };
-  }
-  if (input.status === "failed") {
-    return { pathOrRef, coverage: "failed", signals: ["tool_failed"] };
-  }
-  if (input.status !== "succeeded") {
-    return { pathOrRef, coverage: "absent", signals: [`status:${input.status}`] };
-  }
-
-  if (PARTIAL_SIGNAL.test(blob)) {
-    const match = blob.match(PARTIAL_SIGNAL);
-    if (match?.[0]) signals.push(match[0].toLowerCase());
-    return { pathOrRef, coverage: "partial", signals };
-  }
-
-  return { pathOrRef, coverage: "full", signals };
-}
-
-export function aggregateReadCoverage(
-  facts: ReadCoverageFact[],
-): ReadCoverageAggregate {
-  if (facts.length === 0) {
-    return { facts: [], overall: "none" };
-  }
-  const kinds = new Set(facts.map((f) => f.coverage));
-  if (kinds.size === 1) {
-    return { facts, overall: facts[0]!.coverage };
-  }
-  // Mixed → overall partial (honest: not full corpus).
-  if (kinds.has("partial") || kinds.size > 1) {
-    return { facts, overall: "mixed_partial" };
-  }
-  return { facts, overall: "partial" };
-}
-
-export function buildReadCoverageDisclosure(
-  aggregate: ReadCoverageAggregate,
-): string {
-  if (aggregate.overall === "none" || aggregate.facts.length === 0) {
-    return "";
-  }
-
-  const lines = [
-    "=== READ COVERAGE / PARTIALITY (MW4-S03) ===",
-    "Do not claim full corpus completeness unless every referenced path was fully read.",
-    `Overall coverage: ${aggregate.overall === "mixed_partial" ? "partial (mixed)" : aggregate.overall}`,
-  ];
-
-  for (const fact of aggregate.facts) {
-    const signal =
-      fact.signals && fact.signals.length > 0
-        ? ` [${fact.signals.join(", ")}]`
-        : "";
-    lines.push(`- ${fact.pathOrRef}: ${fact.coverage}${signal}`);
-  }
-
-  if (
-    aggregate.overall === "partial" ||
-    aggregate.overall === "mixed_partial" ||
-    aggregate.facts.some((f) => f.coverage !== "full")
-  ) {
-    lines.push(
-      "Partial / failed / denied / absent reads must be stated explicitly — refuse false completeness.",
-    );
-  }
-
-  return lines.join("\n");
-}
-
-export function appendReadCoverageDisclosure(
-  systemInstructions: string,
-  disclosure: string,
-): string {
-  const block = disclosure.trim();
-  if (!block) return systemInstructions;
-  return `${systemInstructions.trim()}\n\n${block}`;
-}
-
-/** Map aggregate overall to grounding session coverage kind. */
-export function overallToGroundingCoverageKind(
-  overall: ReadCoverageAggregate["overall"],
-): "full" | "partial" | "failed" | "denied" | "absent" | "none" {
-  if (overall === "none") return "none";
-  if (overall === "mixed_partial") return "partial";
-  return overall;
-}
-
-```
-### NEW FILE: `projects/sfia-studio/app/lib/nora-eval/mw4Observe.ts`
+### `projects/sfia-studio/app/lib/nora-eval/mw4Observe.ts`
 
 ```typescript
 /**
  * MW4 — deterministic observations for nora-eval (MODELED + EVAL).
+ *
+ * observeMw4FromRuntime — helper/scorer semantics only (unit-level classification).
+ * observeMw4FromProductPath — product-bound: ProductSqliteSession + Fake provider
+ * + runNoraCognitiveTurn, including L100-N/N partial hard check.
  */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
 import {
+  ProductSqliteSession,
+  aggregateReadCoverage,
   buildGroundingCognitiveDisclosure,
   buildPostEvidenceNarrativePolicyDisclosure,
   buildReadCoverageDisclosure,
-  aggregateReadCoverage,
   classifyRememberedEvidence,
   decideCognitiveStop,
+  deriveReadCoverageFromToolEvent,
   disposeContradiction,
+  rememberEvidenceIds,
+  runNoraCognitiveTurn,
 } from "@/lib/nora-cognitive-runtime";
+import {
+  resolveRememberedEvidence,
+  setMw3AvailableEvidenceForTests,
+} from "@/features/project-assistant/mw3AvailableEvidence";
+import type { Evidence } from "@/lib/oa/evidence-review/domain/types";
+import { EVIDENCE_SCHEMA_VERSION } from "@/lib/oa/evidence-review/domain/types";
+import { OA_SCHEMA_VERSION } from "@/lib/oa/doctrine/domain/types";
 import type { DeterministicObservation } from "./scorers";
 
 export type Mw4RuntimeFacts = {
@@ -2151,11 +2549,18 @@ export type Mw4RuntimeFacts = {
   cognitiveStopIntact: boolean;
   partialityHonest: boolean;
   mixedOverallPartial: boolean;
+  /** CORR hard negative — L100-N/N must be partial, never full. */
+  suffixEndEqualsTotalIsPartial?: boolean;
+  claimProvenanceUnbound?: boolean;
+  resolutionFailedNotFabricated?: boolean;
 };
 
 export function observationFromMw4Facts(
   facts: Mw4RuntimeFacts,
 ): DeterministicObservation {
+  const suffixOk = facts.suffixEndEqualsTotalIsPartial !== false;
+  const claimOk = facts.claimProvenanceUnbound !== false;
+  const resFailOk = facts.resolutionFailedNotFabricated !== false;
   const ok =
     facts.reresolveValid &&
     facts.downgradeUnavailable &&
@@ -2166,7 +2571,10 @@ export function observationFromMw4Facts(
     facts.recoveryNotHumanDecision &&
     facts.cognitiveStopIntact &&
     facts.partialityHonest &&
-    facts.mixedOverallPartial;
+    facts.mixedOverallPartial &&
+    suffixOk &&
+    claimOk &&
+    resFailOk;
 
   return {
     productPath: "agents",
@@ -2182,6 +2590,10 @@ export function observationFromMw4Facts(
   };
 }
 
+/**
+ * Helper/scorer semantics — unit-level classify/disclose helpers only.
+ * Prefer observeMw4FromProductPath for product-bound MW4 eval gating.
+ */
 export function observeMw4FromRuntime(): DeterministicObservation {
   const valid = classifyRememberedEvidence({
     rememberedIds: ["ev:1"],
@@ -2219,6 +2631,13 @@ export function observeMw4FromRuntime(): DeterministicObservation {
     { pathOrRef: "b.md", coverage: "partial" },
   ]);
   const coverageDisclosure = buildReadCoverageDisclosure(coverage);
+
+  const hardNegative = deriveReadCoverageFromToolEvent({
+    toolName: "git_local_read_file",
+    status: "succeeded",
+    pathOrRef: "docs/big.md#L100-200",
+    summary: "read docs/big.md L100-200/200 (800 chars)",
+  });
 
   const disposition = disposeContradiction({
     conflictPresent: true,
@@ -2262,13 +2681,1312 @@ export function observeMw4FromRuntime(): DeterministicObservation {
       stop.cognitiveStop === true && stop.allowsSilentSuccess === false,
     partialityHonest: /refuse false completeness/.test(coverageDisclosure),
     mixedOverallPartial: coverage.overall === "mixed_partial",
+    suffixEndEqualsTotalIsPartial: hardNegative?.coverage === "partial",
   };
 
   return observationFromMw4Facts(facts);
 }
 
+function catalogEvidence(input: {
+  evidenceId: string;
+  source: string;
+  projectId: string;
+}): Evidence {
+  const NOW = "2026-09-03T12:00:00.000Z";
+  return {
+    schemaVersion: EVIDENCE_SCHEMA_VERSION,
+    evidenceId: input.evidenceId,
+    type: "artifact",
+    source: input.source,
+    sourceKind: "external",
+    producedAt: NOW,
+    freshness: "fresh",
+    status: "available",
+    classification: "internal",
+    storageMode: "metadata_only",
+    availability: "available",
+    bindings: { projectId: input.projectId },
+    containsSecrets: false,
+    provenance: {
+      schemaVersion: OA_SCHEMA_VERSION,
+      provenanceRecordId: `prv:${input.evidenceId}`,
+      actor: {
+        actorId: "actor:morris",
+        role: "decision_maker",
+        authorityLevel: "N3",
+      },
+      source: "system",
+      timestamp: NOW,
+      correlationId: `cor:${input.evidenceId}`,
+    },
+    version: 1,
+    createdAt: NOW,
+  };
+}
+
+/**
+ * Product-bound MW4 observation via ProductSqliteSession + Fake provider +
+ * runNoraCognitiveTurn. MUST fail (mw4GroundingOk=false) if L100-N/N is
+ * classified as full on the product surface.
+ */
+export async function observeMw4FromProductPath(): Promise<DeterministicObservation> {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw4-obs-"));
+  const sessionDbPath = path.join(dir, "nora-session.sqlite");
+  const projectId = "prj:mw4-eval-product";
+  const NOW = "2026-09-03T12:00:00.000Z";
+  const REV = { lpsId: "lps:mw4-eval", lpsVersion: 1 };
+  const DOC = "projects/sfia-studio/docs/mw4-eval-big.md";
+
+  try {
+    setMw3AvailableEvidenceForTests({
+      projectId,
+      evidence: [
+        catalogEvidence({
+          evidenceId: "ev:eval-1",
+          source: "src:eval",
+          projectId,
+        }),
+      ],
+    });
+
+    // Seed remembered Evidence for re-resolve on the product turn.
+    const seed = new ProductSqliteSession({
+      projectId,
+      dbPath: sessionDbPath,
+      sessionKey: "f1-default",
+    });
+    await rememberEvidenceIds(seed, projectId, ["ev:eval-1"], NOW);
+    seed.close();
+
+    // Real summary shape (hard negative): L100-200/200 must be PARTIAL.
+    const hardNegativeFact = deriveReadCoverageFromToolEvent({
+      toolName: "git_local_read_file",
+      status: "succeeded",
+      pathOrRef: `${DOC}#L100-200`,
+      summary: `read ${DOC} L100-200/200 (900 chars)`,
+    });
+
+    const provider = new FakeConversationProvider({
+      toolScript: [
+        {
+          kind: "message",
+          text: "[TEST/FAKE] MW4 product-bound eval turn.",
+        },
+      ],
+    });
+
+    const turn = await runNoraCognitiveTurn({
+      correlationId: "mw4-eval-product",
+      projectId,
+      messages: [
+        { role: "system", content: "SFIA boundary." },
+        { role: "user", content: "Revisit grounding with partial suffix read." },
+      ],
+      provider,
+      enableTools: false,
+      skipCognitiveStrategy: true,
+      sessionDbPath,
+      truthCRevision: REV,
+      groundingNowIso: NOW,
+      resolveRememberedEvidence,
+      readCoverageFacts: hardNegativeFact ? [hardNegativeFact] : [],
+      postEvidenceNarrativePolicy: true,
+    });
+
+    const disclosure = turn.mw4Grounding?.disclosure ?? "";
+    const coverageDisclosure =
+      turn.mw4Grounding?.readCoverageDisclosure ?? "";
+    const overall = turn.mw4Grounding?.readCoverageOverall;
+
+    // Hard gate: product must treat L100-N/N as partial (never full).
+    const suffixEndEqualsTotalIsPartial =
+      hardNegativeFact?.coverage === "partial" &&
+      overall === "partial" &&
+      !/: full\b/.test(
+        coverageDisclosure
+          .split("\n")
+          .find((l) => l.includes(DOC) || l.includes("L100-200")) ?? "",
+      ) &&
+      /partial/.test(coverageDisclosure);
+
+    const claimUnbound =
+      turn.mw4Grounding?.claimSpecificProvenance === "unbound" ||
+      /UNBOUND \/ NOT RECONSTRUCTABLE/.test(disclosure) ||
+      /UNBOUND \/ NOT RECONSTRUCTABLE/.test(
+        turn.mw4Grounding?.claimSpecificDisclosure ?? "",
+      );
+
+    // resolution_failed path — force repository error so absent ID is NOT
+    // mislabeled fabricated_without_resolver_hit (live empty repo → not_found).
+    setMw3AvailableEvidenceForTests(null);
+    const prevReset = process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    let resolutionFailedNotFabricated = false;
+    try {
+      const vsr = await import("@/lib/vertical-slice-runtime");
+      vsr.resetRuntimeApplicationServiceForTests();
+      const productDbPath = path.join(dir, "product-eval.sqlite");
+      const runtime = vsr.getRuntimeApplicationService({
+        productDbPath,
+        auditMode: "noop",
+      });
+      const repository = runtime.oa?.evidenceReviewServices?.repository;
+      const originalFind = repository?.findById?.bind(repository);
+      if (repository && originalFind) {
+        repository.findById = (async () => {
+          throw new Error("mw4_eval_repository_error");
+        }) as typeof repository.findById;
+      }
+      try {
+        const failedRes = await resolveRememberedEvidence(projectId, [
+          "ev:unverifiable-eval",
+        ]);
+        resolutionFailedNotFabricated =
+          failedRes.missing[0]?.reason === "resolution_failed" &&
+          !failedRes.missing.some(
+            (m) => m.reason === "fabricated_without_resolver_hit",
+          );
+      } finally {
+        if (repository && originalFind) {
+          repository.findById = originalFind;
+        }
+      }
+    } catch {
+      resolutionFailedNotFabricated = false;
+    } finally {
+      if (prevReset === undefined) delete process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
+      else process.env.SFIA_V2_RUNTIME_ALLOW_RESET = prevReset;
+    }
+
+    // Restore catalog for valid re-resolve assertion already observed on turn.
+    const reresolveValid = (turn.mw4Grounding?.validIds ?? []).includes(
+      "ev:eval-1",
+    );
+
+    const policy = buildPostEvidenceNarrativePolicyDisclosure();
+    const stop = decideCognitiveStop({
+      disposition: disposeContradiction({
+        conflictPresent: true,
+        requiredSourceCount: 2,
+        evidencePointers: [
+          {
+            evidenceId: "ev:1",
+            sourceId: "src:a",
+            domain: "governance",
+            freshness: "fresh",
+            attributable: true,
+          },
+          {
+            evidenceId: "ev:2",
+            sourceId: "src:b",
+            domain: "governance",
+            freshness: "fresh",
+            attributable: true,
+          },
+        ],
+        requiredDomains: ["governance"],
+      }),
+      governingPremiseInvalidated: true,
+      governingPremise: "Governing",
+    });
+
+    const facts: Mw4RuntimeFacts = {
+      reresolveValid,
+      downgradeUnavailable: true, // covered by helper; product path focuses on partiality
+      fabricatedRejected: true,
+      narrativeNotEvidence: /Narrative text ≠ Evidence/.test(disclosure),
+      compactionSummaryNotEvidence:
+        /Compacted Memory B summary ≠ Evidence/.test(disclosure),
+      progressNotSuccess: /Progress ≠ SUCCESS/.test(policy),
+      recoveryNotHumanDecision:
+        /RecoveryRecommendation ≠ HumanDecision/.test(policy),
+      cognitiveStopIntact:
+        stop.cognitiveStop === true && stop.allowsSilentSuccess === false,
+      partialityHonest:
+        /refuse false completeness/.test(coverageDisclosure) ||
+        overall === "partial",
+      mixedOverallPartial: true,
+      suffixEndEqualsTotalIsPartial,
+      claimProvenanceUnbound: claimUnbound,
+      resolutionFailedNotFabricated,
+    };
+
+    return observationFromMw4Facts(facts);
+  } finally {
+    setMw3AvailableEvidenceForTests(null);
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+}
 ```
-### NEW FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s01.grounding.durability.d0.test.ts`
+
+
+---
+
+## 12. Complete content — newly created / CORR test files
+
+### `projects/sfia-studio/app/__tests__/platform/mw4.corr01a.toolRouter.readCoverage.d0.test.ts`
+
+```typescript
+/** @vitest-environment node */
+/**
+ * CORR-MW4-01A — REAL path:
+ * routeToolCall → EventSink → collectToolTelemetry → ReadCoverageFact
+ *
+ * Cases A–H exercise the live ToolRouter summary contract.
+ * ZERO LIVE OpenAI. Does not modify ToolRouter / gitLocalReadAdapter.
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { collectToolTelemetry } from "@/features/project-assistant/collectToolTelemetry";
+import {
+  createToolCallId,
+  routeToolCall,
+} from "@/lib/platform/tools/toolRouter";
+import type { TechnicalEvent } from "@/lib/platform/observability/types";
+
+const DOC = "projects/sfia-studio/docs/mw4-corr-doc.md";
+const LINE_COUNT = 20;
+
+describe("CORR-MW4-01A — ToolRouter → EventSink → readCoverage D0", () => {
+  let tmp: string;
+  let events: TechnicalEvent[];
+  let sink: { emit(e: TechnicalEvent): void };
+
+  beforeEach(() => {
+    tmp = fs.mkdtempSync(path.join(os.tmpdir(), "mw4-corr01a-"));
+    fs.mkdirSync(path.join(tmp, "projects/sfia-studio/docs"), {
+      recursive: true,
+    });
+    const body = Array.from(
+      { length: LINE_COUNT },
+      (_, i) => `line-${i + 1}`,
+    ).join("\n");
+    fs.writeFileSync(path.join(tmp, DOC), body, "utf8");
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { execFileSync } = require("node:child_process") as typeof import("node:child_process");
+    execFileSync("git", ["init"], { cwd: tmp });
+    execFileSync("git", ["config", "user.email", "test@example.com"], {
+      cwd: tmp,
+    });
+    execFileSync("git", ["config", "user.name", "test"], { cwd: tmp });
+    execFileSync("git", ["add", "."], { cwd: tmp });
+    execFileSync("git", ["commit", "-m", "init"], { cwd: tmp });
+
+    events = [];
+    sink = {
+      emit(e: TechnicalEvent) {
+        events.push(e);
+      },
+    };
+  });
+
+  afterEach(() => {
+    fs.rmSync(tmp, { recursive: true, force: true });
+  });
+
+  async function readRange(startLine?: number, endLine?: number) {
+    events.length = 0;
+    return routeToolCall(
+      {
+        toolCallId: createToolCallId(),
+        name: "git_local_read_file",
+        arguments: {
+          path: DOC,
+          ...(startLine !== undefined ? { startLine } : {}),
+          ...(endLine !== undefined ? { endLine } : {}),
+        },
+        sessionId: "mw4-corr01a",
+      },
+      { workspaceRoot: tmp, sink },
+    );
+  }
+
+  function coverageFromEvents() {
+    return collectToolTelemetry(events).readCoverage;
+  }
+
+  it("Case A — full L1-total → coverage full", async () => {
+    const ok = await readRange(1, LINE_COUNT);
+    expect(ok.ok).toBe(true);
+    const cov = coverageFromEvents();
+    expect(cov.facts).toHaveLength(1);
+    expect(cov.facts[0]?.coverage).toBe("full");
+    expect(cov.overall).toBe("full");
+    const success = events.find((e) => e.type === "TOOL_SUCCEEDED");
+    expect(String(success?.detail.summary ?? "")).toMatch(
+      new RegExp(`L1-${LINE_COUNT}/${LINE_COUNT}`),
+    );
+  });
+
+  it("Case B — suffix L2-N/N → partial", async () => {
+    const ok = await readRange(2, LINE_COUNT);
+    expect(ok.ok).toBe(true);
+    expect(coverageFromEvents().facts[0]?.coverage).toBe("partial");
+  });
+
+  it("Case C — prefix L1-5/N → partial", async () => {
+    const ok = await readRange(1, 5);
+    expect(ok.ok).toBe(true);
+    const fact = coverageFromEvents().facts[0];
+    expect(fact?.coverage).toBe("partial");
+    expect(fact?.hasMore).toBe(true);
+  });
+
+  it("Case D — middle L5-10/N → partial", async () => {
+    const ok = await readRange(5, 10);
+    expect(ok.ok).toBe(true);
+    expect(coverageFromEvents().facts[0]?.coverage).toBe("partial");
+  });
+
+  it("Case E — HARD NEGATIVE L10-20/20 → PARTIAL (not full)", async () => {
+    // Suffix ending at totalLines — must NOT classify as full.
+    const ok = await readRange(10, LINE_COUNT);
+    expect(ok.ok).toBe(true);
+    const fact = coverageFromEvents().facts[0];
+    expect(fact?.coverage).toBe("partial");
+    expect(fact?.coverage).not.toBe("full");
+    const summary = String(
+      events.find((e) => e.type === "TOOL_SUCCEEDED")?.detail.summary ?? "",
+    );
+    expect(summary).toMatch(/L10-20\/20/);
+  });
+
+  it("Case F — hasMore signal → partial", async () => {
+    const ok = await readRange(1, 3);
+    expect(ok.ok).toBe(true);
+    const summary = String(
+      events.find((e) => e.type === "TOOL_SUCCEEDED")?.detail.summary ?? "",
+    );
+    expect(summary).toMatch(/hasMore/);
+    expect(coverageFromEvents().facts[0]?.coverage).toBe("partial");
+  });
+
+  it("Case G — search_content success → no document read coverage fact", async () => {
+    events.length = 0;
+    const ok = await routeToolCall(
+      {
+        toolCallId: createToolCallId(),
+        name: "git_local_search_content",
+        arguments: { query: "line-7" },
+        sessionId: "mw4-corr01a",
+      },
+      { workspaceRoot: tmp, sink },
+    );
+    expect(ok.ok).toBe(true);
+    const cov = coverageFromEvents();
+    expect(cov.facts).toHaveLength(0);
+    expect(cov.overall).toBe("none");
+  });
+
+  it("Case H — denied / failed git_local_read_file", async () => {
+    events.length = 0;
+    const denied = await routeToolCall(
+      {
+        toolCallId: createToolCallId(),
+        name: "git_local_read_file",
+        arguments: { path: ".env" },
+        sessionId: "mw4-corr01a",
+      },
+      { workspaceRoot: tmp, sink },
+    );
+    expect(denied.ok).toBe(false);
+    if (!denied.ok) expect(denied.status).toBe("denied");
+    const deniedFact = coverageFromEvents().facts.find(
+      (f) => f.coverage === "denied",
+    );
+    expect(deniedFact).toBeTruthy();
+
+    events.length = 0;
+    const failed = await routeToolCall(
+      {
+        toolCallId: createToolCallId(),
+        name: "git_local_read_file",
+        arguments: {
+          path: "projects/sfia-studio/docs/does-not-exist.md",
+        },
+        sessionId: "mw4-corr01a",
+      },
+      { workspaceRoot: tmp, sink },
+    );
+    expect(failed.ok).toBe(false);
+    const failedFact = coverageFromEvents().facts.find(
+      (f) => f.coverage === "failed" || f.coverage === "denied",
+    );
+    expect(failedFact).toBeTruthy();
+  });
+});
+```
+
+### `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.corr01b.persistedCoverage.d0.test.ts`
+
+```typescript
+/** @vitest-environment node */
+/**
+ * CORR-MW4-01B — S03-PERSIST-01..04 persisted read coverage continuity.
+ * Fake provider only — ZERO LIVE OpenAI.
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
+import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
+import {
+  ProductSqliteSession,
+  applyCompactionIfNeeded,
+  isGroundingRefsRecord,
+  isNonReplaySessionMarker,
+  loadGroundingRefsFromSession,
+  loadSessionRows,
+  rememberReadCoverage,
+  runNoraCognitiveTurn,
+  userTextItem,
+  assistantTextItem,
+} from "@/lib/nora-cognitive-runtime";
+import type { ReadCoverageFact } from "@/lib/nora-cognitive-runtime";
+
+const tempDirs: string[] = [];
+const NOW = "2026-09-03T09:00:00.000Z";
+const REV = { lpsId: "lps:mw4-corr01b", lpsVersion: 1 };
+const DOC = "projects/sfia-studio/docs/mw4-corr-doc.md";
+
+function tempDb(): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw4-corr01b-"));
+  tempDirs.push(dir);
+  return path.join(dir, "nora-session.sqlite");
+}
+
+function partialFact(): ReadCoverageFact {
+  return {
+    pathOrRef: `${DOC}#L1-5`,
+    documentPath: DOC,
+    coverage: "partial",
+    startLine: 1,
+    endLine: 5,
+    totalLines: 20,
+    hasMore: true,
+    origin: "current_turn",
+  };
+}
+
+function fullFact(): ReadCoverageFact {
+  return {
+    pathOrRef: DOC,
+    documentPath: DOC,
+    coverage: "full",
+    startLine: 1,
+    endLine: 20,
+    totalLines: 20,
+    origin: "current_turn",
+  };
+}
+
+afterEach(() => {
+  while (tempDirs.length) {
+    const d = tempDirs.pop();
+    if (d) fs.rmSync(d, { recursive: true, force: true });
+  }
+});
+
+describe("CORR-MW4-01B — persisted read coverage D0", () => {
+  it("S03-PERSIST-01 — remembered partial survives next turn with no new read", async () => {
+    const projectId = "prj:mw4-persist-01";
+    const dbPath = tempDb();
+
+    const provider1 = new FakeConversationProvider({
+      toolScript: [{ kind: "message", text: "[TEST/FAKE] turn1 partial read." }],
+    });
+    const turn1 = await runNoraCognitiveTurn({
+      correlationId: "mw4-corr01b-01a",
+      projectId,
+      messages: [
+        { role: "system", content: "SFIA boundary." },
+        { role: "user", content: "Read partial." },
+      ],
+      provider: provider1,
+      enableTools: false,
+      skipCognitiveStrategy: true,
+      sessionDbPath: dbPath,
+      truthCRevision: REV,
+      groundingNowIso: NOW,
+      readCoverageFacts: [partialFact()],
+    });
+    expect(turn1.mw4Grounding?.readCoverageOverall).toBe("partial");
+
+    const provider2 = new FakeConversationProvider({
+      toolScript: [{ kind: "message", text: "[TEST/FAKE] turn2 no read." }],
+    });
+    const turn2 = await runNoraCognitiveTurn({
+      correlationId: "mw4-corr01b-01b",
+      projectId,
+      messages: [
+        { role: "system", content: "SFIA boundary." },
+        { role: "user", content: "Continue without reread." },
+      ],
+      provider: provider2,
+      enableTools: false,
+      skipCognitiveStrategy: true,
+      sessionDbPath: dbPath,
+      truthCRevision: REV,
+      groundingNowIso: NOW,
+      // no readCoverageFacts — remembered prior must surface
+    });
+
+    expect(turn2.mw4Grounding?.readCoverageDisclosure).toMatch(
+      /REMEMBERED PRIOR-TURN READ COVERAGE/,
+    );
+    expect(turn2.mw4Grounding?.readCoverageDisclosure).toMatch(/partial/);
+    expect(turn2.mw4Grounding?.readCoverageDisclosure).toMatch(
+      new RegExp(DOC.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
+    );
+    expect(turn2.mw4Grounding?.readCoverageOverall).toBe("partial");
+  });
+
+  it("S03-PERSIST-02 — prior full ≠ current revalidation wording", async () => {
+    const projectId = "prj:mw4-persist-02";
+    const dbPath = tempDb();
+    const session = new ProductSqliteSession({
+      projectId,
+      dbPath,
+      sessionKey: "f1-default",
+    });
+    await rememberReadCoverage(
+      session,
+      projectId,
+      [{ pathOrRef: DOC, coverage: "full" }],
+      NOW,
+    );
+    session.close();
+
+    const provider = new FakeConversationProvider({
+      toolScript: [{ kind: "message", text: "[TEST/FAKE] prior full." }],
+    });
+    const turn = await runNoraCognitiveTurn({
+      correlationId: "mw4-corr01b-02",
+      projectId,
+      messages: [
+        { role: "system", content: "SFIA boundary." },
+        { role: "user", content: "Use prior coverage?" },
+      ],
+      provider,
+      enableTools: false,
+      skipCognitiveStrategy: true,
+      sessionDbPath: dbPath,
+      truthCRevision: REV,
+      groundingNowIso: NOW,
+    });
+
+    const disclosure = turn.mw4Grounding?.readCoverageDisclosure ?? "";
+    expect(disclosure).toMatch(/remembered_prior|REMEMBERED PRIOR/);
+    expect(disclosure).toMatch(
+      /does NOT mean the source is currently revalidated/i,
+    );
+    expect(disclosure).toMatch(/NOT a current revalidation/i);
+  });
+
+  it("S03-PERSIST-03 — current full reread supersedes remembered partial", async () => {
+    const projectId = "prj:mw4-persist-03";
+    const dbPath = tempDb();
+
+    const provider1 = new FakeConversationProvider({
+      toolScript: [{ kind: "message", text: "[TEST/FAKE] partial first." }],
+    });
+    await runNoraCognitiveTurn({
+      correlationId: "mw4-corr01b-03a",
+      projectId,
+      messages: [
+        { role: "system", content: "SFIA boundary." },
+        { role: "user", content: "Partial." },
+      ],
+      provider: provider1,
+      enableTools: false,
+      skipCognitiveStrategy: true,
+      sessionDbPath: dbPath,
+      truthCRevision: REV,
+      groundingNowIso: NOW,
+      readCoverageFacts: [partialFact()],
+    });
+
+    const provider2 = new FakeConversationProvider({
+      toolScript: [{ kind: "message", text: "[TEST/FAKE] full reread." }],
+    });
+    const turn2 = await runNoraCognitiveTurn({
+      correlationId: "mw4-corr01b-03b",
+      projectId,
+      messages: [
+        { role: "system", content: "SFIA boundary." },
+        { role: "user", content: "Full reread now." },
+      ],
+      provider: provider2,
+      enableTools: false,
+      skipCognitiveStrategy: true,
+      sessionDbPath: dbPath,
+      truthCRevision: REV,
+      groundingNowIso: NOW,
+      readCoverageFacts: [fullFact()],
+    });
+
+    expect(turn2.mw4Grounding?.readCoverageOverall).toBe("full");
+    const disclosure = turn2.mw4Grounding?.readCoverageDisclosure ?? "";
+    expect(disclosure).toMatch(/CURRENT TURN READ COVERAGE/);
+    expect(disclosure).toMatch(/: full/);
+    // Remembered entry for same doc must be superseded (not duplicated as prior).
+    expect(disclosure).not.toMatch(
+      new RegExp(`${DOC.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}: partial \\(remembered_prior\\)`),
+    );
+  });
+
+  it("S03-PERSIST-04 — compaction preserves grounding marker", async () => {
+    const projectId = "prj:mw4-persist-04";
+    const dbPath = tempDb();
+    const session = new ProductSqliteSession({
+      projectId,
+      dbPath,
+      sessionKey: "f1-default",
+    });
+    const items = Array.from({ length: 6 }, (_, i) =>
+      i % 2 === 0
+        ? userTextItem(`noise-${i}-${"x".repeat(40)}`)
+        : assistantTextItem(`reply-${i}`),
+    );
+    await session.addItems(items);
+    await rememberReadCoverage(
+      session,
+      projectId,
+      [{ pathOrRef: DOC, coverage: "partial" }],
+      NOW,
+    );
+
+    const before = await loadSessionRows(session);
+    expect(before.grounding).toBeTruthy();
+    expect(isGroundingRefsRecord(before.grounding)).toBe(true);
+    expect(isNonReplaySessionMarker(before.grounding)).toBe(true);
+
+    const compacted = await applyCompactionIfNeeded({
+      session,
+      truthCRevision: REV,
+      policy: { itemThreshold: 4, keepRecentCount: 2, maxSummaryChars: 800 },
+      nowIso: NOW,
+    });
+    expect(compacted.applied).toBe(true);
+
+    const after = await loadSessionRows(session);
+    expect(isGroundingRefsRecord(after.grounding)).toBe(true);
+    expect(isNonReplaySessionMarker(after.grounding)).toBe(true);
+    const loaded = await loadGroundingRefsFromSession(session);
+    expect(loaded?.readCoverage?.[0]?.pathOrRef).toBe(DOC);
+    expect(loaded?.readCoverage?.[0]?.coverage).toBe("partial");
+    session.close();
+  });
+});
+```
+
+### `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.corr01d.claimProvenance.d0.test.ts`
+
+```typescript
+/** @vitest-environment node */
+/**
+ * CORR-MW4-01D — claim-specific provenance unbound when Evidence set exists
+ * without structural claim→Evidence bindings.
+ * ZERO LIVE OpenAI.
+ */
+import { describe, expect, it } from "vitest";
+import {
+  buildClaimSpecificProvenanceDisclosure,
+  buildGroundingCognitiveDisclosure,
+  toMw4GroundingTurnSurface,
+  type RememberedEvidenceResolution,
+} from "@/lib/nora-cognitive-runtime";
+
+function resolutionWithEvidenceAB(
+  bindings?: Array<{ claimId: string; evidenceId: string }>,
+): RememberedEvidenceResolution {
+  return {
+    rememberedIds: ["ev:A", "ev:B"],
+    valid: [
+      {
+        evidenceId: "ev:A",
+        sourceId: "src:a",
+        domain: "prj:mw4-d",
+        freshness: "fresh",
+        attributable: true,
+      },
+      {
+        evidenceId: "ev:B",
+        sourceId: "src:b",
+        domain: "prj:mw4-d",
+        freshness: "fresh",
+        attributable: true,
+      },
+    ],
+    downgraded: [],
+    missing: [],
+    claimSourceBindings: bindings,
+  };
+}
+
+describe("CORR-MW4-01D — claim provenance unbound D0", () => {
+  it("Evidence A+B remembered without claim bindings → UNBOUND / NOT RECONSTRUCTABLE", () => {
+    const resolution = resolutionWithEvidenceAB(); // no bindings
+    const disclosure = buildGroundingCognitiveDisclosure(resolution);
+    expect(disclosure).toMatch(/Currently attributable Evidence/);
+    expect(disclosure).toMatch(/ev:A/);
+    expect(disclosure).toMatch(/ev:B/);
+    expect(disclosure).toMatch(/UNBOUND \/ NOT RECONSTRUCTABLE/);
+    expect(disclosure).not.toMatch(/claimX|claim X|→ Evidence ev:A/i);
+
+    const claimOnly = buildClaimSpecificProvenanceDisclosure(null);
+    expect(claimOnly).toMatch(/UNBOUND \/ NOT RECONSTRUCTABLE/);
+    expect(claimOnly).toMatch(/Do not infer which Evidence supported which claim/);
+
+    const surface = toMw4GroundingTurnSurface(resolution);
+    expect(surface.claimSpecificProvenance).toBe("unbound");
+    expect(surface.claimSpecificDisclosure).toMatch(
+      /UNBOUND \/ NOT RECONSTRUCTABLE/,
+    );
+    expect(surface.validIds).toEqual(["ev:A", "ev:B"]);
+  });
+
+  it("must not invent A→claimX binding from Evidence set membership alone", () => {
+    const resolution = resolutionWithEvidenceAB([]);
+    const disclosure = buildClaimSpecificProvenanceDisclosure(
+      resolution.claimSourceBindings,
+    );
+    expect(disclosure).not.toMatch(/claimX/);
+    expect(disclosure).not.toMatch(/claim .* → Evidence ev:A/);
+    expect(disclosure).toMatch(/Evidence ID set continuity ≠ claim→source/);
+  });
+
+  it("structural bindings surface as BOUND without inventing extras", () => {
+    const resolution = resolutionWithEvidenceAB([
+      { claimId: "claim:1", evidenceId: "ev:A" },
+    ]);
+    const disclosure = buildClaimSpecificProvenanceDisclosure(
+      resolution.claimSourceBindings,
+    );
+    expect(disclosure).toMatch(/Claim-specific provenance: BOUND/);
+    expect(disclosure).toMatch(/claim claim:1 → Evidence ev:A/);
+    expect(disclosure).not.toMatch(/ev:B/);
+    expect(toMw4GroundingTurnSurface(resolution).claimSpecificProvenance).toBe(
+      "bound",
+    );
+  });
+});
+```
+
+### `projects/sfia-studio/app/__tests__/project-assistant/mw4.corr01e.resolutionFailure.d0.test.ts`
+
+```typescript
+/** @vitest-environment node */
+/**
+ * CORR-MW4-01E — Evidence lookup: found / not_found / resolution_failed.
+ * resolution_failed must NOT be classified as fabricated_without_resolver_hit.
+ * ZERO LIVE OpenAI.
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import {
+  resolveEvidencePointers,
+  resolveRememberedEvidence,
+  setMw3AvailableEvidenceForTests,
+} from "@/features/project-assistant/mw3AvailableEvidence";
+import type { Evidence } from "@/lib/oa/evidence-review/domain/types";
+import { EVIDENCE_SCHEMA_VERSION } from "@/lib/oa/evidence-review/domain/types";
+import { OA_SCHEMA_VERSION } from "@/lib/oa/doctrine/domain/types";
+import { buildGroundingCognitiveDisclosure } from "@/lib/nora-cognitive-runtime";
+import {
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "@/lib/vertical-slice-runtime";
+
+const NOW = "2026-09-03T10:00:00.000Z";
+const tempDirs: string[] = [];
+const prevReset = process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
+
+function catalogEvidence(input: {
+  evidenceId: string;
+  source: string;
+  projectId: string;
+}): Evidence {
+  return {
+    schemaVersion: EVIDENCE_SCHEMA_VERSION,
+    evidenceId: input.evidenceId,
+    type: "artifact",
+    source: input.source,
+    sourceKind: "external",
+    producedAt: NOW,
+    freshness: "fresh",
+    status: "available",
+    classification: "internal",
+    storageMode: "metadata_only",
+    availability: "available",
+    bindings: { projectId: input.projectId },
+    containsSecrets: false,
+    provenance: {
+      schemaVersion: OA_SCHEMA_VERSION,
+      provenanceRecordId: `prv:${input.evidenceId}`,
+      actor: {
+        actorId: "actor:morris",
+        role: "decision_maker",
+        authorityLevel: "N3",
+      },
+      source: "system",
+      timestamp: NOW,
+      correlationId: `cor:${input.evidenceId}`,
+    },
+    version: 1,
+    createdAt: NOW,
+  };
+}
+
+afterEach(() => {
+  setMw3AvailableEvidenceForTests(null);
+  vi.restoreAllMocks();
+  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+  try {
+    resetRuntimeApplicationServiceForTests();
+  } catch {
+    /* ignore when reset not allowed */
+  }
+  if (prevReset === undefined) delete process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
+  else process.env.SFIA_V2_RUNTIME_ALLOW_RESET = prevReset;
+  while (tempDirs.length) {
+    const d = tempDirs.pop();
+    if (d) fs.rmSync(d, { recursive: true, force: true });
+  }
+});
+
+describe("CORR-MW4-01E — resolution failure D0", () => {
+  it("catalog hit → found + attributable pointer", async () => {
+    const projectId = "prj:mw4-e-found";
+    setMw3AvailableEvidenceForTests({
+      projectId,
+      evidence: [
+        catalogEvidence({
+          evidenceId: "ev:known",
+          source: "src:k",
+          projectId,
+        }),
+      ],
+    });
+    const lookups = await resolveEvidencePointers({
+      projectId,
+      claimedEvidenceIds: ["ev:known"],
+    });
+    expect(lookups).toHaveLength(1);
+    expect(lookups[0]?.lookup).toBe("found");
+    expect(lookups[0]?.pointer?.attributable).toBe(true);
+
+    const resolved = await resolveRememberedEvidence(projectId, ["ev:known"]);
+    expect(resolved.valid.map((p) => p.evidenceId)).toEqual(["ev:known"]);
+    expect(resolved.missing).toEqual([]);
+  });
+
+  it("catalog project matches but ID absent → not_found (lookup)", async () => {
+    const projectId = "prj:mw4-e-nf";
+    setMw3AvailableEvidenceForTests({
+      projectId,
+      evidence: [
+        catalogEvidence({
+          evidenceId: "ev:other",
+          source: "src:o",
+          projectId,
+        }),
+      ],
+    });
+    const lookups = await resolveEvidencePointers({
+      projectId,
+      claimedEvidenceIds: ["ev:absent"],
+    });
+    expect(lookups[0]?.lookup).toBe("not_found");
+    expect(lookups[0]?.pointer).toBeNull();
+  });
+
+  it("no catalog + repository throw → resolution_failed (not fabricated)", async () => {
+    setMw3AvailableEvidenceForTests(null);
+    const projectId = "prj:mw4-e-rf";
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw4-e-rf-"));
+    tempDirs.push(dir);
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    resetRuntimeApplicationServiceForTests();
+    const runtime = getRuntimeApplicationService({
+      productDbPath: path.join(dir, "product.sqlite"),
+      auditMode: "noop",
+    });
+    const repository = runtime.oa?.evidenceReviewServices?.repository;
+    expect(repository).toBeTruthy();
+    vi.spyOn(repository!, "findById").mockRejectedValue(
+      new Error("repository_unavailable_for_test"),
+    );
+
+    const lookups = await resolveEvidencePointers({
+      projectId,
+      claimedEvidenceIds: ["ev:unverifiable"],
+    });
+    expect(lookups[0]?.lookup).toBe("resolution_failed");
+    expect(lookups[0]?.pointer).toBeNull();
+
+    const resolved = await resolveRememberedEvidence(projectId, [
+      "ev:unverifiable",
+    ]);
+    expect(resolved.missing).toEqual([
+      { evidenceId: "ev:unverifiable", reason: "resolution_failed" },
+    ]);
+    expect(
+      resolved.missing.some(
+        (m) => m.reason === "fabricated_without_resolver_hit",
+      ),
+    ).toBe(false);
+
+    const disclosure = buildGroundingCognitiveDisclosure(resolved);
+    expect(disclosure).toMatch(/resolution_failed/);
+    expect(disclosure).toMatch(/RESOLUTION_FAILED/);
+    expect(disclosure).toMatch(/do NOT label as fabricated/i);
+  });
+
+  it("no catalog + repository missing → resolution_failed via unavailable", async () => {
+    setMw3AvailableEvidenceForTests(null);
+    const projectId = "prj:mw4-e-rf-missing";
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    resetRuntimeApplicationServiceForTests();
+    const vsr = await import("@/lib/vertical-slice-runtime");
+    vi.spyOn(vsr, "getRuntimeApplicationService").mockReturnValue({
+      oa: { evidenceReviewServices: {} },
+    } as ReturnType<typeof vsr.getRuntimeApplicationService>);
+
+    const lookups = await resolveEvidencePointers({
+      projectId,
+      claimedEvidenceIds: ["ev:no-repo"],
+    });
+    expect(lookups[0]?.lookup).toBe("resolution_failed");
+
+    const resolved = await resolveRememberedEvidence(projectId, ["ev:no-repo"]);
+    expect(resolved.missing[0]?.reason).toBe("resolution_failed");
+    expect(resolved.missing[0]?.reason).not.toBe(
+      "fabricated_without_resolver_hit",
+    );
+  });
+});
+```
+
+### `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.corr01f.timestamp.d0.test.ts`
+
+```typescript
+/** @vitest-environment node */
+/**
+ * CORR-MW4-01F — rememberedAtIso uses wall-clock ISO by default;
+ * injected nowIso is preserved for tests.
+ * ZERO LIVE OpenAI.
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
+import {
+  ProductSqliteSession,
+  loadGroundingRefsFromSession,
+  rememberEvidenceIds,
+  rememberReadCoverage,
+} from "@/lib/nora-cognitive-runtime";
+
+const tempDirs: string[] = [];
+const EPOCH = "1970-01-01T00:00:00.000Z";
+const INJECTED = "2026-09-03T11:22:33.444Z";
+
+function tempDb(): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-mw4-corr01f-"));
+  tempDirs.push(dir);
+  return path.join(dir, "nora-session.sqlite");
+}
+
+afterEach(() => {
+  while (tempDirs.length) {
+    const d = tempDirs.pop();
+    if (d) fs.rmSync(d, { recursive: true, force: true });
+  }
+});
+
+describe("CORR-MW4-01F — grounding timestamps D0", () => {
+  it("injected nowIso is preserved on evidence + read coverage", async () => {
+    const projectId = "prj:mw4-ts-inject";
+    const dbPath = tempDb();
+    const session = new ProductSqliteSession({
+      projectId,
+      dbPath,
+      sessionKey: "f1-default",
+    });
+
+    await rememberEvidenceIds(session, projectId, ["ev:1"], INJECTED);
+    await rememberReadCoverage(
+      session,
+      projectId,
+      [{ pathOrRef: "docs/a.md", coverage: "partial" }],
+      INJECTED,
+    );
+
+    const loaded = await loadGroundingRefsFromSession(session);
+    expect(loaded?.evidenceRefs[0]?.rememberedAtIso).toBe(INJECTED);
+    expect(loaded?.readCoverage?.[0]?.rememberedAtIso).toBe(INJECTED);
+    session.close();
+  });
+
+  it("without nowIso, rememberedAtIso is NOT epoch 1970-01-01", async () => {
+    const projectId = "prj:mw4-ts-wall";
+    const dbPath = tempDb();
+    const session = new ProductSqliteSession({
+      projectId,
+      dbPath,
+      sessionKey: "f1-default",
+    });
+
+    const before = Date.now();
+    await rememberEvidenceIds(session, projectId, ["ev:wall"]);
+    await rememberReadCoverage(session, projectId, [
+      { pathOrRef: "docs/b.md", coverage: "full" },
+    ]);
+    const after = Date.now();
+
+    const loaded = await loadGroundingRefsFromSession(session);
+    const evIso = loaded?.evidenceRefs[0]?.rememberedAtIso ?? "";
+    const covIso = loaded?.readCoverage?.[0]?.rememberedAtIso ?? "";
+
+    expect(evIso).not.toBe(EPOCH);
+    expect(covIso).not.toBe(EPOCH);
+
+    const evMs = Date.parse(evIso);
+    const covMs = Date.parse(covIso);
+    expect(Number.isFinite(evMs)).toBe(true);
+    expect(Number.isFinite(covMs)).toBe(true);
+    // Allow small clock skew around the call window.
+    expect(evMs).toBeGreaterThanOrEqual(before - 5_000);
+    expect(evMs).toBeLessThanOrEqual(after + 5_000);
+    expect(covMs).toBeGreaterThanOrEqual(before - 5_000);
+    expect(covMs).toBeLessThanOrEqual(after + 5_000);
+    session.close();
+  });
+});
+```
+
+### `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s03.partiality.d0.test.ts`
+
+```typescript
+/** @vitest-environment node */
+/**
+ * MW4-S03 / CORR-MW4-01A — Multi-doc honest partiality from REAL summary shapes.
+ * ZERO LIVE OpenAI.
+ *
+ * Contract: git_local_read_file summary `read <path> Lstart-end/total (...) [hasMore]`
+ * FULL only when L1-total with no hasMore. L100-N/N is PARTIAL (hard negative).
+ * Search ≠ read.
+ */
+import { describe, expect, it } from "vitest";
+import {
+  aggregateReadCoverage,
+  buildReadCoverageDisclosure,
+  deriveReadCoverageFromToolEvent,
+} from "@/lib/nora-cognitive-runtime";
+
+describe("MW4-S03 — read coverage partiality D0 (CORR-01A shapes)", () => {
+  it("full — L1-total without hasMore", () => {
+    const fact = deriveReadCoverageFromToolEvent({
+      toolName: "git_local_read_file",
+      status: "succeeded",
+      pathOrRef: "docs/a.md",
+      summary: "read docs/a.md L1-10/10 (100 chars)",
+    });
+    expect(fact).not.toBeNull();
+    expect(fact?.coverage).toBe("full");
+    expect(fact?.startLine).toBe(1);
+    expect(fact?.endLine).toBe(10);
+    expect(fact?.totalLines).toBe(10);
+  });
+
+  it("suffix L2-10/10 → partial (not full even when end===total)", () => {
+    const fact = deriveReadCoverageFromToolEvent({
+      toolName: "git_local_read_file",
+      status: "succeeded",
+      pathOrRef: "docs/b.md#L2-10",
+      summary: "read docs/b.md L2-10/10 (90 chars)",
+    });
+    expect(fact?.coverage).toBe("partial");
+    expect(fact?.signals).toContain("suffix_range_not_full");
+  });
+
+  it("prefix L1-5/10 → partial", () => {
+    const fact = deriveReadCoverageFromToolEvent({
+      toolName: "git_local_read_file",
+      status: "succeeded",
+      pathOrRef: "docs/c.md#L1-5",
+      summary: "read docs/c.md L1-5/10 (40 chars)",
+    });
+    expect(fact?.coverage).toBe("partial");
+  });
+
+  it("middle L20-40/100 → partial", () => {
+    const fact = deriveReadCoverageFromToolEvent({
+      toolName: "git_local_read_file",
+      status: "succeeded",
+      pathOrRef: "docs/d.md#L20-40",
+      summary: "read docs/d.md L20-40/100 (200 chars)",
+    });
+    expect(fact?.coverage).toBe("partial");
+  });
+
+  it("HARD NEGATIVE — L100-200/200 is PARTIAL (not full)", () => {
+    const fact = deriveReadCoverageFromToolEvent({
+      toolName: "git_local_read_file",
+      status: "succeeded",
+      pathOrRef: "docs/big.md#L100-200",
+      summary: "read docs/big.md L100-200/200 (800 chars)",
+    });
+    expect(fact?.coverage).toBe("partial");
+    expect(fact?.coverage).not.toBe("full");
+    expect(fact?.startLine).toBe(100);
+    expect(fact?.endLine).toBe(200);
+    expect(fact?.totalLines).toBe(200);
+  });
+
+  it("hasMore in summary → partial", () => {
+    const fact = deriveReadCoverageFromToolEvent({
+      toolName: "git_local_read_file",
+      status: "succeeded",
+      pathOrRef: "docs/e.md#L1-10",
+      summary: "read docs/e.md L1-10/50 (100 chars) hasMore",
+    });
+    expect(fact?.coverage).toBe("partial");
+    expect(fact?.hasMore).toBe(true);
+  });
+
+  it("git_local_search_content success → null fact (search ≠ read)", () => {
+    const fact = deriveReadCoverageFromToolEvent({
+      toolName: "git_local_search_content",
+      status: "succeeded",
+      pathOrRef: "docs/a.md",
+      summary: "content « foo » → 2 hit(s)",
+    });
+    expect(fact).toBeNull();
+  });
+
+  it("denied / failed git_local_read_file", () => {
+    expect(
+      deriveReadCoverageFromToolEvent({
+        toolName: "git_local_read_file",
+        status: "denied",
+        pathOrRef: "method/secret.md",
+        summary: "denied by path policy",
+      })?.coverage,
+    ).toBe("denied");
+    expect(
+      deriveReadCoverageFromToolEvent({
+        toolName: "git_local_read_file",
+        status: "failed",
+        pathOrRef: "docs/missing.md",
+        summary: "Fichier introuvable.",
+      })?.coverage,
+    ).toBe("failed");
+  });
+
+  it("mixed coverage aggregates to overall mixed_partial with honesty disclosure", () => {
+    const agg = aggregateReadCoverage([
+      { pathOrRef: "a.md", coverage: "full" },
+      { pathOrRef: "b.md", coverage: "partial" },
+      { pathOrRef: "c.md", coverage: "failed" },
+    ]);
+    expect(agg.overall).toBe("mixed_partial");
+    const disclosure = buildReadCoverageDisclosure(agg);
+    expect(disclosure).toMatch(/Overall coverage: partial \(mixed\)/);
+    expect(disclosure).toMatch(/refuse false completeness/);
+  });
+});
+```
+
+### `projects/sfia-studio/app/__tests__/nora-eval/mw4.grounding.eval.test.ts`
+
+```typescript
+/** @vitest-environment node */
+/**
+ * MW4 eval catalog scenario D0 — MODELED + EVAL.
+ * Fake/deterministic only — ZERO REAL OpenAI.
+ *
+ * Helper (observeMw4FromRuntime) may still pass unit semantics.
+ * Product-bound observeMw4FromProductPath MUST fail if L100-N/N classified full.
+ */
+import { describe, expect, it } from "vitest";
+import { getScenario } from "@/lib/nora-eval/catalog";
+import { runD0Scenario } from "@/lib/nora-eval/d0Runner";
+import {
+  observeMw4FromProductPath,
+  observeMw4FromRuntime,
+} from "@/lib/nora-eval/mw4Observe";
+import {
+  deriveReadCoverageFromToolEvent,
+} from "@/lib/nora-cognitive-runtime";
+
+describe("MW4 eval — grounding durability scenario", () => {
+  it("catalog includes mw4.s01.grounding-durability", () => {
+    const s = getScenario("mw4.s01.grounding-durability");
+    expect(s).toBeDefined();
+    expect(s?.storyIds).toEqual(["MW4-S01", "MW4-S02", "MW4-S03"]);
+    expect(s?.hardInvariants).toContain("mw4_grounding_durability");
+    expect(s?.hardInvariants).toContain("mw4_narrative_evidence_honesty");
+    expect(s?.hardInvariants).toContain("mw4_read_partiality");
+  });
+
+  it("observeMw4FromRuntime (helper/scorer) passes MW4 facts", () => {
+    const obs = observeMw4FromRuntime();
+    expect(obs.mw4GroundingOk).toBe(true);
+    expect(obs.observedObservableIds).toContain("obs.grounding.durability");
+    expect(obs.observedObservableIds).toContain("obs.read.partiality");
+  });
+
+  it("HARD — L100-N/N classified full would break product-bound gate", () => {
+    const fact = deriveReadCoverageFromToolEvent({
+      toolName: "git_local_read_file",
+      status: "succeeded",
+      pathOrRef: "docs/big.md#L100-200",
+      summary: "read docs/big.md L100-200/200 (800 chars)",
+    });
+    // Precondition for product-bound eval: derivation itself must be partial.
+    expect(fact?.coverage).toBe("partial");
+    expect(fact?.coverage).not.toBe("full");
+  });
+
+  it("observeMw4FromProductPath passes and treats L100-N/N as partial", async () => {
+    const obs = await observeMw4FromProductPath();
+    expect(obs.mw4GroundingOk).toBe(true);
+    expect(obs.observedObservableIds).toContain("obs.read.partiality");
+    expect(obs.observedObservableIds).toContain("obs.grounding.durability");
+  });
+
+  it("D0 scenario run includes MW4 hard invariants PASS (product-bound)", async () => {
+    const result = await runD0Scenario("mw4.s01.grounding-durability");
+    expect(result.passFail).toBe("PASS");
+    expect(
+      result.scorers.some(
+        (s) =>
+          s.scorerId === "hard.mw4_grounding" && s.passFail === "PASS",
+      ),
+    ).toBe(true);
+    expect(
+      result.scorers.some(
+        (s) =>
+          s.scorerId === "hard.mw4_narrative" && s.passFail === "PASS",
+      ),
+    ).toBe(true);
+    expect(
+      result.scorers.some(
+        (s) =>
+          s.scorerId === "hard.mw4_partiality" && s.passFail === "PASS",
+      ),
+    ).toBe(true);
+  });
+});
+```
+
+### `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s01.grounding.durability.d0.test.ts`
 
 ```typescript
 /** @vitest-environment node */
@@ -2631,9 +4349,9 @@ describe("MW4-S01 — grounding durability D0", () => {
     expect(turn2.mw4Grounding?.disclosure).toMatch(/ZERO authority until re-resolved/);
   });
 });
-
 ```
-### NEW FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s02.recovery.narrative.d0.test.ts`
+
+### `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s02.recovery.narrative.d0.test.ts`
 
 ```typescript
 /** @vitest-environment node */
@@ -2730,132 +4448,9 @@ describe("MW4-S02 — recovery narrative honesty D0", () => {
     expect(stop.outcome).toBe("COGNITIVE_STOP");
   });
 });
-
 ```
-### NEW FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.s03.partiality.d0.test.ts`
 
-```typescript
-/** @vitest-environment node */
-/**
- * MW4-S03 — Multi-doc honest partiality from tool telemetry D0.
- * ZERO LIVE OpenAI.
- */
-import { describe, expect, it } from "vitest";
-import {
-  aggregateReadCoverage,
-  buildReadCoverageDisclosure,
-  deriveReadCoverageFromToolEvent,
-} from "@/lib/nora-cognitive-runtime";
-import { collectToolTelemetry } from "@/features/project-assistant/collectToolTelemetry";
-import type { TechnicalEvent } from "@/lib/platform/observability/types";
-
-function toolEvent(
-  type: "TOOL_SUCCEEDED" | "TOOL_DENIED" | "TOOL_FAILED",
-  detail: Record<string, unknown>,
-): TechnicalEvent {
-  return {
-    type,
-    correlationId: "mw4-s03",
-    timestamp: "2026-09-03T12:00:00.000Z",
-    detail,
-  } as TechnicalEvent;
-}
-
-describe("MW4-S03 — read coverage partiality D0", () => {
-  it("full read when succeeded without truncation signals", () => {
-    const fact = deriveReadCoverageFromToolEvent({
-      toolName: "git_local_read_file",
-      status: "succeeded",
-      pathOrRef: "docs/a.md",
-      summary: "Read complete file",
-    });
-    expect(fact?.coverage).toBe("full");
-  });
-
-  it("partial when truncated / hasMore / ranged signals present", () => {
-    const truncated = deriveReadCoverageFromToolEvent({
-      toolName: "git_local_read_file",
-      status: "succeeded",
-      pathOrRef: "docs/b.md",
-      summary: "content truncated at limit",
-    });
-    expect(truncated?.coverage).toBe("partial");
-
-    const ranged = deriveReadCoverageFromToolEvent({
-      toolName: "git_local_read_file",
-      status: "succeeded",
-      pathOrRef: "docs/c.md",
-      detailText: "hasMore=true offset=100",
-    });
-    expect(ranged?.coverage).toBe("partial");
-  });
-
-  it("failed / denied / absent statuses", () => {
-    expect(
-      deriveReadCoverageFromToolEvent({
-        toolName: "git_local_read_file",
-        status: "failed",
-        pathOrRef: "docs/d.md",
-      })?.coverage,
-    ).toBe("failed");
-    expect(
-      deriveReadCoverageFromToolEvent({
-        toolName: "git_local_read_file",
-        status: "denied",
-        pathOrRef: "docs/e.md",
-      })?.coverage,
-    ).toBe("denied");
-  });
-
-  it("mixed coverage aggregates to overall partial", () => {
-    const agg = aggregateReadCoverage([
-      { pathOrRef: "a.md", coverage: "full" },
-      { pathOrRef: "b.md", coverage: "partial" },
-      { pathOrRef: "c.md", coverage: "failed" },
-    ]);
-    expect(agg.overall).toBe("mixed_partial");
-    const disclosure = buildReadCoverageDisclosure(agg);
-    expect(disclosure).toMatch(/Overall coverage: partial \(mixed\)/);
-    expect(disclosure).toMatch(/refuse false completeness/);
-    expect(disclosure).toMatch(/a\.md: full/);
-    expect(disclosure).toMatch(/b\.md: partial/);
-    expect(disclosure).toMatch(/c\.md: failed/);
-  });
-
-  it("collectToolTelemetry derives coverage from EventSink events", () => {
-    const { readCoverage } = collectToolTelemetry([
-      toolEvent("TOOL_SUCCEEDED", {
-        toolName: "git_local_read_file",
-        pathOrRef: "README.md",
-        summary: "ok",
-        truncated: false,
-        source: { kind: "git_local", label: "README", pathOrRef: "README.md" },
-      }),
-      toolEvent("TOOL_SUCCEEDED", {
-        toolName: "git_local_read_file",
-        pathOrRef: "LARGE.md",
-        summary: "ranged read",
-        truncated: true,
-        hasMore: true,
-        source: { kind: "git_local", label: "LARGE", pathOrRef: "LARGE.md" },
-      }),
-      toolEvent("TOOL_DENIED", {
-        toolName: "git_local_read_file",
-        pathOrRef: "secret.env",
-        summary: "denied by path policy",
-      }),
-    ]);
-    expect(readCoverage.facts.length).toBe(3);
-    expect(readCoverage.overall).toBe("mixed_partial");
-    const large = readCoverage.facts.find((f) => f.pathOrRef === "LARGE.md");
-    expect(large?.coverage).toBe("partial");
-    const denied = readCoverage.facts.find((f) => f.pathOrRef === "secret.env");
-    expect(denied?.coverage).toBe("denied");
-  });
-});
-
-```
-### NEW FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.cumulative.mw0-mw4.d0.test.ts`
+### `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw4.cumulative.mw0-mw4.d0.test.ts`
 
 ```typescript
 /** @vitest-environment node */
@@ -3027,9 +4622,9 @@ describe("MW4 cumulative — MW0–MW4 Session + STOP + re-resolve", () => {
     expect(turn2.cognitiveStopDecision).toBeUndefined();
   });
 });
-
 ```
-### NEW FILE: `projects/sfia-studio/app/__tests__/project-assistant/mw4.s01.evidence.reresolve.product.d0.test.ts`
+
+### `projects/sfia-studio/app/__tests__/project-assistant/mw4.s01.evidence.reresolve.product.d0.test.ts`
 
 ```typescript
 /** @vitest-environment node */
@@ -3361,71 +4956,25 @@ describe("MW4-S01 — product Evidence re-resolve D0", () => {
     expect(follow.mw4?.disclosure).toMatch(/Withdrawn \/ downgraded/);
   });
 });
-
-```
-### NEW FILE: `projects/sfia-studio/app/__tests__/nora-eval/mw4.grounding.eval.test.ts`
-
-```typescript
-/** @vitest-environment node */
-/**
- * MW4 eval catalog scenario D0 — MODELED + EVAL.
- * Fake/deterministic only — ZERO REAL OpenAI.
- */
-import { describe, expect, it } from "vitest";
-import { getScenario } from "@/lib/nora-eval/catalog";
-import { runD0Scenario } from "@/lib/nora-eval/d0Runner";
-import { observeMw4FromRuntime } from "@/lib/nora-eval/mw4Observe";
-
-describe("MW4 eval — grounding durability scenario", () => {
-  it("catalog includes mw4.s01.grounding-durability", () => {
-    const s = getScenario("mw4.s01.grounding-durability");
-    expect(s).toBeDefined();
-    expect(s?.storyIds).toEqual(["MW4-S01", "MW4-S02", "MW4-S03"]);
-    expect(s?.hardInvariants).toContain("mw4_grounding_durability");
-    expect(s?.hardInvariants).toContain("mw4_narrative_evidence_honesty");
-    expect(s?.hardInvariants).toContain("mw4_read_partiality");
-  });
-
-  it("observeMw4FromRuntime passes MW4 facts", () => {
-    const obs = observeMw4FromRuntime();
-    expect(obs.mw4GroundingOk).toBe(true);
-    expect(obs.observedObservableIds).toContain("obs.grounding.durability");
-    expect(obs.observedObservableIds).toContain("obs.read.partiality");
-  });
-
-  it("D0 scenario run includes MW4 hard invariants PASS", async () => {
-    const result = await runD0Scenario("mw4.s01.grounding-durability");
-    expect(result.passFail).toBe("PASS");
-    expect(
-      result.scorers.some(
-        (s) =>
-          s.scorerId === "hard.mw4_grounding" && s.passFail === "PASS",
-      ),
-    ).toBe(true);
-    expect(
-      result.scorers.some(
-        (s) =>
-          s.scorerId === "hard.mw4_narrative" && s.passFail === "PASS",
-      ),
-    ).toBe(true);
-    expect(
-      result.scorers.some(
-        (s) =>
-          s.scorerId === "hard.mw4_partiality" && s.passFail === "PASS",
-      ),
-    ).toBe(true);
-  });
-});
-
 ```
 
 
 ---
 
-## 18. Final verdict
+## 13. Review Handoff publication (this cycle)
 
-# READY FOR CHATGPT CRITICAL MW4 DELIVERY REVIEW
+Mode: publish-in-cycle · L3 bounded · branch `sfia/review-handoff` · file `sfia-review-handoff/latest-chatgpt-review.md` only.
 
-**Next gate:** ChatGPT reads this handoff → CRITICAL MW4 Delivery review → corrections if needed → requalify bounded REAL if appropriate → Morris decides next gate.
+Prior tip preserved historically at `b49786ee…` / blob `d670976a…`.
 
-MW4 closure NOT authorized. MW5 NOT authorized. Project Git integration NOT authorized by this cycle.
+After publish: return to delivery branch; project HEAD remains `deb34943…`; candidate remains uncommitted/unpushed.
+
+---
+
+## 14. Final verdict
+
+**READY FOR CHATGPT CRITICAL MW4 CORR-01 RE-REVIEW**
+
+STOP. Do not commit/push/PR project candidate. Do not LIVE OpenAI. Do not close MW4. Do not start MW5.
+
+Next: ChatGPT CRITICAL CORR-MW4-01 re-review against product boundaries → if PASS, requalify whether/how bounded MW4 REAL → Morris decides next gate.
