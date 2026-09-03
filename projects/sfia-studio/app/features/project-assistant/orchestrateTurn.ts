@@ -9,6 +9,10 @@ import {
   memoryBCompactionPiloteNotice,
   runNoraCognitiveTurn,
   formatCognitiveStopPiloteNotice,
+  aggregateReadCoverage,
+  rememberReadCoverage,
+  ProductSqliteSession,
+  resolveNoraSessionSqlitePath,
   type SemanticCognitiveWorkloadAssessment,
   type Mw3ContradictionAssessmentInput,
 } from "@/lib/nora-cognitive-runtime";
@@ -18,9 +22,11 @@ import { buildProjectSystemPrompt } from "./buildProjectSystemPrompt";
 import { collectToolTelemetry } from "./collectToolTelemetry";
 import { ProjectAssistantMemoryEventSink } from "./memoryEventSink";
 import { resolveAssistantMode } from "./resolveAssistantMode";
+import { resolveRememberedEvidence } from "./mw3AvailableEvidence";
 import type {
   AssistantHistoryMessage,
   Mw3CognitiveSurfaceDto,
+  Mw4GroundingSurfaceDto,
   ProjectAssistantContextDto,
   ProjectAssistantSendResult,
 } from "./types";
@@ -79,6 +85,22 @@ function toMw3Surface(
     mayContinue:
       stop.cognitiveStop !== true && stop.progression === "continue",
     notTechnicalFailure: stop.progression !== "technical_failure",
+  };
+}
+
+function toMw4Surface(
+  turn: Awaited<ReturnType<typeof runNoraCognitiveTurn>>,
+): Mw4GroundingSurfaceDto | null {
+  const g = turn.mw4Grounding;
+  if (!g) return null;
+  return {
+    rememberedIds: [...g.rememberedIds],
+    validIds: [...g.validIds],
+    downgradedIds: [...g.downgradedIds],
+    missingIds: [...g.missingIds],
+    disclosure: g.disclosure,
+    readCoverageOverall: g.readCoverageOverall,
+    readCoverageDisclosure: g.readCoverageDisclosure ?? null,
   };
 }
 
@@ -144,6 +166,8 @@ export async function orchestrateProjectAssistantTurn(input: {
    * Server-side; surfaces mw3 DTO without inventing Evidence.
    */
   contradictionAssessment?: Mw3ContradictionAssessmentInput | null;
+  /** MW4-S02 — attach post-Evidence / recovery narrative policy disclosure. */
+  postEvidenceNarrativePolicy?: boolean;
 }): Promise<ProjectAssistantSendResult> {
   const content = input.content.trim();
   if (!content) {
@@ -232,10 +256,62 @@ export async function orchestrateProjectAssistantTurn(input: {
       trustedSfiaProfile: null,
       semanticCognitiveWorkload: input.semanticCognitiveWorkload ?? null,
       contradictionAssessment: input.contradictionAssessment ?? null,
+      resolveRememberedEvidence,
+      postEvidenceNarrativePolicy: input.postEvidenceNarrativePolicy === true,
     });
 
-    const { toolEvents, sources } = collectToolTelemetry(sink.events);
+    const { toolEvents, sources, readCoverage } = collectToolTelemetry(
+      sink.events,
+    );
+    // Persist read coverage for cross-turn honesty (existing session_items).
+    if (readCoverage.facts.length > 0 && !input.simulateMemoryBUnavailable) {
+      try {
+        const dbPath = resolveNoraSessionSqlitePath(input.sessionDbPath);
+        const session = new ProductSqliteSession({
+          projectId: project.projectId,
+          dbPath,
+          sessionKey: "f1-default",
+        });
+        try {
+          await rememberReadCoverage(
+            session,
+            project.projectId,
+            readCoverage.facts.map((f) => ({
+              pathOrRef: f.pathOrRef,
+              coverage: f.coverage,
+            })),
+          );
+        } finally {
+          session.close();
+        }
+      } catch {
+        /* Session path may be unavailable — coverage still on DTO via mw4. */
+      }
+    }
+
+    const coverageAggregate = aggregateReadCoverage(readCoverage.facts);
     const mw3 = toMw3Surface(turn);
+    let mw4 = toMw4Surface(turn);
+    if (coverageAggregate.facts.length > 0) {
+      mw4 = {
+        rememberedIds: mw4?.rememberedIds ?? [],
+        validIds: mw4?.validIds ?? [],
+        downgradedIds: mw4?.downgradedIds ?? [],
+        missingIds: mw4?.missingIds ?? [],
+        disclosure: mw4?.disclosure ?? "",
+        readCoverageOverall:
+          coverageAggregate.overall === "mixed_partial"
+            ? "partial"
+            : coverageAggregate.overall === "none"
+              ? "none"
+              : coverageAggregate.overall,
+        readCoverageDisclosure:
+          turn.mw4Grounding?.readCoverageDisclosure ??
+          (coverageAggregate.facts.length > 0
+            ? `Overall coverage: ${coverageAggregate.overall}`
+            : null),
+      };
+    }
     const stopNotice = formatCognitiveStopPiloteNotice(
       turn.cognitiveStopDecision ?? {
         progression: "continue",
@@ -276,6 +352,7 @@ export async function orchestrateProjectAssistantTurn(input: {
       stalePriorInvalidated:
         turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
       mw3,
+      mw4,
     };
   } catch (error) {
     const message =

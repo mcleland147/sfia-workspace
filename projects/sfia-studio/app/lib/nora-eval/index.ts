@@ -31,6 +31,12 @@ export {
   type Mw3RuntimeFacts,
 } from "./mw3Observe";
 export {
+  observeMw4FromRuntime,
+  observeMw4FromProductPath,
+  observationFromMw4Facts,
+  type Mw4RuntimeFacts,
+} from "./mw4Observe";
+export {
   evaluateMw2S01Matrix,
   evaluateMw2S02Matrix,
   summarizeMw2EvalMatrix,

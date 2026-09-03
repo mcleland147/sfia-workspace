@@ -143,3 +143,53 @@ export {
   buildRunnerModelSettingsForEffort,
   type NoraRunnerModelSettings,
 } from "./reasoningModelSettings";
+export {
+  GROUNDING_REFS_TYPE,
+  acceptGroundingRefsForProject,
+  appendGroundingCognitiveDisclosure,
+  buildClaimSpecificProvenanceDisclosure,
+  buildGroundingCognitiveDisclosure,
+  classifyRememberedEvidence,
+  groundingRecordToStoredItem,
+  isGroundingRefsRecord,
+  isNonReplaySessionMarker,
+  loadGroundingRefsFromSession,
+  parseStoredGroundingRefsRecord,
+  rememberEvidenceIds,
+  rememberReadCoverage,
+  toMw4GroundingTurnSurface,
+  upsertGroundingRefsRecord,
+} from "./groundingDurability";
+export type {
+  GroundingEvidenceRef,
+  GroundingReadCoverageKind,
+  GroundingReadCoverageRef,
+  GroundingRefsRecord,
+  Mw4GroundingTurnSurface,
+  RememberedEvidenceDowngradeReason,
+  RememberedEvidenceMissingReason,
+  RememberedEvidenceResolution,
+} from "./groundingDurability";
+export {
+  POST_EVIDENCE_NARRATIVE_POLICY,
+  appendPostEvidenceNarrativePolicyDisclosure,
+  buildPostEvidenceNarrativePolicyDisclosure,
+} from "./postEvidenceNarrativePolicy";
+export type { PostEvidenceNarrativePolicy } from "./postEvidenceNarrativePolicy";
+export {
+  aggregateReadCoverage,
+  appendReadCoverageDisclosure,
+  buildReadCoverageDisclosure,
+  classifyGitLocalReadCompleteness,
+  deriveReadCoverageFromToolEvent,
+  mergeCurrentAndRememberedCoverage,
+  MW4_DOCUMENT_READ_TOOL,
+  overallToGroundingCoverageKind,
+  parseGitLocalReadCoverageSignals,
+} from "./readCoverage";
+export type {
+  ParsedReadRange,
+  ReadCoverageAggregate,
+  ReadCoverageFact,
+  ReadCoverageKind,
+} from "./readCoverage";

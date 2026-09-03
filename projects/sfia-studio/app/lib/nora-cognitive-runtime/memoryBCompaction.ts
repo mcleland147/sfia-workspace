@@ -546,14 +546,27 @@ export function parseStoredCompactionRecord(
 
 export type LoadedSessionRows = {
   compaction: MemoryBCompactionRecord | null;
+  /** MW4 — non-replay grounding marker (may be null). */
+  grounding: unknown | null;
   conversation: Array<{ seq: number; item: AgentInputItem }>;
 };
+
+const GROUNDING_REFS_TYPE = "sfia_grounding_refs_v1";
+
+function isGroundingMarker(item: unknown): boolean {
+  return (
+    typeof item === "object" &&
+    item !== null &&
+    (item as { type?: string }).type === GROUNDING_REFS_TYPE
+  );
+}
 
 export async function loadSessionRows(
   session: ProductSqliteSession,
 ): Promise<LoadedSessionRows> {
   const rows = session.listItemRows();
   let compaction: MemoryBCompactionRecord | null = null;
+  let grounding: unknown | null = null;
   const conversation: Array<{ seq: number; item: AgentInputItem }> = [];
   for (const row of rows) {
     const parsed = JSON.parse(row.item_json) as AgentInputItem;
@@ -562,9 +575,13 @@ export async function loadSessionRows(
       compaction = record;
       continue;
     }
+    if (isGroundingMarker(parsed)) {
+      grounding = parsed;
+      continue;
+    }
     conversation.push({ seq: row.seq, item: parsed });
   }
-  return { compaction, conversation };
+  return { compaction, grounding, conversation };
 }
 
 export function resolveReplayItems(input: {
@@ -646,6 +663,10 @@ export async function applyCompactionIfNeeded(input: {
 
   await input.session.replaceItemsAtomically([
     compactionRecordToStoredItem(record),
+    // MW4 — preserve non-authoritative grounding refs across compaction.
+    ...(loaded.grounding
+      ? [loaded.grounding as AgentInputItem]
+      : []),
     ...recent.map((r) => r.item),
   ]);
 

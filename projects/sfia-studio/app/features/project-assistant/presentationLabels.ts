@@ -148,6 +148,22 @@ export const W4C_POST_EVIDENCE_HEADING =
 
 export const W4C_NEXT_ACTION_LEAD = "Ce que vous pouvez faire ensuite";
 
+/**
+ * MW4-S02 — structural Pilote-facing honesty labels (≠ keyword authority hacks).
+ * Evidence Studio-owned; Nora interprets ≠ replaces; progress ≠ SUCCESS;
+ * RecoveryRecommendation ≠ HumanDecision / Confirmation / GO.
+ */
+export const MW4_POST_EVIDENCE_NARRATIVE_LABELS = Object.freeze({
+  evidenceStudioOwned: "Evidence — propriété Studio",
+  noraInterpretsNotReplaces: "Nora interprète ≠ remplace Evidence",
+  progressNotSuccess: "Progress ≠ SUCCESS",
+  recoveryRecommendationOnly: "RecoveryRecommendation — recommandation seule",
+  notHumanDecision: "≠ HumanDecision",
+  notConfirmation: "≠ Confirmation",
+  notGo: "≠ GO Morris",
+  cognitiveStopIntact: "Cognitive STOP MW3 intact",
+} as const);
+
 export function w1RecoveryDisclosures(): {
   durable: readonly string[];
   nonDurable: readonly string[];

@@ -63,6 +63,23 @@ export type Mw3CognitiveSurfaceDto = {
   notTechnicalFailure?: boolean;
 };
 
+/** MW4 grounding durability surface — process-local; ≠ Evidence authority. */
+export type Mw4GroundingSurfaceDto = {
+  rememberedIds: string[];
+  validIds: string[];
+  downgradedIds: string[];
+  missingIds: string[];
+  disclosure: string;
+  readCoverageOverall?:
+    | "full"
+    | "partial"
+    | "failed"
+    | "denied"
+    | "absent"
+    | "none";
+  readCoverageDisclosure?: string | null;
+};
+
 export type AssistantHistoryMessage = {
   role: "user" | "assistant";
   content: string;
@@ -162,6 +179,8 @@ export type ProjectAssistantSendSuccess = {
   stalePriorInvalidated?: boolean;
   /** MW3 — contradiction / Cognitive STOP surface (when assessed). */
   mw3?: Mw3CognitiveSurfaceDto | null;
+  /** MW4 — grounding durability / partiality surface (when assessed). */
+  mw4?: Mw4GroundingSurfaceDto | null;
   f2?: F2TurnPayload;
 };
 
