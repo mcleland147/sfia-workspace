@@ -444,8 +444,9 @@ MW5: NOT AUTHORIZED
 
 REVIEW
 FULL Review Pack: PASS (this document)
-L3 Review Handoff: (published after this write)
-Handoff tip/blob: (filled post-publish)
+L3 Review Handoff: PASS
+Handoff tip: `d41bc564f441ec90c540c52f50b63cc65e48bd43`
+Handoff blob: `51b5b6fb289ab08e04d8ac37cee0906b996982ba`
 
 ---
 
