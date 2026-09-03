@@ -8,7 +8,9 @@ import {
   memoryBPiloteNotice,
   memoryBCompactionPiloteNotice,
   runNoraCognitiveTurn,
+  formatCognitiveStopPiloteNotice,
   type SemanticCognitiveWorkloadAssessment,
+  type Mw3ContradictionAssessmentInput,
 } from "@/lib/nora-cognitive-runtime";
 import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
 import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
@@ -18,6 +20,7 @@ import { ProjectAssistantMemoryEventSink } from "./memoryEventSink";
 import { resolveAssistantMode } from "./resolveAssistantMode";
 import type {
   AssistantHistoryMessage,
+  Mw3CognitiveSurfaceDto,
   ProjectAssistantContextDto,
   ProjectAssistantSendResult,
 } from "./types";
@@ -35,13 +38,48 @@ function buildEphemeralNotice(
     | "compacted_with_loss"
     | "stale_invalidated",
   stalePriorInvalidated?: boolean,
+  cognitiveStopNotice?: string | null,
 ): string {
   const base = memoryBPiloteNotice(memoryBAvailability);
   const compaction = memoryBCompactionPiloteNotice(memoryBCompactionState, {
     stalePriorInvalidated,
   });
-  if (!compaction) return base;
-  return `${compaction} ${base}`;
+  const parts = [cognitiveStopNotice, compaction, base].filter(
+    (p): p is string => typeof p === "string" && p.trim().length > 0,
+  );
+  return parts.join(" ");
+}
+
+function toMw3Surface(
+  turn: Awaited<ReturnType<typeof runNoraCognitiveTurn>>,
+): Mw3CognitiveSurfaceDto | null {
+  const disposition = turn.contradictionDisposition;
+  const stop = turn.cognitiveStopDecision;
+  if (!disposition || !stop) return null;
+  return {
+    disposition: disposition.disposition,
+    progression: stop.outcome,
+    cognitiveStop: stop.cognitiveStop,
+    reason: stop.anatomy?.reason ?? disposition.disclosure,
+    evidenceIds: stop.anatomy?.contradictionEvidenceIds ?? [
+      ...disposition.acceptedEvidenceIds,
+    ],
+    sourceIds: stop.anatomy?.sourceIds ?? [...disposition.acceptedSourceIds],
+    governingPremise: stop.anatomy?.governingPremise || null,
+    nextAction: stop.anatomy?.nextAction ?? null,
+    insufficiencyReasons: [...disposition.insufficiencyReasons],
+    allowsSilentSuccess: false,
+    blockedImpact: stop.cognitiveStop
+      ? `Progression bloquée — prémisse gouvernante invalidée${
+          stop.anatomy?.governingPremise
+            ? ` (${stop.anatomy.governingPremise})`
+            : ""
+        }.`
+      : null,
+    mayContinue:
+      stop.cognitiveStop !== true && stop.progression === "continue",
+    notTechnicalFailure: stop.progression !== "technical_failure",
+  };
 }
 
 function toContextDto(
@@ -101,6 +139,11 @@ export async function orchestrateProjectAssistantTurn(input: {
    * Server-side only; does not expand ProjectAssistantContextDto / client DTO.
    */
   truthCContext?: string | null;
+  /**
+   * MW3 — optional contradiction assessment (tests/eval/product when facts exist).
+   * Server-side; surfaces mw3 DTO without inventing Evidence.
+   */
+  contradictionAssessment?: Mw3ContradictionAssessmentInput | null;
 }): Promise<ProjectAssistantSendResult> {
   const content = input.content.trim();
   if (!content) {
@@ -188,13 +231,29 @@ export async function orchestrateProjectAssistantTurn(input: {
       },
       trustedSfiaProfile: null,
       semanticCognitiveWorkload: input.semanticCognitiveWorkload ?? null,
+      contradictionAssessment: input.contradictionAssessment ?? null,
     });
 
     const { toolEvents, sources } = collectToolTelemetry(sink.events);
+    const mw3 = toMw3Surface(turn);
+    const stopNotice = formatCognitiveStopPiloteNotice(
+      turn.cognitiveStopDecision ?? {
+        progression: "continue",
+        outcome: "PROGRESS_OK",
+        cognitiveStop: false,
+        anatomy: null,
+        surfacedDisposition: "none",
+        allowsSilentSuccess: false,
+      },
+    );
+    const status =
+      turn.cognitiveStopDecision?.cognitiveStop === true
+        ? ("cognitive_stop" as const)
+        : ("ok" as const);
 
     return {
       ok: true,
-      status: "ok",
+      status,
       text: turn.text,
       mode: modeResolution.mode,
       presentation,
@@ -208,6 +267,7 @@ export async function orchestrateProjectAssistantTurn(input: {
         turn.memoryBAvailability,
         turn.memoryBCompactionState,
         turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
+        stopNotice,
       ),
       cognitiveRuntime: turn.cognitiveRuntime,
       sessionId: turn.sessionId,
@@ -215,6 +275,7 @@ export async function orchestrateProjectAssistantTurn(input: {
       memoryBCompactionState: turn.memoryBCompactionState,
       stalePriorInvalidated:
         turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
+      mw3,
     };
   } catch (error) {
     const message =

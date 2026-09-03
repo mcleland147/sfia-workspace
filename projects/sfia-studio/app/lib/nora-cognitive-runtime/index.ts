@@ -96,7 +96,29 @@ export {
 } from "./runNoraAgentsTurn";
 export type { RunNoraAgentsTurnInput } from "./runNoraAgentsTurn";
 export { runNoraCognitiveTurn } from "./runNoraCognitiveTurn";
-export type { RunNoraCognitiveTurnInput } from "./runNoraCognitiveTurn";
+export type {
+  RunNoraCognitiveTurnInput,
+  Mw3ContradictionAssessmentInput,
+} from "./runNoraCognitiveTurn";
+export {
+  disposeContradiction,
+  dispositionIndependentOfStrategy,
+} from "./contradictionDisposition";
+export type {
+  ContradictionConflictInput,
+  ContradictionEvidencePointer,
+} from "./contradictionDisposition";
+export {
+  decideCognitiveStop,
+  cognitiveStopAllowsProductSuccess,
+  formatCognitiveStopPiloteNotice,
+} from "./cognitiveStop";
+export {
+  deriveMw3ContradictionAssessment,
+  MW3_STUDIO_REQUIRED_SOURCE_COUNT,
+  MW3_STUDIO_FRESHNESS_MATTERS,
+  type Mw3ContradictionCandidateSignal,
+} from "./deriveMw3Assessment";
 export {
   decideCognitiveStrategy,
   normalizeCognitiveWorkloadSignals,

@@ -54,13 +54,17 @@ export type DeterministicObservation = {
   crossRevisionRecompactionUsesCurrentTruthC?: boolean;
   currentRawProvenanceCoverageIndependent?: boolean;
   stalePriorInvalidationSignaled?: boolean;
-  /** MW2-S01 strategy / effort */
+  /**
+   * MW2-S01 strategy / effort
+   */
   strategyClassesObserved?: string[];
   effortsObserved?: string[];
   strategyDecoupledFromEffort?: boolean;
   routineElevatedEffort?: boolean;
   highAssuranceNotMax?: boolean;
   capabilityFailClosed?: boolean;
+  /** MW3-S01/S02 disposition + Cognitive STOP */
+  mw3DispositionOk?: boolean;
 };
 
 function hardFail(
@@ -282,6 +286,41 @@ export function scoreHardInvariants(
         ),
       );
     }
+  }
+
+  if (scenario.hardInvariants.includes("mw3_disposition_matrix")) {
+    results.push(
+      obs.mw3DispositionOk === true
+        ? pass(
+            "hard.mw3_disposition",
+            "MW3 T01–T14 disposition/STOP matrix PASS (D0)",
+            "NCC-BAR-06",
+          )
+        : hardFail(
+            "hard.mw3_disposition",
+            "MW3 disposition/STOP matrix not evidenced",
+            "NCC-BAR-06",
+            "obs.contradiction.disposition",
+          ),
+    );
+  }
+
+  if (scenario.hardInvariants.includes("mw3_cognitive_stop_honesty")) {
+    results.push(
+      obs.mw3DispositionOk === true &&
+        (obs.observedObservableIds ?? []).includes("obs.cognitive_stop.honesty")
+        ? pass(
+            "hard.mw3_cognitive_stop",
+            "Cognitive STOP honesty observables present",
+            "NCC-BAR-11",
+          )
+        : hardFail(
+            "hard.mw3_cognitive_stop",
+            "Cognitive STOP honesty not evidenced",
+            "NCC-BAR-11",
+            "obs.cognitive_stop.honesty",
+          ),
+    );
   }
 
   if (scenario.hardInvariants.includes("uses_f2_not_ops1")) {

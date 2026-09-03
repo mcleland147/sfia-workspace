@@ -371,6 +371,7 @@ describe("F2 orchestration AC coverage", () => {
       criticalJustification: null,
       requestedOperation: null,
       cognitiveWorkload: null,
+      contradictionCandidate: null,
       parseOk: true,
     };
     expect(

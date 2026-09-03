@@ -15,6 +15,7 @@ import { NORA_EVAL_CATALOG_VERSION } from "./types";
 import { observeMw1S01FromRuntime } from "./mw1S01Observe";
 import { observeMw1S02FromRuntime } from "./mw1S02Observe";
 import { observeMw2S01FromRuntime } from "./mw2S01Observe";
+import { observeMw3FromRuntime } from "./mw3Observe";
 
 function nowIso(): string {
   return new Date().toISOString();
@@ -73,6 +74,7 @@ async function observationForScenario(
         criticalJustification: "Critical",
         requestedOperation: "merge",
         cognitiveWorkload: null,
+        contradictionCandidate: null,
         parseOk: true,
       };
       return {
@@ -107,6 +109,8 @@ async function observationForScenario(
       return observeMw1S02FromRuntime();
     case "mw2.s01.strategy-effort-decoupling":
       return observeMw2S01FromRuntime();
+    case "mw3.s01.disposition-matrix":
+      return observeMw3FromRuntime();
     default:
       return { productPath: "none" };
   }

@@ -21,6 +21,7 @@ export type AssistantUiMode = "fixture" | "live" | "unavailable" | "unconfirmed"
 
 export type AssistantTurnStatus =
   | "ok"
+  | "cognitive_stop"
   | "provider_unavailable"
   | "provider_error"
   | "project_not_found"
@@ -29,6 +30,38 @@ export type AssistantTurnStatus =
   | "decision_error"
   | "prepare_error"
   | "execute_error";
+
+export type ContradictionDispositionDto =
+  | "none"
+  | "candidate"
+  | "evidence_backed";
+
+export type CognitiveProgressionDto =
+  | "PROGRESS_OK"
+  | "PROGRESS_WITH_CONTRADICTION"
+  | "COGNITIVE_STOP"
+  | "TECHNICAL_FAILURE";
+
+/** MW3 CIS-shaped surface — process-local; ≠ Execute STOP; ≠ HumanDecision. */
+export type Mw3CognitiveSurfaceDto = {
+  disposition: ContradictionDispositionDto;
+  progression: CognitiveProgressionDto;
+  cognitiveStop: boolean;
+  reason: string | null;
+  evidenceIds: string[];
+  sourceIds: string[];
+  governingPremise: string | null;
+  nextAction: string | null;
+  insufficiencyReasons: string[];
+  /** Anti-claim: never a silent SUCCESS when cognitiveStop. */
+  allowsSilentSuccess: false;
+  /** Visible blocked impact when Cognitive STOP; null otherwise. */
+  blockedImpact?: string | null;
+  /** Honest continue when contradiction is surfaced without STOP. */
+  mayContinue?: boolean;
+  /** Explicit: this surface is not a technical/provider failure. */
+  notTechnicalFailure?: boolean;
+};
 
 export type AssistantHistoryMessage = {
   role: "user" | "assistant";
@@ -98,7 +131,7 @@ export type F2TurnPayload = {
 
 export type ProjectAssistantSendSuccess = {
   ok: true;
-  status: "ok";
+  status: "ok" | "cognitive_stop";
   text: string;
   mode: Exclude<AssistantUiMode, "unconfirmed">;
   presentation: "test_provider" | "openai_live";
@@ -127,6 +160,8 @@ export type ProjectAssistantSendSuccess = {
     | "stale_invalidated";
   /** MW1-S02-CORR-02 — prior compacted B invalidated by Truth C change. */
   stalePriorInvalidated?: boolean;
+  /** MW3 — contradiction / Cognitive STOP surface (when assessed). */
+  mw3?: Mw3CognitiveSurfaceDto | null;
   f2?: F2TurnPayload;
 };
 

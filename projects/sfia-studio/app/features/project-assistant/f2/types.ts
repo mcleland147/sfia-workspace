@@ -3,6 +3,8 @@
  * Recommendation ≠ Decision ≠ Execution.
  */
 
+import type { Mw3ContradictionCandidateSignal } from "@/lib/nora-cognitive-runtime/deriveMw3Assessment";
+
 export type IntentClass =
   | "informative"
   | "actionable"
@@ -147,6 +149,11 @@ export type IntentAnalysisDto = {
    * Never serialized on ProjectAssistantSendResult.
    */
   cognitiveWorkload: SemanticCognitiveWorkloadAssessment | null;
+  /**
+   * INTERNAL untrusted contradiction candidate from structured cognition.
+   * Never Evidence; never a client-authored STOP.
+   */
+  contradictionCandidate?: Mw3ContradictionCandidateSignal | null;
   objective: string | null;
   scope: string | null;
   rephrasedRequest: string | null;

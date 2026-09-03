@@ -18,6 +18,7 @@ import type {
   SemanticCognitiveWorkloadAssessment,
   SemanticCognitiveWorkloadLevel,
 } from "./types";
+import type { Mw3ContradictionCandidateSignal } from "@/lib/nora-cognitive-runtime/deriveMw3Assessment";
 
 const INTENT_CLASSES: readonly IntentClass[] = [
   "informative",
@@ -58,6 +59,32 @@ const NULLABLE_STRING = { type: ["string", "null"] } as const;
 const STRING_ARRAY = {
   type: "array",
   items: { type: "string" },
+} as const;
+
+const CANDIDATE_POINTER_ARRAY = {
+  type: "array",
+  items: { type: "string" },
+} as const;
+
+const CONTRADICTION_CANDIDATE_OBJECT_SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    conflictPresent: { type: "boolean" },
+    claimedEvidenceIds: CANDIDATE_POINTER_ARRAY,
+    governingPremise: NULLABLE_STRING,
+    governingPremiseInvalidated: { type: "boolean" },
+    localImpactOnly: { type: "boolean" },
+    fabricationAttempt: { type: "boolean" },
+  },
+  required: [
+    "conflictPresent",
+    "claimedEvidenceIds",
+    "governingPremise",
+    "governingPremiseInvalidated",
+    "localImpactOnly",
+    "fabricationAttempt",
+  ],
 } as const;
 
 const SIGNALS_OBJECT_SCHEMA = {
@@ -120,6 +147,9 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
     cognitiveWorkload: {
       anyOf: [COGNITIVE_WORKLOAD_OBJECT_SCHEMA, { type: "null" }],
     },
+    contradictionCandidate: {
+      anyOf: [CONTRADICTION_CANDIDATE_OBJECT_SCHEMA, { type: "null" }],
+    },
     objective: NULLABLE_STRING,
     scope: NULLABLE_STRING,
     rephrasedRequest: NULLABLE_STRING,
@@ -137,6 +167,7 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
     "candidateCycleTypeId",
     "signals",
     "cognitiveWorkload",
+    "contradictionCandidate",
     "objective",
     "scope",
     "rephrasedRequest",
@@ -187,6 +218,7 @@ function ambiguousFallback(partial?: Partial<IntentAnalysisDto>): IntentAnalysis
     expectedOutcome: partial?.expectedOutcome ?? null,
     criticalJustification: partial?.criticalJustification ?? null,
     requestedOperation: partial?.requestedOperation ?? null,
+    contradictionCandidate: null,
     parseOk: false,
   };
 }
@@ -221,6 +253,26 @@ export function parseCognitiveWorkload(
       : "unknown";
   }
   return out;
+}
+
+export function parseContradictionCandidate(
+  raw: unknown,
+): Mw3ContradictionCandidateSignal | null {
+  if (raw == null) return null;
+  if (typeof raw !== "object" || Array.isArray(raw)) return null;
+  const obj = raw as Record<string, unknown>;
+  if (typeof obj.conflictPresent !== "boolean") return null;
+  // Legacy promotion-policy fields (requiredDomains / requiredSourceCount /
+  // freshnessMatters) are ignored if present. Studio owns those bars.
+  return {
+    conflictPresent: obj.conflictPresent,
+    claimedEvidenceIds: clipArray(obj.claimedEvidenceIds),
+    governingPremise: clip(obj.governingPremise),
+    governingPremiseInvalidated:
+      obj.governingPremiseInvalidated === true ? true : undefined,
+    localImpactOnly: obj.localImpactOnly === true ? true : undefined,
+    fabricationAttempt: obj.fabricationAttempt === true ? true : undefined,
+  };
 }
 
 function extractJsonObject(text: string): unknown | null {
@@ -268,12 +320,16 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
 
   // Malformed CWP must not crash an otherwise-valid informative analysis.
   const cognitiveWorkload = parseCognitiveWorkload(obj.cognitiveWorkload);
+  const contradictionCandidate = parseContradictionCandidate(
+    obj.contradictionCandidate,
+  );
 
   return {
     intentClass: intentClass as IntentClass,
     candidateCycleTypeId,
     signals,
     cognitiveWorkload,
+    contradictionCandidate,
     objective: clip(obj.objective),
     scope: clip(obj.scope),
     rephrasedRequest: clip(obj.rephrasedRequest),
@@ -303,6 +359,7 @@ intentClass (informative|actionable|ambiguous|execution_request),
 candidateCycleTypeId (id catalogue cyc:… OU null),
 signals ({structuralChange,securityImpact,architectureImpact,dataImpact,irreversible,lowRiskBounded} tous booléens OU null),
 cognitiveWorkload ({ambiguity,reasoningDepth,sourceBreadth,toolDependency,contradictionRisk,verificationNeed} chacun low|medium|high|unknown OU null),
+contradictionCandidate (objet candidat cognitif OU null — PAS Evidence, PAS evidence_backed, PAS Cognitive STOP),
 objective, scope, rephrasedRequest, outOfScope[], risks[], reservations[], stopConditions[], activatedBlocks[],
 expectedOutcome, criticalJustification, requestedOperation (strings ou null pour les scalaires).
 
@@ -368,6 +425,16 @@ medium/high: prémisses/contraintes en tension ou claims conflictuels à réconc
 verificationNeed —
 low: réponse bornée déjà supportée par le contexte de confiance.
 medium/high: claims matériels nécessitent vérification / réconciliation / evidence avant assertion forte.
+
+=== contradictionCandidate (interne, non autoritaire) ===
+Signal CANDIDAT seulement. Ne s'auto-promouvoit JAMAIS en evidence_backed. Ne décide JAMAIS un Cognitive STOP.
+Ne définit JAMAIS la politique de promotion Evidence (couverture source, fraîcheur, contexte projet).
+Champs autorisés seulement: conflictPresent, claimedEvidenceIds, governingPremise, governingPremiseInvalidated, localImpactOnly, fabricationAttempt.
+conflictPresent=true seulement si un conflit apparent est identifié.
+claimedEvidenceIds: identifiants Evidence déjà existants éventuellement cités — ne PAS inventer d'Evidence.
+Si aucune Evidence réelle n'est identifiable: claimedEvidenceIds=[] et conserver le candidat.
+governingPremiseInvalidated est une hypothèse sémantique, pas une preuve et pas un STOP.
+contradictionRisk CWP n'est PAS une preuve et n'implique PAS contradictionCandidate.
 
 === AUTORITÉ ===
 - Ne décide jamais un GO Morris ; ne propose jamais d'exécution ; n'invente jamais un cycle (ex. delivery) par défaut.
