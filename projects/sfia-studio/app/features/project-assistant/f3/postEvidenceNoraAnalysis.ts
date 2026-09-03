@@ -13,7 +13,7 @@
  */
 
 import { resolveConversationProvider } from "@/lib/platform/ai";
-import { buildPostEvidenceNarrativePolicyDisclosure } from "@/lib/nora-cognitive-runtime";
+import { buildPostEvidenceNarrativePolicyDisclosure } from "@/lib/nora-cognitive-runtime/postEvidenceNarrativePolicy";
 
 /** Same marker string as f2/ckcCognitiveContext — keep in sync (string only). */
 const CKC_COGNITIVE_REASONING_SYSTEM_MARKER =
