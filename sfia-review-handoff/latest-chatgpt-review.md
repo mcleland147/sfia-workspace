@@ -1,3 +1,2500 @@
+# SFIA Review Pack — NORA MW6 PRE-REAL NUMERIC BUDGET CORRECTION
+
+| Field | Value |
+| --- | --- |
+| **Timestamp** | 2026-09-04 15:47:18 CEST |
+| **Cycle** | 8 — Delivery / Implementation |
+| **Profile** | CRITICAL |
+| **Sub-milestone** | MW6 PRE-REAL NUMERIC BUDGET CORRECTION |
+| **GO Morris** | **GO MORRIS — MW6 PRE-REAL NUMERIC BUDGET CORRECTION** (CONSUMED) |
+| **Repository** | mcleland147/sfia-workspace |
+| **Worktree** | `/Users/morris/Projects/sfia-workspace-nora-mw6-external-source-intelligence` |
+| **Branch** | `delivery/sfia-studio-nora-mw6-external-source-intelligence` |
+| **HEAD / origin/main / merge-base** | `ebdae92a96ea1c49444dfb668342c1453f57a540` |
+| **Prior handoff tip** | `dcc32c11bc26e38e9f8aaa97c32d8002da9cf27c` |
+| **Expected parent** | `dcc32c11…` |
+| **Evidence ceiling** | DETERMINISTIC / SINGLE-PROCESS ONLY |
+| **REAL / network calls** | **0 / 0** |
+| **Product commit/push/PR/merge** | **NO** |
+
+---
+
+## 0. Chronology retained
+
+MW6 Delivery → CR → residuals → PRE-REAL PATH A → PRE-REAL-01/02 →
+integrity R-PRE-REAL-03/04 (`dcc32c11`) → ChatGPT Pre-REAL Budget Integrity Review:
+**R-PRE-REAL-05 FAIL** · **R-PRE-REAL-06 FAIL** →
+**GO MORRIS — MW6 PRE-REAL NUMERIC BUDGET CORRECTION** → this pack.
+
+Prior packs retained in §HISTORY.
+
+---
+
+## 1. Git truth
+
+- HEAD == origin/main == merge-base == `ebdae92a…`
+- Handoff tip verified: `dcc32c11…` parent `1a374cbe…`
+- Dirty = reviewed MW6 + PATH A + authority + integrity + this numeric correction
+- Unrelated divergence = **NO**
+
+---
+
+## 2. Qualification
+
+Cycle 8 CRITICAL · V3-F07 + V3-F11/F12 · ZERO REAL · LIVE authority NOT BOUND
+
+Retained PASS (not reopened): PRE-REAL-01 · PRE-REAL-02 · R-PRE-REAL-03 · R-PRE-REAL-04
+
+---
+
+## 3. R-PRE-REAL-05 — FINITE HARD-LIMIT VALIDATION = PASS
+
+### Defect
+`Math.max(0, Math.floor(value))` without `Number.isFinite` → NaN/Infinity limits.
+
+### Correction
+`normalizeHardLimit(name, value)`:
+- typeof number + Number.isFinite required
+- finite fraction → floor (3.9 → 3)
+- finite negative → clamp to 0
+- NaN / ±Infinity → `CampaignLeaseError("INVALID_BUDGET")` **before** lease registration
+
+### NUM-HARD / NUM-01→08 PASS
+
+---
+
+## 4. R-PRE-REAL-06 — HOSTED CLAIM INPUT INTEGRITY = PASS
+
+### Defect
+`claimHostedWebOperations(NaN)` → `consumed += NaN` poisoning private state / remaining / max_tool_calls.
+
+### Correction
+- `normalizeNonNegativeCount` before mutation; NaN/±Infinity → throw `INVALID_BUDGET` (no silent 0)
+- `requestedMaxTurns` non-finite → throw (no unlimited Runner)
+- `configuredMaxToolCalls` non-finite → throw (never providerData)
+- invalid `callerOverride` → rejected/ignored; cannot widen
+- emitted `max_tool_calls` must be finite integer ≥ 0 ≤ remainingHosted
+
+### NUM-CLAIM / NUM-CLAMP / NUM-CAP PASS
+
+---
+
+## 5. H17 invalid-numeric regression = PASS
+
+Scenarios A/B: NaN/Infinity campaign → INVALID_BUDGET, no registration.
+Scenario C: valid cap=100, consume 50, invalid hosted claims no mutation, continue to 141 → accepted 100 / denied 41.
+
+---
+
+## 6. PRE-REAL-01 / PATH A non-regression
+
+LIVE preflight = `REAL_AUTHORITY_NOT_BOUND`
+PATH A retained · RESERVE-PRE-REAL-01 retained · process-local realism gap retained
+
+---
+
+## 7. PB-01→08 / D1–D12
+
+All PASS (PB-03/04/05/06 after numeric closure)
+
+---
+
+## 8. Tests
+
+```
+unset OPENAI_API_KEY OPENAI_API_KEY_PROJECT OPENAI_BASE_URL
+npx vitest run mw6.pre-real.budget-hardening.d0.test.ts → 56 PASS
+npx vitest run mw6.s01-s02.source-intelligence.d0.test.ts → 23 PASS
+npx vitest run __tests__/nora-cognitive-runtime/ → 33 files / 342 tests EXIT 0
+npx tsc --noEmit → EXIT 0
+REAL=0 NETWORK=0
+```
+
+---
+
+## 9. Architecture
+
+Option C · one Runner · persistence NO · TA NOT REQUIRED · NO NEW PRODUCT FILE
+
+Files modified:
+- `campaignBudget.ts` (normalizeHardLimit / normalizeNonNegativeCount / clamp / resolve)
+- `runNoraAgentsTurn.ts` (catch INVALID_BUDGET on clamp/resolve)
+- `mw6.pre-real.budget-hardening.d0.test.ts` (NUM matrices + H17 numeric)
+
+---
+
+## 10. Claim ceiling
+
+R-PRE-REAL-05 = PASS · R-PRE-REAL-06 = PASS
+PRE-REAL NUMERIC BUDGET CORRECTION = PASS CANDIDATE
+PRE-REAL BUDGET SAFETY = PASS AT DETERMINISTIC / SINGLE-PROCESS CEILING
+LIVE REAL AUTHORITY = NOT BOUND / BLOCKED
+REAL PREFLIGHT = BLOCKED PENDING GENUINE AUTHORITY BINDING
+MW6 READY FOR MORRIS GO REAL = NO
+
+---
+
+## 11. Modified sections — numeric helpers + normalizeSpec
+
+```ts
+/**
+ * Hard-limit normalization (R-PRE-REAL-05).
+ * Requires typeof number + Number.isFinite. Finite fractions → floor.
+ * Finite negatives → clamp to 0 (compatibility). NaN / ±Infinity → INVALID_BUDGET.
+ */
+function normalizeHardLimit(name: string, value: unknown): number {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    throw new CampaignLeaseError(
+      "INVALID_BUDGET",
+      `Campaign hard limit "${name}" must be a finite number (rejected ${String(value)}).`,
+    );
+  }
+  const floored = Math.floor(value);
+  return Math.max(0, floored);
+}
+
+/**
+ * Non-negative finite integer count for governed mutation (R-PRE-REAL-06).
+ * Finite fractions → floor. Finite negatives → 0 (no mutation when 0).
+ * NaN / ±Infinity → INVALID_BUDGET (never written into state).
+ */
+function normalizeNonNegativeCount(name: string, value: unknown): number {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    throw new CampaignLeaseError(
+      "INVALID_BUDGET",
+      `Campaign numeric input "${name}" must be a finite number (rejected ${String(value)}).`,
+    );
+  }
+  return Math.max(0, Math.floor(value));
+}
+
+function normalizeSpec(
+  input: CreateNoraCampaignBudgetInput,
+): NoraCampaignBudgetSpec {
+  const maxModel = normalizeHardLimit(
+    "maxModelInvocations",
+    input.maxModelInvocations,
+  );
+  const maxHosted = normalizeHardLimit(
+    "maxHostedWebOperations",
+    input.maxHostedWebOperations,
+  );
+  const maxAgg =
+    input.maxAggregateRealCalls === undefined
+      ? maxModel
+      : normalizeHardLimit("maxAggregateRealCalls", input.maxAggregateRealCalls);
+  return Object.freeze({
+    campaignId: input.campaignId,
+    maxModelInvocations: maxModel,
+    maxHostedWebOperations: maxHosted,
+    maxAggregateRealCalls: maxAgg,
+    hostedHardCapCapability:
+      input.hostedHardCapCapability ?? "provider_max_tool_calls",
+  });
+}
+```
+
+## 12. claimHostedWebOperations
+
+```ts
+export function claimHostedWebOperations(
+  budget: NoraCampaignBudget,
+  count: number,
+): boolean {
+  const lease = resolveLease(budget);
+  // Validate BEFORE any mutation — NaN/±Infinity must never poison counters.
+  const n = normalizeNonNegativeCount("claimHostedWebOperations.count", count);
+  if (n === 0) return true;
+  if (
+    lease.state.consumedHostedWebOperations + n >
+    lease.spec.maxHostedWebOperations
+  ) {
+    deny(
+      lease,
+      "HOSTED_WEB_OP_CAP_REACHED",
+      `Hosted web op claim ${n} would exceed cap (${lease.state.consumedHostedWebOperations}/${lease.spec.maxHostedWebOperations}).`,
+    );
+    return false;
+  }
+  lease.state.consumedHostedWebOperations += n;
+  return true;
+}
+```
+
+## 13. clamp + resolveMaxToolCallsProviderData (numeric)
+
+```ts
+// Non-finite requestedMaxTurns → fail closed (no unlimited/NaN Runner).
+  let maxTurns = normalizeNonNegativeCount(
+    "requestedMaxTurns",
+    input.requestedMaxTurns,
+  );
+  if (maxTurns > remainingModel) {
+    reasons.push("clamped_maxTurns_to_remaining_model");
+    maxTurns = remainingModel;
+  }
+  if (maxTurns > remainingAgg) {
+    reasons.push("clamped_maxTurns_to_remaining_aggregate_real");
+    maxTurns = remainingAgg;
+  }
+
+  let attach = input.wantHostedWebSearch === true;
+  let maxToolCalls: number | null = null;
+
+  if (attach) {
+    if (lease.spec.hostedHardCapCapability !== "provider_max_tool_calls") {
+      attach = false;
+      maxToolCalls = null;
+      reasons.push("hosted_hard_cap_unenforceable_detach");
+    } else if (remainingHosted <= 0) {
+      attach = false;
+      maxToolCalls = null;
+      reasons.push("hosted_remaining_zero_detach");
+    } else if (maxTurns <= 0) {
+      attach = false;
+      maxToolCalls = null;
+      reasons.push("no_model_turns_left_detach");
+    } else {
+      let perResponse = Math.floor(remainingHosted / maxTurns);
+      if (perResponse < 1) {
+        maxTurns = 1;
+        perResponse = remainingHosted;
+        reasons.push("forced_single_turn_for_hosted_cap");
+      }
+      // Authoritative remaining is always finite integer from lease.
+      maxToolCalls = perResponse;
+      reasons.push("provider_max_tool_calls_configured");
+    }
+  }
+
+  if (
+    maxToolCalls != null &&
+    (!Number.isFinite(maxToolCalls) ||
+      !Number.isInteger(maxToolCalls) ||
+      maxToolCalls < 0)
+  ) {
+    throw new CampaignLeaseError(
+      "INVALID_BUDGET",
+      "Computed max_tool_calls is not a finite non-negative integer.",
+    );
+  }
+  if (
+    maxToolCalls != null &&
+    maxToolCalls * maxTurns > remainingHosted
+  ) {
+    throw new CampaignLeaseError(
+      "INVALID_BUDGET",
+      "Invariant violated: max_tool_calls * maxTurns > remainingHosted.",
+    );
+  }
+
+  return {
+    maxTurns,
+    maxToolCalls,
+    attachHostedWebSearch: attach,
+    reasonCodes: reasons,
+  };
+}
+
+export function resolveMaxToolCallsProviderData(input: {
+  campaign: NoraCampaignBudget;
+  configuredMaxToolCalls: number | null;
+  callerOverride?: number | null;
+}): { max_tool_calls?: number; rejectedOverride: boolean } {
+  const lease = resolveLease(input.campaign);
+  if (input.configuredMaxToolCalls == null) {
+    return { rejectedOverride: false };
+  }
+  // Non-finite configured cap must never reach providerData.
+  if (
+    typeof input.configuredMaxToolCalls !== "number" ||
+    !Number.isFinite(input.configuredMaxToolCalls)
+  ) {
+    throw new CampaignLeaseError(
+      "INVALID_BUDGET",
+      `configuredMaxToolCalls must be finite (rejected ${String(input.configuredMaxToolCalls)}).`,
+    );
+  }
+  let value = Math.max(0, Math.floor(input.configuredMaxToolCalls));
+  let rejected = false;
+  if (input.callerOverride != null) {
+    if (
+      typeof input.callerOverride !== "number" ||
+      !Number.isFinite(input.callerOverride)
+    ) {
+      // Invalid override: reject/ignore — never widen, never emit NaN/Infinity.
+      rejected = true;
+    } else {
+      const o = Math.max(0, Math.floor(input.callerOverride));
+      if (o > value) {
+        rejected = true;
+      } else {
+        value = o;
+      }
+    }
+  }
+  const remaining = Math.max(
+    0,
+    lease.spec.maxHostedWebOperations - lease.state.consumedHostedWebOperations,
+  );
+  if (value > remaining) {
+    value = remaining;
+    rejected = true;
+  }
+  if (!Number.isFinite(value) || !Number.isInteger(value) || value < 0) {
+    throw new CampaignLeaseError(
+      "INVALID_BUDGET",
+      "Resolved max_tool_calls is not a finite non-negative integer.",
+    );
+  }
+  return { max_tool_calls: value, rejectedOverride: rejected };
+}
+```
+
+## 14. runNoraAgentsTurn INVALID_BUDGET fail-closed
+
+```ts
+let clamp: {
+    maxTurns: number;
+    maxToolCalls: number | null;
+    attachHostedWebSearch: boolean;
+    reasonCodes: string[];
+  };
+  let resolvedCap: {
+    max_tool_calls?: number;
+    rejectedOverride: boolean;
+  };
+  try {
+    clamp = campaign
+      ? clampRunnerBudgetForCampaign({
+          campaign,
+          requestedMaxTurns,
+          wantHostedWebSearch:
+            wantHosted && !(wantRealHostedDispatch && realPreflightBlocked),
+        })
+      : {
+          maxTurns: Number.isFinite(requestedMaxTurns)
+            ? Math.max(0, Math.floor(requestedMaxTurns))
+            : 0,
+          maxToolCalls: null as number | null,
+          attachHostedWebSearch:
+            wantHosted && !(wantRealHostedDispatch && realPreflightBlocked),
+          reasonCodes: Number.isFinite(requestedMaxTurns)
+            ? ([] as string[])
+            : (["invalid_requestedMaxTurns"] as string[]),
+        };
+
+    // BYPASS-04: enableHostedWebSearch cannot bypass REAL preflight / campaign clamp.
+    resolvedCap = campaign
+      ? resolveMaxToolCallsProviderData({
+          campaign,
+          configuredMaxToolCalls: clamp.maxToolCalls,
+          callerOverride: input.testOnlyMaxToolCallsOverride,
+        })
+      : {
+          max_tool_calls: undefined as number | undefined,
+          rejectedOverride: false,
+        };
+  } catch (error) {
+    if (error instanceof CampaignLeaseError) {
+      return {
+        text: error.message,
+        usage: {
+          inputTokens: null,
+          outputTokens: null,
+          totalTokens: null,
+          model: null,
+          providerResponseId: null,
+        },
+        toolRounds: 0,
+        toolCalls: 0,
+        limitReached: true,
+        cognitiveRuntime: "agents",
+        sessionId: null,
+        memoryBAvailability: "unavailable",
+        memoryBCompactionState: "none",
+        memoryBCompactionDetails: null,
+        budgetObserve: campaign
+          ? {
+              campaign: isCanonicalCampaignBudget(campaign)
+                ? campaignBudgetSnapshot(campaign)
+                : {
+                    campaignId: campaign.campaignId,
+                    remainingModelInvocations: 0,
+                    remainingHostedWebOperations: 0,
+                    remainingAggregateRealCalls: 0,
+                    consumedModelInvocations: campaign.consumedModelInvocations,
+                    consumedHostedWebOperations:
+                      campaign.consumedHostedWebOperations,
+                    consumedAggregateRealCalls:
+                      campaign.consumedAggregateRealCalls,
+                    maxModelInvocations: campaign.maxModelInvocations,
+                    maxHostedWebOperations: campaign.maxHostedWebOperations,
+                    maxAggregateRealCalls: campaign.maxAggregateRealCalls,
+                    limitReached: true,
+                    denialCode: error.code,
+                    denialReason: error.message,
+                    hostedHardCapCapability: campaign.hostedHardCapCapability,
+                    canonicalLease: false,
+                  },
+              clampReasonCodes: ["invalid_budget_numeric"],
+              configuredMaxToolCalls: null,
+              realPreflightBlocked: true,
+              realPreflightReasons: [error.code],
+            }
+          : undefined,
+      };
+    }
+    throw error;
+  }
+
+  const enableHostedWebSearch = clamp.attachHostedWebSearch;
+```
+
+---
+
+## 15. Full content — campaignBudget.ts
+
+```ts
+/**
+ * MW6 PRE-REAL — campaign-scoped technical safety/cost envelope.
+ *
+ * Distinct from NoraTurnBudget (per-model-turn function-tool slots).
+ * Distinct from business authorization / Morris GO.
+ *
+ * PRE-REAL-01: TEST/FIXTURE authority ≠ Morris authority. No runtime boolean
+ * can authorize LIVE OpenAI hosted execution.
+ *
+ * PRE-REAL-02: One campaignId → one canonical in-process budget envelope.
+ * Reacquisition cannot silently reset. Fabricated objects cannot bypass lease.
+ *
+ * R-PRE-REAL-03: Canonical handle ≠ mutable authority. Limits/counters live in
+ * private LeaseRecord; callers hold a frozen read-only view. Enforcement never
+ * trusts caller-visible property writes.
+ *
+ * R-PRE-REAL-04: No callable product/runtime registry reset/clear-all.
+ *
+ * R-PRE-REAL-05: Hard limits must be finite + non-negative integer (finite
+ * fractions floor; NaN / ±Infinity rejected — never registered).
+ *
+ * R-PRE-REAL-06: Governed mutation / clamp / providerData numerics must never
+ * write or emit NaN / ±Infinity into authoritative state or max_tool_calls.
+ *
+ * REALISM GAP — campaign lease is process-local (no durable persistence).
+ *
+ * H17: TOTAL_REAL_CALLS_UNDER_MORRIS_GO authorized=100 / historical observed=141.
+ */
+
+export const H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS = 100;
+export const H17_HISTORICAL_OBSERVED_AGGREGATE_CALLS = 141;
+
+export type HostedHardCapCapability =
+  | "provider_max_tool_calls"
+  | "unsupported_unproven";
+
+export type CampaignBudgetDenialCode =
+  | "MODEL_INVOCATION_CAP_REACHED"
+  | "HOSTED_WEB_OP_CAP_REACHED"
+  | "AGGREGATE_REAL_CALL_CAP_REACHED"
+  | "REAL_PREFLIGHT_BLOCKED"
+  | "REAL_AUTHORITY_NOT_BOUND"
+  | "HOSTED_HARD_CAP_UNENFORCEABLE"
+  | "CAMPAIGN_LEASE_INVALID"
+  | "NORA_CAMPAIGN_BUDGET_SPEC_MISMATCH"
+  | "INVALID_BUDGET";
+
+/**
+ * Public campaign HANDLE — frozen read-only view over private lease state.
+ * Possession of this object does NOT grant authority to mutate budget.
+ */
+export type NoraCampaignBudget = {
+  readonly campaignId: string;
+  readonly maxModelInvocations: number;
+  readonly consumedModelInvocations: number;
+  readonly maxHostedWebOperations: number;
+  readonly consumedHostedWebOperations: number;
+  readonly maxAggregateRealCalls: number;
+  readonly consumedAggregateRealCalls: number;
+  readonly hostedHardCapCapability: HostedHardCapCapability;
+  readonly limitReached: boolean;
+  readonly denialCode: CampaignBudgetDenialCode | null;
+  readonly denialReason: string | null;
+};
+
+export type CreateNoraCampaignBudgetInput = {
+  campaignId: string;
+  maxModelInvocations: number;
+  maxHostedWebOperations: number;
+  maxAggregateRealCalls?: number;
+  hostedHardCapCapability?: HostedHardCapCapability;
+};
+
+/** Immutable lease identity for mismatch checks. */
+export type NoraCampaignBudgetSpec = {
+  readonly campaignId: string;
+  readonly maxModelInvocations: number;
+  readonly maxHostedWebOperations: number;
+  readonly maxAggregateRealCalls: number;
+  readonly hostedHardCapCapability: HostedHardCapCapability;
+};
+
+type LeaseInternalState = {
+  consumedModelInvocations: number;
+  consumedHostedWebOperations: number;
+  consumedAggregateRealCalls: number;
+  limitReached: boolean;
+  denialCode: CampaignBudgetDenialCode | null;
+  denialReason: string | null;
+};
+
+type LeaseRecord = {
+  spec: NoraCampaignBudgetSpec;
+  state: LeaseInternalState;
+  handle: NoraCampaignBudget;
+};
+
+/** Process-local canonical campaign owner. NOT durable across process restart. */
+const activeCampaignLeases = new Map<string, LeaseRecord>();
+/** Handle → authoritative lease. Only acquire()-created handles are registered. */
+const handleToLease = new WeakMap<object, LeaseRecord>();
+
+export class CampaignLeaseError extends Error {
+  constructor(
+    readonly code: CampaignBudgetDenialCode,
+    message: string,
+  ) {
+    super(message);
+    this.name = "CampaignLeaseError";
+  }
+}
+
+/**
+ * Hard-limit normalization (R-PRE-REAL-05).
+ * Requires typeof number + Number.isFinite. Finite fractions → floor.
+ * Finite negatives → clamp to 0 (compatibility). NaN / ±Infinity → INVALID_BUDGET.
+ */
+function normalizeHardLimit(name: string, value: unknown): number {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    throw new CampaignLeaseError(
+      "INVALID_BUDGET",
+      `Campaign hard limit "${name}" must be a finite number (rejected ${String(value)}).`,
+    );
+  }
+  const floored = Math.floor(value);
+  return Math.max(0, floored);
+}
+
+/**
+ * Non-negative finite integer count for governed mutation (R-PRE-REAL-06).
+ * Finite fractions → floor. Finite negatives → 0 (no mutation when 0).
+ * NaN / ±Infinity → INVALID_BUDGET (never written into state).
+ */
+function normalizeNonNegativeCount(name: string, value: unknown): number {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    throw new CampaignLeaseError(
+      "INVALID_BUDGET",
+      `Campaign numeric input "${name}" must be a finite number (rejected ${String(value)}).`,
+    );
+  }
+  return Math.max(0, Math.floor(value));
+}
+
+function normalizeSpec(
+  input: CreateNoraCampaignBudgetInput,
+): NoraCampaignBudgetSpec {
+  const maxModel = normalizeHardLimit(
+    "maxModelInvocations",
+    input.maxModelInvocations,
+  );
+  const maxHosted = normalizeHardLimit(
+    "maxHostedWebOperations",
+    input.maxHostedWebOperations,
+  );
+  const maxAgg =
+    input.maxAggregateRealCalls === undefined
+      ? maxModel
+      : normalizeHardLimit("maxAggregateRealCalls", input.maxAggregateRealCalls);
+  return Object.freeze({
+    campaignId: input.campaignId,
+    maxModelInvocations: maxModel,
+    maxHostedWebOperations: maxHosted,
+    maxAggregateRealCalls: maxAgg,
+    hostedHardCapCapability:
+      input.hostedHardCapCapability ?? "provider_max_tool_calls",
+  });
+}
+
+function specsEqual(a: NoraCampaignBudgetSpec, b: NoraCampaignBudgetSpec): boolean {
+  return (
+    a.campaignId === b.campaignId &&
+    a.maxModelInvocations === b.maxModelInvocations &&
+    a.maxHostedWebOperations === b.maxHostedWebOperations &&
+    a.maxAggregateRealCalls === b.maxAggregateRealCalls &&
+    a.hostedHardCapCapability === b.hostedHardCapCapability
+  );
+}
+
+function createCanonicalHandle(lease: LeaseRecord): NoraCampaignBudget {
+  // Getters always read private LeaseRecord — assignment/defineProperty cannot
+  // redirect enforcement to caller-supplied values.
+  const handle = Object.freeze({
+    get campaignId() {
+      return lease.spec.campaignId;
+    },
+    get maxModelInvocations() {
+      return lease.spec.maxModelInvocations;
+    },
+    get consumedModelInvocations() {
+      return lease.state.consumedModelInvocations;
+    },
+    get maxHostedWebOperations() {
+      return lease.spec.maxHostedWebOperations;
+    },
+    get consumedHostedWebOperations() {
+      return lease.state.consumedHostedWebOperations;
+    },
+    get maxAggregateRealCalls() {
+      return lease.spec.maxAggregateRealCalls;
+    },
+    get consumedAggregateRealCalls() {
+      return lease.state.consumedAggregateRealCalls;
+    },
+    get hostedHardCapCapability() {
+      return lease.spec.hostedHardCapCapability;
+    },
+    get limitReached() {
+      return lease.state.limitReached;
+    },
+    get denialCode() {
+      return lease.state.denialCode;
+    },
+    get denialReason() {
+      return lease.state.denialReason;
+    },
+  }) as NoraCampaignBudget;
+  handleToLease.set(handle, lease);
+  return handle;
+}
+
+/**
+ * Build an unregistered budget object for negative/fabricated-object proofs.
+ * Does NOT create a canonical lease. Must never become authoritative.
+ */
+export function createNoraCampaignBudget(
+  input: CreateNoraCampaignBudgetInput,
+): NoraCampaignBudget {
+  const spec = normalizeSpec(input);
+  return Object.freeze({
+    campaignId: spec.campaignId,
+    maxModelInvocations: spec.maxModelInvocations,
+    consumedModelInvocations: 0,
+    maxHostedWebOperations: spec.maxHostedWebOperations,
+    consumedHostedWebOperations: 0,
+    maxAggregateRealCalls: spec.maxAggregateRealCalls,
+    consumedAggregateRealCalls: 0,
+    hostedHardCapCapability: spec.hostedHardCapCapability,
+    limitReached: false,
+    denialCode: null,
+    denialReason: null,
+  });
+}
+
+/**
+ * Acquire the canonical in-process budget for a campaignId.
+ *
+ * Same spec → same handle (authoritative counters preserved).
+ * Different immutable limits → fail closed (no silent widen/reset).
+ */
+export function acquireNoraCampaignBudget(
+  input: CreateNoraCampaignBudgetInput,
+): NoraCampaignBudget {
+  const spec = normalizeSpec(input);
+  const existing = activeCampaignLeases.get(spec.campaignId);
+  if (!existing) {
+    const state: LeaseInternalState = {
+      consumedModelInvocations: 0,
+      consumedHostedWebOperations: 0,
+      consumedAggregateRealCalls: 0,
+      limitReached: false,
+      denialCode: null,
+      denialReason: null,
+    };
+    const lease: LeaseRecord = {
+      spec,
+      state,
+      handle: null as unknown as NoraCampaignBudget,
+    };
+    lease.handle = createCanonicalHandle(lease);
+    activeCampaignLeases.set(spec.campaignId, lease);
+    return lease.handle;
+  }
+  if (!specsEqual(existing.spec, spec)) {
+    throw new CampaignLeaseError(
+      "NORA_CAMPAIGN_BUDGET_SPEC_MISMATCH",
+      `Campaign "${spec.campaignId}" already active with different immutable limits/capabilities — refusing silent reset/widen.`,
+    );
+  }
+  return existing.handle;
+}
+
+/**
+ * Resolve authoritative private lease. Never trust caller-visible properties.
+ */
+function resolveLease(budget: NoraCampaignBudget): LeaseRecord {
+  const lease = handleToLease.get(budget);
+  if (!lease || lease.handle !== budget) {
+    throw new CampaignLeaseError(
+      "CAMPAIGN_LEASE_INVALID",
+      `Campaign budget for "${String((budget as { campaignId?: string })?.campaignId ?? "?")}" is not the canonical active lease — refusing dispatch.`,
+    );
+  }
+  const active = activeCampaignLeases.get(lease.spec.campaignId);
+  if (active !== lease || active.handle !== budget) {
+    throw new CampaignLeaseError(
+      "CAMPAIGN_LEASE_INVALID",
+      `Campaign budget for "${lease.spec.campaignId}" is not the canonical active lease — refusing dispatch.`,
+    );
+  }
+  return lease;
+}
+
+/** True when budget is the canonical registered handle for its campaignId. */
+export function isCanonicalCampaignBudget(
+  budget: NoraCampaignBudget | null | undefined,
+): boolean {
+  if (!budget || typeof budget !== "object") return false;
+  const lease = handleToLease.get(budget);
+  if (!lease || lease.handle !== budget) return false;
+  const active = activeCampaignLeases.get(lease.spec.campaignId);
+  return active === lease && active.handle === budget;
+}
+
+/**
+ * Fail closed if budget is fabricated / unregistered / wrong identity.
+ */
+export function requireCanonicalCampaignBudget(
+  budget: NoraCampaignBudget,
+): void {
+  resolveLease(budget);
+}
+
+/**
+ * Tighten-only campaign denial (false→true; null denial→bounded denial).
+ * Cannot clear limitReached/denial, widen limits, or reset counters.
+ */
+export function markCampaignBudgetBlocked(
+  budget: NoraCampaignBudget,
+  denialCode: CampaignBudgetDenialCode,
+  denialReason: string,
+): void {
+  const lease = resolveLease(budget);
+  lease.state.limitReached = true;
+  if (lease.state.denialCode == null) {
+    lease.state.denialCode = denialCode;
+    lease.state.denialReason = denialReason;
+  }
+}
+
+function deny(
+  lease: LeaseRecord,
+  code: CampaignBudgetDenialCode,
+  reason: string,
+): void {
+  lease.state.limitReached = true;
+  lease.state.denialCode = code;
+  lease.state.denialReason = reason;
+}
+
+export function remainingModelInvocations(b: NoraCampaignBudget): number {
+  const lease = resolveLease(b);
+  return Math.max(
+    0,
+    lease.spec.maxModelInvocations - lease.state.consumedModelInvocations,
+  );
+}
+
+export function remainingHostedWebOperations(b: NoraCampaignBudget): number {
+  const lease = resolveLease(b);
+  return Math.max(
+    0,
+    lease.spec.maxHostedWebOperations - lease.state.consumedHostedWebOperations,
+  );
+}
+
+export function remainingAggregateRealCalls(b: NoraCampaignBudget): number {
+  const lease = resolveLease(b);
+  return Math.max(
+    0,
+    lease.spec.maxAggregateRealCalls - lease.state.consumedAggregateRealCalls,
+  );
+}
+
+/**
+ * Pre-dispatch claim for one model invocation.
+ * Requires canonical lease. Returns false WITHOUT incrementing past the cap.
+ * Counters only move forward via this / claimHostedWebOperations.
+ */
+export function claimModelInvocation(budget: NoraCampaignBudget): boolean {
+  const lease = resolveLease(budget);
+  if (
+    lease.state.consumedAggregateRealCalls >= lease.spec.maxAggregateRealCalls
+  ) {
+    deny(
+      lease,
+      "AGGREGATE_REAL_CALL_CAP_REACHED",
+      `Aggregate REAL/provider-call cap reached (${lease.state.consumedAggregateRealCalls}/${lease.spec.maxAggregateRealCalls}).`,
+    );
+    return false;
+  }
+  if (lease.state.consumedModelInvocations >= lease.spec.maxModelInvocations) {
+    deny(
+      lease,
+      "MODEL_INVOCATION_CAP_REACHED",
+      `Model invocation cap reached (${lease.state.consumedModelInvocations}/${lease.spec.maxModelInvocations}).`,
+    );
+    return false;
+  }
+  lease.state.consumedModelInvocations += 1;
+  lease.state.consumedAggregateRealCalls += 1;
+  return true;
+}
+
+export function claimHostedWebOperations(
+  budget: NoraCampaignBudget,
+  count: number,
+): boolean {
+  const lease = resolveLease(budget);
+  // Validate BEFORE any mutation — NaN/±Infinity must never poison counters.
+  const n = normalizeNonNegativeCount("claimHostedWebOperations.count", count);
+  if (n === 0) return true;
+  if (
+    lease.state.consumedHostedWebOperations + n >
+    lease.spec.maxHostedWebOperations
+  ) {
+    deny(
+      lease,
+      "HOSTED_WEB_OP_CAP_REACHED",
+      `Hosted web op claim ${n} would exceed cap (${lease.state.consumedHostedWebOperations}/${lease.spec.maxHostedWebOperations}).`,
+    );
+    return false;
+  }
+  lease.state.consumedHostedWebOperations += n;
+  return true;
+}
+
+export type RunnerBudgetClamp = {
+  maxTurns: number;
+  maxToolCalls: number | null;
+  attachHostedWebSearch: boolean;
+  reasonCodes: string[];
+};
+
+export function clampRunnerBudgetForCampaign(input: {
+  campaign: NoraCampaignBudget;
+  requestedMaxTurns: number;
+  wantHostedWebSearch: boolean;
+}): RunnerBudgetClamp {
+  const lease = resolveLease(input.campaign);
+  const reasons: string[] = [];
+  const remainingModel = Math.max(
+    0,
+    lease.spec.maxModelInvocations - lease.state.consumedModelInvocations,
+  );
+  const remainingHosted = Math.max(
+    0,
+    lease.spec.maxHostedWebOperations - lease.state.consumedHostedWebOperations,
+  );
+  const remainingAgg = Math.max(
+    0,
+    lease.spec.maxAggregateRealCalls - lease.state.consumedAggregateRealCalls,
+  );
+
+  // Non-finite requestedMaxTurns → fail closed (no unlimited/NaN Runner).
+  let maxTurns = normalizeNonNegativeCount(
+    "requestedMaxTurns",
+    input.requestedMaxTurns,
+  );
+  if (maxTurns > remainingModel) {
+    reasons.push("clamped_maxTurns_to_remaining_model");
+    maxTurns = remainingModel;
+  }
+  if (maxTurns > remainingAgg) {
+    reasons.push("clamped_maxTurns_to_remaining_aggregate_real");
+    maxTurns = remainingAgg;
+  }
+
+  let attach = input.wantHostedWebSearch === true;
+  let maxToolCalls: number | null = null;
+
+  if (attach) {
+    if (lease.spec.hostedHardCapCapability !== "provider_max_tool_calls") {
+      attach = false;
+      maxToolCalls = null;
+      reasons.push("hosted_hard_cap_unenforceable_detach");
+    } else if (remainingHosted <= 0) {
+      attach = false;
+      maxToolCalls = null;
+      reasons.push("hosted_remaining_zero_detach");
+    } else if (maxTurns <= 0) {
+      attach = false;
+      maxToolCalls = null;
+      reasons.push("no_model_turns_left_detach");
+    } else {
+      let perResponse = Math.floor(remainingHosted / maxTurns);
+      if (perResponse < 1) {
+        maxTurns = 1;
+        perResponse = remainingHosted;
+        reasons.push("forced_single_turn_for_hosted_cap");
+      }
+      // Authoritative remaining is always finite integer from lease.
+      maxToolCalls = perResponse;
+      reasons.push("provider_max_tool_calls_configured");
+    }
+  }
+
+  if (
+    maxToolCalls != null &&
+    (!Number.isFinite(maxToolCalls) ||
+      !Number.isInteger(maxToolCalls) ||
+      maxToolCalls < 0)
+  ) {
+    throw new CampaignLeaseError(
+      "INVALID_BUDGET",
+      "Computed max_tool_calls is not a finite non-negative integer.",
+    );
+  }
+  if (
+    maxToolCalls != null &&
+    maxToolCalls * maxTurns > remainingHosted
+  ) {
+    throw new CampaignLeaseError(
+      "INVALID_BUDGET",
+      "Invariant violated: max_tool_calls * maxTurns > remainingHosted.",
+    );
+  }
+
+  return {
+    maxTurns,
+    maxToolCalls,
+    attachHostedWebSearch: attach,
+    reasonCodes: reasons,
+  };
+}
+
+export function resolveMaxToolCallsProviderData(input: {
+  campaign: NoraCampaignBudget;
+  configuredMaxToolCalls: number | null;
+  callerOverride?: number | null;
+}): { max_tool_calls?: number; rejectedOverride: boolean } {
+  const lease = resolveLease(input.campaign);
+  if (input.configuredMaxToolCalls == null) {
+    return { rejectedOverride: false };
+  }
+  // Non-finite configured cap must never reach providerData.
+  if (
+    typeof input.configuredMaxToolCalls !== "number" ||
+    !Number.isFinite(input.configuredMaxToolCalls)
+  ) {
+    throw new CampaignLeaseError(
+      "INVALID_BUDGET",
+      `configuredMaxToolCalls must be finite (rejected ${String(input.configuredMaxToolCalls)}).`,
+    );
+  }
+  let value = Math.max(0, Math.floor(input.configuredMaxToolCalls));
+  let rejected = false;
+  if (input.callerOverride != null) {
+    if (
+      typeof input.callerOverride !== "number" ||
+      !Number.isFinite(input.callerOverride)
+    ) {
+      // Invalid override: reject/ignore — never widen, never emit NaN/Infinity.
+      rejected = true;
+    } else {
+      const o = Math.max(0, Math.floor(input.callerOverride));
+      if (o > value) {
+        rejected = true;
+      } else {
+        value = o;
+      }
+    }
+  }
+  const remaining = Math.max(
+    0,
+    lease.spec.maxHostedWebOperations - lease.state.consumedHostedWebOperations,
+  );
+  if (value > remaining) {
+    value = remaining;
+    rejected = true;
+  }
+  if (!Number.isFinite(value) || !Number.isInteger(value) || value < 0) {
+    throw new CampaignLeaseError(
+      "INVALID_BUDGET",
+      "Resolved max_tool_calls is not a finite non-negative integer.",
+    );
+  }
+  return { max_tool_calls: value, rejectedOverride: rejected };
+}
+
+/**
+ * Technical budget/capability readiness only.
+ * NEVER Morris GO REAL / HumanDecision / Confirmation / ExecutionContract.
+ */
+export function evaluateCampaignBudgetCapabilityOnly(input: {
+  campaign: NoraCampaignBudget;
+  wantHostedWebSearch: boolean;
+}): {
+  capabilitySatisfied: boolean;
+  reasons: string[];
+} {
+  const lease = resolveLease(input.campaign);
+  const reasons: string[] = [];
+  if (lease.spec.maxModelInvocations <= 0) {
+    reasons.push("invalid_model_budget");
+  }
+  const remainingModel = Math.max(
+    0,
+    lease.spec.maxModelInvocations - lease.state.consumedModelInvocations,
+  );
+  const remainingAgg = Math.max(
+    0,
+    lease.spec.maxAggregateRealCalls - lease.state.consumedAggregateRealCalls,
+  );
+  const remainingHosted = Math.max(
+    0,
+    lease.spec.maxHostedWebOperations - lease.state.consumedHostedWebOperations,
+  );
+  if (remainingModel <= 0) {
+    reasons.push("remaining_model_zero");
+  }
+  if (remainingAgg <= 0) {
+    reasons.push("remaining_aggregate_real_zero");
+  }
+  if (input.wantHostedWebSearch) {
+    if (lease.spec.hostedHardCapCapability !== "provider_max_tool_calls") {
+      reasons.push("hosted_hard_cap_unenforceable");
+    }
+    if (remainingHosted <= 0) {
+      reasons.push("remaining_hosted_zero");
+    }
+  }
+  return { capabilitySatisfied: reasons.length === 0, reasons };
+}
+
+export type RealSourceExecutionPreflightInput = {
+  campaign: NoraCampaignBudget;
+  wantHostedWebSearch: boolean;
+};
+
+export type RealSourceExecutionPreflightResult = {
+  eligible: boolean;
+  blocked: boolean;
+  code: CampaignBudgetDenialCode | "OK";
+  reasons: string[];
+  /** Budget/capability may be OK while REAL remains blocked. */
+  capabilitySatisfied: boolean;
+};
+
+/**
+ * LIVE REAL hosted/source execution preflight.
+ *
+ * PRE-REAL-01: No test boolean / fake marker can authorize LIVE.
+ * This cycle has NO genuine Morris GO REAL binding → ALWAYS blocked for LIVE.
+ * Budget capability alone never equals human/REAL authority.
+ */
+export function evaluateRealSourceExecutionPreflight(
+  input: RealSourceExecutionPreflightInput,
+): RealSourceExecutionPreflightResult {
+  resolveLease(input.campaign);
+  const capability = evaluateCampaignBudgetCapabilityOnly(input);
+  const reasons = ["REAL_AUTHORITY_NOT_BOUND", ...capability.reasons];
+  return {
+    eligible: false,
+    blocked: true,
+    code: "REAL_AUTHORITY_NOT_BOUND",
+    reasons,
+    capabilitySatisfied: capability.capabilitySatisfied,
+  };
+}
+
+export function campaignBudgetSnapshot(budget: NoraCampaignBudget): {
+  campaignId: string;
+  remainingModelInvocations: number;
+  remainingHostedWebOperations: number;
+  remainingAggregateRealCalls: number;
+  consumedModelInvocations: number;
+  consumedHostedWebOperations: number;
+  consumedAggregateRealCalls: number;
+  maxModelInvocations: number;
+  maxHostedWebOperations: number;
+  maxAggregateRealCalls: number;
+  limitReached: boolean;
+  denialCode: CampaignBudgetDenialCode | null;
+  denialReason: string | null;
+  hostedHardCapCapability: HostedHardCapCapability;
+  canonicalLease: boolean;
+} {
+  const lease = resolveLease(budget);
+  return {
+    campaignId: lease.spec.campaignId,
+    remainingModelInvocations: remainingModelInvocations(budget),
+    remainingHostedWebOperations: remainingHostedWebOperations(budget),
+    remainingAggregateRealCalls: remainingAggregateRealCalls(budget),
+    consumedModelInvocations: lease.state.consumedModelInvocations,
+    consumedHostedWebOperations: lease.state.consumedHostedWebOperations,
+    consumedAggregateRealCalls: lease.state.consumedAggregateRealCalls,
+    maxModelInvocations: lease.spec.maxModelInvocations,
+    maxHostedWebOperations: lease.spec.maxHostedWebOperations,
+    maxAggregateRealCalls: lease.spec.maxAggregateRealCalls,
+    limitReached: lease.state.limitReached,
+    denialCode: lease.state.denialCode,
+    denialReason: lease.state.denialReason,
+    hostedHardCapCapability: lease.spec.hostedHardCapCapability,
+    canonicalLease: true,
+  };
+}
+```
+
+---
+
+## 16. Full content — mw6.pre-real.budget-hardening.d0.test.ts
+
+```ts
+/** @vitest-environment node */
+/**
+ * MW6 PRE-REAL BUDGET HARDENING + CORRECTION + INTEGRITY + NUMERIC
+ * PRE-REAL-01/02 · R-PRE-REAL-03/04 · R-PRE-REAL-05/06
+ * DETERMINISTIC ONLY / ZERO REAL
+ *
+ * Test hygiene: unique campaignIds per case — no runtime registry reset API.
+ */
+import { describe, expect, it } from "vitest";
+import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
+import * as NoraRuntime from "@/lib/nora-cognitive-runtime";
+import * as CampaignBudgetModule from "@/lib/nora-cognitive-runtime/campaignBudget";
+import {
+  H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS,
+  H17_HISTORICAL_OBSERVED_AGGREGATE_CALLS,
+  acquireNoraCampaignBudget,
+  CampaignLeaseError,
+  campaignBudgetSnapshot,
+  claimHostedWebOperations,
+  claimModelInvocation,
+  clampRunnerBudgetForCampaign,
+  createNoraCampaignBudget,
+  evaluateCampaignBudgetCapabilityOnly,
+  evaluateRealSourceExecutionPreflight,
+  isCanonicalCampaignBudget,
+  remainingAggregateRealCalls,
+  remainingHostedWebOperations,
+  remainingModelInvocations,
+  requireCanonicalCampaignBudget,
+  resolveMaxToolCallsProviderData,
+  runNoraAgentsTurn,
+  toolDefinitionsFromModelRequest,
+  withMaxToolCallsProviderData,
+  type NoraCampaignBudget,
+  type RunNoraAgentsTurnInput,
+} from "@/lib/nora-cognitive-runtime";
+
+describe("MW6 PRE-REAL campaign budget (PB / AUTH / LEASE / H17)", () => {
+  it("PB-01 — OpenAI capability fit disposition is PATH A (max_tool_calls)", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "pb01-path-a",
+      maxModelInvocations: 3,
+      maxHostedWebOperations: 2,
+      hostedHardCapCapability: "provider_max_tool_calls",
+    });
+    const clamp = clampRunnerBudgetForCampaign({
+      campaign,
+      requestedMaxTurns: 4,
+      wantHostedWebSearch: true,
+    });
+    expect(clamp.attachHostedWebSearch).toBe(true);
+    expect(clamp.maxToolCalls).toBeGreaterThan(0);
+    expect((clamp.maxToolCalls ?? 0) * clamp.maxTurns).toBeLessThanOrEqual(2);
+    const settings = withMaxToolCallsProviderData(undefined, clamp.maxToolCalls);
+    expect(settings?.providerData?.max_tool_calls).toBe(clamp.maxToolCalls);
+  });
+
+  it("PB-02 / LEASE-07 — campaign lifecycle via reacquisition shares counters", async () => {
+    const a = await runNoraAgentsTurn({
+      correlationId: "pb02-a",
+      projectId: "proj",
+      systemInstructions: "SFIA",
+      userContent: "hi",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "ok-a" }],
+      }),
+      enableTools: false,
+      campaignBudget: acquireNoraCampaignBudget({
+        campaignId: "pb02-shared-lifecycle",
+        maxModelInvocations: 3,
+        maxHostedWebOperations: 5,
+      }),
+      maxTurns: 1,
+    });
+    expect(a.budgetObserve?.campaign.consumedModelInvocations).toBe(1);
+
+    const again = acquireNoraCampaignBudget({
+      campaignId: "pb02-shared-lifecycle",
+      maxModelInvocations: 3,
+      maxHostedWebOperations: 5,
+    });
+    expect(again.consumedModelInvocations).toBe(1);
+
+    const b = await runNoraAgentsTurn({
+      correlationId: "pb02-b",
+      projectId: "proj",
+      systemInstructions: "SFIA",
+      userContent: "hi again",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "ok-b" }],
+      }),
+      enableTools: false,
+      campaignBudget: again,
+      maxTurns: 1,
+    });
+    expect(b.budgetObserve?.campaign.consumedModelInvocations).toBe(2);
+    expect(remainingModelInvocations(again)).toBe(1);
+  });
+
+  it("PB-03 — model invocation hard cap denies N+1 before dispatch", async () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "pb03-model-cap",
+      maxModelInvocations: 1,
+      maxHostedWebOperations: 5,
+    });
+    const first = await runNoraAgentsTurn({
+      correlationId: "pb03-1",
+      projectId: "p",
+      systemInstructions: "S",
+      userContent: "a",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "one" }],
+      }),
+      enableTools: false,
+      campaignBudget: campaign,
+      maxTurns: 1,
+    });
+    expect(first.text).toBe("one");
+    expect(campaign.consumedModelInvocations).toBe(1);
+
+    const second = await runNoraAgentsTurn({
+      correlationId: "pb03-2",
+      projectId: "p",
+      systemInstructions: "S",
+      userContent: "b",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "two" }],
+      }),
+      enableTools: false,
+      campaignBudget: campaign,
+      maxTurns: 1,
+    });
+    expect(second.limitReached).toBe(true);
+    expect(campaign.consumedModelInvocations).toBe(1);
+    expect(
+      campaign.denialCode === "MODEL_INVOCATION_CAP_REACHED" ||
+        campaign.denialCode === "AGGREGATE_REAL_CALL_CAP_REACHED",
+    ).toBe(true);
+  });
+
+  it("PB-04 PATH A — hosted max_tool_calls configured from remaining; remaining 0 detaches", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "pb04-hosted-config",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 2,
+    });
+    const clamp = clampRunnerBudgetForCampaign({
+      campaign,
+      requestedMaxTurns: 2,
+      wantHostedWebSearch: true,
+    });
+    expect(clamp.attachHostedWebSearch).toBe(true);
+    expect(clamp.maxToolCalls).toBe(1);
+    claimHostedWebOperations(campaign, 2);
+    const after = acquireNoraCampaignBudget({
+      campaignId: "pb04-hosted-config",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 2,
+    });
+    const clampEmpty = clampRunnerBudgetForCampaign({
+      campaign: after,
+      requestedMaxTurns: 2,
+      wantHostedWebSearch: true,
+    });
+    expect(clampEmpty.attachHostedWebSearch).toBe(false);
+    expect(clampEmpty.maxToolCalls).toBeNull();
+  });
+
+  it("PB-05 H17 topology — reacquire cannot reset; 141 attempts stay at 100", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "pb05-h17-topology",
+      maxModelInvocations: H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS,
+      maxHostedWebOperations: 50,
+      maxAggregateRealCalls: H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS,
+    });
+    for (let i = 0; i < 50; i++) {
+      expect(claimModelInvocation(campaign)).toBe(true);
+    }
+    const again = acquireNoraCampaignBudget({
+      campaignId: "pb05-h17-topology",
+      maxModelInvocations: H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS,
+      maxHostedWebOperations: 50,
+      maxAggregateRealCalls: H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS,
+    });
+    expect(again).toBe(campaign);
+    expect(again.consumedAggregateRealCalls).toBe(50);
+
+    let accepted = 50;
+    let denied = 0;
+    for (let i = 50; i < H17_HISTORICAL_OBSERVED_AGGREGATE_CALLS; i++) {
+      if (claimModelInvocation(campaign)) accepted += 1;
+      else denied += 1;
+    }
+    expect(accepted).toBe(100);
+    expect(denied).toBe(41);
+    expect(campaign.consumedAggregateRealCalls).toBe(100);
+    expect(again.denialCode).toBe("AGGREGATE_REAL_CALL_CAP_REACHED");
+  });
+
+  it("BYPASS-01 / LEASE-08 — turns do not release/reset the lease", async () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "bypass01-no-release",
+      maxModelInvocations: 3,
+      maxHostedWebOperations: 5,
+    });
+    await runNoraAgentsTurn({
+      correlationId: "b1",
+      projectId: "p",
+      systemInstructions: "S",
+      userContent: "x",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "ok" }],
+      }),
+      enableTools: false,
+      campaignBudget: campaign,
+      maxTurns: 1,
+    });
+    expect(campaign.consumedModelInvocations).toBe(1);
+    await runNoraAgentsTurn({
+      correlationId: "b1b",
+      projectId: "p",
+      systemInstructions: "S",
+      userContent: "y",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "ok2" }],
+      }),
+      enableTools: false,
+      campaignBudget: campaign,
+      maxTurns: 1,
+    });
+    expect(campaign.consumedModelInvocations).toBe(2);
+  });
+
+  it("BYPASS-02 — caller maxTurns > remaining is clamped", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "bypass02-clamp-turns",
+      maxModelInvocations: 2,
+      maxHostedWebOperations: 10,
+    });
+    expect(claimModelInvocation(campaign)).toBe(true);
+    const clamp = clampRunnerBudgetForCampaign({
+      campaign,
+      requestedMaxTurns: 99,
+      wantHostedWebSearch: false,
+    });
+    expect(clamp.maxTurns).toBe(1);
+  });
+
+  it("BYPASS-03 — caller hosted override > remaining rejected/clamped", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "bypass03-hosted-override",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 2,
+    });
+    const clamp = clampRunnerBudgetForCampaign({
+      campaign,
+      requestedMaxTurns: 1,
+      wantHostedWebSearch: true,
+    });
+    const resolved = resolveMaxToolCallsProviderData({
+      campaign,
+      configuredMaxToolCalls: clamp.maxToolCalls,
+      callerOverride: 999,
+    });
+    expect(resolved.rejectedOverride).toBe(true);
+    expect(resolved.max_tool_calls).toBeLessThanOrEqual(2);
+  });
+
+  it("BYPASS-04 / AUTH-04 — enableHostedWebSearch + capability cannot authorize REAL", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "bypass04-no-real-auth",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 2,
+    });
+    const capability = evaluateCampaignBudgetCapabilityOnly({
+      campaign,
+      wantHostedWebSearch: true,
+    });
+    expect(capability.capabilitySatisfied).toBe(true);
+    const pre = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+    });
+    expect(pre.blocked).toBe(true);
+    expect(pre.eligible).toBe(false);
+    expect(pre.code).toBe("REAL_AUTHORITY_NOT_BOUND");
+    expect(pre.reasons).toContain("REAL_AUTHORITY_NOT_BOUND");
+    const clamp = clampRunnerBudgetForCampaign({
+      campaign,
+      requestedMaxTurns: 2,
+      wantHostedWebSearch: !pre.blocked,
+    });
+    expect(clamp.attachHostedWebSearch).toBe(false);
+  });
+
+  it("BYPASS-05 / AUTH-05 — Fake deterministic hosted remains usable; no REAL hosted consume", async () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "bypass05-fake-hosted",
+      maxModelInvocations: 3,
+      maxHostedWebOperations: 1,
+    });
+    await runNoraAgentsTurn({
+      correlationId: "b5",
+      projectId: "p",
+      systemInstructions: "S",
+      userContent: "x",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "fake" }],
+      }),
+      enableTools: false,
+      enableHostedWebSearch: true,
+      campaignBudget: campaign,
+      maxTurns: 1,
+      deterministicHostedWebSearchCalls: [
+        {
+          type: "hosted_tool_call",
+          name: "web_search_call",
+          status: "completed",
+          providerData: {
+            type: "web_search_call",
+            action: {
+              type: "search",
+              sources: [{ type: "url", url: "https://example.com" }],
+            },
+          },
+        },
+      ],
+    });
+    expect(campaign.consumedHostedWebOperations).toBe(0);
+  });
+
+  it("BYPASS-06 — unknown hosted tools remain fail-closed", () => {
+    expect(() =>
+      toolDefinitionsFromModelRequest({
+        tools: [
+          {
+            type: "hosted_tool",
+            name: "file_search",
+            providerData: { type: "file_search" },
+          },
+        ],
+      } as never),
+    ).toThrow(/NORA_PROVIDER_MODEL_UNSUPPORTED_HOSTED_TOOL:file_search/);
+  });
+
+  it("BYPASS-07/08 / LEASE-09 — budget stop does not retry or invent completion", async () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "bypass07-no-retry",
+      maxModelInvocations: 0,
+      maxHostedWebOperations: 0,
+    });
+    const turn = await runNoraAgentsTurn({
+      correlationId: "b7",
+      projectId: "p",
+      systemInstructions: "S",
+      userContent: "x",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "nope" }],
+      }),
+      enableTools: false,
+      campaignBudget: campaign,
+      maxTurns: 5,
+    });
+    expect(turn.limitReached).toBe(true);
+    expect(turn.text).not.toBe("nope");
+    expect(campaign.consumedModelInvocations).toBe(0);
+    expect(turn.text.toLowerCase()).not.toMatch(/cognitive completion/);
+  });
+});
+
+describe("PRE-REAL-01 AUTH — live authority isolation", () => {
+  it("AUTH-01 — runtime input type has no test Morris GO REAL boolean", () => {
+    type Keys = keyof RunNoraAgentsTurnInput;
+    type Forbidden = Extract<Keys, "testOnlyMorrisGoRealPresent">;
+    const _assertNever: Forbidden extends never ? true : false = true;
+    expect(_assertNever).toBe(true);
+    const sample: RunNoraAgentsTurnInput = {
+      correlationId: "a",
+      projectId: "p",
+      systemInstructions: "s",
+      userContent: "u",
+    };
+    expect(
+      Object.prototype.hasOwnProperty.call(sample, "testOnlyMorrisGoRealPresent"),
+    ).toBe(false);
+  });
+
+  it("AUTH-02/03 — legacy cast testOnlyMorrisGoRealPresent=true cannot authorize LIVE", async () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "auth-cast-no-live",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 2,
+    });
+    const smuggled = {
+      correlationId: "auth-cast",
+      projectId: "p",
+      systemInstructions: "S",
+      userContent: "search",
+      provider: {
+        providerId: "openai",
+        complete: async () => {
+          throw new Error("REAL_MUST_NOT_RUN");
+        },
+      },
+      model: undefined,
+      enableTools: false,
+      enableHostedWebSearch: true,
+      campaignBudget: campaign,
+      maxTurns: 1,
+      testOnlyMorrisGoRealPresent: true,
+    } as RunNoraAgentsTurnInput & { testOnlyMorrisGoRealPresent?: boolean };
+
+    const turn = await runNoraAgentsTurn({
+      ...smuggled,
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "safe-fake" }],
+      }),
+    });
+    void turn;
+    const pre = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+    });
+    expect(pre.blocked).toBe(true);
+    expect(pre.code).toBe("REAL_AUTHORITY_NOT_BOUND");
+    expect(pre.eligible).toBe(false);
+  });
+
+  it("AUTH-06/07/08 — no authority objects invented; clear block reason; zero network", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "auth-block-reason",
+      maxModelInvocations: 10,
+      maxHostedWebOperations: 5,
+    });
+    const pre = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+    });
+    expect(pre.code).toBe("REAL_AUTHORITY_NOT_BOUND");
+    expect(pre.reasons).toContain("REAL_AUTHORITY_NOT_BOUND");
+    expect(JSON.stringify(pre)).not.toMatch(
+      /HumanDecision|Confirmation|ExecutionContract|Truth C/,
+    );
+  });
+});
+
+describe("PRE-REAL-02 LEASE — campaign re-instantiation resistance", () => {
+  it("LEASE-01 — reacquire same spec preserves consumed counters", () => {
+    const first = acquireNoraCampaignBudget({
+      campaignId: "lease01-preserve",
+      maxModelInvocations: 10,
+      maxHostedWebOperations: 5,
+    });
+    claimModelInvocation(first);
+    claimModelInvocation(first);
+    const second = acquireNoraCampaignBudget({
+      campaignId: "lease01-preserve",
+      maxModelInvocations: 10,
+      maxHostedWebOperations: 5,
+    });
+    expect(second).toBe(first);
+    expect(second.consumedModelInvocations).toBe(2);
+  });
+
+  it("LEASE-02 — higher model cap fails closed", () => {
+    acquireNoraCampaignBudget({
+      campaignId: "lease02-model-widen",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 2,
+    });
+    expect(() =>
+      acquireNoraCampaignBudget({
+        campaignId: "lease02-model-widen",
+        maxModelInvocations: 99,
+        maxHostedWebOperations: 2,
+      }),
+    ).toThrow(CampaignLeaseError);
+  });
+
+  it("LEASE-03 — higher hosted cap fails closed", () => {
+    acquireNoraCampaignBudget({
+      campaignId: "lease03-hosted-widen",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 2,
+    });
+    expect(() =>
+      acquireNoraCampaignBudget({
+        campaignId: "lease03-hosted-widen",
+        maxModelInvocations: 5,
+        maxHostedWebOperations: 99,
+      }),
+    ).toThrow(CampaignLeaseError);
+    try {
+      acquireNoraCampaignBudget({
+        campaignId: "lease03-hosted-widen",
+        maxModelInvocations: 5,
+        maxHostedWebOperations: 99,
+      });
+    } catch (e) {
+      expect(e).toBeInstanceOf(CampaignLeaseError);
+      expect((e as CampaignLeaseError).code).toBe(
+        "NORA_CAMPAIGN_BUDGET_SPEC_MISMATCH",
+      );
+    }
+  });
+
+  it("LEASE-04 — higher aggregate H17 cap fails closed", () => {
+    acquireNoraCampaignBudget({
+      campaignId: "lease04-agg-widen",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 2,
+      maxAggregateRealCalls: 5,
+    });
+    expect(() =>
+      acquireNoraCampaignBudget({
+        campaignId: "lease04-agg-widen",
+        maxModelInvocations: 5,
+        maxHostedWebOperations: 2,
+        maxAggregateRealCalls: 100,
+      }),
+    ).toThrow(CampaignLeaseError);
+  });
+
+  it("LEASE-05 — different hosted capability fails closed", () => {
+    acquireNoraCampaignBudget({
+      campaignId: "lease05-cap-class",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 2,
+      hostedHardCapCapability: "provider_max_tool_calls",
+    });
+    expect(() =>
+      acquireNoraCampaignBudget({
+        campaignId: "lease05-cap-class",
+        maxModelInvocations: 5,
+        maxHostedWebOperations: 2,
+        hostedHardCapCapability: "unsupported_unproven",
+      }),
+    ).toThrow(CampaignLeaseError);
+  });
+
+  it("LEASE-06 — fabricated/copied object cannot become canonical runtime budget", async () => {
+    const canonical = acquireNoraCampaignBudget({
+      campaignId: "lease06-fabricated",
+      maxModelInvocations: 3,
+      maxHostedWebOperations: 2,
+    });
+    const fabricated = createNoraCampaignBudget({
+      campaignId: "lease06-fabricated",
+      maxModelInvocations: 3,
+      maxHostedWebOperations: 2,
+    });
+    expect(isCanonicalCampaignBudget(fabricated)).toBe(false);
+    expect(() => requireCanonicalCampaignBudget(fabricated)).toThrow(
+      CampaignLeaseError,
+    );
+    try {
+      requireCanonicalCampaignBudget(fabricated);
+    } catch (e) {
+      expect((e as CampaignLeaseError).code).toBe("CAMPAIGN_LEASE_INVALID");
+    }
+    expect(() => claimModelInvocation(fabricated)).toThrow(CampaignLeaseError);
+
+    const turn = await runNoraAgentsTurn({
+      correlationId: "lease06",
+      projectId: "p",
+      systemInstructions: "S",
+      userContent: "u",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "should-not-run" }],
+      }),
+      enableTools: false,
+      campaignBudget: fabricated,
+      maxTurns: 1,
+    });
+    expect(turn.limitReached).toBe(true);
+    expect(turn.text).toMatch(/canonical|lease|CAMPAIGN_LEASE/i);
+    expect(turn.text).not.toBe("should-not-run");
+    expect(canonical.consumedModelInvocations).toBe(0);
+  });
+
+  it("LEASE-10 — no persistence module; process-local only; no reset API", () => {
+    const a = acquireNoraCampaignBudget({
+      campaignId: "lease10-no-persist",
+      maxModelInvocations: 1,
+      maxHostedWebOperations: 1,
+    });
+    expect(isCanonicalCampaignBudget(a)).toBe(true);
+    expect(
+      Object.keys(CampaignBudgetModule).some((k) =>
+        /reset|clearAll|releaseAll|forceReset/i.test(k),
+      ),
+    ).toBe(false);
+  });
+});
+
+describe("R-PRE-REAL-03 INT — canonical state integrity", () => {
+  function tryMutate(target: NoraCampaignBudget, key: string, value: unknown): void {
+    try {
+      Object.assign(target as object, { [key]: value });
+    } catch {
+      /* frozen / accessor may throw — expected */
+    }
+    try {
+      (target as Record<string, unknown>)[key] = value;
+    } catch {
+      /* expected */
+    }
+    try {
+      Object.defineProperty(target, key, {
+        value,
+        writable: true,
+        configurable: true,
+      });
+    } catch {
+      /* expected */
+    }
+  }
+
+  it("INT-01 — hard aggregate limit tamper cannot widen", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "int01-agg-tamper",
+      maxModelInvocations: 100,
+      maxHostedWebOperations: 10,
+      maxAggregateRealCalls: 100,
+    });
+    for (let i = 0; i < 50; i++) claimModelInvocation(campaign);
+    tryMutate(campaign, "maxAggregateRealCalls", 1000);
+    expect(campaign.maxAggregateRealCalls).toBe(100);
+    expect(campaignBudgetSnapshot(campaign).maxAggregateRealCalls).toBe(100);
+    let accepted = 50;
+    for (let i = 0; i < 200; i++) {
+      if (claimModelInvocation(campaign)) accepted += 1;
+    }
+    expect(accepted).toBe(100);
+    expect(campaign.consumedAggregateRealCalls).toBe(100);
+  });
+
+  it("INT-02 — model limit tamper cannot widen", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "int02-model-tamper",
+      maxModelInvocations: 3,
+      maxHostedWebOperations: 10,
+    });
+    tryMutate(campaign, "maxModelInvocations", 1000);
+    expect(campaign.maxModelInvocations).toBe(3);
+    expect(claimModelInvocation(campaign)).toBe(true);
+    expect(claimModelInvocation(campaign)).toBe(true);
+    expect(claimModelInvocation(campaign)).toBe(true);
+    expect(claimModelInvocation(campaign)).toBe(false);
+    expect(campaign.consumedModelInvocations).toBe(3);
+  });
+
+  it("INT-03 — hosted limit tamper cannot widen max_tool_calls clamp", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "int03-hosted-tamper",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 2,
+    });
+    tryMutate(campaign, "maxHostedWebOperations", 1000);
+    expect(campaign.maxHostedWebOperations).toBe(2);
+    const clamp = clampRunnerBudgetForCampaign({
+      campaign,
+      requestedMaxTurns: 1,
+      wantHostedWebSearch: true,
+    });
+    expect(clamp.maxToolCalls).toBe(2);
+    expect((clamp.maxToolCalls ?? 0) * clamp.maxTurns).toBeLessThanOrEqual(2);
+  });
+
+  it("INT-04 — consumed-counter reset cannot rewind model/aggregate", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "int04-consumed-reset",
+      maxModelInvocations: 100,
+      maxHostedWebOperations: 10,
+      maxAggregateRealCalls: 100,
+    });
+    for (let i = 0; i < 50; i++) claimModelInvocation(campaign);
+    tryMutate(campaign, "consumedModelInvocations", 0);
+    tryMutate(campaign, "consumedAggregateRealCalls", 0);
+    expect(campaign.consumedModelInvocations).toBe(50);
+    expect(campaign.consumedAggregateRealCalls).toBe(50);
+    expect(remainingModelInvocations(campaign)).toBe(50);
+    expect(remainingAggregateRealCalls(campaign)).toBe(50);
+  });
+
+  it("INT-05 — hosted consumed reset cannot rewind", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "int05-hosted-consumed",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 3,
+    });
+    expect(claimHostedWebOperations(campaign, 2)).toBe(true);
+    tryMutate(campaign, "consumedHostedWebOperations", 0);
+    expect(campaign.consumedHostedWebOperations).toBe(2);
+    expect(remainingHostedWebOperations(campaign)).toBe(1);
+  });
+
+  it("INT-06 — capability escalation cannot promote unsupported_unproven", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "int06-cap-escalate",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 5,
+      hostedHardCapCapability: "unsupported_unproven",
+    });
+    tryMutate(campaign, "hostedHardCapCapability", "provider_max_tool_calls");
+    expect(campaign.hostedHardCapCapability).toBe("unsupported_unproven");
+    const clamp = clampRunnerBudgetForCampaign({
+      campaign,
+      requestedMaxTurns: 2,
+      wantHostedWebSearch: true,
+    });
+    expect(clamp.attachHostedWebSearch).toBe(false);
+    expect(clamp.reasonCodes).toContain("hosted_hard_cap_unenforceable_detach");
+  });
+
+  it("INT-07 — campaign identity tamper cannot reach another lease", () => {
+    const a = acquireNoraCampaignBudget({
+      campaignId: "int07-id-a",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 2,
+    });
+    const b = acquireNoraCampaignBudget({
+      campaignId: "int07-id-b",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 2,
+    });
+    claimModelInvocation(a);
+    tryMutate(a, "campaignId", "int07-id-b");
+    expect(a.campaignId).toBe("int07-id-a");
+    expect(isCanonicalCampaignBudget(a)).toBe(true);
+    expect(b.consumedModelInvocations).toBe(0);
+    expect(claimModelInvocation(a)).toBe(true);
+    expect(a.consumedModelInvocations).toBe(2);
+  });
+
+  it("INT-08 — assign / defineProperty / clone attacks leave canonical intact", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "int08-clone-attack",
+      maxModelInvocations: 4,
+      maxHostedWebOperations: 4,
+    });
+    claimModelInvocation(campaign);
+    claimModelInvocation(campaign);
+    const clone = { ...campaign } as NoraCampaignBudget;
+    const assigned = Object.assign({}, campaign) as NoraCampaignBudget;
+    const jsonClone = JSON.parse(JSON.stringify(campaignBudgetSnapshot(campaign)));
+    expect(isCanonicalCampaignBudget(clone)).toBe(false);
+    expect(isCanonicalCampaignBudget(assigned)).toBe(false);
+    expect(() => claimModelInvocation(clone)).toThrow(CampaignLeaseError);
+    expect(() => claimModelInvocation(assigned)).toThrow(CampaignLeaseError);
+    void jsonClone;
+    tryMutate(campaign, "maxModelInvocations", 999);
+    tryMutate(campaign, "consumedModelInvocations", 0);
+    expect(campaign.consumedModelInvocations).toBe(2);
+    expect(campaign.maxModelInvocations).toBe(4);
+    expect(claimModelInvocation(campaign)).toBe(true);
+    expect(claimModelInvocation(campaign)).toBe(true);
+    expect(claimModelInvocation(campaign)).toBe(false);
+  });
+
+  it("INT-09 — public NoraCampaignBudget fields are readonly in the type contract", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "int09-readonly-type",
+      maxModelInvocations: 1,
+      maxHostedWebOperations: 1,
+    });
+    // Compile-time: NoraCampaignBudget fields are `readonly`.
+    // Runtime: frozen handle backed by private lease (assignment cannot redirect enforcement).
+    expect(Object.isFrozen(campaign)).toBe(true);
+    expect(typeof campaign.maxModelInvocations).toBe("number");
+    type ReadonlyCheck = {
+      readonly [K in keyof NoraCampaignBudget]: NoraCampaignBudget[K];
+    };
+    const _type: ReadonlyCheck = campaign;
+    expect(_type.campaignId).toBe("int09-readonly-type");
+  });
+});
+
+describe("R-PRE-REAL-03 H17 tamper / full single-process integrity", () => {
+  it("H17 tamper — widen/reset after 50 cannot authorize call 101", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "h17-tamper-full",
+      maxModelInvocations: H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS,
+      maxHostedWebOperations: 50,
+      maxAggregateRealCalls: H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS,
+    });
+    for (let i = 0; i < 50; i++) {
+      expect(claimModelInvocation(campaign)).toBe(true);
+    }
+    const anyCamp = campaign as Record<string, unknown>;
+    for (const [k, v] of [
+      ["maxAggregateRealCalls", 1000],
+      ["maxModelInvocations", 1000],
+      ["consumedAggregateRealCalls", 0],
+      ["consumedModelInvocations", 0],
+    ] as const) {
+      try {
+        anyCamp[k] = v;
+      } catch {
+        /* expected */
+      }
+      try {
+        Object.assign(campaign as object, { [k]: v });
+      } catch {
+        /* expected */
+      }
+    }
+    const again = acquireNoraCampaignBudget({
+      campaignId: "h17-tamper-full",
+      maxModelInvocations: H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS,
+      maxHostedWebOperations: 50,
+      maxAggregateRealCalls: H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS,
+    });
+    expect(again).toBe(campaign);
+    expect(again.consumedAggregateRealCalls).toBe(50);
+    expect(again.maxAggregateRealCalls).toBe(100);
+    expect(again.maxModelInvocations).toBe(100);
+
+    let accepted = 50;
+    let denied = 0;
+    for (let i = 50; i < H17_HISTORICAL_OBSERVED_AGGREGATE_CALLS; i++) {
+      if (claimModelInvocation(campaign)) accepted += 1;
+      else denied += 1;
+    }
+    expect(accepted).toBe(100);
+    expect(denied).toBe(41);
+    expect(campaign.consumedAggregateRealCalls).toBe(100);
+    expect(campaign.consumedModelInvocations).toBe(100);
+
+    // Post-exhaustion tamper still cannot reopen.
+    try {
+      anyCamp.consumedAggregateRealCalls = 0;
+      anyCamp.maxAggregateRealCalls = 1000;
+    } catch {
+      /* expected */
+    }
+    expect(claimModelInvocation(campaign)).toBe(false);
+    expect(campaign.consumedAggregateRealCalls).toBe(100);
+  });
+});
+
+describe("R-PRE-REAL-04 RESET — registry reset isolation", () => {
+  it("RESET-01 — public barrel has no resetCampaignLeaseRegistryForTests", () => {
+    expect(
+      Object.prototype.hasOwnProperty.call(
+        NoraRuntime,
+        "resetCampaignLeaseRegistryForTests",
+      ),
+    ).toBe(false);
+    expect(
+      Object.keys(NoraRuntime).some((k) =>
+        /resetCampaign|clearCampaign|releaseAllCampaign|forceResetCampaign/i.test(
+          k,
+        ),
+      ),
+    ).toBe(false);
+  });
+
+  it("RESET-02 — campaignBudget module has no callable reset/clear-all", () => {
+    expect(
+      Object.keys(CampaignBudgetModule).some((k) =>
+        /reset|clearAll|releaseAll|forceReset/i.test(k),
+      ),
+    ).toBe(false);
+    expect(
+      typeof (CampaignBudgetModule as { resetCampaignLeaseRegistryForTests?: unknown })
+        .resetCampaignLeaseRegistryForTests,
+    ).toBe("undefined");
+  });
+
+  it("RESET-03 — process lifetime preserves consumed across ordinary turns", async () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "reset03-lifetime",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 5,
+    });
+    claimModelInvocation(campaign);
+    claimModelInvocation(campaign);
+    await runNoraAgentsTurn({
+      correlationId: "r3",
+      projectId: "p",
+      systemInstructions: "S",
+      userContent: "x",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "ok" }],
+      }),
+      enableTools: false,
+      campaignBudget: campaign,
+      maxTurns: 1,
+    });
+    const again = acquireNoraCampaignBudget({
+      campaignId: "reset03-lifetime",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 5,
+    });
+    expect(again.consumedModelInvocations).toBe(3);
+  });
+
+  it("RESET-04 — exhausted campaign stays exhausted after retry/new turn", async () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "reset04-exhausted",
+      maxModelInvocations: 1,
+      maxHostedWebOperations: 1,
+    });
+    expect(claimModelInvocation(campaign)).toBe(true);
+    expect(claimModelInvocation(campaign)).toBe(false);
+    await runNoraAgentsTurn({
+      correlationId: "r4",
+      projectId: "p",
+      systemInstructions: "S",
+      userContent: "x",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "nope" }],
+      }),
+      enableTools: false,
+      campaignBudget: campaign,
+      maxTurns: 2,
+    });
+    const again = acquireNoraCampaignBudget({
+      campaignId: "reset04-exhausted",
+      maxModelInvocations: 1,
+      maxHostedWebOperations: 1,
+    });
+    expect(again.consumedModelInvocations).toBe(1);
+    expect(claimModelInvocation(again)).toBe(false);
+  });
+
+  it("RESET-05 — no product/runtime env switch resets the registry", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "reset05-env",
+      maxModelInvocations: 3,
+      maxHostedWebOperations: 1,
+    });
+    claimModelInvocation(campaign);
+    // No product API keys off NODE_ENV/VITEST to clear leases. Prove by absence
+    // of env-gated reset + reacquire preserving counters under current env.
+    expect(
+      Object.keys(CampaignBudgetModule).some((k) => /NODE_ENV|VITEST|env/i.test(k)),
+    ).toBe(false);
+    const again = acquireNoraCampaignBudget({
+      campaignId: "reset05-env",
+      maxModelInvocations: 3,
+      maxHostedWebOperations: 1,
+    });
+    expect(again.consumedModelInvocations).toBe(1);
+    expect(process.env.NODE_ENV).toBeDefined();
+  });
+
+  it("RESET-06 — no hidden release/reset backdoor introduced for tests", () => {
+    const surface = [
+      ...Object.keys(NoraRuntime),
+      ...Object.keys(CampaignBudgetModule),
+    ];
+    expect(
+      surface.some((k) =>
+        /releaseCampaign|resetLease|clearLease|dropCampaign|evictCampaign/i.test(
+          k,
+        ),
+      ),
+    ).toBe(false);
+  });
+});
+
+function expectInvalidBudget(fn: () => unknown): void {
+  expect(fn).toThrow(CampaignLeaseError);
+  try {
+    fn();
+  } catch (e) {
+    expect(e).toBeInstanceOf(CampaignLeaseError);
+    expect((e as CampaignLeaseError).code).toBe("INVALID_BUDGET");
+  }
+}
+
+describe("R-PRE-REAL-05 NUM-HARD — finite hard-limit validation", () => {
+  it("NUM-01 / NUM-HARD-01 — maxModelInvocations = NaN rejected; no lease", () => {
+    expectInvalidBudget(() =>
+      acquireNoraCampaignBudget({
+        campaignId: "num01-nan-model",
+        maxModelInvocations: Number.NaN,
+        maxHostedWebOperations: 2,
+      }),
+    );
+    const valid = acquireNoraCampaignBudget({
+      campaignId: "num01-nan-model",
+      maxModelInvocations: 3,
+      maxHostedWebOperations: 2,
+    });
+    expect(isCanonicalCampaignBudget(valid)).toBe(true);
+    expect(valid.maxModelInvocations).toBe(3);
+    expect(Number.isFinite(valid.maxModelInvocations)).toBe(true);
+  });
+
+  it("NUM-02 / NUM-HARD-02 — maxModelInvocations = Infinity rejected", () => {
+    expectInvalidBudget(() =>
+      acquireNoraCampaignBudget({
+        campaignId: "num02-inf-model",
+        maxModelInvocations: Number.POSITIVE_INFINITY,
+        maxHostedWebOperations: 2,
+      }),
+    );
+  });
+
+  it("NUM-03 / NUM-HARD-03 — maxModelInvocations = -Infinity rejected", () => {
+    expectInvalidBudget(() =>
+      acquireNoraCampaignBudget({
+        campaignId: "num03-ninf-model",
+        maxModelInvocations: Number.NEGATIVE_INFINITY,
+        maxHostedWebOperations: 2,
+      }),
+    );
+  });
+
+  it("NUM-04 / NUM-HARD-04/05 — maxHostedWebOperations NaN / ±Infinity rejected", () => {
+    expectInvalidBudget(() =>
+      acquireNoraCampaignBudget({
+        campaignId: "num04-nan-hosted",
+        maxModelInvocations: 2,
+        maxHostedWebOperations: Number.NaN,
+      }),
+    );
+    expectInvalidBudget(() =>
+      acquireNoraCampaignBudget({
+        campaignId: "num04-inf-hosted",
+        maxModelInvocations: 2,
+        maxHostedWebOperations: Number.POSITIVE_INFINITY,
+      }),
+    );
+    expectInvalidBudget(() =>
+      acquireNoraCampaignBudget({
+        campaignId: "num04-ninf-hosted",
+        maxModelInvocations: 2,
+        maxHostedWebOperations: Number.NEGATIVE_INFINITY,
+      }),
+    );
+  });
+
+  it("NUM-05 / NUM-HARD-06/07 — maxAggregateRealCalls NaN / Infinity rejected", () => {
+    expectInvalidBudget(() =>
+      acquireNoraCampaignBudget({
+        campaignId: "num05-nan-agg",
+        maxModelInvocations: 2,
+        maxHostedWebOperations: 2,
+        maxAggregateRealCalls: Number.NaN,
+      }),
+    );
+    expectInvalidBudget(() =>
+      acquireNoraCampaignBudget({
+        campaignId: "num05-inf-agg",
+        maxModelInvocations: 2,
+        maxHostedWebOperations: 2,
+        maxAggregateRealCalls: Number.POSITIVE_INFINITY,
+      }),
+    );
+  });
+
+  it("NUM-06 — failed invalid acquisition does not poison campaignId namespace", () => {
+    expectInvalidBudget(() =>
+      acquireNoraCampaignBudget({
+        campaignId: "num06-poison",
+        maxModelInvocations: Number.NaN,
+        maxHostedWebOperations: Number.POSITIVE_INFINITY,
+      }),
+    );
+    const fresh = acquireNoraCampaignBudget({
+      campaignId: "num06-poison",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 3,
+      maxAggregateRealCalls: 5,
+    });
+    expect(fresh.consumedModelInvocations).toBe(0);
+    expect(fresh.maxModelInvocations).toBe(5);
+    expect(claimModelInvocation(fresh)).toBe(true);
+  });
+
+  it("NUM-07 — finite fraction floors (3.9 → 3); no NaN/Infinity", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "num07-fraction",
+      maxModelInvocations: 3.9,
+      maxHostedWebOperations: 2.1,
+      maxAggregateRealCalls: 4.7,
+    });
+    expect(campaign.maxModelInvocations).toBe(3);
+    expect(campaign.maxHostedWebOperations).toBe(2);
+    expect(campaign.maxAggregateRealCalls).toBe(4);
+    expect(Number.isInteger(campaign.maxModelInvocations)).toBe(true);
+  });
+
+  it("NUM-08 / NUM-HARD-08 — zero limits supported; fail-closed before dispatch", async () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "num08-zero",
+      maxModelInvocations: 0,
+      maxHostedWebOperations: 0,
+    });
+    expect(campaign.maxModelInvocations).toBe(0);
+    const turn = await runNoraAgentsTurn({
+      correlationId: "num08",
+      projectId: "p",
+      systemInstructions: "S",
+      userContent: "x",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "nope" }],
+      }),
+      enableTools: false,
+      campaignBudget: campaign,
+      maxTurns: 3,
+    });
+    expect(turn.limitReached).toBe(true);
+    expect(turn.text).not.toBe("nope");
+    expect(campaign.consumedModelInvocations).toBe(0);
+  });
+});
+
+describe("R-PRE-REAL-06 NUM-CLAIM / CLAMP / CAP — hosted claim + provider numeric integrity", () => {
+  it("NUM-CLAIM-01 — claimHostedWebOperations(NaN) throws; no mutation", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "num-claim01",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 5,
+    });
+    expect(claimHostedWebOperations(campaign, 1)).toBe(true);
+    expectInvalidBudget(() => claimHostedWebOperations(campaign, Number.NaN));
+    expect(campaign.consumedHostedWebOperations).toBe(1);
+    expect(Number.isFinite(campaign.consumedHostedWebOperations)).toBe(true);
+  });
+
+  it("NUM-CLAIM-02/03 — claimHostedWebOperations(±Infinity) throws; no mutation", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "num-claim02",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 5,
+    });
+    expect(claimHostedWebOperations(campaign, 2)).toBe(true);
+    expectInvalidBudget(() =>
+      claimHostedWebOperations(campaign, Number.POSITIVE_INFINITY),
+    );
+    expectInvalidBudget(() =>
+      claimHostedWebOperations(campaign, Number.NEGATIVE_INFINITY),
+    );
+    expect(campaign.consumedHostedWebOperations).toBe(2);
+  });
+
+  it("NUM-CLAIM-04 — negative finite count floors to 0; no corruption", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "num-claim04",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 5,
+    });
+    expect(claimHostedWebOperations(campaign, -3.7)).toBe(true);
+    expect(campaign.consumedHostedWebOperations).toBe(0);
+    expect(Number.isFinite(campaign.consumedHostedWebOperations)).toBe(true);
+  });
+
+  it("NUM-CLAMP-01 — requestedMaxTurns = NaN fails closed / no Runner dispatch", async () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "num-clamp01",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 5,
+    });
+    expectInvalidBudget(() =>
+      clampRunnerBudgetForCampaign({
+        campaign,
+        requestedMaxTurns: Number.NaN,
+        wantHostedWebSearch: false,
+      }),
+    );
+    const turn = await runNoraAgentsTurn({
+      correlationId: "num-clamp01",
+      projectId: "p",
+      systemInstructions: "S",
+      userContent: "x",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "nope" }],
+      }),
+      enableTools: false,
+      campaignBudget: campaign,
+      maxTurns: Number.NaN,
+    });
+    expect(turn.limitReached).toBe(true);
+    expect(turn.text).not.toBe("nope");
+    expect(campaign.consumedModelInvocations).toBe(0);
+  });
+
+  it("NUM-CLAMP-02 — requestedMaxTurns = Infinity fails closed", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "num-clamp02",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 5,
+    });
+    expectInvalidBudget(() =>
+      clampRunnerBudgetForCampaign({
+        campaign,
+        requestedMaxTurns: Number.POSITIVE_INFINITY,
+        wantHostedWebSearch: true,
+      }),
+    );
+  });
+
+  it("NUM-CAP-01 — configuredMaxToolCalls = NaN never reaches providerData", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "num-cap01",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 5,
+    });
+    expectInvalidBudget(() =>
+      resolveMaxToolCallsProviderData({
+        campaign,
+        configuredMaxToolCalls: Number.NaN,
+      }),
+    );
+  });
+
+  it("NUM-CAP-02 — configuredMaxToolCalls = Infinity never reaches providerData", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "num-cap02",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 5,
+    });
+    expectInvalidBudget(() =>
+      resolveMaxToolCallsProviderData({
+        campaign,
+        configuredMaxToolCalls: Number.POSITIVE_INFINITY,
+      }),
+    );
+  });
+
+  it("NUM-CAP-03/04 — callerOverride NaN/Infinity rejected; cannot widen", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "num-cap03",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 4,
+    });
+    const clamp = clampRunnerBudgetForCampaign({
+      campaign,
+      requestedMaxTurns: 1,
+      wantHostedWebSearch: true,
+    });
+    const nanOverride = resolveMaxToolCallsProviderData({
+      campaign,
+      configuredMaxToolCalls: clamp.maxToolCalls,
+      callerOverride: Number.NaN,
+    });
+    expect(nanOverride.rejectedOverride).toBe(true);
+    expect(nanOverride.max_tool_calls).toBe(clamp.maxToolCalls);
+    expect(Number.isFinite(nanOverride.max_tool_calls!)).toBe(true);
+
+    const infOverride = resolveMaxToolCallsProviderData({
+      campaign,
+      configuredMaxToolCalls: clamp.maxToolCalls,
+      callerOverride: Number.POSITIVE_INFINITY,
+    });
+    expect(infOverride.rejectedOverride).toBe(true);
+    expect(infOverride.max_tool_calls).toBe(clamp.maxToolCalls);
+    expect(infOverride.max_tool_calls).toBeLessThanOrEqual(4);
+  });
+
+  it("NUM-CAP-05 — finite override <= configured cap remains supported", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "num-cap05",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 4,
+    });
+    const clamp = clampRunnerBudgetForCampaign({
+      campaign,
+      requestedMaxTurns: 1,
+      wantHostedWebSearch: true,
+    });
+    expect(clamp.maxToolCalls).toBe(4);
+    const resolved = resolveMaxToolCallsProviderData({
+      campaign,
+      configuredMaxToolCalls: clamp.maxToolCalls,
+      callerOverride: 2,
+    });
+    expect(resolved.max_tool_calls).toBe(2);
+    expect(resolved.rejectedOverride).toBe(false);
+    const settings = withMaxToolCallsProviderData(undefined, resolved.max_tool_calls!);
+    expect(settings?.providerData?.max_tool_calls).toBe(2);
+    expect(Number.isInteger(settings?.providerData?.max_tool_calls)).toBe(true);
+  });
+});
+
+describe("R-PRE-REAL-05/06 H17 invalid-numeric regression", () => {
+  it("H17 Scenario A/B — NaN/Infinity campaign rejected; Scenario C claim poison + 141/100", () => {
+    expectInvalidBudget(() =>
+      acquireNoraCampaignBudget({
+        campaignId: "h17-num-nan",
+        maxModelInvocations: Number.NaN,
+        maxHostedWebOperations: 10,
+        maxAggregateRealCalls: Number.NaN,
+      }),
+    );
+    expectInvalidBudget(() =>
+      acquireNoraCampaignBudget({
+        campaignId: "h17-num-inf",
+        maxModelInvocations: Number.POSITIVE_INFINITY,
+        maxHostedWebOperations: 10,
+        maxAggregateRealCalls: Number.POSITIVE_INFINITY,
+      }),
+    );
+
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "h17-num-valid",
+      maxModelInvocations: H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS,
+      maxHostedWebOperations: 50,
+      maxAggregateRealCalls: H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS,
+    });
+    for (let i = 0; i < 50; i++) {
+      expect(claimModelInvocation(campaign)).toBe(true);
+    }
+    expectInvalidBudget(() => claimHostedWebOperations(campaign, Number.NaN));
+    expectInvalidBudget(() =>
+      claimHostedWebOperations(campaign, Number.POSITIVE_INFINITY),
+    );
+    expect(campaign.consumedHostedWebOperations).toBe(0);
+    expect(campaign.consumedAggregateRealCalls).toBe(50);
+    expect(campaign.consumedModelInvocations).toBe(50);
+    expect(Number.isFinite(campaign.consumedHostedWebOperations)).toBe(true);
+    expect(Number.isFinite(campaign.consumedModelInvocations)).toBe(true);
+
+    let accepted = 50;
+    let denied = 0;
+    for (let i = 50; i < H17_HISTORICAL_OBSERVED_AGGREGATE_CALLS; i++) {
+      if (claimModelInvocation(campaign)) accepted += 1;
+      else denied += 1;
+    }
+    expect(accepted).toBe(100);
+    expect(denied).toBe(41);
+    expect(campaign.consumedAggregateRealCalls).toBe(100);
+    expect(claimModelInvocation(campaign)).toBe(false);
+  });
+});
+```
+
+---
+
+## 17. HISTORY — prior packs retained
+
 # SFIA Review Pack — NORA MW6 PRE-REAL BUDGET INTEGRITY CORRECTION
 
 | Field | Value |
