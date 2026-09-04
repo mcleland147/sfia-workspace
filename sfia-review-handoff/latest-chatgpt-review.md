@@ -1,3 +1,2007 @@
+# SFIA Review Pack — NORA MW6 PRE-REAL BUDGET HARDENING
+
+| Field | Value |
+| --- | --- |
+| **Timestamp** | 2026-09-04 15:04:44 CEST |
+| **Cycle** | 8 — Delivery / Implementation |
+| **Profile** | CRITICAL |
+| **Milestone** | MW6 — External Source Intelligence |
+| **Sub-milestone** | MW6 PRE-REAL BUDGET HARDENING |
+| **GO Morris** | **GO MORRIS — MW6 PRE-REAL BUDGET HARDENING** (CONSUMED) |
+| **Repository** | mcleland147/sfia-workspace |
+| **Worktree** | /Users/morris/Projects/sfia-workspace-nora-mw6-external-source-intelligence |
+| **Branch** | `delivery/sfia-studio-nora-mw6-external-source-intelligence` |
+| **Base / origin/main / HEAD** | `ebdae92a96ea1c49444dfb668342c1453f57a540` |
+| **Prior handoff tip** | `b8daf2aad5dee21fda7d4344489175a0ad9cb4be` |
+| **Evidence ceiling** | DETERMINISTIC ONLY |
+| **REAL calls** | **0** |
+| **Network provider calls** | **0** |
+| **Project commit / push / PR / merge** | **NO** |
+
+---
+
+## 0. History retained
+
+1. MW6 deterministic Delivery candidate
+2. ChatGPT Critical Review FAIL (CR-01→CR-10)
+3. GO MORRIS — MW6 DETERMINISTIC CORRECTION → handoff `5866ddc7…`
+4. ChatGPT Critical Re-Review FAIL — 2 residuals
+5. GO MORRIS — MW6 DETERMINISTIC CORRECTION RESIDUALS → handoff `b8daf2aa…`
+6. **Current GO:** GO MORRIS — MW6 PRE-REAL BUDGET HARDENING
+
+Prior packs retained verbatim in §HISTORY below.
+
+---
+
+## 1. Git truth
+
+- HEAD == origin/main == merge-base == `ebdae92a…`
+- Handoff tip verified: `b8daf2aa…`
+- Dirty = reviewed MW6 candidate + pre-REAL budget edits
+- Unrelated divergence = **NO**
+
+---
+
+## 2. H17 historical contract (repository sources)
+
+| Source | Content |
+| --- | --- |
+| `projects/sfia-studio/app/__tests__/nora-eval/runMw0Mw5BusinessIntegratedReal.ts` | `STRICT_LIVE_MAX = 100`; `CallCapConversationProvider` blocks 101st `complete`/`completeStructured`/`completeRound`; `LIVE_INVOCATION_COUNT` tracked |
+| `projects/sfia-studio/app/__tests__/nora-eval/mw5RealCallCap.ts` | Harness CallCap — blocks before inner delegation |
+| `projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md` | **H17 FAIL** — `TOTAL_REAL_CALLS_UNDER_MORRIS_GO = 141 / AUTHORIZED = 100 / delta = +41`; notes ~68 native F1 **unmetered** |
+
+**What 100 meant:** absolute authorized aggregate REAL/provider invocations under Morris GO for the MW0→MW5 business-integrated REAL campaign.
+
+**Why 141 occurred:** CallCap wrapped ConversationProvider methods, but native Option C Agents Runner / Responses path invocations were not fully covered by that wrapper (unmetered native F1), so aggregate exceeded 100.
+
+**Invariant now required:** campaign-scoped aggregate REAL/model invocation hard cap shared across Nora/Runner calls; N+1 denied **before** dispatch; counter never becomes 101 for cap 100.
+
+---
+
+## 3. OpenAI Capability Fit (installed SDK)
+
+| Item | Value |
+| --- | --- |
+| Declared `@openai/agents` | `^0.17.0` |
+| Lock `@openai/agents` | **0.17.0** |
+| Nested `openai` (agents) | **7.8.0** |
+| Root `openai` | 6.48.0 |
+
+**Inspected:**
+- `Runner.run` / `maxTurns` — hard model-turn upper bound (`@openai/agents-core` run.d.ts); MaxTurnsExceededError / errorHandlers
+- `callModelInputFilter` — pre-getResponse input filter only (ModelInputData = input+instructions); cannot mutate max_tool_calls mid-run
+- `webSearchTool` / HostedTool — no per-tool call max on tool options
+- `toolUseBehavior` — function-tool oriented; **not** used as hosted hard cap
+- Responses `ResponseCreateParams.max_tool_calls` (openai 7.8.0): *"maximum number of total calls to **built-in tools** … across all built-in tool calls"* — applies to web_search
+- `OpenAIResponsesModel` spreads `modelSettings.providerData` via `...restOfProviderData` into create body → `max_tool_calls` passable without replacing Option C
+- Experimental HostedMultiAgent **rejects** max_tool_calls — not our path
+
+### Disposition: **PATH A**
+
+COMBINE OpenAI-native `max_tool_calls` + `maxTurns` + SFIA `NoraCampaignBudget` envelope.
+
+Caveat (realism): live enforcement of max_tool_calls against OpenAI is **not REAL-proven** this cycle (ZERO REAL). Deterministic configuration + type/SDK path proven.
+
+---
+
+## 4. Asset classification
+
+| KEEP | ADAPT/COMPLETE |
+| --- | --- |
+| Option C single Runner | `campaignBudget.ts` (new campaign lifecycle) |
+| NoraTurnBudget (per-turn function tools) | callModelInputFilter campaign claim |
+| MW6 source/narrative/contradiction surfaces | runNoraAgentsTurn clamp + providerData.max_tool_calls |
+| callModelInputFilter seam | REAL preflight gate |
+
+DO NOT BUILD: second Runner, custom search engine, new persistence, architecture pivot.
+
+Targeted TA: **NOT REQUIRED**
+
+---
+
+## 5. Campaign budget design
+
+**Owner:** `NoraCampaignBudget` in `campaignBudget.ts`
+**Why new module:** NoraTurnBudget is per-model-turn function-tool slots; campaign must survive multiple Nora/Runner calls without reset.
+
+Counters: max/consumed model invocations; max/consumed hosted web ops; max/consumed aggregate REAL calls (H17); denial code/reason; hostedHardCapCapability.
+
+Pre-dispatch: `claimModelInvocation` before model call; `clampRunnerBudgetForCampaign` ensures `max_tool_calls * maxTurns <= remainingHosted`.
+
+---
+
+## 6. Model invocation hard cap
+
+- Runner `maxTurns` clamped to remaining model/aggregate
+- `callModelInputFilter` claims campaign slot; throws `CampaignModelInvocationDeniedError` if denied (no dispatch)
+- maxTurns=0 short-circuits before `runner.run`
+
+---
+
+## 7. Hosted web operation hard cap (PATH A)
+
+- Configure `providerData.max_tool_calls` via `withMaxToolCallsProviderData`
+- Attach only when remaining hosted > 0 and capability = `provider_max_tool_calls`
+- REAL live OpenAI hosted attach requires `evaluateRealSourceExecutionPreflight` (Morris GO REAL + budgets) — **this cycle GO REAL absent → REAL BLOCKED for live attach**
+- Fake/deterministic fixtures remain usable; fixtures do not consume REAL hosted budget
+
+---
+
+## 8. PB-01→PB-08
+
+| ID | Result |
+| --- | --- |
+| PB-01 OpenAI Capability Fit | **PASS** (PATH A) |
+| PB-02 Campaign lifecycle | **PASS** |
+| PB-03 Model invocation hard cap | **PASS** |
+| PB-04 Hosted web hard cap | **PASS** (deterministic config PATH A) |
+| PB-05 H17 141/100 | **PASS** |
+| PB-06 Bypass-01→08 | **PASS** |
+| PB-07 MW6 D1–D12 + suite | **PASS** (299 tests) |
+| PB-08 ZERO REAL | **PASS** |
+
+---
+
+## 9. Tests
+
+```
+unset OPENAI_API_KEY OPENAI_API_KEY_PROJECT OPENAI_BASE_URL
+npx vitest run __tests__/nora-cognitive-runtime/mw6.pre-real.budget-hardening.d0.test.ts
+→ 13 tests EXIT 0
+npx vitest run __tests__/nora-cognitive-runtime/mw6.s01-s02.source-intelligence.d0.test.ts
+→ 23 tests EXIT 0
+npx vitest run __tests__/nora-cognitive-runtime/
+→ 33 files / 299 tests EXIT 0
+npx tsc --noEmit → EXIT 0
+REAL CALLS = 0 / NETWORK PROVIDER CALLS = 0
+```
+
+---
+
+## 10. Architecture
+
+Option C · one Runner · no new persistence · no parallel engine · TA not required
+
+---
+
+## 11. Fake/REAL honesty
+
+- Deterministic only
+- REALISM GAP: live max_tool_calls provider enforcement not REAL-executed
+- Hosted-tool campaign budget configuration proven; live parity NOT PROVEN
+- This cycle: **NO Morris GO REAL** → REAL preflight blocked for live hosted attach
+- Do NOT claim READY FOR REAL / GO REAL / MW6 COMPLETE
+
+---
+
+## 12. Candidate verdict
+
+**PRE-REAL BUDGET HARDENING = PASS**
+**HOSTED HARD CAP = PROVEN DETERMINISTIC CONFIGURATION**
+**REAL PREFLIGHT = ELIGIBLE FOR CHATGPT REVIEW** (gate exists; GO REAL still absent)
+**MW6 READY FOR MORRIS GO REAL = NOT YET DECIDED**
+
+---
+
+## 13. Full content — `campaignBudget.ts`
+
+```ts
+/**
+ * MW6 PRE-REAL — campaign-scoped technical safety/cost envelope.
+ *
+ * Distinct from NoraTurnBudget (per-model-turn function-tool slots).
+ * Distinct from business authorization / Morris GO.
+ *
+ * H17 historical semantics (from
+ * `__tests__/nora-eval/runMw0Mw5BusinessIntegratedReal.ts` STRICT_LIVE_MAX=100
+ * and C5 backlog TOTAL_REAL_CALLS_UNDER_MORRIS_GO):
+ * aggregate provider/model invocations under a Morris GO must never exceed
+ * the authorized ceiling (historical fail: 141 vs AUTHORIZED 100).
+ *
+ * Hosted web ops use Responses API max_tool_calls (built-in tools) when
+ * attaching OpenAI hosted web_search — see openai Capability Fit.
+ */
+
+export const H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS = 100;
+export const H17_HISTORICAL_OBSERVED_AGGREGATE_CALLS = 141;
+
+export type HostedHardCapCapability =
+  | "provider_max_tool_calls"
+  | "unsupported_unproven";
+
+export type CampaignBudgetDenialCode =
+  | "MODEL_INVOCATION_CAP_REACHED"
+  | "HOSTED_WEB_OP_CAP_REACHED"
+  | "AGGREGATE_REAL_CALL_CAP_REACHED"
+  | "REAL_PREFLIGHT_BLOCKED"
+  | "HOSTED_HARD_CAP_UNENFORCEABLE"
+  | "INVALID_BUDGET";
+
+export type NoraCampaignBudget = {
+  campaignId: string;
+  /** Hard ceiling for model invocations across the whole campaign. */
+  maxModelInvocations: number;
+  consumedModelInvocations: number;
+  /** Hard ceiling for hosted web_search_call / built-in tool ops. */
+  maxHostedWebOperations: number;
+  consumedHostedWebOperations: number;
+  /**
+   * H17 aggregate REAL/provider-call ceiling.
+   * Defaults to maxModelInvocations when omitted at creation.
+   */
+  maxAggregateRealCalls: number;
+  consumedAggregateRealCalls: number;
+  /** Installed-SDK disposition for hosted hard cap. */
+  hostedHardCapCapability: HostedHardCapCapability;
+  limitReached: boolean;
+  denialCode: CampaignBudgetDenialCode | null;
+  denialReason: string | null;
+};
+
+export type CreateNoraCampaignBudgetInput = {
+  campaignId: string;
+  maxModelInvocations: number;
+  maxHostedWebOperations: number;
+  /** Defaults to maxModelInvocations (H17 aggregate ≈ model invocations). */
+  maxAggregateRealCalls?: number;
+  hostedHardCapCapability?: HostedHardCapCapability;
+};
+
+export function createNoraCampaignBudget(
+  input: CreateNoraCampaignBudgetInput,
+): NoraCampaignBudget {
+  const maxModel = Math.max(0, Math.floor(input.maxModelInvocations));
+  const maxHosted = Math.max(0, Math.floor(input.maxHostedWebOperations));
+  const maxAgg = Math.max(
+    0,
+    Math.floor(input.maxAggregateRealCalls ?? maxModel),
+  );
+  return {
+    campaignId: input.campaignId,
+    maxModelInvocations: maxModel,
+    consumedModelInvocations: 0,
+    maxHostedWebOperations: maxHosted,
+    consumedHostedWebOperations: 0,
+    maxAggregateRealCalls: maxAgg,
+    consumedAggregateRealCalls: 0,
+    hostedHardCapCapability:
+      input.hostedHardCapCapability ?? "provider_max_tool_calls",
+    limitReached: false,
+    denialCode: null,
+    denialReason: null,
+  };
+}
+
+export function remainingModelInvocations(b: NoraCampaignBudget): number {
+  return Math.max(0, b.maxModelInvocations - b.consumedModelInvocations);
+}
+
+export function remainingHostedWebOperations(b: NoraCampaignBudget): number {
+  return Math.max(0, b.maxHostedWebOperations - b.consumedHostedWebOperations);
+}
+
+export function remainingAggregateRealCalls(b: NoraCampaignBudget): number {
+  return Math.max(0, b.maxAggregateRealCalls - b.consumedAggregateRealCalls);
+}
+
+function deny(
+  budget: NoraCampaignBudget,
+  code: CampaignBudgetDenialCode,
+  reason: string,
+): void {
+  budget.limitReached = true;
+  budget.denialCode = code;
+  budget.denialReason = reason;
+}
+
+/**
+ * Pre-dispatch claim for one model invocation.
+ * Returns false WITHOUT incrementing when the next call would exceed any hard
+ * ceiling — the forbidden N+1 dispatch must not occur.
+ */
+export function claimModelInvocation(budget: NoraCampaignBudget): boolean {
+  // H17 aggregate REAL/provider-call ceiling is authoritative when both apply.
+  if (budget.consumedAggregateRealCalls >= budget.maxAggregateRealCalls) {
+    deny(
+      budget,
+      "AGGREGATE_REAL_CALL_CAP_REACHED",
+      `Aggregate REAL/provider-call cap reached (${budget.consumedAggregateRealCalls}/${budget.maxAggregateRealCalls}).`,
+    );
+    return false;
+  }
+  if (budget.consumedModelInvocations >= budget.maxModelInvocations) {
+    deny(
+      budget,
+      "MODEL_INVOCATION_CAP_REACHED",
+      `Model invocation cap reached (${budget.consumedModelInvocations}/${budget.maxModelInvocations}).`,
+    );
+    return false;
+  }
+  budget.consumedModelInvocations += 1;
+  budget.consumedAggregateRealCalls += 1;
+  return true;
+}
+
+/**
+ * Claim hosted web operations after a qualified observation (or reserve).
+ * Rejects claims that would exceed the campaign hosted ceiling.
+ */
+export function claimHostedWebOperations(
+  budget: NoraCampaignBudget,
+  count: number,
+): boolean {
+  const n = Math.max(0, Math.floor(count));
+  if (n === 0) return true;
+  if (budget.consumedHostedWebOperations + n > budget.maxHostedWebOperations) {
+    deny(
+      budget,
+      "HOSTED_WEB_OP_CAP_REACHED",
+      `Hosted web op claim ${n} would exceed cap (${budget.consumedHostedWebOperations}/${budget.maxHostedWebOperations}).`,
+    );
+    return false;
+  }
+  budget.consumedHostedWebOperations += n;
+  return true;
+}
+
+export type RunnerBudgetClamp = {
+  maxTurns: number;
+  /** Responses API max_tool_calls when hosted web_search is attached; null if not attaching. */
+  maxToolCalls: number | null;
+  attachHostedWebSearch: boolean;
+  reasonCodes: string[];
+};
+
+/**
+ * Clamp a single Runner.run against remaining campaign capacity.
+ *
+ * Hosted hard-cap invariant (PATH A):
+ * max_tool_calls is per Responses request. With static providerData for the
+ * whole run, enforce:
+ *   max_tool_calls * maxTurns <= remainingHosted
+ * Prefer shrinking maxTurns to 1 when needed so remaining capacity is usable.
+ */
+export function clampRunnerBudgetForCampaign(input: {
+  campaign: NoraCampaignBudget;
+  requestedMaxTurns: number;
+  wantHostedWebSearch: boolean;
+}): RunnerBudgetClamp {
+  const reasons: string[] = [];
+  const remainingModel = remainingModelInvocations(input.campaign);
+  const remainingHosted = remainingHostedWebOperations(input.campaign);
+  const remainingAgg = remainingAggregateRealCalls(input.campaign);
+
+  let maxTurns = Math.max(0, Math.floor(input.requestedMaxTurns));
+  if (maxTurns > remainingModel) {
+    reasons.push("clamped_maxTurns_to_remaining_model");
+    maxTurns = remainingModel;
+  }
+  if (maxTurns > remainingAgg) {
+    reasons.push("clamped_maxTurns_to_remaining_aggregate_real");
+    maxTurns = remainingAgg;
+  }
+
+  let attach = input.wantHostedWebSearch === true;
+  let maxToolCalls: number | null = null;
+
+  if (attach) {
+    if (input.campaign.hostedHardCapCapability !== "provider_max_tool_calls") {
+      attach = false;
+      maxToolCalls = null;
+      reasons.push("hosted_hard_cap_unenforceable_detach");
+    } else if (remainingHosted <= 0) {
+      attach = false;
+      maxToolCalls = null;
+      reasons.push("hosted_remaining_zero_detach");
+    } else if (maxTurns <= 0) {
+      attach = false;
+      maxToolCalls = null;
+      reasons.push("no_model_turns_left_detach");
+    } else {
+      // Guarantee max_tool_calls * maxTurns <= remainingHosted.
+      let perResponse = Math.floor(remainingHosted / maxTurns);
+      if (perResponse < 1) {
+        maxTurns = 1;
+        perResponse = remainingHosted;
+        reasons.push("forced_single_turn_for_hosted_cap");
+      }
+      maxToolCalls = perResponse;
+      reasons.push("provider_max_tool_calls_configured");
+    }
+  }
+
+  return {
+    maxTurns,
+    maxToolCalls,
+    attachHostedWebSearch: attach,
+    reasonCodes: reasons,
+  };
+}
+
+/**
+ * Resolve providerData.max_tool_calls for Runner modelSettings.
+ * Caller overrides greater than remaining are rejected/clamped.
+ */
+export function resolveMaxToolCallsProviderData(input: {
+  campaign: NoraCampaignBudget;
+  configuredMaxToolCalls: number | null;
+  callerOverride?: number | null;
+}): { max_tool_calls?: number; rejectedOverride: boolean } {
+  if (input.configuredMaxToolCalls == null) {
+    return { rejectedOverride: false };
+  }
+  let value = input.configuredMaxToolCalls;
+  let rejected = false;
+  if (
+    typeof input.callerOverride === "number" &&
+    Number.isFinite(input.callerOverride)
+  ) {
+    const o = Math.floor(input.callerOverride);
+    if (o > value) {
+      rejected = true;
+    } else if (o >= 0) {
+      value = o;
+    }
+  }
+  const remaining = remainingHostedWebOperations(input.campaign);
+  if (value > remaining) {
+    value = remaining;
+    rejected = true;
+  }
+  return { max_tool_calls: value, rejectedOverride: rejected };
+}
+
+export type RealSourceExecutionPreflightInput = {
+  /** TEST/FAKE only — must never persist as durable Morris authority. */
+  testOnlyMorrisGoRealPresent?: boolean;
+  campaign: NoraCampaignBudget;
+  wantHostedWebSearch: boolean;
+};
+
+export type RealSourceExecutionPreflightResult = {
+  eligible: boolean;
+  blocked: boolean;
+  code: CampaignBudgetDenialCode | "OK";
+  reasons: string[];
+};
+
+/**
+ * REAL hosted/source execution eligibility.
+ * This deterministic cycle has NO Morris GO REAL → always blocked for REAL.
+ */
+export function evaluateRealSourceExecutionPreflight(
+  input: RealSourceExecutionPreflightInput,
+): RealSourceExecutionPreflightResult {
+  const reasons: string[] = [];
+  if (input.testOnlyMorrisGoRealPresent !== true) {
+    reasons.push("morris_go_real_absent");
+  }
+  if (input.campaign.maxModelInvocations <= 0) {
+    reasons.push("invalid_model_budget");
+  }
+  if (remainingModelInvocations(input.campaign) <= 0) {
+    reasons.push("remaining_model_zero");
+  }
+  if (remainingAggregateRealCalls(input.campaign) <= 0) {
+    reasons.push("remaining_aggregate_real_zero");
+  }
+  if (input.wantHostedWebSearch) {
+    if (input.campaign.hostedHardCapCapability !== "provider_max_tool_calls") {
+      reasons.push("hosted_hard_cap_unenforceable");
+    }
+    if (remainingHostedWebOperations(input.campaign) <= 0) {
+      reasons.push("remaining_hosted_zero");
+    }
+  }
+
+  const eligible = reasons.length === 0;
+  if (!eligible) {
+    const code: CampaignBudgetDenialCode =
+      reasons.includes("hosted_hard_cap_unenforceable")
+        ? "HOSTED_HARD_CAP_UNENFORCEABLE"
+        : "REAL_PREFLIGHT_BLOCKED";
+    return { eligible: false, blocked: true, code, reasons };
+  }
+  return { eligible: true, blocked: false, code: "OK", reasons: [] };
+}
+
+/**
+ * Snapshot for observability — never SUCCESS / Cognitive Completion.
+ */
+export function campaignBudgetSnapshot(budget: NoraCampaignBudget): {
+  campaignId: string;
+  remainingModelInvocations: number;
+  remainingHostedWebOperations: number;
+  remainingAggregateRealCalls: number;
+  consumedModelInvocations: number;
+  consumedHostedWebOperations: number;
+  consumedAggregateRealCalls: number;
+  limitReached: boolean;
+  denialCode: CampaignBudgetDenialCode | null;
+  denialReason: string | null;
+  hostedHardCapCapability: HostedHardCapCapability;
+} {
+  return {
+    campaignId: budget.campaignId,
+    remainingModelInvocations: remainingModelInvocations(budget),
+    remainingHostedWebOperations: remainingHostedWebOperations(budget),
+    remainingAggregateRealCalls: remainingAggregateRealCalls(budget),
+    consumedModelInvocations: budget.consumedModelInvocations,
+    consumedHostedWebOperations: budget.consumedHostedWebOperations,
+    consumedAggregateRealCalls: budget.consumedAggregateRealCalls,
+    limitReached: budget.limitReached,
+    denialCode: budget.denialCode,
+    denialReason: budget.denialReason,
+    hostedHardCapCapability: budget.hostedHardCapCapability,
+  };
+}
+```
+
+---
+
+## 14. Full content — `mw6.pre-real.budget-hardening.d0.test.ts`
+
+```ts
+/** @vitest-environment node */
+/**
+ * MW6 PRE-REAL BUDGET HARDENING — deterministic only / ZERO REAL.
+ * PATH A: Responses max_tool_calls + campaign envelope + model maxTurns.
+ */
+import { describe, expect, it } from "vitest";
+import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
+import {
+  H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS,
+  H17_HISTORICAL_OBSERVED_AGGREGATE_CALLS,
+  claimModelInvocation,
+  clampRunnerBudgetForCampaign,
+  createNoraCampaignBudget,
+  evaluateRealSourceExecutionPreflight,
+  remainingAggregateRealCalls,
+  remainingHostedWebOperations,
+  remainingModelInvocations,
+  resolveMaxToolCallsProviderData,
+  runNoraAgentsTurn,
+  toolDefinitionsFromModelRequest,
+  withMaxToolCallsProviderData,
+} from "@/lib/nora-cognitive-runtime";
+
+describe("MW6 PRE-REAL campaign budget (PB / H17 / bypass)", () => {
+  it("PB-01 — OpenAI capability fit disposition is PATH A (max_tool_calls)", () => {
+    // Proven from installed openai@7.8.0 Responses types + OpenAIResponsesModel
+    // spreading providerData into request body. Documented in review pack.
+    const campaign = createNoraCampaignBudget({
+      campaignId: "pb01",
+      maxModelInvocations: 3,
+      maxHostedWebOperations: 2,
+      hostedHardCapCapability: "provider_max_tool_calls",
+    });
+    const clamp = clampRunnerBudgetForCampaign({
+      campaign,
+      requestedMaxTurns: 4,
+      wantHostedWebSearch: true,
+    });
+    expect(clamp.attachHostedWebSearch).toBe(true);
+    expect(clamp.maxToolCalls).toBeGreaterThan(0);
+    expect((clamp.maxToolCalls ?? 0) * clamp.maxTurns).toBeLessThanOrEqual(2);
+    const settings = withMaxToolCallsProviderData(undefined, clamp.maxToolCalls);
+    expect(settings?.providerData?.max_tool_calls).toBe(clamp.maxToolCalls);
+  });
+
+  it("PB-02 — campaign lifecycle survives multiple Nora/Runner calls (no silent reset)", async () => {
+    const campaign = createNoraCampaignBudget({
+      campaignId: "pb02-shared",
+      maxModelInvocations: 3,
+      maxHostedWebOperations: 5,
+    });
+    const a = await runNoraAgentsTurn({
+      correlationId: "pb02-a",
+      projectId: "proj",
+      systemInstructions: "SFIA",
+      userContent: "hi",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "ok-a" }],
+      }),
+      enableTools: false,
+      campaignBudget: campaign,
+      maxTurns: 1,
+    });
+    expect(a.budgetObserve?.campaign.consumedModelInvocations).toBe(1);
+    const b = await runNoraAgentsTurn({
+      correlationId: "pb02-b",
+      projectId: "proj",
+      systemInstructions: "SFIA",
+      userContent: "hi again",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "ok-b" }],
+      }),
+      enableTools: false,
+      campaignBudget: campaign,
+      maxTurns: 1,
+    });
+    expect(b.budgetObserve?.campaign.consumedModelInvocations).toBe(2);
+    expect(campaign.consumedModelInvocations).toBe(2);
+    expect(remainingModelInvocations(campaign)).toBe(1);
+  });
+
+  it("PB-03 — model invocation hard cap denies N+1 before dispatch", async () => {
+    const campaign = createNoraCampaignBudget({
+      campaignId: "pb03",
+      maxModelInvocations: 1,
+      maxHostedWebOperations: 10,
+    });
+    const first = await runNoraAgentsTurn({
+      correlationId: "pb03-1",
+      projectId: "proj",
+      systemInstructions: "SFIA",
+      userContent: "one",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "first" }],
+      }),
+      enableTools: false,
+      campaignBudget: campaign,
+      maxTurns: 2,
+    });
+    expect(first.text).toBe("first");
+    expect(campaign.consumedModelInvocations).toBe(1);
+
+    const second = await runNoraAgentsTurn({
+      correlationId: "pb03-2",
+      projectId: "proj",
+      systemInstructions: "SFIA",
+      userContent: "two",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "SHOULD_NOT_DISPATCH" }],
+      }),
+      enableTools: false,
+      campaignBudget: campaign,
+      maxTurns: 2,
+    });
+    expect(second.text).not.toBe("SHOULD_NOT_DISPATCH");
+    expect(second.limitReached).toBe(true);
+    expect(campaign.consumedModelInvocations).toBe(1);
+    expect(
+      campaign.denialCode === "MODEL_INVOCATION_CAP_REACHED" ||
+        campaign.denialCode === "AGGREGATE_REAL_CALL_CAP_REACHED",
+    ).toBe(true);
+  });
+
+  it("PB-04 PATH A — hosted max_tool_calls configured from remaining; remaining 0 detaches", () => {
+    const campaign = createNoraCampaignBudget({
+      campaignId: "pb04",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 2,
+    });
+    const c1 = clampRunnerBudgetForCampaign({
+      campaign,
+      requestedMaxTurns: 2,
+      wantHostedWebSearch: true,
+    });
+    expect(c1.attachHostedWebSearch).toBe(true);
+    expect(c1.maxToolCalls).toBe(1); // floor(2/2)=1; 1*2<=2
+    expect(c1.maxToolCalls! * c1.maxTurns).toBeLessThanOrEqual(2);
+
+    // consume all hosted
+    campaign.consumedHostedWebOperations = 2;
+    const c2 = clampRunnerBudgetForCampaign({
+      campaign,
+      requestedMaxTurns: 2,
+      wantHostedWebSearch: true,
+    });
+    expect(c2.attachHostedWebSearch).toBe(false);
+    expect(c2.maxToolCalls).toBeNull();
+
+    const afterOne = createNoraCampaignBudget({
+      campaignId: "pb04b",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 2,
+    });
+    afterOne.consumedHostedWebOperations = 1;
+    const c3 = clampRunnerBudgetForCampaign({
+      campaign: afterOne,
+      requestedMaxTurns: 3,
+      wantHostedWebSearch: true,
+    });
+    expect(c3.maxToolCalls).toBe(1);
+    expect(c3.maxTurns).toBe(1); // forced single turn
+    expect(c3.maxToolCalls! * c3.maxTurns).toBeLessThanOrEqual(
+      remainingHostedWebOperations(afterOne),
+    );
+  });
+
+  it("PB-05 H17 — 141 attempted vs 100 authorized never crosses 100", () => {
+    expect(H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS).toBe(100);
+    expect(H17_HISTORICAL_OBSERVED_AGGREGATE_CALLS).toBe(141);
+    const campaign = createNoraCampaignBudget({
+      campaignId: "h17-regression",
+      maxModelInvocations: H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS,
+      maxHostedWebOperations: 50,
+      maxAggregateRealCalls: H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS,
+    });
+    let accepted = 0;
+    let denied = 0;
+    for (let i = 0; i < H17_HISTORICAL_OBSERVED_AGGREGATE_CALLS; i++) {
+      if (claimModelInvocation(campaign)) accepted += 1;
+      else denied += 1;
+    }
+    expect(accepted).toBe(100);
+    expect(denied).toBe(41);
+    expect(campaign.consumedAggregateRealCalls).toBe(100);
+    expect(campaign.consumedModelInvocations).toBe(100);
+    expect(remainingAggregateRealCalls(campaign)).toBe(0);
+    // 101st never counted
+    expect(claimModelInvocation(campaign)).toBe(false);
+    expect(campaign.consumedAggregateRealCalls).toBe(100);
+    expect(campaign.denialCode).toBe("AGGREGATE_REAL_CALL_CAP_REACHED");
+    expect(campaign.limitReached).toBe(true);
+  });
+
+  it("BYPASS-01 — new Nora turns reuse same campaign object (no reset)", async () => {
+    const campaign = createNoraCampaignBudget({
+      campaignId: "bypass01",
+      maxModelInvocations: 2,
+      maxHostedWebOperations: 5,
+    });
+    await runNoraAgentsTurn({
+      correlationId: "b1",
+      projectId: "p",
+      systemInstructions: "S",
+      userContent: "u",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "a" }],
+      }),
+      enableTools: false,
+      campaignBudget: campaign,
+      maxTurns: 1,
+    });
+    const freshTurnBudgetWouldBeZero = 0;
+    expect(campaign.consumedModelInvocations).toBeGreaterThan(
+      freshTurnBudgetWouldBeZero,
+    );
+    await runNoraAgentsTurn({
+      correlationId: "b2",
+      projectId: "p",
+      systemInstructions: "S",
+      userContent: "u2",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "b" }],
+      }),
+      enableTools: false,
+      campaignBudget: campaign,
+      maxTurns: 1,
+    });
+    expect(campaign.consumedModelInvocations).toBe(2);
+  });
+
+  it("BYPASS-02 — caller maxTurns > remaining is clamped", () => {
+    const campaign = createNoraCampaignBudget({
+      campaignId: "bypass02",
+      maxModelInvocations: 2,
+      maxHostedWebOperations: 10,
+    });
+    campaign.consumedModelInvocations = 1;
+    campaign.consumedAggregateRealCalls = 1;
+    const clamp = clampRunnerBudgetForCampaign({
+      campaign,
+      requestedMaxTurns: 99,
+      wantHostedWebSearch: false,
+    });
+    expect(clamp.maxTurns).toBe(1);
+  });
+
+  it("BYPASS-03 — caller hosted override > remaining rejected/clamped", () => {
+    const campaign = createNoraCampaignBudget({
+      campaignId: "bypass03",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 2,
+    });
+    const clamp = clampRunnerBudgetForCampaign({
+      campaign,
+      requestedMaxTurns: 1,
+      wantHostedWebSearch: true,
+    });
+    const resolved = resolveMaxToolCallsProviderData({
+      campaign,
+      configuredMaxToolCalls: clamp.maxToolCalls,
+      callerOverride: 999,
+    });
+    expect(resolved.rejectedOverride).toBe(true);
+    expect(resolved.max_tool_calls).toBeLessThanOrEqual(2);
+  });
+
+  it("BYPASS-04 — enableHostedWebSearch cannot bypass REAL preflight", () => {
+    const campaign = createNoraCampaignBudget({
+      campaignId: "bypass04",
+      maxModelInvocations: 5,
+      maxHostedWebOperations: 2,
+    });
+    const pre = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+      testOnlyMorrisGoRealPresent: false,
+    });
+    expect(pre.blocked).toBe(true);
+    // Product clamp must detach hosted when REAL preflight blocks.
+    const clamp = clampRunnerBudgetForCampaign({
+      campaign,
+      requestedMaxTurns: 2,
+      wantHostedWebSearch: !pre.blocked,
+    });
+    expect(clamp.attachHostedWebSearch).toBe(false);
+    expect(clamp.maxToolCalls).toBeNull();
+  });
+
+  it("BYPASS-05 — Fake deterministic hosted calls do not consume REAL hosted budget", async () => {
+    const campaign = createNoraCampaignBudget({
+      campaignId: "bypass05",
+      maxModelInvocations: 3,
+      maxHostedWebOperations: 1,
+    });
+    await runNoraAgentsTurn({
+      correlationId: "b5",
+      projectId: "p",
+      systemInstructions: "S",
+      userContent: "x",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "fake" }],
+      }),
+      enableTools: false,
+      enableHostedWebSearch: true,
+      campaignBudget: campaign,
+      maxTurns: 1,
+      deterministicHostedWebSearchCalls: [
+        {
+          type: "hosted_tool_call",
+          name: "web_search_call",
+          status: "completed",
+          providerData: {
+            type: "web_search_call",
+            action: {
+              type: "search",
+              sources: [{ type: "url", url: "https://example.com" }],
+            },
+          },
+        },
+      ],
+    });
+    expect(campaign.consumedHostedWebOperations).toBe(0);
+  });
+
+  it("BYPASS-06 — unknown hosted tools remain fail-closed", () => {
+    expect(() =>
+      toolDefinitionsFromModelRequest({
+        tools: [
+          {
+            type: "hosted_tool",
+            name: "file_search",
+            providerData: { type: "file_search" },
+          },
+        ],
+      } as never),
+    ).toThrow(/NORA_PROVIDER_MODEL_UNSUPPORTED_HOSTED_TOOL:file_search/);
+  });
+
+  it("BYPASS-07/08 — budget stop does not retry and is not SUCCESS/completion", async () => {
+    const campaign = createNoraCampaignBudget({
+      campaignId: "bypass07",
+      maxModelInvocations: 0,
+      maxHostedWebOperations: 0,
+    });
+    const turn = await runNoraAgentsTurn({
+      correlationId: "b7",
+      projectId: "p",
+      systemInstructions: "S",
+      userContent: "x",
+      provider: new FakeConversationProvider({
+        toolScript: [{ kind: "message", text: "nope" }],
+      }),
+      enableTools: false,
+      campaignBudget: campaign,
+      maxTurns: 5,
+    });
+    expect(turn.limitReached).toBe(true);
+    expect(turn.text).not.toBe("nope");
+    expect(campaign.consumedModelInvocations).toBe(0);
+    // Not Cognitive Completion / silent SUCCESS
+    expect(turn.cognitiveRuntime).toBe("agents");
+    expect(turn.text.toLowerCase()).not.toMatch(/cognitive completion/);
+  });
+
+  it("REAL preflight blocked without Morris GO REAL (this cycle)", () => {
+    const campaign = createNoraCampaignBudget({
+      campaignId: "real-gate",
+      maxModelInvocations: 10,
+      maxHostedWebOperations: 5,
+    });
+    const blocked = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+      testOnlyMorrisGoRealPresent: false,
+    });
+    expect(blocked.eligible).toBe(false);
+    expect(blocked.blocked).toBe(true);
+    expect(blocked.reasons).toContain("morris_go_real_absent");
+
+    const eligible = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+      testOnlyMorrisGoRealPresent: true,
+    });
+    expect(eligible.eligible).toBe(true);
+  });
+});
+```
+
+---
+
+## 15. Full content — `reasoningModelSettings.ts`
+
+```ts
+/**
+ * MW2-S01 — build Runner modelSettings preserving GPT-5.6 baseline text.verbosity.
+ * reasoning.context and reasoning.mode intentionally omitted (EVALUATE/DEFER).
+ *
+ * MW6 PRE-REAL: optional providerData.max_tool_calls (Responses built-in tool cap).
+ */
+import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
+
+export type NoraRunnerModelSettings = {
+  reasoning: { effort: OpenAiReasoningEffort };
+  text: { verbosity: "low" };
+  /**
+   * Passed through OpenAIResponsesModel into Responses create body.
+   * Used for provider-enforced max_tool_calls (hosted web_search cap).
+   */
+  providerData?: {
+    max_tool_calls?: number;
+    [key: string]: unknown;
+  };
+};
+
+export function buildRunnerModelSettingsForEffort(
+  effort: OpenAiReasoningEffort,
+): NoraRunnerModelSettings {
+  return {
+    reasoning: { effort },
+    text: { verbosity: "low" },
+  };
+}
+
+/** Merge campaign hosted cap into Runner modelSettings without dropping reasoning/text. */
+export function withMaxToolCallsProviderData(
+  base: NoraRunnerModelSettings | undefined,
+  maxToolCalls: number | null,
+): NoraRunnerModelSettings | undefined {
+  if (maxToolCalls == null) return base;
+  const next: NoraRunnerModelSettings = base ?? {
+    reasoning: { effort: "none" },
+    text: { verbosity: "low" },
+  };
+  return {
+    ...next,
+    providerData: {
+      ...(next.providerData ?? {}),
+      max_tool_calls: maxToolCalls,
+    },
+  };
+}
+```
+
+---
+
+## 16. Useful diff — modified tracked/runtime files vs HEAD
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/callModelInputFilter.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/callModelInputFilter.ts
+index 5f56af51..5871cee7 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/callModelInputFilter.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/callModelInputFilter.ts
+@@ -12,6 +12,16 @@ import type {
+ } from "@openai/agents";
+ import type { NoraTurnBudget } from "./turnBudget";
+ import { markModelTurn } from "./turnBudget";
++import type { NoraCampaignBudget } from "./campaignBudget";
++import { claimModelInvocation } from "./campaignBudget";
++
++export class CampaignModelInvocationDeniedError extends Error {
++  readonly code = "NORA_CAMPAIGN_MODEL_INVOCATION_DENIED";
++  constructor(message: string) {
++    super(message);
++    this.name = "CampaignModelInvocationDeniedError";
++  }
++}
+
+ const ROLE_ELEVATION_MARKER = "SFIA_STRUCTURAL_ROLE_PRESERVED";
+
+@@ -80,6 +90,7 @@ function extractText(item: AgentInputItem): string {
+ export function createSfiaCallModelInputFilter(
+   systemInstructions: string,
+   budget?: NoraTurnBudget,
++  campaignBudget?: NoraCampaignBudget,
+ ): CallModelInputFilter {
+   const instructions = [
+     "=== SYSTEM / DEVELOPER INSTRUCTIONS (Studio-supplied product context) ===",
+@@ -92,6 +103,16 @@ export function createSfiaCallModelInputFilter(
+   ].join("\n");
+
+   return ({ modelData }) => {
++    // Campaign hard cap: deny BEFORE model dispatch (filter runs pre-getResponse).
++    if (campaignBudget) {
++      const ok = claimModelInvocation(campaignBudget);
++      if (!ok) {
++        throw new CampaignModelInvocationDeniedError(
++          campaignBudget.denialReason ??
++            "Campaign model/aggregate invocation cap reached — request not dispatched.",
++        );
++      }
++    }
+     if (budget) {
+       markModelTurn(budget);
+     }
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+index 64e75ac3..da294770 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+@@ -69,10 +69,6 @@ export {
+   sdkToolParametersOf,
+ } from "./sfiaAgentsTools";
+ export type { SfiaJsonObjectSchema, SfiaAgentsToolOptions } from "./sfiaAgentsTools";
+-export {
+-  createSfiaCallModelInputFilter,
+-  preserveStructuralRoles,
+-} from "./callModelInputFilter";
+ export {
+   createNoraTurnBudget,
+   claimToolSlot,
+@@ -81,6 +77,33 @@ export {
+   TOOL_TURN_BUDGET_EXCEEDED_RESULT,
+ } from "./turnBudget";
+ export type { NoraTurnBudget } from "./turnBudget";
++export {
++  createNoraCampaignBudget,
++  claimModelInvocation,
++  claimHostedWebOperations,
++  clampRunnerBudgetForCampaign,
++  resolveMaxToolCallsProviderData,
++  evaluateRealSourceExecutionPreflight,
++  remainingModelInvocations,
++  remainingHostedWebOperations,
++  remainingAggregateRealCalls,
++  campaignBudgetSnapshot,
++  H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS,
++  H17_HISTORICAL_OBSERVED_AGGREGATE_CALLS,
++} from "./campaignBudget";
++export type {
++  NoraCampaignBudget,
++  CampaignBudgetDenialCode,
++  HostedHardCapCapability,
++  RealSourceExecutionPreflightResult,
++  RunnerBudgetClamp,
++} from "./campaignBudget";
++export {
++  CampaignModelInvocationDeniedError,
++  createSfiaCallModelInputFilter,
++  preserveStructuralRoles,
++} from "./callModelInputFilter";
++export { withMaxToolCallsProviderData } from "./reasoningModelSettings";
+ export {
+   createProviderAgentsModel,
+   isFakeConversationProvider,
+@@ -234,3 +257,79 @@ export type {
+   ReadCoverageFact,
+   ReadCoverageKind,
+ } from "./readCoverage";
++
++/* MW6 — External Source Intelligence */
++export type {
++  Mw6SourceIntelligenceSurface,
++  SemanticSourceClass,
++  SourceAccessState,
++  SourceAcquisitionRequirement,
++  SourceClass,
++  SourceCoverageKind,
++  SourceFreshnessRequirement,
++  SourceFreshnessState,
++  SourceKind,
++  SourceNeedKind,
++  SourceObservationFact,
++  SourceOperationIntent,
++  SourceOperationKind,
++  SourceProvenancePlan,
++  SourceProvenanceState,
++  SourceProviderBinding,
++  SourceProviderId,
++  SourceStrategyDecision,
++} from "./sourceIntelligenceContract";
++export {
++  MW6_SOURCE_AUTHORITY_BOUNDARY,
++  SOURCE_STRATEGY_PROVIDER_LEAK_PATTERNS,
++} from "./sourceIntelligenceContract";
++export {
++  appendSourceStrategyDisclosure,
++  bindSourceProviderCapability,
++  buildSourceStrategyDisclosure,
++  decideSourceStrategy,
++  inferClaimDomain,
++  planForDomainNeed,
++  strategyContractLeaksProviderIdentity,
++} from "./sourceStrategyPolicy";
++export type { SourceStrategyInput } from "./sourceStrategyPolicy";
++export {
++  appendSourceObservationDisclosure,
++  authorityIsolationHeld,
++  buildSourceObservationDisclosure,
++  coverageForExternalOperation,
++  freshnessForExternalObservation,
++  normalizeHostedWebSearchCall,
++  observationsRefuseFabrication,
++} from "./externalSourceNormalization";
++export type { HostedWebSearchCallLike } from "./externalSourceNormalization";
++export {
++  assertExternalSourceHasZeroAuthority,
++  buildAuthorityIsolationDisclosure,
++  detectAuthorityEscalationAttempts,
++} from "./externalSourceAuthority";
++export {
++  appendSourceNarrativeConstraintDisclosure,
++  applySourceNarrativeCompatibility,
++  buildSourceNarrativeConstraintDisclosure,
++  requiredSourceEvidenceMissing,
++} from "./sourceNarrativeCompatibility";
++export type {
++  SourceNarrativeCompatibilityResult,
++  SourceNarrativeViolation,
++} from "./sourceNarrativeCompatibility";
++export {
++  composeMw3ConflictFromExternalSources,
++  deriveConflictPresentFromExternalObservations,
++} from "./externalContradictionComposition";
++export type {
++  DerivedExternalConflict,
++  ExternalGoverningContext,
++} from "./externalContradictionComposition";
++export {
++  createNoraHostedWebSearchTool,
++  describeNoraHostedWebSearchPublicSurface,
++  extractHostedWebSearchCallsFromRunItems,
++  normalizeOpenAiHostedWebSearchObservations,
++} from "./openaiHostedWebSearchAdapter";
++export type { NoraHostedWebSearchToolOptions } from "./openaiHostedWebSearchAdapter";
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningModelSettings.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningModelSettings.ts
+index e434871c..5aa419e3 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningModelSettings.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningModelSettings.ts
+@@ -1,12 +1,22 @@
+ /**
+  * MW2-S01 — build Runner modelSettings preserving GPT-5.6 baseline text.verbosity.
+  * reasoning.context and reasoning.mode intentionally omitted (EVALUATE/DEFER).
++ *
++ * MW6 PRE-REAL: optional providerData.max_tool_calls (Responses built-in tool cap).
+  */
+ import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
+
+ export type NoraRunnerModelSettings = {
+   reasoning: { effort: OpenAiReasoningEffort };
+   text: { verbosity: "low" };
++  /**
++   * Passed through OpenAIResponsesModel into Responses create body.
++   * Used for provider-enforced max_tool_calls (hosted web_search cap).
++   */
++  providerData?: {
++    max_tool_calls?: number;
++    [key: string]: unknown;
++  };
+ };
+
+ export function buildRunnerModelSettingsForEffort(
+@@ -17,3 +27,22 @@ export function buildRunnerModelSettingsForEffort(
+     text: { verbosity: "low" },
+   };
+ }
++
++/** Merge campaign hosted cap into Runner modelSettings without dropping reasoning/text. */
++export function withMaxToolCallsProviderData(
++  base: NoraRunnerModelSettings | undefined,
++  maxToolCalls: number | null,
++): NoraRunnerModelSettings | undefined {
++  if (maxToolCalls == null) return base;
++  const next: NoraRunnerModelSettings = base ?? {
++    reasoning: { effort: "none" },
++    text: { verbosity: "low" },
++  };
++  return {
++    ...next,
++    providerData: {
++      ...(next.providerData ?? {}),
++      max_tool_calls: maxToolCalls,
++    },
++  };
++}
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+index 32fc4dc6..29d5990f 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+@@ -19,7 +19,10 @@ import type { ConversationProvider } from "@/lib/platform/ai";
+ import type { EventSink } from "@/lib/platform/observability/eventSink";
+ import { CT_MAX_TOOL_ROUNDS } from "@/lib/platform/tools";
+ import { requireLiveConversationSecrets } from "@/lib/platform/ai/config";
+-import { createSfiaCallModelInputFilter } from "./callModelInputFilter";
++import {
++  CampaignModelInvocationDeniedError,
++  createSfiaCallModelInputFilter,
++} from "./callModelInputFilter";
+ import {
+   createProviderAgentsModel,
+   isFakeConversationProvider,
+@@ -33,6 +36,25 @@ import {
+ } from "./turnBudget";
+ import type { NoraCognitiveTurnResult } from "./types";
+ import type { NoraRunnerModelSettings } from "./reasoningModelSettings";
++import { withMaxToolCallsProviderData } from "./reasoningModelSettings";
++import type { HostedWebSearchCallLike } from "./externalSourceNormalization";
++import {
++  createNoraHostedWebSearchTool,
++  extractHostedWebSearchCallsFromRunItems,
++  normalizeOpenAiHostedWebSearchObservations,
++  type NoraHostedWebSearchToolOptions,
++} from "./openaiHostedWebSearchAdapter";
++import type { SourceObservationFact } from "./sourceIntelligenceContract";
++import type { NoraCampaignBudget } from "./campaignBudget";
++import {
++  campaignBudgetSnapshot,
++  claimHostedWebOperations,
++  clampRunnerBudgetForCampaign,
++  evaluateRealSourceExecutionPreflight,
++  remainingAggregateRealCalls,
++  remainingModelInvocations,
++  resolveMaxToolCallsProviderData,
++} from "./campaignBudget";
+
+ export type RunNoraAgentsTurnInput = {
+   correlationId: string;
+@@ -59,18 +81,61 @@ export type RunNoraAgentsTurnInput = {
+   budget?: NoraTurnBudget;
+   /** MW2 — Runner modelSettings override (reasoning.effort + preserved text.verbosity). */
+   runnerModelSettings?: NoraRunnerModelSettings;
++  /**
++   * MW6 — attach OpenAI hosted web_search on the same Option C Agent.
++   * Not routed through routeToolCall. NoraTurnBudget does NOT bound it.
++   */
++  enableHostedWebSearch?: boolean;
++  hostedWebSearchToolOptions?: NoraHostedWebSearchToolOptions;
++  /**
++   * MW6 R21 — deterministic substitute for hosted web_search run-items.
++   * Same normalization path as live observation; NEVER a REAL call.
++   */
++  deterministicHostedWebSearchCalls?: HostedWebSearchCallLike[];
++  /** MW6 — optional freshness timestamp when honestly supportable. */
++  sourceObservationNowIso?: string | null;
++  /**
++   * MW6 PRE-REAL — shared campaign budget (must not reset per Nora turn).
++   */
++  campaignBudget?: NoraCampaignBudget;
++  /**
++   * TEST/FAKE only — simulates Morris GO REAL at the execution boundary.
++   * Never durable product authority.
++   */
++  testOnlyMorrisGoRealPresent?: boolean;
++  /**
++   * TEST only — attempt to widen max_tool_calls beyond campaign remaining.
++   */
++  testOnlyMaxToolCallsOverride?: number | null;
++};
++
++export type RunNoraAgentsTurnHostedSearchObserve = {
++  hostedWebSearchAttached: boolean;
++  deterministicBoundaryUsed: boolean;
++  observations: SourceObservationFact[];
++  rawCallsObserved: number;
++};
++
++export type RunNoraAgentsTurnBudgetObserve = {
++  campaign: ReturnType<typeof campaignBudgetSnapshot>;
++  clampReasonCodes: string[];
++  configuredMaxToolCalls: number | null;
++  realPreflightBlocked: boolean;
++  realPreflightReasons: string[];
+ };
+
+ export function createNoraAgentsRunner(
+   systemInstructions: string,
+   budget?: NoraTurnBudget,
+   runnerModelSettings?: NoraRunnerModelSettings,
++  campaignBudget?: NoraCampaignBudget,
+ ): Runner {
+   return new Runner({
+     tracingDisabled: true,
+     callModelInputFilter: createSfiaCallModelInputFilter(
+       systemInstructions,
+       budget,
++      campaignBudget,
+     ),
+     ...(runnerModelSettings ? { modelSettings: runnerModelSettings } : {}),
+   });
+@@ -114,12 +179,18 @@ export function resolveNoraAgentsF1Model(
+
+ export async function runNoraAgentsTurn(
+   input: RunNoraAgentsTurnInput,
+-): Promise<NoraCognitiveTurnResult> {
++): Promise<
++  NoraCognitiveTurnResult & {
++    hostedSearchObserve?: RunNoraAgentsTurnHostedSearchObserve;
++    budgetObserve?: RunNoraAgentsTurnBudgetObserve;
++  }
++> {
+   const model = resolveNoraAgentsF1Model(input);
+
+   const budget = input.budget ?? createNoraTurnBudget();
++  const campaign = input.campaignBudget;
+   const enableTools = input.enableTools !== false;
+-  const tools = enableTools
++  const sfiaTools = enableTools
+     ? createSfiaRouteToolAdapters({
+         correlationId: input.correlationId,
+         workspaceRoot: input.workspaceRoot,
+@@ -128,6 +199,68 @@ export async function runNoraAgentsTurn(
+       })
+     : [];
+
++  const wantHosted = input.enableHostedWebSearch === true;
++  const fixtureCalls = input.deterministicHostedWebSearchCalls ?? [];
++  const deterministicBoundaryUsed = fixtureCalls.length > 0;
++  const liveOpenAiPath =
++    !!input.provider && isOpenAiLiveF1Provider(input.provider);
++  // REAL hosted dispatch = live OpenAI + hosted attach + no fixture substitute.
++  const wantRealHostedDispatch =
++    wantHosted && liveOpenAiPath && !deterministicBoundaryUsed;
++
++  let realPreflightBlocked = false;
++  let realPreflightReasons: string[] = [];
++  if (wantRealHostedDispatch) {
++    if (!campaign) {
++      realPreflightBlocked = true;
++      realPreflightReasons = ["campaign_budget_required_for_real_hosted"];
++    } else {
++      const pre = evaluateRealSourceExecutionPreflight({
++        testOnlyMorrisGoRealPresent: input.testOnlyMorrisGoRealPresent,
++        campaign,
++        wantHostedWebSearch: true,
++      });
++      realPreflightBlocked = pre.blocked;
++      realPreflightReasons = pre.reasons;
++    }
++  }
++
++  const requestedMaxTurns = input.maxTurns ?? CT_MAX_TOOL_ROUNDS + 1;
++  const clamp = campaign
++    ? clampRunnerBudgetForCampaign({
++        campaign,
++        requestedMaxTurns,
++        wantHostedWebSearch:
++          wantHosted && !(wantRealHostedDispatch && realPreflightBlocked),
++      })
++    : {
++        maxTurns: requestedMaxTurns,
++        maxToolCalls: null as number | null,
++        attachHostedWebSearch:
++          wantHosted && !(wantRealHostedDispatch && realPreflightBlocked),
++        reasonCodes: [] as string[],
++      };
++
++  // BYPASS-04: enableHostedWebSearch cannot bypass REAL preflight / campaign clamp.
++  const enableHostedWebSearch = clamp.attachHostedWebSearch;
++  const resolvedCap = campaign
++    ? resolveMaxToolCallsProviderData({
++        campaign,
++        configuredMaxToolCalls: clamp.maxToolCalls,
++        callerOverride: input.testOnlyMaxToolCallsOverride,
++      })
++    : { max_tool_calls: undefined as number | undefined, rejectedOverride: false };
++
++  const runnerModelSettings = withMaxToolCallsProviderData(
++    input.runnerModelSettings,
++    resolvedCap.max_tool_calls ?? null,
++  );
++
++  const hostedTool = enableHostedWebSearch
++    ? createNoraHostedWebSearchTool(input.hostedWebSearchToolOptions)
++    : null;
++  const tools = hostedTool ? [...sfiaTools, hostedTool] : sfiaTools;
++
+   const agent = new Agent({
+     name: "NoraProjectAssistant",
+     instructions: input.systemInstructions,
+@@ -138,9 +271,10 @@ export async function runNoraAgentsTurn(
+   const runner = createNoraAgentsRunner(
+     input.systemInstructions,
+     budget,
+-    input.runnerModelSettings,
++    runnerModelSettings,
++    campaign,
+   );
+-  const maxTurns = input.maxTurns ?? CT_MAX_TOOL_ROUNDS + 1;
++  const maxTurns = clamp.maxTurns;
+   const session = input.session ?? undefined;
+   const memoryBAvailability: MemoryBAvailability =
+     input.memoryBAvailability ??
+@@ -153,53 +287,80 @@ export async function runNoraAgentsTurn(
+     outputTokens?: number;
+     totalTokens?: number;
+   } | null = null;
++  let runNewItems: unknown[] = [];
++  let budgetStop = false;
+
+-  try {
+-    const result = await runner.run(agent, input.userContent, {
+-      ...(session ? { session } : {}),
+-      maxTurns,
+-      errorHandlers: {
+-        maxTurns: ({ runData }) => {
+-          budget.limitReached = true;
+-          const lastText = [...runData.newItems]
+-            .reverse()
+-            .map((item) => {
+-              const anyItem = item as {
+-                type?: string;
+-                rawItem?: { content?: unknown };
+-              };
+-              if (anyItem.type === "message_output_item") {
+-                return String(
+-                  (item as { content?: string }).content ?? "",
+-                );
+-              }
+-              return "";
+-            })
+-            .find((t) => t.trim().length > 0);
+-          return {
+-            finalOutput:
+-              lastText?.trim() ||
+-              "Model-turn budget reached (maxTurns).",
+-            includeInHistory: false,
+-          };
++  if (maxTurns <= 0) {
++    budget.limitReached = true;
++    budgetStop = true;
++    text = "Campaign/model-turn budget reached before dispatch.";
++    if (campaign && !campaign.limitReached) {
++      if (remainingAggregateRealCalls(campaign) <= 0) {
++        campaign.limitReached = true;
++        campaign.denialCode = "AGGREGATE_REAL_CALL_CAP_REACHED";
++        campaign.denialReason =
++          "Aggregate REAL/provider-call remaining is 0 — Runner not dispatched.";
++      } else if (remainingModelInvocations(campaign) <= 0) {
++        campaign.limitReached = true;
++        campaign.denialCode = "MODEL_INVOCATION_CAP_REACHED";
++        campaign.denialReason =
++          "Model invocation remaining is 0 — Runner not dispatched.";
++      }
++    }
++  } else {
++    try {
++      const result = await runner.run(agent, input.userContent, {
++        ...(session ? { session } : {}),
++        maxTurns,
++        errorHandlers: {
++          maxTurns: ({ runData }) => {
++            budget.limitReached = true;
++            const lastText = [...runData.newItems]
++              .reverse()
++              .map((item) => {
++                const anyItem = item as {
++                  type?: string;
++                  rawItem?: { content?: unknown };
++                };
++                if (anyItem.type === "message_output_item") {
++                  return String(
++                    (item as { content?: string }).content ?? "",
++                  );
++                }
++                return "";
++              })
++              .find((t) => t.trim().length > 0);
++            return {
++              finalOutput:
++                lastText?.trim() ||
++                "Model-turn budget reached (maxTurns).",
++              includeInHistory: false,
++            };
++          },
+         },
+-      },
+-    });
+-
+-    text =
+-      typeof result.finalOutput === "string"
+-        ? result.finalOutput
+-        : result.finalOutput == null
+-          ? ""
+-          : String(result.finalOutput);
+-    lastResponseId = result.lastResponseId ?? null;
+-    usageAgg = result.state?.usage ?? null;
+-  } catch (error) {
+-    if (error instanceof MaxTurnsExceededError) {
+-      budget.limitReached = true;
+-      text = "Model-turn budget reached (maxTurns).";
+-    } else {
+-      throw error;
++      });
++
++      text =
++        typeof result.finalOutput === "string"
++          ? result.finalOutput
++          : result.finalOutput == null
++            ? ""
++            : String(result.finalOutput);
++      lastResponseId = result.lastResponseId ?? null;
++      usageAgg = result.state?.usage ?? null;
++      runNewItems = Array.isArray(result.newItems) ? [...result.newItems] : [];
++    } catch (error) {
++      if (error instanceof CampaignModelInvocationDeniedError) {
++        budget.limitReached = true;
++        budgetStop = true;
++        text = error.message;
++        // BYPASS-07: do not retry / re-dispatch.
++      } else if (error instanceof MaxTurnsExceededError) {
++        budget.limitReached = true;
++        text = "Model-turn budget reached (maxTurns).";
++      } else {
++        throw error;
++      }
+     }
+   }
+
+@@ -216,16 +377,74 @@ export async function runNoraAgentsTurn(
+     providerResponseId: lastResponseId,
+   };
+
++  const liveCalls = extractHostedWebSearchCallsFromRunItems(runNewItems);
++  // R21: fixture substitutes the external hosted boundary; prefer fixture when present.
++  const callsForNormalize = deterministicBoundaryUsed ? fixtureCalls : liveCalls;
++  const observations =
++    enableHostedWebSearch || deterministicBoundaryUsed
++      ? normalizeOpenAiHostedWebSearchObservations(callsForNormalize, {
++          deterministic: deterministicBoundaryUsed,
++          nowIso: input.sourceObservationNowIso,
++        })
++      : [];
++
++  // Reconcile observed hosted ops against campaign (fixture path does not
++  // consume REAL hosted budget — Fake/deterministic ≠ REAL consumption).
++  if (campaign && !deterministicBoundaryUsed && liveCalls.length > 0) {
++    const ok = claimHostedWebOperations(campaign, liveCalls.length);
++    if (!ok) {
++      // Provider-enforced cap should make this impossible; mark invariant failure.
++      budget.limitReached = true;
++      budgetStop = true;
++      text = [
++        text,
++        "",
++        "[CAMPAIGN BUDGET INVARIANT FAILURE]",
++        campaign.denialReason ??
++          "Observed hosted web ops exceeded campaign/provider cap.",
++      ]
++        .filter(Boolean)
++        .join("\n");
++    }
++  }
++
++  const hostedSearchObserve: RunNoraAgentsTurnHostedSearchObserve | undefined =
++    enableHostedWebSearch || deterministicBoundaryUsed
++      ? {
++          hostedWebSearchAttached: enableHostedWebSearch,
++          deterministicBoundaryUsed,
++          observations,
++          rawCallsObserved: callsForNormalize.length,
++        }
++      : undefined;
++
++  const budgetObserve: RunNoraAgentsTurnBudgetObserve | undefined = campaign
++    ? {
++        campaign: campaignBudgetSnapshot(campaign),
++        clampReasonCodes: [
++          ...clamp.reasonCodes,
++          ...(resolvedCap.rejectedOverride
++            ? ["caller_max_tool_calls_override_rejected"]
++            : []),
++        ],
++        configuredMaxToolCalls: resolvedCap.max_tool_calls ?? null,
++        realPreflightBlocked,
++        realPreflightReasons,
++      }
++    : undefined;
++
+   return {
+     text,
+     usage,
+     toolRounds: toolRoundsFromBudget(budget),
+     toolCalls: budget.executedToolCalls,
+-    limitReached: budget.limitReached,
++    limitReached: budget.limitReached || budgetStop,
+     cognitiveRuntime: "agents",
+     sessionId: session ? await session.getSessionId() : null,
+     memoryBAvailability,
+     memoryBCompactionState: "none",
+     memoryBCompactionDetails: null,
++    ...(hostedSearchObserve ? { hostedSearchObserve } : {}),
++    ...(budgetObserve ? { budgetObserve } : {}),
+   };
+ }
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+index 2c350cce..2264918c 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+@@ -58,6 +58,30 @@ import {
+   type ReadCoverageFact,
+ } from "./readCoverage";
+ import type { ProductSqliteSession } from "./productSqliteSession";
++import {
++  appendSourceStrategyDisclosure,
++  bindSourceProviderCapability,
++  decideSourceStrategy,
++  type SourceStrategyInput,
++} from "./sourceStrategyPolicy";
++import {
++  authorityIsolationHeld,
++  buildSourceObservationDisclosure,
++  type HostedWebSearchCallLike,
++} from "./externalSourceNormalization";
++import type {
++  Mw6SourceIntelligenceSurface,
++  SourceObservationFact,
++  SourceProviderBinding,
++  SourceStrategyDecision,
++} from "./sourceIntelligenceContract";
++import type { NoraHostedWebSearchToolOptions } from "./openaiHostedWebSearchAdapter";
++import {
++  appendSourceNarrativeConstraintDisclosure,
++  applySourceNarrativeCompatibility,
++} from "./sourceNarrativeCompatibility";
++import { composeMw3ConflictFromExternalSources } from "./externalContradictionComposition";
++import type { NoraCampaignBudget } from "./campaignBudget";
+
+ export type Mw3ContradictionAssessmentInput = {
+   conflict: ContradictionConflictInput;
+@@ -120,6 +144,32 @@ export type RunNoraCognitiveTurnInput = {
+   readCoverageFacts?: ReadCoverageFact[];
+   /** MW4 — fixed timestamp for deterministic grounding remember. */
+   groundingNowIso?: string;
++  /**
++   * MW6-S01 — source strategy input (claim/domain/need).
++   * When omitted, strategy is inferred from the last user message.
++   */
++  sourceStrategy?: SourceStrategyInput | null;
++  /** MW6 — skip source strategy for isolated non-MW6 tests. */
++  skipSourceStrategy?: boolean;
++  /**
++   * MW6 — force hosted web_search attach (tests). Otherwise follows strategy.
++   */
++  enableHostedWebSearch?: boolean;
++  hostedWebSearchToolOptions?: NoraHostedWebSearchToolOptions;
++  /**
++   * MW6 R21 — deterministic hosted web_search boundary substitute (ZERO REAL).
++   */
++  deterministicHostedWebSearchCalls?: HostedWebSearchCallLike[];
++  /** MW6 — optional pre-normalized observations (same contract; tests). */
++  sourceObservationFacts?: SourceObservationFact[];
++  /** MW6 — freshness timestamp only when honestly supportable. */
++  sourceObservationNowIso?: string | null;
++  /** MW6 PRE-REAL — shared campaign budget across Nora/Runner calls. */
++  campaignBudget?: NoraCampaignBudget;
++  /** TEST/FAKE only — never durable Morris GO REAL authority. */
++  testOnlyMorrisGoRealPresent?: boolean;
++  /** TEST only — attempt to widen max_tool_calls beyond remaining. */
++  testOnlyMaxToolCallsOverride?: number | null;
+ };
+
+ function emitCognitiveStrategyTelemetry(
+@@ -206,26 +256,55 @@ function withMw3Fields(
+   turn: NoraCognitiveTurnResult,
+   input: RunNoraCognitiveTurnInput,
+   strategyDecision: ReturnType<typeof decideCognitiveStrategy> | null,
++  mw6Observations?: readonly SourceObservationFact[],
+ ): NoraCognitiveTurnResult {
+   const assessment = input.contradictionAssessment;
+   if (!assessment) return turn;
+
++  const observations = mw6Observations ?? [];
++  // R-MW6-02 — when MW6 observations exist, conflictPresent is causally derived
++  // from external observation vs governing premise (existing MW3 contract).
++  // Studio Evidence pointers remain product-owned; external text ≠ Evidence.
++  const composed =
++    observations.length > 0
++      ? composeMw3ConflictFromExternalSources({
++          observations,
++          governing: {
++            governingPremise: assessment.governingPremise ?? "",
++            governingPremiseInvalidatedIfConflict:
++              assessment.governingPremiseInvalidated === true,
++            evidencePointers: assessment.conflict.evidencePointers,
++            requiredDomains: assessment.conflict.requiredDomains,
++            requiredSourceCount: assessment.conflict.requiredSourceCount,
++            freshnessMatters: assessment.conflict.freshnessMatters,
++            trustedSfiaProfile:
++              assessment.conflict.trustedSfiaProfile !== undefined
++                ? assessment.conflict.trustedSfiaProfile
++                : input.trustedSfiaProfile,
++          },
++          baseConflict: assessment.conflict,
++        })
++      : null;
++
+   const conflict: ContradictionConflictInput = {
+-    ...assessment.conflict,
++    ...(composed?.conflict ?? assessment.conflict),
+     strategyClass:
+-      assessment.conflict.strategyClass ??
++      (composed?.conflict ?? assessment.conflict).strategyClass ??
+       strategyDecision?.strategyClass ??
+       null,
+     trustedSfiaProfile:
+-      assessment.conflict.trustedSfiaProfile !== undefined
+-        ? assessment.conflict.trustedSfiaProfile
++      (composed?.conflict ?? assessment.conflict).trustedSfiaProfile !==
++      undefined
++        ? (composed?.conflict ?? assessment.conflict).trustedSfiaProfile
+         : input.trustedSfiaProfile,
+   };
+   const disposition = disposeContradiction(conflict);
++  const governingPremiseInvalidated = composed
++    ? composed.governingPremiseInvalidated
++    : assessment.governingPremiseInvalidated === true;
+   const stop = decideCognitiveStop({
+     disposition,
+-    governingPremiseInvalidated:
+-      assessment.governingPremiseInvalidated === true,
++    governingPremiseInvalidated,
+     governingPremise: assessment.governingPremise,
+     localImpactOnly: assessment.localImpactOnly === true,
+     technicalFailure: assessment.technicalFailure === true,
+@@ -267,14 +346,76 @@ function finalizeTurn(
+   input: RunNoraCognitiveTurnInput,
+   strategyDecision: ReturnType<typeof decideCognitiveStrategy> | null,
+   mw4Grounding?: Mw4GroundingTurnSurface,
++  mw6SourceIntelligence?: Mw6SourceIntelligenceSurface,
+ ): NoraCognitiveTurnResult {
+   const withMw3 = withMw3Fields(
+     withStrategyFields(turn, strategyDecision),
+     input,
+     strategyDecision,
++    mw6SourceIntelligence?.observations,
+   );
+-  if (!mw4Grounding) return withMw3;
+-  return { ...withMw3, mw4Grounding };
++  return {
++    ...withMw3,
++    ...(mw4Grounding ? { mw4Grounding } : {}),
++    ...(mw6SourceIntelligence ? { mw6SourceIntelligence } : {}),
++  };
++}
++
++function resolveSourceStrategyForTurn(
++  input: RunNoraCognitiveTurnInput,
++  lastUserContent: string,
++): SourceStrategyDecision | null {
++  if (input.skipSourceStrategy) return null;
++  return decideSourceStrategy({
++    claimText: input.sourceStrategy?.claimText ?? lastUserContent,
++    domainHint: input.sourceStrategy?.domainHint,
++    sourceNeedHint: input.sourceStrategy?.sourceNeedHint,
++    requiresExternalCorroboration:
++      input.sourceStrategy?.requiresExternalCorroboration,
++    requiresRepositoryLookup: input.sourceStrategy?.requiresRepositoryLookup,
++    noSourceLookup: input.sourceStrategy?.noSourceLookup,
++  });
++}
++
++function composeMw6Surface(input: {
++  strategy: SourceStrategyDecision;
++  providerBinding: SourceProviderBinding;
++  observations: SourceObservationFact[];
++  hostedWebSearchAttached: boolean;
++  deterministicBoundaryUsed: boolean;
++  candidateNarrative: string;
++}): {
++  surface: Mw6SourceIntelligenceSurface;
++  governedText: string;
++} {
++  const narrative = applySourceNarrativeCompatibility({
++    candidateText: input.candidateNarrative,
++    observations: input.observations,
++    strategy: input.strategy,
++  });
++  const disclosure = buildSourceObservationDisclosure(
++    input.strategy,
++    input.observations,
++  );
++  const surface: Mw6SourceIntelligenceSurface = {
++    strategy: input.strategy,
++    providerBinding: input.providerBinding,
++    observations: input.observations,
++    disclosure,
++    narrativeCompatibility: {
++      compatible: narrative.compatible,
++      violations: [...narrative.violations],
++    },
++    authorityIsolationHeld: authorityIsolationHeld(input.observations),
++    hostedWebSearchAttached: input.hostedWebSearchAttached,
++    deterministicBoundaryUsed: input.deterministicBoundaryUsed,
++    proofCeiling: "deterministic",
++  };
++  // CR-05: incompatible narrative is replaced (not warned-after).
++  const governedText = narrative.compatible
++    ? `${narrative.text}\n\n${disclosure}`
++    : `${narrative.text}\n\n${disclosure}`;
++  return { surface, governedText };
+ }
+
+ function collectEvidenceIdsToRemember(
+@@ -437,6 +578,26 @@ export async function runNoraCognitiveTurn(
+     throw new Error("NORA_AGENTS_TURN_REQUIRES_SYSTEM_AND_USER");
+   }
+
++  const sourceStrategy = resolveSourceStrategyForTurn(
++    input,
++    lastUser.content.trim(),
++  );
++  const engageMw6 =
++    sourceStrategy != null &&
++    (input.sourceStrategy != null ||
++      input.enableHostedWebSearch === true ||
++      (input.deterministicHostedWebSearchCalls?.length ?? 0) > 0 ||
++      (input.sourceObservationFacts?.length ?? 0) > 0 ||
++      sourceStrategy.sourceNeed !== "none");
++  const providerBinding =
++    engageMw6 && sourceStrategy
++      ? bindSourceProviderCapability(sourceStrategy)
++      : null;
++  const attachHostedWebSearch =
++    engageMw6 &&
++    (input.enableHostedWebSearch === true ||
++      providerBinding?.attachOpenAiHostedWebSearch === true);
++
+   let dbPath: string;
+   try {
+     dbPath = resolveNoraSessionSqlitePath(input.sessionDbPath);
+@@ -445,6 +606,14 @@ export async function runNoraCognitiveTurn(
+       system.content,
+       "unavailable",
+     );
++    if (engageMw6 && sourceStrategy) {
++      systemInstructions = appendSourceStrategyDisclosure(
++        systemInstructions,
++        sourceStrategy,
++      );
++      systemInstructions =
++        appendSourceNarrativeConstraintDisclosure(systemInstructions);
++    }
+     if (input.postEvidenceNarrativePolicy) {
+       systemInstructions =
+         appendPostEvidenceNarrativePolicyDisclosure(systemInstructions);
+@@ -469,7 +638,38 @@ export async function runNoraCognitiveTurn(
+       enableTools: input.enableTools,
+       provider: input.provider,
+       runnerModelSettings,
++      enableHostedWebSearch: attachHostedWebSearch,
++      hostedWebSearchToolOptions: input.hostedWebSearchToolOptions,
++      deterministicHostedWebSearchCalls:
++        input.deterministicHostedWebSearchCalls,
++      sourceObservationNowIso: input.sourceObservationNowIso,
++      campaignBudget: input.campaignBudget,
++      testOnlyMorrisGoRealPresent: input.testOnlyMorrisGoRealPresent,
++      testOnlyMaxToolCallsOverride: input.testOnlyMaxToolCallsOverride,
+     });
++    const observations = [
++      ...(input.sourceObservationFacts ?? []),
++      ...(turn.hostedSearchObserve?.observations ?? []),
++    ];
++    let mw6: Mw6SourceIntelligenceSurface | undefined;
++    if (engageMw6 && sourceStrategy != null && providerBinding != null) {
++      const composed = composeMw6Surface({
++        strategy: sourceStrategy,
++        providerBinding,
++        observations,
++        hostedWebSearchAttached:
++          turn.hostedSearchObserve?.hostedWebSearchAttached === true ||
++          attachHostedWebSearch,
++        deterministicBoundaryUsed:
++          turn.hostedSearchObserve?.deterministicBoundaryUsed === true ||
++          (input.deterministicHostedWebSearchCalls?.length ?? 0) > 0,
++        candidateNarrative: turn.text,
++      });
++      mw6 = composed.surface;
++      turn.text = composed.governedText;
++    }
++    const { hostedSearchObserve: _drop, ...turnBase } = turn;
++    void _drop;
+     const mw4 =
+       coverageAggregate.facts.length > 0
+         ? {
+@@ -486,13 +686,14 @@ export async function runNoraCognitiveTurn(
+         : undefined;
+     return finalizeTurn(
+       {
+-        ...turn,
++        ...turnBase,
+         memoryBCompactionState: "none",
+         memoryBCompactionDetails: null,
+       },
+       input,
+       strategyDecision,
+       mw4,
++      mw6,
+     );
+   }
+
+@@ -549,6 +750,14 @@ export async function runNoraCognitiveTurn(
+     systemInstructions,
+     mw4Prep.readCoverageDisclosure,
+   );
++  if (engageMw6 && sourceStrategy) {
++    systemInstructions = appendSourceStrategyDisclosure(
++      systemInstructions,
++      sourceStrategy,
++    );
++    systemInstructions =
++      appendSourceNarrativeConstraintDisclosure(systemInstructions);
++  }
+   if (input.postEvidenceNarrativePolicy) {
+     systemInstructions =
+       appendPostEvidenceNarrativePolicyDisclosure(systemInstructions);
+@@ -567,16 +776,48 @@ export async function runNoraCognitiveTurn(
+       enableTools: input.enableTools,
+       provider: input.provider,
+       runnerModelSettings,
++      enableHostedWebSearch: attachHostedWebSearch,
++      hostedWebSearchToolOptions: input.hostedWebSearchToolOptions,
++      deterministicHostedWebSearchCalls:
++        input.deterministicHostedWebSearchCalls,
++      sourceObservationNowIso: input.sourceObservationNowIso,
++      campaignBudget: input.campaignBudget,
++      testOnlyMorrisGoRealPresent: input.testOnlyMorrisGoRealPresent,
++      testOnlyMaxToolCallsOverride: input.testOnlyMaxToolCallsOverride,
+     });
++    const observations = [
++      ...(input.sourceObservationFacts ?? []),
++      ...(turn.hostedSearchObserve?.observations ?? []),
++    ];
++    let mw6: Mw6SourceIntelligenceSurface | undefined;
++    if (engageMw6 && sourceStrategy != null && providerBinding != null) {
++      const composed = composeMw6Surface({
++        strategy: sourceStrategy,
++        providerBinding,
++        observations,
++        hostedWebSearchAttached:
++          turn.hostedSearchObserve?.hostedWebSearchAttached === true ||
++          attachHostedWebSearch,
++        deterministicBoundaryUsed:
++          turn.hostedSearchObserve?.deterministicBoundaryUsed === true ||
++          (input.deterministicHostedWebSearchCalls?.length ?? 0) > 0,
++        candidateNarrative: turn.text,
++      });
++      mw6 = composed.surface;
++      turn.text = composed.governedText;
++    }
++    const { hostedSearchObserve: _drop, ...turnBase } = turn;
++    void _drop;
+     const finalized = finalizeTurn(
+       {
+-        ...turn,
++        ...turnBase,
+         memoryBCompactionState: compactionState,
+         memoryBCompactionDetails: compactionDetails,
+       },
+       input,
+       strategyDecision,
+       mw4Prep.surface ?? undefined,
++      mw6,
+     );
+
+     // Persist Evidence IDs claimed/accepted this turn (non-authoritative).
+```
+
+---
+
+## 17. HISTORY — prior MW6 review packs (retained)
+
 # SFIA Review Pack — NORA MW6 DETERMINISTIC CORRECTION RESIDUALS
 
 | Field | Value |
