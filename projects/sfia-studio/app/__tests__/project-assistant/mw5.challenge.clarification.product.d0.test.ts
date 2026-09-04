@@ -679,4 +679,93 @@ describe("MW5 F2 product path D0", () => {
     expect(result.mw5?.disposition).toBe("CONTINUE");
     expect(result.f2?.proposal).toBeTruthy();
   });
+
+  it("CORR-MW5-PR-02 PATH-NEG-03 — same objective + different requestedOperation must CHALLENGE", async () => {
+    const { registerM3LocalMorrisAuthority, LOCAL_MORRIS_M3_ACTOR } =
+      await import(
+        "@/lib/oa/decision/infrastructure/localSingleUserAuthority"
+      );
+    const runtime = getRuntimeApplicationService();
+    expect(runtime.oa).toBeTruthy();
+    if (!runtime.oa) return;
+
+    const created = await runtime.createProject({
+      name: "Projet MW5 HD op-mismatch",
+      objective: "Objectif projet générique MW5 op-mismatch",
+      context: "Contexte sans correspondance structurante claim.",
+      criticality: "STANDARD",
+      constraints: [],
+      shortReference: "MW5P",
+      idempotencyKey: `idem:mw5-hd-opmism-${Date.now()}-${Math.random()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+
+    const lps = await runtime.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: created.projectId,
+    });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) return;
+
+    const scope = `decision:mw5-opmism-${created.projectId}`;
+    const reg = registerM3LocalMorrisAuthority({
+      authorityResolver: runtime.oa.authorityResolver,
+      scope,
+      issuedAt: "2026-09-03T18:00:00.000Z",
+      forceEnable: true,
+      evidenceId: `evd:mw5-hd-opmism-${created.projectId}`,
+    });
+    expect(reg.ok).toBe(true);
+    if (!reg.ok) return;
+
+    // Same structural objective as FakeProvider __F2_STRUCTURING__ claim,
+    // but a distinct substantive requestedOperation ("migrate project database"
+    // vs claim "architecture change"). Scope left unavailable so the blocker
+    // is the operation qualifier, not scope.
+    const recorded = await runtime.oa.decisionServices.recordHumanDecision.execute({
+      decisionId: `dec:mw5-opmism-${created.projectId}`,
+      projectId: created.projectId,
+      subject: "Prior architecture HD with DB migration operation",
+      options: [{ optionId: "opt:go", label: "GO" }],
+      selectedOptionId: "opt:go",
+      actor: LOCAL_MORRIS_M3_ACTOR,
+      authority: "morris",
+      reversible: true,
+      scope,
+      authorityEvidenceId: reg.evidenceId,
+      linkToLivingProjectState: true,
+      expectedLpsVersion: lps.livingProjectState.version,
+      decisionBasis: {
+        sourceType: "proposal",
+        sourceRef: "prop:mw5-opmism-test",
+        sourceDigest: "d".repeat(64),
+        projectId: created.projectId,
+        proposalContext: {
+          lpsId: lps.livingProjectState.lpsVersionId,
+          lpsVersion: lps.livingProjectState.version,
+          doctrineDigest: lps.livingProjectState.doctrinePackageRef.digest,
+        },
+        executionBasis: {
+          objective: "Faire évoluer l'architecture produit",
+          requestedOperation: "migrate project database",
+        },
+      },
+    });
+    expect(recorded.ok).toBe(true);
+    if (!recorded.ok) return;
+
+    const result = await orchestrateAssistantSend({
+      projectId: created.projectId,
+      content: "Fais évoluer l'architecture __F2_STRUCTURING__",
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.mw5?.disposition).toBe("CHALLENGE");
+    expect(result.mw5?.recommendationAllowed).toBe(false);
+    expect(result.f2?.proposal).toBeNull();
+    expect(result.f2?.labels.recommendation).toBeNull();
+    expect(result.mw5?.synthesizedHumanDecision).toBeFalsy();
+    expect(result.mw5?.synthesizedGo).toBeFalsy();
+    expect(containsSynthesizedHumanAct(result.text)).toBe(false);
+  });
 });

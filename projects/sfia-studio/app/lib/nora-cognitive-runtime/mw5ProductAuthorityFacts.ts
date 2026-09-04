@@ -110,6 +110,21 @@ function structuredFieldPairMatch(
 }
 
 /**
+ * Optional structured qualifier compatibility (CORR-MW5-PR-02).
+ * Inputs are already substantive-normalized or null.
+ * Missing either side → no contradiction invented.
+ * Both present → must structuredFieldPairMatch.
+ * Never produces positive identity by itself.
+ */
+function optionalStructuredQualifierCompatible(
+  left: string | null,
+  right: string | null,
+): boolean {
+  if (!left || !right) return true;
+  return structuredFieldPairMatch(left, right);
+}
+
+/**
  * When both sides expose substantive structural scopes, they must be compatible.
  * A missing/optional qualifier (incl. UI metadata-as-scope) does not invent
  * incompatibility.
@@ -118,10 +133,10 @@ function substantiveScopesCompatible(
   left: string | null | undefined,
   right: string | null | undefined,
 ): boolean {
-  const a = structuralScopeText(left);
-  const b = structuralScopeText(right);
-  if (!a || !b) return true;
-  return structuredFieldPairMatch(a, b);
+  return optionalStructuredQualifierCompatible(
+    structuralScopeText(left),
+    structuralScopeText(right),
+  );
 }
 
 /**
@@ -146,13 +161,15 @@ export function truthCMatchesClaimStructured(
 }
 
 /**
- * Fail-closed DecisionBasis relevance vs claim (CORR-MW5-PR-01).
+ * Fail-closed DecisionBasis relevance vs claim (CORR-MW5-PR-01 / PR-02).
  *
  * Contract:
  * - objective is the primary structural anchor (required on both sides);
  * - requestedOperation is a qualifier — never sufficient alone;
  * - scope is a qualifier — never sufficient alone;
- * - explicit incompatible substantive scopes block even when objective matches;
+ * - explicit incompatible substantive scopes OR requestedOperations block
+ *   even when objective matches;
+ * - missing optional qualifier does not invent contradiction;
  * - insufficient structured evidence → false (prefer reopen challenge).
  */
 export function decisionBasisMatchesClaimStructured(
@@ -171,6 +188,14 @@ export function decisionBasisMatchesClaimStructured(
   }
   if (
     !substantiveScopesCompatible(claim.scope, decision.executionScope)
+  ) {
+    return false;
+  }
+  if (
+    !optionalStructuredQualifierCompatible(
+      substantive(claim.requestedOperation),
+      substantive(decision.requestedOperation),
+    )
   ) {
     return false;
   }

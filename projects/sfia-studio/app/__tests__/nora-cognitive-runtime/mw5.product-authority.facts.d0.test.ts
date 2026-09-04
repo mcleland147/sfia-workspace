@@ -502,3 +502,109 @@ describe("CORR-MW5-PR-01 — claim identity fail-closed (adversarial)", () => {
     ).toBe(true);
   });
 });
+
+describe("CORR-MW5-PR-02 — requestedOperation qualifier compatibility", () => {
+  const linkedAccepted = {
+    decisionId: "dec:op",
+    status: "accepted" as const,
+    subject: "Prior structural decision",
+    linkedToCurrentLps: true,
+    hasDecisionBasis: true,
+  };
+
+  it("HD-NEG-05 same objective + scope unavailable + different requestedOperation → false", () => {
+    expect(
+      decisionBasisMatchesClaimStructured(
+        {
+          ...linkedAccepted,
+          executionObjective: "Faire évoluer l'architecture produit",
+          executionScope: undefined,
+          requestedOperation: "migrate project database",
+        },
+        {
+          objective: "Faire évoluer l'architecture produit",
+          scope: "Identity and access boundary",
+          recommendedProfile: "Critical",
+          requestedOperation: "replace authentication mechanism",
+        },
+      ),
+    ).toBe(false);
+  });
+
+  it("HD-NEG-06 same objective + compatible scope + different requestedOperation → false", () => {
+    expect(
+      decisionBasisMatchesClaimStructured(
+        {
+          ...linkedAccepted,
+          executionObjective: "Faire évoluer l'architecture produit",
+          executionScope: "Changement d'architecture structurant",
+          requestedOperation: "migrate project database",
+        },
+        {
+          objective: "Faire évoluer l'architecture produit",
+          scope: "Changement d'architecture structurant",
+          recommendedProfile: "Critical",
+          requestedOperation: "replace authentication mechanism",
+        },
+      ),
+    ).toBe(false);
+  });
+
+  it("HD-POS-03 same objective + compatible scope + requestedOperation absent one side → true", () => {
+    expect(
+      decisionBasisMatchesClaimStructured(
+        {
+          ...linkedAccepted,
+          executionObjective: "Faire évoluer l'architecture produit",
+          executionScope: "Changement d'architecture structurant",
+          requestedOperation: undefined,
+        },
+        {
+          objective: "Faire évoluer l'architecture produit",
+          scope: "Changement d'architecture structurant",
+          recommendedProfile: "Critical",
+          requestedOperation: "architecture change",
+        },
+      ),
+    ).toBe(true);
+  });
+
+  it("HD-POS-04 same objective + compatible scope + same requestedOperation → true", () => {
+    expect(
+      decisionBasisMatchesClaimStructured(
+        {
+          ...linkedAccepted,
+          executionObjective: "Faire évoluer l'architecture produit",
+          executionScope: "Changement d'architecture structurant",
+          requestedOperation: "architecture change",
+        },
+        {
+          objective: "Faire évoluer l'architecture produit",
+          scope: "Changement d'architecture structurant",
+          recommendedProfile: "Critical",
+          requestedOperation: "architecture change",
+        },
+      ),
+    ).toBe(true);
+  });
+
+  it("HD-POS-05 same objective + requestedOperation strong containment → true", () => {
+    expect(
+      decisionBasisMatchesClaimStructured(
+        {
+          ...linkedAccepted,
+          executionObjective: "Faire évoluer l'architecture produit",
+          executionScope: "Changement d'architecture structurant",
+          requestedOperation:
+            "architecture change for product modular target",
+        },
+        {
+          objective: "Faire évoluer l'architecture produit",
+          scope: "Changement d'architecture structurant",
+          recommendedProfile: "Critical",
+          requestedOperation: "architecture change for product",
+        },
+      ),
+    ).toBe(true);
+  });
+});
