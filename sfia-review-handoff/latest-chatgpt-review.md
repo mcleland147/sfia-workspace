@@ -1,7 +1,7 @@
-# SFIA Review Pack — NORA-MW5-POST-MERGE-CLOSURE-01
+# SFIA Review Pack — NORA-MW5-POST-MERGE-CLOSURE-01 — CORR C5 CURRENT TRAJECTORY
 
 ## 1. Timestamp (Europe/Paris)
-2026-09-04 08:03:51 CEST
+2026-09-04 08:22:19 CEST (pack updated for CORR-MW5-CLOSURE-C5-CURRENT-TRAJECTORY-01; prior post-merge pack evidence retained)
 
 ## 2. Cycle
 14 — Post-merge
@@ -548,7 +548,7 @@ Forbidden claims: END-TO-END REAL Studio PROVEN · Cognitive Completion PROVEN �
 | CL-22 | MW6 identifiable but NOT AUTHORIZED | PASS |
 | CL-23 | truth-sync exact / no substantive C5 backlog change | PASS |
 | CL-24 | Review Pack FULL | PASS (this document) |
-| CL-25 | Review Handoff post-merge published | PASS pending publish verify below |
+| CL-25 | Review Handoff post-merge published | PASS after CORR handoff (see correction section / publication proof) |
 
 ## 39. Closure-readiness verdict
 MW5 CLOSURE READINESS = PASS CANDIDATE
@@ -593,8 +593,100 @@ Then (if accepted): distinct Morris GO for closure-doc repository integration �
 
 ---
 
+
+## ChatGPT Critical Closure Review Finding — CORR-MW5-CLOSURE-C5-CURRENT-TRAJECTORY-01
+
+### Correction timestamp (Europe/Paris)
+2026-09-04 08:22:19 CEST
+
+### Finding
+**BLK-MW5-CLOSURE-C5-CURRENT-TRAJECTORY-01**
+
+### Initial ChatGPT verdict
+**FAIL / STOP** — documentary CURRENT-truth blocker only (MW5 technical/product evidence **NOT reopened**)
+
+### Scope impact
+MW5 Delivery / PR #463 / tree parity / post-merge CI / deterministic / REAL / SHA / H17/H18 evidence stack **unchanged**. This correction is documentary trajectory hygiene inside the existing local truth-sync candidate.
+
+### Root cause
+In C5 § Macro-wave map, a paragraph labeled **Historical construction sequence at C5 authoring — SUPERSEDED / PROVENANCE ONLY** mixed provenance with active-looking CURRENT next-capability statements, including obsolete:
+`Next product capability after integration/post-merge = MW2 Readiness/Requalification.`
+MW2 is already COMPLETE / CLOSED BY MORRIS; after MW5 closure the next product capability is MW6 Readiness / Requalification — NOT AUTHORIZED / NOT STARTED — already stated on dedicated CURRENT surfaces.
+
+### Correction applied (OPTION 1 — HISTORICAL-ONLY CLEANUP)
+- File changed by this correction: **C5 only**
+  `projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md`
+- Removed CURRENT phrases from the historical parenthesis:
+  - Current forward lifecycle = CURRENT downstream / conceptual path surfaces.
+  - Next repository gate after ChatGPT PASS = distinct Morris closure-doc Git integration.
+  - Next product capability after integration/post-merge = MW2 Readiness/Requalification.
+- Replaced with provenance-only deferral to dedicated CURRENT surfaces elsewhere (no MW6 duplication in the historical paragraph).
+
+### Exact C5 correction diff (this sub-corrective only)
+```diff
+--- C5 historical paragraph BEFORE CORR-MW5-CLOSURE-C5-CURRENT-TRAJECTORY-01
++++ C5 historical paragraph AFTER
+-**Historical construction sequence at C5 authoring — SUPERSEDED / PROVENANCE ONLY:** C5 **CONTENT VALIDATED** → repository integration review → Morris merge gate → post-merge verification → MW0 readiness → Targeted TA if required → Morris architecture decision if required → readiness PASS → **distinct Morris Delivery GO** → Delivery → Evidence → requalification. *(This was the forward sequence at C5 authoring; C5→MW0→MW1 stages are **CONSUMED**; does not govern current next gate. Current forward lifecycle = CURRENT downstream / conceptual path surfaces. Next repository gate after ChatGPT PASS = distinct Morris closure-doc Git integration. Next product capability after integration/post-merge = MW2 Readiness/Requalification.)*
++**Historical construction sequence at C5 authoring — SUPERSEDED / PROVENANCE ONLY:** C5 **CONTENT VALIDATED** → repository integration review → Morris merge gate → post-merge verification → MW0 readiness → Targeted TA if required → Morris architecture decision if required → readiness PASS → **distinct Morris Delivery GO** → Delivery → Evidence → requalification. *(This was the forward sequence at C5 authoring; C5→MW0→MW1 stages are **CONSUMED** and this historical sequence does not govern the current next gate. Current trajectory is defined exclusively by the explicit CURRENT downstream / conceptual-path surfaces elsewhere in this document.)*
+
+```
+
+### Four-other-doc before/after parity (PROVEN unchanged)
+SHA256 before correction (candidate worktree):
+```
+c67bcee445c12276304145aa488a7dac36308c02592935ea04c4c72347b264b7  projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+fc7d45f7a64ccfe938be2e3d4a2f596bce8f73e7cf0d0d43af2eadb57185522e  projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md
+a7b2f4ed3381b4d402b914f6985227f57f70b13ed3c71b551abf83895b1b5f1d  projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md
+500a4071fed69f8e793b1bf7d8fe285b279eb4a209991a47d0b26fb428bba018  projects/sfia-studio/nora-cognitive-completion/09-nora-mw2-cognitive-workload-profile-readiness.md
+```
+After correction: **identical SHA256 for Roadmap, doc07, doc08, doc09**.
+**four-other-doc parity = PROVEN**
+
+### Stale-current audit (C5 after correction)
+| Pattern | Result |
+| --- | --- |
+| Current forward lifecycle | 0 hits |
+| Next product capability after integration/post-merge = MW2 | 0 hits |
+| MW2 Readiness/Requalification | 0 hits |
+| MW5 — Critical Challenge + Clarification — LOCAL | 0 hits |
+| PENDING PROJECT GIT INTEGRATION | historique tip only (NORA-MW5-INTEGRATION provenance) |
+| MW5 NOT AUTHORIZED / NOT STARTED | 0 hits |
+| CURRENT next product capability gate | ACTIVE → MW5 INTEGRATED / POST-MERGE VERIFIED / CLOSURE READINESS CANDIDATE / COMPLETE NOT DECIDED · NEXT = MW6 READINESS NOT AUTHORIZED |
+| CURRENT downstream forward trajectory / Conceptual path (CURRENT) | MW5 integrated · NEXT AFTER MW5 CLOSURE = MW6 READINESS — NOT AUTHORIZED / NOT STARTED |
+
+**CURRENT TRAJECTORY STILL AMBIGUOUS = NO**
+
+### C5 substantive source-lock
+- Correction-only delta vs pre-correction candidate = **line 278 parenthesis only**
+- NR 26/26 · CE 8/8 · NCC-BAR 14/14 present
+- MW0→MW6 macro-wave table rows preserved
+- No story body / AC / DAG / architecture disposition edits
+**C5 SUBSTANTIVE SOURCE-LOCK = UNCHANGED**
+
+### CL requalification after correction
+| ID | Result |
+| --- | --- |
+| CL-01→CL-22 | PASS (preserved from post-merge pack) |
+| CL-23 | **PASS** after historical-only cleanup |
+| CL-24 | **PASS** (this FULL pack update) |
+| CL-25 | **PASS** only after new handoff publish (entry tip 3ef5ac2f… superseded) |
+
+### Fake/Real
+ZERO REAL · no provider · documentary correction / Git truth consistency only.
+
+### Project Git actions
+NONE — no project commit/push/PR/merge/branch delete.
+
+### Updated cycle verdict
+**NORA-MW5-POST-MERGE-CLOSURE-01 — PASS CANDIDATE AFTER CORR-MW5-CLOSURE-C5-CURRENT-TRAJECTORY-01**
+**CORR-MW5-CLOSURE-C5-CURRENT-TRAJECTORY-01 — CLOSED CANDIDATE**
+**C5 CURRENT TRAJECTORY — SINGLE FORWARD TRUTH RESTORED**
+**MW5 CLOSURE READINESS — PASS CANDIDATE**
+**FINAL MORRIS MW5 COMPLETE / CLOSED DECISION — NOT CONSUMED**
+
+
 ## Expected cycle verdict (Cursor)
-NORA-MW5-POST-MERGE-CLOSURE-01 — PASS CANDIDATE
+NORA-MW5-POST-MERGE-CLOSURE-01 — PASS CANDIDATE AFTER CORR-MW5-CLOSURE-C5-CURRENT-TRAJECTORY-01
 MW5 DELIVERY — INTEGRATED ON MAIN / POST-MERGE VERIFIED
 PR #463 — MERGED
 MERGE TREE PARITY — PROVEN
