@@ -1,330 +1,153 @@
-# ChatGPT Review Pack — Nora OpenAI-Native-First Post-Merge Truth-Sync
+# SFIA STUDIO — MW6 ↔ AUTH BINDING — Review Pack FULL (STOP)
 
-| Field | Value |
-| --- | --- |
-| **Timestamp** | 2026-09-01 18:20 CEST (Europe/Paris) |
-| **Cycle** | 14 — Post-merge / documentary truth-sync |
-| **Typology** | DOC |
-| **Profile** | CRITICAL |
-| **Repository** | `mcleland147/sfia-workspace` |
-| **Base main** | `d640b5ba7210b9da3593bea9eeae2100c6da6c09` |
-| **Branch** | `docs/sfia-studio-nora-openai-native-first-post-merge-truth-sync` |
-| **Input merge** | PR #453 · merge `d640b5ba7210b9da3593bea9eeae2100c6da6c09` · post-merge CI `33530815963` SUCCESS · Required Gate PASS |
-| **Input Review Handoff** | `sfia/review-handoff` @ `132a9d902f083cd4caa8592705fbbad204a7d1ff` · canonical blob `796a53dae9cf50900bf53b35aa8c5d6487b6a8d0` |
-| **Purpose** | Remove durable pre-merge candidate wording after PR #453 and align active Nora/OpenAI trajectory before MW2 requalification |
-| **Runtime/code Delivery** | ZERO |
-| **MW2** | NOT AUTHORIZED / NOT STARTED |
-| **Runtime v3** | NON ADOPTED |
+**Timestamp:** 2026-09-04 23:48:39 CEST / 2026-09-04T21:48:39Z
+**Status:** FULL · CRITICAL · CONTENT-COMPLETE · STOP
+**Unique verdict:** STOP — MW6 ACTION AUTHORITY LEVEL NOT GOVERNED
 
 ---
 
-## 1. Sources
+## A. Timestamp
+- 2026-09-04 23:48:39 CEST / 2026-09-04T21:48:39Z
+
+## B. GO Morris consumed
+**GO MORRIS — MW6 ↔ AUTH BINDING**
+
+Authorized discovery + integration worktree + deterministic binding IF existing server policy yields exact requiredAuthority.
+Does NOT authorize inventing N1/N2/N3, MW6 REAL, product commit/push/PR, or parallel authority engines.
+
+## C. Git Truth
+
+| Surface | Path | Branch | HEAD | staged | dirty |
+|---|---|---|---|---|---|
+| origin/main | (remote) | — | `ebdae92a96ea1c49444dfb668342c1453f57a540` | — | — |
+| Auth source | `/Users/morris/Projects/sfia-workspace-auth-better-auth-github-multi-user-foundation` | `delivery/sfia-studio-auth-better-auth-github-multi-user-foundation` | `ebdae92a…` | 0 | YES (candidate) |
+| MW6 source | `/Users/morris/Projects/sfia-workspace-nora-mw6-external-source-intelligence` | `delivery/sfia-studio-nora-mw6-external-source-intelligence` | `ebdae92a…` | 0 | YES (candidate) |
+| Integration | `/Users/morris/Projects/sfia-workspace-mw6-auth-binding` | `delivery/sfia-studio-mw6-auth-binding` | `ebdae92a…` | 0 | YES (Auth+MW6 materialization only) |
+
+Input Auth handoff tip (pre-correction publish parent chain): `45bbf95ff2cd371e7dbdded41d67d627fcc17276`
+Auth claims carried: AUTH REAL BOUNDARY PROVEN · BOUNDED N1 PRODUCT AUTHORITY INTEGRATION PROVEN
 
-- Git `main` @ `d640b5ba7210b9da3593bea9eeae2100c6da6c09`
-- PR #453 post-merge evidence
-- Review Handoff `sfia-review-handoff/latest-chatgpt-review.md` @ `132a9d902f083cd4caa8592705fbbad204a7d1ff`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- `projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md`
-- `projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md`
+Transient recovery note (no content loss): aborted worktree add briefly detached Auth branch into integration path; restored via `git switch` + `git restore --staged` only. Auth projects fingerprint unchanged: `a312681853164ffb078383c377a2d4281e185849589097294591f7e6e8f155ae`.
+
+## D. Candidate snapshot / fingerprint
+- MW6 projects fingerprint BEFORE = `20828a426746d9cf8ff7213de13a3d4a7091a407c8bd9cc168f2e0c0b3b983f9`
+- MW6 projects fingerprint AFTER  = `20828a426746d9cf8ff7213de13a3d4a7091a407c8bd9cc168f2e0c0b3b983f9` · MATCH · WRITES source=0
+- Auth source WRITES this cycle = 0 (after recovery) · staged=0 · porcelain=24
+- Overlap Auth∩MW6 materialize paths = **0**
 
-Morris GO consumed for this cycle: **perform the bounded post-merge documentary truth-sync directly**.
+## E. Cycle / profile / typology
+- Cycle 8 Delivery / MW6↔Auth binding
+- Profile: RUN / discovery-STOP
+- Typology: CRITICAL (authority + external boundary)
+
+## F. Convergence Pre-check
+- Capability: Nora Cognitive Completion / MW6 External Source Intelligence + V3-F11/F12
+- Milestone: MW6 ↔ AUTH BINDING
+- Entry: MW6 PRE-REAL deterministic EXISTING · Auth deterministic PASS · Auth REAL boundary PROVEN · Auth product N1 PROVEN · MW6 authority binding NOT PROVEN · MW6 REAL NOT AUTHORIZED
+- Gap targeted: REAL_AUTHORITY_NOT_BOUND
+- Exit not reached: deterministic binding NOT proven
+- Next gate: Morris must authorize exact MW6 ActionPolicy→AuthorityClass mapping before any binding re-attempt; MW6 REAL remains a later separate GO
+- Runtime v3: NON ADOPTED
+
+## G. Sources read
+Process cores · Build Doctrine · Roadmap · C1 · framing 34 · Auth handoff 45bbf95f · Auth lib (s1Authority, piloteS1AuthorityPolicy, resolveCurrentPilote) · W3-A projectRequiredAuthorityFromEffects · AuthorityResolver verify · MW6 campaignBudget / runNoraAgentsTurn / sourceStrategyPolicy / openaiHostedWebSearchAdapter / sourceIntelligenceContract · MW6 PRE-REAL tests
+CKC Delivery detailed: ABSENT → fallback v2.6 / synthetic · CKC authority NONE
+
+## H. Binding Map discovered
+
+```
+SourceStrategyDecision (provider-neutral)
+  → bindSourceProviderCapability (attachOpenAiHostedWebSearch if external_discovery)
+  → runNoraCognitiveTurn / runNoraAgentsTurn
+  → wantRealHostedDispatch = hosted + live OpenAI + no fixture
+  → evaluateRealSourceExecutionPreflight(campaign, wantHostedWebSearch)
+       └── ALWAYS code=REAL_AUTHORITY_NOT_BOUND, blocked=true, eligible=false
+  → clamp.attachHostedWebSearch=false for LIVE
+  → createNoraHostedWebSearchTool NOT attached on LIVE
+
+Auth S1 path (EXISTING, W3-A/EC only — NOT wired to MW6):
+  resolveCurrentAuthenticatedPilote
+  → issueS1AuthorityEvidence
+  → resolvePiloteS1AuthorityFromGovernedContract
+  → projectRequiredAuthorityFromEffects(ExecutionEffectClass)
+  → AuthorityEvidence.scope = computeInspectionFingerprint(contract)
+  → AuthorityResolverPort.verify
+```
+
+MW6 path today carries: SourceStrategyDecision / SourceProviderBinding / SourceObservationFact.
+MW6 path does NOT carry: ExecutionContract, actorId, AuthorityEvidence, requiredAuthority.
+
+## I. Exact existing ActionPolicy / authority requirement
+
+**FINDING: NO existing server-owned ActionPolicy maps hosted web_search / external_discovery to N1/N2/N3.**
+
+| Candidate policy surface | Result |
+|---|---|
+| `projectRequiredAuthorityFromEffects` | Product `ExecutionEffectClass` only (`read`…`baseline-promotion`) — no web_search / external_discovery class |
+| `resolvePiloteS1AuthorityFromGovernedContract` | Requires EC semantic contract + governedEffects.effectClass from that taxonomy |
+| Framing 34 ActionPolicy table | Same product actions — no hosted web_search row |
+| `sourceStrategyPolicy` / `SourceStrategyDecision` | Need/class/acquisition only — zero AuthorityClass |
+| `evaluateRealSourceExecutionPreflight` | Hard-coded deny `REAL_AUTHORITY_NOT_BOUND` — not an authority-level resolver |
+
+GO rule applied: Cursor MUST NOT invent/select N1/N2/N3. External hosted search has network/cost effects; equating it to product `read→N1` would be an unauthorized policy invention.
+
+## J. Exact integration architecture reused
+None for binding implementation — STOP before write.
+Materialization only reused existing Auth + MW6 candidate files into clean integration worktree (overlap=0).
+
+## K. Files materialized from Auth (38)
+`.env.example` · `__tests__/auth/**` · `app/api/auth` · `app/login/**` · `components/auth` · shell Topbar/StudioShell · w2 actions/prepare · `lib/auth/**` · EC authorityHelper + Build/Validate/Cancel/Confirm/Supersede/Check + index · middleware · package.json/lock
+
+## L. Files materialized from MW6 (17)
+MW6 PRE-REAL tests (budget-hardening, s01-s02) · nora-cognitive-runtime modified/new modules listed in Git Truth inventory (campaignBudget, adapters, strategy, normalization, authority, contradiction, narrative, run turns, types, etc.)
+
+## M. Files modified for binding
+**NONE.** No binding code written. No new MW6AuthManager / MW6AuthorityResolver / second S1 schema / second fingerprint.
+
+## N. FULL binding delta this cycle
+Empty — STOP before implementation.
+Integration dirty state = pure candidate materialization (Auth+MW6), not a binding delta.
 
-Not consumed: PR creation, merge of this branch, branch deletion, MW2 Delivery, OD-02, production model selection/routing, Responses compaction, runtime v3 adoption.
+## O. B01–B12 matrix
 
----
+| ID | Result | Note |
+|----|--------|------|
+| B01–B12 | **NOT EXECUTED** | Blocked by authority-level governance STOP |
 
-## 2. Files modified
+## P. Login-alone authority
+Carried from Auth proven path: login/base `authorityLevel=none`; `resolvePiloteS1AuthorityLevel()` fail-closed; login alone cannot issue S1. Not re-run this cycle.
 
-### Modified
+## Q. S1 scope/actor/TTL/level binding
+NOT issued for MW6 — no governed MW6 requiredAuthority exists to bind.
 
-1. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-2. `projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md`
-3. `projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md`
-4. `.tmp-sfia-review/chatgpt-review.md`
+## R. REAL gate remains CLOSED
+YES — `evaluateRealSourceExecutionPreflight` still hard-blocks LIVE; no MW6 REAL executed; no GO REAL consumed.
 
-### Reviewed / no modification required
+## S. External REAL calls
+**0** — no OpenAI LIVE, no hosted web_search REAL, no external product network in this cycle.
 
-`projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+## T. Regressions
+Not run for binding (STOP before implementation). Candidate materialization only; no claim of suite PASS for integration binding.
 
-Reason: the Roadmap already carries the compatible forward truth — MW1 CLOSED, next product gate MW2 Readiness/Requalification, MW2 NOT AUTHORIZED / NOT STARTED, Production model routing NOT SELECTED — and the PR #453 post-merge scan found no PR453-specific stale candidate marker in this file. Adding duplicate lifecycle prose would increase living-roadmap noise without closing a contradiction.
+## U. Source worktrees unchanged
+- Auth source unchanged vs post-recovery snapshot (projects FP `a3126818…`) · WRITES=0
+- MW6 fingerprint MATCH reference · WRITES=0
 
-`RES-DOC-ROADMAP-01` is therefore treated as **CLOSED BY REVIEW / NO MUTATION REQUIRED** once Build Doctrine and doc08 are active/discoverable on main.
+## V. Product commit/push/PR/merge
+**0** · staged remains 0 on Auth/MW6/integration
 
-### Explicitly unchanged
+## W. Reserves / debt
+- Structural reserve: MW6 action → AuthorityClass mapping does not exist in server policy
+- Related architecture observation (for Morris, not auto-solved): MW6 path has no ExecutionContract/actor/evidence fields today; wiring after a Morris-chosen policy may still need a minimal composition decision
+- REAL_AUTHORITY_NOT_BOUND remains in force (not falsely closed)
+- MW6 REAL NOT STARTED
+- Note: an erroneous interim handoff publish of an unrelated historical pack was superseded by this STOP pack (see tip after publish)
 
-- `projects/sfia-studio/nora-cognitive-completion/05-nora-source-locked-cognitive-backlog.md`
-- `projects/sfia-studio/nora-cognitive-completion/06-nora-mw0-versioned-cognitive-eval-harness-readiness.md`
-- runtime/application code
-- OpenAI runtime configuration
-- CI/workflows
-- persistence
+## X. Claims allowed / forbidden
+**Allowed:** STOP discovery documented · Auth proofs carried · MW6 PRE-REAL preserved · sources unchanged
+**Forbidden (and NOT claimed):** MW6↔Auth binding DETERMINISTIC PROVEN · REAL_AUTHORITY_NOT_BOUND CLOSED · MW6 REAL · Cognitive Completion · production-ready · runtime v3 ADOPTED · invented N1/N2/N3 for hosted web_search
 
----
+## Y. Unique verdict
+# STOP — MW6 ACTION AUTHORITY LEVEL NOT GOVERNED
 
-## 3. Build Doctrine — modified content / useful diff
-
-### Status
-
-Before:
-
-`R22 OpenAI-native-first amendment = DOCUMENTARY CANDIDATE ON BRANCH UNTIL GIT INTEGRATION`
-
-After:
-
-`R22 OpenAI-native-first = VALIDATED — ACTIVE ON MAIN via PR #453`
-
-### Associated trajectory
-
-Before:
-
-`08-nora-openai-native-first-cognitive-trajectory.md ... candidate jusqu’à intégration Git`
-
-After:
-
-`08-nora-openai-native-first-cognitive-trajectory.md ... VALIDATED — ACTIVE ON MAIN via PR #453`
-
-### Git integration evidence
-
-Added current evidence:
-
-- PR #453
-- merge `d640b5ba7210b9da3593bea9eeae2100c6da6c09`
-- post-merge CI `33530815963` SUCCESS
-- Required Gate PASS
-
-### R22 lifecycle
-
-Before:
-
-`cette rédaction Build Doctrine reste candidate tant qu’elle n’est pas intégrée sur main`
-
-After:
-
-`Lifecycle R22: ACTIVE ON MAIN` with PR #453 / merge / CI evidence.
-
-### Source governance
-
-`Nora OpenAI-native-first trajectory` is now explicitly **ACTIVE ON MAIN** and consumed as the transverse MW2→MW6 capability-fit/model-reasoning policy.
-
-R22 substance itself is unchanged.
-
----
-
-## 4. doc08 — modified content / useful diff
-
-### Documentary status
-
-Before:
-
-`DOCUMENTARY CANDIDATE ... NOT ACTIVE ON MAIN UNTIL GIT INTEGRATION`
-
-After:
-
-`VALIDATED — ACTIVE ON MAIN — Morris trajectory principle integrated via PR #453`
-
-### Git truth
-
-Pre-merge candidate base metadata is replaced by current integration evidence:
-
-- PR #453
-- merge `d640b5ba7210b9da3593bea9eeae2100c6da6c09`
-- tree `080fb6a73cd465fe5188d1fd5aee614d011b35e2`
-- CI `33530815963` SUCCESS
-- Required Gate PASS
-
-### Sequence
-
-Before:
-
-1. Pre-MW2 truth-sync
-2. Git integration
-3. MW2 Readiness
-
-After:
-
-1. Pre-MW2 truth-sync — COMPLETE / INTEGRATED
-2. Git integration + post-merge proof — VERIFIED (PR #453)
-3. MW2 Readiness / Requalification — NEXT PRODUCT GATE
-
-### Impact matrix
-
-- Build Doctrine: R22 ACTIVE ON MAIN
-- Roadmap: KEEP / already compatible
-- C5: KEEP source-lock
-- MW0: KEEP historical measurement contract
-- OD-04: KEEP architecture decision, lifecycle synced
-- MW2 Readiness / OD-02: next gate after this post-merge truth-sync
-
-### Current anti-claims
-
-The document now says `VALIDATED — ACTIVE ON MAIN`, while preserving:
-
-- ≠ MW2 Readiness validated
-- ≠ OD-02 consumed
-- ≠ MW2 Delivery GO
-- ≠ production model selected/routing selected
-- ≠ Sol/Terra/Luna campaign executed
-- ≠ Responses compaction adopted
-- ≠ Cognitive Completion PROVEN
-- ≠ runtime v3 ADOPTED
-
-### Active verdict
-
-- OPENAI-NATIVE-FIRST — VALIDATED / ACTIVE ON MAIN VIA PR #453
-- GPT-5.6 — current Nora REAL evidence family / provider snapshot revalidable
-- GPT-5.6 Luna + none — MW0/MW1 REAL-proven starting point, not routing decision
-- MW2→MW6 OpenAI Capability Fit Check — REQUIRED BY ACTIVE TRAJECTORY
-- Production model routing — NOT SELECTED
-- Next product capability — MW2 Readiness / Requalification
-- MW2 Delivery — NOT AUTHORIZED / NOT STARTED
-- Runtime v3 — NON ADOPTED
-
-No capability/model/reasoning policy substance was changed.
-
----
-
-## 5. OD-04 / doc07 — modified content / useful diff
-
-### Current lifecycle
-
-Added:
-
-`OpenAI-native-first transverse truth-sync INTEGRATED / POST-MERGE VERIFIED via PR #453`
-
-Current forward gate is now:
-
-`MW2 Readiness / Requalification` with `MW2 NOT AUTHORIZED / NOT STARTED`.
-
-### Cross-wave trajectory
-
-Before:
-
-`doc08 = DOCUMENTARY CANDIDATE`
-
-After:
-
-`doc08 = VALIDATED — ACTIVE ON MAIN via PR #453`
-
-### Metadata reference
-
-The trajectory split now states doc08 is the active MW2→MW6 OpenAI capability-fit + model/reasoning trajectory.
-
-### Lifecycle list
-
-Added:
-
-- item 12 = OpenAI-native-first cross-wave truth-sync INTEGRATED / POST-MERGE VERIFIED (PR #453)
-- item 13 = current forward product gate MW2 Readiness / Requalification; MW2 NOT AUTHORIZED / NOT STARTED
-
-### Forward implications
-
-The architectural lesson is now explicitly generalized in active doc08 + active Build Doctrine R22.
-
-### MW0→MW6 application rule
-
-The OpenAI Capability Fit Check is consumed from **active doc08 / Build Doctrine R22**; no `once integrated` conditional remains.
-
-### Exit / next gate
-
-Pre-MW2 truth-sync is explicitly COMPLETE / INTEGRATED / POST-MERGE VERIFIED.
-
-Current sequence:
-
-`MW2 Readiness / Requalification → Morris qualification validation → distinct MW2 Delivery GO → MW2 Delivery only if authorized`
-
-### Final verdict
-
-- OpenAI-native-first MW2→MW6 trajectory = VALIDATED / ACTIVE ON MAIN VIA PR #453
-- Build Doctrine R22 = VALIDATED / ACTIVE ON MAIN VIA PR #453
-- Pre-MW2 transverse documentary truth-sync = COMPLETE / INTEGRATED / POST-MERGE VERIFIED
-- MW2 Readiness/Requalification = NEXT PRODUCT CAPABILITY
-- MW2 NOT AUTHORIZED / NOT STARTED
-- Cognitive Completion NOT PROVEN
-- runtime v3 NON ADOPTED
-
-OD-04 architecture selection is unchanged.
-
----
-
-## 6. Critical review
-
-### Scope integrity
-
-PASS.
-
-- Only stale lifecycle/status wording changed.
-- No C5 story/AC/DAG mutation.
-- No MW0 historical contract rewrite.
-- No code/runtime/config change.
-- No new architecture/provider/Runner/store/router.
-
-### Authority boundary
-
-PASS.
-
-- Studio remains product/business/authority model owner.
-- Pilote remains runtime human decision/confirmation actor.
-- Nora remains cognitive/recommendation layer.
-- OpenAI provides compatible cognitive primitives without business authority.
-
-### OpenAI-native-first truth
-
-PASS.
-
-R22 and doc08 are now active after PR #453. No change to the rule substance.
-
-### Model/reasoning governance
-
-PASS.
-
-- GPT-5.6 remains current REAL evidence family.
-- Luna + none remains a proven starting point, not final production model selection.
-- PRE-MW2-MODEL-BASELINE-01 remains a Delivery prerequisite.
-- Production model routing remains NOT SELECTED.
-- Future model × reasoning campaign remains planned, not executed.
-
-### Roadmap
-
-PASS / NO CHANGE REQUIRED.
-
-The living Roadmap already exposes the correct next gate and anti-claims. No durable PR453 candidate contradiction was found. The prior discoverability reserve is closed by the active Build Doctrine→doc08 linkage plus current Roadmap gate truth.
-
----
-
-## 7. Remaining gates
-
-This branch does NOT authorize:
-
-- PR creation / merge for this truth-sync without distinct Morris GO
-- MW2 qualification validation
-- OD-02 decision
-- MW2 Delivery GO
-- runtime/model changes
-- model routing
-- Responses compaction
-- runtime v3 adoption
-
-After Git integration/post-merge verification of this branch, the next product activity is **MW2 Readiness / Requalification**.
-
----
-
-## 8. Verdict
-
-**POST-MERGE DOCUMENTARY TRUTH-SYNC — CHATGPT CRITICAL REVIEW PASS**
-
-**STALE CANDIDATE WORDING — CLOSED ON BRANCH**
-
-**BUILD DOCTRINE R22 — ACTIVE STATUS SYNCHRONIZED**
-
-**DOC08 OPENAI-NATIVE-FIRST TRAJECTORY — ACTIVE STATUS SYNCHRONIZED**
-
-**OD-04 — LIFECYCLE SYNCHRONIZED / ARCHITECTURE UNCHANGED**
-
-**ROADMAP — REVIEWED / NO MUTATION REQUIRED / RES-DOC-ROADMAP-01 CLOSED BY REVIEW**
-
-**MW2 — NOT AUTHORIZED / NOT STARTED**
-
-**NEXT REPOSITORY GATE — DISTINCT MORRIS GO FOR PR / INTEGRATION OF THIS TRUTH-SYNC**
-
-**NEXT PRODUCT GATE AFTER INTEGRATION — MW2 READINESS / REQUALIFICATION**
+Related (not substituted): closing this STOP requires a Morris decision selecting/authorizing the exact server ActionPolicy mapping for MW6 hosted external discovery (and only then a binding re-attempt). Architecture-gap STOP may also apply after that policy exists if composition still cannot reuse Auth/EC primitives without a new engine.
