@@ -63,6 +63,33 @@ export type Mw3CognitiveSurfaceDto = {
   notTechnicalFailure?: boolean;
 };
 
+/** MW5 challenge/clarification surface — process-local; ≠ HumanDecision. */
+export type Mw5DispositionDto =
+  | "CONTINUE"
+  | "CHALLENGE"
+  | "CLARIFY"
+  | "ESCALATE";
+
+export type Mw5CognitiveSurfaceDto = {
+  disposition: Mw5DispositionDto;
+  structuralChallengeCount: number;
+  questionnaireSuppressed: boolean;
+  recommendationAllowed: boolean;
+  challengeGateApplicable: boolean;
+  challengeSatisfied: boolean;
+  challengeEvidenceBeforeRecommendation: boolean;
+  bypassAttempted: boolean;
+  bypassBlocked: boolean;
+  synthesizedHumanDecision: false;
+  synthesizedGo: false;
+  synthesizedConfirmation: false;
+  disclosure: string;
+  reasonCodes: string[];
+  challenges: string[];
+  /** MW2 High-Assurance hook only — not MW5-S03 proof. */
+  criticalChallengeArmedHookOnly: boolean;
+};
+
 /** MW4 grounding durability surface — process-local; ≠ Evidence authority. */
 export type Mw4GroundingSurfaceDto = {
   rememberedIds: string[];
@@ -181,6 +208,8 @@ export type ProjectAssistantSendSuccess = {
   mw3?: Mw3CognitiveSurfaceDto | null;
   /** MW4 — grounding durability / partiality surface (when assessed). */
   mw4?: Mw4GroundingSurfaceDto | null;
+  /** MW5 — challenge / clarification / Critical ordering / escalation (when assessed). */
+  mw5?: Mw5CognitiveSurfaceDto | null;
   f2?: F2TurnPayload;
 };
 

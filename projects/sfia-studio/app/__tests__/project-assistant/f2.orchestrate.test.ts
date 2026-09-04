@@ -18,6 +18,7 @@ import {
   createProposalId,
   F2_PROCESS_LOCAL_NOTICE,
 } from "@/features/project-assistant/f2/proposalStore";
+import { resetMw5ChallengeStoreForTests } from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
 import { validateIntentAnalysisPayload } from "@/features/project-assistant/f2/intentAnalysis";
 import { qualifyWithCkc } from "@/features/project-assistant/f2/qualify";
 import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
@@ -38,6 +39,7 @@ describe("F2 orchestration AC coverage", () => {
     delete process.env.OPENAI_MODEL;
     setConversationProviderForTests(null);
     resetF2ProposalStoreForTests();
+    resetMw5ChallengeStoreForTests();
     resetRuntimeApplicationServiceForTests();
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-f2-"));
     tempDirs.push(dir);
@@ -63,6 +65,7 @@ describe("F2 orchestration AC coverage", () => {
   afterEach(() => {
     setConversationProviderForTests(null);
     resetF2ProposalStoreForTests();
+    resetMw5ChallengeStoreForTests();
     resetRuntimeApplicationServiceForTests();
     while (tempDirs.length) {
       const dir = tempDirs.pop();
@@ -155,17 +158,38 @@ describe("F2 orchestration AC coverage", () => {
     expect(after.livingState.activeCycleInstanceId ?? null).toBeNull();
   });
 
-  it("AC-F2-12/25 execution request may propose but blocks execution + gate", async () => {
-    const result = await orchestrateAssistantSend({
+  it("AC-F2-12/25 execution request withholds Rec until MW5 challenge, then proposes without executing", async () => {
+    const first = await orchestrateAssistantSend({
       projectId,
       content: "Lance Cursor et crée une PR __F2_EXECUTION__",
     });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.f2?.executionBlocked).toBe(true);
-    expect(result.f2?.proposal?.morrisGateRequired).toBe(true);
-    expect(result.f2?.proposal?.status).toBe("DECISION_REQUIRED");
-    expect(result.text).toMatch(/AUCUNE EXÉCUTION/);
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+    expect(first.f2?.executionBlocked).toBe(true);
+    expect(first.f2?.proposal).toBeNull();
+    expect(first.mw5?.disposition).toBe("CHALLENGE");
+    expect(first.mw5?.recommendationAllowed).toBe(false);
+    expect(first.text).toMatch(/AUCUNE EXÉCUTION/);
+
+    const second = await orchestrateAssistantSend({
+      projectId,
+      content:
+        "Prémisse d'exécution bornée sans lancer d'agent. __F2_EXECUTION__ __MW5_SATISFACTION_SUFFICIENT__",
+      history: [
+        {
+          role: "user",
+          content: "Lance Cursor et crée une PR __F2_EXECUTION__",
+        },
+        { role: "assistant", content: first.text },
+      ],
+    });
+    expect(second.ok).toBe(true);
+    if (!second.ok) return;
+    expect(second.f2?.executionBlocked).toBe(true);
+    expect(second.f2?.proposal?.morrisGateRequired).toBe(true);
+    expect(second.f2?.proposal?.status).toBe("DECISION_REQUIRED");
+    expect(second.mw5?.recommendationAllowed).toBe(true);
+    expect(second.text).toMatch(/AUCUNE EXÉCUTION/);
   });
 
   it("fail-closed on invalid JSON / unknown cycle / incomplete signals", () => {
@@ -291,7 +315,8 @@ describe("F2 orchestration AC coverage", () => {
     });
     expect(structuring.ok).toBe(true);
     if (!structuring.ok) return;
-    expect(structuring.f2?.proposal).toBeTruthy();
+    expect(structuring.f2?.proposal).toBeNull();
+    expect(structuring.mw5?.disposition).toBe("CHALLENGE");
     expect(structuring.f2?.qualification?.isMorrisDecision).toBe(false);
   });
 
@@ -403,6 +428,7 @@ describe("F2 decisions with shared OA stack", () => {
     process.env.OPS1_CONVERSATION_PROVIDER = "fake";
     process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
     resetF2ProposalStoreForTests();
+    resetMw5ChallengeStoreForTests();
     resetRuntimeApplicationServiceForTests();
     const runtime = getRuntimeApplicationService({ auditMode: "noop" });
     const created = await runtime.createProject({
@@ -422,6 +448,7 @@ describe("F2 decisions with shared OA stack", () => {
 
   afterEach(() => {
     resetF2ProposalStoreForTests();
+    resetMw5ChallengeStoreForTests();
     resetRuntimeApplicationServiceForTests();
   });
 
@@ -539,6 +566,7 @@ describe("F2 decisions with shared OA stack", () => {
 
   it("AC-F2-26 missing proposal after reset has no durable authority claim", () => {
     resetF2ProposalStoreForTests();
+    resetMw5ChallengeStoreForTests();
     expect(getProposal("prop:missing")).toBeNull();
   });
 });

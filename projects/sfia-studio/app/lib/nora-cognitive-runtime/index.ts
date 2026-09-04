@@ -114,6 +114,47 @@ export {
   formatCognitiveStopPiloteNotice,
 } from "./cognitiveStop";
 export {
+  MW5_MAX_STRUCTURAL_CHALLENGES,
+  MW5_CHALLENGE_MARKER,
+  MW5_CLARIFY_MARKER,
+  MW5_ESCALATE_MARKER,
+  MW5_TEST_MARKERS,
+  capStructuralChallenges,
+  containsSynthesizedHumanAct,
+  decideMw5Disposition,
+  deriveMw5FactsFromF2Turn,
+  formatMw5AssistantText,
+  isCriticalProfile,
+  isMw5ChallengeSatisfied,
+  looksLikeQuestionnaire,
+  parseIssuedChallengeCount,
+  toMw5TurnSurface,
+} from "./criticalChallengeClarification";
+export type {
+  DeriveMw5FactsInput,
+  Mw5Disposition,
+  Mw5PolicyInput,
+  Mw5PolicyResult,
+  Mw5TurnSurface,
+  Mw5UncertaintyClass,
+} from "./criticalChallengeClarification";
+export {
+  parseChallengeResponseAssessment,
+  resolveMw5ProductAuthorityFacts,
+  truthCMatchesClaimStructured,
+  decisionBasisMatchesClaimStructured,
+  formatMw5ChallengeContextForProvider,
+} from "./mw5ProductAuthorityFacts";
+export type {
+  ChallengeResponseAssessment,
+  Mw5ChallengeContextForAnalysis,
+  Mw5ChallengeContextInput,
+  Mw5ClaimProjection,
+  Mw5ConsumedDecisionProjection,
+  Mw5ProductAuthorityFacts,
+  Mw5TruthCProjection,
+} from "./mw5ProductAuthorityFacts";
+export {
   deriveMw3ContradictionAssessment,
   MW3_STUDIO_REQUIRED_SOURCE_COUNT,
   MW3_STUDIO_FRESHNESS_MATTERS,

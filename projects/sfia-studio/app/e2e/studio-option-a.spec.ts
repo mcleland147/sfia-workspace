@@ -76,6 +76,13 @@ async function createUniqueProject(page: Page, suffix: string) {
   return name;
 }
 
+/**
+ * MW5 structuring contract (CORR-MW5-03):
+ * turn 1 → CHALLENGE visible, no Recommendation-Proposal
+ * turn 2 (sufficient) → proposal allowed (Rec ≠ HD)
+ * Product path (non-legacy): gate affordances redirect to trajectory section —
+ * assert proposal + recommendation labels, not legacy project-assistant-gate.
+ */
 async function sendStructuring(page: Page) {
   const input = page.getByTestId("project-assistant-input");
   await expect(input).toBeEnabled({ timeout: 15_000 });
@@ -83,13 +90,31 @@ async function sendStructuring(page: Page) {
     "Préparer une proposition d'architecture __F2_STRUCTURING__",
   );
   await page.getByTestId("project-assistant-send").click();
-  await expect(page.getByTestId("project-assistant-gate")).toBeVisible({
+  await expect(
+    page.getByTestId("project-assistant-messages").getByText(/\[MW5 CHALLENGE/),
+  ).toBeVisible({ timeout: 45_000 });
+  await expect(page.getByTestId("project-assistant-proposal")).toHaveCount(0);
+  await expect(page.getByTestId("project-assistant-decision")).toHaveCount(0);
+
+  await input.fill(
+    "Prémisse d'architecture product explicitée. __F2_STRUCTURING__ __MW5_SATISFACTION_SUFFICIENT__",
+  );
+  await page.getByTestId("project-assistant-send").click();
+  await expect(page.getByTestId("project-assistant-proposal")).toBeVisible({
     timeout: 45_000,
   });
-  await expect(page.getByTestId("project-assistant-proposal")).toBeVisible();
+  await expect(page.getByTestId("f2-gate-required")).toBeVisible();
+  await expect(page.getByText(/RECOMMANDATION/i).first()).toBeVisible();
+  await expect(page.getByTestId("project-assistant-decision")).toHaveCount(0);
 }
 
-/** Standard/Light gated path — Confirmation reachable (Critical remains R-T-A3-1 fail-closed). */
+
+/**
+ * Standard/Light gated path (W4-B product surface):
+ * proposal + Morris gate label + authority-path guidance.
+ * Legacy `project-assistant-gate` / in-conversation `f2-decide-*` are RETIRE LATER
+ * (only when exposeLegacyAuthorityPath=true in unit harvest).
+ */
 async function sendGatedStandard(page: Page) {
   const input = page.getByTestId("project-assistant-input");
   await expect(input).toBeEnabled({ timeout: 15_000 });
@@ -97,10 +122,13 @@ async function sendGatedStandard(page: Page) {
     "Préparer une livraison gated __F2_GATED_STANDARD__",
   );
   await page.getByTestId("project-assistant-send").click();
-  await expect(page.getByTestId("project-assistant-gate")).toBeVisible({
+  await expect(page.getByTestId("project-assistant-proposal")).toBeVisible({
     timeout: 45_000,
   });
-  await expect(page.getByTestId("project-assistant-proposal")).toBeVisible();
+  await expect(page.getByTestId("f2-gate-required")).toBeVisible();
+  await expect(page.getByTestId("product-authority-path-guidance")).toBeVisible();
+  await expect(page.getByTestId("project-assistant-gate")).toHaveCount(0);
+  await expect(page.getByTestId("project-assistant-decision")).toHaveCount(0);
 }
 
 test.describe("Cycle 9 — F1→F11 durable post-GO happy path", () => {
@@ -318,17 +346,15 @@ test.skip(true, "W4-B product path: F2/F3 authority affordances removed — RETI
 test.describe("Option A — Negative authority reachable", () => {
   test.describe.configure({ timeout: 120_000 });
 
-  test("N2 rejected HumanDecision NO_GO blocks prepare", async ({ page }) => {
-    const suffix = runId();
-    await page.setViewportSize({ width: 1440, height: 1024 });
-    await createUniqueProject(page, `n2-${suffix}`);
-    await sendStructuring(page);
-    await page.getByTestId("f2-decide-NO_GO").click();
-    await expect(page.getByTestId("project-assistant-decision")).toBeVisible({
-      timeout: 45_000,
-    });
-    await expect(page.getByTestId("f2-decision-kind")).toContainText(/NO_GO|NO-GO/i);
-    await expect(page.getByTestId("f3-prepare-button")).toHaveCount(0);
+  // W4-B: in-conversation F2 decide / F3 prepare-confirm removed from product path.
+  // Authority continues on TrajectorySurface (w2-decide-* / w2-prepare-*). Covered by
+  // studio-w4b-single-authority-path.spec.ts. Keep N1 + N12 + MW5 product-path asserts.
+
+  test("N2 rejected HumanDecision NO_GO blocks prepare", async () => {
+    test.skip(
+      true,
+      "W4-B product path: f2-decide-* removed — RETIRE LATER (unit harvest / W2 trajectory)",
+    );
   });
 
   test("N1 Recommendation remains distinct from HumanDecision at Proposal stage", async ({
@@ -341,55 +367,22 @@ test.describe("Option A — Negative authority reachable", () => {
     await expect(page.getByTestId("project-assistant-proposal")).toBeVisible();
     await expect(page.getByText(/PAS UNE DÉCISION/i).first()).toBeVisible();
     await expect(page.getByTestId("project-assistant-decision")).toHaveCount(0);
+    await expect(page.getByTestId("product-authority-path-guidance")).toBeVisible();
+    await expect(page.getByTestId("project-assistant-gate")).toHaveCount(0);
   });
 
-  test("N3 resolve alone leaves Attempt count 0 until Confirmation", async ({
-    page,
-  }) => {
-    const suffix = runId();
-    await page.setViewportSize({ width: 1440, height: 1024 });
-    await createUniqueProject(page, `n3-${suffix}`);
-    await sendGatedStandard(page);
-    await page.getByTestId("f2-decide-GO").click();
-    await expect(page.getByTestId("project-assistant-decision")).toBeVisible({
-      timeout: 45_000,
-    });
-    await page.getByTestId("f3-prepare-button").click();
-    await expect(page.getByTestId("project-assistant-f3-contract")).toBeVisible({
-      timeout: 45_000,
-    });
-    await expect(page.getByTestId("f3-prepare-no-attempt")).toBeVisible();
-    await expect(page.getByTestId("project-assistant-f3-execute")).toHaveCount(0);
+  test("N3 resolve alone leaves Attempt count 0 until Confirmation", async () => {
+    test.skip(
+      true,
+      "W4-B product path: f2-decide-*/f3-prepare removed — RETIRE LATER (W2 trajectory)",
+    );
   });
 
-  test("N4 duplicate Confirmation does not create second effective Attempt UI", async ({
-    page,
-  }) => {
-    const suffix = runId();
-    await page.setViewportSize({ width: 1440, height: 1024 });
-    await createUniqueProject(page, `n4-${suffix}`);
-    await sendGatedStandard(page);
-    await page.getByTestId("f2-decide-GO").click();
-    await expect(page.getByTestId("project-assistant-decision")).toBeVisible({
-      timeout: 45_000,
-    });
-    await page.getByTestId("f3-prepare-button").click();
-    await expect(page.getByTestId("project-assistant-f3-contract")).toBeVisible({
-      timeout: 45_000,
-    });
-    const confirm = page.getByTestId("f3-confirm-execute-button");
-    await confirm.click();
-    await expect(page.getByTestId("project-assistant-f3-execute")).toBeVisible({
-      timeout: 45_000,
-    });
-    const attemptId = await page.getByTestId("f3-attempt-id").textContent();
-    // Second click if still present — UI may hide button after success
-    if (await confirm.isVisible().catch(() => false)) {
-      await confirm.click();
-    }
-    await expect(page.getByTestId("f3-attempt-status")).toContainText(/succeeded/i);
-    const attemptIdAfter = await page.getByTestId("f3-attempt-id").textContent();
-    expect(attemptIdAfter).toBe(attemptId);
+  test("N4 duplicate Confirmation does not create second effective Attempt UI", async () => {
+    test.skip(
+      true,
+      "W4-B product path: f2-decide-*/f3-confirm removed — RETIRE LATER (W2 trajectory)",
+    );
   });
 
   test("N12 Recovery honesty — reload does not rebuild conversation", async ({
@@ -399,7 +392,9 @@ test.describe("Option A — Negative authority reachable", () => {
     await page.setViewportSize({ width: 1440, height: 1024 });
     await createUniqueProject(page, `n12-${suffix}`);
     await sendStructuring(page);
-    await expect(page.getByTestId("project-assistant-gate")).toBeVisible();
+    await expect(page.getByTestId("project-assistant-proposal")).toBeVisible();
+    await expect(page.getByTestId("f2-gate-required")).toBeVisible();
+    await expect(page.getByTestId("product-authority-path-guidance")).toBeVisible();
     await page.reload();
     await expect(page.getByTestId("project-principal")).toBeVisible({
       timeout: 30_000,
@@ -409,17 +404,73 @@ test.describe("Option A — Negative authority reachable", () => {
     });
     await expect(page.getByTestId("project-assistant-gate")).toHaveCount(0);
     await expect(page.getByTestId("project-assistant-proposal")).toHaveCount(0);
+    await expect(page.getByTestId("product-authority-path-guidance")).toHaveCount(0);
   });
 
-  test("G-UX-08 AMEND deferred message only", async ({ page }) => {
+  test("G-UX-08 AMEND deferred message only", async () => {
+    test.skip(
+      true,
+      "W4-B product path: f2-decide-AMEND removed — RETIRE LATER (unit harvest)",
+    );
+  });
+});
+
+/**
+ * CORR-MW5-03 — dedicated MW5 UX contract (not under W4-B skip).
+ * Recommendation-Proposal only after challenge satisfied; Rec ≠ HumanDecision.
+ */
+test.describe("MW5 — Critical Challenge structuring UX (CORR-MW5-03)", () => {
+  test.describe.configure({ timeout: 180_000 });
+
+  test("challenge first; insufficient blocked; sufficient unlocks proposal; Rec ≠ HD", async ({
+    page,
+  }) => {
+    test.setTimeout(180_000);
     const suffix = runId();
     await page.setViewportSize({ width: 1440, height: 1024 });
-    await createUniqueProject(page, `amend-${suffix}`);
-    await sendStructuring(page);
-    await page.getByTestId("f2-decide-AMEND").click();
+    await createUniqueProject(page, `mw5-${suffix}`);
+
+    const input = page.getByTestId("project-assistant-input");
+    await expect(input).toBeEnabled({ timeout: 15_000 });
+    await input.fill(
+      "Préparer une proposition d'architecture __F2_STRUCTURING__",
+    );
+    await page.getByTestId("project-assistant-send").click();
+
+    const messages = page.getByTestId("project-assistant-messages");
+    await expect(messages.getByText(/\[MW5 CHALLENGE/)).toBeVisible({
+      timeout: 45_000,
+    });
+    await expect(page.getByTestId("project-assistant-proposal")).toHaveCount(0);
+    await expect(page.getByTestId("project-assistant-gate")).toHaveCount(0);
+    await expect(page.getByTestId("project-assistant-decision")).toHaveCount(0);
+
+    const challengeText = await messages.innerText();
+    const questionMarks = (challengeText.match(/\?/g) ?? []).length;
+    expect(questionMarks).toBeLessThanOrEqual(3);
+
+    await input.fill("ok __F2_STRUCTURING__");
+    await page.getByTestId("project-assistant-send").click();
+    await expect(page.getByTestId("project-assistant-proposal")).toHaveCount(0, {
+      timeout: 45_000,
+    });
+    await expect(page.getByTestId("project-assistant-gate")).toHaveCount(0);
+
+    await input.fill(
+      "Prémisse d'architecture product explicitée. __F2_STRUCTURING__ __MW5_SATISFACTION_SUFFICIENT__",
+    );
+    await page.getByTestId("project-assistant-send").click();
+    await expect(page.getByTestId("project-assistant-proposal")).toBeVisible({
+      timeout: 45_000,
+    });
+    await expect(page.getByTestId("f2-gate-required")).toContainText(
+      /Décision sur la proposition requise|DÉCISION REQUISE/i,
+    );
+    await expect(page.getByText(/RECOMMANDATION/i).first()).toBeVisible();
+    await expect(page.getByTestId("project-assistant-decision")).toHaveCount(0);
     await expect(
-      page.getByText(/G-UX-08|différé|AMEND complète/i).first(),
-    ).toBeVisible({ timeout: 45_000 });
+      page.getByTestId("product-authority-path-guidance"),
+    ).toBeVisible();
   });
 });
 

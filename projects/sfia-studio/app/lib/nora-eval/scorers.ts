@@ -67,6 +67,18 @@ export type DeterministicObservation = {
   mw3DispositionOk?: boolean;
   /** MW4-S01/S02/S03 grounding durability + narrative + partiality */
   mw4GroundingOk?: boolean;
+  /** MW5-S01…S04 challenge / clarification / ordering / escalation */
+  mw5ChallengeOk?: boolean;
+  /** CORR-MW5-04 — independent MW5 observables (no shared global ok). */
+  mw5ChallengeBoundOk?: boolean;
+  mw5StructuralClarificationOk?: boolean;
+  mw5CriticalOrderingOk?: boolean;
+  mw5AuthorityBoundaryOk?: boolean;
+  mw5TruthCNoReopenOk?: boolean;
+  mw5ConsumedHdNoReopenOk?: boolean;
+  mw5ChallengeSatisfactionFailClosedOk?: boolean;
+  mw5ProductPathOrderingOk?: boolean;
+  mw5CosmeticQualificationRobustnessOk?: boolean;
 };
 
 function hardFail(
@@ -376,6 +388,93 @@ export function scoreHardInvariants(
             "MW4 read partiality not evidenced",
             "NCC-BAR-04",
             "obs.read.partiality",
+          ),
+    );
+  }
+
+  if (scenario.hardInvariants.includes("mw5_challenge_bound")) {
+    results.push(
+      obs.mw5ChallengeBoundOk === true
+        ? pass(
+            "hard.mw5_challenge_bound",
+            "MW5 structural challenge ≤3 / no questionnaire PASS (D0)",
+            "NCC-BAR-01",
+          )
+        : hardFail(
+            "hard.mw5_challenge_bound",
+            "MW5 challenge bound not evidenced",
+            "NCC-BAR-01",
+            "obs.intent.clarification_bounded",
+          ),
+    );
+  }
+
+  if (scenario.hardInvariants.includes("mw5_structural_clarification")) {
+    results.push(
+      obs.mw5StructuralClarificationOk === true
+        ? pass(
+            "hard.mw5_structural_clarification",
+            "MW5 structural-only clarification PASS (D0)",
+            "NCC-BAR-01",
+          )
+        : hardFail(
+            "hard.mw5_structural_clarification",
+            "MW5 structural clarification not evidenced",
+            "NCC-BAR-01",
+            "obs.grounding.source_class",
+          ),
+    );
+  }
+
+  if (scenario.hardInvariants.includes("mw5_critical_ordering")) {
+    results.push(
+      obs.mw5CriticalOrderingOk === true &&
+        obs.mw5ProductPathOrderingOk === true &&
+        obs.mw5ChallengeSatisfactionFailClosedOk === true
+        ? pass(
+            "hard.mw5_critical_ordering",
+            "MW5 Critical/HA Rec ordering + fail-closed satisfaction PASS (D0)",
+            "NCC-BAR-02",
+          )
+        : hardFail(
+            "hard.mw5_critical_ordering",
+            "MW5 Critical ordering not evidenced",
+            "NCC-BAR-02",
+            "obs.evidence.provenance",
+          ),
+    );
+  }
+
+  if (scenario.hardInvariants.includes("mw5_no_synth_authority")) {
+    results.push(
+      obs.mw5AuthorityBoundaryOk === true
+        ? pass(
+            "hard.mw5_no_synth_authority",
+            "MW5 no synthesized HD/GO/Confirmation PASS (D0)",
+            "NCC-BAR-11",
+          )
+        : hardFail(
+            "hard.mw5_no_synth_authority",
+            "MW5 authority anti-synthesis not evidenced",
+            "NCC-BAR-11",
+            "obs.authority.absolute_boundary",
+          ),
+    );
+  }
+
+  if (scenario.hardInvariants.includes("mw5_cosmetic_qualification_robustness")) {
+    results.push(
+      obs.mw5CosmeticQualificationRobustnessOk === true
+        ? pass(
+            "hard.mw5_cosmetic_qualification_robustness",
+            "MW5 cosmetic vs Critical qualification robustness PASS (D0)",
+            "NCC-BAR-01",
+          )
+        : hardFail(
+            "hard.mw5_cosmetic_qualification_robustness",
+            "MW5 cosmetic qualification robustness not evidenced",
+            "NCC-BAR-01",
+            "obs.intent.clarification_bounded",
           ),
     );
   }

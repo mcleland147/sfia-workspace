@@ -11,6 +11,7 @@ import {
 import {
   getRuntimeApplicationService,
   readLiveProjectContext,
+  type RuntimeOaStack,
 } from "@/lib/vertical-slice-runtime";
 import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
 import type {
@@ -24,8 +25,22 @@ import { analyzeIntent } from "./intentAnalysis";
 import { resolveAvailableContradictionPointers } from "../mw3AvailableEvidence";
 import {
   deriveMw3ContradictionAssessment,
+  decideCognitiveStrategy,
+  decideMw5Disposition,
+  deriveMw5FactsFromF2Turn,
+  formatMw5AssistantText,
+  mergeCognitiveWorkloadSignals,
+  toMw5TurnSurface,
+  MW5_TEST_MARKERS,
   type Mw3ContradictionAssessmentInput,
+  type Mw5TurnSurface,
 } from "@/lib/nora-cognitive-runtime";
+import { resolveMw5ProductAuthorityFromOa } from "./resolveMw5ProductAuthorityFromOa";
+import {
+  clearMw5IssuedChallenge,
+  getMw5ChallengeSession,
+  rememberMw5IssuedChallenge,
+} from "./mw5ChallengeSessionStore";
 import { isPureRepositoryAnalysisIntent } from "./repositoryIntent";
 import { evaluateMorrisGateRequired } from "./gatePolicy";
 import {
@@ -36,6 +51,7 @@ import {
   reasonWithResolvedCkcContext,
 } from "./ckcCognitiveContext";
 import { projectCkcResolutionRef, qualifyWithCkc } from "./qualify";
+import { reconcileQualificationSignals } from "./qualificationSignalCoherence";
 import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
 import type { DoctrinePackagePin } from "@/lib/oa/doctrine";
 import {
@@ -249,6 +265,102 @@ function snapshotFrom(project: ProjectAssistantContextDto): F2ContextSnapshot {
   };
 }
 
+function resolveF2CriticalChallengeArmed(input: {
+  analysis: IntentAnalysisDto;
+  content: string;
+  historyCount: number;
+  projectCriticality: string;
+}): boolean {
+  if (input.content.includes(MW5_TEST_MARKERS.highAssurance)) return true;
+  const merged = mergeCognitiveWorkloadSignals({
+    turnContext: {
+      projectCriticality: input.projectCriticality,
+      userContentLength: input.content.length,
+      historyMessageCount: input.historyCount,
+    },
+    semanticAssessment: input.analysis.cognitiveWorkload,
+  });
+  return decideCognitiveStrategy({
+    signals: merged,
+    trustedSfiaProfile: null,
+  }).criticalChallengeArmed;
+}
+
+async function evaluateF2Mw5(input: {
+  content: string;
+  history?: AssistantHistoryMessage[];
+  analysis: IntentAnalysisDto;
+  recommendedProfile: string | null;
+  recommendationWouldEmit: boolean;
+  projectCriticality: string;
+  projectId: string;
+  oa: RuntimeOaStack | null | undefined;
+}): Promise<{ armed: boolean; surface: Mw5TurnSurface; text: string }> {
+  const armed = resolveF2CriticalChallengeArmed({
+    analysis: input.analysis,
+    content: input.content,
+    historyCount: input.history?.length ?? 0,
+    projectCriticality: input.projectCriticality,
+  });
+  const authority = await resolveMw5ProductAuthorityFromOa({
+    oa: input.oa,
+    projectId: input.projectId,
+    claim: {
+      objective: input.analysis.objective,
+      scope: input.analysis.scope,
+      recommendedProfile: input.recommendedProfile,
+      requestedOperation: input.analysis.requestedOperation,
+    },
+    newContradictionSignalPresent: Boolean(
+      input.analysis.contradictionCandidate?.conflictPresent,
+    ),
+  });
+  const session = getMw5ChallengeSession(input.projectId);
+  const decision = decideMw5Disposition(
+    deriveMw5FactsFromF2Turn({
+      userContent: input.content,
+      history: input.history,
+      intentClass: input.analysis.intentClass,
+      parseOk: input.analysis.parseOk,
+      recommendedProfile: input.recommendedProfile,
+      criticalChallengeArmed: armed,
+      recommendationWouldEmit: input.recommendationWouldEmit,
+      truthCEstablishedForClaim: authority.truthCEstablishedForClaim,
+      consumedHumanDecisionWithoutNewContradiction:
+        authority.consumedHumanDecisionWithoutNewContradiction,
+      challengeResponseAssessment:
+        input.analysis.challengeResponseAssessment ?? null,
+      openChallengePresent: session.latest != null,
+      priorStructuralChallengeCount: session.priorStructuralChallengeCount,
+    }),
+  );
+  const text = formatMw5AssistantText(decision);
+  if (decision.disposition === "CHALLENGE") {
+    rememberMw5IssuedChallenge({
+      projectId: input.projectId,
+      challenges: decision.challenges,
+      challengeText: text,
+    });
+  } else if (
+    decision.recommendationAllowed &&
+    decision.challengeSatisfied &&
+    session.latest != null
+  ) {
+    clearMw5IssuedChallenge(input.projectId);
+  }
+  return {
+    armed,
+    surface: toMw5TurnSurface(decision, armed),
+    text,
+  };
+}
+
+function mw5TurnKind(
+  surface: Mw5TurnSurface,
+): "f2_clarification" | "f2_blocked" {
+  return surface.disposition === "CLARIFY" ? "f2_clarification" : "f2_blocked";
+}
+
 function resolveMode(explicitProvider?: ConversationProvider): {
   mode: "fixture" | "live" | "unavailable";
   canProceed: boolean;
@@ -335,13 +447,16 @@ function f2Success(base: {
   qualification?: QualificationDto;
   proposal?: ProposalDto;
   executionBlocked?: boolean;
+  mw5?: Mw5TurnSurface | null;
+  turnKind?: "f1_informative" | "f2_clarification" | "f2_proposal" | "f2_blocked";
 }): ProjectAssistantSendResult {
   const turnKind =
-    base.qualification && base.proposal
+    base.turnKind ??
+    (base.qualification && base.proposal
       ? "f2_proposal"
-      : base.intentClass === "ambiguous"
+      : base.mw5?.disposition === "CLARIFY" || base.intentClass === "ambiguous"
         ? "f2_clarification"
-        : "f2_blocked";
+        : "f2_blocked");
   return {
     ok: true,
     status: "ok",
@@ -355,6 +470,27 @@ function f2Success(base: {
     toolEvents: [],
     project: base.project,
     ephemeralNotice: EPHEMERAL_NOTICE,
+    mw5: base.mw5
+      ? {
+          disposition: base.mw5.disposition,
+          structuralChallengeCount: base.mw5.structuralChallengeCount,
+          questionnaireSuppressed: base.mw5.questionnaireSuppressed,
+          recommendationAllowed: base.mw5.recommendationAllowed,
+          challengeGateApplicable: base.mw5.challengeGateApplicable,
+          challengeSatisfied: base.mw5.challengeSatisfied,
+          challengeEvidenceBeforeRecommendation:
+            base.mw5.challengeEvidenceBeforeRecommendation,
+          bypassAttempted: base.mw5.bypassAttempted,
+          bypassBlocked: base.mw5.bypassBlocked,
+          synthesizedHumanDecision: false,
+          synthesizedGo: false,
+          synthesizedConfirmation: false,
+          disclosure: base.mw5.disclosure,
+          reasonCodes: [...base.mw5.reasonCodes],
+          challenges: [...base.mw5.challenges],
+          criticalChallengeArmedHookOnly: base.mw5.criticalChallengeArmedHookOnly,
+        }
+      : null,
     f2: {
       turnKind,
       intentClass: base.intentClass,
@@ -362,7 +498,8 @@ function f2Success(base: {
       proposal: base.proposal ?? null,
       decision: null,
       labels: {
-        recommendation: base.qualification ? "RECOMMANDATION" : null,
+        recommendation:
+          base.proposal && base.qualification ? "RECOMMANDATION" : null,
         proposition: base.proposal ? "PROPOSITION" : null,
         decisionRequired: base.proposal?.morrisGateRequired
           ? "DÉCISION REQUISE"
@@ -447,9 +584,24 @@ export async function orchestrateAssistantSend(input: {
       cognitive.contextSource === "TRUTH_C_LPS"
         ? cognitive.truthCContext
         : undefined;
+    const challengeSession = getMw5ChallengeSession(project.projectId);
+    const challengeContext =
+      challengeSession.latest != null
+        ? {
+            challengePresent: true as const,
+            challenges: challengeSession.latest.challenges,
+            challengedPremise: challengeSession.latest.challengeText.slice(
+              0,
+              500,
+            ),
+            structuralChallengeCount:
+              challengeSession.latest.structuralChallengeCount,
+          }
+        : { challengePresent: false as const };
     analysisResult = await analyzeIntent({
       userContent: content,
       projectSummary: cognitive.projectSummary,
+      challengeContext,
       provider: input.provider,
     });
   } catch (error) {
@@ -468,7 +620,16 @@ export async function orchestrateAssistantSend(input: {
     };
   }
 
-  const { analysis, model } = analysisResult;
+  let { analysis, model } = analysisResult;
+  if (analysis.signals) {
+    analysis = {
+      ...analysis,
+      signals: reconcileQualificationSignals({
+        userContent: content,
+        signals: analysis.signals,
+      }).signals,
+    };
+  }
   const presentation = modeResolution.presentation;
   const contradictionAssessment = await deriveProductPathMw3Assessment(
     analysis,
@@ -519,14 +680,38 @@ export async function orchestrateAssistantSend(input: {
 
   // C — ambiguous / fail-closed (no Cycle/LPS mutation)
   if (analysis.intentClass === "ambiguous" || !analysis.parseOk) {
+    const oaEarly = getRuntimeApplicationService().oa;
+    const mw5 = await evaluateF2Mw5({
+      content,
+      history: input.history,
+      analysis,
+      recommendedProfile: null,
+      recommendationWouldEmit: false,
+      projectCriticality: project.criticality,
+      projectId: project.projectId,
+      oa: oaEarly,
+    });
+    if (mw5.surface.disposition === "CONTINUE") {
+      return f2Success({
+        text: `[CONTINUE] ${mw5.surface.disclosure} AUCUNE EXÉCUTION.`,
+        mode: modeResolution.mode as "fixture" | "live",
+        presentation,
+        model,
+        project,
+        intentClass: analysis.parseOk ? analysis.intentClass : "ambiguous",
+        mw5: mw5.surface,
+        turnKind: "f2_blocked",
+      });
+    }
     return f2Success({
-      text:
-        "[Clarification requise] Votre demande est ambiguë ou incomplète. Précisez l'objectif, le périmètre et l'action souhaitée. Aucune proposition F2 n'a été créée. AUCUNE EXÉCUTION.",
+      text: mw5.text,
       mode: modeResolution.mode as "fixture" | "live",
       presentation,
       model,
       project,
       intentClass: "ambiguous",
+      mw5: mw5.surface,
+      turnKind: mw5TurnKind(mw5.surface),
     });
   }
 
@@ -648,6 +833,31 @@ export async function orchestrateAssistantSend(input: {
     });
   }
 
+  const mw5 = await evaluateF2Mw5({
+    content,
+    history: input.history,
+    analysis,
+    recommendedProfile: qualification.recommendedProfile,
+    recommendationWouldEmit: true,
+    projectCriticality: project.criticality,
+    projectId: project.projectId,
+    oa,
+  });
+  if (!mw5.surface.recommendationAllowed) {
+    return f2Success({
+      text: mw5.text,
+      mode: modeResolution.mode as "fixture" | "live",
+      presentation,
+      model,
+      project,
+      intentClass: analysis.intentClass,
+      qualification,
+      executionBlocked: analysis.intentClass === "execution_request",
+      mw5: mw5.surface,
+      turnKind: mw5TurnKind(mw5.surface),
+    });
+  }
+
   const cycleInstanceId = `cyc:f2-${randomBytes(8).toString("hex")}`;
   const created = await oa.cycleServices.createCycle.execute({
     cycleInstanceId,
@@ -723,11 +933,12 @@ export async function orchestrateAssistantSend(input: {
     recommendedProfile: created.cycle.profile,
   };
 
-  const morrisGateRequired = evaluateMorrisGateRequired({
-    recommendedProfile: qualification.recommendedProfile,
-    signals: analysis.signals,
-    intent: analysis,
-  });
+  const morrisGateRequired =
+    evaluateMorrisGateRequired({
+      recommendedProfile: qualification.recommendedProfile,
+      signals: analysis.signals,
+      intent: analysis,
+    }) || mw5.surface.disposition === "ESCALATE";
 
   const status = morrisGateRequired ? "DECISION_REQUIRED" : "READY_NO_GATE";
   const proposal = saveProposal(
@@ -759,6 +970,10 @@ export async function orchestrateAssistantSend(input: {
     executionBlocked
       ? "Demande d'exécution détectée — AUCUNE EXÉCUTION (Cursor/PR/merge indisponibles)."
       : "AUCUNE EXÉCUTION.",
+    mw5.surface.disposition === "ESCALATE"
+      ? mw5.text
+      : mw5.surface.disclosure,
+    "Nora n'émet pas de HumanDecision, GO, Confirmation, décision Morris ou acte Pilote.",
   ];
 
   return f2Success({
@@ -771,5 +986,6 @@ export async function orchestrateAssistantSend(input: {
     qualification,
     proposal,
     executionBlocked,
+    mw5: mw5.surface,
   });
 }

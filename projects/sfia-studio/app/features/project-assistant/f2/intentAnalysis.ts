@@ -19,6 +19,12 @@ import type {
   SemanticCognitiveWorkloadLevel,
 } from "./types";
 import type { Mw3ContradictionCandidateSignal } from "@/lib/nora-cognitive-runtime/deriveMw3Assessment";
+import {
+  parseChallengeResponseAssessment,
+  formatMw5ChallengeContextForProvider,
+  type ChallengeResponseAssessment,
+  type Mw5ChallengeContextInput,
+} from "@/lib/nora-cognitive-runtime/mw5ProductAuthorityFacts";
 
 const INTENT_CLASSES: readonly IntentClass[] = [
   "informative",
@@ -150,6 +156,15 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
     contradictionCandidate: {
       anyOf: [CONTRADICTION_CANDIDATE_OBJECT_SCHEMA, { type: "null" }],
     },
+    challengeResponseAssessment: {
+      anyOf: [
+        {
+          type: "string",
+          enum: ["sufficient", "insufficient", "unknown"],
+        },
+        { type: "null" },
+      ],
+    },
     objective: NULLABLE_STRING,
     scope: NULLABLE_STRING,
     rephrasedRequest: NULLABLE_STRING,
@@ -168,6 +183,7 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
     "signals",
     "cognitiveWorkload",
     "contradictionCandidate",
+    "challengeResponseAssessment",
     "objective",
     "scope",
     "rephrasedRequest",
@@ -219,6 +235,8 @@ function ambiguousFallback(partial?: Partial<IntentAnalysisDto>): IntentAnalysis
     criticalJustification: partial?.criticalJustification ?? null,
     requestedOperation: partial?.requestedOperation ?? null,
     contradictionCandidate: null,
+    challengeResponseAssessment:
+      partial?.challengeResponseAssessment ?? null,
     parseOk: false,
   };
 }
@@ -323,6 +341,8 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
   const contradictionCandidate = parseContradictionCandidate(
     obj.contradictionCandidate,
   );
+  const challengeResponseAssessment: ChallengeResponseAssessment =
+    parseChallengeResponseAssessment(obj.challengeResponseAssessment);
 
   return {
     intentClass: intentClass as IntentClass,
@@ -330,6 +350,7 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
     signals,
     cognitiveWorkload,
     contradictionCandidate,
+    challengeResponseAssessment,
     objective: clip(obj.objective),
     scope: clip(obj.scope),
     rephrasedRequest: clip(obj.rephrasedRequest),
@@ -360,6 +381,7 @@ candidateCycleTypeId (id catalogue cyc:… OU null),
 signals ({structuralChange,securityImpact,architectureImpact,dataImpact,irreversible,lowRiskBounded} tous booléens OU null),
 cognitiveWorkload ({ambiguity,reasoningDepth,sourceBreadth,toolDependency,contradictionRisk,verificationNeed} chacun low|medium|high|unknown OU null),
 contradictionCandidate (objet candidat cognitif OU null — PAS Evidence, PAS evidence_backed, PAS Cognitive STOP),
+challengeResponseAssessment (sufficient|insufficient|unknown|null — INTERNAL MW5 seulement ; PAS Truth C, PAS Evidence, PAS HumanDecision, PAS autorité ; missing/unknown/insufficient = fail-closed),
 objective, scope, rephrasedRequest, outOfScope[], risks[], reservations[], stopConditions[], activatedBlocks[],
 expectedOutcome, criticalJustification, requestedOperation (strings ou null pour les scalaires).
 
@@ -436,6 +458,23 @@ Si aucune Evidence réelle n'est identifiable: claimedEvidenceIds=[] et conserve
 governingPremiseInvalidated est une hypothèse sémantique, pas une preuve et pas un STOP.
 contradictionRisk CWP n'est PAS une preuve et n'implique PAS contradictionCandidate.
 
+=== challengeResponseAssessment (interne MW5, non autoritaire) ===
+Évalue UNIQUEMENT si le message utilisateur courant traite réellement la prémisse structurante demandée par un challenge MW5 antérieur FOURNI dans le message utilisateur sous MW5_CHALLENGE_CONTEXT.
+sufficient — la réponse traite explicitement les questions/prémisse du challengeContext de façon adéquate.
+insufficient — réponse triviale (« ok », « vas-y »), hors sujet, partielle ou cosmétique.
+unknown — impossible d'évaluer ; préférer unknown plutôt que sufficient.
+null — aucun MW5_CHALLENGE_CONTEXT pertinent, ou non applicable. Si challengePresent n'est pas fourni, DOIT être null.
+JAMAIS Truth C, Evidence, HumanDecision, GO, Confirmation ou autorité.
+missing/unknown/insufficient ⇒ le challenge n'est PAS satisfait (fail-closed).
+Ne PAS inventer un challenge absent du message.
+
+=== Qualification signals (effet réel, pas le label utilisateur) ===
+Si la demande est uniquement un wording / libellé d'interface, explicitement sans impact sur le comportement, les données, l'architecture, la sécurité, l'autorité, l'exécution et sans irréversibilité : structuralChange, securityImpact, architectureImpact, dataImpact, irreversible = false ; lowRiskBounded = true lorsqu'établi.
+Un utilisateur qui QUALIFIE verbalement une opération de « cosmétique » ou « wording » ne rend PAS une mutation structurante, de données, d'architecture, de sécurité ou irréversible cosmétique.
+Classifie d'après l'effet réel demandé, pas le label donné par l'utilisateur.
+Le seul mot « cosmétique » ou « wording » ne force aucun signal safe.
+Silence sur sécurité ou irréversibilité n'est PAS une preuve d'absence d'impact.
+
 === AUTORITÉ ===
 - Ne décide jamais un GO Morris ; ne propose jamais d'exécution ; n'invente jamais un cycle (ex. delivery) par défaut.
 - actionable et execution_request: candidateCycleTypeId DOIT être un id catalogue connu ET signals DOIT contenir exactement les 6 booléens (aucun défaut inventé).
@@ -448,6 +487,11 @@ export async function analyzeIntent(input: {
   projectSummary: string;
   /** Optional resolved CKC excerpt for future intent analysis enrichment. */
   ckcContext?: string | null;
+  /**
+   * Server-issued MW5 challenge context for the SAME provider call (CORR-MW5-02B).
+   * Never client-authoritative; orchestrator supplies process-local issued challenge.
+   */
+  challengeContext?: Mw5ChallengeContextInput;
   /**
    * Optional server-side provider injection (eval / tests).
    * Never client-authoritative for model/reasoning selection.
@@ -464,11 +508,17 @@ export async function analyzeIntent(input: {
   const presentation =
     provider.providerId === "fake-test" ? "test_provider" : "openai_live";
 
+  const challengeBlock =
+    input.challengeContext &&
+    input.challengeContext.challengePresent === true
+      ? `\n\n${formatMw5ChallengeContextForProvider(input.challengeContext)}\n`
+      : "\n\nMW5_CHALLENGE_CONTEXT: challengePresent=false (assessment must be null).\n";
+
   const messages: ProviderChatMessage[] = [
     { role: "system", content: buildAnalysisSystem(input.ckcContext) },
     {
       role: "user",
-      content: `Contexte projet:\\n${input.projectSummary}\\n\\nDemande:\\n${input.userContent}`,
+      content: `Contexte projet:\n${input.projectSummary}${challengeBlock}\nDemande courante (à évaluer):\n${input.userContent}`,
     },
   ];
 
@@ -486,6 +536,15 @@ export async function analyzeIntent(input: {
   });
   const parsed = extractJsonObject(completion.text);
   const analysis = validateIntentAnalysisPayload(parsed);
+
+  // Fail-closed: without server challenge context, assessment cannot unlock Rec.
+  if (
+    !input.challengeContext ||
+    input.challengeContext.challengePresent !== true
+  ) {
+    analysis.challengeResponseAssessment = null;
+  }
+
   return {
     analysis,
     presentation,

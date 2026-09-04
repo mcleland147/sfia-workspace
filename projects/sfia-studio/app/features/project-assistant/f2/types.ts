@@ -154,6 +154,16 @@ export type IntentAnalysisDto = {
    * Never Evidence; never a client-authored STOP.
    */
   contradictionCandidate?: Mw3ContradictionCandidateSignal | null;
+  /**
+   * INTERNAL MW5 challenge-response assessment (CORR-MW5-02).
+   * Never Truth C / Evidence / HumanDecision / authority.
+   * missing|unknown|insufficient ⇒ challenge not satisfied (fail-closed).
+   */
+  challengeResponseAssessment?:
+    | "sufficient"
+    | "insufficient"
+    | "unknown"
+    | null;
   objective: string | null;
   scope: string | null;
   rephrasedRequest: string | null;

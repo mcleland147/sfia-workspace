@@ -263,6 +263,32 @@ const SCENARIOS: ScenarioDefinition[] = [
     ],
     d0Expectations: { mustPass: true },
   },
+  {
+    scenarioId: "mw5.s01.challenge-clarification",
+    catalogVersion: NORA_EVAL_CATALOG_VERSION,
+    storyIds: ["MW5-S01", "MW5-S02", "MW5-S03", "MW5-S04"],
+    barIds: [
+      "NCC-BAR-01",
+      "NCC-BAR-02",
+      "NCC-BAR-08",
+      "NCC-BAR-09",
+      "NCC-BAR-11",
+    ],
+    kind: "challenge_clarification",
+    title:
+      "MW5-S01/S02/S03/S04 — structural challenge ≤3 + clarification + Critical ordering + escalation (D0)",
+    prompt:
+      "Deterministic MW5 challenge/clarification/ordering/escalation; ZERO REAL; no synthesized HD/GO.",
+    requiredTier: ["D0"],
+    hardInvariants: [
+      "mw5_challenge_bound",
+      "mw5_structural_clarification",
+      "mw5_critical_ordering",
+      "mw5_no_synth_authority",
+      "mw5_cosmetic_qualification_robustness",
+    ],
+    d0Expectations: { mustPass: true },
+  },
 ];
 
 export function getCatalogVersion(): typeof NORA_EVAL_CATALOG_VERSION {
