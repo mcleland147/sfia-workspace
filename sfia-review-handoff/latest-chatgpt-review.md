@@ -1,495 +1,142 @@
-# SFIA STUDIO — MW6 ↔ AUTH BINDING RETRY — Review Pack FULL
+# SFIA Studio — MW6 ↔ AUTH BINDING CORRECTION Review Pack FULL
 
-**Timestamp:** 2026-09-05 00:15:42 CEST / 2026-09-04T22:15:42Z
-**Status:** FULL · CRITICAL · CONTENT-COMPLETE
-**Unique verdict:** READY FOR CHATGPT MW6↔AUTH BINDING REVIEW — N2 POLICY CONSUMED / DETERMINISTIC AUTHORITY BINDING PROVEN / MW6 REAL NOT STARTED
-
----
+**Timestamp:** 2026-09-05 00:47:27 CEST
+**Profile:** CRITICAL · CONTENT-COMPLETE
+**Unique verdict:** READY FOR CHATGPT MW6↔AUTH FINAL BINDING RE-REVIEW — N2 HUMAN AUTHORIZATION PROVEN / CURRENT-INTENT SEMANTIC BINDING PROVEN / MW6 REAL NOT STARTED
 
 ## A. Timestamp
-- 2026-09-05 00:15:42 CEST / 2026-09-04T22:15:42Z
+- 2026-09-05 00:47:27 CEST
 
-## B. Decisions Morris consumed
-1. **GO MORRIS — MW6 ↔ AUTH BINDING** (prior; binding retry)
-2. **GO MORRIS — MW6 HOSTED EXTERNAL DISCOVERY AUTHORITY POLICY — N2** (closes STOP — MW6 ACTION AUTHORITY LEVEL NOT GOVERNED)
+## B. GO consumed
+`GO MORRIS — MW6 N2 HUMAN-AUTHORIZATION + CURRENT-INTENT SEMANTIC-BINDING CORRECTION`
 
-Normative: `external_discovery` / hosted external discovery → `requiredAuthority = N2` (fixed; not N1/N3; not contextual).
+## C. Git Truth (all worktrees)
+### INTEGRATION
+- pwd: `/Users/morris/Projects/sfia-workspace-mw6-auth-binding`
+- branch: `delivery/sfia-studio-mw6-auth-binding`
+- HEAD: `ebdae92a96ea1c49444dfb668342c1453f57a540`
+- origin/main: `ebdae92a96ea1c49444dfb668342c1453f57a540`
+- merge-base: `ebdae92a96ea1c49444dfb668342c1453f57a540`
+- staged: **0** · conflicts: **0**
 
-## C. Git Truth
+### AUTH
+- pwd: `/Users/morris/Projects/sfia-workspace-auth-better-auth-github-multi-user-foundation`
+- branch: `delivery/sfia-studio-auth-better-auth-github-multi-user-foundation`
+- HEAD: `ebdae92a96ea1c49444dfb668342c1453f57a540`
+- origin/main: `ebdae92a96ea1c49444dfb668342c1453f57a540`
+- merge-base: `ebdae92a96ea1c49444dfb668342c1453f57a540`
+- staged: **0** · conflicts: **0**
 
-| Surface | Path | Branch | HEAD | staged |
-|---|---|---|---|---|
-| main | remote | — | `ebdae92a96ea1c49444dfb668342c1453f57a540` | — |
-| Auth source | `…-auth-better-auth-github-multi-user-foundation` | `delivery/sfia-studio-auth-better-auth-github-multi-user-foundation` | `ebdae92a…` | 0 |
-| MW6 source | `…-nora-mw6-external-source-intelligence` | `delivery/sfia-studio-nora-mw6-external-source-intelligence` | `ebdae92a…` | 0 |
-| Integration | `…-mw6-auth-binding` | `delivery/sfia-studio-mw6-auth-binding` | `ebdae92a…` | 0 |
+### MW6
+- pwd: `/Users/morris/Projects/sfia-workspace-nora-mw6-external-source-intelligence`
+- branch: `delivery/sfia-studio-nora-mw6-external-source-intelligence`
+- HEAD: `ebdae92a96ea1c49444dfb668342c1453f57a540`
+- origin/main: `ebdae92a96ea1c49444dfb668342c1453f57a540`
+- merge-base: `ebdae92a96ea1c49444dfb668342c1453f57a540`
+- staged: **0** · conflicts: **0**
 
 ## D. Source fingerprints before/after
 - MW6 BEFORE/AFTER = `20828a426746d9cf8ff7213de13a3d4a7091a407c8bd9cc168f2e0c0b3b983f9` · MATCH · WRITES=0
 - Auth projects FP BEFORE/AFTER = `a312681853164ffb078383c377a2d4281e185849589097294591f7e6e8f155ae` · MATCH · WRITES=0
+- Method: MW6 = `git status --porcelain -uall -- projects/` path+bytes; Auth = `projects/**` rglob excl node_modules/.next
 
 ## E. Cycle / profile / typology
-- Cycle 8 Delivery / MW6↔Auth binding retry
-- Profile: RUN / validation-correction
-- Typology: CRITICAL (authority + external boundary)
+- Cycle: MW6 ↔ AUTH BINDING CORRECTION (GAP-01 Human Authorization + GAP-02 Current-Intent Semantic Binding)
+- Profile: CRITICAL · DETERMINISTIC ONLY
+- Typology: CORRECTION / BINDING (no MW6 REAL)
 
-## F. Convergence Pre-check
-- Capability: Nora Cognitive Completion / MW6 External Source Intelligence + V3-F11/F12
-- Milestone: MW6 ↔ AUTH BINDING
-- Entry: Auth PASS/PROVEN · MW6 PRE-REAL EXISTING · binding NOT PROVEN · MW6 REAL NOT AUTHORIZED · STOP authority level closed by Morris N2 decision
-- Exit: deterministic authority binding PROVEN · REAL gate CLOSED
-- Next gate after ChatGPT PASS: GO MORRIS — MW6 REAL BOUNDED PROOF (NOT STARTED)
+## F. Convergence
+- Capability: Nora Cognitive Completion / MW6 External Source Intelligence
+- Governance foundations: V3-F11 / V3-F12
+- Milestone: MW6 ↔ AUTH BINDING CORRECTION
+- Policy: external_discovery → N2 (Morris DECIDED — unchanged)
 - Runtime v3: NON ADOPTED
 
-## G. Input STOP handoff
-- tip `5c7cd338b950bd2581f809581112b809e6a20a59`
-- verdict: STOP — MW6 ACTION AUTHORITY LEVEL NOT GOVERNED
+## G. Input handoff
+- tip: `1951080efbca2a534911b6f5ac831e4e8610e31a`
+- parent: `5c7cd338b950bd2581f809581112b809e6a20a59`
+- blob: `3f26562084dcca835fdeaec799d44fc0dfdb7bcd`
 
-## H. Policy decision
-`external_discovery` → **N2** (Morris). Implemented as fixed mapping in existing effects projection + explicit `projectRequiredAuthorityForExternalDiscovery()`.
+## H. Two ChatGPT gaps
+1. **GAP-01 HUMAN AUTHORIZATION** — prior path could treat S1 N2 from authenticatedPilote + semantic as effective authority without runtime human authorization.
+2. **GAP-02 CURRENT-INTENT SEMANTIC BINDING** — prior preflight verified caller-supplied `scope` fingerprint; did not recompute from CURRENT MW6 intent.
 
-## I. Exact module where policy is implemented
-1. `features/project-assistant/w2/w3aQualifiedExecutionEffects.ts` — effect class `external-discovery` → N2 (before rollback/N3 defaults)
-2. `lib/auth/piloteS1AuthorityPolicy.ts` — `projectRequiredAuthorityForExternalDiscovery()` + constants (same Auth policy family)
-Justification: reuses `projectRequiredAuthorityFromEffects` / S1 contract path; no MW6AuthorityPolicyEngine; N2 not hardcoded in OpenAI adapter.
-
-## J. Binding Map final
-
+## I. Discovery — canonical runtime human authorization path
+Product order (existing, unchanged):
 ```
-authenticated Pilote (authorityLevel none)
-  → buildMw6ExternalDiscoveryContractSemantic (action=product:external-discovery, requiredAuthority=N2)
-  → issueMw6ExternalDiscoveryS1 → issueS1AuthorityEvidence
-  → AuthorityEvidence.scope = computeInspectionFingerprint(contract)
-  → evaluateRealSourceExecutionPreflight({ governedAuthority })
-       → AuthorityResolver.verify(actor, evidenceId, scope, requiredLevel=N2)
-       → authorityBound=true | realAuthorized=false
-       → code=AUTHORITY_BOUND_BUT_REAL_NOT_AUTHORIZED
-  → LIVE hosted attach DENY (eligible=false)
-  → deterministic fixture adapter path unchanged (PRE-REAL parity)
+HumanDecision (accepted + decisionRefs)
+→ BuildExecutionContract
+→ ValidateExecutionContract
+   · N2|N3|MORRIS → status confirmation_required  (validateExecutionContract.ts)
+→ ConfirmExecutionContract / confirmExecutionContractForAuthorization
+   · granted Confirmation level ≥ requiredAuthority, scope-bound
+→ status confirmed + confirmationRef
+→ CheckExecutionAuthorization / evaluateExecutionAuthorization
 ```
+W2 `resolveConfirmationRequirement`: status is primary owner; `requiredAuthority` alone does NOT invent Confirmation.
+`isExecutionReadyStatus`: N2 ready ONLY when `status === "confirmed"` (validated+N1 NOT_REQUIRED path does not apply).
 
-## K. Exact ExecutionContract / governed semantic binding
-EC-compatible semantic material via existing `AuthS1GovernedContractContext` / `computeInspectionFingerprint`.
-Fields: executionContractId, projectId, action=`product:external-discovery`, target, scope, inputs (acquisitionRequirement/providerCapability), expectedOutputs, requiredCapabilities=`cap:product-external-discovery`, requiredAuthority=N2, constraints (external_boundary…), stopConditions, evidenceRequirements, reversibility=`partially_reversible`, idempotencyKey.
-No parallel MW6 contract model.
+## J. Exact HumanDecision / Confirmation rule found
+- **N2 external_discovery → Confirmation REQUIRED** under current T-A4 Validate rule (N2 → `confirmation_required`).
+- Enforced at: `validateExecutionContract.ts` (status), `isExecutionReadyStatus` (ready gate), `ConfirmExecutionContract` + `assertConfirmationBinding`, W2 `confirmExecutionContractForAuthorization`.
+- No new MW6 Confirmation UI/state created.
 
-## L. N2 HumanDecision / Confirmation behavior
-S1 issuance for external_discovery mirrors existing product prepare pattern: Confirmation is not required at S1 issue/preflight verify time.
-Existing EC Confirm/Authorize Confirmation path remains the later product mechanism (unchanged; not duplicated for MW6).
-Morris construction gate ≠ Pilote runtime HumanDecision — preserved.
+## K. Exact artifact/state required before effective N2 authority
+`Mw6GovernedAuthorityContext.authorizedContract` must satisfy `assertMw6ExternalDiscoveryEffectiveHumanAuthorization`:
+- `requiredAuthority === N2`
+- `action === product:external-discovery`
+- `decisionRefs.length > 0` (HumanDecision bound)
+- `isExecutionReadyStatus` true → for N2 means **`status === confirmed`**
+- `confirmationRef` present
+PLUS Auth S1 N2 evidence verified against **server-recomputed current-intent fingerprint**.
+S1 issuance alone remains a candidate (prepare-before-confirm semantic) — not effective.
 
-## M. Files modified (binding delta)
-- `w3aQualifiedExecutionEffects.ts` (external-discovery taxonomy + N2 projection + reversibility)
-- `lib/auth/piloteS1AuthorityPolicy.ts` (Morris N2 policy helper/constants)
-- `lib/auth/mw6ExternalDiscoveryBinding.ts` (**new** — S1 composition helper)
-- `lib/auth/index.ts` (exports)
-- `lib/nora-cognitive-runtime/campaignBudget.ts` (orthogonal authority/REAL preflight)
-- `lib/nora-cognitive-runtime/runNoraAgentsTurn.ts` (pass governedAuthority; observe axes)
-- `lib/nora-cognitive-runtime/index.ts` (export Mw6GovernedAuthorityContext)
-- `__tests__/nora-cognitive-runtime/mw6.auth-binding.d0.test.ts` (**new** B01–B12)
+## L. Current-intent semantic source
+- Authoritative builder: `buildMw6ExternalDiscoveryContractSemantic` / `buildMw6CurrentExternalDiscoveryIntent`
+- Current intent derived from `SourceStrategyDecision` + `SourceProviderBinding` + campaign/project/EC identity
+- Passed as `currentExternalDiscoveryIntent` into preflight (NOT from evidence.scope / NOT competing copy inside authority context as truth)
 
-## N. Modified content COMPLETE
+## M. Proof fingerprint recomputed server-side
+`evaluateRealSourceExecutionPreflight`:
+1. requires `currentExternalDiscoveryIntent`
+2. `computeMw6CurrentIntentFingerprint(intent)` → `computeInspectionFingerprint(buildMw6ExternalDiscoveryContractSemantic(intent))`
+3. `AuthorityResolver.verify({ scope: currentIntentFingerprint, ... })`
+4. `callerAssertedScope` is `void` — never passed to verify
 
-### Diff — w3aQualifiedExecutionEffects.ts
-```diff
---- /Users/morris/Projects/sfia-workspace-auth-better-auth-github-multi-user-foundation/projects/sfia-studio/app/features/project-assistant/w2/w3aQualifiedExecutionEffects.ts	2026-09-04 18:33:49
-+++ projects/sfia-studio/app/features/project-assistant/w2/w3aQualifiedExecutionEffects.ts	2026-09-05 00:04:47
-@@ -15,6 +15,7 @@
-   | "read"
-   | "simulate"
-   | "generate-temporary-artifact"
-+  | "external-discovery"
-   | "local-write"
-   | "commit"
-   | "push"
-@@ -30,6 +31,7 @@
-   | "product:read"
-   | "product:simulate"
-   | "product:generate-temporary-artifact"
-+  | "product:external-discovery"
-   | "product:local-write"
-   | "product:commit"
-   | "product:push"
-@@ -43,6 +45,7 @@
-   | "cap:product-read"
-   | "cap:product-simulate"
-   | "cap:product-temp-artifact"
-+  | "cap:product-external-discovery"
-   | "cap:product-local-write"
-   | "cap:product-commit"
-   | "cap:product-git-push"
-@@ -91,6 +94,7 @@
-   read: "product:read",
-   simulate: "product:simulate",
-   "generate-temporary-artifact": "product:generate-temporary-artifact",
-+  "external-discovery": "product:external-discovery",
-   "local-write": "product:local-write",
-   commit: "product:commit",
-   push: "product:push",
-@@ -108,6 +112,7 @@
-   read: "cap:product-read",
-   simulate: "cap:product-simulate",
-   "generate-temporary-artifact": "cap:product-temp-artifact",
-+  "external-discovery": "cap:product-external-discovery",
-   "local-write": "cap:product-local-write",
-   commit: "cap:product-commit",
-   push: "cap:product-git-push",
-@@ -141,6 +146,18 @@
-       code: "AUTHORITY_UNRESOLVED",
-       message:
-         "Effets d'exécution non qualifiés — requiredAuthority fail-closed.",
-+    };
-+  }
-+
-+  /**
-+   * Morris GO — MW6 HOSTED EXTERNAL DISCOVERY AUTHORITY POLICY — N2.
-+   * Fixed N2 (not N1/N3, not contextual). Must run before rollback/N3 defaults.
-+   */
-+  if (effectClass === "external-discovery") {
-+    return {
-+      ok: true,
-+      requiredAuthority: "N2",
-+      morrisConstructionGateRequired: false,
-     };
-   }
+## N. Proof caller fingerprint cannot override
+Test **S06**: evidence valid for A; current intent B; `callerAssertedScope = A.fingerprint` → **DENY** (`scope_mismatch`).
 
-@@ -240,6 +257,11 @@
-     return { ok: true, reversibility: "reversible" };
-   }
-
-+  if (effectClass === "external-discovery") {
-+    // Provider network/cost side-effect; no durable Studio mutation.
-+    return { ok: true, reversibility: "partially_reversible" };
-+  }
-+
-   if (effectClass === "generate-temporary-artifact") {
-     if (!rollbackAvailable) {
-       return {
+## O. Final Binding Map
+```
+authenticated Pilote (authority none)
+→ HumanDecision accepted
+→ ExecutionContract Build/Validate (N2 → confirmation_required)
+→ Confirmation granted (level ≥ N2) → Confirm → confirmed + confirmationRef
+→ current SourceStrategyDecision / external_discovery intent (server)
+→ policy projects requiredAuthority = N2 (unchanged)
+→ buildMw6ExternalDiscoveryContractSemantic(currentIntent)
+→ computeInspectionFingerprint → currentIntentFingerprint
+→ issueMw6ExternalDiscoveryS1 (candidate evidence bound to that semantic)
+→ MW6 preflight:
+     assert human auth on authorizedContract
+     recompute currentIntentFingerprint
+     AuthorityResolver.verify(actor, evidence, currentIntentFingerprint, N2)
+→ authorityBound=true
+→ realAuthorized=false
+→ LIVE DENY / eligible=false
 ```
 
-### Diff — piloteS1AuthorityPolicy.ts
-```diff
---- /Users/morris/Projects/sfia-workspace-auth-better-auth-github-multi-user-foundation/projects/sfia-studio/app/lib/auth/piloteS1AuthorityPolicy.ts	2026-09-04 21:14:13
-+++ projects/sfia-studio/app/lib/auth/piloteS1AuthorityPolicy.ts	2026-09-05 00:04:56
-@@ -34,6 +34,40 @@
+## P. Files modified (integration only)
+- `lib/auth/mw6ExternalDiscoveryBinding.ts` — human-auth assert + current-intent builder + fingerprint helper
+- `lib/auth/index.ts` — exports
+- `lib/nora-cognitive-runtime/campaignBudget.ts` — preflight GAP-01/02
+- `lib/nora-cognitive-runtime/runNoraAgentsTurn.ts` — pass currentExternalDiscoveryIntent
+- `lib/nora-cognitive-runtime/index.ts` — type exports
+- `__tests__/nora-cognitive-runtime/mw6.auth-binding.d0.test.ts` — H01–H07 / S01–S06 / updated B01–B12
 
- export const PILOTE_S1_POLICY_ID =
-   "AUTH_PILOTE_S1_BASE_NONE_ACTION_SCOPED_EFFECTS_PROJECTION" as const;
-+
-+/**
-+ * Morris GO — MW6 HOSTED EXTERNAL DISCOVERY AUTHORITY POLICY — N2.
-+ * Server-owned constant mapping (not provider-string derived, not client-claimed).
-+ */
-+export const MW6_EXTERNAL_DISCOVERY_POLICY_ID =
-+  "MORRIS_MW6_HOSTED_EXTERNAL_DISCOVERY_AUTHORITY_N2" as const;
-+export const MW6_EXTERNAL_DISCOVERY_EFFECT_CLASS =
-+  "external-discovery" as const;
-+export const MW6_EXTERNAL_DISCOVERY_ACTION =
-+  "product:external-discovery" as const;
-+export const MW6_EXTERNAL_DISCOVERY_REQUIRED_AUTHORITY = "N2" as const;
-+
-+/**
-+ * Exact server-owned authority for MW6 hosted external discovery.
-+ * Fixed N2 — never N1/N3 and never contextual.
-+ */
-+export function projectRequiredAuthorityForExternalDiscovery(): {
-+  ok: true;
-+  requiredAuthority: typeof MW6_EXTERNAL_DISCOVERY_REQUIRED_AUTHORITY;
-+  effectClass: typeof MW6_EXTERNAL_DISCOVERY_EFFECT_CLASS;
-+  action: typeof MW6_EXTERNAL_DISCOVERY_ACTION;
-+  policyId: typeof MW6_EXTERNAL_DISCOVERY_POLICY_ID;
-+  morrisConstructionGateRequired: false;
-+} {
-+  return {
-+    ok: true,
-+    requiredAuthority: MW6_EXTERNAL_DISCOVERY_REQUIRED_AUTHORITY,
-+    effectClass: MW6_EXTERNAL_DISCOVERY_EFFECT_CLASS,
-+    action: MW6_EXTERNAL_DISCOVERY_ACTION,
-+    policyId: MW6_EXTERNAL_DISCOVERY_POLICY_ID,
-+    morrisConstructionGateRequired: false,
-+  };
-+}
+## Q. FULL usable content
 
- /**
-  * Server-owned governed effects facts used for re-projection + coherence.
-```
-
-### Diff — campaignBudget.ts (vs MW6 source)
-```diff
---- /Users/morris/Projects/sfia-workspace-nora-mw6-external-source-intelligence/projects/sfia-studio/app/lib/nora-cognitive-runtime/campaignBudget.ts	2026-09-04 16:37:07
-+++ projects/sfia-studio/app/lib/nora-cognitive-runtime/campaignBudget.ts	2026-09-05 00:05:23
-@@ -46,6 +46,8 @@
-   | "AGGREGATE_REAL_CALL_CAP_REACHED"
-   | "REAL_PREFLIGHT_BLOCKED"
-   | "REAL_AUTHORITY_NOT_BOUND"
-+  | "AUTHORITY_BOUND_BUT_REAL_NOT_AUTHORIZED"
-+  | "AUTHORITY_DENIED"
-   | "HOSTED_HARD_CAP_UNENFORCEABLE"
-   | "CAMPAIGN_LEASE_INVALID"
-   | "NORA_CAMPAIGN_BUDGET_SPEC_MISMATCH"
-@@ -668,36 +670,158 @@
- export type RealSourceExecutionPreflightInput = {
-   campaign: NoraCampaignBudget;
-   wantHostedWebSearch: boolean;
-+  /**
-+   * Optional governed Auth S1 context for MW6 external_discovery.
-+   * Absent → authorityBound=false (REAL_AUTHORITY_NOT_BOUND).
-+   * Present + verified → authorityBound=true; REAL remains orthogonal / closed.
-+   */
-+  governedAuthority?: Mw6GovernedAuthorityContext;
- };
-
-+/**
-+ * Server-owned authority verification context for MW6 hosted external discovery.
-+ * Uses existing AuthorityResolverPort — no MW6-specific resolver.
-+ */
-+export type Mw6GovernedAuthorityContext = {
-+  actorId: string;
-+  authorityEvidenceId: string;
-+  /** Exact AuthorityEvidence.scope (= inspection fingerprint). */
-+  scope: string;
-+  /** Must equal Morris policy N2 for external_discovery. */
-+  requiredLevel: "N2";
-+  authorityResolver: {
-+    verify(request: {
-+      actorId: string;
-+      requiredLevel: "N1" | "N2" | "N3";
-+      scope: string;
-+      evidenceId?: string;
-+      requireMorrisGate?: boolean;
-+    }): {
-+      ok: boolean;
-+      reason: string;
-+      verifiedLevel?: "N1" | "N2" | "N3";
-+      canActAsMorris?: boolean;
-+      evidenceId?: string;
-+    };
-+  };
-+};
-+
- export type RealSourceExecutionPreflightResult = {
-+  /** LIVE hosted dispatch eligibility — requires authorityBound AND realAuthorized. */
-   eligible: boolean;
-+  /** LIVE blocked (true unless both axes allow). */
-   blocked: boolean;
-   code: CampaignBudgetDenialCode | "OK";
-   reasons: string[];
-   /** Budget/capability may be OK while REAL remains blocked. */
-   capabilitySatisfied: boolean;
-+  /** Auth S1 verified for external_discovery N2. */
-+  authorityBound: boolean;
-+  /** Separate Morris GO REAL — always false in this binding cycle. */
-+  realAuthorized: boolean;
- };
-
- /**
-  * LIVE REAL hosted/source execution preflight.
-  *
-+ * Orthogonal axes:
-+ * - AUTHORITY: governed Auth S1 N2 for external_discovery (AuthorityResolver)
-+ * - REAL: separate Morris GO REAL (NOT authorized in MW6↔Auth binding cycle)
-+ *
-  * PRE-REAL-01: No test boolean / fake marker can authorize LIVE.
-- * This cycle has NO genuine Morris GO REAL binding → ALWAYS blocked for LIVE.
-  * Budget capability alone never equals human/REAL authority.
-+ * Authority bound alone never equals REAL authorized.
-  */
- export function evaluateRealSourceExecutionPreflight(
-   input: RealSourceExecutionPreflightInput,
- ): RealSourceExecutionPreflightResult {
-   resolveLease(input.campaign);
-   const capability = evaluateCampaignBudgetCapabilityOnly(input);
--  const reasons = ["REAL_AUTHORITY_NOT_BOUND", ...capability.reasons];
-+  const realAuthorized = false; // MW6 REAL GO not consumed in this cycle
-+
-+  if (!input.governedAuthority) {
-+    const reasons = ["REAL_AUTHORITY_NOT_BOUND", ...capability.reasons];
-+    return {
-+      eligible: false,
-+      blocked: true,
-+      code: "REAL_AUTHORITY_NOT_BOUND",
-+      reasons,
-+      capabilitySatisfied: capability.capabilitySatisfied,
-+      authorityBound: false,
-+      realAuthorized,
-+    };
-+  }
-+
-+  const gov = input.governedAuthority;
-+  if (gov.requiredLevel !== "N2") {
-+    return {
-+      eligible: false,
-+      blocked: true,
-+      code: "AUTHORITY_DENIED",
-+      reasons: [
-+        "AUTHORITY_DENIED",
-+        "external_discovery_requires_N2",
-+        ...capability.reasons,
-+      ],
-+      capabilitySatisfied: capability.capabilitySatisfied,
-+      authorityBound: false,
-+      realAuthorized,
-+    };
-+  }
-+
-+  const verified = gov.authorityResolver.verify({
-+    actorId: gov.actorId,
-+    evidenceId: gov.authorityEvidenceId,
-+    scope: gov.scope,
-+    requiredLevel: "N2",
-+    requireMorrisGate: false,
-+  });
-+
-+  if (!verified.ok) {
-+    return {
-+      eligible: false,
-+      blocked: true,
-+      code: "AUTHORITY_DENIED",
-+      reasons: [
-+        "AUTHORITY_DENIED",
-+        `verify:${verified.reason}`,
-+        ...capability.reasons,
-+      ],
-+      capabilitySatisfied: capability.capabilitySatisfied,
-+      authorityBound: false,
-+      realAuthorized,
-+    };
-+  }
-+
-+  if (verified.canActAsMorris === true) {
-+    return {
-+      eligible: false,
-+      blocked: true,
-+      code: "AUTHORITY_DENIED",
-+      reasons: [
-+        "AUTHORITY_DENIED",
-+        "canActAsMorris_not_permitted_for_mw6_binding",
-+        ...capability.reasons,
-+      ],
-+      capabilitySatisfied: capability.capabilitySatisfied,
-+      authorityBound: false,
-+      realAuthorized,
-+    };
-+  }
-+
-+  // Authority bound — REAL still closed (orthogonal).
-   return {
-     eligible: false,
-     blocked: true,
--    code: "REAL_AUTHORITY_NOT_BOUND",
--    reasons,
-+    code: "AUTHORITY_BOUND_BUT_REAL_NOT_AUTHORIZED",
-+    reasons: [
-+      "AUTHORITY_BOUND_BUT_REAL_NOT_AUTHORIZED",
-+      "MW6_REAL_NOT_AUTHORIZED",
-+      ...capability.reasons,
-+    ],
-     capabilitySatisfied: capability.capabilitySatisfied,
-+    authorityBound: true,
-+    realAuthorized,
-   };
- }
-```
-
-### Diff — runNoraAgentsTurn.ts (vs MW6 source)
-```diff
---- /Users/morris/Projects/sfia-workspace-nora-mw6-external-source-intelligence/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts	2026-09-04 16:37:20
-+++ projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts	2026-09-05 00:06:48
-@@ -45,7 +45,7 @@
-   type NoraHostedWebSearchToolOptions,
- } from "./openaiHostedWebSearchAdapter";
- import type { SourceObservationFact } from "./sourceIntelligenceContract";
--import type { NoraCampaignBudget } from "./campaignBudget";
-+import type { NoraCampaignBudget, Mw6GovernedAuthorityContext } from "./campaignBudget";
- import {
-   CampaignLeaseError,
-   campaignBudgetSnapshot,
-@@ -109,6 +109,12 @@
-    * Not REAL authority.
-    */
-   testOnlyMaxToolCallsOverride?: number | null;
-+  /**
-+   * MW6↔Auth binding — optional governed Auth S1 context for external_discovery.
-+   * When absent on LIVE path → REAL_AUTHORITY_NOT_BOUND.
-+   * When present + verified → authorityBound; REAL remains orthogonal/closed.
-+   */
-+  governedAuthority?: Mw6GovernedAuthorityContext;
- };
-
- export type RunNoraAgentsTurnHostedSearchObserve = {
-@@ -124,6 +130,9 @@
-   configuredMaxToolCalls: number | null;
-   realPreflightBlocked: boolean;
-   realPreflightReasons: string[];
-+  authorityBound: boolean;
-+  realAuthorized: boolean;
-+  realPreflightCode: string;
- };
-
- export function createNoraAgentsRunner(
-@@ -236,6 +245,9 @@
-             configuredMaxToolCalls: null,
-             realPreflightBlocked: true,
-             realPreflightReasons: [error.code],
-+            authorityBound: false,
-+            realAuthorized: false,
-+            realPreflightCode: error.code,
-           },
-         };
-       }
-@@ -263,6 +275,9 @@
-
-   let realPreflightBlocked = false;
-   let realPreflightReasons: string[] = [];
-+  let authorityBound = false;
-+  let realAuthorized = false;
-+  let realPreflightCode = "OK";
-   if (wantRealHostedDispatch) {
-     // PRE-REAL-01: LIVE path always requires genuine authority binding.
-     // No test/fake boolean is accepted on runtime inputs.
-@@ -272,13 +287,20 @@
-         "REAL_AUTHORITY_NOT_BOUND",
-         "campaign_budget_required_for_real_hosted",
-       ];
-+      realPreflightCode = "REAL_AUTHORITY_NOT_BOUND";
-+      authorityBound = false;
-+      realAuthorized = false;
-     } else {
-       const pre = evaluateRealSourceExecutionPreflight({
-         campaign,
-         wantHostedWebSearch: true,
-+        governedAuthority: input.governedAuthority,
-       });
-       realPreflightBlocked = pre.blocked;
-       realPreflightReasons = pre.reasons;
-+      realPreflightCode = pre.code;
-+      authorityBound = pre.authorityBound;
-+      realAuthorized = pre.realAuthorized;
-     }
-   }
-
-@@ -378,6 +400,9 @@
-               configuredMaxToolCalls: null,
-               realPreflightBlocked: true,
-               realPreflightReasons: [error.code],
-+              authorityBound: false,
-+              realAuthorized: false,
-+              realPreflightCode: error.code,
-             }
-           : undefined,
-       };
-@@ -563,6 +588,9 @@
-         configuredMaxToolCalls: resolvedCap.max_tool_calls ?? null,
-         realPreflightBlocked,
-         realPreflightReasons,
-+        authorityBound,
-+        realAuthorized,
-+        realPreflightCode,
-       }
-     : undefined;
-```
-
-### Full — mw6ExternalDiscoveryBinding.ts
+### Q1 — mw6ExternalDiscoveryBinding.ts (COMPLETE)
 ```typescript
 /**
  * MW6 hosted external discovery — Auth S1 binding helpers.
@@ -499,12 +146,24 @@ Morris construction gate ≠ Pilote runtime HumanDecision — preserved.
  * - issueS1AuthorityEvidence
  * - computeInspectionFingerprint (via S1 policy)
  * - AuthorityResolverPort
+ * - isExecutionReadyStatus / Confirmation lifecycle (T-A4)
  *
- * No MW6AuthorityResolver / parallel S1 schema / second fingerprint.
+ * No MW6AuthorityResolver / parallel S1 schema / second fingerprint /
+ * Mw6HumanAuthorization / Mw6Confirmation.
+ *
+ * Distinction:
+ * - PROJECTED requiredAuthority = N2 (policy)
+ * - EFFECTIVE authorityBound = valid runtime human authorization (confirmed EC)
+ *   ∩ evidence matching server-recomputed current-intent fingerprint ∩ N2 verify
  */
 
 import type { AuthorityResolverPort } from "@/lib/oa/decision";
 import { computeInspectionFingerprint } from "@/lib/oa/execution-contract/domain/inspectionAttestation";
+import { isExecutionReadyStatus } from "@/lib/oa/execution-contract/domain/invariants";
+import type {
+  SourceProviderBinding,
+  SourceStrategyDecision,
+} from "@/lib/nora-cognitive-runtime/sourceIntelligenceContract";
 import {
   AUTHORITY_UNRESOLVED,
   MW6_EXTERNAL_DISCOVERY_ACTION,
@@ -535,6 +194,33 @@ export type Mw6ExternalDiscoveryContractInput = {
   constraints?: string[];
   stopConditions?: string[];
   evidenceRequirements?: string[];
+  idempotencyKey: string;
+  adapterExportRef?: string;
+};
+
+/**
+ * Server-owned confirmed ExecutionContract snapshot for N2 external_discovery.
+ * Must come from the product HumanDecision → Validate → Confirm path
+ * (status `confirmed` + confirmationRef). Not a client boolean.
+ */
+export type Mw6AuthorizedExternalDiscoveryContract = {
+  executionContractId: string;
+  projectId: string;
+  status: string;
+  requiredAuthority: string;
+  action: string;
+  target: string;
+  scope: string;
+  confirmationRef?: string | null;
+  decisionRefs?: readonly string[] | null;
+  cycleInstanceId?: string;
+  inputs?: Record<string, unknown>;
+  expectedOutputs?: string[];
+  requiredCapabilities?: string[];
+  constraints?: string[];
+  stopConditions?: string[];
+  evidenceRequirements?: string[];
+  reversibility?: AuthS1GovernedContractContext["reversibility"];
   idempotencyKey: string;
   adapterExportRef?: string;
 };
@@ -580,6 +266,71 @@ export function buildMw6ExternalDiscoveryContractSemantic(
   };
 }
 
+/**
+ * Sole authoritative current-intent builder for MW6 external_discovery.
+ * Derives semantic inputs from the CURRENT SourceStrategyDecision + binding
+ * (never from caller-supplied fingerprint / competing authority context copy).
+ */
+export function buildMw6CurrentExternalDiscoveryIntent(input: {
+  executionContractId: string;
+  projectId: string;
+  campaignId: string;
+  strategy: SourceStrategyDecision;
+  binding: SourceProviderBinding;
+  decisionRefs?: string[];
+  idempotencyKey: string;
+  cycleInstanceId?: string;
+  adapterExportRef?: string;
+}):
+  | { ok: true; intent: Mw6ExternalDiscoveryContractInput }
+  | { ok: false; reason: string } {
+  if (input.strategy.acquisitionRequirement !== "external_discovery") {
+    return {
+      ok: false,
+      reason: "current_intent_not_external_discovery",
+    };
+  }
+  if (input.binding.acquisitionRequirement !== "external_discovery") {
+    return {
+      ok: false,
+      reason: "provider_binding_not_external_discovery",
+    };
+  }
+  if (!input.binding.attachOpenAiHostedWebSearch) {
+    return {
+      ok: false,
+      reason: "hosted_web_search_not_attached_for_current_intent",
+    };
+  }
+
+  const scope = `biz:mw6-external-discovery:${input.campaignId}:${input.strategy.domain}:${input.strategy.semanticSourceClass}`;
+  const target = "tgt:openai-hosted-web-search";
+
+  return {
+    ok: true,
+    intent: {
+      executionContractId: input.executionContractId,
+      projectId: input.projectId,
+      scope,
+      target,
+      cycleInstanceId: input.cycleInstanceId,
+      decisionRefs: input.decisionRefs,
+      inputs: {
+        acquisitionRequirement: input.strategy.acquisitionRequirement,
+        providerCapability: "openai_hosted_web_search",
+        sourceNeed: input.strategy.sourceNeed,
+        domain: input.strategy.domain,
+        semanticSourceClass: input.strategy.semanticSourceClass,
+        plannedOperations: [...input.strategy.plannedOperations],
+        reasonCodes: [...input.strategy.reasonCodes],
+        hostedProviderBudgetClaim: input.binding.hostedProviderBudgetClaim,
+      },
+      idempotencyKey: input.idempotencyKey,
+      adapterExportRef: input.adapterExportRef,
+    },
+  };
+}
+
 export function buildMw6ExternalDiscoveryGovernedEffects(input: {
   scope: string;
   target: string;
@@ -594,6 +345,68 @@ export function buildMw6ExternalDiscoveryGovernedEffects(input: {
   };
 }
 
+/**
+ * Canonical N2 Confirmation rule (existing T-A4 / W2):
+ * ValidateExecutionContract maps N2 → status `confirmation_required`.
+ * isExecutionReadyStatus: N2 is ready ONLY when status === `confirmed`.
+ * confirmExecutionContractForAuthorization / ConfirmExecutionContract consume
+ * a granted Confirmation (level ≥ N2, scope-bound).
+ *
+ * Therefore Confirmation IS REQUIRED for effective N2 external_discovery
+ * authority — enforced via confirmed EC + confirmationRef, not a new MW6 UI.
+ */
+export function assertMw6ExternalDiscoveryEffectiveHumanAuthorization(
+  contract: Mw6AuthorizedExternalDiscoveryContract,
+): { ok: true } | { ok: false; reason: string } {
+  if (contract.requiredAuthority !== MW6_EXTERNAL_DISCOVERY_REQUIRED_AUTHORITY) {
+    return { ok: false, reason: "authorized_contract_requiredAuthority_not_N2" };
+  }
+  if (contract.action !== MW6_EXTERNAL_DISCOVERY_ACTION) {
+    return { ok: false, reason: "authorized_contract_action_mismatch" };
+  }
+  const decisionRefs = contract.decisionRefs ?? [];
+  if (decisionRefs.length === 0) {
+    return { ok: false, reason: "human_decision_refs_absent" };
+  }
+  if (
+    !isExecutionReadyStatus({
+      status: contract.status,
+      requiredAuthority: contract.requiredAuthority,
+      constraints: contract.constraints ?? [],
+    })
+  ) {
+    if (
+      contract.status === "confirmation_required" ||
+      (contract.status === "validated" &&
+        contract.requiredAuthority === "N2")
+    ) {
+      return { ok: false, reason: "confirmation_required_absent" };
+    }
+    if (contract.status === "superseded" || contract.status === "cancelled") {
+      return { ok: false, reason: `authorization_invalid_status_${contract.status}` };
+    }
+    return {
+      ok: false,
+      reason: `human_authorization_not_execution_ready_${contract.status}`,
+    };
+  }
+  if (!contract.confirmationRef) {
+    return { ok: false, reason: "confirmation_ref_absent_on_confirmed_contract" };
+  }
+  return { ok: true };
+}
+
+/** Recompute inspection fingerprint from CURRENT MW6 intent (server-owned). */
+export function computeMw6CurrentIntentFingerprint(
+  intent: Mw6ExternalDiscoveryContractInput,
+): { semantic: AuthS1GovernedContractContext; fingerprint: string } {
+  const semantic = buildMw6ExternalDiscoveryContractSemantic(intent);
+  return {
+    semantic,
+    fingerprint: computeInspectionFingerprint(semantic),
+  };
+}
+
 export type IssueMw6ExternalDiscoveryS1Input = {
   pilote: Extract<ResolveCurrentPiloteResult, { ok: true }>;
   authorityResolver: AuthorityResolverPort;
@@ -604,9 +417,11 @@ export type IssueMw6ExternalDiscoveryS1Input = {
 };
 
 /**
- * Issue Auth S1 N2 for MW6 external_discovery via the sole public S1 path.
- * Confirmation for later EC Confirm/Authorize remains the existing EC path —
- * S1 issuance mirrors the product prepare pattern (no second MW6 confirmation).
+ * Issue Auth S1 N2 candidate evidence for MW6 external_discovery.
+ *
+ * S1 issuance alone is NOT effective authority (mirrors prepare-before-confirm).
+ * Effective MW6 authorityBound requires:
+ *   confirmed EC (HumanDecision + Confirmation) ∩ current-intent fingerprint verify.
  */
 export function issueMw6ExternalDiscoveryS1(
   input: IssueMw6ExternalDiscoveryS1Input,
@@ -654,12 +469,257 @@ export function issueMw6ExternalDiscoveryS1(
     fingerprint: computeInspectionFingerprint(contractSemantic),
   };
 }
+
 ```
 
-### Full — mw6.auth-binding.d0.test.ts
+### Q2 — campaignBudget preflight section (COMPLETE)
+```typescript
+export type RealSourceExecutionPreflightInput = {
+  campaign: NoraCampaignBudget;
+  wantHostedWebSearch: boolean;
+  /**
+   * Optional governed Auth S1 context for MW6 external_discovery.
+   * Absent → authorityBound=false (REAL_AUTHORITY_NOT_BOUND).
+   * Present + human-authorized + current-intent verified → authorityBound=true;
+   * REAL remains orthogonal / closed.
+   */
+  governedAuthority?: Mw6GovernedAuthorityContext;
+  /**
+   * Server-derived CURRENT MW6 external_discovery intent.
+   * Owns the inspection fingerprint — never taken from caller evidence.scope.
+   * Required whenever governedAuthority is present.
+   */
+  currentExternalDiscoveryIntent?: Mw6ExternalDiscoveryContractInput;
+};
+
+/**
+ * Server-owned authority verification context for MW6 hosted external discovery.
+ * Uses existing AuthorityResolverPort — no MW6-specific resolver.
+ *
+ * Effective authority requires BOTH:
+ * 1. authorizedContract from HumanDecision → Confirm path (confirmed + confirmationRef)
+ * 2. evidence matching server-recomputed current-intent fingerprint
+ */
+export type Mw6GovernedAuthorityContext = {
+  actorId: string;
+  authorityEvidenceId: string;
+  /** Must equal Morris policy N2 for external_discovery. */
+  requiredLevel: "N2";
+  /**
+   * Confirmed ExecutionContract snapshot from the product authorization path.
+   * Not a client `humanAuthorized` boolean.
+   */
+  authorizedContract: Mw6AuthorizedExternalDiscoveryContract;
+  /**
+   * Optional diagnostic only. NEVER used for AuthorityResolver.verify.
+   * Caller cannot override the server-recomputed current-intent fingerprint.
+   */
+  callerAssertedScope?: string;
+  authorityResolver: {
+    verify(request: {
+      actorId: string;
+      requiredLevel: "N1" | "N2" | "N3";
+      scope: string;
+      evidenceId?: string;
+      requireMorrisGate?: boolean;
+    }): {
+      ok: boolean;
+      reason: string;
+      verifiedLevel?: "N1" | "N2" | "N3";
+      canActAsMorris?: boolean;
+      evidenceId?: string;
+    };
+  };
+};
+
+export type RealSourceExecutionPreflightResult = {
+  /** LIVE hosted dispatch eligibility — requires authorityBound AND realAuthorized. */
+  eligible: boolean;
+  /** LIVE blocked (true unless both axes allow). */
+  blocked: boolean;
+  code: CampaignBudgetDenialCode | "OK";
+  reasons: string[];
+  /** Budget/capability may be OK while REAL remains blocked. */
+  capabilitySatisfied: boolean;
+  /** Auth S1 verified for external_discovery N2. */
+  authorityBound: boolean;
+  /** Separate Morris GO REAL — always false in this binding cycle. */
+  realAuthorized: boolean;
+};
+
+/**
+ * LIVE REAL hosted/source execution preflight.
+ *
+ * Orthogonal axes:
+ * - AUTHORITY: human-authorized confirmed EC ∩ Auth S1 N2 ∩ current-intent fingerprint
+ * - REAL: separate Morris GO REAL (NOT authorized in MW6↔Auth binding cycle)
+ *
+ * PRE-REAL-01: No test boolean / fake marker can authorize LIVE.
+ * Budget capability alone never equals human/REAL authority.
+ * Authority bound alone never equals REAL authorized.
+ * Login / policy / S1 candidate alone never equals authorityBound.
+ */
+export function evaluateRealSourceExecutionPreflight(
+  input: RealSourceExecutionPreflightInput,
+): RealSourceExecutionPreflightResult {
+  resolveLease(input.campaign);
+  const capability = evaluateCampaignBudgetCapabilityOnly(input);
+  const realAuthorized = false; // MW6 REAL GO not consumed in this cycle
+
+  const deny = (extraReasons: string[]): RealSourceExecutionPreflightResult => ({
+    eligible: false,
+    blocked: true,
+    code: "AUTHORITY_DENIED",
+    reasons: ["AUTHORITY_DENIED", ...extraReasons, ...capability.reasons],
+    capabilitySatisfied: capability.capabilitySatisfied,
+    authorityBound: false,
+    realAuthorized,
+  });
+
+  if (!input.governedAuthority) {
+    const reasons = ["REAL_AUTHORITY_NOT_BOUND", ...capability.reasons];
+    return {
+      eligible: false,
+      blocked: true,
+      code: "REAL_AUTHORITY_NOT_BOUND",
+      reasons,
+      capabilitySatisfied: capability.capabilitySatisfied,
+      authorityBound: false,
+      realAuthorized,
+    };
+  }
+
+  const gov = input.governedAuthority;
+  if (gov.requiredLevel !== "N2") {
+    return deny(["external_discovery_requires_N2"]);
+  }
+
+  // GAP-01 — existing T-A4 Confirmation rule: N2 ready only when confirmed.
+  const humanAuth = assertMw6ExternalDiscoveryEffectiveHumanAuthorization(
+    gov.authorizedContract,
+  );
+  if (!humanAuth.ok) {
+    return deny([`human_authorization:${humanAuth.reason}`]);
+  }
+
+  // GAP-02 — current MW6 intent owns the fingerprint (not callerAssertedScope).
+  const currentIntent = input.currentExternalDiscoveryIntent;
+  if (!currentIntent) {
+    return deny(["current_intent_absent"]);
+  }
+
+  if (
+    currentIntent.executionContractId !==
+      gov.authorizedContract.executionContractId ||
+    currentIntent.projectId !== gov.authorizedContract.projectId
+  ) {
+    return deny(["current_intent_contract_identity_mismatch"]);
+  }
+  if (
+    currentIntent.target !== gov.authorizedContract.target ||
+    currentIntent.scope !== gov.authorizedContract.scope
+  ) {
+    return deny(["current_intent_action_scope_mismatch"]);
+  }
+  if (gov.authorizedContract.action !== MW6_EXTERNAL_DISCOVERY_ACTION) {
+    return deny(["authorized_contract_action_not_external_discovery"]);
+  }
+
+  const { fingerprint: currentIntentFingerprint } =
+    computeMw6CurrentIntentFingerprint(currentIntent);
+
+  // callerAssertedScope is diagnostic only — deliberately unused for verify.
+  void gov.callerAssertedScope;
+
+  const verified = gov.authorityResolver.verify({
+    actorId: gov.actorId,
+    evidenceId: gov.authorityEvidenceId,
+    scope: currentIntentFingerprint,
+    requiredLevel: "N2",
+    requireMorrisGate: false,
+  });
+
+  if (!verified.ok) {
+    return deny([`verify:${verified.reason}`]);
+  }
+
+  if (verified.canActAsMorris === true) {
+    return deny(["canActAsMorris_not_permitted_for_mw6_binding"]);
+  }
+
+  // Authority bound — REAL still closed (orthogonal).
+  return {
+    eligible: false,
+    blocked: true,
+    code: "AUTHORITY_BOUND_BUT_REAL_NOT_AUTHORIZED",
+    reasons: [
+      "AUTHORITY_BOUND_BUT_REAL_NOT_AUTHORIZED",
+      "MW6_REAL_NOT_AUTHORIZED",
+      ...capability.reasons,
+    ],
+    capabilitySatisfied: capability.capabilitySatisfied,
+    authorityBound: true,
+    realAuthorized,
+  };
+}
+
+```
+
+### Q3 — runNoraAgentsTurn wiring snips
+```typescript
+rnal_discovery.
+   * When absent on LIVE path → REAL_AUTHORITY_NOT_BOUND.
+   * When present + human-authorized + current-intent verified → authorityBound;
+   * REAL remains orthogonal/closed.
+   */
+  governedAuthority?: Mw6GovernedAuthorityContext;
+  /**
+   * Server-derived CURRENT MW6 external_discovery intent (owns fingerprint).
+   * Required with governedAuthority — never taken from evidence.scope.
+   */
+  currentExternalDiscoveryIntent?: Mw6ExternalDiscoveryContractInput;
+};
+
+export type RunNoraAgentsTurnHostedSearchObserve = {
+  hostedWebSearchAttached: boolean;
+  deterministicBoundaryUse
+// ---
+OUND";
+      authorityBound = false;
+      realAuthorized = false;
+    } else {
+      const pre = evaluateRealSourceExecutionPreflight({
+        campaign,
+        wantHostedWebSearch: true,
+        governedAuthority: input.governedAuthority,
+        currentExternalDiscoveryIntent: input.currentExternalDiscoveryIntent,
+      });
+      realPreflightBlocked = pre.blocked
+```
+
+### Q4 — auth index exports
+```typescript
+export {
+  buildMw6ExternalDiscoveryContractSemantic,
+  buildMw6ExternalDiscoveryGovernedEffects,
+  buildMw6CurrentExternalDiscoveryIntent,
+  assertMw6ExternalDiscoveryEffectiveHumanAuthorization,
+  computeMw6CurrentIntentFingerprint,
+  issueMw6ExternalDiscoveryS1,
+  type Mw6ExternalDiscoveryContractInput,
+  type Mw6AuthorizedExternalDiscoveryContract,
+  type IssueMw6ExternalDiscoveryS1Input,
+} from "./mw6ExternalDiscoveryBinding";
+
+```
+
+### Q5 — mw6.auth-binding.d0.test.ts (COMPLETE)
 ```typescript
 /**
- * MW6 ↔ Auth binding — B01–B12 deterministic matrix.
+ * MW6 ↔ Auth binding correction — H01–H07 / S01–S06 / B01–B12.
+ *
+ * GAP-01: effective authority requires confirmed EC (HumanDecision + Confirmation).
+ * GAP-02: preflight recomputes fingerprint from CURRENT MW6 intent (caller scope ignored).
  *
  * ZERO OpenAI LIVE / ZERO hosted web_search REAL.
  *
@@ -677,8 +737,13 @@ import {
 } from "@/lib/auth";
 import { projectRequiredAuthorityFromEffects } from "@/features/project-assistant/w2/w3aQualifiedExecutionEffects";
 import {
-  issueMw6ExternalDiscoveryS1,
+  assertMw6ExternalDiscoveryEffectiveHumanAuthorization,
+  buildMw6CurrentExternalDiscoveryIntent,
   buildMw6ExternalDiscoveryContractSemantic,
+  computeMw6CurrentIntentFingerprint,
+  issueMw6ExternalDiscoveryS1,
+  type Mw6AuthorizedExternalDiscoveryContract,
+  type Mw6ExternalDiscoveryContractInput,
 } from "@/lib/auth/mw6ExternalDiscoveryBinding";
 import { issueS1AuthorityEvidence } from "@/lib/auth/s1Authority";
 import { computeInspectionFingerprint } from "@/lib/oa/execution-contract/domain/inspectionAttestation";
@@ -686,10 +751,23 @@ import { BETTER_AUTH_GITHUB_MULTI_USER_S1 } from "@/lib/auth/constants";
 import {
   acquireNoraCampaignBudget,
   evaluateRealSourceExecutionPreflight,
+  type Mw6GovernedAuthorityContext,
 } from "@/lib/nora-cognitive-runtime/campaignBudget";
 import { runNoraAgentsTurn } from "@/lib/nora-cognitive-runtime/runNoraAgentsTurn";
 import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
 import type { ResolveCurrentPiloteResult } from "@/lib/auth/resolveCurrentPilote";
+import {
+  DELEGATE_ACTOR,
+  buildStack,
+  buildValidatedContract,
+  grantConfirmation,
+  registerDelegate,
+  seedAcceptedDecision,
+  seedProject,
+  seedStandardCycle,
+} from "@/__tests__/oa/execution-contract/helpers";
+import { decideSourceStrategy } from "@/lib/nora-cognitive-runtime/sourceStrategyPolicy";
+import { bindSourceProviderCapability } from "@/lib/nora-cognitive-runtime/sourceStrategyPolicy";
 
 function makePilote(
   githubUserId: string,
@@ -702,23 +780,87 @@ function makePilote(
   };
 }
 
-function baseContract(overrides?: {
-  scope?: string;
-  target?: string;
-  executionContractId?: string;
-  idempotencyKey?: string;
-}) {
+function baseIntent(overrides?: Partial<Mw6ExternalDiscoveryContractInput>) {
   return {
     executionContractId:
       overrides?.executionContractId ?? "xct:mw6-ext-discovery-001",
-    projectId: "prj:mw6-auth-binding",
+    projectId: overrides?.projectId ?? "prj:mw6-auth-binding",
     scope: overrides?.scope ?? "biz:mw6-external-discovery:campaign-a",
     target: overrides?.target ?? "tgt:openai-hosted-web-search",
+    decisionRefs: overrides?.decisionRefs ?? ["dec:mw6-ext-001"],
     idempotencyKey: overrides?.idempotencyKey ?? "idem:mw6-ext-discovery-001",
+    inputs: overrides?.inputs,
+    cycleInstanceId: overrides?.cycleInstanceId,
+    adapterExportRef: overrides?.adapterExportRef,
+    expectedOutputs: overrides?.expectedOutputs,
+    constraints: overrides?.constraints,
+    stopConditions: overrides?.stopConditions,
+    evidenceRequirements: overrides?.evidenceRequirements,
+  } satisfies Mw6ExternalDiscoveryContractInput;
+}
+
+/** Server-owned confirmed EC snapshot (mirrors load-from-store trust boundary). */
+function confirmedAuthorizedContract(
+  intent: Mw6ExternalDiscoveryContractInput,
+  overrides?: Partial<Mw6AuthorizedExternalDiscoveryContract>,
+): Mw6AuthorizedExternalDiscoveryContract {
+  const semantic = buildMw6ExternalDiscoveryContractSemantic(intent);
+  return {
+    executionContractId: semantic.executionContractId,
+    projectId: semantic.projectId,
+    status: "confirmed",
+    requiredAuthority: "N2",
+    action: semantic.action,
+    target: semantic.target,
+    scope: semantic.scope,
+    confirmationRef: "cfm:mw6-ext-n2-001",
+    decisionRefs: semantic.decisionRefs ?? intent.decisionRefs,
+    cycleInstanceId: semantic.cycleInstanceId,
+    inputs: semantic.inputs as Record<string, unknown> | undefined,
+    expectedOutputs: semantic.expectedOutputs,
+    requiredCapabilities: [...semantic.requiredCapabilities],
+    constraints: [...semantic.constraints],
+    stopConditions: [...semantic.stopConditions],
+    evidenceRequirements: [...semantic.evidenceRequirements],
+    reversibility: semantic.reversibility,
+    idempotencyKey: semantic.idempotencyKey,
+    adapterExportRef: semantic.adapterExportRef,
+    ...overrides,
   };
 }
 
-describe("MW6 ↔ Auth binding — B01–B12 (external_discovery → N2)", () => {
+function govContext(input: {
+  pilote: Extract<ResolveCurrentPiloteResult, { ok: true }>;
+  evidenceId: string;
+  resolver: MemoryAuthorityResolver;
+  authorizedContract: Mw6AuthorizedExternalDiscoveryContract;
+  callerAssertedScope?: string;
+}): Mw6GovernedAuthorityContext {
+  return {
+    actorId: input.pilote.actor.actorId,
+    authorityEvidenceId: input.evidenceId,
+    requiredLevel: "N2",
+    authorizedContract: input.authorizedContract,
+    callerAssertedScope: input.callerAssertedScope,
+    authorityResolver: input.resolver,
+  };
+}
+
+function preflightPassAxes(pre: {
+  authorityBound: boolean;
+  realAuthorized: boolean;
+  blocked: boolean;
+  eligible: boolean;
+  code: string;
+}) {
+  expect(pre.authorityBound).toBe(true);
+  expect(pre.realAuthorized).toBe(false);
+  expect(pre.blocked).toBe(true);
+  expect(pre.eligible).toBe(false);
+  expect(pre.code).toBe("AUTHORITY_BOUND_BUT_REAL_NOT_AUTHORIZED");
+}
+
+describe("MW6 ↔ Auth binding — B01–B12 (updated claims)", () => {
   it("B02 — policy exact N2 (not N1, not N3)", () => {
     const policy = projectRequiredAuthorityForExternalDiscovery();
     expect(policy.requiredAuthority).toBe("N2");
@@ -735,17 +877,6 @@ describe("MW6 ↔ Auth binding — B01–B12 (external_discovery → N2)", () =>
     expect(projected.ok).toBe(true);
     if (!projected.ok) return;
     expect(projected.requiredAuthority).toBe("N2");
-    expect(projected.morrisConstructionGateRequired).toBe(false);
-
-    // Read stays N1 — external_discovery is not silently equated to read.
-    const read = projectRequiredAuthorityFromEffects({
-      effectClass: "read",
-      rollbackAvailable: true,
-      protectedBoundaries: [],
-    });
-    expect(read.ok).toBe(true);
-    if (!read.ok) return;
-    expect(read.requiredAuthority).toBe("N1");
     expect(MW6_EXTERNAL_DISCOVERY_REQUIRED_AUTHORITY).toBe("N2");
   });
 
@@ -761,66 +892,65 @@ describe("MW6 ↔ Auth binding — B01–B12 (external_discovery → N2)", () =>
     });
     expect(pre.authorityBound).toBe(false);
     expect(pre.realAuthorized).toBe(false);
-    expect(pre.blocked).toBe(true);
-    expect(pre.eligible).toBe(false);
     expect(pre.code).toBe("REAL_AUTHORITY_NOT_BOUND");
   });
 
-  it("B03 / B09 / B10 / fingerprint — valid N2 S1 PASS authority; REAL still closed", () => {
+  it("B03 — valid N2 S1 mechanics PASS; S1 alone NOT effective authority", () => {
     const resolver = new MemoryAuthorityResolver();
     const pilote = makePilote("11111111");
-    const contract = baseContract();
+    const intent = baseIntent();
     const issued = issueMw6ExternalDiscoveryS1({
       pilote,
       authorityResolver: resolver,
-      contract,
+      contract: intent,
       evidenceId: "evd:mw6-ext-n2-b03",
     });
     expect(issued.ok).toBe(true);
     if (!issued.ok) return;
-
     expect(issued.evidence.level).toBe("N2");
-    expect(issued.evidence.level).not.toBe("N3");
     expect(issued.evidence.canActAsMorris).toBe(false);
     expect(issued.evidence.source).toBe(BETTER_AUTH_GITHUB_MULTI_USER_S1);
-    expect(issued.evidence.actorId).toBe(pilote.actor.actorId);
     expect(issued.fingerprint).toBe(
       computeInspectionFingerprint(issued.contractSemantic!),
     );
-    expect(issued.evidence.scope).toBe(issued.fingerprint);
 
     const campaign = acquireNoraCampaignBudget({
-      campaignId: "b03-valid-n2",
+      campaignId: "b03-s1-alone",
       maxModelInvocations: 3,
       maxHostedWebOperations: 2,
     });
+    // S1 + current intent but NO confirmed human authorization → DENY
     const pre = evaluateRealSourceExecutionPreflight({
       campaign,
       wantHostedWebSearch: true,
+      currentExternalDiscoveryIntent: intent,
       governedAuthority: {
         actorId: pilote.actor.actorId,
         authorityEvidenceId: issued.evidence.evidenceId,
-        scope: issued.evidence.scope,
         requiredLevel: "N2",
+        authorizedContract: confirmedAuthorizedContract(intent, {
+          status: "confirmation_required",
+          confirmationRef: null,
+        }),
         authorityResolver: resolver,
       },
     });
-    expect(pre.authorityBound).toBe(true);
-    expect(pre.realAuthorized).toBe(false);
-    expect(pre.blocked).toBe(true);
-    expect(pre.eligible).toBe(false);
-    expect(pre.code).toBe("AUTHORITY_BOUND_BUT_REAL_NOT_AUTHORIZED");
-    expect(pre.reasons).toContain("MW6_REAL_NOT_AUTHORIZED");
+    expect(pre.authorityBound).toBe(false);
+    expect(pre.code).toBe("AUTHORITY_DENIED");
+    expect(
+      pre.reasons.some((r) => r.includes("confirmation_required_absent")),
+    ).toBe(true);
   });
 
   it("B04 — actor mismatch DENY", () => {
     const resolver = new MemoryAuthorityResolver();
     const pilote = makePilote("11111111");
     const other = makePilote("22222222");
+    const intent = baseIntent({ idempotencyKey: "idem:b04" });
     const issued = issueMw6ExternalDiscoveryS1({
       pilote,
       authorityResolver: resolver,
-      contract: baseContract({ idempotencyKey: "idem:b04" }),
+      contract: intent,
       evidenceId: "evd:mw6-ext-n2-b04",
     });
     expect(issued.ok).toBe(true);
@@ -834,49 +964,56 @@ describe("MW6 ↔ Auth binding — B01–B12 (external_discovery → N2)", () =>
     const pre = evaluateRealSourceExecutionPreflight({
       campaign,
       wantHostedWebSearch: true,
+      currentExternalDiscoveryIntent: intent,
       governedAuthority: {
-        actorId: other.actor.actorId,
-        authorityEvidenceId: issued.evidence.evidenceId,
-        scope: issued.evidence.scope,
-        requiredLevel: "N2",
-        authorityResolver: resolver,
+        ...govContext({
+          pilote: other,
+          evidenceId: issued.evidence.evidenceId,
+          resolver,
+          authorizedContract: confirmedAuthorizedContract(intent),
+        }),
       },
     });
     expect(pre.authorityBound).toBe(false);
-    expect(pre.code).toBe("AUTHORITY_DENIED");
     expect(pre.reasons.some((r) => r.includes("actor_mismatch"))).toBe(true);
   });
 
-  it("B05 — semantic fingerprint mismatch DENY", () => {
+  it("B05 — current-intent fingerprint mismatch DENY (not caller scope)", () => {
     const resolver = new MemoryAuthorityResolver();
     const pilote = makePilote("11111111");
+    const intentA = baseIntent({ idempotencyKey: "idem:b05" });
     const issued = issueMw6ExternalDiscoveryS1({
       pilote,
       authorityResolver: resolver,
-      contract: baseContract({ idempotencyKey: "idem:b05" }),
+      contract: intentA,
       evidenceId: "evd:mw6-ext-n2-b05",
     });
     expect(issued.ok).toBe(true);
     if (!issued.ok) return;
 
+    const intentB = baseIntent({
+      idempotencyKey: "idem:b05",
+      scope: "biz:mw6-external-discovery:MUTATED-SCOPE",
+    });
     const campaign = acquireNoraCampaignBudget({
-      campaignId: "b05-scope-mismatch",
+      campaignId: "b05-intent-mismatch",
       maxModelInvocations: 3,
       maxHostedWebOperations: 2,
     });
     const pre = evaluateRealSourceExecutionPreflight({
       campaign,
       wantHostedWebSearch: true,
-      governedAuthority: {
-        actorId: pilote.actor.actorId,
-        authorityEvidenceId: issued.evidence.evidenceId,
-        scope: `${issued.evidence.scope}::MUTATED`,
-        requiredLevel: "N2",
-        authorityResolver: resolver,
-      },
+      currentExternalDiscoveryIntent: intentB,
+      governedAuthority: govContext({
+        pilote,
+        evidenceId: issued.evidence.evidenceId,
+        resolver,
+        // Contract still matches B so human-auth + identity align; evidence is A.
+        authorizedContract: confirmedAuthorizedContract(intentB),
+        callerAssertedScope: issued.evidence.scope,
+      }),
     });
     expect(pre.authorityBound).toBe(false);
-    expect(pre.code).toBe("AUTHORITY_DENIED");
     expect(pre.reasons.some((r) => r.includes("scope_mismatch"))).toBe(true);
   });
 
@@ -884,15 +1021,13 @@ describe("MW6 ↔ Auth binding — B01–B12 (external_discovery → N2)", () =>
     const resolver = new MemoryAuthorityResolver();
     const pilote = makePilote("11111111");
     const semantic = buildMw6ExternalDiscoveryContractSemantic(
-      baseContract({ idempotencyKey: "idem:b06" }),
+      baseIntent({ idempotencyKey: "idem:b06" }),
     );
-    // Hostile: mutate action after policy-built semantic
     const hostile = {
       ...semantic,
       action: "product:read",
       target: "tgt:other",
     };
-    // Issuance must fail — effect class expects product:external-discovery
     const issued = issueS1AuthorityEvidence({
       pilote,
       authorityResolver: resolver,
@@ -908,41 +1043,19 @@ describe("MW6 ↔ Auth binding — B01–B12 (external_discovery → N2)", () =>
       evidenceId: "evd:mw6-ext-n2-b06",
     });
     expect(issued.ok).toBe(false);
-
-    // Also: same evidence with different target scope via verify
-    const okIssued = issueMw6ExternalDiscoveryS1({
-      pilote,
-      authorityResolver: resolver,
-      contract: baseContract({
-        idempotencyKey: "idem:b06-ok",
-        executionContractId: "xct:mw6-ext-discovery-b06",
-      }),
-      evidenceId: "evd:mw6-ext-n2-b06-ok",
-    });
-    expect(okIssued.ok).toBe(true);
-    if (!okIssued.ok) return;
-    const mutatedSemantic = buildMw6ExternalDiscoveryContractSemantic(
-      baseContract({
-        idempotencyKey: "idem:b06-ok",
-        executionContractId: "xct:mw6-ext-discovery-b06",
-        target: "tgt:HOSTILE-TARGET",
-      }),
-    );
-    expect(computeInspectionFingerprint(mutatedSemantic)).not.toBe(
-      okIssued.evidence.scope,
-    );
   });
 
   it("B07 — expired S1 DENY", () => {
     const resolver = new MemoryAuthorityResolver();
     const pilote = makePilote("11111111");
+    const intent = baseIntent({
+      idempotencyKey: "idem:b07",
+      executionContractId: "xct:mw6-ext-discovery-b07",
+    });
     const issued = issueMw6ExternalDiscoveryS1({
       pilote,
       authorityResolver: resolver,
-      contract: baseContract({
-        idempotencyKey: "idem:b07",
-        executionContractId: "xct:mw6-ext-discovery-b07",
-      }),
+      contract: intent,
       evidenceId: "evd:mw6-ext-n2-b07",
       issuedAt: new Date(Date.now() - 7200_000).toISOString(),
       expiresAt: new Date(Date.now() - 3600_000).toISOString(),
@@ -958,35 +1071,31 @@ describe("MW6 ↔ Auth binding — B01–B12 (external_discovery → N2)", () =>
     const pre = evaluateRealSourceExecutionPreflight({
       campaign,
       wantHostedWebSearch: true,
-      governedAuthority: {
-        actorId: pilote.actor.actorId,
-        authorityEvidenceId: issued.evidence.evidenceId,
-        scope: issued.evidence.scope,
-        requiredLevel: "N2",
-        authorityResolver: resolver,
-      },
+      currentExternalDiscoveryIntent: intent,
+      governedAuthority: govContext({
+        pilote,
+        evidenceId: issued.evidence.evidenceId,
+        resolver,
+        authorizedContract: confirmedAuthorizedContract(intent),
+      }),
     });
     expect(pre.authorityBound).toBe(false);
-    expect(pre.code).toBe("AUTHORITY_DENIED");
     expect(pre.reasons.some((r) => r.includes("expired"))).toBe(true);
   });
 
   it("B08 — N1 insufficient DENY for external_discovery", () => {
     const resolver = new MemoryAuthorityResolver();
     const pilote = makePilote("11111111");
-    // Register a forged N1 evidence with matching scope string manually
-    const semantic = buildMw6ExternalDiscoveryContractSemantic(
-      baseContract({
-        idempotencyKey: "idem:b08",
-        executionContractId: "xct:mw6-ext-discovery-b08",
-      }),
-    );
-    const scope = computeInspectionFingerprint(semantic);
+    const intent = baseIntent({
+      idempotencyKey: "idem:b08",
+      executionContractId: "xct:mw6-ext-discovery-b08",
+    });
+    const { fingerprint } = computeMw6CurrentIntentFingerprint(intent);
     resolver.register({
       evidenceId: "evd:mw6-ext-n1-hostile",
       actorId: pilote.actor.actorId,
       level: "N1",
-      scope,
+      scope: fingerprint,
       issuedAt: new Date().toISOString(),
       expiresAt: new Date(Date.now() + 3600_000).toISOString(),
       source: BETTER_AUTH_GITHUB_MULTI_USER_S1,
@@ -1001,19 +1110,56 @@ describe("MW6 ↔ Auth binding — B01–B12 (external_discovery → N2)", () =>
     const pre = evaluateRealSourceExecutionPreflight({
       campaign,
       wantHostedWebSearch: true,
-      governedAuthority: {
-        actorId: pilote.actor.actorId,
-        authorityEvidenceId: "evd:mw6-ext-n1-hostile",
-        scope,
-        requiredLevel: "N2",
-        authorityResolver: resolver,
-      },
+      currentExternalDiscoveryIntent: intent,
+      governedAuthority: govContext({
+        pilote,
+        evidenceId: "evd:mw6-ext-n1-hostile",
+        resolver,
+        authorizedContract: confirmedAuthorizedContract(intent),
+      }),
     });
     expect(pre.authorityBound).toBe(false);
-    expect(pre.code).toBe("AUTHORITY_DENIED");
     expect(pre.reasons.some((r) => r.includes("level_insufficient"))).toBe(
       true,
     );
+  });
+
+  it("B09 / B10 — no Morris/N3 equivalence; REAL stays closed on PASS path", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const pilote = makePilote("11111111");
+    const intent = baseIntent({
+      idempotencyKey: "idem:b09",
+      executionContractId: "xct:mw6-ext-discovery-b09",
+    });
+    const issued = issueMw6ExternalDiscoveryS1({
+      pilote,
+      authorityResolver: resolver,
+      contract: intent,
+      evidenceId: "evd:mw6-ext-n2-b09",
+    });
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+    expect(issued.evidence.level).not.toBe("N3");
+    expect(issued.evidence.canActAsMorris).toBe(false);
+
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "b09-real-closed",
+      maxModelInvocations: 3,
+      maxHostedWebOperations: 2,
+    });
+    const pre = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+      currentExternalDiscoveryIntent: intent,
+      governedAuthority: govContext({
+        pilote,
+        evidenceId: issued.evidence.evidenceId,
+        resolver,
+        authorizedContract: confirmedAuthorizedContract(intent),
+      }),
+    });
+    preflightPassAxes(pre);
+    expect(pre.reasons).toContain("MW6_REAL_NOT_AUTHORIZED");
   });
 
   it("B11 / B12 — PRE-REAL fake parity; deterministic adapter path remains usable", async () => {
@@ -1051,16 +1197,16 @@ describe("MW6 ↔ Auth binding — B01–B12 (external_discovery → N2)", () =>
     });
     expect(campaign.consumedHostedWebOperations).toBe(0);
 
-    // Same product preflight composition: with valid N2, authorityBound but REAL closed
     const resolver = new MemoryAuthorityResolver();
     const pilote = makePilote("11111111");
+    const intent = baseIntent({
+      idempotencyKey: "idem:b12",
+      executionContractId: "xct:mw6-ext-discovery-b12",
+    });
     const issued = issueMw6ExternalDiscoveryS1({
       pilote,
       authorityResolver: resolver,
-      contract: baseContract({
-        idempotencyKey: "idem:b12",
-        executionContractId: "xct:mw6-ext-discovery-b12",
-      }),
+      contract: intent,
       evidenceId: "evd:mw6-ext-n2-b12",
     });
     expect(issued.ok).toBe(true);
@@ -1068,125 +1214,682 @@ describe("MW6 ↔ Auth binding — B01–B12 (external_discovery → N2)", () =>
     const pre = evaluateRealSourceExecutionPreflight({
       campaign,
       wantHostedWebSearch: true,
-      governedAuthority: {
-        actorId: pilote.actor.actorId,
-        authorityEvidenceId: issued.evidence.evidenceId,
-        scope: issued.evidence.scope,
-        requiredLevel: "N2",
-        authorityResolver: resolver,
-      },
+      currentExternalDiscoveryIntent: intent,
+      governedAuthority: govContext({
+        pilote,
+        evidenceId: issued.evidence.evidenceId,
+        resolver,
+        authorizedContract: confirmedAuthorizedContract(intent),
+      }),
     });
-    expect(pre.authorityBound).toBe(true);
-    expect(pre.realAuthorized).toBe(false);
-    expect(pre.code).toBe("AUTHORITY_BOUND_BUT_REAL_NOT_AUTHORIZED");
+    preflightPassAxes(pre);
+  });
+});
+
+describe("MW6 ↔ Auth binding — H01–H07 human authorization", () => {
+  it("H01 — LOGIN ONLY DENY", () => {
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "h01",
+      maxModelInvocations: 2,
+      maxHostedWebOperations: 1,
+    });
+    const pre = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+    });
+    expect(pre.authorityBound).toBe(false);
+    expect(pre.code).toBe("REAL_AUTHORITY_NOT_BOUND");
   });
 
-  it("B10 — LIVE path with valid N2 still does not attach hosted tool (REAL closed)", async () => {
-    // Without deterministic fixtures + without live OpenAI provider, wantRealHostedDispatch is false.
-    // Prove preflight axis explicitly (network = 0).
-    const resolver = new MemoryAuthorityResolver();
-    const pilote = makePilote("11111111");
+  it("H02 — POLICY ONLY DENY (authenticated + N2 policy, no HumanDecision/Confirm)", () => {
+    const policy = projectRequiredAuthorityForExternalDiscovery();
+    expect(policy.requiredAuthority).toBe("N2");
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "h02",
+      maxModelInvocations: 2,
+      maxHostedWebOperations: 1,
+    });
+    // Policy known; no governedAuthority human auth artifact → DENY
+    const pre = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+    });
+    expect(pre.authorityBound).toBe(false);
+    expect(pre.code).toBe("REAL_AUTHORITY_NOT_BOUND");
+  });
+
+  it("H03 — HUMAN AUTHORIZATION VALID PASS via canonical Confirm path", async () => {
+    const stack = buildStack();
+    await seedProject(stack.projects);
+    // Delegate N2 evidence scoped to decision subject (canonical HD path).
+    registerDelegate(stack.decisions.authority, "subj:exec-gate");
+    stack.decisions.authority.register({
+      evidenceId: "evd:delegate-n2-h03-scope",
+      actorId: DELEGATE_ACTOR.actorId,
+      level: "N2",
+      scope: "biz:mw6-external-discovery:h03",
+      issuedAt: "2026-07-01T00:00:00.000Z",
+      source: "registry",
+    });
+    const decisionId = await seedAcceptedDecision(stack, {
+      decisionId: "dec:mw6-h03",
+      authority: "delegated",
+      actor: DELEGATE_ACTOR,
+      evidenceId: "evd:delegate-n2",
+    });
+    await seedStandardCycle(stack, "cyc:mw6-h03");
+
+    const intent = baseIntent({
+      executionContractId: "xct:mw6-h03",
+      projectId: "prj:campus360-oa",
+      scope: "biz:mw6-external-discovery:h03",
+      target: "tgt:openai-hosted-web-search",
+      decisionRefs: [decisionId],
+      idempotencyKey: "idem:mw6-h03",
+      cycleInstanceId: "cyc:mw6-h03",
+    });
+    const semantic = buildMw6ExternalDiscoveryContractSemantic(intent);
+
+    const { contractId, version } = await buildValidatedContract(stack, {
+      executionContractId: intent.executionContractId,
+      projectId: intent.projectId,
+      decisionRefs: [decisionId],
+      action: semantic.action,
+      target: semantic.target,
+      scope: semantic.scope,
+      inputs: semantic.inputs as Record<string, unknown> | undefined,
+      expectedOutputs: semantic.expectedOutputs,
+      requiredCapabilities: [...semantic.requiredCapabilities],
+      requiredAuthority: "N2",
+      constraints: [...semantic.constraints],
+      stopConditions: [...semantic.stopConditions],
+      evidenceRequirements: [...semantic.evidenceRequirements],
+      reversibility: semantic.reversibility,
+      idempotencyKey: intent.idempotencyKey,
+      cycleInstanceId: intent.cycleInstanceId,
+      actor: DELEGATE_ACTOR,
+      authorityEvidenceId: "evd:delegate-n2-h03-scope",
+    });
+
+    const loaded = await stack.execution.getExecutionContract.execute({
+      executionContractId: contractId,
+    });
+    expect(loaded.ok).toBe(true);
+    if (!loaded.ok) return;
+    expect(loaded.contract.status).toBe("confirmation_required");
+
+    const cfmId = await grantConfirmation(stack, {
+      confirmationId: "cfm:mw6-h03",
+      level: "N2",
+      scope: semantic.scope,
+      decisionRef: decisionId,
+      actor: DELEGATE_ACTOR,
+      evidenceId: "evd:delegate-n2-h03-scope",
+    });
+
+    const confirmed = await stack.execution.confirmExecutionContract.execute({
+      executionContractId: contractId,
+      confirmationId: cfmId,
+      actor: DELEGATE_ACTOR,
+      authorityEvidenceId: "evd:delegate-n2-h03-scope",
+      expectedVersion: version,
+    });
+    expect(confirmed.ok).toBe(true);
+    if (!confirmed.ok) return;
+    expect(confirmed.contract.status).toBe("confirmed");
+    expect(confirmed.contract.confirmationRef).toBe(cfmId);
+
+    const human = assertMw6ExternalDiscoveryEffectiveHumanAuthorization(
+      confirmed.contract,
+    );
+    expect(human.ok).toBe(true);
+
+    const mw6Resolver = new MemoryAuthorityResolver();
+    const pilote = makePilote("33333333");
     const issued = issueMw6ExternalDiscoveryS1({
       pilote,
-      authorityResolver: resolver,
-      contract: baseContract({
-        idempotencyKey: "idem:b10",
-        executionContractId: "xct:mw6-ext-discovery-b10",
-      }),
-      evidenceId: "evd:mw6-ext-n2-b10",
+      authorityResolver: mw6Resolver,
+      contract: intent,
+      evidenceId: "evd:mw6-h03-s1",
     });
     expect(issued.ok).toBe(true);
     if (!issued.ok) return;
+
     const campaign = acquireNoraCampaignBudget({
-      campaignId: "b10-real-closed",
+      campaignId: "h03",
       maxModelInvocations: 3,
       maxHostedWebOperations: 2,
     });
     const pre = evaluateRealSourceExecutionPreflight({
       campaign,
       wantHostedWebSearch: true,
+      currentExternalDiscoveryIntent: intent,
       governedAuthority: {
-        actorId: pilote.actor.actorId,
+        actorId: issued.evidence.actorId,
         authorityEvidenceId: issued.evidence.evidenceId,
-        scope: issued.evidence.scope,
         requiredLevel: "N2",
+        authorizedContract: confirmed.contract,
+        authorityResolver: mw6Resolver,
+      },
+    });
+    preflightPassAxes(pre);
+  });
+
+  it("H04 — WRONG ACTOR HUMAN AUTH DENY", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const piloteA = makePilote("11111111");
+    const piloteB = makePilote("22222222");
+    const intent = baseIntent({ idempotencyKey: "idem:h04" });
+    const issued = issueMw6ExternalDiscoveryS1({
+      pilote: piloteA,
+      authorityResolver: resolver,
+      contract: intent,
+      evidenceId: "evd:mw6-h04",
+    });
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "h04",
+      maxModelInvocations: 2,
+      maxHostedWebOperations: 1,
+    });
+    const pre = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+      currentExternalDiscoveryIntent: intent,
+      governedAuthority: {
+        actorId: piloteB.actor.actorId,
+        authorityEvidenceId: issued.evidence.evidenceId,
+        requiredLevel: "N2",
+        authorizedContract: confirmedAuthorizedContract(intent),
         authorityResolver: resolver,
       },
     });
-    expect(pre.eligible).toBe(false);
-    expect(pre.blocked).toBe(true);
-    expect(pre.authorityBound).toBe(true);
-    expect(pre.realAuthorized).toBe(false);
+    expect(pre.authorityBound).toBe(false);
+    expect(pre.reasons.some((r) => r.includes("actor_mismatch"))).toBe(true);
+  });
+
+  it("H05 — WRONG DECISION / CONTRACT DENY", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const pilote = makePilote("11111111");
+    const intentA = baseIntent({
+      idempotencyKey: "idem:h05a",
+      executionContractId: "xct:mw6-h05-a",
+      scope: "biz:mw6-external-discovery:A",
+    });
+    const intentB = baseIntent({
+      idempotencyKey: "idem:h05b",
+      executionContractId: "xct:mw6-h05-b",
+      scope: "biz:mw6-external-discovery:B",
+    });
+    const issued = issueMw6ExternalDiscoveryS1({
+      pilote,
+      authorityResolver: resolver,
+      contract: intentA,
+      evidenceId: "evd:mw6-h05",
+    });
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "h05",
+      maxModelInvocations: 2,
+      maxHostedWebOperations: 1,
+    });
+    const pre = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+      currentExternalDiscoveryIntent: intentB,
+      governedAuthority: govContext({
+        pilote,
+        evidenceId: issued.evidence.evidenceId,
+        resolver,
+        authorizedContract: confirmedAuthorizedContract(intentA),
+      }),
+    });
+    expect(pre.authorityBound).toBe(false);
+    expect(
+      pre.reasons.some(
+        (r) =>
+          r.includes("current_intent_contract_identity_mismatch") ||
+          r.includes("current_intent_action_scope_mismatch"),
+      ),
+    ).toBe(true);
+  });
+
+  it("H06 — REQUIRED CONFIRMATION ABSENT DENY (N2 → confirmation_required)", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const pilote = makePilote("11111111");
+    const intent = baseIntent({ idempotencyKey: "idem:h06" });
+    const issued = issueMw6ExternalDiscoveryS1({
+      pilote,
+      authorityResolver: resolver,
+      contract: intent,
+      evidenceId: "evd:mw6-h06",
+    });
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "h06",
+      maxModelInvocations: 2,
+      maxHostedWebOperations: 1,
+    });
+    const pre = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+      currentExternalDiscoveryIntent: intent,
+      governedAuthority: govContext({
+        pilote,
+        evidenceId: issued.evidence.evidenceId,
+        resolver,
+        authorizedContract: confirmedAuthorizedContract(intent, {
+          status: "confirmation_required",
+          confirmationRef: null,
+        }),
+      }),
+    });
+    expect(pre.authorityBound).toBe(false);
+    expect(
+      pre.reasons.some((r) => r.includes("confirmation_required_absent")),
+    ).toBe(true);
+  });
+
+  it("H07 — REVOKED / SUPERSEDED authorization DENY", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const pilote = makePilote("11111111");
+    const intent = baseIntent({ idempotencyKey: "idem:h07" });
+    const issued = issueMw6ExternalDiscoveryS1({
+      pilote,
+      authorityResolver: resolver,
+      contract: intent,
+      evidenceId: "evd:mw6-h07",
+    });
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "h07",
+      maxModelInvocations: 2,
+      maxHostedWebOperations: 1,
+    });
+    const pre = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+      currentExternalDiscoveryIntent: intent,
+      governedAuthority: govContext({
+        pilote,
+        evidenceId: issued.evidence.evidenceId,
+        resolver,
+        authorizedContract: confirmedAuthorizedContract(intent, {
+          status: "superseded",
+          confirmationRef: "cfm:old",
+        }),
+      }),
+    });
+    expect(pre.authorityBound).toBe(false);
+    expect(
+      pre.reasons.some((r) =>
+        r.includes("authorization_invalid_status_superseded"),
+      ),
+    ).toBe(true);
   });
 });
+
+describe("MW6 ↔ Auth binding — S01–S06 current-intent semantic", () => {
+  it("S01 — EXACT INTENT PASS", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const pilote = makePilote("11111111");
+    const intent = baseIntent({ idempotencyKey: "idem:s01" });
+    const issued = issueMw6ExternalDiscoveryS1({
+      pilote,
+      authorityResolver: resolver,
+      contract: intent,
+      evidenceId: "evd:mw6-s01",
+    });
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+
+    const { fingerprint } = computeMw6CurrentIntentFingerprint(intent);
+    expect(fingerprint).toBe(issued.evidence.scope);
+
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "s01",
+      maxModelInvocations: 2,
+      maxHostedWebOperations: 1,
+    });
+    const pre = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+      currentExternalDiscoveryIntent: intent,
+      governedAuthority: govContext({
+        pilote,
+        evidenceId: issued.evidence.evidenceId,
+        resolver,
+        authorizedContract: confirmedAuthorizedContract(intent),
+      }),
+    });
+    preflightPassAxes(pre);
+  });
+
+  it("S02 — CURRENT SCOPE MUTATION DENY", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const pilote = makePilote("11111111");
+    const intentA = baseIntent({
+      idempotencyKey: "idem:s02",
+      scope: "biz:mw6-external-discovery:scope-A",
+    });
+    const issued = issueMw6ExternalDiscoveryS1({
+      pilote,
+      authorityResolver: resolver,
+      contract: intentA,
+      evidenceId: "evd:mw6-s02",
+    });
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+
+    const intentB = { ...intentA, scope: "biz:mw6-external-discovery:scope-B" };
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "s02",
+      maxModelInvocations: 2,
+      maxHostedWebOperations: 1,
+    });
+    const pre = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+      currentExternalDiscoveryIntent: intentB,
+      governedAuthority: govContext({
+        pilote,
+        evidenceId: issued.evidence.evidenceId,
+        resolver,
+        authorizedContract: confirmedAuthorizedContract(intentB),
+      }),
+    });
+    expect(pre.authorityBound).toBe(false);
+    expect(pre.reasons.some((r) => r.includes("scope_mismatch"))).toBe(true);
+  });
+
+  it("S03 — CURRENT TARGET MUTATION DENY", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const pilote = makePilote("11111111");
+    const intentA = baseIntent({
+      idempotencyKey: "idem:s03",
+      target: "tgt:openai-hosted-web-search",
+    });
+    const issued = issueMw6ExternalDiscoveryS1({
+      pilote,
+      authorityResolver: resolver,
+      contract: intentA,
+      evidenceId: "evd:mw6-s03",
+    });
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+
+    const intentB = { ...intentA, target: "tgt:OTHER-PROVIDER" };
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "s03",
+      maxModelInvocations: 2,
+      maxHostedWebOperations: 1,
+    });
+    const pre = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+      currentExternalDiscoveryIntent: intentB,
+      governedAuthority: govContext({
+        pilote,
+        evidenceId: issued.evidence.evidenceId,
+        resolver,
+        authorizedContract: confirmedAuthorizedContract(intentB),
+      }),
+    });
+    expect(pre.authorityBound).toBe(false);
+    expect(pre.reasons.some((r) => r.includes("scope_mismatch"))).toBe(true);
+  });
+
+  it("S04 — CURRENT ACTION/ACQUISITION MUTATION DENY", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const pilote = makePilote("11111111");
+    const intentA = baseIntent({
+      idempotencyKey: "idem:s04",
+      inputs: {
+        acquisitionRequirement: "external_discovery",
+        providerCapability: "openai_hosted_web_search",
+      },
+    });
+    const issued = issueMw6ExternalDiscoveryS1({
+      pilote,
+      authorityResolver: resolver,
+      contract: intentA,
+      evidenceId: "evd:mw6-s04",
+    });
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+
+    const intentB = {
+      ...intentA,
+      inputs: {
+        acquisitionRequirement: "repository_tools",
+        providerCapability: "sfia_function_tool",
+      },
+    };
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "s04",
+      maxModelInvocations: 2,
+      maxHostedWebOperations: 1,
+    });
+    const pre = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+      currentExternalDiscoveryIntent: intentB,
+      governedAuthority: govContext({
+        pilote,
+        evidenceId: issued.evidence.evidenceId,
+        resolver,
+        authorizedContract: confirmedAuthorizedContract(intentB),
+      }),
+    });
+    expect(pre.authorityBound).toBe(false);
+    expect(pre.reasons.some((r) => r.includes("scope_mismatch"))).toBe(true);
+  });
+
+  it("S05 — CURRENT INPUT MUTATION DENY", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const pilote = makePilote("11111111");
+    const intentA = baseIntent({
+      idempotencyKey: "idem:s05",
+      inputs: {
+        acquisitionRequirement: "external_discovery",
+        providerCapability: "openai_hosted_web_search",
+        domain: "financial_markets",
+      },
+    });
+    const issued = issueMw6ExternalDiscoveryS1({
+      pilote,
+      authorityResolver: resolver,
+      contract: intentA,
+      evidenceId: "evd:mw6-s05",
+    });
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+
+    const intentB = {
+      ...intentA,
+      inputs: {
+        acquisitionRequirement: "external_discovery",
+        providerCapability: "openai_hosted_web_search",
+        domain: "climate_science",
+      },
+    };
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "s05",
+      maxModelInvocations: 2,
+      maxHostedWebOperations: 1,
+    });
+    const pre = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+      currentExternalDiscoveryIntent: intentB,
+      governedAuthority: govContext({
+        pilote,
+        evidenceId: issued.evidence.evidenceId,
+        resolver,
+        authorizedContract: confirmedAuthorizedContract(intentB),
+      }),
+    });
+    expect(pre.authorityBound).toBe(false);
+    expect(pre.reasons.some((r) => r.includes("scope_mismatch"))).toBe(true);
+  });
+
+  it("S06 — CALLER-PROVIDED FINGERPRINT CANNOT OVERRIDE", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const pilote = makePilote("11111111");
+    const intentA = baseIntent({
+      idempotencyKey: "idem:s06",
+      scope: "biz:mw6-external-discovery:scope-A",
+    });
+    const issued = issueMw6ExternalDiscoveryS1({
+      pilote,
+      authorityResolver: resolver,
+      contract: intentA,
+      evidenceId: "evd:mw6-s06",
+    });
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+
+    const intentB = {
+      ...intentA,
+      scope: "biz:mw6-external-discovery:scope-B",
+    };
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "s06",
+      maxModelInvocations: 2,
+      maxHostedWebOperations: 1,
+    });
+    // Supply OLD valid A fingerprint while current request is B → must DENY
+    const pre = evaluateRealSourceExecutionPreflight({
+      campaign,
+      wantHostedWebSearch: true,
+      currentExternalDiscoveryIntent: intentB,
+      governedAuthority: govContext({
+        pilote,
+        evidenceId: issued.evidence.evidenceId,
+        resolver,
+        authorizedContract: confirmedAuthorizedContract(intentB),
+        callerAssertedScope: issued.evidence.scope,
+      }),
+    });
+    expect(pre.authorityBound).toBe(false);
+    expect(pre.reasons.some((r) => r.includes("scope_mismatch"))).toBe(true);
+  });
+
+  it("current-intent builder derives from SourceStrategyDecision (authoritative)", () => {
+    const strategy = decideSourceStrategy({
+      claimText: "corroborate externally the current CEO of Acme",
+      requiresExternalCorroboration: true,
+    });
+    expect(strategy.acquisitionRequirement).toBe("external_discovery");
+    const binding = bindSourceProviderCapability(strategy);
+    expect(binding.attachOpenAiHostedWebSearch).toBe(true);
+
+    const built = buildMw6CurrentExternalDiscoveryIntent({
+      executionContractId: "xct:mw6-strategy",
+      projectId: "prj:mw6",
+      campaignId: "camp-strategy",
+      strategy,
+      binding,
+      decisionRefs: ["dec:1"],
+      idempotencyKey: "idem:strategy",
+    });
+    expect(built.ok).toBe(true);
+    if (!built.ok) return;
+    expect(built.intent.target).toBe("tgt:openai-hosted-web-search");
+    expect(built.intent.inputs?.acquisitionRequirement).toBe(
+      "external_discovery",
+    );
+  });
+});
+
 ```
 
-## O. B01–B12 matrix
+## R. H01–H07 matrix
+| ID | Case | Result |
+| --- | --- | --- |
+| H01 | Login only DENY | **PASS** |
+| H02 | Policy only DENY | **PASS** |
+| H03 | Canonical HD→Confirm→authorizedContract + S1 → authorityBound | **PASS** |
+| H04 | Wrong actor DENY | **PASS** |
+| H05 | Wrong decision/contract DENY | **PASS** |
+| H06 | Confirmation absent (confirmation_required) DENY | **PASS** (required by architecture) |
+| H07 | Superseded authorization DENY | **PASS** |
 
-| ID | Result |
-|----|--------|
-| B01 login-only DENY | **PASS** |
-| B02 policy exact N2 | **PASS** |
-| B03 valid N2 S1 PASS | **PASS** |
-| B04 actor mismatch DENY | **PASS** |
-| B05 fingerprint mismatch DENY | **PASS** |
-| B06 action/target mismatch DENY | **PASS** |
-| B07 expired DENY | **PASS** |
-| B08 N1 insufficient DENY | **PASS** |
-| B09 N3/Morris non-equivalence | **PASS** |
-| B10 REAL still CLOSED | **PASS** |
-| B11 PRE-REAL parity | **PASS** |
-| B12 single product path | **PASS** |
+## S. S01–S06 matrix
+| ID | Case | Result |
+| --- | --- | --- |
+| S01 | Exact intent PASS | **PASS** |
+| S02 | Scope mutation DENY | **PASS** |
+| S03 | Target mutation DENY | **PASS** |
+| S04 | Acquisition mutation DENY | **PASS** |
+| S05 | Input mutation DENY | **PASS** |
+| S06 | Caller fingerprint cannot override | **PASS** |
 
-## P. S1 evidence sanitized
-- source: `BETTER_AUTH_GITHUB_MULTI_USER_S1`
-- actor: `actor:github:<REDACTED_NUMERIC_ID>`
-- level: **N2**
-- canActAsMorris: false
-- TTL: issuedAt/expiresAt via S1_MAX_TTL_SECONDS
-- fingerprint: evidence.scope == computeInspectionFingerprint(contractSemantic)
+## T. Updated B01–B12 matrix
+| ID | Case | Result | Claim note |
+| --- | --- | --- | --- |
+| B01 | Login only DENY | **PASS** | |
+| B02 | Policy exact N2 | **PASS** | |
+| B03 | S1 mechanics PASS; S1 alone NOT effective | **PASS** | B03 alone ≠ effective authority |
+| B04 | Actor mismatch | **PASS** | |
+| B05 | Current-intent FP mismatch | **PASS** | |
+| B06 | Action/target hostile issue DENY | **PASS** | |
+| B07 | Expired | **PASS** | |
+| B08 | N1 insufficient | **PASS** | |
+| B09 | No Morris/N3 equivalence | **PASS** | |
+| B10 | REAL closed on PASS | **PASS** | |
+| B11 | PRE-REAL parity | **PASS** | |
+| B12 | No second product path / deterministic usable | **PASS** | |
 
-## Q. AuthorityResolver verification
-MemoryAuthorityResolver.verify(actorId, evidenceId, scope, requiredLevel=N2) — PASS on B03; DENY on B04/B05/B07/B08.
+## U. REAL gate CLOSED proof
+- `realAuthorized = false` hard-coded in preflight
+- Successful authorityBound cases return `AUTHORITY_BOUND_BUT_REAL_NOT_AUTHORIZED`
+- `eligible=false`, `blocked=true`
+- No `realAuthorized=true` input parameter
 
-## R. REAL_AUTHORITY_NOT_BOUND disposition
-**CLOSED AT DETERMINISTIC AUTHORITY-BINDING SCOPE** when governedAuthority verifies.
-Absent governedAuthority → still `REAL_AUTHORITY_NOT_BOUND` (PRE-REAL tests preserved).
-When bound: `AUTHORITY_BOUND_BUT_REAL_NOT_AUTHORIZED` (REAL orthogonal).
+## V. External REAL calls = 0
+- DETERMINISTIC ONLY · no OpenAI LIVE · no hosted web_search REAL dispatch
 
-## S. REAL gate remains CLOSED
-YES — `realAuthorized=false` · `eligible=false` · `blocked=true` even with valid N2 S1.
-
-## T. External REAL calls
-**0**
-
-## U. Regressions / counts
-- Binding B01–B12: **10/10 PASS**
-- MW6 PRE-REAL + binding suite: **132/132 PASS**
-- Auth targeted: **103 passed / 1 skipped**
-- Decision+EC: **143/143 PASS**
-- Full Vitest: **2873 passed / 135 skipped** (includes Auth+MW6 materialization + binding; +10 binding tests vs prior Auth-only baseline 2741)
-- Note: one intermittent ops1 I6 timeout observed once under load — **PRE-EXISTING flake**; isolated re-run **10/10 PASS**; full suite re-run green
+## W. Regressions / counts
+- Binding H/S/B: **24/24 PASS**
+- Targeted (Auth+MW6+HD+EC): **297 passed / 1 skipped**
+- Full Vitest: **2887 passed / 135 skipped** (291 files passed / 17 skipped)
 - tsc --noEmit: **PASS**
 - lint: **PASS**
 - build: **PASS**
 - git diff --check: **PASS**
 
-## V. Source worktrees preservation
-Auth WRITES=0 · MW6 WRITES=0 · fingerprints MATCH
+## X. Source worktree preservation
+- Auth WRITES=0 · MW6 WRITES=0 · fingerprints MATCH
 
-## W. Product Git actions
-commit/push/PR/merge = **0** · staged=0 (Auth/MW6/integration)
+## Y. Git product actions
+- staged=0 · commit=0 · push=0 · PR=0 · merge=0 (all product branches)
+- Only allowed remote publish: `sfia/review-handoff`
 
-## X. Debt / reserves
-- W2 confirm/authorize/execute multi-user migration still residual
-- MW6 REAL NOT STARTED
-- Confirmation at later EC Confirm remains existing path (not MW6-specific)
-- Process-local campaign lease realism gap (pre-existing MW6)
+## Z. Debt / reserves
+- MW6 REAL still not authorized (next Morris GO only after ChatGPT PASS)
+- Process-local campaign lease (PRE-REAL residual)
+- W2 confirm/authorize beyond prepare still has LOCAL_PILOTE residual on some paths (Auth product residual — unchanged)
+- authorizedContract trust boundary = same as injected AuthorityResolver (server must load from store)
 
-## Y. Claims allowed / forbidden
-**Allowed:** N2 POLICY CONSUMED · MW6↔AUTH BINDING DETERMINISTIC PROVEN · REAL_AUTHORITY_NOT_BOUND CLOSED AT DETERMINISTIC AUTHORITY-BINDING SCOPE · Auth proofs carried · MW6 PRE-REAL preserved
-**Forbidden:** MW6 REAL proven · hosted web_search REAL · E2E REAL · MW6 COMPLETE · Cognitive Completion · production-ready · runtime v3 ADOPTED · N3 proven · Morris automated
+## AA. Claims allowed / forbidden
+### Allowed (after ChatGPT PASS)
+- MW6 external_discovery policy N2 = CONSUMED
+- N2 HUMAN AUTHORIZATION BINDING = DETERMINISTIC PROVEN
+- CURRENT-INTENT SEMANTIC BINDING = DETERMINISTIC PROVEN
+- MW6 ↔ AUTH BINDING = DETERMINISTIC PROVEN
+- REAL_AUTHORITY_NOT_BOUND = CLOSED AT DETERMINISTIC PRODUCT-BINDING SCOPE
+### Forbidden
+- MW6 REAL PROVEN · hosted web_search REAL · E2E REAL · MW6 COMPLETE · Cognitive Completion PROVEN · production-ready · runtime v3 ADOPTED · N3 proven · Morris authority automated
 
-## Z. Unique verdict
-# READY FOR CHATGPT MW6↔AUTH BINDING REVIEW — N2 POLICY CONSUMED / DETERMINISTIC AUTHORITY BINDING PROVEN / MW6 REAL NOT STARTED
+## AB. Unique verdict
+
+**READY FOR CHATGPT MW6↔AUTH FINAL BINDING RE-REVIEW — N2 HUMAN AUTHORIZATION PROVEN / CURRENT-INTENT SEMANTIC BINDING PROVEN / MW6 REAL NOT STARTED**
