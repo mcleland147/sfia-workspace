@@ -12,6 +12,7 @@ import {
   deriveMw5FactsFromF2Turn,
   formatMw5AssistantText,
   looksLikeQuestionnaire,
+  resolveMw5ProductAuthorityFacts,
   type Mw5PolicyInput,
 } from "@/lib/nora-cognitive-runtime";
 
@@ -327,5 +328,131 @@ describe("MW5 derive facts — fail-closed challenge satisfaction (CORR-MW5-02/0
     });
     expect(facts.truthCEstablishedForClaim).toBe(false);
     expect(facts.consumedHumanDecisionWithoutNewContradiction).toBe(false);
+  });
+});
+
+describe("CORR-MW5-PR-01 — disposition path gate (facts → CHALLENGE)", () => {
+  it("PATH-NEG-01 prior HD same requestedOperation only must not skipReopen", () => {
+    const facts = resolveMw5ProductAuthorityFacts({
+      truthC: {
+        objective: "obj unrelated short",
+        context: "ctx",
+        scope: "scp unrelated",
+        decisionIds: ["dec:prior"],
+      },
+      consumedDecisions: [
+        {
+          decisionId: "dec:prior",
+          status: "accepted",
+          subject: "Prior persistence decision",
+          linkedToCurrentLps: true,
+          hasDecisionBasis: true,
+          executionObjective: "Migrer la persistence du Project",
+          executionScope: "Project persistence",
+          requestedOperation: "architecture change",
+        },
+      ],
+      claim: {
+        objective: "Remplacer le mécanisme d'authentification",
+        scope: "Identity and access",
+        recommendedProfile: "Critical",
+        requestedOperation: "architecture change",
+      },
+    });
+    expect(facts.consumedHumanDecisionWithoutNewContradiction).toBe(false);
+    expect(facts.truthCEstablishedForClaim).toBe(false);
+
+    const d = decideMw5Disposition(
+      base({
+        uncertaintyClass: "structural_premise",
+        recommendedProfile: "Critical",
+        recommendationWouldEmit: true,
+        truthCEstablishedForClaim: facts.truthCEstablishedForClaim,
+        consumedHumanDecisionWithoutNewContradiction:
+          facts.consumedHumanDecisionWithoutNewContradiction,
+        proposedStructuralChallenges: [
+          "Quelle prémisse structurelle change ?",
+          "Quel impact sur l'autorité existante ?",
+        ],
+      }),
+    );
+    expect(d.disposition).toBe("CHALLENGE");
+    expect(d.recommendationAllowed).toBe(false);
+    expect(d.reasonCodes).not.toContain("skip_consumed_human_decision");
+    expect(d.reasonCodes).not.toContain("skip_established_truth_c");
+  });
+
+  it("PATH-NEG-02 Truth C broad scope only must not skip challenge", () => {
+    const facts = resolveMw5ProductAuthorityFacts({
+      truthC: {
+        objective: "Migrer la persistence du Project",
+        context: "ctx",
+        scope: "Changement d'architecture structurant",
+        decisionIds: [],
+      },
+      consumedDecisions: [],
+      claim: {
+        objective: "Remplacer le mécanisme d'authentification",
+        scope: "Changement d'architecture structurant",
+        recommendedProfile: "Critical",
+        requestedOperation: "architecture change",
+      },
+    });
+    expect(facts.truthCEstablishedForClaim).toBe(false);
+
+    const d = decideMw5Disposition(
+      base({
+        uncertaintyClass: "structural_premise",
+        recommendedProfile: "Critical",
+        recommendationWouldEmit: true,
+        truthCEstablishedForClaim: facts.truthCEstablishedForClaim,
+        proposedStructuralChallenges: ["Prémisse A ?", "Prémisse B ?"],
+      }),
+    );
+    expect(d.disposition).toBe("CHALLENGE");
+    expect(d.recommendationAllowed).toBe(false);
+  });
+
+  it("PATH-POS-01 genuine matching consumed HD still skips re-challenge", () => {
+    const facts = resolveMw5ProductAuthorityFacts({
+      truthC: {
+        objective: "obj unrelated short",
+        context: "ctx",
+        scope: "scp unrelated",
+        decisionIds: ["dec:match"],
+      },
+      consumedDecisions: [
+        {
+          decisionId: "dec:match",
+          status: "accepted",
+          subject: "Architecture cible validée",
+          linkedToCurrentLps: true,
+          hasDecisionBasis: true,
+          executionObjective: "Faire évoluer l'architecture produit",
+          executionScope: "Changement d'architecture structurant",
+          requestedOperation: "architecture change",
+        },
+      ],
+      claim: {
+        objective: "Faire évoluer l'architecture produit",
+        scope: "Changement d'architecture structurant",
+        recommendedProfile: "Critical",
+        requestedOperation: "architecture change",
+      },
+    });
+    expect(facts.consumedHumanDecisionWithoutNewContradiction).toBe(true);
+
+    const d = decideMw5Disposition(
+      base({
+        uncertaintyClass: "structural_premise",
+        recommendedProfile: "Critical",
+        recommendationWouldEmit: true,
+        consumedHumanDecisionWithoutNewContradiction:
+          facts.consumedHumanDecisionWithoutNewContradiction,
+      }),
+    );
+    expect(d.disposition).toBe("CONTINUE");
+    expect(d.recommendationAllowed).toBe(true);
+    expect(d.reasonCodes).toContain("skip_consumed_human_decision");
   });
 });

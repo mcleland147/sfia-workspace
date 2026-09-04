@@ -76,40 +76,84 @@ function substantive(text: string | null | undefined): string | null {
 }
 
 /**
- * Fail-closed structured match on LPS objective/scope vs claim.
+ * LPS.scope may carry Studio UI metadata JSON (visible-slice envelope), which is
+ * not a structural Truth C / DecisionBasis scope qualifier for MW5 claim identity.
+ * Treat that payload as qualifier-unavailable rather than an incompatible scope.
+ */
+function structuralScopeText(text: string | null | undefined): string | null {
+  const raw = (text ?? "").trim();
+  if (!raw) return null;
+  if (
+    raw.startsWith("{") &&
+    /sfia-visible-slice-project-ui/i.test(raw)
+  ) {
+    return null;
+  }
+  return substantive(raw);
+}
+
+/**
  * Exact normalized equality, or strong containment (shorter ≥ 24 chars).
  * Never uses orphan ESTABLISHED_CLAIM tags or single-token fuzzy overlap.
+ */
+function structuredFieldPairMatch(
+  a: string | null,
+  b: string | null,
+): boolean {
+  if (!a || !b) return false;
+  if (a === b) return true;
+  const shorter = a.length <= b.length ? a : b;
+  const longer = a.length <= b.length ? b : a;
+  return (
+    shorter.length >= MIN_STRONG_CONTAINMENT_LEN && longer.includes(shorter)
+  );
+}
+
+/**
+ * When both sides expose substantive structural scopes, they must be compatible.
+ * A missing/optional qualifier (incl. UI metadata-as-scope) does not invent
+ * incompatibility.
+ */
+function substantiveScopesCompatible(
+  left: string | null | undefined,
+  right: string | null | undefined,
+): boolean {
+  const a = structuralScopeText(left);
+  const b = structuralScopeText(right);
+  if (!a || !b) return true;
+  return structuredFieldPairMatch(a, b);
+}
+
+/**
+ * Fail-closed Truth C vs claim identity (CORR-MW5-PR-01).
+ *
+ * Contract:
+ * - objective is the primary structural anchor (required on both sides);
+ * - scope is a qualifier — never sufficient alone;
+ * - explicit incompatible substantive scopes block even when objective matches;
+ * - insufficient structured evidence → false (prefer reopen challenge).
  */
 export function truthCMatchesClaimStructured(
   truthC: Mw5TruthCProjection,
   claim: Mw5ClaimProjection,
 ): boolean {
   const claimObjective = substantive(claim.objective);
-  const claimScope = substantive(claim.scope);
-  if (!claimObjective && !claimScope) return false;
-
   const lpsObjective = substantive(truthC.objective);
-  const lpsScope = substantive(truthC.scope);
-
-  const pairMatch = (a: string | null, b: string | null): boolean => {
-    if (!a || !b) return false;
-    if (a === b) return true;
-    const shorter = a.length <= b.length ? a : b;
-    const longer = a.length <= b.length ? b : a;
-    return (
-      shorter.length >= MIN_STRONG_CONTAINMENT_LEN && longer.includes(shorter)
-    );
-  };
-
-  return (
-    pairMatch(claimObjective, lpsObjective) || pairMatch(claimScope, lpsScope)
-  );
+  if (!claimObjective || !lpsObjective) return false;
+  if (!structuredFieldPairMatch(claimObjective, lpsObjective)) return false;
+  if (!substantiveScopesCompatible(claim.scope, truthC.scope)) return false;
+  return true;
 }
 
 /**
- * Fail-closed DecisionBasis relevance vs claim.
- * Requires non-empty structured fields on both sides and exact normalized equality
- * on at least one of objective / scope / requestedOperation.
+ * Fail-closed DecisionBasis relevance vs claim (CORR-MW5-PR-01).
+ *
+ * Contract:
+ * - objective is the primary structural anchor (required on both sides);
+ * - requestedOperation is a qualifier — never sufficient alone;
+ * - scope is a qualifier — never sufficient alone;
+ * - explicit incompatible substantive scopes block even when objective matches;
+ * - insufficient structured evidence → false (prefer reopen challenge).
  */
 export function decisionBasisMatchesClaimStructured(
   decision: Mw5ConsumedDecisionProjection,
@@ -119,22 +163,18 @@ export function decisionBasisMatchesClaimStructured(
   if (!decision.linkedToCurrentLps) return false;
   if (!CONSUMED_HD_STATUSES.has(decision.status)) return false;
 
-  const pairs: Array<[string | null | undefined, string | null | undefined]> = [
-    [claim.objective, decision.executionObjective],
-    [claim.scope, decision.executionScope],
-    [claim.requestedOperation, decision.requestedOperation],
-  ];
-
-  let sawSubstantiveClaimField = false;
-  for (const [claimField, decisionField] of pairs) {
-    const c = substantive(claimField);
-    const d = substantive(decisionField);
-    if (c) sawSubstantiveClaimField = true;
-    if (c && d && c === d) return true;
+  const claimObjective = substantive(claim.objective);
+  const decisionObjective = substantive(decision.executionObjective);
+  if (!claimObjective || !decisionObjective) return false;
+  if (!structuredFieldPairMatch(claimObjective, decisionObjective)) {
+    return false;
   }
-  // Empty / insufficient claim never match-all.
-  if (!sawSubstantiveClaimField) return false;
-  return false;
+  if (
+    !substantiveScopesCompatible(claim.scope, decision.executionScope)
+  ) {
+    return false;
+  }
+  return true;
 }
 
 /**
@@ -161,7 +201,7 @@ export function resolveMw5ProductAuthorityFacts(input: {
   const truthCEstablishedForClaim =
     truthC != null && truthCMatchesClaimStructured(truthC, input.claim);
   if (truthCEstablishedForClaim) {
-    reasons.push("truth_c_structured_objective_or_scope_match");
+    reasons.push("truth_c_structured_objective_anchor_match");
   } else if (truthCContextAvailable) {
     reasons.push("truth_c_no_structured_claim_match");
   }

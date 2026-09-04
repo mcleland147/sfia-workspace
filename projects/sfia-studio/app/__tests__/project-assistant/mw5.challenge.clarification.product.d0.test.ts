@@ -484,4 +484,199 @@ describe("MW5 F2 product path D0", () => {
     expect(result.f2?.proposal).toBeNull();
     expect(containsSynthesizedHumanAct(result.text)).toBe(false);
   });
+
+  it("CORR-MW5-PR-01 PATH-NEG-01 — HD same requestedOperation only does NOT skip Critical challenge", async () => {
+    const { registerM3LocalMorrisAuthority, LOCAL_MORRIS_M3_ACTOR } =
+      await import(
+        "@/lib/oa/decision/infrastructure/localSingleUserAuthority"
+      );
+    const runtime = getRuntimeApplicationService();
+    expect(runtime.oa).toBeTruthy();
+    if (!runtime.oa) return;
+
+    const created = await runtime.createProject({
+      name: "Projet MW5 HD op-only",
+      objective: "Objectif projet générique MW5 op-only",
+      context: "Contexte sans correspondance structurante claim.",
+      criticality: "STANDARD",
+      constraints: [],
+      shortReference: "MW5O",
+      idempotencyKey: `idem:mw5-hd-op-${Date.now()}-${Math.random()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+
+    const lps = await runtime.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: created.projectId,
+    });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) return;
+
+    const scope = `decision:mw5-op-${created.projectId}`;
+    const reg = registerM3LocalMorrisAuthority({
+      authorityResolver: runtime.oa.authorityResolver,
+      scope,
+      issuedAt: "2026-09-03T18:00:00.000Z",
+      forceEnable: true,
+      evidenceId: `evd:mw5-hd-op-${created.projectId}`,
+    });
+    expect(reg.ok).toBe(true);
+    if (!reg.ok) return;
+
+    const recorded = await runtime.oa.decisionServices.recordHumanDecision.execute({
+      decisionId: `dec:mw5-op-${created.projectId}`,
+      projectId: created.projectId,
+      subject: "Persistence migrée antérieurement",
+      options: [{ optionId: "opt:go", label: "GO" }],
+      selectedOptionId: "opt:go",
+      actor: LOCAL_MORRIS_M3_ACTOR,
+      authority: "morris",
+      reversible: true,
+      scope,
+      authorityEvidenceId: reg.evidenceId,
+      linkToLivingProjectState: true,
+      expectedLpsVersion: lps.livingProjectState.version,
+      decisionBasis: {
+        sourceType: "proposal",
+        sourceRef: "prop:mw5-op-test",
+        sourceDigest: "b".repeat(64),
+        projectId: created.projectId,
+        proposalContext: {
+          lpsId: lps.livingProjectState.lpsVersionId,
+          lpsVersion: lps.livingProjectState.version,
+          doctrineDigest: lps.livingProjectState.doctrinePackageRef.digest,
+        },
+        executionBasis: {
+          objective: "Migrer la persistence du Project",
+          scope: "Project persistence",
+          requestedOperation: "architecture change",
+        },
+      },
+    });
+    expect(recorded.ok).toBe(true);
+    if (!recorded.ok) return;
+
+    const result = await orchestrateAssistantSend({
+      projectId: created.projectId,
+      content: "Fais évoluer l'architecture __F2_STRUCTURING__",
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.mw5?.disposition).toBe("CHALLENGE");
+    expect(result.mw5?.recommendationAllowed).toBe(false);
+    expect(result.f2?.proposal).toBeNull();
+    expect(result.f2?.labels.recommendation).toBeNull();
+  });
+
+  it("CORR-MW5-PR-01 PATH-NEG-02 — Truth C different objective does NOT skip (broad-scope-only covered in facts/disposition)", async () => {
+    const runtime = getRuntimeApplicationService();
+    expect(runtime.oa).toBeTruthy();
+    if (!runtime.oa) return;
+
+    // Product LPS.scope is the Studio UI metadata envelope, not a semantic
+    // structural scope. Broad-scope-only false-match is proven in
+    // mw5.product-authority.facts + disposition PATH-NEG-02. Here we prove the
+    // product path still challenges when Truth C objective differs from claim.
+    const created = await runtime.createProject({
+      name: "Projet MW5 TruthC obj-mismatch",
+      objective: "Migrer la persistence du Project maintenant",
+      context: "Contexte Truth C sans objectif claim.",
+      criticality: "STANDARD",
+      constraints: [],
+      shortReference: "MW5S",
+      idempotencyKey: `idem:mw5-tc-obj-${Date.now()}-${Math.random()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+
+    const result = await orchestrateAssistantSend({
+      projectId: created.projectId,
+      content: "Fais évoluer l'architecture __F2_STRUCTURING__",
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.mw5?.disposition).toBe("CHALLENGE");
+    expect(result.mw5?.recommendationAllowed).toBe(false);
+    expect(result.f2?.proposal).toBeNull();
+  });
+
+  it("CORR-MW5-PR-01 PATH-POS-01 — genuine matching consumed HD still skips", async () => {
+    const { registerM3LocalMorrisAuthority, LOCAL_MORRIS_M3_ACTOR } =
+      await import(
+        "@/lib/oa/decision/infrastructure/localSingleUserAuthority"
+      );
+    const runtime = getRuntimeApplicationService();
+    if (!runtime.oa) return;
+
+    const created = await runtime.createProject({
+      name: "Projet MW5 HD match",
+      objective: "Objectif projet générique MW5 match",
+      context: "Contexte sans correspondance structurante claim.",
+      criticality: "STANDARD",
+      constraints: [],
+      shortReference: "MW5M",
+      idempotencyKey: `idem:mw5-hd-match-${Date.now()}-${Math.random()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+
+    const lps = await runtime.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: created.projectId,
+    });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) return;
+
+    const scope = `decision:mw5-match-${created.projectId}`;
+    const reg = registerM3LocalMorrisAuthority({
+      authorityResolver: runtime.oa.authorityResolver,
+      scope,
+      issuedAt: "2026-09-03T18:00:00.000Z",
+      forceEnable: true,
+      evidenceId: `evd:mw5-hd-match-${created.projectId}`,
+    });
+    expect(reg.ok).toBe(true);
+    if (!reg.ok) return;
+
+    const recorded = await runtime.oa.decisionServices.recordHumanDecision.execute({
+      decisionId: `dec:mw5-match-${created.projectId}`,
+      projectId: created.projectId,
+      subject: "Architecture cible validée",
+      options: [{ optionId: "opt:go", label: "GO" }],
+      selectedOptionId: "opt:go",
+      actor: LOCAL_MORRIS_M3_ACTOR,
+      authority: "morris",
+      reversible: true,
+      scope,
+      authorityEvidenceId: reg.evidenceId,
+      linkToLivingProjectState: true,
+      expectedLpsVersion: lps.livingProjectState.version,
+      decisionBasis: {
+        sourceType: "proposal",
+        sourceRef: "prop:mw5-match-test",
+        sourceDigest: "c".repeat(64),
+        projectId: created.projectId,
+        proposalContext: {
+          lpsId: lps.livingProjectState.lpsVersionId,
+          lpsVersion: lps.livingProjectState.version,
+          doctrineDigest: lps.livingProjectState.doctrinePackageRef.digest,
+        },
+        executionBasis: {
+          objective: "Faire évoluer l'architecture produit",
+          scope: "Changement d'architecture structurant",
+          requestedOperation: "architecture change",
+        },
+      },
+    });
+    expect(recorded.ok).toBe(true);
+    if (!recorded.ok) return;
+
+    const result = await orchestrateAssistantSend({
+      projectId: created.projectId,
+      content: "Fais évoluer l'architecture __F2_STRUCTURING__",
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.mw5?.disposition).toBe("CONTINUE");
+    expect(result.f2?.proposal).toBeTruthy();
+  });
 });
