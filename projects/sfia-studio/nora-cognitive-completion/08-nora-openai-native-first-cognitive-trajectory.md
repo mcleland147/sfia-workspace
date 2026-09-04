@@ -436,12 +436,12 @@ Pas d’adoption automatique.
 13. MW4 Delivery — INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR #461) — COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE WITH NON-BLOCKING RESERVES
 14. MW5 — COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE WITH RETAINED GOVERNANCE DEVIATION AND NON-BLOCKING RESERVES — Delivery INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR #463 / CI 33841337376)
 15. MW6 readiness / requalification — NEXT PRODUCT CAPABILITY GATE — DISTINCT MORRIS GO REQUIRED — NOT AUTHORIZED / NOT STARTED
-15. MW5 → MW6 with OpenAI Capability Fit Check per readiness
-15. Global Model × Reasoning campaign after MW6 by default
+16. MW5 → MW6 with OpenAI Capability Fit Check per readiness
+17. Global Model × Reasoning campaign after MW6 by default
     OR earlier targeted campaign if a wave QA justifies it
 ```
 
-Les étapes MW2–MW4 Delivery déjà consommées ci-dessus sont des faits de trajectoire enregistrés. Ce document **n’autorise** ni la fermeture Morris de MW4, ni MW5 Readiness/Requalification, ni MW5 Delivery, ni les vagues aval MW6, ni la campagne globale Model × Reasoning ; chaque gate futur reste soumis à la décision Morris applicable.
+Les étapes MW2–MW5 ci-dessus sont des faits de trajectoire enregistrés (MW5 COMPLETE/CLOSED = décision Morris distincte consommée). Ce document **n’a pas, par lui-même, autorisé** ces clôtures ; il synchronise la vérité aval. **MW6 readiness/requalification**, MW6 Delivery et la campagne globale Model × Reasoning restent **NOT AUTHORIZED / NOT STARTED** et soumis à décision Morris distincte.
 
 ---
 
@@ -482,7 +482,7 @@ Cette trajectoire **VALIDATED — ACTIVE ON MAIN** via PR **#453** :
 - Ces gates ont été consommées **séparément** ensuite :
   - **MW2 Readiness VALIDATED BY MORRIS**
   - **OD-02 CONSUMED — OPTION B**
-- Ce document **n’autorise pas** MW5 COMPLETE / CLOSED BY MORRIS · MW5 Delivery **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · MW5 **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE WITH RETAINED GOVERNANCE DEVIATION AND NON-BLOCKING RESERVES** · MW6 **NOT AUTHORIZED**.
+- Ce document **n’a pas, par lui-même, autorisé ni décidé** la clôture MW5 ; **MW5 COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE WITH RETAINED GOVERNANCE DEVIATION AND NON-BLOCKING RESERVES** résulte de la **décision Morris distincte désormais consommée** et n’est ici que synchronisé comme vérité aval (Delivery **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · PR **#463**). **MW6** reste **NOT AUTHORIZED / NOT STARTED**.
 - **≠ production model selected** ;
 - **≠ production model routing selected** ;
 - **≠ Sol/Terra/Luna campaign already executed** ;
