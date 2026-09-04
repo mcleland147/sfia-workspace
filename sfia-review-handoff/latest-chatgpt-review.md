@@ -1,42 +1,45 @@
-# SFIA Review Pack — MW6 R-AUTH-BIND-01 QUALIFICATION CORRECTION
+# SFIA Review Pack — CYCLE 6 AUTH.JS / GITHUB MULTI-USER IDENTITY SOURCE ARCHITECTURE
 
 | Field | Value |
 | --- | --- |
-| **Timestamp** | 2026-09-04 17:25:50 CEST |
-| **Cycle (project)** | **6 — Architecture technique** |
-| **Type** | EVOL |
+| **Timestamp** | 2026-09-04 17:54:30 CEST |
+| **Cycle** | **6 — Architecture technique** |
+| **Typology** | EVOL |
 | **Profile** | CRITICAL |
-| **Programme** | Nora Cognitive Completion |
-| **Milestone** | MW6 — External Source Intelligence |
-| **Sub-milestone** | R-AUTH-BIND-01 QUALIFICATION CORRECTION |
-| **GO Morris consumed** | **GO MORRIS — R-AUTH-BIND-01 QUALIFICATION CORRECTION** |
-| **Implementation GO** | **NOT GRANTED** |
-| **REAL GO** | **NOT GRANTED** |
-| **Product publication** | **NOT GRANTED** |
-| **v3 capabilities** | V3-F07 ∩ V3-F11 ∩ V3-F12 |
-| **Evidence ceiling** | STATIC + REPO-PROVEN ARCHITECTURE QUALIFICATION (+ existing deterministic tests only) |
-| **REAL / network calls** | **0 / 0** |
+| **GO Morris consumed** | **GO MORRIS — RUN SFIA STUDIO CYCLE 6 ARCHITECTURE TECHNIQUE FOR AUTH.JS / GITHUB MULTI-USER IDENTITY SOURCE** |
+| **Functional direction** | ACCEPTED (F-AUTH-01→12) — not reopened |
+| **Implementation** | **NOT AUTHORIZED** |
+| **REAL / GitHub login proof** | **NOT AUTHORIZED** |
+| **Capability** | MW6 / V3-F07 + governance V3-F11 / V3-F12 |
+| **Incoming blocker** | R-AUTH-BIND-01 = CONFIRMED BLOCKER (prior handoff `5fdb29c7…`) |
+| **Evidence ceiling** | STATIC + ARCHITECTURAL QUALIFICATION |
 | **Product files modified this cycle** | **NONE** |
-| **GPT-5.6** | RETAINED |
-| **GPT-6 Astra** | NOT ADOPTED / DEFER |
-| **Handoff input tip** | `97d6591c0a2c08499e13655973809d98f18b7238` |
 | **HEAD / origin/main / merge-base** | `ebdae92a96ea1c49444dfb668342c1453f57a540` |
+| **Handoff input tip** | `5fdb29c7713597cd86dade745a2b67a605f34380` |
 
 ---
 
 ## 1. Objective
 
-Close ambiguity on **R-AUTH-BIND-01**: prove from repo truth whether SFIA Studio already has a REAL-compatible canonical chain:
+Architecturally qualify the **smallest reusable identity/authentication source** that can close the R-AUTH-BIND-01 source gap for multi-user Studio (N≥2), without implementing auth, without binding REAL authority, and without creating a parallel authority engine.
 
-runtime Pilote identity → AuthorityEvidence / source-of-trust → AuthorityResolverPort → HumanDecision / Confirmation / ExecutionContract → CheckExecutionAuthorization → AgentCapability → campaign/runtime guardrails → hosted provider dispatch.
+Target conceptual chain (to QUALIFY, not implement):
 
-This cycle is **qualification correction only**. Binding is **NOT implemented**.
-
-Prior ChatGPT recommendation that launched this correction (Option A wire CheckExecutionAuthorization) is recorded as **recommendation consumed to start correction**, **NOT** as architecture choice. Option A remains **NON CONSUMABLE** until authority source is closed.
+```
+GitHub durable user.id
+→ server-side multi-user allowlist
+→ authorized identity maps to generic Pilote
+→ re-issued/current AuthorityEvidence (S1)
+→ existing AuthorityResolverPort
+→ CheckExecutionAuthorization
+→ AgentCapability
+→ runtime guards
+→ future MW6 hosted dispatch
+```
 
 ---
 
-## 2. Local Git Truth Check
+## 2. Local Git Truth
 
 | Item | Value |
 | --- | --- |
@@ -44,461 +47,419 @@ Prior ChatGPT recommendation that launched this correction (Option A wire CheckE
 | branch | `delivery/sfia-studio-nora-mw6-external-source-intelligence` |
 | HEAD | `ebdae92a96ea1c49444dfb668342c1453f57a540` |
 | origin/main | `ebdae92a96ea1c49444dfb668342c1453f57a540` |
-| merge-base | `ebdae92a96ea1c49444dfb668342c1453f57a540` |
-| log -1 | `ebdae92a docs(sfia-studio): close Nora MW5 and sync closure truth` |
-| working tree | **DIRTY** — local MW6 + PRE-REAL candidate preserved |
-| handoff tip (input) | `97d6591c0a2c08499e13655973809d98f18b7238` |
-| handoff parent (input) | `e001c48bc1458818548dc6c5d3eecae333f40454` |
-| LOCAL GIT TRUTH DIVERGED? | **NO** |
-| REVIEW HANDOFF SUPERSEDED? | **NO** |
+| merge-base | same |
+| status | **DIRTY** local MW6 + PRE-REAL candidate preserved |
+| handoff tip | `5fdb29c7713597cd86dade745a2b67a605f34380` |
+| BASELINE SUPERSEDED? | **NO** |
+| HANDOFF SUPERSEDED? | **NO** |
 
-### Distinction of truth layers
-- **main:** HEAD = origin/main = ebdae92… (no MW6 REAL binding on main)
-- **local candidate:** uncommitted MW6/PRE-REAL (REAL_AUTHORITY_NOT_BOUND still intentional)
-- **handoff:** prior qualification pack at 97d6591c…
-- **hypothesis:** none treated as proven
-
-Product tree **not** reset/clean/stash/checkout. This cycle writes **only** `.tmp-sfia-review/chatgpt-review.md` (+ handoff publish).
+No reset/clean/stash/checkout. Product candidate unchanged by this cycle.
 
 ---
 
-## 3. Git Review Index / Sources read
+## 3. Sources
 
-| Source | Role |
+### Process / convergence / doctrine / Nora
+Template; routing guide; CKC Cycle 6 pilot `03-architecture-technique.md` (candidate / no execution authority); Build Doctrine; Roadmap; C1; v3 framing 34; Nora backlog 05 + trajectory 08.
+
+### Authority runtime (repo)
+AuthorityResolverPort; MemoryAuthorityResolver; localSingleUserAuthority; HD/Confirmation/EC services; CheckExecutionAuthorization; evaluateAgentCapability; W2 evaluateExecutionAuthorization; Nora REAL preflight; campaignBudget.
+
+### Dependency truth (NOT inferred from docs)
+- `projects/sfia-studio/app/package.json`: `next` **^15.3.3**
+- Auth-related deps: **NONE**
+- `npm ls next-auth better-auth @auth/core`: empty
+- lockfile: **no** next-auth / better-auth / @auth hits
+
+### Historical Git evidence
+| Source | Finding |
 | --- | --- |
-| Build Doctrine / Roadmap / C1 cadrage | Convergence context |
-| v3 framing 34 | Pilote vs Morris; V3-F11/F12 |
-| Nora backlog 05 + trajectory 08 | MW6 trajectory; REAL deferred truths |
-| Routing guide | Process |
-| CKC `pilots/03-architecture-technique.md` | **candidate** 0.1.0 — cognitive guidance only; **no execution authority** |
-| Template `sfia-cycle-execution-template.md` | Process |
-| `authorityResolver.ts` | Port contract |
-| `memoryAuthorityResolver.ts` | Sole product implementation |
-| `localSingleUserAuthority.ts` | TEMPORARY WITH EXIT / FREEZE FOR REAL |
-| `createSqliteDecisionServices.ts` | Durable HD/Confirmation; default Memory authority |
-| decision `domain/types.ts` | AuthorityEvidence shape |
-| W2 `authorizeExecutionContract.ts` | evaluateAgentCapability + evaluateExecutionAuthorization (registerLocalPiloteAuthority) |
-| `checkExecutionAuthorization.ts` | Binary AUTH gate |
-| `vertical-slice-runtime/service.ts` | Product composition root |
-| SQLite `db.ts` schema | No AuthorityEvidence table |
-| Nora `runNoraAgentsTurn` / `campaignBudget` | REAL preflight hard-block |
-| Prior handoff 97d6591c | Input qualification |
+| PR #341 M3 Human Governance | Temporary `LOCAL_SINGLE_USER_AUTHORITY_TEMPORARY_WITH_EXIT`; debt exit toward **future Auth.js/IAM gate** |
+| PR #343 M4 Architecture Decisions | **D-M4-05**: Auth.js/Critical Ack **deferred** for first RO proof; Auth.js/IAM product-grade = **separate Morris gate**; debt preserved |
+| Roadmap / FUTURE-01 | Multi-user / Auth.js/IAM **DEFERRED** separate gate |
+| Interv360 auth user switcher | **HARVEST** session/UX lessons only — **NOT** real authentication; **do not copy** into Studio |
+| Current main | **no** Auth.js dependency |
 
-Repo searches performed (non-exhaustive list): AuthorityResolverPort, MemoryAuthorityResolver, AuthorityEvidence, registerLocalPiloteAuthority, LOCAL_PILOTE_ACTOR, CheckExecutionAuthorization, evaluateAgentCapability, canActAsMorris, new MemoryAuthorityResolver, authority_evidence schema, next-auth/Clerk/Auth0, session/currentUser/identity, Nora REAL_AUTHORITY_NOT_BOUND.
+Classification:
+- historical Auth.js direction = **HARVEST / REQUALIFY**
+- AuthorityResolverPort / CheckExecutionAuthorization = **KEEP**
+- MemoryAuthorityResolver = **KEEP** mechanism / not sole REAL trust
+- localSingleUserAuthority = **FREEZE FOR REAL / RETIRE LATER**
+- generic Pilote role = **KEEP**
+- per-human authenticated actor = **COMPLETE** (required)
+- multi-user allowlist = candidate **COMPLETE**
+- auth dependency = **structural Morris decision**
 
 ---
 
-## 4. Current authority / REAL call graph (repo-proven)
+## 4. Official external snapshot (2026-09-04 17:54:30 CEST)
 
-### Product OA composition (main + local share this stack for T-A3/T-A4)
-```
-createRuntimeOaStack (vertical-slice-runtime/service.ts)
-  authorityResolver = new MemoryAuthorityResolver()   // process-local Map
-  → createSqliteDecisionServices({ authorityResolver })
-  → createSqliteExecutionContractServices({ authorityResolver })
-  → createSqliteExecutionAttemptServices({ authorityResolver })
-```
-**Only** `MemoryAuthorityResolver` implements `AuthorityResolverPort` in the repo.
+### Auth.js / next-auth (official)
+Sources:
+- https://authjs.dev/reference/nextjs
+- https://authjs.dev/getting-started/providers/github (updated June 11, 2026)
+- https://authjs.dev/getting-started/migrating-to-v5
 
-### W2 authorization path (product feature — NOT Nora REAL)
-```
-evaluateExecutionAuthorization
-  → evaluateAgentCapability(registry, contract)
-  → registerLocalPiloteAuthority({ authorityResolver, scope, forceEnable? })  // TEMPORARY
-  → checkExecutionAuthorization.execute({ actor: LOCAL_PILOTE_ACTOR, authorityEvidenceId })
-  → recordAuthorityVerification (receipt: grantsAuthority=false, non-reusable)
-  STOP BEFORE EXECUTE
-```
+Verified facts:
+- Next.js integration via `next-auth` (v5 / Auth.js); install docs historically show `next-auth@beta` for v5.
+- GitHub provider; env inference **`AUTH_GITHUB_ID` / `AUTH_GITHUB_SECRET`**; also **`AUTH_SECRET`**.
+- Callback example: `/api/auth/callback/github`.
+- Server session via **`auth()`**.
+- Session strategies: **`jwt` | `database`**; **default `"jwt"`** when no adapter; with adapter defaults to database (can force jwt).
+- JWT encrypted via AUTH_SECRET.
+- Compatible pattern with Next.js App Router / Studio Next 15.3.x candidate.
 
-### Nora LIVE hosted path (local MW6 candidate)
-```
-runNoraCognitiveTurn → runNoraAgentsTurn
-  wantRealHostedDispatch?
-    → evaluateRealSourceExecutionPreflight(campaign)
-         ALWAYS { eligible:false, code: REAL_AUTHORITY_NOT_BOUND }
-    → attachHostedWebSearch = false for LIVE OpenAI
-  (Runner / web_search not reached for LIVE)
-```
-No AuthorityResolver / CheckExecutionAuthorization / HD / Confirmation wiring into Nora REAL preflight.
+### Auth.js lifecycle / Better Auth
+Official Better Auth announcement (https://better-auth.com/blog/authjs-joins-better-auth):
+- Auth.js now maintained under Better Auth team.
+- Existing Auth.js users: continue; **security patches / urgent issues** continue.
+- **New projects strongly recommended to start with Better Auth**, **unless** specific feature gaps — **notably stateless session management without a database**.
+- Migration guide exists (Auth.js → Better Auth); not urgent if Auth.js setup works.
+
+**Implication for SFIA Option A (JWT, no auth DB):** Auth.js retains a **documented fit advantage** for JWT-without-DB relative to current Better Auth recommendation caveats. Choosing Better Auth now likely implies **auth persistence/schema** unless Morris accepts that cost. This is a **Morris structural arbitration**, not an auto-switch.
+
+### GitHub official
+Sources:
+- https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/best-practices-for-creating-an-oauth-app
+- https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/best-practices-for-creating-a-github-app
+
+Verified:
+- Prefer **immutable numeric `user.id`**; never login/email/handle as durable key.
+- Prefer **GitHub Apps over OAuth Apps in general** (fine-grained permissions, short-lived tokens).
+- Minimal scopes principle; authorize thoroughly on each sign-in.
+- OAuth App remains a supported identity path; Auth.js docs show OAuth App setup for GitHub provider.
 
 ---
 
-## 5. AUTH-SOURCE-01 → 12 (answers)
+## 5. Functional contract (ACCEPTED — recorded)
 
-### AUTH-SOURCE-01 — Canonical Pilote identity source?
-**ABSENT** as REAL-compatible product identity.
+F-AUTH-01→12 as given in execution contract: auth required before protected Studio; GitHub login; allowlist gate; deny unauthorized; session invalidity denies; logout denies; ≥2 concurrent authorized users; N users without per-person code branches; role=Pilote only; no Admin; GitHub auth ≠ N-levels/canActAsMorris/EC/REAL; allowlist removal must predictably block (no eternal JWT-as-SFIA-auth).
 
-What exists:
-- `LOCAL_PILOTE_ACTOR` constant (`actor:local-pilote`, displayName "Pilote", `authorityLevel: "none"`) in `localSingleUserAuthority.ts` — **fixture/role label**, not authenticated identity.
-- Agents SDK `ProductSqliteSession` — conversation session, **not** user authN.
-- No NextAuth / Auth.js / Clerk / Auth0 / better-auth in `projects/sfia-studio` package.json or app sources (searched).
-- D1 `principal_id` / OPS1 sessions are **other domains**, not OA Pilote AuthorityEvidence issuers wired to Nora.
+---
 
-Trust boundary today: **none proven** against hostile client actor claims. Client `canActAsMorris` / claimed levels are voided in W2/Check paths — but the **server still invents** Pilote via local register when env/test allows.
+## 6. Multi-user authorization source candidates
 
-### AUTH-SOURCE-02 — REAL-compatible AuthorityEvidence issuer?
-**ABSENT** for REAL.
+| Candidate | Description | Classification | Notes |
+| --- | --- | --- | --- |
+| **A — ENV MULTI-USER ALLOWLIST** | `SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS=123,456,...` | **QUALIFIED CANDIDATE / COMPLETE for initial** | Lowest complexity; server-owned; fail-closed if missing/malformed; N users; no code change per user; restart/reload semantics explicit |
+| **B — VERSIONED SERVER CONFIG** | checked-in or versioned server config of IDs | **ADAPT / optional later** | Better Git audit trail; adding user may require product commit; identity disclosure in Git |
+| **C — DURABLE USER/AUTHZ STORE** | SQLite registry + admin surface | **DEFER** | Overkill for initial 2→small-N; schema + admin UI; not needed to close identity source gap |
 
-Emitters found:
-- `MemoryAuthorityResolver.register` — in-process only
-- `registerLocalPiloteAuthority` / `registerM3LocalMorrisAuthority` — `source: LOCAL_SINGLE_USER_AUTHORITY_TEMPORARY_WITH_EXIT`, requires `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1` or `forceEnable` (tests)
-- Test/fixture registers in adversarialAuthority etc.
+**Env allowlist rules (conceptual):**
+- opaque canonical string IDs (numeric GitHub ids as strings);
+- trim; reject non-numeric/malformed; dedupe;
+- empty/missing → **fail-closed** (deny all Studio access);
+- **never** match login/email/displayName;
+- **never** client-provided allowlist;
+- **current** allowlist re-checked server-side at trust boundary before AE / external effect (not once-copied into eternal claim).
 
-No SQLite table for AuthorityEvidence. Schema has `oa_human_decisions`, `oa_confirmations`, `oa_execution_contracts`, `oa_authority_verification_receipts` (audit only).
+**Operational add/remove user:** edit env (or secret store) → restart or documented reload → next server check uses new set. No code branch per person.
 
-### AUTH-SOURCE-03 — Is MemoryAuthorityResolver only default/dev/test?
-**NO — it is the product runtime resolver today.**
+---
 
-Proof: `vertical-slice-runtime/service.ts` constructs `new MemoryAuthorityResolver()` and injects into Decision, ExecutionContract, ExecutionAttempt. `createSqliteDecisionServices` defaults to `new MemoryAuthorityResolver()` if none injected. **Sole** `implements AuthorityResolverPort` class in repo.
+## 7. Identity key
 
-Classification: **IMPLEMENTED product process-local** / **TEMPORARY durability** / **REJECTED FOR REAL as sole trust source**.
-
-### AUTH-SOURCE-04 — Survives process restart?
-**NO.** Map cleared on process death.
-
-Reconstructible after restart from REAL-compatible source? **NO** — only via re-invoking temporary `registerLocalPiloteAuthority` (or test register). That is **not** honest REAL reconstruction.
-
-Persistence of AuthorityEvidence is **not** mandated by this finding; what is missing is a **canonical identity/trust source** that can honestly (re)issue or resolve evidence.
-
-### AUTH-SOURCE-05 — Durable HumanDecision authorize without recreating localSingleUserAuthority?
-**NO** (for CheckExecutionAuthorization path).
-
-`CheckExecutionAuthorization` calls `verifyRequiredAuthority(authorityResolver, { evidenceId, actorId, scope, requiredAuthority })`. After restart the resolver is empty → `evidence_not_found` / `no_evidence` → AUTHORITY_DENIED.
-
-Durable HD stores business decision state (incl. actor fields in payload); actor fields are **never** trusted as authority proof per port docs. HD acceptance ≠ live AuthorityEvidence.
-
-### AUTH-SOURCE-06 — Do durable Confirmation + HD restore actor authority?
-**NO — they restore métier state only.**
-
-Authority level / Morris gate / scope binding live in AuthorityEvidence via AuthorityResolverPort. Confirmations prove consent constraints; HD proves selected options — neither re-registers AuthorityEvidence.
-
-### AUTH-SOURCE-07 — How CheckExecutionAuthorization receives inputs
-Request fields: `executionContractId`, `action`, `target`, `scope`, `actor`, optional `authorityEvidenceId`, `claimedAuthorityLevel` (ignored), `correlationId`.
-
-Checks applied (code):
-- actor.actorId required
-- contract exists; not cancelled/superseded/T-A5; execution-ready status
-- no confirmation constraint contradiction
-- no superseding successors (currentness)
-- deny-by-default action/target/scope match
-- Critical cycle ack if applicable
-- each decisionRef: exists, same project, status accepted
-- `verifyRequiredAuthority` via AuthorityResolver (level, scope, optional Morris gate, expiry)
-
-Note: Confirmation **object** freshness is primarily enforced at ConfirmExecutionContract / W2 confirmation requirement; Check path relies heavily on EC status + decisionRefs + authority verify.
-
-### AUTH-SOURCE-08 — Freshness / mismatch / revocation
-| Concern | Mechanism |
+| Key | Verdict |
 | --- | --- |
-| Evidence expiry | `expiresAt` on AuthorityEvidence; expired → reason `expired` |
-| Scope mismatch | exact scope match required |
-| Actor mismatch | evidence.actorId must equal request.actorId |
-| Level / Morris | levelSatisfies + canActAsMorris when requireMorrisGate |
-| HD current | status must be accepted (not superseded path as current ref) |
-| EC current | successors list empty; status not cancelled/superseded |
-| Evidence revoke API | **ABSENT** — no revoke on AuthorityResolverPort |
+| **GitHub immutable `user.id`** | **RECOMMENDED CANONICAL** |
+| login | REJECT as key (mutable / reassignable) |
+| email | REJECT as key (mutable / optional / privacy) |
+| display name | REJECT |
 
-### AUTH-SOURCE-09 — AuthorityEvidence revocation?
-**No explicit revoke.** Distinguish:
-- **expiration** of evidence (supported)
-- **HD supersession/revocation** (durable decision lifecycle — separate)
-- **reconstruction/revalidation** of authority (must re-verify resolver at effect time)
-
-Do not conflate HD supersession with evidence revocation.
-
-### AUTH-SOURCE-10 — W2 evaluateExecutionAuthorization AS-IS for REAL?
-**NON AS-IS FOR REAL.**
-
-It calls `registerLocalPiloteAuthority` before CheckExecutionAuthorization — creates temporary N3+canActAsMorris evidence for `LOCAL_PILOTE_ACTOR`.
-
-Separately reusable:
-- `CheckExecutionAuthorization` (**KEEP / wire later**)
-- `evaluateAgentCapability` (**KEEP / adapt envelope**)
-- receipt recording (**KEEP audit-only**)
-- confirmation/inspection pre-checks in W2 (**KEEP patterns**)
-
-Full helper: **REJECT AS-IS FOR REAL** / **HARVEST** primitives.
-
-### AUTH-SOURCE-11 — AgentCapability envelope for Nora hosted web_search?
-**PARTIAL / ABSENT for Nora path.**
-
-`evaluateAgentCapability` is generic over EC `requiredCapabilities` + action/target/scope against `AgentRegistryPort`. Product registry in vertical-slice currently registers F3/W3A/M4 Cursor fixture agents — **not** a Nora hosted-web_search executor capability envelope.
-
-Delta (not implemented): define EC action/target/scope/requiredCapabilities for hosted external source intelligence and a matching AgentCapability descriptor — **without** parallel catalog. Nora cognitive Runner path today does not call evaluateAgentCapability.
-
-### AUTH-SOURCE-12 — Minimal honest future call graph (node status)
-
-| Node | Status |
-| --- | --- |
-| Pilote authentiqué (identity source) | **ABSENT** (REAL) |
-| identity → AuthorityEvidence issue/resolve | **TEMPORARY** only (`localSingleUserAuthority` → Memory) |
-| AuthorityResolverPort | **IMPLEMENTED** (Memory only) |
-| HumanDecision / Confirmation durable | **IMPLEMENTED** (SQLite) |
-| ExecutionContract durable | **IMPLEMENTED** |
-| CheckExecutionAuthorization | **IMPLEMENTED** / **UNWIRED** to Nora REAL |
-| evaluateAgentCapability | **IMPLEMENTED** / **UNWIRED** to Nora; envelope **PARTIAL** for hosted search |
-| campaignBudget / PRE-REAL guards | **IMPLEMENTED** (local candidate) / technical only |
-| REAL preflight | **TEMPORARY hard-block** REAL_AUTHORITY_NOT_BOUND |
-| hosted provider dispatch LIVE | **BLOCKED** |
-| OpenAI HITL/RunState as authority | **REJECTED FOR REAL** |
-| localSingleUserAuthority for REAL | **REJECTED FOR REAL** / **FREEZE** |
+Separation preserved:
+- GitHub answers **WHO**;
+- SFIA allowlist answers **ALLOWED IN STUDIO?**;
+- AuthorityResolver / EC answers **WHAT AUTHORITY FOR THIS ACTION?**
 
 ---
 
-## 6. Authority Asset Inventory
+## 8. Runtime role contract
 
-| Asset | Path | Product/test | Responsibility | Identity src | AE src | Persisted? | Restart-safe? | Reconstructible (REAL)? | Actor/Project/Scope | Expiry | Revoke/supersede | canActAsMorris | REAL-compatible today? | Wired Nora REAL? | Class | Gap / Exit |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| HumanDecision | oa/decision + SQLite | product | métier decision | actor fields declared | verified at write via resolver | YES | YES (state) | N/A — not AE | bound in payload | n/a | supersede/revoke status | via claimed authority class + verify at write | NO as AE | NO | KEEP | ≠ AuthorityEvidence |
-| Confirmation | oa/decision + SQLite | product | consent constraint | requestedBy/To | grant may verify | YES | YES | N/A | scope on confirmation | expiresAt | refuse/cancel/consume | n/a | NO as AE | NO | KEEP | métier only |
-| VerifyAuthority | verifyAuthority.ts | product | verify via port | actorId | resolver | n/a | depends resolver | depends source | scope/level | expiry | n/a | gate flag | depends AE source | NO | KEEP | needs REAL AE source |
-| AuthorityResolverPort | ports/authorityResolver.ts | product | sole N1/N2/N3+Morris truth | — | register/get/verify | interface | — | — | yes | yes | **no revoke API** | explicit | interface OK | NO | KEEP | need REAL issuer behind port |
-| MemoryAuthorityResolver | memoryAuthorityResolver.ts | **product runtime** | in-memory AE store | — | Map | NO | **NO** | NO without temp register | yes | expiresAt | immutable id; no revoke | yes | **NO alone** | NO | KEEP impl / **FREEZE as sole REAL trust** | replace/adapt backing source |
-| localSingleUserAuthority | localSingleUserAuthority.ts | product TEMP | register N3+Morris for Pilote | LOCAL_PILOTE_ACTOR const | self-issued | NO | NO | only via temp re-register | scope arg | none by default | n/a | **hardcoded true** | **NO** | NO | **FREEZE FOR REAL** | exit when REAL source exists |
-| LOCAL_PILOTE_ACTOR | same | product const | role label | constant | — | n/a | n/a | n/a | fixed actorId | n/a | n/a | none on actor | **NO identity proof** | NO | KEEP as role type / not authN | need real subject binding |
-| ExecutionContract | oa/execution-contract | product | scope container | — | requiredAuthority class | YES | YES | n/a | action/target/scope | via status | cancel/supersede | MORRIS class may require gate | YES as scope | NO | KEEP | Nora vocabulary delta |
-| CheckExecutionAuthorization | checkExecutionAuthorization.ts | product | binary AUTH | request.actor | request.evidenceId→resolver | NO mutation | needs live AE | — | deny-by-default | via resolver | HD/EC paths | via verify | YES if AE REAL | **UNWIRED** | KEEP | wire after source exists |
-| AuthorityVerificationReceipt | domain + SQLite | product | audit snapshot | actor on receipt | evidence ids listed | YES audit | YES | **must not** reauthorize | yes | n/a | n/a | recorded | **NO token** | NO | KEEP | grantsAuthority=false |
-| evaluateAgentCapability | w2/authorizeExecutionContract.ts | product | capability envelope | — | — | n/a | n/a | n/a | via EC | n/a | agent disabled | n/a | YES as policy term | UNWIRED | KEEP/ADAPT | hosted search envelope |
-| evaluateExecutionAuthorization W2 | same | product | full authz helper | LOCAL_PILOTE | registerLocalPilote | receipt durable | needs re-register | via temp only | yes | — | — | via local register | **NO AS-IS** | NO | **HARVEST** / REJECT AS-IS REAL | strip temp register |
-| execution-attempt path | oa/execution-attempt | product | T-A5 execute | — | same resolver | YES attempts | — | — | — | — | — | — | adjacent | NO | KEEP adjacent | not Nora cognitive owner |
-| Nora REAL preflight | campaignBudget.ts local | local candidate | hard block LIVE | none | none | n/a | n/a | n/a | n/a | n/a | n/a | n/a | intentional block | YES block | ADAPT later | after source+binding GO |
-| campaignBudget | campaignBudget.ts | local | technical guardrail | none | none | process-local | NO | n/a | campaign id | counters | exhaustion | n/a | NEVER authority | YES technical | KEEP | realism gap process-local |
-| OpenAI HITL/RunState | SDK | deps | interrupt transport | provider | provider | RunState | stale possible | n/a | n/a | n/a | reject/approve | n/a | **NEVER** | unused | COMBINE transport only / REJECT authority | AUTH-23 |
-| hosted web_search | Nora adapters | local | transport | — | — | n/a | n/a | n/a | — | — | — | — | transport | gated off LIVE | KEEP transport | behind authority |
+- All authorized Studio users (this scope): **Pilote** only.
+- **No** Admin / SuperAdmin / Owner / Morris persona / GitHub-role mapping.
+- **canActAsMorris** MUST NOT derive from GitHub auth or generic allowlist membership.
+- MW6 hosted-source action: **do not fabricate** a Morris gate; if EC `requiredAuthority` ever requires MORRIS, that is a **separate** capability/gate — not bundled into authentication.
+- Morris = construction/governance outside generic product role.
 
 ---
 
-## 7. Effective Authority Matrix (term 6 = R-AUTH-BIND-01 fix)
+## 9. Auth library fit (Auth.js vs Better Auth)
 
-| Term | Canonical | Implementation | Durable? | Freshness | Revocation | Fail-close | Nora wiring | REAL compat | Gap |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1. valid human authorization | v3-34 / T-A3 HD | SQLite HD accepted+current | YES | status | supersede | deny | UNWIRED | HD durable YES; **≠ live AE** | must not treat HD as AE |
-| 2. EC scope | V3-F12 | CheckExecutionAuthorization match | YES | successors/status | cancel/supersede | deny | UNWIRED | YES | Nora action/target/scope vocab |
-| 3. AgentCapability/policy | V3-F11 | evaluateAgentCapability | eval-time | registry health | disable agent | deny | UNWIRED | PARTIAL | hosted search envelope |
-| 4. runtime guardrails | PRE-REAL | campaignBudget + max_tool_calls | process-local | counters | exhaustion | deny | WIRED technical | technical YES | never sole auth |
-| 5. Confirmation if required | T-A3/T-A4 | Confirmation + EC constraints / W2 | YES | expire/consume | refuse/cancel | deny | UNWIRED | YES métier | wire with EC |
-| **6. runtime identity / AE source** | **missing REAL** | Memory + localSingleUser only | **NO** | expiry only | **no revoke API** | fail if missing | **ABSENT** | **NO** | **R-AUTH-BIND-01 CONFIRMED** |
+| Dimension | Auth.js (next-auth v5) | Better Auth |
+| --- | --- | --- |
+| Historical repo debt | Named exit path (M3/M4) | Not historical Studio pin |
+| Next.js 15 | Official Next adapter | Supported (separate) |
+| Security maintenance | Patches continue (Better Auth team) | Active product |
+| New-project official lean | Secondary | Preferred by Better Auth docs |
+| JWT / no auth DB | **Native default** | Documented gap vs Auth.js for new projects |
+| Migration debt if Auth.js chosen | Possible future migrate to Better Auth | Lower if start there + accept DB |
+| Schema impact | Optional (JWT path) | Typically expects DB schema |
 
----
+**Recommendation (NON CONSUMED):** For **minimal JWT + env allowlist + no auth DB**, **Auth.js remains the better-fit candidate** given official Better Auth caveat on stateless sessions. If Morris prefers Better Auth strategically, that is a **valid alternative** but likely **pulls Option B-like persistence** sooner.
 
-## 8. Restart / Temporal Matrix
-
-| ID | Scenario | Current | Desired fail-close | Primitive | Gap | Det? | REAL later? |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| TEMP-01 | restart between HD and REAL preflight | AE gone; LIVE already hard-blocked | BLOCK until AE re-resolved from REAL source | Memory empty | REAL identity source | YES | YES |
-| TEMP-02 | restart between preflight and dispatch | same | revalidate before effect | Check+resolver | source + wire | YES | YES |
-| TEMP-03 | HD superseded after first check | LIVE blocked today | revalidate HD before effect | getHumanDecision | wire | YES | YES |
-| TEMP-04 | Confirmation stale after check | LIVE blocked | revalidate confirmation | Confirmation lifecycle | wire | YES | YES |
-| TEMP-05 | AE expired after check | Memory expiry works if still in process | revalidate evidence | Memory verify | REAL issuer TTL | YES | YES |
-| TEMP-06 | actor/session identity change | no real session identity | mismatch deny | ABSENT identity | **structural** | PARTIAL | YES |
-| TEMP-07 | EC superseded/cancelled | Check denies if wired | deny | CheckExecutionAuthorization | wire | YES | YES |
-| TEMP-08 | campaign exhausted after auth | claim deny | deny | campaignBudget | keep | YES | YES |
-| TEMP-09 | provider HITL pause/resume | unused | revalidate SFIA on resume; approve≠HD | SDK HITL | policy if COMBINE | YES | YES |
-| TEMP-10 | future async/mid-turn (GPT-6 DEFER) | not adopted | must not assume eternal auth | revalidate at effect | architecture reserve | PARTIAL | YES |
+**Morris decision required** if choosing Better Auth over historical Auth.js direction.
 
 ---
 
-## 9. Proof of absence (canonical REAL source)
+## 10. GitHub auth mode
 
-1. Sole AuthorityResolver implementation = MemoryAuthorityResolver (process Map).
-2. Product composition always constructs MemoryAuthorityResolver.
-3. No `oa_authority_evidence` (or equivalent) table; receipts explicitly non-granting.
-4. Only product issuer of Pilote AE = `registerLocalPiloteAuthority` marked TEMPORARY WITH EXIT; FREEZE FOR REAL.
-5. No IAM/OIDC/session-user binding into AuthorityResolverPort.
-6. Nora REAL preflight does not consult any identity/AE source — hard `REAL_AUTHORITY_NOT_BOUND`.
+| | **G1 OAuth App + Auth.js GitHub provider** | **G2 GitHub App user OAuth** |
+| --- | --- | --- |
+| Identity quality | Durable user.id via profile/API | Same durable id |
+| Setup complexity | Lower; Auth.js docs first-class | Higher (App registration, permissions model) |
+| Scopes | Minimal identity (`read:user`; email optional — **prefer not required** if id available) | Fine-grained; can be identity-only |
+| Repo permissions | **None required** for identity-only | Must avoid write; request none |
+| Token | Access token ≠ SFIA authority | Same rule |
+| Ops for 2→N | Fit | Fit but heavier |
+| GitHub official lean | OAuth App discouraged vs Apps in general | Preferred generally |
+| Overkill for auth-only? | No | Possibly for initial Studio |
 
-Therefore: **CAS B — SOURCE CANONIQUE ABSENTE OU TEMPORAIRE UNIQUEMENT.**
-
----
-
-## 10. Missing Authority Source Contract (exact)
-
-Before any binding implementation, Morris must decide a source that answers:
-
-| Question | Status |
-| --- | --- |
-| Who is the actor? | Role "Pilote" modeled; **authenticated subject ABSENT** |
-| What proves identity? | **ABSENT** REAL trust boundary |
-| What proves authority level (N1/N2/N3) + optional Morris gate? | Only temp local register today |
-| Who emits AuthorityEvidence? | Only Memory register / localSingleUser |
-| Validity duration? | optional expiresAt; no product REAL TTL policy |
-| Scope binding? | string scope on evidence — OK pattern |
-| How revalidate? | AuthorityResolverPort.verify — OK; needs live evidence |
-| How revoke/invalidate? | **No AE revoke**; HD/EC supersession separate |
-| Persist AE itself? | **NOT predetermined** — may re-issue from identity source each time |
-| Owning component? | Should remain behind **existing** AuthorityResolverPort (no parallel) |
-| Reuse interface? | AuthorityResolverPort + CheckExecutionAuthorization + evaluateAgentCapability + campaign guards |
-
-**Persistence / IAM are OPTIONS, not conclusions.**
+**Recommendation (NON CONSUMED):** **G1 OAuth App** for initial identity-only Studio gate; document **exit/evolution to GitHub App** without redesigning SFIA allowlist/actor mapping (ids remain ids). Morris may choose G2 if App hygiene preferred now.
 
 ---
 
-## 11. Structural options (2–3 MAX) — NON CONSUMED
+## 11. Session strategy
 
-### Option S1 — Re-issuable evidence from canonical identity/authN adapter (no mandatory AE table)
-- Reuse AuthorityResolverPort (adapt backing: register per request from trusted identity assertion)
-- Identity source: **to be chosen by Morris** (out of scope to pick vendor here)
-- Persistence: AE **may** be ephemeral if re-issuable from identity source each preflight/dispatch
-- Restart: reconstruct by re-authenticating / re-asserting, not by trusting old Memory Map
-- Risk: wrong identity adapter; parallel if bypasses port
-- Downstream Option A binding: becomes consumable **after** S1 chosen & proven
+| | **S-JWT** | **S-DB** |
+| --- | --- | --- |
+| Fit 2→N | YES | YES |
+| Restart | Cookie/JWT survives process if secret stable | DB sessions survive |
+| Logout | Invalidate cookie | Delete session row |
+| Allowlist removal | **Must recheck current allowlist** (JWT alone insufficient) | Same SFIA recheck still required |
+| Schema cost | **None** for auth | Auth tables — risk mixing with Product SQLite ownership |
+| Reversibility | High | Lower |
 
-### Option S2 — Durable AuthorityEvidence store + identity binding
-- New durable AE records bound to authenticated subject
-- Schema impact: **yes** (new table or equivalent) — requires Morris schema GO
-- Restart-safe evidence ids possible; still need freshness/revoke policy
-- Risk: treating durable AE as eternal token; receipt confusion
-- Higher irreversibility than S1
+**Critical rule:** Even with JWT, **current SFIA authorization = session identity ∩ current allowlist** evaluated server-side before AE issuance / protected effect.
 
-### Option S3 — Continue FREEZE; keep REAL_AUTHORITY_NOT_BOUND until identity programme exists
-- No binding implementation
-- Lowest immediate risk; MW6 LIVE remains blocked
-- Debt: MW6 cannot reach authority-bound preflight
-- Compatible with trajectory honesty
-
-**ChatGPT/Cursor recommendation (NON CONSUMED):** prefer exploring **S1** for reversibility IF Morris can name a Studio-local trust boundary without new parallel authority system; **do not** auto-select IAM vendor or SQLite AE table. **S3** remains valid until that decision.
-
-**MORRIS STRUCTURAL DECISION REQUIRED** before Option A binding is consumable.
+**Recommendation (NON CONSUMED):** **S-JWT** for initial architecture **if** Auth.js chosen; **no mandatory auth DB**. S-DB deferred unless revocation/ops prove insufficient.
 
 ---
 
-## 12. Minimal downstream binding seam (QUALIFIED ONLY AFTER SOURCE — NON IMPLEMENTED)
+## 12. Resource protection (conceptual)
 
-IF AND ONLY IF a REAL-compatible source exists behind AuthorityResolverPort:
+**Public:** `/api/auth/*` (or library equivalent); minimal login/error surfaces.
+
+**Protected (server-enforced):** `/studio` and Studio product surfaces; server actions/APIs mutating/reading protected project state; future authority/preflight routes.
+
+Patterns: `auth()` server checks; middleware/proxy per current Next/Auth guidance; defense in depth — **one** SFIA allowlist evaluator, no duplicate authority engines. No UI redesign this cycle.
+
+---
+
+## 13. Identity → SFIA actor mapping (conceptual adapter only)
+
+Input: verified GitHub `user.id` + current allowlist membership.
+Output: `OaActorReference`-like:
+- `actorId` candidate: `actor:github:<immutable-id>` (stable, deterministic, unique per human)
+- role: `decision_maker` / Pilote semantics
+- displayName: optional (login for display only; not key)
+- `authorityLevel` on actor: **`"none"` / untrusted** — never from session/client
+
+Two GitHub identities → two actorIds; both Pilote role.
+
+**LOCAL_PILOTE_ACTOR (`actor:local-pilote`):**
+- Remains historical/temp path for localSingleUserAuthority.
+- **Insufficient** as authenticated multi-user identity (MU-10).
+- Do **not** delete now; do **not** use on future auth/REAL path.
+- Compatibility: durable HD under `actor:local-pilote` remain attributable as historical; **no history rewrite**. Migration/exit: new authenticated actors for new decisions; old refs readable.
+
+---
+
+## 14. S1 AuthorityEvidence re-issuance (qualified candidate)
 
 ```
-canonical identity/authority source
-→ AuthorityResolverPort (existing)
-→ CheckExecutionAuthorization (existing)
-→ evaluateAgentCapability (existing; Nora envelope COMPLETE)
-→ campaignBudget / runtime guards (existing)
-→ hosted provider dispatch
+current authenticated session
+∩ current allowlist (GitHub id)
+→ trusted current SFIA actor (per-human Pilote)
+→ server issues/re-issues AuthorityEvidence into existing AuthorityResolverPort
+→ CheckExecutionAuthorization
 ```
 
-Until then: seam is **NOT READY TO IMPLEMENT**; hard block remains correct.
+Properties:
+- **No durable AE table by default** (S1).
+- evidenceId: server-generated; immutable once registered in Memory map for process life.
+- actorId bound to `actor:github:<id>`.
+- scope: action/EC scope string (existing pattern).
+- level: per EC `requiredAuthority` mapping via existing verify (N1/N2/N3) — **not** auto-N3 from GitHub.
+- canActAsMorris: **false** by default from auth path; never from allowlist alone.
+- issuedAt/expiresAt: short TTL recommended; revalidate before external effect.
+- restart: re-issue from session∩allowlist (honest reconstruction).
+- allowlist removal / logout / session expiry: fail-closed on next check.
 
-OpenAI HITL: COMBINE transport only; never authority.
+Hard separations: GitHub id ≠ AE; session ≠ AE; allowlist ≠ EC auth; HD ≠ AE; receipt ≠ token; OpenAI approve ≠ authority.
 
----
-
-## 13. R22 / OpenAI (correction-scoped)
-
-| Item | Disposition |
-| --- | --- |
-| Option C Runner | KEEP |
-| GPT-5.6 | KEEP |
-| hosted web_search | KEEP transport |
-| max_tool_calls | KEEP supporting guardrail |
-| HITL / RunState | COMBINE interrupt only / **NEVER AUTHORITY** |
-| GPT-6 Astra | DEFER / NOT ADOPT |
-| OpenAI identity/authority for SFIA Pilote | **NONE** — cannot satisfy R-AUTH-BIND-01 |
+**Minimum new responsibility:** thin **server adapter** that (1) reads auth session, (2) parses allowlist, (3) maps actor, (4) registers **current** AE via existing `AuthorityResolverPort.register` — **no second resolver**.
 
 ---
 
-## 14. Fake / Real Qualification
+## 15. Multi-user concurrency (MU-01→10)
+
+All required behaviors are architecturally supportable with per-session identity + per-human actorId + AE actor binding + CheckExecutionAuthorization actor_mismatch fail-close. Removing A from allowlist does not affect B. Client cannot select another user's identity. Global LOCAL_PILOTE_ACTOR must not collapse humans.
+
+Domain impact: HumanDecision/Confirmation/EC already carry actor refs — **compatible** with distinct actorIds; **no domain redesign required** for multi-user attribution. Gap is **identity source + mapping**, not HD schema.
+
+---
+
+## 16. Architecture options (≤3)
+
+### OPTION A — MINIMAL CONFIG AUTH (RECOMMENDED CANDIDATE — NON CONSUMED)
+- Auth.js (next-auth v5) + GitHub OAuth App provider
+- JWT session (no auth DB adapter)
+- Env allowlist `SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS`
+- Current allowlist recheck every Studio trust boundary / before AE
+- Per-user `actor:github:<id>` Pilote mapping
+- S1 AE re-issue into existing AuthorityResolverPort
+- Protect Studio routes server-side
+- **Persistence:** none new for auth/AE
+- **Secrets:** AUTH_GITHUB_ID, AUTH_GITHUB_SECRET, AUTH_SECRET, allowlist env
+- Debt: possible future migrate Auth.js→Better Auth; OAuth App→GitHub App
+- Fit: closes R-AUTH-BIND-01 identity source; preserves SFIA authority ownership
+
+### OPTION B — CONFIG + DB SESSION / REGISTRY
+- Auth.js or Better Auth with database sessions and/or durable user registry
+- Material revocation improvements; **schema + Product Store boundary risk**
+- Only if Morris requires stronger session revoke than JWT+allowlist recheck
+- Higher complexity; **not required** for initial 2→N
+
+### OPTION C — FREEZE
+- Keep REAL_AUTHORITY_NOT_BOUND / localSingleUserAuthority freeze
+- If Morris rejects GitHub/Auth library fit or cannot accept secrets/ops yet
+- MW6 LIVE remains blocked; honest but does not close blocker
+
+**Variant note:** Better Auth-first or GitHub App-first may be selected as **variants of A/B**, not automatic substitutions — require Morris if diverging from A.
+
+---
+
+## 17. SEC-AUTH-01→26 (summary matrix)
+
+| ID | Desired | Owner | Fail-close | Det proof? | Future REAL auth? |
+| --- | --- | --- | --- | --- | --- |
+| 01 no session | deny Studio | auth()/middleware | BLOCK | YES | YES |
+| 02 invalid session | deny | auth library | BLOCK | YES | YES |
+| 03 OAuth failure | deny + error surface | GitHub+Auth.js | BLOCK | YES | YES |
+| 04 not allowlisted | deny | allowlist eval | BLOCK | YES | YES |
+| 05 allowlist missing | deny all | allowlist parser | BLOCK | YES | YES |
+| 06 malformed allowlist | deny all | parser | BLOCK | YES | YES |
+| 07 duplicates | normalize/dedupe | parser | OK | YES | NO |
+| 08 removed while session active | deny on next SFIA check | allowlist recheck | BLOCK | YES | YES |
+| 09 login/email changed, id same | still recognized | id key | ALLOW if listed | YES | YES |
+| 10 hostile claimed GitHub id | ignore client; use session | adapter | BLOCK mismatch | YES | YES |
+| 11 hostile Pilote claim | ignore; server maps role | adapter | ignore claim | YES | YES |
+| 12 hostile canActAsMorris | ignore; AE default false | AuthorityResolver | DENY Morris gate | YES | YES |
+| 13 two users concurrent | distinct sessions/actors | auth+mapping | OK | YES | YES |
+| 14 A uses B AE | actor_mismatch | Memory verify | BLOCK | YES | YES |
+| 15 session expires mid | deny at effect | auth+revalidate | BLOCK | YES | YES |
+| 16 logout mid | deny | signOut+revalidate | BLOCK | YES | YES |
+| 17 server restart | re-issue AE from session∩allowlist | S1 | BLOCK if either missing | YES | YES |
+| 18 OAuth token compromised | revoke/rotate GitHub; SFIA allowlist independent | ops | BLOCK / rotate | PARTIAL | YES |
+| 19 IdP unavailable | new login fail; existing JWT until expiry **still subject to allowlist** | auth | no widen | PARTIAL | YES |
+| 20 GitHub user not SFIA-authorized | deny | allowlist | BLOCK | YES | YES |
+| 21 callback misconfig | auth fail | config | BLOCK | YES | YES |
+| 22 login renamed | id stable | id key | OK | YES | YES |
+| 23 email changed | ignore as key | id key | OK | YES | YES |
+| 24 user id absent | deny | adapter | BLOCK | YES | YES |
+| 25 identity mismatch | deny | adapter | BLOCK | YES | YES |
+| 26 separate Morris gate needed | not granted by auth | EC requiredAuthority | separate gate | YES | YES |
+
+---
+
+## 18. NFR / ops
+
+- Security: Critical.
+- Availability: GitHub outage blocks **new** login; existing JWT may continue until expiry but **cannot** widen SFIA auth without allowlist.
+- Performance: bounded allowlist parse/membership; **no** long stale cache of allowlist.
+- Ops target: one env change to add/remove users.
+- Observability: log auth success/fail category, opaque actor ref, deny reason; **never** tokens/secrets.
+- Secrets never committed.
+
+---
+
+## 19. R22 / OpenAI
+
+Authentication is **not** a Nora cognitive primitive. OpenAI HITL ≠ GitHub identity. GPT-5.6 retained; GPT-6 deferred. No R22 broadening.
+
+---
+
+## 20. Fake / Real Qualification
 
 | Item | Value |
 | --- | --- |
-| applicable | yes |
-| fake/fixture | localSingleUserAuthority; Memory resolver; deterministic Nora tests |
-| REAL boundary | authenticated Pilote + live AE + Check + capability + guards + provider |
-| parity | same actor/action/target/scope/decision/confirmation/capability/guardrail invariants |
-| known gaps | temp AE ≠ REAL; Memory ≠ durable trust source |
-| entry proof | DETERMINISTIC / STATIC |
-| this cycle | STATIC + repo-proven + existing tests |
-| out of scope | REAL BOUNDARY PROVEN / E2E REAL |
-| Morris REAL gate | DISTINCT — NOT GRANTED |
+| External boundary | GitHub identity/authentication |
+| Current fake/temp | localSingleUserAuthority / LOCAL_PILOTE_ACTOR |
+| This cycle | architecture only — **NOT REAL PROVEN** |
+| Future det proof | mock A/B allowlisted, C denied; revocation; actor mapping; AE isolation |
+| Future AUTH REAL | separate Morris GO; two real GitHub accounts; accept/deny; **no** MW6 hosted effect |
+| Then | MW6 binding deterministic → separate MW6 REAL GO |
+
+Do **not** combine auth REAL with hosted web_search REAL.
 
 ---
 
-## 15. Tests / validations this cycle
+## 21. Answers A–S (required)
 
-```
-unset OPENAI_API_KEY OPENAI_API_KEY_PROJECT OPENAI_BASE_URL
-cd projects/sfia-studio/app
-npx vitest run \
-  __tests__/oa/decision/adversarialAuthority.test.ts \
-  __tests__/oa/decision/decisionConfirmationAuthority.test.ts \
-  __tests__/nora-cognitive-runtime/mw6.pre-real.budget-hardening.d0.test.ts \
-  -t 'REAL_AUTHORITY|AUTH-|authority|Authority|registerLocal|evidence_immutable|expired|scope_mismatch|morris_gate'
-```
-Result: **3 files passed**; **19 passed** / 114 skipped; **exit 0**.
-REAL CALLS = 0 · NETWORK PROVIDER CALLS = 0.
-No new tests. No npm install.
-
----
-
-## 16. Product git this cycle
-
-Product modifications = **NONE**.
-Project commit/push/PR/merge = **NO**.
-Only allowed writes: this Review Pack + handoff L3.
-
----
-
-## 17. Reserves / Debts / Exits
-
-- RESERVE: provider max_tool_calls snapshot (prior PRE-REAL)
-- DEBT: process-local campaign lease realism
-- EXIT: localSingleUserAuthority must exit when REAL source exists
-- FREEZE: MemoryAuthorityResolver as sole REAL trust
-- REJECT: receipt as token; OpenAI approve as HD; W2 full helper AS-IS for REAL
-- GPT-6 DEFER
-
----
-
-## 18. Trajectory / next capability
-
-| Item | Value |
+| Q | Answer |
 | --- | --- |
-| Capability | V3-F07 prepared via F11/F12 |
-| Milestone | MW6 |
-| Gap closed this cycle | R-AUTH-BIND-01 **ambiguity** → **CONFIRMED BLOCKER** |
-| Next capability (unchanged) | authority-bound REAL preflight fail-closed — **blocked on structural source decision** |
-| STOP trajectory link? | **NO** — link intact; structural gate inserted |
-| Exit proof future | after Morris source decision → binding impl GO → deterministic → separate REAL GO |
+| A. Auth before Studio coherent? | **YES** |
+| B. GitHub suitable initial IdP? | **YES — QUALIFIED CANDIDATE** |
+| C. Immutable identity key? | **GitHub user.id** |
+| D. Auth.js vs successor? | Auth.js **fit for JWT-no-DB**; Better Auth preferred for new projects generally — **Morris arbitration if diverging** |
+| E. OAuth App vs GitHub App? | **G1 OAuth App recommended initial**; G2 evolution path |
+| F. JWT vs DB session? | **JWT + current allowlist recheck** qualified; DB deferred |
+| G. Allowlist representation? | **Env multi-user ID list** candidate |
+| H. 2→N without code changes? | **YES** |
+| I. Add/remove user ops? | Edit env allowlist (+ restart/reload as documented) |
+| J. Active session after removal? | Recheck allowlist → **BLOCK** even if JWT valid |
+| K. Two Pilotes attributable? | Distinct `actor:github:<id>` |
+| L. Future actorId contract? | Candidate `actor:github:<immutable-id>` |
+| M. AE re-issued? | S1 from session∩allowlist into AuthorityResolverPort |
+| N. Behind AuthorityResolverPort? | Existing port remains sole AE truth; thin issuer adapter only |
+| O. localSingleUserAuthority exit? | FREEZE FOR REAL; retire when auth path issues AE; keep historical LOCAL_PILOTE readable |
+| P. Deterministic auth proof? | Mock two users + unauthorized + revocation + AE isolation |
+| Q. Future bounded REAL auth proof? | Two real GitHub logins under separate GO; no MW6 effect |
+| R. Future Delivery files (NOT NOW)? | `package.json`/`lock` add next-auth; `auth.ts`; `app/api/auth/[...nextauth]/route.ts`; middleware/proxy; allowlist module; actor mapper; Studio server guards; **not** Nora binding until separate GO |
+| S. Morris decisions still required? | See §22 |
 
 ---
 
-## 19. Decisions Morris still required
+## 22. Morris decisions still required (NON CONSUMED architecture)
 
-1. **STRUCTURAL:** Authority source for runtime Pilote (S1/S2/S3 or equivalent) — **REQUIRED NOW**
-2. Implementation GO for binding — NOT until (1) closed with REAL-compatible source
-3. REAL GO — NOT GRANTED
-4. Product publication — NOT GRANTED
-5. Option A binding recommendation — **NON CONSUMABLE** until (1)
+1. **Accept Option A** (or B/C/variants) as architecture decision.
+2. **Auth library:** Auth.js (JWT-fit) vs Better Auth (strategic).
+3. **GitHub mode:** OAuth App vs GitHub App.
+4. **Allowlist medium:** env (recommended) vs versioned config vs durable store.
+5. **Session:** JWT (recommended) vs DB.
+6. Separate **Delivery GO** to implement auth (not granted by this qualification).
+7. Separate **AUTH REAL** GO for live GitHub login proof.
+8. Downstream **authority binding** + **MW6 REAL** remain separate.
 
 ---
 
-## 20. Claim ceiling
+## 23. Claims
 
-### Allowed
-- R-AUTH-BIND-01 = CONFIRMED BLOCKER
-- Canonical REAL Pilote identity/AE source = ABSENT (temp only)
-- MemoryAuthorityResolver = product process-local resolver (not durable trust)
-- HumanDecision durable ≠ AuthorityEvidence
-- W2 evaluateExecutionAuthorization = NON AS-IS for REAL
-- Option A = NON CONSUMABLE pending structural decision
-- PRE-REAL budget safety retained at prior ceiling
-- Qualification correction complete
+### Allowed if verdict A
+- GitHub identity source = QUALIFIED CANDIDATE
+- immutable GitHub user.id = RECOMMENDED identity key
+- multi-user env allowlist = QUALIFIED CANDIDATE
+- 2→N support = QUALIFIED
+- runtime role = Pilote; no Admin
+- per-human actor identity = REQUIRED
+- authentication ≠ authority = PRESERVED
+- S1 AE re-issue = QUALIFIED CANDIDATE
+- no mandatory auth DB = QUALIFIED (with JWT+recheck)
+- localSingleUserAuthority exit path = QUALIFIED
+- READY FOR MORRIS AUTH ARCHITECTURE DECISION = YES
 
 ### Forbidden
-- LIVE bound / REAL authorized / READY FOR REAL
-- REAL BOUNDARY PROVEN / MW6 COMPLETE
-- Cognitive Completion PROVEN / runtime v3 ADOPTED
-- GPT-6 ADOPTED
-- SQLite AE or IAM chosen without Morris
-- Option A decided/consumed
+- AUTH IMPLEMENTED · TWO USERS REAL PROVEN · LOGIN REAL PROVEN
+- LIVE AUTHORITY BOUND · MW6 READY FOR GO REAL / REAL / COMPLETE
+- COGNITIVE COMPLETION PROVEN · RUNTIME V3 ADOPTED · GPT-6 ADOPTED
 
 ---
 
-## 21. Verdict R-AUTH-BIND-01
+## 24. Final verdict
 
-**CONFIRMED BLOCKER**
+**QUALIFIED — READY FOR MORRIS AUTH ARCHITECTURE DECISION**
 
-## 22. Final Qualification Verdict
+Meaning: architecture sufficiently precise for Morris to decide.
+**≠** Delivery authorized · **≠** login REAL · **≠** authority bound · **≠** MW6 REAL.
 
-**QUALIFICATION CORRECTED — MORRIS STRUCTURAL AUTHORITY SOURCE DECISION REQUIRED**
-
-GO REAL = NO · REAL BOUNDARY PROVEN = NO · LIVE BOUND = NO · MW6 COMPLETE = NO · COGNITIVE COMPLETION PROVEN = NO · GPT-6 ADOPTED = NO · RUNTIME V3 ADOPTED = NO
+GO REAL = NO · REAL BOUNDARY PROVEN = NO · LIVE BOUND = NO · MW6 COMPLETE = NO · COGNITIVE COMPLETION PROVEN = NO · GPT-6 ADOPTED = NO · RUNTIME V3 ADOPTED = NO · AUTH IMPLEMENTED = NO
