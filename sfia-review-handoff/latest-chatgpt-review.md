@@ -1,26 +1,18 @@
-# ChatGPT Review Pack — AUTH POLICY CLOSURE CORRECTION (B1/B2) — FULL MODIFIED CONTENT
-
-> **REVIEW HANDOFF STATUS:** COMPLETE LOCAL PACK WITH FULL MODIFIED CONTENT
-> Prior incomplete pack used excerpts for EC adapters / test summaries — **this rewrite includes full file bodies for every Auth candidate + EC adapter file**.
-> Input handoff tip referenced (do not rely on stale historical body): `2fe7ea6a8eb55b1b14da47a768c137506fd8af6a`
+# ChatGPT Review Pack — AUTH B2 SEMANTIC-BINDING DETERMINISTIC CORRECTION
 
 ## A. Metadata
 
-- timestamp: 2026-09-04 20:52:38 +0200
-- cycle: Cycle 8 — Delivery / continuation corrective — Auth Policy Closure B1/B2
+- timestamp: 2026-09-04 21:25:23 +0200
+- cycle: Cycle 8 — Delivery / continuation corrective — Auth B2 semantic binding
 - profile: CRITICAL
 - typology: EVOL
-- workspace: `/Users/morris/Projects/sfia-workspace-auth-better-auth-github-multi-user-foundation`
 - branch: `delivery/sfia-studio-auth-better-auth-github-multi-user-foundation`
-- HEAD: `ebdae92a96ea1c49444dfb668342c1453f57a540`
-- origin/main: `ebdae92a96ea1c49444dfb668342c1453f57a540`
-- GO Morris consumed: **GO MORRIS — bounded deterministic correction following ChatGPT Auth Policy Closure review**
-- Normative prior GO: **GO MORRIS — PILOTE MULTI-USER AUTHORITY POLICY — BASE NONE + ACTION-SCOPED N1/N2/N3**
-- Input Review Handoff tip: `2fe7ea6a8eb55b1b14da47a768c137506fd8af6a`
-- Input handoff parent: `3ef977c194bf69a193886cb8751060734c5c89a9`
-- Input handoff canonical blob: `8ea5676b5a4e0b85e6e336dddd40ba57d205caec`
+- HEAD / origin/main: `ebdae92a96ea1c49444dfb668342c1453f57a540`
+- GO Morris consumed: **GO MORRIS — TARGETED AUTH B2 SEMANTIC-BINDING DETERMINISTIC CORRECTION**
+- Input Review Handoff tip: `b543571233d6ce9e684951cc66ec34691d2705bf`
+- Input canonical blob: `c8856ce4925487f39bb72791bcd559f84ff1b454`
 - Product commit/push/PR/merge: **0**
-- This document replaces the incomplete local pack that used excerpts.
+- Review Handoff publication this cycle: **NOT PERFORMED — NO MORRIS PUSH GO**
 
 ## B. Git Truth
 
@@ -35,6 +27,7 @@
  M projects/sfia-studio/app/lib/oa/execution-contract/application/confirmExecutionContract.ts
  M projects/sfia-studio/app/lib/oa/execution-contract/application/supersedeExecutionContract.ts
  M projects/sfia-studio/app/lib/oa/execution-contract/application/validateExecutionContract.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/index.ts
  M projects/sfia-studio/app/package-lock.json
  M projects/sfia-studio/app/package.json
 ?? projects/sfia-studio/app/.env.example
@@ -46,777 +39,59 @@
 ?? projects/sfia-studio/app/middleware.ts
 ```
 
-- staged files: **0**
-- conflicts: **0**
-- product commit this cycle: **0**
-- MW6 files in Auth worktree: **NONE**
+- staged=0 · conflicts=0 · Auth dirty candidate expected · no MW6 files in Auth worktree
 
 ## C. Convergence
 
-- Capability: V3-F11 / V3-F12 — Pilote identity → governed execution authority
-- Milestone: Auth multi-user deterministic policy closure (B1/B2)
-- Assets: Better Auth 1.7.2 KEEP; GitHub numeric id binding KEEP; allowlist KEEP; AuthorityClass/Resolver KEEP; `projectRequiredAuthorityFromEffects` REUSE; `localSingleUserAuthority` FREEZE; Auth candidate ADAPT; MW6 PRESERVE
-- Gaps closed: B1 AUTH S1 POLICY BYPASS; B2 ACTION/EXECUTION CONTRACT BINDING
-- Exit proof: adversarial BYPASS-* + BIND-* + REG-*
-- Next: ChatGPT deterministic re-review (then separate AUTH REAL)
-- Debt: T-A4 generic requiredAuthority; AUTH REAL; MW6 binding; auth→W3-A coupling accepted
+- Capability: V3-F11 / V12 governed execution authority
+- Milestone: Auth multi-user deterministic policy closure — semantic binding correction
+- Assets: Better Auth 1.7.2 KEEP; AE schema KEEP; projectRequiredAuthorityFromEffects KEEP; computeInspectionFingerprint REUSE; executionContractId binding ADAPT→semantic; localSingleUserAuthority FREEZE; MW6 PRESERVE
+- Closed retained: B1 bypass; B2-A distinct-ID; login none; N3≠Morris; TTL/collision; session binding
+- Open closed this cycle: B2-B authority precedence; B2-C same-ID semantic substitution
+- Next: ChatGPT deterministic re-review only
 
 ## D. ChatGPT findings consumed
 
-1. **B1 — AUTH S1 POLICY BYPASS** — public `buildValidatedS1Evidence` / `registerS1EvidenceImmutable` bypassed policy.
-2. **B2 — ACTION / EXECUTION CONTRACT BINDING NOT PROVEN** — scope+effects independent; AE.scope=business scope; verify used contract.scope → Contract A S1 could authorize Contract B.
-
-## E. Discovery A–M
-
-| ID | Finding |
-|----|---------|
-| A | Only `issueS1AuthorityEvidence` remains public Auth issuer after correction. |
-| B | `buildValidatedS1Evidence` module-private (not exported). |
-| C | `registerS1EvidenceImmutable` module-private (not exported). |
-| D | No product runtime needs private helpers outside canonical path. |
-| E | Tests rewritten off private helpers. |
-| F | Binding primitive: AE.scope exact-match + `executionContractId`. |
-| G | No native AE.executionContractId field. |
-| H | verify compares actorId, level hierarchy, exact scope, expiry, morris gate. |
-| I | Auth S1 verify scope = executionContractId via adapter. |
-| J | Two contracts may share business scope. |
-| K | Closed without AE schema / ActionPolicy / second resolver. |
-| L | EC/W3-A context supplies contract id/action/target/scope/effects. |
-| M | Canonical issuer receives contract+effects; policy re-projects level. |
-
-Classification: B1 IMPLEMENTABLE / B2 IMPLEMENTABLE WITH EXISTING ARCHITECTURE.
-
-## F. Architecture
-
-- Reused: W3-A projection, AuthorityResolverPort, AE.scope semantics, Better Auth 1.7.2
-- Binding: Auth S1 AE.scope = `executionContractId`; `resolveExecutionAuthorityVerifyScope` source-gated
-- No parallel engine; no persistence; `localSingleUserAuthority` frozen/untouched
-
-## G. Modified content — FULL FILES (no excerpts)
-
-Every Auth candidate production file, every Auth test, every ExecutionContract file touched for B2 adapter, package.json, middleware, login, shell logout wiring.
-
-`package-lock.json` omitted from inline dump (size 9172 lines); SHA-256 = `5fa32ea58da04852a3bd4ca4fa944527f49e01a2aa0c07ca3a3d7fbdeb967c11`; dependency truth = better-auth **1.7.2** exact (see package.json below).
-
-### `projects/sfia-studio/app/lib/auth/constants.ts`
-
-```typescript
-/**
- * SFIA Studio Better Auth + GitHub multi-user foundation constants.
- * Authentication proves identity; SFIA owns Studio admission and authority.
- */
-
-export const SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS_ENV =
-  "SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS" as const;
-
-export const BETTER_AUTH_GITHUB_MULTI_USER_S1 =
-  "BETTER_AUTH_GITHUB_MULTI_USER_S1" as const;
-
-/** Canonical actor id prefix for GitHub-authenticated Pilotes. */
-export const GITHUB_ACTOR_ID_PREFIX = "actor:github:" as const;
-
-export const GITHUB_PROVIDER_ID = "github" as const;
-
-/**
- * Session / cookie cache max age. S1 evidence TTL must never exceed this.
- * No stricter multi-user S1 TTL policy exists in Git for this path.
- */
-export const SESSION_COOKIE_MAX_AGE_SECONDS = 7 * 24 * 60 * 60;
-
-/** Max S1 AuthorityEvidence lifetime on the Auth path (= session cookie bound). */
-export const S1_MAX_TTL_SECONDS = SESSION_COOKIE_MAX_AGE_SECONDS;
-
-/**
- * @deprecated Do not use — authenticated Pilote ≠ automatic N3.
- * Kept only so accidental imports fail review; S1 level requires
- * resolvePiloteS1AuthorityLevel() which is currently NOT PROVEN.
- */
-export const S1_PILOTE_AUTHORITY_LEVEL_REMOVED =
-  "PILOTE_AUTHORITY_ENVELOPE_NOT_PROVEN" as const;
-```
-
-### `projects/sfia-studio/app/lib/auth/allowlist.ts`
-
-```typescript
-/**
- * Server-owned multi-user GitHub allowlist.
- * Canonical key = immutable GitHub numeric user id (opaque string).
- * Never match login / email / displayName.
- */
-
-import { SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS_ENV } from "./constants";
-
-export type AllowedGithubUserIdsParseResult =
-  | { ok: true; ids: readonly string[] }
-  | {
-      ok: false;
-      code:
-        | "ALLOWLIST_MISSING"
-        | "ALLOWLIST_EMPTY"
-        | "ALLOWLIST_MALFORMED";
-      message: string;
-    };
-
-/** Positive decimal GitHub id — no signs, floats, exponents. */
-const GITHUB_ID_RE = /^[1-9][0-9]*$/;
-
-export function isCanonicalGithubUserId(value: unknown): value is string {
-  return typeof value === "string" && GITHUB_ID_RE.test(value);
-}
-
-/**
- * Normalize a raw GitHub profile id (number or string) to canonical string.
- * Rejects non-integers / unsafe numbers.
- */
-export function canonicalizeGithubUserId(
-  raw: unknown,
-): string | null {
-  if (typeof raw === "number") {
-    if (!Number.isInteger(raw) || raw <= 0 || !Number.isSafeInteger(raw)) {
-      return null;
-    }
-    return String(raw);
-  }
-  if (typeof raw === "string") {
-    const trimmed = raw.trim();
-    if (!isCanonicalGithubUserId(trimmed)) return null;
-    return trimmed;
-  }
-  return null;
-}
-
-export function parseAllowedGithubUserIds(
-  raw: string | undefined | null,
-): AllowedGithubUserIdsParseResult {
-  if (raw === undefined || raw === null) {
-    return {
-      ok: false,
-      code: "ALLOWLIST_MISSING",
-      message: `${SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS_ENV} is not configured (fail-closed).`,
-    };
-  }
-  const trimmedWhole = raw.trim();
-  if (trimmedWhole.length === 0) {
-    return {
-      ok: false,
-      code: "ALLOWLIST_EMPTY",
-      message: `${SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS_ENV} is empty (fail-closed).`,
-    };
-  }
-
-  const parts = trimmedWhole.split(",");
-  const seen = new Set<string>();
-  const ids: string[] = [];
-
-  for (const part of parts) {
-    const candidate = part.trim();
-    if (candidate.length === 0) {
-      return {
-        ok: false,
-        code: "ALLOWLIST_MALFORMED",
-        message: `${SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS_ENV} contains an empty member (fail-closed).`,
-      };
-    }
-    if (!isCanonicalGithubUserId(candidate)) {
-      return {
-        ok: false,
-        code: "ALLOWLIST_MALFORMED",
-        message: `${SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS_ENV} contains a malformed GitHub user id (fail-closed).`,
-      };
-    }
-    if (seen.has(candidate)) continue;
-    seen.add(candidate);
-    ids.push(candidate);
-  }
-
-  if (ids.length === 0) {
-    return {
-      ok: false,
-      code: "ALLOWLIST_EMPTY",
-      message: `${SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS_ENV} yielded no ids (fail-closed).`,
-    };
-  }
-
-  return { ok: true, ids };
-}
-
-export function parseAllowedGithubUserIdsFromEnv(
-  env: NodeJS.ProcessEnv = process.env,
-): AllowedGithubUserIdsParseResult {
-  return parseAllowedGithubUserIds(
-    env[SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS_ENV],
-  );
-}
-
-export function isGithubUserAllowed(
-  githubUserId: string,
-  allowed: readonly string[],
-): boolean {
-  if (!isCanonicalGithubUserId(githubUserId)) return false;
-  return allowed.includes(githubUserId);
-}
-
-/**
- * Hostile client claims (login/email/displayName/role) never authorize.
- * This helper exists so tests can assert the invariant explicitly.
- */
-export function authorizeByGithubLoginOrEmail(value: unknown): false {
-  void value;
-  return false;
-}
-```
-
-### `projects/sfia-studio/app/lib/auth/actorMapping.ts`
-
-```typescript
-/**
- * Map verified GitHub immutable user id → SFIA OaActorReference (Pilote).
- * ActorReference.authorityLevel is never an authority proof.
- */
-
-import type { ActorReference } from "@/lib/oa/doctrine";
-import { GITHUB_ACTOR_ID_PREFIX } from "./constants";
-import { isCanonicalGithubUserId } from "./allowlist";
-
-export function githubActorId(githubUserId: string): string {
-  if (!isCanonicalGithubUserId(githubUserId)) {
-    throw new Error("invalid_github_user_id");
-  }
-  return `${GITHUB_ACTOR_ID_PREFIX}${githubUserId}`;
-}
-
-export function mapGithubIdentityToPiloteActor(input: {
-  githubUserId: string;
-  displayName?: string | null;
-}): ActorReference {
-  const actorId = githubActorId(input.githubUserId);
-  const display =
-    typeof input.displayName === "string" && input.displayName.trim().length > 0
-      ? input.displayName.trim()
-      : undefined;
-  return {
-    actorId,
-    role: "decision_maker",
-    ...(display ? { displayName: display } : {}),
-    authorityLevel: "none",
-  };
-}
-
-export function parseGithubUserIdFromActorId(
-  actorId: string,
-): string | null {
-  if (!actorId.startsWith(GITHUB_ACTOR_ID_PREFIX)) return null;
-  const id = actorId.slice(GITHUB_ACTOR_ID_PREFIX.length);
-  return isCanonicalGithubUserId(id) ? id : null;
-}
-```
-
-### `projects/sfia-studio/app/lib/auth/auth.ts`
-
-```typescript
-/**
- * Better Auth configuration — STATELESS ONLY (no database / adapter).
- *
- * Provider subject binding (proven from better-auth@1.7.2):
- * - session.user.id = Better Auth internal user id (NOT GitHub id)
- * - GitHub profile.id → account.accountId via accountSubject
- * - storeAccountCookie (default when no DB) keeps account in encrypted
- *   account_data cookie (payload includes userId + accountId + tokens)
- * - Protected-path recovery uses getAccountCookie + SFIA-enforced
- *   account.userId === session.user.id (BA shouldBind is false without DB)
- * - Do NOT use auth.api.accountInfo on the hot path: it calls getUserInfo (network)
- *   and its public account shape omits userId.
- */
-
-import { betterAuth } from "better-auth";
-import { nextCookies } from "better-auth/next-js";
-import {
-  canonicalizeGithubUserId,
-  isGithubUserAllowed,
-  parseAllowedGithubUserIdsFromEnv,
-} from "./allowlist";
-import {
-  GITHUB_PROVIDER_ID,
-  SESSION_COOKIE_MAX_AGE_SECONDS,
-} from "./constants";
-
-function requireEnv(name: string, env: NodeJS.ProcessEnv): string {
-  const value = env[name];
-  if (typeof value !== "string" || value.trim().length === 0) {
-    throw new Error(`${name} is required (fail-closed).`);
-  }
-  return value.trim();
-}
-
-export type CreateSfiaAuthOptions = {
-  env?: NodeJS.ProcessEnv;
-  /** Override base URL (tests). Default BETTER_AUTH_URL or http://localhost:3020 */
-  baseURL?: string;
-};
-
-/**
- * Build the Studio Better Auth instance.
- * Callers must supply secrets via env (or test overrides in env).
- */
-export function createSfiaAuth(options: CreateSfiaAuthOptions = {}) {
-  const env = options.env ?? process.env;
-  const secret = requireEnv("BETTER_AUTH_SECRET", env);
-  const baseURL =
-    options.baseURL ??
-    (typeof env.BETTER_AUTH_URL === "string" && env.BETTER_AUTH_URL.trim()
-      ? env.BETTER_AUTH_URL.trim()
-      : "http://localhost:3020");
-  const githubClientId = requireEnv("GITHUB_CLIENT_ID", env);
-  const githubClientSecret = requireEnv("GITHUB_CLIENT_SECRET", env);
-
-  return betterAuth({
-    baseURL,
-    secret,
-    // Explicit: no database → Better Auth enables storeAccountCookie by default.
-    // We still set account/session options so reviewers can see the contract.
-    session: {
-      expiresIn: SESSION_COOKIE_MAX_AGE_SECONDS,
-      cookieCache: {
-        enabled: true,
-        maxAge: SESSION_COOKIE_MAX_AGE_SECONDS,
-        strategy: "jwe",
-        refreshCache: true,
-      },
-    },
-    account: {
-      storeStateStrategy: "cookie",
-      storeAccountCookie: true,
-    },
-    socialProviders: {
-      github: {
-        clientId: githubClientId,
-        clientSecret: githubClientSecret,
-        // Better Auth GitHub docs require user:email for provider plumbing.
-        // Email is NEVER the SFIA durable identity key.
-      },
-    },
-    user: {
-      validateUserInfo: async (data) => {
-        const source = data.source;
-        if (source.method !== "oauth") {
-          return {
-            error: "provider_not_allowed",
-            errorDescription: "Only GitHub OAuth is permitted.",
-          };
-        }
-        if (source.oauth?.providerId !== GITHUB_PROVIDER_ID) {
-          return {
-            error: "provider_not_allowed",
-            errorDescription: "Only GitHub OAuth is permitted.",
-          };
-        }
-        const rawId = source.oauth.profile?.id;
-        const githubUserId = canonicalizeGithubUserId(rawId);
-        if (!githubUserId) {
-          return {
-            error: "github_id_unparseable",
-            errorDescription: "GitHub provider profile id is missing or invalid.",
-          };
-        }
-        const allowlist = parseAllowedGithubUserIdsFromEnv(env);
-        if (!allowlist.ok) {
-          return {
-            error: allowlist.code.toLowerCase(),
-            errorDescription: "SFIA Studio allowlist is not usable (fail-closed).",
-          };
-        }
-        if (!isGithubUserAllowed(githubUserId, allowlist.ids)) {
-          return {
-            error: "github_user_not_allowlisted",
-            errorDescription: "Authenticated GitHub identity is not authorized for Studio.",
-          };
-        }
-        return;
-      },
-    },
-    plugins: [nextCookies()],
-  });
-}
-
-export type SfiaAuth = ReturnType<typeof createSfiaAuth>;
-
-/** Lazy singleton for the Next.js app (env from process). */
-let _auth: SfiaAuth | null = null;
-
-export function getSfiaAuth(): SfiaAuth {
-  if (!_auth) {
-    _auth = createSfiaAuth();
-  }
-  return _auth;
-}
-
-/** Test-only: reset singleton between tests. */
-export function resetSfiaAuthSingletonForTests(): void {
-  _auth = null;
-}
-
-/**
- * Structural proof helpers for tests / review — no DB adapter present.
- */
-export function assertStatelessAuthConfig(auth: SfiaAuth): {
-  hasDatabase: boolean;
-  socialProviders: string[];
-} {
-  const options = auth.options as {
-    database?: unknown;
-    socialProviders?: Record<string, unknown>;
-    account?: { storeAccountCookie?: boolean };
-  };
-  const hasDatabase = options.database !== undefined && options.database !== null;
-  const socialProviders = Object.keys(options.socialProviders ?? {});
-  return { hasDatabase, socialProviders };
-}
-```
-
-### `projects/sfia-studio/app/lib/auth/auth-client.ts`
-
-```typescript
-"use client";
-
-import { createAuthClient } from "better-auth/react";
-
-/**
- * Browser Better Auth client. Base URL follows the current origin
- * (Studio runs on port 3020 in local dev).
- */
-export const authClient = createAuthClient();
-```
-
-### `projects/sfia-studio/app/lib/auth/providerAccountBinding.ts`
-
-```typescript
-/**
- * Recover the GitHub provider subject from Better Auth's encrypted account_data
- * cookie and bind it to the CURRENT verified session user.
- *
- * Why not auth.api.accountInfo({ useAccountCookie: true })?
- * better-auth@1.7.2 accountInfo ALWAYS calls getValidAccessToken + provider.getUserInfo
- * (GitHub network). Public accountInfo.account shape is ONLY
- * { id, providerId, issuer, accountId } — no userId.
- *
- * In no-database mode, shouldBindAccountCookieToSessionUser() === false, so
- * Better Auth itself does NOT enforce account.userId === session.user.id.
- * SFIA therefore enforces that bind fail-closed when reading the cookie payload
- * (which DOES include userId per getAccountCookie's typed return).
- */
-
-import { getAccountCookie, getCookies } from "better-auth/cookies";
-import { canonicalizeGithubUserId } from "./allowlist";
-import type { SfiaAuth } from "./auth";
-import { GITHUB_PROVIDER_ID } from "./constants";
-
-/** Minimal context shape accepted by better-auth getAccountCookie. */
-type AccountCookieEndpointContext = {
-  headers: Headers;
-  context: Awaited<SfiaAuth["$context"]>;
-  getCookie: (name: string) => string | undefined;
-};
-
-export type BoundGithubProviderAccount = {
-  /** Better Auth internal user id (session.user.id) — NOT the GitHub id. */
-  betterAuthUserId: string;
-  /** Canonical GitHub numeric id string (= account.accountId for GitHub). */
-  githubUserId: string;
-  providerId: typeof GITHUB_PROVIDER_ID;
-  /** Better Auth account row id (internal). */
-  accountRowId: string;
-  issuer: string;
-};
-
-export type ReadBoundGithubAccountResult =
-  | { ok: true; account: BoundGithubProviderAccount }
-  | {
-      ok: false;
-      code:
-        | "PROVIDER_ACCOUNT_MISSING"
-        | "ACCOUNT_USER_ID_MISSING"
-        | "SESSION_USER_MISMATCH"
-        | "PROVIDER_NOT_GITHUB"
-        | "GITHUB_ID_INVALID";
-      message: string;
-    };
-
-function cookieValueFromHeader(
-  headers: Headers,
-  cookieName: string,
-): string | undefined {
-  const raw = headers.get("cookie");
-  if (!raw) return undefined;
-  for (const part of raw.split(";")) {
-    const trimmed = part.trim();
-    const eq = trimmed.indexOf("=");
-    if (eq <= 0) continue;
-    const name = trimmed.slice(0, eq);
-    if (name === cookieName || name.startsWith(`${cookieName}.`)) {
-      return trimmed.slice(eq + 1);
-    }
-  }
-  return undefined;
-}
-
-/**
- * Build the minimal Better Auth endpoint context required by getAccountCookie.
- * No provider network; decrypts the existing httpOnly account_data cookie only.
- */
-async function buildAccountCookieContext(
-  auth: SfiaAuth,
-  headers: Headers,
-): Promise<AccountCookieEndpointContext> {
-  const authContext = await auth.$context;
-  // Ensure cookie name helpers stay aligned with configured auth options.
-  void getCookies(auth.options);
-  return {
-    headers,
-    context: authContext,
-    getCookie: (name: string) => cookieValueFromHeader(headers, name),
-  };
-}
-
-/**
- * Read Better Auth account_data and require session.user.id === account.userId.
- */
-export async function readSessionBoundGithubProviderAccount(input: {
-  auth: SfiaAuth;
-  headers: Headers;
-  sessionUserId: string;
-}): Promise<ReadBoundGithubAccountResult> {
-  const sessionUserId = input.sessionUserId?.trim();
-  if (!sessionUserId) {
-    return {
-      ok: false,
-      code: "SESSION_USER_MISMATCH",
-      message: "Session user id is required for provider binding.",
-    };
-  }
-
-  let rawAccount: Awaited<ReturnType<typeof getAccountCookie>> = null;
-  try {
-    const endpointCtx = await buildAccountCookieContext(
-      input.auth,
-      input.headers,
-    );
-    // better-auth types GenericEndpointContext; runtime only needs headers+context.
-    rawAccount = await getAccountCookie(
-      endpointCtx as Parameters<typeof getAccountCookie>[0],
-    );
-  } catch {
-    return {
-      ok: false,
-      code: "PROVIDER_ACCOUNT_MISSING",
-      message: "GitHub provider account cookie is missing or unreadable.",
-    };
-  }
-
-  if (!rawAccount) {
-    return {
-      ok: false,
-      code: "PROVIDER_ACCOUNT_MISSING",
-      message: "GitHub provider account cookie is missing or unreadable.",
-    };
-  }
-
-  const accountUserId =
-    typeof rawAccount.userId === "string" ? rawAccount.userId.trim() : "";
-  if (!accountUserId) {
-    return {
-      ok: false,
-      code: "ACCOUNT_USER_ID_MISSING",
-      message:
-        "Account cookie lacks userId — cannot bind provider subject to session.",
-    };
-  }
-
-  if (accountUserId !== sessionUserId) {
-    return {
-      ok: false,
-      code: "SESSION_USER_MISMATCH",
-      message:
-        "Provider account cookie userId does not match the current session user.",
-    };
-  }
-
-  if (rawAccount.providerId !== GITHUB_PROVIDER_ID) {
-    return {
-      ok: false,
-      code: "PROVIDER_NOT_GITHUB",
-      message: "Provider account is not GitHub.",
-    };
-  }
-
-  const githubUserId = canonicalizeGithubUserId(rawAccount.accountId);
-  if (!githubUserId) {
-    return {
-      ok: false,
-      code: "GITHUB_ID_INVALID",
-      message: "Provider accountId is not a canonical GitHub user id.",
-    };
-  }
-
-  return {
-    ok: true,
-    account: {
-      betterAuthUserId: accountUserId,
-      githubUserId,
-      providerId: GITHUB_PROVIDER_ID,
-      accountRowId: String(rawAccount.id),
-      issuer: String(rawAccount.issuer ?? ""),
-    },
-  };
-}
-```
-
-### `projects/sfia-studio/app/lib/auth/resolveCurrentPilote.ts`
-
-```typescript
-/**
- * Resolve the current authenticated Pilote from:
- *   Better Auth session (verified)
- * ∩ encrypted account_data cookie bound by account.userId === session.user.id
- * ∩ CURRENT server allowlist
- *
- * session.user.id is NEVER treated as the GitHub id.
- * auth.api.accountInfo is NOT used on this hot path (would call GitHub getUserInfo).
- */
-
-import type { ActorReference } from "@/lib/oa/doctrine";
-import {
-  isGithubUserAllowed,
-  parseAllowedGithubUserIdsFromEnv,
-  type AllowedGithubUserIdsParseResult,
-} from "./allowlist";
-import { mapGithubIdentityToPiloteActor } from "./actorMapping";
-import { getSfiaAuth, type SfiaAuth } from "./auth";
-import {
-  readSessionBoundGithubProviderAccount,
-  type ReadBoundGithubAccountResult,
-} from "./providerAccountBinding";
-
-export type ResolveCurrentPiloteResult =
-  | {
-      ok: true;
-      githubUserId: string;
-      betterAuthUserId: string;
-      actor: ActorReference;
-    }
-  | {
-      ok: false;
-      code:
-        | "NO_SESSION"
-        | "PROVIDER_ACCOUNT_MISSING"
-        | "ACCOUNT_USER_ID_MISSING"
-        | "PROVIDER_NOT_GITHUB"
-        | "GITHUB_ID_INVALID"
-        | "ALLOWLIST_DENIED"
-        | "ALLOWLIST_CONFIG_ERROR"
-        | "SESSION_USER_MISMATCH";
-      message: string;
-      allowlist?: AllowedGithubUserIdsParseResult;
-    };
-
-export type ResolveCurrentPiloteInput = {
-  headers: Headers;
-  auth?: SfiaAuth;
-  env?: NodeJS.ProcessEnv;
-  /**
-   * Hostile injection — IGNORED. Client cannot select GitHub id.
-   */
-  claimedGithubUserId?: unknown;
-  claimedRole?: unknown;
-  claimedCanActAsMorris?: unknown;
-  /**
-   * TEST-ONLY dependency injection. Production uses cookie binding.
-   * Must still return the real binding contract (userId-bound account).
-   */
-  readBoundGithubAccount?: (input: {
-    auth: SfiaAuth;
-    headers: Headers;
-    sessionUserId: string;
-  }) => Promise<ReadBoundGithubAccountResult>;
-};
-
-export async function resolveCurrentAuthenticatedPilote(
-  input: ResolveCurrentPiloteInput,
-): Promise<ResolveCurrentPiloteResult> {
-  // Hostile client fields are deliberately ignored.
-  void input.claimedGithubUserId;
-  void input.claimedRole;
-  void input.claimedCanActAsMorris;
-
-  const auth = input.auth ?? getSfiaAuth();
-  const env = input.env ?? process.env;
-
-  const session = await auth.api.getSession({ headers: input.headers });
-  if (!session?.user?.id || !session.session) {
-    return {
-      ok: false,
-      code: "NO_SESSION",
-      message: "No valid Better Auth session.",
-    };
-  }
-
-  const readBound =
-    input.readBoundGithubAccount ?? readSessionBoundGithubProviderAccount;
-  const bound = await readBound({
-    auth,
-    headers: input.headers,
-    sessionUserId: session.user.id,
-  });
-
-  if (!bound.ok) {
-    return {
-      ok: false,
-      code: bound.code,
-      message: bound.message,
-    };
-  }
-
-  const allowlist = parseAllowedGithubUserIdsFromEnv(env);
-  if (!allowlist.ok) {
-    return {
-      ok: false,
-      code: "ALLOWLIST_CONFIG_ERROR",
-      message: "SFIA allowlist configuration is fail-closed.",
-      allowlist,
-    };
-  }
-
-  if (!isGithubUserAllowed(bound.account.githubUserId, allowlist.ids)) {
-    return {
-      ok: false,
-      code: "ALLOWLIST_DENIED",
-      message: "GitHub identity is not in the current SFIA allowlist.",
-      allowlist,
-    };
-  }
-
-  const actor = mapGithubIdentityToPiloteActor({
-    githubUserId: bound.account.githubUserId,
-    displayName: session.user.name ?? null,
-  });
-
-  return {
-    ok: true,
-    githubUserId: bound.account.githubUserId,
-    betterAuthUserId: session.user.id,
-    actor,
-  };
-}
-
-export async function requireCurrentPilote(
-  input: ResolveCurrentPiloteInput,
-): Promise<Extract<ResolveCurrentPiloteResult, { ok: true }>> {
-  const result = await resolveCurrentAuthenticatedPilote(input);
-  if (!result.ok) {
-    throw new Error(`PILOTE_REQUIRED:${result.code}`);
-  }
-  return result;
-}
-```
+- B1 AUTH S1 POLICY BYPASS — CLOSED / PASS (not reopened)
+- B2-A distinct ExecutionContract IDs — CLOSED / PASS (retained)
+- B2-B CONTRACT AUTHORITY PRECEDENCE GAP — CLOSED this cycle
+- B2-C SAME-ID SEMANTIC SUBSTITUTION — CLOSED this cycle
+
+## E. Discovery D1–D20
+
+| ID | Answer |
+|----|--------|
+| D1 | ExecutionContractSemanticMaterial covers: executionContractId, projectId, cycleInstanceId?, decisionRefs?, confirmationRef?, doctrinePackageRef?, action, target, scope, inputs?, expectedOutputs?, requiredCapabilities, requiredAuthority, constraints, stopConditions, evidenceRequirements, reversibility, executionWindowClass?, idempotencyKey, supersedes*, adapterExportRef?, immutableAfterConfirm? |
+| D2 | Yes — `computeExecutionContractSemanticMaterialFingerprint` / `computeExecutionContractSemanticFingerprint` / `computeInspectionFingerprint` work on material before persistence. |
+| D3 | Yes — Auth issuance receives the same field surface as inspection fingerprint input (AuthS1GovernedContractContext = Parameters of computeInspectionFingerprint). |
+| D4 | semanticFingerprint is computed at Build persist time; pre-Build equivalent is recomputed from request material via computeInspectionFingerprint. |
+| D5 | S1 is issued before Build (authorityEvidenceId on Build request). No production call site yet issues Auth S1 in app routes; tests/helpers exercise the canonical issuer. |
+| D6 | Future production call site: product path preparing BuildExecutionContractRequest with Auth-issued evidence (not wired this cycle beyond EC gates). |
+| D7 | S1 is needed pre-Build; durable contract may not exist yet. |
+| D8 | Existing canonical pre-Build semantic material = fields feeding `computeInspectionFingerprint` (execution-significant material minus confirmation binding fields). |
+| D9 | Yes — AE.scope exact-match can carry the inspection fingerprint hex without AE schema extension. |
+| D10 | Yes — issuance and all EC gates recompute via `computeInspectionFingerprint` from server-owned contract/request material. |
+| D11 | Yes — Build/Validate/Confirm/Cancel/Supersede/Check all recompute; never trust caller opaque fingerprint. |
+| D12 | Non-Auth evidence still verifies with business `contract.scope` (source-gated adapter). |
+| D13 | Historical registry evidence unchanged; Auth S1 source-gated. |
+| D14 | Supersede successor has distinct executionContractId (+ material) → distinct fingerprint; prior S1 cannot authorize successor (SEM-LIFE-02). |
+| D15 | Build computes `preBuildSemantic` and verifies BEFORE constructing/persisting contract. |
+| D16 | Existing inspection fingerprint already includes authority-bearing intent fields (action/target/scope/requiredAuthority/capabilities/constraints/stop/evidence/reversibility/idempotency/decisionRefs/etc.). |
+| D17 | Choosing a custom narrower subset would be new architecture — avoided. |
+| D18 | No circular Auth↔EC dependency: Auth imports existing EC inspection primitive; EC does not import Auth. |
+| D19 | Full semanticFingerprint includes confirmationRef/immutableAfterConfirm and changes on Confirm. |
+| D20 | Full semanticFingerprint is NOT stable across Confirm. **Existing** `computeInspectionFingerprint` deliberately excludes those fields and remains stable (documented in inspectionAttestation.ts). |
+
+**Classification: OPTION 2 — EXISTING PRIMITIVE PARTIALLY SUFFICIENT — EXISTING STABLE PRE-BUILD MATERIAL/PRIMITIVE FOUND (`computeInspectionFingerprint`).**
+
+## F. Fingerprint analysis
+
+- Reused primitive: `computeInspectionFingerprint` from `domain/inspectionAttestation.ts`
+- Material: full ExecutionContractSemanticMaterial minus confirmationRef/immutableAfterConfirm
+- Lifecycle: stable Build→Validate→Confirm; supersede creates new identity/fingerprint
+- Why not new architecture: existing documented EC inspection sufficiency primitive; no new hash engine; no AE schema field; no second resolver
+
+## G. Modified content — FULL FILES
 
 ### `projects/sfia-studio/app/lib/auth/piloteS1AuthorityPolicy.ts`
 
@@ -825,13 +100,16 @@ export async function requireCurrentPilote(
  * Multi-user Pilote S1 authority policy — BASE NONE + ACTION-SCOPED N1/N2/N3.
  *
  * Morris GO: PILOTE MULTI-USER AUTHORITY POLICY — BASE NONE + ACTION-SCOPED N1/N2/N3
+ * Correction: B2 semantic binding via existing computeInspectionFingerprint.
  *
  * Trusted derivation (reuse): projectRequiredAuthorityFromEffects (W3-A).
- * Login never selects N1/N2/N3. MORRIS / construction gate → fail-closed.
+ * Contract authority: contract.requiredAuthority checked directly vs projection.
+ * Binding: AuthorityEvidence.scope = inspection fingerprint (lifecycle-stable).
  */
 
 import type { AuthorityLevel } from "@/lib/oa/decision";
 import type { AuthorityClass } from "@/lib/oa/execution-contract";
+import { computeInspectionFingerprint } from "@/lib/oa/execution-contract/domain/inspectionAttestation";
 import {
   actionForEffectClass,
   projectRequiredAuthorityFromEffects,
@@ -857,7 +135,8 @@ export const PILOTE_S1_POLICY_ID =
 
 /**
  * Server-owned governed effects facts used for re-projection + coherence.
- * Claims never select the level.
+ * Claims never select the level. No contractRequiredAuthority field —
+ * contract.requiredAuthority is the sole contract authority truth to CHECK.
  */
 export type GovernedEffectsAuthorityInput = {
   effectClass: ExecutionEffectClass;
@@ -868,18 +147,16 @@ export type GovernedEffectsAuthorityInput = {
   /** Must match concrete contract.target */
   target: string;
   claimedRequiredAuthority?: unknown;
-  contractRequiredAuthority?: unknown;
 };
 
-/** Concrete ExecutionContract fields required for Auth S1 issuance. */
-export type AuthS1GovernedContractContext = {
-  executionContractId: string;
-  action: string;
-  target: string;
-  /** Business / product scope (coherence only — NOT AuthorityEvidence.scope). */
-  scope: string;
-  requiredAuthority?: AuthorityClass;
-};
+/**
+ * Concrete ExecutionContract semantic material for Auth S1.
+ * Same field surface as computeInspectionFingerprint input (existing EC primitive).
+ * requiredAuthority is mandatory and checked against server projection.
+ */
+export type AuthS1GovernedContractContext = Parameters<
+  typeof computeInspectionFingerprint
+>[0];
 
 export type PiloteS1AuthorityPolicyResult =
   | {
@@ -888,7 +165,7 @@ export type PiloteS1AuthorityPolicyResult =
       authorityClass: Exclude<AuthorityClass, "MORRIS">;
       policyId: typeof PILOTE_S1_POLICY_ID;
       effectClass: Exclude<ExecutionEffectClass, "unknown">;
-      /** AuthorityEvidence.scope binding key = executionContractId */
+      /** AuthorityEvidence.scope = computeInspectionFingerprint(contract) */
       authorityBindingScope: string;
       rationale: string;
       morrisConstructionGateRequired: false;
@@ -931,7 +208,7 @@ export function resolvePiloteS1AuthorityLevel(): PiloteS1AuthorityPolicyResult {
 }
 
 /**
- * Action-scoped + contract-bound S1 level from existing effects projection.
+ * Action-scoped + semantically bound S1 level from existing effects projection.
  */
 export function resolvePiloteS1AuthorityFromGovernedContract(input: {
   contract: AuthS1GovernedContractContext;
@@ -945,6 +222,43 @@ export function resolvePiloteS1AuthorityFromGovernedContract(input: {
       code: CONTRACT_CONTEXT_REQUIRED,
       message:
         "executionContractId is required (xct:…) for Auth S1 contract binding.",
+    };
+  }
+
+  if (
+    typeof contract.projectId !== "string" ||
+    contract.projectId.trim().length === 0
+  ) {
+    return {
+      ok: false,
+      code: CONTRACT_CONTEXT_REQUIRED,
+      message: "projectId is required for Auth S1 semantic binding.",
+    };
+  }
+
+  if (
+    typeof contract.idempotencyKey !== "string" ||
+    contract.idempotencyKey.trim().length === 0
+  ) {
+    return {
+      ok: false,
+      code: CONTRACT_CONTEXT_REQUIRED,
+      message: "idempotencyKey is required for Auth S1 semantic binding.",
+    };
+  }
+
+  if (
+    !Array.isArray(contract.requiredCapabilities) ||
+    !Array.isArray(contract.constraints) ||
+    !Array.isArray(contract.stopConditions) ||
+    !Array.isArray(contract.evidenceRequirements) ||
+    typeof contract.reversibility !== "string"
+  ) {
+    return {
+      ok: false,
+      code: CONTRACT_CONTEXT_REQUIRED,
+      message:
+        "Semantic contract arrays/reversibility are required for inspection fingerprint binding.",
     };
   }
 
@@ -984,11 +298,38 @@ export function resolvePiloteS1AuthorityFromGovernedContract(input: {
     };
   }
 
-  const claimed = governedEffects.claimedRequiredAuthority;
-  const contractClaim =
-    governedEffects.contractRequiredAuthority ?? contract.requiredAuthority;
+  // contract.requiredAuthority is mandatory contract truth — never optional,
+  // never selected from effects.caller fields.
+  if (
+    contract.requiredAuthority === undefined ||
+    contract.requiredAuthority === null
+  ) {
+    return {
+      ok: false,
+      code: AUTHORITY_REQUIREMENT_UNTRUSTED,
+      message: "contract.requiredAuthority is required for Auth S1 issuance.",
+    };
+  }
 
-  if (claimed === "MORRIS" || contractClaim === "MORRIS") {
+  if (!isAuthorityClass(contract.requiredAuthority)) {
+    return {
+      ok: false,
+      code: AUTHORITY_REQUIREMENT_UNTRUSTED,
+      message: "contract.requiredAuthority is not a trusted AuthorityClass.",
+    };
+  }
+
+  if (contract.requiredAuthority === "MORRIS") {
+    return {
+      ok: false,
+      code: MORRIS_AUTHORITY_NOT_AVAILABLE,
+      message:
+        "Auth path cannot satisfy MORRIS AuthorityClass. N3 ≠ Morris.",
+    };
+  }
+
+  const claimed = governedEffects.claimedRequiredAuthority;
+  if (claimed === "MORRIS") {
     return {
       ok: false,
       code: MORRIS_AUTHORITY_NOT_AVAILABLE,
@@ -1047,6 +388,16 @@ export function resolvePiloteS1AuthorityFromGovernedContract(input: {
     };
   }
 
+  // Sole level source = projection. Contract authority is CHECKED, never selected.
+  if (contract.requiredAuthority !== serverClass) {
+    return {
+      ok: false,
+      code: AUTHORITY_REQUIREMENT_MISMATCH,
+      message:
+        "contract.requiredAuthority does not match server effect projection.",
+    };
+  }
+
   if (claimed !== undefined && claimed !== null) {
     if (!isAuthorityClass(claimed) || claimed !== serverClass) {
       return {
@@ -1058,16 +409,8 @@ export function resolvePiloteS1AuthorityFromGovernedContract(input: {
     }
   }
 
-  if (contractClaim !== undefined && contractClaim !== null) {
-    if (!isAuthorityClass(contractClaim) || contractClaim !== serverClass) {
-      return {
-        ok: false,
-        code: AUTHORITY_REQUIREMENT_MISMATCH,
-        message:
-          "contract.requiredAuthority does not match server effect projection.",
-      };
-    }
-  }
+  // Existing EC primitive — excludes confirmationRef / immutableAfterConfirm.
+  const authorityBindingScope = computeInspectionFingerprint(contract);
 
   return {
     ok: true,
@@ -1075,12 +418,12 @@ export function resolvePiloteS1AuthorityFromGovernedContract(input: {
     authorityClass: serverClass,
     policyId: PILOTE_S1_POLICY_ID,
     effectClass: governedEffects.effectClass,
-    authorityBindingScope: contract.executionContractId.trim(),
+    authorityBindingScope,
     morrisConstructionGateRequired: false,
     rationale:
       `Exact S1 ${serverClass} from projectRequiredAuthorityFromEffects(` +
       `effectClass=${governedEffects.effectClass}); AuthorityEvidence.scope=` +
-      `${contract.executionContractId.trim()} (contract binding).`,
+      `computeInspectionFingerprint (semantic binding).`,
   };
 }
 
@@ -1105,7 +448,8 @@ export function resolvePiloteS1AuthorityFromGovernedEffects(
  * S1 AuthorityEvidence — single public Auth issuance path.
  *
  * B1: buildValidatedS1Evidence / registerS1EvidenceImmutable are module-private.
- * B2: AuthorityEvidence.scope = executionContractId (enforced by CheckExecutionAuthorization adapter).
+ * B2: AuthorityEvidence.scope = computeInspectionFingerprint(contract)
+ *     (existing EC inspection primitive — lifecycle-stable across Confirmation).
  */
 
 import { randomUUID } from "node:crypto";
@@ -1435,645 +779,6 @@ export {
 } from "./s1Authority";
 ```
 
-### `projects/sfia-studio/app/middleware.ts`
-
-```typescript
-import { NextRequest, NextResponse } from "next/server";
-import { resolveCurrentAuthenticatedPilote } from "@/lib/auth/resolveCurrentPilote";
-
-/**
- * Central Studio protection — FULL server-side identity + allowlist evaluation.
- * Does NOT authorize on cookie presence alone.
- *
- * Public:
- * - /login
- * - /api/auth/*
- *
- * Protected: all other product surfaces.
- */
-
-const PUBLIC_EXACT = new Set(["/login"]);
-
-function isPublicPath(pathname: string): boolean {
-  if (PUBLIC_EXACT.has(pathname)) return true;
-  if (pathname.startsWith("/api/auth")) return true;
-  if (pathname.startsWith("/_next")) return true;
-  if (pathname === "/favicon.ico") return true;
-  return false;
-}
-
-export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-
-  if (isPublicPath(pathname)) {
-    return NextResponse.next();
-  }
-
-  // Lazy import auth only when needed so public routes don't require secrets
-  // during static asset edge cases. Protected routes fail closed on misconfig.
-  try {
-    const result = await resolveCurrentAuthenticatedPilote({
-      headers: request.headers,
-    });
-
-    if (!result.ok) {
-      const login = new URL("/login", request.url);
-      login.searchParams.set("error", result.code);
-      login.searchParams.set("from", pathname);
-      return NextResponse.redirect(login);
-    }
-
-    return NextResponse.next();
-  } catch {
-    const login = new URL("/login", request.url);
-    login.searchParams.set("error", "AUTH_CONFIG_ERROR");
-    return NextResponse.redirect(login);
-  }
-}
-
-export const config = {
-  matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
-  ],
-};
-```
-
-### `projects/sfia-studio/app/app/api/auth/[...all]/route.ts`
-
-```typescript
-import type { NextRequest } from "next/server";
-import { toNextJsHandler } from "better-auth/next-js";
-import { getSfiaAuth } from "@/lib/auth/auth";
-
-async function handler(request: NextRequest) {
-  const auth = getSfiaAuth();
-  const nextHandler = toNextJsHandler(auth);
-  const method = request.method.toUpperCase();
-  if (method === "GET") return nextHandler.GET(request);
-  if (method === "POST") return nextHandler.POST(request);
-  if (method === "PATCH" && nextHandler.PATCH) return nextHandler.PATCH(request);
-  if (method === "PUT" && nextHandler.PUT) return nextHandler.PUT(request);
-  if (method === "DELETE" && nextHandler.DELETE) return nextHandler.DELETE(request);
-  return new Response("Method Not Allowed", { status: 405 });
-}
-
-export const GET = handler;
-export const POST = handler;
-export const PATCH = handler;
-export const PUT = handler;
-export const DELETE = handler;
-```
-
-### `projects/sfia-studio/app/app/login/page.tsx`
-
-```tsx
-import { LoginClient } from "./login-client";
-
-export default async function LoginPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ error?: string; from?: string }>;
-}) {
-  const params = await searchParams;
-  return (
-    <LoginClient errorCode={params.error ?? null} fromPath={params.from ?? null} />
-  );
-}
-```
-
-### `projects/sfia-studio/app/app/login/login-client.tsx`
-
-```tsx
-"use client";
-
-import { useMemo } from "react";
-import { authClient } from "@/lib/auth/auth-client";
-
-const ERROR_MESSAGES: Record<string, string> = {
-  github_user_not_allowlisted:
-    "Votre compte GitHub n'est pas autorisé à accéder à SFIA Studio.",
-  github_id_unparseable:
-    "Impossible de vérifier l'identité GitHub (identifiant manquant).",
-  ALLOWLIST_DENIED:
-    "Votre identité GitHub n'est plus dans la liste d'autorisation SFIA.",
-  NO_SESSION: "Authentification requise pour accéder à SFIA Studio.",
-  PROVIDER_ACCOUNT_MISSING:
-    "Session incomplète — reconnectez-vous avec GitHub.",
-  AUTH_CONFIG_ERROR:
-    "Configuration d'authentification indisponible (fail-closed).",
-  provider_not_allowed: "Seul GitHub OAuth est accepté.",
-};
-
-export function LoginClient({
-  errorCode,
-  fromPath,
-}: {
-  errorCode?: string | null;
-  fromPath?: string | null;
-}) {
-  const message = useMemo(() => {
-    if (!errorCode) return null;
-    return (
-      ERROR_MESSAGES[errorCode] ??
-      "Accès refusé. Connectez-vous avec un compte GitHub autorisé."
-    );
-  }, [errorCode]);
-
-  const callbackURL =
-    fromPath && fromPath.startsWith("/") && !fromPath.startsWith("//")
-      ? fromPath
-      : "/studio";
-
-  return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "2rem",
-        background: "linear-gradient(160deg, #0f172a 0%, #1e293b 55%, #0f172a 100%)",
-        color: "#e2e8f0",
-        fontFamily: "var(--font-inter), system-ui, sans-serif",
-      }}
-    >
-      <main
-        style={{
-          width: "min(28rem, 100%)",
-          border: "1px solid rgba(148, 163, 184, 0.35)",
-          borderRadius: "12px",
-          padding: "2rem",
-          background: "rgba(15, 23, 42, 0.85)",
-        }}
-        data-testid="login-surface"
-      >
-        <p
-          style={{
-            letterSpacing: "0.12em",
-            fontSize: "0.75rem",
-            textTransform: "uppercase",
-            color: "#94a3b8",
-            margin: 0,
-          }}
-        >
-          SFIA Studio
-        </p>
-        <h1 style={{ margin: "0.75rem 0 0.5rem", fontSize: "1.75rem" }}>
-          Connexion
-        </h1>
-        <p style={{ margin: "0 0 1.5rem", color: "#cbd5e1", lineHeight: 1.5 }}>
-          Authentifiez-vous avec GitHub. L&apos;accès Studio est réservé aux
-          identités autorisées côté serveur (rôle runtime : Pilote).
-        </p>
-
-        {message ? (
-          <p
-            role="alert"
-            data-testid="login-error"
-            style={{
-              margin: "0 0 1.25rem",
-              padding: "0.75rem 1rem",
-              borderRadius: "8px",
-              background: "rgba(127, 29, 29, 0.45)",
-              border: "1px solid rgba(248, 113, 113, 0.45)",
-              color: "#fecaca",
-            }}
-          >
-            {message}
-          </p>
-        ) : null}
-
-        <button
-          type="button"
-          data-testid="login-github"
-          onClick={() => {
-            void authClient.signIn.social({
-              provider: "github",
-              callbackURL,
-            });
-          }}
-          style={{
-            width: "100%",
-            border: 0,
-            borderRadius: "8px",
-            padding: "0.85rem 1rem",
-            background: "#f8fafc",
-            color: "#0f172a",
-            fontWeight: 600,
-            cursor: "pointer",
-          }}
-        >
-          Se connecter avec GitHub
-        </button>
-      </main>
-    </div>
-  );
-}
-```
-
-### `projects/sfia-studio/app/components/auth/LogoutButton.tsx`
-
-```tsx
-"use client";
-
-import { authClient } from "@/lib/auth/auth-client";
-
-export function LogoutButton() {
-  return (
-    <button
-      type="button"
-      data-testid="logout-button"
-      onClick={() => {
-        void authClient.signOut({
-          fetchOptions: {
-            onSuccess: () => {
-              window.location.href = "/login";
-            },
-          },
-        });
-      }}
-      style={{
-        border: "1px solid rgba(148, 163, 184, 0.45)",
-        background: "transparent",
-        color: "inherit",
-        borderRadius: "999px",
-        padding: "0.35rem 0.85rem",
-        fontSize: "0.8rem",
-        cursor: "pointer",
-      }}
-    >
-      Déconnexion
-    </button>
-  );
-}
-```
-
-### `projects/sfia-studio/app/components/shell/StudioShell.tsx`
-
-```tsx
-import { UtilityRail } from "./UtilityRail";
-import {
-  Topbar,
-  type TopbarPrimaryAction,
-} from "./Topbar";
-import { CopilotPanel, type CopilotProps } from "./CopilotPanel";
-import { LogoutButton } from "@/components/auth/LogoutButton";
-import type { StudioShellRoute } from "@/lib/navigation";
-import shellStyles from "@/styles/shell.module.css";
-
-interface TopbarPill {
-  label: string;
-  tone?: "blueFlush" | "purpleFlush" | "orange" | "green";
-  testId?: string;
-}
-
-interface StudioShellProps {
-  variant: "floating" | "flush";
-  activeRoute: StudioShellRoute;
-  title: string;
-  pills?: TopbarPill[];
-  children: React.ReactNode;
-  copilot?: CopilotProps | null;
-  showTabs?: boolean;
-  /**
-   * `undefined` preserves the historical CTA; `null` hides it.
-   */
-  primaryAction?: TopbarPrimaryAction | null;
-  /** When true, canvas uses full width (no copilot column). */
-  hideCopilot?: boolean;
-}
-
-export function StudioShell({
-  variant,
-  activeRoute,
-  title,
-  pills,
-  children,
-  copilot,
-  showTabs,
-  primaryAction,
-  hideCopilot = false,
-}: StudioShellProps) {
-  const isFloating = variant === "floating";
-  const showCopilot = !hideCopilot && copilot != null;
-
-  if (isFloating) {
-    return (
-      <div className={shellStyles.pageFloating} data-testid="studio-shell">
-        <div className={shellStyles.brandAccent} aria-hidden="true" />
-        <div className={shellStyles.railFloating}>
-          <UtilityRail variant="floating" activeRoute={activeRoute} />
-        </div>
-        <div className={shellStyles.workspaceFloating}>
-          <Topbar
-            variant="floating"
-            title={title}
-            activeRoute={activeRoute}
-            pills={pills}
-            showTabs={showTabs}
-            primaryAction={primaryAction}
-            authControls={<LogoutButton />}
-          />
-          <main className={shellStyles.workspaceInner} id="main-content">
-            {children}
-          </main>
-        </div>
-        {showCopilot ? (
-          <div className={shellStyles.copilotFloating}>
-            <CopilotPanel {...copilot} variant="floating" />
-          </div>
-        ) : null}
-      </div>
-    );
-  }
-
-  return (
-    <div className={shellStyles.pageFlush} data-testid="studio-shell">
-      <div className={shellStyles.brandAccent} aria-hidden="true" />
-      <div className={shellStyles.railFlush}>
-        <UtilityRail variant="flush" activeRoute={activeRoute} />
-      </div>
-      <div className={shellStyles.mainFlush}>
-        <Topbar
-          variant="flush"
-          title={title}
-          activeRoute={activeRoute}
-          pills={pills}
-          showTabs={showTabs}
-          primaryAction={primaryAction}
-          authControls={<LogoutButton />}
-        />
-        <div className={shellStyles.bodyFlush}>
-          <main
-            className={
-              showCopilot
-                ? shellStyles.canvasFlush
-                : shellStyles.canvasFlushWide
-            }
-            id="main-content"
-            aria-label="Contenu principal"
-          >
-            {children}
-          </main>
-          {showCopilot ? (
-            <div className={shellStyles.copilotFlush}>
-              <CopilotPanel {...copilot} variant="flush" />
-            </div>
-          ) : null}
-        </div>
-      </div>
-    </div>
-  );
-}
-```
-
-### `projects/sfia-studio/app/components/shell/Topbar.tsx`
-
-```tsx
-"use client";
-
-import type { ReactNode } from "react";
-import Link from "next/link";
-import { StatusPill } from "@/components/ui/StatusPill";
-import { CtaButton } from "@/components/ui/CtaButton";
-import {
-  FLUSH_TABS,
-  type StudioShellRoute,
-} from "@/lib/navigation";
-import styles from "./topbar.module.css";
-
-interface TopbarPill {
-  label: string;
-  tone?: "blueFlush" | "purpleFlush" | "orange" | "green";
-  testId?: string;
-}
-
-export interface TopbarPrimaryAction {
-  label: string;
-  href: string;
-}
-
-interface TopbarProps {
-  variant: "floating" | "flush";
-  title: string;
-  activeRoute: StudioShellRoute;
-  pills?: TopbarPill[];
-  showTabs?: boolean;
-  floatingTabs?: string[];
-  /**
-   * `undefined` preserves the historical CTA; `null` hides it.
-   */
-  primaryAction?: TopbarPrimaryAction | null;
-  /** Optional auth controls (e.g. logout) — bounded Auth Delivery integration. */
-  authControls?: ReactNode;
-}
-
-export function Topbar({
-  variant,
-  title,
-  activeRoute,
-  pills = [],
-  showTabs = true,
-  floatingTabs = ["Demande", "Contexte", "Pièces jointes", "Qualification"],
-  primaryAction,
-  authControls,
-}: TopbarProps) {
-  const isFloating = variant === "floating";
-  const resolvedPrimaryAction =
-    primaryAction === undefined
-      ? { label: "Nouvelle demande", href: "/nouvelle-demande" }
-      : primaryAction;
-
-  if (isFloating) {
-    return (
-      <header data-testid="topbar">
-        <div className={styles.topbarFloating}>
-          <p className={styles.eyebrowFloating}>SFIA STUDIO</p>
-          <div className={styles.titleRow}>
-            <h1 className={styles.titleFloating}>{title}</h1>
-            <div className={styles.pills}>
-              {pills.map((pill) => (
-                <span
-                  key={pill.label}
-                  data-testid={pill.testId}
-                >
-                  <StatusPill tone={pill.tone ?? "orange"}>
-                    {pill.label}
-                  </StatusPill>
-                </span>
-              ))}
-              {authControls ? (
-                <span data-testid="topbar-auth-controls">{authControls}</span>
-              ) : null}
-            </div>
-          </div>
-        </div>
-        {showTabs ? (
-          <div
-            className={styles.tabsFloating}
-            role="tablist"
-            aria-label="Sections demande"
-          >
-            {floatingTabs.map((tab, index) => (
-              <span
-                key={tab}
-                className={
-                  index === 0
-                    ? styles.tabFloatingActive
-                    : styles.tabFloating
-                }
-                role="tab"
-                aria-selected={index === 0}
-              >
-                {tab}
-              </span>
-            ))}
-          </div>
-        ) : null}
-      </header>
-    );
-  }
-
-  const activeTabId = FLUSH_TABS.find((t) => t.route === activeRoute)?.id ?? "synthese";
-
-  return (
-    <header className={styles.topbar} data-testid="topbar">
-      <p className={styles.eyebrow}>SFIA STUDIO</p>
-      <div className={styles.titleRow}>
-        <h1 className={styles.title}>{title}</h1>
-        <div className={styles.pills}>
-          {pills.map((pill) => (
-            <span key={pill.label} data-testid={pill.testId}>
-              <StatusPill tone={pill.tone ?? "blueFlush"}>
-                {pill.label}
-              </StatusPill>
-            </span>
-          ))}
-          {resolvedPrimaryAction ? (
-            <CtaButton href={resolvedPrimaryAction.href}>
-              {resolvedPrimaryAction.label}
-            </CtaButton>
-          ) : null}
-          {authControls ? (
-            <span data-testid="topbar-auth-controls">{authControls}</span>
-          ) : null}
-        </div>
-      </div>
-      {showTabs && (
-        <nav className={styles.tabs} aria-label="Navigation cycle">
-          {FLUSH_TABS.map((tab) => {
-            if (tab.disabled) {
-              return (
-                <button
-                  key={tab.id}
-                  type="button"
-                  className={styles.tabDisabled}
-                  disabled
-                  title="Simulation — preuves non routées en P0"
-                  aria-disabled
-                >
-                  {tab.label}
-                  {tab.simulated ? " (simulé)" : ""}
-                </button>
-              );
-            }
-
-            const active = tab.id === activeTabId;
-            return (
-              <Link
-                key={tab.id}
-                href={tab.route!}
-                className={active ? styles.tabActive : styles.tab}
-                aria-current={active ? "page" : undefined}
-              >
-                {tab.label}
-              </Link>
-            );
-          })}
-        </nav>
-      )}
-    </header>
-  );
-}
-```
-
-### `projects/sfia-studio/app/.env.example`
-
-```dotenv
-# SFIA Studio — Auth foundation (Better Auth + GitHub multi-user)
-# Copy to .env.local for local development. NEVER commit real secrets.
-
-# Better Auth (required)
-BETTER_AUTH_SECRET=replace-with-long-random-secret
-# Studio local port is 3020 (see package.json scripts)
-BETTER_AUTH_URL=http://localhost:3020
-
-# GitHub OAuth App credentials (identity-only; no repo write scopes required)
-# Create the OAuth App separately under a Morris GO — not in this Delivery cycle.
-# Callback URL must be: http://localhost:3020/api/auth/callback/github
-GITHUB_CLIENT_ID=replace-with-github-oauth-app-client-id
-GITHUB_CLIENT_SECRET=replace-with-github-oauth-app-client-secret
-
-# Server-owned multi-user allowlist — immutable GitHub numeric user ids (comma-separated)
-# Example placeholders only (not real accounts):
-SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS=11111111,22222222
-```
-
-### `projects/sfia-studio/app/package.json`
-
-```json
-{
-  "name": "sfia-studio",
-  "private": true,
-  "version": "0.1.0",
-  "description": "SFIA Studio — Delivery P0 frontend (fixtures locales, 4 écrans Figma)",
-  "scripts": {
-    "dev": "next dev --port 3020",
-    "build": "next build",
-    "start": "next start --port 3020",
-    "lint": "next lint",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:e2e": "playwright test",
-    "test:db": "vitest run __tests__/oa/finops/postgres",
-    "migrate:up": "node-pg-migrate up --migrations-dir db/migrations --database-url-var DATABASE_URL_DIRECT",
-    "migrate:down": "node-pg-migrate down --migrations-dir db/migrations --database-url-var DATABASE_URL_DIRECT",
-    "finops:t7:rollout": "tsx scripts/finops-t7-shadow-rollout.ts"
-  },
-  "dependencies": {
-    "@openai/agents": "^0.17.0",
-    "ajv": "^6.15.0",
-    "better-auth": "1.7.2",
-    "next": "^15.3.3",
-    "openai": "^6.48.0",
-    "pg": "~8.22.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "zod": "^4.5.4"
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.52.0",
-    "@testing-library/dom": "^10.4.1",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/node": "^22.15.21",
-    "@types/pg": "^8.20.4",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "axe-core": "^4.10.3",
-    "eslint": "^9.27.0",
-    "eslint-config-next": "^15.3.3",
-    "jsdom": "^26.1.0",
-    "node-pg-migrate": "^8.0.4",
-    "tsx": "^4.20.5",
-    "typescript": "^5.8.3",
-    "vitest": "^3.1.2"
-  }
-}
-```
-
 ### `projects/sfia-studio/app/lib/oa/execution-contract/application/authorityHelper.ts`
 
 ```typescript
@@ -2083,8 +788,8 @@ SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS=11111111,22222222
  *
  * Auth S1 binding adaptation (reuse, not new engine):
  * BETTER_AUTH_GITHUB_MULTI_USER_S1 evidence uses AuthorityEvidence.scope =
- * executionContractId. Verification must therefore compare against
- * executionContractId, not the business contract.scope string.
+ * computeInspectionFingerprint(contract) — existing EC inspection primitive
+ * (excludes confirmationRef / immutableAfterConfirm for lifecycle stability).
  */
 import type {
   AuthorityEvidence,
@@ -2092,22 +797,35 @@ import type {
   AuthorityResolverPort,
   VerifyAuthorityResult,
 } from "@/lib/oa/decision";
+import { computeInspectionFingerprint } from "../domain/inspectionAttestation";
 import type { AuthorityClass } from "../domain/types";
 
 /** Must match lib/auth/constants BETTER_AUTH_GITHUB_MULTI_USER_S1 (no auth import). */
 export const AUTH_S1_EVIDENCE_SOURCE = "BETTER_AUTH_GITHUB_MULTI_USER_S1" as const;
 
+export type AuthS1BindingContractSemantic = Parameters<
+  typeof computeInspectionFingerprint
+>[0];
+
 /**
  * Resolve the scope string passed to AuthorityResolver.verify for a contract.
- * Auth-origin S1 evidence is bound to executionContractId.
+ * Auth-origin S1 evidence is bound to the inspection semantic fingerprint.
  */
 export function resolveExecutionAuthorityVerifyScope(input: {
-  executionContractId: string;
   contractScope: string;
   evidence: AuthorityEvidence | null | undefined;
+  /**
+   * Server-owned contract semantic material for Auth S1 binding recomputation.
+   * Required whenever evidence.source is Auth S1; never trusted from client alone.
+   */
+  contractSemantic?: AuthS1BindingContractSemantic | null;
 }): string {
   if (input.evidence?.source === AUTH_S1_EVIDENCE_SOURCE) {
-    return input.executionContractId;
+    if (!input.contractSemantic) {
+      // Fail-closed: never match a legitimate evidence.scope.
+      return "auth-s1-binding:unavailable";
+    }
+    return computeInspectionFingerprint(input.contractSemantic);
   }
   return input.contractScope;
 }
@@ -2161,290 +879,6 @@ export function verifyRequiredAuthority(
   },
 ): VerifyAuthorityResult {
   return authority.verify(authorityClassToVerify(input));
-}
-```
-
-### `projects/sfia-studio/app/lib/oa/execution-contract/application/checkExecutionAuthorization.ts`
-
-```typescript
-import { randomBytes } from "node:crypto";
-import type { ClockPort } from "@/lib/oa/doctrine";
-import type { CycleServices } from "@/lib/oa/cycle";
-import type {
-  AuthorityResolverPort,
-  DecisionServices,
-} from "@/lib/oa/decision";
-import { createExecutionError } from "../domain/errors";
-import {
-  denyByDefaultMatch,
-  hasConfirmationConstraintContradiction,
-  isExecutionReadyStatus,
-  isTa5Status,
-} from "../domain/invariants";
-import type {
-  ActorReference,
-  CheckAuthorizationResult,
-  CheckExecutionAuthorizationRequest,
-} from "../domain/types";
-import type { ExecutionAuditPort } from "../ports/executionAudit";
-import type { ExecutionContractRepositoryPort } from "../ports/executionContractRepository";
-import {
-  resolveExecutionAuthorityVerifyScope,
-  verifyRequiredAuthority,
-} from "./authorityHelper";
-
-function newId(prefix: "cor"): string {
-  return `${prefix}:${randomBytes(8).toString("hex")}`;
-}
-
-type CheckSnapshot = {
-  executionContractId: string;
-  action: string;
-  target: string;
-  scope: string;
-  actor: ActorReference;
-  authorityEvidenceId: string | undefined;
-  claimedAuthorityLevel: string | undefined;
-};
-
-/**
- * CheckExecutionAuthorization — gate for T-A5 StartExecution.
- * NEVER mutates. NEVER executes. Deny-by-default on action/target/scope.
- *
- * Requires: execute-ready status (confirmed, or validated+N1 with
- * EXECUTION_CONFIRMATION_EVALUATED:NOT_REQUIRED and no EFFECT_CONFIRMATION_REQUIRED),
- * not cancelled/superseded, not T-A5 status, decisions still accepted+current,
- * Critical ack if applicable, authority OK.
- */
-export class CheckExecutionAuthorization {
-  constructor(
-    private readonly contracts: ExecutionContractRepositoryPort,
-    private readonly authority: AuthorityResolverPort,
-    private readonly decisionServices: DecisionServices,
-    private readonly cycleServices: CycleServices | undefined,
-    private readonly clock: ClockPort,
-    private readonly audit: ExecutionAuditPort,
-  ) {}
-
-  async execute(
-    request: CheckExecutionAuthorizationRequest,
-  ): Promise<CheckAuthorizationResult> {
-    const started = Date.now();
-    const timestamp = this.clock.nowIso();
-    const correlationId = request.correlationId ?? newId("cor");
-
-    const fail = (
-      detailCode: Parameters<typeof createExecutionError>[0]["detailCode"],
-      internalCauseRef?: string,
-      extra?: Partial<Parameters<typeof createExecutionError>[0]>,
-    ): CheckAuthorizationResult => {
-      const durationMs = Date.now() - started;
-      const error = createExecutionError({
-        detailCode,
-        timestamp,
-        correlationId,
-        executionContractId: request.executionContractId,
-        internalCauseRef,
-        ...extra,
-      });
-      this.audit.append({
-        event: "oa.execution_contract.authorization_checked",
-        ts: timestamp,
-        correlationId,
-        projectId: extra?.projectId ?? "prj:unknown",
-        executionContractId: request.executionContractId,
-        authorized: false,
-        result: "error",
-        detailCode,
-        durationMs,
-      });
-      return { ok: false, authorized: false, error, durationMs };
-    };
-
-    try {
-      if (!request.actor?.actorId) {
-        return fail("CONTRACT_INVALID", "actor_required");
-      }
-
-      const snap: CheckSnapshot = {
-        executionContractId: request.executionContractId,
-        action: request.action,
-        target: request.target,
-        scope: request.scope,
-        actor: structuredClone(request.actor),
-        authorityEvidenceId: request.authorityEvidenceId,
-        claimedAuthorityLevel: request.claimedAuthorityLevel,
-      };
-      void snap.claimedAuthorityLevel;
-
-      const contract = await this.contracts.findById(snap.executionContractId);
-      if (!contract) {
-        return fail("CONTRACT_NOT_FOUND", "missing_contract");
-      }
-      if (isTa5Status(contract.status)) {
-        return fail("TA5_STATUS_REFUSED", `ta5_status_${contract.status}`, {
-          projectId: contract.projectId,
-        });
-      }
-      if (contract.status === "cancelled" || contract.status === "superseded") {
-        return fail("STATE_CONFLICT", `status_${contract.status}`, {
-          projectId: contract.projectId,
-        });
-      }
-      if (hasConfirmationConstraintContradiction(contract.constraints)) {
-        return fail(
-          "CONTRACT_INVALID",
-          "confirmation_constraint_contradiction",
-          { projectId: contract.projectId },
-        );
-      }
-      if (!isExecutionReadyStatus(contract)) {
-        return fail("STATE_CONFLICT", `not_confirmed_${contract.status}`, {
-          projectId: contract.projectId,
-        });
-      }
-
-      // Current = no successor has superseded this contract.
-      const successors = await this.contracts.listSuperseding(
-        contract.executionContractId,
-      );
-      if (successors.length > 0) {
-        return fail("STATE_CONFLICT", "not_current_has_successor", {
-          projectId: contract.projectId,
-        });
-      }
-
-      const matchErr = denyByDefaultMatch({
-        contractAction: contract.action,
-        contractTarget: contract.target,
-        contractScope: contract.scope,
-        requestedAction: snap.action,
-        requestedTarget: snap.target,
-        requestedScope: snap.scope,
-      });
-      if (matchErr) {
-        return fail(matchErr.detailCode, matchErr.reason, {
-          projectId: contract.projectId,
-        });
-      }
-
-      if (contract.cycleInstanceId) {
-        if (!this.cycleServices) {
-          return fail("CYCLE_NOT_FOUND", "cycle_services_unavailable", {
-            projectId: contract.projectId,
-          });
-        }
-        const cycleResult = await this.cycleServices.getCycle.execute({
-          cycleInstanceId: contract.cycleInstanceId,
-        });
-        if (!cycleResult.ok) {
-          return fail("CYCLE_NOT_FOUND", "missing_cycle", {
-            projectId: contract.projectId,
-          });
-        }
-        if (
-          cycleResult.cycle.profile === "Critical" &&
-          cycleResult.cycle.status === "proposed"
-        ) {
-          return fail(
-            "CRITICAL_NOT_ACKNOWLEDGED",
-            "critical_proposed_no_public_ack",
-            { projectId: contract.projectId },
-          );
-        }
-      }
-
-      const decisionRefs = contract.decisionRefs ?? [];
-      for (const decisionId of decisionRefs) {
-        const decisionResult =
-          await this.decisionServices.getHumanDecision.execute({
-            decisionId,
-            correlationId,
-          });
-        if (!decisionResult.ok) {
-          return fail("DECISION_NOT_FOUND", "missing_decision", {
-            projectId: contract.projectId,
-          });
-        }
-        if (decisionResult.decision.projectId !== contract.projectId) {
-          return fail("DECISION_REQUIRED", "decision_project_mismatch", {
-            projectId: contract.projectId,
-          });
-        }
-        if (decisionResult.decision.status !== "accepted") {
-          return fail(
-            "DECISION_NOT_CURRENT",
-            `decision_status_${decisionResult.decision.status}`,
-            { projectId: contract.projectId },
-          );
-        }
-      }
-
-      const authEvidence = snap.authorityEvidenceId
-        ? this.authority.getEvidence(snap.authorityEvidenceId)
-        : null;
-      const verifyScope = resolveExecutionAuthorityVerifyScope({
-        executionContractId: contract.executionContractId,
-        contractScope: contract.scope,
-        evidence: authEvidence,
-      });
-
-      const verification = verifyRequiredAuthority(this.authority, {
-        requiredAuthority: contract.requiredAuthority,
-        actorId: snap.actor.actorId,
-        scope: verifyScope,
-        evidenceId: snap.authorityEvidenceId,
-        claimedAuthorityLevel: snap.claimedAuthorityLevel,
-        displayName: snap.actor.displayName,
-      });
-      this.audit.append({
-        event: "oa.authority.verified",
-        ts: timestamp,
-        correlationId,
-        actorId: snap.actor.actorId,
-        requiredLevel:
-          contract.requiredAuthority === "MORRIS"
-            ? "N3"
-            : contract.requiredAuthority,
-        scope: verifyScope,
-        ok: verification.ok,
-        verifiedLevel: verification.verifiedLevel,
-        reason: verification.reason,
-        canActAsMorris: verification.canActAsMorris,
-        durationMs: Date.now() - started,
-      });
-      if (!verification.ok) {
-        return fail(
-          verification.reason === "scope_mismatch"
-            ? "AUTHORITY_SCOPE_MISMATCH"
-            : "AUTHORITY_DENIED",
-          verification.reason,
-          { projectId: contract.projectId },
-        );
-      }
-
-      const durationMs = Date.now() - started;
-      this.audit.append({
-        event: "oa.execution_contract.authorization_checked",
-        ts: timestamp,
-        correlationId,
-        projectId: contract.projectId,
-        executionContractId: contract.executionContractId,
-        authorized: true,
-        result: "ok",
-        durationMs,
-      });
-
-      return {
-        ok: true,
-        authorized: true,
-        contract: structuredClone(contract),
-        durationMs,
-      };
-    } catch {
-      return fail("PERSISTENCE_FAILURE", "unexpected_exception");
-    }
-  }
 }
 ```
 
@@ -2748,10 +1182,36 @@ export class BuildExecutionContract {
       const authEvidence = snap.authorityEvidenceId
         ? this.authority.getEvidence(snap.authorityEvidenceId)
         : null;
-      const verifyScope = resolveExecutionAuthorityVerifyScope({
+      // Pre-Build Auth S1 binding: recompute inspection fingerprint from request
+      // semantic material BEFORE persistence (existing EC primitive).
+      const preBuildSemantic = {
         executionContractId: snap.executionContractId,
+        projectId: snap.projectId,
+        cycleInstanceId: snap.cycleInstanceId,
+        decisionRefs: cloned.decisionRefs,
+        doctrinePackageRef: snap.doctrinePackageRef,
+        action: snap.action,
+        target: snap.target,
+        scope: snap.scope,
+        inputs: cloned.inputs,
+        expectedOutputs:
+          cloned.expectedOutputs.length > 0
+            ? cloned.expectedOutputs
+            : undefined,
+        requiredCapabilities: cloned.requiredCapabilities,
+        requiredAuthority: snap.requiredAuthority,
+        constraints: cloned.constraints,
+        stopConditions: cloned.stopConditions,
+        evidenceRequirements: cloned.evidenceRequirements,
+        reversibility: snap.reversibility,
+        executionWindowClass: snap.executionWindowClass,
+        idempotencyKey: snap.idempotencyKey,
+        adapterExportRef: snap.adapterExportRef,
+      };
+      const verifyScope = resolveExecutionAuthorityVerifyScope({
         contractScope: snap.scope,
         evidence: authEvidence,
+        contractSemantic: preBuildSemantic,
       });
       const verification = verifyRequiredAuthority(this.authority, {
         requiredAuthority: snap.requiredAuthority,
@@ -2768,7 +1228,7 @@ export class BuildExecutionContract {
         actorId: snap.actor.actorId,
         requiredLevel:
           snap.requiredAuthority === "MORRIS" ? "N3" : snap.requiredAuthority,
-        scope: snap.scope,
+        scope: verifyScope,
         ok: verification.ok,
         verifiedLevel: verification.verifiedLevel,
         reason: verification.reason,
@@ -2875,6 +1335,290 @@ export class BuildExecutionContract {
 
       return {
         ok: true,
+        contract: structuredClone(contract),
+        durationMs,
+      };
+    } catch {
+      return fail("PERSISTENCE_FAILURE", "unexpected_exception");
+    }
+  }
+}
+```
+
+### `projects/sfia-studio/app/lib/oa/execution-contract/application/checkExecutionAuthorization.ts`
+
+```typescript
+import { randomBytes } from "node:crypto";
+import type { ClockPort } from "@/lib/oa/doctrine";
+import type { CycleServices } from "@/lib/oa/cycle";
+import type {
+  AuthorityResolverPort,
+  DecisionServices,
+} from "@/lib/oa/decision";
+import { createExecutionError } from "../domain/errors";
+import {
+  denyByDefaultMatch,
+  hasConfirmationConstraintContradiction,
+  isExecutionReadyStatus,
+  isTa5Status,
+} from "../domain/invariants";
+import type {
+  ActorReference,
+  CheckAuthorizationResult,
+  CheckExecutionAuthorizationRequest,
+} from "../domain/types";
+import type { ExecutionAuditPort } from "../ports/executionAudit";
+import type { ExecutionContractRepositoryPort } from "../ports/executionContractRepository";
+import {
+  resolveExecutionAuthorityVerifyScope,
+  verifyRequiredAuthority,
+} from "./authorityHelper";
+
+function newId(prefix: "cor"): string {
+  return `${prefix}:${randomBytes(8).toString("hex")}`;
+}
+
+type CheckSnapshot = {
+  executionContractId: string;
+  action: string;
+  target: string;
+  scope: string;
+  actor: ActorReference;
+  authorityEvidenceId: string | undefined;
+  claimedAuthorityLevel: string | undefined;
+};
+
+/**
+ * CheckExecutionAuthorization — gate for T-A5 StartExecution.
+ * NEVER mutates. NEVER executes. Deny-by-default on action/target/scope.
+ *
+ * Requires: execute-ready status (confirmed, or validated+N1 with
+ * EXECUTION_CONFIRMATION_EVALUATED:NOT_REQUIRED and no EFFECT_CONFIRMATION_REQUIRED),
+ * not cancelled/superseded, not T-A5 status, decisions still accepted+current,
+ * Critical ack if applicable, authority OK.
+ */
+export class CheckExecutionAuthorization {
+  constructor(
+    private readonly contracts: ExecutionContractRepositoryPort,
+    private readonly authority: AuthorityResolverPort,
+    private readonly decisionServices: DecisionServices,
+    private readonly cycleServices: CycleServices | undefined,
+    private readonly clock: ClockPort,
+    private readonly audit: ExecutionAuditPort,
+  ) {}
+
+  async execute(
+    request: CheckExecutionAuthorizationRequest,
+  ): Promise<CheckAuthorizationResult> {
+    const started = Date.now();
+    const timestamp = this.clock.nowIso();
+    const correlationId = request.correlationId ?? newId("cor");
+
+    const fail = (
+      detailCode: Parameters<typeof createExecutionError>[0]["detailCode"],
+      internalCauseRef?: string,
+      extra?: Partial<Parameters<typeof createExecutionError>[0]>,
+    ): CheckAuthorizationResult => {
+      const durationMs = Date.now() - started;
+      const error = createExecutionError({
+        detailCode,
+        timestamp,
+        correlationId,
+        executionContractId: request.executionContractId,
+        internalCauseRef,
+        ...extra,
+      });
+      this.audit.append({
+        event: "oa.execution_contract.authorization_checked",
+        ts: timestamp,
+        correlationId,
+        projectId: extra?.projectId ?? "prj:unknown",
+        executionContractId: request.executionContractId,
+        authorized: false,
+        result: "error",
+        detailCode,
+        durationMs,
+      });
+      return { ok: false, authorized: false, error, durationMs };
+    };
+
+    try {
+      if (!request.actor?.actorId) {
+        return fail("CONTRACT_INVALID", "actor_required");
+      }
+
+      const snap: CheckSnapshot = {
+        executionContractId: request.executionContractId,
+        action: request.action,
+        target: request.target,
+        scope: request.scope,
+        actor: structuredClone(request.actor),
+        authorityEvidenceId: request.authorityEvidenceId,
+        claimedAuthorityLevel: request.claimedAuthorityLevel,
+      };
+      void snap.claimedAuthorityLevel;
+
+      const contract = await this.contracts.findById(snap.executionContractId);
+      if (!contract) {
+        return fail("CONTRACT_NOT_FOUND", "missing_contract");
+      }
+      if (isTa5Status(contract.status)) {
+        return fail("TA5_STATUS_REFUSED", `ta5_status_${contract.status}`, {
+          projectId: contract.projectId,
+        });
+      }
+      if (contract.status === "cancelled" || contract.status === "superseded") {
+        return fail("STATE_CONFLICT", `status_${contract.status}`, {
+          projectId: contract.projectId,
+        });
+      }
+      if (hasConfirmationConstraintContradiction(contract.constraints)) {
+        return fail(
+          "CONTRACT_INVALID",
+          "confirmation_constraint_contradiction",
+          { projectId: contract.projectId },
+        );
+      }
+      if (!isExecutionReadyStatus(contract)) {
+        return fail("STATE_CONFLICT", `not_confirmed_${contract.status}`, {
+          projectId: contract.projectId,
+        });
+      }
+
+      // Current = no successor has superseded this contract.
+      const successors = await this.contracts.listSuperseding(
+        contract.executionContractId,
+      );
+      if (successors.length > 0) {
+        return fail("STATE_CONFLICT", "not_current_has_successor", {
+          projectId: contract.projectId,
+        });
+      }
+
+      const matchErr = denyByDefaultMatch({
+        contractAction: contract.action,
+        contractTarget: contract.target,
+        contractScope: contract.scope,
+        requestedAction: snap.action,
+        requestedTarget: snap.target,
+        requestedScope: snap.scope,
+      });
+      if (matchErr) {
+        return fail(matchErr.detailCode, matchErr.reason, {
+          projectId: contract.projectId,
+        });
+      }
+
+      if (contract.cycleInstanceId) {
+        if (!this.cycleServices) {
+          return fail("CYCLE_NOT_FOUND", "cycle_services_unavailable", {
+            projectId: contract.projectId,
+          });
+        }
+        const cycleResult = await this.cycleServices.getCycle.execute({
+          cycleInstanceId: contract.cycleInstanceId,
+        });
+        if (!cycleResult.ok) {
+          return fail("CYCLE_NOT_FOUND", "missing_cycle", {
+            projectId: contract.projectId,
+          });
+        }
+        if (
+          cycleResult.cycle.profile === "Critical" &&
+          cycleResult.cycle.status === "proposed"
+        ) {
+          return fail(
+            "CRITICAL_NOT_ACKNOWLEDGED",
+            "critical_proposed_no_public_ack",
+            { projectId: contract.projectId },
+          );
+        }
+      }
+
+      const decisionRefs = contract.decisionRefs ?? [];
+      for (const decisionId of decisionRefs) {
+        const decisionResult =
+          await this.decisionServices.getHumanDecision.execute({
+            decisionId,
+            correlationId,
+          });
+        if (!decisionResult.ok) {
+          return fail("DECISION_NOT_FOUND", "missing_decision", {
+            projectId: contract.projectId,
+          });
+        }
+        if (decisionResult.decision.projectId !== contract.projectId) {
+          return fail("DECISION_REQUIRED", "decision_project_mismatch", {
+            projectId: contract.projectId,
+          });
+        }
+        if (decisionResult.decision.status !== "accepted") {
+          return fail(
+            "DECISION_NOT_CURRENT",
+            `decision_status_${decisionResult.decision.status}`,
+            { projectId: contract.projectId },
+          );
+        }
+      }
+
+      const authEvidence = snap.authorityEvidenceId
+        ? this.authority.getEvidence(snap.authorityEvidenceId)
+        : null;
+      const verifyScope = resolveExecutionAuthorityVerifyScope({
+        contractScope: contract.scope,
+        evidence: authEvidence,
+        contractSemantic: contract,
+      });
+
+      const verification = verifyRequiredAuthority(this.authority, {
+        requiredAuthority: contract.requiredAuthority,
+        actorId: snap.actor.actorId,
+        scope: verifyScope,
+        evidenceId: snap.authorityEvidenceId,
+        claimedAuthorityLevel: snap.claimedAuthorityLevel,
+        displayName: snap.actor.displayName,
+      });
+      this.audit.append({
+        event: "oa.authority.verified",
+        ts: timestamp,
+        correlationId,
+        actorId: snap.actor.actorId,
+        requiredLevel:
+          contract.requiredAuthority === "MORRIS"
+            ? "N3"
+            : contract.requiredAuthority,
+        scope: verifyScope,
+        ok: verification.ok,
+        verifiedLevel: verification.verifiedLevel,
+        reason: verification.reason,
+        canActAsMorris: verification.canActAsMorris,
+        durationMs: Date.now() - started,
+      });
+      if (!verification.ok) {
+        return fail(
+          verification.reason === "scope_mismatch"
+            ? "AUTHORITY_SCOPE_MISMATCH"
+            : "AUTHORITY_DENIED",
+          verification.reason,
+          { projectId: contract.projectId },
+        );
+      }
+
+      const durationMs = Date.now() - started;
+      this.audit.append({
+        event: "oa.execution_contract.authorization_checked",
+        ts: timestamp,
+        correlationId,
+        projectId: contract.projectId,
+        executionContractId: contract.executionContractId,
+        authorized: true,
+        result: "ok",
+        durationMs,
+      });
+
+      return {
+        ok: true,
+        authorized: true,
         contract: structuredClone(contract),
         durationMs,
       };
@@ -3029,9 +1773,9 @@ export class ValidateExecutionContract {
         ? this.authority.getEvidence(snap.authorityEvidenceId)
         : null;
       const verifyScope = resolveExecutionAuthorityVerifyScope({
-        executionContractId: existing.executionContractId,
         contractScope: existing.scope,
         evidence: authEvidence,
+        contractSemantic: existing,
       });
       const verification = verifyRequiredAuthority(this.authority, {
         requiredAuthority: existing.requiredAuthority,
@@ -3424,9 +2168,9 @@ export class ConfirmExecutionContract {
         ? this.authority.getEvidence(snap.authorityEvidenceId)
         : null;
       const verifyScope = resolveExecutionAuthorityVerifyScope({
-        executionContractId: existing.executionContractId,
         contractScope: existing.scope,
         evidence: authEvidence,
+        contractSemantic: existing,
       });
       const verification = verifyRequiredAuthority(this.authority, {
         requiredAuthority: existing.requiredAuthority,
@@ -3740,9 +2484,9 @@ export class CancelExecutionContract {
         ? this.authority.getEvidence(snap.authorityEvidenceId)
         : null;
       const verifyScope = resolveExecutionAuthorityVerifyScope({
-        executionContractId: existing.executionContractId,
         contractScope: existing.scope,
         evidence: authEvidence,
+        contractSemantic: existing,
       });
       const verification = verifyRequiredAuthority(this.authority, {
         requiredAuthority: existing.requiredAuthority,
@@ -4154,10 +2898,45 @@ export class SupersedeExecutionContract {
       const authEvidence = snap.authorityEvidenceId
         ? this.authority.getEvidence(snap.authorityEvidenceId)
         : null;
-      const verifyScope = resolveExecutionAuthorityVerifyScope({
+      const successorSemantic = {
         executionContractId: snap.newExecutionContractId,
+        projectId: prior.projectId,
+        cycleInstanceId: prior.cycleInstanceId,
+        decisionRefs,
+        doctrinePackageRef: prior.doctrinePackageRef
+          ? structuredClone(prior.doctrinePackageRef)
+          : undefined,
+        action,
+        target,
+        scope,
+        inputs:
+          cloned.inputs !== undefined
+            ? cloned.inputs
+            : prior.inputs
+              ? structuredClone(prior.inputs)
+              : undefined,
+        expectedOutputs:
+          cloned.expectedOutputs.length > 0
+            ? cloned.expectedOutputs
+            : prior.expectedOutputs
+              ? [...prior.expectedOutputs]
+              : undefined,
+        requiredCapabilities,
+        requiredAuthority,
+        constraints,
+        stopConditions,
+        evidenceRequirements,
+        reversibility,
+        executionWindowClass,
+        idempotencyKey,
+        supersedesExecutionContractId: snap.supersedesExecutionContractId,
+        supersessionReason: snap.supersessionReason,
+        adapterExportRef: snap.adapterExportRef ?? prior.adapterExportRef,
+      };
+      const verifyScope = resolveExecutionAuthorityVerifyScope({
         contractScope: scope,
         evidence: authEvidence,
+        contractSemantic: successorSemantic,
       });
       const verification = verifyRequiredAuthority(this.authority, {
         requiredAuthority,
@@ -4174,7 +2953,7 @@ export class SupersedeExecutionContract {
         actorId: snap.actor.actorId,
         requiredLevel:
           requiredAuthority === "MORRIS" ? "N3" : requiredAuthority,
-        scope,
+        scope: verifyScope,
         ok: verification.ok,
         verifiedLevel: verification.verifiedLevel,
         reason: verification.reason,
@@ -4352,85 +3131,611 @@ export class SupersedeExecutionContract {
 }
 ```
 
-### `projects/sfia-studio/app/__tests__/auth/helpers/accountCookie.ts`
+### `projects/sfia-studio/app/lib/oa/execution-contract/index.ts`
 
 ```typescript
 /**
- * TEST-ONLY helpers — build real better-auth@1.7.2 account_data cookies.
- * Shape matches getAccountCookie return (includes userId). Never invents
- * accountInfo public fields as the binding source.
+ * T-A4 ExecutionContract Governance — public barrel.
+ *
+ * Isolated Option A v3-native module. Consumes T-A1 project, T-A2 cycle,
+ * T-A3 decision/confirmation/authority public APIs only. Does not replace
+ * d1 / OPS1 / MethodMode. Studio composition uses Product SQLite (M3);
+ * Memory remains for tests.
+ *
+ * Ownership: T-A4 through confirmed (+ cancelled pre-exec, superseded).
+ * T-A5 statuses (executing|completed|failed) and selectedAgentRef are REFUSED.
+ *
+ * Critical cycle acknowledgment: T-A2 has no public AcknowledgeCriticalCycle
+ * API. ConfirmExecutionContract fail-closes when Critical cycle is still
+ * `proposed` (R-T-A3-1 OPEN).
+ *
+ * Confirmation consumption: ConfirmExecutionContract persists confirmed with
+ * confirmationRef first, then calls DecisionServices.consumeConfirmation.
+ * On consume failure, compensates via CancelExecutionContract (Option B).
+ * Residual R-T-A3-2 OPEN if compensate cancel also fails.
  */
 
-import { getCookies } from "better-auth/cookies";
-import { symmetricEncodeJWT } from "better-auth/crypto";
-import type { SfiaAuth } from "@/lib/auth/auth";
+export * from "./domain/types";
+export * from "./domain/errors";
+export * from "./domain/invariants";
+export {
+  computeExecutionContractSemanticFingerprint,
+  computeExecutionContractSemanticMaterialFingerprint,
+  executionContractSemanticMaterial,
+  type ExecutionContractSemanticMaterial,
+} from "./domain/semanticFingerprint";
+export {
+  DEFAULT_BOUNDED_READ_ONLY_M3_EXECUTION_WINDOW_CLASS,
+  EXECUTION_WINDOW_CLASSES,
+  PRE_M6_EXECUTION_WINDOW_CAP_MS,
+  PRE_M6_EXECUTION_WINDOW_MS,
+  assertResolvedTimeoutMs,
+  isExecutionWindowClass,
+  resolveExecutionWindowClass,
+  resolveExecutionWindowForStart,
+  type ExecutionWindowClass,
+  type ExecutionWindowResolveResult,
+  type ResolvedExecutionWindow,
+} from "./domain/executionWindowPolicy";
 
-export type FakeAccountCookieInput = {
-  auth: SfiaAuth;
-  userId: string;
-  accountId: string;
-  providerId?: string;
-  accountRowId?: string;
-  issuer?: string;
-  /** Omit userId from payload to simulate malformed cookie. */
-  omitUserId?: boolean;
+export {
+  computeInspectionFingerprint,
+  evaluateInspectionSufficiency,
+  type InspectionAttestation,
+  type InspectionInsufficiencyReason,
+  type InspectionSufficiency,
+} from "./domain/inspectionAttestation";
+export type {
+  AgentCapabilitySufficiency,
+  AuthorityVerificationBlockedReason,
+  AuthorityVerificationOutcome,
+  AuthorityVerificationReceipt,
+} from "./domain/authorityVerificationReceipt";
+
+export * from "./ports/executionContractRepository";
+export * from "./ports/executionAudit";
+export * from "./ports/executionContractPersistenceUnitOfWorkPort";
+export type { InspectionAttestationRepositoryPort } from "./ports/inspectionAttestationRepository";
+export type { AuthorityVerificationReceiptRepositoryPort } from "./ports/authorityVerificationReceiptRepository";
+
+export { BuildExecutionContract } from "./application/buildExecutionContract";
+export { GetExecutionContract } from "./application/getExecutionContract";
+export { ListExecutionContractHistory } from "./application/listExecutionContractHistory";
+export { ValidateExecutionContract } from "./application/validateExecutionContract";
+export { ConfirmExecutionContract } from "./application/confirmExecutionContract";
+export { SupersedeExecutionContract } from "./application/supersedeExecutionContract";
+export { CancelExecutionContract } from "./application/cancelExecutionContract";
+export { CheckExecutionAuthorization } from "./application/checkExecutionAuthorization";
+export {
+  GetContractInspectionState,
+  RecordContractInspection,
+  type GetContractInspectionStateResult,
+  type RecordContractInspectionRequest,
+  type RecordContractInspectionResult,
+} from "./application/recordContractInspection";
+export {
+  RecordAuthorityVerification,
+  type RecordAuthorityVerificationRequest,
+} from "./application/recordAuthorityVerification";
+
+export {
+  projectCursorPrepareOnly,
+  type CursorPrepareOnlyProjection,
+} from "./projection/cursorPrepareOnlyProjection";
+
+export { MemoryExecutionContractStore } from "./infrastructure/memoryExecutionContractStore";
+export { MemoryExecutionContractRepository } from "./infrastructure/memoryExecutionContractRepository";
+export { MemoryInspectionAttestationRepository } from "./infrastructure/memoryInspectionAttestationRepository";
+export { MemoryAuthorityVerificationReceiptRepository } from "./infrastructure/memoryAuthorityVerificationReceiptRepository";
+export { SqliteInspectionAttestationRepository } from "./infrastructure/sqlite/sqliteInspectionAttestationRepository";
+export { SqliteAuthorityVerificationReceiptRepository } from "./infrastructure/sqlite/sqliteAuthorityVerificationReceiptRepository";
+export {
+  ConsoleExecutionAuditJournal,
+  MemoryExecutionAuditJournal,
+} from "./infrastructure/observability";
+export { SqliteExecutionContractRepository } from "./infrastructure/sqlite/sqliteExecutionContractRepository";
+export { SqliteExecutionAuditJournal } from "./infrastructure/sqlite/sqliteExecutionAuditJournal";
+export {
+  createSqliteExecutionContractServices,
+  createTestSqliteExecutionContractServices,
+  type CreateSqliteExecutionContractServicesOptions,
+  type SqliteExecutionContractServices,
+} from "./infrastructure/sqlite/createSqliteExecutionContractServices";
+
+import type { ClockPort } from "@/lib/oa/doctrine";
+import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
+import type { CycleServices } from "@/lib/oa/cycle";
+import type {
+  AuthorityResolverPort,
+  DecisionServices,
+} from "@/lib/oa/decision";
+import type { ProjectServices } from "@/lib/oa/project";
+import { BuildExecutionContract } from "./application/buildExecutionContract";
+import { CancelExecutionContract } from "./application/cancelExecutionContract";
+import { CheckExecutionAuthorization } from "./application/checkExecutionAuthorization";
+import { ConfirmExecutionContract } from "./application/confirmExecutionContract";
+import { GetExecutionContract } from "./application/getExecutionContract";
+import { ListExecutionContractHistory } from "./application/listExecutionContractHistory";
+import { SupersedeExecutionContract } from "./application/supersedeExecutionContract";
+import { ValidateExecutionContract } from "./application/validateExecutionContract";
+import { GetContractInspectionState, RecordContractInspection } from "./application/recordContractInspection";
+import { RecordAuthorityVerification } from "./application/recordAuthorityVerification";
+import { MemoryExecutionContractRepository } from "./infrastructure/memoryExecutionContractRepository";
+import { MemoryExecutionContractStore } from "./infrastructure/memoryExecutionContractStore";
+import { MemoryAuthorityVerificationReceiptRepository } from "./infrastructure/memoryAuthorityVerificationReceiptRepository";
+import { MemoryInspectionAttestationRepository } from "./infrastructure/memoryInspectionAttestationRepository";
+import {
+  ConsoleExecutionAuditJournal,
+  MemoryExecutionAuditJournal,
+} from "./infrastructure/observability";
+import type { ExecutionAuditPort } from "./ports/executionAudit";
+import type { ExecutionContractPersistenceUnitOfWorkPort } from "./ports/executionContractPersistenceUnitOfWorkPort";
+import type { ExecutionContractRepositoryPort } from "./ports/executionContractRepository";
+import type { InspectionAttestationRepositoryPort } from "./ports/inspectionAttestationRepository";
+import type { AuthorityVerificationReceiptRepositoryPort } from "./ports/authorityVerificationReceiptRepository";
+
+export type ExecutionContractServices = {
+  store: ExecutionContractPersistenceUnitOfWorkPort;
+  contracts: ExecutionContractRepositoryPort;
+  audit: ExecutionAuditPort;
+  /** W2 (D-W2-04) — append-only inspection proof. */
+  inspectionAttestations: InspectionAttestationRepositoryPort;
+  /** W2 (TD-C6-03) — append-only authority evaluation snapshots. */
+  authorityReceipts: AuthorityVerificationReceiptRepositoryPort;
+  buildExecutionContract: BuildExecutionContract;
+  getExecutionContract: GetExecutionContract;
+  listExecutionContractHistory: ListExecutionContractHistory;
+  validateExecutionContract: ValidateExecutionContract;
+  confirmExecutionContract: ConfirmExecutionContract;
+  supersedeExecutionContract: SupersedeExecutionContract;
+  cancelExecutionContract: CancelExecutionContract;
+  checkExecutionAuthorization: CheckExecutionAuthorization;
+  recordContractInspection: RecordContractInspection;
+  getContractInspectionState: GetContractInspectionState;
+  recordAuthorityVerification: RecordAuthorityVerification;
 };
 
-export async function encodeAccountDataCookieValue(
-  input: FakeAccountCookieInput,
-): Promise<string> {
-  const ctx = await input.auth.$context;
-  const payload: Record<string, unknown> = {
-    id: input.accountRowId ?? `acc-${input.accountId}`,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    providerId: input.providerId ?? "github",
-    issuer: input.issuer ?? "local:oauth:github",
-    accountId: input.accountId,
-  };
-  if (!input.omitUserId) {
-    payload.userId = input.userId;
-  }
-  return symmetricEncodeJWT(
-    payload,
-    ctx.secretConfig,
-    "better-auth-account",
-    60 * 60,
+export type CreateInMemoryExecutionContractServicesOptions = {
+  projectServices: ProjectServices;
+  decisionServices: DecisionServices;
+  cycleServices?: CycleServices;
+  clock?: ClockPort;
+  audit?: ExecutionAuditPort;
+  /** Defaults to decisionServices.authority (T-A3 AuthorityResolverPort). */
+  authorityResolver?: AuthorityResolverPort;
+};
+
+/** Factory for in-memory ExecutionContract governance services. */
+export function createInMemoryExecutionContractServices(
+  options: CreateInMemoryExecutionContractServicesOptions,
+): ExecutionContractServices {
+  const store = new MemoryExecutionContractStore();
+  const contracts = new MemoryExecutionContractRepository(store);
+  const clock = options.clock ?? new SystemClock();
+  const audit = options.audit ?? new ConsoleExecutionAuditJournal();
+  const authority =
+    options.authorityResolver ?? options.decisionServices.authority;
+  const inspectionAttestations = new MemoryInspectionAttestationRepository();
+  const authorityReceipts = new MemoryAuthorityVerificationReceiptRepository();
+
+  const cancelExecutionContract = new CancelExecutionContract(
+    contracts,
+    authority,
+    clock,
+    audit,
+    store,
   );
+
+  return {
+    store,
+    contracts,
+    audit,
+    inspectionAttestations,
+    authorityReceipts,
+    buildExecutionContract: new BuildExecutionContract(
+      contracts,
+      authority,
+      options.projectServices,
+      options.cycleServices,
+      options.decisionServices,
+      clock,
+      audit,
+      store,
+    ),
+    getExecutionContract: new GetExecutionContract(contracts, clock, audit),
+    listExecutionContractHistory: new ListExecutionContractHistory(
+      contracts,
+      clock,
+      audit,
+    ),
+    validateExecutionContract: new ValidateExecutionContract(
+      contracts,
+      authority,
+      clock,
+      audit,
+      store,
+    ),
+    confirmExecutionContract: new ConfirmExecutionContract(
+      contracts,
+      authority,
+      options.decisionServices,
+      options.cycleServices,
+      clock,
+      audit,
+      store,
+      cancelExecutionContract,
+    ),
+    supersedeExecutionContract: new SupersedeExecutionContract(
+      contracts,
+      authority,
+      clock,
+      audit,
+      store,
+    ),
+    cancelExecutionContract,
+    checkExecutionAuthorization: new CheckExecutionAuthorization(
+      contracts,
+      authority,
+      options.decisionServices,
+      options.cycleServices,
+      clock,
+      audit,
+    ),
+    recordContractInspection: new RecordContractInspection(
+      contracts,
+      inspectionAttestations,
+      clock,
+    ),
+    getContractInspectionState: new GetContractInspectionState(
+      contracts,
+      inspectionAttestations,
+    ),
+    recordAuthorityVerification: new RecordAuthorityVerification(
+      authorityReceipts,
+      clock,
+    ),
+  };
 }
 
-export async function headersWithAccountCookie(
-  input: FakeAccountCookieInput,
-  extraHeaders?: HeadersInit,
-): Promise<Headers> {
-  const names = getCookies(input.auth.options);
-  const token = await encodeAccountDataCookieValue(input);
-  const headers = new Headers(extraHeaders);
-  const existing = headers.get("cookie");
-  const accountCookie = `${names.accountData.name}=${token}`;
-  headers.set(
-    "cookie",
-    existing ? `${existing}; ${accountCookie}` : accountCookie,
-  );
-  return headers;
+export function createTestExecutionContractServices(
+  options: CreateInMemoryExecutionContractServicesOptions & {
+    audit?: MemoryExecutionAuditJournal;
+    fixedNowIso?: string;
+  },
+): ExecutionContractServices & {
+  audit: MemoryExecutionAuditJournal;
+} {
+  const audit = options.audit ?? new MemoryExecutionAuditJournal();
+  const clock =
+    options.clock ??
+    (options.fixedNowIso
+      ? new FixedClock(options.fixedNowIso)
+      : new FixedClock("2026-07-25T06:00:00.000Z"));
+  return createInMemoryExecutionContractServices({
+    ...options,
+    clock,
+    audit,
+  }) as ExecutionContractServices & {
+    audit: MemoryExecutionAuditJournal;
+  };
 }
 ```
 
-### `projects/sfia-studio/app/__tests__/auth/better-auth-foundation.test.ts`
+### `projects/sfia-studio/app/lib/oa/execution-contract/domain/inspectionAttestation.ts`
 
 ```typescript
 /**
- * Better Auth integration — deterministic, ZERO real GitHub OAuth.
+ * W2 / D-W2-04 — ExecutionContract InspectionAttestation.
+ *
+ * An attestation records that a human inspected one exact ExecutionContract,
+ * identified by `executionContractId` + `contractVersion` + fingerprints +
+ * `actor` + `inspectedAt`.
+ *
+ * It is PROOF, never permission:
+ *   - it introduces no new ExecutionContract business status;
+ *   - it never grants authority on its own;
+ *   - it becomes insufficient as soon as the contract changes materially.
+ *
+ * Sufficiency is decided on `inspectionFingerprint`: the execution-significant
+ * material of the contract (action, target, scope, inputs, capabilities,
+ * authority, constraints, stop conditions, evidence, reversibility, window,
+ * idempotency, decision refs, doctrine, supersession lineage).
+ *
+ * Deliberately excluded from that fingerprint: `confirmationRef` and
+ * `immutableAfterConfirm`. Attaching a Confirmation is the step the product
+ * performs *after* inspection in the mandated order (PREPARED → INSPECTED →
+ * Confirmation if required → authority). It changes no executable intent, so it
+ * cannot invalidate the inspection that legitimately preceded it. Every other
+ * material amendment — and any supersession, which yields a new contract
+ * identity with no attestation at all — invalidates the previous attestation
+ * and requires re-inspection before Confirmation/authority.
+ *
+ * `validated` ≠ inspected, `confirmation_required` ≠ inspected: an EC status is
+ * never read as inspection proof.
  */
 
-import { describe, expect, it, beforeEach, afterEach } from "vitest";
+import { createHash } from "node:crypto";
+import { canonicalizeJson } from "@/lib/oa/doctrine";
+import type { ActorReference } from "@/lib/oa/doctrine";
 import {
-  assertStatelessAuthConfig,
+  executionContractSemanticMaterial,
+  type ExecutionContractSemanticMaterial,
+} from "./semanticFingerprint";
+
+export type InspectionAttestation = {
+  schemaVersion: "0.1.0-oa";
+  attestationId: string;
+  executionContractId: string;
+  contractVersion: number;
+  /** Execution-significant fingerprint — decides sufficiency. */
+  inspectionFingerprint: string;
+  /** Full contract semantic fingerprint at inspection time — audit only. */
+  semanticFingerprint: string;
+  projectId?: string;
+  actor: ActorReference;
+  inspectedAt: string;
+  /** Contract facts the inspector confirmed having read. */
+  inspectedFacts: string[];
+  /** Free-form reserves raised during inspection (non-blocking record). */
+  inspectionReserves?: string[];
+  /** Structural denials — an attestation is never an authorization. */
+  grantsAuthority: false;
+  isConfirmation: false;
+};
+
+export type InspectionInsufficiencyReason =
+  | "no_attestation"
+  | "material_change"
+  | "contract_fingerprint_absent";
+
+export type InspectionSufficiency =
+  | { sufficient: true; attestation: InspectionAttestation }
+  | {
+      sufficient: false;
+      reason: InspectionInsufficiencyReason;
+      staleAttestation?: InspectionAttestation;
+    };
+
+/**
+ * Execution-significant fingerprint of a contract: the semantic material minus
+ * the Confirmation binding fields (see module note).
+ */
+export function computeInspectionFingerprint(
+  contract: Parameters<typeof executionContractSemanticMaterial>[0],
+): string {
+  const material = executionContractSemanticMaterial(contract);
+  const executable: Partial<ExecutionContractSemanticMaterial> = { ...material };
+  delete executable.confirmationRef;
+  delete executable.immutableAfterConfirm;
+  return createHash("sha256")
+    .update(canonicalizeJson(executable), "utf8")
+    .digest("hex");
+}
+
+/**
+ * Deny-by-default sufficiency check against the contract as it exists now.
+ * A contract whose fingerprint cannot be resolved can never be proved inspected.
+ */
+export function evaluateInspectionSufficiency(input: {
+  attestations: readonly InspectionAttestation[];
+  executionContractId: string;
+  currentInspectionFingerprint: string | undefined;
+}): InspectionSufficiency {
+  const relevant = input.attestations
+    .filter((a) => a.executionContractId === input.executionContractId)
+    .slice()
+    .sort((a, b) => (a.inspectedAt < b.inspectedAt ? 1 : -1));
+
+  if (relevant.length === 0) {
+    return { sufficient: false, reason: "no_attestation" };
+  }
+  if (!input.currentInspectionFingerprint) {
+    return {
+      sufficient: false,
+      reason: "contract_fingerprint_absent",
+      staleAttestation: relevant[0],
+    };
+  }
+
+  const match = relevant.find(
+    (a) => a.inspectionFingerprint === input.currentInspectionFingerprint,
+  );
+  if (match) {
+    return { sufficient: true, attestation: match };
+  }
+
+  return {
+    sufficient: false,
+    reason: "material_change",
+    staleAttestation: relevant[0]!,
+  };
+}
+```
+
+### `projects/sfia-studio/app/lib/oa/execution-contract/domain/semanticFingerprint.ts`
+
+```typescript
+/**
+ * SHA-256 semantic fingerprint for ExecutionContract (M3).
+ * Canonical JSON over execution-significant fields; excludes volatile provenance
+ * and T-A4 lifecycle metadata (status, version) that do not change intent.
+ *
+ * Nested objects are persistence-normalized (JSON round-trip) so undefined keys
+ * cannot make build-time hashes diverge from reload/recompute.
+ */
+import { createHash } from "node:crypto";
+import { canonicalizeJson } from "@/lib/oa/doctrine";
+import type { ExecutionContract } from "./types";
+
+/** Drop undefined keys the same way SQLite payload_json persistence does. */
+function persistenceNormalize<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value)) as T;
+}
+
+export type ExecutionContractSemanticMaterial = {
+  executionContractId: string;
+  projectId: string;
+  cycleInstanceId?: string;
+  decisionRefs?: string[];
+  confirmationRef?: string;
+  doctrinePackageRef?: ExecutionContract["doctrinePackageRef"];
+  action: string;
+  target: string;
+  scope: string;
+  inputs?: Record<string, unknown>;
+  expectedOutputs?: string[];
+  requiredCapabilities: string[];
+  requiredAuthority: ExecutionContract["requiredAuthority"];
+  constraints: string[];
+  stopConditions: string[];
+  evidenceRequirements: string[];
+  reversibility: ExecutionContract["reversibility"];
+  executionWindowClass?: ExecutionContract["executionWindowClass"];
+  idempotencyKey: string;
+  supersedesExecutionContractId?: string;
+  supersessionReason?: string;
+  adapterExportRef?: string;
+  immutableAfterConfirm?: true;
+};
+
+export function executionContractSemanticMaterial(
+  contract: Pick<
+    ExecutionContract,
+    | "executionContractId"
+    | "projectId"
+    | "cycleInstanceId"
+    | "decisionRefs"
+    | "confirmationRef"
+    | "doctrinePackageRef"
+    | "action"
+    | "target"
+    | "scope"
+    | "inputs"
+    | "expectedOutputs"
+    | "requiredCapabilities"
+    | "requiredAuthority"
+    | "constraints"
+    | "stopConditions"
+    | "evidenceRequirements"
+    | "reversibility"
+    | "executionWindowClass"
+    | "idempotencyKey"
+    | "supersedesExecutionContractId"
+    | "supersessionReason"
+    | "adapterExportRef"
+    | "immutableAfterConfirm"
+  >,
+): ExecutionContractSemanticMaterial {
+  const material: ExecutionContractSemanticMaterial = {
+    executionContractId: contract.executionContractId,
+    projectId: contract.projectId,
+    action: contract.action,
+    target: contract.target,
+    scope: contract.scope,
+    requiredCapabilities: [...contract.requiredCapabilities],
+    requiredAuthority: contract.requiredAuthority,
+    constraints: [...contract.constraints],
+    stopConditions: [...contract.stopConditions],
+    evidenceRequirements: [...contract.evidenceRequirements],
+    reversibility: contract.reversibility,
+    idempotencyKey: contract.idempotencyKey,
+  };
+  if (contract.executionWindowClass !== undefined) {
+    material.executionWindowClass = contract.executionWindowClass;
+  }
+  if (contract.cycleInstanceId !== undefined) {
+    material.cycleInstanceId = contract.cycleInstanceId;
+  }
+  if (contract.decisionRefs !== undefined) {
+    material.decisionRefs = [...contract.decisionRefs];
+  }
+  if (contract.confirmationRef !== undefined) {
+    material.confirmationRef = contract.confirmationRef;
+  }
+  if (contract.doctrinePackageRef !== undefined) {
+    material.doctrinePackageRef = persistenceNormalize(
+      contract.doctrinePackageRef,
+    );
+  }
+  if (contract.inputs !== undefined) {
+    material.inputs = persistenceNormalize(contract.inputs);
+  }
+  if (contract.expectedOutputs !== undefined) {
+    material.expectedOutputs = [...contract.expectedOutputs];
+  }
+  if (contract.supersedesExecutionContractId !== undefined) {
+    material.supersedesExecutionContractId =
+      contract.supersedesExecutionContractId;
+  }
+  if (contract.supersessionReason !== undefined) {
+    material.supersessionReason = contract.supersessionReason;
+  }
+  if (contract.adapterExportRef !== undefined) {
+    material.adapterExportRef = contract.adapterExportRef;
+  }
+  if (contract.immutableAfterConfirm !== undefined) {
+    material.immutableAfterConfirm = contract.immutableAfterConfirm;
+  }
+  return material;
+}
+
+/** Primitive: fingerprint an already-built semantic material payload. */
+export function computeExecutionContractSemanticMaterialFingerprint(
+  material: ExecutionContractSemanticMaterial,
+): string {
+  const canonical = canonicalizeJson(material);
+  return createHash("sha256").update(canonical, "utf8").digest("hex");
+}
+
+export function computeExecutionContractSemanticFingerprint(
+  contract: Parameters<typeof executionContractSemanticMaterial>[0],
+): string {
+  return computeExecutionContractSemanticMaterialFingerprint(
+    executionContractSemanticMaterial(contract),
+  );
+}
+```
+
+### `projects/sfia-studio/app/__tests__/auth/policy-action-scoped-s1.test.ts`
+
+```typescript
+/**
+ * POLICY-01…15 + BYPASS-* + BIND-* + REG-* — Auth policy / contract-binding closure.
+ * ZERO real GitHub / OpenAI / web_search.
+ */
+
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { MemoryAuthorityResolver } from "@/lib/oa/decision";
+import {
+  resolveExecutionAuthorityVerifyScope,
+  verifyRequiredAuthority,
+} from "@/lib/oa/execution-contract/application/authorityHelper";
+import * as AuthPublic from "@/lib/auth";
+import {
   createSfiaAuth,
   resetSfiaAuthSingletonForTests,
 } from "@/lib/auth/auth";
-import { GITHUB_PROVIDER_ID } from "@/lib/auth/constants";
-import { canonicalizeGithubUserId } from "@/lib/auth/allowlist";
+import { mapGithubIdentityToPiloteActor } from "@/lib/auth/actorMapping";
+import { resolveCurrentAuthenticatedPilote } from "@/lib/auth/resolveCurrentPilote";
+import { issueS1AuthorityEvidence } from "@/lib/auth/s1Authority";
+import {
+  AUTHORITY_REQUIREMENT_MISMATCH,
+  AUTHORITY_REQUIREMENT_UNTRUSTED,
+  AUTHORITY_UNRESOLVED,
+  CONTRACT_BINDING_MISMATCH,
+  CONTRACT_CONTEXT_REQUIRED,
+  MORRIS_AUTHORITY_NOT_AVAILABLE,
+  MORRIS_GATE_REQUIRED,
+  PILOTE_AUTHORITY_ENVELOPE_NOT_PROVEN,
+  resolvePiloteS1AuthorityFromGovernedContract,
+  resolvePiloteS1AuthorityFromGovernedEffects,
+  resolvePiloteS1AuthorityLevel,
+  type AuthS1GovernedContractContext,
+  type GovernedEffectsAuthorityInput,
+} from "@/lib/auth/piloteS1AuthorityPolicy";
+import { BETTER_AUTH_GITHUB_MULTI_USER_S1 } from "@/lib/auth/constants";
+import { computeInspectionFingerprint } from "@/lib/oa/execution-contract/domain/inspectionAttestation";
+import { headersWithAccountCookie } from "./helpers/accountCookie";
 
 const TEST_ENV = {
   BETTER_AUTH_SECRET: "test-secret-at-least-32-characters-long!!",
@@ -4440,438 +3745,1672 @@ const TEST_ENV = {
   SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS: "11111111,22222222",
 } as unknown as NodeJS.ProcessEnv;
 
-describe("Better Auth foundation BA-D*", () => {
+const piloteA = {
+  ok: true as const,
+  githubUserId: "11111111",
+  betterAuthUserId: "ba-user-a",
+  actor: mapGithubIdentityToPiloteActor({ githubUserId: "11111111" }),
+};
+
+function futureWindow() {
+  const issuedAt = new Date().toISOString();
+  const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString();
+  return { issuedAt, expiresAt };
+}
+
+function makeContract(
+  overrides: Partial<AuthS1GovernedContractContext> & {
+    executionContractId: string;
+    action: string;
+  },
+): AuthS1GovernedContractContext {
+  const base: AuthS1GovernedContractContext = {
+    executionContractId: overrides.executionContractId,
+    projectId: overrides.projectId ?? "prj:demo",
+    action: overrides.action,
+    target: overrides.target ?? "tgt:demo",
+    scope: overrides.scope ?? "biz:shared-scope",
+    requiredAuthority: overrides.requiredAuthority ?? "N1",
+    requiredCapabilities: overrides.requiredCapabilities ?? ["cap:demo"],
+    constraints: overrides.constraints ?? ["c:demo"],
+    stopConditions: overrides.stopConditions ?? ["stop:demo"],
+    evidenceRequirements: overrides.evidenceRequirements ?? ["evreq:demo"],
+    reversibility: overrides.reversibility ?? "partially_reversible",
+    idempotencyKey:
+      overrides.idempotencyKey ?? `idem:${overrides.executionContractId}`,
+  };
+  if (overrides.decisionRefs !== undefined) {
+    base.decisionRefs = overrides.decisionRefs;
+  }
+  if (overrides.cycleInstanceId !== undefined) {
+    base.cycleInstanceId = overrides.cycleInstanceId;
+  }
+  if (overrides.inputs !== undefined) {
+    base.inputs = overrides.inputs;
+  }
+  if (overrides.expectedOutputs !== undefined) {
+    base.expectedOutputs = overrides.expectedOutputs;
+  }
+  if (overrides.executionWindowClass !== undefined) {
+    base.executionWindowClass = overrides.executionWindowClass;
+  }
+  if (overrides.requiredAuthority !== undefined) {
+    base.requiredAuthority = overrides.requiredAuthority;
+  }
+  return base;
+}
+
+function bindingScope(contract: AuthS1GovernedContractContext): string {
+  return computeInspectionFingerprint(contract);
+}
+
+function makeEffects(
+  effectClass: GovernedEffectsAuthorityInput["effectClass"],
+  contract: AuthS1GovernedContractContext,
+  extras: Partial<GovernedEffectsAuthorityInput> = {},
+): GovernedEffectsAuthorityInput {
+  return {
+    effectClass,
+    rollbackAvailable: extras.rollbackAvailable ?? true,
+    protectedBoundaries: extras.protectedBoundaries ?? [],
+    scopeIn: extras.scopeIn ?? contract.scope,
+    target: extras.target ?? contract.target,
+    claimedRequiredAuthority: extras.claimedRequiredAuthority,
+  };
+}
+
+function issueFor(
+  resolver: MemoryAuthorityResolver,
+  contract: AuthS1GovernedContractContext,
+  effectClass: GovernedEffectsAuthorityInput["effectClass"],
+  evidenceId: string,
+  extras: Partial<GovernedEffectsAuthorityInput> = {},
+) {
+  const { issuedAt, expiresAt } = futureWindow();
+  return issueS1AuthorityEvidence({
+    pilote: piloteA,
+    authorityResolver: resolver,
+    contract,
+    governedEffects: makeEffects(effectClass, contract, extras),
+    issuedAt,
+    expiresAt,
+    evidenceId,
+  });
+}
+
+describe("AUTH POLICY Morris BASE NONE + ACTION-SCOPED", () => {
   beforeEach(() => {
     resetSfiaAuthSingletonForTests();
   });
   afterEach(() => {
     resetSfiaAuthSingletonForTests();
-  });
-
-  it("BA-D01 initializes with deterministic fake env", () => {
-    const auth = createSfiaAuth({ env: TEST_ENV, baseURL: "http://localhost:3020" });
-    expect(auth).toBeTruthy();
-    expect(auth.handler).toBeTypeOf("function");
-  });
-
-  it("BA-D02/D04 stateless config — no DB; GitHub only social provider", () => {
-    const auth = createSfiaAuth({ env: TEST_ENV });
-    const proof = assertStatelessAuthConfig(auth);
-    expect(proof.hasDatabase).toBe(false);
-    expect(proof.socialProviders).toEqual([GITHUB_PROVIDER_ID]);
-    expect(auth.options.account?.storeAccountCookie).toBe(true);
-    expect(auth.options.session?.cookieCache?.enabled).toBe(true);
-  });
-
-  it("BA-D05/D06 validateUserInfo rejects unauthorized / accepts authorized raw ids", async () => {
-    const auth = createSfiaAuth({ env: TEST_ENV });
-    const validate = auth.options.user?.validateUserInfo;
-    expect(validate).toBeTypeOf("function");
-    if (!validate) return;
-
-    const denied = await validate({
-      user: { email: "x@y.z", name: "C" },
-      source: {
-        action: "create-user",
-        method: "oauth",
-        oauth: {
-          providerId: "github",
-          profile: { id: 33333333, login: "not-allowed" },
-        },
-      },
-    } as never);
-    expect(denied && typeof denied === "object" && "error" in denied ? denied.error : null).toBe(
-      "github_user_not_allowlisted",
-    );
-
-    const allowed = await validate({
-      user: { email: "a@y.z", name: "A" },
-      source: {
-        action: "sign-in",
-        method: "oauth",
-        oauth: {
-          providerId: "github",
-          profile: { id: 11111111, login: "alice" },
-        },
-      },
-    } as never);
-    expect(allowed).toBeUndefined();
-  });
-
-  it("BA-D07/D08 provider id originates from profile.id — not session.user.id assumption", () => {
-    // GitHub accountSubject uses profile.id (package: accountSubject: ({ profile }) => profile.id)
-    expect(canonicalizeGithubUserId(11111111)).toBe("11111111");
-    // Explicit non-assumption: a Better Auth internal uuid must not be treated as GitHub id
-    expect(canonicalizeGithubUserId("ba-internal-uuid-not-github")).toBeNull();
-  });
-
-  it("BA-D03 route handler module exports without invoking OAuth", async () => {
-    // Dynamic import of route wiring must not call GitHub.
-    const mod = await import("@/app/api/auth/[...all]/route");
-    expect(mod.GET).toBeTypeOf("function");
-    expect(mod.POST).toBeTypeOf("function");
-  });
-});
-```
-
-### `projects/sfia-studio/app/__tests__/auth/route-protection.test.ts`
-
-```typescript
-/**
- * Protected-route policy helpers — full identity evaluation semantics (no cookie-only).
- * Middleware uses resolveCurrentAuthenticatedPilote; these tests cover the decision matrix
- * without a real Next request pipeline / GitHub network.
- */
-
-import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
-import { mapGithubIdentityToPiloteActor } from "@/lib/auth/actorMapping";
-import type { ReadBoundGithubAccountResult } from "@/lib/auth/providerAccountBinding";
-
-describe("AUTH route protection decision matrix", () => {
-  beforeEach(() => {
-    vi.resetModules();
-  });
-  afterEach(() => {
     vi.restoreAllMocks();
   });
 
-  it("AUTH-D19 no session → deny", async () => {
-    vi.doMock("@/lib/auth/auth", () => ({
-      getSfiaAuth: () => ({
-        api: {
-          getSession: async () => null,
-        },
-      }),
-    }));
-    const { resolveCurrentAuthenticatedPilote } = await import(
-      "@/lib/auth/resolveCurrentPilote"
-    );
-    const r = await resolveCurrentAuthenticatedPilote({
-      headers: new Headers(),
-      env: {
-        NODE_ENV: "test",
-        SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS: "11111111,22222222",
-      } as NodeJS.ProcessEnv,
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.code).toBe("NO_SESSION");
-  });
-
-  it("AUTH-D20 invalid/missing provider binding → deny even with session", async () => {
-    vi.doMock("@/lib/auth/auth", () => ({
-      getSfiaAuth: () => ({
-        api: {
-          getSession: async () => ({
-            user: { id: "ba-user-a", name: "A" },
-            session: { id: "sess-a" },
-          }),
-        },
-      }),
-    }));
-    const { resolveCurrentAuthenticatedPilote } = await import(
-      "@/lib/auth/resolveCurrentPilote"
-    );
-    const r = await resolveCurrentAuthenticatedPilote({
-      headers: new Headers(),
-      env: {
-        NODE_ENV: "test",
-        SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS: "11111111",
-      } as NodeJS.ProcessEnv,
-      readBoundGithubAccount: async () =>
-        ({
-          ok: false,
-          code: "PROVIDER_ACCOUNT_MISSING",
-          message: "missing",
-        }) satisfies ReadBoundGithubAccountResult,
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.code).toBe("PROVIDER_ACCOUNT_MISSING");
-  });
-
-  it("authenticated + allowlisted proceeds; removed user denied; hostile claim ignored; cross-user mix denied", async () => {
-    vi.doMock("@/lib/auth/auth", () => ({
-      getSfiaAuth: () => ({
-        api: {
-          getSession: async () => ({
-            user: { id: "ba-user-a", name: "A" },
-            session: { id: "sess-a" },
-          }),
-        },
-      }),
-    }));
-    const { resolveCurrentAuthenticatedPilote } = await import(
-      "@/lib/auth/resolveCurrentPilote"
-    );
-
-    const boundOk: ReadBoundGithubAccountResult = {
-      ok: true,
-      account: {
-        betterAuthUserId: "ba-user-a",
-        githubUserId: "11111111",
-        providerId: "github",
-        accountRowId: "acc-1",
-        issuer: "local:oauth:github",
-      },
-    };
-
-    const allowed = await resolveCurrentAuthenticatedPilote({
-      headers: new Headers(),
-      env: {
-        NODE_ENV: "test",
-        SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS: "11111111,22222222",
-      } as NodeJS.ProcessEnv,
-      claimedGithubUserId: "22222222",
-      claimedRole: "Admin",
-      claimedCanActAsMorris: true,
-      readBoundGithubAccount: async () => boundOk,
-    });
-    expect(allowed.ok).toBe(true);
-    if (allowed.ok) {
-      expect(allowed.githubUserId).toBe("11111111");
-      expect(allowed.actor).toEqual(
-        mapGithubIdentityToPiloteActor({
-          githubUserId: "11111111",
-          displayName: "A",
-        }),
-      );
-      expect(allowed.betterAuthUserId).not.toBe(allowed.githubUserId);
-    }
-
-    const removed = await resolveCurrentAuthenticatedPilote({
-      headers: new Headers(),
-      env: {
-        NODE_ENV: "test",
-        SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS: "22222222",
-      } as NodeJS.ProcessEnv,
-      readBoundGithubAccount: async () => boundOk,
-    });
-    expect(removed.ok).toBe(false);
-    if (!removed.ok) expect(removed.code).toBe("ALLOWLIST_DENIED");
-
-    const crossUser = await resolveCurrentAuthenticatedPilote({
-      headers: new Headers(),
-      env: {
-        NODE_ENV: "test",
-        SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS: "11111111,22222222",
-      } as NodeJS.ProcessEnv,
-      readBoundGithubAccount: async () => ({
-        ok: false,
-        code: "SESSION_USER_MISMATCH",
-        message: "B session + A account",
-      }),
-    });
-    expect(crossUser.ok).toBe(false);
-    if (!crossUser.ok) expect(crossUser.code).toBe("SESSION_USER_MISMATCH");
-  });
-});
-```
-
-### `projects/sfia-studio/app/__tests__/auth/allowlist-actor-s1.test.ts`
-
-```typescript
-/**
- * AUTH-D01→D26 — allowlist, actor mapping, S1 authority, hostile input.
- * ZERO real GitHub OAuth.
- */
-
-import { describe, expect, it } from "vitest";
-import { MemoryAuthorityResolver } from "@/lib/oa/decision";
-import {
-  authorizeByGithubLoginOrEmail,
-  canonicalizeGithubUserId,
-  isGithubUserAllowed,
-  parseAllowedGithubUserIds,
-} from "@/lib/auth/allowlist";
-import {
-  githubActorId,
-  mapGithubIdentityToPiloteActor,
-} from "@/lib/auth/actorMapping";
-import { issueS1AuthorityEvidence } from "@/lib/auth/s1Authority";
-import {
-  BETTER_AUTH_GITHUB_MULTI_USER_S1,
-  PILOTE_AUTHORITY_ENVELOPE_NOT_PROVEN,
-} from "@/lib/auth";
-import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
-
-describe("AUTH allowlist multi-user", () => {
-  it("AUTH-D01 parses two valid users", () => {
-    const r = parseAllowedGithubUserIds("11111111,22222222");
-    expect(r.ok).toBe(true);
-    if (r.ok) expect(r.ids).toEqual(["11111111", "22222222"]);
-  });
-
-  it("AUTH-D02 parses N users", () => {
-    const r = parseAllowedGithubUserIds("1,2,3,4,5");
-    expect(r.ok).toBe(true);
-    if (r.ok) expect(r.ids).toHaveLength(5);
-  });
-
-  it("AUTH-D03 deduplicates", () => {
-    const r = parseAllowedGithubUserIds("10,10, 11 ,10");
-    expect(r.ok).toBe(true);
-    if (r.ok) expect(r.ids).toEqual(["10", "11"]);
-  });
-
-  it("AUTH-D04 missing config fails closed", () => {
-    const r = parseAllowedGithubUserIds(undefined);
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.code).toBe("ALLOWLIST_MISSING");
-  });
-
-  it("AUTH-D05 empty config fails closed", () => {
-    const r = parseAllowedGithubUserIds("   ");
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.code).toBe("ALLOWLIST_EMPTY");
-  });
-
-  it("AUTH-D06 malformed member fails closed", () => {
-    expect(parseAllowedGithubUserIds("12,abc").ok).toBe(false);
-    expect(parseAllowedGithubUserIds("12,").ok).toBe(false);
-    expect(parseAllowedGithubUserIds("0").ok).toBe(false);
-    expect(parseAllowedGithubUserIds("-1").ok).toBe(false);
-    expect(parseAllowedGithubUserIds("1.5").ok).toBe(false);
-  });
-
-  it("AUTH-D07 login/email/displayName cannot authorize", () => {
-    expect(authorizeByGithubLoginOrEmail("morris")).toBe(false);
-    expect(authorizeByGithubLoginOrEmail("a@b.co")).toBe(false);
-    const ids = ["11111111"];
-    expect(isGithubUserAllowed("morris", ids)).toBe(false);
-  });
-
-  it("AUTH-D08/D09/D10 allow A+B deny C", () => {
-    const ids = ["11111111", "22222222"];
-    expect(isGithubUserAllowed("11111111", ids)).toBe(true);
-    expect(isGithubUserAllowed("22222222", ids)).toBe(true);
-    expect(isGithubUserAllowed("33333333", ids)).toBe(false);
-  });
-
-  it("AUTH-D14/D15 removal A blocks A not B", () => {
-    let ids = ["11111111", "22222222"];
-    ids = ids.filter((id) => id !== "11111111");
-    expect(isGithubUserAllowed("11111111", ids)).toBe(false);
-    expect(isGithubUserAllowed("22222222", ids)).toBe(true);
-  });
-});
-
-describe("AUTH actor mapping", () => {
-  it("AUTH-D11/D12/D13/D22 distinct Pilote actors", () => {
-    const a = mapGithubIdentityToPiloteActor({
-      githubUserId: "11111111",
-      displayName: "Alice",
-    });
-    const b = mapGithubIdentityToPiloteActor({
-      githubUserId: "22222222",
-      displayName: "Bob",
-    });
-    expect(a.actorId).toBe("actor:github:11111111");
-    expect(b.actorId).toBe("actor:github:22222222");
-    expect(a.actorId).not.toBe(b.actorId);
-    expect(a.role).toBe("decision_maker");
-    expect(b.role).toBe("decision_maker");
-    expect(a.authorityLevel).toBe("none");
-    expect(b.authorityLevel).toBe("none");
-  });
-
-  it("AUTH-D26 historical local-pilote id remains distinct", () => {
-    expect(LOCAL_PILOTE_ACTOR.actorId).toBe("actor:local-pilote");
-    expect(githubActorId("11111111")).not.toBe(LOCAL_PILOTE_ACTOR.actorId);
-  });
-});
-
-describe("AUTH S1 AuthorityEvidence", () => {
-  it("AUTH-D23/D24/D25 no auto-N3; collision-safe register; canActAsMorris false", () => {
+  it("POLICY-01 login only → actor authority none; no S1", () => {
+    expect(piloteA.actor.authorityLevel).toBe("none");
+    expect(resolvePiloteS1AuthorityLevel().ok).toBe(false);
     const resolver = new MemoryAuthorityResolver();
-    const piloteA = {
-      ok: true as const,
-      githubUserId: "11111111",
-      betterAuthUserId: "ba-user-a",
-      actor: mapGithubIdentityToPiloteActor({ githubUserId: "11111111" }),
-    };
-    const piloteB = {
-      ok: true as const,
-      githubUserId: "22222222",
-      betterAuthUserId: "ba-user-b",
-      actor: mapGithubIdentityToPiloteActor({ githubUserId: "22222222" }),
-    };
-
-    const issuedAt = new Date().toISOString();
-    const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString();
-
-    const blocked = issueS1AuthorityEvidence({
+    const { issuedAt, expiresAt } = futureWindow();
+    const issued = issueS1AuthorityEvidence({
       pilote: piloteA,
       authorityResolver: resolver,
       issuedAt,
       expiresAt,
     });
-    expect(blocked.ok).toBe(false);
-    if (!blocked.ok) {
-      expect(blocked.code).toBe(PILOTE_AUTHORITY_ENVELOPE_NOT_PROVEN);
+    expect(issued.ok).toBe(false);
+    if (!issued.ok) {
+      expect(issued.code).toBe(PILOTE_AUTHORITY_ENVELOPE_NOT_PROVEN);
+    }
+  });
+
+  it("POLICY-02 trusted N1 effect → exact S1 N1; canActAsMorris=false", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contract = makeContract({
+      executionContractId: "xct:pol02",
+      action: "product:read",
+      requiredAuthority: "N1",
+    });
+    const issued = issueFor(resolver, contract, "read", "evd:pol02");
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+    expect(issued.evidence.level).toBe("N1");
+    expect(issued.evidence.canActAsMorris).toBe(false);
+    expect(issued.evidence.scope).toBe(bindingScope(contract));
+    expect(issued.evidence.source).toBe(BETTER_AUTH_GITHUB_MULTI_USER_S1);
+  });
+
+  it("POLICY-03 trusted N2 effect → exact S1 N2", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contract = makeContract({
+      executionContractId: "xct:pol03",
+      action: "product:commit",
+      requiredAuthority: "N2",
+    });
+    const issued = issueFor(resolver, contract, "commit", "evd:pol03");
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+    expect(issued.evidence.level).toBe("N2");
+    expect(issued.evidence.scope).toBe(bindingScope(contract));
+  });
+
+  it("POLICY-04 trusted N3 effect → exact S1 N3", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contract = makeContract({
+      executionContractId: "xct:pol04",
+      action: "product:push",
+      requiredAuthority: "N3",
+    });
+    const issued = issueFor(resolver, contract, "push", "evd:pol04");
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+    expect(issued.evidence.level).toBe("N3");
+    expect(issued.evidence.canActAsMorris).toBe(false);
+  });
+
+  it("POLICY-05 MORRIS / Morris construction gate → FAIL-CLOSED", () => {
+    const gate = resolvePiloteS1AuthorityFromGovernedContract({
+      contract: makeContract({
+        executionContractId: "xct:gate",
+        action: "product:baseline-promotion",
+      }),
+      governedEffects: makeEffects(
+        "baseline-promotion",
+        makeContract({
+          executionContractId: "xct:gate",
+          action: "product:baseline-promotion",
+        }),
+        { rollbackAvailable: false },
+      ),
+    });
+    expect(gate.ok).toBe(false);
+    if (!gate.ok) expect(gate.code).toBe(MORRIS_GATE_REQUIRED);
+
+    const claimMorris = resolvePiloteS1AuthorityFromGovernedContract({
+      contract: makeContract({
+        executionContractId: "xct:morris-claim",
+        action: "product:read",
+        requiredAuthority: "N1",
+      }),
+      governedEffects: makeEffects(
+        "read",
+        makeContract({
+          executionContractId: "xct:morris-claim",
+          action: "product:read",
+        }),
+        { claimedRequiredAuthority: "MORRIS" },
+      ),
+    });
+    expect(claimMorris.ok).toBe(false);
+    if (!claimMorris.ok) {
+      expect(claimMorris.code).toBe(MORRIS_AUTHORITY_NOT_AVAILABLE);
     }
 
-    const contract = {
-      executionContractId: "xct:auth-d23",
+    const resolver = new MemoryAuthorityResolver();
+    const contract = makeContract({
+      executionContractId: "xct:pol05-n3",
+      action: "product:push",
+      requiredAuthority: "N3",
+    });
+    const n3 = issueFor(resolver, contract, "push", "evd:pol05-n3");
+    expect(n3.ok).toBe(true);
+    if (!n3.ok) return;
+    const verifyScope = resolveExecutionAuthorityVerifyScope({
+      contractScope: contract.scope,
+      evidence: n3.evidence,
+      contractSemantic: contract,
+    });
+    const morrisCheck = verifyRequiredAuthority(resolver, {
+      requiredAuthority: "MORRIS",
+      actorId: piloteA.actor.actorId,
+      scope: verifyScope,
+      evidenceId: n3.evidence.evidenceId,
+    });
+    expect(morrisCheck.ok).toBe(false);
+    expect(morrisCheck.reason).toBe("morris_gate_denied");
+  });
+
+  it("POLICY-06 client claims N1 while server requires N3 → no downgrade", () => {
+    const contract = makeContract({
+      executionContractId: "xct:pol06",
+      action: "product:push",
+      requiredAuthority: "N3",
+    });
+    const r = resolvePiloteS1AuthorityFromGovernedContract({
+      contract,
+      governedEffects: makeEffects("push", contract, {
+        claimedRequiredAuthority: "N1",
+      }),
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.code).toBe(AUTHORITY_REQUIREMENT_MISMATCH);
+  });
+
+  it("POLICY-07 client claims N3 while server requires N1 → no self-escalation", () => {
+    const contract = makeContract({
+      executionContractId: "xct:pol07",
       action: "product:read",
-      target: "tgt:demo",
-      scope: "biz:demo",
-      requiredAuthority: "N1" as const,
-    };
+      requiredAuthority: "N1",
+    });
+    const r = resolvePiloteS1AuthorityFromGovernedContract({
+      contract,
+      governedEffects: makeEffects("read", contract, {
+        claimedRequiredAuthority: "N3",
+      }),
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.code).toBe(AUTHORITY_REQUIREMENT_MISMATCH);
+  });
+
+  it("POLICY-08 client claims MORRIS → denied; canActAsMorris false", () => {
+    const contract = makeContract({
+      executionContractId: "xct:pol08",
+      action: "product:commit",
+      requiredAuthority: "N2",
+    });
+    const r = resolvePiloteS1AuthorityFromGovernedContract({
+      contract,
+      governedEffects: makeEffects("commit", contract, {
+        claimedRequiredAuthority: "MORRIS",
+      }),
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.code).toBe(MORRIS_AUTHORITY_NOT_AVAILABLE);
+  });
+
+  it("POLICY-09 no trusted requirement → PILOTE_AUTHORITY_ENVELOPE_NOT_PROVEN", () => {
+    const r = resolvePiloteS1AuthorityLevel();
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.code).toBe(PILOTE_AUTHORITY_ENVELOPE_NOT_PROVEN);
+  });
+
+  it("POLICY-10 malformed/unknown authority → fail closed", () => {
+    const contract = makeContract({
+      executionContractId: "xct:pol10",
+      action: "product:read",
+    });
+    const unknown = resolvePiloteS1AuthorityFromGovernedContract({
+      contract,
+      governedEffects: makeEffects("unknown", contract),
+    });
+    expect(unknown.ok).toBe(false);
+    if (!unknown.ok) expect(unknown.code).toBe(AUTHORITY_UNRESOLVED);
+
+    const badClaim = resolvePiloteS1AuthorityFromGovernedContract({
+      contract,
+      governedEffects: makeEffects("read", contract, {
+        claimedRequiredAuthority: "N9",
+      }),
+    });
+    expect(badClaim.ok).toBe(false);
+    if (!badClaim.ok) expect(badClaim.code).toBe(AUTHORITY_REQUIREMENT_MISMATCH);
+  });
+
+  it("POLICY-11 contract binding — S1 for Contract A cannot authorize Contract B", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contractA = makeContract({
+      executionContractId: "xct:pol11-a",
+      action: "product:push",
+      scope: "biz:shared",
+      requiredAuthority: "N3",
+    });
+    const issued = issueFor(resolver, contractA, "push", "evd:pol11");
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+    const contractB = makeContract({
+      executionContractId: "xct:pol11-b",
+      action: "product:push",
+      scope: "biz:shared",
+      requiredAuthority: "N3",
+    });
+    const cross = resolver.verify({
+      actorId: piloteA.actor.actorId,
+      requiredLevel: "N3",
+      scope: bindingScope(contractB),
+      evidenceId: issued.evidence.evidenceId,
+    });
+    expect(cross.ok).toBe(false);
+    expect(cross.reason).toBe("scope_mismatch");
+  });
+
+  it("POLICY-12 middleware/session resolution does not issue S1", async () => {
+    const auth = createSfiaAuth({ env: TEST_ENV });
+    const headers = await headersWithAccountCookie({
+      auth,
+      userId: "ba-user-a",
+      accountId: "11111111",
+    });
+    vi.spyOn(auth.api, "getSession").mockResolvedValue({
+      user: {
+        id: "ba-user-a",
+        name: "A",
+        email: "a@example.com",
+        emailVerified: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      session: {
+        id: "sess-a",
+        userId: "ba-user-a",
+        token: "t",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        expiresAt: new Date(Date.now() + 60_000),
+      },
+    } as never);
+
+    const resolver = new MemoryAuthorityResolver();
+    const before = resolver.listByActor(piloteA.actor.actorId).length;
+    const r = await resolveCurrentAuthenticatedPilote({
+      auth,
+      headers,
+      env: TEST_ENV,
+    });
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.actor.authorityLevel).toBe("none");
+    expect(resolver.listByActor(piloteA.actor.actorId).length).toBe(before);
+  });
+
+  it("POLICY-13 cross-user session B + provider A → SESSION_USER_MISMATCH", async () => {
+    const auth = createSfiaAuth({ env: TEST_ENV });
+    const headers = await headersWithAccountCookie({
+      auth,
+      userId: "ba-user-a",
+      accountId: "11111111",
+    });
+    vi.spyOn(auth.api, "getSession").mockResolvedValue({
+      user: {
+        id: "ba-user-b",
+        name: "B",
+        email: "b@example.com",
+        emailVerified: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      session: {
+        id: "sess-b",
+        userId: "ba-user-b",
+        token: "t",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        expiresAt: new Date(Date.now() + 60_000),
+      },
+    } as never);
+    const r = await resolveCurrentAuthenticatedPilote({
+      auth,
+      headers,
+      env: TEST_ENV,
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.code).toBe("SESSION_USER_MISMATCH");
+  });
+
+  it("POLICY-14 protected hot path → zero GitHub provider network", async () => {
+    const auth = createSfiaAuth({ env: TEST_ENV });
+    const headers = await headersWithAccountCookie({
+      auth,
+      userId: "ba-user-a",
+      accountId: "11111111",
+    });
+    vi.spyOn(auth.api, "getSession").mockResolvedValue({
+      user: {
+        id: "ba-user-a",
+        name: "A",
+        email: "a@example.com",
+        emailVerified: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      session: {
+        id: "sess-a",
+        userId: "ba-user-a",
+        token: "t",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        expiresAt: new Date(Date.now() + 60_000),
+      },
+    } as never);
+    const hits: string[] = [];
+    const original = globalThis.fetch;
+    globalThis.fetch = vi.fn(async (input: RequestInfo | URL) => {
+      hits.push(String(input));
+      throw new Error("NETWORK");
+    }) as typeof fetch;
+    try {
+      expect(vi.spyOn(auth.api, "accountInfo")).not.toHaveBeenCalled();
+      await resolveCurrentAuthenticatedPilote({ auth, headers, env: TEST_ENV });
+      expect(hits).toEqual([]);
+    } finally {
+      globalThis.fetch = original;
+    }
+  });
+
+  it("POLICY-15 allowlist removal → deny before S1", async () => {
+    const auth = createSfiaAuth({ env: TEST_ENV });
+    const headers = await headersWithAccountCookie({
+      auth,
+      userId: "ba-user-a",
+      accountId: "11111111",
+    });
+    vi.spyOn(auth.api, "getSession").mockResolvedValue({
+      user: {
+        id: "ba-user-a",
+        name: "A",
+        email: "a@example.com",
+        emailVerified: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      session: {
+        id: "sess-a",
+        userId: "ba-user-a",
+        token: "t",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        expiresAt: new Date(Date.now() + 60_000),
+      },
+    } as never);
+    const denied = await resolveCurrentAuthenticatedPilote({
+      auth,
+      headers,
+      env: {
+        ...TEST_ENV,
+        SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS: "22222222",
+      } as NodeJS.ProcessEnv,
+    });
+    expect(denied.ok).toBe(false);
+    if (!denied.ok) expect(denied.code).toBe("ALLOWLIST_DENIED");
+  });
+});
+
+describe("BYPASS — Auth S1 policy surface", () => {
+  it("BYPASS-01 no public Auth export buildValidatedS1Evidence", () => {
+    expect("buildValidatedS1Evidence" in AuthPublic).toBe(false);
+    expect(
+      (AuthPublic as Record<string, unknown>).buildValidatedS1Evidence,
+    ).toBeUndefined();
+  });
+
+  it("BYPASS-02 no public Auth export registerS1EvidenceImmutable", () => {
+    expect("registerS1EvidenceImmutable" in AuthPublic).toBe(false);
+    expect(
+      (AuthPublic as Record<string, unknown>).registerS1EvidenceImmutable,
+    ).toBeUndefined();
+  });
+
+  it("BYPASS-03 no Auth N3 without canonical policy evaluation", () => {
+    const effectsOnly = resolvePiloteS1AuthorityFromGovernedEffects({
+      effectClass: "push",
+      rollbackAvailable: true,
+      scopeIn: "biz:x",
+      target: "tgt:x",
+    });
+    expect(effectsOnly.ok).toBe(false);
+    if (!effectsOnly.ok) {
+      expect(effectsOnly.code).toBe(CONTRACT_CONTEXT_REQUIRED);
+    }
+
+    const resolver = new MemoryAuthorityResolver();
+    const { issuedAt, expiresAt } = futureWindow();
+    const issued = issueS1AuthorityEvidence({
+      pilote: piloteA,
+      authorityResolver: resolver,
+      issuedAt,
+      expiresAt,
+      evidenceId: "evd:bypass03",
+    });
+    expect(issued.ok).toBe(false);
+    expect(resolver.getEvidence("evd:bypass03")).toBeNull();
+  });
+
+  it("BYPASS-04 legitimate N3 hierarchy uses action-scoped issuance", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contract = makeContract({
+      executionContractId: "xct:bypass04",
+      action: "product:push",
+      requiredAuthority: "N3",
+    });
+    const issued = issueFor(resolver, contract, "push", "evd:bypass04");
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+    expect(issued.evidence.level).toBe("N3");
+    expect(issued.evidence.canActAsMorris).toBe(false);
+    expect(
+      resolver.verify({
+        actorId: piloteA.actor.actorId,
+        requiredLevel: "N2",
+        scope: bindingScope(contract),
+        evidenceId: issued.evidence.evidenceId,
+      }).ok,
+    ).toBe(true);
+    expect(
+      resolver.verify({
+        actorId: piloteA.actor.actorId,
+        requiredLevel: "N3",
+        scope: bindingScope(contract),
+        evidenceId: issued.evidence.evidenceId,
+        requireMorrisGate: true,
+      }).reason,
+    ).toBe("morris_gate_denied");
+  });
+});
+
+describe("BIND — ExecutionContract / action binding", () => {
+  it("BIND-01 trusted read contract → exact N1 S1", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contract = makeContract({
+      executionContractId: "xct:bind01",
+      action: "product:read",
+      requiredAuthority: "N1",
+    });
+    const issued = issueFor(resolver, contract, "read", "evd:bind01");
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+    expect(issued.evidence.level).toBe("N1");
+    expect(issued.evidence.scope).toBe(bindingScope(contract));
+  });
+
+  it("BIND-02 trusted commit contract → exact N2 S1", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contract = makeContract({
+      executionContractId: "xct:bind02",
+      action: "product:commit",
+      requiredAuthority: "N2",
+    });
+    const issued = issueFor(resolver, contract, "commit", "evd:bind02");
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+    expect(issued.evidence.level).toBe("N2");
+  });
+
+  it("BIND-03 trusted push contract → exact N3 S1", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contract = makeContract({
+      executionContractId: "xct:bind03",
+      action: "product:push",
+      requiredAuthority: "N3",
+    });
+    const issued = issueFor(resolver, contract, "push", "evd:bind03");
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+    expect(issued.evidence.level).toBe("N3");
+  });
+
+  it("BIND-04 effects=push / contract requiredAuthority=N1 → DENY", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contract = makeContract({
+      executionContractId: "xct:bind04",
+      action: "product:push",
+      requiredAuthority: "N1",
+    });
+    const issued = issueFor(resolver, contract, "push", "evd:bind04");
+    expect(issued.ok).toBe(false);
+    if (!issued.ok) expect(issued.code).toBe(AUTHORITY_REQUIREMENT_MISMATCH);
+  });
+
+  it("BIND-05 effects=read / contract requiredAuthority=N3 → DENY", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contract = makeContract({
+      executionContractId: "xct:bind05",
+      action: "product:read",
+      requiredAuthority: "N3",
+    });
+    const issued = issueFor(resolver, contract, "read", "evd:bind05");
+    expect(issued.ok).toBe(false);
+    if (!issued.ok) expect(issued.code).toBe(AUTHORITY_REQUIREMENT_MISMATCH);
+  });
+
+  it("BIND-06 effects action ≠ contract action → DENY", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contract = makeContract({
+      executionContractId: "xct:bind06",
+      action: "product:read",
+      requiredAuthority: "N1",
+    });
+    const issued = issueFor(resolver, contract, "push", "evd:bind06");
+    expect(issued.ok).toBe(false);
+    if (!issued.ok) expect(issued.code).toBe(CONTRACT_BINDING_MISMATCH);
+  });
+
+  it("BIND-07 effects/contract scope mismatch → DENY", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contract = makeContract({
+      executionContractId: "xct:bind07",
+      action: "product:read",
+      scope: "biz:a",
+      requiredAuthority: "N1",
+    });
+    const issued = issueFor(resolver, contract, "read", "evd:bind07", {
+      scopeIn: "biz:b",
+    });
+    expect(issued.ok).toBe(false);
+    if (!issued.ok) expect(issued.code).toBe(CONTRACT_BINDING_MISMATCH);
+  });
+
+  it("BIND-08 target mismatch → DENY", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contract = makeContract({
+      executionContractId: "xct:bind08",
+      action: "product:read",
+      target: "tgt:a",
+      requiredAuthority: "N1",
+    });
+    const issued = issueFor(resolver, contract, "read", "evd:bind08", {
+      target: "tgt:b",
+    });
+    expect(issued.ok).toBe(false);
+    if (!issued.ok) expect(issued.code).toBe(CONTRACT_BINDING_MISMATCH);
+  });
+
+  it("BIND-09 unknown/missing trusted effect context → DENY", () => {
+    const effectsOnly = resolvePiloteS1AuthorityFromGovernedEffects({
+      effectClass: "read",
+      rollbackAvailable: true,
+      scopeIn: "biz:x",
+      target: "tgt:x",
+    });
+    expect(effectsOnly.ok).toBe(false);
+    if (!effectsOnly.ok) {
+      expect(effectsOnly.code).toBe(CONTRACT_CONTEXT_REQUIRED);
+    }
+
+    const resolver = new MemoryAuthorityResolver();
+    const { issuedAt, expiresAt } = futureWindow();
+    const issued = issueS1AuthorityEvidence({
+      pilote: piloteA,
+      authorityResolver: resolver,
+      issuedAt,
+      expiresAt,
+      evidenceId: "evd:bind09",
+      contract: makeContract({
+        executionContractId: "xct:bind09",
+        action: "product:read",
+      }),
+      // missing governedEffects
+    });
+    expect(issued.ok).toBe(false);
+    if (!issued.ok) {
+      expect(issued.code).toBe(PILOTE_AUTHORITY_ENVELOPE_NOT_PROVEN);
+    }
+  });
+
+  it("BIND-10 MORRIS contract/claim → DENY", () => {
+    const contract = makeContract({
+      executionContractId: "xct:bind10",
+      action: "product:push",
+      requiredAuthority: "MORRIS",
+    });
+    const r = resolvePiloteS1AuthorityFromGovernedContract({
+      contract,
+      governedEffects: makeEffects("push", contract),
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.code).toBe(MORRIS_AUTHORITY_NOT_AVAILABLE);
+  });
+
+  it("BIND-11 morrisConstructionGateRequired → DENY", () => {
+    const contract = makeContract({
+      executionContractId: "xct:bind11",
+      action: "product:doctrine-change",
+    });
+    const r = resolvePiloteS1AuthorityFromGovernedContract({
+      contract,
+      governedEffects: makeEffects("doctrine-change", contract, {
+        rollbackAvailable: false,
+      }),
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.code).toBe(MORRIS_GATE_REQUIRED);
+  });
+
+  it("BIND-12 Contract A S1 cannot authorize Contract B (same actor/N/business scope)", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const sharedBiz = "biz:identical-business-scope";
+    const contractA = makeContract({
+      executionContractId: "xct:bind12-a",
+      action: "product:push",
+      scope: sharedBiz,
+      target: "tgt:same",
+      requiredAuthority: "N3",
+    });
+    const contractB = makeContract({
+      executionContractId: "xct:bind12-b",
+      action: "product:push",
+      scope: sharedBiz,
+      target: "tgt:same",
+      requiredAuthority: "N3",
+    });
+    const issuedA = issueFor(resolver, contractA, "push", "evd:bind12-a");
+    expect(issuedA.ok).toBe(true);
+    if (!issuedA.ok) return;
+
+    // Adapter maps Auth S1 verify to executionContractId — not business scope.
+    const scopeForB = resolveExecutionAuthorityVerifyScope({
+      contractScope: contractB.scope,
+      evidence: issuedA.evidence,
+      contractSemantic: contractB,
+    });
+    expect(scopeForB).toBe(bindingScope(contractB));
+    expect(scopeForB).not.toBe(issuedA.evidence.scope);
+
+    const cross = resolver.verify({
+      actorId: piloteA.actor.actorId,
+      requiredLevel: "N3",
+      scope: scopeForB,
+      evidenceId: issuedA.evidence.evidenceId,
+    });
+    expect(cross.ok).toBe(false);
+    expect(cross.reason).toBe("scope_mismatch");
+
+    // Same business scope alone would have wrongly matched pre-correction.
+    expect(
+      resolver.verify({
+        actorId: piloteA.actor.actorId,
+        requiredLevel: "N3",
+        scope: sharedBiz,
+        evidenceId: issuedA.evidence.evidenceId,
+      }).reason,
+    ).toBe("scope_mismatch");
+  });
+
+  it("BIND-13 Contract A S1 cannot authorize Contract B with different action", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contractA = makeContract({
+      executionContractId: "xct:bind13-a",
+      action: "product:read",
+      requiredAuthority: "N1",
+    });
+    const contractB = makeContract({
+      executionContractId: "xct:bind13-b",
+      action: "product:commit",
+      requiredAuthority: "N2",
+    });
+    const issuedA = issueFor(resolver, contractA, "read", "evd:bind13-a");
+    expect(issuedA.ok).toBe(true);
+    if (!issuedA.ok) return;
+    const scopeB = resolveExecutionAuthorityVerifyScope({
+      contractScope: contractB.scope,
+      evidence: issuedA.evidence,
+      contractSemantic: contractB,
+    });
+    expect(
+      resolver.verify({
+        actorId: piloteA.actor.actorId,
+        requiredLevel: "N2",
+        scope: scopeB,
+        evidenceId: issuedA.evidence.evidenceId,
+      }).reason,
+    ).toBe("scope_mismatch");
+  });
+
+  it("BIND-14 Contract A S1 cannot authorize Contract B with different target/scope", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contractA = makeContract({
+      executionContractId: "xct:bind14-a",
+      action: "product:commit",
+      scope: "biz:a",
+      target: "tgt:a",
+      requiredAuthority: "N2",
+    });
+    const contractB = makeContract({
+      executionContractId: "xct:bind14-b",
+      action: "product:commit",
+      scope: "biz:b",
+      target: "tgt:b",
+      requiredAuthority: "N2",
+    });
+    const issuedA = issueFor(resolver, contractA, "commit", "evd:bind14-a");
+    expect(issuedA.ok).toBe(true);
+    if (!issuedA.ok) return;
+    const scopeB = resolveExecutionAuthorityVerifyScope({
+      contractScope: contractB.scope,
+      evidence: issuedA.evidence,
+      contractSemantic: contractB,
+    });
+    expect(
+      resolver.verify({
+        actorId: piloteA.actor.actorId,
+        requiredLevel: "N2",
+        scope: scopeB,
+        evidenceId: issuedA.evidence.evidenceId,
+      }).reason,
+    ).toBe("scope_mismatch");
+  });
+
+  it("BIND-15 login/session/allowlist → authorityLevel=none and zero S1", async () => {
+    expect(piloteA.actor.authorityLevel).toBe("none");
+    const auth = createSfiaAuth({ env: TEST_ENV });
+    const headers = await headersWithAccountCookie({
+      auth,
+      userId: "ba-user-a",
+      accountId: "11111111",
+    });
+    vi.spyOn(auth.api, "getSession").mockResolvedValue({
+      user: {
+        id: "ba-user-a",
+        name: "A",
+        email: "a@example.com",
+        emailVerified: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      session: {
+        id: "sess-a",
+        userId: "ba-user-a",
+        token: "t",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        expiresAt: new Date(Date.now() + 60_000),
+      },
+    } as never);
+    const resolver = new MemoryAuthorityResolver();
+    const r = await resolveCurrentAuthenticatedPilote({
+      auth,
+      headers,
+      env: TEST_ENV,
+    });
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.actor.authorityLevel).toBe("none");
+    expect(resolver.listByActor(piloteA.actor.actorId)).toEqual([]);
+  });
+});
+
+describe("REG — regression matrix", () => {
+  beforeEach(() => {
+    resetSfiaAuthSingletonForTests();
+  });
+  afterEach(() => {
+    resetSfiaAuthSingletonForTests();
+    vi.restoreAllMocks();
+  });
+
+  it("REG-01 session B + provider A still SESSION_USER_MISMATCH", async () => {
+    const auth = createSfiaAuth({ env: TEST_ENV });
+    const headers = await headersWithAccountCookie({
+      auth,
+      userId: "ba-user-a",
+      accountId: "11111111",
+    });
+    vi.spyOn(auth.api, "getSession").mockResolvedValue({
+      user: {
+        id: "ba-user-b",
+        name: "B",
+        email: "b@example.com",
+        emailVerified: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      session: {
+        id: "sess-b",
+        userId: "ba-user-b",
+        token: "t",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        expiresAt: new Date(Date.now() + 60_000),
+      },
+    } as never);
+    const r = await resolveCurrentAuthenticatedPilote({
+      auth,
+      headers,
+      env: TEST_ENV,
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.code).toBe("SESSION_USER_MISMATCH");
+  });
+
+  it("REG-02 allowlist removal still denies before S1", async () => {
+    const auth = createSfiaAuth({ env: TEST_ENV });
+    const headers = await headersWithAccountCookie({
+      auth,
+      userId: "ba-user-a",
+      accountId: "11111111",
+    });
+    vi.spyOn(auth.api, "getSession").mockResolvedValue({
+      user: {
+        id: "ba-user-a",
+        name: "A",
+        email: "a@example.com",
+        emailVerified: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      session: {
+        id: "sess-a",
+        userId: "ba-user-a",
+        token: "t",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        expiresAt: new Date(Date.now() + 60_000),
+      },
+    } as never);
+    const denied = await resolveCurrentAuthenticatedPilote({
+      auth,
+      headers,
+      env: {
+        ...TEST_ENV,
+        SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS: "22222222",
+      } as NodeJS.ProcessEnv,
+    });
+    expect(denied.ok).toBe(false);
+    if (!denied.ok) expect(denied.code).toBe("ALLOWLIST_DENIED");
+  });
+
+  it("REG-03 protected Auth identity hot path still zero GitHub provider network", async () => {
+    const auth = createSfiaAuth({ env: TEST_ENV });
+    const headers = await headersWithAccountCookie({
+      auth,
+      userId: "ba-user-a",
+      accountId: "11111111",
+    });
+    vi.spyOn(auth.api, "getSession").mockResolvedValue({
+      user: {
+        id: "ba-user-a",
+        name: "A",
+        email: "a@example.com",
+        emailVerified: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      session: {
+        id: "sess-a",
+        userId: "ba-user-a",
+        token: "t",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        expiresAt: new Date(Date.now() + 60_000),
+      },
+    } as never);
+    const hits: string[] = [];
+    const original = globalThis.fetch;
+    globalThis.fetch = vi.fn(async (input: RequestInfo | URL) => {
+      hits.push(String(input));
+      throw new Error("NETWORK");
+    }) as typeof fetch;
+    try {
+      await resolveCurrentAuthenticatedPilote({ auth, headers, env: TEST_ENV });
+      expect(hits).toEqual([]);
+    } finally {
+      globalThis.fetch = original;
+    }
+  });
+
+  it("REG-04 TTL max remains bounded to session max", () => {
+    const { validateS1EvidenceLifetime } = AuthPublic;
+    const issuedAt = "2026-09-04T12:00:00.000Z";
+    const over = new Date(
+      Date.parse(issuedAt) + (AuthPublic.SESSION_COOKIE_MAX_AGE_SECONDS + 1) * 1000,
+    ).toISOString();
+    const r = validateS1EvidenceLifetime({ issuedAt, expiresAt: over });
+    expect(r.ok).toBe(false);
+  });
+
+  it("REG-05 duplicate evidenceId remains fail-closed", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contract = makeContract({
+      executionContractId: "xct:reg05",
+      action: "product:read",
+      requiredAuthority: "N1",
+    });
+    const first = issueFor(resolver, contract, "read", "evd:reg05");
+    expect(first.ok).toBe(true);
+    const second = issueFor(resolver, contract, "read", "evd:reg05");
+    expect(second.ok).toBe(false);
+    if (!second.ok) expect(second.code).toBe("EVIDENCE_ID_COLLISION");
+    expect(resolver.getEvidence("evd:reg05")?.level).toBe("N1");
+    expect(resolver.getEvidence("evd:reg05")?.canActAsMorris).toBe(false);
+  });
+
+  it("REG-06 expired S1 remains denied", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contract = makeContract({
+      executionContractId: "xct:reg06",
+      action: "product:read",
+      requiredAuthority: "N1",
+    });
     const issued = issueS1AuthorityEvidence({
       pilote: piloteA,
       authorityResolver: resolver,
       contract,
-      governedEffects: {
-        effectClass: "read",
-        rollbackAvailable: true,
-        protectedBoundaries: [],
-        scopeIn: contract.scope,
-        target: contract.target,
-      },
-      issuedAt,
-      expiresAt,
-      evidenceId: "evd:github-s1:test-a",
+      governedEffects: makeEffects("read", contract),
+      issuedAt: "2020-01-01T00:00:00.000Z",
+      expiresAt: "2020-01-01T01:00:00.000Z",
+      evidenceId: "evd:reg06",
     });
     expect(issued.ok).toBe(true);
     if (!issued.ok) return;
-    expect(issued.evidence.source).toBe(BETTER_AUTH_GITHUB_MULTI_USER_S1);
-    expect(issued.evidence.canActAsMorris).toBe(false);
-    expect(issued.evidence.scope).toBe(contract.executionContractId);
-
-    const okA = resolver.verify({
-      actorId: piloteA.actor.actorId,
-      requiredLevel: "N1",
-      scope: contract.executionContractId,
-      evidenceId: issued.evidence.evidenceId,
-      requireMorrisGate: false,
-    });
-    expect(okA.ok).toBe(true);
-
-    const misuseB = resolver.verify({
-      actorId: piloteB.actor.actorId,
-      requiredLevel: "N1",
-      scope: contract.executionContractId,
-      evidenceId: issued.evidence.evidenceId,
-    });
-    expect(misuseB.ok).toBe(false);
-    expect(misuseB.reason).toBe("actor_mismatch");
-
-    const morrisGate = resolver.verify({
-      actorId: piloteA.actor.actorId,
-      requiredLevel: "N1",
-      scope: contract.executionContractId,
-      evidenceId: issued.evidence.evidenceId,
-      requireMorrisGate: true,
-    });
-    expect(morrisGate.ok).toBe(false);
-    expect(morrisGate.reason).toBe("morris_gate_denied");
+    expect(
+      resolver.verify({
+        actorId: piloteA.actor.actorId,
+        requiredLevel: "N1",
+        scope: bindingScope(contract),
+        evidenceId: "evd:reg06",
+      }).reason,
+    ).toBe("expired");
   });
 
-  it("AUTH-D16/D17/D18 canonicalize ignores hostile non-id shapes", () => {
-    expect(canonicalizeGithubUserId("11111111")).toBe("11111111");
-    expect(canonicalizeGithubUserId(11111111)).toBe("11111111");
-    expect(canonicalizeGithubUserId("Pilote")).toBeNull();
-    expect(canonicalizeGithubUserId({ canActAsMorris: true })).toBeNull();
-    expect(canonicalizeGithubUserId(true)).toBeNull();
+  it("REG-07 N2 cannot satisfy N3", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contract = makeContract({
+      executionContractId: "xct:reg07",
+      action: "product:commit",
+      requiredAuthority: "N2",
+    });
+    const issued = issueFor(resolver, contract, "commit", "evd:reg07");
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+    expect(
+      resolver.verify({
+        actorId: piloteA.actor.actorId,
+        requiredLevel: "N3",
+        scope: bindingScope(contract),
+        evidenceId: issued.evidence.evidenceId,
+      }).reason,
+    ).toBe("level_insufficient");
+  });
+
+  it("REG-08 N3 cannot satisfy MORRIS", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const contract = makeContract({
+      executionContractId: "xct:reg08",
+      action: "product:push",
+      requiredAuthority: "N3",
+    });
+    const issued = issueFor(resolver, contract, "push", "evd:reg08");
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+    expect(issued.evidence.canActAsMorris).toBe(false);
+    expect(
+      resolver.verify({
+        actorId: piloteA.actor.actorId,
+        requiredLevel: "N3",
+        scope: bindingScope(contract),
+        evidenceId: issued.evidence.evidenceId,
+        requireMorrisGate: true,
+      }).reason,
+    ).toBe("morris_gate_denied");
+  });
+});
+
+describe("AUTHSEM — contract authority precedence", () => {
+  it("AUTHSEM-A01 contract.requiredAuthority missing → DENY", () => {
+    const base = makeContract({
+      executionContractId: "xct:authsem-a01",
+      action: "product:read",
+      requiredAuthority: "N1",
+    });
+    const { requiredAuthority: _drop, ...without } = base;
+    const r = resolvePiloteS1AuthorityFromGovernedContract({
+      contract: without as AuthS1GovernedContractContext,
+      governedEffects: makeEffects("read", base),
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.code).toBe(AUTHORITY_REQUIREMENT_UNTRUSTED);
+  });
+
+  it("AUTHSEM-A02 contract=N1 / projection=N3 / hostile effects.contractRequiredAuthority=N3 → DENY", () => {
+    const contract = makeContract({
+      executionContractId: "xct:authsem-a02",
+      action: "product:push",
+      requiredAuthority: "N1",
+    });
+    const r = resolvePiloteS1AuthorityFromGovernedContract({
+      contract,
+      governedEffects: {
+        ...makeEffects("push", contract),
+        contractRequiredAuthority: "N3",
+      } as GovernedEffectsAuthorityInput & {
+        contractRequiredAuthority: "N3";
+      },
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.code).toBe(AUTHORITY_REQUIREMENT_MISMATCH);
+  });
+
+  it("AUTHSEM-A03 contract=N3 / projection=N1 / hostile effects.contractRequiredAuthority=N1 → DENY", () => {
+    const contract = makeContract({
+      executionContractId: "xct:authsem-a03",
+      action: "product:read",
+      requiredAuthority: "N3",
+    });
+    const r = resolvePiloteS1AuthorityFromGovernedContract({
+      contract,
+      governedEffects: {
+        ...makeEffects("read", contract),
+        contractRequiredAuthority: "N1",
+      } as GovernedEffectsAuthorityInput & {
+        contractRequiredAuthority: "N1";
+      },
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.code).toBe(AUTHORITY_REQUIREMENT_MISMATCH);
+  });
+
+  it("AUTHSEM-A04 contract=N3 / projection=N3 → PASS", () => {
+    const contract = makeContract({
+      executionContractId: "xct:authsem-a04",
+      action: "product:push",
+      requiredAuthority: "N3",
+    });
+    const r = resolvePiloteS1AuthorityFromGovernedContract({
+      contract,
+      governedEffects: makeEffects("push", contract),
+    });
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.level).toBe("N3");
+    expect(r.authorityBindingScope).toBe(bindingScope(contract));
+  });
+
+  it("AUTHSEM-A05 claimedRequiredAuthority cannot alter result", () => {
+    const contract = makeContract({
+      executionContractId: "xct:authsem-a05",
+      action: "product:commit",
+      requiredAuthority: "N2",
+    });
+    const escalate = resolvePiloteS1AuthorityFromGovernedContract({
+      contract,
+      governedEffects: makeEffects("commit", contract, {
+        claimedRequiredAuthority: "N3",
+      }),
+    });
+    expect(escalate.ok).toBe(false);
+    if (!escalate.ok) {
+      expect(escalate.code).toBe(AUTHORITY_REQUIREMENT_MISMATCH);
+    }
+
+    const ok = resolvePiloteS1AuthorityFromGovernedContract({
+      contract,
+      governedEffects: makeEffects("commit", contract, {
+        claimedRequiredAuthority: "N2",
+      }),
+    });
+    expect(ok.ok).toBe(true);
+    if (!ok.ok) return;
+    expect(ok.level).toBe("N2");
+  });
+});
+```
+
+### `projects/sfia-studio/app/__tests__/auth/semantic-binding-build.test.ts`
+
+```typescript
+/**
+ * SEM-BUILD / SEM-LIFE — Auth S1 semantic binding via actual BuildExecutionContract.
+ * Reuses computeInspectionFingerprint (existing EC inspection primitive).
+ * ZERO real GitHub / OpenAI / web_search.
+ *
+ * @vitest-environment node
+ */
+
+import { beforeEach, describe, expect, it } from "vitest";
+import { mapGithubIdentityToPiloteActor } from "@/lib/auth/actorMapping";
+import { issueS1AuthorityEvidence } from "@/lib/auth/s1Authority";
+import type { AuthS1GovernedContractContext } from "@/lib/auth/piloteS1AuthorityPolicy";
+import { BETTER_AUTH_GITHUB_MULTI_USER_S1 } from "@/lib/auth/constants";
+import {
+  computeInspectionFingerprint,
+  type BuildExecutionContractRequest,
+} from "@/lib/oa/execution-contract";
+import {
+  baseBuildRequest,
+  buildStack,
+  grantConfirmation,
+  registerMorris,
+  seedAcceptedDecision,
+  seedProject,
+  type Stack,
+} from "../oa/execution-contract/helpers";
+
+const pilote = {
+  ok: true as const,
+  githubUserId: "11111111",
+  betterAuthUserId: "ba-user-a",
+  actor: mapGithubIdentityToPiloteActor({ githubUserId: "11111111" }),
+};
+
+function futureWindow() {
+  // MemoryAuthorityResolver.verify uses wall-clock Date.now() for expiry.
+  const issuedAt = new Date(Date.now() - 60_000).toISOString();
+  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+  return { issuedAt, expiresAt };
+}
+
+function semanticFromBuild(
+  req: BuildExecutionContractRequest,
+): AuthS1GovernedContractContext {
+  return {
+    executionContractId: req.executionContractId,
+    projectId: req.projectId,
+    cycleInstanceId: req.cycleInstanceId,
+    decisionRefs: req.decisionRefs,
+    doctrinePackageRef: req.doctrinePackageRef,
+    action: req.action,
+    target: req.target,
+    scope: req.scope,
+    inputs: req.inputs,
+    expectedOutputs: req.expectedOutputs,
+    requiredCapabilities: [...req.requiredCapabilities],
+    requiredAuthority: req.requiredAuthority,
+    constraints: [...req.constraints],
+    stopConditions: [...req.stopConditions],
+    evidenceRequirements: [...req.evidenceRequirements],
+    reversibility: req.reversibility,
+    executionWindowClass: req.executionWindowClass,
+    idempotencyKey: req.idempotencyKey,
+    adapterExportRef: req.adapterExportRef,
+  };
+}
+
+function effectForAuthority(
+  requiredAuthority: "N1" | "N2" | "N3",
+): {
+  effectClass: "read" | "commit" | "push";
+  action: string;
+} {
+  if (requiredAuthority === "N1") {
+    return { effectClass: "read", action: "product:read" };
+  }
+  if (requiredAuthority === "N2") {
+    return { effectClass: "commit", action: "product:commit" };
+  }
+  return { effectClass: "push", action: "product:push" };
+}
+
+function authBuildRequest(
+  overrides: Partial<BuildExecutionContractRequest> = {},
+): BuildExecutionContractRequest {
+  const requiredAuthority = (overrides.requiredAuthority ?? "N3") as
+    | "N1"
+    | "N2"
+    | "N3"
+    | "MORRIS";
+  const mapped =
+    requiredAuthority === "MORRIS"
+      ? { effectClass: "push" as const, action: "product:push" }
+      : effectForAuthority(requiredAuthority);
+  const { action: actionOverride, ...rest } = overrides;
+  return baseBuildRequest({
+    executionContractId: "xct:sem-bind-001",
+    target: "tgt:sem-a",
+    scope: "biz:sem-a",
+    requiredAuthority: requiredAuthority === "MORRIS" ? "MORRIS" : requiredAuthority,
+    idempotencyKey: "idem-sem-bind-001",
+    actor: pilote.actor,
+    authorityEvidenceId: "evd:sem-bind-s1",
+    action: actionOverride ?? mapped.action,
+    ...rest,
+  });
+}
+
+async function issueMatchingS1(
+  stack: Stack,
+  req: BuildExecutionContractRequest,
+  evidenceId = "evd:sem-bind-s1",
+) {
+  const contract = semanticFromBuild(req);
+  const mapped = effectForAuthority(
+    req.requiredAuthority as "N1" | "N2" | "N3",
+  );
+  const { issuedAt, expiresAt } = futureWindow();
+  return issueS1AuthorityEvidence({
+    pilote,
+    authorityResolver: stack.decisions.authority,
+    contract,
+    governedEffects: {
+      effectClass: mapped.effectClass,
+      rollbackAvailable: true,
+      protectedBoundaries: [],
+      scopeIn: contract.scope,
+      target: contract.target,
+    },
+    issuedAt,
+    expiresAt,
+    evidenceId,
+  });
+}
+
+describe("SEM-BUILD Auth S1 semantic binding via BuildExecutionContract", () => {
+  let stack: Stack;
+
+  beforeEach(async () => {
+    stack = buildStack();
+    await seedProject(stack.projects);
+    registerMorris(stack.decisions.authority);
+    await seedAcceptedDecision(stack);
+  });
+
+  it("SEM-BUILD-01 legitimate S1 for semantic A → Build A PASS", async () => {
+    const req = authBuildRequest({ requiredAuthority: "N3" });
+    const issued = await issueMatchingS1(stack, req);
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+    expect(issued.evidence.source).toBe(BETTER_AUTH_GITHUB_MULTI_USER_S1);
+    expect(issued.evidence.scope).toBe(
+      computeInspectionFingerprint(semanticFromBuild(req)),
+    );
+    const built = await stack.execution.buildExecutionContract.execute(req);
+    expect(built.ok).toBe(true);
+    if (!built.ok) return;
+    expect(built.contract.executionContractId).toBe(req.executionContractId);
+    const stored = await stack.execution.getExecutionContract.execute({
+      executionContractId: req.executionContractId,
+    });
+    expect(stored.ok).toBe(true);
+  });
+
+  it("SEM-BUILD-02 same ID, different action → DENY before persistence", async () => {
+    const reqA = authBuildRequest({
+      requiredAuthority: "N3",
+      action: "product:push",
+    });
+    const issued = await issueMatchingS1(stack, reqA);
+    expect(issued.ok).toBe(true);
+
+    const reqB = authBuildRequest({
+      requiredAuthority: "N3",
+      action: "product:pull-request",
+      // push and pull-request both project N3 — authority class matches; action differs.
+    });
+    // Cannot issue matching S1 for pull-request with push effects; use same S1 from A.
+    const built = await stack.execution.buildExecutionContract.execute({
+      ...reqB,
+      authorityEvidenceId: "evd:sem-bind-s1",
+    });
+    expect(built.ok).toBe(false);
+    if (built.ok) return;
+    expect(built.error.detailCode).toBe("AUTHORITY_SCOPE_MISMATCH");
+    const stored = await stack.execution.getExecutionContract.execute({
+      executionContractId: reqA.executionContractId,
+    });
+    expect(stored.ok).toBe(false);
+  });
+
+  it("SEM-BUILD-03 same ID, different target → DENY", async () => {
+    const reqA = authBuildRequest({ target: "tgt:sem-a" });
+    expect((await issueMatchingS1(stack, reqA)).ok).toBe(true);
+    const built = await stack.execution.buildExecutionContract.execute({
+      ...reqA,
+      target: "tgt:sem-b",
+    });
+    expect(built.ok).toBe(false);
+    if (!built.ok) {
+      expect(built.error.detailCode).toBe("AUTHORITY_SCOPE_MISMATCH");
+    }
+  });
+
+  it("SEM-BUILD-04 same ID, different business scope → DENY", async () => {
+    const reqA = authBuildRequest({ scope: "biz:sem-a" });
+    expect((await issueMatchingS1(stack, reqA)).ok).toBe(true);
+    const built = await stack.execution.buildExecutionContract.execute({
+      ...reqA,
+      scope: "biz:sem-b",
+    });
+    expect(built.ok).toBe(false);
+    if (!built.ok) {
+      expect(built.error.detailCode).toBe("AUTHORITY_SCOPE_MISMATCH");
+    }
+  });
+
+  it("SEM-BUILD-05 S1 N3 for push cannot Build read/N1 same ID (hierarchy ≠ semantic)", async () => {
+    const reqPush = authBuildRequest({
+      requiredAuthority: "N3",
+      action: "product:push",
+    });
+    expect((await issueMatchingS1(stack, reqPush)).ok).toBe(true);
+
+    const reqRead = authBuildRequest({
+      requiredAuthority: "N1",
+      action: "product:read",
+      authorityEvidenceId: "evd:sem-bind-s1",
+    });
+    const built = await stack.execution.buildExecutionContract.execute(reqRead);
+    expect(built.ok).toBe(false);
+    if (!built.ok) {
+      expect(built.error.detailCode).toBe("AUTHORITY_SCOPE_MISMATCH");
+    }
+  });
+
+  it("SEM-BUILD-06 same ID, requiredAuthority changed → DENY", async () => {
+    const reqN3 = authBuildRequest({
+      requiredAuthority: "N3",
+      action: "product:push",
+    });
+    expect((await issueMatchingS1(stack, reqN3)).ok).toBe(true);
+    // Keep push action but claim N2 — invalid product pairing; still semantic mismatch on requiredAuthority field.
+    const built = await stack.execution.buildExecutionContract.execute({
+      ...reqN3,
+      requiredAuthority: "N2",
+    });
+    expect(built.ok).toBe(false);
+    if (!built.ok) {
+      expect(built.error.detailCode).toBe("AUTHORITY_SCOPE_MISMATCH");
+    }
+  });
+
+  it("SEM-BUILD-07 mismatch leaves repository without unauthorized contract", async () => {
+    const reqA = authBuildRequest();
+    expect((await issueMatchingS1(stack, reqA)).ok).toBe(true);
+    await stack.execution.buildExecutionContract.execute({
+      ...reqA,
+      target: "tgt:hostile",
+    });
+    const stored = await stack.execution.getExecutionContract.execute({
+      executionContractId: reqA.executionContractId,
+    });
+    expect(stored.ok).toBe(false);
+  });
+
+  it("SEM-BUILD-08 exact semantic match remains authorized", async () => {
+    const req = authBuildRequest({
+      requiredAuthority: "N2",
+      action: "product:commit",
+    });
+    expect((await issueMatchingS1(stack, req)).ok).toBe(true);
+    const first = await stack.execution.buildExecutionContract.execute(req);
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+    const verify = stack.decisions.authority.verify({
+      actorId: pilote.actor.actorId,
+      requiredLevel: "N2",
+      scope: computeInspectionFingerprint(first.contract),
+      evidenceId: "evd:sem-bind-s1",
+    });
+    expect(verify.ok).toBe(true);
+  });
+
+  it("SEM-BUILD-09 non-Auth evidence still verifies with contract.scope", async () => {
+    await seedAcceptedDecision(stack, {
+      decisionId: "dec:oa-morris",
+      subject: "subj:morris-build",
+      authority: "morris",
+    });
+    const req = baseBuildRequest({
+      executionContractId: "xct:non-auth-001",
+      decisionRefs: ["dec:oa-morris"],
+      idempotencyKey: "idem-non-auth-001",
+      authorityEvidenceId: "evd:morris-n3",
+      actor: {
+        actorId: "actor:morris",
+        role: "decision_maker",
+        displayName: "Morris",
+        authorityLevel: "N3",
+      },
+    });
+    const built = await stack.execution.buildExecutionContract.execute(req);
+    expect(built.ok).toBe(true);
+  });
+
+  it("SEM-BUILD-10 Auth evidence for ID A does not authorize ID B", async () => {
+    const reqA = authBuildRequest({
+      executionContractId: "xct:sem-a",
+      idempotencyKey: "idem-sem-a",
+    });
+    expect((await issueMatchingS1(stack, reqA, "evd:sem-a")).ok).toBe(true);
+    const reqB = authBuildRequest({
+      executionContractId: "xct:sem-b",
+      idempotencyKey: "idem-sem-b",
+      authorityEvidenceId: "evd:sem-a",
+    });
+    const built = await stack.execution.buildExecutionContract.execute(reqB);
+    expect(built.ok).toBe(false);
+    if (!built.ok) {
+      expect(built.error.detailCode).toBe("AUTHORITY_SCOPE_MISMATCH");
+    }
+  });
+
+  it("SEM-BUILD-11 MORRIS remains fail-closed for Auth S1", async () => {
+    const req = authBuildRequest({ requiredAuthority: "MORRIS" });
+    const { issuedAt, expiresAt } = futureWindow();
+    const issued = issueS1AuthorityEvidence({
+      pilote,
+      authorityResolver: stack.decisions.authority,
+      contract: semanticFromBuild({
+        ...req,
+        requiredAuthority: "N3",
+        action: "product:push",
+      }),
+      governedEffects: {
+        effectClass: "push",
+        rollbackAvailable: true,
+        scopeIn: req.scope,
+        target: req.target,
+      },
+      issuedAt,
+      expiresAt,
+      evidenceId: "evd:sem-morris",
+    });
+    // Issuance for N3 push works; Build requiring MORRIS with that evidence must deny morris gate.
+    expect(issued.ok).toBe(true);
+    const built = await stack.execution.buildExecutionContract.execute({
+      ...req,
+      requiredAuthority: "MORRIS",
+      action: "product:push",
+      authorityEvidenceId: "evd:sem-morris",
+    });
+    expect(built.ok).toBe(false);
+    if (!built.ok) {
+      // Auth cannot issue MORRIS-bound S1; N3 Auth S1 cannot authorize MORRIS build.
+      expect(["AUTHORITY_DENIED", "AUTHORITY_SCOPE_MISMATCH"]).toContain(
+        built.error.detailCode,
+      );
+    }
+  });
+
+  it("SEM-BUILD-12 canActAsMorris remains false on Auth S1", async () => {
+    const req = authBuildRequest();
+    const issued = await issueMatchingS1(stack, req);
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+    expect(issued.evidence.canActAsMorris).toBe(false);
+  });
+});
+
+describe("SEM-LIFE Auth S1 binding across EC lifecycle", () => {
+  async function prepStack(): Promise<Stack> {
+    const stack = buildStack();
+    await seedProject(stack.projects);
+    registerMorris(stack.decisions.authority);
+    await seedAcceptedDecision(stack);
+    return stack;
+  }
+
+  it("SEM-LIFE-01 Validate/Confirm still works with inspection fingerprint binding", async () => {
+    const stack = await prepStack();
+
+    const req = authBuildRequest({ requiredAuthority: "N3" });
+    expect((await issueMatchingS1(stack, req)).ok).toBe(true);
+    const built = await stack.execution.buildExecutionContract.execute(req);
+    expect(built.ok).toBe(true);
+    if (!built.ok) return;
+
+    const fpBeforeConfirm = computeInspectionFingerprint(built.contract);
+    expect(fpBeforeConfirm).toBe(
+      stack.decisions.authority.getEvidence("evd:sem-bind-s1")?.scope,
+    );
+
+    const validated = await stack.execution.validateExecutionContract.execute({
+      executionContractId: req.executionContractId,
+      actor: pilote.actor,
+      authorityEvidenceId: "evd:sem-bind-s1",
+    });
+    expect(validated.ok).toBe(true);
+    if (!validated.ok) return;
+    expect(validated.contract.status).toBe("confirmation_required");
+
+    stack.decisions.authority.register({
+      evidenceId: "evd:morris-cfm-sem",
+      actorId: "actor:morris",
+      level: "N3",
+      scope: req.scope,
+      issuedAt: "2026-07-01T00:00:00.000Z",
+      source: "registry",
+      canActAsMorris: true,
+    });
+    const confirmationId = await grantConfirmation(stack, {
+      decisionRef: "dec:oa-001",
+      scope: req.scope,
+      evidenceId: "evd:morris-cfm-sem",
+    });
+    const confirmed = await stack.execution.confirmExecutionContract.execute({
+      executionContractId: req.executionContractId,
+      confirmationId,
+      actor: pilote.actor,
+      authorityEvidenceId: "evd:sem-bind-s1",
+    });
+    expect(confirmed.ok).toBe(true);
+    if (!confirmed.ok) return;
+    expect(computeInspectionFingerprint(confirmed.contract)).toBe(
+      fpBeforeConfirm,
+    );
+    expect(confirmed.contract.confirmationRef).toBe(confirmationId);
+    expect(confirmed.contract.immutableAfterConfirm).toBe(true);
+  });
+
+  it("SEM-LIFE-02 Auth binding cannot authorize superseding semantic contract", async () => {
+    const stack = await prepStack();
+
+    const req = authBuildRequest();
+    expect((await issueMatchingS1(stack, req)).ok).toBe(true);
+    const built = await stack.execution.buildExecutionContract.execute(req);
+    expect(built.ok).toBe(true);
+
+    const supersede = await stack.execution.supersedeExecutionContract.execute({
+      newExecutionContractId: "xct:sem-successor",
+      supersedesExecutionContractId: req.executionContractId,
+      supersessionReason: "intent-change",
+      actor: pilote.actor,
+      authorityEvidenceId: "evd:sem-bind-s1",
+      action: "product:push",
+      target: "tgt:changed",
+      scope: "biz:changed",
+      requiredAuthority: "N3",
+      requiredCapabilities: ["cap:git-docs"],
+      constraints: ["no-runtime-code"],
+      stopConditions: ["AUTHORITY_DENIED"],
+      evidenceRequirements: ["evreq:schemas"],
+      reversibility: "partially_reversible",
+      decisionRefs: req.decisionRefs,
+    });
+    expect(supersede.ok).toBe(false);
+    if (!supersede.ok) {
+      expect(supersede.error.detailCode).toBe("AUTHORITY_SCOPE_MISMATCH");
+    }
+  });
+
+  it("SEM-LIFE-03 Cancel uses current contract semantic binding", async () => {
+    const stack = await prepStack();
+    const req = authBuildRequest();
+    expect((await issueMatchingS1(stack, req)).ok).toBe(true);
+    expect((await stack.execution.buildExecutionContract.execute(req)).ok).toBe(
+      true,
+    );
+    const cancelled = await stack.execution.cancelExecutionContract.execute({
+      executionContractId: req.executionContractId,
+      actor: pilote.actor,
+      authorityEvidenceId: "evd:sem-bind-s1",
+      reason: "abort",
+    });
+    expect(cancelled.ok).toBe(true);
   });
 });
 ```
@@ -4902,6 +5441,7 @@ import {
   resolvePiloteS1AuthorityLevel,
 } from "@/lib/auth/piloteS1AuthorityPolicy";
 import { SESSION_COOKIE_MAX_AGE_SECONDS } from "@/lib/auth/constants";
+import { computeInspectionFingerprint } from "@/lib/oa/execution-contract/domain/inspectionAttestation";
 import { headersWithAccountCookie } from "./helpers/accountCookie";
 
 const TEST_ENV = {
@@ -5196,10 +5736,17 @@ describe("AUTH-POLICY S1 level", () => {
 
     const contract = {
       executionContractId: "xct:auth-s1-01",
+      projectId: "prj:demo",
       action: "product:read",
       target: "tgt:demo",
       scope: "biz:demo",
       requiredAuthority: "N1" as const,
+      requiredCapabilities: ["cap:demo"],
+      constraints: ["c:demo"],
+      stopConditions: ["stop:demo"],
+      evidenceRequirements: ["evreq:demo"],
+      reversibility: "partially_reversible" as const,
+      idempotencyKey: "idem:auth-s1-01",
     };
     const ok = issueS1AuthorityEvidence({
       pilote,
@@ -5220,7 +5767,7 @@ describe("AUTH-POLICY S1 level", () => {
     if (ok.ok) {
       expect(ok.evidence.level).toBe("N1");
       expect(ok.evidence.canActAsMorris).toBe(false);
-      expect(ok.evidence.scope).toBe(contract.executionContractId);
+      expect(ok.evidence.scope).toBe(computeInspectionFingerprint(contract));
     }
   });
 });
@@ -5285,10 +5832,17 @@ describe("AUTH-S1 lifetime + collision integrity", () => {
     const resolver = new MemoryAuthorityResolver();
     const contract = {
       executionContractId: "xct:expired-test",
+      projectId: "prj:demo",
       action: "product:read",
       target: "tgt:demo",
       scope: "biz:demo",
       requiredAuthority: "N1" as const,
+      requiredCapabilities: ["cap:demo"],
+      constraints: ["c:demo"],
+      stopConditions: ["stop:demo"],
+      evidenceRequirements: ["evreq:demo"],
+      reversibility: "partially_reversible" as const,
+      idempotencyKey: "idem:expired",
     };
     const built = issueS1AuthorityEvidence({
       pilote,
@@ -5310,7 +5864,7 @@ describe("AUTH-S1 lifetime + collision integrity", () => {
     const v = resolver.verify({
       actorId: pilote.actor.actorId,
       requiredLevel: "N1",
-      scope: contract.executionContractId,
+      scope: computeInspectionFingerprint(contract),
       evidenceId: "evd:expired-test",
     });
     expect(v.ok).toBe(false);
@@ -5323,10 +5877,17 @@ describe("AUTH-S1 lifetime + collision integrity", () => {
     const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString();
     const contract = {
       executionContractId: "xct:collision",
+      projectId: "prj:demo",
       action: "product:read",
       target: "tgt:demo",
       scope: "biz:demo",
       requiredAuthority: "N1" as const,
+      requiredCapabilities: ["cap:demo"],
+      constraints: ["c:demo"],
+      stopConditions: ["stop:demo"],
+      evidenceRequirements: ["evreq:demo"],
+      reversibility: "partially_reversible" as const,
+      idempotencyKey: "idem:collision",
     };
     const first = issueS1AuthorityEvidence({
       pilote,
@@ -5352,6 +5913,7 @@ describe("AUTH-S1 lifetime + collision integrity", () => {
       contract: {
         ...contract,
         executionContractId: "xct:collision-other",
+        idempotencyKey: "idem:collision-other",
       },
       governedEffects: {
         effectClass: "read",
@@ -5371,7 +5933,7 @@ describe("AUTH-S1 lifetime + collision integrity", () => {
     expect(stored?.canActAsMorris).toBe(false);
     expect(stored?.level).toBe("N1");
     expect(stored?.actorId).toBe(pilote.actor.actorId);
-    expect(stored?.scope).toBe(contract.executionContractId);
+    expect(stored?.scope).toBe(computeInspectionFingerprint(contract));
   });
 
   it("AUTH-S1-10/11/12/13 actor/scope/morris/canActAsMorris invariants", () => {
@@ -5380,10 +5942,17 @@ describe("AUTH-S1 lifetime + collision integrity", () => {
     const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString();
     const contract = {
       executionContractId: "xct:verify",
+      projectId: "prj:demo",
       action: "product:commit",
       target: "tgt:demo",
       scope: "biz:demo",
       requiredAuthority: "N2" as const,
+      requiredCapabilities: ["cap:demo"],
+      constraints: ["c:demo"],
+      stopConditions: ["stop:demo"],
+      evidenceRequirements: ["evreq:demo"],
+      reversibility: "partially_reversible" as const,
+      idempotencyKey: "idem:verify",
     };
     const built = issueS1AuthorityEvidence({
       pilote,
@@ -5408,7 +5977,7 @@ describe("AUTH-S1 lifetime + collision integrity", () => {
       resolver.verify({
         actorId: "actor:github:22222222",
         requiredLevel: "N2",
-        scope: contract.executionContractId,
+        scope: computeInspectionFingerprint(contract),
         evidenceId: "evd:verify",
       }).reason,
     ).toBe("actor_mismatch");
@@ -5426,7 +5995,7 @@ describe("AUTH-S1 lifetime + collision integrity", () => {
       resolver.verify({
         actorId: pilote.actor.actorId,
         requiredLevel: "N2",
-        scope: contract.executionContractId,
+        scope: computeInspectionFingerprint(contract),
         evidenceId: "evd:verify",
         requireMorrisGate: true,
       }).reason,
@@ -5435,1533 +6004,279 @@ describe("AUTH-S1 lifetime + collision integrity", () => {
 });
 ```
 
-### `projects/sfia-studio/app/__tests__/auth/policy-action-scoped-s1.test.ts`
+### `projects/sfia-studio/app/__tests__/auth/allowlist-actor-s1.test.ts`
 
 ```typescript
 /**
- * POLICY-01…15 + BYPASS-* + BIND-* + REG-* — Auth policy / contract-binding closure.
- * ZERO real GitHub / OpenAI / web_search.
+ * AUTH-D01→D26 — allowlist, actor mapping, S1 authority, hostile input.
+ * ZERO real GitHub OAuth.
  */
 
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { MemoryAuthorityResolver } from "@/lib/oa/decision";
 import {
-  resolveExecutionAuthorityVerifyScope,
-  verifyRequiredAuthority,
-} from "@/lib/oa/execution-contract/application/authorityHelper";
-import * as AuthPublic from "@/lib/auth";
+  authorizeByGithubLoginOrEmail,
+  canonicalizeGithubUserId,
+  isGithubUserAllowed,
+  parseAllowedGithubUserIds,
+} from "@/lib/auth/allowlist";
 import {
-  createSfiaAuth,
-  resetSfiaAuthSingletonForTests,
-} from "@/lib/auth/auth";
-import { mapGithubIdentityToPiloteActor } from "@/lib/auth/actorMapping";
-import { resolveCurrentAuthenticatedPilote } from "@/lib/auth/resolveCurrentPilote";
+  githubActorId,
+  mapGithubIdentityToPiloteActor,
+} from "@/lib/auth/actorMapping";
 import { issueS1AuthorityEvidence } from "@/lib/auth/s1Authority";
 import {
-  AUTHORITY_REQUIREMENT_MISMATCH,
-  AUTHORITY_UNRESOLVED,
-  CONTRACT_BINDING_MISMATCH,
-  CONTRACT_CONTEXT_REQUIRED,
-  MORRIS_AUTHORITY_NOT_AVAILABLE,
-  MORRIS_GATE_REQUIRED,
+  BETTER_AUTH_GITHUB_MULTI_USER_S1,
   PILOTE_AUTHORITY_ENVELOPE_NOT_PROVEN,
-  resolvePiloteS1AuthorityFromGovernedContract,
-  resolvePiloteS1AuthorityFromGovernedEffects,
-  resolvePiloteS1AuthorityLevel,
-  type AuthS1GovernedContractContext,
-  type GovernedEffectsAuthorityInput,
-} from "@/lib/auth/piloteS1AuthorityPolicy";
-import { BETTER_AUTH_GITHUB_MULTI_USER_S1 } from "@/lib/auth/constants";
-import { headersWithAccountCookie } from "./helpers/accountCookie";
+} from "@/lib/auth";
+import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
+import { computeInspectionFingerprint } from "@/lib/oa/execution-contract/domain/inspectionAttestation";
 
-const TEST_ENV = {
-  BETTER_AUTH_SECRET: "test-secret-at-least-32-characters-long!!",
-  BETTER_AUTH_URL: "http://localhost:3020",
-  GITHUB_CLIENT_ID: "test-github-client-id",
-  GITHUB_CLIENT_SECRET: "test-github-client-secret",
-  SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS: "11111111,22222222",
-} as unknown as NodeJS.ProcessEnv;
-
-const piloteA = {
-  ok: true as const,
-  githubUserId: "11111111",
-  betterAuthUserId: "ba-user-a",
-  actor: mapGithubIdentityToPiloteActor({ githubUserId: "11111111" }),
-};
-
-function futureWindow() {
-  const issuedAt = new Date().toISOString();
-  const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString();
-  return { issuedAt, expiresAt };
-}
-
-function makeContract(
-  overrides: Partial<AuthS1GovernedContractContext> & {
-    executionContractId: string;
-    action: string;
-  },
-): AuthS1GovernedContractContext {
-  return {
-    executionContractId: overrides.executionContractId,
-    action: overrides.action,
-    target: overrides.target ?? "tgt:demo",
-    scope: overrides.scope ?? "biz:shared-scope",
-    requiredAuthority: overrides.requiredAuthority,
-  };
-}
-
-function makeEffects(
-  effectClass: GovernedEffectsAuthorityInput["effectClass"],
-  contract: AuthS1GovernedContractContext,
-  extras: Partial<GovernedEffectsAuthorityInput> = {},
-): GovernedEffectsAuthorityInput {
-  return {
-    effectClass,
-    rollbackAvailable: extras.rollbackAvailable ?? true,
-    protectedBoundaries: extras.protectedBoundaries ?? [],
-    scopeIn: extras.scopeIn ?? contract.scope,
-    target: extras.target ?? contract.target,
-    claimedRequiredAuthority: extras.claimedRequiredAuthority,
-    contractRequiredAuthority: extras.contractRequiredAuthority,
-  };
-}
-
-function issueFor(
-  resolver: MemoryAuthorityResolver,
-  contract: AuthS1GovernedContractContext,
-  effectClass: GovernedEffectsAuthorityInput["effectClass"],
-  evidenceId: string,
-  extras: Partial<GovernedEffectsAuthorityInput> = {},
-) {
-  const { issuedAt, expiresAt } = futureWindow();
-  return issueS1AuthorityEvidence({
-    pilote: piloteA,
-    authorityResolver: resolver,
-    contract,
-    governedEffects: makeEffects(effectClass, contract, extras),
-    issuedAt,
-    expiresAt,
-    evidenceId,
-  });
-}
-
-describe("AUTH POLICY Morris BASE NONE + ACTION-SCOPED", () => {
-  beforeEach(() => {
-    resetSfiaAuthSingletonForTests();
-  });
-  afterEach(() => {
-    resetSfiaAuthSingletonForTests();
-    vi.restoreAllMocks();
+describe("AUTH allowlist multi-user", () => {
+  it("AUTH-D01 parses two valid users", () => {
+    const r = parseAllowedGithubUserIds("11111111,22222222");
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.ids).toEqual(["11111111", "22222222"]);
   });
 
-  it("POLICY-01 login only → actor authority none; no S1", () => {
-    expect(piloteA.actor.authorityLevel).toBe("none");
-    expect(resolvePiloteS1AuthorityLevel().ok).toBe(false);
+  it("AUTH-D02 parses N users", () => {
+    const r = parseAllowedGithubUserIds("1,2,3,4,5");
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.ids).toHaveLength(5);
+  });
+
+  it("AUTH-D03 deduplicates", () => {
+    const r = parseAllowedGithubUserIds("10,10, 11 ,10");
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.ids).toEqual(["10", "11"]);
+  });
+
+  it("AUTH-D04 missing config fails closed", () => {
+    const r = parseAllowedGithubUserIds(undefined);
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.code).toBe("ALLOWLIST_MISSING");
+  });
+
+  it("AUTH-D05 empty config fails closed", () => {
+    const r = parseAllowedGithubUserIds("   ");
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.code).toBe("ALLOWLIST_EMPTY");
+  });
+
+  it("AUTH-D06 malformed member fails closed", () => {
+    expect(parseAllowedGithubUserIds("12,abc").ok).toBe(false);
+    expect(parseAllowedGithubUserIds("12,").ok).toBe(false);
+    expect(parseAllowedGithubUserIds("0").ok).toBe(false);
+    expect(parseAllowedGithubUserIds("-1").ok).toBe(false);
+    expect(parseAllowedGithubUserIds("1.5").ok).toBe(false);
+  });
+
+  it("AUTH-D07 login/email/displayName cannot authorize", () => {
+    expect(authorizeByGithubLoginOrEmail("morris")).toBe(false);
+    expect(authorizeByGithubLoginOrEmail("a@b.co")).toBe(false);
+    const ids = ["11111111"];
+    expect(isGithubUserAllowed("morris", ids)).toBe(false);
+  });
+
+  it("AUTH-D08/D09/D10 allow A+B deny C", () => {
+    const ids = ["11111111", "22222222"];
+    expect(isGithubUserAllowed("11111111", ids)).toBe(true);
+    expect(isGithubUserAllowed("22222222", ids)).toBe(true);
+    expect(isGithubUserAllowed("33333333", ids)).toBe(false);
+  });
+
+  it("AUTH-D14/D15 removal A blocks A not B", () => {
+    let ids = ["11111111", "22222222"];
+    ids = ids.filter((id) => id !== "11111111");
+    expect(isGithubUserAllowed("11111111", ids)).toBe(false);
+    expect(isGithubUserAllowed("22222222", ids)).toBe(true);
+  });
+});
+
+describe("AUTH actor mapping", () => {
+  it("AUTH-D11/D12/D13/D22 distinct Pilote actors", () => {
+    const a = mapGithubIdentityToPiloteActor({
+      githubUserId: "11111111",
+      displayName: "Alice",
+    });
+    const b = mapGithubIdentityToPiloteActor({
+      githubUserId: "22222222",
+      displayName: "Bob",
+    });
+    expect(a.actorId).toBe("actor:github:11111111");
+    expect(b.actorId).toBe("actor:github:22222222");
+    expect(a.actorId).not.toBe(b.actorId);
+    expect(a.role).toBe("decision_maker");
+    expect(b.role).toBe("decision_maker");
+    expect(a.authorityLevel).toBe("none");
+    expect(b.authorityLevel).toBe("none");
+  });
+
+  it("AUTH-D26 historical local-pilote id remains distinct", () => {
+    expect(LOCAL_PILOTE_ACTOR.actorId).toBe("actor:local-pilote");
+    expect(githubActorId("11111111")).not.toBe(LOCAL_PILOTE_ACTOR.actorId);
+  });
+});
+
+describe("AUTH S1 AuthorityEvidence", () => {
+  it("AUTH-D23/D24/D25 no auto-N3; collision-safe register; canActAsMorris false", () => {
     const resolver = new MemoryAuthorityResolver();
-    const { issuedAt, expiresAt } = futureWindow();
-    const issued = issueS1AuthorityEvidence({
+    const piloteA = {
+      ok: true as const,
+      githubUserId: "11111111",
+      betterAuthUserId: "ba-user-a",
+      actor: mapGithubIdentityToPiloteActor({ githubUserId: "11111111" }),
+    };
+    const piloteB = {
+      ok: true as const,
+      githubUserId: "22222222",
+      betterAuthUserId: "ba-user-b",
+      actor: mapGithubIdentityToPiloteActor({ githubUserId: "22222222" }),
+    };
+
+    const issuedAt = new Date().toISOString();
+    const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString();
+
+    const blocked = issueS1AuthorityEvidence({
       pilote: piloteA,
       authorityResolver: resolver,
       issuedAt,
       expiresAt,
     });
-    expect(issued.ok).toBe(false);
-    if (!issued.ok) {
-      expect(issued.code).toBe(PILOTE_AUTHORITY_ENVELOPE_NOT_PROVEN);
+    expect(blocked.ok).toBe(false);
+    if (!blocked.ok) {
+      expect(blocked.code).toBe(PILOTE_AUTHORITY_ENVELOPE_NOT_PROVEN);
     }
-  });
 
-  it("POLICY-02 trusted N1 effect → exact S1 N1; canActAsMorris=false", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contract = makeContract({
-      executionContractId: "xct:pol02",
+    const contract = {
+      executionContractId: "xct:auth-d23",
+      projectId: "prj:demo",
       action: "product:read",
-      requiredAuthority: "N1",
+      target: "tgt:demo",
+      scope: "biz:demo",
+      requiredAuthority: "N1" as const,
+      requiredCapabilities: ["cap:demo"],
+      constraints: ["c:demo"],
+      stopConditions: ["stop:demo"],
+      evidenceRequirements: ["evreq:demo"],
+      reversibility: "partially_reversible" as const,
+      idempotencyKey: "idem:auth-d23",
+    };
+    const bind = computeInspectionFingerprint(contract);
+    const issued = issueS1AuthorityEvidence({
+      pilote: piloteA,
+      authorityResolver: resolver,
+      contract,
+      governedEffects: {
+        effectClass: "read",
+        rollbackAvailable: true,
+        protectedBoundaries: [],
+        scopeIn: contract.scope,
+        target: contract.target,
+      },
+      issuedAt,
+      expiresAt,
+      evidenceId: "evd:github-s1:test-a",
     });
-    const issued = issueFor(resolver, contract, "read", "evd:pol02");
     expect(issued.ok).toBe(true);
     if (!issued.ok) return;
-    expect(issued.evidence.level).toBe("N1");
-    expect(issued.evidence.canActAsMorris).toBe(false);
-    expect(issued.evidence.scope).toBe("xct:pol02");
     expect(issued.evidence.source).toBe(BETTER_AUTH_GITHUB_MULTI_USER_S1);
-  });
-
-  it("POLICY-03 trusted N2 effect → exact S1 N2", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contract = makeContract({
-      executionContractId: "xct:pol03",
-      action: "product:commit",
-      requiredAuthority: "N2",
-    });
-    const issued = issueFor(resolver, contract, "commit", "evd:pol03");
-    expect(issued.ok).toBe(true);
-    if (!issued.ok) return;
-    expect(issued.evidence.level).toBe("N2");
-    expect(issued.evidence.scope).toBe("xct:pol03");
-  });
-
-  it("POLICY-04 trusted N3 effect → exact S1 N3", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contract = makeContract({
-      executionContractId: "xct:pol04",
-      action: "product:push",
-      requiredAuthority: "N3",
-    });
-    const issued = issueFor(resolver, contract, "push", "evd:pol04");
-    expect(issued.ok).toBe(true);
-    if (!issued.ok) return;
-    expect(issued.evidence.level).toBe("N3");
     expect(issued.evidence.canActAsMorris).toBe(false);
-  });
+    expect(issued.evidence.scope).toBe(bind);
 
-  it("POLICY-05 MORRIS / Morris construction gate → FAIL-CLOSED", () => {
-    const gate = resolvePiloteS1AuthorityFromGovernedContract({
-      contract: makeContract({
-        executionContractId: "xct:gate",
-        action: "product:baseline-promotion",
-      }),
-      governedEffects: makeEffects(
-        "baseline-promotion",
-        makeContract({
-          executionContractId: "xct:gate",
-          action: "product:baseline-promotion",
-        }),
-        { rollbackAvailable: false },
-      ),
-    });
-    expect(gate.ok).toBe(false);
-    if (!gate.ok) expect(gate.code).toBe(MORRIS_GATE_REQUIRED);
-
-    const claimMorris = resolvePiloteS1AuthorityFromGovernedContract({
-      contract: makeContract({
-        executionContractId: "xct:morris-claim",
-        action: "product:read",
-        requiredAuthority: "N1",
-      }),
-      governedEffects: makeEffects(
-        "read",
-        makeContract({
-          executionContractId: "xct:morris-claim",
-          action: "product:read",
-        }),
-        { claimedRequiredAuthority: "MORRIS" },
-      ),
-    });
-    expect(claimMorris.ok).toBe(false);
-    if (!claimMorris.ok) {
-      expect(claimMorris.code).toBe(MORRIS_AUTHORITY_NOT_AVAILABLE);
-    }
-
-    const resolver = new MemoryAuthorityResolver();
-    const contract = makeContract({
-      executionContractId: "xct:pol05-n3",
-      action: "product:push",
-      requiredAuthority: "N3",
-    });
-    const n3 = issueFor(resolver, contract, "push", "evd:pol05-n3");
-    expect(n3.ok).toBe(true);
-    if (!n3.ok) return;
-    const verifyScope = resolveExecutionAuthorityVerifyScope({
-      executionContractId: contract.executionContractId,
-      contractScope: contract.scope,
-      evidence: n3.evidence,
-    });
-    const morrisCheck = verifyRequiredAuthority(resolver, {
-      requiredAuthority: "MORRIS",
+    const okA = resolver.verify({
       actorId: piloteA.actor.actorId,
-      scope: verifyScope,
-      evidenceId: n3.evidence.evidenceId,
+      requiredLevel: "N1",
+      scope: bind,
+      evidenceId: issued.evidence.evidenceId,
+      requireMorrisGate: false,
     });
-    expect(morrisCheck.ok).toBe(false);
-    expect(morrisCheck.reason).toBe("morris_gate_denied");
-  });
+    expect(okA.ok).toBe(true);
 
-  it("POLICY-06 client claims N1 while server requires N3 → no downgrade", () => {
-    const contract = makeContract({
-      executionContractId: "xct:pol06",
-      action: "product:push",
-      requiredAuthority: "N3",
-    });
-    const r = resolvePiloteS1AuthorityFromGovernedContract({
-      contract,
-      governedEffects: makeEffects("push", contract, {
-        claimedRequiredAuthority: "N1",
-      }),
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.code).toBe(AUTHORITY_REQUIREMENT_MISMATCH);
-  });
-
-  it("POLICY-07 client claims N3 while server requires N1 → no self-escalation", () => {
-    const contract = makeContract({
-      executionContractId: "xct:pol07",
-      action: "product:read",
-      requiredAuthority: "N1",
-    });
-    const r = resolvePiloteS1AuthorityFromGovernedContract({
-      contract,
-      governedEffects: makeEffects("read", contract, {
-        claimedRequiredAuthority: "N3",
-      }),
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.code).toBe(AUTHORITY_REQUIREMENT_MISMATCH);
-  });
-
-  it("POLICY-08 client claims MORRIS → denied; canActAsMorris false", () => {
-    const contract = makeContract({
-      executionContractId: "xct:pol08",
-      action: "product:commit",
-      requiredAuthority: "N2",
-    });
-    const r = resolvePiloteS1AuthorityFromGovernedContract({
-      contract,
-      governedEffects: makeEffects("commit", contract, {
-        claimedRequiredAuthority: "MORRIS",
-      }),
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.code).toBe(MORRIS_AUTHORITY_NOT_AVAILABLE);
-  });
-
-  it("POLICY-09 no trusted requirement → PILOTE_AUTHORITY_ENVELOPE_NOT_PROVEN", () => {
-    const r = resolvePiloteS1AuthorityLevel();
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.code).toBe(PILOTE_AUTHORITY_ENVELOPE_NOT_PROVEN);
-  });
-
-  it("POLICY-10 malformed/unknown authority → fail closed", () => {
-    const contract = makeContract({
-      executionContractId: "xct:pol10",
-      action: "product:read",
-    });
-    const unknown = resolvePiloteS1AuthorityFromGovernedContract({
-      contract,
-      governedEffects: makeEffects("unknown", contract),
-    });
-    expect(unknown.ok).toBe(false);
-    if (!unknown.ok) expect(unknown.code).toBe(AUTHORITY_UNRESOLVED);
-
-    const badClaim = resolvePiloteS1AuthorityFromGovernedContract({
-      contract,
-      governedEffects: makeEffects("read", contract, {
-        claimedRequiredAuthority: "N9",
-      }),
-    });
-    expect(badClaim.ok).toBe(false);
-    if (!badClaim.ok) expect(badClaim.code).toBe(AUTHORITY_REQUIREMENT_MISMATCH);
-  });
-
-  it("POLICY-11 contract binding — S1 for Contract A cannot authorize Contract B", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contractA = makeContract({
-      executionContractId: "xct:pol11-a",
-      action: "product:push",
-      scope: "biz:shared",
-      requiredAuthority: "N3",
-    });
-    const issued = issueFor(resolver, contractA, "push", "evd:pol11");
-    expect(issued.ok).toBe(true);
-    if (!issued.ok) return;
-    const cross = resolver.verify({
-      actorId: piloteA.actor.actorId,
-      requiredLevel: "N3",
-      scope: "xct:pol11-b",
+    const misuseB = resolver.verify({
+      actorId: piloteB.actor.actorId,
+      requiredLevel: "N1",
+      scope: bind,
       evidenceId: issued.evidence.evidenceId,
     });
-    expect(cross.ok).toBe(false);
-    expect(cross.reason).toBe("scope_mismatch");
-  });
+    expect(misuseB.ok).toBe(false);
+    expect(misuseB.reason).toBe("actor_mismatch");
 
-  it("POLICY-12 middleware/session resolution does not issue S1", async () => {
-    const auth = createSfiaAuth({ env: TEST_ENV });
-    const headers = await headersWithAccountCookie({
-      auth,
-      userId: "ba-user-a",
-      accountId: "11111111",
-    });
-    vi.spyOn(auth.api, "getSession").mockResolvedValue({
-      user: {
-        id: "ba-user-a",
-        name: "A",
-        email: "a@example.com",
-        emailVerified: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      session: {
-        id: "sess-a",
-        userId: "ba-user-a",
-        token: "t",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        expiresAt: new Date(Date.now() + 60_000),
-      },
-    } as never);
-
-    const resolver = new MemoryAuthorityResolver();
-    const before = resolver.listByActor(piloteA.actor.actorId).length;
-    const r = await resolveCurrentAuthenticatedPilote({
-      auth,
-      headers,
-      env: TEST_ENV,
-    });
-    expect(r.ok).toBe(true);
-    if (r.ok) expect(r.actor.authorityLevel).toBe("none");
-    expect(resolver.listByActor(piloteA.actor.actorId).length).toBe(before);
-  });
-
-  it("POLICY-13 cross-user session B + provider A → SESSION_USER_MISMATCH", async () => {
-    const auth = createSfiaAuth({ env: TEST_ENV });
-    const headers = await headersWithAccountCookie({
-      auth,
-      userId: "ba-user-a",
-      accountId: "11111111",
-    });
-    vi.spyOn(auth.api, "getSession").mockResolvedValue({
-      user: {
-        id: "ba-user-b",
-        name: "B",
-        email: "b@example.com",
-        emailVerified: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      session: {
-        id: "sess-b",
-        userId: "ba-user-b",
-        token: "t",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        expiresAt: new Date(Date.now() + 60_000),
-      },
-    } as never);
-    const r = await resolveCurrentAuthenticatedPilote({
-      auth,
-      headers,
-      env: TEST_ENV,
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.code).toBe("SESSION_USER_MISMATCH");
-  });
-
-  it("POLICY-14 protected hot path → zero GitHub provider network", async () => {
-    const auth = createSfiaAuth({ env: TEST_ENV });
-    const headers = await headersWithAccountCookie({
-      auth,
-      userId: "ba-user-a",
-      accountId: "11111111",
-    });
-    vi.spyOn(auth.api, "getSession").mockResolvedValue({
-      user: {
-        id: "ba-user-a",
-        name: "A",
-        email: "a@example.com",
-        emailVerified: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      session: {
-        id: "sess-a",
-        userId: "ba-user-a",
-        token: "t",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        expiresAt: new Date(Date.now() + 60_000),
-      },
-    } as never);
-    const hits: string[] = [];
-    const original = globalThis.fetch;
-    globalThis.fetch = vi.fn(async (input: RequestInfo | URL) => {
-      hits.push(String(input));
-      throw new Error("NETWORK");
-    }) as typeof fetch;
-    try {
-      expect(vi.spyOn(auth.api, "accountInfo")).not.toHaveBeenCalled();
-      await resolveCurrentAuthenticatedPilote({ auth, headers, env: TEST_ENV });
-      expect(hits).toEqual([]);
-    } finally {
-      globalThis.fetch = original;
-    }
-  });
-
-  it("POLICY-15 allowlist removal → deny before S1", async () => {
-    const auth = createSfiaAuth({ env: TEST_ENV });
-    const headers = await headersWithAccountCookie({
-      auth,
-      userId: "ba-user-a",
-      accountId: "11111111",
-    });
-    vi.spyOn(auth.api, "getSession").mockResolvedValue({
-      user: {
-        id: "ba-user-a",
-        name: "A",
-        email: "a@example.com",
-        emailVerified: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      session: {
-        id: "sess-a",
-        userId: "ba-user-a",
-        token: "t",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        expiresAt: new Date(Date.now() + 60_000),
-      },
-    } as never);
-    const denied = await resolveCurrentAuthenticatedPilote({
-      auth,
-      headers,
-      env: {
-        ...TEST_ENV,
-        SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS: "22222222",
-      } as NodeJS.ProcessEnv,
-    });
-    expect(denied.ok).toBe(false);
-    if (!denied.ok) expect(denied.code).toBe("ALLOWLIST_DENIED");
-  });
-});
-
-describe("BYPASS — Auth S1 policy surface", () => {
-  it("BYPASS-01 no public Auth export buildValidatedS1Evidence", () => {
-    expect("buildValidatedS1Evidence" in AuthPublic).toBe(false);
-    expect(
-      (AuthPublic as Record<string, unknown>).buildValidatedS1Evidence,
-    ).toBeUndefined();
-  });
-
-  it("BYPASS-02 no public Auth export registerS1EvidenceImmutable", () => {
-    expect("registerS1EvidenceImmutable" in AuthPublic).toBe(false);
-    expect(
-      (AuthPublic as Record<string, unknown>).registerS1EvidenceImmutable,
-    ).toBeUndefined();
-  });
-
-  it("BYPASS-03 no Auth N3 without canonical policy evaluation", () => {
-    const effectsOnly = resolvePiloteS1AuthorityFromGovernedEffects({
-      effectClass: "push",
-      rollbackAvailable: true,
-      scopeIn: "biz:x",
-      target: "tgt:x",
-    });
-    expect(effectsOnly.ok).toBe(false);
-    if (!effectsOnly.ok) {
-      expect(effectsOnly.code).toBe(CONTRACT_CONTEXT_REQUIRED);
-    }
-
-    const resolver = new MemoryAuthorityResolver();
-    const { issuedAt, expiresAt } = futureWindow();
-    const issued = issueS1AuthorityEvidence({
-      pilote: piloteA,
-      authorityResolver: resolver,
-      issuedAt,
-      expiresAt,
-      evidenceId: "evd:bypass03",
-    });
-    expect(issued.ok).toBe(false);
-    expect(resolver.getEvidence("evd:bypass03")).toBeNull();
-  });
-
-  it("BYPASS-04 legitimate N3 hierarchy uses action-scoped issuance", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contract = makeContract({
-      executionContractId: "xct:bypass04",
-      action: "product:push",
-      requiredAuthority: "N3",
-    });
-    const issued = issueFor(resolver, contract, "push", "evd:bypass04");
-    expect(issued.ok).toBe(true);
-    if (!issued.ok) return;
-    expect(issued.evidence.level).toBe("N3");
-    expect(issued.evidence.canActAsMorris).toBe(false);
-    expect(
-      resolver.verify({
-        actorId: piloteA.actor.actorId,
-        requiredLevel: "N2",
-        scope: contract.executionContractId,
-        evidenceId: issued.evidence.evidenceId,
-      }).ok,
-    ).toBe(true);
-    expect(
-      resolver.verify({
-        actorId: piloteA.actor.actorId,
-        requiredLevel: "N3",
-        scope: contract.executionContractId,
-        evidenceId: issued.evidence.evidenceId,
-        requireMorrisGate: true,
-      }).reason,
-    ).toBe("morris_gate_denied");
-  });
-});
-
-describe("BIND — ExecutionContract / action binding", () => {
-  it("BIND-01 trusted read contract → exact N1 S1", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contract = makeContract({
-      executionContractId: "xct:bind01",
-      action: "product:read",
-      requiredAuthority: "N1",
-    });
-    const issued = issueFor(resolver, contract, "read", "evd:bind01");
-    expect(issued.ok).toBe(true);
-    if (!issued.ok) return;
-    expect(issued.evidence.level).toBe("N1");
-    expect(issued.evidence.scope).toBe("xct:bind01");
-  });
-
-  it("BIND-02 trusted commit contract → exact N2 S1", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contract = makeContract({
-      executionContractId: "xct:bind02",
-      action: "product:commit",
-      requiredAuthority: "N2",
-    });
-    const issued = issueFor(resolver, contract, "commit", "evd:bind02");
-    expect(issued.ok).toBe(true);
-    if (!issued.ok) return;
-    expect(issued.evidence.level).toBe("N2");
-  });
-
-  it("BIND-03 trusted push contract → exact N3 S1", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contract = makeContract({
-      executionContractId: "xct:bind03",
-      action: "product:push",
-      requiredAuthority: "N3",
-    });
-    const issued = issueFor(resolver, contract, "push", "evd:bind03");
-    expect(issued.ok).toBe(true);
-    if (!issued.ok) return;
-    expect(issued.evidence.level).toBe("N3");
-  });
-
-  it("BIND-04 effects=push / contract requiredAuthority=N1 → DENY", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contract = makeContract({
-      executionContractId: "xct:bind04",
-      action: "product:push",
-      requiredAuthority: "N1",
-    });
-    const issued = issueFor(resolver, contract, "push", "evd:bind04");
-    expect(issued.ok).toBe(false);
-    if (!issued.ok) expect(issued.code).toBe(AUTHORITY_REQUIREMENT_MISMATCH);
-  });
-
-  it("BIND-05 effects=read / contract requiredAuthority=N3 → DENY", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contract = makeContract({
-      executionContractId: "xct:bind05",
-      action: "product:read",
-      requiredAuthority: "N3",
-    });
-    const issued = issueFor(resolver, contract, "read", "evd:bind05");
-    expect(issued.ok).toBe(false);
-    if (!issued.ok) expect(issued.code).toBe(AUTHORITY_REQUIREMENT_MISMATCH);
-  });
-
-  it("BIND-06 effects action ≠ contract action → DENY", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contract = makeContract({
-      executionContractId: "xct:bind06",
-      action: "product:read",
-      requiredAuthority: "N1",
-    });
-    const issued = issueFor(resolver, contract, "push", "evd:bind06");
-    expect(issued.ok).toBe(false);
-    if (!issued.ok) expect(issued.code).toBe(CONTRACT_BINDING_MISMATCH);
-  });
-
-  it("BIND-07 effects/contract scope mismatch → DENY", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contract = makeContract({
-      executionContractId: "xct:bind07",
-      action: "product:read",
-      scope: "biz:a",
-      requiredAuthority: "N1",
-    });
-    const issued = issueFor(resolver, contract, "read", "evd:bind07", {
-      scopeIn: "biz:b",
-    });
-    expect(issued.ok).toBe(false);
-    if (!issued.ok) expect(issued.code).toBe(CONTRACT_BINDING_MISMATCH);
-  });
-
-  it("BIND-08 target mismatch → DENY", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contract = makeContract({
-      executionContractId: "xct:bind08",
-      action: "product:read",
-      target: "tgt:a",
-      requiredAuthority: "N1",
-    });
-    const issued = issueFor(resolver, contract, "read", "evd:bind08", {
-      target: "tgt:b",
-    });
-    expect(issued.ok).toBe(false);
-    if (!issued.ok) expect(issued.code).toBe(CONTRACT_BINDING_MISMATCH);
-  });
-
-  it("BIND-09 unknown/missing trusted effect context → DENY", () => {
-    const effectsOnly = resolvePiloteS1AuthorityFromGovernedEffects({
-      effectClass: "read",
-      rollbackAvailable: true,
-      scopeIn: "biz:x",
-      target: "tgt:x",
-    });
-    expect(effectsOnly.ok).toBe(false);
-    if (!effectsOnly.ok) {
-      expect(effectsOnly.code).toBe(CONTRACT_CONTEXT_REQUIRED);
-    }
-
-    const resolver = new MemoryAuthorityResolver();
-    const { issuedAt, expiresAt } = futureWindow();
-    const issued = issueS1AuthorityEvidence({
-      pilote: piloteA,
-      authorityResolver: resolver,
-      issuedAt,
-      expiresAt,
-      evidenceId: "evd:bind09",
-      contract: makeContract({
-        executionContractId: "xct:bind09",
-        action: "product:read",
-      }),
-      // missing governedEffects
-    });
-    expect(issued.ok).toBe(false);
-    if (!issued.ok) {
-      expect(issued.code).toBe(PILOTE_AUTHORITY_ENVELOPE_NOT_PROVEN);
-    }
-  });
-
-  it("BIND-10 MORRIS contract/claim → DENY", () => {
-    const contract = makeContract({
-      executionContractId: "xct:bind10",
-      action: "product:push",
-      requiredAuthority: "MORRIS",
-    });
-    const r = resolvePiloteS1AuthorityFromGovernedContract({
-      contract,
-      governedEffects: makeEffects("push", contract),
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.code).toBe(MORRIS_AUTHORITY_NOT_AVAILABLE);
-  });
-
-  it("BIND-11 morrisConstructionGateRequired → DENY", () => {
-    const contract = makeContract({
-      executionContractId: "xct:bind11",
-      action: "product:doctrine-change",
-    });
-    const r = resolvePiloteS1AuthorityFromGovernedContract({
-      contract,
-      governedEffects: makeEffects("doctrine-change", contract, {
-        rollbackAvailable: false,
-      }),
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.code).toBe(MORRIS_GATE_REQUIRED);
-  });
-
-  it("BIND-12 Contract A S1 cannot authorize Contract B (same actor/N/business scope)", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const sharedBiz = "biz:identical-business-scope";
-    const contractA = makeContract({
-      executionContractId: "xct:bind12-a",
-      action: "product:push",
-      scope: sharedBiz,
-      target: "tgt:same",
-      requiredAuthority: "N3",
-    });
-    const contractB = makeContract({
-      executionContractId: "xct:bind12-b",
-      action: "product:push",
-      scope: sharedBiz,
-      target: "tgt:same",
-      requiredAuthority: "N3",
-    });
-    const issuedA = issueFor(resolver, contractA, "push", "evd:bind12-a");
-    expect(issuedA.ok).toBe(true);
-    if (!issuedA.ok) return;
-
-    // Adapter maps Auth S1 verify to executionContractId — not business scope.
-    const scopeForB = resolveExecutionAuthorityVerifyScope({
-      executionContractId: contractB.executionContractId,
-      contractScope: contractB.scope,
-      evidence: issuedA.evidence,
-    });
-    expect(scopeForB).toBe("xct:bind12-b");
-    expect(scopeForB).not.toBe(issuedA.evidence.scope);
-
-    const cross = resolver.verify({
+    const morrisGate = resolver.verify({
       actorId: piloteA.actor.actorId,
-      requiredLevel: "N3",
-      scope: scopeForB,
-      evidenceId: issuedA.evidence.evidenceId,
+      requiredLevel: "N1",
+      scope: bind,
+      evidenceId: issued.evidence.evidenceId,
+      requireMorrisGate: true,
     });
-    expect(cross.ok).toBe(false);
-    expect(cross.reason).toBe("scope_mismatch");
-
-    // Same business scope alone would have wrongly matched pre-correction.
-    expect(
-      resolver.verify({
-        actorId: piloteA.actor.actorId,
-        requiredLevel: "N3",
-        scope: sharedBiz,
-        evidenceId: issuedA.evidence.evidenceId,
-      }).reason,
-    ).toBe("scope_mismatch");
+    expect(morrisGate.ok).toBe(false);
+    expect(morrisGate.reason).toBe("morris_gate_denied");
   });
 
-  it("BIND-13 Contract A S1 cannot authorize Contract B with different action", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contractA = makeContract({
-      executionContractId: "xct:bind13-a",
-      action: "product:read",
-      requiredAuthority: "N1",
-    });
-    const contractB = makeContract({
-      executionContractId: "xct:bind13-b",
-      action: "product:commit",
-      requiredAuthority: "N2",
-    });
-    const issuedA = issueFor(resolver, contractA, "read", "evd:bind13-a");
-    expect(issuedA.ok).toBe(true);
-    if (!issuedA.ok) return;
-    const scopeB = resolveExecutionAuthorityVerifyScope({
-      executionContractId: contractB.executionContractId,
-      contractScope: contractB.scope,
-      evidence: issuedA.evidence,
-    });
-    expect(
-      resolver.verify({
-        actorId: piloteA.actor.actorId,
-        requiredLevel: "N2",
-        scope: scopeB,
-        evidenceId: issuedA.evidence.evidenceId,
-      }).reason,
-    ).toBe("scope_mismatch");
-  });
-
-  it("BIND-14 Contract A S1 cannot authorize Contract B with different target/scope", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contractA = makeContract({
-      executionContractId: "xct:bind14-a",
-      action: "product:commit",
-      scope: "biz:a",
-      target: "tgt:a",
-      requiredAuthority: "N2",
-    });
-    const contractB = makeContract({
-      executionContractId: "xct:bind14-b",
-      action: "product:commit",
-      scope: "biz:b",
-      target: "tgt:b",
-      requiredAuthority: "N2",
-    });
-    const issuedA = issueFor(resolver, contractA, "commit", "evd:bind14-a");
-    expect(issuedA.ok).toBe(true);
-    if (!issuedA.ok) return;
-    const scopeB = resolveExecutionAuthorityVerifyScope({
-      executionContractId: contractB.executionContractId,
-      contractScope: contractB.scope,
-      evidence: issuedA.evidence,
-    });
-    expect(
-      resolver.verify({
-        actorId: piloteA.actor.actorId,
-        requiredLevel: "N2",
-        scope: scopeB,
-        evidenceId: issuedA.evidence.evidenceId,
-      }).reason,
-    ).toBe("scope_mismatch");
-  });
-
-  it("BIND-15 login/session/allowlist → authorityLevel=none and zero S1", async () => {
-    expect(piloteA.actor.authorityLevel).toBe("none");
-    const auth = createSfiaAuth({ env: TEST_ENV });
-    const headers = await headersWithAccountCookie({
-      auth,
-      userId: "ba-user-a",
-      accountId: "11111111",
-    });
-    vi.spyOn(auth.api, "getSession").mockResolvedValue({
-      user: {
-        id: "ba-user-a",
-        name: "A",
-        email: "a@example.com",
-        emailVerified: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      session: {
-        id: "sess-a",
-        userId: "ba-user-a",
-        token: "t",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        expiresAt: new Date(Date.now() + 60_000),
-      },
-    } as never);
-    const resolver = new MemoryAuthorityResolver();
-    const r = await resolveCurrentAuthenticatedPilote({
-      auth,
-      headers,
-      env: TEST_ENV,
-    });
-    expect(r.ok).toBe(true);
-    if (r.ok) expect(r.actor.authorityLevel).toBe("none");
-    expect(resolver.listByActor(piloteA.actor.actorId)).toEqual([]);
-  });
-});
-
-describe("REG — regression matrix", () => {
-  beforeEach(() => {
-    resetSfiaAuthSingletonForTests();
-  });
-  afterEach(() => {
-    resetSfiaAuthSingletonForTests();
-    vi.restoreAllMocks();
-  });
-
-  it("REG-01 session B + provider A still SESSION_USER_MISMATCH", async () => {
-    const auth = createSfiaAuth({ env: TEST_ENV });
-    const headers = await headersWithAccountCookie({
-      auth,
-      userId: "ba-user-a",
-      accountId: "11111111",
-    });
-    vi.spyOn(auth.api, "getSession").mockResolvedValue({
-      user: {
-        id: "ba-user-b",
-        name: "B",
-        email: "b@example.com",
-        emailVerified: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      session: {
-        id: "sess-b",
-        userId: "ba-user-b",
-        token: "t",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        expiresAt: new Date(Date.now() + 60_000),
-      },
-    } as never);
-    const r = await resolveCurrentAuthenticatedPilote({
-      auth,
-      headers,
-      env: TEST_ENV,
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.code).toBe("SESSION_USER_MISMATCH");
-  });
-
-  it("REG-02 allowlist removal still denies before S1", async () => {
-    const auth = createSfiaAuth({ env: TEST_ENV });
-    const headers = await headersWithAccountCookie({
-      auth,
-      userId: "ba-user-a",
-      accountId: "11111111",
-    });
-    vi.spyOn(auth.api, "getSession").mockResolvedValue({
-      user: {
-        id: "ba-user-a",
-        name: "A",
-        email: "a@example.com",
-        emailVerified: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      session: {
-        id: "sess-a",
-        userId: "ba-user-a",
-        token: "t",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        expiresAt: new Date(Date.now() + 60_000),
-      },
-    } as never);
-    const denied = await resolveCurrentAuthenticatedPilote({
-      auth,
-      headers,
-      env: {
-        ...TEST_ENV,
-        SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS: "22222222",
-      } as NodeJS.ProcessEnv,
-    });
-    expect(denied.ok).toBe(false);
-    if (!denied.ok) expect(denied.code).toBe("ALLOWLIST_DENIED");
-  });
-
-  it("REG-03 protected Auth identity hot path still zero GitHub provider network", async () => {
-    const auth = createSfiaAuth({ env: TEST_ENV });
-    const headers = await headersWithAccountCookie({
-      auth,
-      userId: "ba-user-a",
-      accountId: "11111111",
-    });
-    vi.spyOn(auth.api, "getSession").mockResolvedValue({
-      user: {
-        id: "ba-user-a",
-        name: "A",
-        email: "a@example.com",
-        emailVerified: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      session: {
-        id: "sess-a",
-        userId: "ba-user-a",
-        token: "t",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        expiresAt: new Date(Date.now() + 60_000),
-      },
-    } as never);
-    const hits: string[] = [];
-    const original = globalThis.fetch;
-    globalThis.fetch = vi.fn(async (input: RequestInfo | URL) => {
-      hits.push(String(input));
-      throw new Error("NETWORK");
-    }) as typeof fetch;
-    try {
-      await resolveCurrentAuthenticatedPilote({ auth, headers, env: TEST_ENV });
-      expect(hits).toEqual([]);
-    } finally {
-      globalThis.fetch = original;
-    }
-  });
-
-  it("REG-04 TTL max remains bounded to session max", () => {
-    const { validateS1EvidenceLifetime } = AuthPublic;
-    const issuedAt = "2026-09-04T12:00:00.000Z";
-    const over = new Date(
-      Date.parse(issuedAt) + (AuthPublic.SESSION_COOKIE_MAX_AGE_SECONDS + 1) * 1000,
-    ).toISOString();
-    const r = validateS1EvidenceLifetime({ issuedAt, expiresAt: over });
-    expect(r.ok).toBe(false);
-  });
-
-  it("REG-05 duplicate evidenceId remains fail-closed", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contract = makeContract({
-      executionContractId: "xct:reg05",
-      action: "product:read",
-      requiredAuthority: "N1",
-    });
-    const first = issueFor(resolver, contract, "read", "evd:reg05");
-    expect(first.ok).toBe(true);
-    const second = issueFor(resolver, contract, "read", "evd:reg05");
-    expect(second.ok).toBe(false);
-    if (!second.ok) expect(second.code).toBe("EVIDENCE_ID_COLLISION");
-    expect(resolver.getEvidence("evd:reg05")?.level).toBe("N1");
-    expect(resolver.getEvidence("evd:reg05")?.canActAsMorris).toBe(false);
-  });
-
-  it("REG-06 expired S1 remains denied", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contract = makeContract({
-      executionContractId: "xct:reg06",
-      action: "product:read",
-      requiredAuthority: "N1",
-    });
-    const issued = issueS1AuthorityEvidence({
-      pilote: piloteA,
-      authorityResolver: resolver,
-      contract,
-      governedEffects: makeEffects("read", contract),
-      issuedAt: "2020-01-01T00:00:00.000Z",
-      expiresAt: "2020-01-01T01:00:00.000Z",
-      evidenceId: "evd:reg06",
-    });
-    expect(issued.ok).toBe(true);
-    if (!issued.ok) return;
-    expect(
-      resolver.verify({
-        actorId: piloteA.actor.actorId,
-        requiredLevel: "N1",
-        scope: contract.executionContractId,
-        evidenceId: "evd:reg06",
-      }).reason,
-    ).toBe("expired");
-  });
-
-  it("REG-07 N2 cannot satisfy N3", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contract = makeContract({
-      executionContractId: "xct:reg07",
-      action: "product:commit",
-      requiredAuthority: "N2",
-    });
-    const issued = issueFor(resolver, contract, "commit", "evd:reg07");
-    expect(issued.ok).toBe(true);
-    if (!issued.ok) return;
-    expect(
-      resolver.verify({
-        actorId: piloteA.actor.actorId,
-        requiredLevel: "N3",
-        scope: contract.executionContractId,
-        evidenceId: issued.evidence.evidenceId,
-      }).reason,
-    ).toBe("level_insufficient");
-  });
-
-  it("REG-08 N3 cannot satisfy MORRIS", () => {
-    const resolver = new MemoryAuthorityResolver();
-    const contract = makeContract({
-      executionContractId: "xct:reg08",
-      action: "product:push",
-      requiredAuthority: "N3",
-    });
-    const issued = issueFor(resolver, contract, "push", "evd:reg08");
-    expect(issued.ok).toBe(true);
-    if (!issued.ok) return;
-    expect(issued.evidence.canActAsMorris).toBe(false);
-    expect(
-      resolver.verify({
-        actorId: piloteA.actor.actorId,
-        requiredLevel: "N3",
-        scope: contract.executionContractId,
-        evidenceId: issued.evidence.evidenceId,
-        requireMorrisGate: true,
-      }).reason,
-    ).toBe("morris_gate_denied");
+  it("AUTH-D16/D17/D18 canonicalize ignores hostile non-id shapes", () => {
+    expect(canonicalizeGithubUserId("11111111")).toBe("11111111");
+    expect(canonicalizeGithubUserId(11111111)).toBe("11111111");
+    expect(canonicalizeGithubUserId("Pilote")).toBeNull();
+    expect(canonicalizeGithubUserId({ canActAsMorris: true })).toBeNull();
+    expect(canonicalizeGithubUserId(true)).toBeNull();
   });
 });
 ```
 
 
 
-## G2. Read-only provenance referenced by policy (FULL — not modified this cycle)
+## H. Authority precedence proof
 
-### `projects/sfia-studio/app/features/project-assistant/w2/w3aQualifiedExecutionEffects.ts`
+- Removed `governedEffects.contractRequiredAuthority` from Auth policy path
+- `contract.requiredAuthority` mandatory; checked directly vs `projectRequiredAuthorityFromEffects`
+- AUTHSEM-A01 missing → DENY
+- AUTHSEM-A02 contract=N1 / push projection=N3 / hostile effects.contractRequiredAuthority=N3 → DENY (masking impossible)
+- AUTHSEM-A03 contract=N3 / read projection=N1 / hostile N1 → DENY
+- AUTHSEM-A04 contract=N3 / projection=N3 → PASS
+- AUTHSEM-A05 claimedRequiredAuthority cannot alter level
 
-```typescript
-/**
- * W3-A — non-durable Qualified Execution Effects (Morris B2/B3).
- *
- * Application-level envelope ONLY. Not an aggregate, store, repository, or SoT.
- * FC-08 materializes ExecutionContract as the first durable SoT.
- *
- * Trajectory option governed/bounded = governance context / provenance only.
- * Cycle profile / CKC never alone determine authority.
- */
+## I. Semantic-binding mechanism
 
-import type { AuthorityClass, Reversibility } from "@/lib/oa/execution-contract";
+1. Issuance: `authorityBindingScope = computeInspectionFingerprint(contract)` → AE.scope
+2. Build: preBuildSemantic from snap+cloned arrays → `resolveExecutionAuthorityVerifyScope` recomputes fingerprint for Auth S1 source
+3. Other EC gates: pass existing/successor contract as contractSemantic
+4. Non-Auth: still business contract.scope
+5. Lifecycle: inspection FP unchanged after confirmationRef set
 
-/** Bounded Product Completion effect taxonomy (governance, not a product catalog). */
-export type ExecutionEffectClass =
-  | "read"
-  | "simulate"
-  | "generate-temporary-artifact"
-  | "local-write"
-  | "commit"
-  | "push"
-  | "pull-request"
-  | "merge"
-  | "critical-delete"
-  | "doctrine-change"
-  | "baseline-promotion"
-  | "unknown";
+## J. Same-ID adversarial proof (actual BuildExecutionContract)
 
-/** Executable action strings derived from effect class — never trajectory-governed/bounded. */
-export type ProductExecutionAction =
-  | "product:read"
-  | "product:simulate"
-  | "product:generate-temporary-artifact"
-  | "product:local-write"
-  | "product:commit"
-  | "product:push"
-  | "product:pull-request"
-  | "product:merge"
-  | "product:critical-delete"
-  | "product:doctrine-change"
-  | "product:baseline-promotion";
+- SEM-BUILD-01 PASS exact A
+- SEM-BUILD-02 DENY different action
+- SEM-BUILD-03 DENY different target
+- SEM-BUILD-04 DENY different business scope
+- SEM-BUILD-05 DENY N3-push S1 vs read/N1 Build despite hierarchy
+- SEM-BUILD-06 DENY requiredAuthority change
+- SEM-BUILD-07 no unauthorized persist
+- SEM-BUILD-08 exact match still verifies
+- SEM-BUILD-09 non-Auth registry path preserved
+- SEM-BUILD-10 ID A ↛ ID B
+- SEM-BUILD-11 MORRIS fail-closed
+- SEM-BUILD-12 canActAsMorris=false
 
-export type ProductExecutionCapability =
-  | "cap:product-read"
-  | "cap:product-simulate"
-  | "cap:product-temp-artifact"
-  | "cap:product-local-write"
-  | "cap:product-commit"
-  | "cap:product-git-push"
-  | "cap:product-pull-request"
-  | "cap:product-merge"
-  | "cap:product-critical-delete"
-  | "cap:product-doctrine-change"
-  | "cap:product-baseline-promotion";
+## K. Non-Auth regression
 
-export type QualifiedExecutionEffects = {
-  readonly effectClass: ExecutionEffectClass;
-  readonly action: ProductExecutionAction;
-  readonly target: string;
-  readonly scopeIn: string;
-  readonly scopeOut: readonly string[];
-  readonly protectedBoundaries: readonly string[];
-  /** True when a credible rollback/cleanup path exists for the effects. */
-  readonly rollbackAvailable: boolean;
-  readonly rollbackDescription: string | null;
-  readonly requiredCapabilities: readonly ProductExecutionCapability[];
-  readonly evidenceRequirements: readonly string[];
-  readonly morrisConstructionGateRequired: boolean;
-  readonly provenance: {
-    readonly trajectoryOptionRef: string | null;
-    readonly qualificationSource: string;
-    readonly notes: readonly string[];
-  };
-};
+SEM-BUILD-09 + full EC suite 143/143 PASS
 
-export type EffectQualificationFailure = {
-  readonly ok: false;
-  readonly code:
-    | "EFFECTS_UNRESOLVED"
-    | "REVERSIBILITY_UNRESOLVED"
-    | "AUTHORITY_UNRESOLVED"
-    | "PREPARATION_BLOCKED"
-    | "SCOPE_UNRESOLVED"
-    | "TRAJECTORY_NOT_EXECUTABLE";
-  readonly message: string;
-};
+## L. N3≠Morris
 
-const EFFECT_TO_ACTION: Record<
-  Exclude<ExecutionEffectClass, "unknown">,
-  ProductExecutionAction
-> = {
-  read: "product:read",
-  simulate: "product:simulate",
-  "generate-temporary-artifact": "product:generate-temporary-artifact",
-  "local-write": "product:local-write",
-  commit: "product:commit",
-  push: "product:push",
-  "pull-request": "product:pull-request",
-  merge: "product:merge",
-  "critical-delete": "product:critical-delete",
-  "doctrine-change": "product:doctrine-change",
-  "baseline-promotion": "product:baseline-promotion",
-};
+SEM-BUILD-11/12 + REG-08 + POLICY-05 PASS
 
-const EFFECT_TO_CAPABILITY: Record<
-  Exclude<ExecutionEffectClass, "unknown">,
-  ProductExecutionCapability
-> = {
-  read: "cap:product-read",
-  simulate: "cap:product-simulate",
-  "generate-temporary-artifact": "cap:product-temp-artifact",
-  "local-write": "cap:product-local-write",
-  commit: "cap:product-commit",
-  push: "cap:product-git-push",
-  "pull-request": "cap:product-pull-request",
-  merge: "cap:product-merge",
-  "critical-delete": "cap:product-critical-delete",
-  "doctrine-change": "cap:product-doctrine-change",
-  "baseline-promotion": "cap:product-baseline-promotion",
-};
-
-/**
- * Morris Product Completion runtime projection: effects → requiredAuthority.
- * Pure function — not an AuthorityCatalog, not framing-34 global engine.
- */
-export function projectRequiredAuthorityFromEffects(input: {
-  readonly effectClass: ExecutionEffectClass;
-  readonly rollbackAvailable: boolean;
-  readonly protectedBoundaries: readonly string[];
-}):
-  | {
-      readonly ok: true;
-      readonly requiredAuthority: AuthorityClass;
-      readonly morrisConstructionGateRequired: boolean;
-    }
-  | EffectQualificationFailure {
-  const { effectClass, rollbackAvailable, protectedBoundaries } = input;
-
-  if (effectClass === "unknown") {
-    return {
-      ok: false,
-      code: "AUTHORITY_UNRESOLVED",
-      message:
-        "Effets d'exécution non qualifiés — requiredAuthority fail-closed.",
-    };
-  }
-
-  if (
-    effectClass === "doctrine-change" ||
-    effectClass === "baseline-promotion"
-  ) {
-    return {
-      ok: true,
-      requiredAuthority: "N3",
-      morrisConstructionGateRequired: true,
-    };
-  }
-
-  if (
-    effectClass === "push" ||
-    effectClass === "pull-request" ||
-    effectClass === "merge" ||
-    effectClass === "critical-delete"
-  ) {
-    return {
-      ok: true,
-      requiredAuthority: "N3",
-      morrisConstructionGateRequired: false,
-    };
-  }
-
-  if (!rollbackAvailable && effectClass !== "read" && effectClass !== "simulate") {
-    return {
-      ok: true,
-      requiredAuthority: "N3",
-      morrisConstructionGateRequired: false,
-    };
-  }
-
-  if (effectClass === "local-write" || effectClass === "commit") {
-    const protectedHit = protectedBoundaries.length > 0;
-    return {
-      ok: true,
-      requiredAuthority: protectedHit ? "N2" : "N2",
-      morrisConstructionGateRequired: false,
-    };
-  }
-
-  if (
-    effectClass === "read" ||
-    effectClass === "simulate" ||
-    effectClass === "generate-temporary-artifact"
-  ) {
-    if (protectedBoundaries.length > 0) {
-      return {
-        ok: true,
-        requiredAuthority: "N2",
-        morrisConstructionGateRequired: false,
-      };
-    }
-    return {
-      ok: true,
-      requiredAuthority: "N1",
-      morrisConstructionGateRequired: false,
-    };
-  }
-
-  return {
-    ok: false,
-    code: "AUTHORITY_UNRESOLVED",
-    message: `Classe d'effet non projetable: ${effectClass}`,
-  };
-}
-
-/**
- * Reversibility from effects + rollback facts — NEVER HumanDecision.reversible.
- */
-export function deriveReversibilityFromEffects(input: {
-  readonly effectClass: ExecutionEffectClass;
-  readonly rollbackAvailable: boolean;
-}):
-  | { readonly ok: true; readonly reversibility: Reversibility }
-  | EffectQualificationFailure {
-  const { effectClass, rollbackAvailable } = input;
-
-  if (effectClass === "unknown") {
-    return {
-      ok: false,
-      code: "REVERSIBILITY_UNRESOLVED",
-      message:
-        "Réversibilité d'exécution non établie — préparation bloquée.",
-    };
-  }
-
-  if (effectClass === "read") {
-    // No mutation — model as reversible (no durable side-effect).
-    return { ok: true, reversibility: "reversible" };
-  }
-
-  if (effectClass === "simulate") {
-    return { ok: true, reversibility: "reversible" };
-  }
-
-  if (effectClass === "generate-temporary-artifact") {
-    if (!rollbackAvailable) {
-      return {
-        ok: false,
-        code: "REVERSIBILITY_UNRESOLVED",
-        message:
-          "Artefact temporaire sans rollback/cleanup crédible — préparation bloquée.",
-      };
-    }
-    return { ok: true, reversibility: "reversible" };
-  }
-
-  if (
-    effectClass === "push" ||
-    effectClass === "merge" ||
-    effectClass === "critical-delete" ||
-    effectClass === "doctrine-change" ||
-    effectClass === "baseline-promotion"
-  ) {
-    if (!rollbackAvailable) {
-      return { ok: true, reversibility: "irreversible" };
-    }
-    return { ok: true, reversibility: "partially_reversible" };
-  }
-
-  if (effectClass === "local-write" || effectClass === "commit" || effectClass === "pull-request") {
-    if (!rollbackAvailable) {
-      return {
-        ok: false,
-        code: "REVERSIBILITY_UNRESOLVED",
-        message:
-          "Écriture/commit sans fait de rollback crédible — préparation bloquée.",
-      };
-    }
-    return {
-      ok: true,
-      reversibility:
-        effectClass === "commit" ? "partially_reversible" : "reversible",
-    };
-  }
-
-  return {
-    ok: false,
-    code: "REVERSIBILITY_UNRESOLVED",
-    message: `Réversibilité non dérivable pour ${effectClass}`,
-  };
-}
-
-export function actionForEffectClass(
-  effectClass: Exclude<ExecutionEffectClass, "unknown">,
-): ProductExecutionAction {
-  return EFFECT_TO_ACTION[effectClass];
-}
-
-export function capabilityForEffectClass(
-  effectClass: Exclude<ExecutionEffectClass, "unknown">,
-): ProductExecutionCapability {
-  return EFFECT_TO_CAPABILITY[effectClass];
-}
-
-export function buildQualifiedExecutionEffects(input: {
-  readonly effectClass: Exclude<ExecutionEffectClass, "unknown">;
-  readonly projectId: string;
-  readonly scopeIn: string;
-  readonly scopeOut?: readonly string[];
-  readonly protectedBoundaries?: readonly string[];
-  readonly rollbackAvailable: boolean;
-  readonly rollbackDescription?: string | null;
-  readonly trajectoryOptionRef?: string | null;
-  readonly qualificationSource: string;
-  readonly notes?: readonly string[];
-  /** Actual execution target — never fixture-shaped. */
-  readonly target?: string;
-}):
-  | { readonly ok: true; readonly effects: QualifiedExecutionEffects }
-  | EffectQualificationFailure {
-  if (!input.scopeIn.trim()) {
-    return {
-      ok: false,
-      code: "SCOPE_UNRESOLVED",
-      message: "Scope IN manquant — effets non qualifiables.",
-    };
-  }
-
-  const target = (input.target ?? "").trim();
-  if (!target) {
-    return {
-      ok: false,
-      code: "PREPARATION_BLOCKED",
-      message: "Target d'exécution manquant — effets non qualifiables.",
-    };
-  }
-
-  const protectedBoundaries = [...(input.protectedBoundaries ?? [])];
-  const authority = projectRequiredAuthorityFromEffects({
-    effectClass: input.effectClass,
-    rollbackAvailable: input.rollbackAvailable,
-    protectedBoundaries,
-  });
-  if (!authority.ok) return authority;
-
-  const reversibility = deriveReversibilityFromEffects({
-    effectClass: input.effectClass,
-    rollbackAvailable: input.rollbackAvailable,
-  });
-  if (!reversibility.ok) return reversibility;
-
-  const action = actionForEffectClass(input.effectClass);
-  const capability = capabilityForEffectClass(input.effectClass);
-
-  return {
-    ok: true,
-    effects: {
-      effectClass: input.effectClass,
-      action,
-      target,
-      scopeIn: input.scopeIn.trim(),
-      scopeOut: [...(input.scopeOut ?? [])],
-      protectedBoundaries,
-      rollbackAvailable: input.rollbackAvailable,
-      rollbackDescription: input.rollbackDescription ?? null,
-      requiredCapabilities: [capability],
-      evidenceRequirements: [`evreq:${input.effectClass}`],
-      morrisConstructionGateRequired: authority.morrisConstructionGateRequired,
-      provenance: {
-        trajectoryOptionRef: input.trajectoryOptionRef ?? null,
-        qualificationSource: input.qualificationSource,
-        notes: [...(input.notes ?? [])],
-      },
-    },
-  };
-}
-
-/**
- * @deprecated Do not call as W2-decide fallback.
- * Temporary-artifact work must come from ActualExecutionWork qualification.
- * Kept only for explicit negative/migration tests that assert its removal
- * from the product prepare path.
- */
-export function qualifyDefaultW3ATemporaryArtifactEffects(_input: {
-  readonly projectId: string;
-  readonly scopeIn: string;
-  readonly trajectoryOptionRef: string;
-  readonly scopeOut?: readonly string[];
-}): EffectQualificationFailure {
-  return {
-    ok: false,
-    code: "EFFECTS_UNRESOLVED",
-    message:
-      "Fallback W2-decide→temporary-artifact interdit — qualifier ActualExecutionWork explicitement.",
-  };
-}
-```
-
-
-
-## H. B1 proof
-
-- Before: public build/register bypass helpers
-- After: only `issueS1AuthorityEvidence` issues/registers; helpers module-private; removed from `lib/auth/index.ts`
-- BYPASS-01/02/03/04 PASS
-
-## I. B2 proof
-
-- Mechanism: AE.scope=`executionContractId` + EC `resolveExecutionAuthorityVerifyScope` when `source===BETTER_AUTH_GITHUB_MULTI_USER_S1`
-- Enforced by trusted verifier (not naming convention alone)
-- BIND-12 Contract A↛B same actor/N/business scope → scope_mismatch DENY
-- Level still from `projectRequiredAuthorityFromEffects`; contract.requiredAuthority must match or DENY
-
-## J. Test matrix / validation
+## M. Test outputs
 
 ```
 npx vitest run __tests__/auth
-# 5 files, 83 tests PASS
+# 6 files, 103 tests PASS
 
 npx vitest run __tests__/oa/decision __tests__/oa/execution-contract
 # 15 files, 143 tests PASS
 
 npx vitest run
-# 287 passed | 16 skipped; 2721 passed | 134 skipped
+# 288 passed | 16 skipped; 2741 passed | 134 skipped
 
 npx tsc --noEmit → 0
 npm run lint → No ESLint warnings or errors
@@ -6969,34 +6284,26 @@ npm run build → Compiled successfully
 git diff --check → 0
 ```
 
-BYPASS-01…04 PASS · BIND-01…15 PASS · REG-01…08 PASS · POLICY-01…15 PASS
+## N. Fake/Real
 
-## K. Security
+DETERMINISTIC ONLY · REAL=0
 
-auth≠authority · N3≠Morris · no downgrade/escalation · no cross-contract reuse · no login S1 · session/provider binding · allowlist recheck · zero provider network hot path · TTL/collision/expiry fail-closed
+## O. MW6 preservation
 
-## L. Fake/Real
-
-DETERMINISTIC ONLY · REAL=0 · AUTH REAL separate Morris gate
-
-## M. MW6 preservation
-
-Worktree `/Users/morris/Projects/sfia-workspace-nora-mw6-external-source-intelligence`
-Branch `delivery/sfia-studio-nora-mw6-external-source-intelligence` @ `ebdae92a…`
-Product dirty-path content FP before=after `20828a426746d9cf8ff7213de13a3d4a7091a407c8bd9cc168f2e0c0b3b983f9`
+FP before=after `20828a426746d9cf8ff7213de13a3d4a7091a407c8bd9cc168f2e0c0b3b983f9`
 **MW6 UNTOUCHED = YES**
 
-## N. Reserves/debt
+## P. Debt/reserves
 
-T-A4 generic requiredAuthority · AUTH REAL · MW6 binding · auth→W3-A coupling · no hidden blocker for deterministic closure
+T-A4 generic requiredAuthority · AUTH REAL · MW6 binding · auth→W3-A + auth→inspectionFingerprint coupling (accepted reuse)
 
-## O. Claims
+## Q. Claims
 
-Allowed: AUTH deterministic policy closure proven; ready for ChatGPT deterministic re-review.
+Allowed: AUTH deterministic semantic-binding policy closure proven; ready for ChatGPT final deterministic re-review.
 Forbidden: AUTH REAL; MW6 BOUND/REAL/COMPLETE; runtime v3 ADOPTED; production-ready auth.
 
-## P. Verdict
+## R. Verdict
 
-**READY FOR CHATGPT AUTH POLICY CLOSURE RE-REVIEW — DETERMINISTIC ONLY**
+**READY FOR CHATGPT AUTH POLICY FINAL DETERMINISTIC RE-REVIEW**
 
-Pack completeness: **FULL MODIFIED CONTENT INCLUDED** (section G).
+REVIEW HANDOFF PUBLICATION = NOT PERFORMED — NO MORRIS PUSH GO
