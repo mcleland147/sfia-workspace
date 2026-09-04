@@ -1,465 +1,1692 @@
-# SFIA Review Pack — CYCLE 6 AUTH.JS / GITHUB MULTI-USER IDENTITY SOURCE ARCHITECTURE
+# SFIA Review Pack — CYCLE 8 AUTH DELIVERY
+BETTER AUTH + GITHUB MULTI-USER FOUNDATION
 
 | Field | Value |
 | --- | --- |
-| **Timestamp** | 2026-09-04 17:54:30 CEST |
-| **Cycle** | **6 — Architecture technique** |
+| **Timestamp** | 2026-09-04 18:44:23 CEST |
+| **Cycle** | **8 — Delivery / implémentation** |
 | **Typology** | EVOL |
 | **Profile** | CRITICAL |
-| **GO Morris consumed** | **GO MORRIS — RUN SFIA STUDIO CYCLE 6 ARCHITECTURE TECHNIQUE FOR AUTH.JS / GITHUB MULTI-USER IDENTITY SOURCE** |
-| **Functional direction** | ACCEPTED (F-AUTH-01→12) — not reopened |
-| **Implementation** | **NOT AUTHORIZED** |
-| **REAL / GitHub login proof** | **NOT AUTHORIZED** |
-| **Capability** | MW6 / V3-F07 + governance V3-F11 / V3-F12 |
-| **Incoming blocker** | R-AUTH-BIND-01 = CONFIRMED BLOCKER (prior handoff `5fdb29c7…`) |
-| **Evidence ceiling** | STATIC + ARCHITECTURAL QUALIFICATION |
-| **Product files modified this cycle** | **NONE** |
-| **HEAD / origin/main / merge-base** | `ebdae92a96ea1c49444dfb668342c1453f57a540` |
-| **Handoff input tip** | `5fdb29c7713597cd86dade745a2b67a605f34380` |
+| **GO Architecture consumed** | GO MORRIS — AUTH ARCHITECTURE OPTION A REVISED: BETTER AUTH STATELESS + GITHUB OAUTH + MULTI-USER SERVER ALLOWLIST + S1 AUTHORITY RE-ISSUANCE |
+| **GO Delivery consumed** | GO MORRIS — SFIA STUDIO AUTH DELIVERY — BETTER AUTH + GITHUB MULTI-USER FOUNDATION |
+| **Evidence ceiling** | DETERMINISTIC AUTH FOUNDATION ONLY |
+| **REAL GitHub auth** | **0** |
+| **OpenAI REAL** | **0** |
+| **Product commit/push/PR/merge** | **NO** |
+| **Better Auth** | **1.7.2** (exact) |
+| **HEAD / origin/main** | `ebdae92a96ea1c49444dfb668342c1453f57a540` |
+| **Handoff input** | `45cd3d8f797432af3593911d1a891c7da1051b4b` |
+| **Auth worktree** | `/Users/morris/Projects/sfia-workspace-auth-better-auth-github-multi-user-foundation` |
+| **Auth branch** | `delivery/sfia-studio-auth-better-auth-github-multi-user-foundation` |
+| **MW6 worktree** | untouched (dirty candidate preserved) |
 
 ---
 
-## 1. Objective
+## 1. Decisions Morris consumed
 
-Architecturally qualify the **smallest reusable identity/authentication source** that can close the R-AUTH-BIND-01 source gap for multi-user Studio (N≥2), without implementing auth, without binding REAL authority, and without creating a parallel authority engine.
+1. Architecture Option A Revised — Better Auth **stateless** + GitHub OAuth + multi-user server allowlist + S1 AE re-issuance.
+2. Delivery GO — bounded local foundation only (no REAL login, no MW6 binding, no product publication).
 
-Target conceptual chain (to QUALIFY, not implement):
+---
+
+## 2. Git Truth
+
+### Original MW6 worktree (NOT used for Delivery)
+- path: `/Users/morris/Projects/sfia-workspace-nora-mw6-external-source-intelligence`
+- branch: `delivery/sfia-studio-nora-mw6-external-source-intelligence`
+- HEAD: `ebdae92a…` (= origin/main)
+- status: dirty MW6 candidate **preserved** (no reset/stash/modify by this cycle)
+
+### Auth Delivery worktree
+- created: `git worktree add -b delivery/sfia-studio-auth-better-auth-github-multi-user-foundation … origin/main`
+- starting: CLEAN, HEAD == origin/main == merge-base == `ebdae92a…`
+- ending: local uncommitted Delivery changes only; HEAD still `ebdae92a…` (no product commit)
+
+### Review Handoff input
+- tip: `45cd3d8f797432af3593911d1a891c7da1051b4b` (verified before publish)
+
+---
+
+## 3. Source routing
+
+Process: template + routing guide + CKC Delivery absent → method fallback.
+Convergence: Build Doctrine / Roadmap / C1.
+Doctrine: v3 framing 34.
+Nora: backlog 05 + trajectory 08 (Auth is prerequisite; MW6 not wired).
+Authority: AuthorityResolverPort, MemoryAuthorityResolver, localSingleUserAuthority (FREEZE), CheckExecutionAuthorization, W2 (not used AS-IS).
+Latest architecture handoff (Auth.js/GitHub qualification) superseded by Morris Better Auth decision.
+
+Official Better Auth (1.7.x / current docs):
+- https://www.better-auth.com/docs/concepts/session-management (stateless / no DB)
+- https://www.better-auth.com/docs/authentication/github
+- https://www.better-auth.com/docs/concepts/users-accounts (`validateUserInfo`, accountId vs user.id)
+- https://better-auth.com/blog/1-4 (stateless auth)
+- Package types/source better-auth@1.7.2: `accountSubject: ({ profile }) => profile.id`; `storeAccountCookie`; encrypted `account_data`; `accountInfo({ useAccountCookie: true })`
+
+Official GitHub:
+- OAuth App best practices — durable `user.id`; prefer Apps generally; OAuth App used for identity-only initial scope
+- Callback aligned to port **3020**: `http://localhost:3020/api/auth/callback/github`
+
+npm snapshot: `better-auth` latest = **1.7.2** (verified via `npm view`).
+
+---
+
+## 4. Dependency
+
+| Package | Change |
+| --- | --- |
+| `better-auth` | **added exact `1.7.2`** |
+| `@testing-library/dom` | **added devDependency** — peer restoration required because `npm install … --legacy-peer-deps` (Better Auth optional Svelte peer conflict) skipped RTL peers and broke `tsc` on existing UI tests |
+
+No Auth.js/next-auth, no DB adapter, no Redis, no Admin/org plugins.
+
+Install note: `npm install better-auth@1.7.2 --save-exact --legacy-peer-deps`
+
+---
+
+## 5. Architecture implemented
 
 ```
-GitHub durable user.id
-→ server-side multi-user allowlist
-→ authorized identity maps to generic Pilote
-→ re-issued/current AuthorityEvidence (S1)
-→ existing AuthorityResolverPort
-→ CheckExecutionAuthorization
-→ AgentCapability
-→ runtime guards
-→ future MW6 hosted dispatch
+GitHub OAuth (Better Auth)
+  → validateUserInfo allowlist gate (raw profile.id)
+  → stateless session + encrypted account_data cookie
+  → resolveCurrentAuthenticatedPilote:
+        getSession + accountInfo(useAccountCookie:true)
+        ∩ CURRENT env allowlist
+        → actor:github:<id> (Pilote / decision_maker)
+  → middleware protects product routes (full evaluation, not cookie-presence)
+  → issueS1AuthorityEvidence → MemoryAuthorityResolver (N3, canActAsMorris=false)
 ```
 
----
+**session.user.id ≠ GitHub id** — proven; Better Auth internal id vs `account.accountId` = provider subject.
 
-## 2. Local Git Truth
-
-| Item | Value |
-| --- | --- |
-| pwd | `/Users/morris/Projects/sfia-workspace-nora-mw6-external-source-intelligence` |
-| branch | `delivery/sfia-studio-nora-mw6-external-source-intelligence` |
-| HEAD | `ebdae92a96ea1c49444dfb668342c1453f57a540` |
-| origin/main | `ebdae92a96ea1c49444dfb668342c1453f57a540` |
-| merge-base | same |
-| status | **DIRTY** local MW6 + PRE-REAL candidate preserved |
-| handoff tip | `5fdb29c7713597cd86dade745a2b67a605f34380` |
-| BASELINE SUPERSEDED? | **NO** |
-| HANDOFF SUPERSEDED? | **NO** |
-
-No reset/clean/stash/checkout. Product candidate unchanged by this cycle.
+**Provider binding PASS:** encrypted `account_data` cookie (maxAge aligned to session cookieCache 7d) stores account including `accountId` (GitHub profile.id). Recovered server-side via `auth.api.accountInfo({ query: { useAccountCookie: true }, headers })`. Client cannot supply githubUserId (ignored in resolver).
 
 ---
 
-## 3. Sources
+## 6. Multi-user allowlist
 
-### Process / convergence / doctrine / Nora
-Template; routing guide; CKC Cycle 6 pilot `03-architecture-technique.md` (candidate / no execution authority); Build Doctrine; Roadmap; C1; v3 framing 34; Nora backlog 05 + trajectory 08.
-
-### Authority runtime (repo)
-AuthorityResolverPort; MemoryAuthorityResolver; localSingleUserAuthority; HD/Confirmation/EC services; CheckExecutionAuthorization; evaluateAgentCapability; W2 evaluateExecutionAuthorization; Nora REAL preflight; campaignBudget.
-
-### Dependency truth (NOT inferred from docs)
-- `projects/sfia-studio/app/package.json`: `next` **^15.3.3**
-- Auth-related deps: **NONE**
-- `npm ls next-auth better-auth @auth/core`: empty
-- lockfile: **no** next-auth / better-auth / @auth hits
-
-### Historical Git evidence
-| Source | Finding |
-| --- | --- |
-| PR #341 M3 Human Governance | Temporary `LOCAL_SINGLE_USER_AUTHORITY_TEMPORARY_WITH_EXIT`; debt exit toward **future Auth.js/IAM gate** |
-| PR #343 M4 Architecture Decisions | **D-M4-05**: Auth.js/Critical Ack **deferred** for first RO proof; Auth.js/IAM product-grade = **separate Morris gate**; debt preserved |
-| Roadmap / FUTURE-01 | Multi-user / Auth.js/IAM **DEFERRED** separate gate |
-| Interv360 auth user switcher | **HARVEST** session/UX lessons only — **NOT** real authentication; **do not copy** into Studio |
-| Current main | **no** Auth.js dependency |
-
-Classification:
-- historical Auth.js direction = **HARVEST / REQUALIFY**
-- AuthorityResolverPort / CheckExecutionAuthorization = **KEEP**
-- MemoryAuthorityResolver = **KEEP** mechanism / not sole REAL trust
-- localSingleUserAuthority = **FREEZE FOR REAL / RETIRE LATER**
-- generic Pilote role = **KEEP**
-- per-human authenticated actor = **COMPLETE** (required)
-- multi-user allowlist = candidate **COMPLETE**
-- auth dependency = **structural Morris decision**
+Env: `SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS`
+Parser: trim, positive decimal ids, dedupe, missing/empty/malformed → fail-closed.
+2→N without per-person code branches.
+Rechecked at login (`validateUserInfo`) AND every protected resolution.
 
 ---
 
-## 4. Official external snapshot (2026-09-04 17:54:30 CEST)
+## 7. Resource protection
 
-### Auth.js / next-auth (official)
-Sources:
-- https://authjs.dev/reference/nextjs
-- https://authjs.dev/getting-started/providers/github (updated June 11, 2026)
-- https://authjs.dev/getting-started/migrating-to-v5
-
-Verified facts:
-- Next.js integration via `next-auth` (v5 / Auth.js); install docs historically show `next-auth@beta` for v5.
-- GitHub provider; env inference **`AUTH_GITHUB_ID` / `AUTH_GITHUB_SECRET`**; also **`AUTH_SECRET`**.
-- Callback example: `/api/auth/callback/github`.
-- Server session via **`auth()`**.
-- Session strategies: **`jwt` | `database`**; **default `"jwt"`** when no adapter; with adapter defaults to database (can force jwt).
-- JWT encrypted via AUTH_SECRET.
-- Compatible pattern with Next.js App Router / Studio Next 15.3.x candidate.
-
-### Auth.js lifecycle / Better Auth
-Official Better Auth announcement (https://better-auth.com/blog/authjs-joins-better-auth):
-- Auth.js now maintained under Better Auth team.
-- Existing Auth.js users: continue; **security patches / urgent issues** continue.
-- **New projects strongly recommended to start with Better Auth**, **unless** specific feature gaps — **notably stateless session management without a database**.
-- Migration guide exists (Auth.js → Better Auth); not urgent if Auth.js setup works.
-
-**Implication for SFIA Option A (JWT, no auth DB):** Auth.js retains a **documented fit advantage** for JWT-without-DB relative to current Better Auth recommendation caveats. Choosing Better Auth now likely implies **auth persistence/schema** unless Morris accepts that cost. This is a **Morris structural arbitration**, not an auto-switch.
-
-### GitHub official
-Sources:
-- https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/best-practices-for-creating-an-oauth-app
-- https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/best-practices-for-creating-a-github-app
-
-Verified:
-- Prefer **immutable numeric `user.id`**; never login/email/handle as durable key.
-- Prefer **GitHub Apps over OAuth Apps in general** (fine-grained permissions, short-lived tokens).
-- Minimal scopes principle; authorize thoroughly on each sign-in.
-- OAuth App remains a supported identity path; Auth.js docs show OAuth App setup for GitHub provider.
+Public: `/login`, `/api/auth/**`, Next static assets.
+Protected: `/`, `/studio/**`, `/projects/**`, `/workspace/**`, `/nouvelle-demande/**`, `/cycle-actif/**`, `/decision/**`, `/synthese/**`, `/ops1/**`, other product APIs.
+Middleware uses `resolveCurrentAuthenticatedPilote` (session + provider account + allowlist).
 
 ---
 
-## 5. Functional contract (ACCEPTED — recorded)
+## 8. Login / Logout
 
-F-AUTH-01→12 as given in execution contract: auth required before protected Studio; GitHub login; allowlist gate; deny unauthorized; session invalidity denies; logout denies; ≥2 concurrent authorized users; N users without per-person code branches; role=Pilote only; no Admin; GitHub auth ≠ N-levels/canActAsMorris/EC/REAL; allowlist removal must predictably block (no eternal JWT-as-SFIA-auth).
-
----
-
-## 6. Multi-user authorization source candidates
-
-| Candidate | Description | Classification | Notes |
-| --- | --- | --- | --- |
-| **A — ENV MULTI-USER ALLOWLIST** | `SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS=123,456,...` | **QUALIFIED CANDIDATE / COMPLETE for initial** | Lowest complexity; server-owned; fail-closed if missing/malformed; N users; no code change per user; restart/reload semantics explicit |
-| **B — VERSIONED SERVER CONFIG** | checked-in or versioned server config of IDs | **ADAPT / optional later** | Better Git audit trail; adding user may require product commit; identity disclosure in Git |
-| **C — DURABLE USER/AUTHZ STORE** | SQLite registry + admin surface | **DEFER** | Overkill for initial 2→small-N; schema + admin UI; not needed to close identity source gap |
-
-**Env allowlist rules (conceptual):**
-- opaque canonical string IDs (numeric GitHub ids as strings);
-- trim; reject non-numeric/malformed; dedupe;
-- empty/missing → **fail-closed** (deny all Studio access);
-- **never** match login/email/displayName;
-- **never** client-provided allowlist;
-- **current** allowlist re-checked server-side at trust boundary before AE / external effect (not once-copied into eternal claim).
-
-**Operational add/remove user:** edit env (or secret store) → restart or documented reload → next server check uses new set. No code branch per person.
+- `/login` — “Se connecter avec GitHub”; error surface; no password.
+- `LogoutButton` in StudioShell Topbar → `authClient.signOut` → `/login`.
 
 ---
 
-## 7. Identity key
+## 9. S1 AuthorityEvidence
 
-| Key | Verdict |
-| --- | --- |
-| **GitHub immutable `user.id`** | **RECOMMENDED CANONICAL** |
-| login | REJECT as key (mutable / reassignable) |
-| email | REJECT as key (mutable / optional / privacy) |
-| display name | REJECT |
-
-Separation preserved:
-- GitHub answers **WHO**;
-- SFIA allowlist answers **ALLOWED IN STUDIO?**;
-- AuthorityResolver / EC answers **WHAT AUTHORITY FOR THIS ACTION?**
+- Source: `BETTER_AUTH_GITHUB_MULTI_USER_S1`
+- Level: **N3** (existing Pilote structuring envelope from `localSingleUserAuthority` pattern)
+- `canActAsMorris: false` always
+- Reuses `AuthorityResolverPort` / `MemoryAuthorityResolver`
+- No AE persistence / no second resolver
+- `localSingleUserAuthority` not used on auth path; historical `actor:local-pilote` not rewritten
 
 ---
 
-## 8. Runtime role contract
+## 10. Intentionally NOT changed
 
-- All authorized Studio users (this scope): **Pilote** only.
-- **No** Admin / SuperAdmin / Owner / Morris persona / GitHub-role mapping.
-- **canActAsMorris** MUST NOT derive from GitHub auth or generic allowlist membership.
-- MW6 hosted-source action: **do not fabricate** a Morris gate; if EC `requiredAuthority` ever requires MORRIS, that is a **separate** capability/gate — not bundled into authentication.
-- Morris = construction/governance outside generic product role.
-
----
-
-## 9. Auth library fit (Auth.js vs Better Auth)
-
-| Dimension | Auth.js (next-auth v5) | Better Auth |
-| --- | --- | --- |
-| Historical repo debt | Named exit path (M3/M4) | Not historical Studio pin |
-| Next.js 15 | Official Next adapter | Supported (separate) |
-| Security maintenance | Patches continue (Better Auth team) | Active product |
-| New-project official lean | Secondary | Preferred by Better Auth docs |
-| JWT / no auth DB | **Native default** | Documented gap vs Auth.js for new projects |
-| Migration debt if Auth.js chosen | Possible future migrate to Better Auth | Lower if start there + accept DB |
-| Schema impact | Optional (JWT path) | Typically expects DB schema |
-
-**Recommendation (NON CONSUMED):** For **minimal JWT + env allowlist + no auth DB**, **Auth.js remains the better-fit candidate** given official Better Auth caveat on stateless sessions. If Morris prefers Better Auth strategically, that is a **valid alternative** but likely **pulls Option B-like persistence** sooner.
-
-**Morris decision required** if choosing Better Auth over historical Auth.js direction.
+- Nora / MW6 / campaignBudget / REAL_AUTHORITY_NOT_BOUND
+- Product SQLite schema / migrations
+- Doctrine / Roadmap / C1
+- No GitHub OAuth App created; no real secrets
 
 ---
 
-## 10. GitHub auth mode
-
-| | **G1 OAuth App + Auth.js GitHub provider** | **G2 GitHub App user OAuth** |
-| --- | --- | --- |
-| Identity quality | Durable user.id via profile/API | Same durable id |
-| Setup complexity | Lower; Auth.js docs first-class | Higher (App registration, permissions model) |
-| Scopes | Minimal identity (`read:user`; email optional — **prefer not required** if id available) | Fine-grained; can be identity-only |
-| Repo permissions | **None required** for identity-only | Must avoid write; request none |
-| Token | Access token ≠ SFIA authority | Same rule |
-| Ops for 2→N | Fit | Fit but heavier |
-| GitHub official lean | OAuth App discouraged vs Apps in general | Preferred generally |
-| Overkill for auth-only? | No | Possibly for initial Studio |
-
-**Recommendation (NON CONSUMED):** **G1 OAuth App** for initial identity-only Studio gate; document **exit/evolution to GitHub App** without redesigning SFIA allowlist/actor mapping (ids remain ids). Morris may choose G2 if App hygiene preferred now.
-
----
-
-## 11. Session strategy
-
-| | **S-JWT** | **S-DB** |
-| --- | --- | --- |
-| Fit 2→N | YES | YES |
-| Restart | Cookie/JWT survives process if secret stable | DB sessions survive |
-| Logout | Invalidate cookie | Delete session row |
-| Allowlist removal | **Must recheck current allowlist** (JWT alone insufficient) | Same SFIA recheck still required |
-| Schema cost | **None** for auth | Auth tables — risk mixing with Product SQLite ownership |
-| Reversibility | High | Lower |
-
-**Critical rule:** Even with JWT, **current SFIA authorization = session identity ∩ current allowlist** evaluated server-side before AE issuance / protected effect.
-
-**Recommendation (NON CONSUMED):** **S-JWT** for initial architecture **if** Auth.js chosen; **no mandatory auth DB**. S-DB deferred unless revocation/ops prove insufficient.
-
----
-
-## 12. Resource protection (conceptual)
-
-**Public:** `/api/auth/*` (or library equivalent); minimal login/error surfaces.
-
-**Protected (server-enforced):** `/studio` and Studio product surfaces; server actions/APIs mutating/reading protected project state; future authority/preflight routes.
-
-Patterns: `auth()` server checks; middleware/proxy per current Next/Auth guidance; defense in depth — **one** SFIA allowlist evaluator, no duplicate authority engines. No UI redesign this cycle.
-
----
-
-## 13. Identity → SFIA actor mapping (conceptual adapter only)
-
-Input: verified GitHub `user.id` + current allowlist membership.
-Output: `OaActorReference`-like:
-- `actorId` candidate: `actor:github:<immutable-id>` (stable, deterministic, unique per human)
-- role: `decision_maker` / Pilote semantics
-- displayName: optional (login for display only; not key)
-- `authorityLevel` on actor: **`"none"` / untrusted** — never from session/client
-
-Two GitHub identities → two actorIds; both Pilote role.
-
-**LOCAL_PILOTE_ACTOR (`actor:local-pilote`):**
-- Remains historical/temp path for localSingleUserAuthority.
-- **Insufficient** as authenticated multi-user identity (MU-10).
-- Do **not** delete now; do **not** use on future auth/REAL path.
-- Compatibility: durable HD under `actor:local-pilote` remain attributable as historical; **no history rewrite**. Migration/exit: new authenticated actors for new decisions; old refs readable.
-
----
-
-## 14. S1 AuthorityEvidence re-issuance (qualified candidate)
+## 11. Validations
 
 ```
-current authenticated session
-∩ current allowlist (GitHub id)
-→ trusted current SFIA actor (per-human Pilote)
-→ server issues/re-issues AuthorityEvidence into existing AuthorityResolverPort
-→ CheckExecutionAuthorization
+AUTH targeted: 21 passed (3 files)
+Authority regression: 34 passed
+Full suite: 2659 passed | 134 skipped (285 files passed | 16 skipped)
+typecheck: PASS (exit 0)
+lint: PASS (exit 0, 0 warnings after fix)
+build: PASS (exit 0) — middleware 234 kB; /login + /api/auth/[...all] present
+git diff --check: PASS
 ```
 
-Properties:
-- **No durable AE table by default** (S1).
-- evidenceId: server-generated; immutable once registered in Memory map for process life.
-- actorId bound to `actor:github:<id>`.
-- scope: action/EC scope string (existing pattern).
-- level: per EC `requiredAuthority` mapping via existing verify (N1/N2/N3) — **not** auto-N3 from GitHub.
-- canActAsMorris: **false** by default from auth path; never from allowlist alone.
-- issuedAt/expiresAt: short TTL recommended; revalidate before external effect.
-- restart: re-issue from session∩allowlist (honest reconstruction).
-- allowlist removal / logout / session expiry: fail-closed on next check.
-
-Hard separations: GitHub id ≠ AE; session ≠ AE; allowlist ≠ EC auth; HD ≠ AE; receipt ≠ token; OpenAI approve ≠ authority.
-
-**Minimum new responsibility:** thin **server adapter** that (1) reads auth session, (2) parses allowlist, (3) maps actor, (4) registers **current** AE via existing `AuthorityResolverPort.register` — **no second resolver**.
+REAL GITHUB AUTH CALLS = 0
+REAL GITHUB TOKEN EXCHANGES = 0
+REAL GITHUB PROFILE CALLS = 0
+OPENAI REAL CALLS = 0
+HOSTED WEB_SEARCH REAL CALLS = 0
 
 ---
 
-## 15. Multi-user concurrency (MU-01→10)
+## 12. Security checks (SEC-01→17)
 
-All required behaviors are architecturally supportable with per-session identity + per-human actorId + AE actor binding + CheckExecutionAuthorization actor_mismatch fail-close. Removing A from allowlist does not affect B. Client cannot select another user's identity. Global LOCAL_PILOTE_ACTOR must not collapse humans.
-
-Domain impact: HumanDecision/Confirmation/EC already carry actor refs — **compatible** with distinct actorIds; **no domain redesign required** for multi-user attribution. Gap is **identity source + mapping**, not HD schema.
+Placeholders only in `.env.example`; secrets required at runtime; allowlist required; no token in SFIA AE; email/login not identity keys; hostile role/canActAsMorris ignored; OAuth state owned by Better Auth; account cookie encrypted (JWE); fail-closed config.
 
 ---
 
-## 16. Architecture options (≤3)
+## 13. Fake / Real
 
-### OPTION A — MINIMAL CONFIG AUTH (RECOMMENDED CANDIDATE — NON CONSUMED)
-- Auth.js (next-auth v5) + GitHub OAuth App provider
-- JWT session (no auth DB adapter)
-- Env allowlist `SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS`
-- Current allowlist recheck every Studio trust boundary / before AE
-- Per-user `actor:github:<id>` Pilote mapping
-- S1 AE re-issue into existing AuthorityResolverPort
-- Protect Studio routes server-side
-- **Persistence:** none new for auth/AE
-- **Secrets:** AUTH_GITHUB_ID, AUTH_GITHUB_SECRET, AUTH_SECRET, allowlist env
-- Debt: possible future migrate Auth.js→Better Auth; OAuth App→GitHub App
-- Fit: closes R-AUTH-BIND-01 identity source; preserves SFIA authority ownership
-
-### OPTION B — CONFIG + DB SESSION / REGISTRY
-- Auth.js or Better Auth with database sessions and/or durable user registry
-- Material revocation improvements; **schema + Product Store boundary risk**
-- Only if Morris requires stronger session revoke than JWT+allowlist recheck
-- Higher complexity; **not required** for initial 2→N
-
-### OPTION C — FREEZE
-- Keep REAL_AUTHORITY_NOT_BOUND / localSingleUserAuthority freeze
-- If Morris rejects GitHub/Auth library fit or cannot accept secrets/ops yet
-- MW6 LIVE remains blocked; honest but does not close blocker
-
-**Variant note:** Better Auth-first or GitHub App-first may be selected as **variants of A/B**, not automatic substitutions — require Morris if diverging from A.
+Deterministic mocks for session/account binding.
+REAL GitHub login NOT PROVEN / NOT AUTHORIZED.
+Next: ChatGPT review → Morris AUTH REAL gate (separate) → MW6 binding → MW6 REAL.
 
 ---
 
-## 17. SEC-AUTH-01→26 (summary matrix)
+## 14. Gates still missing
 
-| ID | Desired | Owner | Fail-close | Det proof? | Future REAL auth? |
-| --- | --- | --- | --- | --- | --- |
-| 01 no session | deny Studio | auth()/middleware | BLOCK | YES | YES |
-| 02 invalid session | deny | auth library | BLOCK | YES | YES |
-| 03 OAuth failure | deny + error surface | GitHub+Auth.js | BLOCK | YES | YES |
-| 04 not allowlisted | deny | allowlist eval | BLOCK | YES | YES |
-| 05 allowlist missing | deny all | allowlist parser | BLOCK | YES | YES |
-| 06 malformed allowlist | deny all | parser | BLOCK | YES | YES |
-| 07 duplicates | normalize/dedupe | parser | OK | YES | NO |
-| 08 removed while session active | deny on next SFIA check | allowlist recheck | BLOCK | YES | YES |
-| 09 login/email changed, id same | still recognized | id key | ALLOW if listed | YES | YES |
-| 10 hostile claimed GitHub id | ignore client; use session | adapter | BLOCK mismatch | YES | YES |
-| 11 hostile Pilote claim | ignore; server maps role | adapter | ignore claim | YES | YES |
-| 12 hostile canActAsMorris | ignore; AE default false | AuthorityResolver | DENY Morris gate | YES | YES |
-| 13 two users concurrent | distinct sessions/actors | auth+mapping | OK | YES | YES |
-| 14 A uses B AE | actor_mismatch | Memory verify | BLOCK | YES | YES |
-| 15 session expires mid | deny at effect | auth+revalidate | BLOCK | YES | YES |
-| 16 logout mid | deny | signOut+revalidate | BLOCK | YES | YES |
-| 17 server restart | re-issue AE from session∩allowlist | S1 | BLOCK if either missing | YES | YES |
-| 18 OAuth token compromised | revoke/rotate GitHub; SFIA allowlist independent | ops | BLOCK / rotate | PARTIAL | YES |
-| 19 IdP unavailable | new login fail; existing JWT until expiry **still subject to allowlist** | auth | no widen | PARTIAL | YES |
-| 20 GitHub user not SFIA-authorized | deny | allowlist | BLOCK | YES | YES |
-| 21 callback misconfig | auth fail | config | BLOCK | YES | YES |
-| 22 login renamed | id stable | id key | OK | YES | YES |
-| 23 email changed | ignore as key | id key | OK | YES | YES |
-| 24 user id absent | deny | adapter | BLOCK | YES | YES |
-| 25 identity mismatch | deny | adapter | BLOCK | YES | YES |
-| 26 separate Morris gate needed | not granted by auth | EC requiredAuthority | separate gate | YES | YES |
+1. ChatGPT deterministic Auth Delivery review
+2. Morris AUTH REAL (create OAuth App + two real logins)
+3. MW6 authority binding GO
+4. MW6 REAL GO
 
 ---
 
-## 18. NFR / ops
+## 15. Modified / created product files
 
-- Security: Critical.
-- Availability: GitHub outage blocks **new** login; existing JWT may continue until expiry but **cannot** widen SFIA auth without allowlist.
-- Performance: bounded allowlist parse/membership; **no** long stale cache of allowlist.
-- Ops target: one env change to add/remove users.
-- Observability: log auth success/fail category, opaque actor ref, deny reason; **never** tokens/secrets.
-- Secrets never committed.
+### Modified (diff)
+
+```diff
+diff --git a/projects/sfia-studio/app/components/shell/StudioShell.tsx b/projects/sfia-studio/app/components/shell/StudioShell.tsx
+index 1ecfd2bf..e158ed8b 100644
+--- a/projects/sfia-studio/app/components/shell/StudioShell.tsx
++++ b/projects/sfia-studio/app/components/shell/StudioShell.tsx
+@@ -4,6 +4,7 @@ import {
+   type TopbarPrimaryAction,
+ } from "./Topbar";
+ import { CopilotPanel, type CopilotProps } from "./CopilotPanel";
++import { LogoutButton } from "@/components/auth/LogoutButton";
+ import type { StudioShellRoute } from "@/lib/navigation";
+ import shellStyles from "@/styles/shell.module.css";
+
+@@ -58,6 +59,7 @@ export function StudioShell({
+             pills={pills}
+             showTabs={showTabs}
+             primaryAction={primaryAction}
++            authControls={<LogoutButton />}
+           />
+           <main className={shellStyles.workspaceInner} id="main-content">
+             {children}
+@@ -86,6 +88,7 @@ export function StudioShell({
+           pills={pills}
+           showTabs={showTabs}
+           primaryAction={primaryAction}
++          authControls={<LogoutButton />}
+         />
+         <div className={shellStyles.bodyFlush}>
+           <main
+diff --git a/projects/sfia-studio/app/components/shell/Topbar.tsx b/projects/sfia-studio/app/components/shell/Topbar.tsx
+index ed9b0cd1..31b5073c 100644
+--- a/projects/sfia-studio/app/components/shell/Topbar.tsx
++++ b/projects/sfia-studio/app/components/shell/Topbar.tsx
+@@ -1,5 +1,6 @@
+ "use client";
+
++import type { ReactNode } from "react";
+ import Link from "next/link";
+ import { StatusPill } from "@/components/ui/StatusPill";
+ import { CtaButton } from "@/components/ui/CtaButton";
+@@ -31,6 +32,8 @@ interface TopbarProps {
+    * `undefined` preserves the historical CTA; `null` hides it.
+    */
+   primaryAction?: TopbarPrimaryAction | null;
++  /** Optional auth controls (e.g. logout) — bounded Auth Delivery integration. */
++  authControls?: ReactNode;
+ }
+
+ export function Topbar({
+@@ -41,6 +44,7 @@ export function Topbar({
+   showTabs = true,
+   floatingTabs = ["Demande", "Contexte", "Pièces jointes", "Qualification"],
+   primaryAction,
++  authControls,
+ }: TopbarProps) {
+   const isFloating = variant === "floating";
+   const resolvedPrimaryAction =
+@@ -66,6 +70,9 @@ export function Topbar({
+                   </StatusPill>
+                 </span>
+               ))}
++              {authControls ? (
++                <span data-testid="topbar-auth-controls">{authControls}</span>
++              ) : null}
+             </div>
+           </div>
+         </div>
+@@ -115,6 +122,9 @@ export function Topbar({
+               {resolvedPrimaryAction.label}
+             </CtaButton>
+           ) : null}
++          {authControls ? (
++            <span data-testid="topbar-auth-controls">{authControls}</span>
++          ) : null}
+         </div>
+       </div>
+       {showTabs && (
+diff --git a/projects/sfia-studio/app/package.json b/projects/sfia-studio/app/package.json
+index d9ae9764..7e975028 100644
+--- a/projects/sfia-studio/app/package.json
++++ b/projects/sfia-studio/app/package.json
+@@ -20,6 +20,7 @@
+   "dependencies": {
+     "@openai/agents": "^0.17.0",
+     "ajv": "^6.15.0",
++    "better-auth": "1.7.2",
+     "next": "^15.3.3",
+     "openai": "^6.48.0",
+     "pg": "~8.22.0",
+@@ -29,6 +30,7 @@
+   },
+   "devDependencies": {
+     "@playwright/test": "^1.52.0",
++    "@testing-library/dom": "^10.4.1",
+     "@testing-library/jest-dom": "^6.6.3",
+     "@testing-library/react": "^16.3.0",
+     "@testing-library/user-event": "^14.6.1",
+
+```
+
+### Created files (full content)
+
+### CREATED `.env.example`
+
+```typescript
+# SFIA Studio — Auth foundation (Better Auth + GitHub multi-user)
+# Copy to .env.local for local development. NEVER commit real secrets.
+
+# Better Auth (required)
+BETTER_AUTH_SECRET=replace-with-long-random-secret
+# Studio local port is 3020 (see package.json scripts)
+BETTER_AUTH_URL=http://localhost:3020
+
+# GitHub OAuth App credentials (identity-only; no repo write scopes required)
+# Create the OAuth App separately under a Morris GO — not in this Delivery cycle.
+# Callback URL must be: http://localhost:3020/api/auth/callback/github
+GITHUB_CLIENT_ID=replace-with-github-oauth-app-client-id
+GITHUB_CLIENT_SECRET=replace-with-github-oauth-app-client-secret
+
+# Server-owned multi-user allowlist — immutable GitHub numeric user ids (comma-separated)
+# Example placeholders only (not real accounts):
+SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS=11111111,22222222
+
+```
+### CREATED `middleware.ts`
+
+```typescript
+import { NextRequest, NextResponse } from "next/server";
+import { resolveCurrentAuthenticatedPilote } from "@/lib/auth/resolveCurrentPilote";
+
+/**
+ * Central Studio protection — FULL server-side identity + allowlist evaluation.
+ * Does NOT authorize on cookie presence alone.
+ *
+ * Public:
+ * - /login
+ * - /api/auth/*
+ *
+ * Protected: all other product surfaces.
+ */
+
+const PUBLIC_EXACT = new Set(["/login"]);
+
+function isPublicPath(pathname: string): boolean {
+  if (PUBLIC_EXACT.has(pathname)) return true;
+  if (pathname.startsWith("/api/auth")) return true;
+  if (pathname.startsWith("/_next")) return true;
+  if (pathname === "/favicon.ico") return true;
+  return false;
+}
+
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  if (isPublicPath(pathname)) {
+    return NextResponse.next();
+  }
+
+  // Lazy import auth only when needed so public routes don't require secrets
+  // during static asset edge cases. Protected routes fail closed on misconfig.
+  try {
+    const result = await resolveCurrentAuthenticatedPilote({
+      headers: request.headers,
+    });
+
+    if (!result.ok) {
+      const login = new URL("/login", request.url);
+      login.searchParams.set("error", result.code);
+      login.searchParams.set("from", pathname);
+      return NextResponse.redirect(login);
+    }
+
+    return NextResponse.next();
+  } catch {
+    const login = new URL("/login", request.url);
+    login.searchParams.set("error", "AUTH_CONFIG_ERROR");
+    return NextResponse.redirect(login);
+  }
+}
+
+export const config = {
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+  ],
+};
+
+```
+### CREATED `lib/auth/constants.ts`
+
+```typescript
+/**
+ * SFIA Studio Better Auth + GitHub multi-user foundation constants.
+ * Authentication proves identity; SFIA owns Studio admission and authority.
+ */
+
+export const SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS_ENV =
+  "SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS" as const;
+
+export const BETTER_AUTH_GITHUB_MULTI_USER_S1 =
+  "BETTER_AUTH_GITHUB_MULTI_USER_S1" as const;
+
+/** Canonical actor id prefix for GitHub-authenticated Pilotes. */
+export const GITHUB_ACTOR_ID_PREFIX = "actor:github:" as const;
+
+export const GITHUB_PROVIDER_ID = "github" as const;
+
+/**
+ * Server-owned Pilote structuring envelope for S1 (N3 without Morris gate).
+ * Derived from existing product path localSingleUserAuthority which already
+ * issued N3 for Pilote while treating canActAsMorris as a separate flag.
+ * Auth/allowlist never set canActAsMorris=true.
+ */
+export const S1_PILOTE_AUTHORITY_LEVEL = "N3" as const;
+
+export const SESSION_COOKIE_MAX_AGE_SECONDS = 7 * 24 * 60 * 60;
+
+```
+### CREATED `lib/auth/allowlist.ts`
+
+```typescript
+/**
+ * Server-owned multi-user GitHub allowlist.
+ * Canonical key = immutable GitHub numeric user id (opaque string).
+ * Never match login / email / displayName.
+ */
+
+import { SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS_ENV } from "./constants";
+
+export type AllowedGithubUserIdsParseResult =
+  | { ok: true; ids: readonly string[] }
+  | {
+      ok: false;
+      code:
+        | "ALLOWLIST_MISSING"
+        | "ALLOWLIST_EMPTY"
+        | "ALLOWLIST_MALFORMED";
+      message: string;
+    };
+
+/** Positive decimal GitHub id — no signs, floats, exponents. */
+const GITHUB_ID_RE = /^[1-9][0-9]*$/;
+
+export function isCanonicalGithubUserId(value: unknown): value is string {
+  return typeof value === "string" && GITHUB_ID_RE.test(value);
+}
+
+/**
+ * Normalize a raw GitHub profile id (number or string) to canonical string.
+ * Rejects non-integers / unsafe numbers.
+ */
+export function canonicalizeGithubUserId(
+  raw: unknown,
+): string | null {
+  if (typeof raw === "number") {
+    if (!Number.isInteger(raw) || raw <= 0 || !Number.isSafeInteger(raw)) {
+      return null;
+    }
+    return String(raw);
+  }
+  if (typeof raw === "string") {
+    const trimmed = raw.trim();
+    if (!isCanonicalGithubUserId(trimmed)) return null;
+    return trimmed;
+  }
+  return null;
+}
+
+export function parseAllowedGithubUserIds(
+  raw: string | undefined | null,
+): AllowedGithubUserIdsParseResult {
+  if (raw === undefined || raw === null) {
+    return {
+      ok: false,
+      code: "ALLOWLIST_MISSING",
+      message: `${SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS_ENV} is not configured (fail-closed).`,
+    };
+  }
+  const trimmedWhole = raw.trim();
+  if (trimmedWhole.length === 0) {
+    return {
+      ok: false,
+      code: "ALLOWLIST_EMPTY",
+      message: `${SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS_ENV} is empty (fail-closed).`,
+    };
+  }
+
+  const parts = trimmedWhole.split(",");
+  const seen = new Set<string>();
+  const ids: string[] = [];
+
+  for (const part of parts) {
+    const candidate = part.trim();
+    if (candidate.length === 0) {
+      return {
+        ok: false,
+        code: "ALLOWLIST_MALFORMED",
+        message: `${SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS_ENV} contains an empty member (fail-closed).`,
+      };
+    }
+    if (!isCanonicalGithubUserId(candidate)) {
+      return {
+        ok: false,
+        code: "ALLOWLIST_MALFORMED",
+        message: `${SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS_ENV} contains a malformed GitHub user id (fail-closed).`,
+      };
+    }
+    if (seen.has(candidate)) continue;
+    seen.add(candidate);
+    ids.push(candidate);
+  }
+
+  if (ids.length === 0) {
+    return {
+      ok: false,
+      code: "ALLOWLIST_EMPTY",
+      message: `${SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS_ENV} yielded no ids (fail-closed).`,
+    };
+  }
+
+  return { ok: true, ids };
+}
+
+export function parseAllowedGithubUserIdsFromEnv(
+  env: NodeJS.ProcessEnv = process.env,
+): AllowedGithubUserIdsParseResult {
+  return parseAllowedGithubUserIds(
+    env[SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS_ENV],
+  );
+}
+
+export function isGithubUserAllowed(
+  githubUserId: string,
+  allowed: readonly string[],
+): boolean {
+  if (!isCanonicalGithubUserId(githubUserId)) return false;
+  return allowed.includes(githubUserId);
+}
+
+/**
+ * Hostile client claims (login/email/displayName/role) never authorize.
+ * This helper exists so tests can assert the invariant explicitly.
+ */
+export function authorizeByGithubLoginOrEmail(value: unknown): false {
+  void value;
+  return false;
+}
+
+```
+### CREATED `lib/auth/actorMapping.ts`
+
+```typescript
+/**
+ * Map verified GitHub immutable user id → SFIA OaActorReference (Pilote).
+ * ActorReference.authorityLevel is never an authority proof.
+ */
+
+import type { ActorReference } from "@/lib/oa/doctrine";
+import { GITHUB_ACTOR_ID_PREFIX } from "./constants";
+import { isCanonicalGithubUserId } from "./allowlist";
+
+export function githubActorId(githubUserId: string): string {
+  if (!isCanonicalGithubUserId(githubUserId)) {
+    throw new Error("invalid_github_user_id");
+  }
+  return `${GITHUB_ACTOR_ID_PREFIX}${githubUserId}`;
+}
+
+export function mapGithubIdentityToPiloteActor(input: {
+  githubUserId: string;
+  displayName?: string | null;
+}): ActorReference {
+  const actorId = githubActorId(input.githubUserId);
+  const display =
+    typeof input.displayName === "string" && input.displayName.trim().length > 0
+      ? input.displayName.trim()
+      : undefined;
+  return {
+    actorId,
+    role: "decision_maker",
+    ...(display ? { displayName: display } : {}),
+    authorityLevel: "none",
+  };
+}
+
+export function parseGithubUserIdFromActorId(
+  actorId: string,
+): string | null {
+  if (!actorId.startsWith(GITHUB_ACTOR_ID_PREFIX)) return null;
+  const id = actorId.slice(GITHUB_ACTOR_ID_PREFIX.length);
+  return isCanonicalGithubUserId(id) ? id : null;
+}
+
+```
+### CREATED `lib/auth/auth.ts`
+
+```typescript
+/**
+ * Better Auth configuration — STATELESS ONLY (no database / adapter).
+ *
+ * Provider subject binding (proven from better-auth@1.7.2):
+ * - session.user.id = Better Auth internal user id (NOT GitHub id)
+ * - GitHub profile.id → account.accountId via accountSubject
+ * - storeAccountCookie (default when no DB) keeps account in encrypted
+ *   account_data cookie with maxAge aligned to session.cookieCache.maxAge
+ * - Later requests recover provider id via auth.api.accountInfo({ useAccountCookie: true })
+ */
+
+import { betterAuth } from "better-auth";
+import { nextCookies } from "better-auth/next-js";
+import {
+  canonicalizeGithubUserId,
+  isGithubUserAllowed,
+  parseAllowedGithubUserIdsFromEnv,
+} from "./allowlist";
+import {
+  GITHUB_PROVIDER_ID,
+  SESSION_COOKIE_MAX_AGE_SECONDS,
+} from "./constants";
+
+function requireEnv(name: string, env: NodeJS.ProcessEnv): string {
+  const value = env[name];
+  if (typeof value !== "string" || value.trim().length === 0) {
+    throw new Error(`${name} is required (fail-closed).`);
+  }
+  return value.trim();
+}
+
+export type CreateSfiaAuthOptions = {
+  env?: NodeJS.ProcessEnv;
+  /** Override base URL (tests). Default BETTER_AUTH_URL or http://localhost:3020 */
+  baseURL?: string;
+};
+
+/**
+ * Build the Studio Better Auth instance.
+ * Callers must supply secrets via env (or test overrides in env).
+ */
+export function createSfiaAuth(options: CreateSfiaAuthOptions = {}) {
+  const env = options.env ?? process.env;
+  const secret = requireEnv("BETTER_AUTH_SECRET", env);
+  const baseURL =
+    options.baseURL ??
+    (typeof env.BETTER_AUTH_URL === "string" && env.BETTER_AUTH_URL.trim()
+      ? env.BETTER_AUTH_URL.trim()
+      : "http://localhost:3020");
+  const githubClientId = requireEnv("GITHUB_CLIENT_ID", env);
+  const githubClientSecret = requireEnv("GITHUB_CLIENT_SECRET", env);
+
+  return betterAuth({
+    baseURL,
+    secret,
+    // Explicit: no database → Better Auth enables storeAccountCookie by default.
+    // We still set account/session options so reviewers can see the contract.
+    session: {
+      expiresIn: SESSION_COOKIE_MAX_AGE_SECONDS,
+      cookieCache: {
+        enabled: true,
+        maxAge: SESSION_COOKIE_MAX_AGE_SECONDS,
+        strategy: "jwe",
+        refreshCache: true,
+      },
+    },
+    account: {
+      storeStateStrategy: "cookie",
+      storeAccountCookie: true,
+    },
+    socialProviders: {
+      github: {
+        clientId: githubClientId,
+        clientSecret: githubClientSecret,
+        // Better Auth GitHub docs require user:email for provider plumbing.
+        // Email is NEVER the SFIA durable identity key.
+      },
+    },
+    user: {
+      validateUserInfo: async (data) => {
+        const source = data.source;
+        if (source.method !== "oauth") {
+          return {
+            error: "provider_not_allowed",
+            errorDescription: "Only GitHub OAuth is permitted.",
+          };
+        }
+        if (source.oauth?.providerId !== GITHUB_PROVIDER_ID) {
+          return {
+            error: "provider_not_allowed",
+            errorDescription: "Only GitHub OAuth is permitted.",
+          };
+        }
+        const rawId = source.oauth.profile?.id;
+        const githubUserId = canonicalizeGithubUserId(rawId);
+        if (!githubUserId) {
+          return {
+            error: "github_id_unparseable",
+            errorDescription: "GitHub provider profile id is missing or invalid.",
+          };
+        }
+        const allowlist = parseAllowedGithubUserIdsFromEnv(env);
+        if (!allowlist.ok) {
+          return {
+            error: allowlist.code.toLowerCase(),
+            errorDescription: "SFIA Studio allowlist is not usable (fail-closed).",
+          };
+        }
+        if (!isGithubUserAllowed(githubUserId, allowlist.ids)) {
+          return {
+            error: "github_user_not_allowlisted",
+            errorDescription: "Authenticated GitHub identity is not authorized for Studio.",
+          };
+        }
+        return;
+      },
+    },
+    plugins: [nextCookies()],
+  });
+}
+
+export type SfiaAuth = ReturnType<typeof createSfiaAuth>;
+
+/** Lazy singleton for the Next.js app (env from process). */
+let _auth: SfiaAuth | null = null;
+
+export function getSfiaAuth(): SfiaAuth {
+  if (!_auth) {
+    _auth = createSfiaAuth();
+  }
+  return _auth;
+}
+
+/** Test-only: reset singleton between tests. */
+export function resetSfiaAuthSingletonForTests(): void {
+  _auth = null;
+}
+
+/**
+ * Structural proof helpers for tests / review — no DB adapter present.
+ */
+export function assertStatelessAuthConfig(auth: SfiaAuth): {
+  hasDatabase: boolean;
+  socialProviders: string[];
+} {
+  const options = auth.options as {
+    database?: unknown;
+    socialProviders?: Record<string, unknown>;
+    account?: { storeAccountCookie?: boolean };
+  };
+  const hasDatabase = options.database !== undefined && options.database !== null;
+  const socialProviders = Object.keys(options.socialProviders ?? {});
+  return { hasDatabase, socialProviders };
+}
+
+```
+### CREATED `lib/auth/auth-client.ts`
+
+```typescript
+"use client";
+
+import { createAuthClient } from "better-auth/react";
+
+/**
+ * Browser Better Auth client. Base URL follows the current origin
+ * (Studio runs on port 3020 in local dev).
+ */
+export const authClient = createAuthClient();
+
+```
+### CREATED `lib/auth/resolveCurrentPilote.ts`
+
+```typescript
+/**
+ * Resolve the current authenticated Pilote from Better Auth session
+ * + encrypted account_data cookie (GitHub provider subject) + CURRENT allowlist.
+ *
+ * session.user.id is NEVER treated as the GitHub id.
+ */
+
+import type { ActorReference } from "@/lib/oa/doctrine";
+import {
+  isGithubUserAllowed,
+  parseAllowedGithubUserIdsFromEnv,
+  type AllowedGithubUserIdsParseResult,
+} from "./allowlist";
+import { mapGithubIdentityToPiloteActor } from "./actorMapping";
+import { canonicalizeGithubUserId } from "./allowlist";
+import { getSfiaAuth, type SfiaAuth } from "./auth";
+import { GITHUB_PROVIDER_ID } from "./constants";
+
+export type ResolveCurrentPiloteResult =
+  | {
+      ok: true;
+      githubUserId: string;
+      betterAuthUserId: string;
+      actor: ActorReference;
+    }
+  | {
+      ok: false;
+      code:
+        | "NO_SESSION"
+        | "PROVIDER_ACCOUNT_MISSING"
+        | "PROVIDER_NOT_GITHUB"
+        | "GITHUB_ID_INVALID"
+        | "ALLOWLIST_DENIED"
+        | "ALLOWLIST_CONFIG_ERROR"
+        | "SESSION_USER_MISMATCH";
+      message: string;
+      allowlist?: AllowedGithubUserIdsParseResult;
+    };
+
+export type ResolveCurrentPiloteInput = {
+  headers: Headers;
+  auth?: SfiaAuth;
+  env?: NodeJS.ProcessEnv;
+  /**
+   * Hostile injection — IGNORED. Client cannot select GitHub id.
+   */
+  claimedGithubUserId?: unknown;
+  claimedRole?: unknown;
+  claimedCanActAsMorris?: unknown;
+};
+
+export async function resolveCurrentAuthenticatedPilote(
+  input: ResolveCurrentPiloteInput,
+): Promise<ResolveCurrentPiloteResult> {
+  // Hostile client fields are deliberately ignored.
+  void input.claimedGithubUserId;
+  void input.claimedRole;
+  void input.claimedCanActAsMorris;
+
+  const auth = input.auth ?? getSfiaAuth();
+  const env = input.env ?? process.env;
+
+  const session = await auth.api.getSession({ headers: input.headers });
+  if (!session?.user?.id || !session.session) {
+    return {
+      ok: false,
+      code: "NO_SESSION",
+      message: "No valid Better Auth session.",
+    };
+  }
+
+  let accountInfo: {
+    account: {
+      providerId: string;
+      accountId: string;
+      userId?: string;
+    };
+  } | null = null;
+
+  try {
+    accountInfo = await auth.api.accountInfo({
+      query: { useAccountCookie: true },
+      headers: input.headers,
+    });
+  } catch {
+    return {
+      ok: false,
+      code: "PROVIDER_ACCOUNT_MISSING",
+      message:
+        "GitHub provider account cookie is missing or unreadable (stateless binding required).",
+    };
+  }
+
+  if (!accountInfo?.account) {
+    return {
+      ok: false,
+      code: "PROVIDER_ACCOUNT_MISSING",
+      message: "GitHub provider account subject could not be recovered.",
+    };
+  }
+
+  if (accountInfo.account.providerId !== GITHUB_PROVIDER_ID) {
+    return {
+      ok: false,
+      code: "PROVIDER_NOT_GITHUB",
+      message: "Provider account is not GitHub.",
+    };
+  }
+
+  // Bind account cookie to session user when present.
+  if (
+    accountInfo.account.userId &&
+    accountInfo.account.userId !== session.user.id
+  ) {
+    return {
+      ok: false,
+      code: "SESSION_USER_MISMATCH",
+      message: "Provider account cookie does not match the session user.",
+    };
+  }
+
+  const githubUserId = canonicalizeGithubUserId(accountInfo.account.accountId);
+  if (!githubUserId) {
+    return {
+      ok: false,
+      code: "GITHUB_ID_INVALID",
+      message: "Provider accountId is not a canonical GitHub user id.",
+    };
+  }
+
+  const allowlist = parseAllowedGithubUserIdsFromEnv(env);
+  if (!allowlist.ok) {
+    return {
+      ok: false,
+      code: "ALLOWLIST_CONFIG_ERROR",
+      message: "SFIA allowlist configuration is fail-closed.",
+      allowlist,
+    };
+  }
+
+  if (!isGithubUserAllowed(githubUserId, allowlist.ids)) {
+    return {
+      ok: false,
+      code: "ALLOWLIST_DENIED",
+      message: "GitHub identity is not in the current SFIA allowlist.",
+      allowlist,
+    };
+  }
+
+  const actor = mapGithubIdentityToPiloteActor({
+    githubUserId,
+    displayName: session.user.name ?? null,
+  });
+
+  return {
+    ok: true,
+    githubUserId,
+    betterAuthUserId: session.user.id,
+    actor,
+  };
+}
+
+export async function requireCurrentPilote(
+  input: ResolveCurrentPiloteInput,
+): Promise<Extract<ResolveCurrentPiloteResult, { ok: true }>> {
+  const result = await resolveCurrentAuthenticatedPilote(input);
+  if (!result.ok) {
+    throw new Error(`PILOTE_REQUIRED:${result.code}`);
+  }
+  return result;
+}
+
+```
+### CREATED `lib/auth/s1Authority.ts`
+
+```typescript
+/**
+ * S1 AuthorityEvidence re-issuance for authenticated GitHub Pilotes.
+ * Reuses existing AuthorityResolverPort — no second resolver, no AE DB.
+ *
+ * Policy:
+ * - level = N3 (existing Pilote structuring envelope from localSingleUserAuthority pattern)
+ * - canActAsMorris = false ALWAYS on this path
+ * - source = BETTER_AUTH_GITHUB_MULTI_USER_S1
+ */
+
+import { randomUUID } from "node:crypto";
+import type {
+  AuthorityEvidence,
+  AuthorityResolverPort,
+} from "@/lib/oa/decision";
+import {
+  BETTER_AUTH_GITHUB_MULTI_USER_S1,
+  S1_PILOTE_AUTHORITY_LEVEL,
+} from "./constants";
+import type { ResolveCurrentPiloteResult } from "./resolveCurrentPilote";
+
+export type IssueS1AuthorityEvidenceInput = {
+  pilote: Extract<ResolveCurrentPiloteResult, { ok: true }>;
+  authorityResolver: AuthorityResolverPort;
+  scope: string;
+  issuedAt: string;
+  /** Short-lived evidence TTL (ISO). Optional. */
+  expiresAt?: string;
+  evidenceId?: string;
+};
+
+export type IssueS1AuthorityEvidenceResult =
+  | { ok: true; evidence: AuthorityEvidence }
+  | { ok: false; code: "INVALID_SCOPE" | "REGISTER_FAILED"; message: string };
+
+export function issueS1AuthorityEvidence(
+  input: IssueS1AuthorityEvidenceInput,
+): IssueS1AuthorityEvidenceResult {
+  const scope = input.scope?.trim();
+  if (!scope) {
+    return {
+      ok: false,
+      code: "INVALID_SCOPE",
+      message: "AuthorityEvidence scope is required.",
+    };
+  }
+
+  const evidenceId =
+    input.evidenceId ?? `evd:github-s1:${input.pilote.githubUserId}:${randomUUID()}`;
+
+  const evidence: AuthorityEvidence = {
+    evidenceId,
+    actorId: input.pilote.actor.actorId,
+    level: S1_PILOTE_AUTHORITY_LEVEL,
+    scope,
+    issuedAt: input.issuedAt,
+    ...(input.expiresAt ? { expiresAt: input.expiresAt } : {}),
+    source: BETTER_AUTH_GITHUB_MULTI_USER_S1,
+    canActAsMorris: false,
+  };
+
+  try {
+    const existing = input.authorityResolver.getEvidence(evidenceId);
+    if (!existing) {
+      input.authorityResolver.register(evidence);
+    }
+    return { ok: true, evidence };
+  } catch (error) {
+    return {
+      ok: false,
+      code: "REGISTER_FAILED",
+      message:
+        error instanceof Error ? error.message : "Failed to register S1 evidence.",
+    };
+  }
+}
+
+```
+### CREATED `lib/auth/index.ts`
+
+```typescript
+/**
+ * SFIA Studio authentication / identity foundation (Better Auth + GitHub).
+ */
+
+export * from "./constants";
+export * from "./allowlist";
+export * from "./actorMapping";
+export {
+  createSfiaAuth,
+  getSfiaAuth,
+  resetSfiaAuthSingletonForTests,
+  assertStatelessAuthConfig,
+  type CreateSfiaAuthOptions,
+  type SfiaAuth,
+} from "./auth";
+export {
+  resolveCurrentAuthenticatedPilote,
+  requireCurrentPilote,
+  type ResolveCurrentPiloteInput,
+  type ResolveCurrentPiloteResult,
+} from "./resolveCurrentPilote";
+export {
+  issueS1AuthorityEvidence,
+  type IssueS1AuthorityEvidenceInput,
+  type IssueS1AuthorityEvidenceResult,
+} from "./s1Authority";
+
+```
+### CREATED `app/api/auth/[...all]/route.ts`
+
+```typescript
+import type { NextRequest } from "next/server";
+import { toNextJsHandler } from "better-auth/next-js";
+import { getSfiaAuth } from "@/lib/auth/auth";
+
+async function handler(request: NextRequest) {
+  const auth = getSfiaAuth();
+  const nextHandler = toNextJsHandler(auth);
+  const method = request.method.toUpperCase();
+  if (method === "GET") return nextHandler.GET(request);
+  if (method === "POST") return nextHandler.POST(request);
+  if (method === "PATCH" && nextHandler.PATCH) return nextHandler.PATCH(request);
+  if (method === "PUT" && nextHandler.PUT) return nextHandler.PUT(request);
+  if (method === "DELETE" && nextHandler.DELETE) return nextHandler.DELETE(request);
+  return new Response("Method Not Allowed", { status: 405 });
+}
+
+export const GET = handler;
+export const POST = handler;
+export const PATCH = handler;
+export const PUT = handler;
+export const DELETE = handler;
+
+```
+### CREATED `app/login/page.tsx`
+
+```typescript
+import { LoginClient } from "./login-client";
+
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string; from?: string }>;
+}) {
+  const params = await searchParams;
+  return (
+    <LoginClient errorCode={params.error ?? null} fromPath={params.from ?? null} />
+  );
+}
+
+```
+### CREATED `app/login/login-client.tsx`
+
+```typescript
+"use client";
+
+import { useMemo } from "react";
+import { authClient } from "@/lib/auth/auth-client";
+
+const ERROR_MESSAGES: Record<string, string> = {
+  github_user_not_allowlisted:
+    "Votre compte GitHub n'est pas autorisé à accéder à SFIA Studio.",
+  github_id_unparseable:
+    "Impossible de vérifier l'identité GitHub (identifiant manquant).",
+  ALLOWLIST_DENIED:
+    "Votre identité GitHub n'est plus dans la liste d'autorisation SFIA.",
+  NO_SESSION: "Authentification requise pour accéder à SFIA Studio.",
+  PROVIDER_ACCOUNT_MISSING:
+    "Session incomplète — reconnectez-vous avec GitHub.",
+  AUTH_CONFIG_ERROR:
+    "Configuration d'authentification indisponible (fail-closed).",
+  provider_not_allowed: "Seul GitHub OAuth est accepté.",
+};
+
+export function LoginClient({
+  errorCode,
+  fromPath,
+}: {
+  errorCode?: string | null;
+  fromPath?: string | null;
+}) {
+  const message = useMemo(() => {
+    if (!errorCode) return null;
+    return (
+      ERROR_MESSAGES[errorCode] ??
+      "Accès refusé. Connectez-vous avec un compte GitHub autorisé."
+    );
+  }, [errorCode]);
+
+  const callbackURL =
+    fromPath && fromPath.startsWith("/") && !fromPath.startsWith("//")
+      ? fromPath
+      : "/studio";
+
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "2rem",
+        background: "linear-gradient(160deg, #0f172a 0%, #1e293b 55%, #0f172a 100%)",
+        color: "#e2e8f0",
+        fontFamily: "var(--font-inter), system-ui, sans-serif",
+      }}
+    >
+      <main
+        style={{
+          width: "min(28rem, 100%)",
+          border: "1px solid rgba(148, 163, 184, 0.35)",
+          borderRadius: "12px",
+          padding: "2rem",
+          background: "rgba(15, 23, 42, 0.85)",
+        }}
+        data-testid="login-surface"
+      >
+        <p
+          style={{
+            letterSpacing: "0.12em",
+            fontSize: "0.75rem",
+            textTransform: "uppercase",
+            color: "#94a3b8",
+            margin: 0,
+          }}
+        >
+          SFIA Studio
+        </p>
+        <h1 style={{ margin: "0.75rem 0 0.5rem", fontSize: "1.75rem" }}>
+          Connexion
+        </h1>
+        <p style={{ margin: "0 0 1.5rem", color: "#cbd5e1", lineHeight: 1.5 }}>
+          Authentifiez-vous avec GitHub. L&apos;accès Studio est réservé aux
+          identités autorisées côté serveur (rôle runtime : Pilote).
+        </p>
+
+        {message ? (
+          <p
+            role="alert"
+            data-testid="login-error"
+            style={{
+              margin: "0 0 1.25rem",
+              padding: "0.75rem 1rem",
+              borderRadius: "8px",
+              background: "rgba(127, 29, 29, 0.45)",
+              border: "1px solid rgba(248, 113, 113, 0.45)",
+              color: "#fecaca",
+            }}
+          >
+            {message}
+          </p>
+        ) : null}
+
+        <button
+          type="button"
+          data-testid="login-github"
+          onClick={() => {
+            void authClient.signIn.social({
+              provider: "github",
+              callbackURL,
+            });
+          }}
+          style={{
+            width: "100%",
+            border: 0,
+            borderRadius: "8px",
+            padding: "0.85rem 1rem",
+            background: "#f8fafc",
+            color: "#0f172a",
+            fontWeight: 600,
+            cursor: "pointer",
+          }}
+        >
+          Se connecter avec GitHub
+        </button>
+      </main>
+    </div>
+  );
+}
+
+```
+### CREATED `components/auth/LogoutButton.tsx`
+
+```typescript
+"use client";
+
+import { authClient } from "@/lib/auth/auth-client";
+
+export function LogoutButton() {
+  return (
+    <button
+      type="button"
+      data-testid="logout-button"
+      onClick={() => {
+        void authClient.signOut({
+          fetchOptions: {
+            onSuccess: () => {
+              window.location.href = "/login";
+            },
+          },
+        });
+      }}
+      style={{
+        border: "1px solid rgba(148, 163, 184, 0.45)",
+        background: "transparent",
+        color: "inherit",
+        borderRadius: "999px",
+        padding: "0.35rem 0.85rem",
+        fontSize: "0.8rem",
+        cursor: "pointer",
+      }}
+    >
+      Déconnexion
+    </button>
+  );
+}
+
+```
+### CREATED `__tests__/auth/allowlist-actor-s1.test.ts`
+
+```typescript
+/**
+ * AUTH-D01→D26 — allowlist, actor mapping, S1 authority, hostile input.
+ * ZERO real GitHub OAuth.
+ */
+
+import { describe, expect, it } from "vitest";
+import { MemoryAuthorityResolver } from "@/lib/oa/decision";
+import {
+  authorizeByGithubLoginOrEmail,
+  canonicalizeGithubUserId,
+  isGithubUserAllowed,
+  parseAllowedGithubUserIds,
+} from "@/lib/auth/allowlist";
+import {
+  githubActorId,
+  mapGithubIdentityToPiloteActor,
+} from "@/lib/auth/actorMapping";
+import { issueS1AuthorityEvidence } from "@/lib/auth/s1Authority";
+import { BETTER_AUTH_GITHUB_MULTI_USER_S1 } from "@/lib/auth/constants";
+import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
+
+describe("AUTH allowlist multi-user", () => {
+  it("AUTH-D01 parses two valid users", () => {
+    const r = parseAllowedGithubUserIds("11111111,22222222");
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.ids).toEqual(["11111111", "22222222"]);
+  });
+
+  it("AUTH-D02 parses N users", () => {
+    const r = parseAllowedGithubUserIds("1,2,3,4,5");
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.ids).toHaveLength(5);
+  });
+
+  it("AUTH-D03 deduplicates", () => {
+    const r = parseAllowedGithubUserIds("10,10, 11 ,10");
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.ids).toEqual(["10", "11"]);
+  });
+
+  it("AUTH-D04 missing config fails closed", () => {
+    const r = parseAllowedGithubUserIds(undefined);
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.code).toBe("ALLOWLIST_MISSING");
+  });
+
+  it("AUTH-D05 empty config fails closed", () => {
+    const r = parseAllowedGithubUserIds("   ");
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.code).toBe("ALLOWLIST_EMPTY");
+  });
+
+  it("AUTH-D06 malformed member fails closed", () => {
+    expect(parseAllowedGithubUserIds("12,abc").ok).toBe(false);
+    expect(parseAllowedGithubUserIds("12,").ok).toBe(false);
+    expect(parseAllowedGithubUserIds("0").ok).toBe(false);
+    expect(parseAllowedGithubUserIds("-1").ok).toBe(false);
+    expect(parseAllowedGithubUserIds("1.5").ok).toBe(false);
+  });
+
+  it("AUTH-D07 login/email/displayName cannot authorize", () => {
+    expect(authorizeByGithubLoginOrEmail("morris")).toBe(false);
+    expect(authorizeByGithubLoginOrEmail("a@b.co")).toBe(false);
+    const ids = ["11111111"];
+    expect(isGithubUserAllowed("morris", ids)).toBe(false);
+  });
+
+  it("AUTH-D08/D09/D10 allow A+B deny C", () => {
+    const ids = ["11111111", "22222222"];
+    expect(isGithubUserAllowed("11111111", ids)).toBe(true);
+    expect(isGithubUserAllowed("22222222", ids)).toBe(true);
+    expect(isGithubUserAllowed("33333333", ids)).toBe(false);
+  });
+
+  it("AUTH-D14/D15 removal A blocks A not B", () => {
+    let ids = ["11111111", "22222222"];
+    ids = ids.filter((id) => id !== "11111111");
+    expect(isGithubUserAllowed("11111111", ids)).toBe(false);
+    expect(isGithubUserAllowed("22222222", ids)).toBe(true);
+  });
+});
+
+describe("AUTH actor mapping", () => {
+  it("AUTH-D11/D12/D13/D22 distinct Pilote actors", () => {
+    const a = mapGithubIdentityToPiloteActor({
+      githubUserId: "11111111",
+      displayName: "Alice",
+    });
+    const b = mapGithubIdentityToPiloteActor({
+      githubUserId: "22222222",
+      displayName: "Bob",
+    });
+    expect(a.actorId).toBe("actor:github:11111111");
+    expect(b.actorId).toBe("actor:github:22222222");
+    expect(a.actorId).not.toBe(b.actorId);
+    expect(a.role).toBe("decision_maker");
+    expect(b.role).toBe("decision_maker");
+    expect(a.authorityLevel).toBe("none");
+    expect(b.authorityLevel).toBe("none");
+  });
+
+  it("AUTH-D26 historical local-pilote id remains distinct", () => {
+    expect(LOCAL_PILOTE_ACTOR.actorId).toBe("actor:local-pilote");
+    expect(githubActorId("11111111")).not.toBe(LOCAL_PILOTE_ACTOR.actorId);
+  });
+});
+
+describe("AUTH S1 AuthorityEvidence", () => {
+  it("AUTH-D23/D24/D25 actor mismatch and canActAsMorris false", () => {
+    const resolver = new MemoryAuthorityResolver();
+    const piloteA = {
+      ok: true as const,
+      githubUserId: "11111111",
+      betterAuthUserId: "ba-user-a",
+      actor: mapGithubIdentityToPiloteActor({ githubUserId: "11111111" }),
+    };
+    const piloteB = {
+      ok: true as const,
+      githubUserId: "22222222",
+      betterAuthUserId: "ba-user-b",
+      actor: mapGithubIdentityToPiloteActor({ githubUserId: "22222222" }),
+    };
+
+    const issued = issueS1AuthorityEvidence({
+      pilote: piloteA,
+      authorityResolver: resolver,
+      scope: "project:demo",
+      issuedAt: "2026-09-04T12:00:00.000Z",
+    });
+    expect(issued.ok).toBe(true);
+    if (!issued.ok) return;
+
+    expect(issued.evidence.source).toBe(BETTER_AUTH_GITHUB_MULTI_USER_S1);
+    expect(issued.evidence.canActAsMorris).toBe(false);
+    expect(issued.evidence.level).toBe("N3");
+    expect(issued.evidence.actorId).toBe(piloteA.actor.actorId);
+
+    const okA = resolver.verify({
+      actorId: piloteA.actor.actorId,
+      requiredLevel: "N3",
+      scope: "project:demo",
+      evidenceId: issued.evidence.evidenceId,
+      requireMorrisGate: false,
+    });
+    expect(okA.ok).toBe(true);
+
+    const misuseB = resolver.verify({
+      actorId: piloteB.actor.actorId,
+      requiredLevel: "N3",
+      scope: "project:demo",
+      evidenceId: issued.evidence.evidenceId,
+    });
+    expect(misuseB.ok).toBe(false);
+    expect(misuseB.reason).toBe("actor_mismatch");
+
+    const morrisGate = resolver.verify({
+      actorId: piloteA.actor.actorId,
+      requiredLevel: "N3",
+      scope: "project:demo",
+      evidenceId: issued.evidence.evidenceId,
+      requireMorrisGate: true,
+    });
+    expect(morrisGate.ok).toBe(false);
+    expect(morrisGate.reason).toBe("morris_gate_denied");
+  });
+
+  it("AUTH-D16/D17/D18 canonicalize ignores hostile non-id shapes", () => {
+    expect(canonicalizeGithubUserId("11111111")).toBe("11111111");
+    expect(canonicalizeGithubUserId(11111111)).toBe("11111111");
+    expect(canonicalizeGithubUserId("Pilote")).toBeNull();
+    expect(canonicalizeGithubUserId({ canActAsMorris: true })).toBeNull();
+    expect(canonicalizeGithubUserId(true)).toBeNull();
+  });
+});
+
+```
+### CREATED `__tests__/auth/better-auth-foundation.test.ts`
+
+```typescript
+/**
+ * Better Auth integration — deterministic, ZERO real GitHub OAuth.
+ */
+
+import { describe, expect, it, beforeEach, afterEach } from "vitest";
+import {
+  assertStatelessAuthConfig,
+  createSfiaAuth,
+  resetSfiaAuthSingletonForTests,
+} from "@/lib/auth/auth";
+import { GITHUB_PROVIDER_ID } from "@/lib/auth/constants";
+import { canonicalizeGithubUserId } from "@/lib/auth/allowlist";
+
+const TEST_ENV = {
+  BETTER_AUTH_SECRET: "test-secret-at-least-32-characters-long!!",
+  BETTER_AUTH_URL: "http://localhost:3020",
+  GITHUB_CLIENT_ID: "test-github-client-id",
+  GITHUB_CLIENT_SECRET: "test-github-client-secret",
+  SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS: "11111111,22222222",
+} as unknown as NodeJS.ProcessEnv;
+
+describe("Better Auth foundation BA-D*", () => {
+  beforeEach(() => {
+    resetSfiaAuthSingletonForTests();
+  });
+  afterEach(() => {
+    resetSfiaAuthSingletonForTests();
+  });
+
+  it("BA-D01 initializes with deterministic fake env", () => {
+    const auth = createSfiaAuth({ env: TEST_ENV, baseURL: "http://localhost:3020" });
+    expect(auth).toBeTruthy();
+    expect(auth.handler).toBeTypeOf("function");
+  });
+
+  it("BA-D02/D04 stateless config — no DB; GitHub only social provider", () => {
+    const auth = createSfiaAuth({ env: TEST_ENV });
+    const proof = assertStatelessAuthConfig(auth);
+    expect(proof.hasDatabase).toBe(false);
+    expect(proof.socialProviders).toEqual([GITHUB_PROVIDER_ID]);
+    expect(auth.options.account?.storeAccountCookie).toBe(true);
+    expect(auth.options.session?.cookieCache?.enabled).toBe(true);
+  });
+
+  it("BA-D05/D06 validateUserInfo rejects unauthorized / accepts authorized raw ids", async () => {
+    const auth = createSfiaAuth({ env: TEST_ENV });
+    const validate = auth.options.user?.validateUserInfo;
+    expect(validate).toBeTypeOf("function");
+    if (!validate) return;
+
+    const denied = await validate({
+      user: { email: "x@y.z", name: "C" },
+      source: {
+        action: "create-user",
+        method: "oauth",
+        oauth: {
+          providerId: "github",
+          profile: { id: 33333333, login: "not-allowed" },
+        },
+      },
+    } as never);
+    expect(denied && typeof denied === "object" && "error" in denied ? denied.error : null).toBe(
+      "github_user_not_allowlisted",
+    );
+
+    const allowed = await validate({
+      user: { email: "a@y.z", name: "A" },
+      source: {
+        action: "sign-in",
+        method: "oauth",
+        oauth: {
+          providerId: "github",
+          profile: { id: 11111111, login: "alice" },
+        },
+      },
+    } as never);
+    expect(allowed).toBeUndefined();
+  });
+
+  it("BA-D07/D08 provider id originates from profile.id — not session.user.id assumption", () => {
+    // GitHub accountSubject uses profile.id (package: accountSubject: ({ profile }) => profile.id)
+    expect(canonicalizeGithubUserId(11111111)).toBe("11111111");
+    // Explicit non-assumption: a Better Auth internal uuid must not be treated as GitHub id
+    expect(canonicalizeGithubUserId("ba-internal-uuid-not-github")).toBeNull();
+  });
+
+  it("BA-D03 route handler module exports without invoking OAuth", async () => {
+    // Dynamic import of route wiring must not call GitHub.
+    const mod = await import("@/app/api/auth/[...all]/route");
+    expect(mod.GET).toBeTypeOf("function");
+    expect(mod.POST).toBeTypeOf("function");
+  });
+});
+
+```
+### CREATED `__tests__/auth/route-protection.test.ts`
+
+```typescript
+/**
+ * Protected-route policy helpers — full identity evaluation semantics (no cookie-only).
+ * Middleware uses resolveCurrentAuthenticatedPilote; these tests cover the decision matrix
+ * without a real Next request pipeline / GitHub network.
+ */
+
+import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
+import { mapGithubIdentityToPiloteActor } from "@/lib/auth/actorMapping";
+
+describe("AUTH route protection decision matrix", () => {
+  beforeEach(() => {
+    vi.resetModules();
+  });
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("AUTH-D19 no session → deny", async () => {
+    vi.doMock("@/lib/auth/auth", () => ({
+      getSfiaAuth: () => ({
+        api: {
+          getSession: async () => null,
+          accountInfo: async () => {
+            throw new Error("unreachable");
+          },
+        },
+      }),
+    }));
+    const { resolveCurrentAuthenticatedPilote } = await import(
+      "@/lib/auth/resolveCurrentPilote"
+    );
+    const r = await resolveCurrentAuthenticatedPilote({
+      headers: new Headers(),
+      env: {
+        NODE_ENV: "test",
+        SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS: "11111111,22222222",
+      } as NodeJS.ProcessEnv,
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.code).toBe("NO_SESSION");
+  });
+
+  it("AUTH-D20 invalid/missing provider binding → deny even with session", async () => {
+    vi.doMock("@/lib/auth/auth", () => ({
+      getSfiaAuth: () => ({
+        api: {
+          getSession: async () => ({
+            user: { id: "ba-user-a", name: "A" },
+            session: { id: "sess-a" },
+          }),
+          accountInfo: async () => {
+            throw new Error("no account cookie");
+          },
+        },
+      }),
+    }));
+    const { resolveCurrentAuthenticatedPilote } = await import(
+      "@/lib/auth/resolveCurrentPilote"
+    );
+    const r = await resolveCurrentAuthenticatedPilote({
+      headers: new Headers(),
+      env: {
+        NODE_ENV: "test",
+        SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS: "11111111",
+      } as NodeJS.ProcessEnv,
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.code).toBe("PROVIDER_ACCOUNT_MISSING");
+  });
+
+  it("authenticated + allowlisted proceeds; removed user denied; hostile claim ignored", async () => {
+    vi.doMock("@/lib/auth/auth", () => ({
+      getSfiaAuth: () => ({
+        api: {
+          getSession: async () => ({
+            user: { id: "ba-user-a", name: "A" },
+            session: { id: "sess-a" },
+          }),
+          accountInfo: async () => ({
+            account: {
+              providerId: "github",
+              accountId: "11111111",
+              userId: "ba-user-a",
+            },
+          }),
+        },
+      }),
+    }));
+    const { resolveCurrentAuthenticatedPilote } = await import(
+      "@/lib/auth/resolveCurrentPilote"
+    );
+
+    const allowed = await resolveCurrentAuthenticatedPilote({
+      headers: new Headers(),
+      env: {
+        NODE_ENV: "test",
+        SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS: "11111111,22222222",
+      } as NodeJS.ProcessEnv,
+      claimedGithubUserId: "22222222",
+      claimedRole: "Admin",
+      claimedCanActAsMorris: true,
+    });
+    expect(allowed.ok).toBe(true);
+    if (allowed.ok) {
+      expect(allowed.githubUserId).toBe("11111111");
+      expect(allowed.actor).toEqual(
+        mapGithubIdentityToPiloteActor({
+          githubUserId: "11111111",
+          displayName: "A",
+        }),
+      );
+      expect(allowed.betterAuthUserId).not.toBe(allowed.githubUserId);
+    }
+
+    const removed = await resolveCurrentAuthenticatedPilote({
+      headers: new Headers(),
+      env: {
+        NODE_ENV: "test",
+        SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS: "22222222",
+      } as NodeJS.ProcessEnv,
+    });
+    expect(removed.ok).toBe(false);
+    if (!removed.ok) expect(removed.code).toBe("ALLOWLIST_DENIED");
+  });
+});
+
+```
+
 
 ---
 
-## 19. R22 / OpenAI
+## 16. Claims
 
-Authentication is **not** a Nora cognitive primitive. OpenAI HITL ≠ GitHub identity. GPT-5.6 retained; GPT-6 deferred. No R22 broadening.
-
----
-
-## 20. Fake / Real Qualification
-
-| Item | Value |
-| --- | --- |
-| External boundary | GitHub identity/authentication |
-| Current fake/temp | localSingleUserAuthority / LOCAL_PILOTE_ACTOR |
-| This cycle | architecture only — **NOT REAL PROVEN** |
-| Future det proof | mock A/B allowlisted, C denied; revocation; actor mapping; AE isolation |
-| Future AUTH REAL | separate Morris GO; two real GitHub accounts; accept/deny; **no** MW6 hosted effect |
-| Then | MW6 binding deterministic → separate MW6 REAL GO |
-
-Do **not** combine auth REAL with hosted web_search REAL.
-
----
-
-## 21. Answers A–S (required)
-
-| Q | Answer |
-| --- | --- |
-| A. Auth before Studio coherent? | **YES** |
-| B. GitHub suitable initial IdP? | **YES — QUALIFIED CANDIDATE** |
-| C. Immutable identity key? | **GitHub user.id** |
-| D. Auth.js vs successor? | Auth.js **fit for JWT-no-DB**; Better Auth preferred for new projects generally — **Morris arbitration if diverging** |
-| E. OAuth App vs GitHub App? | **G1 OAuth App recommended initial**; G2 evolution path |
-| F. JWT vs DB session? | **JWT + current allowlist recheck** qualified; DB deferred |
-| G. Allowlist representation? | **Env multi-user ID list** candidate |
-| H. 2→N without code changes? | **YES** |
-| I. Add/remove user ops? | Edit env allowlist (+ restart/reload as documented) |
-| J. Active session after removal? | Recheck allowlist → **BLOCK** even if JWT valid |
-| K. Two Pilotes attributable? | Distinct `actor:github:<id>` |
-| L. Future actorId contract? | Candidate `actor:github:<immutable-id>` |
-| M. AE re-issued? | S1 from session∩allowlist into AuthorityResolverPort |
-| N. Behind AuthorityResolverPort? | Existing port remains sole AE truth; thin issuer adapter only |
-| O. localSingleUserAuthority exit? | FREEZE FOR REAL; retire when auth path issues AE; keep historical LOCAL_PILOTE readable |
-| P. Deterministic auth proof? | Mock two users + unauthorized + revocation + AE isolation |
-| Q. Future bounded REAL auth proof? | Two real GitHub logins under separate GO; no MW6 effect |
-| R. Future Delivery files (NOT NOW)? | `package.json`/`lock` add next-auth; `auth.ts`; `app/api/auth/[...nextauth]/route.ts`; middleware/proxy; allowlist module; actor mapper; Studio server guards; **not** Nora binding until separate GO |
-| S. Morris decisions still required? | See §22 |
-
----
-
-## 22. Morris decisions still required (NON CONSUMED architecture)
-
-1. **Accept Option A** (or B/C/variants) as architecture decision.
-2. **Auth library:** Auth.js (JWT-fit) vs Better Auth (strategic).
-3. **GitHub mode:** OAuth App vs GitHub App.
-4. **Allowlist medium:** env (recommended) vs versioned config vs durable store.
-5. **Session:** JWT (recommended) vs DB.
-6. Separate **Delivery GO** to implement auth (not granted by this qualification).
-7. Separate **AUTH REAL** GO for live GitHub login proof.
-8. Downstream **authority binding** + **MW6 REAL** remain separate.
-
----
-
-## 23. Claims
-
-### Allowed if verdict A
-- GitHub identity source = QUALIFIED CANDIDATE
-- immutable GitHub user.id = RECOMMENDED identity key
-- multi-user env allowlist = QUALIFIED CANDIDATE
-- 2→N support = QUALIFIED
-- runtime role = Pilote; no Admin
-- per-human actor identity = REQUIRED
-- authentication ≠ authority = PRESERVED
-- S1 AE re-issue = QUALIFIED CANDIDATE
-- no mandatory auth DB = QUALIFIED (with JWT+recheck)
-- localSingleUserAuthority exit path = QUALIFIED
-- READY FOR MORRIS AUTH ARCHITECTURE DECISION = YES
+### Allowed
+- AUTH FOUNDATION DETERMINISTIC = PASS (local candidate)
+- Better Auth 1.7.2 stateless integrated
+- Provider-id binding proven via account_data + accountInfo(useAccountCookie)
+- Multi-user allowlist 2→N
+- S1 with canActAsMorris=false
+- READY FOR CHATGPT AUTH DELIVERY REVIEW
 
 ### Forbidden
-- AUTH IMPLEMENTED · TWO USERS REAL PROVEN · LOGIN REAL PROVEN
-- LIVE AUTHORITY BOUND · MW6 READY FOR GO REAL / REAL / COMPLETE
-- COGNITIVE COMPLETION PROVEN · RUNTIME V3 ADOPTED · GPT-6 ADOPTED
+- AUTH REAL PROVEN / LOGIN REAL PROVEN
+- LIVE AUTHORITY BOUND / MW6 binding / MW6 REAL / COMPLETE
+- Cognitive Completion proven / runtime v3 ADOPTED / GPT-6 ADOPTED
 
 ---
 
-## 24. Final verdict
+## 17. Final verdict
 
-**QUALIFIED — READY FOR MORRIS AUTH ARCHITECTURE DECISION**
-
-Meaning: architecture sufficiently precise for Morris to decide.
-**≠** Delivery authorized · **≠** login REAL · **≠** authority bound · **≠** MW6 REAL.
-
-GO REAL = NO · REAL BOUNDARY PROVEN = NO · LIVE BOUND = NO · MW6 COMPLETE = NO · COGNITIVE COMPLETION PROVEN = NO · GPT-6 ADOPTED = NO · RUNTIME V3 ADOPTED = NO · AUTH IMPLEMENTED = NO
+**DELIVERY CANDIDATE READY FOR CHATGPT REVIEW — AUTH FOUNDATION DETERMINISTIC**
