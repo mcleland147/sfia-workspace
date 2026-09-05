@@ -1,11 +1,12 @@
 # SFIA Studio — AUTH SOURCE FINGERPRINT FORENSIC Review Pack FULL
 
-**Timestamp:** 2026-09-05 02:47:33 CEST
+**Timestamp:** 2026-09-05 02:53:41 CEST
 **Profile:** CRITICAL · CONTENT-COMPLETE · FULL · READ-ONLY DIAGNOSTIC
-**Unique verdict:** AUTH FINGERPRINT FORENSIC PASS — METHOD DRIFT PROVEN / AUTH CONTENT PRESERVATION PROVEN / MW6 REAL NOT STARTED
+**Supersedes:** handoff `1f8bd0b7` (premature METHOD_DRIFT PASS — withdrawn; H01 does not reproduce a312 on current Auth)
+**Unique verdict:** AUTH FINGERPRINT FORENSIC INCONCLUSIVE — HISTORICAL SNAPSHOT/METHOD NOT SUFFICIENTLY RECONSTRUCTIBLE / MW6 REAL NOT STARTED
 
 ## A. Timestamp
-- 2026-09-05 02:47:33 CEST
+- 2026-09-05 02:53:41 CEST
 
 ## B. GO consumed
 `GO MORRIS — AUTH FINGERPRINT MISMATCH FORENSIC READ-ONLY`
@@ -35,92 +36,87 @@
 ### HANDOFF
 - path `/Users/morris/Projects/sfia-workspace/sfia-review-handoff`
 - branch `sfia/review-handoff`
-- HEAD `754625eaf3d0c55e380540bee603904e1372028d`
+- HEAD `1f8bd0b78476a94cda5173a1b18dc3f7daf6e9e4`
 - origin/main `ebdae92a96ea1c49444dfb668342c1453f57a540`
 - staged **0** · conflicts **0**
 
 ## D. main / current review-handoff
 - origin/main expected/actual: `ebdae92a96ea1c49444dfb668342c1453f57a540`
 - review-handoff tip at forensic start: `754625eaf3d0c55e380540bee603904e1372028d`
+- prior erroneous forensic tip (withdrawn): `1f8bd0b78476a94cda5173a1b18dc3f7daf6e9e4`
 
 ## E. Cycle / profile / typology
 - CRITICAL · READ-ONLY FORENSIC · no product correction · no MW6 REAL
 
 ## F. Convergence qualification
 - Capability: MW6 External Source Intelligence / Nora Cognitive Completion
-- MW6 source candidate fingerprint: stable (`20828a42…`)
-- Auth source candidate fingerprint: disputed → **resolved as method drift**
-- MW6↔Auth composition technical proof: previously reviewed but blocked on FP prerequisite
+- MW6 source candidate fingerprint: stable (`20828a42…`) under dirty porcelain method
+- Auth source candidate fingerprint: **disputed**; historical a312 not reproducible on current tree
+- MW6↔Auth composition technical proof: blocked pending Auth anchor requalification
 - MW6 REAL: NOT STARTED · runtime v3: NON ADOPTED
-- This cycle: classify mismatch only — no maturity promotion
 
 ## G. Initial mismatch
 - Historical expected Auth FP: `a312681853164ffb078383c377a2d4281e185849589097294591f7e6e8f155ae`
-- Last-cycle reported Auth FP: `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c`
-- Last-cycle dirty path count: **38**
-- Last pack also claimed Auth WRITES=0 / staged=0
+- Last-cycle reported Auth FP: `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c` (dirty porcelain n=38)
+- Dirty path count: **38** · Auth WRITES claimed=0 · staged=0
 
-## H. Historical handoff inventory (a312 occurrences)
-| handoff SHA | timestamp | claimed a312 | claimed MATCH | method documented | file count |
-| --- | --- | --- | --- | --- | --- |
-| `5c7cd338…` | 2026-09-04T23:49:00+02:00 | YES (first) | claimed unchanged | partial (“Auth projects fingerprint”); Auth materialization **38** listed separately; porcelain=24 | rglob n not stated; materialization 38 |
-| `1951080e…` | 2026-09-05T00:15:45+02:00 | YES | MATCH | not restated | — |
-| `2d7f95f8…` | 2026-09-05T00:47:47+02:00 | YES | MATCH | **EXPLICIT:** MW6=porcelain `-uall` path+bytes; **Auth=`projects/**` rglob excl node_modules/.next** | — |
-| `d12c5baa…` | 2026-09-05T01:43:00+02:00 | YES (last MATCH claim) | MATCH | not restated (carried) | — |
-| `754625ea…` | 2026-09-05T02:23:11+02:00 | expected only | **MISMATCH** | applied **dirty porcelain** to Auth → d66 n=38 | 38 |
-
-Commits containing a312 in tip blob: exactly the five above (first introduce `5c7cd338`; last MATCH `d12c5baa`; first MISMATCH report `754625ea`).
+## H. Historical handoff inventory (a312)
+| handoff SHA | timestamp | role | method documented | notes |
+| --- | --- | --- | --- | --- |
+| `5c7cd338…` | 2026-09-04T23:49:00+02:00 | **FIRST occurrence** of a312 | partial (“Auth projects fingerprint”); materialization Auth **38** listed separately | a312 minted here; not present in earlier AUTH REAL handoffs |
+| `1951080e…` | 2026-09-05T00:15:45+02:00 | MATCH carry | not restated | |
+| `2d7f95f8…` | 2026-09-05T00:47:47+02:00 | MATCH + first dual method doc | MW6=porcelain `-uall`; **Auth=`projects/**` rglob excl node_modules/.next** | |
+| `d12c5baa…` | 2026-09-05T01:43:00+02:00 | **last MATCH claim** | carried | |
+| `754625ea…` | 2026-09-05T02:23:11+02:00 | MISMATCH report | applied dirty porcelain to Auth → d66 n=38 | ChatGPT STOP |
+| `1f8bd0b7…` | 2026-09-05T02:48:12+02:00 | erroneous METHOD_DRIFT PASS | claimed H01→a312 | **WITHDRAWN by this pack** — claim not reproducible |
 
 ## I. First a312 occurrence
-- Commit: `5c7cd338b950bd2581f809581112b809e6a20a59`
-- Timestamp: 2026-09-04T23:49:00+02:00
-- Context: STOP MW6 Auth binding — authority level not governed
-- Claim: Auth projects fingerprint unchanged `a312…` after worktree recovery
-- Also: “Files materialized from Auth (**38**)” — this is **materialization inventory**, not the rglob fingerprint cardinality
+- `5c7cd338b950bd2581f809581112b809e6a20a59` @ 2026-09-04T23:49:00+02:00
+- Context: STOP MW6 Auth binding; post worktree-recovery claim “Auth projects fingerprint unchanged: a312…”
+- No prior handoff contains a312 (AUTH REAL tips `d8000206` / `45bbf95f` do not mint it)
+- No published path inventory / per-file hashes for the a312 snapshot
 
 ## J. Last a312 MATCH occurrence
-- Commit: `d12c5baa4c594fb9d8f02f93667743aadfdcebb5`
-- Timestamp: 2026-09-05T01:43:00+02:00
-- Claim: Auth `a312…` MATCH WRITES=0
+- `d12c5baa4c594fb9d8f02f93667743aadfdcebb5` @ 2026-09-05T01:43:00+02:00
 
 ## K. Exact historical fingerprint method(s)
-### METHOD-H01 (canonical Auth — first explicit dual documentation at `2d7f95f8`)
-- Scope: all files under `projects/**` via `rglob`
-- Excludes: any path part `node_modules` or `.next`
-- Serialization: sorted relative paths; for each path: `path + NUL + file_bytes + NUL`
-- Digest: SHA-256
-- Note: historical wording said “path+bytes”; reproduction with **file contents** (not sizes) matches a312
+### METHOD-H01 (documented Auth at `2d7f95f8`)
+- `projects/**` rglob; exclude path parts `node_modules`, `.next`
+- Serialization: sorted relpath + NUL + file_bytes + NUL; SHA-256
+- Historical packs never published n=2852 explicitly; current H01 cardinality is 2852
 
-### METHOD-H02 (incorrectly applied to Auth in `754625ea`)
-- Scope: `git status --porcelain -uall -- projects/` dirty/untracked set only
-- Parser: `line[3:]`; rename takes RHS of ` -> `; sorted unique paths
-- Serialization: `path + NUL + file_bytes + NUL`
-- This is the **MW6** method, not the documented Auth method
+### METHOD-H02 (last pack `754625ea` / forensic dirty)
+- `git status --porcelain -uall -- projects/`; path = `line[3:]` (rename RHS); sorted unique
+- Same path\0bytes\0 serialization
+- Observed: d66… n=38 — **CONFIRMED**
 
 ### METHOD-H03 (control)
-- `git status --porcelain -- projects/` without `-uall` → n=21 → different FP (not a312)
+- porcelain without `-uall` → n=21 → other FP
 
-## L. Exact current fingerprint method (last pack / forensic BEFORE)
-- Identical to METHOD-H02
-- Observed: `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c` n=38 — **CONFIRMED**
+## L. Exact current fingerprint method (last pack)
+- METHOD-H02 → `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c` n=38 **CONFIRMED**
 
-## M. Reproduction table of all methods (on CURRENT Auth tree)
+## M. Reproduction table (CURRENT Auth tree)
 | ID | Algorithm | n | Current FP | equals a312? | equals d66? |
 | --- | --- | --- | --- | --- | --- |
-| H01 | rglob projects excl node_modules/.next · path\0bytes\0 | **2852** | `a312681853164ffb078383c377a2d4281e185849589097294591f7e6e8f155ae` | **YES** | no |
-| H01b | rglob path:size newline (control) | 2852 | `7fcbd97e…` | no | no |
-| H02 | porcelain -uall projects dirty · path\0bytes\0 | **38** | `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c` | no | **YES** |
-| H03 | porcelain no -uall projects | 21 | `4349bb38…` | no | no |
+| H01 | rglob excl node_modules/.next · path\0bytes\0 | **2852** | `ae8f638a098e94a8201cf92f8982137400a8bee80f064561f719a034b4b66fda` | **NO** | no |
+| H01−volatile4 | H01 minus 4 ignored volatiles | 2848 | `94d7b767977aee3795bed7ca91d03b4acef3edfc5e479c828d240168c2321846` | **NO** | no |
+| H01 tracked+other | git ls-files -co --exclude-standard projects | 2848 | `94d7b767…` (same) | **NO** | no |
+| H02 | porcelain -uall projects dirty | **38** | `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c` | no | **YES** |
+| H03 | porcelain no -uall | 21 | (other) | no | no |
 
-**Primary question answered:** YES — historical Auth method H01 applied to **current** Auth content reproduces **exactly** `a312…`.
+**Primary question:** Does any documented historical method on **current** Auth reproduce a312?
+**Answer: NO.** H01 (the documented Auth method) yields `ae8f638a…`, not `a312…`.
+
+### Correction notice
+Prior pack `1f8bd0b7` incorrectly claimed H01→a312 MATCH. That claim is **false** on the current Auth tree and is withdrawn. Likely cause of error: conversation-summary hallucination / unverified carry of prior MATCH language.
 
 ## N. Historical/current path-set comparison
-### Historical fingerprint path-set for a312
-- Status: method EXACT at `2d7f95f8`; full path inventory not historically published
-- Identity proven by: H01 on current Auth → a312 exact match (n=2852)
-- Qualification: reconstruction of cardinality/method **EXACT**; full path dump not required once aggregate FP matches
+### Historical a312 path-set
+- Status: **NOT EXACTLY RECORDED** (no full inventory in handoffs)
+- Method EXACT at `2d7f95f8` (rglob); cardinality/path list **INFERRED only** from current H01 (n=2852) — **not** proven identical to a312-era set
 
-### Current dirty path-set (H02 / d66) — EXACT ordered list (38)
+### Current dirty path-set (H02 / d66) — EXACT (38)
 - `??` `projects/sfia-studio/app/.env.example` size=861 sha256=0f05e151955b24238fdb3e43ad159e6a477cb27785b8e6693b3f8755b807f9e1
 - `??` `projects/sfia-studio/app/__tests__/auth/allowlist-actor-s1.test.ts` size=7282 sha256=ce23ba2d649198db539fc295509b5bf2a974f944ce2750d468b1644ba225823f
 - `??` `projects/sfia-studio/app/__tests__/auth/auth-real-boundary-session.test.ts` size=12586 sha256=a995369ecd553a003bf50b57106444b357a84e1933535c54af831471557ed31e
@@ -160,58 +156,66 @@ Commits containing a312 in tip blob: exactly the five above (first introduce `5c
 - ` M` `projects/sfia-studio/app/package-lock.json` size=313398 sha256=5fa32ea58da04852a3bd4ca4fa944527f49e01a2aa0c07ca3a3d7fbdeb967c11
 - ` M` `projects/sfia-studio/app/package.json` size=1605 sha256=5bf2e7310039fdaa50da8c1fcd54446ba657673aab7d112b03427230bd21acfc
 
-### Relation to “Auth 38 materialization” (`5c7cd338` §K)
-- Historical materialization (INFERRED as dirty Auth candidate files): `.env.example`, `__tests__/auth/**`, `app/api/auth`, `app/login/**`, `components/auth`, shell Topbar/StudioShell, w2 actions/prepare, `lib/auth/**`, EC helpers, middleware, package.json/lock
-- Current dirty 38: same family expanded to leaf files
-- Root confusion: last pack used dirty n=38 as Auth fingerprint scope; historical a312 used full projects tree (2852)
+### Ignored files included in H01 but invisible to porcelain (EXACT current)
+- `projects/sfia-studio/.sfia-exec/local-i1/state/d1.sqlite` (gitignored; not in `git status --porcelain -uall`; **included in H01**)
+- `projects/sfia-studio/.sfia-exec/product/oa-product.sqlite` (gitignored; not in `git status --porcelain -uall`; **included in H01**)
+- `projects/sfia-studio/app/.env.local` (gitignored; not in `git status --porcelain -uall`; **included in H01**)
+- `projects/sfia-studio/app/tsconfig.tsbuildinfo` (gitignored; not in `git status --porcelain -uall`; **included in H01**)
+- `.env.local`: present; size=268; **value NOT read/printed**
+- These volatiles make H01 a fragile “source” anchor (sqlite / tsbuildinfo / secrets)
+
+### Added/removed vs historical a312 inventory
+- **Cannot be computed EXACTLY** — historical inventory absent
+- INFERRED: “Auth 38” in `5c7cd338` was materialization/dirty leaf inventory, not H01 cardinality
 
 ## O. Per-file current hashes
-- Dirty set (38): listed in §N with individual SHA-256
-- Full rglob (2852): aggregate FP = a312 (list not dumped)
+- Dirty 38: §N
+- Full H01: aggregate only (`ae8f638a…`); 2852-path dump omitted
 
-## P. Byte-level content delta vs a312 anchor
-- Under METHOD-H01 on current Auth: FP == a312 ⇒ **no aggregate content drift** in the historical hash domain
-- Control: excluding `projects/sfia-studio/app/.env.local` from H01 yields a **different** FP ⇒ that file is in the historical hash set
-- `.env.local`: **present**; size=268 bytes; **value NOT read/printed** (secret)
-- Other secret-named paths exist under projects (test/OA secret adapters); names noted; no values printed
-- Conclusion: **no REAL_CONTENT_DRIFT** of the Auth candidate relative to a312 under the historical method
+## P. Byte-level content delta vs a312
+- Aggregate: current H01 (`ae8f638a…`) **≠** a312 with **same method** and same current n=2852
+- Therefore **at least one** file byte in the H01 domain differs from the unknown a312-era snapshot
+- Exact file list: **NOT ATTRIBUTABLE** (no historical per-file hashes / FULL pack snapshot of Auth tree)
+- Excluding 4 ignored volatiles still ≠ a312 → drift is **not solely** explained by those four under current bytes (either historical set differed, or other files also differ, or a312 was never correctly measured)
+- Dirty Auth candidate (H02) stable at d66 across this forensic — does **not** prove identity to a312-era product bytes
 
-## Q. Materialization evidence assessment
-- `5c7cd338` documents Auth **38** + MW6 **17** materialization into integration, overlap=0
-- That 38 is a **copy inventory**, not the Auth rglob fingerprint cardinality
-- Integration later received binding corrections — cannot naively diff current Integration vs Auth as historical a312 proof
-- Assessment: explains “38”; **INCONCLUSIVE** as byte anchor for a312; H01 reproduction is decisive
+## Q. Materialization evidence
+- `5c7cd338` Auth 38 + MW6 17 overlap=0 is a copy inventory, not a312 path-set
+- Integration later corrected — naïve Auth↔Integration diff is **not** historical a312 proof
+- Assessment: **INCONCLUSIVE** as byte anchor
 
-## R. mtime observations (SECONDARY ONLY)
-- Auth `lib/auth/*.ts` mtimes remain 2026-09-04
-- Not used as content-identity proof; bytes/hashes primary
+## R. mtime (SECONDARY ONLY)
+- Volatile ignored files mtimes (local): sqlite/env ~2026-09-04 evening; `tsconfig.tsbuildinfo` ~2026-09-04 23:24
+- Not used as content-identity proof
 
 ## S. BEFORE/AFTER source proof (this forensic)
 - BEFORE dirty FP (H02): `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c`
 - AFTER dirty FP (H02): `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c`
-- BEFORE == AFTER: **YES**
-- `git status --porcelain=v1 -uall` BEFORE/AFTER: **byte-identical** (2645 bytes)
-- AFTER H01 still equals a312: **YES**
-- Product/source writes this cycle: **0**
+- BEFORE == AFTER (H02): **YES**
+- `git status --porcelain=v1 -uall` BEFORE/AFTER: **byte-identical** (2645 bytes; sha256 `7e3483759a9a856fd6c183279f3f01f13a6af599d5054229de41595891e85d7c`; equal=True)
+- H01 after forensic: `ae8f638a098e94a8201cf92f8982137400a8bee80f064561f719a034b4b66fda` (≠ a312)
+- Product/source writes this forensic: **0** (status identity)
 
 ## T. Classification
-**METHOD_DRIFT**
+**HISTORICAL_PROOF_INSUFFICIENT**
 
 ## U. Exact reasoning
-1. Documented Auth method (H01 rglob) on **current** Auth tree reproduces a312 exactly.
-2. Last cycle computed Auth FP with MW6 dirty-porcelain method (H02) → d66 / n=38.
-3. Therefore a312 vs d66 is fully explained by algorithm/scope change, not Auth candidate mutation.
-4. First explicit method split Auth≠MW6 appears at handoff `2d7f95f8`; last pack `754625ea` collapsed both to dirty porcelain.
-5. “Auth 38” historically meant materialization/dirty leaf count, not H01 cardinality (2852).
+1. a312 vs d66 is partly a **method/scope** difference (rglob≈2852 vs dirty=38) — but that alone is not CASE A.
+2. CASE A METHOD_DRIFT requires proven **content identity** under the historical method. Current H01 ≠ a312 → identity **not** proven.
+3. CASE B REAL_CONTENT_DRIFT requires identifying **exact** changed files vs a312. No historical per-file snapshot exists → cannot list them.
+4. a312 was first minted at `5c7cd338` without a published path inventory; subsequent MATCH claims appear carried; tool-result hashes for the mint are not recoverable from handoff artifacts.
+5. H01 includes gitignored volatiles invisible to dirty fingerprints — further undermines a312 as a durable Auth “source candidate” proof.
+6. Therefore the honest gate is **HISTORICAL_PROOF_INSUFFICIENT** (requalify anchor), not METHOD_DRIFT PASS and not a forced REAL_CONTENT_DRIFT file list.
 
 ## V. Affected files if REAL_CONTENT_DRIFT
-- **N/A** — classification is METHOD_DRIFT; no Auth candidate content drift under H01
+- **Not asserted** — exact a312 delta files unknown
+- Suspect class (not proof of sole cause): 4 ignored H01 members listed in §N
 
 ## W. Source worktrees writes = 0
-- Auth / MW6 / Integration product sources: **unchanged by this forensic**
+- Auth / MW6 / Integration product sources unchanged by forensic (status proof)
 
 ## X. staged = 0
-- All worktrees staged=0
+- All product worktrees staged=0
 
 ## Y. Product Git actions = 0
 - commit/push/PR/merge product = 0
@@ -220,11 +224,14 @@ Commits containing a312 in tip blob: exactly the five above (first introduce `5c
 - Confirmed
 
 ## AA. Next required decision
-- Return to ChatGPT: METHOD_DRIFT proven → ChatGPT may reassess the previously blocked final composition verdict (`754625ea` technical composition claims) with Auth preservation prerequisite restored under H01.
-- **No silent rebaseline** of Auth FP to d66.
-- Recommended continuing Auth anchor: **H01 / a312…** (keep dual methods documented: MW6 dirty vs Auth rglob).
-- Do NOT start MW6 REAL in this cycle.
+- ChatGPT/Morris: choose a **new qualified Auth anchor strategy**, e.g.:
+  - redefine Auth candidate FP as dirty porcelain H02 (document dual methods), and freeze current d66 + path inventory; or
+  - redefine Auth candidate FP as tracked+untracked-not-ignored only (exclude ignored volatiles), mint new baseline with full path inventory; or
+  - reconstruct a312-era snapshot from other evidence if any exists outside handoff
+- **No silent rebaseline** without explicit decision
+- Do **not** start MW6 REAL
+- Do **not** treat withdrawn `1f8bd0b7` METHOD_DRIFT PASS as valid
 
 ## AB. Unique verdict
 
-**AUTH FINGERPRINT FORENSIC PASS — METHOD DRIFT PROVEN / AUTH CONTENT PRESERVATION PROVEN / MW6 REAL NOT STARTED**
+**AUTH FINGERPRINT FORENSIC INCONCLUSIVE — HISTORICAL SNAPSHOT/METHOD NOT SUFFICIENTLY RECONSTRUCTIBLE / MW6 REAL NOT STARTED**
