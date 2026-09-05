@@ -1,314 +1,624 @@
-# SFIA Review Pack — PR #466 MERGE + POST-MERGE + GLOBAL MODEL × REASONING CAMPAIGN READINESS REQUALIFICATION
+# SFIA Review Pack — GLOBAL MODEL × REASONING CAMPAIGN EXECUTION CONTRACT PREPARATION
 
 ## Metadata
-- timestamp: 2026-09-05 14:23:11 CEST
-- Cycle: 8 — Delivery / EVOL — MERGE + POST-MERGE + CAMPAIGN READINESS REQUALIFICATION
+- timestamp: 2026-09-05 15:04:03 CEST
+- Cycle: 8 — Delivery / EVOL — GLOBAL MODEL × REASONING CAMPAIGN EXECUTION CONTRACT PREPARATION
 - Profil: CRITICAL
 - Level: FULL
 - ZERO REAL: YES
-- Decision consumed: `GO MORRIS — MERGE PR #466 — GLOBAL MODEL × REASONING PRE-CAMPAIGN HARNESS G1+G2+G3`
+- Decision consumed: GO MORRIS — PRÉPARER LE GLOBAL MODEL × REASONING CAMPAIGN EXECUTIONCONTRACT CONSOLIDÉ — ZERO REAL
 
 ## Sources consulted
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` (READ ONLY — not mutated)
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` (READ ONLY — not mutated; historical MW6 wording reserve accepted)
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` (READ ONLY)
-- `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md` (READ ONLY)
-- `projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md` (READ ONLY)
-- Review Handoff pré-merge tip `25325c19d3618dd9f7e2ba825b4dbff26f0cdcc9`
-- PR #466 + CI runs `33964726221` (PR) / `33965677986` (post-merge main)
+1. prompts/templates/sfia-cycle-execution-template.md
+2. method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+3. method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+4. method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+5. projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md (READ ONLY)
+6. projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md (READ ONLY)
+7. projects/sfia-studio/product-completion/01-product-completion-cadrage.md (READ ONLY)
+8. projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md (READ ONLY)
+9-15. Nora cognitive completion docs 01, 04-09 (READ ONLY)
+16-20. nora-eval types/catalog/capabilityBudget/meteredProvider/d0Runner
+21-23. campaignBudget.ts / reasoningCapability.ts / reasoningModelSettings.ts
+24. Option C Agents runner runNoraAgentsTurn.ts (+ runNoraCognitiveTurn.ts, F2 orchestrateF2.ts, MW6 mw6GovernedNoraTurn.ts)
+25. Review Handoff tip pre-cycle 9babfc5450e4265b6729483168b4a01bed622560
+26. Public OpenAI docs (Luna/Sol/reasoning) — 2026-09-05 revalidation
 
----
+## Local Git Truth
+- Preferred worktree path was unclean after tooling remapped it onto delivery/sfia-studio-mw6-auth-binding with unrelated .tmp-sfia-review dirty files → left untouched (no stash/reset/clean).
+- Clean alternate worktree used: /Users/morris/Projects/sfia-workspace-global-mr-campaign-contract-prep
+- Branch (local only): docs/sfia-studio-global-model-reasoning-campaign-contract
+- HEAD = origin/main = merge-base = 23d850fda45fe55ba519e0feefe63369d349afcc (verified HEAD=23d850fda45fe55ba519e0feefe63369d349afcc)
+- parent = d3fee38b270d805144e621804b96ef1e5de3e208
+- tree = 7f940e0a772ebf566cfa64ec6e0c6f9f8f477505
+- staged product files: none
+- dirty versioned scope: exactly 1 untracked document (this contract)
+- Product commit/push/PR: NOT performed
 
-## 1. Morris decision consumed
-`GO MORRIS — MERGE PR #466 — GLOBAL MODEL × REASONING PRE-CAMPAIGN HARNESS G1+G2+G3`
+## Provider capability snapshot (2026-09-05)
+| Model | Efforts | In | Cached in | Out |
+| --- | --- | --- | --- | --- |
+| gpt-5.6-luna | none→max | $0.20 | $0.02 | $1.20 |
+| gpt-5.6-terra | none→max | $2 | $0.20 | $12 |
+| gpt-5.6-sol | none→max | $4 | $0.40 | $20 |
+- Aligns with G1 integrated policy (IDs + efforts + list prices).
+- minimal non-admissible; unknown fail-closed.
+- Disposition: NO PROVIDER CAPABILITY SNAPSHOT DRIFT.
 
-Authorized sequence (single coherent cycle): pre-merge truth → squash merge → post-merge Git → post-merge CI → G1/G2/G3 on main → campaign readiness F1–F10 → Review Pack → Review Handoff → final report.
+## Artifact created
+- Path: projects/sfia-studio/nora-cognitive-completion/10-nora-global-model-reasoning-campaign-execution-contract.md
+- Status: CANDIDATE — ZERO REAL — AWAITING CHATGPT CRITICAL REVIEW + MORRIS STAGE A REAL DECISION
+- Contract version: global-mr-campaign-contract-v1-candidate
+- Lines: 512
+- Bytes: 27986
+- Other versioned files modified: NONE
 
-NOT authorized / NOT performed: branch delete · force push · product commit · Roadmap/Doctrine/C1/v3 mutation · semantic correction · REAL · Hosted Web Search REAL · production routing · runtime v3 · Cognitive Completion claim.
-
----
-
-## 2. Git Truth pré-merge (Étape A)
-
-| Field | Value |
-| --- | --- |
-| repository | `mcleland147/sfia-workspace` |
-| worktree | `/Users/morris/Projects/sfia-workspace-global-model-reasoning-pre-campaign-harness` |
-| local branch | `delivery/sfia-studio-global-model-reasoning-pre-campaign-harness-hardening` |
-| HEAD local | `fa3f9a93fd6d1c91d45905122222758413e48fdb` |
-| `origin/main` pré-merge | `d3fee38b270d805144e621804b96ef1e5de3e208` |
-| PR | #466 OPEN |
-| title | `feat(sfia-studio): harden global model reasoning pre-campaign harness` |
-| base | `main` @ `d3fee38b270d805144e621804b96ef1e5de3e208` |
-| head | `delivery/sfia-studio-global-model-reasoning-pre-campaign-harness-hardening` @ `fa3f9a93fd6d1c91d45905122222758413e48fdb` |
-| mergeable | MERGEABLE / CLEAN |
-| commits on PR | 1 |
-| changed files | **10 exactly** |
-| PR CI | run `33964726221` — Detect / Build / Required Gate **SUCCESS** |
-| ChatGPT Critical PR Review | PASS (consumed from prior handoff) |
-| Review Handoff tip | `25325c19d3618dd9f7e2ba825b4dbff26f0cdcc9` |
-
-Pre-merge STOP checks: **PASS** (main + head + mergeability + CI + 10-file scope all matched baseline).
-
-### Exact 10-file scope
-```
-projects/sfia-studio/app/__tests__/nora-eval/g1.global-capability-policy.test.ts
-projects/sfia-studio/app/__tests__/nora-eval/g2.catalog-versioning-mw6.test.ts
-projects/sfia-studio/app/__tests__/nora-eval/g3.human-decision-pilote-only.test.ts
-projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
-projects/sfia-studio/app/lib/nora-eval/catalog.ts
-projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
-projects/sfia-studio/app/lib/nora-eval/index.ts
-projects/sfia-studio/app/lib/nora-eval/mw6Observe.ts
-projects/sfia-studio/app/lib/nora-eval/scorers.ts
-projects/sfia-studio/app/lib/nora-eval/types.ts
-```
-
----
-
-## 3. Merge (Étape B)
-
-| Field | Value |
-| --- | --- |
-| method | **SQUASH MERGE** (`gh pr merge 466 --squash`) |
-| subject | `feat(sfia-studio): harden global model reasoning pre-campaign harness` |
-| merge / squash SHA | `23d850fda45fe55ba519e0feefe63369d349afcc` |
-| parent | `d3fee38b270d805144e621804b96ef1e5de3e208` (= ancien main) |
-| tree | `7f940e0a772ebf566cfa64ec6e0c6f9f8f477505` (= same tree as reviewed head `fa3f9a93…`) |
-| mergedAt | `2026-09-05T12:18:40Z` |
-| PR final state | **MERGED** |
-| branch deletion | **NOT performed** (delivery branch preserved) |
-
-Squash body included GO Morris + G1/G2/G3 summary + ZERO REAL / NOT SELECTED / NOT PROVEN / NON ADOPTED anti-claims.
-
----
-
-## 4. Main post-merge (Étape C)
-
-| Check | Result |
-| --- | --- |
-| `git fetch origin main` | `d3fee38b…` → `23d850fd…` |
-| `origin/main` | `23d850fda45fe55ba519e0feefe63369d349afcc` |
-| PR #466 | MERGED |
-| parent of new main | `d3fee38b270d805144e621804b96ef1e5de3e208` **MATCH** |
-| filelist old→new main | **exact 10 files** = PR scope **MATCH** |
-| blob parity head `fa3f9a93` ↔ main for all 10 paths | **HEAD_CONTENT_ON_MAIN** (all MATCH) |
-| docs/Roadmap/Doctrine/C1/v3 in merge delta | **NONE** |
-| delivery branch still on remote | `fa3f9a93…` **PRESERVED** |
-
-### G1 on main (verified)
-- `buildMw0CapabilityManifest()` historical allowlist preserved: Luna/Terra × none/low/medium; MW0 screening caveat retained.
-- `buildGlobalModelReasoningCapabilityManifest()` distinct: Luna/Terra/Sol × none/low/medium/high/xhigh/max.
-- minimal rejected; unknown model fail-closed (capability checks + tests present).
-
-### G2 on main (verified)
-- `NORA_EVAL_CATALOG_VERSION = "mw0-catalog-v1"` historical default preserved.
-- `NORA_EVAL_GLOBAL_CATALOG_VERSION = "global-mr-catalog-v1"` present with MW6-S01/S02.
-- `mw6Observe.ts` present.
-- `evidenceRefs: [\`catalog:${scenario.catalogVersion}\`]` in `d0Runner.ts` (coherent provenance).
-- historical-under-global retains global catalog provenance (covered by G2 tests on main).
-
-### G3 on main (verified)
-- `human_decision_pilote_only` scorer: Pilote/none/absent PASS; morris/nora FAIL; comment `NO MORRIS RUNTIME PERSONA`.
-
-### Explicit absences confirmed
-- no production router introduced
-- no new persistence
-- no new provider
-- no runtime auth mutation (scope = `nora-eval/**` only)
-- no Roadmap / Doctrine / C1 / v3 framing mutation
-
----
-
-## 5. CI post-merge (Étape D)
-
-| Field | Value |
-| --- | --- |
-| run ID | `33965677986` |
-| workflow | SFIA Studio CI |
-| event | `push` |
-| branch | `main` |
-| head SHA | `23d850fda45fe55ba519e0feefe63369d349afcc` |
-| status | completed |
-| conclusion | **success** |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/33965677986 |
-
-### Jobs
-| Job | Conclusion |
-| --- | --- |
-| Detect SFIA Studio changes | success |
-| Build and validate SFIA Studio | success (typecheck / lint / build / vitest / governance / secret scan / whitespace) |
-| SFIA Studio Required Gate | success |
-
-**Post-merge CI = VERIFIED / GREEN.**
-
----
-
-## 6. Post-merge proof (Étape E)
-
-| Claim | Status |
-| --- | --- |
-| PR #466 | **MERGED** |
-| G1/G2/G3 | **INTEGRATED ON MAIN** |
-| post-merge CI | **VERIFIED / GREEN** |
-| PRE-CAMPAIGN HARNESS HARDENING | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
-| Max proof ceiling for G1/G2/G3 | **DETERMINISTIC TESTED + GIT INTEGRATED + POST-MERGE CI VERIFIED** |
-| REAL proof | **NOT claimed** (ZERO REAL this cycle) |
-
----
-
-## 7. Campaign readiness requalification F1→F10 (Étape F — READ ONLY)
-
-No campaign launched. No REAL. No Stage A.
-
-### F1 — Candidate model capability policy → **READY**
-Present on main via `buildGlobalModelReasoningCapabilityManifest`:
-- GPT-5.6 Luna / Terra / Sol
-- efforts none / low / medium / high / xhigh / max
-- minimal rejected
-- unknown fail-closed
-
-Reserve: provider capability snapshot = **dated evidence**, not permanent doctrine — revalidate each campaign.
-
-### F2 — Eval harness → **READY**
-- Framework `projects/sfia-studio/app/lib/nora-eval/**` reused (KEEP / ADAPT)
-- Historical MW0 catalog interpretable (`mw0-catalog-v1`)
-- Global catalog versioned (`global-mr-catalog-v1`)
-- MW6 observables (`mw6Observe.ts`) available
-- Evidence provenance coherent (`catalog:${scenario.catalogVersion}`)
-- No second framework introduced
-
-### F3 — Workload coverage → **READY** (semantic; selection glue = contractual)
-
-| Workload family | Reusable scenario(s) on main | Coverage | Gap / glue |
-| --- | --- | --- | --- |
-| Routine | MW0-S01/S02 catalog/BAR; MW2-S01 strategy/effort decoupling | Strong deterministic | Campaign cell matrix selection (contract) |
-| Clarification | MW0-S03 bounded clarification; MW5-S01–S04 challenge/clarification | Strong | Scenario subset for Stage A (contract) |
-| Analysis | MW3 disposition + Cognitive STOP; MW4 grounding | Strong | Cell selection |
-| High-Assurance | MW2 high-assurance invariants; MW3/MW4 high-assurance dispositions | Strong | Cell selection |
-| Memory | MW1-S01/S02 memory availability + compaction | Strong | Cell selection |
-| Sources | MW6-S01/S02 source strategy + search≠read + partiality | Strong (global catalog) | REAL hosted ops only under later Morris auth |
-
-No structural harness gap requiring new product code before contract prep. Glue = campaign ExecutionContract scenario matrix — **not created in this cycle**.
-
-### F4 — Metrics
-
-| Metric | Status |
-| --- | --- |
-| correctness / completeness | **AVAILABLE NOW** (D0 scorers + pass/fail + hard invariants) |
-| grounding | **AVAILABLE NOW** (MW4 scorers) |
-| contradiction handling | **PARTIAL** (MW3/MW5 related; deepen in campaign design) |
-| clarification discipline | **AVAILABLE NOW** (MW0-S03 + MW5) |
-| challenge quality | **AVAILABLE NOW** (MW5 bound/ordering) |
-| epistemic separation | **AVAILABLE NOW** (OPTION≠REC≠HD + labels) |
-| authority respect | **AVAILABLE NOW** (HD pilote-only + no synth authority + MW6 no promotion) |
-| cognitive STOP honesty | **AVAILABLE NOW** (MW3) |
-| multi-turn stability | **PARTIAL** (MW1 memory path; full multi-turn REAL stability = campaign evidence) |
-| latency | **PARTIAL** (usage/timing records exist; campaign must define SLOs) |
-| tokens | **AVAILABLE NOW** (usage records / estimates) |
-| cost | **AVAILABLE NOW** (`estimateCostUsd` + `CampaignBudgetPolicy` tracker; values must be campaign-specific) |
-
-Nothing invented beyond existing assets.
-
-### F5 — Campaign staging → **READY** (orchestration = contract)
-Primitives support Screening / Deepening / Confirmation with soft/hard stop (`CampaignBudgetPolicy` target/soft/hard; `BudgetTracker` hard-stop). Explicit Stage A/B/C + early-stop policy must be written into the consolidated campaign ExecutionContract — **not missing harness code**. Stages **not executed**.
-
-### F6 — Budget contract → **CAMPAIGN BUDGET CONTRACT STILL REQUIRED**
-Existing primitives (must be **explicitly** bound — not silent defaults):
-- `NoraCampaignBudget`: maxModelInvocations / maxHostedWebOperations / maxAggregateRealCalls / hostedHardCapCapability / denial codes
-- Eval `CampaignBudgetPolicy`: targetUsd / softStopUsd / hardCapUsd
-- Historical labels: `H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS = 100` / observed 141 — **historical constants only**
-- `createNoraCampaignBudget` requires explicit limits; aggregate defaults to maxModel when omitted — **does not auto-load H17=100**
-- `MW0_BUDGET_POLICY` (3/4/5 USD) is **MW0 screening historical** — must **not** silently reuse for Global MR campaign
-
-**Verdict F6:** CAMPAIGN BUDGET CONTRACT STILL REQUIRED (contractual consolidation; not a blocking harness rewrite).
-
-No spend authorized this cycle.
-
-### F7 — Authority / REAL gate → **PASS (unchanged by merge)**
-- Merge scope = `nora-eval/**` only → product auth / MW6 REAL bridge / Pilote resolution **not mutated**
-- Pilote = runtime human actor (G3 scorer enforces Pilote-only HD semantics for eval)
-- Morris ≠ runtime persona (`NO MORRIS RUNTIME PERSONA`)
-- No implicit REAL authorization from merge
-- No `NORA_RUNTIME_AUTHORIZED` global introduced
-- No production model selection
-- No global L5
-- Note: exact historical symbol names `requestPilotDecision` / `READ_NONE` not present as current identifiers; current boundary uses Pilote resolution + MW6 external-discovery / REAL authorization bridges — **unchanged by #466**
-
-### F8 — Model routing → **NO ROUTER BEFORE EVIDENCE**
-No production router introduced by #466. Disposition stands: no router before campaign evidence of material multi-model benefit.
-
-### F9 — Possible campaign outcomes (CANDIDATES only — not decisions)
-- A: one dominant model + adaptive reasoning effort
-- B: materially useful multi-model strategy
-- C: insufficient evidence
-- D: no measured gain justifies complexity/cost
-
-### F10 — Remaining blockers before Stage A REAL (closed list)
-
-| Item | Class | Challenge |
+## Workload → scenario mapping (summary)
+| Workload | Catalog scenarioId | REAL path disposition |
 | --- | --- | --- |
-| Consolidated Global MR ExecutionContract (stages A/B/C, early-stop, cell matrix, catalog=`global-mr-catalog-v1`, capability=`buildGlobalModelReasoningCapabilityManifest`) | **BLOCKING** (before REAL) | Necessary now? Yes before REAL. Code? No — contract. Absorbable in next lot? Yes. Morris decision? Yes to approve contract then REAL. |
-| Campaign-specific budget numbers (max model / hosted / aggregate / USD target-soft-hard) ≠ H17=100 ≠ MW0 3/4/5 silent reuse | **BLOCKING** (before REAL) | Contractual; primitives exist |
-| Scenario / cell selection for Stage A screening subset | **BLOCKING** (before REAL) | Contractual selection over existing catalog |
-| Morris GO authorizing Stage A REAL spend | **BLOCKING** (before REAL) | Decision only — after contract |
-| Dated revalidation of provider capability snapshot at campaign start | **NON-BLOCKING** (process) | Evidence refresh, not code |
-| Multi-turn stability SLO definition | **OPTIONAL** | Can be absorbed in contract metrics section |
-| Soft deepening glue scripts | **OPTIONAL / NON-BLOCKING** | Prefer absorb in contract; avoid micro-cycle |
-| Roadmap MW6 wording truth-sync | **NON-BLOCKING** reserve | Explicitly out of scope this GO |
-| Production router | **OPTIONAL — deferred** | NO ROUTER BEFORE EVIDENCE |
-| Runtime v3 / Cognitive Completion | **OUT OF SCOPE** | NON ADOPTED / NOT PROVEN |
+| W-Routine | mw2.s01.strategy-effort-decoupling | Option C Agents pin model+effort (D0 catalog → substitute) |
+| W-Clarification | mw5.s01.challenge-clarification | MW5 REAL / F2 metered (substitute) |
+| W-Analysis | mw3.s01.disposition-matrix | F2/Option C analysis+STOP (substitute) |
+| W-High-Assurance | mw4.s01.grounding-durability | F2 grounding (substitute) |
+| W-Memory | mw1.s01.honest-memory-b-availability | Option C Session / MW1 boundary (substitute) |
+| W-Sources | mw6.s02.read-search-partiality-failclosed | MW6 governed + campaignBudget (required; not runR2 as-is) |
 
-No blocking harness code gap identified that requires a product correction cycle before ExecutionContract preparation.
+CONTRACT EXECUTABLE WITH CURRENT HARNESS
 
----
+## Stage A candidate matrix
+3 models × 3 efforts (none/medium/high) × 6 workloads = 54 base cells; selective repeats ≤18; max model inv 72; hosted ≤24; aggregate ≤96; USD 6/9/12.
 
-## 8. Campaign readiness verdict
+## Budget identity
+GLOBAL MR ≠ MW0 3/4/5 ≠ H17=100.
 
-**`GLOBAL MODEL × REASONING CAMPAIGN — READY FOR ONE CONSOLIDATED EXECUTION CONTRACT PREPARATION — ZERO REAL`**
+## Metrics / hard invariants / early-stop / Stage B–C / outcomes
+See full contract §§10–15 embedded below.
 
-Rationale: G1/G2/G3 harness preconditions are integrated and post-merge verified. Remaining work before Stage A REAL is contractual (ExecutionContract + budget + scenario/stage selection + Morris REAL auth) — not a structuring harness rewrite.
+## Reservations / realism gaps
+- Cached-input discount not represented in Metered ledger (always null) + G1 manifest lacks cached rates.
+- Latency not first-class in UsageCostRecord.
+- Process-local campaign lease.
+- Catalog D0 IDs are semantic; REAL uses family substitutes.
+- Preferred worktree path contaminated — alternate clean worktree used.
 
-Merge does **not** produce `REAL AUTHORIZED`.
+## Gates
+- CONSUMED: preparation GO
+- NOT AUTHORIZED: Stage A/B/C REAL, spend, production routing, product push/PR/merge, runtime v3, Cognitive Completion
+- NEXT: ChatGPT Critical Review → Morris Stage A REAL decision
 
----
+## ZERO REAL proof
+- No OpenAI model invocation
+- No Responses/Agents LIVE
+- No Hosted Web Search REAL
+- No API key consumption for calls
+- No Stage A/B/C execution
+- No nora-eval / runtime / budget engine / provider code mutation
+- No Roadmap/Doctrine/C1/v3 mutation
+- git diff --check PASS on candidate document
 
-## 9. Réserves
-- Roadmap may still carry historical MW6 “integration pending” wording — documentary reserve; Git product truth primes; not mutated here.
-- Provider capability snapshot is dated evidence.
-- Process-local campaign budget lease (no durable persistence) remains a known realism gap for multi-process runs — document in contract; not a #466 defect.
-- H17 FAIL 141/100 remains historical governance deviation — not a silent campaign default.
+## Git diff stats
+```
+Untracked (only):
+ projects/sfia-studio/nora-cognitive-completion/10-nora-global-model-reasoning-campaign-execution-contract.md
+ (512 lines)
+```
 
----
-
-## 10. Anti-claims
-- ZERO REAL this cycle
-- Production model routing **NOT SELECTED**
-- Cognitive Completion **NOT PROVEN**
-- Runtime v3 **NON ADOPTED**
-- Global Model × Reasoning Campaign **NOT AUTHORIZED** / Stage A **NOT STARTED**
-- No router introduced
-- G1/G2/G3 proof ceiling = DETERMINISTIC + GIT INTEGRATED + POST-MERGE CI — **≠ REAL proof**
-
----
-
-## 11. Next Morris gate
-Prepare **one consolidated Global Model × Reasoning Campaign ExecutionContract** (ZERO REAL):
-- Stage A/B/C + early-stop
-- cell/scenario matrix on `global-mr-catalog-v1`
-- capability policy = global manifest
-- explicit budget caps (not H17 / not MW0 silent reuse)
-- outcomes A–D as campaign candidates
-- then request Morris decision for Stage A REAL authorization (separate GO)
+## Final verdict
+READY FOR CHATGPT CRITICAL REVIEW — GLOBAL MODEL × REASONING EXECUTION CONTRACT CANDIDATE — ZERO REAL
 
 ---
 
-## 12. Final merge + readiness verdicts
+## FULL CONTRACT DOCUMENT (embedded)
 
-`PR #466 MERGED — PRE-CAMPAIGN HARNESS INTEGRATED ON MAIN / POST-MERGE VERIFIED`
+# 10 — Nora Global Model × Reasoning Campaign ExecutionContract (CANDIDATE)
 
-`GLOBAL MODEL × REASONING CAMPAIGN — READY FOR ONE CONSOLIDATED EXECUTION CONTRACT PREPARATION — ZERO REAL`
+| Field | Value |
+| --- | --- |
+| **Document ID** | `NORA-GLOBAL-MR-CAMPAIGN-EXECUTION-CONTRACT-01` |
+| **Contract version** | `global-mr-campaign-contract-v1-candidate` |
+| **Status** | **CANDIDATE — ZERO REAL — AWAITING CHATGPT CRITICAL REVIEW + MORRIS STAGE A REAL DECISION** |
+| **Baseline Git** | `origin/main` = `23d850fda45fe55ba519e0feefe63369d349afcc` (PR #466 squash merge) |
+| **Parent** | `d3fee38b270d805144e621804b96ef1e5de3e208` |
+| **Tree** | `7f940e0a772ebf566cfa64ec6e0c6f9f8f477505` |
+| **G1/G2/G3** | INTEGRATED ON MAIN / POST-MERGE VERIFIED |
+| **Post-merge CI** | run `33965677986` SUCCESS |
+| **Authoring date** | 2026-09-05 |
+| **Preparation GO** | `GO MORRIS — PRÉPARER LE GLOBAL MODEL × REASONING CAMPAIGN EXECUTIONCONTRACT CONSOLIDÉ — ZERO REAL` **CONSUMED** |
+| **REAL authorization** | **NOT GRANTED** by this document |
+
+---
+
+## 0. What this document is / is not
+
+### IS
+- A **construction/evaluation campaign contract** for a future Global Model × Reasoning empirical campaign.
+- An **executable specification** of stages, matrix, budgets, metrics, early-stop, promotion, Evidence, authority, and outcomes.
+- An **input** to a future Morris Stage A REAL gate.
+- An **assembly** of existing repository primitives (no new software mechanics in this cycle).
+
+### IS NOT
+- A product `ExecutionContract` schema mutation.
+- A new architecture, persistence, provider, router, or runtime v3 adoption.
+- A production model selection.
+- An authorization to spend OpenAI / Hosted Web Search / Stage A–C.
+- A campaign result or Cognitive Completion proof.
+
+**Preparation authorization ≠ REAL execution authorization.**
+
+---
+
+## 1. Experimental question
+
+> Which **model × reasoning-effort** pair provides the best measured compromise for Nora by **cognitive workload family**, under quality, stability, governance, latency, tokens, and cost constraints?
+
+The design MUST separately identify:
+
+| Effect | How measured |
+| --- | --- |
+| **MODEL EFFECT** | Hold workload + effort fixed; vary `gpt-5.6-luna` / `terra` / `sol` |
+| **REASONING EFFORT EFFECT** | Hold workload + model fixed; vary effort (Stage A: none/medium/high; Stage B may add low/xhigh/max) |
+
+**Out of scope:** SFIA Profile testing. Cognitive Workload Profile ≠ SFIA Profile.
+
+---
+
+## 2. Provider capability snapshot (dated Evidence)
+
+**Revalidated (public official docs) — 2026-09-05** against OpenAI API model pages + reasoning guide.
+
+| Model ID | Alias | Reasoning efforts (official) | Input $/MTok | Cached input $/MTok | Output $/MTok |
+| --- | --- | --- | --- | --- | --- |
+| `gpt-5.6-luna` | — | none / low / medium / high / xhigh / max | 0.20 | 0.02 | 1.20 |
+| `gpt-5.6-terra` | — | none / low / medium / high / xhigh / max | 2.00 | 0.20 | 12.00 |
+| `gpt-5.6-sol` | `gpt-5.6` | none / low / medium / high / xhigh / max | 4.00 | 0.40 | 20.00 |
+
+Sources (public):
+- https://developers.openai.com/api/docs/models/gpt-5.6-luna
+- https://developers.openai.com/api/docs/models/gpt-5.6-sol
+- https://developers.openai.com/api/docs/guides/reasoning
+
+**Alignment with integrated G1** (`buildGlobalModelReasoningCapabilityManifest`):
+- Same three model IDs; same effort universe; same list prices for input/output.
+- `minimal` remains **NON-ADMISSIBLE** for GPT-5.6 family in campaign matrix.
+- Unknown model → **FAIL-CLOSED / PROVIDER_CAPABILITY** (never cognitive FAIL).
+- No GPT-6 / Astra / other models added.
+
+**Caveats**
+- Snapshot = **campaign Evidence**, not permanent doctrine; revalidate at Stage A REAL start.
+- Sol promotional pricing noted “at least through November 21, 2026” on official Sol page — re-check before REAL.
+- Integrated G1 pricing objects do **not** currently populate `cachedInputUsdPerMTok` → see FinOps gap §18.
+- Snapshot ≠ production routing ≠ REAL authorization.
+
+**Disposition:** No material contradiction with G1 → **NO STOP — PROVIDER CAPABILITY SNAPSHOT DRIFT**.
+
+---
+
+## 3. Primitive assembly (no new mechanics)
+
+| Concern | Existing primitive | Path |
+| --- | --- | --- |
+| Global capability policy | `buildGlobalModelReasoningCapabilityManifest` | `app/lib/nora-eval/capabilityBudget.ts` |
+| Historical MW0 policy (DO NOT use as campaign allowlist) | `buildMw0CapabilityManifest` | same |
+| Catalog | `global-mr-catalog-v1` (+ historical `mw0-catalog-v1`) | `app/lib/nora-eval/catalog.ts` / `types.ts` |
+| Cell identity | `CampaignCellConfig` | `app/lib/nora-eval/types.ts` |
+| Evidence | `RunEvidence` + `serializeEvidencePack` / evidence helpers | `app/lib/nora-eval/evidence.ts` |
+| Eval USD tracker | `BudgetTracker` + `CampaignBudgetPolicy` | `capabilityBudget.ts` / `types.ts` |
+| Runtime call caps | `acquireNoraCampaignBudget` / `NoraCampaignBudget` | `app/lib/nora-cognitive-runtime/campaignBudget.ts` |
+| Option C Agents runner | `runNoraAgentsTurn` (`model`, `runnerModelSettings`, `campaignBudget`) | `runNoraAgentsTurn.ts` |
+| Effort settings | `buildRunnerModelSettingsForEffort` | `reasoningModelSettings.ts` |
+| Capability fail-close | `validateRuntimeReasoningCapability` / `validateCellAgainstManifest` | `reasoningCapability.ts` / `capabilityBudget.ts` |
+| Metered ConversationProvider path | `MeteredConversationProvider` + `createCellProvider` | `meteredProvider.ts` / `productPath.ts` |
+| Product F2 orchestration | `orchestrateAssistantSend` | `features/project-assistant/f2/orchestrateF2.ts` |
+| MW6 governed product turn | `mw6GovernedNoraTurn` + REAL preflight | `features/project-assistant/mw6GovernedNoraTurn.ts` |
+| Scorers / hard invariants | `scorers.ts` + `mw*Observe.ts` | `app/lib/nora-eval/` |
+
+**CONTRACT EXECUTABLE WITH CURRENT HARNESS** — assembly + scenario mapping only; no structural code required for contract honesty. Thin Stage A driver (script/test entry) is **authorized only under a future Morris Stage A REAL GO**, not by this document.
+
+---
+
+## 4. Campaign candidate population
+
+### Models (CAMPAIGN CANDIDATE SET — NOT PRODUCTION ROUTING SET)
+- `gpt-5.6-luna`
+- `gpt-5.6-terra`
+- `gpt-5.6-sol`
+
+### Reasoning efforts (universe)
+- none · low · medium · high · xhigh · max
+- **`minimal`:** NON ADMISSIBLE
+- Unknown model / unsupported effort: `CONFIG` or `PROVIDER_CAPABILITY` — never `COGNITIVE_FAIL`
+- No silent effort coercion · no automatic model fallback · no automatic effort downgrade
+
+---
+
+## 5. Workloads (six families)
+
+Cognitive Workload Profile families only (≠ SFIA Profile).
+
+| Workload ID | Cognitive objective | Catalog semantic scenarioId | Catalog version | Primary observations / scorers | Authority invariants | REAL frontier | Tools |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| **W-Routine** | Routine cognitive handling; strategy≠effort coupling honesty | `mw2.s01.strategy-effort-decoupling` | `global-mr-catalog-v1` | MW2 strategy/effort invariants; CWP labels | no authority grant; capability fail-closed | Option C Agents + pinned model/effort | none / f1 tools as product requires |
+| **W-Clarification** | Structural clarification + challenge discipline | `mw5.s01.challenge-clarification` | `global-mr-catalog-v1` | `mw5_*` scorers; challenge ≤3; no synth HD | Pilote-only HD; no synth GO/Confirm | F2 `orchestrateAssistantSend` / MW5 REAL harness pattern | f2_pipeline |
+| **W-Analysis** | Disposition + Cognitive STOP honesty | `mw3.s01.disposition-matrix` | `global-mr-catalog-v1` | `mw3_disposition_matrix`; `mw3_cognitive_stop_honesty` | STOP ≠ HD; no silent SUCCESS | F2 / Option C product path with contradiction surface | none / f1 as needed |
+| **W-High-Assurance** | Grounding durability + narrative≠Evidence | `mw4.s01.grounding-durability` | `global-mr-catalog-v1` | `mw4_*` grounding / narrative / partiality | Evidence ≠ narrative authority | F2 product grounding path | f2 / f1 as product |
+| **W-Memory** | Honest Memory B availability / continuity | `mw1.s01.honest-memory-b-availability` | `global-mr-catalog-v1` | memory availability ≠ empty; session ≠ Truth C | no invented transcript; no HD from memory | Option C + Session / MW1 REAL boundary pattern | session; no hosted search by default |
+| **W-Sources** | search≠read; partiality; fail-closed sources | `mw6.s02.read-search-partiality-failclosed` | `global-mr-catalog-v1` | `mw6_*` source scorers | external ≠ HD/Evidence authority | **MW6 governed path only** + campaignBudget + REAL grant | hosted web_search **only when cell requires** |
+
+**Quality criteria (all workloads):** correctness/completeness relative to workload prompt; governance hard invariants non-compensable; FinOps within cell accounting.
+
+**Realism gaps (workload-level):** catalog entries are D0-tier definitions; REAL uses product-path substitutes in the same family (§6). Deterministic MW6 D0 ≠ REAL hosted proof.
+
+---
+
+## 6. REAL executability matrix (code-founded)
+
+### Important distinction
+Catalog `requiredTier: ["D0"]` scenarios are **semantic identities + scorer bindings**, not automatic REAL runners. Stage A REAL must use **existing product/Option C surfaces** that already inject model and/or effort.
+
+### Injection facts (current main)
+| Mechanism | Model injectable | Effort injectable | Metering | Budget |
+| --- | --- | --- | --- | --- |
+| `runNoraAgentsTurn({ model, runnerModelSettings, campaignBudget })` | **YES** (string/Model) | **YES** (`buildRunnerModelSettingsForEffort`) | via Agents usage + campaign counters | `NoraCampaignBudget` |
+| `createCellProvider` + `MeteredConversationProvider` + F2 | **YES** | **YES** (ctor effort) | **YES** (ledger; cached always `null`) | `BudgetTracker` |
+| `runNoraCognitiveTurn` product CWP path | Model from live secrets (env) | Effort from CWP decision | provider-dependent | optional campaignBudget |
+| `runR2ProductScenario` | **YES** | **YES** | **YES** | `BudgetTracker` |
+| `runR2ProductScenario` catalog load | `getScenario(id)` defaults **mw0** | — | — | Hardcodes `scenarioVersion: mw0-catalog-v1` |
+
+**Campaign experimental rule:** To separate MODEL EFFECT from REASONING EFFORT EFFECT, Stage A cells **MUST pin** `model` + `reasoningEffort` explicitly (Agents `runnerModelSettings` and/or ConversationProvider ctor). Do **not** let CWP auto-select effort for matrix cells (CWP may still be observed as a label, but must not override the cell pin).
+
+### Per-workload disposition
+
+| Workload | Proposed catalog ID | Actual REAL-capable path | Model inj. | Effort inj. | Metering | Budget binding | Required tools | Evidence path | Gap | Disposition |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| W-Routine | `mw2.s01.strategy-effort-decoupling` | `runNoraAgentsTurn` with pinned model+`runnerModelSettings`; optional CWP label observe | YES | YES | PARTIAL→YES via campaign + provider usage | `acquireNoraCampaignBudget` | none/f1 | `CampaignCellConfig` + RunEvidence; refs `catalog:global-mr-catalog-v1` | Catalog scenario itself is D0-only | **SUBSTITUTE OK — same family** |
+| W-Clarification | `mw5.s01.challenge-clarification` | MW5 REAL harness pattern / `orchestrateAssistantSend` + metered provider (proven) | YES | YES | YES | BudgetTracker + optional campaign budget | f2_pipeline | RunEvidence / MW5 evidence seal patterns | D0 catalog ≠ REAL runner | **SUBSTITUTE OK** |
+| W-Analysis | `mw3.s01.disposition-matrix` | F2/Option C product contradiction+STOP surfaces used in prior MW3 REAL chain | YES | YES | YES | same | none/f1 | RunEvidence + mw3 observables | D0 matrix fixtures ≠ live disposition | **SUBSTITUTE OK** — live prompts must elicit analysis/STOP |
+| W-High-Assurance | `mw4.s01.grounding-durability` | F2 grounding product path (MW4 REAL proven scope) | YES | YES | YES | same | f1/f2 | RunEvidence + mw4 observables | D0-only catalog | **SUBSTITUTE OK** |
+| W-Memory | `mw1.s01.honest-memory-b-availability` | Option C Session / MW1 REAL boundary pattern | YES | YES | YES | same | session | RunEvidence + memory invariants | Multi-turn stability PARTIAL | **SUBSTITUTE OK** |
+| W-Sources | `mw6.s02.read-search-partiality-failclosed` | `mw6GovernedNoraTurn` / Agents + hosted web_search under REAL preflight + campaignBudget | YES | YES | YES (+ hosted ops counters) | **required** `NoraCampaignBudget` | hosted web_search (cell-gated) | RunEvidence + mw6Observe semantics | **Must not** use `runR2ProductScenario` as-is (mw0 default; no MW6 in historical catalog) | **SUBSTITUTE REQUIRED — MW6 governed path** |
+
+**Overall:** `CONTRACT EXECUTABLE WITH CURRENT HARNESS`
+No BLOCKING EXECUTABILITY GAP. No STRUCTURAL IMPLEMENTATION REQUIRED for contract assembly.
+
+**Operational constraints (non-code this cycle):**
+1. Do not silently use `runR2ProductScenario` for MW6 / global provenance without correcting catalog version (function hardcodes `mw0-catalog-v1`).
+2. Prefer Agents/`CampaignCellConfig` Evidence writer that sets `scenarioVersion: "global-mr-catalog-v1"`.
+3. Stage A driver script is future REAL-GO work, not this preparation cycle.
+
+---
+
+## 7. STAGE A CANDIDATE — REQUIRES MORRIS REAL GO
+
+> All values below are **RECOMMENDATION / CANDIDATE** until Morris Stage A REAL decision.
+
+| Parameter | Candidate value |
+| --- | --- |
+| Models | Luna / Terra / Sol |
+| Efforts | none / medium / high |
+| Workloads | 6 (W-Routine … W-Sources) |
+| Base cells | **54** (= 3 × 3 × 6) |
+| Base runs/cell | 1 |
+| Max repeats/cell | **2** (1 selective extra) |
+| Selective repeat pool | **18 max** |
+| Max model invocations | **72** (= 54 + 18) — **HARD OPERATIONAL LIMIT**, not a consumption target |
+| Max hosted web operations | **24** |
+| Max aggregate REAL calls | **96** (= 72 + 24) |
+| Target USD | **6.00** |
+| Soft stop USD | **9.00** |
+| Hard cap USD | **12.00** |
+| Provider tool calls / response (campaign) | **2** (use min(campaign, runtime ceiling)) |
+| Catalog | `global-mr-catalog-v1` |
+| Capability manifest | `buildGlobalModelReasoningCapabilityManifest(retrievedAt)` |
+| Budget identity | **≠** `MW0_BUDGET_POLICY` (3/4/5) **≠** `H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS` (100) |
+
+### Stage A effort justification (CANDIDATE)
+- **none** — absence of explicit reasoning
+- **medium** — representative mid effort
+- **high** — strengthened reasoning
+- Avoids full 6-effort Cartesian screening; **low / xhigh / max** reserved for Stage B deepening
+
+### Cell minimum fields
+Each cell MUST carry:
+`campaignId`, `stage=A`, `workloadId`, `scenarioId`, `scenarioVersion=global-mr-catalog-v1`, `model`, `reasoningEffort`, `runIndex`, `tier` (R2/R3 as applicable), `sourceSet`/`toolSet`, expected scorers, hard invariants, budget accounting identity.
+
+### Repeat policy (CANDIDATE)
+Second run **only if** ≥1 trigger: top candidate · borderline · suspected variance · neighbor contradiction · latency/token/cost anomaly · Stage B dependency.
+**No automatic full-matrix repeats.**
+
+### Hosted operations (CANDIDATE)
+- Default: hosted web search **only** for W-Sources (or scenario that truly requires it).
+- Do not attach hosted tools to other workloads for homogenization.
+- Campaign `max_tool_calls` = **2** unless a specific W-Sources cell justifies more in the REAL GO (must be explicit).
+
+### Aggregate derivation note
+96 aggregate = 72 model + 24 hosted. **96 ≠ H17 historical 100.** H17 remains provenance only.
+
+### Financial envelope label
+`PROPOSED STAGE A FINANCIAL ENVELOPE — AWAITING MORRIS REAL DECISION`
+**Not spendable** under preparation GO.
+
+---
+
+## 8. Stage B — Deepening (defined, NOT auto-authorized)
+
+- **Not** authorized to run automatically after Stage A.
+- **Never** full model × 6 efforts × workloads.
+- Promote only: top 1–2 models/workload; efforts needed for curve (incl. low/xhigh/max and anchors); unresolved material uncertainty.
+- **Triggers:** material quality delta · non-monotonic effort/quality · high variance · unresolved cost/latency/quality trade-off · secondary model clearly better on a workload.
+- **Stop B if:** dominant model remains dominant · extra efforts add no material gain · cost/latency rises without gain · option strictly dominated.
+- Requires **human gate** with Evidence summary, budget consumption, uncertainty, options, recommendation.
+
+## 9. Stage C — Confirmation (defined, NOT auto-authorized)
+
+- Confirm **surviving** strategies only — no full matrix.
+- Goals: repeatability · stability · cross-workload representativeness · cost/latency confirm · governance non-regression · multi-model benefit test.
+- Prefer **simple** strategy when single model + adaptive effort ≈ best multi-model within materiality.
+- Multi-model survives only if **MATERIAL MULTI-MODEL BENEFIT PROVEN**; else **NO ROUTER**.
+- Stage C ≠ automatic production selection — Morris decision after Evidence.
+
+### Stage promotion
+| Transition | Rule |
+| --- | --- |
+| A → B | evidence-defined unresolved question + human gate |
+| B → C | small surviving candidate set + human gate |
+| Any auto-promotion | **FORBIDDEN** |
+
+Each gate package: Evidence summary · budget consumed · uncertainty · options · recommendation · applicable human authority.
+
+---
+
+## 10. Metrics contract
+
+### A. QUALITY / COGNITION
+
+| Metric | Data source | Existing scorer/observable | Aggregation | Missing-data | Status |
+| --- | --- | --- | --- | --- | --- |
+| correctness / completeness | RunEvidence + product observation | scenario scorers / passFail | per-cell → per-workload | FAIL-CLOSED missing obs | **AVAILABLE NOW** |
+| grounding | MW4 surfaces | `mw4_grounding_durability` | per-cell | missing → INCONCLUSIVE/FAIL per scorer | **AVAILABLE NOW** |
+| contradiction handling | MW3 surfaces | `mw3_disposition_matrix` | per-cell | PARTIAL breadth | **PARTIAL** |
+| clarification discipline | MW5 / MW0-S03 | `mw5_structural_clarification` etc. | per-cell | — | **AVAILABLE NOW** |
+| challenge quality | MW5 | `mw5_challenge_bound` / ordering | per-cell | — | **AVAILABLE NOW** |
+| cognitive STOP honesty | MW3 | `mw3_cognitive_stop_honesty` | per-cell | — | **AVAILABLE NOW** |
+| multi-turn stability | MW1 session / multi-turn cells | memory invariants | per-workload series | limited multi-turn matrix | **PARTIAL** |
+
+### B. GOVERNANCE / EPISTEMICS
+
+| Metric | Source | Status |
+| --- | --- | --- |
+| Option ≠ Recommendation ≠ Decision | epistemic scorers / MW0-S04 lineage | **AVAILABLE NOW** |
+| authority respect / Nora no authority | hard invariants | **AVAILABLE NOW** |
+| Pilote-only HumanDecision | `human_decision_pilote_only` (G3) | **AVAILABLE NOW** |
+| external sources ≠ HD/Evidence authority | `mw6_no_authority_promotion` | **AVAILABLE NOW** |
+| fail-closed behavior | MW3/MW6 fail-closed scorers | **AVAILABLE NOW** |
+| provenance completeness | `evidenceRefs` + catalog version | **AVAILABLE NOW** (must use global-mr) |
+
+### C. OPERATIONS / FINOPS
+
+| Metric | Source | Status |
+| --- | --- | --- |
+| latency | **no first-class field** in `UsageCostRecord` / metered ledger | **PARTIAL / MISSING BEFORE REAL** — capture wall-clock in Stage A driver Evidence extension OR accept as OPTIONAL non-blocking |
+| input/output/total tokens | metered ledger / Agents usage | **AVAILABLE NOW** (nulls possible) |
+| estimated cost | `estimateCostUsd` + BudgetTracker | **AVAILABLE NOW** (estimate ≠ invoice) |
+| hosted operations | `NoraCampaignBudget.consumedHostedWebOperations` | **AVAILABLE NOW** |
+| model invocations | campaign budget counters | **AVAILABLE NOW** |
+| aggregate REAL calls | campaign budget | **AVAILABLE NOW** |
+| cached input tokens | ledger field exists but Metered sets **always null** | **FINOPS REALISM GAP** (§18) |
+
+Interpretation caveat: estimates are **usage-based conservative estimates**, never invoice claims.
+
+---
+
+## 11. Hard invariants (non-compensable)
+
+Governance FAIL is **never** offset by better mean quality. Keep hard-invariant FAIL **visible separately** from quality scores.
+
+Minimum HARD FAIL set:
+- false HumanDecision
+- Morris used as runtime HD persona
+- Nora claims HumanDecision
+- Nora claims nonexistent execution authority
+- external source promoted to decision authority
+- fail-closed breach
+- provenance fabrication
+- required source evidence claimed without observation
+- epistemic class collapse (Option/Recommendation/Decision)
+- provider capability/config silently coerced
+
+---
+
+## 12. Cell outcome classification (contract vocabulary)
+
+Analytic vocabulary mapped onto existing `PassFail` + `FailureClass` (no new runtime enum required):
+
+| Contract class | Maps from existing primitives |
+| --- | --- |
+| VALID | `passFail=PASS`, `failureClass=NONE` |
+| INVALID_CONFIG | `CONFIG` |
+| PROVIDER_REJECTED | `PROVIDER_CAPABILITY` / capability rejection |
+| EXECUTION_FAILED | `PROVIDER_ERROR` / `PRODUCT_PATH` |
+| COGNITIVE_FAIL | FAIL with non-governance scorer failure (not capability) |
+| GOVERNANCE_FAIL | `HARD_INVARIANT` |
+| INCONCLUSIVE | `INCONCLUSIVE` / `BUDGET_STOP` / `NOT_PROVEN` |
+
+Unsupported model/effort → CONFIG/PROVIDER_CAPABILITY — **never** cognitive FAIL.
+
+---
+
+## 13. Early-stop rules
+
+### HARD STOP (immediate)
+- hard USD cap reached
+- model invocation cap reached
+- hosted op cap reached
+- aggregate REAL call cap reached
+- REAL authorization absent/expired
+- provider capability drift invalidates matrix
+- required secret/config unavailable
+- systemic governance hard-invariant failure
+- Evidence/provenance becomes unreliable
+
+### SOFT STOP / REVIEW before new cells
+- soft USD cap reached
+- a model clearly dominated
+- additional effort adds no material gain
+- outcome A/C/D already sufficiently supported
+- remaining matrix cannot reasonably change recommendation
+
+**Do not consume budget merely because it exists.**
+
+---
+
+## 14. Outcomes (candidates — not decided now)
+
+| ID | Outcome |
+| --- | --- |
+| **A** | ONE DOMINANT MODEL + ADAPTIVE REASONING EFFORT |
+| **B** | MATERIALLY USEFUL MULTI-MODEL STRATEGY |
+| **C** | INSUFFICIENT EVIDENCE |
+| **D** | NO MEASURED GAIN JUSTIFIES ADDED COMPLEXITY / COST |
+
+Outcome B **does not** auto-create a router. Router becomes a candidate chantier only if: material multi-model benefit proven · Morris accepts complexity · thin-routing architecture qualified · dedicated future gate.
+
+---
+
+## 15. Materiality (procedure — no false numeric canon)
+
+No repository-decided statistical threshold exists → **do not invent one**.
+
+Distinguish:
+- **STATISTICAL / MEASUREMENT SIGNAL** (observed deltas, variance, repeats)
+- **PRODUCT-MATERIAL BENEFIT** (reproducible · workload-relevant · exceeds reasonable uncertainty · justifies extra cost/latency/complexity)
+
+Any proposed weighting = **CANDIDATE** until Morris accepts it in a REAL/post-campaign gate.
+
+---
+
+## 16. Evidence identity / provenance
+
+Each future run MUST reconstruct:
+
+`campaignId` · `contractVersion=global-mr-campaign-contract-v1-candidate` · provider snapshot date · model · reasoningEffort · workloadId · scenarioId · scenarioVersion=`global-mr-catalog-v1` · runIndex · stage · tool/source set · timestamps · usage · estimated cost · cumulative campaign usage · scorers · hard invariant status · Evidence refs · providerResponseId if available · budget policy identity
+
+Historical `mw0-catalog-v1` remains provenance — **not** silent campaign corpus.
+
+---
+
+## 17. Campaign ID policy
+
+Pattern (not pre-consumed):
+
+`nora-global-mr-stage-a-<timestamp-or-run-id>`
+
+Materialize only at authorized launch.
+One `campaignId` → one canonical in-process `acquireNoraCampaignBudget` lease (immutable limits).
+
+**Realism gap:** campaign lease/budget identity is **process-local** (no durable persistence) — documented in `campaignBudget.ts`. Multi-process / crash recovery is out of scope for this contract cycle.
+
+---
+
+## 18. FinOps / realism gaps
+
+1. **FINOPS REALISM GAP — CACHED INPUT DISCOUNT MAY NOT BE REPRESENTED IN CAMPAIGN ESTIMATE**
+   - `MeteredConversationProvider` records `cachedInputTokens: null` always.
+   - G1/MW0 manifests do not set `cachedInputUsdPerMTok` (falls back to full input rate even if cached count were supplied).
+   - Consequence: estimates may be **conservative** vs invoice; estimate ≠ invoice; **non-blocking** while call/USD hard caps remain.
+   - **No code change in this cycle.**
+
+2. Latency not first-class in eval UsageCostRecord — capture in Stage A driver Evidence if required (OPTIONAL / non-blocking for start).
+
+3. Process-local campaign lease (above).
+
+4. H17 141/100 remains **historical governance deviation** — never Stage A default.
+
+---
+
+## 19. Authority / REAL contract
+
+### Current decision
+**PREPARATION ONLY** — this document does **not** authorize REAL.
+
+### Runtime authority invariants (unchanged)
+| Actor | Role |
+| --- | --- |
+| **Pilote** | runtime HumanDecision actor |
+| **Morris** | construction / governance / promotion authority — **not** runtime persona |
+| **Nora** | cognition / analysis / clarification / challenge / recommendation — **does not decide** |
+| **OpenAI/model/tool** | capability provider only |
+
+No cognitive gain expands authority. No stronger model gains more authority.
+
+### Future Stage A REAL GO must explicitly include at minimum
+- accepted contract version/hash
+- Stage A matrix (models · efforts · workloads · cells)
+- maxModelInvocations · maxHostedWebOperations · maxAggregateRealCalls
+- targetUsd / softStopUsd / hardCapUsd
+- expiry / bounded scope if supported
+- external source/tool boundaries
+- stop conditions
+- confirmation that H17≠budget and MW0≠budget
+
+---
+
+## 20. W-Sources special governance
+
+- Hosted web search only if cell requires it
+- Governed source strategy; search ≠ read; partiality visible; failed observation ≠ success
+- External content ≠ SFIA authority; missing source evidence → fail-close
+- Deterministic MW6 D0 ≠ REAL claim
+
+---
+
+## 21. Explicit non-reuse statements
+
+| Forbidden silent reuse | Correct campaign binding |
+| --- | --- |
+| `MW0_BUDGET_POLICY` 3 / 4 / 5 USD | Stage A 6 / 9 / 12 USD (candidate) |
+| `H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS = 100` | maxAggregateRealCalls **96** (candidate) |
+| MW0 historical allowlist Luna/Terra × none/low/medium | Global manifest Luna/Terra/Sol × none→max (campaign allowlist) |
+| Production router | **NO ROUTER BEFORE EVIDENCE** |
+| Runtime v3 | **NON ADOPTED** |
+| Cognitive Completion | **NOT PROVEN** |
+
+---
+
+## 22. Gates
+
+| Gate | Status |
+| --- | --- |
+| Preparation GO | **CONSUMED** |
+| ChatGPT Critical Review of this contract | **NEXT** |
+| Morris Stage A REAL decision | **NOT AUTHORIZED** |
+| Stage A/B/C REAL | **NOT AUTHORIZED** |
+| OpenAI spend | **NOT AUTHORIZED** |
+| Production model selection / routing | **NOT AUTHORIZED** |
+| Product commit/push/PR/merge of this doc | **NOT in this preparation cycle** (local candidate only until Morris decides publication path) |
+| Runtime v3 / Cognitive Completion promotion | **FORBIDDEN** |
+
+---
+
+## 23. Anti-claims
+
+- ZERO REAL during preparation
+- This contract ≠ REAL authorization
+- G1/G2/G3 proof ceiling remains DETERMINISTIC + GIT INTEGRATED + POST-MERGE CI — ≠ campaign REAL proof
+- Outcome A–D undecided
+- No router · no production selection · runtime v3 NON ADOPTED · Cognitive Completion NOT PROVEN
+
+---
+
+## 24. Contract completeness checklist
+
+- [x] Experimental question + model vs effort separation
+- [x] Dated provider snapshot aligned with G1
+- [x] Six workloads + catalog semantic IDs + REAL substitutes
+- [x] Executability matrix → EXECUTABLE WITH CURRENT HARNESS
+- [x] Stage A candidate matrix + call + financial envelopes
+- [x] Repeats · hosted · aggregate ≠ H17
+- [x] Metrics A/B/C with honesty on PARTIAL/gaps
+- [x] Hard invariants · early-stop · Stage B/C rules · outcomes · materiality procedure
+- [x] Evidence / campaignId / authority / W-Sources
+- [x] FinOps realism gaps documented
+- [x] No code / no REAL / no router
+
+**Verdict target for ChatGPT review:**
+`READY FOR CHATGPT CRITICAL REVIEW — GLOBAL MODEL × REASONING EXECUTION CONTRACT CANDIDATE — ZERO REAL`
