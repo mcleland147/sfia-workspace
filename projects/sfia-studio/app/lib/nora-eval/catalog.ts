@@ -1,15 +1,21 @@
 /**
- * Versioned cognitive scenario catalog (MW0-S01…S07).
- * Scenario IDs are stable across runs.
+ * Versioned cognitive scenario catalog.
+ * - mw0-catalog-v1: historical pinned corpus (MW0→MW5) — do not silently mutate.
+ * - global-mr-catalog-v1: historical IDs + MW6 for Global Model × Reasoning campaign.
  */
 
 import { listBarBindings } from "./barBindings";
 import {
   NORA_EVAL_CATALOG_VERSION,
+  NORA_EVAL_GLOBAL_CATALOG_VERSION,
+  type NoraEvalCatalogVersion,
   type ScenarioDefinition,
 } from "./types";
 
-const SCENARIOS: ScenarioDefinition[] = [
+/** @deprecated Prefer NORA_EVAL_CATALOG_VERSION — kept as alias for historical pin clarity. */
+export const NORA_EVAL_HISTORICAL_CATALOG_VERSION = NORA_EVAL_CATALOG_VERSION;
+
+const HISTORICAL_SCENARIOS: ScenarioDefinition[] = [
   {
     scenarioId: "mw0.s01.catalog-mechanics",
     catalogVersion: NORA_EVAL_CATALOG_VERSION,
@@ -291,24 +297,100 @@ const SCENARIOS: ScenarioDefinition[] = [
   },
 ];
 
+const MW6_GLOBAL_SCENARIOS: ScenarioDefinition[] = [
+  {
+    scenarioId: "mw6.s01.domain-aware-source-strategy",
+    catalogVersion: NORA_EVAL_GLOBAL_CATALOG_VERSION,
+    storyIds: ["MW6-S01"],
+    barIds: ["NCC-BAR-03", "NCC-BAR-06", "NCC-BAR-11"],
+    kind: "external_source_intelligence",
+    title:
+      "MW6-S01 — domain-aware vendor-neutral source/tool strategy (D0; ZERO REAL)",
+    prompt:
+      "Deterministic MW6-S01: claim domain drives source strategy; vendor-neutral cognitive contract; no HD/authority promotion.",
+    requiredTier: ["D0"],
+    hardInvariants: [
+      "mw6_domain_aware_strategy",
+      "mw6_vendor_neutral_contract",
+      "mw6_no_authority_promotion",
+    ],
+    d0Expectations: { mustPass: true },
+  },
+  {
+    scenarioId: "mw6.s02.read-search-partiality-failclosed",
+    catalogVersion: NORA_EVAL_GLOBAL_CATALOG_VERSION,
+    storyIds: ["MW6-S02"],
+    barIds: ["NCC-BAR-04", "NCC-BAR-05", "NCC-BAR-10"],
+    kind: "external_source_intelligence",
+    title:
+      "MW6-S02 — search≠read + partiality honesty + fail-closed narrative (D0; ZERO REAL)",
+    prompt:
+      "Deterministic MW6-S02: search candidate ≠ read evidence; partial marked; fail-closed narrative; no silent SUCCESS.",
+    requiredTier: ["D0"],
+    hardInvariants: [
+      "mw6_search_read_distinction",
+      "mw6_partiality_honesty",
+      "mw6_fail_closed_narrative",
+      "mw6_no_authority_promotion",
+    ],
+    d0Expectations: { mustPass: true },
+  },
+];
+
+/** Global catalog: historical scenarios retagged + MW6 additions (IDs stable). */
+const GLOBAL_SCENARIOS: ScenarioDefinition[] = [
+  ...HISTORICAL_SCENARIOS.map((s) => ({
+    ...s,
+    catalogVersion: NORA_EVAL_GLOBAL_CATALOG_VERSION,
+  })),
+  ...MW6_GLOBAL_SCENARIOS,
+];
+
+function scenariosForVersion(
+  version: NoraEvalCatalogVersion,
+): readonly ScenarioDefinition[] {
+  if (version === NORA_EVAL_GLOBAL_CATALOG_VERSION) return GLOBAL_SCENARIOS;
+  return HISTORICAL_SCENARIOS;
+}
+
+export function listCatalogVersions(): NoraEvalCatalogVersion[] {
+  return [NORA_EVAL_CATALOG_VERSION, NORA_EVAL_GLOBAL_CATALOG_VERSION];
+}
+
+/** Default = historical pin (backward compatible). */
 export function getCatalogVersion(): typeof NORA_EVAL_CATALOG_VERSION {
   return NORA_EVAL_CATALOG_VERSION;
 }
 
-export function listScenarios(): readonly ScenarioDefinition[] {
-  return SCENARIOS;
+export function listScenarios(
+  version: NoraEvalCatalogVersion = NORA_EVAL_CATALOG_VERSION,
+): readonly ScenarioDefinition[] {
+  return scenariosForVersion(version);
 }
 
-export function getScenario(scenarioId: string): ScenarioDefinition | undefined {
-  return SCENARIOS.find((s) => s.scenarioId === scenarioId);
+export function getScenario(
+  scenarioId: string,
+  version: NoraEvalCatalogVersion = NORA_EVAL_CATALOG_VERSION,
+): ScenarioDefinition | undefined {
+  return scenariosForVersion(version).find((s) => s.scenarioId === scenarioId);
 }
 
-export function listScenarioIdsSorted(): string[] {
-  return SCENARIOS.map((s) => s.scenarioId).slice().sort();
+export function listScenarioIdsSorted(
+  version: NoraEvalCatalogVersion = NORA_EVAL_CATALOG_VERSION,
+): string[] {
+  return scenariosForVersion(version)
+    .map((s) => s.scenarioId)
+    .slice()
+    .sort();
 }
 
-export function scenariosForStory(storyId: string): ScenarioDefinition[] {
-  return SCENARIOS.filter((s) => s.storyIds.includes(storyId as never));
+export function scenariosForStory(
+  storyId: string,
+  version: NoraEvalCatalogVersion = NORA_EVAL_CATALOG_VERSION,
+): ScenarioDefinition[] {
+  return scenariosForVersion(version).filter((s) =>
+    s.storyIds.includes(storyId as never),
+  );
 }
 
 /** Parity metric targets (MW0-S07) — measurement targets only. */
@@ -324,16 +406,19 @@ export const PARITY_METRIC_TARGETS = {
   note: "Targets defined; workflow parity is NOT claimed proven by MW0 harness presence alone.",
 };
 
-export function catalogSelfCheck(): {
+export function catalogSelfCheck(
+  version: NoraEvalCatalogVersion = NORA_EVAL_CATALOG_VERSION,
+): {
   ok: boolean;
   issues: string[];
 } {
   const issues: string[] = [];
+  const scenarios = scenariosForVersion(version);
   const ids = new Set<string>();
-  for (const s of SCENARIOS) {
+  for (const s of scenarios) {
     if (ids.has(s.scenarioId)) issues.push(`duplicate scenarioId ${s.scenarioId}`);
     ids.add(s.scenarioId);
-    if (s.catalogVersion !== NORA_EVAL_CATALOG_VERSION) {
+    if (s.catalogVersion !== version) {
       issues.push(`version drift on ${s.scenarioId}`);
     }
     for (const barId of s.barIds) {
@@ -342,11 +427,24 @@ export function catalogSelfCheck(): {
       }
     }
   }
-  const cycleTypes = new Set(
-    SCENARIOS.map((s) => s.cycleTypeFixture).filter(Boolean),
-  );
-  if (cycleTypes.size < 2) {
-    issues.push("genericity requires ≥2 cycle type fixtures");
+  if (version === NORA_EVAL_CATALOG_VERSION) {
+    if (ids.has("mw6.s01.domain-aware-source-strategy")) {
+      issues.push("historical catalog must not include MW6 scenarios");
+    }
+    const cycleTypes = new Set(
+      scenarios.map((s) => s.cycleTypeFixture).filter(Boolean),
+    );
+    if (cycleTypes.size < 2) {
+      issues.push("genericity requires ≥2 cycle type fixtures");
+    }
+  }
+  if (version === NORA_EVAL_GLOBAL_CATALOG_VERSION) {
+    if (!ids.has("mw6.s01.domain-aware-source-strategy")) {
+      issues.push("global catalog missing MW6-S01 scenario");
+    }
+    if (!ids.has("mw6.s02.read-search-partiality-failclosed")) {
+      issues.push("global catalog missing MW6-S02 scenario");
+    }
   }
   return { ok: issues.length === 0, issues };
 }

@@ -3,14 +3,14 @@
  * MW1-S01 observation is produced by actual runtime execution (async).
  */
 
-import { getScenario, listScenarios, catalogSelfCheck, getCatalogVersion } from "./catalog";
+import { getScenario, listScenarios, catalogSelfCheck } from "./catalog";
 import { assertAllBarsBound } from "./barBindings";
 import {
   d0AuthorityGateObservation,
   scoreScenarioD0,
   type DeterministicObservation,
 } from "./scorers";
-import type { RunEvidence, PassFail } from "./types";
+import type { NoraEvalCatalogVersion, RunEvidence, PassFail } from "./types";
 import { NORA_EVAL_CATALOG_VERSION } from "./types";
 import { observeMw1S01FromRuntime } from "./mw1S01Observe";
 import { observeMw1S02FromRuntime } from "./mw1S02Observe";
@@ -18,6 +18,7 @@ import { observeMw2S01FromRuntime } from "./mw2S01Observe";
 import { observeMw3FromRuntime } from "./mw3Observe";
 import { observeMw4FromProductPath } from "./mw4Observe";
 import { observeMw5FromProductPath } from "./mw5Observe";
+import { observeMw6FromRuntime } from "./mw6Observe";
 
 function nowIso(): string {
   return new Date().toISOString();
@@ -117,6 +118,9 @@ async function observationForScenario(
       return observeMw4FromProductPath();
     case "mw5.s01.challenge-clarification":
       return observeMw5FromProductPath();
+    case "mw6.s01.domain-aware-source-strategy":
+    case "mw6.s02.read-search-partiality-failclosed":
+      return observeMw6FromRuntime(scenarioId);
     default:
       return { productPath: "none" };
   }
@@ -153,7 +157,7 @@ function toRunEvidence(
     usage: null,
     cumulativeSpendUsd: 0,
     redacted: true,
-    evidenceRefs: [`catalog:${getCatalogVersion()}`],
+    evidenceRefs: [`catalog:${scenario.catalogVersion}`],
     productObservation:
       scenarioId === "mw1.s01.honest-memory-b-availability"
         ? {
@@ -209,9 +213,12 @@ function toRunEvidence(
   };
 }
 
-export async function runD0Scenario(scenarioId: string): Promise<RunEvidence> {
+export async function runD0Scenario(
+  scenarioId: string,
+  catalogVersion: NoraEvalCatalogVersion = NORA_EVAL_CATALOG_VERSION,
+): Promise<RunEvidence> {
   const startedAt = nowIso();
-  const scenario = getScenario(scenarioId);
+  const scenario = getScenario(scenarioId, catalogVersion);
   if (!scenario) {
     return {
       campaignId: "d0-local",
@@ -219,7 +226,7 @@ export async function runD0Scenario(scenarioId: string): Promise<RunEvidence> {
         model: "fixture",
         reasoningEffort: "none",
         scenarioId,
-        scenarioVersion: NORA_EVAL_CATALOG_VERSION,
+        scenarioVersion: catalogVersion,
         runIndex: 0,
         campaignId: "d0-local",
         tier: "D0",
@@ -246,18 +253,20 @@ export async function runD0Scenario(scenarioId: string): Promise<RunEvidence> {
   return toRunEvidence(scenarioId, startedAt, obs, scored, scenario);
 }
 
-export async function runFullD0Suite(): Promise<{
+export async function runFullD0Suite(
+  catalogVersion: NoraEvalCatalogVersion = NORA_EVAL_CATALOG_VERSION,
+): Promise<{
   ok: boolean;
   catalogOk: boolean;
   barsOk: boolean;
   results: RunEvidence[];
   failed: string[];
 }> {
-  const catalog = catalogSelfCheck();
+  const catalog = catalogSelfCheck(catalogVersion);
   const bars = assertAllBarsBound();
   const results: RunEvidence[] = [];
-  for (const s of listScenarios()) {
-    results.push(await runD0Scenario(s.scenarioId));
+  for (const s of listScenarios(catalogVersion)) {
+    results.push(await runD0Scenario(s.scenarioId, catalogVersion));
   }
   const failed = results
     .filter((r) => r.passFail !== "PASS")
