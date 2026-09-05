@@ -1,48 +1,49 @@
-# ChatGPT Critical Review Pack — Global Model × Reasoning Stage A Option C Astra Challenger
+# ChatGPT Critical Review Pack — C6-GMR-FINOPS-CONTRACT-TRUTH
 
 | Field | Value |
 | --- | --- |
-| **Timestamp** | 2026-09-05 22:31:18 CEST / `2026-09-05T20:31:18Z` |
+| **Timestamp** | 2026-09-05 22:53:24 CEST / `2026-09-05T20:53:24Z` |
 | **Cycle** | 8 — EVOL / CRITICAL |
-| **Typology** | DELIVERY / EVOL |
-| **GO** | STAGE A OPTION C / BOUNDED GPT-6 ASTRA CHALLENGER — ZERO REAL — PUBLISH REVIEW HANDOFF |
-| **Morris decisions consumed** | **D-GMR-ASTRA-01** OPTION C ADOPTED · **D-GMR-ASTRA-02** Astra-only + adaptive reasoning trajectory instructable post-Stage-A |
+| **Identifier** | **C6-GMR-FINOPS-CONTRACT-TRUTH** |
+| **GO** | CORRECTIF OPTION C FINOPS + CONTRACT TRUTH — ZERO REAL |
+| **Morris decisions prior** | D-GMR-ASTRA-01/02 Option C ADOPTED (technical) |
+| **Blockers addressed** | **C6-01** Contract 10 current-truth · **C6-02** FinOps hosted web-search cost accounting |
+| **Prior Review Handoff** | `e782a279e382f5463339979b30c30d985807a40a` |
 | **Mode** | publish-in-cycle |
-| **ZERO REAL** | **YES** — no OpenAI API · no Astra account probe · no `/models` · no hosted LIVE · no spend |
+| **ZERO REAL** | **YES** |
 
 ---
 
-## 1. Verdict (expected if pack accepted)
+## 1. Verdict
 
-**READY FOR CHATGPT CRITICAL REVIEW — GLOBAL MODEL × REASONING STAGE A OPTION C ASTRA CHALLENGER IMPLEMENTED — 78 / 438 / 464 DETERMINISTIC PROVEN — GPT-6 ASTRA-ONLY FUTURE VIABILITY HYPOTHESIS RECORDED — FINANCIAL ENVELOPE DECISION STILL REQUIRED — ZERO REAL — REVIEW HANDOFF PUBLISHED**
+**READY FOR CHATGPT CRITICAL REVIEW — GLOBAL MODEL × REASONING STAGE A OPTION C FINOPS + CONTRACT TRUTH CORRECTED — 78 / 438 / 464 UNCHANGED — MODEL-TOKEN PLANNED RESERVE ≈ 13.06896 — MAX FIXED WEB-SEARCH TOOL FEES = 0.26 — KNOWN PLANNED SUBTOTAL ≈ 13.32896 — VARIABLE SEARCH-CONTENT / CACHE EXPOSURE VISIBLE — MORRIS FINANCIAL ENVELOPE DECISION STILL REQUIRED — ZERO REAL — REVIEW HANDOFF PUBLISHED**
 
 ### Sub-status
 
 | Item | Status |
 | --- | --- |
-| OPTION C | **ADOPTED BY MORRIS** |
-| GPT-5.6 primary cohort | **PRESERVED** (54 base) |
-| Astra Stage A | medium × 6 / **ONE-SHOT** |
-| Stage A base cells | **60** |
-| maxCellExecutions | **78** |
-| maxModelInvocations | **438** |
-| maxHostedWebOperations | **26** |
-| maxAggregateRealCalls | **464** |
-| current USD 6/9/12 | **INSUFFICIENT** for full Option C worst-case |
-| planned worst reserve | **≈ 13.06896** |
-| budget decision | **OPEN / MORRIS** |
-| Astra account availability | **NOT PROVEN** |
+| Option C technical design | **UNCHANGED / ACCEPTED** |
+| GPT-5.6 primary | **54** |
+| Astra challenger | **6 / medium / one-shot** |
+| base / max cells / model / hosted / aggregate | **60 / 78 / 438 / 26 / 464** |
+| current policy | **6 / 9 / 12** |
+| current policy feasibility | **FAIL** |
+| plannedModelTokenReserveUsd | ≈ **13.06896** |
+| plannedHostedWebSearchToolFeesUsd | **0.26** |
+| knownPlannedSubtotalUsd | ≈ **13.32896** |
+| search-content / cache exposure | **VISIBLE / VARIABLE** |
+| invoice | **NOT_OBSERVED** |
+| Astra account | **NOT PROVEN** |
 | Stage A REAL | **NOT AUTHORIZED** |
-| Stage B Astra-only viability | **CONDITIONAL FUTURE GATE / NOT IMPLEMENTED** |
-| Stage C | **NOT AUTHORIZED / NOT IMPLEMENTED** |
-| production routing | **NOT SELECTED** |
-| Cognitive Completion | **NOT PROVEN** |
-| runtime v3 | **NON ADOPTED** |
+| Stage B Astra-only | CONDITIONAL FUTURE / NOT IMPLEMENTED |
+| production routing | NOT SELECTED |
+| Cognitive Completion | NOT PROVEN |
+| runtime v3 | NON ADOPTED |
 | product commit/push/PR/merge | **NONE** |
 
 ### Next gate
 
-ChatGPT Critical Review → Morris Option C technical acceptance + financial envelope decision + Git integration GO → integration / post-merge verification → distinct Morris Stage A REAL GO
+ChatGPT Critical Review → Morris financial envelope decision + Git integration GO → product integration / post-merge → DISTINCT Stage A REAL GO
 
 ---
 
@@ -50,130 +51,89 @@ ChatGPT Critical Review → Morris Option C technical acceptance + financial env
 
 | Item | Value |
 | --- | --- |
-| `origin/main` expected | `1dd5d67ad942c448becd637f4c2e55883d16ffca` |
-| PR #467 | MERGED / POST-MERGE VERIFIED |
-| Post-merge CI | `33981467237` SUCCESS |
-| Prior Review Handoff | `5b626465c9109c4ae1a8885bf917eae18d90d848` |
+| `origin/main` | `1dd5d67ad942c448becd637f4c2e55883d16ffca` |
 | Delivery branch | `delivery/sfia-studio-global-mr-stage-a-astra-challenger` |
-| Delivery worktree | `/Users/morris/Projects/sfia-workspace-global-mr-stage-a-astra-challenger` |
-| Base | `origin/main` @ `1dd5d67a…` |
-| Source docs worktree preserved | `/Users/morris/Projects/sfia-workspace-global-mr-campaign-contract-prep` @ `3fb1624c…` + Cycle 14 docs imported then Option-C-updated |
-| Product commit/push/PR | **NONE this cycle** |
+| HEAD | `1dd5d67ad942c448becd637f4c2e55883d16ffca` (dirty local candidate) |
+| Prior handoff | `e782a279e382f5463339979b30c30d985807a40a` |
 
 ---
 
-## 3. Convergence Pre-check
+## 3. Official OpenAI pricing snapshot (API docs)
 
-- Capability: Nora Cognitive Completion — Global Model × Reasoning empirical qualification
-- Milestone: STAGE A — OPTION C / BOUNDED ASTRA CHALLENGER
-- KEEP: Option C Agents runtime · current provider · campaign framework · BudgetTracker · NoraCampaignBudget · F1→F5 · C3/C4 · GPT-5.6 primary · 18 selective repeats · six workloads · MW6 governed W-Sources
-- ADAPT: current provider capability snapshot · runtime validation · Stage A base-cell plan · derived envelope · contract/readiness docs
-- INTERDIT: second provider stack · second eval framework · production router · Stage B/C implementation · MW0 historical mutation
+Source: `https://developers.openai.com/api/docs/pricing` · revalidated this cycle · **2026-09-05**
 
----
-
-## 4. Design — Option C matrix & envelope
-
-### Primary (unchanged Cartesian)
-
-GPT-5.6 Luna/Terra/Sol × none/medium/high × 6 workloads = **54**
-
-### Astra challenger (explicit, NOT Cartesian-with-primary)
-
-`gpt-6-astra` × medium ONLY × 6 workloads = **6**
-- `isChallenger=true`
-- `selectiveRepeatEligible=false`
-- selective repeat materialize → **DENIED** (no consumption / no global stop)
-
-### Derived envelope
-
-| Metric | Value |
+| Item | Value |
 | --- | --- |
-| primary base | 54 |
-| Astra challenger | 6 |
-| base total | 60 |
-| selective repeats | 18 (primary only) |
-| maxCellExecutions | 78 |
-| primary base model inv | 297 |
-| Astra base model inv | 33 |
-| base model inv | 330 |
-| primary repeat model inv | 108 |
-| Astra repeat model inv | 0 |
-| maxModelInvocations | 438 |
-| maxHostedWebOperations | 26 |
-| maxAggregateRealCalls | 464 |
-| USD policy | 6 / 9 / 12 **RETAINED** |
-| plannedReserveUsdWorstCaseWithRepeats | ≈ 13.06896 |
-| usdFeasibility.ok | **false** |
-| usdFeasibility.status | `REQUIRES_MORRIS_BUDGET_DECISION` |
-| contractVersion | `global-mr-campaign-contract-v3-candidate` |
+| Web search (all models) tool-call fee | **$10.00 / 1k calls = $0.01 / call** |
+| Search content tokens | **Billed at chosen model token rates** |
+| Built-in tool tokens | **Billed at chosen model rates** |
+| GPT-6 Astra short-context | input **10** / cached **1** / cache writes **12.50** / output **50** USD/MTok |
+| Invoice | **NOT_OBSERVED** |
+| Account entitlement | **NOT PROVEN** |
 
-Shared SoT: `buildGlobalMrStageABaseCellPlan()` used by matrix builder + envelope derivation.
+Disposition: fixed tool-call fee included in known planned subtotal; search-content + cache-write quantity = **VARIABLE / NOT DETERMINISTICALLY METERED** on current narrow path (no ProviderUsage redesign).
 
 ---
 
-## 5. Provider capability design
+## 4. C6-01 — Contract 10 current-truth corrections
 
-- `buildMw0CapabilityManifest` — **UNCHANGED** (no Astra; historical allowlist Luna/Terra)
-- `buildCurrentOpenAiCapabilityManifest(retrievedAtIso)` — NEW current snapshot (Luna/Terra/Sol + Astra)
-- `buildGlobalModelReasoningCapabilityManifest` — based on current snapshot; allowlist includes `gpt-6-astra`
-- `validateRuntimeReasoningCapability` — uses **current** snapshot (not MW0)
-- Acceptance: Astra medium/low/high/xhigh/max PASS capability; Astra none/minimal FAIL-CLOSED PROVIDER; unknown model FAIL-CLOSED CONFIG
-- No production defaults changed; no Astra production selection; no new provider class
+Stale CURRENT phrases corrected (historical v2 72/405/429/~9.77 retained only as labelled history):
 
-Provider snapshot reused from prior handoff `5b626465…` official docs observations (ZERO re-probe).
+- Max hosted **26** (was stale **24** in current table)
+- maxModelInvocations derivation **438** (=330+108) (was stale 297+108=405)
+- Hard cap feasibility **INSUFFICIENT** vs known subtotal ≈13.32896 (was stale feasibility OK vs ~9.77)
+- FinOps cost-class table added
 
 ---
 
-## 6. Stage B/C — documentation only (D-GMR-ASTRA-02)
+## 5. C6-02 — FinOps completeness
 
-Stage A question = comparative model×effort with GPT-5.6 full + Astra medium challenger.
+Envelope `usdFeasibility` now derives:
 
-If material Astra signal → Morris Stage B decision for **GPT-6 ASTRA-ONLY VIABILITY + ADAPTIVE REASONING EFFORT**.
+- `plannedModelTokenReserveUsd` ≈ 13.06896
+- `webSearchToolCallUsd` = 0.01
+- `plannedHostedWebSearchToolFeesUsd` = 26 × 0.01 = 0.26
+- `knownPlannedSubtotalUsd` ≈ 13.32896
+- feasibility evaluated against **knownPlannedSubtotalUsd** → FAIL / REQUIRES_MORRIS_BUDGET_DECISION
 
-Stage B matrix NOT fixed; Stage C confirmation only if Stage B justifies. **NOT IMPLEMENTED.**
+Observed USD accounting (`createEvalAgentsUsdAccounting` / `settleTurn`):
 
-Final campaign must distinguish: dominant model (possibly Astra-only) · hybrid · insufficient Evidence · no benefit justifying Astra.
+- optional `hostedWebSearchCalls` (factual REAL only)
+- `modelTokenEstimatedUsd` + `hostedToolCallFeesUsd` → `observedEstimatedUsd` once
+- deterministic fixtures → fee **0**
+- overrun → authorizationEnvelopeExceeded → next dispatch denied
+- `invoice: NOT_OBSERVED`
+
+`runNoraAgentsTurn` settles **after** hosted observation; factual live hosted count only when not deterministic.
 
 ---
 
-## 7. Tests / validation (ZERO REAL)
+## 6. Tests (ZERO REAL)
 
 | Suite | Result |
 | --- | --- |
-| `c5.astra-challenger.d0.test.ts` | **PASS** |
-| `c3.call-accounting.d0.test.ts` | **PASS** |
-| `c3.mw6-full-product-path.d0.test.ts` | **PASS** |
-| `c4.final-safety.d0.test.ts` | **PASS** |
-| `e1.agents-usd-metering.d0.test.ts` | **PASS** |
-| `e2.eval-model-effort-pin.d0.test.ts` | **PASS** |
-| `e2.product-equivalent-control.d0.test.ts` | **PASS** |
-| `e3.shared-campaign-budget.d0.test.ts` | **PASS** |
-| `e4.stage-a-driver.d0.test.ts` | **PASS** |
-| `g1.global-capability-policy.test.ts` | **PASS** |
-| `g2.catalog-versioning-mw6.test.ts` | **PASS** |
-| `g3.human-decision-pilote-only.test.ts` | **PASS** |
-| `mw6.pre-real.budget-hardening.d0.test.ts` | **PASS** |
-| `mw6.s01-s02.source-intelligence.d0.test.ts` | **PASS** |
-| `tsc --noEmit` | **PASS** |
-| `npm run lint` | **PASS** |
-| `npm run build` | **PASS** |
-| `git diff --check` | **PASS** |
+| c6.finops-contract-truth.d0.test.ts | **PASS** (6) |
+| c5 / c4 / c3 / e1 / e3 / e4 / g1 / mw6 | **PASS** |
+| tsc / lint / build / git diff --check | **PASS** |
 
-Fake/Scripted only · OPENAI_API_KEY unset for tests · no network provider · no hosted LIVE.
+189 targeted tests in regression batch PASS.
 
 ---
 
-## 8. Files changed (candidate — NOT committed)
+## 7. Files / diffs
 
 ### Name-status
 ```
+M	.tmp-sfia-review/chatgpt-review.md
 M	projects/sfia-studio/app/__tests__/nora-eval/c3.call-accounting.d0.test.ts
 M	projects/sfia-studio/app/__tests__/nora-eval/c4.final-safety.d0.test.ts
 M	projects/sfia-studio/app/__tests__/nora-eval/e3.shared-campaign-budget.d0.test.ts
 M	projects/sfia-studio/app/__tests__/nora-eval/e4.stage-a-driver.d0.test.ts
 M	projects/sfia-studio/app/__tests__/nora-eval/g1.global-capability-policy.test.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/agentsUsdAccounting.ts
 M	projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+M	projects/sfia-studio/app/lib/nora-eval/agentsUsdBridge.ts
 M	projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
 M	projects/sfia-studio/app/lib/nora-eval/globalModelReasoningStageA.ts
 M	projects/sfia-studio/app/lib/nora-eval/index.ts
@@ -181,53 +141,52 @@ M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 M	projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md
 M	projects/sfia-studio/nora-cognitive-completion/10-nora-global-model-reasoning-campaign-execution-contract.md
 
-?? projects/sfia-studio/app/__tests__/nora-eval/c5.astra-challenger.d0.test.ts
-?? projects/sfia-studio/nora-cognitive-completion/11-nora-global-model-reasoning-stage-a-real-readiness.md
 ```
 
 ### Diffstat
 ```
- .../nora-eval/c3.call-accounting.d0.test.ts        |  50 ++--
- .../__tests__/nora-eval/c4.final-safety.d0.test.ts |  10 +-
- .../nora-eval/e3.shared-campaign-budget.d0.test.ts |  11 +-
- .../nora-eval/e4.stage-a-driver.d0.test.ts         |   9 +-
- .../nora-eval/g1.global-capability-policy.test.ts  |  19 +-
- .../nora-cognitive-runtime/reasoningCapability.ts  |  10 +-
- .../app/lib/nora-eval/capabilityBudget.ts          |  65 ++++-
- .../lib/nora-eval/globalModelReasoningStageA.ts    | 295 +++++++++++++++------
- projects/sfia-studio/app/lib/nora-eval/index.ts    |   7 +
- .../convergence/sfia-studio-convergence-roadmap.md |  14 +-
- ...ora-openai-native-first-cognitive-trajectory.md |  22 +-
- ...-model-reasoning-campaign-execution-contract.md | 111 ++++----
- 12 files changed, 429 insertions(+), 194 deletions(-)
+ .tmp-sfia-review/chatgpt-review.md                 | 2235 +++++++++++++++++---
+ .../nora-eval/c3.call-accounting.d0.test.ts        |   55 +-
+ .../__tests__/nora-eval/c4.final-safety.d0.test.ts |   10 +-
+ .../nora-eval/e3.shared-campaign-budget.d0.test.ts |   11 +-
+ .../nora-eval/e4.stage-a-driver.d0.test.ts         |    9 +-
+ .../nora-eval/g1.global-capability-policy.test.ts  |   19 +-
+ .../nora-cognitive-runtime/agentsUsdAccounting.ts  |   17 +-
+ .../nora-cognitive-runtime/reasoningCapability.ts  |   10 +-
+ .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |   33 +-
+ .../app/lib/nora-eval/agentsUsdBridge.ts           |   28 +-
+ .../app/lib/nora-eval/capabilityBudget.ts          |   73 +-
+ .../lib/nora-eval/globalModelReasoningStageA.ts    |  332 ++-
+ projects/sfia-studio/app/lib/nora-eval/index.ts    |    7 +
+ .../convergence/sfia-studio-convergence-roadmap.md |   14 +-
+ ...ora-openai-native-first-cognitive-trajectory.md |   22 +-
+ ...-model-reasoning-campaign-execution-contract.md |  167 +-
+ 16 files changed, 2540 insertions(+), 502 deletions(-)
 
 ```
 
 ---
 
-## 9. Anti-claims / non-actions
+## 8. Anti-claims / non-actions
 
-- ≠ Stage A REAL GO
-- ≠ OpenAI LIVE / Astra entitlement proven
-- ≠ budget 6/9/12 raised
-- ≠ hardCap bypassed
-- ≠ production routing / Astra-only selected
-- ≠ Stage B/C implemented
-- ≠ Cognitive Completion PROVEN
-- ≠ runtime v3 ADOPTED
-- ≠ MW0 historical mutated
-- ≠ product commit / push / PR / merge
-- ≠ doctrine / C1 / method / package / lock / CI edits
+- ≠ Stage A REAL
+- ≠ budget raised / hardCap bypassed
+- ≠ 78/438/464 changed
+- ≠ Astra design / repeats changed
+- ≠ Stage B/C code
+- ≠ invoice proven / account proven
+- ≠ product commit/push/PR
+- ≠ ProviderUsage redesign / second budget engine
 
 ---
 
-## 10. Exact code diffs (modified tracked files)
+## 9. Exact diffs (tracked)
 
 ### `projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts b/projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
-index 9320995b..1bfda757 100644
+index 9320995b..8ffe2b3a 100644
 --- a/projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
 +++ b/projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
 @@ -77,28 +77,79 @@ export function buildMw0CapabilityManifest(retrievedAtIso: string): CapabilityMa
@@ -317,49 +276,21 @@ index 9320995b..1bfda757 100644
      ],
    };
  }
+@@ -165,6 +216,14 @@ export function estimateCostUsd(input: {
+ }
 
-```
-
-### `projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
-index b9b14308..4e865ae5 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
-@@ -1,11 +1,11 @@
- /**
-- * MW2 runtime model capability validation — fail-closed, no campaign allowlist.
-- * Reuses dated manifest model lookup; NOT MW0 campaignEffectiveCapabilitySet.
-+ * Runtime model capability validation — fail-closed, no campaign allowlist.
-+ * Uses CURRENT OpenAI provider snapshot (incl. Astra). MW0 historical snapshot untouched.
-  */
- import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
- import { TechnicalError } from "@/lib/platform/ai/errors";
- import {
--  buildMw0CapabilityManifest,
-+  buildCurrentOpenAiCapabilityManifest,
-   modelCapabilitySet,
- } from "@/lib/nora-eval/capabilityBudget";
-
-@@ -13,7 +13,7 @@ export function validateRuntimeReasoningCapability(
-   modelId: string,
-   reasoningEffort: OpenAiReasoningEffort,
- ): void {
--  const manifest = buildMw0CapabilityManifest(new Date().toISOString());
-+  const manifest = buildCurrentOpenAiCapabilityManifest(new Date().toISOString());
-   const supported = modelCapabilitySet(manifest, modelId);
-   if (!supported) {
-     throw new TechnicalError(
-@@ -24,7 +24,7 @@ export function validateRuntimeReasoningCapability(
-   if (reasoningEffort === "minimal") {
-     throw new TechnicalError(
-       "PROVIDER",
--      "minimal n'est pas supporté pour la famille GPT-5.6 courante",
-+      "minimal n'est pas supporté pour les modèles OpenAI courants du snapshot provider",
-     );
-   }
-   if (!supported.includes(reasoningEffort)) {
+ /** Conservative pre-call estimate for a structured intent / short completion. */
++/**
++ * Official OpenAI API Pricing — Web search (all models) tool-call fee.
++ * Source: developers.openai.com/api/docs/pricing (revalidated 2026-09-05).
++ * $10.00 / 1k calls = $0.01 / call. Search-content tokens billed separately at model rates.
++ * ≠ invoice; ≠ permanent doctrine.
++ */
++export const OPENAI_WEB_SEARCH_TOOL_CALL_USD = 0.01;
++
+ export function conservativePreCallEstimateUsd(input: {
+   manifest: CapabilityManifest;
+   modelId: string;
 
 ```
 
@@ -367,10 +298,17 @@ index b9b14308..4e865ae5 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-eval/globalModelReasoningStageA.ts b/projects/sfia-studio/app/lib/nora-eval/globalModelReasoningStageA.ts
-index c4282cbb..c9e31bc8 100644
+index c4282cbb..80336908 100644
 --- a/projects/sfia-studio/app/lib/nora-eval/globalModelReasoningStageA.ts
 +++ b/projects/sfia-studio/app/lib/nora-eval/globalModelReasoningStageA.ts
-@@ -31,20 +31,46 @@ import {
+@@ -25,26 +25,53 @@ import {
+   BudgetTracker,
+   buildGlobalModelReasoningCapabilityManifest,
+   conservativePreCallEstimateUsd,
++  OPENAI_WEB_SEARCH_TOOL_CALL_USD,
+   validateCellAgainstManifest,
+   type CapabilityManifest,
+ } from "./capabilityBudget";
  import { getScenario } from "./catalog";
 
  export const GLOBAL_MR_STAGE_A_CONTRACT_VERSION =
@@ -419,7 +357,7 @@ index c4282cbb..c9e31bc8 100644
  export const GLOBAL_MR_STAGE_A_WORKLOADS = [
    "W-Routine",
    "W-Clarification",
-@@ -170,13 +196,19 @@ export function buildGlobalMrStageAWorkloadCallPlans(): Record<
+@@ -170,13 +197,19 @@ export function buildGlobalMrStageAWorkloadCallPlans(): Record<
  /** Candidate hosted tool-calls/response (campaign). */
  export const GLOBAL_MR_STAGE_A_PROVIDER_TOOL_CALLS_PER_RESPONSE = 2;
 
@@ -443,7 +381,7 @@ index c4282cbb..c9e31bc8 100644
  } as const;
 
  /** Candidate USD envelope — authorization ≠ invoice. */
-@@ -190,8 +222,14 @@ export type GlobalMrStageADerivedEnvelope = {
+@@ -190,8 +223,14 @@ export type GlobalMrStageADerivedEnvelope = {
    contractVersion: typeof GLOBAL_MR_STAGE_A_CONTRACT_VERSION;
    maxCellExecutions: number;
    maxSelectiveRepeats: number;
@@ -458,7 +396,31 @@ index c4282cbb..c9e31bc8 100644
    maxModelInvocations: number;
    maxHostedWebOperations: number;
    maxAggregateRealCalls: number;
-@@ -214,54 +252,60 @@ export type GlobalMrStageADerivedEnvelope = {
+@@ -199,8 +238,23 @@ export type GlobalMrStageADerivedEnvelope = {
+   usd: CampaignBudgetPolicy;
+   usdFeasibility: {
+     ok: boolean;
++    /** Model-token planned reserve (4k/1.2k assumptions) — NOT total provider cost. */
++    plannedModelTokenReserveUsd: number;
++    /** Model-token base cells only (no repeats). */
+     plannedReserveUsdBase: number;
++    /**
++     * @deprecated Alias of plannedModelTokenReserveUsd — model-token only.
++     * Do NOT treat as known planned subtotal or invoice ceiling.
++     */
+     plannedReserveUsdWorstCaseWithRepeats: number;
++    webSearchToolCallUsd: number;
++    plannedHostedWebSearchToolFeesUsd: number;
++    /** model-token reserve + max fixed web-search tool-call fees. ≠ invoice. */
++    knownPlannedSubtotalUsd: number;
++    searchContentTokenExposure: "VARIABLE_PROVIDER_USAGE_DEPENDENT";
++    cacheWritePricingDocumented: true;
++    cacheWriteQuantityDeterministicallyKnown: false;
++    invoice: "NOT_OBSERVED";
+     hardCapUsd: number;
+     status: "COMPATIBLE_WITH_CANDIDATE_12" | "REQUIRES_MORRIS_BUDGET_DECISION";
+   };
+@@ -214,54 +268,61 @@ export type GlobalMrStageADerivedEnvelope = {
   */
  export function deriveGlobalMrStageAEnvelope(): GlobalMrStageADerivedEnvelope {
    const plans = buildGlobalMrStageAWorkloadCallPlans();
@@ -471,7 +433,8 @@ index c4282cbb..c9e31bc8 100644
      "F2 workloads include 1 constitutive analyzeIntent structured model call.",
 -    "Repeat ceiling uses the 18 highest per-cell model-call costs (≤1 repeat/base cell).",
 +    "Repeat ceiling uses the 18 highest *primary* per-cell model-call costs (≤1 repeat/primary base cell).",
-+    "USD 6/9/12 policy retained; Option C worst-case reserve REQUIRES_MORRIS_BUDGET_DECISION.",
++    "USD 6/9/12 policy retained; known planned subtotal (model-token + fixed hosted fees) REQUIRES_MORRIS_BUDGET_DECISION.",
++    "plannedModelTokenReserveUsd ≠ total provider cost; search-content/cache exposure VARIABLE; invoice NOT_OBSERVED.",
    ];
 
 -  const cellCosts: Array<{
@@ -548,8 +511,12 @@ index c4282cbb..c9e31bc8 100644
      0,
      GLOBAL_MR_STAGE_A_CELL_CAPS.maxSelectiveRepeats,
    );
-@@ -276,9 +320,12 @@ export function deriveGlobalMrStageAEnvelope(): GlobalMrStageADerivedEnvelope {
-   const plannedReserveUsdWorstCaseWithRepeats =
+@@ -273,24 +334,39 @@ export function deriveGlobalMrStageAEnvelope(): GlobalMrStageADerivedEnvelope {
+     (s, c) => s + c.estimatedUsd,
+     0,
+   );
+-  const plannedReserveUsdWorstCaseWithRepeats =
++  const plannedModelTokenReserveUsd =
      plannedReserveUsdBase + plannedReserveUsdRepeats;
 
 +  const baseModelInvocationCeiling =
@@ -561,8 +528,18 @@ index c4282cbb..c9e31bc8 100644
 +    GLOBAL_MR_STAGE_A_CELL_CAPS.maxHostedWebOperations;
    const maxAggregateRealCalls = maxModelInvocations + maxHostedWebOperations;
 
++  const webSearchToolCallUsd = OPENAI_WEB_SEARCH_TOOL_CALL_USD;
++  const plannedHostedWebSearchToolFeesUsd =
++    maxHostedWebOperations * webSearchToolCallUsd;
++  const knownPlannedSubtotalUsd =
++    plannedModelTokenReserveUsd + plannedHostedWebSearchToolFeesUsd;
++
    const usdOk =
-@@ -289,8 +336,14 @@ export function deriveGlobalMrStageAEnvelope(): GlobalMrStageADerivedEnvelope {
+-    plannedReserveUsdWorstCaseWithRepeats <=
++    knownPlannedSubtotalUsd <=
+     GLOBAL_MR_STAGE_A_USD_POLICY.hardCapUsd + 1e-12;
+
+   return {
      contractVersion: GLOBAL_MR_STAGE_A_CONTRACT_VERSION,
      maxCellExecutions: GLOBAL_MR_STAGE_A_CELL_CAPS.maxCellExecutions,
      maxSelectiveRepeats: GLOBAL_MR_STAGE_A_CELL_CAPS.maxSelectiveRepeats,
@@ -577,7 +554,25 @@ index c4282cbb..c9e31bc8 100644
      maxModelInvocations,
      maxHostedWebOperations,
      maxAggregateRealCalls,
-@@ -348,15 +401,63 @@ export type GlobalMrStageACell = {
+@@ -298,8 +374,16 @@ export function deriveGlobalMrStageAEnvelope(): GlobalMrStageADerivedEnvelope {
+     usd: GLOBAL_MR_STAGE_A_USD_POLICY,
+     usdFeasibility: {
+       ok: usdOk,
++      plannedModelTokenReserveUsd,
+       plannedReserveUsdBase,
+-      plannedReserveUsdWorstCaseWithRepeats,
++      plannedReserveUsdWorstCaseWithRepeats: plannedModelTokenReserveUsd,
++      webSearchToolCallUsd,
++      plannedHostedWebSearchToolFeesUsd,
++      knownPlannedSubtotalUsd,
++      searchContentTokenExposure: "VARIABLE_PROVIDER_USAGE_DEPENDENT",
++      cacheWritePricingDocumented: true,
++      cacheWriteQuantityDeterministicallyKnown: false,
++      invoice: "NOT_OBSERVED",
+       hardCapUsd: GLOBAL_MR_STAGE_A_USD_POLICY.hardCapUsd,
+       status: usdOk
+         ? "COMPATIBLE_WITH_CANDIDATE_12"
+@@ -348,15 +432,63 @@ export type GlobalMrStageACell = {
    workloadId: GlobalMrStageAWorkloadId;
    scenarioId: string;
    scenarioVersion: typeof NORA_EVAL_GLOBAL_CATALOG_VERSION;
@@ -643,7 +638,7 @@ index c4282cbb..c9e31bc8 100644
  export type GlobalMrStageAStopReason =
    | "NONE"
    | "HARD_USD_CAP"
-@@ -415,45 +516,41 @@ export function buildGlobalMrStageAMatrix(input: {
+@@ -415,45 +547,41 @@ export function buildGlobalMrStageAMatrix(input: {
  }): GlobalMrStageACell[] {
    const plans = buildGlobalMrStageAWorkloadCallPlans();
    const cells: GlobalMrStageACell[] = [];
@@ -722,7 +717,7 @@ index c4282cbb..c9e31bc8 100644
      );
    }
    return cells;
-@@ -464,7 +561,16 @@ export function assertGlobalMrStageAMatrixInvariants(
+@@ -464,7 +592,16 @@ export function assertGlobalMrStageAMatrixInvariants(
  ): { ok: boolean; issues: string[] } {
    const plans = buildGlobalMrStageAWorkloadCallPlans();
    const issues: string[] = [];
@@ -740,7 +735,7 @@ index c4282cbb..c9e31bc8 100644
    const keys = new Set<string>();
    for (const c of cells) {
      if (c.scenarioVersion !== NORA_EVAL_GLOBAL_CATALOG_VERSION) {
-@@ -485,13 +591,26 @@ export function assertGlobalMrStageAMatrixInvariants(
+@@ -485,13 +622,26 @@ export function assertGlobalMrStageAMatrixInvariants(
      if (c.workloadId !== "W-Sources" && c.attachHostedWebSearch) {
        issues.push(`hosted-default:${c.workloadId}`);
      }
@@ -768,7 +763,7 @@ index c4282cbb..c9e31bc8 100644
    return { ok: issues.length === 0, issues };
  }
 
-@@ -522,12 +641,8 @@ export function createGlobalMrStageADriver(input: {
+@@ -522,12 +672,8 @@ export function createGlobalMrStageADriver(input: {
    carryInUsd?: number;
  }): GlobalMrStageADriverState {
    const derived = deriveGlobalMrStageAEnvelope();
@@ -783,7 +778,7 @@ index c4282cbb..c9e31bc8 100644
    const manifest = buildGlobalModelReasoningCapabilityManifest(
      input.retrievedAtIso ?? new Date().toISOString(),
    );
-@@ -630,6 +745,9 @@ export function canScheduleSelectiveRepeat(
+@@ -630,6 +776,9 @@ export function canScheduleSelectiveRepeat(
    if (baseCell.isSelectiveRepeat) {
      return { allowed: false, reason: "already_a_repeat" };
    }
@@ -793,7 +788,7 @@ index c4282cbb..c9e31bc8 100644
    if (baseCell.runIndex >= 1) {
      return { allowed: false, reason: "cell_already_repeated" };
    }
-@@ -654,6 +772,11 @@ export function materializeSelectiveRepeat(
+@@ -654,6 +803,11 @@ export function materializeSelectiveRepeat(
        "SELECTIVE_REPEAT_RUN_INDEX_INVALID: runIndex>0 cannot be re-materialized",
      );
    }
@@ -805,7 +800,7 @@ index c4282cbb..c9e31bc8 100644
    return {
      ...baseCell,
      runIndex: 1,
-@@ -706,7 +829,11 @@ function toRunEvidence(
+@@ -706,7 +860,11 @@ function toRunEvidence(
        `contract:${GLOBAL_MR_STAGE_A_CONTRACT_VERSION}`,
        `workload:${cell.workloadId}`,
        `stage:A`,
@@ -817,7 +812,7 @@ index c4282cbb..c9e31bc8 100644
        `canonicalDeltaModel:${canonicalDelta.model}`,
        `canonicalDeltaHosted:${canonicalDelta.hosted}`,
        ...softReviewRefs.map((r) => `soft-review-ack:${r}`),
-@@ -714,6 +841,8 @@ function toRunEvidence(
+@@ -714,6 +872,8 @@ function toRunEvidence(
      productObservation: {
        ...(result.productObservation ?? {}),
        executionKind: cell.executionKind,
@@ -826,6 +821,195 @@ index c4282cbb..c9e31bc8 100644
        canonicalDelta,
        reportedModelInvocationsConsumed:
          result.reportedModelInvocationsConsumed ?? null,
+
+```
+
+### `projects/sfia-studio/app/lib/nora-eval/agentsUsdBridge.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-eval/agentsUsdBridge.ts b/projects/sfia-studio/app/lib/nora-eval/agentsUsdBridge.ts
+index 19f871c6..58724705 100644
+--- a/projects/sfia-studio/app/lib/nora-eval/agentsUsdBridge.ts
++++ b/projects/sfia-studio/app/lib/nora-eval/agentsUsdBridge.ts
+@@ -6,6 +6,8 @@
+  * - NOT a guaranteed provider invoice ceiling
+  * - observed estimate may exceed reserved after a response → Evidence + fail-close
+  * - invoice = NOT OBSERVED
++ * - hosted web_search fixed tool-call fee ($0.01/call) is reconciled POST-OBSERVATION
++ *   for factual REAL hosted calls only (deterministic fixtures → fee 0)
+  */
+ import type {
+   NoraAgentsUsdAccounting,
+@@ -14,6 +16,7 @@ import type {
+ } from "@/lib/nora-cognitive-runtime";
+ import {
+   BudgetTracker,
++  OPENAI_WEB_SEARCH_TOOL_CALL_USD,
+   conservativePreCallEstimateUsd,
+   estimateCostUsd,
+   type CapabilityManifest,
+@@ -25,6 +28,8 @@ export type CreateEvalAgentsUsdAccountingInput = {
+   modelId: string;
+   assumedInputTokens?: number;
+   assumedOutputTokens?: number;
++  /** Override unit fee for tests; default = official OpenAI web_search tool-call fee. */
++  webSearchToolCallUsd?: number;
+ };
+
+ export function createEvalAgentsUsdAccounting(
+@@ -39,6 +44,8 @@ export function createEvalAgentsUsdAccounting(
+   const assumedIn = input.assumedInputTokens ?? 4000;
+   const assumedOut = input.assumedOutputTokens ?? 1200;
+   const hardCap = input.budget.policy.hardCapUsd;
++  const webSearchUnit =
++    input.webSearchToolCallUsd ?? OPENAI_WEB_SEARCH_TOOL_CALL_USD;
+
+   return {
+     estimateNextInvocationUsd(): number {
+@@ -96,25 +103,34 @@ export function createEvalAgentsUsdAccounting(
+       const hasObserved =
+         observation.inputTokens != null || observation.outputTokens != null;
+       let usedConservativeFallback = !hasObserved;
+-      let observedEstimate: number;
++      let modelTokenEstimatedUsd: number;
+       if (hasObserved) {
+-        observedEstimate = estimateCostUsd({
++        modelTokenEstimatedUsd = estimateCostUsd({
+           manifest: input.manifest,
+           modelId: input.modelId,
+           inputTokens: observation.inputTokens ?? assumedIn,
+           outputTokens: observation.outputTokens ?? assumedOut,
+         });
+       } else {
+-        observedEstimate = turnReservedUsd;
++        modelTokenEstimatedUsd = turnReservedUsd;
+         usedConservativeFallback = true;
+       }
+
++      const hostedCalls = Math.max(0, observation.hostedWebSearchCalls ?? 0);
++      const hostedToolCallFeesUsd = hostedCalls * webSearchUnit;
++      const observedEstimate = modelTokenEstimatedUsd + hostedToolCallFeesUsd;
++
+       const observedOverrun = observedEstimate > turnReservedUsd + 1e-12;
+
+-      // Monotone top-up of BudgetTracker when observed > reserved.
++      // Monotone top-up of BudgetTracker when observed (model + hosted fees) > reserved.
+       if (observedOverrun) {
+         const delta = observedEstimate - turnReservedUsd;
+-        input.budget.recordSpend(delta, "agents-usd-observed-overrun-topup");
++        input.budget.recordSpend(
++          delta,
++          hostedToolCallFeesUsd > 0
++            ? "agents-usd-observed-overrun-topup-incl-hosted-tool-fees"
++            : "agents-usd-observed-overrun-topup",
++        );
+       }
+
+       cumulativeObservedEstimatedUsd += observedEstimate;
+@@ -125,6 +141,8 @@ export function createEvalAgentsUsdAccounting(
+
+       const result: NoraAgentsUsdSettleResult = {
+         reservedUsd: turnReservedUsd,
++        modelTokenEstimatedUsd,
++        hostedToolCallFeesUsd,
+         observedEstimatedUsd: observedEstimate,
+         estimatedUsd: observedEstimate,
+         cumulativeReservedUsd,
+
+```
+
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/agentsUsdAccounting.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/agentsUsdAccounting.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/agentsUsdAccounting.ts
+index b5f28063..a2464055 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/agentsUsdAccounting.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/agentsUsdAccounting.ts
+@@ -15,12 +15,25 @@ export type NoraAgentsUsdSettleObservation = {
+   inputTokens: number | null;
+   outputTokens: number | null;
+   totalTokens: number | null;
++  /**
++   * Factual REAL hosted web_search tool calls observed this turn.
++   * Deterministic fixtures MUST pass 0 / omit — Fake ≠ provider-billed.
++   */
++  hostedWebSearchCalls?: number;
+ };
+
+ export type NoraAgentsUsdSettleResult = {
+-  /** Reserved USD committed for this turn (pre-dispatch). */
++  /** Reserved USD committed for this turn (pre-dispatch model-token estimate). */
+   reservedUsd: number;
+-  /** Observed estimated USD for this turn (usage-based or conservative retain). */
++  /** Model/token estimated USD for this turn (usage-based or conservative retain). */
++  modelTokenEstimatedUsd: number;
++  /** Fixed web-search tool-call fees (N × unit price); 0 for deterministic fixtures. */
++  hostedToolCallFeesUsd: number;
++  /**
++   * Observed estimated USD for this turn =
++   * modelTokenEstimatedUsd + hostedToolCallFeesUsd (once; no double count).
++   * ≠ invoice.
++   */
+   observedEstimatedUsd: number;
+   /** Alias of observedEstimatedUsd for callers expecting estimatedUsd. */
+   estimatedUsd: number;
+
+```
+
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+index e95998b2..d941406b 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+@@ -573,19 +573,6 @@ export async function runNoraAgentsTurn(
+     }
+   }
+
+-  const usdObserve: RunNoraAgentsTurnUsdObserve | undefined = usdAccounting
+-    ? (() => {
+-        const reservedInvocations = usdAccounting.reservedInvocationCount();
+-        const settled = usdAccounting.settleTurn({
+-          reservedInvocations,
+-          inputTokens: usageAgg?.inputTokens ?? null,
+-          outputTokens: usageAgg?.outputTokens ?? null,
+-          totalTokens: usageAgg?.totalTokens ?? null,
+-        });
+-        return { ...settled, reservedInvocations };
+-      })()
+-    : undefined;
+-
+   const usage = {
+     inputTokens: usageAgg?.inputTokens ?? null,
+     outputTokens: usageAgg?.outputTokens ?? null,
+@@ -630,6 +617,26 @@ export async function runNoraAgentsTurn(
+     }
+   }
+
++  // USD settlement AFTER hosted observation so factual REAL hosted-call fees
++  // can be included. Deterministic fixtures → hostedWebSearchCalls=0 (not billed).
++  const usdObserve: RunNoraAgentsTurnUsdObserve | undefined = usdAccounting
++    ? (() => {
++        const reservedInvocations = usdAccounting.reservedInvocationCount();
++        const factualHostedCalls =
++          deterministicBoundaryUsed || !enableHostedWebSearch
++            ? 0
++            : liveCalls.length;
++        const settled = usdAccounting.settleTurn({
++          reservedInvocations,
++          inputTokens: usageAgg?.inputTokens ?? null,
++          outputTokens: usageAgg?.outputTokens ?? null,
++          totalTokens: usageAgg?.totalTokens ?? null,
++          hostedWebSearchCalls: factualHostedCalls,
++        });
++        return { ...settled, reservedInvocations };
++      })()
++    : undefined;
++
+   const hostedSearchObserve: RunNoraAgentsTurnHostedSearchObserve | undefined =
+     enableHostedWebSearch || deterministicBoundaryUsed
+       ? {
 
 ```
 
@@ -870,7 +1054,7 @@ index 2970c326..02f42bde 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/nora-eval/c3.call-accounting.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-eval/c3.call-accounting.d0.test.ts
-index 03084afd..eb35c5df 100644
+index 03084afd..db8bd516 100644
 --- a/projects/sfia-studio/app/__tests__/nora-eval/c3.call-accounting.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/nora-eval/c3.call-accounting.d0.test.ts
 @@ -49,7 +49,7 @@ import { resetMw5ChallengeStoreForTests } from "@/features/project-assistant/f2/
@@ -882,7 +1066,7 @@ index 03084afd..eb35c5df 100644
      expect(GLOBAL_MR_STAGE_A_MAX_AGENTS_MODEL_TURNS).toBe(
        CT_MAX_TOOL_ROUNDS + 1,
      );
-@@ -60,42 +60,52 @@ describe("C3-01 — cell executions ≠ model invocations", () => {
+@@ -60,42 +60,57 @@ describe("C3-01 — cell executions ≠ model invocations", () => {
      expect(plans["W-Clarification"].preAgentsStructuredModelCalls).toBe(1);
 
      const d = deriveGlobalMrStageAEnvelope();
@@ -913,6 +1097,11 @@ index 03084afd..eb35c5df 100644
 -    expect(d.usdFeasibility.status).toBe("COMPATIBLE_WITH_CANDIDATE_12");
 +    expect(d.usdFeasibility.ok).toBe(false);
 +    expect(d.usdFeasibility.status).toBe("REQUIRES_MORRIS_BUDGET_DECISION");
++    expect(d.usdFeasibility.plannedModelTokenReserveUsd).toBeCloseTo(
++      13.06896,
++      4,
++    );
++    expect(d.usdFeasibility.knownPlannedSubtotalUsd).toBeCloseTo(13.32896, 4);
 +    expect(d.usdFeasibility.plannedReserveUsdWorstCaseWithRepeats).toBeCloseTo(
 +      13.06896,
 +      4,
@@ -1107,11 +1296,54 @@ index 028a0172..23d477fe 100644
 
 ```
 
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
+index b9b14308..4e865ae5 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
+@@ -1,11 +1,11 @@
+ /**
+- * MW2 runtime model capability validation — fail-closed, no campaign allowlist.
+- * Reuses dated manifest model lookup; NOT MW0 campaignEffectiveCapabilitySet.
++ * Runtime model capability validation — fail-closed, no campaign allowlist.
++ * Uses CURRENT OpenAI provider snapshot (incl. Astra). MW0 historical snapshot untouched.
+  */
+ import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
+ import { TechnicalError } from "@/lib/platform/ai/errors";
+ import {
+-  buildMw0CapabilityManifest,
++  buildCurrentOpenAiCapabilityManifest,
+   modelCapabilitySet,
+ } from "@/lib/nora-eval/capabilityBudget";
+
+@@ -13,7 +13,7 @@ export function validateRuntimeReasoningCapability(
+   modelId: string,
+   reasoningEffort: OpenAiReasoningEffort,
+ ): void {
+-  const manifest = buildMw0CapabilityManifest(new Date().toISOString());
++  const manifest = buildCurrentOpenAiCapabilityManifest(new Date().toISOString());
+   const supported = modelCapabilitySet(manifest, modelId);
+   if (!supported) {
+     throw new TechnicalError(
+@@ -24,7 +24,7 @@ export function validateRuntimeReasoningCapability(
+   if (reasoningEffort === "minimal") {
+     throw new TechnicalError(
+       "PROVIDER",
+-      "minimal n'est pas supporté pour la famille GPT-5.6 courante",
++      "minimal n'est pas supporté pour les modèles OpenAI courants du snapshot provider",
+     );
+   }
+   if (!supported.includes(reasoningEffort)) {
+
+```
+
 ### `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 8773c95c..0b7f97b6 100644
+index 8773c95c..02ce41ea 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 @@ -4,11 +4,13 @@
@@ -1119,7 +1351,7 @@ index 8773c95c..0b7f97b6 100644
  | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
  | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
 -| **Timestamp maintenance NORA-MW6-CONSOLIDATED-INTEGRATION-TRUTH-SYNC-01** | 2026-09-05 11:19:35 CEST — **MW6 CONSOLIDATED INTEGRATION + CLOSURE TRUTH-SYNC** · Cycle **8** · EVOL · CRITICAL · **MORRIS DECISION — MW6 PROVEN SCOPE ACCEPTED FOR CLOSURE** **CONSUMED** · GO MORRIS — MW6 CONSOLIDATED INTEGRATION + TRUTH-SYNC PR **CONSUMED** · MW6 = **CLOSURE ACCEPTED BY MORRIS / INTEGRATION PENDING** · effective COMPLETE/CLOSED condition = exact accepted product candidate integrated on main + required PR/CI PASS · product candidate anchor `MW6-AUTH-INTEGRATION-BRIDGE-FINAL-CANDIDATE-ANCHOR-V1` = `9129cc4336281dbfbbf616d683ea7a00d9c419f0610150baaa6de714769f0398` · n=66 · REAL proof handoff `e73ccf0c2760473bd2da347d98e9c202ded5782e` · OpenAI hosted web_search REAL observed = **1** · model `gpt-5.6-luna` · deterministicBoundaryUsed=false · authorityBound=true · realAuthorized=true · eligible=true · N2+HD+Confirmation+S1+server governedAuthority used · Auth REAL @ V1 carried forward · temporary construction REAL grant remains **TEMPORARY WITH EXIT** · branch `delivery/sfia-studio-mw6-auth-binding` · repository lifecycle = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · Production model routing **NOT SELECTED** · Responses Compaction **CANDIDATE / NOT ADOPTED** · **NEXT PRODUCT CAPABILITY GATE = GLOBAL MODEL × REASONING CAMPAIGN READINESS / QUALIFICATION — NOT AUTHORIZED / NOT STARTED** · **≠** MW6 integrated on main yet · **≠** MW6 COMPLETE/CLOSED on main yet · **≠** END-TO-END REAL · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · **≠** production model routing selected · **≠** generalized REAL gate adopted · merge remains **distinct Morris gate** |
-+| **Timestamp maintenance NORA-GLOBAL-MR-STAGE-A-OPTION-C-ASTRA-CHALLENGER-01** | 2026-09-05 22:26:41 CEST — **GLOBAL MODEL × REASONING STAGE A OPTION C / BOUNDED GPT-6 ASTRA CHALLENGER** · Cycle **8** · EVOL · CRITICAL · GO MORRIS — OPTION C ADOPTED (D-GMR-ASTRA-01) + Astra-only future trajectory instructable (D-GMR-ASTRA-02) **CONSUMED** · base `origin/main`=`1dd5d67ad942c448becd637f4c2e55883d16ffca` (PR #467 INTEGRATED) · delivery branch `delivery/sfia-studio-global-mr-stage-a-astra-challenger` **LOCAL DIRTY CANDIDATE / NOT INTEGRATED** · contract `global-mr-campaign-contract-v3-candidate` · primary 54 + Astra challenger 6 = base **60** · maxCellExecutions **78** · maxModelInvocations **438** · maxHostedWebOperations **26** · maxAggregateRealCalls **464** · Astra = medium × 6 ONE-SHOT (no selective repeats) · USD policy **6/9/12 RETAINED** · planned worst reserve **≈13.06896** · usdFeasibility = REQUIRES_MORRIS_BUDGET_DECISION · Astra account **NOT PROVEN** · Stage A REAL **NOT AUTHORIZED** · Stage B Astra-only viability = CONDITIONAL FUTURE GATE / NOT IMPLEMENTED · Stage C NOT AUTHORIZED · production routing NOT SELECTED · Cognitive Completion NOT PROVEN · runtime v3 NON ADOPTED · product commit/push/PR/merge **NONE** · ZERO REAL · **NEXT = ChatGPT Critical Review → Morris technical acceptance + financial envelope + Git integration GO → distinct Stage A REAL GO** |
++| **Timestamp maintenance NORA-GLOBAL-MR-STAGE-A-OPTION-C-ASTRA-CHALLENGER-01** | 2026-09-05 22:26:41 CEST — **GLOBAL MODEL × REASONING STAGE A OPTION C / BOUNDED GPT-6 ASTRA CHALLENGER** · Cycle **8** · EVOL · CRITICAL · GO MORRIS — OPTION C ADOPTED (D-GMR-ASTRA-01) + Astra-only future trajectory instructable (D-GMR-ASTRA-02) **CONSUMED** · base `origin/main`=`1dd5d67ad942c448becd637f4c2e55883d16ffca` (PR #467 INTEGRATED) · delivery branch `delivery/sfia-studio-global-mr-stage-a-astra-challenger` **LOCAL DIRTY CANDIDATE / NOT INTEGRATED** · contract `global-mr-campaign-contract-v3-candidate` · primary 54 + Astra challenger 6 = base **60** · maxCellExecutions **78** · maxModelInvocations **438** · maxHostedWebOperations **26** · maxAggregateRealCalls **464** · Astra = medium × 6 ONE-SHOT (no selective repeats) · USD policy **6/9/12 RETAINED** · model-token planned ≈13.06896 · fixed hosted max 0.26 · known subtotal ≈13.32896 · usdFeasibility = REQUIRES_MORRIS_BUDGET_DECISION (C6 FinOps truth) · Astra account **NOT PROVEN** · Stage A REAL **NOT AUTHORIZED** · Stage B Astra-only viability = CONDITIONAL FUTURE GATE / NOT IMPLEMENTED · Stage C NOT AUTHORIZED · production routing NOT SELECTED · Cognitive Completion NOT PROVEN · runtime v3 NON ADOPTED · product commit/push/PR/merge **NONE** · ZERO REAL · **NEXT = ChatGPT Critical Review → Morris technical acceptance + financial envelope + Git integration GO → distinct Stage A REAL GO** |
 +| **Timestamp maintenance historique NORA-GLOBAL-MR-STAGE-A-POST-MERGE-READINESS-01 (pre-Option-C Astra challenger)** | 2026-09-05 20:57:01 CEST — **GLOBAL MODEL × REASONING STAGE A POST-MERGE CLOSURE + REAL READINESS QUALIFICATION** · Cycle **14** · DOC · CRITICAL · GO MORRIS — STAGE A POST-MERGE CLOSURE / TRUTH-SYNC + REAL READINESS QUALIFICATION — ZERO REAL **CONSUMED** · PR **#467 MERGED** @ 2026-09-05T17:36:03Z · accepted head `3fb1624c8b373b75dfcd48a64797a7927cb76019` · merge/main `1dd5d67ad942c448becd637f4c2e55883d16ffca` · parents `23d850fda45fe55ba519e0feefe63369d349afcc` + `3fb1624c8b373b75dfcd48a64797a7927cb76019` · head→merge product delta **ZERO** · post-merge CI **`33981467237` SUCCESS** · Required Gate **PASS** · source branch `docs/sfia-studio-global-model-reasoning-campaign-contract` **PRESERVED** @ `3fb1624c…` · Stage A deterministic harness (E1–E4 / F1→F5 / C3 / C4) = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · candidate envelope **72 / 405 / 429** · USD 6/9/12 · maxRepeatsPerCell **1** · contract `global-mr-campaign-contract-v2-candidate` · ZERO REAL for construction + this DOC cycle · Stage A REAL **NOT AUTHORIZED** · production routing **NOT SELECTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · MW6 = **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE — INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#465** merge `d3fee38b270d805144e621804b96ef1e5de3e208` · post-merge CI `33958548479` SUCCESS — closure decision already consumed; no second closure) · G1/G2/G3 integrated (PR **#466**) · provider-universe readiness qualification **ACTIVE** · GPT-5.6 Luna/Terra/Sol = **CURRENT CONTRACT COHORT** · GPT-6 Astra = **CURRENT PROVIDER DRIFT / DISPOSITION REQUIRED** (official docs: most capable; efforts low/medium/high/xhigh/max — **no none**; $10/$1/$50 per 1MTok; account availability **NOT PROVEN**) · **NEXT PRODUCT CAPABILITY GATE = STAGE A REAL READINESS — DECISION REQUIRED — MODEL UNIVERSE / BUDGET NOT CONSUMED** · **≠** Stage A REAL AUTHORIZED · **≠** Astra selected · **≠** 72/405/429 silently expanded · **≠** spend · **≠** production routing · documentary candidate **LOCAL until ChatGPT Critical Review → Morris publication GO** · **ZERO REAL** |
 +| **Timestamp maintenance historique NORA-MW6-CONSOLIDATED-INTEGRATION-TRUTH-SYNC-01 (pre-Stage-A post-merge readiness)** | 2026-09-05 11:19:35 CEST — **MW6 CONSOLIDATED INTEGRATION + CLOSURE TRUTH-SYNC** · Cycle **8** · EVOL · CRITICAL · **MORRIS DECISION — MW6 PROVEN SCOPE ACCEPTED FOR CLOSURE** **CONSUMED** · GO MORRIS — MW6 CONSOLIDATED INTEGRATION + TRUTH-SYNC PR **CONSUMED** · MW6 = **CLOSURE ACCEPTED BY MORRIS / INTEGRATION PENDING** · effective COMPLETE/CLOSED condition = exact accepted product candidate integrated on main + required PR/CI PASS · product candidate anchor `MW6-AUTH-INTEGRATION-BRIDGE-FINAL-CANDIDATE-ANCHOR-V1` = `9129cc4336281dbfbbf616d683ea7a00d9c419f0610150baaa6de714769f0398` · n=66 · REAL proof handoff `e73ccf0c2760473bd2da347d98e9c202ded5782e` · OpenAI hosted web_search REAL observed = **1** · model `gpt-5.6-luna` · deterministicBoundaryUsed=false · authorityBound=true · realAuthorized=true · eligible=true · N2+HD+Confirmation+S1+server governedAuthority used · Auth REAL @ V1 carried forward · temporary construction REAL grant remains **TEMPORARY WITH EXIT** · branch `delivery/sfia-studio-mw6-auth-binding` · repository lifecycle = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · Production model routing **NOT SELECTED** · Responses Compaction **CANDIDATE / NOT ADOPTED** · **NEXT PRODUCT CAPABILITY GATE = GLOBAL MODEL × REASONING CAMPAIGN READINESS / QUALIFICATION — NOT AUTHORIZED / NOT STARTED** · **≠** MW6 integrated on main yet · **≠** MW6 COMPLETE/CLOSED on main yet · **≠** END-TO-END REAL · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · **≠** production model routing selected · **≠** generalized REAL gate adopted · merge remains **distinct Morris gate** |
  | **Timestamp maintenance historique NORA-MW5-CLOSURE-DOC-INTEGRATION-01 (pre-MW6 consolidated integration)** | 2026-09-04 08:56:17 CEST — **NORA MW5 CLOSURE DOC INTEGRATION / TRUTH-SYNC** · Cycle **13** · DOC · CRITICAL · **MORRIS DECISION — MW5 COMPLETE / CLOSED AT PROVEN SCOPE WITH RETAINED GOVERNANCE DEVIATION AND NON-BLOCKING RESERVES** **CONSUMED** · GO MORRIS — NORA-MW5-CLOSURE-DOC-INTEGRATION-01 **CONSUMED** · MW5 = **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE WITH RETAINED GOVERNANCE DEVIATION AND NON-BLOCKING RESERVES** · MW5 Delivery = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · PR **#463 MERGED** · pre-merge head `642c502d649a3dad46b66ade95bdea1b5ed8b787` · squash merge `7e2f4c2799be70380362630a1c6734837cc453d9` · parent `9b45f0d7700a3127fa28c13f37ffae40432ae05c` · tree `b58cea7a8d0ddd173c1467d5a522e26a9c643fe3` · HEAD→MERGE TREE PARITY **PROVEN** · post-merge CI **`33841337376` SUCCESS** · Required Gate **PASS** · delivery branch `delivery/sfia-studio-nora-mw5-critical-challenge-clarification` **PRESERVED** · CORR-MW5-PR-01/02 **CLOSED AT TESTED DETERMINISTIC SCOPE** · CORR-MW5-CLOSURE-C5-CURRENT-TRAJECTORY-01 **CLOSED AT REVIEWED DOCUMENTARY SCOPE** · MW5-R2-REAL-03 PASS at tested scope · SHA-01/02 CLOSED · MW0→MW5 cognitive evidence ACCEPTED BY MORRIS FOR MW5 PURPOSES · H17 FAIL — RETAINED HISTORICAL GOVERNANCE DEVIATION (141/100 · delta +41) · H18 INCONCLUSIVE · ZERO NEW REAL · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · Production model routing **NOT SELECTED** · Responses Compaction **CANDIDATE / NOT ADOPTED** · *(tip superseded by NORA-MW6-CONSOLIDATED-INTEGRATION-TRUTH-SYNC-01)* · historical next was MW6 readiness — now superseded |
@@ -1168,7 +1400,7 @@ index 8773c95c..0b7f97b6 100644
 
 ```diff
 diff --git a/projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md b/projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md
-index 440b2a2e..6d0cb0a4 100644
+index 440b2a2e..e5aa64d7 100644
 --- a/projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md
 +++ b/projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md
 @@ -10,7 +10,9 @@
@@ -1176,7 +1408,7 @@ index 440b2a2e..6d0cb0a4 100644
  | **Cycle d’origine** | Cycle 14 · DOC · CRITICAL · Pre-MW2 transverse truth-sync |
  | **Delivery** | **MW2 COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** — PR **#456 MERGED** · CORR **#457 MERGED** · post-merge verified · **≠** Cognitive Completion proven |
 -| **Timestamp maintenance NORA-MW6-CONSOLIDATED-INTEGRATION-TRUTH-SYNC-01** | 2026-09-05 11:19:35 CEST — **MW6 CONSOLIDATED INTEGRATION + CLOSURE TRUTH-SYNC** · Cycle **8** · EVOL · CRITICAL · **MORRIS DECISION — MW6 PROVEN SCOPE ACCEPTED FOR CLOSURE** **CONSUMED** · GO MORRIS — MW6 CONSOLIDATED INTEGRATION + TRUTH-SYNC PR **CONSUMED** · MW6 = **CLOSURE ACCEPTED BY MORRIS AT PROVEN SCOPE / INTEGRATION PENDING** · evidence = hosted OpenAI web_search REAL boundary proven on governed product path · REAL handoff `e73ccf0c2760473bd2da347d98e9c202ded5782e` · product candidate `9129cc4336281dbfbbf616d683ea7a00d9c419f0610150baaa6de714769f0398` n=66 · hosted web_search REAL observed = **1** · model `gpt-5.6-luna` · Auth REAL @ V1 carried forward · temporary construction REAL grant remains **TEMPORARY WITH EXIT** · effective COMPLETE/CLOSED after exact candidate integration on main + required CI PASS · repository lifecycle = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · Production model routing **NOT SELECTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · Responses Compaction **CANDIDATE / NOT ADOPTED** · **NEXT = GLOBAL MODEL × REASONING CAMPAIGN READINESS / QUALIFICATION — NOT AUTHORIZED / NOT STARTED** · **≠** MW6 integrated on main yet · **≠** MW6 COMPLETE/CLOSED on main yet · **≠** END-TO-END REAL · **≠** Cognitive Completion PROVEN · **≠** production model routing selected · **≠** runtime v3 ADOPTED · global Model × Reasoning campaign remains after MW6 by default before Cognitive Completion / runtime-v3 conclusions that depend on that choice · merge remains **distinct Morris gate** |
-+| **Timestamp maintenance NORA-GLOBAL-MR-STAGE-A-OPTION-C-ASTRA-CHALLENGER-01** | 2026-09-05 22:26:41 CEST — **STAGE A OPTION C ASTRA CHALLENGER** · Cycle **8** · EVOL · CRITICAL · D-GMR-ASTRA-01 OPTION C ADOPTED · D-GMR-ASTRA-02 Astra-only+adaptive-effort trajectory instructable post-Stage-A **CONSUMED** · PR #467 harness INTEGRATED on main · local delivery `delivery/sfia-studio-global-mr-stage-a-astra-challenger` Option C candidate · v3-candidate · 78/438/464 · Astra medium×6 ONE-SHOT · budget decision OPEN (~13.06896 vs hard 12) · Stage A → (if material Astra signal) Stage B Astra-only viability → Stage C confirmation — **DOCUMENT ONLY / NOT IMPLEMENTED** · Stage A REAL NOT AUTHORIZED · ZERO REAL · ≠ production routing · ≠ Cognitive Completion PROVEN · ≠ runtime v3 |
++| **Timestamp maintenance NORA-GLOBAL-MR-STAGE-A-OPTION-C-ASTRA-CHALLENGER-01** | 2026-09-05 22:26:41 CEST — **STAGE A OPTION C ASTRA CHALLENGER** · Cycle **8** · EVOL · CRITICAL · D-GMR-ASTRA-01 OPTION C ADOPTED · D-GMR-ASTRA-02 Astra-only+adaptive-effort trajectory instructable post-Stage-A **CONSUMED** · PR #467 harness INTEGRATED on main · local delivery `delivery/sfia-studio-global-mr-stage-a-astra-challenger` Option C candidate · v3-candidate · 78/438/464 · Astra medium×6 ONE-SHOT · budget decision OPEN (known subtotal ≈13.32896 = model-token ≈13.06896 + hosted fixed ≤0.26 vs hard 12; C6) · Stage A → (if material Astra signal) Stage B Astra-only viability → Stage C confirmation — **DOCUMENT ONLY / NOT IMPLEMENTED** · Stage A REAL NOT AUTHORIZED · ZERO REAL · ≠ production routing · ≠ Cognitive Completion PROVEN · ≠ runtime v3 |
 +| **Timestamp maintenance historique NORA-GLOBAL-MR-STAGE-A-POST-MERGE-READINESS-01 (pre-Option-C Astra challenger)** | 2026-09-05 20:57:01 CEST — **STAGE A POST-MERGE + REAL READINESS** · Cycle **14** · DOC · CRITICAL · GO MORRIS post-merge closure/readiness **CONSUMED** · MW6 = **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE — INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#465** `d3fee38b270d805144e621804b96ef1e5de3e208` / CI `33958548479`) — prior closure decision consumed; no second closure · G1/G2/G3 harness prerequisites integrated (PR **#466**) · PR **#467** Stage A deterministic harness **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (head `3fb1624c8b373b75dfcd48a64797a7927cb76019` · merge `1dd5d67ad942c448becd637f4c2e55883d16ffca` · CI `33981467237` · head→merge ZERO) · campaign preparation moved from NOT STARTED → **REAL READINESS QUALIFICATION ACTIVE** · GPT-5.6 Luna/Terra/Sol = current contract cohort · GPT-6 Astra = **provider drift / disposition required** (no `none`; $10/$50; account **NOT PROVEN**) · **NEXT GATE = STAGE A REAL READINESS — DECISION REQUIRED — MODEL UNIVERSE / BUDGET** · Stage A REAL **NOT AUTHORIZED** · production routing **NOT SELECTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **ZERO REAL** · ≠ campaign result |
 +| **Timestamp maintenance historique NORA-MW6-CONSOLIDATED-INTEGRATION-TRUTH-SYNC-01 (pre-Stage-A post-merge readiness)** | 2026-09-05 11:19:35 CEST — **MW6 CONSOLIDATED INTEGRATION + CLOSURE TRUTH-SYNC** · Cycle **8** · EVOL · CRITICAL · **MORRIS DECISION — MW6 PROVEN SCOPE ACCEPTED FOR CLOSURE** **CONSUMED** · GO MORRIS — MW6 CONSOLIDATED INTEGRATION + TRUTH-SYNC PR **CONSUMED** · MW6 = **CLOSURE ACCEPTED BY MORRIS AT PROVEN SCOPE / INTEGRATION PENDING** · evidence = hosted OpenAI web_search REAL boundary proven on governed product path · REAL handoff `e73ccf0c2760473bd2da347d98e9c202ded5782e` · product candidate `9129cc4336281dbfbbf616d683ea7a00d9c419f0610150baaa6de714769f0398` n=66 · hosted web_search REAL observed = **1** · model `gpt-5.6-luna` · Auth REAL @ V1 carried forward · temporary construction REAL grant remains **TEMPORARY WITH EXIT** · effective COMPLETE/CLOSED after exact candidate integration on main + required CI PASS · repository lifecycle = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · Production model routing **NOT SELECTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · Responses Compaction **CANDIDATE / NOT ADOPTED** · **NEXT = GLOBAL MODEL × REASONING CAMPAIGN READINESS / QUALIFICATION — NOT AUTHORIZED / NOT STARTED** · **≠** MW6 integrated on main yet · **≠** MW6 COMPLETE/CLOSED on main yet · **≠** END-TO-END REAL · **≠** Cognitive Completion PROVEN · **≠** production model routing selected · **≠** runtime v3 ADOPTED · global Model × Reasoning campaign remains after MW6 by default before Cognitive Completion / runtime-v3 conclusions that depend on that choice · merge remains **distinct Morris gate** |
  | **Timestamp maintenance historique NORA-MW5-CLOSURE-DOC-INTEGRATION-01 (pre-MW6 consolidated integration)** | 2026-09-04 08:56:17 CEST — **NORA MW5 CLOSURE DOC INTEGRATION / TRUTH-SYNC** · Cycle **13** · DOC · CRITICAL · **MORRIS DECISION — MW5 COMPLETE / CLOSED AT PROVEN SCOPE WITH RETAINED GOVERNANCE DEVIATION AND NON-BLOCKING RESERVES** **CONSUMED** · GO MORRIS — NORA-MW5-CLOSURE-DOC-INTEGRATION-01 **CONSUMED** · MW5 = **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE WITH RETAINED GOVERNANCE DEVIATION AND NON-BLOCKING RESERVES** · MW5 Delivery = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · PR **#463 MERGED** · pre-merge head `642c502d649a3dad46b66ade95bdea1b5ed8b787` · squash merge `7e2f4c2799be70380362630a1c6734837cc453d9` · parent `9b45f0d7700a3127fa28c13f37ffae40432ae05c` · tree `b58cea7a8d0ddd173c1467d5a522e26a9c643fe3` · HEAD→MERGE TREE PARITY **PROVEN** · post-merge CI **`33841337376` SUCCESS** · Required Gate **PASS** · delivery branch `delivery/sfia-studio-nora-mw5-critical-challenge-clarification` **PRESERVED** · CORR-MW5-PR-01/02 **CLOSED AT TESTED DETERMINISTIC SCOPE** · CORR-MW5-CLOSURE-C5-CURRENT-TRAJECTORY-01 **CLOSED AT REVIEWED DOCUMENTARY SCOPE** · MW5-R2-REAL-03 PASS at tested scope · SHA-01/02 CLOSED · MW0→MW5 cognitive evidence ACCEPTED BY MORRIS FOR MW5 PURPOSES · H17 FAIL — RETAINED HISTORICAL GOVERNANCE DEVIATION (141/100 · delta +41) · H18 INCONCLUSIVE · ZERO NEW REAL · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · Production model routing **NOT SELECTED** · Responses Compaction **CANDIDATE / NOT ADOPTED** · **NEXT PRODUCT CAPABILITY GATE = MW6 READINESS / REQUALIFICATION — NOT AUTHORIZED / NOT STARTED** · closure-doc repository lifecycle = **PR CANDIDATE / PENDING MERGE** · **≠** campaign governance-compliant · **≠** H17 PASS · **≠** H18 PASS · **≠** MW6 AUTHORIZED · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · merge of this closure-doc PR remains **distinct Morris gate** |
@@ -1230,7 +1462,7 @@ index 440b2a2e..6d0cb0a4 100644
 
 ```diff
 diff --git a/projects/sfia-studio/nora-cognitive-completion/10-nora-global-model-reasoning-campaign-execution-contract.md b/projects/sfia-studio/nora-cognitive-completion/10-nora-global-model-reasoning-campaign-execution-contract.md
-index 143d7369..67613281 100644
+index 143d7369..235f3f37 100644
 --- a/projects/sfia-studio/nora-cognitive-completion/10-nora-global-model-reasoning-campaign-execution-contract.md
 +++ b/projects/sfia-studio/nora-cognitive-completion/10-nora-global-model-reasoning-campaign-execution-contract.md
 @@ -3,13 +3,17 @@
@@ -1345,21 +1577,41 @@ index 143d7369..67613281 100644
 
  ---
 
-@@ -212,10 +219,10 @@ Catalog `requiredTier: ["D0"]` scenarios are **semantic identities + scorer bind
- | Base runs/cell | 1 | CANDIDATE |
- | Max repeats/cell | **1** (runIndex 0 base + runIndex 1 unique selective repeat) | CANDIDATE — C4-04 |
- | Selective repeat pool | **18 max** | CANDIDATE |
+@@ -205,25 +212,27 @@ Catalog `requiredTier: ["D0"]` scenarios are **semantic identities + scorer bind
+
+ | Parameter | Candidate value | Status |
+ | --- | --- | --- |
+-| Models | Luna / Terra / Sol | CANDIDATE |
+-| Efforts | none / medium / high | CANDIDATE |
+-| Workloads | 6 (W-Routine … W-Sources) | CANDIDATE |
+-| Base cells | **54** (= 3 × 3 × 6) | CANDIDATE |
+-| Base runs/cell | 1 | CANDIDATE |
+-| Max repeats/cell | **1** (runIndex 0 base + runIndex 1 unique selective repeat) | CANDIDATE — C4-04 |
+-| Selective repeat pool | **18 max** | CANDIDATE |
 -| **Max cell executions** | **72** (= 54 + 18) | **CELL EXECUTION ENVELOPE** — not model invocations |
 -| **Max model invocations** | **405** (= base 297 + worst-case repeat 108) | **DERIVED CANDIDATE — AWAITING MORRIS ACCEPTANCE FOR REAL** |
-+| **Max cell executions** | **78** (= 54 + 18) | **CELL EXECUTION ENVELOPE** — not model invocations |
-+| **Max model invocations** | **438** (= base 297 + worst-case repeat 108) | **DERIVED CANDIDATE — AWAITING MORRIS ACCEPTANCE FOR REAL** |
- | Max hosted web operations | **24** | CANDIDATE (retained pool) |
+-| Max hosted web operations | **24** | CANDIDATE (retained pool) |
 -| **Max aggregate REAL calls** | **429** (= 405 + 24) | **DERIVED CANDIDATE — AWAITING MORRIS ACCEPTANCE FOR REAL** |
-+| **Max aggregate REAL calls** | **464** (= 438 + 26) | **DERIVED OPTION C — financial envelope still OPEN** |
- | Target USD | **6.00** | CANDIDATE |
- | Soft stop USD | **9.00** | CANDIDATE |
- | Hard cap USD | **12.00** — **pre-dispatch estimated/reservation authorization envelope** (≠ guaranteed provider invoice ceiling) | CANDIDATE — feasibility OK vs planned reserve ≈ **9.77** worst-case |
-@@ -223,7 +230,7 @@ Catalog `requiredTier: ["D0"]` scenarios are **semantic identities + scorer bind
+-| Target USD | **6.00** | CANDIDATE |
+-| Soft stop USD | **9.00** | CANDIDATE |
+-| Hard cap USD | **12.00** — **pre-dispatch estimated/reservation authorization envelope** (≠ guaranteed provider invoice ceiling) | CANDIDATE — feasibility OK vs planned reserve ≈ **9.77** worst-case |
++| Models | Luna / Terra / Sol **primary** + GPT-6 Astra **challenger** | OPTION C |
++| Efforts | primary: none / medium / high · Astra Stage A: **medium only** | OPTION C |
++| Workloads | 6 (W-Routine … W-Sources) | OPTION C |
++| Primary base cells | **54** (= 3 × 3 × 6) | OPTION C |
++| Astra challenger cells | **6** (medium × 6; ONE-SHOT) | OPTION C |
++| Total base cells | **60** | OPTION C |
++| Base runs/cell | 1 | OPTION C |
++| Max repeats/cell | **1** primary only (Astra `selectiveRepeatEligible=false`) | OPTION C |
++| Selective repeat pool | **18 max** (primary only) | OPTION C |
++| **Max cell executions** | **78** (= 60 + 18) | **CELL EXECUTION ENVELOPE** — not model invocations |
++| **Max model invocations** | **438** (= base 330 + primary repeats 108) | OPTION C DERIVED |
++| Max hosted web operations | **26** (= primary 24 + Astra W-Sources +2) | OPTION C |
++| **Max aggregate REAL calls** | **464** (= 438 + 26) | OPTION C |
++| Target USD | **6.00** | CURRENT POLICY |
++| Soft stop USD | **9.00** | CURRENT POLICY |
++| Hard cap USD | **12.00** — **pre-dispatch estimated/reservation authorization envelope** (≠ invoice) | **INSUFFICIENT** vs known planned subtotal ≈ **13.32896** → `REQUIRES_MORRIS_BUDGET_DECISION` |
+ | Provider tool calls / response (campaign) | **2** (use min(campaign, runtime ceiling)) | CANDIDATE |
  | Catalog | `global-mr-catalog-v1` | MAIN |
  | Capability manifest | `buildGlobalModelReasoningCapabilityManifest(retrievedAt)` | MAIN |
  | Budget identity | **≠** `MW0_BUDGET_POLICY` (3/4/5) **≠** `H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS` (100) | — |
@@ -1368,16 +1620,34 @@ index 143d7369..67613281 100644
 
  ### Per-workload constitutive model-call ceilings (DERIVED)
 
-@@ -240,7 +247,7 @@ Catalog `requiredTier: ["D0"]` scenarios are **semantic identities + scorer bind
- - `baseModelInvocationCeiling` = 3×3×(5+6+6+6+5+5) = **297**
- - `repeatModelInvocationCeiling` = sum of 18 highest per-cell costs (all F2 @ 6) = **108**
- - `maxModelInvocations` = 297 + 108 = **405**
+@@ -236,14 +245,20 @@ Catalog `requiredTier: ["D0"]` scenarios are **semantic identities + scorer bind
+ | W-Memory | `agents_cognitive` | 0 | 5 | **5** | 0 |
+ | W-Sources | `mw6_governed` | 0 | 5 | **5** | 2 |
+
+-**Derivation:**
+-- `baseModelInvocationCeiling` = 3×3×(5+6+6+6+5+5) = **297**
+-- `repeatModelInvocationCeiling` = sum of 18 highest per-cell costs (all F2 @ 6) = **108**
+-- `maxModelInvocations` = 297 + 108 = **405**
 -- `maxAggregateRealCalls` = 405 + 24 = **429**
++**Derivation (Option C):**
++- `primaryBaseModelInvocationCeiling` = 3×3×(5+6+6+6+5+5) = **297**
++- `astraBaseModelInvocationCeiling` = 5+6+6+6+5+5 = **33**
++- `baseModelInvocationCeiling` = 297 + 33 = **330**
++- `repeatModelInvocationCeiling` = sum of 18 highest *primary* per-cell costs (all F2 @ 6) = **108** (Astra repeats = 0)
++- `maxModelInvocations` = 330 + 108 = **438**
++- `maxHostedWebOperations` = 24 + 2 = **26**
++- `maxAggregateRealCalls` = 438 + 26 = **464**
++
++*(Historical contract-v2 on integrated main before Option C integration: primary-only 297+108=**405**, hosted **24**, aggregate **429**, cells **72**.)*
 +- `maxAggregateRealCalls` = 438 + 26 = **464**
  - Function: `deriveGlobalMrStageAEnvelope()` / proof: `globalMrStageAEnvelopeProof()`
 
- **Do not equate** `maxCellExecutions=72` with `maxModelInvocations`. A cell may contain multiple constitutive model calls (F2: analyzeIntent + Agents turns).
-@@ -266,13 +273,13 @@ Second run **only if** ≥1 trigger: top candidate · borderline · suspected va
+-**Do not equate** `maxCellExecutions=72` with `maxModelInvocations`. A cell may contain multiple constitutive model calls (F2: analyzeIntent + Agents turns).
++**Do not equate** `maxCellExecutions=78` with `maxModelInvocations`. A cell may contain multiple constitutive model calls (F2: analyzeIntent + Agents turns). Historical v2 cell envelope was **72**.
+
+ ### Stage A effort justification (CANDIDATE)
+ - **none** — absence of explicit reasoning
+@@ -266,13 +281,25 @@ Second run **only if** ≥1 trigger: top candidate · borderline · suspected va
  - Campaign `max_tool_calls` = **2** unless a specific W-Sources cell justifies more in the REAL GO (must be explicit).
 
  ### Aggregate derivation note
@@ -1390,11 +1660,23 @@ index 143d7369..67613281 100644
  `PROPOSED STAGE A FINANCIAL ENVELOPE — AWAITING MORRIS REAL DECISION`
  **Not spendable** under preparation / enablement GOs.
 -USD 6/9/12 **retained** after feasibility check vs derived call envelope (worst-case planned reserve ≈ 9.77 < 12).
-+USD 6/9/12 **retained** (not auto-raised). Option C worst-case planned reserve ≈ **13.06896** > hardCap 12 → `usdFeasibility.ok=false` / `REQUIRES_MORRIS_BUDGET_DECISION` before FULL REAL.
++USD 6/9/12 **retained** (not auto-raised). FinOps cost classes (official OpenAI API Pricing 2026-09-05):
++
++| Class | Value | Meaning |
++| --- | --- | --- |
++| **plannedModelTokenReserveUsd** | ≈ **13.06896** | Model-token planned reserve under 4k/1.2k assumptions (≠ total provider cost) |
++| **webSearchToolCallUsd** | **0.01** | Fixed tool-call fee ($10 / 1k calls) |
++| **plannedHostedWebSearchToolFeesUsd** | **0.26** (= 26 × 0.01) | Max fixed hosted web-search tool-call fees |
++| **knownPlannedSubtotalUsd** | ≈ **13.32896** | Model-token reserve + max fixed hosted fees |
++| **searchContentTokenExposure** | VARIABLE / PROVIDER-USAGE-DEPENDENT | Search-content tokens billed at model rates; no safe deterministic pre-call quantity |
++| **cache-write / cached-token exact qty** | NOT DETERMINISTICALLY KNOWN / NOT SEPARATELY METERED on current path | Documented provider cost component; invoice NOT_OBSERVED |
++| **invoice** | NOT_OBSERVED | Never claimed as ceiling |
++
++`knownPlannedSubtotalUsd` ≈ 13.32896 > hardCap 12 → `usdFeasibility.ok=false` / `REQUIRES_MORRIS_BUDGET_DECISION`. Do **not** treat 13.32896 as a safe new hard cap or guaranteed worst-case invoice.
 
  ### USD semantics (honest — F1 correction)
  | Term | Meaning |
-@@ -290,6 +297,9 @@ Client-side estimators cannot guarantee a maximum provider invoice when exact co
+@@ -290,6 +317,9 @@ Client-side estimators cannot guarantee a maximum provider invoice when exact co
 
  ## 8. Stage B — Deepening (defined, NOT auto-authorized)
 
@@ -1404,7 +1686,7 @@ index 143d7369..67613281 100644
  - **Not** authorized to run automatically after Stage A.
  - **Never** full model × 6 efforts × workloads.
  - Promote only: top 1–2 models/workload; efforts needed for curve (incl. low/xhigh/max and anchors); unresolved material uncertainty.
-@@ -446,7 +456,7 @@ Any proposed weighting = **CANDIDATE** until Morris accepts it in a REAL/post-ca
+@@ -446,7 +476,7 @@ Any proposed weighting = **CANDIDATE** until Morris accepts it in a REAL/post-ca
 
  Each future run MUST reconstruct:
 
@@ -1413,7 +1695,16 @@ index 143d7369..67613281 100644
 
  Historical `mw0-catalog-v1` remains provenance — **not** silent campaign corpus.
 
-@@ -541,18 +551,18 @@ No cognitive gain expands authority. No stronger model gains more authority.
+@@ -526,7 +556,7 @@ No cognitive gain expands authority. No stronger model gains more authority.
+ | Forbidden silent reuse | Correct campaign binding |
+ | --- | --- |
+ | `MW0_BUDGET_POLICY` 3 / 4 / 5 USD | Stage A 6 / 9 / 12 USD (candidate) |
+-| `H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS = 100` | maxAggregateRealCalls **429** (derived candidate) |
++| `H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS = 100` | maxAggregateRealCalls **464** (Option C); historical v2 **429** |
+ | MW0 historical allowlist Luna/Terra × none/low/medium | Global manifest Luna/Terra/Sol × none→max (campaign allowlist) |
+ | Production router | **NO ROUTER BEFORE EVIDENCE** |
+ | Runtime v3 | **NON ADOPTED** |
+@@ -541,18 +571,18 @@ No cognitive gain expands authority. No stronger model gains more authority.
  | **C4-01** | Stage A eval seams on client-callable Server Action | Removed from `projectAssistantSendAction`; campaign uses internal orchestrators only | `c4.final-safety.d0.test.ts` PASS |
  | **C4-02** | Eval control accepted arbitrary provider fallback | Factory mandatory when eval control set | same PASS |
  | **C4-03** | F2 structured not on shared USD BudgetTracker; claim-before-USD risk | MeteredConversationProvider `beforeAuthorizedDispatch` after USD preflight; `createMeteredEvalCellProviderFactory` | same PASS |
@@ -1436,7 +1727,16 @@ index 143d7369..67613281 100644
 
  ## Critical Review remediation (E1–E4 + F1→F5 + C3-01→C3-05) — retained
 
-@@ -572,26 +582,27 @@ Stage A REAL comes only after: Git integration → CI → post-merge verificatio
+@@ -564,7 +594,7 @@ Stage A REAL comes only after: Git integration → CI → post-merge verificatio
+ | **E4 / F4A** | Repeat gate computed then ignored (`void gate`) | Driver enforces one repeat/base cell + pool 18; runIndex>1 denied | `e4.stage-a-driver.d0.test.ts` PASS |
+ | **E4 / F4B** | `SOFT_USD_REVIEW` allowed silent continuation | Soft stop blocks new cells until `acknowledgeGlobalMrStageASoftReview` (non-authoritative; no HD) | same PASS |
+ | **F5** | Contract conflated main / local / REAL | Three truth layers + USD honesty + checklist corrected | this document |
+-| **C3-01** | `54+18=72` wrongly treated as maxModelInvocations | Cell executions (72) ≠ model invocations; derived **405** / aggregate **429** | `c3.call-accounting.d0.test.ts` PASS |
++| **C3-01** | `54+18=72` wrongly treated as maxModelInvocations | Cell ≠ model; Option C derived **438** / aggregate **464** (historical v2: **405**/**429**) | `c3.call-accounting.d0.test.ts` PASS |
+ | **C3-02** | F2 pin metadata ≠ structured provider binding | `EvalCellProviderFactory(model, effort)` → analyzeIntent provider | same + F2 path PASS |
+ | **C3-03** | MW6 proof stopped at resolver | Full `runMw6GovernedNoraProductTurn` + same Stage A lease; ZERO LIVE | `c3.mw6-full-product-path.d0.test.ts` PASS |
+ | **C3-04** | Repeat pool exhaustion latched campaign stop | Per-cell denial only; base cells still execute | `c3` + `e4` PASS |
+@@ -572,26 +602,27 @@ Stage A REAL comes only after: Git integration → CI → post-merge verificatio
 
  **Status:** C3-01→C3-05 = **CLOSED AT DETERMINISTIC TESTED SCOPE**. F1→F5 remain closed.
 
@@ -1473,7 +1773,7 @@ index 143d7369..67613281 100644
 
  ---
 
-@@ -610,8 +621,8 @@ Stage A REAL comes only after: Git integration → CI → post-merge verificatio
+@@ -610,8 +641,8 @@ Stage A REAL comes only after: Git integration → CI → post-merge verificatio
  - [x] Experimental question + model vs effort separation
  - [x] Dated provider snapshot aligned with G1
  - [x] Six workloads + catalog semantic IDs + REAL substitutes
@@ -1484,7 +1784,7 @@ index 143d7369..67613281 100644
  - [x] USD 12 = authorization envelope ≠ invoice guarantee (documented); feasibility vs derived calls OK
  - [x] E1/F1 first-dispatch YES / second denied + observed overrun fail-close (deterministic)
  - [x] E2/F2 product-equivalent model×effort pin (F1+F2 paths; no client surface)
-@@ -626,8 +637,10 @@ Stage A REAL comes only after: Git integration → CI → post-merge verificatio
+@@ -626,8 +657,10 @@ Stage A REAL comes only after: Git integration → CI → post-merge verificatio
  - [x] Evidence / campaignId / authority / W-Sources
  - [x] FinOps realism gaps documented
  - [x] ZERO REAL / no router / no production selection
@@ -1500,9 +1800,270 @@ index 143d7369..67613281 100644
 
 ```
 
-## 11. New files (full content)
+## 10. New / rewritten full files
 
-### `projects/sfia-studio/app/__tests__/nora-eval/c5.astra-challenger.d0.test.ts`
+### `projects/sfia-studio/app/__tests__/nora-eval/c6.finops-contract-truth.d0.test.ts`
+
+```ts
+/** @vitest-environment node */
+/**
+ * C6 — Option C FinOps completeness + contract truth — ZERO REAL.
+ */
+import { describe, expect, it } from "vitest";
+import {
+  BudgetTracker,
+  OPENAI_WEB_SEARCH_TOOL_CALL_USD,
+  buildMw0CapabilityManifest,
+  createEvalAgentsUsdAccounting,
+  createGlobalMrStageADriver,
+  deriveGlobalMrStageAEnvelope,
+  GLOBAL_MR_STAGE_A_ASTRA_CHALLENGER,
+  GLOBAL_MR_STAGE_A_CELL_CAPS,
+  GLOBAL_MR_STAGE_A_CONTRACT_VERSION,
+  GLOBAL_MR_STAGE_A_USD_POLICY,
+} from "@/lib/nora-eval";
+
+describe("C6 — Option C FinOps + contract truth (ZERO REAL)", () => {
+  it("C6-01 — structural envelope 78/438/464 unchanged", () => {
+    const d = deriveGlobalMrStageAEnvelope();
+    expect(GLOBAL_MR_STAGE_A_CONTRACT_VERSION).toBe(
+      "global-mr-campaign-contract-v3-candidate",
+    );
+    expect(d.primaryBaseCells).toBe(54);
+    expect(d.astraChallengerCells).toBe(6);
+    expect(d.baseCells).toBe(60);
+    expect(d.maxSelectiveRepeats).toBe(18);
+    expect(d.astraRepeatModelInvocationCeiling).toBe(0);
+    expect(GLOBAL_MR_STAGE_A_CELL_CAPS.maxCellExecutions).toBe(78);
+    expect(d.maxCellExecutions).toBe(78);
+    expect(d.primaryBaseModelInvocationCeiling).toBe(297);
+    expect(d.astraBaseModelInvocationCeiling).toBe(33);
+    expect(d.baseModelInvocationCeiling).toBe(330);
+    expect(d.repeatModelInvocationCeiling).toBe(108);
+    expect(d.maxModelInvocations).toBe(438);
+    expect(d.maxHostedWebOperations).toBe(26);
+    expect(d.maxAggregateRealCalls).toBe(464);
+  });
+
+  it("C6-02..07 — model-token / hosted fee / known subtotal / feasibility", () => {
+    const d = deriveGlobalMrStageAEnvelope();
+    const f = d.usdFeasibility;
+    expect(f.plannedModelTokenReserveUsd).toBeCloseTo(13.06896, 4);
+    expect(f.plannedReserveUsdWorstCaseWithRepeats).toBeCloseTo(13.06896, 4);
+    expect(f.webSearchToolCallUsd).toBe(OPENAI_WEB_SEARCH_TOOL_CALL_USD);
+    expect(OPENAI_WEB_SEARCH_TOOL_CALL_USD).toBe(0.01);
+    expect(f.plannedHostedWebSearchToolFeesUsd).toBeCloseTo(0.26, 8);
+    expect(f.plannedHostedWebSearchToolFeesUsd).toBeCloseTo(
+      d.maxHostedWebOperations * f.webSearchToolCallUsd,
+      8,
+    );
+    expect(f.knownPlannedSubtotalUsd).toBeCloseTo(13.32896, 4);
+    expect(f.knownPlannedSubtotalUsd).toBeCloseTo(
+      f.plannedModelTokenReserveUsd + f.plannedHostedWebSearchToolFeesUsd,
+      8,
+    );
+    expect(f.hardCapUsd).toBe(12);
+    expect(GLOBAL_MR_STAGE_A_USD_POLICY.hardCapUsd).toBe(12);
+    expect(f.ok).toBe(false);
+    expect(f.status).toBe("REQUIRES_MORRIS_BUDGET_DECISION");
+    expect(f.searchContentTokenExposure).toBe(
+      "VARIABLE_PROVIDER_USAGE_DEPENDENT",
+    );
+    expect(f.cacheWritePricingDocumented).toBe(true);
+    expect(f.cacheWriteQuantityDeterministicallyKnown).toBe(false);
+    expect(f.invoice).toBe("NOT_OBSERVED");
+  });
+
+  it("C6-08/09/12/13 — settlement adds hosted fees once; invoice NOT_OBSERVED", () => {
+    const state = createGlobalMrStageADriver({
+      campaignId: `c6-settle-${Date.now()}`,
+    });
+    const usd = createEvalAgentsUsdAccounting({
+      budget: state.budget,
+      manifest: state.manifest,
+      modelId: "gpt-5.6-luna",
+      assumedInputTokens: 40,
+      assumedOutputTokens: 20,
+    });
+    const estimate = usd.estimateNextInvocationUsd();
+    expect(usd.canDispatchUnderHardCap(estimate).allowed).toBe(true);
+    usd.commitReserve(estimate);
+    const settled = usd.settleTurn({
+      reservedInvocations: 1,
+      inputTokens: 40,
+      outputTokens: 20,
+      totalTokens: 60,
+      hostedWebSearchCalls: 2,
+    });
+    expect(settled.hostedToolCallFeesUsd).toBeCloseTo(0.02, 8);
+    expect(settled.modelTokenEstimatedUsd).toBeGreaterThan(0);
+    expect(settled.observedEstimatedUsd).toBeCloseTo(
+      settled.modelTokenEstimatedUsd + settled.hostedToolCallFeesUsd,
+      8,
+    );
+    expect(settled.estimatedUsd).toBe(settled.observedEstimatedUsd);
+    expect(settled.invoice).toBe("NOT_OBSERVED");
+  });
+
+  it("C6-10 — hosted fees pushing cumulative observed > hard → next dispatch denied", () => {
+    const policy = { targetUsd: 0.01, softStopUsd: 0.015, hardCapUsd: 0.02 };
+    const budget = new BudgetTracker(policy, 0);
+    const manifest = buildMw0CapabilityManifest("2026-09-05T00:00:00.000Z");
+    const usd = createEvalAgentsUsdAccounting({
+      budget,
+      manifest,
+      modelId: "gpt-5.6-luna",
+      assumedInputTokens: 1,
+      assumedOutputTokens: 1,
+      webSearchToolCallUsd: 0.01,
+    });
+    const reserve = 0.005;
+    expect(usd.canDispatchUnderHardCap(reserve).allowed).toBe(true);
+    usd.commitReserve(reserve);
+    // Model tokens tiny; 2 hosted calls = 0.02 → total observed ≈ 0.005+0.02 > 0.02 hard
+    const settled = usd.settleTurn({
+      reservedInvocations: 1,
+      inputTokens: null,
+      outputTokens: null,
+      totalTokens: null,
+      hostedWebSearchCalls: 2,
+    });
+    expect(settled.hostedToolCallFeesUsd).toBeCloseTo(0.02, 8);
+    expect(settled.authorizationEnvelopeExceeded).toBe(true);
+    expect(budget.hardStopTriggered).toBe(true);
+    const next = usd.canDispatchUnderHardCap(0.001);
+    expect(next.allowed).toBe(false);
+    expect(next.reason).toBe("OBSERVED_AUTHORIZATION_ENVELOPE_EXCEEDED");
+  });
+
+  it("C6-11 — deterministic/fixture hosted calls do not add REAL tool fee when omitted/0", () => {
+    const state = createGlobalMrStageADriver({
+      campaignId: `c6-fixture-${Date.now()}`,
+    });
+    const usd = createEvalAgentsUsdAccounting({
+      budget: state.budget,
+      manifest: state.manifest,
+      modelId: "gpt-5.6-luna",
+      assumedInputTokens: 40,
+      assumedOutputTokens: 20,
+    });
+    usd.commitReserve(usd.estimateNextInvocationUsd());
+    const settled = usd.settleTurn({
+      reservedInvocations: 1,
+      inputTokens: 40,
+      outputTokens: 20,
+      totalTokens: 60,
+      // omit / 0 — deterministic fixtures must not bill
+      hostedWebSearchCalls: 0,
+    });
+    expect(settled.hostedToolCallFeesUsd).toBe(0);
+    expect(settled.observedEstimatedUsd).toBeCloseTo(
+      settled.modelTokenEstimatedUsd,
+      8,
+    );
+  });
+
+  it("C6-14/15 — Astra one-shot medium preserved; MW0 unchanged", () => {
+    expect(GLOBAL_MR_STAGE_A_ASTRA_CHALLENGER).toEqual({
+      modelId: "gpt-6-astra",
+      reasoningEffort: "medium",
+    });
+    const mw0 = buildMw0CapabilityManifest("2026-09-05T00:00:00.000Z");
+    expect(mw0.models.map((m) => m.modelId)).not.toContain("gpt-6-astra");
+    expect(mw0.campaignAllowlist.modelIds).toEqual([
+      "gpt-5.6-luna",
+      "gpt-5.6-terra",
+    ]);
+  });
+});
+
+```
+
+### `projects/sfia-studio/nora-cognitive-completion/11-nora-global-model-reasoning-stage-a-real-readiness.md`
+
+```md
+# 11 — Nora Global Model × Reasoning — Stage A REAL Readiness
+
+| Field | Value |
+| --- | --- |
+| **Document ID** | `NORA-GLOBAL-MR-STAGE-A-REAL-READINESS-01` |
+| **Maintenance** | `NORA-GLOBAL-MR-STAGE-A-OPTION-C-FINOPS-CONTRACT-TRUTH-01` (C6) |
+| **Date** | 2026-09-05 22:50:00 CEST / `2026-09-05T20:50:00Z` |
+| **Cycle** | 8 — EVOL / CRITICAL |
+| **GO** | `GO MORRIS — CORRECTIF OPTION C FINOPS + CONTRACT TRUTH — ZERO REAL` **CONSUMED** |
+| **Prior** | Option C technical design ADOPTED (D-GMR-ASTRA-01/02) · handoff `e782a279…` |
+| **Status** | **LOCAL DELIVERY CANDIDATE** — branch `delivery/sfia-studio-global-mr-stage-a-astra-challenger` · **NO product commit/push/PR this cycle** |
+| **REAL** | **NOT AUTHORIZED / NOT EXECUTED** |
+
+---
+
+## 1. Purpose
+
+Correct FinOps completeness + Contract 10 current-truth consistency (C6-01 / C6-02) after ChatGPT Critical Review of Option C, without changing Option C structural envelope or model universe.
+
+## 2. Git truth
+
+| Item | Value |
+| --- | --- |
+| `origin/main` | `1dd5d67ad942c448becd637f4c2e55883d16ffca` |
+| Prior Option C handoff | `e782a279e382f5463339979b30c30d985807a40a` |
+| Delivery branch | `delivery/sfia-studio-global-mr-stage-a-astra-challenger` — **LOCAL DIRTY** |
+| Product commit/push/PR | **NONE** |
+
+## 3. Option C structural envelope — UNCHANGED
+
+| Metric | Value |
+| --- | --- |
+| Primary base | **54** |
+| Astra challenger | **6** medium ONE-SHOT |
+| Base total | **60** |
+| maxCellExecutions | **78** |
+| maxModelInvocations | **438** |
+| maxHostedWebOperations | **26** |
+| maxAggregateRealCalls | **464** |
+| contractVersion | `global-mr-campaign-contract-v3-candidate` |
+
+## 4. FinOps decomposition (official OpenAI API Pricing 2026-09-05)
+
+| Class | Value |
+| --- | --- |
+| plannedModelTokenReserveUsd | ≈ **13.06896** |
+| webSearchToolCallUsd | **0.01** ($10 / 1k calls) |
+| plannedHostedWebSearchToolFeesUsd | **0.26** (= 26 × 0.01) |
+| knownPlannedSubtotalUsd | ≈ **13.32896** |
+| searchContentTokenExposure | VARIABLE / PROVIDER-USAGE-DEPENDENT |
+| cache-write qty on current path | NOT DETERMINISTICALLY KNOWN / NOT SEPARATELY METERED |
+| invoice | NOT_OBSERVED |
+| USD policy | **6 / 9 / 12** RETAINED |
+| usdFeasibility | **FAIL** / `REQUIRES_MORRIS_BUDGET_DECISION` |
+
+≈13.06896 is **model-token planned reserve only** — not total provider cost / not invoice ceiling.
+≈13.32896 is **known planned subtotal** (model-token + max fixed hosted tool fees) — still not a safe new hard cap.
+
+## 5. Stage A readiness checklist
+
+| ID | Item | Status |
+| --- | --- | --- |
+| R-16 | Model universe accepted | **PASS / DECIDED OPTION C** |
+| R-17 | Stage A grid accepted | **PASS** |
+| R-18 | Financial envelope accepted | **OPEN — MORRIS FINANCIAL ENVELOPE DECISION REQUIRED** (known subtotal ≈13.32896 > hard 12; variable search-content/cache exposure visible) |
+| R-19 | Astra account availability | **NOT PROVEN** |
+| R-20 | REAL authorization explicit | **NOT AUTHORIZED** |
+
+## 6. Anti-claims
+
+- FinOps truth corrected **≠** Stage A REAL authorized
+- knownPlannedSubtotal ≈13.32896 **≠** invoice / guaranteed ceiling
+- Option C structure unchanged **≠** production routing / Astra-only selected
+- C6 correctif **≠** Stage B/C implementation
+
+## Readiness verdict
+
+**STAGE A OPTION C DETERMINISTIC READINESS — TECHNICAL / MODEL UNIVERSE PROVEN — FINOPS TRUTH CORRECTED — MORRIS FINANCIAL ENVELOPE + REAL AUTHORIZATION STILL REQUIRED**
+
+```
+
+### `projects/sfia-studio/app/__tests__/nora-eval/c5.astra-challenger.d0.test.ts` (untracked full)
 
 ```ts
 /** @vitest-environment node */
@@ -1635,6 +2196,15 @@ describe("C5 — Option C Astra challenger (ZERO REAL)", () => {
     expect(d.usd.hardCapUsd).toBe(12);
     expect(d.usdFeasibility.ok).toBe(false);
     expect(d.usdFeasibility.status).toBe("REQUIRES_MORRIS_BUDGET_DECISION");
+    expect(d.usdFeasibility.plannedModelTokenReserveUsd).toBeCloseTo(
+      13.06896,
+      4,
+    );
+    expect(d.usdFeasibility.plannedHostedWebSearchToolFeesUsd).toBeCloseTo(
+      0.26,
+      4,
+    );
+    expect(d.usdFeasibility.knownPlannedSubtotalUsd).toBeCloseTo(13.32896, 4);
     expect(d.usdFeasibility.plannedReserveUsdWorstCaseWithRepeats).toBeCloseTo(
       13.06896,
       4,
@@ -1898,134 +2468,11 @@ describe("C5 — MW6 governed Astra identity (ZERO LIVE)", () => {
 
 ```
 
-### `projects/sfia-studio/nora-cognitive-completion/11-nora-global-model-reasoning-stage-a-real-readiness.md`
-
-```md
-# 11 — Nora Global Model × Reasoning — Stage A REAL Readiness
-
-| Field | Value |
-| --- | --- |
-| **Document ID** | `NORA-GLOBAL-MR-STAGE-A-REAL-READINESS-01` |
-| **Maintenance** | `NORA-GLOBAL-MR-STAGE-A-OPTION-C-ASTRA-CHALLENGER-01` |
-| **Date** | 2026-09-05 22:26:41 CEST / `2026-09-05T20:26:41Z` |
-| **Cycle** | 8 — EVOL / CRITICAL |
-| **GO** | `GO MORRIS — … STAGE A OPTION C / BOUNDED GPT-6 ASTRA CHALLENGER … — ZERO REAL` **CONSUMED** |
-| **Morris decisions** | **D-GMR-ASTRA-01** OPTION C ADOPTED · **D-GMR-ASTRA-02** post-Stage-A Astra-only + adaptive reasoning trajectory must remain instructable |
-| **Status** | **LOCAL DELIVERY CANDIDATE** — branch `delivery/sfia-studio-global-mr-stage-a-astra-challenger` · **NO product commit/push/PR this cycle** |
-| **REAL** | **NOT AUTHORIZED / NOT EXECUTED** |
-
 ---
 
-## 1. Purpose
+## 11. Publish plan
 
-Prove Stage A **Option C** deterministic readiness (GPT-5.6 primary matrix + bounded Astra medium challenger) after Morris adoption of D-GMR-ASTRA-01/02, without executing REAL, spend, account probes, Stage B/C implementation, or product Git integration.
-
-## 2. Git truth
-
-| Item | Value |
-| --- | --- |
-| `origin/main` | `1dd5d67ad942c448becd637f4c2e55883d16ffca` |
-| PR **#467** | **MERGED** @ 2026-09-05T17:36:03Z — Stage A harness v2 **INTEGRATED** |
-| Accepted head | `3fb1624c8b373b75dfcd48a64797a7927cb76019` |
-| Head→merge delta | **ZERO** |
-| Post-merge CI | `33981467237` **SUCCESS** · Required Gate **PASS** |
-| Delivery branch (this cycle) | `delivery/sfia-studio-global-mr-stage-a-astra-challenger` @ base `1dd5d67a…` — **LOCAL DIRTY / NOT INTEGRATED** |
-| Product commit/push/PR | **NONE** |
-
-## 3. Option C — ADOPTED BY MORRIS
-
-**D-GMR-ASTRA-01:** bounded GPT-6 Astra challenger in Stage A.
-
-| Cohort | Shape |
-| --- | --- |
-| Primary | Luna / Terra / Sol × none / medium / high × 6 workloads = **54** |
-| Astra challenger | `gpt-6-astra` × **medium ONLY** × 6 workloads = **6** ONE-SHOT (`isChallenger=true`, `selectiveRepeatEligible=false`) |
-| Base cells | **60** |
-| Selective repeats | **18** primary only · Astra repeats = **0** |
-| maxCellExecutions | **78** |
-| Model invocations | primary base 297 + Astra base 33 = **330** + primary repeats **108** = **438** |
-| Hosted | primary 24 + Astra W-Sources **+2** = **26** |
-| Aggregate | **464** |
-| Contract version | `global-mr-campaign-contract-v3-candidate` |
-| USD policy retained | **6 / 9 / 12** |
-| Planned worst reserve | **≈ 13.06896** → `usdFeasibility.ok=false` / `REQUIRES_MORRIS_BUDGET_DECISION` |
-
-Historical v2 envelope **72 / 405 / 429** remains correct for the **integrated** main contract until this Option C candidate is accepted + integrated.
-
-## 4. Provider / MW0 semantics
-
-- `buildMw0CapabilityManifest` = **UNCHANGED** historical GPT-5.6 / MW0 allowlist (no Astra).
-- `buildCurrentOpenAiCapabilityManifest` = current provider snapshot including Astra.
-- `buildGlobalModelReasoningCapabilityManifest` uses current snapshot + Global MR allowlist including Astra.
-- `validateRuntimeReasoningCapability` consults **current** snapshot (Astra medium PASS; Astra none/minimal FAIL-CLOSED PROVIDER).
-- Astra account availability = **NOT PROVEN** (ZERO REAL — no `/models`, no Responses, no key probe).
-
-## 5. Stage A readiness checklist
-
-| ID | Item | Status |
-| --- | --- | --- |
-| R-01 | Harness Option C deterministic proven (local candidate) | **PASS** (this cycle) |
-| R-02 | Post-merge CI green (v2 on main) | **PASS** (`33981467237`) |
-| R-03 | Head→merge parity (PR #467) | **PASS** (ZERO) |
-| R-04 | Model pin deterministic | **PASS** |
-| R-05 | Effort pin deterministic | **PASS** |
-| R-06 | Shared canonical campaign budget | **PASS** |
-| R-07 | USD predispatch authorization | **PASS** (deterministic; hardCap 12 not raised) |
-| R-08 | W-Sources governed path | **PASS** |
-| R-09 | Evidence identity (incl. challenger refs) | **PASS** |
-| R-10 | Repeat policy | **PASS** (primary 18; Astra DENIED) |
-| R-11 | Soft/hard stop | **PASS** |
-| R-12 | Server-only eval control | **PASS** (C4-01) |
-| R-13 | Authority invariants | **PASS** |
-| R-14 | No production router | **PASS** |
-| R-15 | Current provider snapshot | **PASS** |
-| R-16 | Model universe accepted | **PASS / DECIDED OPTION C** |
-| R-17 | Stage A grid accepted | **PASS** (primary + Astra medium-only challenger) |
-| R-18 | Financial envelope accepted | **OPEN** — 6/9/12 insufficient for full Option C worst-case |
-| R-19 | Astra account availability | **NOT PROVEN** |
-| R-20 | REAL authorization explicit | **NOT AUTHORIZED** |
-
-## 6. Post-Stage-A trajectory (DOCUMENT ONLY — D-GMR-ASTRA-02)
-
-**Stage A question:** comparative model×effort signal with GPT-5.6 full matrix + Astra medium challenger (common-effort compare: Luna/Terra/Sol/Astra @ medium × 6 workloads).
-
-**If** Stage A Evidence shows material Astra benefit / promising hypothesis:
-
-- **NEXT GATE** = Morris Stage B decision (not auto).
-- **Stage B candidate objective** = GPT-6 **ASTRA-ONLY VIABILITY** + **ADAPTIVE REASONING EFFORT** by workload (efforts may later include low/medium/high/xhigh; max only if Evidence justifies). Best-survivor GPT-5.6 anchors as controls if authorized.
-- **Stage C** = Astra-only confirmation **only if** Stage B justifies.
-
-**Not implemented this cycle:** Stage B/C code · production routing · Astra-only selection · Cognitive Completion claim · runtime v3.
-
-Final campaign must remain able to distinguish at least: (A) one dominant model (possibly Astra-only + adaptive effort) · (B) useful multi-model/hybrid · (C) insufficient Evidence · (D) no measured benefit justifies Astra cost/complexity.
-
-## 7. Anti-claims
-
-- Option C ADOPTED **≠** Stage A REAL authorized
-- Deterministic PROVEN **≠** financial envelope accepted
-- Astra in Stage A matrix **≠** production model / Astra-only selected
-- `v3-candidate` contract version **≠** runtime v3 ADOPTED
-- Account docs **≠** account entitlement proven
-- Stage B/C documented **≠** Stage B/C implemented or authorized
-
-## 8. Next gates
-
-1. ChatGPT Critical Review of Option C candidate
-2. Morris: technical acceptance + **financial envelope** + Git integration GO (same gate allowed)
-3. Integration / post-merge verification
-4. **Distinct** Morris Stage A REAL GO
-
-## Readiness verdict
-
-**STAGE A OPTION C DETERMINISTIC READINESS — TECHNICAL/MODEL UNIVERSE PROVEN — FINANCIAL ENVELOPE + REAL AUTHORIZATION STILL REQUIRED**
-
-```
-
----
-
-## 12. Publish plan
-
-- Tool: `scripts/sfia/publish-review-handoff.sh`
-- Branch: `sfia/review-handoff`
-- Canonical: `sfia-review-handoff/latest-chatgpt-review.md`
-- Product Git: **NO commit/push/PR**
+- `scripts/sfia/publish-review-handoff.sh`
+- branch `sfia/review-handoff`
+- file `sfia-review-handoff/latest-chatgpt-review.md`
+- product Git: **NONE**
