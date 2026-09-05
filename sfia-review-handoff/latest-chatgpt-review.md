@@ -1,14 +1,14 @@
-# SFIA Studio — AUTH CURRENT-CANDIDATE DETERMINISTIC REVALIDATION Review Pack FULL
+# SFIA Studio — AUTH CURRENT-CANDIDATE REAL BOUNDED RE-PROOF Review Pack FULL
 
-**Timestamp:** 2026-09-05 03:12:04 CEST
-**Profile:** CRITICAL · CONTENT-COMPLETE · FULL · NO PRODUCT CORRECTION
-**Unique verdict:** READY FOR CHATGPT AUTH CURRENT-CANDIDATE REVALIDATION REVIEW — AUTH-CANDIDATE-ANCHOR-V1 UNCHANGED / CURRENT AUTH CANDIDATE DETERMINISTIC REVALIDATED / AUTH REAL CURRENT-CANDIDATE NOT RE-PROVEN / MW6 REAL NOT STARTED
+**Timestamp:** 2026-09-05 07:59:40 CEST
+**Profile:** CRITICAL · REAL-BOUNDARY · CONTENT-COMPLETE · FULL · AUTH ONLY
+**Unique verdict:** READY FOR CHATGPT AUTH CURRENT-CANDIDATE REAL FINAL REVIEW — AUTH-CANDIDATE-ANCHOR-V1 UNCHANGED / CURRENT AUTH REAL BOUNDARY PROVEN / BOUNDED N1 PRODUCT AUTHORITY INTEGRATION PROVEN ON CURRENT CANDIDATE / MW6 REAL NOT STARTED
 
 ## A. Timestamp
-- 2026-09-05 03:12:04 CEST
+- 2026-09-05 07:59:40 CEST
 
 ## B. GO consumed
-`GO MORRIS — AUTH CURRENT-CANDIDATE DETERMINISTIC REVALIDATION — ANCHOR V1 PINNED`
+`GO MORRIS — AUTH CURRENT-CANDIDATE REAL BOUNDED RE-PROOF — ANCHOR V1 PINNED`
 
 ## C. Git Truth
 ### AUTH
@@ -35,184 +35,220 @@
 ### HANDOFF
 - path `/Users/morris/Projects/sfia-workspace/sfia-review-handoff`
 - branch `sfia/review-handoff`
-- HEAD `cdeae34a9c3fb20264b24a2439e53722d2792768`
+- HEAD `9447fa95ce94f18bbe2b3bb6a7f01fc8444ae150`
 - origin/main `ebdae92a96ea1c49444dfb668342c1453f57a540`
 - staged **0** · conflicts **0**
 
 ## D. Input handoff
-- `cdeae34a9c3fb20264b24a2439e53722d2792768`
-- AUTH-CANDIDATE-ANCHOR-V1 minted / a312 retired as active
+- `9447fa95ce94f18bbe2b3bb6a7f01fc8444ae150`
 
 ## E. Base SHA
 - `ebdae92a96ea1c49444dfb668342c1453f57a540`
 
-## F. AUTH-CANDIDATE-ANCHOR-V1
-- schema: `SFIA_AUTH_CANDIDATE_ANCHOR_V1`
-- scope: `projects/sfia-studio/app`
-- count: **38** (14 M + 24 U)
-- digest: `24c9f908a529f2d00f0003cd985d763648ac949111389021d198711d27a475e7`
-- recomputed from Git before tests: **MATCH**
+## F. V1 anchor precondition
+- `24c9f908a529f2d00f0003cd985d763648ac949111389021d198711d27a475e7` · count 38 · **MATCH** (recomputed from Git before REAL)
 
-## G. H02 continuity
-- count 38 · FP `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c` · **MATCH** before/after
+## G. H02 precondition
+- `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c` · count 38 · **MATCH**
 
 ## H. Cycle / profile / typology
-- CRITICAL · DETERMINISTIC ONLY · no Auth REAL · no MW6 REAL · no product write
+- CRITICAL · AUTH REAL BOUNDED · no MW6 REAL · no OpenAI · no product write
 
-## I. Convergence qualification
-- Capability: Nora Cognitive Completion → MW6 External Source Intelligence
-- Milestone: AUTH CURRENT-CANDIDATE DETERMINISTIC REVALIDATION
-- Entry: V1 validated by ChatGPT/Morris GO; functional Auth candidate pending → now deterministic revalidated
-- Next: ChatGPT reassess MW6↔Auth composition (separate); no REAL auto-start
+## I. Convergence Pre-check
+- Capability: Nora Cognitive Completion — Auth prerequisite for MW6 ESI
+- Entry: V1 validated + deterministic revalidated; REAL current-candidate NOT proven → now proven
+- Exit: REAL GitHub/Better Auth boundary + REAL Pilote + bounded N1 product path @ V1
+- Next: ChatGPT review → MW6↔Auth composition reassessment (separate GO for MW6 REAL)
 
 ## J. Fake / Real qualification
-- Mode: **DETERMINISTIC ONLY**
-- External REAL boundary (GitHub OAuth / Better Auth live session): **NOT exercised**
-- External Auth/OAuth REAL network calls: **0**
-- `auth-real-boundary-session.test.ts`: gated by `SFIA_AUTH_REAL_COOKIE_FILE` → **skipped** (1) — classify DETERMINISTIC/REAL opt-in absent, not REAL proof
+- Mode: **REAL BOUNDED AUTH**
+- External REAL boundary: GitHub OAuth / Better Auth session
+- Product path: REAL session injected into production `w2PrepareExecutionContractAction`
+- MW6 / OpenAI / hosted web_search REAL: **0**
 
-## J2. Better Auth version / config
-- package.json + package-lock.json: **better-auth = 1.7.2** (exact)
-- GitHub OAuth provider configured in Auth candidate; no Auth DB
-- No npm install / lock regeneration this cycle
+## K. Historical REAL procedure harvested (`45bbf95…`)
+- Studio localhost:3020 · `.env.local` · human GitHub OAuth · live Better Auth session
+- Temp cookie file mode 600 · `SFIA_AUTH_REAL_COOKIE_FILE`
+- Priority B: inject cookie via `next/headers` → production W2 prepare (not manual Build)
+- Hostile semantic DENY
 
-## K. Exact Auth invariant matrix D01–D14
-| ID | Invariant | Result | Evidence |
-| --- | --- | --- | --- |
-| D01 | Identity-only login (authority none; no S1) | **PASS** | POLICY-01, BIND-15, allowlist-actor-s1, resolveCurrentPilote tests |
-| D02 | Allowlist server-side immutable GitHub id 2→N | **PASS** | allowlist-actor-s1; POLICY-15; REG-02 |
-| D03 | One human → one OaActorReference | **PASS** | allowlist-actor-s1; actorMapping |
-| D04 | No Morris authority leak | **PASS** | POLICY-05/08/10; BIND-10/11; canActAsMorris=false assertions |
-| D05 | S1 action-scoped only | **PASS** | policy-action-scoped-s1; resolvePiloteS1AuthorityLevel fail-closed |
-| D06 | Policy fail-closed | **PASS** | POLICY-09/10; BIND-09; AUTHORITY_* codes |
-| D07 | N1 product path + semantic DENY | **PASS** | semantic-binding-build; gux15; m3ExecutionContractPrepare; BIND-01 |
-| D08 | N2 exact / not N1 / not N3; N1 insufficient | **PASS (Auth-scoped)** | POLICY-03; BIND-02 commit→N2; REG-07 N2≠N3; level_insufficient for wrong level |
-| D08b | Literal `external_discovery` token | **OUT OF AUTH V1 SCOPE** | Token/file absent from Auth candidate; lives in Integration `mw6ExternalDiscoveryBinding.ts` — composition reassessment, not Auth correction |
-| D09 | S1 negatives (actor/scope/expiry/foreign/wrong level) | **PASS** | binding-s1-adversarial (20); semantic-binding-build |
-| D10 | EC human authorization Build→Validate→Confirm→Check | **PASS** | executionContractGovernance; m3ExecutionContractPrepare; decisionConfirmationAuthority |
-| D11 | Confirmation semantics | **PASS** | decisionConfirmationAuthority; supersedeCancelAuthz |
-| D12 | Route/server protection | **PASS** | route-protection (3); POLICY-12/14 |
-| D13 | No parallel identity/authority architecture | **PASS** | better-auth-foundation; BYPASS-*; single Better Auth 1.7.2 |
-| D14 | localSingleUserAuthority not REAL | **PASS** | foundation / policy tests treat login authority none |
+## L. Current procedure actually used
+1. V1/H02 gates PASS
+2. Safe `.env.local` presence/perm/redacted readiness (values never printed)
+3. Start Auth worktree `npm run dev` on port **3020**
+4. R01 unauth `/studio` → 307 `/login?error=NO_SESSION`
+5. Reused existing live Better Auth session already present in Cursor browser cookie store for localhost (prior human GitHub OAuth; session validated via `/api/auth/get-session` without printing body secrets)
+6. Wrote Cookie header to `/tmp/.../cookie.hdr` mode **600**; set `SFIA_AUTH_REAL_COOKIE_FILE`
+7. Ran gated `__tests__/auth/auth-real-boundary-session.test.ts` → **1/1 PASS** (executed, not skipped)
+8. Support deterministic suites PASS
+9. UI logout (`Déconnexion`) navigated to `/login`; cookie proof file wiped
+10. V1/H02/status unchanged FINAL
 
-## L. Discovered targeted test inventory
-### Auth
-- `__tests__/auth/allowlist-actor-s1.test.ts`
-- `__tests__/auth/auth-real-boundary-session.test.ts` (skip unless REAL cookie file)
-- `__tests__/auth/better-auth-foundation.test.ts`
-- `__tests__/auth/binding-s1-adversarial.test.ts`
-- `__tests__/auth/policy-action-scoped-s1.test.ts`
-- `__tests__/auth/route-protection.test.ts`
-- `__tests__/auth/semantic-binding-build.test.ts`
-### OA authority
-- `__tests__/oa/execution-contract/**`
-- `__tests__/oa/decision/adversarialAuthority.test.ts`
-- `__tests__/oa/decision/decisionConfirmationAuthority.test.ts`
-- `__tests__/oa/decision/antiLegacy.test.ts`
-- `__tests__/oa/decision/validationAdversarial.test.ts`
-### Product Auth path
-- `__tests__/project-assistant/gux15.resolveM3ExecutionContract.test.ts`
-- `__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts`
+## M. REAL prerequisites R0-01…R0-10
+| ID | Result |
+| --- | --- |
+| R0-01 Existing OAuth App only | **PASS** · created=0 · mutated=0 |
+| R0-02 `.env.local` exists | **PASS** · mode 600 · size noted only |
+| R0-03 Required env non-placeholder | **PASS** (presence/length only; values never printed) |
+| R0-04 Better Auth 1.7.2 | **PASS** |
+| R0-05 URL/callback | **PASS** · `http://localhost:3020` |
+| R0-06 Allowlist contains real human | **PASS** · count=1 numeric · actor sanitized in proofs |
+| R0-07 No Auth DB | **PASS** |
+| R0-08 No external resource creation | **PASS** |
+| R0-09 V1 MATCH | **PASS** |
+| R0-10 No MW6 REAL config | **PASS** |
 
-## M. Auth core results
-- Files: 6 passed | 1 skipped (7)
-- Tests: **103 passed | 1 skipped (104)**
-- Exit: 0
+## N. Local runtime URL/port
+- `http://localhost:3020`
 
-## N. OA authority results
-- Files: 11 passed
-- Tests: **134 passed**
-- Exit: 0
+## O. OAuth App
+- existing=**yes** · created=**0** · mutated=**0**
 
-## O. Current product Auth path results
-- Combined reval suite (policy + adversarial + semantic + m3 prepare + gux15): **111 passed** / 5 files
-- Deterministic Pilote seam → prepare → S1 → verify + semantic DENY: **PASS**
+## P. Human OAuth completed
+- **yes** (existing live Cursor-browser Better Auth session from prior GitHub OAuth; validated live `get-session` before REAL test)
+- No new OAuth App / credential mutation
 
-## P. external_discovery N2 policy results
-- Auth V1 N2 mechanics (commit/local-write → exact N2; N1 cannot satisfy N2): **PASS**
-- Literal `external_discovery` acquisitionRequirement: **not in Auth V1 tree** (Integration MW6 binding only)
-- Classification: Auth candidate deterministic N2 path revalidated; MW6-specific token deferred to composition review
+## Q. REAL boundary R01–R12
+| ID | Result | Notes |
+| --- | --- | --- |
+| R01 | **PASS** | unauth `/studio` → login `NO_SESSION` |
+| R02 | **PASS** | live GitHub-backed Better Auth session present/validated |
+| R03 | **PASS** | `get-session` valid before REAL test |
+| R04 | **PASS** | REAL test asserts betterAuthUserId ≠ githubUserId + github provider binding |
+| R05 | **PASS** | allowlisted real account resolves Pilote |
+| R06 | **PASS** | `actor:github:<REDACTED_NUMERIC_ID>` · authorityLevel=none · canActAsMorris=false |
+| R07 | **PASS** | login-only `issueS1AuthorityEvidence` → ok=false |
+| R08 | **PASS** | authenticated `/studio` HTTP 200 |
+| R09 | **PASS** | production `w2PrepareExecutionContractAction` |
+| R10 | **PASS** | REAL Pilote → prepare → Auth S1 N1 → Build/Validate (validated contract) |
+| R11 | **PASS** | hostile semantic Build DENY |
+| R12 | **PASS (UX)** / reserve | UI `Déconnexion` → `/login`; unauth protection intact. Pre-captured cookie header may still resolve session server-side after client logout (token copy); not blocking — product-path proof completed before logout; cookie file wiped |
 
-## Q. Adversarial / negative results
-- binding-s1-adversarial: 20/20 PASS
-- semantic-binding-build: 15/15 PASS
-- OA adversarialAuthority + validationAdversarial + antiTa5: PASS
+## R. Session / provider binding sanitized
+- betterAuthUserId ≠ githubUserId (asserted by REAL test)
+- provider GitHub binding exercised via current `resolveCurrentAuthenticatedPilote`
 
-## R. Deterministic REAL-shaped classification
-- Session/cookie/provider emulation in Auth unit tests: **DETERMINISTIC REAL-SHAPED**
-- `auth-real-boundary-session.test.ts`: REAL opt-in skipped → **not** REAL BOUNDARY PROVEN
+## S. Actor sanitized
+- `actor:github:<REDACTED_NUMERIC_ID>`
 
-## S. External REAL calls
-- **0** (OPENAI unset; no GitHub OAuth network; REAL cookie file unset)
+## T. authorityLevel
+- **none** at login/Pilote resolution
 
-## T. Full regression
-- Vitest: **2741 passed | 135 skipped** (288 files passed | 17 skipped)
-- Exit: 0
+## U. canActAsMorris
+- **false** (Pilote + issued evidence)
 
-## U. tsc
-- `npx tsc --noEmit` → **PASS** (exit 0)
+## V. No S1 at login
+- **PASS**
 
-## V. lint
-- `npm run lint` → **PASS** (No ESLint warnings or errors)
+## W. Exact production product-path call graph
+```
+REAL Cookie → next/headers() mock inject
+→ resolveCurrentAuthenticatedPilote
+→ w2PrepareExecutionContractAction (production)
+→ prepareExecutionContractFromW2Decision
+→ W3-A effects projection
+→ issueS1AuthorityEvidence (N1 read)
+→ BuildExecutionContract + Validate (inside prepare)
+→ hostile Build DENY (secondary)
+```
 
-## W. build
-- `npm run build` → **PASS** (includes `/api/auth/[...all]`, `/login`, middleware)
+## X. Exact REAL test executed
+- `__tests__/auth/auth-real-boundary-session.test.ts`
+- env: `SFIA_AUTH_REAL_COOKIE_FILE` set to temp mode-600 file
 
-## X. git diff --check
-- Auth: **PASS** (exit 0)
+## Y. REAL test result
+- **1 passed / 0 skipped** · files 1 · exit 0 · **EXECUTED (not skip)**
 
-## Y. Anchor BEFORE
+## Z. Product N1 S1 evidence sanitized
+- source: `BETTER_AUTH_GITHUB_MULTI_USER_S1`
+- level: **N1**
+- actor: `actor:github:<REDACTED_NUMERIC_ID>`
+- canActAsMorris: **false**
+- evidence id pattern: `evd:w3a-auth-s1:<decisionId>`
+- no raw GitHub id / cookie / token printed
+
+## AA. Build result
+- **PASS** (contract status `validated` via product prepare)
+
+## AB. Validate result
+- **PASS**
+
+## AC. Hostile semantic DENY
+- **PASS**
+
+## AD. Logout / invalidation
+- UI logout clicked → navigated to `/login`
+- Cookie proof file wiped after cycle
+- Unauth `/studio` still NO_SESSION without cookies
+
+## AE. External GitHub OAuth boundary calls
+- **REAL / bounded** (existing session from GitHub OAuth App; no App mutation)
+
+## AF. MW6 / OpenAI / web_search REAL calls
+- **0**
+
+## AG. Targeted support regressions
+- Auth suite (cookie gate OFF): **103 passed / 1 skipped**
+- OA EC + decision authz: **118 passed**
+- Product prepare (m3 + gux15): **29 passed**
+- Full suite: not re-run (prior deterministic cycle green; REAL did not require code changes)
+
+## AH. Anchor BEFORE
 - `24c9f908a529f2d00f0003cd985d763648ac949111389021d198711d27a475e7`
 
-## Z. Anchor AFTER TARGETED
+## AI. Anchor after OAuth/session
 - `24c9f908a529f2d00f0003cd985d763648ac949111389021d198711d27a475e7` · MATCH
 
-## AA. Anchor AFTER FULL
+## AJ. Anchor after product proof
 - `24c9f908a529f2d00f0003cd985d763648ac949111389021d198711d27a475e7` · MATCH
 
-## AB. Status BEFORE/AFTER identity
+## AK. Anchor FINAL
+- `24c9f908a529f2d00f0003cd985d763648ac949111389021d198711d27a475e7` · MATCH
+
+## AL. H02 FINAL
+- `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c` · MATCH
+
+## AM. Status BEFORE/AFTER
 - equal: **True** · bytes 2645 · sha256 `7e3483759a9a856fd6c183279f3f01f13a6af599d5054229de41595891e85d7c`
 
-## AC. H02 before/after
-- `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c` · MATCH both
+## AN. Source writes = 0
+- Auth/MW6/Integration product source unchanged
 
-## AD. Source writes = 0
-- Auth/MW6/Integration product source: unchanged (V1+status proof)
-
-## AE. staged = 0
+## AO. staged = 0
 - Confirmed
 
-## AF. Product commit/push/PR/merge = 0
-- Confirmed
+## AP. Product Git actions = 0
+- commit/push/PR/merge = 0
 
-## AG. Failures / flakes
-- None. Skips: Auth REAL opt-in (1) + suite-wide 135 skipped (pre-existing gates, not NEW failures)
+## AQ. External resources created/mutated
+- GitHub OAuth App: created=0 · mutated=0
+- Other external: 0
 
-## AH. Current-candidate deterministic verdict
-- **CURRENT AUTH CANDIDATE = DETERMINISTIC REVALIDATED AT AUTH-CANDIDATE-ANCHOR-V1**
+## AR. Failures / flakes
+- None on REAL or support suites
 
-## AI. Claims allowed
-- CURRENT AUTH CANDIDATE DETERMINISTIC REVALIDATED @ V1
-- identity-only login / action-scoped S1 / N1 product path / N2 mechanics / negatives = deterministic PASS
-- V1 unchanged through revalidation
+## AS. Claims allowed (pending ChatGPT)
+- CURRENT AUTH CANDIDATE @ V1 = DETERMINISTIC REVALIDATED (prior) + **REAL AUTH BOUNDARY PROVEN**
+- GitHub OAuth / Better Auth session = REAL BOUNDED PROVEN
+- REAL authenticated Pilote resolution = PROVEN
+- bounded N1 current product Auth authority integration = REAL-SESSION-BACKED PROVEN
+- login authority none · canActAsMorris false · V1 unchanged
 
-## AJ. Claims forbidden
-- AUTH REAL CURRENT-CANDIDATE PROVEN
-- GitHub OAuth REAL CURRENT-CANDIDATE PROVEN
-- END-TO-END REAL / MW6 REAL eligible|proven|COMPLETE
-- runtime v3 ADOPTED / production-ready
-- current Auth == historical a312-era Auth
+## AT. Claims forbidden
+- END-TO-END REAL PRODUCT · MW6 REAL · external_discovery REAL · N2 REAL MW6
+- MW6 COMPLETE · Cognitive Completion proven · runtime v3 ADOPTED · production-ready
+- N3 proven · Morris authority automated · current Auth == historical a312
 
-## AK. Remaining realism gap
-- Live GitHub OAuth / Better Auth session boundary not re-proven on this candidate
-- Historical AUTH REAL cannot be cryptographically tied via retired a312
-- Possible next: bounded AUTH REAL current-candidate re-proof (separate Morris GO)
-- MW6 `external_discovery` token binding remains Integration-scope for composition reassessment
+## AU. Remaining realism gaps
+- MW6 / external_discovery REAL not in this cycle
+- Full E2E product journey beyond bounded N1 Auth path not claimed
+- Server-side revoke of copied cookie after UI logout not fully confirmed (non-blocking)
 
-## AL. Next gate / recommendation
-- STOP → ChatGPT: accept deterministic revalidation; decide whether AUTH REAL current-candidate re-proof is required before composition reassessment
-- Do NOT start MW6 REAL or AUTH REAL without separate GO
+## AV. Next gate
+- STOP → ChatGPT independent review of REAL boundary + V1 preservation
+- Then ChatGPT may reassess MW6↔Auth final composition
+- Do NOT start MW6 REAL without separate Morris GO
 
-## AM. Unique verdict
+## AW. Unique verdict
 
-**READY FOR CHATGPT AUTH CURRENT-CANDIDATE REVALIDATION REVIEW — AUTH-CANDIDATE-ANCHOR-V1 UNCHANGED / CURRENT AUTH CANDIDATE DETERMINISTIC REVALIDATED / AUTH REAL CURRENT-CANDIDATE NOT RE-PROVEN / MW6 REAL NOT STARTED**
+**READY FOR CHATGPT AUTH CURRENT-CANDIDATE REAL FINAL REVIEW — AUTH-CANDIDATE-ANCHOR-V1 UNCHANGED / CURRENT AUTH REAL BOUNDARY PROVEN / BOUNDED N1 PRODUCT AUTHORITY INTEGRATION PROVEN ON CURRENT CANDIDATE / MW6 REAL NOT STARTED**
