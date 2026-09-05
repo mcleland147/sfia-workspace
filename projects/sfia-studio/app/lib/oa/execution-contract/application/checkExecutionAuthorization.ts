@@ -19,7 +19,10 @@ import type {
 } from "../domain/types";
 import type { ExecutionAuditPort } from "../ports/executionAudit";
 import type { ExecutionContractRepositoryPort } from "../ports/executionContractRepository";
-import { verifyRequiredAuthority } from "./authorityHelper";
+import {
+  resolveExecutionAuthorityVerifyScope,
+  verifyRequiredAuthority,
+} from "./authorityHelper";
 
 function newId(prefix: "cor"): string {
   return `${prefix}:${randomBytes(8).toString("hex")}`;
@@ -208,10 +211,19 @@ export class CheckExecutionAuthorization {
         }
       }
 
+      const authEvidence = snap.authorityEvidenceId
+        ? this.authority.getEvidence(snap.authorityEvidenceId)
+        : null;
+      const verifyScope = resolveExecutionAuthorityVerifyScope({
+        contractScope: contract.scope,
+        evidence: authEvidence,
+        contractSemantic: contract,
+      });
+
       const verification = verifyRequiredAuthority(this.authority, {
         requiredAuthority: contract.requiredAuthority,
         actorId: snap.actor.actorId,
-        scope: contract.scope,
+        scope: verifyScope,
         evidenceId: snap.authorityEvidenceId,
         claimedAuthorityLevel: snap.claimedAuthorityLevel,
         displayName: snap.actor.displayName,
@@ -225,7 +237,7 @@ export class CheckExecutionAuthorization {
           contract.requiredAuthority === "MORRIS"
             ? "N3"
             : contract.requiredAuthority,
-        scope: contract.scope,
+        scope: verifyScope,
         ok: verification.ok,
         verifiedLevel: verification.verifiedLevel,
         reason: verification.reason,

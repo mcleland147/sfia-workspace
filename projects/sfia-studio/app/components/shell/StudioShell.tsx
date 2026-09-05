@@ -4,6 +4,7 @@ import {
   type TopbarPrimaryAction,
 } from "./Topbar";
 import { CopilotPanel, type CopilotProps } from "./CopilotPanel";
+import { LogoutButton } from "@/components/auth/LogoutButton";
 import type { StudioShellRoute } from "@/lib/navigation";
 import shellStyles from "@/styles/shell.module.css";
 
@@ -58,6 +59,7 @@ export function StudioShell({
             pills={pills}
             showTabs={showTabs}
             primaryAction={primaryAction}
+            authControls={<LogoutButton />}
           />
           <main className={shellStyles.workspaceInner} id="main-content">
             {children}
@@ -86,6 +88,7 @@ export function StudioShell({
           pills={pills}
           showTabs={showTabs}
           primaryAction={primaryAction}
+          authControls={<LogoutButton />}
         />
         <div className={shellStyles.bodyFlush}>
           <main

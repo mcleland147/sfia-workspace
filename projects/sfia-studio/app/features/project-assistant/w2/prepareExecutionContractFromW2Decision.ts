@@ -13,6 +13,9 @@ import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
+import { S1_MAX_TTL_SECONDS } from "@/lib/auth/constants";
+import { issueS1AuthorityEvidence } from "@/lib/auth/s1Authority";
+import type { ResolveCurrentPiloteResult } from "@/lib/auth/resolveCurrentPilote";
 import type { F2ContextSnapshot } from "../f2/types";
 import { loadPresentedOptionSet } from "./presentedOptionSet";
 import {
@@ -132,6 +135,15 @@ export async function prepareExecutionContractFromW2Decision(input: {
   readonly decisionId: string;
   readonly currentContext: F2ContextSnapshot;
   readonly forceLocalAuthority?: boolean;
+  /**
+   * Authenticated multi-user Pilote from resolveCurrentAuthenticatedPilote.
+   * When present (and forceLocalAuthority is not set), S1 is issued via
+   * issueS1AuthorityEvidence — never via login alone / never LOCAL_PILOTE.
+   */
+  readonly authenticatedPilote?: Extract<
+    ResolveCurrentPiloteResult,
+    { ok: true }
+  >;
   /**
    * Explicit Pilot/Nora operation kind — REQUIRED for product path.
    * W2 trajectory alone never selects the execution action.
@@ -323,25 +335,82 @@ export async function prepareExecutionContractFromW2Decision(input: {
     return f3Guard;
   }
 
-  const issuedAt = oa.clock.nowIso();
-  const authority = registerLocalPiloteAuthority({
-    authorityResolver: oa.authorityResolver,
-    scope: envelope.scope,
-    issuedAt,
-    evidenceId: `evd:w3a-prep:${decision.decisionId}`,
-    forceEnable: input.forceLocalAuthority === true,
-  });
-  if (!authority.ok) {
-    return {
-      ok: false,
-      code: authority.code,
-      message: authority.message,
-    };
-  }
-
   const safeId = safeIdSegment(decision.decisionId);
   const executionContractId = `xct:w3a:${safeId}`;
   const idempotencyKey = `idem:w3a-prep:${decision.decisionId}`;
+  const issuedAt = oa.clock.nowIso();
+  const issuedAtMs = Date.parse(issuedAt);
+  const expiresAt = Number.isFinite(issuedAtMs)
+    ? new Date(issuedAtMs + S1_MAX_TTL_SECONDS * 1000).toISOString()
+    : issuedAt;
+
+  const useAuthS1 =
+    input.authenticatedPilote != null && input.forceLocalAuthority !== true;
+
+  let authorityEvidenceId: string;
+  let actor = LOCAL_PILOTE_ACTOR;
+
+  if (useAuthS1) {
+    const pilote = input.authenticatedPilote!;
+    actor = pilote.actor;
+    const contractSemantic = {
+      executionContractId,
+      projectId: input.projectId,
+      cycleInstanceId: cycleBinding.cycleInstanceId,
+      decisionRefs: [decision.decisionId],
+      action: envelope.action,
+      target: envelope.target,
+      scope: envelope.scope,
+      inputs: envelope.inputs,
+      expectedOutputs: [...envelope.expectedOutputs],
+      requiredCapabilities: [...envelope.requiredCapabilities],
+      requiredAuthority: envelope.requiredAuthority,
+      constraints: [...envelope.constraints],
+      stopConditions: [...envelope.stopConditions],
+      evidenceRequirements: [...envelope.evidenceRequirements],
+      reversibility: envelope.reversibility,
+      idempotencyKey,
+    };
+    const issued = issueS1AuthorityEvidence({
+      pilote,
+      authorityResolver: oa.authorityResolver,
+      contract: contractSemantic,
+      governedEffects: {
+        effectClass: envelope.effects.effectClass,
+        rollbackAvailable: envelope.effects.rollbackAvailable,
+        protectedBoundaries: envelope.effects.protectedBoundaries,
+        scopeIn: envelope.scope,
+        target: envelope.target,
+      },
+      issuedAt,
+      expiresAt,
+      evidenceId: `evd:w3a-auth-s1:${decision.decisionId}`,
+    });
+    if (!issued.ok) {
+      return {
+        ok: false,
+        code: issued.code,
+        message: issued.message,
+      };
+    }
+    authorityEvidenceId = issued.evidence.evidenceId;
+  } else {
+    const authority = registerLocalPiloteAuthority({
+      authorityResolver: oa.authorityResolver,
+      scope: envelope.scope,
+      issuedAt,
+      evidenceId: `evd:w3a-prep:${decision.decisionId}`,
+      forceEnable: input.forceLocalAuthority === true,
+    });
+    if (!authority.ok) {
+      return {
+        ok: false,
+        code: authority.code,
+        message: authority.message,
+      };
+    }
+    authorityEvidenceId = authority.evidenceId;
+  }
 
   const built =
     await oa.executionContractServices.buildExecutionContract.execute({
@@ -362,8 +431,8 @@ export async function prepareExecutionContractFromW2Decision(input: {
       reversibility: envelope.reversibility,
       idempotencyKey,
       correlationId: `cor:w3a-prep:${decision.decisionId}`,
-      actor: LOCAL_PILOTE_ACTOR,
-      authorityEvidenceId: authority.evidenceId,
+      actor,
+      authorityEvidenceId,
     });
 
   if (!built.ok) {
@@ -377,8 +446,8 @@ export async function prepareExecutionContractFromW2Decision(input: {
   const validated =
     await oa.executionContractServices.validateExecutionContract.execute({
       executionContractId: built.contract.executionContractId,
-      actor: LOCAL_PILOTE_ACTOR,
-      authorityEvidenceId: authority.evidenceId,
+      actor,
+      authorityEvidenceId,
     });
 
   if (!validated.ok) {

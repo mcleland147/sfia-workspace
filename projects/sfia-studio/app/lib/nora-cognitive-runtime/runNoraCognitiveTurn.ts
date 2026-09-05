@@ -58,6 +58,33 @@ import {
   type ReadCoverageFact,
 } from "./readCoverage";
 import type { ProductSqliteSession } from "./productSqliteSession";
+import {
+  appendSourceStrategyDisclosure,
+  bindSourceProviderCapability,
+  decideSourceStrategy,
+  type SourceStrategyInput,
+} from "./sourceStrategyPolicy";
+import {
+  authorityIsolationHeld,
+  buildSourceObservationDisclosure,
+  type HostedWebSearchCallLike,
+} from "./externalSourceNormalization";
+import type {
+  Mw6SourceIntelligenceSurface,
+  SourceObservationFact,
+  SourceProviderBinding,
+  SourceStrategyDecision,
+} from "./sourceIntelligenceContract";
+import type { NoraHostedWebSearchToolOptions } from "./openaiHostedWebSearchAdapter";
+import {
+  appendSourceNarrativeConstraintDisclosure,
+  applySourceNarrativeCompatibility,
+} from "./sourceNarrativeCompatibility";
+import { composeMw3ConflictFromExternalSources } from "./externalContradictionComposition";
+import type {
+  NoraCampaignBudget,
+  Mw6GovernedAuthorityContext,
+} from "./campaignBudget";
 
 export type Mw3ContradictionAssessmentInput = {
   conflict: ContradictionConflictInput;
@@ -120,6 +147,35 @@ export type RunNoraCognitiveTurnInput = {
   readCoverageFacts?: ReadCoverageFact[];
   /** MW4 — fixed timestamp for deterministic grounding remember. */
   groundingNowIso?: string;
+  /**
+   * MW6-S01 — source strategy input (claim/domain/need).
+   * When omitted, strategy is inferred from the last user message.
+   */
+  sourceStrategy?: SourceStrategyInput | null;
+  /** MW6 — skip source strategy for isolated non-MW6 tests. */
+  skipSourceStrategy?: boolean;
+  /**
+   * MW6 — force hosted web_search attach (tests). Otherwise follows strategy.
+   */
+  enableHostedWebSearch?: boolean;
+  hostedWebSearchToolOptions?: NoraHostedWebSearchToolOptions;
+  /**
+   * MW6 R21 — deterministic hosted web_search boundary substitute (ZERO REAL).
+   */
+  deterministicHostedWebSearchCalls?: HostedWebSearchCallLike[];
+  /** MW6 — optional pre-normalized observations (same contract; tests). */
+  sourceObservationFacts?: SourceObservationFact[];
+  /** MW6 — freshness timestamp only when honestly supportable. */
+  sourceObservationNowIso?: string | null;
+  /** MW6 PRE-REAL — shared campaign budget (canonical lease required). */
+  campaignBudget?: NoraCampaignBudget;
+  /** TEST only — attempt to widen max_tool_calls beyond remaining. Not REAL authority. */
+  testOnlyMaxToolCallsOverride?: number | null;
+  /**
+   * MW6↔Auth — identifiers + canonical EC ports (Get/Check).
+   * Product strategy→binding is derived in this turn and passed as currentProductContext.
+   */
+  governedAuthority?: Mw6GovernedAuthorityContext;
 };
 
 function emitCognitiveStrategyTelemetry(
@@ -206,26 +262,55 @@ function withMw3Fields(
   turn: NoraCognitiveTurnResult,
   input: RunNoraCognitiveTurnInput,
   strategyDecision: ReturnType<typeof decideCognitiveStrategy> | null,
+  mw6Observations?: readonly SourceObservationFact[],
 ): NoraCognitiveTurnResult {
   const assessment = input.contradictionAssessment;
   if (!assessment) return turn;
 
+  const observations = mw6Observations ?? [];
+  // R-MW6-02 — when MW6 observations exist, conflictPresent is causally derived
+  // from external observation vs governing premise (existing MW3 contract).
+  // Studio Evidence pointers remain product-owned; external text ≠ Evidence.
+  const composed =
+    observations.length > 0
+      ? composeMw3ConflictFromExternalSources({
+          observations,
+          governing: {
+            governingPremise: assessment.governingPremise ?? "",
+            governingPremiseInvalidatedIfConflict:
+              assessment.governingPremiseInvalidated === true,
+            evidencePointers: assessment.conflict.evidencePointers,
+            requiredDomains: assessment.conflict.requiredDomains,
+            requiredSourceCount: assessment.conflict.requiredSourceCount,
+            freshnessMatters: assessment.conflict.freshnessMatters,
+            trustedSfiaProfile:
+              assessment.conflict.trustedSfiaProfile !== undefined
+                ? assessment.conflict.trustedSfiaProfile
+                : input.trustedSfiaProfile,
+          },
+          baseConflict: assessment.conflict,
+        })
+      : null;
+
   const conflict: ContradictionConflictInput = {
-    ...assessment.conflict,
+    ...(composed?.conflict ?? assessment.conflict),
     strategyClass:
-      assessment.conflict.strategyClass ??
+      (composed?.conflict ?? assessment.conflict).strategyClass ??
       strategyDecision?.strategyClass ??
       null,
     trustedSfiaProfile:
-      assessment.conflict.trustedSfiaProfile !== undefined
-        ? assessment.conflict.trustedSfiaProfile
+      (composed?.conflict ?? assessment.conflict).trustedSfiaProfile !==
+      undefined
+        ? (composed?.conflict ?? assessment.conflict).trustedSfiaProfile
         : input.trustedSfiaProfile,
   };
   const disposition = disposeContradiction(conflict);
+  const governingPremiseInvalidated = composed
+    ? composed.governingPremiseInvalidated
+    : assessment.governingPremiseInvalidated === true;
   const stop = decideCognitiveStop({
     disposition,
-    governingPremiseInvalidated:
-      assessment.governingPremiseInvalidated === true,
+    governingPremiseInvalidated,
     governingPremise: assessment.governingPremise,
     localImpactOnly: assessment.localImpactOnly === true,
     technicalFailure: assessment.technicalFailure === true,
@@ -267,14 +352,76 @@ function finalizeTurn(
   input: RunNoraCognitiveTurnInput,
   strategyDecision: ReturnType<typeof decideCognitiveStrategy> | null,
   mw4Grounding?: Mw4GroundingTurnSurface,
+  mw6SourceIntelligence?: Mw6SourceIntelligenceSurface,
 ): NoraCognitiveTurnResult {
   const withMw3 = withMw3Fields(
     withStrategyFields(turn, strategyDecision),
     input,
     strategyDecision,
+    mw6SourceIntelligence?.observations,
   );
-  if (!mw4Grounding) return withMw3;
-  return { ...withMw3, mw4Grounding };
+  return {
+    ...withMw3,
+    ...(mw4Grounding ? { mw4Grounding } : {}),
+    ...(mw6SourceIntelligence ? { mw6SourceIntelligence } : {}),
+  };
+}
+
+function resolveSourceStrategyForTurn(
+  input: RunNoraCognitiveTurnInput,
+  lastUserContent: string,
+): SourceStrategyDecision | null {
+  if (input.skipSourceStrategy) return null;
+  return decideSourceStrategy({
+    claimText: input.sourceStrategy?.claimText ?? lastUserContent,
+    domainHint: input.sourceStrategy?.domainHint,
+    sourceNeedHint: input.sourceStrategy?.sourceNeedHint,
+    requiresExternalCorroboration:
+      input.sourceStrategy?.requiresExternalCorroboration,
+    requiresRepositoryLookup: input.sourceStrategy?.requiresRepositoryLookup,
+    noSourceLookup: input.sourceStrategy?.noSourceLookup,
+  });
+}
+
+function composeMw6Surface(input: {
+  strategy: SourceStrategyDecision;
+  providerBinding: SourceProviderBinding;
+  observations: SourceObservationFact[];
+  hostedWebSearchAttached: boolean;
+  deterministicBoundaryUsed: boolean;
+  candidateNarrative: string;
+}): {
+  surface: Mw6SourceIntelligenceSurface;
+  governedText: string;
+} {
+  const narrative = applySourceNarrativeCompatibility({
+    candidateText: input.candidateNarrative,
+    observations: input.observations,
+    strategy: input.strategy,
+  });
+  const disclosure = buildSourceObservationDisclosure(
+    input.strategy,
+    input.observations,
+  );
+  const surface: Mw6SourceIntelligenceSurface = {
+    strategy: input.strategy,
+    providerBinding: input.providerBinding,
+    observations: input.observations,
+    disclosure,
+    narrativeCompatibility: {
+      compatible: narrative.compatible,
+      violations: [...narrative.violations],
+    },
+    authorityIsolationHeld: authorityIsolationHeld(input.observations),
+    hostedWebSearchAttached: input.hostedWebSearchAttached,
+    deterministicBoundaryUsed: input.deterministicBoundaryUsed,
+    proofCeiling: "deterministic",
+  };
+  // CR-05: incompatible narrative is replaced (not warned-after).
+  const governedText = narrative.compatible
+    ? `${narrative.text}\n\n${disclosure}`
+    : `${narrative.text}\n\n${disclosure}`;
+  return { surface, governedText };
 }
 
 function collectEvidenceIdsToRemember(
@@ -437,6 +584,26 @@ export async function runNoraCognitiveTurn(
     throw new Error("NORA_AGENTS_TURN_REQUIRES_SYSTEM_AND_USER");
   }
 
+  const sourceStrategy = resolveSourceStrategyForTurn(
+    input,
+    lastUser.content.trim(),
+  );
+  const engageMw6 =
+    sourceStrategy != null &&
+    (input.sourceStrategy != null ||
+      input.enableHostedWebSearch === true ||
+      (input.deterministicHostedWebSearchCalls?.length ?? 0) > 0 ||
+      (input.sourceObservationFacts?.length ?? 0) > 0 ||
+      sourceStrategy.sourceNeed !== "none");
+  const providerBinding =
+    engageMw6 && sourceStrategy
+      ? bindSourceProviderCapability(sourceStrategy)
+      : null;
+  const attachHostedWebSearch =
+    engageMw6 &&
+    (input.enableHostedWebSearch === true ||
+      providerBinding?.attachOpenAiHostedWebSearch === true);
+
   let dbPath: string;
   try {
     dbPath = resolveNoraSessionSqlitePath(input.sessionDbPath);
@@ -445,6 +612,14 @@ export async function runNoraCognitiveTurn(
       system.content,
       "unavailable",
     );
+    if (engageMw6 && sourceStrategy) {
+      systemInstructions = appendSourceStrategyDisclosure(
+        systemInstructions,
+        sourceStrategy,
+      );
+      systemInstructions =
+        appendSourceNarrativeConstraintDisclosure(systemInstructions);
+    }
     if (input.postEvidenceNarrativePolicy) {
       systemInstructions =
         appendPostEvidenceNarrativePolicyDisclosure(systemInstructions);
@@ -469,7 +644,59 @@ export async function runNoraCognitiveTurn(
       enableTools: input.enableTools,
       provider: input.provider,
       runnerModelSettings,
+      enableHostedWebSearch: attachHostedWebSearch,
+      hostedWebSearchToolOptions: input.hostedWebSearchToolOptions,
+      deterministicHostedWebSearchCalls:
+        input.deterministicHostedWebSearchCalls,
+      sourceObservationNowIso: input.sourceObservationNowIso,
+      campaignBudget: input.campaignBudget,
+      testOnlyMaxToolCallsOverride: input.testOnlyMaxToolCallsOverride,
+      governedAuthority: input.governedAuthority,
+      currentProductContext:
+        engageMw6 &&
+        sourceStrategy != null &&
+        providerBinding != null &&
+        input.campaignBudget
+          ? {
+              strategy: sourceStrategy,
+              binding: providerBinding,
+              campaignId: input.campaignBudget.campaignId,
+            }
+          : undefined,
     });
+    const observations = [
+      ...(input.sourceObservationFacts ?? []),
+      ...(turn.hostedSearchObserve?.observations ?? []),
+    ];
+    let mw6: Mw6SourceIntelligenceSurface | undefined;
+    if (engageMw6 && sourceStrategy != null && providerBinding != null) {
+      const composed = composeMw6Surface({
+        strategy: sourceStrategy,
+        providerBinding,
+        observations,
+        hostedWebSearchAttached:
+          turn.hostedSearchObserve?.hostedWebSearchAttached === true ||
+          attachHostedWebSearch,
+        deterministicBoundaryUsed:
+          turn.hostedSearchObserve?.deterministicBoundaryUsed === true ||
+          (input.deterministicHostedWebSearchCalls?.length ?? 0) > 0,
+        candidateNarrative: turn.text,
+      });
+      mw6 = composed.surface;
+      turn.text = composed.governedText;
+    }
+    const { hostedSearchObserve: _drop, budgetObserve, ...turnBase } = turn;
+    void _drop;
+    const mw6AuthorityBinding = budgetObserve
+      ? {
+          authorityBound: budgetObserve.authorityBound,
+          realAuthorized: budgetObserve.realAuthorized,
+          realPreflightCode: budgetObserve.realPreflightCode,
+          realPreflightBlocked: budgetObserve.realPreflightBlocked,
+          realPreflightReasons: [...budgetObserve.realPreflightReasons],
+          eligible: budgetObserve.eligible,
+        }
+      : undefined;
     const mw4 =
       coverageAggregate.facts.length > 0
         ? {
@@ -486,13 +713,15 @@ export async function runNoraCognitiveTurn(
         : undefined;
     return finalizeTurn(
       {
-        ...turn,
+        ...turnBase,
         memoryBCompactionState: "none",
         memoryBCompactionDetails: null,
+        ...(mw6AuthorityBinding ? { mw6AuthorityBinding } : {}),
       },
       input,
       strategyDecision,
       mw4,
+      mw6,
     );
   }
 
@@ -549,6 +778,14 @@ export async function runNoraCognitiveTurn(
     systemInstructions,
     mw4Prep.readCoverageDisclosure,
   );
+  if (engageMw6 && sourceStrategy) {
+    systemInstructions = appendSourceStrategyDisclosure(
+      systemInstructions,
+      sourceStrategy,
+    );
+    systemInstructions =
+      appendSourceNarrativeConstraintDisclosure(systemInstructions);
+  }
   if (input.postEvidenceNarrativePolicy) {
     systemInstructions =
       appendPostEvidenceNarrativePolicyDisclosure(systemInstructions);
@@ -567,16 +804,70 @@ export async function runNoraCognitiveTurn(
       enableTools: input.enableTools,
       provider: input.provider,
       runnerModelSettings,
+      enableHostedWebSearch: attachHostedWebSearch,
+      hostedWebSearchToolOptions: input.hostedWebSearchToolOptions,
+      deterministicHostedWebSearchCalls:
+        input.deterministicHostedWebSearchCalls,
+      sourceObservationNowIso: input.sourceObservationNowIso,
+      campaignBudget: input.campaignBudget,
+      testOnlyMaxToolCallsOverride: input.testOnlyMaxToolCallsOverride,
+      governedAuthority: input.governedAuthority,
+      currentProductContext:
+        engageMw6 &&
+        sourceStrategy != null &&
+        providerBinding != null &&
+        input.campaignBudget
+          ? {
+              strategy: sourceStrategy,
+              binding: providerBinding,
+              campaignId: input.campaignBudget.campaignId,
+            }
+          : undefined,
     });
+    const observations = [
+      ...(input.sourceObservationFacts ?? []),
+      ...(turn.hostedSearchObserve?.observations ?? []),
+    ];
+    let mw6: Mw6SourceIntelligenceSurface | undefined;
+    if (engageMw6 && sourceStrategy != null && providerBinding != null) {
+      const composed = composeMw6Surface({
+        strategy: sourceStrategy,
+        providerBinding,
+        observations,
+        hostedWebSearchAttached:
+          turn.hostedSearchObserve?.hostedWebSearchAttached === true ||
+          attachHostedWebSearch,
+        deterministicBoundaryUsed:
+          turn.hostedSearchObserve?.deterministicBoundaryUsed === true ||
+          (input.deterministicHostedWebSearchCalls?.length ?? 0) > 0,
+        candidateNarrative: turn.text,
+      });
+      mw6 = composed.surface;
+      turn.text = composed.governedText;
+    }
+    const { hostedSearchObserve: _drop, budgetObserve, ...turnBase } = turn;
+    void _drop;
+    const mw6AuthorityBinding = budgetObserve
+      ? {
+          authorityBound: budgetObserve.authorityBound,
+          realAuthorized: budgetObserve.realAuthorized,
+          realPreflightCode: budgetObserve.realPreflightCode,
+          realPreflightBlocked: budgetObserve.realPreflightBlocked,
+          realPreflightReasons: [...budgetObserve.realPreflightReasons],
+          eligible: budgetObserve.eligible,
+        }
+      : undefined;
     const finalized = finalizeTurn(
       {
-        ...turn,
+        ...turnBase,
         memoryBCompactionState: compactionState,
         memoryBCompactionDetails: compactionDetails,
+        ...(mw6AuthorityBinding ? { mw6AuthorityBinding } : {}),
       },
       input,
       strategyDecision,
       mw4Prep.surface ?? undefined,
+      mw6,
     );
 
     // Persist Evidence IDs claimed/accepted this turn (non-authoritative).

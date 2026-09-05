@@ -76,6 +76,8 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
     const allowed = new Set([
       "app/api/e2e/option-a-qa-scenario/route.ts:@/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl",
       "features/project-assistant/actions.ts:@/lib/vertical-slice-runtime",
+      "features/project-assistant/composeMw6GovernedAuthority.ts:@/lib/vertical-slice-runtime",
+      "features/project-assistant/mw6GovernedNoraTurn.ts:@/lib/vertical-slice-runtime",
       "features/project-assistant/f2/orchestrateF2.ts:@/lib/vertical-slice-runtime",
       "features/project-assistant/f2/orchestrateF2.ts:@/lib/vertical-slice-runtime/paths",
       "features/project-assistant/f2/resolveMw5ProductAuthorityFromOa.ts:@/lib/vertical-slice-runtime",

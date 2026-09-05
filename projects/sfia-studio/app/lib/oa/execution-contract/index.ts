@@ -43,6 +43,7 @@ export {
 } from "./domain/executionWindowPolicy";
 
 export {
+  computeInspectionFingerprint,
   evaluateInspectionSufficiency,
   type InspectionAttestation,
   type InspectionInsufficiencyReason,

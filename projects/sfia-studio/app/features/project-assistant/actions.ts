@@ -17,6 +17,10 @@ import {
   executionSemanticUserLabel,
   resolvePersistenceNotice,
 } from "./presentationLabels";
+import {
+  runMw6GovernedNoraProductTurn,
+  type RunMw6GovernedNoraProductTurnInput,
+} from "./mw6GovernedNoraTurn";
 import type {
   AssistantHistoryMessage,
   ProjectAssistantContextDto,
@@ -38,8 +42,69 @@ export async function projectAssistantSendAction(input: {
   projectId: string;
   content: string;
   history?: AssistantHistoryMessage[];
+  /**
+   * Untrusted ExecutionContract id reference for MW6 governed external discovery.
+   * When present, server composes governedAuthority from Auth + OA and invokes
+   * the real Nora product path. CONTENT/AUTHORITY of the contract are never
+   * trusted from the client — only the id reference.
+   */
+  executionContractId?: string;
+  /**
+   * Optional untrusted evidence hint — verified only by server composition.
+   */
+  authorityEvidenceId?: unknown;
+  /** Hostile — ignored (server builds governedAuthority). */
+  governedAuthority?: unknown;
+  /** Hostile — ignored (Auth resolver owns actor). */
+  actorId?: unknown;
+  getExecutionContract?: unknown;
+  checkExecutionAuthorization?: unknown;
+  authorityResolver?: unknown;
+  authorizedContract?: unknown;
+  currentExternalDiscoveryIntent?: unknown;
+  canActAsMorris?: unknown;
+  claimedAuthorityLevel?: unknown;
+  /**
+   * TEST-ONLY Auth session → Pilote seam. Production omits this and uses
+   * resolveCurrentAuthenticatedPilote. AUTH REAL boundary carried forward.
+   */
+  resolveAuthenticatedPilote?: RunMw6GovernedNoraProductTurnInput["resolveAuthenticatedPilote"];
+  provider?: import("@/lib/platform/ai").ConversationProvider;
+  sessionDbPath?: string;
 }): Promise<ProjectAssistantSendResult> {
-  return orchestrateAssistantSend(input);
+  const executionContractId =
+    typeof input.executionContractId === "string"
+      ? input.executionContractId.trim()
+      : "";
+  if (executionContractId.length > 0) {
+    return runMw6GovernedNoraProductTurn({
+      projectId: input.projectId,
+      content: input.content,
+      history: input.history,
+      executionContractId,
+      claimedAuthorityEvidenceId: input.authorityEvidenceId,
+      resolveAuthenticatedPilote: input.resolveAuthenticatedPilote,
+      provider: input.provider,
+      sessionDbPath: input.sessionDbPath,
+      governedAuthority: input.governedAuthority,
+      actorId: input.actorId,
+      authorityEvidenceId: input.authorityEvidenceId,
+      getExecutionContract: input.getExecutionContract,
+      checkExecutionAuthorization: input.checkExecutionAuthorization,
+      authorityResolver: input.authorityResolver,
+      authorizedContract: input.authorizedContract,
+      currentExternalDiscoveryIntent: input.currentExternalDiscoveryIntent,
+      canActAsMorris: input.canActAsMorris,
+      claimedAuthorityLevel: input.claimedAuthorityLevel,
+    });
+  }
+  return orchestrateAssistantSend({
+    projectId: input.projectId,
+    content: input.content,
+    history: input.history,
+    provider: input.provider,
+    sessionDbPath: input.sessionDbPath,
+  });
 }
 
 function toContextDto(

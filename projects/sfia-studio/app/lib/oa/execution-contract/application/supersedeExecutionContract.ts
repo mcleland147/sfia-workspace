@@ -24,7 +24,10 @@ import type {
 import type { ExecutionContractPersistenceUnitOfWorkPort } from "../ports/executionContractPersistenceUnitOfWorkPort";
 import type { ExecutionAuditPort } from "../ports/executionAudit";
 import type { ExecutionContractRepositoryPort } from "../ports/executionContractRepository";
-import { verifyRequiredAuthority } from "./authorityHelper";
+import {
+  resolveExecutionAuthorityVerifyScope,
+  verifyRequiredAuthority,
+} from "./authorityHelper";
 
 function newId(prefix: "cor" | "prv"): string {
   return `${prefix}:${randomBytes(8).toString("hex")}`;
@@ -272,10 +275,53 @@ export class SupersedeExecutionContract {
         });
       }
 
+      const authEvidence = snap.authorityEvidenceId
+        ? this.authority.getEvidence(snap.authorityEvidenceId)
+        : null;
+      const successorSemantic = {
+        executionContractId: snap.newExecutionContractId,
+        projectId: prior.projectId,
+        cycleInstanceId: prior.cycleInstanceId,
+        decisionRefs,
+        doctrinePackageRef: prior.doctrinePackageRef
+          ? structuredClone(prior.doctrinePackageRef)
+          : undefined,
+        action,
+        target,
+        scope,
+        inputs:
+          cloned.inputs !== undefined
+            ? cloned.inputs
+            : prior.inputs
+              ? structuredClone(prior.inputs)
+              : undefined,
+        expectedOutputs:
+          cloned.expectedOutputs.length > 0
+            ? cloned.expectedOutputs
+            : prior.expectedOutputs
+              ? [...prior.expectedOutputs]
+              : undefined,
+        requiredCapabilities,
+        requiredAuthority,
+        constraints,
+        stopConditions,
+        evidenceRequirements,
+        reversibility,
+        executionWindowClass,
+        idempotencyKey,
+        supersedesExecutionContractId: snap.supersedesExecutionContractId,
+        supersessionReason: snap.supersessionReason,
+        adapterExportRef: snap.adapterExportRef ?? prior.adapterExportRef,
+      };
+      const verifyScope = resolveExecutionAuthorityVerifyScope({
+        contractScope: scope,
+        evidence: authEvidence,
+        contractSemantic: successorSemantic,
+      });
       const verification = verifyRequiredAuthority(this.authority, {
         requiredAuthority,
         actorId: snap.actor.actorId,
-        scope,
+        scope: verifyScope,
         evidenceId: snap.authorityEvidenceId,
         claimedAuthorityLevel: snap.claimedAuthorityLevel,
         displayName: snap.actor.displayName,
@@ -287,7 +333,7 @@ export class SupersedeExecutionContract {
         actorId: snap.actor.actorId,
         requiredLevel:
           requiredAuthority === "MORRIS" ? "N3" : requiredAuthority,
-        scope,
+        scope: verifyScope,
         ok: verification.ok,
         verifiedLevel: verification.verifiedLevel,
         reason: verification.reason,
