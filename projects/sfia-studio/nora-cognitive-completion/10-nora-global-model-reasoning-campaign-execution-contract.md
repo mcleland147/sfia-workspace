@@ -13,7 +13,7 @@
 | **G1/G2/G3** | INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR **#466** @ `23d850fda45fe55ba519e0feefe63369d349afcc`) |
 | **Integration GO** | `GO MORRIS — GLOBAL MODEL × REASONING STAGE A GIT INTEGRATION + PUBLISH REVIEW HANDOFF — ZERO REAL` **CONSUMED** |
 | **Merge GO** | `GO Morris — merge PR #467` **CONSUMED** |
-| **This DOC maintenance** | `NORA-GLOBAL-MR-STAGE-A-OPTION-C-ASTRA-CHALLENGER-01` — Option C Astra challenger adaptation (**local delivery candidate until ChatGPT Critical Review → Morris technical+financial+Git GO**) |
+| **This DOC maintenance** | `NORA-GLOBAL-MR-STAGE-A-OPTION-C-ASTRA-CHALLENGER-01` — Option C + C6 + FinOps **15/18/20** on PR **#468** (OPEN / merge pending; Stage A REAL NOT AUTHORIZED) |
 | **Authoring date** | 2026-09-05 |
 | **Preparation GO** | `GO MORRIS — PRÉPARER LE GLOBAL MODEL × REASONING CAMPAIGN EXECUTIONCONTRACT CONSOLIDÉ — ZERO REAL` **CONSUMED** |
 | **Enablement GO** | `GO MORRIS — CORRECTION GLOBAL MODEL × REASONING STAGE A ENABLEMENT — ZERO REAL` **CONSUMED (local candidate only)** |
@@ -27,7 +27,7 @@
 | Layer | What it contains | Status |
 | --- | --- | --- |
 | **A. INTEGRATED MAIN TRUTH** (`main@1dd5d67a`) | G1/G2/G3 + Stage A deterministic harness E1–E4 / F1→F5 / C3 / C4 + this contract text as integrated via PR **#467** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
-| **B. CAMPAIGN READINESS** | Option C model universe **DECIDED** · financial envelope + REAL auth still required | **TECHNICAL PROVEN / FINANCIAL OPEN** (see doc `11-…`) |
+| **B. CAMPAIGN READINESS** | Model universe **DECIDED — OPTION C** · financial envelope **DECIDED BY MORRIS — 15/18/20** · feasibility **PASS** (`COMPATIBLE_WITH_CURRENT_POLICY`) · Git lifecycle **PR #468 OPEN / MERGE PENDING** · REAL auth **NOT AUTHORIZED** | **TECHNICAL PROVEN + MODEL UNIVERSE DECIDED + FINANCIAL ENVELOPE DECIDED + GIT INTEGRATION PR OPEN + REAL AUTHORIZATION OPEN** (see doc `11-…`) |
 | **C. PROOF CEILING** | Deterministic harness proof + Git integration + post-merge CI | **DETERMINISTIC PROVEN + GIT INTEGRATED + POST-MERGE VERIFIED** — Stage A REAL **NOT AUTHORIZED / NOT EXECUTED / NOT PROVEN** |
 
 ---
@@ -255,7 +255,6 @@ Catalog `requiredTier: ["D0"]` scenarios are **semantic identities + scorer bind
 - `maxAggregateRealCalls` = 438 + 26 = **464**
 
 *(Historical contract-v2 on integrated main before Option C integration: primary-only 297+108=**405**, hosted **24**, aggregate **429**, cells **72**.)*
-- `maxAggregateRealCalls` = 438 + 26 = **464**
 - Function: `deriveGlobalMrStageAEnvelope()` / proof: `globalMrStageAEnvelopeProof()`
 
 **Do not equate** `maxCellExecutions=78` with `maxModelInvocations`. A cell may contain multiple constitutive model calls (F2: analyzeIntent + Agents turns). Historical v2 cell envelope was **72**.
@@ -285,9 +284,9 @@ Second run **only if** ≥1 trigger: top candidate · borderline · suspected va
 Former mistaken equality `54+18=72 model invocations` remains **REJECTED** (cell≠model).
 
 ### Financial envelope label
-`PROPOSED STAGE A FINANCIAL ENVELOPE — AWAITING MORRIS REAL DECISION`
-**Not spendable** under preparation / enablement GOs.
-USD **15 / 18 / 20** **DECIDED BY MORRIS** (D-GMR-FINOPS-01; replaces prior candidate 6/9/12). FinOps cost classes (official OpenAI API Pricing 2026-09-05):
+`STAGE A FINANCIAL ENVELOPE — DECIDED BY MORRIS`
+`REAL EXECUTION AUTHORIZATION — PENDING DISTINCT MORRIS GO`
+USD **15 / 18 / 20** is **DECIDED** (D-GMR-FINOPS-01; replaces prior candidate 6/9/12) — **not** “proposed”. Financial decision ≠ Stage A REAL authorization; **not spendable** until a distinct Morris Stage A REAL GO. FinOps cost classes (official OpenAI API Pricing 2026-09-05):
 
 | Class | Value | Meaning |
 | --- | --- | --- |
@@ -306,7 +305,7 @@ Do **not** treat hardCap 20 as a guaranteed invoice ceiling, worst-case provider
 ### USD semantics (honest — F1 correction)
 | Term | Meaning |
 | --- | --- |
-| `hardCapUsd` (12) | **Pre-dispatch estimated / reserved authorization envelope** |
+| `hardCapUsd` (20) under Morris-decided **15 / 18 / 20** | **Pre-dispatch estimated / reserved authorization envelope** — ≠ invoice guarantee · ≠ guaranteed provider cost ceiling · ≠ Stage A REAL authorization *(historical candidate hard was 12)* |
 | `reservedEstimatedUsd` | Conservative reserve committed before each allowed model dispatch |
 | `observedEstimatedUsd` | Usage-based estimate after response (or retained reserve if usage null) |
 | `observedOverrun` | `observedEstimatedUsd > reservedEstimatedUsd` — surfaced as Evidence |
@@ -504,10 +503,12 @@ One `campaignId` → one canonical in-process `acquireNoraCampaignBudget` lease 
    - G1/MW0 manifests do not set `cachedInputUsdPerMTok` (falls back to full input rate even if cached count were supplied).
    - Consequence: estimates may be **conservative** vs invoice; estimate ≠ invoice; **non-blocking** while call/USD authorization envelopes remain.
 
-2. **FINOPS REALISM GAP — USD 12 IS AUTHORIZATION ENVELOPE, NOT INVOICE GUARANTEE**
+2. **FINOPS REALISM GAP — USD 20 IS AUTHORIZATION ENVELOPE, NOT INVOICE GUARANTEE**
+   - Under Morris-decided Stage A policy **15 / 18 / 20**, `hardCapUsd=20` is a pre-dispatch estimated/reserved authorization envelope only.
    - Observed estimate may exceed reserved estimate after a response.
    - Required behavior: surface overrun + fail-close before next dispatch.
    - Invoice = NOT OBSERVED.
+   - *(Historical wording referred to USD 12 under the prior candidate envelope.)*
 
 3. Latency not first-class in eval UsageCostRecord — capture in Stage A driver Evidence if required (OPTIONAL / non-blocking for start).
 
@@ -580,11 +581,12 @@ No cognitive gain expands authority. No stronger model gains more authority.
 
 **Client boundary:** Stage A model/effort/campaign/USD seams are **server-internal only** — not on `projectAssistantSendAction`.
 
-**F2 FinOps:** structured `completeStructured` shares Stage A `BudgetTracker` via MeteredConversationProvider; order = USD preflight → canonical claim → dispatch → record. `hardCapUsd=12` remains estimated authorization envelope ≠ invoice.
+**F2 FinOps:** structured `completeStructured` shares Stage A `BudgetTracker` via MeteredConversationProvider; order = USD preflight → canonical claim → dispatch → record. `hardCapUsd=20` (Morris-decided **15 / 18 / 20**) remains estimated/reserved authorization envelope ≠ invoice guarantee ≠ Stage A REAL authorization.
 
 **Historical next gate (satisfied):** ChatGPT Critical Review → Morris Git integration → PR **#467** MERGED / post-merge CI PASS.
 
-**Current next gate:** ChatGPT Critical Review of this DOC readiness pack → Morris model-universe/readiness decision → (only then) contract adaptation if needed → **distinct** future Stage A REAL GO.
+**Current next gate (before merge):** ChatGPT PR/CI Critical Review → **Morris merge decision**.
+**After merge only:** post-merge verification → **distinct** Morris Stage A REAL GO (never condensed with merge).
 
 ## Critical Review remediation (E1–E4 + F1→F5 + C3-01→C3-05) — retained
 
@@ -606,7 +608,8 @@ No cognitive gain expands authority. No stronger model gains more authority.
 
 **Historical next gate (satisfied):** ChatGPT Critical Review → Morris Git integration → PR **#467** MERGED / post-merge CI PASS.
 
-**Current next gate:** ChatGPT Critical Review of this DOC readiness pack → Morris model-universe/readiness decision → (only then) contract adaptation if needed → **distinct** future Stage A REAL GO.
+**Current next gate (before merge):** ChatGPT PR/CI Critical Review → **Morris merge decision**.
+**After merge only:** post-merge verification → **distinct** Morris Stage A REAL GO (never condensed with merge).
 
 ## 22. Gates
 
@@ -622,9 +625,12 @@ No cognitive gain expands authority. No stronger model gains more authority.
 | Stage A/B/C REAL | **NOT AUTHORIZED** |
 | OpenAI spend | **NOT AUTHORIZED** |
 | Production model selection / routing | **NOT AUTHORIZED** |
-| This DOC product commit/push/PR/merge | **NOT in this cycle** (local documentary candidate) |
+| Option C + C6 product commit / push | **DONE** (PR **#468** head / CI = **RESOLVE FROM GIT**) |
+| PR **#468** | **OPEN** — Contract 10 current-truth sync corrective on same head branch |
+| Merge PR **#468** | **NOT AUTHORIZED / PENDING MORRIS DECISION** |
+| Source branch | **PRESERVED** (`delivery/sfia-studio-global-mr-stage-a-astra-challenger`) |
 | Runtime v3 / Cognitive Completion promotion | **FORBIDDEN** |
-| Handoff publication (`sfia/review-handoff`) | Integration pack tip `d2aa25d04578a5c2db9b6cc4d45b36e9fa2f1008` historical; this DOC cycle publishes a new Cycle 14 handoff after pack generation |
+| Handoff publication (`sfia/review-handoff`) | Historical tips exist; Contract 10 truth-sync publishes a new Cycle 8 handoff after pack generation |
 
 ---
 
@@ -645,7 +651,7 @@ No cognitive gain expands authority. No stronger model gains more authority.
 - [x] Six workloads + catalog semantic IDs + REAL substitutes
 - [x] Three truth layers: INTEGRATED MAIN / CAMPAIGN READINESS / PROOF CEILING
 - [x] Stage A Option C matrix + **cell** envelope 78 + **derived** model/aggregate 438/464 + financial **15/18/20** (known subtotal ≈13.32896 COMPATIBLE_WITH_CURRENT_POLICY)
-- [x] USD 12 = authorization envelope ≠ invoice guarantee (documented); feasibility vs derived calls OK
+- [x] USD **20** = authorization envelope under Morris-decided **15 / 18 / 20** ≠ invoice guarantee; variable exposure visible; invoice NOT_OBSERVED; feasibility vs known planned subtotal OK
 - [x] E1/F1 first-dispatch YES / second denied + observed overrun fail-close (deterministic)
 - [x] E2/F2 product-equivalent model×effort pin (F1+F2 paths; no client surface)
 - [x] C3-02 EvalCellProviderFactory binds model+effort into structured provider
@@ -659,10 +665,11 @@ No cognitive gain expands authority. No stronger model gains more authority.
 - [x] Evidence / campaignId / authority / W-Sources
 - [x] FinOps realism gaps documented
 - [x] ZERO REAL / no router / no production selection
-- [x] Integrated on main / CI green for enablement glue — **DONE** (PR **#467** / CI `{CI_POST}`)
+- [x] Integrated on main / CI green for enablement glue — **DONE** (PR **#467** / CI `33981467237`)
+- [x] Option C + C6 Git integration — **PR #468 OPEN** / merge pending / current head + CI = **RESOLVE FROM GIT**
 - [x] Model-universe / Astra disposition — **DECIDED OPTION C**
 - [x] Financial envelope Option C — **DECIDED BY MORRIS 15/18/20** (known subtotal ≈13.32896 compatible; invoice NOT_OBSERVED; REAL still NOT AUTHORIZED)
 - [ ] Stage A REAL — **NOT AUTHORIZED**
 
 **Verdict target for ChatGPT review:**
-`READY FOR CHATGPT CRITICAL REVIEW — STAGE A POST-MERGE TRUTH-SYNC — REAL READINESS DECISION PACK — MODEL UNIVERSE MORRIS DECISION REQUIRED — ZERO REAL`
+`READY FOR CHATGPT PR/CI CRITICAL REVIEW — PR #468 CONTRACT TRUTH-SYNC CORRECTED — OPTION C + FINANCIAL ENVELOPE DECISIONS CONSUMED — MERGE DECISION REQUIRED — ZERO REAL`
