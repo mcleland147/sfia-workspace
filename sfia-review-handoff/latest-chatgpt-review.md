@@ -1,208 +1,130 @@
-# ChatGPT Critical Review Pack — Correction 3
+# ChatGPT Critical Review Pack — Correction 4
 
 | Field | Value |
 | --- | --- |
-| **Timestamp (UTC)** | `2026-09-05T15:53:29Z` |
-| **Cycle** | SFIA v2.6 — CYCLE 8 — DELIVERY / EVOL |
+| **Timestamp (UTC)** | `2026-09-05T16:50:09Z` |
+| **Cycle** | SFIA v2.6 — CYCLE 8 — DELIVERY / EVOL — CONTINUATION |
 | **Classification** | CRITICAL |
-| **Subject** | GLOBAL MODEL × REASONING STAGE A ENABLEMENT CORRECTION 3 — CALL ACCOUNTING + PRODUCT PATH |
-| **GO consumed** | `GO MORRIS — GLOBAL MODEL × REASONING STAGE A ENABLEMENT CORRECTION 3 — ZERO REAL` |
+| **Subject** | GLOBAL MODEL × REASONING STAGE A FINAL DETERMINISTIC SAFETY CORRECTION (C4-01→C4-05) |
+| **GO consumed** | `GO MORRIS — CORRECTIF GLOBAL MODEL × REASONING STAGE A + PUBLISH REVIEW HANDOFF — ZERO REAL` |
+| **Prior handoff tip** | `3da79ae99c7e106ce2d3ccfd8d7443a64c28302d` (Correction 3) |
 | **Worktree** | `/Users/morris/Projects/sfia-workspace-global-mr-campaign-contract-prep` |
 | **Branch** | `docs/sfia-studio-global-model-reasoning-campaign-contract` |
 | **HEAD / origin/main / merge-base** | `23d850fda45fe55ba519e0feefe63369d349afcc` |
 | **ZERO REAL** | INTEGRAL |
-| **Handoff** | HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED |
+| **Envelope unchanged** | maxCellExecutions=72 · maxModelInvocations=405 · maxAggregateRealCalls=429 · v2-candidate |
 
 ---
 
 ## 1. Local Git Truth
 
 ```
-pwd = /Users/morris/Projects/sfia-workspace-global-mr-campaign-contract-prep
-branch = docs/sfia-studio-global-model-reasoning-campaign-contract
-HEAD = 23d850fda45fe55ba519e0feefe63369d349afcc
-origin/main = 23d850fda45fe55ba519e0feefe63369d349afcc
-merge-base = 23d850fda45fe55ba519e0feefe63369d349afcc
-MAIN_OK — dirty Correction 2/3 candidate expected
+MAIN_OK — dirty Correction 1/2/3/4 candidate expected
+product commit/push/PR = NONE
 ```
 
-No stash / reset / clean / rebase / checkout destructif.
+## 2. Sources
 
----
-
-## 2. Sources (consumed)
-
-Git main doctrine + Studio convergence docs + local candidate E1–E4/F1→F5 + Correction 2 Review Pack provenance.
-Git/local files current primés.
-
----
+Git main doctrine + Studio docs + handoff Correction 3 @ 3da79ae99c7e106ce2d3ccfd8d7443a64c28302d + local candidate.
 
 ## 3. Convergence Pre-check
 
-| Item | Status |
-| --- | --- |
-| Capacity | Nora Cognitive Completion — empirical model × reasoning qualification |
-| Milestone | GLOBAL MODEL × REASONING STAGE A ENABLEMENT — CALL ACCOUNTING + PRODUCT PATH — DETERMINISTIC ONLY |
-| KEEP | Agents Option C, G1/G2/G3, NoraCampaignBudget, BudgetTracker, F1/F2, MW6, E1 USD honesty |
-| ADAPT | Stage A execution plan, F2 binding/accounting, driver counters, MW6 full path, repeat pool |
-| INTERDIT | second eval framework, second budget engine, parallel provider, persistence, production router |
-| R18 | single coherent lot |
-| R21 | DETERMINISTIC PROVEN ≠ REAL |
+KEEP: Option C, OpenAIConversationProvider, MeteredConversationProvider, NoraCampaignBudget, BudgetTracker, E1, C3 envelope, MW6 path.
+ADAPT: eval cell provider composition, F2 structured FinOps, server/client boundary.
+INTERDIT: new provider stack / budget engine / persistence / production routing.
 
----
+## 4. Prior Critical Review source
 
-## 4. Reproduction C3-01 → C3-05
+Correction 3 handoff tip `3da79ae99c7e106ce2d3ccfd8d7443a64c28302d` — C3-01/03/04/05 closed; residual C4 gaps.
 
-### C3-01 — CALL ENVELOPE INVALID (reproduced → closed)
-Correction 2 labeled `54+18=72` as `maxModelInvocations`. False: F2 cell = analyzeIntent structured + Agents turns (≤5).
+## 5. C4-01 — Server Action client boundary
 
-### C3-02 — F2 REASONING BINDING PARTIAL (reproduced → closed)
-Metadata pin alone insufficient; need factory(model, effort) → ConversationProvider used by analyzeIntent.
+**Finding:** Stage A eval seams (`evalModelReasoningControl`, `evalCellProviderFactory`, `sharedCampaignBudget`, `usdAccounting`, `campaignBudget`) on `projectAssistantSendAction` ("use server").
 
-### C3-03 — F3 FULL PRODUCT PATH NOT PROVEN (reproduced → closed)
-Prior proof stopped at `resolveMw6GovernedCampaignBudget`. Now full `runMw6GovernedNoraProductTurn`.
+**Correction:** Removed from Server Action signature and propagation. Campaign/tests call `orchestrateAssistantSend` / `orchestrateProjectAssistantTurn` / `runMw6GovernedNoraProductTurn` directly.
 
-### C3-04 — REPEAT POOL GLOBAL STOP BUG (reproduced → closed)
-19th repeat set campaign `stopReason=SELECTIVE_REPEAT_POOL_EXHAUSTED`, blocking later base cells.
+## 6. C4-02 — Factory mandatory
 
-### C3-05 — MIRROR COUNTERS TRUST EXECUTOR (reproduced → closed)
-Driver trusted executor-reported counts; now canonical lease deltas are SoT.
+**Finding:** `resolveEvalCellConversationProvider` fell back to arbitrary provider when control set.
 
----
+**Correction:** eval control → factory REQUIRED; no provider-only fallback.
 
-## 5. Call plan réel par workload
+## 7–10. C4-03 — Structured F2 USD
 
-| Workload | Path | Pre-Agents | Agents maxTurns | Model/cell | Hosted/cell |
-| --- | --- | --- | --- | --- | --- |
-| W-Routine | agents_cognitive | 0 | 5 (=CT_MAX_TOOL_ROUNDS+1) | 5 | 0 |
-| W-Clarification | f2_product | 1 | 5 | 6 | 0 |
-| W-Analysis | f2_product | 1 | 5 | 6 | 0 |
-| W-High-Assurance | f2_product | 1 | 5 | 6 | 0 |
-| W-Memory | agents_cognitive | 0 | 5 | 5 | 0 |
-| W-Sources | mw6_governed | 0 | 5 | 5 | 2 |
+**Order:** USD preflight → `beforeAuthorizedDispatch` canonical claim → provider dispatch → usage record.
 
-## 6. Nouvelle enveloppe dérivée
+**Composition:** `createMeteredEvalCellProviderFactory` wraps inner(model,effort) → MeteredConversationProvider(shared BudgetTracker) → optional campaign claim.
 
-| Quantity | Value | Notes |
-| --- | --- | --- |
-| maxCellExecutions | **72** | 54+18 — CELL ONLY |
-| baseModelInvocationCeiling | **297** | 3×3×33 |
-| repeatModelInvocationCeiling | **108** | 18×6 (highest F2 cells) |
-| maxModelInvocations | **405** | DERIVED CANDIDATE |
-| maxHostedWebOperations | **24** | retained pool |
-| maxAggregateRealCalls | **429** | 405+24 DERIVED CANDIDATE |
-| Contract version | `global-mr-campaign-contract-v2-candidate` | CANDIDATE ≠ Morris REAL |
+**analyzeIntent** no longer claims before dispatch (avoids claim-then-USD-deny).
 
-Function: `deriveGlobalMrStageAEnvelope()` / `globalMrStageAEnvelopeProof()`.
+## 11. C4-04 — maxRepeatsPerCell = 1
 
-## 7. USD feasibility
+Enforcement already one repeat/cell; constant corrected from 2 → 1. Envelope 72/405/429 unchanged.
 
-| Metric | Value |
-| --- | --- |
-| plannedReserveUsdBase | ≈ 6.40 |
-| plannedReserveUsdWorstCaseWithRepeats | ≈ **9.77** |
-| hardCapUsd | 12 |
-| Status | **COMPATIBLE_WITH_CANDIDATE_12** — KEEP 6/9/12 |
-| Semantics | pre-dispatch reservation authorization envelope ≠ invoice |
+## 12. C4-05 — Evidence honesty
 
-No STOP — STAGE A USD ENVELOPE REQUIRES MORRIS BUDGET DECISION.
+`productPath`: f2_product→`f2`, mw6→`f1`, agents→`none` + `productObservation.executionKind` + evidenceRef.
 
-## 8. Corrections applied
+## 13. C3 envelope proof unchanged
 
-### C3-01
-Explicit `GLOBAL_MR_STAGE_A_CELL_CAPS` vs derived model/aggregate caps. No cell=model equality.
+72 / 405 / 429 / v2-candidate retained.
 
-### C3-02
-`evalCellProvider.ts`: `EvalCellProviderFactory` + `resolveEvalCellConversationProvider` + `createOpenAiEvalCellProviderFactory` (reuses OpenAIConversationProvider). F2 wires factory → analyzeIntent. Luna+none / Terra+medium / Sol+high proven.
-
-### Constitutive budget claims
-`analyzeIntent` claims one `claimModelInvocation` before `completeStructured` when campaignBudget present. Agents path unchanged via existing campaign claim.
-
-### C3-05
-`runGlobalMrStageACell` snapshots canonical before/after; mirrors = deltas; executor reports diagnostic only (`reportedMismatch`).
-
-### C3-04
-Selective repeat denial returns `cellDenied` without latching `state.stopReason`.
-
-### C3-03
-Deterministic test traverses full `runMw6GovernedNoraProductTurn` with Stage A shared lease; mismatch fail-close; ZERO LIVE hosted.
-
----
-
-## 9. Files
-
-### Modified
-- `actions.ts`, `intentAnalysis.ts`, `orchestrateF2.ts`, `mw6GovernedNoraTurn.ts`, `orchestrateTurn.ts`
-- `callModelInputFilter.ts`, `runNoraAgentsTurn.ts`, `runNoraCognitiveTurn.ts`, `types.ts`, cognitive-runtime `index.ts`
-- `nora-eval/index.ts`
-- contract `10-nora-global-model-reasoning-campaign-execution-contract.md`
-- `.tmp-sfia-review/chatgpt-review.md` (this pack)
-
-### New
-- `app/lib/nora-eval/globalModelReasoningStageA.ts`
-- `app/lib/nora-eval/evalCellProvider.ts`
-- `app/lib/nora-eval/agentsUsdBridge.ts`
-- `app/lib/nora-cognitive-runtime/agentsUsdAccounting.ts`
-- tests `c3.call-accounting.d0.test.ts`, `c3.mw6-full-product-path.d0.test.ts`, `e1`–`e4`…
-
----
-
-## 10. Validation
+## 14. Validation
 
 | Suite | Result |
 | --- | --- |
-| C3 + E1–E4 targeted | **52+ PASS** (C3 alone 7) |
-| Broader G1/G2/G3 + MW0/2/5/6 + runner + authority | **212 PASS** |
-| `tsc --noEmit` | PASS |
-| `npm run lint` | PASS |
-| `npm run build` | PASS |
-| Fake/Scripted only | YES |
-| OpenAI LIVE / hosted LIVE / spend | **NONE** |
-| ZERO REAL | **INTEGRAL** |
+| C4 targeted | 10 PASS |
+| C3 + E1–E4 + G1/G2/G3 + MW6 composition + runner | PASS |
+| tsc / lint / build | PASS |
+| ZERO REAL | INTEGRAL |
 
-## 11. Non-actions
+## 15. Non-actions
 
-commit · push · PR · merge · handoff publication · Stage A REAL · production router · package changes · CI · Doctrine/Roadmap
+product commit/push/PR/merge · REAL · Roadmap/Doctrine · package changes
 
-## 12. Next gate
+## 16. Verdict
 
-ChatGPT Critical Review → Morris Git integration decision
-**PAS** Stage A REAL.
-
-## 13. Verdict
-
-**READY FOR CHATGPT CRITICAL REVIEW — GLOBAL MODEL × REASONING STAGE A CALL ACCOUNTING + PRODUCT PATH CORRECTED — DETERMINISTIC PROVEN — ZERO REAL**
+**READY FOR CHATGPT CRITICAL REVIEW — GLOBAL MODEL × REASONING STAGE A FINAL DETERMINISTIC SAFETY CORRECTION — ZERO REAL — REVIEW HANDOFF PUBLISHED**
 
 ### Sub-verdicts
-- C3-01 CELL EXECUTION × MODEL INVOCATION ENVELOPE — **CLOSED**
-- C3-02 F2 STRUCTURED MODEL × EFFORT BINDING — **CLOSED AT DETERMINISTIC SCOPE**
-- C3-03 FULL MW6 GOVERNED PRODUCT WIRING — **CLOSED AT DETERMINISTIC SCOPE**
-- C3-04 REPEAT POOL SEMANTICS — **CLOSED**
-- C3-05 CANONICAL CAMPAIGN COUNTERS — **CLOSED**
-- F1 USD HONEST SEMANTICS — REMAINS CLOSED
-- G1/G2/G3 — REMAIN CLOSED / ON MAIN
+- C4-01 EVAL CONTROL CLIENT BOUNDARY — CLOSED
+- C4-02 EVAL PROVIDER MODEL × EFFORT BINDING — CLOSED
+- C4-03 F2 STRUCTURED USD ENFORCEMENT — CLOSED AT DETERMINISTIC SCOPE
+- C4-04 MAX REPEATS PER CELL COHERENCE — CLOSED
+- C4-05 PRODUCT PATH EVIDENCE — CLOSED
+- C3-01 / C3-03 / C3-04 / C3-05 — REMAIN CLOSED
+- 72 / 405 / 429 — UNCHANGED
 - STAGE A REAL — NOT AUTHORIZED
-- PRODUCTION ROUTING — NOT SELECTED
-- COGNITIVE COMPLETION — NOT PROVEN
-- RUNTIME V3 — NON ADOPTED
-- HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED
+- REVIEW HANDOFF — PUBLISHED + REMOTE VERIFIED (this cycle)
+
+### Next gate
+ChatGPT Critical Review → Morris Git integration decision — **PAS Stage A REAL**.
 
 ---
 
-## APPENDIX A — NEW FILE: evalCellProvider.ts
+## APPENDIX A — evalCellProvider.ts (full)
 
 ```typescript
 /**
  * Eval/server Stage A cell ConversationProvider factory.
- * Reuses OpenAIConversationProvider for REAL; tests inject Fake factories.
- * INTERNAL / EVAL ONLY — never a client DTO.
+ * Reuses OpenAIConversationProvider + MeteredConversationProvider for REAL/eval.
+ * INTERNAL / EVAL ONLY — never a client DTO / never a Server Action seam.
  */
 import {
   OpenAIConversationProvider,
   type ConversationProvider,
   type OpenAiReasoningEffort,
 } from "@/lib/platform/ai";
+import {
+  claimModelInvocation,
+  type NoraCampaignBudget,
+} from "@/lib/nora-cognitive-runtime";
 import { validateRuntimeReasoningCapability } from "@/lib/nora-cognitive-runtime/reasoningCapability";
+import {
+  MeteredConversationProvider,
+  type MeteredConversationProviderOptions,
+} from "./meteredProvider";
+import type { BudgetTracker, CapabilityManifest } from "./capabilityBudget";
 
 export type EvalCellProviderFactory = (input: {
   modelId: string;
@@ -223,8 +145,49 @@ export function createOpenAiEvalCellProviderFactory(
 }
 
 /**
+ * Compose: inner(model, effort) → MeteredConversationProvider(shared BudgetTracker)
+ * → optional canonical claim AFTER USD preflight / BEFORE dispatch.
+ */
+export function createMeteredEvalCellProviderFactory(input: {
+  innerFactory: EvalCellProviderFactory;
+  manifest: CapabilityManifest;
+  budget: BudgetTracker;
+  campaignBudget?: NoraCampaignBudget;
+  assumedPreflight?: { inputTokens: number; outputTokens: number };
+}): EvalCellProviderFactory {
+  return ({ modelId, reasoningEffort }) => {
+    validateRuntimeReasoningCapability(modelId, reasoningEffort);
+    const inner = input.innerFactory({ modelId, reasoningEffort });
+    const options: MeteredConversationProviderOptions | undefined =
+      input.campaignBudget
+        ? {
+            beforeAuthorizedDispatch: () => {
+              const ok = claimModelInvocation(input.campaignBudget!);
+              if (!ok) {
+                throw new Error(
+                  input.campaignBudget!.denialReason ??
+                    "Campaign model invocation cap reached — provider not dispatched.",
+                );
+              }
+            },
+          }
+        : undefined;
+    return new MeteredConversationProvider(
+      inner,
+      input.manifest,
+      input.budget,
+      modelId,
+      input.assumedPreflight ?? { inputTokens: 4000, outputTokens: 1200 },
+      options,
+    );
+  };
+}
+
+/**
  * Resolve cell provider for Stage A F2 constitutive structured calls.
- * When eval control is set, factory is required (no silent live default).
+ *
+ * - No eval control → historical provider passthrough.
+ * - Eval control present → EvalCellProviderFactory REQUIRED (no arbitrary provider fallback).
  */
 export function resolveEvalCellConversationProvider(input: {
   evalModelReasoningControl?: {
@@ -232,316 +195,351 @@ export function resolveEvalCellConversationProvider(input: {
     reasoningEffort: OpenAiReasoningEffort;
   };
   evalCellProviderFactory?: EvalCellProviderFactory;
-  /** Explicit injected provider (tests) — must still match pin when both set. */
+  /** Used only when eval control is absent (production / non-eval injection). */
   provider?: ConversationProvider;
 }): ConversationProvider | undefined {
   const control = input.evalModelReasoningControl;
   if (!control) return input.provider;
   validateRuntimeReasoningCapability(control.modelId, control.reasoningEffort);
-  if (input.evalCellProviderFactory) {
-    return input.evalCellProviderFactory({
-      modelId: control.modelId,
-      reasoningEffort: control.reasoningEffort,
-    });
+  if (!input.evalCellProviderFactory) {
+    return undefined;
   }
-  if (input.provider) return input.provider;
-  return undefined;
+  return input.evalCellProviderFactory({
+    modelId: control.modelId,
+    reasoningEffort: control.reasoningEffort,
+  });
 }
 
 ```
 
----
+## APPENDIX B — meteredProvider.ts (full)
 
-## APPENDIX B — NEW FILE: c3.call-accounting.d0.test.ts
+```typescript
+/**
+ * Eval-only metering decorator — NOT a new provider stack.
+ *
+ * Optional beforeAuthorizedDispatch runs AFTER USD preflight succeeds and
+ * BEFORE inner provider dispatch (default-off; historical behavior unchanged).
+ */
+
+import type {
+  ConversationProvider,
+  ProviderChatMessage,
+  ProviderCompletionResult,
+  ProviderInputItem,
+  ProviderRoundResult,
+  ProviderUsage,
+} from "@/lib/platform/ai";
+import type { ToolDefinition } from "@/lib/platform/tools/types";
+import {
+  BudgetTracker,
+  estimateCostUsd,
+  type CapabilityManifest,
+} from "./capabilityBudget";
+
+export type ProviderCallMeterRecord = {
+  callIndex: number;
+  method: "complete" | "completeStructured" | "completeRound";
+  at: string;
+  inputTokens: number | null;
+  outputTokens: number | null;
+  totalTokens: number | null;
+  cachedInputTokens: number | null;
+  reasoningTokens: number | null;
+  model: string | null;
+  providerResponseId: string | null;
+  estimatedUsd: number;
+  cumulativeUsd: number;
+};
+
+export type MeteredConversationProviderOptions = {
+  /**
+   * INTERNAL/EVAL — invoked only after USD preflight allows dispatch.
+   * Use for canonical campaign model-call claims. Throw to abort before inner.
+   * Default: unset (historical MeteredConversationProvider behavior).
+   */
+  beforeAuthorizedDispatch?: () => void | Promise<void>;
+};
+
+export class MeteredConversationProvider implements ConversationProvider {
+  readonly providerId: string;
+  private callIndex = 0;
+  readonly ledger: ProviderCallMeterRecord[] = [];
+  private readonly beforeAuthorizedDispatch?: () => void | Promise<void>;
+
+  constructor(
+    private readonly inner: ConversationProvider,
+    private readonly manifest: CapabilityManifest,
+    private readonly budget: BudgetTracker,
+    private readonly modelIdForPricing: string,
+    private readonly assumedPreflight: {
+      inputTokens: number;
+      outputTokens: number;
+    } = { inputTokens: 4000, outputTokens: 1200 },
+    options?: MeteredConversationProviderOptions,
+  ) {
+    this.providerId = inner.providerId;
+    this.beforeAuthorizedDispatch = options?.beforeAuthorizedDispatch;
+  }
+
+  private preflight(): void {
+    const estimate = estimateCostUsd({
+      manifest: this.manifest,
+      modelId: this.modelIdForPricing,
+      inputTokens: this.assumedPreflight.inputTokens,
+      outputTokens: this.assumedPreflight.outputTokens,
+    });
+    const gate = this.budget.canContinueEssential(estimate);
+    if (!gate.allowed) {
+      throw new Error(`BUDGET_STOP:${gate.reason ?? "blocked"}`);
+    }
+  }
+
+  private async afterPreflightBeforeDispatch(): Promise<void> {
+    if (this.beforeAuthorizedDispatch) {
+      await this.beforeAuthorizedDispatch();
+    }
+  }
+
+  private record(
+    method: ProviderCallMeterRecord["method"],
+    usage: ProviderUsage | null | undefined,
+  ): void {
+    this.callIndex += 1;
+    const inputTokens = usage?.inputTokens ?? null;
+    const outputTokens = usage?.outputTokens ?? null;
+    const billIn = inputTokens ?? this.assumedPreflight.inputTokens;
+    const billOut = outputTokens ?? this.assumedPreflight.outputTokens;
+    const estimatedUsd = estimateCostUsd({
+      manifest: this.manifest,
+      modelId: this.modelIdForPricing,
+      inputTokens: billIn,
+      outputTokens: billOut,
+    });
+    this.budget.recordSpend(
+      estimatedUsd,
+      `metered:${method}:call${this.callIndex}`,
+    );
+    this.ledger.push({
+      callIndex: this.callIndex,
+      method,
+      at: new Date().toISOString(),
+      inputTokens,
+      outputTokens,
+      totalTokens: usage?.totalTokens ?? null,
+      cachedInputTokens: null,
+      reasoningTokens: null,
+      model: usage?.model ?? null,
+      providerResponseId: usage?.providerResponseId ?? null,
+      estimatedUsd,
+      cumulativeUsd: this.budget.cumulativeUsd,
+    });
+  }
+
+  async complete(
+    messages: ProviderChatMessage[],
+  ): Promise<ProviderCompletionResult> {
+    this.preflight();
+    await this.afterPreflightBeforeDispatch();
+    const result = await this.inner.complete(messages);
+    this.record("complete", result.usage);
+    return result;
+  }
+
+  async completeStructured(input: {
+    messages: ProviderChatMessage[];
+    schemaName: string;
+    jsonSchema: Record<string, unknown>;
+  }): Promise<ProviderCompletionResult> {
+    if (typeof this.inner.completeStructured !== "function") {
+      throw new Error("completeStructured not available on wrapped provider");
+    }
+    this.preflight();
+    await this.afterPreflightBeforeDispatch();
+    const result = await this.inner.completeStructured(input);
+    this.record("completeStructured", result.usage);
+    return result;
+  }
+
+  async completeRound(input: {
+    items: ProviderInputItem[];
+    tools: ToolDefinition[];
+  }): Promise<ProviderRoundResult> {
+    if (typeof this.inner.completeRound !== "function") {
+      throw new Error("completeRound not available on wrapped provider");
+    }
+    this.preflight();
+    await this.afterPreflightBeforeDispatch();
+    const result = await this.inner.completeRound(input);
+    this.record("completeRound", result.usage);
+    return result;
+  }
+}
+
+```
+
+## APPENDIX C — c4.final-safety.d0.test.ts (full)
 
 ```typescript
 /** @vitest-environment node */
 /**
- * C3 — call envelope + product path corrections — ZERO REAL.
+ * C4 — final deterministic safety / client-boundary — ZERO REAL.
  */
 import { describe, expect, it } from "vitest";
 import { ScriptedModel, assistantMessage } from "@openai/agents/testing";
-import {
-  FakeConversationProvider,
-  type ConversationProvider,
-  type OpenAiReasoningEffort,
-  type ProviderChatMessage,
-  type ProviderCompletionResult,
-} from "@/lib/platform/ai";
-import { CT_MAX_TOOL_ROUNDS } from "@/lib/platform/tools";
-import {
-  buildGlobalMrStageAMatrix,
-  buildGlobalMrStageAWorkloadCallPlans,
-  createEvalAgentsUsdAccounting,
-  createGlobalMrStageADriver,
-  deriveGlobalMrStageAEnvelope,
-  GLOBAL_MR_STAGE_A_CALL_CAPS,
-  GLOBAL_MR_STAGE_A_CELL_CAPS,
-  GLOBAL_MR_STAGE_A_CONTRACT_VERSION,
-  GLOBAL_MR_STAGE_A_MAX_AGENTS_MODEL_TURNS,
-  globalMrStageAEnvelopeProof,
-  materializeSelectiveRepeat,
-  runGlobalMrStageACell,
-  type EvalCellProviderFactory,
-  type GlobalMrStageAExecutor,
-} from "@/lib/nora-eval";
-import {
-  buildRunnerModelSettingsForEffort,
-  runNoraAgentsTurn,
-  sfiaBoundaryInstructions,
-} from "@/lib/nora-cognitive-runtime";
-import { analyzeIntent } from "@/features/project-assistant/f2/intentAnalysis";
-import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach } from "vitest";
+import {
+  FakeConversationProvider,
+  setConversationProviderForTests,
+  type ConversationProvider,
+  type ProviderChatMessage,
+  type ProviderCompletionResult,
+} from "@/lib/platform/ai";
+import {
+  buildGlobalMrStageAMatrix,
+  createEvalAgentsUsdAccounting,
+  createGlobalMrStageADriver,
+  createMeteredEvalCellProviderFactory,
+  deriveGlobalMrStageAEnvelope,
+  GLOBAL_MR_STAGE_A_CALL_CAPS,
+  GLOBAL_MR_STAGE_A_CELL_CAPS,
+  MeteredConversationProvider,
+  resolveEvalCellConversationProvider,
+  runGlobalMrStageACell,
+  type EvalCellProviderFactory,
+} from "@/lib/nora-eval";
+import { analyzeIntent } from "@/features/project-assistant/f2/intentAnalysis";
+import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
+import { projectAssistantSendAction } from "@/features/project-assistant/actions";
 import {
   getRuntimeApplicationService,
   resetRuntimeApplicationServiceForTests,
 } from "@/lib/vertical-slice-runtime";
 import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
 import { resetMw5ChallengeStoreForTests } from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
-import { setConversationProviderForTests } from "@/lib/platform/ai";
 
-describe("C3-01 — cell executions ≠ model invocations", () => {
-  it("derives envelope: 72 cell executions ≠ model invocations", () => {
-    expect(GLOBAL_MR_STAGE_A_MAX_AGENTS_MODEL_TURNS).toBe(
-      CT_MAX_TOOL_ROUNDS + 1,
-    );
-    const plans = buildGlobalMrStageAWorkloadCallPlans();
-    expect(plans["W-Routine"].maxModelInvocationsPerCell).toBe(5);
-    expect(plans["W-Clarification"].maxModelInvocationsPerCell).toBe(6);
-    expect(plans["W-Sources"].maxModelInvocationsPerCell).toBe(5);
-    expect(plans["W-Clarification"].preAgentsStructuredModelCalls).toBe(1);
-
-    const d = deriveGlobalMrStageAEnvelope();
-    expect(d.maxCellExecutions).toBe(72);
-    expect(GLOBAL_MR_STAGE_A_CELL_CAPS.maxCellExecutions).toBe(72);
-    // 3×3×(5+6+6+6+5+5)=297 base; top-18 F2 cells×6=108; total 405
-    expect(d.baseModelInvocationCeiling).toBe(297);
-    expect(d.repeatModelInvocationCeiling).toBe(108);
-    expect(d.maxModelInvocations).toBe(405);
-    expect(d.maxHostedWebOperations).toBe(24);
-    expect(d.maxAggregateRealCalls).toBe(429);
-    expect(GLOBAL_MR_STAGE_A_CALL_CAPS.maxModelInvocations).toBe(405);
-    expect(GLOBAL_MR_STAGE_A_CALL_CAPS.maxAggregateRealCalls).toBe(429);
-    expect(d.maxModelInvocations).not.toBe(d.maxCellExecutions);
-    expect(d.usdFeasibility.ok).toBe(true);
-    expect(d.usdFeasibility.status).toBe("COMPATIBLE_WITH_CANDIDATE_12");
-    expect(GLOBAL_MR_STAGE_A_CONTRACT_VERSION).toBe(
-      "global-mr-campaign-contract-v2-candidate",
-    );
-    const proof = globalMrStageAEnvelopeProof();
-    expect(proof.maxModelInvocations).toBe(405);
-    expect(proof.maxCellExecutions).toBe(72);
-    expect(proof.usdSemantics).toBe(
-      "pre_dispatch_reservation_authorization_envelope",
-    );
-  });
-
-  it("matrix paths match call plans", () => {
-    const cells = buildGlobalMrStageAMatrix({ campaignId: "c3-matrix" });
-    expect(cells).toHaveLength(54);
-    expect(
-      cells.filter((c) => c.executionKind === "f2_product"),
-    ).toHaveLength(27);
-    expect(
-      cells.filter((c) => c.executionKind === "agents_cognitive"),
-    ).toHaveLength(18);
-    expect(
-      cells.filter((c) => c.executionKind === "mw6_governed"),
-    ).toHaveLength(9);
+describe("C4-01 — Server Action has no Stage A eval seams", () => {
+  it("projectAssistantSendAction parameter keys exclude Stage A eval controls", () => {
+    // Static/type-level surrogate: inspect function source for forbidden Stage A seams.
+    const src = projectAssistantSendAction.toString();
+    expect(src).not.toMatch(/evalModelReasoningControl/);
+    expect(src).not.toMatch(/evalCellProviderFactory/);
+    expect(src).not.toMatch(/sharedCampaignBudget/);
+    expect(src).not.toMatch(/usdAccounting/);
+    // campaignBudget as Stage A lease injection must not appear on the action.
+    expect(src).not.toMatch(/campaignBudget/);
   });
 });
 
-describe("C3-04 — repeat pool does not latch campaign stop", () => {
-  it("after 18 repeats, base cell still executes", async () => {
-    const state = createGlobalMrStageADriver({
-      campaignId: `c3-repeat-${Date.now()}`,
-    });
-    const cells = buildGlobalMrStageAMatrix({ campaignId: state.campaignId });
-    const executor: GlobalMrStageAExecutor = async () => ({
-      passFail: "PASS",
-      failureClass: "NONE",
-      rawSummary: "ok",
-      usage: null,
-    });
-    for (let i = 0; i < 18; i += 1) {
-      const out = await runGlobalMrStageACell({
-        state,
-        cell: materializeSelectiveRepeat(cells[i]!),
-        executor,
-      });
-      expect(out.stopped).toBe(false);
-    }
-    const denied = await runGlobalMrStageACell({
-      state,
-      cell: materializeSelectiveRepeat(cells[18]!),
-      executor,
-    });
-    expect(denied.cellDenied).toBe("SELECTIVE_REPEAT_POOL_EXHAUSTED");
-    expect(state.stopReason).toBe("NONE");
-
-    // Base cell still allowed
+describe("C4-02 — factory mandatory when eval control active", () => {
+  it("control + factory → provider from factory only", () => {
     let called = false;
-    const base = await runGlobalMrStageACell({
-      state,
-      cell: cells[30]!,
-      executor: async () => {
-        called = true;
-        return {
-          passFail: "PASS",
-          failureClass: "NONE",
-          rawSummary: "base-ok",
-          usage: null,
-        };
-      },
-    });
-    expect(called).toBe(true);
-    expect(base.stopped).toBe(false);
-    expect(state.stopReason).toBe("NONE");
-  });
-});
-
-describe("C3-05 — canonical counters are source of truth", () => {
-  it("executor reported 0 does not override canonical delta", async () => {
-    const state = createGlobalMrStageADriver({
-      campaignId: `c3-canon-${Date.now()}`,
-    });
-    const cell = buildGlobalMrStageAMatrix({
-      campaignId: state.campaignId,
-    }).find((c) => c.workloadId === "W-Routine")!;
-    const usd = createEvalAgentsUsdAccounting({
-      budget: state.budget,
-      manifest: state.manifest,
-      modelId: cell.model,
-      assumedInputTokens: 50,
-      assumedOutputTokens: 20,
-    });
-    const out = await runGlobalMrStageACell({
-      state,
-      cell,
-      executor: async (c, ctx) => {
-        const turn = await runNoraAgentsTurn({
-          correlationId: "c3-canon",
-          projectId: "proj",
-          systemInstructions: sfiaBoundaryInstructions(),
-          userContent: "x",
-          model: new ScriptedModel([[assistantMessage("OK")]]),
-          runnerModelSettings: buildRunnerModelSettingsForEffort(
-            c.reasoningEffort,
-          ),
-          enableTools: false,
-          maxTurns: 1,
-          campaignBudget: ctx.campaignBudget,
-          usdAccounting: usd,
-        });
-        return {
-          passFail: "PASS",
-          failureClass: "NONE",
-          rawSummary: turn.text,
-          usage: null,
-          // Lie: report 0 while canonical claimed 1
-          reportedModelInvocationsConsumed: 0,
-          reportedHostedOperationsConsumed: 0,
-        };
-      },
-    });
-    expect(state.campaignBudget.consumedModelInvocations).toBe(1);
-    expect(state.modelInvocations).toBe(1);
-    expect(out.evidence?.productObservation?.canonicalDelta).toMatchObject({
-      model: 1,
-      reportedMismatch: true,
-    });
-  });
-});
-
-describe("C3-02 — F2 provider factory binding + canonical F2 counts", () => {
-  const previousFake = process.env.OPS1_CONVERSATION_PROVIDER;
-  const tempDirs: string[] = [];
-  let projectId = "";
-  let sessionDbPath = "";
-
-  beforeEach(async () => {
-    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-    delete process.env.OPENAI_API_KEY;
-    setConversationProviderForTests(null);
-    resetF2ProposalStoreForTests();
-    resetMw5ChallengeStoreForTests();
-    resetRuntimeApplicationServiceForTests();
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-c3-f2-"));
-    tempDirs.push(dir);
-    sessionDbPath = path.join(dir, "session.sqlite");
-    const runtime = getRuntimeApplicationService({
-      productDbPath: path.join(dir, "oa.sqlite"),
-      auditMode: "noop",
-      nowIso: "2026-09-05T12:00:00.000Z",
-    });
-    const created = await runtime.createProject({
-      name: "C3 F2",
-      objective: "binding",
-      context: "c3",
-      criticality: "STANDARD",
-      constraints: [],
-      shortReference: "C3",
-      idempotencyKey: `idem:c3-${Date.now()}-${Math.random()}`,
-    });
-    expect(created.ok).toBe(true);
-    if (!created.ok) throw new Error("setup");
-    projectId = created.projectId;
-  });
-
-  afterEach(() => {
-    setConversationProviderForTests(null);
-    resetF2ProposalStoreForTests();
-    resetMw5ChallengeStoreForTests();
-    resetRuntimeApplicationServiceForTests();
-    while (tempDirs.length) {
-      const d = tempDirs.pop();
-      if (d) fs.rmSync(d, { recursive: true, force: true });
-    }
-    if (previousFake === undefined) delete process.env.OPS1_CONVERSATION_PROVIDER;
-    else process.env.OPS1_CONVERSATION_PROVIDER = previousFake;
-  });
-
-  it("factory receives exact Luna+none / Terra+medium / Sol+high", () => {
-    const received: Array<{
-      modelId: string;
-      reasoningEffort: OpenAiReasoningEffort;
-    }> = [];
-    const factory: EvalCellProviderFactory = ({
-      modelId,
-      reasoningEffort,
-    }) => {
-      received.push({ modelId, reasoningEffort });
+    const factory: EvalCellProviderFactory = ({ modelId, reasoningEffort }) => {
+      called = true;
+      expect(modelId).toBe("gpt-5.6-sol");
+      expect(reasoningEffort).toBe("high");
       return new FakeConversationProvider();
     };
-    const pins = [
-      { modelId: "gpt-5.6-luna", reasoningEffort: "none" as const },
-      { modelId: "gpt-5.6-terra", reasoningEffort: "medium" as const },
-      { modelId: "gpt-5.6-sol", reasoningEffort: "high" as const },
-    ];
-    for (const pin of pins) {
-      const provider = factory(pin);
-      expect(provider).toBeTruthy();
-    }
-    expect(received).toEqual(pins);
+    const arbitrary = new FakeConversationProvider();
+    const resolved = resolveEvalCellConversationProvider({
+      evalModelReasoningControl: {
+        modelId: "gpt-5.6-sol",
+        reasoningEffort: "high",
+      },
+      evalCellProviderFactory: factory,
+      provider: arbitrary,
+    });
+    expect(called).toBe(true);
+    expect(resolved).not.toBe(arbitrary);
   });
 
-  it("factory receives exact model+effort; F2 informative counts analyzeIntent + Agents", async () => {
-    const received: Array<{
-      modelId: string;
-      reasoningEffort: OpenAiReasoningEffort;
-    }> = [];
-    class BoundFake implements ConversationProvider {
+  it("control + provider only → undefined (fail-close)", () => {
+    const resolved = resolveEvalCellConversationProvider({
+      evalModelReasoningControl: {
+        modelId: "gpt-5.6-luna",
+        reasoningEffort: "none",
+      },
+      provider: new FakeConversationProvider(),
+    });
+    expect(resolved).toBeUndefined();
+  });
+
+  it("no control + provider → historical passthrough", () => {
+    const p = new FakeConversationProvider();
+    expect(
+      resolveEvalCellConversationProvider({ provider: p }),
+    ).toBe(p);
+  });
+});
+
+describe("C4-03 — structured F2 USD via MeteredConversationProvider", () => {
+  it("C4-03A — USD preflight deny → 0 canonical claim / 0 dispatch", async () => {
+    const state = createGlobalMrStageADriver({
+      campaignId: `c4-03a-${Date.now()}`,
+      carryInUsd: 12,
+    });
+    expect(state.budget.hardStopTriggered || state.budget.cumulativeUsd >= 12).toBe(
+      true,
+    );
+    let dispatches = 0;
+    class CountingFake implements ConversationProvider {
       readonly providerId = "fake-test";
-      constructor(
-        readonly modelId: string,
-        readonly reasoningEffort: OpenAiReasoningEffort,
-      ) {}
+      async complete() {
+        dispatches += 1;
+        return {
+          text: "{}",
+          usage: {
+            inputTokens: 1,
+            outputTokens: 1,
+            totalTokens: 2,
+            model: "gpt-5.6-luna",
+            providerResponseId: "x",
+          },
+        };
+      }
+      async completeStructured() {
+        return this.complete();
+      }
+    }
+    const factory = createMeteredEvalCellProviderFactory({
+      innerFactory: () => new CountingFake(),
+      manifest: state.manifest,
+      budget: state.budget,
+      campaignBudget: state.campaignBudget,
+      assumedPreflight: { inputTokens: 50, outputTokens: 20 },
+    });
+    const provider = factory({
+      modelId: "gpt-5.6-luna",
+      reasoningEffort: "none",
+    });
+    const before = state.campaignBudget.consumedModelInvocations;
+    await expect(
+      analyzeIntent({
+        userContent: "Résume __F2_INFORMATIVE__",
+        projectSummary: "p",
+        provider,
+        evalModelReasoningControl: {
+          modelId: "gpt-5.6-luna",
+          reasoningEffort: "none",
+        },
+      }),
+    ).rejects.toThrow(/BUDGET_STOP/);
+    expect(dispatches).toBe(0);
+    expect(state.campaignBudget.consumedModelInvocations).toBe(before);
+  });
+
+  it("C4-03B — allowed structured → 1 claim / 1 dispatch / ledger + spend", async () => {
+    const state = createGlobalMrStageADriver({
+      campaignId: `c4-03b-${Date.now()}`,
+    });
+    let dispatches = 0;
+    class CountingFake implements ConversationProvider {
+      readonly providerId = "fake-test";
       async complete(messages: ProviderChatMessage[]) {
+        dispatches += 1;
         return {
           text: `[TEST/FAKE] ${JSON.stringify({
             intentClass: "informative",
@@ -561,11 +559,11 @@ describe("C3-02 — F2 provider factory binding + canonical F2 counts", () => {
             requestedOperation: null,
           })}`,
           usage: {
-            inputTokens: 1,
-            outputTokens: 1,
-            totalTokens: 2,
-            model: this.modelId,
-            providerResponseId: "b",
+            inputTokens: 10,
+            outputTokens: 5,
+            totalTokens: 15,
+            model: "gpt-5.6-luna",
+            providerResponseId: "s",
           },
         };
       }
@@ -577,492 +575,358 @@ describe("C3-02 — F2 provider factory binding + canonical F2 counts", () => {
         return this.complete(input.messages);
       }
     }
-    const factory: EvalCellProviderFactory = ({
-      modelId,
-      reasoningEffort,
-    }) => {
-      received.push({ modelId, reasoningEffort });
-      return new BoundFake(modelId, reasoningEffort);
-    };
+    const factory = createMeteredEvalCellProviderFactory({
+      innerFactory: () => new CountingFake(),
+      manifest: state.manifest,
+      budget: state.budget,
+      campaignBudget: state.campaignBudget,
+      assumedPreflight: { inputTokens: 50, outputTokens: 20 },
+    });
+    const provider = factory({
+      modelId: "gpt-5.6-luna",
+      reasoningEffort: "none",
+    }) as MeteredConversationProvider;
+    const beforeModel = state.campaignBudget.consumedModelInvocations;
+    const beforeUsd = state.budget.cumulativeUsd;
+    await analyzeIntent({
+      userContent: "Résume __F2_INFORMATIVE__",
+      projectSummary: "p",
+      provider,
+      evalModelReasoningControl: {
+        modelId: "gpt-5.6-luna",
+        reasoningEffort: "none",
+      },
+    });
+    expect(dispatches).toBe(1);
+    expect(state.campaignBudget.consumedModelInvocations - beforeModel).toBe(1);
+    expect(provider.ledger).toHaveLength(1);
+    expect(provider.ledger[0]?.method).toBe("completeStructured");
+    expect(state.budget.cumulativeUsd).toBeGreaterThan(beforeUsd);
+  });
 
+  it("C4-03D — after hardStopTriggered, next structured has 0 claim / 0 dispatch", async () => {
     const state = createGlobalMrStageADriver({
-      campaignId: `c3-f2-${Date.now()}`,
+      campaignId: `c4-03d-${Date.now()}`,
+    });
+    // Exhaust authorization envelope.
+    state.budget.recordSpend(12, "force-hard-cap");
+    expect(state.budget.hardStopTriggered || state.budget.cumulativeUsd >= 12).toBe(
+      true,
+    );
+    let dispatches = 0;
+    const factory = createMeteredEvalCellProviderFactory({
+      innerFactory: () => {
+        const inner = new FakeConversationProvider();
+        const orig = inner.completeStructured?.bind(inner);
+        return {
+          providerId: "fake-test",
+          complete: async () => {
+            dispatches += 1;
+            return {
+              text: "x",
+              usage: {
+                inputTokens: 1,
+                outputTokens: 1,
+                totalTokens: 2,
+                model: "gpt-5.6-luna",
+                providerResponseId: "d",
+              },
+            };
+          },
+          completeStructured: async (input: {
+            messages: ProviderChatMessage[];
+            schemaName: string;
+            jsonSchema: Record<string, unknown>;
+          }) => {
+            dispatches += 1;
+            if (orig) return orig(input);
+            return {
+              text: "x",
+              usage: {
+                inputTokens: 1,
+                outputTokens: 1,
+                totalTokens: 2,
+                model: "gpt-5.6-luna",
+                providerResponseId: "d",
+              },
+            };
+          },
+        } as ConversationProvider;
+      },
+      manifest: state.manifest,
+      budget: state.budget,
+      campaignBudget: state.campaignBudget,
+      assumedPreflight: { inputTokens: 50, outputTokens: 20 },
     });
     const before = state.campaignBudget.consumedModelInvocations;
+    await expect(
+      analyzeIntent({
+        userContent: "Résume __F2_INFORMATIVE__",
+        projectSummary: "p",
+        provider: factory({
+          modelId: "gpt-5.6-luna",
+          reasoningEffort: "none",
+        }),
+        evalModelReasoningControl: {
+          modelId: "gpt-5.6-luna",
+          reasoningEffort: "none",
+        },
+      }),
+    ).rejects.toThrow(/BUDGET_STOP/);
+    expect(dispatches).toBe(0);
+    expect(state.campaignBudget.consumedModelInvocations).toBe(before);
+  });
+});
+
+describe("C4-04 — maxRepeatsPerCell = 1; envelope unchanged", () => {
+  it("constant and derived envelope", () => {
+    expect(GLOBAL_MR_STAGE_A_CELL_CAPS.maxRepeatsPerCell).toBe(1);
+    const d = deriveGlobalMrStageAEnvelope();
+    expect(d.maxCellExecutions).toBe(72);
+    expect(d.maxModelInvocations).toBe(405);
+    expect(d.maxAggregateRealCalls).toBe(429);
+    expect(GLOBAL_MR_STAGE_A_CALL_CAPS.maxModelInvocations).toBe(405);
+  });
+});
+
+describe("C4-05 — Evidence exposes f2_product execution truth", () => {
+  it("F2 cell Evidence productPath=f2 and executionKind", async () => {
+    const state = createGlobalMrStageADriver({
+      campaignId: `c4-05-${Date.now()}`,
+    });
+    const cell = buildGlobalMrStageAMatrix({
+      campaignId: state.campaignId,
+    }).find((c) => c.executionKind === "f2_product")!;
+    const out = await runGlobalMrStageACell({
+      state,
+      cell,
+      executor: async () => ({
+        passFail: "PASS",
+        failureClass: "NONE",
+        rawSummary: "f2-ok",
+        usage: null,
+      }),
+    });
+    expect(out.evidence?.productPath).toBe("f2");
+    expect(out.evidence?.productPathAttempted).toBe("f2");
+    expect(out.evidence?.productPathSucceeded).toBe(true);
+    expect(out.evidence?.productObservation).toMatchObject({
+      executionKind: "f2_product",
+    });
+    expect(out.evidence?.evidenceRefs.some((r) => r === "executionKind:f2_product")).toBe(
+      true,
+    );
+  });
+});
+
+describe("C4-03C — F2 informative shares BudgetTracker structured + Agents", () => {
+  const previousFake = process.env.OPS1_CONVERSATION_PROVIDER;
+  const tempDirs: string[] = [];
+  let projectId = "";
+  let sessionDbPath = "";
+
+  beforeEach(async () => {
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    delete process.env.OPENAI_API_KEY;
+    setConversationProviderForTests(null);
+    resetF2ProposalStoreForTests();
+    resetMw5ChallengeStoreForTests();
+    resetRuntimeApplicationServiceForTests();
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-c4-f2-"));
+    tempDirs.push(dir);
+    sessionDbPath = path.join(dir, "session.sqlite");
+    const runtime = getRuntimeApplicationService({
+      productDbPath: path.join(dir, "oa.sqlite"),
+      auditMode: "noop",
+      nowIso: "2026-09-05T12:00:00.000Z",
+    });
+    const created = await runtime.createProject({
+      name: "C4 F2",
+      objective: "usd",
+      context: "c4",
+      criticality: "STANDARD",
+      constraints: [],
+      shortReference: "C4",
+      idempotencyKey: `idem:c4-${Date.now()}-${Math.random()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) throw new Error("setup");
+    projectId = created.projectId;
+  });
+
+  afterEach(() => {
+    setConversationProviderForTests(null);
+    resetF2ProposalStoreForTests();
+    resetMw5ChallengeStoreForTests();
+    resetRuntimeApplicationServiceForTests();
+    while (tempDirs.length) {
+      const d = tempDirs.pop();
+      if (d) fs.rmSync(d, { recursive: true, force: true });
+    }
+    if (previousFake === undefined) delete process.env.OPS1_CONVERSATION_PROVIDER;
+    else process.env.OPS1_CONVERSATION_PROVIDER = previousFake;
+  });
+
+  it("shared BudgetTracker + canonical delta = analyzeIntent + Agents", async () => {
+    const state = createGlobalMrStageADriver({
+      campaignId: `c4-03c-${Date.now()}`,
+    });
+    const beforeModel = state.campaignBudget.consumedModelInvocations;
+    const beforeUsd = state.budget.cumulativeUsd;
     const scripted = new ScriptedModel([
-      [assistantMessage("PIN:gpt-5.6-terra:medium")],
+      [assistantMessage("PIN:gpt-5.6-luna:none")],
     ]);
+    let meteredLedger: { method: string }[] = [];
+    const innerFactory: EvalCellProviderFactory = () =>
+      new FakeConversationProvider();
+    const factory: EvalCellProviderFactory = (pin) => {
+      const p = createMeteredEvalCellProviderFactory({
+        innerFactory,
+        manifest: state.manifest,
+        budget: state.budget,
+        campaignBudget: state.campaignBudget,
+        assumedPreflight: { inputTokens: 40, outputTokens: 20 },
+      })(pin);
+      meteredLedger = (p as MeteredConversationProvider).ledger;
+      return p;
+    };
     const result = await orchestrateAssistantSend({
       projectId,
       content: "Résume l'objectif __F2_INFORMATIVE__",
       sessionDbPath,
       evalModelReasoningControl: {
-        modelId: "gpt-5.6-terra",
-        reasoningEffort: "medium",
+        modelId: "gpt-5.6-luna",
+        reasoningEffort: "none",
         agentsModel: scripted,
       },
       evalCellProviderFactory: factory,
       campaignBudget: state.campaignBudget,
+      usdAccounting: createEvalAgentsUsdAccounting({
+        budget: state.budget,
+        manifest: state.manifest,
+        modelId: "gpt-5.6-luna",
+        assumedInputTokens: 40,
+        assumedOutputTokens: 20,
+      }),
     });
     expect(result.ok).toBe(true);
     if (!result.ok) return;
-    expect(received).toEqual([
-      { modelId: "gpt-5.6-terra", reasoningEffort: "medium" },
-    ]);
-    expect(result.text).toContain("PIN:gpt-5.6-terra:medium");
-    expect(result.f2?.turnKind).toBe("f1_informative");
-    // analyzeIntent claim (1) + Agents claim (1) = 2
-    expect(state.campaignBudget.consumedModelInvocations - before).toBe(2);
-  });
-
-  it("analyzeIntent alone claims one canonical slot", async () => {
-    const state = createGlobalMrStageADriver({
-      campaignId: `c3-ai-${Date.now()}`,
-    });
-    const before = state.campaignBudget.consumedModelInvocations;
-    await analyzeIntent({
-      userContent: "Résume __F2_INFORMATIVE__",
-      projectSummary: "p",
-      provider: new FakeConversationProvider(),
-      evalModelReasoningControl: {
-        modelId: "gpt-5.6-luna",
-        reasoningEffort: "none",
-      },
-      campaignBudget: state.campaignBudget,
-    });
-    expect(state.campaignBudget.consumedModelInvocations - before).toBe(1);
-  });
-});
-
-```
-
----
-
-## APPENDIX C — NEW FILE: c3.mw6-full-product-path.d0.test.ts
-
-```typescript
-/** @vitest-environment node */
-/**
- * C3-03 — full MW6 governed product path through Stage A canonical lease — ZERO REAL.
- *
- * Reuses W2 harness + MW6 server-composition seeding patterns.
- * Does NOT invent a second authority framework.
- */
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { mapGithubIdentityToPiloteActor } from "@/lib/auth/actorMapping";
-import {
-  buildMw6CurrentExternalDiscoveryIntent,
-  buildMw6ExternalDiscoveryContractSemantic,
-  type Mw6ExternalDiscoveryContractInput,
-} from "@/lib/auth/mw6ExternalDiscoveryBinding";
-import type { ResolveCurrentPiloteResult } from "@/lib/auth/resolveCurrentPilote";
-import type { ActorReference } from "@/lib/oa/decision";
-import { FakeConversationProvider, setConversationProviderForTests } from "@/lib/platform/ai";
-import {
-  bindSourceProviderCapability,
-  decideSourceStrategy,
-} from "@/lib/nora-cognitive-runtime/sourceStrategyPolicy";
-import type { SourceStrategyInput } from "@/lib/nora-cognitive-runtime/sourceStrategyPolicy";
-import { runMw6GovernedNoraProductTurn } from "@/features/project-assistant/mw6GovernedNoraTurn";
-import {
-  createEvalAgentsUsdAccounting,
-  createGlobalMrStageADriver,
-  GLOBAL_MR_STAGE_A_CALL_CAPS,
-} from "@/lib/nora-eval";
-import {
-  bootW2Runtime,
-  cleanupW2TempDirs,
-  seedQualifiedProject,
-  tempProductDbPath,
-} from "@/__tests__/project-assistant/w2Harness";
-import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
-
-const CLAIM =
-  "corroborate externally the current CEO of Acme Corp";
-
-const HUMAN_ACTOR: ActorReference = {
-  actorId: "actor:mw6-hd-human",
-  role: "project_owner",
-  displayName: "MW6 HD",
-  authorityLevel: "N2",
-};
-
-function makePilote(
-  githubUserId: string,
-): Extract<ResolveCurrentPiloteResult, { ok: true }> {
-  return {
-    ok: true,
-    githubUserId,
-    betterAuthUserId: `ba-user-${githubUserId}`,
-    actor: mapGithubIdentityToPiloteActor({ githubUserId }),
-  };
-}
-
-function productContext(campaignId: string, strategyInput?: SourceStrategyInput) {
-  const strategy = decideSourceStrategy(
-    strategyInput ?? { claimText: CLAIM },
-  );
-  const binding = bindSourceProviderCapability(strategy);
-  return { strategy, binding, campaignId };
-}
-
-async function seedAcceptedDecisionOnRuntime(
-  runtime: RuntimeApplicationService,
-  input: {
-    decisionId: string;
-    projectId: string;
-    cycleInstanceId: string;
-  },
-): Promise<void> {
-  const oa = runtime.oa!;
-  const subject = "subj:mw6-ext-discovery";
-  try {
-    oa.authorityResolver.register({
-      evidenceId: "evd:registry-mw6-hd",
-      actorId: HUMAN_ACTOR.actorId,
-      level: "N2",
-      scope: subject,
-      issuedAt: "2026-07-01T00:00:00.000Z",
-      source: "registry",
-    });
-  } catch {
-    /* immutable re-register */
-  }
-  const recorded = await oa.decisionServices.recordHumanDecision.execute({
-    decisionId: input.decisionId,
-    projectId: input.projectId,
-    cycleInstanceId: input.cycleInstanceId,
-    subject,
-    options: [
-      { optionId: "opt:go", label: "Go" },
-      { optionId: "opt:no", label: "No" },
-    ],
-    selectedOptionId: "opt:go",
-    actor: HUMAN_ACTOR,
-    authority: "delegated",
-    reversible: false,
-    authorityEvidenceId: "evd:registry-mw6-hd",
-  });
-  expect(recorded.ok).toBe(true);
-}
-
-async function seedConfirmedMw6Ec(input: {
-  runtime: RuntimeApplicationService;
-  projectId: string;
-  cycleInstanceId: string;
-  campaignId: string;
-  executionContractId: string;
-  decisionId: string;
-  confirmationId: string;
-}): Promise<{ intent: Mw6ExternalDiscoveryContractInput }> {
-  const oa = input.runtime.oa!;
-  const product = productContext(input.campaignId);
-  expect(product.strategy.acquisitionRequirement).toBe("external_discovery");
-
-  const intentBuilt = buildMw6CurrentExternalDiscoveryIntent({
-    executionContractId: input.executionContractId,
-    projectId: input.projectId,
-    campaignId: input.campaignId,
-    strategy: product.strategy,
-    binding: product.binding,
-    decisionRefs: [input.decisionId],
-    idempotencyKey: `idem:${input.executionContractId}`,
-    cycleInstanceId: input.cycleInstanceId,
-  });
-  expect(intentBuilt.ok).toBe(true);
-  if (!intentBuilt.ok) throw new Error(intentBuilt.reason);
-  const intent = intentBuilt.intent;
-  const semantic = buildMw6ExternalDiscoveryContractSemantic(intent);
-
-  const registryEvidenceId = `evd:registry-${input.executionContractId}`;
-  try {
-    oa.authorityResolver.register({
-      evidenceId: registryEvidenceId,
-      actorId: HUMAN_ACTOR.actorId,
-      level: "N2",
-      scope: semantic.scope,
-      issuedAt: "2026-07-01T00:00:00.000Z",
-      source: "registry",
-    });
-  } catch {
-    /* already */
-  }
-
-  const built = await oa.executionContractServices.buildExecutionContract.execute({
-    executionContractId: semantic.executionContractId,
-    projectId: semantic.projectId,
-    decisionRefs: [input.decisionId],
-    action: semantic.action,
-    target: semantic.target,
-    scope: semantic.scope,
-    inputs: semantic.inputs as Record<string, unknown> | undefined,
-    expectedOutputs: semantic.expectedOutputs,
-    requiredCapabilities: [...semantic.requiredCapabilities],
-    requiredAuthority: "N2",
-    constraints: [...semantic.constraints],
-    stopConditions: [...semantic.stopConditions],
-    evidenceRequirements: [...semantic.evidenceRequirements],
-    reversibility: semantic.reversibility,
-    idempotencyKey: semantic.idempotencyKey,
-    cycleInstanceId: semantic.cycleInstanceId,
-    actor: HUMAN_ACTOR,
-    authorityEvidenceId: registryEvidenceId,
-  });
-  expect(built.ok).toBe(true);
-  if (!built.ok) throw new Error("build failed");
-
-  const validated =
-    await oa.executionContractServices.validateExecutionContract.execute({
-      executionContractId: built.contract.executionContractId,
-      actor: HUMAN_ACTOR,
-      authorityEvidenceId: registryEvidenceId,
-    });
-  expect(validated.ok).toBe(true);
-  if (!validated.ok) throw new Error("validate failed");
-
-  const requested = await oa.decisionServices.requestConfirmation.execute({
-    confirmationId: input.confirmationId,
-    level: "N2",
-    actionRef: `act:confirm:${input.executionContractId}`,
-    requestedBy: HUMAN_ACTOR,
-    requestedTo: HUMAN_ACTOR,
-    scope: semantic.scope,
-    idempotencyKey: `idem-cfm-${input.confirmationId}`,
-    decisionRef: input.decisionId,
-  });
-  expect(requested.ok).toBe(true);
-
-  const granted = await oa.decisionServices.grantConfirmation.execute({
-    confirmationId: input.confirmationId,
-    actor: HUMAN_ACTOR,
-    authorityEvidenceId: registryEvidenceId,
-  });
-  expect(granted.ok).toBe(true);
-
-  const confirmed =
-    await oa.executionContractServices.confirmExecutionContract.execute({
-      executionContractId: built.contract.executionContractId,
-      confirmationId: input.confirmationId,
-      actor: HUMAN_ACTOR,
-      authorityEvidenceId: registryEvidenceId,
-      expectedVersion: validated.contract.version,
-    });
-  expect(confirmed.ok).toBe(true);
-  if (!confirmed.ok) throw new Error("confirm failed");
-
-  return { intent };
-}
-
-describe("C3-03 — full MW6 governed product path (deterministic)", () => {
-  let runtime: RuntimeApplicationService;
-  let projectId: string;
-  let cycleInstanceId: string;
-
-  beforeEach(async () => {
-    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-    delete process.env.OPENAI_API_KEY;
-    setConversationProviderForTests(null);
-    runtime = bootW2Runtime({
-      productDbPath: tempProductDbPath("mw6-c3.sqlite"),
-      idPrefix: "mw6c3",
-    });
-    const seeded = await seedQualifiedProject(runtime, { suffix: "c3" });
-    projectId = seeded.projectId;
-    cycleInstanceId = seeded.cycleInstanceId;
-  });
-
-  afterEach(() => {
-    cleanupW2TempDirs();
-    setConversationProviderForTests(null);
-  });
-
-  it("driver → runMw6GovernedNoraProductTurn → same canonical lease; no 4/2/4; ZERO LIVE", async () => {
-    const campaignId = `c3-mw6-${Date.now()}`;
-    const executionContractId = "xct:mw6-c3-full";
-    const decisionId = "dec:mw6-c3-full";
-    await seedAcceptedDecisionOnRuntime(runtime, {
-      decisionId,
-      projectId,
-      cycleInstanceId,
-    });
-    await seedConfirmedMw6Ec({
-      runtime,
-      projectId,
-      cycleInstanceId,
-      campaignId,
-      executionContractId,
-      decisionId,
-      confirmationId: "cfm:mw6-c3-full",
-    });
-
-    const state = createGlobalMrStageADriver({ campaignId });
-    expect(state.campaignBudget.maxModelInvocations).toBe(
-      GLOBAL_MR_STAGE_A_CALL_CAPS.maxModelInvocations,
-    );
-    expect(state.campaignBudget.maxModelInvocations).not.toBe(4);
-
-    const beforeModel = state.campaignBudget.consumedModelInvocations;
-    const beforeHosted = state.campaignBudget.consumedHostedWebOperations;
-    const usd = createEvalAgentsUsdAccounting({
-      budget: state.budget,
-      manifest: state.manifest,
-      modelId: "gpt-5.6-luna",
-      assumedInputTokens: 40,
-      assumedOutputTokens: 20,
-    });
-
-    const pilote = makePilote("11111111");
-    const result = await runMw6GovernedNoraProductTurn({
-      projectId,
-      content: CLAIM,
-      executionContractId,
-      provider: new FakeConversationProvider(),
-      resolveAuthenticatedPilote: async () => pilote,
-      sharedCampaignBudget: state.campaignBudget,
-      evalModelReasoningControl: {
-        modelId: "gpt-5.6-luna",
-        reasoningEffort: "none",
-      },
-      usdAccounting: usd,
-      // Hostile client fields — ignored
-      governedAuthority: {
-        actorId: "actor:hostile",
-        authorityEvidenceId: "evd:hostile",
-      },
-      actorId: "actor:hostile-override",
-      claimedAuthorityLevel: "N3",
-    });
-
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.mw6AuthorityComposition.serverComposedGovernedAuthority).toBe(
+    expect(state.campaignBudget.consumedModelInvocations - beforeModel).toBe(2);
+    expect(meteredLedger.some((e) => e.method === "completeStructured")).toBe(
       true,
     );
-    expect(result.mw6AuthorityComposition.authorityBound).toBe(true);
-    expect(result.mw6AuthorityComposition.realAuthorized).toBe(false);
-    expect(result.mw6AuthorityComposition.liveHostedDispatchCalls).toBe(0);
-    expect(result.mw6AuthorityComposition.actorId).toBe(pilote.actor.actorId);
-
-    // Same canonical lease — model claim(s) landed on Stage A budget, not a local 4/2/4.
-    expect(state.campaignBudget.consumedModelInvocations).toBeGreaterThan(
-      beforeModel,
-    );
-    expect(state.campaignBudget.campaignId).toBe(campaignId);
-    expect(state.campaignBudget.maxAggregateRealCalls).toBe(
-      GLOBAL_MR_STAGE_A_CALL_CAPS.maxAggregateRealCalls,
-    );
-    // Deterministic hosted fixture path — no silent REAL hosted claim invent.
-    expect(
-      state.campaignBudget.consumedHostedWebOperations - beforeHosted,
-    ).toBeGreaterThanOrEqual(0);
-  });
-
-  it("campaign mismatch fail-closes before model dispatch", async () => {
-    const campaignId = `c3-mw6-match-${Date.now()}`;
-    const executionContractId = "xct:mw6-c3-mismatch";
-    const decisionId = "dec:mw6-c3-mismatch";
-    await seedAcceptedDecisionOnRuntime(runtime, {
-      decisionId,
-      projectId,
-      cycleInstanceId,
-    });
-    await seedConfirmedMw6Ec({
-      runtime,
-      projectId,
-      cycleInstanceId,
-      campaignId,
-      executionContractId,
-      decisionId,
-      confirmationId: "cfm:mw6-c3-mismatch",
-    });
-
-    const other = createGlobalMrStageADriver({
-      campaignId: `other-${Date.now()}`,
-    });
-    const before = other.campaignBudget.consumedModelInvocations;
-
-    const result = await runMw6GovernedNoraProductTurn({
-      projectId,
-      content: CLAIM,
-      executionContractId,
-      provider: new FakeConversationProvider(),
-      resolveAuthenticatedPilote: async () => makePilote("11111111"),
-      sharedCampaignBudget: other.campaignBudget,
-    });
-    expect(result.ok).toBe(false);
-    if (result.ok) return;
-    expect(result.code).toBe("CAMPAIGN_ID_MISMATCH");
-    expect(other.campaignBudget.consumedModelInvocations).toBe(before);
+    expect(state.budget.cumulativeUsd).toBeGreaterThan(beforeUsd);
   });
 });
 
 ```
 
----
-
-## APPENDIX D — Product path diff (intent/F2/MW6/actions)
+## APPENDIX D — core diffs (actions / evalCell / metered)
 
 ```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
-index 8137350f..034f4687 100644
---- a/projects/sfia-studio/app/features/project-assistant/actions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
-@@ -71,6 +71,16 @@ export async function projectAssistantSendAction(input: {
-   resolveAuthenticatedPilote?: RunMw6GovernedNoraProductTurnInput["resolveAuthenticatedPilote"];
-   provider?: import("@/lib/platform/ai").ConversationProvider;
-   sessionDbPath?: string;
-+  /** INTERNAL/EVAL-ONLY — Stage A shared canonical campaign budget. */
-+  sharedCampaignBudget?: RunMw6GovernedNoraProductTurnInput["sharedCampaignBudget"];
-+  /** INTERNAL/EVAL-ONLY */
-+  evalModelReasoningControl?: RunMw6GovernedNoraProductTurnInput["evalModelReasoningControl"];
-+  /** INTERNAL/EVAL-ONLY */
-+  usdAccounting?: RunMw6GovernedNoraProductTurnInput["usdAccounting"];
-+  /** INTERNAL/EVAL-ONLY — F2 non-MW6 path */
-+  evalCellProviderFactory?: import("@/lib/nora-eval/evalCellProvider").EvalCellProviderFactory;
-+  /** INTERNAL/EVAL-ONLY — F2 non-MW6 path */
-+  campaignBudget?: import("@/lib/nora-cognitive-runtime").NoraCampaignBudget;
- }): Promise<ProjectAssistantSendResult> {
-   const executionContractId =
-     typeof input.executionContractId === "string"
-@@ -96,6 +106,9 @@ export async function projectAssistantSendAction(input: {
-       currentExternalDiscoveryIntent: input.currentExternalDiscoveryIntent,
-       canActAsMorris: input.canActAsMorris,
-       claimedAuthorityLevel: input.claimedAuthorityLevel,
-+      sharedCampaignBudget: input.sharedCampaignBudget,
-+      evalModelReasoningControl: input.evalModelReasoningControl,
-+      usdAccounting: input.usdAccounting,
-     });
-   }
-   return orchestrateAssistantSend({
-@@ -104,6 +117,10 @@ export async function projectAssistantSendAction(input: {
-     history: input.history,
-     provider: input.provider,
-     sessionDbPath: input.sessionDbPath,
-+    evalModelReasoningControl: input.evalModelReasoningControl,
-+    evalCellProviderFactory: input.evalCellProviderFactory,
-+    usdAccounting: input.usdAccounting,
-+    campaignBudget: input.campaignBudget,
-   });
- }
+diff --git a/projects/sfia-studio/app/lib/nora-eval/meteredProvider.ts b/projects/sfia-studio/app/lib/nora-eval/meteredProvider.ts
+index 6b992a51..04d95485 100644
+--- a/projects/sfia-studio/app/lib/nora-eval/meteredProvider.ts
++++ b/projects/sfia-studio/app/lib/nora-eval/meteredProvider.ts
+@@ -1,5 +1,8 @@
+ /**
+  * Eval-only metering decorator — NOT a new provider stack.
++ *
++ * Optional beforeAuthorizedDispatch runs AFTER USD preflight succeeds and
++ * BEFORE inner provider dispatch (default-off; historical behavior unchanged).
+  */
 
+ import type {
+@@ -32,10 +35,20 @@ export type ProviderCallMeterRecord = {
+   cumulativeUsd: number;
+ };
+
++export type MeteredConversationProviderOptions = {
++  /**
++   * INTERNAL/EVAL — invoked only after USD preflight allows dispatch.
++   * Use for canonical campaign model-call claims. Throw to abort before inner.
++   * Default: unset (historical MeteredConversationProvider behavior).
++   */
++  beforeAuthorizedDispatch?: () => void | Promise<void>;
++};
++
+ export class MeteredConversationProvider implements ConversationProvider {
+   readonly providerId: string;
+   private callIndex = 0;
+   readonly ledger: ProviderCallMeterRecord[] = [];
++  private readonly beforeAuthorizedDispatch?: () => void | Promise<void>;
+
+   constructor(
+     private readonly inner: ConversationProvider,
+@@ -46,8 +59,10 @@ export class MeteredConversationProvider implements ConversationProvider {
+       inputTokens: number;
+       outputTokens: number;
+     } = { inputTokens: 4000, outputTokens: 1200 },
++    options?: MeteredConversationProviderOptions,
+   ) {
+     this.providerId = inner.providerId;
++    this.beforeAuthorizedDispatch = options?.beforeAuthorizedDispatch;
+   }
+
+   private preflight(): void {
+@@ -63,6 +78,12 @@ export class MeteredConversationProvider implements ConversationProvider {
+     }
+   }
+
++  private async afterPreflightBeforeDispatch(): Promise<void> {
++    if (this.beforeAuthorizedDispatch) {
++      await this.beforeAuthorizedDispatch();
++    }
++  }
++
+   private record(
+     method: ProviderCallMeterRecord["method"],
+     usage: ProviderUsage | null | undefined,
+@@ -102,6 +123,7 @@ export class MeteredConversationProvider implements ConversationProvider {
+     messages: ProviderChatMessage[],
+   ): Promise<ProviderCompletionResult> {
+     this.preflight();
++    await this.afterPreflightBeforeDispatch();
+     const result = await this.inner.complete(messages);
+     this.record("complete", result.usage);
+     return result;
+@@ -116,6 +138,7 @@ export class MeteredConversationProvider implements ConversationProvider {
+       throw new Error("completeStructured not available on wrapped provider");
+     }
+     this.preflight();
++    await this.afterPreflightBeforeDispatch();
+     const result = await this.inner.completeStructured(input);
+     this.record("completeStructured", result.usage);
+     return result;
+@@ -129,6 +152,7 @@ export class MeteredConversationProvider implements ConversationProvider {
+       throw new Error("completeRound not available on wrapped provider");
+     }
+     this.preflight();
++    await this.afterPreflightBeforeDispatch();
+     const result = await this.inner.completeRound(input);
+     this.record("completeRound", result.usage);
+     return result;
+
+```
+
+## APPENDIX E — intent / orchestrateF2 / stageA / index diffs
+
+```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-index 970d8681..b4037665 100644
+index 970d8681..5a815cb7 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-@@ -10,6 +10,12 @@ import {
+@@ -10,6 +10,8 @@ import {
    type ConversationProvider,
    type ProviderChatMessage,
  } from "@/lib/platform/ai";
 +import { validateRuntimeReasoningCapability } from "@/lib/nora-cognitive-runtime/reasoningCapability";
 +import type { NoraEvalModelReasoningControl } from "@/lib/nora-cognitive-runtime";
-+import {
-+  claimModelInvocation,
-+  type NoraCampaignBudget,
-+} from "@/lib/nora-cognitive-runtime";
  import { ADOPTED_CYCLE_TYPE_IDS, isKnownCycleTypeId } from "@/lib/oa/cycle";
  import type {
    F2QualificationSignals,
-@@ -497,12 +503,42 @@ export async function analyzeIntent(input: {
+@@ -497,12 +499,40 @@ export async function analyzeIntent(input: {
     * Never client-authoritative for model/reasoning selection.
     */
    provider?: ConversationProvider;
@@ -1071,12 +935,12 @@ index 970d8681..b4037665 100644
 +   * ConversationProvider calls (completeStructured). Absent → production default.
 +   * When set, an injected cell provider is required (no silent live default).
 +   */
-+  evalModelReasoningControl?: NoraEvalModelReasoningControl;
 +  /**
-+   * INTERNAL / EVAL-ONLY — shared Stage A NoraCampaignBudget.
-+   * When present, one model-call slot is claimed before completeStructured.
++   * INTERNAL / EVAL-ONLY — Stage A cell identity. Canonical model-call claims
++   * belong on MeteredConversationProvider.beforeAuthorizedDispatch
++   * (USD preflight → claim → dispatch), not here.
 +   */
-+  campaignBudget?: NoraCampaignBudget;
++  evalModelReasoningControl?: NoraEvalModelReasoningControl;
  }): Promise<{
    analysis: IntentAnalysisDto;
    presentation: "test_provider" | "openai_live";
@@ -1085,8 +949,6 @@ index 970d8681..b4037665 100644
 +  /** Eval-only observation — never a client DTO field. */
 +  evalPinnedModelId?: string;
 +  evalPinnedReasoningEffort?: string;
-+  /** True when a canonical model-call claim was taken for this structured call. */
-+  campaignModelClaimed?: boolean;
  }> {
 +  const evalControl = input.evalModelReasoningControl;
 +  if (evalControl) {
@@ -1105,27 +967,7 @@ index 970d8681..b4037665 100644
    const provider = input.provider ?? resolveConversationProvider();
    // Presentation follows the provider instance actually used (explicit injection wins).
    const presentation =
-@@ -529,6 +565,19 @@ export async function analyzeIntent(input: {
-     );
-   }
-
-+  let campaignModelClaimed = false;
-+  if (input.campaignBudget) {
-+    const ok = claimModelInvocation(input.campaignBudget);
-+    if (!ok) {
-+      throw new TechnicalError(
-+        "CONFIG",
-+        input.campaignBudget.denialReason ??
-+          "Campaign model invocation cap reached — analyzeIntent not dispatched.",
-+      );
-+    }
-+    campaignModelClaimed = true;
-+  }
-+
-   const completion = await provider.completeStructured({
-     messages,
-     schemaName: F2_INTENT_SCHEMA_NAME,
-@@ -550,5 +599,12 @@ export async function analyzeIntent(input: {
+@@ -550,5 +580,11 @@ export async function analyzeIntent(input: {
      presentation,
      model: completion.usage?.model ?? null,
      rawText: completion.text,
@@ -1135,11 +977,10 @@ index 970d8681..b4037665 100644
 +          evalPinnedReasoningEffort: evalControl.reasoningEffort,
 +        }
 +      : {}),
-+    ...(campaignModelClaimed ? { campaignModelClaimed: true } : {}),
    };
  }
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-index 276bce91..59325273 100644
+index 276bce91..7c314422 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 @@ -8,6 +8,15 @@ import {
@@ -1199,7 +1040,7 @@ index 276bce91..59325273 100644
 +      status: "provider_error",
 +      code: "EVAL_CELL_PROVIDER_REQUIRED",
 +      message:
-+        "evalModelReasoningControl requires evalCellProviderFactory or injected cell provider.",
++        "evalModelReasoningControl requires evalCellProviderFactory (no arbitrary provider fallback).",
 +      mode: modeResolution.mode,
 +      retryable: false,
 +    };
@@ -1209,18 +1050,17 @@ index 276bce91..59325273 100644
    let analysisResult: Awaited<ReturnType<typeof analyzeIntent>>;
    let truthCContextForF1: string | undefined;
    try {
-@@ -602,7 +644,9 @@ export async function orchestrateAssistantSend(input: {
+@@ -602,7 +644,8 @@ export async function orchestrateAssistantSend(input: {
        userContent: content,
        projectSummary: cognitive.projectSummary,
        challengeContext,
 -      provider: input.provider,
 +      provider: effectiveProvider,
 +      evalModelReasoningControl: input.evalModelReasoningControl,
-+      campaignBudget: input.campaignBudget,
      });
    } catch (error) {
      const message =
-@@ -649,10 +693,13 @@ export async function orchestrateAssistantSend(input: {
+@@ -649,10 +692,13 @@ export async function orchestrateAssistantSend(input: {
    ) {
      const f1 = await orchestrateProjectAssistantTurn({
        ...input,
@@ -1235,1020 +1075,63 @@ index 276bce91..59325273 100644
      });
      if (!f1.ok) return f1;
      return {
-diff --git a/projects/sfia-studio/app/features/project-assistant/mw6GovernedNoraTurn.ts b/projects/sfia-studio/app/features/project-assistant/mw6GovernedNoraTurn.ts
-index 9620b37b..95c37200 100644
---- a/projects/sfia-studio/app/features/project-assistant/mw6GovernedNoraTurn.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/mw6GovernedNoraTurn.ts
-@@ -24,8 +24,13 @@ import {
- } from "@/lib/platform/ai";
- import {
-   acquireNoraCampaignBudget,
-+  isCanonicalCampaignBudget,
-+  requireCanonicalCampaignBudget,
-   runNoraCognitiveTurn,
-+  type NoraCampaignBudget,
-   type NoraCognitiveTurnResult,
-+  type NoraEvalModelReasoningControl,
-+  type NoraAgentsUsdAccounting,
- } from "@/lib/nora-cognitive-runtime";
- import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
- import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
-@@ -82,6 +87,61 @@ export function extractMw6CampaignIdFromScope(scope: string): string | null {
-   return m?.[1] ?? null;
- }
-
-+/**
-+ * Resolve campaign budget for MW6 governed product turn.
-+ * INTERNAL — sharedCampaignBudget is eval/server only, never client-trusted.
-+ */
-+export function resolveMw6GovernedCampaignBudget(input: {
-+  campaignId: string;
-+  sharedCampaignBudget?: NoraCampaignBudget;
-+}):
-+  | { ok: true; budget: NoraCampaignBudget; acquiredLocally: boolean }
-+  | { ok: false; code: string; message: string } {
-+  if (input.sharedCampaignBudget) {
-+    try {
-+      requireCanonicalCampaignBudget(input.sharedCampaignBudget);
-+    } catch {
-+      return {
-+        ok: false,
-+        code: "CAMPAIGN_BUDGET_LEASE_INVALID",
-+        message:
-+          "sharedCampaignBudget is not the canonical active lease — refusing fabricated budget.",
-+      };
-+    }
-+    if (!isCanonicalCampaignBudget(input.sharedCampaignBudget)) {
-+      return {
-+        ok: false,
-+        code: "CAMPAIGN_BUDGET_LEASE_INVALID",
-+        message: "sharedCampaignBudget failed canonical lease check.",
-+      };
-+    }
-+    if (input.sharedCampaignBudget.campaignId !== input.campaignId) {
-+      return {
-+        ok: false,
-+        code: "CAMPAIGN_ID_MISMATCH",
-+        message:
-+          "sharedCampaignBudget.campaignId does not match ExecutionContract scope campaignId.",
-+      };
-+    }
-+    return {
-+      ok: true,
-+      budget: input.sharedCampaignBudget,
-+      acquiredLocally: false,
-+    };
-+  }
-+  return {
-+    ok: true,
-+    budget: acquireNoraCampaignBudget({
-+      campaignId: input.campaignId,
-+      maxModelInvocations: 4,
-+      maxHostedWebOperations: 2,
-+      maxAggregateRealCalls: 4,
-+      hostedHardCapCapability: "provider_max_tool_calls",
-+    }),
-+    acquiredLocally: true,
-+  };
-+}
-+
- export type Mw6GovernedNoraProductTurnSuccess = Extract<
-   ProjectAssistantSendResult,
-   { ok: true }
-@@ -132,6 +192,16 @@ export type RunMw6GovernedNoraProductTurnInput = {
-   currentExternalDiscoveryIntent?: unknown;
-   canActAsMorris?: unknown;
-   claimedAuthorityLevel?: unknown;
-+  /**
-+   * INTERNAL/EVAL-ONLY — canonical NoraCampaignBudget already acquired by Stage A
-+   * driver. Not client-trusted. Possession ≠ authority grant.
-+   * Absent → legacy in-turn acquire 4/2/4 unchanged.
-+   */
-+  sharedCampaignBudget?: NoraCampaignBudget;
-+  /** INTERNAL/EVAL-ONLY — model×effort pin for campaign cells. */
-+  evalModelReasoningControl?: NoraEvalModelReasoningControl;
-+  /** INTERNAL/EVAL-ONLY — USD accounting bridge for native Agents. */
-+  usdAccounting?: NoraAgentsUsdAccounting;
- };
-
- /**
-@@ -253,13 +323,22 @@ export async function runMw6GovernedNoraProductTurn(
-   const campaignId =
-     extractMw6CampaignIdFromScope(loaded.contract.scope) ??
-     `mw6:${composed.executionContractId}`;
--  const campaignBudget = acquireNoraCampaignBudget({
-+
-+  const budgetResolved = resolveMw6GovernedCampaignBudget({
-     campaignId,
--    maxModelInvocations: 4,
--    maxHostedWebOperations: 2,
--    maxAggregateRealCalls: 4,
--    hostedHardCapCapability: "provider_max_tool_calls",
-+    sharedCampaignBudget: input.sharedCampaignBudget,
-   });
-+  if (!budgetResolved.ok) {
-+    return {
-+      ok: false,
-+      status: "validation_error",
-+      code: budgetResolved.code,
-+      message: budgetResolved.message,
-+      mode: "unavailable",
-+      retryable: false,
-+    };
-+  }
-+  const campaignBudget = budgetResolved.budget;
-
-   const modeResolution = resolveAssistantMode(input.provider);
-   if (!modeResolution.canProceed) {
-@@ -315,6 +394,8 @@ export async function runMw6GovernedNoraProductTurn(
-       enableHostedWebSearch: true,
-       campaignBudget,
-       governedAuthority: composed.governedAuthority as import("@/lib/nora-cognitive-runtime").Mw6GovernedAuthorityContext,
-+      evalModelReasoningControl: input.evalModelReasoningControl,
-+      usdAccounting: input.usdAccounting,
-       // Deterministic boundary — ZERO LIVE hosted dispatch.
-       deterministicHostedWebSearchCalls: [],
-     });
+diff --git a/projects/sfia-studio/app/lib/nora-eval/index.ts b/projects/sfia-studio/app/lib/nora-eval/index.ts
+index d86d38d4..2970c326 100644
+--- a/projects/sfia-studio/app/lib/nora-eval/index.ts
++++ b/projects/sfia-studio/app/lib/nora-eval/index.ts
+@@ -67,3 +67,48 @@ export {
+   optionCRuntimeObservables,
+   type NoraCognitiveRuntimeObservable,
+ } from "./optionCObservables";
++export {
++  createEvalAgentsUsdAccounting,
++  type CreateEvalAgentsUsdAccountingInput,
++} from "./agentsUsdBridge";
++export {
++  createOpenAiEvalCellProviderFactory,
++  createMeteredEvalCellProviderFactory,
++  resolveEvalCellConversationProvider,
++  type EvalCellProviderFactory,
++} from "./evalCellProvider";
++export {
++  GLOBAL_MR_STAGE_A_CONTRACT_VERSION,
++  GLOBAL_MR_STAGE_A_MODELS,
++  GLOBAL_MR_STAGE_A_EFFORTS,
++  GLOBAL_MR_STAGE_A_WORKLOADS,
++  GLOBAL_MR_STAGE_A_SEMANTIC_SCENARIOS,
++  GLOBAL_MR_STAGE_A_CALL_CAPS,
++  GLOBAL_MR_STAGE_A_CELL_CAPS,
++  GLOBAL_MR_STAGE_A_USD_POLICY,
++  GLOBAL_MR_STAGE_A_MAX_AGENTS_MODEL_TURNS,
++  GLOBAL_MR_STAGE_A_PROVIDER_TOOL_CALLS_PER_RESPONSE,
++  buildGlobalMrStageAWorkloadCallPlans,
++  deriveGlobalMrStageAEnvelope,
++  buildGlobalMrStageAMatrix,
++  assertGlobalMrStageAMatrixInvariants,
++  createGlobalMrStageADriver,
++  evaluateGlobalMrStageAStop,
++  acknowledgeGlobalMrStageASoftReview,
++  canScheduleSelectiveRepeat,
++  materializeSelectiveRepeat,
++  globalMrStageABaseCellKey,
++  runGlobalMrStageACell,
++  globalMrStageAEnvelopeProof,
++  type GlobalMrStageAWorkloadId,
++  type GlobalMrStageACell,
++  type GlobalMrStageAExecutor,
++  type GlobalMrStageAExecutorResult,
++  type GlobalMrStageADriverState,
++  type GlobalMrStageAStopReason,
++  type GlobalMrStageACellDenialReason,
++  type GlobalMrStageAExecutionKind,
++  type GlobalMrStageADerivedEnvelope,
++  type GlobalMrStageAWorkloadCallPlan,
++  type GlobalMrStageAProductPath,
++} from "./globalModelReasoningStageA";
 
 ```
 
----
-
-## APPENDIX E — globalModelReasoningStageA.ts (full candidate)
-
-```typescript
-/**
- * Global Model × Reasoning — Stage A driver + derived call envelope (nora-eval).
- *
- * CELL EXECUTIONS ≠ MODEL INVOCATIONS.
- * Caps for model/aggregate are DERIVED from product-path ceilings.
- * USD 6/9/12 remains candidate authorization envelope (≠ invoice).
- * ZERO REAL by default: injectable executor; canonical NoraCampaignBudget is SoT.
- */
-import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
-import { CT_MAX_TOOL_ROUNDS } from "@/lib/platform/tools";
-import {
-  acquireNoraCampaignBudget,
-  campaignBudgetSnapshot,
-  type NoraCampaignBudget,
-} from "@/lib/nora-cognitive-runtime";
-import {
-  NORA_EVAL_GLOBAL_CATALOG_VERSION,
-  type CampaignCellConfig,
-  type CampaignBudgetPolicy,
-  type FailureClass,
-  type PassFail,
-  type RunEvidence,
-} from "./types";
-import {
-  BudgetTracker,
-  buildGlobalModelReasoningCapabilityManifest,
-  conservativePreCallEstimateUsd,
-  validateCellAgainstManifest,
-  type CapabilityManifest,
-} from "./capabilityBudget";
-import { getScenario } from "./catalog";
-
-export const GLOBAL_MR_STAGE_A_CONTRACT_VERSION =
-  "global-mr-campaign-contract-v2-candidate" as const;
-
-export const GLOBAL_MR_STAGE_A_MODELS = [
-  "gpt-5.6-luna",
-  "gpt-5.6-terra",
-  "gpt-5.6-sol",
-] as const;
-
-export const GLOBAL_MR_STAGE_A_EFFORTS = [
-  "none",
-  "medium",
-  "high",
-] as const satisfies readonly OpenAiReasoningEffort[];
-
-export const GLOBAL_MR_STAGE_A_WORKLOADS = [
-  "W-Routine",
-  "W-Clarification",
-  "W-Analysis",
-  "W-High-Assurance",
-  "W-Memory",
-  "W-Sources",
-] as const;
-
-export type GlobalMrStageAWorkloadId =
-  (typeof GLOBAL_MR_STAGE_A_WORKLOADS)[number];
-
-export const GLOBAL_MR_STAGE_A_SEMANTIC_SCENARIOS: Record<
-  GlobalMrStageAWorkloadId,
-  string
-> = {
-  "W-Routine": "mw2.s01.strategy-effort-decoupling",
-  "W-Clarification": "mw5.s01.challenge-clarification",
-  "W-Analysis": "mw3.s01.disposition-matrix",
-  "W-High-Assurance": "mw4.s01.grounding-durability",
-  "W-Memory": "mw1.s01.honest-memory-b-availability",
-  "W-Sources": "mw6.s02.read-search-partiality-failclosed",
-};
-
-/**
- * Product-path Agents model-turn ceiling for Stage A cells.
- * Derived from runNoraAgentsTurn default: CT_MAX_TOOL_ROUNDS + 1.
- */
-export const GLOBAL_MR_STAGE_A_MAX_AGENTS_MODEL_TURNS =
-  CT_MAX_TOOL_ROUNDS + 1;
-
-export type GlobalMrStageAProductPath =
-  | "agents_cognitive"
-  | "f2_product"
-  | "mw6_governed";
-
-/**
- * Per-workload constitutive call plan (deterministic product-path ceilings).
- * F2 informative Stage A framing: analyzeIntent structured + Agents F1 path.
- * Does not include optional CKC actionable extra structured call (not constitutive
- * of the Stage A informative comparison cells).
- */
-export type GlobalMrStageAWorkloadCallPlan = {
-  workloadId: GlobalMrStageAWorkloadId;
-  productPath: GlobalMrStageAProductPath;
-  /** ConversationProvider completeStructured calls before Agents. */
-  preAgentsStructuredModelCalls: number;
-  /** Max Agents Runner model turns (claimModelInvocation each). */
-  maxAgentsModelTurns: number;
-  /** Max constitutive model invocations for ONE cell execution. */
-  maxModelInvocationsPerCell: number;
-  /** Max hosted web ops claimable for ONE cell (Sources only). */
-  maxHostedWebOperationsPerCell: number;
-  proofNote: string;
-};
-
-export function buildGlobalMrStageAWorkloadCallPlans(): Record<
-  GlobalMrStageAWorkloadId,
-  GlobalMrStageAWorkloadCallPlan
-> {
-  const agentsTurns = GLOBAL_MR_STAGE_A_MAX_AGENTS_MODEL_TURNS;
-  const mk = (
-    workloadId: GlobalMrStageAWorkloadId,
-    productPath: GlobalMrStageAProductPath,
-    pre: number,
-    hosted: number,
-    proofNote: string,
-  ): GlobalMrStageAWorkloadCallPlan => ({
-    workloadId,
-    productPath,
-    preAgentsStructuredModelCalls: pre,
-    maxAgentsModelTurns: agentsTurns,
-    maxModelInvocationsPerCell: pre + agentsTurns,
-    maxHostedWebOperationsPerCell: hosted,
-    proofNote,
-  });
-  return {
-    "W-Routine": mk(
-      "W-Routine",
-      "agents_cognitive",
-      0,
-      0,
-      "runNoraCognitiveTurn → runNoraAgentsTurn; default maxTurns=CT_MAX_TOOL_ROUNDS+1",
-    ),
-    "W-Clarification": mk(
-      "W-Clarification",
-      "f2_product",
-      1,
-      0,
-      "orchestrateAssistantSend → analyzeIntent.completeStructured(1) + F1 Agents turns",
-    ),
-    "W-Analysis": mk(
-      "W-Analysis",
-      "f2_product",
-      1,
-      0,
-      "orchestrateAssistantSend → analyzeIntent(1) + F1 Agents turns",
-    ),
-    "W-High-Assurance": mk(
-      "W-High-Assurance",
-      "f2_product",
-      1,
-      0,
-      "orchestrateAssistantSend → analyzeIntent(1) + F1 Agents turns",
-    ),
-    "W-Memory": mk(
-      "W-Memory",
-      "agents_cognitive",
-      0,
-      0,
-      "Option C / Agents cognitive path; maxTurns=CT_MAX_TOOL_ROUNDS+1",
-    ),
-    "W-Sources": mk(
-      "W-Sources",
-      "mw6_governed",
-      0,
-      GLOBAL_MR_STAGE_A_PROVIDER_TOOL_CALLS_PER_RESPONSE,
-      "runMw6GovernedNoraProductTurn → Agents; hosted capped per cell at provider tool-calls/response",
-    ),
-  };
-}
-
-/** Candidate hosted tool-calls/response (campaign). */
-export const GLOBAL_MR_STAGE_A_PROVIDER_TOOL_CALLS_PER_RESPONSE = 2;
-
-/** Cell execution envelope — NOT model invocations. */
-export const GLOBAL_MR_STAGE_A_CELL_CAPS = {
-  baseCells: 54,
-  maxSelectiveRepeats: 18,
-  maxRepeatsPerCell: 2,
-  maxCellExecutions: 54 + 18,
-} as const;
-
-/** Candidate USD envelope — authorization ≠ invoice. */
-export const GLOBAL_MR_STAGE_A_USD_POLICY: CampaignBudgetPolicy = {
-  targetUsd: 6,
-  softStopUsd: 9,
-  hardCapUsd: 12,
-};
-
-export type GlobalMrStageADerivedEnvelope = {
-  contractVersion: typeof GLOBAL_MR_STAGE_A_CONTRACT_VERSION;
-  maxCellExecutions: number;
-  maxSelectiveRepeats: number;
-  baseModelInvocationCeiling: number;
-  repeatModelInvocationCeiling: number;
-  maxModelInvocations: number;
-  maxHostedWebOperations: number;
-  maxAggregateRealCalls: number;
-  perWorkload: Record<GlobalMrStageAWorkloadId, GlobalMrStageAWorkloadCallPlan>;
-  usd: CampaignBudgetPolicy;
-  usdFeasibility: {
-    ok: boolean;
-    plannedReserveUsdBase: number;
-    plannedReserveUsdWorstCaseWithRepeats: number;
-    hardCapUsd: number;
-    status: "COMPATIBLE_WITH_CANDIDATE_12" | "REQUIRES_MORRIS_BUDGET_DECISION";
-  };
-  derivationNotes: string[];
-};
-
-/**
- * Derive Stage A model/aggregate ceilings from product-path plans.
- * Worst-case selective repeats: up to 18 highest per-cell model costs
- * (at most one repeat per base cell).
- */
-export function deriveGlobalMrStageAEnvelope(): GlobalMrStageADerivedEnvelope {
-  const plans = buildGlobalMrStageAWorkloadCallPlans();
-  const derivationNotes: string[] = [
-    "maxCellExecutions = 54 base + 18 selective repeats = 72 (cell executions, not model calls).",
-    `maxAgentsModelTurns = CT_MAX_TOOL_ROUNDS+1 = ${GLOBAL_MR_STAGE_A_MAX_AGENTS_MODEL_TURNS}.`,
-    "F2 workloads include 1 constitutive analyzeIntent structured model call.",
-    "Repeat ceiling uses the 18 highest per-cell model-call costs (≤1 repeat/base cell).",
-  ];
-
-  const cellCosts: Array<{
-    model: (typeof GLOBAL_MR_STAGE_A_MODELS)[number];
-    effort: (typeof GLOBAL_MR_STAGE_A_EFFORTS)[number];
-    workloadId: GlobalMrStageAWorkloadId;
-    modelCalls: number;
-    estimatedUsd: number;
-  }> = [];
-
-  let baseModelInvocationCeiling = 0;
-  let plannedReserveUsdBase = 0;
-
-  for (const model of GLOBAL_MR_STAGE_A_MODELS) {
-    for (const effort of GLOBAL_MR_STAGE_A_EFFORTS) {
-      for (const workloadId of GLOBAL_MR_STAGE_A_WORKLOADS) {
-        const plan = plans[workloadId];
-        const modelCalls = plan.maxModelInvocationsPerCell;
-        baseModelInvocationCeiling += modelCalls;
-        const perCall = conservativePreCallEstimateUsd({
-          manifest: buildGlobalModelReasoningCapabilityManifest(
-            "2026-09-05T00:00:00.000Z",
-          ),
-          modelId: model,
-        });
-        const estimatedUsd = perCall * modelCalls;
-        plannedReserveUsdBase += estimatedUsd;
-        cellCosts.push({
-          model,
-          effort,
-          workloadId,
-          modelCalls,
-          estimatedUsd,
-        });
-      }
-    }
-  }
-
-  cellCosts.sort(
-    (a, b) =>
-      b.modelCalls - a.modelCalls || b.estimatedUsd - a.estimatedUsd,
-  );
-  const topRepeats = cellCosts.slice(
-    0,
-    GLOBAL_MR_STAGE_A_CELL_CAPS.maxSelectiveRepeats,
-  );
-  const repeatModelInvocationCeiling = topRepeats.reduce(
-    (s, c) => s + c.modelCalls,
-    0,
-  );
-  const plannedReserveUsdRepeats = topRepeats.reduce(
-    (s, c) => s + c.estimatedUsd,
-    0,
-  );
-  const plannedReserveUsdWorstCaseWithRepeats =
-    plannedReserveUsdBase + plannedReserveUsdRepeats;
-
-  const maxModelInvocations =
-    baseModelInvocationCeiling + repeatModelInvocationCeiling;
-  const maxHostedWebOperations = 24; // campaign pool (retained candidate pool)
-  const maxAggregateRealCalls = maxModelInvocations + maxHostedWebOperations;
-
-  const usdOk =
-    plannedReserveUsdWorstCaseWithRepeats <=
-    GLOBAL_MR_STAGE_A_USD_POLICY.hardCapUsd + 1e-12;
-
-  return {
-    contractVersion: GLOBAL_MR_STAGE_A_CONTRACT_VERSION,
-    maxCellExecutions: GLOBAL_MR_STAGE_A_CELL_CAPS.maxCellExecutions,
-    maxSelectiveRepeats: GLOBAL_MR_STAGE_A_CELL_CAPS.maxSelectiveRepeats,
-    baseModelInvocationCeiling,
-    repeatModelInvocationCeiling,
-    maxModelInvocations,
-    maxHostedWebOperations,
-    maxAggregateRealCalls,
-    perWorkload: plans,
-    usd: GLOBAL_MR_STAGE_A_USD_POLICY,
-    usdFeasibility: {
-      ok: usdOk,
-      plannedReserveUsdBase,
-      plannedReserveUsdWorstCaseWithRepeats,
-      hardCapUsd: GLOBAL_MR_STAGE_A_USD_POLICY.hardCapUsd,
-      status: usdOk
-        ? "COMPATIBLE_WITH_CANDIDATE_12"
-        : "REQUIRES_MORRIS_BUDGET_DECISION",
-    },
-    derivationNotes,
-  };
-}
-
-/** Cached derived envelope (pure; recomputed on call — cheap). */
-export function globalMrStageAEnvelopeProof(): GlobalMrStageADerivedEnvelope & {
-  distinctFromMw0AndH17: true;
-  usdSemantics: "pre_dispatch_reservation_authorization_envelope";
-} {
-  const derived = deriveGlobalMrStageAEnvelope();
-  return {
-    ...derived,
-    distinctFromMw0AndH17: true,
-    usdSemantics: "pre_dispatch_reservation_authorization_envelope",
-  };
-}
-
-/**
- * @deprecated Use GLOBAL_MR_STAGE_A_CELL_CAPS + deriveGlobalMrStageAEnvelope().
- * Retained shape for migration: maxModelInvocations is now DERIVED.
- */
-export const GLOBAL_MR_STAGE_A_CALL_CAPS = (() => {
-  const d = deriveGlobalMrStageAEnvelope();
-  return {
-    maxCellExecutions: d.maxCellExecutions,
-    maxModelInvocations: d.maxModelInvocations,
-    maxHostedWebOperations: d.maxHostedWebOperations,
-    maxAggregateRealCalls: d.maxAggregateRealCalls,
-    maxSelectiveRepeats: d.maxSelectiveRepeats,
-    maxRepeatsPerCell: GLOBAL_MR_STAGE_A_CELL_CAPS.maxRepeatsPerCell,
-    providerToolCallsPerResponse:
-      GLOBAL_MR_STAGE_A_PROVIDER_TOOL_CALLS_PER_RESPONSE,
-  } as const;
-})();
-
-export type GlobalMrStageAExecutionKind = GlobalMrStageAProductPath;
-
-export type GlobalMrStageACell = {
-  campaignId: string;
-  stage: "A";
-  workloadId: GlobalMrStageAWorkloadId;
-  scenarioId: string;
-  scenarioVersion: typeof NORA_EVAL_GLOBAL_CATALOG_VERSION;
-  model: (typeof GLOBAL_MR_STAGE_A_MODELS)[number];
-  reasoningEffort: (typeof GLOBAL_MR_STAGE_A_EFFORTS)[number];
-  runIndex: number;
-  isSelectiveRepeat: boolean;
-  executionKind: GlobalMrStageAExecutionKind;
-  attachHostedWebSearch: boolean;
-  cell: CampaignCellConfig;
-};
-
-export type GlobalMrStageAStopReason =
-  | "NONE"
-  | "HARD_USD_CAP"
-  | "SOFT_USD_REVIEW"
-  | "MODEL_INVOCATION_CAP"
-  | "HOSTED_CAP"
-  | "AGGREGATE_CAP"
-  | "UNSUPPORTED_CELL"
-  | "CAMPAIGN_STOP"
-  | "EXECUTOR_DENIED";
-
-/** Per-cell denial — never latches campaign-wide stop. */
-export type GlobalMrStageACellDenialReason =
-  | "SELECTIVE_REPEAT_POOL_EXHAUSTED"
-  | "SELECTIVE_REPEAT_DENIED"
-  | "RUN_INDEX_INVALID";
-
-export type GlobalMrStageAExecutorResult = {
-  passFail: PassFail;
-  failureClass: FailureClass;
-  rawSummary: string;
-  usage: RunEvidence["usage"];
-  scorers?: RunEvidence["scorers"];
-  productObservation?: Record<string, unknown>;
-  /**
-   * DIAGNOSTIC ONLY — not enforcement authority.
-   * Driver compares against canonical NoraCampaignBudget deltas when present.
-   */
-  reportedModelInvocationsConsumed?: number;
-  reportedHostedOperationsConsumed?: number;
-};
-
-export type GlobalMrStageAExecutor = (
-  cell: GlobalMrStageACell,
-  ctx: {
-    manifest: CapabilityManifest;
-    budget: BudgetTracker;
-    campaignBudget: NoraCampaignBudget;
-    stop: () => GlobalMrStageAStopReason;
-  },
-) => Promise<GlobalMrStageAExecutorResult>;
-
-export function globalMrStageABaseCellKey(cell: {
-  model: string;
-  reasoningEffort: string;
-  workloadId: string;
-  scenarioId: string;
-  scenarioVersion?: string;
-}): string {
-  const catalog = cell.scenarioVersion ?? NORA_EVAL_GLOBAL_CATALOG_VERSION;
-  return `${cell.model}|${cell.reasoningEffort}|${cell.workloadId}|${cell.scenarioId}|${catalog}`;
-}
-
-export function buildGlobalMrStageAMatrix(input: {
-  campaignId: string;
-}): GlobalMrStageACell[] {
-  const plans = buildGlobalMrStageAWorkloadCallPlans();
-  const cells: GlobalMrStageACell[] = [];
-  let ordinal = 0;
-  for (const model of GLOBAL_MR_STAGE_A_MODELS) {
-    for (const reasoningEffort of GLOBAL_MR_STAGE_A_EFFORTS) {
-      for (const workloadId of GLOBAL_MR_STAGE_A_WORKLOADS) {
-        const scenarioId = GLOBAL_MR_STAGE_A_SEMANTIC_SCENARIOS[workloadId];
-        const plan = plans[workloadId];
-        const executionKind = plan.productPath;
-        const cellConfig: CampaignCellConfig = {
-          model,
-          reasoningEffort,
-          scenarioId,
-          scenarioVersion: NORA_EVAL_GLOBAL_CATALOG_VERSION,
-          runIndex: 0,
-          campaignId: input.campaignId,
-          tier: "R2",
-          sourceSet: workloadId === "W-Sources" ? "E" : "C",
-          toolSet: workloadId === "W-Sources" ? "f1_tools" : "none",
-        };
-        cells.push({
-          campaignId: input.campaignId,
-          stage: "A",
-          workloadId,
-          scenarioId,
-          scenarioVersion: NORA_EVAL_GLOBAL_CATALOG_VERSION,
-          model,
-          reasoningEffort,
-          runIndex: 0,
-          isSelectiveRepeat: false,
-          executionKind,
-          attachHostedWebSearch: workloadId === "W-Sources",
-          cell: cellConfig,
-        });
-        ordinal += 1;
-      }
-    }
-  }
-  if (ordinal !== 54 || cells.length !== 54) {
-    throw new Error(
-      `GLOBAL_MR_STAGE_A_MATRIX_SIZE_INVALID: expected 54, got ${cells.length}`,
-    );
-  }
-  return cells;
-}
-
-export function assertGlobalMrStageAMatrixInvariants(
-  cells: GlobalMrStageACell[],
-): { ok: boolean; issues: string[] } {
-  const plans = buildGlobalMrStageAWorkloadCallPlans();
-  const issues: string[] = [];
-  if (cells.length !== 54) issues.push(`size=${cells.length}`);
-  const keys = new Set<string>();
-  for (const c of cells) {
-    if (c.scenarioVersion !== NORA_EVAL_GLOBAL_CATALOG_VERSION) {
-      issues.push(`catalog:${c.scenarioId}`);
-    }
-    if (c.reasoningEffort === ("minimal" as OpenAiReasoningEffort)) {
-      issues.push(`minimal:${c.scenarioId}`);
-    }
-    if (c.executionKind !== plans[c.workloadId].productPath) {
-      issues.push(`path-mismatch:${c.workloadId}`);
-    }
-    if (
-      c.workloadId === "W-Sources" &&
-      (c.executionKind !== "mw6_governed" || !c.attachHostedWebSearch)
-    ) {
-      issues.push(`sources-routing:${c.model}/${c.reasoningEffort}`);
-    }
-    if (c.workloadId !== "W-Sources" && c.attachHostedWebSearch) {
-      issues.push(`hosted-default:${c.workloadId}`);
-    }
-    const key = `${c.model}|${c.reasoningEffort}|${c.workloadId}`;
-    if (keys.has(key)) issues.push(`dup:${key}`);
-    keys.add(key);
-    const scenario = getScenario(c.scenarioId, NORA_EVAL_GLOBAL_CATALOG_VERSION);
-    if (!scenario) issues.push(`missing-scenario:${c.scenarioId}`);
-  }
-  if (keys.size !== 54) issues.push(`unique=${keys.size}`);
-  return { ok: issues.length === 0, issues };
-}
-
-export type GlobalMrStageADriverState = {
-  campaignId: string;
-  manifest: CapabilityManifest;
-  budget: BudgetTracker;
-  campaignBudget: NoraCampaignBudget;
-  derivedEnvelope: GlobalMrStageADerivedEnvelope;
-  /** Mirror of canonical consumedModelInvocations (Evidence). */
-  modelInvocations: number;
-  hostedOperations: number;
-  aggregateRealCalls: number;
-  selectiveRepeatsUsed: number;
-  baseCellsWithRepeatConsumed: Set<string>;
-  softReviewRequired: boolean;
-  softReviewCleared: boolean;
-  softReviewAcknowledgments: string[];
-  stopReason: GlobalMrStageAStopReason;
-  lastCellDenialReason: GlobalMrStageACellDenialReason | null;
-  evidence: RunEvidence[];
-  cellsCompleted: number;
-};
-
-export function createGlobalMrStageADriver(input: {
-  campaignId: string;
-  retrievedAtIso?: string;
-  carryInUsd?: number;
-}): GlobalMrStageADriverState {
-  const derived = deriveGlobalMrStageAEnvelope();
-  if (!derived.usdFeasibility.ok) {
-    throw new Error(
-      "STOP — STAGE A USD ENVELOPE REQUIRES MORRIS BUDGET DECISION: " +
-        `worstCase=${derived.usdFeasibility.plannedReserveUsdWorstCaseWithRepeats} > hardCap=${derived.usdFeasibility.hardCapUsd}`,
-    );
-  }
-  const manifest = buildGlobalModelReasoningCapabilityManifest(
-    input.retrievedAtIso ?? new Date().toISOString(),
-  );
-  const campaignBudget = acquireNoraCampaignBudget({
-    campaignId: input.campaignId,
-    maxModelInvocations: derived.maxModelInvocations,
-    maxHostedWebOperations: derived.maxHostedWebOperations,
-    maxAggregateRealCalls: derived.maxAggregateRealCalls,
-    hostedHardCapCapability: "provider_max_tool_calls",
-  });
-  const budget = new BudgetTracker(
-    GLOBAL_MR_STAGE_A_USD_POLICY,
-    input.carryInUsd ?? 0,
-  );
-  const softArmed =
-    budget.softStopTriggered ||
-    budget.cumulativeUsd >= GLOBAL_MR_STAGE_A_USD_POLICY.softStopUsd;
-  return {
-    campaignId: input.campaignId,
-    manifest,
-    budget,
-    campaignBudget,
-    derivedEnvelope: derived,
-    modelInvocations: 0,
-    hostedOperations: 0,
-    aggregateRealCalls: 0,
-    selectiveRepeatsUsed: 0,
-    baseCellsWithRepeatConsumed: new Set(),
-    softReviewRequired: softArmed,
-    softReviewCleared: false,
-    softReviewAcknowledgments: [],
-    stopReason: softArmed ? "SOFT_USD_REVIEW" : "NONE",
-    lastCellDenialReason: null,
-    evidence: [],
-    cellsCompleted: 0,
-  };
-}
-
-export function evaluateGlobalMrStageAStop(
-  state: GlobalMrStageADriverState,
-): GlobalMrStageAStopReason {
-  if (
-    state.stopReason !== "NONE" &&
-    state.stopReason !== "SOFT_USD_REVIEW"
-  ) {
-    return state.stopReason;
-  }
-  const snap = campaignBudgetSnapshot(state.campaignBudget);
-  if (
-    state.budget.hardStopTriggered ||
-    state.budget.cumulativeUsd >= GLOBAL_MR_STAGE_A_USD_POLICY.hardCapUsd
-  ) {
-    return "HARD_USD_CAP";
-  }
-  if (snap.consumedModelInvocations >= state.derivedEnvelope.maxModelInvocations) {
-    return "MODEL_INVOCATION_CAP";
-  }
-  if (
-    snap.consumedHostedWebOperations >=
-    state.derivedEnvelope.maxHostedWebOperations
-  ) {
-    return "HOSTED_CAP";
-  }
-  if (
-    snap.consumedAggregateRealCalls >=
-    state.derivedEnvelope.maxAggregateRealCalls
-  ) {
-    return "AGGREGATE_CAP";
-  }
-  if (state.softReviewRequired) return "SOFT_USD_REVIEW";
-  return "NONE";
-}
-
-export function acknowledgeGlobalMrStageASoftReview(
-  state: GlobalMrStageADriverState,
-  reviewRef: string,
-): { ok: true } | { ok: false; reason: string } {
-  const ref = reviewRef.trim();
-  if (!ref) return { ok: false, reason: "review_ref_required" };
-  if (!state.softReviewRequired) {
-    return { ok: false, reason: "no_soft_review_pending" };
-  }
-  if (
-    state.budget.hardStopTriggered ||
-    state.budget.cumulativeUsd >= GLOBAL_MR_STAGE_A_USD_POLICY.hardCapUsd
-  ) {
-    return { ok: false, reason: "hard_cap_not_resumable" };
-  }
-  state.softReviewAcknowledgments.push(ref);
-  state.softReviewRequired = false;
-  state.softReviewCleared = true;
-  if (state.stopReason === "SOFT_USD_REVIEW") state.stopReason = "NONE";
-  return { ok: true };
-}
-
-export function canScheduleSelectiveRepeat(
-  state: GlobalMrStageADriverState,
-  baseCell: GlobalMrStageACell,
-): { allowed: boolean; reason?: GlobalMrStageACellDenialReason | string } {
-  if (baseCell.isSelectiveRepeat) {
-    return { allowed: false, reason: "already_a_repeat" };
-  }
-  if (baseCell.runIndex >= 1) {
-    return { allowed: false, reason: "cell_already_repeated" };
-  }
-  const key = globalMrStageABaseCellKey(baseCell);
-  if (state.baseCellsWithRepeatConsumed.has(key)) {
-    return { allowed: false, reason: "base_cell_repeat_already_consumed" };
-  }
-  if (
-    state.selectiveRepeatsUsed >=
-    state.derivedEnvelope.maxSelectiveRepeats
-  ) {
-    return { allowed: false, reason: "SELECTIVE_REPEAT_POOL_EXHAUSTED" };
-  }
-  return { allowed: true };
-}
-
-export function materializeSelectiveRepeat(
-  baseCell: GlobalMrStageACell,
-): GlobalMrStageACell {
-  if (baseCell.runIndex > 0 || baseCell.isSelectiveRepeat) {
-    throw new Error(
-      "SELECTIVE_REPEAT_RUN_INDEX_INVALID: runIndex>0 cannot be re-materialized",
-    );
-  }
-  return {
-    ...baseCell,
-    runIndex: 1,
-    isSelectiveRepeat: true,
-    cell: { ...baseCell.cell, runIndex: 1 },
-  };
-}
-
-function toRunEvidence(
-  cell: GlobalMrStageACell,
-  result: GlobalMrStageAExecutorResult,
-  cumulativeSpendUsd: number,
-  startedAt: string,
-  finishedAt: string,
-  softReviewRefs: string[],
-  canonicalDelta: {
-    model: number;
-    hosted: number;
-    aggregate: number;
-    reportedMismatch: boolean;
-  },
-): RunEvidence {
-  return {
-    campaignId: cell.campaignId,
-    cell: cell.cell,
-    startedAt,
-    finishedAt,
-    passFail: result.passFail,
-    failureClass: result.failureClass,
-    scorers: result.scorers ?? [],
-    epistemicLabelsObserved: [],
-    productPath: cell.executionKind === "mw6_governed" ? "f1" : "none",
-    rawSummary: result.rawSummary,
-    usage: result.usage,
-    cumulativeSpendUsd,
-    redacted: true,
-    evidenceRefs: [
-      `catalog:${cell.scenarioVersion}`,
-      `contract:${GLOBAL_MR_STAGE_A_CONTRACT_VERSION}`,
-      `workload:${cell.workloadId}`,
-      `stage:A`,
-      `canonicalDeltaModel:${canonicalDelta.model}`,
-      `canonicalDeltaHosted:${canonicalDelta.hosted}`,
-      ...softReviewRefs.map((r) => `soft-review-ack:${r}`),
-    ],
-    productObservation: {
-      ...(result.productObservation ?? {}),
-      canonicalDelta,
-      reportedModelInvocationsConsumed:
-        result.reportedModelInvocationsConsumed ?? null,
-      reportedHostedOperationsConsumed:
-        result.reportedHostedOperationsConsumed ?? null,
-    },
-  };
-}
-
-export async function runGlobalMrStageACell(input: {
-  state: GlobalMrStageADriverState;
-  cell: GlobalMrStageACell;
-  executor: GlobalMrStageAExecutor;
-}): Promise<{
-  state: GlobalMrStageADriverState;
-  evidence: RunEvidence | null;
-  stopped: boolean;
-  cellDenied?: GlobalMrStageACellDenialReason;
-}> {
-  const state = input.state;
-  state.lastCellDenialReason = null;
-
-  if (state.softReviewRequired) {
-    state.stopReason = "SOFT_USD_REVIEW";
-    return { state, evidence: null, stopped: true };
-  }
-
-  const stopNow = evaluateGlobalMrStageAStop(state);
-  if (stopNow !== "NONE") {
-    state.stopReason = stopNow;
-    return { state, evidence: null, stopped: true };
-  }
-
-  if (input.cell.runIndex > 1) {
-    state.lastCellDenialReason = "RUN_INDEX_INVALID";
-    return {
-      state,
-      evidence: null,
-      stopped: true,
-      cellDenied: "RUN_INDEX_INVALID",
-    };
-  }
-
-  if (input.cell.isSelectiveRepeat) {
-    const baseIdentity: GlobalMrStageACell = {
-      ...input.cell,
-      runIndex: 0,
-      isSelectiveRepeat: false,
-      cell: { ...input.cell.cell, runIndex: 0 },
-    };
-    const gate = canScheduleSelectiveRepeat(state, baseIdentity);
-    if (!gate.allowed) {
-      const denial: GlobalMrStageACellDenialReason =
-        gate.reason === "SELECTIVE_REPEAT_POOL_EXHAUSTED"
-          ? "SELECTIVE_REPEAT_POOL_EXHAUSTED"
-          : "SELECTIVE_REPEAT_DENIED";
-      state.lastCellDenialReason = denial;
-      // Per-cell only — do NOT latch campaign-wide stopReason.
-      return { state, evidence: null, stopped: true, cellDenied: denial };
-    }
-  }
-
-  const cellCheck = validateCellAgainstManifest({
-    manifest: state.manifest,
-    modelId: input.cell.model,
-    reasoningEffort: input.cell.reasoningEffort,
-  });
-  if (!cellCheck.ok) {
-    const startedAt = new Date().toISOString();
-    const evidence = toRunEvidence(
-      input.cell,
-      {
-        passFail: "FAIL",
-        failureClass: (cellCheck.failureClass ?? "CONFIG") as FailureClass,
-        rawSummary: cellCheck.detail,
-        usage: null,
-      },
-      state.budget.cumulativeUsd,
-      startedAt,
-      new Date().toISOString(),
-      state.softReviewAcknowledgments,
-      { model: 0, hosted: 0, aggregate: 0, reportedMismatch: false },
-    );
-    state.evidence.push(evidence);
-    state.stopReason = "UNSUPPORTED_CELL";
-    return { state, evidence, stopped: true };
-  }
-
-  const before = campaignBudgetSnapshot(state.campaignBudget);
-  const startedAt = new Date().toISOString();
-  const result = await input.executor(input.cell, {
-    manifest: state.manifest,
-    budget: state.budget,
-    campaignBudget: state.campaignBudget,
-    stop: () => evaluateGlobalMrStageAStop(state),
-  });
-  const finishedAt = new Date().toISOString();
-  const after = campaignBudgetSnapshot(state.campaignBudget);
-
-  const deltaModel =
-    after.consumedModelInvocations - before.consumedModelInvocations;
-  const deltaHosted =
-    after.consumedHostedWebOperations - before.consumedHostedWebOperations;
-  const deltaAgg =
-    after.consumedAggregateRealCalls - before.consumedAggregateRealCalls;
-
-  const reportedMismatch =
-    (result.reportedModelInvocationsConsumed != null &&
-      result.reportedModelInvocationsConsumed !== deltaModel) ||
-    (result.reportedHostedOperationsConsumed != null &&
-      result.reportedHostedOperationsConsumed !== deltaHosted);
-
-  // Canonical SoT mirrors — never trust executor-reported counts for enforcement.
-  state.modelInvocations = after.consumedModelInvocations;
-  state.hostedOperations = after.consumedHostedWebOperations;
-  state.aggregateRealCalls = after.consumedAggregateRealCalls;
-
-  if (input.cell.isSelectiveRepeat) {
-    state.selectiveRepeatsUsed += 1;
-    state.baseCellsWithRepeatConsumed.add(
-      globalMrStageABaseCellKey({
-        model: input.cell.model,
-        reasoningEffort: input.cell.reasoningEffort,
-        workloadId: input.cell.workloadId,
-        scenarioId: input.cell.scenarioId,
-        scenarioVersion: input.cell.scenarioVersion,
-      }),
-    );
-  }
-  state.cellsCompleted += 1;
-
-  const evidence = toRunEvidence(
-    input.cell,
-    result,
-    state.budget.cumulativeUsd,
-    startedAt,
-    finishedAt,
-    state.softReviewAcknowledgments,
-    {
-      model: deltaModel,
-      hosted: deltaHosted,
-      aggregate: deltaAgg,
-      reportedMismatch,
-    },
-  );
-  state.evidence.push(evidence);
-
-  if (
-    !state.softReviewCleared &&
-    (state.budget.softStopTriggered ||
-      state.budget.cumulativeUsd >= GLOBAL_MR_STAGE_A_USD_POLICY.softStopUsd)
-  ) {
-    state.softReviewRequired = true;
-    state.stopReason = "SOFT_USD_REVIEW";
-    return { state, evidence, stopped: true };
-  }
-
-  const afterStop = evaluateGlobalMrStageAStop(state);
-  if (afterStop !== "NONE") {
-    state.stopReason = afterStop;
-    return { state, evidence, stopped: true };
-  }
-  return { state, evidence, stopped: false };
-}
-
-```
-
----
-
-## APPENDIX F — Contract 10 (full candidate)
+## APPENDIX F — contract 10 (full candidate)
 
 ```markdown
 # 10 — Nora Global Model × Reasoning Campaign ExecutionContract (CANDIDATE)
@@ -2257,7 +1140,7 @@ export async function runGlobalMrStageACell(input: {
 | --- | --- |
 | **Document ID** | `NORA-GLOBAL-MR-CAMPAIGN-EXECUTION-CONTRACT-01` |
 | **Contract version** | `global-mr-campaign-contract-v2-candidate` |
-| **Status** | **CANDIDATE LOCAL — ZERO REAL — STAGE A CALL ACCOUNTING + PRODUCT PATH CORRECTED (C3-01→C3-05) — DETERMINISTIC PROVEN — AWAITING CHATGPT CRITICAL REVIEW → MORRIS GIT INTEGRATION DECISION** |
+| **Status** | **CANDIDATE LOCAL — ZERO REAL — STAGE A FINAL DETERMINISTIC SAFETY CORRECTION (C4-01→C4-05) — DETERMINISTIC PROVEN — AWAITING CHATGPT CRITICAL REVIEW → MORRIS GIT INTEGRATION DECISION** |
 | **Baseline Git** | `origin/main` = `23d850fda45fe55ba519e0feefe63369d349afcc` (PR #466 squash merge) |
 | **Parent** | `d3fee38b270d805144e621804b96ef1e5de3e208` |
 | **Tree** | `7f940e0a772ebf566cfa64ec6e0c6f9f8f477505` |
@@ -2268,6 +1151,7 @@ export async function runGlobalMrStageACell(input: {
 | **Enablement GO** | `GO MORRIS — CORRECTION GLOBAL MODEL × REASONING STAGE A ENABLEMENT — ZERO REAL` **CONSUMED (local candidate only)** |
 | **Correction 2 GO** | `… CORRECTION 2 …` **CONSUMED (local)** |
 | **Correction 3 GO** | `GO MORRIS — GLOBAL MODEL × REASONING STAGE A ENABLEMENT CORRECTION 3 — ZERO REAL` **CONSUMED (local candidate only)** |
+| **Correction 4 GO** | `GO MORRIS — CORRECTIF GLOBAL MODEL × REASONING STAGE A + PUBLISH REVIEW HANDOFF — ZERO REAL` **CONSUMED (local candidate only)** |
 | **REAL authorization** | **NOT GRANTED** by this document |
 
 ### Three truth layers (do not conflate)
@@ -2275,7 +1159,7 @@ export async function runGlobalMrStageACell(input: {
 | Layer | What it contains | Status |
 | --- | --- | --- |
 | **A. CURRENT MAIN** (`main@23d850fd`) | G1/G2/G3 only for this campaign readiness | INTEGRATED |
-| **B. LOCAL CANDIDATE** (this worktree) | Stage A enablement glue E1–E4 + F1→F5 + **C3-01→C3-05** call-accounting/product-path corrections — code/tests/doc **NOT** on main | DETERMINISTIC PROVEN locally; **NOT integrated** |
+| **B. LOCAL CANDIDATE** (this worktree) | Stage A enablement glue E1–E4 + F1→F5 + C3-01→C3-05 + **C4-01→C4-05** final deterministic safety — code/tests/doc **NOT** on main | DETERMINISTIC PROVEN locally; **NOT integrated** |
 | **C. PROOF CEILING** | DETERMINISTIC ONLY | REAL NOT AUTHORIZED / NOT PROVEN |
 
 ---
@@ -2462,7 +1346,7 @@ Catalog `requiredTier: ["D0"]` scenarios are **semantic identities + scorer bind
 | Workloads | 6 (W-Routine … W-Sources) | CANDIDATE |
 | Base cells | **54** (= 3 × 3 × 6) | CANDIDATE |
 | Base runs/cell | 1 | CANDIDATE |
-| Max repeats/cell | **2** (1 selective extra) | CANDIDATE |
+| Max repeats/cell | **1** (runIndex 0 base + runIndex 1 unique selective repeat) | CANDIDATE — C4-04 |
 | Selective repeat pool | **18 max** | CANDIDATE |
 | **Max cell executions** | **72** (= 54 + 18) | **CELL EXECUTION ENVELOPE** — not model invocations |
 | **Max model invocations** | **405** (= base 297 + worst-case repeat 108) | **DERIVED CANDIDATE — AWAITING MORRIS ACCEPTANCE FOR REAL** |
@@ -2786,8 +1670,27 @@ No cognitive gain expands authority. No stronger model gains more authority.
 
 ---
 
+## Critical Review remediation (C4-01→C4-05)
 
-## Critical Review remediation (E1–E4 + F1→F5 + C3-01→C3-05)
+| Gap | Finding | Correction | Proof |
+| --- | --- | --- | --- |
+| **C4-01** | Stage A eval seams on client-callable Server Action | Removed from `projectAssistantSendAction`; campaign uses internal orchestrators only | `c4.final-safety.d0.test.ts` PASS |
+| **C4-02** | Eval control accepted arbitrary provider fallback | Factory mandatory when eval control set | same PASS |
+| **C4-03** | F2 structured not on shared USD BudgetTracker; claim-before-USD risk | MeteredConversationProvider `beforeAuthorizedDispatch` after USD preflight; `createMeteredEvalCellProviderFactory` | same PASS |
+| **C4-04** | `maxRepeatsPerCell=2` incoherent | Corrected to **1** (72/405/429 unchanged) | same PASS |
+| **C4-05** | Evidence productPath dishonest for F2 | `productPath=f2` + `executionKind` observation | same PASS |
+
+**Status:** C4-01→C4-05 = **CLOSED AT DETERMINISTIC TESTED SCOPE**. C3-01/C3-03/C3-04/C3-05 remain closed. 72/405/429 unchanged.
+
+**Client boundary:** Stage A model/effort/campaign/USD seams are **server-internal only** — not on `projectAssistantSendAction`.
+
+**F2 FinOps:** structured `completeStructured` shares Stage A `BudgetTracker` via MeteredConversationProvider; order = USD preflight → canonical claim → dispatch → record. `hardCapUsd=12` remains estimated authorization envelope ≠ invoice.
+
+**Next gate:** ChatGPT Critical Review → **Morris Git integration decision** (NOT Stage A REAL).
+
+Stage A REAL comes only after: Git integration → CI → post-merge verification → campaign REAL requalification → Morris Stage A REAL GO.
+
+## Critical Review remediation (E1–E4 + F1→F5 + C3-01→C3-05) — retained
 
 | Gap | Finding | Correction | Proof |
 | --- | --- | --- | --- |
@@ -2815,8 +1718,8 @@ Stage A REAL comes only after: Git integration → CI → post-merge verificatio
 | --- | --- |
 | Preparation GO | **CONSUMED** |
 | Enablement correction GO | **CONSUMED (local)** |
-| Correction 3 GO | **CONSUMED (local)** |
-| ChatGPT Critical Review (call-accounting corrected candidate) | **NEXT** |
+| Correction 4 GO | **CONSUMED (local)** |
+| ChatGPT Critical Review (final deterministic safety candidate) | **NEXT** |
 | Morris Git integration decision | **NOT YET** |
 | Morris Stage A REAL decision | **NOT AUTHORIZED** |
 | Stage A/B/C REAL | **NOT AUTHORIZED** |
@@ -2868,64 +1771,4 @@ Stage A REAL comes only after: Git integration → CI → post-merge verificatio
 ```
 
 ---
-
-## APPENDIX G — nora-eval index exports diff
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/nora-eval/index.ts b/projects/sfia-studio/app/lib/nora-eval/index.ts
-index d86d38d4..f2fc3869 100644
---- a/projects/sfia-studio/app/lib/nora-eval/index.ts
-+++ b/projects/sfia-studio/app/lib/nora-eval/index.ts
-@@ -67,3 +67,47 @@ export {
-   optionCRuntimeObservables,
-   type NoraCognitiveRuntimeObservable,
- } from "./optionCObservables";
-+export {
-+  createEvalAgentsUsdAccounting,
-+  type CreateEvalAgentsUsdAccountingInput,
-+} from "./agentsUsdBridge";
-+export {
-+  createOpenAiEvalCellProviderFactory,
-+  resolveEvalCellConversationProvider,
-+  type EvalCellProviderFactory,
-+} from "./evalCellProvider";
-+export {
-+  GLOBAL_MR_STAGE_A_CONTRACT_VERSION,
-+  GLOBAL_MR_STAGE_A_MODELS,
-+  GLOBAL_MR_STAGE_A_EFFORTS,
-+  GLOBAL_MR_STAGE_A_WORKLOADS,
-+  GLOBAL_MR_STAGE_A_SEMANTIC_SCENARIOS,
-+  GLOBAL_MR_STAGE_A_CALL_CAPS,
-+  GLOBAL_MR_STAGE_A_CELL_CAPS,
-+  GLOBAL_MR_STAGE_A_USD_POLICY,
-+  GLOBAL_MR_STAGE_A_MAX_AGENTS_MODEL_TURNS,
-+  GLOBAL_MR_STAGE_A_PROVIDER_TOOL_CALLS_PER_RESPONSE,
-+  buildGlobalMrStageAWorkloadCallPlans,
-+  deriveGlobalMrStageAEnvelope,
-+  buildGlobalMrStageAMatrix,
-+  assertGlobalMrStageAMatrixInvariants,
-+  createGlobalMrStageADriver,
-+  evaluateGlobalMrStageAStop,
-+  acknowledgeGlobalMrStageASoftReview,
-+  canScheduleSelectiveRepeat,
-+  materializeSelectiveRepeat,
-+  globalMrStageABaseCellKey,
-+  runGlobalMrStageACell,
-+  globalMrStageAEnvelopeProof,
-+  type GlobalMrStageAWorkloadId,
-+  type GlobalMrStageACell,
-+  type GlobalMrStageAExecutor,
-+  type GlobalMrStageAExecutorResult,
-+  type GlobalMrStageADriverState,
-+  type GlobalMrStageAStopReason,
-+  type GlobalMrStageACellDenialReason,
-+  type GlobalMrStageAExecutionKind,
-+  type GlobalMrStageADerivedEnvelope,
-+  type GlobalMrStageAWorkloadCallPlan,
-+  type GlobalMrStageAProductPath,
-+} from "./globalModelReasoningStageA";
-```
-
----
-
-END OF REVIEW PACK — CORRECTION 3
+END OF REVIEW PACK — CORRECTION 4
