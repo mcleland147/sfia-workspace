@@ -78,27 +78,78 @@ export function buildMw0CapabilityManifest(retrievedAtIso: string): CapabilityMa
 }
 
 /**
+ * Current OpenAI provider capability snapshot for runtime + Global MR (R22).
+ * Includes GPT-6 Astra. Does NOT mutate {@link buildMw0CapabilityManifest}.
+ * Snapshot ≠ permanent doctrine; account availability ≠ documented capability.
+ */
+export function buildCurrentOpenAiCapabilityManifest(
+  retrievedAtIso: string,
+): CapabilityManifest {
+  const historical = buildMw0CapabilityManifest(retrievedAtIso);
+  return {
+    ...historical,
+    sourceName: "Official OpenAI API Models documentation (current provider snapshot)",
+    sourceNote:
+      "CURRENT OpenAI provider capability snapshot (GPT-5.6 Luna/Terra/Sol + GPT-6 Astra) — campaign Evidence only; ≠ permanent SFIA doctrine; ≠ production routing; Astra account availability NOT PROVEN until authorized REAL boundary.",
+    models: [
+      ...historical.models,
+      {
+        modelId: "gpt-6-astra",
+        inputUsdPerMTok: 10,
+        cachedInputUsdPerMTok: 1,
+        outputUsdPerMTok: 50,
+        // Official docs: low/medium/high/xhigh/max — NO none.
+        reasoningEfforts: ["low", "medium", "high", "xhigh", "max"],
+      },
+    ],
+    // Provider snapshot is not a campaign allowlist — keep MW0 allowlist shape unused here.
+    campaignAllowlist: {
+      modelIds: [
+        "gpt-5.6-luna",
+        "gpt-5.6-terra",
+        "gpt-5.6-sol",
+        "gpt-6-astra",
+      ],
+      reasoningEfforts: ["none", "low", "medium", "high", "xhigh", "max"],
+    },
+    caveats: [
+      ...historical.caveats,
+      "CURRENT provider snapshot includes GPT-6 Astra (no none / no minimal).",
+      "Documented capability ≠ account/API entitlement.",
+      "Do not silently coerce Astra none→low.",
+    ],
+  };
+}
+
+/**
  * Distinct campaign capability policy for the Global Model × Reasoning Campaign.
  * EXIT: campaign evaluation contract only — ≠ production model routing / ≠ multi-model router.
  * Does not mutate or replace {@link buildMw0CapabilityManifest} historical semantics.
+ * Option C: GPT-5.6 primary cohort + bounded GPT-6 Astra challenger capability.
  */
 export function buildGlobalModelReasoningCapabilityManifest(
   retrievedAtIso: string,
 ): CapabilityManifest {
-  const base = buildMw0CapabilityManifest(retrievedAtIso);
+  const current = buildCurrentOpenAiCapabilityManifest(retrievedAtIso);
   return {
-    ...base,
+    ...current,
     sourceNote:
-      "Global Model × Reasoning campaign candidate baseline (GPT-5.6 Luna/Terra/Sol) — not production routing. Revalidate each campaign. EXIT → global campaign contract only.",
+      "Global Model × Reasoning campaign candidate (GPT-5.6 Luna/Terra/Sol + GPT-6 Astra capability) — Stage A Option C challenger. ≠ production routing. Revalidate each campaign. EXIT → global campaign contract only.",
     campaignAllowlist: {
-      modelIds: ["gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol"],
+      modelIds: [
+        "gpt-5.6-luna",
+        "gpt-5.6-terra",
+        "gpt-5.6-sol",
+        "gpt-6-astra",
+      ],
       reasoningEfforts: ["none", "low", "medium", "high", "xhigh", "max"],
     },
     caveats: [
-      ...base.caveats,
+      ...current.caveats,
       "Global campaign allowlist ≠ MW0 historical allowlist.",
-      "minimal remains non-admissible for GPT-5.6 family.",
-      "Campaign candidate ≠ adopted production routing.",
+      "minimal remains non-admissible for GPT-5.6 / Astra.",
+      "Astra Stage A challenger uses medium only (matrix); capability set is broader.",
+      "Campaign candidate ≠ adopted production routing / ≠ Astra-only selection.",
     ],
   };
 }
@@ -165,6 +216,14 @@ export function estimateCostUsd(input: {
 }
 
 /** Conservative pre-call estimate for a structured intent / short completion. */
+/**
+ * Official OpenAI API Pricing — Web search (all models) tool-call fee.
+ * Source: developers.openai.com/api/docs/pricing (revalidated 2026-09-05).
+ * $10.00 / 1k calls = $0.01 / call. Search-content tokens billed separately at model rates.
+ * ≠ invoice; ≠ permanent doctrine.
+ */
+export const OPENAI_WEB_SEARCH_TOOL_CALL_USD = 0.01;
+
 export function conservativePreCallEstimateUsd(input: {
   manifest: CapabilityManifest;
   modelId: string;

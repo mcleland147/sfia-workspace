@@ -15,12 +15,25 @@ export type NoraAgentsUsdSettleObservation = {
   inputTokens: number | null;
   outputTokens: number | null;
   totalTokens: number | null;
+  /**
+   * Factual REAL hosted web_search tool calls observed this turn.
+   * Deterministic fixtures MUST pass 0 / omit — Fake ≠ provider-billed.
+   */
+  hostedWebSearchCalls?: number;
 };
 
 export type NoraAgentsUsdSettleResult = {
-  /** Reserved USD committed for this turn (pre-dispatch). */
+  /** Reserved USD committed for this turn (pre-dispatch model-token estimate). */
   reservedUsd: number;
-  /** Observed estimated USD for this turn (usage-based or conservative retain). */
+  /** Model/token estimated USD for this turn (usage-based or conservative retain). */
+  modelTokenEstimatedUsd: number;
+  /** Fixed web-search tool-call fees (N × unit price); 0 for deterministic fixtures. */
+  hostedToolCallFeesUsd: number;
+  /**
+   * Observed estimated USD for this turn =
+   * modelTokenEstimatedUsd + hostedToolCallFeesUsd (once; no double count).
+   * ≠ invoice.
+   */
   observedEstimatedUsd: number;
   /** Alias of observedEstimatedUsd for callers expecting estimatedUsd. */
   estimatedUsd: number;

@@ -3,13 +3,17 @@
 | Field | Value |
 | --- | --- |
 | **Document ID** | `NORA-GLOBAL-MR-CAMPAIGN-EXECUTION-CONTRACT-01` |
-| **Contract version** | `global-mr-campaign-contract-v2-candidate` |
-| **Status** | **CANDIDATE LOCAL — ZERO REAL — STAGE A FINAL DETERMINISTIC SAFETY CORRECTION (C4-01→C4-05) — DETERMINISTIC PROVEN — AWAITING CHATGPT CRITICAL REVIEW → MORRIS GIT INTEGRATION DECISION** |
-| **Baseline Git** | `origin/main` = `23d850fda45fe55ba519e0feefe63369d349afcc` (PR #466 squash merge) |
-| **Parent** | `d3fee38b270d805144e621804b96ef1e5de3e208` |
-| **Tree** | `7f940e0a772ebf566cfa64ec6e0c6f9f8f477505` |
-| **G1/G2/G3** | INTEGRATED ON MAIN / POST-MERGE VERIFIED |
-| **Post-merge CI** | run `33965677986` SUCCESS |
+| **Contract version** | `global-mr-campaign-contract-v3-candidate` (Option C local candidate; main still hosts v2 until integration) |
+| **Status** | **GIT INTEGRATION CANDIDATE** — D-GMR-ASTRA-01/02 + D-GMR-FINOPS-01 + D-GMR-GIT-01 consumed · harness Option C + C6 FinOps · 78/438/464 · USD **15/18/20 DECIDED** · known subtotal ≈13.32896 COMPATIBLE_WITH_CURRENT_POLICY · ZERO REAL — Stage A REAL NOT AUTHORIZED — merge NOT AUTHORIZED |
+| **Baseline Git (snapshot)** | `origin/main` = `1dd5d67ad942c448becd637f4c2e55883d16ffca` (PR **#467** merge) |
+| **Accepted product head** | `3fb1624c8b373b75dfcd48a64797a7927cb76019` |
+| **Merge parents** | `23d850fda45fe55ba519e0feefe63369d349afcc` + `3fb1624c8b373b75dfcd48a64797a7927cb76019` |
+| **Head→merge product delta** | **ZERO** |
+| **Post-merge CI** | run `33981467237` SUCCESS · Required Gate **PASS** |
+| **G1/G2/G3** | INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR **#466** @ `23d850fda45fe55ba519e0feefe63369d349afcc`) |
+| **Integration GO** | `GO MORRIS — GLOBAL MODEL × REASONING STAGE A GIT INTEGRATION + PUBLISH REVIEW HANDOFF — ZERO REAL` **CONSUMED** |
+| **Merge GO** | `GO Morris — merge PR #467` **CONSUMED** |
+| **This DOC maintenance** | `NORA-GLOBAL-MR-STAGE-A-OPTION-C-ASTRA-CHALLENGER-01` — Option C Astra challenger adaptation (**local delivery candidate until ChatGPT Critical Review → Morris technical+financial+Git GO**) |
 | **Authoring date** | 2026-09-05 |
 | **Preparation GO** | `GO MORRIS — PRÉPARER LE GLOBAL MODEL × REASONING CAMPAIGN EXECUTIONCONTRACT CONSOLIDÉ — ZERO REAL` **CONSUMED** |
 | **Enablement GO** | `GO MORRIS — CORRECTION GLOBAL MODEL × REASONING STAGE A ENABLEMENT — ZERO REAL` **CONSUMED (local candidate only)** |
@@ -22,9 +26,9 @@
 
 | Layer | What it contains | Status |
 | --- | --- | --- |
-| **A. CURRENT MAIN** (`main@23d850fd`) | G1/G2/G3 only for this campaign readiness | INTEGRATED |
-| **B. LOCAL CANDIDATE** (this worktree) | Stage A enablement glue E1–E4 + F1→F5 + C3-01→C3-05 + **C4-01→C4-05** final deterministic safety — code/tests/doc **NOT** on main | DETERMINISTIC PROVEN locally; **NOT integrated** |
-| **C. PROOF CEILING** | DETERMINISTIC ONLY | REAL NOT AUTHORIZED / NOT PROVEN |
+| **A. INTEGRATED MAIN TRUTH** (`main@1dd5d67a`) | G1/G2/G3 + Stage A deterministic harness E1–E4 / F1→F5 / C3 / C4 + this contract text as integrated via PR **#467** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
+| **B. CAMPAIGN READINESS** | Option C model universe **DECIDED** · financial envelope + REAL auth still required | **TECHNICAL PROVEN / FINANCIAL OPEN** (see doc `11-…`) |
+| **C. PROOF CEILING** | Deterministic harness proof + Git integration + post-merge CI | **DETERMINISTIC PROVEN + GIT INTEGRATED + POST-MERGE VERIFIED** — Stage A REAL **NOT AUTHORIZED / NOT EXECUTED / NOT PROVEN** |
 
 ---
 
@@ -33,8 +37,8 @@
 ### IS
 - A **construction/evaluation campaign contract** for a future Global Model × Reasoning empirical campaign.
 - An **executable specification** of stages, matrix, budgets, metrics, early-stop, promotion, Evidence, authority, and outcomes.
-- An **input** to a future Morris Stage A REAL gate (only after Git integration + CI + requalification + explicit REAL GO).
-- An **assembly** of existing repository primitives **plus** local Stage A enablement glue (E1–E4) present in this worktree candidate.
+- An **input** to a future Morris Stage A REAL gate (only after REAL readiness qualification + explicit Morris Stage A REAL GO).
+- An **assembly** of repository primitives **plus** Stage A enablement glue (E1–E4) now **integrated on main** via PR **#467**.
 
 ### IS NOT
 - A product `ExecutionContract` schema mutation.
@@ -42,7 +46,7 @@
 - A production model selection.
 - An authorization to spend OpenAI / Hosted Web Search / Stage A–C.
 - A campaign result or Cognitive Completion proof.
-- A claim that E1–E4 already live on `origin/main`.
+- A claim that Stage A REAL has been executed or that Cognitive Completion / production routing / runtime v3 are proven/selected/adopted.
 
 **Preparation authorization ≠ REAL execution authorization.**
 **Deterministic proven ≠ REAL proven (R21).**
@@ -83,7 +87,10 @@ Sources (public):
 - Same three model IDs; same effort universe; same list prices for input/output.
 - `minimal` remains **NON-ADMISSIBLE** for GPT-5.6 family in campaign matrix.
 - Unknown model → **FAIL-CLOSED / PROVIDER_CAPABILITY** (never cognitive FAIL).
-- No GPT-6 / Astra / other models added.
+- **Primary cohort (KEEP):** Luna/Terra/Sol × none/medium/high × 6 = **54**.
+- **Astra challenger (Option C ADOPTED):** `gpt-6-astra` × **medium only** × 6 = **6** ONE-SHOT (no selective repeats).
+- Astra efforts capability: `low|medium|high|xhigh|max` (**no `none`/`minimal`**); pricing $10 / $1 cached / $50 per 1MTok; account availability **NOT PROVEN**.
+- Stage A is **not** a 4×3×6 Cartesian expansion.
 
 **Caveats**
 - Snapshot = **campaign Evidence**, not permanent doctrine; revalidate at Stage A REAL start.
@@ -104,16 +111,16 @@ Sources (public):
 | Eval USD tracker | `BudgetTracker` + `CampaignBudgetPolicy` | `capabilityBudget.ts` / `types.ts` | MAIN |
 | Runtime call caps | `acquireNoraCampaignBudget` / `NoraCampaignBudget` | `campaignBudget.ts` | MAIN |
 | Option C Agents runner | `runNoraAgentsTurn` | `runNoraAgentsTurn.ts` | MAIN |
-| Agents USD authorization hook | `NoraAgentsUsdAccounting` + `createEvalAgentsUsdAccounting` | `agentsUsdAccounting.ts` / `agentsUsdBridge.ts` | **LOCAL CANDIDATE** |
-| Eval model×effort pin | `NoraEvalModelReasoningControl` (+ product F1/F2 passthrough) | `runNoraCognitiveTurn.ts` / `orchestrateTurn.ts` / `orchestrateF2.ts` | **LOCAL CANDIDATE** |
-| Eval cell provider factory | `EvalCellProviderFactory` / `resolveEvalCellConversationProvider` | `evalCellProvider.ts` | **LOCAL CANDIDATE** |
-| Derived Stage A call envelope | `deriveGlobalMrStageAEnvelope` / `buildGlobalMrStageAWorkloadCallPlans` | `globalModelReasoningStageA.ts` | **LOCAL CANDIDATE** |
-| MW6 shared campaign lease | `resolveMw6GovernedCampaignBudget` + full `runMw6GovernedNoraProductTurn` | `mw6GovernedNoraTurn.ts` | **LOCAL CANDIDATE** |
-| Stage A driver | `globalModelReasoningStageA.ts` | `app/lib/nora-eval/` | **LOCAL CANDIDATE** |
+| Agents USD authorization hook | `NoraAgentsUsdAccounting` + `createEvalAgentsUsdAccounting` | `agentsUsdAccounting.ts` / `agentsUsdBridge.ts` | **INTEGRATED (PR #467)** |
+| Eval model×effort pin | `NoraEvalModelReasoningControl` (+ product F1/F2 passthrough) | `runNoraCognitiveTurn.ts` / `orchestrateTurn.ts` / `orchestrateF2.ts` | **INTEGRATED (PR #467)** |
+| Eval cell provider factory | `EvalCellProviderFactory` / `resolveEvalCellConversationProvider` | `evalCellProvider.ts` | **INTEGRATED (PR #467)** |
+| Derived Stage A call envelope | `deriveGlobalMrStageAEnvelope` / `buildGlobalMrStageAWorkloadCallPlans` | `globalModelReasoningStageA.ts` | **INTEGRATED (PR #467)** |
+| MW6 shared campaign lease | `resolveMw6GovernedCampaignBudget` + full `runMw6GovernedNoraProductTurn` | `mw6GovernedNoraTurn.ts` | **INTEGRATED (PR #467)** |
+| Stage A driver | `globalModelReasoningStageA.ts` | `app/lib/nora-eval/` | **INTEGRATED (PR #467)** |
 
 **MAIN:** G1/G2/G3 integrated.
 
-**LOCAL CANDIDATE:** Stage A enablement glue E1/E2/E3/E4 + F1→F5 + C3-01→C3-05 implemented and deterministically tested, subject to ChatGPT Critical Review → Morris Git integration.
+**INTEGRATED ON MAIN (PR #467):** Stage A enablement glue E1/E2/E3/E4 + F1→F5 + C3-01→C3-05 + C4-01→C4-05 integrated and post-merge CI verified. Contract parameters remain **candidate for REAL** until Morris REAL GO.
 
 **REAL:** not authorized / not proven.
 
@@ -160,7 +167,7 @@ Catalog `requiredTier: ["D0"]` scenarios are **semantic identities + scorer bind
 
 ### Injection facts
 
-#### On CURRENT MAIN (`main@23d850fd`)
+#### On INTEGRATED MAIN (`main@1dd5d67a` — includes G1/G2/G3 + Stage A harness)
 | Mechanism | Model injectable | Effort injectable | Metering | Budget |
 | --- | --- | --- | --- | --- |
 | `runNoraAgentsTurn({ model, runnerModelSettings, campaignBudget })` | **YES** | **YES** | Agents usage + campaign counters | `NoraCampaignBudget` |
@@ -195,7 +202,7 @@ Catalog `requiredTier: ["D0"]` scenarios are **semantic identities + scorer bind
 **Operational constraints:**
 1. Do not silently use `runR2ProductScenario` for MW6 / global provenance without correcting catalog version (function hardcodes `mw0-catalog-v1`).
 2. Prefer Agents/`CampaignCellConfig` Evidence writer that sets `scenarioVersion: "global-mr-catalog-v1"`.
-3. Stage A driver exists in the **local candidate** (`globalModelReasoningStageA.ts`) — deterministic proven; REAL execution still requires Morris Stage A REAL GO after Git integration.
+3. Stage A driver exists on **main** (`globalModelReasoningStageA.ts`) — deterministic proven + Git integrated + post-merge verified; REAL execution still requires Morris Stage A REAL GO after readiness disposition.
 
 ---
 
@@ -205,25 +212,27 @@ Catalog `requiredTier: ["D0"]` scenarios are **semantic identities + scorer bind
 
 | Parameter | Candidate value | Status |
 | --- | --- | --- |
-| Models | Luna / Terra / Sol | CANDIDATE |
-| Efforts | none / medium / high | CANDIDATE |
-| Workloads | 6 (W-Routine … W-Sources) | CANDIDATE |
-| Base cells | **54** (= 3 × 3 × 6) | CANDIDATE |
-| Base runs/cell | 1 | CANDIDATE |
-| Max repeats/cell | **1** (runIndex 0 base + runIndex 1 unique selective repeat) | CANDIDATE — C4-04 |
-| Selective repeat pool | **18 max** | CANDIDATE |
-| **Max cell executions** | **72** (= 54 + 18) | **CELL EXECUTION ENVELOPE** — not model invocations |
-| **Max model invocations** | **405** (= base 297 + worst-case repeat 108) | **DERIVED CANDIDATE — AWAITING MORRIS ACCEPTANCE FOR REAL** |
-| Max hosted web operations | **24** | CANDIDATE (retained pool) |
-| **Max aggregate REAL calls** | **429** (= 405 + 24) | **DERIVED CANDIDATE — AWAITING MORRIS ACCEPTANCE FOR REAL** |
-| Target USD | **6.00** | CANDIDATE |
-| Soft stop USD | **9.00** | CANDIDATE |
-| Hard cap USD | **12.00** — **pre-dispatch estimated/reservation authorization envelope** (≠ guaranteed provider invoice ceiling) | CANDIDATE — feasibility OK vs planned reserve ≈ **9.77** worst-case |
+| Models | Luna / Terra / Sol **primary** + GPT-6 Astra **challenger** | OPTION C |
+| Efforts | primary: none / medium / high · Astra Stage A: **medium only** | OPTION C |
+| Workloads | 6 (W-Routine … W-Sources) | OPTION C |
+| Primary base cells | **54** (= 3 × 3 × 6) | OPTION C |
+| Astra challenger cells | **6** (medium × 6; ONE-SHOT) | OPTION C |
+| Total base cells | **60** | OPTION C |
+| Base runs/cell | 1 | OPTION C |
+| Max repeats/cell | **1** primary only (Astra `selectiveRepeatEligible=false`) | OPTION C |
+| Selective repeat pool | **18 max** (primary only) | OPTION C |
+| **Max cell executions** | **78** (= 60 + 18) | **CELL EXECUTION ENVELOPE** — not model invocations |
+| **Max model invocations** | **438** (= base 330 + primary repeats 108) | OPTION C DERIVED |
+| Max hosted web operations | **26** (= primary 24 + Astra W-Sources +2) | OPTION C |
+| **Max aggregate REAL calls** | **464** (= 438 + 26) | OPTION C |
+| Target USD | **15.00** | **DECIDED BY MORRIS** (D-GMR-FINOPS-01) |
+| Soft stop USD | **18.00** | **DECIDED BY MORRIS** (D-GMR-FINOPS-01) |
+| Hard cap USD | **20.00** — **pre-dispatch estimated/reservation authorization envelope** (≠ invoice) | **COMPATIBLE** vs known planned subtotal ≈ **13.32896** → `COMPATIBLE_WITH_CURRENT_POLICY` · **≠ Stage A REAL AUTHORIZED** |
 | Provider tool calls / response (campaign) | **2** (use min(campaign, runtime ceiling)) | CANDIDATE |
 | Catalog | `global-mr-catalog-v1` | MAIN |
 | Capability manifest | `buildGlobalModelReasoningCapabilityManifest(retrievedAt)` | MAIN |
 | Budget identity | **≠** `MW0_BUDGET_POLICY` (3/4/5) **≠** `H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS` (100) | — |
-| Contract version | `global-mr-campaign-contract-v2-candidate` | LOCAL CANDIDATE |
+| Contract version | `global-mr-campaign-contract-v3-candidate` | LOCAL OPTION C CANDIDATE |
 
 ### Per-workload constitutive model-call ceilings (DERIVED)
 
@@ -236,14 +245,20 @@ Catalog `requiredTier: ["D0"]` scenarios are **semantic identities + scorer bind
 | W-Memory | `agents_cognitive` | 0 | 5 | **5** | 0 |
 | W-Sources | `mw6_governed` | 0 | 5 | **5** | 2 |
 
-**Derivation:**
-- `baseModelInvocationCeiling` = 3×3×(5+6+6+6+5+5) = **297**
-- `repeatModelInvocationCeiling` = sum of 18 highest per-cell costs (all F2 @ 6) = **108**
-- `maxModelInvocations` = 297 + 108 = **405**
-- `maxAggregateRealCalls` = 405 + 24 = **429**
+**Derivation (Option C):**
+- `primaryBaseModelInvocationCeiling` = 3×3×(5+6+6+6+5+5) = **297**
+- `astraBaseModelInvocationCeiling` = 5+6+6+6+5+5 = **33**
+- `baseModelInvocationCeiling` = 297 + 33 = **330**
+- `repeatModelInvocationCeiling` = sum of 18 highest *primary* per-cell costs (all F2 @ 6) = **108** (Astra repeats = 0)
+- `maxModelInvocations` = 330 + 108 = **438**
+- `maxHostedWebOperations` = 24 + 2 = **26**
+- `maxAggregateRealCalls` = 438 + 26 = **464**
+
+*(Historical contract-v2 on integrated main before Option C integration: primary-only 297+108=**405**, hosted **24**, aggregate **429**, cells **72**.)*
+- `maxAggregateRealCalls` = 438 + 26 = **464**
 - Function: `deriveGlobalMrStageAEnvelope()` / proof: `globalMrStageAEnvelopeProof()`
 
-**Do not equate** `maxCellExecutions=72` with `maxModelInvocations`. A cell may contain multiple constitutive model calls (F2: analyzeIntent + Agents turns).
+**Do not equate** `maxCellExecutions=78` with `maxModelInvocations`. A cell may contain multiple constitutive model calls (F2: analyzeIntent + Agents turns). Historical v2 cell envelope was **72**.
 
 ### Stage A effort justification (CANDIDATE)
 - **none** — absence of explicit reasoning
@@ -266,13 +281,27 @@ Second run **only if** ≥1 trigger: top candidate · borderline · suspected va
 - Campaign `max_tool_calls` = **2** unless a specific W-Sources cell justifies more in the REAL GO (must be explicit).
 
 ### Aggregate derivation note
-429 aggregate = 405 model + 24 hosted. **429 ≠ H17 historical 100.** H17 remains provenance only.
-Former mistaken equality `54+18=72 model invocations` is **REJECTED**.
+464 aggregate = 438 model + 26 hosted. Historical v2 **429** (=405+24) remains correct for integrated main until Option C integration.
+Former mistaken equality `54+18=72 model invocations` remains **REJECTED** (cell≠model).
 
 ### Financial envelope label
 `PROPOSED STAGE A FINANCIAL ENVELOPE — AWAITING MORRIS REAL DECISION`
 **Not spendable** under preparation / enablement GOs.
-USD 6/9/12 **retained** after feasibility check vs derived call envelope (worst-case planned reserve ≈ 9.77 < 12).
+USD **15 / 18 / 20** **DECIDED BY MORRIS** (D-GMR-FINOPS-01; replaces prior candidate 6/9/12). FinOps cost classes (official OpenAI API Pricing 2026-09-05):
+
+| Class | Value | Meaning |
+| --- | --- | --- |
+| **plannedModelTokenReserveUsd** | ≈ **13.06896** | Model-token planned reserve under 4k/1.2k assumptions (≠ total provider cost) |
+| **webSearchToolCallUsd** | **0.01** | Fixed tool-call fee ($10 / 1k calls) |
+| **plannedHostedWebSearchToolFeesUsd** | **0.26** (= 26 × 0.01) | Max fixed hosted web-search tool-call fees |
+| **knownPlannedSubtotalUsd** | ≈ **13.32896** | Model-token reserve + max fixed hosted fees |
+| **searchContentTokenExposure** | VARIABLE / PROVIDER-USAGE-DEPENDENT | Search-content tokens billed at model rates; no safe deterministic pre-call quantity |
+| **cache-write / cached-token exact qty** | NOT DETERMINISTICALLY KNOWN / NOT SEPARATELY METERED on current path | Documented provider cost component; invoice NOT_OBSERVED |
+| **invoice** | NOT_OBSERVED | Never claimed as ceiling |
+
+`knownPlannedSubtotalUsd` ≈ 13.32896 < hardCap **20** (Morris D-GMR-FINOPS-01) → `usdFeasibility.ok=true` / `COMPATIBLE_WITH_CURRENT_POLICY`.
+
+Do **not** treat hardCap 20 as a guaranteed invoice ceiling, worst-case provider cost, or Stage A REAL authorization. Variable search-content/cache exposure remains visible; invoice = NOT_OBSERVED.
 
 ### USD semantics (honest — F1 correction)
 | Term | Meaning |
@@ -289,6 +318,9 @@ Client-side estimators cannot guarantee a maximum provider invoice when exact co
 ---
 
 ## 8. Stage B — Deepening (defined, NOT auto-authorized)
+
+
+**D-GMR-ASTRA-02:** if Stage A Evidence shows material Astra signal, Morris may gate Stage B for **GPT-6 ASTRA-ONLY VIABILITY + ADAPTIVE REASONING EFFORT**. Stage B matrix NOT fixed today; GPT-5.6 best-survivor anchors as controls if authorized. Stage C = confirmation only if Stage B justifies. **NOT IMPLEMENTED this cycle.**
 
 - **Not** authorized to run automatically after Stage A.
 - **Never** full model × 6 efforts × workloads.
@@ -446,7 +478,7 @@ Any proposed weighting = **CANDIDATE** until Morris accepts it in a REAL/post-ca
 
 Each future run MUST reconstruct:
 
-`campaignId` · `contractVersion=global-mr-campaign-contract-v2-candidate` · provider snapshot date · model · reasoningEffort · workloadId · scenarioId · scenarioVersion=`global-mr-catalog-v1` · runIndex · stage · tool/source set · timestamps · usage · estimated cost · cumulative campaign usage · scorers · hard invariant status · Evidence refs · providerResponseId if available · budget policy identity
+`campaignId` · `contractVersion=global-mr-campaign-contract-v3-candidate` · provider snapshot date · model · reasoningEffort · workloadId · scenarioId · scenarioVersion=`global-mr-catalog-v1` · runIndex · stage · tool/source set · timestamps · usage · estimated cost · cumulative campaign usage · scorers · hard invariant status · Evidence refs · providerResponseId if available · budget policy identity
 
 Historical `mw0-catalog-v1` remains provenance — **not** silent campaign corpus.
 
@@ -525,8 +557,8 @@ No cognitive gain expands authority. No stronger model gains more authority.
 
 | Forbidden silent reuse | Correct campaign binding |
 | --- | --- |
-| `MW0_BUDGET_POLICY` 3 / 4 / 5 USD | Stage A 6 / 9 / 12 USD (candidate) |
-| `H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS = 100` | maxAggregateRealCalls **429** (derived candidate) |
+| `MW0_BUDGET_POLICY` 3 / 4 / 5 USD | Stage A **15 / 18 / 20** USD (Morris D-GMR-FINOPS-01 DECIDED; historical candidate was 6/9/12) |
+| `H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS = 100` | maxAggregateRealCalls **464** (Option C); historical v2 **429** |
 | MW0 historical allowlist Luna/Terra × none/low/medium | Global manifest Luna/Terra/Sol × none→max (campaign allowlist) |
 | Production router | **NO ROUTER BEFORE EVIDENCE** |
 | Runtime v3 | **NON ADOPTED** |
@@ -541,18 +573,18 @@ No cognitive gain expands authority. No stronger model gains more authority.
 | **C4-01** | Stage A eval seams on client-callable Server Action | Removed from `projectAssistantSendAction`; campaign uses internal orchestrators only | `c4.final-safety.d0.test.ts` PASS |
 | **C4-02** | Eval control accepted arbitrary provider fallback | Factory mandatory when eval control set | same PASS |
 | **C4-03** | F2 structured not on shared USD BudgetTracker; claim-before-USD risk | MeteredConversationProvider `beforeAuthorizedDispatch` after USD preflight; `createMeteredEvalCellProviderFactory` | same PASS |
-| **C4-04** | `maxRepeatsPerCell=2` incoherent | Corrected to **1** (72/405/429 unchanged) | same PASS |
+| **C4-04** | `maxRepeatsPerCell=2` incoherent | Corrected to **1** (Option C: 78/438/464; Astra repeats=0) | same PASS |
 | **C4-05** | Evidence productPath dishonest for F2 | `productPath=f2` + `executionKind` observation | same PASS |
 
-**Status:** C4-01→C4-05 = **CLOSED AT DETERMINISTIC TESTED SCOPE**. C3-01/C3-03/C3-04/C3-05 remain closed. 72/405/429 unchanged.
+**Status:** C4-01→C4-05 = **CLOSED**. C3 closures retained; C3-01 adapted to Option C **78/438/464**. Historical **72/405/429** = v2 truth on main.
 
 **Client boundary:** Stage A model/effort/campaign/USD seams are **server-internal only** — not on `projectAssistantSendAction`.
 
 **F2 FinOps:** structured `completeStructured` shares Stage A `BudgetTracker` via MeteredConversationProvider; order = USD preflight → canonical claim → dispatch → record. `hardCapUsd=12` remains estimated authorization envelope ≠ invoice.
 
-**Next gate:** ChatGPT Critical Review → **Morris Git integration decision** (NOT Stage A REAL).
+**Historical next gate (satisfied):** ChatGPT Critical Review → Morris Git integration → PR **#467** MERGED / post-merge CI PASS.
 
-Stage A REAL comes only after: Git integration → CI → post-merge verification → campaign REAL requalification → Morris Stage A REAL GO.
+**Current next gate:** ChatGPT Critical Review of this DOC readiness pack → Morris model-universe/readiness decision → (only then) contract adaptation if needed → **distinct** future Stage A REAL GO.
 
 ## Critical Review remediation (E1–E4 + F1→F5 + C3-01→C3-05) — retained
 
@@ -564,7 +596,7 @@ Stage A REAL comes only after: Git integration → CI → post-merge verificatio
 | **E4 / F4A** | Repeat gate computed then ignored (`void gate`) | Driver enforces one repeat/base cell + pool 18; runIndex>1 denied | `e4.stage-a-driver.d0.test.ts` PASS |
 | **E4 / F4B** | `SOFT_USD_REVIEW` allowed silent continuation | Soft stop blocks new cells until `acknowledgeGlobalMrStageASoftReview` (non-authoritative; no HD) | same PASS |
 | **F5** | Contract conflated main / local / REAL | Three truth layers + USD honesty + checklist corrected | this document |
-| **C3-01** | `54+18=72` wrongly treated as maxModelInvocations | Cell executions (72) ≠ model invocations; derived **405** / aggregate **429** | `c3.call-accounting.d0.test.ts` PASS |
+| **C3-01** | `54+18=72` wrongly treated as maxModelInvocations | Cell ≠ model; Option C derived **438** / aggregate **464** (historical v2: **405**/**429**) | `c3.call-accounting.d0.test.ts` PASS |
 | **C3-02** | F2 pin metadata ≠ structured provider binding | `EvalCellProviderFactory(model, effort)` → analyzeIntent provider | same + F2 path PASS |
 | **C3-03** | MW6 proof stopped at resolver | Full `runMw6GovernedNoraProductTurn` + same Stage A lease; ZERO LIVE | `c3.mw6-full-product-path.d0.test.ts` PASS |
 | **C3-04** | Repeat pool exhaustion latched campaign stop | Per-cell denial only; base cells still execute | `c3` + `e4` PASS |
@@ -572,26 +604,27 @@ Stage A REAL comes only after: Git integration → CI → post-merge verificatio
 
 **Status:** C3-01→C3-05 = **CLOSED AT DETERMINISTIC TESTED SCOPE**. F1→F5 remain closed.
 
-**Next gate:** ChatGPT Critical Review → **Morris Git integration decision** (NOT Stage A REAL).
+**Historical next gate (satisfied):** ChatGPT Critical Review → Morris Git integration → PR **#467** MERGED / post-merge CI PASS.
 
-Stage A REAL comes only after: Git integration → CI → post-merge verification → campaign REAL requalification → Morris Stage A REAL GO.
+**Current next gate:** ChatGPT Critical Review of this DOC readiness pack → Morris model-universe/readiness decision → (only then) contract adaptation if needed → **distinct** future Stage A REAL GO.
 
 ## 22. Gates
 
 | Gate | Status |
 | --- | --- |
-| Preparation GO | **CONSUMED** |
-| Enablement correction GO | **CONSUMED (local)** |
-| Correction 4 GO | **CONSUMED (local)** |
-| ChatGPT Critical Review (final deterministic safety candidate) | **NEXT** |
-| Morris Git integration decision | **NOT YET** |
+| Preparation / enablement / C3 / C4 GOs | **CONSUMED** (historical construction) |
+| ChatGPT Critical Review (C4) | **PASS** (pre-integration) |
+| Morris Git integration + PR **#467** merge | **CONSUMED** — harness **INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
+| Post-merge CI `33981467237` | **SUCCESS** / Required Gate **PASS** |
+| Provider capability fit (R22) this DOC cycle | **EXECUTED** — GPT-5.6 primary + Astra challenger capability in current snapshot |
+| Morris model-universe / Astra disposition | **DECIDED — OPTION C** (D-GMR-ASTRA-01) |
 | Morris Stage A REAL decision | **NOT AUTHORIZED** |
 | Stage A/B/C REAL | **NOT AUTHORIZED** |
 | OpenAI spend | **NOT AUTHORIZED** |
 | Production model selection / routing | **NOT AUTHORIZED** |
-| Product commit/push/PR/merge | **NOT in this cycle** |
+| This DOC product commit/push/PR/merge | **NOT in this cycle** (local documentary candidate) |
 | Runtime v3 / Cognitive Completion promotion | **FORBIDDEN** |
-| Handoff publication (`sfia/review-handoff`) | **PUBLISHED + REMOTE VERIFIED** — pre-integration Critical Review tip `bf94d7eab54c8b8f7ce25bf2a13eb2ee4cb370c0` (Correction 4). Integration-cycle handoff publishes after commit/PR on the same channel; not self-referenced in this product commit. |
+| Handoff publication (`sfia/review-handoff`) | Integration pack tip `d2aa25d04578a5c2db9b6cc4d45b36e9fa2f1008` historical; this DOC cycle publishes a new Cycle 14 handoff after pack generation |
 
 ---
 
@@ -610,8 +643,8 @@ Stage A REAL comes only after: Git integration → CI → post-merge verificatio
 - [x] Experimental question + model vs effort separation
 - [x] Dated provider snapshot aligned with G1
 - [x] Six workloads + catalog semantic IDs + REAL substitutes
-- [x] Three truth layers: MAIN / LOCAL CANDIDATE / PROOF CEILING
-- [x] Stage A candidate matrix + **cell** envelope 72 + **derived** model/aggregate 405/429 + financial 6/9/12
+- [x] Three truth layers: INTEGRATED MAIN / CAMPAIGN READINESS / PROOF CEILING
+- [x] Stage A Option C matrix + **cell** envelope 78 + **derived** model/aggregate 438/464 + financial **15/18/20** (known subtotal ≈13.32896 COMPATIBLE_WITH_CURRENT_POLICY)
 - [x] USD 12 = authorization envelope ≠ invoice guarantee (documented); feasibility vs derived calls OK
 - [x] E1/F1 first-dispatch YES / second denied + observed overrun fail-close (deterministic)
 - [x] E2/F2 product-equivalent model×effort pin (F1+F2 paths; no client surface)
@@ -626,8 +659,10 @@ Stage A REAL comes only after: Git integration → CI → post-merge verificatio
 - [x] Evidence / campaignId / authority / W-Sources
 - [x] FinOps realism gaps documented
 - [x] ZERO REAL / no router / no production selection
-- [ ] Integrated on main / CI green for enablement glue — **NOT YET** (await Morris Git decision)
+- [x] Integrated on main / CI green for enablement glue — **DONE** (PR **#467** / CI `{CI_POST}`)
+- [x] Model-universe / Astra disposition — **DECIDED OPTION C**
+- [x] Financial envelope Option C — **DECIDED BY MORRIS 15/18/20** (known subtotal ≈13.32896 compatible; invoice NOT_OBSERVED; REAL still NOT AUTHORIZED)
 - [ ] Stage A REAL — **NOT AUTHORIZED**
 
 **Verdict target for ChatGPT review:**
-`READY FOR CHATGPT CRITICAL REVIEW — GLOBAL MODEL × REASONING STAGE A ENABLEMENT CORRECTED — DETERMINISTIC PROVEN — ZERO REAL`
+`READY FOR CHATGPT CRITICAL REVIEW — STAGE A POST-MERGE TRUTH-SYNC — REAL READINESS DECISION PACK — MODEL UNIVERSE MORRIS DECISION REQUIRED — ZERO REAL`

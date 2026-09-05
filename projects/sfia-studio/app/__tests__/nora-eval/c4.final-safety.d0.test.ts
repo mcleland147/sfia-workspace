@@ -96,9 +96,9 @@ describe("C4-03 — structured F2 USD via MeteredConversationProvider", () => {
   it("C4-03A — USD preflight deny → 0 canonical claim / 0 dispatch", async () => {
     const state = createGlobalMrStageADriver({
       campaignId: `c4-03a-${Date.now()}`,
-      carryInUsd: 12,
+      carryInUsd: 20,
     });
-    expect(state.budget.hardStopTriggered || state.budget.cumulativeUsd >= 12).toBe(
+    expect(state.budget.hardStopTriggered || state.budget.cumulativeUsd >= 20).toBe(
       true,
     );
     let dispatches = 0;
@@ -226,8 +226,8 @@ describe("C4-03 — structured F2 USD via MeteredConversationProvider", () => {
       campaignId: `c4-03d-${Date.now()}`,
     });
     // Exhaust authorization envelope.
-    state.budget.recordSpend(12, "force-hard-cap");
-    expect(state.budget.hardStopTriggered || state.budget.cumulativeUsd >= 12).toBe(
+    state.budget.recordSpend(20, "force-hard-cap");
+    expect(state.budget.hardStopTriggered || state.budget.cumulativeUsd >= 20).toBe(
       true,
     );
     let dispatches = 0;
@@ -295,14 +295,14 @@ describe("C4-03 — structured F2 USD via MeteredConversationProvider", () => {
   });
 });
 
-describe("C4-04 — maxRepeatsPerCell = 1; envelope unchanged", () => {
+describe("C4-04 — maxRepeatsPerCell = 1; Option C envelope 78/438/464", () => {
   it("constant and derived envelope", () => {
     expect(GLOBAL_MR_STAGE_A_CELL_CAPS.maxRepeatsPerCell).toBe(1);
     const d = deriveGlobalMrStageAEnvelope();
-    expect(d.maxCellExecutions).toBe(72);
-    expect(d.maxModelInvocations).toBe(405);
-    expect(d.maxAggregateRealCalls).toBe(429);
-    expect(GLOBAL_MR_STAGE_A_CALL_CAPS.maxModelInvocations).toBe(405);
+    expect(d.maxCellExecutions).toBe(78);
+    expect(d.maxModelInvocations).toBe(438);
+    expect(d.maxAggregateRealCalls).toBe(464);
+    expect(GLOBAL_MR_STAGE_A_CALL_CAPS.maxModelInvocations).toBe(438);
   });
 });
 
