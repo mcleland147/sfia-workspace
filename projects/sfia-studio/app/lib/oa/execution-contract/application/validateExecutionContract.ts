@@ -15,7 +15,10 @@ import type {
 import type { ExecutionContractPersistenceUnitOfWorkPort } from "../ports/executionContractPersistenceUnitOfWorkPort";
 import type { ExecutionAuditPort } from "../ports/executionAudit";
 import type { ExecutionContractRepositoryPort } from "../ports/executionContractRepository";
-import { verifyRequiredAuthority } from "./authorityHelper";
+import {
+  resolveExecutionAuthorityVerifyScope,
+  verifyRequiredAuthority,
+} from "./authorityHelper";
 
 function newId(prefix: "cor"): string {
   return `${prefix}:${randomBytes(8).toString("hex")}`;
@@ -132,10 +135,18 @@ export class ValidateExecutionContract {
         );
       }
 
+      const authEvidence = snap.authorityEvidenceId
+        ? this.authority.getEvidence(snap.authorityEvidenceId)
+        : null;
+      const verifyScope = resolveExecutionAuthorityVerifyScope({
+        contractScope: existing.scope,
+        evidence: authEvidence,
+        contractSemantic: existing,
+      });
       const verification = verifyRequiredAuthority(this.authority, {
         requiredAuthority: existing.requiredAuthority,
         actorId: snap.actor.actorId,
-        scope: existing.scope,
+        scope: verifyScope,
         evidenceId: snap.authorityEvidenceId,
         claimedAuthorityLevel: snap.claimedAuthorityLevel,
         displayName: snap.actor.displayName,

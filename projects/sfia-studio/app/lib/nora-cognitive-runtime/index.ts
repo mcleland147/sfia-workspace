@@ -70,10 +70,6 @@ export {
 } from "./sfiaAgentsTools";
 export type { SfiaJsonObjectSchema, SfiaAgentsToolOptions } from "./sfiaAgentsTools";
 export {
-  createSfiaCallModelInputFilter,
-  preserveStructuralRoles,
-} from "./callModelInputFilter";
-export {
   createNoraTurnBudget,
   claimToolSlot,
   markModelTurn,
@@ -81,6 +77,61 @@ export {
   TOOL_TURN_BUDGET_EXCEEDED_RESULT,
 } from "./turnBudget";
 export type { NoraTurnBudget } from "./turnBudget";
+export {
+  createNoraCampaignBudget,
+  acquireNoraCampaignBudget,
+  isCanonicalCampaignBudget,
+  requireCanonicalCampaignBudget,
+  markCampaignBudgetBlocked,
+  claimModelInvocation,
+  claimHostedWebOperations,
+  clampRunnerBudgetForCampaign,
+  resolveMaxToolCallsProviderData,
+  evaluateCampaignBudgetCapabilityOnly,
+  evaluateRealSourceExecutionPreflight,
+  remainingModelInvocations,
+  remainingHostedWebOperations,
+  remainingAggregateRealCalls,
+  campaignBudgetSnapshot,
+  requireSafeNonNegativeInteger,
+  CampaignLeaseError,
+  H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS,
+  H17_HISTORICAL_OBSERVED_AGGREGATE_CALLS,
+} from "./campaignBudget";
+export type {
+  NoraCampaignBudget,
+  NoraCampaignBudgetSpec,
+  CampaignBudgetDenialCode,
+  HostedHardCapCapability,
+  RealSourceExecutionPreflightResult,
+  Mw6GovernedAuthorityContext,
+  Mw6CurrentProductContext,
+  Mw6GetExecutionContractPort,
+  Mw6CheckExecutionAuthorizationPort,
+  Mw6AuthorizedExternalDiscoveryContract,
+  Mw6ExternalDiscoveryContractInput,
+  RunnerBudgetClamp,
+  CreateNoraCampaignBudgetInput,
+} from "./campaignBudget";
+export {
+  MW6_REAL_PROOF_GRANT_ENV,
+  MW6_REAL_PROOF_PURPOSE,
+  MW6_REAL_PROOF_GRANT_VERSION,
+  parseMw6RealProofGrantJson,
+  matchMw6RealProofGrant,
+  resolveMw6RealAuthorization,
+} from "./mw6RealAuthorization";
+export type {
+  Mw6RealProofGrantV1,
+  Mw6RealAuthorizationMatchContext,
+  Mw6RealAuthorizationDecision,
+} from "./mw6RealAuthorization";
+export {
+  CampaignModelInvocationDeniedError,
+  createSfiaCallModelInputFilter,
+  preserveStructuralRoles,
+} from "./callModelInputFilter";
+// R-PRE-REAL-07: withMaxToolCallsProviderData intentionally NOT exported from barrel.
 export {
   createProviderAgentsModel,
   isFakeConversationProvider,
@@ -234,3 +285,79 @@ export type {
   ReadCoverageFact,
   ReadCoverageKind,
 } from "./readCoverage";
+
+/* MW6 — External Source Intelligence */
+export type {
+  Mw6SourceIntelligenceSurface,
+  SemanticSourceClass,
+  SourceAccessState,
+  SourceAcquisitionRequirement,
+  SourceClass,
+  SourceCoverageKind,
+  SourceFreshnessRequirement,
+  SourceFreshnessState,
+  SourceKind,
+  SourceNeedKind,
+  SourceObservationFact,
+  SourceOperationIntent,
+  SourceOperationKind,
+  SourceProvenancePlan,
+  SourceProvenanceState,
+  SourceProviderBinding,
+  SourceProviderId,
+  SourceStrategyDecision,
+} from "./sourceIntelligenceContract";
+export {
+  MW6_SOURCE_AUTHORITY_BOUNDARY,
+  SOURCE_STRATEGY_PROVIDER_LEAK_PATTERNS,
+} from "./sourceIntelligenceContract";
+export {
+  appendSourceStrategyDisclosure,
+  bindSourceProviderCapability,
+  buildSourceStrategyDisclosure,
+  decideSourceStrategy,
+  inferClaimDomain,
+  planForDomainNeed,
+  strategyContractLeaksProviderIdentity,
+} from "./sourceStrategyPolicy";
+export type { SourceStrategyInput } from "./sourceStrategyPolicy";
+export {
+  appendSourceObservationDisclosure,
+  authorityIsolationHeld,
+  buildSourceObservationDisclosure,
+  coverageForExternalOperation,
+  freshnessForExternalObservation,
+  normalizeHostedWebSearchCall,
+  observationsRefuseFabrication,
+} from "./externalSourceNormalization";
+export type { HostedWebSearchCallLike } from "./externalSourceNormalization";
+export {
+  assertExternalSourceHasZeroAuthority,
+  buildAuthorityIsolationDisclosure,
+  detectAuthorityEscalationAttempts,
+} from "./externalSourceAuthority";
+export {
+  appendSourceNarrativeConstraintDisclosure,
+  applySourceNarrativeCompatibility,
+  buildSourceNarrativeConstraintDisclosure,
+  requiredSourceEvidenceMissing,
+} from "./sourceNarrativeCompatibility";
+export type {
+  SourceNarrativeCompatibilityResult,
+  SourceNarrativeViolation,
+} from "./sourceNarrativeCompatibility";
+export {
+  composeMw3ConflictFromExternalSources,
+  deriveConflictPresentFromExternalObservations,
+} from "./externalContradictionComposition";
+export type {
+  DerivedExternalConflict,
+  ExternalGoverningContext,
+} from "./externalContradictionComposition";
+export {
+  createNoraHostedWebSearchTool,
+  describeNoraHostedWebSearchPublicSurface,
+  extractHostedWebSearchCallsFromRunItems,
+  normalizeOpenAiHostedWebSearchObservations,
+} from "./openaiHostedWebSearchAdapter";
+export type { NoraHostedWebSearchToolOptions } from "./openaiHostedWebSearchAdapter";

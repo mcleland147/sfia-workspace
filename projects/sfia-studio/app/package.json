@@ -20,6 +20,7 @@
   "dependencies": {
     "@openai/agents": "^0.17.0",
     "ajv": "^6.15.0",
+    "better-auth": "1.7.2",
     "next": "^15.3.3",
     "openai": "^6.48.0",
     "pg": "~8.22.0",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.52.0",
+    "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",

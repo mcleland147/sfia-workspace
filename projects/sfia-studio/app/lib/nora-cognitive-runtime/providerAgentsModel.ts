@@ -117,6 +117,20 @@ export function toolDefinitionsFromModelRequest(
     if (!tool || typeof tool !== "object") continue;
     const t = tool as { type?: string; name?: string };
     if (t.type && t.type !== "function") {
+      // MW6 CR-09 — only the qualified hosted web_search boundary may be skipped
+      // by the deterministic Fake adapter. Unknown hosted tools fail closed.
+      if (t.type === "hosted_tool") {
+        const hostedName = String(t.name ?? "");
+        if (
+          hostedName === "web_search" ||
+          hostedName === "web_search_preview"
+        ) {
+          continue;
+        }
+        throw new Error(
+          `NORA_PROVIDER_MODEL_UNSUPPORTED_HOSTED_TOOL:${hostedName || "unnamed"}`,
+        );
+      }
       throw new Error(`NORA_PROVIDER_MODEL_UNSUPPORTED_TOOL_TYPE:${t.type}`);
     }
     const name = String(t.name ?? "");

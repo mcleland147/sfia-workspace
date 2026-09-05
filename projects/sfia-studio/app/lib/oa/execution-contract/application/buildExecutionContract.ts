@@ -26,7 +26,10 @@ import type {
 import type { ExecutionContractPersistenceUnitOfWorkPort } from "../ports/executionContractPersistenceUnitOfWorkPort";
 import type { ExecutionAuditPort } from "../ports/executionAudit";
 import type { ExecutionContractRepositoryPort } from "../ports/executionContractRepository";
-import { verifyRequiredAuthority } from "./authorityHelper";
+import {
+  resolveExecutionAuthorityVerifyScope,
+  verifyRequiredAuthority,
+} from "./authorityHelper";
 
 function newId(prefix: "cor" | "prv"): string {
   return `${prefix}:${randomBytes(8).toString("hex")}`;
@@ -289,10 +292,44 @@ export class BuildExecutionContract {
         }
       }
 
+      const authEvidence = snap.authorityEvidenceId
+        ? this.authority.getEvidence(snap.authorityEvidenceId)
+        : null;
+      // Pre-Build Auth S1 binding: recompute inspection fingerprint from request
+      // semantic material BEFORE persistence (existing EC primitive).
+      const preBuildSemantic = {
+        executionContractId: snap.executionContractId,
+        projectId: snap.projectId,
+        cycleInstanceId: snap.cycleInstanceId,
+        decisionRefs: cloned.decisionRefs,
+        doctrinePackageRef: snap.doctrinePackageRef,
+        action: snap.action,
+        target: snap.target,
+        scope: snap.scope,
+        inputs: cloned.inputs,
+        expectedOutputs:
+          cloned.expectedOutputs.length > 0
+            ? cloned.expectedOutputs
+            : undefined,
+        requiredCapabilities: cloned.requiredCapabilities,
+        requiredAuthority: snap.requiredAuthority,
+        constraints: cloned.constraints,
+        stopConditions: cloned.stopConditions,
+        evidenceRequirements: cloned.evidenceRequirements,
+        reversibility: snap.reversibility,
+        executionWindowClass: snap.executionWindowClass,
+        idempotencyKey: snap.idempotencyKey,
+        adapterExportRef: snap.adapterExportRef,
+      };
+      const verifyScope = resolveExecutionAuthorityVerifyScope({
+        contractScope: snap.scope,
+        evidence: authEvidence,
+        contractSemantic: preBuildSemantic,
+      });
       const verification = verifyRequiredAuthority(this.authority, {
         requiredAuthority: snap.requiredAuthority,
         actorId: snap.actor.actorId,
-        scope: snap.scope,
+        scope: verifyScope,
         evidenceId: snap.authorityEvidenceId,
         claimedAuthorityLevel: snap.claimedAuthorityLevel,
         displayName: snap.actor.displayName,
@@ -304,7 +341,7 @@ export class BuildExecutionContract {
         actorId: snap.actor.actorId,
         requiredLevel:
           snap.requiredAuthority === "MORRIS" ? "N3" : snap.requiredAuthority,
-        scope: snap.scope,
+        scope: verifyScope,
         ok: verification.ok,
         verifiedLevel: verification.verifiedLevel,
         reason: verification.reason,

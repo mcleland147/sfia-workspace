@@ -15,6 +15,7 @@ import type {
   TruthCRevision,
 } from "./memoryBCompaction";
 import type { Mw4GroundingTurnSurface } from "./groundingDurability";
+import type { Mw6SourceIntelligenceSurface } from "./sourceIntelligenceContract";
 
 /** F1/Nora cognitive runtime kind — Agents SDK Runner only. */
 export type NoraCognitiveRuntimeKind = "agents";
@@ -50,6 +51,20 @@ export type NoraCognitiveTurnResult = {
   cognitiveStopDecision?: CognitiveStopDecision;
   /** MW4 — grounding durability surface when Session refs were assessed. */
   mw4Grounding?: Mw4GroundingTurnSurface;
+  /** MW6 — source strategy + normalized external observations (non-authoritative). */
+  mw6SourceIntelligence?: Mw6SourceIntelligenceSurface;
+  /**
+   * MW6↔Auth — authority binding axes from preflight (composition proof).
+   * Present when campaign + governedAuthority composition evaluated.
+   */
+  mw6AuthorityBinding?: {
+    authorityBound: boolean;
+    realAuthorized: boolean;
+    realPreflightCode: string;
+    realPreflightBlocked: boolean;
+    realPreflightReasons: string[];
+    eligible: boolean;
+  };
 };
 
 export type { TruthCRevision, MemoryBCompactionState, MemoryBCompactionDetails };

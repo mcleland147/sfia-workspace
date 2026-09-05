@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { StatusPill } from "@/components/ui/StatusPill";
 import { CtaButton } from "@/components/ui/CtaButton";
@@ -31,6 +32,8 @@ interface TopbarProps {
    * `undefined` preserves the historical CTA; `null` hides it.
    */
   primaryAction?: TopbarPrimaryAction | null;
+  /** Optional auth controls (e.g. logout) — bounded Auth Delivery integration. */
+  authControls?: ReactNode;
 }
 
 export function Topbar({
@@ -41,6 +44,7 @@ export function Topbar({
   showTabs = true,
   floatingTabs = ["Demande", "Contexte", "Pièces jointes", "Qualification"],
   primaryAction,
+  authControls,
 }: TopbarProps) {
   const isFloating = variant === "floating";
   const resolvedPrimaryAction =
@@ -66,6 +70,9 @@ export function Topbar({
                   </StatusPill>
                 </span>
               ))}
+              {authControls ? (
+                <span data-testid="topbar-auth-controls">{authControls}</span>
+              ) : null}
             </div>
           </div>
         </div>
@@ -114,6 +121,9 @@ export function Topbar({
             <CtaButton href={resolvedPrimaryAction.href}>
               {resolvedPrimaryAction.label}
             </CtaButton>
+          ) : null}
+          {authControls ? (
+            <span data-testid="topbar-auth-controls">{authControls}</span>
           ) : null}
         </div>
       </div>

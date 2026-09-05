@@ -12,6 +12,16 @@ import type {
 } from "@openai/agents";
 import type { NoraTurnBudget } from "./turnBudget";
 import { markModelTurn } from "./turnBudget";
+import type { NoraCampaignBudget } from "./campaignBudget";
+import { claimModelInvocation } from "./campaignBudget";
+
+export class CampaignModelInvocationDeniedError extends Error {
+  readonly code = "NORA_CAMPAIGN_MODEL_INVOCATION_DENIED";
+  constructor(message: string) {
+    super(message);
+    this.name = "CampaignModelInvocationDeniedError";
+  }
+}
 
 const ROLE_ELEVATION_MARKER = "SFIA_STRUCTURAL_ROLE_PRESERVED";
 
@@ -80,6 +90,7 @@ function extractText(item: AgentInputItem): string {
 export function createSfiaCallModelInputFilter(
   systemInstructions: string,
   budget?: NoraTurnBudget,
+  campaignBudget?: NoraCampaignBudget,
 ): CallModelInputFilter {
   const instructions = [
     "=== SYSTEM / DEVELOPER INSTRUCTIONS (Studio-supplied product context) ===",
@@ -92,6 +103,16 @@ export function createSfiaCallModelInputFilter(
   ].join("\n");
 
   return ({ modelData }) => {
+    // Campaign hard cap: deny BEFORE model dispatch (filter runs pre-getResponse).
+    if (campaignBudget) {
+      const ok = claimModelInvocation(campaignBudget);
+      if (!ok) {
+        throw new CampaignModelInvocationDeniedError(
+          campaignBudget.denialReason ??
+            "Campaign model/aggregate invocation cap reached — request not dispatched.",
+        );
+      }
+    }
     if (budget) {
       markModelTurn(budget);
     }

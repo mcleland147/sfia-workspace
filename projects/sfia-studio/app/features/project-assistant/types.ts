@@ -211,6 +211,24 @@ export type ProjectAssistantSendSuccess = {
   /** MW5 — challenge / clarification / Critical ordering / escalation (when assessed). */
   mw5?: Mw5CognitiveSurfaceDto | null;
   f2?: F2TurnPayload;
+  /**
+   * MW6↔Auth — present when send used executionContractId governed composition.
+   * Server-built; never a client-supplied authority object.
+   */
+  mw6AuthorityComposition?: {
+    authorityBound: boolean;
+    realAuthorized: boolean;
+    realPreflightCode: string;
+    realPreflightReasons?: string[];
+    realPreflightBlocked?: boolean;
+    eligible: boolean;
+    serverComposedGovernedAuthority: true;
+    evidenceSource: string;
+    executionContractId: string;
+    authorityEvidenceId: string;
+    actorId: string;
+    liveHostedDispatchCalls: 0;
+  };
 };
 
 export type ProjectAssistantSendFailure = {

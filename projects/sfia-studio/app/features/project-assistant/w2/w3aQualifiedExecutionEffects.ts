@@ -15,6 +15,7 @@ export type ExecutionEffectClass =
   | "read"
   | "simulate"
   | "generate-temporary-artifact"
+  | "external-discovery"
   | "local-write"
   | "commit"
   | "push"
@@ -30,6 +31,7 @@ export type ProductExecutionAction =
   | "product:read"
   | "product:simulate"
   | "product:generate-temporary-artifact"
+  | "product:external-discovery"
   | "product:local-write"
   | "product:commit"
   | "product:push"
@@ -43,6 +45,7 @@ export type ProductExecutionCapability =
   | "cap:product-read"
   | "cap:product-simulate"
   | "cap:product-temp-artifact"
+  | "cap:product-external-discovery"
   | "cap:product-local-write"
   | "cap:product-commit"
   | "cap:product-git-push"
@@ -91,6 +94,7 @@ const EFFECT_TO_ACTION: Record<
   read: "product:read",
   simulate: "product:simulate",
   "generate-temporary-artifact": "product:generate-temporary-artifact",
+  "external-discovery": "product:external-discovery",
   "local-write": "product:local-write",
   commit: "product:commit",
   push: "product:push",
@@ -108,6 +112,7 @@ const EFFECT_TO_CAPABILITY: Record<
   read: "cap:product-read",
   simulate: "cap:product-simulate",
   "generate-temporary-artifact": "cap:product-temp-artifact",
+  "external-discovery": "cap:product-external-discovery",
   "local-write": "cap:product-local-write",
   commit: "cap:product-commit",
   push: "cap:product-git-push",
@@ -141,6 +146,18 @@ export function projectRequiredAuthorityFromEffects(input: {
       code: "AUTHORITY_UNRESOLVED",
       message:
         "Effets d'exécution non qualifiés — requiredAuthority fail-closed.",
+    };
+  }
+
+  /**
+   * Morris GO — MW6 HOSTED EXTERNAL DISCOVERY AUTHORITY POLICY — N2.
+   * Fixed N2 (not N1/N3, not contextual). Must run before rollback/N3 defaults.
+   */
+  if (effectClass === "external-discovery") {
+    return {
+      ok: true,
+      requiredAuthority: "N2",
+      morrisConstructionGateRequired: false,
     };
   }
 
@@ -238,6 +255,11 @@ export function deriveReversibilityFromEffects(input: {
 
   if (effectClass === "simulate") {
     return { ok: true, reversibility: "reversible" };
+  }
+
+  if (effectClass === "external-discovery") {
+    // Provider network/cost side-effect; no durable Studio mutation.
+    return { ok: true, reversibility: "partially_reversible" };
   }
 
   if (effectClass === "generate-temporary-artifact") {

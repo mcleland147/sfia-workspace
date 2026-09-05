@@ -13,8 +13,10 @@
  * a fixture Attempt only after a fresh AUTHORIZED evaluation (Pilote actor).
  */
 
+import { headers } from "next/headers";
 import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
 import { readLiveProjectContext } from "@/lib/vertical-slice-runtime/liveProjectContext";
+import { resolveCurrentAuthenticatedPilote } from "@/lib/auth/resolveCurrentPilote";
 import { amendExecutionContractWithConstraint } from "./amendExecutionContract";
 import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";
 import { confirmExecutionContractForAuthorization } from "./confirmForAuthorization";
@@ -251,12 +253,24 @@ export async function w2PrepareExecutionContractAction(input: {
     };
   }
 
+  const pilote = await resolveCurrentAuthenticatedPilote({
+    headers: await headers(),
+  });
+  if (!pilote.ok) {
+    return {
+      ok: false,
+      code: pilote.code,
+      message: pilote.message,
+    };
+  }
+
   const prepared = await prepareExecutionContractFromW2Decision({
     oa: runtime.oa,
     projectId: input.projectId,
     decisionId: input.decisionId,
     currentContext: context,
     qualifiedOperationKind: input.qualifiedOperationKind,
+    authenticatedPilote: pilote,
   });
 
   if (!prepared.ok) {
