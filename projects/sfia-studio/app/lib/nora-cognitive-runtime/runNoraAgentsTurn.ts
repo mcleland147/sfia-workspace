@@ -21,8 +21,11 @@ import { CT_MAX_TOOL_ROUNDS } from "@/lib/platform/tools";
 import { requireLiveConversationSecrets } from "@/lib/platform/ai/config";
 import {
   CampaignModelInvocationDeniedError,
+  CampaignUsdHardCapDeniedError,
   createSfiaCallModelInputFilter,
 } from "./callModelInputFilter";
+import type { NoraAgentsUsdAccounting } from "./agentsUsdAccounting";
+import type { NoraAgentsUsdSettleResult } from "./agentsUsdAccounting";
 import {
   createProviderAgentsModel,
   isFakeConversationProvider,
@@ -128,6 +131,11 @@ export type RunNoraAgentsTurnInput = {
    * @deprecated Ignored for authority (cannot authorize).
    */
   currentExternalDiscoveryIntent?: Mw6ExternalDiscoveryContractInput;
+  /**
+   * Optional USD accounting for native Agents model invocations (eval campaigns).
+   * Runtime-generic hook — nora-eval injects BudgetTracker bridge. Not authority.
+   */
+  usdAccounting?: NoraAgentsUsdAccounting;
 };
 
 export type RunNoraAgentsTurnHostedSearchObserve = {
@@ -149,11 +157,16 @@ export type RunNoraAgentsTurnBudgetObserve = {
   eligible: boolean;
 };
 
+export type RunNoraAgentsTurnUsdObserve = NoraAgentsUsdSettleResult & {
+  reservedInvocations: number;
+};
+
 export function createNoraAgentsRunner(
   systemInstructions: string,
   budget?: NoraTurnBudget,
   runnerModelSettings?: NoraRunnerModelSettings,
   campaignBudget?: NoraCampaignBudget,
+  usdAccounting?: NoraAgentsUsdAccounting,
 ): Runner {
   return new Runner({
     tracingDisabled: true,
@@ -161,6 +174,7 @@ export function createNoraAgentsRunner(
       systemInstructions,
       budget,
       campaignBudget,
+      usdAccounting,
     ),
     ...(runnerModelSettings ? { modelSettings: runnerModelSettings } : {}),
   });
@@ -208,9 +222,11 @@ export async function runNoraAgentsTurn(
   NoraCognitiveTurnResult & {
     hostedSearchObserve?: RunNoraAgentsTurnHostedSearchObserve;
     budgetObserve?: RunNoraAgentsTurnBudgetObserve;
+    usdObserve?: RunNoraAgentsTurnUsdObserve;
   }
 > {
   const model = resolveNoraAgentsF1Model(input);
+  const usdAccounting = input.usdAccounting;
 
   const budget = input.budget ?? createNoraTurnBudget();
   const campaign = input.campaignBudget;
@@ -460,6 +476,7 @@ export async function runNoraAgentsTurn(
     budget,
     runnerModelSettings,
     campaign,
+    usdAccounting,
   );
   const maxTurns = clamp.maxTurns;
   const session = input.session ?? undefined;
@@ -539,7 +556,10 @@ export async function runNoraAgentsTurn(
       usageAgg = result.state?.usage ?? null;
       runNewItems = Array.isArray(result.newItems) ? [...result.newItems] : [];
     } catch (error) {
-      if (error instanceof CampaignModelInvocationDeniedError) {
+      if (
+        error instanceof CampaignModelInvocationDeniedError ||
+        error instanceof CampaignUsdHardCapDeniedError
+      ) {
         budget.limitReached = true;
         budgetStop = true;
         text = error.message;
@@ -552,6 +572,19 @@ export async function runNoraAgentsTurn(
       }
     }
   }
+
+  const usdObserve: RunNoraAgentsTurnUsdObserve | undefined = usdAccounting
+    ? (() => {
+        const reservedInvocations = usdAccounting.reservedInvocationCount();
+        const settled = usdAccounting.settleTurn({
+          reservedInvocations,
+          inputTokens: usageAgg?.inputTokens ?? null,
+          outputTokens: usageAgg?.outputTokens ?? null,
+          totalTokens: usageAgg?.totalTokens ?? null,
+        });
+        return { ...settled, reservedInvocations };
+      })()
+    : undefined;
 
   const usage = {
     inputTokens: usageAgg?.inputTokens ?? null,
@@ -639,5 +672,6 @@ export async function runNoraAgentsTurn(
     memoryBCompactionDetails: null,
     ...(hostedSearchObserve ? { hostedSearchObserve } : {}),
     ...(budgetObserve ? { budgetObserve } : {}),
+    ...(usdObserve ? { usdObserve } : {}),
   };
 }

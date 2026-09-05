@@ -14,12 +14,21 @@ import type { NoraTurnBudget } from "./turnBudget";
 import { markModelTurn } from "./turnBudget";
 import type { NoraCampaignBudget } from "./campaignBudget";
 import { claimModelInvocation } from "./campaignBudget";
+import type { NoraAgentsUsdAccounting } from "./agentsUsdAccounting";
 
 export class CampaignModelInvocationDeniedError extends Error {
   readonly code = "NORA_CAMPAIGN_MODEL_INVOCATION_DENIED";
   constructor(message: string) {
     super(message);
     this.name = "CampaignModelInvocationDeniedError";
+  }
+}
+
+export class CampaignUsdHardCapDeniedError extends Error {
+  readonly code = "NORA_CAMPAIGN_USD_HARD_CAP_DENIED";
+  constructor(message: string) {
+    super(message);
+    this.name = "CampaignUsdHardCapDeniedError";
   }
 }
 
@@ -91,6 +100,7 @@ export function createSfiaCallModelInputFilter(
   systemInstructions: string,
   budget?: NoraTurnBudget,
   campaignBudget?: NoraCampaignBudget,
+  usdAccounting?: NoraAgentsUsdAccounting,
 ): CallModelInputFilter {
   const instructions = [
     "=== SYSTEM / DEVELOPER INSTRUCTIONS (Studio-supplied product context) ===",
@@ -103,7 +113,19 @@ export function createSfiaCallModelInputFilter(
   ].join("\n");
 
   return ({ modelData }) => {
-    // Campaign hard cap: deny BEFORE model dispatch (filter runs pre-getResponse).
+    // USD hard-cap preflight BEFORE model dispatch (no spend yet).
+    let usdEstimate: number | null = null;
+    if (usdAccounting) {
+      usdEstimate = usdAccounting.estimateNextInvocationUsd();
+      const gate = usdAccounting.canDispatchUnderHardCap(usdEstimate);
+      if (!gate.allowed) {
+        throw new CampaignUsdHardCapDeniedError(
+          gate.reason ??
+            "Campaign USD hard cap would be exceeded — model invocation not dispatched.",
+        );
+      }
+    }
+    // Campaign call-count hard cap: deny BEFORE model dispatch.
     if (campaignBudget) {
       const ok = claimModelInvocation(campaignBudget);
       if (!ok) {
@@ -112,6 +134,10 @@ export function createSfiaCallModelInputFilter(
             "Campaign model/aggregate invocation cap reached — request not dispatched.",
         );
       }
+    }
+    // Commit USD reserve only after call-count claim succeeded (exactly-once per invocation).
+    if (usdAccounting && usdEstimate != null) {
+      usdAccounting.commitReserve(usdEstimate);
     }
     if (budget) {
       markModelTurn(budget);

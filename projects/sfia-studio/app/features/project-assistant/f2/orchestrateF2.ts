@@ -8,6 +8,15 @@ import {
   isFakeConversationProviderForced,
   type ConversationProvider,
 } from "@/lib/platform/ai";
+import type {
+  NoraAgentsUsdAccounting,
+  NoraCampaignBudget,
+  NoraEvalModelReasoningControl,
+} from "@/lib/nora-cognitive-runtime";
+import {
+  resolveEvalCellConversationProvider,
+  type EvalCellProviderFactory,
+} from "@/lib/nora-eval/evalCellProvider";
 import {
   getRuntimeApplicationService,
   readLiveProjectContext,
@@ -524,10 +533,25 @@ export async function orchestrateAssistantSend(input: {
   /**
    * Optional server-side provider injection (eval / tests).
    * Prefer per-instance OpenAIConversationProvider over process.env mutation.
+   * For Stage A cells: inject the cell-specific ConversationProvider here.
    */
   provider?: ConversationProvider;
   /** Test override for Product SQLite Session path (MW1/MW4 durability). */
   sessionDbPath?: string;
+  /**
+   * INTERNAL / EVAL-ONLY — Stage A constitutive model×effort pin.
+   * Propagated to analyzeIntent + F1 cognitive path. Never a client DTO field.
+   */
+  evalModelReasoningControl?: NoraEvalModelReasoningControl;
+  /**
+   * INTERNAL / EVAL-ONLY — factory(modelId, effort) → ConversationProvider.
+   * Required with evalModelReasoningControl for honest structured binding.
+   */
+  evalCellProviderFactory?: EvalCellProviderFactory;
+  /** INTERNAL / EVAL-ONLY — USD authorization envelope (Agents path). */
+  usdAccounting?: NoraAgentsUsdAccounting;
+  /** INTERNAL / EVAL-ONLY — shared canonical campaign budget lease. */
+  campaignBudget?: NoraCampaignBudget;
 }): Promise<ProjectAssistantSendResult> {
   const content = input.content.trim();
   if (!content) {
@@ -566,6 +590,24 @@ export async function orchestrateAssistantSend(input: {
     };
   }
 
+  const cellProvider = resolveEvalCellConversationProvider({
+    evalModelReasoningControl: input.evalModelReasoningControl,
+    evalCellProviderFactory: input.evalCellProviderFactory,
+    provider: input.provider,
+  });
+  if (input.evalModelReasoningControl && !cellProvider) {
+    return {
+      ok: false,
+      status: "provider_error",
+      code: "EVAL_CELL_PROVIDER_REQUIRED",
+      message:
+        "evalModelReasoningControl requires evalCellProviderFactory (no arbitrary provider fallback).",
+      mode: modeResolution.mode,
+      retryable: false,
+    };
+  }
+  const effectiveProvider = cellProvider ?? input.provider;
+
   let analysisResult: Awaited<ReturnType<typeof analyzeIntent>>;
   let truthCContextForF1: string | undefined;
   try {
@@ -602,7 +644,8 @@ export async function orchestrateAssistantSend(input: {
       userContent: content,
       projectSummary: cognitive.projectSummary,
       challengeContext,
-      provider: input.provider,
+      provider: effectiveProvider,
+      evalModelReasoningControl: input.evalModelReasoningControl,
     });
   } catch (error) {
     const message =
@@ -649,10 +692,13 @@ export async function orchestrateAssistantSend(input: {
   ) {
     const f1 = await orchestrateProjectAssistantTurn({
       ...input,
-      provider: input.provider,
+      provider: effectiveProvider,
       semanticCognitiveWorkload: analysis.cognitiveWorkload,
       truthCContext: truthCContextForF1,
       contradictionAssessment,
+      evalModelReasoningControl: input.evalModelReasoningControl,
+      usdAccounting: input.usdAccounting,
+      campaignBudget: input.campaignBudget,
     });
     if (!f1.ok) return f1;
     return {

@@ -15,6 +15,9 @@ import {
   resolveNoraSessionSqlitePath,
   type SemanticCognitiveWorkloadAssessment,
   type Mw3ContradictionAssessmentInput,
+  type NoraEvalModelReasoningControl,
+  type NoraAgentsUsdAccounting,
+  type NoraCampaignBudget,
 } from "@/lib/nora-cognitive-runtime";
 import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
 import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
@@ -168,6 +171,15 @@ export async function orchestrateProjectAssistantTurn(input: {
   contradictionAssessment?: Mw3ContradictionAssessmentInput | null;
   /** MW4-S02 — attach post-Evidence / recovery narrative policy disclosure. */
   postEvidenceNarrativePolicy?: boolean;
+  /**
+   * INTERNAL / EVAL-ONLY — Stage A cell model×effort pin.
+   * Never part of ProjectAssistant client DTO. Absent → production default.
+   */
+  evalModelReasoningControl?: NoraEvalModelReasoningControl;
+  /** INTERNAL / EVAL-ONLY — Agents USD authorization envelope bridge. */
+  usdAccounting?: NoraAgentsUsdAccounting;
+  /** INTERNAL / EVAL-ONLY — shared canonical campaign budget lease. */
+  campaignBudget?: NoraCampaignBudget;
 }): Promise<ProjectAssistantSendResult> {
   const content = input.content.trim();
   if (!content) {
@@ -258,6 +270,9 @@ export async function orchestrateProjectAssistantTurn(input: {
       contradictionAssessment: input.contradictionAssessment ?? null,
       resolveRememberedEvidence,
       postEvidenceNarrativePolicy: input.postEvidenceNarrativePolicy === true,
+      evalModelReasoningControl: input.evalModelReasoningControl,
+      usdAccounting: input.usdAccounting,
+      campaignBudget: input.campaignBudget,
     });
 
     const { toolEvents, sources, readCoverage } = collectToolTelemetry(

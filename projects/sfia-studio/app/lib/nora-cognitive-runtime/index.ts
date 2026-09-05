@@ -128,9 +128,15 @@ export type {
 } from "./mw6RealAuthorization";
 export {
   CampaignModelInvocationDeniedError,
+  CampaignUsdHardCapDeniedError,
   createSfiaCallModelInputFilter,
   preserveStructuralRoles,
 } from "./callModelInputFilter";
+export type {
+  NoraAgentsUsdAccounting,
+  NoraAgentsUsdSettleObservation,
+  NoraAgentsUsdSettleResult,
+} from "./agentsUsdAccounting";
 // R-PRE-REAL-07: withMaxToolCallsProviderData intentionally NOT exported from barrel.
 export {
   createProviderAgentsModel,
@@ -145,11 +151,15 @@ export {
   shouldUseProviderAgentsModelAdapter,
   isOpenAiLiveF1Provider,
 } from "./runNoraAgentsTurn";
-export type { RunNoraAgentsTurnInput } from "./runNoraAgentsTurn";
+export type {
+  RunNoraAgentsTurnInput,
+  RunNoraAgentsTurnUsdObserve,
+} from "./runNoraAgentsTurn";
 export { runNoraCognitiveTurn } from "./runNoraCognitiveTurn";
 export type {
   RunNoraCognitiveTurnInput,
   Mw3ContradictionAssessmentInput,
+  NoraEvalModelReasoningControl,
 } from "./runNoraCognitiveTurn";
 export {
   disposeContradiction,

@@ -43,7 +43,17 @@ export type NoraCognitiveTurnResult = {
   memoryBCompactionDetails: MemoryBCompactionDetails | null;
   /** MW2-S01 — internal strategy telemetry (not Pilote authority). */
   cognitiveStrategyClass?: CognitiveStrategyClass;
+  /**
+   * Effective reasoning effort applied to Runner (eval pin when present, else CWP).
+   */
   selectedReasoningEffort?: OpenAiReasoningEffort;
+  /**
+   * CWP-derived effort when strategy ran — observable even when eval pin overrides.
+   */
+  cwpDerivedReasoningEffort?: OpenAiReasoningEffort;
+  /** Eval-only pin identity when Stage A / campaign cell control is active. */
+  evalPinnedModelId?: string;
+  evalPinnedReasoningEffort?: OpenAiReasoningEffort;
   criticalChallengeArmed?: boolean;
   /** MW3 — present only when contradictionAssessment was supplied. */
   contradictionDisposition?: ContradictionDispositionResult;
