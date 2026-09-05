@@ -10,6 +10,8 @@ import {
   type ConversationProvider,
   type ProviderChatMessage,
 } from "@/lib/platform/ai";
+import { validateRuntimeReasoningCapability } from "@/lib/nora-cognitive-runtime/reasoningCapability";
+import type { NoraEvalModelReasoningControl } from "@/lib/nora-cognitive-runtime";
 import { ADOPTED_CYCLE_TYPE_IDS, isKnownCycleTypeId } from "@/lib/oa/cycle";
 import type {
   F2QualificationSignals,
@@ -497,12 +499,40 @@ export async function analyzeIntent(input: {
    * Never client-authoritative for model/reasoning selection.
    */
   provider?: ConversationProvider;
+  /**
+   * INTERNAL / EVAL-ONLY — Stage A cell model×effort identity for constitutive
+   * ConversationProvider calls (completeStructured). Absent → production default.
+   * When set, an injected cell provider is required (no silent live default).
+   */
+  /**
+   * INTERNAL / EVAL-ONLY — Stage A cell identity. Canonical model-call claims
+   * belong on MeteredConversationProvider.beforeAuthorizedDispatch
+   * (USD preflight → claim → dispatch), not here.
+   */
+  evalModelReasoningControl?: NoraEvalModelReasoningControl;
 }): Promise<{
   analysis: IntentAnalysisDto;
   presentation: "test_provider" | "openai_live";
   model: string | null;
   rawText: string;
+  /** Eval-only observation — never a client DTO field. */
+  evalPinnedModelId?: string;
+  evalPinnedReasoningEffort?: string;
 }> {
+  const evalControl = input.evalModelReasoningControl;
+  if (evalControl) {
+    validateRuntimeReasoningCapability(
+      evalControl.modelId,
+      evalControl.reasoningEffort,
+    );
+    if (!input.provider) {
+      throw new TechnicalError(
+        "CONFIG",
+        "EVAL_CELL_PROVIDER_REQUIRED: evalModelReasoningControl requires an injected cell ConversationProvider (no silent live default).",
+      );
+    }
+  }
+
   const provider = input.provider ?? resolveConversationProvider();
   // Presentation follows the provider instance actually used (explicit injection wins).
   const presentation =
@@ -550,5 +580,11 @@ export async function analyzeIntent(input: {
     presentation,
     model: completion.usage?.model ?? null,
     rawText: completion.text,
+    ...(evalControl
+      ? {
+          evalPinnedModelId: evalControl.modelId,
+          evalPinnedReasoningEffort: evalControl.reasoningEffort,
+        }
+      : {}),
   };
 }

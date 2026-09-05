@@ -1,5 +1,8 @@
 /**
  * Eval-only metering decorator — NOT a new provider stack.
+ *
+ * Optional beforeAuthorizedDispatch runs AFTER USD preflight succeeds and
+ * BEFORE inner provider dispatch (default-off; historical behavior unchanged).
  */
 
 import type {
@@ -32,10 +35,20 @@ export type ProviderCallMeterRecord = {
   cumulativeUsd: number;
 };
 
+export type MeteredConversationProviderOptions = {
+  /**
+   * INTERNAL/EVAL — invoked only after USD preflight allows dispatch.
+   * Use for canonical campaign model-call claims. Throw to abort before inner.
+   * Default: unset (historical MeteredConversationProvider behavior).
+   */
+  beforeAuthorizedDispatch?: () => void | Promise<void>;
+};
+
 export class MeteredConversationProvider implements ConversationProvider {
   readonly providerId: string;
   private callIndex = 0;
   readonly ledger: ProviderCallMeterRecord[] = [];
+  private readonly beforeAuthorizedDispatch?: () => void | Promise<void>;
 
   constructor(
     private readonly inner: ConversationProvider,
@@ -46,8 +59,10 @@ export class MeteredConversationProvider implements ConversationProvider {
       inputTokens: number;
       outputTokens: number;
     } = { inputTokens: 4000, outputTokens: 1200 },
+    options?: MeteredConversationProviderOptions,
   ) {
     this.providerId = inner.providerId;
+    this.beforeAuthorizedDispatch = options?.beforeAuthorizedDispatch;
   }
 
   private preflight(): void {
@@ -60,6 +75,12 @@ export class MeteredConversationProvider implements ConversationProvider {
     const gate = this.budget.canContinueEssential(estimate);
     if (!gate.allowed) {
       throw new Error(`BUDGET_STOP:${gate.reason ?? "blocked"}`);
+    }
+  }
+
+  private async afterPreflightBeforeDispatch(): Promise<void> {
+    if (this.beforeAuthorizedDispatch) {
+      await this.beforeAuthorizedDispatch();
     }
   }
 
@@ -102,6 +123,7 @@ export class MeteredConversationProvider implements ConversationProvider {
     messages: ProviderChatMessage[],
   ): Promise<ProviderCompletionResult> {
     this.preflight();
+    await this.afterPreflightBeforeDispatch();
     const result = await this.inner.complete(messages);
     this.record("complete", result.usage);
     return result;
@@ -116,6 +138,7 @@ export class MeteredConversationProvider implements ConversationProvider {
       throw new Error("completeStructured not available on wrapped provider");
     }
     this.preflight();
+    await this.afterPreflightBeforeDispatch();
     const result = await this.inner.completeStructured(input);
     this.record("completeStructured", result.usage);
     return result;
@@ -129,6 +152,7 @@ export class MeteredConversationProvider implements ConversationProvider {
       throw new Error("completeRound not available on wrapped provider");
     }
     this.preflight();
+    await this.afterPreflightBeforeDispatch();
     const result = await this.inner.completeRound(input);
     this.record("completeRound", result.usage);
     return result;

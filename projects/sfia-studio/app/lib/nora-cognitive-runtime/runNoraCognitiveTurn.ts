@@ -19,7 +19,10 @@ import {
   type TruthCRevision,
 } from "./memoryBCompaction";
 import { resolveNoraSessionSqlitePath } from "./sessionPaths";
-import { runNoraAgentsTurn } from "./runNoraAgentsTurn";
+import {
+  runNoraAgentsTurn,
+  shouldUseProviderAgentsModelAdapter,
+} from "./runNoraAgentsTurn";
 import type { NoraCognitiveTurnResult } from "./types";
 import {
   decideCognitiveStrategy,
@@ -85,6 +88,23 @@ import type {
   NoraCampaignBudget,
   Mw6GovernedAuthorityContext,
 } from "./campaignBudget";
+import type { NoraAgentsUsdAccounting } from "./agentsUsdAccounting";
+import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
+import type { Model } from "@openai/agents";
+
+/**
+ * INTERNAL / EVAL-ONLY — pin model + reasoning effort for campaign cells.
+ * Not a client DTO. Not a production router. Absent → production default unchanged.
+ */
+export type NoraEvalModelReasoningControl = {
+  modelId: string;
+  reasoningEffort: OpenAiReasoningEffort;
+  /**
+   * Optional Agents model object (e.g. ScriptedModel) for ZERO REAL tests.
+   * When omitted: Fake providers keep adapter path; OpenAI live uses modelId string.
+   */
+  agentsModel?: Model | string;
+};
 
 export type Mw3ContradictionAssessmentInput = {
   conflict: ContradictionConflictInput;
@@ -176,6 +196,16 @@ export type RunNoraCognitiveTurnInput = {
    * Product strategy→binding is derived in this turn and passed as currentProductContext.
    */
   governedAuthority?: Mw6GovernedAuthorityContext;
+  /**
+   * INTERNAL/EVAL-ONLY — pin model + effort independently of CWP for campaign cells.
+   * Must not be exposed as a client/user-controlled DTO field.
+   */
+  evalModelReasoningControl?: NoraEvalModelReasoningControl;
+  /**
+   * Optional USD accounting bridge for native Agents (eval campaigns).
+   * Passed through to runNoraAgentsTurn — not authority.
+   */
+  usdAccounting?: NoraAgentsUsdAccounting;
 };
 
 function emitCognitiveStrategyTelemetry(
@@ -229,10 +259,33 @@ function resolveCognitiveStrategyForTurn(
   });
 }
 
+
+function resolveEvalAgentsModel(
+  input: RunNoraCognitiveTurnInput,
+): Model | string | undefined {
+  const control = input.evalModelReasoningControl;
+  if (!control) return undefined;
+  if (control.agentsModel !== undefined) return control.agentsModel;
+  // Fake/completeRound providers keep adapter path — modelId remains Evidence identity.
+  if (input.provider && shouldUseProviderAgentsModelAdapter(input.provider)) {
+    return undefined;
+  }
+  return control.modelId;
+}
+
 function resolveRunnerModelSettings(
   input: RunNoraCognitiveTurnInput,
   decision: ReturnType<typeof decideCognitiveStrategy> | null,
 ): ReturnType<typeof buildRunnerModelSettingsForEffort> | undefined {
+  const evalControl = input.evalModelReasoningControl;
+  if (evalControl) {
+    validateRuntimeReasoningCapability(
+      evalControl.modelId,
+      evalControl.reasoningEffort,
+    );
+    return buildRunnerModelSettingsForEffort(evalControl.reasoningEffort);
+  }
+
   if (!decision) return undefined;
 
   const model =
@@ -248,12 +301,26 @@ function resolveRunnerModelSettings(
 function withStrategyFields(
   turn: NoraCognitiveTurnResult,
   decision: ReturnType<typeof decideCognitiveStrategy> | null,
+  evalControl?: NoraEvalModelReasoningControl,
 ): NoraCognitiveTurnResult {
-  if (!decision) return turn;
-  return {
+  const base: NoraCognitiveTurnResult = {
     ...turn,
+    ...(evalControl
+      ? {
+          evalPinnedModelId: evalControl.modelId,
+          evalPinnedReasoningEffort: evalControl.reasoningEffort,
+          selectedReasoningEffort: evalControl.reasoningEffort,
+        }
+      : {}),
+  };
+  if (!decision) return base;
+  return {
+    ...base,
     cognitiveStrategyClass: decision.strategyClass,
-    selectedReasoningEffort: decision.reasoningEffort,
+    cwpDerivedReasoningEffort: decision.reasoningEffort,
+    // Effective effort: eval pin wins; else CWP.
+    selectedReasoningEffort:
+      evalControl?.reasoningEffort ?? decision.reasoningEffort,
     criticalChallengeArmed: decision.criticalChallengeArmed,
   };
 }
@@ -355,7 +422,11 @@ function finalizeTurn(
   mw6SourceIntelligence?: Mw6SourceIntelligenceSurface,
 ): NoraCognitiveTurnResult {
   const withMw3 = withMw3Fields(
-    withStrategyFields(turn, strategyDecision),
+    withStrategyFields(
+      turn,
+      strategyDecision,
+      input.evalModelReasoningControl,
+    ),
     input,
     strategyDecision,
     mw6SourceIntelligence?.observations,
@@ -643,7 +714,9 @@ export async function runNoraCognitiveTurn(
       sink: input.sink,
       enableTools: input.enableTools,
       provider: input.provider,
+      model: resolveEvalAgentsModel(input),
       runnerModelSettings,
+      usdAccounting: input.usdAccounting,
       enableHostedWebSearch: attachHostedWebSearch,
       hostedWebSearchToolOptions: input.hostedWebSearchToolOptions,
       deterministicHostedWebSearchCalls:
@@ -803,7 +876,9 @@ export async function runNoraCognitiveTurn(
       sink: input.sink,
       enableTools: input.enableTools,
       provider: input.provider,
+      model: resolveEvalAgentsModel(input),
       runnerModelSettings,
+      usdAccounting: input.usdAccounting,
       enableHostedWebSearch: attachHostedWebSearch,
       hostedWebSearchToolOptions: input.hostedWebSearchToolOptions,
       deterministicHostedWebSearchCalls:

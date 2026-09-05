@@ -24,8 +24,13 @@ import {
 } from "@/lib/platform/ai";
 import {
   acquireNoraCampaignBudget,
+  isCanonicalCampaignBudget,
+  requireCanonicalCampaignBudget,
   runNoraCognitiveTurn,
+  type NoraCampaignBudget,
   type NoraCognitiveTurnResult,
+  type NoraEvalModelReasoningControl,
+  type NoraAgentsUsdAccounting,
 } from "@/lib/nora-cognitive-runtime";
 import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
 import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
@@ -82,6 +87,61 @@ export function extractMw6CampaignIdFromScope(scope: string): string | null {
   return m?.[1] ?? null;
 }
 
+/**
+ * Resolve campaign budget for MW6 governed product turn.
+ * INTERNAL — sharedCampaignBudget is eval/server only, never client-trusted.
+ */
+export function resolveMw6GovernedCampaignBudget(input: {
+  campaignId: string;
+  sharedCampaignBudget?: NoraCampaignBudget;
+}):
+  | { ok: true; budget: NoraCampaignBudget; acquiredLocally: boolean }
+  | { ok: false; code: string; message: string } {
+  if (input.sharedCampaignBudget) {
+    try {
+      requireCanonicalCampaignBudget(input.sharedCampaignBudget);
+    } catch {
+      return {
+        ok: false,
+        code: "CAMPAIGN_BUDGET_LEASE_INVALID",
+        message:
+          "sharedCampaignBudget is not the canonical active lease — refusing fabricated budget.",
+      };
+    }
+    if (!isCanonicalCampaignBudget(input.sharedCampaignBudget)) {
+      return {
+        ok: false,
+        code: "CAMPAIGN_BUDGET_LEASE_INVALID",
+        message: "sharedCampaignBudget failed canonical lease check.",
+      };
+    }
+    if (input.sharedCampaignBudget.campaignId !== input.campaignId) {
+      return {
+        ok: false,
+        code: "CAMPAIGN_ID_MISMATCH",
+        message:
+          "sharedCampaignBudget.campaignId does not match ExecutionContract scope campaignId.",
+      };
+    }
+    return {
+      ok: true,
+      budget: input.sharedCampaignBudget,
+      acquiredLocally: false,
+    };
+  }
+  return {
+    ok: true,
+    budget: acquireNoraCampaignBudget({
+      campaignId: input.campaignId,
+      maxModelInvocations: 4,
+      maxHostedWebOperations: 2,
+      maxAggregateRealCalls: 4,
+      hostedHardCapCapability: "provider_max_tool_calls",
+    }),
+    acquiredLocally: true,
+  };
+}
+
 export type Mw6GovernedNoraProductTurnSuccess = Extract<
   ProjectAssistantSendResult,
   { ok: true }
@@ -132,6 +192,16 @@ export type RunMw6GovernedNoraProductTurnInput = {
   currentExternalDiscoveryIntent?: unknown;
   canActAsMorris?: unknown;
   claimedAuthorityLevel?: unknown;
+  /**
+   * INTERNAL/EVAL-ONLY — canonical NoraCampaignBudget already acquired by Stage A
+   * driver. Not client-trusted. Possession ≠ authority grant.
+   * Absent → legacy in-turn acquire 4/2/4 unchanged.
+   */
+  sharedCampaignBudget?: NoraCampaignBudget;
+  /** INTERNAL/EVAL-ONLY — model×effort pin for campaign cells. */
+  evalModelReasoningControl?: NoraEvalModelReasoningControl;
+  /** INTERNAL/EVAL-ONLY — USD accounting bridge for native Agents. */
+  usdAccounting?: NoraAgentsUsdAccounting;
 };
 
 /**
@@ -253,13 +323,22 @@ export async function runMw6GovernedNoraProductTurn(
   const campaignId =
     extractMw6CampaignIdFromScope(loaded.contract.scope) ??
     `mw6:${composed.executionContractId}`;
-  const campaignBudget = acquireNoraCampaignBudget({
+
+  const budgetResolved = resolveMw6GovernedCampaignBudget({
     campaignId,
-    maxModelInvocations: 4,
-    maxHostedWebOperations: 2,
-    maxAggregateRealCalls: 4,
-    hostedHardCapCapability: "provider_max_tool_calls",
+    sharedCampaignBudget: input.sharedCampaignBudget,
   });
+  if (!budgetResolved.ok) {
+    return {
+      ok: false,
+      status: "validation_error",
+      code: budgetResolved.code,
+      message: budgetResolved.message,
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+  const campaignBudget = budgetResolved.budget;
 
   const modeResolution = resolveAssistantMode(input.provider);
   if (!modeResolution.canProceed) {
@@ -315,6 +394,8 @@ export async function runMw6GovernedNoraProductTurn(
       enableHostedWebSearch: true,
       campaignBudget,
       governedAuthority: composed.governedAuthority as import("@/lib/nora-cognitive-runtime").Mw6GovernedAuthorityContext,
+      evalModelReasoningControl: input.evalModelReasoningControl,
+      usdAccounting: input.usdAccounting,
       // Deterministic boundary — ZERO LIVE hosted dispatch.
       deterministicHostedWebSearchCalls: [],
     });
