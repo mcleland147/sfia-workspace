@@ -43,6 +43,13 @@ export {
   type Mw5RuntimeFacts,
 } from "./mw5Observe";
 export {
+  observeMw6FromRuntime,
+  observeMw6S01FromRuntime,
+  observeMw6S02FromRuntime,
+  observationFromMw6Facts,
+  type Mw6RuntimeFacts,
+} from "./mw6Observe";
+export {
   evaluateMw2S01Matrix,
   evaluateMw2S02Matrix,
   summarizeMw2EvalMatrix,

@@ -72,6 +72,33 @@ export function buildMw0CapabilityManifest(retrievedAtIso: string): CapabilityMa
       "SDK accepts 'minimal' but current GPT-5.6 Sol/Terra/Luna model docs do not list 'minimal'.",
       "Do not silently coerce reasoning efforts.",
       "Provider rejection = CONFIG/PROVIDER_CAPABILITY evidence, not cognitive FAIL.",
+      "MW0 campaignAllowlist is historical screening only — not the Global Model × Reasoning campaign matrix.",
+    ],
+  };
+}
+
+/**
+ * Distinct campaign capability policy for the Global Model × Reasoning Campaign.
+ * EXIT: campaign evaluation contract only — ≠ production model routing / ≠ multi-model router.
+ * Does not mutate or replace {@link buildMw0CapabilityManifest} historical semantics.
+ */
+export function buildGlobalModelReasoningCapabilityManifest(
+  retrievedAtIso: string,
+): CapabilityManifest {
+  const base = buildMw0CapabilityManifest(retrievedAtIso);
+  return {
+    ...base,
+    sourceNote:
+      "Global Model × Reasoning campaign candidate baseline (GPT-5.6 Luna/Terra/Sol) — not production routing. Revalidate each campaign. EXIT → global campaign contract only.",
+    campaignAllowlist: {
+      modelIds: ["gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol"],
+      reasoningEfforts: ["none", "low", "medium", "high", "xhigh", "max"],
+    },
+    caveats: [
+      ...base.caveats,
+      "Global campaign allowlist ≠ MW0 historical allowlist.",
+      "minimal remains non-admissible for GPT-5.6 family.",
+      "Campaign candidate ≠ adopted production routing.",
     ],
   };
 }

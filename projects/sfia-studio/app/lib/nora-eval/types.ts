@@ -5,7 +5,18 @@
 
 import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
 
+/** Historical pinned catalog identity (MW0→MW5 corpus). Do not silently mutate contents. */
 export const NORA_EVAL_CATALOG_VERSION = "mw0-catalog-v1" as const;
+
+/**
+ * Extended catalog for Global Model × Reasoning campaign eval (historical IDs + MW6).
+ * EXIT: campaign harness only — ≠ production routing.
+ */
+export const NORA_EVAL_GLOBAL_CATALOG_VERSION = "global-mr-catalog-v1" as const;
+
+export type NoraEvalCatalogVersion =
+  | typeof NORA_EVAL_CATALOG_VERSION
+  | typeof NORA_EVAL_GLOBAL_CATALOG_VERSION;
 
 export type EvidenceTier = "D0" | "R1" | "R2" | "R3";
 
@@ -20,7 +31,8 @@ export type ScenarioKind =
   | "cognitive_strategy"
   | "contradiction_stop"
   | "grounding_durability"
-  | "challenge_clarification";
+  | "challenge_clarification"
+  | "external_source_intelligence";
 
 export type PassFail = "PASS" | "FAIL" | "INCONCLUSIVE" | "NOT_PROVEN";
 
@@ -83,13 +95,16 @@ export type Mw4StoryId = "MW4-S01" | "MW4-S02" | "MW4-S03";
 
 export type Mw5StoryId = "MW5-S01" | "MW5-S02" | "MW5-S03" | "MW5-S04";
 
+export type Mw6StoryId = "MW6-S01" | "MW6-S02";
+
 export type CognitiveStoryId =
   | Mw0StoryId
   | Mw1StoryId
   | Mw2StoryId
   | Mw3StoryId
   | Mw4StoryId
-  | Mw5StoryId;
+  | Mw5StoryId
+  | Mw6StoryId;
 
 export type CycleTypeFixtureId =
   | "delivery_implementation"
@@ -105,7 +120,7 @@ export interface BarObservableBinding {
 
 export interface ScenarioDefinition {
   scenarioId: string;
-  catalogVersion: typeof NORA_EVAL_CATALOG_VERSION;
+  catalogVersion: NoraEvalCatalogVersion;
   storyIds: CognitiveStoryId[];
   barIds: NccBarId[];
   kind: ScenarioKind;
@@ -172,7 +187,7 @@ export interface CampaignCellConfig {
   model: string;
   reasoningEffort: OpenAiReasoningEffort;
   scenarioId: string;
-  scenarioVersion: typeof NORA_EVAL_CATALOG_VERSION;
+  scenarioVersion: NoraEvalCatalogVersion;
   runIndex: number;
   campaignId: string;
   tier: EvidenceTier;
