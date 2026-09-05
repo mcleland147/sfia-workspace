@@ -1,15 +1,14 @@
-# SFIA Studio — AUTH SOURCE FINGERPRINT FORENSIC Review Pack FULL
+# SFIA Studio — AUTH CANDIDATE ANCHOR REQUALIFICATION Review Pack FULL
 
-**Timestamp:** 2026-09-05 02:53:41 CEST
-**Profile:** CRITICAL · CONTENT-COMPLETE · FULL · READ-ONLY DIAGNOSTIC
-**Supersedes:** handoff `1f8bd0b7` (premature METHOD_DRIFT PASS — withdrawn; H01 does not reproduce a312 on current Auth)
-**Unique verdict:** AUTH FINGERPRINT FORENSIC INCONCLUSIVE — HISTORICAL SNAPSHOT/METHOD NOT SUFFICIENTLY RECONSTRUCTIBLE / MW6 REAL NOT STARTED
+**Timestamp:** 2026-09-05 03:01:32 CEST
+**Profile:** CRITICAL · CONTENT-COMPLETE · FULL · READ-ONLY
+**Unique verdict:** READY FOR CHATGPT AUTH CANDIDATE ANCHOR REVIEW — AUTH-CANDIDATE-ANCHOR-V1 MINTED AND REPRODUCIBLE / HISTORICAL a312 RETIRED AS ACTIVE PRESERVATION ANCHOR / MW6 REAL NOT STARTED
 
 ## A. Timestamp
-- 2026-09-05 02:53:41 CEST
+- 2026-09-05 03:01:32 CEST
 
 ## B. GO consumed
-`GO MORRIS — AUTH FINGERPRINT MISMATCH FORENSIC READ-ONLY`
+`GO MORRIS — AUTH CANDIDATE ANCHOR REQUALIFICATION — BASE SHA + NORMALIZED DELTA MANIFEST`
 
 ## C. Git Truth
 ### AUTH
@@ -36,202 +35,192 @@
 ### HANDOFF
 - path `/Users/morris/Projects/sfia-workspace/sfia-review-handoff`
 - branch `sfia/review-handoff`
-- HEAD `1f8bd0b78476a94cda5173a1b18dc3f7daf6e9e4`
+- HEAD `a6ce26d3cd5a97de63a352cc3130cc3c9e15724f`
 - origin/main `ebdae92a96ea1c49444dfb668342c1453f57a540`
 - staged **0** · conflicts **0**
 
-## D. main / current review-handoff
-- origin/main expected/actual: `ebdae92a96ea1c49444dfb668342c1453f57a540`
-- review-handoff tip at forensic start: `754625eaf3d0c55e380540bee603904e1372028d`
-- prior erroneous forensic tip (withdrawn): `1f8bd0b78476a94cda5173a1b18dc3f7daf6e9e4`
+## D. origin/main / base
+- immutable base SHA: `ebdae92a96ea1c49444dfb668342c1453f57a540`
+- HEAD Auth/MW6/Integration = `ebdae92a96ea1c49444dfb668342c1453f57a540`
 
 ## E. Cycle / profile / typology
-- CRITICAL · READ-ONLY FORENSIC · no product correction · no MW6 REAL
+- CRITICAL · READ-ONLY · Auth candidate identity anchoring · no functional Auth/MW6 work
 
-## F. Convergence qualification
-- Capability: MW6 External Source Intelligence / Nora Cognitive Completion
-- MW6 source candidate fingerprint: stable (`20828a42…`) under dirty porcelain method
-- Auth source candidate fingerprint: **disputed**; historical a312 not reproducible on current tree
-- MW6↔Auth composition technical proof: blocked pending Auth anchor requalification
-- MW6 REAL: NOT STARTED · runtime v3: NON ADOPTED
+## F. Convergence Pre-check
+- Capability: Nora Cognitive Completion → MW6 External Source Intelligence
+- Foundations: V3-F11 / V3-F12
+- Local milestone: AUTH candidate evidence anchoring for MW6 ↔ Auth integration
+- Entry: AUTH functional candidate EXISTS; a312 NON-RECONSTRUCTIBLE; H02 d66; MW6 FP stable; composition candidate local; MW6 REAL NOT STARTED
+- Gap closed this cycle: durable reproducible Auth candidate anchor
+- Exit: AUTH-CANDIDATE-ANCHOR-V1 = MINTED + REPRODUCED + FULL MANIFEST PUBLISHED
 
-## G. Initial mismatch
-- Historical expected Auth FP: `a312681853164ffb078383c377a2d4281e185849589097294591f7e6e8f155ae`
-- Last-cycle reported Auth FP: `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c` (dirty porcelain n=38)
-- Dirty path count: **38** · Auth WRITES claimed=0 · staged=0
+## G. Input forensic handoff
+- `a6ce26d3cd5a97de63a352cc3130cc3c9e15724f`
+- Verdict: AUTH FINGERPRINT FORENSIC INCONCLUSIVE — HISTORICAL SNAPSHOT/METHOD NOT SUFFICIENTLY RECONSTRUCTIBLE / MW6 REAL NOT STARTED
 
-## H. Historical handoff inventory (a312)
-| handoff SHA | timestamp | role | method documented | notes |
-| --- | --- | --- | --- | --- |
-| `5c7cd338…` | 2026-09-04T23:49:00+02:00 | **FIRST occurrence** of a312 | partial (“Auth projects fingerprint”); materialization Auth **38** listed separately | a312 minted here; not present in earlier AUTH REAL handoffs |
-| `1951080e…` | 2026-09-05T00:15:45+02:00 | MATCH carry | not restated | |
-| `2d7f95f8…` | 2026-09-05T00:47:47+02:00 | MATCH + first dual method doc | MW6=porcelain `-uall`; **Auth=`projects/**` rglob excl node_modules/.next** | |
-| `d12c5baa…` | 2026-09-05T01:43:00+02:00 | **last MATCH claim** | carried | |
-| `754625ea…` | 2026-09-05T02:23:11+02:00 | MISMATCH report | applied dirty porcelain to Auth → d66 n=38 | ChatGPT STOP |
-| `1f8bd0b7…` | 2026-09-05T02:48:12+02:00 | erroneous METHOD_DRIFT PASS | claimed H01→a312 | **WITHDRAWN by this pack** — claim not reproducible |
+## H. Old anchor disposition
+- Historical FP: `a312681853164ffb078383c377a2d4281e185849589097294591f7e6e8f155ae`
+- Disposition (this PASS): **HISTORICAL PROVENANCE · NON-RECONSTRUCTIBLE · RETIRED AS ACTIVE PRESERVATION ANCHOR**
+- Explicitly NOT: rewrite of history; NOT claim current == a312-era; NOT automatic AUTH REAL carry-forward
 
-## I. First a312 occurrence
-- `5c7cd338b950bd2581f809581112b809e6a20a59` @ 2026-09-04T23:49:00+02:00
-- Context: STOP MW6 Auth binding; post worktree-recovery claim “Auth projects fingerprint unchanged: a312…”
-- No prior handoff contains a312 (AUTH REAL tips `d8000206` / `45bbf95f` do not mint it)
-- No published path inventory / per-file hashes for the a312 snapshot
+## I. H02 continuity reproduction
+- Method: `git status --porcelain -uall -- projects/` · sorted path + NUL + bytes + NUL · SHA-256
+- count: **38**
+- fingerprint: `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c`
+- result: **PASS**
+- scope containment: **38/38** under `projects/sfia-studio/app`
 
-## J. Last a312 MATCH occurrence
-- `d12c5baa4c594fb9d8f02f93667743aadfdcebb5` @ 2026-09-05T01:43:00+02:00
+## J. Anchor schema name/version
+- `AUTH-CANDIDATE-ANCHOR-V1` / header token `SFIA_AUTH_CANDIDATE_ANCHOR_V1`
 
-## K. Exact historical fingerprint method(s)
-### METHOD-H01 (documented Auth at `2d7f95f8`)
-- `projects/**` rglob; exclude path parts `node_modules`, `.next`
-- Serialization: sorted relpath + NUL + file_bytes + NUL; SHA-256
-- Historical packs never published n=2852 explicitly; current H01 cardinality is 2852
+## K. Exact scope
+- `projects/sfia-studio/app`
 
-### METHOD-H02 (last pack `754625ea` / forensic dirty)
-- `git status --porcelain -uall -- projects/`; path = `line[3:]` (rename RHS); sorted unique
-- Same path\0bytes\0 serialization
-- Observed: d66… n=38 — **CONFIRMED**
+## L. Exact extraction commands
+```
+git diff --name-status -z -M HEAD -- projects/sfia-studio/app
+git ls-files --others --exclude-standard -z -- projects/sfia-studio/app
+```
+- Not used: filesystem rglob; ignored files; mtimes; `.env.local`
 
-### METHOD-H03 (control)
-- porcelain without `-uall` → n=21 → other FP
+## M. Exact normalization rules
+- Tracked statuses from Git name-status (M/A/D/R\<score\>/C\<score\>/T as reported)
+- Untracked non-ignored → status `U`
+- Entry fields: status, oldPath (empty unless rename/copy), path, kind, size, sha256
+- kind: file | symlink | deleted
+- file: size=bytes, sha256=SHA-256(bytes)
+- symlink: do not follow; size/sha256 of target string bytes
+- deleted: size=0, sha256=`-`
+- Sort key (byte-wise): path, oldPath, status
 
-## L. Exact current fingerprint method (last pack)
-- METHOD-H02 → `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c` n=38 **CONFIRMED**
+## N. Exact serialization definition
+- Header fields NUL-separated:
+  `SFIA_AUTH_CANDIDATE_ANCHOR_V1` · `base` · `<base sha>` · `scope` · `projects/sfia-studio/app` · `count` · `<decimal n>`
+- Per entry: `<status>` · `<oldPath>` · `<path>` · `<kind>` · `<size>` · `<sha256|->` (each NUL-terminated)
+- No newlines semantic; no timestamp; no absolute paths; no secrets
+- Digest: SHA-256(canonical serialized bytes)
 
-## M. Reproduction table (CURRENT Auth tree)
-| ID | Algorithm | n | Current FP | equals a312? | equals d66? |
-| --- | --- | --- | --- | --- | --- |
-| H01 | rglob excl node_modules/.next · path\0bytes\0 | **2852** | `ae8f638a098e94a8201cf92f8982137400a8bee80f064561f719a034b4b66fda` | **NO** | no |
-| H01−volatile4 | H01 minus 4 ignored volatiles | 2848 | `94d7b767977aee3795bed7ca91d03b4acef3edfc5e479c828d240168c2321846` | **NO** | no |
-| H01 tracked+other | git ls-files -co --exclude-standard projects | 2848 | `94d7b767…` (same) | **NO** | no |
-| H02 | porcelain -uall projects dirty | **38** | `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c` | no | **YES** |
-| H03 | porcelain no -uall | 21 | (other) | no | no |
+## O. FULL ordered manifest
+| # | status | oldPath | path | kind | size | sha256 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | `U` | — | `projects/sfia-studio/app/.env.example` | file | 861 | `0f05e151955b24238fdb3e43ad159e6a477cb27785b8e6693b3f8755b807f9e1` |
+| 2 | `U` | — | `projects/sfia-studio/app/__tests__/auth/allowlist-actor-s1.test.ts` | file | 7282 | `ce23ba2d649198db539fc295509b5bf2a974f944ce2750d468b1644ba225823f` |
+| 3 | `U` | — | `projects/sfia-studio/app/__tests__/auth/auth-real-boundary-session.test.ts` | file | 12586 | `a995369ecd553a003bf50b57106444b357a84e1933535c54af831471557ed31e` |
+| 4 | `U` | — | `projects/sfia-studio/app/__tests__/auth/better-auth-foundation.test.ts` | file | 3364 | `5310125a193b8694685c425d5212b85679c1620654c2fe220d4ea114f91638bf` |
+| 5 | `U` | — | `projects/sfia-studio/app/__tests__/auth/binding-s1-adversarial.test.ts` | file | 20046 | `0eaa84a5a5af45b6fee4ff28bac83e8fd40aa038f2e3f7c6925903dd0c814572` |
+| 6 | `U` | — | `projects/sfia-studio/app/__tests__/auth/helpers/accountCookie.ts` | file | 1771 | `18260579a52ddb7f294acdb1d724e248e45a1ae1851d5d9e21bea7253c2280ab` |
+| 7 | `U` | — | `projects/sfia-studio/app/__tests__/auth/policy-action-scoped-s1.test.ts` | file | 40266 | `b49d59601b323000feb8a015ee0cd882e77cf17c57312567a0888831b856317f` |
+| 8 | `U` | — | `projects/sfia-studio/app/__tests__/auth/route-protection.test.ts` | file | 4662 | `be2f5d974cd97bd73a01c75e4466a31b5c5cc43d485903ed8580bebac723db7f` |
+| 9 | `U` | — | `projects/sfia-studio/app/__tests__/auth/semantic-binding-build.test.ts` | file | 16544 | `c72fe68263bad4317b85666ddefe165bbb0a13a22a13659d755e0cddde0a8b28` |
+| 10 | `U` | — | `projects/sfia-studio/app/app/api/auth/[...all]/route.ts` | file | 890 | `dcd70ed6e6093725a2785d19ad633396e357fb454ec1ed049ee7d6e12e08bb51` |
+| 11 | `U` | — | `projects/sfia-studio/app/app/login/login-client.tsx` | file | 3558 | `9c77621fbcbc2a7819f6789e604b2b832a34c1b9c9510e98a004485cd6148056` |
+| 12 | `U` | — | `projects/sfia-studio/app/app/login/page.tsx` | file | 314 | `042baf2d5bbb66073c4edf627d9ff9709f7f9cba8f5689f26d4271aca4ee391a` |
+| 13 | `U` | — | `projects/sfia-studio/app/components/auth/LogoutButton.tsx` | file | 697 | `90b8876df80fa048f4003bf5be400c76ffb45757d8e4ca838bf4d6c76467ef30` |
+| 14 | `M` | — | `projects/sfia-studio/app/components/shell/StudioShell.tsx` | file | 3295 | `299a288123bfc99e80890a9dbbc6f9cea016b72a97426d1f26e09b6bf8083b8e` |
+| 15 | `M` | — | `projects/sfia-studio/app/components/shell/Topbar.tsx` | file | 4765 | `51b9a2879a88e72416afd9063f6fae73a25daddf2d36e9e37f97e07d92c3dd04` |
+| 16 | `M` | — | `projects/sfia-studio/app/features/project-assistant/w2/actions.ts` | file | 15607 | `2a5720027846738e341ea8e23833c9edac90592e32f07b7b9f48b733951529e7` |
+| 17 | `M` | — | `projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts` | file | 15837 | `6e42fa2333b36792aefebbe2a365063957e2bffa8542bc43a448e176cd0c3224` |
+| 18 | `U` | — | `projects/sfia-studio/app/lib/auth/actorMapping.ts` | file | 1265 | `832991ec6015178e56dee2072eb6b60b3050d36e8c563254c0f73dd84ffac246` |
+| 19 | `U` | — | `projects/sfia-studio/app/lib/auth/allowlist.ts` | file | 3448 | `eadefaa34ab99587fc1a4748b366fdb0a220ebfde611313bf73c1f4a29015333` |
+| 20 | `U` | — | `projects/sfia-studio/app/lib/auth/auth-client.ts` | file | 235 | `c71359f9bb58ad46fe70475c03a1145bfe7b7f80f9f544f1b8e0439f14dcb70b` |
+| 21 | `U` | — | `projects/sfia-studio/app/lib/auth/auth.ts` | file | 5155 | `93f95474d07444a5efdb78a4965ed936b96cef3f638352888825dc6a1d3b47fd` |
+| 22 | `U` | — | `projects/sfia-studio/app/lib/auth/constants.ts` | file | 1220 | `2e9e7c2cfb830a9cfde3bd410198db3d2aec2b3b14b94e57461b306df682f92d` |
+| 23 | `U` | — | `projects/sfia-studio/app/lib/auth/index.ts` | file | 1546 | `1f6655729d221846bddd7087336a810a2215e07d9ba56c972cb837bbad2cb9e5` |
+| 24 | `U` | — | `projects/sfia-studio/app/lib/auth/piloteS1AuthorityPolicy.ts` | file | 10900 | `70598944db9d9de38dd88d9b1e648953ffcef02817ba3277b7692e6d6fe45cf2` |
+| 25 | `U` | — | `projects/sfia-studio/app/lib/auth/providerAccountBinding.ts` | file | 5331 | `98433a62633344233cc886cfb9eab004601ebbe0b824b1b8d68a38186770a57f` |
+| 26 | `U` | — | `projects/sfia-studio/app/lib/auth/resolveCurrentPilote.ts` | file | 3894 | `681aafc772cd80f09d81833adbd02649fe17afad598821bce7f980b9fa240efd` |
+| 27 | `U` | — | `projects/sfia-studio/app/lib/auth/s1Authority.ts` | file | 8080 | `ee11bc66da4b9d743e93b097725c0841f0020bcaea69f260d157d6affbbeb174` |
+| 28 | `M` | — | `projects/sfia-studio/app/lib/oa/execution-contract/application/authorityHelper.ts` | file | 3179 | `05a3364c7f9597b856afb946faad322e401db8401051e1e8cc8f1c46b9228d53` |
+| 29 | `M` | — | `projects/sfia-studio/app/lib/oa/execution-contract/application/buildExecutionContract.ts` | file | 16364 | `4f6994cc20c46689ed328fa4a41d51207bd902f542d01bd68a97936c39956c5b` |
+| 30 | `M` | — | `projects/sfia-studio/app/lib/oa/execution-contract/application/cancelExecutionContract.ts` | file | 8692 | `e753b84e7ca1e306bcc5fea15e81ae3cf9091dbd1042ca7b63a892cf30f716b2` |
+| 31 | `M` | — | `projects/sfia-studio/app/lib/oa/execution-contract/application/checkExecutionAuthorization.ts` | file | 9202 | `0914fed964875815cf52c10b5eaed4313cb85bf6c56639fd67ce3ec31aaaac04` |
+| 32 | `M` | — | `projects/sfia-studio/app/lib/oa/execution-contract/application/confirmExecutionContract.ts` | file | 15475 | `bf7aeb1f5e39200b05cc90d3eec2747fd80f7d3cad8626b80438aab2dc527646` |
+| 33 | `M` | — | `projects/sfia-studio/app/lib/oa/execution-contract/application/supersedeExecutionContract.ts` | file | 17711 | `e5299bbbd9a43e03bbdc7bf4294ae2ae1416276824947dfb096c2a988888d79d` |
+| 34 | `M` | — | `projects/sfia-studio/app/lib/oa/execution-contract/application/validateExecutionContract.ts` | file | 9167 | `a168d689e99a23e231832f65f5f68362cc54ba7595ec3279452f003a0a6d0dfe` |
+| 35 | `M` | — | `projects/sfia-studio/app/lib/oa/execution-contract/index.ts` | file | 11649 | `29699d5bc73409306b71d2e83d43673feb0fedc6cc2c3b810575cfcd25d35008` |
+| 36 | `U` | — | `projects/sfia-studio/app/middleware.ts` | file | 1675 | `3eec268503d11da0cb739a16c3bd987a4e0d1dd195084588db4451e740f7506c` |
+| 37 | `M` | — | `projects/sfia-studio/app/package-lock.json` | file | 313398 | `5fa32ea58da04852a3bd4ca4fa944527f49e01a2aa0c07ca3a3d7fbdeb967c11` |
+| 38 | `M` | — | `projects/sfia-studio/app/package.json` | file | 1605 | `5bf2e7310039fdaa50da8c1fcd54446ba657673aab7d112b03427230bd21acfc` |
 
-**Primary question:** Does any documented historical method on **current** Auth reproduce a312?
-**Answer: NO.** H01 (the documented Auth method) yields `ae8f638a…`, not `a312…`.
+- entry count: **38**
 
-### Correction notice
-Prior pack `1f8bd0b7` incorrectly claimed H01→a312 MATCH. That claim is **false** on the current Auth tree and is withdrawn. Likely cause of error: conversation-summary hallucination / unverified carry of prior MATCH language.
+## P. Ignored / volatile exclusions
+Proven **absent** from manifest (presence may exist on disk; contents not read for secrets):
+- `projects/sfia-studio/app/.env.local`
+- `projects/sfia-studio/app/tsconfig.tsbuildinfo`
+- `projects/sfia-studio/.sfia-exec/local-i1/state/d1.sqlite`
+- `projects/sfia-studio/.sfia-exec/product/oa-product.sqlite`
+- Plus all other gitignored paths under scope (extraction uses `--exclude-standard`)
 
-## N. Historical/current path-set comparison
-### Historical a312 path-set
-- Status: **NOT EXACTLY RECORDED** (no full inventory in handoffs)
-- Method EXACT at `2d7f95f8` (rglob); cardinality/path list **INFERRED only** from current H01 (n=2852) — **not** proven identical to a312-era set
+## Q. RUN A
+- Implementation: `/tmp/auth_anchor_v1_run_a.py` (Python, fresh process)
+- count: **38**
+- digest: `24c9f908a529f2d00f0003cd985d763648ac949111389021d198711d27a475e7`
+- serialization bytes: 5484
 
-### Current dirty path-set (H02 / d66) — EXACT (38)
-- `??` `projects/sfia-studio/app/.env.example` size=861 sha256=0f05e151955b24238fdb3e43ad159e6a477cb27785b8e6693b3f8755b807f9e1
-- `??` `projects/sfia-studio/app/__tests__/auth/allowlist-actor-s1.test.ts` size=7282 sha256=ce23ba2d649198db539fc295509b5bf2a974f944ce2750d468b1644ba225823f
-- `??` `projects/sfia-studio/app/__tests__/auth/auth-real-boundary-session.test.ts` size=12586 sha256=a995369ecd553a003bf50b57106444b357a84e1933535c54af831471557ed31e
-- `??` `projects/sfia-studio/app/__tests__/auth/better-auth-foundation.test.ts` size=3364 sha256=5310125a193b8694685c425d5212b85679c1620654c2fe220d4ea114f91638bf
-- `??` `projects/sfia-studio/app/__tests__/auth/binding-s1-adversarial.test.ts` size=20046 sha256=0eaa84a5a5af45b6fee4ff28bac83e8fd40aa038f2e3f7c6925903dd0c814572
-- `??` `projects/sfia-studio/app/__tests__/auth/helpers/accountCookie.ts` size=1771 sha256=18260579a52ddb7f294acdb1d724e248e45a1ae1851d5d9e21bea7253c2280ab
-- `??` `projects/sfia-studio/app/__tests__/auth/policy-action-scoped-s1.test.ts` size=40266 sha256=b49d59601b323000feb8a015ee0cd882e77cf17c57312567a0888831b856317f
-- `??` `projects/sfia-studio/app/__tests__/auth/route-protection.test.ts` size=4662 sha256=be2f5d974cd97bd73a01c75e4466a31b5c5cc43d485903ed8580bebac723db7f
-- `??` `projects/sfia-studio/app/__tests__/auth/semantic-binding-build.test.ts` size=16544 sha256=c72fe68263bad4317b85666ddefe165bbb0a13a22a13659d755e0cddde0a8b28
-- `??` `projects/sfia-studio/app/app/api/auth/[...all]/route.ts` size=890 sha256=dcd70ed6e6093725a2785d19ad633396e357fb454ec1ed049ee7d6e12e08bb51
-- `??` `projects/sfia-studio/app/app/login/login-client.tsx` size=3558 sha256=9c77621fbcbc2a7819f6789e604b2b832a34c1b9c9510e98a004485cd6148056
-- `??` `projects/sfia-studio/app/app/login/page.tsx` size=314 sha256=042baf2d5bbb66073c4edf627d9ff9709f7f9cba8f5689f26d4271aca4ee391a
-- `??` `projects/sfia-studio/app/components/auth/LogoutButton.tsx` size=697 sha256=90b8876df80fa048f4003bf5be400c76ffb45757d8e4ca838bf4d6c76467ef30
-- ` M` `projects/sfia-studio/app/components/shell/StudioShell.tsx` size=3295 sha256=299a288123bfc99e80890a9dbbc6f9cea016b72a97426d1f26e09b6bf8083b8e
-- ` M` `projects/sfia-studio/app/components/shell/Topbar.tsx` size=4765 sha256=51b9a2879a88e72416afd9063f6fae73a25daddf2d36e9e37f97e07d92c3dd04
-- ` M` `projects/sfia-studio/app/features/project-assistant/w2/actions.ts` size=15607 sha256=2a5720027846738e341ea8e23833c9edac90592e32f07b7b9f48b733951529e7
-- ` M` `projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts` size=15837 sha256=6e42fa2333b36792aefebbe2a365063957e2bffa8542bc43a448e176cd0c3224
-- `??` `projects/sfia-studio/app/lib/auth/actorMapping.ts` size=1265 sha256=832991ec6015178e56dee2072eb6b60b3050d36e8c563254c0f73dd84ffac246
-- `??` `projects/sfia-studio/app/lib/auth/allowlist.ts` size=3448 sha256=eadefaa34ab99587fc1a4748b366fdb0a220ebfde611313bf73c1f4a29015333
-- `??` `projects/sfia-studio/app/lib/auth/auth-client.ts` size=235 sha256=c71359f9bb58ad46fe70475c03a1145bfe7b7f80f9f544f1b8e0439f14dcb70b
-- `??` `projects/sfia-studio/app/lib/auth/auth.ts` size=5155 sha256=93f95474d07444a5efdb78a4965ed936b96cef3f638352888825dc6a1d3b47fd
-- `??` `projects/sfia-studio/app/lib/auth/constants.ts` size=1220 sha256=2e9e7c2cfb830a9cfde3bd410198db3d2aec2b3b14b94e57461b306df682f92d
-- `??` `projects/sfia-studio/app/lib/auth/index.ts` size=1546 sha256=1f6655729d221846bddd7087336a810a2215e07d9ba56c972cb837bbad2cb9e5
-- `??` `projects/sfia-studio/app/lib/auth/piloteS1AuthorityPolicy.ts` size=10900 sha256=70598944db9d9de38dd88d9b1e648953ffcef02817ba3277b7692e6d6fe45cf2
-- `??` `projects/sfia-studio/app/lib/auth/providerAccountBinding.ts` size=5331 sha256=98433a62633344233cc886cfb9eab004601ebbe0b824b1b8d68a38186770a57f
-- `??` `projects/sfia-studio/app/lib/auth/resolveCurrentPilote.ts` size=3894 sha256=681aafc772cd80f09d81833adbd02649fe17afad598821bce7f980b9fa240efd
-- `??` `projects/sfia-studio/app/lib/auth/s1Authority.ts` size=8080 sha256=ee11bc66da4b9d743e93b097725c0841f0020bcaea69f260d157d6affbbeb174
-- ` M` `projects/sfia-studio/app/lib/oa/execution-contract/application/authorityHelper.ts` size=3179 sha256=05a3364c7f9597b856afb946faad322e401db8401051e1e8cc8f1c46b9228d53
-- ` M` `projects/sfia-studio/app/lib/oa/execution-contract/application/buildExecutionContract.ts` size=16364 sha256=4f6994cc20c46689ed328fa4a41d51207bd902f542d01bd68a97936c39956c5b
-- ` M` `projects/sfia-studio/app/lib/oa/execution-contract/application/cancelExecutionContract.ts` size=8692 sha256=e753b84e7ca1e306bcc5fea15e81ae3cf9091dbd1042ca7b63a892cf30f716b2
-- ` M` `projects/sfia-studio/app/lib/oa/execution-contract/application/checkExecutionAuthorization.ts` size=9202 sha256=0914fed964875815cf52c10b5eaed4313cb85bf6c56639fd67ce3ec31aaaac04
-- ` M` `projects/sfia-studio/app/lib/oa/execution-contract/application/confirmExecutionContract.ts` size=15475 sha256=bf7aeb1f5e39200b05cc90d3eec2747fd80f7d3cad8626b80438aab2dc527646
-- ` M` `projects/sfia-studio/app/lib/oa/execution-contract/application/supersedeExecutionContract.ts` size=17711 sha256=e5299bbbd9a43e03bbdc7bf4294ae2ae1416276824947dfb096c2a988888d79d
-- ` M` `projects/sfia-studio/app/lib/oa/execution-contract/application/validateExecutionContract.ts` size=9167 sha256=a168d689e99a23e231832f65f5f68362cc54ba7595ec3279452f003a0a6d0dfe
-- ` M` `projects/sfia-studio/app/lib/oa/execution-contract/index.ts` size=11649 sha256=29699d5bc73409306b71d2e83d43673feb0fedc6cc2c3b810575cfcd25d35008
-- `??` `projects/sfia-studio/app/middleware.ts` size=1675 sha256=3eec268503d11da0cb739a16c3bd987a4e0d1dd195084588db4451e740f7506c
-- ` M` `projects/sfia-studio/app/package-lock.json` size=313398 sha256=5fa32ea58da04852a3bd4ca4fa944527f49e01a2aa0c07ca3a3d7fbdeb967c11
-- ` M` `projects/sfia-studio/app/package.json` size=1605 sha256=5bf2e7310039fdaa50da8c1fcd54446ba657673aab7d112b03427230bd21acfc
+## R. RUN B
+- Implementation: `/tmp/auth_anchor_v1_run_b.mjs` (Node, independent parse/sort/hash)
+- count: **38**
+- digest: `24c9f908a529f2d00f0003cd985d763648ac949111389021d198711d27a475e7`
 
-### Ignored files included in H01 but invisible to porcelain (EXACT current)
-- `projects/sfia-studio/.sfia-exec/local-i1/state/d1.sqlite` (gitignored; not in `git status --porcelain -uall`; **included in H01**)
-- `projects/sfia-studio/.sfia-exec/product/oa-product.sqlite` (gitignored; not in `git status --porcelain -uall`; **included in H01**)
-- `projects/sfia-studio/app/.env.local` (gitignored; not in `git status --porcelain -uall`; **included in H01**)
-- `projects/sfia-studio/app/tsconfig.tsbuildinfo` (gitignored; not in `git status --porcelain -uall`; **included in H01**)
-- `.env.local`: present; size=268; **value NOT read/printed**
-- These volatiles make H01 a fragile “source” anchor (sqlite / tsbuildinfo / secrets)
+## S. Reproduction equality
+- entry_count_A == entry_count_B: **YES** (38)
+- ordered_manifest_A == ordered_manifest_B: **YES**
+- anchor_A == anchor_B: **YES**
+- serialization bytes A == B: **YES**
 
-### Added/removed vs historical a312 inventory
-- **Cannot be computed EXACTLY** — historical inventory absent
-- INFERRED: “Auth 38” in `5c7cd338` was materialization/dirty leaf inventory, not H01 cardinality
+## T. FINAL AUTH-CANDIDATE-ANCHOR-V1 digest
+- **`24c9f908a529f2d00f0003cd985d763648ac949111389021d198711d27a475e7`**
+- base: `ebdae92a96ea1c49444dfb668342c1453f57a540`
+- scope: `projects/sfia-studio/app`
+- delta entries: 38 (14×M + 24×U; 0 renames/deletes)
 
-## O. Per-file current hashes
-- Dirty 38: §N
-- Full H01: aggregate only (`ae8f638a…`); 2852-path dump omitted
+## U. BEFORE/AFTER status identity
+- BEFORE status bytes: 2645 sha256=`7e3483759a9a856fd6c183279f3f01f13a6af599d5054229de41595891e85d7c`
+- AFTER status bytes: 2645 sha256=`7e3483759a9a856fd6c183279f3f01f13a6af599d5054229de41595891e85d7c`
+- equal: **True**
 
-## P. Byte-level content delta vs a312
-- Aggregate: current H01 (`ae8f638a…`) **≠** a312 with **same method** and same current n=2852
-- Therefore **at least one** file byte in the H01 domain differs from the unknown a312-era snapshot
-- Exact file list: **NOT ATTRIBUTABLE** (no historical per-file hashes / FULL pack snapshot of Auth tree)
-- Excluding 4 ignored volatiles still ≠ a312 → drift is **not solely** explained by those four under current bytes (either historical set differed, or other files also differ, or a312 was never correctly measured)
-- Dirty Auth candidate (H02) stable at d66 across this forensic — does **not** prove identity to a312-era product bytes
+## V. BEFORE/AFTER anchor identity
+- mint digest: `24c9f908a529f2d00f0003cd985d763648ac949111389021d198711d27a475e7`
+- after recompute A/B: `24c9f908a529f2d00f0003cd985d763648ac949111389021d198711d27a475e7`
+- H02 before/after: MATCH `d66…` / 38
+- equal: **YES**
 
-## Q. Materialization evidence
-- `5c7cd338` Auth 38 + MW6 17 overlap=0 is a copy inventory, not a312 path-set
-- Integration later corrected — naïve Auth↔Integration diff is **not** historical a312 proof
-- Assessment: **INCONCLUSIVE** as byte anchor
-
-## R. mtime (SECONDARY ONLY)
-- Volatile ignored files mtimes (local): sqlite/env ~2026-09-04 evening; `tsconfig.tsbuildinfo` ~2026-09-04 23:24
-- Not used as content-identity proof
-
-## S. BEFORE/AFTER source proof (this forensic)
-- BEFORE dirty FP (H02): `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c`
-- AFTER dirty FP (H02): `d66acba86486f88b682cc82ef5d760ee527bc87d83deeed6a088710a45734e4c`
-- BEFORE == AFTER (H02): **YES**
-- `git status --porcelain=v1 -uall` BEFORE/AFTER: **byte-identical** (2645 bytes; sha256 `7e3483759a9a856fd6c183279f3f01f13a6af599d5054229de41595891e85d7c`; equal=True)
-- H01 after forensic: `ae8f638a098e94a8201cf92f8982137400a8bee80f064561f719a034b4b66fda` (≠ a312)
-- Product/source writes this forensic: **0** (status identity)
-
-## T. Classification
-**HISTORICAL_PROOF_INSUFFICIENT**
-
-## U. Exact reasoning
-1. a312 vs d66 is partly a **method/scope** difference (rglob≈2852 vs dirty=38) — but that alone is not CASE A.
-2. CASE A METHOD_DRIFT requires proven **content identity** under the historical method. Current H01 ≠ a312 → identity **not** proven.
-3. CASE B REAL_CONTENT_DRIFT requires identifying **exact** changed files vs a312. No historical per-file snapshot exists → cannot list them.
-4. a312 was first minted at `5c7cd338` without a published path inventory; subsequent MATCH claims appear carried; tool-result hashes for the mint are not recoverable from handoff artifacts.
-5. H01 includes gitignored volatiles invisible to dirty fingerprints — further undermines a312 as a durable Auth “source candidate” proof.
-6. Therefore the honest gate is **HISTORICAL_PROOF_INSUFFICIENT** (requalify anchor), not METHOD_DRIFT PASS and not a forced REAL_CONTENT_DRIFT file list.
-
-## V. Affected files if REAL_CONTENT_DRIFT
-- **Not asserted** — exact a312 delta files unknown
-- Suspect class (not proof of sole cause): 4 ignored H01 members listed in §N
-
-## W. Source worktrees writes = 0
-- Auth / MW6 / Integration product sources unchanged by forensic (status proof)
+## W. Source/product writes = 0
+- Auth / MW6 / Integration product trees: **unchanged** (read-only cycle)
 
 ## X. staged = 0
-- All product worktrees staged=0
+- Auth/MW6/Integration staged=0
 
-## Y. Product Git actions = 0
-- commit/push/PR/merge product = 0
+## Y. Product commit/push/PR/merge = 0
+- Confirmed intent and local state
 
-## Z. MW6 REAL NOT STARTED
-- Confirmed
+## Z. Temporal-validity statement
+- AUTH-CANDIDATE-ANCHOR-V1 proves future identity vs **this mint state**.
+- It does **not** prove that this mint state is byte-identical to any historical Auth snapshot that produced `a312…` or earlier AUTH REAL proofs.
+- Direction: MINT → future preservation checks only.
 
-## AA. Next required decision
-- ChatGPT/Morris: choose a **new qualified Auth anchor strategy**, e.g.:
-  - redefine Auth candidate FP as dirty porcelain H02 (document dual methods), and freeze current d66 + path inventory; or
-  - redefine Auth candidate FP as tracked+untracked-not-ignored only (exclude ignored volatiles), mint new baseline with full path inventory; or
-  - reconstruct a312-era snapshot from other evidence if any exists outside handoff
-- **No silent rebaseline** without explicit decision
-- Do **not** start MW6 REAL
-- Do **not** treat withdrawn `1f8bd0b7` METHOD_DRIFT PASS as valid
+## AA. Claims allowed (pending ChatGPT review)
+- AUTH-CANDIDATE-ANCHOR-V1 = MINTED
+- BASE SHA = recorded
+- NORMALIZED DELTA MANIFEST = COMPLETE
+- CURRENT AUTH CANDIDATE = ANCHORED AT MINT STATE
+- ANCHOR = REPRODUCIBLE
+- Historical a312 = NON-RECONSTRUCTIBLE / RETIRED AS ACTIVE PRESERVATION ANCHOR
 
-## AB. Unique verdict
+## AB. Claims forbidden
+- CURRENT AUTH == HISTORICAL a312
+- AUTH REAL CURRENT-CANDIDATE RE-PROVEN
+- AUTH REAL historical proof automatically carried forward
+- MW6↔AUTH final composition accepted by ChatGPT
+- MW6 REAL eligible / proven / COMPLETE
+- Cognitive Completion proven · runtime v3 ADOPTED · production-ready
 
-**AUTH FINGERPRINT FORENSIC INCONCLUSIVE — HISTORICAL SNAPSHOT/METHOD NOT SUFFICIENTLY RECONSTRUCTIBLE / MW6 REAL NOT STARTED**
+## AC. Debt / reserves
+- ChatGPT must decide whether current Auth candidate needs functional revalidation before composition reassessment
+- Integration composition candidate remains local / not ChatGPT-accepted as final
+- MW6 REAL not started
+
+## AD. Unique verdict
+
+**READY FOR CHATGPT AUTH CANDIDATE ANCHOR REVIEW — AUTH-CANDIDATE-ANCHOR-V1 MINTED AND REPRODUCIBLE / HISTORICAL a312 RETIRED AS ACTIVE PRESERVATION ANCHOR / MW6 REAL NOT STARTED**
