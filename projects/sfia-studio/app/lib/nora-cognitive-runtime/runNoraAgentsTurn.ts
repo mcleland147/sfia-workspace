@@ -573,19 +573,6 @@ export async function runNoraAgentsTurn(
     }
   }
 
-  const usdObserve: RunNoraAgentsTurnUsdObserve | undefined = usdAccounting
-    ? (() => {
-        const reservedInvocations = usdAccounting.reservedInvocationCount();
-        const settled = usdAccounting.settleTurn({
-          reservedInvocations,
-          inputTokens: usageAgg?.inputTokens ?? null,
-          outputTokens: usageAgg?.outputTokens ?? null,
-          totalTokens: usageAgg?.totalTokens ?? null,
-        });
-        return { ...settled, reservedInvocations };
-      })()
-    : undefined;
-
   const usage = {
     inputTokens: usageAgg?.inputTokens ?? null,
     outputTokens: usageAgg?.outputTokens ?? null,
@@ -629,6 +616,26 @@ export async function runNoraAgentsTurn(
         .join("\n");
     }
   }
+
+  // USD settlement AFTER hosted observation so factual REAL hosted-call fees
+  // can be included. Deterministic fixtures → hostedWebSearchCalls=0 (not billed).
+  const usdObserve: RunNoraAgentsTurnUsdObserve | undefined = usdAccounting
+    ? (() => {
+        const reservedInvocations = usdAccounting.reservedInvocationCount();
+        const factualHostedCalls =
+          deterministicBoundaryUsed || !enableHostedWebSearch
+            ? 0
+            : liveCalls.length;
+        const settled = usdAccounting.settleTurn({
+          reservedInvocations,
+          inputTokens: usageAgg?.inputTokens ?? null,
+          outputTokens: usageAgg?.outputTokens ?? null,
+          totalTokens: usageAgg?.totalTokens ?? null,
+          hostedWebSearchCalls: factualHostedCalls,
+        });
+        return { ...settled, reservedInvocations };
+      })()
+    : undefined;
 
   const hostedSearchObserve: RunNoraAgentsTurnHostedSearchObserve | undefined =
     enableHostedWebSearch || deterministicBoundaryUsed

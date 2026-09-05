@@ -69,12 +69,13 @@ describe("G1 — campaign capability policy (MW0 preserved + global distinct)", 
     }
   });
 
-  it("Global policy: Luna/Terra/Sol + none→max admissible; minimal FAIL", () => {
+  it("Global policy: GPT-5.6 + Astra capability; Astra none FAIL; minimal FAIL", () => {
     const global = buildGlobalModelReasoningCapabilityManifest(RETRIEVED);
     expect(global.campaignAllowlist.modelIds).toEqual([
       "gpt-5.6-luna",
       "gpt-5.6-terra",
       "gpt-5.6-sol",
+      "gpt-6-astra",
     ]);
     expect(global.campaignAllowlist.reasoningEfforts).toEqual([
       "none",
@@ -84,7 +85,7 @@ describe("G1 — campaign capability policy (MW0 preserved + global distinct)", 
       "xhigh",
       "max",
     ]);
-    for (const modelId of global.campaignAllowlist.modelIds) {
+    for (const modelId of ["gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol"]) {
       for (const effort of global.campaignAllowlist.reasoningEfforts) {
         expect(
           validateCellAgainstManifest({
@@ -95,6 +96,20 @@ describe("G1 — campaign capability policy (MW0 preserved + global distinct)", 
         ).toBe(true);
       }
     }
+    expect(
+      validateCellAgainstManifest({
+        manifest: global,
+        modelId: "gpt-6-astra",
+        reasoningEffort: "medium",
+      }).ok,
+    ).toBe(true);
+    expect(
+      validateCellAgainstManifest({
+        manifest: global,
+        modelId: "gpt-6-astra",
+        reasoningEffort: "none",
+      }).ok,
+    ).toBe(false);
     const minimal = validateCellAgainstManifest({
       manifest: global,
       modelId: "gpt-5.6-luna",

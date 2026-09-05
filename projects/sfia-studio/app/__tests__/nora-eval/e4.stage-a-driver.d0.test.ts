@@ -32,13 +32,14 @@ describe("E4 — Global MR Stage A driver corrections (deterministic)", () => {
     const cells = buildGlobalMrStageAMatrix({
       campaignId: "nora-global-mr-stage-a-test",
     });
-    expect(cells).toHaveLength(54);
+    expect(cells.filter((c) => !c.isChallenger)).toHaveLength(54);
+    expect(cells).toHaveLength(60);
     expect(assertGlobalMrStageAMatrixInvariants(cells).ok).toBe(true);
     const proof = globalMrStageAEnvelopeProof();
-    expect(proof.maxCellExecutions).toBe(72);
-    expect(proof.maxModelInvocations).toBe(405);
-    expect(proof.maxAggregateRealCalls).toBe(429);
-    expect(proof.usd).toEqual({ targetUsd: 6, softStopUsd: 9, hardCapUsd: 12 });
+    expect(proof.maxCellExecutions).toBe(78);
+    expect(proof.maxModelInvocations).toBe(438);
+    expect(proof.maxAggregateRealCalls).toBe(464);
+    expect(proof.usd).toEqual({ targetUsd: 15, softStopUsd: 18, hardCapUsd: 20 });
     expect(proof.usdSemantics).toBe(
       "pre_dispatch_reservation_authorization_envelope",
     );
@@ -178,7 +179,7 @@ describe("E4 — Global MR Stage A driver corrections (deterministic)", () => {
   it("F4B-AC01/AC02 — soft stop blocks new cells without acknowledgment", async () => {
     const state = createGlobalMrStageADriver({
       campaignId: `f4b-soft-${Date.now()}`,
-      carryInUsd: 9,
+      carryInUsd: 18,
     });
     expect(state.softReviewRequired).toBe(true);
     expect(evaluateGlobalMrStageAStop(state)).toBe("SOFT_USD_REVIEW");
@@ -224,7 +225,7 @@ describe("E4 — Global MR Stage A driver corrections (deterministic)", () => {
   it("F4B-AC03/AC04/AC06 — acknowledgment allows continuation without resetting counters / no HD", async () => {
     const state = createGlobalMrStageADriver({
       campaignId: `f4b-ack-${Date.now()}`,
-      carryInUsd: 9,
+      carryInUsd: 18,
     });
     const spendBefore = state.budget.cumulativeUsd;
     const ackEmpty = acknowledgeGlobalMrStageASoftReview(state, "  ");
@@ -268,7 +269,7 @@ describe("E4 — Global MR Stage A driver corrections (deterministic)", () => {
   it("F4B-AC05 — hard cap remains non-resumable", () => {
     const state = createGlobalMrStageADriver({
       campaignId: `f4b-hard-${Date.now()}`,
-      carryInUsd: 12,
+      carryInUsd: 20,
     });
     state.softReviewRequired = true;
     const ack = acknowledgeGlobalMrStageASoftReview(state, "review");

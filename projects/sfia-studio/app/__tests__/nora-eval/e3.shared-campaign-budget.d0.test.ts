@@ -21,19 +21,22 @@ import {
 } from "@/features/project-assistant/mw6GovernedNoraTurn";
 
 describe("E3 — driver canonical campaign lease × MW6 (deterministic)", () => {
-  it("F3-AC01 — create driver → canonical lease derived 405/24/429", () => {
+  it("F3-AC01 — create driver → canonical lease derived 438/26/464", () => {
     const state = createGlobalMrStageADriver({
       campaignId: `f3-ac01-${Date.now()}`,
     });
     expect(state.campaignBudget.maxModelInvocations).toBe(
       GLOBAL_MR_STAGE_A_CALL_CAPS.maxModelInvocations,
     );
-    expect(state.campaignBudget.maxHostedWebOperations).toBe(24);
+    expect(state.campaignBudget.maxHostedWebOperations).toBe(
+      GLOBAL_MR_STAGE_A_CALL_CAPS.maxHostedWebOperations,
+    );
     expect(state.campaignBudget.maxAggregateRealCalls).toBe(
       GLOBAL_MR_STAGE_A_CALL_CAPS.maxAggregateRealCalls,
     );
-    expect(GLOBAL_MR_STAGE_A_CALL_CAPS.maxModelInvocations).toBe(405);
-    expect(GLOBAL_MR_STAGE_A_CALL_CAPS.maxAggregateRealCalls).toBe(429);
+    expect(GLOBAL_MR_STAGE_A_CALL_CAPS.maxModelInvocations).toBe(438);
+    expect(GLOBAL_MR_STAGE_A_CALL_CAPS.maxHostedWebOperations).toBe(26);
+    expect(GLOBAL_MR_STAGE_A_CALL_CAPS.maxAggregateRealCalls).toBe(464);
     expect(state.campaignBudget.campaignId).toBe(state.campaignId);
   });
 

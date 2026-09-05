@@ -3,7 +3,7 @@
  *
  * CELL EXECUTIONS ≠ MODEL INVOCATIONS.
  * Caps for model/aggregate are DERIVED from product-path ceilings.
- * USD 6/9/12 remains candidate authorization envelope (≠ invoice).
+ * USD 15/18/20 is Morris-decided authorization envelope (≠ invoice; ≠ Stage A REAL).
  * ZERO REAL by default: injectable executor; canonical NoraCampaignBudget is SoT.
  */
 import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
@@ -25,25 +25,52 @@ import {
   BudgetTracker,
   buildGlobalModelReasoningCapabilityManifest,
   conservativePreCallEstimateUsd,
+  OPENAI_WEB_SEARCH_TOOL_CALL_USD,
   validateCellAgainstManifest,
   type CapabilityManifest,
 } from "./capabilityBudget";
 import { getScenario } from "./catalog";
 
 export const GLOBAL_MR_STAGE_A_CONTRACT_VERSION =
-  "global-mr-campaign-contract-v2-candidate" as const;
+  "global-mr-campaign-contract-v3-candidate" as const;
 
-export const GLOBAL_MR_STAGE_A_MODELS = [
+/** Primary GPT-5.6 cohort — preserved Cartesian product (Option C). */
+export const GLOBAL_MR_STAGE_A_PRIMARY_MODELS = [
   "gpt-5.6-luna",
   "gpt-5.6-terra",
   "gpt-5.6-sol",
 ] as const;
+
+/** @deprecated Alias — prefer PRIMARY_MODELS; does NOT include Astra. */
+export const GLOBAL_MR_STAGE_A_MODELS = GLOBAL_MR_STAGE_A_PRIMARY_MODELS;
 
 export const GLOBAL_MR_STAGE_A_EFFORTS = [
   "none",
   "medium",
   "high",
 ] as const satisfies readonly OpenAiReasoningEffort[];
+
+/** Bounded Astra challenger — medium only; ONE-SHOT (no selective repeats). */
+export const GLOBAL_MR_STAGE_A_ASTRA_CHALLENGER = {
+  modelId: "gpt-6-astra",
+  reasoningEffort: "medium",
+} as const satisfies {
+  modelId: "gpt-6-astra";
+  reasoningEffort: OpenAiReasoningEffort;
+};
+
+export type GlobalMrStageAPrimaryModel =
+  (typeof GLOBAL_MR_STAGE_A_PRIMARY_MODELS)[number];
+
+export type GlobalMrStageAModelId =
+  | GlobalMrStageAPrimaryModel
+  | typeof GLOBAL_MR_STAGE_A_ASTRA_CHALLENGER.modelId;
+
+/** Full Stage A model universe (primary + challenger). */
+export const GLOBAL_MR_STAGE_A_MODEL_UNIVERSE = [
+  ...GLOBAL_MR_STAGE_A_PRIMARY_MODELS,
+  GLOBAL_MR_STAGE_A_ASTRA_CHALLENGER.modelId,
+] as const;
 
 export const GLOBAL_MR_STAGE_A_WORKLOADS = [
   "W-Routine",
@@ -170,28 +197,40 @@ export function buildGlobalMrStageAWorkloadCallPlans(): Record<
 /** Candidate hosted tool-calls/response (campaign). */
 export const GLOBAL_MR_STAGE_A_PROVIDER_TOOL_CALLS_PER_RESPONSE = 2;
 
-/** Cell execution envelope — NOT model invocations. */
+/** Cell execution envelope — NOT model invocations. Option C: 54 primary + 6 Astra + 18 primary repeats. */
 export const GLOBAL_MR_STAGE_A_CELL_CAPS = {
-  baseCells: 54,
+  primaryBaseCells: 54,
+  astraChallengerCells: 6,
+  baseCells: 54 + 6,
   maxSelectiveRepeats: 18,
-  /** One selective extra run per base cell (runIndex 0 base + runIndex 1 repeat). */
+  /** One selective extra run per *primary* base cell (runIndex 0 base + runIndex 1 repeat). */
   maxRepeatsPerCell: 1,
-  maxCellExecutions: 54 + 18,
+  /** Astra challenger cells are ONE-SHOT — not selective-repeat eligible. */
+  astraSelectiveRepeats: 0,
+  maxCellExecutions: 54 + 6 + 18,
+  /** Hosted: primary pool 24 + Astra W-Sources challenger +2. */
+  maxHostedWebOperations: 24 + 2,
 } as const;
 
-/** Candidate USD envelope — authorization ≠ invoice. */
+/** Candidate USD envelope — Morris D-GMR-FINOPS-01: 15/18/20. Authorization ≠ invoice. */
 export const GLOBAL_MR_STAGE_A_USD_POLICY: CampaignBudgetPolicy = {
-  targetUsd: 6,
-  softStopUsd: 9,
-  hardCapUsd: 12,
+  targetUsd: 15,
+  softStopUsd: 18,
+  hardCapUsd: 20,
 };
 
 export type GlobalMrStageADerivedEnvelope = {
   contractVersion: typeof GLOBAL_MR_STAGE_A_CONTRACT_VERSION;
   maxCellExecutions: number;
   maxSelectiveRepeats: number;
+  primaryBaseCells: number;
+  astraChallengerCells: number;
+  baseCells: number;
+  primaryBaseModelInvocationCeiling: number;
+  astraBaseModelInvocationCeiling: number;
   baseModelInvocationCeiling: number;
   repeatModelInvocationCeiling: number;
+  astraRepeatModelInvocationCeiling: number;
   maxModelInvocations: number;
   maxHostedWebOperations: number;
   maxAggregateRealCalls: number;
@@ -199,10 +238,25 @@ export type GlobalMrStageADerivedEnvelope = {
   usd: CampaignBudgetPolicy;
   usdFeasibility: {
     ok: boolean;
+    /** Model-token planned reserve (4k/1.2k assumptions) — NOT total provider cost. */
+    plannedModelTokenReserveUsd: number;
+    /** Model-token base cells only (no repeats). */
     plannedReserveUsdBase: number;
+    /**
+     * @deprecated Alias of plannedModelTokenReserveUsd — model-token only.
+     * Do NOT treat as known planned subtotal or invoice ceiling.
+     */
     plannedReserveUsdWorstCaseWithRepeats: number;
+    webSearchToolCallUsd: number;
+    plannedHostedWebSearchToolFeesUsd: number;
+    /** model-token reserve + max fixed web-search tool-call fees. ≠ invoice. */
+    knownPlannedSubtotalUsd: number;
+    searchContentTokenExposure: "VARIABLE_PROVIDER_USAGE_DEPENDENT";
+    cacheWritePricingDocumented: true;
+    cacheWriteQuantityDeterministicallyKnown: false;
+    invoice: "NOT_OBSERVED";
     hardCapUsd: number;
-    status: "COMPATIBLE_WITH_CANDIDATE_12" | "REQUIRES_MORRIS_BUDGET_DECISION";
+    status: "COMPATIBLE_WITH_CURRENT_POLICY" | "REQUIRES_MORRIS_BUDGET_DECISION";
   };
   derivationNotes: string[];
 };
@@ -214,54 +268,61 @@ export type GlobalMrStageADerivedEnvelope = {
  */
 export function deriveGlobalMrStageAEnvelope(): GlobalMrStageADerivedEnvelope {
   const plans = buildGlobalMrStageAWorkloadCallPlans();
+  const basePlan = buildGlobalMrStageABaseCellPlan();
   const derivationNotes: string[] = [
-    "maxCellExecutions = 54 base + 18 selective repeats = 72 (cell executions, not model calls).",
+    "Option C: primary 54 (3×3×6) + Astra challenger 6 (medium×6) = 60 base cells.",
+    "maxCellExecutions = 60 base + 18 primary selective repeats = 78 (Astra repeats = 0).",
     `maxAgentsModelTurns = CT_MAX_TOOL_ROUNDS+1 = ${GLOBAL_MR_STAGE_A_MAX_AGENTS_MODEL_TURNS}.`,
     "F2 workloads include 1 constitutive analyzeIntent structured model call.",
-    "Repeat ceiling uses the 18 highest per-cell model-call costs (≤1 repeat/base cell).",
+    "Repeat ceiling uses the 18 highest *primary* per-cell model-call costs (≤1 repeat/primary base cell).",
+    "USD 15/18/20 policy DECIDED BY MORRIS (D-GMR-FINOPS-01); known planned subtotal (model-token + fixed hosted fees) COMPATIBLE_WITH_CURRENT_POLICY.",
+    "plannedModelTokenReserveUsd ≠ total provider cost; search-content/cache exposure VARIABLE; invoice NOT_OBSERVED; Stage A REAL NOT AUTHORIZED by financial decision alone.",
   ];
 
-  const cellCosts: Array<{
-    model: (typeof GLOBAL_MR_STAGE_A_MODELS)[number];
+  const primaryCellCosts: Array<{
+    model: GlobalMrStageAPrimaryModel;
     effort: (typeof GLOBAL_MR_STAGE_A_EFFORTS)[number];
     workloadId: GlobalMrStageAWorkloadId;
     modelCalls: number;
     estimatedUsd: number;
   }> = [];
 
-  let baseModelInvocationCeiling = 0;
+  let primaryBaseModelInvocationCeiling = 0;
+  let astraBaseModelInvocationCeiling = 0;
   let plannedReserveUsdBase = 0;
 
-  for (const model of GLOBAL_MR_STAGE_A_MODELS) {
-    for (const effort of GLOBAL_MR_STAGE_A_EFFORTS) {
-      for (const workloadId of GLOBAL_MR_STAGE_A_WORKLOADS) {
-        const plan = plans[workloadId];
-        const modelCalls = plan.maxModelInvocationsPerCell;
-        baseModelInvocationCeiling += modelCalls;
-        const perCall = conservativePreCallEstimateUsd({
-          manifest: buildGlobalModelReasoningCapabilityManifest(
-            "2026-09-05T00:00:00.000Z",
-          ),
-          modelId: model,
-        });
-        const estimatedUsd = perCall * modelCalls;
-        plannedReserveUsdBase += estimatedUsd;
-        cellCosts.push({
-          model,
-          effort,
-          workloadId,
-          modelCalls,
-          estimatedUsd,
-        });
-      }
+  const manifest = buildGlobalModelReasoningCapabilityManifest(
+    "2026-09-05T00:00:00.000Z",
+  );
+
+  for (const entry of basePlan) {
+    const plan = plans[entry.workloadId];
+    const modelCalls = plan.maxModelInvocationsPerCell;
+    const perCall = conservativePreCallEstimateUsd({
+      manifest,
+      modelId: entry.model,
+    });
+    const estimatedUsd = perCall * modelCalls;
+    plannedReserveUsdBase += estimatedUsd;
+    if (entry.isChallenger) {
+      astraBaseModelInvocationCeiling += modelCalls;
+    } else {
+      primaryBaseModelInvocationCeiling += modelCalls;
+      primaryCellCosts.push({
+        model: entry.model as GlobalMrStageAPrimaryModel,
+        effort: entry.reasoningEffort as (typeof GLOBAL_MR_STAGE_A_EFFORTS)[number],
+        workloadId: entry.workloadId,
+        modelCalls,
+        estimatedUsd,
+      });
     }
   }
 
-  cellCosts.sort(
+  primaryCellCosts.sort(
     (a, b) =>
       b.modelCalls - a.modelCalls || b.estimatedUsd - a.estimatedUsd,
   );
-  const topRepeats = cellCosts.slice(
+  const topRepeats = primaryCellCosts.slice(
     0,
     GLOBAL_MR_STAGE_A_CELL_CAPS.maxSelectiveRepeats,
   );
@@ -273,24 +334,39 @@ export function deriveGlobalMrStageAEnvelope(): GlobalMrStageADerivedEnvelope {
     (s, c) => s + c.estimatedUsd,
     0,
   );
-  const plannedReserveUsdWorstCaseWithRepeats =
+  const plannedModelTokenReserveUsd =
     plannedReserveUsdBase + plannedReserveUsdRepeats;
 
+  const baseModelInvocationCeiling =
+    primaryBaseModelInvocationCeiling + astraBaseModelInvocationCeiling;
   const maxModelInvocations =
     baseModelInvocationCeiling + repeatModelInvocationCeiling;
-  const maxHostedWebOperations = 24; // campaign pool (retained candidate pool)
+  const maxHostedWebOperations =
+    GLOBAL_MR_STAGE_A_CELL_CAPS.maxHostedWebOperations;
   const maxAggregateRealCalls = maxModelInvocations + maxHostedWebOperations;
 
+  const webSearchToolCallUsd = OPENAI_WEB_SEARCH_TOOL_CALL_USD;
+  const plannedHostedWebSearchToolFeesUsd =
+    maxHostedWebOperations * webSearchToolCallUsd;
+  const knownPlannedSubtotalUsd =
+    plannedModelTokenReserveUsd + plannedHostedWebSearchToolFeesUsd;
+
   const usdOk =
-    plannedReserveUsdWorstCaseWithRepeats <=
+    knownPlannedSubtotalUsd <=
     GLOBAL_MR_STAGE_A_USD_POLICY.hardCapUsd + 1e-12;
 
   return {
     contractVersion: GLOBAL_MR_STAGE_A_CONTRACT_VERSION,
     maxCellExecutions: GLOBAL_MR_STAGE_A_CELL_CAPS.maxCellExecutions,
     maxSelectiveRepeats: GLOBAL_MR_STAGE_A_CELL_CAPS.maxSelectiveRepeats,
+    primaryBaseCells: GLOBAL_MR_STAGE_A_CELL_CAPS.primaryBaseCells,
+    astraChallengerCells: GLOBAL_MR_STAGE_A_CELL_CAPS.astraChallengerCells,
+    baseCells: GLOBAL_MR_STAGE_A_CELL_CAPS.baseCells,
+    primaryBaseModelInvocationCeiling,
+    astraBaseModelInvocationCeiling,
     baseModelInvocationCeiling,
     repeatModelInvocationCeiling,
+    astraRepeatModelInvocationCeiling: 0,
     maxModelInvocations,
     maxHostedWebOperations,
     maxAggregateRealCalls,
@@ -298,11 +374,19 @@ export function deriveGlobalMrStageAEnvelope(): GlobalMrStageADerivedEnvelope {
     usd: GLOBAL_MR_STAGE_A_USD_POLICY,
     usdFeasibility: {
       ok: usdOk,
+      plannedModelTokenReserveUsd,
       plannedReserveUsdBase,
-      plannedReserveUsdWorstCaseWithRepeats,
+      plannedReserveUsdWorstCaseWithRepeats: plannedModelTokenReserveUsd,
+      webSearchToolCallUsd,
+      plannedHostedWebSearchToolFeesUsd,
+      knownPlannedSubtotalUsd,
+      searchContentTokenExposure: "VARIABLE_PROVIDER_USAGE_DEPENDENT",
+      cacheWritePricingDocumented: true,
+      cacheWriteQuantityDeterministicallyKnown: false,
+      invoice: "NOT_OBSERVED",
       hardCapUsd: GLOBAL_MR_STAGE_A_USD_POLICY.hardCapUsd,
       status: usdOk
-        ? "COMPATIBLE_WITH_CANDIDATE_12"
+        ? "COMPATIBLE_WITH_CURRENT_POLICY"
         : "REQUIRES_MORRIS_BUDGET_DECISION",
     },
     derivationNotes,
@@ -348,14 +432,62 @@ export type GlobalMrStageACell = {
   workloadId: GlobalMrStageAWorkloadId;
   scenarioId: string;
   scenarioVersion: typeof NORA_EVAL_GLOBAL_CATALOG_VERSION;
-  model: (typeof GLOBAL_MR_STAGE_A_MODELS)[number];
-  reasoningEffort: (typeof GLOBAL_MR_STAGE_A_EFFORTS)[number];
+  model: GlobalMrStageAModelId;
+  reasoningEffort: OpenAiReasoningEffort;
   runIndex: number;
   isSelectiveRepeat: boolean;
+  /** True for Astra Stage A challenger cells. */
+  isChallenger: boolean;
+  /** False for Astra ONE-SHOT challenger cells. */
+  selectiveRepeatEligible: boolean;
   executionKind: GlobalMrStageAExecutionKind;
   attachHostedWebSearch: boolean;
   cell: CampaignCellConfig;
 };
+
+export type GlobalMrStageABaseCellPlanEntry = {
+  model: GlobalMrStageAModelId;
+  reasoningEffort: OpenAiReasoningEffort;
+  workloadId: GlobalMrStageAWorkloadId;
+  isChallenger: boolean;
+  selectiveRepeatEligible: boolean;
+};
+
+/**
+ * Shared base-cell plan — single SoT for matrix builder + envelope derivation.
+ * Primary Cartesian product + explicit Astra medium×6 challenger (NOT full 4×3×6).
+ */
+export function buildGlobalMrStageABaseCellPlan(): GlobalMrStageABaseCellPlanEntry[] {
+  const plan: GlobalMrStageABaseCellPlanEntry[] = [];
+  for (const model of GLOBAL_MR_STAGE_A_PRIMARY_MODELS) {
+    for (const reasoningEffort of GLOBAL_MR_STAGE_A_EFFORTS) {
+      for (const workloadId of GLOBAL_MR_STAGE_A_WORKLOADS) {
+        plan.push({
+          model,
+          reasoningEffort,
+          workloadId,
+          isChallenger: false,
+          selectiveRepeatEligible: true,
+        });
+      }
+    }
+  }
+  for (const workloadId of GLOBAL_MR_STAGE_A_WORKLOADS) {
+    plan.push({
+      model: GLOBAL_MR_STAGE_A_ASTRA_CHALLENGER.modelId,
+      reasoningEffort: GLOBAL_MR_STAGE_A_ASTRA_CHALLENGER.reasoningEffort,
+      workloadId,
+      isChallenger: true,
+      selectiveRepeatEligible: false,
+    });
+  }
+  if (plan.length !== GLOBAL_MR_STAGE_A_CELL_CAPS.baseCells) {
+    throw new Error(
+      `GLOBAL_MR_STAGE_A_BASE_PLAN_SIZE_INVALID: expected ${GLOBAL_MR_STAGE_A_CELL_CAPS.baseCells}, got ${plan.length}`,
+    );
+  }
+  return plan;
+}
 
 export type GlobalMrStageAStopReason =
   | "NONE"
@@ -415,45 +547,41 @@ export function buildGlobalMrStageAMatrix(input: {
 }): GlobalMrStageACell[] {
   const plans = buildGlobalMrStageAWorkloadCallPlans();
   const cells: GlobalMrStageACell[] = [];
-  let ordinal = 0;
-  for (const model of GLOBAL_MR_STAGE_A_MODELS) {
-    for (const reasoningEffort of GLOBAL_MR_STAGE_A_EFFORTS) {
-      for (const workloadId of GLOBAL_MR_STAGE_A_WORKLOADS) {
-        const scenarioId = GLOBAL_MR_STAGE_A_SEMANTIC_SCENARIOS[workloadId];
-        const plan = plans[workloadId];
-        const executionKind = plan.productPath;
-        const cellConfig: CampaignCellConfig = {
-          model,
-          reasoningEffort,
-          scenarioId,
-          scenarioVersion: NORA_EVAL_GLOBAL_CATALOG_VERSION,
-          runIndex: 0,
-          campaignId: input.campaignId,
-          tier: "R2",
-          sourceSet: workloadId === "W-Sources" ? "E" : "C",
-          toolSet: workloadId === "W-Sources" ? "f1_tools" : "none",
-        };
-        cells.push({
-          campaignId: input.campaignId,
-          stage: "A",
-          workloadId,
-          scenarioId,
-          scenarioVersion: NORA_EVAL_GLOBAL_CATALOG_VERSION,
-          model,
-          reasoningEffort,
-          runIndex: 0,
-          isSelectiveRepeat: false,
-          executionKind,
-          attachHostedWebSearch: workloadId === "W-Sources",
-          cell: cellConfig,
-        });
-        ordinal += 1;
-      }
-    }
+  for (const entry of buildGlobalMrStageABaseCellPlan()) {
+    const scenarioId = GLOBAL_MR_STAGE_A_SEMANTIC_SCENARIOS[entry.workloadId];
+    const plan = plans[entry.workloadId];
+    const executionKind = plan.productPath;
+    const cellConfig: CampaignCellConfig = {
+      model: entry.model,
+      reasoningEffort: entry.reasoningEffort,
+      scenarioId,
+      scenarioVersion: NORA_EVAL_GLOBAL_CATALOG_VERSION,
+      runIndex: 0,
+      campaignId: input.campaignId,
+      tier: "R2",
+      sourceSet: entry.workloadId === "W-Sources" ? "E" : "C",
+      toolSet: entry.workloadId === "W-Sources" ? "f1_tools" : "none",
+    };
+    cells.push({
+      campaignId: input.campaignId,
+      stage: "A",
+      workloadId: entry.workloadId,
+      scenarioId,
+      scenarioVersion: NORA_EVAL_GLOBAL_CATALOG_VERSION,
+      model: entry.model,
+      reasoningEffort: entry.reasoningEffort,
+      runIndex: 0,
+      isSelectiveRepeat: false,
+      isChallenger: entry.isChallenger,
+      selectiveRepeatEligible: entry.selectiveRepeatEligible,
+      executionKind,
+      attachHostedWebSearch: entry.workloadId === "W-Sources",
+      cell: cellConfig,
+    });
   }
-  if (ordinal !== 54 || cells.length !== 54) {
+  if (cells.length !== GLOBAL_MR_STAGE_A_CELL_CAPS.baseCells) {
     throw new Error(
-      `GLOBAL_MR_STAGE_A_MATRIX_SIZE_INVALID: expected 54, got ${cells.length}`,
+      `GLOBAL_MR_STAGE_A_MATRIX_SIZE_INVALID: expected ${GLOBAL_MR_STAGE_A_CELL_CAPS.baseCells}, got ${cells.length}`,
     );
   }
   return cells;
@@ -464,7 +592,16 @@ export function assertGlobalMrStageAMatrixInvariants(
 ): { ok: boolean; issues: string[] } {
   const plans = buildGlobalMrStageAWorkloadCallPlans();
   const issues: string[] = [];
-  if (cells.length !== 54) issues.push(`size=${cells.length}`);
+  const expected = GLOBAL_MR_STAGE_A_CELL_CAPS.baseCells;
+  if (cells.length !== expected) issues.push(`size=${cells.length}`);
+  const primary = cells.filter((c) => !c.isChallenger);
+  const challengers = cells.filter((c) => c.isChallenger);
+  if (primary.length !== GLOBAL_MR_STAGE_A_CELL_CAPS.primaryBaseCells) {
+    issues.push(`primary=${primary.length}`);
+  }
+  if (challengers.length !== GLOBAL_MR_STAGE_A_CELL_CAPS.astraChallengerCells) {
+    issues.push(`astra=${challengers.length}`);
+  }
   const keys = new Set<string>();
   for (const c of cells) {
     if (c.scenarioVersion !== NORA_EVAL_GLOBAL_CATALOG_VERSION) {
@@ -485,13 +622,26 @@ export function assertGlobalMrStageAMatrixInvariants(
     if (c.workloadId !== "W-Sources" && c.attachHostedWebSearch) {
       issues.push(`hosted-default:${c.workloadId}`);
     }
+    if (c.isChallenger) {
+      if (c.model !== GLOBAL_MR_STAGE_A_ASTRA_CHALLENGER.modelId) {
+        issues.push(`challenger-model:${c.model}`);
+      }
+      if (c.reasoningEffort !== GLOBAL_MR_STAGE_A_ASTRA_CHALLENGER.reasoningEffort) {
+        issues.push(`challenger-effort:${c.reasoningEffort}`);
+      }
+      if (c.selectiveRepeatEligible) {
+        issues.push(`challenger-repeat-eligible:${c.workloadId}`);
+      }
+    } else if (!c.selectiveRepeatEligible) {
+      issues.push(`primary-not-repeat-eligible:${c.workloadId}`);
+    }
     const key = `${c.model}|${c.reasoningEffort}|${c.workloadId}`;
     if (keys.has(key)) issues.push(`dup:${key}`);
     keys.add(key);
     const scenario = getScenario(c.scenarioId, NORA_EVAL_GLOBAL_CATALOG_VERSION);
     if (!scenario) issues.push(`missing-scenario:${c.scenarioId}`);
   }
-  if (keys.size !== 54) issues.push(`unique=${keys.size}`);
+  if (keys.size !== expected) issues.push(`unique=${keys.size}`);
   return { ok: issues.length === 0, issues };
 }
 
@@ -522,12 +672,8 @@ export function createGlobalMrStageADriver(input: {
   carryInUsd?: number;
 }): GlobalMrStageADriverState {
   const derived = deriveGlobalMrStageAEnvelope();
-  if (!derived.usdFeasibility.ok) {
-    throw new Error(
-      "STOP — STAGE A USD ENVELOPE REQUIRES MORRIS BUDGET DECISION: " +
-        `worstCase=${derived.usdFeasibility.plannedReserveUsdWorstCaseWithRepeats} > hardCap=${derived.usdFeasibility.hardCapUsd}`,
-    );
-  }
+  // Option C may be DETERMINISTIC PROVEN while usdFeasibility.ok=false.
+  // Do NOT raise hardCap here — REAL authorization still requires Morris budget decision.
   const manifest = buildGlobalModelReasoningCapabilityManifest(
     input.retrievedAtIso ?? new Date().toISOString(),
   );
@@ -630,6 +776,9 @@ export function canScheduleSelectiveRepeat(
   if (baseCell.isSelectiveRepeat) {
     return { allowed: false, reason: "already_a_repeat" };
   }
+  if (baseCell.isChallenger || !baseCell.selectiveRepeatEligible) {
+    return { allowed: false, reason: "SELECTIVE_REPEAT_DENIED" };
+  }
   if (baseCell.runIndex >= 1) {
     return { allowed: false, reason: "cell_already_repeated" };
   }
@@ -652,6 +801,11 @@ export function materializeSelectiveRepeat(
   if (baseCell.runIndex > 0 || baseCell.isSelectiveRepeat) {
     throw new Error(
       "SELECTIVE_REPEAT_RUN_INDEX_INVALID: runIndex>0 cannot be re-materialized",
+    );
+  }
+  if (baseCell.isChallenger || !baseCell.selectiveRepeatEligible) {
+    throw new Error(
+      "SELECTIVE_REPEAT_DENIED: Astra Stage A challenger cells are ONE-SHOT",
     );
   }
   return {
@@ -706,7 +860,11 @@ function toRunEvidence(
       `contract:${GLOBAL_MR_STAGE_A_CONTRACT_VERSION}`,
       `workload:${cell.workloadId}`,
       `stage:A`,
+      `model:${cell.model}`,
+      `effort:${cell.reasoningEffort}`,
       `executionKind:${cell.executionKind}`,
+      `challenger:${cell.isChallenger}`,
+      `selectiveRepeatEligible:${cell.selectiveRepeatEligible}`,
       `canonicalDeltaModel:${canonicalDelta.model}`,
       `canonicalDeltaHosted:${canonicalDelta.hosted}`,
       ...softReviewRefs.map((r) => `soft-review-ack:${r}`),
@@ -714,6 +872,8 @@ function toRunEvidence(
     productObservation: {
       ...(result.productObservation ?? {}),
       executionKind: cell.executionKind,
+      isChallenger: cell.isChallenger,
+      selectiveRepeatEligible: cell.selectiveRepeatEligible,
       canonicalDelta,
       reportedModelInvocationsConsumed:
         result.reportedModelInvocationsConsumed ?? null,

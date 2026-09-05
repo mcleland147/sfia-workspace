@@ -1,11 +1,11 @@
 /**
- * MW2 runtime model capability validation — fail-closed, no campaign allowlist.
- * Reuses dated manifest model lookup; NOT MW0 campaignEffectiveCapabilitySet.
+ * Runtime model capability validation — fail-closed, no campaign allowlist.
+ * Uses CURRENT OpenAI provider snapshot (incl. Astra). MW0 historical snapshot untouched.
  */
 import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
 import { TechnicalError } from "@/lib/platform/ai/errors";
 import {
-  buildMw0CapabilityManifest,
+  buildCurrentOpenAiCapabilityManifest,
   modelCapabilitySet,
 } from "@/lib/nora-eval/capabilityBudget";
 
@@ -13,7 +13,7 @@ export function validateRuntimeReasoningCapability(
   modelId: string,
   reasoningEffort: OpenAiReasoningEffort,
 ): void {
-  const manifest = buildMw0CapabilityManifest(new Date().toISOString());
+  const manifest = buildCurrentOpenAiCapabilityManifest(new Date().toISOString());
   const supported = modelCapabilitySet(manifest, modelId);
   if (!supported) {
     throw new TechnicalError(
@@ -24,7 +24,7 @@ export function validateRuntimeReasoningCapability(
   if (reasoningEffort === "minimal") {
     throw new TechnicalError(
       "PROVIDER",
-      "minimal n'est pas supporté pour la famille GPT-5.6 courante",
+      "minimal n'est pas supporté pour les modèles OpenAI courants du snapshot provider",
     );
   }
   if (!supported.includes(reasoningEffort)) {

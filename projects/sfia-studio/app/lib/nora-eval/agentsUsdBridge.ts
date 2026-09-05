@@ -6,6 +6,8 @@
  * - NOT a guaranteed provider invoice ceiling
  * - observed estimate may exceed reserved after a response → Evidence + fail-close
  * - invoice = NOT OBSERVED
+ * - hosted web_search fixed tool-call fee ($0.01/call) is reconciled POST-OBSERVATION
+ *   for factual REAL hosted calls only (deterministic fixtures → fee 0)
  */
 import type {
   NoraAgentsUsdAccounting,
@@ -14,6 +16,7 @@ import type {
 } from "@/lib/nora-cognitive-runtime";
 import {
   BudgetTracker,
+  OPENAI_WEB_SEARCH_TOOL_CALL_USD,
   conservativePreCallEstimateUsd,
   estimateCostUsd,
   type CapabilityManifest,
@@ -25,6 +28,8 @@ export type CreateEvalAgentsUsdAccountingInput = {
   modelId: string;
   assumedInputTokens?: number;
   assumedOutputTokens?: number;
+  /** Override unit fee for tests; default = official OpenAI web_search tool-call fee. */
+  webSearchToolCallUsd?: number;
 };
 
 export function createEvalAgentsUsdAccounting(
@@ -39,6 +44,8 @@ export function createEvalAgentsUsdAccounting(
   const assumedIn = input.assumedInputTokens ?? 4000;
   const assumedOut = input.assumedOutputTokens ?? 1200;
   const hardCap = input.budget.policy.hardCapUsd;
+  const webSearchUnit =
+    input.webSearchToolCallUsd ?? OPENAI_WEB_SEARCH_TOOL_CALL_USD;
 
   return {
     estimateNextInvocationUsd(): number {
@@ -96,25 +103,34 @@ export function createEvalAgentsUsdAccounting(
       const hasObserved =
         observation.inputTokens != null || observation.outputTokens != null;
       let usedConservativeFallback = !hasObserved;
-      let observedEstimate: number;
+      let modelTokenEstimatedUsd: number;
       if (hasObserved) {
-        observedEstimate = estimateCostUsd({
+        modelTokenEstimatedUsd = estimateCostUsd({
           manifest: input.manifest,
           modelId: input.modelId,
           inputTokens: observation.inputTokens ?? assumedIn,
           outputTokens: observation.outputTokens ?? assumedOut,
         });
       } else {
-        observedEstimate = turnReservedUsd;
+        modelTokenEstimatedUsd = turnReservedUsd;
         usedConservativeFallback = true;
       }
 
+      const hostedCalls = Math.max(0, observation.hostedWebSearchCalls ?? 0);
+      const hostedToolCallFeesUsd = hostedCalls * webSearchUnit;
+      const observedEstimate = modelTokenEstimatedUsd + hostedToolCallFeesUsd;
+
       const observedOverrun = observedEstimate > turnReservedUsd + 1e-12;
 
-      // Monotone top-up of BudgetTracker when observed > reserved.
+      // Monotone top-up of BudgetTracker when observed (model + hosted fees) > reserved.
       if (observedOverrun) {
         const delta = observedEstimate - turnReservedUsd;
-        input.budget.recordSpend(delta, "agents-usd-observed-overrun-topup");
+        input.budget.recordSpend(
+          delta,
+          hostedToolCallFeesUsd > 0
+            ? "agents-usd-observed-overrun-topup-incl-hosted-tool-fees"
+            : "agents-usd-observed-overrun-topup",
+        );
       }
 
       cumulativeObservedEstimatedUsd += observedEstimate;
@@ -125,6 +141,8 @@ export function createEvalAgentsUsdAccounting(
 
       const result: NoraAgentsUsdSettleResult = {
         reservedUsd: turnReservedUsd,
+        modelTokenEstimatedUsd,
+        hostedToolCallFeesUsd,
         observedEstimatedUsd: observedEstimate,
         estimatedUsd: observedEstimate,
         cumulativeReservedUsd,

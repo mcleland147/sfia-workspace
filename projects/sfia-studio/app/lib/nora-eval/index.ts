@@ -80,7 +80,10 @@ export {
 export {
   GLOBAL_MR_STAGE_A_CONTRACT_VERSION,
   GLOBAL_MR_STAGE_A_MODELS,
+  GLOBAL_MR_STAGE_A_PRIMARY_MODELS,
   GLOBAL_MR_STAGE_A_EFFORTS,
+  GLOBAL_MR_STAGE_A_ASTRA_CHALLENGER,
+  GLOBAL_MR_STAGE_A_MODEL_UNIVERSE,
   GLOBAL_MR_STAGE_A_WORKLOADS,
   GLOBAL_MR_STAGE_A_SEMANTIC_SCENARIOS,
   GLOBAL_MR_STAGE_A_CALL_CAPS,
@@ -89,6 +92,7 @@ export {
   GLOBAL_MR_STAGE_A_MAX_AGENTS_MODEL_TURNS,
   GLOBAL_MR_STAGE_A_PROVIDER_TOOL_CALLS_PER_RESPONSE,
   buildGlobalMrStageAWorkloadCallPlans,
+  buildGlobalMrStageABaseCellPlan,
   deriveGlobalMrStageAEnvelope,
   buildGlobalMrStageAMatrix,
   assertGlobalMrStageAMatrixInvariants,
@@ -111,4 +115,7 @@ export {
   type GlobalMrStageADerivedEnvelope,
   type GlobalMrStageAWorkloadCallPlan,
   type GlobalMrStageAProductPath,
+  type GlobalMrStageAModelId,
+  type GlobalMrStageAPrimaryModel,
+  type GlobalMrStageABaseCellPlanEntry,
 } from "./globalModelReasoningStageA";

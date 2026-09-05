@@ -49,7 +49,7 @@ import { resetMw5ChallengeStoreForTests } from "@/features/project-assistant/f2/
 import { setConversationProviderForTests } from "@/lib/platform/ai";
 
 describe("C3-01 — cell executions ≠ model invocations", () => {
-  it("derives envelope: 72 cell executions ≠ model invocations", () => {
+  it("derives Option C envelope: 78 cell executions ≠ model invocations", () => {
     expect(GLOBAL_MR_STAGE_A_MAX_AGENTS_MODEL_TURNS).toBe(
       CT_MAX_TOOL_ROUNDS + 1,
     );
@@ -60,42 +60,57 @@ describe("C3-01 — cell executions ≠ model invocations", () => {
     expect(plans["W-Clarification"].preAgentsStructuredModelCalls).toBe(1);
 
     const d = deriveGlobalMrStageAEnvelope();
-    expect(d.maxCellExecutions).toBe(72);
-    expect(GLOBAL_MR_STAGE_A_CELL_CAPS.maxCellExecutions).toBe(72);
-    // 3×3×(5+6+6+6+5+5)=297 base; top-18 F2 cells×6=108; total 405
-    expect(d.baseModelInvocationCeiling).toBe(297);
+    expect(d.maxCellExecutions).toBe(78);
+    expect(GLOBAL_MR_STAGE_A_CELL_CAPS.maxCellExecutions).toBe(78);
+    // primary 297 + Astra 33 = 330 base; top-18 primary F2×6=108; total 438
+    expect(d.primaryBaseModelInvocationCeiling).toBe(297);
+    expect(d.astraBaseModelInvocationCeiling).toBe(33);
+    expect(d.baseModelInvocationCeiling).toBe(330);
     expect(d.repeatModelInvocationCeiling).toBe(108);
-    expect(d.maxModelInvocations).toBe(405);
-    expect(d.maxHostedWebOperations).toBe(24);
-    expect(d.maxAggregateRealCalls).toBe(429);
-    expect(GLOBAL_MR_STAGE_A_CALL_CAPS.maxModelInvocations).toBe(405);
-    expect(GLOBAL_MR_STAGE_A_CALL_CAPS.maxAggregateRealCalls).toBe(429);
+    expect(d.astraRepeatModelInvocationCeiling).toBe(0);
+    expect(d.maxModelInvocations).toBe(438);
+    expect(d.maxHostedWebOperations).toBe(26);
+    expect(d.maxAggregateRealCalls).toBe(464);
+    expect(GLOBAL_MR_STAGE_A_CALL_CAPS.maxModelInvocations).toBe(438);
+    expect(GLOBAL_MR_STAGE_A_CALL_CAPS.maxAggregateRealCalls).toBe(464);
     expect(d.maxModelInvocations).not.toBe(d.maxCellExecutions);
     expect(d.usdFeasibility.ok).toBe(true);
-    expect(d.usdFeasibility.status).toBe("COMPATIBLE_WITH_CANDIDATE_12");
+    expect(d.usdFeasibility.status).toBe("COMPATIBLE_WITH_CURRENT_POLICY");
+    expect(d.usdFeasibility.plannedModelTokenReserveUsd).toBeCloseTo(
+      13.06896,
+      4,
+    );
+    expect(d.usdFeasibility.knownPlannedSubtotalUsd).toBeCloseTo(13.32896, 4);
+    expect(d.usdFeasibility.plannedReserveUsdWorstCaseWithRepeats).toBeCloseTo(
+      13.06896,
+      4,
+    );
     expect(GLOBAL_MR_STAGE_A_CONTRACT_VERSION).toBe(
-      "global-mr-campaign-contract-v2-candidate",
+      "global-mr-campaign-contract-v3-candidate",
     );
     const proof = globalMrStageAEnvelopeProof();
-    expect(proof.maxModelInvocations).toBe(405);
-    expect(proof.maxCellExecutions).toBe(72);
+    expect(proof.maxModelInvocations).toBe(438);
+    expect(proof.maxCellExecutions).toBe(78);
     expect(proof.usdSemantics).toBe(
       "pre_dispatch_reservation_authorization_envelope",
     );
   });
 
-  it("matrix paths match call plans", () => {
+  it("matrix paths match call plans (54 primary + 6 Astra)", () => {
     const cells = buildGlobalMrStageAMatrix({ campaignId: "c3-matrix" });
-    expect(cells).toHaveLength(54);
+    expect(cells).toHaveLength(60);
+    expect(cells.filter((c) => !c.isChallenger)).toHaveLength(54);
+    expect(cells.filter((c) => c.isChallenger)).toHaveLength(6);
+    // primary 27 f2 + 3 Astra f2 = 30; primary 18 agents + 2 Astra = 20; primary 9 mw6 + 1 Astra = 10
     expect(
       cells.filter((c) => c.executionKind === "f2_product"),
-    ).toHaveLength(27);
+    ).toHaveLength(30);
     expect(
       cells.filter((c) => c.executionKind === "agents_cognitive"),
-    ).toHaveLength(18);
+    ).toHaveLength(20);
     expect(
       cells.filter((c) => c.executionKind === "mw6_governed"),
-    ).toHaveLength(9);
+    ).toHaveLength(10);
   });
 });
 
