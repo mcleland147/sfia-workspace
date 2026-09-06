@@ -228,13 +228,14 @@ This cycle does **not** claim:
 
 ## 18. Review Handoff publication
 
-(Filled after publisher success in this cycle.)
-
-Expected prior tip: `5c82f90759ef9d5a9b5b353b934873f3241814ec`
-
-Publisher: `scripts/sfia/publish-review-handoff.sh`
-
-Message: `docs(review-handoff): CORR-04 Git integration readiness`
+| Field | Value |
+|-------|-------|
+| Prior tip | `5c82f90759ef9d5a9b5b353b934873f3241814ec` |
+| Publisher | `scripts/sfia/publish-review-handoff.sh` |
+| Message | `docs(review-handoff): CORR-04 Git integration readiness` |
+| CORR04_INTEGRATION_HANDOFF_TIP_SHA | `08af6c0b7c313b83a4decd1bfa3c827ef6ff8a83` |
+| Remote canonical blob | `dc8811f116d9bc2bd03cd891a4e60d260457d0ba` |
+| Verdict | **HANDOFF UPDATED — REMOTE VERIFIED** |
 
 ---
 
