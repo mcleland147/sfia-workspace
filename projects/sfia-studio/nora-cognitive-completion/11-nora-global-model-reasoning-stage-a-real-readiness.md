@@ -3,20 +3,32 @@
 | Field | Value |
 | --- | --- |
 | **Document ID** | `NORA-GLOBAL-MR-STAGE-A-REAL-READINESS-01` |
-| **Maintenance** | `NORA-GLOBAL-MR-STAGE-A-OPTION-C-GIT-INTEGRATION-01` |
-| **Date** | 2026-09-05 23:10:00 CEST / `2026-09-05T21:10:00Z` |
-| **Cycle** | 8 — EVOL / CRITICAL |
-| **Morris decisions** | D-GMR-ASTRA-01 · D-GMR-ASTRA-02 · **D-GMR-FINOPS-01** · **D-GMR-GIT-01** |
-| **Status** | **GIT INTEGRATION CANDIDATE** — financial envelope DECIDED · product commit/push/PR authorized · merge NOT authorized · Stage A REAL NOT AUTHORIZED |
+| **Maintenance** | `NORA-GLOBAL-MR-STAGE-A-OPTION-C-POST-MERGE-READINESS-01` |
+| **Date** | 2026-09-06 04:54:29 CEST / `2026-09-06T02:54:29Z` |
+| **Cycle** | 14 — DOC / CRITICAL |
+| **Morris decisions** | D-GMR-ASTRA-01 · D-GMR-ASTRA-02 · D-GMR-FINOPS-01 · D-GMR-GIT-01 · **GO MERGE PR #468** · **GO POST-MERGE TRUTH-SYNC + REAL READINESS** |
+| **Status** | **POST-MERGE VERIFIED — STAGE A REAL READINESS QUALIFICATION ACTIVE — REAL NOT AUTHORIZED** |
 | **REAL** | **NOT AUTHORIZED / NOT EXECUTED** |
 
 ---
 
 ## 1. Purpose
 
-Qualify Stage A Option C deterministic readiness after Morris financial envelope decision and while Git integration proceeds. Does **not** authorize Stage A REAL.
+Qualify Stage A Option C after PR **#468** merge and post-merge CI verification. Separates technical/model/financial/repository readiness from provider entitlement and Stage A REAL authorization. Does **not** authorize Stage A REAL.
 
-## 2. Option C structural envelope — UNCHANGED
+## 2. Repository proof (Option C product integration)
+
+| Item | Value |
+| --- | --- |
+| PR **#468** | **MERGED** @ 2026-09-05T22:27:14Z |
+| Accepted head | `a5ab44bc4a5dae119b778bc6ba795439934b6f61` |
+| Merge / `origin/main` | `66d93a616ac43f2d952f9c7db7b33d2acfe7553b` |
+| Parents | `1dd5d67ad942c448becd637f4c2e55883d16ffca` + `a5ab44bc4a5dae119b778bc6ba795439934b6f61` |
+| Head→merge product delta | **ZERO** |
+| Post-merge CI | `33995952634` **SUCCESS** · Required Gate **PASS** |
+| Source branch | `delivery/sfia-studio-global-mr-stage-a-astra-challenger` **PRESERVED** |
+
+## 3. Option C structural envelope — UNCHANGED
 
 | Metric | Value |
 | --- | --- |
@@ -29,7 +41,9 @@ Qualify Stage A Option C deterministic readiness after Morris financial envelope
 | maxAggregateRealCalls | **464** |
 | contractVersion | `global-mr-campaign-contract-v3-candidate` |
 
-## 3. FinOps — D-GMR-FINOPS-01 CONSUMED
+`v3-candidate` names the **future REAL campaign contract parameters**, not a pending repository-integration state. Option C + C6 harness/docs are **INTEGRATED ON MAIN / POST-MERGE VERIFIED**.
+
+## 4. FinOps — D-GMR-FINOPS-01 CONSUMED
 
 | Class | Value |
 | --- | --- |
@@ -41,18 +55,72 @@ Qualify Stage A Option C deterministic readiness after Morris financial envelope
 | search-content / cache | VARIABLE / NOT DETERMINISTICALLY METERED |
 | invoice | NOT_OBSERVED |
 
-Financial envelope DECIDED **≠** Stage A REAL AUTHORIZED **≠** invoice ceiling = 20.
+Financial envelope DECIDED **≠** spend authorization **≠** invoice ceiling = 20 **≠** Stage A REAL AUTHORIZED.
 
-## 4. Readiness checklist
+## 5. Readiness checklist
 
 | ID | Item | Status |
 | --- | --- | --- |
 | R-16 | Model universe | **PASS / DECIDED OPTION C** |
 | R-17 | Stage A grid | **PASS** |
 | R-18 | Financial envelope | **PASS / DECIDED BY MORRIS 15 / 18 / 20** |
-| R-19 | Astra account availability | **NOT PROVEN** |
+| R-19 | Astra account / API entitlement | **NOT PROVEN** |
 | R-20 | REAL authorization | **NOT AUTHORIZED** |
+| R-21 | Git integration (Option C product) | **PASS / PR #468 MERGED** |
+| R-22 | Post-merge CI | **PASS / `33995952634`** |
+
+### Provider / entitlement distinctions
+
+| Dimension | Status |
+| --- | --- |
+| A. Technical harness readiness | **PASS** (deterministic + Git + CI) |
+| B. Model universe | **PASS / DECIDED OPTION C** |
+| C. Financial envelope | **PASS / DECIDED 15 / 18 / 20** |
+| D. Repository integration | **PASS / PR #468 MERGED / POST-MERGE VERIFIED** |
+| E. Provider documented capability | **PASS AT DOCUMENTED SNAPSHOT SCOPE** |
+| F. Astra account / API entitlement | **NOT PROVEN** |
+| G. Provider snapshot at REAL start | **REVALIDATION REQUIRED AT AUTHORIZED REAL START** |
+| H. Stage A REAL authorization | **NOT AUTHORIZED** |
+| I. Production routing | **NOT SELECTED** |
+| J. Astra-only | **NOT SELECTED** (conditional Stage B hypothesis only) |
+
+### Astra account start-condition (RECOMMENDATION ONLY)
+
+Future Stage A REAL **cannot** dispatch Astra cells until entitlement/capability is factually validated under an explicit REAL authorization.
+
+Recommended start-gate shape (≠ Morris decision ≠ REAL authorization):
+
+```text
+REAL GO
+→ provider snapshot / account preflight
+→ if Astra unavailable: FAIL-CLOSED / STOP before campaign execution
+→ if capability accepted: campaign may proceed within authorized contract
+```
+
+Do **not** perform the check in this DOC cycle. Do **not** treat account entitlement as accepted or non-blocking by Morris.
+
+## 6. Proof ceiling
+
+Entry / current proof:
+
+**DETERMINISTIC PROVEN + GIT INTEGRATED + POST-MERGE VERIFIED**
+
+This cycle: **DOCUMENTARY / REPOSITORY READINESS ONLY**.
+
+≠ REAL BOUNDARY PROVEN · ≠ END-TO-END REAL PROVEN · ≠ spend · ≠ OpenAI LIVE · ≠ hosted LIVE · ≠ `/models` probe · ≠ Astra account probe.
+
+## 7. Documentary truth-sync lifecycle
+
+Four-doc post-merge truth-sync (Roadmap / 08 / 10 / 11) = **LOCAL DOCUMENTARY CANDIDATE** this cycle.
+
+Product commit / push / PR for this DOC lot = **NONE** (not authorized by the readiness GO).
+
+Publication / integration state for this truth-sync = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** after a future distinct Morris Git integration GO.
 
 ## Readiness verdict
 
-**STAGE A OPTION C DETERMINISTIC READINESS — TECHNICAL / MODEL UNIVERSE / FINANCIAL ENVELOPE DECIDED — GIT INTEGRATION IN PROGRESS — REAL AUTHORIZATION STILL REQUIRED**
+**STAGE A OPTION C — DETERMINISTIC + GIT + POST-MERGE READINESS PROVEN — MODEL UNIVERSE + FINANCIAL ENVELOPE DECIDED — ASTRA ACCOUNT ENTITLEMENT NOT PROVEN — STAGE A REAL AUTHORIZATION REQUIRED**
+
+Technically qualified for a **Morris Stage A REAL decision**, subject to explicitly surfaced provider/account start conditions.
+
+**≠ Stage A REAL AUTHORIZED.**
