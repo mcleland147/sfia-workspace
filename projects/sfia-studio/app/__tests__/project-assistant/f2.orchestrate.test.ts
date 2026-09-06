@@ -114,7 +114,7 @@ describe("F2 orchestration AC coverage", () => {
     expect(JSON.stringify(result.f2?.proposal)).not.toMatch(/executing|completed|failed/);
   });
 
-  it("AC-F2-03 ambiguous asks clarification without proposal", async () => {
+  it("AC-F2-03 ambiguous routes to safe F1 advisory without proposal (B1)", async () => {
     const before = await getRuntimeApplicationService().getProject(projectId);
     expect(before.ok).toBe(true);
     if (!before.ok) return;
@@ -126,9 +126,11 @@ describe("F2 orchestration AC coverage", () => {
     });
     expect(result.ok).toBe(true);
     if (!result.ok) return;
-    expect(result.f2?.turnKind).toBe("f2_clarification");
+    expect(result.f2?.turnKind).toBe("f1_informative");
     expect(result.f2?.proposal).toBeNull();
-    expect(result.text).toMatch(/Clarification/i);
+    expect(result.mw5).toBeNull();
+    expect(result.text).not.toMatch(/\[MW5 CLARIFY\]/);
+    expect(result.text.length).toBeGreaterThan(10);
 
     const after = await getRuntimeApplicationService().getProject(projectId);
     expect(after.ok).toBe(true);

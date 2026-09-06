@@ -55,6 +55,7 @@ import {
   persistCanonicalF2AssistantTurn,
 } from "./canonicalConversationSession";
 import { isPureRepositoryAnalysisIntent } from "./repositoryIntent";
+import { resolveTransitionReadiness } from "./transitionReadiness";
 import { evaluateMorrisGateRequired } from "./gatePolicy";
 import {
   enrichQualificationWithCkcSemantics,
@@ -746,11 +747,15 @@ export async function orchestrateAssistantSend(input: {
     isPureRepositoryAnalysisIntent(content) &&
     analysis.intentClass !== "execution_request";
 
-  // A — informative → existing F1 path (no Cycle/LPS mutation)
-  if (
-    forceRepoInformative ||
-    (analysis.intentClass === "informative" && analysis.parseOk)
-  ) {
+  // CORR-PROOF-02 B1 — deterministic transition gate.
+  // Safe advisory (incl. ambiguous / parse-fail / incomplete formalization fields) → F1.
+  // Governed formalization only when readiness is fully established.
+  const transition = resolveTransitionReadiness({
+    analysis,
+    forceRepoInformative,
+  });
+
+  if (!transition.formalizationReady) {
     const f1 = await orchestrateProjectAssistantTurn({
       ...input,
       provider: effectiveProvider,
@@ -762,13 +767,30 @@ export async function orchestrateAssistantSend(input: {
       campaignBudget: input.campaignBudget,
     });
     if (!f1.ok) return f1;
+    const reportedIntent =
+      analysis.parseOk &&
+      (analysis.intentClass === "informative" ||
+        analysis.intentClass === "ambiguous" ||
+        analysis.intentClass === "actionable" ||
+        analysis.intentClass === "execution_request")
+        ? forceRepoInformative
+          ? "informative"
+          : analysis.intentClass
+        : "ambiguous";
+    // B1-CR-01 — trusted execution_request keeps fail-closed authority surface
+    // even when formalization is not ready (safe F1 advisory, ZERO effect).
+    const executionBlocked =
+      analysis.parseOk === true &&
+      analysis.intentClass === "execution_request" &&
+      !forceRepoInformative;
     return {
       ...f1,
       model: f1.model ?? model,
       ephemeralNotice: EPHEMERAL_NOTICE,
+      mw5: null,
       f2: {
         turnKind: "f1_informative",
-        intentClass: "informative",
+        intentClass: reportedIntent,
         qualification: null,
         proposal: null,
         decision: null,
@@ -779,95 +801,17 @@ export async function orchestrateAssistantSend(input: {
           decisionTaken: null,
           noExecution: "AUCUNE EXÉCUTION",
         },
-        executionBlocked: false,
+        executionBlocked,
         processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
       },
     };
   }
 
-  // C — ambiguous / fail-closed (no Cycle/LPS mutation)
-  // CR-01: prior Session CLARIFY ≠ uncertainty resolved — no product override.
-  if (analysis.intentClass === "ambiguous" || !analysis.parseOk) {
-    const oaEarly = getRuntimeApplicationService().oa;
-    const mw5 = await evaluateF2Mw5({
-      content,
-      history: input.history,
-      analysis,
-      recommendedProfile: null,
-      recommendationWouldEmit: false,
-      projectCriticality: project.criticality,
-      projectId: project.projectId,
-      oa: oaEarly,
-    });
-    // Test-marker / cosmetic CONTINUE only — F1 Runner persists that turn.
-    if (mw5.surface.disposition === "CONTINUE") {
-      const f1 = await orchestrateProjectAssistantTurn({
-        ...input,
-        provider: effectiveProvider,
-        semanticCognitiveWorkload: analysis.cognitiveWorkload,
-        truthCContext: truthCContextForF1,
-        contradictionAssessment,
-        evalModelReasoningControl: input.evalModelReasoningControl,
-        usdAccounting: input.usdAccounting,
-        campaignBudget: input.campaignBudget,
-      });
-      if (!f1.ok) return f1;
-      return {
-        ...f1,
-        f2: {
-          turnKind: "f1_informative",
-          intentClass: analysis.parseOk ? analysis.intentClass : "ambiguous",
-          qualification: null,
-          proposal: null,
-          decision: null,
-          labels: {
-            recommendation: null,
-            proposition: null,
-            decisionRequired: null,
-            decisionTaken: null,
-            noExecution: "AUCUNE EXÉCUTION",
-          },
-          executionBlocked: false,
-          processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
-        },
-        mw5: {
-          disposition: mw5.surface.disposition,
-          structuralChallengeCount: mw5.surface.structuralChallengeCount,
-          questionnaireSuppressed: mw5.surface.questionnaireSuppressed,
-          recommendationAllowed: mw5.surface.recommendationAllowed,
-          challengeGateApplicable: mw5.surface.challengeGateApplicable,
-          challengeSatisfied: mw5.surface.challengeSatisfied,
-          challengeEvidenceBeforeRecommendation:
-            mw5.surface.challengeEvidenceBeforeRecommendation,
-          bypassAttempted: mw5.surface.bypassAttempted,
-          bypassBlocked: mw5.surface.bypassBlocked,
-          synthesizedHumanDecision: false,
-          synthesizedGo: false,
-          synthesizedConfirmation: false,
-          disclosure: mw5.surface.disclosure,
-          reasonCodes: [...mw5.surface.reasonCodes],
-          challenges: [...mw5.surface.challenges],
-          criticalChallengeArmedHookOnly:
-            mw5.surface.criticalChallengeArmedHookOnly,
-        },
-      };
-    }
-    return f2ConversationalSuccess({
-      userText: content,
-      sessionDbPath: input.sessionDbPath,
-      text: mw5.text,
-      mode: modeResolution.mode as "fixture" | "live",
-      presentation,
-      model,
-      project,
-      intentClass: "ambiguous",
-      mw5: mw5.surface,
-      turnKind: mw5TurnKind(mw5.surface),
-    });
-  }
-
-  // B / D — actionable or execution_request
-  if (!analysis.candidateCycleTypeId || !analysis.signals) {
+  // B / D — governed formalization ready (actionable | execution_request + valid fields)
+  const cycleTypeId = analysis.candidateCycleTypeId;
+  const formalizationSignals = analysis.signals;
+  if (!cycleTypeId || !formalizationSignals) {
+    // Defensive: readiness predicate already requires these; never invent defaults.
     return f2ConversationalSuccess({
       userText: content,
       sessionDbPath: input.sessionDbPath,
@@ -901,8 +845,8 @@ export async function orchestrateAssistantSend(input: {
   const correlationId = `cor:f2-${randomBytes(8).toString("hex")}`;
 
   const qualified = await qualifyWithCkc({
-    cycleTypeId: analysis.candidateCycleTypeId,
-    signals: analysis.signals,
+    cycleTypeId,
+    signals: formalizationSignals,
     objective: analysis.objective ?? undefined,
     scope: analysis.scope ?? undefined,
     correlationId,
@@ -1026,7 +970,7 @@ export async function orchestrateAssistantSend(input: {
     projectId: project.projectId,
     objective: analysis.objective ?? undefined,
     scope: analysis.scope ?? undefined,
-    signals: analysis.signals,
+    signals: formalizationSignals,
     justification: analysis.criticalJustification ?? undefined,
     createdBy: {
       actorId: "actor:nora-f2",
@@ -1101,7 +1045,7 @@ export async function orchestrateAssistantSend(input: {
   const morrisGateRequired =
     evaluateMorrisGateRequired({
       recommendedProfile: qualification.recommendedProfile,
-      signals: analysis.signals,
+      signals: formalizationSignals,
       intent: analysis,
     }) || mw5.surface.disposition === "ESCALATE";
 

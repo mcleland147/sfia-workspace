@@ -39,7 +39,13 @@ import type { ProjectAssistantSendResult, F2TurnPayload } from "@/features/proje
 import type { IntentClass } from "@/features/project-assistant/f2/types";
 
 class OpenAiShapedStubProvider implements ConversationProvider {
-  readonly providerId = "openai";
+  /**
+   * B1 routes ambiguous → F1. providerId must:
+   * - not be exactly "fake-test" (keeps presentation openai_live)
+   * - start with "fake" (F1 runner model settings avoid requireLiveConversationSecrets)
+   * - not be "openai" (avoids native Agents live model path)
+   */
+  readonly providerId = "fake-openai-shaped-stub";
   private n = 0;
   constructor(private readonly replies: string[]) {}
   async complete(messages: ProviderChatMessage[]): Promise<ProviderCompletionResult> {
@@ -575,7 +581,7 @@ describe("CORR-MW0-05 product path wiring + serialization", () => {
     expect(result.ok).toBe(true);
     if (!result.ok) return;
     expect(result.presentation).toBe("test_provider");
-    expect(result.f2?.turnKind).toBe("f2_clarification");
+    expect(result.f2?.turnKind).toBe("f1_informative");
   });
 
   it("explicit OpenAI-shaped stub proceeds without OPENAI_MODEL", async () => {
@@ -607,7 +613,7 @@ describe("CORR-MW0-05 product path wiring + serialization", () => {
     expect(result.ok).toBe(true);
     if (!result.ok) return;
     expect(result.presentation).toBe("openai_live");
-    expect(result.f2?.turnKind).toBe("f2_clarification");
+    expect(result.f2?.turnKind).toBe("f1_informative");
   });
 
   it("no provider + missing config remains provider_unavailable", async () => {
@@ -647,7 +653,7 @@ describe("CORR-MW0-05 product path wiring + serialization", () => {
     expect(run.usage?.reasoningTokens).toBeNull();
   });
 
-  it("runR2 successful clarification path scores from actual F2", async () => {
+  it("runR2 ambiguous path is B1 F1 advisory (legacy S03 clarification routing superseded)", async () => {
     const scenario = getScenario("mw0.s03.ambiguous-clarification")!;
     const provider = new FakeConversationProvider();
     const f2 = await orchestrateAssistantSend({
@@ -656,10 +662,15 @@ describe("CORR-MW0-05 product path wiring + serialization", () => {
       provider,
     });
     expect(f2.ok).toBe(true);
+    if (!f2.ok) return;
     const obs = observeF2Product(scenario, f2);
     expect(obs.f2Ok).toBe(true);
-    expect(obs.turnKind).toBe("f2_clarification");
-    expect(scoreR2FromObservation(scenario, obs).passFail).toBe("PASS");
+    expect(obs.turnKind).toBe("f1_informative");
+    expect(f2.f2?.proposal ?? null).toBeNull();
+    expect(f2.text).not.toMatch(/\[MW5 CLARIFY\]/);
+    // Legacy MW0 S03 scorer still expects f2_clarification; campaign criterion is
+    // a known reserve until separately revised. Product routing follows B1.
+    expect(scoreR2FromObservation(scenario, obs).passFail).toBe("FAIL");
   });
 
   it("F1 orchestrateTurn accepts explicit provider without env model", async () => {

@@ -18,6 +18,8 @@ import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/Pro
 import {
   isOpenAiLiveF1Provider,
   shouldUseProviderAgentsModelAdapter,
+  containsSynthesizedHumanAct,
+  MW5_CLARIFY_MARKER,
 } from "@/lib/nora-cognitive-runtime";
 import {
   getRuntimeApplicationService,
@@ -315,7 +317,9 @@ describe("CORR-MW2-REAL-04 — Truth-C + intent/CWP stability", () => {
     expect(result.f2?.turnKind).not.toBe("f1_informative");
   });
 
-  it("D0-05 — structural underspecification still clarifies", async () => {
+  it("D0-05 — structural underspecification stays ambiguous and routes to safe advisory", async () => {
+    // B1 advisory-default: ambiguous intent remains visible, but does not force
+    // MW5 front-door CLARIFY; without formalization readiness → F1 advisory.
     const projectId = await createProject({
       criticality: "STANDARD",
       name: "Ambiguous Fixture",
@@ -324,7 +328,15 @@ describe("CORR-MW2-REAL-04 — Truth-C + intent/CWP stability", () => {
       constraints: ["LECTURE SEULE"],
       shortReference: "AMB",
     });
+
+    const before = await getRuntimeApplicationService().getProject(projectId);
+    expect(before.ok).toBe(true);
+    if (!before.ok) throw new Error("before project load failed");
+    const preVersion = before.livingState.version;
+    const preCycle = before.livingState.activeCycleInstanceId ?? null;
+
     const provider = new FakeConversationProvider({
+      // Keep scripted intentClass="ambiguous" — do not mask the B1 contract.
       scripted: [intentJson({ intentClass: "ambiguous", cognitiveWorkload: null })],
     });
     const result = await orchestrateAssistantSend({
@@ -334,7 +346,29 @@ describe("CORR-MW2-REAL-04 — Truth-C + intent/CWP stability", () => {
     });
     expect(result.ok).toBe(true);
     if (!result.ok) throw new Error("failed");
-    expect(result.text).toMatch(/Clarification requise/i);
+
+    // A — intent preserved as ambiguous
+    expect(result.f2?.intentClass).toBe("ambiguous");
+
+    // B — B1 advisory routing (not MW5 generic front-door clarify)
+    expect(result.f2?.turnKind).toBe("f1_informative");
+    expect(result.text).not.toMatch(/Clarification requise/i);
+    expect(result.text).not.toContain(MW5_CLARIFY_MARKER);
+    expect(result.mw5).toBeNull();
+
+    // C — zero formalization / zero authority
+    expect(result.f2?.qualification ?? null).toBeNull();
+    expect(result.f2?.proposal ?? null).toBeNull();
+    expect(result.f2?.decision ?? null).toBeNull();
+    expect(containsSynthesizedHumanAct(result.text)).toBe(false);
+    expect(result.text).not.toMatch(/\bGO\b.*Morris|HumanDecision\s*[:=]/i);
+
+    // D — Truth C / LPS stability (no Cycle/LPS mutation on advisory path)
+    const after = await getRuntimeApplicationService().getProject(projectId);
+    expect(after.ok).toBe(true);
+    if (!after.ok) throw new Error("after project load failed");
+    expect(after.livingState.version).toBe(preVersion);
+    expect(after.livingState.activeCycleInstanceId ?? null).toBe(preCycle);
   });
 
   it("D0-06 — cognitive ambiguity may be high while intent stays informative", () => {

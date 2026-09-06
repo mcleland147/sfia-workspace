@@ -89,51 +89,56 @@ describe("MW5 F2 product path D0", () => {
     expect(result.f2?.labels.recommendation).toBeNull();
   });
 
-  it("S01 — questionnaire attempt is suppressed (≤3)", async () => {
+  it("S01 — questionnaire attempt is suppressed via safe F1 (B1; no MW5 front door)", async () => {
     const result = await orchestrateAssistantSend({
       projectId,
       content: "Formulaire intake __MW5_QUESTIONNAIRE_ATTEMPT__",
     });
     expect(result.ok).toBe(true);
     if (!result.ok) return;
-    expect(result.mw5?.questionnaireSuppressed).toBe(true);
-    expect(result.mw5?.structuralChallengeCount).toBeLessThanOrEqual(3);
+    expect(result.f2?.turnKind).toBe("f1_informative");
+    expect(result.mw5).toBeNull();
+    expect(result.text).not.toMatch(/\[MW5 CLARIFY\]/);
+    expect(result.text).not.toMatch(/Clarification structurante requise/i);
     expect(result.f2?.proposal).toBeNull();
   });
 
-  it("S01 — cosmetic does not challenge", async () => {
+  it("S01 — cosmetic does not challenge (B1 advisory F1)", async () => {
     const result = await orchestrateAssistantSend({
       projectId,
       content: "Corrige juste l'orthographe cosmétique __MW5_COSMETIC__",
     });
     expect(result.ok).toBe(true);
     if (!result.ok) return;
-    expect(result.mw5?.disposition).toBe("CONTINUE");
+    expect(result.f2?.turnKind).toBe("f1_informative");
+    expect(result.mw5).toBeNull();
     expect(result.text).not.toMatch(/\[MW5 CHALLENGE/);
     expect(result.f2?.proposal).toBeNull();
   });
 
-  it("S02 — structural ambiguous still clarifies", async () => {
+  it("S02 — structural ambiguous routes to safe F1 advisory (B1; no MW5 front door)", async () => {
     const result = await orchestrateAssistantSend({
       projectId,
       content: "Fais le nécessaire __F2_AMBIGUOUS__",
     });
     expect(result.ok).toBe(true);
     if (!result.ok) return;
-    expect(result.f2?.turnKind).toBe("f2_clarification");
-    expect(result.mw5?.disposition).toBe("CLARIFY");
+    expect(result.f2?.turnKind).toBe("f1_informative");
+    expect(result.mw5).toBeNull();
+    expect(result.text).not.toMatch(/\[MW5 CLARIFY\]/);
     expect(result.f2?.proposal).toBeNull();
   });
 
-  it("S02 — context-resolved continues without storm", async () => {
+  it("S02 — context-resolved continues without storm (B1 advisory)", async () => {
     const result = await orchestrateAssistantSend({
       projectId,
       content: "Déjà dans le contexte __MW5_CONTEXT_RESOLVED__",
     });
     expect(result.ok).toBe(true);
     if (!result.ok) return;
-    expect(result.mw5?.disposition).toBe("CONTINUE");
+    expect(result.f2?.turnKind).toBe("f1_informative");
     expect(result.text).not.toMatch(/Clarification structurante/i);
+    expect(result.text).not.toMatch(/\[MW5 CLARIFY\]/);
   });
 
   it("S03 — ordering: challenge then Rec only after sufficient assessment", async () => {
