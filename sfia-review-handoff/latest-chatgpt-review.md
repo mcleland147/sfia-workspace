@@ -263,9 +263,9 @@ Published via canonical `scripts/sfia/publish-review-handoff.sh` only.
 | Canonical branch | `sfia/review-handoff` |
 | Canonical target | `sfia-review-handoff/latest-chatgpt-review.md` |
 | Suggested commit message | `docs(review-handoff): close Morris-as-Pilote dogfood 01` |
-| NEW_REVIEW_HANDOFF_TIP | _(filled after publisher)_ |
-| Canonical blob SHA | _(filled after publisher)_ |
-| Publisher verdict | _(filled after publisher)_ |
+| NEW_REVIEW_HANDOFF_TIP | `0aba74c5b6d86cadac00cb1b1dadc02528f4a0ff` |
+| Canonical blob SHA | `684f84e5277cb6cf1301562010f1036d042b278f` |
+| Publisher verdict | `HANDOFF UPDATED — REMOTE VERIFIED` |
 
 ---
 
