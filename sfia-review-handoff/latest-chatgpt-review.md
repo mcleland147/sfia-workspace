@@ -274,11 +274,16 @@ REAL remains a later separate gate after post-merge verification.
 NO MERGE · NO REAL · NO STAGE B from this cycle.
 
 ## 45. Review Handoff publication proof
-(filled after publish)
+- HANDOFF_PARENT: 8c99e46afc5364dce5c347b6eab9def1335a8981
+- HANDOFF_TIP (actual remote after last publisher op): d29fadfb2411cc721d6f5632fb00e6e6d34db2a0
+- HANDOFF_BLOB (actual remote): c68143163f470b7a467a207db63f0b93bc5a64a0
+- PUBLISHER_VERDICT: HANDOFF UPDATED — REMOTE VERIFIED
+- Primary message: docs(review-handoff): review CORR-PROOF-03 E1 Product Git PR
+- Full-pack follow-up: docs(review-handoff): review CORR-PROOF-03 E1 Product Git PR (full pack)
+- Superseded truncated publish: 93ef7a0fdb1c9b73bf5950518b32640bc25c3e5f
+- Canonical path: sfia-review-handoff/latest-chatgpt-review.md
+- Note: report uses fetched tip/blob above, not only body-embedded historical tip fields.
 
-HANDOFF_PARENT expected: 8c99e46afc5364dce5c347b6eab9def1335a8981
-Prior truncated publish (superseded): 93ef7a0fdb1c9b73bf5950518b32640bc25c3e5f
-Suggested message: docs(review-handoff): review CORR-PROOF-03 E1 Product Git PR
 
 ---
 
