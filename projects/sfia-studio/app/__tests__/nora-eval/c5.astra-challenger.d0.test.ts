@@ -149,8 +149,8 @@ describe("C5 — Option C Astra challenger (ZERO REAL)", () => {
     });
     const cells = buildGlobalMrStageAMatrix({ campaignId: state.campaignId });
     const astra = cells.find((c) => c.isChallenger)!;
-    expect(canScheduleSelectiveRepeat(state, astra).allowed).toBe(false);
-    expect(() => materializeSelectiveRepeat(astra)).toThrow(
+    expect(canScheduleSelectiveRepeat(state, astra, "TOP_CANDIDATE").allowed).toBe(false);
+    expect(() => materializeSelectiveRepeat(astra, "TOP_CANDIDATE")).toThrow(
       /SELECTIVE_REPEAT_DENIED/,
     );
 
@@ -164,13 +164,13 @@ describe("C5 — Option C Astra challenger (ZERO REAL)", () => {
     for (let i = 0; i < 18; i += 1) {
       const out = await runGlobalMrStageACell({
         state,
-        cell: materializeSelectiveRepeat(primary[i]!),
+        cell: materializeSelectiveRepeat(primary[i]!, "TOP_CANDIDATE"),
         executor,
       });
       expect(out.stopped).toBe(false);
     }
     expect(state.selectiveRepeatsUsed).toBe(18);
-    const gate19 = canScheduleSelectiveRepeat(state, primary[18]!);
+    const gate19 = canScheduleSelectiveRepeat(state, primary[18]!, "TOP_CANDIDATE");
     expect(gate19.allowed).toBe(false);
     expect(gate19.reason).toBe("SELECTIVE_REPEAT_POOL_EXHAUSTED");
     // base cell still runnable

@@ -22,6 +22,7 @@ import { resolveNoraSessionSqlitePath } from "./sessionPaths";
 import {
   runNoraAgentsTurn,
   shouldUseProviderAgentsModelAdapter,
+  type RunNoraAgentsTurnHostedSearchObserve,
 } from "./runNoraAgentsTurn";
 import type { NoraCognitiveTurnResult } from "./types";
 import {
@@ -206,6 +207,14 @@ export type RunNoraCognitiveTurnInput = {
    * Passed through to runNoraAgentsTurn — not authority.
    */
   usdAccounting?: NoraAgentsUsdAccounting;
+};
+
+/**
+ * CORR-02B — cognitive turn result preserves factual hosted observation from
+ * runNoraAgentsTurn (Evidence / parity only — not a second accounting SoT).
+ */
+export type NoraCognitiveTurnResultWithHostedObserve = NoraCognitiveTurnResult & {
+  hostedSearchObserve?: RunNoraAgentsTurnHostedSearchObserve;
 };
 
 function emitCognitiveStrategyTelemetry(
@@ -637,7 +646,7 @@ async function prepareMw4Grounding(input: {
 
 export async function runNoraCognitiveTurn(
   input: RunNoraCognitiveTurnInput,
-): Promise<NoraCognitiveTurnResult> {
+): Promise<NoraCognitiveTurnResultWithHostedObserve> {
   const strategyDecision = resolveCognitiveStrategyForTurn(input);
   if (strategyDecision) {
     emitCognitiveStrategyTelemetry(
@@ -758,8 +767,7 @@ export async function runNoraCognitiveTurn(
       mw6 = composed.surface;
       turn.text = composed.governedText;
     }
-    const { hostedSearchObserve: _drop, budgetObserve, ...turnBase } = turn;
-    void _drop;
+    const { hostedSearchObserve, budgetObserve, ...turnBase } = turn;
     const mw6AuthorityBinding = budgetObserve
       ? {
           authorityBound: budgetObserve.authorityBound,
@@ -784,18 +792,22 @@ export async function runNoraCognitiveTurn(
             readCoverageDisclosure: readDisclosure || null,
           }
         : undefined;
-    return finalizeTurn(
-      {
-        ...turnBase,
-        memoryBCompactionState: "none",
-        memoryBCompactionDetails: null,
-        ...(mw6AuthorityBinding ? { mw6AuthorityBinding } : {}),
-      },
-      input,
-      strategyDecision,
-      mw4,
-      mw6,
-    );
+    return {
+      ...finalizeTurn(
+        {
+          ...turnBase,
+          memoryBCompactionState: "none",
+          memoryBCompactionDetails: null,
+          ...(mw6AuthorityBinding ? { mw6AuthorityBinding } : {}),
+        },
+        input,
+        strategyDecision,
+        mw4,
+        mw6,
+      ),
+      // CORR-02B — factual hosted observation pass-through (no drop).
+      ...(hostedSearchObserve ? { hostedSearchObserve } : {}),
+    };
   }
 
   const probe = await probeMemoryBAvailability({
@@ -920,8 +932,7 @@ export async function runNoraCognitiveTurn(
       mw6 = composed.surface;
       turn.text = composed.governedText;
     }
-    const { hostedSearchObserve: _drop, budgetObserve, ...turnBase } = turn;
-    void _drop;
+    const { hostedSearchObserve, budgetObserve, ...turnBase } = turn;
     const mw6AuthorityBinding = budgetObserve
       ? {
           authorityBound: budgetObserve.authorityBound,
@@ -971,7 +982,11 @@ export async function runNoraCognitiveTurn(
       }
     }
 
-    return finalized;
+    return {
+      ...finalized,
+      // CORR-02B — factual hosted observation pass-through (no drop).
+      ...(hostedSearchObserve ? { hostedSearchObserve } : {}),
+    };
   } finally {
     if (probe.session) {
       probe.session.close();

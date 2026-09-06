@@ -28,7 +28,6 @@ import {
   requireCanonicalCampaignBudget,
   runNoraCognitiveTurn,
   type NoraCampaignBudget,
-  type NoraCognitiveTurnResult,
   type NoraEvalModelReasoningControl,
   type NoraAgentsUsdAccounting,
 } from "@/lib/nora-cognitive-runtime";
@@ -53,6 +52,27 @@ import type {
 } from "./types";
 
 const MAX_HISTORY_MESSAGES = 20;
+
+/**
+ * CORR-02B — factual LIVE hosted dispatch count from hostedSearchObserve.
+ * Deterministic/fixture boundary and absent observation → 0 REAL.
+ * Evidence/parity only — does not claim NoraCampaignBudget.
+ */
+export function resolveLiveHostedDispatchCallsFromHostedObserve(
+  hostedSearchObserve:
+    | {
+        deterministicBoundaryUsed: boolean;
+        rawCallsObserved: number;
+      }
+    | undefined
+    | null,
+): number {
+  if (!hostedSearchObserve) return 0;
+  if (hostedSearchObserve.deterministicBoundaryUsed === true) return 0;
+  const n = hostedSearchObserve.rawCallsObserved;
+  if (!Number.isSafeInteger(n) || n < 0) return 0;
+  return n;
+}
 
 function toContextDto(
   result: Extract<
@@ -156,7 +176,11 @@ export type Mw6GovernedNoraProductTurnSuccess = Extract<
     executionContractId: string;
     authorityEvidenceId: string;
     actorId: string;
-    liveHostedDispatchCalls: 0;
+    /**
+     * Factual LIVE hosted web-search dispatch count from turn.hostedSearchObserve.
+     * Fixture/deterministic boundary → 0 (not REAL). Evidence only — not budget SoT.
+     */
+    liveHostedDispatchCalls: number;
   };
 };
 
@@ -373,7 +397,7 @@ export async function runMw6GovernedNoraProductTurn(
   const provider = input.provider ?? resolveConversationProvider();
   const workspaceRoot = resolveWorkspaceRootFromAppCwd();
 
-  let turn: NoraCognitiveTurnResult;
+  let turn: Awaited<ReturnType<typeof runNoraCognitiveTurn>>;
   try {
     turn = await runNoraCognitiveTurn({
       correlationId: `mw6-gov:${project.projectId}:${composed.executionContractId}`,
@@ -413,6 +437,9 @@ export async function runMw6GovernedNoraProductTurn(
   }
 
   const binding = turn.mw6AuthorityBinding;
+  const liveHostedDispatchCalls = resolveLiveHostedDispatchCallsFromHostedObserve(
+    turn.hostedSearchObserve,
+  );
   return {
     ok: true,
     status: "ok",
@@ -442,7 +469,7 @@ export async function runMw6GovernedNoraProductTurn(
       executionContractId: composed.executionContractId,
       authorityEvidenceId: composed.authorityEvidenceId,
       actorId: pilote.actor.actorId,
-      liveHostedDispatchCalls: 0,
+      liveHostedDispatchCalls,
       realPreflightBlocked: binding?.realPreflightBlocked === true,
     },
   };

@@ -54,8 +54,8 @@ describe("E4 — Global MR Stage A driver corrections (deterministic)", () => {
       campaignId: `f4a-repeat-${Date.now()}`,
     });
     const [base] = buildGlobalMrStageAMatrix({ campaignId: state.campaignId });
-    expect(canScheduleSelectiveRepeat(state, base!).allowed).toBe(true);
-    const repeat1 = materializeSelectiveRepeat(base!);
+    expect(canScheduleSelectiveRepeat(state, base!, "TOP_CANDIDATE").allowed).toBe(true);
+    const repeat1 = materializeSelectiveRepeat(base!, "TOP_CANDIDATE");
     let calls = 0;
     const executor: GlobalMrStageAExecutor = async () => {
       calls += 1;
@@ -90,7 +90,7 @@ describe("E4 — Global MR Stage A driver corrections (deterministic)", () => {
     expect(second.cellDenied).toBe("SELECTIVE_REPEAT_DENIED");
     expect(second.evidence).toBeNull();
     expect(calls).toBe(1);
-    expect(canScheduleSelectiveRepeat(state, base!).allowed).toBe(false);
+    expect(canScheduleSelectiveRepeat(state, base!, "TOP_CANDIDATE").allowed).toBe(false);
     expect(state.stopReason).toBe("NONE");
   });
 
@@ -108,12 +108,12 @@ describe("E4 — Global MR Stage A driver corrections (deterministic)", () => {
       reportedHostedOperationsConsumed: 0,
     });
     for (let i = 0; i < 18; i += 1) {
-      const repeat = materializeSelectiveRepeat(cells[i]!);
+      const repeat = materializeSelectiveRepeat(cells[i]!, "TOP_CANDIDATE");
       const out = await runGlobalMrStageACell({ state, cell: repeat, executor });
       expect(out.stopped).toBe(false);
     }
     expect(state.selectiveRepeatsUsed).toBe(18);
-    const nineteenth = materializeSelectiveRepeat(cells[18]!);
+    const nineteenth = materializeSelectiveRepeat(cells[18]!, "TOP_CANDIDATE");
     const denied = await runGlobalMrStageACell({
       state,
       cell: nineteenth,
@@ -150,17 +150,25 @@ describe("E4 — Global MR Stage A driver corrections (deterministic)", () => {
     });
     const [base] = buildGlobalMrStageAMatrix({ campaignId: state.campaignId });
     expect(() =>
-      materializeSelectiveRepeat({
-        ...base!,
-        runIndex: 1,
-        isSelectiveRepeat: true,
-      }),
+      materializeSelectiveRepeat(
+        {
+          ...base!,
+          runIndex: 1,
+          isSelectiveRepeat: true,
+        },
+        "TOP_CANDIDATE",
+      ),
     ).toThrow(/SELECTIVE_REPEAT_RUN_INDEX_INVALID/);
 
     let called = false;
     const out = await runGlobalMrStageACell({
       state,
-      cell: { ...base!, runIndex: 2, isSelectiveRepeat: true },
+      cell: {
+        ...base!,
+        runIndex: 2,
+        isSelectiveRepeat: true,
+        selectiveRepeatTrigger: "TOP_CANDIDATE",
+      },
       executor: async () => {
         called = true;
         return {

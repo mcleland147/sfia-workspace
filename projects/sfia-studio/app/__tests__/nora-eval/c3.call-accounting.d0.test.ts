@@ -129,14 +129,14 @@ describe("C3-04 — repeat pool does not latch campaign stop", () => {
     for (let i = 0; i < 18; i += 1) {
       const out = await runGlobalMrStageACell({
         state,
-        cell: materializeSelectiveRepeat(cells[i]!),
+        cell: materializeSelectiveRepeat(cells[i]!, "TOP_CANDIDATE"),
         executor,
       });
       expect(out.stopped).toBe(false);
     }
     const denied = await runGlobalMrStageACell({
       state,
-      cell: materializeSelectiveRepeat(cells[18]!),
+      cell: materializeSelectiveRepeat(cells[18]!, "TOP_CANDIDATE"),
       executor,
     });
     expect(denied.cellDenied).toBe("SELECTIVE_REPEAT_POOL_EXHAUSTED");
