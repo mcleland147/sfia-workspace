@@ -394,14 +394,21 @@ Ces concepts NE DOIVENT PAS être fusionnés.
 L'incertitude analytique (cognitiveWorkload.ambiguity medium/high) N'IMPLIQUE PAS intentClass=ambiguous.
 Les verbes « proposer / recommander / comparer / réconcilier / analyser » N'IMPLIQUENT PAS à eux seuls actionable/F2.
 
+=== RÔLE DE CETTE ANALYSE ===
+Cette sortie est une entrée NON-MUTANTE de readiness de transition / formalisation.
+Elle N'EST PAS une permission de penser : l'absence de formalisation prête n'interdit pas le conseil utile.
+Ne classifie PAS une demande d'aide exploratoire comme actionable/formalisation juste parce que les détails produit sont incomplets.
+
 === intentClass ===
-informative — travail cognitif où l'utilisateur demande de lire, expliquer, analyser, synthétiser, comparer, réconcilier des faits/tensions, challenger des hypothèses, identifier des risques, produire des options ou une Recommendation, évaluer une situation — SANS demander à Studio de muter l'état durable Project, de créer/qualifier un cycle/proposition gouvernée comme effet demandé, d'enregistrer une HumanDecision, de préparer/lancer une exécution gouvernée, ni d'effectuer des side-effects externes.
+informative — travail cognitif où l'utilisateur demande de lire, expliquer, analyser, synthétiser, comparer, réconcilier des faits/tensions, challenger des hypothèses, identifier des risques, produire des options ou une Recommendation, évaluer une situation, ou être aidé à cadrer/créer/façonner un produit/projet — SANS demander à Studio de muter l'état durable Project, de créer/qualifier un cycle/proposition gouvernée comme effet demandé, d'enregistrer une HumanDecision, de préparer/lancer une exécution gouvernée, ni d'effectuer des side-effects externes.
 Exemples informative:
 - « Analyse les tensions entre délai, coût et auditabilité. »
 - « Compare les options et recommande la plus cohérente, sans décider ni exécuter. »
 - « À partir des faits A–D, réconcilie les contraintes et propose les compromis possibles. »
 - « Challenge cette hypothèse et indique les réserves. »
 - « Donne-moi les risques avant que je décide. »
+- « Peux-tu m'aider à créer cette application ? » (avec ou sans détails MVP complets)
+- « J'aimerais créer un outil pour suivre mes contrats » / « tu ferais quoi comme MVP ? »
 - Repository READ / résumé / recherche / vérité Git SANS mutation ni qualification de cycle.
 
 actionable — l'effet demandé est une opération SFIA gouvernée (qualifier/créer/changer un CycleInstance ; créer une proposition F2 parce que l'utilisateur demande une transition de processus ; préparer un changement structurel Project nécessitant une transition d'état ; capturer/préparer un workflow de décision où une qualification de cycle est réellement requise) ET candidateCycleTypeId + signals sont supportables.
@@ -413,8 +420,10 @@ Exemples actionable:
 execution_request — uniquement si l'utilisateur demande explicitement une exécution / mutation / action externe franchissant la frontière d'exécution.
 Exemple: « Exécute ce contrat. »
 
-ambiguous — uniquement si l'EFFET demandé est structurellement flou ou insuffisamment spécifié.
+ambiguous — formalisation / effet gouverné structurellement flou OU entrée insuffisamment intelligible pour classer l'effet.
 Ne PAS utiliser ambiguous seulement parce que le raisonnement est complexe, que plusieurs prémisses se confrontent, que sourceBreadth est élevé, que verificationNeed est élevé, ou que cognitiveWorkload.ambiguity est medium/high (incertitude analytique ≠ ambiguïté d'intention structurelle).
+Ne PAS utiliser ambiguous pour une demande d'aide produit intelligible mais incomplète (préférer informative).
+Distingue : ambiguïté analytique (reste informative) / insuffisance de formalisation (ambiguous ou champs nuls) / entrée inintelligible (ambiguous).
 
 === cognitiveWorkload (interne) ===
 Évaluation COGNITIVE INTERNE du workload (pas Truth C, pas Evidence, pas Profile, pas décision, pas autorité).

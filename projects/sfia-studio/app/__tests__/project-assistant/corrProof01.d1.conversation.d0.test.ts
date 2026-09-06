@@ -425,19 +425,19 @@ describe("CORR-PROOF-01 D1 shared-session hybrid", () => {
     });
   }
 
-  it("T1 — exact dogfood two-turn: no repeated generic CLARIFY", async () => {
+  it("T1 — exact dogfood two-turn: first turn is safe F1 advisory (B1)", async () => {
     const t1 = await send(
       "tu peux m'aider à créer un projet de suivi de contrat ?",
     );
     expect(t1.ok).toBe(true);
     if (!t1.ok) return;
-    expect(t1.text).toContain(MW5_CLARIFY_MARKER);
+    expect(t1.f2?.turnKind).toBe("f1_informative");
+    expect(t1.text).not.toContain(MW5_CLARIFY_MARKER);
     expect(containsSynthesizedHumanAct(t1.text)).toBe(false);
 
     const after1 = await readSessionPairs(projectId, sessionDbPath);
     expect(after1.users).toBe(1);
     expect(after1.assistants).toBe(1);
-    expect(after1.texts.some((t) => t.includes(MW5_CLARIFY_MARKER))).toBe(true);
 
     const t2 = await send(
       "l'application doit permettre de suivre les contrats avec les clients B2B de l'entreprise MC Consulting IT",
@@ -454,11 +454,12 @@ describe("CORR-PROOF-01 D1 shared-session hybrid", () => {
     expect(after2.users).toBe(after2.assistants);
   });
 
-  it("T1A — prior CLARIFY + meaningful natural answer → contextual progress", async () => {
+  it("T1A — meaningful natural answer → contextual F1 progress (B1)", async () => {
     const t1 = await send("tu peux m'aider à créer un projet de suivi de contrat ?");
     expect(t1.ok).toBe(true);
     if (!t1.ok) return;
-    expect(t1.text).toContain(MW5_CLARIFY_MARKER);
+    expect(t1.f2?.turnKind).toBe("f1_informative");
+    expect(t1.text).not.toContain(MW5_CLARIFY_MARKER);
 
     const t2 = await send(
       "l'application doit permettre de suivre les contrats avec les clients B2B de l'entreprise MC Consulting IT",
@@ -467,29 +468,29 @@ describe("CORR-PROOF-01 D1 shared-session hybrid", () => {
     if (!t2.ok) return;
     expect(t2.text).not.toContain(MW5_CLARIFY_MARKER);
     expect(provider.lastAnalysisBlob).toMatch(/Contexte conversationnel canonique/);
-    expect(provider.lastAnalysisBlob).toContain(MW5_CLARIFY_MARKER);
     expect(t2.f2?.turnKind).toBe("f1_informative");
   });
 
-  it("T1B — prior CLARIFY + still-ambiguous natural answer MUST NOT auto-CONTINUE", async () => {
+  it("T1B — still-ambiguous natural answer stays safe F1; no MW5 front door (B1)", async () => {
     const t1 = await send("tu peux m'aider à créer un projet de suivi de contrat ?");
     expect(t1.ok).toBe(true);
     if (!t1.ok) return;
-    expect(t1.text).toContain(MW5_CLARIFY_MARKER);
+    expect(t1.f2?.turnKind).toBe("f1_informative");
 
     const t2 = await send("je ne sais pas encore");
     expect(t2.ok).toBe(true);
     if (!t2.ok) return;
-    expect(t2.text).toContain(MW5_CLARIFY_MARKER);
-    expect(t2.mw5?.disposition).toBe("CLARIFY");
-    expect(t2.f2?.turnKind).toBe("f2_clarification");
+    expect(t2.text).not.toContain(MW5_CLARIFY_MARKER);
+    expect(t2.mw5).toBeNull();
+    expect(t2.f2?.turnKind).toBe("f1_informative");
+    expect(t2.f2?.proposal ?? null).toBeNull();
 
     const after = await readSessionPairs(projectId, sessionDbPath);
     expect(after.users).toBe(2);
     expect(after.assistants).toBe(2);
   });
 
-  it("T1C — prior CLARIFY + unparseable analysis remains fail-closed", async () => {
+  it("T1C — unparseable analysis: fail-closed authority + safe F1 advisory (B1)", async () => {
     const t1 = await send("tu peux m'aider à créer un projet de suivi de contrat ?");
     expect(t1.ok).toBe(true);
     if (!t1.ok) return;
@@ -497,10 +498,10 @@ describe("CORR-PROOF-01 D1 shared-session hybrid", () => {
     const t2 = await send("suite __D1_UNPARSEABLE__");
     expect(t2.ok).toBe(true);
     if (!t2.ok) return;
-    expect(t2.text).toContain(MW5_CLARIFY_MARKER);
-    expect(t2.mw5?.disposition).toBe("CLARIFY");
-    expect(t2.f2?.turnKind).not.toBe("f1_informative");
+    expect(t2.text).not.toContain(MW5_CLARIFY_MARKER);
+    expect(t2.f2?.turnKind).toBe("f1_informative");
     expect(t2.f2?.proposal ?? null).toBeNull();
+    expect(t2.mw5).toBeNull();
   });
 
   it("T2 — progressive five-turn project description without cycle storm", async () => {
@@ -545,7 +546,7 @@ describe("CORR-PROOF-01 D1 shared-session hybrid", () => {
     expect(r.text.toLowerCase()).toMatch(/renouvel/);
   });
 
-  it("T4 — genuine material ambiguity still clarifies", async () => {
+  it("T4 — genuine material ambiguity may clarify via F1; no MW5 front door (B1)", async () => {
     await send("tu peux m'aider à créer un projet de suivi de contrat ?");
     await send(
       "l'application doit permettre de suivre les contrats avec les clients B2B",
@@ -555,8 +556,9 @@ describe("CORR-PROOF-01 D1 shared-session hybrid", () => {
     );
     expect(r.ok).toBe(true);
     if (!r.ok) return;
-    expect(r.text).toContain(MW5_CLARIFY_MARKER);
-    expect(r.text).toMatch(/Clarification/i);
+    expect(r.text).not.toContain(MW5_CLARIFY_MARKER);
+    expect(r.f2?.turnKind).toBe("f1_informative");
+    expect(r.f2?.proposal ?? null).toBeNull();
   });
 
   it("T5 — acknowledgement after clarification is contextual", async () => {
