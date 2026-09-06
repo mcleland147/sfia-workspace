@@ -1,204 +1,228 @@
-# ChatGPT Review Pack — CORR-PROOF-02 R22 Functional Design
+# ChatGPT Review Handoff — CORR-PROOF-02 B1 Architecture / Delivery Gate
 
 ## 1. UTC timestamp
-2026-09-06T16:07:18Z
+2026-09-06T16:19:54Z
 
-## 2. Cycle / typology / profile
-- Cycle ID: `SFIA-STUDIO-PRODUCT-PROOF-CORR-02-R22-FUNCTIONAL-DESIGN-01`
-- Parent: SFIA STUDIO PRODUCT PROOF — ITERATIVE REAL VALIDATION CAMPAIGN
-- Corrective: CORR-PROOF-02 — NORA NATURAL ADVISORY REASONING & SOLUTION SHAPING
-- Cycle stage: 2 — Conception fonctionnelle
-- Typology: **EVOL**
-- Profile: **CRITICAL**
+## 2. Parent context
+- Parent Product Proof: **SFIA STUDIO PRODUCT PROOF — ITERATIVE REAL VALIDATION CAMPAIGN**
+- Corrective: **CORR-PROOF-02 — NORA NATURAL ADVISORY REASONING & SOLUTION SHAPING**
+- Parent Review Handoff tip: `994de88e7f55c2fe126b189a5153f3021f0bd194`
+- Parent canonical blob: `87f5b1f17f5436b3fee86a7cb876429842214da0`
+- Product baseline / `origin/main`: `bf6c2104941fee46b66396114f8c22f882973aa2`
+- Design branch reviewed: `analysis/sfia-studio-proof-corr-02-advisory-design`
 
-## 3. Exact Morris GO consumed
-GO MORRIS — CORR-PROOF-02 QUALIFICATION / FUNCTIONAL DESIGN + R22 CURRENT OPENAI CAPABILITY FIT CHECK AUTHORIZED — NO ARCHITECTURE ADOPTED — NO PRODUCT MUTATION — DECISION PACK + REVIEW HANDOFF AUTHORIZED.
+## 3. Morris decision consumed
+**MORRIS DECISION — CORR-PROOF-02 OPTION B1 ADVISORY-DEFAULT + DETERMINISTIC TRANSITION GATE ADOPTED — NORA F1 OWNS ORDINARY ADVISORY CONVERSATION — `analyzeIntent` IS ADAPTED TO NON-MUTATING TRANSITION/FORMALIZATION READINESS AND NO LONGER GATES SAFE COGNITION — AMBIGUOUS OR PARSE-FAIL CANNOT BLOCK SAFE ADVISORY REASONING BUT CAN NEVER AUTHORIZE FORMALIZATION OR EFFECT — F2/MW5 APPLY AT VALIDATED GOVERNED TRANSITIONS — CKC RESOLUTION REMAINS AFTER CYCLE QUALIFICATION AND MAY ENRICH COGNITION BEFORE DURABLE CYCLE CREATION — PRODUCTSQLITESESSION REMAINS THE SINGLE DURABLE CONVERSATIONAL SoT — ONE CANONICAL ASSISTANT RESPONSE PER PILOTE TURN — NO SECOND RUNNER / MEMORY / MULTI-AGENT PLANNER — CORRECTIVE DELIVERY AUTHORIZED — T1–T15 + SAME “SUIVI DE CONTRAT” PRODUCT PROOF REAL RETEST REQUIRED — STAGE B NOT AUTHORIZED.**
 
-## 4. Git truth
-- Worktree: `/Users/morris/Projects/sfia-workspace-proof-corr-02-design`
-- Branch: `analysis/sfia-studio-proof-corr-02-advisory-design`
-- HEAD: `bf6c2104941fee46b66396114f8c22f882973aa2`
-- origin/main: `bf6c2104941fee46b66396114f8c22f882973aa2`
-- Tracked working tree: CLEAN (analysis artifacts untracked only)
-- Baseline drift: NONE
+This is an architecture / Delivery authorization decision for CORR-PROOF-02.
+It is not a runtime v3 adoption, model-routing selection, Product Proof closure, or Stage B authorization.
 
-## 5. Review Handoff input
-- Parent tip: `177d5725b582169ae90b42c652fc9a08c0abe967`
-- Canonical blob: `f59d9dccf4c17e413f82deefaca9ba0f6bf4d28c`
-- Path: `sfia-review-handoff/latest-chatgpt-review.md`
+## 4. ChatGPT Critical Design Review verdict
+**PASS WITH DESIGN AMENDMENTS**
 
-## 6. Product Proof state
-OPEN / BLOCKED. CORR-PROOF-01 D1 integrated on main, post-merge verified, deterministic proven, REAL continuity revalidated at tested scope. New blocker PP-REAL-02 opens CORR-PROOF-02.
+Accepted findings:
+- PP-REAL-02 blocker is proven.
+- Primary root cause: **RC-A routing gate + RC-F MW5 front door**.
+- Contributing factors: intent ontology / Structured Output pressure / F1-vs-F2 product response contract.
+- R22 OpenAI-native-first fit is satisfied by keeping the existing single Nora Agent + Runner + Session architecture and adapting Studio-specific seams.
+- Multi-agent, second conversational memory, second Runner and generic internal planner are not justified.
 
-## 7. PP-REAL-02 evidence
-Project `Suivi de contrat` (`prj:ecc81c56-18cd-4e8f-84d6-c65230c7bfa8`). After intelligible B2B/MC Consulting context + objective reformulation, Pilote asked `peux-tu m'aider à créer cette application ?`. Nora answered canned `[MW5 CLARIFY]` only. Canonical Session users=3/assistants=3; no Cycle/HD/EC; LPS unchanged. Severity BLOCKING_PRODUCT_GAP. Categories: COGNITIVE_INITIATIVE_GAP, OVER_CLARIFICATION_GAP, CONVERSATIONAL_ORCHESTRATION_GAP. Exact LIVE analyzeIntent JSON: **NOT OBSERVED**.
+## 5. Adopted architecture target — Option B1
+**B1 — ADVISORY-DEFAULT + DETERMINISTIC TRANSITION GATE**
 
-## 8. Sources read
-Process: cycle execution template; routing guide; chatgpt-cursor operating model; rules/guardrails; CKC pilots Cycle 2 (candidate, cognitive guidance only).
-Studio: convergence build doctrine (R22); roadmap (historical); product completion cadrage; v3 docs 30/32/33/34/35/37; Nora OpenAI-native-first trajectory; Review Handoff parent.
-Code: ProjectAssistantPanel, actions, orchestrateTurn, buildProjectSystemPrompt, orchestrateF2, intentAnalysis, canonicalConversationSession, ckcCognitiveContext, qualify, mw5ChallengeSessionStore, proposalStore, runNoraCognitiveTurn/AgentsTurn, criticalChallengeClarification, productSqliteSession, memoryBCompaction, callModelInputFilter + nearest tests.
-Official OpenAI: Agents JS guides (agents, running-agents, sessions, tools, guardrails, handoffs, multi-agent, context, schemas, tracing) + Structured Outputs platform docs.
-Installed SDK: package.json + package-lock + node_modules verification.
+Conceptual target:
 
-## 9. Convergence qualification
-Primary: V3-F05 conversation→governed execution. Supporting V3-F01/F02/F04/F06. Must preserve V3-F11/F12. Milestone: PRODUCT PROOF — CORR-PROOF-02. Critical path: restore natural advisory → revalidate SAME Proof → continue toward qualification/trajectory/HD/EC. Roadmap lag ≠ absence of blocker. No Roadmap mutation.
-
-## 10. CKC Cycle 2 candidate qualification
-CKC Cycle 2 used as cognitive guidance only. Execution authority: NONE. Design target: CKC enriches Nora cognition; must not become Pilote questionnaire. No CKC content mutation.
-
-## 11. R22 requirement
-Build Doctrine R22 ACTIVE. CURRENT official OpenAI capability fit performed before recommendation. No blogs as primary evidence. No design-from-memory for provider claims.
-
-## 12. Current official OpenAI capability snapshot
-Agents SDK primitives sufficient for advisory cognition via single Agent + Runner + Session + instructions (+ optional tools/guardrails/structured outputType). Multi-agent/handoffs available but **not justified** for this gap. Structured Outputs strong for machine payloads, not chat UX grammar. Guardrails ≠ SFIA authority SoT.
-
-## 13. Official provider URLs + retrieval dates
-Retrieval UTC: **2026-09-06T16:00:27Z**
-- https://openai.github.io/openai-agents-js/guides/agents/
-- https://openai.github.io/openai-agents-js/guides/running-agents/
-- https://openai.github.io/openai-agents-js/guides/sessions/
-- https://openai.github.io/openai-agents-js/guides/tools/
-- https://openai.github.io/openai-agents-js/guides/guardrails/
-- https://openai.github.io/openai-agents-js/guides/handoffs/
-- https://openai.github.io/openai-agents-js/guides/multi-agent/
-- https://openai.github.io/openai-agents-js/guides/context/
-- https://openai.github.io/openai-agents-js/guides/schemas/
-- https://openai.github.io/openai-agents-js/guides/tracing/
-- https://developers.openai.com/api/docs/guides/structured-outputs
-Raw MDX mirrored from `openai/openai-agents-js` docs tree at retrieval time.
-
-## 14. Installed SDK exact versions
-Declared `^0.17.0` / `^6.48.0`. Resolved lock + installed: **`@openai/agents@0.17.0`**, **`openai@6.48.0`**. No upgrade.
-
-## 15. Current architecture reconstruction
-F2 `orchestrateAssistantSend` owns every send: Truth C summary + canonical Session/Memory B → analyzeIntent structured classification → route informative→F1 / ambiguous→MW5 CLARIFY / actionable→qualify(+CKC)→MW5→proposal. ProductSqliteSession is conversational SoT. CKC cognitive enrichment only post-qualification.
-
-## 16. PP-REAL-02 exact route
-UI → action → orchestrateAssistantSend → Truth C + Session analysis context → analyzeIntent → **ambiguous or !parseOk** → evaluateF2Mw5 → structural_ambiguity → DEFAULT_STRUCTURAL_CLARIFICATIONS → formatMw5AssistantText `[MW5 CLARIFY]` → f2ConversationalSuccess persist. F1 not invoked. CKC not loaded.
-
-## 17. Current Agent instruction analysis
-`buildProjectSystemPrompt` is governance/limits-first (read-only, no HD/Cursor/F2 qualify). Allows clarification and epistemic distinctions. **Missing positive** FR-01/03/06 initiative (advance incomplete thought, assumptions, MVP/options/next steps). Causal for PP-REAL-02: secondary (F1 not reached).
-
-## 18. Current analyzeIntent / schema analysis
-Every turn requires strict JSON covering intentClass, cycle candidate, risk signals, CWP, contradiction, challenge, scope, outcomes. Ontology: informative / actionable / ambiguous. `ambiguous` conflates structural effect fog with underspecified exploratory help. Schema pressures premature formalization (RC-C). intentClass too coarse for “intelligible exploratory help”.
-
-## 19. Current MW5 analysis
-KEEP: anti-synthesis HD/GO/Confirmation; challenge cap/escalation; fail-closed authority; contradiction-sensitive gating; anti-questionnaire intent.
-CHALLENGE: canned CLARIFY as ordinary advisory front door; structural_ambiguity as global conversation blocker.
-Target question answered by Option B: MW5 can be governance over formalized transitions while Nora reasons freely.
-
-## 20. Current CKC lifecycle
-resolve/load → qualifyWithCkc (actionable) → cognitive context → recommendation enrichment. Not available on analyzeIntent product path or F1 informative path today. Early non-authoritative guidance is feasible without Truth C mutation / Cycle create / authority.
-
-## 21. Root-cause matrix
-RC-A FACT routing gate; RC-B SUPPORTED INFERENCE ontology; RC-C SUPPORTED INFERENCE schema pressure; RC-D FACT prompt / HYPOTHESIS as sole cause; RC-E FACT CKC timing; RC-F FACT MW5 front door; RC-G FACT F1 xor F2 xor MW5 contract. Primary stack RC-A+RC-F.
-
-## 22. FACT / INFERENCE / HYPOTHESIS separation
-See root-cause matrix + Q1 NOT OBSERVED payload. Do not invent LIVE classifier fields.
-
-## 23. Generic cognition vs SFIA delta
-Generic → OpenAI Agent. SFIA delta → Truth C, CKC applicability, Cycle, Trajectory, contradiction, Rec≠HD, HD/GO/Confirmation, EC/effects, Evidence. Reject rebuilding generic cognition.
-
-## 24. Functional contract FR-01+
-FR-01…FR-15 documented in `.tmp-sfia-proof/corr-proof-02-design/functional-contract.md`. North star: DEFAULT REASON USEFULLY.
-
-## 25. Behavioral scenarios
-S1–S12 documented (PP-REAL-02, early idea, progressive, material ambiguity, MVP, recommendation, explicit decision, execution, critical constraint, CKC, restart, parse failure).
-
-## 26. Asset classification
-Runner/Agent/Session/Memory B/HD/EC/Truth C: KEEP. Prompt/F2/analyzeIntent/schema/MW5 placement/CKC timing: ADAPT. Multi-agent rebuild: REJECT. Formalization tool: DEFER (Option C).
-
-## 27. Options
-A Improved gate; B Conversation-first; C Manager+formalization tool; D Sidecar; E Single-call dual channel. Diagrams labeled OPTION/CONCEPTUAL.
-
-### CURRENT (evidence)
-```
-Pilote → analyzeIntent → routing → MW5 CLARIFY | F1 | F2 qualify
+```text
+Pilote
+  → ProductSqliteSession + Truth C context
+  → non-mutating transition/formalization readiness assessment
+     ├─ ordinary advisory / exploratory / ambiguous / parser-fail-safe case
+     │    → Nora F1 advisory cognition
+     │    → one useful natural response
+     │    → one canonical Session assistant turn
+     │
+     └─ sufficiently established governed transition
+          → F2 qualification/formalization
+          → CKC resolution after cycle qualification
+          → CKC may enrich cognition before durable cycle creation
+          → MW5/policy when materially applicable
+          → governed Proposal / Recommendation / HumanDecision / EC boundary
 ```
 
-### OPTION B (conceptual)
-```
-Pilote → Nora F1 advisory (Session) by default
-       → (when governed transition justified) F2 formalize + MW5 policy + HD/EC gates
-```
+## 6. Core behavioral doctrine for Delivery
+### Default
+**REASON USEFULLY**.
 
-## 28. Architecture parallelism check
-No second Runner / second conversational SoT / second memory in recommendation. C/D higher risk; rejected/deferred accordingly.
+For an intelligible request, Nora should normally contribute useful reasoning rather than requiring the Pilote to pre-structure all missing details.
 
-## 29. R22 disposition per option
-- A: tactical ADAPT only — insufficient
-- B: KEEP/USE Agent+Session; ADAPT seams; COMPLETE SFIA transition only — **preferred**
-- C: USE tools possible; DEFER (authority non-determinism)
-- D: REJECT (cost/race)
-- E: DEFER
+Nora may:
+- understand incomplete ordinary language;
+- restructure the user's thought;
+- make explicit provisional hypotheses;
+- propose product framing, MVP, roles, objects, risks, options, strategy and next steps;
+- recommend when evidence is sufficient;
+- ask the smallest useful clarification only when the missing information materially changes useful analysis or a governed transition.
 
-## 30. Recommendation
-**OPTION B — Conversation-first / formalization-as-needed.**
-RECOMMENDATION ≠ MORRIS DECISION.
+Clarification remains valid.
+Clarification as the default prerequisite to cognition is not the target.
 
-## 31. Rejected options
-A as sole architecture; D. C/E deferred not selected.
+## 7. Fail-closed split — adopted invariant
+### Safe cognition
+`ambiguous` or a formalization/parser failure must **not automatically block safe advisory cognition**.
 
-## 32. One-response lifecycle
-One visible assistant reply per turn, persisted once to ProductSqliteSession.
+A safe advisory response may continue if it creates no governed effect and does not claim false certainty.
 
-## 33. Cognition vs authority fail-closed
-Fail-closed authority/effects on parse/formalization failure. Safe advisory may continue under B. Never false certainty/execution from parser failure.
+### Authority / effect
+Any uncertainty or failure around qualification, HumanDecision, Confirmation, ExecutionContract, effective authority or external effects remains **fail-closed**.
 
-## 34. Migration candidate
-Prompt+ontology harvest → invert default route to F1 → relocate MW5 to transition/Rec → optional early CKC guidance → T1–T15 → SAME Project REAL. Feature-flag reversible.
+No parser / model output / Session state may authorize:
+- HumanDecision synthesis;
+- GO synthesis;
+- Confirmation synthesis;
+- durable formalization without applicable policy;
+- external execution.
 
-## 35. Deterministic acceptance T1–T15
-As in decision pack (PP-REAL-02 regression through anti-synthesis, no hidden cycle, no magic wording).
+## 8. Component dispositions
+| Component | Disposition / target |
+|---|---|
+| OpenAI Agents Runner | **KEEP** |
+| Nora single Agent | **KEEP** — generic advisory cognition owner |
+| ProductSqliteSession | **KEEP** — single durable conversational SoT |
+| Memory B | **KEEP** |
+| `buildProjectSystemPrompt` | **ADAPT** — add positive Advisory Contract |
+| F1 `orchestrateProjectAssistantTurn` | **ADAPT** as default ordinary advisory path |
+| F2 `orchestrateAssistantSend` | **ADAPT** — formalization-as-needed |
+| `analyzeIntent` | **ADAPT strongly** — non-mutating transition/formalization readiness, not permission-to-think gate |
+| strict Structured Output schema | **ADAPT** — machine formalization payload only where needed |
+| MW5 policy | **KEEP + ADAPT** — governance/challenge at material transitions |
+| canned generic MW5 CLARIFY front door | **REMOVE/ADAPT from ordinary advisory path** |
+| CKC resolver | **KEEP** |
+| CKC cognitive seam | **ADAPT** — after cycle qualification, may enrich reasoning before durable Cycle creation |
+| Truth C / LPS | **KEEP** |
+| HumanDecision / EC / Confirmation authority boundaries | **KEEP STRICT** |
+| second Runner / second memory / multi-agent planner | **REJECT for CORR-PROOF-02** |
 
-## 36. Future REAL retest
-Resume SAME `Suivi de contrat`. First key: `peux-tu m'aider à créer cette application ?`. Success = material shaping help without ChatGPT escape / premature intake. Exact wording not required.
+## 9. CKC constraint
+Doctrine V3-F01 remains authoritative:
+- CKC resolution remains **after cycle qualification**;
+- CKC has zero decision/execution authority;
+- CKC must never become a questionnaire / checklist exposed to the Pilote;
+- CORR-PROOF-02 may adapt timing so resolved CKC guidance enriches cognition before durable cycle creation where technically coherent, but it must not invent applicability before qualification.
 
-## 37. Debt / exit
-If B insufficient post-REAL, reconsider policy-gated Option C. Carry known reserves without scope expansion.
+## 10. Advisory instruction target
+The current F1 system prompt is governance/limits-heavy and lacks a strong positive advisory contract.
+Delivery is authorized to adapt it so Nora is explicitly instructed to:
+- act as a capable project/product thinking partner;
+- advance intelligible incomplete requests;
+- reason under explicit assumptions;
+- provide useful structure/options/MVP/strategy/next steps;
+- ask only material contextual questions;
+- provide useful analysis before an optional refining question when safe;
+- remain business-first and hide F1/F2/MW5/CKC implementation mechanics.
 
-## 38. Known reserves
-`/synthese` onboarding MAJOR_PRODUCT_GAP; Session append-after-Truth-C-mutation hardening; R-GMR-AGGREGATE-COUNTER-SEMANTICS-01.
+Prompt changes alone are not sufficient; routing/formalization seams must also implement B1.
 
-## 39. Stage A
-CLOSED
+## 11. One-response / one-SoT invariants
+- ProductSqliteSession remains the only durable conversational SoT.
+- Exactly one canonical assistant response per Pilote turn.
+- No invisible durable draft before another visible answer.
+- No client-history blind import as authority.
+- Conversation state ≠ Truth C.
+- No second Session / compaction / conversation chain.
 
-## 40. Stage B
-NOT JUSTIFIED / NOT AUTHORIZED
+## 12. Delivery acceptance contract
+Future deterministic Delivery must prove at least T1–T15:
 
-## 41. runtime v3
-NON ADOPTED
+- **T1** PP-REAL-02 exact regression: existing B2B context + `peux-tu m'aider à créer cette application ?` → useful advisory response; generic CLARIFY-only forbidden.
+- **T2** vague-but-intelligible initial idea → useful framing + explicit assumptions.
+- **T3** progressive context → advisory reasoning evolves naturally.
+- **T4** genuine material ambiguity → contextual clarification remains possible.
+- **T5** MVP request → useful MVP proposal without forced cycle creation.
+- **T6** options/recommendation → Recommendation, never HumanDecision.
+- **T7** explicit HumanDecision boundary → strict governed semantics.
+- **T8** execution request → strict effect boundary.
+- **T9** CKC enrichment → cognitive value visible; no questionnaire.
+- **T10** ProductSqliteSession remains canonical; one response per turn.
+- **T11** Memory B/restart continuity preserved.
+- **T12** formalization/parser failure → zero authority/effect **and safe advisory response still available when possible**.
+- **T13** anti-synthesis HD/GO/Confirmation regression.
+- **T14** no hidden Cycle/LPS mutation during ordinary advisory dialogue.
+- **T15** no magic wording / no production test marker dependency.
 
-## 42. production model routing
-NOT SELECTED
+## 13. Future REAL retest
+After Delivery → Critical Review → Git integration → merge → post-merge verification, resume the **same Product Proof** and same Project:
 
-## 43. ZERO product mutation proof
-No tracked source/test/package/lock/DB/migration/Roadmap/doctrine/CKC/C1 edits. Only untracked analysis under `.tmp-sfia-proof/corr-proof-02-design/` and this review pack.
+`Suivi de contrat`
 
-## 44. no OpenAI LIVE model calls proof
-This cycle performed documentation/repository qualification only. No Studio LIVE retest; no OpenAI API model call for analysis.
+Key natural regression:
 
-## 45. Claims allowed
-Design / capability qualification; architecture reconstruction facts; R22 official capability snapshot; one architecture recommendation for Morris.
+`peux-tu m'aider à créer cette application ?`
 
-## 46. Claims forbidden
-Architecture adopted; DETERMINISTIC/REAL corrective proven; model weakness from PP-REAL-02; product mutation; Stage B; runtime v3 adoption.
+Success is not exact wording.
+Success means Nora materially helps shape the product without forcing Morris back to external ChatGPT or premature intake/formalization.
 
-## 47. Exact Morris decision required
-Decide whether to adopt OPTION B (or amend) as CORR-PROOF-02 Delivery architecture target and whether to authorize Delivery.
+CORR-PROOF-02 does not automatically close Product Proof.
 
-## 48. Review Handoff proof
-To be completed by canonical publisher after this pack is published to `sfia/review-handoff`.
-Parent: `177d5725b582169ae90b42c652fc9a08c0abe967`. Suggested commit message: `docs(review-handoff): qualify CORR-PROOF-02 Nora advisory design`.
+## 14. R22 / architecture parallelism
+R22 disposition consumed:
+- KEEP / USE current OpenAI single Agent + Runner + Session;
+- ADAPT instructions, routing, formalization and CKC timing;
+- COMPLETE only the SFIA-specific transition seams;
+- do not build a generic planner, generic clarification engine, new conversation state machine, second memory or multi-agent topology without new incompatibility evidence + Morris decision.
 
----
+## 15. Delivery authorization / hard boundaries
+Authorized next cycle:
+- corrective product implementation of adopted B1;
+- deterministic tests T1–T15;
+- local candidate diff;
+- full Review Pack;
+- canonical Review Handoff publication.
 
-## Candidate verdict
-**PASS WITH RESERVES**
+Not authorized by this decision:
+- product commit;
+- product push;
+- PR creation;
+- merge;
+- branch deletion;
+- Product Proof REAL retest;
+- Stage B;
+- production model routing selection;
+- runtime v3 adoption;
+- package/model/provider architecture change unless separately gated.
 
-Reserves: LIVE intent payload NOT OBSERVED (route still proven by MW5 surface + code); Option C deferred intentionally; no Delivery performed (by GO).
+Any architecture change requiring second Runner, second Session/SoT, new persistence schema, multi-agent planner or dependency upgrade must STOP and return to Morris.
 
-## NEXT GATE
-ChatGPT Critical Design Review → Morris architecture / corrective Delivery decision.
+## 16. Known reserves carried forward
+- `/synthese` onboarding MAJOR_PRODUCT_GAP.
+- Session append-after-Truth-C-mutation hardening reserve.
+- `R-GMR-AGGREGATE-COUNTER-SEMANTICS-01` non-blocking reserve.
+- Exact LIVE PP-REAL-02 `analyzeIntent` JSON was not retained; route remains proven by canonical MW5 surface + code.
+- Option C manager+formalization-tool remains DEFERRED, not selected.
 
-## DO NOT IMPLEMENT CORR-PROOF-02 in this cycle.
+## 17. Product / campaign state
+- Product Proof: **OPEN / BLOCKED AT CORR-PROOF-02**.
+- CORR-PROOF-01 D1: integrated, post-merge verified, deterministic proven, REAL continuity revalidated at tested scope.
+- CORR-PROOF-02 architecture: **B1 ADOPTED BY MORRIS**.
+- CORR-PROOF-02 Delivery: **AUTHORIZED**, not yet implemented.
+- Stage A: **CLOSED**.
+- Stage B: **NOT JUSTIFIED / NOT AUTHORIZED**.
+- Runtime v3: **NON ADOPTED**.
+- Production model routing: **NOT SELECTED**.
+
+## 18. Product mutation proof for this gate
+This publication gate performs **ZERO product source mutation**.
+No product commit / push / PR / merge is authorized or performed by this handoff publication.
+The only Git write is the canonical `sfia/review-handoff` publication requested by Morris.
+
+## 19. Verdict
+**HANDOFF DECISION READY — CORR-PROOF-02 B1 ADOPTED / DELIVERY AUTHORIZED**
+
+## 20. Next gate
+**Cursor corrective Delivery under B1**
+→ deterministic T1–T15
+→ FULL Review Pack + Review Handoff
+→ ChatGPT Critical Delivery Review
+→ Morris product Git disposition.
+
+Do not start REAL.
+Do not commit/push/PR product code automatically.
