@@ -1,7 +1,7 @@
 # ChatGPT Critical PR Review — CORR-PROOF-03 E1 Product Git
 
 ## 1. Timestamp (UTC)
-2026-09-06T20:24:22Z
+2026-09-06T20:25:02Z
 
 ## 2. Product Git cycle ID
 SFIA-STUDIO-PRODUCT-PROOF-CORR-03-E1-PRODUCT-GIT-PR-01
@@ -36,7 +36,7 @@ origin/main after PR creation (re-fetched): 1b93fca866557d67b0cf4ef7de5bad2d6dce
 - tip: 8c99e46afc5364dce5c347b6eab9def1335a8981
 - blob: 1717f7edb62a48cae9e82dc66523f41a7beb6a54
 - path: sfia-review-handoff/latest-chatgpt-review.md
-- Note: embedded historical ACTUAL_REMOTE_HANDOFF_TIP a4b45efb... is known self-reference lag; Git tip 8c99e46a supersedes.
+- Note: embedded historical ACTUAL_REMOTE_HANDOFF_TIP a4b45efb is known self-reference lag; Git tip 8c99e46a supersedes.
 
 ## 7. Accepted candidate manifest
 CORR_PROOF_03_E1_CANDIDATE_MANIFEST_SHA256 =
@@ -54,7 +54,15 @@ MODIFIED:
 7. projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
 
 ## 9. All expected SHA-256 values
-
+```
+1e1582c67609664d5b5edc1ce2414660efa55a2759e02db509d528e5b6e59137  projects/sfia-studio/app/__tests__/project-assistant/corrProof03.e1.methodGroundedAdvisory.d0.test.ts
+6b1380b7faf02433a4e0764840d0957c7d2951c0c7b5cf08fa188bd554cc8825  projects/sfia-studio/app/__tests__/project-assistant/methodOrientation.test.ts
+873a57eb5305bcdeb883b8d6f84e4ba51d1735472f594165b4e735f87f0ac518  projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+1513de46775eacd3dccb5d6b95d1cc1bc986e0396b4bbf8b6f7f4b239d5b4318  projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+f6a81d3c7418721f7b247ccfc05651cbf7b4b33966013ec5baca30e2a3fdad25  projects/sfia-studio/app/features/project-assistant/f2/methodOrientation.ts
+0a4250a696a9e90c12b68d4b49df6bb7bd0e4a4f2184d5a314be2d6a0c9219a8  projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+00eba24bfc8133217aa622c21f3c7db0936b7998ee90e5460254e42897e31673  projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+```
 
 ## 10. Pre-Git candidate manifest recomputation
 PASS — recomputed working-tree manifest SHA =
@@ -73,29 +81,23 @@ PASS before staging:
 - no package.json / lockfile / DoctrinePackage artifact / LPS migration / HD-EC authority change
 
 ## 12. Exact precommit commands/results
-
+```
+npm test -- methodOrientation + corrProof03.e1 → 33/33 PASS
+npm test -- B1 + D1 + f2.orchestrate + mw5.challenge + mw2.corr04 + w1Ckc → 92/92 PASS
+npm test -- __tests__/project-assistant/ → 488/488 PASS (42 files)
+npm run typecheck → PASS
+npm run lint → PASS
+git diff --check → PASS
+```
+Prior Delivery reference for targeted+E1 combined: 125/125 PASS.
 
 ## 13. Staging exact scope
-Explicit  of exactly the 7 accepted paths. No  / .
+Explicit git add of exactly the 7 accepted paths. No broad staging.
 Untracked excluded: node_modules symlink, .tmp-sfia-proof/, review pack.
 
 ## 14. Staged diff verification
-A	projects/sfia-studio/app/.tmp-sfia-proof/corr-proof-03-e1-delivery/CORR_PROOF_03_E1_CANDIDATE_MANIFEST_SHA256.txt
-A	projects/sfia-studio/app/.tmp-sfia-proof/corr-proof-03-e1-delivery/candidate-manifest-sha.txt
-A	projects/sfia-studio/app/.tmp-sfia-proof/corr-proof-03-e1-delivery/candidate-manifest.sha256
-A	projects/sfia-studio/app/.tmp-sfia-proof/corr-proof-03-e1-delivery/corrProof03.e1.methodGroundedAdvisory.d0.test.ts
-A	projects/sfia-studio/app/.tmp-sfia-proof/corr-proof-03-e1-delivery/methodOrientation.test.ts
-A	projects/sfia-studio/app/.tmp-sfia-proof/corr-proof-03-e1-delivery/methodOrientation.ts
-A	projects/sfia-studio/app/.tmp-sfia-proof/corr-proof-03-e1-delivery/modified.diff
-A	projects/sfia-studio/app/node_modules = exactly 7 files (3A + 4M)
-projects/sfia-studio/app/.tmp-sfia-proof/corr-proof-03-e1-delivery/modified.diff:8: trailing whitespace.
-+
-projects/sfia-studio/app/.tmp-sfia-proof/corr-proof-03-e1-delivery/modified.diff:32: trailing whitespace.
-+
-projects/sfia-studio/app/.tmp-sfia-proof/corr-proof-03-e1-delivery/modified.diff:138: trailing whitespace.
-+
-projects/sfia-studio/app/.tmp-sfia-proof/corr-proof-03-e1-delivery/modified.diff:178: trailing whitespace.
-+  PASS
+git diff --cached --name-status = exactly 7 files (3A + 4M)
+git diff --cached --check PASS
 
 ## 15. Commit SHA
 PRODUCT_COMMIT_SHA = 8c6715fe1212409b56e04c45c924f22add68a369
@@ -107,17 +109,25 @@ PRODUCT_COMMIT_PARENT = 1b93fca866557d67b0cf4ef7de5bad2d6dceecda
 PRODUCT_COMMIT_TREE = 2174c4f8c7532054350e03c558b20f227f892103
 
 ## 18. Commit file list
-
+```
+A projects/sfia-studio/app/__tests__/project-assistant/corrProof03.e1.methodGroundedAdvisory.d0.test.ts
+A projects/sfia-studio/app/__tests__/project-assistant/methodOrientation.test.ts
+M projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+M projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+A projects/sfia-studio/app/features/project-assistant/f2/methodOrientation.ts
+M projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+M projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+```
 
 ## 19. Committed file hashes
-Identical to §9 (git show HEAD:<path> | sha256).
+Identical to section 9 (git show HEAD:path | sha256).
 
 ## 20. Committed manifest SHA
 CORR_PROOF_03_E1_COMMITTED_MANIFEST_SHA256 =
 7e638b08f81bad0686e88ab61263fa96c101a90a6a389f0ff066a4efc5e8d357
 
 ## 21. Normal push command/result
-branch 'delivery/sfia-studio-proof-corr-03-e1-method-grounded-advisory' set up to track 'origin/delivery/sfia-studio-proof-corr-03-e1-method-grounded-advisory'.
+git push -u origin delivery/sfia-studio-proof-corr-03-e1-method-grounded-advisory
 PASS — new remote branch created. No --force.
 
 ## 22. Remote branch verification
@@ -143,9 +153,56 @@ OPEN
 
 ## 27. PR diff parity
 PASS — head=product commit; base=baseline; files=exact 7; main unchanged after creation.
+PR_BASE_SHA_AT_CREATION = 1b93fca866557d67b0cf4ef7de5bad2d6dceecda
+CURRENT origin/main = 1b93fca866557d67b0cf4ef7de5bad2d6dceecda
 
 ## 28. PR body
+```markdown
+## Summary
 
+- **CORR-PROOF-03 / Option E1** — method-grounded single-run advisory for Nora on the Product Proof critical path.
+- Closes Product Proof blocker **METHOD_GROUNDED_ADVISORY_ORCHESTRATION_GAP**: ordinary B1 F1 had Truth C + generic advisory but not the applicable Studio method/CKC body.
+- Solution: non-mutating method orientation from existing `analyzeIntent` candidate + read-only DoctrinePackage/CKC lens, composed into the **same** Nora Agent / Runner / ProductSqliteSession (no third method-reasoning model call; no F1 `reasonWithResolvedCkcContext`).
+- Default **SFIA Studio** identity inside Studio; public Skills Framework only when the Pilote asks explicitly.
+- `transitionReadiness` / durable F2 qualification / MW5 / HumanDecision / ExecutionContract **unchanged**.
+- **ProjectTrajectory-on-F1 deferred** from this slice.
+
+## Deterministic evidence (local pre-commit)
+
+- E1 + methodOrientation: **33/33 PASS**
+- Targeted regressions (B1/D1/F2/MW5/MW2/W1): **92/92** in listed suites; combined with E1 prior reference **125/125**
+- `__tests__/project-assistant/`: **488/488 PASS**
+- MW2 Truth C intent stability: included in targeted set (**12/12**)
+- `npm run typecheck` **PASS**
+- `npm run lint` **PASS**
+
+## Candidate identity
+
+CORR_PROOF_03_E1_CANDIDATE_MANIFEST_SHA256 =
+`7e638b08f81bad0686e88ab61263fa96c101a90a6a389f0ff066a4efc5e8d357`
+
+Exact 7-file accepted candidate (byte-for-byte).
+
+## Boundaries
+
+- **ZERO REAL** — no OpenAI LIVE / Studio dogfood in this cycle
+- Product Proof remains **OPEN / BLOCKED** pending integration + separate REAL revalidation
+- Stage B **NOT AUTHORIZED**
+- Production routing **NOT SELECTED**
+- runtime v3 **NON ADOPTED**
+- **Merge NOT authorized** from this Product Git cycle
+
+## Test plan
+
+- [ ] GitHub CI full SFIA Studio chain green on this head
+- [ ] SFIA Studio Required Gate PASS
+- [ ] Confirm PR diff is exactly the 7 accepted files
+- [ ] ChatGPT PR review before any Morris merge decision
+
+
+Made with [Cursor](https://cursor.com)
+
+```
 
 ## 29. CI run ID/URL
 - WORKFLOW_RUN_ID: 34057652788
@@ -188,7 +245,7 @@ CORR-PROOF-03 E1 — DETERMINISTIC PROVEN / PR CI VERIFIED
 NOT: REAL method-grounded cognition · Product Proof complete · Cognitive Completion · production routing · runtime v3.
 
 ## 39. Product Proof status
-OPEN / BLOCKED pending ChatGPT PR review → separate Morris MERGE → post-merge verification → separate REAL.
+OPEN / BLOCKED pending ChatGPT PR review then separate Morris MERGE then post-merge verification then separate REAL.
 
 ## 40. Stage B status
 NOT AUTHORIZED
@@ -200,7 +257,7 @@ NON ADOPTED
 NOT SELECTED
 
 ## 43. Reserves
-- R-CP03-REAL-ORIENTATION-01 — real gpt-5.6-luna method/cycle orientation quality NOT PROVEN
+- R-CP03-REAL-ORIENTATION-01 — real method/cycle orientation quality NOT PROVEN
 - R-CP03-CKC-SURFACE-01 — internal CKC technical material reaches model context; Fake proves non-leak; REAL leak still needs observation
 - R-CP03-SESSION-COUNT-01
 - S7/S17 — positive ProjectTrajectory-on-F1 DEFERRED
@@ -212,7 +269,7 @@ NOT SELECTED
 
 ## 44. Next Morris gate
 ChatGPT CORR-PROOF-03 E1 PR Review
-→ separate Morris MERGE decision only if accepted.
+then separate Morris MERGE decision only if accepted.
 REAL remains a later separate gate after post-merge verification.
 NO MERGE · NO REAL · NO STAGE B from this cycle.
 
@@ -220,10 +277,11 @@ NO MERGE · NO REAL · NO STAGE B from this cycle.
 (filled after publish)
 
 HANDOFF_PARENT expected: 8c99e46afc5364dce5c347b6eab9def1335a8981
+Prior truncated publish (superseded): 93ef7a0fdb1c9b73bf5950518b32640bc25c3e5f
 Suggested message: docs(review-handoff): review CORR-PROOF-03 E1 Product Git PR
 
 ---
 
 ## Final Product Git verdict
-**READY FOR CHATGPT PR REVIEW**
+READY FOR CHATGPT PR REVIEW
 CORR-PROOF-03 E1 DETERMINISTIC PROVEN / PR CI VERIFIED
