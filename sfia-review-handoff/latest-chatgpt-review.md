@@ -1707,14 +1707,17 @@ If accepted: Morris may separately authorize Product Git.
 NO PRODUCT GIT · NO REAL · NO STAGE B from this cycle.
 
 ## 53. Review Handoff publication proof
-(filled after publish)
-
-Parent tip before publish: `308293a42f87592bcb2e4e013499a61993f6f4fa`
-Publisher: `scripts/sfia/publish-review-handoff.sh`
-Suggested message: `docs(review-handoff): review CORR-PROOF-03 E1 delivery`
+- HANDOFF_PARENT: `308293a42f87592bcb2e4e013499a61993f6f4fa`
+- PUBLISHED_CONTENT_COMMIT: `f56450679e985b95c3c39001352b6399c4e3fafd`
+- ACTUAL_REMOTE_HANDOFF_TIP: `f56450679e985b95c3c39001352b6399c4e3fafd`
+- CANONICAL_HANDOFF_BLOB: `ee0cc0be2f4da9ee59755db62754b6ab289e112d`
+- PUBLISHER_VERDICT: HANDOFF UPDATED — REMOTE VERIFIED
+- Message: `docs(review-handoff): review CORR-PROOF-03 E1 delivery`
+- Canonical path: `sfia-review-handoff/latest-chatgpt-review.md`
+- Re-verified: candidate manifest SHA `7e638b08f81bad0686e88ab61263fa96c101a90a6a389f0ff066a4efc5e8d357` present in remote canonical content.
 
 ---
 
-## Final Cursor verdict (pre-handoff)
+## Final Cursor verdict
 **PASS WITH RESERVES** — DETERMINISTIC PROVEN CANDIDATE
-Ready for ChatGPT CORR-PROOF-03 E1 Critical Delivery Review.
+READY FOR CHATGPT CORR-PROOF-03 E1 CRITICAL DELIVERY REVIEW
