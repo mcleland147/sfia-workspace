@@ -407,6 +407,13 @@ export async function runMw6GovernedNoraProductTurn(
       enableTools: true,
       workspaceRoot,
       sessionDbPath: input.sessionDbPath,
+      // CORR-04 — same Truth C revision wiring as F1/orchestrateTurn so
+      // runNoraCognitiveTurn builds MemoryBSessionView and does not expose
+      // internal sfia_memory_b_compaction markers to the Agents Runner.
+      truthCRevision: {
+        lpsId: project.lpsId,
+        lpsVersion: project.lpsVersion,
+      },
       turnWorkloadContext: {
         projectCriticality: project.criticality,
         userContentLength: content.length,

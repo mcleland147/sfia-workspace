@@ -1,10 +1,14 @@
 /** @vitest-environment node */
 /**
  * C3-03 — full MW6 governed product path through Stage A canonical lease — ZERO REAL.
+ * CORR-04 — MW6 × Memory B compaction session compatibility regression.
  *
  * Reuses W2 harness + MW6 server-composition seeding patterns.
  * Does NOT invent a second authority framework.
  */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { mapGithubIdentityToPiloteActor } from "@/lib/auth/actorMapping";
 import {
@@ -22,6 +26,14 @@ import {
 import type { SourceStrategyInput } from "@/lib/nora-cognitive-runtime/sourceStrategyPolicy";
 import { runMw6GovernedNoraProductTurn } from "@/features/project-assistant/mw6GovernedNoraTurn";
 import {
+  ProductSqliteSession,
+  applyCompactionIfNeeded,
+  createMemoryBSessionView,
+  loadSessionRows,
+  userTextItem,
+  assistantTextItem,
+} from "@/lib/nora-cognitive-runtime";
+import {
   createEvalAgentsUsdAccounting,
   createGlobalMrStageADriver,
   GLOBAL_MR_STAGE_A_CALL_CAPS,
@@ -29,11 +41,11 @@ import {
 import {
   bootW2Runtime,
   cleanupW2TempDirs,
+  currentF2Context,
   seedQualifiedProject,
   tempProductDbPath,
 } from "@/__tests__/project-assistant/w2Harness";
 import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
-
 const CLAIM =
   "corroborate externally the current CEO of Acme Corp";
 
@@ -350,5 +362,127 @@ describe("C3-03 — full MW6 governed product path (deterministic)", () => {
     if (result.ok) return;
     expect(result.code).toBe("CAMPAIGN_ID_MISMATCH");
     expect(other.campaignBudget.consumedModelInvocations).toBe(before);
+  });
+
+  it("CORR-04 — pre-compacted Memory B session is MW6-safe (Truth C → MemoryBSessionView)", async () => {
+    const campaignId = `corr04-mw6-${Date.now()}`;
+    const executionContractId = "xct:mw6-corr04";
+    const decisionId = "dec:mw6-corr04";
+    await seedAcceptedDecisionOnRuntime(runtime, {
+      decisionId,
+      projectId,
+      cycleInstanceId,
+    });
+    await seedConfirmedMw6Ec({
+      runtime,
+      projectId,
+      cycleInstanceId,
+      campaignId,
+      executionContractId,
+      decisionId,
+      confirmationId: "cfm:mw6-corr04",
+    });
+
+    const ctx = await currentF2Context(runtime, projectId);
+    const truthCRevision = {
+      lpsId: ctx.lpsId,
+      lpsVersion: ctx.lpsVersion,
+    };
+    const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-corr04-"));
+    const sessionDbPath = path.join(sessionDir, "nora-session.sqlite");
+    try {
+      const session = new ProductSqliteSession({
+        projectId,
+        dbPath: sessionDbPath,
+        sessionKey: "f1-default",
+      });
+      await session.addItems([
+        userTextItem("Useful premise: deploy to staging first."),
+        assistantTextItem("Acknowledged."),
+        userTextItem("noise ".repeat(30)),
+        assistantTextItem("noise reply"),
+        userTextItem("governing premise: STOP before merge"),
+        assistantTextItem("Will not merge."),
+        userTextItem("More filler ".repeat(20)),
+        assistantTextItem("More filler reply"),
+      ]);
+      const applied = await applyCompactionIfNeeded({
+        session,
+        truthCRevision,
+        policy: {
+          itemThreshold: 4,
+          keepRecentCount: 2,
+          maxSummaryChars: 900,
+        },
+        nowIso: "2026-09-06T10:00:00.000Z",
+      });
+      expect(applied.applied).toBe(true);
+      expect(applied.record?.type).toBe("sfia_memory_b_compaction");
+
+      const rawItems = await session.getItems();
+      expect(
+        rawItems.some(
+          (i) =>
+            (i as { type?: string }).type === "sfia_memory_b_compaction",
+        ),
+      ).toBe(true);
+
+      const prepared = await createMemoryBSessionView({
+        session,
+        truthCRevision,
+      });
+      const viewItems = await prepared.view.getItems();
+      expect(
+        viewItems.every(
+          (i) =>
+            (i as { type?: string }).type !== "sfia_memory_b_compaction",
+        ),
+      ).toBe(true);
+
+      const state = createGlobalMrStageADriver({ campaignId });
+      const usd = createEvalAgentsUsdAccounting({
+        budget: state.budget,
+        manifest: state.manifest,
+        modelId: "gpt-5.6-luna",
+        assumedInputTokens: 40,
+        assumedOutputTokens: 20,
+      });
+
+      const result = await runMw6GovernedNoraProductTurn({
+        projectId,
+        content: CLAIM,
+        executionContractId,
+        provider: new FakeConversationProvider(),
+        resolveAuthenticatedPilote: async () => makePilote("11111111"),
+        sharedCampaignBudget: state.campaignBudget,
+        sessionDbPath,
+        evalModelReasoningControl: {
+          modelId: "gpt-5.6-luna",
+          reasoningEffort: "none",
+        },
+        usdAccounting: usd,
+      });
+
+      // Pre-patch RED fingerprint (main): ok=false, NORA_TURN_ERROR,
+      // message contains sfia_memory_b_compaction.
+      // Post-patch GREEN: ok=true, compaction state retained, marker not exposed.
+      if (!result.ok) {
+        expect(result.code).toBe("NORA_TURN_ERROR");
+        expect(result.message).toMatch(/sfia_memory_b_compaction/);
+        // Explicit RED signal for CORR-04 Review Pack — fail until patched.
+        expect(result.ok, "CORR-04 expected GREEN after Truth C wiring").toBe(
+          true,
+        );
+        return;
+      }
+
+      expect(result.mw6AuthorityComposition.liveHostedDispatchCalls).toBe(0);
+      expect(result.mw6AuthorityComposition.realAuthorized).toBe(false);
+      expect(result.memoryBCompactionState).not.toBe("none");
+      const after = await loadSessionRows(session);
+      expect(after.compaction?.type).toBe("sfia_memory_b_compaction");
+    } finally {
+      fs.rmSync(sessionDir, { recursive: true, force: true });
+    }
   });
 });
