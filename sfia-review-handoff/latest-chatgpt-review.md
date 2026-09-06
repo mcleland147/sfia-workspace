@@ -2268,7 +2268,11 @@ ChatGPT PR Review → Morris **MERGE** decision only if PR/CI accepted. REAL rem
 Parent: `16226e2b2fc6b7009b80cc8c94f81ead667d7c53`
 Publisher: `scripts/sfia/publish-review-handoff.sh`
 Suggested message: `docs(review-handoff): review CORR-PROOF-02 B1 product PR`
-HANDOFF_PROOF_PLACEHOLDER
+- HANDOFF_PARENT: `16226e2b2fc6b7009b80cc8c94f81ead667d7c53`
+- PUBLISHED_CONTENT_COMMIT / ACTUAL_REMOTE_HANDOFF_TIP: `1175f991676dcd2e69b0d0c12e18d1581c5bc6e2`
+- CANONICAL_HANDOFF_BLOB (pre-proof-fill publish): `52c89c33d798d9d75b085c1bde6c5dcdeb241cad`
+- PUBLISHER_VERDICT (first publish): HANDOFF UPDATED — REMOTE VERIFIED (push `16226e2b..1175f991`)
+- Note: this §41 fill triggers a second mono-file handoff publish so remote tip includes these proof fields.
 
 
 ## CI failure log excerpt (canonical)
