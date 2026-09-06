@@ -111,11 +111,17 @@ This cycle: **DOCUMENTARY / REPOSITORY READINESS ONLY**.
 
 ## 7. Documentary truth-sync lifecycle
 
-Four-doc post-merge truth-sync (Roadmap / 08 / 10 / 11) = **LOCAL DOCUMENTARY CANDIDATE** this cycle.
+Four-doc post-merge truth-sync CONTENT (Roadmap / 08 / 10 / 11) = **REVIEWED / ACCEPTED AT DOCUMENTARY SCOPE**.
 
-Product commit / push / PR for this DOC lot = **NONE** (not authorized by the readiness GO).
+Repository publication/integration lifecycle = **RESOLVE FROM CURRENT GIT / PR EVIDENCE**.
 
-Publication / integration state for this truth-sync = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** after a future distinct Morris Git integration GO.
+No claim of integration state shall be inferred from this document alone.
+
+Once documentary integration is verified from Git/PR evidence: the next structural gate is a **DISTINCT Morris Stage A REAL decision**.
+
+Stage A REAL = **NOT AUTHORIZED**.
+Astra entitlement = **NOT PROVEN**.
+Provider revalidation = **REQUIRED** at future authorized REAL start.
 
 ## Readiness verdict
 

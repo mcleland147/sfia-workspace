@@ -13,7 +13,7 @@
 | **G1/G2/G3** | INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR **#466** @ `23d850fda45fe55ba519e0feefe63369d349afcc`) |
 | **Integration GO** | Option C Git integration (D-GMR-GIT-01) + PR **#468** merge **CONSUMED** |
 | **Merge GO** | `GO MORRIS — MERGE PR #468` **CONSUMED** |
-| **This DOC maintenance** | `NORA-GLOBAL-MR-STAGE-A-OPTION-C-POST-MERGE-READINESS-01` — post-merge truth-sync / REAL readiness (documentary candidate pending separate Git integration; publication = **RESOLVE FROM CURRENT GIT / PR EVIDENCE**; Stage A REAL **NOT AUTHORIZED**) |
+| **This DOC maintenance** | `NORA-GLOBAL-MR-STAGE-A-OPTION-C-POST-MERGE-READINESS-01` — post-merge truth-sync / REAL-readiness CONTENT **REVIEWED / ACCEPTED AT DOCUMENTARY SCOPE** · repository publication state = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · Stage A REAL **NOT AUTHORIZED** |
 | **Authoring date** | 2026-09-05 |
 | **Preparation GO** | `GO MORRIS — PRÉPARER LE GLOBAL MODEL × REASONING CAMPAIGN EXECUTIONCONTRACT CONSOLIDÉ — ZERO REAL` **CONSUMED** |
 | **Enablement GO** | `GO MORRIS — CORRECTION GLOBAL MODEL × REASONING STAGE A ENABLEMENT — ZERO REAL` **CONSUMED (local candidate only)** |
@@ -585,7 +585,7 @@ No cognitive gain expands authority. No stronger model gains more authority.
 
 **Historical next gate (satisfied):** ChatGPT Critical Review → Morris Git integration → PR **#467** MERGED / post-merge CI PASS · later Option C PR **#468** MERGED / CI `33995952634` PASS.
 
-**Current next sequence:** ChatGPT Critical Review of **post-merge four-doc truth-sync / REAL readiness** → Morris Git integration of documentary updates → post-integration verification → **distinct** Morris Stage A REAL GO (never condensed with documentary merge).
+**Current next sequence:** once four-doc documentary integration is verified from Git/PR evidence → **distinct** Morris Stage A REAL GO (never condensed with documentary merge). Four-doc CONTENT = **REVIEWED / ACCEPTED AT DOCUMENTARY SCOPE**; publication = **RESOLVE FROM CURRENT GIT / PR EVIDENCE**.
 
 ## Critical Review remediation (E1–E4 + F1→F5 + C3-01→C3-05) — retained
 
@@ -607,7 +607,7 @@ No cognitive gain expands authority. No stronger model gains more authority.
 
 **Historical next gate (satisfied):** ChatGPT Critical Review → Morris Git integration → PR **#467** MERGED / post-merge CI PASS · later Option C PR **#468** MERGED / CI `33995952634` PASS.
 
-**Current next sequence:** ChatGPT Critical Review of **post-merge four-doc truth-sync / REAL readiness** → Morris Git integration of documentary updates → post-integration verification → **distinct** Morris Stage A REAL GO (never condensed with documentary merge).
+**Current next sequence:** once four-doc documentary integration is verified from Git/PR evidence → **distinct** Morris Stage A REAL GO (never condensed with documentary merge). Four-doc CONTENT = **REVIEWED / ACCEPTED AT DOCUMENTARY SCOPE**; publication = **RESOLVE FROM CURRENT GIT / PR EVIDENCE**.
 
 ## 22. Gates
 
@@ -628,7 +628,7 @@ No cognitive gain expands authority. No stronger model gains more authority.
 | Provider capability fit (R22) documented snapshot | **EXECUTED** — GPT-5.6 primary + Astra challenger capability in current snapshot |
 | Astra account / API entitlement | **NOT PROVEN** |
 | Provider revalidation at REAL start | **REQUIRED** when claim depends on current provider fit |
-| Four-doc post-merge truth-sync | **LOCAL DOCUMENTARY CANDIDATE** — publication = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** |
+| Four-doc post-merge truth-sync | CONTENT **REVIEWED / ACCEPTED AT DOCUMENTARY SCOPE** — repository publication/integration = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** |
 | Morris Stage A REAL decision | **NOT AUTHORIZED** |
 | Stage A/B/C REAL | **NOT AUTHORIZED** |
 | OpenAI spend | **NOT AUTHORIZED** |
@@ -677,4 +677,4 @@ No cognitive gain expands authority. No stronger model gains more authority.
 - [ ] Stage A REAL — **NOT AUTHORIZED**
 
 **Verdict target for ChatGPT review:**
-`READY FOR CHATGPT CRITICAL REVIEW — GLOBAL MODEL × REASONING STAGE A OPTION C POST-MERGE TRUTH-SYNC COMPLETE — PR #468 INTEGRATED ON MAIN / POST-MERGE VERIFIED — 78 / 438 / 26 / 464 — FINANCIAL ENVELOPE 15 / 18 / 20 DECIDED — REAL READINESS QUALIFIED — ASTRA ACCOUNT ENTITLEMENT NOT PROVEN — STAGE A REAL NOT AUTHORIZED — ZERO REAL`
+`READY FOR CHATGPT PR/CI CRITICAL REVIEW — FOUR-DOC POST-MERGE TRUTH-SYNC CONTENT REVIEWED — REPOSITORY LIFECYCLE RESOLVE FROM CURRENT GIT / PR EVIDENCE — 78 / 438 / 26 / 464 — FINANCIAL ENVELOPE 15 / 18 / 20 DECIDED — ASTRA ACCOUNT ENTITLEMENT NOT PROVEN — STAGE A REAL NOT AUTHORIZED — ZERO REAL — MERGE DECISION REQUIRED`
