@@ -64,6 +64,7 @@ import {
   buildCkcCognitivePromptSection,
   reasonWithResolvedCkcContext,
 } from "./ckcCognitiveContext";
+import { composeAdvisoryMethodContext } from "./methodOrientation";
 import { projectCkcResolutionRef, qualifyWithCkc } from "./qualify";
 import { reconcileQualificationSignals } from "./qualificationSignalCoherence";
 import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
@@ -756,11 +757,18 @@ export async function orchestrateAssistantSend(input: {
   });
 
   if (!transition.formalizationReady) {
+    // CORR-PROOF-03 E1 — pure orientation + read-only CKC lens; NO reasonWithResolvedCkcContext.
+    const methodContext = composeAdvisoryMethodContext({
+      analysis,
+      project,
+      registryRoot: resolveProductDoctrineRegistryRoot(),
+    });
     const f1 = await orchestrateProjectAssistantTurn({
       ...input,
       provider: effectiveProvider,
       semanticCognitiveWorkload: analysis.cognitiveWorkload,
       truthCContext: truthCContextForF1,
+      methodContext,
       contradictionAssessment,
       evalModelReasoningControl: input.evalModelReasoningControl,
       usdAccounting: input.usdAccounting,

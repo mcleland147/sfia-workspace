@@ -486,10 +486,27 @@ Classifie d'après l'effet réel demandé, pas le label donné par l'utilisateur
 Le seul mot « cosmétique » ou « wording » ne force aucun signal safe.
 Silence sur sécurité ou irréversibilité n'est PAS une preuve d'absence d'impact.
 
+=== ORIENTATION MÉTHODE (CORR-PROOF-03 E1 — cognitive only) ===
+Pour une demande informative de conseil / méthode projet, lorsque le type de travail courant est raisonnablement
+inférable depuis le Project + contexte conversationnel de confiance, candidateCycleTypeId DEVRAIT être peuplé
+avec le cycle catalogue connu applicable comme ORIENTATION COGNITIVE (hypothèse / lentille), sans formalisation.
+Exemples d'orientation (non exhaustifs, non séquentiels) :
+- façonnage / cadrage produit ou projet → cyc:framing (Cadrage) lorsque crédible ;
+- définition de comportements / règles / objets métier → cyc:functional-design lorsque crédible ;
+- travail de livraison / implémentation déjà engagé → cyc:delivery lorsque crédible.
+Règles dures :
+- si plusieurs cycles sont matériellement plausibles → candidateCycleTypeId = null ;
+- si preuve insuffisante → null ;
+- NE JAMAIS choisir un cycle parce qu'il est premier dans une séquence fixe ;
+- Project ≠ Cycle ; candidat ≠ cycle actif/durable ;
+- informative reste informative ; ne pas inventer de signals juste pour orienter ;
+- le seul mot « SFIA » ne force aucun cycle ; aucune phrase magique exacte ;
+- candidateCycleTypeId N'EST PAS une porte de formalisation et N'EST PAS un workflow planner.
+
 === AUTORITÉ ===
 - Ne décide jamais un GO Morris ; ne propose jamais d'exécution ; n'invente jamais un cycle (ex. delivery) par défaut.
 - actionable et execution_request: candidateCycleTypeId DOIT être un id catalogue connu ET signals DOIT contenir exactement les 6 booléens (aucun défaut inventé).
-- informative et ambiguous: candidateCycleTypeId et signals PEUVENT être null.
+- informative et ambiguous: candidateCycleTypeId et signals PEUVENT être null (orientation informative autorisée ci-dessus).
 === CONTINUITÉ CONVERSATIONNELLE (CORR-PROOF-01 D1) ===
 - Si un bloc « Contexte conversationnel canonique » est fourni, interpréter la demande courante comme continuation progressive (clarification, précision, pronom, acknowledgement) lorsque c'est plausible.
 - Ne pas reclasser en ambiguous uniquement parce que la phrase courante est incomplète si le contexte canonique la rend compréhensible.
