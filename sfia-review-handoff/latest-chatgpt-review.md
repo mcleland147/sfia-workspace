@@ -1,93 +1,127 @@
-# GLOBAL-MR-STAGE-A-CORR-04-MW6-MEMORY-B-SESSION-01 — FULL Review Pack
+# GLOBAL-MR-STAGE-A-CORR-04-GIT-INTEGRATION-01 — FULL Review Pack
 
-- **timestamp (UTC):** 2026-09-06T09:12:00Z
-- **Cycle:** 8 — Delivery / implementation · **RUN / CORRECTIVE** · **CRITICAL**
-- **Morris GO consumed:** CORR-04 MW6 × MEMORY B SESSION COMPATIBILITY — ZERO REAL + PUBLISH REVIEW HANDOFF
+- **timestamp (UTC):** 2026-09-06T09:40:00Z
+- **Cycle:** 13 — PR readiness / Git integration · **RUN / CORRECTIVE** · **CRITICAL**
+- **Morris GO consumed:** GIT INTEGRATION CORR-04 MW6 × MEMORY B SESSION COMPATIBILITY — COMMIT + PUSH + PR + CI / PR READINESS — ZERO REAL — NO MERGE
 
 ---
 
-## 1. Git truth
+## 1. Git truth before integration
 
 | Item | Value |
 |------|-------|
 | Repository | `mcleland147/sfia-workspace` |
 | Worktree | `/Users/morris/Projects/sfia-workspace-global-mr-corr-04-mw6-memory-b` |
 | Branch | `fix/sfia-studio-global-mr-corr-04-mw6-memory-b-session` |
-| HEAD | `9ce5933c039f8341540b9247e4db7ee5ae4ab153` |
-| origin/main | `9ce5933c039f8341540b9247e4db7ee5ae4ab153` (required — matched) |
-| Initial status | clean at creation from exact main |
-| Final status | modified (unstaged): `mw6GovernedNoraTurn.ts` + `c3.mw6-full-product-path.d0.test.ts`; untracked local `node_modules` symlink only |
-| REAL continuation worktree | preserved separately at `…-global-mr-stage-a-real-cont-01` with `.tmp-sfia-real/**` Evidence intact |
+| HEAD (pre-commit) | `9ce5933c039f8341540b9247e4db7ee5ae4ab153` |
+| origin/main | `9ce5933c039f8341540b9247e4db7ee5ae4ab153` |
+| Working tree | exactly two reviewed product/test files dirty; local `node_modules` symlink untracked (never staged) |
 
 ---
 
-## 2. Input Review Handoff
+## 2. Input Critical Review handoff
 
-`70210fb3b7a8a2862bbf1667ef2afa65e4b42528` — verified before publication.
+`5c82f90759ef9d5a9b5b353b934873f3241814ec` (parent `70210fb3…`)
 
 ---
 
-## 3. Convergence pre-check
+## 3. Convergence qualification
 
 | Dimension | Assessment |
 |-----------|------------|
-| Capability | Nora Cognitive Completion — governed F2/Memory B → MW6 continuity |
-| Milestone | Stage A blocking corrective (CORR-04) |
-| KEEP | ProductSqliteSession, Memory B compaction, MemoryBSessionView, runNoraCognitiveTurn, F1 Truth C wiring, MW6 composition, CORR-02 hosted observation |
-| ADAPT | MW6 → `runNoraCognitiveTurn` invocation only (`truthCRevision`) |
-| Gap closed | MW6 omitted Truth C revision → raw compaction marker reached Runner |
-| Dependency | Existing MemoryBSessionView path (no parallel architecture) |
-| Trajectory | Deterministic close → ChatGPT review → Morris may authorize Git integration → later distinct GO for 9 W-Sources REAL |
-| Exit proof | Deterministic product-path regression GREEN |
-| Debt/reserve | CORR-04 REAL revalidation of the 9 W-Sources cells **not** proven |
-| Next gate | ChatGPT Critical Review |
+| Capability | Nora Cognitive Completion — governed F2 / Memory B → MW6 continuity |
+| Milestone | Stage A blocking corrective Git integration |
+| KEEP | ProductSqliteSession, MemoryB compaction/view, runNoraCognitiveTurn, F1 Truth C wiring, MW6 authority, CORR-02 hosted observation, Option C accounting |
+| ADAPT | Reviewed MW6 `truthCRevision` wiring only |
+| Gap closed (deterministic) | MW6 no longer exposes internal `sfia_memory_b_compaction` to Runner |
+| Trajectory | Candidate → Git integration → Morris merge decision → post-merge → distinct GO for 9 W-Sources REAL |
+| Exit proof this cycle | PR OPEN / CI PASS / Handoff published / UNMERGED |
+| Runtime v3 | NON ADOPTED |
+| Stage A | Outcome **C** · NOT COMPLETE |
+| Stage B | NOT AUTHORIZED |
 
 ---
 
-## 4. CORR-04 Evidence origin
+## 4. Candidate identity verification
 
-| Item | Value |
-|------|-------|
-| Stage A continuation campaign | `nora-global-mr-stage-a-cont-1788683505786` |
-| W-Sources usable | 1/10 (luna\|none canary PASS · hosted 1/1/1) |
-| Fail fingerprint | `ok=false` · `code=NORA_TURN_ERROR` · message contains Unsupported item `sfia_memory_b_compaction` |
-| Why PRODUCT_PATH | Shared ProductSqliteSession accumulated F2 turns → compaction record persisted → MW6 passed raw Session to Runner. Not a model cognitive FAIL. |
+Exact initial two-file diff matched accepted CORR-04 Critical Review:
 
----
+**Production** (`mw6GovernedNoraTurn.ts`) — only:
 
-## 5. Root-cause verification (seven points)
+```diff
++      // CORR-04 — same Truth C revision wiring as F1/orchestrateTurn so
++      // runNoraCognitiveTurn builds MemoryBSessionView and does not expose
++      // internal sfia_memory_b_compaction markers to the Agents Runner.
++      truthCRevision: {
++        lpsId: project.lpsId,
++        lpsVersion: project.lpsVersion,
++      },
+```
 
-| # | Hypothesis | Verdict | Location |
-|---|------------|---------|----------|
-| 1 | ProductSqliteSession persists compaction in `session_items` | **CONFIRMED** | `productSqliteSession.ts` schema `session_items`; `applyCompactionIfNeeded` → `replaceItemsAtomically` |
-| 2 | Record type = `sfia_memory_b_compaction` | **CONFIRMED** | `memoryBCompaction.ts` L69 / L484 |
-| 3 | Compaction/replay filters internal record into supported replay | **CONFIRMED** | `resolveReplayItems` returns summary message + recent only; `MemoryBSessionView.getItems()` serves filtered `replayItems` |
-| 4 | `runNoraCognitiveTurn` builds MemoryBSessionView only when `truthCRevision` provided | **CONFIRMED** | `runNoraCognitiveTurn.ts` L832–850 `if (probe.session && … && input.truthCRevision)` |
-| 5 | F1/orchestrateTurn provides `truthCRevision` from project LPS | **CONFIRMED** | `orchestrateTurn.ts` L257–260 |
-| 6 | MW6 had same project LPS fields but did **not** pass `truthCRevision` | **CONFIRMED** | Pre-patch `mw6GovernedNoraTurn.ts` call site lacked `truthCRevision` despite `project.lpsId` / `project.lpsVersion` |
-| 7 | Therefore MW6 exposed raw ProductSqliteSession (incl. marker) to Runner | **CONFIRMED** | Causal chain + RED reproduction |
+**Test** (`c3.mw6-full-product-path.d0.test.ts`) — CORR-04 deterministic regression already reviewed (pre-compacted session → MemoryBSessionView filter → MW6 GREEN; RED fingerprint retained in comments/assertions).
 
-**ROOT CAUSE CONFIRMED — no STOP.**
+No third tracked product file. Local `.tmp-sfia-review/chatgpt-review.md` restored to HEAD before commit so product candidate stayed exact.
 
 ---
 
-## 6. RED reproduction
+## 5. Pre-commit focused validation
+
+```text
+unset OPENAI_API_KEY
+OPS1_CONVERSATION_PROVIDER=fake \
+npx vitest run __tests__/nora-eval/c3.mw6-full-product-path.d0.test.ts
+```
+
+Result: **3/3 PASS** · ZERO REAL · `git diff --check` PASS
+
+---
+
+## 6. Product commit
 
 | Field | Value |
 |-------|-------|
-| Command | `unset OPENAI_API_KEY; OPS1_CONVERSATION_PROVIDER=fake npx vitest run __tests__/nora-eval/c3.mw6-full-product-path.d0.test.ts -t "CORR-04"` |
-| Test | `CORR-04 — pre-compacted Memory B session is MW6-safe (Truth C → MemoryBSessionView)` |
-| Setup | Production `applyCompactionIfNeeded` on same `projectId` + `sessionKey=f1-default` + `sessionDbPath` MW6 consumes |
-| Exact failure (pre-patch) | `result.ok === false`; assertions `code === "NORA_TURN_ERROR"` and `message` matches `/sfia_memory_b_compaction/` **passed**; then failed on `expect(ok).toBe(true)` with message `CORR-04 expected GREEN after Truth C wiring` |
-| REAL fingerprint reproduced? | **YES** — same `NORA_TURN_ERROR` + `sfia_memory_b_compaction` via Fake Agents Runner session load (deterministic) |
+| SHA | `685b1645d74f86dd13645d15590f4bc5814df23c` |
+| Message | `fix(sfia-studio): preserve Memory B view on MW6 turns` |
+| Parent | `9ce5933c039f8341540b9247e4db7ee5ae4ab153` |
+| Changed files | exactly 2 (authorized set) |
 
-Tooling gap: **NONE** for primary product-path reproduction.
+```
+projects/sfia-studio/app/features/project-assistant/mw6GovernedNoraTurn.ts
+projects/sfia-studio/app/__tests__/nora-eval/c3.mw6-full-product-path.d0.test.ts
+```
 
 ---
 
-## 7. Product diff (FULL)
+## 7. Push
 
-File: `projects/sfia-studio/app/features/project-assistant/mw6GovernedNoraTurn.ts`
+| Field | Value |
+|-------|-------|
+| Remote branch | `origin/fix/sfia-studio-global-mr-corr-04-mw6-memory-b-session` |
+| Remote SHA | `685b1645d74f86dd13645d15590f4bc5814df23c` |
+| Local/remote parity | **MATCH** |
+| Force push | **NOT used** |
+
+---
+
+## 8. PR
+
+| Field | Value |
+|-------|-------|
+| Number | **471** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/471 |
+| Title | `fix(sfia-studio): preserve Memory B view on MW6 turns` |
+| State | **OPEN** |
+| Draft | false |
+| Mergeable | MERGEABLE |
+| Base | `main` @ `9ce5933c039f8341540b9247e4db7ee5ae4ab153` |
+| Head | `fix/sfia-studio-global-mr-corr-04-mw6-memory-b-session` @ `685b1645d74f86dd13645d15590f4bc5814df23c` |
+| Commit count | **1** |
+| Changed-file count | **2** |
+| Merged | **NO** |
+
+---
+
+## 9. Remote PR diff (product — full useful)
 
 ```diff
 @@ -407,6 +407,13 @@ export async function runMw6GovernedNoraProductTurn(
@@ -104,164 +138,133 @@ File: `projects/sfia-studio/app/features/project-assistant/mw6GovernedNoraTurn.t
        turnWorkloadContext: {
 ```
 
-No other production files modified.
+Test remote path: same CORR-04 `it(...)` regression (+135/−1) as Critical Review candidate.
+
+Remote filenames EXACTLY the two authorized files — **PR SCOPE MATCH**.
 
 ---
 
-## 8. Test diff (FULL useful)
+## 10. CI
 
-File: `projects/sfia-studio/app/__tests__/nora-eval/c3.mw6-full-product-path.d0.test.ts`
-
-Added imports for Memory B / session helpers + `currentF2Context`.
-
-Added one regression `it("CORR-04 — …")` that:
-
-1. Seeds accepted HD + confirmed MW6 EC (existing C3 helpers).
-2. Builds ProductSqliteSession on shared path/key.
-3. Uses production `applyCompactionIfNeeded` to create governed compaction state.
-4. Asserts raw `getItems()` contains `sfia_memory_b_compaction`.
-5. Asserts `createMemoryBSessionView` filters the marker.
-6. Invokes `runMw6GovernedNoraProductTurn` with same `sessionDbPath`.
-7. Expects success, `liveHostedDispatchCalls===0`, non-`none` compaction state, stored compaction retained.
-
-(+136 / −1 lines in that file.)
+| Item | Value |
+|------|-------|
+| Workflow run | [34025063487](https://github.com/mcleland147/sfia-workspace/actions/runs/34025063487) |
+| Conclusion | **success** |
+| Detect SFIA Studio changes | **pass** (6s) |
+| Build and validate SFIA Studio | **pass** (3m46s) — Typecheck, Lint, Build, Unit tests, modeled governance, secret scan, trailing whitespace |
+| SFIA Studio Required Gate | **pass** (4s) |
+| Retries | none |
 
 ---
 
-## 9. Why MemoryBSessionView (no parallel architecture)
+## 11. Validation carried forward (Critical Review)
 
-F1 already proves the correct contract: pass current Truth C revision → `runNoraCognitiveTurn` → `createMemoryBSessionView` → Runner sees only supported replay items while compaction metadata remains in SQLite.
-
-CORR-04 reuses that exact path from MW6. It does **not** strip markers in MW6, clear sessions, invent `mw6SessionView`, or change ProductSqliteSession.
-
----
-
-## 10. GREEN evidence
-
-| Check | Result |
-|-------|--------|
-| CORR-04 regression | **PASS** (3/3 in c3 file incl. prior C3 cases) |
-| C3 MW6 full path | **PASS** |
-| CORR-02B hosted observation | **8/8 PASS** |
-| MW1 compaction unit + modeled | **26/26 PASS** |
-| nora-eval | **240 passed** / 3 skipped |
-| `npm run typecheck` | **PASS** |
-| `npm run lint` | **PASS** (0 warnings/errors) |
-| `npm test` | **3033 passed** / 135 skipped |
-| `npm run build` | **PASS** |
-| `git diff --check` | **PASS** |
+- CORR-04 RED→GREEN with exact REAL fingerprint
+- CORR-02B 8/8
+- Memory B 26/26
+- nora-eval 240 / 3 skipped
+- unit 3033 / 135 skipped
+- typecheck / lint / build PASS
 
 ---
 
-## 11. Fake / Real qualification
+## 12. ZERO REAL proof
 
-| Item | Status |
-|------|--------|
-| Fake | `FakeConversationProvider` / deterministic hosted boundary |
-| Same orchestration | `runMw6GovernedNoraProductTurn` → `runNoraCognitiveTurn` → MemoryBSessionView → Agents Runner |
-| ZERO REAL | `OPENAI_API_KEY` unset; `OPS1_CONVERSATION_PROVIDER=fake`; `liveHostedDispatchCalls=0`; no spend |
-| Entry | REAL defect observed / deterministic correction **NOT** previously proven |
-| Exit | **CORR-04 = CLOSED AT DETERMINISTIC PRODUCT-PATH SCOPE** |
-| Explicitly NOT proven | CORR-04 REAL revalidation; 9 remaining W-Sources REAL cells |
+- Integration used Fake / unset `OPENAI_API_KEY` only for focused pre-commit
+- No OpenAI LIVE, hosted LIVE, preflight, or spend in this cycle
+- PR CI is repository unit/build gate (deterministic suite) — no Stage A REAL
 
 ---
 
-## 12. Invariant verification
+## 13. Fake / Real qualification
 
-1. Memory B non-authoritative — retained
-2. Truth C authoritative — MW6 now supplies current LPS revision
-3. Compaction record remains internal storage — still in SQLite after MW6
-4. Runner receives supported replay items only — via MemoryBSessionView
-5. No fabricated HumanDecision
-6. No authority widening
-7. No new Session engine
-8. No campaign-only bypass
-9. Same project/session scope
-10. No cross-project replay
-11. Stale Truth C invalidation semantics untouched
-12. Grounding preservation untouched
-13. CORR-02 hosted factual path unchanged (regression green)
-14. NoraCampaignBudget remains accounting SoT
-15. ZERO REAL
+| Entry | CORR-04 = DETERMINISTIC PRODUCT-PATH PROVEN |
+| Exit this cycle | **GIT INTEGRATED / PR READY** only |
+| Proof-level promotion | **NONE** |
+| CORR-04 REAL | **NOT REVALIDATED** |
+
+DETERMINISTIC PROVEN ≠ REAL BOUNDARY PROVEN.
 
 ---
 
-## 13. Exact modified-file list
+## 14. Stage A / Stage B state
 
-Production:
-
-- `projects/sfia-studio/app/features/project-assistant/mw6GovernedNoraTurn.ts`
-
-Tests:
-
-- `projects/sfia-studio/app/__tests__/nora-eval/c3.mw6-full-product-path.d0.test.ts`
+- Stage A Outcome **C — INSUFFICIENT EVIDENCE** retained
+- Stage A **NOT COMPLETE**
+- 9 W-Sources REAL remain a future distinct Morris GO after merge/post-merge
+- Stage B **NOT AUTHORIZED**
 
 ---
 
-## 14. Exact untracked relevant to review
+## 15. Product mutation after reviewed candidate
 
-- `projects/sfia-studio/app/node_modules` — local symlink for test runtime only (not product)
-
-No `.tmp-sfia-real/**` Evidence in this worktree (REAL artifacts preserved in continuation worktree).
+**NONE** — committed bytes match Critical Review candidate wiring + regression.
 
 ---
 
-## 15. No product commit / push / PR
+## 16. Anti-claims
 
-Working-tree candidate only. **No** `git commit`, **no** product push, **no** PR.
+This cycle does **not** claim:
 
----
-
-## 16. Reservations
-
-1. Deterministic PROVEN ≠ REAL BOUNDARY PROVEN for the 9 W-Sources cells.
-2. Stage A Outcome **C** retained.
-3. Docs 08/10/11/Roadmap not truth-synced in this cycle.
-4. Future campaign isolation of sessions may still be useful operationally — not a substitute for this product fix.
-
----
-
-## 17. Anti-claims
-
-Does **not** claim:
-
+- merge performed
+- CORR-04 REAL revalidated
+- 9 W-Sources REAL executed
 - Stage A complete
 - Stage B authorized
 - production routing / model selection
-- Cognitive Completion PROVEN
 - runtime v3 ADOPTED
-- product integrated on main
-- 9 W-Sources REAL re-run authorized or executed
-- invoice / spend
+- Cognitive Completion PROVEN
+- spend / invoice
 
 ---
 
-## 18. Verdict
+## 17. Reservations
 
-READY FOR CHATGPT CRITICAL REVIEW —
-CORR-04 MW6 × MEMORY B SESSION COMPATIBILITY CLOSED AT DETERMINISTIC PRODUCT-PATH SCOPE —
-ROOT CAUSE CONFIRMED —
-MW6 NOW PASSES CURRENT PROJECT TRUTH C REVISION INTO EXISTING MEMORY B VIEW PATH —
-PRE-COMPACTED / F2-ACCUMULATED PRODUCT SESSION REGRESSION GREEN —
-NO INTERNAL sfia_memory_b_compaction MARKER EXPOSED TO RUNNER —
-MEMORY B / TRUTH C AUTHORITY SEMANTICS RETAINED —
-CORR-02 HOSTED OBSERVATION NON-REGRESSION PASS —
+1. Merge requires a distinct Morris GO — not implied here.
+2. Post-merge CI / repository verification still required before any Stage A REAL continuation.
+3. Docs 08/10/11/Roadmap not truth-synced.
+
+---
+
+## 18. Review Handoff publication
+
+(Filled after publisher success in this cycle.)
+
+Expected prior tip: `5c82f90759ef9d5a9b5b353b934873f3241814ec`
+
+Publisher: `scripts/sfia/publish-review-handoff.sh`
+
+Message: `docs(review-handoff): CORR-04 Git integration readiness`
+
+---
+
+## 19. Verdict
+
+**READY FOR MORRIS MERGE DECISION** —
+CORR-04 MW6 × MEMORY B SESSION COMPATIBILITY GIT INTEGRATED —
+PRODUCT COMMIT `685b1645d74f86dd13645d15590f4bc5814df23c` —
+REMOTE BRANCH VERIFIED —
+PR **#471** OPEN / UNMERGED —
+EXACTLY 2 REVIEWED FILES —
+REMOTE DIFF MATCHES ACCEPTED CORR-04 CANDIDATE —
+CI PASS (run `34025063487`) —
+SFIA STUDIO REQUIRED GATE PASS —
 ZERO REAL —
-ZERO PRODUCT COMMIT/PUSH/PR —
+CORR-04 REMAINS CLOSED AT DETERMINISTIC PRODUCT-PATH SCOPE —
+CORR-04 REAL NOT YET REVALIDATED —
 STAGE A OUTCOME C RETAINED —
 STAGE A NOT COMPLETE —
+9 W-SOURCES REAL REMAIN OUT OF SCOPE —
 STAGE B NOT AUTHORIZED —
 REVIEW HANDOFF PUBLICATION FOLLOWS —
-CHATGPT CRITICAL REVIEW REQUIRED.
+MERGE NOT PERFORMED.
 
 ---
 
-## 19. Next gate
+## 20. Next gate
 
-ChatGPT Critical Review.
+ChatGPT Critical PR Readiness Review.
 
-If accepted: Morris may authorize Git integration of CORR-04.
+Then Morris may issue: **GO MORRIS — MERGE CORR-04 MW6 × MEMORY B SESSION COMPATIBILITY**
 
-Only after integration + merge + post-merge verification should a **distinct** Morris GO authorize the remaining Stage A REAL Evidence (9 W-Sources base cells).
-
-**Do not authorize or execute those 9 REAL cells in CORR-04.**
+That merge GO is **not** implied by this cycle.
