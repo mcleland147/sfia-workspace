@@ -2051,3 +2051,246 @@ index 0a8d5412..b04e219d 100644
 611ac4bd15d64c481996badd89423e0aff175f5f2c9c7713018e6c0ce01b1992  projects/sfia-studio/app/__tests__/nora-eval/mw0.corr05.evidenceIntegrity.test.ts
 
 ```
+
+---
+
+# PRODUCT GIT / PR SECTION — CORR-PROOF-02 B1
+
+## 1. Timestamp (UTC)
+2026-09-06T17:23:25Z
+
+## 2. Cycle ID
+`SFIA-STUDIO-PRODUCT-PROOF-CORR-02-B1-PRODUCT-GIT-PR-01`
+
+## 3. Exact Morris Product Git GO
+GO MORRIS — CORR-PROOF-02 B1 PRODUCT GIT — ACCEPT CORRECTED CANDIDATE MANIFEST `3aca098bda2485633c57b4c0a645aad1f9e59f337a15b18b01885cc114f2bf00` — COMMIT + PUSH + PR AUTHORIZED — CI / PR REVIEW REQUIRED — MERGE NOT YET AUTHORIZED — SAME PRODUCT PROOF REAL RETEST NOT YET AUTHORIZED.
+
+## 4. Repo / worktree / branch
+- Repo: `mcleland147/sfia-workspace`
+- Worktree: `/Users/morris/Projects/sfia-workspace-proof-corr-02-b1-delivery`
+- Branch: `delivery/sfia-studio-proof-corr-02-b1-advisory-default`
+
+## 5. Local HEAD before commit
+`bf6c2104941fee46b66396114f8c22f882973aa2`
+
+## 6. origin/main (pre-commit and pre-PR)
+`bf6c2104941fee46b66396114f8c22f882973aa2` (unchanged through push + PR creation)
+
+## 7. Input Review Handoff
+- tip: `16226e2b2fc6b7009b80cc8c94f81ead667d7c53`
+- blob: `e09f04e37f9d2ca3800e687cb8345418f9bbe086`
+
+## 8. Accepted candidate manifest
+`CORRECTED_CANDIDATE_MANIFEST_SHA256 = 3aca098bda2485633c57b4c0a645aad1f9e59f337a15b18b01885cc114f2bf00`
+Verification: **PASS**
+
+## 9. Individual 9/9 file hashes (accepted = working tree = committed HEAD)
+```
+561b7850fda51140b946c50239dcab97862f43457b4b29189c5dae09e29d5b4b  projects/sfia-studio/app/features/project-assistant/f2/transitionReadiness.ts
+00018d881f831ebc07968b99d01ddc8e6d2a9e3680fcf73da3465cd647fa97b1  projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+58d0e4545751dbb1efcf7fa9ab4273be0fafd5d9ea593a4d0776b6b80f7d0c6b  projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+144b79d50ee5633f94e11727fac1b6b0535d62c84cf983278886674d088e5a7d  projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+8f1f4e35fe99eabca2ab48765a3304c6da6411278e22e145fcb9fb2e5ee72f61  projects/sfia-studio/app/__tests__/project-assistant/corrProof02.b1.advisory.d0.test.ts
+3b4ff1b15a48855c56ab0a59b8a01139705a92078ef7d4a17c760120d4d889a9  projects/sfia-studio/app/__tests__/project-assistant/corrProof01.d1.conversation.d0.test.ts
+88741ab25c5691a4ac114a8706fe321031ee9898bd414cb8820a77f43cf23726  projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
+35943b942dde7c9c4e8715fbc894373a164e875d6619dc6ebe0ecf79031c0459  projects/sfia-studio/app/__tests__/project-assistant/mw5.challenge.clarification.product.d0.test.ts
+611ac4bd15d64c481996badd89423e0aff175f5f2c9c7713018e6c0ce01b1992  projects/sfia-studio/app/__tests__/nora-eval/mw0.corr05.evidenceIntegrity.test.ts
+```
+Verification: **PASS (9/9)**
+
+## 10. Pre-commit Git truth
+- branch = `delivery/sfia-studio-proof-corr-02-b1-advisory-default`
+- HEAD = `bf6c2104941fee46b66396114f8c22f882973aa2`
+- origin/main = `bf6c2104941fee46b66396114f8c22f882973aa2`
+- staged before authorized staging = **EMPTY**
+- tracked diff = exactly the 9 accepted candidate paths
+- untracked local evidence (`.tmp-sfia-review/**`, `.tmp-sfia-proof/**`, local `node_modules` symlink) **NOT staged**
+
+## 11. Pre-commit tests
+- CORR-PROOF-02 B1 suite incl. B1-CR-01: **PASS**
+- Targeted regressions: **127/127 PASS**
+- `npm run typecheck`: **PASS**
+- Product content unchanged after acceptance
+
+## 12. Staged file list (exact)
+```
+A  projects/sfia-studio/app/features/project-assistant/f2/transitionReadiness.ts
+M  projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+M  projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+M  projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+A  projects/sfia-studio/app/__tests__/project-assistant/corrProof02.b1.advisory.d0.test.ts
+M  projects/sfia-studio/app/__tests__/project-assistant/corrProof01.d1.conversation.d0.test.ts
+M  projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
+M  projects/sfia-studio/app/__tests__/project-assistant/mw5.challenge.clarification.product.d0.test.ts
+M  projects/sfia-studio/app/__tests__/nora-eval/mw0.corr05.evidenceIntegrity.test.ts
+```
+Staging scope: **PASS** (exactly 9; no `.tmp` / `node_modules` / evidence)
+
+## 13. Commit SHA
+`1de72d7cb14309f8c90c1408d5b50ed4d1f5242e`
+
+## 14. Commit parent
+`bf6c2104941fee46b66396114f8c22f882973aa2` (**PASS** = authorized baseline)
+
+## 15. Commit tree
+`d6fac9cdc47e087bb138318a4e6947dfff2e6d50`
+
+## 16. Commit message
+`fix(sfia-studio): default Nora to advisory reasoning`
+
+## 17. Committed changed paths
+```
+M	projects/sfia-studio/app/__tests__/nora-eval/mw0.corr05.evidenceIntegrity.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/corrProof01.d1.conversation.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/corrProof02.b1.advisory.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/mw5.challenge.clarification.product.d0.test.ts
+M	projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+A	projects/sfia-studio/app/features/project-assistant/f2/transitionReadiness.ts
+```
+Committed path scope: **PASS** (exactly 9 accepted paths)
+
+## 18. Committed hash parity
+Recomputed from `HEAD` blob contents: **9/9 MATCH** accepted hashes; manifest parity retained: **PASS**
+
+## 19. Remote branch tip
+`1de72d7cb14309f8c90c1408d5b50ed4d1f5242e` (= CANDIDATE_COMMIT_SHA)
+
+## 20. Push result
+**PASS** — normal `git push -u origin delivery/sfia-studio-proof-corr-02-b1-advisory-default` (no force). New remote branch created.
+
+## 21. PR number
+**#473**
+
+## 22. PR URL
+https://github.com/mcleland147/sfia-workspace/pull/473
+
+## 23. PR title
+`fix(sfia-studio): default Nora to advisory reasoning`
+
+## 24. PR base / head
+- base: `main` @ `bf6c2104941fee46b66396114f8c22f882973aa2`
+- head: `delivery/sfia-studio-proof-corr-02-b1-advisory-default` @ `1de72d7cb14309f8c90c1408d5b50ed4d1f5242e`
+- state: **OPEN**, isDraft: **false**
+
+## 25. PR changed-file scope
+**9 / 9** expected files (exact accepted candidate set)
+
+## 26. PR diff verification
+- PR head SHA = CANDIDATE_COMMIT_SHA: **PASS**
+- PR base SHA = authorized baseline: **PASS**
+- Diff path set = accepted 9 paths: **PASS**
+- Diffstat evidence:
+```
+ .../nora-eval/mw0.corr05.evidenceIntegrity.test.ts |  23 +-
+ .../corrProof01.d1.conversation.d0.test.ts         |  38 +-
+ .../corrProof02.b1.advisory.d0.test.ts             | 995 +++++++++++++++++++++
+ .../project-assistant/f2.orchestrate.test.ts       |   8 +-
+ .../mw5.challenge.clarification.product.d0.test.ts |  25 +-
+ .../project-assistant/buildProjectSystemPrompt.ts  |  28 +-
+ .../project-assistant/f2/intentAnalysis.ts         |  13 +-
+ .../features/project-assistant/f2/orchestrateF2.ts | 132 +--
+ .../project-assistant/f2/transitionReadiness.ts    |  65 ++
+ 9 files changed, 1187 insertions(+), 140 deletions(-)
+```
+
+## 27. CI workflow run IDs
+- Workflow: `SFIA Studio CI`
+- Run ID: `34048301829`
+- Detect job: `101527225573`
+- Build/validate job: `101527251230`
+- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/34048301829
+
+## 28. CI jobs / checks (final after bounded wait)
+- Detect SFIA Studio changes: **SUCCESS / pass** (~9s) — job `101527225573`
+- Build and validate SFIA Studio: **FAILURE** (~4m16s) — job `101527251230`
+  - Typecheck: success
+  - Lint: success
+  - Build: success
+  - Unit tests (Vitest): **FAILURE**
+- SFIA Studio Required Gate: **FAILURE** (~3s) — job `101527850611`
+- Workflow conclusion: **failure**
+- Totals observed: Test Files 1 failed | 309 passed | 17 skipped; Tests 1 failed | 3073 passed | 135 skipped
+
+
+## 29. Required Gate status
+**SFIA Studio Required Gate: FAIL** (job `101527850611`) — Studio validation required but validate_result=failure.
+
+## 30. PR readiness verdict
+**PR NOT READY** — CI FAIL / Required Gate FAIL.
+
+Failing test (outside accepted 9-file candidate; no auto-fix under this Product Git cycle):
+- File: `__tests__/nora-cognitive-runtime/mw2.corr04.truthCIntentStability.d0.test.ts`
+- Case: `D0-05 — structural underspecification still clarifies`
+- Expected: text matching `/Clarification requise/i` (legacy MW5 front-door clarify)
+- Received: F1 advisory fake echo — `[TEST/FAKE · NON LIVE] Réponse fake #2 … Echo: « Fais quelque chose avec ça. »`
+- Interpretation for ChatGPT: B1 advisory-default routes underspecified/ambiguous turns to F1; this MW2 CORR-04 expectation was not in the accepted candidate staging set and was not updated before Product Git. Requires ChatGPT disposition / new corrective if accepted as supersession.
+
+STOP conditions honored: no product code change after accepted commit; no follow-up push; no merge; no REAL.
+
+
+## 31. Reservations (carried)
+- MW0 S03 legacy scorer lag (NON-BLOCKING)
+- `/synthese` onboarding MAJOR gap
+- Session append-after-Truth-C-mutation hardening reserve
+- R-GMR-AGGREGATE-COUNTER-SEMANTICS-01
+
+## 32. Product Proof status
+**OPEN / BLOCKED** pending merge + post-merge verification + separate REAL authorization
+
+## 33. Proof ceiling
+**DETERMINISTIC PROVEN CANDIDATE / INTEGRATED IN PR** — not REAL proven
+
+## 34. ZERO REAL
+Confirmed: no Studio LIVE, no OpenAI API, no hosted web_search, no Stage B
+
+## 35. Merge
+**NOT AUTHORIZED / NOT PERFORMED**
+
+## 36. Stage A
+**CLOSED**
+
+## 37. Stage B
+**NOT AUTHORIZED**
+
+## 38. runtime v3
+**NON ADOPTED**
+
+## 39. production model routing
+**NOT SELECTED**
+
+## 40. Next Morris gate
+ChatGPT PR Review → Morris **MERGE** decision only if PR/CI accepted. REAL remains a separate later gate.
+
+## 41. Review Handoff publication proof
+Parent: `16226e2b2fc6b7009b80cc8c94f81ead667d7c53`
+Publisher: `scripts/sfia/publish-review-handoff.sh`
+Suggested message: `docs(review-handoff): review CORR-PROOF-02 B1 product PR`
+HANDOFF_PROOF_PLACEHOLDER
+
+
+## CI failure log excerpt (canonical)
+
+```
+FAIL __tests__/nora-cognitive-runtime/mw2.corr04.truthCIntentStability.d0.test.ts
+  > CORR-MW2-REAL-04 — Truth-C + intent/CWP stability
+  > D0-05 — structural underspecification still clarifies
+AssertionError: expected '[TEST/FAKE · NON LIVE] Réponse fake #…' to match /Clarification requise/i
+- Expected: /Clarification requise/i
++ Received: "[TEST/FAKE · NON LIVE] Réponse fake #2 (historique=2). Echo: « Fais quelque chose avec ça. »"
+ ❯ __tests__/nora-cognitive-runtime/mw2.corr04.truthCIntentStability.d0.test.ts:337:25
+Test Files  1 failed | 309 passed | 17 skipped (327)
+     Tests  1 failed | 3073 passed | 135 skipped (3209)
+Required gate FAIL: Studio validation required but result=failure.
+```
+
+Run: https://github.com/mcleland147/sfia-workspace/actions/runs/34048301829
+
+## Product code after accepted candidate
+**NO** modifications under this Product Git cycle.
+
+## Exploitable committed diff evidence
+Prior CR-01 / delivery candidate patches remain in this pack. Final committed path scope and hash parity above prove exact accepted-candidate publication. Full PR patch:
+https://github.com/mcleland147/sfia-workspace/pull/473/files
