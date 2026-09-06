@@ -1,9 +1,12 @@
-# GLOBAL-MR-STAGE-A-REAL-CORR-01 — Review Pack FULL
+# GLOBAL-MR-STAGE-A-REAL-CORR-01 — Review Pack FULL (incl. CORR-02B)
 
-- **timestamp (UTC):** 2026-09-06T06:05:40Z
+- **timestamp (UTC):** 2026-09-06T07:23:27Z
 - **Cycle:** 8 continuation — RUN / CORRECTIVE / CRITICAL
-- **Morris GO consumed:** STAGE A REAL CORRECTIVE F2 + HOSTED ACCOUNTING + STOP/REPEAT GOVERNANCE — ZERO REAL
-- **CKC:** ABSENT (fallback = routing + v2.6 + Contract 10/11 + REAL Evidence handoff 0918a0bf…)
+- **SAME CORRECTIVE LOT:** GLOBAL-MR-STAGE-A-REAL-CORR-01
+- **Morris GO decisions consumed:**
+  1. STAGE A REAL CORRECTIVE F2 + HOSTED ACCOUNTING + STOP/REPEAT GOVERNANCE — ZERO REAL
+  2. EXTEND MW6 OBSERVATION SCOPE — pass through existing hostedSearchObserve via runNoraCognitiveTurn to mw6GovernedNoraTurn, with types.ts type widen only — ZERO REAL — SAME LOT — NO SECOND HOSTED COUNTER/LEDGER
+- **CKC:** ABSENT (fallback = routing + v2.6 + Contract 10/11 + REAL Evidence + Build Doctrine)
 
 ---
 
@@ -12,186 +15,145 @@
 | Item | Value |
 |------|-------|
 | Repository | mcleland147/sfia-workspace |
-| origin/main | `718de6506532be7e2ae1a504f992240e548e62ed` (PR #469 MERGED) |
-| Worktree | `/Users/morris/Projects/sfia-workspace-global-mr-stage-a-real-corr-01` |
-| Branch | `fix/sfia-studio-global-mr-stage-a-real-corr-01` |
-| HEAD | `718de6506532be7e2ae1a504f992240e548e62ed` (= origin/main) |
-| Working tree product | local uncommitted corrective candidate (NO product commit) |
-| Prior Stage A REAL handoff | `0918a0bf8127bfe63ec6b4670a39901b00678cb5` |
-| Parent handoff | `bdcd5dc4b7839a41e98c4628bdcf90851d1b1107` |
-| Contract | `global-mr-campaign-contract-v3-candidate` / blob `0bb67254a08d7c97f40dc5a5dff9537d44e10366` |
-| Campaign (prior REAL) | `nora-global-mr-stage-a-1788669913998` |
-| Prior Outcome | **C — INSUFFICIENT EVIDENCE** retained |
+| origin/main | 718de6506532be7e2ae1a504f992240e548e62ed (PR #469 MERGED) |
+| Worktree | /Users/morris/Projects/sfia-workspace-global-mr-stage-a-real-corr-01 |
+| Branch | fix/sfia-studio-global-mr-stage-a-real-corr-01 |
+| HEAD | 718de6506532be7e2ae1a504f992240e548e62ed (= origin/main) |
+| Product candidate | LOCAL DIRTY — NO product commit/push/PR |
+| Prior CORR-01 handoff | c7167a84fca0b14a607bd14c90589d0c0fbff8a7 |
+| Prior Stage A REAL handoff | 0918a0bf8127bfe63ec6b4670a39901b00678cb5 |
+| Campaign (prior REAL) | nora-global-mr-stage-a-1788669913998 |
+| Prior Outcome | C — INSUFFICIENT EVIDENCE retained |
+| Contract | global-mr-campaign-contract-v3-candidate |
 
-Baseline drift: NONE.
+Baseline drift: NONE. Handoff tip before this cycle: c7167a84 (reconciled).
 
 ---
 
 ## 2. Convergence Pre-check
 
-**KEEP:** Option C matrix; Stage A driver; F2 product path; eval cell provider; OpenAIConversationProvider; MeteredConversationProvider; NoraCampaignBudget; BudgetTracker; MW6 governed path; runNoraAgentsTurn hosted claim-after-observe; Evidence pipeline.
+KEEP: runNoraAgentsTurn; hostedSearchObserve; NoraCampaignBudget (enforcement SoT); Stage A integrity; Option C matrix; F2 path; eval cell provider; MeteredConversationProvider; BudgetTracker.
 
-**ADAPT:** F2 mode/provider resolution ordering; Stage A hosted observation parity enforcement; Stage A systemic execution/config stop; selective-repeat trigger governance.
+ADAPT: runNoraCognitiveTurn (factual pass-through); mw6GovernedNoraTurn (factual composition); project-assistant types (representation widen only); F2 mode ordering; Stage A hosted parity / systemic stop / repeat triggers (prior CORR-01).
 
-**COMPLETE:** explicit selective-repeat trigger vocabulary + materialization gate.
-
-**DO NOT BUILD:** second provider adapter / Stage A runner / hosted counter / accounting ledger / provider abstraction / F2 pipeline / campaign framework / persistence. **None built.**
+DO NOT BUILD: second hosted counter/ledger; second MW6 path; new provider; new runner; new hosted abstraction. None built.
 
 ---
 
-## 3. Accepted prior Stage A REAL facts (input)
+## 3. Accepted prior Stage A REAL facts
 
-- Agents cognitive: 20/20 REAL PASS
-- F2: 48/48 INCONCLUSIVE — `PROVIDER_ERROR` / `PROVIDER_UNAVAILABLE` (missing OPENAI_MODEL before cell provider assessed)
-- MW6/W-Sources: model-path observations exist; `liveHostedDispatchCalls=0` while canonical hosted deltas summed to **12**
-- Selective repeats: 18/18 consumed on systemic F2 INCONCLUSIVE (invalid experimental repeats)
-- Outcome C retained; Stage B NOT AUTHORIZED
+Agents 20/20 REAL PASS; F2 48/48 INCONCLUSIVE (PROVIDER_UNAVAILABLE); MW6 model-path observations with liveHostedDispatchCalls=0 vs canonical hosted sum 12; 18/18 invalid repeats; Outcome C.
 
 ---
 
-## 4. Root-cause analysis
+## 4. Full corrective lot status
 
-### CORR-01 — F2 provider binding
-
-In `orchestrateF2.ts`, `resolveMode(input.provider)` ran **before** `resolveEvalCellConversationProvider`. With eval factory supplied but no global `OPENAI_MODEL`, mode gate returned `PROVIDER_UNAVAILABLE` before the injected cell provider was assessed.
-
-**Fix:** resolve cell provider first → `effectiveProvider = cellProvider ?? input.provider` → then `resolveMode(effectiveProvider)`. Eval without factory still fail-closed `EVAL_CELL_PROVIDER_REQUIRED`. No `process.env.OPENAI_MODEL` mutation.
-
-### CORR-02 — Hosted accounting / observation parity
-
-**Authoritative claim location remains** `runNoraAgentsTurn` after factual `liveCalls` (`!deterministic && liveCalls.length > 0` → `claimHostedWebOperations`). Fixture/deterministic observations do not consume REAL hosted budget.
-
-Prior REAL paradox origin (determinable from Evidence + product seams):
-
-1. `runNoraAgentsTurn` correctly claimed hosted ops (canonical deltas 1–2 per W-Sources cell; sum **12**).
-2. `mw6GovernedNoraTurn` hardcodes `liveHostedDispatchCalls: 0` in composition (observation lie / incomplete wiring).
-3. Ephemeral REAL executor left `reportedHostedOperationsConsumed: null`.
-4. Stage A driver treated mismatch as **diagnostic-only** when `reportedHosted == null` → `reportedMismatch: false` despite contradiction.
-
-**Fix (authorized set):** promote parity to Evidence-integrity invariant in `runGlobalMrStageACell`:
-
-- Resolve factual observed via `reportedHostedOperationsConsumed` or nested `mw6AuthorityComposition.liveHostedDispatchCalls`.
-- For `attachHostedWebSearch`: missing observation with canonical delta ≠ 0 → mismatch; observed ≠ delta → mismatch.
-- Mismatch latches `EVIDENCE_INTEGRITY_HOSTED_MISMATCH` (hard stop) after Evidence record.
-- W-Sources PASS with observed 0/absent → coerced to `NOT_PROVEN` / `MISSING_OBSERVABLE` (hosted REAL boundary not claimed).
-- Canonical `NoraCampaignBudget` remains enforcement SoT (no second ledger; no rewrite of counters to match reporter).
-
-**Reservation / remaining realism gap:** `mw6GovernedNoraTurn.ts` still hardcodes `liveHostedDispatchCalls: 0` (outside authorized CORR-01 file set). Driver now **fail-closes** when that 0 is observed against non-zero canonical claim. Full product observation fidelity for next REAL may require a **scope-expansion** GO to wire `turn.hostedSearchObserve` into composition — not done silently this cycle.
-
-### CORR-03A — Systemic config hard stop
-
-Prior campaign continued all F2 cells + burned 18 repeats on the same `PROVIDER_UNAVAILABLE` systemic defect.
-
-**Fix:** `isStageASystemicRequiredConfigDefect` (structured `code` / CONFIG / PROVIDER_UNAVAILABLE markers) → latch `REQUIRED_CONFIG_UNAVAILABLE` after Evidence. Subsequent cells: executor not called. Repeats denied via stop gate. Cognitive INCONCLUSIVE alone does **not** latch.
-
-### CORR-03B — Selective repeat trigger governance
-
-`materializeSelectiveRepeat` / `canScheduleSelectiveRepeat` lacked contractual trigger requirement.
-
-**Fix:** typed triggers `TOP_CANDIDATE | BORDERLINE | SUSPECTED_VARIANCE | NEIGHBOR_CONTRADICTION | LATENCY_TOKEN_COST_ANOMALY | STAGE_B_DEPENDENCY`. Generic INCONCLUSIVE ≠ trigger. Trigger persisted in Evidence refs + productObservation. Astra / pool≤18 / one-per-base unchanged. Pool exhaustion remains per-repeat denial (non-latching).
+| ID | Status |
+|----|--------|
+| CORR-01 F2 provider binding | CLOSED AT DETERMINISTIC SCOPE |
+| CORR-02A hosted mismatch fail-close | CLOSED AT DETERMINISTIC SCOPE |
+| CORR-02B factual MW6 hosted propagation | CLOSED AT DETERMINISTIC SCOPE |
+| CORR-03A systemic stop | CLOSED AT DETERMINISTIC SCOPE |
+| CORR-03B repeat trigger governance | CLOSED AT DETERMINISTIC SCOPE |
 
 ---
 
-## 5. Files modified (product candidate — local only)
+## 5. CORR-02B root cause + design
+
+Root cause: runNoraAgentsTurn already exposes hostedSearchObserve (rawCallsObserved, deterministicBoundaryUsed, …). runNoraCognitiveTurn consumed it then dropped it (hostedSearchObserve: _drop) on both Memory-B-unavailable and session-available paths. mw6GovernedNoraTurn therefore hardcoded liveHostedDispatchCalls: 0.
+
+Design retained:
+1. Pass through existing hostedSearchObserve on both cognitive-turn paths (no recompute; no observations.length; no budget-derived count).
+2. resolveLiveHostedDispatchCallsFromHostedObserve: LIVE-shaped (deterministicBoundaryUsed===false) → rawCallsObserved; else → 0.
+3. Compose that value into mw6AuthorityComposition.liveHostedDispatchCalls.
+4. Widen DTO type literal 0 → number (representation only).
+5. Stage A integrity (CORR-02A) remains enforcement of observed-vs-canonical mismatch; NoraCampaignBudget remains sole accounting SoT. MW6 does not call claimHostedWebOperations.
+
+No second counter/ledger: claim remains only in runNoraAgentsTurn after factual liveCalls; MW6 is Evidence/parity observation only.
+
+---
+
+## 6. Files modified (same lot — local only)
 
 | Path | Role |
 |------|------|
-| `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts` | CORR-01 ordering |
-| `projects/sfia-studio/app/lib/nora-eval/globalModelReasoningStageA.ts` | CORR-02/03A/03B |
-| `projects/sfia-studio/app/lib/nora-eval/index.ts` | exports |
-| `projects/sfia-studio/app/__tests__/nora-eval/corr-stage-a-real-integrity.d0.test.ts` | NEW corrective suite |
-| `projects/sfia-studio/app/__tests__/nora-eval/e4.stage-a-driver.d0.test.ts` | trigger arg updates |
-| `projects/sfia-studio/app/__tests__/nora-eval/c3.call-accounting.d0.test.ts` | trigger arg updates |
-| `projects/sfia-studio/app/__tests__/nora-eval/c5.astra-challenger.d0.test.ts` | trigger arg updates |
+| features/project-assistant/f2/orchestrateF2.ts | CORR-01 |
+| lib/nora-eval/globalModelReasoningStageA.ts | CORR-02A/03A/03B |
+| lib/nora-eval/index.ts | exports |
+| lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts | CORR-02B pass-through |
+| features/project-assistant/mw6GovernedNoraTurn.ts | CORR-02B mapping |
+| features/project-assistant/types.ts | type widen only |
+| __tests__/nora-eval/corr-stage-a-real-integrity.d0.test.ts | CORR-01 suite |
+| __tests__/nora-eval/corr-02b-mw6-hosted-observation.d0.test.ts | CORR-02B suite |
+| __tests__/nora-eval/e4|c3.call-accounting|c5 | trigger-arg updates |
 
-**NOT modified:** Roadmap / 08 / 10 / 11 / Build Doctrine / C1 / v3 framing / method / templates / package locks / CI / `runNoraAgentsTurn.ts` / `evalCellProvider.ts` / `mw6GovernedNoraTurn.ts`.
-
----
-
-## 6. Option C envelope proof (unchanged)
-
-`deriveGlobalMrStageAEnvelope()` / `globalMrStageAEnvelopeProof()`:
-
-- primaryBaseCells = **54**
-- astraChallengerCells = **6**
-- baseCells = **60**
-- maxCellExecutions = **78**
-- maxModelInvocations = **438**
-- maxHostedWebOperations = **26**
-- maxAggregateRealCalls = **464**
-- maxSelectiveRepeats = **18**
-- FinOps USD = **15 / 18 / 20**
-- contractVersion = `global-mr-campaign-contract-v3-candidate`
+NOT modified: runNoraAgentsTurn.ts accounting; campaignBudget; Roadmap/08/10/11; method; package/lock; CI; nora-cognitive-runtime/index.ts.
 
 ---
 
-## 7. Validation (ZERO REAL)
+## 7. Option C / FinOps invariants (unchanged)
 
-Commands (cwd `projects/sfia-studio/app`):
+54 + 6 / 60 / 78 / 438 / 26 / 464 / maxSelectiveRepeats 18
+FinOps 15 / 18 / 20
+contractVersion global-mr-campaign-contract-v3-candidate
+Prior Outcome C retained.
+
+---
+
+## 8. Validation (ZERO REAL)
 
 | Command | Outcome |
 |---------|---------|
-| `npx vitest run` targeted (corr + e2 + e4 + c3×2 + c4 + c5) | **7 files / 65 tests PASS** |
-| `npx vitest run __tests__/nora-eval/` | **28 passed / 3 skipped; 231 passed / 3 skipped** |
-| `npm run typecheck` | PASS |
-| `npm run lint` | PASS (No ESLint warnings or errors) |
-| `npm test` | **307 passed / 17 skipped; 3024 passed / 135 skipped** |
-| `npm run build` | PASS (Compiled successfully) |
+| targeted (corr-02b + corr integrity + e2/e4/c3x2/c4/c5) | 8 files / 73 tests PASS |
+| npx vitest run __tests__/nora-eval/ | 29 passed / 3 skipped; 239 passed / 3 skipped |
+| npm run typecheck | PASS |
+| npm run lint | PASS |
+| npm test | 308 passed / 17 skipped; 3032 passed / 135 skipped |
+| npm run build | PASS |
+| git diff --check (product) | clean |
 
-ZERO REAL proof: no `OPENAI_API_KEY` required; FakeConversationProvider / ScriptedModel / synthetic `claimHostedWebOperations` only; no `models.retrieve` / `responses.create` / live hosted web_search.
-
----
-
-## 8. Product Git publication
-
-- product commit = **NONE**
-- product push = **NONE**
-- product PR = **NONE**
+ZERO REAL: no OPENAI_API_KEY; Fake/Scripted/synthetic observe only; no models.retrieve / responses.create / live web_search / spend.
 
 ---
 
-## 9. Anti-claims
+## 9. Product Git publication
 
-DO NOT CLAIM: Stage A complete; Stage A REAL rerun; F2 REAL proven; W-Sources hosted REAL proven; Astra-only justified; Stage B ready/authorized; production model/routing selected; Cognitive Completion proven; runtime v3 ADOPTED; invoice bounded by 20.
-
----
-
-## 10. Allowed claims (deterministic scope)
-
-- F2 PROVIDER BINDING CORRECTED AT DETERMINISTIC SCOPE
-- HOSTED ACCOUNTING / OBSERVATION PARITY CORRECTED AT DETERMINISTIC SCOPE
-- SYSTEMIC STOP GOVERNANCE CORRECTED AT DETERMINISTIC SCOPE
-- SELECTIVE REPEAT GOVERNANCE CORRECTED AT DETERMINISTIC SCOPE
-- GLOBAL-MR-STAGE-A-REAL-CORR-01 READY FOR CHATGPT CRITICAL REVIEW
+- product commit = NONE
+- product push = NONE
+- product PR = NONE
 
 ---
 
-## 11. Reservations / remaining realism gaps
+## 10. Anti-claims
 
-1. `mw6GovernedNoraTurn` observation hardcode `liveHostedDispatchCalls: 0` — next REAL continuation executor must report factual hosted OR follow-up GO for MW6 observation wiring (scope expansion).
-2. Prior Outcome C unchanged — no new REAL proof this cycle.
-3. Selective-repeat triggers must be supplied by future REAL launcher (generic INCONCLUSIVE no longer schedules repeats).
-4. Docs (08/10/11/Roadmap) intentionally **not** truth-synced this cycle.
+DO NOT CLAIM: Stage A complete; Stage A REAL rerun; F2/W-Sources hosted REAL proven; Stage B/C authorized; production model/routing; Cognitive Completion proven; runtime v3 ADOPTED; invoice <=20.
 
 ---
 
-## 12. Recommendation for future REAL continuation scope
+## 11. Allowed claims
 
-After ChatGPT Critical Review → Morris Git integration GO → integration/CI/merge → **distinct** Morris Stage A REAL continuation GO:
+- CORR-01 F2 = CLOSED AT DETERMINISTIC SCOPE
+- CORR-02A hosted mismatch = CLOSED AT DETERMINISTIC SCOPE
+- CORR-02B factual hosted propagation = CLOSED AT DETERMINISTIC SCOPE
+- CORR-03A systemic stop = CLOSED AT DETERMINISTIC SCOPE
+- CORR-03B repeat governance = CLOSED AT DETERMINISTIC SCOPE
+- GLOBAL-MR-STAGE-A-REAL-CORR-01 COMPLETE AT DETERMINISTIC SCOPE
+- ZERO REAL — Option C unchanged — Outcome C retained — product local/uncommitted
 
-- Use corrected F2 binding (no OPENAI_MODEL global pin required for eval factory path).
-- Require executor `reportedHostedOperationsConsumed` = factual live hosted; mismatch hard-stops.
-- Systemic PROVIDER_UNAVAILABLE latches campaign stop (do not burn repeat pool).
-- Repeats only with explicit contractual triggers.
-- **NOT Stage B automatically.**
+---
+
+## 12. Reservations
+
+- No new REAL proof this cycle.
+- Future REAL continuation still requires distinct Morris GO after integration/post-merge.
+- Future REAL launcher must report factual hosted / map composition; mismatch still hard-stops.
 
 ---
 
 ## 13. Next gate
 
-**ChatGPT Critical Review → Morris Git integration GO**
-
-After integration + post-merge verification: distinct Morris Stage A REAL continuation decision.
+ChatGPT Critical Review → Morris Git integration GO
+Then distinct Stage A REAL continuation decision — NOT Stage B.
 
 ---
 
@@ -199,43 +161,258 @@ After integration + post-merge verification: distinct Morris Stage A REAL contin
 
 READY FOR CHATGPT CRITICAL REVIEW —
 GLOBAL-MR-STAGE-A-REAL-CORR-01 COMPLETE AT DETERMINISTIC SCOPE —
-F2 PROVIDER BINDING CORRECTED —
-HOSTED ACCOUNTING / OBSERVATION PARITY CORRECTED —
-SYSTEMIC STOP GOVERNANCE CORRECTED —
-SELECTIVE REPEAT TRIGGER GOVERNANCE CORRECTED —
-78 / 438 / 26 / 464 UNCHANGED —
+CORR-01 F2 CLOSED —
+CORR-02A HOSTED MISMATCH CLOSED —
+CORR-02B FACTUAL HOSTED PROPAGATION CLOSED —
+CORR-03A SYSTEMIC STOP CLOSED —
+CORR-03B REPEAT GOVERNANCE CLOSED —
+54 PRIMARY + 6 ASTRA / 60 BASE / 78 CELLS / 438 MODEL / 26 HOSTED / 464 AGGREGATE UNCHANGED —
 15 / 18 / 20 UNCHANGED —
-STAGE A PRIOR OUTCOME C RETAINED —
+PRIOR STAGE A OUTCOME C RETAINED —
 ZERO REAL —
-ZERO PRODUCT GIT PUBLICATION —
-GIT INTEGRATION DECISION REQUIRED
+ZERO PRODUCT COMMIT/PUSH/PR —
+CHATGPT CRITICAL REVIEW REQUIRED BEFORE ANY PRODUCT GIT INTEGRATION DECISION.
 
 ### Sub-status
 
 | Item | Status |
 |------|--------|
-| F2 injected provider mode | PASS deterministic |
-| non-eval historical behavior | PASS |
-| hosted observed-vs-canonical parity | PASS deterministic |
-| fixture hosted REAL consumption | 0 |
-| mismatch | fail-close |
-| systemic config defect | campaign stop |
-| post-stop future dispatch | denied |
-| generic INCONCLUSIVE repeat | denied |
-| valid repeat trigger | supported |
-| Astra repeat | denied |
-| repeat pool | 18 max |
-| pool exhaustion | non-latching |
+| F2 injected-provider mode | PASS deterministic |
+| MW6 live-shaped factual observation | PASS deterministic |
+| MW6 deterministic fixture | 0 REAL hosted |
+| hosted parity equal | PASS |
+| hosted parity mismatch | HARD STOP |
+| systemic config defect | HARD STOP |
+| post-stop dispatch | DENIED |
+| generic INCONCLUSIVE repeat | DENIED |
+| valid repeat trigger | SUPPORTED |
+| Astra repeat | DENIED |
 | Option C | UNCHANGED |
-| Stage A REAL this cycle | NOT EXECUTED |
-| Stage B | NOT AUTHORIZED |
+| Stage A REAL / Stage B | NOT AUTHORIZED |
 | product commit/push/PR | NONE |
 
 ---
 
-## 15. Full useful diffs — orchestrateF2.ts
+## 15. Full useful diffs — CORR-02B cognitive pass-through
 
 ```diff
+
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+index fa9b6b33..463db0da 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+@@ -22,6 +22,7 @@ import { resolveNoraSessionSqlitePath } from "./sessionPaths";
+ import {
+   runNoraAgentsTurn,
+   shouldUseProviderAgentsModelAdapter,
++  type RunNoraAgentsTurnHostedSearchObserve,
+ } from "./runNoraAgentsTurn";
+ import type { NoraCognitiveTurnResult } from "./types";
+ import {
+@@ -208,6 +209,14 @@ export type RunNoraCognitiveTurnInput = {
+   usdAccounting?: NoraAgentsUsdAccounting;
+ };
+
++/**
++ * CORR-02B — cognitive turn result preserves factual hosted observation from
++ * runNoraAgentsTurn (Evidence / parity only — not a second accounting SoT).
++ */
++export type NoraCognitiveTurnResultWithHostedObserve = NoraCognitiveTurnResult & {
++  hostedSearchObserve?: RunNoraAgentsTurnHostedSearchObserve;
++};
++
+ function emitCognitiveStrategyTelemetry(
+   sink: EventSink | undefined,
+   correlationId: string,
+@@ -637,7 +646,7 @@ async function prepareMw4Grounding(input: {
+
+ export async function runNoraCognitiveTurn(
+   input: RunNoraCognitiveTurnInput,
+-): Promise<NoraCognitiveTurnResult> {
++): Promise<NoraCognitiveTurnResultWithHostedObserve> {
+   const strategyDecision = resolveCognitiveStrategyForTurn(input);
+   if (strategyDecision) {
+     emitCognitiveStrategyTelemetry(
+@@ -758,8 +767,7 @@ export async function runNoraCognitiveTurn(
+       mw6 = composed.surface;
+       turn.text = composed.governedText;
+     }
+-    const { hostedSearchObserve: _drop, budgetObserve, ...turnBase } = turn;
+-    void _drop;
++    const { hostedSearchObserve, budgetObserve, ...turnBase } = turn;
+     const mw6AuthorityBinding = budgetObserve
+       ? {
+           authorityBound: budgetObserve.authorityBound,
+@@ -784,18 +792,22 @@ export async function runNoraCognitiveTurn(
+             readCoverageDisclosure: readDisclosure || null,
+           }
+         : undefined;
+-    return finalizeTurn(
+-      {
+-        ...turnBase,
+-        memoryBCompactionState: "none",
+-        memoryBCompactionDetails: null,
+-        ...(mw6AuthorityBinding ? { mw6AuthorityBinding } : {}),
+-      },
+-      input,
+-      strategyDecision,
+-      mw4,
+-      mw6,
+-    );
++    return {
++      ...finalizeTurn(
++        {
++          ...turnBase,
++          memoryBCompactionState: "none",
++          memoryBCompactionDetails: null,
++          ...(mw6AuthorityBinding ? { mw6AuthorityBinding } : {}),
++        },
++        input,
++        strategyDecision,
++        mw4,
++        mw6,
++      ),
++      // CORR-02B — factual hosted observation pass-through (no drop).
++      ...(hostedSearchObserve ? { hostedSearchObserve } : {}),
++    };
+   }
+
+   const probe = await probeMemoryBAvailability({
+@@ -920,8 +932,7 @@ export async function runNoraCognitiveTurn(
+       mw6 = composed.surface;
+       turn.text = composed.governedText;
+     }
+-    const { hostedSearchObserve: _drop, budgetObserve, ...turnBase } = turn;
+-    void _drop;
++    const { hostedSearchObserve, budgetObserve, ...turnBase } = turn;
+     const mw6AuthorityBinding = budgetObserve
+       ? {
+           authorityBound: budgetObserve.authorityBound,
+@@ -971,7 +982,11 @@ export async function runNoraCognitiveTurn(
+       }
+     }
+
+-    return finalized;
++    return {
++      ...finalized,
++      // CORR-02B — factual hosted observation pass-through (no drop).
++      ...(hostedSearchObserve ? { hostedSearchObserve } : {}),
++    };
+   } finally {
+     if (probe.session) {
+       probe.session.close();
+
+```
+
+## 16. Full useful diffs — CORR-02B MW6 + types
+
+```diff
+
+diff --git a/projects/sfia-studio/app/features/project-assistant/mw6GovernedNoraTurn.ts b/projects/sfia-studio/app/features/project-assistant/mw6GovernedNoraTurn.ts
+index 95c37200..ad844736 100644
+--- a/projects/sfia-studio/app/features/project-assistant/mw6GovernedNoraTurn.ts
++++ b/projects/sfia-studio/app/features/project-assistant/mw6GovernedNoraTurn.ts
+@@ -28,7 +28,6 @@ import {
+   requireCanonicalCampaignBudget,
+   runNoraCognitiveTurn,
+   type NoraCampaignBudget,
+-  type NoraCognitiveTurnResult,
+   type NoraEvalModelReasoningControl,
+   type NoraAgentsUsdAccounting,
+ } from "@/lib/nora-cognitive-runtime";
+@@ -54,6 +53,27 @@ import type {
+
+ const MAX_HISTORY_MESSAGES = 20;
+
++/**
++ * CORR-02B — factual LIVE hosted dispatch count from hostedSearchObserve.
++ * Deterministic/fixture boundary and absent observation → 0 REAL.
++ * Evidence/parity only — does not claim NoraCampaignBudget.
++ */
++export function resolveLiveHostedDispatchCallsFromHostedObserve(
++  hostedSearchObserve:
++    | {
++        deterministicBoundaryUsed: boolean;
++        rawCallsObserved: number;
++      }
++    | undefined
++    | null,
++): number {
++  if (!hostedSearchObserve) return 0;
++  if (hostedSearchObserve.deterministicBoundaryUsed === true) return 0;
++  const n = hostedSearchObserve.rawCallsObserved;
++  if (!Number.isSafeInteger(n) || n < 0) return 0;
++  return n;
++}
++
+ function toContextDto(
+   result: Extract<
+     Awaited<ReturnType<typeof loadProjectRuntimeForAssistant>>,
+@@ -156,7 +176,11 @@ export type Mw6GovernedNoraProductTurnSuccess = Extract<
+     executionContractId: string;
+     authorityEvidenceId: string;
+     actorId: string;
+-    liveHostedDispatchCalls: 0;
++    /**
++     * Factual LIVE hosted web-search dispatch count from turn.hostedSearchObserve.
++     * Fixture/deterministic boundary → 0 (not REAL). Evidence only — not budget SoT.
++     */
++    liveHostedDispatchCalls: number;
+   };
+ };
+
+@@ -373,7 +397,7 @@ export async function runMw6GovernedNoraProductTurn(
+   const provider = input.provider ?? resolveConversationProvider();
+   const workspaceRoot = resolveWorkspaceRootFromAppCwd();
+
+-  let turn: NoraCognitiveTurnResult;
++  let turn: Awaited<ReturnType<typeof runNoraCognitiveTurn>>;
+   try {
+     turn = await runNoraCognitiveTurn({
+       correlationId: `mw6-gov:${project.projectId}:${composed.executionContractId}`,
+@@ -413,6 +437,9 @@ export async function runMw6GovernedNoraProductTurn(
+   }
+
+   const binding = turn.mw6AuthorityBinding;
++  const liveHostedDispatchCalls = resolveLiveHostedDispatchCallsFromHostedObserve(
++    turn.hostedSearchObserve,
++  );
+   return {
+     ok: true,
+     status: "ok",
+@@ -442,7 +469,7 @@ export async function runMw6GovernedNoraProductTurn(
+       executionContractId: composed.executionContractId,
+       authorityEvidenceId: composed.authorityEvidenceId,
+       actorId: pilote.actor.actorId,
+-      liveHostedDispatchCalls: 0,
++      liveHostedDispatchCalls,
+       realPreflightBlocked: binding?.realPreflightBlocked === true,
+     },
+   };
+diff --git a/projects/sfia-studio/app/features/project-assistant/types.ts b/projects/sfia-studio/app/features/project-assistant/types.ts
+index 6811370c..ed914e60 100644
+--- a/projects/sfia-studio/app/features/project-assistant/types.ts
++++ b/projects/sfia-studio/app/features/project-assistant/types.ts
+@@ -227,7 +227,11 @@ export type ProjectAssistantSendSuccess = {
+     executionContractId: string;
+     authorityEvidenceId: string;
+     actorId: string;
+-    liveHostedDispatchCalls: 0;
++    /**
++     * Factual LIVE hosted web-search dispatch count from turn.hostedSearchObserve.
++     * Fixture/deterministic boundary → 0 (not REAL). Evidence only — not budget SoT.
++     */
++    liveHostedDispatchCalls: number;
+   };
+ };
+
+
+```
+
+## 17. Full useful diffs — CORR-01 F2
+
+```diff
+
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 index 7c314422..3e137822 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
@@ -287,11 +464,13 @@ index 7c314422..3e137822 100644
 
    let analysisResult: Awaited<ReturnType<typeof analyzeIntent>>;
    let truthCContextForF1: string | undefined;
+
 ```
 
-## 16. Full useful diffs — globalModelReasoningStageA.ts
+## 18. Full useful diffs — Stage A / index (CORR-02A/03)
 
 ```diff
+
 diff --git a/projects/sfia-studio/app/lib/nora-eval/globalModelReasoningStageA.ts b/projects/sfia-studio/app/lib/nora-eval/globalModelReasoningStageA.ts
 index 689430aa..e397bd3e 100644
 --- a/projects/sfia-studio/app/lib/nora-eval/globalModelReasoningStageA.ts
@@ -622,11 +801,36 @@ index 689430aa..e397bd3e 100644
    if (
      !state.softReviewCleared &&
      (state.budget.softStopTriggered ||
+diff --git a/projects/sfia-studio/app/lib/nora-eval/index.ts b/projects/sfia-studio/app/lib/nora-eval/index.ts
+index 02f42bde..75aa5819 100644
+--- a/projects/sfia-studio/app/lib/nora-eval/index.ts
++++ b/projects/sfia-studio/app/lib/nora-eval/index.ts
+@@ -101,6 +101,10 @@ export {
+   acknowledgeGlobalMrStageASoftReview,
+   canScheduleSelectiveRepeat,
+   materializeSelectiveRepeat,
++  isGlobalMrStageASelectiveRepeatTrigger,
++  resolveFactualHostedOperationsObserved,
++  isStageASystemicRequiredConfigDefect,
++  GLOBAL_MR_STAGE_A_SELECTIVE_REPEAT_TRIGGERS,
+   globalMrStageABaseCellKey,
+   runGlobalMrStageACell,
+   globalMrStageAEnvelopeProof,
+@@ -111,6 +115,7 @@ export {
+   type GlobalMrStageADriverState,
+   type GlobalMrStageAStopReason,
+   type GlobalMrStageACellDenialReason,
++  type GlobalMrStageASelectiveRepeatTrigger,
+   type GlobalMrStageAExecutionKind,
+   type GlobalMrStageADerivedEnvelope,
+   type GlobalMrStageAWorkloadCallPlan,
+
 ```
 
-## 17. Full useful diffs — tests + index
+## 19. Full useful diffs — CORR-01 test trigger updates
 
 ```diff
+
 diff --git a/projects/sfia-studio/app/__tests__/nora-eval/c3.call-accounting.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-eval/c3.call-accounting.d0.test.ts
 index b1a46dc4..f1360afd 100644
 --- a/projects/sfia-studio/app/__tests__/nora-eval/c3.call-accounting.d0.test.ts
@@ -750,34 +954,13 @@ index b9314bac..63099db6 100644
        executor: async () => {
          called = true;
          return {
-diff --git a/projects/sfia-studio/app/lib/nora-eval/index.ts b/projects/sfia-studio/app/lib/nora-eval/index.ts
-index 02f42bde..75aa5819 100644
---- a/projects/sfia-studio/app/lib/nora-eval/index.ts
-+++ b/projects/sfia-studio/app/lib/nora-eval/index.ts
-@@ -101,6 +101,10 @@ export {
-   acknowledgeGlobalMrStageASoftReview,
-   canScheduleSelectiveRepeat,
-   materializeSelectiveRepeat,
-+  isGlobalMrStageASelectiveRepeatTrigger,
-+  resolveFactualHostedOperationsObserved,
-+  isStageASystemicRequiredConfigDefect,
-+  GLOBAL_MR_STAGE_A_SELECTIVE_REPEAT_TRIGGERS,
-   globalMrStageABaseCellKey,
-   runGlobalMrStageACell,
-   globalMrStageAEnvelopeProof,
-@@ -111,6 +115,7 @@ export {
-   type GlobalMrStageADriverState,
-   type GlobalMrStageAStopReason,
-   type GlobalMrStageACellDenialReason,
-+  type GlobalMrStageASelectiveRepeatTrigger,
-   type GlobalMrStageAExecutionKind,
-   type GlobalMrStageADerivedEnvelope,
-   type GlobalMrStageAWorkloadCallPlan,
+
 ```
 
-## 18. New file — corr-stage-a-real-integrity.d0.test.ts (complete)
+## 20. New file — corr-stage-a-real-integrity.d0.test.ts
 
 ```typescript
+
 /** @vitest-environment node */
 /**
  * GLOBAL-MR-STAGE-A-REAL-CORR-01 — F2 binding + hosted parity + stop/repeat
@@ -1374,8 +1557,247 @@ describe("CORR — Option C envelope immutable", () => {
     );
   });
 });
+
 ```
+
+## 21. New file — corr-02b-mw6-hosted-observation.d0.test.ts
+
+```typescript
+
+/** @vitest-environment node */
+/**
+ * CORR-02B — MW6 factual hosted observation propagation — ZERO REAL.
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
+import { ScriptedModel, assistantMessage } from "@openai/agents/testing";
+import { FakeConversationProvider } from "@/lib/platform/ai";
+import {
+  acquireNoraCampaignBudget,
+  claimHostedWebOperations,
+  runNoraCognitiveTurn,
+  sfiaBoundaryInstructions,
+} from "@/lib/nora-cognitive-runtime";
+import { resolveLiveHostedDispatchCallsFromHostedObserve } from "@/features/project-assistant/mw6GovernedNoraTurn";
+import {
+  buildGlobalMrStageAMatrix,
+  createGlobalMrStageADriver,
+  runGlobalMrStageACell,
+} from "@/lib/nora-eval";
+
+const FIXTURE_CALL = {
+  type: "hosted_tool_call",
+  name: "web_search_call",
+  status: "completed",
+  providerData: {
+    type: "web_search_call",
+    action: {
+      type: "search",
+      sources: [{ type: "url", url: "https://example.com" }],
+    },
+  },
+} as const;
+
+describe("CORR-02B — resolveLiveHostedDispatchCallsFromHostedObserve", () => {
+  it("MW6-HOSTED-01 — LIVE-shaped factual N → N", () => {
+    expect(
+      resolveLiveHostedDispatchCallsFromHostedObserve({
+        deterministicBoundaryUsed: false,
+        rawCallsObserved: 2,
+      }),
+    ).toBe(2);
+  });
+
+  it("MW6-HOSTED-02 — deterministic fixture N → 0 REAL", () => {
+    expect(
+      resolveLiveHostedDispatchCallsFromHostedObserve({
+        deterministicBoundaryUsed: true,
+        rawCallsObserved: 2,
+      }),
+    ).toBe(0);
+  });
+
+  it("MW6-HOSTED-03 — absent observation → 0", () => {
+    expect(resolveLiveHostedDispatchCallsFromHostedObserve(undefined)).toBe(0);
+    expect(resolveLiveHostedDispatchCallsFromHostedObserve(null)).toBe(0);
+  });
+});
+
+describe("CORR-02B — runNoraCognitiveTurn pass-through (ZERO REAL)", () => {
+  const tempDirs: string[] = [];
+  afterEach(() => {
+    while (tempDirs.length) {
+      const d = tempDirs.pop();
+      if (d) fs.rmSync(d, { recursive: true, force: true });
+    }
+  });
+
+  it("path A (Memory B unavailable) — preserves hostedSearchObserve; no drop", async () => {
+    const turn = await runNoraCognitiveTurn({
+      correlationId: "corr02b-path-a",
+      projectId: "proj-a",
+      messages: [
+        { role: "system", content: sfiaBoundaryInstructions() },
+        { role: "user", content: "corroborate externally CEO of Acme" },
+      ],
+      provider: new FakeConversationProvider({ scripted: ["OK"] }),
+      // Force path A — invalid session path → Memory B unavailable branch
+      sessionDbPath: "/nonexistent/corr02b/session.sqlite",
+      enableTools: true,
+      enableHostedWebSearch: true,
+      deterministicHostedWebSearchCalls: [FIXTURE_CALL, FIXTURE_CALL],
+      evalModelReasoningControl: {
+        modelId: "gpt-5.6-luna",
+        reasoningEffort: "none",
+        agentsModel: new ScriptedModel([[assistantMessage("OK")]]),
+      },
+    });
+
+    expect(turn.hostedSearchObserve).toBeDefined();
+    expect(turn.hostedSearchObserve!.deterministicBoundaryUsed).toBe(true);
+    expect(turn.hostedSearchObserve!.rawCallsObserved).toBe(2);
+    expect(
+      resolveLiveHostedDispatchCallsFromHostedObserve(turn.hostedSearchObserve),
+    ).toBe(0);
+  });
+
+  it("path B (session available) — preserves hostedSearchObserve; no drop", async () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-corr02b-"));
+    tempDirs.push(dir);
+    const sessionDbPath = path.join(dir, "session.sqlite");
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: `corr02b-path-b-${Date.now()}`,
+      maxModelInvocations: 10,
+      maxHostedWebOperations: 26,
+      maxAggregateRealCalls: 40,
+      hostedHardCapCapability: "provider_max_tool_calls",
+    });
+
+    const turn = await runNoraCognitiveTurn({
+      correlationId: "corr02b-path-b",
+      projectId: "proj-b",
+      messages: [
+        { role: "system", content: sfiaBoundaryInstructions() },
+        { role: "user", content: "corroborate externally CEO of Acme" },
+      ],
+      provider: new FakeConversationProvider({ scripted: ["OK"] }),
+      sessionDbPath,
+      enableTools: true,
+      enableHostedWebSearch: true,
+      campaignBudget: campaign,
+      deterministicHostedWebSearchCalls: [FIXTURE_CALL],
+      evalModelReasoningControl: {
+        modelId: "gpt-5.6-luna",
+        reasoningEffort: "none",
+        agentsModel: new ScriptedModel([[assistantMessage("OK")]]),
+      },
+    });
+
+    expect(turn.hostedSearchObserve).toBeDefined();
+    expect(turn.hostedSearchObserve!.deterministicBoundaryUsed).toBe(true);
+    expect(turn.hostedSearchObserve!.rawCallsObserved).toBeGreaterThanOrEqual(1);
+    // Fixture ≠ REAL hosted budget consumption
+    expect(campaign.consumedHostedWebOperations).toBe(0);
+    expect(
+      resolveLiveHostedDispatchCallsFromHostedObserve(turn.hostedSearchObserve),
+    ).toBe(0);
+  });
+});
+
+describe("CORR-02B — Stage A parity with composed factual observation", () => {
+  it("MW6-HOSTED-04 — canonical N == factual N → no integrity stop; PASS kept", async () => {
+    const state = createGlobalMrStageADriver({
+      campaignId: `corr02b-h04-${Date.now()}`,
+    });
+    const cell = buildGlobalMrStageAMatrix({
+      campaignId: state.campaignId,
+    }).find((c) => c.workloadId === "W-Sources")!;
+    const out = await runGlobalMrStageACell({
+      state,
+      cell,
+      executor: async (_c, ctx) => {
+        expect(claimHostedWebOperations(ctx.campaignBudget, 2)).toBe(true);
+        return {
+          passFail: "PASS",
+          failureClass: "NONE",
+          rawSummary: "parity-ok",
+          usage: null,
+          reportedHostedOperationsConsumed: 2,
+          productObservation: {
+            mw6AuthorityComposition: { liveHostedDispatchCalls: 2 },
+          },
+        };
+      },
+    });
+    expect(out.stopped).toBe(false);
+    expect(state.stopReason).toBe("NONE");
+    expect(out.evidence?.passFail).toBe("PASS");
+    expect(out.evidence?.productObservation?.canonicalDelta).toMatchObject({
+      hosted: 2,
+      reportedMismatch: false,
+      factualHostedObserved: 2,
+    });
+  });
+
+  it("MW6-HOSTED-05 — canonical N != composed factual → hard stop", async () => {
+    const state = createGlobalMrStageADriver({
+      campaignId: `corr02b-h05-${Date.now()}`,
+    });
+    const cell = buildGlobalMrStageAMatrix({
+      campaignId: state.campaignId,
+    }).find((c) => c.workloadId === "W-Sources")!;
+    const out = await runGlobalMrStageACell({
+      state,
+      cell,
+      executor: async (_c, ctx) => {
+        claimHostedWebOperations(ctx.campaignBudget, 2);
+        return {
+          passFail: "PASS",
+          failureClass: "NONE",
+          rawSummary: "parity-bad",
+          usage: null,
+          // Prefer composition seam (reported omitted) — matches REAL paradox shape
+          productObservation: {
+            mw6AuthorityComposition: { liveHostedDispatchCalls: 0 },
+          },
+        };
+      },
+    });
+    expect(out.stopped).toBe(true);
+    expect(state.stopReason).toBe("EVIDENCE_INTEGRITY_HOSTED_MISMATCH");
+  });
+
+  it("MW6-HOSTED-06 — W-Sources PASS @ factual 0 + canonical 0 → NOT_PROVEN", async () => {
+    const state = createGlobalMrStageADriver({
+      campaignId: `corr02b-h06-${Date.now()}`,
+    });
+    const cell = buildGlobalMrStageAMatrix({
+      campaignId: state.campaignId,
+    }).find((c) => c.workloadId === "W-Sources")!;
+    const out = await runGlobalMrStageACell({
+      state,
+      cell,
+      executor: async () => ({
+        passFail: "PASS",
+        failureClass: "NONE",
+        rawSummary: "fixture-zero-real",
+        usage: null,
+        reportedHostedOperationsConsumed: 0,
+        productObservation: {
+          mw6AuthorityComposition: { liveHostedDispatchCalls: 0 },
+        },
+      }),
+    });
+    expect(out.evidence?.passFail).toBe("NOT_PROVEN");
+    expect(state.stopReason).toBe("NONE");
+  });
+});
+
+```
+
 
 ---
 
-END REVIEW PACK — GLOBAL-MR-STAGE-A-REAL-CORR-01
+END REVIEW PACK — GLOBAL-MR-STAGE-A-REAL-CORR-01 (CORR-02B included)
