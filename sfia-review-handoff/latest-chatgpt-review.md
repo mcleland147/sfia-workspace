@@ -2278,7 +2278,13 @@ Observed publish chain (pre-final self-consistent tip):
 
 FINAL remote tip / blob / verdict for THIS exact source file are filled immediately after the final publisher run in the Cursor report; pack body below is updated once more only if publisher returns a new tip, then re-verified remote blob == source hash-object.
 
-PUBLISHER_VERDICT: HANDOFF UPDATED — REMOTE VERIFIED (pending final tip fill)
+FINAL CAPTURE (source published as tip 455bc47f6a3eeff2485869dec158fa5266862809 / blob 7759c1a5c9ddc8542402213bdfa9e1b41e558020; one further mono-file publish records these IDs in-body):
+- HANDOFF_PARENT: `16226e2b2fc6b7009b80cc8c94f81ead667d7c53`
+- PRE_FINAL_TIP: `455bc47f6a3eeff2485869dec158fa5266862809`
+- PRE_FINAL_BLOB: `7759c1a5c9ddc8542402213bdfa9e1b41e558020`
+- PUBLISHER_VERDICT: HANDOFF UPDATED — REMOTE VERIFIED
+- Product PR does not contain Review Handoff files.
+
 
 
 ## Product code after accepted candidate
