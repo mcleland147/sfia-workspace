@@ -3,17 +3,17 @@
 | Field | Value |
 | --- | --- |
 | **Document ID** | `NORA-GLOBAL-MR-CAMPAIGN-EXECUTION-CONTRACT-01` |
-| **Contract version** | `global-mr-campaign-contract-v3-candidate` (Option C local candidate; main still hosts v2 until integration) |
-| **Status** | **GIT INTEGRATION CANDIDATE** — D-GMR-ASTRA-01/02 + D-GMR-FINOPS-01 + D-GMR-GIT-01 consumed · harness Option C + C6 FinOps · 78/438/464 · USD **15/18/20 DECIDED** · known subtotal ≈13.32896 COMPATIBLE_WITH_CURRENT_POLICY · ZERO REAL — Stage A REAL NOT AUTHORIZED — merge NOT AUTHORIZED |
-| **Baseline Git (snapshot)** | `origin/main` = `1dd5d67ad942c448becd637f4c2e55883d16ffca` (PR **#467** merge) |
-| **Accepted product head** | `3fb1624c8b373b75dfcd48a64797a7927cb76019` |
-| **Merge parents** | `23d850fda45fe55ba519e0feefe63369d349afcc` + `3fb1624c8b373b75dfcd48a64797a7927cb76019` |
+| **Contract version** | `global-mr-campaign-contract-v3-candidate` (**CANDIDATE** = future REAL campaign parameters — **not** pending repository integration; Option C + C6 **INTEGRATED ON MAIN**) |
+| **Status** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** — PR **#468 MERGED** · Option C + C6 · 78/438/464 · USD **15/18/20 DECIDED** · known subtotal ≈13.32896 COMPATIBLE_WITH_CURRENT_POLICY · ZERO REAL — Stage A REAL **NOT AUTHORIZED** |
+| **Baseline Git (snapshot)** | `origin/main` = `66d93a616ac43f2d952f9c7db7b33d2acfe7553b` (PR **#468** merge) |
+| **Accepted product head** | `a5ab44bc4a5dae119b778bc6ba795439934b6f61` |
+| **Merge parents** | `1dd5d67ad942c448becd637f4c2e55883d16ffca` + `a5ab44bc4a5dae119b778bc6ba795439934b6f61` |
 | **Head→merge product delta** | **ZERO** |
-| **Post-merge CI** | run `33981467237` SUCCESS · Required Gate **PASS** |
+| **Post-merge CI** | run `33995952634` SUCCESS · Required Gate **PASS** |
 | **G1/G2/G3** | INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR **#466** @ `23d850fda45fe55ba519e0feefe63369d349afcc`) |
-| **Integration GO** | `GO MORRIS — GLOBAL MODEL × REASONING STAGE A GIT INTEGRATION + PUBLISH REVIEW HANDOFF — ZERO REAL` **CONSUMED** |
-| **Merge GO** | `GO Morris — merge PR #467` **CONSUMED** |
-| **This DOC maintenance** | `NORA-GLOBAL-MR-STAGE-A-OPTION-C-ASTRA-CHALLENGER-01` — Option C + C6 + FinOps **15/18/20** on PR **#468** (OPEN / merge pending; Stage A REAL NOT AUTHORIZED) |
+| **Integration GO** | Option C Git integration (D-GMR-GIT-01) + PR **#468** merge **CONSUMED** |
+| **Merge GO** | `GO MORRIS — MERGE PR #468` **CONSUMED** |
+| **This DOC maintenance** | `NORA-GLOBAL-MR-STAGE-A-OPTION-C-POST-MERGE-READINESS-01` — post-merge truth-sync / REAL-readiness CONTENT **REVIEWED / ACCEPTED AT DOCUMENTARY SCOPE** · repository publication state = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · Stage A REAL **NOT AUTHORIZED** |
 | **Authoring date** | 2026-09-05 |
 | **Preparation GO** | `GO MORRIS — PRÉPARER LE GLOBAL MODEL × REASONING CAMPAIGN EXECUTIONCONTRACT CONSOLIDÉ — ZERO REAL` **CONSUMED** |
 | **Enablement GO** | `GO MORRIS — CORRECTION GLOBAL MODEL × REASONING STAGE A ENABLEMENT — ZERO REAL` **CONSUMED (local candidate only)** |
@@ -26,9 +26,9 @@
 
 | Layer | What it contains | Status |
 | --- | --- | --- |
-| **A. INTEGRATED MAIN TRUTH** (`main@1dd5d67a`) | G1/G2/G3 + Stage A deterministic harness E1–E4 / F1→F5 / C3 / C4 + this contract text as integrated via PR **#467** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
-| **B. CAMPAIGN READINESS** | Model universe **DECIDED — OPTION C** · financial envelope **DECIDED BY MORRIS — 15/18/20** · feasibility **PASS** (`COMPATIBLE_WITH_CURRENT_POLICY`) · Git lifecycle **PR #468 OPEN / MERGE PENDING** · REAL auth **NOT AUTHORIZED** | **TECHNICAL PROVEN + MODEL UNIVERSE DECIDED + FINANCIAL ENVELOPE DECIDED + GIT INTEGRATION PR OPEN + REAL AUTHORIZATION OPEN** (see doc `11-…`) |
-| **C. PROOF CEILING** | Deterministic harness proof + Git integration + post-merge CI | **DETERMINISTIC PROVEN + GIT INTEGRATED + POST-MERGE VERIFIED** — Stage A REAL **NOT AUTHORIZED / NOT EXECUTED / NOT PROVEN** |
+| **A. INTEGRATED MAIN TRUTH** (`main@66d93a61`) | G1/G2/G3 + Stage A harness + **Option C + C6** (Astra challenger, FinOps 15/18/20, contract v3-candidate params) via PR **#468** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
+| **B. REAL READINESS** | Technical **PASS** · model universe **DECIDED OPTION C** · financial envelope **DECIDED 15/18/20** · repository integration **PASS** · provider documented capability **PASS at snapshot scope** · Astra account entitlement **NOT PROVEN** · REAL auth **NOT AUTHORIZED** | **TECHNICAL + MODEL + FINANCIAL + REPO READY / ENTITLEMENT NOT PROVEN / REAL OPEN** (see doc `11-…`) |
+| **C. PROOF CEILING** | Deterministic harness + Git integration + post-merge CI | **DETERMINISTIC PROVEN + GIT INTEGRATED + POST-MERGE VERIFIED** — Stage A REAL **NOT AUTHORIZED / NOT EXECUTED / NOT PROVEN** |
 
 ---
 
@@ -167,7 +167,7 @@ Catalog `requiredTier: ["D0"]` scenarios are **semantic identities + scorer bind
 
 ### Injection facts
 
-#### On INTEGRATED MAIN (`main@1dd5d67a` — includes G1/G2/G3 + Stage A harness)
+#### On INTEGRATED MAIN (`main@66d93a61` — includes G1/G2/G3 + Stage A harness + Option C + C6)
 | Mechanism | Model injectable | Effort injectable | Metering | Budget |
 | --- | --- | --- | --- | --- |
 | `runNoraAgentsTurn({ model, runnerModelSettings, campaignBudget })` | **YES** | **YES** | Agents usage + campaign counters | `NoraCampaignBudget` |
@@ -197,12 +197,12 @@ Catalog `requiredTier: ["D0"]` scenarios are **semantic identities + scorer bind
 | W-Memory | `mw1.s01.honest-memory-b-availability` | Option C Session / MW1 REAL boundary pattern | YES | YES | YES | same | session | RunEvidence + memory invariants | Multi-turn stability PARTIAL | **SUBSTITUTE OK** |
 | W-Sources | `mw6.s02.read-search-partiality-failclosed` | `mw6GovernedNoraTurn` / Agents + hosted web_search under REAL preflight + campaignBudget | YES | YES | YES (+ hosted ops counters) | **required** `NoraCampaignBudget` | hosted web_search (cell-gated) | RunEvidence + mw6Observe semantics | **Must not** use `runR2ProductScenario` as-is (mw0 default; no MW6 in historical catalog) | **SUBSTITUTE REQUIRED — MW6 governed path** |
 
-**Overall (local candidate):** `CONTRACT EXECUTABLE WITH CURRENT HARNESS + STAGE A ENABLEMENT GLUE AT DETERMINISTIC SCOPE — REAL NOT AUTHORIZED / NOT PROVEN`.
+**Overall:** `CONTRACT EXECUTABLE WITH CURRENT HARNESS + OPTION C + C6 AT DETERMINISTIC + GIT + POST-MERGE SCOPE — REAL NOT AUTHORIZED / NOT PROVEN`.
 
 **Operational constraints:**
 1. Do not silently use `runR2ProductScenario` for MW6 / global provenance without correcting catalog version (function hardcodes `mw0-catalog-v1`).
 2. Prefer Agents/`CampaignCellConfig` Evidence writer that sets `scenarioVersion: "global-mr-catalog-v1"`.
-3. Stage A driver exists on **main** (`globalModelReasoningStageA.ts`) — deterministic proven + Git integrated + post-merge verified; REAL execution still requires Morris Stage A REAL GO after readiness disposition.
+3. Stage A Option C driver exists on **main** (`globalModelReasoningStageA.ts`) — deterministic proven + Git integrated + post-merge verified; REAL execution still requires Morris Stage A REAL GO after readiness Critical Review + documentary truth-sync integration + provider/account start conditions.
 
 ---
 
@@ -232,7 +232,7 @@ Catalog `requiredTier: ["D0"]` scenarios are **semantic identities + scorer bind
 | Catalog | `global-mr-catalog-v1` | MAIN |
 | Capability manifest | `buildGlobalModelReasoningCapabilityManifest(retrievedAt)` | MAIN |
 | Budget identity | **≠** `MW0_BUDGET_POLICY` (3/4/5) **≠** `H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS` (100) | — |
-| Contract version | `global-mr-campaign-contract-v3-candidate` | LOCAL OPTION C CANDIDATE |
+| Contract version | `global-mr-campaign-contract-v3-candidate` | **INTEGRATED ON MAIN** (REAL campaign params remain CANDIDATE until REAL GO) |
 
 ### Per-workload constitutive model-call ceilings (DERIVED)
 
@@ -280,7 +280,7 @@ Second run **only if** ≥1 trigger: top candidate · borderline · suspected va
 - Campaign `max_tool_calls` = **2** unless a specific W-Sources cell justifies more in the REAL GO (must be explicit).
 
 ### Aggregate derivation note
-464 aggregate = 438 model + 26 hosted. Historical v2 **429** (=405+24) remains correct for integrated main until Option C integration.
+464 aggregate = 438 model + 26 hosted. Historical v2 **429** (=405+24) remains provenance for pre-Option-C main (PR **#467** era).
 Former mistaken equality `54+18=72 model invocations` remains **REJECTED** (cell≠model).
 
 ### Financial envelope label
@@ -583,10 +583,9 @@ No cognitive gain expands authority. No stronger model gains more authority.
 
 **F2 FinOps:** structured `completeStructured` shares Stage A `BudgetTracker` via MeteredConversationProvider; order = USD preflight → canonical claim → dispatch → record. `hardCapUsd=20` (Morris-decided **15 / 18 / 20**) remains estimated/reserved authorization envelope ≠ invoice guarantee ≠ Stage A REAL authorization.
 
-**Historical next gate (satisfied):** ChatGPT Critical Review → Morris Git integration → PR **#467** MERGED / post-merge CI PASS.
+**Historical next gate (satisfied):** ChatGPT Critical Review → Morris Git integration → PR **#467** MERGED / post-merge CI PASS · later Option C PR **#468** MERGED / CI `33995952634` PASS.
 
-**Current next gate (before merge):** ChatGPT PR/CI Critical Review → **Morris merge decision**.
-**After merge only:** post-merge verification → **distinct** Morris Stage A REAL GO (never condensed with merge).
+**Current next sequence:** once four-doc documentary integration is verified from Git/PR evidence → **distinct** Morris Stage A REAL GO (never condensed with documentary merge). Four-doc CONTENT = **REVIEWED / ACCEPTED AT DOCUMENTARY SCOPE**; publication = **RESOLVE FROM CURRENT GIT / PR EVIDENCE**.
 
 ## Critical Review remediation (E1–E4 + F1→F5 + C3-01→C3-05) — retained
 
@@ -606,10 +605,9 @@ No cognitive gain expands authority. No stronger model gains more authority.
 
 **Status:** C3-01→C3-05 = **CLOSED AT DETERMINISTIC TESTED SCOPE**. F1→F5 remain closed.
 
-**Historical next gate (satisfied):** ChatGPT Critical Review → Morris Git integration → PR **#467** MERGED / post-merge CI PASS.
+**Historical next gate (satisfied):** ChatGPT Critical Review → Morris Git integration → PR **#467** MERGED / post-merge CI PASS · later Option C PR **#468** MERGED / CI `33995952634` PASS.
 
-**Current next gate (before merge):** ChatGPT PR/CI Critical Review → **Morris merge decision**.
-**After merge only:** post-merge verification → **distinct** Morris Stage A REAL GO (never condensed with merge).
+**Current next sequence:** once four-doc documentary integration is verified from Git/PR evidence → **distinct** Morris Stage A REAL GO (never condensed with documentary merge). Four-doc CONTENT = **REVIEWED / ACCEPTED AT DOCUMENTARY SCOPE**; publication = **RESOLVE FROM CURRENT GIT / PR EVIDENCE**.
 
 ## 22. Gates
 
@@ -617,20 +615,26 @@ No cognitive gain expands authority. No stronger model gains more authority.
 | --- | --- |
 | Preparation / enablement / C3 / C4 GOs | **CONSUMED** (historical construction) |
 | ChatGPT Critical Review (C4) | **PASS** (pre-integration) |
-| Morris Git integration + PR **#467** merge | **CONSUMED** — harness **INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
-| Post-merge CI `33981467237` | **SUCCESS** / Required Gate **PASS** |
-| Provider capability fit (R22) this DOC cycle | **EXECUTED** — GPT-5.6 primary + Astra challenger capability in current snapshot |
-| Morris model-universe / Astra disposition | **DECIDED — OPTION C** (D-GMR-ASTRA-01) |
+| Morris Git integration + PR **#467** merge | **CONSUMED** — Stage A harness **INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
+| Post-merge CI `33981467237` (PR #467) | **SUCCESS** / Required Gate **PASS** *(historical harness)* |
+| Morris model-universe / Astra disposition | **DECIDED — OPTION C** (D-GMR-ASTRA-01) **CONSUMED** |
+| Morris financial envelope | **DECIDED — 15 / 18 / 20** (D-GMR-FINOPS-01) **CONSUMED** |
+| Option C + C6 product commit / push | **DONE** |
+| PR **#468** | **MERGED** |
+| Merge PR **#468** | **CONSUMED** (`GO MORRIS — MERGE PR #468`) |
+| Post-merge CI `33995952634` (PR #468) | **SUCCESS** / Required Gate **PASS** |
+| Accepted head / merge / parents | `a5ab44bc…` / `66d93a61…` / `1dd5d67a…` + `a5ab44bc…` · head→merge **ZERO** |
+| Source branch | **PRESERVED** (`delivery/sfia-studio-global-mr-stage-a-astra-challenger`) |
+| Provider capability fit (R22) documented snapshot | **EXECUTED** — GPT-5.6 primary + Astra challenger capability in current snapshot |
+| Astra account / API entitlement | **NOT PROVEN** |
+| Provider revalidation at REAL start | **REQUIRED** when claim depends on current provider fit |
+| Four-doc post-merge truth-sync | CONTENT **REVIEWED / ACCEPTED AT DOCUMENTARY SCOPE** — repository publication/integration = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** |
 | Morris Stage A REAL decision | **NOT AUTHORIZED** |
 | Stage A/B/C REAL | **NOT AUTHORIZED** |
 | OpenAI spend | **NOT AUTHORIZED** |
 | Production model selection / routing | **NOT AUTHORIZED** |
-| Option C + C6 product commit / push | **DONE** (PR **#468** head / CI = **RESOLVE FROM GIT**) |
-| PR **#468** | **OPEN** — Contract 10 current-truth sync corrective on same head branch |
-| Merge PR **#468** | **NOT AUTHORIZED / PENDING MORRIS DECISION** |
-| Source branch | **PRESERVED** (`delivery/sfia-studio-global-mr-stage-a-astra-challenger`) |
 | Runtime v3 / Cognitive Completion promotion | **FORBIDDEN** |
-| Handoff publication (`sfia/review-handoff`) | Historical tips exist; Contract 10 truth-sync publishes a new Cycle 8 handoff after pack generation |
+| Handoff publication (`sfia/review-handoff`) | Cycle 14 post-merge readiness pack publishes after Review Pack generation |
 
 ---
 
@@ -666,10 +670,11 @@ No cognitive gain expands authority. No stronger model gains more authority.
 - [x] FinOps realism gaps documented
 - [x] ZERO REAL / no router / no production selection
 - [x] Integrated on main / CI green for enablement glue — **DONE** (PR **#467** / CI `33981467237`)
-- [x] Option C + C6 Git integration — **PR #468 OPEN** / merge pending / current head + CI = **RESOLVE FROM GIT**
+- [x] Option C + C6 Git integration — **PR #468 MERGED** / post-merge CI `33995952634` PASS / head→merge ZERO
 - [x] Model-universe / Astra disposition — **DECIDED OPTION C**
 - [x] Financial envelope Option C — **DECIDED BY MORRIS 15/18/20** (known subtotal ≈13.32896 compatible; invoice NOT_OBSERVED; REAL still NOT AUTHORIZED)
+- [x] Astra account / API entitlement — **NOT PROVEN** (surfaced; not accepted as non-blocking)
 - [ ] Stage A REAL — **NOT AUTHORIZED**
 
 **Verdict target for ChatGPT review:**
-`READY FOR CHATGPT PR/CI CRITICAL REVIEW — PR #468 CONTRACT TRUTH-SYNC CORRECTED — OPTION C + FINANCIAL ENVELOPE DECISIONS CONSUMED — MERGE DECISION REQUIRED — ZERO REAL`
+`READY FOR CHATGPT PR/CI CRITICAL REVIEW — FOUR-DOC POST-MERGE TRUTH-SYNC CONTENT REVIEWED — REPOSITORY LIFECYCLE RESOLVE FROM CURRENT GIT / PR EVIDENCE — 78 / 438 / 26 / 464 — FINANCIAL ENVELOPE 15 / 18 / 20 DECIDED — ASTRA ACCOUNT ENTITLEMENT NOT PROVEN — STAGE A REAL NOT AUTHORIZED — ZERO REAL — MERGE DECISION REQUIRED`
